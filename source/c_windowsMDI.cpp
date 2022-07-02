@@ -54,10 +54,8 @@
 
 #include "hbvm.h"
 
-#if ! defined( __XHARBOUR__ )
-# include "hbwinuni.h"
-#endif
-#if defined( __XHARBOUR__ ) || ( __HARBOUR__ - 0 < 0x030200 )
+#include "hbwinuni.h"
+#if ( __HARBOUR__ - 0 < 0x030200 )
 # define HB_STRNCPY  hb_strncpy
 #endif
 

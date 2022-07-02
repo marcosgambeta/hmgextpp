@@ -62,10 +62,6 @@ LPSTR  WideToAnsi( LPWSTR );
 #endif
 HINSTANCE GetResources( void );
 
-#if defined( __XHARBOUR__ )
-#define HB_LONGLONG  LONGLONG
-#endif
-
 LRESULT CALLBACK HMG_DlgProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 {
    static PHB_SYMB pSymbol = NULL;

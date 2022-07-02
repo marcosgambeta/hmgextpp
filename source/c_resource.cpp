@@ -114,7 +114,7 @@ HB_FUNC( FREERESOURCES )
       hResources = 0;
 }
 
-#if defined( __XHARBOUR__ ) || ( __HARBOUR__ - 0 < 0x030200 )
+#if ( __HARBOUR__ - 0 < 0x030200 )
 
 HB_FUNC( RCDATATOFILE )
 {
@@ -252,4 +252,4 @@ HB_FUNC( RCDATATOFILE )
 #endif
 }
 
-#endif /* __XHARBOUR__ */
+#endif

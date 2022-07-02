@@ -6,7 +6,7 @@
 
 #include "hbapi.h"
 
-#if ! defined( __XHARBOUR__ ) && ( __HARBOUR__ - 0 > 0x030000 )
+#if ( __HARBOUR__ - 0 > 0x030000 )
 
 #undef _WIN32_WINNT
 #define _WIN32_WINNT       0x0600
@@ -941,4 +941,4 @@ HB_FUNC( _UPDATEFOOTERICON )
       SendMessage( ( HWND ) HB_PARNL( 1 ), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_FOOTER, ( LPARAM ) NULL );
 }
 
-#endif /* __XHARBOUR__ */
+#endif

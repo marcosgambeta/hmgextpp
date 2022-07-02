@@ -477,7 +477,7 @@ FUNCTION HTML_ERRORLOG
    LOCAL cErrorLogFile := _GetErrorlogFile()
 
    IF IsErrorLogActive()
-#if defined( __XHARBOUR__ ) .OR. ( __HARBOUR__ - 0 < 0x030200 )
+#if ( __HARBOUR__ - 0 < 0x030200 )
       IF .NOT. File( cErrorLogFile )
          HtmArch := Html_Ini( cErrorLogFile, "Harbour MiniGUI Errorlog File" )
          IF HtmArch > 0
@@ -489,7 +489,7 @@ FUNCTION HTML_ERRORLOG
             Html_Line( HtmArch )
          ENDIF
       ELSE
-#if defined( __XHARBOUR__ ) .OR. ( __HARBOUR__ - 0 < 0x030200 )
+#if ( __HARBOUR__ - 0 < 0x030200 )
          HtmArch := FOpen( cErrorLogFile, FO_READWRITE )
          IF HtmArch > 0
             FSeek( HtmArch, __HTML_INSERT_OFFSET(), FS_END )
@@ -513,7 +513,7 @@ FUNCTION HTML_INI( ARCH, TITLE )
    LOCAL HtmArch := -1, cTemplate
 
    IF IsErrorLogActive()
-#if defined( __XHARBOUR__ ) .OR. ( __HARBOUR__ - 0 < 0x030200 )
+#if ( __HARBOUR__ - 0 < 0x030200 )
       HtmArch := FCreate( ARCH )
       IF FError() != 0
 #else
@@ -527,7 +527,7 @@ FUNCTION HTML_INI( ARCH, TITLE )
          IF Set( _SET_CODEPAGE ) == "UTF8"
             cTemplate := StrTran( cTemplate, ["windows-1251"], ["utf-8"] )
          ENDIF
-#if defined( __XHARBOUR__ ) .OR. ( __HARBOUR__ - 0 < 0x030200 )
+#if ( __HARBOUR__ - 0 < 0x030200 )
          FWrite( HtmArch, cTemplate )
 #else
          hb_vfWrite( HtmArch, cTemplate )
@@ -540,7 +540,7 @@ RETURN ( HtmArch )
 *-----------------------------------------------------------------------------*
 PROCEDURE HTML_RAWTEXT( HTMARCH, LINEA )
 *-----------------------------------------------------------------------------*
-#if defined( __XHARBOUR__ ) .OR. ( __HARBOUR__ - 0 < 0x030200 )
+#if ( __HARBOUR__ - 0 < 0x030200 )
    IF HTMARCH > 0 .AND. IsErrorLogActive()
       FWrite( HTMARCH, RTrim( LINEA ) + Chr( 13 ) + Chr( 10 ) )
 #else
@@ -557,7 +557,7 @@ RETURN
 *-----------------------------------------------------------------------------*
 PROCEDURE HTML_LINETEXT( HTMARCH, LINEA )
 *-----------------------------------------------------------------------------*
-#if defined( __XHARBOUR__ ) .OR. ( __HARBOUR__ - 0 < 0x030200 )
+#if ( __HARBOUR__ - 0 < 0x030200 )
    IF HTMARCH > 0 .AND. IsErrorLogActive()
       FWrite( HTMARCH, RTrim( LINEA ) + "<BR>" + Chr( 13 ) + Chr( 10 ) )
 #else
@@ -574,7 +574,7 @@ RETURN
 *-----------------------------------------------------------------------------*
 PROCEDURE HTML_LINE( HTMARCH )
 *-----------------------------------------------------------------------------*
-#if defined( __XHARBOUR__ ) .OR. ( __HARBOUR__ - 0 < 0x030200 )
+#if ( __HARBOUR__ - 0 < 0x030200 )
    IF HTMARCH > 0 .AND. IsErrorLogActive()
       FWrite( HTMARCH, "<HR>" + Chr( 13 ) + Chr( 10 ) )
 #else
@@ -588,7 +588,7 @@ RETURN
 *-----------------------------------------------------------------------------*
 PROCEDURE HTML_END( HTMARCH )
 *-----------------------------------------------------------------------------*
-#if defined( __XHARBOUR__ ) .OR. ( __HARBOUR__ - 0 < 0x030200 )
+#if ( __HARBOUR__ - 0 < 0x030200 )
    IF HTMARCH > 0 .AND. IsErrorLogActive()
       FWrite( HTMARCH, "</BODY></HTML>" )
       FClose( HTMARCH )

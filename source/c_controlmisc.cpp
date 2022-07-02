@@ -58,7 +58,7 @@ void pascal DelResource( HANDLE hResource );
 
 
 #ifndef HMG_LEGACY_OFF
-#if ! defined( __MINGW32__ ) && ! defined( __XHARBOUR__ ) && ( __HARBOUR__ - 0 > 0x020000 ) && ( __HARBOUR__ - 0 < 0x030200 )
+#if ! defined( __MINGW32__ ) && ( __HARBOUR__ - 0 > 0x020000 ) && ( __HARBOUR__ - 0 < 0x030200 )
 HB_FUNC_TRANSLATE( HB_SETCODEPAGE, HB_CDPSELECT )
 #endif
 #endif /* HMG_LEGACY_OFF */
@@ -274,7 +274,7 @@ HB_FUNC( MOVEBTNTEXTBOX )   //MoveBtnTextBox(hEdit, hBtn1, hBtn2, fBtn2, BtnWidt
    }
 }
 
-#if defined( __XHARBOUR__ ) || ( __HARBOUR__ - 0 < 0x030200 )
+#if ( __HARBOUR__ - 0 < 0x030200 )
 
 #include "hbapiitm.h"
 #include "hbapicdp.h"
@@ -285,7 +285,7 @@ HB_FUNC( HB_DATE )
    hb_retd( hb_parni( 1 ), hb_parni( 2 ), hb_parni( 3 ) );
 }
 
-#if ! defined( __XHARBOUR__ ) && ( __HARBOUR__ - 0 < 0x030200 )
+#if ( __HARBOUR__ - 0 < 0x030200 )
 # define hb_cdppage  hb_vmCDP
 #endif
 

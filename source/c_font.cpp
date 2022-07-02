@@ -51,7 +51,7 @@
 #include "hbapiitm.h"
 #include "hbapierr.h"
 
-#if ! defined( __XHARBOUR__ ) && ( __HARBOUR__ - 0 > 0x030000 )
+#if ( __HARBOUR__ - 0 > 0x030000 )
 #include "hbwinuni.h"
 #else
 #define HB_STRNCPY  hb_strncpy

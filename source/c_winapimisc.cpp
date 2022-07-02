@@ -59,12 +59,8 @@
 #include "hbapierr.h"
 #include "hbapiitm.h"
 
-#if defined( __XHARBOUR__ )
-# define HB_FILE_TYPE_MAX  128
-#else
 /* this has to be declared before hbapifs.h is included */
-# define _HB_FILE_INTERNAL_
-#endif
+#define _HB_FILE_INTERNAL_
 
 #include "hbapifs.h"
 #include "inkey.ch"
@@ -73,10 +69,6 @@
 # define itoa( __value, __string, __radix )  _itoa( __value, __string, __radix )
 #endif
 
-#if defined( __XHARBOUR__ )
-# define HB_LONGLONG  LONGLONG
-extern HB_EXPORT void   hb_evalBlock0( PHB_ITEM pCodeBlock );
-#endif
 extern HB_EXPORT BOOL Array2Rect( PHB_ITEM aRect, RECT * rc );
 extern HB_EXPORT PHB_ITEM Rect2Array( RECT * rc );
 extern void hmg_ErrorExit( LPCTSTR lpMessage, DWORD dwError, BOOL bExit );
@@ -1278,14 +1270,6 @@ HB_FUNC( WINVERSION )
    hb_xfree( pStr );
 #endif
 }
-
-#if defined( __XHARBOUR__ )
-
-HB_FUNC( ISEXE64 ) // Check if our app is 64 bits
-{
-   hb_retl( ( sizeof( void * ) == 8 ) );
-}
-#endif
 
 HB_FUNC( GETDLLVERSION )
 {

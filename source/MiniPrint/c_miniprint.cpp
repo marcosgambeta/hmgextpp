@@ -1454,7 +1454,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 
 }
 
-#if ! ( ! defined( __XHARBOUR__ ) && ( defined( __MINGW32__ ) ) )
+#if ! ( ( defined( __MINGW32__ ) ) )
 
 HB_FUNC( GETDEFAULTPRINTER )
 {

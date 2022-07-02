@@ -95,7 +95,7 @@ PROCEDURE _SetAddressControlProcedure ( ControlName , url , i )
 
       url := SubStr( AllTrim( url ), 8 )
 
-#if defined( __XHARBOUR__ ) || ( ( __HARBOUR__ - 0 ) < 0x030200 )
+#if ( ( __HARBOUR__ - 0 ) < 0x030200 )
       IF ( Type( SubStr( url, 1, At( "(", url ) - 1 ) + "()" ) == "UI" ) 
 #else
       IF hb_IsFunction( SubStr( url, 1, At( "(", url ) - 1 ) )

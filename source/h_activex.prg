@@ -298,11 +298,7 @@ CLASS TActiveX
    DATA aAxEv     INIT {}
    DATA aAxExec   INIT {}
    METHOD EventMap( nMsg, xExec, oSelf )
-   #if defined( __XHARBOUR__ )
-   ERROR HANDLER OnError( p1, p2, p3, p4, p5 ) 
-   #else
-   ERROR HANDLER OnError( ... ) 
-   #endif
+   ERROR HANDLER OnError( ... )
 
 ENDCLASS
 
@@ -432,16 +428,9 @@ METHOD EventMap( nMsg, xExec, oSelf )
 
 RETURN NIL
 
-#if defined( __XHARBOUR__ )
-METHOD OnError( p1, p2, p3, p4, p5 ) 
-#else
-METHOD OnError( ... ) 
-#endif
+METHOD OnError( ... )
    LOCAL cMethod := __GetMessage() 
 
-#if defined( __XHARBOUR__ )
-   p1 := p1 ; p2 := p2 ; p3 := p3 ; p4 := p4 ; p5 := p5
-#endif
    IF cMethod[ 1 ] == "_"
       cMethod := Right( cMethod, 2 )
    ENDIF
@@ -742,13 +731,8 @@ static ULONG STDMETHODCALLTYPE Invoke( IEventHandler * self, DISPID dispid, REFI
 
 #else
 
-   #if defined( __XHARBOUR__ )
-   ulPos = hb_arrayScan( ( ( MyRealIEventHandler * ) self )->pEvents, hb_itemPutNL( Key, dispid ),
-                         NULL, NULL, 0, 0 );
-   #else
    ulPos = hb_arrayScan( ( ( MyRealIEventHandler * ) self )->pEvents, hb_itemPutNL( Key, dispid ),
                          NULL, NULL, 0 );
-   #endif
 
    if( ulPos )
    {

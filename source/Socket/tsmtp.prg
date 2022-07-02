@@ -564,10 +564,8 @@ Return If( n > 0 .and. n < Len( cPathMask ), ;
 #include "hbapiitm.h"
 #include "hbapifs.h"
 
-#if !defined( __XHARBOUR__ )
 #ifndef HB_LEGACY_LEVEL
 #define FHANDLE HB_FHANDLE
-#endif
 #endif
 
 HB_FUNC( GETTIMEZONEBIAS )

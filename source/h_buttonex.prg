@@ -75,7 +75,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 #define OBT_NOXPSTYLE     64
 #define OBT_ADJUST       128
 
-#if defined( __XHARBOUR__ ) .OR. ( __HARBOUR__ - 0 < 0x030200 )
+#if ( __HARBOUR__ - 0 < 0x030200 )
   #xtranslate hb_UAt( <c>, <n> ) => At( <c>, <n> )
 #endif
 

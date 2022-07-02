@@ -47,7 +47,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 #include "minigui.ch"
 
-#if defined( __XHARBOUR__ ) .OR. ( __HARBOUR__ - 0 < 0x030200 )
+#if ( __HARBOUR__ - 0 < 0x030200 )
   #xtranslate hb_UAt( <c>, <n> ) => At( <c>, <n> )
   #xtranslate hb_ULeft( <c>, <n> ) => Left( <c>, <n> )
 #endif

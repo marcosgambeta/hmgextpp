@@ -71,7 +71,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 SET PROCEDURE TO tget\tget.prg
 SET PROCEDURE TO tget\tgetint.prg
-#if defined( __XHARBOUR__ ) .OR. ( __HARBOUR__ - 0 < 0x030200 )
+#if ( __HARBOUR__ - 0 < 0x030200 )
   #xtranslate hb_asciiUpper( <c> ) => Upper( <c> )
   #xtranslate hb_BChar( <c> ) => Chr( <c> )
   #xtranslate hb_UAt( <c>, <n> ) => At( <c>, <n> )

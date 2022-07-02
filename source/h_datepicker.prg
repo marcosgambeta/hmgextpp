@@ -52,7 +52,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 #define DTS_SHOWNONE        0x0002 // allow a NONE selection
 #define DTS_RIGHTALIGN      0x0020 // right-align popup instead of left-align it
 
-#if defined( __XHARBOUR__ ) .OR. ( __HARBOUR__ - 0 < 0x030200 )
+#if ( __HARBOUR__ - 0 < 0x030200 )
   #xtranslate hb_UAt( <c>, <n> ) => At( <c>, <n> )
   #xtranslate hb_ULeft( <c>, <n> ) => Left( <c>, <n> )
 #endif

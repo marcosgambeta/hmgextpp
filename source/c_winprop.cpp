@@ -302,15 +302,11 @@ static BOOL CALLBACK PropsEnumProc( HWND hWnd, LPCTSTR pszPropName, HANDLE handl
       lstrcpy( pszName, pszPropName );
 
       hb_arraySetNInt( item, 1, ( LONG_PTR ) hWnd );
-#if ! ( defined( __XHARBOUR__ ) )
    #ifndef UNICODE
       hb_arraySetCLPtr( item, 2, pszName, iLen );
    #else
       hb_arraySetCLPtr( item, 2, WideToAnsi( pszName ), iLen );
    #endif
-#else
-      hb_arraySetCPtr( item, 2, pszName, iLen );
-#endif
       hb_arraySetNInt( item, 3, ( LONG_PTR ) handle );
 
       hb_arrayAddForward( ( PHB_ITEM ) lParam, item );
@@ -376,15 +372,11 @@ BOOL CALLBACK PropsEnumProcEx( HWND hWnd, LPCTSTR pszPropName, HANDLE handle, UL
       LPTSTR   pszName = ( LPTSTR ) hb_xgrabz( ( iLen + 1 ) * sizeof( TCHAR ) );
 
       lstrcpy( pszName, pszPropName );
-#if ! ( defined( __XHARBOUR__ ) )
    #ifndef UNICODE
       pPropName = hb_itemPutCPtr( NULL, pszName );
    #else
       pPropName = hb_itemPutCPtr( NULL, WideToAnsi( pszName ) );
    #endif
-#else
-      pPropName = hb_itemPutCPtr( NULL, pszName, iLen );
-#endif
       hb_evalBlock( pCodeBlock, pHWnd, pPropName, pHandle, NULL );
 
       hb_itemRelease( pHWnd );

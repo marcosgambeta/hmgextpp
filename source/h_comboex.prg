@@ -51,7 +51,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 #define CBEM_GETCOMBOCONTROL  1030
 #define CBEM_GETEDITCONTROL   1031
 
-#if defined( __XHARBOUR__ ) .OR. ( __HARBOUR__ - 0 < 0x030200 )
+#if ( __HARBOUR__ - 0 < 0x030200 )
   #xtranslate hb_UAt( <c>, <n> ) => At( <c>, <n> )
   #xtranslate hb_ULeft( <c>, <n> ) => Left( <c>, <n> )
   #xtranslate hb_URight( <c>, <n> ) => Right( <c>, <n> )

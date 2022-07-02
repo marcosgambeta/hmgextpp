@@ -57,12 +57,8 @@ typedef void ( WINGDIPAPI * GdiplusShutdown_ptr )( ULONG_PTR );
   extern HMODULE g_GpModule;
 # endif /* ======================_HMG_STUB_=======================*/
 
-# include "hbapi.h"
-# ifndef __XHARBOUR__
-# include "hbwinuni.h"
-# else
-  typedef wchar_t HB_WCHAR;
-# endif
+#include "hbapi.h"
+#include "hbwinuni.h"
 
 typedef GpStatus ( WINGDIPAPI * GdipCreateBitmapFromFile_ptr )( GDIPCONST HB_WCHAR *, GpBitmap ** );
 typedef GpStatus ( WINGDIPAPI * GdipCreateHBITMAPFromBitmap_ptr )( GpBitmap *, HBITMAP *, ARGB );

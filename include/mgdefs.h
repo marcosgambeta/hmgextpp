@@ -83,7 +83,6 @@
   #define HB_PARNL         hb_parnl
   #define HB_RETNL         hb_retnl
   #define HB_STORNL        hb_stornl
-#if !( defined( __XHARBOUR__ ) )
   #define HB_PARNI         hb_parvni
   #define HB_PARVNL        hb_parvnl
   #define HB_STORC         hb_storvc
@@ -91,15 +90,6 @@
   #define HB_STORVNL       hb_storvnl
   #define HB_STORL         hb_storvl
   #define HB_STORDL        hb_storvdl
-#else
-  #define HB_PARNI         hb_parni
-  #define HB_PARVNL        hb_parnl
-  #define HB_STORC         hb_storc
-  #define HB_STORNI        hb_storni
-  #define HB_STORVNL       hb_stornl
-  #define HB_STORL         hb_storl
-  #define HB_STORDL        hb_stordl
-#endif /* !( __XHARBOUR__ ) */
 #endif /* _WIN64 */
 
 #if defined( UNICODE )

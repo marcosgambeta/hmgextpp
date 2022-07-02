@@ -4,7 +4,7 @@
  * Copyright 2016 P.Chornyj <myorg63@mail.ru>
  */
 
-#if ! defined( __XHARBOUR__ ) .AND. ( __HARBOUR__ - 0 > 0x030000 )
+#if ( __HARBOUR__ - 0 > 0x030000 )
 
 #include "hbclass.ch"
 #include "TaskDlgs.ch"
@@ -923,4 +923,4 @@ METHOD TimedOut( lOut ) CLASS TTaskDialog
 
 RETURN ::lTimeOut
 
-#endif /* __XHARBOUR__ */
+#endif

@@ -52,7 +52,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 #include 'minigui.ch'
 #include 'fileio.ch'
 
-#if defined( __XHARBOUR__ ) .OR. ( __HARBOUR__ - 0 < 0x030200 )
+#if ( __HARBOUR__ - 0 < 0x030200 )
   #xtranslate hb_ULeft( <c>, <n> ) => Left( <c>, <n> )
   #xtranslate hb_ULen( <c> ) => Len( <c> )
   #xtranslate hb_USubStr( <c>, <n> [, <e>] ) => SubStr( <c>, <n> [, <e>] )
@@ -137,7 +137,7 @@ FUNCTION _BeginIni( cIniFile )
       FClose( hFile )
 
    ELSE
-#if defined( __XHARBOUR__ ) .OR. ( __HARBOUR__ - 0 < 0x030200 )
+#if ( __HARBOUR__ - 0 < 0x030200 )
       hFile := iif( File( cIniFile ), FOpen( cIniFile, FO_READ + FO_SHARED ), FCreate( cIniFile ) )
       IF hFile == F_ERROR
 #else
@@ -149,7 +149,7 @@ FUNCTION _BeginIni( cIniFile )
       ELSE
          _HMG_ActiveIniFile := cIniFile
       ENDIF
-#if defined( __XHARBOUR__ ) .OR. ( __HARBOUR__ - 0 < 0x030200 )
+#if ( __HARBOUR__ - 0 < 0x030200 )
       FClose( hFile )
 #else
       hb_vfClose( hFile )
