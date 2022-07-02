@@ -1,6 +1,6 @@
 incpaths=include
 libpaths=lib/${hb_plat}/${hb_comp}
-libs=hmgextpp
+libs=minigui
 libs=bostaurus
 libs=miniprint
 libs=vfw32

@@ -1,6 +1,6 @@
 -hblib
 
--olib/${hb_plat}/${hb_comp}/hmgextpp
+-olib/${hb_plat}/${hb_comp}/minigui
 
 -iinclude
 
