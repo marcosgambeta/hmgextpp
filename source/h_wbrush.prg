@@ -51,11 +51,6 @@
 
 #include "minigui.ch"
 
-#ifdef __XHARBOUR__
-#xcommand END SWITCH => END
-#xcommand OTHERWISE  => DEFAULT
-#endif
-
 FUNCTION _SetWindowBKBrush( cWindow, lNoDelete, cBrushStyle, nHatch, aColor, xImage )
 
    LOCAL hWnd

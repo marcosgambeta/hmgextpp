@@ -24,16 +24,11 @@
 
 #include <commctrl.h>
 
-#ifdef __XHARBOUR__
-# define HB_PARC      hb_parc
-# define HB_PARNL3    hb_parnl
+#define HB_PARC      hb_parvc
+#if defined( _WIN64 )
+#  define HB_PARNL3  hb_parvnll
 #else
-# define HB_PARC      hb_parvc
-# if defined( _WIN64 )
-#   define HB_PARNL3  hb_parvnll
-# else
-#   define HB_PARNL3  hb_parvnl
-# endif
+#  define HB_PARNL3  hb_parvnl
 #endif
 
 #if defined( _MSC_VER )

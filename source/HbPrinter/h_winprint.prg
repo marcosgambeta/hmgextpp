@@ -2288,14 +2288,6 @@ METHOD Preview() CLASS HBPrinter
    AAdd( ahs, { 0, 0, 0, 0, 0, 0, GetControlHandle( "StatusBar", "hbpreview" ) } )
    rr_getclientrect( ahs[ 4 ] )
 
-#ifdef __XHARBOUR__
-   IF IsWindowDefined( HBPREVIEW1 )
-      _ReleaseWindow ( "HBPREVIEW1" )
-      _ReleaseControl( "i1", "hbpreview1" )
-      _HMG_aFormDeleted[ GetFormIndex( "hbpreview1" ) ] := .T.
-   ENDIF
-#endif
-
    DEFINE WINDOW HBPREVIEW1 ;
          WIDTH ahs[ 2, 6 ] - 15 HEIGHT ahs[ 2, 5 ] - ahs[ 3, 5 ] - ahs[ 4, 5 ] - 10 ;
          VIRTUAL WIDTH ahs[ 2, 6 ] - 5 ;
@@ -2384,10 +2376,6 @@ METHOD PrevClose( lEsc ) CLASS HBPrinter
 
    ::lEscaped := lEsc
    _ReleaseWindow ( "HBPREVIEW" )
-
-#ifdef __XHARBOUR__
-   DoEvents()
-#endif
 
 RETURN self
 
@@ -2486,55 +2474,5 @@ METHOD ReportData( l_x1, l_x2, l_x3, l_x4, l_x5, l_x6 ) CLASS HBPrinter
    SET DEVICE TO SCREEN
 
 RETURN self
-
-#endif
-
-#ifdef __XHARBOUR__
-#xtranslate hb_eol() => hb_OsNewLine()
-#xtranslate WAPI_SHELLEXECUTE( [<x,...>] ) => SHELLEXECUTE( <x> )
-
-#pragma BEGINDUMP
-
-#include "hbapi.h"
-#include "hbapifs.h"
-
-HB_FUNC( HB_FNAMENAME )
-{
-   PHB_FNAME pFilepath = hb_fsFNameSplit( hb_parcx( 1 ) );
-
-   hb_retc( pFilepath->szName );
-   hb_xfree( pFilepath );
-}
-
-HB_FUNC( HB_FNAMEEXT )
-{
-   PHB_FNAME pFilepath = hb_fsFNameSplit( hb_parcx( 1 ) );
-
-   hb_retc( pFilepath->szExtension );
-   hb_xfree( pFilepath );
-}
-
-HB_FUNC( HB_FNAMEEXTSET )
-{
-   char szPath[ HB_PATH_MAX ];
-   PHB_FNAME pFilepath = hb_fsFNameSplit( hb_parcx( 1 ) );
-
-   pFilepath->szExtension = hb_parc( 2 );
-   hb_retc( hb_fsFNameMerge( szPath, pFilepath ) );
-   hb_xfree( pFilepath );
-}
-
-HB_FUNC( HB_FNAMEEXTSETDEF )
-{
-   char szPath[ HB_PATH_MAX ];
-   PHB_FNAME pFilepath = hb_fsFNameSplit( hb_parcx( 1 ) );
-
-   if( ! pFilepath->szExtension )
-      pFilepath->szExtension = hb_parc( 2 );
-   hb_retc( hb_fsFNameMerge( szPath, pFilepath ) );
-   hb_xfree( pFilepath );
-}
-
-#pragma ENDDUMP
 
 #endif

@@ -83,11 +83,7 @@ typedef HRESULT ( CALLBACK * _DLLGETVERSIONPROC )( DLLVERSIONINFO2 * );
 static HINSTANCE g_hInstance     = NULL;
 static DWORD     g_dwComCtl32Ver = 0;
 
-#ifdef __XHARBOUR__
-static void hmg_init( void )
-#else
 static void hmg_init( void * cargo )
-#endif
 {
    LPCTSTR lpszDllName = TEXT( "ComCtl32.dll" );
 
@@ -106,15 +102,9 @@ static void hmg_init( void * cargo )
       hmg_ErrorExit( TEXT( "GdiplusInit( void )" ), 0, TRUE );
 }
 
-#ifdef __XHARBOUR__
-HB_CALL_ON_STARTUP_BEGIN( _hmg_init_ )
-hmg_init();
-HB_CALL_ON_STARTUP_END( _hmg_init_ )
-#else
 HB_CALL_ON_STARTUP_BEGIN( _hmg_init_ )
 hb_vmAtInit( hmg_init, NULL );
 HB_CALL_ON_STARTUP_END( _hmg_init_ )
-#endif
 
 #if defined( HB_PRAGMA_STARTUP )
    #pragma startup _hmg_init_

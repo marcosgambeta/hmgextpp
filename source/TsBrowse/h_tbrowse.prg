@@ -54,11 +54,6 @@ EXTERN OrdKeyNo, OrdKeyCount, OrdKeyGoto
 #define xlContinuous                        1
 #define xlHAlignCenterAcrossSelection       7
 
-#ifdef __XHARBOUR__
-#  include "hbcompat.ch"
-#  xtranslate hb_Sec( [<x>] ) => Secs( <x> )
-#endif
-
 #xtranslate _DbSkipper => DbSkipper
 
 MEMVAR _TSB_aControlhWnd
@@ -1526,11 +1521,6 @@ METHOD New( cControlName, nRow, nCol, nWidth, nHeight, bLine, aHeaders, aColSize
          ::oRSet := uAlias
       ENDIF
 
-#ifdef __XHARBOUR__
-   ELSEIF ValType( uAlias ) == "H"
-      cAlias := "ARRAY"
-      uAlias := aHash2Array( uAlias )
-#endif
    ENDIF
    IF _HMG_BeginWindowMDIActive
       ParentHandle := GetActiveMdiHandle()
@@ -12881,12 +12871,7 @@ METHOD SetArray( aArray, lAutoCols, aHead, aSizes ) CLASS TSBrowse
       ELSEIF cType == "D"
          ::aDefValue[ nI ] := CToD( "" )
       ELSEIF cType == "T"
-
-#ifdef __XHARBOUR__
-         ::aDefValue[ nI ] := CToT( "" )
-#else
          ::aDefValue[ nI ] := hb_CToT( "" )
-#endif
       ELSEIF cType == "L"
          ::aDefValue[ nI ] := .F.
       ELSE // arrays, objects and codeblocks not allowed
@@ -13059,12 +13044,7 @@ METHOD SetArrayTo( aArray, uFontHF, aHead, aSizes, uFooter, aPicture, aAlign, aN
          aDefMaxLen[ nI ] := Len( aDefMaxVal[ nI ] )
          aDefAlign[ nI ] := DT_CENTER
       ELSEIF cType == "T"
-
-#ifdef __XHARBOUR__
-         ::aDefValue[ nI ] := CToT( "" )
-#else
          ::aDefValue[ nI ] := hb_CToT( "" )
-#endif
          aDefMaxVal[ nI ] := cValToChar( ::aArray[ 1, nI ] )
          aDefMaxLen[ nI ] := Len( aDefMaxVal[ nI ] )
          aDefAlign[ nI ] := DT_LEFT
@@ -16821,25 +16801,3 @@ RETURN iif( Empty( lPos ), Max( nPos, 1 ), nPos )
 STATIC FUNCTION HeadXls( nCol )
 
 RETURN iif( nCol > 26, Chr( Int( ( nCol - 1 ) / 26 ) + 64 ), '' ) + Chr( ( nCol - 1 ) % 26 + 65 )
-
-
-#ifdef __XHARBOUR__
-
-FUNCTION aHash2Array( uAlias )
-
-   LOCAL nEle, ;
-      aArr := {}
-
-   FOR nEle := 1 TO Len( uAlias )
-      AAdd( aArr, { HGetKeyAt( uAlias, nEle ), HGetValueAt( uAlias, nEle ) } )
-   NEXT
-
-RETURN aArr
-
-FUNCTION hb_HGetDef( hHash, xKey, xDef )
-
-   LOCAL nPos := HGetPos( hHash, xKey )
-
-RETURN iif( nPos > 0, HGetValueAt( hHash, nPos ), xDef )
-
-#endif

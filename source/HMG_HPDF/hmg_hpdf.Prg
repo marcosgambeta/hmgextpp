@@ -2586,11 +2586,7 @@ FUNCTION HPDF_CircleText( nRow, nCol, cFontName, nFontSize, nRColor, nGColor, nB
          HPDF_Page_SetTextMatrix( hPage, cos( nRad1 ), - sin( nRad1 ), sin( nRad1 ), cos( nRad1 ), x, y )
          EXIT
 
-#ifdef __XHARBOUR__
-         DEFAULT
-#else
       OTHERWISE
-#endif
          x := nxPos + cos( nRad2 ) * nRlen
          y := nyPos + sin( nRad2 ) * nRlen
 

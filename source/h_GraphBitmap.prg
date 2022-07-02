@@ -6,11 +6,6 @@
  * (c) Siri Rathinagiri, 2016 ( Adaptation for Draw in Bitmap )
  */
 
-#ifdef __XHARBOUR__
-#pragma -w2
-#define __MINIPRINT__
-#endif
-
 #include "hmg.ch"
 
 #ifdef _HMG_COMPAT_

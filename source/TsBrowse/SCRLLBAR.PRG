@@ -3,9 +3,6 @@
 * Is an adaptation of FiveTech TScrollBar Class to be used with TSBrowse
 *==============================================================================
 
-#ifdef __XHARBOUR__
-#define __SYSDATA__
-#endif
 #include "minigui.ch"
 #include "hbclass.ch"
 #include "TSBrowse.ch"

@@ -45,10 +45,6 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
  ---------------------------------------------------------------------------*/
 
-#ifdef __XHARBOUR__
-#define __MINIPRINT__
-#endif
-
 #include "hmg.ch"
 
 #ifndef HMG_LEGACY_OFF
@@ -8867,20 +8863,11 @@ FUNCTION cValToChar( uVal )
 
    CASE cType == "D"
 
-#ifdef __XHARBOUR__
-      IF HasTimePart( uVal )
-         RETURN iif( Year( uVal ) == 0, TToC( uVal, 2 ), TToC( uVal ) )
-      ENDIF
-#endif
       RETURN DToC( uVal )
 
    CASE cType == "T"
 
-#ifdef __XHARBOUR__
-      RETURN iif( Year( uVal ) == 0, TToC( uVal, 2 ), TToC( uVal ) )
-#else
       RETURN iif( Year( uVal ) == 0, hb_TToC( uVal, '', Set( _SET_TIMEFORMAT ) ), hb_TToC( uVal ) )
-#endif
 
    CASE cType == "L"
 
@@ -8908,11 +8895,7 @@ FUNCTION cValToChar( uVal )
 
    CASE cType == "P"
 
-#ifdef __XHARBOUR__
-      RETURN "0x" + NumToHex( uVal )
-#else
       RETURN "0x" + hb_NumToHex( uVal )
-#endif
 
    OTHERWISE
 
@@ -8944,21 +8927,3 @@ FUNCTION cNumToChar( nVal )
    ENDIF
 
 RETURN cVal
-
-#ifdef __XHARBOUR__
-*-----------------------------------------------------------------------------*
-STATIC FUNCTION HasTimePart( tDate )
-*-----------------------------------------------------------------------------*
-   STATIC lBug
-
-   IF lBug == NIL
-      lBug := HB_ISDATETIME( Date() )
-   ENDIF
-
-   IF lBug
-      RETURN ( tDate - Int( tDate ) ) > 0
-   ENDIF
-
-RETURN HB_ISDATETIME( tDate )
-
-#endif

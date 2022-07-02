@@ -45,10 +45,6 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 ---------------------------------------------------------------------------*/
 
-#ifdef __XHARBOUR__
-# pragma -w2
-#endif
-
 #include "minigui.ch"
 #include "miniprint.ch"
 #include "winprint.ch"
@@ -926,12 +922,6 @@ FUNCTION _PiePrint( cForm, fromrow, fromcol, torow, tocol, series, aname, colors
 *-----------------------------------------------------------------------------*
    LOCAL b := _HMG_IsModalActive
    LOCAL FormName := '_Tmp_' + hb_ntos( _GetId() )
-#ifdef __XHARBOUR__
-   IF _IsWindowDefined ( FormName )
-      DoMethod ( FormName, 'Release' )
-      DoEvents()
-   ENDIF
-#endif
    _HMG_IsModalActive := .F.
 
    DEFINE WINDOW &FormName ;
@@ -957,12 +947,6 @@ FUNCTION _GraphPrint( cForm, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
 *-----------------------------------------------------------------------------*
    LOCAL b := _HMG_IsModalActive
    LOCAL FormName := '_Tmp_' + hb_ntos( _GetId() )
-#ifdef __XHARBOUR__
-   IF _IsWindowDefined ( FormName )
-      DoMethod ( FormName, 'Release' )
-      DoEvents()
-   ENDIF
-#endif
    _HMG_IsModalActive := .F.
 
    DEFINE WINDOW &FormName ;
@@ -1045,14 +1029,6 @@ STATIC FUNCTION _bmpprint( cForm, x, y, nLibrary )
 
             @ VO + y + ( h - th ) / 2, HO + x + ( w - tw ) / 2 PICTURE cTempFile SIZE tH, tW
 
-#ifdef __XHARBOUR__
-      IF hb_FileExists( cTempFile )
-         FErase( cTempFile )
-      ENDIF
-      IF hb_FileExists( cFileNoPath( cTempFile ) )
-         FErase( cFileNoPath( cTempFile ) )
-      ENDIF
-#endif
          END PAGE
 
       END DOC
@@ -1089,14 +1065,6 @@ STATIC FUNCTION _bmpprint( cForm, x, y, nLibrary )
 
             @ VO + y + ( h - th ) / 2, HO + x + ( w - tw ) / 2 PRINT IMAGE cTempFile WIDTH tW HEIGHT tH
 
-#ifdef __XHARBOUR__
-      IF hb_FileExists( cTempFile )
-         FErase( cTempFile )
-      ENDIF
-      IF hb_FileExists( cFileNoPath( cTempFile ) )
-         FErase( cFileNoPath( cTempFile ) )
-      ENDIF
-#endif
          END PRINTPAGE
 
       END PRINTDOC

@@ -1,6 +1,3 @@
-#ifdef __XHARBOUR__
-#define __SYSDATA__
-#endif
 #include "minigui.ch"
 #include "dbinfo.ch"
 #include "fileio.ch"
@@ -103,9 +100,6 @@ FUNCTION HMG_ArrayToDbf( aData, cFieldList, bProgress )
 
 RETURN .T.
 
-#ifdef __XHARBOUR__
-#include "hbcompat.ch"
-#endif
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION ConvertType( uVal, cTypeDst )
 *-----------------------------------------------------------------------------*

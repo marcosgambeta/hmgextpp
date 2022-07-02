@@ -55,14 +55,7 @@
 #include <time.h>
 #include <math.h>
 
-#ifdef __XHARBOUR__
-#  define hb_parvni   hb_parni
-#  define hb_parvnd   hb_parnd
-#  define hb_storvnd  hb_stornd
-#  define HB_STORVNI  hb_storni
-#else
-#  define HB_STORVNI  hb_storvni
-#endif
+#define HB_STORVNI  hb_storvni
 
 #ifdef _MSC_VER
 #  define _USE_MATH_DEFINES

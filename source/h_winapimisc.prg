@@ -45,10 +45,6 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
  ---------------------------------------------------------------------------*/
 
-#ifdef __XHARBOUR__
-#define __SYSDATA__
-#endif
-
 #include 'minigui.ch'
 
 *-----------------------------------------------------------------------------*

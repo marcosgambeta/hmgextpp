@@ -7,20 +7,10 @@
  **********************************************************
 */
 
-#ifdef __XHARBOUR__
-#define __MINIPRINT__
-#define _RPTGEN_
-#endif
-
 #include "hmg.ch"
 #include "harupdf.ch"
 
-#ifdef __XHARBOUR__
-#xtranslate hb_eol() => hb_OsNewLine()
-#xtranslate WAPI_SHELLEXECUTE( [<x,...>] ) => SHELLEXECUTE( <x> )
-#else
 REQUEST HB_CODEPAGE_UTF8
-#endif
 
 #define MAX_IMAGE 20
 

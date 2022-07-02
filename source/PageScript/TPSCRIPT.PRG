@@ -28,15 +28,6 @@ coordinates : PSFrameEx(nLeft, nTop, nRight, nBottom, ...)
 #include "PScript.ch"
 #include "FileIO.ch"
 
-#ifdef __XHARBOUR__
-// 02.06.2005 - IBTC - changed for xHarbour Builder:
-#xtranslate Method <Classname>:<x> => Method <x>
-#define DLL_STDCALL NIL
-
-#include "hbclass.ch"
-
-#else
-
 #ifdef __HARBOUR__
 # xtranslate Method <Classname>:<x> => Method <x>
 # include "hbclass.ch"
@@ -44,8 +35,6 @@ coordinates : PSFrameEx(nLeft, nTop, nRight, nBottom, ...)
 #else
 # include "Xbp.ch"
 # include "Dll.ch"
-#endif
-
 #endif
 
 // Windows constants for GetDeviceCaps WinApi call (Not complete)

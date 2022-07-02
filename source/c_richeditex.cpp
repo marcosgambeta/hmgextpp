@@ -67,11 +67,7 @@
 #endif
 #include <shlwapi.h>
 
-#ifdef __XHARBOUR__
-# define HB_PARNL3       hb_parnl
-#else
-# define HB_PARNL3       hb_parvnl
-#endif
+#define HB_PARNL3       hb_parvnl
 
 #ifndef CP_UNICODE
 # define CP_UNICODE      1200 // The text is UTF-16 (the WCHAR data type)

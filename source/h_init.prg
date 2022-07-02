@@ -537,9 +537,6 @@ RETURN aRetVal
 #include "fileio.ch"
 
 #define _UTF8_BOM       e"\xEF\xBB\xBF"  /* hb_utf8Chr( 0xFEFF ) */
-#ifdef __XHARBOUR__
-#xtranslate hb_eol() => hb_OsNewLine()
-#endif
 *------------------------------------------------------------------------------*
 FUNCTION HMG_CreateFile_UTF16LE_BOM( cFile )
 *------------------------------------------------------------------------------*

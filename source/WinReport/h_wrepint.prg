@@ -685,29 +685,6 @@ FUNC Any2Strg( xAny )
 
 RETU cRVal
 
-#ifdef __XHARBOUR__
-
-FUNCTION DecToHexa(nNumber)
-   local cNewString:=''
-   local nTemp:=0
-   WHILE(nNumber > 0)
-      nTemp:=(nNumber%16)
-      cNewString:=SubStr('0123456789ABCDEF',(nTemp+1),1)+cNewString
-      nNumber:=Int((nNumber-nTemp)/16)
-   ENDDO
-   RETURN(cNewString)
-
-FUNCTION HexaToDec(cString)
-   local nNumber:=0,nX:=0
-   local cNewString:=AllTrim(cString)
-   local nLen:=Len(cNewString)
-   FOR nX:=1 to nLen
-      nNumber+=(At(SubStr(cNewString,nX,1),'0123456789ABCDEF')-1)*;
-         (16**(nLen-nX))
-   NEXT nX
-   RETURN nNumber
-
-#endif
 /*
 */
 *-----------------------------------------------------------------------------*

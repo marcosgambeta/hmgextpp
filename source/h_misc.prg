@@ -292,9 +292,6 @@ FUNCTION SendData ( cDest , Data )
 
 RETURN Nil
 
-#ifdef __XHARBOUR__
-#define hb_NumToHex NUMTOHEX
-#endif
 *-----------------------------------------------------------------------------*
 FUNCTION HMG_ClrToHTML( nClr )
 *-----------------------------------------------------------------------------*
@@ -696,7 +693,3 @@ STATIC FUNCTION ParseNumsFromDateStr( cStr )
    ENDIF
 
 RETURN aNum
-
-#ifdef __XHARBOUR__
-#include "h_cdomail.prg"
-#endif

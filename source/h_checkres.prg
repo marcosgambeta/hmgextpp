@@ -1,8 +1,5 @@
 /* Resources Control Functions */
 
-#ifdef __XHARBOUR__
-#define __SYSDATA__
-#endif
 #include "minigui.ch"
 
 STATIC aResources := {}

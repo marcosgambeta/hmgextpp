@@ -67,18 +67,6 @@
 #if defined( _WIN64 )
   #define HB_arraySetNL    hb_arraySetNLL
   #define HB_arrayGetNL    hb_arrayGetNLL
-#ifdef __XHARBOUR__
-  #define HB_PARNI         hb_parni
-  #define HB_PARNL         hb_parnll
-  #define HB_PARVNL        hb_parnll
-  #define HB_RETNL         hb_retnll
-  #define HB_STORC         hb_storc
-  #define HB_STORNI        hb_storni
-  #define HB_STORNL        hb_stornll
-  #define HB_STORVNL       hb_stornll
-  #define HB_STORL         hb_storl
-  #define HB_STORDL        hb_stordl
-#else
   #define HB_PARNI         hb_parvni
   #define HB_PARNL         hb_parnll
   #define HB_PARVNL        hb_parvnll
@@ -89,7 +77,6 @@
   #define HB_STORVNL       hb_storvnll
   #define HB_STORL         hb_storvl
   #define HB_STORDL        hb_storvdl
-#endif /* __XHARBOUR__ */
 #else
   #define HB_arraySetNL    hb_arraySetNL
   #define HB_arrayGetNL    hb_arrayGetNL
@@ -114,33 +101,6 @@
   #define HB_STORDL        hb_stordl
 #endif /* !( __XHARBOUR__ ) */
 #endif /* _WIN64 */
-
-/* Harbour macro\functions mapped to xHarbour ones */
-#ifdef __XHARBOUR__
-#include "hbverbld.h"
-
-#if defined( HB_VER_CVSID ) && ( HB_VER_CVSID < 9639 )
-  #define HB_ISCHAR        ISCHAR
-  #define HB_ISNUM         ISNUM
-  #define HB_ISBYREF       ISBYREF
-#endif
-
-#if defined( HB_VER_CVSID ) && ( HB_VER_CVSID < 9798 )
-  #define HB_ISNIL         ISNIL
-#endif
-
-#if defined( HB_VER_CVSID ) && ( HB_VER_CVSID < 9820 )
-  #define HB_ISLOG         ISLOG
-  #define HB_ISARRAY       ISARRAY
-#endif
-
-#define HB_ISDATE          ISDATE
-
-#define hb_parldef( l1, l2 )        ( ISLOG( l1 ) ? hb_parl( l1 )    : l2 )
-#define hb_parnidef( n1, n2 )       ( ISNUM( n1 ) ? hb_parni( n1 )   : n2 )
-#define hb_parnldef( n1, n2 )       ( ISNUM( n1 ) ? hb_parnl( n1 )   : n2 )
-#define hb_parnintdef( n1, n2 )     ( ISNUM( n1 ) ? hb_parnint( n1 ) : n2 )
-#endif /* __XHARBOUR__ */
 
 #if defined( UNICODE )
   #define _isValidCtrlClass  _isValidCtrlClassW

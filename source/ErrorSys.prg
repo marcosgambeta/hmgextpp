@@ -51,10 +51,6 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 #include "hbmemvar.ch"
 #include "hbver.ch"
 
-#ifdef __XHARBOUR__
-   REQUEST Select, Alias, RecNo, DbFilter, DbRelation, IndexOrd, IndexKey
-#endif
-
 #ifdef _TSBROWSE_
    MEMVAR _TSB_aControlhWnd
 #endif
@@ -273,11 +269,7 @@ RETURN
 STATIC PROCEDURE ErrorLog( nHandle, oErr )
 *-----------------------------------------------------------------------------*
    STATIC _lAddError := .T.
-#ifdef __XHARBOUR__
-   LOCAL nCount
-#else
    LOCAL nScope, nCount, tmp, cName, xValue
-#endif
 
    IF _lAddError
 
@@ -292,11 +284,7 @@ STATIC PROCEDURE ErrorLog( nHandle, oErr )
       Html_LineText( nHandle, "Available memory...: " + strvalue( MemoryStatus( 2 ) ) + " MB" )
       Html_LineText( nHandle, "Current disk.......: " + DiskName() )
       Html_LineText( nHandle, "Current directory..: " + CurDir() )
-#ifdef __XHARBOUR__
-      Html_LineText( nHandle, "Free disk space....: " + strvalue( Round( DiskSpace() / ( 1024 * 1024 ), 0 ) ) + " MB" )
-#else
       Html_LineText( nHandle, "Free disk space....: " + strvalue( Round( hb_DiskSpace( hb_DirBase() ) / ( 1024 * 1024 ), 0 ) ) + " MB" )
-#endif
       Html_LineText( nHandle, "" )
       Html_LineText( nHandle, "Operating system...: " + OS() )
       Html_LineText( nHandle, "MiniGUI version....: " + MiniGUIVersion() )
@@ -307,21 +295,12 @@ STATIC PROCEDURE ErrorLog( nHandle, oErr )
       Html_LineText( nHandle, "Harbour built on...: " + hb_BuildDate() )
 #endif
       Html_LineText( nHandle, "C/C++ compiler.....: " + hb_Compiler() )
-#ifdef __XHARBOUR__
-      Html_LineText( nHandle, "Multi Threading....: " + iif( Hb_MultiThread(), "YES", "NO" ) )
-      Html_LineText( nHandle, "VM Optimization....: " + strvalue( hb_VMMode() ) )
-
-      IF Type( "Select()" ) == "UI" .OR. Type( "Select()" ) == "N"
-         Html_LineText( nHandle, "" )
-         Html_LineText( nHandle, "Current Work Area..: " + strvalue( &("Select()") ) )
-#else
       Html_LineText( nHandle, "Multi Threading....: " + iif( hb_mtvm(), "YES", "NO" ) )
       Html_LineText( nHandle, "VM Optimization....: " + iif( hb_VMMode() == 1, "YES", "NO" ) )
 
       IF hb_IsFunction( "Select" )
          Html_LineText( nHandle, "" )
          Html_LineText( nHandle, "Current Work Area..: " + strvalue( Eval( hb_macroBlock( "Select()" ) ) ) )
-#endif
       ENDIF
 
       HTML_RawText( nHandle, "</details>" )
@@ -336,10 +315,6 @@ STATIC PROCEDURE ErrorLog( nHandle, oErr )
       Html_LineText( nHandle, "SET AUTORDER.......: " + strvalue( Set( _SET_AUTORDER ) ) )
       Html_LineText( nHandle, "SET AUTOSHARE......: " + strvalue( Set( _SET_AUTOSHARE ) ) )
 
-#ifdef __XHARBOUR__
-      Html_LineText( nHandle, "SET BACKGROUNDTASKS: " + strvalue( Set( _SET_BACKGROUNDTASKS ), .T. ) )
-      Html_LineText( nHandle, "SET BACKGROUNDTICK.: " + strvalue( Set( _SET_BACKGROUNDTICK ), .T. ) )
-#endif
       Html_LineText( nHandle, "SET CENTURY........: " + strvalue( __SetCentury(), .T. ) )
       Html_LineText( nHandle, "SET COUNT..........: " + strvalue( Set( _SET_COUNT ) ) )
 
@@ -358,9 +333,6 @@ STATIC PROCEDURE ErrorLog( nHandle, oErr )
       Html_LineText( nHandle, "SET EOL............: " + strvalue( Asc( Set( _SET_EOL ) ) ) )
       Html_LineText( nHandle, "SET EPOCH..........: " + strvalue( Set( _SET_EPOCH ) ) )
       Html_LineText( nHandle, "SET ERRORLOG.......: " + strvalue( _GetErrorlogFile() ) )
-#ifdef __XHARBOUR__
-      Html_LineText( nHandle, "SET ERRORLOOP......: " + strvalue( Set( _SET_ERRORLOOP ) ) )
-#endif
       Html_LineText( nHandle, "SET EXACT..........: " + strvalue( Set( _SET_EXACT ), .T. ) )
       Html_LineText( nHandle, "SET EXCLUSIVE......: " + strvalue( Set( _SET_EXCLUSIVE ), .T. ) )
       Html_LineText( nHandle, "SET EXTRA..........: " + strvalue( Set( _SET_EXTRA ), .T. ) )
@@ -381,24 +353,13 @@ STATIC PROCEDURE ErrorLog( nHandle, oErr )
       Html_LineText( nHandle, "SET MFILEEXT.......: " + strvalue( Set( _SET_MFILEEXT ) ) )
 
       Html_LineText( nHandle, "SET OPTIMIZE.......: " + strvalue( Set( _SET_OPTIMIZE ), .T. ) )
-#ifdef __XHARBOUR__
-      Html_LineText( nHandle, "SET OUTPUTSAFETY...: " + strvalue( Set( _SET_OUTPUTSAFETY ), .T. ) )
-#endif
 
       Html_LineText( nHandle, "SET PATH...........: " + strvalue( Set( _SET_PATH ) ) )
       Html_LineText( nHandle, "SET PRINTER........: " + strvalue( Set( _SET_PRINTER ), .T. ) )
-#ifdef __XHARBOUR__
-      Html_LineText( nHandle, "SET PRINTERJOB.....: " + strvalue( Set( _SET_PRINTERJOB ) ) )
-#endif
       Html_LineText( nHandle, "SET PRINTFILE......: " + strvalue( Set( _SET_PRINTFILE ) ) )
 
       Html_LineText( nHandle, "SET SOFTSEEK.......: " + strvalue( Set( _SET_SOFTSEEK ), .T. ) )
 
-#ifdef __XHARBOUR__
-      Html_LineText( nHandle, "SET TRACE..........: " + strvalue( Set( _SET_TRACE ), .T. ) )
-      Html_LineText( nHandle, "SET TRACEFILE......: " + strvalue( Set( _SET_TRACEFILE ) ) )
-      Html_LineText( nHandle, "SET TRACESTACK.....: " + strvalue( Set( _SET_TRACESTACK ) ) )
-#endif
       Html_LineText( nHandle, "SET TRIMFILENAME...: " + strvalue( Set( _SET_TRIMFILENAME ) ) )
 
       Html_LineText( nHandle, "SET UNIQUE.........: " + strvalue( Set( _SET_UNIQUE ), .T. ) )
@@ -409,48 +370,31 @@ STATIC PROCEDURE ErrorLog( nHandle, oErr )
       HTML_RawText( nHandle, PadC( " Detailed Work Area Items ", 79, "-" ) )
       HTML_RawText( nHandle, "<br/></summary>" )
 
-#ifdef __XHARBOUR__
-      IF Type( "Select()" ) == "UI" .OR. Type( "Select()" ) == "N"
-         FOR nCount := 1 TO 250
-            IF !Empty( ( nCount )->( &("Alias()" ) ) )
-               ( nCount )->( Html_LineText( nHandle, "Work Area No ......: " + strvalue( &("Select()" ) ) ) )
-               ( nCount )->( Html_LineText( nHandle, "Alias .............: " + &("Alias()" ) ) )
-               ( nCount )->( Html_LineText( nHandle, "Current Recno .....: " + strvalue( &("RecNo()" ) ) ) )
-               ( nCount )->( Html_LineText( nHandle, "Current Filter ....: " + &("DbFilter()" ) ) )
-               ( nCount )->( Html_LineText( nHandle, "Relation Exp. .....: " + &("DbRelation()" ) ) )
-               ( nCount )->( Html_LineText( nHandle, "Index Order .......: " + strvalue( &("IndexOrd(0)" ) ) ) )
-               ( nCount )->( Html_LineText( nHandle, "Active Key ........: " + strvalue( &("IndexKey(0)" ) ) ) )
-               ( nCount )->( Html_LineText( nHandle, "" ) )
-            ENDIF
-         NEXT
-      ENDIF
-#else
       hb_WAEval( {||
-         IF hb_IsFunction( "Select" )
-            Html_LineText( nHandle, "Work Area No ......: " + strvalue( Do( "Select" ) ) )
-         ENDIF
-         IF hb_IsFunction( "Alias" )
-            Html_LineText( nHandle, "Alias .............: " + Do( "Alias" ) )
-         ENDIF
-         IF hb_IsFunction( "RecNo" )
-            Html_LineText( nHandle, "Current Recno .....: " + strvalue( Do( "RecNo" ) ) )
-         ENDIF
-         IF hb_IsFunction( "dbFilter" )
-            Html_LineText( nHandle, "Current Filter ....: " + Do( "dbFilter" ) )
-         ENDIF
-         IF hb_IsFunction( "dbRelation" )
-            Html_LineText( nHandle, "Relation Exp. .....: " + Do( "dbRelation" ) )
-         ENDIF
-         IF hb_IsFunction( "IndexOrd" )
-            Html_LineText( nHandle, "Index Order .......: " + strvalue( Do( "IndexOrd" ) ) )
-         ENDIF
-         IF hb_IsFunction( "IndexKey" )
-            Html_LineText( nHandle, "Active Key ........: " + strvalue( Eval( hb_macroBlock( "IndexKey( 0 )" ) ) ) )
-         ENDIF
-         Html_LineText( nHandle, "" )
-         RETURN .T.
-         } )
-#endif
+      IF hb_IsFunction( "Select" )
+         Html_LineText( nHandle, "Work Area No ......: " + strvalue( Do( "Select" ) ) )
+      ENDIF
+      IF hb_IsFunction( "Alias" )
+         Html_LineText( nHandle, "Alias .............: " + Do( "Alias" ) )
+      ENDIF
+      IF hb_IsFunction( "RecNo" )
+         Html_LineText( nHandle, "Current Recno .....: " + strvalue( Do( "RecNo" ) ) )
+      ENDIF
+      IF hb_IsFunction( "dbFilter" )
+         Html_LineText( nHandle, "Current Filter ....: " + Do( "dbFilter" ) )
+      ENDIF
+      IF hb_IsFunction( "dbRelation" )
+         Html_LineText( nHandle, "Relation Exp. .....: " + Do( "dbRelation" ) )
+      ENDIF
+      IF hb_IsFunction( "IndexOrd" )
+         Html_LineText( nHandle, "Index Order .......: " + strvalue( Do( "IndexOrd" ) ) )
+      ENDIF
+      IF hb_IsFunction( "IndexKey" )
+         Html_LineText( nHandle, "Active Key ........: " + strvalue( Eval( hb_macroBlock( "IndexKey( 0 )" ) ) ) )
+      ENDIF
+      Html_LineText( nHandle, "" )
+      RETURN .T.
+      } )
 
       HTML_RawText( nHandle, "</details>" )
 
@@ -466,14 +410,6 @@ STATIC PROCEDURE ErrorLog( nHandle, oErr )
       Html_LineText( nHandle, "Involved File .....: " + oErr:filename() )
       Html_LineText( nHandle, "Dos Error Code ....: " + strvalue( oErr:oscode() ) )
 
-#ifdef __XHARBOUR__
-#ifdef HB_THREAD_SUPPORT
-      Html_LineText( nHandle, "Running threads ...: " + strvalue( oErr:RunningThreads() ) )
-      Html_LineText( nHandle, "VM thread ID ......: " + strvalue( oErr:VmThreadId() ) )
-      Html_LineText( nHandle, "OS thread ID ......: " + strvalue( oErr:OsThreadId() ) )
-#endif
-      HTML_RawText( nHandle, "</details>" )
-#else
       HTML_RawText( nHandle, "</details>" )
 
       /* NOTE: Adapted from hb_mvSave() source in Harbour RTL. */
@@ -500,7 +436,6 @@ STATIC PROCEDURE ErrorLog( nHandle, oErr )
       ENDIF
 
       HTML_RawText( nHandle, "</details>" )
-#endif
    ENDIF
 
 RETURN

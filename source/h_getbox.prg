@@ -1659,57 +1659,51 @@ STATIC FUNCTION _Input( cChar , nID )
    IF ! Empty( cPicMask )
 
       cPic := hb_USubStr( cPicMask, oGet:pos, 1 )
-#ifdef __XHARBOUR__
-      IF ! Empty( cPic )
-#endif
-         SWITCH cPic
-         CASE "A"
-           IF ! hmg_IsAlpha( cChar )
-             cChar := ""
-           ENDIF
-           EXIT
-         CASE "N"
-           IF ! hmg_IsAlpha( cChar ) .AND. ! hmg_IsDigit( cChar )
-             cChar := ""
-           ENDIF
-           EXIT
-         CASE "9"
-           IF ! hmg_IsDigit( cChar ) .AND. cChar != "-"
-             cChar := ""
-           ENDIF
-           EXIT
-         CASE "#"
-           IF ! hmg_IsDigit( cChar ) .AND. !( cChar == " " ) .AND. !( cChar $ ".+-" )
-             cChar := ""
-           ENDIF
-           EXIT
-         CASE "L"
-           IF !( hb_asciiUpper( cChar ) $ "YNTF" + cLangItem_1 + cLangItem_2 )
-             cChar := ""
-           ENDIF
-           EXIT
-         CASE "Y"
-           IF !( hb_asciiUpper( cChar ) $ "YN" )
-             cChar := ""
-           ENDIF
-           EXIT
-         CASE "$"
-           EXIT
-         CASE "*"
-           IF oGet:type == "N"
-             IF ! hmg_IsDigit( cChar ) .AND. cChar != "-"
-               cChar := ""
-             ENDIF
-           ELSE
-             cChar := Transform( cChar, cPic )
-           ENDIF
-           EXIT
-         DEFAULT
-           cChar := Transform( cChar, cPic )
-         ENDSWITCH
-#ifdef __XHARBOUR__
-      ENDIF
-#endif
+      SWITCH cPic
+      CASE "A"
+        IF ! hmg_IsAlpha( cChar )
+          cChar := ""
+        ENDIF
+        EXIT
+      CASE "N"
+        IF ! hmg_IsAlpha( cChar ) .AND. ! hmg_IsDigit( cChar )
+          cChar := ""
+        ENDIF
+        EXIT
+      CASE "9"
+        IF ! hmg_IsDigit( cChar ) .AND. cChar != "-"
+          cChar := ""
+        ENDIF
+        EXIT
+      CASE "#"
+        IF ! hmg_IsDigit( cChar ) .AND. !( cChar == " " ) .AND. !( cChar $ ".+-" )
+          cChar := ""
+        ENDIF
+        EXIT
+      CASE "L"
+        IF !( hb_asciiUpper( cChar ) $ "YNTF" + cLangItem_1 + cLangItem_2 )
+          cChar := ""
+        ENDIF
+        EXIT
+      CASE "Y"
+        IF !( hb_asciiUpper( cChar ) $ "YN" )
+          cChar := ""
+        ENDIF
+        EXIT
+      CASE "$"
+        EXIT
+      CASE "*"
+        IF oGet:type == "N"
+          IF ! hmg_IsDigit( cChar ) .AND. cChar != "-"
+            cChar := ""
+          ENDIF
+        ELSE
+          cChar := Transform( cChar, cPic )
+        ENDIF
+        EXIT
+      DEFAULT
+        cChar := Transform( cChar, cPic )
+      ENDSWITCH
    ENDIF
 
 RETURN cChar

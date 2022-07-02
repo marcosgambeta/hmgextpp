@@ -768,11 +768,7 @@ static ULONG STDMETHODCALLTYPE Invoke( IEventHandler * self, DISPID dispid, REFI
 
             case HB_IT_BLOCK:
             {
-#ifdef __XHARBOUR__
-               hb_vmPushSymbol( &hb_symEval );
-#else
                hb_vmPushEvalSym();
-#endif
                hb_vmPush( pExec );
                break;
             }

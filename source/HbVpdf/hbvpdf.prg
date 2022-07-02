@@ -2576,11 +2576,7 @@ STATIC FUNCTION File2Array( cFile, nLen, hFile )
       ELSEIF cType == "N"
          aRay[ nDepth ] := Val( cData )
       ELSEIF cType == "D"
-#ifdef __XHARBOUR__
-         aRay[ nDepth ] := CToD( Left( cData, 4 ) + "/" + SubStr( cData, 5, 2 ) + "/" + SubStr( cData, 7, 2 ) )
-#else
          aRay[ nDepth ] := hb_SToD( cData )
-#endif
       ELSEIF cType == "L"
          aRay[ nDepth ] := ( cData == "T" )
       ELSEIF cType == "A"

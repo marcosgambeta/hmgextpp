@@ -45,11 +45,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
  ----------------------------------------------------------------------------*/
 
-#ifdef __XHARBOUR__
-# define __MINIPRINT__
-#else
   SET PROCEDURE TO alerts.prg
-#endif
 
 #include "hmg.ch"
 #include "i_winuser.ch"
@@ -159,11 +155,7 @@ FUNCTION HMG_Alert( cMsg, aOptions, cTitle, nType, cIcoFile, nIcoSize, aBtnColor
    IF Set( _SET_DELIMITERS )
       cOldDelim := Set( _SET_DELIMCHARS )
       Set( _SET_DELIMCHARS, ";|" )
-#ifdef __XHARBOUR__
-      cDelim := SubStr( Set( _SET_DELIMCHARS ), iif( Upper( Left( Set ( _SET_LANGUAGE ), 2 ) ) == "EL", 2, 1 ), 1 )
-#else
       cDelim := SubStr( Set( _SET_DELIMCHARS ), iif( "el" $ hb_UserLang(), 2, 1 ), 1 )
-#endif
       cMsg := StrTran( cMsg, cDelim, CRLF )
       Set( _SET_DELIMCHARS, cOldDelim )
    ENDIF
@@ -514,11 +506,7 @@ PROCEDURE HMG_CheckType( ... )
       { "OBJECT", "O" }, ;
       { "USUAL", "" } }
    LOCAL aParams := hb_AParams()
-#ifdef __XHARBOUR__
-   LOCAL lSoft
 
-   lSoft := aParams[ 1 ]
-#endif
    hb_ADel( aParams, 1, .T. )    // Remove lSoft parameter from the array
 
    FOR EACH aData IN aParams
@@ -562,7 +550,3 @@ FUNCTION GetDesktopRealHeight()
    LOCAL a := GetDesktopArea()
 
 RETURN ( a [4] - a [2] )
-
-#ifdef __XHARBOUR__
-#include "alerts.prg"
-#endif

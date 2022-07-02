@@ -85,24 +85,10 @@
 #include "hbstack.h"
 #include "hbapiitm.h"
 
-#ifdef __XHARBOUR__
-#define HB_STORC( n, x, y )  hb_storc( n, x, y )
-#define HB_STORL( n, x, y )  hb_storl( n, x, y )
-#define HB_STORNI( n, x, y ) hb_storni( n, x, y )
-#define HB_STORNL( n, x, y ) hb_stornl( n, x, y )
-#else
 #define HB_STORC( n, x, y )  hb_storvc( n, x, y )
 #define HB_STORL( n, x, y )  hb_storvl( n, x, y )
 #define HB_STORNI( n, x, y ) hb_storvni( n, x, y )
 #define HB_STORNL( n, x, y ) hb_storvnl( n, x, y )
-#endif
-
-#ifdef __XHARBOUR__
-#include "hbverbld.h"
-#if defined(HB_VER_CVSID) && ( HB_VER_CVSID < 9798 )
-#define HB_ISNIL( n )        ISNIL( n )
-#endif
-#endif
 
 #ifdef MAKELONG
   #undef MAKELONG

@@ -54,10 +54,6 @@
 #include "hbapierr.h"
 #include "hbapistr.h"
 
-#ifdef __XHARBOUR__
-# define hb_storclen_buffer  hb_storclenAdopt
-#endif
-
 #ifdef UNICODE
 BOOL _isValidCtrlClassW( HWND hwndTip, LPWSTR ClassName );
 

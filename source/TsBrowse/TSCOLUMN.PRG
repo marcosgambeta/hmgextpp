@@ -2,9 +2,6 @@
 * TSColumn.PRG Version 9.0 Nov/01/2009
 *===========================================================================
 
-#ifdef __XHARBOUR__
-#define __SYSDATA__
-#endif
 #include "minigui.ch"
 #include "hbclass.ch"
 #include "TSBrowse.ch"

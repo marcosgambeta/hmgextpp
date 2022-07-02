@@ -47,22 +47,8 @@ FUNCTION _SetGetGlobal( ... )
 *-----------------------------------------------------------------------------*
    LOCAL xOldValue
 
-#ifdef __XHARBOUR__
-   LOCAL cVarName, xNewValue
-   LOCAL aParams := hb_AParams()
-   LOCAL nParams := Len( aParams )
-#endif
-
    STATIC _HMG_STATIC
 
-#ifdef __XHARBOUR__
-   IF nParams > 1
-      cVarName := aParams[ 1 ]
-      xNewValue := aParams[ 2 ]
-   ELSEIF nParams == 1
-      cVarName := aParams[ 1 ]
-   ENDIF
-#endif
    IF HB_ISNIL( _HMG_STATIC )
       _HMG_STATIC := oHmgData()
    ENDIF

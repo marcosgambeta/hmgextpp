@@ -58,11 +58,7 @@
 #include "hbapiitm.h"
 #include "hbapierr.h"
 
-#ifdef __XHARBOUR__
-#define HB_STORC( n, x, y ) hb_storc( n, x, y )
-#else
 #define HB_STORC( n, x, y ) hb_storvc( n, x, y )
-#endif
 
 static int bInit = FALSE;
 

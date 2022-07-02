@@ -45,10 +45,6 @@
 
 ---------------------------------------------------------------------------*/
 
-#ifdef __XHARBOUR__
-  #define _BT_
-#endif
-
 #include "hmg.ch"
 
 #ifdef _HMG_COMPAT_

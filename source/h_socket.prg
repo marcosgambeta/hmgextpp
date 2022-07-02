@@ -133,11 +133,7 @@ FUNCTION httpgeturl( Connection, cPage, uRet )
          cHeader += hb_osNewLine()
 
          FOR i := 1 TO Len( Connection:hHeaders )
-#ifdef __XHARBOUR__
-            cHeader += hGetKeyAt( Connection:hHeaders, i ) + ": " + hGetValueAt( Connection:hHeaders, i ) + hb_osNewLine()
-#else
             cHeader += hb_HKeyAt( Connection:hHeaders, i ) + ": " + hb_HValueAt( Connection:hHeaders, i ) + hb_osNewLine()
-#endif
          NEXT
          cHeader += hb_osNewLine()
 

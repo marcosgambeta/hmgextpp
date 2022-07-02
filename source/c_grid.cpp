@@ -53,11 +53,7 @@
 #include "hbapiitm.h"
 #include "hbapierr.h"
 
-#ifdef __XHARBOUR__
-typedef wchar_t HB_WCHAR;
-#else
 #include "hbapicdp.h"
-#endif
 
 extern BOOL _isValidCtrlClass( HWND, LPCTSTR );
 

@@ -82,9 +82,6 @@ FUNCTION _LogFile( ... )
    LOCAL aParams := hb_AParams()
    LOCAL nParams := Len( aParams )
    LOCAL cFile := hb_defaultValue( _SetGetLogFile(), GetStartUpFolder() + hb_ps() + "_MsgLog.txt" )
-#ifdef __XHARBOUR__
-   LOCAL lCrLf
-#endif
    IF !Empty( cFile )
       hFile := iif( File( cFile ), FOpen( cFile, FO_READWRITE ), FCreate( cFile, FC_NORMAL ) )
       IF hFile == F_ERROR
@@ -92,9 +89,6 @@ FUNCTION _LogFile( ... )
       ENDIF
       FSeek( hFile, 0, FS_END )
       IF nParams > 1
-#ifdef __XHARBOUR__
-         lCrLf := aParams[ 1 ]
-#endif
          IF ( lCrLf := hb_defaultValue( lCrLf, .T. ) )
             FWrite( hFile, CRLF, 2 )
          ENDIF
@@ -106,11 +100,7 @@ FUNCTION _LogFile( ... )
                IF     cTp == 'C' ; xVal := iif( Empty( xVal ), "'" + "'", Trim( xVal ) )
                ELSEIF cTp == 'N' ; xVal := hb_ntos( xVal )
                ELSEIF cTp == 'L' ; xVal := iif( xVal, ".T.", ".F." )
-#ifdef __XHARBOUR__
-               ELSEIF cTp == 'D' ; xVal := DToC( xVal )
-#else
                ELSEIF cTp == 'D' ; xVal := hb_DToC( xVal, 'DD.MM.YYYY' )
-#endif
                ELSEIF cTp == 'A' ; xVal := "ARRAY["  + hb_ntos( Len( xVal ) ) + "]"
                ELSEIF cTp == 'H' ; xVal :=  "HASH["  + hb_ntos( Len( xVal ) ) + "]"
                ELSEIF cTp == 'B' ; xVal := "'" + "B" + "'"

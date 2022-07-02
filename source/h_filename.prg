@@ -45,10 +45,6 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 ---------------------------------------------------------------------------*/
 
-#ifdef __XHARBOUR__
-#define __SYSDATA__
-#xtranslate hb_StrShrink( <char> ) => Left( <char>, Len( <char> ) - 1 )
-#endif
 #include "minigui.ch"
 
 *-----------------------------------------------------------------------------*

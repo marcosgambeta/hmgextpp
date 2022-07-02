@@ -360,53 +360,25 @@ FUNCTION GetFontParamByRef( FontHandle, FontName, FontSize, bold, italic, underl
 
    lExpr := ( i > 0 .AND. GetObjectType( _HMG_aControlHandles[ i ] ) == OBJ_FONT )
 
-#ifdef __XHARBOUR__
-   IF HB_IsByRef( @FontName )
-#else
    IF hb_PIsByRef( 2 )
-#endif
       FontName := iif( lExpr, _HMG_aControlFontName[ i ], _HMG_DefaultFontName )
    ENDIF
-#ifdef __XHARBOUR__
-   IF HB_IsByRef( @FontSize )
-#else
    IF hb_PIsByRef( 3 )
-#endif
       FontSize := iif( lExpr, _HMG_aControlFontSize[ i ], _HMG_DefaultFontSize )
    ENDIF
-#ifdef __XHARBOUR__
-   IF HB_IsByRef( @bold )
-#else
    IF hb_PIsByRef( 4 )
-#endif
       bold := iif( lExpr, _HMG_aControlFontAttributes[ i, FONT_ATTR_BOLD ], .F. )
    ENDIF
-#ifdef __XHARBOUR__
-   IF HB_IsByRef( @italic )
-#else
    IF hb_PIsByRef( 5 )
-#endif
       italic := iif( lExpr, _HMG_aControlFontAttributes[ i, FONT_ATTR_ITALIC ], .F. )
    ENDIF
-#ifdef __XHARBOUR__
-   IF HB_IsByRef( @underline )
-#else
    IF hb_PIsByRef( 6 )
-#endif
       underline := iif( lExpr, _HMG_aControlFontAttributes[ i, FONT_ATTR_UNDERLINE ], .F. )
    ENDIF
-#ifdef __XHARBOUR__
-   IF HB_IsByRef( @strikeout )
-#else
    IF hb_PIsByRef( 7 )
-#endif
       strikeout := iif( lExpr, _HMG_aControlFontAttributes[ i, FONT_ATTR_STRIKEOUT ], .F. )
    ENDIF
-#ifdef __XHARBOUR__
-   IF HB_IsByRef( @angle )
-#else
    IF hb_PIsByRef( 8 )
-#endif
       angle := iif( lExpr, ;
         iif( Len( _HMG_aControlFontAttributes[ i ] ) > 4, _HMG_aControlFontAttributes[ i, FONT_ATTR_ANGLE ], 0 ), ;
         0 )

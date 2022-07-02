@@ -2638,9 +2638,6 @@ FUNCTION GetParentFormName ( nControlIndex )
 
 RETURN iif( i > 0, _HMG_aFormNames [ i ], "" )
 
-#ifdef __XHARBOUR__
-   #xtranslate hb_ValToExp( [<x,...>] ) => ValToPrgExp( <x> )
-#endif
 *-----------------------------------------------------------------------------*
 FUNCTION MsgDebug ( ... )
 *-----------------------------------------------------------------------------*
@@ -3024,8 +3021,4 @@ FUNCTION EnumChildWindows( hWnd, bExt )
 
 RETURN aChilds
 
-#endif
-
-#ifdef __XHARBOUR__
-#include "statics.prg"
 #endif

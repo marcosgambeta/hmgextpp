@@ -7,11 +7,7 @@
 #include "minigui.ch"
 
 #include "i_winuser.ch"
-#ifdef __XHARBOUR__
-# include "hbcompat.ch"
-#else
-# xtranslate hb_HSetCaseMatch( <x>[, <z>] ) => ( hb_HCaseMatch( <x>[, <z>] ), <x> )
-#endif
+#xtranslate hb_HSetCaseMatch( <x>[, <z>] ) => ( hb_HCaseMatch( <x>[, <z>] ), <x> )
 #include "hbclass.ch"
 
 #define _METHOD METHOD
@@ -1789,15 +1785,5 @@ FUNCTION oKeyData( Obj, Event )
    ENDIF
 
 RETURN o
-
-#ifdef __XHARBOUR__
-*-----------------------------------------------------------------------------*
-STATIC FUNCTION hb_HGetDef( hHash, xKey, xDef )
-*-----------------------------------------------------------------------------*
-   LOCAL nPos := HGetPos( hHash, xKey )
-
-RETURN iif( nPos > 0, HGetValueAt( hHash, nPos ), xDef )
-
-#endif
 
 #endif

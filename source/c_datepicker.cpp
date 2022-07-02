@@ -64,12 +64,8 @@ HINSTANCE GetInstance( void );
 
 LRESULT CALLBACK  OwnPickProc( HWND hbutton, UINT msg, WPARAM wParam, LPARAM lParam );
 
-#ifdef __XHARBOUR__
-#define HB_ISDATETIME  ISDATETIME
-#else
 extern HB_EXPORT double hb_timeStampPack( int iYear, int iMonth, int iDay,
                                           int iHour, int iMinutes, int iSeconds, int iMSec );
-#endif
 
 HB_FUNC( INITDATEPICK )
 {
@@ -363,9 +359,6 @@ HB_FUNC( DTP_SETDATETIME )
    if( HB_ISDATETIME( 2 ) )
    {
       int iYear, iMonth, iDay, iHour, iMinute, iSecond, iMSec;
-#ifdef __XHARBOUR__
-      long lJulian, lMilliSec;
-#endif
 
 #ifndef __XHARBOUR__
       hb_timeStampUnpack( hb_partd( 2 ), &iYear, &iMonth, &iDay, &iHour, &iMinute, &iSecond, &iMSec );
@@ -440,11 +433,7 @@ HB_FUNC( DTP_GETDATETIME )
 
    SendMessage( ( HWND ) HB_PARNL( 1 ), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st );
 
-#ifdef __XHARBOUR__
-   hb_retdtl( hb_dateEncode( st.wYear, st.wMonth, st.wDay ), hb_timeStampEncode( st.wHour, st.wMinute, st.wSecond, st.wMilliseconds ) );
-#else
    hb_rettd( hb_timeStampPack( st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond, st.wMilliseconds ) );
-#endif
 }
 
 HB_FUNC( SETDATEPICKNULL )

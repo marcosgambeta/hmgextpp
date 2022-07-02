@@ -61,12 +61,8 @@
 #include "hbapiitm.h"
 #include "hbvm.h"
 
-#ifdef __XHARBOUR__
-#include "thread.h"
-#else
 #include "hbwinuni.h"
 #include "hbthread.h"
-#endif /* __XHARBOUR__ */
 
 #include "hbatomic.h"
 
@@ -157,15 +153,9 @@ extern HACCEL g_hAccel;
 // static variables
 static PHB_DYNS g_ListenerDyns = NULL;
 
-#ifdef __XHARBOUR__
-static HB_CRITICAL_T s_lst_mtx;
-#define HMG_LISTENER_LOCK    HB_CRITICAL_LOCK( s_lst_mtx );
-#define HMG_LISTENER_UNLOCK  HB_CRITICAL_UNLOCK( s_lst_mtx );
-#else
 static HB_CRITICAL_NEW( s_lst_mtx );
 #define HMG_LISTENER_LOCK    hb_threadEnterCriticalSection( &s_lst_mtx )
 #define HMG_LISTENER_UNLOCK  hb_threadLeaveCriticalSection( &s_lst_mtx )
-#endif /* __XHARBOUR__ */
 
 HB_FUNC( GETGLOBALLISTENER )
 {

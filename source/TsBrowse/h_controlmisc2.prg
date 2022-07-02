@@ -86,11 +86,6 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
    ELSEIF ValType( uAlias ) $ 'BDLP'
       uAlias := { { uAlias } }
 
-#ifdef __XHARBOUR__
-   ELSEIF ValType( uAlias ) == "H"
-      uAlias := aHash2Array( uAlias )
-
-#endif
    ENDIF
 
    cFormName := GetUniqueName( "SBrowse" )
