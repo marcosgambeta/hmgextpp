@@ -140,7 +140,7 @@ LPSTR  WideToAnsi( LPWSTR );
 HINSTANCE      GetInstance( void );
 HINSTANCE      GetResources( void );
 extern void    hmg_ErrorExit( LPCTSTR lpMessage, DWORD dwError, BOOL bExit );
-extern HBITMAP HMG_LoadImage( const char * FileName );
+extern HBITMAP HMG_LoadImage( const char * FileName, const char * pszTypeOfRes );
 
 // local functions
 static size_t  AppEventScan( EVENTSHOLDER * events, UINT message );
@@ -964,7 +964,7 @@ HB_FUNC( INITMESSAGEONLYWINDOW )
 
    if( lpClassName )
    {
-      WNDCLASSEX wcx = { 0 };
+      WNDCLASSEX wcx; // = { 0 };
 
       wcx.cbSize = sizeof( wcx );
       wcx.lpfnWndProc = MsgOnlyWndProc;
@@ -1358,7 +1358,7 @@ HB_FUNC( REGISTERWINDOW )
       hb_xfree( ( TCHAR * ) lpImageName );
 #endif
       if( hImage == NULL )
-         hImage = ( HBITMAP ) HMG_LoadImage( hb_parc( 3 ) );
+         hImage = ( HBITMAP ) HMG_LoadImage( hb_parc( 3 ), NULL );
 
       if( hImage != NULL )
          hBrush = CreatePatternBrush( hImage );

@@ -1025,7 +1025,7 @@ HB_FUNC( CREATEPATTERNHBRUSH ) // ( hBitmap ) --> hBrush
 {
    HBRUSH hBrush = CreatePatternBrush( ( HBITMAP ) HB_PARNL( 1 ) );
 
-   RegisterResource( hBrush, "BRUSH" );
+   RegisterResource( hBrush, const_cast<LPSTR>("BRUSH") );
 
    HB_RETNL( ( LONG_PTR ) hBrush );
 }

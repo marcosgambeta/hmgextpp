@@ -391,7 +391,7 @@ HB_FUNC( _SETBTNPICTURE )
 
    SendMessage( hwnd, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage );
 
-   RegisterResource( himage, "BMP" );
+   RegisterResource( himage, const_cast<LPSTR>("BMP") );
    HB_RETNL( ( LONG_PTR ) himage );
 
 #ifdef UNICODE
@@ -418,7 +418,7 @@ HB_FUNC( _SETMIXEDBTNPICTURE )
 
    himl = HMG_SetButtonImageList( ( HWND ) HB_PARNL( 1 ), hb_parc( 2 ), Transparent, BUTTON_IMAGELIST_ALIGN_CENTER );
 
-   RegisterResource( himl, "IMAGELIST" );
+   RegisterResource( himl, const_cast<LPSTR>("IMAGELIST") );
    HB_RETNL( ( LONG_PTR ) himl );
 }
 
@@ -443,7 +443,7 @@ HB_FUNC( _SETBTNICON )
 
    SendMessage( hwnd, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_ICON, ( LPARAM ) hIcon );
 
-   RegisterResource( hIcon, "ICON" );
+   RegisterResource( hIcon, const_cast<LPSTR>("ICON") );
    HB_RETNL( ( LONG_PTR ) hIcon );
 
 #ifdef UNICODE
@@ -494,7 +494,7 @@ HB_FUNC( _SETMIXEDBTNICON )
    DeleteObject( sIconInfo.hbmColor );
    DestroyIcon( hIcon );
 
-   RegisterResource( himl, "IMAGELIST" );
+   RegisterResource( himl, const_cast<LPSTR>("IMAGELIST") );
    HB_RETNL( ( LONG_PTR ) himl );
 
 #ifdef UNICODE
@@ -716,7 +716,7 @@ static HBRUSH CreateGradientBrush( HDC hDC, INT nWidth, INT nHeight, COLORREF Co
    for( i = 0; i < nCount; i++ )
    {
       hBrush    = CreateSolidBrush( RGB( r1 + ( i * ( r2 - r1 ) / nCount ), g1 + ( i * ( g2 - g1 ) / nCount ), b1 + ( i * ( b2 - b1 ) / nCount ) ) );
-      hBrushOld = SelectObject( hDCComp, hBrush );
+      hBrushOld = reinterpret_cast<HBRUSH>(SelectObject( hDCComp, hBrush ));
       FillRect( hDCComp, &rcF, hBrush );
       SelectObject( hDCComp, hBrushOld );
       DeleteObject( hBrush );

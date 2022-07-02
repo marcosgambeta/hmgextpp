@@ -306,7 +306,7 @@ HB_FUNC( RICHEDITBOX_RTFLOADRESOURCEFILE )
       hGlobalResource = LoadResource( NULL, hResourceData );
       if( hGlobalResource != NULL )
       {
-         lpGlobalResource = LockResource( hGlobalResource );
+         lpGlobalResource = reinterpret_cast<TCHAR*>(LockResource( hGlobalResource ));
          if( lpGlobalResource != NULL )
          {
             SETTEXTEX ST;

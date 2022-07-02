@@ -65,7 +65,7 @@
 #if defined( MSFTEDIT_CLASS )
 # undef MSFTEDIT_CLASS
 #endif
-#define MSFTEDIT_CLASS     TEXT( "RICHEDIT50W" )
+#define MSFTEDIT_CLASS     TEXT( const_cast<TCHAR*>("RICHEDIT50W") )
 
 static BOOL IsWinxpSp1Min( void );
 

@@ -96,9 +96,9 @@ typedef struct _MENUITEM
    void *  lpReserved;
 } MENUITEM, NEAR * PMENUITEM, * LPMENUITEM;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+// #ifdef __cplusplus
+// extern "C" {
+// #endif
 
 VOID           DrawCheck( HDC hdc, SIZE size, RECT rect, BOOL enabled, BOOL selected, HBITMAP hbitmap );
 VOID           DrawGlyph( HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgbTransparent, BOOL disabled, BOOL stretched );
@@ -119,7 +119,7 @@ extern HBRUSH  LinearGradientBrush( HDC pDC, long cx, long cy, COLORREF cFrom, C
 
 WINUSERAPI BOOL WINAPI EndMenu( VOID );
 
-#ifdef __cplusplus
-}
-#endif
+// #ifdef __cplusplus
+// }
+// #endif
 #endif

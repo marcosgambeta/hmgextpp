@@ -324,7 +324,7 @@ HB_FUNC( ADDLISTVIEWBITMAPHEADER )  // Grid+
          if( himl != NULL )
          {
             SendMessage( hheader, HDM_SETIMAGELIST, 0, ( LPARAM ) himl );
-            RegisterResource( himl, "IMAGELIST" );
+            RegisterResource( himl, const_cast<LPSTR>("IMAGELIST") );
          }
       }
    }
@@ -547,7 +547,7 @@ HB_FUNC( LISTVIEWSETITEM )
 static TCHAR * GetLVItemText( HWND hListView, int i, int iSubItem_ )
 {
 #ifndef UNICODE
-   LPSTR lpText = '\0';
+   LPSTR lpText = reinterpret_cast<LPSTR>(hb_xgrab( 1 )); lpText[0] = '\0'; // '\0';
 #else
    LPWSTR lpText = TEXT( '\0' );
 #endif
@@ -1188,8 +1188,8 @@ HB_FUNC( LISTVIEW_GROUPADD )
    LVG.stateMask = LVM_SETGROUPINFO;
    LVG.mask      = LVGF_GROUPID | LVGF_HEADER | LVGF_FOOTER | LVGF_ALIGN | LVGF_STATE;
    LVG.iGroupId  = GroupID;
-   LVG.pszHeader = L"";
-   LVG.pszFooter = L"";
+   LVG.pszHeader = NULL; //L""; // TODO: check
+   LVG.pszFooter = NULL; //L""; // TODO: check
    LVG.uAlign    = LVGA_HEADER_LEFT | LVGA_FOOTER_LEFT;
    LVG.state     = LVGS_NORMAL;
 

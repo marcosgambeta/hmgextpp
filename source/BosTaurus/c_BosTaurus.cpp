@@ -138,8 +138,8 @@ void bt_bmp_adjust_rect( int * Width1, int * Height1, int * Width2, int * Height
          break;
 
       case BT_COPY:
-         *Width1  = *Width2 = min( *Width1, *Width2 );
-         *Height1 = *Height2 = min( *Height1, *Height2 );
+         *Width1  = *Width2 = HB_MIN( *Width1, *Width2 );
+         *Height1 = *Height2 = HB_MIN( *Height1, *Height2 );
    }
 }
 
@@ -336,7 +336,7 @@ HBITMAP bt_LoadOLEPicture( TCHAR * FileName, TCHAR * TypePictureResource )
 
    iPicture = NULL;
    CreateStreamOnHGlobal( hGlobalAlloc, TRUE, &iStream );
-   OleLoadPicture( iStream, 0, TRUE, &IID_IPicture, ( LPVOID * ) &iPicture );
+   OleLoadPicture( iStream, 0, TRUE, IID_IPicture, ( LPVOID * ) &iPicture );
    if( iPicture == NULL )
    {
       GlobalFree( hGlobalAlloc );
@@ -500,7 +500,7 @@ Func_GdipLoadImageFromStream  GdipLoadImageFromStream;
 Func_GdipSaveImageToFile      GdipSaveImageToFile;
 
 // Global Variables
-VOID *    GdiPlusHandle = NULL;
+HMODULE GdiPlusHandle = NULL; // VOID *    GdiPlusHandle = NULL;
 ULONG_PTR GdiPlusToken;
 GdiplusStartupInput GDIPlusStartupInput;
 
@@ -1093,7 +1093,7 @@ HB_FUNC( BT_DRAW_HDC_POLY )
    ColorFill  = ( COLORREF ) hb_parnl( 6 );
    nPOLY      = ( INT ) hb_parni( 7 );
 
-   nLen = min( nCountX, nCountY );
+   nLen = HB_MIN( nCountX, nCountY );
 
    if( nLen > 0 )
    {
@@ -1926,19 +1926,19 @@ HB_FUNC( BT_BMP_LOADFILE )
 
    // If fail: find JPG Image in resourses
    if( hBitmap == NULL )
-      hBitmap = bt_LoadOLEPicture( FileName, TEXT( "JPG" ) );
+      hBitmap = bt_LoadOLEPicture( FileName, TEXT( const_cast<TCHAR*>("JPG") ) );
 
    // If fail: find GIF Image in resourses
    if( hBitmap == NULL )
-      hBitmap = bt_LoadOLEPicture( FileName, TEXT( "GIF" ) );
+      hBitmap = bt_LoadOLEPicture( FileName, TEXT( const_cast<TCHAR*>("GIF") ) );
 
    // If fail: find PNG Image in resourses
    if( hBitmap == NULL )
-      hBitmap = bt_LoadGDIPlusPicture( FileName, TEXT( "PNG" ) );
+      hBitmap = bt_LoadGDIPlusPicture( FileName, TEXT( const_cast<TCHAR*>("PNG") ) );
 
    // If fail: find TIF Image in resourses
    if( hBitmap == NULL )
-      hBitmap = bt_LoadGDIPlusPicture( FileName, TEXT( "TIF" ) );
+      hBitmap = bt_LoadGDIPlusPicture( FileName, TEXT( const_cast<TCHAR*>("TIF") ) );
 
    // If fail: find JPG and GIF Image in disk
    if( hBitmap == NULL )
@@ -1998,7 +1998,7 @@ HB_FUNC( BT_BITMAPLOADEMF )
       {
          lpGlobalResource = LockResource( hGlobalResource );
          nFileSize        = SizeofResource( NULL, hResourceData );
-         hEMF = SetEnhMetaFileBits( nFileSize, lpGlobalResource );
+         hEMF = SetEnhMetaFileBits( nFileSize, reinterpret_cast<const BYTE*>(lpGlobalResource) );
       }
    }
 
@@ -2689,7 +2689,7 @@ HB_FUNC( BT_BMP_PROCESS )
    } bt_RGBCOLORBYTE;
 
    #define bt_RGB_TO_GRAY( R, G, B )  ( INT ) ( ( FLOAT ) R * 0.299 + ( FLOAT ) G * 0.587 + ( FLOAT ) B * 0.114 )
-   #define bt_GAMMA( index, gamma )   ( min( 255, ( INT ) ( ( 255.0 * pow( ( ( DOUBLE ) index / 255.0 ), ( 1.0 / ( DOUBLE ) gamma ) ) ) + 0.5 ) ) )
+   #define bt_GAMMA( index, gamma )   ( HB_MIN( 255, ( INT ) ( ( 255.0 * pow( ( ( DOUBLE ) index / 255.0 ), ( 1.0 / ( DOUBLE ) gamma ) ) ) + 0.5 ) ) )
    //  redGamma[i] = (byte)           Min (255, (int)(( 255.0 *Pow(i/255.0, 1.0/g_red)) + 0.5));
 
    HGLOBAL           hBits;
@@ -2756,7 +2756,7 @@ HB_FUNC( BT_BMP_PROCESS )
          RLevel = ( INT ) hb_parvni( 3, 1 );
          GLevel = ( INT ) hb_parvni( 3, 2 );
          BLevel = ( INT ) hb_parvni( 3, 3 );
-         if( ( min( min( RLevel, GLevel ), BLevel ) < -255 ) || ( max( max( RLevel, GLevel ), BLevel ) > 255 ) )
+         if( ( HB_MIN( HB_MIN( RLevel, GLevel ), BLevel ) < -255 ) || ( HB_MAX( HB_MAX( RLevel, GLevel ), BLevel ) > 255 ) )
          {
             hb_retl( FALSE );
             return;
@@ -3409,7 +3409,7 @@ HB_FUNC( BT_BMP_PUT_CLIPBOARD )
       return;
    }
 
-   lp_Clipboard = GlobalLock( hClipboard );
+   lp_Clipboard = reinterpret_cast<LPBYTE>(GlobalLock( hClipboard ));
 
    memcpy( lp_Clipboard, &BI.bmiHeader, sizeof( BITMAPINFOHEADER ) );
 

@@ -713,7 +713,7 @@ HB_FUNC( LOADBITMAP )
    if( hBitmap == NULL )
       hBitmap = ( HBITMAP ) LoadImage( NULL, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR );
 
-   RegisterResource( hBitmap, "BMP" );
+   RegisterResource( hBitmap, const_cast<LPSTR>("BMP") );
    HB_RETNL( ( LONG_PTR ) hBitmap );
 
 #ifdef UNICODE

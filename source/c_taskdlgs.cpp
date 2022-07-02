@@ -179,7 +179,7 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
 
    if( pConfig && hb_arrayLen( pConfig ) >= TDC_CONFIG )
    {
-      TASKDIALOGCONFIG config = { 0 };
+      TASKDIALOGCONFIG config; // = { 0 };
       int     nButton;
       int     nRadioButton;
       BOOL    fVerificationFlagChecked;

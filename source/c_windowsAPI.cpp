@@ -73,7 +73,7 @@ LPSTR  WideToAnsi( LPWSTR );
 HINSTANCE      GetResources( void );
 extern HB_PTRUINT wapi_GetProcAddress( HMODULE hModule, LPCSTR lpProcName );
 extern void    hmg_ErrorExit( LPCTSTR lpMessage, DWORD dwError, BOOL bExit );
-extern HBITMAP HMG_LoadImage( const char * FileName );
+extern HBITMAP HMG_LoadImage( const char * FileName, const char * pszTypeOfRes );
 // Minigui Resources control system
 void           RegisterResource( HANDLE hResource, LPSTR szType );
 // local  function
@@ -621,7 +621,7 @@ HB_FUNC( LOADTRAYICON )
    if( hIcon == NULL )
       hIcon = ( HICON ) LoadImage( hInstance, lpIconName, IMAGE_ICON, cxDesired, cyDesired, LR_LOADFROMFILE | LR_DEFAULTCOLOR );
 
-   RegisterResource( hIcon, "ICON" );
+   RegisterResource( hIcon, const_cast<char*>("ICON") );
    HB_RETNL( ( LONG_PTR ) hIcon );
 
 #ifdef UNICODE
@@ -865,7 +865,7 @@ HB_FUNC( C_SETWINDOWRGN )
 
       SetWindowRgn( ( HWND ) HB_PARNL( 1 ), hRgn, TRUE );
 
-      RegisterResource( hRgn, "REGION" );
+      RegisterResource( hRgn, const_cast<char*>("REGION") );
       HB_RETNL( ( LONG_PTR ) hRgn );
    }
 }
@@ -892,7 +892,7 @@ HB_FUNC( C_SETPOLYWINDOWRGN )
 
    SetWindowRgn( GetActiveWindow(), hRgn, TRUE );
 
-   RegisterResource( hRgn, "REGION" );
+   RegisterResource( hRgn, const_cast<char*>("REGION") );
    HB_RETNL( ( LONG_PTR ) hRgn );
 }
 
@@ -1193,7 +1193,7 @@ HB_FUNC( CREATEPATTERNBRUSH )
    }
    if( hImage == NULL )
    {
-      hImage = ( HBITMAP ) HMG_LoadImage( hb_parc( 1 ) );
+      hImage = ( HBITMAP ) HMG_LoadImage( hb_parc( 1 ), NULL );
    }
 
    HB_RETNL( ( hImage != NULL ) ? ( LONG_PTR ) CreatePatternBrush( hImage ) : ( LONG_PTR ) 0 );

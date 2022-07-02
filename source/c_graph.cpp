@@ -53,14 +53,15 @@
 LPWSTR AnsiToWide( LPCSTR );
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+// #ifdef __cplusplus
+// extern "C" {
+// #endif
 extern BOOL Array2ColorRef( PHB_ITEM aCRef, COLORREF * cr );
-extern HFONT PrepareFont( TCHAR *, int, int, int, int, int, int, int );
-#ifdef __cplusplus
-}
-#endif
+//extern HFONT PrepareFont( TCHAR *, int, int, int, int, int, int, int );
+extern HFONT PrepareFont( TCHAR * FontName, int FontSize, int Weight, DWORD Italic, DWORD Underline, DWORD StrikeOut, DWORD Angle, DWORD charset );
+// #ifdef __cplusplus
+// }
+// #endif
 
 HB_FUNC( TEXTDRAW )
 {

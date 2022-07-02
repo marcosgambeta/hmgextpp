@@ -208,7 +208,7 @@ HB_FUNC( SETTOOLTIP )
 #else
          LPWSTR lpText = AnsiToWide( ( char * ) hb_parc( 2 ) );
 #endif
-         TOOLINFO ti = { 0 };
+         TOOLINFO ti; // = { 0 };
          /* Set up "tool" information */
          ti.cbSize = sizeof( ti );
          ti.uFlags = TTF_SUBCLASS | TTF_IDISHWND;
@@ -318,7 +318,7 @@ HB_FUNC( INITTOOLTIPEX )
       int      nIcon   = hb_parnidef( 5, TTI_NONE );
       DWORD    dwStyle = WS_POPUP;
       HWND     hwndToolTip;
-      TOOLINFO ti     = { 0 };
+      TOOLINFO ti; //     = { 0 };
       UINT     uFlags = 0;
       INITCOMMONCONTROLSEX icex = { sizeof( INITCOMMONCONTROLSEX ), ICC_BAR_CLASSES };
 
@@ -781,7 +781,7 @@ HB_FUNC( TTM_TRACKACTIVATE )
 
    if( _isValidCtrlClass( hwndToolTip, TOOLTIPS_CLASS ) && IsWindow( hwndTool ) )
    {
-      TOOLINFO ti = { 0 };
+      TOOLINFO ti; // = { 0 };
 
       ti.cbSize = sizeof( ti );
       ti.hwnd   = hwndTool;
@@ -858,7 +858,7 @@ HB_FUNC( TTM_UPDATETIPTEXT ) //old HB_FUNC( UPDATETOOLTIPTEXT )
 #else
          LPWSTR lpszText = AnsiToWide( ( char * ) hb_parc( 3 ) );
 #endif
-         TOOLINFO ti = { 0 };
+         TOOLINFO ti; // = { 0 };
 
          ti.cbSize   = sizeof( ti );
          ti.hinst    = ( HINSTANCE ) 0;

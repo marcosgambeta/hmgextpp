@@ -78,7 +78,7 @@ static DWORD charset = DEFAULT_CHARSET;
 #endif
 HINSTANCE GetInstance( void );
 
-extern HBITMAP HMG_LoadImage( char * FileName );
+extern HBITMAP HMG_LoadImage( const char * FileName, const char * s );
 
 HB_FUNC( _HMG_SETCHARSET )
 {
@@ -640,7 +640,7 @@ HB_FUNC( APRINTERS )
       for( i = 0; i < dwPrinters; i++, pInfo4++ )
       {
          cBuffer = GlobalAlloc( GPTR, 256 );
-         lstrcat( cBuffer, pInfo4->pPrinterName );
+         lstrcat( reinterpret_cast<LPSTR>(cBuffer), pInfo4->pPrinterName );
 #ifndef UNICODE
          HB_STORC( ( const char * ) cBuffer, -1, i + 1 );
 #else
@@ -654,7 +654,7 @@ HB_FUNC( APRINTERS )
       for( i = 0; i < dwPrinters; i++, pInfo++ )
       {
          cBuffer = GlobalAlloc( GPTR, 256 );
-         lstrcat( cBuffer, pInfo->pPrinterName );
+         lstrcat( reinterpret_cast<LPSTR>(cBuffer), pInfo->pPrinterName );
 #ifndef UNICODE
          HB_STORC( ( const char * ) cBuffer, -1, i + 1 );
 #else
@@ -1765,7 +1765,7 @@ HB_FUNC( _HMG_PRINTER_C_IMAGE )
       if( hBitmap == NULL )
       {
          bBmpImage = FALSE;
-         hBitmap   = HMG_LoadImage( ( char * ) hb_parc( 2 ) );
+         hBitmap   = HMG_LoadImage( ( char * ) hb_parc( 2 ), NULL );
       }
       if( hBitmap == NULL )
          return;

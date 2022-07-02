@@ -336,7 +336,7 @@ HB_FUNC( C_SETPICTURE )
       if( hBitmap != NULL )
       {
          HBITMAP hOldBitmap = ( HBITMAP ) SendMessage( hWnd, STM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) hBitmap );
-         RegisterResource( hBitmap, "BMP" );
+         RegisterResource( hBitmap, const_cast<LPSTR>("BMP") );
 
          if( hOldBitmap != NULL )
             DeleteObject( hOldBitmap );
@@ -368,7 +368,7 @@ HB_FUNC( LOADIMAGE )
                 );
 
       if( hBitmap != NULL )
-         RegisterResource( hBitmap, "BMP" );
+         RegisterResource( hBitmap, const_cast<LPSTR>("BMP") );
    }
 
    HB_RETNL( ( LONG_PTR ) hBitmap );
@@ -381,7 +381,7 @@ HB_FUNC( C_GETRESPICTURE )
    hBitmap = HMG_LoadImage( hb_parc( 1 ), hb_parc( 2 ) );
 
    if( hBitmap != NULL )
-      RegisterResource( hBitmap, "BMP" );
+      RegisterResource( hBitmap, const_cast<LPSTR>("BMP") );
 
    HB_RETNL( ( LONG_PTR ) hBitmap );
 }
@@ -576,7 +576,7 @@ HB_EXPORT HBITMAP HMG_OleLoadPicturePath( const char * pszURLorPath )
    {
       LPOLESTR lpURLorPath = ( LPOLESTR ) ( LPCTSTR ) hb_mbtowc( pszURLorPath );
 
-      hres = OleLoadPicturePath( lpURLorPath, NULL, 0, 0, &IID_IPicture, ( LPVOID * ) &iPicture );
+      hres = OleLoadPicturePath( lpURLorPath, NULL, 0, 0, IID_IPicture, ( LPVOID * ) &iPicture );
       hb_xfree( lpURLorPath );
    }
 
@@ -662,7 +662,7 @@ HB_FUNC( GPLUSGETENCODERSMIMETYPE )
       return;
    }
 
-   RecvMimeType = LocalAlloc( LPTR, size );
+   RecvMimeType = reinterpret_cast<char*>(LocalAlloc( LPTR, size ));
 
    if( RecvMimeType == NULL )
    {
@@ -711,7 +711,7 @@ static BOOL GetEnCodecClsid( const char * MimeType, CLSID * Clsid )
    if( fn_GdipGetImageEncodersSize( &num, &size ) )
       return FALSE;
 
-   if( ( pImageCodecInfo = hb_xalloc( size ) ) == NULL )
+   if( ( pImageCodecInfo = reinterpret_cast<ImageCodecInfo*>(hb_xalloc( size )) ) == NULL )
       return FALSE;
 
    hb_xmemset( pImageCodecInfo, 0, sizeof( ImageCodecInfo ) );
@@ -723,7 +723,7 @@ static BOOL GetEnCodecClsid( const char * MimeType, CLSID * Clsid )
       return FALSE;
    }
 
-   if( ( RecvMimeType = LocalAlloc( LPTR, size ) ) == NULL )
+   if( ( RecvMimeType = reinterpret_cast<char*>(LocalAlloc( LPTR, size )) ) == NULL )
    {
       hb_xfree( pImageCodecInfo );
 
@@ -772,7 +772,7 @@ BOOL SaveHBitmapToFile( void * HBitmap, const char * FileName, unsigned int Widt
          return FALSE;
       }
 
-      MimeTypeOld = LocalAlloc( LPTR, strlen( MimeType ) + 1 );
+      MimeTypeOld = reinterpret_cast<char*>(LocalAlloc( LPTR, strlen( MimeType ) + 1 ));
 
       if( MimeTypeOld == NULL )
       {
@@ -794,7 +794,7 @@ BOOL SaveHBitmapToFile( void * HBitmap, const char * FileName, unsigned int Widt
             return FALSE;
          }
 
-         MimeTypeOld = LocalAlloc( LPTR, strlen( MimeType ) + 1 );
+         MimeTypeOld = reinterpret_cast<char*>(LocalAlloc( LPTR, strlen( MimeType ) + 1 ));
 
          if( MimeTypeOld == NULL )
          {
@@ -824,13 +824,13 @@ BOOL SaveHBitmapToFile( void * HBitmap, const char * FileName, unsigned int Widt
 
    GBitmap = 0;
 
-   if( fn_GdipCreateBitmapFromHBITMAP( HBitmap, NULL, &GBitmap ) )
+   if( fn_GdipCreateBitmapFromHBITMAP( reinterpret_cast<HBITMAP>(HBitmap), NULL, &GBitmap ) )
    {
       HB_GPLUS_MSG_ERROR( "CreateBitmap Operation Error" );
       return FALSE;
    }
 
-   WFileName = LocalAlloc( LPTR, ( strlen( FileName ) * sizeof( WCHAR ) ) + 1 );
+   WFileName = reinterpret_cast<LPWSTR>(LocalAlloc( LPTR, ( strlen( FileName ) * sizeof( WCHAR ) ) + 1 ));
 
    if( WFileName == NULL )
    {

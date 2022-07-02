@@ -56,7 +56,7 @@
 WINCOMMCTRLAPI void WINAPI ImageList_EndDrag( void );
 #endif
 
-extern HBITMAP HMG_LoadImage( const char * FileName );
+extern HBITMAP HMG_LoadImage( const char * FileName, const char * pszTypeOfRes );
 extern HBITMAP HMG_LoadPicture( const char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage,
                                 HB_BOOL bAlphaFormat, int iAlpfaConstant );
 
@@ -81,7 +81,7 @@ HB_FUNC( INITIMAGELIST )   //InitImageList ( cx , cy, mask , nCount )
 
    himlIcons = ImageList_Create( ( INT ) hb_parni( 1 ), ( INT ) hb_parni( 2 ), Styl, ( INT ) hb_parni( 4 ), 0 );
 
-   RegisterResource( himlIcons, "IMAGELIST" );
+   RegisterResource( himlIcons, const_cast<LPSTR>("IMAGELIST") );
    HB_RETNL( ( LONG_PTR ) himlIcons );
 }
 
@@ -108,7 +108,7 @@ HB_FUNC( IL_ADD )          //IL_Add( himl , image , maskimage , ix , iy , imagec
       himage1 = ( HBITMAP ) LoadImage( NULL, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
 
    if( himage1 == NULL )
-      himage1 = ( HBITMAP ) HMG_LoadImage( hb_parc( 2 ) );
+      himage1 = ( HBITMAP ) HMG_LoadImage( hb_parc( 2 ), NULL );
 
    himage2 = 0;
    if( hb_parclen( 3 ) )
@@ -118,7 +118,7 @@ HB_FUNC( IL_ADD )          //IL_Add( himl , image , maskimage , ix , iy , imagec
          himage2 = ( HBITMAP ) LoadImage( NULL, lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
 
       if( himage2 == NULL )
-         himage2 = ( HBITMAP ) HMG_LoadImage( hb_parc( 3 ) );
+         himage2 = ( HBITMAP ) HMG_LoadImage( hb_parc( 3 ), NULL );
    }
 
 #ifdef UNICODE

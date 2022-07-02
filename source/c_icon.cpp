@@ -70,7 +70,7 @@ HB_FUNC( COPYICON )
 
    hIcon = CopyIcon( ( HICON ) ( LONG_PTR ) HB_PARNL( 1 ) );
 
-   RegisterResource( hIcon, "ICON" );
+   RegisterResource( hIcon, const_cast<LPSTR>("ICON") );
    HB_RETNL( ( LONG_PTR ) hIcon );
 }
 
@@ -90,7 +90,7 @@ HB_FUNC( DUPLICATEICON )
 
    hIcon = DuplicateIcon( ( HINSTANCE ) NULL, ( HICON ) ( LONG_PTR ) HB_PARNL( 1 ) );
 
-   RegisterResource( hIcon, "ICON" );
+   RegisterResource( hIcon, const_cast<LPSTR>("ICON") );
    HB_RETNL( ( LONG_PTR ) hIcon );
 }
 
@@ -107,7 +107,7 @@ HB_FUNC( LOADICON )
    hIcon = LoadIcon( hinstance, HB_ISCHAR( 2 ) ? pW : ( LPCWSTR ) MAKEINTRESOURCE( hb_parni( 2 ) ) );
 #endif
 
-   RegisterResource( hIcon, "ICON" );
+   RegisterResource( hIcon, const_cast<LPSTR>("ICON") );
    HB_RETNL( ( LONG_PTR ) hIcon );
 
 #ifdef UNICODE
@@ -127,7 +127,7 @@ HB_FUNC( EXTRACTICON )
    hIcon = ExtractIcon( GetInstance(), pW, ( UINT ) hb_parni( 2 ) );
 #endif
 
-   RegisterResource( hIcon, "ICON" );
+   RegisterResource( hIcon, const_cast<LPSTR>("ICON") );
    HB_RETNL( ( LONG_PTR ) hIcon );
 
 #ifdef UNICODE
@@ -187,7 +187,7 @@ HB_FUNC( LOADICONBYNAME )
          hIcon = ( HICON ) LoadImage( 0, pszResOrFile, IMAGE_ICON, cxDesired, cyDesired, LR_LOADFROMFILE | LR_DEFAULTCOLOR );
 
       if( hIcon != NULL )
-         RegisterResource( hIcon, "ICON" );
+         RegisterResource( hIcon, const_cast<LPSTR>("ICON") );
 
 #ifdef UNICODE
       hb_xfree( ( TCHAR * ) pszResOrFile );

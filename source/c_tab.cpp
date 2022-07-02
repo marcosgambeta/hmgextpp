@@ -262,7 +262,7 @@ HB_FUNC( ADDTABBITMAP )
       }
    }
 
-   RegisterResource( himl, "IMAGELIST" );
+   RegisterResource( himl, const_cast<LPSTR>("IMAGELIST") );
    HB_RETNL( ( LONG_PTR ) himl );
 }
 

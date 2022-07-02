@@ -59,13 +59,14 @@
 LPWSTR AnsiToWide( LPCSTR );
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-extern HFONT PrepareFont( TCHAR *, int, int, int, int, int, int, int );
-#ifdef __cplusplus
-}
-#endif
+// #ifdef __cplusplus
+// extern "C" {
+// #endif
+//extern HFONT PrepareFont( TCHAR *, int, int, int, int, int, int, int );
+extern HFONT PrepareFont( TCHAR *, int, int, DWORD, DWORD, DWORD, DWORD, DWORD );
+// #ifdef __cplusplus
+// }
+// #endif
 LRESULT CALLBACK  OwnMCProc( HWND hmonthcal, UINT Msg, WPARAM wParam, LPARAM lParam );
 
 HINSTANCE GetInstance( void );

@@ -104,7 +104,7 @@ HB_FUNC( INITFONT )
    hFont = PrepareFont( ( TCHAR * ) hb_parc( 1 ), hb_parni( 2 ), bold, italic, underline, strikeout, angle, charset );
 #endif
 
-   RegisterResource( hFont, "FONT" );
+   RegisterResource( hFont, const_cast<LPSTR>("FONT") );
    HB_RETNL( ( LONG_PTR ) hFont );
 }
 
@@ -135,7 +135,7 @@ HB_FUNC( _SETFONT )
 
       SendMessage( ( HWND ) hwnd, ( UINT ) WM_SETFONT, ( WPARAM ) hFont, ( LPARAM ) 1 );
 
-      RegisterResource( hFont, "FONT" );
+      RegisterResource( hFont, const_cast<LPSTR>("FONT") );
       HB_RETNL( ( LONG_PTR ) hFont );
    }
    else

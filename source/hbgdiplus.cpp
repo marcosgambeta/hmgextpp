@@ -136,7 +136,7 @@ HB_FUNC( GDIPCREATEHBITMAPFROMBITMAP )
 HB_FUNC( GDIPDISPOSEIMAGE )
 {
    if( NULL != fn_GdipDisposeImage )
-      hb_retni( fn_GdipDisposeImage( hb_parptr( 1 ) ) );
+      hb_retni( fn_GdipDisposeImage( reinterpret_cast<GpImage*>(hb_parptr( 1 )) ) );
    else
       hb_retni( NotImplemented );
 }

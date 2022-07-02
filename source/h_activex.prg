@@ -442,12 +442,12 @@ METHOD OnError( ... )
 #if defined( __XHARBOUR__ )
    p1 := p1 ; p2 := p2 ; p3 := p3 ; p4 := p4 ; p5 := p5
 #endif
-   IF cMethod[ 1 ] == "_" 
-      cMethod := Right( cMethod, 2 ) 
-   ENDIF 
-   hb_ExecFromArray( ::oOle, cMethod, hb_aParams() ) 
+   IF cMethod[ 1 ] == "_"
+      cMethod := Right( cMethod, 2 )
+   ENDIF
+   hb_ExecFromArray( ::oOle, cMethod, hb_aParams() )
 
-RETURN NIL 
+RETURN NIL
 
 #pragma BEGINDUMP
 
@@ -466,6 +466,7 @@ RETURN NIL
 #include <hbvm.h>
 #include <hbstack.h>
 #include <hbapiitm.h>
+#include <hbwinole.h>
 
 #ifdef UNICODE
    LPWSTR AnsiToWide( LPCSTR );
@@ -512,11 +513,11 @@ HB_FUNC( ATLAXGETDISP ) // hWnd -> pDisp
 
    _Ax_Init();
    AtlAxGetControl( ( HWND ) HB_PARNL( 1 ), &pUnk );
-#if defined( __cplusplus )
-   pUnk->QueryInterface( IID_IDispatch, ( void ** ) &pDisp );
-#else
-   pUnk->lpVtbl->QueryInterface( pUnk, &IID_IDispatch, ( void ** ) &pDisp );
-#endif
+//#if defined( __cplusplus )
+//   pUnk->QueryInterface( IID_IDispatch, ( void ** ) &pDisp );
+//#else
+   pUnk->lpVtbl->QueryInterface( pUnk, IID_IDispatch, ( void ** ) &pDisp );
+//#endif
    pUnk->lpVtbl->Release( pUnk );
    HB_RETNL( ( LONG_PTR ) pDisp );
 }
@@ -540,7 +541,7 @@ HB_FUNC_STATIC( CREATEWINDOWEX ) // ( hWnd, cProgId ) -> hActiveXWnd
 #endif
 
 //------------------------------------------------------------------------------
-HRESULT hb_oleVariantToItem( PHB_ITEM pItem, VARIANT * pVariant );
+//HRESULT hb_oleVariantToItem( PHB_ITEM pItem, VARIANT * pVariant );
 
 //------------------------------------------------------------------------------
 //self is a macro which defines our IEventHandler struct as so:
@@ -616,7 +617,7 @@ static HRESULT STDMETHODCALLTYPE QueryInterface( IEventHandler * self, REFIID vT
    // IDispatch GUID, then we'll return the IExample3, since it can masquerade
    // as an IDispatch too
 
-   if( IsEqualIID( vTableGuid, &IID_IUnknown ) )
+   if( IsEqualIID( vTableGuid, IID_IUnknown ) )
    {
       *ppv = ( IUnknown * ) self;
       // Increment the count of callers who have an outstanding pointer to self object
@@ -624,14 +625,14 @@ static HRESULT STDMETHODCALLTYPE QueryInterface( IEventHandler * self, REFIID vT
       return S_OK;
    }
 
-   if( IsEqualIID( vTableGuid, &IID_IDispatch ) )
+   if( IsEqualIID( vTableGuid, IID_IDispatch ) )
    {
       *ppv = ( IDispatch * ) self;
       self->lpVtbl->AddRef( self );
       return S_OK;
    }
 
-   if( IsEqualIID( vTableGuid, &( ( ( MyRealIEventHandler * ) self )->device_event_interface_iid ) ) )
+   if( IsEqualIID( vTableGuid, ( ( ( MyRealIEventHandler * ) self )->device_event_interface_iid ) ) )
    {
       *ppv = ( IDispatch * ) self;
       self->lpVtbl->AddRef( self );
@@ -720,7 +721,7 @@ static ULONG STDMETHODCALLTYPE Invoke( IEventHandler * self, DISPID dispid, REFI
    Key = hb_itemNew( NULL );
 
    // We implement only a "default" interface
-   if( ! IsEqualIID( riid, &IID_NULL ) )
+   if( ! IsEqualIID( riid, IID_NULL ) )
       return ( ULONG ) DISP_E_UNKNOWNINTERFACE;
 
    HB_SYMBOL_UNUSED( lcid );
@@ -921,7 +922,7 @@ HB_FUNC( SETUPCONNECTIONPOINT )
    IConnectionPoint *          m_pIConnectionPoint = NULL;
    IEnumConnectionPoints *     m_pIEnumConnectionPoints;
    HRESULT hr;
-   IID     rriid = {0};
+   IID     rriid; // = {0};
    register IEventHandler * selfobj;
    DWORD dwCookie = 0;
 
@@ -951,13 +952,13 @@ HB_FUNC( SETUPCONNECTIONPOINT )
 
       // Query self object itself for its IUnknown pointer which will be used
       // later to connect to the Connection Point of the device_interface object.
-      hr = selfobj->lpVtbl->QueryInterface( selfobj, &IID_IUnknown, ( void ** ) ( void * ) &pIUnknown );
+      hr = selfobj->lpVtbl->QueryInterface( selfobj, IID_IUnknown, ( void ** ) ( void * ) &pIUnknown );
       if( hr == S_OK && pIUnknown )
       {
 
          // Query the pdevice_interface for its connection point.
          hr = pdevice_interface->lpVtbl->QueryInterface( pdevice_interface,
-                                                         &IID_IConnectionPointContainer, ( void ** ) ( void * ) &pIConnectionPointContainerTemp );
+                                                         IID_IConnectionPointContainer, ( void ** ) ( void * ) &pIConnectionPointContainerTemp );
 
          if( hr == S_OK && pIConnectionPointContainerTemp )
          {
