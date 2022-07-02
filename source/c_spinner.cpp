@@ -57,7 +57,7 @@
 #define WC_EDIT               "Edit"
 #endif
 
-#if ( defined( __BORLANDC__ ) && _WIN32_WINNT >= 0x501 ) || defined ( __XCC__ )
+#if ( defined( __BORLANDC__ ) && _WIN32_WINNT >= 0x501 )
 #define ICC_STANDARD_CLASSES  0x00004000
 #endif
 

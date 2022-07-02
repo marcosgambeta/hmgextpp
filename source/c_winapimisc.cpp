@@ -69,10 +69,6 @@
 #include "hbapifs.h"
 #include "inkey.ch"
 
-#ifdef __XCC__
-char * itoa( int __value, char * __string, int __radix );
-#endif
-
 #if defined( _MSC_VER )
 # define itoa( __value, __string, __radix )  _itoa( __value, __string, __radix )
 #endif
@@ -1967,28 +1963,3 @@ HB_FUNC( CREATELINK )
    /* call CoUninitialize() and exit the program. */
    CoUninitialize();
 }
-
-#ifdef __XCC__
-
-char * itoa( int n, char s[], int base )
-{
-   int d = n % base;
-   int r = n / base;
-
-   if( n < 0 )
-   {
-      *s++ = '-';
-      d    = -d;
-      r    = -r;
-   }
-
-   if( r )
-      s = itoa( r, s, base );
-
-   *s++ = "0123456789abcdefghijklmnopqrstuvwxyz"[ d ];
-   *s   = 0;
-
-   return s;
-}
-
-#endif /* __XCC__ */

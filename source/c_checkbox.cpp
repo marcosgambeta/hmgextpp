@@ -69,7 +69,7 @@ LPWSTR AnsiToWide( LPCSTR );
 HINSTANCE GetInstance( void );
 HINSTANCE GetResources( void );
 
-#if ( defined( __BORLANDC__ ) && __BORLANDC__ < 1410 ) || ( defined ( __MINGW32__ ) && defined ( __MINGW32_VERSION ) ) || defined ( __XCC__ )
+#if ( defined( __BORLANDC__ ) && __BORLANDC__ < 1410 ) || ( defined ( __MINGW32__ ) && defined ( __MINGW32_VERSION ) )
 typedef struct
 {
    HIMAGELIST himl;

@@ -59,16 +59,6 @@
 
 #include <commctrl.h>
 
-#if defined( __XCC__ )
-# ifndef _NO_W32_PSEUDO_MODIFIERS
-#  define IN
-#  define OUT
-#  ifndef OPTIONAL
-#   define OPTIONAL
-#  endif
-# endif
-#endif
-
 extern HB_PTRUINT wapi_GetProcAddress( HMODULE hModule, LPCSTR lpProcName );
 
 typedef HANDLE HTHEME;

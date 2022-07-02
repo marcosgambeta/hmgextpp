@@ -96,7 +96,7 @@
   #define HB_PARNL         hb_parnl
   #define HB_RETNL         hb_retnl
   #define HB_STORNL        hb_stornl
-#if !( defined( __XHARBOUR__ ) || defined( __XCC__ ) )
+#if !( defined( __XHARBOUR__ ) )
   #define HB_PARNI         hb_parvni
   #define HB_PARVNL        hb_parvnl
   #define HB_STORC         hb_storvc
@@ -112,7 +112,7 @@
   #define HB_STORVNL       hb_stornl
   #define HB_STORL         hb_storl
   #define HB_STORDL        hb_stordl
-#endif /* !( __XHARBOUR__ || __XCC__ ) */
+#endif /* !( __XHARBOUR__ ) */
 #endif /* _WIN64 */
 
 /* Harbour macro\functions mapped to xHarbour ones */

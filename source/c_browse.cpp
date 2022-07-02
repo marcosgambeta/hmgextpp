@@ -47,10 +47,6 @@
 
 #define _WIN32_IE       0x0501
 
-#ifdef __XCC__
-#define _WIN32_WINDOWS  0x0410
-#endif
-
 #include <mgdefs.h>
 #include <commctrl.h>
 

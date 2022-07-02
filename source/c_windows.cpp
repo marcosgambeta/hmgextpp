@@ -51,7 +51,7 @@
 
 #define _WIN32_IE     0x0501
 
-#if defined( __MINGW32__ ) || defined( __XCC__ )
+#if defined( __MINGW32__ )
 #define _WIN32_WINNT  0x0500
 #endif /* MINGW | XCC */
 

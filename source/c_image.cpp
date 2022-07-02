@@ -65,10 +65,6 @@
 # pragma warning(pop)
 #endif
 
-#ifdef __XCC__
-# include "ocidl.h"
-#endif
-
 #include "hbgdiplus.h"
 #include "hbapiitm.h"
 #include "hbvm.h"

@@ -50,9 +50,6 @@
 
 #include <shlobj.h>
 #include <commctrl.h>
-#ifdef __XCC__
-#include "unknwn.h"
-#endif
 
 #if defined ( __MINGW32__ ) && defined ( __MINGW32_VERSION )
 

@@ -65,10 +65,6 @@ LPSTR  WideToAnsi( LPWSTR );
 // Minigui Resources control system
 void RegisterResource( HANDLE hResource, LPSTR szType );
 
-#ifdef __XCC__
-#define HB_ISBLOCK  ISBLOCK
-#endif
-
 HFONT PrepareFont( TCHAR * FontName, int FontSize, int Weight, DWORD Italic, DWORD Underline, DWORD StrikeOut, DWORD Angle, DWORD charset )
 {
    HDC hDC = GetDC( HWND_DESKTOP );
