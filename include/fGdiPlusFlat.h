@@ -1621,83 +1621,83 @@ typedef struct
     INT                 LogicalDpiY;        //<! usually valid only for EMF+
 }  MetafileHeader;
 
-static __forceinline MetafileType GdipMetafileHeaderGetType(MetafileHeader *this)
+static __forceinline MetafileType GdipMetafileHeaderGetType(MetafileHeader *_this)
 {
-   return this->Type;
+   return _this->Type;
 }
-static __forceinline UINT GdipMetafileGetMetafileSize(MetafileHeader *this)
+static __forceinline UINT GdipMetafileGetMetafileSize(MetafileHeader *_this)
 {
-   return this->Size;
+   return _this->Size;
 }
-static __forceinline UINT GdipMetafileGetVersion(MetafileHeader *this)
+static __forceinline UINT GdipMetafileGetVersion(MetafileHeader *_this)
 {
-   return this->Version;
+   return _this->Version;
 }
-static __forceinline UINT GdipMetafileGetEmfPlusFlags(MetafileHeader *this)
+static __forceinline UINT GdipMetafileGetEmfPlusFlags(MetafileHeader *_this)
 {
-   return this->EmfPlusFlags;
+   return _this->EmfPlusFlags;
 }
-static __forceinline REAL GdipMetafileGetDpiX(MetafileHeader *this)
+static __forceinline REAL GdipMetafileGetDpiX(MetafileHeader *_this)
 {
-   return this->DpiX;
+   return _this->DpiX;
 }
-static __forceinline REAL GdipMetafileGetDpiY(MetafileHeader *this)
+static __forceinline REAL GdipMetafileGetDpiY(MetafileHeader *_this)
 {
-   return this->DpiY;
+   return _this->DpiY;
 }
-static __forceinline VOID GdipMetafileGetBounds (MetafileHeader *this, Rect *rect)
+static __forceinline VOID GdipMetafileGetBounds (MetafileHeader *_this, Rect *rect)
 {
-    rect->X = this->X;
-    rect->Y = this->Y;
-    rect->Width = this->Width;
-    rect->Height = this->Height;
+    rect->X = _this->X;
+    rect->Y = _this->Y;
+    rect->Width = _this->Width;
+    rect->Height = _this->Height;
 }
-static __forceinline BOOL GdipMetafileIsWmf(MetafileHeader *this)
+static __forceinline BOOL GdipMetafileIsWmf(MetafileHeader *_this)
 {
-   return ((this->Type == MetafileTypeWmf) || (this->Type == MetafileTypeWmfPlaceable));
+   return ((_this->Type == MetafileTypeWmf) || (_this->Type == MetafileTypeWmfPlaceable));
 }
-static __forceinline BOOL GdipMetafileIsWmfPlaceable(MetafileHeader *this)
+static __forceinline BOOL GdipMetafileIsWmfPlaceable(MetafileHeader *_this)
 {
-   return (this->Type == MetafileTypeWmfPlaceable);
+   return (_this->Type == MetafileTypeWmfPlaceable);
 }
-static __forceinline BOOL GdipMetafileIsEmf(MetafileHeader *this)
+static __forceinline BOOL GdipMetafileIsEmf(MetafileHeader *_this)
 {
-   return (this->Type == MetafileTypeEmf);
+   return (_this->Type == MetafileTypeEmf);
 }
-static __forceinline BOOL GdipMetafileIsEmfOrEmfPlus(MetafileHeader *this)
+static __forceinline BOOL GdipMetafileIsEmfOrEmfPlus(MetafileHeader *_this)
 {
-   return (this->Type >= MetafileTypeEmf);
+   return (_this->Type >= MetafileTypeEmf);
 }
-static __forceinline BOOL GdipMetafileIsEmfPlus(MetafileHeader *this)
+static __forceinline BOOL GdipMetafileIsEmfPlus(MetafileHeader *_this)
 {
-   return (this->Type >= MetafileTypeEmfPlusOnly);
+   return (_this->Type >= MetafileTypeEmfPlusOnly);
 }
-static __forceinline BOOL GdipMetafileIsEmfPlusDual(MetafileHeader *this)
+static __forceinline BOOL GdipMetafileIsEmfPlusDual(MetafileHeader *_this)
 {
-   return (this->Type == MetafileTypeEmfPlusDual);
+   return (_this->Type == MetafileTypeEmfPlusDual);
 }
-static __forceinline BOOL GdipMetafileIsEmfPlusOnly(MetafileHeader *this)
+static __forceinline BOOL GdipMetafileIsEmfPlusOnly(MetafileHeader *_this)
 {
-   return (this->Type == MetafileTypeEmfPlusOnly);
+   return (_this->Type == MetafileTypeEmfPlusOnly);
 }
-static __forceinline BOOL GdipMetafileIsDisplay(MetafileHeader *this)
+static __forceinline BOOL GdipMetafileIsDisplay(MetafileHeader *_this)
 {
-    return (GdipMetafileIsEmfPlus(this) &&
-            ((this->EmfPlusFlags & GDIP_EMFPLUSFLAGS_DISPLAY) != 0));
+    return (GdipMetafileIsEmfPlus(_this) &&
+            ((_this->EmfPlusFlags & GDIP_EMFPLUSFLAGS_DISPLAY) != 0));
 }
-static __forceinline const METAHEADER * GdipMetafileGetWmfHeader(MetafileHeader *this)
+static __forceinline const METAHEADER * GdipMetafileGetWmfHeader(MetafileHeader *_this)
 {
-    if (GdipMetafileIsWmf(this))
+    if (GdipMetafileIsWmf(_this))
     {
-        return &this->WmfHeader;
+        return &_this->WmfHeader;
     }
     return NULL;
 }
-static __forceinline const ENHMETAHEADER3 * GdipMetafileGetEmfHeader(MetafileHeader *this)
+static __forceinline const ENHMETAHEADER3 * GdipMetafileGetEmfHeader(MetafileHeader *_this)
 {
-    if (GdipMetafileIsEmfOrEmfPlus(this))
+    if (GdipMetafileIsEmfOrEmfPlus(_this))
     {
-        return &this->EmfHeader;
+        return &_this->EmfHeader;
     }
     return NULL;
 }
