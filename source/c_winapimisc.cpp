@@ -1313,7 +1313,7 @@ HB_FUNC( GETDLLVERSION )
 
       if( fnDllGetVersion )
       {
-         DLLVERSIONINFO dvi; // = { 0 };
+         DLLVERSIONINFO dvi; memset(&dvi, 0, sizeof(DLLVERSIONINFO));
 
          dvi.cbSize = sizeof( dvi );
 

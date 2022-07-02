@@ -964,7 +964,7 @@ HB_FUNC( INITMESSAGEONLYWINDOW )
 
    if( lpClassName )
    {
-      WNDCLASSEX wcx; // = { 0 };
+      WNDCLASSEX wcx; memset(&wcx, 0, sizeof(WNDCLASSEX));
 
       wcx.cbSize = sizeof( wcx );
       wcx.lpfnWndProc = MsgOnlyWndProc;
