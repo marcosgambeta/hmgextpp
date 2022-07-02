@@ -161,9 +161,7 @@ HB_FUNC( GETUPDATERECT )
          RECT rc;
 
          hb_retl( GetUpdateRect( hWnd, &rc, hb_parl( 3 ) ) ? HB_TRUE : HB_FALSE );
-#ifndef __XHARBOUR__
          hb_itemParamStoreRelease( 2, Rect2Array( &rc ) );
-#endif
       }
    }
    else

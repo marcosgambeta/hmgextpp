@@ -69,9 +69,7 @@ CLASS HBPrinter
    DATA PREVIEWRECT INIT { 0, 0, 0, 0 }
    PROTECT PRINTINGEMF INIT .F.
 
-#ifndef __XHARBOUR__
    DATA PRINTING INIT .F.
-#endif
    DATA PREVIEWSCALE INIT 1
    DATA Printers INIT {}
    DATA Ports INIT {}
@@ -258,9 +256,7 @@ RETURN Self
 
 METHOD StartDoc( ldocname ) CLASS HBPrinter
 
-#ifndef __XHARBOUR__
    ::Printing := .T.
-#endif
    IF ldocname <> NIL
       ldocname := iif( HB_ISSTRING( ldocname ), StrTran( StrTran( ldocname, "\", "_" ), "/", "_" ), "" )
       ::DOCNAME := ldocname
@@ -351,9 +347,7 @@ METHOD EndDoc() CLASS HBPrinter
       rr_enddoc()
    ENDIF
 
-#ifndef __XHARBOUR__
    ::Printing := .F.
-#endif
 
 RETURN self
 

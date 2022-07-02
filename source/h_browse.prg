@@ -53,9 +53,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 #include "dbstruct.ch"
 #include "dbinfo.ch"
 
-#ifndef __XHARBOUR__
-   SET PROCEDURE TO netfuncs.prg
-#endif
+SET PROCEDURE TO netfuncs.prg
 
 #if defined( __XHARBOUR__ ) .OR. ( __HARBOUR__ - 0 < 0x030200 )
   #xtranslate hb_UAt( <c>, <n> ) => At( <c>, <n> )
@@ -478,11 +476,7 @@ STATIC PROCEDURE HMG_OrdCreate( i )
       ELSE
          cField := FieldName( FieldPos( aFields [nColumn] ) )
          cOrdKey := Alias() + '->' + cField
-#ifndef __XHARBOUR__
          ordCreate( , cField, cOrdKey, hb_macroBlock( cOrdKey ), .F. /*lUnique*/ )
-#else
-         ordCreate( , cField, cOrdKey, &( '{|| ' + cOrdKey + '}' ), .F. /*lUnique*/ )
-#endif
       ENDIF
 
    NEXT
@@ -1172,11 +1166,7 @@ PROCEDURE _BrowseRefresh ( ControlName , ParentForm , z )
 
    IF s == 1 .OR. s == 0
 
-#ifndef __XHARBOUR__
       IF ( ! Empty( dbFilter() ) .AND. ! Eval( hb_macroBlock( dbFilter() ) ) )
-#else
-      IF ( ! Empty( dbFilter() ) .AND. ! &( dbFilter() ) )
-#endif
          SKIP
       ENDIF
 
@@ -1273,11 +1263,7 @@ PROCEDURE _BrowseSetValue ( ControlName , ParentForm , Value , z , mp )
 
    GO Value
 
-#ifndef __XHARBOUR__
    IF ( ! Empty( dbFilter() ) .AND. ! Eval( hb_macroBlock( dbFilter() ) ) )
-#else
-   IF ( ! Empty( dbFilter() ) .AND. ! &( dbFilter() ) )
-#endif
       GO _RecNo
       RestoreWorkArea( _Alias )
 

@@ -39,11 +39,7 @@ RETURN _HMG_NAMESLIST
 #endif
 
 *-----------------------------------------------------------------------------*
-#ifndef __XHARBOUR__
 FUNCTION _SetGetGlobal( cVarName, xNewValue, ... )
-#else
-FUNCTION _SetGetGlobal( ... )
-#endif
 *-----------------------------------------------------------------------------*
    LOCAL xOldValue
 
@@ -165,11 +161,9 @@ STATIC FUNCTION Scan( u, cData )
 
 RETURN NIL
 
-#ifndef __XHARBOUR__
 #translate HB_DBG_VMVARSLEN   =>  __dbgVMVarSLen
 #translate HB_DBG_VMVARSLIST  =>  __dbgVMVarSList
 #translate HB_DBG_VMVARSGET   =>  __dbgVMVarSGet
-#endif
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION nStatics()
 *-----------------------------------------------------------------------------*

@@ -940,12 +940,8 @@ HB_FUNC( INITMESSAGEONLYWINDOW )
 {
    HWND hwnd = NULL;
 
-#ifndef __XHARBOUR__
    void *  hClassName;
    LPCTSTR lpClassName = HB_PARSTR( 1, &hClassName, NULL );
-#else
-   const char * lpClassName = hb_parc( 1 );
-#endif
 
    if( lpClassName )
    {
@@ -978,9 +974,7 @@ HB_FUNC( INITMESSAGEONLYWINDOW )
          hmg_ErrorExit( TEXT( "Window Registration Failed!" ), 0, TRUE );
    }
 
-#ifndef __XHARBOUR__
    hb_strfree( hClassName );
-#endif
    HB_RETNL( ( LONG_PTR ) hwnd );
 }
 
@@ -1012,23 +1006,19 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
       r = AppEventOn( hWnd, message, wParam, lParam );
    else if( g_ListenerSymb )
    {
-#ifndef __XHARBOUR__
       if( hb_vmRequestReenter() )
       {
-#endif
-      hb_vmPushSymbol( g_ListenerSymb );
-      hb_vmPushNil();
-      hb_vmPushNumInt( ( LONG_PTR ) hWnd );
-      hb_vmPushLong( message );
-      hb_vmPushNumInt( wParam );
-      hb_vmPushNumInt( lParam );
-      hb_vmDo( 4 );
+         hb_vmPushSymbol( g_ListenerSymb );
+         hb_vmPushNil();
+         hb_vmPushNumInt( ( LONG_PTR ) hWnd );
+         hb_vmPushLong( message );
+         hb_vmPushNumInt( wParam );
+         hb_vmPushNumInt( lParam );
+         hb_vmDo( 4 );
 
-      r = ( LRESULT ) hb_parnl( -1 );
-#ifndef __XHARBOUR__
-      hb_vmRequestRestore();
-   }
-#endif
+         r = ( LRESULT ) hb_parnl( -1 );
+         hb_vmRequestRestore();
+      }
    }
 
    return ( r != 0 ) ? r : DefWindowProc( hWnd, message, wParam, lParam );
@@ -1286,12 +1276,8 @@ HB_FUNC( REGISTERWINDOW )
    LPWSTR lpIconName = HB_ISCHAR( 1 ) ? AnsiToWide( ( char * ) hb_parc( 1 ) ) : ( HB_ISNUM( 1 ) ? ( LPWSTR ) MAKEINTRESOURCE( ( WORD ) hb_parnl( 1 ) ) : NULL );
 #endif
 
-#ifndef __XHARBOUR__
    void *  hClassName;
    LPCTSTR lpClassName = HB_PARSTR( 2, &hClassName, NULL );
-#else
-   const char * lpClassName = hb_parc( 2 );
-#endif
 #ifndef UNICODE
    LPCSTR lpCursorName = HB_ISCHAR( 4 ) ? hb_parc( 4 ) : ( HB_ISNUM( 4 ) ? MAKEINTRESOURCE( ( WORD ) hb_parnl( 4 ) ) : NULL );
 #else
@@ -1356,9 +1342,7 @@ HB_FUNC( REGISTERWINDOW )
    if( ! RegisterClass( &WndClass ) )
       hmg_ErrorExit( TEXT( "Window Registration Failed!" ), 0, TRUE );
 
-#ifndef __XHARBOUR__
    hb_strfree( hClassName );
-#endif
 #ifdef UNICODE
    if( HB_ISCHAR( 1 ) )
       hb_xfree( ( TCHAR * ) lpIconName );
@@ -1380,12 +1364,8 @@ HB_FUNC( REGISTERSPLITCHILDWINDOW )
    LPWSTR lpIcon = HB_ISCHAR( 1 ) ? AnsiToWide( ( char * ) hb_parc( 1 ) ) : ( HB_ISNIL( 1 ) ? NULL : ( LPWSTR ) MAKEINTRESOURCE( ( WORD ) hb_parnl( 1 ) ) );
 #endif
 
-#ifndef __XHARBOUR__
    void *  hClassName;
    LPCTSTR lpClassName = HB_PARSTR( 2, &hClassName, NULL );
-#else
-   const char * lpClassName = hb_parc( 2 );
-#endif
 
    WndClass.style = CS_OWNDC;
    WndClass.lpfnWndProc = WndProc;
@@ -1415,9 +1395,7 @@ HB_FUNC( REGISTERSPLITCHILDWINDOW )
    if( ! RegisterClass( &WndClass ) )
       hmg_ErrorExit( TEXT( "Window Registration Failed!" ), 0, TRUE );
 
-#ifndef __XHARBOUR__
    hb_strfree( hClassName );
-#endif
 #ifdef UNICODE
    hb_xfree( ( TCHAR * ) lpIcon );
 #endif
@@ -1427,17 +1405,11 @@ HB_FUNC( REGISTERSPLITCHILDWINDOW )
 /* Modified by P.Ch. 17.06. */
 HB_FUNC( UNREGISTERWINDOW )
 {
-#ifndef __XHARBOUR__
    void *  hClassName;
    LPCTSTR lpClassName = HB_PARSTR( 1, &hClassName, NULL );
-#else
-   const char * lpClassName = hb_parc( 1 );
-#endif
 
    UnregisterClass( lpClassName, GetInstance() );
-#ifndef __XHARBOUR__
    hb_strfree( hClassName );
-#endif
 }
 
 HB_FUNC( MSC_VER )

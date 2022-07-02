@@ -83,12 +83,7 @@ typedef struct _tagEDITBALLOONTIP
 #define Edit_HideBalloonTip( hwnd )                   ( BOOL ) SNDMSG( ( hwnd ), EM_HIDEBALLOONTIP, 0, 0 )
 #endif
 
-#ifndef __XHARBOUR__
-# define HB_cdpGetU16( cdp, fCtrl, ch )               hb_cdpGetU16( cdp, ch )
-#else
-# define HB_cdpGetU16( cdp, fCtrl, ch )               hb_cdpGetU16( cdp, fCtrl, ch )
-# define hb_vmCDP()                                   hb_cdppage()
-#endif
+#define HB_cdpGetU16( cdp, fCtrl, ch )               hb_cdpGetU16( cdp, ch )
 
 extern BOOL _isValidCtrlClass( HWND, LPCTSTR );
 

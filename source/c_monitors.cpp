@@ -54,11 +54,9 @@
 #include "hbapiitm.h"
 
 extern HB_EXPORT BOOL Array2Point( PHB_ITEM aPoint, POINT * pt );
-#ifndef __XHARBOUR__
 HB_EXPORT PHB_ITEM Rect2Hash( RECT * rc );
 BOOL CALLBACK _MonitorEnumProc0( HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData );
 //BOOL CALLBACK _MonitorEnumProc1( HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData );
-#endif
 static void ClipOrCenterRectToMonitor( LPRECT prc, HMONITOR hMonitor, UINT flags );
 
 HB_FUNC( COUNTMONITORS )
@@ -71,7 +69,6 @@ HB_FUNC( ISSAMEDISPLAYFORMAT )
    hb_retl( GetSystemMetrics( SM_SAMEDISPLAYFORMAT ) ? HB_TRUE : HB_FALSE );
 }
 
-#ifndef __XHARBOUR__
 /*
    The  EnumDisplayMonitors  function  enumerates  display monitors
         (including invisible pseudo-monitors associated with the mirroring drivers)
@@ -129,7 +126,6 @@ HB_FUNC( GETMONITORINFO )
    else
       hb_ret();
 }
-#endif
 
 // HMONITOR MonitorFromPoint( POINT pt, DWORD dwFlags )
 HB_FUNC( MONITORFROMPOINT )
@@ -235,7 +231,6 @@ static void ClipOrCenterRectToMonitor( LPRECT prc, HMONITOR hMonitor, UINT flags
    }
 }
 
-#ifndef __XHARBOUR__
 HB_EXPORT PHB_ITEM Rect2Hash( RECT * rc )
 {
    PHB_ITEM phRect = hb_hashNew( NULL );
@@ -261,4 +256,3 @@ HB_EXPORT PHB_ITEM Rect2Hash( RECT * rc )
 
    return phRect;
 }
-#endif

@@ -234,16 +234,10 @@ HB_FUNC( LOADACCELERATORS )
    }
    else if( hb_parclen( 2 ) > 0 )
    {
-#ifndef __XHARBOUR__
       void * hTableName;
       lpTableName = HB_PARSTR( 2, &hTableName, NULL );
-#else
-      LPCTSTR lpTableName = ( LPCTSTR ) hb_parc( 2 );
-#endif
       hAccel = LoadAccelerators( hInstance, lpTableName );
-#ifndef __XHARBOUR__
       hb_strfree( hTableName );
-#endif
    }
 
    HB_RETNL( ( LONG_PTR ) hAccel );
@@ -264,16 +258,10 @@ HB_FUNC( LOADMENU )
    }
    else if( HB_ISCHAR( 2 ) )
    {
-#ifndef __XHARBOUR__
       void * hMenuName;
       lpMenuName = HB_PARSTR( 2, &hMenuName, NULL );
-#else
-      LPCTSTR lpMenuName = ( LPCTSTR ) hb_parc( 2 );
-#endif
       hMenu = LoadMenu( hInstance, lpMenuName );
-#ifndef __XHARBOUR__
       hb_strfree( hMenuName );
-#endif
    }
 
    HB_RETNL( ( LONG_PTR ) hMenu );

@@ -276,12 +276,7 @@ SetProperty ( <"Arg1"> , <"Arg2"> , <"Arg3"> , \{<Arg4>\} )
 => ;
 _HMG_lMultiple := ( Upper(<(x)>) == "ON" ) ; iif ( _HMG_lMultiple == .F. .AND. _HMG_IsMultiple == .T. , ( iif ( <.warning.> , MsgStop( _HMG_MESSAGE\[4\] ) , ) , ExitProcess() ) , )
 
-#ifndef __XHARBOUR__
-  #translate CRLF => hb_eol()
-#else
-  #translate CRLF => hb_OsNewLine()
-  #xtranslate hb_ps() => hb_OsPathSeparator()
-#endif
+#translate CRLF => hb_eol()
 
 #translate SET OOP [SUPPORT] <x:ON,OFF> => _HMG_lOOPEnabled := ( Upper(<(x)>) == "ON" )
 #translate SET OOP [SUPPORT] TO <x>     => _HMG_lOOPEnabled := IFLOGICAL( <x>, <x>, .F. )

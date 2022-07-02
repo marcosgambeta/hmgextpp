@@ -480,11 +480,7 @@ RETURN aOldClrs
 #ifdef _HMG_COMPAT_
 
 *-----------------------------------------------------------------------------*
-#ifndef __XHARBOUR__
 PROCEDURE HMG_CheckType( lSoft, ... )
-#else
-PROCEDURE HMG_CheckType( ... )
-#endif
 *-----------------------------------------------------------------------------*
    LOCAL i, j
    // aData := { cTypeDef, cValType, cVarName }

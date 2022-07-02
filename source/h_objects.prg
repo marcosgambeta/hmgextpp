@@ -129,7 +129,6 @@ RETURN uRet
 
 #ifdef _OBJECT_
 
-#ifndef __XHARBOUR__
 ///////////////////////////////////////////////////////////////////////////////
 CLASS TIniData INHERIT THmgData
 ///////////////////////////////////////////////////////////////////////////////
@@ -405,8 +404,6 @@ METHOD Write( cFile, lUtf8 ) CLASS TIniData
    ENDIF
 
 RETURN lRet
-
-#endif
 
 *-----------------------------------------------------------------------------*
 FUNCTION oDlu4Font( nFontSize, lDlu2Pix )
@@ -1040,9 +1037,7 @@ CLASS TWndData
       ::nIndex := ::nParent := ::cType := ::cName := ::cVar := ::cChr := NIL, ;
       hmg_DelWindowObject( ::nHandle ), ::nHandle := Nil )
 
-#ifndef __XHARBOUR__
    DESTRUCTOR DestroyObject()
-#endif
 
    ERROR HANDLER ControlAssign
 
@@ -1154,13 +1149,11 @@ METHOD DoEvent ( Key, nHandle ) CLASS TWndData
 
 RETURN Do_ControlEventProcedure( ::oEvent:Get( Key ), i, o, Key, p )
 
-#ifndef __XHARBOUR__
 METHOD PROCEDURE DestroyObject() CLASS TWndData
 
    ::Destroy()
 
 RETURN
-#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 CLASS TCnlData INHERIT TWndData
@@ -1259,9 +1252,7 @@ CLASS TCnlData INHERIT TWndData
       ::nParent := ::nIndex := ::cName := ::cType := ::cVar := ::cChr := NIL, ;
       hmg_DelWindowObject( ::nHandle ), ::nHandle := Nil )
 
-#ifndef __XHARBOUR__
    DESTRUCTOR DestroyObject()
-#endif
 
 ENDCLASS
 ///////////////////////////////////////////////////////////////////////////////
@@ -1272,13 +1263,11 @@ METHOD DoEvent ( Key, nHandle ) CLASS TCnlData
 
 RETURN Do_ControlEventProcedure( ::oEvent:Get( Key ), o:Index, o, Key, ::oParam:Get( Key ) )
 
-#ifndef __XHARBOUR__
 METHOD PROCEDURE DestroyObject() CLASS TCnlData
 
    ::Destroy()
 
 RETURN
-#endif
 ///////////////////////////////////////////////////////////////////////////////
 CLASS TGetData INHERIT TCnlData
 ///////////////////////////////////////////////////////////////////////////////
@@ -1460,9 +1449,7 @@ CLASS TKeyData
    METHOD Values()       INLINE hb_HValues( ::aKey )
    METHOD CloneHash()    INLINE hb_HClone( ::aKey )
    METHOD Clone()        INLINE __objClone( Self )
-#ifndef __XHARBOUR__
    METHOD Sort()         INLINE ::aKey := hb_HSort( ::aKey )
-#endif
    METHOD Fill( xVal )   INLINE hb_HFill( ::aKey, xVal )
 
    _METHOD GetAll( lAll )

@@ -360,15 +360,7 @@ HB_FUNC( DTP_SETDATETIME )
    {
       int iYear, iMonth, iDay, iHour, iMinute, iSecond, iMSec;
 
-#ifndef __XHARBOUR__
       hb_timeStampUnpack( hb_partd( 2 ), &iYear, &iMonth, &iDay, &iHour, &iMinute, &iSecond, &iMSec );
-#else
-      if( hb_partdt( &lJulian, &lMilliSec, 2 ) )
-      {
-         hb_dateDecode( lJulian, &iYear, &iMonth, &iDay );
-         hb_timeStampDecode( lMilliSec, &iHour, &iMinute, &iSecond, &iMSec );
-      }
-#endif
 
       sysTime.wYear      = ( WORD ) iYear;
       sysTime.wMonth     = ( WORD ) iMonth;

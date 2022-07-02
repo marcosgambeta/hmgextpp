@@ -9961,13 +9961,8 @@ METHOD InsColNumber( nWidth, nColumn, cName ) CLASS TSBrowse
       oCol:cAlias := ::cAlias
       oCol:cFooting := {| nc, ob | nc := ob:nLen, iif( Empty( nc ), '', hb_ntos( nc ) ) }
 
-#ifndef __XHARBOUR__
       oCol:cData := 'hb_macroblock("' + oCol:cField + '")'
       oCol:bData := hb_macroBlock( oCol:cField )
-#else
-      oCol:cData := '{|| ' + oCol:cField + '}'
-      oCol:bData := &( '{|| ' + oCol:cField + '}' )
-#endif
    ELSEIF ::lIsArr
 
       DEFINE COLUMN oCol DATA {|| NIL } ;

@@ -74,14 +74,12 @@ EXIT PROCEDURE ClipExit()
 
 RETURN
 
-#ifndef __XHARBOUR__
 PROCEDURE hb_GTSYS
 
    REQUEST HB_GT_GUI_DEFAULT
 
 RETURN
 
-#endif
 *-----------------------------------------------------------------------------*
 *-Date Created: 01-01-2003
 *-Author: Antonio Novo <antonionovo@gmail.com>
@@ -113,11 +111,7 @@ RETURN oError
 *-----------------------------------------------------------------------------*
 FUNCTION MiniGuiVersion( nVer )
 *-----------------------------------------------------------------------------*
-#ifndef __XHARBOUR__
    LOCAL cVer := MG_VERSION + hb_ntos( hb_Version( HB_VERSION_BITWIDTH ) ) + "-bit)"
-#else
-   LOCAL cVer := MG_VERSION + iif( IsExe64(), "64", "32" ) + "-bit)"
-#endif
    LOCAL anOfs
 
    cVer += " " + HMG_CharsetName()

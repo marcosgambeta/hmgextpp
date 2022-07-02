@@ -789,8 +789,7 @@ GetFontParam( <hFont> )\[ 10 ]
 => ;
 cFilePath( <cFile> ) + "\" + cFileNoExt( <cFile> ) + <cExt>
 
-#ifndef __XHARBOUR__
-#  include "hbver.ch"
+#include "hbver.ch"
 //#define __WIN98__
 
 #ifndef __WIN98__
@@ -805,10 +804,10 @@ cFilePath( <cFile> ) + "\" + cFileNoExt( <cFile> ) + <cExt>
 //#undef __WIN98__
 
 /* SWITCH ... ; CASE ... ; DEFAULT ; ... ; END */
-#  xcommand DEFAULT                       => OTHERWISE
+#xcommand DEFAULT                       => OTHERWISE
 
 /* FOR EACH hb_enumIndex() */
-#  xtranslate hb_enumIndex( <!v!> )       => <v>:__enumIndex()
+#xtranslate hb_enumIndex( <!v!> )       => <v>:__enumIndex()
 
 /* TRY / CATCH / FINALLY / END */
 #xcommand TRY                             => BEGIN SEQUENCE WITH __BreakBlock()
@@ -855,41 +854,20 @@ cFilePath( <cFile> ) + "\" + cFileNoExt( <cFile> ) + <cExt>
 #  xtranslate hb_osIsWin10()              => os_IsWin10()
 #endif
 
-#  xtranslate IsExe64()                   => ( hb_Version( HB_VERSION_BITWIDTH ) == 64 )
-#  xtranslate IsDirectory( <c> )          => hb_DirExists( <c> )
-#  xtranslate GetComputerName()           => NetName()
-#  xtranslate GetUserName()               => hb_UserName()
-#  xtranslate GetExeFilename()            => hb_ProgName()
-#  xuntranslate AIns(                     =>
-#  xuntranslate ADel(                     =>
-#  xtranslate AIns( <a>, <n>, [<x,...>] ) => hb_AIns( <a>, <n>, <x> )
-#  xtranslate ADel( <a>, <n>, <l> )       => hb_ADel( <a>, <n>, <l> )
-#  xuntranslate AScan(                    =>
-#  xuntranslate At(                       =>
-#  xtranslate AScan(<a>,<b>,[<c>],[<d>],<e>) ;
+#xtranslate IsExe64()                   => ( hb_Version( HB_VERSION_BITWIDTH ) == 64 )
+#xtranslate IsDirectory( <c> )          => hb_DirExists( <c> )
+#xtranslate GetComputerName()           => NetName()
+#xtranslate GetUserName()               => hb_UserName()
+#xtranslate GetExeFilename()            => hb_ProgName()
+#xuntranslate AIns(                     =>
+#xuntranslate ADel(                     =>
+#xtranslate AIns( <a>, <n>, [<x,...>] ) => hb_AIns( <a>, <n>, <x> )
+#xtranslate ADel( <a>, <n>, <l> )       => hb_ADel( <a>, <n>, <l> )
+#xuntranslate AScan(                    =>
+#xuntranslate At(                       =>
+#xtranslate AScan(<a>,<b>,[<c>],[<d>],<e>) ;
                                           => hb_AScan( <a>, <b>, <c>, <d>, <e> )
-#  xtranslate At( <a>, <b>, [<x,...>] )   => hb_At( <a>, <b>, <x> )
-#else
-#  xtranslate GetComputerName()           => NetName()
-#  xtranslate GetUserName()               => NetName( 1 )
-#  xtranslate GetExeFilename()            => ExeName()
-#  xtranslate hb_ADel( [<x,...>] )        => ADel( <x> ) 
-#  xtranslate hb_default( @<v>, <x> )     => iif( StrTran( ValType( <v> ), "M", "C" ) == StrTran( ValType( <x> ), "M", "C" ), Nil, <v> := <x> )
-#  xtranslate hb_defaultValue( <v>, <x> ) => iif( StrTran( ValType( <v> ), "M", "C" ) == StrTran( ValType( <x> ), "M", "C" ), <v>, <x> )
-#  xtranslate __defaultNIL( @<v>, <x> )   => ( <v> := iif( <v> == NIL, <x>, <v> ) )
-#  xtranslate __MvGetDef( <x> , <v> )     => iif( __MvExist ( <x> ), __MvGet( <x> ), iif( ValType( <v> ) <> "U", <v>, NIL ) )
-#  xtranslate __MvGetDef( <x> )           => iif( __MvExist ( <x> ), __MvGet( <x> ), NIL )
-#  xtranslate hb_cdpCharMax()             => 255
-#  xtranslate hb_DirBase()                => Left( ExeName(), RAt( '\', ExeName() ) )
-#  xtranslate hb_osIsWin10()              => '10' $ WinVersion() \[ 1 ]
-
-#define BLANK_DATE            CToD( "" )
-
-#xtranslate HMG_SysWait( [ <nSeconds> ] ) => hb_idleSleep( [ iif( ValType( <nSeconds> ) == "N", <nSeconds>, 0.105 ) ] )
-
-#translate oHmgData( [ <lUpper> ] )       => THmgData():New( [ iif( ValType( <lUpper> ) == "L", <lUpper>, .T. ) ] )
-
-#endif /* __XHARBOUR__ */
+#xtranslate At( <a>, <b>, [<x,...>] )   => hb_At( <a>, <b>, <x> )
 
 // ============================================================================
 // Strongly Typed Variables			  (c) 1996-1997, Bryan Duchesne

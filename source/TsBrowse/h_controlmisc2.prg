@@ -379,7 +379,6 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
           { CLR_SELEF , GetSysColor( COLOR_WINDOWTEXT ) }, ;
           { CLR_SELEB , {|c,n,b| c := n, iif( b:nCell == n, -CLR_BLUE, -RGB( 128, 225, 225 ) ) } } }
 
-#ifndef __XHARBOUR__
    DEFAULT oParam:bSpecHdEnum := {|ob, op, cChar|  // нумерация SpecHd колонок, можно исп. в своем коде вызов
                       LOCAL oCol, cCnt, nCnt := 0  // renumbering SpecHeader
                       IF ob:lDrawSpecHd
@@ -428,56 +427,6 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
                       ob:SetFocus()
                       RETURN Nil
                     }
-#else
-   DEFAULT oParam:bSpecHdEnum := <|ob, op, cChar|  // нумерация SpecHd колонок, можно исп. в своем коде вызов
-                      LOCAL oCol, cCnt, nCnt := 0  // renumbering SpecHeader
-                      IF ob:lDrawSpecHd
-                         DEFAULT cChar := op:cSpecHdChar
-                         DEFAULT cChar := "."
-                         FOR EACH oCol IN ob:aColumns
-                             IF oCol:cName == "SELECTOR" ; LOOP
-                             ENDIF
-                             cCnt := cChar
-                             IF oCol:cName != "ORDKEYNO" .AND. oCol:lVisible
-                                cCnt := hb_ntos( ++nCnt )
-                             ENDIF
-                             oCol:cSpcHeading := cCnt
-                         NEXT
-                      ENDIF
-                      RETURN Nil
-                    >
-
-   DEFAULT oParam:bAdjColumns := <|ob|               // "растягивание" колонок в пределах окна тсб
-                      LOCAL aCol, nI, nK
-                      // у SELECTOR and ORDKEYNO не меняем width
-                      nK := Max( ob:nColumn( "SELECTOR", .T. ), ob:nColumn( "ORDKEYNO", .T. ) )
-                      IF nK > 0
-                         aCol := {}
-                         FOR nI := nK TO Len( ob:aColumns )
-                             IF ob:aColumns[ nI ]:lVisible
-                                AAdd( aCol, nI )
-                             ENDIF
-                         NEXT
-                      ENDIF
-                      ob:AdjColumns( aCol )
-                      RETURN Nil
-                    >
-
-   DEFAULT bEnd  := <|ob, op|
-                      // нет горизонтального HScroll и есть SELECTOR
-                      IF op:uSelector != NIL .AND. op:lAdjust == NIL .AND. ob:lNoHScroll
-                         IF HB_ISBLOCK( op:bAdjColumns )
-                            EVal( op:bAdjColumns, ob, op )  // :AdjColumns(...)
-                         ENDIF
-                      ENDIF
-                      IF ob:nLen > ob:nRowCount()           // нужен VScroll
-                         ob:ResetVScroll( .T. )
-                      ENDIF
-                      ob:SetNoHoles()
-                      ob:SetFocus()
-                      RETURN Nil
-                    >
-#endif
 
    DEFINE TBROWSE &cBrw OBJ oBrw AT nY,nX WIDTH nW HEIGHT nH CELL ;
       HEADERS      aHead                                          ;

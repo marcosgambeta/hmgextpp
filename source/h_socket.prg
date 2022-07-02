@@ -45,9 +45,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 ---------------------------------------------------------------------------*/
 
-#ifndef __XHARBOUR__
-  #xtranslate hb_OsNewLine() => hb_eol()
-#endif
+#xtranslate hb_OsNewLine() => hb_eol()
 *-----------------------------------------------------------------------------*
 FUNCTION httpconnect( Connection, Server, Port )
 *-----------------------------------------------------------------------------*

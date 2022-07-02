@@ -1540,12 +1540,7 @@ HB_FUNC( GETSHORTPATHNAME )
    if( iRet < MAX_PATH )
    {
 #ifndef UNICODE
-   #ifndef __XHARBOUR__
       hb_retni( hb_storclen( buffer, ( HB_SIZE ) iRet, 2 ) );
-   #else
-      hb_storclen( buffer, ( HB_SIZE ) iRet, 2 );
-      hb_retni( iRet );
-   #endif
 #else
       pStr = WideToAnsi( buffer );
       hb_retni( hb_storclen( pStr, ( HB_SIZE ) iRet, 2 ) );
@@ -1554,12 +1549,7 @@ HB_FUNC( GETSHORTPATHNAME )
    }
    else
    {
-   #ifndef __XHARBOUR__
       hb_retni( hb_storc( "", 2 ) );
-   #else
-      hb_storc( "", 2 );
-      hb_retni( 0 );
-   #endif
    }
 
 #ifdef UNICODE

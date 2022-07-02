@@ -324,11 +324,7 @@ FUNCTION _SetValue ( ControlName, ParentForm, Value, index )
       SetMonthCalValue ( c, Year ( value ), Month ( value ), Day ( value ) )
 
       _DoControlEventProcedure ( _HMG_aControlChangeProcedure [ix] , ix , 'CONTROL_ONCHANGE' )
-#ifndef __XHARBOUR__
       IF hb_Version( HB_VERSION_BITWIDTH ) >= 64
-#else
-      IF IsExe64()
-#endif
          SetDayState( _HMG_aControlNames [ix] , GetParentFormName( ix ) )
       ENDIF
 

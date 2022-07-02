@@ -47,9 +47,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 #include 'minigui.ch'
 
-#ifndef __XHARBOUR__
-   SET PROCEDURE TO h_cdomail.prg
-#endif
+SET PROCEDURE TO h_cdomail.prg
 
 *-----------------------------------------------------------------------------*
 FUNCTION GetData()

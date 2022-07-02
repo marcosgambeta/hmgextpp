@@ -3065,11 +3065,8 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
 
          IF _HMG_aControlType [i] == "MONTHCAL"
 
-#ifndef __XHARBOUR__
             Tmp := ( hb_Version( HB_VERSION_BITWIDTH ) >= 64 )
-#else
-            Tmp := IsExe64()
-#endif
+
             // MonthCalendar Selection Change ..............
 
             IF GetNotifyCode ( lParam ) == MCN_SELECT

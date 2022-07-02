@@ -69,10 +69,8 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 #define aOldBackClr  s_Global[5]
 #define aOldFontClr  s_Global[6]
 
-#ifndef __XHARBOUR__
-  SET PROCEDURE TO tget\tget.prg
-  SET PROCEDURE TO tget\tgetint.prg
-#endif
+SET PROCEDURE TO tget\tget.prg
+SET PROCEDURE TO tget\tgetint.prg
 #if defined( __XHARBOUR__ ) .OR. ( __HARBOUR__ - 0 < 0x030200 )
   #xtranslate hb_asciiUpper( <c> ) => Upper( <c> )
   #xtranslate hb_BChar( <c> ) => Chr( <c> )
@@ -441,9 +439,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
    LOCAL aHandle, HwndBtn
    LOCAL readonly
    LOCAL lAllowEdit
-#ifndef __XHARBOUR__
    LOCAL aKey
-#endif
    LOCAL i := AScan ( _HMG_aControlHandles, hWnd )
 
    STATIC lInValid := .F.
@@ -952,7 +948,6 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
    CASE nMsg == WM_LBUTTONDBLCLK
 
       IF wParam == MK_LBUTTON
-#ifndef __XHARBOUR__
          IF Len( oGet:aKeyEvent ) > 0
             FOR EACH aKey IN oGet:aKeyEvent
                IF Val( aKey[ 1 ] ) == nMsg
@@ -960,7 +955,6 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
                ENDIF
             NEXT
          ENDIF
-#endif
          SendMessage( _HMG_aControlhandles [i] , EM_SETSEL , 0 , -1 )
       ENDIF
 
@@ -975,7 +969,6 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
       oGet:pos := nEnd + 1
       _HMG_aControlMiscData1 [i,3] := wParam  //JP
 
-#ifndef __XHARBOUR__
       IF Len( oGet:aKeyEvent ) > 0
          FOR EACH aKey IN oGet:aKeyEvent
             IF Val( aKey[ 1 ] ) == wParam
@@ -983,7 +976,6 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
             ENDIF
          NEXT
       ENDIF
-#endif
       IF wParam == VK_ESCAPE .AND. !readonly
 
          IF oGet:Type == "N" .AND. oGet:minus == .T. .AND. hb_UAt( "-", oGet:original ) <= 0

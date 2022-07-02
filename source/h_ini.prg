@@ -72,11 +72,7 @@ FUNCTION _SetGetLogFile( cFile )
 RETURN cOld
 
 *-----------------------------------------------------------------------------*
-#ifndef __XHARBOUR__
 FUNCTION _LogFile( lCrLf, ... )
-#else
-FUNCTION _LogFile( ... )
-#endif
 *-----------------------------------------------------------------------------*
    LOCAL hFile, i, xVal, cTp
    LOCAL aParams := hb_AParams()

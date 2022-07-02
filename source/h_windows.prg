@@ -48,9 +48,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 #include "minigui.ch"
 #include "i_winuser.ch"
 
-#ifndef __XHARBOUR__
-   SET PROCEDURE TO statics.prg
-#endif
+SET PROCEDURE TO statics.prg
 
 STATIC nCtEfeito := 0, cDescEfeito := ""
 
@@ -2417,11 +2415,7 @@ FUNCTION ReleaseAllWindows ()
       CheckStatic()
    ENDIF
 
-#ifndef __XHARBOUR__
    IF ErrorLevel() == 0 .AND. ! hb_mtvm()
-#else
-   IF ErrorLevel() == 0 .AND. ! Hb_MultiThread()
-#endif
       __Quit()
    ELSE
       ExitProcess()

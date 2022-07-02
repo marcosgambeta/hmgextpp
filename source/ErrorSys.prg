@@ -58,10 +58,8 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 PROCEDURE ErrorSys
 *-----------------------------------------------------------------------------*
    ErrorBlock( { | oError | DefError( oError ) } )
-#ifndef __XHARBOUR__
    Set( _SET_HBOUTLOG, GetStartUpFolder() + hb_ps() + "error.log" )
    Set( _SET_HBOUTLOGINFO, MiniGUIVersion() )
-#endif
 
 RETURN
 

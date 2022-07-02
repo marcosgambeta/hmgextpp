@@ -52,11 +52,7 @@
 
 #include "hbapierr.h"
 
-#ifndef __XHARBOUR__
-# include "hbwinuni.h"
-#else
-typedef wchar_t HB_WCHAR;
-#endif
+#include "hbwinuni.h"
 
 #if ( ! defined( EM_GETCUEBANNER ) )
 # if ( ! defined( ECM_FIRST ) )

@@ -87,9 +87,7 @@ static void hmg_init( void * cargo )
 {
    LPCTSTR lpszDllName = TEXT( "ComCtl32.dll" );
 
-#ifndef __XHARBOUR__
    HB_SYMBOL_UNUSED( cargo );
-#endif
 
    if( S_FALSE == CoInitializeEx( NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE | COINIT_SPEED_OVER_MEMORY ) )
       hmg_ErrorExit( TEXT( "hmg_init( void )" ), S_FALSE, TRUE );

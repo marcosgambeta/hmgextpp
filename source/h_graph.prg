@@ -1072,9 +1072,7 @@ STATIC FUNCTION _bmpprint( cForm, x, y, nLibrary )
    ENDIF
 
    DoMethod ( cForm, 'Release' )
-#ifndef __XHARBOUR__
    FErase ( cTempFile )
-#endif
 
 RETURN .T.
 
