@@ -1,3 +1,9 @@
 incpaths=include
 libpaths=lib/${hb_plat}/${hb_comp}
 libs=hmgextpp
+libs=bostaurus
+libs=miniprint
+libs=vfw32
+libs=gdiplus
+libs=xhb.hbc
+libs=hbwin.hbc

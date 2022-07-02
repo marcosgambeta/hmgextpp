@@ -1,0 +1,11 @@
+-hblib
+
+-olib/${hb_plat}/${hb_comp}/miniprint
+
+-iinclude
+-isource\MiniPrint
+
+-prgflag=-n -w3 -es2
+
+source\MiniPrint\c_miniprint.cpp
+source\MiniPrint\h_miniprint.prg

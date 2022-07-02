@@ -4,6 +4,9 @@
 
 -iinclude
 
+-prgflag=-n -w3 -es2
+-cflag=-DCINTERFACE
+
 # C++
 source\c_bitmap.cpp
 source\c_browse.cpp
@@ -72,6 +75,7 @@ source\c_windowsMDI.cpp
 source\c_winprop.cpp
 source\c_winxp.cpp
 source\dbinsert.cpp
+source\hbgdiplus.cpp
 
 # PRG
 source\alerts.prg
@@ -165,3 +169,5 @@ source\h_windowsMDI.prg
 source\h_winprop.prg
 source\netfuncs.prg
 source\statics.prg
+
+hbwin.hbc

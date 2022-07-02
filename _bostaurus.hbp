@@ -1,0 +1,11 @@
+-hblib
+
+-olib/${hb_plat}/${hb_comp}/bostaurus
+
+-iinclude
+
+-prgflag=-n -w3 -es2
+-cflag=-DCINTERFACE
+
+source\BosTaurus\c_BosTaurus.cpp
+source\BosTaurus\h_BosTaurus.prg
