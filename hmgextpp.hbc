@@ -7,3 +7,4 @@ libs=vfw32
 libs=gdiplus
 libs=xhb.hbc
 libs=hbwin.hbc
+gui=yes
