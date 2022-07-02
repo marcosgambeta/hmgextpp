@@ -51,14 +51,6 @@
 
 #include <mgdefs.h>
 
-#if defined( __WATCOMC__ )
-#ifndef _RSIZE_T_DEFINED
-#define _RSIZE_T_DEFINED
-typedef size_t rsize_t;
-#endif
-_WCRTLINK extern int       swprintf_s( wchar_t * __restrict __s, rsize_t __n, const wchar_t * __restrict __format, ... );
-#endif
-
 extern HB_SIZE hmg_tstrlen( const TCHAR * pText );
 
 extern HB_EXPORT PHB_ITEM  hb_errRT_SubstParams( const char * szSubSystem, HB_ERRCODE errGenCode, HB_ERRCODE errSubCode, const char * szDescription, const char * szOperation );

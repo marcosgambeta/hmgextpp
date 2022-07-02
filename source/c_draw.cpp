@@ -52,7 +52,7 @@
 
 #include "hbapiitm.h"
 
-#if defined( __BORLANDC__ ) || defined( __WATCOMC__ )
+#if defined( __BORLANDC__ )
 WINGDIAPI BOOL WINAPI GdiFlush( void );
 #endif
 

@@ -57,11 +57,6 @@
 # define IMF_AUTOFONT      0x0002
 #endif
 
-#if defined ( __WATCOMC__ )
-# define ENM_DRAGDROPDONE  0x00000010
-# define SF_USECODEPAGE    0x0020          /* CodePage given by high word */
-#endif
-
 #if defined( MSFTEDIT_CLASS )
 # undef MSFTEDIT_CLASS
 #endif

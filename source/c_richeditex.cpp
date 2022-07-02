@@ -73,11 +73,6 @@
 # define HB_PARNL3       hb_parvnl
 #endif
 
-#if defined ( __WATCOMC__ )
-# define SF_USECODEPAGE  0x0020 /* CodePage given by high word */
-#endif
-// by Dr. Claudio Soto, January 2014
-
 #ifndef CP_UNICODE
 # define CP_UNICODE      1200 // The text is UTF-16 (the WCHAR data type)
 #endif

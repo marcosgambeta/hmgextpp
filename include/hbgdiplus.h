@@ -5,7 +5,7 @@
 #  pragma option push -b -a8 -pc -A- -w-inl -w-hid /*P_O_Push*/
 # endif /* __BORLANDC__ */
 
-# if defined( __BORLANDC__ ) || defined( __WATCOMC__ )
+# if defined( __BORLANDC__ )
 #  define __inline__  __inline
 #  define __forceinline  __inline
 #  define __extension__

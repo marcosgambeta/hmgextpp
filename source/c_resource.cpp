@@ -183,10 +183,6 @@ HB_FUNC( RCDATATOFILE )
 
 #else
 
-#if defined( __WATCOMC__ )
-extern HB_EXPORT HB_SIZE hb_fileWrite( PHB_FILE pFile, const void * buffer, HB_SIZE nSize, HB_MAXINT nTimeout );
-#endif
-
 HB_FUNC( RCDATATOFILE )
 {
    HMODULE hModule = ( HMODULE ) ( 0 != HB_PARNL( 4 ) ? ( HINSTANCE ) HB_PARNL( 4 ) : GetResources() );

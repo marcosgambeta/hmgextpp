@@ -85,11 +85,6 @@
 #include "hbstack.h"
 #include "hbapiitm.h"
 
-#if defined( __WATCOMC__ )
-// fix for typo in OWATCOM winuser.h
-    #define BDR_RIASEDOUTER  BDR_RAISEDOUTER
-#endif
-
 #ifdef __XHARBOUR__
 #define HB_STORC( n, x, y )  hb_storc( n, x, y )
 #define HB_STORL( n, x, y )  hb_storl( n, x, y )
@@ -2707,7 +2702,7 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
 
 int CALLBACK enumFontFamilyProc( ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *lpntme, DWORD FontType, LPARAM lParam )
 {
-#if defined( __MINGW32__ ) || defined( __WATCOMC__ )
+#if defined( __MINGW32__ )
    UNREFERENCED_PARAMETER( lpntme );
 #endif
    if( lpelfe && lParam )

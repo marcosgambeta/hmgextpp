@@ -76,12 +76,6 @@
 
 #endif
 
-/* missing constants in Watcom */
-#if defined( __WATCOMC__ )
-#define PGF_CALCWIDTH   1
-#define PGF_CALCHEIGHT  2
-#endif
-
 #ifdef UNICODE
 LPWSTR AnsiToWide( LPCSTR );
 #endif
