@@ -51,9 +51,9 @@
 
 #define _WIN32_IE     0x0501
 
-#if defined( __MINGW32__ ) || defined( __XCC__ ) || defined( __POCC__ )
+#if defined( __MINGW32__ ) || defined( __XCC__ )
 #define _WIN32_WINNT  0x0500
-#endif /* MINGW | XCC | POCC */
+#endif /* MINGW | XCC */
 
 #include <mgdefs.h>
 
@@ -76,11 +76,6 @@
 
 #define DEFAULT_LISTENER  "EVENTS"
 #define MAX_EVENTS        64
-
-#if ( defined( __POCC__ ) && __POCC__ >= 900 )
-#undef UNALIGNED
-#define UNALIGNED
-#endif /* __POCC__ */
 
 // local types
 typedef struct tagAppEvent

@@ -36,7 +36,7 @@
 # endif
 #endif
 
-#if defined( _MSC_VER ) && ! defined( __POCC__ )
+#if defined( _MSC_VER )
 # define itoa( __value, __string, __radix )  _itoa( __value, __string, __radix )
 # define ltoa( __value, __string, __radix )  _ltoa( __value, __string, __radix )
 #endif

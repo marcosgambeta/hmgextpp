@@ -59,7 +59,7 @@
 
 #include <commctrl.h>
 
-#if defined( __XCC__ ) || ( defined( __POCC__ ) && __POCC__ >= 900 )
+#if defined( __XCC__ )
 # ifndef _NO_W32_PSEUDO_MODIFIERS
 #  define IN
 #  define OUT

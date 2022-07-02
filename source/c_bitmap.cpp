@@ -914,9 +914,7 @@ BOOL GetImageSize( const char * fn, int * x, int * y )
       }
    }
 
-#if ! ( defined( __POCC__ ) && __POCC__ >= 1100 )
    fclose( f );
-#endif /* __POCC__ */
 
    // JPEG: (first two bytes of buf are first two bytes of the jpeg
    // file; rest of buf is the DCT frame

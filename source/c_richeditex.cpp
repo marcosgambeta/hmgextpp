@@ -73,10 +73,6 @@
 # define HB_PARNL3       hb_parvnl
 #endif
 
-#ifdef __POCC__
-# define PFNS_NEWNUMBER  0x8000
-#endif
-
 #if defined ( __WATCOMC__ )
 # define SF_USECODEPAGE  0x0020 /* CodePage given by high word */
 #endif

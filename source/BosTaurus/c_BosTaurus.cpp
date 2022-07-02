@@ -53,10 +53,6 @@
 #include <commctrl.h>
 #include <olectl.h>
 #include <time.h>
-#ifdef __POCC__
-#  include <wchar.h>
-#  define _USE_MATH_DEFINES
-#endif
 #ifdef __WATCOMC__
 #ifndef _MATH_DEFINES_DEFINED
 #  define _MATH_DEFINES_DEFINED

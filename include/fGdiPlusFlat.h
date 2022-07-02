@@ -14,10 +14,6 @@
 #ifndef _GDIPLUS_H
 #define _GDIPLUS_H
 
-#if defined( __POCC__ ) && ( __POCC__ >= 500 )
-#pragma once
-#endif /* __POCC__ */
-
 #ifndef OUT
 #define OUT
 #endif

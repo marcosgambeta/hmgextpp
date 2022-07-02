@@ -73,7 +73,7 @@
 char * itoa( int __value, char * __string, int __radix );
 #endif
 
-#if defined( _MSC_VER ) && ! defined( __POCC__ )
+#if defined( _MSC_VER )
 # define itoa( __value, __string, __radix )  _itoa( __value, __string, __radix )
 #endif
 
@@ -1391,13 +1391,6 @@ HB_FUNC( FILLRECT )
 # pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  /* __MINGW32__ */
 
-#if ( defined( __POCC__ ) && __POCC__ >= 900 )
-# ifndef _NO_W32_PSEUDO_MODIFIERS
-#  define IN
-#  define OUT
-# endif
-#endif
-
 BOOL IsAppHung( IN HWND hWnd, OUT PBOOL pbHung )
 {
    OSVERSIONINFO osvi;
@@ -1999,25 +1992,3 @@ char * itoa( int n, char s[], int base )
 }
 
 #endif /* __XCC__ */
-
-#if ! defined( __XHARBOUR__ ) && defined( __POCC__ )
-
-#include "hbwinuni.h"
-#include "hbapicls.h"
-
-HB_FUNC( WAPI_MESSAGEBOX )
-{
-   void * hStr1;
-   void * hStr2;
-
-   int iResult = MessageBox( ( HWND ) HB_PARNL( 1 ),
-                             HB_PARSTR( 2, &hStr1, NULL ),
-                             HB_PARSTR( 3, &hStr2, NULL ),
-                             hb_parni( 4 ) );
-
-   hb_retni( iResult );
-   hb_strfree( hStr1 );
-   hb_strfree( hStr2 );
-}
-
-#endif /* __POCC__ */
