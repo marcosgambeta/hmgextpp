@@ -772,7 +772,7 @@ HB_FUNC( RR_MODIFYPEN )
    if( i > 0 )
    {
       if( hb_parni(2) >= 0 )
-         ppn.lopnStyle = ( UINT ) hb_parni(2);
+         ppn.lopnStyle = hmg_par_UINT(2);
 
       if( hb_parnl(3) >= 0 )
          ppn.lopnWidth.x = hb_parnl(3);
@@ -820,7 +820,7 @@ HB_FUNC( RR_MODIFYBRUSH )
    if( i > 0 )
    {
       if( hb_parni(2) >= 0 )
-         ppn.lbStyle = ( UINT ) hb_parni(2);
+         ppn.lbStyle = hmg_par_UINT(2);
 
       if( hb_parnl(3) >= 0 )
          ppn.lbColor = ( COLORREF ) hb_parnl(3);

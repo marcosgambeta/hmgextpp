@@ -342,7 +342,7 @@ HB_FUNC( INITTOOLTIPEX )
 
       if( HB_ISNUM(7) )
       {
-         uFlags = ( UINT ) hb_parni(7);
+         uFlags = hmg_par_UINT(7);
       }
 
       InitCommonControlsEx( &icex );

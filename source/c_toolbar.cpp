@@ -1002,7 +1002,7 @@ HB_FUNC( RESIZEFLOATTOOLBAR )
 HB_FUNC( TOOLBAREXCUSTFUNC )
 {
    TBBUTTON   lpBtn;
-   UINT       Msg    = ( UINT ) hb_parni(2);
+   UINT       Msg    = hmg_par_UINT(2);
    LPARAM     lParam = ( LPARAM ) HB_PARNL(4);
    LPTBNOTIFY lpTB   = ( LPTBNOTIFY ) lParam;
    int        i;

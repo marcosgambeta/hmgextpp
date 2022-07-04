@@ -1198,10 +1198,10 @@ HB_FUNC( LISTVIEW_GROUPSETINFO )
    HWND       hWnd         = hmg_par_HWND(1);
    INT        GroupID      = ( INT ) hb_parni(2);
    HB_WCHAR * cHeader      = ( HB_WCHAR * ) ( ( hb_parclen(3) == 0 ) ? NULL : hb_mbtowc( hb_parc(3) ) );
-   UINT       nAlignHeader = ( UINT ) hb_parni(4);
+   UINT       nAlignHeader = hmg_par_UINT(4);
    HB_WCHAR * cFooter      = ( ( hb_parclen(5) == 0 ) ? NULL : hb_mbtowc( hb_parc(5) ) );
-   UINT       nAlignFooter = ( UINT ) hb_parni(6);
-   UINT       nState       = ( UINT ) hb_parni(7);
+   UINT       nAlignFooter = hmg_par_UINT(6);
+   UINT       nState       = hmg_par_UINT(7);
 
    HB_WCHAR cHeaderBuffer[ MAX_GROUP_BUFFER ];
    HB_WCHAR cFooterBuffer[ MAX_GROUP_BUFFER ];

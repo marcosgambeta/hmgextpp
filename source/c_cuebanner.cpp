@@ -94,7 +94,7 @@ HB_FUNC( SENDMESSAGESTRINGW )
    {
       HB_WCHAR * lpWCStr = ( HB_WCHAR * ) ( ( hb_parclen(4) == 0 ) ? NULL : hb_mbtowc( hb_parc(4) ) );
 
-      HB_RETNL( ( LONG_PTR ) SendMessage( hwnd, ( UINT ) hb_parni(2),
+      HB_RETNL( ( LONG_PTR ) SendMessage( hwnd, hmg_par_UINT(2),
                                           ( WPARAM ) hb_parl(3), ( LPARAM ) ( LPCWSTR ) lpWCStr ) );
       if( NULL != lpWCStr )
       {

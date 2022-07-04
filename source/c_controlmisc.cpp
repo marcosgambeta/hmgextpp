@@ -128,7 +128,7 @@ HB_FUNC( INSERTSHIFTTAB )
 
 HB_FUNC( SYSTEMPARAMETERSINFO )
 {
-   hb_retl( SystemParametersInfoA( ( UINT ) hb_parni(1), ( UINT ) hb_parni(2), ( VOID * ) hb_parc(3), ( UINT ) hb_parni(4) ) );
+   hb_retl( SystemParametersInfoA( hmg_par_UINT(1), hmg_par_UINT(2), ( VOID * ) hb_parc(3), hmg_par_UINT(4) ) );
 }
 
 HB_FUNC( GETTEXTWIDTH ) // returns the width of a string in pixels

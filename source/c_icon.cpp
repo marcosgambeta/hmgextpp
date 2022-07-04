@@ -121,10 +121,10 @@ HB_FUNC( EXTRACTICON )
    HICON hIcon;
 
 #ifndef UNICODE
-   hIcon = ExtractIcon(GetInstance(), hb_parc(1), ( UINT ) hb_parni(2));
+   hIcon = ExtractIcon(GetInstance(), hb_parc(1), hmg_par_UINT(2));
 #else
    LPWSTR pW = AnsiToWide( ( char * ) hb_parc(1) );
-   hIcon = ExtractIcon(GetInstance(), pW, ( UINT ) hb_parni(2));
+   hIcon = ExtractIcon(GetInstance(), pW, hmg_par_UINT(2));
 #endif
 
    RegisterResource(hIcon, const_cast<LPSTR>("ICON"));

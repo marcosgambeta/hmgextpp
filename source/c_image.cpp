@@ -871,7 +871,7 @@ HB_FUNC( C_SAVEHBITMAPTOFILE )
    HBITMAP hbmp = ( HBITMAP ) HB_PARNL(1);
 
    hb_retl( SaveHBitmapToFile(( void * ) hbmp, hb_parc(2),
-                               ( UINT ) hb_parni(3), ( UINT ) hb_parni(4), hb_parc(5), ( ULONG ) hb_parnl(6)) );
+                               hmg_par_UINT(3), hmg_par_UINT(4), hb_parc(5), ( ULONG ) hb_parnl(6)) );
 }
 
 //*************************************************************************************************

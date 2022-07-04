@@ -255,7 +255,7 @@ HB_FUNC( FLASHWINDOWEX )
    FlashWinInfo.cbSize    = sizeof(FLASHWINFO);
    FlashWinInfo.hwnd      = hmg_par_HWND(1);
    FlashWinInfo.dwFlags   = ( DWORD ) hb_parnl(2);
-   FlashWinInfo.uCount    = ( UINT ) hb_parni(3);
+   FlashWinInfo.uCount    = hmg_par_UINT(3);
    FlashWinInfo.dwTimeout = ( DWORD ) hb_parnl(4);
 
    hb_retl( ( BOOL ) FlashWindowEx( &FlashWinInfo ) );
@@ -384,14 +384,14 @@ HB_FUNC( SENDMESSAGE )
    HWND hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) )
-      HB_RETNL( ( LONG_PTR ) SendMessage( hwnd, ( UINT ) hb_parni(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) hb_parnl(4) ) );
+      HB_RETNL( ( LONG_PTR ) SendMessage( hwnd, hmg_par_UINT(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) hb_parnl(4) ) );
    else
       hb_errRT_BASE_SubstR( EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
 HB_FUNC( SENDMESSAGESTRING )
 {
-   HB_RETNL( ( LONG_PTR ) SendMessage( hmg_par_HWND(1), ( UINT ) hb_parni(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) ( LPSTR ) hb_parc(4) ) );
+   HB_RETNL( ( LONG_PTR ) SendMessage( hmg_par_HWND(1), hmg_par_UINT(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) ( LPSTR ) hb_parc(4) ) );
 }
 
 HB_FUNC( GETNOTIFYCODE )

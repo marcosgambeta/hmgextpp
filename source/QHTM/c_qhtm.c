@@ -200,7 +200,7 @@ HB_FUNC( QHTM_MESSAGEBOX )
    if( hQhtmDll )
    {
       const char        *cTitle = ( hb_pcount() < 2 ) ? "" : hb_parc(2);
-      UINT              uType = ( hb_pcount() < 3 ) ? MB_OK : ( UINT ) hb_parni(3);
+      UINT              uType = ( hb_pcount() < 3 ) ? MB_OK : hmg_par_UINT(3);
       QHTM_MESSAGEBOX   pFunc = ( QHTM_MESSAGEBOX ) GetProcAddress( hQhtmDll, "QHTM_MessageBox" );
 
       if( pFunc )

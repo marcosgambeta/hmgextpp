@@ -254,7 +254,7 @@ HB_FUNC( COPYTOCLIPBOARD ) // CopyToClipboard(cText) store cText in Windows clip
    lptstrCopy[ nLen ] = ( TCHAR ) 0;  // null character
    GlobalUnlock(hglbCopy);
 
-   SetClipboardData( HB_ISNUM(2) ? ( UINT ) hb_parni(2) : CF_TEXT, hglbCopy );
+   SetClipboardData( HB_ISNUM(2) ? hmg_par_UINT(2) : CF_TEXT, hglbCopy );
    CloseClipboard();
 }
 
@@ -647,12 +647,12 @@ HB_FUNC( GETTEMPDIR )
 
 HB_FUNC( POSTMESSAGE )
 {
-   hb_retnl( ( LONG ) PostMessage( hmg_par_HWND(1), ( UINT ) hb_parni(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) hb_parnl(4) ) );
+   hb_retnl( ( LONG ) PostMessage( hmg_par_HWND(1), hmg_par_UINT(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) hb_parnl(4) ) );
 }
 
 HB_FUNC( DEFWINDOWPROC )
 {
-   HB_RETNL( ( LONG_PTR ) DefWindowProc( hmg_par_HWND(1), ( UINT ) hb_parni(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) hb_parnl(4) ) );
+   HB_RETNL( ( LONG_PTR ) DefWindowProc( hmg_par_HWND(1), hmg_par_UINT(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) hb_parnl(4) ) );
 }
 
 HB_FUNC( GETSTOCKOBJECT )

@@ -1970,7 +1970,7 @@ HB_FUNC( GETTEXTALIGN )
 HB_FUNC( SETTEXTALIGN )
 {
 
-   hb_retni( SetTextAlign(hmg_par_HDC(1), ( UINT ) hb_parni(2)) );
+   hb_retni( SetTextAlign(hmg_par_HDC(1), hmg_par_UINT(2)) );
 
 }
 

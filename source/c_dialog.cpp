@@ -201,7 +201,7 @@ HB_FUNC( SETDLGITEMINT )
    (
       hmg_par_HWND(1),             // handle of dialog box
       hb_parni(2),                      // identifier of control
-      ( UINT ) hb_parni(3),             // text to set
+      hmg_par_UINT(3),             // text to set
       ( hb_pcount() < 4 || HB_ISNIL(4) || ! hb_parl(4) ) ? 0 : 1
    );
 }

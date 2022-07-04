@@ -500,7 +500,7 @@ HB_FUNC( TREEVIEW_GETITEMSTATE )
 {
    HWND      hWndTV     = hmg_par_HWND(1);
    HTREEITEM ItemHandle = ( HTREEITEM ) HB_PARNL(2);
-   UINT      StateMask  = ( UINT ) hb_parni(3);
+   UINT      StateMask  = hmg_par_UINT(3);
    UINT      State      = TreeView_GetItemState(hWndTV, ItemHandle, StateMask);
 
    hb_retni( ( INT ) State );
@@ -542,7 +542,7 @@ HB_FUNC( TREEVIEW_EXPANDCHILDRENRECURSIVE )
 {
    HWND      hWndTV     = hmg_par_HWND(1);
    HTREEITEM ItemHandle = ( HTREEITEM ) HB_PARNL(2);
-   UINT      nExpand    = ( UINT ) hb_parni(3);
+   UINT      nExpand    = hmg_par_UINT(3);
    BOOL      fRecurse   = ( BOOL ) hb_parl(4);
    HWND      hWndParent = GetParent( hWndTV );
    BOOL      lEnabled   = IsWindowEnabled( hWndParent );
