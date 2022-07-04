@@ -1324,7 +1324,7 @@ HB_FUNC( GETDLLVERSION )
 HB_FUNC( SELECTOBJECT )
 {
    HB_RETNL( ( LONG_PTR ) SelectObject(hmg_par_HDC(1),    // handle of device context
-                                        ( HGDIOBJ ) HB_PARNL(2) // handle of object
+                                        hmg_par_HGDIOBJ(2) // handle of object
                                         ) );
 }
 
@@ -1683,7 +1683,7 @@ HB_FUNC( ISOEMTEXT )
  */
 HB_FUNC( GETOBJECTTYPE )
 {
-   HB_RETNL( ( LONG_PTR ) GetObjectType(( HGDIOBJ ) HB_PARNL(1)) );
+   HB_RETNL( ( LONG_PTR ) GetObjectType(hmg_par_HGDIOBJ(1)) );
 }
 
 /*

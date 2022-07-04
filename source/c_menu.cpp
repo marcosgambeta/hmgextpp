@@ -615,7 +615,7 @@ HB_FUNC( MENUITEM_SETFONT )
       {
          lpMenuItem = ( LPMENUITEM ) MenuItemInfo.dwItemData;
 
-         if( GetObjectType(( HGDIOBJ ) HB_PARNL(3)) == OBJ_FONT )
+         if( GetObjectType(hmg_par_HGDIOBJ(3)) == OBJ_FONT )
          {
             if( lpMenuItem->hFont != NULL )
                DeleteObject(lpMenuItem->hFont);

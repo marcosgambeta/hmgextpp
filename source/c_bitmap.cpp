@@ -1024,7 +1024,7 @@ HB_FUNC( GETBITMAPSIZE )
    }
    else
    {
-      if( GetObjectType(( HGDIOBJ ) HB_PARNL(1)) == OBJ_BITMAP )
+      if( GetObjectType(hmg_par_HGDIOBJ(1)) == OBJ_BITMAP )
       {
          hBitmap = hmg_par_HBITMAP(1);
          bDelete = FALSE;

@@ -146,3 +146,4 @@ extern HB_PTRUINT wapi_GetProcAddress( HMODULE hmodule, LPCSTR lpProcName );
 #define hmg_par_HMENU(n) reinterpret_cast<HMENU>(HB_PARNL(n))
 #define hmg_par_HFONT(n) reinterpret_cast<HFONT>(HB_PARNL(n))
 #define hmg_par_COLORREF(n) static_cast<COLORREF>(hb_parnl(n))
+#define hmg_par_HGDIOBJ(n) reinterpret_cast<HGDIOBJ>(HB_PARNL(n))

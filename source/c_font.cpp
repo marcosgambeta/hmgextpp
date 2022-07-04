@@ -144,7 +144,7 @@ HB_FUNC( _SETFONTHANDLE )
 
    if( IsWindow(hwnd) )
    {
-      if( GetObjectType(( HGDIOBJ ) HB_PARNL(2)) == OBJ_FONT )
+      if( GetObjectType(hmg_par_HGDIOBJ(2)) == OBJ_FONT )
          SendMessage( hwnd, ( UINT ) WM_SETFONT, ( WPARAM ) hmg_par_HFONT(2), ( LPARAM ) 1 );
       else
          hb_errRT_BASE_SubstR( EG_ARG, 5050 + OBJ_FONT, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
@@ -197,7 +197,7 @@ HB_FUNC( ENUMFONTSEX )
 
    memset(&lf, 0, sizeof(LOGFONT));
 
-   if( GetObjectType(( HGDIOBJ ) HB_PARNL(1)) == OBJ_DC )
+   if( GetObjectType(hmg_par_HGDIOBJ(1)) == OBJ_DC )
       hdc = hmg_par_HDC(1);
    else
    {
