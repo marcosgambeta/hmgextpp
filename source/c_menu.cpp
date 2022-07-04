@@ -425,7 +425,7 @@ HB_FUNC( APPENDMENUPOPUP )
       lpMenuItem->caption    = HB_STRNDUP( lpNewItem, cch );
       lpMenuItem->cch        = cch;
       lpMenuItem->hBitmap    = ( HBITMAP ) NULL;
-      lpMenuItem->hFont      = ( HFONT ) HB_PARNL(5);
+      lpMenuItem->hFont      = hmg_par_HFONT(5);
       lpMenuItem->uiItemType = hb_parni(4);
 
       hb_retl( AppendMenu( hmg_par_HMENU(1), MF_POPUP | MF_OWNERDRAW, hb_parni(2), ( LPTSTR ) lpMenuItem ) );
@@ -620,7 +620,7 @@ HB_FUNC( MENUITEM_SETFONT )
             if( lpMenuItem->hFont != NULL )
                DeleteObject(lpMenuItem->hFont);
 
-            lpMenuItem->hFont = ( HFONT ) HB_PARNL(3);
+            lpMenuItem->hFont = hmg_par_HFONT(3);
          }
       }
    }

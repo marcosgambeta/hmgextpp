@@ -145,7 +145,7 @@ HB_FUNC( _SETFONTHANDLE )
    if( IsWindow(hwnd) )
    {
       if( GetObjectType(( HGDIOBJ ) HB_PARNL(2)) == OBJ_FONT )
-         SendMessage( hwnd, ( UINT ) WM_SETFONT, ( WPARAM ) ( HFONT ) HB_PARNL(2), ( LPARAM ) 1 );
+         SendMessage( hwnd, ( UINT ) WM_SETFONT, ( WPARAM ) hmg_par_HFONT(2), ( LPARAM ) 1 );
       else
          hb_errRT_BASE_SubstR( EG_ARG, 5050 + OBJ_FONT, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
    }

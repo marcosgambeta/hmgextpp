@@ -279,7 +279,7 @@ HB_FUNC( TSDRAWCELL )
    DWORD    nAlign       = hb_parnl(7);
    COLORREF clrFore      = hb_parnl(8);
    COLORREF clrBack      = hb_parnl(9);
-   HFONT    hFont        = ( HFONT ) HB_PARNL(10);
+   HFONT    hFont        = hmg_par_HFONT(10);
    HBITMAP  hBitMap      = hmg_par_HBITMAP(11);
    int      nHeightCell  = hb_parni(12);
    BOOL     b3DLook      = hb_parl(13);
@@ -623,7 +623,7 @@ HB_FUNC( TSBRWSCROLL )
 {
    HWND  hWnd          = hmg_par_HWND(1);
    int   iRows         = hb_parni(2);
-   HFONT hFont         = ( HFONT ) HB_PARNL(3);
+   HFONT hFont         = hmg_par_HFONT(3);
    int   nHeightCell   = hb_parni(4);
    int   nHeightHead   = hb_parni(5);
    int   nHeightFoot   = hb_parni(6);
@@ -711,7 +711,7 @@ HB_FUNC( ROWFROMPIX )
 HB_FUNC( SBGETHEIGHT )   // ( hWnd, hFont, nTotal )
 {
    HWND  hWnd   = hmg_par_HWND(1);
-   HFONT hFont  = ( HFONT ) HB_PARNL(2);
+   HFONT hFont  = hmg_par_HFONT(2);
    int   iTotal = hb_parni(3);
 
    TEXTMETRIC tm;

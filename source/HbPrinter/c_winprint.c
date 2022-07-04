@@ -263,7 +263,7 @@ HB_FUNC( RR_GETDEVICECAPS )
 {
    TEXTMETRIC tm;
    UINT       i;
-   HFONT      xfont = ( HFONT ) HB_PARNL(2);
+   HFONT      xfont = hmg_par_HFONT(2);
 
    if( xfont != 0 )
       SelectObject(hDCRef, xfont);
@@ -955,7 +955,7 @@ HB_FUNC( RR_MODIFYFONT )
    LONG    nHeight;
 
    memset(&ppn, 0, sizeof(LOGFONT));
-   i = GetObject(( HFONT ) HB_PARNL(1), sizeof(LOGFONT), &ppn);
+   i = GetObject(hmg_par_HFONT(1), sizeof(LOGFONT), &ppn);
    if( i > 0 )
    {
       //     if (hb_parc(2)!="")
@@ -996,7 +996,7 @@ HB_FUNC( RR_MODIFYFONT )
       hf = CreateFontIndirect(&ppn);
       if( hf != NULL )
       {
-         DeleteObject(( HFONT ) HB_PARNL(1));
+         DeleteObject(hmg_par_HFONT(1));
          HB_RETNL( ( LONG_PTR ) hf );
       }
       else
@@ -1008,8 +1008,8 @@ HB_FUNC( RR_MODIFYFONT )
 
 HB_FUNC( RR_SELECTFONT )
 {
-   SelectObject(hDC, ( HFONT ) HB_PARNL(1));
-   hfont = ( HFONT ) HB_PARNL(1);
+   SelectObject(hDC, hmg_par_HFONT(1));
+   hfont = hmg_par_HFONT(1);
 }
 
 HB_FUNC( RR_SETCHARSET )
@@ -1024,7 +1024,7 @@ HB_FUNC( RR_TEXTOUT )
 #else
    LPWSTR lpText = AnsiToWide( ( char * ) hb_parc(1) );
 #endif
-   HGDIOBJ xfont    = ( HFONT ) HB_PARNL(3);
+   HGDIOBJ xfont    = hmg_par_HFONT(3);
    HFONT   prevfont = NULL;
    SIZE    szMetric;
    int     lspace = hb_parni(4);
@@ -1060,7 +1060,7 @@ HB_FUNC( RR_DRAWTEXT )
    LPCWSTR pszData = AnsiToWide( ( char * ) hb_parc(3) );
 #endif
    int     iLen     = ( int ) lstrlen( pszData );
-   HGDIOBJ xfont    = ( HFONT ) HB_PARNL(5);
+   HGDIOBJ xfont    = hmg_par_HFONT(5);
    HFONT   prevfont = NULL;
    RECT    rect;
    UINT    uFormat;

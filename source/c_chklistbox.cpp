@@ -194,7 +194,7 @@ HB_FUNC( SETCHKLBITEMHEIGHT ) // set the height of a string in pixels
    TCHAR achBuffer[ BUFFER ];
    HWND  hwnd     = hmg_par_HWND(1);
    HDC   hdc      = GetDC(hwnd);
-   HFONT hFont    = ( HFONT ) HB_PARNL(2);
+   HFONT hFont    = hmg_par_HFONT(2);
    HFONT hOldFont = ( HFONT ) NULL;
    SIZE  sz;
 
