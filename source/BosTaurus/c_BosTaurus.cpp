@@ -1016,7 +1016,7 @@ HB_FUNC( BT_SCR_INVALIDATERECT )
 
 HB_FUNC( BT_DRAWEDGE )
 {
-   HDC hDC      = ( HDC ) HB_PARNL(1);
+   HDC hDC      = hmg_par_HDC(1);
    INT Edge     = hb_parni(6);
    INT GrfFlags = hb_parni(7);
 
@@ -1056,7 +1056,7 @@ HB_FUNC( BT_DRAW_HDC_POLY )
    POINT aPoint[ 2048 ];
    #endif
 
-   hDC        = ( HDC ) HB_PARNL(1);
+   hDC        = hmg_par_HDC(1);
    nCountX    = ( INT ) hb_parinfa( 2, 0 );
    nCountY    = ( INT ) hb_parinfa( 3, 0 );
    ColorLine  = ( COLORREF ) hb_parnl(4);
@@ -1128,7 +1128,7 @@ HB_FUNC( BT_DRAW_HDC_ARCX )
    INT      XStartArc, YStartArc, XEndArc, YEndArc;
    INT      nArcType;
 
-   hDC = ( HDC ) HB_PARNL(1);
+   hDC = hmg_par_HDC(1);
    x1  = ( INT ) hb_parni(2);
    y1  = ( INT ) hb_parni(3);
    x2  = ( INT ) hb_parni(4);
@@ -1192,7 +1192,7 @@ HB_FUNC( BT_DRAW_HDC_FILLEDOBJECT )
    INT      x1, y1, Width1, Height1;
    INT      nWidthLine, Type, RoundWidth, RoundHeight;
 
-   hDC         = ( HDC ) HB_PARNL(1);
+   hDC         = hmg_par_HDC(1);
    x1          = ( INT ) hb_parni(2);
    y1          = ( INT ) hb_parni(3);
    Width1      = ( INT ) hb_parni(4);
@@ -1249,7 +1249,7 @@ HB_FUNC( BT_DRAW_HDC_BITMAP )
    COLORREF color_transp;
    POINT    Point;
 
-   hDC     = ( HDC ) HB_PARNL(1);
+   hDC     = hmg_par_HDC(1);
    x1      = ( INT ) hb_parni(2);
    y1      = ( INT ) hb_parni(3);
    Width1  = ( INT ) hb_parni(4);
@@ -1311,7 +1311,7 @@ HB_FUNC( BT_DRAW_HDC_BITMAPALPHABLEND )
    BYTE          Alpha;
    POINT         Point;
 
-   hDC     = ( HDC ) HB_PARNL(1);
+   hDC     = hmg_par_HDC(1);
    x1      = ( INT ) hb_parni(2);
    y1      = ( INT ) hb_parni(3);
    Width1  = ( INT ) hb_parni(4);
@@ -1365,7 +1365,7 @@ HB_FUNC( BT_DRAW_HDC_GRADIENTFILL )
    COLORREF      Color_RGB_O, Color_RGB_D;
    ULONG         Mode;
 
-   hDC = ( HDC ) HB_PARNL(1);
+   hDC = hmg_par_HDC(1);
 
    Color_RGB_O = ( COLORREF ) hb_parnl(6);
    Color_RGB_D = ( COLORREF ) hb_parnl(7);
@@ -1430,7 +1430,7 @@ HB_FUNC( BT_DRAW_HDC_TEXTOUT )
    INT Italic = 0, Underline = 0, StrikeOut = 0;
 
 
-   hDC         = ( HDC ) HB_PARNL(1);
+   hDC         = hmg_par_HDC(1);
    x           = ( INT ) hb_parni(2);
    y           = ( INT ) hb_parni(3);
 #ifndef UNICODE
@@ -1528,7 +1528,7 @@ HB_FUNC( BT_DRAW_HDC_DRAWTEXT )
    INT Italic = 0, Underline = 0, StrikeOut = 0;
 
 
-   hDC         = ( HDC ) HB_PARNL(1);
+   hDC         = hmg_par_HDC(1);
    x           = ( INT ) hb_parni(2);
    y           = ( INT ) hb_parni(3);
    w           = ( INT ) hb_parni(4);
@@ -1622,7 +1622,7 @@ HB_FUNC( BT_DRAW_HDC_TEXTSIZE )
    INT Bold   = FW_NORMAL;
    INT Italic = 0, Underline = 0, StrikeOut = 0;
 
-   hDC      = ( HDC ) HB_PARNL(1);
+   hDC      = hmg_par_HDC(1);
 #ifndef UNICODE
    lpText      = ( TCHAR * ) hb_parc(2);
    FontName    = ( TCHAR * ) hb_parc(3);
@@ -1689,7 +1689,7 @@ HB_FUNC( BT_DRAW_HDC_PIXEL )
    INT      Action;
    COLORREF Color;
 
-   hDC    = ( HDC ) HB_PARNL(1);
+   hDC    = hmg_par_HDC(1);
    x      = ( INT ) hb_parni(2);
    y      = ( INT ) hb_parni(3);
    Action = ( INT ) hb_parni(4);
@@ -1728,7 +1728,7 @@ HB_FUNC( BT_DRAW_HDC_TO_HDC )
    COLORREF color_transp;
    POINT    Point;
 
-   hDC1    = ( HDC ) HB_PARNL(1);
+   hDC1    = hmg_par_HDC(1);
    x1      = ( INT ) hb_parni(2);
    y1      = ( INT ) hb_parni(3);
    Width1  = ( INT ) hb_parni(4);
@@ -1785,7 +1785,7 @@ HB_FUNC( BT_DRAW_HDC_TO_HDC_ALPHABLEND )
    BYTE          Alpha;
    POINT         Point;
 
-   hDC1    = ( HDC ) HB_PARNL(1);
+   hDC1    = hmg_par_HDC(1);
    x1      = ( INT ) hb_parni(2);
    y1      = ( INT ) hb_parni(3);
    Width1  = ( INT ) hb_parni(4);

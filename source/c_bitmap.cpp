@@ -483,7 +483,7 @@ HBITMAP IconMask2Bmp( HICON hIcon )
  */
 HB_FUNC( DRAWGLYPH )
 {
-   HDC      hDC  = ( HDC ) HB_PARNL(1);
+   HDC      hDC  = hmg_par_HDC(1);
    int      x    = hb_parni(2);
    int      y    = hb_parni(3);
    int      dx   = hb_parni(4);
@@ -637,7 +637,7 @@ HB_FUNC( DRAWGLYPH )
  */
 HB_FUNC( DRAWGLYPHMASK )
 {
-   HDC      hDC  = ( HDC ) HB_PARNL(1);
+   HDC      hDC  = hmg_par_HDC(1);
    int      dx   = hb_parni(4);
    int      dy   = hb_parni(5);
    HBITMAP  hBmp = ( HBITMAP ) HB_PARNL(6);
@@ -1078,7 +1078,7 @@ HB_FUNC( GETPIXELCOLOR )
    COLORREF pixel, C1, C2, C3;
    BOOL     result;
 
-   pixel = GetPixel( ( HDC ) HB_PARNL(1), hb_parni(2), hb_parni(3) );
+   pixel = GetPixel( hmg_par_HDC(1), hb_parni(2), hb_parni(3) );
 
    result = ( pixel != CLR_INVALID ? HB_TRUE : HB_FALSE );
    if( result )

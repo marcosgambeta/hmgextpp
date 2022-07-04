@@ -994,12 +994,12 @@ HB_FUNC( CREATESOLIDBRUSH )
 
 HB_FUNC( SETTEXTCOLOR )
 {
-   hb_retnl( ( ULONG ) SetTextColor(( HDC ) HB_PARNL(1), ( COLORREF ) RGB(hb_parni(2), hb_parni(3), hb_parni(4))) );
+   hb_retnl( ( ULONG ) SetTextColor(hmg_par_HDC(1), ( COLORREF ) RGB(hb_parni(2), hb_parni(3), hb_parni(4))) );
 }
 
 HB_FUNC( SETBKCOLOR )
 {
-   hb_retnl( ( ULONG ) SetBkColor(( HDC ) HB_PARNL(1), ( COLORREF ) RGB(hb_parni(2), hb_parni(3), hb_parni(4))) );
+   hb_retnl( ( ULONG ) SetBkColor(hmg_par_HDC(1), ( COLORREF ) RGB(hb_parni(2), hb_parni(3), hb_parni(4))) );
 }
 
 HB_FUNC( GETSYSCOLOR )
@@ -1323,7 +1323,7 @@ HB_FUNC( GETDLLVERSION )
 // Jacek Kubica <kubica@wssk.wroc.pl> HMG 1.0 Experimental Build 9a
 HB_FUNC( SELECTOBJECT )
 {
-   HB_RETNL( ( LONG_PTR ) SelectObject(( HDC ) HB_PARNL(1),    // handle of device context
+   HB_RETNL( ( LONG_PTR ) SelectObject(hmg_par_HDC(1),    // handle of device context
                                         ( HGDIOBJ ) HB_PARNL(2) // handle of object
                                         ) );
 }
@@ -1557,7 +1557,7 @@ HB_FUNC( DRAWTEXT )
 
    DrawText
    (
-      ( HDC ) HB_PARNL(1),       // device context
+      hmg_par_HDC(1),       // device context
       lpchText,                    // pointer to string
       ( int ) lstrlen( lpchText ), // length of  string
       &rc,                         // rectangle
@@ -1574,7 +1574,7 @@ HB_FUNC( GETTEXTMETRIC )
    TEXTMETRIC tm;
    PHB_ITEM   aMetr = hb_itemArrayNew(7);
 
-   if( GetTextMetrics( ( HDC ) HB_PARNL(1), // handle of device context
+   if( GetTextMetrics( hmg_par_HDC(1), // handle of device context
                        &tm                    // address of text metrics structure
                        ) )
    {

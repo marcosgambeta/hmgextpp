@@ -87,7 +87,7 @@ HB_FUNC( _HMG_SETCHARSET )
 
 HB_FUNC( _HMG_PRINTER_ABORTDOC )
 {
-   HDC hdcPrint = ( HDC ) HB_PARNL(1);
+   HDC hdcPrint = hmg_par_HDC(1);
 
    AbortDoc( hdcPrint );
 }
@@ -102,7 +102,7 @@ HB_FUNC( _HMG_PRINTER_STARTDOC )
 #else
    LPWSTR lpText = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
-   HDC hdcPrint = ( HDC ) HB_PARNL(1);
+   HDC hdcPrint = hmg_par_HDC(1);
 
    if( hdcPrint != 0 )
    {
@@ -118,7 +118,7 @@ HB_FUNC( _HMG_PRINTER_STARTDOC )
 HB_FUNC( _HMG_PRINTER_STARTPAGE )
 {
 
-   HDC hdcPrint = ( HDC ) HB_PARNL(1);
+   HDC hdcPrint = hmg_par_HDC(1);
 
    if( hdcPrint != 0 )
       StartPage( hdcPrint );
@@ -170,7 +170,7 @@ HB_FUNC( _HMG_PRINTER_C_PRINT )
 
    HFONT hfont;
 
-   HDC hdcPrint = ( HDC ) HB_PARNL(1);
+   HDC hdcPrint = hmg_par_HDC(1);
 
    int FontHeight;
    int FontAngle;
@@ -351,7 +351,7 @@ HB_FUNC( _HMG_PRINTER_C_MULTILINE_PRINT )
 
    HFONT hfont;
 
-   HDC hdcPrint = ( HDC ) HB_PARNL(1);
+   HDC hdcPrint = hmg_par_HDC(1);
 
    int FontHeight;
 
@@ -489,7 +489,7 @@ HB_FUNC( _HMG_PRINTER_C_MULTILINE_PRINT )
 HB_FUNC( _HMG_PRINTER_ENDPAGE )
 {
 
-   HDC hdcPrint = ( HDC ) HB_PARNL(1);
+   HDC hdcPrint = hmg_par_HDC(1);
 
    if( hdcPrint != 0 )
       EndPage( hdcPrint );
@@ -499,7 +499,7 @@ HB_FUNC( _HMG_PRINTER_ENDPAGE )
 HB_FUNC( _HMG_PRINTER_ENDDOC )
 {
 
-   HDC hdcPrint = ( HDC ) HB_PARNL(1);
+   HDC hdcPrint = hmg_par_HDC(1);
 
    if( hdcPrint != 0 )
       EndDoc( hdcPrint );
@@ -509,7 +509,7 @@ HB_FUNC( _HMG_PRINTER_ENDDOC )
 HB_FUNC( _HMG_PRINTER_DELETEDC )
 {
 
-   HDC hdcPrint = ( HDC ) HB_PARNL(1);
+   HDC hdcPrint = hmg_par_HDC(1);
 
    DeleteDC(hdcPrint);
 
@@ -697,7 +697,7 @@ HB_FUNC( _HMG_PRINTER_C_RECTANGLE )
 
    int width;
 
-   HDC     hdcPrint = ( HDC ) HB_PARNL(1);
+   HDC     hdcPrint = hmg_par_HDC(1);
    HGDIOBJ hgdiobj;
    HBRUSH  hbrush = NULL;
    HPEN    hpen   = NULL;
@@ -794,7 +794,7 @@ HB_FUNC( _HMG_PRINTER_C_ROUNDRECTANGLE )
 
    int w, h, p;
 
-   HDC     hdcPrint = ( HDC ) HB_PARNL(1);
+   HDC     hdcPrint = hmg_par_HDC(1);
    HGDIOBJ hgdiobj;
    HBRUSH  hbrush = NULL;
    HPEN    hpen   = NULL;
@@ -891,7 +891,7 @@ HB_FUNC( _HMG_PRINTER_C_LINE )
    int width;
    int Style;
 
-   HDC     hdcPrint = ( HDC ) HB_PARNL(1);
+   HDC     hdcPrint = hmg_par_HDC(1);
    HGDIOBJ hgdiobj;
    HPEN    hpen;
 
@@ -1515,9 +1515,9 @@ HB_FUNC( _HMG_PRINTER_STARTPAGE_PREVIEW )
    HDC  tmpDC;
    RECT emfrect;
 
-   SetRect(&emfrect, 0, 0, GetDeviceCaps( ( HDC ) HB_PARNL(1), HORZSIZE ) * 100, GetDeviceCaps( ( HDC ) HB_PARNL(1), VERTSIZE ) * 100);
+   SetRect(&emfrect, 0, 0, GetDeviceCaps( hmg_par_HDC(1), HORZSIZE ) * 100, GetDeviceCaps( hmg_par_HDC(1), VERTSIZE ) * 100);
 
-   tmpDC = CreateEnhMetaFile(( HDC ) HB_PARNL(1), FileName, &emfrect, TEXT(""));
+   tmpDC = CreateEnhMetaFile(hmg_par_HDC(1), FileName, &emfrect, TEXT(""));
 
    HB_RETNL( ( LONG_PTR ) tmpDC );
 
@@ -1525,7 +1525,7 @@ HB_FUNC( _HMG_PRINTER_STARTPAGE_PREVIEW )
 
 HB_FUNC( _HMG_PRINTER_ENDPAGE_PREVIEW )
 {
-   DeleteEnhMetaFile(CloseEnhMetaFile(( HDC ) HB_PARNL(1)));
+   DeleteEnhMetaFile(CloseEnhMetaFile(hmg_par_HDC(1)));
 }
 
 HB_FUNC( _HMG_PRINTER_SHOWPAGE )
@@ -1615,12 +1615,12 @@ HB_FUNC( _HMG_PRINTER_SHOWPAGE )
 
 HB_FUNC( _HMG_PRINTER_GETPAGEWIDTH )
 {
-   hb_retni( GetDeviceCaps( ( HDC ) HB_PARNL(1), HORZSIZE ) );
+   hb_retni( GetDeviceCaps( hmg_par_HDC(1), HORZSIZE ) );
 }
 
 HB_FUNC( _HMG_PRINTER_GETPAGEHEIGHT )
 {
-   hb_retni( GetDeviceCaps( ( HDC ) HB_PARNL(1), VERTSIZE ) );
+   hb_retni( GetDeviceCaps( hmg_par_HDC(1), VERTSIZE ) );
 }
 
 HB_FUNC( _HMG_PRINTER_PRINTPAGE )
@@ -1637,13 +1637,13 @@ HB_FUNC( _HMG_PRINTER_PRINTPAGE )
 
    hemf = GetEnhMetaFile(FileName);
 
-   SetRect(&rect, 0, 0, GetDeviceCaps( ( HDC ) HB_PARNL(1), HORZRES ), GetDeviceCaps( ( HDC ) HB_PARNL(1), VERTRES ));
+   SetRect(&rect, 0, 0, GetDeviceCaps( hmg_par_HDC(1), HORZRES ), GetDeviceCaps( hmg_par_HDC(1), VERTRES ));
 
-   StartPage( ( HDC ) HB_PARNL(1) );
+   StartPage( hmg_par_HDC(1) );
 
-   PlayEnhMetaFile(( HDC ) HB_PARNL(1), ( HENHMETAFILE ) hemf, &rect);
+   PlayEnhMetaFile(hmg_par_HDC(1), ( HENHMETAFILE ) hemf, &rect);
 
-   EndPage( ( HDC ) HB_PARNL(1) );
+   EndPage( hmg_par_HDC(1) );
 
    DeleteEnhMetaFile(hemf);
 
@@ -1667,7 +1667,7 @@ HB_FUNC( _HMG_PRINTER_PREVIEW_DISABLEHSCROLLBAR )
 HB_FUNC( _HMG_PRINTER_GETPRINTERWIDTH )
 {
 
-   HDC hdc = ( HDC ) HB_PARNL(1);
+   HDC hdc = hmg_par_HDC(1);
 
    hb_retnl( GetDeviceCaps( hdc, HORZSIZE ) );
 
@@ -1676,7 +1676,7 @@ HB_FUNC( _HMG_PRINTER_GETPRINTERWIDTH )
 HB_FUNC( _HMG_PRINTER_GETPRINTERHEIGHT )
 {
 
-   HDC hdc = ( HDC ) HB_PARNL(1);
+   HDC hdc = hmg_par_HDC(1);
 
    hb_retnl( GetDeviceCaps( hdc, VERTSIZE ) );
 
@@ -1685,7 +1685,7 @@ HB_FUNC( _HMG_PRINTER_GETPRINTERHEIGHT )
 HB_FUNC( _HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETX )
 {
 
-   HDC hdc = ( HDC ) HB_PARNL(1);
+   HDC hdc = hmg_par_HDC(1);
 
    hb_retnl( GetDeviceCaps( hdc, PHYSICALOFFSETX ) );
 
@@ -1694,7 +1694,7 @@ HB_FUNC( _HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETX )
 HB_FUNC( _HMG_PRINTER_GETPRINTABLEAREALOGPIXELSX )
 {
 
-   HDC hdc = ( HDC ) HB_PARNL(1);
+   HDC hdc = hmg_par_HDC(1);
 
    hb_retnl( GetDeviceCaps( hdc, LOGPIXELSX ) );
 
@@ -1703,7 +1703,7 @@ HB_FUNC( _HMG_PRINTER_GETPRINTABLEAREALOGPIXELSX )
 HB_FUNC( _HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETY )
 {
 
-   HDC hdc = ( HDC ) HB_PARNL(1);
+   HDC hdc = hmg_par_HDC(1);
 
    hb_retnl( GetDeviceCaps( hdc, PHYSICALOFFSETY ) );
 
@@ -1712,7 +1712,7 @@ HB_FUNC( _HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETY )
 HB_FUNC( _HMG_PRINTER_GETPRINTABLEAREALOGPIXELSY )
 {
 
-   HDC hdc = ( HDC ) HB_PARNL(1);
+   HDC hdc = hmg_par_HDC(1);
 
    hb_retnl( GetDeviceCaps( hdc, LOGPIXELSY ) );
 
@@ -1729,7 +1729,7 @@ HB_FUNC( _HMG_PRINTER_C_IMAGE )
    // 7: Stretch
    // 8: Transparent
 
-   HDC hdcPrint = ( HDC ) HB_PARNL(1);
+   HDC hdcPrint = hmg_par_HDC(1);
 
 #ifndef UNICODE
    LPSTR FileName = ( LPSTR ) hb_parc(2);
@@ -1963,14 +1963,14 @@ HB_FUNC( _HMG_PRINTERGETSTATUS )
 HB_FUNC( GETTEXTALIGN )
 {
 
-   hb_retni( GetTextAlign(( HDC ) HB_PARNL(1)) );
+   hb_retni( GetTextAlign(hmg_par_HDC(1)) );
 
 }
 
 HB_FUNC( SETTEXTALIGN )
 {
 
-   hb_retni( SetTextAlign(( HDC ) HB_PARNL(1), ( UINT ) hb_parni(2)) );
+   hb_retni( SetTextAlign(hmg_par_HDC(1), ( UINT ) hb_parni(2)) );
 
 }
 

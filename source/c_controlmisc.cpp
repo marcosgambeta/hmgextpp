@@ -133,7 +133,7 @@ HB_FUNC( SYSTEMPARAMETERSINFO )
 
 HB_FUNC( GETTEXTWIDTH ) // returns the width of a string in pixels
 {
-   HDC   hDC        = ( HDC ) HB_PARNL(1);
+   HDC   hDC        = hmg_par_HDC(1);
    HWND  hWnd       = ( HWND ) NULL;
    BOOL  bDestroyDC = FALSE;
    HFONT hFont      = ( HFONT ) HB_PARNL(3);

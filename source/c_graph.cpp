@@ -466,7 +466,7 @@ HB_FUNC( WNDBOXIN )
    rct.bottom = hb_parni(4);
    rct.right  = hb_parni(5);
 
-   WindowBoxIn( ( HDC ) HB_PARNL(1), &rct );
+   WindowBoxIn( hmg_par_HDC(1), &rct );
 }
 
 HB_FUNC( WNDBOXRAISED )
@@ -478,5 +478,5 @@ HB_FUNC( WNDBOXRAISED )
    rct.bottom = hb_parni(4);
    rct.right  = hb_parni(5);
 
-   WindowRaised( ( HDC ) HB_PARNL(1), &rct );
+   WindowRaised( hmg_par_HDC(1), &rct );
 }

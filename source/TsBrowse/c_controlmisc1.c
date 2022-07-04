@@ -137,17 +137,17 @@ HB_FUNC( MOVETO )
 {
    POINT pt;
 
-   MoveToEx( ( HDC ) HB_PARNL(1), ( INT ) hb_parni(2), ( INT ) hb_parni(3), &pt );
+   MoveToEx( hmg_par_HDC(1), ( INT ) hb_parni(2), ( INT ) hb_parni(3), &pt );
 }
 
 HB_FUNC( LINETO )
 {
-   LineTo( ( HDC ) HB_PARNL(1), ( INT ) hb_parni(2), ( INT ) hb_parni(3) );
+   LineTo( hmg_par_HDC(1), ( INT ) hb_parni(2), ( INT ) hb_parni(3) );
 }
 
 HB_FUNC( DRAWICON )
 {
-   hb_retl( DrawIcon(( HDC ) HB_PARNL(1), hb_parni(2), hb_parni(3), ( HICON ) HB_PARNL(4)) );
+   hb_retl( DrawIcon(hmg_par_HDC(1), hb_parni(2), hb_parni(3), ( HICON ) HB_PARNL(4)) );
 }
 
 HB_FUNC( CURSORWE )
@@ -172,7 +172,7 @@ HB_FUNC( INVERTRECT )
    if( HB_ISARRAY(2) )
    {
       Array2Rect(hb_param( 2, Harbour::Item::ARRAY ), &rc);
-      InvertRect(( HDC ) HB_PARNL(1), &rc);
+      InvertRect(hmg_par_HDC(1), &rc);
    }
 }
 
@@ -210,12 +210,12 @@ HB_FUNC( SETCAPTURE )
 
 HB_FUNC( GETTEXTCOLOR )
 {
-   hb_retnl( ( ULONG ) GetTextColor(( HDC ) HB_PARNL(1)) );
+   hb_retnl( ( ULONG ) GetTextColor(hmg_par_HDC(1)) );
 }
 
 HB_FUNC( GETBKCOLOR )
 {
-   hb_retnl( ( ULONG ) GetBkColor(( HDC ) HB_PARNL(1)) );
+   hb_retnl( ( ULONG ) GetBkColor(hmg_par_HDC(1)) );
 }
 
 HB_FUNC( MOVEFILE )

@@ -256,7 +256,7 @@ HB_FUNC( RR_DELETEDC )
    if( pi2 )
       GlobalFree(pi2);
 
-   DeleteDC(( HDC ) HB_PARNL(1));
+   DeleteDC(hmg_par_HDC(1));
 }
 
 HB_FUNC( RR_GETDEVICECAPS )
