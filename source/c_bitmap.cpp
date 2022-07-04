@@ -404,7 +404,7 @@ HB_FUNC( C_HASALPHA ) // hBitmap --> lYesNo
 
    ReleaseDC(GetDesktopWindow(), hDC);
 
-   hDib = DibFromBitmap(( HBITMAP ) HB_PARNL(1), ( HPALETTE ) NULL);
+   hDib = DibFromBitmap(hmg_par_HBITMAP(1), ( HPALETTE ) NULL);
 
    if( hDib )
    {
@@ -488,7 +488,7 @@ HB_FUNC( DRAWGLYPH )
    int      y    = hb_parni(3);
    int      dx   = hb_parni(4);
    int      dy   = hb_parni(5);
-   HBITMAP  hBmp = ( HBITMAP ) HB_PARNL(6);
+   HBITMAP  hBmp = hmg_par_HBITMAP(6);
    COLORREF rgbTransparent = RGB(255, 255, 255);
    BOOL     disabled       = hb_parl(8);
    BOOL     stretched      = HB_ISNIL(9) ? FALSE : hb_parl(9);
@@ -640,7 +640,7 @@ HB_FUNC( DRAWGLYPHMASK )
    HDC      hDC  = hmg_par_HDC(1);
    int      dx   = hb_parni(4);
    int      dy   = hb_parni(5);
-   HBITMAP  hBmp = ( HBITMAP ) HB_PARNL(6);
+   HBITMAP  hBmp = hmg_par_HBITMAP(6);
    COLORREF rgbTransparent;
    HWND     hwnd = hmg_par_HWND(10);
 
@@ -1026,7 +1026,7 @@ HB_FUNC( GETBITMAPSIZE )
    {
       if( GetObjectType(( HGDIOBJ ) HB_PARNL(1)) == OBJ_BITMAP )
       {
-         hBitmap = ( HBITMAP ) HB_PARNL(1);
+         hBitmap = hmg_par_HBITMAP(1);
          bDelete = FALSE;
       }
    }

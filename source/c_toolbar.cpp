@@ -688,7 +688,7 @@ HB_FUNC( SETTOOLBUTTONIMAGE )
 HB_FUNC( REPLACETOOLBUTTONIMAGE )
 {
    HWND    hwndTB     = hmg_par_HWND(1);
-   HBITMAP hBitmapOld = ( HBITMAP ) HB_PARNL(2);
+   HBITMAP hBitmapOld = hmg_par_HBITMAP(2);
    int     iImageIdx  = hb_parl(4) ? I_IMAGECALLBACK : I_IMAGENONE;
    int     nButtonID  = hmg_par_INT(5);
    HBITMAP hBitmapNew;
@@ -897,7 +897,7 @@ HB_FUNC( GETIMAGELIST )
 
 HB_FUNC( SETCHEVRONIMAGE )
 {
-   SetMenuItemBitmaps( ( HMENU ) HB_PARNL(1), hb_parni(2), MF_BYCOMMAND, ( HBITMAP ) HB_PARNL(3), ( HBITMAP ) HB_PARNL(3) );
+   SetMenuItemBitmaps( ( HMENU ) HB_PARNL(1), hb_parni(2), MF_BYCOMMAND, hmg_par_HBITMAP(3), hmg_par_HBITMAP(3) );
 }
 
 HB_FUNC( DESTROYMENU )

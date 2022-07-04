@@ -868,7 +868,7 @@ BOOL SaveHBitmapToFile(void * HBitmap, const char * FileName, unsigned int Width
 
 HB_FUNC( C_SAVEHBITMAPTOFILE )
 {
-   HBITMAP hbmp = ( HBITMAP ) HB_PARNL(1);
+   HBITMAP hbmp = hmg_par_HBITMAP(1);
 
    hb_retl( SaveHBitmapToFile(( void * ) hbmp, hb_parc(2),
                                hmg_par_UINT(3), hmg_par_UINT(4), hb_parc(5), ( ULONG ) hb_parnl(6)) );

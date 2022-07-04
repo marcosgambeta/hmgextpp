@@ -1491,7 +1491,7 @@ HB_FUNC( RR_DRAWPICTURE )
    if( ipic == NULL )
       ipic = ( IPicture * ) rr_loadpicturefromresource(cFileName, &lwidth, &lheight);
    if( ipic == NULL && HB_ISNUM(1) )
-      ipic = ( IPicture * ) rr_loadfromhbitmap(( HBITMAP ) HB_PARNL(1), &lwidth, &lheight);
+      ipic = ( IPicture * ) rr_loadfromhbitmap(hmg_par_HBITMAP(1), &lwidth, &lheight);
    if( ipic == NULL )
       return;
 

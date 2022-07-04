@@ -220,7 +220,7 @@ HB_FUNC( DESTROYCARET )
 
 HB_FUNC( CREATECARET )
 {
-   hb_retl( CreateCaret( hmg_par_HWND(1), ( HBITMAP ) HB_PARNL(2), ( int ) hb_parni(3), ( int ) hb_parni(4) ) );
+   hb_retl( CreateCaret( hmg_par_HWND(1), hmg_par_HBITMAP(2), ( int ) hb_parni(3), ( int ) hb_parni(4) ) );
 }
 
 /*
