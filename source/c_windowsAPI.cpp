@@ -606,7 +606,7 @@ HB_FUNC( CLIENTTOSCREEN )
 HB_FUNC( LOADTRAYICON )
 {
    HICON     hIcon;
-   HINSTANCE hInstance = ( HINSTANCE ) HB_PARNL(1);                                       // handle to application instance
+   HINSTANCE hInstance = hmg_par_HINSTANCE(1);                                       // handle to application instance
 
 #ifndef UNICODE
    LPCTSTR lpIconName = HB_ISCHAR(2) ? hb_parc(2) : MAKEINTRESOURCE(hb_parni(2));   // name string or resource identifier

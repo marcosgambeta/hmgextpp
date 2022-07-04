@@ -179,7 +179,7 @@ HB_FUNC( LOADICONBYNAME )
 #endif
       int       cxDesired = hb_parni(2);
       int       cyDesired = hb_parni(3);
-      HINSTANCE hInstance = HB_PARNL(4) ? ( HINSTANCE ) HB_PARNL(4) : GetResources();
+      HINSTANCE hInstance = HB_PARNL(4) ? hmg_par_HINSTANCE(4) : GetResources();
 
       hIcon = ( HICON ) LoadImage( hInstance, pszResOrFile, IMAGE_ICON, cxDesired, cyDesired, LR_DEFAULTCOLOR );
 

@@ -221,7 +221,7 @@ HB_FUNC( DESTROYACCELERATORTABLE )
 HB_FUNC( LOADACCELERATORS )
 {
    HACCEL    hAccel    = ( HACCEL ) NULL;
-   HINSTANCE hInstance = HB_ISNUM(1) ? ( HINSTANCE ) HB_PARNL(1) : GetResources();
+   HINSTANCE hInstance = HB_ISNUM(1) ? hmg_par_HINSTANCE(1) : GetResources();
    LPCTSTR   lpTableName;
 
    if( HB_ISNUM(2) )
@@ -245,7 +245,7 @@ HB_FUNC( LOADACCELERATORS )
 HB_FUNC( LOADMENU )
 {
    HMENU     hMenu     = ( HMENU ) NULL;
-   HINSTANCE hInstance = HB_ISNUM(1) ? ( HINSTANCE ) HB_PARNL(1) : GetResources();
+   HINSTANCE hInstance = HB_ISNUM(1) ? hmg_par_HINSTANCE(1) : GetResources();
    LPCTSTR   lpMenuName;
 
    if( HB_ISNUM(2) )

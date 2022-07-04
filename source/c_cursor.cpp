@@ -64,7 +64,7 @@ HINSTANCE GetResources( void );
 
 HB_FUNC( LOADCURSOR )
 {
-   HINSTANCE hInstance = HB_ISNIL(1) ? NULL : ( HINSTANCE ) HB_PARNL(1);
+   HINSTANCE hInstance = HB_ISNIL(1) ? NULL : hmg_par_HINSTANCE(1);
 
 #ifndef UNICODE
    LPCSTR lpCursorName = ( hb_parinfo(2) & Harbour::Item::STRING ) ? hb_parc(2) : ( LPCSTR ) MAKEINTRESOURCE(hb_parni(2));

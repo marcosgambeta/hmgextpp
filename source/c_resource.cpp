@@ -101,7 +101,7 @@ HB_FUNC( SETRESOURCES )
    if( HB_ISCHAR(1) )
       hResources = HMG_LoadDll( ( char * ) hb_parc(1) );
    else if( HB_ISNUM(1) )
-      hResources = ( HINSTANCE ) HB_PARNL(1);
+      hResources = hmg_par_HINSTANCE(1);
 
    HB_RETNL( ( LONG_PTR ) hResources );
 }
@@ -185,7 +185,7 @@ HB_FUNC( RCDATATOFILE )
 
 HB_FUNC( RCDATATOFILE )
 {
-   HMODULE hModule = ( HMODULE ) ( 0 != HB_PARNL(4) ? ( HINSTANCE ) HB_PARNL(4) : GetResources() );
+   HMODULE hModule = ( HMODULE ) ( 0 != HB_PARNL(4) ? hmg_par_HINSTANCE(4) : GetResources() );
 
    /* lpType is RT_RCDATA by default */
 #ifndef UNICODE

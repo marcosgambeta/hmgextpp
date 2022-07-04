@@ -186,7 +186,7 @@ HB_FUNC( GETCLASSINFO )
 #endif
    WNDCLASS WndClass;
 
-   if( GetClassInfo(HB_ISNIL(1) ? NULL : ( HINSTANCE ) HB_PARNL(1), lpString, &WndClass) )
+   if( GetClassInfo(HB_ISNIL(1) ? NULL : hmg_par_HINSTANCE(1), lpString, &WndClass) )
    {
    #ifdef UNICODE
       hb_reta(1);
