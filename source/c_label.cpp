@@ -120,7 +120,7 @@ HB_FUNC( INITLABEL )
                           hb_parni(6),
                           hb_parni(7),
                           hWndParent,
-                          ( HMENU ) HB_PARNL(3),
+                          hmg_par_HMENU(3),
                           GetInstance(),
                           NULL );
 

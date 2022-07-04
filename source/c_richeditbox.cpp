@@ -122,7 +122,7 @@ HB_FUNC( INITRICHEDITBOX )
          hb_parni(5),
          hb_parni(6),
          hmg_par_HWND(1),
-         ( HMENU ) HB_PARNL(2),
+         hmg_par_HMENU(2),
          GetInstance(),
          NULL
             );

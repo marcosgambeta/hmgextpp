@@ -1989,7 +1989,7 @@ HB_FUNC( INITEMFFILE )
    if( hb_parl(6) )
       Style |= SS_NOTIFY;
 
-   hWnd = CreateWindowEx( 0, WC_STATIC, NULL, Style, hb_parni(3), hb_parni(4), 0, 0, hWndParent, ( HMENU ) HB_PARNL(2), GetInstance(), NULL );
+   hWnd = CreateWindowEx( 0, WC_STATIC, NULL, Style, hb_parni(3), hb_parni(4), 0, 0, hWndParent, hmg_par_HMENU(2), GetInstance(), NULL );
 
    HB_RETNL( ( LONG_PTR ) hWnd );
 

@@ -107,7 +107,7 @@ HB_FUNC( INITTOOLBAR )
    if( hb_parl(16) )
       Style = Style | CCS_ADJUSTABLE;
 
-   hwndTB = CreateWindowEx( ExStyle, TOOLBARCLASSNAME, NULL, Style, 0, 0, 0, 0, hwnd, ( HMENU ) HB_PARNL(3), GetInstance(), NULL );
+   hwndTB = CreateWindowEx( ExStyle, TOOLBARCLASSNAME, NULL, Style, 0, 0, 0, 0, hwnd, hmg_par_HMENU(3), GetInstance(), NULL );
 
    if( hb_parni(6) && hb_parni(7) )
    {
@@ -301,7 +301,7 @@ HB_FUNC( INITTOOLBAREX )
    if( hb_parl(17) )
       Style = Style | CCS_ADJUSTABLE;
 
-   hwndTB = CreateWindowEx( ExStyle, TOOLBARCLASSNAME, NULL, Style, 0, 0, 0, 0, hwnd, ( HMENU ) HB_PARNL(3), GetInstance(), NULL );
+   hwndTB = CreateWindowEx( ExStyle, TOOLBARCLASSNAME, NULL, Style, 0, 0, 0, 0, hwnd, hmg_par_HMENU(3), GetInstance(), NULL );
 
    if( hb_parni(6) && hb_parni(7) )
    {
@@ -897,12 +897,12 @@ HB_FUNC( GETIMAGELIST )
 
 HB_FUNC( SETCHEVRONIMAGE )
 {
-   SetMenuItemBitmaps( ( HMENU ) HB_PARNL(1), hb_parni(2), MF_BYCOMMAND, hmg_par_HBITMAP(3), hmg_par_HBITMAP(3) );
+   SetMenuItemBitmaps( hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND, hmg_par_HBITMAP(3), hmg_par_HBITMAP(3) );
 }
 
 HB_FUNC( DESTROYMENU )
 {
-   DestroyMenu( ( HMENU ) HB_PARNL(1) );
+   DestroyMenu( hmg_par_HMENU(1) );
 }
 
 HB_FUNC( ADJUSTFLOATTOOLBAR )

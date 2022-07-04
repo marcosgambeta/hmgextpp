@@ -104,7 +104,7 @@ HB_FUNC( INITCOMBOBOX )
       hb_parni(5),
       hb_parni(8),
       hwnd,
-      ( HMENU ) HB_PARNL(2),
+      hmg_par_HMENU(2),
       GetInstance(),
       NULL
              );
@@ -154,7 +154,7 @@ HB_FUNC( INITCOMBOBOXEX )
       hb_parni(5),
       hb_parni(8),
       hwnd,
-      ( HMENU ) HB_PARNL(2),
+      hmg_par_HMENU(2),
       GetInstance(),
       NULL
             );

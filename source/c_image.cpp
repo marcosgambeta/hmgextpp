@@ -300,7 +300,7 @@ HB_FUNC( INITIMAGE )
    if( hb_parl(6) || hb_parl(7) )
       Style |= SS_NOTIFY;
 
-   hWnd = CreateWindowEx( 0, WC_STATIC, NULL, Style, hb_parni(3), hb_parni(4), 0, 0, hWndParent, ( HMENU ) HB_PARNL(2), GetResources(), NULL );
+   hWnd = CreateWindowEx( 0, WC_STATIC, NULL, Style, hb_parni(3), hb_parni(4), 0, 0, hWndParent, hmg_par_HMENU(2), GetResources(), NULL );
 
    if( hb_parl(7) )
       s_Image_WNDPROC = ( WNDPROC ) SetWindowLongPtr(hWnd, GWLP_WNDPROC, ( LONG_PTR ) ImageSubClassFunc);

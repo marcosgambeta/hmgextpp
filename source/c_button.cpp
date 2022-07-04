@@ -128,7 +128,7 @@ HB_FUNC( INITBUTTON )
       hb_parni(6),
       hb_parni(7),
       hwnd,
-      ( HMENU ) HB_PARNL(3),
+      hmg_par_HMENU(3),
       GetInstance(),
       NULL
              );
@@ -186,7 +186,7 @@ HB_FUNC( INITIMAGEBUTTON )
       hb_parni(6),
       hb_parni(7),
       hwnd,
-      ( HMENU ) HB_PARNL(3),
+      hmg_par_HMENU(3),
       GetInstance(),
       NULL
              );
@@ -322,7 +322,7 @@ HB_FUNC( INITOWNERBUTTON )
       hb_parni(6),
       hb_parni(7),
       hwnd,
-      ( HMENU ) HB_PARNL(3),
+      hmg_par_HMENU(3),
       GetInstance(),
       NULL
              );

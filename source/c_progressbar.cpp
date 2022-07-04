@@ -88,7 +88,7 @@ HB_FUNC( INITPROGRESSBAR )
       hb_parni(5),
       hb_parni(6),
       hwnd,
-      ( HMENU ) HB_PARNL(2),
+      hmg_par_HMENU(2),
       GetInstance(),
       NULL
              );

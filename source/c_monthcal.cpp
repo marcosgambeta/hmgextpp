@@ -112,7 +112,7 @@ HB_FUNC( INITMONTHCAL )
    if( ! hb_parl(13) )
       Style = Style | WS_TABSTOP;
 
-   hmonthcal = CreateWindowEx( 0, MONTHCAL_CLASS, TEXT(""), Style, 0, 0, 0, 0, hwnd, ( HMENU ) HB_PARNL(2), GetInstance(), NULL );
+   hmonthcal = CreateWindowEx( 0, MONTHCAL_CLASS, TEXT(""), Style, 0, 0, 0, 0, hwnd, hmg_par_HMENU(2), GetInstance(), NULL );
 
    SetProp( ( HWND ) hmonthcal, TEXT("oldmcproc"), ( HWND ) GetWindowLongPtr(( HWND ) hmonthcal, GWLP_WNDPROC) );
    SetWindowLongPtr(hmonthcal, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnMCProc);

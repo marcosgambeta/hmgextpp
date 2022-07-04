@@ -89,7 +89,7 @@ HB_FUNC( INITRADIOGROUP )
       hb_parni(8),
       28,
       hwnd,
-      ( HMENU ) HB_PARNL(3),
+      hmg_par_HMENU(3),
       GetInstance(),
       NULL
              );
@@ -131,7 +131,7 @@ HB_FUNC( INITRADIOBUTTON )
       hb_parni(8),
       28,
       hwnd,
-      ( HMENU ) HB_PARNL(3),
+      hmg_par_HMENU(3),
       GetInstance(),
       NULL
              );

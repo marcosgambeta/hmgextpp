@@ -83,7 +83,7 @@ HB_FUNC( INITTREE )
       hb_parni(4),
       hb_parni(5),
       hmg_par_HWND(1),
-      ( HMENU ) HB_PARNL(6),
+      hmg_par_HMENU(6),
       GetInstance(),
       NULL
             );

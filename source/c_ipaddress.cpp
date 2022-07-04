@@ -84,7 +84,7 @@ HB_FUNC( INITIPADDRESS )
       hb_parni(5),
       hb_parni(6),
       hWnd,
-      ( HMENU ) HB_PARNL(2),
+      hmg_par_HMENU(2),
       GetInstance(),
       NULL
                 );

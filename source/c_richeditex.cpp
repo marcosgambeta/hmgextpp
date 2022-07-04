@@ -84,7 +84,7 @@ static HINSTANCE hRELib = NULL;
 HB_FUNC( INITRICHEDITBOXEX )
 {
    HWND  hWnd        = hmg_par_HWND(1);
-   HMENU hMenu       = ( HMENU ) HB_PARNL(2);
+   HMENU hMenu       = hmg_par_HMENU(2);
    HWND  hWndControl = NULL;
 
    int Style = ES_MULTILINE | ES_WANTRETURN | WS_CHILD | ES_NOHIDESEL;

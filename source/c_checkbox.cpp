@@ -124,7 +124,7 @@ HB_FUNC( INITCHECKBOX )
       hb_parni(8),
       hb_parni(9),
       hwnd,
-      ( HMENU ) HB_PARNL(3),
+      hmg_par_HMENU(3),
       GetInstance(),
       NULL
              );
@@ -168,7 +168,7 @@ HB_FUNC( INITCHECKBUTTON )
       hb_parni(8),
       hb_parni(9),
       hwnd,
-      ( HMENU ) HB_PARNL(3),
+      hmg_par_HMENU(3),
       GetInstance(),
       NULL
              );
@@ -215,7 +215,7 @@ HB_FUNC( INITIMAGECHECKBUTTON )
       hb_parni(9),
       hb_parni(10),
       hwnd,
-      ( HMENU ) HB_PARNL(3),
+      hmg_par_HMENU(3),
       GetInstance(),
       NULL
              );

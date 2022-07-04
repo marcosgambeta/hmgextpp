@@ -102,7 +102,7 @@ HB_FUNC( INITMASKEDTEXTBOX )
       hb_parni(5),
       hb_parni(11),
       hwnd,
-      ( HMENU ) HB_PARNL(2),
+      hmg_par_HMENU(2),
       GetInstance(),
       NULL
              );
@@ -163,7 +163,7 @@ HB_FUNC( INITTEXTBOX )
       hb_parni(5),
       hb_parni(6),
       hwnd,
-      ( HMENU ) HB_PARNL(2),
+      hmg_par_HMENU(2),
       GetInstance(),
       NULL
            );
@@ -219,7 +219,7 @@ HB_FUNC( INITCHARMASKTEXTBOX )
       hb_parni(5),
       hb_parni(11),
       hwnd,
-      ( HMENU ) HB_PARNL(2),
+      hmg_par_HMENU(2),
       GetInstance(),
       NULL
              );
