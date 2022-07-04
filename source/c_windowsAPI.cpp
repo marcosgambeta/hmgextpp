@@ -542,7 +542,7 @@ HB_FUNC( SHOWNOTIFYICON )
 #else
    TCHAR * szText = ( TCHAR * ) AnsiToWide( ( char * ) hb_parc(4) );
 #endif
-   hb_retl( ( BOOL ) ShowNotifyIcon(hmg_par_HWND(1), ( BOOL ) hb_parl(2), hmg_par_HICON(3), ( TCHAR * ) szText) );
+   hb_retl( ( BOOL ) ShowNotifyIcon(hmg_par_HWND(1), hmg_par_BOOL(2), hmg_par_HICON(3), ( TCHAR * ) szText) );
 
 #ifdef UNICODE
    hb_xfree(szText);
@@ -727,7 +727,7 @@ static BOOL CALLBACK EnumChildProc( HWND hWnd, LPARAM lParam )
 
    hb_itemRelease( pHWnd );
 
-   return ( BOOL ) hb_parl( -1 );
+   return hmg_par_BOOL(-1);
 }
 
 HB_FUNC( C_ENUMCHILDWINDOWS )

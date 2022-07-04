@@ -418,7 +418,7 @@ HB_FUNC( TTM_ACTIVATE )
    {
       if( g_bIsToolTipActive )
       {
-         SendMessage( hwndToolTip, TTM_ACTIVATE, ( WPARAM ) ( BOOL ) hb_parl(2), 0 );
+         SendMessage( hwndToolTip, TTM_ACTIVATE, ( WPARAM ) hmg_par_BOOL(2), 0 );
       }
    }
    else

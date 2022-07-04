@@ -383,7 +383,7 @@ BOOL CALLBACK PropsEnumProcEx( HWND hWnd, LPCTSTR pszPropName, HANDLE handle, UL
       hb_itemRelease( pPropName );
       hb_itemRelease( pHandle );
 
-      return ( BOOL ) hb_parl( -1 );
+      return hmg_par_BOOL(-1);
    }
 
    return TRUE;

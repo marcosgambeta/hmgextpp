@@ -577,7 +577,7 @@ HRESULT CALLBACK __ClsCBFunc( HWND hWnd, UINT uiNotification, WPARAM wParam, LPA
       // Get TimedOut property
       hb_objSendMsg( pObject, ( const char * ) "TIMEDOUT", 0 );
 
-      if( ! ( BOOL ) hb_parl( -1 ) )  // if FALSE - it's not the time yet
+      if( ! hmg_par_BOOL(-1) )  // if FALSE - it's not the time yet
       {
          if( uiNotification == TDN_TIMER )
          {
@@ -751,25 +751,25 @@ HB_FUNC( _CLICKRADIOBUTTON )
 // TDM_CLICK_VERIFICATION - Simulates a click of the verification checkbox of a task dialog, if it exists.
 HB_FUNC( _CLICKVERIFICATION )
 {
-   SendMessage( hmg_par_HWND(1), TDM_CLICK_VERIFICATION, ( WPARAM ) ( BOOL ) hb_parl(2), ( LPARAM ) ( BOOL ) hb_parl(3) );
+   SendMessage( hmg_par_HWND(1), TDM_CLICK_VERIFICATION, ( WPARAM ) hmg_par_BOOL(2), ( LPARAM ) hmg_par_BOOL(3) );
 }
 
 // TDM_ENABLE_BUTTON - Enables or disables a push button in a task dialog
 HB_FUNC( _ENABLEBUTTON )
 {
-   SendMessage( hmg_par_HWND(1), TDM_ENABLE_BUTTON, ( WPARAM ) hb_parni(2), ( LPARAM ) ( BOOL ) hb_parl(3) );
+   SendMessage( hmg_par_HWND(1), TDM_ENABLE_BUTTON, ( WPARAM ) hb_parni(2), ( LPARAM ) hmg_par_BOOL(3) );
 }
 
 // TDM_ENABLE_RADIO_BUTTON - Enables or disables a push button in a task dialog
 HB_FUNC( _ENABLERADIOBUTTON )
 {
-   SendMessage( hmg_par_HWND(1), TDM_ENABLE_RADIO_BUTTON, ( WPARAM ) hb_parni(2), ( LPARAM ) ( BOOL ) hb_parl(3) );
+   SendMessage( hmg_par_HWND(1), TDM_ENABLE_RADIO_BUTTON, ( WPARAM ) hb_parni(2), ( LPARAM ) hmg_par_BOOL(3) );
 }
 
 // TDM_SET_BUTTON_ELEVATION_REQUIRED_STATE - Specifies whether a given task dialog button or command link should have a UAC shield icon
 HB_FUNC( _SETBUTTONELEVATIONREQUIRED )
 {
-   SendMessage( hmg_par_HWND(1), TDM_SET_BUTTON_ELEVATION_REQUIRED_STATE, ( WPARAM ) hb_parni(2), ( LPARAM ) ( BOOL ) hb_parl(3) );
+   SendMessage( hmg_par_HWND(1), TDM_SET_BUTTON_ELEVATION_REQUIRED_STATE, ( WPARAM ) hb_parni(2), ( LPARAM ) hmg_par_BOOL(3) );
 }
 
 // TDM_SET_ELEMENT_TEXT - Updates a text element in a task dialog

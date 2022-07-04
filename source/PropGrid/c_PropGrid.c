@@ -2056,7 +2056,7 @@ HB_FUNC( TREEVIEW_SETBOLDITEM )
    BOOL        bold;
    TreeHandle = ( HWND ) hb_parnl(1);
    ItemHandle = ( HTREEITEM ) hb_parnl(2);
-   bold = ( BOOL ) hb_parl(3);
+   bold = hmg_par_BOOL(3);
    tvItem.mask = TVIF_HANDLE | TVIF_STATE;
    tvItem.hItem = ItemHandle;
    tvItem.stateMask = TVIS_BOLD;

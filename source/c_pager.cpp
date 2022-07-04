@@ -194,7 +194,7 @@ HB_FUNC( INITPAGER )       // InitPager ( ParentForm, hRebar, nWidth, nHeight, v
 
 HB_FUNC( PAGERFORWARDMOUSE )
 {
-   Pager_ForwardMouse( hmg_par_HWND(1), ( BOOL ) hb_parl(2) );
+   Pager_ForwardMouse( hmg_par_HWND(1), hmg_par_BOOL(2) );
 }
 
 HB_FUNC( PAGERGETBUTTONSIZE )

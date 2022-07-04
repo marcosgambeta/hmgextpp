@@ -1212,7 +1212,7 @@ HB_FUNC( SETMENUSEPARATORTYPE )
 
 HB_FUNC( SETMENUSELECTEDITEM3D )
 {
-   bSelectedItemBorder3d = ( BOOL ) hb_parl(1);
+   bSelectedItemBorder3d = hmg_par_BOOL(1);
 }
 
 HB_FUNC( SETMENUCURSORTYPE )

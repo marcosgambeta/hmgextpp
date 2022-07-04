@@ -192,7 +192,7 @@ HB_FUNC( ADDTREEITEM )
    TV_INSERTSTRUCT is;
 
    LONG nID        = ( LONG ) hb_parnl(6);
-   BOOL IsNodeFlag = ( BOOL ) hb_parl(7);
+   BOOL IsNodeFlag = hmg_par_BOOL(7);
 
    tvi.mask = TVIF_TEXT | TVIF_IMAGE | TVIF_SELECTEDIMAGE | TVIF_PARAM;
 
@@ -543,7 +543,7 @@ HB_FUNC( TREEVIEW_EXPANDCHILDRENRECURSIVE )
    HWND      hWndTV     = hmg_par_HWND(1);
    HTREEITEM ItemHandle = ( HTREEITEM ) HB_PARNL(2);
    UINT      nExpand    = hmg_par_UINT(3);
-   BOOL      fRecurse   = ( BOOL ) hb_parl(4);
+   BOOL      fRecurse   = hmg_par_BOOL(4);
    HWND      hWndParent = GetParent( hWndTV );
    BOOL      lEnabled   = IsWindowEnabled( hWndParent );
 
@@ -665,9 +665,9 @@ HB_FUNC( TREEVIEW_SORTCHILDRENRECURSIVECB )
 {
    HWND      hWndTV          = hmg_par_HWND(1);
    HTREEITEM ItemHandle      = ( HTREEITEM ) HB_PARNL(2);
-   BOOL      fRecurse        = ( BOOL ) hb_parl(3);
-   BOOL      lCaseSensitive  = ( BOOL ) hb_parl(4);
-   BOOL      lAscendingOrder = ( BOOL ) hb_parl(5);
+   BOOL      fRecurse        = hmg_par_BOOL(3);
+   BOOL      lCaseSensitive  = hmg_par_BOOL(4);
+   BOOL      lAscendingOrder = hmg_par_BOOL(5);
    INT       nNodePosition   = hmg_par_INT(6);
    HWND      hWndParent      = GetParent( hWndTV );
    BOOL      lEnabled        = IsWindowEnabled( hWndParent );
@@ -727,7 +727,7 @@ HB_FUNC( TREEITEM_SETNODEFLAG )
 {
    HWND      hWndTV     = hmg_par_HWND(1);
    HTREEITEM ItemHandle = ( HTREEITEM ) HB_PARNL(2);
-   BOOL      IsNodeFlag = ( BOOL ) hb_parl(3);
+   BOOL      IsNodeFlag = hmg_par_BOOL(3);
 
    HMG_StructTreeItemLPARAM * TreeItemLPARAM;
    TV_ITEM TreeItem;

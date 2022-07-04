@@ -1149,7 +1149,7 @@ HB_FUNC( LISTVIEW_ISGROUPVIEWENABLED )
 HB_FUNC( LISTVIEW_ENABLEGROUPVIEW )
 {
    HWND hWnd   = hmg_par_HWND(1);
-   BOOL Enable = ( BOOL ) hb_parl(2);
+   BOOL Enable = hmg_par_BOOL(2);
 
    ListView_EnableGroupView( hWnd, Enable );
 }

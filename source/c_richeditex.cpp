@@ -161,7 +161,7 @@ HB_FUNC( RICHEDITBOX_STREAMIN )
 #else
    LPCWSTR cFileName = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
-   BOOL       lSelection  = ( BOOL ) hb_parl(3);
+   BOOL       lSelection  = hmg_par_BOOL(3);
    LONG       nDataFormat = ( LONG ) hb_parnl(4);
    HANDLE     hFile;
    EDITSTREAM es;
@@ -226,7 +226,7 @@ HB_FUNC( RICHEDITBOX_STREAMOUT )
 #else
    LPCWSTR cFileName = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
-   BOOL       lSelection  = ( BOOL ) hb_parl(3);
+   BOOL       lSelection  = hmg_par_BOOL(3);
    LONG       nDataFormat = ( LONG ) hb_parnl(4);
    HANDLE     hFile;
    EDITSTREAM es;
@@ -281,7 +281,7 @@ HB_FUNC( RICHEDITBOX_RTFLOADRESOURCEFILE )
 #else
    LPCWSTR cFileName = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
-   BOOL lSelect = ( BOOL ) hb_parl(3);
+   BOOL lSelect = hmg_par_BOOL(3);
 
    HRSRC   hResourceData;
    HGLOBAL hGlobalResource;
@@ -323,7 +323,7 @@ HB_FUNC( RICHEDITBOX_RTFLOADRESOURCEFILE )
 HB_FUNC( RICHEDITBOX_SETRTFTEXTMODE )
 {
    HWND hWndControl = hmg_par_HWND(1);
-   BOOL lRTF        = ( HB_ISLOG(2) ? ( BOOL ) hb_parl(2) : TRUE );
+   BOOL lRTF        = ( HB_ISLOG(2) ? hmg_par_BOOL(2) : TRUE );
    LONG Mode        = ( lRTF ? TM_RICHTEXT : TM_PLAINTEXT ) | TM_MULTILEVELUNDO | TM_MULTICODEPAGE;
 
    SendMessage( hWndControl, EM_SETTEXTMODE, ( WPARAM ) Mode, 0 );
@@ -342,7 +342,7 @@ HB_FUNC( RICHEDITBOX_ISRTFTEXTMODE )
 HB_FUNC( RICHEDITBOX_SETAUTOURLDETECT )
 {
    HWND hWndControl = hmg_par_HWND(1);
-   BOOL lLink       = ( HB_ISLOG(2) ? ( BOOL ) hb_parl(2) : TRUE );
+   BOOL lLink       = ( HB_ISLOG(2) ? hmg_par_BOOL(2) : TRUE );
 
    SendMessage( hWndControl, EM_AUTOURLDETECT, ( WPARAM ) lLink, 0 );
 }
@@ -614,7 +614,7 @@ HB_FUNC( RICHEDITBOX_REPLACESEL )
 HB_FUNC( RICHEDITBOX_SETTEXT )
 {
    HWND hWndControl = hmg_par_HWND(1);
-   BOOL lSelect     = ( BOOL ) hb_parl(2);
+   BOOL lSelect     = hmg_par_BOOL(2);
 
 #ifndef UNICODE
    LPCTSTR cBuffer = ( LPCTSTR ) hb_parc(3);
@@ -640,7 +640,7 @@ HB_FUNC( RICHEDITBOX_GETTEXT )
    LPSTR pStr;
 #endif
    HWND hWndControl = hmg_par_HWND(1);
-   BOOL lSelect     = ( BOOL ) hb_parl(2);
+   BOOL lSelect     = hmg_par_BOOL(2);
 
    TCHAR cBuffer[ 4096 ];
 
@@ -1205,7 +1205,7 @@ HB_FUNC( FINDREPLACEDLG )
    BOOL CheckDown      = ( BOOL ) ( HB_ISNIL(5) ? TRUE  : hb_parl(5) );
    BOOL CheckMatchCase = ( BOOL ) ( HB_ISNIL(6) ? FALSE : hb_parl(6) );
    BOOL CheckWholeWord = ( BOOL ) ( HB_ISNIL(7) ? FALSE : hb_parl(7) );
-   BOOL lReplace       = ( BOOL ) hb_parl(10);
+   BOOL lReplace       = hmg_par_BOOL(10);
 
 #ifndef UNICODE
    LPSTR FindWhat    = ( LPSTR ) hb_parc(8);

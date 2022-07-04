@@ -201,7 +201,7 @@ HB_FUNC( SETWINDOWSTYLE )
       LONG_PTR nOldStyle = GetWindowLongPtr(hwnd, GWL_STYLE);
       LONG_PTR nNewStyle = ( LONG_PTR ) HB_PARNL(2);
 
-      HB_RETNL( SetWindowLongPtr(hwnd, GWL_STYLE, ( ( BOOL ) hb_parl(3) ) ? nOldStyle | nNewStyle : nOldStyle&( ~nNewStyle )) );
+      HB_RETNL( SetWindowLongPtr(hwnd, GWL_STYLE, ( hmg_par_BOOL(3) ) ? nOldStyle | nNewStyle : nOldStyle&( ~nNewStyle )) );
    }
    else
       hb_errRT_BASE_SubstR( EG_ARG, 3012, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );

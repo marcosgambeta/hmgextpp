@@ -69,7 +69,7 @@ HB_FUNC( INITFRAME )
    if( IsWindow(hwnd) )
    {
       HMENU hmenu     = hmg_par_HMENU(2);
-      DWORD dwExStyle = ( ( BOOL ) hb_parl(10) ? 0 : WS_EX_TRANSPARENT ); /* opaque | transparent */
+      DWORD dwExStyle = ( hmg_par_BOOL(10) ? 0 : WS_EX_TRANSPARENT ); /* opaque | transparent */
 #ifndef UNICODE
       LPCSTR lpWindowName = hb_parc(7);
 #else

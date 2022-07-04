@@ -513,7 +513,7 @@ HB_FUNC( CREATEDLGFOLDER )
    pFhi->hasHelp     = hb_arrayGetL( pArray, 18 );
    pFhi->activeValid = FALSE;
    pFhi->active_page = -1;
-   pFhi->isInDirect  = ( BOOL ) hb_parl(6); //InMemory;
+   pFhi->isInDirect  = hmg_par_BOOL(6); //InMemory;
    pFhi->nIdFld      = nIdFld;
    pFhi->FolderStyle = Style;
 
