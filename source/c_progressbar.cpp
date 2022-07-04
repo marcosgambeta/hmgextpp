@@ -66,7 +66,7 @@ HB_FUNC( INITPROGRESSBAR )
    i.dwICC  = ICC_PROGRESS_CLASS;
    InitCommonControlsEx( &i );
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    if( hb_parl(9) )
       Style = Style | PBS_VERTICAL;

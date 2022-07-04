@@ -110,7 +110,7 @@ HB_FUNC( C_GETHOTKEYNAME )
    LPSTR pStr;
 #endif
 
-   hWnd = ( HWND ) HB_PARNL(1);
+   hWnd = hmg_par_HWND(1);
 
    wHotKey = ( WORD ) SendMessage( hWnd, HKM_GETHOTKEY, 0, 0 );
 
@@ -131,7 +131,7 @@ HB_FUNC( INITHOTKEYBOX )
    HWND hwndHotKey;
    int  Style = WS_CHILD;
 
-   hWnd = ( HWND ) HB_PARNL(1);
+   hWnd = hmg_par_HWND(1);
 
    if( ! hb_parl(8) )
       Style = Style | WS_VISIBLE;
@@ -163,7 +163,7 @@ HB_FUNC( SETHOTKEYVALUE )
    HWND hWnd;
    WORD wHotKey;
 
-   hWnd = ( HWND ) HB_PARNL(1);
+   hWnd = hmg_par_HWND(1);
 
    wHotKey = ( WORD ) hb_parnl(2);
 
@@ -182,7 +182,7 @@ HB_FUNC( C_GETHOTKEYVALUE )
    UINT uModifiers;
    UINT iModifierKeys;
 
-   hWnd = ( HWND ) HB_PARNL(1);
+   hWnd = hmg_par_HWND(1);
 
    wHotKey = ( WORD ) SendMessage( hWnd, HKM_GETHOTKEY, 0, 0 );
 
@@ -200,7 +200,7 @@ HB_FUNC( C_GETHOTKEYVALUE )
 
 HB_FUNC( C_GETHOTKEY )
 {
-   HWND hWnd = ( HWND ) HB_PARNL(1);
+   HWND hWnd = hmg_par_HWND(1);
    WORD wHotKey;
 
    wHotKey = ( WORD ) SendMessage( hWnd, HKM_GETHOTKEY, 0, 0 );

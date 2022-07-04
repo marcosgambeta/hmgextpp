@@ -136,3 +136,6 @@ extern HB_PTRUINT wapi_GetProcAddress( HMODULE hmodule, LPCSTR lpProcName );
    }
 
 #endif /* MG_SETUP_H_ */
+
+// macros for parameters
+#define hmg_par_HWND(n) reinterpret_cast<HWND>(HB_PARNL(n))

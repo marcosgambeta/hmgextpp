@@ -261,7 +261,7 @@ HB_FUNC( INITMDIWINDOW )
       hb_parni(3),
       hb_parni(4),
       hb_parni(5),
-      ( HWND ) HB_PARNL(13),
+      hmg_par_HWND(13),
       ( HMENU ) NULL,
       GetInstance(),
       NULL
@@ -290,7 +290,7 @@ HB_FUNC( INITMDICLIENTWINDOW )
 
    memset(&ccs, 0, sizeof(ccs));
 
-   hwndparent = ( HWND ) HB_PARNL(1);
+   hwndparent = hmg_par_HWND(1);
 
    icount = GetMenuItemCount( GetMenu( hwndparent ) );
 
@@ -367,7 +367,7 @@ HB_FUNC( INITMDICHILDWINDOW )
    mcs.cy      = hb_parni(6);              // height
    mcs.style   = Style;                      // window style
    mcs.lParam  = 0;                          // lparam
-   hwndChild   = ( HWND ) SendMessage( ( HWND ) HB_PARNL(1), WM_MDICREATE, 0, ( LPARAM ) ( LPMDICREATESTRUCT ) &mcs );
+   hwndChild   = ( HWND ) SendMessage( hmg_par_HWND(1), WM_MDICREATE, 0, ( LPARAM ) ( LPMDICREATESTRUCT ) &mcs );
 
    if( hwndChild != NULL )
    {
@@ -392,31 +392,31 @@ HB_FUNC( INITMDICHILDWINDOW )
 
 HB_FUNC( ARRANGEICONICWINDOWS )
 {
-   hb_retni( ArrangeIconicWindows( ( HWND ) HB_PARNL(1) ) );
+   hb_retni( ArrangeIconicWindows( hmg_par_HWND(1) ) );
 }
 
 HB_FUNC( DEFMDICHILDPROC )
 {
-   hb_retnl( ( LONG ) DefMDIChildProc( ( HWND ) HB_PARNL(1), hb_parnl(2), hb_parnl(3), hb_parnl(4) ) );
+   hb_retnl( ( LONG ) DefMDIChildProc( hmg_par_HWND(1), hb_parnl(2), hb_parnl(3), hb_parnl(4) ) );
 }
 
 HB_FUNC( DEFFRAMEPROC )
 {
-   hb_retnl( ( LONG ) DefFrameProc( ( HWND ) HB_PARNL(1), ( HWND ) HB_PARNL(2), hb_parnl(3), hb_parnl(4), hb_parnl(5) ) );
+   hb_retnl( ( LONG ) DefFrameProc( hmg_par_HWND(1), hmg_par_HWND(2), hb_parnl(3), hb_parnl(4), hb_parnl(5) ) );
 }
 
 HB_FUNC( SIZECLIENTWINDOW )
 {
    RECT rc, rcClient;
 
-   GetClientRect(( HWND ) HB_PARNL(1), &rcClient);
+   GetClientRect(hmg_par_HWND(1), &rcClient);
    if( HB_PARNL(2) )
    {
-      GetWindowRect(( HWND ) HB_PARNL(2), &rc);
-      ScreenToClient( ( HWND ) HB_PARNL(1), ( LPPOINT ) &rc.left );
+      GetWindowRect(hmg_par_HWND(2), &rc);
+      ScreenToClient( hmg_par_HWND(1), ( LPPOINT ) &rc.left );
       rcClient.bottom = rc.top;
    }
 
    rcClient.top = hb_parnl(4);
-   MoveWindow(( HWND ) HB_PARNL(3), rcClient.left, rcClient.top, rcClient.right - rcClient.left, rcClient.bottom - rcClient.top, TRUE);
+   MoveWindow(hmg_par_HWND(3), rcClient.left, rcClient.top, rcClient.right - rcClient.left, rcClient.bottom - rcClient.top, TRUE);
 }

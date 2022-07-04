@@ -90,7 +90,7 @@ HB_FUNC( REGISTER_CLASS )
    HBRUSH   hbrush;
 
    WndClass.style = CS_DBLCLKS;
-   hwndMDIClient  = ( HB_ISNIL(3) ? 0 : ( HWND ) HB_PARNL(3) );
+   hwndMDIClient  = ( HB_ISNIL(3) ? 0 : hmg_par_HWND(3) );
    if( hwndMDIClient )
       WndClass.lpfnWndProc = WndProcMDI;
    else
@@ -137,7 +137,7 @@ HB_FUNC( _CREATEWINDOWEX )
    int    y          = HB_ISNIL(6) ? 0 : hb_parni(6);
    int    nWidth     = HB_ISNIL(7) ? 0 : hb_parni(7);
    int    nHeight    = HB_ISNIL(8) ? 0 : hb_parni(8);
-   HWND   hWndParent = ( HWND ) HB_PARNL(9);
+   HWND   hWndParent = hmg_par_HWND(9);
    HMENU  hMenu      = ( HMENU ) NULL;
    HANDLE hInstance  = ( HANDLE ) HB_PARNL(11);
 
@@ -265,7 +265,7 @@ void DrawMasked( HDC hDC, HBITMAP hbm, int wRow, int wCol )
 
 HB_FUNC( TSDRAWCELL )
 {
-   HWND     hWnd         = ( HWND ) HB_PARNL(1);
+   HWND     hWnd         = hmg_par_HWND(1);
    HDC      hDC          = ( HDC ) HB_PARNL(2);
    int      nRow         = hb_parni(3);
    int      nColumn      = hb_parni(4);
@@ -621,7 +621,7 @@ void WndBoxDraw( HDC hDC, RECT * rct, HPEN hPUpLeft, HPEN hPBotRit, int nLineSty
 
 HB_FUNC( TSBRWSCROLL )
 {
-   HWND  hWnd          = ( HWND ) HB_PARNL(1);
+   HWND  hWnd          = hmg_par_HWND(1);
    int   iRows         = hb_parni(2);
    HFONT hFont         = ( HFONT ) HB_PARNL(3);
    int   nHeightCell   = hb_parni(4);
@@ -657,7 +657,7 @@ HB_FUNC( TSBRWSCROLL )
 
 HB_FUNC( TSBRWHSCROLL )
 {
-   HWND hWnd   = ( HWND ) HB_PARNL(1);
+   HWND hWnd   = hmg_par_HWND(1);
    int  iCols  = hb_parni(2);
    int  nLeft  = hb_parni(3);
    int  nRight = hb_parni(4);
@@ -680,7 +680,7 @@ HB_FUNC( TSBRWHSCROLL )
 
 HB_FUNC( ROWFROMPIX )
 {
-   HWND hWnd  = ( HWND ) HB_PARNL(1);
+   HWND hWnd  = hmg_par_HWND(1);
    int  iPixR = hb_parni(2);
    int  iCell = hb_parni(3);
    int  iHead = hb_parni(4);
@@ -710,7 +710,7 @@ HB_FUNC( ROWFROMPIX )
 
 HB_FUNC( SBGETHEIGHT )   // ( hWnd, hFont, nTotal )
 {
-   HWND  hWnd   = ( HWND ) HB_PARNL(1);
+   HWND  hWnd   = hmg_par_HWND(1);
    HFONT hFont  = ( HFONT ) HB_PARNL(2);
    int   iTotal = hb_parni(3);
 
@@ -745,7 +745,7 @@ HB_FUNC( SBGETHEIGHT )   // ( hWnd, hFont, nTotal )
 
 HB_FUNC( COUNTROWS )     // ( hWnd, nHeightCell, nHeightHead, nHeightFoot, nHeightSuper, nHeightSpec ) -> nRows
 {
-   HWND hWnd  = ( HWND ) HB_PARNL(1);
+   HWND hWnd  = hmg_par_HWND(1);
    int  iCell = hb_parni(2);
 
    int iHead = hb_parni(3);
@@ -1019,7 +1019,7 @@ HB_FUNC( GETSCRLRANGE )  // ( hWnd, nFlags )
 {
    int iMin = 0, iMax = 0;
 
-   GetScrollRange( ( HWND ) HB_PARNL(1), // its hWnd
+   GetScrollRange( hmg_par_HWND(1), // its hWnd
                    hb_parni(2),          // Scroll bar flags
                    &iMin, &iMax );
 
@@ -1042,8 +1042,8 @@ HB_FUNC( INITEDSPINNER )
    i.dwICC  = ICC_UPDOWN_CLASS;
    InitCommonControlsEx( &i );
 
-   hwnd  = ( HWND ) HB_PARNL(1);
-   hedit = ( HWND ) HB_PARNL(2);
+   hwnd  = hmg_par_HWND(1);
+   hedit = hmg_par_HWND(2);
 
    iMin  = hb_parni(7);
    iMax  = hb_parni(8);
@@ -1060,10 +1060,10 @@ HB_FUNC( SETINCREMENTSPINNER )
 {
    UDACCEL inc;
 
-   SendMessage( ( HWND ) HB_PARNL(1), UDM_GETACCEL, ( WPARAM ) 1, ( LPARAM ) &inc );
+   SendMessage( hmg_par_HWND(1), UDM_GETACCEL, ( WPARAM ) 1, ( LPARAM ) &inc );
 
    inc.nSec = 1;
    inc.nInc = hb_parni(2);
 
-   SendMessage( ( HWND ) HB_PARNL(1), UDM_SETACCEL, ( WPARAM ) 1, ( LPARAM ) &inc );
+   SendMessage( hmg_par_HWND(1), UDM_SETACCEL, ( WPARAM ) 1, ( LPARAM ) &inc );
 }

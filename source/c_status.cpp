@@ -64,7 +64,7 @@ HB_FUNC( INITMESSAGEBAR )
    int  ptArray[ 40 ];  // Array defining the number of parts/sections
    int  nrOfParts = 1;
 
-   hWndSB = CreateStatusWindow(WS_CHILD | WS_VISIBLE | SBT_TOOLTIPS, NULL, ( HWND ) HB_PARNL(1), hb_parni(2));
+   hWndSB = CreateStatusWindow(WS_CHILD | WS_VISIBLE | SBT_TOOLTIPS, NULL, hmg_par_HWND(1), hb_parni(2));
 
    if( hWndSB )
       SendMessage( hWndSB, SB_SETPARTS, ( WPARAM ) nrOfParts, ( LPARAM ) ( LPINT ) ptArray );
@@ -97,7 +97,7 @@ HB_FUNC( INITITEMBAR )
    LPWSTR lpTipText  = AnsiToWide( ( char * ) hb_parc(7) );
 #endif
 
-   hWndSB = ( HWND ) HB_PARNL(1);
+   hWndSB = hmg_par_HWND(1);
    Style  = GetWindowLong( ( HWND ) GetParent( hWndSB ), GWL_STYLE );
 
    switch( hb_parni(8) )
@@ -166,7 +166,7 @@ HB_FUNC( INITITEMBAR )
 
 HB_FUNC( SETITEMBAR )
 {
-   HWND hWnd = ( HWND ) HB_PARNL(1);
+   HWND hWnd = hmg_par_HWND(1);
    int  iPos = hb_parni(3);
    WORD nFlags;
 
@@ -189,7 +189,7 @@ HB_FUNC( GETITEMBAR )
 #ifdef UNICODE
    LPSTR pStr;
 #endif
-   HWND    hWnd = ( HWND ) HB_PARNL(1);
+   HWND    hWnd = hmg_par_HWND(1);
    int     iPos = hb_parni(2);
    TCHAR * cString;
 
@@ -217,7 +217,7 @@ HB_FUNC( REFRESHITEMBAR )
    HDC  hDC;
    int  size;
 
-   hWndSB    = ( HWND ) HB_PARNL(1);
+   hWndSB    = hmg_par_HWND(1);
    size      = hb_parni(2);
    nrOfParts = ( int ) SendMessage( hWndSB, SB_GETPARTS, 40, 0 );
    SendMessage( hWndSB, SB_GETPARTS, ( WPARAM ) 40, ( LPARAM ) ( LPINT ) ptArray );
@@ -295,7 +295,7 @@ HB_FUNC( SETSTATUSITEMICON )
    LPWSTR lpIconName = AnsiToWide( ( char * ) hb_parc(3) );
 #endif
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    // Unloads from memory current icon
 
@@ -323,7 +323,7 @@ HB_FUNC( SETSTATUSBARSIZE )
    HLOCAL hloc;
    LPINT  lpParts;
 
-   HWND hwndStatus = ( HWND ) HB_PARNL(1);
+   HWND hwndStatus = hmg_par_HWND(1);
    int  nParts     = ( int ) hb_parinfa( 2, 0 );
    int  nWidth;
    int  i;
@@ -351,16 +351,16 @@ HB_FUNC( SETSTATUSBARSIZE )
 
 HB_FUNC( REFRESHPROGRESSITEM )       // RefreshProgressItem( HwndStatus, NrItem, hProgress )
 {
-   HWND hwndStatus = ( HWND ) HB_PARNL(1);
+   HWND hwndStatus = hmg_par_HWND(1);
    RECT rc;
 
    SendMessage( hwndStatus, SB_GETRECT, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) &rc );
-   SetWindowPos(( HWND ) HB_PARNL(3), 0, rc.left, rc.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
+   SetWindowPos(hmg_par_HWND(3), 0, rc.left, rc.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
 }
 
 HB_FUNC( CREATEPROGRESSBARITEM )     // CreateProgressBarItem( HwndStatus, NrItem )
 {
-   HWND hwndStatus = ( HWND ) HB_PARNL(1);
+   HWND hwndStatus = hmg_par_HWND(1);
    HWND hwndProgressBar;
    RECT rc;
    int  Style = WS_CHILD | PBS_SMOOTH;
@@ -403,7 +403,7 @@ HB_FUNC( CREATEPROGRESSBARITEM )     // CreateProgressBarItem( HwndStatus, NrIte
 
 HB_FUNC( SETPOSPROGRESSBARITEM )     // SetPosProgressBarItem( HwndProgressBar, nPos )
 {
-   HWND hwndProgressBar = ( HWND ) HB_PARNL(1);
+   HWND hwndProgressBar = hmg_par_HWND(1);
 
    ShowWindow(hwndProgressBar, hb_parni(2) ? SW_SHOW : SW_HIDE);
    SendMessage( hwndProgressBar, PBM_SETPOS, ( WPARAM ) hb_parni(2), 0 );

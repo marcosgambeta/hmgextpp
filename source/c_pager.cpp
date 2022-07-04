@@ -83,15 +83,15 @@ HINSTANCE GetInstance( void );
 
 HB_FUNC( GETHANDLEREBAR )  // GetHandleRebar(hPager)
 {
-   HWND hRebar = ( HWND ) GetWindowLongPtr(( HWND ) HB_PARNL(1), GWLP_USERDATA);
+   HWND hRebar = ( HWND ) GetWindowLongPtr(hmg_par_HWND(1), GWLP_USERDATA);
 
    HB_RETNL( ( LONG_PTR ) hRebar );
 }
 
 HB_FUNC( ADDTOPAGER )      // AdToPager (hwndPG , hToolBar)
 {
-   HWND hPager = ( HWND ) HB_PARNL(1);
-   HWND hTool  = ( HWND ) HB_PARNL(2);
+   HWND hPager = hmg_par_HWND(1);
+   HWND hTool  = hmg_par_HWND(2);
 
    SendMessage( hPager, PGM_SETCHILD, 0, ( LPARAM ) hTool );
    SendMessage( hPager, PGM_RECALCSIZE, 0, 0 );
@@ -99,7 +99,7 @@ HB_FUNC( ADDTOPAGER )      // AdToPager (hwndPG , hToolBar)
 
 HB_FUNC( SETBKCOLORPAGER ) // SetBkColorPager(hwndPG , COLOR[])
 {
-   SendMessage( ( HWND ) HB_PARNL(1), PGM_SETBKCOLOR, 0, ( LPARAM ) RGB(hb_parni(2), hb_parni(3), hb_parni(4)) );
+   SendMessage( hmg_par_HWND(1), PGM_SETBKCOLOR, 0, ( LPARAM ) RGB(hb_parni(2), hb_parni(3), hb_parni(4)) );
 }
 
 HB_FUNC( PAGERCALCSIZE )   // PagerCalcSize(lParam , nWidth)
@@ -142,7 +142,7 @@ HB_FUNC( INITPAGER )       // InitPager ( ParentForm, hRebar, nWidth, nHeight, v
    i.dwICC  = ICC_COOL_CLASSES | ICC_BAR_CLASSES | ICC_PAGESCROLLER_CLASS;
    InitCommonControlsEx( &i );
 
-   hRebar  = ( HWND ) HB_PARNL(1);
+   hRebar  = hmg_par_HWND(1);
    nWidth  = ( INT ) hb_parni(2);
    nHeight = ( INT ) hb_parni(3);
 
@@ -194,35 +194,35 @@ HB_FUNC( INITPAGER )       // InitPager ( ParentForm, hRebar, nWidth, nHeight, v
 
 HB_FUNC( PAGERFORWARDMOUSE )
 {
-   Pager_ForwardMouse( ( HWND ) HB_PARNL(1), ( BOOL ) hb_parl(2) );
+   Pager_ForwardMouse( hmg_par_HWND(1), ( BOOL ) hb_parl(2) );
 }
 
 HB_FUNC( PAGERGETBUTTONSIZE )
 {
-   hb_retni( ( INT ) Pager_GetButtonSize( ( HWND ) HB_PARNL(1) ) );
+   hb_retni( ( INT ) Pager_GetButtonSize( hmg_par_HWND(1) ) );
 }
 
 HB_FUNC( PAGERSETBUTTONSIZE )
 {
-   Pager_SetButtonSize( ( HWND ) HB_PARNL(1), ( INT ) hb_parni(2) );
+   Pager_SetButtonSize( hmg_par_HWND(1), ( INT ) hb_parni(2) );
 }
 
 HB_FUNC( PAGERGETBORDER )
 {
-   hb_retni( ( INT ) Pager_GetBorder( ( HWND ) HB_PARNL(1) ) );
+   hb_retni( ( INT ) Pager_GetBorder( hmg_par_HWND(1) ) );
 }
 
 HB_FUNC( PAGERSETBORDER )
 {
-   hb_retni( ( INT ) Pager_SetBorder( ( HWND ) HB_PARNL(1), ( INT ) hb_parni(2) ) );
+   hb_retni( ( INT ) Pager_SetBorder( hmg_par_HWND(1), ( INT ) hb_parni(2) ) );
 }
 
 HB_FUNC( PAGERGETPOS )
 {
-   hb_retni( ( INT ) Pager_GetPos(( HWND ) HB_PARNL(1)) );
+   hb_retni( ( INT ) Pager_GetPos(hmg_par_HWND(1)) );
 }
 
 HB_FUNC( PAGERSETPOS )
 {
-   hb_retni( ( INT ) Pager_SetPos(( HWND ) HB_PARNL(1), ( INT ) hb_parni(2)) );
+   hb_retni( ( INT ) Pager_SetPos(hmg_par_HWND(1), ( INT ) hb_parni(2)) );
 }

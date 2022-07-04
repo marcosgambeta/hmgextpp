@@ -72,7 +72,7 @@ void RegisterResource(HANDLE hResource, LPSTR szType);
 
 HB_FUNC( SAVEWINDOWBYHANDLE )
 {
-   HWND     hWnd = ( HWND ) HB_PARNL(1);
+   HWND     hWnd = hmg_par_HWND(1);
    HDC      hDC  = GetDC(hWnd);
    HDC      hMemDC;
    RECT     rc;
@@ -154,7 +154,7 @@ HB_FUNC( SAVEWINDOWBYHANDLE )
 
 HB_FUNC( WNDCOPY )
 {
-   HWND     hWnd = ( HWND ) HB_PARNL(1);
+   HWND     hWnd = hmg_par_HWND(1);
    HDC      hDC  = GetDC(hWnd);
    HDC      hMemDC;
    RECT     rc;
@@ -642,7 +642,7 @@ HB_FUNC( DRAWGLYPHMASK )
    int      dy   = hb_parni(5);
    HBITMAP  hBmp = ( HBITMAP ) HB_PARNL(6);
    COLORREF rgbTransparent;
-   HWND     hwnd = ( HWND ) HB_PARNL(10);
+   HWND     hwnd = hmg_par_HWND(10);
 
    HDC hDCMem;
    HDC hDCMask;

@@ -77,7 +77,7 @@ HB_FUNC( INITSPINNER )
    i.dwICC  = ICC_STANDARD_CLASSES;
    InitCommonControlsEx( &i );
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    if( ! hb_parl(11) )
    {
@@ -151,7 +151,7 @@ HB_FUNC( SETSPINNERINCREMENT )
    inc.nSec = 0;
    inc.nInc = hb_parni(2);
 
-   SendMessage( ( HWND ) HB_PARNL(1), UDM_SETACCEL, ( WPARAM ) 1, ( LPARAM ) &inc );
+   SendMessage( hmg_par_HWND(1), UDM_SETACCEL, ( WPARAM ) 1, ( LPARAM ) &inc );
 }
 
 // 2006.08.13 JD

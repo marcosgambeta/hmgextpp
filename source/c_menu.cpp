@@ -280,7 +280,7 @@ HB_FUNC( _CLOSEMENU )
 
 HB_FUNC( TRACKPOPUPMENU )
 {
-   HWND hwnd = ( HWND ) HB_PARNL(4);
+   HWND hwnd = hmg_par_HWND(4);
 
    SetForegroundWindow(hwnd);            /* hack for Microsoft "feature" */
 
@@ -294,7 +294,7 @@ HB_FUNC( TRACKPOPUPMENU )
 
 HB_FUNC( SETMENU )
 {
-   SetMenu( ( HWND ) HB_PARNL(1), ( HMENU ) HB_PARNL(2) );
+   SetMenu( hmg_par_HWND(1), ( HMENU ) HB_PARNL(2) );
 }
 
 HB_FUNC( SETMENUDEFAULTITEM )
@@ -324,7 +324,7 @@ HB_FUNC( XDISABLEMENUITEM )
 
 HB_FUNC( XDISABLECLOSEBUTTON )
 {
-   EnableMenuItem( GetSystemMenu( ( HWND ) HB_PARNL(1), FALSE ), SC_CLOSE, MF_BYCOMMAND | ( hb_parl(2) ? MF_ENABLED : MF_GRAYED ) );
+   EnableMenuItem( GetSystemMenu( hmg_par_HWND(1), FALSE ), SC_CLOSE, MF_BYCOMMAND | ( hb_parl(2) ? MF_ENABLED : MF_GRAYED ) );
 }
 
 HB_FUNC( CREATEMENU )
@@ -733,12 +733,12 @@ HB_FUNC( ISMENU )
 
 HB_FUNC( GETMENU )
 {
-   HB_RETNL( ( LONG_PTR ) GetMenu( ( HWND ) HB_PARNL(1) ) );
+   HB_RETNL( ( LONG_PTR ) GetMenu( hmg_par_HWND(1) ) );
 }
 
 HB_FUNC( GETSYSTEMMENU )
 {
-   HB_RETNL( ( LONG_PTR ) GetSystemMenu( ( HWND ) HB_PARNL(1), FALSE ) );
+   HB_RETNL( ( LONG_PTR ) GetSystemMenu( hmg_par_HWND(1), FALSE ) );
 }
 
 HB_FUNC( GETMENUITEMCOUNT )
@@ -1417,7 +1417,7 @@ static BOOL _DestroyMenu( HMENU menu )
 
 HB_FUNC( _ONMEASUREMENUITEM )
 {
-   HWND hwnd = ( HWND ) HB_PARNL(1);
+   HWND hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) )
    {
@@ -1475,7 +1475,7 @@ HB_FUNC( _COLORMENU )
 {
    HMENU    iMenu;
    MENUINFO iMenuInfo;
-   HWND     hWnd = ( HWND ) HB_PARNL(1);
+   HWND     hWnd = hmg_par_HWND(1);
 
    INT  nRed     = HB_PARNI( 2, 1 );
    INT  nGreen   = HB_PARNI( 2, 2 );

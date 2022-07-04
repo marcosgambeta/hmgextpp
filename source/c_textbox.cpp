@@ -67,7 +67,7 @@ HB_FUNC( INITMASKEDTEXTBOX )
    int Style;
    int ExStyle;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    Style = WS_CHILD | ES_AUTOHSCROLL;
 
@@ -119,7 +119,7 @@ HB_FUNC( INITTEXTBOX )
    int iExStyle;        // TEXTBOX window extended style.
 
    // Get the handle of the parent window/form.
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    iStyle = WS_CHILD | ES_AUTOHSCROLL | BS_FLAT;
 
@@ -184,7 +184,7 @@ HB_FUNC( INITCHARMASKTEXTBOX )
    int Style;
    int ExStyle;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    Style = WS_CHILD | ES_AUTOHSCROLL;
 

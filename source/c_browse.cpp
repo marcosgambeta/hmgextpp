@@ -77,7 +77,7 @@ HB_FUNC( INITBROWSE )
    if( ! hb_parl(7) )
       style = style | WS_TABSTOP;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    hbutton = CreateWindowEx
              (
@@ -135,7 +135,7 @@ HB_FUNC( INITVSCROLLBAR )
    HWND hwnd;
    HWND hscrollbar;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    hscrollbar = CreateWindowEx
                 (
@@ -169,7 +169,7 @@ HB_FUNC( GETSCROLLRANGEMAX )
 {
    int MinPos, MaxPos;
 
-   GetScrollRange( ( HWND ) HB_PARNL(1), hb_parni(2), &MinPos, &MaxPos );
+   GetScrollRange( hmg_par_HWND(1), hb_parni(2), &MinPos, &MaxPos );
 
    hb_retni( MaxPos );
 }
@@ -180,7 +180,7 @@ HB_FUNC( INITVSCROLLBARBUTTON )
    HWND hbutton;
    int  Style;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    Style = WS_CHILD | WS_VISIBLE | SS_SUNKEN;
 
@@ -200,5 +200,5 @@ HB_FUNC( SETSCROLLINFO )
    lpsi.nPage  = hb_parni(4);
    lpsi.nPos   = hb_parni(3);
 
-   hb_retni( SetScrollInfo(( HWND ) HB_PARNL(1), SB_CTL, ( LPSCROLLINFO ) &lpsi, 1) );
+   hb_retni( SetScrollInfo(hmg_par_HWND(1), SB_CTL, ( LPSCROLLINFO ) &lpsi, 1) );
 }

@@ -63,7 +63,7 @@ HB_FUNC( INITEDITBOX )
    HWND hbutton;
    int  Style;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    Style = ES_MULTILINE | ES_WANTRETURN | WS_CHILD;
 

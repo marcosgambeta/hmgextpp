@@ -181,7 +181,7 @@ HB_FUNC( IL_ADDMASKED )    //IL_AddMasked( himl , image , color , ix , iy , imag
 HB_FUNC( IL_DRAW )         //BOOL IL_Draw(HWND hwnd, HIMAGELIST himl, int imageindex, cx , cy)
 {
    HDC  hdc;
-   HWND hwnd = ( HWND ) HB_PARNL(1);
+   HWND hwnd = hmg_par_HWND(1);
 
    if( ( hdc = GetDC(hwnd) ) == NULL )
       hb_retl( FALSE );
@@ -219,8 +219,8 @@ HB_FUNC( IL_ERASEIMAGE )   //IL_EraseImage( hwnd, ix, iy, dx, dy )
 
    SetRect(&rcImage, hb_parni(2), hb_parni(3), hb_parni(4) + hb_parni(2), hb_parni(5) + hb_parni(3));
 
-   InvalidateRect(( HWND ) HB_PARNL(1), &rcImage, TRUE);
-   UpdateWindow(( HWND ) HB_PARNL(1));
+   InvalidateRect(hmg_par_HWND(1), &rcImage, TRUE);
+   UpdateWindow(hmg_par_HWND(1));
 }
 
 HB_FUNC( IL_BEGINDRAG )    //IL_BeginDrag( hwnd, himl, ImageInx, ix, iy )
@@ -232,8 +232,8 @@ HB_FUNC( IL_BEGINDRAG )    //IL_BeginDrag( hwnd, himl, ImageInx, ix, iy )
    if( ImageList_GetIconSize( ( HIMAGELIST ) HB_PARNL(2), &cx, &cy ) )
    {
       SetRect(&rcImage, hb_parni(4) - 2, hb_parni(5) - 2, hb_parni(4) + cx + 2, hb_parni(5) + cy + 2);
-      InvalidateRect(( HWND ) HB_PARNL(1), &rcImage, TRUE);
-      UpdateWindow(( HWND ) HB_PARNL(1));
+      InvalidateRect(hmg_par_HWND(1), &rcImage, TRUE);
+      UpdateWindow(hmg_par_HWND(1));
    }
 
    hb_retl( ImageList_BeginDrag( ( HIMAGELIST ) HB_PARNL(2), ( INT ) hb_parni(3), ( INT ) 0, ( INT ) 0 ) );
@@ -246,13 +246,13 @@ HB_FUNC( IL_DRAGMOVE )     //IL_DragMove( ix, iy )
 
 HB_FUNC( IL_DRAGENTER )    //IL_DragEnter( hwnd, ix, iy )
 {
-   hb_retl( ImageList_DragEnter( ( HWND ) HB_PARNL(1), ( INT ) hb_parni(2), ( INT ) hb_parni(3) ) );
+   hb_retl( ImageList_DragEnter( hmg_par_HWND(1), ( INT ) hb_parni(2), ( INT ) hb_parni(3) ) );
 }
 
 HB_FUNC( IL_ENDDRAG )      //IL_EndDrag( hwnd )
 {
    ImageList_EndDrag();
-   ImageList_DragLeave( ( HWND ) HB_PARNL(1) );
+   ImageList_DragLeave( hmg_par_HWND(1) );
 }
 
 HB_FUNC( IL_GETIMAGECOUNT ) //IL_GetImageCount( himl )

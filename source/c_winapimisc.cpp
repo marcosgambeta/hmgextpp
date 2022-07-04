@@ -288,7 +288,7 @@ HB_FUNC( RETRIEVETEXTFROMCLIPBOARD )
 
 HB_FUNC( CLEARCLIPBOARD )
 {
-   if( OpenClipboard( ( HWND ) HB_PARNL(1) ) )
+   if( OpenClipboard( hmg_par_HWND(1) ) )
    {
       EmptyClipboard();
       CloseClipboard();
@@ -399,12 +399,12 @@ HB_FUNC( INKEYGUI )
 
 HB_FUNC( GETDC )
 {
-   HB_RETNL( ( LONG_PTR ) GetDC(( HWND ) HB_PARNL(1)) );
+   HB_RETNL( ( LONG_PTR ) GetDC(hmg_par_HWND(1)) );
 }
 
 HB_FUNC( RELEASEDC )
 {
-   hb_retl( ReleaseDC(( HWND ) HB_PARNL(1), ( HDC ) HB_PARNL(2)) );
+   hb_retl( ReleaseDC(hmg_par_HWND(1), ( HDC ) HB_PARNL(2)) );
 }
 
 HB_FUNC( HIWORD )
@@ -551,7 +551,7 @@ HB_FUNC( C_SHELLABOUT )
    LPCWSTR szApp        = AnsiToWide( ( char * ) hb_parc(2) );
    LPCWSTR szOtherStuff = AnsiToWide( ( char * ) hb_parc(3) );
 #endif
-   hb_retl( ShellAbout(( HWND ) HB_PARNL(1), szApp, szOtherStuff, ( HICON ) HB_PARNL(4)) );
+   hb_retl( ShellAbout(hmg_par_HWND(1), szApp, szOtherStuff, ( HICON ) HB_PARNL(4)) );
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) szApp);
    hb_xfree(( TCHAR * ) szOtherStuff);
@@ -565,7 +565,7 @@ HB_FUNC( PAINTBKGND )
    RECT   recClie;
    HDC    hdc;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
    hdc  = GetDC(hwnd);
 
    GetClientRect(hwnd, &recClie);
@@ -647,12 +647,12 @@ HB_FUNC( GETTEMPDIR )
 
 HB_FUNC( POSTMESSAGE )
 {
-   hb_retnl( ( LONG ) PostMessage( ( HWND ) HB_PARNL(1), ( UINT ) hb_parni(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) hb_parnl(4) ) );
+   hb_retnl( ( LONG ) PostMessage( hmg_par_HWND(1), ( UINT ) hb_parni(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) hb_parnl(4) ) );
 }
 
 HB_FUNC( DEFWINDOWPROC )
 {
-   HB_RETNL( ( LONG_PTR ) DefWindowProc( ( HWND ) HB_PARNL(1), ( UINT ) hb_parni(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) hb_parnl(4) ) );
+   HB_RETNL( ( LONG_PTR ) DefWindowProc( hmg_par_HWND(1), ( UINT ) hb_parni(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) hb_parnl(4) ) );
 }
 
 HB_FUNC( GETSTOCKOBJECT )
@@ -662,7 +662,7 @@ HB_FUNC( GETSTOCKOBJECT )
 
 HB_FUNC( GETNEXTDLGTABITEM )
 {
-   HB_RETNL( ( LONG_PTR ) GetNextDlgTabItem( ( HWND ) HB_PARNL(1), ( HWND ) HB_PARNL(2), hb_parl(3) ) );
+   HB_RETNL( ( LONG_PTR ) GetNextDlgTabItem( hmg_par_HWND(1), hmg_par_HWND(2), hb_parl(3) ) );
 }
 
 typedef BOOL ( WINAPI * LPFN_ISWOW64PROCESS )( HANDLE, PBOOL );
@@ -714,7 +714,7 @@ HB_FUNC( SHELLEXECUTE )
    (
       ( LONG_PTR ) ShellExecute
       (
-         ( HWND ) HB_PARNL(1),
+         hmg_par_HWND(1),
          HB_ISNIL(2) ? NULL : lpOperation,
          lpFile,
          HB_ISNIL(4) ? NULL : lpParameters,
@@ -760,7 +760,7 @@ HB_FUNC( SHELLEXECUTEEX )
 
    SHExecInfo.cbSize       = sizeof(SHExecInfo);
    SHExecInfo.fMask        = SEE_MASK_NOCLOSEPROCESS;
-   SHExecInfo.hwnd         = HB_ISNIL(1) ? GetActiveWindow() : ( HWND ) HB_PARNL(1);
+   SHExecInfo.hwnd         = HB_ISNIL(1) ? GetActiveWindow() : hmg_par_HWND(1);
    SHExecInfo.lpVerb       = HB_ISNIL(2) ? NULL : lpOperation;
    SHExecInfo.lpFile       = lpFile;
    SHExecInfo.lpParameters = HB_ISNIL(4) ? NULL : lpParameters;
@@ -920,7 +920,7 @@ HB_FUNC( ISEXERUNNING ) // ( cExeNameCaseSensitive ) --> lResult
 
 HB_FUNC( SETSCROLLPOS )
 {
-   hb_retni( SetScrollPos(( HWND ) HB_PARNL(1), hb_parni(2), hb_parni(3), hb_parl(4)) );
+   hb_retni( SetScrollPos(hmg_par_HWND(1), hb_parni(2), hb_parni(3), hb_parl(4)) );
 }
 
 HB_FUNC( GETLASTERROR )
@@ -1427,7 +1427,7 @@ HB_FUNC( ISAPPHUNG )
 {
    BOOL bIsHung;
 
-   if( IsAppHung( ( HWND ) HB_PARNL(1), &bIsHung ) )
+   if( IsAppHung( hmg_par_HWND(1), &bIsHung ) )
       hb_retl( bIsHung );
    else
    {
@@ -1619,7 +1619,7 @@ HB_FUNC( GETTEXTMETRIC )
 HB_FUNC( _GETCLIENTRECT )
 {
    RECT rc;
-   HWND hWnd = ( HWND ) HB_PARNL(1);
+   HWND hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) )
    {
@@ -1692,7 +1692,7 @@ HB_FUNC( GETOBJECTTYPE )
  */
 HB_FUNC( DRAGACCEPTFILES )
 {
-   DragAcceptFiles( ( HWND ) HB_PARNL(1), hb_parl(2) );
+   DragAcceptFiles( hmg_par_HWND(1), hb_parl(2) );
 }
 
 HB_FUNC( DRAGQUERYFILES )

@@ -74,7 +74,7 @@ HB_FUNC( INITCHKLISTBOX )
    HWND hbutton;
    int  Style = WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_NOINTEGRALHEIGHT | LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_WANTKEYBOARDINPUT;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
    m_nHeightItem = 16;
 
    if( ! hb_parl(9) )
@@ -114,7 +114,7 @@ HB_FUNC( INITMULTICHKLISTBOX )
    HWND hbutton;
    int  Style = LBS_EXTENDEDSEL | WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_MULTIPLESEL | LBS_NOINTEGRALHEIGHT | LBS_OWNERDRAWFIXED | LBS_HASSTRINGS;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
    m_nHeightItem = 16;
 
    if( ! hb_parl(9) )
@@ -150,7 +150,7 @@ HB_FUNC( INITMULTICHKLISTBOX )
 
 HB_FUNC( CHKLISTBOXINSERTITEM )
 {
-   HWND hwnd = ( HWND ) HB_PARNL(1);
+   HWND hwnd = hmg_par_HWND(1);
 
 #ifndef UNICODE
    LPTSTR lpString = ( LPTSTR ) hb_parc(2);
@@ -170,7 +170,7 @@ HB_FUNC( CHKLISTBOXINSERTITEM )
 
 HB_FUNC( CHKLISTBOXADDITEM )
 {
-   HWND hwnd = ( HWND ) HB_PARNL(1);
+   HWND hwnd = hmg_par_HWND(1);
 
 #ifndef UNICODE
    LPTSTR lpString = ( LPTSTR ) hb_parc(2);
@@ -192,7 +192,7 @@ HB_FUNC( CHKLISTBOXADDITEM )
 HB_FUNC( SETCHKLBITEMHEIGHT ) // set the height of a string in pixels
 {
    TCHAR achBuffer[ BUFFER ];
-   HWND  hwnd     = ( HWND ) HB_PARNL(1);
+   HWND  hwnd     = hmg_par_HWND(1);
    HDC   hdc      = GetDC(hwnd);
    HFONT hFont    = ( HFONT ) HB_PARNL(2);
    HFONT hOldFont = ( HFONT ) NULL;
@@ -225,7 +225,7 @@ HB_FUNC( SETCHKLBITEMHEIGHT ) // set the height of a string in pixels
 
 HB_FUNC( CHKLIST_SETCHECKBOX )
 {
-   HWND  hwnd            = ( HWND ) HB_PARNL(1);
+   HWND  hwnd            = hmg_par_HWND(1);
    int   lbItem          = hb_parni(2) - 1;
    int   bChecked        = hb_parni(3);
    TCHAR cString[ 1024 ] = { TEXT("") };
@@ -238,7 +238,7 @@ HB_FUNC( CHKLIST_SETCHECKBOX )
 
 HB_FUNC( CHKLIST_GETCHECKBOX )
 {
-   HWND hwnd   = ( HWND ) HB_PARNL(1);
+   HWND hwnd   = hmg_par_HWND(1);
    int  lbItem = hb_parni(2);
    int  iCheck = ( int ) SendMessage( hwnd, LB_GETITEMDATA, ( WPARAM ) lbItem - 1, 0 );
 

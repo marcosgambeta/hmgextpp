@@ -88,7 +88,7 @@ HB_FUNC( VERIFYPASSWORD )
       hb_retl( FALSE );
    }
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    bres = VerifyScreenSavePwd( hwnd );
    FreeLibrary( hpwdcpl );
@@ -116,7 +116,7 @@ HB_FUNC( CHANGEPASSWORD )
       hb_retl( FALSE );
    }
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
    PwdChangePassword( "SCRSAVE", hwnd, 0, 0 );
    FreeLibrary( hmpr );
 

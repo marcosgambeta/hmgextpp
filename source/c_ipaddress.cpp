@@ -65,7 +65,7 @@ HB_FUNC( INITIPADDRESS )
    icex.dwICC  = ICC_INTERNET_CLASSES;
    InitCommonControlsEx( &icex );
 
-   hWnd = ( HWND ) HB_PARNL(1);
+   hWnd = hmg_par_HWND(1);
 
    if( ! hb_parl(7) )
       Style = Style | WS_VISIBLE;
@@ -97,7 +97,7 @@ HB_FUNC( SETIPADDRESS )
    HWND hWnd;
    BYTE v1, v2, v3, v4;
 
-   hWnd = ( HWND ) HB_PARNL(1);
+   hWnd = hmg_par_HWND(1);
 
    v1 = ( BYTE ) hb_parni(2);
    v2 = ( BYTE ) hb_parni(3);
@@ -113,7 +113,7 @@ HB_FUNC( GETIPADDRESS )
    DWORD pdwAddr;
    INT   v1, v2, v3, v4;
 
-   hWnd = ( HWND ) HB_PARNL(1);
+   hWnd = hmg_par_HWND(1);
 
    SendMessage( hWnd, IPM_GETADDRESS, 0, ( LPARAM ) ( LPDWORD ) &pdwAddr );
 

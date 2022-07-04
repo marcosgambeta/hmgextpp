@@ -62,5 +62,5 @@ HB_FUNC( WINHELP )
       default: style = HELP_CONTENTS; context = 0;
    }
 
-   hb_retl( WinHelp( ( HWND ) HB_PARNL(1), ( LPCTSTR ) hb_parc(2), style, context ) );
+   hb_retl( WinHelp( hmg_par_HWND(1), ( LPCTSTR ) hb_parc(2), style, context ) );
 }

@@ -68,7 +68,7 @@ HB_FUNC( INITRADIOGROUP )
 #endif
    int Style = BS_NOTIFY | WS_CHILD | BS_AUTORADIOBUTTON | WS_GROUP;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    if( ! hb_parl(9) )
       Style = Style | WS_VISIBLE;
@@ -113,7 +113,7 @@ HB_FUNC( INITRADIOBUTTON )
 #endif
    int Style = BS_NOTIFY | WS_CHILD | BS_AUTORADIOBUTTON;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    if( ! hb_parl(9) )
       Style = Style | WS_VISIBLE;

@@ -132,7 +132,7 @@ HB_FUNC( SETWINDOWCURSOR )
       ch = LoadCursorFromFile(lpCursorName);
 
    if( ch != NULL )
-      SetClassLongPtr(( HWND ) HB_PARNL(1),  // window handle
+      SetClassLongPtr(hmg_par_HWND(1),  // window handle
                       GCLP_HCURSOR,            // change cursor
                       ( LONG_PTR ) ch);       // new cursor
 #ifdef UNICODE
@@ -143,10 +143,10 @@ HB_FUNC( SETWINDOWCURSOR )
 HB_FUNC( SETHANDCURSOR )
 {
 #if ( WINVER >= 0x0500 )
-   SetClassLongPtr(( HWND ) HB_PARNL(1), GCLP_HCURSOR,
+   SetClassLongPtr(hmg_par_HWND(1), GCLP_HCURSOR,
                    ( LONG_PTR ) LoadCursor(NULL, IDC_HAND));
 #else
-   SetClassLongPtr(( HWND ) HB_PARNL(1), GCLP_HCURSOR,
+   SetClassLongPtr(hmg_par_HWND(1), GCLP_HCURSOR,
                    ( LONG_PTR ) LoadCursor(GetInstance(), TEXT("MINIGUI_FINGER")));
 #endif
 }

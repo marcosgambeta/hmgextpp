@@ -100,7 +100,7 @@ HB_FUNC( INITSLIDER )
       hb_parni(4),
       hb_parni(5),
       hb_parni(6),
-      ( HWND ) HB_PARNL(1),
+      hmg_par_HWND(1),
       ( HMENU ) HB_PARNL(2),
       GetInstance(),
       NULL

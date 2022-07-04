@@ -70,7 +70,7 @@ HB_FUNC( INITCOMBOBOX )
    HWND hbutton;
    int  Style;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    Style = WS_CHILD | WS_VSCROLL;
 
@@ -114,7 +114,7 @@ HB_FUNC( INITCOMBOBOX )
 
 HB_FUNC( INITCOMBOBOXEX )
 {
-   HWND       hwnd = ( HWND ) HB_PARNL(1);
+   HWND       hwnd = hmg_par_HWND(1);
    HWND       hCombo;
    PHB_ITEM   hArray;
    HIMAGELIST himl = ( HIMAGELIST ) NULL;
@@ -201,7 +201,7 @@ HB_FUNC( INITCOMBOBOXEX )
 
 HB_FUNC( COMBOSETITEMHEIGHT )
 {
-   HWND hWnd = ( HWND ) HB_PARNL(1);
+   HWND hWnd = hmg_par_HWND(1);
    int  iDesiredHeight = hb_parni(2);
 
    SendMessage( hWnd, CB_SETITEMHEIGHT, ( WPARAM ) -1, ( LPARAM ) iDesiredHeight );
@@ -209,19 +209,19 @@ HB_FUNC( COMBOSETITEMHEIGHT )
 
 HB_FUNC( COMBOSHOWDROPDOWN )
 {
-   SendMessage( ( HWND ) HB_PARNL(1), CB_SHOWDROPDOWN, ( WPARAM ) 1, ( LPARAM ) 0 );
+   SendMessage( hmg_par_HWND(1), CB_SHOWDROPDOWN, ( WPARAM ) 1, ( LPARAM ) 0 );
 }
 
 HB_FUNC( COMBOEDITSETSEL )
 {
-   hb_retni( ( int ) SendMessage( ( HWND ) HB_PARNL(1), CB_SETEDITSEL, ( WPARAM ) 0, ( LPARAM ) MAKELPARAM( hb_parni(2), hb_parni(3) ) ) );
+   hb_retni( ( int ) SendMessage( hmg_par_HWND(1), CB_SETEDITSEL, ( WPARAM ) 0, ( LPARAM ) MAKELPARAM( hb_parni(2), hb_parni(3) ) ) );
 }
 
 HB_FUNC( COMBOGETEDITSEL )
 {
    DWORD pos;
 
-   pos = ( DWORD ) SendMessage( ( HWND ) HB_PARNL(1), CB_GETEDITSEL, ( WPARAM ) NULL, ( LPARAM ) NULL );
+   pos = ( DWORD ) SendMessage( hmg_par_HWND(1), CB_GETEDITSEL, ( WPARAM ) NULL, ( LPARAM ) NULL );
 
    hb_reta(2);
 
@@ -231,7 +231,7 @@ HB_FUNC( COMBOGETEDITSEL )
 
 HB_FUNC( COMBOSELECTSTRING )
 {
-   hb_retni( ( int ) SendMessage( ( HWND ) HB_PARNL(1), CB_SELECTSTRING, ( WPARAM ) -1, ( LPARAM ) hb_parc(2) ) );
+   hb_retni( ( int ) SendMessage( hmg_par_HWND(1), CB_SELECTSTRING, ( WPARAM ) -1, ( LPARAM ) hb_parc(2) ) );
 }
 
 /* Added by P.Ch. 16.10. */
@@ -242,7 +242,7 @@ HB_FUNC( COMBOFINDSTRING )
 #else
    LPWSTR lpText = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
-   hb_retnl( ( LONG ) SendMessage( ( HWND ) HB_PARNL(1), ( UINT ) CB_FINDSTRING, ( WPARAM ) -1, ( LPARAM ) lpText ) + 1 );
+   hb_retnl( ( LONG ) SendMessage( hmg_par_HWND(1), ( UINT ) CB_FINDSTRING, ( WPARAM ) -1, ( LPARAM ) lpText ) + 1 );
 #ifdef UNICODE
    hb_xfree(lpText);
 #endif
@@ -255,7 +255,7 @@ HB_FUNC( COMBOFINDSTRINGEXACT )
 #else
    LPWSTR lpText = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
-   hb_retnl( ( LONG ) SendMessage( ( HWND ) HB_PARNL(1), ( UINT ) CB_FINDSTRINGEXACT, ( WPARAM ) -1, ( LPARAM ) lpText ) + 1 );
+   hb_retnl( ( LONG ) SendMessage( hmg_par_HWND(1), ( UINT ) CB_FINDSTRINGEXACT, ( WPARAM ) -1, ( LPARAM ) lpText ) + 1 );
 #ifdef UNICODE
    hb_xfree(lpText);
 #endif
@@ -267,12 +267,12 @@ HB_FUNC( COMBOGETSTRING )
 #ifdef UNICODE
    LPSTR lpString;
 #endif
-   int     iLen = ( int ) SendMessage( ( HWND ) HB_PARNL(1), CB_GETLBTEXTLEN, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) 0 );
+   int     iLen = ( int ) SendMessage( hmg_par_HWND(1), CB_GETLBTEXTLEN, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) 0 );
    TCHAR * cString;
 
    if( iLen > 0 && NULL != ( cString = ( TCHAR * ) hb_xgrab((iLen + 1) * sizeof(TCHAR)) ) )
    {
-      SendMessage( ( HWND ) HB_PARNL(1), CB_GETLBTEXT, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) cString );
+      SendMessage( hmg_par_HWND(1), CB_GETLBTEXT, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) cString );
    #ifdef UNICODE
       lpString = WideToAnsi( cString );
       hb_retc( lpString );
@@ -294,7 +294,7 @@ HB_FUNC( COMBOADDSTRING )
 #else
    LPWSTR lpString = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
-   SendMessage( ( HWND ) HB_PARNL(1), CB_ADDSTRING, 0, ( LPARAM ) lpString );
+   SendMessage( hmg_par_HWND(1), CB_ADDSTRING, 0, ( LPARAM ) lpString );
 #ifdef UNICODE
    hb_xfree(lpString);
 #endif
@@ -307,7 +307,7 @@ HB_FUNC( COMBOINSERTSTRING )
 #else
    LPWSTR lpString = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
-   SendMessage( ( HWND ) HB_PARNL(1), CB_INSERTSTRING, hb_parni(3) - 1, ( LPARAM ) lpString );
+   SendMessage( hmg_par_HWND(1), CB_INSERTSTRING, hb_parni(3) - 1, ( LPARAM ) lpString );
 #ifdef UNICODE
    hb_xfree(lpString);
 #endif
@@ -333,7 +333,7 @@ HB_FUNC( COMBOADDSTRINGEX )
    cbei.iOverlay       = ( nImage - 1 ) * 3 + 2;
    cbei.iIndent        = 0;
 
-   SendMessage( ( HWND ) HB_PARNL(1), CBEM_INSERTITEM, 0, ( LPARAM ) &cbei );
+   SendMessage( hmg_par_HWND(1), CBEM_INSERTITEM, 0, ( LPARAM ) &cbei );
 #ifdef UNICODE
    hb_xfree(lpText);
 #endif
@@ -358,7 +358,7 @@ HB_FUNC( COMBOINSERTSTRINGEX )
    cbei.iOverlay       = ( nImage - 1 ) * 3 + 2;
    cbei.iIndent        = 0;
 
-   SendMessage( ( HWND ) HB_PARNL(1), CBEM_INSERTITEM, 0, ( LPARAM ) &cbei );
+   SendMessage( hmg_par_HWND(1), CBEM_INSERTITEM, 0, ( LPARAM ) &cbei );
 #ifdef UNICODE
    hb_xfree(lpText);
 #endif
@@ -382,7 +382,7 @@ HB_FUNC( COMBOADDDATASTRINGEX )
    cbei.iOverlay       = 2;
    cbei.iIndent        = 0;
 
-   SendMessage( ( HWND ) HB_PARNL(1), CBEM_INSERTITEM, 0, ( LPARAM ) &cbei );
+   SendMessage( hmg_par_HWND(1), CBEM_INSERTITEM, 0, ( LPARAM ) &cbei );
 #ifdef UNICODE
    hb_xfree(lpText);
 #endif

@@ -431,7 +431,7 @@ int CALLBACK BrowseCallbackProc( HWND hWnd, UINT uMsg, LPARAM lParam, LPARAM lpD
 
 HB_FUNC( C_BROWSEFORFOLDER )  // Syntax: C_BROWSEFORFOLDER([<hWnd>],[<cTitle>],[<nFlags>],[<nFolderType>],[<cInitPath>])
 {
-   HWND         hWnd = HB_ISNIL(1) ? GetActiveWindow() : ( HWND ) HB_PARNL(1);
+   HWND         hWnd = HB_ISNIL(1) ? GetActiveWindow() : hmg_par_HWND(1);
    BROWSEINFO   BrowseInfo;
    TCHAR        lpBuffer[ MAX_PATH ];
    LPITEMIDLIST pidlBrowse;
@@ -506,7 +506,7 @@ HB_FUNC( CHOOSECOLOR )
    memset(&cc, 0, sizeof(cc));
 
    cc.lStructSize  = sizeof(CHOOSECOLOR);
-   cc.hwndOwner    = HB_ISNIL(1) ? GetActiveWindow() : ( HWND ) HB_PARNL(1);
+   cc.hwndOwner    = HB_ISNIL(1) ? GetActiveWindow() : hmg_par_HWND(1);
    cc.rgbResult    = ( COLORREF ) HB_ISNIL(2) ? 0 : hb_parnl(2);
    cc.lpCustColors = crCustClr;
    cc.Flags        = ( WORD ) ( HB_ISNIL(4) ? CC_ANYCOLOR | CC_FULLOPEN | CC_RGBINIT : hb_parnl(4) );

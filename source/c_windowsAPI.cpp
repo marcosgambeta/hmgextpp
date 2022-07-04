@@ -152,7 +152,7 @@ HB_FUNC( EXITPROCESS )
 
 HB_FUNC( SHOWWINDOW )
 {
-   ShowWindow(( HWND ) HB_PARNL(1), HB_ISNUM(2) ? hb_parni(2) : SW_SHOW);
+   ShowWindow(hmg_par_HWND(1), HB_ISNUM(2) ? hb_parni(2) : SW_SHOW);
 }
 
 HB_FUNC( GETACTIVEWINDOW )
@@ -164,7 +164,7 @@ HB_FUNC( GETACTIVEWINDOW )
 
 HB_FUNC( SETACTIVEWINDOW )
 {
-   SetActiveWindow(( HWND ) HB_PARNL(1));
+   SetActiveWindow(hmg_par_HWND(1));
 }
 
 HB_FUNC( POSTQUITMESSAGE )
@@ -174,37 +174,37 @@ HB_FUNC( POSTQUITMESSAGE )
 
 HB_FUNC( DESTROYWINDOW )
 {
-   DestroyWindow(( HWND ) HB_PARNL(1));
+   DestroyWindow(hmg_par_HWND(1));
 }
 
 HB_FUNC( ISWINDOWVISIBLE )
 {
-   hb_retl( IsWindowVisible( ( HWND ) HB_PARNL(1) ) );
+   hb_retl( IsWindowVisible( hmg_par_HWND(1) ) );
 }
 
 HB_FUNC( ISWINDOWENABLED )
 {
-   hb_retl( IsWindowEnabled( ( HWND ) HB_PARNL(1) ) );
+   hb_retl( IsWindowEnabled( hmg_par_HWND(1) ) );
 }
 
 HB_FUNC( ENABLEWINDOW )
 {
-   EnableWindow(( HWND ) HB_PARNL(1), TRUE);
+   EnableWindow(hmg_par_HWND(1), TRUE);
 }
 
 HB_FUNC( DISABLEWINDOW )
 {
-   EnableWindow(( HWND ) HB_PARNL(1), FALSE);
+   EnableWindow(hmg_par_HWND(1), FALSE);
 }
 
 HB_FUNC( SETFOREGROUNDWINDOW )
 {
-   SetForegroundWindow(( HWND ) HB_PARNL(1));
+   SetForegroundWindow(hmg_par_HWND(1));
 }
 
 HB_FUNC( BRINGWINDOWTOTOP )
 {
-   BringWindowToTop( ( HWND ) HB_PARNL(1) );
+   BringWindowToTop( hmg_par_HWND(1) );
 }
 
 HB_FUNC( GETFOREGROUNDWINDOW )
@@ -222,7 +222,7 @@ HB_FUNC( SETWINDOWTEXT )
 #else
    LPCWSTR lpString = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
-   SetWindowText(( HWND ) HB_PARNL(1), lpString);
+   SetWindowText(hmg_par_HWND(1), lpString);
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpString);
@@ -231,17 +231,17 @@ HB_FUNC( SETWINDOWTEXT )
 
 HB_FUNC( SETWINDOWTEXTW )
 {
-   SetWindowTextW( ( HWND ) HB_PARNL(1), ( LPCWSTR ) hb_parc(2) );
+   SetWindowTextW( hmg_par_HWND(1), ( LPCWSTR ) hb_parc(2) );
 }
 
 HB_FUNC( SETWINDOWPOS )
 {
-   hb_retl( ( BOOL ) SetWindowPos(( HWND ) HB_PARNL(1), ( HWND ) HB_PARNL(2), hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7)) );
+   hb_retl( ( BOOL ) SetWindowPos(hmg_par_HWND(1), hmg_par_HWND(2), hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7)) );
 }
 
 HB_FUNC( ANIMATEWINDOW )
 {
-   HWND  hWnd    = ( HWND ) HB_PARNL(1);
+   HWND  hWnd    = hmg_par_HWND(1);
    DWORD dwTime  = ( DWORD ) hb_parnl(2);
    DWORD dwFlags = ( DWORD ) hb_parnl(3);
 
@@ -253,7 +253,7 @@ HB_FUNC( FLASHWINDOWEX )
    FLASHWINFO FlashWinInfo;
 
    FlashWinInfo.cbSize    = sizeof(FLASHWINFO);
-   FlashWinInfo.hwnd      = ( HWND ) HB_PARNL(1);
+   FlashWinInfo.hwnd      = hmg_par_HWND(1);
    FlashWinInfo.dwFlags   = ( DWORD ) hb_parnl(2);
    FlashWinInfo.uCount    = ( UINT ) hb_parni(3);
    FlashWinInfo.dwTimeout = ( DWORD ) hb_parnl(4);
@@ -263,7 +263,7 @@ HB_FUNC( FLASHWINDOWEX )
 
 HB_FUNC( SETLAYEREDWINDOWATTRIBUTES )
 {
-   HWND hWnd = ( HWND ) HB_PARNL(1);
+   HWND hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) )
    {
@@ -339,7 +339,7 @@ HB_FUNC( C_CENTER )
    RECT rect;
    int  w, h, x, y;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    if( hb_parl(2) )
       CenterIntoParent( hwnd );
@@ -361,7 +361,7 @@ HB_FUNC( GETWINDOWTEXT )
 #ifdef UNICODE
    LPSTR pStr;
 #endif
-   HWND   hWnd   = ( HWND ) HB_PARNL(1);
+   HWND   hWnd   = hmg_par_HWND(1);
    int    iLen   = GetWindowTextLength( hWnd );
    LPTSTR szText = ( TCHAR * ) hb_xgrab((iLen + 1) * sizeof(TCHAR));
 
@@ -381,7 +381,7 @@ HB_FUNC( GETWINDOWTEXT )
 
 HB_FUNC( SENDMESSAGE )
 {
-   HWND hwnd = ( HWND ) HB_PARNL(1);
+   HWND hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) )
       HB_RETNL( ( LONG_PTR ) SendMessage( hwnd, ( UINT ) hb_parni(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) hb_parnl(4) ) );
@@ -391,7 +391,7 @@ HB_FUNC( SENDMESSAGE )
 
 HB_FUNC( SENDMESSAGESTRING )
 {
-   HB_RETNL( ( LONG_PTR ) SendMessage( ( HWND ) HB_PARNL(1), ( UINT ) hb_parni(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) ( LPSTR ) hb_parc(4) ) );
+   HB_RETNL( ( LONG_PTR ) SendMessage( hmg_par_HWND(1), ( UINT ) hb_parni(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) ( LPSTR ) hb_parc(4) ) );
 }
 
 HB_FUNC( GETNOTIFYCODE )
@@ -453,7 +453,7 @@ HB_FUNC( GETGRIDVKEY )
 
 HB_FUNC( MOVEWINDOW )
 {
-   hb_retl( MoveWindow(( HWND ) HB_PARNL(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), ( HB_ISNIL(6) ? TRUE : hb_parl(6) )) );
+   hb_retl( MoveWindow(hmg_par_HWND(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), ( HB_ISNIL(6) ? TRUE : hb_parl(6) )) );
 }
 
 HB_FUNC( GETSYSTEMMETRICS )
@@ -465,7 +465,7 @@ HB_FUNC( GETWINDOWRECT )
 {
    RECT rect;
 
-   GetWindowRect(( HWND ) HB_PARNL(1), &rect);
+   GetWindowRect(hmg_par_HWND(1), &rect);
 
    if( HB_ISNUM(2) )
    {
@@ -490,7 +490,7 @@ HB_FUNC( GETCLIENTRECT )
 {
    RECT rect;
 
-   hb_retl( GetClientRect(( HWND ) HB_PARNL(1), &rect) );
+   hb_retl( GetClientRect(hmg_par_HWND(1), &rect) );
    HB_STORVNL( rect.left, 2, 1 );
    HB_STORVNL( rect.top, 2, 2 );
    HB_STORVNL( rect.right, 2, 3 );
@@ -542,7 +542,7 @@ HB_FUNC( SHOWNOTIFYICON )
 #else
    TCHAR * szText = ( TCHAR * ) AnsiToWide( ( char * ) hb_parc(4) );
 #endif
-   hb_retl( ( BOOL ) ShowNotifyIcon(( HWND ) HB_PARNL(1), ( BOOL ) hb_parl(2), ( HICON ) HB_PARNL(3), ( TCHAR * ) szText) );
+   hb_retl( ( BOOL ) ShowNotifyIcon(hmg_par_HWND(1), ( BOOL ) hb_parl(2), ( HICON ) HB_PARNL(3), ( TCHAR * ) szText) );
 
 #ifdef UNICODE
    hb_xfree(szText);
@@ -555,7 +555,7 @@ HB_FUNC( GETCURSORPOS )
 
    GetCursorPos(&pt);
    if( hb_pcount() == 1 )
-      ScreenToClient( ( HWND ) HB_PARNL(1), &pt );
+      ScreenToClient( hmg_par_HWND(1), &pt );
 
    hb_reta(2);
    if( hb_pcount() == 0 )
@@ -579,7 +579,7 @@ HB_FUNC( SCREENTOCLIENT )
    pt.x = x;
    pt.y = y;
 
-   ScreenToClient( ( HWND ) HB_PARNL(1), &pt );
+   ScreenToClient( hmg_par_HWND(1), &pt );
 
    hb_reta(2);
    HB_STORNI( pt.x, -1, 1 );
@@ -595,7 +595,7 @@ HB_FUNC( CLIENTTOSCREEN )
    pt.x = x;
    pt.y = y;
 
-   hb_retl( ClientToScreen( ( HWND ) HB_PARNL(1), &pt ) );
+   hb_retl( ClientToScreen( hmg_par_HWND(1), &pt ) );
 
    if( HB_ISBYREF(2) )
       hb_storni( pt.x, 2 );
@@ -653,7 +653,7 @@ HB_FUNC( CHANGENOTIFYICON )
 #else
    TCHAR * szText = ( TCHAR * ) AnsiToWide( ( char * ) hb_parc(3) );
 #endif
-   hb_retl( ( BOOL ) ChangeNotifyIcon(( HWND ) HB_PARNL(1), ( HICON ) HB_PARNL(2), ( TCHAR * ) szText) );
+   hb_retl( ( BOOL ) ChangeNotifyIcon(hmg_par_HWND(1), ( HICON ) HB_PARNL(2), ( TCHAR * ) szText) );
 
 #ifdef UNICODE
    hb_xfree(szText);
@@ -667,12 +667,12 @@ HB_FUNC( GETITEMPOS )
 
 HB_FUNC( SETSCROLLRANGE )
 {
-   hb_retl( SetScrollRange( ( HWND ) HB_PARNL(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parl(5) ) );
+   hb_retl( SetScrollRange( hmg_par_HWND(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parl(5) ) );
 }
 
 HB_FUNC( GETSCROLLPOS )
 {
-   hb_retni( GetScrollPos(( HWND ) HB_PARNL(1), hb_parni(2)) );
+   hb_retni( GetScrollPos(hmg_par_HWND(1), hb_parni(2)) );
 }
 
 HB_FUNC( GETWINDOWSTATE )
@@ -681,14 +681,14 @@ HB_FUNC( GETWINDOWSTATE )
 
    wp.length = sizeof(WINDOWPLACEMENT);
 
-   GetWindowPlacement( ( HWND ) HB_PARNL(1), &wp );
+   GetWindowPlacement( hmg_par_HWND(1), &wp );
 
    hb_retni( wp.showCmd );
 }
 
 HB_FUNC( GETPARENT )
 {
-   HB_RETNL( ( LONG_PTR ) GetParent( ( HWND ) HB_PARNL(1) ) );
+   HB_RETNL( ( LONG_PTR ) GetParent( hmg_par_HWND(1) ) );
 }
 
 HB_FUNC( GETDESKTOPWINDOW )
@@ -732,7 +732,7 @@ static BOOL CALLBACK EnumChildProc( HWND hWnd, LPARAM lParam )
 
 HB_FUNC( C_ENUMCHILDWINDOWS )
 {
-   HWND     hWnd       = ( HWND ) HB_PARNL(1);
+   HWND     hWnd       = hmg_par_HWND(1);
    PHB_ITEM pCodeBlock = hb_param( 2, Harbour::Item::BLOCK );
 
    if( IsWindow(hWnd) && pCodeBlock )
@@ -750,7 +750,7 @@ HB_FUNC( REDRAWWINDOWCONTROLRECT )
    r.bottom = hb_parni(4);
    r.right  = hb_parni(5);
 
-   RedrawWindow(( HWND ) HB_PARNL(1), &r, NULL, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
+   RedrawWindow(hmg_par_HWND(1), &r, NULL, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
 }
 
 HB_FUNC( ADDSPLITBOXITEM )
@@ -768,7 +768,7 @@ HB_FUNC( ADDSPLITBOXITEM )
    if( hb_parl(4) )
       Style = Style | RBBS_BREAK;
 
-   GetWindowRect(( HWND ) HB_PARNL(1), &rc);
+   GetWindowRect(hmg_par_HWND(1), &rc);
 
    rbBand.cbSize  = sizeof(REBARBANDINFO);
    rbBand.fMask   = RBBIM_TEXT | RBBIM_STYLE | RBBIM_CHILD | RBBIM_CHILDSIZE | RBBIM_SIZE;
@@ -776,7 +776,7 @@ HB_FUNC( ADDSPLITBOXITEM )
    rbBand.hbmBack = 0;
 
    rbBand.lpText    = lpText;
-   rbBand.hwndChild = ( HWND ) HB_PARNL(1);
+   rbBand.hwndChild = hmg_par_HWND(1);
 
    if( hb_parni(9) )
       rbBand.fMask = rbBand.fMask | RBBIM_IDEALSIZE;
@@ -820,7 +820,7 @@ HB_FUNC( ADDSPLITBOXITEM )
       }
    }
 
-   SendMessage( ( HWND ) HB_PARNL(2), RB_INSERTBAND, ( WPARAM ) -1, ( LPARAM ) &rbBand );
+   SendMessage( hmg_par_HWND(2), RB_INSERTBAND, ( WPARAM ) -1, ( LPARAM ) &rbBand );
 
 #ifdef UNICODE
    hb_xfree(lpText);
@@ -863,7 +863,7 @@ HB_FUNC( C_SETWINDOWRGN )
             break;
       }
 
-      SetWindowRgn(( HWND ) HB_PARNL(1), hRgn, TRUE);
+      SetWindowRgn(hmg_par_HWND(1), hRgn, TRUE);
 
       RegisterResource(hRgn, const_cast<char*>("REGION"));
       HB_RETNL( ( LONG_PTR ) hRgn );
@@ -918,7 +918,7 @@ HB_FUNC( GETMSKTEXTLPARAM )
 
 HB_FUNC( GETWINDOW )
 {
-   HB_RETNL( ( LONG_PTR ) GetWindow(( HWND ) HB_PARNL(1), hb_parni(2)) );
+   HB_RETNL( ( LONG_PTR ) GetWindow(hmg_par_HWND(1), hb_parni(2)) );
 }
 
 HB_FUNC( GETGRIDOLDSTATE )
@@ -983,7 +983,7 @@ HB_FUNC( FINDWINDOWEX )
    LPWSTR lpszClass  = ( hb_parc(3) != NULL ) ? hb_osStrU16Encode( hb_parc(3) ) : NULL;
    LPWSTR lpszWindow = ( hb_parc(4) != NULL ) ? hb_osStrU16Encode( hb_parc(4) ) : NULL;
 #endif
-   HB_RETNL( ( LONG_PTR ) FindWindowEx( ( HWND ) HB_PARNL(1), ( HWND ) HB_PARNL(2), lpszClass, lpszWindow ) );
+   HB_RETNL( ( LONG_PTR ) FindWindowEx( hmg_par_HWND(1), hmg_par_HWND(2), lpszClass, lpszWindow ) );
 
 #ifdef UNICODE
    if( lpszClass != NULL )
@@ -1005,8 +1005,8 @@ HB_FUNC( GETDS )
    {
       if( hb_pcount() > 1 )
       {
-         if( ListView_GetNextItem( ( HWND ) HB_PARNL(2), -1, LVNI_ALL | LVNI_SELECTED ) == hb_parni(3) )
-            ListView_SetItemState(( HWND ) HB_PARNL(2), hb_parni(3), 0, LVIS_SELECTED);
+         if( ListView_GetNextItem( hmg_par_HWND(2), -1, LVNI_ALL | LVNI_SELECTED ) == hb_parni(3) )
+            ListView_SetItemState(hmg_par_HWND(2), hb_parni(3), 0, LVIS_SELECTED);
       }
       hb_retni( CDRF_NOTIFYSUBITEMDRAW );
    }
@@ -1055,8 +1055,8 @@ HB_FUNC( GETTABBEDCONTROLBRUSH )
    HDC    hDC = ( HDC ) HB_PARNL(1);
 
    SetBkMode( hDC, TRANSPARENT );
-   GetWindowRect(( HWND ) HB_PARNL(2), &rc);
-   MapWindowPoints( NULL, ( HWND ) HB_PARNL(3), ( LPPOINT ) ( &rc ), 2 );
+   GetWindowRect(hmg_par_HWND(2), &rc);
+   MapWindowPoints( NULL, hmg_par_HWND(3), ( LPPOINT ) ( &rc ), 2 );
    SetBrushOrgEx( hDC, -rc.left, -rc.top, NULL );
    hBrush = ( HBRUSH ) HB_PARNL(4);
 
@@ -1071,7 +1071,7 @@ HB_FUNC( GETTABBRUSH )
    HDC     hDCMem;
    HBITMAP hBmp;
    HBITMAP hOldBmp;
-   HWND    hWnd = ( HWND ) HB_PARNL(1);
+   HWND    hWnd = hmg_par_HWND(1);
 
    GetWindowRect(hWnd, &rc);
    hDC    = GetDC(hWnd);
@@ -1098,7 +1098,7 @@ HB_FUNC( INITMINMAXINFO )  // ( hWnd ) --> aMinMaxInfo
 {
    long x, y, mx, my;
 
-   if( GetWindowLong( ( HWND ) HB_PARNL(1), GWL_STYLE ) & WS_SIZEBOX )
+   if( GetWindowLong( hmg_par_HWND(1), GWL_STYLE ) & WS_SIZEBOX )
    {
       x = -GetSystemMetrics( SM_CXFRAME );
       y = -GetSystemMetrics( SM_CYFRAME );
@@ -1141,32 +1141,32 @@ HB_FUNC( SETMINMAXINFO )   // ( pMinMaxInfo, aMinMaxInfo ) --> 0
 
 HB_FUNC( LOCKWINDOWUPDATE )
 {
-   hb_retl( LockWindowUpdate( ( HWND ) HB_PARNL(1) ) ? HB_TRUE : HB_FALSE );
+   hb_retl( LockWindowUpdate( hmg_par_HWND(1) ) ? HB_TRUE : HB_FALSE );
 }
 
 HB_FUNC( ISWINDOWHANDLE )
 {
-   hb_retl( IsWindow(( HWND ) HB_PARNL(1)) ? HB_TRUE : HB_FALSE );
+   hb_retl( IsWindow(hmg_par_HWND(1)) ? HB_TRUE : HB_FALSE );
 }
 
 HB_FUNC( ISICONIC )
 {
-   hb_retl( IsIconic( ( HWND ) HB_PARNL(1) ) );
+   hb_retl( IsIconic( hmg_par_HWND(1) ) );
 }
 
 HB_FUNC( ISZOOMED )
 {
-   hb_retl( IsZoomed( ( HWND ) HB_PARNL(1) ) );
+   hb_retl( IsZoomed( hmg_par_HWND(1) ) );
 }
 
 HB_FUNC( GETWINDOWBRUSH )
 {
-   HB_RETNL( ( LONG_PTR ) GetClassLongPtr(( HWND ) HB_PARNL(1), GCLP_HBRBACKGROUND) );
+   HB_RETNL( ( LONG_PTR ) GetClassLongPtr(hmg_par_HWND(1), GCLP_HBRBACKGROUND) );
 }
 
 HB_FUNC( SETWINDOWBRUSH )
 {
-   HB_RETNL( ( LONG_PTR ) SetClassLongPtr(( HWND ) HB_PARNL(1), GCLP_HBRBACKGROUND, ( LONG_PTR ) HB_PARNL(2)) );
+   HB_RETNL( ( LONG_PTR ) SetClassLongPtr(hmg_par_HWND(1), GCLP_HBRBACKGROUND, ( LONG_PTR ) HB_PARNL(2)) );
 }
 
 HB_FUNC( CREATEHATCHBRUSH )

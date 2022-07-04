@@ -93,7 +93,7 @@ HB_FUNC( INITMONTHCAL )
    icex.dwICC  = ICC_DATE_CLASSES;
    InitCommonControlsEx( &icex );
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    Style = WS_BORDER | WS_CHILD | MCS_DAYSTATE;
 
@@ -153,7 +153,7 @@ HB_FUNC( SETMONTHCALVALUE )
    HWND       hwnd;
    SYSTEMTIME sysTime;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    sysTime.wYear      = ( WORD ) hb_parni(2);
    sysTime.wMonth     = ( WORD ) hb_parni(3);
@@ -172,7 +172,7 @@ HB_FUNC( GETMONTHCALVALUE )
 {
    SYSTEMTIME st;
 
-   SendMessage( ( HWND ) HB_PARNL(1), MCM_GETCURSEL, 0, ( LPARAM ) &st );
+   SendMessage( hmg_par_HWND(1), MCM_GETCURSEL, 0, ( LPARAM ) &st );
 
    switch( hb_parni(2) )
    {
@@ -187,7 +187,7 @@ HB_FUNC( GETMONTHCALDATE )
    SYSTEMTIME st;
    long       lJulian;
 
-   SendMessage( ( HWND ) HB_PARNL(1), MCM_GETCURSEL, 0, ( LPARAM ) &st );
+   SendMessage( hmg_par_HWND(1), MCM_GETCURSEL, 0, ( LPARAM ) &st );
    lJulian = hb_dateEncode( st.wYear, st.wMonth, st.wDay );
 
    hb_retdl( lJulian );
@@ -199,7 +199,7 @@ HB_FUNC( SETPOSMONTHCAL )
    RECT  rc;
    DWORD dwWidth;
 
-   hWndMonthCal = ( HWND ) HB_PARNL(1);
+   hWndMonthCal = hmg_par_HWND(1);
 
    MonthCal_GetMinReqRect(hWndMonthCal, &rc);
 
@@ -219,7 +219,7 @@ HB_FUNC( GETMONTHRANGE )
    int        iCount;
 
    memset(&sysTime, 0, sizeof(sysTime));
-   iCount = ( int ) SendMessage( ( HWND ) HB_PARNL(1), MCM_GETMONTHRANGE, ( WPARAM ) GMR_DAYSTATE, ( LPARAM ) &sysTime );
+   iCount = ( int ) SendMessage( hmg_par_HWND(1), MCM_GETMONTHRANGE, ( WPARAM ) GMR_DAYSTATE, ( LPARAM ) &sysTime );
 
    hb_reta(3);
    HB_STORNI( iCount, -1, 1 );
@@ -233,7 +233,7 @@ HB_FUNC( GETMONTHRANGE )
 
 HB_FUNC( C_SETDAYSTATE )
 {
-   HWND            hWnd   = ( HWND ) HB_PARNL(1);
+   HWND            hWnd   = hmg_par_HWND(1);
    int             iCount = hb_parni(2);
    PHB_ITEM        hArray = hb_param( 3, Harbour::Item::ARRAY );
    LPMONTHDAYSTATE rgMonths;

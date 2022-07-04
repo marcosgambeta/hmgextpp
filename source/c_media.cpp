@@ -177,7 +177,7 @@ HB_FUNC( INITPLAYER )
    if( hb_parl(16) )
       Style = Style | MCIWNDF_SHOWPOS;
 
-   hwnd = MCIWndCreate( ( HWND ) HB_PARNL(1), NULL, Style, szFile );
+   hwnd = MCIWndCreate( hmg_par_HWND(1), NULL, Style, szFile );
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) szFile);
@@ -194,7 +194,7 @@ HB_FUNC( INITPLAYER )
 
 HB_FUNC( MCIFUNC )
 {
-   HWND mcihand = ( HWND ) HB_PARNL(1);
+   HWND mcihand = hmg_par_HWND(1);
    int  func    = hb_parni(2);
 
    switch( func )
@@ -245,7 +245,7 @@ HB_FUNC( INITANIMATE )
    if( hb_parl(8) )
       Style = Style | ACS_TRANSPARENT;
 
-   hwnd = Animate_Create( ( HWND ) HB_PARNL(1), NULL, Style, GetResources() );
+   hwnd = Animate_Create( hmg_par_HWND(1), NULL, Style, GetResources() );
 
    if( hwnd == NULL )
    {
@@ -264,7 +264,7 @@ HB_FUNC( OPENANIMATE )
 #else
    LPCWSTR szName = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
-   Animate_Open(( HWND ) HB_PARNL(1), szName);
+   Animate_Open(hmg_par_HWND(1), szName);
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) szName);
@@ -273,20 +273,20 @@ HB_FUNC( OPENANIMATE )
 
 HB_FUNC( PLAYANIMATE )
 {
-   Animate_Play( ( HWND ) HB_PARNL(1), 0, -1, 1 );
+   Animate_Play( hmg_par_HWND(1), 0, -1, 1 );
 }
 
 HB_FUNC( SEEKANIMATE )
 {
-   Animate_Seek( ( HWND ) HB_PARNL(1), hb_parni(2) );
+   Animate_Seek( hmg_par_HWND(1), hb_parni(2) );
 }
 
 HB_FUNC( STOPANIMATE )
 {
-   Animate_Stop( ( HWND ) HB_PARNL(1) );
+   Animate_Stop( hmg_par_HWND(1) );
 }
 
 HB_FUNC( CLOSEANIMATE )
 {
-   Animate_Close( ( HWND ) HB_PARNL(1) );
+   Animate_Close( hmg_par_HWND(1) );
 }

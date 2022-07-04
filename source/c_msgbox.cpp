@@ -62,7 +62,7 @@ HB_FUNC( MESSAGEBOXINDIRECT )
    MSGBOXPARAMS mbp;
 
    mbp.cbSize    = sizeof(MSGBOXPARAMS);
-   mbp.hwndOwner = HB_ISNUM(1) ? ( HWND ) HB_PARNL(1) : GetActiveWindow();
+   mbp.hwndOwner = HB_ISNUM(1) ? hmg_par_HWND(1) : GetActiveWindow();
    mbp.hInstance = HB_ISNUM(6) ? ( HINSTANCE ) HB_PARNL(6) : GetInstance();
 #ifndef UNICODE
    mbp.lpszText    = HB_ISCHAR(2) ? hb_parc(2) : ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : NULL );

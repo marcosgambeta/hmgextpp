@@ -108,7 +108,7 @@ HB_FUNC( INITTABCONTROL )
    l      = ( int ) hb_parinfa( 7, 0 ) - 1;
    hArray = hb_param( 7, Harbour::Item::ARRAY );
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    hbutton = CreateWindow
              (
@@ -154,7 +154,7 @@ HB_FUNC( TABCTRL_SETCURSEL )
    HWND hwnd;
    int  s;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
    s    = hb_parni(2);
 
    TabCtrl_SetCurSel( hwnd, s - 1 );
@@ -164,7 +164,7 @@ HB_FUNC( TABCTRL_GETCURSEL )
 {
    HWND hwnd;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
    hb_retni( TabCtrl_GetCurSel( hwnd ) + 1 );
 }
 
@@ -180,7 +180,7 @@ HB_FUNC( TABCTRL_INSERTITEM )
    LPWSTR lpText = AnsiToWide( ( char * ) hb_parc(3) );
 #endif
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
    i    = hb_parni(2);
 
    tie.mask    = TCIF_TEXT;
@@ -199,7 +199,7 @@ HB_FUNC( TABCTRL_DELETEITEM )
    HWND hwnd;
    int  i;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
    i    = hb_parni(2);
 
    TabCtrl_DeleteItem( hwnd, i );
@@ -218,7 +218,7 @@ HB_FUNC( SETTABCAPTION )
 
    tie.pszText = lpText;
 
-   TabCtrl_SetItem( ( HWND ) HB_PARNL(1), hb_parni(2) - 1, &tie );
+   TabCtrl_SetItem( hmg_par_HWND(1), hb_parni(2) - 1, &tie );
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpText);
@@ -227,7 +227,7 @@ HB_FUNC( SETTABCAPTION )
 
 HB_FUNC( ADDTABBITMAP )
 {
-   HWND       hbutton = ( HWND ) HB_PARNL(1);
+   HWND       hbutton = hmg_par_HWND(1);
    TC_ITEM    tie;
    HIMAGELIST himl = ( HIMAGELIST ) NULL;
    PHB_ITEM   hArray;

@@ -112,7 +112,7 @@ HB_FUNC( INITMODALDIALOG )
 {
    LRESULT lResult;
 
-   lResult = DialogBox( GetResources(), MAKEINTRESOURCE(hb_parni(2)), ( HWND ) HB_PARNL(1), ( DLGPROC ) HMG_ModalDlgProc );
+   lResult = DialogBox( GetResources(), MAKEINTRESOURCE(hb_parni(2)), hmg_par_HWND(1), ( DLGPROC ) HMG_ModalDlgProc );
 
    HB_RETNL( ( LONG_PTR ) lResult );
 }
@@ -121,7 +121,7 @@ HB_FUNC( INITDIALOG )
 {
    HWND hwndDlg;
 
-   hwndDlg = CreateDialog( GetResources(), MAKEINTRESOURCE(hb_parni(2)), ( HWND ) HB_PARNL(1), ( DLGPROC ) HMG_DlgProc );
+   hwndDlg = CreateDialog( GetResources(), MAKEINTRESOURCE(hb_parni(2)), hmg_par_HWND(1), ( DLGPROC ) HMG_DlgProc );
 
    HB_RETNL( ( LONG_PTR ) hwndDlg );
 }
@@ -130,19 +130,19 @@ HB_FUNC( GETDIALOGITEMHANDLE )
 {
    HWND CtrlItem;
 
-   CtrlItem = GetDlgItem( ( HWND ) HB_PARNL(1), hb_parni(2) );
+   CtrlItem = GetDlgItem( hmg_par_HWND(1), hb_parni(2) );
 
    HB_RETNL( ( LONG_PTR ) CtrlItem );
 }
 
 HB_FUNC( CHECKDLGBUTTON )
 {
-   CheckDlgButton( ( HWND ) HB_PARNL(2), hb_parni(1), BST_CHECKED );
+   CheckDlgButton( hmg_par_HWND(2), hb_parni(1), BST_CHECKED );
 }
 
 HB_FUNC( UNCHECKDLGBUTTON )
 {
-   CheckDlgButton( ( HWND ) HB_PARNL(2), hb_parni(1), BST_UNCHECKED );
+   CheckDlgButton( hmg_par_HWND(2), hb_parni(1), BST_UNCHECKED );
 }
 
 HB_FUNC( SETDIALOGITEMTEXT )
@@ -152,7 +152,7 @@ HB_FUNC( SETDIALOGITEMTEXT )
 #else
    LPCWSTR lpString = AnsiToWide( ( char * ) hb_parc(3) );
 #endif
-   hb_retl( SetDlgItemText(( HWND ) HB_PARNL(1), hb_parni(2), lpString) );
+   hb_retl( SetDlgItemText(hmg_par_HWND(1), hb_parni(2), lpString) );
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpString);
 #endif
@@ -160,7 +160,7 @@ HB_FUNC( SETDIALOGITEMTEXT )
 
 HB_FUNC( ENDDIALOG )
 {
-   EndDialog( ( HWND ) HB_PARNL(1), hb_parni(2) );
+   EndDialog( hmg_par_HWND(1), hb_parni(2) );
 }
 
 HB_FUNC( ADDDIALOGPAGES )
@@ -171,7 +171,7 @@ HB_FUNC( ADDDIALOGPAGES )
    int      l;
    int      i;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    l      = ( int ) hb_parinfa( 2, 0 ) - 1;
    hArray = hb_param( 2, Harbour::Item::ARRAY );
@@ -192,14 +192,14 @@ HB_FUNC( ADDDIALOGPAGES )
 
 HB_FUNC( GETDLGCTRLID )
 {
-   hb_retni( GetDlgCtrlID( ( HWND ) HB_PARNL(1) ) );
+   hb_retni( GetDlgCtrlID( hmg_par_HWND(1) ) );
 }
 
 HB_FUNC( SETDLGITEMINT )
 {
    SetDlgItemInt
    (
-      ( HWND ) HB_PARNL(1),             // handle of dialog box
+      hmg_par_HWND(1),             // handle of dialog box
       hb_parni(2),                      // identifier of control
       ( UINT ) hb_parni(3),             // text to set
       ( hb_pcount() < 4 || HB_ISNIL(4) || ! hb_parl(4) ) ? 0 : 1
@@ -216,7 +216,7 @@ HB_FUNC( GETDLGITEMTEXT )
 
    GetDlgItemText
    (
-      ( HWND ) HB_PARNL(1),             // handle of dialog box
+      hmg_par_HWND(1),             // handle of dialog box
       hb_parni(2),                      // identifier of control
       ( LPTSTR ) cText,                   // address of buffer for text
       iLen                                // maximum size of string
@@ -236,7 +236,7 @@ HB_FUNC( GETEDITTEXT )
 #ifdef UNICODE
    LPSTR pStr;
 #endif
-   HWND    hDlg  = ( HWND ) HB_PARNL(1);
+   HWND    hDlg  = hmg_par_HWND(1);
    int     id    = hb_parni(2);
    USHORT  iLen  = ( USHORT ) SendMessage( GetDlgItem( hDlg, id ), WM_GETTEXTLENGTH, 0, 0 );
    TCHAR * cText = ( TCHAR * ) hb_xgrab((iLen + 2) * sizeof(TCHAR));
@@ -262,7 +262,7 @@ HB_FUNC( CHECKRADIOBUTTON )
 {
    CheckRadioButton
    (
-      ( HWND ) HB_PARNL(1),             // handle of dialog box
+      hmg_par_HWND(1),             // handle of dialog box
       hb_parni(2),                      // identifier of first radio button in group
       hb_parni(3),                      // identifier of last radio button in group
       hb_parni(4)                       // identifier of radio button to select
@@ -271,7 +271,7 @@ HB_FUNC( CHECKRADIOBUTTON )
 
 HB_FUNC( ISDLGBUTTONCHECKED )
 {
-   UINT nRes = IsDlgButtonChecked( ( HWND ) HB_PARNL(1),  // handle of dialog box
+   UINT nRes = IsDlgButtonChecked( hmg_par_HWND(1),  // handle of dialog box
                                    hb_parni(2)            // button identifier
                                    );
 
@@ -456,7 +456,7 @@ HB_FUNC( CREATEDLGTEMPLATE )
    LRESULT lResult;
    HB_SIZE lTemplateSize;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    dArray = hb_param( 2, Harbour::Item::ARRAY );
    cArray = hb_param( 3, Harbour::Item::ARRAY );

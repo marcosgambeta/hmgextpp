@@ -68,7 +68,7 @@ HB_FUNC( INITLISTBOX )
    HWND hbutton;
    int  Style = WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_NOINTEGRALHEIGHT;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    if( ! hb_parl(9) )
       Style = Style | WS_VISIBLE;
@@ -117,7 +117,7 @@ HB_FUNC( LISTBOXADDSTRING )
 #else
    LPWSTR lpString = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
-   SendMessage( ( HWND ) HB_PARNL(1), LB_ADDSTRING, 0, ( LPARAM ) lpString );
+   SendMessage( hmg_par_HWND(1), LB_ADDSTRING, 0, ( LPARAM ) lpString );
 #ifdef UNICODE
    hb_xfree(lpString);
 #endif
@@ -130,7 +130,7 @@ HB_FUNC( LISTBOXINSERTSTRING )
 #else
    LPWSTR lpString = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
-   SendMessage( ( HWND ) HB_PARNL(1), LB_INSERTSTRING, ( WPARAM ) hb_parni(3) - 1, ( LPARAM ) lpString );
+   SendMessage( hmg_par_HWND(1), LB_INSERTSTRING, ( WPARAM ) hb_parni(3) - 1, ( LPARAM ) lpString );
 #ifdef UNICODE
    hb_xfree(lpString);
 #endif
@@ -142,12 +142,12 @@ HB_FUNC( LISTBOXGETSTRING )
 #ifdef UNICODE
    LPSTR lpString;
 #endif
-   int     iLen = ( int ) SendMessage( ( HWND ) HB_PARNL(1), LB_GETTEXTLEN, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) 0 );
+   int     iLen = ( int ) SendMessage( hmg_par_HWND(1), LB_GETTEXTLEN, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) 0 );
    TCHAR * cString;
 
    if( iLen > 0 && NULL != ( cString = ( TCHAR * ) hb_xgrab((iLen + 1) * sizeof(TCHAR)) ) )
    {
-      SendMessage( ( HWND ) HB_PARNL(1), LB_GETTEXT, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) cString );
+      SendMessage( hmg_par_HWND(1), LB_GETTEXT, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) cString );
    #ifdef UNICODE
       lpString = WideToAnsi( cString );
       hb_retc( lpString );
@@ -168,7 +168,7 @@ HB_FUNC( INITMULTILISTBOX )
    HWND hbutton;
    int  Style = LBS_EXTENDEDSEL | WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_MULTIPLESEL | LBS_NOINTEGRALHEIGHT;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    if( ! hb_parl(9) )
       Style = Style | WS_VISIBLE;
@@ -209,7 +209,7 @@ HB_FUNC( INITMULTILISTBOX )
 
 HB_FUNC( LISTBOXGETMULTISEL )
 {
-   HWND hwnd = ( HWND ) HB_PARNL(1);
+   HWND hwnd = hmg_par_HWND(1);
    int  i;
    int  buffer[ 32768 ];
    int  n;
@@ -228,7 +228,7 @@ HB_FUNC( LISTBOXSETMULTISEL )
 {
    PHB_ITEM wArray;
 
-   HWND hwnd = ( HWND ) HB_PARNL(1);
+   HWND hwnd = hmg_par_HWND(1);
 
    int i, n, l;
 
@@ -255,7 +255,7 @@ HB_FUNC( LISTBOXSETMULTITAB )
    DWORD    dwDlgBase = GetDialogBaseUnits();
    int      baseunitX = LOWORD(dwDlgBase);
 
-   HWND hwnd = ( HWND ) HB_PARNL(1);
+   HWND hwnd = hmg_par_HWND(1);
 
    wArray = hb_param( 2, Harbour::Item::ARRAY );
 
@@ -297,7 +297,7 @@ HB_FUNC( GET_DRAG_LIST_DRAGITEM )
 
 HB_FUNC( DRAG_LIST_DRAWINSERT )
 {
-   HWND   hwnd          = ( HWND ) HB_PARNL(1);
+   HWND   hwnd          = hmg_par_HWND(1);
    LPARAM lParam        = ( LPARAM ) HB_PARNL(2);
    int    nItem         = hb_parni(3);
    LPDRAGLISTINFO lpdli = ( LPDRAGLISTINFO ) lParam;

@@ -109,7 +109,7 @@ HB_FUNC( _SETFONT )
 #ifdef UNICODE
    LPWSTR pStr;
 #endif
-   HWND hwnd = ( HWND ) HB_PARNL(1);
+   HWND hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) )
    {
@@ -140,7 +140,7 @@ HB_FUNC( _SETFONT )
 
 HB_FUNC( _SETFONTHANDLE )
 {
-   HWND hwnd = ( HWND ) HB_PARNL(1);
+   HWND hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) )
    {

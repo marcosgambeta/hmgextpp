@@ -121,7 +121,7 @@ HB_FUNC( INITRICHEDITBOX )
          hb_parni(4),
          hb_parni(5),
          hb_parni(6),
-         ( HWND ) HB_PARNL(1),
+         hmg_par_HWND(1),
          ( HMENU ) HB_PARNL(2),
          GetInstance(),
          NULL
@@ -176,7 +176,7 @@ HB_FUNC( STREAMIN )        //StreamIn(HWND hwndCtrl, LPCTSTR lpszPath, int typ )
    EDITSTREAM es;
    long       Flag, Mode;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
    switch( hb_parni(3) )
    {
       case 1:    Flag = SF_TEXT; Mode = TM_PLAINTEXT; break;
@@ -230,7 +230,7 @@ HB_FUNC( STREAMOUT )       //StreamOut(HWND hwndCtrl, LPCTSTR lpszPath, int Typ 
    EDITSTREAM es;
    long       Flag;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
    switch( hb_parni(3) )
    {
       case 1:  Flag = SF_TEXT; break;
@@ -275,7 +275,7 @@ HB_FUNC( GETAUTOFONTRTF )  // GetAutoFont(HWND hwnd)
    HWND    hwnd;
    LRESULT lAuto;
 
-   hwnd  = ( HWND ) HB_PARNL(1);
+   hwnd  = hmg_par_HWND(1);
    lAuto = SendMessage( hwnd, EM_GETLANGOPTIONS, 0, 0 ) & IMF_AUTOFONT;
 
    if( lAuto )
@@ -289,7 +289,7 @@ HB_FUNC( SETAUTOFONTRTF )  // SetAutoFont(HWND hwnd, lAutoFont)
    HWND    hwnd;
    LRESULT lOpt, lResult;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
    lOpt = SendMessage( hwnd, EM_GETLANGOPTIONS, 0, 0 );
 
    if( hb_parl(2) )
@@ -315,7 +315,7 @@ HB_FUNC( SETBKGNDCOLOR )   // SetBkgndColor(HWND hwnd, lSyscol, nRed, nGreen, nB
    if( hb_parl(2) )
       syscol = 0;
 
-   lResult = SendMessage( ( HWND ) HB_PARNL(1), ( UINT ) EM_SETBKGNDCOLOR, ( WPARAM ) syscol, ( LPARAM ) bkgcolor );
+   lResult = SendMessage( hmg_par_HWND(1), ( UINT ) EM_SETBKGNDCOLOR, ( WPARAM ) syscol, ( LPARAM ) bkgcolor );
 
    hb_retnl( ( LONG ) lResult );
 }
@@ -341,7 +341,7 @@ HB_FUNC( GETFONTRTF )
    else
       SelText = SCF_DEFAULT;
 
-   SendMessage( ( HWND ) HB_PARNL(1), EM_GETCHARFORMAT, ( WPARAM ) SelText, ( LPARAM ) &cF );
+   SendMessage( hmg_par_HWND(1), EM_GETCHARFORMAT, ( WPARAM ) SelText, ( LPARAM ) &cF );
 
    PointSize = cF.yHeight / 20;
 
@@ -382,7 +382,7 @@ HB_FUNC( SETFONTRTF )
 #endif
 
    cF.cbSize = sizeof(CHARFORMAT);
-   Mask      = ( DWORD ) SendMessage( ( HWND ) HB_PARNL(1), EM_GETCHARFORMAT, ( WPARAM ) SelText, ( LPARAM ) &cF );
+   Mask      = ( DWORD ) SendMessage( hmg_par_HWND(1), EM_GETCHARFORMAT, ( WPARAM ) SelText, ( LPARAM ) &cF );
 
    if( hb_parni(10) > 0 )
       Mask = hb_parni(10);
@@ -415,7 +415,7 @@ HB_FUNC( SETFONTRTF )
    if( hb_parclen(3) > 0 )
       lstrcpy(cF.szFaceName, szFaceName);
 
-   lResult = SendMessage( ( HWND ) HB_PARNL(1), EM_SETCHARFORMAT, ( WPARAM ) SelText, ( LPARAM ) &cF );
+   lResult = SendMessage( hmg_par_HWND(1), EM_SETCHARFORMAT, ( WPARAM ) SelText, ( LPARAM ) &cF );
 
    if( lResult )
       hb_retl( TRUE );

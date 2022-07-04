@@ -793,17 +793,17 @@ HB_FUNC( BT_DC_CREATE )
          break;
 
       case BT_HDC_WINDOW:
-         BT.hWnd = ( HWND ) HB_PARNL(2);
+         BT.hWnd = hmg_par_HWND(2);
          BT.hDC  = GetWindowDC( BT.hWnd );
          break;
 
       case BT_HDC_ALLCLIENTAREA:
-         BT.hWnd = ( HWND ) HB_PARNL(2);
+         BT.hWnd = hmg_par_HWND(2);
          BT.hDC  = GetDC(BT.hWnd);
          break;
 
       case BT_HDC_INVALIDCLIENTAREA:
-         BT.hWnd = ( HWND ) HB_PARNL(2);
+         BT.hWnd = hmg_par_HWND(2);
          BT.hDC  = BeginPaint( BT.hWnd, &BT.PaintStruct );
          break;
 
@@ -933,7 +933,7 @@ HB_FUNC( BT_SCR_GETINFO )
    RECT rect;
    INT  Mode, info;
 
-   hWnd = ( HWND ) HB_PARNL(1);
+   hWnd = hmg_par_HWND(1);
    Mode = ( INT ) hb_parni(2);
    info = ( INT ) hb_parni(3);
 
@@ -986,7 +986,7 @@ HB_FUNC( BT_SCR_INVALIDATERECT )
    PHB_ITEM pArrayRect;
 
    if( ! HB_ISARRAY(2) )
-      hb_retl( InvalidateRect(( HWND ) HB_PARNL(1), NULL, hb_parl(3)) );  // Invalidate all client area
+      hb_retl( InvalidateRect(hmg_par_HWND(1), NULL, hb_parl(3)) );  // Invalidate all client area
    else
    {
       pArrayRect = hb_param( 2, Harbour::Item::ARRAY );
@@ -997,7 +997,7 @@ HB_FUNC( BT_SCR_INVALIDATERECT )
          rect.top    = hb_arrayGetNL( pArrayRect, 2 );
          rect.right  = hb_arrayGetNL( pArrayRect, 3 );
          rect.bottom = hb_arrayGetNL( pArrayRect, 4 );
-         hb_retl( InvalidateRect(( HWND ) HB_PARNL(1), &rect, hb_parl(3)) ); // Invalidate specific rectangle of client area
+         hb_retl( InvalidateRect(hmg_par_HWND(1), &rect, hb_parl(3)) ); // Invalidate specific rectangle of client area
       }
       else
          hb_retl( FALSE );
@@ -2581,7 +2581,7 @@ HB_FUNC( BT_BMP_CAPTURESCR )
    HDC     hDC, memDC;
    INT     x1, y1, Width1, Height1, Mode;
 
-   hWnd    = ( HWND ) HB_PARNL(1);
+   hWnd    = hmg_par_HWND(1);
    x1      = ( INT ) hb_parni(2);
    y1      = ( INT ) hb_parni(3);
    Width1  = ( INT ) hb_parni(4);
@@ -3236,7 +3236,7 @@ HB_FUNC( BT_BMP_CLEAN_CLIPBOARD )
       return;
    }
 
-   hWnd = ( HWND ) HB_PARNL(1);
+   hWnd = hmg_par_HWND(1);
    if( ! OpenClipboard( hWnd ) )
    {
       hb_retl( FALSE );
@@ -3271,7 +3271,7 @@ HB_FUNC( BT_BMP_GET_CLIPBOARD )
       return;
    }
 
-   hWnd = ( HWND ) HB_PARNL(1);
+   hWnd = hmg_par_HWND(1);
    if( ! OpenClipboard( hWnd ) )
    {
       hb_retnl(0);
@@ -3342,7 +3342,7 @@ HB_FUNC( BT_BMP_PUT_CLIPBOARD )
    DWORD      nBytes_Bits, nBytes_Total;
    LPBYTE     lp_Clipboard;
 
-   hWnd    = ( HWND ) HB_PARNL(1);
+   hWnd    = hmg_par_HWND(1);
    hBitmap = ( HBITMAP ) HB_PARNL(2);
 
 
@@ -3502,7 +3502,7 @@ HB_FUNC( BT_TEXTOUT_SIZE )
    INT Bold   = FW_NORMAL;
    INT Italic = 0, Underline = 0, StrikeOut = 0;
 
-   hWnd     = ( HWND ) HB_PARNL(1);
+   hWnd     = hmg_par_HWND(1);
 #ifndef UNICODE
    lpText      = ( TCHAR * ) hb_parc(2);
    FontName    = ( TCHAR * ) hb_parc(3);

@@ -343,7 +343,7 @@ HB_FUNC( ISAPPTHEMED )
 HB_FUNC( OPENTHEMEDATA )
 {
    HTHEME nRet = ( HTHEME ) NULL;
-   HWND   hWnd = ( HWND ) HB_PARNL(1);
+   HWND   hWnd = hmg_par_HWND(1);
 
    LPCWSTR pszClassList = ( LPCWSTR ) hb_parc(2);
 
@@ -413,7 +413,7 @@ HB_FUNC( DRAWTHEMEPARENTBACKGROUND )
 {
    HRESULT nRet = S_FALSE;
 
-   HWND hWnd = ( HWND ) HB_PARNL(1);
+   HWND hWnd = hmg_par_HWND(1);
    HDC  hDC  = ( HDC ) HB_PARNL(2);
    RECT pRect;
 
@@ -437,7 +437,7 @@ HB_FUNC( SETWINDOWTHEME )
 {
    HRESULT nRet = S_FALSE;
 
-   HWND    hWnd = ( HWND ) HB_PARNL(1);
+   HWND    hWnd = hmg_par_HWND(1);
    LPCWSTR pszSubAppName = ( LPCWSTR ) hb_parc(2);
    LPCWSTR pszSubIdList  = ( LPCWSTR ) hb_parc(3);
 
@@ -458,7 +458,7 @@ HB_FUNC( ENABLETHEMEDIALOGTEXTURE )
 {
    HRESULT nRet = S_FALSE;
 
-   HWND  hWnd  = ( HWND ) HB_PARNL(1);
+   HWND  hWnd  = hmg_par_HWND(1);
    DWORD flags = hb_parnl(2);
 
    if( hUxTheme == NULL )

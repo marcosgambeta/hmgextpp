@@ -94,7 +94,7 @@ HB_FUNC( INITGETBOX )
 
    // Get the handle of the parent window/form.
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
    if( fBtns )
    {
       BtnWidth  = ( HB_ISNIL(19) ? 0 : ( int ) hb_parni(19) );

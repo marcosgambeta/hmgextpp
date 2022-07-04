@@ -63,7 +63,7 @@
 
 HB_FUNC( GETCUEBANNERTEXT )
 {
-   HWND hwnd = ( HWND ) HB_PARNL(1);
+   HWND hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) )
    {
@@ -88,7 +88,7 @@ HB_FUNC( GETCUEBANNERTEXT )
 
 HB_FUNC( SENDMESSAGESTRINGW )
 {
-   HWND hwnd = ( HWND ) HB_PARNL(1);
+   HWND hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) )
    {

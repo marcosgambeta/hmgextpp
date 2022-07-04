@@ -1538,7 +1538,7 @@ HB_FUNC( _HMG_PRINTER_SHOWPAGE )
 #else
    LPWSTR FileName = AnsiToWide( ( char * ) hb_parc(1) );
 #endif
-   HWND        hWnd       = ( HWND ) HB_PARNL(2);
+   HWND        hWnd       = hmg_par_HWND(2);
    HDC         hDCPrinter = ( HDC ) HB_PARNL(3);
    RECT        rct;
    RECT        aux;
@@ -1651,17 +1651,17 @@ HB_FUNC( _HMG_PRINTER_PRINTPAGE )
 
 HB_FUNC( _HMG_PRINTER_PREVIEW_ENABLESCROLLBARS )
 {
-   EnableScrollBar( ( HWND ) HB_PARNL(1), SB_BOTH, ESB_ENABLE_BOTH  );
+   EnableScrollBar( hmg_par_HWND(1), SB_BOTH, ESB_ENABLE_BOTH  );
 }
 
 HB_FUNC( _HMG_PRINTER_PREVIEW_DISABLESCROLLBARS )
 {
-   EnableScrollBar( ( HWND ) HB_PARNL(1), SB_BOTH, ESB_DISABLE_BOTH );
+   EnableScrollBar( hmg_par_HWND(1), SB_BOTH, ESB_DISABLE_BOTH );
 }
 
 HB_FUNC( _HMG_PRINTER_PREVIEW_DISABLEHSCROLLBAR )
 {
-   EnableScrollBar( ( HWND ) HB_PARNL(1), SB_HORZ, ESB_DISABLE_BOTH );
+   EnableScrollBar( hmg_par_HWND(1), SB_HORZ, ESB_DISABLE_BOTH );
 }
 
 HB_FUNC( _HMG_PRINTER_GETPRINTERWIDTH )
@@ -1980,7 +1980,7 @@ HB_FUNC( INITEMFFILE )
 {
 
    HWND hWnd;
-   HWND hWndParent = ( HWND ) HB_PARNL(1);
+   HWND hWndParent = hmg_par_HWND(1);
    int  Style      = WS_CHILD | SS_BITMAP;
 
    if( ! hb_parl(5) )
@@ -2008,10 +2008,10 @@ HB_FUNC( C_SETEMFFILE )
    if( hb_parclen(2) == 0 )
       HB_RETNL( ( LONG_PTR ) NULL );
 
-   hBitmap = loademffile(cFileName, hb_parni(3), hb_parni(4), ( HWND ) HB_PARNL(1), hb_parni(5), hb_parni(6));
+   hBitmap = loademffile(cFileName, hb_parni(3), hb_parni(4), hmg_par_HWND(1), hb_parni(5), hb_parni(6));
 
    if( hBitmap != NULL )
-      SendMessage( ( HWND ) HB_PARNL(1), ( UINT ) STM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) hBitmap );
+      SendMessage( hmg_par_HWND(1), ( UINT ) STM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) hBitmap );
 
    HB_RETNL( ( LONG_PTR ) hBitmap );
 

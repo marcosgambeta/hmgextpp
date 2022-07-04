@@ -1908,13 +1908,13 @@ HB_FUNC( RR_GETCLIENTRECT )
 
 HB_FUNC( RR_SCROLLWINDOW )
 {
-   ScrollWindow(( HWND ) HB_PARNL(1), hb_parni(2), hb_parni(3), NULL, NULL);
+   ScrollWindow(hmg_par_HWND(1), hb_parni(2), hb_parni(3), NULL, NULL);
 }
 
 HB_FUNC( RR_PREVIEWPLAY )
 {
    RECT rect;
-   HDC  imgDC      = GetWindowDC( ( HWND ) HB_PARNL(1) );
+   HDC  imgDC      = GetWindowDC( hmg_par_HWND(1) );
    HDC  tmpDC      = CreateCompatibleDC(imgDC);
 #ifndef UNICODE
    LPSTR FileName = ( LPSTR ) HB_PARC( 2, 1 );
@@ -1928,7 +1928,7 @@ HB_FUNC( RR_PREVIEWPLAY )
 #endif
    if( tmpDC == NULL )
    {
-      ReleaseDC(( HWND ) HB_PARNL(1), imgDC);
+      ReleaseDC(hmg_par_HWND(1), imgDC);
       hb_retl(0);
    }
 
@@ -1941,8 +1941,8 @@ HB_FUNC( RR_PREVIEWPLAY )
    FillRect(tmpDC, &rect, ( HBRUSH ) GetStockObject(WHITE_BRUSH));
    PlayEnhMetaFile(tmpDC, hh, &rect);
    DeleteEnhMetaFile(hh);
-   SendMessage( ( HWND ) HB_PARNL(1), ( UINT ) STM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himgbmp );
-   ReleaseDC(( HWND ) HB_PARNL(1), imgDC);
+   SendMessage( hmg_par_HWND(1), ( UINT ) STM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himgbmp );
+   ReleaseDC(hmg_par_HWND(1), imgDC);
    DeleteDC(tmpDC);
    if( himgbmp == 0 )
       hb_retl(0);

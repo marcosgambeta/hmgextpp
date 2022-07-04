@@ -67,7 +67,7 @@ HINSTANCE GetInstance( void );
 HB_FUNC( INITLABEL )
 {
    HWND hWnd;
-   HWND hWndParent = ( HWND ) HB_PARNL(1);
+   HWND hWndParent = hmg_par_HWND(1);
 
    int Style   = WS_CHILD;
    int ExStyle = 0;

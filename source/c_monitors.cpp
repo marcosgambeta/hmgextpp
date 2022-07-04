@@ -153,7 +153,7 @@ HB_FUNC( MONITORFROMPOINT )
 // HMONITOR MonitorFromWindow(HWND  hwnd, DWORD dwFlags)
 HB_FUNC( MONITORFROMWINDOW )
 {
-   HWND hwnd = ( HWND ) HB_PARNL(1);
+   HWND hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) )
       HB_RETNL( ( LONG_PTR ) MonitorFromWindow(hwnd, hb_parnldef( 2, MONITOR_DEFAULTTONULL )) );
@@ -180,7 +180,7 @@ HB_FUNC( MONITORFROMWINDOW )
 
 HB_FUNC( WINDOWTOMONITOR )
 {
-   HWND hwnd = ( HWND ) HB_PARNL(1);
+   HWND hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) )
    {

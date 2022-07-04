@@ -63,7 +63,7 @@ HINSTANCE GetInstance( void );
 
 HB_FUNC( INITFRAME )
 {
-   HWND hwnd    = ( HWND ) HB_PARNL(1);
+   HWND hwnd    = hmg_par_HWND(1);
    HWND hbutton = NULL;
 
    if( IsWindow(hwnd) )

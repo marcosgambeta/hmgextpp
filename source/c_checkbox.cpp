@@ -92,7 +92,7 @@ HB_FUNC( INITCHECKBOX )
    int Style;
    int ExStyle = 0;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    Style = BS_NOTIFY | WS_CHILD;
 
@@ -148,7 +148,7 @@ HB_FUNC( INITCHECKBUTTON )
    LPWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    Style = BS_NOTIFY | WS_CHILD | BS_AUTOCHECKBOX | BS_PUSHLIKE;
 
@@ -195,7 +195,7 @@ HB_FUNC( INITIMAGECHECKBUTTON )
 #endif
    int Transparent = hb_parl(7) ? 0 : 1;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    Style = BS_NOTIFY | BS_BITMAP | WS_CHILD | BS_AUTOCHECKBOX | BS_PUSHLIKE;
 

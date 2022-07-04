@@ -101,7 +101,7 @@ HB_FUNC( INITBUTTON )
    LPCWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    Style = BS_NOTIFY | WS_CHILD | ( hb_parl(14) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON ); //JK
 
@@ -160,7 +160,7 @@ HB_FUNC( INITIMAGEBUTTON )
    HIMAGELIST       himl;
    BUTTON_IMAGELIST bi;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    Style = BS_NOTIFY | WS_CHILD | ( hb_parl(13) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON ); //JK
 
@@ -294,7 +294,7 @@ HB_FUNC( INITOWNERBUTTON )
    LPCWSTR lpIconName   = AnsiToWide( ( char * ) hb_parc(14) );
 #endif
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    Style = BS_NOTIFY | WS_CHILD | BS_OWNERDRAW;
 
@@ -379,7 +379,7 @@ HB_FUNC( _SETBTNPICTURE )
    LPWSTR lpImageName = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    himage = ( HWND ) LoadImage( GetResources(), lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef( 3, 0 ), 0), HB_MAX(hb_parnidef( 4, 0 ), 0), LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
 
@@ -404,7 +404,7 @@ HB_FUNC( _GETBTNPICTUREHANDLE )
    HWND hwnd;
    HWND himage = 0;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    himage = ( HWND ) SendMessage( hwnd, ( UINT ) BM_GETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage );
 
@@ -416,7 +416,7 @@ HB_FUNC( _SETMIXEDBTNPICTURE )
    HIMAGELIST himl;
    int        Transparent = hb_parl(3) ? 0 : 1;
 
-   himl = HMG_SetButtonImageList( ( HWND ) HB_PARNL(1), hb_parc(2), Transparent, BUTTON_IMAGELIST_ALIGN_CENTER );
+   himl = HMG_SetButtonImageList( hmg_par_HWND(1), hb_parc(2), Transparent, BUTTON_IMAGELIST_ALIGN_CENTER );
 
    RegisterResource(himl, const_cast<LPSTR>("IMAGELIST"));
    HB_RETNL( ( LONG_PTR ) himl );
@@ -434,7 +434,7 @@ HB_FUNC( _SETBTNICON )
    LPWSTR lpIconName = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    hIcon = ( HICON ) LoadImage( GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR );
 
@@ -467,7 +467,7 @@ HB_FUNC( _SETMIXEDBTNICON )
    HIMAGELIST       himl;
    BUTTON_IMAGELIST bi;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    hIcon = ( HICON ) LoadImage( GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR );
 

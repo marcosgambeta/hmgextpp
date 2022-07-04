@@ -229,7 +229,7 @@ HB_FUNC( INITCHKLABEL )
    int Style   = WS_CHILD | SS_NOTIFY;
    int ExStyle = 0;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    if( hb_parl(12) )
       ExStyle = ExStyle | WS_EX_CLIENTEDGE;
@@ -298,7 +298,7 @@ HB_FUNC( INITCHKLABEL )
 
 HB_FUNC( SETCHKLABEL )
 {
-   HWND     hWnd = ( HWND ) HB_PARNL(1);
+   HWND     hWnd = hmg_par_HWND(1);
    INSCHK * pbtn = ( INSCHK * ) GetWindowLongPtr(hWnd, GWLP_USERDATA);
    RECT     rect;
 
@@ -316,7 +316,7 @@ HB_FUNC( SETCHKLABEL )
 
 HB_FUNC( GETCHKLABEL )
 {
-   HWND     hWnd = ( HWND ) HB_PARNL(1);
+   HWND     hWnd = hmg_par_HWND(1);
    INSCHK * pbtn = ( INSCHK * ) GetWindowLongPtr(hWnd, GWLP_USERDATA);
 
    hb_retl( ( BOOL ) pbtn->lCheck );

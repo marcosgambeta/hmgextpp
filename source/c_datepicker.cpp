@@ -79,7 +79,7 @@ HB_FUNC( INITDATEPICK )
    i.dwICC  = ICC_DATE_CLASSES;
    InitCommonControlsEx( &i );
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    if( hb_parl(9) )
       Style |= DTS_SHOWNONE;
@@ -130,7 +130,7 @@ HB_FUNC( INITTIMEPICK )
    i.dwICC  = ICC_DATE_CLASSES;
    InitCommonControlsEx( &i );
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    if( hb_parl(9) )
       Style |= DTS_SHOWNONE;
@@ -204,7 +204,7 @@ HB_FUNC( SETDATEPICK )
    HWND       hwnd;
    SYSTEMTIME sysTime;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    if( hb_pcount() == 2 && HB_ISDATE(2) )
    {
@@ -248,7 +248,7 @@ HB_FUNC( SETTIMEPICK )
    HWND       hwnd;
    SYSTEMTIME sysTime;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    sysTime.wYear      = 2005;
    sysTime.wMonth     = 1;
@@ -274,7 +274,7 @@ HB_FUNC( GETDATEPICKDATE )
    st.wMonth = 0;
    st.wDay   = 0;
 
-   SendMessage( ( HWND ) HB_PARNL(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st );
+   SendMessage( hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st );
 
    hb_retd( st.wYear, st.wMonth, st.wDay );
 }
@@ -285,7 +285,7 @@ HB_FUNC( GETDATEPICKYEAR )
 
    st.wYear = 0;
 
-   SendMessage( ( HWND ) HB_PARNL(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st );
+   SendMessage( hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st );
 
    hb_retni( st.wYear );
 }
@@ -296,7 +296,7 @@ HB_FUNC( GETDATEPICKMONTH )
 
    st.wMonth = 0;
 
-   SendMessage( ( HWND ) HB_PARNL(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st );
+   SendMessage( hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st );
 
    hb_retni( st.wMonth );
 }
@@ -307,7 +307,7 @@ HB_FUNC( GETDATEPICKDAY )
 
    st.wDay = 0;
 
-   SendMessage( ( HWND ) HB_PARNL(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st );
+   SendMessage( hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st );
 
    hb_retni( st.wDay );
 }
@@ -318,7 +318,7 @@ HB_FUNC( GETDATEPICKHOUR )
 
    st.wHour = 0;
 
-   if( SendMessage( ( HWND ) HB_PARNL(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st ) == GDT_VALID )
+   if( SendMessage( hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st ) == GDT_VALID )
       hb_retni( st.wHour );
    else
       hb_retni( -1 );
@@ -330,7 +330,7 @@ HB_FUNC( GETDATEPICKMINUTE )
 
    st.wMinute = 0;
 
-   if( SendMessage( ( HWND ) HB_PARNL(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st ) == GDT_VALID )
+   if( SendMessage( hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st ) == GDT_VALID )
       hb_retni( st.wMinute );
    else
       hb_retni( -1 );
@@ -342,7 +342,7 @@ HB_FUNC( GETDATEPICKSECOND )
 
    st.wSecond = 0;
 
-   if( SendMessage( ( HWND ) HB_PARNL(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st ) == GDT_VALID )
+   if( SendMessage( hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st ) == GDT_VALID )
       hb_retni( st.wSecond );
    else
       hb_retni( -1 );
@@ -354,7 +354,7 @@ HB_FUNC( DTP_SETDATETIME )
    SYSTEMTIME sysTime;
    BOOL       bTimeToZero = FALSE;
 
-   hwnd = ( HWND ) HB_PARNL(1);
+   hwnd = hmg_par_HWND(1);
 
    if( HB_ISDATETIME(2) )
    {
@@ -423,14 +423,14 @@ HB_FUNC( DTP_GETDATETIME )
 {
    SYSTEMTIME st;
 
-   SendMessage( ( HWND ) HB_PARNL(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st );
+   SendMessage( hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st );
 
    hb_rettd( hb_timeStampPack( st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond, st.wMilliseconds ) );
 }
 
 HB_FUNC( SETDATEPICKNULL )
 {
-   SendMessage( ( HWND ) HB_PARNL(1), DTM_SETSYSTEMTIME, GDT_NONE, ( LPARAM ) 0 );
+   SendMessage( hmg_par_HWND(1), DTM_SETSYSTEMTIME, GDT_NONE, ( LPARAM ) 0 );
 }
 
 HB_FUNC( SETDATEPICKRANGE )
@@ -472,7 +472,7 @@ HB_FUNC( SETDATEPICKRANGE )
          wLimit |= GDTR_MAX;
       }
 
-      hb_retl( ( int ) SendMessage( ( HWND ) HB_PARNL(1), DTM_SETRANGE, wLimit, ( LPARAM ) &sysTime ) );
+      hb_retl( ( int ) SendMessage( hmg_par_HWND(1), DTM_SETRANGE, wLimit, ( LPARAM ) &sysTime ) );
    }
 }
 
@@ -484,7 +484,7 @@ HB_FUNC( SETDATEPICKERDATEFORMAT )
    LPCWSTR lpFormat = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
 
-   hb_retl( ( int ) SendMessage( ( HWND ) HB_PARNL(1), DTM_SETFORMAT, 0, ( LPARAM ) lpFormat ) );
+   hb_retl( ( int ) SendMessage( hmg_par_HWND(1), DTM_SETFORMAT, 0, ( LPARAM ) lpFormat ) );
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpFormat);
@@ -495,7 +495,7 @@ HB_FUNC( DTP_ISCHECKED )
 {
    SYSTEMTIME st;
 
-   if( SendMessage( ( HWND ) HB_PARNL(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st ) == GDT_VALID )
+   if( SendMessage( hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st ) == GDT_VALID )
       hb_retl( HB_TRUE );
    else
       hb_retl( HB_FALSE );

@@ -199,7 +199,7 @@ HB_FUNC( LOADICONBYNAME )
 
 HB_FUNC( DRAWICONEX )
 {
-   HWND hwnd = ( HWND ) HB_PARNL(1);
+   HWND hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) )
    {

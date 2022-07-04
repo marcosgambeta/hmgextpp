@@ -291,7 +291,7 @@ LRESULT APIENTRY ImageSubClassFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM l
 HB_FUNC( INITIMAGE )
 {
    HWND hWnd;
-   HWND hWndParent = ( HWND ) HB_PARNL(1);
+   HWND hWndParent = hmg_par_HWND(1);
    int  Style      = WS_CHILD | SS_BITMAP;
 
    if( ! hb_parl(5) )
@@ -310,7 +310,7 @@ HB_FUNC( INITIMAGE )
 
 HB_FUNC( C_SETPICTURE )
 {
-   HWND    hWnd    = ( HWND ) HB_PARNL(1);
+   HWND    hWnd    = hmg_par_HWND(1);
    HBITMAP hBitmap = NULL;
 
    if( IsWindow(hWnd) && ( hb_parclen(2) > 0 ) )
@@ -344,7 +344,7 @@ HB_FUNC( C_SETPICTURE )
 
 HB_FUNC( LOADIMAGE )
 {
-   HWND    hWnd    = HB_ISNIL(2) ? GetActiveWindow() : ( HWND ) HB_PARNL(2);
+   HWND    hWnd    = HB_ISNIL(2) ? GetActiveWindow() : hmg_par_HWND(2);
    HBITMAP hBitmap = NULL;
 
    if( hb_parclen(1) > 0 )

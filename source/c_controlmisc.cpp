@@ -70,7 +70,7 @@ HB_FUNC( MAKELONG )
 
 HB_FUNC( _ENABLESCROLLBARS )
 {
-   EnableScrollBar( ( HWND ) HB_PARNL(1), hb_parni(2), hb_parni(3) );
+   EnableScrollBar( hmg_par_HWND(1), hb_parni(2), hb_parni(3) );
 }
 
 HB_FUNC( DELETEOBJECT )
@@ -96,7 +96,7 @@ HB_FUNC( IMAGELIST_DESTROY )
 
 HB_FUNC( SETFOCUS )
 {
-   HB_RETNL( ( LONG_PTR ) SetFocus( ( HWND ) HB_PARNL(1) ) );
+   HB_RETNL( ( LONG_PTR ) SetFocus( hmg_par_HWND(1) ) );
 }
 
 HB_FUNC( INSERTSHIFTTAB )
@@ -195,22 +195,22 @@ HB_FUNC( INSERTVKEY )
 
 HB_FUNC( _HMG_SETVSCROLLVALUE )
 {
-   SendMessage( ( HWND ) HB_PARNL(1), WM_VSCROLL, MAKEWPARAM( SB_THUMBPOSITION, hb_parni(2) ), 0 );
+   SendMessage( hmg_par_HWND(1), WM_VSCROLL, MAKEWPARAM( SB_THUMBPOSITION, hb_parni(2) ), 0 );
 }
 
 HB_FUNC( _HMG_SETHSCROLLVALUE )
 {
-   SendMessage( ( HWND ) HB_PARNL(1), WM_HSCROLL, MAKEWPARAM( SB_THUMBPOSITION, hb_parni(2) ), 0 );
+   SendMessage( hmg_par_HWND(1), WM_HSCROLL, MAKEWPARAM( SB_THUMBPOSITION, hb_parni(2) ), 0 );
 }
 
 HB_FUNC( SHOWCARET )
 {
-   hb_retl( ShowCaret( ( HWND ) HB_PARNL(1) ) );
+   hb_retl( ShowCaret( hmg_par_HWND(1) ) );
 }
 
 HB_FUNC( HIDECARET )
 {
-   hb_retl( HideCaret( ( HWND ) HB_PARNL(1) ) );
+   hb_retl( HideCaret( hmg_par_HWND(1) ) );
 }
 
 HB_FUNC( DESTROYCARET )
@@ -220,7 +220,7 @@ HB_FUNC( DESTROYCARET )
 
 HB_FUNC( CREATECARET )
 {
-   hb_retl( CreateCaret( ( HWND ) HB_PARNL(1), ( HBITMAP ) HB_PARNL(2), ( int ) hb_parni(3), ( int ) hb_parni(4) ) );
+   hb_retl( CreateCaret( hmg_par_HWND(1), ( HBITMAP ) HB_PARNL(2), ( int ) hb_parni(3), ( int ) hb_parni(4) ) );
 }
 
 /*
@@ -235,7 +235,7 @@ HB_FUNC( CREATECARET )
  */
 HB_FUNC( CHANGESTYLE )
 {
-   HWND     hWnd = ( HWND ) HB_PARNL(1);
+   HWND     hWnd = hmg_par_HWND(1);
    LONG_PTR dwAdd = ( LONG_PTR ) HB_PARNL(2);
    LONG_PTR dwRemove = ( LONG_PTR ) HB_PARNL(3);
    int      iStyle = hb_parl(4) ? GWL_EXSTYLE : GWL_STYLE;
@@ -251,9 +251,9 @@ HB_FUNC( CHANGESTYLE )
 
 HB_FUNC( MOVEBTNTEXTBOX )   //MoveBtnTextBox(hEdit, hBtn1, hBtn2, fBtn2, BtnWidth, width, height)
 {
-   HWND hedit    = ( HWND ) HB_PARNL(1);
-   HWND hBtn1    = ( HWND ) HB_PARNL(2);
-   HWND hBtn2    = ( HWND ) HB_PARNL(3);
+   HWND hedit    = hmg_par_HWND(1);
+   HWND hBtn1    = hmg_par_HWND(2);
+   HWND hBtn2    = hmg_par_HWND(3);
    BOOL fBtn2    = hb_parl(4);
    int  BtnWidth = ( int ) hb_parni(5);
    int  BtnWidth2;
