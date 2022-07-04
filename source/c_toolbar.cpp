@@ -690,7 +690,7 @@ HB_FUNC( REPLACETOOLBUTTONIMAGE )
    HWND    hwndTB     = hmg_par_HWND(1);
    HBITMAP hBitmapOld = ( HBITMAP ) HB_PARNL(2);
    int     iImageIdx  = hb_parl(4) ? I_IMAGECALLBACK : I_IMAGENONE;
-   int     nButtonID  = ( int ) hb_parni(5);
+   int     nButtonID  = hmg_par_INT(5);
    HBITMAP hBitmapNew;
 
    hBitmapNew = ( HBITMAP ) HMG_LoadPicture( hb_parc(3), -1, -1, hwndTB, 1, 1, -1, 0, HB_FALSE, 255 );
@@ -888,7 +888,7 @@ HB_FUNC( GETIMAGELIST )
    IMAGEINFO  ImageInfo;
 
    himl = ( HIMAGELIST ) SendMessage( hmg_par_HWND(1), TB_GETIMAGELIST, 0, 0 );
-   ImageList_GetImageInfo(himl, ( INT ) hb_parni(2), &ImageInfo);
+   ImageList_GetImageInfo(himl, hmg_par_INT(2), &ImageInfo);
 
    himage = ImageInfo.hbmImage;
 

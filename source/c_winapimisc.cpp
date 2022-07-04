@@ -1501,7 +1501,7 @@ HB_FUNC( GETCOMPACTPATH )
    {
       _GETCOMPACTPATH pFunc;
       pFunc = ( _GETCOMPACTPATH ) wapi_GetProcAddress( handle, "PathCompactPathExA" );
-      hb_retni( pFunc( ( LPTSTR ) hb_parc(1), ( LPTSTR ) hb_parc(2), ( INT ) hb_parni(3), ( DWORD ) hb_parnl(4) ) );
+      hb_retni( pFunc( ( LPTSTR ) hb_parc(1), ( LPTSTR ) hb_parc(2), hmg_par_INT(3), ( DWORD ) hb_parnl(4) ) );
       FreeLibrary( handle );
    }
 }

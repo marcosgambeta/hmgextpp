@@ -108,10 +108,10 @@ HB_FUNC( PAGERCALCSIZE )   // PagerCalcSize(lParam , nWidth)
 
    lpCalcSize = ( LPNMPGCALCSIZE ) HB_PARNL(1);
    if( lpCalcSize->dwFlag == PGF_CALCWIDTH )
-      lpCalcSize->iWidth = ( INT ) hb_parni(2);
+      lpCalcSize->iWidth = hmg_par_INT(2);
 
    if( lpCalcSize->dwFlag == PGF_CALCHEIGHT )
-      lpCalcSize->iHeight = ( INT ) hb_parni(2);
+      lpCalcSize->iHeight = hmg_par_INT(2);
 }
 
 HB_FUNC( PAGERSCROLL )     // PagerScroll(lParam , nScroll)
@@ -143,8 +143,8 @@ HB_FUNC( INITPAGER )       // InitPager ( ParentForm, hRebar, nWidth, nHeight, v
    InitCommonControlsEx( &i );
 
    hRebar  = hmg_par_HWND(1);
-   nWidth  = ( INT ) hb_parni(2);
-   nHeight = ( INT ) hb_parni(3);
+   nWidth  = hmg_par_INT(2);
+   nHeight = hmg_par_INT(3);
 
    if( hb_parl(4) )
       Style = Style | PGS_VERT;
@@ -204,7 +204,7 @@ HB_FUNC( PAGERGETBUTTONSIZE )
 
 HB_FUNC( PAGERSETBUTTONSIZE )
 {
-   Pager_SetButtonSize( hmg_par_HWND(1), ( INT ) hb_parni(2) );
+   Pager_SetButtonSize( hmg_par_HWND(1), hmg_par_INT(2) );
 }
 
 HB_FUNC( PAGERGETBORDER )
@@ -214,7 +214,7 @@ HB_FUNC( PAGERGETBORDER )
 
 HB_FUNC( PAGERSETBORDER )
 {
-   hb_retni( ( INT ) Pager_SetBorder( hmg_par_HWND(1), ( INT ) hb_parni(2) ) );
+   hb_retni( ( INT ) Pager_SetBorder( hmg_par_HWND(1), hmg_par_INT(2) ) );
 }
 
 HB_FUNC( PAGERGETPOS )
@@ -224,5 +224,5 @@ HB_FUNC( PAGERGETPOS )
 
 HB_FUNC( PAGERSETPOS )
 {
-   hb_retni( ( INT ) Pager_SetPos(hmg_par_HWND(1), ( INT ) hb_parni(2)) );
+   hb_retni( ( INT ) Pager_SetPos(hmg_par_HWND(1), hmg_par_INT(2)) );
 }

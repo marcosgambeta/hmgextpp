@@ -79,7 +79,7 @@ HB_FUNC( INITIMAGELIST )   //InitImageList ( cx , cy, mask , nCount )
 
    InitCommonControls();
 
-   himlIcons = ImageList_Create( ( INT ) hb_parni(1), ( INT ) hb_parni(2), Styl, ( INT ) hb_parni(4), 0 );
+   himlIcons = ImageList_Create( hmg_par_INT(1), hmg_par_INT(2), Styl, hmg_par_INT(4), 0 );
 
    RegisterResource(himlIcons, const_cast<LPSTR>("IMAGELIST"));
    HB_RETNL( ( LONG_PTR ) himlIcons );
@@ -186,7 +186,7 @@ HB_FUNC( IL_DRAW )         //BOOL IL_Draw(HWND hwnd, HIMAGELIST himl, int imagei
    if( ( hdc = GetDC(hwnd) ) == NULL )
       hb_retl( FALSE );
 
-   if( ! ImageList_Draw( ( HIMAGELIST ) HB_PARNL(2), ( INT ) hb_parni(3), hdc, hb_parni(4), hb_parni(5), ILD_TRANSPARENT ) )
+   if( ! ImageList_Draw( ( HIMAGELIST ) HB_PARNL(2), hmg_par_INT(3), hdc, hb_parni(4), hb_parni(5), ILD_TRANSPARENT ) )
       hb_retl( FALSE );
 
    ReleaseDC(hwnd, hdc);
@@ -200,7 +200,7 @@ HB_FUNC( IL_REMOVE )       //IL_Remove( hwnd , imageindex )
 
    himlIcons = ( HIMAGELIST ) HB_PARNL(1);
 
-   hb_retl( ImageList_Remove( himlIcons, ( INT ) hb_parni(2) ) );
+   hb_retl( ImageList_Remove( himlIcons, hmg_par_INT(2) ) );
 }
 
 HB_FUNC( IL_SETBKCOLOR )   //IL_SetBkColor(hwnd, color)
@@ -236,17 +236,17 @@ HB_FUNC( IL_BEGINDRAG )    //IL_BeginDrag( hwnd, himl, ImageInx, ix, iy )
       UpdateWindow(hmg_par_HWND(1));
    }
 
-   hb_retl( ImageList_BeginDrag( ( HIMAGELIST ) HB_PARNL(2), ( INT ) hb_parni(3), ( INT ) 0, ( INT ) 0 ) );
+   hb_retl( ImageList_BeginDrag( ( HIMAGELIST ) HB_PARNL(2), hmg_par_INT(3), ( INT ) 0, ( INT ) 0 ) );
 }
 
 HB_FUNC( IL_DRAGMOVE )     //IL_DragMove( ix, iy )
 {
-   hb_retl( ImageList_DragMove( ( INT ) hb_parni(1), ( INT ) hb_parni(2) ) );
+   hb_retl( ImageList_DragMove( hmg_par_INT(1), hmg_par_INT(2) ) );
 }
 
 HB_FUNC( IL_DRAGENTER )    //IL_DragEnter( hwnd, ix, iy )
 {
-   hb_retl( ImageList_DragEnter( hmg_par_HWND(1), ( INT ) hb_parni(2), ( INT ) hb_parni(3) ) );
+   hb_retl( ImageList_DragEnter( hmg_par_HWND(1), hmg_par_INT(2), hmg_par_INT(3) ) );
 }
 
 HB_FUNC( IL_ENDDRAG )      //IL_EndDrag( hwnd )

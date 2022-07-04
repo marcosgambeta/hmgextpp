@@ -1102,8 +1102,8 @@ HB_FUNC( LISTVIEW_SETSORTHEADER )
 HB_FUNC( LISTVIEW_GROUPITEMSETID )
 {
    HWND hWnd    = hmg_par_HWND(1);
-   INT  nRow    = ( INT ) hb_parni(2);
-   INT  GroupID = ( INT ) hb_parni(3);
+   INT  nRow    = hmg_par_INT(2);
+   INT  GroupID = hmg_par_INT(3);
 
 #if ( ( defined( __BORLANDC__ ) && __BORLANDC__ < 1410 ) )
    _LVITEM LVI;
@@ -1122,7 +1122,7 @@ HB_FUNC( LISTVIEW_GROUPITEMSETID )
 HB_FUNC( LISTVIEW_GROUPITEMGETID )
 {
    HWND hWnd = hmg_par_HWND(1);
-   INT  nRow = ( INT ) hb_parni(2);
+   INT  nRow = hmg_par_INT(2);
 
 #if ( ( defined( __BORLANDC__ ) && __BORLANDC__ < 1410 ) )
    _LVITEM LVI;
@@ -1166,7 +1166,7 @@ HB_FUNC( LISTVIEW_GROUPDELETEALL )
 HB_FUNC( LISTVIEW_GROUPDELETE )
 {
    HWND hWnd    = hmg_par_HWND(1);
-   INT  GroupID = ( INT ) hb_parni(2);
+   INT  GroupID = hmg_par_INT(2);
 
    hb_retni( ( INT ) ListView_RemoveGroup( hWnd, GroupID ) );
 }
@@ -1175,7 +1175,7 @@ HB_FUNC( LISTVIEW_GROUPDELETE )
 HB_FUNC( LISTVIEW_GROUPADD )
 {
    HWND hWnd    = hmg_par_HWND(1);
-   INT  GroupID = ( INT ) hb_parni(2);
+   INT  GroupID = hmg_par_INT(2);
    INT  nIndex  = ( INT ) ( HB_ISNUM(3) ? hb_parni(3) : -1 );
 
    LVGROUP LVG;
@@ -1196,7 +1196,7 @@ HB_FUNC( LISTVIEW_GROUPADD )
 HB_FUNC( LISTVIEW_GROUPSETINFO )
 {
    HWND       hWnd         = hmg_par_HWND(1);
-   INT        GroupID      = ( INT ) hb_parni(2);
+   INT        GroupID      = hmg_par_INT(2);
    HB_WCHAR * cHeader      = ( HB_WCHAR * ) ( ( hb_parclen(3) == 0 ) ? NULL : hb_mbtowc( hb_parc(3) ) );
    UINT       nAlignHeader = hmg_par_UINT(4);
    HB_WCHAR * cFooter      = ( ( hb_parclen(5) == 0 ) ? NULL : hb_mbtowc( hb_parc(5) ) );
@@ -1237,7 +1237,7 @@ HB_FUNC( LISTVIEW_GROUPSETINFO )
 HB_FUNC( LISTVIEW_GROUPGETINFO )
 {
    HWND hWnd    = hmg_par_HWND(1);
-   INT  GroupID = ( INT ) hb_parni(2);
+   INT  GroupID = hmg_par_INT(2);
 
    INT      nRet;
    HB_WCHAR cHeaderBuffer[ MAX_GROUP_BUFFER ];
@@ -1269,7 +1269,7 @@ HB_FUNC( LISTVIEW_GROUPGETINFO )
 HB_FUNC( LISTVIEW_HASGROUP )
 {
    HWND hWnd    = hmg_par_HWND(1);
-   INT  GroupID = ( INT ) hb_parni(2);
+   INT  GroupID = hmg_par_INT(2);
 
    hb_retl( ( BOOL ) ListView_HasGroup( hWnd, GroupID ) );
 }

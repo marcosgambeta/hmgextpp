@@ -668,7 +668,7 @@ HB_FUNC( TREEVIEW_SORTCHILDRENRECURSIVECB )
    BOOL      fRecurse        = ( BOOL ) hb_parl(3);
    BOOL      lCaseSensitive  = ( BOOL ) hb_parl(4);
    BOOL      lAscendingOrder = ( BOOL ) hb_parl(5);
-   INT       nNodePosition   = ( INT ) hb_parni(6);
+   INT       nNodePosition   = hmg_par_INT(6);
    HWND      hWndParent      = GetParent( hWndTV );
    BOOL      lEnabled        = IsWindowEnabled( hWndParent );
 

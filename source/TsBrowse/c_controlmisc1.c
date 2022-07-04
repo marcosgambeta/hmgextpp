@@ -137,12 +137,12 @@ HB_FUNC( MOVETO )
 {
    POINT pt;
 
-   MoveToEx( hmg_par_HDC(1), ( INT ) hb_parni(2), ( INT ) hb_parni(3), &pt );
+   MoveToEx( hmg_par_HDC(1), hmg_par_INT(2), hmg_par_INT(3), &pt );
 }
 
 HB_FUNC( LINETO )
 {
-   LineTo( hmg_par_HDC(1), ( INT ) hb_parni(2), ( INT ) hb_parni(3) );
+   LineTo( hmg_par_HDC(1), hmg_par_INT(2), hmg_par_INT(3) );
 }
 
 HB_FUNC( DRAWICON )
