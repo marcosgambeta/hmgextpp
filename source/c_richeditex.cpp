@@ -1130,7 +1130,7 @@ HB_FUNC( RICHEDITBOX_FORMATRANGE )
    LONG        cpMin;
 
    HWND hWndControl = hmg_par_HWND(1);
-   HDC  hDCPrinter  = ( HDC ) HB_PARNL(2);
+   HDC  hDCPrinter  = hmg_par_HDC(2);
 
    rc.left   = hb_parni(3);  // in twips
    rc.top    = hb_parni(4);  // in twips

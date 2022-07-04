@@ -1539,7 +1539,7 @@ HB_FUNC( _HMG_PRINTER_SHOWPAGE )
    LPWSTR FileName = AnsiToWide( ( char * ) hb_parc(1) );
 #endif
    HWND        hWnd       = hmg_par_HWND(2);
-   HDC         hDCPrinter = ( HDC ) HB_PARNL(3);
+   HDC         hDCPrinter = hmg_par_HDC(3);
    RECT        rct;
    RECT        aux;
    int         zw;

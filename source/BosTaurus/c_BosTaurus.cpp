@@ -1734,7 +1734,7 @@ HB_FUNC( BT_DRAW_HDC_TO_HDC )
    Width1  = hmg_par_INT(4);
    Height1 = hmg_par_INT(5);
 
-   hDC2    = ( HDC ) HB_PARNL(6);
+   hDC2    = hmg_par_HDC(6);
    x2      = hmg_par_INT(7);
    y2      = hmg_par_INT(8);
    Width2  = hmg_par_INT(9);
@@ -1791,7 +1791,7 @@ HB_FUNC( BT_DRAW_HDC_TO_HDC_ALPHABLEND )
    Width1  = hmg_par_INT(4);
    Height1 = hmg_par_INT(5);
 
-   hDC2    = ( HDC ) HB_PARNL(6);
+   hDC2    = hmg_par_HDC(6);
    x2      = hmg_par_INT(7);
    y2      = hmg_par_INT(8);
    Width2  = hmg_par_INT(9);

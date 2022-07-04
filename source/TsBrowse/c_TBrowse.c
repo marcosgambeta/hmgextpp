@@ -266,7 +266,7 @@ void DrawMasked( HDC hDC, HBITMAP hbm, int wRow, int wCol )
 HB_FUNC( TSDRAWCELL )
 {
    HWND     hWnd         = hmg_par_HWND(1);
-   HDC      hDC          = ( HDC ) HB_PARNL(2);
+   HDC      hDC          = hmg_par_HDC(2);
    int      nRow         = hb_parni(3);
    int      nColumn      = hb_parni(4);
    int      nWidth       = hb_parni(5);

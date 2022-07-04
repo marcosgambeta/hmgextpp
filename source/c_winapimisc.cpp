@@ -404,7 +404,7 @@ HB_FUNC( GETDC )
 
 HB_FUNC( RELEASEDC )
 {
-   hb_retl( ReleaseDC(hmg_par_HWND(1), ( HDC ) HB_PARNL(2)) );
+   hb_retl( ReleaseDC(hmg_par_HWND(1), hmg_par_HDC(2)) );
 }
 
 HB_FUNC( HIWORD )

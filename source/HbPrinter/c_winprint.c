@@ -1995,7 +1995,7 @@ HB_FUNC( RR_PLAYENHMETAFILE )
    HENHMETAFILE hh = GetEnhMetaFile(FileName);
 
    SetRect(&rect, 0, 0, HB_PARNI( 1, 5 ), HB_PARNI( 1, 4 ));
-   PlayEnhMetaFile(( HDC ) HB_PARNL(2), hh, &rect);
+   PlayEnhMetaFile(hmg_par_HDC(2), hh, &rect);
    DeleteEnhMetaFile(hh);
 
 #ifdef UNICODE

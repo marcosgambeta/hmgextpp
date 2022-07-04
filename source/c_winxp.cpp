@@ -386,7 +386,7 @@ HB_FUNC( DRAWTHEMEBACKGROUND )
    HRESULT nRet = S_FALSE;
 
    HTHEME hTheme   = ( HTHEME ) HB_PARNL(1);
-   HDC    hDC      = ( HDC ) HB_PARNL(2);
+   HDC    hDC      = hmg_par_HDC(2);
    int    iPartId  = hb_parni(3);
    int    iStateId = hb_parni(4);
 
@@ -414,7 +414,7 @@ HB_FUNC( DRAWTHEMEPARENTBACKGROUND )
    HRESULT nRet = S_FALSE;
 
    HWND hWnd = hmg_par_HWND(1);
-   HDC  hDC  = ( HDC ) HB_PARNL(2);
+   HDC  hDC  = hmg_par_HDC(2);
    RECT pRect;
 
    if( HB_ISARRAY(7) )
