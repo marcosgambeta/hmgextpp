@@ -145,7 +145,7 @@ Return DLGC_WANTALLKEYS
 
 METHOD HandleEvent( nMsg, nWParam, nLParam ) CLASS TComboBox
 
-   If HiWord( nWParam ) == CBN_CLOSEUP
+   If HiWord(nWParam) == CBN_CLOSEUP
       if ::bCloseUp <> NIL
          If( ValType( ::bCloseUp ) == "B", Eval( ::bCloseUp, Self ), ::bCloseUp( Self ) )
          Return 0

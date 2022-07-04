@@ -429,7 +429,7 @@ extern "C" {
 		//	Load the HTML from a resource
 		inline BOOL LoadFromResource( UINT uID )
 		{
-			return LoadFromResource( MAKEINTRESOURCE( uID ) );
+			return LoadFromResource( MAKEINTRESOURCE(uID) );
 		}
 
 		//	Load the HTML from a resource

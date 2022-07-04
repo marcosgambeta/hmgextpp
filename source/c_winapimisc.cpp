@@ -69,7 +69,7 @@
 # define itoa( __value, __string, __radix )  _itoa( __value, __string, __radix )
 #endif
 
-extern HB_EXPORT BOOL Array2Rect( PHB_ITEM aRect, RECT * rc );
+extern HB_EXPORT BOOL Array2Rect(PHB_ITEM aRect, RECT * rc);
 extern HB_EXPORT PHB_ITEM Rect2Array( RECT * rc );
 extern void hmg_ErrorExit( LPCTSTR lpMessage, DWORD dwError, BOOL bExit );
 
@@ -82,7 +82,7 @@ LPSTR  WideToAnsi( LPWSTR );
 BOOL SysRefresh( void );
 
 // Minigui Resources control system
-void RegisterResource( HANDLE hResource, LPSTR szType );
+void RegisterResource(HANDLE hResource, LPSTR szType);
 
 HB_PTRUINT wapi_GetProcAddress( HMODULE hModule, LPCSTR lpProcName )
 {
@@ -106,27 +106,27 @@ HB_FUNC( WAITRUNPIPE )
    char * Data;
 
 #ifndef UNICODE
-   LPSTR lpCommandLine = ( char * ) hb_parc( 1 );
+   LPSTR lpCommandLine = ( char * ) hb_parc(1);
 #else
-   LPWSTR lpCommandLine = AnsiToWide( ( char * ) hb_parc( 1 ) );
+   LPWSTR lpCommandLine = AnsiToWide( ( char * ) hb_parc(1) );
 #endif
-   const char *        szFile = ( const char * ) hb_parc( 3 );
+   const char *        szFile = ( const char * ) hb_parc(3);
    HB_FHANDLE          nHandle;
    SECURITY_ATTRIBUTES sa;
 
-   ZeroMemory( &sa, sizeof( SECURITY_ATTRIBUTES ) );
-   sa.nLength              = sizeof( SECURITY_ATTRIBUTES );
+   ZeroMemory(&sa, sizeof(SECURITY_ATTRIBUTES));
+   sa.nLength              = sizeof(SECURITY_ATTRIBUTES);
    sa.bInheritHandle       = 1;
    sa.lpSecurityDescriptor = NULL;
 
-   memset( &StartupInfo, 0, sizeof( StartupInfo ) );
-   memset( &ProcessInfo, 0, sizeof( ProcessInfo ) );
+   memset(&StartupInfo, 0, sizeof(StartupInfo));
+   memset(&ProcessInfo, 0, sizeof(ProcessInfo));
 
-   if( ! hb_fsFile( szFile ) )
+   if( ! hb_fsFile(szFile) )
       nHandle = hb_fsCreate( szFile, 0 );
    else
    {
-      nHandle = hb_fsOpen( szFile, 2 );
+      nHandle = hb_fsOpen(szFile, 2);
       hb_fsSeek( nHandle, 0, 2 );
    }
 
@@ -139,7 +139,7 @@ HB_FUNC( WAITRUNPIPE )
    ProcessInfo.hProcess    = INVALID_HANDLE_VALUE;
    ProcessInfo.hThread     = INVALID_HANDLE_VALUE;
    StartupInfo.dwFlags     = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
-   StartupInfo.wShowWindow = ( WORD ) hb_parni( 2 );
+   StartupInfo.wShowWindow = ( WORD ) hb_parni(2);
    StartupInfo.hStdOutput  = WritePipeHandle;
    StartupInfo.hStdError   = WritePipeHandle;
 
@@ -151,11 +151,11 @@ HB_FUNC( WAITRUNPIPE )
    else
    {
 #ifdef UNICODE
-      hb_xfree( ( TCHAR * ) lpCommandLine );
+      hb_xfree(( TCHAR * ) lpCommandLine);
 #endif
    }
 
-   Data = ( char * ) hb_xgrab( 1024 );
+   Data = ( char * ) hb_xgrab(1024);
    for(;; )
    {
       DWORD BytesRead;
@@ -163,7 +163,7 @@ HB_FUNC( WAITRUNPIPE )
       DWORD BytesLeft;
 
       // Check for the presence of data in the pipe
-      if( ! PeekNamedPipe( ReadPipeHandle, Data, sizeof( Data ), &BytesRead, &TotalBytes, &BytesLeft ) )
+      if( ! PeekNamedPipe( ReadPipeHandle, Data, sizeof(Data), &BytesRead, &TotalBytes, &BytesLeft ) )
       {
          hb_retnl( -1 );
          return;
@@ -172,29 +172,29 @@ HB_FUNC( WAITRUNPIPE )
       // If there is bytes, read them
       if( BytesRead )
       {
-         if( ! ReadFile( ReadPipeHandle, Data, sizeof( Data ) - 1, &BytesRead, NULL ) )
+         if( ! ReadFile(ReadPipeHandle, Data, sizeof(Data) - 1, &BytesRead, NULL) )
          {
             hb_retnl( -1 );
             return;
          }
 
-         Data[ BytesRead ] = TEXT( '\0' );
+         Data[ BytesRead ] = TEXT('\0');
          hb_fsWriteLarge( nHandle, Data, BytesRead );
       }
       else
       {
          // Is the console app terminated?
-         if( WaitForSingleObject( ProcessInfo.hProcess, 0 ) == WAIT_OBJECT_0 )
+         if( WaitForSingleObject(ProcessInfo.hProcess, 0) == WAIT_OBJECT_0 )
             break;
       }
    }
 
-   CloseHandle( ProcessInfo.hThread );
-   CloseHandle( ProcessInfo.hProcess );
-   CloseHandle( ReadPipeHandle );
-   CloseHandle( WritePipeHandle );
-   hb_fsClose( nHandle );
-   hb_xfree( Data );
+   CloseHandle(ProcessInfo.hThread);
+   CloseHandle(ProcessInfo.hProcess);
+   CloseHandle(ReadPipeHandle);
+   CloseHandle(WritePipeHandle);
+   hb_fsClose(nHandle);
+   hb_xfree(Data);
 }
 
 HB_FUNC( COPYRTFTOCLIPBOARD ) // CopyRtfToClipboard(cRtfText) store cRTFText in Windows clipboard
@@ -202,28 +202,28 @@ HB_FUNC( COPYRTFTOCLIPBOARD ) // CopyRtfToClipboard(cRtfText) store cRTFText in 
    HGLOBAL      hglbCopy;
    char *       lptstrCopy;
    UINT         cf;
-   const char * cStr = HB_ISCHAR( 1 ) ? hb_parc( 1 ) : "";
+   const char * cStr = HB_ISCHAR(1) ? hb_parc(1) : "";
    int          nLen = ( int ) strlen( cStr );
 
    if( ( nLen == 0 ) || ! OpenClipboard( GetActiveWindow() ) )
       return;
 
    // Get Clipboard format id for RTF.
-   cf = RegisterClipboardFormat( TEXT( "Rich Text Format" ) );
+   cf = RegisterClipboardFormat( TEXT("Rich Text Format") );
 
    EmptyClipboard();
 
-   hglbCopy = GlobalAlloc( GMEM_MOVEABLE | GMEM_DDESHARE, ( nLen + 4 ) * sizeof( TCHAR ) );
+   hglbCopy = GlobalAlloc( GMEM_MOVEABLE | GMEM_DDESHARE, ( nLen + 4 ) * sizeof(TCHAR) );
    if( hglbCopy == NULL )
    {
       CloseClipboard();
       return;
    }
 
-   lptstrCopy = ( char * ) GlobalLock( hglbCopy );
-   memcpy( lptstrCopy, cStr, nLen * sizeof( TCHAR ) );
+   lptstrCopy = ( char * ) GlobalLock(hglbCopy);
+   memcpy(lptstrCopy, cStr, nLen * sizeof(TCHAR));
    lptstrCopy[ nLen ] = ( TCHAR ) 0;  // NULL character
-   GlobalUnlock( hglbCopy );
+   GlobalUnlock(hglbCopy);
 
    SetClipboardData( cf, hglbCopy );
    CloseClipboard();
@@ -234,7 +234,7 @@ HB_FUNC( COPYTOCLIPBOARD ) // CopyToClipboard(cText) store cText in Windows clip
    HGLOBAL hglbCopy;
    char *  lptstrCopy;
 
-   const char * cStr = HB_ISCHAR( 1 ) ? hb_parc( 1 ) : "";
+   const char * cStr = HB_ISCHAR(1) ? hb_parc(1) : "";
    int          nLen = ( int ) strlen( cStr );
 
    if( ( nLen == 0 ) || ! OpenClipboard( GetActiveWindow() ) )
@@ -242,19 +242,19 @@ HB_FUNC( COPYTOCLIPBOARD ) // CopyToClipboard(cText) store cText in Windows clip
 
    EmptyClipboard();
 
-   hglbCopy = GlobalAlloc( GMEM_DDESHARE, ( nLen + 1 ) * sizeof( TCHAR ) );
+   hglbCopy = GlobalAlloc( GMEM_DDESHARE, ( nLen + 1 ) * sizeof(TCHAR) );
    if( hglbCopy == NULL )
    {
       CloseClipboard();
       return;
    }
 
-   lptstrCopy = ( char * ) GlobalLock( hglbCopy );
-   memcpy( lptstrCopy, cStr, nLen * sizeof( TCHAR ) );
+   lptstrCopy = ( char * ) GlobalLock(hglbCopy);
+   memcpy(lptstrCopy, cStr, nLen * sizeof(TCHAR));
    lptstrCopy[ nLen ] = ( TCHAR ) 0;  // null character
-   GlobalUnlock( hglbCopy );
+   GlobalUnlock(hglbCopy);
 
-   SetClipboardData( HB_ISNUM( 2 ) ? ( UINT ) hb_parni( 2 ) : CF_TEXT, hglbCopy );
+   SetClipboardData( HB_ISNUM(2) ? ( UINT ) hb_parni(2) : CF_TEXT, hglbCopy );
    CloseClipboard();
 }
 
@@ -268,11 +268,11 @@ HB_FUNC( RETRIEVETEXTFROMCLIPBOARD )
       hClipMem = GetClipboardData( CF_TEXT );
       if( hClipMem )
       {
-         lpClip = ( LPSTR ) GlobalLock( hClipMem );
+         lpClip = ( LPSTR ) GlobalLock(hClipMem);
          if( lpClip )
          {
             hb_retc( lpClip );
-            GlobalUnlock( hClipMem );
+            GlobalUnlock(hClipMem);
          }
          else
             hb_retc( "" );
@@ -288,7 +288,7 @@ HB_FUNC( RETRIEVETEXTFROMCLIPBOARD )
 
 HB_FUNC( CLEARCLIPBOARD )
 {
-   if( OpenClipboard( ( HWND ) HB_PARNL( 1 ) ) )
+   if( OpenClipboard( ( HWND ) HB_PARNL(1) ) )
    {
       EmptyClipboard();
       CloseClipboard();
@@ -300,22 +300,22 @@ HB_FUNC( CLEARCLIPBOARD )
 
 HB_FUNC( GETBLUE )
 {
-   hb_retnl( GetBValue( hb_parnl( 1 ) ) );
+   hb_retnl( GetBValue(hb_parnl(1)) );
 }
 
 HB_FUNC( GETRED )
 {
-   hb_retnl( GetRValue( hb_parnl( 1 ) ) );
+   hb_retnl( GetRValue(hb_parnl(1)) );
 }
 
 HB_FUNC( GETGREEN )
 {
-   hb_retnl( GetGValue( hb_parnl( 1 ) ) );
+   hb_retnl( GetGValue(hb_parnl(1)) );
 }
 
 HB_FUNC( GETKEYSTATE )
 {
-   hb_retni( GetKeyState( hb_parni( 1 ) ) );
+   hb_retni( GetKeyState(hb_parni(1)) );
 }
 
 HB_FUNC( HMG_KEYBOARDCLEARBUFFER )
@@ -359,7 +359,7 @@ HB_FUNC( INKEYGUI )
       if( bRet == -1 )
       {
          // handle the error and possibly exit
-         hmg_ErrorExit( TEXT( "INKEYGUI" ), 0, TRUE );
+         hmg_ErrorExit( TEXT("INKEYGUI"), 0, TRUE );
       }
       else
       {
@@ -399,22 +399,22 @@ HB_FUNC( INKEYGUI )
 
 HB_FUNC( GETDC )
 {
-   HB_RETNL( ( LONG_PTR ) GetDC( ( HWND ) HB_PARNL( 1 ) ) );
+   HB_RETNL( ( LONG_PTR ) GetDC(( HWND ) HB_PARNL(1)) );
 }
 
 HB_FUNC( RELEASEDC )
 {
-   hb_retl( ReleaseDC( ( HWND ) HB_PARNL( 1 ), ( HDC ) HB_PARNL( 2 ) ) );
+   hb_retl( ReleaseDC(( HWND ) HB_PARNL(1), ( HDC ) HB_PARNL(2)) );
 }
 
 HB_FUNC( HIWORD )
 {
-   hb_retni( ( int ) HIWORD( ( DWORD ) hb_parnl( 1 ) ) );
+   hb_retni( ( int ) HIWORD(( DWORD ) hb_parnl(1)) );
 }
 
 HB_FUNC( LOWORD )
 {
-   hb_retni( ( int ) LOWORD( ( DWORD ) hb_parnl( 1 ) ) );
+   hb_retni( ( int ) LOWORD(( DWORD ) hb_parnl(1)) );
 }
 
 HB_FUNC( C_GETSPECIALFOLDER ) // Contributed By Ryszard Ryüko
@@ -422,10 +422,10 @@ HB_FUNC( C_GETSPECIALFOLDER ) // Contributed By Ryszard Ryüko
 #ifdef UNICODE
    LPSTR pStr;
 #endif
-   TCHAR *      lpBuffer = ( TCHAR * ) hb_xgrab( ( MAX_PATH + 1 ) * sizeof( TCHAR ) );
+   TCHAR *      lpBuffer = ( TCHAR * ) hb_xgrab((MAX_PATH + 1) * sizeof(TCHAR));
    LPITEMIDLIST pidlBrowse;   // PIDL selected by user
 
-   SHGetSpecialFolderLocation( GetActiveWindow(), hb_parni( 1 ), &pidlBrowse );
+   SHGetSpecialFolderLocation( GetActiveWindow(), hb_parni(1), &pidlBrowse );
    SHGetPathFromIDList( pidlBrowse, lpBuffer );
 
 #ifndef UNICODE
@@ -433,9 +433,9 @@ HB_FUNC( C_GETSPECIALFOLDER ) // Contributed By Ryszard Ryüko
 #else
    pStr = hb_osStrU16Decode( lpBuffer );
    hb_retc( pStr );
-   hb_xfree( pStr );
+   hb_xfree(pStr);
 #endif
-   hb_xfree( lpBuffer );
+   hb_xfree(lpBuffer);
 }
 
 //#define __WIN98__
@@ -447,7 +447,7 @@ HB_FUNC( C_GETSPECIALFOLDER ) // Contributed By Ryszard Ryüko
 HB_FUNC( C_GETDLLSPECIALFOLDER )
 {
    TCHAR   szPath[ MAX_PATH ];
-   HMODULE hModule = LoadLibrary( TEXT( "SHFolder.dll" ) );
+   HMODULE hModule = LoadLibrary( TEXT("SHFolder.dll") );
 
    if( hModule )
    {
@@ -455,7 +455,7 @@ HB_FUNC( C_GETDLLSPECIALFOLDER )
 
       if( fnShGetFolderPath )
       {
-         if( fnShGetFolderPath( NULL, hb_parni( 1 ), NULL, 0, szPath ) == S_OK )
+         if( fnShGetFolderPath( NULL, hb_parni(1), NULL, 0, szPath ) == S_OK )
             hb_retc( szPath );
          else
             hb_retc( "" );
@@ -470,9 +470,9 @@ typedef BOOL ( WINAPI * GetPhysicallyInstalledSystemMemory_ptr )( ULONGLONG * );
 
 HB_FUNC( GETPHYSICALLYINSTALLEDSYSTEMMEMORY )
 {
-   HMODULE hDll = GetModuleHandle( TEXT( "kernel32.dll" ) );
+   HMODULE hDll = GetModuleHandle(TEXT("kernel32.dll"));
 
-   hb_retnll( 0 );
+   hb_retnll(0);
 
    if( NULL != hDll )
    {
@@ -494,9 +494,9 @@ typedef BOOL ( WINAPI * GlobalMemoryStatusEx_ptr )( MEMORYSTATUSEX * );
 
 HB_FUNC( MEMORYSTATUS )
 {
-   HMODULE hDll = GetModuleHandle( TEXT( "kernel32.dll" ) );
+   HMODULE hDll = GetModuleHandle(TEXT("kernel32.dll"));
 
-   HB_RETNL( 0 );
+   HB_RETNL(0);
 
    if( NULL != hDll )
    {
@@ -507,11 +507,11 @@ HB_FUNC( MEMORYSTATUS )
       {
          MEMORYSTATUSEX mstex;
 
-         mstex.dwLength = sizeof( mstex );
+         mstex.dwLength = sizeof(mstex);
 
          if( fn_GlobalMemoryStatusEx( &mstex ) )
          {
-            switch( hb_parni( 1 ) )
+            switch( hb_parni(1) )
             {
                case 1:  hb_retnll( mstex.ullTotalPhys / DIV ); break;
                case 2:  hb_retnll( mstex.ullAvailPhys / DIV ); break;
@@ -526,10 +526,10 @@ HB_FUNC( MEMORYSTATUS )
       {
          MEMORYSTATUS mst;
 
-         mst.dwLength = sizeof( MEMORYSTATUS );
+         mst.dwLength = sizeof(MEMORYSTATUS);
          GlobalMemoryStatus( &mst );
 
-         switch( hb_parni( 1 ) )
+         switch( hb_parni(1) )
          {
             case 1:  HB_RETNL( mst.dwTotalPhys / DIV ); break;
             case 2:  HB_RETNL( mst.dwAvailPhys / DIV ); break;
@@ -545,16 +545,16 @@ HB_FUNC( MEMORYSTATUS )
 HB_FUNC( C_SHELLABOUT )
 {
 #ifndef UNICODE
-   LPCSTR szApp        = hb_parc( 2 );
-   LPCSTR szOtherStuff = hb_parc( 3 );
+   LPCSTR szApp        = hb_parc(2);
+   LPCSTR szOtherStuff = hb_parc(3);
 #else
-   LPCWSTR szApp        = AnsiToWide( ( char * ) hb_parc( 2 ) );
-   LPCWSTR szOtherStuff = AnsiToWide( ( char * ) hb_parc( 3 ) );
+   LPCWSTR szApp        = AnsiToWide( ( char * ) hb_parc(2) );
+   LPCWSTR szOtherStuff = AnsiToWide( ( char * ) hb_parc(3) );
 #endif
-   hb_retl( ShellAbout( ( HWND ) HB_PARNL( 1 ), szApp, szOtherStuff, ( HICON ) HB_PARNL( 4 ) ) );
+   hb_retl( ShellAbout(( HWND ) HB_PARNL(1), szApp, szOtherStuff, ( HICON ) HB_PARNL(4)) );
 #ifdef UNICODE
-   hb_xfree( ( TCHAR * ) szApp );
-   hb_xfree( ( TCHAR * ) szOtherStuff );
+   hb_xfree(( TCHAR * ) szApp);
+   hb_xfree(( TCHAR * ) szOtherStuff);
 #endif
 }
 
@@ -565,25 +565,25 @@ HB_FUNC( PAINTBKGND )
    RECT   recClie;
    HDC    hdc;
 
-   hwnd = ( HWND ) HB_PARNL( 1 );
-   hdc  = GetDC( hwnd );
+   hwnd = ( HWND ) HB_PARNL(1);
+   hdc  = GetDC(hwnd);
 
-   GetClientRect( hwnd, &recClie );
+   GetClientRect(hwnd, &recClie);
 
-   if( hb_pcount() > 1 && ! HB_ISNIL( 2 ) )
+   if( hb_pcount() > 1 && ! HB_ISNIL(2) )
    {
-      hBrush = CreateSolidBrush( RGB( HB_PARNI( 2, 1 ), HB_PARNI( 2, 2 ), HB_PARNI( 2, 3 ) ) );
-      FillRect( hdc, &recClie, hBrush );
+      hBrush = CreateSolidBrush(RGB(HB_PARNI( 2, 1 ), HB_PARNI( 2, 2 ), HB_PARNI( 2, 3 )));
+      FillRect(hdc, &recClie, hBrush);
    }
    else
    {
       hBrush = ( HBRUSH ) ( COLOR_BTNFACE + 1 );
-      FillRect( hdc, &recClie, hBrush );
+      FillRect(hdc, &recClie, hBrush);
    }
 
-   ReleaseDC( hwnd, hdc );
+   ReleaseDC(hwnd, hdc);
 
-   RegisterResource( hBrush, const_cast<LPSTR>("BRUSH") );
+   RegisterResource(hBrush, const_cast<LPSTR>("BRUSH"));
    HB_RETNL( ( LONG_PTR ) hBrush );
 }
 
@@ -603,7 +603,7 @@ HB_FUNC( GETWINDOWSDIR )
 #else
    pStr = WideToAnsi( szBuffer );
    hb_retc( pStr );
-   hb_xfree( pStr );
+   hb_xfree(pStr);
 #endif
 }
 
@@ -622,7 +622,7 @@ HB_FUNC( GETSYSTEMDIR )
 #else
    pStr = WideToAnsi( szBuffer );
    hb_retc( pStr );
-   hb_xfree( pStr );
+   hb_xfree(pStr);
 #endif
 }
 
@@ -641,28 +641,28 @@ HB_FUNC( GETTEMPDIR )
 #else
    pStr = WideToAnsi( szBuffer );
    hb_retc( pStr );
-   hb_xfree( pStr );
+   hb_xfree(pStr);
 #endif
 }
 
 HB_FUNC( POSTMESSAGE )
 {
-   hb_retnl( ( LONG ) PostMessage( ( HWND ) HB_PARNL( 1 ), ( UINT ) hb_parni( 2 ), ( WPARAM ) hb_parnl( 3 ), ( LPARAM ) hb_parnl( 4 ) ) );
+   hb_retnl( ( LONG ) PostMessage( ( HWND ) HB_PARNL(1), ( UINT ) hb_parni(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) hb_parnl(4) ) );
 }
 
 HB_FUNC( DEFWINDOWPROC )
 {
-   HB_RETNL( ( LONG_PTR ) DefWindowProc( ( HWND ) HB_PARNL( 1 ), ( UINT ) hb_parni( 2 ), ( WPARAM ) hb_parnl( 3 ), ( LPARAM ) hb_parnl( 4 ) ) );
+   HB_RETNL( ( LONG_PTR ) DefWindowProc( ( HWND ) HB_PARNL(1), ( UINT ) hb_parni(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) hb_parnl(4) ) );
 }
 
 HB_FUNC( GETSTOCKOBJECT )
 {
-   HB_RETNL( ( LONG_PTR ) GetStockObject( hb_parni( 1 ) ) );
+   HB_RETNL( ( LONG_PTR ) GetStockObject(hb_parni(1)) );
 }
 
 HB_FUNC( GETNEXTDLGTABITEM )
 {
-   HB_RETNL( ( LONG_PTR ) GetNextDlgTabItem( ( HWND ) HB_PARNL( 1 ), ( HWND ) HB_PARNL( 2 ), hb_parl( 3 ) ) );
+   HB_RETNL( ( LONG_PTR ) GetNextDlgTabItem( ( HWND ) HB_PARNL(1), ( HWND ) HB_PARNL(2), hb_parl(3) ) );
 }
 
 typedef BOOL ( WINAPI * LPFN_ISWOW64PROCESS )( HANDLE, PBOOL );
@@ -672,15 +672,15 @@ typedef BOOL ( WINAPI * LPFN_WOW64REVERTWOW64FSREDIRECTION )( PVOID );
 HB_FUNC( SHELLEXECUTE )
 {
 #ifndef UNICODE
-   LPCSTR lpOperation  = hb_parc( 2 );
-   LPCSTR lpFile       = hb_parc( 3 );
-   LPCSTR lpParameters = hb_parc( 4 );
-   LPCSTR lpDirectory  = hb_parc( 5 );
+   LPCSTR lpOperation  = hb_parc(2);
+   LPCSTR lpFile       = hb_parc(3);
+   LPCSTR lpParameters = hb_parc(4);
+   LPCSTR lpDirectory  = hb_parc(5);
 #else
-   LPCWSTR lpOperation  = AnsiToWide( ( char * ) hb_parc( 2 ) );
-   LPCWSTR lpFile       = AnsiToWide( ( char * ) hb_parc( 3 ) );
-   LPCWSTR lpParameters = AnsiToWide( ( char * ) hb_parc( 4 ) );
-   LPCWSTR lpDirectory  = AnsiToWide( ( char * ) hb_parc( 5 ) );
+   LPCWSTR lpOperation  = AnsiToWide( ( char * ) hb_parc(2) );
+   LPCWSTR lpFile       = AnsiToWide( ( char * ) hb_parc(3) );
+   LPCWSTR lpParameters = AnsiToWide( ( char * ) hb_parc(4) );
+   LPCWSTR lpDirectory  = AnsiToWide( ( char * ) hb_parc(5) );
 #endif
    LPFN_ISWOW64PROCESS fnIsWow64Process;
    BOOL bIsWow64 = FALSE;
@@ -688,7 +688,7 @@ HB_FUNC( SHELLEXECUTE )
    PVOID OldValue = NULL;
    BOOL  bRestore = FALSE;
    LPFN_WOW64REVERTWOW64FSREDIRECTION fnRevert;
-   HMODULE hDll = GetModuleHandle( TEXT( "kernel32.dll" ) );
+   HMODULE hDll = GetModuleHandle(TEXT("kernel32.dll"));
 
    fnIsWow64Process = ( LPFN_ISWOW64PROCESS ) wapi_GetProcAddress( hDll, "IsWow64Process" );
    if( NULL != fnIsWow64Process )
@@ -714,12 +714,12 @@ HB_FUNC( SHELLEXECUTE )
    (
       ( LONG_PTR ) ShellExecute
       (
-         ( HWND ) HB_PARNL( 1 ),
-         HB_ISNIL( 2 ) ? NULL : lpOperation,
+         ( HWND ) HB_PARNL(1),
+         HB_ISNIL(2) ? NULL : lpOperation,
          lpFile,
-         HB_ISNIL( 4 ) ? NULL : lpParameters,
-         HB_ISNIL( 5 ) ? NULL : lpDirectory,
-         hb_parni( 6 )
+         HB_ISNIL(4) ? NULL : lpParameters,
+         HB_ISNIL(5) ? NULL : lpDirectory,
+         hb_parni(6)
       )
    );
 
@@ -735,37 +735,37 @@ HB_FUNC( SHELLEXECUTE )
    }
 
 #ifdef UNICODE
-   hb_xfree( ( TCHAR * ) lpOperation );
-   hb_xfree( ( TCHAR * ) lpFile );
-   hb_xfree( ( TCHAR * ) lpParameters );
-   hb_xfree( ( TCHAR * ) lpDirectory );
+   hb_xfree(( TCHAR * ) lpOperation);
+   hb_xfree(( TCHAR * ) lpFile);
+   hb_xfree(( TCHAR * ) lpParameters);
+   hb_xfree(( TCHAR * ) lpDirectory);
 #endif
 }
 
 HB_FUNC( SHELLEXECUTEEX )
 {
 #ifndef UNICODE
-   LPCSTR lpOperation  = hb_parc( 2 );
-   LPCSTR lpFile       = hb_parc( 3 );
-   LPCSTR lpParameters = hb_parc( 4 );
-   LPCSTR lpDirectory  = hb_parc( 5 );
+   LPCSTR lpOperation  = hb_parc(2);
+   LPCSTR lpFile       = hb_parc(3);
+   LPCSTR lpParameters = hb_parc(4);
+   LPCSTR lpDirectory  = hb_parc(5);
 #else
-   LPCWSTR lpOperation  = AnsiToWide( ( char * ) hb_parc( 2 ) );
-   LPCWSTR lpFile       = AnsiToWide( ( char * ) hb_parc( 3 ) );
-   LPCWSTR lpParameters = AnsiToWide( ( char * ) hb_parc( 4 ) );
-   LPCWSTR lpDirectory  = AnsiToWide( ( char * ) hb_parc( 5 ) );
+   LPCWSTR lpOperation  = AnsiToWide( ( char * ) hb_parc(2) );
+   LPCWSTR lpFile       = AnsiToWide( ( char * ) hb_parc(3) );
+   LPCWSTR lpParameters = AnsiToWide( ( char * ) hb_parc(4) );
+   LPCWSTR lpDirectory  = AnsiToWide( ( char * ) hb_parc(5) );
 #endif
    SHELLEXECUTEINFO SHExecInfo;
-   ZeroMemory( &SHExecInfo, sizeof( SHExecInfo ) );
+   ZeroMemory(&SHExecInfo, sizeof(SHExecInfo));
 
-   SHExecInfo.cbSize       = sizeof( SHExecInfo );
+   SHExecInfo.cbSize       = sizeof(SHExecInfo);
    SHExecInfo.fMask        = SEE_MASK_NOCLOSEPROCESS;
-   SHExecInfo.hwnd         = HB_ISNIL( 1 ) ? GetActiveWindow() : ( HWND ) HB_PARNL( 1 );
-   SHExecInfo.lpVerb       = HB_ISNIL( 2 ) ? NULL : lpOperation;
+   SHExecInfo.hwnd         = HB_ISNIL(1) ? GetActiveWindow() : ( HWND ) HB_PARNL(1);
+   SHExecInfo.lpVerb       = HB_ISNIL(2) ? NULL : lpOperation;
    SHExecInfo.lpFile       = lpFile;
-   SHExecInfo.lpParameters = HB_ISNIL( 4 ) ? NULL : lpParameters;
-   SHExecInfo.lpDirectory  = HB_ISNIL( 5 ) ? NULL : lpDirectory;
-   SHExecInfo.nShow        = hb_parni( 6 );
+   SHExecInfo.lpParameters = HB_ISNIL(4) ? NULL : lpParameters;
+   SHExecInfo.lpDirectory  = HB_ISNIL(5) ? NULL : lpDirectory;
+   SHExecInfo.nShow        = hb_parni(6);
 
    if( ShellExecuteEx( &SHExecInfo ) )
       HB_RETNL( ( LONG_PTR ) SHExecInfo.hProcess );
@@ -773,10 +773,10 @@ HB_FUNC( SHELLEXECUTEEX )
       HB_RETNL( ( LONG_PTR ) NULL );
 
 #ifdef UNICODE
-   hb_xfree( ( TCHAR * ) lpOperation );
-   hb_xfree( ( TCHAR * ) lpFile );
-   hb_xfree( ( TCHAR * ) lpParameters );
-   hb_xfree( ( TCHAR * ) lpDirectory );
+   hb_xfree(( TCHAR * ) lpOperation);
+   hb_xfree(( TCHAR * ) lpFile);
+   hb_xfree(( TCHAR * ) lpParameters);
+   hb_xfree(( TCHAR * ) lpDirectory);
 #endif
 }
 
@@ -785,27 +785,27 @@ HB_FUNC( WAITRUN )
    DWORD dwExitCode;
 
 #ifndef UNICODE
-   LPSTR lpCommandLine = ( char * ) hb_parc( 1 );
+   LPSTR lpCommandLine = ( char * ) hb_parc(1);
 #else
-   LPWSTR lpCommandLine = AnsiToWide( ( char * ) hb_parc( 1 ) );
+   LPWSTR lpCommandLine = AnsiToWide( ( char * ) hb_parc(1) );
 #endif
 
    STARTUPINFO stInfo;
    PROCESS_INFORMATION prInfo;
    BOOL bResult;
 
-   ZeroMemory( &stInfo, sizeof( stInfo ) );
+   ZeroMemory(&stInfo, sizeof(stInfo));
 
-   stInfo.cb = sizeof( stInfo );
+   stInfo.cb = sizeof(stInfo);
 
    stInfo.dwFlags = STARTF_USESHOWWINDOW;
 
-   stInfo.wShowWindow = ( WORD ) hb_parni( 2 );
+   stInfo.wShowWindow = ( WORD ) hb_parni(2);
 
    bResult = CreateProcess( NULL, lpCommandLine, NULL, NULL, TRUE, CREATE_NEW_CONSOLE | NORMAL_PRIORITY_CLASS, NULL, NULL, &stInfo, &prInfo );
 
 #ifdef UNICODE
-   hb_xfree( ( TCHAR * ) lpCommandLine );
+   hb_xfree(( TCHAR * ) lpCommandLine);
 #endif
    if( ! bResult )
    {
@@ -813,12 +813,12 @@ HB_FUNC( WAITRUN )
       return;
    }
 
-   WaitForSingleObject( prInfo.hProcess, INFINITE );
+   WaitForSingleObject(prInfo.hProcess, INFINITE);
 
    GetExitCodeProcess( prInfo.hProcess, &dwExitCode );
 
-   CloseHandle( prInfo.hThread );
-   CloseHandle( prInfo.hProcess );
+   CloseHandle(prInfo.hThread);
+   CloseHandle(prInfo.hProcess);
 
    hb_retnl( dwExitCode );
 }
@@ -827,14 +827,14 @@ HB_FUNC( WAITRUN )
 HB_FUNC( WAITRUNTERM )
 {
 #ifndef UNICODE
-   LPSTR  lpCommandLine      = ( char * ) hb_parc( 1 );
-   LPCSTR lpCurrentDirectory = hb_parc( 2 );
+   LPSTR  lpCommandLine      = ( char * ) hb_parc(1);
+   LPCSTR lpCurrentDirectory = hb_parc(2);
 #else
-   LPWSTR  lpCommandLine      = AnsiToWide( ( char * ) hb_parc( 1 ) );
-   LPCWSTR lpCurrentDirectory = AnsiToWide( ( char * ) hb_parc( 2 ) );
+   LPWSTR  lpCommandLine      = AnsiToWide( ( char * ) hb_parc(1) );
+   LPCWSTR lpCurrentDirectory = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
    PHB_ITEM    pWaitProc  = hb_param( 4, HB_IT_BLOCK );
-   ULONG       ulWaitMsec = ( HB_ISNIL( 5 ) ? 2000 : hb_parnl( 5 ) );
+   ULONG       ulWaitMsec = ( HB_ISNIL(5) ? 2000 : hb_parnl(5) );
    BOOL        bTerm      = FALSE;
    BOOL        bWait;
    ULONG       ulNoSignal;
@@ -843,10 +843,10 @@ HB_FUNC( WAITRUNTERM )
    PROCESS_INFORMATION prInfo;
    BOOL bResult;
 
-   ZeroMemory( &stInfo, sizeof( stInfo ) );
-   stInfo.cb          = sizeof( stInfo );
+   ZeroMemory(&stInfo, sizeof(stInfo));
+   stInfo.cb          = sizeof(stInfo);
    stInfo.dwFlags     = STARTF_USESHOWWINDOW;
-   stInfo.wShowWindow = ( WORD ) ( HB_ISNIL( 3 ) ? 5 : hb_parni( 3 ) );
+   stInfo.wShowWindow = ( WORD ) ( HB_ISNIL(3) ? 5 : hb_parni(3) );
 
    bResult = CreateProcess
              (
@@ -857,14 +857,14 @@ HB_FUNC( WAITRUNTERM )
       TRUE,
       CREATE_NEW_CONSOLE | NORMAL_PRIORITY_CLASS,
       NULL,
-      HB_ISNIL( 2 ) ? NULL : lpCurrentDirectory,
+      HB_ISNIL(2) ? NULL : lpCurrentDirectory,
       &stInfo,
       &prInfo
              );
 
 #ifdef UNICODE
-   hb_xfree( ( TCHAR * ) lpCommandLine );
-   hb_xfree( ( TCHAR * ) lpCurrentDirectory );
+   hb_xfree(( TCHAR * ) lpCommandLine);
+   hb_xfree(( TCHAR * ) lpCurrentDirectory);
 #endif
 
    if( ! bResult )
@@ -877,7 +877,7 @@ HB_FUNC( WAITRUNTERM )
    {
       do
       {
-         ulNoSignal = WaitForSingleObject( prInfo.hProcess, ulWaitMsec );
+         ulNoSignal = WaitForSingleObject(prInfo.hProcess, ulWaitMsec);
          if( ulNoSignal )
          {
             hb_evalBlock0( pWaitProc );
@@ -896,21 +896,21 @@ HB_FUNC( WAITRUNTERM )
       while( bWait );
    }
    else
-      WaitForSingleObject( prInfo.hProcess, INFINITE );
+      WaitForSingleObject(prInfo.hProcess, INFINITE);
 
    if( bTerm )
       dwExitCode = ( DWORD ) -1;
    else
       GetExitCodeProcess( prInfo.hProcess, &dwExitCode );
 
-   CloseHandle( prInfo.hThread );
-   CloseHandle( prInfo.hProcess );
+   CloseHandle(prInfo.hThread);
+   CloseHandle(prInfo.hProcess);
    hb_retnl( dwExitCode );
 }
 
 HB_FUNC( ISEXERUNNING ) // ( cExeNameCaseSensitive ) --> lResult
 {
-   HANDLE hMutex = CreateMutex( NULL, FALSE, ( LPTSTR ) hb_parc( 1 ) );
+   HANDLE hMutex = CreateMutex( NULL, FALSE, ( LPTSTR ) hb_parc(1) );
 
    hb_retl( GetLastError() == ERROR_ALREADY_EXISTS );
 
@@ -920,7 +920,7 @@ HB_FUNC( ISEXERUNNING ) // ( cExeNameCaseSensitive ) --> lResult
 
 HB_FUNC( SETSCROLLPOS )
 {
-   hb_retni( SetScrollPos( ( HWND ) HB_PARNL( 1 ), hb_parni( 2 ), hb_parni( 3 ), hb_parl( 4 ) ) );
+   hb_retni( SetScrollPos(( HWND ) HB_PARNL(1), hb_parni(2), hb_parni(3), hb_parl(4)) );
 }
 
 HB_FUNC( GETLASTERROR )
@@ -931,39 +931,39 @@ HB_FUNC( GETLASTERROR )
 HB_FUNC( CREATEFOLDER )
 {
 #ifndef UNICODE
-   LPCSTR lpPathName = hb_parc( 1 );
+   LPCSTR lpPathName = hb_parc(1);
 #else
-   LPCWSTR lpPathName = AnsiToWide( hb_parc( 1 ) );
+   LPCWSTR lpPathName = AnsiToWide( hb_parc(1) );
 #endif
    hb_retl( CreateDirectory( lpPathName, NULL ) );
 #ifdef UNICODE
-   hb_xfree( ( TCHAR * ) lpPathName );
+   hb_xfree(( TCHAR * ) lpPathName);
 #endif
 }
 
 HB_FUNC( SETCURRENTFOLDER )
 {
 #ifndef UNICODE
-   LPCSTR lpPathName = hb_parc( 1 );
+   LPCSTR lpPathName = hb_parc(1);
 #else
-   LPCWSTR lpPathName = AnsiToWide( hb_parc( 1 ) );
+   LPCWSTR lpPathName = AnsiToWide( hb_parc(1) );
 #endif
    hb_retl( SetCurrentDirectory( lpPathName ) );
 #ifdef UNICODE
-   hb_xfree( ( TCHAR * ) lpPathName );
+   hb_xfree(( TCHAR * ) lpPathName);
 #endif
 }
 
 HB_FUNC( REMOVEFOLDER )
 {
 #ifndef UNICODE
-   LPCSTR lpPathName = hb_parc( 1 );
+   LPCSTR lpPathName = hb_parc(1);
 #else
-   LPCWSTR lpPathName = AnsiToWide( hb_parc( 1 ) );
+   LPCWSTR lpPathName = AnsiToWide( hb_parc(1) );
 #endif
    hb_retl( RemoveDirectory( lpPathName ) );
 #ifdef UNICODE
-   hb_xfree( ( TCHAR * ) lpPathName );
+   hb_xfree(( TCHAR * ) lpPathName);
 #endif
 }
 
@@ -980,31 +980,31 @@ HB_FUNC( GETCURRENTFOLDER )
 #else
    pStr = WideToAnsi( Path );
    hb_retc( pStr );
-   hb_xfree( pStr );
+   hb_xfree(pStr);
 #endif
 }
 
 HB_FUNC( CREATESOLIDBRUSH )
 {
-   HBRUSH hBrush = CreateSolidBrush( ( COLORREF ) RGB( hb_parni( 1 ), hb_parni( 2 ), hb_parni( 3 ) ) );
+   HBRUSH hBrush = CreateSolidBrush(( COLORREF ) RGB(hb_parni(1), hb_parni(2), hb_parni(3)));
 
-   RegisterResource( hBrush, const_cast<LPSTR>("BRUSH") );
+   RegisterResource(hBrush, const_cast<LPSTR>("BRUSH"));
    HB_RETNL( ( LONG_PTR ) hBrush );
 }
 
 HB_FUNC( SETTEXTCOLOR )
 {
-   hb_retnl( ( ULONG ) SetTextColor( ( HDC ) HB_PARNL( 1 ), ( COLORREF ) RGB( hb_parni( 2 ), hb_parni( 3 ), hb_parni( 4 ) ) ) );
+   hb_retnl( ( ULONG ) SetTextColor(( HDC ) HB_PARNL(1), ( COLORREF ) RGB(hb_parni(2), hb_parni(3), hb_parni(4))) );
 }
 
 HB_FUNC( SETBKCOLOR )
 {
-   hb_retnl( ( ULONG ) SetBkColor( ( HDC ) HB_PARNL( 1 ), ( COLORREF ) RGB( hb_parni( 2 ), hb_parni( 3 ), hb_parni( 4 ) ) ) );
+   hb_retnl( ( ULONG ) SetBkColor(( HDC ) HB_PARNL(1), ( COLORREF ) RGB(hb_parni(2), hb_parni(3), hb_parni(4))) );
 }
 
 HB_FUNC( GETSYSCOLOR )
 {
-   hb_retnl( GetSysColor( hb_parni( 1 ) ) );
+   hb_retnl( GetSysColor(hb_parni(1)) );
 }
 
 /**************************************************************************************/
@@ -1036,15 +1036,15 @@ HB_FUNC( WINVERSION )
    LPSTR pStr;
 #endif
 
-   ZeroMemory( &osvi, sizeof( OSVERSIONINFOEX ) );
-   osvi.dwOSVersionInfoSize = sizeof( OSVERSIONINFOEX );
+   ZeroMemory(&osvi, sizeof(OSVERSIONINFOEX));
+   osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
 
    bOsVersionInfoEx = GetVersionEx( ( OSVERSIONINFO * ) &osvi );
    if( ! bOsVersionInfoEx )
    {
-      osvi.dwOSVersionInfoSize = sizeof( OSVERSIONINFO );
+      osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
       if( ! GetVersionEx( ( OSVERSIONINFO * ) &osvi ) )
-         szVersion = TEXT( const_cast<char*>("Unknown Operating System") );
+         szVersion = TEXT(const_cast<char*>("Unknown Operating System"));
    }
 
    if( szVersion == NULL )
@@ -1053,79 +1053,79 @@ HB_FUNC( WINVERSION )
       {
          case VER_PLATFORM_WIN32_NT:
             if( osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 2 )
-               szVersion = TEXT( const_cast<char*>("Windows Server 2003 family ") );
+               szVersion = TEXT(const_cast<char*>("Windows Server 2003 family "));
 
             if( osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 1 )
-               szVersion = TEXT( const_cast<char*>("Windows XP ") );
+               szVersion = TEXT(const_cast<char*>("Windows XP "));
 
             if( osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 0 )
-               szVersion = TEXT( const_cast<char*>("Windows 2000 ") );
+               szVersion = TEXT(const_cast<char*>("Windows 2000 "));
 
             if( osvi.dwMajorVersion <= 4 )
-               szVersion = TEXT( const_cast<char*>("Windows NT ") );
+               szVersion = TEXT(const_cast<char*>("Windows NT "));
 
             if( bOsVersionInfoEx )
             {
                if( osvi.wProductType == VER_NT_WORKSTATION )
                {
                   if( osvi.dwMajorVersion == 10 && osvi.dwBuildNumber == 22000 )
-                     szVersion = TEXT( const_cast<char*>("Windows 11 ") );
+                     szVersion = TEXT(const_cast<char*>("Windows 11 "));
                   else if( osvi.dwMajorVersion == 10 && osvi.dwMinorVersion == 0 )
-                     szVersion = TEXT( const_cast<char*>("Windows 10 ") );
+                     szVersion = TEXT(const_cast<char*>("Windows 10 "));
                   else if( osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 3 )
-                     szVersion = TEXT( const_cast<char*>("Windows 8.1 ") );
+                     szVersion = TEXT(const_cast<char*>("Windows 8.1 "));
                   else if( osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 2 )
-                     szVersion = TEXT( const_cast<char*>("Windows 8 ") );
+                     szVersion = TEXT(const_cast<char*>("Windows 8 "));
                   else if( osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 1 )
-                     szVersion = TEXT( const_cast<char*>("Windows 7 ") );
+                     szVersion = TEXT(const_cast<char*>("Windows 7 "));
                   else if( osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 0 )
-                     szVersion = TEXT( const_cast<char*>("Windows Vista ") );
+                     szVersion = TEXT(const_cast<char*>("Windows Vista "));
 
                   if( osvi.dwMajorVersion == 4 )
-                     szVersionEx = TEXT( const_cast<char*>("Workstation 4.0 ") );
+                     szVersionEx = TEXT(const_cast<char*>("Workstation 4.0 "));
                   else if( osvi.wSuiteMask & VER_SUITE_PERSONAL )
-                     szVersionEx = TEXT( const_cast<char*>("Home Edition ") );
+                     szVersionEx = TEXT(const_cast<char*>("Home Edition "));
                   else
-                     szVersionEx = TEXT( const_cast<char*>("Professional ") );
+                     szVersionEx = TEXT(const_cast<char*>("Professional "));
                }
                else if( osvi.wProductType == VER_NT_SERVER )
                {
                   if( osvi.dwMajorVersion == 10 && osvi.dwMinorVersion == 0 )
-                     szVersion = TEXT( const_cast<char*>("Windows Server 2016 ") );
+                     szVersion = TEXT(const_cast<char*>("Windows Server 2016 "));
                   else if( osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 3 )
-                     szVersion = TEXT( const_cast<char*>("Windows Server 2012 R2 ") );
+                     szVersion = TEXT(const_cast<char*>("Windows Server 2012 R2 "));
                   else if( osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 2 )
-                     szVersion = TEXT( const_cast<char*>("Windows Server 2012 ") );
+                     szVersion = TEXT(const_cast<char*>("Windows Server 2012 "));
                   else if( osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 1 )
-                     szVersion = TEXT( const_cast<char*>("Windows Server 2008 R2 ") );
+                     szVersion = TEXT(const_cast<char*>("Windows Server 2008 R2 "));
                   else if( osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 0 )
-                     szVersion = TEXT( const_cast<char*>("Windows Server 2008 ") );
+                     szVersion = TEXT(const_cast<char*>("Windows Server 2008 "));
                   else if( osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 2 )
                   {
                      if( osvi.wSuiteMask & VER_SUITE_DATACENTER )
-                        szVersionEx = TEXT( const_cast<char*>("Datacenter Edition ") );
+                        szVersionEx = TEXT(const_cast<char*>("Datacenter Edition "));
                      else if( osvi.wSuiteMask & VER_SUITE_ENTERPRISE )
-                        szVersionEx = TEXT( const_cast<char*>("Enterprise Edition ") );
+                        szVersionEx = TEXT(const_cast<char*>("Enterprise Edition "));
                      else if( osvi.wSuiteMask & VER_SUITE_BLADE )
-                        szVersionEx = TEXT( const_cast<char*>("Web Edition ") );
+                        szVersionEx = TEXT(const_cast<char*>("Web Edition "));
                      else
-                        szVersionEx = TEXT( const_cast<char*>("Standard Edition ") );
+                        szVersionEx = TEXT(const_cast<char*>("Standard Edition "));
                   }
                   else if( osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 0 )
                   {
                      if( osvi.wSuiteMask & VER_SUITE_DATACENTER )
-                        szVersionEx = TEXT( const_cast<char*>("Datacenter Server ") );
+                        szVersionEx = TEXT(const_cast<char*>("Datacenter Server "));
                      else if( osvi.wSuiteMask & VER_SUITE_ENTERPRISE )
-                        szVersionEx = TEXT( const_cast<char*>("Advanced Server ") );
+                        szVersionEx = TEXT(const_cast<char*>("Advanced Server "));
                      else
-                        szVersionEx = TEXT( const_cast<char*>("Server ") );
+                        szVersionEx = TEXT(const_cast<char*>("Server "));
                   }
                   else
                   {
                      if( osvi.wSuiteMask & VER_SUITE_ENTERPRISE )
-                        szVersionEx = TEXT( const_cast<char*>("Server 4.0, Enterprise Edition ") );
+                        szVersionEx = TEXT(const_cast<char*>("Server 4.0, Enterprise Edition "));
                      else
-                        szVersionEx = TEXT( const_cast<char*>("Server 4.0 ") );
+                        szVersionEx = TEXT(const_cast<char*>("Server 4.0 "));
                   }
                }
             }
@@ -1136,37 +1136,37 @@ HB_FUNC( WINVERSION )
                DWORD dwBufLen = 80;
                LONG  lRetVal;
 
-               lRetVal = RegOpenKeyEx( HKEY_LOCAL_MACHINE, TEXT( "SYSTEM\\CurrentControlSet\\Control\\ProductOptions" ), 0, KEY_QUERY_VALUE, &hKey );
+               lRetVal = RegOpenKeyEx( HKEY_LOCAL_MACHINE, TEXT("SYSTEM\\CurrentControlSet\\Control\\ProductOptions"), 0, KEY_QUERY_VALUE, &hKey );
 
                if( lRetVal != ERROR_SUCCESS )
-                  szVersion = TEXT( const_cast<char*>("Unknown Operating System") );
+                  szVersion = TEXT(const_cast<char*>("Unknown Operating System"));
                else
                {
-                  lRetVal = RegQueryValueEx( hKey, TEXT( "ProductType" ), NULL, NULL, ( LPBYTE ) szProductType, &dwBufLen );
+                  lRetVal = RegQueryValueEx( hKey, TEXT("ProductType"), NULL, NULL, ( LPBYTE ) szProductType, &dwBufLen );
                   if( ( lRetVal != ERROR_SUCCESS ) || ( dwBufLen > 80 ) )
-                     szVersion = TEXT( const_cast<char*>("Unknown Operating System") );
+                     szVersion = TEXT(const_cast<char*>("Unknown Operating System"));
                }
 
                RegCloseKey( hKey );
 
-               if( lstrcmpi( TEXT( "Unknown Operating System" ), szVersion ) != 0 )
+               if( lstrcmpi( TEXT("Unknown Operating System"), szVersion ) != 0 )
                {
-                  if( lstrcmpi( TEXT( "WINNT" ), szProductType ) == 0 )
-                     szVersionEx = TEXT( const_cast<char*>("Workstation ") );
+                  if( lstrcmpi( TEXT("WINNT"), szProductType ) == 0 )
+                     szVersionEx = TEXT(const_cast<char*>("Workstation "));
 
-                  if( lstrcmpi( TEXT( "LANMANNT" ), szProductType ) == 0 )
-                     szVersionEx = TEXT( const_cast<char*>("Server ") );
+                  if( lstrcmpi( TEXT("LANMANNT"), szProductType ) == 0 )
+                     szVersionEx = TEXT(const_cast<char*>("Server "));
 
-                  if( lstrcmpi( TEXT( "SERVERNT" ), szProductType ) == 0 )
-                     szVersionEx = TEXT( const_cast<char*>("Advanced Server ") );
+                  if( lstrcmpi( TEXT("SERVERNT"), szProductType ) == 0 )
+                     szVersionEx = TEXT(const_cast<char*>("Advanced Server "));
 
                   szVersion = lstrcat( szVersion, _itot( osvi.dwMajorVersion, buffer, 10 ) );
-                  szVersion = lstrcat( szVersion, TEXT( "." ) );
+                  szVersion = lstrcat( szVersion, TEXT(".") );
                   szVersion = lstrcat( szVersion, _itot( osvi.dwMinorVersion, buffer, 10 ) );
                }
             }
 
-            if( osvi.dwMajorVersion == 4 && lstrcmpi( osvi.szCSDVersion, TEXT( "Service Pack 6" ) ) == 0 )
+            if( osvi.dwMajorVersion == 4 && lstrcmpi( osvi.szCSDVersion, TEXT("Service Pack 6") ) == 0 )
             {
                HKEY hKey;
                LONG lRetVal;
@@ -1174,14 +1174,14 @@ HB_FUNC( WINVERSION )
                lRetVal = RegOpenKeyEx
                          (
                   HKEY_LOCAL_MACHINE,
-                  TEXT( "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Hotfix\\Q246009" ),
+                  TEXT("SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Hotfix\\Q246009"),
                   0,
                   KEY_QUERY_VALUE,
                   &hKey
                          );
                if( lRetVal == ERROR_SUCCESS )
                {
-                  szServicePack = TEXT( const_cast<char*>("Service Pack 6a") );
+                  szServicePack = TEXT(const_cast<char*>("Service Pack 6a"));
                   szBuild       = _itot( osvi.dwBuildNumber & 0xFFFF, buffer, 10 );
                }
                else
@@ -1202,22 +1202,22 @@ HB_FUNC( WINVERSION )
          case VER_PLATFORM_WIN32_WINDOWS:
             if( ( osvi.dwMajorVersion == 4 ) && ( osvi.dwMinorVersion == 0 ) )
             {
-               if( osvi.szCSDVersion[ 1 ] == TEXT( 'B' ) )
+               if( osvi.szCSDVersion[ 1 ] == TEXT('B') )
                {
-                  szVersion     = TEXT( const_cast<char*>("Windows 95 B") );
-                  szServicePack = TEXT( const_cast<char*>("OSR2") );
+                  szVersion     = TEXT(const_cast<char*>("Windows 95 B"));
+                  szServicePack = TEXT(const_cast<char*>("OSR2"));
                }
                else
                {
-                  if( osvi.szCSDVersion[ 1 ] == TEXT( 'C' ) )
+                  if( osvi.szCSDVersion[ 1 ] == TEXT('C') )
                   {
-                     szVersion     = TEXT( const_cast<char*>("Windows 95 C") );
-                     szServicePack = TEXT( const_cast<char*>("OSR2") );
+                     szVersion     = TEXT(const_cast<char*>("Windows 95 C"));
+                     szServicePack = TEXT(const_cast<char*>("OSR2"));
                   }
                   else
                   {
-                     szVersion     = TEXT( const_cast<char*>("Windows 95") );
-                     szServicePack = TEXT( const_cast<char*>("OSR1") );
+                     szVersion     = TEXT(const_cast<char*>("Windows 95"));
+                     szServicePack = TEXT(const_cast<char*>("OSR1"));
                   }
                }
 
@@ -1228,13 +1228,13 @@ HB_FUNC( WINVERSION )
             {
                if( osvi.szCSDVersion[ 1 ] == 'A' )
                {
-                  szVersion     = TEXT( const_cast<char*>("Windows 98 A") );
-                  szServicePack = TEXT( const_cast<char*>("Second Edition") );
+                  szVersion     = TEXT(const_cast<char*>("Windows 98 A"));
+                  szServicePack = TEXT(const_cast<char*>("Second Edition"));
                }
                else
                {
-                  szVersion     = TEXT( const_cast<char*>("Windows 98") );
-                  szServicePack = TEXT( const_cast<char*>("First Edition") );
+                  szVersion     = TEXT(const_cast<char*>("Windows 98"));
+                  szServicePack = TEXT(const_cast<char*>("First Edition"));
                }
 
                szBuild = _itot( osvi.dwBuildNumber & 0x0000FFFF, buffer, 10 );
@@ -1242,14 +1242,14 @@ HB_FUNC( WINVERSION )
 
             if( ( osvi.dwMajorVersion == 4 ) && ( osvi.dwMinorVersion == 90 ) )
             {
-               szVersion = TEXT( const_cast<char*>("Windows ME") );
+               szVersion = TEXT(const_cast<char*>("Windows ME"));
                szBuild   = _itot( osvi.dwBuildNumber & 0x0000FFFF, buffer, 10 );
             }
             break;
       }
    }
 
-   hb_reta( 4 );
+   hb_reta(4);
 #ifndef UNICODE
    HB_STORC( szVersion, -1, 1 );
    HB_STORC( szServicePack, -1, 2 );
@@ -1258,16 +1258,16 @@ HB_FUNC( WINVERSION )
 #else
    pStr = WideToAnsi( szVersion );
    HB_STORC( pStr, -1, 1 );
-   hb_xfree( pStr );
+   hb_xfree(pStr);
    pStr = WideToAnsi( szServicePack );
    HB_STORC( pStr, -1, 2 );
-   hb_xfree( pStr );
+   hb_xfree(pStr);
    pStr = WideToAnsi( szBuild );
    HB_STORC( pStr, -1, 3 );
-   hb_xfree( pStr );
+   hb_xfree(pStr);
    pStr = WideToAnsi( szVersionEx );
    HB_STORC( pStr, -1, 4 );
-   hb_xfree( pStr );
+   hb_xfree(pStr);
 #endif
 }
 
@@ -1279,9 +1279,9 @@ HB_FUNC( GETDLLVERSION )
    DWORD   dwBuildNumber  = 0;
 
 #ifndef UNICODE
-   LPCSTR lpLibFileName = hb_parc( 1 );
+   LPCSTR lpLibFileName = hb_parc(1);
 #else
-   LPCWSTR lpLibFileName = AnsiToWide( hb_parc( 1 ) );
+   LPCWSTR lpLibFileName = AnsiToWide( hb_parc(1) );
 #endif
 
    hModule = LoadLibrary( lpLibFileName );
@@ -1295,7 +1295,7 @@ HB_FUNC( GETDLLVERSION )
       {
          DLLVERSIONINFO dvi; memset(&dvi, 0, sizeof(DLLVERSIONINFO));
 
-         dvi.cbSize = sizeof( dvi );
+         dvi.cbSize = sizeof(dvi);
 
          if( fnDllGetVersion( &dvi ) == S_OK )
          {
@@ -1305,65 +1305,65 @@ HB_FUNC( GETDLLVERSION )
          }
       }
       else
-         MessageBox( NULL, TEXT( "Cannot get DllGetVersion function." ), TEXT( "DllGetVersion" ), MB_OK | MB_ICONERROR );
+         MessageBox( NULL, TEXT("Cannot get DllGetVersion function."), TEXT("DllGetVersion"), MB_OK | MB_ICONERROR );
 
       FreeLibrary( hModule );
    }
 
-   hb_reta( 3 );
+   hb_reta(3);
    HB_STORVNL( dwMajorVersion, -1, 1 );
    HB_STORVNL( dwMinorVersion, -1, 2 );
    HB_STORVNL( dwBuildNumber, -1, 3 );
 
 #ifdef UNICODE
-   hb_xfree( ( TCHAR * ) lpLibFileName );
+   hb_xfree(( TCHAR * ) lpLibFileName);
 #endif
 }
 
 // Jacek Kubica <kubica@wssk.wroc.pl> HMG 1.0 Experimental Build 9a
 HB_FUNC( SELECTOBJECT )
 {
-   HB_RETNL( ( LONG_PTR ) SelectObject( ( HDC ) HB_PARNL( 1 ),    // handle of device context
-                                        ( HGDIOBJ ) HB_PARNL( 2 ) // handle of object
+   HB_RETNL( ( LONG_PTR ) SelectObject(( HDC ) HB_PARNL(1),    // handle of device context
+                                        ( HGDIOBJ ) HB_PARNL(2) // handle of object
                                         ) );
 }
 
 HB_FUNC( FILLRECT )
 {
-   HWND hWnd = ( HWND ) ( LONG_PTR ) HB_PARNL( 1 );
+   HWND hWnd = ( HWND ) ( LONG_PTR ) HB_PARNL(1);
    HDC  hDC;
    BOOL bDC = FALSE;
 
-   if( IsWindow( hWnd ) )
+   if( IsWindow(hWnd) )
    {
-      hDC = GetDC( hWnd );
+      hDC = GetDC(hWnd);
       bDC = TRUE;
    }
    else
-      hDC = ( HDC ) ( LONG_PTR ) HB_PARNL( 1 );
+      hDC = ( HDC ) ( LONG_PTR ) HB_PARNL(1);
 
-   if( GetObjectType( ( HGDIOBJ ) hDC ) == OBJ_DC )
+   if( GetObjectType(( HGDIOBJ ) hDC) == OBJ_DC )
    {
       RECT rc;
       int  iParam = 6;
 
-      if( Array2Rect( hb_param( 2, HB_IT_ANY ), &rc ) )
+      if( Array2Rect(hb_param( 2, HB_IT_ANY ), &rc) )
          iParam = 3;
       else
       {
-         rc.left   = hb_parni( 2 );
-         rc.top    = hb_parni( 3 );
-         rc.right  = hb_parni( 4 );
-         rc.bottom = hb_parni( 5 );
+         rc.left   = hb_parni(2);
+         rc.top    = hb_parni(3);
+         rc.right  = hb_parni(4);
+         rc.bottom = hb_parni(5);
       }
 
-      hb_retni( FillRect( hDC, &rc, ( HBRUSH ) HB_PARNL( iParam ) ) );
+      hb_retni( FillRect(hDC, &rc, ( HBRUSH ) HB_PARNL( iParam )) );
 
       if( bDC )
-         ReleaseDC( hWnd, hDC );
+         ReleaseDC(hWnd, hDC);
    }
    else
-      hb_retni( 0 );
+      hb_retni(0);
 }
 
 #if defined( __MINGW32__ )
@@ -1376,16 +1376,16 @@ BOOL IsAppHung( IN HWND hWnd, OUT PBOOL pbHung )
    OSVERSIONINFO osvi;
    HINSTANCE     hUser;
 
-   if( ! IsWindow( hWnd ) )
+   if( ! IsWindow(hWnd) )
       return SetLastError( ERROR_INVALID_PARAMETER ), FALSE;
 
-   osvi.dwOSVersionInfoSize = sizeof( osvi );
+   osvi.dwOSVersionInfoSize = sizeof(osvi);
 
    // detect OS version
    GetVersionEx( &osvi );
 
    // get handle of USER32.DLL
-   hUser = GetModuleHandle( TEXT( "user32.dll" ) );
+   hUser = GetModuleHandle(TEXT("user32.dll"));
 
    if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT )
    {
@@ -1398,7 +1398,7 @@ BOOL IsAppHung( IN HWND hWnd, OUT PBOOL pbHung )
          return SetLastError( ERROR_PROC_NOT_FOUND ), FALSE;
 
       // call the function IsHungAppWindow
-      *pbHung = _IsHungAppWindow( hWnd );
+      *pbHung = _IsHungAppWindow(hWnd);
    }
    else
    {
@@ -1427,13 +1427,13 @@ HB_FUNC( ISAPPHUNG )
 {
    BOOL bIsHung;
 
-   if( IsAppHung( ( HWND ) HB_PARNL( 1 ), &bIsHung ) )
+   if( IsAppHung( ( HWND ) HB_PARNL(1), &bIsHung ) )
       hb_retl( bIsHung );
    else
    {
       if( GetLastError() != ERROR_INVALID_PARAMETER )
       {
-         MessageBox( NULL, TEXT( "Process not found" ), TEXT( "Warning" ), MB_OK | MB_ICONWARNING );
+         MessageBox( NULL, TEXT("Process not found"), TEXT("Warning"), MB_OK | MB_ICONWARNING );
       }
       hb_retl( HB_FALSE );
    }
@@ -1456,26 +1456,26 @@ HB_FUNC( EMPTYWORKINGSET )
 
    if( pEmptyWorkingSet == NULL )
    {
-      HMODULE hLib = LoadLibrary( TEXT( "Kernel32.dll" ) );
+      HMODULE hLib = LoadLibrary( TEXT("Kernel32.dll") );
       pEmptyWorkingSet = ( Func_EmptyWorkingSet ) wapi_GetProcAddress( hLib, "K32EmptyWorkingSet" );
    }
 
    if( pEmptyWorkingSet == NULL )
    {
-      HMODULE hLib = LoadLibrary( TEXT( "Psapi.dll" ) );
+      HMODULE hLib = LoadLibrary( TEXT("Psapi.dll") );
       pEmptyWorkingSet = ( Func_EmptyWorkingSet ) wapi_GetProcAddress( hLib, "K32EmptyWorkingSet" );
    }
 
    if( pEmptyWorkingSet != NULL )
    {
-      ProcessID = HB_ISNUM( 1 ) ? ( DWORD ) hb_parnl( 1 ) : GetCurrentProcessId();
+      ProcessID = HB_ISNUM(1) ? ( DWORD ) hb_parnl(1) : GetCurrentProcessId();
 
       hProcess = OpenProcess( PROCESS_QUERY_LIMITED_INFORMATION | PROCESS_SET_QUOTA, FALSE, ProcessID );
       if( hProcess != NULL )
       {
          hb_retl( ( BOOL ) pEmptyWorkingSet( hProcess ) );
 
-         CloseHandle( hProcess );
+         CloseHandle(hProcess);
       }
       else
          hb_retl( FALSE );
@@ -1495,13 +1495,13 @@ typedef INT ( WINAPI * _GETCOMPACTPATH )( LPTSTR pszOut, LPTSTR pszSrc, INT cchM
 
 HB_FUNC( GETCOMPACTPATH )
 {
-   HINSTANCE handle = LoadLibrary( TEXT( "shlwapi.dll" ) );
+   HINSTANCE handle = LoadLibrary( TEXT("shlwapi.dll") );
 
    if( handle )
    {
       _GETCOMPACTPATH pFunc;
       pFunc = ( _GETCOMPACTPATH ) wapi_GetProcAddress( handle, "PathCompactPathExA" );
-      hb_retni( pFunc( ( LPTSTR ) hb_parc( 1 ), ( LPTSTR ) hb_parc( 2 ), ( INT ) hb_parni( 3 ), ( DWORD ) hb_parnl( 4 ) ) );
+      hb_retni( pFunc( ( LPTSTR ) hb_parc(1), ( LPTSTR ) hb_parc(2), ( INT ) hb_parni(3), ( DWORD ) hb_parnl(4) ) );
       FreeLibrary( handle );
    }
 }
@@ -1513,10 +1513,10 @@ HB_FUNC( GETSHORTPATHNAME )
 
 #ifndef UNICODE
    char   buffer[ MAX_PATH + 1 ] = { 0 };
-   LPCSTR lpszLongPath = hb_parc( 1 );
+   LPCSTR lpszLongPath = hb_parc(1);
 #else
    TCHAR   buffer[ MAX_PATH + 1 ] = { 0 };
-   LPCWSTR lpszLongPath = AnsiToWide( ( char * ) hb_parc( 1 ) );
+   LPCWSTR lpszLongPath = AnsiToWide( ( char * ) hb_parc(1) );
    LPSTR   pStr;
 #endif
 
@@ -1528,7 +1528,7 @@ HB_FUNC( GETSHORTPATHNAME )
 #else
       pStr = WideToAnsi( buffer );
       hb_retni( hb_storclen( pStr, ( HB_SIZE ) iRet, 2 ) );
-      hb_xfree( pStr );
+      hb_xfree(pStr);
 #endif
    }
    else
@@ -1537,44 +1537,44 @@ HB_FUNC( GETSHORTPATHNAME )
    }
 
 #ifdef UNICODE
-   hb_xfree( ( TCHAR * ) lpszLongPath );
+   hb_xfree(( TCHAR * ) lpszLongPath);
 #endif
 }
 
 HB_FUNC( DRAWTEXT )
 {
 #ifndef UNICODE
-   LPCSTR lpchText = hb_parc( 2 );
+   LPCSTR lpchText = hb_parc(2);
 #else
-   LPCWSTR lpchText = AnsiToWide( ( char * ) hb_parc( 2 ) );
+   LPCWSTR lpchText = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
    RECT rc;
 
-   rc.left   = hb_parni( 3 );
-   rc.top    = hb_parni( 4 );
-   rc.right  = hb_parni( 5 );
-   rc.bottom = hb_parni( 6 );
+   rc.left   = hb_parni(3);
+   rc.top    = hb_parni(4);
+   rc.right  = hb_parni(5);
+   rc.bottom = hb_parni(6);
 
    DrawText
    (
-      ( HDC ) HB_PARNL( 1 ),       // device context
+      ( HDC ) HB_PARNL(1),       // device context
       lpchText,                    // pointer to string
       ( int ) lstrlen( lpchText ), // length of  string
       &rc,                         // rectangle
-      hb_parni( 7 )                // draw style
+      hb_parni(7)                // draw style
    );
 
 #ifdef UNICODE
-   hb_xfree( ( TCHAR * ) lpchText );
+   hb_xfree(( TCHAR * ) lpchText);
 #endif
 }
 
 HB_FUNC( GETTEXTMETRIC )
 {
    TEXTMETRIC tm;
-   PHB_ITEM   aMetr = hb_itemArrayNew( 7 );
+   PHB_ITEM   aMetr = hb_itemArrayNew(7);
 
-   if( GetTextMetrics( ( HDC ) HB_PARNL( 1 ), // handle of device context
+   if( GetTextMetrics( ( HDC ) HB_PARNL(1), // handle of device context
                        &tm                    // address of text metrics structure
                        ) )
    {
@@ -1619,25 +1619,25 @@ HB_FUNC( GETTEXTMETRIC )
 HB_FUNC( _GETCLIENTRECT )
 {
    RECT rc;
-   HWND hWnd = ( HWND ) HB_PARNL( 1 );
+   HWND hWnd = ( HWND ) HB_PARNL(1);
 
-   if( IsWindow( hWnd ) )
+   if( IsWindow(hWnd) )
    {
-      GetClientRect( hWnd, &rc );
+      GetClientRect(hWnd, &rc);
 
       hb_itemReturnRelease( Rect2Array( &rc ) );
    }
    else
    {
-      hb_errRT_BASE_SubstR( EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError( 1 ) );
+      hb_errRT_BASE_SubstR( EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1) );
    }
 }
 
 // Grigory Filatov <gfilatov@gmail.com> HMG 1.1 Experimental Build 17d
 HB_FUNC( ISOEMTEXT )
 {
-   LPBYTE pString = ( LPBYTE ) hb_parc( 1 );
-   WORD   w = 0, wLen = ( WORD ) hb_parclen( 1 );
+   LPBYTE pString = ( LPBYTE ) hb_parc(1);
+   WORD   w = 0, wLen = ( WORD ) hb_parclen(1);
    BOOL   bOem = FALSE;
 
    while( w < wLen && ! bOem )
@@ -1658,7 +1658,7 @@ HB_FUNC( ISOEMTEXT )
    The GetObjectType identifies the type of the specified object.
 
    Syntax
-     GetObjectType( nObject ) --> nType
+     GetObjectType(nObject) --> nType
 
    Arguments
      nObject is identifies the object
@@ -1683,7 +1683,7 @@ HB_FUNC( ISOEMTEXT )
  */
 HB_FUNC( GETOBJECTTYPE )
 {
-   HB_RETNL( ( LONG_PTR ) GetObjectType( ( HGDIOBJ ) HB_PARNL( 1 ) ) );
+   HB_RETNL( ( LONG_PTR ) GetObjectType(( HGDIOBJ ) HB_PARNL(1)) );
 }
 
 /*
@@ -1692,13 +1692,13 @@ HB_FUNC( GETOBJECTTYPE )
  */
 HB_FUNC( DRAGACCEPTFILES )
 {
-   DragAcceptFiles( ( HWND ) HB_PARNL( 1 ), hb_parl( 2 ) );
+   DragAcceptFiles( ( HWND ) HB_PARNL(1), hb_parl(2) );
 }
 
 HB_FUNC( DRAGQUERYFILES )
 {
-   HDROP hDrop  = ( HDROP ) HB_PARNL( 1 );
-   int   iFiles = DragQueryFile( hDrop, ( UINT ) -1, 0, 0 );
+   HDROP hDrop  = ( HDROP ) HB_PARNL(1);
+   int   iFiles = DragQueryFile(hDrop, ( UINT ) -1, 0, 0);
    int   i;
    TCHAR bBuffer[ 250 ];
 
@@ -1710,26 +1710,26 @@ HB_FUNC( DRAGQUERYFILES )
 
    for( i = 0; i < iFiles; i++ )
    {
-      DragQueryFile( hDrop, i, ( TCHAR * ) bBuffer, 249 );
+      DragQueryFile(hDrop, i, ( TCHAR * ) bBuffer, 249);
    #ifndef UNICODE
       HB_STORC( ( TCHAR * ) bBuffer, -1, i + 1 );
    #else
       pStr = WideToAnsi( bBuffer );
       HB_STORC( pStr, -1, i + 1 );
-      hb_xfree( pStr );
+      hb_xfree(pStr);
    #endif
    }
 }
 
 HB_FUNC( DRAGFINISH )
 {
-   DragFinish( ( HDROP ) HB_PARNL( 1 ) );
+   DragFinish( ( HDROP ) HB_PARNL(1) );
 }
 
 HB_FUNC( HMG_CHARSETNAME )
 {
 #ifdef UNICODE
-   hb_retc( WideToAnsi( TEXT( "UNICODE" ) ) );
+   hb_retc( WideToAnsi( TEXT("UNICODE") ) );
 #else
    hb_retc( "ANSI" );
 #endif
@@ -1737,7 +1737,7 @@ HB_FUNC( HMG_CHARSETNAME )
 
 HB_FUNC( HMG_GETLOCALEINFO )
 {
-   INT LCType = hb_parni( 1 );
+   INT LCType = hb_parni(1);
 
 #ifndef UNICODE
    LPSTR cText;
@@ -1746,18 +1746,18 @@ HB_FUNC( HMG_GETLOCALEINFO )
    LPSTR  pStr;
 #endif
 
-   cText = ( LPTSTR ) hb_xgrab( HB_FILE_TYPE_MAX );
+   cText = ( LPTSTR ) hb_xgrab(HB_FILE_TYPE_MAX);
 
-   GetLocaleInfo( LOCALE_USER_DEFAULT, LCType, cText, HB_FILE_TYPE_MAX );
+   GetLocaleInfo(LOCALE_USER_DEFAULT, LCType, cText, HB_FILE_TYPE_MAX);
 
 #ifdef UNICODE
    pStr = WideToAnsi( cText );
    hb_retc( pStr );
-   hb_xfree( pStr );
+   hb_xfree(pStr);
 #else
    hb_retc( cText );
 #endif
-   hb_xfree( cText );
+   hb_xfree(cText);
 }
 
 /*
@@ -1862,7 +1862,7 @@ static HRESULT CreateShortCut( LPWSTR pszTargetfile, LPWSTR pszTargetargs,
 #ifndef UNICODE
             MultiByteToWideChar( CP_ACP, 0, pszLinkfile, -1, reinterpret_cast<LPWSTR>(wszLinkfile), MAX_PATH );
 #else
-            lstrcpy( wszLinkfile, pszLinkfile );
+            lstrcpy(wszLinkfile, pszLinkfile);
 #endif
             hRes = pPersistFile->lpVtbl->Save( pPersistFile, reinterpret_cast<LPCOLESTR>(wszLinkfile), TRUE );
             pPersistFile->lpVtbl->Release( pPersistFile );
@@ -1889,12 +1889,12 @@ HB_FUNC( CREATELINK )
    LPSTR szDescription;     /* <Description> */
    LPSTR szCurdir;          /* <Curdir> (optional) */
    LPSTR szIconfile;        /* <Iconfile> (optional) */
-   szTargetfile  = ( char * ) hb_parc( 1 );
-   szTargetargs  = HB_ISCHAR( 2 ) ? ( char * ) hb_parc( 2 ) : const_cast<char*>("");
-   szLinkfile    = ( char * ) hb_parc( 3 );
-   szDescription = HB_ISCHAR( 4 ) ? ( char * ) hb_parc( 4 ) : const_cast<char*>("");
-   szCurdir      = HB_ISCHAR( 6 ) ? ( char * ) hb_parc( 6 ) : const_cast<char*>("");
-   szIconfile    = HB_ISCHAR( 7 ) ? ( char * ) hb_parc( 7 ) : const_cast<char*>("");
+   szTargetfile  = ( char * ) hb_parc(1);
+   szTargetargs  = HB_ISCHAR(2) ? ( char * ) hb_parc(2) : const_cast<char*>("");
+   szLinkfile    = ( char * ) hb_parc(3);
+   szDescription = HB_ISCHAR(4) ? ( char * ) hb_parc(4) : const_cast<char*>("");
+   szCurdir      = HB_ISCHAR(6) ? ( char * ) hb_parc(6) : const_cast<char*>("");
+   szIconfile    = HB_ISCHAR(7) ? ( char * ) hb_parc(7) : const_cast<char*>("");
 #else
    LPWSTR szTargetfile;      /* <Targetfile> */
    LPWSTR szTargetargs;      /* <Targetargs> */
@@ -1902,12 +1902,12 @@ HB_FUNC( CREATELINK )
    LPWSTR szDescription;     /* <Description> */
    LPWSTR szCurdir;          /* <Curdir> (optional) */
    LPWSTR szIconfile;        /* <Iconfile> (optional) */
-   szTargetfile  = AnsiToWide( ( char * ) hb_parc( 1 ) );
-   szTargetargs  = HB_ISCHAR( 2 ) ? AnsiToWide( ( char * ) hb_parc( 2 ) ) : TEXT( "" );
-   szLinkfile    = AnsiToWide( ( char * ) hb_parc( 3 ) );
-   szDescription = HB_ISCHAR( 4 ) ? AnsiToWide( ( char * ) hb_parc( 4 ) ) : TEXT( "" );
-   szCurdir      = HB_ISCHAR( 6 ) ? AnsiToWide( ( char * ) hb_parc( 6 ) ) : TEXT( "" );
-   szIconfile    = HB_ISCHAR( 7 ) ? AnsiToWide( ( char * ) hb_parc( 7 ) ) : TEXT( "" );
+   szTargetfile  = AnsiToWide( ( char * ) hb_parc(1) );
+   szTargetargs  = HB_ISCHAR(2) ? AnsiToWide( ( char * ) hb_parc(2) ) : TEXT("");
+   szLinkfile    = AnsiToWide( ( char * ) hb_parc(3) );
+   szDescription = HB_ISCHAR(4) ? AnsiToWide( ( char * ) hb_parc(4) ) : TEXT("");
+   szCurdir      = HB_ISCHAR(6) ? AnsiToWide( ( char * ) hb_parc(6) ) : TEXT("");
+   szIconfile    = HB_ISCHAR(7) ? AnsiToWide( ( char * ) hb_parc(7) ) : TEXT("");
 #endif
    iShowmode  = hb_parnidef( 5, 0 );
    iIconindex = hb_parnidef( 8, 0 );

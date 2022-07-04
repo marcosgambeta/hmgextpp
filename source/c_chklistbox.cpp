@@ -74,33 +74,33 @@ HB_FUNC( INITCHKLISTBOX )
    HWND hbutton;
    int  Style = WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_NOINTEGRALHEIGHT | LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_WANTKEYBOARDINPUT;
 
-   hwnd = ( HWND ) HB_PARNL( 1 );
+   hwnd = ( HWND ) HB_PARNL(1);
    m_nHeightItem = 16;
 
-   if( ! hb_parl( 9 ) )
+   if( ! hb_parl(9) )
       Style = Style | WS_VISIBLE;
 
-   if( ! hb_parl( 10 ) )
+   if( ! hb_parl(10) )
       Style = Style | WS_TABSTOP;
 
-   if( hb_parl( 11 ) )
+   if( hb_parl(11) )
       Style = Style | LBS_SORT;
 
-   if( hb_parni( 12 ) )
-      m_nHeightItem = hb_parni( 12 );
+   if( hb_parni(12) )
+      m_nHeightItem = hb_parni(12);
 
    hbutton = CreateWindowEx
              (
       WS_EX_CLIENTEDGE,
       WC_LISTBOX,
-      TEXT( "" ),
+      TEXT(""),
       Style,
-      hb_parni( 3 ),
-      hb_parni( 4 ),
-      hb_parni( 5 ),
-      hb_parni( 6 ),
+      hb_parni(3),
+      hb_parni(4),
+      hb_parni(5),
+      hb_parni(6),
       hwnd,
-      ( HMENU ) HB_PARNL( 2 ),
+      ( HMENU ) HB_PARNL(2),
       GetInstance(),
       NULL
              );
@@ -114,33 +114,33 @@ HB_FUNC( INITMULTICHKLISTBOX )
    HWND hbutton;
    int  Style = LBS_EXTENDEDSEL | WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_MULTIPLESEL | LBS_NOINTEGRALHEIGHT | LBS_OWNERDRAWFIXED | LBS_HASSTRINGS;
 
-   hwnd = ( HWND ) HB_PARNL( 1 );
+   hwnd = ( HWND ) HB_PARNL(1);
    m_nHeightItem = 16;
 
-   if( ! hb_parl( 9 ) )
+   if( ! hb_parl(9) )
       Style = Style | WS_VISIBLE;
 
-   if( ! hb_parl( 10 ) )
+   if( ! hb_parl(10) )
       Style = Style | WS_TABSTOP;
 
-   if( hb_parl( 11 ) )
+   if( hb_parl(11) )
       Style = Style | LBS_SORT;
 
-   if( hb_parni( 12 ) )
-      m_nHeightItem = hb_parni( 12 );
+   if( hb_parni(12) )
+      m_nHeightItem = hb_parni(12);
 
    hbutton = CreateWindowEx
              (
       WS_EX_CLIENTEDGE,
       WC_LISTBOX,
-      TEXT( "" ),
+      TEXT(""),
       Style,
-      hb_parni( 3 ),
-      hb_parni( 4 ),
-      hb_parni( 5 ),
-      hb_parni( 6 ),
+      hb_parni(3),
+      hb_parni(4),
+      hb_parni(5),
+      hb_parni(6),
       hwnd,
-      ( HMENU ) HB_PARNL( 2 ),
+      ( HMENU ) HB_PARNL(2),
       GetInstance(),
       NULL
              );
@@ -150,63 +150,63 @@ HB_FUNC( INITMULTICHKLISTBOX )
 
 HB_FUNC( CHKLISTBOXINSERTITEM )
 {
-   HWND hwnd = ( HWND ) HB_PARNL( 1 );
+   HWND hwnd = ( HWND ) HB_PARNL(1);
 
 #ifndef UNICODE
-   LPTSTR lpString = ( LPTSTR ) hb_parc( 2 );
+   LPTSTR lpString = ( LPTSTR ) hb_parc(2);
 #else
-   LPWSTR lpString = AnsiToWide( ( char * ) hb_parc( 2 ) );
+   LPWSTR lpString = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
-   int lbItem   = hb_parni( 3 ) - 1;
-   int bChecked = hb_parni( 4 );
+   int lbItem   = hb_parni(3) - 1;
+   int bChecked = hb_parni(4);
 
    SendMessage( hwnd, LB_INSERTSTRING, ( WPARAM ) lbItem, ( LPARAM ) lpString );
    SendMessage( hwnd, LB_SETITEMDATA, ( WPARAM ) ( int ) lbItem, ( LPARAM ) bChecked );
 
 #ifdef UNICODE
-   hb_xfree( lpString );
+   hb_xfree(lpString);
 #endif
 }
 
 HB_FUNC( CHKLISTBOXADDITEM )
 {
-   HWND hwnd = ( HWND ) HB_PARNL( 1 );
+   HWND hwnd = ( HWND ) HB_PARNL(1);
 
 #ifndef UNICODE
-   LPTSTR lpString = ( LPTSTR ) hb_parc( 2 );
+   LPTSTR lpString = ( LPTSTR ) hb_parc(2);
 #else
-   LPWSTR lpString = AnsiToWide( ( char * ) hb_parc( 2 ) );
+   LPWSTR lpString = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
-   int bChecked = hb_parni( 3 );
+   int bChecked = hb_parni(3);
    int lbItem;
 
-   m_nHeightItem = hb_parni( 4 );
+   m_nHeightItem = hb_parni(4);
    lbItem        = ( int ) SendMessage( hwnd, LB_ADDSTRING, 0, ( LPARAM ) lpString );
    SendMessage( hwnd, LB_SETITEMDATA, ( WPARAM ) ( int ) lbItem, ( LPARAM ) bChecked );
 
 #ifdef UNICODE
-   hb_xfree( lpString );
+   hb_xfree(lpString);
 #endif
 }
 
 HB_FUNC( SETCHKLBITEMHEIGHT ) // set the height of a string in pixels
 {
    TCHAR achBuffer[ BUFFER ];
-   HWND  hwnd     = ( HWND ) HB_PARNL( 1 );
-   HDC   hdc      = GetDC( hwnd );
-   HFONT hFont    = ( HFONT ) HB_PARNL( 2 );
+   HWND  hwnd     = ( HWND ) HB_PARNL(1);
+   HDC   hdc      = GetDC(hwnd);
+   HFONT hFont    = ( HFONT ) HB_PARNL(2);
    HFONT hOldFont = ( HFONT ) NULL;
    SIZE  sz;
 
    if( ! hdc )
    {
       hwnd = GetActiveWindow();
-      hdc  = GetDC( hwnd );
+      hdc  = GetDC(hwnd);
    }
    SendMessage( hwnd, LB_GETTEXT, 0, ( LPARAM ) achBuffer );
 
    if( hFont )
-      hOldFont = ( HFONT ) SelectObject( hdc, hFont );
+      hOldFont = ( HFONT ) SelectObject(hdc, hFont);
 
    GetTextExtentPoint32( hdc, achBuffer, ( int ) HB_STRLEN( achBuffer ), &sz );
 
@@ -218,17 +218,17 @@ HB_FUNC( SETCHKLBITEMHEIGHT ) // set the height of a string in pixels
    }
 
    if( hFont )
-      SelectObject( hdc, hOldFont );
+      SelectObject(hdc, hOldFont);
 
-   ReleaseDC( hwnd, hdc );
+   ReleaseDC(hwnd, hdc);
 }
 
 HB_FUNC( CHKLIST_SETCHECKBOX )
 {
-   HWND  hwnd            = ( HWND ) HB_PARNL( 1 );
-   int   lbItem          = hb_parni( 2 ) - 1;
-   int   bChecked        = hb_parni( 3 );
-   TCHAR cString[ 1024 ] = { TEXT( "" ) };
+   HWND  hwnd            = ( HWND ) HB_PARNL(1);
+   int   lbItem          = hb_parni(2) - 1;
+   int   bChecked        = hb_parni(3);
+   TCHAR cString[ 1024 ] = { TEXT("") };
 
    SendMessage( hwnd, LB_GETTEXT, ( WPARAM ) lbItem, ( LPARAM ) cString );
    SendMessage( hwnd, LB_DELETESTRING, ( WPARAM ) lbItem, 0 );
@@ -238,8 +238,8 @@ HB_FUNC( CHKLIST_SETCHECKBOX )
 
 HB_FUNC( CHKLIST_GETCHECKBOX )
 {
-   HWND hwnd   = ( HWND ) HB_PARNL( 1 );
-   int  lbItem = hb_parni( 2 );
+   HWND hwnd   = ( HWND ) HB_PARNL(1);
+   int  lbItem = hb_parni(2);
    int  iCheck = ( int ) SendMessage( hwnd, LB_GETITEMDATA, ( WPARAM ) lbItem - 1, 0 );
 
    hb_retl( ( BOOL ) iCheck - 1 );
@@ -249,7 +249,7 @@ HB_FUNC( _ONMEASURELISTBOXITEM )
 {
    LPMEASUREITEMSTRUCT lpmis;
 
-   lpmis = ( LPMEASUREITEMSTRUCT ) HB_PARNL( 1 );
+   lpmis = ( LPMEASUREITEMSTRUCT ) HB_PARNL(1);
 
    // Set the height of the list box items.
    lpmis->itemHeight = m_nHeightItem;
@@ -265,7 +265,7 @@ HB_FUNC( _ONDRAWLISTBOXITEM )
    RECT       rcCheck;
    HBRUSH     hBackBrush;
 
-   pdis = ( PDRAWITEMSTRUCT ) HB_PARNL( 1 );
+   pdis = ( PDRAWITEMSTRUCT ) HB_PARNL(1);
 
    // If there are no list box items, skip this message.
    if( ( int ) pdis->itemID > -1 )
@@ -282,19 +282,19 @@ HB_FUNC( _ONDRAWLISTBOXITEM )
 
             if( pdis->itemState & ODS_SELECTED )
             {
-               SetTextColor( pdis->hDC, GetSysColor( COLOR_HIGHLIGHTTEXT ) );
-               SetBkColor( pdis->hDC, GetSysColor( COLOR_HIGHLIGHT ) );
-               hBackBrush = CreateSolidBrush( GetSysColor( COLOR_HIGHLIGHT ) );
+               SetTextColor(pdis->hDC, GetSysColor(COLOR_HIGHLIGHTTEXT));
+               SetBkColor(pdis->hDC, GetSysColor(COLOR_HIGHLIGHT));
+               hBackBrush = CreateSolidBrush(GetSysColor(COLOR_HIGHLIGHT));
 
             }
             else
             {
-               SetTextColor( pdis->hDC, GetSysColor( COLOR_WINDOWTEXT ) );
-               SetBkColor( pdis->hDC, GetSysColor( COLOR_WINDOW ) );
-               hBackBrush = CreateSolidBrush( GetSysColor( COLOR_WINDOW ) );
+               SetTextColor(pdis->hDC, GetSysColor(COLOR_WINDOWTEXT));
+               SetBkColor(pdis->hDC, GetSysColor(COLOR_WINDOW));
+               hBackBrush = CreateSolidBrush(GetSysColor(COLOR_WINDOW));
             }
-            FillRect( pdis->hDC, &pdis->rcItem, hBackBrush );
-            DeleteObject( hBackBrush );
+            FillRect(pdis->hDC, &pdis->rcItem, hBackBrush);
+            DeleteObject(hBackBrush);
             rcCheck = pdis->rcItem;
             if( iCheck )
             {
@@ -333,12 +333,12 @@ HB_FUNC( _ONDRAWLISTBOXITEM )
             cch = ( int ) HB_STRLEN( achBuffer );
             // Draw the string in the item rectangle, leaving a six
             // pixel gap between the item bitmap and the string.
-            TextOut( pdis->hDC, rcCheck.right + 6, yPos, achBuffer, cch );
+            TextOut(pdis->hDC, rcCheck.right + 6, yPos, achBuffer, cch);
 
             break;
 
          case ODA_FOCUS:
-            DrawFocusRect( pdis->hDC, &pdis->rcItem );
+            DrawFocusRect(pdis->hDC, &pdis->rcItem);
             break;
       }
    }
@@ -349,7 +349,7 @@ HB_FUNC( _ONDRAWLISTBOXITEM )
  */
 HB_FUNC( GETMISCTLTYPE )
 {
-   LPMEASUREITEMSTRUCT pmis = ( LPMEASUREITEMSTRUCT ) HB_PARNL( 1 );
+   LPMEASUREITEMSTRUCT pmis = ( LPMEASUREITEMSTRUCT ) HB_PARNL(1);
 
    if( pmis )
       hb_retni( ( UINT ) pmis->CtlType );

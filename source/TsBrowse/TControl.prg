@@ -185,11 +185,11 @@ CLASS TControl
    METHOD Capture() INLINE  SetCapture( ::hWnd ) //TWindow
 
    METHOD GetDC() INLINE ;
-       If( ::hDC == nil, ::hDC := GetDC( ::hWnd ),),;
+       If( ::hDC == nil, ::hDC := GetDC(::hWnd),),;
        If( ::nPaintCount == nil, ::nPaintCount := 1, ::nPaintCount++ ), ::hDC
 
    METHOD ReleaseDC() INLINE  ::nPaintCount--, If( ::nPaintCount == 0,;
-                              If( ReleaseDC( ::hWnd, ::hDC ), ::hDC := nil,), )
+                              If( ReleaseDC(::hWnd, ::hDC), ::hDC := nil,), )
 
    METHOD PostMsg( nMsg, nWParam, nLParam ) INLINE ;
                PostMessage( ::hWnd, nMsg, nWParam, nLParam )
@@ -222,7 +222,7 @@ CLASS TControl
    METHOD Refresh( lErase ) INLINE InvalidateRect( ::hWnd,;
                                    If( lErase == NIL .OR. !lErase, 0, 1 ) )
 
-   METHOD nGetChrHeight() INLINE ::hDC := GetDC( ::hWnd ), ;
+   METHOD nGetChrHeight() INLINE ::hDC := GetDC(::hWnd), ;
                           ::nChrHeight := _GetTextHeight( ::hWnd, ::hDC ) //Temp
 
    METHOD GetText() INLINE GetWindowText( ::hWnd )   //TWindow
@@ -821,7 +821,7 @@ return nil
 
 METHOD VScroll( nWParam, nLParam ) CLASS TControl
 
-   local nScrHandle := HiWord( nLParam )
+   local nScrHandle := HiWord(nLParam)
 
    if nScrHandle == 0                   // Window ScrollBar
       if ::oVScroll != nil
@@ -830,8 +830,8 @@ METHOD VScroll( nWParam, nLParam ) CLASS TControl
             case nWParam == SB_LINEDOWN      ; ::oVScroll:GoDown()
             case nWParam == SB_PAGEUP        ; ::oVScroll:PageUp() 
             case nWParam == SB_PAGEDOWN      ; ::oVScroll:PageDown()
-            case nWParam == SB_THUMBPOSITION ; ::oVScroll:ThumbPos( LoWord( nLParam ) )
-            case nWParam == SB_THUMBTRACK    ; ::oVScroll:ThumbTrack( LoWord( nLParam ) )
+            case nWParam == SB_THUMBPOSITION ; ::oVScroll:ThumbPos( LoWord(nLParam) )
+            case nWParam == SB_THUMBTRACK    ; ::oVScroll:ThumbTrack( LoWord(nLParam) )
             case nWParam == SB_ENDSCROLL     ; return 0
          endcase
       endif
@@ -841,8 +841,8 @@ METHOD VScroll( nWParam, nLParam ) CLASS TControl
          case nWParam == SB_LINEDOWN      ; SendMessage( nScrHandle, FM_SCROLLDOWN )
          case nWParam == SB_PAGEUP        ; SendMessage( nScrHandle, FM_SCROLLPGUP )
          case nWParam == SB_PAGEDOWN      ; SendMessage( nScrHandle, FM_SCROLLPGDN )
-         case nWParam == SB_THUMBPOSITION ; SendMessage( nScrHandle, FM_THUMBPOS, LoWord( nLParam ) )
-         case nWParam == SB_THUMBTRACK    ; SendMessage( nScrHandle, FM_THUMBTRACK, LoWord( nLParam ) )
+         case nWParam == SB_THUMBPOSITION ; SendMessage( nScrHandle, FM_THUMBPOS, LoWord(nLParam) )
+         case nWParam == SB_THUMBTRACK    ; SendMessage( nScrHandle, FM_THUMBTRACK, LoWord(nLParam) )
       endcase
    endif
 
@@ -892,20 +892,20 @@ METHOD HandleEvent( nMsg, nWParam, nLParam ) CLASS TControl
            return ::LostFocus( nWParam ) // LostFocus(), not KillFocus()!!!
 
       case nMsg == WM_LBUTTONDOWN
-           return ::LButtonDown( HiWord( nLParam ), LoWord( nLParam ),;
+           return ::LButtonDown( HiWord(nLParam), LoWord(nLParam),;
                                  nWParam )
       case nMsg == WM_LBUTTONUP
-           return ::LButtonUp( HiWord( nLParam ), LoWord( nLParam ),;
+           return ::LButtonUp( HiWord(nLParam), LoWord(nLParam),;
                                nWParam )
       case nMsg == WM_MOUSEMOVE
-           return ::MouseMove( HiWord( nLParam ), LoWord( nLParam ),;
+           return ::MouseMove( HiWord(nLParam), LoWord(nLParam),;
                                nWParam )
 
       case nMsg == WM_RBUTTONDOWN
-           return ::RButtonDown( HiWord( nLParam ), LoWord( nLParam ),;
+           return ::RButtonDown( HiWord(nLParam), LoWord(nLParam),;
                                  nWParam )
       case nMsg == WM_RBUTTONUP
-           return ::RButtonUp( HiWord( nLParam ), LoWord( nLParam ),;
+           return ::RButtonUp( HiWord(nLParam), LoWord(nLParam),;
                                nWParam )
       case nMsg == WM_SETFOCUS
            return ::GotFocus( nWParam )
@@ -914,7 +914,7 @@ METHOD HandleEvent( nMsg, nWParam, nLParam ) CLASS TControl
            return ::VScroll( nWParam, nLParam )
 
       case nMsg == WM_SIZE
-           return ::ReSize( nWParam, LoWord( nLParam ), HiWord( nLParam ) )
+           return ::ReSize( nWParam, LoWord(nLParam), HiWord(nLParam) )
 
       case nMsg == WM_TIMER
            return ::Timer( nWParam, nLParam )
@@ -931,19 +931,19 @@ METHOD Command( nWParam, nLParam ) CLASS TControl
    LOCAL nNotifyCode
    LOCAL hWndCtl
 
-   nNotifyCode := HiWord( nWParam )
-//   nID         := LoWord( nWParam )
+   nNotifyCode := HiWord(nWParam)
+//   nID         := LoWord(nWParam)
    hWndCtl     := nLParam
 
    do case
    case hWndCtl == 0
 
       * TGet Enter ......................................
-      if HiWord( nWParam ) == 0 .and. LoWord( nWParam ) == 1
+      if HiWord(nWParam) == 0 .and. LoWord(nWParam) == 1
          ::KeyDown( VK_RETURN, 0 )
       EndIf
       * TGet Escape .....................................
-      if HiWord( nwParam ) == 0 .and. LoWord( nwParam ) == 2
+      if HiWord(nwParam) == 0 .and. LoWord(nwParam) == 2
          ::KeyDown( VK_ESCAPE, 0 )
       endif
 

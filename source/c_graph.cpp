@@ -56,7 +56,7 @@ LPWSTR AnsiToWide( LPCSTR );
 // #ifdef __cplusplus
 // extern "C" {
 // #endif
-extern BOOL Array2ColorRef( PHB_ITEM aCRef, COLORREF * cr );
+extern BOOL Array2ColorRef(PHB_ITEM aCRef, COLORREF * cr);
 //extern HFONT PrepareFont( TCHAR *, int, int, int, int, int, int, int );
 extern HFONT PrepareFont( TCHAR * FontName, int FontSize, int Weight, DWORD Italic, DWORD Underline, DWORD StrikeOut, DWORD Angle, DWORD charset );
 // #ifdef __cplusplus
@@ -65,29 +65,29 @@ extern HFONT PrepareFont( TCHAR * FontName, int FontSize, int Weight, DWORD Ital
 
 HB_FUNC( TEXTDRAW )
 {
-   HWND hWnd = ( HWND ) ( LONG_PTR ) HB_PARNL( 1 );
+   HWND hWnd = ( HWND ) ( LONG_PTR ) HB_PARNL(1);
    HDC  hDC;
    BOOL bDC = FALSE;
 
-   if( IsWindow( hWnd ) )
+   if( IsWindow(hWnd) )
    {
-      hDC = GetDC( hWnd );
+      hDC = GetDC(hWnd);
       bDC = TRUE;
    }
    else
-      hDC = ( HDC ) ( LONG_PTR ) HB_PARNL( 1 );
+      hDC = ( HDC ) ( LONG_PTR ) HB_PARNL(1);
 
-   if( GetObjectType( ( HGDIOBJ ) hDC ) == OBJ_DC )
+   if( GetObjectType(( HGDIOBJ ) hDC) == OBJ_DC )
    {
-      int   bold      = hb_parl( 11 ) ? FW_BOLD : FW_NORMAL;
-      DWORD italic    = ( DWORD ) hb_parl( 12 );
-      DWORD underline = ( DWORD ) hb_parl( 13 );
-      DWORD strikeout = ( DWORD ) hb_parl( 14 );
-      DWORD angle     = hb_parnl( 16 );
+      int   bold      = hb_parl(11) ? FW_BOLD : FW_NORMAL;
+      DWORD italic    = ( DWORD ) hb_parl(12);
+      DWORD underline = ( DWORD ) hb_parl(13);
+      DWORD strikeout = ( DWORD ) hb_parl(14);
+      DWORD angle     = hb_parnl(16);
 #ifndef UNICODE
-      LPCSTR lpString = hb_parc( 4 );
+      LPCSTR lpString = hb_parc(4);
 #else
-      LPCWSTR lpString = AnsiToWide( ( char * ) hb_parc( 4 ) );
+      LPCWSTR lpString = AnsiToWide( ( char * ) hb_parc(4) );
       LPWSTR  pStr;
 #endif
 
@@ -99,51 +99,51 @@ HB_FUNC( TEXTDRAW )
       RECT     rect;
 
 #ifdef UNICODE
-      pStr = AnsiToWide( hb_parc( 9 ) );
-      font = PrepareFont( ( TCHAR * ) pStr, hb_parni( 10 ), bold, italic, underline, strikeout, angle, DEFAULT_CHARSET );
-      hb_xfree( pStr );
+      pStr = AnsiToWide( hb_parc(9) );
+      font = PrepareFont( ( TCHAR * ) pStr, hb_parni(10), bold, italic, underline, strikeout, angle, DEFAULT_CHARSET );
+      hb_xfree(pStr);
 #else
-      font = PrepareFont( ( TCHAR * ) hb_parc( 9 ), hb_parni( 10 ), bold, italic, underline, strikeout, angle, DEFAULT_CHARSET );
+      font = PrepareFont( ( TCHAR * ) hb_parc(9), hb_parni(10), bold, italic, underline, strikeout, angle, DEFAULT_CHARSET );
 #endif
 
-      hgdiobj = SelectObject( hDC, font );
+      hgdiobj = SelectObject(hDC, font);
 
-      if( hb_parl( 15 ) )
+      if( hb_parl(15) )
          iBkMode = SetBkMode( hDC, TRANSPARENT );
       else
       {
          iBkMode = SetBkMode( hDC, OPAQUE );
 
-         if( Array2ColorRef( hb_param( 8, HB_IT_ANY ), &crBkColor ) )
-            crBkColor = SetBkColor( hDC, crBkColor );
+         if( Array2ColorRef(hb_param( 8, HB_IT_ANY ), &crBkColor) )
+            crBkColor = SetBkColor(hDC, crBkColor);
       }
 
-      if( Array2ColorRef( hb_param( 7, HB_IT_ANY ), &crFgColor ) )
-         SetTextColor( hDC, crFgColor );
+      if( Array2ColorRef(hb_param( 7, HB_IT_ANY ), &crFgColor) )
+         SetTextColor(hDC, crFgColor);
 
-      SetRect( &rect, hb_parni( 3 ), hb_parni( 2 ), hb_parni( 6 ), hb_parni( 5 ) );
+      SetRect(&rect, hb_parni(3), hb_parni(2), hb_parni(6), hb_parni(5));
 
-      hb_retl( ExtTextOut( hDC, hb_parni( 3 ), hb_parni( 2 ), ETO_OPAQUE, &rect, lpString, ( int ) lstrlen( lpString ), NULL )
+      hb_retl( ExtTextOut(hDC, hb_parni(3), hb_parni(2), ETO_OPAQUE, &rect, lpString, ( int ) lstrlen( lpString ), NULL)
                ? HB_TRUE : HB_FALSE );
 
 #ifdef UNICODE
-      hb_xfree( ( TCHAR * ) lpString );
+      hb_xfree(( TCHAR * ) lpString);
 #endif
-      SelectObject( hDC, hgdiobj );
+      SelectObject(hDC, hgdiobj);
 
       if( 0 != iBkMode )
          SetBkMode( hDC, iBkMode );
 
       if( CLR_INVALID != crBkColor )
-         SetBkColor( hDC, crBkColor );
+         SetBkColor(hDC, crBkColor);
 
       if( CLR_INVALID != crFgColor )
-         SetTextColor( hDC, crFgColor );
+         SetTextColor(hDC, crFgColor);
 
-      DeleteObject( font );
+      DeleteObject(font);
 
       if( bDC )
-         ReleaseDC( hWnd, hDC );
+         ReleaseDC(hWnd, hDC);
    }
    else
       hb_retl( HB_FALSE );
@@ -156,15 +156,15 @@ HB_FUNC( LINEDRAW )
    HGDIOBJ hgdiobj1;
    HPEN    hpen;
 
-   hWnd1    = ( HWND ) HB_PARNL( 1 );
-   hdc1     = GetDC( ( HWND ) hWnd1 );
-   hpen     = CreatePen( PS_SOLID, ( int ) hb_parni( 7 ), ( COLORREF ) RGB( ( int ) HB_PARNI( 6, 1 ), ( int ) HB_PARNI( 6, 2 ), ( int ) HB_PARNI( 6, 3 ) ) );
-   hgdiobj1 = SelectObject( hdc1, hpen );
-   MoveToEx( hdc1, ( int ) hb_parni( 3 ), ( int ) hb_parni( 2 ), NULL );
-   LineTo( hdc1, ( int ) hb_parni( 5 ), ( int ) hb_parni( 4 ) );
-   SelectObject( hdc1, hgdiobj1 );
-   DeleteObject( hpen );
-   ReleaseDC( hWnd1, hdc1 );
+   hWnd1    = ( HWND ) HB_PARNL(1);
+   hdc1     = GetDC(( HWND ) hWnd1);
+   hpen     = CreatePen(PS_SOLID, ( int ) hb_parni(7), ( COLORREF ) RGB(( int ) HB_PARNI( 6, 1 ), ( int ) HB_PARNI( 6, 2 ), ( int ) HB_PARNI( 6, 3 )));
+   hgdiobj1 = SelectObject(hdc1, hpen);
+   MoveToEx( hdc1, ( int ) hb_parni(3), ( int ) hb_parni(2), NULL );
+   LineTo( hdc1, ( int ) hb_parni(5), ( int ) hb_parni(4) );
+   SelectObject(hdc1, hgdiobj1);
+   DeleteObject(hpen);
+   ReleaseDC(hWnd1, hdc1);
 }
 
 HB_FUNC( RECTDRAW )
@@ -176,29 +176,29 @@ HB_FUNC( RECTDRAW )
    HBRUSH   hbrush;
    LOGBRUSH br;
 
-   hWnd1 = ( HWND ) HB_PARNL( 1 );
-   hdc1  = GetDC( ( HWND ) hWnd1 );
-   hpen  = CreatePen( PS_SOLID, ( int ) hb_parni( 7 ), ( COLORREF ) RGB( ( int ) HB_PARNI( 6, 1 ), ( int ) HB_PARNI( 6, 2 ), ( int ) HB_PARNI( 6, 3 ) ) );
+   hWnd1 = ( HWND ) HB_PARNL(1);
+   hdc1  = GetDC(( HWND ) hWnd1);
+   hpen  = CreatePen(PS_SOLID, ( int ) hb_parni(7), ( COLORREF ) RGB(( int ) HB_PARNI( 6, 1 ), ( int ) HB_PARNI( 6, 2 ), ( int ) HB_PARNI( 6, 3 )));
 
-   hgdiobj1 = SelectObject( hdc1, hpen );
-   if( hb_parl( 9 ) )
+   hgdiobj1 = SelectObject(hdc1, hpen);
+   if( hb_parl(9) )
    {
-      hbrush   = CreateSolidBrush( ( COLORREF ) RGB( ( int ) HB_PARNI( 8, 1 ), ( int ) HB_PARNI( 8, 2 ), ( int ) HB_PARNI( 8, 3 ) ) );
-      hgdiobj2 = SelectObject( hdc1, hbrush );
+      hbrush   = CreateSolidBrush(( COLORREF ) RGB(( int ) HB_PARNI( 8, 1 ), ( int ) HB_PARNI( 8, 2 ), ( int ) HB_PARNI( 8, 3 )));
+      hgdiobj2 = SelectObject(hdc1, hbrush);
    }
    else
    {
       br.lbStyle = BS_HOLLOW;
-      hbrush     = CreateBrushIndirect( &br );
-      hgdiobj2   = SelectObject( hdc1, hbrush );
+      hbrush     = CreateBrushIndirect(&br);
+      hgdiobj2   = SelectObject(hdc1, hbrush);
    }
 
-   Rectangle( hdc1, ( int ) hb_parni( 3 ), ( int ) hb_parni( 2 ), ( int ) hb_parni( 5 ), ( int ) hb_parni( 4 ) );
-   SelectObject( hdc1, hgdiobj1 );
-   SelectObject( hdc1, hgdiobj2 );
-   DeleteObject( hpen );
-   DeleteObject( hbrush );
-   ReleaseDC( hWnd1, hdc1 );
+   Rectangle( hdc1, ( int ) hb_parni(3), ( int ) hb_parni(2), ( int ) hb_parni(5), ( int ) hb_parni(4) );
+   SelectObject(hdc1, hgdiobj1);
+   SelectObject(hdc1, hgdiobj2);
+   DeleteObject(hpen);
+   DeleteObject(hbrush);
+   ReleaseDC(hWnd1, hdc1);
 }
 
 HB_FUNC( ROUNDRECTDRAW )
@@ -210,37 +210,37 @@ HB_FUNC( ROUNDRECTDRAW )
    HBRUSH   hbrush;
    LOGBRUSH br;
 
-   hWnd1    = ( HWND ) HB_PARNL( 1 );
-   hdc1     = GetDC( ( HWND ) hWnd1 );
-   hpen     = CreatePen( PS_SOLID, ( int ) hb_parni( 9 ), ( COLORREF ) RGB( ( int ) HB_PARNI( 8, 1 ), ( int ) HB_PARNI( 8, 2 ), ( int ) HB_PARNI( 8, 3 ) ) );
-   hgdiobj1 = SelectObject( hdc1, hpen );
-   if( hb_parl( 11 ) )
+   hWnd1    = ( HWND ) HB_PARNL(1);
+   hdc1     = GetDC(( HWND ) hWnd1);
+   hpen     = CreatePen(PS_SOLID, ( int ) hb_parni(9), ( COLORREF ) RGB(( int ) HB_PARNI( 8, 1 ), ( int ) HB_PARNI( 8, 2 ), ( int ) HB_PARNI( 8, 3 )));
+   hgdiobj1 = SelectObject(hdc1, hpen);
+   if( hb_parl(11) )
    {
-      hbrush   = CreateSolidBrush( ( COLORREF ) RGB( ( int ) HB_PARNI( 10, 1 ), ( int ) HB_PARNI( 10, 2 ), ( int ) HB_PARNI( 10, 3 ) ) );
-      hgdiobj2 = SelectObject( hdc1, hbrush );
+      hbrush   = CreateSolidBrush(( COLORREF ) RGB(( int ) HB_PARNI( 10, 1 ), ( int ) HB_PARNI( 10, 2 ), ( int ) HB_PARNI( 10, 3 )));
+      hgdiobj2 = SelectObject(hdc1, hbrush);
    }
    else
    {
       br.lbStyle = BS_HOLLOW;
-      hbrush     = CreateBrushIndirect( &br );
-      hgdiobj2   = SelectObject( hdc1, hbrush );
+      hbrush     = CreateBrushIndirect(&br);
+      hgdiobj2   = SelectObject(hdc1, hbrush);
    }
 
    RoundRect
    (
       hdc1,
-      ( int ) hb_parni( 3 ),
-      ( int ) hb_parni( 2 ),
-      ( int ) hb_parni( 5 ),
-      ( int ) hb_parni( 4 ),
-      ( int ) hb_parni( 6 ),
-      ( int ) hb_parni( 7 )
+      ( int ) hb_parni(3),
+      ( int ) hb_parni(2),
+      ( int ) hb_parni(5),
+      ( int ) hb_parni(4),
+      ( int ) hb_parni(6),
+      ( int ) hb_parni(7)
    );
-   SelectObject( hdc1, hgdiobj1 );
-   SelectObject( hdc1, hgdiobj2 );
-   DeleteObject( hpen );
-   DeleteObject( hbrush );
-   ReleaseDC( hWnd1, hdc1 );
+   SelectObject(hdc1, hgdiobj1);
+   SelectObject(hdc1, hgdiobj2);
+   DeleteObject(hpen);
+   DeleteObject(hbrush);
+   ReleaseDC(hWnd1, hdc1);
 }
 
 HB_FUNC( ELLIPSEDRAW )
@@ -252,28 +252,28 @@ HB_FUNC( ELLIPSEDRAW )
    HBRUSH   hbrush;
    LOGBRUSH br;
 
-   hWnd1    = ( HWND ) HB_PARNL( 1 );
-   hdc1     = GetDC( ( HWND ) hWnd1 );
-   hpen     = CreatePen( PS_SOLID, ( int ) hb_parni( 7 ), ( COLORREF ) RGB( ( int ) HB_PARNI( 6, 1 ), ( int ) HB_PARNI( 6, 2 ), ( int ) HB_PARNI( 6, 3 ) ) );
-   hgdiobj1 = SelectObject( hdc1, hpen );
-   if( hb_parl( 9 ) )
+   hWnd1    = ( HWND ) HB_PARNL(1);
+   hdc1     = GetDC(( HWND ) hWnd1);
+   hpen     = CreatePen(PS_SOLID, ( int ) hb_parni(7), ( COLORREF ) RGB(( int ) HB_PARNI( 6, 1 ), ( int ) HB_PARNI( 6, 2 ), ( int ) HB_PARNI( 6, 3 )));
+   hgdiobj1 = SelectObject(hdc1, hpen);
+   if( hb_parl(9) )
    {
-      hbrush   = CreateSolidBrush( ( COLORREF ) RGB( ( int ) HB_PARNI( 8, 1 ), ( int ) HB_PARNI( 8, 2 ), ( int ) HB_PARNI( 8, 3 ) ) );
-      hgdiobj2 = SelectObject( hdc1, hbrush );
+      hbrush   = CreateSolidBrush(( COLORREF ) RGB(( int ) HB_PARNI( 8, 1 ), ( int ) HB_PARNI( 8, 2 ), ( int ) HB_PARNI( 8, 3 )));
+      hgdiobj2 = SelectObject(hdc1, hbrush);
    }
    else
    {
       br.lbStyle = BS_HOLLOW;
-      hbrush     = CreateBrushIndirect( &br );
-      hgdiobj2   = SelectObject( hdc1, hbrush );
+      hbrush     = CreateBrushIndirect(&br);
+      hgdiobj2   = SelectObject(hdc1, hbrush);
    }
 
-   Ellipse( hdc1, ( int ) hb_parni( 3 ), ( int ) hb_parni( 2 ), ( int ) hb_parni( 5 ), ( int ) hb_parni( 4 ) );
-   SelectObject( hdc1, hgdiobj1 );
-   SelectObject( hdc1, hgdiobj2 );
-   DeleteObject( hpen );
-   DeleteObject( hbrush );
-   ReleaseDC( hWnd1, hdc1 );
+   Ellipse( hdc1, ( int ) hb_parni(3), ( int ) hb_parni(2), ( int ) hb_parni(5), ( int ) hb_parni(4) );
+   SelectObject(hdc1, hgdiobj1);
+   SelectObject(hdc1, hgdiobj2);
+   DeleteObject(hpen);
+   DeleteObject(hbrush);
+   ReleaseDC(hWnd1, hdc1);
 }
 
 HB_FUNC( ARCDRAW )
@@ -283,25 +283,25 @@ HB_FUNC( ARCDRAW )
    HGDIOBJ hgdiobj1;
    HPEN    hpen;
 
-   hWnd1    = ( HWND ) HB_PARNL( 1 );
-   hdc1     = GetDC( ( HWND ) hWnd1 );
-   hpen     = CreatePen( PS_SOLID, ( int ) hb_parni( 11 ), ( COLORREF ) RGB( ( int ) HB_PARNI( 10, 1 ), ( int ) HB_PARNI( 10, 2 ), ( int ) HB_PARNI( 10, 3 ) ) );
-   hgdiobj1 = SelectObject( hdc1, hpen );
+   hWnd1    = ( HWND ) HB_PARNL(1);
+   hdc1     = GetDC(( HWND ) hWnd1);
+   hpen     = CreatePen(PS_SOLID, ( int ) hb_parni(11), ( COLORREF ) RGB(( int ) HB_PARNI( 10, 1 ), ( int ) HB_PARNI( 10, 2 ), ( int ) HB_PARNI( 10, 3 )));
+   hgdiobj1 = SelectObject(hdc1, hpen);
    Arc
    (
       hdc1,
-      ( int ) hb_parni( 3 ),
-      ( int ) hb_parni( 2 ),
-      ( int ) hb_parni( 5 ),
-      ( int ) hb_parni( 4 ),
-      ( int ) hb_parni( 7 ),
-      ( int ) hb_parni( 6 ),
-      ( int ) hb_parni( 9 ),
-      ( int ) hb_parni( 8 )
+      ( int ) hb_parni(3),
+      ( int ) hb_parni(2),
+      ( int ) hb_parni(5),
+      ( int ) hb_parni(4),
+      ( int ) hb_parni(7),
+      ( int ) hb_parni(6),
+      ( int ) hb_parni(9),
+      ( int ) hb_parni(8)
    );
-   SelectObject( hdc1, hgdiobj1 );
-   DeleteObject( hpen );
-   ReleaseDC( hWnd1, hdc1 );
+   SelectObject(hdc1, hgdiobj1);
+   DeleteObject(hpen);
+   ReleaseDC(hWnd1, hdc1);
 }
 
 HB_FUNC( PIEDRAW )
@@ -313,39 +313,39 @@ HB_FUNC( PIEDRAW )
    HBRUSH   hbrush;
    LOGBRUSH br;
 
-   hWnd1    = ( HWND ) HB_PARNL( 1 );
-   hdc1     = GetDC( ( HWND ) hWnd1 );
-   hpen     = CreatePen( PS_SOLID, ( int ) hb_parni( 11 ), ( COLORREF ) RGB( ( int ) HB_PARNI( 10, 1 ), ( int ) HB_PARNI( 10, 2 ), ( int ) HB_PARNI( 10, 3 ) ) );
-   hgdiobj1 = SelectObject( hdc1, hpen );
-   if( hb_parl( 13 ) )
+   hWnd1    = ( HWND ) HB_PARNL(1);
+   hdc1     = GetDC(( HWND ) hWnd1);
+   hpen     = CreatePen(PS_SOLID, ( int ) hb_parni(11), ( COLORREF ) RGB(( int ) HB_PARNI( 10, 1 ), ( int ) HB_PARNI( 10, 2 ), ( int ) HB_PARNI( 10, 3 )));
+   hgdiobj1 = SelectObject(hdc1, hpen);
+   if( hb_parl(13) )
    {
-      hbrush   = CreateSolidBrush( ( COLORREF ) RGB( ( int ) HB_PARNI( 12, 1 ), ( int ) HB_PARNI( 12, 2 ), ( int ) HB_PARNI( 12, 3 ) ) );
-      hgdiobj2 = SelectObject( hdc1, hbrush );
+      hbrush   = CreateSolidBrush(( COLORREF ) RGB(( int ) HB_PARNI( 12, 1 ), ( int ) HB_PARNI( 12, 2 ), ( int ) HB_PARNI( 12, 3 )));
+      hgdiobj2 = SelectObject(hdc1, hbrush);
    }
    else
    {
       br.lbStyle = BS_HOLLOW;
-      hbrush     = CreateBrushIndirect( &br );
-      hgdiobj2   = SelectObject( hdc1, hbrush );
+      hbrush     = CreateBrushIndirect(&br);
+      hgdiobj2   = SelectObject(hdc1, hbrush);
    }
 
    Pie
    (
       hdc1,
-      ( int ) hb_parni( 3 ),
-      ( int ) hb_parni( 2 ),
-      ( int ) hb_parni( 5 ),
-      ( int ) hb_parni( 4 ),
-      ( int ) hb_parni( 7 ),
-      ( int ) hb_parni( 6 ),
-      ( int ) hb_parni( 9 ),
-      ( int ) hb_parni( 8 )
+      ( int ) hb_parni(3),
+      ( int ) hb_parni(2),
+      ( int ) hb_parni(5),
+      ( int ) hb_parni(4),
+      ( int ) hb_parni(7),
+      ( int ) hb_parni(6),
+      ( int ) hb_parni(9),
+      ( int ) hb_parni(8)
    );
-   SelectObject( hdc1, hgdiobj1 );
-   SelectObject( hdc1, hgdiobj2 );
-   DeleteObject( hpen );
-   DeleteObject( hbrush );
-   ReleaseDC( hWnd1, hdc1 );
+   SelectObject(hdc1, hgdiobj1);
+   SelectObject(hdc1, hgdiobj2);
+   DeleteObject(hpen);
+   DeleteObject(hbrush);
+   ReleaseDC(hWnd1, hdc1);
 }
 
 HB_FUNC( POLYGONDRAW )
@@ -360,20 +360,20 @@ HB_FUNC( POLYGONDRAW )
    int      number = ( int ) hb_parinfa( 2, 0 );
    int      i;
 
-   hWnd1    = ( HWND ) HB_PARNL( 1 );
-   hdc1     = GetDC( ( HWND ) hWnd1 );
-   hpen     = CreatePen( PS_SOLID, ( int ) hb_parni( 5 ), ( COLORREF ) RGB( ( int ) HB_PARNI( 4, 1 ), ( int ) HB_PARNI( 4, 2 ), ( int ) HB_PARNI( 4, 3 ) ) );
-   hgdiobj1 = SelectObject( hdc1, hpen );
-   if( hb_parl( 7 ) )
+   hWnd1    = ( HWND ) HB_PARNL(1);
+   hdc1     = GetDC(( HWND ) hWnd1);
+   hpen     = CreatePen(PS_SOLID, ( int ) hb_parni(5), ( COLORREF ) RGB(( int ) HB_PARNI( 4, 1 ), ( int ) HB_PARNI( 4, 2 ), ( int ) HB_PARNI( 4, 3 )));
+   hgdiobj1 = SelectObject(hdc1, hpen);
+   if( hb_parl(7) )
    {
-      hbrush   = CreateSolidBrush( ( COLORREF ) RGB( ( int ) HB_PARNI( 6, 1 ), ( int ) HB_PARNI( 6, 2 ), ( int ) HB_PARNI( 6, 3 ) ) );
-      hgdiobj2 = SelectObject( hdc1, hbrush );
+      hbrush   = CreateSolidBrush(( COLORREF ) RGB(( int ) HB_PARNI( 6, 1 ), ( int ) HB_PARNI( 6, 2 ), ( int ) HB_PARNI( 6, 3 )));
+      hgdiobj2 = SelectObject(hdc1, hbrush);
    }
    else
    {
       br.lbStyle = BS_HOLLOW;
-      hbrush     = CreateBrushIndirect( &br );
-      hgdiobj2   = SelectObject( hdc1, hbrush );
+      hbrush     = CreateBrushIndirect(&br);
+      hgdiobj2   = SelectObject(hdc1, hbrush);
    }
 
    for( i = 0; i <= number - 1; i++ )
@@ -383,11 +383,11 @@ HB_FUNC( POLYGONDRAW )
    }
 
    Polygon( hdc1, apoints, number );
-   SelectObject( hdc1, hgdiobj1 );
-   SelectObject( hdc1, hgdiobj2 );
-   DeleteObject( hpen );
-   DeleteObject( hbrush );
-   ReleaseDC( hWnd1, hdc1 );
+   SelectObject(hdc1, hgdiobj1);
+   SelectObject(hdc1, hgdiobj2);
+   DeleteObject(hpen);
+   DeleteObject(hbrush);
+   ReleaseDC(hWnd1, hdc1);
 }
 
 HB_FUNC( POLYBEZIERDRAW )
@@ -400,10 +400,10 @@ HB_FUNC( POLYBEZIERDRAW )
    DWORD   number = ( DWORD ) hb_parinfa( 2, 0 );
    DWORD   i;
 
-   hWnd1    = ( HWND ) HB_PARNL( 1 );
-   hdc1     = GetDC( ( HWND ) hWnd1 );
-   hpen     = CreatePen( PS_SOLID, ( int ) hb_parni( 5 ), ( COLORREF ) RGB( ( int ) HB_PARNI( 4, 1 ), ( int ) HB_PARNI( 4, 2 ), ( int ) HB_PARNI( 4, 3 ) ) );
-   hgdiobj1 = SelectObject( hdc1, hpen );
+   hWnd1    = ( HWND ) HB_PARNL(1);
+   hdc1     = GetDC(( HWND ) hWnd1);
+   hpen     = CreatePen(PS_SOLID, ( int ) hb_parni(5), ( COLORREF ) RGB(( int ) HB_PARNI( 4, 1 ), ( int ) HB_PARNI( 4, 2 ), ( int ) HB_PARNI( 4, 3 )));
+   hgdiobj1 = SelectObject(hdc1, hpen);
    for( i = 0; i <= number - 1; i++ )
    {
       apoints[ i ].x = HB_PARNI( 2, i + 1 );
@@ -411,72 +411,72 @@ HB_FUNC( POLYBEZIERDRAW )
    }
 
    PolyBezier( hdc1, apoints, number );
-   SelectObject( hdc1, hgdiobj1 );
-   DeleteObject( hpen );
-   ReleaseDC( hWnd1, hdc1 );
+   SelectObject(hdc1, hgdiobj1);
+   DeleteObject(hpen);
+   ReleaseDC(hWnd1, hdc1);
 }
 
 void WndDrawBox( HDC hDC, RECT * rct, HPEN hPUpLeft, HPEN hPBotRit )
 {
-   HPEN  hOldPen = ( HPEN ) SelectObject( hDC, hPUpLeft );
+   HPEN  hOldPen = ( HPEN ) SelectObject(hDC, hPUpLeft);
    POINT pt;
 
    MoveToEx( hDC, rct->left, rct->bottom, &pt );
 
    LineTo( hDC, rct->left, rct->top );
    LineTo( hDC, rct->right, rct->top );
-   SelectObject( hDC, hPBotRit );
+   SelectObject(hDC, hPBotRit);
 
    MoveToEx( hDC, rct->left, rct->bottom, &pt );
 
    LineTo( hDC, rct->right, rct->bottom );
    LineTo( hDC, rct->right, rct->top - 1 );
 
-   SelectObject( hDC, hOldPen );
+   SelectObject(hDC, hOldPen);
 }
 
 void WindowBoxIn( HDC hDC, RECT * pRect )
 {
-   HPEN hWhite = CreatePen( PS_SOLID, 1, GetSysColor( COLOR_BTNHIGHLIGHT ) );
-   HPEN hGray  = CreatePen( PS_SOLID, 1, GetSysColor( COLOR_BTNSHADOW ) );
+   HPEN hWhite = CreatePen(PS_SOLID, 1, GetSysColor(COLOR_BTNHIGHLIGHT));
+   HPEN hGray  = CreatePen(PS_SOLID, 1, GetSysColor(COLOR_BTNSHADOW));
 
    WndDrawBox( hDC, pRect, hGray, hWhite );
 
-   DeleteObject( hGray );
-   DeleteObject( hWhite );
+   DeleteObject(hGray);
+   DeleteObject(hWhite);
 }
 
 void WindowRaised( HDC hDC, RECT * pRect )
 {
-   HPEN hGray  = CreatePen( PS_SOLID, 1, GetSysColor( COLOR_BTNSHADOW ) );
-   HPEN hWhite = CreatePen( PS_SOLID, 1, GetSysColor( COLOR_BTNHIGHLIGHT ) );
+   HPEN hGray  = CreatePen(PS_SOLID, 1, GetSysColor(COLOR_BTNSHADOW));
+   HPEN hWhite = CreatePen(PS_SOLID, 1, GetSysColor(COLOR_BTNHIGHLIGHT));
 
    WndDrawBox( hDC, pRect, hWhite, hGray );
 
-   DeleteObject( hGray );
-   DeleteObject( hWhite );
+   DeleteObject(hGray);
+   DeleteObject(hWhite);
 }
 
 HB_FUNC( WNDBOXIN )
 {
    RECT rct;
 
-   rct.top    = hb_parni( 2 );
-   rct.left   = hb_parni( 3 );
-   rct.bottom = hb_parni( 4 );
-   rct.right  = hb_parni( 5 );
+   rct.top    = hb_parni(2);
+   rct.left   = hb_parni(3);
+   rct.bottom = hb_parni(4);
+   rct.right  = hb_parni(5);
 
-   WindowBoxIn( ( HDC ) HB_PARNL( 1 ), &rct );
+   WindowBoxIn( ( HDC ) HB_PARNL(1), &rct );
 }
 
 HB_FUNC( WNDBOXRAISED )
 {
    RECT rct;
 
-   rct.top    = hb_parni( 2 );
-   rct.left   = hb_parni( 3 );
-   rct.bottom = hb_parni( 4 );
-   rct.right  = hb_parni( 5 );
+   rct.top    = hb_parni(2);
+   rct.left   = hb_parni(3);
+   rct.bottom = hb_parni(4);
+   rct.right  = hb_parni(5);
 
-   WindowRaised( ( HDC ) HB_PARNL( 1 ), &rct );
+   WindowRaised( ( HDC ) HB_PARNL(1), &rct );
 }

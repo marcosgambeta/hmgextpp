@@ -531,8 +531,8 @@ STATIC PROCEDURE _DropDownShortcut ( nToolButtonId , nParentWindowHandle , i , n
 
       aSize := GetButtonBarRect ( _HMG_aControlHandles [i] , nButtonPos - 1 )
 
-      TrackPopupMenu ( _HMG_aControlRangeMax [x] , aPos [1] + LoWord( aSize ) , aPos [2] + HiWord( aSize ) + ;
-         iif( _HMG_ActiveSplitBoxInverted, 0, ( aPos [4] - aPos [2] - HiWord( aSize ) ) / 2 ), nParentWindowHandle )
+      TrackPopupMenu ( _HMG_aControlRangeMax [x] , aPos [1] + LoWord(aSize) , aPos [2] + HiWord(aSize) + ;
+         iif( _HMG_ActiveSplitBoxInverted, 0, ( aPos [4] - aPos [2] - HiWord(aSize) ) / 2 ), nParentWindowHandle )
 
       SendMessage( _HMG_aControlHandles [i] , TB_SETHOTITEM , -1 , 0 )
    ENDIF

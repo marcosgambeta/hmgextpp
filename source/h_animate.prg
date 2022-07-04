@@ -281,7 +281,7 @@ HB_FUNC( INITANIMATERES )
 
    INITCOMMONCONTROLSEX i;
 
-   i.dwSize = sizeof( INITCOMMONCONTROLSEX );
+   i.dwSize = sizeof(INITCOMMONCONTROLSEX);
    i.dwICC  = ICC_ANIMATE_CLASS;
    InitCommonControlsEx( &i );
 
@@ -307,7 +307,7 @@ HB_FUNC( INITANIMATERES )
                                    avi,                     // hInstance
                                    NULL );                  // User defined style
 
-   Animate_OpenEx( ( HWND ) AnimationCtrl, avi, MAKEINTRESOURCE( hb_parni( 8 ) ) );
+   Animate_OpenEx( ( HWND ) AnimationCtrl, avi, MAKEINTRESOURCE(hb_parni( 8 )) );
 
    HB_STORNL( ( LONG_PTR ) avi, 2 );
    HB_RETNL( ( LONG_PTR ) AnimationCtrl );

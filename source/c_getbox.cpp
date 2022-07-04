@@ -89,78 +89,78 @@ HB_FUNC( INITGETBOX )
    int  BtnWidth  = 0;
    int  BtnWidth2 = 0;
 
-   fBtns = hb_parl( 20 );
-   fBtn2 = hb_parl( 22 );
+   fBtns = hb_parl(20);
+   fBtn2 = hb_parl(22);
 
    // Get the handle of the parent window/form.
 
-   hwnd = ( HWND ) HB_PARNL( 1 );
+   hwnd = ( HWND ) HB_PARNL(1);
    if( fBtns )
    {
-      BtnWidth  = ( HB_ISNIL( 19 ) ? 0 : ( int ) hb_parni( 19 ) );
+      BtnWidth  = ( HB_ISNIL(19) ? 0 : ( int ) hb_parni(19) );
       BtnWidth  = ( BtnWidth >= GetSystemMetrics( SM_CYSIZE ) ? BtnWidth : GetSystemMetrics( SM_CYSIZE ) );
       BtnWidth2 = ( fBtn2 ? BtnWidth : 0 );
    }
    iStyle = WS_CHILD | ES_AUTOHSCROLL | WS_CLIPCHILDREN;
 
-   if( hb_parl( 12 ) )  // if <lNumeric> is TRUE, then ES_NUMBER style is added.
+   if( hb_parl(12) )  // if <lNumeric> is TRUE, then ES_NUMBER style is added.
       iStyle = iStyle | ES_NUMBER;
 
    // Set to a numeric TEXTBOX, so don't worry about other "textual" styles.
 
    else
    {
-      if( hb_parl( 10 ) ) // if <lUpper> is TRUE, then ES_UPPERCASE style is added.
+      if( hb_parl(10) ) // if <lUpper> is TRUE, then ES_UPPERCASE style is added.
          iStyle = iStyle | ES_UPPERCASE;
 
-      if( hb_parl( 11 ) ) // if <lLower> is TRUE, then ES_LOWERCASE style is added.
+      if( hb_parl(11) ) // if <lLower> is TRUE, then ES_LOWERCASE style is added.
          iStyle = iStyle | ES_LOWERCASE;
    }
 
-   if( hb_parl( 13 ) )  // if <lPassword> is TRUE, then ES_PASSWORD style is added.
+   if( hb_parl(13) )  // if <lPassword> is TRUE, then ES_PASSWORD style is added.
       iStyle = iStyle | ES_PASSWORD;
 
-   if( hb_parl( 14 ) )
+   if( hb_parl(14) )
       iStyle = iStyle | ES_RIGHT;
 
-   if( hb_parl( 15 ) )
+   if( hb_parl(15) )
       iStyle = iStyle | ES_READONLY;
 
-   if( ! hb_parl( 16 ) )
+   if( ! hb_parl(16) )
       iStyle = iStyle | WS_VISIBLE;
 
-   if( ! hb_parl( 17 ) )
+   if( ! hb_parl(17) )
       iStyle = iStyle | WS_TABSTOP;
 
    // Creates the child control.
 
    hedit = CreateWindowEx
            (
-      hb_parl( 23 ) ? 0 : WS_EX_CLIENTEDGE,
+      hb_parl(23) ? 0 : WS_EX_CLIENTEDGE,
       WC_EDIT,
-      TEXT( "" ),
+      TEXT(""),
       iStyle,
-      hb_parni( 3 ),
-      hb_parni( 4 ),
-      hb_parni( 5 ),
-      hb_parni( 6 ),
+      hb_parni(3),
+      hb_parni(4),
+      hb_parni(5),
+      hb_parni(6),
       ( HWND ) hwnd,
       ( HMENU ) NULL,
       GetInstance(),
       NULL
            );
 
-   SetProp( ( HWND ) hedit, TEXT( "OldWndProc" ), ( HWND ) GetWindowLongPtr( ( HWND ) hedit, GWLP_WNDPROC ) );
-   SetWindowLongPtr( hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnGetProc );
+   SetProp( ( HWND ) hedit, TEXT("OldWndProc"), ( HWND ) GetWindowLongPtr(( HWND ) hedit, GWLP_WNDPROC) );
+   SetWindowLongPtr(hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnGetProc);
 
-   SendMessage( hedit, ( UINT ) EM_LIMITTEXT, ( WPARAM ) hb_parni( 9 ), ( LPARAM ) 0 );
+   SendMessage( hedit, ( UINT ) EM_LIMITTEXT, ( WPARAM ) hb_parni(9), ( LPARAM ) 0 );
 
-   if( hb_parc( 18 ) != NULL )
+   if( hb_parc(18) != NULL )
    {
 #ifndef UNICODE
-      LPCSTR lpImageName = hb_parc( 18 );
+      LPCSTR lpImageName = hb_parc(18);
 #else
-      LPWSTR lpImageName = AnsiToWide( ( char * ) hb_parc( 18 ) );
+      LPWSTR lpImageName = AnsiToWide( ( char * ) hb_parc(18) );
 #endif
       himage = ( HWND ) LoadImage( GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
 
@@ -170,10 +170,10 @@ HB_FUNC( INITGETBOX )
       if( himage != NULL )
       {
          BITMAP bm;
-         GetObject( himage, sizeof( BITMAP ), &bm );
-         if( bm.bmWidth > BtnWidth - 4 || bm.bmHeight > hb_parni( 6 ) - 5 )
+         GetObject(himage, sizeof(BITMAP), &bm);
+         if( bm.bmWidth > BtnWidth - 4 || bm.bmHeight > hb_parni(6) - 5 )
          {
-            DeleteObject( himage );
+            DeleteObject(himage);
             himage = ( HWND ) LoadImage( GetResources(), lpImageName, IMAGE_BITMAP, BtnWidth - 4, hb_parni(
                                             6 ) - 6, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
             if( himage == NULL )
@@ -182,18 +182,18 @@ HB_FUNC( INITGETBOX )
          }
       }
 #ifdef UNICODE
-      hb_xfree( lpImageName );
+      hb_xfree(lpImageName);
 #endif
    }
    else
       himage = NULL;
 
-   if( hb_parc( 21 ) != NULL )
+   if( hb_parc(21) != NULL )
    {
 #ifndef UNICODE
-      LPCSTR lpImageName2 = hb_parc( 21 );
+      LPCSTR lpImageName2 = hb_parc(21);
 #else
-      LPWSTR lpImageName2 = AnsiToWide( ( char * ) hb_parc( 21 ) );
+      LPWSTR lpImageName2 = AnsiToWide( ( char * ) hb_parc(21) );
 #endif
       himage2 = ( HWND ) LoadImage( GetResources(), lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
 
@@ -203,10 +203,10 @@ HB_FUNC( INITGETBOX )
       if( himage2 != NULL )
       {
          BITMAP bm;
-         GetObject( himage2, sizeof( BITMAP ), &bm );
-         if( bm.bmWidth > BtnWidth2 - 4 || bm.bmHeight > hb_parni( 6 ) - 5 )
+         GetObject(himage2, sizeof(BITMAP), &bm);
+         if( bm.bmWidth > BtnWidth2 - 4 || bm.bmHeight > hb_parni(6) - 5 )
          {
-            DeleteObject( himage2 );
+            DeleteObject(himage2);
             himage2 = ( HWND ) LoadImage( GetResources(), lpImageName2, IMAGE_BITMAP, BtnWidth2 - 4, hb_parni(
                                              6 ) - 6, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
 
@@ -216,7 +216,7 @@ HB_FUNC( INITGETBOX )
          }
       }
 #ifdef UNICODE
-      hb_xfree( lpImageName2 );
+      hb_xfree(lpImageName2);
 #endif
    }
    else
@@ -235,12 +235,12 @@ HB_FUNC( INITGETBOX )
    if( fBtns )
       hBtn1 = CreateWindow
                  ( WC_BUTTON,
-                 TEXT( "..." ),
+                 TEXT("..."),
                  ibtnStyle1,
-                 hb_parni( 5 ) - BtnWidth - 3,
+                 hb_parni(5) - BtnWidth - 3,
                  -1,
                  BtnWidth,
-                 hb_parni( 6 ) - 2,
+                 hb_parni(6) - 2,
                  ( HWND ) hedit,
                  ( HMENU ) GBB1,
                  GetInstance(),
@@ -252,12 +252,12 @@ HB_FUNC( INITGETBOX )
    if( fBtn2 )
       hBtn2 = CreateWindow
                  ( WC_BUTTON,
-                 TEXT( "..." ),
+                 TEXT("..."),
                  ibtnStyle2,
-                 hb_parni( 5 ) - BtnWidth - BtnWidth2 - 3,
+                 hb_parni(5) - BtnWidth - BtnWidth2 - 3,
                  -1,
                  BtnWidth,
-                 hb_parni( 6 ) - 2,
+                 hb_parni(6) - 2,
                  ( HWND ) hedit,
                  ( HMENU ) GBB2,
                  GetInstance(),
@@ -274,7 +274,7 @@ HB_FUNC( INITGETBOX )
 
    SendMessage( hedit, EM_SETMARGINS, EC_LEFTMARGIN | EC_RIGHTMARGIN, MAKELONG( 0, BtnWidth + BtnWidth2 + 2 ) );
 
-   hb_reta( 5 );
+   hb_reta(5);
    HB_STORVNL( ( LONG_PTR ) hedit, -1, 1 );
    HB_STORVNL( ( LONG_PTR ) hBtn1, -1, 2 );
    HB_STORVNL( ( LONG_PTR ) hBtn2, -1, 3 );
@@ -284,46 +284,46 @@ HB_FUNC( INITGETBOX )
 
 HB_FUNC( CHECKBIT )
 {
-   hb_retl( hb_parnl( 1 ) & ( 1 << ( hb_parni( 2 ) - 1 ) ) );
+   hb_retl( hb_parnl(1) & ( 1 << ( hb_parni(2) - 1 ) ) );
 }
 
 HB_FUNC( GETTEXTHEIGHT )               // returns the height of a string in pixels
 {
-   HDC   hDC        = ( HDC ) HB_PARNL( 1 );
+   HDC   hDC        = ( HDC ) HB_PARNL(1);
    HWND  hWnd       = ( HWND ) NULL;
    BOOL  bDestroyDC = FALSE;
-   HFONT hFont      = ( HFONT ) HB_PARNL( 3 );
+   HFONT hFont      = ( HFONT ) HB_PARNL(3);
    HFONT hOldFont   = ( HFONT ) NULL;
    SIZE  sz;
 
 #ifndef UNICODE
-   LPCSTR lpString = hb_parc( 2 );
+   LPCSTR lpString = hb_parc(2);
 #else
-   LPCWSTR lpString = AnsiToWide( ( char * ) hb_parc( 2 ) );
+   LPCWSTR lpString = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
 
    if( ! hDC )
    {
       bDestroyDC = TRUE;
       hWnd       = GetActiveWindow();
-      hDC        = GetDC( hWnd );
+      hDC        = GetDC(hWnd);
    }
 
    if( hFont )
-      hOldFont = ( HFONT ) SelectObject( hDC, hFont );
+      hOldFont = ( HFONT ) SelectObject(hDC, hFont);
 
    GetTextExtentPoint32( hDC, lpString, ( int ) lstrlen( lpString ), &sz );
 
    if( hFont )
-      SelectObject( hDC, hOldFont );
+      SelectObject(hDC, hOldFont);
 
    if( bDestroyDC )
-      ReleaseDC( hWnd, hDC );
+      ReleaseDC(hWnd, hDC);
 
    hb_retni( sz.cy );
 
 #ifdef UNICODE
-   hb_xfree( ( TCHAR * ) lpString );
+   hb_xfree(( TCHAR * ) lpString);
 #endif
 }
 
@@ -333,7 +333,7 @@ LRESULT CALLBACK OwnGetProc( HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam )
    long int        r;
    WNDPROC         OldWndProc;
 
-   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp( hwnd, TEXT( "OldWndProc" ) );
+   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp( hwnd, TEXT("OldWndProc") );
    switch( Msg )
    {
       case WM_NCDESTROY:
@@ -354,7 +354,7 @@ LRESULT CALLBACK OwnGetProc( HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam )
             hb_vmPushLong( Msg );
             hb_vmPushNumInt( wParam );
             hb_vmPushNumInt( lParam );
-            hb_vmDo( 4 );
+            hb_vmDo(4);
          }
 
          r = hb_parnl( -1 );
@@ -375,7 +375,7 @@ LRESULT CALLBACK OwnGetProc( HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam )
             hb_vmPushLong( Msg );
             hb_vmPushNumInt( wParam );
             hb_vmPushNumInt( lParam );
-            hb_vmDo( 4 );
+            hb_vmDo(4);
          }
 
          r = hb_parnl( -1 );
@@ -397,7 +397,7 @@ LRESULT CALLBACK OwnGetProc( HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam )
             hb_vmPushLong( Msg );
             hb_vmPushNumInt( wParam );
             hb_vmPushNumInt( lParam );
-            hb_vmDo( 4 );
+            hb_vmDo(4);
          }
 
          r = hb_parnl( -1 );
@@ -418,7 +418,7 @@ LRESULT CALLBACK OwnGetProc( HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam )
             hb_vmPushLong( Msg );
             hb_vmPushNumInt( wParam );
             hb_vmPushNumInt( lParam );
-            hb_vmDo( 4 );
+            hb_vmDo(4);
          }
 
          r = hb_parnl( -1 );
@@ -442,7 +442,7 @@ LRESULT CALLBACK OwnGetProc( HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam )
             hb_vmPushLong( Msg );
             hb_vmPushNumInt( wParam );
             hb_vmPushNumInt( lParam );
-            hb_vmDo( 4 );
+            hb_vmDo(4);
          }
 
          r = hb_parnl( -1 );
@@ -466,7 +466,7 @@ LRESULT CALLBACK OwnGetProc( HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam )
             hb_vmPushLong( Msg );
             hb_vmPushNumInt( wParam );
             hb_vmPushNumInt( lParam );
-            hb_vmDo( 4 );
+            hb_vmDo(4);
          }
 
          r = hb_parnl( -1 );
@@ -488,7 +488,7 @@ LRESULT CALLBACK OwnGetProc( HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam )
             hb_vmPushLong( Msg );
             hb_vmPushNumInt( wParam );
             hb_vmPushNumInt( lParam );
-            hb_vmDo( 4 );
+            hb_vmDo(4);
          }
 
          r = hb_parnl( -1 );
@@ -499,7 +499,7 @@ LRESULT CALLBACK OwnGetProc( HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam )
             return DefWindowProc( hwnd, Msg, wParam, lParam );
 
       case WM_COMMAND:
-         if( lParam != 0 && HIWORD( wParam ) == BN_CLICKED )
+         if( lParam != 0 && HIWORD(wParam) == BN_CLICKED )
          {
             if( ! pSymbol )
                pSymbol = hb_dynsymSymbol( hb_dynsymGet( "OGETEVENTS" ) );
@@ -512,7 +512,7 @@ LRESULT CALLBACK OwnGetProc( HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam )
                hb_vmPushLong( Msg );
                hb_vmPushNumInt( wParam );
                hb_vmPushNumInt( lParam );
-               hb_vmDo( 4 );
+               hb_vmDo(4);
             }
 
             r = hb_parnl( -1 );

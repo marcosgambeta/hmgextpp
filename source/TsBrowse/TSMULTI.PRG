@@ -223,7 +223,7 @@ METHOD LostFocus( hCtlFocus ) CLASS TSMulti
 
    ::lFocused := .F.
 
-   ::nPos := LoWord( ::SendMsg( EM_GETSEL ) )
+   ::nPos := LoWord(::SendMsg( EM_GETSEL ))
    IF ::bLostFocus != NIL
       Eval( ::bLostFocus, ::nLastKey, hCtlFocus )
    ENDIF
@@ -238,20 +238,20 @@ METHOD Command( nWParam, nLParam ) CLASS TSMulti
 
    LOCAL nNotifyCode, hWndCtl
 
-   nNotifyCode := HiWord( nWParam )
-// nID   := LoWord( nWParam )
+   nNotifyCode := HiWord(nWParam)
+// nID   := LoWord(nWParam)
    hWndCtl := nLParam
 
    DO CASE
    CASE hWndCtl == 0
 
       * Enter ..........................................
-      IF HiWord( nWParam ) == 0 .AND. LoWord( nWParam ) == 1
+      IF HiWord(nWParam) == 0 .AND. LoWord(nWParam) == 1
          ::KeyDown( VK_RETURN, 0 )
       ENDIF
 
       * Escape .........................................
-      IF HiWord( nwParam ) == 0 .AND. LoWord( nwParam ) == 2
+      IF HiWord(nwParam) == 0 .AND. LoWord(nwParam) == 2
          ::KeyDown( VK_ESCAPE, 0 )
       ENDIF
 

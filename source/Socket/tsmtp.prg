@@ -595,7 +595,7 @@ HB_FUNC_STATIC( MEMOREAD )
          {
             BYTE * pbyBuffer;
 
-            pbyBuffer = ( BYTE * ) hb_xgrab( ulSize + sizeof( char ) );
+            pbyBuffer = ( BYTE * ) hb_xgrab(ulSize + sizeof(char));
 
             hb_fsSeek( fhnd, 0, FS_SET );
             hb_fsReadLarge( fhnd, pbyBuffer, ulSize );

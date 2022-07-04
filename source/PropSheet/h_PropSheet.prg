@@ -875,33 +875,33 @@ FUNCTION PageDlgProc( hwndParent, hwndDlg, nMsg, wParam, lParam )
       i := AScan ( _HMG_aFormhandles, hwndParent )  // find PropSheetProcedure
       IF i > 0
          IF ValType( _HMG_aFormClickProcedure[ i ] ) == 'B' .AND. _HMG_aFormType[ i ] == 'S'
-            IF ( lRet := RetValue( Eval( _HMG_aFormClickProcedure[ i ], hwndDlg, nMsg, LOWORD( wParam ), HIWORD( wParam ) ), lRet ) )
+            IF ( lRet := RetValue( Eval( _HMG_aFormClickProcedure[ i ], hwndDlg, nMsg, LOWORD(wParam), HIWORD(wParam) ), lRet ) )
                PropSheet_Changed( hWndParent, hWndDlg )
                IF nPage > -1 .AND. nPage + 1 <= Len( _HMG_aPropSheetPages )
                   _HMG_aPropSheetPages[ nPage + 1, 6 ] := .T.
                ENDIF
             ENDIF
          ELSE
-            ControlHandle := GetDialogITemHandle( hwndDlg, LOWORD( wParam ) )
+            ControlHandle := GetDialogITemHandle( hwndDlg, LOWORD(wParam) )
             Events( hwndDlg, nMsg, wParam, ControlHandle )
             lRet := TRUE
          ENDIF
       ELSE
          IF ValType( _HMG_PropSheetProcedure ) == 'B'
-            IF ( lRet := RetValue( Eval(  _HMG_PropSheetProcedure, hwndDlg, nMsg, LOWORD( wParam ), HIWORD( wParam ) ), lRet ) )
+            IF ( lRet := RetValue( Eval(  _HMG_PropSheetProcedure, hwndDlg, nMsg, LOWORD(wParam), HIWORD(wParam) ), lRet ) )
                PropSheet_Changed( hWndParent, hWndDlg )
                IF nPage > -1 .AND. nPage + 1 <= Len( _HMG_aPropSheetPages )
                   _HMG_aPropSheetPages[ nPage + 1, 6 ] := .T.
                ENDIF
             ENDIF
          ELSE
-            ControlHandle := GetDialogITemHandle( hwndDlg, LOWORD( wParam ) )
+            ControlHandle := GetDialogITemHandle( hwndDlg, LOWORD(wParam) )
             Events( hwndDlg, nMsg, wParam, ControlHandle )
             lRet := TRUE
          ENDIF
       ENDIF
       IF lRet == FALSE
-         ControlHandle := GetDialogITemHandle( hwndDlg, LOWORD( wParam ) )
+         ControlHandle := GetDialogITemHandle( hwndDlg, LOWORD(wParam) )
          Events( hwndDlg, nMsg, wParam, ControlHandle )
          lRet := TRUE
       ENDIF
@@ -953,7 +953,7 @@ FUNCTION PageDlgProc( hwndParent, hwndDlg, nMsg, wParam, lParam )
          ENDIF
       END
    OTHERWISE
-      ControlHandle := GetDialogITemHandle( hwndDlg, LOWORD( wParam ) )
+      ControlHandle := GetDialogITemHandle( hwndDlg, LOWORD(wParam) )
       Events( hwndDlg, nMsg, wParam, ControlHandle )
       lRet := TRUE                                                         // end
    ENDCASE

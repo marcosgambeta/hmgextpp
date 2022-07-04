@@ -64,7 +64,7 @@ HB_FUNC( INITMESSAGEBAR )
    int  ptArray[ 40 ];  // Array defining the number of parts/sections
    int  nrOfParts = 1;
 
-   hWndSB = CreateStatusWindow( WS_CHILD | WS_VISIBLE | SBT_TOOLTIPS, NULL, ( HWND ) HB_PARNL( 1 ), hb_parni( 2 ) );
+   hWndSB = CreateStatusWindow(WS_CHILD | WS_VISIBLE | SBT_TOOLTIPS, NULL, ( HWND ) HB_PARNL(1), hb_parni(2));
 
    if( hWndSB )
       SendMessage( hWndSB, SB_SETPARTS, ( WPARAM ) nrOfParts, ( LPARAM ) ( LPINT ) ptArray );
@@ -88,19 +88,19 @@ HB_FUNC( INITITEMBAR )
    int   cy;
 
 #ifndef UNICODE
-   LPCSTR lpText     = hb_parc( 2 );
-   LPCSTR lpIconName = hb_parc( 6 );
-   LPCSTR lpTipText  = hb_parc( 7 );
+   LPCSTR lpText     = hb_parc(2);
+   LPCSTR lpIconName = hb_parc(6);
+   LPCSTR lpTipText  = hb_parc(7);
 #else
-   LPWSTR lpText     = AnsiToWide( ( char * ) hb_parc( 2 ) );
-   LPWSTR lpIconName = AnsiToWide( ( char * ) hb_parc( 6 ) );
-   LPWSTR lpTipText  = AnsiToWide( ( char * ) hb_parc( 7 ) );
+   LPWSTR lpText     = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR lpIconName = AnsiToWide( ( char * ) hb_parc(6) );
+   LPWSTR lpTipText  = AnsiToWide( ( char * ) hb_parc(7) );
 #endif
 
-   hWndSB = ( HWND ) HB_PARNL( 1 );
+   hWndSB = ( HWND ) HB_PARNL(1);
    Style  = GetWindowLong( ( HWND ) GetParent( hWndSB ), GWL_STYLE );
 
-   switch( hb_parni( 8 ) )
+   switch( hb_parni(8) )
    {
       case 0:  displayFlags = 0; break;
       case 1:  displayFlags = SBT_POPOUT; break;
@@ -108,7 +108,7 @@ HB_FUNC( INITITEMBAR )
       default: displayFlags = 0;
    }
 
-   if( hb_parnl( 5 ) )
+   if( hb_parnl(5) )
    {
       nrOfParts = ( int ) SendMessage( hWndSB, SB_GETPARTS, 40, 0 );
       SendMessage( hWndSB, SB_GETPARTS, ( WPARAM ) 40, ( LPARAM ) ( LPINT ) ptArray );
@@ -116,15 +116,15 @@ HB_FUNC( INITITEMBAR )
 
    nrOfParts++;
 
-   hDC = GetDC( hWndSB );
-   GetClientRect( hWndSB, &rect );
+   hDC = GetDC(hWndSB);
+   GetClientRect(hWndSB, &rect);
 
-   if( hb_parnl( 5 ) == 0 )
+   if( hb_parnl(5) == 0 )
       ptArray[ nrOfParts - 1 ] = rect.right;
    else
    {
       for( n = 0; n < nrOfParts - 1; n++ )
-         ptArray[ n ] -= hb_parni( 4 ) - cSpaceInBetween;
+         ptArray[ n ] -= hb_parni(4) - cSpaceInBetween;
 
       if( Style & WS_SIZEBOX )
       {
@@ -137,7 +137,7 @@ HB_FUNC( INITITEMBAR )
          ptArray[ nrOfParts - 1 ] = rect.right;
    }
 
-   ReleaseDC( hWndSB, hDC );
+   ReleaseDC(hWndSB, hDC);
 
    SendMessage( hWndSB, SB_SETPARTS, ( WPARAM ) nrOfParts, ( LPARAM ) ( LPINT ) ptArray );
 
@@ -158,29 +158,29 @@ HB_FUNC( INITITEMBAR )
    hb_retni( nrOfParts );
 
 #ifdef UNICODE
-   hb_xfree( ( TCHAR * ) lpText );
-   hb_xfree( ( TCHAR * ) lpIconName );
-   hb_xfree( ( TCHAR * ) lpTipText );
+   hb_xfree(( TCHAR * ) lpText);
+   hb_xfree(( TCHAR * ) lpIconName);
+   hb_xfree(( TCHAR * ) lpTipText);
 #endif
 }
 
 HB_FUNC( SETITEMBAR )
 {
-   HWND hWnd = ( HWND ) HB_PARNL( 1 );
-   int  iPos = hb_parni( 3 );
+   HWND hWnd = ( HWND ) HB_PARNL(1);
+   int  iPos = hb_parni(3);
    WORD nFlags;
 
 #ifndef UNICODE
-   LPCSTR lpText = hb_parc( 2 );
+   LPCSTR lpText = hb_parc(2);
 #else
-   LPWSTR lpText = AnsiToWide( ( char * ) hb_parc( 2 ) );
+   LPWSTR lpText = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
 
-   nFlags = HIWORD( SendMessage( hWnd, SB_GETTEXTLENGTH, ( WPARAM ) iPos, 0 ) );
+   nFlags = HIWORD(SendMessage( hWnd, SB_GETTEXTLENGTH, ( WPARAM ) iPos, 0 ));
    SendMessage( hWnd, SB_SETTEXT, ( WPARAM ) ( iPos | nFlags ), ( LPARAM ) lpText );
 
 #ifdef UNICODE
-   hb_xfree( ( TCHAR * ) lpText );
+   hb_xfree(( TCHAR * ) lpText);
 #endif
 }
 
@@ -189,11 +189,11 @@ HB_FUNC( GETITEMBAR )
 #ifdef UNICODE
    LPSTR pStr;
 #endif
-   HWND    hWnd = ( HWND ) HB_PARNL( 1 );
-   int     iPos = hb_parni( 2 );
+   HWND    hWnd = ( HWND ) HB_PARNL(1);
+   int     iPos = hb_parni(2);
    TCHAR * cString;
 
-   cString = ( TCHAR * ) hb_xgrab( ( LOWORD( SendMessage( hWnd, SB_GETTEXTLENGTH, ( WPARAM ) iPos - 1, 0 ) ) + 1 ) * sizeof( TCHAR ) );
+   cString = ( TCHAR * ) hb_xgrab((LOWORD(SendMessage(hWnd, SB_GETTEXTLENGTH, ( WPARAM ) iPos - 1, 0)) + 1) * sizeof(TCHAR));
    SendMessage( hWnd, SB_GETTEXT, ( WPARAM ) iPos - 1, ( LPARAM ) cString );
 
 #ifndef UNICODE
@@ -201,9 +201,9 @@ HB_FUNC( GETITEMBAR )
 #else
    pStr = WideToAnsi( cString );
    hb_retc( pStr );
-   hb_xfree( pStr );
+   hb_xfree(pStr);
 #endif
-   hb_xfree( cString );
+   hb_xfree(cString);
 }
 
 HB_FUNC( REFRESHITEMBAR )
@@ -217,13 +217,13 @@ HB_FUNC( REFRESHITEMBAR )
    HDC  hDC;
    int  size;
 
-   hWndSB    = ( HWND ) HB_PARNL( 1 );
-   size      = hb_parni( 2 );
+   hWndSB    = ( HWND ) HB_PARNL(1);
+   size      = hb_parni(2);
    nrOfParts = ( int ) SendMessage( hWndSB, SB_GETPARTS, 40, 0 );
    SendMessage( hWndSB, SB_GETPARTS, ( WPARAM ) 40, ( LPARAM ) ( LPINT ) ptArray );
 
-   hDC = GetDC( hWndSB );
-   GetClientRect( hWndSB, &rect );
+   hDC = GetDC(hWndSB);
+   GetClientRect(hWndSB, &rect);
 
    if( ( nrOfParts == 1 ) || ( IsZoomed( GetParent( hWndSB ) ) ) || ( ! ( GetWindowLong( ( HWND ) GetParent( hWndSB ), GWL_STYLE ) & WS_SIZEBOX ) ) )
       nDev = rect.right - ptArray[ nrOfParts - 1 ];
@@ -252,7 +252,7 @@ HB_FUNC( REFRESHITEMBAR )
 
       }
 
-   ReleaseDC( hWndSB, hDC );
+   ReleaseDC(hWndSB, hDC);
 
    SendMessage( hWndSB, SB_SETPARTS, ( WPARAM ) nrOfParts, ( LPARAM ) ( LPINT ) ptArray );
    hb_retni( nrOfParts );
@@ -261,21 +261,21 @@ HB_FUNC( REFRESHITEMBAR )
 HB_FUNC( KEYTOGGLE )
 {
    BYTE pBuffer[ 256 ];
-   WORD wKey = ( WORD ) hb_parni( 1 );
+   WORD wKey = ( WORD ) hb_parni(1);
 
-   GetKeyboardState( pBuffer );
+   GetKeyboardState(pBuffer);
 
    if( pBuffer[ wKey ] & 0x01 )
       pBuffer[ wKey ] &= 0xFE;
    else
       pBuffer[ wKey ] |= 0x01;
 
-   SetKeyboardState( pBuffer );
+   SetKeyboardState(pBuffer);
 }
 
 HB_FUNC( KEYTOGGLENT )
 {
-   BYTE wKey = ( BYTE ) hb_parni( 1 );
+   BYTE wKey = ( BYTE ) hb_parni(1);
 
    keybd_event( wKey, 0x45, KEYEVENTF_EXTENDEDKEY | 0, 0 );
    keybd_event( wKey, 0x45, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0 );
@@ -290,18 +290,18 @@ HB_FUNC( SETSTATUSITEMICON )
    int   cy;
 
 #ifndef UNICODE
-   LPCSTR lpIconName = hb_parc( 3 );
+   LPCSTR lpIconName = hb_parc(3);
 #else
-   LPWSTR lpIconName = AnsiToWide( ( char * ) hb_parc( 3 ) );
+   LPWSTR lpIconName = AnsiToWide( ( char * ) hb_parc(3) );
 #endif
 
-   hwnd = ( HWND ) HB_PARNL( 1 );
+   hwnd = ( HWND ) HB_PARNL(1);
 
    // Unloads from memory current icon
 
-   DestroyIcon( ( HICON ) SendMessage( hwnd, SB_GETICON, ( WPARAM ) hb_parni( 2 ) - 1, ( LPARAM ) 0 ) );
+   DestroyIcon(( HICON ) SendMessage( hwnd, SB_GETICON, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) 0 ));
 
-   GetClientRect( hwnd, &rect );
+   GetClientRect(hwnd, &rect);
 
    cy = rect.bottom - rect.top - 4;
    cx = cy;
@@ -311,10 +311,10 @@ HB_FUNC( SETSTATUSITEMICON )
    if( hIcon == NULL )
       hIcon = ( HICON ) LoadImage( NULL, lpIconName, IMAGE_ICON, cx, cy, LR_LOADFROMFILE );
 
-   SendMessage( hwnd, SB_SETICON, ( WPARAM ) hb_parni( 2 ) - 1, ( LPARAM ) hIcon );
+   SendMessage( hwnd, SB_SETICON, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) hIcon );
 
 #ifdef UNICODE
-   hb_xfree( ( TCHAR * ) lpIconName );
+   hb_xfree(( TCHAR * ) lpIconName);
 #endif
 }
 
@@ -323,15 +323,15 @@ HB_FUNC( SETSTATUSBARSIZE )
    HLOCAL hloc;
    LPINT  lpParts;
 
-   HWND hwndStatus = ( HWND ) HB_PARNL( 1 );
+   HWND hwndStatus = ( HWND ) HB_PARNL(1);
    int  nParts     = ( int ) hb_parinfa( 2, 0 );
    int  nWidth;
    int  i;
 
    // Set Widths from array
 
-   hloc    = LocalAlloc( LHND, sizeof( int ) * nParts );
-   lpParts = ( LPINT ) LocalLock( hloc );
+   hloc    = LocalAlloc( LHND, sizeof(int) * nParts );
+   lpParts = ( LPINT ) LocalLock(hloc);
 
    nWidth = 0;
 
@@ -343,30 +343,30 @@ HB_FUNC( SETSTATUSBARSIZE )
 
    SendMessage( hwndStatus, SB_SETPARTS, ( WPARAM ) nParts, ( LPARAM ) lpParts );
 
-   MoveWindow( hwndStatus, 0, 0, 0, 0, TRUE );
+   MoveWindow(hwndStatus, 0, 0, 0, 0, TRUE);
 
-   LocalUnlock( hloc );
-   LocalFree( hloc );
+   LocalUnlock(hloc);
+   LocalFree(hloc);
 }
 
 HB_FUNC( REFRESHPROGRESSITEM )       // RefreshProgressItem( HwndStatus, NrItem, hProgress )
 {
-   HWND hwndStatus = ( HWND ) HB_PARNL( 1 );
+   HWND hwndStatus = ( HWND ) HB_PARNL(1);
    RECT rc;
 
-   SendMessage( hwndStatus, SB_GETRECT, ( WPARAM ) hb_parni( 2 ) - 1, ( LPARAM ) &rc );
-   SetWindowPos( ( HWND ) HB_PARNL( 3 ), 0, rc.left, rc.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE );
+   SendMessage( hwndStatus, SB_GETRECT, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) &rc );
+   SetWindowPos(( HWND ) HB_PARNL(3), 0, rc.left, rc.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
 }
 
 HB_FUNC( CREATEPROGRESSBARITEM )     // CreateProgressBarItem( HwndStatus, NrItem )
 {
-   HWND hwndStatus = ( HWND ) HB_PARNL( 1 );
+   HWND hwndStatus = ( HWND ) HB_PARNL(1);
    HWND hwndProgressBar;
    RECT rc;
    int  Style = WS_CHILD | PBS_SMOOTH;
 
-   SendMessage( hwndStatus, SB_GETRECT, ( WPARAM ) hb_parni( 2 ) - 1, ( LPARAM ) &rc );
-   if( hb_parni( 3 ) )
+   SendMessage( hwndStatus, SB_GETRECT, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) &rc );
+   if( hb_parni(3) )
       Style = Style | WS_VISIBLE;
 
    if
@@ -390,8 +390,8 @@ HB_FUNC( CREATEPROGRESSBARITEM )     // CreateProgressBarItem( HwndStatus, NrIte
       ) != NULL
    )
    {
-      SendMessage( hwndProgressBar, PBM_SETRANGE, 0, MAKELONG( hb_parni( 4 ), hb_parni( 5 ) ) );
-      SendMessage( hwndProgressBar, PBM_SETPOS, ( WPARAM ) hb_parni( 3 ), 0 );
+      SendMessage( hwndProgressBar, PBM_SETRANGE, 0, MAKELONG( hb_parni(4), hb_parni(5) ) );
+      SendMessage( hwndProgressBar, PBM_SETPOS, ( WPARAM ) hb_parni(3), 0 );
 
       HB_RETNL( ( LONG_PTR ) hwndProgressBar );
    }
@@ -403,8 +403,8 @@ HB_FUNC( CREATEPROGRESSBARITEM )     // CreateProgressBarItem( HwndStatus, NrIte
 
 HB_FUNC( SETPOSPROGRESSBARITEM )     // SetPosProgressBarItem( HwndProgressBar, nPos )
 {
-   HWND hwndProgressBar = ( HWND ) HB_PARNL( 1 );
+   HWND hwndProgressBar = ( HWND ) HB_PARNL(1);
 
-   ShowWindow(  hwndProgressBar, hb_parni( 2 ) ? SW_SHOW : SW_HIDE );
-   SendMessage( hwndProgressBar, PBM_SETPOS, ( WPARAM ) hb_parni( 2 ), 0 );
+   ShowWindow(hwndProgressBar, hb_parni(2) ? SW_SHOW : SW_HIDE);
+   SendMessage( hwndProgressBar, PBM_SETPOS, ( WPARAM ) hb_parni(2), 0 );
 }

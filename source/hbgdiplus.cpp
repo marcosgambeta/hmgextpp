@@ -9,19 +9,19 @@
 #include "hbgdiplus.h"
 #undef _HMG_STUB_
 
-DECLARE_FUNCPTR( GdiplusStartup );
-DECLARE_FUNCPTR( GdiplusShutdown );
+DECLARE_FUNCPTR(GdiplusStartup);
+DECLARE_FUNCPTR(GdiplusShutdown);
 
-DECLARE_FUNCPTR( GdipCreateBitmapFromFile );
-DECLARE_FUNCPTR( GdipCreateBitmapFromResource );
-DECLARE_FUNCPTR( GdipCreateBitmapFromStream );
-DECLARE_FUNCPTR( GdipCreateHBITMAPFromBitmap );
-DECLARE_FUNCPTR( GdipDisposeImage );
-DECLARE_FUNCPTR( GdipGetImageEncodersSize );
-DECLARE_FUNCPTR( GdipGetImageEncoders );
-DECLARE_FUNCPTR( GdipGetImageThumbnail );
-DECLARE_FUNCPTR( GdipCreateBitmapFromHBITMAP );
-DECLARE_FUNCPTR( GdipSaveImageToFile );
+DECLARE_FUNCPTR(GdipCreateBitmapFromFile);
+DECLARE_FUNCPTR(GdipCreateBitmapFromResource);
+DECLARE_FUNCPTR(GdipCreateBitmapFromStream);
+DECLARE_FUNCPTR(GdipCreateHBITMAPFromBitmap);
+DECLARE_FUNCPTR(GdipDisposeImage);
+DECLARE_FUNCPTR(GdipGetImageEncodersSize);
+DECLARE_FUNCPTR(GdipGetImageEncoders);
+DECLARE_FUNCPTR(GdipGetImageThumbnail);
+DECLARE_FUNCPTR(GdipCreateBitmapFromHBITMAP);
+DECLARE_FUNCPTR(GdipSaveImageToFile);
 
 HMODULE g_GpModule         = NULL;
 static ULONG_PTR g_GpToken = 0;
@@ -30,7 +30,7 @@ static ULONG_PTR g_GpToken = 0;
  */
 GpStatus GdiplusInit( void )
 {
-   LPCTSTR lpFileName = TEXT( "Gdiplus.dll" );
+   LPCTSTR lpFileName = TEXT("Gdiplus.dll");
    GDIPLUS_STARTUP_INPUT GdiplusStartupInput = { 1, NULL, FALSE, FALSE };
 
    if( NULL == g_GpModule )
@@ -39,40 +39,40 @@ GpStatus GdiplusInit( void )
    if( NULL == g_GpModule )
       return GdiplusNotInitialized;
 
-   if( _EMPTY_PTR( g_GpModule, GdiplusStartup ) )
+   if( _EMPTY_PTR(g_GpModule, GdiplusStartup) )
       return NotImplemented;
 
-   if( _EMPTY_PTR( g_GpModule, GdiplusShutdown ) )
+   if( _EMPTY_PTR(g_GpModule, GdiplusShutdown) )
       return NotImplemented;
 
-   if( _EMPTY_PTR( g_GpModule, GdipCreateBitmapFromFile ) )
+   if( _EMPTY_PTR(g_GpModule, GdipCreateBitmapFromFile) )
       return NotImplemented;
 
-   if( _EMPTY_PTR( g_GpModule, GdipCreateBitmapFromResource ) )
+   if( _EMPTY_PTR(g_GpModule, GdipCreateBitmapFromResource) )
       return NotImplemented;
 
-   if( _EMPTY_PTR( g_GpModule, GdipCreateBitmapFromStream ) )
+   if( _EMPTY_PTR(g_GpModule, GdipCreateBitmapFromStream) )
       return NotImplemented;
 
-   if( _EMPTY_PTR( g_GpModule, GdipCreateHBITMAPFromBitmap ) )
+   if( _EMPTY_PTR(g_GpModule, GdipCreateHBITMAPFromBitmap) )
       return NotImplemented;
 
-   if( _EMPTY_PTR( g_GpModule, GdipDisposeImage ) )
+   if( _EMPTY_PTR(g_GpModule, GdipDisposeImage) )
       return NotImplemented;
 
-   if( _EMPTY_PTR( g_GpModule, GdipGetImageEncodersSize ) )
+   if( _EMPTY_PTR(g_GpModule, GdipGetImageEncodersSize) )
       return NotImplemented;
 
-   if( _EMPTY_PTR( g_GpModule, GdipGetImageEncoders ) )
+   if( _EMPTY_PTR(g_GpModule, GdipGetImageEncoders) )
       return NotImplemented;
 
-   if( _EMPTY_PTR( g_GpModule, GdipCreateBitmapFromHBITMAP ) )
+   if( _EMPTY_PTR(g_GpModule, GdipCreateBitmapFromHBITMAP) )
       return NotImplemented;
 
-   if( _EMPTY_PTR( g_GpModule, GdipSaveImageToFile ) )
+   if( _EMPTY_PTR(g_GpModule, GdipSaveImageToFile) )
       return NotImplemented;
 
-   if( _EMPTY_PTR( g_GpModule, GdipGetImageThumbnail ) )
+   if( _EMPTY_PTR(g_GpModule, GdipGetImageThumbnail) )
       return NotImplemented;
 
    return fn_GdiplusStartup( &g_GpToken, &GdiplusStartupInput, NULL );
@@ -93,13 +93,13 @@ HB_FUNC( GDIPCREATEBITMAPFROMFILE )
 
    if( NULL != fn_GdipCreateBitmapFromFile )
    {
-      HB_WCHAR * lpFName = ( HB_WCHAR * ) ( ( hb_parclen( 1 ) == 0 ) ? NULL : hb_mbtowc( hb_parc( 1 ) ) );
+      HB_WCHAR * lpFName = ( HB_WCHAR * ) ( ( hb_parclen(1) == 0 ) ? NULL : hb_mbtowc( hb_parc(1) ) );
 
       if( NULL != lpFName )
       {
-         hb_retni( fn_GdipCreateBitmapFromFile( lpFName, &bitmap ) );
+         hb_retni( fn_GdipCreateBitmapFromFile(lpFName, &bitmap) );
 
-         hb_xfree( lpFName );
+         hb_xfree(lpFName);
       }
       else
          hb_retni( InvalidParameter );
@@ -107,7 +107,7 @@ HB_FUNC( GDIPCREATEBITMAPFROMFILE )
    else
       hb_retni( NotImplemented );
 
-   hb_storptr( bitmap, 2 );
+   hb_storptr(bitmap, 2);
 }
 
 HB_FUNC( GDIPCREATEHBITMAPFROMBITMAP )
@@ -116,13 +116,13 @@ HB_FUNC( GDIPCREATEHBITMAPFROMBITMAP )
 
    if( NULL != fn_GdipCreateHBITMAPFromBitmap )
    {
-      GpBitmap * bitmap = ( GpBitmap * ) hb_parptr( 1 );
+      GpBitmap * bitmap = ( GpBitmap * ) hb_parptr(1);
 
       if( NULL != bitmap )
       {
-         ARGB argb = ( ARGB ) hb_parnl( 3 );
+         ARGB argb = ( ARGB ) hb_parnl(3);
 
-         hb_retni( fn_GdipCreateHBITMAPFromBitmap( bitmap, &hbitmap, argb ) );
+         hb_retni( fn_GdipCreateHBITMAPFromBitmap(bitmap, &hbitmap, argb) );
       }
       else
          hb_retni( InvalidParameter );
@@ -130,13 +130,13 @@ HB_FUNC( GDIPCREATEHBITMAPFROMBITMAP )
    else
       hb_retni( NotImplemented );
 
-   hb_storptr( hbitmap, 2 );
+   hb_storptr(hbitmap, 2);
 }
 
 HB_FUNC( GDIPDISPOSEIMAGE )
 {
    if( NULL != fn_GdipDisposeImage )
-      hb_retni( fn_GdipDisposeImage( reinterpret_cast<GpImage*>(hb_parptr( 1 )) ) );
+      hb_retni( fn_GdipDisposeImage( reinterpret_cast<GpImage*>(hb_parptr(1)) ) );
    else
       hb_retni( NotImplemented );
 }

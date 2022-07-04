@@ -94,14 +94,14 @@ HB_FUNC( SOCKETCONNECT )
       SOCKADDR_IN sockDestinationAddr;
       const char *lpszAsciiDestination;
 
-      lpszAsciiDestination = hb_parc( 2 );
-      nPort = hb_parni( 3 );
+      lpszAsciiDestination = hb_parc(2);
+      nPort = hb_parni(3);
 
       m_hSocket = socket( AF_INET, SOCK_STREAM, 0 );
       if( m_hSocket != INVALID_SOCKET )
       {
          /* Determine if the address is in dotted notation */
-         ZeroMemory( &sockDestinationAddr, sizeof( sockDestinationAddr ) );
+         ZeroMemory(&sockDestinationAddr, sizeof(sockDestinationAddr));
          sockDestinationAddr.sin_family = AF_INET;
          sockDestinationAddr.sin_port = htons( ( u_short ) nPort );
          sockDestinationAddr.sin_addr.s_addr = inet_addr( lpszAsciiDestination );
@@ -120,7 +120,7 @@ HB_FUNC( SOCKETCONNECT )
             }
          }
 
-         hb_retl( connect(m_hSocket, ( SOCKADDR * ) &sockDestinationAddr, sizeof( sockDestinationAddr ) ) != SOCKET_ERROR );
+         hb_retl( connect(m_hSocket, ( SOCKADDR * ) &sockDestinationAddr, sizeof(sockDestinationAddr) ) != SOCKET_ERROR );
       }
       else
          hb_retl( FALSE );
@@ -129,7 +129,7 @@ HB_FUNC( SOCKETCONNECT )
       hb_retl( FALSE );
 
    /* Copy m_hSocket to caller method */
-   strncpy( ( char * ) hb_parc(1), ( char * ) &m_hSocket, sizeof( m_hSocket ) );
+   strncpy(( char * ) hb_parc(1), ( char * ) &m_hSocket, sizeof(m_hSocket));
 }
 
 HB_FUNC( SOCKETBIND )
@@ -142,14 +142,14 @@ HB_FUNC( SOCKETBIND )
       SOCKADDR_IN sockDestinationAddr;
       const char *lpszAsciiDestination;
 
-      lpszAsciiDestination = hb_parc( 2 );
-      nPort = hb_parni( 3 );
+      lpszAsciiDestination = hb_parc(2);
+      nPort = hb_parni(3);
 
       m_hSocket = socket( AF_INET, SOCK_STREAM, 0 );
       if( m_hSocket != INVALID_SOCKET )
       {
          /* Determine if the address is in dotted notation */
-         ZeroMemory( &sockDestinationAddr, sizeof( sockDestinationAddr ) );
+         ZeroMemory(&sockDestinationAddr, sizeof(sockDestinationAddr));
          sockDestinationAddr.sin_family = AF_INET;
          sockDestinationAddr.sin_port = htons( ( u_short ) nPort );
          sockDestinationAddr.sin_addr.s_addr = inet_addr( lpszAsciiDestination );
@@ -168,7 +168,7 @@ HB_FUNC( SOCKETBIND )
             }
          }
 
-         hb_retl( bind(m_hSocket, ( SOCKADDR * ) &sockDestinationAddr, sizeof( sockDestinationAddr ) ) != SOCKET_ERROR );
+         hb_retl( bind(m_hSocket, ( SOCKADDR * ) &sockDestinationAddr, sizeof(sockDestinationAddr) ) != SOCKET_ERROR );
       }
       else
          hb_retl( FALSE );
@@ -177,7 +177,7 @@ HB_FUNC( SOCKETBIND )
       hb_retl( FALSE );
 
    /* Copy m_hSocket to caller method */
-   strncpy( ( char * ) hb_parc(1), ( char * ) &m_hSocket, sizeof( m_hSocket ) );
+   strncpy(( char * ) hb_parc(1), ( char * ) &m_hSocket, sizeof(m_hSocket));
 }
 
 HB_FUNC( SOCKETLISTEN )
@@ -187,7 +187,7 @@ HB_FUNC( SOCKETLISTEN )
    SOCKADDR_IN remote_addr;
 
    /* Copy m_hSocket from caller method */
-   strncpy( ( char * ) &m_hSocket, hb_parc(1), sizeof( m_hSocket ) );
+   strncpy(( char * ) &m_hSocket, hb_parc(1), sizeof(m_hSocket));
 
    if( bInit )
    {
@@ -196,7 +196,7 @@ HB_FUNC( SOCKETLISTEN )
          int nRet = listen( m_hSocket, hb_parni(2) );    // Backlog 10
          if( nRet != SOCKET_ERROR )
          {
-            int iAddrLen = sizeof( remote_addr );
+            int iAddrLen = sizeof(remote_addr);
             sClient = accept( m_hSocket, ( struct sockaddr * ) &remote_addr, &iAddrLen );
 
             // Error?
@@ -215,7 +215,7 @@ HB_FUNC( SOCKETLISTEN )
       hb_retl( FALSE );
 
    /* Copy m_hSocket to caller method */
-   strncpy( ( char * ) hb_parc(3), ( char * ) &sClient, sizeof( sClient ) );
+   strncpy(( char * ) hb_parc(3), ( char * ) &sClient, sizeof(sClient));
 }
 
 HB_FUNC( SOCKETSEND )
@@ -223,19 +223,19 @@ HB_FUNC( SOCKETSEND )
    SOCKET m_hSocket = INVALID_SOCKET;
 
    /* Copy m_hSocket from caller method */
-   strncpy( ( char * ) &m_hSocket, hb_parc(1), sizeof( m_hSocket ) );
+   strncpy(( char * ) &m_hSocket, hb_parc(1), sizeof(m_hSocket));
 
    if( bInit && HB_ISCHAR(2) )
    {
       if( m_hSocket != INVALID_SOCKET )
       {
-         const char *pszBuf = hb_parc( 2 );
-         int nBuf = hb_parclen( 2 );
+         const char *pszBuf = hb_parc(2);
+         int nBuf = hb_parclen(2);
          if( HB_ISNUM(3) )
          {
-            int sendtimeout = hb_parni( 3 );
+            int sendtimeout = hb_parni(3);
             if( sendtimeout != -1 )
-               setsockopt( m_hSocket, SOL_SOCKET, SO_SNDTIMEO, ( char * ) &sendtimeout, sizeof( sendtimeout ) );
+               setsockopt( m_hSocket, SOL_SOCKET, SO_SNDTIMEO, ( char * ) &sendtimeout, sizeof(sendtimeout) );
          }
 
          hb_retl( send(m_hSocket, pszBuf, nBuf, 0) != SOCKET_ERROR );
@@ -251,38 +251,38 @@ HB_FUNC( SOCKETRECEIVE )
 {
    SOCKET m_hSocket = INVALID_SOCKET;
 
-   if( bInit && hb_parclen(1) == sizeof( m_hSocket ) && HB_ISCHAR(2) && HB_ISBYREF(2) )
+   if( bInit && hb_parclen(1) == sizeof(m_hSocket) && HB_ISCHAR(2) && HB_ISBYREF(2) )
    {
       /* Copy m_hSocket from caller method */
-      strncpy( ( char * ) &m_hSocket, hb_parc(1), sizeof( m_hSocket ) );
+      strncpy(( char * ) &m_hSocket, hb_parc(1), sizeof(m_hSocket));
       if( m_hSocket != INVALID_SOCKET )
       {
-         int nLen = hb_parclen( 2 );
+         int nLen = hb_parclen(2);
          if( nLen > 0 )
          {
-            char *pRead = ( char * ) hb_xgrab( nLen + 1 );
+            char *pRead = ( char * ) hb_xgrab(nLen + 1);
             if( HB_ISNUM(3) )
             {
-               int recvtimeout = hb_parni( 3 );
+               int recvtimeout = hb_parni(3);
                if( recvtimeout != -1 )
-                  setsockopt( m_hSocket, SOL_SOCKET, SO_RCVTIMEO, ( char * ) &recvtimeout, sizeof( recvtimeout ) );
+                  setsockopt( m_hSocket, SOL_SOCKET, SO_RCVTIMEO, ( char * ) &recvtimeout, sizeof(recvtimeout) );
             }
 
             nLen = recv( m_hSocket, pRead, nLen, 0 );
             if( nLen < 0 )
                nLen = 0;
             hb_storclen( pRead, nLen, 2 );
-            hb_xfree( pRead );
+            hb_xfree(pRead);
             hb_retni( nLen );
          }
          else
-            hb_retni( 0 );
+            hb_retni(0);
       }
       else
-         hb_retni( 0 );
+         hb_retni(0);
    }
    else
-      hb_retni( 0 );
+      hb_retni(0);
 }
 
 HB_FUNC( SOCKETCLOSE )
@@ -290,7 +290,7 @@ HB_FUNC( SOCKETCLOSE )
    SOCKET m_hSocket = INVALID_SOCKET;
 
    /* Copy m_hSocket from caller method */
-   strncpy( ( char * ) &m_hSocket, hb_parc(1), sizeof( m_hSocket ) );
+   strncpy(( char * ) &m_hSocket, hb_parc(1), sizeof(m_hSocket));
 
    if( bInit && m_hSocket != INVALID_SOCKET )
       hb_retl( SOCKET_ERROR != closesocket(m_hSocket) );
@@ -300,14 +300,14 @@ HB_FUNC( SOCKETCLOSE )
    m_hSocket = INVALID_SOCKET;
 
    /* Copy m_hSocket to caller method */
-   strncpy( ( char * ) hb_parc(1), ( char * ) &m_hSocket, sizeof( m_hSocket ) );
+   strncpy(( char * ) hb_parc(1), ( char * ) &m_hSocket, sizeof(m_hSocket));
 }
 
 HB_FUNC( SOCKETLOCALNAME )
 {
    char ac[ 80 ];
 
-   if( bInit && gethostname(ac, sizeof( ac ) ) != SOCKET_ERROR )
+   if( bInit && gethostname(ac, sizeof(ac) ) != SOCKET_ERROR )
       hb_retc( ac );
    else
       hb_retc( "" );
@@ -317,7 +317,7 @@ HB_FUNC( SOCKETLOCALADDRESS )
 {
    char ac[ 80 ];
 
-   if( bInit && gethostname(ac, sizeof( ac ) ) != SOCKET_ERROR )
+   if( bInit && gethostname(ac, sizeof(ac) ) != SOCKET_ERROR )
    {
       struct hostent *phe = gethostbyname( ac );
       if( phe != 0 )
@@ -331,15 +331,15 @@ HB_FUNC( SOCKETLOCALADDRESS )
          for( i = 0; phe->h_addr_list[ i ] != 0; ++i )
          {
             struct in_addr addr;
-            memcpy( &addr, phe->h_addr_list[ i ], sizeof( struct in_addr ) );
+            memcpy(&addr, phe->h_addr_list[ i ], sizeof(struct in_addr));
             HB_STORC( inet_ntoa(addr), -1, i + 1 );
          }
       }
       else
-         hb_reta( 0 );
+         hb_reta(0);
    }
    else
-      hb_reta( 0 );
+      hb_reta(0);
 }
 
 HB_FUNC( SOCKETMD5 )
@@ -349,22 +349,22 @@ HB_FUNC( SOCKETMD5 )
       unsigned char *string;
       MD5_CTX context;
       unsigned char digest[ 16 ];
-      unsigned int len = hb_parclen( 1 );
+      unsigned int len = hb_parclen(1);
       UINT j;
       char *pRet;
 
-      string = ( unsigned char * ) hb_parc( 1 );
+      string = ( unsigned char * ) hb_parc(1);
 
       MD5Init( &context );
       MD5Update( &context, ( unsigned char * ) string, len );
       MD5Final( digest, &context );
 
-      pRet = ( char * ) hb_xgrab( sizeof digest * 2 + 1 );
+      pRet = ( char * ) hb_xgrab(sizeof digest * 2 + 1);
       for( j = 0; j < sizeof digest; j++ )
          sprintf( pRet + ( j * 2 ), "%02x", digest[ j ] );
 
       hb_retclen( pRet, sizeof digest * 2 );
-      hb_xfree( pRet );
+      hb_xfree(pRet);
    }
    else
       hb_retc( "" );
@@ -381,26 +381,26 @@ HB_FUNC( SOCKETENCODE64 )
       int nAdd;
 
       if( HB_ISNUM(2) )
-         nSubLen = hb_parni( 2 );
+         nSubLen = hb_parni(2);
 
-      string = ( char * ) hb_parc( 1 );
+      string = ( char * ) hb_parc(1);
 
       nEncodeLen = 4 * ( ( hb_parclen(1) + 2 ) / 3 );
       if( nSubLen > 0 )
       {
-         nAdd = hb_parclen( 1 ) / nSubLen;
+         nAdd = hb_parclen(1) / nSubLen;
          nEncodeLen = nEncodeLen + ( ( nAdd + 1 ) * 2 );
       }
 
-      pRet = ( char * ) hb_xgrab( nEncodeLen + 1 );
+      pRet = ( char * ) hb_xgrab(nEncodeLen + 1);
 
       pRet[ nEncodeLen ] = 0;
-      memset( pRet, '=', nEncodeLen );
+      memset(pRet, '=', nEncodeLen);
 
       b64encodelen( string, pRet, hb_parclen(1), nSubLen );
 
       hb_retclen( pRet, nEncodeLen );
-      hb_xfree( pRet );
+      hb_xfree(pRet);
    }
    else
       hb_retc( "" );
@@ -414,16 +414,16 @@ HB_FUNC( SOCKETDECODE64 )
       char *pRet;
       int nEncodeLen;
 
-      string = ( char * ) hb_parc( 1 );
+      string = ( char * ) hb_parc(1);
 
       nEncodeLen = 3 * ( ( hb_parclen(1) + 3 ) / 4 );
-      pRet = ( char * ) hb_xgrab( nEncodeLen );
-      memset( pRet, 0, nEncodeLen );
+      pRet = ( char * ) hb_xgrab(nEncodeLen);
+      memset(pRet, 0, nEncodeLen);
 
       b64decode( string, pRet );
 
       hb_retclen( pRet, nEncodeLen );
-      hb_xfree( pRet );
+      hb_xfree(pRet);
    }
    else
       hb_retc( "" );
@@ -439,9 +439,9 @@ HB_FUNC( SOCKETHMAC_MD5 )
       static char hextab[] = "0123456789abcdef";
       signed char *decoded;
 
-      char *username = ( char * ) hb_parc( 1 );
-      char *password = ( char * ) hb_parc( 2 );
-      char *challenge = ( char * ) hb_parc( 3 );
+      char *username = ( char * ) hb_parc(1);
+      char *password = ( char * ) hb_parc(2);
+      char *challenge = ( char * ) hb_parc(3);
 
       hmac_md5( ( unsigned char * ) challenge, strlen(challenge), ( unsigned char * ) password, strlen(password), ( unsigned char * ) digest );
 
@@ -452,15 +452,15 @@ HB_FUNC( SOCKETHMAC_MD5 )
          digasc[ 2 * i + 1 ] = hextab[ digest[ i ] & 0xf ];
       }
 
-      decoded = hb_xgrab( strlen(username) + strlen( ( const char * ) digasc) + 2 );
+      decoded = hb_xgrab(strlen(username) + strlen(( const char * ) digasc) + 2);
 
-      strcpy( ( char * ) decoded, ( char * ) username );
-      strcat( ( char * ) decoded, " " );
-      strcat( ( char * ) decoded, ( char * ) digasc );
+      strcpy(( char * ) decoded, ( char * ) username);
+      strcat(( char * ) decoded, " ");
+      strcat(( char * ) decoded, ( char * ) digasc);
 
       hb_retc( ( const char * ) decoded );
 
-      hb_xfree( decoded );
+      hb_xfree(decoded);
    }
    else
       hb_retc( "" );

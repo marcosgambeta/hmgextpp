@@ -54,7 +54,7 @@
 #ifdef UNICODE
 LPWSTR AnsiToWide( LPCSTR );
 #endif
-void pascal DelResource( HANDLE hResource );
+void pascal DelResource(HANDLE hResource);
 
 
 #ifndef HMG_LEGACY_OFF
@@ -65,22 +65,22 @@ HB_FUNC_TRANSLATE( HB_SETCODEPAGE, HB_CDPSELECT )
 
 HB_FUNC( MAKELONG )
 {
-   hb_retnl( MAKELONG( hb_parni( 1 ), hb_parni( 2 ) ) );
+   hb_retnl( MAKELONG( hb_parni(1), hb_parni(2) ) );
 }
 
 HB_FUNC( _ENABLESCROLLBARS )
 {
-   EnableScrollBar( ( HWND ) HB_PARNL( 1 ), hb_parni( 2 ), hb_parni( 3 ) );
+   EnableScrollBar( ( HWND ) HB_PARNL(1), hb_parni(2), hb_parni(3) );
 }
 
 HB_FUNC( DELETEOBJECT )
 {
-   HANDLE hRes = ( HANDLE ) HB_PARNL( 1 );
+   HANDLE hRes = ( HANDLE ) HB_PARNL(1);
 
    if( hRes )
    {
-      DelResource( hRes );
-      hb_retl( DeleteObject( ( HGDIOBJ ) hRes ) );
+      DelResource(hRes);
+      hb_retl( DeleteObject(( HGDIOBJ ) hRes) );
    }
    else
       hb_retl( HB_FALSE );
@@ -88,15 +88,15 @@ HB_FUNC( DELETEOBJECT )
 
 HB_FUNC( IMAGELIST_DESTROY )
 {
-   HIMAGELIST himl = ( HIMAGELIST ) HB_PARNL( 1 );
+   HIMAGELIST himl = ( HIMAGELIST ) HB_PARNL(1);
 
-   DelResource( himl );
+   DelResource(himl);
    hb_retl( ImageList_Destroy( himl ) );
 }
 
 HB_FUNC( SETFOCUS )
 {
-   HB_RETNL( ( LONG_PTR ) SetFocus( ( HWND ) HB_PARNL( 1 ) ) );
+   HB_RETNL( ( LONG_PTR ) SetFocus( ( HWND ) HB_PARNL(1) ) );
 }
 
 HB_FUNC( INSERTSHIFTTAB )
@@ -128,46 +128,46 @@ HB_FUNC( INSERTSHIFTTAB )
 
 HB_FUNC( SYSTEMPARAMETERSINFO )
 {
-   hb_retl( SystemParametersInfoA( ( UINT ) hb_parni( 1 ), ( UINT ) hb_parni( 2 ), ( VOID * ) hb_parc( 3 ), ( UINT ) hb_parni( 4 ) ) );
+   hb_retl( SystemParametersInfoA( ( UINT ) hb_parni(1), ( UINT ) hb_parni(2), ( VOID * ) hb_parc(3), ( UINT ) hb_parni(4) ) );
 }
 
 HB_FUNC( GETTEXTWIDTH ) // returns the width of a string in pixels
 {
-   HDC   hDC        = ( HDC ) HB_PARNL( 1 );
+   HDC   hDC        = ( HDC ) HB_PARNL(1);
    HWND  hWnd       = ( HWND ) NULL;
    BOOL  bDestroyDC = FALSE;
-   HFONT hFont      = ( HFONT ) HB_PARNL( 3 );
+   HFONT hFont      = ( HFONT ) HB_PARNL(3);
    HFONT hOldFont   = ( HFONT ) NULL;
    SIZE  sz;
 
 #ifndef UNICODE
-   LPCSTR lpString = hb_parc( 2 );
+   LPCSTR lpString = hb_parc(2);
 #else
-   LPCWSTR lpString = AnsiToWide( ( char * ) hb_parc( 2 ) );
+   LPCWSTR lpString = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
 
    if( ! hDC )
    {
       bDestroyDC = TRUE;
       hWnd       = GetActiveWindow();
-      hDC        = GetDC( hWnd );
+      hDC        = GetDC(hWnd);
    }
 
    if( hFont )
-      hOldFont = ( HFONT ) SelectObject( hDC, hFont );
+      hOldFont = ( HFONT ) SelectObject(hDC, hFont);
 
    GetTextExtentPoint32( hDC, lpString, ( int ) lstrlen( lpString ), &sz );
 
    if( hFont )
-      SelectObject( hDC, hOldFont );
+      SelectObject(hDC, hOldFont);
 
    if( bDestroyDC )
-      ReleaseDC( hWnd, hDC );
+      ReleaseDC(hWnd, hDC);
 
    hb_retnl( sz.cx );
 
 #ifdef UNICODE
-   hb_xfree( ( TCHAR * ) lpString );
+   hb_xfree(( TCHAR * ) lpString);
 #endif
 }
 
@@ -175,9 +175,9 @@ HB_FUNC( KEYBD_EVENT )
 {
    keybd_event
    (
-      ( BYTE ) hb_parni( 1 ),                      // virtual-key code
-      ( BYTE ) MapVirtualKey( hb_parni( 1 ), 0 ),  // hardware scan code
-      hb_parl( 2 ) ? KEYEVENTF_KEYUP : 0,          // flags specifying various function options
+      ( BYTE ) hb_parni(1),                      // virtual-key code
+      ( BYTE ) MapVirtualKey( hb_parni(1), 0 ),  // hardware scan code
+      hb_parl(2) ? KEYEVENTF_KEYUP : 0,          // flags specifying various function options
       0                                            // additional data associated with keystroke
    );
 }
@@ -186,7 +186,7 @@ HB_FUNC( INSERTVKEY )
 {
    keybd_event
    (
-      ( BYTE ) hb_parni( 1 ),  // virtual-key code
+      ( BYTE ) hb_parni(1),  // virtual-key code
       0,
       0,
       0
@@ -195,22 +195,22 @@ HB_FUNC( INSERTVKEY )
 
 HB_FUNC( _HMG_SETVSCROLLVALUE )
 {
-   SendMessage( ( HWND ) HB_PARNL( 1 ), WM_VSCROLL, MAKEWPARAM( SB_THUMBPOSITION, hb_parni( 2 ) ), 0 );
+   SendMessage( ( HWND ) HB_PARNL(1), WM_VSCROLL, MAKEWPARAM( SB_THUMBPOSITION, hb_parni(2) ), 0 );
 }
 
 HB_FUNC( _HMG_SETHSCROLLVALUE )
 {
-   SendMessage( ( HWND ) HB_PARNL( 1 ), WM_HSCROLL, MAKEWPARAM( SB_THUMBPOSITION, hb_parni( 2 ) ), 0 );
+   SendMessage( ( HWND ) HB_PARNL(1), WM_HSCROLL, MAKEWPARAM( SB_THUMBPOSITION, hb_parni(2) ), 0 );
 }
 
 HB_FUNC( SHOWCARET )
 {
-   hb_retl( ShowCaret( ( HWND ) HB_PARNL( 1 ) ) );
+   hb_retl( ShowCaret( ( HWND ) HB_PARNL(1) ) );
 }
 
 HB_FUNC( HIDECARET )
 {
-   hb_retl( HideCaret( ( HWND ) HB_PARNL( 1 ) ) );
+   hb_retl( HideCaret( ( HWND ) HB_PARNL(1) ) );
 }
 
 HB_FUNC( DESTROYCARET )
@@ -220,7 +220,7 @@ HB_FUNC( DESTROYCARET )
 
 HB_FUNC( CREATECARET )
 {
-   hb_retl( CreateCaret( ( HWND ) HB_PARNL( 1 ), ( HBITMAP ) HB_PARNL( 2 ), ( int ) hb_parni( 3 ), ( int ) hb_parni( 4 ) ) );
+   hb_retl( CreateCaret( ( HWND ) HB_PARNL(1), ( HBITMAP ) HB_PARNL(2), ( int ) hb_parni(3), ( int ) hb_parni(4) ) );
 }
 
 /*
@@ -235,42 +235,42 @@ HB_FUNC( CREATECARET )
  */
 HB_FUNC( CHANGESTYLE )
 {
-   HWND     hWnd = ( HWND ) HB_PARNL( 1 );
-   LONG_PTR dwAdd = ( LONG_PTR ) HB_PARNL( 2 );
-   LONG_PTR dwRemove = ( LONG_PTR ) HB_PARNL( 3 );
-   int      iStyle = hb_parl( 4 ) ? GWL_EXSTYLE : GWL_STYLE;
+   HWND     hWnd = ( HWND ) HB_PARNL(1);
+   LONG_PTR dwAdd = ( LONG_PTR ) HB_PARNL(2);
+   LONG_PTR dwRemove = ( LONG_PTR ) HB_PARNL(3);
+   int      iStyle = hb_parl(4) ? GWL_EXSTYLE : GWL_STYLE;
    LONG_PTR dwStyle, dwNewStyle;
 
-   dwStyle    = GetWindowLongPtr( hWnd, iStyle );
+   dwStyle    = GetWindowLongPtr(hWnd, iStyle);
    dwNewStyle = ( dwStyle & ( ~dwRemove ) ) | dwAdd;
 
-   HB_RETNL( ( LONG_PTR ) SetWindowLongPtr( hWnd, iStyle, dwNewStyle ) );
+   HB_RETNL( ( LONG_PTR ) SetWindowLongPtr(hWnd, iStyle, dwNewStyle) );
 
-   SetWindowPos( hWnd, NULL, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER );
+   SetWindowPos(hWnd, NULL, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER);
 }
 
 HB_FUNC( MOVEBTNTEXTBOX )   //MoveBtnTextBox(hEdit, hBtn1, hBtn2, fBtn2, BtnWidth, width, height)
 {
-   HWND hedit    = ( HWND ) HB_PARNL( 1 );
-   HWND hBtn1    = ( HWND ) HB_PARNL( 2 );
-   HWND hBtn2    = ( HWND ) HB_PARNL( 3 );
-   BOOL fBtn2    = hb_parl( 4 );
-   int  BtnWidth = ( int ) hb_parni( 5 );
+   HWND hedit    = ( HWND ) HB_PARNL(1);
+   HWND hBtn1    = ( HWND ) HB_PARNL(2);
+   HWND hBtn2    = ( HWND ) HB_PARNL(3);
+   BOOL fBtn2    = hb_parl(4);
+   int  BtnWidth = ( int ) hb_parni(5);
    int  BtnWidth2;
-   int  width  = ( int ) hb_parni( 6 );
-   int  height = ( int ) hb_parni( 7 );
-   BOOL fBtns  = ( hb_parnl( 2 ) > 0 );
+   int  width  = ( int ) hb_parni(6);
+   int  height = ( int ) hb_parni(7);
+   BOOL fBtns  = ( hb_parnl(2) > 0 );
 
    BtnWidth  = ( BtnWidth >= GetSystemMetrics( SM_CYSIZE ) ? BtnWidth : GetSystemMetrics( SM_CYSIZE ) - 1 );
    BtnWidth  = ( fBtns ? BtnWidth : 0 );
    BtnWidth2 = ( fBtn2 ? BtnWidth : 0 );
 
-   SetWindowPos( hedit, NULL, 0, 0, width, height, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER );
+   SetWindowPos(hedit, NULL, 0, 0, width, height, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);
    if( fBtns )
    {
-      SetWindowPos( hBtn1, NULL, width - BtnWidth - 4, -1, BtnWidth, height - 2, SWP_NOACTIVATE | SWP_NOZORDER );
+      SetWindowPos(hBtn1, NULL, width - BtnWidth - 4, -1, BtnWidth, height - 2, SWP_NOACTIVATE | SWP_NOZORDER);
       if( fBtn2 )
-         SetWindowPos( hBtn2, NULL, width - BtnWidth - BtnWidth2 - 4, -1, BtnWidth2, height - 2, SWP_NOACTIVATE | SWP_NOZORDER );
+         SetWindowPos(hBtn2, NULL, width - BtnWidth - BtnWidth2 - 4, -1, BtnWidth2, height - 2, SWP_NOACTIVATE | SWP_NOZORDER);
    }
 }
 
@@ -282,7 +282,7 @@ HB_FUNC( MOVEBTNTEXTBOX )   //MoveBtnTextBox(hEdit, hBtn1, hBtn2, fBtn2, BtnWidt
 
 HB_FUNC( HB_DATE )
 {
-   hb_retd( hb_parni( 1 ), hb_parni( 2 ), hb_parni( 3 ) );
+   hb_retd( hb_parni(1), hb_parni(2), hb_parni(3) );
 }
 
 #if ( __HARBOUR__ - 0 < 0x030200 )
@@ -295,8 +295,8 @@ HB_FUNC( HB_LEFTEQI )
    PHB_ITEM pItem2 = hb_param( 2, HB_IT_STRING );
 
    if( pItem1 && pItem2 )
-      hb_retl( hb_cdpicmp( hb_itemGetCPtr( pItem1 ), hb_itemGetCLen( pItem1 ),
-                           hb_itemGetCPtr( pItem2 ), hb_itemGetCLen( pItem2 ), hb_cdppage(), HB_FALSE ) == 0 );
+      hb_retl( hb_cdpicmp( hb_itemGetCPtr(pItem1), hb_itemGetCLen( pItem1 ),
+                           hb_itemGetCPtr(pItem2), hb_itemGetCLen( pItem2 ), hb_cdppage(), HB_FALSE ) == 0 );
    else
       hb_errRT_BASE_SubstR( EG_ARG, 1071, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }

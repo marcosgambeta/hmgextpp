@@ -92,8 +92,8 @@ const char * hb_parstr_utf8( int iParam, void ** phString, ULONG * pnLen )
 	{
 		PHB_ITEM pItem = ( iParam == -1 ) ? hb_stackReturnItem() : hb_stackItemFromBase( iParam );
 
-		if( HB_IS_BYREF( pItem ) )
-			pItem = hb_itemUnRef( pItem );
+		if( HB_IS_BYREF(pItem) )
+			pItem = hb_itemUnRef(pItem);
 
 		return hb_itemGetStrUTF8( pItem, phString, pnLen );
 	}
@@ -137,10 +137,10 @@ PHB_ITEM hb_itemPutStrLenUTF8( PHB_ITEM pItem, const char * pStr, ULONG nLen )
 
    cdp = hb_cdppage();
    nDest = hb_cdpStringInUTF8Length( cdp, FALSE, pStr, nLen );
-   pszDest = ( char * ) hb_xgrab( nDest + 1 );
+   pszDest = ( char * ) hb_xgrab(nDest + 1);
    hb_cdpStrnToUTF8n( cdp, FALSE, pStr, nLen, pszDest, nDest + 1 );
 
-   return hb_itemPutCLPtr( pItem, pszDest, nDest );
+   return hb_itemPutCLPtr(pItem, pszDest, nDest);
 }
 
 const char * hb_itemGetStrUTF8( PHB_ITEM pItem, void ** phString, ULONG * pnLen )
@@ -159,7 +159,7 @@ const char * hb_itemGetStrUTF8( PHB_ITEM pItem, void ** phString, ULONG * pnLen 
 
 		if( nLen != pItem->item.asString.length )
 		{
-			char * pszUtf8 = ( char * ) hb_xgrab( nLen + 1 );
+			char * pszUtf8 = ( char * ) hb_xgrab(nLen + 1);
 			hb_cdpStrnToUTF8n( cdp, FALSE,
                           pItem->item.asString.value, pItem->item.asString.length,
                           pszUtf8, nLen + 1 );
@@ -198,10 +198,10 @@ PHB_ITEM hb_itemPutStrUTF8( PHB_ITEM pItem, const char * pStr )
    cdp = hb_cdppage(); 
    nLen = strlen( pStr );
    nDest = hb_cdpStringInUTF8Length( cdp, FALSE, pStr, nLen );
-   pszDest = ( char * ) hb_xgrab( nDest + 1 );
+   pszDest = ( char * ) hb_xgrab(nDest + 1);
    hb_cdpStrnToUTF8n( cdp, FALSE, pStr, nLen, pszDest, nDest + 1 );
 
-   return hb_itemPutCLPtr( pItem, pszDest, nDest );
+   return hb_itemPutCLPtr(pItem, pszDest, nDest);
 }
 
 

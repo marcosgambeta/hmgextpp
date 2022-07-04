@@ -61,30 +61,30 @@ HB_FUNC( INITIPADDRESS )
 
    INITCOMMONCONTROLSEX icex;
 
-   icex.dwSize = sizeof( INITCOMMONCONTROLSEX );
+   icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
    icex.dwICC  = ICC_INTERNET_CLASSES;
    InitCommonControlsEx( &icex );
 
-   hWnd = ( HWND ) HB_PARNL( 1 );
+   hWnd = ( HWND ) HB_PARNL(1);
 
-   if( ! hb_parl( 7 ) )
+   if( ! hb_parl(7) )
       Style = Style | WS_VISIBLE;
 
-   if( ! hb_parl( 8 ) )
+   if( ! hb_parl(8) )
       Style = Style | WS_TABSTOP;
 
    hIpAddress = CreateWindowEx
                 (
       WS_EX_CLIENTEDGE,
       WC_IPADDRESS,
-      TEXT( "" ),
+      TEXT(""),
       Style,
-      hb_parni( 3 ),
-      hb_parni( 4 ),
-      hb_parni( 5 ),
-      hb_parni( 6 ),
+      hb_parni(3),
+      hb_parni(4),
+      hb_parni(5),
+      hb_parni(6),
       hWnd,
-      ( HMENU ) HB_PARNL( 2 ),
+      ( HMENU ) HB_PARNL(2),
       GetInstance(),
       NULL
                 );
@@ -97,12 +97,12 @@ HB_FUNC( SETIPADDRESS )
    HWND hWnd;
    BYTE v1, v2, v3, v4;
 
-   hWnd = ( HWND ) HB_PARNL( 1 );
+   hWnd = ( HWND ) HB_PARNL(1);
 
-   v1 = ( BYTE ) hb_parni( 2 );
-   v2 = ( BYTE ) hb_parni( 3 );
-   v3 = ( BYTE ) hb_parni( 4 );
-   v4 = ( BYTE ) hb_parni( 5 );
+   v1 = ( BYTE ) hb_parni(2);
+   v2 = ( BYTE ) hb_parni(3);
+   v3 = ( BYTE ) hb_parni(4);
+   v4 = ( BYTE ) hb_parni(5);
 
    SendMessage( hWnd, IPM_SETADDRESS, 0, MAKEIPADDRESS( v1, v2, v3, v4 ) );
 }
@@ -113,7 +113,7 @@ HB_FUNC( GETIPADDRESS )
    DWORD pdwAddr;
    INT   v1, v2, v3, v4;
 
-   hWnd = ( HWND ) HB_PARNL( 1 );
+   hWnd = ( HWND ) HB_PARNL(1);
 
    SendMessage( hWnd, IPM_GETADDRESS, 0, ( LPARAM ) ( LPDWORD ) &pdwAddr );
 
@@ -122,7 +122,7 @@ HB_FUNC( GETIPADDRESS )
    v3 = THIRD_IPADDRESS( pdwAddr );
    v4 = FOURTH_IPADDRESS( pdwAddr );
 
-   hb_reta( 4 );
+   hb_reta(4);
    HB_STORNI( ( INT ) v1, -1, 1 );
    HB_STORNI( ( INT ) v2, -1, 2 );
    HB_STORNI( ( INT ) v3, -1, 3 );

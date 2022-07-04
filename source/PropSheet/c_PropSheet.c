@@ -98,7 +98,7 @@ LRESULT CALLBACK HMG_PageDlgProc( HWND hWndDlg, UINT message, WPARAM wParam, LPA
          hb_vmPushLong( (LONG) hWndDlg );
          hb_vmPushLong( (LONG)ps->lParam );
          hb_vmPushLong( (LONG)hWndParent );
-         hb_vmDo( 3 );
+         hb_vmDo(3);
       }
       return (TRUE);
       }
@@ -125,7 +125,7 @@ LRESULT CALLBACK HMG_PageDlgProc( HWND hWndDlg, UINT message, WPARAM wParam, LPA
          hb_vmPushLong( (LONG) lpnmhdr->code  );
          hb_vmPushLong( (LONG) nId );
          hb_vmPushLong( (LONG) nPage );
-         hb_vmDo( 4 );
+         hb_vmDo(4);
       }
 
       r = hb_parnl( -1 );
@@ -194,7 +194,7 @@ LRESULT CALLBACK HMG_PageDlgProc( HWND hWndDlg, UINT message, WPARAM wParam, LPA
       hb_vmPushLong( message );
       hb_vmPushLong( wParam );
       hb_vmPushLong( lParam );
-      hb_vmDo( 5 );
+      hb_vmDo(5);
    }
 
    return (FALSE);
@@ -230,7 +230,7 @@ LRESULT CALLBACK HMG_PropSheetProc( HWND hwndPropSheet, UINT message, LPARAM lPa
       hb_vmPushLong( (LONG) hwndPropSheet );
       hb_vmPushLong( message );
       hb_vmPushLong( lParam );
-      hb_vmDo( 3 );
+      hb_vmDo(3);
    }
 
    return (FALSE);
@@ -254,11 +254,11 @@ HB_FUNC( CREATEPROPERTYSEEETPAGE )
 
    ZeroMemory ( &psp, sizeof(PROPSHEETPAGE) );
 
-   strTitle      = (char *) hb_arrayGetCPtr( sArray, 1 );  // Caption
+   strTitle      = (char *) hb_arrayGetCPtr(sArray, 1);  // Caption
    idRC          = hb_arrayGetNI( sArray, 2 );             // Id Dialog resource
    PageStyle     = hb_arrayGetNI( sArray, 3 ) ;            // Page Style
-   strHdTitle    = (char *) hb_arrayGetCPtr( sArray, 4 );  // HdTitle
-   strSubHdTitle = (char *) hb_arrayGetCPtr( sArray, 5 );  // HdSubTitle
+   strHdTitle    = (char *) hb_arrayGetCPtr(sArray, 4);  // HdTitle
+   strSubHdTitle = (char *) hb_arrayGetCPtr(sArray, 5);  // HdSubTitle
 
    psp.dwSize        = sizeof(PROPSHEETPAGE);
    psp.dwFlags       = PageStyle ;
@@ -311,14 +311,14 @@ HB_FUNC( CREATEPROPERTYSHEET )
    Style        = hb_arrayGetNI( pArray, 4 );
    idWM         = hb_arrayGetNI( pArray, 15 );
    idHeader     = hb_arrayGetNI( pArray, 17 );
-   strPropSheet = (char *) hb_arrayGetCPtr( pArray, 10 );  // Caption Property Sheet
+   strPropSheet = (char *) hb_arrayGetCPtr(pArray, 10);  // Caption Property Sheet
 
    if( Style & PSP_USEHICON )
    {
-      hicon = ( HICON ) LoadImage( 0, hb_arrayGetCPtr( pArray, 20 ), IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE );
+      hicon = ( HICON ) LoadImage( 0, hb_arrayGetCPtr(pArray, 20), IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE );
       if( hicon == NULL )
       {
-         hicon = ( HICON ) LoadImage( GetModuleHandle(NULL), hb_arrayGetCPtr( pArray, 20 ), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
+         hicon = ( HICON ) LoadImage( GetModuleHandle(NULL), hb_arrayGetCPtr(pArray, 20), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
       }
     }
     else
@@ -360,7 +360,7 @@ HB_FUNC( CREATEPROPERTYSHEET )
          hb_retni( -1 );
       }
 
-      hb_retnl( 0 );
+      hb_retnl(0);
    }
 }
 
@@ -523,11 +523,11 @@ HB_FUNC( CREATEPROPSEEETPAGEINDIRECT )
    lTemplateSize = GetSizeDlgTemp( dArray, cArray);
    pdlgtemplate = CreateDlgTemplate( lTemplateSize, dArray, cArray);
 
-   strTitle       = (char *) hb_arrayGetCPtr( sArray, 1 );  // Caption
+   strTitle       = (char *) hb_arrayGetCPtr(sArray, 1);  // Caption
    idRC           = hb_arrayGetNI( sArray, 2 );             // Id Dialog resource
    PageStyle      = hb_arrayGetNI( sArray, 3 ) ;            // Page Style
-   strHdTitle     = (char *) hb_arrayGetCPtr( sArray, 4 );  // HdTitle
-   strSubHdTitle  = (char *) hb_arrayGetCPtr( sArray, 5 );  // SubHdTitle
+   strHdTitle     = (char *) hb_arrayGetCPtr(sArray, 4);  // HdTitle
+   strSubHdTitle  = (char *) hb_arrayGetCPtr(sArray, 5);  // SubHdTitle
 
    ZeroMemory ( &psp, sizeof(PROPSHEETPAGE) );
 

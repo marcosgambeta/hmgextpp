@@ -283,7 +283,7 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
    ENDIF
 
    hWnd := This.Handle
-   hDC := GetDC( hWnd )
+   hDC := GetDC(hWnd)
 
    // calculate the character height for the dialog font
 
@@ -306,7 +306,7 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
       nMaxBoton := Max( nMaxBoton, GetTextWidth( hDC, aOptions[ n ], hDlgFont ) )
    NEXT
 
-   ReleaseDC( hWnd, hDC )
+   ReleaseDC(hWnd, hDC)
 
    nMaxBoton += ( HMARGIN_BUTTON * iif( ! lExt .AND. lIsWin10 .AND. nLenAop > 2, 1.1, iif( nLenAop > 1, 2, 3 ) ) )
 

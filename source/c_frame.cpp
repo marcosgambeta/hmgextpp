@@ -51,7 +51,7 @@
 #include "hbapierr.h"
 
 #ifndef WC_BUTTON
-#define WC_BUTTON  TEXT( "Button" )
+#define WC_BUTTON  TEXT("Button")
 #endif
 
 #ifdef UNICODE
@@ -63,17 +63,17 @@ HINSTANCE GetInstance( void );
 
 HB_FUNC( INITFRAME )
 {
-   HWND hwnd    = ( HWND ) HB_PARNL( 1 );
+   HWND hwnd    = ( HWND ) HB_PARNL(1);
    HWND hbutton = NULL;
 
-   if( IsWindow( hwnd ) )
+   if( IsWindow(hwnd) )
    {
-      HMENU hmenu     = ( HMENU ) HB_PARNL( 2 );
-      DWORD dwExStyle = ( ( BOOL ) hb_parl( 10 ) ? 0 : WS_EX_TRANSPARENT ); /* opaque | transparent */
+      HMENU hmenu     = ( HMENU ) HB_PARNL(2);
+      DWORD dwExStyle = ( ( BOOL ) hb_parl(10) ? 0 : WS_EX_TRANSPARENT ); /* opaque | transparent */
 #ifndef UNICODE
-      LPCSTR lpWindowName = hb_parc( 7 );
+      LPCSTR lpWindowName = hb_parc(7);
 #else
-      LPWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc( 7 ) );
+      LPWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc(7) );
 #endif
 
       hbutton = CreateWindowEx
@@ -82,17 +82,17 @@ HB_FUNC( INITFRAME )
          WC_BUTTON,
          lpWindowName,
          WS_CHILD | WS_VISIBLE | BS_GROUPBOX | BS_NOTIFY,
-         hb_parni( 3 ),
-         hb_parni( 4 ),
-         hb_parni( 5 ),
-         hb_parni( 6 ),
+         hb_parni(3),
+         hb_parni(4),
+         hb_parni(5),
+         hb_parni(6),
          hwnd,
          ( IsMenu( hmenu ) ? hmenu : NULL ),
          GetInstance(),
          NULL
                 );
 #ifdef UNICODE
-      hb_xfree( ( TCHAR * ) lpWindowName );
+      hb_xfree(( TCHAR * ) lpWindowName);
 #endif
    }
    else

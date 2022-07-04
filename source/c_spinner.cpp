@@ -73,42 +73,42 @@ HB_FUNC( INITSPINNER )
 
    INITCOMMONCONTROLSEX i;
 
-   i.dwSize = sizeof( INITCOMMONCONTROLSEX );
+   i.dwSize = sizeof(INITCOMMONCONTROLSEX);
    i.dwICC  = ICC_STANDARD_CLASSES;
    InitCommonControlsEx( &i );
 
-   hwnd = ( HWND ) HB_PARNL( 1 );
+   hwnd = ( HWND ) HB_PARNL(1);
 
-   if( ! hb_parl( 11 ) )
+   if( ! hb_parl(11) )
    {
       Style1 = Style1 | WS_VISIBLE;
       Style2 = Style2 | WS_VISIBLE;
    }
 
-   if( ! hb_parl( 12 ) )
+   if( ! hb_parl(12) )
       Style1 = Style1 | WS_TABSTOP;
 
-   if( hb_parl( 13 ) )
+   if( hb_parl(13) )
       Style2 = Style2 | UDS_WRAP;
 
-   if( hb_parl( 14 ) )
+   if( hb_parl(14) )
       Style1 = Style1 | ES_READONLY;
 
-   if( hb_parl( 15 ) )
+   if( hb_parl(15) )
       Style2 = Style2 | UDS_HORZ | UDS_ALIGNRIGHT;  /* P.Ch. 10.16. */
 
    hedit = CreateWindowEx
            (
       WS_EX_CLIENTEDGE,
       WC_EDIT,
-      TEXT( "" ),
+      TEXT(""),
       Style1,
-      hb_parni( 3 ),
-      hb_parni( 4 ),
-      hb_parni( 5 ),
-      hb_parni( 10 ),
+      hb_parni(3),
+      hb_parni(4),
+      hb_parni(5),
+      hb_parni(10),
       hwnd,
-      ( HMENU ) HB_PARNL( 2 ),
+      ( HMENU ) HB_PARNL(2),
       GetInstance(),
       NULL
            );
@@ -120,12 +120,12 @@ HB_FUNC( INITSPINNER )
              (
       WS_EX_CLIENTEDGE,
       UPDOWN_CLASS,
-      TEXT( "" ),
+      TEXT(""),
       Style2,
-      hb_parni( 3 ) + hb_parni( 5 ),
-      hb_parni( 4 ),
+      hb_parni(3) + hb_parni(5),
+      hb_parni(4),
       15,
-      hb_parni( 10 ),
+      hb_parni(10),
       hwnd,
       ( HMENU ) 0,
       GetInstance(),
@@ -133,13 +133,13 @@ HB_FUNC( INITSPINNER )
              );
 
    SendMessage( hupdown, UDM_SETBUDDY, ( WPARAM ) hedit, ( LPARAM ) NULL );
-   SendMessage( hupdown, UDM_SETRANGE32, ( WPARAM ) hb_parni( 8 ), ( LPARAM ) hb_parni( 9 ) );
+   SendMessage( hupdown, UDM_SETRANGE32, ( WPARAM ) hb_parni(8), ( LPARAM ) hb_parni(9) );
 
    // 2006.08.13 JD
-   SetProp( ( HWND ) hedit, TEXT( "oldspinproc" ), ( HWND ) GetWindowLongPtr( ( HWND ) hedit, GWLP_WNDPROC ) );
-   SetWindowLongPtr( hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnSpinProc );
+   SetProp( ( HWND ) hedit, TEXT("oldspinproc"), ( HWND ) GetWindowLongPtr(( HWND ) hedit, GWLP_WNDPROC) );
+   SetWindowLongPtr(hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnSpinProc);
 
-   hb_reta( 2 );
+   hb_reta(2);
    HB_STORVNL( ( LONG_PTR ) hedit, -1, 1 );
    HB_STORVNL( ( LONG_PTR ) hupdown, -1, 2 );
 }
@@ -149,9 +149,9 @@ HB_FUNC( SETSPINNERINCREMENT )
    UDACCEL inc;
 
    inc.nSec = 0;
-   inc.nInc = hb_parni( 2 );
+   inc.nInc = hb_parni(2);
 
-   SendMessage( ( HWND ) HB_PARNL( 1 ), UDM_SETACCEL, ( WPARAM ) 1, ( LPARAM ) &inc );
+   SendMessage( ( HWND ) HB_PARNL(1), UDM_SETACCEL, ( WPARAM ) 1, ( LPARAM ) &inc );
 }
 
 // 2006.08.13 JD
@@ -161,13 +161,13 @@ LRESULT CALLBACK OwnSpinProc( HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam
    long int        r;
    WNDPROC         OldWndProc;
 
-   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp( hedit, TEXT( "oldspinproc" ) );
+   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp( hedit, TEXT("oldspinproc") );
 
    switch( Msg )
    {
       case WM_DESTROY:
-         SetWindowLongPtr( hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OldWndProc );
-         RemoveProp( hedit, TEXT( "oldspinproc" ) );
+         SetWindowLongPtr(hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OldWndProc);
+         RemoveProp( hedit, TEXT("oldspinproc") );
          break;
 
       case WM_CONTEXTMENU:
@@ -183,7 +183,7 @@ LRESULT CALLBACK OwnSpinProc( HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam
             hb_vmPushLong( Msg );
             hb_vmPushNumInt( wParam );
             hb_vmPushNumInt( lParam );
-            hb_vmDo( 4 );
+            hb_vmDo(4);
          }
 
          r = hb_parnl( -1 );  /* P.Ch. 10.16. */

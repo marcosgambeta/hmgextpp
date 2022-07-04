@@ -149,7 +149,7 @@ METHOD HandleEvent( nMsg, nWParam, nLParam ) CLASS TBtnBox
 
    // just used for some testings
    If nMsg == WM_NOTIFY
-      IF HiWord( nWParam ) == NM_KILLFOCUS
+      IF HiWord(nWParam) == NM_KILLFOCUS
          ::LostFocus()
       Endif
    EndIf
@@ -286,20 +286,20 @@ METHOD Command( nWParam, nLParam ) CLASS TBtnBox
    LOCAL nID
    LOCAL hWndCtl
 
-   nNotifyCode := HiWord( nWParam )
-   nID         := LoWord( nWParam )
+   nNotifyCode := HiWord(nWParam)
+   nID         := LoWord(nWParam)
    hWndCtl     := nLParam
 
    do case
    case hWndCtl == 0
 
       * Enter ........................................
-      If HiWord( nWParam ) == 0 .And. LoWord( nWParam ) == 1
+      If HiWord(nWParam) == 0 .And. LoWord(nWParam) == 1
          ::KeyDown( VK_RETURN, 0 )
       EndIf
 
       * Escape .......................................
-      If HiWord( nwParam ) == 0 .And. LoWord( nwParam ) == 2
+      If HiWord(nwParam) == 0 .And. LoWord(nwParam) == 2
          ::KeyDown( VK_ESCAPE, 0 )
       EndIf
 

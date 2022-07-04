@@ -48,7 +48,7 @@
 #include <mgdefs.h>
 
 #ifndef WC_BUTTON
-#define WC_BUTTON  TEXT( "Button" )
+#define WC_BUTTON  TEXT("Button")
 #endif
 
 #ifdef UNICODE
@@ -62,21 +62,21 @@ HB_FUNC( INITRADIOGROUP )
    HWND hbutton;
 
 #ifndef UNICODE
-   LPCSTR lpWindowName = hb_parc( 2 );
+   LPCSTR lpWindowName = hb_parc(2);
 #else
-   LPWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc( 2 ) );
+   LPWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
    int Style = BS_NOTIFY | WS_CHILD | BS_AUTORADIOBUTTON | WS_GROUP;
 
-   hwnd = ( HWND ) HB_PARNL( 1 );
+   hwnd = ( HWND ) HB_PARNL(1);
 
-   if( ! hb_parl( 9 ) )
+   if( ! hb_parl(9) )
       Style = Style | WS_VISIBLE;
 
-   if( ! hb_parl( 10 ) )
+   if( ! hb_parl(10) )
       Style = Style | WS_TABSTOP;
 
-   if( hb_parl( 11 ) )
+   if( hb_parl(11) )
       Style = Style | BS_LEFTTEXT;
 
    hbutton = CreateWindow
@@ -84,12 +84,12 @@ HB_FUNC( INITRADIOGROUP )
       WC_BUTTON,
       lpWindowName,
       Style,
-      hb_parni( 4 ),
-      hb_parni( 5 ),
-      hb_parni( 8 ),
+      hb_parni(4),
+      hb_parni(5),
+      hb_parni(8),
       28,
       hwnd,
-      ( HMENU ) HB_PARNL( 3 ),
+      ( HMENU ) HB_PARNL(3),
       GetInstance(),
       NULL
              );
@@ -97,7 +97,7 @@ HB_FUNC( INITRADIOGROUP )
    HB_RETNL( ( LONG_PTR ) hbutton );
 
 #ifdef UNICODE
-   hb_xfree( ( TCHAR * ) lpWindowName );
+   hb_xfree(( TCHAR * ) lpWindowName);
 #endif
 }
 
@@ -107,18 +107,18 @@ HB_FUNC( INITRADIOBUTTON )
    HWND hbutton;
 
 #ifndef UNICODE
-   LPCSTR lpWindowName = hb_parc( 2 );
+   LPCSTR lpWindowName = hb_parc(2);
 #else
-   LPWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc( 2 ) );
+   LPWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
    int Style = BS_NOTIFY | WS_CHILD | BS_AUTORADIOBUTTON;
 
-   hwnd = ( HWND ) HB_PARNL( 1 );
+   hwnd = ( HWND ) HB_PARNL(1);
 
-   if( ! hb_parl( 9 ) )
+   if( ! hb_parl(9) )
       Style = Style | WS_VISIBLE;
 
-   if( hb_parl( 10 ) )
+   if( hb_parl(10) )
       Style = Style | BS_LEFTTEXT;
 
    hbutton = CreateWindow
@@ -126,12 +126,12 @@ HB_FUNC( INITRADIOBUTTON )
       WC_BUTTON,
       lpWindowName,
       Style,
-      hb_parni( 4 ),
-      hb_parni( 5 ),
-      hb_parni( 8 ),
+      hb_parni(4),
+      hb_parni(5),
+      hb_parni(8),
       28,
       hwnd,
-      ( HMENU ) HB_PARNL( 3 ),
+      ( HMENU ) HB_PARNL(3),
       GetInstance(),
       NULL
              );
@@ -139,6 +139,6 @@ HB_FUNC( INITRADIOBUTTON )
    HB_RETNL( ( LONG_PTR ) hbutton );
 
 #ifdef UNICODE
-   hb_xfree( ( TCHAR * ) lpWindowName );
+   hb_xfree(( TCHAR * ) lpWindowName);
 #endif
 }

@@ -8,12 +8,12 @@
    LPWSTR AnsiToWide( LPCSTR );
    LPSTR  WideToAnsi( LPWSTR );
 #endif
-BOOL Array2Rect( PHB_ITEM aRect, RECT * rc );
+BOOL Array2Rect(PHB_ITEM aRect, RECT * rc);
 PHB_ITEM             Rect2Array( RECT * rc );
 
 // Minigui Resources control system
-void RegisterResource( HANDLE hResource, LPSTR szType );
-void pascal DelResource( HANDLE hResource );
+void RegisterResource(HANDLE hResource, LPSTR szType);
+void pascal DelResource(HANDLE hResource);
 
 static far BYTE HandXor[] = {
    0x00, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00,
@@ -124,11 +124,11 @@ HB_FUNC( NOR )
 HB_FUNC( CREATEPEN )
 {
    HPEN     hpen;
-   int      fnPenStyle = hb_parni( 1 );   // pen style
-   int      nWidth     = hb_parni( 2 );   // pen width
-   COLORREF crColor    = hb_parni( 3 );   // pen color
+   int      fnPenStyle = hb_parni(1);   // pen style
+   int      nWidth     = hb_parni(2);   // pen width
+   COLORREF crColor    = hb_parni(3);   // pen color
 
-   hpen = CreatePen( fnPenStyle, nWidth, crColor );
+   hpen = CreatePen(fnPenStyle, nWidth, crColor);
 
    HB_RETNL( ( LONG_PTR ) hpen );
 }
@@ -137,27 +137,27 @@ HB_FUNC( MOVETO )
 {
    POINT pt;
 
-   MoveToEx( ( HDC ) HB_PARNL( 1 ), ( INT ) hb_parni( 2 ), ( INT ) hb_parni( 3 ), &pt );
+   MoveToEx( ( HDC ) HB_PARNL(1), ( INT ) hb_parni(2), ( INT ) hb_parni(3), &pt );
 }
 
 HB_FUNC( LINETO )
 {
-   LineTo( ( HDC ) HB_PARNL( 1 ), ( INT ) hb_parni( 2 ), ( INT ) hb_parni( 3 ) );
+   LineTo( ( HDC ) HB_PARNL(1), ( INT ) hb_parni(2), ( INT ) hb_parni(3) );
 }
 
 HB_FUNC( DRAWICON )
 {
-   hb_retl( DrawIcon( ( HDC ) HB_PARNL( 1 ), hb_parni( 2 ), hb_parni( 3 ), ( HICON ) HB_PARNL( 4 ) ) );
+   hb_retl( DrawIcon(( HDC ) HB_PARNL(1), hb_parni(2), hb_parni(3), ( HICON ) HB_PARNL(4)) );
 }
 
 HB_FUNC( CURSORWE )
 {
-   HB_RETNL( ( LONG_PTR ) SetCursor( LoadCursor( 0, IDC_SIZEWE ) ) );
+   HB_RETNL( ( LONG_PTR ) SetCursor(LoadCursor(0, IDC_SIZEWE)) );
 }
 
 HB_FUNC( CURSORSIZE )
 {
-   HB_RETNL( ( LONG_PTR ) SetCursor( LoadCursor( 0, IDC_SIZEALL ) ) );
+   HB_RETNL( ( LONG_PTR ) SetCursor(LoadCursor(0, IDC_SIZEALL)) );
 }
 
 HB_FUNC( RELEASECAPTURE )
@@ -169,70 +169,70 @@ HB_FUNC( INVERTRECT )
 {
    RECT rc;
 
-   if( HB_ISARRAY( 2 ) )
+   if( HB_ISARRAY(2) )
    {
-      Array2Rect( hb_param( 2, HB_IT_ARRAY ), &rc );
-      InvertRect( ( HDC ) HB_PARNL( 1 ), &rc );
+      Array2Rect(hb_param( 2, HB_IT_ARRAY ), &rc);
+      InvertRect(( HDC ) HB_PARNL(1), &rc);
    }
 }
 
 HB_FUNC( GETCLASSINFO )
 {
 #ifndef UNICODE
-   LPCSTR lpString = ( LPCSTR ) hb_parc( 2 );
+   LPCSTR lpString = ( LPCSTR ) hb_parc(2);
 #else
-   LPWSTR lpString = AnsiToWide( ( char * ) hb_parc( 2 ) );
+   LPWSTR lpString = AnsiToWide( ( char * ) hb_parc(2) );
    LPSTR pStr;
 #endif
    WNDCLASS WndClass;
 
-   if( GetClassInfo( HB_ISNIL( 1 ) ? NULL : ( HINSTANCE ) HB_PARNL( 1 ), lpString, &WndClass ) )
+   if( GetClassInfo(HB_ISNIL(1) ? NULL : ( HINSTANCE ) HB_PARNL(1), lpString, &WndClass) )
    {
    #ifdef UNICODE
-      hb_reta( 1 );
+      hb_reta(1);
       pStr = WideToAnsi( ( LPWSTR ) WndClass.lpszClassName );
       HB_STORC( pStr, -1, 1 );
-      hb_xfree( pStr );
+      hb_xfree(pStr);
    #else
-      hb_retclen( ( char * ) &WndClass, sizeof( WNDCLASS ) );
+      hb_retclen( ( char * ) &WndClass, sizeof(WNDCLASS) );
    #endif
    }
 
 #ifdef UNICODE
-   hb_xfree( lpString );
+   hb_xfree(lpString);
 #endif
 }
 
 HB_FUNC( SETCAPTURE )
 {
-   HB_RETNL( ( LONG_PTR ) SetCapture( ( HWND ) HB_PARNL( 1 ) ) );
+   HB_RETNL( ( LONG_PTR ) SetCapture( ( HWND ) HB_PARNL(1) ) );
 }
 
 HB_FUNC( GETTEXTCOLOR )
 {
-   hb_retnl( ( ULONG ) GetTextColor( ( HDC ) HB_PARNL( 1 ) ) );
+   hb_retnl( ( ULONG ) GetTextColor(( HDC ) HB_PARNL(1)) );
 }
 
 HB_FUNC( GETBKCOLOR )
 {
-   hb_retnl( ( ULONG ) GetBkColor( ( HDC ) HB_PARNL( 1 ) ) );
+   hb_retnl( ( ULONG ) GetBkColor(( HDC ) HB_PARNL(1)) );
 }
 
 HB_FUNC( MOVEFILE )
 {
 #ifndef UNICODE
-   LPCSTR lpExistingFileName = hb_parc( 1 );
-   LPCSTR lpNewFileName = hb_parc( 2 );
+   LPCSTR lpExistingFileName = hb_parc(1);
+   LPCSTR lpNewFileName = hb_parc(2);
 #else
-   LPWSTR lpExistingFileName = AnsiToWide( ( char * ) hb_parc( 1 ) );
-   LPWSTR lpNewFileName = AnsiToWide( ( char * ) hb_parc( 2 ) );
+   LPWSTR lpExistingFileName = AnsiToWide( ( char * ) hb_parc(1) );
+   LPWSTR lpNewFileName = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
 
-   hb_retl( ( BOOL ) MoveFile( lpExistingFileName, lpNewFileName ) );
+   hb_retl( ( BOOL ) MoveFile(lpExistingFileName, lpNewFileName) );
 
 #ifdef UNICODE
-   hb_xfree( lpExistingFileName );
-   hb_xfree( lpNewFileName );
+   hb_xfree(lpExistingFileName);
+   hb_xfree(lpNewFileName);
 #endif
 }
 
@@ -245,8 +245,8 @@ HB_FUNC( GETCURSORHAND )
 {
    if( ! hHand )
    {
-      hHand = CreateCursor( GetModuleHandle( NULL ), 6, 0, 32, 32, HandAnd, HandXor );
-      RegisterResource( hHand, "CUR" );
+      hHand = CreateCursor(GetModuleHandle(NULL), 6, 0, 32, 32, HandAnd, HandXor );
+      RegisterResource(hHand, "CUR");
    }
 
    HB_RETNL( ( LONG_PTR ) hHand );
@@ -256,8 +256,8 @@ HB_FUNC( GETCURSORDRAG )
 {
    if( ! hDrag )
    {
-      hDrag = CreateCursor( GetModuleHandle( NULL ), 6, 0, 32, 32, DragAnd, DragXor );
-      RegisterResource( hDrag, "CUR" );
+      hDrag = CreateCursor(GetModuleHandle(NULL), 6, 0, 32, 32, DragAnd, DragXor);
+      RegisterResource(hDrag, "CUR");
    }
 
    HB_RETNL( ( LONG_PTR ) hDrag );
@@ -267,8 +267,8 @@ HB_FUNC( GETCURSORCATCH )
 {
    if( ! hCatch )
    {
-      hCatch = CreateCursor( GetModuleHandle( NULL ), 16, 16, 32, 32, CatchAnd, CatchXor );
-      RegisterResource( hCatch, "CUR" );
+      hCatch = CreateCursor(GetModuleHandle(NULL), 16, 16, 32, 32, CatchAnd, CatchXor);
+      RegisterResource(hCatch, "CUR");
    }
 
    HB_RETNL( ( LONG_PTR ) hCatch );
@@ -278,8 +278,8 @@ HB_FUNC( GETCURSORSTOP )
 {
    if( ! hStop )
    {
-      hStop = CreateCursor( GetModuleHandle( NULL ), 6, 0, 32, 32, StopAnd, StopXor );
-      RegisterResource( hStop, "CUR" );
+      hStop = CreateCursor(GetModuleHandle(NULL), 6, 0, 32, 32, StopAnd, StopXor);
+      RegisterResource(hStop, "CUR");
    }
 
    HB_RETNL( ( LONG_PTR ) hStop );
@@ -289,15 +289,15 @@ HB_FUNC( CURSORSTOP )
 {
    if( ! hStop )
    {
-      hStop = CreateCursor( GetModuleHandle( NULL ), 6, 0, 32, 32, StopAnd, StopXor );
+      hStop = CreateCursor(GetModuleHandle(NULL), 6, 0, 32, 32, StopAnd, StopXor);
    }
 
-   SetCursor( hStop );
+   SetCursor(hStop);
 }
 
 HB_FUNC( DESTROYCURSOR )
 {
-   HCURSOR hCur = ( HCURSOR ) HB_PARNL( 1 );
+   HCURSOR hCur = ( HCURSOR ) HB_PARNL(1);
 
    if( hCur == hDrag )
       hDrag  = NULL;
@@ -308,15 +308,15 @@ HB_FUNC( DESTROYCURSOR )
    else if( hCur == hHand )
       hHand  = NULL;
 
-   DelResource( hCur );
-   hb_retl( ( BOOL ) DestroyCursor( hCur ) );
+   DelResource(hCur);
+   hb_retl( ( BOOL ) DestroyCursor(hCur) );
 }
 
 HB_FUNC( GETWHEELSCROLLLINES )
 {
    UINT pulScrollLines;
 
-   SystemParametersInfo( SPI_GETWHEELSCROLLLINES, 0, &pulScrollLines, 0 );
+   SystemParametersInfo(SPI_GETWHEELSCROLLLINES, 0, &pulScrollLines, 0);
 
    hb_retni( pulScrollLines );
 }

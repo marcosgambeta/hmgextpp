@@ -76,25 +76,25 @@ void hmg_ErrorExit( LPCTSTR lpszMessage, DWORD dwError, BOOL bExit )
 
    // Display the error message and exit the process
    lpDisplayBuf = ( LPVOID ) LocalAlloc( LMEM_ZEROINIT, ( hmg_tstrlen( ( LPCTSTR ) lpMsgBuf ) +
-                                                          hmg_tstrlen( lpszMessage ) + 40 ) * sizeof( TCHAR ) );
+                                                          hmg_tstrlen( lpszMessage ) + 40 ) * sizeof(TCHAR) );
 
 #ifdef UNICODE
 #if ( ( defined( __BORLANDC__ ) && __BORLANDC__ <= 1410 ) )
-   swprintf( ( LPTSTR ) lpDisplayBuf, TEXT( "'%s' failed with error %lu : %s" ),
+   swprintf( ( LPTSTR ) lpDisplayBuf, TEXT("'%s' failed with error %lu : %s"),
              lpszMessage, nError, ( LPTSTR ) lpMsgBuf );
 #else
-   swprintf_s( ( LPTSTR ) lpDisplayBuf, LocalSize( lpDisplayBuf ) / sizeof( TCHAR ), TEXT( "'%s' failed with error %lu : %s" ),
+   swprintf_s( ( LPTSTR ) lpDisplayBuf, LocalSize( lpDisplayBuf ) / sizeof(TCHAR), TEXT("'%s' failed with error %lu : %s"),
                lpszMessage, nError, ( LPTSTR ) lpMsgBuf );
 #endif
 #else
-   hb_snprintf( ( LPTSTR ) lpDisplayBuf, LocalSize( lpDisplayBuf ) / sizeof( TCHAR ), TEXT( "'%s' failed with error %lu : %s" ),
+   hb_snprintf( ( LPTSTR ) lpDisplayBuf, LocalSize( lpDisplayBuf ) / sizeof(TCHAR), TEXT("'%s' failed with error %lu : %s"),
                 lpszMessage, nError, ( LPTSTR ) lpMsgBuf );
 #endif
 
-   MessageBox( NULL, ( LPCTSTR ) lpDisplayBuf, TEXT( "MiniGUI Error" ), MB_OK );
+   MessageBox( NULL, ( LPCTSTR ) lpDisplayBuf, TEXT("MiniGUI Error"), MB_OK );
 
-   LocalFree( lpMsgBuf );
-   LocalFree( lpDisplayBuf );
+   LocalFree(lpMsgBuf);
+   LocalFree(lpDisplayBuf);
 
    if( bExit )
       ExitProcess( nError );

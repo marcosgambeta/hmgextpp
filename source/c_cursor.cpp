@@ -64,54 +64,54 @@ HINSTANCE GetResources( void );
 
 HB_FUNC( LOADCURSOR )
 {
-   HINSTANCE hInstance = HB_ISNIL( 1 ) ? NULL : ( HINSTANCE ) HB_PARNL( 1 );
+   HINSTANCE hInstance = HB_ISNIL(1) ? NULL : ( HINSTANCE ) HB_PARNL(1);
 
 #ifndef UNICODE
-   LPCSTR lpCursorName = ( hb_parinfo( 2 ) & HB_IT_STRING ) ? hb_parc( 2 ) : ( LPCSTR ) MAKEINTRESOURCE( hb_parni( 2 ) );
+   LPCSTR lpCursorName = ( hb_parinfo(2) & HB_IT_STRING ) ? hb_parc(2) : ( LPCSTR ) MAKEINTRESOURCE(hb_parni(2));
 
-   HB_RETNL( ( LONG_PTR ) LoadCursor( hInstance, lpCursorName ) );
+   HB_RETNL( ( LONG_PTR ) LoadCursor(hInstance, lpCursorName) );
 #else
-   LPWSTR  pW = AnsiToWide( ( char * ) hb_parc( 2 ) );
-   LPCWSTR lpCursorName = HB_ISCHAR( 2 ) ? pW : ( LPCWSTR ) MAKEINTRESOURCE( hb_parni( 2 ) );
+   LPWSTR  pW = AnsiToWide( ( char * ) hb_parc(2) );
+   LPCWSTR lpCursorName = HB_ISCHAR(2) ? pW : ( LPCWSTR ) MAKEINTRESOURCE(hb_parni(2));
 
-   HB_RETNL( ( LONG_PTR ) LoadCursor( hInstance, lpCursorName ) );
-   hb_xfree( pW );
+   HB_RETNL( ( LONG_PTR ) LoadCursor(hInstance, lpCursorName) );
+   hb_xfree(pW);
 #endif
 }
 
 HB_FUNC( LOADCURSORFROMFILE )
 {
 #ifndef UNICODE
-   HB_RETNL( ( LONG_PTR ) LoadCursorFromFile( ( LPCSTR ) hb_parc( 1 ) ) );
+   HB_RETNL( ( LONG_PTR ) LoadCursorFromFile(( LPCSTR ) hb_parc(1)) );
 #else
-   LPCWSTR lpFileName = AnsiToWide( ( char * ) hb_parc( 1 ) );
-   HB_RETNL( ( LONG_PTR ) LoadCursorFromFile( lpFileName ) );
-   hb_xfree( ( TCHAR * ) lpFileName );
+   LPCWSTR lpFileName = AnsiToWide( ( char * ) hb_parc(1) );
+   HB_RETNL( ( LONG_PTR ) LoadCursorFromFile(lpFileName) );
+   hb_xfree(( TCHAR * ) lpFileName);
 #endif
 }
 
 HB_FUNC( SETRESCURSOR )
 {
-   HB_RETNL( ( LONG_PTR ) SetCursor( ( HCURSOR ) HB_PARNL( 1 ) ) );
+   HB_RETNL( ( LONG_PTR ) SetCursor(( HCURSOR ) HB_PARNL(1)) );
 }
 
 HB_FUNC( FILECURSOR )
 {
 #ifndef UNICODE
-   HB_RETNL( ( LONG_PTR ) SetCursor( LoadCursorFromFile( ( LPCSTR ) hb_parc( 1 ) ) ) );
+   HB_RETNL( ( LONG_PTR ) SetCursor(LoadCursorFromFile(( LPCSTR ) hb_parc(1))) );
 #else
-   LPCWSTR lpFileName = AnsiToWide( ( char * ) hb_parc( 1 ) );
-   HB_RETNL( ( LONG_PTR ) SetCursor( LoadCursorFromFile( lpFileName ) ) );
-   hb_xfree( ( TCHAR * ) lpFileName );
+   LPCWSTR lpFileName = AnsiToWide( ( char * ) hb_parc(1) );
+   HB_RETNL( ( LONG_PTR ) SetCursor(LoadCursorFromFile(lpFileName)) );
+   hb_xfree(( TCHAR * ) lpFileName);
 #endif
 }
 
 HB_FUNC( CURSORHAND )
 {
 #if ( WINVER >= 0x0500 )
-   HB_RETNL( ( LONG_PTR ) SetCursor( LoadCursor( NULL, IDC_HAND ) ) );
+   HB_RETNL( ( LONG_PTR ) SetCursor(LoadCursor(NULL, IDC_HAND)) );
 #else
-   HB_RETNL( ( LONG_PTR ) SetCursor( LoadCursor( GetInstance(), TEXT( "MINIGUI_FINGER" ) ) ) );
+   HB_RETNL( ( LONG_PTR ) SetCursor(LoadCursor(GetInstance(), TEXT("MINIGUI_FINGER"))) );
 #endif
 }
 
@@ -120,33 +120,33 @@ HB_FUNC( SETWINDOWCURSOR )
    HCURSOR ch;
 
 #ifndef UNICODE
-   LPCSTR lpCursorName = ( hb_parinfo( 2 ) & HB_IT_STRING ) ? hb_parc( 2 ) : ( LPCSTR ) MAKEINTRESOURCE( hb_parni( 2 ) );
+   LPCSTR lpCursorName = ( hb_parinfo(2) & HB_IT_STRING ) ? hb_parc(2) : ( LPCSTR ) MAKEINTRESOURCE(hb_parni(2));
 #else
-   LPWSTR  pW = AnsiToWide( ( char * ) hb_parc( 2 ) );
-   LPCWSTR lpCursorName = HB_ISCHAR( 2 ) ? pW : ( LPCWSTR ) MAKEINTRESOURCE( hb_parni( 2 ) );
+   LPWSTR  pW = AnsiToWide( ( char * ) hb_parc(2) );
+   LPCWSTR lpCursorName = HB_ISCHAR(2) ? pW : ( LPCWSTR ) MAKEINTRESOURCE(hb_parni(2));
 #endif
 
-   ch = LoadCursor( ( HB_ISCHAR( 2 ) ) ? GetResources() : NULL, lpCursorName );
+   ch = LoadCursor(( HB_ISCHAR(2) ) ? GetResources() : NULL, lpCursorName);
 
-   if( ( ch == NULL ) && HB_ISCHAR( 2 ) )
-      ch = LoadCursorFromFile( lpCursorName );
+   if( ( ch == NULL ) && HB_ISCHAR(2) )
+      ch = LoadCursorFromFile(lpCursorName);
 
    if( ch != NULL )
-      SetClassLongPtr( ( HWND ) HB_PARNL( 1 ),  // window handle
-                       GCLP_HCURSOR,            // change cursor
-                       ( LONG_PTR ) ch );       // new cursor
+      SetClassLongPtr(( HWND ) HB_PARNL(1),  // window handle
+                      GCLP_HCURSOR,            // change cursor
+                      ( LONG_PTR ) ch);       // new cursor
 #ifdef UNICODE
-   hb_xfree( pW );
+   hb_xfree(pW);
 #endif
 }
 
 HB_FUNC( SETHANDCURSOR )
 {
 #if ( WINVER >= 0x0500 )
-   SetClassLongPtr( ( HWND ) HB_PARNL( 1 ), GCLP_HCURSOR,
-                    ( LONG_PTR ) LoadCursor( NULL, IDC_HAND ) );
+   SetClassLongPtr(( HWND ) HB_PARNL(1), GCLP_HCURSOR,
+                   ( LONG_PTR ) LoadCursor(NULL, IDC_HAND));
 #else
-   SetClassLongPtr( ( HWND ) HB_PARNL( 1 ), GCLP_HCURSOR,
-                    ( LONG_PTR ) LoadCursor( GetInstance(), TEXT( "MINIGUI_FINGER" ) ) );
+   SetClassLongPtr(( HWND ) HB_PARNL(1), GCLP_HCURSOR,
+                   ( LONG_PTR ) LoadCursor(GetInstance(), TEXT("MINIGUI_FINGER")));
 #endif
 }

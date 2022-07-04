@@ -62,7 +62,7 @@ BOOL _isValidCtrlClassW( HWND hwndTip, LPWSTR ClassName )
    TCHAR lpClassName[ 256 ];
    int   iLen = 0;
 
-   if( IsWindow( hwndTip ) )
+   if( IsWindow(hwndTip) )
       iLen = GetClassNameW( hwndTip, lpClassName, 256 );
 
    if( ( iLen > 0 ) && ( hb_wstrncmp( ( TCHAR * ) lpClassName, ClassName, iLen ) == 0 ) )
@@ -78,7 +78,7 @@ BOOL _isValidCtrlClassA( HWND hwndTip, const char * ClassName )
    char lpClassName[ 256 ];
    int  iLen = 0;
 
-   if( IsWindow( hwndTip ) )
+   if( IsWindow(hwndTip) )
       iLen = GetClassNameA( hwndTip, lpClassName, 256 );
 
    if( ( iLen > 0 ) && ( strncmp( ( const char * ) lpClassName, ClassName, iLen ) == 0 ) )
@@ -97,14 +97,14 @@ BOOL _isValidCtrlClassA( HWND hwndTip, const char * ClassName )
  */
 HB_FUNC( GETCLASSNAME )
 {
-   HWND hwnd = ( HWND ) HB_PARNL( 1 );
+   HWND hwnd = ( HWND ) HB_PARNL(1);
 
-   if( IsWindow( hwnd ) )
+   if( IsWindow(hwnd) )
    {
       char ClassName[ 256 ];
       int  iLen;
 
-      iLen = GetClassNameA( hwnd, ClassName, sizeof( ClassName ) / sizeof( char ) );
+      iLen = GetClassNameA( hwnd, ClassName, sizeof(ClassName) / sizeof(char) );
 
       if( iLen > 0 )
          hb_retclen( ( const char * ) ClassName, iLen );
@@ -118,21 +118,21 @@ HB_FUNC( GETCLASSNAME )
 /*
    cClassName := Space( 32 )
    ..
-   nLen := GetClassNameByRef( nHwnd, @cClassName )
+   nLen := GetClassNameByRef(nHwnd, @cClassName)
    IF nLen > 0
       ..
    ..
  */
 HB_FUNC( GETCLASSNAMEBYREF )
 {
-   HWND    hwnd = ( HWND ) HB_PARNL( 1 );
-   HB_SIZE nLen = hb_parcsiz( 2 ); // fixed P.Ch. 16.12.
+   HWND    hwnd = ( HWND ) HB_PARNL(1);
+   HB_SIZE nLen = hb_parcsiz(2); // fixed P.Ch. 16.12.
 
-   hb_retni( 0 );
+   hb_retni(0);
 
-   if( IsWindow( hwnd ) && nLen > 1 )
+   if( IsWindow(hwnd) && nLen > 1 )
    {
-      char * pBuffer = ( char * ) hb_xgrab( nLen + 1 );
+      char * pBuffer = ( char * ) hb_xgrab(nLen + 1);
 
       if( pBuffer )
       {
@@ -141,27 +141,27 @@ HB_FUNC( GETCLASSNAMEBYREF )
          if( nResult > 0 )
             hb_retni( hb_storclen_buffer( pBuffer, ( HB_SIZE ) nResult, 2 ) );
          else
-            hb_xfree( pBuffer );
+            hb_xfree(pBuffer);
       }
    }
 }
 
 HB_FUNC( GETWINDOWLONG )
 {
-   HWND hwnd = ( HWND ) HB_PARNL( 1 );
+   HWND hwnd = ( HWND ) HB_PARNL(1);
 
-   if( IsWindow( hwnd ) )
-      HB_RETNL( GetWindowLongPtr( hwnd, hb_parni( 2 ) ) );
+   if( IsWindow(hwnd) )
+      HB_RETNL( GetWindowLongPtr(hwnd, hb_parni(2)) );
    else
       hb_errRT_BASE_SubstR( EG_ARG, 3012, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
 HB_FUNC( SETWINDOWLONG )
 {
-   HWND hwnd = ( HWND ) HB_PARNL( 1 );
+   HWND hwnd = ( HWND ) HB_PARNL(1);
 
-   if( IsWindow( hwnd ) )
-      HB_RETNL( SetWindowLongPtr( hwnd, hb_parni( 2 ), hb_parnl( 3 ) ) );
+   if( IsWindow(hwnd) )
+      HB_RETNL( SetWindowLongPtr(hwnd, hb_parni(2), hb_parnl(3)) );
    else
       hb_errRT_BASE_SubstR( EG_ARG, 3012, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
@@ -177,10 +177,10 @@ HB_FUNC( SETWINDOWLONG )
  */
 HB_FUNC( GETWINDOWSTYLE )
 {
-   HWND hwnd = ( HWND ) HB_PARNL( 1 );
+   HWND hwnd = ( HWND ) HB_PARNL(1);
 
-   if( IsWindow( hwnd ) )
-      HB_RETNL( GetWindowLongPtr( hwnd, GWL_STYLE ) );
+   if( IsWindow(hwnd) )
+      HB_RETNL( GetWindowLongPtr(hwnd, GWL_STYLE) );
    else
       hb_errRT_BASE_SubstR( EG_ARG, 3012, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
@@ -194,14 +194,14 @@ HB_FUNC( GETWINDOWSTYLE )
  */
 HB_FUNC( SETWINDOWSTYLE )
 {
-   HWND hwnd = ( HWND ) HB_PARNL( 1 );
+   HWND hwnd = ( HWND ) HB_PARNL(1);
 
-   if( IsWindow( hwnd ) )
+   if( IsWindow(hwnd) )
    {
-      LONG_PTR nOldStyle = GetWindowLongPtr( hwnd, GWL_STYLE );
-      LONG_PTR nNewStyle = ( LONG_PTR ) HB_PARNL( 2 );
+      LONG_PTR nOldStyle = GetWindowLongPtr(hwnd, GWL_STYLE);
+      LONG_PTR nNewStyle = ( LONG_PTR ) HB_PARNL(2);
 
-      HB_RETNL( SetWindowLongPtr( hwnd, GWL_STYLE, ( ( BOOL ) hb_parl( 3 ) ) ? nOldStyle | nNewStyle : nOldStyle&( ~nNewStyle ) ) );
+      HB_RETNL( SetWindowLongPtr(hwnd, GWL_STYLE, ( ( BOOL ) hb_parl(3) ) ? nOldStyle | nNewStyle : nOldStyle&( ~nNewStyle )) );
    }
    else
       hb_errRT_BASE_SubstR( EG_ARG, 3012, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
@@ -216,13 +216,13 @@ HB_FUNC( SETWINDOWSTYLE )
  */
 HB_FUNC( ISWINDOWHASSTYLE )
 {
-   HWND hwnd = ( HWND ) HB_PARNL( 1 );
+   HWND hwnd = ( HWND ) HB_PARNL(1);
 
-   if( IsWindow( hwnd ) )
+   if( IsWindow(hwnd) )
    {
-      LONG_PTR Style = GetWindowLongPtr( hwnd, GWL_STYLE );
+      LONG_PTR Style = GetWindowLongPtr(hwnd, GWL_STYLE);
 
-      hb_retl( ( Style & ( LONG_PTR ) HB_PARNL( 2 ) ) ? HB_TRUE : HB_FALSE );
+      hb_retl( ( Style & ( LONG_PTR ) HB_PARNL(2) ) ? HB_TRUE : HB_FALSE );
    }
    else
       hb_errRT_BASE_SubstR( EG_ARG, 3012, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
@@ -230,13 +230,13 @@ HB_FUNC( ISWINDOWHASSTYLE )
 
 HB_FUNC( ISWINDOWHASEXSTYLE )
 {
-   HWND hwnd = ( HWND ) HB_PARNL( 1 );
+   HWND hwnd = ( HWND ) HB_PARNL(1);
 
-   if( IsWindow( hwnd ) )
+   if( IsWindow(hwnd) )
    {
-      LONG_PTR nExStyle = GetWindowLongPtr( hwnd, GWL_EXSTYLE );
+      LONG_PTR nExStyle = GetWindowLongPtr(hwnd, GWL_EXSTYLE);
 
-      hb_retl( ( nExStyle & ( LONG_PTR ) HB_PARNL( 2 ) ) ? HB_TRUE : HB_FALSE );
+      hb_retl( ( nExStyle & ( LONG_PTR ) HB_PARNL(2) ) ? HB_TRUE : HB_FALSE );
    }
    else
       hb_errRT_BASE_SubstR( EG_ARG, 3012, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );

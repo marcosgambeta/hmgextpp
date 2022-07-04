@@ -48,10 +48,10 @@ unsigned char *digest;                 /* caller digest to be filled in */
     */
 
    /* start out by storing key in pads */
-   memset( k_ipad, 0, sizeof k_ipad);
-   memset( k_opad, 0, sizeof k_opad);
-   memcpy( k_ipad, key, key_len);
-   memcpy( k_opad, key, key_len);
+   memset(k_ipad, 0, sizeof k_ipad);
+   memset(k_opad, 0, sizeof k_opad);
+   memcpy(k_ipad, key, key_len);
+   memcpy(k_opad, key, key_len);
 
    /* XOR key with ipad and opad values */
    for( i = 0; i < 64; i++ )

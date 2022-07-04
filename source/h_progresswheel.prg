@@ -755,7 +755,7 @@ PROCEDURE ProgressWheelPaint( cParentForm, cImgName, Width, Height, ;
       DrawTextInBitmap( hDC, row, col, cText, _HMG_DefaultFontName, _HMG_DefaultFontSize, iif( Empty( ColorInner ), WHITE, BLACK ), 2 )
    ENDIF
 
-   BT_DeleteDC( BTstruct )
+   BT_DeleteDC(BTstruct)
 
    SetProperty( cParentForm, cImgName, "HBITMAP", hBitmap ) // Assign hBitmap to the IMAGE control
 
@@ -799,7 +799,7 @@ FUNCTION UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, Colo
 
       NEXT
 
-      BT_DeleteDC( BTstruct )
+      BT_DeleteDC(BTstruct)
 
 #ifdef __DEBUG__
       BT_BitmapSaveFile( hBitmap, "grad.bmp", BT_FILEFORMAT_BMP )

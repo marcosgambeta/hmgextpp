@@ -188,7 +188,7 @@ METHOD SelectPrinter( cPrinter, lPrev ) CLASS HBPrinter
    LOCAL t := { 0, 0, 1, 0 }
 
    IF cPrinter == NIL
-      ::hDCRef := rr_getdc( ::PrinterDefault )
+      ::hDCRef := rr_getdc(::PrinterDefault)
       ::hDC := ::hDCRef
       ::PrinterName := ::PrinterDefault
    ELSEIF Empty( cPrinter )
@@ -200,7 +200,7 @@ METHOD SelectPrinter( cPrinter, lPrev ) CLASS HBPrinter
       ::hDC := ::hDCRef
       ::PrinterName := rr_PrinterName()
    ELSE
-      ::hDCRef := rr_getdc( cPrinter )
+      ::hDCRef := rr_getdc(cPrinter)
       ::hDC := ::hDCRef
       ::PrinterName := cPrinter
    ENDIF
@@ -1079,7 +1079,7 @@ METHOD End() CLASS HBPrinter
    ENDIF
    IF ::HDCRef != 0
       ef_resetprinter()
-      rr_deletedc( ::HDCRef )
+      rr_deletedc(::HDCRef)
    ENDIF
    rr_deleteobjects( ::Fonts[ 1 ] )
    rr_deleteobjects( ::Brushes[ 1 ] )

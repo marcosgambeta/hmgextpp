@@ -992,7 +992,7 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
 
             z := iif( _HMG_aScrollStep [1] > 0, _HMG_aScrollStep [1], GetScrollRangeMax ( hwnd , SB_VERT ) / _HMG_aScrollStep [2] )
 
-            IF LoWord( wParam ) == SB_LINEDOWN
+            IF LoWord(wParam) == SB_LINEDOWN
 
                NewPos := GetScrollPos ( hwnd, SB_VERT ) + z
                IF NewPos >= GetScrollRangeMax ( hwnd, SB_VERT ) - 10
@@ -1000,7 +1000,7 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
                ENDIF
                SetScrollPos ( hwnd , SB_VERT , NewPos , .T. )
 
-            ELSEIF LoWord( wParam ) == SB_LINEUP
+            ELSEIF LoWord(wParam) == SB_LINEUP
 
                NewPos := GetScrollPos( hwnd, SB_VERT ) - z
                IF NewPos < 10
@@ -1008,29 +1008,29 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
                ENDIF
                SetScrollPos ( hwnd , SB_VERT , NewPos , .T. )
 
-            ELSEIF LoWord( wParam ) == SB_TOP
+            ELSEIF LoWord(wParam) == SB_TOP
 
                NewPos := 0
                SetScrollPos ( hwnd , SB_VERT , NewPos , .T. )
 
-            ELSEIF LoWord( wParam ) == SB_BOTTOM
+            ELSEIF LoWord(wParam) == SB_BOTTOM
 
                NewPos := GetScrollRangeMax ( hwnd, SB_VERT )
                SetScrollPos ( hwnd , SB_VERT , NewPos , .T. )
 
-            ELSEIF LoWord( wParam ) == SB_PAGEUP
+            ELSEIF LoWord(wParam) == SB_PAGEUP
 
                NewPos := GetScrollPos ( hwnd, SB_VERT ) - _HMG_aScrollStep [2]
                SetScrollPos ( hwnd , SB_VERT , NewPos , .T. )
 
-            ELSEIF LoWord( wParam ) == SB_PAGEDOWN
+            ELSEIF LoWord(wParam) == SB_PAGEDOWN
 
                NewPos := GetScrollPos ( hwnd, SB_VERT ) + _HMG_aScrollStep [2]
                SetScrollPos ( hwnd , SB_VERT , NewPos , .T. )
 
-            ELSEIF LoWord( wParam ) == SB_THUMBPOSITION
+            ELSEIF LoWord(wParam) == SB_THUMBPOSITION
 
-               NewPos := HiWord( wParam )
+               NewPos := HiWord(wParam)
                SetScrollPos ( hwnd , SB_VERT , NewPos , .T. )
 
             ENDIF
@@ -1043,7 +1043,7 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
 
             // Control Repositioning
 
-            IF LoWord( wParam ) == SB_THUMBPOSITION .OR. LoWord( wParam ) == SB_LINEDOWN .OR. LoWord( wParam ) == SB_LINEUP .OR. LoWord( wParam ) == SB_PAGEUP .OR. LoWord( wParam ) == SB_PAGEDOWN .OR. LoWord( wParam ) == SB_BOTTOM .OR. LoWord( wParam ) == SB_TOP .AND. ! _HMG_AutoAdjust
+            IF LoWord(wParam) == SB_THUMBPOSITION .OR. LoWord(wParam) == SB_LINEDOWN .OR. LoWord(wParam) == SB_LINEUP .OR. LoWord(wParam) == SB_PAGEUP .OR. LoWord(wParam) == SB_PAGEDOWN .OR. LoWord(wParam) == SB_BOTTOM .OR. LoWord(wParam) == SB_TOP .AND. ! _HMG_AutoAdjust
 
                FOR x := 1 TO Len ( _HMG_aControlHandles )
 
@@ -1124,27 +1124,27 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
 
          IF _HMG_aControlType [i] == 'BROWSE'
 
-            IF LoWord( wParam ) == SB_LINEDOWN
+            IF LoWord(wParam) == SB_LINEDOWN
                setfocus( _HMG_aControlHandles [i] )
                InsertDown()
             ENDIF
 
-            IF LoWord( wParam ) == SB_LINEUP
+            IF LoWord(wParam) == SB_LINEUP
                setfocus( _HMG_aControlHandles [i] )
                InsertUp()
             ENDIF
 
-            IF LoWord( wParam ) == SB_PAGEUP
+            IF LoWord(wParam) == SB_PAGEUP
                setfocus( _HMG_aControlHandles [i] )
                InsertPrior()
             ENDIF
 
-            IF LoWord( wParam ) == SB_PAGEDOWN
+            IF LoWord(wParam) == SB_PAGEDOWN
                setfocus( _HMG_aControlHandles [i] )
                InsertNext()
             ENDIF
 
-            IF LoWord( wParam ) == SB_THUMBPOSITION
+            IF LoWord(wParam) == SB_THUMBPOSITION
 
                BackArea := Alias()
                BrowseArea := _HMG_aControlSpacing [i]
@@ -1160,7 +1160,7 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
                      RecordCount := RecCount()
                   ENDIF
 
-                  SkipCount := Int ( HIWORD( wParam ) * RecordCount / GetScrollRangeMax ( _HMG_aControlIds [ i ] , 2 ) )
+                  SkipCount := Int ( HIWORD(wParam) * RecordCount / GetScrollRangeMax ( _HMG_aControlIds [ i ] , 2 ) )
 
                   IF SkipCount > ( RecordCount / 2 )
                      GO BOTTOM
@@ -1178,7 +1178,7 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
 
                   nr := RecNo()
 
-                  SetScrollPos ( _HMG_aControlIds [i] , 2 , HIWORD( wParam ) , .T. )
+                  SetScrollPos ( _HMG_aControlIds [i] , 2 , HIWORD(wParam) , .T. )
 
                   GO BackRec
 
@@ -1309,7 +1309,7 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
 
             z := iif( _HMG_aScrollStep [1] > 0, _HMG_aScrollStep [1], GetScrollRangeMax ( hwnd , SB_HORZ ) / _HMG_aScrollStep [2] )
 
-            IF LoWord( wParam ) == SB_LINERIGHT
+            IF LoWord(wParam) == SB_LINERIGHT
 
                NewHPos := GetScrollPos( hwnd, SB_HORZ ) + z
                IF NewHPos >= GetScrollRangeMax( hwnd, SB_HORZ ) - 10
@@ -1317,7 +1317,7 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
                ENDIF
                SetScrollPos ( hwnd , SB_HORZ , NewHPos , .T. )
 
-            ELSEIF LoWord( wParam ) == SB_LINELEFT
+            ELSEIF LoWord(wParam) == SB_LINELEFT
 
                NewHPos := GetScrollPos( hwnd, SB_HORZ ) - z
                IF NewHPos < 10
@@ -1325,19 +1325,19 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
                ENDIF
                SetScrollPos ( hwnd , SB_HORZ , NewHPos , .T. )
 
-            ELSEIF LoWord( wParam ) == SB_PAGELEFT
+            ELSEIF LoWord(wParam) == SB_PAGELEFT
 
                NewHPos := GetScrollPos( hwnd, SB_HORZ ) - _HMG_aScrollStep [2]
                SetScrollPos ( hwnd , SB_HORZ , NewHPos , .T. )
 
-            ELSEIF LoWord( wParam ) == SB_PAGERIGHT
+            ELSEIF LoWord(wParam) == SB_PAGERIGHT
 
                NewHPos := GetScrollPos( hwnd, SB_HORZ ) + _HMG_aScrollStep [2]
                SetScrollPos ( hwnd , SB_HORZ , NewHPos , .T. )
 
-            ELSEIF LoWord( wParam ) == SB_THUMBPOSITION
+            ELSEIF LoWord(wParam) == SB_THUMBPOSITION
 
-               NewHPos := HIWORD( wParam )
+               NewHPos := HIWORD(wParam)
                SetScrollPos ( hwnd , SB_HORZ , NewHPos , .T. )
 
             ENDIF
@@ -1350,7 +1350,7 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
 
             // Control Repositioning
 
-            IF LoWord( wParam ) == SB_THUMBPOSITION .OR. LoWord( wParam ) == SB_LINELEFT .OR. LoWord( wParam ) == SB_LINERIGHT .OR. LoWord( wParam ) == SB_PAGELEFT .OR. LoWord( wParam ) == SB_PAGERIGHT .AND. ! _HMG_AutoAdjust
+            IF LoWord(wParam) == SB_THUMBPOSITION .OR. LoWord(wParam) == SB_LINELEFT .OR. LoWord(wParam) == SB_LINERIGHT .OR. LoWord(wParam) == SB_PAGELEFT .OR. LoWord(wParam) == SB_PAGERIGHT .AND. ! _HMG_AutoAdjust
 
                FOR x := 1 TO Len ( _HMG_aControlhandles )
 
@@ -1478,7 +1478,7 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
          IF k > 0 .AND. _IsControlDefined ( "StatusBar" , _HMG_aFormNames [i] ) .AND. _HMG_SplitLastControl != "TOOLBAR"
             aPos := { 0, 0, 0, 0 }
             GetClientRect ( _HMG_aFormHandles [i], /*@*/ aPos )
-            SetWindowPos ( k, 0, 0, aPos [4] - LoWord( GetSizeToolBar( k ) ) - GetBorderHeight() - GetProperty( _HMG_aFormNames [i], "StatusBar", "Height" ), 0, 0, SWP_NOSIZE + SWP_NOZORDER )
+            SetWindowPos ( k, 0, 0, aPos [4] - LoWord(GetSizeToolBar( k )) - GetBorderHeight() - GetProperty( _HMG_aFormNames [i], "StatusBar", "Height" ), 0, 0, SWP_NOSIZE + SWP_NOZORDER )
          ENDIF
 
          RETURN 0
@@ -1490,8 +1490,8 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
    CASE WM_RBUTTONDOWN
    ****************************************************************************
 
-      _HMG_MouseRow := HIWORD( lParam )
-      _HMG_MouseCol := LOWORD( lParam )
+      _HMG_MouseRow := HIWORD(lParam)
+      _HMG_MouseCol := LOWORD(lParam)
       _HMG_MouseState := iif( nMsg == WM_RBUTTONDOWN, 2, 3 )
 
       IF ! _HMG_ShowContextMenus
@@ -1512,8 +1512,8 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
    CASE WM_LBUTTONDOWN
    ****************************************************************************
 
-      _HMG_MouseRow := HIWORD( lParam )
-      _HMG_MouseCol := LOWORD( lParam )
+      _HMG_MouseRow := HIWORD(lParam)
+      _HMG_MouseCol := LOWORD(lParam)
       _HMG_MouseState := 1
 
       i := AScan ( _HMG_aFormhandles , hWnd )
@@ -1538,8 +1538,8 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
    CASE WM_MOUSEMOVE
    ****************************************************************************
 
-      _HMG_MouseRow := HIWORD( lParam )
-      _HMG_MouseCol := LOWORD( lParam )
+      _HMG_MouseRow := HIWORD(lParam)
+      _HMG_MouseCol := LOWORD(lParam)
 
       i := AScan ( _HMG_aFormhandles , hWnd )
 
@@ -1575,8 +1575,8 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
    CASE WM_CONTEXTMENU
    ****************************************************************************
 
-      _HMG_MouseRow := HIWORD( lParam )
-      _HMG_MouseCol := LOWORD( lParam )
+      _HMG_MouseRow := HIWORD(lParam)
+      _HMG_MouseCol := LOWORD(lParam)
 
       IF ( i := AScan ( _HMG_aControlHandles , wParam ) ) > 0 .AND. ;
          _HMG_aControlType [i] $ 'IMAGE,LABEL' .AND. ISBLOCK( _HMG_aControlChangeProcedure [i] )
@@ -1596,8 +1596,8 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
             hEdit := _HMG_aControlHandles[ _HMG_xControlsContextMenuID ]
 
             // Current selection range:
-            nStart := LoWord( SendMessage( hEdit, EM_GETSEL, 0, 0 ) )
-            nEnd := HiWord( SendMessage( hEdit, EM_GETSEL, 0, 0 ) )
+            nStart := LoWord(SendMessage( hEdit, EM_GETSEL, 0, 0 ))
+            nEnd := HiWord(SendMessage( hEdit, EM_GETSEL, 0, 0 ))
 
             // Undo:
             SetProperty( cParent, "mnuEditUndo", "Enabled", RichEditBox_CanUndo( hEdit ) )
@@ -1666,8 +1666,8 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
    CASE WM_MOVE
    ****************************************************************************
 
-      _HMG_MouseRow := HIWORD( lParam )
-      _HMG_MouseCol := LOWORD( lParam )
+      _HMG_MouseRow := HIWORD(lParam)
+      _HMG_MouseCol := LOWORD(lParam)
 
       i := AScan ( _HMG_aFormhandles , hWnd )
 
@@ -1815,7 +1815,7 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
       // Search Control From Received Id LoWord (wParam)
       //................................................
 
-      i := AScan ( _HMG_aControlIds , LoWord( wParam ) )
+      i := AScan ( _HMG_aControlIds , LoWord(wParam) )
 
       IF i > 0
 
@@ -2091,7 +2091,7 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
 
          // TextBox GotFocus ...............................
 
-         IF HiWord( wParam ) == EN_SETFOCUS
+         IF HiWord(wParam) == EN_SETFOCUS
 
             VirtualChildControlFocusProcess ( _HMG_aControlHandles [i] , _HMG_aControlParentHandles [i] )
 
@@ -2182,21 +2182,21 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
 
             // ListBox OnChange ............................
 
-            IF HiWord( wParam ) == LBN_SELCHANGE
+            IF HiWord(wParam) == LBN_SELCHANGE
                _DoControlEventProcedure ( _HMG_aControlChangeProcedure [i] , i , 'CONTROL_ONCHANGE' )
                RETURN 0
             ENDIF
 
             // ListBox LostFocus ...........................
 
-            IF HiWord( wParam ) == LBN_KILLFOCUS
+            IF HiWord(wParam) == LBN_KILLFOCUS
                _DoControlEventProcedure ( _HMG_aControlLostFocusProcedure [i] , i )
                RETURN 0
             ENDIF
 
             // ListBox GotFocus ............................
 
-            IF HiWord( wParam ) == LBN_SETFOCUS
+            IF HiWord(wParam) == LBN_SETFOCUS
                VirtualChildControlFocusProcess ( _HMG_aControlHandles [i] , _HMG_aControlParentHandles [i] )
                _DoControlEventProcedure ( _HMG_aControlGotFocusProcedure [i] , i )
                RETURN 0
@@ -2204,7 +2204,7 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
 
             // ListBox Double Click ........................
 
-            IF HiWord( wParam ) == LBN_DBLCLK
+            IF HiWord(wParam) == LBN_DBLCLK
                _DoControlEventProcedure ( _HMG_aControlDblClick [i] , i )
                RETURN 0
             ENDIF
@@ -2217,42 +2217,42 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
 
             // ComboBox Change .............................
 
-            IF HiWord( wParam ) == CBN_SELCHANGE
+            IF HiWord(wParam) == CBN_SELCHANGE
                _DoControlEventProcedure ( _HMG_aControlChangeProcedure [i] , i , 'CONTROL_ONCHANGE' )
                RETURN 0
             ENDIF
 
             // ComboBox OnCancel ...........................
 
-            IF HiWord( wParam ) == CBN_SELENDCANCEL .AND. _HMG_aControlMiscData1 [i][1] <> 1
+            IF HiWord(wParam) == CBN_SELENDCANCEL .AND. _HMG_aControlMiscData1 [i][1] <> 1
                _DoControlEventProcedure ( _HMG_aControlMiscData1 [i][10] , i )
                RETURN 0
             ENDIF
 
             // ComboBox DropDownList visible ...............
 
-            IF HiWord( wParam ) == CBN_DROPDOWN
+            IF HiWord(wParam) == CBN_DROPDOWN
                _DoControlEventProcedure ( _HMG_aControlInputMask [i] , i )
                RETURN 0
             ENDIF
 
             // ComboBox DropDownList closed ................
 
-            IF HiWord( wParam ) == CBN_CLOSEUP
+            IF HiWord(wParam) == CBN_CLOSEUP
                _DoControlEventProcedure ( _HMG_aControlPicture [i] , i )
                RETURN 0
             ENDIF
 
             // ComboBox LostFocus ..........................
 
-            IF HiWord( wParam ) == CBN_KILLFOCUS
+            IF HiWord(wParam) == CBN_KILLFOCUS
                _DoControlEventProcedure ( _HMG_aControlLostFocusProcedure [i] , i )
                RETURN 0
             ENDIF
 
             // ComboBox GotFocus ...........................
 
-            IF HiWord( wParam ) == CBN_SETFOCUS
+            IF HiWord(wParam) == CBN_SETFOCUS
                VirtualChildControlFocusProcess ( _HMG_aControlHandles [i] , _HMG_aControlParentHandles [i] )
                _DoControlEventProcedure ( _HMG_aControlGotFocusProcedure [i] , i )
                RETURN 0
@@ -2260,7 +2260,7 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
 
             // Process Combo Display Area Change ...........
 
-            IF HiWord( wParam ) == CBN_EDITCHANGE
+            IF HiWord(wParam) == CBN_EDITCHANGE
                _DoControlEventProcedure ( _HMG_aControlProcedures [i] , i )
                IF _HMG_aControlMiscData1 [i][1] == 0 .AND. _HMG_aControlMiscData1 [i][2] == .T. .AND. _HMG_aControlMiscData1 [i][7] == .T.
                   DoComboAutoComplete ( i )
@@ -2272,14 +2272,14 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
 
          // Button LostFocus ...............................
 
-         IF HiWord( wParam ) == BN_KILLFOCUS .AND. _HMG_aControlType [i] != 'COMBO'
+         IF HiWord(wParam) == BN_KILLFOCUS .AND. _HMG_aControlType [i] != 'COMBO'
             _DoControlEventProcedure ( _HMG_aControlLostFocusProcedure [i] , i )
             RETURN 0
          ENDIF
 
          // Button GotFocus ................................
 
-         IF HiWord( wParam ) == BN_SETFOCUS
+         IF HiWord(wParam) == BN_SETFOCUS
             VirtualChildControlFocusProcess ( _HMG_aControlHandles [i] , _HMG_aControlParentHandles [i] )
             _DoControlEventProcedure ( _HMG_aControlGotFocusProcedure [i] , i )
             RETURN 0
@@ -2295,7 +2295,7 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
 
          // RadioGrop OnChange .............................
 
-         IF HiWord( wParam ) == BN_CLICKED
+         IF HiWord(wParam) == BN_CLICKED
 
             IF _HMG_aControlValue [i] != ( z := _GetValue ( , , i ) ) .OR. ! _HMG_ProgrammaticChange
                _HMG_aControlValue [i] := z
@@ -2311,14 +2311,14 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
 
          // RadioGrop LostFocus ............................
 
-         ELSEIF HiWord( wParam ) == BN_KILLFOCUS .AND. _HMG_ProceedEachRadioButtonEvent
+         ELSEIF HiWord(wParam) == BN_KILLFOCUS .AND. _HMG_ProceedEachRadioButtonEvent
 
             _DoControlEventProcedure ( _HMG_aControlLostFocusProcedure [i] , i )
             RETURN 0
 
          // RadioGrop GotFocus .............................
 
-         ELSEIF HiWord( wParam ) == BN_SETFOCUS
+         ELSEIF HiWord(wParam) == BN_SETFOCUS
 
             VirtualChildControlFocusProcess ( lParam , _HMG_aControlParentHandles [i] )
 
@@ -2378,7 +2378,7 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
 
          // CheckBox or CheckButton Enter ..................
 
-         IF _HMG_aControlType [i] == "CHECKBOX" .AND. HiWord( wParam ) == 0 .AND. LoWord( wParam ) == 1
+         IF _HMG_aControlType [i] == "CHECKBOX" .AND. HiWord(wParam) == 0 .AND. LoWord(wParam) == 1
             _HMG_SetFocusExecuted := .F.
             IF Empty( _HMG_aControlMiscData1 [i] )
                _DoControlEventProcedure ( _HMG_aControlProcedures [i] , i )
@@ -2395,7 +2395,7 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
 
          // ButtonEx Enter .................................
 
-         IF _HMG_aControlType [i] == "OBUTTON" .AND. HiWord( wParam ) == 0 .AND. LoWord( wParam ) == 1
+         IF _HMG_aControlType [i] == "OBUTTON" .AND. HiWord(wParam) == 0 .AND. LoWord(wParam) == 1
             _DoControlEventProcedure ( _HMG_aControlProcedures [i] , i )
             RETURN 0
          ENDIF
@@ -2403,7 +2403,7 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
          // DatePicker or TimePicker Enter .................
 
          IF ( _HMG_aControlType [i] == "DATEPICK" .OR. _HMG_aControlType [i] == "TIMEPICK" ) .AND. ;
-            ( HiWord( wParam ) == 0 .AND. LoWord( wParam ) == 1 )
+            ( HiWord(wParam) == 0 .AND. LoWord(wParam) == 1 )
             _HMG_SetFocusExecuted := .F.
             _DoControlEventProcedure ( _HMG_aControlProcedures [i] , i )
             IF _HMG_SetFocusExecuted == .F.
@@ -2463,7 +2463,7 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
 
          // ComboBox Enter .................................
 
-         IF _HMG_aControlType [i] == "COMBO" .AND. HiWord( wParam ) == 0 .AND. LoWord( wParam ) == 1
+         IF _HMG_aControlType [i] == "COMBO" .AND. HiWord(wParam) == 0 .AND. LoWord(wParam) == 1
 
             _HMG_SetFocusExecuted := .F.
             _DoControlEventProcedure ( _HMG_aControlDblClick [i] , i )
@@ -2481,14 +2481,14 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
          // ListBox Enter ..................................
 
          IF ( _HMG_aControlType [i] == "LIST" .OR. _HMG_aControlType [i] == "MULTILIST" ) .AND. ;
-            ( HiWord( wParam ) == 0 .AND. LoWord( wParam ) == 1 )
+            ( HiWord(wParam) == 0 .AND. LoWord(wParam) == 1 )
             _DoControlEventProcedure ( _HMG_aControlDblClick [i] , i )
             RETURN 0
          ENDIF
 
          // TextBox Enter ..................................
 
-         IF "TEXT" $ _HMG_aControlType [i] .AND. HiWord( wParam ) == 0 .AND. LoWord( wParam ) == 1
+         IF "TEXT" $ _HMG_aControlType [i] .AND. HiWord(wParam) == 0 .AND. LoWord(wParam) == 1
 
             IF _HMG_aControlType [i] == "BTNTEXT" .OR. _HMG_aControlType [i] == "BTNNUMTEXT"
                IF _HMG_aControlMiscData1 [i][4]
@@ -2511,7 +2511,7 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
 
          // Tree Enter .....................................
 
-         IF _HMG_aControlType [i] == "TREE" .AND. HiWord( wParam ) == 0 .AND. LoWord( wParam ) == 1
+         IF _HMG_aControlType [i] == "TREE" .AND. HiWord(wParam) == 0 .AND. LoWord(wParam) == 1
             _DoControlEventProcedure ( _HMG_aControlDblClick [i] , i )
             RETURN 0
          ENDIF
@@ -2524,7 +2524,7 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
 
          FOR i := 1 TO ControlCount
 
-            IF _HMG_aControlType [i] == "COMBO" .AND. HiWord( wParam ) == 0 .AND. LoWord( wParam ) == 1
+            IF _HMG_aControlType [i] == "COMBO" .AND. HiWord(wParam) == 0 .AND. LoWord(wParam) == 1
 
                IF _hmg_acontrolrangemin [i] == GetFocus() .OR. _hmg_acontrolrangemax [i] == GetFocus()
 
@@ -2647,7 +2647,7 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
          ELSE  // JR
 
             a := GetMessagePos()
-            k := WindowFromPoint ( { LoWord( a ), HiWord( a ) } )  // control handle
+            k := WindowFromPoint ( { LoWord(a), HiWord(a) } )  // control handle
             x := AScan( _HMG_aControlHandles, k )
 
             IF x > 0 .AND. _HMG_aControlType [x] == 'TAB'
@@ -3008,9 +3008,9 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
 
                IF _HMG_ActiveSplitBoxInverted .OR. ;  // a tool button into an inverted splitbox
                   ( k > 0 .AND. _HMG_aControlType [k] == "PAGER" .AND. _HMG_aControlMiscData1 [k] == .T. )  // a tool button into a vertical pagerbox
-                  TrackPopupMenu ( _HMG_aControlRangeMax [x] , aPos [1] + LoWord( r ) , aPos [2] + HiWord( r ), hWnd )
+                  TrackPopupMenu ( _HMG_aControlRangeMax [x] , aPos [1] + LoWord(r) , aPos [2] + HiWord(r), hWnd )
                ELSE
-                  TrackPopupMenu ( _HMG_aControlRangeMax [x] , aPos [1] + LoWord( r ) , aPos [2] + HiWord( r ) + ( aPos [4] - aPos [2] - HiWord( r ) ) / 2 , hWnd )
+                  TrackPopupMenu ( _HMG_aControlRangeMax [x] , aPos [1] + LoWord(r) , aPos [2] + HiWord(r) + ( aPos [4] - aPos [2] - HiWord(r) ) / 2 , hWnd )
                ENDIF
 
             ENDIF

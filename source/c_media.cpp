@@ -90,7 +90,7 @@ HINSTANCE GetResources( void );
 
 HB_FUNC( MESSAGEBEEP )
 {
-   hb_retl( MessageBeep( hb_parni( 1 ) ) );
+   hb_retl( MessageBeep( hb_parni(1) ) );
 }
 
 HB_FUNC( C_PLAYWAVE )
@@ -99,12 +99,12 @@ HB_FUNC( C_PLAYWAVE )
    HMODULE hmod  = NULL;
 
 #ifndef UNICODE
-   LPCSTR pszSound = hb_parc( 1 );
+   LPCSTR pszSound = hb_parc(1);
 #else
-   LPCWSTR pszSound = AnsiToWide( ( char * ) hb_parc( 1 ) );
+   LPCWSTR pszSound = AnsiToWide( ( char * ) hb_parc(1) );
 #endif
 
-   if( hb_parl( 2 ) )
+   if( hb_parl(2) )
    {
       Style = Style | SND_RESOURCE;
       hmod  = GetResources();
@@ -112,22 +112,22 @@ HB_FUNC( C_PLAYWAVE )
    else
       Style = Style | SND_FILENAME;
 
-   if( hb_parl( 3 ) )
+   if( hb_parl(3) )
       Style = Style | SND_SYNC;
 
-   if( hb_parl( 4 ) )
+   if( hb_parl(4) )
       Style = Style | SND_NOSTOP;
 
-   if( hb_parl( 5 ) )
+   if( hb_parl(5) )
       Style = Style | SND_LOOP;
 
-   if( hb_parl( 6 ) )
+   if( hb_parl(6) )
       Style = Style | SND_NODEFAULT;
 
    hb_retl( PlaySound( pszSound, hmod, Style ) );
 
 #ifdef UNICODE
-   hb_xfree( ( TCHAR * ) pszSound );
+   hb_xfree(( TCHAR * ) pszSound);
 #endif
 }
 
@@ -141,85 +141,85 @@ HB_FUNC( INITPLAYER )
    HWND hwnd;
 
 #ifndef UNICODE
-   LPCSTR szFile = hb_parc( 2 );
+   LPCSTR szFile = hb_parc(2);
 #else
-   LPCWSTR szFile = AnsiToWide( ( char * ) hb_parc( 2 ) );
+   LPCWSTR szFile = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
    int Style = WS_VISIBLE | WS_CHILD | WS_BORDER;
 
-   if( hb_parl( 7 ) )
+   if( hb_parl(7) )
       Style = Style | MCIWNDF_NOAUTOSIZEWINDOW;
 
-   if( hb_parl( 8 ) )
+   if( hb_parl(8) )
       Style = Style | MCIWNDF_NOAUTOSIZEMOVIE;
 
-   if( hb_parl( 9 ) )
+   if( hb_parl(9) )
       Style = Style | MCIWNDF_NOERRORDLG;
 
-   if( hb_parl( 10 ) )
+   if( hb_parl(10) )
       Style = Style | MCIWNDF_NOMENU;
 
-   if( hb_parl( 11 ) )
+   if( hb_parl(11) )
       Style = Style | MCIWNDF_NOOPEN;
 
-   if( hb_parl( 12 ) )
+   if( hb_parl(12) )
       Style = Style | MCIWNDF_NOPLAYBAR;
 
-   if( hb_parl( 13 ) )
+   if( hb_parl(13) )
       Style = Style | MCIWNDF_SHOWALL;
 
-   if( hb_parl( 14 ) )
+   if( hb_parl(14) )
       Style = Style | MCIWNDF_SHOWMODE;
 
-   if( hb_parl( 15 ) )
+   if( hb_parl(15) )
       Style = Style | MCIWNDF_SHOWNAME;
 
-   if( hb_parl( 16 ) )
+   if( hb_parl(16) )
       Style = Style | MCIWNDF_SHOWPOS;
 
-   hwnd = MCIWndCreate( ( HWND ) HB_PARNL( 1 ), NULL, Style, szFile );
+   hwnd = MCIWndCreate( ( HWND ) HB_PARNL(1), NULL, Style, szFile );
 
 #ifdef UNICODE
-   hb_xfree( ( TCHAR * ) szFile );
+   hb_xfree(( TCHAR * ) szFile);
 #endif
    if( hwnd == NULL )
    {
-      MessageBox( 0, TEXT( "Player Creation Failed!" ), TEXT( "Error!" ), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL );
+      MessageBox( 0, TEXT("Player Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL );
       return;
    }
 
-   MoveWindow( hwnd, hb_parni( 3 ), hb_parni( 4 ), hb_parni( 5 ), hb_parni( 6 ), TRUE );
+   MoveWindow(hwnd, hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6), TRUE);
    HB_RETNL( ( LONG_PTR ) hwnd );
 }
 
 HB_FUNC( MCIFUNC )
 {
-   HWND mcihand = ( HWND ) HB_PARNL( 1 );
-   int  func    = hb_parni( 2 );
+   HWND mcihand = ( HWND ) HB_PARNL(1);
+   int  func    = hb_parni(2);
 
    switch( func )
    {
-      case 1:  hb_retnl( MCIWndPlay( mcihand ) ); break;
-      case 2:  hb_retnl( MCIWndStop( mcihand ) ); break;
-      case 3:  hb_retnl( MCIWndPause( mcihand ) ); break;
-      case 4:  hb_retnl( MCIWndClose( mcihand ) ); break;
-      case 5:            MCIWndDestroy( mcihand ); hb_retnl( 0 ); break;
-      case 6:  hb_retnl( MCIWndEject( mcihand ) ); break;
-      case 7:  hb_retnl( MCIWndEnd( mcihand ) ); break;
-      case 8:  hb_retnl( MCIWndHome( mcihand ) ); break;
-      case 9:  hb_retnl( MCIWndOpen( mcihand, hb_parc( 3 ), ( UINT ) 0 ) ); break;
-      case 10: hb_retnl( MCIWndOpenDialog( mcihand ) ); break;
-      case 11: hb_retnl( MCIWndPlayReverse( mcihand ) ); break;
-      case 12: hb_retnl( MCIWndResume( mcihand ) ); break;
-      case 13:           MCIWndSetRepeat( mcihand, hb_parl( 3 ) ); hb_retnl( 0 ); break;
-      case 14: hb_retnl( MCIWndSetSpeed( mcihand, hb_parni( 3 ) ) ); break;
-      case 15: hb_retnl( MCIWndSetVolume( mcihand, hb_parni( 3 ) ) ); break;
-      case 16:           MCIWndSetZoom( mcihand, hb_parni( 3 ) ); hb_retnl( 0 ); break;
-      case 17: hb_retnl( MCIWndGetLength( mcihand ) ); break;
-      case 18: hb_retnl( MCIWndGetPosition( mcihand ) ); break;
-      case 19: hb_retnl( MCIWndGetVolume( mcihand ) ); break;
-      case 20: hb_retnl( MCIWndSeek( mcihand, hb_parni( 3 ) ) ); break;
-      default: hb_retnl( 0 );
+      case 1:  hb_retnl( MCIWndPlay(mcihand) ); break;
+      case 2:  hb_retnl( MCIWndStop(mcihand) ); break;
+      case 3:  hb_retnl( MCIWndPause(mcihand) ); break;
+      case 4:  hb_retnl( MCIWndClose(mcihand) ); break;
+      case 5:            MCIWndDestroy(mcihand); hb_retnl(0); break;
+      case 6:  hb_retnl( MCIWndEject(mcihand) ); break;
+      case 7:  hb_retnl( MCIWndEnd(mcihand) ); break;
+      case 8:  hb_retnl( MCIWndHome(mcihand) ); break;
+      case 9:  hb_retnl( MCIWndOpen(mcihand, hb_parc(3), ( UINT ) 0) ); break;
+      case 10: hb_retnl( MCIWndOpenDialog(mcihand) ); break;
+      case 11: hb_retnl( MCIWndPlayReverse(mcihand) ); break;
+      case 12: hb_retnl( MCIWndResume(mcihand) ); break;
+      case 13:           MCIWndSetRepeat(mcihand, hb_parl(3)); hb_retnl(0); break;
+      case 14: hb_retnl( MCIWndSetSpeed(mcihand, hb_parni(3)) ); break;
+      case 15: hb_retnl( MCIWndSetVolume(mcihand, hb_parni(3)) ); break;
+      case 16:           MCIWndSetZoom(mcihand, hb_parni(3)); hb_retnl(0); break;
+      case 17: hb_retnl( MCIWndGetLength(mcihand) ); break;
+      case 18: hb_retnl( MCIWndGetPosition(mcihand) ); break;
+      case 19: hb_retnl( MCIWndGetVolume(mcihand) ); break;
+      case 20: hb_retnl( MCIWndSeek(mcihand, hb_parni(3)) ); break;
+      default: hb_retnl(0);
    }
 }
 
@@ -228,65 +228,65 @@ HB_FUNC( INITANIMATE )
    HWND hwnd;
    int  Style = WS_CHILD;
 
-   if( hb_parl( 9 ) )
+   if( hb_parl(9) )
       Style = Style | WS_BORDER;
 
-   if( ! hb_parl( 10 ) )
+   if( ! hb_parl(10) )
    {
       Style = Style | WS_VISIBLE;
    }
 
-   if( hb_parl( 6 ) )
+   if( hb_parl(6) )
       Style = Style | ACS_AUTOPLAY;
 
-   if( hb_parl( 7 ) )
+   if( hb_parl(7) )
       Style = Style | ACS_CENTER;
 
-   if( hb_parl( 8 ) )
+   if( hb_parl(8) )
       Style = Style | ACS_TRANSPARENT;
 
-   hwnd = Animate_Create( ( HWND ) HB_PARNL( 1 ), NULL, Style, GetResources() );
+   hwnd = Animate_Create( ( HWND ) HB_PARNL(1), NULL, Style, GetResources() );
 
    if( hwnd == NULL )
    {
-      MessageBox( 0, TEXT( "AnimateBox Creation Failed!" ), TEXT( "Error!" ), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL );
+      MessageBox( 0, TEXT("AnimateBox Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL );
       return;
    }
 
-   MoveWindow( hwnd, hb_parni( 2 ), hb_parni( 3 ), hb_parni( 4 ), hb_parni( 5 ), TRUE );
+   MoveWindow(hwnd, hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), TRUE);
    HB_RETNL( ( LONG_PTR ) hwnd );
 }
 
 HB_FUNC( OPENANIMATE )
 {
 #ifndef UNICODE
-   LPCSTR szName = hb_parc( 2 );
+   LPCSTR szName = hb_parc(2);
 #else
-   LPCWSTR szName = AnsiToWide( ( char * ) hb_parc( 2 ) );
+   LPCWSTR szName = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
-   Animate_Open( ( HWND ) HB_PARNL( 1 ), szName );
+   Animate_Open(( HWND ) HB_PARNL(1), szName);
 
 #ifdef UNICODE
-   hb_xfree( ( TCHAR * ) szName );
+   hb_xfree(( TCHAR * ) szName);
 #endif
 }
 
 HB_FUNC( PLAYANIMATE )
 {
-   Animate_Play( ( HWND ) HB_PARNL( 1 ), 0, -1, 1 );
+   Animate_Play( ( HWND ) HB_PARNL(1), 0, -1, 1 );
 }
 
 HB_FUNC( SEEKANIMATE )
 {
-   Animate_Seek( ( HWND ) HB_PARNL( 1 ), hb_parni( 2 ) );
+   Animate_Seek( ( HWND ) HB_PARNL(1), hb_parni(2) );
 }
 
 HB_FUNC( STOPANIMATE )
 {
-   Animate_Stop( ( HWND ) HB_PARNL( 1 ) );
+   Animate_Stop( ( HWND ) HB_PARNL(1) );
 }
 
 HB_FUNC( CLOSEANIMATE )
 {
-   Animate_Close( ( HWND ) HB_PARNL( 1 ) );
+   Animate_Close( ( HWND ) HB_PARNL(1) );
 }

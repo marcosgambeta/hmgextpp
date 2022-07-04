@@ -70,13 +70,13 @@ HB_FUNC( VERIFYPASSWORD )
    BOOL bres;
    OSVERSIONINFO osvi;
 
-   osvi.dwOSVersionInfoSize = sizeof( OSVERSIONINFO );
+   osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
    GetVersionEx( &osvi );
 
    if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT )
       hb_retl( TRUE );
 
-   hpwdcpl = LoadLibrary( TEXT( "PASSWORD.CPL" ) );
+   hpwdcpl = LoadLibrary( TEXT("PASSWORD.CPL") );
 
    if( hpwdcpl == NULL )
       hb_retl( FALSE );
@@ -88,7 +88,7 @@ HB_FUNC( VERIFYPASSWORD )
       hb_retl( FALSE );
    }
 
-   hwnd = ( HWND ) HB_PARNL( 1 );
+   hwnd = ( HWND ) HB_PARNL(1);
 
    bres = VerifyScreenSavePwd( hwnd );
    FreeLibrary( hpwdcpl );
@@ -102,7 +102,7 @@ HB_FUNC( CHANGEPASSWORD )
 
    HWND hwnd;
 
-   HINSTANCE hmpr = LoadLibrary( TEXT( "MPR.DLL" ) );
+   HINSTANCE hmpr = LoadLibrary( TEXT("MPR.DLL") );
    PWDCHANGEPASSWORD PwdChangePassword;
 
    if( hmpr == NULL )
@@ -116,7 +116,7 @@ HB_FUNC( CHANGEPASSWORD )
       hb_retl( FALSE );
    }
 
-   hwnd = ( HWND ) HB_PARNL( 1 );
+   hwnd = ( HWND ) HB_PARNL(1);
    PwdChangePassword( "SCRSAVE", hwnd, 0, 0 );
    FreeLibrary( hmpr );
 
@@ -128,10 +128,10 @@ HB_FUNC( CHANGEPASSWORD )
  */
 HB_FUNC( SETCURSORPOS )
 {
-   SetCursorPos( hb_parni( 1 ), hb_parni( 2 ) );
+   SetCursorPos(hb_parni(1), hb_parni(2));
 }
 
 HB_FUNC( SHOWCURSOR )
 {
-   hb_retni( ShowCursor( hb_parl( 1 ) ) );
+   hb_retni( ShowCursor(hb_parl(1)) );
 }

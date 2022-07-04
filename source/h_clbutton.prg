@@ -493,12 +493,12 @@ HB_FUNC( CLBUTTON_SETNOTE )
    {
       LPSTR  szText        = ( LPSTR ) hb_parc( 2 );
       int    nConvertedLen = MultiByteToWideChar( CP_ACP, MB_PRECOMPOSED, szText, -1, NULL, 0 );
-      LPWSTR lpwText       = ( LPWSTR ) hb_xgrab( nConvertedLen * 2 + 1 );
+      LPWSTR lpwText       = ( LPWSTR ) hb_xgrab(nConvertedLen * 2 + 1);
 
       MultiByteToWideChar( CP_ACP, MB_PRECOMPOSED, szText, -1, lpwText, nConvertedLen );
 
       SendMessage( ( HWND ) HB_PARNL( 1 ), BCM_SETNOTE, 0, ( LPARAM ) lpwText );
-      hb_xfree( lpwText );
+      hb_xfree(lpwText);
    }
 }
 

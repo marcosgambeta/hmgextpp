@@ -480,10 +480,10 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
    CASE nMsg == WM_SETFOCUS
 
-      nStart := LoWord( SendMessage( hWnd, EM_GETSEL, 0, 0 ) )
+      nStart := LoWord(SendMessage( hWnd, EM_GETSEL, 0, 0 ))
       nStart := Min( nStart, hb_ULen( Trim( oGet:buffer ) ) )
 
-      nEnd := HiWord( SendMessage( hWnd, EM_GETSEL, 0, 0 ) )
+      nEnd := HiWord(SendMessage( hWnd, EM_GETSEL, 0, 0 ))
       nEnd := Min( nEnd, hb_ULen( Trim( oGet:buffer ) ) )
 
       coldbuff := oGet:buffer
@@ -711,8 +711,8 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          ENDIF
 
          System.Clipboard := hb_USubStr( oGet:buffer, nStart, nEnd - nStart )
-         nStart := LoWord( SendMessage( hWnd, EM_GETSEL, 0, 0 ) ) + 1
-         nEnd   := HiWord( SendMessage( hWnd, EM_GETSEL, 0, 0 ) ) + 1
+         nStart := LoWord(SendMessage( hWnd, EM_GETSEL, 0, 0 )) + 1
+         nEnd   := HiWord(SendMessage( hWnd, EM_GETSEL, 0, 0 )) + 1
 
          oGet:pos := nEnd
 
@@ -1100,7 +1100,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
             SendMessage( hWnd , EM_SETSEL , nEnd - 1 , nEnd - 1 )
             _HMG_aControlMiscData1 [i][1] := 0
          ENDIF
-         oGet:pos := HiWord( SendMessage( hWnd, EM_GETSEL, 0, 0 ) ) + 1
+         oGet:pos := HiWord(SendMessage( hWnd, EM_GETSEL, 0, 0 )) + 1
 
       ELSEIF wParam == VK_RIGHT
 
@@ -1111,7 +1111,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
             SendMessage( hWnd , EM_SETSEL , nStart + 1 , nStart + 1 )
             _HMG_aControlMiscData1 [i][1] := 0
          ENDIF
-         oGet:pos := HiWord( SendMessage( hWnd, EM_GETSEL, 0, 0 ) ) + 1
+         oGet:pos := HiWord(SendMessage( hWnd, EM_GETSEL, 0, 0 )) + 1
 
       ELSEIF wParam == VK_HOME
 
@@ -1144,8 +1144,8 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
             RETURN( 0 )
          ENDIF
 
-         nStart := LoWord( SendMessage( hWnd, EM_GETSEL, 0, 0 ) ) + 1
-         nEnd   := HiWord( SendMessage( hWnd, EM_GETSEL, 0, 0 ) ) + 1
+         nStart := LoWord(SendMessage( hWnd, EM_GETSEL, 0, 0 )) + 1
+         nEnd   := HiWord(SendMessage( hWnd, EM_GETSEL, 0, 0 )) + 1
          oGet:pos := nEnd
 
          IF nStart # nEnd
@@ -1195,8 +1195,8 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
       IF ( cText := System.Clipboard ) <> NIL
 
-         nStart := LoWord( SendMessage( hWnd, EM_GETSEL, 0, 0 ) ) + 1
-         nEnd   := HiWord( SendMessage( hWnd, EM_GETSEL, 0, 0 ) ) + 1
+         nStart := LoWord(SendMessage( hWnd, EM_GETSEL, 0, 0 )) + 1
+         nEnd   := HiWord(SendMessage( hWnd, EM_GETSEL, 0, 0 )) + 1
          nLen   := hb_ULen( oGet:buffer )
 
          IF nStart # nEnd
@@ -1254,8 +1254,8 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
       IF IsWindowEnabled( hWnd ) .AND. !readonly .AND. lAllowEdit
 
-         nStart := LoWord( SendMessage( hWnd, EM_GETSEL, 0, 0 ) ) + 1
-         nEnd := HiWord( SendMessage( hWnd, EM_GETSEL, 0, 0 ) ) + 1
+         nStart := LoWord(SendMessage( hWnd, EM_GETSEL, 0, 0 )) + 1
+         nEnd := HiWord(SendMessage( hWnd, EM_GETSEL, 0, 0 )) + 1
          oGet:pos := nEnd
 
          IF nStart # nEnd
@@ -1296,7 +1296,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
             _HMG_xControlsContextMenuID := _HMG_aControlsContextMenu [i][3]
 
-            TrackPopupMenu ( _HMG_aControlsContextMenu [i][2] , LOWORD( lParam ) , HIWORD( lParam ) , ParentHandle )
+            TrackPopupMenu ( _HMG_aControlsContextMenu [i][2] , LOWORD(lParam) , HIWORD(lParam) , ParentHandle )
 
             RETURN 1
          ENDIF

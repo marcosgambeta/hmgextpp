@@ -279,7 +279,7 @@ HB_FUNC( CAP_SETVIDEOFORMAT )
    BITMAPINFO binf;
    HWND hCapWnd = ( HWND ) HB_PARNL( 1 );
 
-   capGetVideoFormat( hCapWnd, &binf, sizeof( BITMAPINFO ) );
+   capGetVideoFormat( hCapWnd, &binf, sizeof(BITMAPINFO) );
 
    binf.bmiHeader.biWidth        = hb_parni( 2 );
    binf.bmiHeader.biHeight       = hb_parni( 3 );
@@ -290,7 +290,7 @@ HB_FUNC( CAP_SETVIDEOFORMAT )
    binf.bmiHeader.biClrUsed      = 0;
    binf.bmiHeader.biClrImportant = 0;
 
-   hb_retl( capSetVideoFormat( hCapWnd, &binf, sizeof( BITMAPINFO ) ) );
+   hb_retl( capSetVideoFormat( hCapWnd, &binf, sizeof(BITMAPINFO) ) );
 }
 
 HB_FUNC( CAP_PREVIEWRATE )

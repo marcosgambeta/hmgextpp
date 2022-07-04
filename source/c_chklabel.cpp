@@ -81,34 +81,34 @@ typedef struct
 } INSCHK, * PINSCHK;
 
 
-HBITMAP CreateBitmapMask( HBITMAP hbmColour, COLORREF crTransparent )
+HBITMAP CreateBitmapMask(HBITMAP hbmColour, COLORREF crTransparent)
 {
    HDC     hdcMem, hdcMem2;
    HBITMAP hbmMask;
    BITMAP  bm;
 
-   GetObject( hbmColour, sizeof( BITMAP ), &bm );
-   hbmMask = CreateBitmap( bm.bmWidth, bm.bmHeight, 1, 1, NULL );
+   GetObject(hbmColour, sizeof(BITMAP), &bm);
+   hbmMask = CreateBitmap(bm.bmWidth, bm.bmHeight, 1, 1, NULL);
 
-   hdcMem  = CreateCompatibleDC( 0 );
-   hdcMem2 = CreateCompatibleDC( 0 );
+   hdcMem  = CreateCompatibleDC(0);
+   hdcMem2 = CreateCompatibleDC(0);
 
-   SelectObject( hdcMem, hbmColour );
-   SelectObject( hdcMem2, hbmMask );
+   SelectObject(hdcMem, hbmColour);
+   SelectObject(hdcMem2, hbmMask);
 
-   SetBkColor( hdcMem2, crTransparent );
+   SetBkColor(hdcMem2, crTransparent);
 
    BitBlt( hdcMem2, 0, 0, bm.bmWidth, bm.bmHeight, hdcMem, 0, 0, SRCCOPY );
 
    BitBlt( hdcMem, 0, 0, bm.bmWidth, bm.bmHeight, hdcMem2, 0, 0, SRCINVERT );
 
-   DeleteDC( hdcMem );
-   DeleteDC( hdcMem2 );
+   DeleteDC(hdcMem);
+   DeleteDC(hdcMem2);
 
    return hbmMask;
 }
 
-void GetCheck( INSCHK * pbtn, RECT * rect )
+void GetCheck(INSCHK * pbtn, RECT * rect)
 {
 
    if( ! ( pbtn->lLeftCheck ) )
@@ -117,48 +117,48 @@ void GetCheck( INSCHK * pbtn, RECT * rect )
       rect->right = rect->left + pbtn->cxButton;
 
    if( pbtn->cxRightEdge > pbtn->cxLeftEdge )
-      OffsetRect( rect, pbtn->cxRightEdge - pbtn->cxLeftEdge, 0 );
+      OffsetRect(rect, pbtn->cxRightEdge - pbtn->cxLeftEdge, 0);
 
 }
 
-BOOL InsertCheck( HWND hWnd, HBITMAP himage, HBITMAP himage2, int BtnWidth, BOOL lCheck, BOOL lLeftCheck )
+BOOL InsertCheck(HWND hWnd, HBITMAP himage, HBITMAP himage2, int BtnWidth, BOOL lCheck, BOOL lLeftCheck)
 {
    INSCHK * pbtn;
 
-   pbtn = ( INSCHK * ) HeapAlloc( GetProcessHeap(), 0, sizeof( INSCHK ) );
+   pbtn = ( INSCHK * ) HeapAlloc( GetProcessHeap(), 0, sizeof(INSCHK) );
 
    if( ! pbtn )
       return FALSE;
 
    pbtn->lCheck     = lCheck;
    pbtn->lLeftCheck = lLeftCheck;
-   pbtn->cxButton   = HB_MAX( BtnWidth, GetSystemMetrics( SM_CXVSCROLL ) );
+   pbtn->cxButton   = HB_MAX(BtnWidth, GetSystemMetrics( SM_CXVSCROLL ));
    pbtn->himage     = himage;
    pbtn->himage2    = himage2;
    pbtn->cxSpace    = GetSystemMetrics( SM_CXSIZEFRAME ) / 4;
 
    if( himage != NULL )
-      pbtn->himagemask = CreateBitmapMask( himage, RGB( 0, 0, 0 ) );
+      pbtn->himagemask = CreateBitmapMask(himage, RGB(0, 0, 0));
    else
       pbtn->himagemask = NULL;
 
    if( himage2 != NULL )
-      pbtn->himagemask2 = CreateBitmapMask( himage2, RGB( 0, 0, 0 ) );
+      pbtn->himagemask2 = CreateBitmapMask(himage2, RGB(0, 0, 0));
    else
       pbtn->himagemask2 = NULL;
 
    // associate our button state structure with the window
 
-   SetWindowLongPtr( hWnd, GWLP_USERDATA, ( LONG_PTR ) pbtn );
+   SetWindowLongPtr(hWnd, GWLP_USERDATA, ( LONG_PTR ) pbtn);
 
    // force the edit control to update its non-client area
 
-   SetWindowPos( hWnd, 0, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_NOZORDER );
+   SetWindowPos(hWnd, 0, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_NOZORDER);
 
    return TRUE;
 }
 
-static void DrawCheck( HWND hWnd, INSCHK * pbtn, RECT * prect )
+static void DrawCheck(HWND hWnd, INSCHK * pbtn, RECT * prect)
 {
    HDC     hdc;
    HBITMAP hBitmap      = pbtn->himage;
@@ -171,44 +171,44 @@ static void DrawCheck( HWND hWnd, INSCHK * pbtn, RECT * prect )
 
    if( hBitmap == NULL )
    {
-      FillRect( hdc, prect, GetSysColorBrush( COLOR_WINDOW ) );
+      FillRect(hdc, prect, GetSysColorBrush(COLOR_WINDOW));
       SetBkMode( hdc, TRANSPARENT );
-      DrawText( hdc, TEXT( "V" ), 1, prect, DT_CENTER | DT_VCENTER | DT_SINGLELINE );
+      DrawText(hdc, TEXT("V"), 1, prect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
    }
    else
    {
       int wRow = prect->top;
       int wCol = prect->left;
 
-      HDC hdcMem = CreateCompatibleDC( hdc );
+      HDC hdcMem = CreateCompatibleDC(hdc);
 
       if( pbtn->lCheck )
       {
-         HBITMAP hbmOld = ( HBITMAP ) SelectObject( hdcMem, hBitmapMask );
-         GetObject( hBitmap, sizeof( bm ), &bm );
+         HBITMAP hbmOld = ( HBITMAP ) SelectObject(hdcMem, hBitmapMask);
+         GetObject(hBitmap, sizeof(bm), &bm);
 
          BitBlt( hdc, wCol, wRow, bm.bmWidth, bm.bmHeight, hdcMem, 0, 0, SRCAND );
 
-         SelectObject( hdcMem, hBitmap );
+         SelectObject(hdcMem, hBitmap);
          BitBlt( hdc, wCol, wRow, bm.bmWidth, bm.bmHeight, hdcMem, 0, 0, SRCPAINT );
-         SelectObject( hdcMem, hbmOld );
+         SelectObject(hdcMem, hbmOld);
       }
       else if( hBitmap2 != NULL )
       {
-         HBITMAP hbmOld = ( HBITMAP ) SelectObject( hdcMem, hBitmapMask2 );
-         GetObject( hBitmap2, sizeof( bm ), &bm );
+         HBITMAP hbmOld = ( HBITMAP ) SelectObject(hdcMem, hBitmapMask2);
+         GetObject(hBitmap2, sizeof(bm), &bm);
 
          BitBlt( hdc, wCol, wRow, bm.bmWidth, bm.bmHeight, hdcMem, 0, 0, SRCAND );
 
-         SelectObject( hdcMem, hBitmap2 );
+         SelectObject(hdcMem, hBitmap2);
          BitBlt( hdc, wCol, wRow, bm.bmWidth, bm.bmHeight, hdcMem, 0, 0, SRCPAINT );
-         SelectObject( hdcMem, hbmOld );
+         SelectObject(hdcMem, hbmOld);
       }
-      DeleteDC( hdcMem );
+      DeleteDC(hdcMem);
 
    }
 
-   ReleaseDC( hWnd, hdc );
+   ReleaseDC(hWnd, hdc);
 }
 
 HB_FUNC( INITCHKLABEL )
@@ -219,43 +219,43 @@ HB_FUNC( INITCHKLABEL )
    HBITMAP himage2;
 
 #ifndef UNICODE
-   LPCSTR lpWindowName = hb_parc( 2 );
+   LPCSTR lpWindowName = hb_parc(2);
 #else
-   LPWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc( 2 ) );
+   LPWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
 
-   int BtnWidth = hb_parni( 7 );
+   int BtnWidth = hb_parni(7);
 
    int Style   = WS_CHILD | SS_NOTIFY;
    int ExStyle = 0;
 
-   hwnd = ( HWND ) HB_PARNL( 1 );
+   hwnd = ( HWND ) HB_PARNL(1);
 
-   if( hb_parl( 12 ) )
+   if( hb_parl(12) )
       ExStyle = ExStyle | WS_EX_CLIENTEDGE;
 
-   if( hb_parl( 11 ) )
+   if( hb_parl(11) )
       Style |= WS_BORDER;
 
-   if( hb_parl( 13 ) )
+   if( hb_parl(13) )
       Style |= WS_HSCROLL;
 
-   if( hb_parl( 14 ) )
+   if( hb_parl(14) )
       Style |= WS_VSCROLL;
 
-   if( hb_parl( 15 ) )
+   if( hb_parl(15) )
       ExStyle = ExStyle | WS_EX_TRANSPARENT;
 
-   if( ! hb_parl( 16 ) )
+   if( ! hb_parl(16) )
       Style |= WS_VISIBLE;
 
-   if( hb_parl( 17 ) )
+   if( hb_parl(17) )
       Style |= ES_RIGHT;
 
-   if( hb_parl( 18 ) )
+   if( hb_parl(18) )
       Style |= ES_CENTER;
 
-   if( hb_parl( 23 ) )
+   if( hb_parl(23) )
       Style |= SS_CENTERIMAGE;
 
    hbutton = CreateWindowEx
@@ -264,60 +264,60 @@ HB_FUNC( INITCHKLABEL )
       WC_STATIC,
       lpWindowName,
       Style,
-      hb_parni( 4 ),
-      hb_parni( 5 ),
-      hb_parni( 6 ),
-      hb_parni( 7 ),
+      hb_parni(4),
+      hb_parni(5),
+      hb_parni(6),
+      hb_parni(7),
       hwnd,
-      ( HMENU ) HB_PARNL( 3 ),
+      ( HMENU ) HB_PARNL(3),
       GetInstance(),
       NULL
              );
 
-   if( hb_parc( 19 ) != NULL )
-      himage = HMG_LoadPicture( hb_parc( 19 ), -1, -1, NULL, 0, 0, -1, 0, HB_FALSE, 255 );
+   if( hb_parc(19) != NULL )
+      himage = HMG_LoadPicture( hb_parc(19), -1, -1, NULL, 0, 0, -1, 0, HB_FALSE, 255 );
    else
       himage = NULL;
 
-   if( hb_parc( 20 ) != NULL )
-      himage2 = HMG_LoadPicture( hb_parc( 20 ), -1, -1, NULL, 0, 0, -1, 0, HB_FALSE, 255 );
+   if( hb_parc(20) != NULL )
+      himage2 = HMG_LoadPicture( hb_parc(20), -1, -1, NULL, 0, 0, -1, 0, HB_FALSE, 255 );
    else
       himage2 = NULL;
 
-   InsertCheck( hbutton, himage, himage2, BtnWidth, hb_parl( 22 ), hb_parl( 21 ) );
+   InsertCheck(hbutton, himage, himage2, BtnWidth, hb_parl(22), hb_parl(21));
 
-   LabelOldWndProc = ( WNDPROC ) SetWindowLongPtr( ( HWND ) hbutton, GWLP_WNDPROC, ( LONG_PTR ) ChkLabelFunc );
-   SetWindowPos( hbutton, 0, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_NOZORDER );
+   LabelOldWndProc = ( WNDPROC ) SetWindowLongPtr(( HWND ) hbutton, GWLP_WNDPROC, ( LONG_PTR ) ChkLabelFunc);
+   SetWindowPos(hbutton, 0, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_NOZORDER);
 
    HB_RETNL( ( LONG_PTR ) hbutton );
 
 #ifdef UNICODE
-   hb_xfree( ( TCHAR * ) lpWindowName );
+   hb_xfree(( TCHAR * ) lpWindowName);
 #endif
 }
 
 HB_FUNC( SETCHKLABEL )
 {
-   HWND     hWnd = ( HWND ) HB_PARNL( 1 );
-   INSCHK * pbtn = ( INSCHK * ) GetWindowLongPtr( hWnd, GWLP_USERDATA );
+   HWND     hWnd = ( HWND ) HB_PARNL(1);
+   INSCHK * pbtn = ( INSCHK * ) GetWindowLongPtr(hWnd, GWLP_USERDATA);
    RECT     rect;
 
-   pbtn->lCheck = hb_parl( 2 );
+   pbtn->lCheck = hb_parl(2);
 
-   GetWindowRect( hWnd, &rect );
-   OffsetRect( &rect, -rect.left, -rect.top );
-   ShowWindow( hWnd, SW_HIDE );
-   InvalidateRect( hWnd, &rect, TRUE );
+   GetWindowRect(hWnd, &rect);
+   OffsetRect(&rect, -rect.left, -rect.top);
+   ShowWindow(hWnd, SW_HIDE);
+   InvalidateRect(hWnd, &rect, TRUE);
 
-   GetCheck( pbtn, &rect );
-   DrawCheck( hWnd, pbtn, &rect );
-   ShowWindow( hWnd, SW_SHOW );
+   GetCheck(pbtn, &rect);
+   DrawCheck(hWnd, pbtn, &rect);
+   ShowWindow(hWnd, SW_SHOW);
 }
 
 HB_FUNC( GETCHKLABEL )
 {
-   HWND     hWnd = ( HWND ) HB_PARNL( 1 );
-   INSCHK * pbtn = ( INSCHK * ) GetWindowLongPtr( hWnd, GWLP_USERDATA );
+   HWND     hWnd = ( HWND ) HB_PARNL(1);
+   INSCHK * pbtn = ( INSCHK * ) GetWindowLongPtr(hWnd, GWLP_USERDATA);
 
    hb_retl( ( BOOL ) pbtn->lCheck );
 }
@@ -331,7 +331,7 @@ LRESULT APIENTRY ChkLabelFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam
    RECT rect;
    TRACKMOUSEEVENT tme;
 
-   INSCHK * pbtn = ( INSCHK * ) GetWindowLongPtr( hWnd, GWLP_USERDATA );
+   INSCHK * pbtn = ( INSCHK * ) GetWindowLongPtr(hWnd, GWLP_USERDATA);
 
    switch( Msg )
    {
@@ -363,23 +363,23 @@ LRESULT APIENTRY ChkLabelFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam
          CallWindowProc( LabelOldWndProc, hWnd, Msg, wParam, lParam );
          if( pbtn->lCheck )
          {
-            GetWindowRect( hWnd, &rect );
-            OffsetRect( &rect, -rect.left, -rect.top );
-            GetCheck( pbtn, &rect );
-            DrawCheck( hWnd, pbtn, &rect );
+            GetWindowRect(hWnd, &rect);
+            OffsetRect(&rect, -rect.left, -rect.top);
+            GetCheck(pbtn, &rect);
+            DrawCheck(hWnd, pbtn, &rect);
          }
          else
          if( pbtn->himage2 != NULL )
          {
-            GetWindowRect( hWnd, &rect );
-            OffsetRect( &rect, -rect.left, -rect.top );
-            GetCheck( pbtn, &rect );
-            DrawCheck( hWnd, pbtn, &rect );
+            GetWindowRect(hWnd, &rect);
+            OffsetRect(&rect, -rect.left, -rect.top);
+            GetCheck(pbtn, &rect);
+            DrawCheck(hWnd, pbtn, &rect);
          }
          return 0;
 
       case WM_MOUSEMOVE:
-         tme.cbSize      = sizeof( TRACKMOUSEEVENT );
+         tme.cbSize      = sizeof(TRACKMOUSEEVENT);
          tme.dwFlags     = TME_LEAVE;
          tme.hwndTrack   = hWnd;
          tme.dwHoverTime = HOVER_DEFAULT;
@@ -396,7 +396,7 @@ LRESULT APIENTRY ChkLabelFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam
             hb_vmPushLong( Msg );
             hb_vmPushNumInt( wParam );
             hb_vmPushNumInt( lParam );
-            hb_vmDo( 4 );
+            hb_vmDo(4);
          }
 
          r = hb_parnl( -1 );
@@ -415,7 +415,7 @@ LRESULT APIENTRY ChkLabelFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam
             hb_vmPushLong( Msg );
             hb_vmPushNumInt( wParam );
             hb_vmPushNumInt( lParam );
-            hb_vmDo( 4 );
+            hb_vmDo(4);
          }
 
          r = hb_parnl( -1 );

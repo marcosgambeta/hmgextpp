@@ -1686,16 +1686,16 @@ FUNCTION OPROPGRIDEVENTS( hWnd, nMsg, wParam, lParam, hItem, hEdit )
       ENDIF
       RETURN 0
    CASE nMsg == WM_COMMAND
-      IF  HIWORD( wParam ) == EN_CHANGE .AND. lParam == hItem
+      IF  HIWORD(wParam) == EN_CHANGE .AND. lParam == hItem
          i := AScan ( _HMG_aControlHandles , {|x| ValType( x ) == 'A' .AND. x[1] == hWnd } )
          IF i > 0
             _ChangeBtnState(  _HMG_aControlHandles [i], .T. , i )
             _DoControlEventProcedure ( _HMG_aControlHeadClick [i] , i )
          ENDIF
       ENDIF
-      IF  HIWORD( wParam ) == BN_CLICKED
+      IF  HIWORD(wParam) == BN_CLICKED
          IF PG_GetItem( hWnd, hItem, PGI_TYPE ) == PG_CHECK
-            iCheck := LOWORD( wParam )
+            iCheck := LOWORD(wParam)
             cData  := PG_GETITEM( hWnd, hItem, PGI_DATA )
             IF !Empty( cData )
                aData := PgIdentData( cData )
@@ -1710,7 +1710,7 @@ FUNCTION OPROPGRIDEVENTS( hWnd, nMsg, wParam, lParam, hItem, hEdit )
             ENDIF
          ENDIF
       ENDIF
-      IF  HIWORD( wParam ) == CBN_KILLFOCUS
+      IF  HIWORD(wParam) == CBN_KILLFOCUS
          IF PG_GetItem( hWnd, hItem, PGI_TYPE ) == PG_LIST
             cValue := GetWindowText ( hEdit )
             cData  := PG_GETITEM( hWnd, hItem, PGI_DATA )
@@ -1725,7 +1725,7 @@ FUNCTION OPROPGRIDEVENTS( hWnd, nMsg, wParam, lParam, hItem, hEdit )
             ENDIF
          ENDIF
       ENDIF
-      IF  HIWORD( wParam ) == EN_CHANGE
+      IF  HIWORD(wParam) == EN_CHANGE
          IF PG_GetItem( hWnd, hItem, PGI_TYPE ) == PG_DOUBLE .OR. ;
             ( PG_GetItem( hWnd, hItem, PGI_TYPE ) == PG_STRING .AND. !Empty( PG_GETITEM( hWnd, hItem, PGI_DATA ) ) )
             IF IsWindowHandle( hEdit )
@@ -2197,10 +2197,10 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
       cValue := GetWindowText ( hWnd )
 
       DO CASE
-      CASE  HIWORD( wParam ) == BN_CLICKED
+      CASE  HIWORD(wParam) == BN_CLICKED
          lChg := .F.
          DO CASE
-         CASE LOWORD( wParam ) == PG_COLOR
+         CASE LOWORD(wParam) == PG_COLOR
             cData := PG_GETITEM( hWndPG, hItem, PGI_DATA )
             aData := PgIdentData( cData, PG_COLOR )
             aDataNew := GetColor ( aData )
@@ -2213,7 +2213,7 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
                ResetPropGridImageList( hWndPG, hItem, hImage )
                lChg := .T.
             ENDIF
-         CASE LOWORD( wParam ) == PG_USERFUN
+         CASE LOWORD(wParam) == PG_USERFUN
             cValue := GetWindowText ( hWnd )
             cData := PG_GETITEM( hWndPG, hItem, PGI_DATA )
             bData := &( cData )
@@ -2222,7 +2222,7 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
                SetWindowText ( hWnd, cValue )
                lChg := .T.
             ENDIF
-         CASE LOWORD( wParam ) == PG_FONT
+         CASE LOWORD(wParam) == PG_FONT
             cData := PG_GETITEM( hWndPG, hItem, PGI_DATA )
             aData := PgIdentData( cData, PG_FONT )
             aDataNew := GetFont ( aData[1,3], Val( aData[2,3] ) , ;
@@ -2240,7 +2240,7 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
                lChg := .T.
             ENDIF
 
-         CASE LOWORD( wParam ) == PG_IMAGE
+         CASE LOWORD(wParam) == PG_IMAGE
             cData := GetWindowText ( hWnd )
             cFltr := PgIdentData( PG_GETITEM( hWndPG,hItem,PGI_DATA ), PG_IMAGE )
             cDataNew := GetFile ( cFltr , "Image File", cData , .F. , .T. )
@@ -2250,7 +2250,7 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
                PgLoadImag( cValue, i, hItem )
                lChg := .T.
             ENDIF
-         CASE LOWORD( wParam ) == PG_FILE
+         CASE LOWORD(wParam) == PG_FILE
             cData := GetWindowText ( hWnd )
             cFltr := PgIdentData( PG_GETITEM( hWndPG,hItem,PGI_DATA ), PG_FILE )
             cDataNew := GetFile ( cFltr , "File", cData , .F. , .T. )
@@ -2259,7 +2259,7 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
                SetWindowText ( hWnd, cValue )
                lChg := .T.
             ENDIF
-         CASE LOWORD( wParam ) == PG_FOLDER
+         CASE LOWORD(wParam) == PG_FOLDER
             cData := GetWindowText ( hWnd )
             cFold := PG_GETITEM( hWndPG, hItem, PGI_DATA )
             cDataNew := GetFolder ( cFold, cData )
@@ -2268,7 +2268,7 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
                SetWindowText ( hWnd, cValue )
                lChg := .T.
             ENDIF
-         CASE LOWORD( wParam ) == PG_ARRAY
+         CASE LOWORD(wParam) == PG_ARRAY
             cValue :=  GetWindowText ( hWnd )
             cDataNew := ArrayDlg( cValue, cParentName )
             IF !Empty( cDataNew )
@@ -2281,7 +2281,7 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
             _ChangeBtnState(  _HMG_aControlHandles [i], .T. , i )
          ENDIF
 
-      CASE  HIWORD( wParam ) == CBN_SELCHANGE
+      CASE  HIWORD(wParam) == CBN_SELCHANGE
          IF PG_GETITEM( hWndPG, hItem, PGI_VALUE ) != ComboGetString( hWnd, ComboGetCursel ( hWnd ) )
             _ChangeBtnState(  _HMG_aControlHandles [i], .T. , i )
             cValue := ComboGetString( hWnd, ComboGetCursel ( hWnd ) )

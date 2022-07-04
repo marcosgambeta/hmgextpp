@@ -62,19 +62,19 @@ HB_FUNC( INITPROGRESSBAR )
 
    INITCOMMONCONTROLSEX i;
 
-   i.dwSize = sizeof( INITCOMMONCONTROLSEX );
+   i.dwSize = sizeof(INITCOMMONCONTROLSEX);
    i.dwICC  = ICC_PROGRESS_CLASS;
    InitCommonControlsEx( &i );
 
-   hwnd = ( HWND ) HB_PARNL( 1 );
+   hwnd = ( HWND ) HB_PARNL(1);
 
-   if( hb_parl( 9 ) )
+   if( hb_parl(9) )
       Style = Style | PBS_VERTICAL;
 
-   if( hb_parl( 10 ) )
+   if( hb_parl(10) )
       Style = Style | PBS_SMOOTH;
 
-   if( ! hb_parl( 11 ) )
+   if( ! hb_parl(11) )
       Style = Style | WS_VISIBLE;
 
    hbutton = CreateWindowEx
@@ -83,18 +83,18 @@ HB_FUNC( INITPROGRESSBAR )
       PROGRESS_CLASS,
       0,
       Style,
-      hb_parni( 3 ),
-      hb_parni( 4 ),
-      hb_parni( 5 ),
-      hb_parni( 6 ),
+      hb_parni(3),
+      hb_parni(4),
+      hb_parni(5),
+      hb_parni(6),
       hwnd,
-      ( HMENU ) HB_PARNL( 2 ),
+      ( HMENU ) HB_PARNL(2),
       GetInstance(),
       NULL
              );
 
-   SendMessage( hbutton, PBM_SETRANGE, 0, MAKELONG( hb_parni( 7 ), hb_parni( 8 ) ) );
-   SendMessage( hbutton, PBM_SETPOS, ( WPARAM ) hb_parni( 12 ), 0 );
+   SendMessage( hbutton, PBM_SETRANGE, 0, MAKELONG( hb_parni(7), hb_parni(8) ) );
+   SendMessage( hbutton, PBM_SETPOS, ( WPARAM ) hb_parni(12), 0 );
 
    HB_RETNL( ( LONG_PTR ) hbutton );
 }

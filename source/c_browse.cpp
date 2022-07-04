@@ -68,34 +68,34 @@ HB_FUNC( INITBROWSE )
 
    INITCOMMONCONTROLSEX i;
 
-   i.dwSize = sizeof( INITCOMMONCONTROLSEX );
+   i.dwSize = sizeof(INITCOMMONCONTROLSEX);
    i.dwICC  = ICC_LISTVIEW_CLASSES;
    InitCommonControlsEx( &i );
 
    style = LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_CHILD | WS_VISIBLE | LVS_REPORT;
 
-   if( ! hb_parl( 7 ) )
+   if( ! hb_parl(7) )
       style = style | WS_TABSTOP;
 
-   hwnd = ( HWND ) HB_PARNL( 1 );
+   hwnd = ( HWND ) HB_PARNL(1);
 
    hbutton = CreateWindowEx
              (
       WS_EX_CLIENTEDGE,
       WC_LISTVIEW,
-      TEXT( "" ),
+      TEXT(""),
       style,
-      hb_parni( 3 ),
-      hb_parni( 4 ),
-      hb_parni( 5 ),
-      hb_parni( 6 ),
+      hb_parni(3),
+      hb_parni(4),
+      hb_parni(5),
+      hb_parni(6),
       hwnd,
-      ( HMENU ) HB_PARNL( 2 ),
+      ( HMENU ) HB_PARNL(2),
       GetInstance(),
       NULL
              );
 
-   lpfnOldWndProc = ( WNDPROC ) SetWindowLongPtr( ( HWND ) hbutton, GWLP_WNDPROC, ( LONG_PTR ) SubClassFunc );
+   lpfnOldWndProc = ( WNDPROC ) SetWindowLongPtr(( HWND ) hbutton, GWLP_WNDPROC, ( LONG_PTR ) SubClassFunc);
 
    HB_RETNL( ( LONG_PTR ) hbutton );
 }
@@ -107,7 +107,7 @@ LRESULT APIENTRY SubClassFunc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
       // sprintf( res,"zDelta: %d", (short) HIWORD (wParam) );
       // MessageBox( GetActiveWindow(), res, "", MB_OK | MB_ICONINFORMATION );
 
-      if( ( short ) HIWORD( wParam ) > 0 )
+      if( ( short ) HIWORD(wParam) > 0 )
          keybd_event
          (
             VK_UP,   // virtual-key code
@@ -135,18 +135,18 @@ HB_FUNC( INITVSCROLLBAR )
    HWND hwnd;
    HWND hscrollbar;
 
-   hwnd = ( HWND ) HB_PARNL( 1 );
+   hwnd = ( HWND ) HB_PARNL(1);
 
    hscrollbar = CreateWindowEx
                 (
       0,
       WC_SCROLLBAR,
-      TEXT( "" ),
+      TEXT(""),
       WS_CHILD | WS_VISIBLE | SBS_VERT,
-      hb_parni( 2 ),
-      hb_parni( 3 ),
-      hb_parni( 4 ),
-      hb_parni( 5 ),
+      hb_parni(2),
+      hb_parni(3),
+      hb_parni(4),
+      hb_parni(5),
       hwnd,
       ( HMENU ) 0,
       GetInstance(),
@@ -169,7 +169,7 @@ HB_FUNC( GETSCROLLRANGEMAX )
 {
    int MinPos, MaxPos;
 
-   GetScrollRange( ( HWND ) HB_PARNL( 1 ), hb_parni( 2 ), &MinPos, &MaxPos );
+   GetScrollRange( ( HWND ) HB_PARNL(1), hb_parni(2), &MinPos, &MaxPos );
 
    hb_retni( MaxPos );
 }
@@ -180,11 +180,11 @@ HB_FUNC( INITVSCROLLBARBUTTON )
    HWND hbutton;
    int  Style;
 
-   hwnd = ( HWND ) HB_PARNL( 1 );
+   hwnd = ( HWND ) HB_PARNL(1);
 
    Style = WS_CHILD | WS_VISIBLE | SS_SUNKEN;
 
-   hbutton = CreateWindow( WC_STATIC, TEXT( "" ), Style, hb_parni( 2 ), hb_parni( 3 ), hb_parni( 4 ), hb_parni( 5 ), hwnd, ( HMENU ) NULL, GetInstance(), NULL );
+   hbutton = CreateWindow(WC_STATIC, TEXT(""), Style, hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), hwnd, ( HMENU ) NULL, GetInstance(), NULL);
 
    HB_RETNL( ( LONG_PTR ) hbutton );
 }
@@ -193,12 +193,12 @@ HB_FUNC( SETSCROLLINFO )
 {
    SCROLLINFO lpsi;
 
-   lpsi.cbSize = sizeof( SCROLLINFO );
+   lpsi.cbSize = sizeof(SCROLLINFO);
    lpsi.fMask  = SIF_PAGE | SIF_POS | SIF_RANGE;
    lpsi.nMin   = 1;
-   lpsi.nMax   = hb_parni( 2 );
-   lpsi.nPage  = hb_parni( 4 );
-   lpsi.nPos   = hb_parni( 3 );
+   lpsi.nMax   = hb_parni(2);
+   lpsi.nPage  = hb_parni(4);
+   lpsi.nPos   = hb_parni(3);
 
-   hb_retni( SetScrollInfo( ( HWND ) HB_PARNL( 1 ), SB_CTL, ( LPSCROLLINFO ) &lpsi, 1 ) );
+   hb_retni( SetScrollInfo(( HWND ) HB_PARNL(1), SB_CTL, ( LPSCROLLINFO ) &lpsi, 1) );
 }

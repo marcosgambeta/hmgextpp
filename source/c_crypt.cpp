@@ -62,15 +62,15 @@ HB_FUNC( CHARXOR )
    char *       Str1, * Str2, * Res;
    unsigned int len1, nl1, len2, nl2;
 
-   Str1 = ( char * ) hb_parc( 1 );
-   len1 = hb_parclen( 1 );
-   Str2 = ( char * ) hb_parc( 2 );
-   len2 = hb_parclen( 2 );
+   Str1 = ( char * ) hb_parc(1);
+   len1 = hb_parclen(1);
+   Str2 = ( char * ) hb_parc(2);
+   len2 = hb_parclen(2);
    if( ! len1 )
       hb_retclen( "", 0 );
    else
    {
-      Res = ( char * ) hb_xgrab( len1 );
+      Res = ( char * ) hb_xgrab(len1);
       for( nl1 = nl2 = 0; nl1 < len1; nl1++ )
       {
          Res[ nl1 ] = Str1[ nl1 ] ^ Str2[ nl2 ];
@@ -79,7 +79,7 @@ HB_FUNC( CHARXOR )
       }
 
       hb_retclen( Res, len1 );
-      hb_xfree( Res );
+      hb_xfree(Res);
    }
 }
 

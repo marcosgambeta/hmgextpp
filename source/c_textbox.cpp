@@ -67,42 +67,42 @@ HB_FUNC( INITMASKEDTEXTBOX )
    int Style;
    int ExStyle;
 
-   hwnd = ( HWND ) HB_PARNL( 1 );
+   hwnd = ( HWND ) HB_PARNL(1);
 
    Style = WS_CHILD | ES_AUTOHSCROLL;
 
-   if( hb_parl( 9 ) )
+   if( hb_parl(9) )
       Style = Style | ES_UPPERCASE;
 
-   if( hb_parl( 10 ) )
+   if( hb_parl(10) )
       Style = Style | ES_LOWERCASE;
 
-   if( hb_parl( 12 ) )
+   if( hb_parl(12) )
       Style = Style | ES_RIGHT;
 
-   if( hb_parl( 13 ) )
+   if( hb_parl(13) )
       Style = Style | ES_READONLY;
 
-   if( ! hb_parl( 14 ) )
+   if( ! hb_parl(14) )
       Style = Style | WS_VISIBLE;
 
-   if( ! hb_parl( 15 ) )
+   if( ! hb_parl(15) )
       Style = Style | WS_TABSTOP;
 
-   ExStyle = hb_parl( 16 ) ? 0 : WS_EX_CLIENTEDGE;
+   ExStyle = hb_parl(16) ? 0 : WS_EX_CLIENTEDGE;
 
    hbutton = CreateWindowEx
              (
       ExStyle,
       WC_EDIT,
-      TEXT( "" ),
+      TEXT(""),
       Style,
-      hb_parni( 3 ),
-      hb_parni( 4 ),
-      hb_parni( 5 ),
-      hb_parni( 11 ),
+      hb_parni(3),
+      hb_parni(4),
+      hb_parni(5),
+      hb_parni(11),
       hwnd,
-      ( HMENU ) HB_PARNL( 2 ),
+      ( HMENU ) HB_PARNL(2),
       GetInstance(),
       NULL
              );
@@ -119,59 +119,59 @@ HB_FUNC( INITTEXTBOX )
    int iExStyle;        // TEXTBOX window extended style.
 
    // Get the handle of the parent window/form.
-   hwnd = ( HWND ) HB_PARNL( 1 );
+   hwnd = ( HWND ) HB_PARNL(1);
 
    iStyle = WS_CHILD | ES_AUTOHSCROLL | BS_FLAT;
 
-   if( hb_parl( 12 ) )              // if <lNumeric> is TRUE, then ES_NUMBER style is added.
+   if( hb_parl(12) )              // if <lNumeric> is TRUE, then ES_NUMBER style is added.
       iStyle = iStyle | ES_NUMBER;  // Set to a numeric TEXTBOX, so don't worry about other "textual" styles.
    else
    {
-      if( hb_parl( 10 ) ) // if <lUpper> is TRUE, then ES_UPPERCASE style is added.
+      if( hb_parl(10) ) // if <lUpper> is TRUE, then ES_UPPERCASE style is added.
          iStyle = iStyle | ES_UPPERCASE;
 
-      if( hb_parl( 11 ) ) // if <lLower> is TRUE, then ES_LOWERCASE style is added.
+      if( hb_parl(11) ) // if <lLower> is TRUE, then ES_LOWERCASE style is added.
          iStyle = iStyle | ES_LOWERCASE;
    }
 
-   if( hb_parl( 13 ) )  // if <lPassword> is TRUE, then ES_PASSWORD style is added.
+   if( hb_parl(13) )  // if <lPassword> is TRUE, then ES_PASSWORD style is added.
       iStyle = iStyle | ES_PASSWORD;
 
-   if( hb_parl( 14 ) )
+   if( hb_parl(14) )
       iStyle = iStyle | ES_RIGHT;
 
-   if( hb_parl( 15 ) )
+   if( hb_parl(15) )
       iStyle = iStyle | ES_READONLY;
 
-   if( ! hb_parl( 16 ) )
+   if( ! hb_parl(16) )
       iStyle = iStyle | WS_VISIBLE;
 
-   if( ! hb_parl( 17 ) )
+   if( ! hb_parl(17) )
       iStyle = iStyle | WS_TABSTOP;
 
-   iExStyle = hb_parl( 18 ) ? 0 : WS_EX_CLIENTEDGE;
+   iExStyle = hb_parl(18) ? 0 : WS_EX_CLIENTEDGE;
 
    // Creates the child control.
    hedit = CreateWindowEx
            (
       iExStyle,
       WC_EDIT,
-      TEXT( "" ),
+      TEXT(""),
       iStyle,
-      hb_parni( 3 ),
-      hb_parni( 4 ),
-      hb_parni( 5 ),
-      hb_parni( 6 ),
+      hb_parni(3),
+      hb_parni(4),
+      hb_parni(5),
+      hb_parni(6),
       hwnd,
-      ( HMENU ) HB_PARNL( 2 ),
+      ( HMENU ) HB_PARNL(2),
       GetInstance(),
       NULL
            );
 
-   SendMessage( hedit, ( UINT ) EM_LIMITTEXT, ( WPARAM ) hb_parni( 9 ), ( LPARAM ) 0 );
+   SendMessage( hedit, ( UINT ) EM_LIMITTEXT, ( WPARAM ) hb_parni(9), ( LPARAM ) 0 );
 
-   SetProp( ( HWND ) hedit, TEXT( "oldeditproc" ), ( HWND ) GetWindowLongPtr( ( HWND ) hedit, GWLP_WNDPROC ) );
-   SetWindowLongPtr( hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnEditProc );
+   SetProp( ( HWND ) hedit, TEXT("oldeditproc"), ( HWND ) GetWindowLongPtr(( HWND ) hedit, GWLP_WNDPROC) );
+   SetWindowLongPtr(hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnEditProc);
 
    HB_RETNL( ( LONG_PTR ) hedit );
 }
@@ -184,42 +184,42 @@ HB_FUNC( INITCHARMASKTEXTBOX )
    int Style;
    int ExStyle;
 
-   hwnd = ( HWND ) HB_PARNL( 1 );
+   hwnd = ( HWND ) HB_PARNL(1);
 
    Style = WS_CHILD | ES_AUTOHSCROLL;
 
-   if( hb_parl( 9 ) )
+   if( hb_parl(9) )
       Style = Style | ES_UPPERCASE;
 
-   if( hb_parl( 10 ) )
+   if( hb_parl(10) )
       Style = Style | ES_LOWERCASE;
 
-   if( hb_parl( 12 ) )
+   if( hb_parl(12) )
       Style = Style | ES_RIGHT;
 
-   if( hb_parl( 13 ) )
+   if( hb_parl(13) )
       Style = Style | ES_READONLY;
 
-   if( ! hb_parl( 14 ) )
+   if( ! hb_parl(14) )
       Style = Style | WS_VISIBLE;
 
-   if( ! hb_parl( 15 ) )
+   if( ! hb_parl(15) )
       Style = Style | WS_TABSTOP;
 
-   ExStyle = hb_parl( 16 ) ? 0 : WS_EX_CLIENTEDGE;
+   ExStyle = hb_parl(16) ? 0 : WS_EX_CLIENTEDGE;
 
    hbutton = CreateWindowEx
              (
       ExStyle,
       WC_EDIT,
-      TEXT( "" ),
+      TEXT(""),
       Style,
-      hb_parni( 3 ),
-      hb_parni( 4 ),
-      hb_parni( 5 ),
-      hb_parni( 11 ),
+      hb_parni(3),
+      hb_parni(4),
+      hb_parni(5),
+      hb_parni(11),
       hwnd,
-      ( HMENU ) HB_PARNL( 2 ),
+      ( HMENU ) HB_PARNL(2),
       GetInstance(),
       NULL
              );
@@ -233,13 +233,13 @@ LRESULT CALLBACK OwnEditProc( HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPar
    long int        r;
    WNDPROC         OldWndProc;
 
-   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp( hButton, TEXT( "oldeditproc" ) );
+   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp( hButton, TEXT("oldeditproc") );
 
    switch( Msg )
    {
       case WM_DESTROY:
-         SetWindowLongPtr( hButton, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OldWndProc );
-         RemoveProp( hButton, TEXT( "oldeditproc" ) );
+         SetWindowLongPtr(hButton, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OldWndProc);
+         RemoveProp( hButton, TEXT("oldeditproc") );
          break;
 
       case WM_CONTEXTMENU:
@@ -255,7 +255,7 @@ LRESULT CALLBACK OwnEditProc( HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPar
             hb_vmPushLong( Msg );
             hb_vmPushNumInt( wParam );
             hb_vmPushNumInt( lParam );
-            hb_vmDo( 4 );
+            hb_vmDo(4);
          }
 
          r = hb_parnl( -1 );

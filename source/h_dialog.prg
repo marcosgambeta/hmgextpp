@@ -451,7 +451,7 @@ FUNCTION DialogProc( hwndDlg, nMsg, wParam, lParam )
       i := AScan ( _HMG_aFormhandles, hwndDlg )  // find DialogProcedure
       IF i > 0
          IF ValType( _HMG_aFormClickProcedure [i] ) == 'B' .AND. _HMG_aFormType [i] == 'D'
-            ret := Eval( _HMG_aFormClickProcedure [i], nMsg, LOWORD( wParam ), HIWORD( wParam ) )
+            ret := Eval( _HMG_aFormClickProcedure [i], nMsg, LOWORD(wParam), HIWORD(wParam) )
             IF ValType( ret ) == "N"
                ret := iif( ret = 0, FALSE, TRUE )
             ELSE
@@ -492,8 +492,8 @@ FUNCTION ModalDialogProc( hwndDlg, nMsg, wParam, lParam )
 
    _HMG_ActiveDlgProcHandle    := hwndDlg
    _HMG_ActiveDlgProcMsg       := nMsg
-   _HMG_ActiveDlgProcId        := LOWORD( wParam )
-   _HMG_ActiveDlgProcNotify    := HIWORD( wParam )
+   _HMG_ActiveDlgProcId        := LOWORD(wParam)
+   _HMG_ActiveDlgProcNotify    := HIWORD(wParam)
    _HMG_ActiveDlgProcModal     := .T.
    DO CASE
    CASE nMsg == WM_INITDIALOG
@@ -506,17 +506,17 @@ FUNCTION ModalDialogProc( hwndDlg, nMsg, wParam, lParam )
       ret := TRUE
    CASE nMsg == WM_COMMAND
       DO CASE
-      CASE LOWORD( wParam ) == IDOK .AND. HIWORD( wParam ) == BN_CLICKED
+      CASE LOWORD(wParam) == IDOK .AND. HIWORD(wParam) == BN_CLICKED
          EndDialog( hwndDlg, IDOK )
          ret := TRUE
-      CASE LOWORD( wParam ) == IDCANCEL .AND. HIWORD( wParam ) == BN_CLICKED
+      CASE LOWORD(wParam) == IDCANCEL .AND. HIWORD(wParam) == BN_CLICKED
          EndDialog( hwndDlg, IDCANCEL )
          ret := TRUE
-      CASE LOWORD( wParam ) == IDIGNORE .AND. HIWORD( wParam ) == BN_CLICKED
+      CASE LOWORD(wParam) == IDIGNORE .AND. HIWORD(wParam) == BN_CLICKED
          ret := TRUE
       OTHERWISE
          IF ValType( _HMG_ModalDialogProcedure ) == 'B'
-            Eval( _HMG_ModalDialogProcedure, hwndDlg, nMsg, LOWORD( wParam ), HIWORD( wParam ) )
+            Eval( _HMG_ModalDialogProcedure, hwndDlg, nMsg, LOWORD(wParam), HIWORD(wParam) )
          ENDIF
          ret := TRUE
       ENDCASE

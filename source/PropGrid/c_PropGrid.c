@@ -179,7 +179,7 @@ LRESULT CALLBACK  OwnPropGridProc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lP
 LRESULT CALLBACK  OwnFramePgProc( HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM lParam );
 LRESULT CALLBACK  PGEditProc( HWND hEdit, UINT msg, WPARAM wParam, LPARAM lParam );
 void              SetIndentLine( HWND hWnd, HTREEITEM hParent, RECT *rc, RECT *rcIndent, int nIndent );
-void              _ToggleInfo( HWND hWndPg );
+void              _ToggleInfo(HWND hWndPg);
 
 static COLORREF   m_crText, m_crTextCg, m_crBack, m_crBackCg, m_crLine, m_crTextDis;
 static HIMAGELIST m_hImgList = 0;
@@ -216,7 +216,7 @@ BOOL InsertBtnPG( HWND hWnd, HTREEITEM hItem, int nBtn, int ItemType, PROPGRD pg
 
    // force the edit control to update its non-client area
 
-   SetWindowPos( hWnd, 0, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_NOZORDER );
+   SetWindowPos(hWnd, 0, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_NOZORDER);
 
    return TRUE;
 }
@@ -233,7 +233,7 @@ void GetBtnPG( INSBTN *pbtn, RECT *rect )
       rect->left = rect->right - pbtn->cxButton;
       if( pbtn->cxRightEdge > pbtn->cxLeftEdge )
       {
-         OffsetRect( rect, pbtn->cxRightEdge - pbtn->cxLeftEdge, 0 );
+         OffsetRect(rect, pbtn->cxRightEdge - pbtn->cxLeftEdge, 0);
       }
    }
 }
@@ -250,19 +250,19 @@ void DrawInsBtnPG( HWND hWnd, INSBTN *pbtn, RECT *prect )
       if( pbtn->fButtonDown == TRUE )
       {
          DrawEdge( hdc, prect, EDGE_RAISED, BF_RECT | BF_FLAT | BF_ADJUST );
-         FillRect( hdc, prect, GetSysColorBrush(COLOR_BTNFACE) );
-         OffsetRect( prect, 1, 1 );
+         FillRect(hdc, prect, GetSysColorBrush(COLOR_BTNFACE));
+         OffsetRect(prect, 1, 1);
       }
       else
       {
          DrawEdge( hdc, prect, EDGE_RAISED, BF_RECT | BF_ADJUST );
-         FillRect( hdc, prect, GetSysColorBrush(COLOR_BTNFACE) );
+         FillRect(hdc, prect, GetSysColorBrush(COLOR_BTNFACE));
       }
 
       if( hBitmap == NULL )
       {
          SetBkMode( hdc, TRANSPARENT );
-         DrawText( hdc, "...", 3, prect, DT_CENTER | DT_VCENTER | DT_SINGLELINE );
+         DrawText(hdc, "...", 3, prect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
       }
       else
       {
@@ -271,12 +271,12 @@ void DrawInsBtnPG( HWND hWnd, INSBTN *pbtn, RECT *prect )
          int      wWidth = prect->right - prect->left;
          int      wHeight = prect->bottom - prect->top;
 
-         HDC      hDCmem = CreateCompatibleDC( hdc );
+         HDC      hDCmem = CreateCompatibleDC(hdc);
          BITMAP   bitmap;
          DWORD    dwRaster = SRCCOPY;
 
-         SelectObject( hDCmem, hBitmap );
-         GetObject( hBitmap, sizeof(BITMAP), (LPVOID) & bitmap );
+         SelectObject(hDCmem, hBitmap);
+         GetObject(hBitmap, sizeof(BITMAP), (LPVOID) &bitmap);
          if( wWidth && (wWidth != bitmap.bmWidth || wHeight != bitmap.bmHeight) )
          {
             StretchBlt( hdc, wCol, wRow, wWidth, wHeight, hDCmem, 0, 0, bitmap.bmWidth, bitmap.bmHeight, dwRaster );
@@ -286,11 +286,11 @@ void DrawInsBtnPG( HWND hWnd, INSBTN *pbtn, RECT *prect )
             BitBlt( hdc, wCol, wRow, bitmap.bmWidth, bitmap.bmHeight, hDCmem, 0, 0, dwRaster );
          }
 
-         DeleteDC( hDCmem );
+         DeleteDC(hDCmem);
       }
    }
 
-   ReleaseDC( hWnd, hdc );
+   ReleaseDC(hWnd, hdc);
 }
 
 //----------------------------------------------------------------------------------
@@ -363,8 +363,8 @@ BOOL InitPropGrd
    TreeView_SetIndent( hWndPG, indent );
    indent = TreeView_GetIndent( hWndPG );
 
-   GetWindowRect( hFrame, &rcCtrl );
-   CopyRect( &ppgrd->rcInfo, &rcCtrl );
+   GetWindowRect(hFrame, &rcCtrl);
+   CopyRect(&ppgrd->rcInfo, &rcCtrl);
 
    ppgrd->hPropGrid = hWndPG;
    ppgrd->hPropEdit = 0;
@@ -397,12 +397,12 @@ BOOL InitPropGrd
    ppgrd->lCancelBtn = ( (int) hBtnCancel > 0);
    ppgrd->lHelpBtn = ( (int) hBtnHelp > 0);
    ppgrd->nIndent = indent;
-   m_crText = GetSysColor( COLOR_WINDOWTEXT );
-   m_crTextCg = GetSysColor( COLOR_APPWORKSPACE );
-   m_crTextDis = GetSysColor( COLOR_GRAYTEXT );
-   m_crBack = GetSysColor( COLOR_WINDOW );
-   m_crBackCg = GetSysColor( COLOR_ACTIVEBORDER );
-   m_crLine = m_crTextCg;  //GetSysColor( COLOR_GRAYTEXT );
+   m_crText = GetSysColor(COLOR_WINDOWTEXT);
+   m_crTextCg = GetSysColor(COLOR_APPWORKSPACE);
+   m_crTextDis = GetSysColor(COLOR_GRAYTEXT);
+   m_crBack = GetSysColor(COLOR_WINDOW);
+   m_crBackCg = GetSysColor(COLOR_ACTIVEBORDER);
+   m_crLine = m_crTextCg;  //GetSysColor(COLOR_GRAYTEXT);
 
    if( ppgrd->lOkBtn )
    {
@@ -430,12 +430,12 @@ BOOL InitPropGrd
       {
          // Move the first button "OK" below the tab control.
          hwndButton = ppgrd->hOkBtn;
-         GetWindowRect( hwndButton, &rcButton );
+         GetWindowRect(hwndButton, &rcButton);
          buttonWidth = rcButton.right - rcButton.left;
          buttonHeight = rcButton.bottom - rcButton.top;
          x = ppgrd->cxWidthPG - ( (cxMargin + buttonWidth) * num_buttons ) - GetSystemMetrics(SM_CXDLGFRAME);
          y = ppgrd->cyHeightPG - (buttonHeight+5);
-         SetWindowPos( hwndButton, 0, x, y, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE );
+         SetWindowPos(hwndButton, 0, x, y, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
          num_buttons--;
       }
 
@@ -445,15 +445,15 @@ BOOL InitPropGrd
          hwndButton = ppgrd->hCancelBtn;
          if( buttonHeight == 0 )
          {
-            GetWindowRect( hwndButton, &rcButton );
+            GetWindowRect(hwndButton, &rcButton);
             buttonWidth = rcButton.right - rcButton.left;
             buttonHeight = rcButton.bottom - rcButton.top;
          }
          x = ppgrd->cxWidthPG - ( (cxMargin + buttonWidth) * num_buttons ) - GetSystemMetrics(SM_CXDLGFRAME);
          y = ppgrd->cyHeightPG - (buttonHeight+5);
 
-         SetWindowPos( hwndButton, 0, x, y, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE );
-         EnableWindow( hwndButton, FALSE );
+         SetWindowPos(hwndButton, 0, x, y, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
+         EnableWindow(hwndButton, FALSE);
          num_buttons--;
       }
 
@@ -463,15 +463,15 @@ BOOL InitPropGrd
          hwndButton = ppgrd->hApplyBtn;
          if( buttonHeight == 0 )
          {
-            GetWindowRect( hwndButton, &rcButton );
+            GetWindowRect(hwndButton, &rcButton);
             buttonWidth = rcButton.right - rcButton.left;
             buttonHeight = rcButton.bottom - rcButton.top;
          }
          x = ppgrd->cxWidthPG - ( (cxMargin + buttonWidth) * num_buttons ) - GetSystemMetrics(SM_CXDLGFRAME);
          y = ppgrd->cyHeightPG - (buttonHeight+5);
 
-         SetWindowPos( hwndButton, 0, x, y, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE );
-         EnableWindow( hwndButton, FALSE );
+         SetWindowPos(hwndButton, 0, x, y, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
+         EnableWindow(hwndButton, FALSE);
 
          num_buttons--;
       }
@@ -482,14 +482,14 @@ BOOL InitPropGrd
          hwndButton = ppgrd->hHelpBtn;
          if( buttonHeight == 0 )
          {
-            GetWindowRect( hwndButton, &rcButton );
+            GetWindowRect(hwndButton, &rcButton);
             buttonWidth = rcButton.right - rcButton.left;
             buttonHeight = rcButton.bottom - rcButton.top;
          }
          x = ppgrd->cxWidthPG - ( (cxMargin + buttonWidth) * num_buttons ) - GetSystemMetrics(SM_CXDLGFRAME);
          y = ppgrd->cyHeightPG - (buttonHeight+5);
 
-         SetWindowPos( hwndButton, 0, x, y, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE );
+         SetWindowPos(hwndButton, 0, x, y, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
       }
 
       ppgrd->cyBtn = buttonHeight + cyMargin +  GetSystemMetrics(SM_CYDLGFRAME);
@@ -498,13 +498,13 @@ BOOL InitPropGrd
       y = ppgrd->cyPG+ ppgrd->cyHeader - ppgrd->cyBtn;
       h = ppgrd->cyPG -  ppgrd->cyBtn ;
 
-      SetWindowPos( hWndPG, 0, 0, 0, ppgrd->cxWidthPG, h, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER );
-      SetWindowPos( hFrame, 0, x,    y,    0, 0, SWP_FRAMECHANGED | SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE );
-      SetWindowPos( hTitle, 0, x+10, y+10, 0, 0, SWP_FRAMECHANGED | SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE );
-      SetWindowPos( hInfo,  0, x+20, y+26, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE );
+      SetWindowPos(hWndPG, 0, 0, 0, ppgrd->cxWidthPG, h, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);
+      SetWindowPos(hFrame, 0, x,    y,    0, 0, SWP_FRAMECHANGED | SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
+      SetWindowPos(hTitle, 0, x+10, y+10, 0, 0, SWP_FRAMECHANGED | SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
+      SetWindowPos(hInfo,  0, x+20, y+26, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
 
-      GetWindowRect( hFrame, &rcCtrl );
-      CopyRect( &ppgrd->rcInfo, &rcCtrl );
+      GetWindowRect(hFrame, &rcCtrl);
+      CopyRect(&ppgrd->rcInfo, &rcCtrl);
 
    }
 
@@ -525,7 +525,7 @@ BOOL InitPropGrd
 
    // force the edit control to update its non-client area
 
-   SetWindowPos( hWndPG, 0, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_NOZORDER );
+   SetWindowPos(hWndPG, 0, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_NOZORDER);
 
    return TRUE;
 }
@@ -567,7 +567,7 @@ BOOL InsertItem( HWND hwndHeader, LPSTR lpsz, int CurrIndex, int Width )   //HBI
 
 //----------------------------------------------------------------------------------
 
-HWND CreateHeaderWindow( HWND hwndParent )
+HWND CreateHeaderWindow(HWND hwndParent)
 {
    HWND        hwndHeader;
    RECT        rcParent;
@@ -598,7 +598,7 @@ HWND CreateHeaderWindow( HWND hwndParent )
       return( HWND ) NULL;
    }
 
-   GetClientRect( hwndParent, &rcParent );
+   GetClientRect(hwndParent, &rcParent);
 
    hdl.prc = &rcParent;
    hdl.pwpos = &wp;
@@ -608,7 +608,7 @@ HWND CreateHeaderWindow( HWND hwndParent )
       return( HWND ) NULL;
    }
 
-   SetWindowPos( hwndHeader, wp.hwndInsertAfter, wp.x, wp.y, wp.cx, wp.cy, wp.flags | SWP_SHOWWINDOW );
+   SetWindowPos(hwndHeader, wp.hwndInsertAfter, wp.x, wp.y, wp.cx, wp.cy, wp.flags | SWP_SHOWWINDOW);
    m_nHeightHeader = wp.cy;
 
    return hwndHeader;
@@ -620,12 +620,12 @@ void PropGridPaintButton( HDC hDC, RECT rc, BOOL bExpanded, int nIndent )
    HBRUSH   hNewBrush, hOldBrush;
    int      h = rc.bottom - rc.top, x = rc.left + ( nIndent - 9 ) / 2, y = rc.top + ( h - 9 ) / 2 + 1;
 
-   hBoxPen = CreatePen( PS_SOLID, 1, m_crLine );
-   hMrkPen = CreatePen( PS_SOLID, 1, RGB(0, 0, 0) );
-   hNewBrush = CreateSolidBrush( RGB(255, 255, 255) );
+   hBoxPen = CreatePen(PS_SOLID, 1, m_crLine);
+   hMrkPen = CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
+   hNewBrush = CreateSolidBrush(RGB(255, 255, 255));
 
-   hOldPen = ( HPEN ) SelectObject( hDC, hBoxPen );
-   hOldBrush = ( HBRUSH ) SelectObject( hDC, hNewBrush );
+   hOldPen = ( HPEN ) SelectObject(hDC, hBoxPen);
+   hOldBrush = ( HBRUSH ) SelectObject(hDC, hNewBrush);
 
    // Draw the box
 
@@ -633,7 +633,7 @@ void PropGridPaintButton( HDC hDC, RECT rc, BOOL bExpanded, int nIndent )
 
    // Now, the - or + sign
 
-   SelectObject( hDC, hMrkPen );
+   SelectObject(hDC, hMrkPen);
 
    LineHorz( hDC, x + 2, x + 7, y + 4 );     // '-'
    if( !bExpanded )
@@ -641,12 +641,12 @@ void PropGridPaintButton( HDC hDC, RECT rc, BOOL bExpanded, int nIndent )
       LineVert( hDC, x + 4, y + 2, y + 7 );  // '+'
    }
 
-   SelectObject( hDC, hOldPen );
-   SelectObject( hDC, hOldBrush );
+   SelectObject(hDC, hOldPen);
+   SelectObject(hDC, hOldBrush);
 
-   DeleteObject( hMrkPen );
-   DeleteObject( hBoxPen );
-   DeleteObject( hNewBrush );
+   DeleteObject(hMrkPen);
+   DeleteObject(hBoxPen);
+   DeleteObject(hNewBrush);
 }
 
 LRESULT PropGridOnCustomDraw ( HWND hWnd, LPARAM lParam )
@@ -690,10 +690,10 @@ LRESULT PropGridOnCustomDraw ( HWND hWnd, LPARAM lParam )
 
       if( rc.bottom >= SendMessage(hWnd, TVM_GETITEMHEIGHT, 0, 0) )
       {
-         hLinPen = CreatePen( PS_SOLID, 1, m_crLine );
+         hLinPen = CreatePen(PS_SOLID, 1, m_crLine);
 
-         hOldPen = ( HPEN ) SelectObject( hDC, hLinPen );
-         hOldBrush = ( HBRUSH ) SelectObject( hDC, m_brush );
+         hOldPen = ( HPEN ) SelectObject(hDC, hLinPen);
+         hOldBrush = ( HBRUSH ) SelectObject(hDC, m_brush);
 
          rcItem = rc;
          rcProp = rc;
@@ -710,9 +710,9 @@ LRESULT PropGridOnCustomDraw ( HWND hWnd, LPARAM lParam )
          tvdi.item.cchTextMax = 255;
          if( !TreeView_GetItem(hWnd, &tvdi.item) )
          {
-            SelectObject( hDC, hOldBrush );
-            SelectObject( hDC, hOldPen );
-            DeleteObject( hLinPen );
+            SelectObject(hDC, hOldBrush);
+            SelectObject(hDC, hOldPen);
+            DeleteObject(hLinPen);
             pResult = CDRF_SKIPDEFAULT;
             hb_retnl( pResult );
          }
@@ -722,14 +722,14 @@ LRESULT PropGridOnCustomDraw ( HWND hWnd, LPARAM lParam )
             pItemData = ( LPARAMDATA * ) tvdi.item.lParam;
             if( pItemData )
             {
-               strcpy( szText, pItemData->ItemName );
+               strcpy(szText, pItemData->ItemName);
                if( pItemData->ItemType == PG_PASSWORD )
                   {
-                     strcpy( PropText, "*****" );
+                     strcpy(PropText, "*****");
                   } else
-                     strcpy( PropText, pItemData->ItemValue );
+                     strcpy(PropText, pItemData->ItemValue);
 
-               strcpy( PropInfo, pItemData->ItemInfo );
+               strcpy(PropInfo, pItemData->ItemInfo);
             }
          }
 
@@ -748,25 +748,25 @@ LRESULT PropGridOnCustomDraw ( HWND hWnd, LPARAM lParam )
 
          if( pCD->nmcd.uItemState & CDIS_FOCUS )
          {
-            hBackBrush = CreateSolidBrush( GetSysColor(COLOR_HIGHLIGHT) );
+            hBackBrush = CreateSolidBrush(GetSysColor(COLOR_HIGHLIGHT));
          }
          else
          {
             if( tvdi.item.cChildren == 1 )
             {
-               hBackBrush = CreateSolidBrush( m_crBackCg );
+               hBackBrush = CreateSolidBrush(m_crBackCg);
             }
             else
             {
-               hBackBrush = CreateSolidBrush( m_crBack );
+               hBackBrush = CreateSolidBrush(m_crBack);
             }
          }
 
-         hIndentBrush = CreateSolidBrush( m_crBackCg );
-         FillRect( hDC, &rcItem, hBackBrush );
-         FillRect( hDC, &rcIndent, hIndentBrush );
-         DeleteObject( hBackBrush );
-         DeleteObject( hIndentBrush );
+         hIndentBrush = CreateSolidBrush(m_crBackCg);
+         FillRect(hDC, &rcItem, hBackBrush);
+         FillRect(hDC, &rcIndent, hIndentBrush);
+         DeleteObject(hBackBrush);
+         DeleteObject(hIndentBrush);
 
          // Draw the grid lines
 
@@ -849,20 +849,20 @@ LRESULT PropGridOnCustomDraw ( HWND hWnd, LPARAM lParam )
 
          if( pCD->nmcd.uItemState & CDIS_FOCUS )
          {
-            SetTextColor( hDC, RGB(255, 255, 255) );
-            SetBkColor( hDC, GetSysColor(COLOR_HIGHLIGHT) );
+            SetTextColor(hDC, RGB(255, 255, 255));
+            SetBkColor(hDC, GetSysColor(COLOR_HIGHLIGHT));
          }
          else
          {
             if( tvdi.item.cChildren == 1 )
             {
-               SetTextColor( hDC, m_crText );
-               SetBkColor( hDC, m_crBackCg );
+               SetTextColor(hDC, m_crText);
+               SetBkColor(hDC, m_crBackCg);
             }
             else
             {
-               SetTextColor( hDC, m_crText );
-               SetBkColor( hDC, m_crBack );
+               SetTextColor(hDC, m_crText);
+               SetBkColor(hDC, m_crBack);
             }
          }
 
@@ -876,8 +876,8 @@ LRESULT PropGridOnCustomDraw ( HWND hWnd, LPARAM lParam )
                   ppgrd->hItemEdit = 0;
                }
 
-               SetWindowText( ppgrd->hInfoTitle, szText );
-               SetWindowText( ppgrd->hInfoText, PropInfo );
+               SetWindowText(ppgrd->hInfoTitle, szText);
+               SetWindowText(ppgrd->hInfoText, PropInfo);
 
                if( !(pItemData->ItemDisabled) && (!(ppgrd->readonly)) && !(pItemData->ItemType == PG_CHECK) )
                {
@@ -906,17 +906,17 @@ LRESULT PropGridOnCustomDraw ( HWND hWnd, LPARAM lParam )
 
          rcProp.left += 4;
 
-         DrawText( hDC, szText, -1, &rcText, DT_LEFT | DT_NOPREFIX | DT_SINGLELINE | DT_VCENTER | DT_CALCRECT );
-         DrawText( hDC, PropText, -1, &rcProp, DT_LEFT | DT_NOPREFIX | DT_SINGLELINE | DT_VCENTER | DT_CALCRECT );
+         DrawText(hDC, szText, -1, &rcText, DT_LEFT | DT_NOPREFIX | DT_SINGLELINE | DT_VCENTER | DT_CALCRECT);
+         DrawText(hDC, PropText, -1, &rcProp, DT_LEFT | DT_NOPREFIX | DT_SINGLELINE | DT_VCENTER | DT_CALCRECT);
          rcText.right = ppgrd->cxMiddleEdge - 1;
 
          // Now, draw the text
 
-         DrawText( hDC, szText, -1, &rcText, DT_LEFT | DT_NOPREFIX | DT_SINGLELINE | DT_VCENTER | DT_END_ELLIPSIS );
+         DrawText(hDC, szText, -1, &rcText, DT_LEFT | DT_NOPREFIX | DT_SINGLELINE | DT_VCENTER | DT_END_ELLIPSIS);
 
          if( pItemData->ItemDisabled )
          {
-            SetTextColor( hDC, m_crTextDis );
+            SetTextColor(hDC, m_crTextDis);
          }
 
          if( pItemData->ItemChanged )
@@ -924,29 +924,29 @@ LRESULT PropGridOnCustomDraw ( HWND hWnd, LPARAM lParam )
             HFONT    hFontBold, hOldFont;
             HFONT    hFont = ( HFONT ) SendMessage( hWnd, WM_GETFONT, 0, 0 );
             LOGFONT  lf = { 0 };
-            GetObject( hFont, sizeof(LOGFONT), &lf );
+            GetObject(hFont, sizeof(LOGFONT), &lf);
             lf.lfWeight |= FW_BOLD;
 
-            hFontBold = CreateFontIndirect( &lf );
-            hOldFont = ( HFONT ) SelectObject( pCD->nmcd.hdc, hFontBold );
+            hFontBold = CreateFontIndirect(&lf);
+            hOldFont = ( HFONT ) SelectObject(pCD->nmcd.hdc, hFontBold);
 
-            DeleteObject( hFontBold );
-            DrawText( hDC, PropText, -1, &rcProp, DT_LEFT | DT_NOPREFIX | DT_SINGLELINE | DT_VCENTER | DT_CALCRECT );
-            DrawText( hDC, PropText, -1, &rcProp, DT_LEFT | DT_NOPREFIX | DT_SINGLELINE | DT_VCENTER );
-            SelectObject( pCD->nmcd.hdc, hOldFont );
+            DeleteObject(hFontBold);
+            DrawText(hDC, PropText, -1, &rcProp, DT_LEFT | DT_NOPREFIX | DT_SINGLELINE | DT_VCENTER | DT_CALCRECT);
+            DrawText(hDC, PropText, -1, &rcProp, DT_LEFT | DT_NOPREFIX | DT_SINGLELINE | DT_VCENTER);
+            SelectObject(pCD->nmcd.hdc, hOldFont);
          }
          else
          {
-            DrawText( hDC, PropText, -1, &rcProp, DT_LEFT | DT_NOPREFIX | DT_SINGLELINE | DT_VCENTER );
+            DrawText(hDC, PropText, -1, &rcProp, DT_LEFT | DT_NOPREFIX | DT_SINGLELINE | DT_VCENTER);
          }
 
          // Clean up
 
-         SelectObject( hDC, hOldBrush );
-         SelectObject( hDC, hOldPen );
+         SelectObject(hDC, hOldBrush);
+         SelectObject(hDC, hOldPen);
 
-         DeleteObject( hBackBrush );
-         DeleteObject( hLinPen );
+         DeleteObject(hBackBrush);
+         DeleteObject(hLinPen);
 
          pResult = CDRF_SKIPDEFAULT;
       }
@@ -978,9 +978,9 @@ HB_FUNC( INITPROPGRID )
    if( hb_parl(12) )
       style = style  | TVS_SINGLEEXPAND ;
 
-   iHeight = hb_parni( 10 );
+   iHeight = hb_parni(10);
 
-   icex.dwSize = sizeof( INITCOMMONCONTROLSEX );
+   icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
    icex.dwICC = ICC_TREEVIEW_CLASSES | ICC_DATE_CLASSES | ICC_USEREX_CLASSES;;
    InitCommonControlsEx( &icex );
 
@@ -1009,7 +1009,7 @@ HB_FUNC( INITPROPGRID )
 
    if( hb_arrayLen(hArray) > 0 )
    {
-      hHeader = CreateHeaderWindow( hFramePG );
+      hHeader = CreateHeaderWindow(hFramePG);
 
       InsertItem( hHeader, (char *) hb_arrayGetCPtr(hArray, 1), 1, w - hb_parni(7) + 3 );
       InsertItem( hHeader, (char *) hb_arrayGetCPtr(hArray, 2), 2, w );
@@ -1197,7 +1197,7 @@ HB_FUNC( INITPROPGRID )
       hBtnHelp
    );
 
-   hb_reta( 10 );
+   hb_reta(10);
    HB_STORNL( (LONG) hWndPG,   -1, 1 );
    HB_STORNL( (LONG) hTitle,   -1, 2 );
    HB_STORNL( (LONG) hInfo,    -1, 3 );
@@ -1253,13 +1253,13 @@ LRESULT CALLBACK OwnPropGridProc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
          iImage = lpdis->itemID;
          if( lpdis->itemState & ODS_SELECTED )
          {
-            clrForeground = SetTextColor( hDC, GetSysColor(COLOR_HIGHLIGHTTEXT) );
-            clrBackground = SetBkColor( hDC, GetSysColor(COLOR_HIGHLIGHT) );
+            clrForeground = SetTextColor(hDC, GetSysColor(COLOR_HIGHLIGHTTEXT));
+            clrBackground = SetBkColor(hDC, GetSysColor(COLOR_HIGHLIGHT));
          }
          else
          {
-            clrForeground = SetTextColor( hDC, m_crText );
-            clrBackground = SetBkColor( hDC, m_crBack );
+            clrForeground = SetTextColor(hDC, m_crText);
+            clrBackground = SetBkColor(hDC, m_crBack);
          }
 
          rc.left += 2;
@@ -1285,12 +1285,12 @@ LRESULT CALLBACK OwnPropGridProc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
             rc.bottom += 2;
          }
 
-         DrawText( hDC, achTemp, -1, &rc, DT_LEFT | DT_NOPREFIX | DT_SINGLELINE | DT_VCENTER );
+         DrawText(hDC, achTemp, -1, &rc, DT_LEFT | DT_NOPREFIX | DT_SINGLELINE | DT_VCENTER);
 
          // Restore the previous colors.
 
-         SetTextColor( lpdis->hDC, clrForeground );
-         SetBkColor( lpdis->hDC, clrBackground );
+         SetTextColor(lpdis->hDC, clrForeground);
+         SetBkColor(lpdis->hDC, clrBackground);
          break;
 
       case WM_GETDLGCODE:
@@ -1298,8 +1298,8 @@ LRESULT CALLBACK OwnPropGridProc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
 
       case WM_NCCALCSIZE:
          {
-            GetWindowRect( hWnd, &rect );
-            OffsetRect( &rect, -rect.left, -rect.top );
+            GetWindowRect(hWnd, &rect);
+            OffsetRect(&rect, -rect.left, -rect.top);
             CallWindowProc( ppgrd->oldproc, hWnd, Msg, wParam, lParam );
             ppgrd->cxLeftPG = rect.left;
 //            ppgrd->cxRightEdge = rect.right;
@@ -1324,7 +1324,7 @@ LRESULT CALLBACK OwnPropGridProc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
 
       case WM_LBUTTONDBLCLK:
          {
-            memset( &tvi, 0, sizeof(TV_ITEM) );
+            memset(&tvi, 0, sizeof(TV_ITEM));
             tvi.mask = TVIF_HANDLE | TVIF_STATE;
             tvi.stateMask = TVIS_STATEIMAGEMASK;
             tvi.hItem = ppgrd->hItemActive;
@@ -1335,7 +1335,7 @@ LRESULT CALLBACK OwnPropGridProc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
             if( (iCheck > 0) && !(ppgrd->fDisable) )
             {
                iCheck = iCheck == 2 ? 1 : 2;
-               tvi.state = INDEXTOSTATEIMAGEMASK( iCheck );
+               tvi.state = INDEXTOSTATEIMAGEMASK(iCheck);
                TreeView_SetItem( hWnd, &tvi );
                PostMessage( hWnd, WM_COMMAND, MAKEWPARAM(iCheck, BN_CLICKED), (LPARAM) ppgrd->hItemActive );
             }
@@ -1379,7 +1379,7 @@ LRESULT CALLBACK OwnPropGridProc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
                hb_vmPushLong( lParam );
                hb_vmPushLong( (LONG) ppgrd->hItemActive );
                hb_vmPushLong( (LONG) ppgrd->hPropEdit );
-               hb_vmDo( 6 );
+               hb_vmDo(6);
             }
 
             r = hb_parnl( -1 );
@@ -1424,8 +1424,8 @@ LRESULT CALLBACK OwnFramePgProc( HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM 
          rc.left   += 1;
          rc.right  -= 1;
          rc.bottom -= 1;
-         FillRect( hDC, &rc, GetSysColorBrush(COLOR_BTNFACE) );
-         ReleaseDC( hFramePG, hDC );
+         FillRect(hDC, &rc, GetSysColorBrush(COLOR_BTNFACE));
+         ReleaseDC(hFramePG, hDC);
 
          break;
       case WM_COMMAND:
@@ -1445,7 +1445,7 @@ LRESULT CALLBACK OwnFramePgProc( HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM 
                            hb_vmPushNil();
                            hb_vmPushLong( (LONG) ppgrd->hPropGrid );
                            hb_vmPushLong( (LONG) lParam );
-                           hb_vmDo( 2 );
+                           hb_vmDo(2);
                      }
 
                      r = hb_parnl( -1 );
@@ -1486,7 +1486,7 @@ LRESULT CALLBACK OwnFramePgProc( HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM 
                      ppgrd->cxMiddleEdge = hdi.cxy - 3;
                      Header_GetItem( hWndHD, 1, &hdi );
                      hdi.cxy += dWidth;
-                     RedrawWindow( ppgrd->hPropGrid, NULL, NULL, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW );
+                     RedrawWindow(ppgrd->hPropGrid, NULL, NULL, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
                      break;
                   }
 
@@ -1511,13 +1511,13 @@ LRESULT CALLBACK OwnFramePgProc( HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM 
                            hb_vmPushSymbol( pSymbol );
                            hb_vmPushNil();
                            hb_vmPushLong( (LONG) ppgrd->hPropGrid );
-                           hb_vmPushLong( 0 );
-                           hb_vmDo( 2 );
+                           hb_vmPushLong(0);
+                           hb_vmDo(2);
                         }
                      }
                      else
                      {
-                        _ToggleInfo( ppgrd->hPropGrid );
+                        _ToggleInfo(ppgrd->hPropGrid);
                      }
                      break;
                   }
@@ -1538,7 +1538,7 @@ HB_FUNC( PROPGRIDONCUSTOMDRAW )
 {
    LRESULT    pResult;
 
-   pResult = PropGridOnCustomDraw (( HWND ) hb_parnl( 1 ), (LPARAM) hb_parnl( 2 ));
+   pResult = PropGridOnCustomDraw (( HWND ) hb_parnl(1), (LPARAM) hb_parnl(2));
 
    hb_retnl( pResult );
 }
@@ -1561,7 +1561,7 @@ void SetIndentLine( HWND hWnd, HTREEITEM hParent, RECT *rc, RECT *rcIndent, int 
 
 HB_FUNC( GETNOTIFYPROPGRIDITEM )
 {
-   NMHDR          *pNMHDR = ( NMHDR FAR * ) hb_parnl( 1 );
+   NMHDR          *pNMHDR = ( NMHDR FAR * ) hb_parnl(1);
    NMTVCUSTOMDRAW *pCD = ( NMTVCUSTOMDRAW * ) pNMHDR;
    HTREEITEM      hItem = ( HTREEITEM ) pCD->nmcd.dwItemSpec;
    hb_retnl( (LONG) hItem );
@@ -1569,36 +1569,36 @@ HB_FUNC( GETNOTIFYPROPGRIDITEM )
 
 HB_FUNC( ADDPGITEM )
 {
-   HWND              hWndTV = ( HWND ) hb_parnl( 1 );
+   HWND              hWndTV = ( HWND ) hb_parnl(1);
 
-   HTREEITEM         hPrev = ( HTREEITEM ) hb_parnl( 2 );
+   HTREEITEM         hPrev = ( HTREEITEM ) hb_parnl(2);
    HTREEITEM         hRet;
 
    TV_ITEM           tvi;
    TV_INSERTSTRUCT   is;
    LPARAMDATA        *pData;
 
-   pData = ( LPARAMDATA * ) hb_xgrab( (sizeof(LPARAMDATA)) );
-   ZeroMemory( pData, sizeof(LPARAMDATA) );
+   pData = ( LPARAMDATA * ) hb_xgrab((sizeof(LPARAMDATA)));
+   ZeroMemory(pData, sizeof(LPARAMDATA));
 
    pData->ItemName = hb_strndup( hb_parc(7), 255 );
    pData->ItemValue = hb_strndup( hb_parc(8), 1024 );
    pData->ItemData = hb_strndup( hb_parc(9), 1024 );
-   pData->ItemDisabled = hb_parl( 10 );
-   pData->ItemChanged = hb_parl( 11 );
-   pData->ItemEdit = hb_parl( 12 );
-   pData->ItemType = hb_parni( 13 );
-   pData->ItemID = hb_parni( 14 );
+   pData->ItemDisabled = hb_parl(10);
+   pData->ItemChanged = hb_parl(11);
+   pData->ItemEdit = hb_parl(12);
+   pData->ItemType = hb_parni(13);
+   pData->ItemID = hb_parni(14);
    pData->ItemInfo = hb_strndup( hb_parc(15), 1024 );
    pData->ItemValueName = hb_strndup( hb_parc(16), 255 );
 
    tvi.mask = TVIF_TEXT | TVIF_IMAGE | TVIF_SELECTEDIMAGE | TVIF_PARAM | TVIF_STATE;
    tvi.stateMask = TVIS_STATEIMAGEMASK;
-   tvi.pszText = (char *) hb_parc( 3 );
+   tvi.pszText = (char *) hb_parc(3);
    tvi.cchTextMax = 255;
-   tvi.iImage = hb_parni( 4 );
-   tvi.iSelectedImage = hb_parni( 5 );
-   tvi.state = INDEXTOSTATEIMAGEMASK( hb_parni(6) );
+   tvi.iImage = hb_parni(4);
+   tvi.iSelectedImage = hb_parni(5);
+   tvi.state = INDEXTOSTATEIMAGEMASK(hb_parni(6));
    tvi.lParam = ( LPARAM ) pData;
 
    #if ( defined( __BORLANDC__ ) && __BORLANDC__ <= 1410 )
@@ -1629,7 +1629,7 @@ void Pg_SetData( HWND hWnd, HTREEITEM hItem, LPTSTR cValue, LPTSTR cData, BOOL l
    TV_ITEM     TreeItem;
    LPARAMDATA  *pData;
 
-   memset( &TreeItem, 0, sizeof(TV_ITEM) );
+   memset(&TreeItem, 0, sizeof(TV_ITEM));
 
    TreeHandle = hWnd;
    TreeItemHandle = hItem;
@@ -1670,7 +1670,7 @@ HB_FUNC( PG_ENABLEITEM )     //   Pg_EnableItem(  TreeHandle, TreeItemHandle, lE
    TV_ITEM     TreeItem;
    LPARAMDATA  *pData;
 
-   memset( &TreeItem, 0, sizeof(TV_ITEM) );
+   memset(&TreeItem, 0, sizeof(TV_ITEM));
 
    TreeHandle = (HWND) hb_parnl(1);
    TreeItemHandle = (HTREEITEM) hb_parnl(2);
@@ -1697,7 +1697,7 @@ HB_FUNC( PG_CHANGEITEM )     //   Pg_ChangeItem(  TreeHandle, TreeItemHandle, lC
    TV_ITEM     TreeItem;
    LPARAMDATA  *pData;
 
-   memset( &TreeItem, 0, sizeof(TV_ITEM) );
+   memset(&TreeItem, 0, sizeof(TV_ITEM));
 
    TreeHandle = (HWND) hb_parnl(1);
    TreeItemHandle = (HTREEITEM) hb_parnl(2);
@@ -1722,11 +1722,11 @@ HB_FUNC( PG_GETITEM )
    LPARAMDATA  *pData;
    int         nType;
 
-   memset( &TreeItem, 0, sizeof(TV_ITEM) );
+   memset(&TreeItem, 0, sizeof(TV_ITEM));
 
-   TreeHandle = ( HWND ) hb_parnl( 1 );
-   TreeItemHandle = ( HTREEITEM ) hb_parnl( 2 );
-   nType = ( int ) hb_parni( 3 );
+   TreeHandle = ( HWND ) hb_parnl(1);
+   TreeItemHandle = ( HTREEITEM ) hb_parnl(2);
+   nType = ( int ) hb_parni(3);
 
    TreeItem.mask = TVIF_HANDLE | TVIF_PARAM;
    TreeItem.hItem = TreeItemHandle;
@@ -1735,7 +1735,7 @@ HB_FUNC( PG_GETITEM )
 
    if( nType == 0 )
    {
-      hb_reta( 10 );
+      hb_reta(10);
       HB_STORC( pData->ItemName, -1, 1 );
       HB_STORC( pData->ItemValue, -1, 2 );
       HB_STORC( pData->ItemData, -1, 3 );
@@ -1820,8 +1820,8 @@ HB_FUNC( PG_GETNEXTITEM )
    HTREEITEM   ItemHandle;
    HTREEITEM   NextItemHandle;
 
-   TreeHandle = ( HWND ) hb_parnl( 1 );
-   ItemHandle = ( HTREEITEM ) hb_parnl( 2 );
+   TreeHandle = ( HWND ) hb_parnl(1);
+   ItemHandle = ( HTREEITEM ) hb_parnl(2);
    NextItemHandle = GetNextItemPG( TreeHandle, ItemHandle );
    hb_retnl( (LONG) NextItemHandle );
 }
@@ -1831,7 +1831,7 @@ HB_FUNC( PG_GETROOT )
    HWND        TreeHandle;
    HTREEITEM   ItemHandle;
 
-   TreeHandle = ( HWND ) hb_parnl( 1 );
+   TreeHandle = ( HWND ) hb_parnl(1);
 
    ItemHandle = TreeView_GetRoot( TreeHandle );
 
@@ -1844,8 +1844,8 @@ HB_FUNC( PG_ENSUREVISIBLE )
    HTREEITEM   ItemHandle;
    BOOL        lVisible;
 
-   TreeHandle = ( HWND ) hb_parnl( 1 );
-   ItemHandle = ( HTREEITEM ) hb_parnl( 2 );
+   TreeHandle = ( HWND ) hb_parnl(1);
+   ItemHandle = ( HTREEITEM ) hb_parnl(2);
 
    lVisible = TreeView_EnsureVisible( TreeHandle, ItemHandle );
 
@@ -1860,8 +1860,8 @@ HB_FUNC( PG_ISVISIBLE )
    HTREEITEM   ItemHdl;
    BOOL        lVisible = FALSE;
 
-   TreeHandle = ( HWND ) hb_parnl( 1 );
-   ItemHandle = ( HTREEITEM ) hb_parnl( 2 );
+   TreeHandle = ( HWND ) hb_parnl(1);
+   ItemHandle = ( HTREEITEM ) hb_parnl(2);
 
    ItemHdl = TreeView_GetFirstVisible ( TreeHandle );
    while( ItemHdl )
@@ -1884,9 +1884,9 @@ HB_FUNC( PG_SEARCHID )        //PG_SearchID(hWndPG,nID)
    LPARAMDATA  *pData;
    int         nID;
 
-   memset( &TreeItem, 0, sizeof(TV_ITEM) );
-   TreeHandle = ( HWND ) hb_parnl( 1 );
-   nID = ( int ) hb_parni( 2 );
+   memset(&TreeItem, 0, sizeof(TV_ITEM));
+   TreeHandle = ( HWND ) hb_parnl(1);
+   nID = ( int ) hb_parni(2);
    TreeItemHandle = TreeView_GetRoot( TreeHandle );
    while( TreeItemHandle )
    {
@@ -1913,8 +1913,8 @@ HB_FUNC( PG_SEARCHCATEGORY )  //PG_SearchCategory(hWndPG,cCategory)
    TV_ITEM     TreeItem;
    LPARAMDATA  *pData;
    LPTSTR      cName;   // temporary buffer
-   memset( &TreeItem, 0, sizeof(TV_ITEM) );
-   TreeHandle = ( HWND ) hb_parnl( 1 );
+   memset(&TreeItem, 0, sizeof(TV_ITEM));
+   TreeHandle = ( HWND ) hb_parnl(1);
    cName = hb_strndup( hb_parc(2), 255 );
    TreeItemHandle = TreeView_GetRoot( TreeHandle );
    while( TreeItemHandle )
@@ -1934,12 +1934,12 @@ HB_FUNC( PG_SEARCHCATEGORY )  //PG_SearchCategory(hWndPG,cCategory)
    hb_retnl( (LONG) TreeItemHandle );
 }
 
-HB_FUNC( PG_TOGGLEINFO )   // Pg_ToggleInfo( hWndPG )
+HB_FUNC( PG_TOGGLEINFO )   // Pg_ToggleInfo(hWndPG)
 {
-   _ToggleInfo( (HWND) hb_parnl(1) );
+   _ToggleInfo((HWND) hb_parnl(1));
 }
 
-void _ToggleInfo( HWND hWndPG )
+void _ToggleInfo(HWND hWndPG)
 {
    PROPGRD  *ppgrd = ( PROPGRD * ) GetWindowLong( hWndPG, GWL_USERDATA );
    int      height, width;
@@ -1948,20 +1948,20 @@ void _ToggleInfo( HWND hWndPG )
 
    if( ppgrd->lInfoShow )
    {
-      ShowWindow( ppgrd->hInfoTitle, SW_HIDE );
-      ShowWindow( ppgrd->hInfoText, SW_HIDE );
-      ShowWindow( ppgrd->hInfoFrame, SW_HIDE );
+      ShowWindow(ppgrd->hInfoTitle, SW_HIDE);
+      ShowWindow(ppgrd->hInfoText, SW_HIDE);
+      ShowWindow(ppgrd->hInfoFrame, SW_HIDE);
       height = ppgrd->cyPG -  ppgrd->cyBtn + ppgrd->cyInfo  ;
-      SetWindowPos( hWndPG, 0, 0, 0, width, height, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER );
+      SetWindowPos(hWndPG, 0, 0, 0, width, height, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);
       ppgrd->lInfoShow = FALSE;
    }
    else
    {
-      ShowWindow( ppgrd->hInfoTitle, SW_SHOW );
-      ShowWindow( ppgrd->hInfoText, SW_SHOW );
-      ShowWindow( ppgrd->hInfoFrame, SW_SHOW );
+      ShowWindow(ppgrd->hInfoTitle, SW_SHOW);
+      ShowWindow(ppgrd->hInfoText, SW_SHOW);
+      ShowWindow(ppgrd->hInfoFrame, SW_SHOW);
       height = ppgrd->cyPG -  ppgrd->cyBtn ;
-      SetWindowPos( hWndPG, 0, 0, 0, width, height, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER );
+      SetWindowPos(hWndPG, 0, 0, 0, width, height, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);
       ppgrd->lInfoShow = TRUE;
    }
 }
@@ -1976,17 +1976,17 @@ HB_FUNC( ADDTREEITEMS )
    int      s;
    int      c;
 
-   h = ( HWND ) hb_parnl( 1 );
+   h = ( HWND ) hb_parnl(1);
    l = hb_parinfa( 2, 0 ) - 1;
    hArray = hb_param( 2, HB_IT_ARRAY );
    c = ListView_GetItemCount( h );
 
-   caption = (char *) hb_arrayGetCPtr( hArray, 1 );
+   caption = (char *) hb_arrayGetCPtr(hArray, 1);
 
    LI.mask = LVIF_TEXT | LVIF_IMAGE;   // Browse+
    LI.state = 0;
    LI.stateMask = 0;
-   LI.iImage = hb_parni( 3 );          // Browse+
+   LI.iImage = hb_parni(3);          // Browse+
    LI.iSubItem = 0;
    LI.iItem = c;
    LI.pszText = (char *) caption;
@@ -1994,8 +1994,8 @@ HB_FUNC( ADDTREEITEMS )
 
    for( s = 1; s <= l; s = s + 1 )
    {
-      caption = (char *) hb_arrayGetCPtr( hArray, s + 1 );
-      ListView_SetItemText( h, c, s, (char *) caption );
+      caption = (char *) hb_arrayGetCPtr(hArray, s + 1);
+      ListView_SetItemText(h, c, s, (char *) caption);
    }
 
    hb_retni( (INT) c );
@@ -2006,8 +2006,8 @@ HB_FUNC( INITPROPGRIDIMAGELIST )
    HWND        hWndPG;
    HIMAGELIST  himl;
    int         cx = 0;
-   hWndPG = ( HWND ) hb_parnl( 1 );
-   himl = ( HIMAGELIST ) hb_parnl( 2 );
+   hWndPG = ( HWND ) hb_parnl(1);
+   himl = ( HIMAGELIST ) hb_parnl(2);
 
    if( himl != NULL )
    {
@@ -2026,10 +2026,10 @@ HB_FUNC( RESETPROPGRIDIMAGELIST )
    TV_ITEM     TItem;
 
    int         cx;
-   hWndPG = ( HWND ) hb_parnl( 1 );
-   hItemPG = ( HTREEITEM ) hb_parnl( 2 );
+   hWndPG = ( HWND ) hb_parnl(1);
+   hItemPG = ( HTREEITEM ) hb_parnl(2);
 
-   memset( &TItem, 0, sizeof(TV_ITEM) );
+   memset(&TItem, 0, sizeof(TV_ITEM));
 
    TItem.mask = TVIF_HANDLE | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
    TItem.hItem = hItemPG;
@@ -2054,9 +2054,9 @@ HB_FUNC( TREEVIEW_SETBOLDITEM )
    HWND        TreeHandle;
    HTREEITEM   ItemHandle;
    BOOL        bold;
-   TreeHandle = ( HWND ) hb_parnl( 1 );
-   ItemHandle = ( HTREEITEM ) hb_parnl( 2 );
-   bold = ( BOOL ) hb_parl( 3 );
+   TreeHandle = ( HWND ) hb_parnl(1);
+   ItemHandle = ( HTREEITEM ) hb_parnl(2);
+   bold = ( BOOL ) hb_parl(3);
    tvItem.mask = TVIF_HANDLE | TVIF_STATE;
    tvItem.hItem = ItemHandle;
    tvItem.stateMask = TVIS_BOLD;
@@ -2067,12 +2067,12 @@ HB_FUNC( TREEVIEW_SETBOLDITEM )
 
 HB_FUNC( SETNODECOLOR )
 {
-   LPARAM            lParam = hb_parnl( 1 );
+   LPARAM            lParam = hb_parnl(1);
 
    LPNMTVCUSTOMDRAW  lplvcd = ( LPNMTVCUSTOMDRAW ) lParam;
 
-   lplvcd->clrText = hb_parni( 3 );
-   lplvcd->clrTextBk = hb_parni( 2 );
+   lplvcd->clrText = hb_parni(3);
+   lplvcd->clrTextBk = hb_parni(2);
    lplvcd->iLevel = 0;
    hb_retni( CDRF_NEWFONT );
 }
@@ -2085,8 +2085,8 @@ HB_FUNC( GETNOTIFYTREEITEM )
 HB_FUNC( PGCOMBOADDSTRING )
 {
    DWORD       dwIndex;
-   HIMAGELIST  hILst = ( HIMAGELIST ) hb_parnl( 3 );
-   char        *cString = (char *) hb_parc( 2 );
+   HIMAGELIST  hILst = ( HIMAGELIST ) hb_parnl(3);
+   char        *cString = (char *) hb_parc(2);
    dwIndex = SendMessage( (HWND) hb_parnl(1), CB_ADDSTRING, 0, (LPARAM) cString );
    if( hb_parnl(3) )
    {
@@ -2107,32 +2107,32 @@ HB_FUNC( CREATECOLORBMP1 ) //CreateColorBmp( hWnd,nColor,BmpWidh,BmpHeight)
 {
    HBRUSH   hOldBrush;
    HBRUSH   hColorBrush;
-   HBRUSH   hBlackBrush = CreateSolidBrush( RGB(1, 1, 1) );
-   HBRUSH   hBgBrush = CreateSolidBrush( RGB(255, 255, 255) );
+   HBRUSH   hBlackBrush = CreateSolidBrush(RGB(1, 1, 1));
+   HBRUSH   hBgBrush = CreateSolidBrush(RGB(255, 255, 255));
 
    RECT     rect;
    HBITMAP  hBmp;
-   HWND     handle = ( HWND ) hb_parnl( 1 );
-   COLORREF clr = hb_parnl( 2 );
-   int      width = HB_ISNIL( 3 ) ? 20 : hb_parni( 3 );
-   int      height = HB_ISNIL( 4 ) ? 20 : hb_parni( 4 );
-   HDC      imgDC = GetDC( handle );
-   HDC      tmpDC = CreateCompatibleDC( imgDC );
+   HWND     handle = ( HWND ) hb_parnl(1);
+   COLORREF clr = hb_parnl(2);
+   int      width = HB_ISNIL(3) ? 20 : hb_parni(3);
+   int      height = HB_ISNIL(4) ? 20 : hb_parni(4);
+   HDC      imgDC = GetDC(handle);
+   HDC      tmpDC = CreateCompatibleDC(imgDC);
 
-   SetRect( &rect, 0, 0, width, height ); // Size Bmp
-   hBmp = CreateCompatibleBitmap( imgDC, width, height );
+   SetRect(&rect, 0, 0, width, height); // Size Bmp
+   hBmp = CreateCompatibleBitmap(imgDC, width, height);
 
-   SelectObject( tmpDC, hBmp );
+   SelectObject(tmpDC, hBmp);
 
-   hOldBrush = SelectObject( tmpDC, hBgBrush );
-   FillRect( tmpDC, &rect, hBgBrush );
+   hOldBrush = SelectObject(tmpDC, hBgBrush);
+   FillRect(tmpDC, &rect, hBgBrush);
 
    rect.left += 1;
    rect.top += 1;
    rect.right -= 1;
    rect.bottom -= 1;
 
-   SelectObject( tmpDC, hBlackBrush );
+   SelectObject(tmpDC, hBlackBrush);
    DrawEdge( tmpDC, &rect, BDR_SUNKENINNER, BF_RECT );
 
    rect.top += 1;
@@ -2140,38 +2140,38 @@ HB_FUNC( CREATECOLORBMP1 ) //CreateColorBmp( hWnd,nColor,BmpWidh,BmpHeight)
    rect.right -= 1;
    rect.bottom -= 1;
 
-   hColorBrush = CreateSolidBrush( clr );
-   SelectObject( tmpDC, hColorBrush );
+   hColorBrush = CreateSolidBrush(clr);
+   SelectObject(tmpDC, hColorBrush);
 
-   FillRect( tmpDC, &rect, hColorBrush );
+   FillRect(tmpDC, &rect, hColorBrush);
 
-   SelectObject( tmpDC, hOldBrush );
-   DeleteObject( hColorBrush );
-   DeleteObject( hBlackBrush );
-   DeleteObject( hBgBrush );
+   SelectObject(tmpDC, hOldBrush);
+   DeleteObject(hColorBrush);
+   DeleteObject(hBlackBrush);
+   DeleteObject(hBgBrush);
 
-   DeleteDC( tmpDC );
-   ReleaseDC( handle, imgDC );
+   DeleteDC(tmpDC);
+   ReleaseDC(handle, imgDC);
 
    hb_retnl( (LONG) hBmp );
-   DeleteObject( hBmp );
+   DeleteObject(hBmp);
 }
 
 HB_FUNC( CREATECOLORBMP )  //CreateColorBmp( hWnd,nColor,BmpWidh,BmpHeight)
 {
    HBRUSH   hOldBrush;
    HBRUSH   hColorBrush;
-   HBRUSH   hBlackBrush = CreateSolidBrush( RGB(1, 1, 1) );
-   HBRUSH   hBgBrush = CreateSolidBrush( RGB(255, 255, 255) );
+   HBRUSH   hBlackBrush = CreateSolidBrush(RGB(1, 1, 1));
+   HBRUSH   hBgBrush = CreateSolidBrush(RGB(255, 255, 255));
 
    RECT     rect;
    HBITMAP  hBmp;
-   HWND     handle = ( HWND ) hb_parnl( 1 );
-   COLORREF clr = hb_parnl( 2 );
-   int      width = hb_parni( 3 );
-   int      height = hb_parni( 4 );
-   HDC      imgDC = GetDC( handle );
-   HDC      tmpDC = CreateCompatibleDC( imgDC );
+   HWND     handle = ( HWND ) hb_parnl(1);
+   COLORREF clr = hb_parnl(2);
+   int      width = hb_parni(3);
+   int      height = hb_parni(4);
+   HDC      imgDC = GetDC(handle);
+   HDC      tmpDC = CreateCompatibleDC(imgDC);
 
    if( (width == 0) & (height == 0) )
    {
@@ -2179,20 +2179,20 @@ HB_FUNC( CREATECOLORBMP )  //CreateColorBmp( hWnd,nColor,BmpWidh,BmpHeight)
       height = 16;
    }
 
-   SetRect( &rect, 0, 0, width, height ); // Size Bmp
-   hBmp = CreateCompatibleBitmap( imgDC, width, height );
+   SetRect(&rect, 0, 0, width, height); // Size Bmp
+   hBmp = CreateCompatibleBitmap(imgDC, width, height);
 
-   SelectObject( tmpDC, hBmp );
+   SelectObject(tmpDC, hBmp);
 
-   hOldBrush = SelectObject( tmpDC, hBgBrush );
-   FillRect( tmpDC, &rect, hBgBrush );
+   hOldBrush = SelectObject(tmpDC, hBgBrush);
+   FillRect(tmpDC, &rect, hBgBrush);
 
    rect.left += 1;
    rect.top += 1;
    rect.right -= 1;
    rect.bottom -= 1;
 
-   SelectObject( tmpDC, hBlackBrush );
+   SelectObject(tmpDC, hBlackBrush);
    DrawEdge( tmpDC, &rect, BDR_SUNKENINNER, BF_RECT );
 
    rect.top += 1;
@@ -2200,18 +2200,18 @@ HB_FUNC( CREATECOLORBMP )  //CreateColorBmp( hWnd,nColor,BmpWidh,BmpHeight)
    rect.right -= 1;
    rect.bottom -= 1;
 
-   hColorBrush = CreateSolidBrush( clr );
-   SelectObject( tmpDC, hColorBrush );
+   hColorBrush = CreateSolidBrush(clr);
+   SelectObject(tmpDC, hColorBrush);
 
-   FillRect( tmpDC, &rect, hColorBrush );
+   FillRect(tmpDC, &rect, hColorBrush);
 
-   SelectObject( tmpDC, hOldBrush );
-   DeleteObject( hBlackBrush );
-   DeleteObject( hBgBrush );
-   DeleteObject( hColorBrush );
+   SelectObject(tmpDC, hOldBrush);
+   DeleteObject(hBlackBrush);
+   DeleteObject(hBgBrush);
+   DeleteObject(hColorBrush);
 
-   DeleteDC( imgDC );
-   DeleteDC( tmpDC );
+   DeleteDC(imgDC);
+   DeleteDC(tmpDC);
 
    hb_retnl( (LONG) hBmp );
 }
@@ -2221,26 +2221,26 @@ HB_FUNC( GET_IMAGELIST )   //Get_ImageList(hWnd)
    hb_retnl( (LONG) SendMessage((HWND) hb_parnl(1), CBEM_GETIMAGELIST, 0, 0) );
 }
 
-HB_FUNC( IL_ADDMASKEDINDIRECT )  //IL_AddMaskedIndirect( hwnd , himage , color , ix , iy , imagecount )
+HB_FUNC( IL_ADDMASKEDINDIRECT )  //IL_AddMaskedIndirect(hwnd , himage , color , ix , iy , imagecount)
 {
    BITMAP   bm;
-   HBITMAP  himage = ( HBITMAP ) hb_parnl( 2 );
+   HBITMAP  himage = ( HBITMAP ) hb_parnl(2);
    COLORREF clrBk   = CLR_NONE;
    LRESULT  lResult = -1;
    int      ic      = 1;
 
-   if( hb_parnl( 3 ) )
-      clrBk = ( COLORREF ) hb_parnl( 3 );
+   if( hb_parnl(3) )
+      clrBk = ( COLORREF ) hb_parnl(3);
 
-   if( hb_parni( 6 ) )
-      ic = hb_parni( 6 );
+   if( hb_parni(6) )
+      ic = hb_parni(6);
 
-   if( GetObject( himage, sizeof( BITMAP ), &bm ) != 0 )
+   if( GetObject(himage, sizeof(BITMAP), &bm) != 0 )
    {
-      if( ( hb_parni( 4 ) * ic == bm.bmWidth ) & ( hb_parni( 5 ) == bm.bmHeight ) )
-         lResult = ImageList_AddMasked( ( HIMAGELIST ) hb_parnl( 1 ), himage, clrBk );
+      if( ( hb_parni(4) * ic == bm.bmWidth ) & ( hb_parni(5) == bm.bmHeight ) )
+         lResult = ImageList_AddMasked( ( HIMAGELIST ) hb_parnl(1), himage, clrBk );
 
-      DeleteObject( himage );
+      DeleteObject(himage);
    }
 
    hb_retni( lResult );
@@ -2252,7 +2252,7 @@ HB_FUNC( IL_GETIMAGESIZE ) //IL_GetImageSize(  himage )
 
    ImageList_GetIconSize( (HIMAGELIST) hb_parnl(1), &cx, &cy );
 
-   hb_reta( 2 );  // { cx, cy }
+   hb_reta(2);  // { cx, cy }
    HB_STORNI( cx, -1, 1 );
    HB_STORNI( cy, -1, 2 );
 }
@@ -2395,7 +2395,7 @@ HWND EditPG( HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd , 
       hb_vmPushLong( (LONG) hEdit );
       hb_vmPushLong( (LONG) hItem );
       hb_vmPushLong( (LONG) ItemType );
-      hb_vmDo( 4 );
+      hb_vmDo(4);
    }
 
    return( hEdit );
@@ -2456,8 +2456,8 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
             CallWindowProc( pbtn->oldproc, hEdit, Msg, wParam, lParam );
             if( pbtn->nButton )
             {
-               GetWindowRect( hEdit, &rect );
-               OffsetRect( &rect, -rect.left, -rect.top );
+               GetWindowRect(hEdit, &rect);
+               OffsetRect(&rect, -rect.left, -rect.top);
 
                GetBtnPG( pbtn, &rect );
 
@@ -2470,10 +2470,10 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
       case WM_NCHITTEST:
          if( pbtn->nButton )
          {
-            pt.x = LOWORD( lParam );
-            pt.y = HIWORD( lParam );
+            pt.x = LOWORD(lParam);
+            pt.y = HIWORD(lParam);
 
-            GetWindowRect( hEdit, &rect );
+            GetWindowRect(hEdit, &rect);
             GetBtnPG( pbtn, &rect );
 
             if( PtInRect(&rect, pt) )
@@ -2487,13 +2487,13 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
       case WM_NCLBUTTONDOWN:
          if( pbtn->nButton )
          {
-            pt.x = LOWORD( lParam );
-            pt.y = HIWORD( lParam );
+            pt.x = LOWORD(lParam);
+            pt.y = HIWORD(lParam);
 
-            GetWindowRect( hEdit, &rect );
+            GetWindowRect(hEdit, &rect);
             pt.x -= rect.left;
             pt.y -= rect.top;
-            OffsetRect( &rect, -rect.left, -rect.top );
+            OffsetRect(&rect, -rect.left, -rect.top);
             GetBtnPG( pbtn, &rect );
 
             if( PtInRect(&rect, pt) )
@@ -2511,15 +2511,15 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
          {
             if( pbtn->fMouseDown == TRUE )
             {
-               pt.x = LOWORD( lParam );
-               pt.y = HIWORD( lParam );
+               pt.x = LOWORD(lParam);
+               pt.y = HIWORD(lParam);
                ClientToScreen( hEdit, &pt );
 
-               GetWindowRect( hEdit, &rect );
+               GetWindowRect(hEdit, &rect);
 
                pt.x -= rect.left;
                pt.y -= rect.top;
-               OffsetRect( &rect, -rect.left, -rect.top );
+               OffsetRect(&rect, -rect.left, -rect.top);
 
                GetBtnPG( pbtn, &rect );
 
@@ -2546,7 +2546,7 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
          if( wParam == VK_DOWN )
          {
             LPSTR cData[1024];
-            GetWindowText( hEdit, (LPSTR) cData, 1024 );
+            GetWindowText(hEdit, (LPSTR) cData, 1024);
             Pg_SetData( GetParent(hEdit), pbtn->hItem, (LPSTR) cData, "", FALSE );
             PostMessage( GetParent(hEdit), WM_KEYDOWN, VK_DOWN, MAKEWPARAM(0, 0) );
             SetFocus( GetParent(hEdit) );
@@ -2555,7 +2555,7 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
          if( wParam == VK_UP )
          {
             LPSTR cData[1024];
-            GetWindowText( hEdit, (LPSTR) cData, 1024 );
+            GetWindowText(hEdit, (LPSTR) cData, 1024);
             Pg_SetData( GetParent(hEdit), pbtn->hItem, (LPSTR) cData, "", FALSE );
             PostMessage( GetParent(hEdit), WM_KEYDOWN, VK_UP, MAKEWPARAM(0, 0) );
             SetFocus( GetParent(hEdit) );
@@ -2567,15 +2567,15 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
          {
             if( pbtn->fMouseDown == TRUE )
             {
-               pt.x = LOWORD( lParam );
-               pt.y = HIWORD( lParam );
+               pt.x = LOWORD(lParam);
+               pt.y = HIWORD(lParam);
                ClientToScreen( hEdit, &pt );
 
-               GetWindowRect( hEdit, &rect );
+               GetWindowRect(hEdit, &rect);
 
                pt.x -= rect.left;
                pt.y -= rect.top;
-               OffsetRect( &rect, -rect.left, -rect.top );
+               OffsetRect(&rect, -rect.left, -rect.top);
 
                GetBtnPG( pbtn, &rect );
 
@@ -2598,7 +2598,7 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
          if( wParam == 13 )
          {
             LPSTR cData[1024];
-            GetWindowText( hEdit, (LPSTR) cData, 1024 );
+            GetWindowText(hEdit, (LPSTR) cData, 1024);
             Pg_SetData( GetParent(hEdit), pbtn->hItem, (LPSTR) cData, "", FALSE );
             PostMessage( GetParent(hEdit), WM_KEYDOWN, VK_DOWN, MAKEWPARAM(0, 0) );
             SetFocus( GetParent(hEdit) );
@@ -2625,7 +2625,7 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
                hb_vmPushLong( lParam );
                hb_vmPushLong( (LONG) hWndParent );
                hb_vmPushLong( (LONG) hItem );
-               hb_vmDo( 6 );
+               hb_vmDo(6);
             }
 
             r = hb_parnl( -1 );
@@ -2663,7 +2663,7 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
                hb_vmPushLong( lParam );
                hb_vmPushLong( (LONG) hWndParent );
                hb_vmPushLong( (LONG) hItem );
-               hb_vmDo( 6 );
+               hb_vmDo(6);
             }
 
             r = hb_parnl( -1 );
@@ -2705,15 +2705,15 @@ int CALLBACK enumFontFamilyProc( ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *lpntme,
 void enumFonts( HWND hWndEdit )  // , BYTE lfCharSet)
 {
    LOGFONT  lf;
-   HDC      hDC = GetDC( NULL );
+   HDC      hDC = GetDC(NULL);
    HWND     hWnd = hWndEdit;
    lf.lfCharSet = ANSI_CHARSET;
    lf.lfPitchAndFamily = 0;
-   strcpy( lf.lfFaceName, "\0" );
+   strcpy(lf.lfFaceName, "\0");
 
    EnumFontFamiliesEx( hDC, &lf, (FONTENUMPROC) enumFontFamilyProc, (LPARAM) hWnd, 0 );
 
-   ReleaseDC( NULL, hDC );
+   ReleaseDC(NULL, hDC);
 }
 
 HB_FUNC( PG_GETFONTS )
@@ -2723,14 +2723,14 @@ HB_FUNC( PG_GETFONTS )
 
 HB_FUNC( DIALOGUNITSX)
 {
-   int  baseunitX = LOWORD( GetDialogBaseUnits() );
+   int  baseunitX = LOWORD(GetDialogBaseUnits());
 
    hb_retni( ((INT) hb_parni(1) * 4 )/ baseunitX );
 }
 
 HB_FUNC( DIALOGUNITSY)
 {
-   int  baseunitY =  HIWORD( GetDialogBaseUnits() );
+   int  baseunitY =  HIWORD(GetDialogBaseUnits());
 
    hb_retni( ((INT) hb_parni(1) * 8 )/ baseunitY );
 }

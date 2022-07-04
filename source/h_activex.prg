@@ -652,7 +652,7 @@ static ULONG STDMETHODCALLTYPE Release( IEventHandler * self )
 {
    if( --( ( MyRealIEventHandler * ) self )->count == 0 )
    {
-      GlobalFree( self );
+      GlobalFree(self);
       return 0;
    }
    return ( ( MyRealIEventHandler * ) self )->count;
@@ -912,7 +912,7 @@ HB_FUNC( SETUPCONNECTIONPOINT )
    // Allocate our IEventHandler object (actually a MyRealIEventHandler)
    // intentional misrepresentation of size
 
-   selfobj = ( IEventHandler * ) GlobalAlloc( GMEM_FIXED, sizeof( MyRealIEventHandler ) );
+   selfobj = ( IEventHandler * ) GlobalAlloc( GMEM_FIXED, sizeof(MyRealIEventHandler) );
 
    if( ! selfobj )
    {

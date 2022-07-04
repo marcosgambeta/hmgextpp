@@ -326,7 +326,7 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
       ENDIF
    ENDIF
 
-   BT_DeleteDC( BTstruct )
+   BT_DeleteDC(BTstruct)
 
 RETURN hBitmap
 
@@ -538,7 +538,7 @@ FUNCTION HMG_PieGraph( nWidth, nHeight, series, aname, colors, ctitle, aTitleCol
       NEXT i
    ENDIF
 
-   BT_DeleteDC( BTstruct )
+   BT_DeleteDC(BTstruct)
  
 RETURN hBitmap
 

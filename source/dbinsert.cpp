@@ -57,11 +57,11 @@ HB_FUNC( DBINSERT )
 
    if( pArea && ! pArea->fReadonly && ! pArea->fShared )
    {
-      ULONG      ulRec, ulCount = HB_ISNUM( 2 ) ? hb_parnl( 2 ) : 1;
-      HB_FHANDLE hFile = hb_fileHandle( pArea->pDataFile );
+      ULONG      ulRec, ulCount = HB_ISNUM(2) ? hb_parnl(2) : 1;
+      HB_FHANDLE hFile = hb_fileHandle(pArea->pDataFile);
 
-      if( HB_ISNUM( 1 ) )
-         ulRec = hb_parnl( 1 );
+      if( HB_ISNUM(1) )
+         ulRec = hb_parnl(1);
       else
          SELF_RECNO( ( AREAP ) pArea, &ulRec );
 
@@ -87,8 +87,8 @@ HB_FUNC( DBINSERT )
          {
             ULONG  ulLen  = ( pArea->ulRecCount - ulRec ) * pArea->uiRecordLen;
             ULONG  ulLen1 = ulCount * pArea->uiRecordLen;
-            char * pData  = reinterpret_cast<char*>(hb_xgrab( ulLen + 1 ));
-            char * pZero  = reinterpret_cast<char*>(hb_xgrab( ulLen1 + 1 ));
+            char * pData  = reinterpret_cast<char*>(hb_xgrab(ulLen + 1));
+            char * pZero  = reinterpret_cast<char*>(hb_xgrab(ulLen1 + 1));
 
             hb_fsSeekLarge( hFile, ( HB_FOFFSET ) pArea->uiHeaderLen +
                             ( HB_FOFFSET ) pArea->uiRecordLen *
@@ -111,8 +111,8 @@ HB_FUNC( DBINSERT )
 
             hb_fsWriteLarge( hFile, pData, ulLen );
 
-            hb_xfree( pData );
-            hb_xfree( pZero );
+            hb_xfree(pData);
+            hb_xfree(pZero);
          }
       }
 

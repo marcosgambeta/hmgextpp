@@ -82,7 +82,7 @@ FUNCTION DrawGradient( window, row, col, rowr, colr, aColor1, aColor2, vertical,
    IF IsEnabledGradient() .AND. ( i := GetFormIndex( window ) ) > 0
 
       FormHandle := _HMG_aFormHandles [i]
-      hDC := GetDC( FormHandle )
+      hDC := GetDC(FormHandle)
 
       hb_default( @aColor1, { 0, 0, 0 } )
       hb_default( @aColor2, { 255, 0, 0 } )
@@ -112,7 +112,7 @@ FUNCTION DrawGradient( window, row, col, rowr, colr, aColor1, aColor2, vertical,
 
       END SWITCH
 
-      ReleaseDC( FormHandle, hDC )
+      ReleaseDC(FormHandle, hDC)
     
       SWITCH border
 
@@ -121,24 +121,24 @@ FUNCTION DrawGradient( window, row, col, rowr, colr, aColor1, aColor2, vertical,
  
       CASE 2  // box
          AAdd( _HMG_aFormGraphTasks [i], ;
-            { || hDC := GetDC( FormHandle ), ;
+            { || hDC := GetDC(FormHandle), ;
             WndBoxIn( hDC, row, col, rowr, colr ), ;
             FillGradient( hDC, row + 1, col + 1, rowr - 1, colr - 1, vertical, color1, color2 ), ;
-            ReleaseDC( FormHandle, hDC ) } )
+            ReleaseDC(FormHandle, hDC) } )
          EXIT
 
       CASE 3  // panel
          AAdd( _HMG_aFormGraphTasks [i], ;
-            { || hDC := GetDC( FormHandle ), ;
+            { || hDC := GetDC(FormHandle), ;
             WndBoxRaised( hDC, row, col, rowr, colr ), ;
             FillGradient( hDC, row + 1, col + 1, rowr - 1, colr - 1, vertical, color1, color2 ), ;
-            ReleaseDC( FormHandle, hDC ) } )
+            ReleaseDC(FormHandle, hDC) } )
          EXIT
 
       DEFAULT // border none
          AAdd( _HMG_aFormGraphTasks [i], ;
-            {|| FillGradient( hDC := GetDC( FormHandle ), row, col, rowr, colr, vertical, color1, color2 ), ;
-            ReleaseDC( FormHandle, hDC ) } )
+            {|| FillGradient( hDC := GetDC(FormHandle), row, col, rowr, colr, vertical, color1, color2 ), ;
+            ReleaseDC(FormHandle, hDC) } )
 
       END SWITCH
 
@@ -358,12 +358,12 @@ HB_FUNC( CREATEGRADIENTBRUSH )
    if( ! IsWindow( hwnd ) )
       hwnd = GetDesktopWindow();
 
-   hdc = GetDC( hwnd );
+   hdc = GetDC(hwnd);
 
    HB_RETNL( ( LONG_PTR ) LinearGradientBrush( hdc, hb_parnl( 2 ), hb_parnl( 3 ),
                                                ( COLORREF ) hb_parnl( 4 ), ( COLORREF ) hb_parnl( 5 ),
                                                hb_parl( 6 ) ) );
-   ReleaseDC( hwnd, hdc );
+   ReleaseDC(hwnd, hdc);
 }
 
 HBRUSH LinearGradientBrush( HDC pDC, long cx, long cy, COLORREF crFrom, COLORREF crTo, BOOL bVert )
@@ -372,7 +372,7 @@ HBRUSH LinearGradientBrush( HDC pDC, long cx, long cy, COLORREF crFrom, COLORREF
    HBITMAP memBmp;
    HBRUSH  pGradientBrush = ( HBRUSH ) NULL;
 
-   memDC  = CreateCompatibleDC( pDC );
+   memDC  = CreateCompatibleDC(pDC);
    memBmp = CreateCompatibleBitmap( pDC, cx, cy );
 
    if( memDC && memBmp )

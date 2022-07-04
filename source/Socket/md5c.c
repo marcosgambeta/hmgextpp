@@ -180,7 +180,7 @@ MD5_CTX *context;                                     /* context */
 
    /* Zeroize sensitive information.
     */
-   MD5_memset ( ( POINTER ) context, 0, sizeof( *context ) );
+   MD5_memset ( ( POINTER ) context, 0, sizeof(*context) );
 }
 
 /* MD5 basic transformation. Transforms state based on block.
@@ -272,7 +272,7 @@ unsigned char block[ 64 ];
 
    /* Zeroize sensitive information.
     */
-   MD5_memset ( ( POINTER ) x, 0, sizeof( x ) );
+   MD5_memset ( ( POINTER ) x, 0, sizeof(x) );
 }
 
 /* Encodes input (UINT4) into output (unsigned char). Assumes len is

@@ -77,7 +77,7 @@ HB_FUNC( ISSAMEDISPLAYFORMAT )
  */
 HB_FUNC( ENUMDISPLAYMONITORS )
 {
-   PHB_ITEM pMonitorEnum = hb_itemArrayNew( 0 );
+   PHB_ITEM pMonitorEnum = hb_itemArrayNew(0);
 
    EnumDisplayMonitors( NULL, NULL, _MonitorEnumProc0, ( LPARAM ) pMonitorEnum );
 
@@ -86,7 +86,7 @@ HB_FUNC( ENUMDISPLAYMONITORS )
 
 BOOL CALLBACK _MonitorEnumProc0( HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData )
 {
-   PHB_ITEM pMonitor = hb_itemArrayNew( 2 );
+   PHB_ITEM pMonitor = hb_itemArrayNew(2);
    PHB_ITEM pRect    = Rect2Hash( lprcMonitor );
 
    HB_SYMBOL_UNUSED( hdcMonitor );
@@ -102,16 +102,16 @@ BOOL CALLBACK _MonitorEnumProc0( HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcM
    return TRUE;
 }
 
-//	BOOL GetMonitorInfo( HMONITOR hMonitor, LPMONITORINFO lpmi )
+//	BOOL GetMonitorInfo(HMONITOR hMonitor, LPMONITORINFO lpmi)
 HB_FUNC( GETMONITORINFO )
 {
    MONITORINFO mi;
 
-   mi.cbSize = sizeof( MONITORINFO );
+   mi.cbSize = sizeof(MONITORINFO);
 
-   if( GetMonitorInfo( ( HMONITOR ) HB_PARNL( 1 ), &mi ) )
+   if( GetMonitorInfo(( HMONITOR ) HB_PARNL(1), &mi) )
    {
-      PHB_ITEM pMonInfo = hb_itemArrayNew( 3 );
+      PHB_ITEM pMonInfo = hb_itemArrayNew(3);
       PHB_ITEM pMonitor = Rect2Hash( &mi.rcMonitor );
       PHB_ITEM pWork    = Rect2Hash( &mi.rcWork );
 
@@ -132,17 +132,17 @@ HB_FUNC( MONITORFROMPOINT )
 {
    POINT pt;
 
-   if( HB_ISARRAY( 1 ) )
+   if( HB_ISARRAY(1) )
    {
       if( ! Array2Point( hb_param( 1, HB_IT_ARRAY ), &pt ) )
          hb_errRT_BASE_SubstR( EG_ARG, 5000, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
       else
          HB_RETNL( ( LONG_PTR ) MonitorFromPoint( pt, hb_parnldef( 2, MONITOR_DEFAULTTONULL ) ) );
    }
-   else if( HB_ISNUM( 1 ) && HB_ISNUM( 2 ) )
+   else if( HB_ISNUM(1) && HB_ISNUM(2) )
    {
-      pt.x = hb_parnl( 1 );
-      pt.y = hb_parnl( 2 );
+      pt.x = hb_parnl(1);
+      pt.y = hb_parnl(2);
 
       HB_RETNL( ( LONG_PTR ) MonitorFromPoint( pt, hb_parnldef( 3, MONITOR_DEFAULTTONULL ) ) );
    }
@@ -150,13 +150,13 @@ HB_FUNC( MONITORFROMPOINT )
       hb_errRT_BASE_SubstR( EG_ARG, 5000, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-// HMONITOR MonitorFromWindow( HWND  hwnd, DWORD dwFlags )
+// HMONITOR MonitorFromWindow(HWND  hwnd, DWORD dwFlags)
 HB_FUNC( MONITORFROMWINDOW )
 {
-   HWND hwnd = ( HWND ) HB_PARNL( 1 );
+   HWND hwnd = ( HWND ) HB_PARNL(1);
 
-   if( IsWindow( hwnd ) )
-      HB_RETNL( ( LONG_PTR ) MonitorFromWindow( hwnd, hb_parnldef( 2, MONITOR_DEFAULTTONULL ) ) );
+   if( IsWindow(hwnd) )
+      HB_RETNL( ( LONG_PTR ) MonitorFromWindow(hwnd, hb_parnldef( 2, MONITOR_DEFAULTTONULL )) );
    else
       hb_errRT_BASE_SubstR( EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
@@ -180,18 +180,18 @@ HB_FUNC( MONITORFROMWINDOW )
 
 HB_FUNC( WINDOWTOMONITOR )
 {
-   HWND hwnd = ( HWND ) HB_PARNL( 1 );
+   HWND hwnd = ( HWND ) HB_PARNL(1);
 
-   if( IsWindow( hwnd ) )
+   if( IsWindow(hwnd) )
    {
-      HMONITOR hMonitor = HB_ISNUM( 2 ) ? ( HMONITOR ) HB_PARNL( 2 ) : NULL;
+      HMONITOR hMonitor = HB_ISNUM(2) ? ( HMONITOR ) HB_PARNL(2) : NULL;
       UINT     flags    = 0 | ( ( UINT ) hb_parnldef( 3, ( MONITOR_CENTER | MONITOR_WORKAREA ) ) );
       RECT     rc;
 
-      GetWindowRect( hwnd, &rc );
+      GetWindowRect(hwnd, &rc);
       ClipOrCenterRectToMonitor( &rc, hMonitor, flags );
 
-      SetWindowPos( hwnd, NULL, rc.left, rc.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE );
+      SetWindowPos(hwnd, NULL, rc.left, rc.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
    }
    else
       hb_errRT_BASE_SubstR( EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
@@ -206,11 +206,11 @@ static void ClipOrCenterRectToMonitor( LPRECT prc, HMONITOR hMonitor, UINT flags
 
    // get the nearest monitor to the passed rect.
    if( NULL == hMonitor )
-      hMonitor = MonitorFromRect( prc, MONITOR_DEFAULTTONEAREST );
+      hMonitor = MonitorFromRect(prc, MONITOR_DEFAULTTONEAREST);
 
    // get the work area or entire monitor rect.
-   mi.cbSize = sizeof( mi );
-   GetMonitorInfo( hMonitor, &mi );
+   mi.cbSize = sizeof(mi);
+   GetMonitorInfo(hMonitor, &mi);
 
    rc = ( flags & MONITOR_WORKAREA ) ? mi.rcWork : mi.rcMonitor;
 
@@ -224,8 +224,8 @@ static void ClipOrCenterRectToMonitor( LPRECT prc, HMONITOR hMonitor, UINT flags
    }
    else
    {
-      prc->left   = HB_MAX( rc.left, HB_MIN( rc.right - w, prc->left ) );
-      prc->top    = HB_MAX( rc.top, HB_MIN( rc.bottom - h, prc->top ) );
+      prc->left   = HB_MAX(rc.left, HB_MIN(rc.right - w, prc->left));
+      prc->top    = HB_MAX(rc.top, HB_MIN(rc.bottom - h, prc->top));
       prc->right  = prc->left + w;
       prc->bottom = prc->top + h;
    }

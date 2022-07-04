@@ -59,22 +59,22 @@ HB_FUNC( GETPRIVATEPROFILESTRING )
    DWORD   dwLen;
 
 #ifndef UNICODE
-   LPCSTR lpSection  = HB_ISCHAR( 1 ) ? hb_parc( 1 ) : NULL;
-   LPCSTR lpEntry    = HB_ISCHAR( 2 ) ? hb_parc( 2 ) : NULL;
-   LPCSTR lpDefault  = hb_parc( 3 );
-   LPCSTR lpFileName = hb_parc( 4 );
+   LPCSTR lpSection  = HB_ISCHAR(1) ? hb_parc(1) : NULL;
+   LPCSTR lpEntry    = HB_ISCHAR(2) ? hb_parc(2) : NULL;
+   LPCSTR lpDefault  = hb_parc(3);
+   LPCSTR lpFileName = hb_parc(4);
 #else
-   LPCWSTR lpSection  = HB_ISCHAR( 1 ) ? AnsiToWide( ( char * ) hb_parc( 1 ) ) : NULL;
-   LPCWSTR lpEntry    = HB_ISCHAR( 2 ) ? AnsiToWide( ( char * ) hb_parc( 2 ) ) : NULL;
-   LPCWSTR lpDefault  = AnsiToWide( ( char * ) hb_parc( 3 ) );
-   LPCWSTR lpFileName = AnsiToWide( ( char * ) hb_parc( 4 ) );
+   LPCWSTR lpSection  = HB_ISCHAR(1) ? AnsiToWide( ( char * ) hb_parc(1) ) : NULL;
+   LPCWSTR lpEntry    = HB_ISCHAR(2) ? AnsiToWide( ( char * ) hb_parc(2) ) : NULL;
+   LPCWSTR lpDefault  = AnsiToWide( ( char * ) hb_parc(3) );
+   LPCWSTR lpFileName = AnsiToWide( ( char * ) hb_parc(4) );
    LPSTR   pStr;
 #endif
 
    do
    {
       nSize  *= 2;
-      bBuffer = ( TCHAR * ) hb_xgrab( sizeof( TCHAR ) * nSize );
+      bBuffer = ( TCHAR * ) hb_xgrab(sizeof(TCHAR) * nSize);
       dwLen   = GetPrivateProfileString( lpSection, lpEntry, lpDefault, bBuffer, nSize, lpFileName );
    }
    while( dwLen >= nSize - 1 );
@@ -86,9 +86,9 @@ HB_FUNC( GETPRIVATEPROFILESTRING )
 #else
       pStr = WideToAnsi( bBuffer );
       hb_retc( pStr );
-      hb_xfree( pStr );
-      hb_xfree( ( TCHAR * ) lpFileName );
-      hb_xfree( ( TCHAR * ) lpDefault );
+      hb_xfree(pStr);
+      hb_xfree(( TCHAR * ) lpFileName);
+      hb_xfree(( TCHAR * ) lpDefault);
 #endif
    }
    else
@@ -98,26 +98,26 @@ HB_FUNC( GETPRIVATEPROFILESTRING )
 #else
       pStr = WideToAnsi( ( LPWSTR ) lpDefault );
       hb_retc( pStr );
-      hb_xfree( pStr );
-      hb_xfree( ( TCHAR * ) lpDefault );
+      hb_xfree(pStr);
+      hb_xfree(( TCHAR * ) lpDefault);
 #endif
    }
 
-   hb_xfree( bBuffer );
+   hb_xfree(bBuffer);
 }
 
 HB_FUNC( WRITEPRIVATEPROFILESTRING )
 {
 #ifndef UNICODE
-   LPCSTR lpSection  = hb_parc( 1 );
-   LPCSTR lpEntry    = HB_ISCHAR( 2 ) ? hb_parc( 2 ) : NULL;
-   LPCSTR lpData     = HB_ISCHAR( 3 ) ? hb_parc( 3 ) : NULL;
-   LPCSTR lpFileName = hb_parc( 4 );
+   LPCSTR lpSection  = hb_parc(1);
+   LPCSTR lpEntry    = HB_ISCHAR(2) ? hb_parc(2) : NULL;
+   LPCSTR lpData     = HB_ISCHAR(3) ? hb_parc(3) : NULL;
+   LPCSTR lpFileName = hb_parc(4);
 #else
-   LPCWSTR lpSection  = AnsiToWide( ( char * ) hb_parc( 1 ) );
-   LPCWSTR lpEntry    = HB_ISCHAR( 2 ) ? AnsiToWide( ( char * ) hb_parc( 2 ) ) : NULL;
-   LPCWSTR lpData     = HB_ISCHAR( 3 ) ? AnsiToWide( ( char * ) hb_parc( 3 ) ) : NULL;
-   LPCWSTR lpFileName = AnsiToWide( ( char * ) hb_parc( 4 ) );
+   LPCWSTR lpSection  = AnsiToWide( ( char * ) hb_parc(1) );
+   LPCWSTR lpEntry    = HB_ISCHAR(2) ? AnsiToWide( ( char * ) hb_parc(2) ) : NULL;
+   LPCWSTR lpData     = HB_ISCHAR(3) ? AnsiToWide( ( char * ) hb_parc(3) ) : NULL;
+   LPCWSTR lpFileName = AnsiToWide( ( char * ) hb_parc(4) );
 #endif
 
    hb_retl( WritePrivateProfileString( lpSection, lpEntry, lpData, lpFileName ) );
@@ -126,13 +126,13 @@ HB_FUNC( WRITEPRIVATEPROFILESTRING )
 HB_FUNC( DELINIENTRY )
 {
 #ifndef UNICODE
-   LPCSTR lpSection  = hb_parc( 1 );
-   LPCSTR lpEntry    = hb_parc( 2 );
-   LPCSTR lpFileName = hb_parc( 3 );
+   LPCSTR lpSection  = hb_parc(1);
+   LPCSTR lpEntry    = hb_parc(2);
+   LPCSTR lpFileName = hb_parc(3);
 #else
-   LPCWSTR lpSection  = AnsiToWide( ( char * ) hb_parc( 1 ) );
-   LPCWSTR lpEntry    = AnsiToWide( ( char * ) hb_parc( 2 ) );
-   LPCWSTR lpFileName = AnsiToWide( ( char * ) hb_parc( 3 ) );
+   LPCWSTR lpSection  = AnsiToWide( ( char * ) hb_parc(1) );
+   LPCWSTR lpEntry    = AnsiToWide( ( char * ) hb_parc(2) );
+   LPCWSTR lpFileName = AnsiToWide( ( char * ) hb_parc(3) );
 #endif
    hb_retl( WritePrivateProfileString( lpSection,      // Section
                                        lpEntry,        // Entry
@@ -143,15 +143,15 @@ HB_FUNC( DELINIENTRY )
 HB_FUNC( DELINISECTION )
 {
 #ifndef UNICODE
-   LPCSTR lpSection  = hb_parc( 1 );
-   LPCSTR lpFileName = hb_parc( 2 );
+   LPCSTR lpSection  = hb_parc(1);
+   LPCSTR lpFileName = hb_parc(2);
 #else
-   LPCWSTR lpSection  = AnsiToWide( ( char * ) hb_parc( 1 ) );
-   LPCWSTR lpFileName = AnsiToWide( ( char * ) hb_parc( 2 ) );
+   LPCWSTR lpSection  = AnsiToWide( ( char * ) hb_parc(1) );
+   LPCWSTR lpFileName = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
    hb_retl( WritePrivateProfileString( lpSection,      // Section
                                        NULL,           // Entry
-                                       TEXT( "" ),     // String
+                                       TEXT(""),     // String
                                        lpFileName ) ); // INI File
 }
 
@@ -194,14 +194,14 @@ HB_FUNC( _GETPRIVATEPROFILESECTIONNAMES )
    INT     i, nLen;
 
 #ifndef UNICODE
-   LPCSTR lpFileName = hb_parc( 1 );
+   LPCSTR lpFileName = hb_parc(1);
 #else
-   LPCWSTR lpFileName = AnsiToWide( ( char * ) hb_parc( 1 ) );
+   LPCWSTR lpFileName = AnsiToWide( ( char * ) hb_parc(1) );
    LPSTR   pStr;
 #endif
 
-   ZeroMemory( bBuffer, sizeof( bBuffer ) );
-   GetPrivateProfileSectionNames( bBuffer, sizeof( bBuffer ) / sizeof( TCHAR ), lpFileName );
+   ZeroMemory(bBuffer, sizeof(bBuffer));
+   GetPrivateProfileSectionNames( bBuffer, sizeof(bBuffer) / sizeof(TCHAR), lpFileName );
 
    p    = ( TCHAR * ) bBuffer;
    nLen = FindLenSubString( p );
@@ -221,7 +221,7 @@ HB_FUNC( _GETPRIVATEPROFILESECTIONNAMES )
          pStr = WideToAnsi( p );
          HB_STORC( pStr, -1, i );
       }
-      hb_xfree( pStr );
+      hb_xfree(pStr);
 #endif
    }
 }
@@ -235,16 +235,16 @@ HB_FUNC( _GETPRIVATEPROFILESECTION )
    INT     i, nLen;
 
 #ifndef UNICODE
-   LPCSTR lpSectionName = hb_parc( 1 );
-   LPCSTR lpFileName    = hb_parc( 2 );
+   LPCSTR lpSectionName = hb_parc(1);
+   LPCSTR lpFileName    = hb_parc(2);
 #else
-   LPCWSTR lpSectionName = AnsiToWide( ( char * ) hb_parc( 1 ) );
-   LPCWSTR lpFileName    = AnsiToWide( ( char * ) hb_parc( 2 ) );
+   LPCWSTR lpSectionName = AnsiToWide( ( char * ) hb_parc(1) );
+   LPCWSTR lpFileName    = AnsiToWide( ( char * ) hb_parc(2) );
    LPSTR   pStr;
 #endif
 
-   ZeroMemory( bBuffer, sizeof( bBuffer ) );
-   GetPrivateProfileSection( lpSectionName, bBuffer, sizeof( bBuffer ) / sizeof( TCHAR ), lpFileName );
+   ZeroMemory(bBuffer, sizeof(bBuffer));
+   GetPrivateProfileSection( lpSectionName, bBuffer, sizeof(bBuffer) / sizeof(TCHAR), lpFileName );
    p    = ( TCHAR * ) bBuffer;
    nLen = FindLenSubString( p );
    hb_reta( nLen );
@@ -263,7 +263,7 @@ HB_FUNC( _GETPRIVATEPROFILESECTION )
          pStr = WideToAnsi( p );
          HB_STORC( pStr, -1, i );
       }
-      hb_xfree( pStr );
+      hb_xfree(pStr);
 #endif
    }
 }

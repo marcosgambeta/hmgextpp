@@ -118,12 +118,12 @@ HB_EXPORT char * hb_parcstruct( int iParam, ... )
       PHB_ITEM pItem = ( iParam == -1 ) ? hb_stackReturnItem() : hb_stackItemFromBase( iParam );
       BOOL bRelease = FALSE;
 
-      if( HB_IS_BYREF( pItem ) )
+      if( HB_IS_BYREF(pItem) )
       {
-         pItem = hb_itemUnRef( pItem );
+         pItem = hb_itemUnRef(pItem);
       }
 
-      if( HB_IS_ARRAY( pItem ) && ! HB_IS_OBJECT( pItem ) )
+      if( HB_IS_ARRAY( pItem ) && ! HB_IS_OBJECT(pItem) )
       {
          va_list va;
          ULONG ulArrayIndex;
@@ -170,12 +170,12 @@ static HB_GARBAGE_FUNC( _DLLUnload )
             FreeLibrary( xec->hDLL );
          }
 
-         hb_xfree( xec->cDLL );
+         hb_xfree(xec->cDLL);
       }
 
       if ( xec->cProc != NULL )
       {
-         hb_xfree( xec->cProc );
+         hb_xfree(xec->cProc);
       }
 
       xec->dwType = 0;
@@ -185,23 +185,23 @@ static HB_GARBAGE_FUNC( _DLLUnload )
 
 HB_FUNC( DLLPREPARECALL )
 {
-   PEXECSTRUCT xec = (PEXECSTRUCT) hb_gcAlloc( sizeof( EXECSTRUCT ), _DLLUnload );
+   PEXECSTRUCT xec = (PEXECSTRUCT) hb_gcAlloc( sizeof(EXECSTRUCT), _DLLUnload );
 
-   memset( xec, 0, sizeof( EXECSTRUCT ) );
+   memset(xec, 0, sizeof(EXECSTRUCT));
 
-   if ( ISCHAR( 1 ) )
+   if ( ISCHAR(1) )
    {
-      xec->cDLL = hb_strdup( hb_parc( 1 ) );
+      xec->cDLL = hb_strdup( hb_parc(1) );
       xec->hDLL = LoadLibrary( xec->cDLL );
    }
-   else if (ISNUM( 1 ) )
+   else if (ISNUM(1) )
    {
-      xec->hDLL = (HINSTANCE) hb_parnl( 1 );
+      xec->hDLL = (HINSTANCE) hb_parnl(1);
    }
 
-   if (ISNUM( 2 ) )
+   if (ISNUM(2) )
    {
-      xec->dwFlags = hb_parnl( 2 );
+      xec->dwFlags = hb_parnl(2);
    }
    else
    {
@@ -210,15 +210,15 @@ HB_FUNC( DLLPREPARECALL )
 
    if ( xec->hDLL )
    {
-      if ( ISCHAR( 3 ) )
+      if ( ISCHAR(3) )
       {
          // Not a typo - reserving space for possible Ansi 'A' suffix!
-         xec->cProc = (char *) hb_xgrab( hb_parclen(3) + 2 );
-         strncpy( xec->cProc, hb_parc(3), hb_parclen(3) + 1 );
+         xec->cProc = (char *) hb_xgrab(hb_parclen(3) + 2);
+         strncpy(xec->cProc, hb_parc(3), hb_parclen(3) + 1);
       }
-      else if (ISNUM( 3 ) )
+      else if (ISNUM(3) )
       {
-         xec->dwOrdinal = hb_parnl( 3 );
+         xec->dwOrdinal = hb_parnl(3);
       }
    }
    else
@@ -277,12 +277,12 @@ HB_FUNC( DLLPREPARECALL )
 
 HB_FUNC( LOADLIBRARY )
 {
-   hb_retnl( (DWORD) LoadLibraryA( (LPCSTR) hb_parcx( 1 ) ) ) ;
+   hb_retnl( (DWORD) LoadLibraryA( (LPCSTR) hb_parcx(1) ) ) ;
 }
 
 HB_FUNC( FREELIBRARY )
 {
-   hb_retl( FreeLibrary( (HMODULE) hb_parnl( 1 ) ) ) ;
+   hb_retl( FreeLibrary( (HMODULE) hb_parnl(1) ) ) ;
 }
 
 // compatibility
@@ -314,10 +314,10 @@ HB_FUNC( GETPROCADDRESS )
    char  cFuncName[MAX_PATH];
 
    if ((lpProcAddr = (LPVOID) GetProcAddress( (HMODULE) hb_parnl(1),
-                                ISCHAR( 2 ) ? (LPCSTR) hb_parcx(2) :
+                                ISCHAR(2) ? (LPCSTR) hb_parcx(2) :
                                               (LPCSTR) hb_parnl(2) )) == 0 )
    {
-      if ( ISCHAR( 2 ) )
+      if ( ISCHAR(2) )
       {
          // try ANSI flavour ?
          strcpy(cFuncName, hb_parc(2));
@@ -326,7 +326,7 @@ HB_FUNC( GETPROCADDRESS )
       }
    }
 
-   hb_retptr( lpProcAddr );
+   hb_retptr(lpProcAddr);
 }
 
 
@@ -432,22 +432,22 @@ static void DllExec( int iFlags, LPVOID lpFunction, int iParams, int iFirst, int
       iRtype = CTYPE_UNSIGNED_LONG;
    }
 
-   memset( Parm, 0, sizeof( Parm ) );
-   memset( DblParms, 0, sizeof( DblParms ) );
+   memset(Parm, 0, sizeof(Parm));
+   memset(DblParms, 0, sizeof(DblParms));
 
    if( iArgCnt > 0)
    {
       for( i = iFirst; i <= iParams; i++)
       {
-         switch ( hb_parinfo( i ) & ~HB_IT_BYREF )
+         switch ( hb_parinfo(i) & ~HB_IT_BYREF )
          {
             case HB_IT_NIL               :
-               Parm[iCnt].nWidth = sizeof( void * );
+               Parm[iCnt].nWidth = sizeof(void*);
                Parm[iCnt].dwArg = (DWORD) NULL;
                break;
 
             case HB_IT_POINTER           :
-               Parm[iCnt].nWidth = sizeof( void * );
+               Parm[iCnt].nWidth = sizeof(void*);
                Parm[iCnt].dwArg = (DWORD) hb_parptr ( i );
                break;
 
@@ -455,10 +455,10 @@ static void DllExec( int iFlags, LPVOID lpFunction, int iParams, int iFirst, int
             case HB_IT_LONG              :
             case HB_IT_DATE              :
             case HB_IT_LOGICAL           :
-               Parm[iCnt].nWidth = sizeof( DWORD );
+               Parm[iCnt].nWidth = sizeof(DWORD);
                Parm[iCnt].dwArg = (DWORD) hb_parnl( i );
 
-               if( hb_parinfo( i ) & HB_IT_BYREF )
+               if( hb_parinfo(i) & HB_IT_BYREF )
                {
                   Parm[iCnt].pArg   = &( Parm[iCnt].dwArg );
                   Parm[iCnt].dwFlags = DC_FLAG_ARGPTR;  // use the pointer
@@ -466,7 +466,7 @@ static void DllExec( int iFlags, LPVOID lpFunction, int iParams, int iFirst, int
                break;
 
             case HB_IT_DOUBLE            :
-               Parm[iCnt].nWidth = sizeof( double );
+               Parm[iCnt].nWidth = sizeof(double);
                DblParms[iCnt] = (double) hb_parnd( i );
                Parm[iCnt].pArg   = &( DblParms[iCnt] );
                Parm[iCnt].dwFlags = DC_FLAG_ARGPTR;  // use the pointer
@@ -475,11 +475,11 @@ static void DllExec( int iFlags, LPVOID lpFunction, int iParams, int iFirst, int
 
             case HB_IT_STRING            :
             case HB_IT_MEMO              :
-               Parm[iCnt].nWidth = sizeof( void * );
-               if ( hb_parinfo( i ) & HB_IT_BYREF )
+               Parm[iCnt].nWidth = sizeof(void*);
+               if ( hb_parinfo(i) & HB_IT_BYREF )
                {
                   Parm[iCnt].pArg = malloc( hb_parclen( i ) );
-                  memcpy( Parm[iCnt].pArg, hb_parc( i ), hb_parclen( i ) );
+                  memcpy(Parm[iCnt].pArg, hb_parc( i ), hb_parclen( i ));
                }
                else
                {
@@ -491,7 +491,7 @@ static void DllExec( int iFlags, LPVOID lpFunction, int iParams, int iFirst, int
             case HB_IT_ARRAY             :
                if( strncmp( hb_objGetClsName( hb_param(i, HB_IT_ANY ) ), "C Structure", 11 ) == 0 )
                {
-                  Parm[iCnt].nWidth = sizeof(  void * );
+                  Parm[iCnt].nWidth = sizeof(void*);
                   Parm[iCnt].dwArg = (DWORD) hb_parcstruct( i );
                   break;
                }
@@ -538,9 +538,9 @@ static void DllExec( int iFlags, LPVOID lpFunction, int iParams, int iFirst, int
 
       for( i = iFirst; i <= iParams; i++)
       {
-         if( hb_parinfo( i ) & HB_IT_BYREF )
+         if( hb_parinfo(i) & HB_IT_BYREF )
          {
-            switch ( hb_parinfo( i ) & ~HB_IT_BYREF )
+            switch ( hb_parinfo(i) & ~HB_IT_BYREF )
             {
                case HB_IT_NIL               :
                   hb_stornl( Parm[iCnt].dwArg, i );
@@ -688,12 +688,12 @@ HB_FUNC( DLLCALL )
 
    if ( ISCHAR(1) )
    {
-      hInst = LoadLibrary( hb_parc( 1 ) );
+      hInst = LoadLibrary( hb_parc(1) );
       lUnload = TRUE;
    }
    else
    {
-      hInst = (HINSTANCE) hb_parnl( 1 );
+      hInst = (HINSTANCE) hb_parnl(1);
    }
 
    if ( hInst == NULL || (DWORD) hInst < 32)
@@ -702,13 +702,13 @@ HB_FUNC( DLLCALL )
       return;
    }
 
-   iFlags = hb_parni( 2 );
+   iFlags = hb_parni(2);
 
    if ((lpFunction = (LPVOID) GetProcAddress( (HMODULE) hInst,
-                                ISCHAR( 3 ) ? (LPCSTR) hb_parcx(3) :
+                                ISCHAR(3) ? (LPCSTR) hb_parcx(3) :
                                               (LPCSTR) hb_parnl(3) )) == 0 )
    {
-      if ( ISCHAR( 3 ) )
+      if ( ISCHAR(3) )
       {
          // try forced ANSI flavour ?
          strcpy((char *) cFuncName, hb_parc(3));
@@ -1004,7 +1004,7 @@ HB_FUNC( CALLDLL )
    int iArgCnt = iParams - 1;
    LPVOID     lpFunction;
 
-   lpFunction = (LPVOID) hb_parptr( 1 );
+   lpFunction = (LPVOID) hb_parptr(1);
    if (lpFunction != NULL)
    {
       DllExec( DC_CALL_STD, lpFunction, iParams, iFirst, iArgCnt, NULL );

@@ -68,44 +68,44 @@ HB_FUNC( INITLISTBOX )
    HWND hbutton;
    int  Style = WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_NOINTEGRALHEIGHT;
 
-   hwnd = ( HWND ) HB_PARNL( 1 );
+   hwnd = ( HWND ) HB_PARNL(1);
 
-   if( ! hb_parl( 9 ) )
+   if( ! hb_parl(9) )
       Style = Style | WS_VISIBLE;
 
-   if( ! hb_parl( 10 ) )
+   if( ! hb_parl(10) )
       Style = Style | WS_TABSTOP;
 
-   if( hb_parl( 11 ) )
+   if( hb_parl(11) )
       Style = Style | LBS_SORT;
 
-   if( hb_parl( 13 ) )
+   if( hb_parl(13) )
       Style = Style | LBS_USETABSTOPS;
 
-   if( hb_parl( 14 ) )
+   if( hb_parl(14) )
       Style = Style | LBS_MULTICOLUMN | WS_HSCROLL;
 
    hbutton = CreateWindowEx
              (
       WS_EX_CLIENTEDGE,
       WC_LISTBOX,
-      TEXT( "" ),
+      TEXT(""),
       Style,
-      hb_parni( 3 ),
-      hb_parni( 4 ),
-      hb_parni( 5 ),
-      hb_parni( 6 ),
+      hb_parni(3),
+      hb_parni(4),
+      hb_parni(5),
+      hb_parni(6),
       hwnd,
-      ( HMENU ) HB_PARNL( 2 ),
+      ( HMENU ) HB_PARNL(2),
       GetInstance(),
       NULL
              );
 
-   if( hb_parl( 12 ) )
+   if( hb_parl(12) )
       MakeDragList( hbutton );
 
-   if( hb_parl( 14 ) )
-      SendMessage( hbutton, LB_SETCOLUMNWIDTH, ( WPARAM ) ( hb_parni( 5 ) - 20 ), 0 );
+   if( hb_parl(14) )
+      SendMessage( hbutton, LB_SETCOLUMNWIDTH, ( WPARAM ) ( hb_parni(5) - 20 ), 0 );
 
    HB_RETNL( ( LONG_PTR ) hbutton );
 }
@@ -113,26 +113,26 @@ HB_FUNC( INITLISTBOX )
 HB_FUNC( LISTBOXADDSTRING )
 {
  #ifndef UNICODE
-   LPTSTR lpString = ( LPTSTR ) hb_parc( 2 );
+   LPTSTR lpString = ( LPTSTR ) hb_parc(2);
 #else
-   LPWSTR lpString = AnsiToWide( ( char * ) hb_parc( 2 ) );
+   LPWSTR lpString = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
-   SendMessage( ( HWND ) HB_PARNL( 1 ), LB_ADDSTRING, 0, ( LPARAM ) lpString );
+   SendMessage( ( HWND ) HB_PARNL(1), LB_ADDSTRING, 0, ( LPARAM ) lpString );
 #ifdef UNICODE
-   hb_xfree( lpString );
+   hb_xfree(lpString);
 #endif
 }
 
 HB_FUNC( LISTBOXINSERTSTRING )
 {
  #ifndef UNICODE
-   LPTSTR lpString = ( LPTSTR ) hb_parc( 2 );
+   LPTSTR lpString = ( LPTSTR ) hb_parc(2);
 #else
-   LPWSTR lpString = AnsiToWide( ( char * ) hb_parc( 2 ) );
+   LPWSTR lpString = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
-   SendMessage( ( HWND ) HB_PARNL( 1 ), LB_INSERTSTRING, ( WPARAM ) hb_parni( 3 ) - 1, ( LPARAM ) lpString );
+   SendMessage( ( HWND ) HB_PARNL(1), LB_INSERTSTRING, ( WPARAM ) hb_parni(3) - 1, ( LPARAM ) lpString );
 #ifdef UNICODE
-   hb_xfree( lpString );
+   hb_xfree(lpString);
 #endif
 }
 
@@ -142,16 +142,16 @@ HB_FUNC( LISTBOXGETSTRING )
 #ifdef UNICODE
    LPSTR lpString;
 #endif
-   int     iLen = ( int ) SendMessage( ( HWND ) HB_PARNL( 1 ), LB_GETTEXTLEN, ( WPARAM ) hb_parni( 2 ) - 1, ( LPARAM ) 0 );
+   int     iLen = ( int ) SendMessage( ( HWND ) HB_PARNL(1), LB_GETTEXTLEN, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) 0 );
    TCHAR * cString;
 
-   if( iLen > 0 && NULL != ( cString = ( TCHAR * ) hb_xgrab( ( iLen + 1 ) * sizeof( TCHAR ) ) ) )
+   if( iLen > 0 && NULL != ( cString = ( TCHAR * ) hb_xgrab((iLen + 1) * sizeof(TCHAR)) ) )
    {
-      SendMessage( ( HWND ) HB_PARNL( 1 ), LB_GETTEXT, ( WPARAM ) hb_parni( 2 ) - 1, ( LPARAM ) cString );
+      SendMessage( ( HWND ) HB_PARNL(1), LB_GETTEXT, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) cString );
    #ifdef UNICODE
       lpString = WideToAnsi( cString );
       hb_retc( lpString );
-      hb_xfree( lpString );
+      hb_xfree(lpString);
    #else
       hb_retclen_buffer( cString, iLen );
    #endif
@@ -168,40 +168,40 @@ HB_FUNC( INITMULTILISTBOX )
    HWND hbutton;
    int  Style = LBS_EXTENDEDSEL | WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_MULTIPLESEL | LBS_NOINTEGRALHEIGHT;
 
-   hwnd = ( HWND ) HB_PARNL( 1 );
+   hwnd = ( HWND ) HB_PARNL(1);
 
-   if( ! hb_parl( 9 ) )
+   if( ! hb_parl(9) )
       Style = Style | WS_VISIBLE;
 
-   if( ! hb_parl( 10 ) )
+   if( ! hb_parl(10) )
       Style = Style | WS_TABSTOP;
 
-   if( hb_parl( 11 ) )
+   if( hb_parl(11) )
       Style = Style | LBS_SORT;
 
-   if( hb_parl( 13 ) )
+   if( hb_parl(13) )
       Style = Style | LBS_USETABSTOPS;
 
-   if( hb_parl( 14 ) )
+   if( hb_parl(14) )
       Style = Style | LBS_MULTICOLUMN;
 
    hbutton = CreateWindowEx
              (
       WS_EX_CLIENTEDGE,
       WC_LISTBOX,
-      TEXT( "" ),
+      TEXT(""),
       Style,
-      hb_parni( 3 ),
-      hb_parni( 4 ),
-      hb_parni( 5 ),
-      hb_parni( 6 ),
+      hb_parni(3),
+      hb_parni(4),
+      hb_parni(5),
+      hb_parni(6),
       hwnd,
-      ( HMENU ) HB_PARNL( 2 ),
+      ( HMENU ) HB_PARNL(2),
       GetInstance(),
       NULL
              );
 
-   if( hb_parl( 12 ) )
+   if( hb_parl(12) )
       MakeDragList( hbutton );
 
    HB_RETNL( ( LONG_PTR ) hbutton );
@@ -209,7 +209,7 @@ HB_FUNC( INITMULTILISTBOX )
 
 HB_FUNC( LISTBOXGETMULTISEL )
 {
-   HWND hwnd = ( HWND ) HB_PARNL( 1 );
+   HWND hwnd = ( HWND ) HB_PARNL(1);
    int  i;
    int  buffer[ 32768 ];
    int  n;
@@ -228,7 +228,7 @@ HB_FUNC( LISTBOXSETMULTISEL )
 {
    PHB_ITEM wArray;
 
-   HWND hwnd = ( HWND ) HB_PARNL( 1 );
+   HWND hwnd = ( HWND ) HB_PARNL(1);
 
    int i, n, l;
 
@@ -240,11 +240,11 @@ HB_FUNC( LISTBOXSETMULTISEL )
 
    // CLEAR CURRENT SELECTIONS
    for( i = 0; i < n; i++ )
-      SendMessage( hwnd, LB_SETSEL, ( WPARAM ) ( 0 ), ( LPARAM ) i );
+      SendMessage( hwnd, LB_SETSEL, ( WPARAM ) (0), ( LPARAM ) i );
 
    // SET NEW SELECTIONS
    for( i = 0; i <= l; i++ )
-      SendMessage( hwnd, LB_SETSEL, ( WPARAM ) ( 1 ), ( LPARAM ) ( hb_arrayGetNI( wArray, i + 1 ) ) - 1 );
+      SendMessage( hwnd, LB_SETSEL, ( WPARAM ) (1), ( LPARAM ) ( hb_arrayGetNI( wArray, i + 1 ) ) - 1 );
 }
 
 HB_FUNC( LISTBOXSETMULTITAB )
@@ -253,9 +253,9 @@ HB_FUNC( LISTBOXSETMULTITAB )
    int      nTabStops[ TOTAL_TABS ];
    int      l, i;
    DWORD    dwDlgBase = GetDialogBaseUnits();
-   int      baseunitX = LOWORD( dwDlgBase );
+   int      baseunitX = LOWORD(dwDlgBase);
 
-   HWND hwnd = ( HWND ) HB_PARNL( 1 );
+   HWND hwnd = ( HWND ) HB_PARNL(1);
 
    wArray = hb_param( 2, HB_IT_ARRAY );
 
@@ -278,7 +278,7 @@ HB_FUNC( _GETDDLMESSAGE )
 
 HB_FUNC( GET_DRAG_LIST_NOTIFICATION_CODE )
 {
-   LPARAM lParam        = ( LPARAM ) HB_PARNL( 1 );
+   LPARAM lParam        = ( LPARAM ) HB_PARNL(1);
    LPDRAGLISTINFO lpdli = ( LPDRAGLISTINFO ) lParam;
 
    hb_retni( lpdli->uNotification );
@@ -287,7 +287,7 @@ HB_FUNC( GET_DRAG_LIST_NOTIFICATION_CODE )
 HB_FUNC( GET_DRAG_LIST_DRAGITEM )
 {
    int    nDragItem;
-   LPARAM lParam        = ( LPARAM ) HB_PARNL( 1 );
+   LPARAM lParam        = ( LPARAM ) HB_PARNL(1);
    LPDRAGLISTINFO lpdli = ( LPDRAGLISTINFO ) lParam;
 
    nDragItem = LBItemFromPt( lpdli->hWnd, lpdli->ptCursor, TRUE );
@@ -297,9 +297,9 @@ HB_FUNC( GET_DRAG_LIST_DRAGITEM )
 
 HB_FUNC( DRAG_LIST_DRAWINSERT )
 {
-   HWND   hwnd          = ( HWND ) HB_PARNL( 1 );
-   LPARAM lParam        = ( LPARAM ) HB_PARNL( 2 );
-   int    nItem         = hb_parni( 3 );
+   HWND   hwnd          = ( HWND ) HB_PARNL(1);
+   LPARAM lParam        = ( LPARAM ) HB_PARNL(2);
+   int    nItem         = hb_parni(3);
    LPDRAGLISTINFO lpdli = ( LPDRAGLISTINFO ) lParam;
    int nItemCount;
 
@@ -313,19 +313,19 @@ HB_FUNC( DRAG_LIST_DRAWINSERT )
 
 HB_FUNC( DRAG_LIST_MOVE_ITEMS )
 {
-   LPARAM lParam        = ( LPARAM ) HB_PARNL( 1 );
+   LPARAM lParam        = ( LPARAM ) HB_PARNL(1);
    LPDRAGLISTINFO lpdli = ( LPDRAGLISTINFO ) lParam;
 
    char string[ 1024 ];
    int  result;
 
-   result = ListBox_GetText( lpdli->hWnd, hb_parni( 2 ), string );
+   result = ListBox_GetText(lpdli->hWnd, hb_parni(2), string);
    if( result != LB_ERR )
-      result = ListBox_DeleteString( lpdli->hWnd, hb_parni( 2 ) );
+      result = ListBox_DeleteString( lpdli->hWnd, hb_parni(2) );
    if( result != LB_ERR )
-      result = ListBox_InsertString( lpdli->hWnd, hb_parni( 3 ), string );
+      result = ListBox_InsertString( lpdli->hWnd, hb_parni(3), string );
    if( result != LB_ERR )
-      result = ListBox_SetCurSel( lpdli->hWnd, hb_parni( 3 ) );
+      result = ListBox_SetCurSel( lpdli->hWnd, hb_parni(3) );
 
    hb_retl( result != LB_ERR ? TRUE : FALSE );
 }

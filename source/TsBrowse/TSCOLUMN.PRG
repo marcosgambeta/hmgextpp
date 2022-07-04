@@ -428,7 +428,7 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
       If oBrw != Nil
          nWidth := SBGetHeight( oBrw:hWnd, If( ::hFont != Nil, ;
                                                ::hFont, 0 ), 1 )
-         nEle   := Max( If( LoWord( aTmpAlign[ 2 ] ) == 3, 2, Len( cHeading ) ), ;
+         nEle   := Max( If( LoWord(aTmpAlign[ 2 ]) == 3, 2, Len( cHeading ) ), ;
                    Len( If( Empty( cPicture ), cValToChar( Eval( ::bData ) ), ;
                    Transform( cValToChar( Eval( ::bData ) ), cPicture ) ) ) )
          nWidth := Round( nWidth * ( nEle + 1 ) * 1.3, 0 )         //V90

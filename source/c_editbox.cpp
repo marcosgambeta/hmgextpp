@@ -63,47 +63,47 @@ HB_FUNC( INITEDITBOX )
    HWND hbutton;
    int  Style;
 
-   hwnd = ( HWND ) HB_PARNL( 1 );
+   hwnd = ( HWND ) HB_PARNL(1);
 
    Style = ES_MULTILINE | ES_WANTRETURN | WS_CHILD;
 
-   if( hb_parl( 10 ) )
+   if( hb_parl(10) )
       Style = Style | ES_READONLY;
 
-   if( ! hb_parl( 11 ) )
+   if( ! hb_parl(11) )
       Style = Style | WS_VISIBLE;
 
-   if( ! hb_parl( 12 ) )
+   if( ! hb_parl(12) )
       Style = Style | WS_TABSTOP;
 
-   if( ! hb_parl( 13 ) )
+   if( ! hb_parl(13) )
       Style = Style | WS_VSCROLL;
    else
       Style = Style | ES_AUTOVSCROLL;
 
-   if( ! hb_parl( 14 ) )
+   if( ! hb_parl(14) )
       Style = Style | WS_HSCROLL;
 
    hbutton = CreateWindowEx
              (
       WS_EX_CLIENTEDGE,
       WC_EDIT,
-      TEXT( "" ),
+      TEXT(""),
       Style,
-      hb_parni( 3 ),
-      hb_parni( 4 ),
-      hb_parni( 5 ),
-      hb_parni( 6 ),
+      hb_parni(3),
+      hb_parni(4),
+      hb_parni(5),
+      hb_parni(6),
       hwnd,
-      ( HMENU ) HB_PARNL( 2 ),
+      ( HMENU ) HB_PARNL(2),
       GetInstance(),
       NULL
              );
 
-   SendMessage( hbutton, ( UINT ) EM_LIMITTEXT, ( WPARAM ) hb_parni( 9 ), ( LPARAM ) 0 );
+   SendMessage( hbutton, ( UINT ) EM_LIMITTEXT, ( WPARAM ) hb_parni(9), ( LPARAM ) 0 );
 
-   SetProp( ( HWND ) hbutton, TEXT( "oldeditproc" ), ( HWND ) GetWindowLongPtr( ( HWND ) hbutton, GWLP_WNDPROC ) );
-   SetWindowLongPtr( hbutton, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnEditProc );
+   SetProp( ( HWND ) hbutton, TEXT("oldeditproc"), ( HWND ) GetWindowLongPtr(( HWND ) hbutton, GWLP_WNDPROC) );
+   SetWindowLongPtr(hbutton, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnEditProc);
 
    HB_RETNL( ( LONG_PTR ) hbutton );
 }

@@ -67,32 +67,32 @@ HINSTANCE GetInstance( void );
 HINSTANCE GetResources( void );
 
 // Minigui Resources control system
-void RegisterResource( HANDLE hResource, LPSTR szType );
+void RegisterResource(HANDLE hResource, LPSTR szType);
 
 HB_FUNC( INITIMAGELIST )   //InitImageList ( cx , cy, mask , nCount )
 {
    HIMAGELIST himlIcons;
    UINT       Styl = ILC_COLOR32;
 
-   if( hb_parl( 3 ) )
+   if( hb_parl(3) )
       Styl = Styl | ILC_MASK;
 
    InitCommonControls();
 
-   himlIcons = ImageList_Create( ( INT ) hb_parni( 1 ), ( INT ) hb_parni( 2 ), Styl, ( INT ) hb_parni( 4 ), 0 );
+   himlIcons = ImageList_Create( ( INT ) hb_parni(1), ( INT ) hb_parni(2), Styl, ( INT ) hb_parni(4), 0 );
 
-   RegisterResource( himlIcons, const_cast<LPSTR>("IMAGELIST") );
+   RegisterResource(himlIcons, const_cast<LPSTR>("IMAGELIST"));
    HB_RETNL( ( LONG_PTR ) himlIcons );
 }
 
 HB_FUNC( IL_ADD )          //IL_Add( himl , image , maskimage , ix , iy , imagecount )
 {
 #ifndef UNICODE
-   LPCSTR lpImageName  = hb_parc( 2 );
-   LPCSTR lpImageName2 = hb_parc( 3 );
+   LPCSTR lpImageName  = hb_parc(2);
+   LPCSTR lpImageName2 = hb_parc(3);
 #else
-   LPWSTR lpImageName  = AnsiToWide( ( char * ) hb_parc( 2 ) );
-   LPWSTR lpImageName2 = AnsiToWide( ( char * ) hb_parc( 3 ) );
+   LPWSTR lpImageName  = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR lpImageName2 = AnsiToWide( ( char * ) hb_parc(3) );
 #endif
    BITMAP  bm;
    HBITMAP himage1;  // handle to image
@@ -100,39 +100,39 @@ HB_FUNC( IL_ADD )          //IL_Add( himl , image , maskimage , ix , iy , imagec
    int     lResult = -1;
    int     ic      = 1;
 
-   if( hb_parni( 6 ) )
-      ic = hb_parni( 6 );
+   if( hb_parni(6) )
+      ic = hb_parni(6);
 
    himage1 = ( HBITMAP ) LoadImage( GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
    if( himage1 == NULL )
       himage1 = ( HBITMAP ) LoadImage( NULL, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
 
    if( himage1 == NULL )
-      himage1 = ( HBITMAP ) HMG_LoadImage( hb_parc( 2 ), NULL );
+      himage1 = ( HBITMAP ) HMG_LoadImage( hb_parc(2), NULL );
 
    himage2 = 0;
-   if( hb_parclen( 3 ) )
+   if( hb_parclen(3) )
    {
       himage2 = ( HBITMAP ) LoadImage( GetResources(), lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
       if( himage2 == NULL )
          himage2 = ( HBITMAP ) LoadImage( NULL, lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
 
       if( himage2 == NULL )
-         himage2 = ( HBITMAP ) HMG_LoadImage( hb_parc( 3 ), NULL );
+         himage2 = ( HBITMAP ) HMG_LoadImage( hb_parc(3), NULL );
    }
 
 #ifdef UNICODE
-   hb_xfree( lpImageName );
-   hb_xfree( lpImageName2 );
+   hb_xfree(lpImageName);
+   hb_xfree(lpImageName2);
 #endif
-   if( GetObject( himage1, sizeof( BITMAP ), &bm ) != 0 )
+   if( GetObject(himage1, sizeof(BITMAP), &bm) != 0 )
    {
-      if( ( hb_parni( 4 ) * ic == bm.bmWidth ) & ( hb_parni( 5 ) == bm.bmHeight ) )
-         lResult = ImageList_Add( ( HIMAGELIST ) HB_PARNL( 1 ), himage1, himage2 );
+      if( ( hb_parni(4) * ic == bm.bmWidth ) & ( hb_parni(5) == bm.bmHeight ) )
+         lResult = ImageList_Add( ( HIMAGELIST ) HB_PARNL(1), himage1, himage2 );
 
-      DeleteObject( himage1 );
+      DeleteObject(himage1);
       if( himage2 )
-         DeleteObject( himage2 );
+         DeleteObject(himage2);
    }
 
    hb_retni( lResult );
@@ -141,9 +141,9 @@ HB_FUNC( IL_ADD )          //IL_Add( himl , image , maskimage , ix , iy , imagec
 HB_FUNC( IL_ADDMASKED )    //IL_AddMasked( himl , image , color , ix , iy , imagecount )
 {
 #ifndef UNICODE
-   LPCSTR lpImageName = hb_parc( 2 );
+   LPCSTR lpImageName = hb_parc(2);
 #else
-   LPWSTR lpImageName = AnsiToWide( ( char * ) hb_parc( 2 ) );
+   LPWSTR lpImageName = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
    BITMAP   bm;
    HBITMAP  himage1; // handle to image
@@ -151,28 +151,28 @@ HB_FUNC( IL_ADDMASKED )    //IL_AddMasked( himl , image , color , ix , iy , imag
    int      lResult = -1;
    int      ic      = 1;
 
-   if( hb_parnl( 3 ) )
-      clrBk = ( COLORREF ) hb_parnl( 3 );
+   if( hb_parnl(3) )
+      clrBk = ( COLORREF ) hb_parnl(3);
 
-   if( hb_parni( 6 ) )
-      ic = hb_parni( 6 );
+   if( hb_parni(6) )
+      ic = hb_parni(6);
 
    himage1 = ( HBITMAP ) LoadImage( GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
    if( himage1 == NULL )
       himage1 = ( HBITMAP ) LoadImage( NULL, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
 
    if( himage1 == NULL )
-      himage1 = ( HBITMAP ) HMG_LoadPicture( hb_parc( 2 ), -1, -1, NULL, 0, 1, -1, 0, HB_FALSE, 255 );
+      himage1 = ( HBITMAP ) HMG_LoadPicture( hb_parc(2), -1, -1, NULL, 0, 1, -1, 0, HB_FALSE, 255 );
 
 #ifdef UNICODE
-   hb_xfree( lpImageName );
+   hb_xfree(lpImageName);
 #endif
-   if( GetObject( himage1, sizeof( BITMAP ), &bm ) != 0 )
+   if( GetObject(himage1, sizeof(BITMAP), &bm) != 0 )
    {
-      if( ( hb_parni( 4 ) * ic == bm.bmWidth ) & ( hb_parni( 5 ) == bm.bmHeight ) )
-         lResult = ImageList_AddMasked( ( HIMAGELIST ) HB_PARNL( 1 ), himage1, clrBk );
+      if( ( hb_parni(4) * ic == bm.bmWidth ) & ( hb_parni(5) == bm.bmHeight ) )
+         lResult = ImageList_AddMasked( ( HIMAGELIST ) HB_PARNL(1), himage1, clrBk );
 
-      DeleteObject( himage1 );
+      DeleteObject(himage1);
    }
 
    hb_retni( lResult );
@@ -181,15 +181,15 @@ HB_FUNC( IL_ADDMASKED )    //IL_AddMasked( himl , image , color , ix , iy , imag
 HB_FUNC( IL_DRAW )         //BOOL IL_Draw(HWND hwnd, HIMAGELIST himl, int imageindex, cx , cy)
 {
    HDC  hdc;
-   HWND hwnd = ( HWND ) HB_PARNL( 1 );
+   HWND hwnd = ( HWND ) HB_PARNL(1);
 
-   if( ( hdc = GetDC( hwnd ) ) == NULL )
+   if( ( hdc = GetDC(hwnd) ) == NULL )
       hb_retl( FALSE );
 
-   if( ! ImageList_Draw( ( HIMAGELIST ) HB_PARNL( 2 ), ( INT ) hb_parni( 3 ), hdc, hb_parni( 4 ), hb_parni( 5 ), ILD_TRANSPARENT ) )
+   if( ! ImageList_Draw( ( HIMAGELIST ) HB_PARNL(2), ( INT ) hb_parni(3), hdc, hb_parni(4), hb_parni(5), ILD_TRANSPARENT ) )
       hb_retl( FALSE );
 
-   ReleaseDC( hwnd, hdc );
+   ReleaseDC(hwnd, hdc);
 
    hb_retl( TRUE );
 }
@@ -198,29 +198,29 @@ HB_FUNC( IL_REMOVE )       //IL_Remove( hwnd , imageindex )
 {
    HIMAGELIST himlIcons;
 
-   himlIcons = ( HIMAGELIST ) HB_PARNL( 1 );
+   himlIcons = ( HIMAGELIST ) HB_PARNL(1);
 
-   hb_retl( ImageList_Remove( himlIcons, ( INT ) hb_parni( 2 ) ) );
+   hb_retl( ImageList_Remove( himlIcons, ( INT ) hb_parni(2) ) );
 }
 
-HB_FUNC( IL_SETBKCOLOR )   //IL_SetBkColor( hwnd , color)
+HB_FUNC( IL_SETBKCOLOR )   //IL_SetBkColor(hwnd, color)
 {
    COLORREF clrBk = CLR_NONE;
 
-   if( hb_parnl( 2 ) )
-      clrBk = hb_parnl( 2 );
+   if( hb_parnl(2) )
+      clrBk = hb_parnl(2);
 
-   hb_retnl( ( COLORREF ) ImageList_SetBkColor( ( HIMAGELIST ) HB_PARNL( 1 ), clrBk ) );
+   hb_retnl( ( COLORREF ) ImageList_SetBkColor(( HIMAGELIST ) HB_PARNL(1), clrBk) );
 }
 
 HB_FUNC( IL_ERASEIMAGE )   //IL_EraseImage( hwnd, ix, iy, dx, dy )
 {
    RECT rcImage;
 
-   SetRect( &rcImage, hb_parni( 2 ), hb_parni( 3 ), hb_parni( 4 ) + hb_parni( 2 ), hb_parni( 5 ) + hb_parni( 3 ) );
+   SetRect(&rcImage, hb_parni(2), hb_parni(3), hb_parni(4) + hb_parni(2), hb_parni(5) + hb_parni(3));
 
-   InvalidateRect( ( HWND ) HB_PARNL( 1 ), &rcImage, TRUE );
-   UpdateWindow( ( HWND ) HB_PARNL( 1 ) );
+   InvalidateRect(( HWND ) HB_PARNL(1), &rcImage, TRUE);
+   UpdateWindow(( HWND ) HB_PARNL(1));
 }
 
 HB_FUNC( IL_BEGINDRAG )    //IL_BeginDrag( hwnd, himl, ImageInx, ix, iy )
@@ -229,33 +229,33 @@ HB_FUNC( IL_BEGINDRAG )    //IL_BeginDrag( hwnd, himl, ImageInx, ix, iy )
    INT  cy;
    RECT rcImage;
 
-   if( ImageList_GetIconSize( ( HIMAGELIST ) HB_PARNL( 2 ), &cx, &cy ) )
+   if( ImageList_GetIconSize( ( HIMAGELIST ) HB_PARNL(2), &cx, &cy ) )
    {
-      SetRect( &rcImage, hb_parni( 4 ) - 2, hb_parni( 5 ) - 2, hb_parni( 4 ) + cx + 2, hb_parni( 5 ) + cy + 2 );
-      InvalidateRect( ( HWND ) HB_PARNL( 1 ), &rcImage, TRUE );
-      UpdateWindow( ( HWND ) HB_PARNL( 1 ) );
+      SetRect(&rcImage, hb_parni(4) - 2, hb_parni(5) - 2, hb_parni(4) + cx + 2, hb_parni(5) + cy + 2);
+      InvalidateRect(( HWND ) HB_PARNL(1), &rcImage, TRUE);
+      UpdateWindow(( HWND ) HB_PARNL(1));
    }
 
-   hb_retl( ImageList_BeginDrag( ( HIMAGELIST ) HB_PARNL( 2 ), ( INT ) hb_parni( 3 ), ( INT ) 0, ( INT ) 0 ) );
+   hb_retl( ImageList_BeginDrag( ( HIMAGELIST ) HB_PARNL(2), ( INT ) hb_parni(3), ( INT ) 0, ( INT ) 0 ) );
 }
 
 HB_FUNC( IL_DRAGMOVE )     //IL_DragMove( ix, iy )
 {
-   hb_retl( ImageList_DragMove( ( INT ) hb_parni( 1 ), ( INT ) hb_parni( 2 ) ) );
+   hb_retl( ImageList_DragMove( ( INT ) hb_parni(1), ( INT ) hb_parni(2) ) );
 }
 
 HB_FUNC( IL_DRAGENTER )    //IL_DragEnter( hwnd, ix, iy )
 {
-   hb_retl( ImageList_DragEnter( ( HWND ) HB_PARNL( 1 ), ( INT ) hb_parni( 2 ), ( INT ) hb_parni( 3 ) ) );
+   hb_retl( ImageList_DragEnter( ( HWND ) HB_PARNL(1), ( INT ) hb_parni(2), ( INT ) hb_parni(3) ) );
 }
 
 HB_FUNC( IL_ENDDRAG )      //IL_EndDrag( hwnd )
 {
    ImageList_EndDrag();
-   ImageList_DragLeave( ( HWND ) HB_PARNL( 1 ) );
+   ImageList_DragLeave( ( HWND ) HB_PARNL(1) );
 }
 
 HB_FUNC( IL_GETIMAGECOUNT ) //IL_GetImageCount( himl )
 {
-   hb_retni( ImageList_GetImageCount( ( HIMAGELIST ) HB_PARNL( 1 ) ) );
+   hb_retni( ImageList_GetImageCount( ( HIMAGELIST ) HB_PARNL(1) ) );
 }

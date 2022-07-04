@@ -759,7 +759,7 @@ RETURN cTemp
 *-----------------------------------------------------------------------------*
 FUNCTION _SetBtnPictureMask( hWnd, i /*ControlIndex*/ )
 *-----------------------------------------------------------------------------*
-   LOCAL hDC := GetDC( hWnd )
+   LOCAL hDC := GetDC(hWnd)
    LOCAL aBtnRc := Array( 4 )
    LOCAL aBMP
    LOCAL x, y
@@ -779,7 +779,7 @@ FUNCTION _SetBtnPictureMask( hWnd, i /*ControlIndex*/ )
 
    DrawGlyphMask( hDC, x, y, aBmp [1], aBmp [2], _HMG_aControlBrushHandle [i], , .T. , .F. , hWnd )
 
-   ReleaseDC( hWnd, hDC )
+   ReleaseDC(hWnd, hDC)
 
 RETURN NIL
 

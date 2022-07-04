@@ -49,11 +49,11 @@
 
 HB_FUNC( INITTIMER )
 {
-   hb_retl( ( int ) SetTimer( ( HWND ) HB_PARNL( 1 ), ( UINT ) hb_parni( 2 ), ( UINT ) hb_parni( 3 ), ( TIMERPROC ) NULL ) );
+   hb_retl( ( int ) SetTimer( ( HWND ) HB_PARNL(1), ( UINT ) hb_parni(2), ( UINT ) hb_parni(3), ( TIMERPROC ) NULL ) );
 }
 
 HB_FUNC( KILLTIMER )
 {
-   KillTimer( ( HWND ) HB_PARNL( 1 ),     // handle of main window
-              ( UINT ) hb_parni( 2 ) );   // timer identifier
+   KillTimer( ( HWND ) HB_PARNL(1),     // handle of main window
+              ( UINT ) hb_parni(2) );   // timer identifier
 }

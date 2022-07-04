@@ -75,7 +75,7 @@ LPSTR  WideToAnsi( LPWSTR );
 /* Revised by P.Chornyj 16.11 */
 HB_FUNC( SETPROP )
 {
-   HWND    hwnd = ( HWND ) HB_PARNL( 1 );
+   HWND    hwnd = ( HWND ) HB_PARNL(1);
    HGLOBAL hMem;
    char *  lpMem;
    char    chType;
@@ -92,21 +92,21 @@ HB_FUNC( SETPROP )
 
    hb_retl( HB_FALSE );
    // check params
-   if( ! IsWindow( hwnd ) || hb_parclen( 2 ) == 0 )
+   if( ! IsWindow(hwnd) || hb_parclen(2) == 0 )
       return;
 
    // check data
-   if( HB_ISCHAR( 3 ) )
+   if( HB_ISCHAR(3) )
    {
       chType = 'C';     // character
-      nLen   = ( int ) hb_parclen( 3 );
+      nLen   = ( int ) hb_parclen(3);
    }
-   else if( HB_ISLOG( 3 ) )
+   else if( HB_ISLOG(3) )
    {
       chType = 'L';     // logical
-      nLen   = sizeof( BOOL );
+      nLen   = sizeof(BOOL);
    }
-   else if( HB_ISDATE( 3 ) )
+   else if( HB_ISDATE(3) )
    {
       chType = 'D';     // date
       nLen   = 9;       // len of "yyyymmdd"
@@ -118,12 +118,12 @@ HB_FUNC( SETPROP )
       else
          chType = 'I';                 // int
 
-      nLen = sizeof( INT );
+      nLen = sizeof(INT);
    }
-   else if( HB_ISNUM( 3 ) )
+   else if( HB_ISNUM(3) )
    {
       chType = 'F';     // float
-      nLen   = sizeof( double );
+      nLen   = sizeof(double);
    }
    else                 // unsupported type
       return;
@@ -132,54 +132,54 @@ HB_FUNC( SETPROP )
    if( chType == 'X' )
    {
 #ifndef UNICODE
-      pW = hb_parc( 2 );
+      pW = hb_parc(2);
 #else
-      pW = AnsiToWide( ( char * ) hb_parc( 2 ) );
+      pW = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
-      hb_retl( SetProp( hwnd, pW, ( HANDLE ) ( LONG_PTR ) HB_PARNL( 3 ) ) ? HB_TRUE : HB_FALSE );
+      hb_retl( SetProp( hwnd, pW, ( HANDLE ) ( LONG_PTR ) HB_PARNL(3) ) ? HB_TRUE : HB_FALSE );
    #ifdef UNICODE
-      hb_xfree( pW );
+      hb_xfree(pW);
    #endif
       return;
    }
 
    // type conversion
-   if( ( hMem = GlobalAlloc( GPTR, nLen + sizeof( int ) + 1 ) ) == NULL )
+   if( ( hMem = GlobalAlloc( GPTR, nLen + sizeof(int) + 1 ) ) == NULL )
       return;
    else
    {
-      lpMem = ( char * ) GlobalLock( hMem );
+      lpMem = ( char * ) GlobalLock(hMem);
       if( lpMem == NULL )
       {
-         GlobalFree( hMem );
+         GlobalFree(hMem);
          return;
       }
    }
 
    lpMem[ 0 ] = chType;
-   memcpy( lpMem + 1, ( char * ) &nLen, sizeof( int ) );
+   memcpy(lpMem + 1, ( char * ) &nLen, sizeof(int));
 
    switch( chType )
    {
-      case 'C':   memcpy( lpMem + sizeof( int ) + 1, hb_parc( 3 ), nLen ); break;
-      case 'L':   bValue = hb_parl( 3 ); memcpy( lpMem + sizeof( int ) + 1, ( char * ) &bValue, sizeof( BOOL ) ); break;
-      case 'D':   memcpy( lpMem + sizeof( int ) + 1, hb_pards( 3 ), nLen ); break;
-      case 'I':   iValue = ( INT ) hb_parnl( 3 ); memcpy( lpMem + sizeof( int ) + 1, ( char * ) &iValue, sizeof( INT ) ); break;
-      case 'F':   dValue = hb_parnd( 3 ); memcpy( lpMem + sizeof( int ) + 1, ( char * ) &dValue, sizeof( double ) ); break;
+      case 'C':   memcpy(lpMem + sizeof(int) + 1, hb_parc(3), nLen); break;
+      case 'L':   bValue = hb_parl(3); memcpy(lpMem + sizeof(int) + 1, ( char * ) &bValue, sizeof(BOOL)); break;
+      case 'D':   memcpy(lpMem + sizeof(int) + 1, hb_pards(3), nLen); break;
+      case 'I':   iValue = ( INT ) hb_parnl(3); memcpy(lpMem + sizeof(int) + 1, ( char * ) &iValue, sizeof(INT)); break;
+      case 'F':   dValue = hb_parnd(3); memcpy(lpMem + sizeof(int) + 1, ( char * ) &dValue, sizeof(double)); break;
    }
 
-   GlobalUnlock( hMem );
+   GlobalUnlock(hMem);
 
 #ifndef UNICODE
-   pW = hb_parc( 2 );
+   pW = hb_parc(2);
 #else
-   pW = AnsiToWide( ( char * ) hb_parc( 2 ) );
+   pW = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
 
    hb_retl( SetProp( hwnd, pW, hMem ) ? HB_TRUE : HB_FALSE  );
 
 #ifdef UNICODE
-   hb_xfree( pW );
+   hb_xfree(pW);
 #endif
 }
 
@@ -187,41 +187,41 @@ HB_FUNC( SETPROP )
 // [lHandle] : .T. =  return the value directly
 HB_FUNC( GETPROP )
 {
-   HWND    hwnd = ( HWND ) HB_PARNL( 1 );
+   HWND    hwnd = ( HWND ) HB_PARNL(1);
    HGLOBAL hMem;
    char *  lpMem;
    int     nLen;
 
 #ifndef UNICODE
-   LPCSTR pW = hb_parc( 2 );
+   LPCSTR pW = hb_parc(2);
 #else
-   LPWSTR pW = AnsiToWide( ( char * ) hb_parc( 2 ) );
+   LPWSTR pW = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
 
    hb_ret();
    // check params
-   if( ! IsWindow( hwnd ) || hb_parclen( 2 ) == 0 )
+   if( ! IsWindow(hwnd) || hb_parclen(2) == 0 )
       return;
 
    if( hb_parldef( 3, HB_FALSE ) )
    {
       HB_RETNL( ( LONG_PTR ) GetProp( hwnd, pW ) );
    #ifdef UNICODE
-      hb_xfree( pW );
+      hb_xfree(pW);
    #endif
       return;
    }
 
    hMem = ( HGLOBAL ) GetProp( hwnd, pW );
 #ifdef UNICODE
-   hb_xfree( pW );
+   hb_xfree(pW);
 #endif
 
    if( NULL == hMem )
       return;
    else
    {
-      lpMem = ( char * ) GlobalLock( hMem );
+      lpMem = ( char * ) GlobalLock(hMem);
 
       if( lpMem == NULL )
          return;
@@ -230,20 +230,20 @@ HB_FUNC( GETPROP )
    nLen = ( int ) *( int * ) ( lpMem + 1 );
    switch( lpMem[ 0 ] )
    {
-      case 'C':   hb_retclen( lpMem + sizeof( int ) + 1, nLen ); break;
-      case 'L':   hb_retl( ( BOOL ) *( BOOL * ) ( lpMem + sizeof( int ) + 1 ) ); break;
-      case 'D':   hb_retds( lpMem + sizeof( int ) + 1 ); break;
-      case 'I':   hb_retni( ( INT ) *( INT * ) ( lpMem + sizeof( int ) + 1 ) ); break;
-      case 'F':   hb_retnd( ( double ) *( double * ) ( lpMem + sizeof( int ) + 1 ) ); break;
+      case 'C':   hb_retclen( lpMem + sizeof(int) + 1, nLen ); break;
+      case 'L':   hb_retl( ( BOOL ) *( BOOL * ) ( lpMem + sizeof(int) + 1 ) ); break;
+      case 'D':   hb_retds( lpMem + sizeof(int) + 1 ); break;
+      case 'I':   hb_retni( ( INT ) *( INT * ) ( lpMem + sizeof(int) + 1 ) ); break;
+      case 'F':   hb_retnd( ( double ) *( double * ) ( lpMem + sizeof(int) + 1 ) ); break;
    }
 
-   GlobalUnlock( hMem );
+   GlobalUnlock(hMem);
 }
 
 // Usage: RemoveProp( hWnd, cPropName, [lNoFree] ) -> hMem | NIL
 HB_FUNC( REMOVEPROP )
 {
-   HWND    hwnd = ( HWND ) HB_PARNL( 1 );
+   HWND    hwnd = ( HWND ) HB_PARNL(1);
    HGLOBAL hMem;
 
 #ifdef UNICODE
@@ -252,19 +252,19 @@ HB_FUNC( REMOVEPROP )
 
    hb_ret();
 
-   if( ! IsWindow( hwnd ) || ( hb_parclen( 2 ) == 0 ) )
+   if( ! IsWindow(hwnd) || ( hb_parclen(2) == 0 ) )
       return;
 
 #ifndef UNICODE
-   hMem = RemovePropA( hwnd, hb_parc( 2 ) );
+   hMem = RemovePropA( hwnd, hb_parc(2) );
 #else
-   lpString = AnsiToWide( ( char * ) hb_parc( 2 ) );
+   lpString = AnsiToWide( ( char * ) hb_parc(2) );
    hMem     = RemovePropW( hwnd, lpString );
-   hb_xfree( ( TCHAR * ) lpString );
+   hb_xfree(( TCHAR * ) lpString);
 #endif
    if( ( NULL != hMem ) && ( ! hb_parldef( 3, HB_FALSE ) ) )
    {
-      GlobalFree( hMem );
+      GlobalFree(hMem);
       hMem = NULL;
    }
    // !!!
@@ -278,11 +278,11 @@ static BOOL CALLBACK PropsEnumProc( HWND hWnd, LPCTSTR pszPropName, HANDLE handl
 /* Usage: aProps := EnumProps( nHandle ) */
 HB_FUNC( ENUMPROPS )
 {
-   HWND hWnd = ( HWND ) HB_PARNL( 1 );
+   HWND hWnd = ( HWND ) HB_PARNL(1);
 
-   if( IsWindow( hWnd ) )
+   if( IsWindow(hWnd) )
    {
-      PHB_ITEM pArray = hb_itemArrayNew( 0 );
+      PHB_ITEM pArray = hb_itemArrayNew(0);
 
       EnumPropsEx( hWnd, ( PROPENUMPROCEX ) PropsEnumProc, ( LPARAM ) pArray );
 
@@ -296,16 +296,16 @@ static BOOL CALLBACK PropsEnumProc( HWND hWnd, LPCTSTR pszPropName, HANDLE handl
 
    if( iLen )
    {
-      PHB_ITEM item    = hb_itemArrayNew( 3 );
-      LPTSTR   pszName = ( LPTSTR ) hb_xgrabz( ( iLen + 1 ) * sizeof( TCHAR ) );
+      PHB_ITEM item    = hb_itemArrayNew(3);
+      LPTSTR   pszName = ( LPTSTR ) hb_xgrabz((iLen + 1) * sizeof(TCHAR));
 
-      lstrcpy( pszName, pszPropName );
+      lstrcpy(pszName, pszPropName);
 
       hb_arraySetNInt( item, 1, ( LONG_PTR ) hWnd );
    #ifndef UNICODE
-      hb_arraySetCLPtr( item, 2, pszName, iLen );
+      hb_arraySetCLPtr(item, 2, pszName, iLen);
    #else
-      hb_arraySetCLPtr( item, 2, WideToAnsi( pszName ), iLen );
+      hb_arraySetCLPtr(item, 2, WideToAnsi( pszName ), iLen);
    #endif
       hb_arraySetNInt( item, 3, ( LONG_PTR ) handle );
 
@@ -350,10 +350,10 @@ BOOL CALLBACK PropsEnumProcEx( HWND hWnd, LPCTSTR pszPropName, HANDLE handle, UL
 
 HB_FUNC( ENUMPROPSEX )
 {
-   HWND     hWnd       = ( HWND ) HB_PARNL( 1 );
+   HWND     hWnd       = ( HWND ) HB_PARNL(1);
    PHB_ITEM pCodeBlock = hb_param( 2, HB_IT_BLOCK );
 
-   if( IsWindow( hWnd ) && pCodeBlock )
+   if( IsWindow(hWnd) && pCodeBlock )
       hb_retni( EnumPropsEx( hWnd, ( PROPENUMPROCEX ) PropsEnumProcEx, ( LPARAM ) pCodeBlock ) );
    else
       hb_retni( -2 );
@@ -369,13 +369,13 @@ BOOL CALLBACK PropsEnumProcEx( HWND hWnd, LPCTSTR pszPropName, HANDLE handle, UL
       PHB_ITEM pHWnd = hb_itemPutNInt( NULL, ( LONG_PTR ) hWnd );
       PHB_ITEM pPropName;
       PHB_ITEM pHandle = hb_itemPutNInt( NULL, ( LONG_PTR ) handle );
-      LPTSTR   pszName = ( LPTSTR ) hb_xgrabz( ( iLen + 1 ) * sizeof( TCHAR ) );
+      LPTSTR   pszName = ( LPTSTR ) hb_xgrabz((iLen + 1) * sizeof(TCHAR));
 
-      lstrcpy( pszName, pszPropName );
+      lstrcpy(pszName, pszPropName);
    #ifndef UNICODE
-      pPropName = hb_itemPutCPtr( NULL, pszName );
+      pPropName = hb_itemPutCPtr(NULL, pszName);
    #else
-      pPropName = hb_itemPutCPtr( NULL, WideToAnsi( pszName ) );
+      pPropName = hb_itemPutCPtr(NULL, WideToAnsi( pszName ));
    #endif
       hb_evalBlock( pCodeBlock, pHWnd, pPropName, pHandle, NULL );
 

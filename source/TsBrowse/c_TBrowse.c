@@ -18,9 +18,9 @@
 
 void        WndBoxDraw( HDC, LPRECT, HPEN, HPEN, int, BOOL );
 void        cDrawCursor( HWND, LPRECT, long, COLORREF );
-static void DrawCheck( HDC, LPRECT, HPEN, int, BOOL );
+static void DrawCheck(HDC, LPRECT, HPEN, int, BOOL);
 static void GoToPoint( HDC, int, int );
-static void DegradColor( HDC, RECT *, COLORREF, signed long );
+static void DegradColor(HDC, RECT *, COLORREF, signed long);
 
 static HWND hwndMDIClient;
 
@@ -40,7 +40,7 @@ LRESULT CALLBACK WndProcBrw( HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
       hb_vmPushLong( message );
       hb_vmPushNumInt( wParam );
       hb_vmPushNumInt( lParam );
-      hb_vmDo( 4 );
+      hb_vmDo(4);
    }
 
    r = hb_parnl( -1 );
@@ -67,7 +67,7 @@ LRESULT CALLBACK WndProcMDI( HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
       hb_vmPushLong( message );
       hb_vmPushNumInt( wParam );
       hb_vmPushNumInt( lParam );
-      hb_vmDo( 4 );
+      hb_vmDo(4);
    }
 
    r = hb_parnl( -1 );
@@ -84,13 +84,13 @@ HB_FUNC( REGISTER_CLASS )
    void *  hClassName;
    LPCTSTR lpClassName = HB_PARSTR( 1, &hClassName, NULL );
 #else
-   const char * lpClassName = hb_parc( 1 );
+   const char * lpClassName = hb_parc(1);
 #endif
    WNDCLASS WndClass;
    HBRUSH   hbrush;
 
    WndClass.style = CS_DBLCLKS;
-   hwndMDIClient  = ( HB_ISNIL( 3 ) ? 0 : ( HWND ) HB_PARNL( 3 ) );
+   hwndMDIClient  = ( HB_ISNIL(3) ? 0 : ( HWND ) HB_PARNL(3) );
    if( hwndMDIClient )
       WndClass.lpfnWndProc = WndProcMDI;
    else
@@ -98,18 +98,18 @@ HB_FUNC( REGISTER_CLASS )
 
    WndClass.cbClsExtra = 0;
    WndClass.cbWndExtra = 0;
-   WndClass.hInstance  = GetModuleHandle( NULL );
+   WndClass.hInstance  = GetModuleHandle(NULL);
    WndClass.hIcon      = 0;
-   WndClass.hCursor    = LoadCursor( NULL, IDC_ARROW );
-   hbrush = ( HBRUSH ) ( HB_ISNIL( 2 ) ? COLOR_WINDOW + 1 : HB_PARNL( 2 ) );
+   WndClass.hCursor    = LoadCursor(NULL, IDC_ARROW);
+   hbrush = ( HBRUSH ) ( HB_ISNIL(2) ? COLOR_WINDOW + 1 : HB_PARNL(2) );
    WndClass.hbrBackground = hbrush;
    WndClass.lpszMenuName  = NULL;
    WndClass.lpszClassName = lpClassName;
 
    if( ! RegisterClass( &WndClass ) )
    {
-      MessageBox( 0, TEXT( "Window Registration Failed!" ), TEXT( "Error!" ), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL );
-      ExitProcess( 0 );
+      MessageBox( 0, TEXT("Window Registration Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL );
+      ExitProcess(0);
    }
 
    HB_RETNL( ( LONG_PTR ) hbrush );
@@ -122,24 +122,24 @@ HB_FUNC( REGISTER_CLASS )
 HB_FUNC( _CREATEWINDOWEX )
 {
    HWND   hWnd;
-   DWORD  dwExStyle  = hb_parnl( 1 );
+   DWORD  dwExStyle  = hb_parnl(1);
 #ifdef UNICODE
    void *  hClassName;
    LPCTSTR cClass = HB_PARSTR( 2, &hClassName, NULL );
    void *  hTitle;
    LPCTSTR cTitle = HB_PARSTR( 3, &hTitle, NULL );
 #else
-   LPCSTR cClass     = ( LPCSTR ) hb_parc( 2 );
-   LPCSTR cTitle     = ( LPCSTR ) hb_parc( 3 );
+   LPCSTR cClass     = ( LPCSTR ) hb_parc(2);
+   LPCSTR cTitle     = ( LPCSTR ) hb_parc(3);
 #endif
-   int    nStyle     = hb_parni( 4 );
-   int    x          = HB_ISNIL( 5 ) ? 0 : hb_parni( 5 );
-   int    y          = HB_ISNIL( 6 ) ? 0 : hb_parni( 6 );
-   int    nWidth     = HB_ISNIL( 7 ) ? 0 : hb_parni( 7 );
-   int    nHeight    = HB_ISNIL( 8 ) ? 0 : hb_parni( 8 );
-   HWND   hWndParent = ( HWND ) HB_PARNL( 9 );
+   int    nStyle     = hb_parni(4);
+   int    x          = HB_ISNIL(5) ? 0 : hb_parni(5);
+   int    y          = HB_ISNIL(6) ? 0 : hb_parni(6);
+   int    nWidth     = HB_ISNIL(7) ? 0 : hb_parni(7);
+   int    nHeight    = HB_ISNIL(8) ? 0 : hb_parni(8);
+   HWND   hWndParent = ( HWND ) HB_PARNL(9);
    HMENU  hMenu      = ( HMENU ) NULL;
-   HANDLE hInstance  = ( HANDLE ) HB_PARNL( 11 );
+   HANDLE hInstance  = ( HANDLE ) HB_PARNL(11);
 
    hWnd = CreateWindowEx( dwExStyle, cClass, cTitle, nStyle, x, y, nWidth, nHeight, hWndParent, hMenu, ( HINSTANCE ) hInstance, NULL );
 
@@ -151,7 +151,7 @@ HB_FUNC( _CREATEWINDOWEX )
 #endif
 }
 
-void MaskRegion( HDC hdc, RECT * rct, COLORREF cTransparentColor, COLORREF cBackgroundColor )
+void MaskRegion(HDC hdc, RECT * rct, COLORREF cTransparentColor, COLORREF cBackgroundColor)
 {
    HDC      hdcTemp, hdcObject, hdcBack, hdcMem;
    POINT    ptSize;
@@ -162,34 +162,34 @@ void MaskRegion( HDC hdc, RECT * rct, COLORREF cTransparentColor, COLORREF cBack
    ptSize.x = rct->right - rct->left + 1;
    ptSize.y = rct->bottom - rct->top + 1;
 
-   hBrush = CreateSolidBrush( cBackgroundColor );
+   hBrush = CreateSolidBrush(cBackgroundColor);
 
-   hdcTemp   = CreateCompatibleDC( hdc );
-   hdcObject = CreateCompatibleDC( hdc );
-   hdcBack   = CreateCompatibleDC( hdc );
-   hdcMem    = CreateCompatibleDC( hdc );
+   hdcTemp   = CreateCompatibleDC(hdc);
+   hdcObject = CreateCompatibleDC(hdc);
+   hdcBack   = CreateCompatibleDC(hdc);
+   hdcMem    = CreateCompatibleDC(hdc);
 
-   bmAndTemp   = CreateCompatibleBitmap( hdc, ptSize.x, ptSize.y );
-   bmAndMem    = CreateCompatibleBitmap( hdc, ptSize.x, ptSize.y );
-   bmAndObject = CreateBitmap( ptSize.x, ptSize.y, 1, 1, NULL );
-   bmAndBack   = CreateBitmap( ptSize.x, ptSize.y, 1, 1, NULL );
+   bmAndTemp   = CreateCompatibleBitmap(hdc, ptSize.x, ptSize.y);
+   bmAndMem    = CreateCompatibleBitmap(hdc, ptSize.x, ptSize.y);
+   bmAndObject = CreateBitmap(ptSize.x, ptSize.y, 1, 1, NULL);
+   bmAndBack   = CreateBitmap(ptSize.x, ptSize.y, 1, 1, NULL);
 
-   bmTempOld   = ( HBITMAP ) SelectObject( hdcTemp, bmAndTemp );
-   bmMemOld    = ( HBITMAP ) SelectObject( hdcMem, bmAndMem );
-   bmBackOld   = ( HBITMAP ) SelectObject( hdcBack, bmAndBack );
-   bmObjectOld = ( HBITMAP ) SelectObject( hdcObject, bmAndObject );
+   bmTempOld   = ( HBITMAP ) SelectObject(hdcTemp, bmAndTemp);
+   bmMemOld    = ( HBITMAP ) SelectObject(hdcMem, bmAndMem);
+   bmBackOld   = ( HBITMAP ) SelectObject(hdcBack, bmAndBack);
+   bmObjectOld = ( HBITMAP ) SelectObject(hdcObject, bmAndObject);
 
-   hBrOld = ( HBRUSH ) SelectObject( hdcMem, hBrush );
+   hBrOld = ( HBRUSH ) SelectObject(hdcMem, hBrush);
 
    BitBlt( hdcTemp, 0, 0, ptSize.x, ptSize.y, hdc, rct->left, rct->top, SRCCOPY );
 
    SetMapMode( hdcTemp, GetMapMode( hdc ) );
 
-   cColor = SetBkColor( hdcTemp, cTransparentColor );
+   cColor = SetBkColor(hdcTemp, cTransparentColor);
 
    BitBlt( hdcObject, 0, 0, ptSize.x, ptSize.y, hdcTemp, 0, 0, SRCCOPY );
 
-   SetBkColor( hdcTemp, cColor );
+   SetBkColor(hdcTemp, cColor);
 
    BitBlt( hdcBack, 0, 0, ptSize.x, ptSize.y, hdcObject, 0, 0, NOTSRCCOPY );
    PatBlt( hdcMem, 0, 0, ptSize.x, ptSize.y, PATCOPY );
@@ -198,55 +198,55 @@ void MaskRegion( HDC hdc, RECT * rct, COLORREF cTransparentColor, COLORREF cBack
    BitBlt( hdcMem, 0, 0, ptSize.x, ptSize.y, hdcTemp, 0, 0, SRCPAINT );
    BitBlt( hdc, rct->left, rct->top, ptSize.x, ptSize.y, hdcMem, 0, 0, SRCCOPY );
 
-   DeleteObject( SelectObject( hdcMem, hBrOld ) );
-   DeleteObject( SelectObject( hdcTemp, bmTempOld ) );
-   DeleteObject( SelectObject( hdcMem, bmMemOld ) );
-   DeleteObject( SelectObject( hdcBack, bmBackOld ) );
-   DeleteObject( SelectObject( hdcObject, bmObjectOld ) );
-   DeleteDC( hdcMem );
-   DeleteDC( hdcBack );
-   DeleteDC( hdcObject );
-   DeleteDC( hdcTemp );
+   DeleteObject(SelectObject(hdcMem, hBrOld));
+   DeleteObject(SelectObject(hdcTemp, bmTempOld));
+   DeleteObject(SelectObject(hdcMem, bmMemOld));
+   DeleteObject(SelectObject(hdcBack, bmBackOld));
+   DeleteObject(SelectObject(hdcObject, bmObjectOld));
+   DeleteDC(hdcMem);
+   DeleteDC(hdcBack);
+   DeleteDC(hdcObject);
+   DeleteDC(hdcTemp);
 }
 
-void DrawBitmap( HDC hDC, HBITMAP hBitmap, int wRow, int wCol, int wWidth, int wHeight, DWORD dwRaster )
+void DrawBitmap(HDC hDC, HBITMAP hBitmap, int wRow, int wCol, int wWidth, int wHeight, DWORD dwRaster)
 {
-   HDC     hDCmem = CreateCompatibleDC( hDC );
+   HDC     hDCmem = CreateCompatibleDC(hDC);
    BITMAP  bitmap;
    HBITMAP hBmpOld;
 
    if( ! dwRaster )
       dwRaster = SRCCOPY;
 
-   hBmpOld = ( HBITMAP ) SelectObject( hDCmem, hBitmap );
-   GetObject( hBitmap, sizeof( BITMAP ), ( LPVOID ) &bitmap );
+   hBmpOld = ( HBITMAP ) SelectObject(hDCmem, hBitmap);
+   GetObject(hBitmap, sizeof(BITMAP), ( LPVOID ) &bitmap);
 
    if( wWidth && ( wWidth != bitmap.bmWidth || wHeight != bitmap.bmHeight ) )
       StretchBlt( hDC, wCol, wRow, wWidth, wHeight, hDCmem, 0, 0, bitmap.bmWidth, bitmap.bmHeight, dwRaster );
    else
       BitBlt( hDC, wCol, wRow, bitmap.bmWidth, bitmap.bmHeight, hDCmem, 0, 0, dwRaster );
 
-   SelectObject( hDCmem, hBmpOld );
-   DeleteDC( hDCmem );
+   SelectObject(hDCmem, hBmpOld);
+   DeleteDC(hDCmem);
 }
 
 void DrawMasked( HDC hDC, HBITMAP hbm, int wRow, int wCol )
 {
-   HDC      hDcBmp = CreateCompatibleDC( hDC );
+   HDC      hDcBmp = CreateCompatibleDC(hDC);
    HDC      hDcMask;
-   HBITMAP  hBmpMask, hOldBmp2, hOldBmp1 = ( HBITMAP ) SelectObject( hDcBmp, hbm );
+   HBITMAP  hBmpMask, hOldBmp2, hOldBmp1 = ( HBITMAP ) SelectObject(hDcBmp, hbm);
    BITMAP   bm;
    COLORREF rgbBack;
 
-   if( GetPixel( hDcBmp, 0, 0 ) != GetSysColor( 15 ) )
+   if( GetPixel( hDcBmp, 0, 0 ) != GetSysColor(15) )
    {
-      GetObject( hbm, sizeof( BITMAP ), ( LPSTR ) &bm );
-      hDcMask  = CreateCompatibleDC( hDC );
-      hBmpMask = CreateCompatibleBitmap( hDcMask, bm.bmWidth, bm.bmHeight );
-      hOldBmp2 = ( HBITMAP ) SelectObject( hDcMask, hBmpMask );
-      rgbBack  = SetBkColor( hDcBmp, GetPixel( hDcBmp, 0, 0 ) );
+      GetObject(hbm, sizeof(BITMAP), ( LPSTR ) &bm);
+      hDcMask  = CreateCompatibleDC(hDC);
+      hBmpMask = CreateCompatibleBitmap(hDcMask, bm.bmWidth, bm.bmHeight);
+      hOldBmp2 = ( HBITMAP ) SelectObject(hDcMask, hBmpMask);
+      rgbBack  = SetBkColor(hDcBmp, GetPixel( hDcBmp, 0, 0 ));
       BitBlt( hDcMask, wRow, wCol, bm.bmWidth, bm.bmHeight, hDcBmp, 0, 0, SRCCOPY );
-      SetBkColor( hDcBmp, rgbBack );
+      SetBkColor(hDcBmp, rgbBack);
 
       BitBlt( hDC, wRow, wCol, bm.bmWidth, bm.bmHeight, hDcBmp, 0, 0, SRCINVERT );
       BitBlt( hDC, wRow, wCol, bm.bmWidth, bm.bmHeight, hDcMask, 0, 0, SRCAND );
@@ -254,59 +254,59 @@ void DrawMasked( HDC hDC, HBITMAP hbm, int wRow, int wCol )
 
       BitBlt( hDcBmp, 0, 0, bm.bmWidth, bm.bmHeight, hDC, wRow, wCol, SRCCOPY );
 
-      SelectObject( hDcMask, hOldBmp2 );
-      DeleteObject( hBmpMask );
-      DeleteDC( hDcMask );
+      SelectObject(hDcMask, hOldBmp2);
+      DeleteObject(hBmpMask);
+      DeleteDC(hDcMask);
    }
 
-   SelectObject( hDcBmp, hOldBmp1 );
-   DeleteDC( hDcBmp );
+   SelectObject(hDcBmp, hOldBmp1);
+   DeleteDC(hDcBmp);
 }
 
 HB_FUNC( TSDRAWCELL )
 {
-   HWND     hWnd         = ( HWND ) HB_PARNL( 1 );
-   HDC      hDC          = ( HDC ) HB_PARNL( 2 );
-   int      nRow         = hb_parni( 3 );
-   int      nColumn      = hb_parni( 4 );
-   int      nWidth       = hb_parni( 5 );
+   HWND     hWnd         = ( HWND ) HB_PARNL(1);
+   HDC      hDC          = ( HDC ) HB_PARNL(2);
+   int      nRow         = hb_parni(3);
+   int      nColumn      = hb_parni(4);
+   int      nWidth       = hb_parni(5);
 #ifndef UNICODE
-   LPSTR    cData = ( LPSTR ) hb_parc( 6 );
+   LPSTR    cData = ( LPSTR ) hb_parc(6);
 #else
-   LPWSTR   cData = AnsiToWide( ( char * ) hb_parc( 6 ) );
+   LPWSTR   cData = AnsiToWide( ( char * ) hb_parc(6) );
 #endif
    int      nLen         = ( int ) lstrlen( cData );
-   DWORD    nAlign       = hb_parnl( 7 );
-   COLORREF clrFore      = hb_parnl( 8 );
-   COLORREF clrBack      = hb_parnl( 9 );
-   HFONT    hFont        = ( HFONT ) HB_PARNL( 10 );
-   HBITMAP  hBitMap      = ( HBITMAP ) HB_PARNL( 11 );
-   int      nHeightCell  = hb_parni( 12 );
-   BOOL     b3DLook      = hb_parl( 13 );
-   int      nLineStyle   = hb_parni( 14 );
-   COLORREF clrLine      = hb_parnl( 15 );
-   int      nHeadFoot    = hb_parni( 16 );
-   int      nHeightHead  = hb_parni( 17 );
-   int      nHeightFoot  = hb_parni( 18 );
-   int      nHeightSuper = hb_parni( 19 );
-   int      nHeightSpec  = hb_parni( 20 );
-   BOOL     bAdjBmp      = hb_parl( 21 );
-   BOOL     bMultiLine   = hb_parl( 22 );
-   int      nVAlign      = hb_parni( 23 );
-   int      nVertText    = hb_parni( 24 );
-   COLORREF clrTo        = hb_parnl( 25 );
-   BOOL     bOpaque      = hb_parl( 26 );
-   // HBRUSH   wBrush       = ( HBRUSH ) HB_PARNL( 27 );
-   BOOL     b3DInv       = ( HB_ISNIL( 28 ) ? FALSE : ! hb_parl( 28 ) );
-   BOOL     b3D          = ( HB_ISNIL( 28 ) ? FALSE : TRUE );
-   COLORREF nClr3DL      = hb_parnl( 29 );
-   COLORREF nClr3DS      = hb_parnl( 30 );
-   long     lCursor      = hb_parnl( 31 );
-   BOOL     bSelec       = ( HB_ISNIL( 32 ) ? FALSE : hb_parl( 32 ) );
-   int      nBitmapMask  = hb_parni( 33 ) ;  // SergKis 11.11.21
+   DWORD    nAlign       = hb_parnl(7);
+   COLORREF clrFore      = hb_parnl(8);
+   COLORREF clrBack      = hb_parnl(9);
+   HFONT    hFont        = ( HFONT ) HB_PARNL(10);
+   HBITMAP  hBitMap      = ( HBITMAP ) HB_PARNL(11);
+   int      nHeightCell  = hb_parni(12);
+   BOOL     b3DLook      = hb_parl(13);
+   int      nLineStyle   = hb_parni(14);
+   COLORREF clrLine      = hb_parnl(15);
+   int      nHeadFoot    = hb_parni(16);
+   int      nHeightHead  = hb_parni(17);
+   int      nHeightFoot  = hb_parni(18);
+   int      nHeightSuper = hb_parni(19);
+   int      nHeightSpec  = hb_parni(20);
+   BOOL     bAdjBmp      = hb_parl(21);
+   BOOL     bMultiLine   = hb_parl(22);
+   int      nVAlign      = hb_parni(23);
+   int      nVertText    = hb_parni(24);
+   COLORREF clrTo        = hb_parnl(25);
+   BOOL     bOpaque      = hb_parl(26);
+   // HBRUSH   wBrush       = ( HBRUSH ) HB_PARNL(27);
+   BOOL     b3DInv       = ( HB_ISNIL(28) ? FALSE : ! hb_parl(28) );
+   BOOL     b3D          = ( HB_ISNIL(28) ? FALSE : TRUE );
+   COLORREF nClr3DL      = hb_parnl(29);
+   COLORREF nClr3DS      = hb_parnl(30);
+   long     lCursor      = hb_parnl(31);
+   BOOL     bSelec       = ( HB_ISNIL(32) ? FALSE : hb_parl(32) );
+   int      nBitmapMask  = hb_parni(33) ;  // SergKis 11.11.21
 
-   int ixLayOut = HIWORD( nAlign );
-   int iAlign   = LOWORD( nAlign );
+   int ixLayOut = HIWORD(nAlign);
+   int iAlign   = LOWORD(nAlign);
 
    BOOL  bGrid      = ( nLineStyle > 0 ? TRUE : FALSE );
    BOOL  bHeader    = ( nHeadFoot == 1 ? TRUE : FALSE );
@@ -318,8 +318,8 @@ HB_FUNC( TSDRAWCELL )
    BOOL  bDegrad    = ( bBrush || clrTo == clrBack ? FALSE : TRUE );
    HFONT hOldFont   = NULL;
    BOOL  bDestroyDC = FALSE;
-   HPEN  hGrayPen   = CreatePen( PS_SOLID, 1, clrLine );
-   HPEN  hWhitePen  = CreatePen( PS_SOLID, 1, GetSysColor( COLOR_BTNHIGHLIGHT ) );
+   HPEN  hGrayPen   = CreatePen(PS_SOLID, 1, clrLine);
+   HPEN  hWhitePen  = CreatePen(PS_SOLID, 1, GetSysColor(COLOR_BTNHIGHLIGHT));
 
    RECT   rct;
    BITMAP bm;
@@ -328,7 +328,7 @@ HB_FUNC( TSDRAWCELL )
    int    iTxtW = 0;
    BOOL   bDraw = FALSE;
 
-   memset( &bm, 0, sizeof( BITMAP ) );
+   memset(&bm, 0, sizeof(BITMAP));
 
    if( GetTextExtentPoint32( hDC, cData, nLen, &size ) )
       iTxtW = size.cx;
@@ -336,16 +336,16 @@ HB_FUNC( TSDRAWCELL )
    if( ! hDC )
    {
       bDestroyDC = TRUE;
-      hDC        = GetDC( hWnd );
+      hDC        = GetDC(hWnd);
    }
 
    if( hFont )
-      hOldFont = ( HFONT ) SelectObject( hDC, hFont );
+      hOldFont = ( HFONT ) SelectObject(hDC, hFont);
 
-   GetClientRect( hWnd, &rct );
+   GetClientRect(hWnd, &rct);
 
-   SetTextColor( hDC, clrFore );
-   SetBkColor( hDC, clrBack );
+   SetTextColor(hDC, clrFore);
+   SetBkColor(hDC, clrBack);
    if( nRow == 0 )
    {
       if( bSpecHd )
@@ -377,21 +377,21 @@ HB_FUNC( TSDRAWCELL )
          rct.right  += 1;
 
          if( ! bBrush )
-            ExtTextOut( hDC, rct.left, rct.top, ETO_OPAQUE | ETO_CLIPPED, &rct, TEXT( "" ), 0, 0 );
+            ExtTextOut(hDC, rct.left, rct.top, ETO_OPAQUE | ETO_CLIPPED, &rct, TEXT(""), 0, 0);
 //       else
-//          FillRect( hDC, &rct, wBrush );
+//          FillRect(hDC, &rct, wBrush);
 
          rct.bottom -= ( bHeader ? 0 : 1 );
          rct.right  -= 1;
       }
       else
-         DegradColor( hDC, &rct, clrBack, clrTo );
+         DegradColor(hDC, &rct, clrBack, clrTo);
 
       if( hBitMap )
       {
          if( ! bAdjBmp )
          {
-            GetObject( hBitMap, sizeof( BITMAP ), ( LPSTR ) &bm );
+            GetObject(hBitMap, sizeof(BITMAP), ( LPSTR ) &bm);
             nTop = rct.top + ( ( rct.bottom - rct.top + 1 ) / 2 ) - ( bm.bmHeight / 2 );
 
             switch( ixLayOut )   // bitmap layout x coordinate
@@ -409,7 +409,7 @@ HB_FUNC( TSDRAWCELL )
                   break;
 
                case 3:           // left of centered text
-                  nLeft = HB_MAX( rct.left, rct.left + ( ( rct.right - rct.left + 1 ) / 2 ) - ( iTxtW / 2 ) - bm.bmWidth - 2 );
+                  nLeft = HB_MAX(rct.left, rct.left + ( ( rct.right - rct.left + 1 ) / 2 ) - ( iTxtW / 2 ) - bm.bmWidth - 2);
                   break;
 
                case 4:           // right of centered text
@@ -432,14 +432,14 @@ HB_FUNC( TSDRAWCELL )
             if( bAdjBmp )
             {
                nTop = rct.top + 1;
-               DrawBitmap( hDC, hBitMap, nTop, rct.left - 1, rct.right - rct.left + 1, rct.bottom - rct.top - 1, bSelec ? 0 : nBitmapMask );
+               DrawBitmap(hDC, hBitMap, nTop, rct.left - 1, rct.right - rct.left + 1, rct.bottom - rct.top - 1, bSelec ? 0 : nBitmapMask);
                hBitMap = 0;
 
                if( ! bOpaque )
-                  MaskRegion( hDC, &rct, GetPixel( hDC, nLeft, nTop ), GetBkColor( hDC ) );
+                  MaskRegion(hDC, &rct, GetPixel( hDC, nLeft, nTop ), GetBkColor(hDC));
             }
             else if( bOpaque )
-               DrawBitmap( hDC, hBitMap, nTop, nLeft, 0, 0, bSelec ? 0 : nBitmapMask );
+               DrawBitmap(hDC, hBitMap, nTop, nLeft, 0, 0, bSelec ? 0 : nBitmapMask);
             else
                DrawMasked( hDC, hBitMap, nTop, nLeft );
          }
@@ -447,14 +447,14 @@ HB_FUNC( TSDRAWCELL )
          {
             if( bAdjBmp )
             {
-               DrawBitmap( hDC, hBitMap, rct.top, rct.left - 2, rct.right - rct.left + 3, rct.bottom - rct.top - 1, bSelec ? 0 : nBitmapMask );
+               DrawBitmap(hDC, hBitMap, rct.top, rct.left - 2, rct.right - rct.left + 3, rct.bottom - rct.top - 1, bSelec ? 0 : nBitmapMask);
                hBitMap = 0;
 
                if( ! bOpaque )
-                  MaskRegion( hDC, &rct, GetPixel( hDC, nLeft, nTop ), GetBkColor( hDC ) );
+                  MaskRegion(hDC, &rct, GetPixel( hDC, nLeft, nTop ), GetBkColor(hDC));
             }
             else if( bOpaque )
-               DrawBitmap( hDC, hBitMap, nTop, nLeft, 0, 0, bSelec ? 0 : nBitmapMask );
+               DrawBitmap(hDC, hBitMap, nTop, nLeft, 0, 0, bSelec ? 0 : nBitmapMask);
             else
                DrawMasked( hDC, hBitMap, nTop, nLeft );
          }
@@ -477,7 +477,7 @@ HB_FUNC( TSDRAWCELL )
          iFlags = iAlign | DT_NOPREFIX | nVAlign * 4 | ( bMultiLine && nVAlign < 2 ? 0 : DT_SINGLELINE );
 
          if( ( nVertText == 3 || nVertText == 4 ) )
-            DrawCheck( hDC, &rct, hWhitePen, iAlign, bChecked );
+            DrawCheck(hDC, &rct, hWhitePen, iAlign, bChecked);
          else
          {
             nBkOld = SetBkMode( hDC, TRANSPARENT );
@@ -489,7 +489,7 @@ HB_FUNC( TSDRAWCELL )
                rct.bottom -= 1;
                rct.right  -= 1;
 
-               SetTextColor( hDC, b3DInv ? nClr3DS : nClr3DL );
+               SetTextColor(hDC, b3DInv ? nClr3DS : nClr3DL);
                DrawTextEx( hDC, cData, nLen, &rct, iFlags, NULL );
 
                rct.top    += 2;
@@ -497,7 +497,7 @@ HB_FUNC( TSDRAWCELL )
                rct.bottom += 2;
                rct.right  += 2;
 
-               SetTextColor( hDC, b3DInv ? nClr3DL : nClr3DS );
+               SetTextColor(hDC, b3DInv ? nClr3DL : nClr3DS);
                DrawTextEx( hDC, cData, nLen, &rct, iFlags, NULL );
 
                rct.top    -= 1;
@@ -505,7 +505,7 @@ HB_FUNC( TSDRAWCELL )
                rct.bottom -= 1;
                rct.right  -= 1;
 
-               SetTextColor( hDC, clrFore );
+               SetTextColor(hDC, clrFore);
             }
 
             DrawTextEx( hDC, cData, nLen, &rct, iFlags, NULL );
@@ -533,7 +533,7 @@ HB_FUNC( TSDRAWCELL )
             WndBoxDraw( hDC, &rct, hWhitePen, hGrayPen, b3DLook ? 4 : nLineStyle, bHeader );
 
          if( lCursor )
-            cDrawCursor( hWnd, &rct, lCursor, clrFore );
+            cDrawCursor(hWnd, &rct, lCursor, clrFore);
       }
       else
       {
@@ -543,31 +543,31 @@ HB_FUNC( TSDRAWCELL )
             WndBoxDraw( hDC, &rct, hGrayPen, hGrayPen, nLineStyle, bHeader );
 
          if( lCursor )
-            cDrawCursor( hWnd, &rct, lCursor, clrFore );
+            cDrawCursor(hWnd, &rct, lCursor, clrFore);
       }
 
       bDraw = TRUE;
    }
 
-   DeleteObject( hGrayPen );
-   DeleteObject( hWhitePen );
+   DeleteObject(hGrayPen);
+   DeleteObject(hWhitePen);
 
    hb_retl( bDraw );
 
 #ifdef UNICODE
-   hb_xfree( ( TCHAR * ) cData );
+   hb_xfree(( TCHAR * ) cData);
 #endif
    if( hFont )
-      SelectObject( hDC, hOldFont );
+      SelectObject(hDC, hOldFont);
 
    if( bDestroyDC )
-      ReleaseDC( hWnd, hDC );
+      ReleaseDC(hWnd, hDC);
 }
 
 void WndBoxDraw( HDC hDC, RECT * rct, HPEN hPUpLeft, HPEN hPBotRit, int nLineStyle, BOOL bHeader )
 {
-   HPEN hOldPen = ( HPEN ) SelectObject( hDC, hPUpLeft );
-   HPEN hBlack  = CreatePen( PS_SOLID, 1, 0 );
+   HPEN hOldPen = ( HPEN ) SelectObject(hDC, hPUpLeft);
+   HPEN hBlack  = CreatePen(PS_SOLID, 1, 0);
 
    switch( nLineStyle )
    {
@@ -575,7 +575,7 @@ void WndBoxDraw( HDC hDC, RECT * rct, HPEN hPUpLeft, HPEN hPBotRit, int nLineSty
          break;
 
       case 1:
-         SelectObject( hDC, hPBotRit );
+         SelectObject(hDC, hPBotRit);
          GoToPoint( hDC, rct->left, rct->bottom - ( bHeader ? 1 : 0 ) );
          LineTo( hDC, rct->right - 1, rct->bottom - ( bHeader ? 1 : 0 ) );
          LineTo( hDC, rct->right - 1, rct->top - 1 );
@@ -584,23 +584,23 @@ void WndBoxDraw( HDC hDC, RECT * rct, HPEN hPUpLeft, HPEN hPBotRit, int nLineSty
          break;
 
       case 2:
-         SelectObject( hDC, hPBotRit );
+         SelectObject(hDC, hPBotRit);
          GoToPoint( hDC, rct->right - 1, rct->bottom );
          LineTo( hDC, rct->right - 1, rct->top - 1 );
          break;
 
       case 3:
-         SelectObject( hDC, hPBotRit );
+         SelectObject(hDC, hPBotRit);
          GoToPoint( hDC, rct->left, rct->bottom );
          LineTo( hDC, rct->right, rct->bottom );
          break;
 
       case 4:
-         SelectObject( hDC, hPUpLeft );
+         SelectObject(hDC, hPUpLeft);
          GoToPoint( hDC, rct->left, rct->bottom );
          LineTo( hDC, rct->left, rct->top );
          LineTo( hDC, rct->right, rct->top );
-         SelectObject( hDC, hPBotRit );
+         SelectObject(hDC, hPBotRit);
          GoToPoint( hDC, rct->left, rct->bottom - ( bHeader ? 1 : 0 ) );
          LineTo( hDC, rct->right - 1, rct->bottom - ( bHeader ? 1 : 0 ) );
          LineTo( hDC, rct->right - 1, rct->top - 1 );
@@ -611,33 +611,33 @@ void WndBoxDraw( HDC hDC, RECT * rct, HPEN hPUpLeft, HPEN hPBotRit, int nLineSty
          rct->left   += 1;
          rct->bottom -= 1;
          rct->right  -= 1;
-         DrawFocusRect( hDC, rct );
+         DrawFocusRect(hDC, rct);
          break;
    }
 
-   SelectObject( hDC, hOldPen );
-   DeleteObject( hBlack );
+   SelectObject(hDC, hOldPen);
+   DeleteObject(hBlack);
 }
 
 HB_FUNC( TSBRWSCROLL )
 {
-   HWND  hWnd          = ( HWND ) HB_PARNL( 1 );
-   int   iRows         = hb_parni( 2 );
-   HFONT hFont         = ( HFONT ) HB_PARNL( 3 );
-   int   nHeightCell   = hb_parni( 4 );
-   int   nHeightHead   = hb_parni( 5 );
-   int   nHeightFoot   = hb_parni( 6 );
-   int   nHeightSuper  = hb_parni( 7 );
-   int   nHeightSpecHd = hb_parni( 8 );
+   HWND  hWnd          = ( HWND ) HB_PARNL(1);
+   int   iRows         = hb_parni(2);
+   HFONT hFont         = ( HFONT ) HB_PARNL(3);
+   int   nHeightCell   = hb_parni(4);
+   int   nHeightHead   = hb_parni(5);
+   int   nHeightFoot   = hb_parni(6);
+   int   nHeightSuper  = hb_parni(7);
+   int   nHeightSpecHd = hb_parni(8);
 
    HFONT hOldFont = NULL;
-   HDC   hDC      = GetDC( hWnd );
+   HDC   hDC      = GetDC(hWnd);
    RECT  rct;
 
    if( hFont )
-      hOldFont = ( HFONT ) SelectObject( hDC, hFont );
+      hOldFont = ( HFONT ) SelectObject(hDC, hFont);
 
-   GetClientRect( hWnd, &rct );
+   GetClientRect(hWnd, &rct);
 
    rct.top    += ( nHeightHead + nHeightSuper - ( nHeightSuper ? 1 : 0 ) + nHeightSpecHd - ( nHeightSpecHd ? 1 : 0 ) ); // exclude heading from scrolling
    rct.bottom -= nHeightFoot;                                                                                           // exclude footing from scrolling
@@ -650,22 +650,22 @@ HB_FUNC( TSBRWSCROLL )
    ScrollWindowEx( hWnd, 0, ( int ) -( nHeightCell * iRows ), 0, &rct, 0, 0, 0 );
 
    if( hFont )
-      SelectObject( hDC, hOldFont );
+      SelectObject(hDC, hOldFont);
 
-   ReleaseDC( hWnd, hDC );
+   ReleaseDC(hWnd, hDC);
 }
 
 HB_FUNC( TSBRWHSCROLL )
 {
-   HWND hWnd   = ( HWND ) HB_PARNL( 1 );
-   int  iCols  = hb_parni( 2 );
-   int  nLeft  = hb_parni( 3 );
-   int  nRight = hb_parni( 4 );
+   HWND hWnd   = ( HWND ) HB_PARNL(1);
+   int  iCols  = hb_parni(2);
+   int  nLeft  = hb_parni(3);
+   int  nRight = hb_parni(4);
 
-   HDC  hDC = GetDC( hWnd );
+   HDC  hDC = GetDC(hWnd);
    RECT rct;
 
-   GetClientRect( hWnd, &rct );
+   GetClientRect(hWnd, &rct);
 
    if( nLeft )
       rct.left = nLeft;
@@ -675,23 +675,23 @@ HB_FUNC( TSBRWHSCROLL )
 
    ScrollWindowEx( hWnd, iCols, 0, 0, &rct, 0, 0, 0 );
 
-   ReleaseDC( hWnd, hDC );
+   ReleaseDC(hWnd, hDC);
 }
 
 HB_FUNC( ROWFROMPIX )
 {
-   HWND hWnd  = ( HWND ) HB_PARNL( 1 );
-   int  iPixR = hb_parni( 2 );
-   int  iCell = hb_parni( 3 );
-   int  iHead = hb_parni( 4 );
-   int  iFoot = hb_parni( 5 );
-   int  iSupH = hb_parni( 6 );
-   int  iSpcH = hb_parni( 7 );
+   HWND hWnd  = ( HWND ) HB_PARNL(1);
+   int  iPixR = hb_parni(2);
+   int  iCell = hb_parni(3);
+   int  iHead = hb_parni(4);
+   int  iFoot = hb_parni(5);
+   int  iSupH = hb_parni(6);
+   int  iSpcH = hb_parni(7);
 
    RECT rct;
    int  iRow;
 
-   GetClientRect( hWnd, &rct );
+   GetClientRect(hWnd, &rct);
 
    if( iPixR <= ( rct.top + iHead + iSupH ) )
       iRow = 0;
@@ -710,53 +710,53 @@ HB_FUNC( ROWFROMPIX )
 
 HB_FUNC( SBGETHEIGHT )   // ( hWnd, hFont, nTotal )
 {
-   HWND  hWnd   = ( HWND ) HB_PARNL( 1 );
-   HFONT hFont  = ( HFONT ) HB_PARNL( 2 );
-   int   iTotal = hb_parni( 3 );
+   HWND  hWnd   = ( HWND ) HB_PARNL(1);
+   HFONT hFont  = ( HFONT ) HB_PARNL(2);
+   int   iTotal = hb_parni(3);
 
    TEXTMETRIC tm;
 
    RECT  rct;
-   HDC   hDC = GetDC( hWnd );
+   HDC   hDC = GetDC(hWnd);
    HFONT hOldFont = NULL;
    LONG  lTotHeight, lReturn;
 
    if( iTotal < 2 )
    {
       if( hFont )
-         hOldFont = ( HFONT ) SelectObject( hDC, hFont );
+         hOldFont = ( HFONT ) SelectObject(hDC, hFont);
 
       GetTextMetrics( hDC, &tm );
       if( hFont )
-         SelectObject( hDC, hOldFont );
+         SelectObject(hDC, hOldFont);
 
-      ReleaseDC( hWnd, hDC );
+      ReleaseDC(hWnd, hDC);
       lReturn = ( iTotal == 1 ? tm.tmAveCharWidth : tm.tmHeight );
       hb_retnl( lReturn );
    }
    else
    {
-      GetWindowRect( hWnd, &rct );
+      GetWindowRect(hWnd, &rct);
       lTotHeight = rct.bottom - rct.top + 1;
-      ReleaseDC( hWnd, hDC );
+      ReleaseDC(hWnd, hDC);
       hb_retnl( lTotHeight );
    }
 }
 
 HB_FUNC( COUNTROWS )     // ( hWnd, nHeightCell, nHeightHead, nHeightFoot, nHeightSuper, nHeightSpec ) -> nRows
 {
-   HWND hWnd  = ( HWND ) HB_PARNL( 1 );
-   int  iCell = hb_parni( 2 );
+   HWND hWnd  = ( HWND ) HB_PARNL(1);
+   int  iCell = hb_parni(2);
 
-   int iHead = hb_parni( 3 );
-   int iFoot = hb_parni( 4 );
-   int iSupH = hb_parni( 5 );
-   int iSpcH = hb_parni( 6 );
+   int iHead = hb_parni(3);
+   int iFoot = hb_parni(4);
+   int iSupH = hb_parni(5);
+   int iSpcH = hb_parni(6);
 
    RECT rct;
    int  iRows, iFree;
 
-   GetClientRect( hWnd, &rct );
+   GetClientRect(hWnd, &rct);
 
    iFree = rct.bottom - iSupH - iHead - iFoot - iSpcH;
    iRows = iFree / iCell;
@@ -766,37 +766,37 @@ HB_FUNC( COUNTROWS )     // ( hWnd, nHeightCell, nHeightHead, nHeightFoot, nHeig
 
 HB_FUNC( SBMPHEIGHT )    // ( hBmp )
 {
-   HBITMAP hBmp = ( HBITMAP ) HB_PARNL( 1 );
+   HBITMAP hBmp = ( HBITMAP ) HB_PARNL(1);
    BITMAP  bm;
 
-   GetObject( hBmp, sizeof( BITMAP ), ( LPSTR ) &bm );
+   GetObject(hBmp, sizeof(BITMAP), ( LPSTR ) &bm);
 
    hb_retni( bm.bmHeight );
 }
 
 HB_FUNC( SBMPWIDTH )
 {
-   HBITMAP hBmp = ( HBITMAP ) HB_PARNL( 1 );
+   HBITMAP hBmp = ( HBITMAP ) HB_PARNL(1);
    BITMAP  bm;
 
-   GetObject( hBmp, sizeof( BITMAP ), ( LPSTR ) &bm );
+   GetObject(hBmp, sizeof(BITMAP), ( LPSTR ) &bm);
 
    hb_retni( bm.bmWidth );
 }
 
-static void DrawCheck( HDC hDC, LPRECT rct, HPEN hWhitePen, int nAlign, BOOL bChecked )
+static void DrawCheck(HDC hDC, LPRECT rct, HPEN hWhitePen, int nAlign, BOOL bChecked)
 {
    RECT   lrct;
    HPEN   hOldPen;
    HBRUSH hOldBrush;
 
-   HBRUSH hGrayBrush  = CreateSolidBrush( RGB( 192, 192, 192 ) );
-   HBRUSH hWhiteBrush = CreateSolidBrush( RGB( 255, 255, 255 ) );
-   HPEN   hBlackPen   = CreatePen( PS_SOLID, 1, RGB( 0, 0, 0 ) );
-   HPEN   hLGrayPen   = CreatePen( PS_SOLID, 1, RGB( 192, 192, 192 ) );
-   HPEN   hGrayPen    = CreatePen( PS_SOLID, 1, RGB( 128, 128, 128 ) );
+   HBRUSH hGrayBrush  = CreateSolidBrush(RGB(192, 192, 192));
+   HBRUSH hWhiteBrush = CreateSolidBrush(RGB(255, 255, 255));
+   HPEN   hBlackPen   = CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
+   HPEN   hLGrayPen   = CreatePen(PS_SOLID, 1, RGB(192, 192, 192));
+   HPEN   hGrayPen    = CreatePen(PS_SOLID, 1, RGB(128, 128, 128));
 
-   hOldBrush = ( HBRUSH ) SelectObject( hDC, hGrayBrush );
+   hOldBrush = ( HBRUSH ) SelectObject(hDC, hGrayBrush);
 
    lrct.top = rct->top + ( ( ( rct->bottom - rct->top + 1 ) / 2 ) - 8 );
 
@@ -816,7 +816,7 @@ static void DrawCheck( HDC hDC, LPRECT rct, HPEN hWhitePen, int nAlign, BOOL bCh
    lrct.right  += 1;
    lrct.bottom += 1;
 
-   hOldPen = ( HPEN ) SelectObject( hDC, hBlackPen );
+   hOldPen = ( HPEN ) SelectObject(hDC, hBlackPen);
    Rectangle( hDC, lrct.left, lrct.top, lrct.right, lrct.bottom );
 
    lrct.left   += 1;
@@ -824,23 +824,23 @@ static void DrawCheck( HDC hDC, LPRECT rct, HPEN hWhitePen, int nAlign, BOOL bCh
    lrct.right  -= 1;
    lrct.bottom -= 1;
 
-   FillRect( hDC, &lrct, hGrayBrush );
+   FillRect(hDC, &lrct, hGrayBrush);
 
    lrct.top    += 2;
    lrct.left   += 2;
    lrct.right  -= 1;
    lrct.bottom -= 1;
 
-   FillRect( hDC, &lrct, hWhiteBrush );
+   FillRect(hDC, &lrct, hWhiteBrush);
 
-   SelectObject( hDC, hOldBrush );
-   DeleteObject( hGrayBrush );
-   DeleteObject( hWhiteBrush );
+   SelectObject(hDC, hOldBrush);
+   DeleteObject(hGrayBrush);
+   DeleteObject(hWhiteBrush);
 
    lrct.right  -= 1;
    lrct.bottom -= 1;
 
-   SelectObject( hDC, hGrayPen );
+   SelectObject(hDC, hGrayPen);
    Rectangle( hDC, lrct.left, lrct.top, lrct.right, lrct.bottom );
 
    lrct.top    += 1;
@@ -848,13 +848,13 @@ static void DrawCheck( HDC hDC, LPRECT rct, HPEN hWhitePen, int nAlign, BOOL bCh
    lrct.right  -= 1;
    lrct.bottom -= 1;
 
-   SelectObject( hDC, hBlackPen );
+   SelectObject(hDC, hBlackPen);
    Rectangle( hDC, lrct.left, lrct.top, lrct.right, lrct.bottom );
 
    lrct.top  += 1;
    lrct.left += 1;
 
-   SelectObject( hDC, hWhitePen );
+   SelectObject(hDC, hWhitePen);
    Rectangle( hDC, lrct.left, lrct.top, lrct.right, lrct.bottom );
 
    lrct.top    += 1;
@@ -865,7 +865,7 @@ static void DrawCheck( HDC hDC, LPRECT rct, HPEN hWhitePen, int nAlign, BOOL bCh
    {
       GoToPoint( hDC, lrct.right, lrct.top );
 
-      SelectObject( hDC, hBlackPen );
+      SelectObject(hDC, hBlackPen);
 
       LineTo( hDC, lrct.right - 4, lrct.bottom - 3 );
       LineTo( hDC, lrct.right - 6, lrct.bottom - 5 );
@@ -879,10 +879,10 @@ static void DrawCheck( HDC hDC, LPRECT rct, HPEN hWhitePen, int nAlign, BOOL bCh
       LineTo( hDC, lrct.right - 6, lrct.bottom - 3 );
    }
 
-   SelectObject( hDC, hOldPen );
-   DeleteObject( hGrayPen );
-   DeleteObject( hLGrayPen );
-   DeleteObject( hBlackPen );
+   SelectObject(hDC, hOldPen);
+   DeleteObject(hGrayPen);
+   DeleteObject(hLGrayPen);
+   DeleteObject(hBlackPen);
 }
 
 static void GoToPoint( HDC hDC, int ix, int iy )
@@ -892,7 +892,7 @@ static void GoToPoint( HDC hDC, int ix, int iy )
    MoveToEx( hDC, ix, iy, &pt );
 }
 
-static void DegradColor( HDC hDC, RECT * rori, COLORREF cFrom, signed long cTo )
+static void DegradColor(HDC hDC, RECT * rori, COLORREF cFrom, signed long cTo)
 {
    float  clr1r, clr1g, clr1b, clr2r, clr2g, clr2b;
    float  iEle, iRed, iGreen, iBlue;
@@ -906,14 +906,14 @@ static void DegradColor( HDC hDC, RECT * rori, COLORREF cFrom, signed long cTo )
    rct.bottom = rori->bottom;
    rct.right  = rori->right;
 
-   clr1r = GetRValue( cFrom );
-   clr1g = GetGValue( cFrom );
-   clr1b = GetBValue( cFrom );
+   clr1r = GetRValue(cFrom);
+   clr1g = GetGValue(cFrom);
+   clr1b = GetBValue(cFrom);
 
    cTo   = ( cTo < 0 ? -cTo : cTo );
-   clr2r = GetRValue( cTo );
-   clr2g = GetGValue( cTo );
-   clr2b = GetBValue( cTo );
+   clr2r = GetRValue(cTo);
+   clr2g = GetGValue(cTo);
+   clr2b = GetBValue(cTo);
 
    iRed   = clr2r - clr1r;
    iGreen = clr2g - clr1g;
@@ -932,9 +932,9 @@ static void DegradColor( HDC hDC, RECT * rori, COLORREF cFrom, signed long cTo )
    else
       rct.right = rct.left + 1;
 
-   hBrush    = CreateSolidBrush( RGB( clr1r, clr1g, clr1b ) );
-   hOldBrush = ( HBRUSH ) SelectObject( hDC, hBrush );
-   FillRect( hDC, &rct, hBrush );
+   hBrush    = CreateSolidBrush(RGB(clr1r, clr1g, clr1b));
+   hOldBrush = ( HBRUSH ) SelectObject(hDC, hBrush);
+   FillRect(hDC, &rct, hBrush);
 
    for( iEle = 1; iEle < iTot; iEle++ )
    {
@@ -962,11 +962,11 @@ static void DegradColor( HDC hDC, RECT * rori, COLORREF cFrom, signed long cTo )
 
       clr1b = ( clr1b < 0 ? 0 : clr1b > 255 ? 255 : clr1b );
 
-      SelectObject( hDC, hOldBrush );
-      DeleteObject( hBrush );
-      hBrush = CreateSolidBrush( RGB( clr1r, clr1g, clr1b ) );
-      SelectObject( hDC, hBrush );
-      FillRect( hDC, &rct, hBrush );
+      SelectObject(hDC, hOldBrush);
+      DeleteObject(hBrush);
+      hBrush = CreateSolidBrush(RGB(clr1r, clr1g, clr1b));
+      SelectObject(hDC, hBrush);
+      FillRect(hDC, &rct, hBrush);
 
       if( ! bHoriz )
       {
@@ -980,27 +980,27 @@ static void DegradColor( HDC hDC, RECT * rori, COLORREF cFrom, signed long cTo )
       }
    }
 
-   SelectObject( hDC, hOldBrush );
-   DeleteObject( hBrush );
+   SelectObject(hDC, hOldBrush);
+   DeleteObject(hBrush);
 }
 
-void cDrawCursor( HWND hWnd, RECT * rctc, long lCursor, COLORREF nClr )
+void cDrawCursor(HWND hWnd, RECT * rctc, long lCursor, COLORREF nClr)
 {
-   HDC      hDC = GetDC( hWnd );
+   HDC      hDC = GetDC(hWnd);
    HRGN     hReg;
-   COLORREF lclr = ( lCursor == 1 ? RGB( 5, 5, 5 ) : lCursor == 2 ? nClr : ( COLORREF ) lCursor );
+   COLORREF lclr = ( lCursor == 1 ? RGB(5, 5, 5) : lCursor == 2 ? nClr : ( COLORREF ) lCursor );
    HBRUSH   hBr;
    RECT     rct;
 
    if( lCursor != 3 )
    {
-      hBr  = CreateSolidBrush( lclr );
-      hReg = CreateRectRgn( rctc->left, rctc->top, rctc->right - 1, rctc->bottom );
+      hBr  = CreateSolidBrush(lclr);
+      hReg = CreateRectRgn(rctc->left, rctc->top, rctc->right - 1, rctc->bottom);
 
-      FrameRgn( hDC, hReg, hBr, 2, 2 );
+      FrameRgn(hDC, hReg, hBr, 2, 2);
 
-      DeleteObject( hReg );
-      DeleteObject( hBr );
+      DeleteObject(hReg);
+      DeleteObject(hBr);
    }
    else
    {
@@ -1009,21 +1009,21 @@ void cDrawCursor( HWND hWnd, RECT * rctc, long lCursor, COLORREF nClr )
       rct.bottom = rctc->bottom - 1;
       rct.right  = rctc->right - 1;
 
-      DrawFocusRect( hDC, &rct );
+      DrawFocusRect(hDC, &rct);
    }
 
-   ReleaseDC( hWnd, hDC );
+   ReleaseDC(hWnd, hDC);
 }
 
 HB_FUNC( GETSCRLRANGE )  // ( hWnd, nFlags )
 {
    int iMin = 0, iMax = 0;
 
-   GetScrollRange( ( HWND ) HB_PARNL( 1 ), // its hWnd
-                   hb_parni( 2 ),          // Scroll bar flags
+   GetScrollRange( ( HWND ) HB_PARNL(1), // its hWnd
+                   hb_parni(2),          // Scroll bar flags
                    &iMin, &iMax );
 
-   hb_reta( 2 );  // { nMin, nMax }
+   hb_reta(2);  // { nMin, nMax }
    HB_STORNI( iMin, -1, 1 );
    HB_STORNI( iMax, -1, 2 );
 }
@@ -1038,18 +1038,18 @@ HB_FUNC( INITEDSPINNER )
 
    INITCOMMONCONTROLSEX i;
 
-   i.dwSize = sizeof( INITCOMMONCONTROLSEX );
+   i.dwSize = sizeof(INITCOMMONCONTROLSEX);
    i.dwICC  = ICC_UPDOWN_CLASS;
    InitCommonControlsEx( &i );
 
-   hwnd  = ( HWND ) HB_PARNL( 1 );
-   hedit = ( HWND ) HB_PARNL( 2 );
+   hwnd  = ( HWND ) HB_PARNL(1);
+   hedit = ( HWND ) HB_PARNL(2);
 
-   iMin  = hb_parni( 7 );
-   iMax  = hb_parni( 8 );
+   iMin  = hb_parni(7);
+   iMax  = hb_parni(8);
 
-   hupdown = CreateUpDownControl( Style, hb_parni( 3 ), hb_parni( 4 ), hb_parni( 5 ), hb_parni( 6 ), hwnd, 0, GetModuleHandle( NULL ),
-                                  hedit, iMax, iMin, hb_parni( 9 ) );
+   hupdown = CreateUpDownControl( Style, hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6), hwnd, 0, GetModuleHandle(NULL),
+                                  hedit, iMax, iMin, hb_parni(9) );
 
    SendMessage( hupdown, UDM_SETRANGE32, ( WPARAM ) iMin, ( LPARAM ) iMax );
 
@@ -1060,10 +1060,10 @@ HB_FUNC( SETINCREMENTSPINNER )
 {
    UDACCEL inc;
 
-   SendMessage( ( HWND ) HB_PARNL( 1 ), UDM_GETACCEL, ( WPARAM ) 1, ( LPARAM ) &inc );
+   SendMessage( ( HWND ) HB_PARNL(1), UDM_GETACCEL, ( WPARAM ) 1, ( LPARAM ) &inc );
 
    inc.nSec = 1;
-   inc.nInc = hb_parni( 2 );
+   inc.nInc = hb_parni(2);
 
-   SendMessage( ( HWND ) HB_PARNL( 1 ), UDM_SETACCEL, ( WPARAM ) 1, ( LPARAM ) &inc );
+   SendMessage( ( HWND ) HB_PARNL(1), UDM_SETACCEL, ( WPARAM ) 1, ( LPARAM ) &inc );
 }

@@ -67,70 +67,70 @@ HINSTANCE GetInstance( void );
 HB_FUNC( INITLABEL )
 {
    HWND hWnd;
-   HWND hWndParent = ( HWND ) HB_PARNL( 1 );
+   HWND hWndParent = ( HWND ) HB_PARNL(1);
 
    int Style   = WS_CHILD;
    int ExStyle = 0;
 
 #ifndef UNICODE
-   LPCSTR lpWindowName = hb_parc( 2 );
+   LPCSTR lpWindowName = hb_parc(2);
 #else
-   LPCWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc( 2 ) );
+   LPCWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
 
-   if( hb_parl( 9 ) || hb_parl( 10 ) )
+   if( hb_parl(9) || hb_parl(10) )
       Style |= SS_NOTIFY;
 
-   if( hb_parl( 11 ) )
+   if( hb_parl(11) )
       Style |= WS_BORDER;
 
-   if( hb_parl( 13 ) )
+   if( hb_parl(13) )
       Style |= WS_HSCROLL;
 
-   if( hb_parl( 14 ) )
+   if( hb_parl(14) )
       Style |= WS_VSCROLL;
 
-   if( ! hb_parl( 16 ) )
+   if( ! hb_parl(16) )
       Style |= WS_VISIBLE;
 
-   if( hb_parl( 17 ) )
+   if( hb_parl(17) )
       Style |= ES_RIGHT;
 
-   if( hb_parl( 18 ) )
+   if( hb_parl(18) )
       Style |= ES_CENTER;
 
-   if( hb_parl( 19 ) )
+   if( hb_parl(19) )
       Style |= SS_CENTERIMAGE;
 
-   if( hb_parl( 20 ) )
+   if( hb_parl(20) )
       Style |= SS_NOPREFIX;
 
-   if( hb_parl( 12 ) )
+   if( hb_parl(12) )
       ExStyle |= WS_EX_CLIENTEDGE;
 
-   if( hb_parl( 15 ) )
+   if( hb_parl(15) )
       ExStyle |= WS_EX_TRANSPARENT;
 
    hWnd = CreateWindowEx( ExStyle,
                           WC_STATIC,
                           lpWindowName,
                           Style,
-                          hb_parni( 4 ),
-                          hb_parni( 5 ),
-                          hb_parni( 6 ),
-                          hb_parni( 7 ),
+                          hb_parni(4),
+                          hb_parni(5),
+                          hb_parni(6),
+                          hb_parni(7),
                           hWndParent,
-                          ( HMENU ) HB_PARNL( 3 ),
+                          ( HMENU ) HB_PARNL(3),
                           GetInstance(),
                           NULL );
 
-   if( hb_parl( 10 ) )
-      LabelOldWndProc = ( WNDPROC ) SetWindowLongPtr( ( HWND ) hWnd, GWLP_WNDPROC, ( LONG_PTR ) LabelSubClassFunc );
+   if( hb_parl(10) )
+      LabelOldWndProc = ( WNDPROC ) SetWindowLongPtr(( HWND ) hWnd, GWLP_WNDPROC, ( LONG_PTR ) LabelSubClassFunc);
 
    HB_RETNL( ( LONG_PTR ) hWnd );
 
 #ifdef UNICODE
-   hb_xfree( ( TCHAR * ) lpWindowName );
+   hb_xfree(( TCHAR * ) lpWindowName);
 #endif
 }
 
@@ -151,7 +151,7 @@ LRESULT APIENTRY LabelSubClassFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM l
       {
          if( bMouseTracking == FALSE )
          {
-            tme.cbSize      = sizeof( TRACKMOUSEEVENT );
+            tme.cbSize      = sizeof(TRACKMOUSEEVENT);
             tme.dwFlags     = TME_LEAVE;
             tme.hwndTrack   = hWnd;
             tme.dwHoverTime = HOVER_DEFAULT;
@@ -193,7 +193,7 @@ LRESULT APIENTRY LabelSubClassFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM l
          hb_vmPushLong( Msg );
          hb_vmPushNumInt( wParam );
          hb_vmPushNumInt( lParam );
-         hb_vmDo( 4 );
+         hb_vmDo(4);
 
          r = hb_parnl( -1 );
 

@@ -60,35 +60,35 @@ HB_FUNC( INITSLIDER )
 
    INITCOMMONCONTROLSEX i;
 
-   i.dwSize = sizeof( INITCOMMONCONTROLSEX );
+   i.dwSize = sizeof(INITCOMMONCONTROLSEX);
    i.dwICC  = ICC_BAR_CLASSES;
    InitCommonControlsEx( &i );
 
-   if( hb_parl( 9 ) )
+   if( hb_parl(9) )
       Style |= TBS_VERT;
 
-   Style |= ( hb_parl( 10 ) ? TBS_NOTICKS : TBS_AUTOTICKS );
+   Style |= ( hb_parl(10) ? TBS_NOTICKS : TBS_AUTOTICKS );
 
-   if( hb_parl( 11 ) )
+   if( hb_parl(11) )
       Style |= TBS_BOTH;
 
-   if( hb_parl( 12 ) )
+   if( hb_parl(12) )
       Style |= TBS_TOP;
 
-   if( hb_parl( 13 ) )
+   if( hb_parl(13) )
       Style |= TBS_LEFT;
 
-   if( ! hb_parl( 14 ) )
+   if( ! hb_parl(14) )
       Style |= WS_VISIBLE;
 
-   if( ! hb_parl( 15 ) )
+   if( ! hb_parl(15) )
       Style |= WS_TABSTOP;
 
-   if( hb_parl( 16 ) )  /* P.Ch. 16.10 */
+   if( hb_parl(16) )  /* P.Ch. 16.10 */
    {
       Style  |= TBS_ENABLESELRANGE;
-      iSelMin = HB_MIN( hb_parnidef( 17, 0 ), hb_parnidef( 18, 0 ) );
-      iSelMax = HB_MAX( hb_parnidef( 17, 0 ), hb_parnidef( 18, 0 ) );
+      iSelMin = HB_MIN(hb_parnidef( 17, 0 ), hb_parnidef( 18, 0 ));
+      iSelMax = HB_MAX(hb_parnidef( 17, 0 ), hb_parnidef( 18, 0 ));
    }
 
    hTrackBar = CreateWindow
@@ -96,19 +96,19 @@ HB_FUNC( INITSLIDER )
       TRACKBAR_CLASS,
       0,
       Style,
-      hb_parni( 3 ),
-      hb_parni( 4 ),
-      hb_parni( 5 ),
-      hb_parni( 6 ),
-      ( HWND ) HB_PARNL( 1 ),
-      ( HMENU ) HB_PARNL( 2 ),
+      hb_parni(3),
+      hb_parni(4),
+      hb_parni(5),
+      hb_parni(6),
+      ( HWND ) HB_PARNL(1),
+      ( HMENU ) HB_PARNL(2),
       GetInstance(),
       NULL
                );
 
-   SendMessage( hTrackBar, TBM_SETRANGE, ( WPARAM ) TRUE, MAKELONG( hb_parni( 7 ), hb_parni( 8 ) ) );
+   SendMessage( hTrackBar, TBM_SETRANGE, ( WPARAM ) TRUE, MAKELONG( hb_parni(7), hb_parni(8) ) );
 
-   if( ( hb_parl( 16 ) ) && ( iSelMin != iSelMax ) )
+   if( ( hb_parl(16) ) && ( iSelMin != iSelMax ) )
    {
       SendMessage( hTrackBar, TBM_SETSEL, ( WPARAM ) TRUE, MAKELONG( iSelMin, iSelMax ) );  /* P.Ch. 16.10 */
    }

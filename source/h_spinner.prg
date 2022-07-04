@@ -243,7 +243,7 @@ FUNCTION OSPINEVENTS( hWnd, nMsg, wParam, lParam )    // 2006.08.13 JD
 
             _HMG_xControlsContextMenuID := _HMG_aControlsContextMenu [i][3]
 
-            TrackPopupMenu ( _HMG_aControlsContextMenu [i][2], LOWORD( lParam ), HIWORD( lParam ), ParentForm )
+            TrackPopupMenu ( _HMG_aControlsContextMenu [i][2], LOWORD(lParam), HIWORD(lParam), ParentForm )
 
             RETURN 1
          ENDIF

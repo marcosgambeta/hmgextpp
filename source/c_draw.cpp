@@ -56,22 +56,22 @@
 WINGDIAPI BOOL WINAPI GdiFlush( void );
 #endif
 
-extern HB_EXPORT BOOL Array2ColorRef( PHB_ITEM aCRef, COLORREF * cr );
-extern HB_EXPORT BOOL Array2Rect( PHB_ITEM aRect, RECT * rc );
+extern HB_EXPORT BOOL Array2ColorRef(PHB_ITEM aCRef, COLORREF * cr);
+extern HB_EXPORT BOOL Array2Rect(PHB_ITEM aRect, RECT * rc);
 extern HB_EXPORT PHB_ITEM Rect2Array( RECT * rc );
 
 
 HB_FUNC( BEGINPAINT )
 {
-   HWND hWnd = ( HWND ) ( LONG_PTR ) HB_PARNL( 1 );
+   HWND hWnd = ( HWND ) ( LONG_PTR ) HB_PARNL(1);
 
-   if( IsWindow( hWnd ) )
+   if( IsWindow(hWnd) )
    {
       PAINTSTRUCT ps;
 
       HB_RETNL( ( LONG_PTR ) BeginPaint( hWnd, &ps ) );
 
-      hb_storclen( ( const char * ) &ps, sizeof( PAINTSTRUCT ), 2 );
+      hb_storclen( ( const char * ) &ps, sizeof(PAINTSTRUCT), 2 );
    }
    else
       HB_RETNL( ( LONG_PTR ) NULL );
@@ -79,10 +79,10 @@ HB_FUNC( BEGINPAINT )
 
 HB_FUNC( ENDPAINT )
 {
-   HWND hWnd         = ( HWND ) ( LONG_PTR ) HB_PARNL( 1 );
-   PAINTSTRUCT * pps = ( PAINTSTRUCT * ) hb_parc( 2 );
+   HWND hWnd         = ( HWND ) ( LONG_PTR ) HB_PARNL(1);
+   PAINTSTRUCT * pps = ( PAINTSTRUCT * ) hb_parc(2);
 
-   if( IsWindow( hWnd ) && pps )
+   if( IsWindow(hWnd) && pps )
       hb_retl( EndPaint( hWnd, pps ) );
    else
       hb_retl( HB_FALSE );
@@ -90,58 +90,58 @@ HB_FUNC( ENDPAINT )
 
 HB_FUNC( DRAWFOCUSRECT )
 {
-   DRAWITEMSTRUCT * pps = ( DRAWITEMSTRUCT * ) HB_PARNL( 1 );
+   DRAWITEMSTRUCT * pps = ( DRAWITEMSTRUCT * ) HB_PARNL(1);
 
    if( pps )
    {
-      InflateRect( &pps->rcItem, -3, -3 );
-      DrawFocusRect( pps->hDC, &pps->rcItem );
-      InflateRect( &pps->rcItem, +3, +3 );
+      InflateRect(&pps->rcItem, -3, -3);
+      DrawFocusRect(pps->hDC, &pps->rcItem);
+      InflateRect(&pps->rcItem, +3, +3);
    }
 }
 
 HB_FUNC( DRAWSTATE )
 {
-   HWND hWnd = ( HWND ) ( LONG_PTR ) HB_PARNL( 1 );
+   HWND hWnd = ( HWND ) ( LONG_PTR ) HB_PARNL(1);
    HDC  hDC;
    BOOL bDC = FALSE;
 
-   if( IsWindow( hWnd ) )
+   if( IsWindow(hWnd) )
    {
-      hDC = GetDC( hWnd );
+      hDC = GetDC(hWnd);
       bDC = TRUE;
    }
    else
-      hDC = ( HDC ) ( LONG_PTR ) HB_PARNL( 1 );
+      hDC = ( HDC ) ( LONG_PTR ) HB_PARNL(1);
 
-   if( GetObjectType( ( HGDIOBJ ) hDC ) == OBJ_DC )
+   if( GetObjectType(( HGDIOBJ ) hDC) == OBJ_DC )
    {
       HBRUSH   hBrush = ( HBRUSH ) NULL;
       COLORREF crBrush;
       LPARAM   lpData;
-      WPARAM   wData   = ( WPARAM ) hb_parclen( 4 );
-      HB_ISIZ  fuFlags = hb_parns( 10 );
+      WPARAM   wData   = ( WPARAM ) hb_parclen(4);
+      HB_ISIZ  fuFlags = hb_parns(10);
 
-      if( Array2ColorRef( hb_param( 2, HB_IT_ANY ), &crBrush ) )
+      if( Array2ColorRef(hb_param( 2, HB_IT_ANY ), &crBrush) )
          hBrush = CreateSolidBrush( crBrush );
 
       if( wData > 0 )
-         lpData = ( LPARAM ) hb_parc( 4 );
+         lpData = ( LPARAM ) hb_parc(4);
       else
-         lpData = ( LPARAM ) ( LONG_PTR ) HB_PARNL( 4 );
+         lpData = ( LPARAM ) ( LONG_PTR ) HB_PARNL(4);
 
-      hb_retl( DrawState( hDC, hBrush, NULL, lpData, wData, hb_parni( 6 ), hb_parni( 7 ), hb_parni( 8 ), hb_parni( 9 ), ( UINT ) fuFlags )
+      hb_retl( DrawState(hDC, hBrush, NULL, lpData, wData, hb_parni(6), hb_parni(7), hb_parni(8), hb_parni(9), ( UINT ) fuFlags)
                ? HB_TRUE : HB_FALSE );
 
       if( bDC )
-         ReleaseDC( hWnd, hDC );
+         ReleaseDC(hWnd, hDC);
 
-      if( hb_parl( 11 ) )
+      if( hb_parl(11) )
       {
-         if( GetObjectType( ( HGDIOBJ ) hDC ) == OBJ_BITMAP )
-            DeleteObject( ( HBITMAP ) lpData );
+         if( GetObjectType(( HGDIOBJ ) hDC) == OBJ_BITMAP )
+            DeleteObject(( HBITMAP ) lpData);
          else
-            DestroyIcon( ( HICON ) lpData );
+            DestroyIcon(( HICON ) lpData);
       }
    }
    else
@@ -150,17 +150,17 @@ HB_FUNC( DRAWSTATE )
 
 HB_FUNC( GETUPDATERECT )
 {
-   HWND hWnd = ( HWND ) ( LONG_PTR ) HB_PARNL( 1 );
+   HWND hWnd = ( HWND ) ( LONG_PTR ) HB_PARNL(1);
 
-   if( IsWindow( hWnd ) )
+   if( IsWindow(hWnd) )
    {
-      if( HB_ISNIL( 2 ) )
-         hb_retl( GetUpdateRect( hWnd, NULL, hb_parl( 3 ) ) ? HB_TRUE : HB_FALSE );
+      if( HB_ISNIL(2) )
+         hb_retl( GetUpdateRect(hWnd, NULL, hb_parl(3)) ? HB_TRUE : HB_FALSE );
       else
       {
          RECT rc;
 
-         hb_retl( GetUpdateRect( hWnd, &rc, hb_parl( 3 ) ) ? HB_TRUE : HB_FALSE );
+         hb_retl( GetUpdateRect(hWnd, &rc, hb_parl(3)) ? HB_TRUE : HB_FALSE );
          hb_itemParamStoreRelease( 2, Rect2Array( &rc ) );
       }
    }
@@ -175,42 +175,42 @@ HB_FUNC( GDIFLUSH )
 
 HB_FUNC( GRAYSTRING )
 {
-   int nCount = hb_parni( 5 );
-   int nLen   = ( int ) hb_parclen( 4 );
+   int nCount = hb_parni(5);
+   int nLen   = ( int ) hb_parclen(4);
 
    if( nCount > 0 )
-      nCount = HB_MIN( nCount, nLen );
+      nCount = HB_MIN(nCount, nLen);
    else
       nCount = nLen;
 
    if( nLen > 0 )
    {
-      HWND hWnd = ( HWND ) ( LONG_PTR ) HB_PARNL( 1 );
+      HWND hWnd = ( HWND ) ( LONG_PTR ) HB_PARNL(1);
       HDC  hDC;
       BOOL bDC = FALSE;
 
-      if( IsWindow( hWnd ) )
+      if( IsWindow(hWnd) )
       {
-         hDC = GetDC( hWnd );
+         hDC = GetDC(hWnd);
          bDC = TRUE;
       }
       else
-         hDC = ( HDC ) ( LONG_PTR ) HB_PARNL( 1 );
+         hDC = ( HDC ) ( LONG_PTR ) HB_PARNL(1);
 
-      if( GetObjectType( ( HGDIOBJ ) hDC ) == OBJ_DC )
+      if( GetObjectType(( HGDIOBJ ) hDC) == OBJ_DC )
       {
          HBRUSH       hBrush = ( HBRUSH ) NULL;
          COLORREF     crBrush;
-         const char * lpData = hb_parc( 4 );
+         const char * lpData = hb_parc(4);
 
-         if( Array2ColorRef( hb_param( 2, HB_IT_ANY ), &crBrush ) )
-            hBrush = CreateSolidBrush( crBrush );
+         if( Array2ColorRef(hb_param( 2, HB_IT_ANY ), &crBrush) )
+            hBrush = CreateSolidBrush(crBrush);
 
-         hb_retl( GrayString( hDC, hBrush, NULL, ( LPARAM ) lpData, nCount, hb_parni( 6 ), hb_parni( 7 ), hb_parni( 8 ), hb_parni( 9 ) )
+         hb_retl( GrayString( hDC, hBrush, NULL, ( LPARAM ) lpData, nCount, hb_parni(6), hb_parni(7), hb_parni(8), hb_parni(9) )
                   ? HB_TRUE : HB_FALSE );
 
          if( bDC )
-            ReleaseDC( hWnd, hDC );
+            ReleaseDC(hWnd, hDC);
       }
       else
          hb_retl( HB_FALSE );
@@ -221,29 +221,29 @@ HB_FUNC( GRAYSTRING )
 
 HB_FUNC( INVALIDATERECT )
 {
-   HWND hWnd = ( HWND ) ( LONG_PTR ) HB_PARNL( 1 );
+   HWND hWnd = ( HWND ) ( LONG_PTR ) HB_PARNL(1);
 
-   if( IsWindow( hWnd ) )
+   if( IsWindow(hWnd) )
    {
       BOOL bRect = FALSE;
       RECT rc;
 
-      if( ( hb_pcount() > 2 ) && ( ! HB_ISNIL( 3 ) ) )
+      if( ( hb_pcount() > 2 ) && ( ! HB_ISNIL(3) ) )
       {
-         bRect = Array2Rect( hb_param( 3, HB_IT_ANY ), &rc );
+         bRect = Array2Rect(hb_param( 3, HB_IT_ANY ), &rc);
 
          if( ! bRect )
          {
-            rc.left   = hb_parni( 3 );
-            rc.top    = hb_parni( 4 );
-            rc.right  = hb_parni( 5 );
-            rc.bottom = hb_parni( 6 );
+            rc.left   = hb_parni(3);
+            rc.top    = hb_parni(4);
+            rc.right  = hb_parni(5);
+            rc.bottom = hb_parni(6);
 
             bRect = TRUE;
          }
       }
 
-      hb_retl( InvalidateRect( hWnd, bRect ? &rc : NULL, hb_parni( 2 ) /* erase-background flag */ )
+      hb_retl( InvalidateRect(hWnd, bRect ? &rc : NULL, hb_parni(2) /* erase-background flag */)
                ? HB_TRUE : HB_FALSE );
    }
    else
@@ -252,16 +252,16 @@ HB_FUNC( INVALIDATERECT )
 
 HB_FUNC( REDRAWWINDOW )
 {
-   HWND hWnd = ( HWND ) ( LONG_PTR ) HB_PARNL( 1 );
+   HWND hWnd = ( HWND ) ( LONG_PTR ) HB_PARNL(1);
 
-   if( IsWindow( hWnd ) )
+   if( IsWindow(hWnd) )
    {
       UINT uiFlags = RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW;
 
-      if( HB_TRUE == hb_parl( 2 ) )
+      if( HB_TRUE == hb_parl(2) )
          uiFlags |= RDW_INTERNALPAINT;
 
-      hb_retl( RedrawWindow( hWnd, NULL, NULL, uiFlags ) ? HB_TRUE : HB_FALSE );
+      hb_retl( RedrawWindow(hWnd, NULL, NULL, uiFlags) ? HB_TRUE : HB_FALSE );
    }
    else
       hb_retl( HB_FALSE );
@@ -269,29 +269,29 @@ HB_FUNC( REDRAWWINDOW )
 
 HB_FUNC( C_SETBACKCOLOR )
 {
-   HWND hWnd = ( HWND ) ( LONG_PTR ) HB_PARNL( 1 );
+   HWND hWnd = ( HWND ) ( LONG_PTR ) HB_PARNL(1);
    HDC  hDC;
    BOOL bDC = FALSE;
 
-   if( IsWindow( hWnd ) )
+   if( IsWindow(hWnd) )
    {
-      hDC = GetDC( hWnd );
+      hDC = GetDC(hWnd);
       bDC = TRUE;
    }
    else
-      hDC = ( HDC ) ( LONG_PTR ) HB_PARNL( 1 );
+      hDC = ( HDC ) ( LONG_PTR ) HB_PARNL(1);
 
-   if( GetObjectType( ( HGDIOBJ ) hDC ) == OBJ_DC )
+   if( GetObjectType(( HGDIOBJ ) hDC) == OBJ_DC )
    {
       COLORREF cr;
 
-      if( ! Array2ColorRef( hb_param( 2, HB_IT_ANY ), &cr ) )
-         cr = ( COLORREF ) RGB( hb_parni( 2 ), hb_parni( 3 ), hb_parni( 4 ) );
+      if( ! Array2ColorRef(hb_param( 2, HB_IT_ANY ), &cr) )
+         cr = ( COLORREF ) RGB(hb_parni(2), hb_parni(3), hb_parni(4));
 
-      hb_retns( ( HB_ISIZ ) SetBkColor( hDC, cr  ) );
+      hb_retns( ( HB_ISIZ ) SetBkColor(hDC, cr) );
 
       if( bDC )
-         ReleaseDC( hWnd, hDC );
+         ReleaseDC(hWnd, hDC);
    }
    else
       hb_retns( ( HB_ISIZ ) CLR_INVALID );
@@ -299,64 +299,64 @@ HB_FUNC( C_SETBACKCOLOR )
 
 HB_FUNC( SETBKMODE )
 {
-   HWND hWnd = ( HWND ) ( LONG_PTR ) HB_PARNL( 1 );
+   HWND hWnd = ( HWND ) ( LONG_PTR ) HB_PARNL(1);
    HDC  hDC;
    BOOL bDC = FALSE;
 
-   if( IsWindow( hWnd ) )
+   if( IsWindow(hWnd) )
    {
-      hDC = GetDC( hWnd );
+      hDC = GetDC(hWnd);
       bDC = TRUE;
    }
    else
-      hDC = ( HDC ) ( LONG_PTR ) HB_PARNL( 1 );
+      hDC = ( HDC ) ( LONG_PTR ) HB_PARNL(1);
 
-   if( GetObjectType( ( HGDIOBJ ) hDC ) == OBJ_DC )
+   if( GetObjectType(( HGDIOBJ ) hDC) == OBJ_DC )
    {
       hb_retni( SetBkMode( hDC, hb_parnidef( 2, OPAQUE ) ) );
 
       if( bDC )
-         ReleaseDC( hWnd, hDC );
+         ReleaseDC(hWnd, hDC);
    }
    else
-      hb_retni( 0 );
+      hb_retni(0);
 }
 
 HB_FUNC( UPDATEWINDOW )
 {
-   HWND hWnd = ( HWND ) ( LONG_PTR ) HB_PARNL( 1 );
+   HWND hWnd = ( HWND ) ( LONG_PTR ) HB_PARNL(1);
 
-   if( IsWindow( hWnd ) )
-      hb_retl( UpdateWindow( hWnd ) ? HB_TRUE : HB_FALSE );
+   if( IsWindow(hWnd) )
+      hb_retl( UpdateWindow(hWnd) ? HB_TRUE : HB_FALSE );
    else
       hb_retl( HB_FALSE );
 }
 
 HB_FUNC( VALIDATERECT )
 {
-   HWND hWnd = ( HWND ) ( LONG_PTR ) HB_PARNL( 1 );
+   HWND hWnd = ( HWND ) ( LONG_PTR ) HB_PARNL(1);
 
-   if( IsWindow( hWnd ) )
+   if( IsWindow(hWnd) )
    {
       BOOL bRect = FALSE;
       RECT rc;
 
-      if( ( hb_pcount() > 1 ) && ( ! HB_ISNIL( 2 ) ) )
+      if( ( hb_pcount() > 1 ) && ( ! HB_ISNIL(2) ) )
       {
-         bRect = Array2Rect( hb_param( 2, HB_IT_ANY ), &rc );
+         bRect = Array2Rect(hb_param( 2, HB_IT_ANY ), &rc);
 
          if( ! bRect )
          {
-            rc.left   = hb_parni( 2 );
-            rc.top    = hb_parni( 3 );
-            rc.right  = hb_parni( 4 );
-            rc.bottom = hb_parni( 5 );
+            rc.left   = hb_parni(2);
+            rc.top    = hb_parni(3);
+            rc.right  = hb_parni(4);
+            rc.bottom = hb_parni(5);
 
             bRect = TRUE;
          }
       }
 
-      hb_retl( ValidateRect( hWnd, bRect ? &rc : NULL ) );
+      hb_retl( ValidateRect(hWnd, bRect ? &rc : NULL) );
    }
    else
       hb_retl( HB_FALSE );
@@ -364,7 +364,7 @@ HB_FUNC( VALIDATERECT )
 
 HB_FUNC( WINDOWFROMDC )
 {
-   HDC hDC = ( HDC ) ( LONG_PTR ) HB_PARNL( 1 );
+   HDC hDC = ( HDC ) ( LONG_PTR ) HB_PARNL(1);
 
    HB_RETNL( ( LONG_PTR ) WindowFromDC( hDC ) );
 }

@@ -55,8 +55,8 @@
 #include "hbvm.h"
 
 #ifndef WC_EDIT
-#define WC_EDIT    TEXT( "Edit" )
-#define WC_BUTTON  TEXT( "Button" )
+#define WC_EDIT    TEXT("Edit")
+#define WC_BUTTON  TEXT("Button")
 #endif
 
 #define TBB1       2
@@ -78,42 +78,42 @@ HB_FUNC( INITBTNTEXTBOX )
    int  ibtnStyle1, ibtnStyle2;  // BUTTON window base style.
    HWND himage, himage2;
    HWND hBtn1, hBtn2;
-   BOOL fBtn2 = hb_parl( 20 );
+   BOOL fBtn2 = hb_parl(20);
    int  BtnWidth2;
-   int  BtnWidth = ( HB_ISNIL( 18 ) ? 0 : ( int ) hb_parni( 18 ) );
+   int  BtnWidth = ( HB_ISNIL(18) ? 0 : ( int ) hb_parni(18) );
 
    // Get the handle of the parent window/form.
-   hwnd = ( HWND ) HB_PARNL( 1 );
+   hwnd = ( HWND ) HB_PARNL(1);
 
    BtnWidth  = ( BtnWidth >= GetSystemMetrics( SM_CYSIZE ) ? BtnWidth : GetSystemMetrics( SM_CYSIZE ) - 1 );
    BtnWidth2 = ( fBtn2 ? BtnWidth : 0 );
 
    iStyle = WS_CHILD | ES_AUTOHSCROLL | WS_CLIPCHILDREN;
 
-   if( hb_parl( 12 ) )  // if <lNumeric> is TRUE, then ES_NUMBER style is added.
+   if( hb_parl(12) )  // if <lNumeric> is TRUE, then ES_NUMBER style is added.
       iStyle = iStyle | ES_NUMBER;
    else
    {
-      if( hb_parl( 10 ) ) // if <lUpper> is TRUE, then ES_UPPERCASE style is added.
+      if( hb_parl(10) ) // if <lUpper> is TRUE, then ES_UPPERCASE style is added.
          iStyle = iStyle | ES_UPPERCASE;
 
-      if( hb_parl( 11 ) ) // if <lLower> is TRUE, then ES_LOWERCASE style is added.
+      if( hb_parl(11) ) // if <lLower> is TRUE, then ES_LOWERCASE style is added.
          iStyle = iStyle | ES_LOWERCASE;
    }
 
-   if( hb_parl( 13 ) )  // if <lPassword> is TRUE, then ES_PASSWORD style is added.
+   if( hb_parl(13) )  // if <lPassword> is TRUE, then ES_PASSWORD style is added.
       iStyle = iStyle | ES_PASSWORD;
 
-   if( hb_parl( 14 ) )
+   if( hb_parl(14) )
       iStyle = iStyle | ES_RIGHT;
 
-   if( ! hb_parl( 15 ) )
+   if( ! hb_parl(15) )
       iStyle = iStyle | WS_VISIBLE;
 
-   if( ! hb_parl( 16 ) )
+   if( ! hb_parl(16) )
       iStyle = iStyle | WS_TABSTOP;
 
-   if( hb_parl( 21 ) )
+   if( hb_parl(21) )
       iStyle = iStyle | ES_READONLY;
 
    // Creates the child Frame control.
@@ -121,29 +121,29 @@ HB_FUNC( INITBTNTEXTBOX )
            (
       WS_EX_CLIENTEDGE,
       WC_EDIT,
-      TEXT( "" ),
+      TEXT(""),
       iStyle,
-      hb_parni( 3 ),
-      hb_parni( 4 ),
-      hb_parni( 5 ),
-      hb_parni( 6 ),
+      hb_parni(3),
+      hb_parni(4),
+      hb_parni(5),
+      hb_parni(6),
       ( HWND ) hwnd,
       ( HMENU ) NULL,
       GetInstance(),
       NULL
            );
 
-   SetProp( ( HWND ) hedit, TEXT( "OldWndProc" ), ( HWND ) GetWindowLongPtr( ( HWND ) hedit, GWLP_WNDPROC ) );
-   SetWindowLongPtr( hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnBtnTextProc );
+   SetProp( ( HWND ) hedit, TEXT("OldWndProc"), ( HWND ) GetWindowLongPtr(( HWND ) hedit, GWLP_WNDPROC) );
+   SetWindowLongPtr(hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnBtnTextProc);
 
-   SendMessage( hedit, ( UINT ) EM_LIMITTEXT, ( WPARAM ) hb_parni( 9 ), ( LPARAM ) 0 );
+   SendMessage( hedit, ( UINT ) EM_LIMITTEXT, ( WPARAM ) hb_parni(9), ( LPARAM ) 0 );
 
-   if( hb_parc( 17 ) != NULL )
+   if( hb_parc(17) != NULL )
    {
 #ifndef UNICODE
-      LPCSTR lpImageName = hb_parc( 17 );
+      LPCSTR lpImageName = hb_parc(17);
 #else
-      LPWSTR lpImageName = AnsiToWide( ( char * ) hb_parc( 17 ) );
+      LPWSTR lpImageName = AnsiToWide( ( char * ) hb_parc(17) );
 #endif
       himage = ( HWND ) LoadImage( GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
 
@@ -153,10 +153,10 @@ HB_FUNC( INITBTNTEXTBOX )
       if( himage != NULL )
       {
          BITMAP bm;
-         GetObject( himage, sizeof( BITMAP ), &bm );
-         if( bm.bmWidth > BtnWidth - 4 || bm.bmHeight > hb_parni( 6 ) - 5 )
+         GetObject(himage, sizeof(BITMAP), &bm);
+         if( bm.bmWidth > BtnWidth - 4 || bm.bmHeight > hb_parni(6) - 5 )
          {
-            DeleteObject( himage );
+            DeleteObject(himage);
             himage = ( HWND ) LoadImage( GetResources(), lpImageName, IMAGE_BITMAP, BtnWidth - 4, hb_parni(
                                             6 ) - 6, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
             if( himage == NULL )
@@ -165,18 +165,18 @@ HB_FUNC( INITBTNTEXTBOX )
          }
       }
 #ifdef UNICODE
-      hb_xfree( lpImageName );
+      hb_xfree(lpImageName);
 #endif
    }
    else
       himage = NULL;
 
-   if( hb_parc( 19 ) != NULL )
+   if( hb_parc(19) != NULL )
    {
 #ifndef UNICODE
-      LPCSTR lpImageName2 = hb_parc( 19 );
+      LPCSTR lpImageName2 = hb_parc(19);
 #else
-      LPWSTR lpImageName2 = AnsiToWide( ( char * ) hb_parc( 19 ) );
+      LPWSTR lpImageName2 = AnsiToWide( ( char * ) hb_parc(19) );
 #endif
       himage2 = ( HWND ) LoadImage( GetResources(), lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
 
@@ -186,10 +186,10 @@ HB_FUNC( INITBTNTEXTBOX )
       if( himage2 != NULL )
       {
          BITMAP bm;
-         GetObject( himage2, sizeof( BITMAP ), &bm );
-         if( bm.bmWidth > BtnWidth2 - 4 || bm.bmHeight > hb_parni( 6 ) - 5 )
+         GetObject(himage2, sizeof(BITMAP), &bm);
+         if( bm.bmWidth > BtnWidth2 - 4 || bm.bmHeight > hb_parni(6) - 5 )
          {
-            DeleteObject( himage2 );
+            DeleteObject(himage2);
             himage2 = ( HWND ) LoadImage( GetResources(), lpImageName2, IMAGE_BITMAP, BtnWidth2 - 4, hb_parni(
                                              6 ) - 6, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
 
@@ -199,7 +199,7 @@ HB_FUNC( INITBTNTEXTBOX )
          }
       }
 #ifdef UNICODE
-      hb_xfree( lpImageName2 );
+      hb_xfree(lpImageName2);
 #endif
    }
    else
@@ -207,7 +207,7 @@ HB_FUNC( INITBTNTEXTBOX )
 
    ibtnStyle1 = BS_NOTIFY | WS_CHILD | WS_VISIBLE;
 
-   ibtnStyle1 = ibtnStyle1 | ( hb_parl( 22 ) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON );
+   ibtnStyle1 = ibtnStyle1 | ( hb_parl(22) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON );
 
    if( himage != NULL )
       ibtnStyle1 = ibtnStyle1 | BS_BITMAP;
@@ -219,12 +219,12 @@ HB_FUNC( INITBTNTEXTBOX )
 
    hBtn1 = CreateWindow
               ( WC_BUTTON,
-              TEXT( "..." ),
+              TEXT("..."),
               ibtnStyle1,
-              hb_parni( 5 ) - BtnWidth - 3,
+              hb_parni(5) - BtnWidth - 3,
               -1,
               BtnWidth,
-              hb_parni( 6 ) - 2,
+              hb_parni(6) - 2,
               ( HWND ) hedit,
               ( HMENU ) TBB1,
               GetInstance(),
@@ -234,12 +234,12 @@ HB_FUNC( INITBTNTEXTBOX )
    if( fBtn2 )
       hBtn2 = CreateWindow
                  ( WC_BUTTON,
-                 TEXT( "..." ),
+                 TEXT("..."),
                  ibtnStyle2,
-                 hb_parni( 5 ) - BtnWidth - BtnWidth2 - 3,
+                 hb_parni(5) - BtnWidth - BtnWidth2 - 3,
                  -1,
                  BtnWidth,
-                 hb_parni( 6 ) - 2,
+                 hb_parni(6) - 2,
                  ( HWND ) hedit,
                  ( HMENU ) TBB2,
                  GetInstance(),
@@ -254,7 +254,7 @@ HB_FUNC( INITBTNTEXTBOX )
    if( himage2 != NULL )
       SendMessage( hBtn2, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage2 );
 
-   hb_reta( 5 );
+   hb_reta(5);
    HB_STORVNL( ( LONG_PTR ) hedit, -1, 1 );
    HB_STORVNL( ( LONG_PTR ) hBtn1, -1, 2 );
    HB_STORVNL( ( LONG_PTR ) hBtn2, -1, 3 );
@@ -269,24 +269,24 @@ HB_FUNC( REDEFBTNTEXTBOX )
    HWND hBtn1, hBtn2;
    BOOL fBtn2;
    int  width, height, BtnWidth2;
-   int  BtnWidth = ( HB_ISNIL( 3 ) ? 0 : ( int ) hb_parni( 3 ) );
+   int  BtnWidth = ( HB_ISNIL(3) ? 0 : ( int ) hb_parni(3) );
 
-   hedit     = ( HWND ) HB_PARNL( 1 );
-   fBtn2     = hb_parl( 5 );
+   hedit     = ( HWND ) HB_PARNL(1);
+   fBtn2     = hb_parl(5);
    BtnWidth  = ( BtnWidth >= GetSystemMetrics( SM_CYSIZE ) ? BtnWidth : GetSystemMetrics( SM_CYSIZE ) - 1 );
    BtnWidth2 = ( fBtn2 ?  BtnWidth : 0 );
-   width     = hb_parni( 6 );
-   height    = hb_parni( 7 );
+   width     = hb_parni(6);
+   height    = hb_parni(7);
 
-   SetProp( ( HWND ) hedit, TEXT( "OldWndProc" ), ( HWND ) GetWindowLongPtr( ( HWND ) hedit, GWLP_WNDPROC ) );
-   SetWindowLongPtr( hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnBtnTextProc );
+   SetProp( ( HWND ) hedit, TEXT("OldWndProc"), ( HWND ) GetWindowLongPtr(( HWND ) hedit, GWLP_WNDPROC) );
+   SetWindowLongPtr(hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnBtnTextProc);
 
-   if( ! ( hb_parc( 2 ) == NULL ) )
+   if( ! ( hb_parc(2) == NULL ) )
    {
 #ifndef UNICODE
-      LPCSTR lpImageName = hb_parc( 2 );
+      LPCSTR lpImageName = hb_parc(2);
 #else
-      LPWSTR lpImageName = AnsiToWide( ( char * ) hb_parc( 2 ) );
+      LPWSTR lpImageName = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
       himage = ( HWND ) LoadImage( GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
 
@@ -296,28 +296,28 @@ HB_FUNC( REDEFBTNTEXTBOX )
       if( himage != NULL )
       {
          BITMAP bm;
-         GetObject( himage, sizeof( BITMAP ), &bm );
+         GetObject(himage, sizeof(BITMAP), &bm);
          if( bm.bmWidth > BtnWidth - 4 || bm.bmHeight > height - 5 )
          {
-            DeleteObject( himage );
+            DeleteObject(himage);
             himage = ( HWND ) LoadImage( GetResources(), lpImageName, IMAGE_BITMAP, BtnWidth - 4, height - 6, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
             if( himage == NULL )
                himage = ( HWND ) LoadImage( NULL, lpImageName, IMAGE_BITMAP, BtnWidth - 4, height - 6, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
          }
       }
 #ifdef UNICODE
-      hb_xfree( lpImageName );
+      hb_xfree(lpImageName);
 #endif
    }
    else
       himage = NULL;
 
-   if( ! ( hb_parc( 4 ) == NULL ) )
+   if( ! ( hb_parc(4) == NULL ) )
    {
 #ifndef UNICODE
-      LPCSTR lpImageName2 = hb_parc( 4 );
+      LPCSTR lpImageName2 = hb_parc(4);
 #else
-      LPWSTR lpImageName2 = AnsiToWide( ( char * ) hb_parc( 4 ) );
+      LPWSTR lpImageName2 = AnsiToWide( ( char * ) hb_parc(4) );
 #endif
       himage2 = ( HWND ) LoadImage( GetResources(), lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
 
@@ -327,10 +327,10 @@ HB_FUNC( REDEFBTNTEXTBOX )
       if( himage2 != NULL )
       {
          BITMAP bm;
-         GetObject( himage2, sizeof( BITMAP ), &bm );
+         GetObject(himage2, sizeof(BITMAP), &bm);
          if( bm.bmWidth > BtnWidth2 - 4 || bm.bmHeight > height - 5 )
          {
-            DeleteObject( himage2 );
+            DeleteObject(himage2);
             himage2 = ( HWND ) LoadImage( GetResources(), lpImageName2,
                                           IMAGE_BITMAP, BtnWidth2 - 4, height - 6, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
 
@@ -340,7 +340,7 @@ HB_FUNC( REDEFBTNTEXTBOX )
          }
       }
 #ifdef UNICODE
-      hb_xfree( lpImageName2 );
+      hb_xfree(lpImageName2);
 #endif
    }
    else
@@ -349,7 +349,7 @@ HB_FUNC( REDEFBTNTEXTBOX )
    hBtn1 = CreateWindow
            (
       WC_BUTTON,
-      TEXT( "..." ),
+      TEXT("..."),
       BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE | BS_BITMAP,
       width - BtnWidth - 4,
       -1,
@@ -365,7 +365,7 @@ HB_FUNC( REDEFBTNTEXTBOX )
       hBtn2 = CreateWindow
               (
          WC_BUTTON,
-         TEXT( "..." ),
+         TEXT("..."),
          BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE | BS_BITMAP,
          width - BtnWidth - BtnWidth2 - 4,
          -1,
@@ -387,7 +387,7 @@ HB_FUNC( REDEFBTNTEXTBOX )
 
    SendMessage( hedit, EM_SETMARGINS, EC_LEFTMARGIN | EC_RIGHTMARGIN, MAKELONG( 0, BtnWidth + BtnWidth2 + 2 ) );
 
-   hb_reta( 5 );
+   hb_reta(5);
    HB_STORVNL( ( LONG_PTR ) hedit, -1, 1 );
    HB_STORVNL( ( LONG_PTR ) hBtn1, -1, 2 );
    HB_STORVNL( ( LONG_PTR ) hBtn2, -1, 3 );
@@ -397,10 +397,10 @@ HB_FUNC( REDEFBTNTEXTBOX )
 
 HB_FUNC( SETTBBTNMARGIN )   //SetTbBtnMargin(hEdit, BtnWidth, fBtns, fBtn2)
 {
-   HWND hedit    = ( HWND ) HB_PARNL( 1 );
-   int  BtnWidth = ( int ) hb_parni( 2 );
-   BOOL fBtns    = hb_parl( 3 );
-   BOOL fBtn2    = hb_parl( 4 );
+   HWND hedit    = ( HWND ) HB_PARNL(1);
+   int  BtnWidth = ( int ) hb_parni(2);
+   BOOL fBtns    = hb_parl(3);
+   BOOL fBtn2    = hb_parl(4);
    int  BtnWidth2;
 
    BtnWidth  = ( BtnWidth >= GetSystemMetrics( SM_CYSIZE ) ? BtnWidth : GetSystemMetrics( SM_CYSIZE ) - 1 );
@@ -416,14 +416,14 @@ LRESULT CALLBACK OwnBtnTextProc( HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lPar
    long int        r;
    WNDPROC         OldWndProc;
 
-   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp( hwnd, TEXT( "OldWndProc" ) );
+   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp( hwnd, TEXT("OldWndProc") );
 
    switch( Msg )
    {
       case WM_CONTEXTMENU:
       case WM_COMMAND:
 
-         if( lParam != 0 && ( HIWORD( wParam ) == BN_CLICKED || Msg == WM_CONTEXTMENU ) )
+         if( lParam != 0 && ( HIWORD(wParam) == BN_CLICKED || Msg == WM_CONTEXTMENU ) )
          {
             if( ! pSymbol )
                pSymbol = hb_dynsymSymbol( hb_dynsymGet( "TBBTNEVENTS" ) );
@@ -435,7 +435,7 @@ LRESULT CALLBACK OwnBtnTextProc( HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lPar
                hb_vmPushNumInt( ( LONG_PTR ) hwnd );
                hb_vmPushNumInt( lParam );
                hb_vmPushLong( Msg );
-               hb_vmDo( 3 );
+               hb_vmDo(3);
             }
 
             r = hb_parnl( -1 );

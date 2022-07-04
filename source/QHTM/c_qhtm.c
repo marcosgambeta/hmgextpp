@@ -40,7 +40,7 @@ static HINSTANCE  hQhtmDll = NULL;
 */
 HB_FUNC( QHTM_INIT )
 {
-   char  *cLibname = ( hb_pcount() < 1 ) ? NULL : ( char * ) hb_parc( 1 );
+   char  *cLibname = ( hb_pcount() < 1 ) ? NULL : ( char * ) hb_parc(1);
    BOOL  bSuccess = FALSE;
 
    if( !hQhtmDll )
@@ -106,7 +106,7 @@ HB_FUNC( CREATEQHTM )
    }
    else
    {
-      hb_retnl( 0 );
+      hb_retnl(0);
    }
 }
 
@@ -119,7 +119,7 @@ HB_FUNC( QHTM_GETNOTIFY )
 {
    if( hQhtmDll )
    {
-      LPNMQHTM pnm = ( LPNMQHTM ) hb_parnl( 1 );
+      LPNMQHTM pnm = ( LPNMQHTM ) hb_parnl(1);
       hb_retc( ( char * ) pnm->pcszLinkText );
    }
    else
@@ -133,8 +133,8 @@ HB_FUNC( QHTM_GETNOTIFY )
 */
 HB_FUNC( QHTM_SETRETURNVALUE )
 {
-   LPNMQHTM pnm = ( LPNMQHTM ) hb_parnl( 1 );
-   pnm->resReturnValue = hb_parl( 2 );
+   LPNMQHTM pnm = ( LPNMQHTM ) hb_parnl(1);
+   pnm->resReturnValue = hb_parl(2);
 }
 
 /*
@@ -149,7 +149,7 @@ void CALLBACK FormCallback( HWND hWndQHTM, LPQHTMFORMSubmit pFormSubmit, LPARAM 
 
    for( i = 0; i < ( int ) pFormSubmit->uFieldCount; i++ )
    {
-      atemp = hb_itemArrayNew( 2 );
+      atemp = hb_itemArrayNew(2);
       temp = hb_itemPutC( NULL, ( char * ) ((pFormSubmit->parrFields + i)->pcszName) );
       hb_itemArrayPut( atemp, 1, temp );
       hb_itemRelease( temp );
@@ -182,7 +182,7 @@ void CALLBACK FormCallback( HWND hWndQHTM, LPQHTMFORMSubmit pFormSubmit, LPARAM 
       }
 
       hb_vmPush( aMetr );
-      hb_vmDo( 5 );
+      hb_vmDo(5);
    }
 
    hb_itemRelease( aMetr );
@@ -199,8 +199,8 @@ HB_FUNC( QHTM_MESSAGEBOX )
 {
    if( hQhtmDll )
    {
-      const char        *cTitle = ( hb_pcount() < 2 ) ? "" : hb_parc( 2 );
-      UINT              uType = ( hb_pcount() < 3 ) ? MB_OK : ( UINT ) hb_parni( 3 );
+      const char        *cTitle = ( hb_pcount() < 2 ) ? "" : hb_parc(2);
+      UINT              uType = ( hb_pcount() < 3 ) ? MB_OK : ( UINT ) hb_parni(3);
       QHTM_MESSAGEBOX   pFunc = ( QHTM_MESSAGEBOX ) GetProcAddress( hQhtmDll, "QHTM_MessageBox" );
 
       if( pFunc )
@@ -210,12 +210,12 @@ HB_FUNC( QHTM_MESSAGEBOX )
    }
    else
    {
-      hb_retnl( 1 );
+      hb_retnl(1);
    }
 }
 
 /*
-   QHTM_LoadFile( handle, cFileName ) 
+   QHTM_LoadFile(handle, cFileName)
    
    Load web-page from file
 */
@@ -298,7 +298,7 @@ HB_FUNC( QHTM_GETSIZE )
 
       if( SendMessage((HWND) hb_parnl(1), QHTM_GET_DRAWN_SIZE, 0, (LPARAM) & size) )
       {
-         PHB_ITEM aMetr = hb_itemArrayNew( 2 );
+         PHB_ITEM aMetr = hb_itemArrayNew(2);
          PHB_ITEM temp;
 
          temp = hb_itemPutNL( NULL, size.cx );
@@ -332,7 +332,7 @@ HB_FUNC( QHTM_FORMCALLBACK )
    }
    else
    {
-      hb_retl( 0 );
+      hb_retl(0);
    }
 }
 
@@ -352,12 +352,12 @@ HB_FUNC( QHTM_ENABLECOOLTIPS )
       }
       else
       {
-         hb_retl( 0 );
+         hb_retl(0);
       }
    }
    else
    {
-      hb_retl( 0 );
+      hb_retl(0);
    }
 }
 
@@ -377,12 +377,12 @@ HB_FUNC( QHTM_SETHTMLBUTTON )
       }
       else
       {
-         hb_retl( 0 );
+         hb_retl(0);
       }
    }
    else
    {
-      hb_retl( 0 );
+      hb_retl(0);
    }
 }
 
@@ -400,12 +400,12 @@ HB_FUNC( QHTM_PRINTCREATECONTEXT )
    }
    else
    {
-      hb_retnl( 0 );
+      hb_retnl(0);
    }
 }
 
 /*
-   QHTM_PrintSetText( hContext, cHtmlText ) 
+   QHTM_PrintSetText(hContext, cHtmlText)
    
    Print of text
 */
@@ -418,12 +418,12 @@ HB_FUNC( QHTM_PRINTSETTEXT )
    }
    else
    {
-      hb_retl( 0 );
+      hb_retl(0);
    }
 }
 
 /*
-   QHTM_PrintSetTextFile( hContext,cFileName ) 
+   QHTM_PrintSetTextFile(hContext,cFileName)
    
    Print of text file
 */
@@ -436,12 +436,12 @@ HB_FUNC( QHTM_PRINTSETTEXTFILE )
    }
    else
    {
-      hb_retl( 0 );
+      hb_retl(0);
    }
 }
 
 /*
-   QHTM_PrintSetTextResource( hContext,cResourceName )
+   QHTM_PrintSetTextResource(hContext,cResourceName)
    
    Print of resource
 */
@@ -454,12 +454,12 @@ HB_FUNC( QHTM_PRINTSETTEXTRESOURCE )
    }
    else
    {
-      hb_retl( 0 );
+      hb_retl(0);
    }
 }
 
 /*
-   QHTM_PrintLayOut( hDC,hContext ) --> nNumberOfPages
+   QHTM_PrintLayOut(hDC, hContext) --> nNumberOfPages
    
    Receive print page count
 */
@@ -467,8 +467,8 @@ HB_FUNC( QHTM_PRINTLAYOUT )
 {
    if( hQhtmDll )
    {
-      HDC               hDC = ( HDC ) hb_parnl( 1 );
-      QHTMCONTEXT       qhtmCtx = ( QHTMCONTEXT ) hb_parnl( 2 );
+      HDC               hDC = ( HDC ) hb_parnl(1);
+      QHTMCONTEXT       qhtmCtx = ( QHTMCONTEXT ) hb_parnl(2);
       RECT              rcPage;
       int               nNumberOfPages;
       QHTM_PRINTLAYOUT  pFunc = ( QHTM_PRINTLAYOUT ) GetProcAddress( hQhtmDll, "QHTM_PrintLayout" );
@@ -482,7 +482,7 @@ HB_FUNC( QHTM_PRINTLAYOUT )
    }
    else
    {
-      hb_retnl( 0 );
+      hb_retnl(0);
    }
 }
 
@@ -495,8 +495,8 @@ HB_FUNC( QHTM_PRINTPAGE )
 {
    if( hQhtmDll )
    {
-      HDC            hDC = ( HDC ) hb_parnl( 1 );
-      QHTMCONTEXT    qhtmCtx = ( QHTMCONTEXT ) hb_parnl( 2 );
+      HDC            hDC = ( HDC ) hb_parnl(1);
+      QHTMCONTEXT    qhtmCtx = ( QHTMCONTEXT ) hb_parnl(2);
       RECT           rcPage;
       QHTM_PRINTPAGE pFunc = ( QHTM_PRINTPAGE ) GetProcAddress( hQhtmDll, "QHTM_PrintPage" );
 
@@ -508,12 +508,12 @@ HB_FUNC( QHTM_PRINTPAGE )
    }
    else
    {
-      hb_retl( 0 );
+      hb_retl(0);
    }
 }
 
 /*
-   QHTM_PrintDestroyContext( hContext )
+   QHTM_PrintDestroyContext(hContext)
    
    Clear print context
 */

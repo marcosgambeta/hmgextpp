@@ -1979,7 +1979,7 @@ METHOD MoreFields( nMsg, nWParam ) CLASS TSBrowse
    ENDIF
 
    nCol := ::nCell
-   nKey := Loword( nWParam )
+   nKey := Loword(nWParam)
 
    IF nMsg == WM_KEYDOWN
 
@@ -3585,7 +3585,7 @@ METHOD DrawHeaders( lFooters, lDrawCell ) CLASS TSBrowse
          lOrder := ::nColOrder == nJ
          lDescend := oColumn:lDescend
 
-         IF LoWord( oColumn:nHAlign ) == DT_VERT
+         IF LoWord(oColumn:nHAlign) == DT_VERT
             cHeading := "Arial"
 
             hFont := InitFont( cHeading, -11, .F., .F., .F., .F., 900 )
@@ -3722,7 +3722,7 @@ METHOD DrawHeaders( lFooters, lDrawCell ) CLASS TSBrowse
 
          nVAlign := 1
 
-         IF LoWord( oColumn:nHAlign ) == DT_VERT
+         IF LoWord(oColumn:nHAlign) == DT_VERT
             DeleteObject( hFont )
          ENDIF
 
@@ -4207,7 +4207,7 @@ METHOD DrawLine( xRow, lDrawCell ) CLASS TSBrowse
 
          IF nJ == ::nColSel .AND. ::uBmpSel != NIL .AND. lSelected
             uBmpCell := ::uBmpSel
-            nAlign := nMakeLong( LoWord( nAlign ), ::nAligBmp )
+            nAlign := nMakeLong( LoWord(nAlign), ::nAligBmp )
          ELSEIF oColumn:lBitMap .AND. ValType( uData ) == "N"
             aBitMaps := iif( ValType( oColumn:aBitMaps ) == "A", oColumn:aBitMaps, ::aBitMaps )
             IF ! Empty( aBitMaps ) .AND. uData > 0 .AND. uData <= Len( aBitMaps )
@@ -4473,7 +4473,7 @@ METHOD DrawPressed( nCell, lPressed ) CLASS TSBrowse
       RETURN Self
    ENDIF
 
-   hDC := GetDC( ::hWnd )
+   hDC := GetDC(::hWnd)
    nLeft := 0
 
    IF ::nFreeze > 0
@@ -4502,7 +4502,7 @@ METHOD DrawPressed( nCell, lPressed ) CLASS TSBrowse
    SelectObject( hDC, hOldPen )
    DeleteObject( hGrayPen )
    DeleteObject( hWhitePen )
-   ReleaseDC( ::hWnd, hDC )
+   ReleaseDC(::hWnd, hDC)
 
    IF lPressed
       nKeyPressed := nCell
@@ -4705,13 +4705,13 @@ METHOD DrawSelect( xRow, lDrawCell ) CLASS TSBrowse
 
             IF nJ == ::nColSel .AND. ::uBmpSel != NIL .AND. lSelected
                uBmpCell := ::uBmpSel
-               nAlign := nMakeLong( LoWord( nAlign ), ::nAligBmp )
+               nAlign := nMakeLong( LoWord(nAlign), ::nAligBmp )
             ELSEIF oColumn:lBitMap .AND. ValType( uData ) == "N"
                aBitMaps := iif( ValType( oColumn:aBitMaps ) == "A", oColumn:aBitMaps, ::aBitMaps )
                IF ! Empty( aBitMaps ) .AND. uData > 0 .AND. uData <= Len( aBitMaps )
                   uBmpCell := aBitMaps[ uData ]
                ENDIF
-               nAlign := nMakeLong( LoWord( nAlign ), nAlign )
+               nAlign := nMakeLong( LoWord(nAlign), nAlign )
                uData := ""
             ELSEIF ! lCheck .AND. oColumn:lEmptyValToChar .AND. Empty( uData )
                uData := ""
@@ -6250,7 +6250,7 @@ METHOD Excel2( cFile, lActivate, hProgress, cTitle, lSave, bPrintRow ) CLASS TSB
             ENDIF
 
             uData := Trim( StrTran( uData, CRLF, Chr( 10 ) ) )
-            nAlign := Min( LoWord( ::aColumns[ nCol ]:nHAlign ), 2 )
+            nAlign := Min( LoWord(::aColumns[ nCol ]:nHAlign), 2 )
             nAlign := iif( Chr( 10 ) $ uData, 4, nAlign )
             hFont := ::aColumns[ nCol ]:hFontHead
             aFontTmp := GetFontParam( hFont )
@@ -6294,7 +6294,7 @@ METHOD Excel2( cFile, lActivate, hProgress, cTitle, lSave, bPrintRow ) CLASS TSB
          ENDIF
 
          uData := ::bDataEval( ::aColumns[ nCol ] )
-         nAlign := LoWord( ::aColumns[ nCol ]:nAlign )
+         nAlign := LoWord(::aColumns[ nCol ]:nAlign)
          hFont := ::aColumns[ nCol ]:hFont
          aFontTmp := GetFontParam( hFont )
          nFont := AScan( aFont, {| e | e[ 1 ] == aFontTmp[ 1 ] .AND. e[ 2 ] == aFontTmp[ 2 ] .AND. ;
@@ -6348,7 +6348,7 @@ METHOD Excel2( cFile, lActivate, hProgress, cTitle, lSave, bPrintRow ) CLASS TSB
          ENDIF
 
          uData := Trim( StrTran( uData, CRLF, Chr( 10 ) ) )
-         nAlign := Min( LoWord( ::aColumns[ nCol ]:nFAlign ), 2 )
+         nAlign := Min( LoWord(::aColumns[ nCol ]:nFAlign), 2 )
          nAlign := iif( Chr( 10 ) $ uData, 4, nAlign )
          hFont := ::aColumns[ nCol ]:hFontFoot
          aFontTmp := GetFontParam( hFont )
@@ -9587,7 +9587,7 @@ METHOD HandleEvent( nMsg, nWParam, nLParam ) CLASS TSBrowse
          RETURN NIL
       ENDIF
       IF nLParam == 0 .AND. ::lEnabled
-         RETURN ::VScroll( Loword( nWParam ), HiWord( nWParam ) )
+         RETURN ::VScroll( Loword(nWParam), HiWord(nWParam) )
       ENDIF
    ELSEIF nMsg == WM_HSCROLL
       IF ! ::lEnabled
@@ -9595,7 +9595,7 @@ METHOD HandleEvent( nMsg, nWParam, nLParam ) CLASS TSBrowse
       ELSEIF ::lDontchange
          RETURN NIL
       ENDIF
-      RETURN ::HScroll( Loword( nWParam ), HiWord( nWParam ) )
+      RETURN ::HScroll( Loword(nWParam), HiWord(nWParam) )
    ELSEIF nMsg == WM_ERASEBKGND .AND. ! ::lEditing
       ::lNoPaint := .F.
    ELSEIF nMsg == WM_DESTROY
@@ -9612,12 +9612,12 @@ METHOD HandleEvent( nMsg, nWParam, nLParam ) CLASS TSBrowse
       ENDIF
 #endif
    ELSEIF nMsg == WM_LBUTTONDBLCLK
-      RETURN ::LDblClick( HiWord( nLParam ), LoWord( nLParam ), nWParam )
+      RETURN ::LDblClick( HiWord(nLParam), LoWord(nLParam), nWParam )
 
    ELSEIF nMsg == WM_MOUSEWHEEL
       IF ::hWnd != 0 .AND. ::lEnabled .AND. ! ::lDontChange
-         nDelta := Bin2I( I2Bin( HiWord( nWParam ) ) ) / 120
-         ::MouseWheel( nMsg, nDelta, LoWord( nLParam ), HiWord( nLParam ) )
+         nDelta := Bin2I( I2Bin( HiWord(nWParam) ) ) / 120
+         ::MouseWheel( nMsg, nDelta, LoWord(nLParam), HiWord(nLParam) )
       ENDIF
       RETURN 0
 
@@ -14787,7 +14787,7 @@ RETURN Self
 
 METHOD VertLine( nColPixPos, nColInit, nGapp ) CLASS TSBrowse
 
-   LOCAL hDC := GetDC( ::hWnd )
+   LOCAL hDC := GetDC(::hWnd)
    LOCAL aRect := ::GetRect()
 
    IF nColInit != NIL
@@ -14821,7 +14821,7 @@ METHOD VertLine( nColPixPos, nColInit, nGapp ) CLASS TSBrowse
       nsOldPixPos := nColPixPos + nGap
    ENDIF
 
-   ReleaseDC( ::hWnd, hDC )
+   ReleaseDC(::hWnd, hDC)
 
 RETURN NIL
 
@@ -15852,7 +15852,7 @@ STATIC FUNCTION SetHeights( oBrw )
                nHHeight := nHeight + 1
             ENDIF
 
-         ELSEIF ValType( cHeading ) == "C" .AND. LoWord( oBrw:aColumns[ nEle ]:nHAlign ) == DT_VERT
+         ELSEIF ValType( cHeading ) == "C" .AND. LoWord(oBrw:aColumns[ nEle ]:nHAlign) == DT_VERT
 
             nHeight := GetTextWidth( oBrw:hDC, cHeading, hFont )
 

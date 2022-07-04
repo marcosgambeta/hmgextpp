@@ -340,7 +340,7 @@ FUNCTION DrawWindowBoxIn( window, row, col, rowr, colr )
       hDC := GetDC ( FormHandle )
       WndBoxIn ( hDC, row, col, rowr, colr )
       ReleaseDC ( FormHandle, hDC )
-      AAdd( _HMG_aFormGraphTasks [i] , {|| WndBoxIn( ( hDC := GetDC( FormHandle ) ), row, col, rowr, colr ), ReleaseDC( FormHandle, hDC ) } )
+      AAdd( _HMG_aFormGraphTasks [i] , {|| WndBoxIn( ( hDC := GetDC(FormHandle) ), row, col, rowr, colr ), ReleaseDC(FormHandle, hDC) } )
    ENDIF
 
 RETURN NIL
@@ -357,7 +357,7 @@ FUNCTION DrawWindowBoxRaised( window, row, col, rowr, colr )
       hDC := GetDC ( FormHandle )
       WndBoxRaised ( hDC, row, col, rowr, colr )
       ReleaseDC ( FormHandle, hDC )
-      AAdd( _HMG_aFormGraphTasks [i] , {|| WndBoxRaised( ( hDC := GetDC( FormHandle ) ), row, col, rowr, colr ), ReleaseDC( FormHandle, hDC ) } )
+      AAdd( _HMG_aFormGraphTasks [i] , {|| WndBoxRaised( ( hDC := GetDC(FormHandle) ), row, col, rowr, colr ), ReleaseDC(FormHandle, hDC) } )
    ENDIF
 
 RETURN NIL

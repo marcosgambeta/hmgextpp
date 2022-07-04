@@ -137,7 +137,7 @@ Return NIL
 METHOD HandleEvent( nMsg, nWParam, nLParam ) CLASS TDatePicker
 
    If nMsg == WM_NOTIFY
-      If HiWord( nWParam ) == NM_KILLFOCUS
+      If HiWord(nWParam) == NM_KILLFOCUS
          ::LostFocus()
       EndIf
    EndIf

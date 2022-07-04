@@ -62,7 +62,7 @@ HINSTANCE GetInstance( void );
 HINSTANCE GetResources( void );
 
 // Minigui Resources control system
-void RegisterResource( HANDLE hResource, LPSTR szType );
+void RegisterResource(HANDLE hResource, LPSTR szType);
 
 HB_FUNC( INITTABCONTROL )
 {
@@ -81,46 +81,46 @@ HB_FUNC( INITTABCONTROL )
 
    int Style = WS_CHILD | WS_VISIBLE | TCS_TOOLTIPS;
 
-   if( hb_parl( 11 ) )
+   if( hb_parl(11) )
       Style = Style | TCS_BUTTONS;
 
-   if( hb_parl( 12 ) )
+   if( hb_parl(12) )
       Style = Style | TCS_FLATBUTTONS;
 
-   if( hb_parl( 13 ) )
+   if( hb_parl(13) )
       Style = Style | TCS_HOTTRACK;
 
-   if( hb_parl( 14 ) )
+   if( hb_parl(14) )
       Style = Style | TCS_VERTICAL;
 
-   if( hb_parl( 15 ) )
+   if( hb_parl(15) )
       Style = Style | TCS_BOTTOM;
 
-   if( hb_parl( 16 ) )
+   if( hb_parl(16) )
       Style = Style | TCS_MULTILINE;
 
-   if( hb_parl( 17 ) )
+   if( hb_parl(17) )
       Style = Style | TCS_OWNERDRAWFIXED;
 
-   if( ! hb_parl( 18 ) )
+   if( ! hb_parl(18) )
       Style = Style | WS_TABSTOP;
 
    l      = ( int ) hb_parinfa( 7, 0 ) - 1;
    hArray = hb_param( 7, HB_IT_ARRAY );
 
-   hwnd = ( HWND ) HB_PARNL( 1 );
+   hwnd = ( HWND ) HB_PARNL(1);
 
    hbutton = CreateWindow
              (
       WC_TABCONTROL,
       NULL,
       Style,
-      hb_parni( 3 ),
-      hb_parni( 4 ),
-      hb_parni( 5 ),
-      hb_parni( 6 ),
+      hb_parni(3),
+      hb_parni(4),
+      hb_parni(5),
+      hb_parni(6),
       hwnd,
-      ( HMENU ) HB_PARNL( 2 ),
+      ( HMENU ) HB_PARNL(2),
       GetInstance(),
       NULL
              );
@@ -131,20 +131,20 @@ HB_FUNC( INITTABCONTROL )
    for( i = l; i >= 0; i = i - 1 )
    {
    #ifndef UNICODE
-      lpText = ( char * ) hb_arrayGetCPtr( hArray, i + 1 );
+      lpText = ( char * ) hb_arrayGetCPtr(hArray, i + 1);
    #else
-      lpText = AnsiToWide( ( char * ) hb_arrayGetCPtr( hArray, i + 1 ) );
+      lpText = AnsiToWide( ( char * ) hb_arrayGetCPtr(hArray, i + 1) );
    #endif
       tie.pszText = lpText;
 
       TabCtrl_InsertItem( hbutton, 0, &tie );
 
 #ifdef UNICODE
-      hb_xfree( ( TCHAR * ) lpText );
+      hb_xfree(( TCHAR * ) lpText);
 #endif
    }
 
-   TabCtrl_SetCurSel( hbutton, hb_parni( 8 ) - 1 );
+   TabCtrl_SetCurSel( hbutton, hb_parni(8) - 1 );
 
    HB_RETNL( ( LONG_PTR ) hbutton );
 }
@@ -154,8 +154,8 @@ HB_FUNC( TABCTRL_SETCURSEL )
    HWND hwnd;
    int  s;
 
-   hwnd = ( HWND ) HB_PARNL( 1 );
-   s    = hb_parni( 2 );
+   hwnd = ( HWND ) HB_PARNL(1);
+   s    = hb_parni(2);
 
    TabCtrl_SetCurSel( hwnd, s - 1 );
 }
@@ -164,7 +164,7 @@ HB_FUNC( TABCTRL_GETCURSEL )
 {
    HWND hwnd;
 
-   hwnd = ( HWND ) HB_PARNL( 1 );
+   hwnd = ( HWND ) HB_PARNL(1);
    hb_retni( TabCtrl_GetCurSel( hwnd ) + 1 );
 }
 
@@ -175,13 +175,13 @@ HB_FUNC( TABCTRL_INSERTITEM )
    int     i;
 
 #ifndef UNICODE
-   LPSTR lpText = ( LPSTR ) hb_parc( 3 );
+   LPSTR lpText = ( LPSTR ) hb_parc(3);
 #else
-   LPWSTR lpText = AnsiToWide( ( char * ) hb_parc( 3 ) );
+   LPWSTR lpText = AnsiToWide( ( char * ) hb_parc(3) );
 #endif
 
-   hwnd = ( HWND ) HB_PARNL( 1 );
-   i    = hb_parni( 2 );
+   hwnd = ( HWND ) HB_PARNL(1);
+   i    = hb_parni(2);
 
    tie.mask    = TCIF_TEXT;
    tie.iImage  = -1;
@@ -190,7 +190,7 @@ HB_FUNC( TABCTRL_INSERTITEM )
    TabCtrl_InsertItem( hwnd, i, &tie );
 
 #ifdef UNICODE
-   hb_xfree( ( TCHAR * ) lpText );
+   hb_xfree(( TCHAR * ) lpText);
 #endif
 }
 
@@ -199,8 +199,8 @@ HB_FUNC( TABCTRL_DELETEITEM )
    HWND hwnd;
    int  i;
 
-   hwnd = ( HWND ) HB_PARNL( 1 );
-   i    = hb_parni( 2 );
+   hwnd = ( HWND ) HB_PARNL(1);
+   i    = hb_parni(2);
 
    TabCtrl_DeleteItem( hwnd, i );
 }
@@ -208,9 +208,9 @@ HB_FUNC( TABCTRL_DELETEITEM )
 HB_FUNC( SETTABCAPTION )
 {
 #ifndef UNICODE
-   LPSTR lpText = ( LPSTR ) hb_parc( 3 );
+   LPSTR lpText = ( LPSTR ) hb_parc(3);
 #else
-   LPWSTR lpText = AnsiToWide( ( char * ) hb_parc( 3 ) );
+   LPWSTR lpText = AnsiToWide( ( char * ) hb_parc(3) );
 #endif
    TC_ITEM tie;
 
@@ -218,16 +218,16 @@ HB_FUNC( SETTABCAPTION )
 
    tie.pszText = lpText;
 
-   TabCtrl_SetItem( ( HWND ) HB_PARNL( 1 ), hb_parni( 2 ) - 1, &tie );
+   TabCtrl_SetItem( ( HWND ) HB_PARNL(1), hb_parni(2) - 1, &tie );
 
 #ifdef UNICODE
-   hb_xfree( ( TCHAR * ) lpText );
+   hb_xfree(( TCHAR * ) lpText);
 #endif
 }
 
 HB_FUNC( ADDTABBITMAP )
 {
-   HWND       hbutton = ( HWND ) HB_PARNL( 1 );
+   HWND       hbutton = ( HWND ) HB_PARNL(1);
    TC_ITEM    tie;
    HIMAGELIST himl = ( HIMAGELIST ) NULL;
    PHB_ITEM   hArray;
@@ -238,12 +238,12 @@ HB_FUNC( ADDTABBITMAP )
 
    if( nCount > 0 )
    {
-      int Transparent = hb_parl( 3 ) ? 0 : 1;
+      int Transparent = hb_parl(3) ? 0 : 1;
       hArray = hb_param( 2, HB_IT_ARRAY );
 
       for( i = 1; i <= nCount; i++ )
       {
-         FileName = ( char * ) hb_arrayGetCPtr( hArray, i );
+         FileName = ( char * ) hb_arrayGetCPtr(hArray, i);
 
          if( himl == NULL )
             himl = HMG_ImageListLoadFirst( FileName, nCount, Transparent, NULL, NULL );
@@ -262,7 +262,7 @@ HB_FUNC( ADDTABBITMAP )
       }
    }
 
-   RegisterResource( himl, const_cast<LPSTR>("IMAGELIST") );
+   RegisterResource(himl, const_cast<LPSTR>("IMAGELIST"));
    HB_RETNL( ( LONG_PTR ) himl );
 }
 
