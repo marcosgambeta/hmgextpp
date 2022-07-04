@@ -461,9 +461,9 @@ HB_FUNC( INITTOOLBUTTONEX )
       {
          if( hb_parni(18) > IDB_HIST_LARGE_COLOR )
          {
-            SendMessage( hwndTB, TB_SETIMAGELIST, ( WPARAM ) 0, ( LPARAM ) ( HIMAGELIST ) HB_PARNL(18) );
+            SendMessage( hwndTB, TB_SETIMAGELIST, ( WPARAM ) 0, ( LPARAM ) hmg_par_HIMAGELIST(18) );
             if( hb_parni(19) )
-               SendMessage( hwndTB, TB_SETHOTIMAGELIST, ( WPARAM ) 0, ( LPARAM ) ( HIMAGELIST ) HB_PARNL(19) );
+               SendMessage( hwndTB, TB_SETHOTIMAGELIST, ( WPARAM ) 0, ( LPARAM ) hmg_par_HIMAGELIST(19) );
 
             tbab.nID = hb_parni(18);
          }

@@ -180,7 +180,7 @@ HB_FUNC( INITCOMBOBOXEX )
    }
 
    if( himl == NULL && HB_PARNL(15) > 0 )
-      himl = ( HIMAGELIST ) HB_PARNL(15);
+      himl = hmg_par_HIMAGELIST(15);
 
    // set imagelist for created ComboEx
 

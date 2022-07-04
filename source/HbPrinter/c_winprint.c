@@ -1586,7 +1586,7 @@ HB_FUNC( RR_CREATEIMAGELIST )
 
 HB_FUNC( RR_DRAWIMAGELIST )
 {
-   HIMAGELIST himl = ( HIMAGELIST ) HB_PARNL(1);
+   HIMAGELIST himl = hmg_par_HIMAGELIST(1);
    HDC        tempdc, temp2dc;
    HBITMAP    hbmpx;
    RECT       rect;

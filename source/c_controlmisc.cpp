@@ -88,7 +88,7 @@ HB_FUNC( DELETEOBJECT )
 
 HB_FUNC( IMAGELIST_DESTROY )
 {
-   HIMAGELIST himl = ( HIMAGELIST ) HB_PARNL(1);
+   HIMAGELIST himl = hmg_par_HIMAGELIST(1);
 
    DelResource(himl);
    hb_retl( ImageList_Destroy( himl ) );
