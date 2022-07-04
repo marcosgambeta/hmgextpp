@@ -833,7 +833,7 @@ HB_FUNC( WAITRUNTERM )
    LPWSTR  lpCommandLine      = AnsiToWide( ( char * ) hb_parc(1) );
    LPCWSTR lpCurrentDirectory = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
-   PHB_ITEM    pWaitProc  = hb_param( 4, HB_IT_BLOCK );
+   PHB_ITEM    pWaitProc  = hb_param( 4, Harbour::Item::BLOCK );
    ULONG       ulWaitMsec = ( HB_ISNIL(5) ? 2000 : hb_parnl(5) );
    BOOL        bTerm      = FALSE;
    BOOL        bWait;
@@ -1347,7 +1347,7 @@ HB_FUNC( FILLRECT )
       RECT rc;
       int  iParam = 6;
 
-      if( Array2Rect(hb_param( 2, HB_IT_ANY ), &rc) )
+      if( Array2Rect(hb_param( 2, Harbour::Item::ANY ), &rc) )
          iParam = 3;
       else
       {

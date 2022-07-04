@@ -405,7 +405,7 @@ static void hb_sqlite3_ret( void * pMemAddr, int iType )
 
 static void * hb_sqlite3_param( int iParam, int iType, BOOL fError )
 {
-   return hb_sqlite3_itemGet( hb_param( iParam, HB_IT_POINTER ), iType, fError );
+   return hb_sqlite3_itemGet( hb_param( iParam, Harbour::Item::POINTER ), iType, fError );
 }
 
 /*-------------------------------------------------------------------------------------------------------------------
@@ -425,7 +425,7 @@ HB_FUNC( SQLITE3_SET_AUTHORIZER )
      	  
 		if( ISPOINTER(2) )
 		{
-			pHbSqlite3->cbAuthorizer = hb_itemNew( hb_param( 2, HB_IT_POINTER ) );
+			pHbSqlite3->cbAuthorizer = hb_itemNew( hb_param( 2, Harbour::Item::POINTER ) );
          
 			hb_gcUnlock( pHbSqlite3->cbAuthorizer );
          
@@ -743,7 +743,7 @@ HB_FUNC( SQLITE3_BUSY_HANDLER )
 
 		if( ISPOINTER(2) )
 		{
-			pHbSqlite3->cbBusyHandler = hb_itemNew( hb_param( 2, HB_IT_POINTER ) );
+			pHbSqlite3->cbBusyHandler = hb_itemNew( hb_param( 2, Harbour::Item::POINTER ) );
 			hb_gcUnlock( pHbSqlite3->cbBusyHandler );
 
 			sqlite3_busy_handler( pHbSqlite3->db, busy_handler,
@@ -814,7 +814,7 @@ HB_FUNC( SQLITE3_COMMIT_HOOK )
 
 		if( ISPOINTER(2) )
 		{
-			pHbSqlite3->cbHookCommit = hb_itemNew( hb_param( 2, HB_IT_POINTER ) );
+			pHbSqlite3->cbHookCommit = hb_itemNew( hb_param( 2, Harbour::Item::POINTER ) );
 			hb_gcUnlock( pHbSqlite3->cbHookCommit );
 
 			sqlite3_commit_hook( pHbSqlite3->db, hook_commit, ( void * ) pHbSqlite3->cbHookCommit );
@@ -838,7 +838,7 @@ HB_FUNC( SQLITE3_ROLLBACK_HOOK )
 
 		if( ISPOINTER(2) )
 		{
-			pHbSqlite3->cbHookRollback = hb_itemNew( hb_param( 2, HB_IT_POINTER ) );
+			pHbSqlite3->cbHookRollback = hb_itemNew( hb_param( 2, Harbour::Item::POINTER ) );
 			hb_gcUnlock( pHbSqlite3->cbHookRollback );
 
 			sqlite3_rollback_hook( pHbSqlite3->db, hook_rollback,
@@ -1108,7 +1108,7 @@ HB_FUNC( SQLITE3_EXEC )
 		if( ISPOINTER(3) )
 		{
 			rc = sqlite3_exec( pHbSqlite3->db, hb_parstr_utf8( 2, &hSQLText,
-                                                            NULL ), callback, ( void * ) hb_param( 3, HB_IT_POINTER ),&pszErrMsg );
+                                                            NULL ), callback, ( void * ) hb_param( 3, Harbour::Item::POINTER ),&pszErrMsg );
 		}
 		else
 		{
@@ -1336,7 +1336,7 @@ HB_FUNC( SQLITE3_PREPARE )
 
 	if( pHbSqlite3 && pHbSqlite3->db )
 	{
-		PHB_ITEM SQL = hb_param( 2, HB_IT_STRING );
+		PHB_ITEM SQL = hb_param( 2, Harbour::Item::STRING );
 
 		if( SQL )
 		{
@@ -1369,7 +1369,7 @@ HB_FUNC( SQLITE3_PREPARE_V2 )
 
 	if( pHbSqlite3 && pHbSqlite3->db )
 	{
-		PHB_ITEM SQL = hb_param( 2, HB_IT_STRING );
+		PHB_ITEM SQL = hb_param( 2, Harbour::Item::STRING );
 
 		if( SQL )
 		{
@@ -1421,7 +1421,7 @@ HB_FUNC( SQLITE3_PROGRESS_HANDLER )
 
 		if( ISNUM(2) && ISPOINTER(3) )
 		{
-			pHbSqlite3->cbProgressHandler = hb_itemNew( hb_param( 3, HB_IT_POINTER ) );
+			pHbSqlite3->cbProgressHandler = hb_itemNew( hb_param( 3, Harbour::Item::POINTER ) );
 			hb_gcUnlock( pHbSqlite3->cbProgressHandler );
 
 			sqlite3_progress_handler( pHbSqlite3->db, hb_parni(2), progress_handler,

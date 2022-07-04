@@ -291,8 +291,8 @@ HB_FUNC( HB_DATE )
 
 HB_FUNC( HB_LEFTEQI )
 {
-   PHB_ITEM pItem1 = hb_param( 1, HB_IT_STRING );
-   PHB_ITEM pItem2 = hb_param( 2, HB_IT_STRING );
+   PHB_ITEM pItem1 = hb_param( 1, Harbour::Item::STRING );
+   PHB_ITEM pItem2 = hb_param( 2, Harbour::Item::STRING );
 
    if( pItem1 && pItem2 )
       hb_retl( hb_cdpicmp( hb_itemGetCPtr(pItem1), hb_itemGetCLen( pItem1 ),

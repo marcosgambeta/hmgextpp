@@ -111,7 +111,7 @@ HB_FUNC( SETPROP )
       chType = 'D';     // date
       nLen   = 9;       // len of "yyyymmdd"
    }
-   else if( HB_IS_NUMINT( hb_param( 3, HB_IT_ANY ) ) )
+   else if( HB_IS_NUMINT( hb_param( 3, Harbour::Item::ANY ) ) )
    {
       if( ( BOOL ) hb_parldef( 4, HB_FALSE ) )
          chType = 'X';                 // if 'X' memory HANDLE passed
@@ -351,7 +351,7 @@ BOOL CALLBACK PropsEnumProcEx( HWND hWnd, LPCTSTR pszPropName, HANDLE handle, UL
 HB_FUNC( ENUMPROPSEX )
 {
    HWND     hWnd       = ( HWND ) HB_PARNL(1);
-   PHB_ITEM pCodeBlock = hb_param( 2, HB_IT_BLOCK );
+   PHB_ITEM pCodeBlock = hb_param( 2, Harbour::Item::BLOCK );
 
    if( IsWindow(hWnd) && pCodeBlock )
       hb_retni( EnumPropsEx( hWnd, ( PROPENUMPROCEX ) PropsEnumProcEx, ( LPARAM ) pCodeBlock ) );

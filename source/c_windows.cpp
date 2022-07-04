@@ -359,7 +359,7 @@ HB_FUNC( APPEVENTS )
       if( nPos > 0 )
       {
          events->events[ nPos - 1 ].message = message;
-         events->events[ nPos - 1 ].bAction = hb_itemNew( hb_param( 3, HB_IT_BLOCK ) );
+         events->events[ nPos - 1 ].bAction = hb_itemNew( hb_param( 3, Harbour::Item::BLOCK ) );
          events->events[ nPos - 1 ].active = hb_parldef( 4, HB_TRUE );
 
          bRes = TRUE;
@@ -422,10 +422,10 @@ HB_FUNC( APPEVENTSUPDATE )
 
             if( nPos > 0 )
             {
-               if( HB_IS_BLOCK( hb_param( 3, HB_IT_ANY ) ) )
+               if( HB_IS_BLOCK( hb_param( 3, Harbour::Item::ANY ) ) )
                {
                   hb_itemRelease( events->events[ nPos - 1 ].bAction );
-                  events->events[ nPos - 1 ].bAction = hb_itemNew( hb_param( 3, HB_IT_BLOCK ) );
+                  events->events[ nPos - 1 ].bAction = hb_itemNew( hb_param( 3, Harbour::Item::BLOCK ) );
                }
 
                events->events[ nPos - 1 ].active = hb_parldef( 4, HB_TRUE );
@@ -699,7 +699,7 @@ HB_FUNC( WINEVENTS )
       if( nPos > 0 )
       {
          events->events[ nPos - 1 ].message = message;
-         events->events[ nPos - 1 ].bAction = hb_itemNew( hb_param( 3, HB_IT_BLOCK ) );
+         events->events[ nPos - 1 ].bAction = hb_itemNew( hb_param( 3, Harbour::Item::BLOCK ) );
          events->events[ nPos - 1 ].active = hb_parldef( 4, HB_TRUE );
 
          bRes = TRUE;
@@ -762,10 +762,10 @@ HB_FUNC( WINEVENTSUPDATE )
 
             if( nPos > 0 )
             {
-               if( HB_IS_BLOCK( hb_param( 3, HB_IT_ANY ) ) )
+               if( HB_IS_BLOCK( hb_param( 3, Harbour::Item::ANY ) ) )
                {
                   hb_itemRelease( events->events[ nPos - 1 ].bAction );
-                  events->events[ nPos - 1 ].bAction = hb_itemNew( hb_param( 3, HB_IT_BLOCK ) );
+                  events->events[ nPos - 1 ].bAction = hb_itemNew( hb_param( 3, Harbour::Item::BLOCK ) );
                }
 
                events->events[ nPos - 1 ].active = hb_parldef( 4, HB_TRUE );

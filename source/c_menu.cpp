@@ -131,7 +131,7 @@ HB_FUNC( ACCELERATORTABLE2ARRAY )
 
 HB_FUNC( ARRAY2ACCELERATORTABLE )
 {
-   PHB_ITEM pArray = hb_param( 1, HB_IT_ARRAY );
+   PHB_ITEM pArray = hb_param( 1, Harbour::Item::ARRAY );
    int      nLen;
    HACCEL   hAccel = NULL;
 
@@ -145,7 +145,7 @@ HB_FUNC( ARRAY2ACCELERATORTABLE )
 
          for( i = 0; i < nLen; i++ )
          {
-            if( hb_arrayGetType(pArray, i + 1) & HB_IT_ARRAY )
+            if( hb_arrayGetType(pArray, i + 1) & Harbour::Item::ARRAY )
             {
                PHB_ITEM pAccel = hb_arrayGetItemPtr(pArray, i + 1);
 
@@ -1285,7 +1285,7 @@ HB_FUNC( GETMENUCOLORS )
 
 HB_FUNC( SETMENUCOLORS )
 {
-   PHB_ITEM pArray = hb_param( 1, HB_IT_ARRAY );
+   PHB_ITEM pArray = hb_param( 1, Harbour::Item::ARRAY );
 
    if( ( pArray != NULL ) && ( hb_arrayLen( pArray ) >= 28 ) )
    {

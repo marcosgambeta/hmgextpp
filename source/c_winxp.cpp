@@ -393,8 +393,8 @@ HB_FUNC( DRAWTHEMEBACKGROUND )
    RECT pRect;
    RECT pClipRect;
 
-   Array2Rect(hb_param( 5, HB_IT_ARRAY ), &pRect);
-   Array2Rect(hb_param( 6, HB_IT_ARRAY ), &pClipRect);
+   Array2Rect(hb_param( 5, Harbour::Item::ARRAY ), &pRect);
+   Array2Rect(hb_param( 6, Harbour::Item::ARRAY ), &pClipRect);
 
    if( hUxTheme == NULL )
       hUxTheme = LoadLibraryEx( TEXT("uxtheme.dll"), NULL, 0 );
@@ -418,7 +418,7 @@ HB_FUNC( DRAWTHEMEPARENTBACKGROUND )
    RECT pRect;
 
    if( HB_ISARRAY(7) )
-      Array2Rect(hb_param( 3, HB_IT_ARRAY ), &pRect);
+      Array2Rect(hb_param( 3, Harbour::Item::ARRAY ), &pRect);
 
    if( hUxTheme == NULL )
       hUxTheme = LoadLibraryEx( TEXT("uxtheme.dll"), NULL, 0 );
@@ -480,7 +480,7 @@ HB_FUNC( PTINRECT )
    RECT    rect;
    HB_BOOL bIn = HB_FALSE;
 
-   if( ( Array2Point( hb_param( 1, HB_IT_ANY ), &point ) && Array2Rect(hb_param( 2, HB_IT_ANY ), &rect) ) )
+   if( ( Array2Point( hb_param( 1, Harbour::Item::ANY ), &point ) && Array2Rect(hb_param( 2, Harbour::Item::ANY ), &rect) ) )
    {
       bIn = PtInRect(&rect, point) ? HB_TRUE : HB_FALSE;
    }

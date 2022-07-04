@@ -250,7 +250,7 @@ HB_FUNC( CREATEPROPERTYSEEETPAGE )
    char    *strSubHdTitle;
    int     idRC, PageStyle;
 
-   sArray = hb_param( 1, HB_IT_ARRAY );
+   sArray = hb_param( 1, Harbour::Item::ARRAY );
 
    ZeroMemory ( &psp, sizeof(PROPSHEETPAGE) );
 
@@ -298,8 +298,8 @@ HB_FUNC( CREATEPROPERTYSHEET )
    int      s, idWM, nPages, idHeader, idIcon, Style;
 
    HWND hwnd = (HWND) hb_parnl(1);
-   sArray = hb_param( 2, HB_IT_ARRAY );
-   pArray = hb_param( 3, HB_IT_ARRAY );
+   sArray = hb_param( 2, Harbour::Item::ARRAY );
+   pArray = hb_param( 3, Harbour::Item::ARRAY );
 
    nPages = hb_arrayLen( sArray );
 
@@ -516,9 +516,9 @@ HB_FUNC( CREATEPROPSEEETPAGEINDIRECT )
 
    long     lTemplateSize ;
 
-   sArray = hb_param( 1, HB_IT_ARRAY );   //Property Sheet Array
-   dArray = hb_param( 2, HB_IT_ARRAY );   //Property Sheet Page Array
-   cArray = hb_param( 3, HB_IT_ARRAY );   //Page Controls Array
+   sArray = hb_param( 1, Harbour::Item::ARRAY );   //Property Sheet Array
+   dArray = hb_param( 2, Harbour::Item::ARRAY );   //Property Sheet Page Array
+   cArray = hb_param( 3, Harbour::Item::ARRAY );   //Page Controls Array
 
    lTemplateSize = GetSizeDlgTemp( dArray, cArray);
    pdlgtemplate = CreateDlgTemplate( lTemplateSize, dArray, cArray);

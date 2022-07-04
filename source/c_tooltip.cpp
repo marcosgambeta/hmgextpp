@@ -301,7 +301,7 @@ HB_FUNC( INITTOOLTIPEX )
 
    if( IsWindow(hwndParent) )
    {
-      PHB_ITEM aRect = hb_param( 2, HB_IT_ANY );
+      PHB_ITEM aRect = hb_param( 2, Harbour::Item::ANY );
       RECT     rect;
 #ifndef UNICODE
       LPSTR lpszText  = ( LPSTR ) NULL;
@@ -663,7 +663,7 @@ HB_FUNC( TTM_SETMARGIN )
    {
       RECT rect;
 
-      if( Array2Rect(hb_param( 2, HB_IT_ANY ), &rect) )
+      if( Array2Rect(hb_param( 2, Harbour::Item::ANY ), &rect) )
       {
          SendMessage( hwndToolTip, TTM_SETMARGIN, 0, ( LPARAM ) &rect );
       }
@@ -706,7 +706,7 @@ HB_FUNC( TTM_SETTIPBKCOLOR )
    {
       COLORREF cr = ( COLORREF ) 0;
 
-      if( HB_ISNUM(2) || Array2ColorRef(hb_param( 2, HB_IT_ARRAY ), &cr) )
+      if( HB_ISNUM(2) || Array2ColorRef(hb_param( 2, Harbour::Item::ARRAY ), &cr) )
       {
          if( HB_ISNUM(2) )
          {
@@ -737,7 +737,7 @@ HB_FUNC( TTM_SETTIPTEXTCOLOR )
    {
       COLORREF cr = ( COLORREF ) 0;
 
-      if( HB_ISNUM(2) || Array2ColorRef(hb_param( 2, HB_IT_ANY ), &cr) )
+      if( HB_ISNUM(2) || Array2ColorRef(hb_param( 2, Harbour::Item::ANY ), &cr) )
       {
          if( HB_ISNUM(2) )
          {
@@ -802,7 +802,7 @@ HB_FUNC( TTM_TRACKPOSITION )
    {
       POINT point;
 
-      if( Array2Point( hb_param( 3, HB_IT_ARRAY ), &point ) )
+      if( Array2Point( hb_param( 3, Harbour::Item::ARRAY ), &point ) )
       {
          ClientToScreen( hwndTool, &point );
 
@@ -888,7 +888,7 @@ HB_FUNC( TTM_WINDOWFROMPOINT )
    {
       POINT point;
 
-      if( Array2Point( hb_param( 3, HB_IT_ARRAY ), &point ) )
+      if( Array2Point( hb_param( 3, Harbour::Item::ARRAY ), &point ) )
       {
          ClientToScreen( hwndTool, &point );
 

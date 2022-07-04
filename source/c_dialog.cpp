@@ -174,7 +174,7 @@ HB_FUNC( ADDDIALOGPAGES )
    hwnd = ( HWND ) HB_PARNL(1);
 
    l      = ( int ) hb_parinfa( 2, 0 ) - 1;
-   hArray = hb_param( 2, HB_IT_ARRAY );
+   hArray = hb_param( 2, Harbour::Item::ARRAY );
 
    tie.mask   = TCIF_TEXT;
    tie.iImage = -1;
@@ -458,8 +458,8 @@ HB_FUNC( CREATEDLGTEMPLATE )
 
    hwnd = ( HWND ) HB_PARNL(1);
 
-   dArray = hb_param( 2, HB_IT_ARRAY );
-   cArray = hb_param( 3, HB_IT_ARRAY );
+   dArray = hb_param( 2, Harbour::Item::ARRAY );
+   cArray = hb_param( 3, Harbour::Item::ARRAY );
    modal  = hb_arrayGetL( dArray, 3 );
 
    lTemplateSize = ( long ) GetSizeDlgTemp( dArray, cArray );

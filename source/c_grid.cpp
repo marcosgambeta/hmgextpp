@@ -269,7 +269,7 @@ HB_FUNC( ADDLISTVIEWBITMAP )       // Grid+
 
    if( nCount > 0 )
    {
-      hArray = hb_param( 2, HB_IT_ARRAY );
+      hArray = hb_param( 2, Harbour::Item::ARRAY );
 
       for( s = 1; s <= nCount; s++ )
       {
@@ -305,7 +305,7 @@ HB_FUNC( ADDLISTVIEWBITMAPHEADER )  // Grid+
 
       if( nCount > 0 )
       {
-         hArray = hb_param( 2, HB_IT_ARRAY );
+         hArray = hb_param( 2, Harbour::Item::ARRAY );
 
          for( s = 1; s <= nCount; s++ )
          {
@@ -360,9 +360,9 @@ HB_FUNC( INITLISTVIEWCOLUMNS )
    hc = ( HWND ) HB_PARNL(1);
 
    iLen   = ( int ) hb_parinfa( 2, 0 ) - 1;
-   hArray = hb_param( 2, HB_IT_ARRAY );
-   wArray = hb_param( 3, HB_IT_ARRAY );
-   jArray = hb_param( 4, HB_IT_ARRAY );
+   hArray = hb_param( 2, Harbour::Item::ARRAY );
+   wArray = hb_param( 3, Harbour::Item::ARRAY );
+   jArray = hb_param( 4, Harbour::Item::ARRAY );
 
    COL.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM;
 
@@ -414,7 +414,7 @@ HB_FUNC( ADDLISTVIEWITEMS )
 
    h      = ( HWND ) HB_PARNL(1);
    l      = ( int ) hb_parinfa( 2, 0 ) - 1;
-   hArray = hb_param( 2, HB_IT_ARRAY );
+   hArray = hb_param( 2, Harbour::Item::ARRAY );
    c      = ListView_GetItemCount( h );
 
    caption = ( char * ) hb_arrayGetCPtr(hArray, 1);
@@ -485,7 +485,7 @@ HB_FUNC( LISTVIEWSETMULTISEL )
    int      i    = -1;
    int      l;
 
-   wArray = hb_param( 2, HB_IT_ARRAY );
+   wArray = hb_param( 2, Harbour::Item::ARRAY );
 
    l = ( int ) hb_parinfa( 2, 0 ) - 1;
 
@@ -522,7 +522,7 @@ HB_FUNC( LISTVIEWSETITEM )
    int  c = hb_parni(3) - 1;
    int  s;
 
-   hArray = hb_param( 2, HB_IT_ARRAY );
+   hArray = hb_param( 2, Harbour::Item::ARRAY );
 
    for( s = 0; s <= l; s = s + 1 )
    {
@@ -855,7 +855,7 @@ HB_FUNC( LISTVIEW_ADDCOLUMN )
    int       iColumn = hb_parni(2) - 1;
    PHB_ITEM  pValue  = hb_itemNew( NULL );
 
-   hb_itemCopy( pValue, hb_param( 4, HB_IT_STRING ) );
+   hb_itemCopy( pValue, hb_param( 4, Harbour::Item::STRING ) );
 
    COL.mask = LVCF_WIDTH | LVCF_TEXT | LVCF_FMT | LVCF_SUBITEM;
    COL.cx   = hb_parni(3);
@@ -975,7 +975,7 @@ HB_FUNC( LISTVIEW_GETCOLUMNORDERARRAY )
 
 HB_FUNC( LISTVIEW_SETCOLUMNORDERARRAY )
 {
-   PHB_ITEM pOrder = hb_param( 3, HB_IT_ARRAY );
+   PHB_ITEM pOrder = hb_param( 3, Harbour::Item::ARRAY );
 
    if( NULL != pOrder )
    {

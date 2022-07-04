@@ -984,8 +984,8 @@ HB_FUNC( INITPROPGRID )
    icex.dwICC = ICC_TREEVIEW_CLASSES | ICC_DATE_CLASSES | ICC_USEREX_CLASSES;;
    InitCommonControlsEx( &icex );
 
-   hArray = hb_param( 11, HB_IT_ARRAY );
-   MsgArray = hb_param( 17, HB_IT_ARRAY );
+   hArray = hb_param( 11, Harbour::Item::ARRAY );
+   MsgArray = hb_param( 17, Harbour::Item::ARRAY );
 
    hFramePG = CreateWindowEx
       (
@@ -1978,7 +1978,7 @@ HB_FUNC( ADDTREEITEMS )
 
    h = ( HWND ) hb_parnl(1);
    l = hb_parinfa( 2, 0 ) - 1;
-   hArray = hb_param( 2, HB_IT_ARRAY );
+   hArray = hb_param( 2, Harbour::Item::ARRAY );
    c = ListView_GetItemCount( h );
 
    caption = (char *) hb_arrayGetCPtr(hArray, 1);

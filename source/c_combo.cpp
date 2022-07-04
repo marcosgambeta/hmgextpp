@@ -166,7 +166,7 @@ HB_FUNC( INITCOMBOBOXEX )
    if( nCount > 0 )
    {
       int Transparent = hb_parl(7) ? 0 : 1;
-      hArray = hb_param( 14, HB_IT_ARRAY );
+      hArray = hb_param( 14, Harbour::Item::ARRAY );
 
       for( s = 1; s <= nCount; s++ )
       {

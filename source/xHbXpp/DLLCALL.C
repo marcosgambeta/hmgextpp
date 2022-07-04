@@ -439,33 +439,33 @@ static void DllExec( int iFlags, LPVOID lpFunction, int iParams, int iFirst, int
    {
       for( i = iFirst; i <= iParams; i++)
       {
-         switch ( hb_parinfo(i) & ~HB_IT_BYREF )
+         switch ( hb_parinfo(i) & ~Harbour::Item::BYREF )
          {
-            case HB_IT_NIL               :
+            case Harbour::Item::NIL               :
                Parm[iCnt].nWidth = sizeof(void*);
                Parm[iCnt].dwArg = (DWORD) NULL;
                break;
 
-            case HB_IT_POINTER           :
+            case Harbour::Item::POINTER           :
                Parm[iCnt].nWidth = sizeof(void*);
                Parm[iCnt].dwArg = (DWORD) hb_parptr ( i );
                break;
 
-            case HB_IT_INTEGER           :
-            case HB_IT_LONG              :
-            case HB_IT_DATE              :
-            case HB_IT_LOGICAL           :
+            case Harbour::Item::INTEGER           :
+            case Harbour::Item::LONG              :
+            case Harbour::Item::DATE              :
+            case Harbour::Item::LOGICAL           :
                Parm[iCnt].nWidth = sizeof(DWORD);
                Parm[iCnt].dwArg = (DWORD) hb_parnl( i );
 
-               if( hb_parinfo(i) & HB_IT_BYREF )
+               if( hb_parinfo(i) & Harbour::Item::BYREF )
                {
                   Parm[iCnt].pArg   = &( Parm[iCnt].dwArg );
                   Parm[iCnt].dwFlags = DC_FLAG_ARGPTR;  // use the pointer
                }
                break;
 
-            case HB_IT_DOUBLE            :
+            case Harbour::Item::DOUBLE            :
                Parm[iCnt].nWidth = sizeof(double);
                DblParms[iCnt] = (double) hb_parnd( i );
                Parm[iCnt].pArg   = &( DblParms[iCnt] );
@@ -473,10 +473,10 @@ static void DllExec( int iFlags, LPVOID lpFunction, int iParams, int iFirst, int
                iFlags |= DC_RETVAL_MATH8;
                break;
 
-            case HB_IT_STRING            :
-            case HB_IT_MEMO              :
+            case Harbour::Item::STRING            :
+            case Harbour::Item::MEMO              :
                Parm[iCnt].nWidth = sizeof(void*);
-               if ( hb_parinfo(i) & HB_IT_BYREF )
+               if ( hb_parinfo(i) & Harbour::Item::BYREF )
                {
                   Parm[iCnt].pArg = malloc( hb_parclen( i ) );
                   memcpy(Parm[iCnt].pArg, hb_parc( i ), hb_parclen( i ));
@@ -488,20 +488,20 @@ static void DllExec( int iFlags, LPVOID lpFunction, int iParams, int iFirst, int
                Parm[iCnt].dwFlags = DC_FLAG_ARGPTR;  // use the pointer
                break;
 
-            case HB_IT_ARRAY             :
-               if( strncmp( hb_objGetClsName( hb_param(i, HB_IT_ANY ) ), "C Structure", 11 ) == 0 )
+            case Harbour::Item::ARRAY             :
+               if( strncmp( hb_objGetClsName( hb_param(i, Harbour::Item::ANY ) ), "C Structure", 11 ) == 0 )
                {
                   Parm[iCnt].nWidth = sizeof(void*);
                   Parm[iCnt].dwArg = (DWORD) hb_parcstruct( i );
                   break;
                }
 
-            case HB_IT_HASH              :
-            case HB_IT_SYMBOL            :
-            case HB_IT_ALIAS             :
-            case HB_IT_MEMOFLAG          :
-            case HB_IT_BLOCK             :
-            case HB_IT_MEMVAR            :
+            case Harbour::Item::HASH              :
+            case Harbour::Item::SYMBOL            :
+            case Harbour::Item::ALIAS             :
+            case Harbour::Item::MEMOFLAG          :
+            case Harbour::Item::BLOCK             :
+            case Harbour::Item::MEMVAR            :
 
             default:
                MessageBox( GetActiveWindow(), "UNKNOWN Parameter Type!", "DLLCall Parameter Error!", MB_OK | MB_ICONERROR );
@@ -538,39 +538,39 @@ static void DllExec( int iFlags, LPVOID lpFunction, int iParams, int iFirst, int
 
       for( i = iFirst; i <= iParams; i++)
       {
-         if( hb_parinfo(i) & HB_IT_BYREF )
+         if( hb_parinfo(i) & Harbour::Item::BYREF )
          {
-            switch ( hb_parinfo(i) & ~HB_IT_BYREF )
+            switch ( hb_parinfo(i) & ~Harbour::Item::BYREF )
             {
-               case HB_IT_NIL               :
+               case Harbour::Item::NIL               :
                   hb_stornl( Parm[iCnt].dwArg, i );
                   break;
 
-               case HB_IT_POINTER           :
+               case Harbour::Item::POINTER           :
                   break;
 
-               case HB_IT_INTEGER           :
-               case HB_IT_LONG              :
-               case HB_IT_DATE              :
-               case HB_IT_LOGICAL           :
+               case Harbour::Item::INTEGER           :
+               case Harbour::Item::LONG              :
+               case Harbour::Item::DATE              :
+               case Harbour::Item::LOGICAL           :
                   hb_stornl( *(LONG *) ( Parm[iCnt].pArg ), i );
                   break;
 
-               case HB_IT_DOUBLE            :
+               case Harbour::Item::DOUBLE            :
                   hb_stornd( DblParms[iCnt], i );
                   break;
 
-               case HB_IT_STRING            :
-               case HB_IT_MEMO              :
+               case Harbour::Item::STRING            :
+               case Harbour::Item::MEMO              :
                   hb_storclen( (char *) Parm[iCnt].pArg, hb_parclen( i ), i );
                   free( Parm[iCnt].pArg );
                   break;
 
-               case HB_IT_ARRAY             :
-                  if( strncmp( hb_objGetClsName( hb_param(i, HB_IT_ANY ) ), "C Structure", 11 ) == 0 )
+               case Harbour::Item::ARRAY             :
+                  if( strncmp( hb_objGetClsName( hb_param(i, Harbour::Item::ANY ) ), "C Structure", 11 ) == 0 )
                   {
                      hb_vmPushSymbol( pDEVALUE->pSymbol );
-                     hb_vmPush( hb_param( i, HB_IT_ANY ) );
+                     hb_vmPush( hb_param( i, Harbour::Item::ANY ) );
                      hb_vmSend(0);
 
                      break;

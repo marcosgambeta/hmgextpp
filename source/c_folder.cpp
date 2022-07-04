@@ -344,9 +344,9 @@ HB_FUNC( CREATEFOLDERPAGEINDIRECT )
 
    long lTemplateSize;
 
-   sArray        = hb_param( 1, HB_IT_ARRAY ); //Folder Array
-   dArray        = hb_param( 2, HB_IT_ARRAY ); //Folder Page Array
-   cArray        = hb_param( 3, HB_IT_ARRAY ); //Page Controls Array
+   sArray        = hb_param( 1, Harbour::Item::ARRAY ); //Folder Array
+   dArray        = hb_param( 2, Harbour::Item::ARRAY ); //Folder Page Array
+   cArray        = hb_param( 3, Harbour::Item::ARRAY ); //Page Controls Array
    lTemplateSize = GetSizeDlgTemp( dArray, cArray );
    pdlgtemplate  = ( DLGTEMPLATE * ) CreateDlgTemplate( lTemplateSize, dArray, cArray );
    ZeroMemory(pfpi, sizeof(FLDPAGEINFO));
@@ -396,7 +396,7 @@ HB_FUNC( CREATEFOLDERPAGE )
    TCHAR *  caption;
    int      idRC, PageStyle;
 
-   sArray = hb_param( 1, HB_IT_ARRAY );
+   sArray = hb_param( 1, Harbour::Item::ARRAY );
 
    ZeroMemory(pfpi, sizeof(FLDPAGEINFO));
 
@@ -460,9 +460,9 @@ HB_FUNC( CREATEDLGFOLDER )
    nIdFld  = ( int ) hb_parni(1);
    hWndDlg = ( HWND ) HB_PARNL(2);
 
-   sArray = hb_param( 3, HB_IT_ARRAY );      // aHwndFolderPages
-   pArray = hb_param( 4, HB_IT_ARRAY );      //_HMG_aFolderTemplate
-   cArray = hb_param( 5, HB_IT_ARRAY );      //_HMG_aDialogItems
+   sArray = hb_param( 3, Harbour::Item::ARRAY );      // aHwndFolderPages
+   pArray = hb_param( 4, Harbour::Item::ARRAY );      //_HMG_aFolderTemplate
+   cArray = hb_param( 5, Harbour::Item::ARRAY );      //_HMG_aDialogItems
 
    //  _HMG_aFolderTemplate := {0,ParentHandle,modal,style,styleEx ,x,y,w,h,caption,fontname,fontsize,bold,Italic,lApplyBtn,lCancelBtn}
    //  _HMG_aFolderTemplate -> {0,ParentHandle,modal,style,styleEx ,x,y,w,h,caption,fontname,fontsize,bold,Italic,lOkBtn,lApplyBtn,lCancelBtn, buttons , flat , hottrack , vertical , bottom, multiline}

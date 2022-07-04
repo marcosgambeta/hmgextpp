@@ -171,7 +171,7 @@ HB_FUNC( INVERTRECT )
 
    if( HB_ISARRAY(2) )
    {
-      Array2Rect(hb_param( 2, HB_IT_ARRAY ), &rc);
+      Array2Rect(hb_param( 2, Harbour::Item::ARRAY ), &rc);
       InvertRect(( HDC ) HB_PARNL(1), &rc);
    }
 }

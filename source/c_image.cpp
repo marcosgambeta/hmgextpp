@@ -1171,7 +1171,7 @@ HB_FUNC( C_SAVEHICONTOFILE )
    TCHAR * szIconFile = ( TCHAR * ) AnsiToWide( ( char * ) hb_parc(1) );
 #endif
    HICON    hIcon[ 9 ];
-   PHB_ITEM pArray = hb_param( 2, HB_IT_ARRAY );
+   PHB_ITEM pArray = hb_param( 2, Harbour::Item::ARRAY );
    int      nLen;
 
    if( pArray && ( ( nLen = ( int ) hb_arrayLen( pArray ) ) > 0 ) )

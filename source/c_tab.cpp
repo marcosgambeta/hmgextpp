@@ -106,7 +106,7 @@ HB_FUNC( INITTABCONTROL )
       Style = Style | WS_TABSTOP;
 
    l      = ( int ) hb_parinfa( 7, 0 ) - 1;
-   hArray = hb_param( 7, HB_IT_ARRAY );
+   hArray = hb_param( 7, Harbour::Item::ARRAY );
 
    hwnd = ( HWND ) HB_PARNL(1);
 
@@ -239,7 +239,7 @@ HB_FUNC( ADDTABBITMAP )
    if( nCount > 0 )
    {
       int Transparent = hb_parl(3) ? 0 : 1;
-      hArray = hb_param( 2, HB_IT_ARRAY );
+      hArray = hb_param( 2, Harbour::Item::ARRAY );
 
       for( i = 1; i <= nCount; i++ )
       {
@@ -270,7 +270,7 @@ HB_FUNC( WINDOWFROMPOINT )
 {
    POINT Point;
 
-   Array2Point( hb_param( 1, HB_IT_ARRAY ), &Point );
+   Array2Point( hb_param( 1, Harbour::Item::ARRAY ), &Point );
    HB_RETNL( ( LONG_PTR ) WindowFromPoint( Point ) );
 }
 

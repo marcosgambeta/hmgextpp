@@ -122,7 +122,7 @@ HB_FUNC( DRAWSTATE )
       WPARAM   wData   = ( WPARAM ) hb_parclen(4);
       HB_ISIZ  fuFlags = hb_parns(10);
 
-      if( Array2ColorRef(hb_param( 2, HB_IT_ANY ), &crBrush) )
+      if( Array2ColorRef(hb_param( 2, Harbour::Item::ANY ), &crBrush) )
          hBrush = CreateSolidBrush( crBrush );
 
       if( wData > 0 )
@@ -203,7 +203,7 @@ HB_FUNC( GRAYSTRING )
          COLORREF     crBrush;
          const char * lpData = hb_parc(4);
 
-         if( Array2ColorRef(hb_param( 2, HB_IT_ANY ), &crBrush) )
+         if( Array2ColorRef(hb_param( 2, Harbour::Item::ANY ), &crBrush) )
             hBrush = CreateSolidBrush(crBrush);
 
          hb_retl( GrayString( hDC, hBrush, NULL, ( LPARAM ) lpData, nCount, hb_parni(6), hb_parni(7), hb_parni(8), hb_parni(9) )
@@ -230,7 +230,7 @@ HB_FUNC( INVALIDATERECT )
 
       if( ( hb_pcount() > 2 ) && ( ! HB_ISNIL(3) ) )
       {
-         bRect = Array2Rect(hb_param( 3, HB_IT_ANY ), &rc);
+         bRect = Array2Rect(hb_param( 3, Harbour::Item::ANY ), &rc);
 
          if( ! bRect )
          {
@@ -285,7 +285,7 @@ HB_FUNC( C_SETBACKCOLOR )
    {
       COLORREF cr;
 
-      if( ! Array2ColorRef(hb_param( 2, HB_IT_ANY ), &cr) )
+      if( ! Array2ColorRef(hb_param( 2, Harbour::Item::ANY ), &cr) )
          cr = ( COLORREF ) RGB(hb_parni(2), hb_parni(3), hb_parni(4));
 
       hb_retns( ( HB_ISIZ ) SetBkColor(hDC, cr) );
@@ -343,7 +343,7 @@ HB_FUNC( VALIDATERECT )
 
       if( ( hb_pcount() > 1 ) && ( ! HB_ISNIL(2) ) )
       {
-         bRect = Array2Rect(hb_param( 2, HB_IT_ANY ), &rc);
+         bRect = Array2Rect(hb_param( 2, Harbour::Item::ANY ), &rc);
 
          if( ! bRect )
          {

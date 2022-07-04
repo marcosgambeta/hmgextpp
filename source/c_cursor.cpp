@@ -67,7 +67,7 @@ HB_FUNC( LOADCURSOR )
    HINSTANCE hInstance = HB_ISNIL(1) ? NULL : ( HINSTANCE ) HB_PARNL(1);
 
 #ifndef UNICODE
-   LPCSTR lpCursorName = ( hb_parinfo(2) & HB_IT_STRING ) ? hb_parc(2) : ( LPCSTR ) MAKEINTRESOURCE(hb_parni(2));
+   LPCSTR lpCursorName = ( hb_parinfo(2) & Harbour::Item::STRING ) ? hb_parc(2) : ( LPCSTR ) MAKEINTRESOURCE(hb_parni(2));
 
    HB_RETNL( ( LONG_PTR ) LoadCursor(hInstance, lpCursorName) );
 #else
@@ -120,7 +120,7 @@ HB_FUNC( SETWINDOWCURSOR )
    HCURSOR ch;
 
 #ifndef UNICODE
-   LPCSTR lpCursorName = ( hb_parinfo(2) & HB_IT_STRING ) ? hb_parc(2) : ( LPCSTR ) MAKEINTRESOURCE(hb_parni(2));
+   LPCSTR lpCursorName = ( hb_parinfo(2) & Harbour::Item::STRING ) ? hb_parc(2) : ( LPCSTR ) MAKEINTRESOURCE(hb_parni(2));
 #else
    LPWSTR  pW = AnsiToWide( ( char * ) hb_parc(2) );
    LPCWSTR lpCursorName = HB_ISCHAR(2) ? pW : ( LPCWSTR ) MAKEINTRESOURCE(hb_parni(2));

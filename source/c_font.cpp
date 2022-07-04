@@ -220,11 +220,11 @@ HB_FUNC( ENUMFONTSEX )
       ReleaseDC(NULL, hdc);
 
    if( HB_ISBLOCK(6) )
-      hb_arraySort( pArray, NULL, NULL, hb_param( 6, HB_IT_BLOCK ) );
+      hb_arraySort( pArray, NULL, NULL, hb_param( 6, Harbour::Item::BLOCK ) );
 
    if( HB_ISBYREF(7) )
    {
-      PHB_ITEM aFontName = hb_param( 7, HB_IT_ANY );
+      PHB_ITEM aFontName = hb_param( 7, Harbour::Item::ANY );
       int      nLen = ( int ) hb_arrayLen( pArray ), i;
 
       hb_arrayNew( aFontName, nLen );

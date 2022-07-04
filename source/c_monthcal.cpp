@@ -235,7 +235,7 @@ HB_FUNC( C_SETDAYSTATE )
 {
    HWND            hWnd   = ( HWND ) HB_PARNL(1);
    int             iCount = hb_parni(2);
-   PHB_ITEM        hArray = hb_param( 3, HB_IT_ARRAY );
+   PHB_ITEM        hArray = hb_param( 3, Harbour::Item::ARRAY );
    LPMONTHDAYSTATE rgMonths;
    int             i, j, iSize;
 
@@ -262,7 +262,7 @@ HB_FUNC( C_RETDAYSTATE )
 {
    LPNMDAYSTATE    pData  = ( NMDAYSTATE * ) HB_PARNL(1);
    int             iCount = hb_parni(2);
-   PHB_ITEM        hArray = hb_param( 3, HB_IT_ARRAY );
+   PHB_ITEM        hArray = hb_param( 3, Harbour::Item::ARRAY );
    LPMONTHDAYSTATE rgMonths;
    int             i, j, iSize;
 

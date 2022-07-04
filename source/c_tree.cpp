@@ -106,7 +106,7 @@ HB_FUNC( INITTREEVIEWBITMAP ) //Tree+
    if( nCount > 0 )
    {
       int Transparent = hb_parl(3) ? 0 : 1;
-      hArray = hb_param( 2, HB_IT_ARRAY );
+      hArray = hb_param( 2, Harbour::Item::ARRAY );
 
       for( s = 1; s <= nCount; s++ )
       {

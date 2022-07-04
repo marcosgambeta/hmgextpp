@@ -733,7 +733,7 @@ static BOOL CALLBACK EnumChildProc( HWND hWnd, LPARAM lParam )
 HB_FUNC( C_ENUMCHILDWINDOWS )
 {
    HWND     hWnd       = ( HWND ) HB_PARNL(1);
-   PHB_ITEM pCodeBlock = hb_param( 2, HB_IT_BLOCK );
+   PHB_ITEM pCodeBlock = hb_param( 2, Harbour::Item::BLOCK );
 
    if( IsWindow(hWnd) && pCodeBlock )
    {

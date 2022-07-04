@@ -232,7 +232,7 @@ HB_FUNC( LISTBOXSETMULTISEL )
 
    int i, n, l;
 
-   wArray = hb_param( 2, HB_IT_ARRAY );
+   wArray = hb_param( 2, Harbour::Item::ARRAY );
 
    l = ( int ) hb_parinfa( 2, 0 ) - 1;
 
@@ -257,7 +257,7 @@ HB_FUNC( LISTBOXSETMULTITAB )
 
    HWND hwnd = ( HWND ) HB_PARNL(1);
 
-   wArray = hb_param( 2, HB_IT_ARRAY );
+   wArray = hb_param( 2, Harbour::Item::ARRAY );
 
    l = ( int ) hb_parinfa( 2, 0 ) - 1;
 

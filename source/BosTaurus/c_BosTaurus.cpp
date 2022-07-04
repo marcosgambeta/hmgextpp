@@ -989,7 +989,7 @@ HB_FUNC( BT_SCR_INVALIDATERECT )
       hb_retl( InvalidateRect(( HWND ) HB_PARNL(1), NULL, hb_parl(3)) );  // Invalidate all client area
    else
    {
-      pArrayRect = hb_param( 2, HB_IT_ARRAY );
+      pArrayRect = hb_param( 2, Harbour::Item::ARRAY );
 
       if( hb_arrayLen( pArrayRect ) == 4 )
       {

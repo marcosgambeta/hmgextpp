@@ -114,11 +114,11 @@ HB_FUNC( TEXTDRAW )
       {
          iBkMode = SetBkMode( hDC, OPAQUE );
 
-         if( Array2ColorRef(hb_param( 8, HB_IT_ANY ), &crBkColor) )
+         if( Array2ColorRef(hb_param( 8, Harbour::Item::ANY ), &crBkColor) )
             crBkColor = SetBkColor(hDC, crBkColor);
       }
 
-      if( Array2ColorRef(hb_param( 7, HB_IT_ANY ), &crFgColor) )
+      if( Array2ColorRef(hb_param( 7, Harbour::Item::ANY ), &crFgColor) )
          SetTextColor(hDC, crFgColor);
 
       SetRect(&rect, hb_parni(3), hb_parni(2), hb_parni(6), hb_parni(5));
