@@ -179,7 +179,7 @@ HB_FUNC( ADDTREEITEM )
 {
    HWND hWndTV = hmg_par_HWND(1);
 
-   HTREEITEM hPrev = ( HTREEITEM ) HB_PARNL(2);
+   HTREEITEM hPrev = hmg_par_HTREEITEM(2);
    HTREEITEM hRet;
 
 #ifndef UNICODE
@@ -250,7 +250,7 @@ HB_FUNC( TREEVIEW_SELECTITEM )
    HTREEITEM ItemHandle;
 
    TreeHandle = hmg_par_HWND(1);
-   ItemHandle = ( HTREEITEM ) HB_PARNL(2);
+   ItemHandle = hmg_par_HTREEITEM(2);
 
    TreeView_SelectItem( TreeHandle, ItemHandle );
 }
@@ -290,7 +290,7 @@ HB_FUNC( TREEVIEW_DELETEITEM )
    HTREEITEM ItemHandle;
 
    TreeHandle = hmg_par_HWND(1);
-   ItemHandle = ( HTREEITEM ) HB_PARNL(2);
+   ItemHandle = hmg_par_HTREEITEM(2);
 
    TreeView_FreeMemoryLPARAMRecursive( TreeHandle, ItemHandle );
 
@@ -337,7 +337,7 @@ HB_FUNC( TREEVIEW_GETPREVSIBLING )
    HTREEITEM PrevItemHandle;
 
    TreeHandle = hmg_par_HWND(1);
-   ItemHandle = ( HTREEITEM ) HB_PARNL(2);
+   ItemHandle = hmg_par_HTREEITEM(2);
 
    PrevItemHandle = TreeView_GetPrevSibling( TreeHandle, ItemHandle );
 
@@ -356,7 +356,7 @@ HB_FUNC( TREEVIEW_GETITEM )
 #endif
 
    TreeHandle     = hmg_par_HWND(1);
-   TreeItemHandle = ( HTREEITEM ) HB_PARNL(2);
+   TreeItemHandle = hmg_par_HTREEITEM(2);
 
    memset(&TreeItem, 0, sizeof(TV_ITEM));
 
@@ -389,7 +389,7 @@ HB_FUNC( TREEVIEW_SETITEM )
 #endif
 
    TreeHandle     = hmg_par_HWND(1);
-   TreeItemHandle = ( HTREEITEM ) HB_PARNL(2);
+   TreeItemHandle = hmg_par_HTREEITEM(2);
 
    memset(&TreeItem, 0, sizeof(TV_ITEM));
 #ifdef UNICODE
@@ -415,7 +415,7 @@ HB_FUNC( TREEVIEW_SETITEM )
 HB_FUNC( TREEITEM_SETIMAGEINDEX )
 {
    HWND      TreeHandle = hmg_par_HWND(1);
-   HTREEITEM ItemHandle = ( HTREEITEM ) HB_PARNL(2);
+   HTREEITEM ItemHandle = hmg_par_HTREEITEM(2);
    TV_ITEM   TreeItem;
 
    TreeItem.mask           = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
@@ -457,7 +457,7 @@ HB_FUNC( TREEVIEW_GETNEXTSIBLING )
    HTREEITEM NextItemHandle;
 
    TreeHandle = hmg_par_HWND(1);
-   ItemHandle = ( HTREEITEM ) HB_PARNL(2);
+   ItemHandle = hmg_par_HTREEITEM(2);
 
    NextItemHandle = TreeView_GetNextSibling( TreeHandle, ItemHandle );
 
@@ -471,7 +471,7 @@ HB_FUNC( TREEVIEW_GETCHILD )
    HTREEITEM ChildItemHandle;
 
    TreeHandle = hmg_par_HWND(1);
-   ItemHandle = ( HTREEITEM ) HB_PARNL(2);
+   ItemHandle = hmg_par_HTREEITEM(2);
 
    ChildItemHandle = TreeView_GetChild( TreeHandle, ItemHandle );
 
@@ -485,7 +485,7 @@ HB_FUNC( TREEVIEW_GETPARENT )
    HTREEITEM ParentItemHandle;
 
    TreeHandle = hmg_par_HWND(1);
-   ItemHandle = ( HTREEITEM ) HB_PARNL(2);
+   ItemHandle = hmg_par_HTREEITEM(2);
 
    ParentItemHandle = TreeView_GetParent( TreeHandle, ItemHandle );
 
@@ -499,7 +499,7 @@ HB_FUNC( TREEVIEW_GETPARENT )
 HB_FUNC( TREEVIEW_GETITEMSTATE )
 {
    HWND      hWndTV     = hmg_par_HWND(1);
-   HTREEITEM ItemHandle = ( HTREEITEM ) HB_PARNL(2);
+   HTREEITEM ItemHandle = hmg_par_HTREEITEM(2);
    UINT      StateMask  = hmg_par_UINT(3);
    UINT      State      = TreeView_GetItemState(hWndTV, ItemHandle, StateMask);
 
@@ -541,7 +541,7 @@ void TreeView_ExpandChildrenRecursive( HWND hWndTV, HTREEITEM ItemHandle, UINT n
 HB_FUNC( TREEVIEW_EXPANDCHILDRENRECURSIVE )
 {
    HWND      hWndTV     = hmg_par_HWND(1);
-   HTREEITEM ItemHandle = ( HTREEITEM ) HB_PARNL(2);
+   HTREEITEM ItemHandle = hmg_par_HTREEITEM(2);
    UINT      nExpand    = hmg_par_UINT(3);
    BOOL      fRecurse   = hmg_par_BOOL(4);
    HWND      hWndParent = GetParent( hWndTV );
@@ -664,7 +664,7 @@ void TreeView_SortChildrenRecursiveCB( HWND hWndTV, TVSORTCB TVSortCB )
 HB_FUNC( TREEVIEW_SORTCHILDRENRECURSIVECB )
 {
    HWND      hWndTV          = hmg_par_HWND(1);
-   HTREEITEM ItemHandle      = ( HTREEITEM ) HB_PARNL(2);
+   HTREEITEM ItemHandle      = hmg_par_HTREEITEM(2);
    BOOL      fRecurse        = hmg_par_BOOL(3);
    BOOL      lCaseSensitive  = hmg_par_BOOL(4);
    BOOL      lAscendingOrder = hmg_par_BOOL(5);
@@ -708,7 +708,7 @@ HB_FUNC( TREEVIEW_GETROOT )
 HB_FUNC( TREEITEM_GETID )
 {
    HWND      hWndTV     = hmg_par_HWND(1);
-   HTREEITEM ItemHandle = ( HTREEITEM ) HB_PARNL(2);
+   HTREEITEM ItemHandle = hmg_par_HTREEITEM(2);
 
    TV_ITEM TreeItem;
 
@@ -726,7 +726,7 @@ HB_FUNC( TREEITEM_GETID )
 HB_FUNC( TREEITEM_SETNODEFLAG )
 {
    HWND      hWndTV     = hmg_par_HWND(1);
-   HTREEITEM ItemHandle = ( HTREEITEM ) HB_PARNL(2);
+   HTREEITEM ItemHandle = hmg_par_HTREEITEM(2);
    BOOL      IsNodeFlag = hmg_par_BOOL(3);
 
    HMG_StructTreeItemLPARAM * TreeItemLPARAM;
@@ -746,7 +746,7 @@ HB_FUNC( TREEITEM_SETNODEFLAG )
 HB_FUNC( TREEITEM_GETNODEFLAG )
 {
    HWND      hWndTV     = hmg_par_HWND(1);
-   HTREEITEM ItemHandle = ( HTREEITEM ) HB_PARNL(2);
+   HTREEITEM ItemHandle = hmg_par_HTREEITEM(2);
 
    HMG_StructTreeItemLPARAM * TreeItemLPARAM;
    TV_ITEM TreeItem;

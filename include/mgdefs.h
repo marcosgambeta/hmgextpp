@@ -151,3 +151,4 @@ extern HB_PTRUINT wapi_GetProcAddress( HMODULE hmodule, LPCSTR lpProcName );
 #define hmg_par_HICON(n) reinterpret_cast<HICON>(HB_PARNL(n))
 #define hmg_par_HIMAGELIST(n) reinterpret_cast<HIMAGELIST>(HB_PARNL(n))
 #define hmg_par_BOOL(n) static_cast<BOOL>(hb_parl(n))
+#define hmg_par_HTREEITEM(n) reinterpret_cast<HTREEITEM>(HB_PARNL(n))
