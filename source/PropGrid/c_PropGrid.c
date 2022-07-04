@@ -2230,7 +2230,7 @@ HB_FUNC( IL_ADDMASKEDINDIRECT )  //IL_AddMaskedIndirect(hwnd , himage , color , 
    int      ic      = 1;
 
    if( hb_parnl(3) )
-      clrBk = ( COLORREF ) hb_parnl(3);
+      clrBk = hmg_par_COLORREF(3);
 
    if( hb_parni(6) )
       ic = hb_parni(6);

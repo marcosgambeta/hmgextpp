@@ -676,7 +676,7 @@ HB_FUNC( RR_DEVICECAPABILITIES )
 
 HB_FUNC( RR_SETPOLYFILLMODE )
 {
-   if( SetPolyFillMode( hDC, ( COLORREF ) hb_parnl(1) ) != 0 )
+   if( SetPolyFillMode( hDC, hmg_par_COLORREF(1) ) != 0 )
       hb_retnl( hb_parnl(1) );
    else
       hb_retnl( ( LONG ) GetPolyFillMode( hDC ) );
@@ -684,7 +684,7 @@ HB_FUNC( RR_SETPOLYFILLMODE )
 
 HB_FUNC( RR_SETTEXTCOLOR )
 {
-   if( SetTextColor(hDC, ( COLORREF ) hb_parnl(1)) != CLR_INVALID )
+   if( SetTextColor(hDC, hmg_par_COLORREF(1)) != CLR_INVALID )
       hb_retnl( hb_parnl(1) );
    else
       hb_retnl( ( LONG ) GetTextColor(hDC) );
@@ -692,7 +692,7 @@ HB_FUNC( RR_SETTEXTCOLOR )
 
 HB_FUNC( RR_SETBKCOLOR )
 {
-   if( SetBkColor(hDC, ( COLORREF ) hb_parnl(1)) != CLR_INVALID )
+   if( SetBkColor(hDC, hmg_par_COLORREF(1)) != CLR_INVALID )
       hb_retnl( hb_parnl(1) );
    else
       hb_retnl( ( LONG ) GetBkColor(hDC) );
@@ -758,7 +758,7 @@ HB_FUNC( RR_GETSTOCKOBJECT )
 
 HB_FUNC( RR_CREATEPEN )
 {
-   HB_RETNL( ( LONG_PTR ) CreatePen(hb_parni(1), hb_parni(2), ( COLORREF ) hb_parnl(3)) );
+   HB_RETNL( ( LONG_PTR ) CreatePen(hb_parni(1), hb_parni(2), hmg_par_COLORREF(3)) );
 }
 
 HB_FUNC( RR_MODIFYPEN )
@@ -778,7 +778,7 @@ HB_FUNC( RR_MODIFYPEN )
          ppn.lopnWidth.x = hb_parnl(3);
 
       if( hb_parnl(4) >= 0 )
-         ppn.lopnColor = ( COLORREF ) hb_parnl(4);
+         ppn.lopnColor = hmg_par_COLORREF(4);
 
       hp = CreatePenIndirect(&ppn);
       if( hp != NULL )
@@ -804,7 +804,7 @@ HB_FUNC( RR_CREATEBRUSH )
    LOGBRUSH pbr;
 
    pbr.lbStyle = hb_parni(1);
-   pbr.lbColor = ( COLORREF ) hb_parnl(2);
+   pbr.lbColor = hmg_par_COLORREF(2);
    pbr.lbHatch = ( LONG ) hb_parnl(3);
    HB_RETNL( ( LONG_PTR ) CreateBrushIndirect(&pbr) );
 }
@@ -823,7 +823,7 @@ HB_FUNC( RR_MODIFYBRUSH )
          ppn.lbStyle = hmg_par_UINT(2);
 
       if( hb_parnl(3) >= 0 )
-         ppn.lbColor = ( COLORREF ) hb_parnl(3);
+         ppn.lbColor = hmg_par_COLORREF(3);
 
       if( hb_parnl(4) >= 0 )
          ppn.lbHatch = hb_parnl(4);
@@ -1603,7 +1603,7 @@ HB_FUNC( RR_DRAWIMAGELIST )
    SelectObject(tempdc, hbmpx);
    BitBlt( tempdc, 0, 0, hb_parni(5), hb_parni(6), tempdc, 0, 0, WHITENESS );
    if( hb_parnl(8) >= 0 )
-      ImageList_SetBkColor(himl, ( COLORREF ) hb_parnl(8));
+      ImageList_SetBkColor(himl, hmg_par_COLORREF(8));
 
    ImageList_Draw( himl, hb_parni(2) - 1, tempdc, 0, 0, hb_parni(7) );
    if( hb_parnl(8) >= 0 )

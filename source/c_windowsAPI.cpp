@@ -280,7 +280,7 @@ HB_FUNC( SETLAYEREDWINDOWATTRIBUTES )
 
          if( NULL != fn_SetLayeredWindowAttributes )
          {
-            COLORREF crKey   = ( COLORREF ) hb_parnl(2);
+            COLORREF crKey   = hmg_par_COLORREF(2);
             BYTE     bAlpha  = ( BYTE ) hb_parni(3);
             DWORD    dwFlags = ( DWORD ) hb_parnl(4);
 
@@ -1171,7 +1171,7 @@ HB_FUNC( SETWINDOWBRUSH )
 
 HB_FUNC( CREATEHATCHBRUSH )
 {
-   HB_RETNL( ( LONG_PTR ) CreateHatchBrush(hb_parni(1), ( COLORREF ) hb_parnl(2)) );
+   HB_RETNL( ( LONG_PTR ) CreateHatchBrush(hb_parni(1), hmg_par_COLORREF(2)) );
 }
 
 /* Modified by P.Ch. 16.10. */

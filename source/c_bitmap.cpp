@@ -511,7 +511,7 @@ HB_FUNC( DRAWGLYPH )
    HBRUSH   hOld;
 
    if( bHasBkColor )
-      rgbTransparent = ( COLORREF ) hb_parnl(7);
+      rgbTransparent = hmg_par_COLORREF(7);
 
    // is it a bitmap?
    if( ( UINT ) GetObject(hBmp, sizeof(BITMAP), ( LPVOID ) &bitmap) != sizeof(BITMAP) )

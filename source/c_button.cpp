@@ -683,7 +683,7 @@ LRESULT CALLBACK OwnButtonProc( HWND hButton, UINT Msg, WPARAM wParam, LPARAM lP
 HB_FUNC( CREATEBUTTONBRUSH )
 {
    HB_RETNL( ( LONG_PTR ) CreateGradientBrush(hmg_par_HDC(1), hb_parni(2), hb_parni(3),
-                                               ( COLORREF ) hb_parnl(4), ( COLORREF ) hb_parnl(5)) );
+                                               hmg_par_COLORREF(4), hmg_par_COLORREF(5)) );
 }
 
 static HBRUSH CreateGradientBrush(HDC hDC, INT nWidth, INT nHeight, COLORREF Color1, COLORREF Color2)

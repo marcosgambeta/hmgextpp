@@ -1059,9 +1059,9 @@ HB_FUNC( BT_DRAW_HDC_POLY )
    hDC        = hmg_par_HDC(1);
    nCountX    = ( INT ) hb_parinfa( 2, 0 );
    nCountY    = ( INT ) hb_parinfa( 3, 0 );
-   ColorLine  = ( COLORREF ) hb_parnl(4);
+   ColorLine  = hmg_par_COLORREF(4);
    nWidthLine = hmg_par_INT(5);
-   ColorFill  = ( COLORREF ) hb_parnl(6);
+   ColorFill  = hmg_par_COLORREF(6);
    nPOLY      = hmg_par_INT(7);
 
    nLen = HB_MIN(nCountX, nCountY);
@@ -1139,9 +1139,9 @@ HB_FUNC( BT_DRAW_HDC_ARCX )
    XEndArc   = hmg_par_INT(8);
    YEndArc   = hmg_par_INT(9);
 
-   ColorLine  = ( COLORREF ) hb_parnl(10);
+   ColorLine  = hmg_par_COLORREF(10);
    nWidthLine = hmg_par_INT(11);
-   ColorFill  = ( COLORREF ) hb_parnl(12);
+   ColorFill  = hmg_par_COLORREF(12);
 
    nArcType = hmg_par_INT(13);
 
@@ -1197,8 +1197,8 @@ HB_FUNC( BT_DRAW_HDC_FILLEDOBJECT )
    y1          = hmg_par_INT(3);
    Width1      = hmg_par_INT(4);
    Height1     = hmg_par_INT(5);
-   ColorFill   = ( COLORREF ) hb_parnl(6);
-   ColorLine   = ( COLORREF ) hb_parnl(7);
+   ColorFill   = hmg_par_COLORREF(6);
+   ColorLine   = hmg_par_COLORREF(7);
    nWidthLine  = hmg_par_INT(8);
    Type        = hmg_par_INT(9);
    RoundWidth  = hmg_par_INT(10);
@@ -1263,7 +1263,7 @@ HB_FUNC( BT_DRAW_HDC_BITMAP )
 
    Mode_Stretch = hmg_par_INT(11);
    Action       = hmg_par_INT(12);
-   color_transp = ( COLORREF ) hb_parnl(13);
+   color_transp = hmg_par_COLORREF(13);
 
 
    memDC = CreateCompatibleDC(NULL);
@@ -1367,8 +1367,8 @@ HB_FUNC( BT_DRAW_HDC_GRADIENTFILL )
 
    hDC = hmg_par_HDC(1);
 
-   Color_RGB_O = ( COLORREF ) hb_parnl(6);
-   Color_RGB_D = ( COLORREF ) hb_parnl(7);
+   Color_RGB_O = hmg_par_COLORREF(6);
+   Color_RGB_D = hmg_par_COLORREF(7);
    Mode        = ( ULONG ) hb_parnl(8);
 
    Vert[ 0 ].x     = hb_parnl(2);
@@ -1441,8 +1441,8 @@ HB_FUNC( BT_DRAW_HDC_TEXTOUT )
    FontName    = ( TCHAR * ) hb_osStrU16Encode( hb_parc(5) );
 #endif
    FontSize    = hmg_par_INT(6);
-   Text_Color  = ( COLORREF ) hb_parnl(7);
-   Back_Color  = ( COLORREF ) hb_parnl(8);
+   Text_Color  = hmg_par_COLORREF(7);
+   Back_Color  = hmg_par_COLORREF(8);
    Type        = hmg_par_INT(9);
    Align       = hmg_par_INT(10);
    Orientation = hmg_par_INT(11);
@@ -1541,8 +1541,8 @@ HB_FUNC( BT_DRAW_HDC_DRAWTEXT )
    FontName    = ( TCHAR * ) hb_osStrU16Encode( hb_parc(7) );
 #endif
    FontSize    = hmg_par_INT(8);
-   Text_Color  = ( COLORREF ) hb_parnl(9);
-   Back_Color  = ( COLORREF ) hb_parnl(10);
+   Text_Color  = hmg_par_COLORREF(9);
+   Back_Color  = hmg_par_COLORREF(10);
    Type        = hmg_par_INT(11);
    Align       = hmg_par_INT(12);
    Orientation = ( double ) hb_parnd(13);
@@ -1693,7 +1693,7 @@ HB_FUNC( BT_DRAW_HDC_PIXEL )
    x      = hmg_par_INT(2);
    y      = hmg_par_INT(3);
    Action = hmg_par_INT(4);
-   Color  = ( COLORREF ) hb_parnl(5);
+   Color  = hmg_par_COLORREF(5);
 
    switch( Action )
    {
@@ -1742,7 +1742,7 @@ HB_FUNC( BT_DRAW_HDC_TO_HDC )
 
    Mode_Stretch = hmg_par_INT(11);
    Action       = hmg_par_INT(12);
-   color_transp = ( COLORREF ) hb_parnl(13);
+   color_transp = hmg_par_COLORREF(13);
 
    bt_bmp_adjust_rect(&Width1, &Height1, &Width2, &Height2, Mode_Stretch);
 
@@ -1839,7 +1839,7 @@ HB_FUNC( BT_BMP_CREATE )
 
    Width         = hmg_par_INT(1);
    Height        = hmg_par_INT(2);
-   Color_Fill_Bk = ( COLORREF ) hb_parnl(3);
+   Color_Fill_Bk = hmg_par_COLORREF(3);
 
    hBitmap_New = bt_bmp_create_24bpp( Width, Height );
 
@@ -2470,7 +2470,7 @@ HB_FUNC( BT_BMP_PASTE )
 
    Mode_Stretch = hmg_par_INT(11);
    Action       = hmg_par_INT(12);
-   color_transp = ( COLORREF ) hb_parnl(13);
+   color_transp = hmg_par_COLORREF(13);
 
 
    memDC_D = CreateCompatibleDC(NULL);
@@ -3060,7 +3060,7 @@ HB_FUNC( BT_BMP_TRANSFORM )
    hBitmap_O     = hmg_par_HBITMAP(1);
    Mode          = ( INT ) hb_parnl(2);
    Angle         = ( FLOAT ) hb_parnd(3);
-   Color_Fill_Bk = ( COLORREF ) hb_parnl(4);
+   Color_Fill_Bk = hmg_par_COLORREF(4);
 
    memDC1 = CreateCompatibleDC(NULL);
    SelectObject(memDC1, hBitmap_O);
