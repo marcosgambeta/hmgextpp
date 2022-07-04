@@ -203,7 +203,7 @@ HB_FUNC( DRAWICONEX )
 
    if( IsWindow(hwnd) )
    {
-      HICON  hIcon = ( HICON ) HB_PARNL(4);
+      HICON  hIcon = hmg_par_HICON(4);
       HDC    hdc   = GetDC(hwnd);
       HBRUSH hbrFlickerFreeDraw = CreateSolidBrush(hb_parni(7));
 

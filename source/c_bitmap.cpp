@@ -1050,7 +1050,7 @@ HB_FUNC( GETBITMAPSIZE )
 HB_FUNC( GETICONSIZE )
 {
    PHB_ITEM pResult = hb_itemArrayNew(3);
-   HICON    hIcon   = ( HICON ) HB_PARNL(1);
+   HICON    hIcon   = hmg_par_HICON(1);
 
    _arraySet( pResult, 0, 0, 4 );
 

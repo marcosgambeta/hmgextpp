@@ -542,7 +542,7 @@ HB_FUNC( SHOWNOTIFYICON )
 #else
    TCHAR * szText = ( TCHAR * ) AnsiToWide( ( char * ) hb_parc(4) );
 #endif
-   hb_retl( ( BOOL ) ShowNotifyIcon(hmg_par_HWND(1), ( BOOL ) hb_parl(2), ( HICON ) HB_PARNL(3), ( TCHAR * ) szText) );
+   hb_retl( ( BOOL ) ShowNotifyIcon(hmg_par_HWND(1), ( BOOL ) hb_parl(2), hmg_par_HICON(3), ( TCHAR * ) szText) );
 
 #ifdef UNICODE
    hb_xfree(szText);
@@ -653,7 +653,7 @@ HB_FUNC( CHANGENOTIFYICON )
 #else
    TCHAR * szText = ( TCHAR * ) AnsiToWide( ( char * ) hb_parc(3) );
 #endif
-   hb_retl( ( BOOL ) ChangeNotifyIcon(hmg_par_HWND(1), ( HICON ) HB_PARNL(2), ( TCHAR * ) szText) );
+   hb_retl( ( BOOL ) ChangeNotifyIcon(hmg_par_HWND(1), hmg_par_HICON(2), ( TCHAR * ) szText) );
 
 #ifdef UNICODE
    hb_xfree(szText);

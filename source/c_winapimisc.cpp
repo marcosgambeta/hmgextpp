@@ -551,7 +551,7 @@ HB_FUNC( C_SHELLABOUT )
    LPCWSTR szApp        = AnsiToWide( ( char * ) hb_parc(2) );
    LPCWSTR szOtherStuff = AnsiToWide( ( char * ) hb_parc(3) );
 #endif
-   hb_retl( ShellAbout(hmg_par_HWND(1), szApp, szOtherStuff, ( HICON ) HB_PARNL(4)) );
+   hb_retl( ShellAbout(hmg_par_HWND(1), szApp, szOtherStuff, hmg_par_HICON(4)) );
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) szApp);
    hb_xfree(( TCHAR * ) szOtherStuff);

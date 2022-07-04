@@ -147,7 +147,7 @@ HB_FUNC( LINETO )
 
 HB_FUNC( DRAWICON )
 {
-   hb_retl( DrawIcon(hmg_par_HDC(1), hb_parni(2), hb_parni(3), ( HICON ) HB_PARNL(4)) );
+   hb_retl( DrawIcon(hmg_par_HDC(1), hb_parni(2), hb_parni(3), hmg_par_HICON(4)) );
 }
 
 HB_FUNC( CURSORWE )
