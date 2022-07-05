@@ -121,7 +121,6 @@ HB_FUNC( INITCOMBOBOXEX )
    char *     FileName;
 
    int nCount;
-   int s;
    int Style;
 
    INITCOMMONCONTROLSEX icex;
@@ -168,7 +167,7 @@ HB_FUNC( INITCOMBOBOXEX )
       int Transparent = hb_parl(7) ? 0 : 1;
       hArray = hb_param( 14, Harbour::Item::ARRAY );
 
-      for( s = 1; s <= nCount; s++ )
+      for( int s = 1; s <= nCount; s++ )
       {
          FileName = ( char * ) hb_arrayGetCPtr(hArray, s);
 

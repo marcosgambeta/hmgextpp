@@ -245,7 +245,7 @@ HB_FUNC( SHOWBALLOONTIP )
    WCHAR Title[ 512 ];
    EDITBALLOONTIP bl;
    const char *   s;
-   int i, k;
+   int k;
 
    PHB_CODEPAGE s_cdpHost = hb_vmCDP();
 
@@ -263,8 +263,10 @@ HB_FUNC( SHOWBALLOONTIP )
          ZeroMemory(Text, sizeof(Text));
          k = ( int ) hb_parclen(2);
          s = ( const char * ) hb_parc(2);
-         for( i = 0; i < k; i++ )
+         for( int i = 0; i < k; i++ )
+         {
             Text[ i ] = HB_cdpGetU16( s_cdpHost, TRUE, s[ i ] );
+         }
 
          bl.pszText = Text;
       }
@@ -274,8 +276,10 @@ HB_FUNC( SHOWBALLOONTIP )
          ZeroMemory(Title, sizeof(Title));
          k = ( int ) hb_parclen(3);
          s = ( const char * ) hb_parc(3);
-         for( i = 0; i < k; i++ )
+         for( int i = 0; i < k; i++ )
+         {
             Title[ i ] = HB_cdpGetU16( s_cdpHost, TRUE, s[ i ] );
+         }
 
          bl.pszTitle = Title;
       }

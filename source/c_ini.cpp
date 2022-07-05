@@ -181,7 +181,9 @@ static INT FindLenSubString( TCHAR * Strings )
 
    if( ( p = FindFirstSubString( p ) ) != NULL )
       for( i = 1; ( p = FindNextSubString( p ) ) != NULL; i++ )
+      {
          ;
+      }
    return i;
 }
 
@@ -191,7 +193,7 @@ HB_FUNC( _GETPRIVATEPROFILESECTIONNAMES )
 {
    TCHAR   bBuffer[ 32767 ];
    TCHAR * p;
-   INT     i, nLen;
+   INT     nLen;
 
 #ifndef UNICODE
    LPCSTR lpFileName = hb_parc(1);
@@ -210,13 +212,15 @@ HB_FUNC( _GETPRIVATEPROFILESECTIONNAMES )
    {
 #ifndef UNICODE
       HB_STORC( ( p = FindFirstSubString( p ) ), -1, 1 );
-      for( i = 2; ( p = FindNextSubString( p ) ) != NULL; i++ )
+      for( INT i = 2; ( p = FindNextSubString( p ) ) != NULL; i++ )
+      {
          HB_STORC( p, -1, i );
+      }
 #else
       p    = FindFirstSubString( p );
       pStr = WideToAnsi(p);
       HB_STORC( pStr, -1, 1 );
-      for( i = 2; ( p = FindNextSubString( p ) ) != NULL; i++ )
+      for( INT i = 2; ( p = FindNextSubString( p ) ) != NULL; i++ )
       {
          pStr = WideToAnsi(p);
          HB_STORC( pStr, -1, i );
@@ -232,7 +236,7 @@ HB_FUNC( _GETPRIVATEPROFILESECTION )
 {
    TCHAR   bBuffer[ 32767 ];
    TCHAR * p;
-   INT     i, nLen;
+   INT     nLen;
 
 #ifndef UNICODE
    LPCSTR lpSectionName = hb_parc(1);
@@ -252,13 +256,15 @@ HB_FUNC( _GETPRIVATEPROFILESECTION )
    {
 #ifndef UNICODE
       HB_STORC( ( p = FindFirstSubString( p ) ), -1, 1 );
-      for( i = 2; ( p = FindNextSubString( p ) ) != NULL; i++ )
+      for( INT i = 2; ( p = FindNextSubString( p ) ) != NULL; i++ )
+      {
          HB_STORC( p, -1, i );
+      }
 #else
       p    = FindFirstSubString( p );
       pStr = WideToAnsi(p);
       HB_STORC( pStr, -1, 1 );
-      for( i = 2; ( p = FindNextSubString( p ) ) != NULL; i++ )
+      for( INT i = 2; ( p = FindNextSubString( p ) ) != NULL; i++ )
       {
          pStr = WideToAnsi(p);
          HB_STORC( pStr, -1, i );

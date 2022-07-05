@@ -105,9 +105,7 @@ HB_FUNC( ACCELERATORTABLE2ARRAY )
          {
             if( CopyAcceleratorTable(hAccel, lpAccel, cAccelEntries) )
             {
-               int i;
-
-               for( i = 0; i < cAccelEntries; i++ )
+               for( int i = 0; i < cAccelEntries; i++ )
                {
                   PHB_ITEM aAccel = hb_itemArrayNew(3);
 
@@ -141,9 +139,7 @@ HB_FUNC( ARRAY2ACCELERATORTABLE )
 
       if( NULL != lpAccel )
       {
-         int i;
-
-         for( i = 0; i < nLen; i++ )
+         for( int i = 0; i < nLen; i++ )
          {
             if( hb_arrayGetType(pArray, i + 1) & Harbour::Item::ARRAY )
             {
@@ -1353,10 +1349,9 @@ HB_FUNC( _ONDESTROYMENU )
 
 static BOOL _DestroyMenu( HMENU menu )
 {
-   int  i;
    BOOL bResult = TRUE;
 
-   for( i = 0; i < GetMenuItemCount( menu ); i++ )
+   for( int i = 0; i < GetMenuItemCount( menu ); i++ )
    {
       MENUITEMINFO MenuItemInfo;
       HMENU        pSubMenu;

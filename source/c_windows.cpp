@@ -188,9 +188,9 @@ HB_FUNC( RESETGLOBALLISTENER )
 
 static size_t AppEventScan( EVENTSHOLDER * events, UINT message )
 {
-   size_t i, nPos = 0;
+   size_t nPos = 0;
 
-   for( i = 0; i < events->count; i++ )
+   for( size_t i = 0; i < events->count; i++ )
    {
       if( message == events->events[ i ].message )
       {
@@ -231,11 +231,11 @@ static HB_BOOL AppEventRemove( HWND hWnd, const char * pszProp, UINT message )
          }
          else
          {
-            size_t i;
-
-            for( i = 0; i < events->count; i++ ) // delete all not empty items with codeblocks
+            for( size_t i = 0; i < events->count; i++ ) // delete all not empty items with codeblocks
+            {
                if( events->events[ i ].bAction != NULL && HB_IS_BLOCK( events->events[ i ].bAction ) )
                   hb_itemRelease(events->events[ i ].bAction);
+            }
 
             HB_ATOM_SET( &events->used, 0 );
          }
@@ -465,9 +465,7 @@ HB_FUNC( ENUMAPPEVENTS )
 
       if( events != NULL )
       {
-         size_t i;
-
-         for( i = 0; i < events->count; i++ )
+         for( size_t i = 0; i < events->count; i++ )
          {
             PHB_ITEM aEvent = hb_itemArrayNew(3);
 
@@ -528,9 +526,9 @@ HB_FUNC( GETAPPEVENTSINFO )
 
 static size_t WinEventScan( WINEVENTSHOLDER * events, UINT message )
 {
-   size_t i, nPos = 0;
+   size_t nPos = 0;
 
-   for( i = 0; i < events->count; i++ )
+   for( size_t i = 0; i < events->count; i++ )
    {
       if( message == events->events[ i ].message )
       {
@@ -571,11 +569,11 @@ static HB_BOOL WinEventRemove( HWND hWnd, const char * pszProp, UINT message )
          }
          else
          {
-            size_t i;
-
-            for( i = 0; i < events->count; i++ ) // delete all not empty items with codeblocks
+            for( size_t i = 0; i < events->count; i++ ) // delete all not empty items with codeblocks
+            {
                if( events->events[ i ].bAction != NULL && HB_IS_BLOCK( events->events[ i ].bAction ) )
                   hb_itemRelease(events->events[ i ].bAction);
+            }
 
             HB_ATOM_SET( &events->used, 0 );
          }
@@ -805,9 +803,7 @@ HB_FUNC( ENUMWINEVENTS )
 
       if( events != NULL )
       {
-         size_t i;
-
-         for( i = 0; i < events->count; i++ )
+         for( size_t i = 0; i < events->count; i++ )
          {
             PHB_ITEM aEvent = hb_itemArrayNew(3);
 

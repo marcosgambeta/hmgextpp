@@ -71,7 +71,6 @@ HB_FUNC( INITTABCONTROL )
    HWND     hbutton;
    TC_ITEM  tie;
    int      l;
-   int      i;
 
 #ifndef UNICODE
    LPSTR lpText;
@@ -128,7 +127,7 @@ HB_FUNC( INITTABCONTROL )
    tie.mask   = TCIF_TEXT;
    tie.iImage = -1;
 
-   for( i = l; i >= 0; i = i - 1 )
+   for( int i = l; i >= 0; i = i - 1 )
    {
    #ifndef UNICODE
       lpText = ( char * ) hb_arrayGetCPtr(hArray, i + 1);
@@ -232,7 +231,7 @@ HB_FUNC( ADDTABBITMAP )
    HIMAGELIST himl = ( HIMAGELIST ) NULL;
    PHB_ITEM   hArray;
    char *     FileName;
-   int        nCount, i;
+   int        nCount;
 
    nCount = ( int ) hb_parinfa(2, 0);
 
@@ -241,7 +240,7 @@ HB_FUNC( ADDTABBITMAP )
       int Transparent = hb_parl(3) ? 0 : 1;
       hArray = hb_param( 2, Harbour::Item::ARRAY );
 
-      for( i = 1; i <= nCount; i++ )
+      for( int i = 1; i <= nCount; i++ )
       {
          FileName = ( char * ) hb_arrayGetCPtr(hArray, i);
 
@@ -254,7 +253,7 @@ HB_FUNC( ADDTABBITMAP )
       if( himl != NULL )
          SendMessage( hbutton, TCM_SETIMAGELIST, ( WPARAM ) 0, ( LPARAM ) himl );
 
-      for( i = 0; i < nCount; i++ )
+      for( int i = 0; i < nCount; i++ )
       {
          tie.mask   = TCIF_IMAGE;
          tie.iImage = i;

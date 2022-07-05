@@ -169,7 +169,6 @@ HB_FUNC( C_GETFILE )
    int          iFilterIndex = 1;
    int          iPosition    = 0;
    int          iNumSelected = 0;
-   int          n;
 
    DWORD flags = OFN_FILEMUSTEXIST;
 
@@ -257,7 +256,7 @@ HB_FUNC( C_GETFILE )
          {
             hb_reta(iNumSelected - 1);
 
-            for( n = 1; n < iNumSelected; n++ )
+            for( int n = 1; n < iNumSelected; n++ )
             {
 #ifndef UNICODE
                HB_STORC( cFullName[ n ], -1, n );
@@ -498,10 +497,11 @@ HB_FUNC( CHOOSECOLOR )
 {
    CHOOSECOLOR cc;
    COLORREF    crCustClr[ 16 ];
-   int         i;
 
-   for( i = 0; i < 16; i++ )
+   for( int i = 0; i < 16; i++ )
+   {
       crCustClr[ i ] = ( HB_ISARRAY(3) ? ( COLORREF ) HB_PARVNL( 3, i + 1 ) : GetSysColor(COLOR_BTNFACE) );
+   }
 
    memset(&cc, 0, sizeof(cc));
 

@@ -327,7 +327,7 @@ HB_FUNC( INITTOOLBUTTONEX )
    TBBUTTON      tbb[ NUM_TOOLBAR_BUTTONS ];
    DWORD         tSize;
    TCHAR         cBuff[ 255 ] = { 0 };
-   int           index, i;
+   int           index;
    int           nPoz, xBtn;
    int           nBtn, tmax;
    int           Style;
@@ -377,7 +377,7 @@ HB_FUNC( INITTOOLBUTTONEX )
 #endif
       tSize = WidestBtn( ( LPCTSTR ) hb_parc(2), hwndTB );
       tmax  = HIWORD(tSize);
-      for( i = 0; i < xBtn; i++ )
+      for( int i = 0; i < xBtn; i++ )
       {
          SendMessage( hwndTB, TB_GETBUTTON, i, ( LPARAM ) &lpBtn );
          SendMessage( hwndTB, TB_GETBUTTONTEXT, lpBtn.idCommand, ( LPARAM ) ( LPCTSTR ) cBuff );
@@ -526,7 +526,7 @@ HB_FUNC( GETSIZETOOLBAR )
 {
    SIZE          lpSize;
    TBBUTTON      lpBtn;
-   int           i, nBtn;
+   int           nBtn;
    OSVERSIONINFO osvi;
    HWND          hwndTB;
 
@@ -537,7 +537,7 @@ HB_FUNC( GETSIZETOOLBAR )
    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
    GetVersionEx(&osvi);
    nBtn = ( int ) SendMessage( hwndTB, TB_BUTTONCOUNT, 0, 0 );
-   for( i = 0; i < nBtn; i++ )
+   for( int i = 0; i < nBtn; i++ )
    {
       SendMessage( hwndTB, TB_GETBUTTON, i, ( LPARAM ) &lpBtn );
       if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT && osvi.dwMajorVersion <= 4 )
@@ -556,7 +556,7 @@ HB_FUNC( MAXTEXTBTNTOOLBAR )
    TCHAR cString[ 255 ] = { 0 };
    HWND  hwndTB;
 
-   int      i, nBtn;
+   int      nBtn;
    int      tmax = 0;
    int      ty   = 0;
    DWORD    tSize;
@@ -565,7 +565,7 @@ HB_FUNC( MAXTEXTBTNTOOLBAR )
 
    hwndTB = hmg_par_HWND(1);
    nBtn   = ( int ) SendMessage( hwndTB, TB_BUTTONCOUNT, 0, 0 );
-   for( i = 0; i < nBtn; i++ )
+   for( int i = 0; i < nBtn; i++ )
    {
       SendMessage( hwndTB, TB_GETBUTTON, i, ( LPARAM ) &lpBtn );
       SendMessage( hwndTB, TB_GETBUTTONTEXT, lpBtn.idCommand, ( LPARAM ) ( LPCTSTR ) cString );
@@ -799,9 +799,8 @@ int TestHidenBtn( HWND tbHwnd, RECT rcRb, INT dv, INT nBtn )
 {
    RECT rcDst, rcBt;
    int  nBtnV = 0;
-   int  i;
 
-   for( i = 0; i < nBtn; i++ )
+   for( int i = 0; i < nBtn; i++ )
    {
       SendMessage( ( HWND ) tbHwnd, TB_GETITEMRECT, ( WPARAM ) ( UINT ) i, ( LPARAM ) &rcBt );
 
@@ -1005,7 +1004,6 @@ HB_FUNC( TOOLBAREXCUSTFUNC )
    UINT       Msg    = hmg_par_UINT(2);
    LPARAM     lParam = ( LPARAM ) HB_PARNL(4);
    LPTBNOTIFY lpTB   = ( LPTBNOTIFY ) lParam;
-   int        i;
 
    switch( Msg )
    {
@@ -1018,8 +1016,10 @@ HB_FUNC( TOOLBAREXCUSTFUNC )
                buttonCount = nResetCount;
 
                lpSaveButtons = ( LPTBBUTTON ) GlobalAlloc(GPTR, sizeof(TBBUTTON) * nResetCount);
-               for( i = 0; i < nResetCount; i++ )
+               for( int i = 0; i < nResetCount; i++ )
+               {
                   SendMessage( lpTB->hdr.hwndFrom, TB_GETBUTTON, i, ( LPARAM ) ( lpSaveButtons + i ) );
+               }
 
                hb_retl( TRUE );
                break;
@@ -1045,8 +1045,10 @@ HB_FUNC( TOOLBAREXCUSTFUNC )
                int nCount;
 
                nCount = ( int ) SendMessage( lpTB->hdr.hwndFrom, TB_BUTTONCOUNT, 0, 0 );
-               for( i = nCount - 1; i >= 0; i-- )
+               for( int i = nCount - 1; i >= 0; i-- )
+               {
                   SendMessage( lpTB->hdr.hwndFrom, TB_DELETEBUTTON, i, 0 );
+               }
 
                SendMessage( lpTB->hdr.hwndFrom, TB_ADDBUTTONS,
                             ( WPARAM ) nResetCount, ( LPARAM ) lpSaveButtons );

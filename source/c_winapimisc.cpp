@@ -156,7 +156,7 @@ HB_FUNC( WAITRUNPIPE )
    }
 
    Data = ( char * ) hb_xgrab(1024);
-   for(;; )
+   for( ;; )
    {
       DWORD BytesRead;
       DWORD TotalBytes;
@@ -1699,7 +1699,6 @@ HB_FUNC( DRAGQUERYFILES )
 {
    HDROP hDrop  = ( HDROP ) HB_PARNL(1);
    int   iFiles = DragQueryFile(hDrop, ( UINT ) -1, 0, 0);
-   int   i;
    TCHAR bBuffer[ 250 ];
 
 #ifdef UNICODE
@@ -1708,7 +1707,7 @@ HB_FUNC( DRAGQUERYFILES )
 
    hb_reta(iFiles);
 
-   for( i = 0; i < iFiles; i++ )
+   for( int i = 0; i < iFiles; i++ )
    {
       DragQueryFile(hDrop, i, ( TCHAR * ) bBuffer, 249);
    #ifndef UNICODE

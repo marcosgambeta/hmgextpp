@@ -169,7 +169,6 @@ HB_FUNC( ADDDIALOGPAGES )
    HWND     hwnd;
    TC_ITEM  tie;
    int      l;
-   int      i;
 
    hwnd = hmg_par_HWND(1);
 
@@ -179,7 +178,7 @@ HB_FUNC( ADDDIALOGPAGES )
    tie.mask   = TCIF_TEXT;
    tie.iImage = -1;
 
-   for( i = l; i >= 0; i = i - 1 )
+   for( int i = l; i >= 0; i = i - 1 )
    {
       tie.pszText = ( TCHAR * ) hb_arrayGetCPtr(hArray, i + 1);
 
@@ -297,7 +296,6 @@ static int nCopyAnsiToWideChar( LPWORD lpWCStr, LPCSTR lpAnsiIn )
    int    CodePage = GetACP();
    LPWSTR pszDst;
    int    nDstLen = MultiByteToWideChar( CodePage, 0, lpAnsiIn, -1, NULL, 0 );
-   int    i;
 
    if( nDstLen > 0 )
    {
@@ -305,8 +303,10 @@ static int nCopyAnsiToWideChar( LPWORD lpWCStr, LPCSTR lpAnsiIn )
 
       MultiByteToWideChar( CodePage, 0, lpAnsiIn, -1, pszDst, nDstLen );
 
-      for( i = 0; i < nDstLen; i++ )
+      for( int i = 0; i < nDstLen; i++ )
+      {
          *( lpWCStr + i ) = *( pszDst + i );
+      }
 
       hb_xfree(pszDst);
    }
@@ -318,7 +318,7 @@ HB_SIZE GetSizeDlgTemp( PHB_ITEM dArray, PHB_ITEM cArray )
 {
    PHB_ITEM iArray;
    HB_SIZE  ln;
-   int      s, nItem;
+   int      nItem;
    HB_SIZE  lTemplateSize = 36;
 
    nItem = ( int ) hb_arrayLen( cArray );
@@ -332,7 +332,7 @@ HB_SIZE GetSizeDlgTemp( PHB_ITEM dArray, PHB_ITEM cArray )
       lTemplateSize += 3;
    }
 
-   for( s = 0; s < nItem; s++ )
+   for( int s = 0; s < nItem; s++ )
    {
       iArray         = ( PHB_ITEM ) hb_arrayGetItemPtr(cArray, s + 1);
       lTemplateSize += 36;
@@ -351,7 +351,7 @@ PWORD CreateDlgTemplate( long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray )
 
    LONG     baseUnit = GetDialogBaseUnits();
    int      baseunitX = LOWORD(baseUnit), baseunitY = HIWORD(baseUnit);
-   int      nItem, s, x, y, w, h;
+   int      nItem, x, y, w, h;
    WORD     iPointSize;
    PHB_ITEM iArray;
 
@@ -406,7 +406,7 @@ PWORD CreateDlgTemplate( long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray )
       pw        += nchar;
    }
 
-   for( s = 0; s < nItem; s = s + 1 )
+   for( int s = 0; s < nItem; s = s + 1 )
    {
       iArray = ( PHB_ITEM ) hb_arrayGetItemPtr(cArray, s + 1);
       pw     = lpwAlign(pw);

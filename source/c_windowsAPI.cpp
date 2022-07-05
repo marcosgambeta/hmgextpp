@@ -874,7 +874,7 @@ HB_FUNC( C_SETPOLYWINDOWRGN )
 {
    HRGN  hRgn;
    POINT lppt[ 512 ];
-   int   i, fnPolyFillMode;
+   int   fnPolyFillMode;
    int   cPoints = ( int ) hb_parinfa(2, 0);
 
    if( hb_parni(4) == 1 )
@@ -882,7 +882,7 @@ HB_FUNC( C_SETPOLYWINDOWRGN )
    else
       fnPolyFillMode = ALTERNATE;
 
-   for( i = 0; i <= cPoints - 1; i++ )
+   for( int i = 0; i <= cPoints - 1; i++ )
    {
       lppt[ i ].x = HB_PARNI( 2, i + 1 );
       lppt[ i ].y = HB_PARNI( 3, i + 1 );
@@ -1268,7 +1268,6 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
                RGNDATA * pData;
                BYTE *    p32;
                BYTE      lr, lg, lb, hr, hg, hb;
-               INT       y, x;
                HRGN      h;
 
                GetObject(hbm32, sizeof(bm32), &bm32);
@@ -1300,9 +1299,9 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
 
                // Scan each bitmap row from bottom to top (the bitmap is  inverted vertically)
                p32 = ( BYTE * ) bm32.bmBits + ( bm32.bmHeight - 1 ) * bm32.bmWidthBytes;
-               for( y = 0; y < bm.bmHeight; y++ )     // Scan each bitmap pixel from left to right
+               for( INT y = 0; y < bm.bmHeight; y++ )     // Scan each bitmap pixel from left to right
                {
-                  for( x = 0; x < bm.bmWidth; x++ )   // Search for a continuous range of "non transparent pixels"
+                  for( INT x = 0; x < bm.bmWidth; x++ )   // Search for a continuous range of "non transparent pixels"
                   {
                      int    x0 = x;
                      LONG * p  = ( LONG * ) p32 + x;

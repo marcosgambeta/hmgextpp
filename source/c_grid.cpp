@@ -262,7 +262,6 @@ HB_FUNC( ADDLISTVIEWBITMAP )       // Grid+
    PHB_ITEM   hArray;
    char *     FileName;
    int        nCount;
-   int        s;
    int        cx = 0;
 
    nCount = ( int ) hb_parinfa(2, 0);
@@ -271,7 +270,7 @@ HB_FUNC( ADDLISTVIEWBITMAP )       // Grid+
    {
       hArray = hb_param( 2, Harbour::Item::ARRAY );
 
-      for( s = 1; s <= nCount; s++ )
+      for( int s = 1; s <= nCount; s++ )
       {
          FileName = ( char * ) hb_arrayGetCPtr(hArray, s);
 
@@ -295,7 +294,6 @@ HB_FUNC( ADDLISTVIEWBITMAPHEADER )  // Grid+
    PHB_ITEM   hArray;
    char *     FileName;
    int        nCount;
-   int        s;
 
    hheader = ListView_GetHeader(hmg_par_HWND(1));
 
@@ -307,7 +305,7 @@ HB_FUNC( ADDLISTVIEWBITMAPHEADER )  // Grid+
       {
          hArray = hb_param( 2, Harbour::Item::ARRAY );
 
-         for( s = 1; s <= nCount; s++ )
+         for( int s = 1; s <= nCount; s++ )
          {
             FileName = ( char * ) hb_arrayGetCPtr(hArray, s);
 
@@ -409,7 +407,6 @@ HB_FUNC( ADDLISTVIEWITEMS )
    LV_ITEM LI;
    HWND    h;
    int     l;
-   int     s;
    int     c;
 
    h      = hmg_par_HWND(1);
@@ -433,7 +430,7 @@ HB_FUNC( ADDLISTVIEWITEMS )
    LI.pszText   = lpText;
    ListView_InsertItem( h, &LI );
 
-   for( s = 1; s <= l; s = s + 1 )
+   for( int s = 1; s <= l; s = s + 1 )
    {
       caption = ( char * ) hb_arrayGetCPtr(hArray, s + 1);
 #ifndef UNICODE
@@ -504,7 +501,9 @@ HB_FUNC( LISTVIEWSETMULTISEL )
    // SET NEW SELECTIONS
 
    for( i = 0; i <= l; i++ )
+   {
       ListView_SetItemState(hwnd, hb_arrayGetNI( wArray, i + 1 ) - 1, LVIS_FOCUSED | LVIS_SELECTED, LVIS_FOCUSED | LVIS_SELECTED);
+   }
 }
 
 HB_FUNC( LISTVIEWSETITEM )
@@ -520,11 +519,10 @@ HB_FUNC( LISTVIEWSETITEM )
    HWND h = hmg_par_HWND(1);
    int  l = ( int ) hb_parinfa(2, 0) - 1;
    int  c = hb_parni(3) - 1;
-   int  s;
 
    hArray = hb_param( 2, Harbour::Item::ARRAY );
 
-   for( s = 0; s <= l; s = s + 1 )
+   for( int s = 0; s <= l; s = s + 1 )
    {
       caption = ( char * ) hb_arrayGetCPtr(hArray, s + 1);
 #ifndef UNICODE
@@ -574,12 +572,11 @@ HB_FUNC( LISTVIEWGETITEM )
    HWND    h = hmg_par_HWND(1);
    int     c = hb_parni(2) - 1;
    int     l = hb_parni(3);
-   int     s;
    TCHAR * pszRet;
 
    hb_reta(l);
 
-   for( s = 0; s <= l - 1; s++ )
+   for( int s = 0; s <= l - 1; s++ )
    {
       pszRet = GetLVItemText(h, c, s);
    #ifndef UNICODE
@@ -956,14 +953,15 @@ HB_FUNC( LISTVIEW_GETCOLUMNORDERARRAY )
 
    if( iCols )
    {
-      int      i;
       int *    iArray = ( int * ) hb_xgrab(iCols * sizeof(int));
       PHB_ITEM pArray = hb_itemArrayNew( ( HB_SIZE ) iCols );
 
       ListView_GetColumnOrderArray(hmg_par_HWND(1), iCols, ( int * ) iArray);
 
-      for( i = 0; i < iCols; i++ )
+      for( int i = 0; i < iCols; i++ )
+      {
          hb_arraySetNI( pArray, ( HB_SIZE ) i + 1, iArray[ i ] + 1 );
+      }
 
       hb_xfree(iArray);
 
@@ -983,11 +981,12 @@ HB_FUNC( LISTVIEW_SETCOLUMNORDERARRAY )
 
       if( iColumn )
       {
-         int   i;
          int * iArray = ( int * ) hb_xgrab(iColumn * sizeof(int));
 
-         for( i = 0; i < iColumn; i++ )
+         for( int i = 0; i < iColumn; i++ )
+         {
             iArray[ i ] = HB_PARNI( 3, i + 1 ) - 1;
+         }
 
          ListView_SetColumnOrderArray(hmg_par_HWND(1), iColumn, ( int * ) iArray);
 

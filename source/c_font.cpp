@@ -225,12 +225,14 @@ HB_FUNC( ENUMFONTSEX )
    if( HB_ISBYREF(7) )
    {
       PHB_ITEM aFontName = hb_param( 7, Harbour::Item::ANY );
-      int      nLen = ( int ) hb_arrayLen( pArray ), i;
+      int      nLen = ( int ) hb_arrayLen( pArray );
 
       hb_arrayNew( aFontName, nLen );
 
-      for( i = 1; i <= nLen; i++ )
+      for( int i = 1; i <= nLen; i++ )
+      {
          hb_arraySetC( aFontName, i, hb_arrayGetC( hb_arrayGetItemPtr(pArray, i), 1 ) );
+      }
    }
 
    hb_itemReturnRelease(pArray);

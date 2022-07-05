@@ -410,11 +410,12 @@ HB_FUNC( C_HASALPHA ) // hBitmap --> lYesNo
    {
       LPBITMAPINFO    lpbmi = ( LPBITMAPINFO ) GlobalLock(hDib);
       unsigned char * uc    = ( LPBYTE ) lpbmi + ( WORD ) lpbmi->bmiHeader.biSize + PaletteSize(lpbmi);
-      unsigned long   ul;
 
-      for( ul = 0; ul < lpbmi->bmiHeader.biSizeImage && ! bAlphaChannel; ul += 4 )
+      for( unsigned long ul = 0; ul < lpbmi->bmiHeader.biSizeImage && ! bAlphaChannel; ul += 4 )
+      {
          if( uc[ ul + 3 ] != 0 )
             bAlphaChannel = TRUE;
+      }
 
       GlobalUnlock(hDib);
       GlobalFree(hDib);

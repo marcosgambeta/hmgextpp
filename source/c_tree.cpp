@@ -99,7 +99,6 @@ HB_FUNC( INITTREEVIEWBITMAP ) //Tree+
    char *     FileName;
    int        ic = 0;
    int        nCount;
-   int        s;
 
    nCount = ( int ) hb_parinfa(2, 0);
 
@@ -108,7 +107,7 @@ HB_FUNC( INITTREEVIEWBITMAP ) //Tree+
       int Transparent = hb_parl(3) ? 0 : 1;
       hArray = hb_param( 2, Harbour::Item::ARRAY );
 
-      for( s = 1; s <= nCount; s++ )
+      for( int s = 1; s <= nCount; s++ )
       {
          FileName = ( char * ) hb_arrayGetCPtr(hArray, s);
 
@@ -301,11 +300,10 @@ HB_FUNC( TREEVIEW_DELETEALLITEMS )
 {
    HWND    TreeHandle = hmg_par_HWND(1);
    int     nCount     = ( int ) hb_parinfa(2, 0);
-   int     i;
    TV_ITEM TreeItem;
    HMG_StructTreeItemLPARAM * TreeItemLPARAM;
 
-   for( i = 1; i <= nCount; i++ )
+   for( int i = 1; i <= nCount; i++ )
    {
       TreeItem.mask   = TVIF_PARAM;
       TreeItem.hItem  = ( HTREEITEM ) HB_PARVNL( 2, i );

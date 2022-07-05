@@ -694,7 +694,6 @@ static HBRUSH CreateGradientBrush(HDC hDC, INT nWidth, INT nHeight, COLORREF Col
    RECT    rcF;
    int     r1, g1, b1, r2, g2, b2;
    int     nCount;
-   int     i;
 
    r1 = GetRValue(Color1);
    g1 = GetGValue(Color1);
@@ -713,7 +712,7 @@ static HBRUSH CreateGradientBrush(HDC hDC, INT nWidth, INT nHeight, COLORREF Col
    rcF.bottom = nHeight;
    nCount     = ( int ) ceil( ( ( nWidth > nHeight ) ? nHeight : nWidth ) / 2 );
 
-   for( i = 0; i < nCount; i++ )
+   for( int i = 0; i < nCount; i++ )
    {
       hBrush    = CreateSolidBrush(RGB(r1 + (i * (r2 - r1) / nCount), g1 + (i * (g2 - g1) / nCount), b1 + (i * (b2 - b1) / nCount)));
       hBrushOld = reinterpret_cast<HBRUSH>(SelectObject(hDCComp, hBrush));

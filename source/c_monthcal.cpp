@@ -237,15 +237,15 @@ HB_FUNC( C_SETDAYSTATE )
    int             iCount = hb_parni(2);
    PHB_ITEM        hArray = hb_param( 3, Harbour::Item::ARRAY );
    LPMONTHDAYSTATE rgMonths;
-   int             i, j, iSize;
+   int             iSize;
 
    iSize    = sizeof(MONTHDAYSTATE) * iCount;
    rgMonths = ( LPMONTHDAYSTATE ) hb_xgrab(iSize);
    memset(rgMonths, 0, iSize);
 
-   for( i = 0; i < iCount; i++ )
+   for( int i = 0; i < iCount; i++ )
    {
-      for( j = 1; j <= 32; j++ )
+      for( int j = 1; j <= 32; j++ )
       {
          if( hb_arrayGetNI( hArray, i * 32 + j ) == 1 )
          {
@@ -264,15 +264,15 @@ HB_FUNC( C_RETDAYSTATE )
    int             iCount = hb_parni(2);
    PHB_ITEM        hArray = hb_param( 3, Harbour::Item::ARRAY );
    LPMONTHDAYSTATE rgMonths;
-   int             i, j, iSize;
+   int             iSize;
 
    iSize    = sizeof(MONTHDAYSTATE) * iCount;
    rgMonths = ( LPMONTHDAYSTATE ) hb_xgrab(iSize);
    memset(rgMonths, 0, iSize);
 
-   for( i = 0; i < iCount; i++ )
+   for( int i = 0; i < iCount; i++ )
    {
-      for( j = 1; j <= 32; j++ )
+      for( int j = 1; j <= 32; j++ )
       {
          if( hb_arrayGetNI( hArray, i * 32 + j ) == 1 )
          {

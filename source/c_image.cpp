@@ -636,7 +636,6 @@ HB_FUNC( GPLUSGETENCODERSMIMETYPE )
 {
    UINT num  = 0;
    UINT size = 0;
-   UINT i;
    ImageCodecInfo * pImageCodecInfo;
    PHB_ITEM         pResult = hb_itemArrayNew(0);
    PHB_ITEM         pItem;
@@ -671,7 +670,7 @@ HB_FUNC( GPLUSGETENCODERSMIMETYPE )
 
    pItem = hb_itemNew( NULL );
 
-   for( i = 0; i < num; ++i )
+   for( UINT i = 0; i < num; ++i )
    {
       WideCharToMultiByte( CP_ACP, 0, pImageCodecInfo[ i ].MimeType, -1, RecvMimeType, size, NULL, NULL );
 
@@ -1047,7 +1046,6 @@ static UINT WriteIconDirectoryEntry( HANDLE hFile, HICON hIcon, UINT nImageOffse
 static UINT WriteIconData(HANDLE hFile, HBITMAP hBitmap)
 {
    BITMAP bmp;
-   int    i;
    BYTE * pIconData;
 
    UINT nBitmapBytes;
@@ -1065,7 +1063,7 @@ static UINT WriteIconData(HANDLE hFile, HBITMAP hBitmap)
    // so write out each line in turn, starting at the bottom + working
    // towards the top of the bitmap. Also, the bitmaps are stored in packed
    // in memory - scanlines are NOT 32bit aligned, just 1-after-the-other
-   for( i = bmp.bmHeight - 1; i >= 0; i-- )
+   for( int i = bmp.bmHeight - 1; i >= 0; i-- )
    {
       // Write the bitmap scanline
       WriteFile(
@@ -1094,7 +1092,6 @@ static UINT WriteIconData(HANDLE hFile, HBITMAP hBitmap)
 BOOL SaveIconToFile(TCHAR * szIconFile, HICON hIcon[], int nNumIcons)
 {
    HANDLE hFile;
-   int    i;
    int *  pImageOffset;
 
    if( hIcon == 0 || nNumIcons < 1 )
@@ -1121,7 +1118,7 @@ BOOL SaveIconToFile(TCHAR * szIconFile, HICON hIcon[], int nNumIcons)
    //
    //	Now write the actual icon images
    //
-   for( i = 0; i < nNumIcons; i++ )
+   for( int i = 0; i < nNumIcons; i++ )
    {
       ICONINFO iconInfo;
       BITMAP   bmpColor, bmpMask;
@@ -1147,7 +1144,7 @@ BOOL SaveIconToFile(TCHAR * szIconFile, HICON hIcon[], int nNumIcons)
    //
    SetFilePointer( hFile, sizeof(ICONHEADER), 0, FILE_BEGIN );
 
-   for( i = 0; i < nNumIcons; i++ )
+   for( int i = 0; i < nNumIcons; i++ )
    {
       WriteIconDirectoryEntry( hFile, hIcon[ i ], pImageOffset[ i ] );
    }
@@ -1176,18 +1173,20 @@ HB_FUNC( C_SAVEHICONTOFILE )
 
    if( pArray && ( ( nLen = ( int ) hb_arrayLen( pArray ) ) > 0 ) )
    {
-      int i;
-
-      for( i = 0; i < nLen; i++ )
+      for( int i = 0; i < nLen; i++ )
+      {
          hIcon[ i ] = ( HICON ) ( LONG_PTR ) hb_arrayGetNL( pArray, i + 1 );
+      }
 
       if( SaveIconToFile(szIconFile, hIcon, hb_parnidef( 3, nLen )) )
       {
          hb_retl( TRUE );
 
          // clean up
-         for( i = 0; i < nLen; i++ )
+         for( int i = 0; i < nLen; i++ )
+         {
             DestroyIcon(hIcon[ i ]);
+         }   
       }
       else
          hb_retl( FALSE );

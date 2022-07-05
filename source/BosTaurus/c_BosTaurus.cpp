@@ -645,7 +645,6 @@ BOOL bt_GetEncoderCLSID(WCHAR * format, CLSID * pClsid)
 {
    UINT num  = 0;          // number of image encoders
    UINT size = 0;          // size of the image encoder array in bytes
-   UINT i;
    ImageCodecInfo * pImageCodecInfo;
 
    GdipGetImageEncodersSize(&num, &size);
@@ -658,7 +657,7 @@ BOOL bt_GetEncoderCLSID(WCHAR * format, CLSID * pClsid)
 
    GdipGetImageEncoders( num, size, pImageCodecInfo );
 
-   for( i = 0; i < num; ++i )
+   for( UINT i = 0; i < num; ++i )
    {
       if( wcscmp( pImageCodecInfo[ i ].MimeType, format ) == 0 )
       {
@@ -776,7 +775,6 @@ typedef struct
 
 HB_FUNC( BT_DC_CREATE )
 {
-   INT       i;
    HBITMAP   hBitmap;
    BT_STRUCT BT;
 
@@ -832,8 +830,10 @@ HB_FUNC( BT_DC_CREATE )
    HB_STORVNL( ( LONG ) BT.PaintStruct.rcPaint.bottom, -1, 9 );           // RECT rcPaint.bottom;
    HB_STORVNI( ( INT ) BT.PaintStruct.fRestore, -1, 10 );                 // BOOL fRestore;
    HB_STORVNI( ( INT ) BT.PaintStruct.fIncUpdate, -1, 11 );               // BOOL fIncUpdate;
-   for( i = 0; i < 32; i++ )
+   for( INT i = 0; i < 32; i++ )
+   {
       HB_STORVNI( ( INT ) BT.PaintStruct.rgbReserved[ i ], -1, 12 + i );  // BYTE rgbReserved[32];
+   }
 
 //   GdiSetBatchLimit (100);
 }
@@ -845,7 +845,6 @@ HB_FUNC( BT_DC_CREATE )
 
 HB_FUNC( BT_DC_DELETE )
 {
-   INT       i;
    BT_STRUCT BT;
 
 //   GdiSetBatchLimit (0);
@@ -862,8 +861,10 @@ HB_FUNC( BT_DC_DELETE )
    BT.PaintStruct.rcPaint.bottom = ( LONG ) HB_PARVNL( 1, 9 );            // RECT rcPaint.bottom;
    BT.PaintStruct.fRestore       = ( BOOL ) hb_parvni( 1, 10 );           // BOOL fRestore;
    BT.PaintStruct.fIncUpdate     = ( BOOL ) hb_parvni( 1, 11 );           // BOOL fIncUpdate;
-   for( i = 0; i < 32; i++ )
+   for( INT i = 0; i < 32; i++ )
+   {
       BT.PaintStruct.rgbReserved[ i ] = ( BYTE ) hb_parvni( 1, 12 + i );  // BYTE rgbReserved[32];
+   }
 
    switch( BT.Type )
    {
@@ -1050,7 +1051,7 @@ HB_FUNC( BT_DRAW_HDC_POLY )
    INT      nCountX, nCountY;
    COLORREF ColorLine, ColorFill;
    INT      nWidthLine, nLen;
-   INT      nPOLY, i;
+   INT      nPOLY;
 
    #ifndef __MINGW_H
    POINT aPoint[ 2048 ];
@@ -1071,7 +1072,7 @@ HB_FUNC( BT_DRAW_HDC_POLY )
       #ifdef __MINGW_H
       POINT aPoint[ nLen ];
       #endif
-      for( i = 0; i < nLen; i++ )
+      for( INT i = 0; i < nLen; i++ )
       {
          aPoint[ i ].x = hb_parvni( 2, i + 1 );
          aPoint[ i ].y = hb_parvni( 3, i + 1 );
@@ -2320,7 +2321,6 @@ HBITMAP bt_BiLinearInterpolation( HBITMAP hBitmap, int newWidth, int newHeight )
 {
    double      a, b, c, d, Color;
    double      x_diff, y_diff, x_ratio, y_ratio;
-   int         Row, Col, Channel;
    int         x, y;
    bt_BMPIMAGE Image1, Image2;
 
@@ -2343,9 +2343,9 @@ HBITMAP bt_BiLinearInterpolation( HBITMAP hBitmap, int newWidth, int newHeight )
    y_ratio = ( double ) Image1.Height / ( double ) Image2.Height;
    x_ratio = ( double ) Image1.Width / ( double ) Image2.Width;
 
-   for( Row = 0; Row < Image2.Height; Row++ )
+   for( int Row = 0; Row < Image2.Height; Row++ )
    {
-      for( Col = 0; Col < Image2.Width; Col++ )
+      for( int Col = 0; Col < Image2.Width; Col++ )
       {
          x = ( int ) ( x_ratio * Col );
          y = ( int ) ( y_ratio * Row );
@@ -2353,7 +2353,7 @@ HBITMAP bt_BiLinearInterpolation( HBITMAP hBitmap, int newWidth, int newHeight )
          x_diff = ( double ) ( ( x_ratio * Col ) - x );
          y_diff = ( double ) ( ( y_ratio * Row ) - y );
 
-         for( Channel = 0; Channel < 3; Channel++ )  // color channel C = R,G,B
+         for( int Channel = 0; Channel < 3; Channel++ )  // color channel C = R,G,B
          {
             a = ( double ) bt_BMP_GETBYTE( Image1, ( x + 0 ), ( y + 0 ), Channel );
             b = ( double ) bt_BMP_GETBYTE( Image1, ( x + 1 ), ( y + 0 ), Channel );
@@ -2671,7 +2671,6 @@ HB_FUNC( BT_BMP_PROCESS )
    BITMAPINFO        BI;
    BITMAP            bm;
    bt_RGBCOLORBYTE * RGBcolor;
-   register INT      x, y;
    BYTE              GrayValue;
    DOUBLE            GrayLevel  = 0;
    INT               LightLevel = 0, RLevel = 0, GLevel = 0, BLevel = 0;
@@ -2680,7 +2679,7 @@ HB_FUNC( BT_BMP_PROCESS )
    BYTE              RedGammaRamp[ 256 ];
    BYTE              GreenGammaRamp[ 256 ];
    BYTE              BlueGammaRamp[ 256 ];
-   INT               i, Action;
+   INT               Action;
 
    hBitmap = hmg_par_HBITMAP(1);
    Action  = hmg_par_INT(2);
@@ -2743,7 +2742,7 @@ HB_FUNC( BT_BMP_PROCESS )
          RedGamma   = ( DOUBLE ) hb_parvnd(3, 1);
          GreenGamma = ( DOUBLE ) hb_parvnd(3, 2);
          BlueGamma  = ( DOUBLE ) hb_parvnd(3, 3);
-         for( i = 0; i < 256; i++ )
+         for( INT i = 0; i < 256; i++ )
          {
             RedGammaRamp[ i ]   = ( BYTE ) bt_GAMMA(i, RedGamma);
             GreenGammaRamp[ i ] = ( BYTE ) bt_GAMMA(i, GreenGamma);
@@ -2786,11 +2785,11 @@ HB_FUNC( BT_BMP_PROCESS )
    memDC = CreateCompatibleDC(NULL);
    GetDIBits( memDC, hBitmap, 0, bm.bmHeight, ( LPVOID ) lp_Bits, &BI, DIB_RGB_COLORS );
 
-   for( y = 0; y < bm.bmHeight; y++ )
+   for( INT y = 0; y < bm.bmHeight; y++ )
    {
       RGBcolor = ( bt_RGBCOLORBYTE * ) ( lp_Bits + ( LONG ) ( y ) * bm.bmWidthBytes );
 
-      for( x = 0; x < bm.bmWidth; x++ )
+      for( INT x = 0; x < bm.bmWidth; x++ )
       {
          if( Action == BT_BMP_PROCESS_INVERT )
          {
@@ -2920,8 +2919,7 @@ HB_FUNC( BT_BMP_FILTER3X3 )
 // bt_RGBCOLORBYTE *RGBcolor_O;
    bt_RGBCOLORBYTE * RGBcolor_D, RGBcolor_Ret;
    bt_RGBCOLORBYTE * RGBcolor_Yprevious_Xcurrent, * RGBcolor_Ycurrent_Xcurrent, * RGBcolor_Yposterior_Xcurrent;
-   register INT      x, y;
-   INT i, MatKernel3x3Filter[ nMATFILTER ];
+   INT MatKernel3x3Filter[ nMATFILTER ];
 
 
    hBitmap = hmg_par_HBITMAP(1);
@@ -2930,9 +2928,10 @@ HB_FUNC( BT_BMP_FILTER3X3 )
       hb_retl( FALSE );
       return;
    }
-   for( i = 0; i < nMATFILTER; i++ )
+   for( INT i = 0; i < nMATFILTER; i++ )
+   {
       MatKernel3x3Filter[ i ] = ( INT ) hb_parvni( 2, i + 1 );
-
+   }
 
    GetObject(hBitmap, sizeof(BITMAP), ( LPBYTE ) &bm);
 
@@ -2974,12 +2973,12 @@ HB_FUNC( BT_BMP_FILTER3X3 )
 
    GetDIBits( memDC, hBitmap, 0, bm.bmHeight, ( LPVOID ) lp_Bits_O, &BI, DIB_RGB_COLORS );
 
-   for( y = 0; y < bm.bmHeight; y++ )
+   for( INT y = 0; y < bm.bmHeight; y++ )
    {
 //     RGBcolor_O = (bt_RGBCOLORBYTE *) (lp_Bits_O + (LONG) (y) * bm.bmWidthBytes);
       RGBcolor_D = ( bt_RGBCOLORBYTE * ) ( lp_Bits_D + ( LONG ) ( y ) * bm.bmWidthBytes );
 
-      for( x = 0; x < bm.bmWidth; x++ )
+      for( INT x = 0; x < bm.bmWidth; x++ )
       {
          if( ( y >= HALF && y < ( bm.bmHeight - HALF ) ) && ( x >= HALF && x < ( bm.bmWidth - HALF ) ) )
          {

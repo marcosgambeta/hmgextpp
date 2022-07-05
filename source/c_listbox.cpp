@@ -210,7 +210,6 @@ HB_FUNC( INITMULTILISTBOX )
 HB_FUNC( LISTBOXGETMULTISEL )
 {
    HWND hwnd = hmg_par_HWND(1);
-   int  i;
    int  buffer[ 32768 ];
    int  n;
 
@@ -220,8 +219,10 @@ HB_FUNC( LISTBOXGETMULTISEL )
 
    hb_reta(n);
 
-   for( i = 0; i < n; i++ )
+   for( INT i = 0; i < n; i++ )
+   {
       HB_STORNI( buffer[ i ] + 1, -1, i + 1 );
+   }
 }
 
 HB_FUNC( LISTBOXSETMULTISEL )
@@ -230,7 +231,7 @@ HB_FUNC( LISTBOXSETMULTISEL )
 
    HWND hwnd = hmg_par_HWND(1);
 
-   int i, n, l;
+   int n, l;
 
    wArray = hb_param( 2, Harbour::Item::ARRAY );
 
@@ -239,19 +240,23 @@ HB_FUNC( LISTBOXSETMULTISEL )
    n = ( int ) SendMessage( hwnd, LB_GETCOUNT, 0, 0 );
 
    // CLEAR CURRENT SELECTIONS
-   for( i = 0; i < n; i++ )
+   for( int i = 0; i < n; i++ )
+   {
       SendMessage( hwnd, LB_SETSEL, ( WPARAM ) (0), ( LPARAM ) i );
+   }
 
    // SET NEW SELECTIONS
-   for( i = 0; i <= l; i++ )
+   for( int i = 0; i <= l; i++ )
+   {
       SendMessage( hwnd, LB_SETSEL, ( WPARAM ) (1), ( LPARAM ) ( hb_arrayGetNI( wArray, i + 1 ) ) - 1 );
+   }
 }
 
 HB_FUNC( LISTBOXSETMULTITAB )
 {
    PHB_ITEM wArray;
    int      nTabStops[ TOTAL_TABS ];
-   int      l, i;
+   int      l;
    DWORD    dwDlgBase = GetDialogBaseUnits();
    int      baseunitX = LOWORD(dwDlgBase);
 
@@ -261,8 +266,10 @@ HB_FUNC( LISTBOXSETMULTITAB )
 
    l = ( int ) hb_parinfa(2, 0) - 1;
 
-   for( i = 0; i <= l; i++ )
+   for( int i = 0; i <= l; i++ )
+   {
       nTabStops[ i ] = MulDiv( hb_arrayGetNI( wArray, i + 1 ), 4, baseunitX );
+   }
 
    SendMessage( hwnd, LB_SETTABSTOPS, l, ( LPARAM ) &nTabStops );
 }

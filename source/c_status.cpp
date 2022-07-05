@@ -78,7 +78,6 @@ HB_FUNC( INITITEMBAR )
    int   cSpaceInBetween = 8;
    int   ptArray[ 40 ]; // Array defining the number of parts/sections
    int   nrOfParts = 0;
-   int   n;
    RECT  rect;
    HDC   hDC;
    WORD  displayFlags;
@@ -123,8 +122,10 @@ HB_FUNC( INITITEMBAR )
       ptArray[ nrOfParts - 1 ] = rect.right;
    else
    {
-      for( n = 0; n < nrOfParts - 1; n++ )
+      for( int n = 0; n < nrOfParts - 1; n++ )
+      {
          ptArray[ n ] -= hb_parni(4) - cSpaceInBetween;
+      }
 
       if( Style & WS_SIZEBOX )
       {
@@ -211,7 +212,7 @@ HB_FUNC( REFRESHITEMBAR )
    HWND hWndSB;
    int  ptArray[ 40 ];  // Array defining the number of parts/sections
    int  nDev;
-   int  n, s;
+   int  s;
    int  nrOfParts;
    RECT rect;
    HDC  hDC;
@@ -232,7 +233,7 @@ HB_FUNC( REFRESHITEMBAR )
 
    s = TRUE;
    if( rect.right > 0 )
-      for( n = 0; n <= nrOfParts - 1; n++ )
+      for( int n = 0; n <= nrOfParts - 1; n++ )
       {
 
          if( n == 0 )
@@ -326,7 +327,6 @@ HB_FUNC( SETSTATUSBARSIZE )
    HWND hwndStatus = hmg_par_HWND(1);
    int  nParts     = ( int ) hb_parinfa(2, 0);
    int  nWidth;
-   int  i;
 
    // Set Widths from array
 
@@ -335,7 +335,7 @@ HB_FUNC( SETSTATUSBARSIZE )
 
    nWidth = 0;
 
-   for( i = 0; i < nParts; i++ )
+   for( int i = 0; i < nParts; i++ )
    {
       nWidth       = nWidth + HB_PARNI( 2, i + 1 );
       lpParts[ i ] = nWidth;

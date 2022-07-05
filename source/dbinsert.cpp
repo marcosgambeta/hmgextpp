@@ -72,9 +72,7 @@ HB_FUNC( DBINSERT )
          bOk = FALSE;
       else
       {
-         ULONG ulIndex;
-
-         for( ulIndex = 0; ulIndex < ulCount; ulIndex++ )
+         for( ULONG ulIndex = 0; ulIndex < ulCount; ulIndex++ )
          {
             if( bOk && SELF_APPEND( ( AREAP ) pArea, TRUE ) != HB_SUCCESS )
                bOk = FALSE;
