@@ -191,7 +191,7 @@ HB_FUNC( ADDTREEITEM )
    TV_ITEM tvi;
    TV_INSERTSTRUCT is;
 
-   LONG nID        = ( LONG ) hb_parnl(6);
+   LONG nID        = hmg_par_LONG(6);
    BOOL IsNodeFlag = hmg_par_BOOL(7);
 
    tvi.mask = TVIF_TEXT | TVIF_IMAGE | TVIF_SELECTEDIMAGE | TVIF_PARAM;

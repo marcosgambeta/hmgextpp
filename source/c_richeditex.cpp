@@ -162,7 +162,7 @@ HB_FUNC( RICHEDITBOX_STREAMIN )
    LPCWSTR cFileName = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
    BOOL       lSelection  = hmg_par_BOOL(3);
-   LONG       nDataFormat = ( LONG ) hb_parnl(4);
+   LONG       nDataFormat = hmg_par_LONG(4);
    HANDLE     hFile;
    EDITSTREAM es;
    LONG       Format;
@@ -227,7 +227,7 @@ HB_FUNC( RICHEDITBOX_STREAMOUT )
    LPCWSTR cFileName = AnsiToWide( ( char * ) hb_parc(2) );
 #endif
    BOOL       lSelection  = hmg_par_BOOL(3);
-   LONG       nDataFormat = ( LONG ) hb_parnl(4);
+   LONG       nDataFormat = hmg_par_LONG(4);
    HANDLE     hFile;
    EDITSTREAM es;
    LONG       Format;
@@ -1155,7 +1155,7 @@ HB_FUNC( RICHEDITBOX_FORMATRANGE )
 HB_FUNC( RICHEDITBOX_POSFROMCHAR )
 {
    HWND   hWndControl = hmg_par_HWND(1);
-   LONG   nPosChar    = ( LONG ) hb_parnl(2);
+   LONG   nPosChar    = hmg_par_LONG(2);
    POINTL PointL;
    POINT  Point;
 

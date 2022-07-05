@@ -787,10 +787,10 @@ HB_FUNC( RR_MODIFYPEN )
          HB_RETNL( ( LONG_PTR ) hp );
       }
       else
-         hb_retnl( ( LONG ) hb_parnl(1) );
+         hb_retnl( hmg_par_LONG(1) );
    }
    else
-      hb_retnl( ( LONG ) hb_parnl(1) );
+      hb_retnl( hmg_par_LONG(1) );
 }
 
 HB_FUNC( RR_SELECTPEN )
@@ -805,7 +805,7 @@ HB_FUNC( RR_CREATEBRUSH )
 
    pbr.lbStyle = hb_parni(1);
    pbr.lbColor = hmg_par_COLORREF(2);
-   pbr.lbHatch = ( LONG ) hb_parnl(3);
+   pbr.lbHatch = hmg_par_LONG(3);
    HB_RETNL( ( LONG_PTR ) CreateBrushIndirect(&pbr) );
 }
 
@@ -835,10 +835,10 @@ HB_FUNC( RR_MODIFYBRUSH )
          HB_RETNL( ( LONG_PTR ) hb );
       }
       else
-         hb_retnl( ( LONG ) hb_parnl(1) );
+         hb_retnl( hmg_par_LONG(1) );
    }
    else
-      hb_retnl( ( LONG ) hb_parnl(1) );
+      hb_retnl( hmg_par_LONG(1) );
 }
 
 HB_FUNC( RR_SELECTBRUSH )
@@ -968,7 +968,7 @@ HB_FUNC( RR_MODIFYFONT )
       }
 
       if( hb_parnl(4) >= 0 )
-         ppn.lfWidth = ( LONG ) hb_parnl(4) * ppn.lfWidth / 100;
+         ppn.lfWidth = hmg_par_LONG(4) * ppn.lfWidth / 100;
 
       if( hb_parnl(5) >= 0 )
       {
@@ -1000,10 +1000,10 @@ HB_FUNC( RR_MODIFYFONT )
          HB_RETNL( ( LONG_PTR ) hf );
       }
       else
-         hb_retnl( ( LONG ) hb_parnl(1) );
+         hb_retnl( hmg_par_LONG(1) );
    }
    else
-      hb_retnl( ( LONG ) hb_parnl(1) );
+      hb_retnl( hmg_par_LONG(1) );
 }
 
 HB_FUNC( RR_SELECTFONT )
