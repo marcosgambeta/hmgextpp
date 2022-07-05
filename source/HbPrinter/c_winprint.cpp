@@ -484,25 +484,25 @@ HB_FUNC( RR_GETPRINTERS )
    {
       if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT )
       {
-         lstrcat( cBuffer, pInfo4->pPrinterName );
-         lstrcat( cBuffer, TEXT(",") );
+         lstrcat( reinterpret_cast<LPSTR>(cBuffer), pInfo4->pPrinterName );
+         lstrcat( reinterpret_cast<LPSTR>(cBuffer), TEXT(",") );
          if( pInfo4->Attributes == PRINTER_ATTRIBUTE_LOCAL )
-            lstrcat( cBuffer, TEXT("local printer") );
+            lstrcat( reinterpret_cast<LPSTR>(cBuffer), TEXT("local printer") );
          else
-            lstrcat( cBuffer, TEXT("network printer") );
+            lstrcat( reinterpret_cast<LPSTR>(cBuffer), TEXT("network printer") );
 
          pInfo4++;
       }
       else
       {
-         lstrcat( cBuffer, pInfo5->pPrinterName );
-         lstrcat( cBuffer, TEXT(",") );
-         lstrcat( cBuffer, pInfo5->pPortName );
+         lstrcat( reinterpret_cast<LPSTR>(cBuffer), pInfo5->pPrinterName );
+         lstrcat( reinterpret_cast<LPSTR>(cBuffer), TEXT(",") );
+         lstrcat( reinterpret_cast<LPSTR>(cBuffer), pInfo5->pPortName );
          pInfo5++;
       }
 
       if( i < dwPrinters - 1 )
-         lstrcat( cBuffer, TEXT(",,") );
+         lstrcat( reinterpret_cast<LPSTR>(cBuffer), TEXT(",,") );
    }
 
 #ifndef UNICODE
@@ -1293,7 +1293,7 @@ HB_FUNC( RR_PICTURE )
    CloseHandle(hFile);
    GlobalUnlock(hGlobal);
    CreateStreamOnHGlobal( hGlobal, TRUE, &iStream );
-   OleLoadPicture( iStream, nFileSize, TRUE, &IID_IPicture, ( LPVOID * ) &iPicture );
+   OleLoadPicture( iStream, nFileSize, TRUE, IID_IPicture, ( LPVOID * ) &iPicture );
    GlobalFree(hGlobal);
    iStream->lpVtbl->Release( iStream );
    if( iPicture == NULL )
@@ -1360,7 +1360,7 @@ LPVOID rr_loadpicturefromresource(TCHAR * resname, LONG * lwidth, LONG * lheight
       picd.cbSizeofstruct = sizeof(PICTDESC);
       picd.picType        = PICTYPE_BITMAP;
       picd.bmp.hbitmap    = hbmpx;
-      OleCreatePictureIndirect(&picd, &IID_IPicture, TRUE, ( LPVOID * ) &iPicture);
+      OleCreatePictureIndirect(&picd, IID_IPicture, TRUE, ( LPVOID * ) &iPicture);
    }
    else
    {
@@ -1390,7 +1390,7 @@ LPVOID rr_loadpicturefromresource(TCHAR * resname, LONG * lwidth, LONG * lheight
          return NULL;
       }
 
-      OleLoadPicture( iStream, nSize, TRUE, &IID_IPicture, ( LPVOID * ) &iPicture );
+      OleLoadPicture( iStream, nSize, TRUE, IID_IPicture, ( LPVOID * ) &iPicture );
       iStream->lpVtbl->Release( iStream );
       GlobalFree(hGlobal);
    }
@@ -1431,7 +1431,7 @@ LPVOID rr_loadpicture( TCHAR * filename, LONG * lwidth, LONG * lheight )
       return NULL;
    }
 
-   OleLoadPicture( iStream, nFileSize, TRUE, &IID_IPicture, ( LPVOID * ) &iPicture );
+   OleLoadPicture( iStream, nFileSize, TRUE, IID_IPicture, ( LPVOID * ) &iPicture );
    GlobalUnlock(hGlobal);
    GlobalFree(hGlobal);
    iStream->lpVtbl->Release( iStream );
@@ -1455,7 +1455,7 @@ LPVOID rr_loadfromhbitmap(HBITMAP hbmpx, LONG * lwidth, LONG * lheight)
    picd.bmp.hbitmap    = hbmpx;
    picd.bmp.hpal       = ( HPALETTE ) NULL;
 
-   OleCreatePictureIndirect(&picd, &IID_IPicture, TRUE, ( LPVOID * ) &iPicture);
+   OleCreatePictureIndirect(&picd, IID_IPicture, TRUE, ( LPVOID * ) &iPicture);
    if( iPicture != NULL )
    {
       iPicture->lpVtbl->get_Width( iPicture, lwidth );
