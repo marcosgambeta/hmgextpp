@@ -63,7 +63,7 @@
 
 LRESULT CALLBACK  OwnSpinProc( HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam );
 
-HINSTANCE GetInstance( void );
+HINSTANCE GetInstance(void);
 
 HB_FUNC( INITSPINNER )
 {
@@ -75,7 +75,7 @@ HB_FUNC( INITSPINNER )
 
    i.dwSize = sizeof(INITCOMMONCONTROLSEX);
    i.dwICC  = ICC_STANDARD_CLASSES;
-   InitCommonControlsEx( &i );
+   InitCommonControlsEx(&i);
 
    hwnd = hmg_par_HWND(1);
 
@@ -114,7 +114,7 @@ HB_FUNC( INITSPINNER )
            );
 
    i.dwICC = ICC_UPDOWN_CLASS;  /* P.Ch. 10.16. */
-   InitCommonControlsEx( &i );
+   InitCommonControlsEx(&i);
 
    hupdown = CreateWindowEx
              (

@@ -72,10 +72,10 @@
 LRESULT CALLBACK  OwnGetProc( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam );
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
+LPWSTR AnsiToWide(LPCSTR);
 #endif
-HINSTANCE GetInstance( void );
-HINSTANCE GetResources( void );
+HINSTANCE GetInstance(void);
+HINSTANCE GetResources(void);
 
 HB_FUNC( INITGETBOX )
 {
@@ -160,12 +160,12 @@ HB_FUNC( INITGETBOX )
 #ifndef UNICODE
       LPCSTR lpImageName = hb_parc(18);
 #else
-      LPWSTR lpImageName = AnsiToWide( ( char * ) hb_parc(18) );
+      LPWSTR lpImageName = AnsiToWide(( char * ) hb_parc(18));
 #endif
-      himage = ( HWND ) LoadImage( GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
+      himage = ( HWND ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
       if( himage == NULL )
-         himage = ( HWND ) LoadImage( NULL, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
+         himage = ( HWND ) LoadImage(NULL, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
       if( himage != NULL )
       {
@@ -174,11 +174,11 @@ HB_FUNC( INITGETBOX )
          if( bm.bmWidth > BtnWidth - 4 || bm.bmHeight > hb_parni(6) - 5 )
          {
             DeleteObject(himage);
-            himage = ( HWND ) LoadImage( GetResources(), lpImageName, IMAGE_BITMAP, BtnWidth - 4, hb_parni(
-                                            6 ) - 6, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
+            himage = ( HWND ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, BtnWidth - 4, hb_parni(
+                                            6 ) - 6, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
             if( himage == NULL )
-               himage = ( HWND ) LoadImage( NULL, lpImageName, IMAGE_BITMAP, BtnWidth - 4, hb_parni(
-                                               6 ) - 6, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
+               himage = ( HWND ) LoadImage(NULL, lpImageName, IMAGE_BITMAP, BtnWidth - 4, hb_parni(
+                                               6 ) - 6, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
          }
       }
 #ifdef UNICODE
@@ -193,12 +193,12 @@ HB_FUNC( INITGETBOX )
 #ifndef UNICODE
       LPCSTR lpImageName2 = hb_parc(21);
 #else
-      LPWSTR lpImageName2 = AnsiToWide( ( char * ) hb_parc(21) );
+      LPWSTR lpImageName2 = AnsiToWide(( char * ) hb_parc(21));
 #endif
-      himage2 = ( HWND ) LoadImage( GetResources(), lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
+      himage2 = ( HWND ) LoadImage(GetResources(), lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
       if( himage2 == NULL )
-         himage2 = ( HWND ) LoadImage( NULL, lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
+         himage2 = ( HWND ) LoadImage(NULL, lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
       if( himage2 != NULL )
       {
@@ -207,12 +207,12 @@ HB_FUNC( INITGETBOX )
          if( bm.bmWidth > BtnWidth2 - 4 || bm.bmHeight > hb_parni(6) - 5 )
          {
             DeleteObject(himage2);
-            himage2 = ( HWND ) LoadImage( GetResources(), lpImageName2, IMAGE_BITMAP, BtnWidth2 - 4, hb_parni(
-                                             6 ) - 6, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
+            himage2 = ( HWND ) LoadImage(GetResources(), lpImageName2, IMAGE_BITMAP, BtnWidth2 - 4, hb_parni(
+                                             6 ) - 6, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
             if( himage2 == NULL )
-               himage2 = ( HWND ) LoadImage( NULL, lpImageName2, IMAGE_BITMAP, BtnWidth2 - 4, hb_parni(
-                                                6 ) - 6, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
+               himage2 = ( HWND ) LoadImage(NULL, lpImageName2, IMAGE_BITMAP, BtnWidth2 - 4, hb_parni(
+                                                6 ) - 6, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
          }
       }
 #ifdef UNICODE
@@ -299,7 +299,7 @@ HB_FUNC( GETTEXTHEIGHT )               // returns the height of a string in pixe
 #ifndef UNICODE
    LPCSTR lpString = hb_parc(2);
 #else
-   LPCWSTR lpString = AnsiToWide( ( char * ) hb_parc(2) );
+   LPCWSTR lpString = AnsiToWide(( char * ) hb_parc(2));
 #endif
 
    if( ! hDC )

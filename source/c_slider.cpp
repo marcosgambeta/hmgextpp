@@ -51,7 +51,7 @@
 
 #include <commctrl.h>
 
-HINSTANCE GetInstance( void );
+HINSTANCE GetInstance(void);
 
 HB_FUNC( INITSLIDER )
 {
@@ -62,7 +62,7 @@ HB_FUNC( INITSLIDER )
 
    i.dwSize = sizeof(INITCOMMONCONTROLSEX);
    i.dwICC  = ICC_BAR_CLASSES;
-   InitCommonControlsEx( &i );
+   InitCommonControlsEx(&i);
 
    if( hb_parl(9) )
       Style |= TBS_VERT;

@@ -61,8 +61,8 @@
 #include "hbapiitm.h"
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
-LPSTR  WideToAnsi( LPWSTR );
+LPWSTR AnsiToWide(LPCSTR);
+LPSTR  WideToAnsi(LPWSTR);
 #endif
 
 //------------------------------------------------------------------------------
@@ -134,7 +134,7 @@ HB_FUNC( SETPROP )
 #ifndef UNICODE
       pW = hb_parc(2);
 #else
-      pW = AnsiToWide( ( char * ) hb_parc(2) );
+      pW = AnsiToWide(( char * ) hb_parc(2));
 #endif
       hb_retl( SetProp( hwnd, pW, ( HANDLE ) ( LONG_PTR ) HB_PARNL(3) ) ? HB_TRUE : HB_FALSE );
    #ifdef UNICODE
@@ -144,7 +144,7 @@ HB_FUNC( SETPROP )
    }
 
    // type conversion
-   if( ( hMem = GlobalAlloc( GPTR, nLen + sizeof(int) + 1 ) ) == NULL )
+   if( (hMem = GlobalAlloc(GPTR, nLen + sizeof(int) + 1)) == NULL )
       return;
    else
    {
@@ -173,7 +173,7 @@ HB_FUNC( SETPROP )
 #ifndef UNICODE
    pW = hb_parc(2);
 #else
-   pW = AnsiToWide( ( char * ) hb_parc(2) );
+   pW = AnsiToWide(( char * ) hb_parc(2));
 #endif
 
    hb_retl( SetProp( hwnd, pW, hMem ) ? HB_TRUE : HB_FALSE  );
@@ -195,7 +195,7 @@ HB_FUNC( GETPROP )
 #ifndef UNICODE
    LPCSTR pW = hb_parc(2);
 #else
-   LPWSTR pW = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR pW = AnsiToWide(( char * ) hb_parc(2));
 #endif
 
    hb_ret();
@@ -256,9 +256,9 @@ HB_FUNC( REMOVEPROP )
       return;
 
 #ifndef UNICODE
-   hMem = RemovePropA( hwnd, hb_parc(2) );
+   hMem = RemovePropA(hwnd, hb_parc(2));
 #else
-   lpString = AnsiToWide( ( char * ) hb_parc(2) );
+   lpString = AnsiToWide(( char * ) hb_parc(2));
    hMem     = RemovePropW( hwnd, lpString );
    hb_xfree(( TCHAR * ) lpString);
 #endif
@@ -284,9 +284,9 @@ HB_FUNC( ENUMPROPS )
    {
       PHB_ITEM pArray = hb_itemArrayNew(0);
 
-      EnumPropsEx( hWnd, ( PROPENUMPROCEX ) PropsEnumProc, ( LPARAM ) pArray );
+      EnumPropsEx(hWnd, ( PROPENUMPROCEX ) PropsEnumProc, ( LPARAM ) pArray);
 
-      hb_itemReturnRelease( pArray );
+      hb_itemReturnRelease(pArray);
    }
 }
 
@@ -305,12 +305,12 @@ static BOOL CALLBACK PropsEnumProc( HWND hWnd, LPCTSTR pszPropName, HANDLE handl
    #ifndef UNICODE
       hb_arraySetCLPtr(item, 2, pszName, iLen);
    #else
-      hb_arraySetCLPtr(item, 2, WideToAnsi( pszName ), iLen);
+      hb_arraySetCLPtr(item, 2, WideToAnsi(pszName), iLen);
    #endif
       hb_arraySetNInt( item, 3, ( LONG_PTR ) handle );
 
       hb_arrayAddForward( ( PHB_ITEM ) lParam, item );
-      hb_itemRelease( item );
+      hb_itemRelease(item);
    }
 
    return TRUE;
@@ -323,7 +323,7 @@ static BOOL CALLBACK PropsEnumProc( HWND hWnd, LPCTSTR pszPropName, HANDLE handl
                                            HB_SYMBOL_UNUSED( hHandle ),;
                                            .T. }
 
-        nRetVal := EnumPropsEx( nHandle, bCodeBlock )
+        nRetVal := EnumPropsEx(nHandle, bCodeBlock)
         IF nRetVal == -2
                 ? "Wrong/Missing parameters."
         ELSEIF nRetVal == -1
@@ -341,12 +341,12 @@ static BOOL CALLBACK PropsEnumProc( HWND hWnd, LPCTSTR pszPropName, HANDLE handl
                                            HB_SYMBOL_UNUSED( hHandle ),;
                                            ( ! ( cPropName == "MY_PROP" ) ) }
 
-        nRetVal := EnumPropsEx( nHandle, bCodeBlock )
+        nRetVal := EnumPropsEx(nHandle, bCodeBlock)
         IF nRetVal == 0
                 ? "MY_PROP found"
         ..
  */
-BOOL CALLBACK PropsEnumProcEx( HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULONG_PTR lParam );
+BOOL CALLBACK PropsEnumProcEx(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULONG_PTR lParam);
 
 HB_FUNC( ENUMPROPSEX )
 {
@@ -354,12 +354,12 @@ HB_FUNC( ENUMPROPSEX )
    PHB_ITEM pCodeBlock = hb_param( 2, Harbour::Item::BLOCK );
 
    if( IsWindow(hWnd) && pCodeBlock )
-      hb_retni( EnumPropsEx( hWnd, ( PROPENUMPROCEX ) PropsEnumProcEx, ( LPARAM ) pCodeBlock ) );
+      hb_retni( EnumPropsEx(hWnd, ( PROPENUMPROCEX ) PropsEnumProcEx, ( LPARAM ) pCodeBlock) );
    else
       hb_retni( -2 );
 }
 
-BOOL CALLBACK PropsEnumProcEx( HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULONG_PTR lParam )
+BOOL CALLBACK PropsEnumProcEx(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULONG_PTR lParam)
 {
    PHB_ITEM pCodeBlock = ( PHB_ITEM ) lParam;
    int      iLen       = lstrlen( pszPropName );
@@ -375,13 +375,13 @@ BOOL CALLBACK PropsEnumProcEx( HWND hWnd, LPCTSTR pszPropName, HANDLE handle, UL
    #ifndef UNICODE
       pPropName = hb_itemPutCPtr(NULL, pszName);
    #else
-      pPropName = hb_itemPutCPtr(NULL, WideToAnsi( pszName ));
+      pPropName = hb_itemPutCPtr(NULL, WideToAnsi(pszName));
    #endif
       hb_evalBlock( pCodeBlock, pHWnd, pPropName, pHandle, NULL );
 
-      hb_itemRelease( pHWnd );
-      hb_itemRelease( pPropName );
-      hb_itemRelease( pHandle );
+      hb_itemRelease(pHWnd);
+      hb_itemRelease(pPropName);
+      hb_itemRelease(pHandle);
 
       return hmg_par_BOOL(-1);
    }

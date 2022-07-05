@@ -50,7 +50,7 @@
 /* undocumented Windows API */
 int WINAPI MessageBoxTimeout(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT uType, WORD wLanguageId, DWORD dwMilliseconds);
 
-HINSTANCE GetInstance( void );
+HINSTANCE GetInstance(void);
 extern HB_PTRUINT wapi_GetProcAddress( HMODULE hModule, LPCSTR lpProcName );
 
 // JK HMG 1.2 Experimental Build 16g
@@ -69,9 +69,9 @@ HB_FUNC( MESSAGEBOXINDIRECT )
    mbp.lpszCaption = HB_ISCHAR(3) ? hb_parc(3) : ( HB_ISNUM(3) ? MAKEINTRESOURCE(hb_parni(3)) : "" );
    mbp.lpszIcon    = HB_ISCHAR(5) ? hb_parc(5) : ( HB_ISNUM(5) ? MAKEINTRESOURCE(hb_parni(5)) : NULL );
 #else
-   mbp.lpszText    = ( LPCWSTR ) ( HB_ISCHAR(2) ? hb_osStrU16Encode( hb_parc(2) ) : ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : NULL ) );
-   mbp.lpszCaption = ( LPCWSTR ) ( HB_ISCHAR(3) ? hb_osStrU16Encode( hb_parc(3) ) : ( HB_ISNUM(3) ? MAKEINTRESOURCE(hb_parni(3)) : TEXT("") ) );
-   mbp.lpszIcon    = ( LPCWSTR ) ( HB_ISCHAR(5) ? hb_osStrU16Encode( hb_parc(5) ) : ( HB_ISNUM(5) ? MAKEINTRESOURCE(hb_parni(5)) : NULL ) );
+   mbp.lpszText    = ( LPCWSTR ) ( HB_ISCHAR(2) ? hb_osStrU16Encode(hb_parc(2)) : ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : NULL ) );
+   mbp.lpszCaption = ( LPCWSTR ) ( HB_ISCHAR(3) ? hb_osStrU16Encode(hb_parc(3)) : ( HB_ISNUM(3) ? MAKEINTRESOURCE(hb_parni(3)) : TEXT("") ) );
+   mbp.lpszIcon    = ( LPCWSTR ) ( HB_ISCHAR(5) ? hb_osStrU16Encode(hb_parc(5)) : ( HB_ISNUM(5) ? MAKEINTRESOURCE(hb_parni(5)) : NULL ) );
 #endif
    mbp.dwStyle            = ( DWORD ) hb_parni(4);
    mbp.dwContextHelpId    = HB_ISNUM(7) ? ( DWORD ) hb_parni(7) : 0;
@@ -90,8 +90,8 @@ HB_FUNC( MESSAGEBOXTIMEOUT )
    const char * lpText    = hb_parc(1);
    const char * lpCaption = hb_parc(2);
 #else
-   TCHAR * lpText    = hb_osStrU16Encode( hb_parc(1) );
-   TCHAR * lpCaption = hb_osStrU16Encode( hb_parc(2) );
+   TCHAR * lpText    = hb_osStrU16Encode(hb_parc(1));
+   TCHAR * lpCaption = hb_osStrU16Encode(hb_parc(2));
 #endif
    UINT  uType          = ( UINT ) hb_parnldef( 3, MB_OK );
    WORD  wLanguageId    = MAKELANGID( LANG_NEUTRAL, SUBLANG_NEUTRAL );

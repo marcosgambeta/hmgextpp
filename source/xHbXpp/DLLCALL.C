@@ -123,7 +123,7 @@ HB_EXPORT char * hb_parcstruct( int iParam, ... )
          pItem = hb_itemUnRef(pItem);
       }
 
-      if( HB_IS_ARRAY( pItem ) && ! HB_IS_OBJECT(pItem) )
+      if( HB_IS_ARRAY(pItem) && ! HB_IS_OBJECT(pItem) )
       {
          va_list va;
          ULONG ulArrayIndex;
@@ -147,7 +147,7 @@ HB_EXPORT char * hb_parcstruct( int iParam, ... )
 
          if( bRelease )
          {
-            hb_itemRelease( pItem );
+            hb_itemRelease(pItem);
          }
 
          return hb_stackReturnItem()->item.asString.value;
@@ -185,7 +185,7 @@ static HB_GARBAGE_FUNC( _DLLUnload )
 
 HB_FUNC( DLLPREPARECALL )
 {
-   PEXECSTRUCT xec = (PEXECSTRUCT) hb_gcAlloc( sizeof(EXECSTRUCT), _DLLUnload );
+   PEXECSTRUCT xec = (PEXECSTRUCT) hb_gcAlloc(sizeof(EXECSTRUCT), _DLLUnload);
 
    memset(xec, 0, sizeof(EXECSTRUCT));
 
@@ -225,11 +225,11 @@ HB_FUNC( DLLPREPARECALL )
    {
       if( xec->cDLL )
       {
-         MessageBox( GetActiveWindow(), "DllPrepareCall:LoadLibrary() failed!", xec->cDLL, MB_OK | MB_ICONERROR );
+         MessageBox(GetActiveWindow(), "DllPrepareCall:LoadLibrary() failed!", xec->cDLL, MB_OK | MB_ICONERROR);
       }
       else
       {
-         MessageBox( GetActiveWindow(), "DllPrepareCall() invalid handle argument!", "DllPrepareCall", MB_OK | MB_ICONERROR );
+         MessageBox(GetActiveWindow(), "DllPrepareCall() invalid handle argument!", "DllPrepareCall", MB_OK | MB_ICONERROR);
       }
    }
 
@@ -263,13 +263,13 @@ HB_FUNC( DLLPREPARECALL )
          (LPTSTR) &lpMsgBuf,
          0, NULL );
 
-         MessageBox( GetActiveWindow(), (LPCSTR) lpMsgBuf, "DllPrepareCall:GetProcAddress() failed!", MB_OK | MB_ICONERROR );
+         MessageBox(GetActiveWindow(), (LPCSTR) lpMsgBuf, "DllPrepareCall:GetProcAddress() failed!", MB_OK | MB_ICONERROR);
 
          LocalFree(lpMsgBuf);
       }
       else
       {
-         MessageBox( GetActiveWindow(), "DllPrepareCall:GetProcAddress() invalid oridnal argument!", "DllPrepareCall", MB_OK | MB_ICONERROR );
+         MessageBox(GetActiveWindow(), "DllPrepareCall:GetProcAddress() invalid oridnal argument!", "DllPrepareCall", MB_OK | MB_ICONERROR);
       }
    }
 }
@@ -277,7 +277,7 @@ HB_FUNC( DLLPREPARECALL )
 
 HB_FUNC( LOADLIBRARY )
 {
-   hb_retnl( (DWORD) LoadLibraryA( (LPCSTR) hb_parcx(1) ) ) ;
+   hb_retnl( (DWORD) LoadLibraryA((LPCSTR) hb_parcx(1)) ) ;
 }
 
 HB_FUNC( FREELIBRARY )
@@ -478,7 +478,7 @@ static void DllExec( int iFlags, LPVOID lpFunction, int iParams, int iFirst, int
                Parm[iCnt].nWidth = sizeof(void*);
                if ( hb_parinfo(i) & Harbour::Item::BYREF )
                {
-                  Parm[iCnt].pArg = malloc( hb_parclen( i ) );
+                  Parm[iCnt].pArg = malloc(hb_parclen(i));
                   memcpy(Parm[iCnt].pArg, hb_parc( i ), hb_parclen( i ));
                }
                else
@@ -504,7 +504,7 @@ static void DllExec( int iFlags, LPVOID lpFunction, int iParams, int iFirst, int
             case Harbour::Item::MEMVAR            :
 
             default:
-               MessageBox( GetActiveWindow(), "UNKNOWN Parameter Type!", "DLLCall Parameter Error!", MB_OK | MB_ICONERROR );
+               MessageBox(GetActiveWindow(), "UNKNOWN Parameter Type!", "DLLCall Parameter Error!", MB_OK | MB_ICONERROR);
                return;
          }
 
@@ -527,7 +527,7 @@ static void DllExec( int iFlags, LPVOID lpFunction, int iParams, int iFirst, int
       (LPTSTR) &lpMsgBuf,
       0, NULL );
 
-      MessageBox( GetActiveWindow(), (LPCSTR) lpMsgBuf, "DllExec:DynaCall() failed!", MB_OK | MB_ICONERROR );
+      MessageBox(GetActiveWindow(), (LPCSTR) lpMsgBuf, "DllExec:DynaCall() failed!", MB_OK | MB_ICONERROR);
 
       LocalFree(lpMsgBuf);
    }*/
@@ -577,7 +577,7 @@ static void DllExec( int iFlags, LPVOID lpFunction, int iParams, int iFirst, int
                   }
 
                default:
-                  MessageBox( GetActiveWindow(), "UNKNOWN Parameter Type!", "DLLCall Parameter Error!", MB_OK | MB_ICONERROR );
+                  MessageBox(GetActiveWindow(), "UNKNOWN Parameter Type!", "DLLCall Parameter Error!", MB_OK | MB_ICONERROR);
                   return;
             }
          }
@@ -646,7 +646,7 @@ static void DllExec( int iFlags, LPVOID lpFunction, int iParams, int iFirst, int
          break;
 
       default:
-         MessageBox( GetActiveWindow(), "Unknown return type!", "DLLCall Parameter Error!", MB_OK | MB_ICONERROR );
+         MessageBox(GetActiveWindow(), "Unknown return type!", "DLLCall Parameter Error!", MB_OK | MB_ICONERROR);
          break;
    }
 }

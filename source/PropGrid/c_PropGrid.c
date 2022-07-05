@@ -191,7 +191,7 @@ BOOL InsertBtnPG( HWND hWnd, HTREEITEM hItem, int nBtn, int ItemType, PROPGRD pg
 {
    INSBTN   *pbtn;
 
-   pbtn = HeapAlloc( GetProcessHeap(), 0, sizeof(INSBTN) );
+   pbtn = HeapAlloc(GetProcessHeap(), 0, sizeof(INSBTN));
 
    if( !pbtn )
    {
@@ -279,11 +279,11 @@ void DrawInsBtnPG( HWND hWnd, INSBTN *pbtn, RECT *prect )
          GetObject(hBitmap, sizeof(BITMAP), (LPVOID) &bitmap);
          if( wWidth && (wWidth != bitmap.bmWidth || wHeight != bitmap.bmHeight) )
          {
-            StretchBlt( hdc, wCol, wRow, wWidth, wHeight, hDCmem, 0, 0, bitmap.bmWidth, bitmap.bmHeight, dwRaster );
+            StretchBlt(hdc, wCol, wRow, wWidth, wHeight, hDCmem, 0, 0, bitmap.bmWidth, bitmap.bmHeight, dwRaster);
          }
          else
          {
-            BitBlt( hdc, wCol, wRow, bitmap.bmWidth, bitmap.bmHeight, hDCmem, 0, 0, dwRaster );
+            BitBlt(hdc, wCol, wRow, bitmap.bmWidth, bitmap.bmHeight, hDCmem, 0, 0, dwRaster);
          }
 
          DeleteDC(hDCmem);
@@ -354,7 +354,7 @@ BOOL InitPropGrd
    int cxMargin = GetSystemMetrics( SM_CYDLGFRAME );
    int buttonWidth;
    int buttonHeight = 0;
-   ppgrd = HeapAlloc( GetProcessHeap(), 0, sizeof(PROPGRD) );
+   ppgrd = HeapAlloc(GetProcessHeap(), 0, sizeof(PROPGRD));
 
    if( !ppgrd )
    {
@@ -595,7 +595,7 @@ HWND CreateHeaderWindow(HWND hwndParent)
       ) == NULL
    )
    {  // No application-defined data.
-      return( HWND ) NULL;
+      return ( HWND ) NULL;
    }
 
    GetClientRect(hwndParent, &rcParent);
@@ -605,7 +605,7 @@ HWND CreateHeaderWindow(HWND hwndParent)
 
    if( Header_Layout(hwndHeader, &hdl) == FALSE )
    {
-      return( HWND ) NULL;
+      return ( HWND ) NULL;
    }
 
    SetWindowPos(hwndHeader, wp.hwndInsertAfter, wp.x, wp.y, wp.cx, wp.cy, wp.flags | SWP_SHOWWINDOW);
@@ -841,8 +841,8 @@ LRESULT PropGridOnCustomDraw ( HWND hWnd, LPARAM lParam )
 
             if( iImage > 0 )
             {
-               ImageList_GetIconSize( m_hImgList, &cx, &cy );
-               ImageList_DrawEx( m_hImgList, iImage - 1, hDC, rcProp.left + 5, rcProp.top + 1, 0, 0, CLR_DEFAULT, CLR_DEFAULT, ILD_NORMAL );
+               ImageList_GetIconSize(m_hImgList, &cx, &cy);
+               ImageList_DrawEx(m_hImgList, iImage - 1, hDC, rcProp.left + 5, rcProp.top + 1, 0, 0, CLR_DEFAULT, CLR_DEFAULT, ILD_NORMAL);
                rcProp.left += cx + 7;
             }
          }
@@ -982,7 +982,7 @@ HB_FUNC( INITPROPGRID )
 
    icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
    icex.dwICC = ICC_TREEVIEW_CLASSES | ICC_DATE_CLASSES | ICC_USEREX_CLASSES;;
-   InitCommonControlsEx( &icex );
+   InitCommonControlsEx(&icex);
 
    hArray = hb_param( 11, Harbour::Item::ARRAY );
    MsgArray = hb_param( 17, Harbour::Item::ARRAY );
@@ -1266,8 +1266,8 @@ LRESULT CALLBACK OwnPropGridProc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
 
          if( himl )
          {
-            ImageList_Draw( himl, iImage, hDC, rc.left, rc.top, ILD_NORMAL );
-            ImageList_GetIconSize( himl, &cx, &cy );
+            ImageList_Draw(himl, iImage, hDC, rc.left, rc.top, ILD_NORMAL);
+            ImageList_GetIconSize(himl, &cx, &cy);
             rc.left += cx;
          }
 
@@ -1390,12 +1390,12 @@ LRESULT CALLBACK OwnPropGridProc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
             }
             else
             {
-               return( CallWindowProc(OldWndProc, hWnd, Msg, wParam, lParam) );
+               return ( CallWindowProc(OldWndProc, hWnd, Msg, wParam, lParam) );
             }
          }
    }
 
-   return( CallWindowProc(OldWndProc, hWnd, Msg, wParam, lParam) );
+   return ( CallWindowProc(OldWndProc, hWnd, Msg, wParam, lParam) );
 }
 
 LRESULT CALLBACK OwnFramePgProc( HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM lParam )
@@ -1456,13 +1456,13 @@ LRESULT CALLBACK OwnFramePgProc( HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM 
                         }
                      else
                         {
-                        return( CallWindowProc(OldWndProc, hFramePG, Msg, wParam, lParam) );
+                        return ( CallWindowProc(OldWndProc, hFramePG, Msg, wParam, lParam) );
                         }
                 }
         }
         else
         {
-           return( CallWindowProc(OldWndProc, hFramePG, Msg, wParam, lParam) );
+           return ( CallWindowProc(OldWndProc, hFramePG, Msg, wParam, lParam) );
         }
 
       case WM_NOTIFY:
@@ -1531,7 +1531,7 @@ LRESULT CALLBACK OwnFramePgProc( HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM 
          }
    }
 
-   return( CallWindowProc(OldWndProc, hFramePG, Msg, wParam, lParam) );
+   return ( CallWindowProc(OldWndProc, hFramePG, Msg, wParam, lParam) );
 }
 
 HB_FUNC( PROPGRIDONCUSTOMDRAW )
@@ -1622,7 +1622,7 @@ HB_FUNC( ADDPGITEM )
    hb_retnl( (LONG) hRet );
 }
 
-void Pg_SetData( HWND hWnd, HTREEITEM hItem, LPTSTR cValue, LPTSTR cData, BOOL lData )
+void Pg_SetData(HWND hWnd, HTREEITEM hItem, LPTSTR cValue, LPTSTR cData, BOOL lData)
 {
    HWND        TreeHandle;
    HTREEITEM   TreeItemHandle;
@@ -1659,7 +1659,7 @@ void Pg_SetData( HWND hWnd, HTREEITEM hItem, LPTSTR cValue, LPTSTR cData, BOOL l
 
 HB_FUNC( PG_SETDATAITEM )
 {
-   Pg_SetData( (HWND) hb_parnl(1), (HTREEITEM) hb_parnl(2), (LPSTR) hb_parc(3), (LPSTR) hb_parc(4), (BOOL) hb_parl(5) );
+   Pg_SetData((HWND) hb_parnl(1), (HTREEITEM) hb_parnl(2), (LPSTR) hb_parc(3), (LPSTR) hb_parc(4), (BOOL) hb_parl(5));
 }
 
 HB_FUNC( PG_ENABLEITEM )     //   Pg_EnableItem(  TreeHandle, TreeItemHandle, lEnable );
@@ -1977,7 +1977,7 @@ HB_FUNC( ADDTREEITEMS )
    int      c;
 
    h = ( HWND ) hb_parnl(1);
-   l = hb_parinfa( 2, 0 ) - 1;
+   l = hb_parinfa(2, 0) - 1;
    hArray = hb_param( 2, Harbour::Item::ARRAY );
    c = ListView_GetItemCount( h );
 
@@ -2238,7 +2238,7 @@ HB_FUNC( IL_ADDMASKEDINDIRECT )  //IL_AddMaskedIndirect(hwnd , himage , color , 
    if( GetObject(himage, sizeof(BITMAP), &bm) != 0 )
    {
       if( ( hb_parni(4) * ic == bm.bmWidth ) & ( hb_parni(5) == bm.bmHeight ) )
-         lResult = ImageList_AddMasked( ( HIMAGELIST ) hb_parnl(1), himage, clrBk );
+         lResult = ImageList_AddMasked(( HIMAGELIST ) hb_parnl(1), himage, clrBk);
 
       DeleteObject(himage);
    }
@@ -2246,11 +2246,11 @@ HB_FUNC( IL_ADDMASKEDINDIRECT )  //IL_AddMaskedIndirect(hwnd , himage , color , 
    hb_retni( lResult );
 }
 
-HB_FUNC( IL_GETIMAGESIZE ) //IL_GetImageSize(  himage )
+HB_FUNC( IL_GETIMAGESIZE ) //IL_GetImageSize(himage)
 {
    int   cx, cy;
 
-   ImageList_GetIconSize( (HIMAGELIST) hb_parnl(1), &cx, &cy );
+   ImageList_GetIconSize(( HIMAGELIST ) hb_parnl(1), &cx, &cy);
 
    hb_reta(2);  // { cx, cy }
    HB_STORNI( cx, -1, 1 );
@@ -2398,7 +2398,7 @@ HWND EditPG( HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd , 
       hb_vmDo(4);
    }
 
-   return( hEdit );
+   return hEdit;
 }
 
 LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam )
@@ -2547,7 +2547,7 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
          {
             LPSTR cData[1024];
             GetWindowText(hEdit, (LPSTR) cData, 1024);
-            Pg_SetData( GetParent(hEdit), pbtn->hItem, (LPSTR) cData, "", FALSE );
+            Pg_SetData(GetParent(hEdit), pbtn->hItem, (LPSTR) cData, "", FALSE);
             PostMessage( GetParent(hEdit), WM_KEYDOWN, VK_DOWN, MAKEWPARAM(0, 0) );
             SetFocus( GetParent(hEdit) );
          }
@@ -2556,7 +2556,7 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
          {
             LPSTR cData[1024];
             GetWindowText(hEdit, (LPSTR) cData, 1024);
-            Pg_SetData( GetParent(hEdit), pbtn->hItem, (LPSTR) cData, "", FALSE );
+            Pg_SetData(GetParent(hEdit), pbtn->hItem, (LPSTR) cData, "", FALSE);
             PostMessage( GetParent(hEdit), WM_KEYDOWN, VK_UP, MAKEWPARAM(0, 0) );
             SetFocus( GetParent(hEdit) );
          }
@@ -2599,7 +2599,7 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
          {
             LPSTR cData[1024];
             GetWindowText(hEdit, (LPSTR) cData, 1024);
-            Pg_SetData( GetParent(hEdit), pbtn->hItem, (LPSTR) cData, "", FALSE );
+            Pg_SetData(GetParent(hEdit), pbtn->hItem, (LPSTR) cData, "", FALSE);
             PostMessage( GetParent(hEdit), WM_KEYDOWN, VK_DOWN, MAKEWPARAM(0, 0) );
             SetFocus( GetParent(hEdit) );
          }
@@ -2636,7 +2636,7 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
             }
             else
             {
-               return( CallWindowProc(OldWndProc, hEdit, Msg, wParam, lParam) );
+               return ( CallWindowProc(OldWndProc, hEdit, Msg, wParam, lParam) );
             }
          }
 
@@ -2674,12 +2674,12 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
             }
             else
             {
-               return( CallWindowProc(OldWndProc, hEdit, Msg, wParam, lParam) );
+               return ( CallWindowProc(OldWndProc, hEdit, Msg, wParam, lParam) );
             }
          }
    }
 
-   return( CallWindowProc(OldWndProc, hEdit, Msg, wParam, lParam) );
+   return ( CallWindowProc(OldWndProc, hEdit, Msg, wParam, lParam) );
 }
 
 #if defined( __BORLANDC__ )
@@ -2711,7 +2711,7 @@ void enumFonts( HWND hWndEdit )  // , BYTE lfCharSet)
    lf.lfPitchAndFamily = 0;
    strcpy(lf.lfFaceName, "\0");
 
-   EnumFontFamiliesEx( hDC, &lf, (FONTENUMPROC) enumFontFamilyProc, (LPARAM) hWnd, 0 );
+   EnumFontFamiliesEx(hDC, &lf, (FONTENUMPROC) enumFontFamilyProc, (LPARAM) hWnd, 0);
 
    ReleaseDC(NULL, hDC);
 }

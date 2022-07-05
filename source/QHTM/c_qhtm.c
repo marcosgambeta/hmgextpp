@@ -22,7 +22,7 @@
 typedef BOOL ( WINAPI *QHTM_INITIALIZE ) ( HINSTANCE hInst );
 typedef int ( WINAPI *QHTM_MESSAGEBOX ) ( HWND hwnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT uType );
 typedef QHTMCONTEXT ( WINAPI *QHTM_PRINTCREATECONTEXT ) ( UINT uZoomLevel );
-typedef BOOL ( WINAPI *QHTM_ENABLECOOLTIPS ) ( void );
+typedef BOOL ( WINAPI *QHTM_ENABLECOOLTIPS ) (void);
 typedef BOOL ( WINAPI *QHTM_SETHTMLBUTTON ) ( HWND hwndButton );
 typedef BOOL ( WINAPI *QHTM_PRINTSETTEXT ) ( QHTMCONTEXT ctx, LPCTSTR pcszText );
 typedef BOOL ( WINAPI *QHTM_PRINTSETTEXTFILE ) ( QHTMCONTEXT ctx, LPCTSTR pcszText );
@@ -34,7 +34,7 @@ typedef void ( WINAPI *QHTM_PRINTDESTROYCONTEXT ) ( QHTMCONTEXT );
 static HINSTANCE  hQhtmDll = NULL;
 
 /*
-   QHTM_Init( [cLibName] )
+   QHTM_Init([cLibName])
    
    Initialization of library
 */
@@ -152,13 +152,13 @@ void CALLBACK FormCallback( HWND hWndQHTM, LPQHTMFORMSubmit pFormSubmit, LPARAM 
       atemp = hb_itemArrayNew(2);
       temp = hb_itemPutC( NULL, ( char * ) ((pFormSubmit->parrFields + i)->pcszName) );
       hb_itemArrayPut( atemp, 1, temp );
-      hb_itemRelease( temp );
+      hb_itemRelease(temp);
       temp = hb_itemPutC( NULL, ( char * ) ((pFormSubmit->parrFields + i)->pcszValue) );
       hb_itemArrayPut( atemp, 2, temp );
-      hb_itemRelease( temp );
+      hb_itemRelease(temp);
 
       hb_itemArrayPut( aMetr, i + 1, atemp );
-      hb_itemRelease( atemp );
+      hb_itemRelease(atemp);
    }
 
    HB_SYMBOL_UNUSED( lParam );
@@ -185,13 +185,13 @@ void CALLBACK FormCallback( HWND hWndQHTM, LPQHTMFORMSubmit pFormSubmit, LPARAM 
       hb_vmDo(5);
    }
 
-   hb_itemRelease( aMetr );
+   hb_itemRelease(aMetr);
 }
 
 // Wrappers to QHTM Functions
 
 /*
-   QHTM_MessageBox( ( cMessage [,cTitle ] [,nFlags ] ) )
+   QHTM_MessageBox((cMessage [,cTitle ] [,nFlags ]))
    
    Messages window
 */
@@ -286,7 +286,7 @@ HB_FUNC( QHTM_GETTITLE )
 }
 
 /*
-   QHTM_GetSize( handle ) 
+   QHTM_GetSize(handle)
    
    Receive size of loaded web-page
 */
@@ -303,14 +303,14 @@ HB_FUNC( QHTM_GETSIZE )
 
          temp = hb_itemPutNL( NULL, size.cx );
          hb_itemArrayPut( aMetr, 1, temp );
-         hb_itemRelease( temp );
+         hb_itemRelease(temp);
 
          temp = hb_itemPutNL( NULL, size.cy );
          hb_itemArrayPut( aMetr, 2, temp );
-         hb_itemRelease( temp );
+         hb_itemRelease(temp);
 
-         hb_itemReturn( aMetr );
-         hb_itemRelease( aMetr );
+         hb_itemReturn(aMetr);
+         hb_itemRelease(aMetr);
       }
       else
       {
@@ -474,8 +474,8 @@ HB_FUNC( QHTM_PRINTLAYOUT )
       QHTM_PRINTLAYOUT  pFunc = ( QHTM_PRINTLAYOUT ) GetProcAddress( hQhtmDll, "QHTM_PrintLayout" );
 
       rcPage.left = rcPage.top = 0;
-      rcPage.right = GetDeviceCaps( hDC, HORZRES );
-      rcPage.bottom = GetDeviceCaps( hDC, VERTRES );
+      rcPage.right = GetDeviceCaps(hDC, HORZRES);
+      rcPage.bottom = GetDeviceCaps(hDC, VERTRES);
 
       pFunc( qhtmCtx, hDC, &rcPage, &nNumberOfPages );
       hb_retni( nNumberOfPages );
@@ -501,8 +501,8 @@ HB_FUNC( QHTM_PRINTPAGE )
       QHTM_PRINTPAGE pFunc = ( QHTM_PRINTPAGE ) GetProcAddress( hQhtmDll, "QHTM_PrintPage" );
 
       rcPage.left = rcPage.top = 0;
-      rcPage.right = GetDeviceCaps( hDC, HORZRES );
-      rcPage.bottom = GetDeviceCaps( hDC, VERTRES );
+      rcPage.right = GetDeviceCaps(hDC, HORZRES);
+      rcPage.bottom = GetDeviceCaps(hDC, VERTRES);
 
       hb_retl( pFunc(qhtmCtx, hDC, hb_parni(3) - 1, &rcPage) );
    }

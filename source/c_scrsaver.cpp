@@ -71,7 +71,7 @@ HB_FUNC( VERIFYPASSWORD )
    OSVERSIONINFO osvi;
 
    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-   GetVersionEx( &osvi );
+   GetVersionEx(&osvi);
 
    if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT )
       hb_retl( TRUE );

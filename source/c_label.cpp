@@ -60,9 +60,9 @@ LRESULT APIENTRY  LabelSubClassFunc( HWND hwnd, UINT Msg, WPARAM wParam, LPARAM 
 static WNDPROC LabelOldWndProc;
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
+LPWSTR AnsiToWide(LPCSTR);
 #endif
-HINSTANCE GetInstance( void );
+HINSTANCE GetInstance(void);
 
 HB_FUNC( INITLABEL )
 {
@@ -75,7 +75,7 @@ HB_FUNC( INITLABEL )
 #ifndef UNICODE
    LPCSTR lpWindowName = hb_parc(2);
 #else
-   LPCWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc(2) );
+   LPCWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(2));
 #endif
 
    if( hb_parl(9) || hb_parl(10) )
@@ -111,18 +111,18 @@ HB_FUNC( INITLABEL )
    if( hb_parl(15) )
       ExStyle |= WS_EX_TRANSPARENT;
 
-   hWnd = CreateWindowEx( ExStyle,
-                          WC_STATIC,
-                          lpWindowName,
-                          Style,
-                          hb_parni(4),
-                          hb_parni(5),
-                          hb_parni(6),
-                          hb_parni(7),
-                          hWndParent,
-                          hmg_par_HMENU(3),
-                          GetInstance(),
-                          NULL );
+   hWnd = CreateWindowEx(ExStyle,
+                         WC_STATIC,
+                         lpWindowName,
+                         Style,
+                         hb_parni(4),
+                         hb_parni(5),
+                         hb_parni(6),
+                         hb_parni(7),
+                         hWndParent,
+                         hmg_par_HMENU(3),
+                         GetInstance(),
+                         NULL);
 
    if( hb_parl(10) )
       LabelOldWndProc = ( WNDPROC ) SetWindowLongPtr(( HWND ) hWnd, GWLP_WNDPROC, ( LONG_PTR ) LabelSubClassFunc);

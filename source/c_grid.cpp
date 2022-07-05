@@ -61,11 +61,11 @@ HIMAGELIST HMG_ImageListLoadFirst( const char * FileName, int cGrow, int Transpa
 void HMG_ImageListAdd( HIMAGELIST himl, char * FileName, int Transparent );
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
-LPSTR  WideToAnsi( LPWSTR );
+LPWSTR AnsiToWide(LPCSTR);
+LPSTR  WideToAnsi(LPWSTR);
 #endif
-HINSTANCE GetInstance( void );
-HINSTANCE GetResources( void );
+HINSTANCE GetInstance(void);
+HINSTANCE GetResources(void);
 
 // Minigui Resources control system
 void RegisterResource(HANDLE hResource, LPSTR szType);
@@ -208,7 +208,7 @@ HB_FUNC( INITLISTVIEW )
 
    i.dwSize = sizeof(INITCOMMONCONTROLSEX);
    i.dwICC  = ICC_LISTVIEW_CLASSES;
-   InitCommonControlsEx( &i );
+   InitCommonControlsEx(&i);
 
    hwnd = hmg_par_HWND(1);
 
@@ -265,7 +265,7 @@ HB_FUNC( ADDLISTVIEWBITMAP )       // Grid+
    int        s;
    int        cx = 0;
 
-   nCount = ( int ) hb_parinfa( 2, 0 );
+   nCount = ( int ) hb_parinfa(2, 0);
 
    if( nCount > 0 )
    {
@@ -301,7 +301,7 @@ HB_FUNC( ADDLISTVIEWBITMAPHEADER )  // Grid+
 
    if( hheader )
    {
-      nCount = ( int ) hb_parinfa( 2, 0 );
+      nCount = ( int ) hb_parinfa(2, 0);
 
       if( nCount > 0 )
       {
@@ -359,7 +359,7 @@ HB_FUNC( INITLISTVIEWCOLUMNS )
 
    hc = hmg_par_HWND(1);
 
-   iLen   = ( int ) hb_parinfa( 2, 0 ) - 1;
+   iLen   = ( int ) hb_parinfa(2, 0) - 1;
    hArray = hb_param( 2, Harbour::Item::ARRAY );
    wArray = hb_param( 3, Harbour::Item::ARRAY );
    jArray = hb_param( 4, Harbour::Item::ARRAY );
@@ -373,7 +373,7 @@ HB_FUNC( INITLISTVIEWCOLUMNS )
    #ifndef UNICODE
       lpText = ( char * ) hb_arrayGetCPtr(hArray, s + 1);
    #else
-      lpText = AnsiToWide( ( char * ) hb_arrayGetCPtr(hArray, s + 1) );
+      lpText = AnsiToWide(( char * ) hb_arrayGetCPtr(hArray, s + 1));
    #endif
       COL.pszText  = lpText;
       COL.iSubItem = iColumn;
@@ -413,7 +413,7 @@ HB_FUNC( ADDLISTVIEWITEMS )
    int     c;
 
    h      = hmg_par_HWND(1);
-   l      = ( int ) hb_parinfa( 2, 0 ) - 1;
+   l      = ( int ) hb_parinfa(2, 0) - 1;
    hArray = hb_param( 2, Harbour::Item::ARRAY );
    c      = ListView_GetItemCount( h );
 
@@ -421,7 +421,7 @@ HB_FUNC( ADDLISTVIEWITEMS )
 #ifndef UNICODE
    lpText = caption;
 #else
-   lpText = AnsiToWide( ( char * ) caption );
+   lpText = AnsiToWide(( char * ) caption);
 #endif
 
    LI.mask      = LVIF_TEXT | LVIF_IMAGE;
@@ -439,7 +439,7 @@ HB_FUNC( ADDLISTVIEWITEMS )
 #ifndef UNICODE
       lpText = caption;
 #else
-      lpText = AnsiToWide( ( char * ) caption );
+      lpText = AnsiToWide(( char * ) caption);
 #endif
       ListView_SetItemText(h, c, s, lpText);
    }
@@ -463,7 +463,7 @@ HB_FUNC( LISTVIEWGETMULTISEL )
 
    n = ( int ) SendMessage( hwnd, LVM_GETSELECTEDCOUNT, 0, 0 );
 
-   hb_reta( n );
+   hb_reta(n);
 
    while(1)
    {
@@ -487,7 +487,7 @@ HB_FUNC( LISTVIEWSETMULTISEL )
 
    wArray = hb_param( 2, Harbour::Item::ARRAY );
 
-   l = ( int ) hb_parinfa( 2, 0 ) - 1;
+   l = ( int ) hb_parinfa(2, 0) - 1;
 
    // CLEAR CURRENT SELECTIONS
 
@@ -518,7 +518,7 @@ HB_FUNC( LISTVIEWSETITEM )
    LPWSTR lpText;
 #endif
    HWND h = hmg_par_HWND(1);
-   int  l = ( int ) hb_parinfa( 2, 0 ) - 1;
+   int  l = ( int ) hb_parinfa(2, 0) - 1;
    int  c = hb_parni(3) - 1;
    int  s;
 
@@ -530,7 +530,7 @@ HB_FUNC( LISTVIEWSETITEM )
 #ifndef UNICODE
       lpText = caption;
 #else
-      lpText = AnsiToWide( caption );
+      lpText = AnsiToWide(caption);
 #endif
       ListView_SetItemText(h, c, s, lpText);
 
@@ -556,7 +556,7 @@ static TCHAR * GetLVItemText(HWND hListView, int i, int iSubItem_)
    do
    {
       nLen          *= 2;
-      lpText         = ( TCHAR * ) hb_xrealloc( lpText, sizeof(TCHAR) * nLen );
+      lpText         = ( TCHAR * ) hb_xrealloc(lpText, sizeof(TCHAR) * nLen);
       lvi.cchTextMax = nLen;
       lvi.pszText    = lpText;
       nRes           = ( int ) SendMessage( hListView, LVM_GETITEMTEXT, ( WPARAM ) i, ( LPARAM ) ( LV_ITEM FAR * ) &lvi );
@@ -577,7 +577,7 @@ HB_FUNC( LISTVIEWGETITEM )
    int     s;
    TCHAR * pszRet;
 
-   hb_reta( l );
+   hb_reta(l);
 
    for( s = 0; s <= l - 1; s++ )
    {
@@ -585,7 +585,7 @@ HB_FUNC( LISTVIEWGETITEM )
    #ifndef UNICODE
       HB_STORC( pszRet, -1, s + 1 );
    #else
-      pStr = WideToAnsi( pszRet );
+      pStr = WideToAnsi(pszRet);
       HB_STORC( pStr, -1, s + 1 );
       hb_xfree(pStr);
    #endif
@@ -622,7 +622,7 @@ HB_FUNC( SETGRIDCOLUMNHEADER )
 #ifndef UNICODE
    LPSTR lpText = ( char * ) hb_parc(3);
 #else
-   LPWSTR lpText = AnsiToWide( ( char * ) hb_parc(3) );
+   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(3));
 #endif
    LV_COLUMN COL;
 
@@ -704,12 +704,12 @@ HB_FUNC( GETIMAGELISTVIEWITEMS )
 
 HB_FUNC( LISTVIEW_GETTOPINDEX )
 {
-   hb_retnl( ListView_GetTopIndex( hmg_par_HWND(1) ) );
+   hb_retnl( ListView_GetTopIndex(hmg_par_HWND(1)) );
 }
 
 HB_FUNC( LISTVIEW_REDRAWITEMS )
 {
-   hb_retnl( ListView_RedrawItems( hmg_par_HWND(1), hb_parni(2), hb_parni(3) ) );
+   hb_retnl( ListView_RedrawItems(hmg_par_HWND(1), hb_parni(2), hb_parni(3)) );
 }
 
 HB_FUNC( LISTVIEW_HITTEST )
@@ -862,7 +862,7 @@ HB_FUNC( LISTVIEW_ADDCOLUMN )
    #ifndef UNICODE
    lpText = ( char * ) hb_itemGetCPtr(pValue);
    #else
-   lpText = AnsiToWide( ( char * ) hb_itemGetCPtr(pValue) );
+   lpText = AnsiToWide(( char * ) hb_itemGetCPtr(pValue));
    #endif
    COL.pszText  = lpText;
    COL.iSubItem = iColumn;
@@ -960,14 +960,14 @@ HB_FUNC( LISTVIEW_GETCOLUMNORDERARRAY )
       int *    iArray = ( int * ) hb_xgrab(iCols * sizeof(int));
       PHB_ITEM pArray = hb_itemArrayNew( ( HB_SIZE ) iCols );
 
-      ListView_GetColumnOrderArray( hmg_par_HWND(1), iCols, ( int * ) iArray );
+      ListView_GetColumnOrderArray(hmg_par_HWND(1), iCols, ( int * ) iArray);
 
       for( i = 0; i < iCols; i++ )
          hb_arraySetNI( pArray, ( HB_SIZE ) i + 1, iArray[ i ] + 1 );
 
       hb_xfree(iArray);
 
-      hb_itemReturnRelease( pArray );
+      hb_itemReturnRelease(pArray);
    }
    else
       hb_reta(0);
@@ -989,7 +989,7 @@ HB_FUNC( LISTVIEW_SETCOLUMNORDERARRAY )
          for( i = 0; i < iColumn; i++ )
             iArray[ i ] = HB_PARNI( 3, i + 1 ) - 1;
 
-         ListView_SetColumnOrderArray( hmg_par_HWND(1), iColumn, ( int * ) iArray );
+         ListView_SetColumnOrderArray(hmg_par_HWND(1), iColumn, ( int * ) iArray);
 
          hb_xfree(iArray);
       }
@@ -1081,9 +1081,9 @@ HB_FUNC( LISTVIEW_SETSORTHEADER )
       else
       {
          if( nType > 0 )
-            hdItem.hbm = ( HBITMAP ) LoadImage( GetInstance(), TEXT("MINIGUI_GRID_ASC"), IMAGE_BITMAP, 0, 0, LR_LOADTRANSPARENT | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS );
+            hdItem.hbm = ( HBITMAP ) LoadImage(GetInstance(), TEXT("MINIGUI_GRID_ASC"), IMAGE_BITMAP, 0, 0, LR_LOADTRANSPARENT | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS);
          else
-            hdItem.hbm = ( HBITMAP ) LoadImage( GetInstance(), TEXT("MINIGUI_GRID_DSC"), IMAGE_BITMAP, 0, 0, LR_LOADTRANSPARENT | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS );
+            hdItem.hbm = ( HBITMAP ) LoadImage(GetInstance(), TEXT("MINIGUI_GRID_DSC"), IMAGE_BITMAP, 0, 0, LR_LOADTRANSPARENT | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS);
 
          hdItem.fmt |= HDF_BITMAP;
          if( hdItem.fmt & HDF_RIGHT )
@@ -1255,9 +1255,9 @@ HB_FUNC( LISTVIEW_GROUPGETINFO )
 
    if( ( nRet = ( INT ) ListView_GetGroupInfo(hWnd, GroupID, &LVG) ) != -1 )
    {
-      HB_STORC(   hb_wctomb( cHeaderBuffer ), 3 );
+      HB_STORC(   hb_wctomb(cHeaderBuffer), 3 );
       hb_storni( ( LVG.uAlign & 0x07 ), 4 );
-      HB_STORC(   hb_wctomb( cFooterBuffer ), 5 );
+      HB_STORC(   hb_wctomb(cFooterBuffer), 5 );
       hb_storni( ( ( LVG.uAlign & 0x38 ) >> 3 ), 6 );
       hb_storni( ( ( LVG.state != 0 ) ? ( LVG.state << 1 ) : 1 ), 7 );
    }

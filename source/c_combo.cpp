@@ -58,11 +58,11 @@ HIMAGELIST HMG_ImageListLoadFirst( const char * FileName, int cGrow, int Transpa
 void HMG_ImageListAdd( HIMAGELIST himl, char * FileName, int Transparent );
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
-LPSTR  WideToAnsi( LPWSTR );
+LPWSTR AnsiToWide(LPCSTR);
+LPSTR  WideToAnsi(LPWSTR);
 #endif
-HINSTANCE GetInstance( void );
-HINSTANCE GetResources( void );
+HINSTANCE GetInstance(void);
+HINSTANCE GetResources(void);
 
 HB_FUNC( INITCOMBOBOX )
 {
@@ -128,7 +128,7 @@ HB_FUNC( INITCOMBOBOXEX )
 
    icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
    icex.dwICC  = ICC_USEREX_CLASSES;
-   InitCommonControlsEx( &icex );
+   InitCommonControlsEx(&icex);
 
    Style = WS_CHILD | WS_VSCROLL;
 
@@ -161,7 +161,7 @@ HB_FUNC( INITCOMBOBOXEX )
 
    // create ImageList from aImage array
 
-   nCount = ( int ) hb_parinfa( 14, 0 );
+   nCount = ( int ) hb_parinfa(14, 0);
 
    if( nCount > 0 )
    {
@@ -240,7 +240,7 @@ HB_FUNC( COMBOFINDSTRING )
 #ifndef UNICODE
    LPTSTR lpText = ( LPTSTR ) hb_parc(2);
 #else
-   LPWSTR lpText = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(2));
 #endif
    hb_retnl( ( LONG ) SendMessage( hmg_par_HWND(1), ( UINT ) CB_FINDSTRING, ( WPARAM ) -1, ( LPARAM ) lpText ) + 1 );
 #ifdef UNICODE
@@ -253,7 +253,7 @@ HB_FUNC( COMBOFINDSTRINGEXACT )
 #ifndef UNICODE
    LPTSTR lpText = ( LPTSTR ) hb_parc(2);
 #else
-   LPWSTR lpText = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(2));
 #endif
    hb_retnl( ( LONG ) SendMessage( hmg_par_HWND(1), ( UINT ) CB_FINDSTRINGEXACT, ( WPARAM ) -1, ( LPARAM ) lpText ) + 1 );
 #ifdef UNICODE
@@ -274,11 +274,11 @@ HB_FUNC( COMBOGETSTRING )
    {
       SendMessage( hmg_par_HWND(1), CB_GETLBTEXT, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) cString );
    #ifdef UNICODE
-      lpString = WideToAnsi( cString );
+      lpString = WideToAnsi(cString);
       hb_retc( lpString );
       hb_xfree(lpString);
    #else
-      hb_retclen_buffer( cString, iLen );
+      hb_retclen_buffer(cString, iLen);
    #endif
    }
    else
@@ -292,7 +292,7 @@ HB_FUNC( COMBOADDSTRING )
 #ifndef UNICODE
    LPTSTR lpString = ( LPTSTR ) hb_parc(2);
 #else
-   LPWSTR lpString = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR lpString = AnsiToWide(( char * ) hb_parc(2));
 #endif
    SendMessage( hmg_par_HWND(1), CB_ADDSTRING, 0, ( LPARAM ) lpString );
 #ifdef UNICODE
@@ -305,7 +305,7 @@ HB_FUNC( COMBOINSERTSTRING )
 #ifndef UNICODE
    LPTSTR lpString = ( LPTSTR ) hb_parc(2);
 #else
-   LPWSTR lpString = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR lpString = AnsiToWide(( char * ) hb_parc(2));
 #endif
    SendMessage( hmg_par_HWND(1), CB_INSERTSTRING, hb_parni(3) - 1, ( LPARAM ) lpString );
 #ifdef UNICODE
@@ -319,7 +319,7 @@ HB_FUNC( COMBOADDSTRINGEX )
 #ifndef UNICODE
    LPTSTR lpText = ( LPTSTR ) hb_parc(2);
 #else
-   LPWSTR lpText = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(2));
 #endif
    int nImage = hb_parni(3);
    COMBOBOXEXITEM cbei;
@@ -344,7 +344,7 @@ HB_FUNC( COMBOINSERTSTRINGEX )
 #ifndef UNICODE
    LPTSTR lpText = ( LPTSTR ) hb_parc(2);
 #else
-   LPWSTR lpText = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(2));
 #endif
    int nImage = hb_parni(3);
    COMBOBOXEXITEM cbei;
@@ -369,7 +369,7 @@ HB_FUNC( COMBOADDDATASTRINGEX )
 #ifndef UNICODE
    LPTSTR lpText = ( LPTSTR ) hb_parc(2);
 #else
-   LPWSTR lpText = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(2));
 #endif
    COMBOBOXEXITEM cbei;
 

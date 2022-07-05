@@ -28,7 +28,7 @@ static ULONG_PTR g_GpToken = 0;
 
 /**
  */
-GpStatus GdiplusInit( void )
+GpStatus GdiplusInit(void)
 {
    LPCTSTR lpFileName = TEXT("Gdiplus.dll");
    GDIPLUS_STARTUP_INPUT GdiplusStartupInput = { 1, NULL, FALSE, FALSE };
@@ -136,7 +136,7 @@ HB_FUNC( GDIPCREATEHBITMAPFROMBITMAP )
 HB_FUNC( GDIPDISPOSEIMAGE )
 {
    if( NULL != fn_GdipDisposeImage )
-      hb_retni( fn_GdipDisposeImage( reinterpret_cast<GpImage*>(hb_parptr(1)) ) );
+      hb_retni( fn_GdipDisposeImage(reinterpret_cast<GpImage*>(hb_parptr(1))) );
    else
       hb_retni( NotImplemented );
 }

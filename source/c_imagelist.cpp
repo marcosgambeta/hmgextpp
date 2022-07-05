@@ -53,18 +53,18 @@
 #include <commctrl.h>
 
 #if defined( __BORLANDC__ )
-WINCOMMCTRLAPI void WINAPI ImageList_EndDrag( void );
+WINCOMMCTRLAPI void WINAPI ImageList_EndDrag(void);
 #endif
 
-extern HBITMAP HMG_LoadImage( const char * FileName, const char * pszTypeOfRes );
+extern HBITMAP HMG_LoadImage(const char * FileName, const char * pszTypeOfRes);
 extern HBITMAP HMG_LoadPicture( const char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage,
                                 HB_BOOL bAlphaFormat, int iAlpfaConstant );
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
+LPWSTR AnsiToWide(LPCSTR);
 #endif
-HINSTANCE GetInstance( void );
-HINSTANCE GetResources( void );
+HINSTANCE GetInstance(void);
+HINSTANCE GetResources(void);
 
 // Minigui Resources control system
 void RegisterResource(HANDLE hResource, LPSTR szType);
@@ -79,7 +79,7 @@ HB_FUNC( INITIMAGELIST )   //InitImageList ( cx , cy, mask , nCount )
 
    InitCommonControls();
 
-   himlIcons = ImageList_Create( hmg_par_INT(1), hmg_par_INT(2), Styl, hmg_par_INT(4), 0 );
+   himlIcons = ImageList_Create(hmg_par_INT(1), hmg_par_INT(2), Styl, hmg_par_INT(4), 0);
 
    RegisterResource(himlIcons, const_cast<LPSTR>("IMAGELIST"));
    HB_RETNL( ( LONG_PTR ) himlIcons );
@@ -91,8 +91,8 @@ HB_FUNC( IL_ADD )          //IL_Add( himl , image , maskimage , ix , iy , imagec
    LPCSTR lpImageName  = hb_parc(2);
    LPCSTR lpImageName2 = hb_parc(3);
 #else
-   LPWSTR lpImageName  = AnsiToWide( ( char * ) hb_parc(2) );
-   LPWSTR lpImageName2 = AnsiToWide( ( char * ) hb_parc(3) );
+   LPWSTR lpImageName  = AnsiToWide(( char * ) hb_parc(2));
+   LPWSTR lpImageName2 = AnsiToWide(( char * ) hb_parc(3));
 #endif
    BITMAP  bm;
    HBITMAP himage1;  // handle to image
@@ -103,22 +103,22 @@ HB_FUNC( IL_ADD )          //IL_Add( himl , image , maskimage , ix , iy , imagec
    if( hb_parni(6) )
       ic = hb_parni(6);
 
-   himage1 = ( HBITMAP ) LoadImage( GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
+   himage1 = ( HBITMAP ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
    if( himage1 == NULL )
-      himage1 = ( HBITMAP ) LoadImage( NULL, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
+      himage1 = ( HBITMAP ) LoadImage(NULL, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
    if( himage1 == NULL )
-      himage1 = ( HBITMAP ) HMG_LoadImage( hb_parc(2), NULL );
+      himage1 = ( HBITMAP ) HMG_LoadImage(hb_parc(2), NULL);
 
    himage2 = 0;
    if( hb_parclen(3) )
    {
-      himage2 = ( HBITMAP ) LoadImage( GetResources(), lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
+      himage2 = ( HBITMAP ) LoadImage(GetResources(), lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
       if( himage2 == NULL )
-         himage2 = ( HBITMAP ) LoadImage( NULL, lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
+         himage2 = ( HBITMAP ) LoadImage(NULL, lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
       if( himage2 == NULL )
-         himage2 = ( HBITMAP ) HMG_LoadImage( hb_parc(3), NULL );
+         himage2 = ( HBITMAP ) HMG_LoadImage(hb_parc(3), NULL);
    }
 
 #ifdef UNICODE
@@ -138,12 +138,12 @@ HB_FUNC( IL_ADD )          //IL_Add( himl , image , maskimage , ix , iy , imagec
    hb_retni( lResult );
 }
 
-HB_FUNC( IL_ADDMASKED )    //IL_AddMasked( himl , image , color , ix , iy , imagecount )
+HB_FUNC( IL_ADDMASKED )    //IL_AddMasked(himl , image , color , ix , iy , imagecount)
 {
 #ifndef UNICODE
    LPCSTR lpImageName = hb_parc(2);
 #else
-   LPWSTR lpImageName = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR lpImageName = AnsiToWide(( char * ) hb_parc(2));
 #endif
    BITMAP   bm;
    HBITMAP  himage1; // handle to image
@@ -157,9 +157,9 @@ HB_FUNC( IL_ADDMASKED )    //IL_AddMasked( himl , image , color , ix , iy , imag
    if( hb_parni(6) )
       ic = hb_parni(6);
 
-   himage1 = ( HBITMAP ) LoadImage( GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
+   himage1 = ( HBITMAP ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
    if( himage1 == NULL )
-      himage1 = ( HBITMAP ) LoadImage( NULL, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
+      himage1 = ( HBITMAP ) LoadImage(NULL, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
    if( himage1 == NULL )
       himage1 = ( HBITMAP ) HMG_LoadPicture( hb_parc(2), -1, -1, NULL, 0, 1, -1, 0, HB_FALSE, 255 );
@@ -170,7 +170,7 @@ HB_FUNC( IL_ADDMASKED )    //IL_AddMasked( himl , image , color , ix , iy , imag
    if( GetObject(himage1, sizeof(BITMAP), &bm) != 0 )
    {
       if( ( hb_parni(4) * ic == bm.bmWidth ) & ( hb_parni(5) == bm.bmHeight ) )
-         lResult = ImageList_AddMasked( hmg_par_HIMAGELIST(1), himage1, clrBk );
+         lResult = ImageList_AddMasked(hmg_par_HIMAGELIST(1), himage1, clrBk);
 
       DeleteObject(himage1);
    }
@@ -186,7 +186,7 @@ HB_FUNC( IL_DRAW )         //BOOL IL_Draw(HWND hwnd, HIMAGELIST himl, int imagei
    if( ( hdc = GetDC(hwnd) ) == NULL )
       hb_retl( FALSE );
 
-   if( ! ImageList_Draw( hmg_par_HIMAGELIST(2), hmg_par_INT(3), hdc, hb_parni(4), hb_parni(5), ILD_TRANSPARENT ) )
+   if( ! ImageList_Draw(hmg_par_HIMAGELIST(2), hmg_par_INT(3), hdc, hb_parni(4), hb_parni(5), ILD_TRANSPARENT) )
       hb_retl( FALSE );
 
    ReleaseDC(hwnd, hdc);
@@ -213,7 +213,7 @@ HB_FUNC( IL_SETBKCOLOR )   //IL_SetBkColor(hwnd, color)
    hb_retnl( ( COLORREF ) ImageList_SetBkColor(hmg_par_HIMAGELIST(1), clrBk) );
 }
 
-HB_FUNC( IL_ERASEIMAGE )   //IL_EraseImage( hwnd, ix, iy, dx, dy )
+HB_FUNC( IL_ERASEIMAGE )   //IL_EraseImage(hwnd, ix, iy, dx, dy)
 {
    RECT rcImage;
 
@@ -229,7 +229,7 @@ HB_FUNC( IL_BEGINDRAG )    //IL_BeginDrag( hwnd, himl, ImageInx, ix, iy )
    INT  cy;
    RECT rcImage;
 
-   if( ImageList_GetIconSize( hmg_par_HIMAGELIST(2), &cx, &cy ) )
+   if( ImageList_GetIconSize(hmg_par_HIMAGELIST(2), &cx, &cy) )
    {
       SetRect(&rcImage, hb_parni(4) - 2, hb_parni(5) - 2, hb_parni(4) + cx + 2, hb_parni(5) + cy + 2);
       InvalidateRect(hmg_par_HWND(1), &rcImage, TRUE);

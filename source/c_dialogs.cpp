@@ -54,8 +54,8 @@
 #include <commctrl.h>
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
-LPSTR  WideToAnsi( LPWSTR );
+LPWSTR AnsiToWide(LPCSTR);
+LPSTR  WideToAnsi(LPWSTR);
 #endif
 
 HB_FUNC( CHOOSEFONT )
@@ -69,7 +69,7 @@ HB_FUNC( CHOOSEFONT )
 
 #ifdef UNICODE
    LPSTR  pStr;
-   LPWSTR pWStr = AnsiToWide( hb_parc(1) );
+   LPWSTR pWStr = AnsiToWide(hb_parc(1));
    lstrcpy(lf.lfFaceName, pWStr);
    hb_xfree(pWStr);
 #else
@@ -79,7 +79,7 @@ HB_FUNC( CHOOSEFONT )
    hwnd = GetActiveWindow();
    hdc  = GetDC(hwnd);
 
-   lf.lfHeight = -MulDiv( hb_parnl(2), GetDeviceCaps( hdc, LOGPIXELSY ), 72 );
+   lf.lfHeight = -MulDiv( hb_parnl(2), GetDeviceCaps(hdc, LOGPIXELSY), 72 );
 
    if( hb_parl(3) )
       lf.lfWeight = 700;
@@ -133,7 +133,7 @@ HB_FUNC( CHOOSEFONT )
       return;
    }
 
-   PointSize = -MulDiv( lf.lfHeight, 72, GetDeviceCaps( hdc, LOGPIXELSY ) );
+   PointSize = -MulDiv( lf.lfHeight, 72, GetDeviceCaps(hdc, LOGPIXELSY) );
 
    if( lf.lfWeight == 700 )
       bold = 1;
@@ -144,7 +144,7 @@ HB_FUNC( CHOOSEFONT )
 #ifndef UNICODE
    HB_STORC( lf.lfFaceName, -1, 1 );
 #else
-   pStr = WideToAnsi( lf.lfFaceName );
+   pStr = WideToAnsi(lf.lfFaceName);
    HB_STORC( pStr, -1, 1 );
    hb_xfree(pStr);
 #endif
@@ -186,8 +186,8 @@ HB_FUNC( C_GETFILE )
       cont += ( int ) strlen( p ) + 1;
       if( cont < 4096 )
       {
-         lstrcpy(&Filter[ j ], AnsiToWide( p ));
-         j += lstrlen( AnsiToWide( p ) ) + 1;
+         lstrcpy(&Filter[ j ], AnsiToWide(p));
+         j += lstrlen( AnsiToWide(p) ) + 1;
          p += strlen( p ) + 1;
       }
       else
@@ -215,8 +215,8 @@ HB_FUNC( C_GETFILE )
    ofn.lpstrInitialDir = hb_parc(3);
    ofn.lpstrTitle      = hb_parc(2);
    #else
-   pW1 = AnsiToWide( hb_parc(3) );
-   pW2 = AnsiToWide( hb_parc(2) );
+   pW1 = AnsiToWide(hb_parc(3));
+   pW2 = AnsiToWide(hb_parc(2));
    ofn.lpstrFilter     = ( LPCTSTR ) &Filter;
    ofn.lpstrFile       = ( LPTSTR ) &buffer;
    ofn.lpstrInitialDir = pW1;
@@ -255,7 +255,7 @@ HB_FUNC( C_GETFILE )
 
          if( iNumSelected > 1 )
          {
-            hb_reta( iNumSelected - 1 );
+            hb_reta(iNumSelected - 1);
 
             for( n = 1; n < iNumSelected; n++ )
             {
@@ -273,7 +273,7 @@ HB_FUNC( C_GETFILE )
 #ifndef UNICODE
             hb_retc( &buffer[ 0 ] );
 #else
-            pStr = WideToAnsi( &buffer[ 0 ] );
+            pStr = WideToAnsi(&buffer[ 0 ]);
             hb_retc( pStr );
             hb_xfree(pStr);
 #endif
@@ -284,7 +284,7 @@ HB_FUNC( C_GETFILE )
 #ifndef UNICODE
       hb_retc( "" );
 #else
-      hb_retc( WideToAnsi( TEXT("") ) );
+      hb_retc( WideToAnsi(TEXT("")) );
 #endif
 
 #ifdef UNICODE
@@ -314,8 +314,8 @@ HB_FUNC( C_PUTFILE ) // JK JP
       cont += ( int ) strlen( p ) + 1;
       if( cont < 4096 )
       {
-         lstrcpy(&Filter[ j ], AnsiToWide( p ));
-         j += lstrlen( AnsiToWide( p ) ) + 1;
+         lstrcpy(&Filter[ j ], AnsiToWide(p));
+         j += lstrlen( AnsiToWide(p) ) + 1;
          p += strlen( p ) + 1;
       }
       else
@@ -335,7 +335,7 @@ HB_FUNC( C_PUTFILE ) // JK JP
    else
       strcpy(buffer, "");
 #else
-   pW = AnsiToWide( hb_parc(5) );
+   pW = AnsiToWide(hb_parc(5));
    lstrcpy(buffer, pW);
    hb_xfree(pW);
 #endif
@@ -354,8 +354,8 @@ HB_FUNC( C_PUTFILE ) // JK JP
    ofn.lpstrInitialDir = hb_parc(3);
    ofn.lpstrTitle      = hb_parc(2);
    #else
-   pW1 = AnsiToWide( hb_parc(3) );
-   pW2 = AnsiToWide( hb_parc(2) );
+   pW1 = AnsiToWide(hb_parc(3));
+   pW2 = AnsiToWide(hb_parc(2));
    ofn.lpstrFilter     = ( LPCTSTR ) &Filter;
    ofn.lpstrFile       = ( LPTSTR ) &buffer;
    ofn.lpstrInitialDir = pW1;
@@ -388,7 +388,7 @@ HB_FUNC( C_PUTFILE ) // JK JP
 #ifndef UNICODE
       hb_retc( "" );
 #else
-      hb_retc( WideToAnsi( TEXT("") ) );
+      hb_retc( WideToAnsi(TEXT("")) );
 #endif
 
 #ifdef UNICODE
@@ -458,7 +458,7 @@ HB_FUNC( C_BROWSEFORFOLDER )  // Syntax: C_BROWSEFORFOLDER([<hWnd>],[<cTitle>],[
 #ifndef UNICODE
    BrowseInfo.lpszTitle = HB_ISNIL(2) ? "Select a Folder" : hb_parc(2);
 #else
-   pW = AnsiToWide( hb_parc(2) );
+   pW = AnsiToWide(hb_parc(2));
    BrowseInfo.lpszTitle = HB_ISNIL(2) ? TEXT("Select a Folder") : pW;
 #endif
    BrowseInfo.ulFlags = hb_parni(3) | ( HB_ISCHAR(5) ? BIF_STATUSTEXT | BIF_RETURNONLYFSDIRS : 0 );
@@ -466,7 +466,7 @@ HB_FUNC( C_BROWSEFORFOLDER )  // Syntax: C_BROWSEFORFOLDER([<hWnd>],[<cTitle>],[
 #ifndef UNICODE
    BrowseInfo.lParam = HB_ISCHAR(5) ? ( LPARAM ) ( char * ) hb_parc(5) : 0;
 #else
-   pW2 = AnsiToWide( hb_parc(5) );
+   pW2 = AnsiToWide(hb_parc(5));
    BrowseInfo.lParam = HB_ISCHAR(5) ? ( LPARAM ) pW2 : 0;
 #endif
    BrowseInfo.iImage = 0;

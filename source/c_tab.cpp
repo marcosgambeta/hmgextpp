@@ -50,16 +50,16 @@
 #include <mgdefs.h>
 #include <commctrl.h>
 
-extern BOOL Array2Point( PHB_ITEM aPoint, POINT * pt );
+extern BOOL Array2Point(PHB_ITEM aPoint, POINT * pt);
 
 HIMAGELIST HMG_ImageListLoadFirst( const char * FileName, int cGrow, int Transparent, int * nWidth, int * nHeight );
 void HMG_ImageListAdd( HIMAGELIST himl, char * FileName, int Transparent );
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
+LPWSTR AnsiToWide(LPCSTR);
 #endif
-HINSTANCE GetInstance( void );
-HINSTANCE GetResources( void );
+HINSTANCE GetInstance(void);
+HINSTANCE GetResources(void);
 
 // Minigui Resources control system
 void RegisterResource(HANDLE hResource, LPSTR szType);
@@ -105,7 +105,7 @@ HB_FUNC( INITTABCONTROL )
    if( ! hb_parl(18) )
       Style = Style | WS_TABSTOP;
 
-   l      = ( int ) hb_parinfa( 7, 0 ) - 1;
+   l      = ( int ) hb_parinfa(7, 0) - 1;
    hArray = hb_param( 7, Harbour::Item::ARRAY );
 
    hwnd = hmg_par_HWND(1);
@@ -133,7 +133,7 @@ HB_FUNC( INITTABCONTROL )
    #ifndef UNICODE
       lpText = ( char * ) hb_arrayGetCPtr(hArray, i + 1);
    #else
-      lpText = AnsiToWide( ( char * ) hb_arrayGetCPtr(hArray, i + 1) );
+      lpText = AnsiToWide(( char * ) hb_arrayGetCPtr(hArray, i + 1));
    #endif
       tie.pszText = lpText;
 
@@ -177,7 +177,7 @@ HB_FUNC( TABCTRL_INSERTITEM )
 #ifndef UNICODE
    LPSTR lpText = ( LPSTR ) hb_parc(3);
 #else
-   LPWSTR lpText = AnsiToWide( ( char * ) hb_parc(3) );
+   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(3));
 #endif
 
    hwnd = hmg_par_HWND(1);
@@ -210,7 +210,7 @@ HB_FUNC( SETTABCAPTION )
 #ifndef UNICODE
    LPSTR lpText = ( LPSTR ) hb_parc(3);
 #else
-   LPWSTR lpText = AnsiToWide( ( char * ) hb_parc(3) );
+   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(3));
 #endif
    TC_ITEM tie;
 
@@ -234,7 +234,7 @@ HB_FUNC( ADDTABBITMAP )
    char *     FileName;
    int        nCount, i;
 
-   nCount = ( int ) hb_parinfa( 2, 0 );
+   nCount = ( int ) hb_parinfa(2, 0);
 
    if( nCount > 0 )
    {
@@ -270,8 +270,8 @@ HB_FUNC( WINDOWFROMPOINT )
 {
    POINT Point;
 
-   Array2Point( hb_param( 1, Harbour::Item::ARRAY ), &Point );
-   HB_RETNL( ( LONG_PTR ) WindowFromPoint( Point ) );
+   Array2Point(hb_param( 1, Harbour::Item::ARRAY ), &Point);
+   HB_RETNL( ( LONG_PTR ) WindowFromPoint(Point) );
 }
 
 HB_FUNC( GETMESSAGEPOS )

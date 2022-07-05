@@ -58,8 +58,8 @@
 #endif
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
-LPSTR  WideToAnsi( LPWSTR );
+LPWSTR AnsiToWide(LPCSTR);
+LPSTR  WideToAnsi(LPWSTR);
 #endif
 
 // Minigui Resources control system
@@ -69,7 +69,7 @@ HFONT PrepareFont( TCHAR * FontName, int FontSize, int Weight, DWORD Italic, DWO
 {
    HDC hDC = GetDC(HWND_DESKTOP);
 
-   FontSize = -MulDiv( FontSize, GetDeviceCaps( hDC, LOGPIXELSY ), 72 );
+   FontSize = -MulDiv( FontSize, GetDeviceCaps(hDC, LOGPIXELSY), 72 );
 
    ReleaseDC(HWND_DESKTOP, hDC);
 
@@ -93,7 +93,7 @@ HB_FUNC( INITFONT )
    DWORD charset   = hb_parnldef( 8, DEFAULT_CHARSET );
 
 #ifdef UNICODE
-   LPWSTR pStr = AnsiToWide( hb_parc(1) );
+   LPWSTR pStr = AnsiToWide(hb_parc(1));
    hFont = PrepareFont( ( TCHAR * ) pStr, hb_parni(2), bold, italic, underline, strikeout, angle, charset );
    hb_xfree(pStr);
 #else
@@ -122,7 +122,7 @@ HB_FUNC( _SETFONT )
       DWORD charset   = hb_parnldef( 9, DEFAULT_CHARSET );
 
 #ifdef UNICODE
-      pStr  = AnsiToWide( hb_parc(2) );
+      pStr  = AnsiToWide(hb_parc(2));
       hFont = PrepareFont( ( TCHAR * ) pStr, hb_parni(3), bold, italic, underline, strikeout, angle, charset );
       hb_xfree(pStr);
 #else
@@ -171,7 +171,7 @@ HB_FUNC( GETSYSTEMFONT )
 #ifndef UNICODE
    HB_STORC( lfDlgFont.lfFaceName, -1, 1 );
 #else
-   pStr = WideToAnsi( lfDlgFont.lfFaceName );
+   pStr = WideToAnsi(lfDlgFont.lfFaceName);
    HB_STORC( pStr, -1, 1 );
    hb_xfree(pStr);
 #endif
@@ -214,7 +214,7 @@ HB_FUNC( ENUMFONTSEX )
    lf.lfPitchAndFamily = ( BYTE ) ( HB_ISNUM(4) ? ( hb_parni(4) == DEFAULT_PITCH ? -1 : ( hb_parni(4) | FF_DONTCARE ) ) : -1 );
    /* TODO - nFontType */
 
-   EnumFontFamiliesEx( hdc, &lf, ( FONTENUMPROC ) EnumFontFamExProc, ( LPARAM ) pArray, ( DWORD ) 0 );
+   EnumFontFamiliesEx(hdc, &lf, ( FONTENUMPROC ) EnumFontFamExProc, ( LPARAM ) pArray, ( DWORD ) 0);
 
    if( bReleaseDC )
       ReleaseDC(NULL, hdc);
@@ -233,7 +233,7 @@ HB_FUNC( ENUMFONTSEX )
          hb_arraySetC( aFontName, i, hb_arrayGetC( hb_arrayGetItemPtr(pArray, i), 1 ) );
    }
 
-   hb_itemReturnRelease( pArray );
+   hb_itemReturnRelease(pArray);
 }
 
 int CALLBACK EnumFontFamExProc( ENUMLOGFONTEX * lpelfe, NEWTEXTMETRICEX * lpntme, DWORD FontType, LPARAM lParam )
@@ -248,7 +248,7 @@ int CALLBACK EnumFontFamExProc( ENUMLOGFONTEX * lpelfe, NEWTEXTMETRICEX * lpntme
       PHB_ITEM pSubArray = hb_itemArrayNew(4);
 
    #ifdef UNICODE
-      pStr = WideToAnsi( lpelfe->elfLogFont.lfFaceName );
+      pStr = WideToAnsi(lpelfe->elfLogFont.lfFaceName);
       hb_arraySetC( pSubArray, 1, pStr );
    #else
       hb_arraySetC( pSubArray, 1, lpelfe->elfLogFont.lfFaceName );
@@ -258,7 +258,7 @@ int CALLBACK EnumFontFamExProc( ENUMLOGFONTEX * lpelfe, NEWTEXTMETRICEX * lpntme
       hb_arraySetNI( pSubArray, 4, FontType & TRUETYPE_FONTTYPE );
 
       hb_arrayAddForward( ( PHB_ITEM ) lParam, pSubArray );
-      hb_itemRelease( pSubArray );
+      hb_itemRelease(pSubArray);
    #ifdef UNICODE
       hb_xfree(pStr);
    #endif

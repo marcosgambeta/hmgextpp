@@ -326,7 +326,7 @@ HB_FUNC( SOCKETLOCALADDRESS )
          while( phe->h_addr_list[ i ] != 0 )
             i++;
 
-         hb_reta( i );
+         hb_reta(i);
 
          for( i = 0; phe->h_addr_list[ i ] != 0; ++i )
          {
@@ -355,7 +355,7 @@ HB_FUNC( SOCKETMD5 )
 
       string = ( unsigned char * ) hb_parc(1);
 
-      MD5Init( &context );
+      MD5Init(&context);
       MD5Update( &context, ( unsigned char * ) string, len );
       MD5Final( digest, &context );
 

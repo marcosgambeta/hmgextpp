@@ -315,10 +315,10 @@ HB_FUNC( CREATEPROPERTYSHEET )
 
    if( Style & PSP_USEHICON )
    {
-      hicon = ( HICON ) LoadImage( 0, hb_arrayGetCPtr(pArray, 20), IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE );
+      hicon = ( HICON ) LoadImage(0, hb_arrayGetCPtr(pArray, 20), IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE);
       if( hicon == NULL )
       {
-         hicon = ( HICON ) LoadImage( GetModuleHandle(NULL), hb_arrayGetCPtr(pArray, 20), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
+         hicon = ( HICON ) LoadImage(GetModuleHandle(NULL), hb_arrayGetCPtr(pArray, 20), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
       }
     }
     else
@@ -355,8 +355,8 @@ HB_FUNC( CREATEPROPERTYSHEET )
    else {
       if (PropertySheet(&psh) < 0)
       {
-         MessageBox( NULL, TEXT("Property Sheet could not be created"), TEXT("Error"),
-             MB_OK | MB_ICONERROR | MB_DEFBUTTON1 | MB_APPLMODAL | MB_SETFOREGROUND );
+         MessageBox(NULL, TEXT("Property Sheet could not be created"), TEXT("Error"),
+             MB_OK | MB_ICONERROR | MB_DEFBUTTON1 | MB_APPLMODAL | MB_SETFOREGROUND);
          hb_retni( -1 );
       }
 
@@ -378,14 +378,14 @@ HB_FUNC( PROPSHEETINDEXTOHWND )
 }
 
 /****************************************************************************
- PropSheetHwndToIndex( hWndPropSheet, hWndPage )
+ PropSheetHwndToIndex(hWndPropSheet, hWndPage)
 *****************************************************************************/
 
 HB_FUNC( PROPSHEETHWNDTOINDEX )
 {
   int iPageIndex;
 
-  iPageIndex = PropSheet_HwndToIndex( (HWND) hb_parnl(1), (HWND) hb_parnl(2) );
+  iPageIndex = PropSheet_HwndToIndex((HWND) hb_parnl(1), (HWND) hb_parnl(2));
 
   hb_retni ( (int) iPageIndex );
 }

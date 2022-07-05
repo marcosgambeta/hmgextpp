@@ -57,10 +57,10 @@
 #include "hbvm.h"
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
-LPSTR  WideToAnsi( LPWSTR );
+LPWSTR AnsiToWide(LPCSTR);
+LPSTR  WideToAnsi(LPWSTR);
 #endif
-HINSTANCE GetResources( void );
+HINSTANCE GetResources(void);
 
 LRESULT CALLBACK HMG_DlgProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 {
@@ -112,7 +112,7 @@ HB_FUNC( INITMODALDIALOG )
 {
    LRESULT lResult;
 
-   lResult = DialogBox( GetResources(), MAKEINTRESOURCE(hb_parni(2)), hmg_par_HWND(1), ( DLGPROC ) HMG_ModalDlgProc );
+   lResult = DialogBox(GetResources(), MAKEINTRESOURCE(hb_parni(2)), hmg_par_HWND(1), ( DLGPROC ) HMG_ModalDlgProc);
 
    HB_RETNL( ( LONG_PTR ) lResult );
 }
@@ -150,7 +150,7 @@ HB_FUNC( SETDIALOGITEMTEXT )
 #ifndef UNICODE
    LPCSTR lpString = hb_parc(3);
 #else
-   LPCWSTR lpString = AnsiToWide( ( char * ) hb_parc(3) );
+   LPCWSTR lpString = AnsiToWide(( char * ) hb_parc(3));
 #endif
    hb_retl( SetDlgItemText(hmg_par_HWND(1), hb_parni(2), lpString) );
 #ifdef UNICODE
@@ -173,7 +173,7 @@ HB_FUNC( ADDDIALOGPAGES )
 
    hwnd = hmg_par_HWND(1);
 
-   l      = ( int ) hb_parinfa( 2, 0 ) - 1;
+   l      = ( int ) hb_parinfa(2, 0) - 1;
    hArray = hb_param( 2, Harbour::Item::ARRAY );
 
    tie.mask   = TCIF_TEXT;
@@ -224,7 +224,7 @@ HB_FUNC( GETDLGITEMTEXT )
 #ifndef UNICODE
    hb_retc( cText );
 #else
-   pStr = WideToAnsi( cText );
+   pStr = WideToAnsi(cText);
    hb_retc( pStr );
    hb_xfree(pStr);
 #endif
@@ -251,7 +251,7 @@ HB_FUNC( GETEDITTEXT )
 #ifndef UNICODE
    hb_retc( cText );
 #else
-   pStr = WideToAnsi( cText );
+   pStr = WideToAnsi(cText);
    hb_retc( pStr );
    hb_xfree(pStr);
 #endif
@@ -365,7 +365,7 @@ PWORD CreateDlgTemplate( long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray )
 
    int nchar;
 
-   pdlgtemplate = ( WORD * ) LocalAlloc( LPTR, lTemplateSize );
+   pdlgtemplate = ( WORD * ) LocalAlloc(LPTR, lTemplateSize);
 
    pw = pdlgtemplate;
 
@@ -494,5 +494,5 @@ HB_FUNC( INITEXCOMMONCONTROLS )
       default: i.dwICC = ICC_DATE_CLASSES;
    }
 
-   InitCommonControlsEx( &i );
+   InitCommonControlsEx(&i);
 }

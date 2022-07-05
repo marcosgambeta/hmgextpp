@@ -185,7 +185,7 @@ HBITMAP bt_bmp_convert_to_24bpp( HBITMAP hBitmap_Original, BOOL IsDelete_hBitmap
    memDC2 = CreateCompatibleDC(NULL);
    SelectObject(memDC2, hBitmap_New);
 
-   StretchBlt( memDC2, 0, 0, bm.bmWidth, bm.bmHeight, memDC1, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY );
+   StretchBlt(memDC2, 0, 0, bm.bmWidth, bm.bmHeight, memDC1, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
 
    DeleteDC(memDC1);
    DeleteDC(memDC2);
@@ -221,7 +221,7 @@ HGLOBAL bt_LoadFileFromResources( TCHAR * FileName, TCHAR * TypeResource )
 
    nFileSize = SizeofResource(NULL, hResourceData);
 
-   hGlobalAlloc = GlobalAlloc( GHND, nFileSize );
+   hGlobalAlloc = GlobalAlloc(GHND, nFileSize);
    if( hGlobalAlloc == NULL )
    {
       FreeResource(hGlobalResource);
@@ -253,14 +253,14 @@ HGLOBAL bt_LoadFileFromDisk( TCHAR * FileName )
    if( hFile == INVALID_HANDLE_VALUE )
       return NULL;
 
-   nFileSize = GetFileSize( hFile, NULL );
+   nFileSize = GetFileSize(hFile, NULL);
    if( nFileSize == INVALID_FILE_SIZE )
    {
       CloseHandle(hFile);
       return NULL;
    }
 
-   hGlobalAlloc = GlobalAlloc( GHND, nFileSize );
+   hGlobalAlloc = GlobalAlloc(GHND, nFileSize);
    if( hGlobalAlloc == NULL )
    {
       CloseHandle(hFile);
@@ -319,25 +319,25 @@ HBITMAP bt_LoadOLEPicture( TCHAR * FileName, TCHAR * TypePictureResource )
 
    memDC = CreateCompatibleDC(NULL);
    //SetStretchBltMode (memDC, COLORONCOLOR);
-   GetBrushOrgEx( memDC, &Point );
-   SetStretchBltMode( memDC, HALFTONE );
-   SetBrushOrgEx( memDC, Point.x, Point.y, NULL );
+   GetBrushOrgEx(memDC, &Point);
+   SetStretchBltMode(memDC, HALFTONE);
+   SetBrushOrgEx(memDC, Point.x, Point.y, NULL);
 
 
    // Convert HiMetric to Pixel
    #define HIMETRIC_PER_INCH  2540                                                            // Number of HIMETRIC units per INCH
-   #define bt_LOGHIMETRIC_TO_PIXEL( hm, ppli )  MulDiv( ( hm ), ( ppli ), HIMETRIC_PER_INCH ) // ppli = Point per Logic Inch
+   #define bt_LOGHIMETRIC_TO_PIXEL(hm, ppli)  MulDiv( ( hm ), ( ppli ), HIMETRIC_PER_INCH ) // ppli = Point per Logic Inch
    #define bt_PIXEL_TO_LOGHIMETRIC( px, ppli )  MulDiv( ( px ), HIMETRIC_PER_INCH, ( ppli ) ) // ppli = Point per Logic Inch
 
-   pxWidth  = bt_LOGHIMETRIC_TO_PIXEL( hmWidth, GetDeviceCaps( memDC, LOGPIXELSX ) );
-   pxHeight = bt_LOGHIMETRIC_TO_PIXEL( hmHeight, GetDeviceCaps( memDC, LOGPIXELSY ) );
+   pxWidth  = bt_LOGHIMETRIC_TO_PIXEL(hmWidth, GetDeviceCaps(memDC, LOGPIXELSX));
+   pxHeight = bt_LOGHIMETRIC_TO_PIXEL(hmHeight, GetDeviceCaps(memDC, LOGPIXELSY));
 
    hBitmap = bt_bmp_create_24bpp( pxWidth, pxHeight );
    SelectObject(memDC, hBitmap);
 
    iPicture->lpVtbl->Render( iPicture, memDC, 0, 0, pxWidth, pxHeight, 0, hmHeight, hmWidth, -hmHeight, NULL );
-   iPicture->lpVtbl->Release( iPicture );
-   iStream->lpVtbl->Release( iStream );
+   iPicture->lpVtbl->Release(iPicture);
+   iStream->lpVtbl->Release(iStream);
 
    DeleteDC(memDC);
    GlobalFree(hGlobalAlloc);
@@ -475,11 +475,11 @@ HMODULE GdiPlusHandle = NULL; // VOID *    GdiPlusHandle = NULL;
 ULONG_PTR GdiPlusToken;
 GdiplusStartupInput GDIPlusStartupInput;
 
-BOOL bt_Load_GDIplus( void );
-BOOL bt_Release_GDIplus( void );
+BOOL bt_Load_GDIplus(void);
+BOOL bt_Release_GDIplus(void);
 
 //  Load Library GDI Plus
-BOOL bt_Load_GDIplus( void )
+BOOL bt_Load_GDIplus(void)
 {
    GdiPlusHandle = LoadLibrary( TEXT("GdiPlus.dll" ) );
    if( GdiPlusHandle == NULL )
@@ -526,7 +526,7 @@ BOOL bt_Load_GDIplus( void )
 
 
 // Release Library GDI Plus
-BOOL bt_Release_GDIplus( void )
+BOOL bt_Release_GDIplus(void)
 {
    if( GdiPlusHandle == NULL )
       return FALSE;
@@ -568,9 +568,9 @@ HBITMAP bt_LoadGDIPlusPicture( TCHAR * FileName, TCHAR * TypePictureResource )
    if( CreateStreamOnHGlobal( hGlobalAlloc, FALSE, &iStream ) == S_OK )
    {
       BkColor = 0xFF000000UL;
-      GdipCreateBitmapFromStream( iStream, &pGpBitmap );
+      GdipCreateBitmapFromStream(iStream, &pGpBitmap);
       GdipCreateHBITMAPFromBitmap(pGpBitmap, &hBitmap, BkColor);
-      iStream->lpVtbl->Release( iStream );
+      iStream->lpVtbl->Release(iStream);
    }
 
    bt_Release_GDIplus();
@@ -584,7 +584,7 @@ HBITMAP bt_LoadGDIPlusPicture( TCHAR * FileName, TCHAR * TypePictureResource )
 //***********************************************************************************************************************
 
 // Internal Function: bt_Bitmap_To_Stream () ---> Return hGlobalAlloc
-HGLOBAL bt_Bitmap_To_Stream( HBITMAP hBitmap )
+HGLOBAL bt_Bitmap_To_Stream(HBITMAP hBitmap)
 {
    HGLOBAL hGlobalAlloc;
    LPBYTE  lp_hGlobalAlloc;
@@ -622,7 +622,7 @@ HGLOBAL bt_Bitmap_To_Stream( HBITMAP hBitmap )
    Bitmap_Info.bmiHeader.biClrUsed       = 0;
    Bitmap_Info.bmiHeader.biClrImportant  = 0;
 
-   hGlobalAlloc = GlobalAlloc( GHND, ( DWORD ) ( BIFH.bfSize ) );
+   hGlobalAlloc = GlobalAlloc(GHND, ( DWORD ) (BIFH.bfSize));
    if( hGlobalAlloc == NULL )
       return NULL;
 
@@ -641,18 +641,18 @@ HGLOBAL bt_Bitmap_To_Stream( HBITMAP hBitmap )
 
 
 // Internal Function: bt_GetEncoderCLSID () ---> Return TRUE/FALSE
-BOOL bt_GetEncoderCLSID( WCHAR * format, CLSID * pClsid )
+BOOL bt_GetEncoderCLSID(WCHAR * format, CLSID * pClsid)
 {
    UINT num  = 0;          // number of image encoders
    UINT size = 0;          // size of the image encoder array in bytes
    UINT i;
    ImageCodecInfo * pImageCodecInfo;
 
-   GdipGetImageEncodersSize( &num, &size );
+   GdipGetImageEncodersSize(&num, &size);
    if( size == 0 )
       return FALSE;
 
-   pImageCodecInfo = ( ImageCodecInfo * ) ( malloc( size ) );
+   pImageCodecInfo = ( ImageCodecInfo * ) ( malloc(size) );
    if( pImageCodecInfo == NULL )
       return FALSE;
 
@@ -714,11 +714,11 @@ BOOL bt_SaveGDIPlusPicture( HBITMAP hBitmap, TCHAR * FileName, INT TypePicture )
    if( bt_Load_GDIplus() == FALSE )
       return FALSE;
 
-   result = bt_GetEncoderCLSID( ( WCHAR * ) format, &encoderClsid );
+   result = bt_GetEncoderCLSID(( WCHAR * ) format, &encoderClsid);
 
    if( result == TRUE )
    {
-      hGlobalAlloc = bt_Bitmap_To_Stream( hBitmap );
+      hGlobalAlloc = bt_Bitmap_To_Stream(hBitmap);
       iStream      = NULL;
       if( CreateStreamOnHGlobal( hGlobalAlloc, FALSE, &iStream ) == S_OK )
       {
@@ -728,10 +728,10 @@ BOOL bt_SaveGDIPlusPicture( HBITMAP hBitmap, TCHAR * FileName, INT TypePicture )
          MultiByteToWideChar( CP_ACP, 0, FileName, -1, wFileName, MAX_PATH );
       #endif
 
-         ret1 = GdipLoadImageFromStream( iStream, &image );
+         ret1 = GdipLoadImageFromStream(iStream, &image);
          ret2 = GdipSaveImageToFile(image, wFileName, &encoderClsid, NULL);  // Save the image
 
-         iStream->lpVtbl->Release( iStream );
+         iStream->lpVtbl->Release(iStream);
          bt_Release_GDIplus();
 
          GlobalFree(hGlobalAlloc);   // ADD, September 2016
@@ -818,7 +818,7 @@ HB_FUNC( BT_DC_CREATE )
          return;
    }
 
-   hb_reta( 50 );                                                         // Return array = {Type, hWnd, hBitmap, hDC, PaintStruct ...}
+   hb_reta(50);                                                         // Return array = {Type, hWnd, hBitmap, hDC, PaintStruct ...}
 
    HB_STORVNI( ( INT ) BT.Type, -1, 1 );                                  // Type
    HB_STORVNL( ( LONG_PTR ) BT.hWnd, -1, 2 );                             // hWnd
@@ -1057,8 +1057,8 @@ HB_FUNC( BT_DRAW_HDC_POLY )
    #endif
 
    hDC        = hmg_par_HDC(1);
-   nCountX    = ( INT ) hb_parinfa( 2, 0 );
-   nCountY    = ( INT ) hb_parinfa( 3, 0 );
+   nCountX    = ( INT ) hb_parinfa(2, 0);
+   nCountY    = ( INT ) hb_parinfa(3, 0);
    ColorLine  = hmg_par_COLORREF(4);
    nWidthLine = hmg_par_INT(5);
    ColorFill  = hmg_par_COLORREF(6);
@@ -1156,7 +1156,7 @@ HB_FUNC( BT_DRAW_HDC_ARCX )
          Arc( hDC, x1, y1, x2, y2, XStartArc, YStartArc, XEndArc, YEndArc );
          break;
       case BT_DRAW_CHORD:
-         Chord( hDC, x1, y1, x2, y2, XStartArc, YStartArc, XEndArc, YEndArc );
+         Chord(hDC, x1, y1, x2, y2, XStartArc, YStartArc, XEndArc, YEndArc);
          break;
       case BT_DRAW_PIE:
          Pie( hDC, x1, y1, x2, y2, XStartArc, YStartArc, XEndArc, YEndArc );
@@ -1221,7 +1221,7 @@ HB_FUNC( BT_DRAW_HDC_FILLEDOBJECT )
          RoundRect(hDC, x1, y1, x1 + Width1, y1 + Height1, RoundWidth, RoundHeight);
          break;
       case BT_FILLFLOOD:
-         ExtFloodFill( hDC, x1, y1, GetPixel( hDC, x1, y1 ), FLOODFILLSURFACE );
+         ExtFloodFill( hDC, x1, y1, GetPixel(hDC, x1, y1), FLOODFILLSURFACE );
          break;
    }
 
@@ -1272,17 +1272,17 @@ HB_FUNC( BT_DRAW_HDC_BITMAP )
    bt_bmp_adjust_rect(&Width1, &Height1, &Width2, &Height2, Mode_Stretch);
 
    //SetStretchBltMode (hDC, COLORONCOLOR);
-   GetBrushOrgEx( hDC, &Point );
-   SetStretchBltMode( hDC, HALFTONE );
-   SetBrushOrgEx( hDC, Point.x, Point.y, NULL );
+   GetBrushOrgEx(hDC, &Point);
+   SetStretchBltMode(hDC, HALFTONE);
+   SetBrushOrgEx(hDC, Point.x, Point.y, NULL);
 
    switch( Action )
    {
       case BT_BITMAP_OPAQUE:
-         StretchBlt( hDC, x1, y1, Width1, Height1, memDC, x2, y2, Width2, Height2, SRCCOPY );
+         StretchBlt(hDC, x1, y1, Width1, Height1, memDC, x2, y2, Width2, Height2, SRCCOPY);
          break;
       case BT_BITMAP_TRANSPARENT:
-         TransparentBlt( hDC, x1, y1, Width1, Height1, memDC, x2, y2, Width2, Height2, color_transp );
+         TransparentBlt(hDC, x1, y1, Width1, Height1, memDC, x2, y2, Width2, Height2, color_transp);
          break;
       default:
          hb_retl( FALSE );
@@ -1339,11 +1339,11 @@ HB_FUNC( BT_DRAW_HDC_BITMAPALPHABLEND )
    bt_bmp_adjust_rect(&Width1, &Height1, &Width2, &Height2, Mode_Stretch);
 
    //SetStretchBltMode (hDC, COLORONCOLOR);
-   GetBrushOrgEx( hDC, &Point );
-   SetStretchBltMode( hDC, HALFTONE );
-   SetBrushOrgEx( hDC, Point.x, Point.y, NULL );
+   GetBrushOrgEx(hDC, &Point);
+   SetStretchBltMode(hDC, HALFTONE);
+   SetBrushOrgEx(hDC, Point.x, Point.y, NULL);
 
-   AlphaBlend( hDC, x1, y1, Width1, Height1, memDC, x2, y2, Width2, Height2, blend );
+   AlphaBlend(hDC, x1, y1, Width1, Height1, memDC, x2, y2, Width2, Height2, blend);
 
    DeleteDC(memDC);
 }
@@ -1437,8 +1437,8 @@ HB_FUNC( BT_DRAW_HDC_TEXTOUT )
    lpText      = ( TCHAR * ) hb_parc(4);
    FontName    = ( TCHAR * ) hb_parc(5);
 #else
-   lpText      = ( TCHAR * ) hb_osStrU16Encode( hb_parc(4) );
-   FontName    = ( TCHAR * ) hb_osStrU16Encode( hb_parc(5) );
+   lpText      = ( TCHAR * ) hb_osStrU16Encode(hb_parc(4));
+   FontName    = ( TCHAR * ) hb_osStrU16Encode(hb_parc(5));
 #endif
    FontSize    = hmg_par_INT(6);
    Text_Color  = hmg_par_COLORREF(7);
@@ -1454,10 +1454,10 @@ HB_FUNC( BT_DRAW_HDC_TEXTOUT )
    Orientation = Orientation * 10;
 
    if( ( Type & BT_TEXT_TRANSPARENT ) == BT_TEXT_TRANSPARENT )
-      SetBkMode( hDC, TRANSPARENT );
+      SetBkMode(hDC, TRANSPARENT);
    else
    {
-      SetBkMode( hDC, OPAQUE );
+      SetBkMode(hDC, OPAQUE);
       SetBkColor(hDC, Back_Color);
    }
 
@@ -1473,9 +1473,9 @@ HB_FUNC( BT_DRAW_HDC_TEXTOUT )
    if( ( Type & BT_TEXT_STRIKEOUT ) == BT_TEXT_STRIKEOUT )
       StrikeOut = 1;
 
-   SetGraphicsMode( hDC, GM_ADVANCED );
+   SetGraphicsMode(hDC, GM_ADVANCED);
 
-   FontSize = FontSize * GetDeviceCaps( hDC, LOGPIXELSY ) / 72;
+   FontSize = FontSize * GetDeviceCaps(hDC, LOGPIXELSY) / 72;
 
    // CreateFont (Height, Width, Escapement, Orientation, Weight, Italic, Underline, StrikeOut,
    //             CharSet, OutputPrecision, ClipPrecision, Quality, PitchAndFamily, Face);
@@ -1537,8 +1537,8 @@ HB_FUNC( BT_DRAW_HDC_DRAWTEXT )
    lpText      = ( TCHAR * ) hb_parc(6);
    FontName    = ( TCHAR * ) hb_parc(7);
 #else
-   lpText      = ( TCHAR * ) hb_osStrU16Encode( hb_parc(6) );
-   FontName    = ( TCHAR * ) hb_osStrU16Encode( hb_parc(7) );
+   lpText      = ( TCHAR * ) hb_osStrU16Encode(hb_parc(6));
+   FontName    = ( TCHAR * ) hb_osStrU16Encode(hb_parc(7));
 #endif
    FontSize    = hmg_par_INT(8);
    Text_Color  = hmg_par_COLORREF(9);
@@ -1554,10 +1554,10 @@ HB_FUNC( BT_DRAW_HDC_DRAWTEXT )
    Orientation = Orientation * ( double ) 10.0;   // Angle in tenths of degrees
 
    if( ( Type & BT_TEXT_TRANSPARENT ) == BT_TEXT_TRANSPARENT )
-      SetBkMode( hDC, TRANSPARENT );
+      SetBkMode(hDC, TRANSPARENT);
    else
    {
-      SetBkMode( hDC, OPAQUE );
+      SetBkMode(hDC, OPAQUE);
       SetBkColor(hDC, Back_Color);
    }
 
@@ -1573,9 +1573,9 @@ HB_FUNC( BT_DRAW_HDC_DRAWTEXT )
    if( ( Type & BT_TEXT_STRIKEOUT ) == BT_TEXT_STRIKEOUT )
       StrikeOut = 1;
 
-   SetGraphicsMode( hDC, GM_ADVANCED );
+   SetGraphicsMode(hDC, GM_ADVANCED);
 
-   FontSize = FontSize * GetDeviceCaps( hDC, LOGPIXELSY ) / 72;
+   FontSize = FontSize * GetDeviceCaps(hDC, LOGPIXELSY) / 72;
 
    // CreateFont (Height, Width, Escapement, Orientation, Weight, Italic, Underline, StrikeOut,
    //             CharSet, OutputPrecision, ClipPrecision, Quality, PitchAndFamily, Face);
@@ -1627,8 +1627,8 @@ HB_FUNC( BT_DRAW_HDC_TEXTSIZE )
    lpText      = ( TCHAR * ) hb_parc(2);
    FontName    = ( TCHAR * ) hb_parc(3);
 #else
-   lpText      = ( TCHAR * ) hb_osStrU16Encode( hb_parc(2) );
-   FontName    = ( TCHAR * ) hb_osStrU16Encode( hb_parc(3) );
+   lpText      = ( TCHAR * ) hb_osStrU16Encode(hb_parc(2));
+   FontName    = ( TCHAR * ) hb_osStrU16Encode(hb_parc(3));
 #endif
    FontSize = hmg_par_INT(4);
    Type     = hmg_par_INT(5);
@@ -1645,9 +1645,9 @@ HB_FUNC( BT_DRAW_HDC_TEXTSIZE )
    if( ( Type & BT_TEXT_STRIKEOUT ) == BT_TEXT_STRIKEOUT )
       StrikeOut = 1;
 
-   SetGraphicsMode( hDC, GM_ADVANCED );
+   SetGraphicsMode(hDC, GM_ADVANCED);
 
-   FontSize = FontSize * GetDeviceCaps( hDC, LOGPIXELSY ) / 72;
+   FontSize = FontSize * GetDeviceCaps(hDC, LOGPIXELSY) / 72;
 
    // CreateFont (Height, Width, Escapement, Orientation, Weight, Italic, Underline, StrikeOut,
    //             CharSet, OutputPrecision, ClipPrecision, Quality, PitchAndFamily, Face);
@@ -1664,10 +1664,10 @@ HB_FUNC( BT_DRAW_HDC_TEXTSIZE )
    iFirstChar = ( UINT ) lpText[ 0 ];
    iLastChar  = ( UINT ) lpText[ 0 ];
    GetCharABCWidthsFloat( hDC, iFirstChar, iLastChar, &ABCfloat );
-   hb_storvnd( ( double ) ( FLOAT ) ( ABCfloat.abcfA + ABCfloat.abcfB + ABCfloat.abcfC ), -1, 3 );
-   hb_storvnd( ( double ) ( FLOAT ) ABCfloat.abcfA, -1, 4 );
-   hb_storvnd( ( double ) ( FLOAT ) ABCfloat.abcfB, -1, 5 );
-   hb_storvnd( ( double ) ( FLOAT ) ABCfloat.abcfC, -1, 6 );
+   hb_storvnd(( double ) ( FLOAT ) ( ABCfloat.abcfA + ABCfloat.abcfB + ABCfloat.abcfC ), -1, 3);
+   hb_storvnd(( double ) ( FLOAT ) ABCfloat.abcfA, -1, 4);
+   hb_storvnd(( double ) ( FLOAT ) ABCfloat.abcfB, -1, 5);
+   hb_storvnd(( double ) ( FLOAT ) ABCfloat.abcfC, -1, 6);
 
    SelectObject(hDC, hOldFont);
    DeleteObject(hFont);
@@ -1698,10 +1698,10 @@ HB_FUNC( BT_DRAW_HDC_PIXEL )
    switch( Action )
    {
       case BT_HDC_GETPIXEL:
-         Color = GetPixel( hDC, x, y );
+         Color = GetPixel(hDC, x, y);
          break;
       case BT_HDC_SETPIXEL:
-         Color = SetPixel( hDC, x, y, Color );
+         Color = SetPixel(hDC, x, y, Color);
          break;
    }
 
@@ -1747,18 +1747,18 @@ HB_FUNC( BT_DRAW_HDC_TO_HDC )
    bt_bmp_adjust_rect(&Width1, &Height1, &Width2, &Height2, Mode_Stretch);
 
    //SetStretchBltMode (hDC1, COLORONCOLOR);
-   GetBrushOrgEx( hDC1, &Point );
-   SetStretchBltMode( hDC1, HALFTONE );
-   SetBrushOrgEx( hDC1, Point.x, Point.y, NULL );
+   GetBrushOrgEx(hDC1, &Point);
+   SetStretchBltMode(hDC1, HALFTONE);
+   SetBrushOrgEx(hDC1, Point.x, Point.y, NULL);
 
 
    switch( Action )
    {
       case BT_HDC_OPAQUE:
-         StretchBlt( hDC1, x1, y1, Width1, Height1, hDC2, x2, y2, Width2, Height2, SRCCOPY );
+         StretchBlt(hDC1, x1, y1, Width1, Height1, hDC2, x2, y2, Width2, Height2, SRCCOPY);
          break;
       case BT_HDC_TRANSPARENT:
-         TransparentBlt( hDC1, x1, y1, Width1, Height1, hDC2, x2, y2, Width2, Height2, color_transp );
+         TransparentBlt(hDC1, x1, y1, Width1, Height1, hDC2, x2, y2, Width2, Height2, color_transp);
          break;
       default:
          hb_retl( FALSE );
@@ -1808,11 +1808,11 @@ HB_FUNC( BT_DRAW_HDC_TO_HDC_ALPHABLEND )
    bt_bmp_adjust_rect(&Width1, &Height1, &Width2, &Height2, Mode_Stretch);
 
    //SetStretchBltMode (hDC1, COLORONCOLOR);
-   GetBrushOrgEx( hDC1, &Point );
-   SetStretchBltMode( hDC1, HALFTONE );
-   SetBrushOrgEx( hDC1, Point.x, Point.y, NULL );
+   GetBrushOrgEx(hDC1, &Point);
+   SetStretchBltMode(hDC1, HALFTONE);
+   SetBrushOrgEx(hDC1, Point.x, Point.y, NULL);
 
-   AlphaBlend( hDC1, x1, y1, Width1, Height1, hDC2, x2, y2, Width2, Height2, blend );
+   AlphaBlend(hDC1, x1, y1, Width1, Height1, hDC2, x2, y2, Width2, Height2, blend);
 
 }
 
@@ -1885,15 +1885,15 @@ HB_FUNC( BT_BMP_LOADFILE )
 #ifndef UNICODE
    FileName = ( TCHAR * ) hb_parc(1);
 #else
-   FileName = ( TCHAR * ) hb_osStrU16Encode( hb_parc(1) );
+   FileName = ( TCHAR * ) hb_osStrU16Encode(hb_parc(1));
 #endif
 
    // First find BMP image in resourses (.EXE file)
-   hBitmap = ( HBITMAP ) LoadImage( GetModuleHandle(NULL), FileName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION );
+   hBitmap = ( HBITMAP ) LoadImage(GetModuleHandle(NULL), FileName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION);
 
    // If fail: find BMP in disk
    if( hBitmap == NULL )
-      hBitmap = ( HBITMAP ) LoadImage( NULL, FileName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION );
+      hBitmap = ( HBITMAP ) LoadImage(NULL, FileName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
 
    // If fail: find JPG Image in resourses
    if( hBitmap == NULL )
@@ -1942,7 +1942,7 @@ HB_FUNC( BT_BITMAPLOADEMF )
 #ifndef UNICODE
    TCHAR *   FileName       = ( TCHAR * ) hb_parc(1);
 #else
-   TCHAR *   FileName       = ( TCHAR * ) hb_osStrU16Encode( hb_parc(1) );
+   TCHAR *   FileName       = ( TCHAR * ) hb_osStrU16Encode(hb_parc(1));
 #endif
    COLORREF BackgroundColor = ( COLORREF ) RGB(HB_PARVNL( 2, 1 ), HB_PARVNL( 2, 2 ), HB_PARVNL( 2, 3 ));
    INT      ModeStretch     = ( HB_ISNUM(5) ? ( INT ) hb_parnl(5) : BT_SCALE );
@@ -2015,9 +2015,9 @@ HB_FUNC( BT_BITMAPLOADEMF )
    OldBrush = ( HBRUSH ) SelectObject(memDC, hBrush);
    FillRect(memDC, &Rect, hBrush);
 
-   GetBrushOrgEx( memDC, &Point );
-   SetStretchBltMode( memDC, HALFTONE );
-   SetBrushOrgEx( memDC, Point.x, Point.y, NULL );
+   GetBrushOrgEx(memDC, &Point);
+   SetStretchBltMode(memDC, HALFTONE);
+   SetBrushOrgEx(memDC, Point.x, Point.y, NULL);
 
    // Play MetaFile into Bitmap
    PlayEnhMetaFile(memDC, hEMF, &Rect);
@@ -2087,7 +2087,7 @@ BOOL bt_bmp_SaveFile(HBITMAP hBitmap, TCHAR * FileName, INT nTypePicture)
    Bitmap_Info.bmiHeader.biClrUsed       = 0;
    Bitmap_Info.bmiHeader.biClrImportant  = 0;
 
-   hBits = GlobalAlloc( GHND, ( DWORD ) nBytes_Bits );
+   hBits = GlobalAlloc(GHND, ( DWORD ) nBytes_Bits);
    if( hBits == NULL )
       return FALSE;
 
@@ -2122,7 +2122,7 @@ HB_FUNC( BT_BMP_SAVEFILE )
 #ifndef UNICODE
    TCHAR *  FileName    = ( TCHAR * ) hb_parc(2);
 #else
-   TCHAR *  FileName    = ( TCHAR * ) hb_osStrU16Encode( hb_parc(2) );
+   TCHAR *  FileName    = ( TCHAR * ) hb_osStrU16Encode(hb_parc(2));
 #endif
    INT     nTypePicture = ( INT ) hb_parnl(3);
 
@@ -2182,7 +2182,7 @@ HB_FUNC( BT_BMP_GETINFO )
          y     = hmg_par_INT(4);
          memDC = CreateCompatibleDC(NULL);
          SelectObject(memDC, hBitmap);
-         color = GetPixel( memDC, x, y );
+         color = GetPixel(memDC, x, y);
          DeleteDC(memDC);
          hb_retnl( ( long ) color );
          break;
@@ -2217,7 +2217,7 @@ HB_FUNC( BT_BMP_CLONE )
    hBitmap_New = bt_bmp_create_24bpp( Width1, Height1 );
    SelectObject(memDC2, hBitmap_New);
 
-   BitBlt( memDC2, 0, 0, Width1, Height1, memDC1, x1, y1, SRCCOPY );
+   BitBlt(memDC2, 0, 0, Width1, Height1, memDC1, x1, y1, SRCCOPY);
    DeleteDC(memDC1);
    DeleteDC(memDC2);
 
@@ -2278,7 +2278,7 @@ BOOL bt_BMP_BITS( bt_BMPIMAGE * Image, INT nAction )
       Image->Height     = bm.bmHeight;
       Image->Width      = bm.bmWidth;
       Image->nChannels  = 3;    //3 bytes per pixel
-      Image->hGlobal    = GlobalAlloc( GHND, ( DWORD ) ( bm.bmWidthBytes * labs( bm.bmHeight ) ) );
+      Image->hGlobal    = GlobalAlloc(GHND, ( DWORD ) (bm.bmWidthBytes * labs(bm.bmHeight)));
    }
 
    if( Image->hGlobal == NULL )
@@ -2417,14 +2417,14 @@ HB_FUNC( BT_BMP_COPYANDRESIZE )
       SelectObject(memDC2, hBitmap_New);
 
       if( nAlgorithm == BT_RESIZE_COLORONCOLOR )
-         SetStretchBltMode( memDC2, COLORONCOLOR );
+         SetStretchBltMode(memDC2, COLORONCOLOR);
       else
       {
-         GetBrushOrgEx( memDC2, &Point );
-         SetStretchBltMode( memDC2, HALFTONE );
-         SetBrushOrgEx( memDC2, Point.x, Point.y, NULL );
+         GetBrushOrgEx(memDC2, &Point);
+         SetStretchBltMode(memDC2, HALFTONE);
+         SetBrushOrgEx(memDC2, Point.x, Point.y, NULL);
       }
-      StretchBlt( memDC2, 0, 0, New_Width, New_Height, memDC1, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY );
+      StretchBlt(memDC2, 0, 0, New_Width, New_Height, memDC1, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
 
       DeleteDC(memDC2);
    }
@@ -2482,18 +2482,18 @@ HB_FUNC( BT_BMP_PASTE )
    bt_bmp_adjust_rect(&Width1, &Height1, &Width2, &Height2, Mode_Stretch);
 
    //SetStretchBltMode (memDC_D, COLORONCOLOR);
-   GetBrushOrgEx( memDC_D, &Point );
-   SetStretchBltMode( memDC_D, HALFTONE );
-   SetBrushOrgEx( memDC_D, Point.x, Point.y, NULL );
+   GetBrushOrgEx(memDC_D, &Point);
+   SetStretchBltMode(memDC_D, HALFTONE);
+   SetBrushOrgEx(memDC_D, Point.x, Point.y, NULL);
 
 
    switch( Action )
    {
       case BT_BITMAP_OPAQUE:
-         StretchBlt( memDC_D, x1, y1, Width1, Height1, memDC_O, x2, y2, Width2, Height2, SRCCOPY );
+         StretchBlt(memDC_D, x1, y1, Width1, Height1, memDC_O, x2, y2, Width2, Height2, SRCCOPY);
          break;
       case BT_BITMAP_TRANSPARENT:
-         TransparentBlt( memDC_D, x1, y1, Width1, Height1, memDC_O, x2, y2, Width2, Height2, color_transp );
+         TransparentBlt(memDC_D, x1, y1, Width1, Height1, memDC_O, x2, y2, Width2, Height2, color_transp);
          break;
       default:
          hb_retl( FALSE );
@@ -2554,11 +2554,11 @@ HB_FUNC( BT_BMP_PASTE_ALPHABLEND )
    bt_bmp_adjust_rect(&Width1, &Height1, &Width2, &Height2, Mode_Stretch);
 
    //SetStretchBltMode (memDC_D, COLORONCOLOR);
-   GetBrushOrgEx( memDC_D, &Point );
-   SetStretchBltMode( memDC_D, HALFTONE );
-   SetBrushOrgEx( memDC_D, Point.x, Point.y, NULL );
+   GetBrushOrgEx(memDC_D, &Point);
+   SetStretchBltMode(memDC_D, HALFTONE);
+   SetBrushOrgEx(memDC_D, Point.x, Point.y, NULL);
 
-   AlphaBlend( memDC_D, x1, y1, Width1, Height1, memDC_O, x2, y2, Width2, Height2, blend );
+   AlphaBlend(memDC_D, x1, y1, Width1, Height1, memDC_O, x2, y2, Width2, Height2, blend);
 
    DeleteDC(memDC_D);
    DeleteDC(memDC_O);
@@ -2610,7 +2610,7 @@ HB_FUNC( BT_BMP_CAPTURESCR )
    memDC = CreateCompatibleDC(NULL);
    SelectObject(memDC, hBitmap);
 
-   BitBlt( memDC, 0, 0, Width1, Height1, hDC, x1, y1, SRCCOPY );
+   BitBlt(memDC, 0, 0, Width1, Height1, hDC, x1, y1, SRCCOPY);
 
    DeleteDC(memDC);
 
@@ -2660,7 +2660,7 @@ HB_FUNC( BT_BMP_PROCESS )
    } bt_RGBCOLORBYTE;
 
    #define bt_RGB_TO_GRAY( R, G, B )  ( INT ) ( ( FLOAT ) R * 0.299 + ( FLOAT ) G * 0.587 + ( FLOAT ) B * 0.114 )
-   #define bt_GAMMA( index, gamma )   ( HB_MIN(255, ( INT ) ( ( 255.0 * pow( ( ( DOUBLE ) index / 255.0 ), ( 1.0 / ( DOUBLE ) gamma ) ) ) + 0.5 )) )
+   #define bt_GAMMA(index, gamma)   ( HB_MIN(255, ( INT ) ( ( 255.0 * pow( ( ( DOUBLE ) index / 255.0 ), ( 1.0 / ( DOUBLE ) gamma ) ) ) + 0.5 )) )
    //  redGamma[i] = (byte)           Min (255, (int)(( 255.0 *Pow(i/255.0, 1.0/g_red)) + 0.5));
 
    HGLOBAL           hBits;
@@ -2719,7 +2719,7 @@ HB_FUNC( BT_BMP_PROCESS )
          break;
 
       case BT_BMP_PROCESS_MODIFYCOLOR:
-         if( ! HB_ISARRAY(3) || hb_parinfa( 3, 0 ) != 3 )
+         if( ! HB_ISARRAY(3) || hb_parinfa(3, 0) != 3 )
          {
             hb_retl( FALSE );
             return;
@@ -2735,19 +2735,19 @@ HB_FUNC( BT_BMP_PROCESS )
          break;
 
       case BT_BMP_PROCESS_GAMMACORRECT:
-         if( ! HB_ISARRAY(3) || hb_parinfa( 3, 0 ) != 3 )
+         if( ! HB_ISARRAY(3) || hb_parinfa(3, 0) != 3 )
          {
             hb_retl( FALSE );
             return;
          }
-         RedGamma   = ( DOUBLE ) hb_parvnd( 3, 1 );
-         GreenGamma = ( DOUBLE ) hb_parvnd( 3, 2 );
-         BlueGamma  = ( DOUBLE ) hb_parvnd( 3, 3 );
+         RedGamma   = ( DOUBLE ) hb_parvnd(3, 1);
+         GreenGamma = ( DOUBLE ) hb_parvnd(3, 2);
+         BlueGamma  = ( DOUBLE ) hb_parvnd(3, 3);
          for( i = 0; i < 256; i++ )
          {
-            RedGammaRamp[ i ]   = ( BYTE ) bt_GAMMA( i, RedGamma );
-            GreenGammaRamp[ i ] = ( BYTE ) bt_GAMMA( i, GreenGamma );
-            BlueGammaRamp[ i ]  = ( BYTE ) bt_GAMMA( i, BlueGamma );
+            RedGammaRamp[ i ]   = ( BYTE ) bt_GAMMA(i, RedGamma);
+            GreenGammaRamp[ i ] = ( BYTE ) bt_GAMMA(i, GreenGamma);
+            BlueGammaRamp[ i ]  = ( BYTE ) bt_GAMMA(i, BlueGamma);
          }
          break;
 
@@ -2774,7 +2774,7 @@ HB_FUNC( BT_BMP_PROCESS )
    bm.bmWidthBytes = ( bm.bmWidth * BI.bmiHeader.biBitCount + 31 ) / 32 * 4;
    nBytes_Bits     = ( DWORD ) ( bm.bmWidthBytes * labs( bm.bmHeight ) );
 
-   hBits = GlobalAlloc( GHND, ( DWORD ) nBytes_Bits );
+   hBits = GlobalAlloc(GHND, ( DWORD ) nBytes_Bits);
    if( hBits == NULL )
    {
       hb_retl( FALSE );
@@ -2925,7 +2925,7 @@ HB_FUNC( BT_BMP_FILTER3X3 )
 
 
    hBitmap = hmg_par_HBITMAP(1);
-   if( ! HB_ISARRAY(2) || hb_parinfa( 2, 0 ) != nMATFILTER )
+   if( ! HB_ISARRAY(2) || hb_parinfa(2, 0) != nMATFILTER )
    {
       hb_retl( FALSE );
       return;
@@ -2952,14 +2952,14 @@ HB_FUNC( BT_BMP_FILTER3X3 )
    bm.bmWidthBytes = ( bm.bmWidth * BI.bmiHeader.biBitCount + 31 ) / 32 * 4;
    nBytes_Bits     = ( DWORD ) ( bm.bmWidthBytes * labs( bm.bmHeight ) );
 
-   hBits_O = GlobalAlloc( GHND, ( DWORD ) nBytes_Bits );
+   hBits_O = GlobalAlloc(GHND, ( DWORD ) nBytes_Bits);
    if( hBits_O == NULL )
    {
       hb_retl( FALSE );
       return;
    }
 
-   hBits_D = GlobalAlloc( GHND, ( DWORD ) nBytes_Bits );
+   hBits_D = GlobalAlloc(GHND, ( DWORD ) nBytes_Bits);
    if( hBits_D == NULL )
    {
       GlobalFree(hBits_O);
@@ -3071,7 +3071,7 @@ HB_FUNC( BT_BMP_TRANSFORM )
 
 
    memDC2 = CreateCompatibleDC(NULL);
-   SetGraphicsMode( memDC2, GM_ADVANCED );
+   SetGraphicsMode(memDC2, GM_ADVANCED);
 
    if( ( Mode & BT_BITMAP_REFLECT_HORIZONTAL ) == BT_BITMAP_REFLECT_HORIZONTAL )
    {
@@ -3186,9 +3186,9 @@ HB_FUNC( BT_BMP_TRANSFORM )
    SelectObject(memDC2, hBitmap_D);
 
    //SetStretchBltMode (memDC2, COLORONCOLOR);
-   GetBrushOrgEx( memDC2, &Point );
-   SetStretchBltMode( memDC2, HALFTONE );
-   SetBrushOrgEx( memDC2, Point.x, Point.y, NULL );
+   GetBrushOrgEx(memDC2, &Point);
+   SetStretchBltMode(memDC2, HALFTONE);
+   SetBrushOrgEx(memDC2, Point.x, Point.y, NULL);
 
    hBrush   = CreateSolidBrush(Color_Fill_Bk);
    OldBrush = ( HBRUSH ) SelectObject(memDC2, hBrush);
@@ -3198,7 +3198,7 @@ HB_FUNC( BT_BMP_TRANSFORM )
    CombineTransform( &xform_D, &xform1, &xform2 );
    SetWorldTransform( memDC2, &xform_D );
 
-   StretchBlt( memDC2, 0, 0, bm.bmWidth, bm.bmHeight, memDC1, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY );
+   StretchBlt(memDC2, 0, 0, bm.bmWidth, bm.bmHeight, memDC1, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
 
    SelectObject(memDC2, OldBrush);
    DeleteDC(memDC1);
@@ -3237,7 +3237,7 @@ HB_FUNC( BT_BMP_CLEAN_CLIPBOARD )
    }
 
    hWnd = hmg_par_HWND(1);
-   if( ! OpenClipboard( hWnd ) )
+   if( ! OpenClipboard(hWnd) )
    {
       hb_retl( FALSE );
       return;
@@ -3272,13 +3272,13 @@ HB_FUNC( BT_BMP_GET_CLIPBOARD )
    }
 
    hWnd = hmg_par_HWND(1);
-   if( ! OpenClipboard( hWnd ) )
+   if( ! OpenClipboard(hWnd) )
    {
       hb_retnl(0);
       return;
    }
 
-   hClipboard = GetClipboardData( CF_DIB );
+   hClipboard = GetClipboardData(CF_DIB);
    if( hClipboard == NULL )
    {
       CloseClipboard();
@@ -3365,14 +3365,14 @@ HB_FUNC( BT_BMP_PUT_CLIPBOARD )
    nBytes_Bits  = ( DWORD ) ( bm.bmWidthBytes * labs( bm.bmHeight ) );
    nBytes_Total = sizeof(BITMAPINFOHEADER) + nBytes_Bits;
 
-   if( ! OpenClipboard( hWnd ) )
+   if( ! OpenClipboard(hWnd) )
    {
       hb_retl( FALSE );
       return;
    }
 
 
-   hClipboard = GlobalAlloc( GHND, ( DWORD ) nBytes_Total );
+   hClipboard = GlobalAlloc(GHND, ( DWORD ) nBytes_Total);
    if( hClipboard == NULL )
    {
       CloseClipboard();
@@ -3390,7 +3390,7 @@ HB_FUNC( BT_BMP_PUT_CLIPBOARD )
    GlobalUnlock(hClipboard);
 
    EmptyClipboard();
-   SetClipboardData( CF_DIB, hClipboard );
+   SetClipboardData(CF_DIB, hClipboard);
    CloseClipboard();
 
    DeleteDC(memDC);
@@ -3507,8 +3507,8 @@ HB_FUNC( BT_TEXTOUT_SIZE )
    lpText      = ( TCHAR * ) hb_parc(2);
    FontName    = ( TCHAR * ) hb_parc(3);
 #else
-   lpText      = ( TCHAR * ) hb_osStrU16Encode( hb_parc(2) );
-   FontName    = ( TCHAR * ) hb_osStrU16Encode( hb_parc(3) );
+   lpText      = ( TCHAR * ) hb_osStrU16Encode(hb_parc(2));
+   FontName    = ( TCHAR * ) hb_osStrU16Encode(hb_parc(3));
 #endif
    FontSize = hmg_par_INT(4);
    Type     = hmg_par_INT(5);
@@ -3527,7 +3527,7 @@ HB_FUNC( BT_TEXTOUT_SIZE )
    if( ( Type & BT_TEXT_STRIKEOUT ) == BT_TEXT_STRIKEOUT )
       StrikeOut = 1;
 
-   FontSize = FontSize * GetDeviceCaps( hDC, LOGPIXELSY ) / 72;   // Size of font in logic points
+   FontSize = FontSize * GetDeviceCaps(hDC, LOGPIXELSY) / 72;   // Size of font in logic points
 
    hFont = CreateFont( 0 - FontSize, 0, 0, 0, Bold, Italic, Underline, StrikeOut,
                        DEFAULT_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, FontName );

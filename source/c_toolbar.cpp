@@ -66,10 +66,10 @@ extern HBITMAP HMG_LoadPicture( const char * FileName, int New_Width, int New_He
 LRESULT APIENTRY ToolBarExFunc( HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam );
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
+LPWSTR AnsiToWide(LPCSTR);
 #endif
-HINSTANCE GetInstance( void );
-HINSTANCE GetResources( void );
+HINSTANCE GetInstance(void);
+HINSTANCE GetResources(void);
 
 static LPTBBUTTON lpSaveButtons;
 static int        nResetCount, buttonCount;
@@ -107,7 +107,7 @@ HB_FUNC( INITTOOLBAR )
    if( hb_parl(16) )
       Style = Style | CCS_ADJUSTABLE;
 
-   hwndTB = CreateWindowEx( ExStyle, TOOLBARCLASSNAME, NULL, Style, 0, 0, 0, 0, hwnd, hmg_par_HMENU(3), GetInstance(), NULL );
+   hwndTB = CreateWindowEx(ExStyle, TOOLBARCLASSNAME, NULL, Style, 0, 0, 0, 0, hwnd, hmg_par_HMENU(3), GetInstance(), NULL);
 
    if( hb_parni(6) && hb_parni(7) )
    {
@@ -179,7 +179,7 @@ HB_FUNC( INITTOOLBUTTON )
 #ifndef UNICODE
       lpText = hb_parc(2);
 #else
-      lpText = AnsiToWide( ( char * ) hb_parc(2) );
+      lpText = AnsiToWide(( char * ) hb_parc(2));
 #endif
       index = ( int ) SendMessage( hwndTB, TB_ADDSTRING, ( WPARAM ) 0, ( LPARAM ) lpText );
       tbb[ nBtn ].iString = index;
@@ -236,7 +236,7 @@ LONG WidestBtn( LPCTSTR pszStr, HWND hwnd )
 #ifndef UNICODE
    LPCSTR lpString = pszStr;
 #else
-   LPCWSTR lpString = AnsiToWide( ( char * ) pszStr );
+   LPCWSTR lpString = AnsiToWide(( char * ) pszStr);
 #endif
 
    SystemParametersInfo(SPI_GETICONTITLELOGFONT, sizeof(LOGFONT), &lf, 0);
@@ -271,7 +271,7 @@ HB_FUNC( INITTOOLBAREX )
 
    icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
    icex.dwICC  = ICC_BAR_CLASSES;
-   InitCommonControlsEx( &icex );
+   InitCommonControlsEx(&icex);
 
    hwnd = hmg_par_HWND(1);
 
@@ -301,7 +301,7 @@ HB_FUNC( INITTOOLBAREX )
    if( hb_parl(17) )
       Style = Style | CCS_ADJUSTABLE;
 
-   hwndTB = CreateWindowEx( ExStyle, TOOLBARCLASSNAME, NULL, Style, 0, 0, 0, 0, hwnd, hmg_par_HMENU(3), GetInstance(), NULL );
+   hwndTB = CreateWindowEx(ExStyle, TOOLBARCLASSNAME, NULL, Style, 0, 0, 0, 0, hwnd, hmg_par_HMENU(3), GetInstance(), NULL);
 
    if( hb_parni(6) && hb_parni(7) )
    {
@@ -358,7 +358,7 @@ HB_FUNC( INITTOOLBUTTONEX )
    Style   = TBSTYLE_BUTTON;
 
    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-   GetVersionEx( &osvi );
+   GetVersionEx(&osvi);
 
    // Add the strings
 
@@ -367,7 +367,7 @@ HB_FUNC( INITTOOLBUTTONEX )
 #ifndef UNICODE
       lpText = hb_parc(2);
 #else
-      lpText = AnsiToWide( ( char * ) hb_parc(2) );
+      lpText = AnsiToWide(( char * ) hb_parc(2));
 #endif
       index = ( int ) SendMessage( hwndTB, TB_ADDSTRING, 0, ( LPARAM ) lpText );
       tbb[ nBtn ].iString = index;
@@ -402,11 +402,11 @@ HB_FUNC( INITTOOLBUTTONEX )
 #ifndef UNICODE
       lpImageName = hb_parc(8);
 #else
-      lpImageName = AnsiToWide( ( char * ) hb_parc(8) );
+      lpImageName = AnsiToWide(( char * ) hb_parc(8));
 #endif
-      himage = ( HWND ) LoadImage( GetResources(), lpImageName, IMAGE_BITMAP, ix, iy, fuLoad );
+      himage = ( HWND ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, ix, iy, fuLoad);
       if( himage == NULL )
-         himage = ( HWND ) LoadImage( NULL, lpImageName, IMAGE_BITMAP, ix, iy, LR_LOADFROMFILE | fuLoad );
+         himage = ( HWND ) LoadImage(NULL, lpImageName, IMAGE_BITMAP, ix, iy, LR_LOADFROMFILE | fuLoad);
       if( himage == NULL )
          himage = ( HWND ) HMG_LoadPicture( hb_parc(8), hb_parl(16) ? ix : -1, hb_parl(16) ? iy : -1, hwndTB, 1, Transparent, -1, hb_parl(16) ? 1 : 0, HB_FALSE, 255 );
 
@@ -535,7 +535,7 @@ HB_FUNC( GETSIZETOOLBAR )
    SendMessage( hwndTB, TB_GETMAXSIZE, 0, ( LPARAM ) &lpSize );
 
    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-   GetVersionEx( &osvi );
+   GetVersionEx(&osvi);
    nBtn = ( int ) SendMessage( hwndTB, TB_BUTTONCOUNT, 0, 0 );
    for( i = 0; i < nBtn; i++ )
    {
@@ -644,7 +644,7 @@ HB_FUNC( SETBUTTONTIP )
 #ifndef UNICODE
    LPSTR lpText = ( LPSTR ) hb_parc(2);
 #else
-   LPWSTR lpText = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(2));
 #endif
    LPTOOLTIPTEXT lpttt;
 
@@ -658,7 +658,7 @@ HB_FUNC( SETTOOLBUTTONCAPTION )
 #ifndef UNICODE
    LPSTR lpText = ( LPSTR ) hb_parc(3);
 #else
-   LPWSTR lpText = AnsiToWide( ( char * ) hb_parc(3) );
+   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(3));
 #endif
    TBBUTTONINFO tbinfo;
 
@@ -780,7 +780,7 @@ HB_FUNC( SETCAPTIONSPLITBOXITEM )
 #ifndef UNICODE
    LPSTR lpText = ( LPSTR ) hb_parc(3);
 #else
-   LPWSTR lpText = AnsiToWide( ( char * ) hb_parc(3) );
+   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(3));
 #endif
    REBARBANDINFO rbBand;
 
@@ -1017,7 +1017,7 @@ HB_FUNC( TOOLBAREXCUSTFUNC )
                nResetCount = ( int ) SendMessage( lpTB->hdr.hwndFrom, TB_BUTTONCOUNT, 0, 0 );
                buttonCount = nResetCount;
 
-               lpSaveButtons = ( LPTBBUTTON ) GlobalAlloc( GPTR, sizeof(TBBUTTON) * nResetCount );
+               lpSaveButtons = ( LPTBBUTTON ) GlobalAlloc(GPTR, sizeof(TBBUTTON) * nResetCount);
                for( i = 0; i < nResetCount; i++ )
                   SendMessage( lpTB->hdr.hwndFrom, TB_GETBUTTON, i, ( LPARAM ) ( lpSaveButtons + i ) );
 

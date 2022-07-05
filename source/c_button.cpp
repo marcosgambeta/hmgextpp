@@ -72,10 +72,10 @@ BOOL bmp_SaveFile(HBITMAP hBitmap, TCHAR * FileName);
 LRESULT CALLBACK  OwnButtonProc( HWND hbutton, UINT msg, WPARAM wParam, LPARAM lParam );
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
+LPWSTR AnsiToWide(LPCSTR);
 #endif
-HINSTANCE GetInstance( void );
-HINSTANCE GetResources( void );
+HINSTANCE GetInstance(void);
+HINSTANCE GetResources(void);
 
 // Minigui Resources control system
 void RegisterResource(HANDLE hResource, LPSTR szType);
@@ -98,7 +98,7 @@ HB_FUNC( INITBUTTON )
 #ifndef UNICODE
    LPCSTR lpWindowName = hb_parc(2);
 #else
-   LPCWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc(2) );
+   LPCWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(2));
 #endif
 
    hwnd = hmg_par_HWND(1);
@@ -153,8 +153,8 @@ HB_FUNC( INITIMAGEBUTTON )
    LPCSTR lpWindowName = hb_parc(2);
    LPCSTR lpIconName   = hb_parc(14);
 #else
-   LPWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc(2) );
-   LPWSTR lpIconName   = AnsiToWide( ( char * ) hb_parc(14) );
+   LPWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(2));
+   LPWSTR lpIconName   = AnsiToWide(( char * ) hb_parc(14));
 #endif
 
    HIMAGELIST       himl;
@@ -219,10 +219,10 @@ HB_FUNC( INITIMAGEBUTTON )
    {
       if( ! hb_parl(15) )
       {
-         hIcon = ( HICON ) LoadImage( GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR );
+         hIcon = ( HICON ) LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR);
 
          if( hIcon == NULL )
-            hIcon = ( HICON ) LoadImage( 0, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR );
+            hIcon = ( HICON ) LoadImage(0, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR);
       }
       else
       {
@@ -243,7 +243,7 @@ HB_FUNC( INITIMAGEBUTTON )
          GetIconInfo(hIcon, &sIconInfo);
          GetObject(sIconInfo.hbmColor, sizeof(BITMAP), ( LPVOID ) &bm);
 
-         himl = ImageList_Create( bm.bmWidth, bm.bmHeight, ILC_COLOR32 | ILC_MASK, 1, 0 );
+         himl = ImageList_Create(bm.bmWidth, bm.bmHeight, ILC_COLOR32 | ILC_MASK, 1, 0);
 
          bi.himl          = himl;
          bi.margin.left   = 10;
@@ -289,9 +289,9 @@ HB_FUNC( INITOWNERBUTTON )
    LPCSTR lpImageName  = hb_parc(8);
    LPCSTR lpIconName   = hb_parc(14);
 #else
-   LPCWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc(2) );
-   LPCWSTR lpImageName  = AnsiToWide( ( char * ) hb_parc(8) );
-   LPCWSTR lpIconName   = AnsiToWide( ( char * ) hb_parc(14) );
+   LPCWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(2));
+   LPCWSTR lpImageName  = AnsiToWide(( char * ) hb_parc(8));
+   LPCWSTR lpIconName   = AnsiToWide(( char * ) hb_parc(14));
 #endif
 
    hwnd = hmg_par_HWND(1);
@@ -337,10 +337,10 @@ HB_FUNC( INITOWNERBUTTON )
 
    if( HB_ISNIL(14) )
    {
-      himage = ( HWND ) LoadImage( GetResources(), lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef( 15, 0 ), 0), HB_MAX(hb_parnidef( 16, 0 ), 0), LR_LOADMAP3DCOLORS | ImgStyle );
+      himage = ( HWND ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef( 15, 0 ), 0), HB_MAX(hb_parnidef( 16, 0 ), 0), LR_LOADMAP3DCOLORS | ImgStyle);
 
       if( himage == NULL )
-         himage = ( HWND ) LoadImage( NULL, lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef( 15, 0 ), 0), HB_MAX(hb_parnidef( 16, 0 ), 0), LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | ImgStyle );
+         himage = ( HWND ) LoadImage(NULL, lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef( 15, 0 ), 0), HB_MAX(hb_parnidef( 16, 0 ), 0), LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | ImgStyle);
 
       hb_reta(2);
       HB_STORVNL( ( LONG_PTR ) hbutton, -1, 1 );
@@ -348,10 +348,10 @@ HB_FUNC( INITOWNERBUTTON )
    }
    else
    {
-      hIcon = ( HICON ) LoadImage( GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR );
+      hIcon = ( HICON ) LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR);
 
       if( hIcon == NULL )
-         hIcon = ( HICON ) LoadImage( NULL, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR );
+         hIcon = ( HICON ) LoadImage(NULL, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR);
 
       if( hIcon == NULL )
          hIcon = ( HICON ) ExtractIcon(GetInstance(), lpIconName, 0);
@@ -376,15 +376,15 @@ HB_FUNC( _SETBTNPICTURE )
 #ifndef UNICODE
    LPCSTR lpImageName = hb_parc(2);
 #else
-   LPWSTR lpImageName = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR lpImageName = AnsiToWide(( char * ) hb_parc(2));
 #endif
 
    hwnd = hmg_par_HWND(1);
 
-   himage = ( HWND ) LoadImage( GetResources(), lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef( 3, 0 ), 0), HB_MAX(hb_parnidef( 4, 0 ), 0), LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
+   himage = ( HWND ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef( 3, 0 ), 0), HB_MAX(hb_parnidef( 4, 0 ), 0), LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
    if( himage == NULL )
-      himage = ( HWND ) LoadImage( NULL, lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef( 3, 0 ), 0), HB_MAX(hb_parnidef( 4, 0 ), 0), LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
+      himage = ( HWND ) LoadImage(NULL, lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef( 3, 0 ), 0), HB_MAX(hb_parnidef( 4, 0 ), 0), LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
    if( himage == NULL )
       himage = ( HWND ) HMG_LoadPicture( hb_parc(2), hb_parni(3), hb_parni(4), hwnd, 0, 1, -1, 0, HB_FALSE, 255 );
@@ -431,15 +431,15 @@ HB_FUNC( _SETBTNICON )
 #ifndef UNICODE
    LPCSTR lpIconName = hb_parc(2);
 #else
-   LPWSTR lpIconName = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR lpIconName = AnsiToWide(( char * ) hb_parc(2));
 #endif
 
    hwnd = hmg_par_HWND(1);
 
-   hIcon = ( HICON ) LoadImage( GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR );
+   hIcon = ( HICON ) LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR);
 
    if( hIcon == NULL )
-      hIcon = ( HICON ) LoadImage( NULL, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR );
+      hIcon = ( HICON ) LoadImage(NULL, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR);
 
    SendMessage( hwnd, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_ICON, ( LPARAM ) hIcon );
 
@@ -461,7 +461,7 @@ HB_FUNC( _SETMIXEDBTNICON )
 #ifndef UNICODE
    LPCSTR lpIconName = hb_parc(2);
 #else
-   LPWSTR lpIconName = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR lpIconName = AnsiToWide(( char * ) hb_parc(2));
 #endif
 
    HIMAGELIST       himl;
@@ -469,15 +469,15 @@ HB_FUNC( _SETMIXEDBTNICON )
 
    hwnd = hmg_par_HWND(1);
 
-   hIcon = ( HICON ) LoadImage( GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR );
+   hIcon = ( HICON ) LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR);
 
    if( hIcon == NULL )
-      hIcon = ( HICON ) LoadImage( NULL, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR );
+      hIcon = ( HICON ) LoadImage(NULL, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR);
 
    GetIconInfo(hIcon, &sIconInfo);
    GetObject(sIconInfo.hbmColor, sizeof(BITMAP), ( LPVOID ) &bm);
 
-   himl = ImageList_Create( bm.bmWidth, bm.bmHeight, ILC_COLOR32 | ILC_MASK, 1, 0 );
+   himl = ImageList_Create(bm.bmWidth, bm.bmHeight, ILC_COLOR32 | ILC_MASK, 1, 0);
 
    bi.himl          = himl;
    bi.margin.left   = 10;
@@ -611,7 +611,7 @@ HB_FUNC( GETOWNBTNRECT )
    HB_arraySetNL( aMetr, 3, rc.right );
    HB_arraySetNL( aMetr, 4, rc.bottom );
 
-   hb_itemReturnRelease( aMetr );
+   hb_itemReturnRelease(aMetr);
 }
 
 LRESULT CALLBACK OwnButtonProc( HWND hButton, UINT Msg, WPARAM wParam, LPARAM lParam )
@@ -752,9 +752,9 @@ HIMAGELIST HMG_SetButtonImageList( HWND hButton, const char * FileName, int Tran
    DeleteObject(hBitmap);
 
    if( Transparent == 1 )
-      hImageList = ImageList_LoadImage( GetResources(), TempPathFileName, Bmp.bmWidth, 6, CLR_DEFAULT, IMAGE_BITMAP, LR_LOADFROMFILE | LR_CREATEDIBSECTION | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
+      hImageList = ImageList_LoadImage(GetResources(), TempPathFileName, Bmp.bmWidth, 6, CLR_DEFAULT, IMAGE_BITMAP, LR_LOADFROMFILE | LR_CREATEDIBSECTION | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
    else
-      hImageList = ImageList_LoadImage( GetResources(), TempPathFileName, Bmp.bmWidth, 6, CLR_NONE, IMAGE_BITMAP, LR_LOADFROMFILE | LR_CREATEDIBSECTION | LR_LOADMAP3DCOLORS );
+      hImageList = ImageList_LoadImage(GetResources(), TempPathFileName, Bmp.bmWidth, 6, CLR_NONE, IMAGE_BITMAP, LR_LOADFROMFILE | LR_CREATEDIBSECTION | LR_LOADMAP3DCOLORS);
 
    DeleteFile(TempPathFileName);
 

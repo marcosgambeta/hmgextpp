@@ -79,13 +79,13 @@ extern long    GetSizeDlgTemp( PHB_ITEM dArray, PHB_ITEM cArray );
 
 extern HB_PTRUINT wapi_GetProcAddress( HMODULE hModule, LPCSTR lpProcName );
 
-typedef BOOL ( WINAPI * fnIsAppThemed )( void );
+typedef BOOL ( WINAPI * fnIsAppThemed )(void);
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
+LPWSTR AnsiToWide(LPCSTR);
 #endif
-HINSTANCE GetInstance( void );
-HINSTANCE GetResources( void );
+HINSTANCE GetInstance(void);
+HINSTANCE GetResources(void);
 
 static HINSTANCE hUxTheme;
 
@@ -164,12 +164,12 @@ typedef struct _FLHNOTIFY
    LPARAM lParam;
 } FLHNOTIFY, FAR * LPFLHNOTIFY;
 
-VOID WINAPI FLD_FolderInit( HWND hWndDlg, FLDHDRINFO * pFhi );
+VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi);
 DLGTEMPLATE * WINAPI FLD_SetStyleDlgRes( DLGTEMPLATE * pTemplate, DWORD resSize );
 DLGTEMPLATE * WINAPI FLD_LockDlgRes( TCHAR * lpszResName );
-BOOL WINAPI IsAppThemed( void );
+BOOL WINAPI IsAppThemed(void);
 VOID WINAPI       FLD_SelChanged( HWND hWndDlg );
-VOID WINAPI       FLD_ChildDialogInit( HWND hWndDlg, HWND hWndParent, int idrc );
+VOID WINAPI       FLD_ChildDialogInit(HWND hWndDlg, HWND hWndParent, int idrc);
 LRESULT CALLBACK  HMG_PageFldProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam );
 VOID WINAPI       FLD_DialogAlign(HWND hWndDlg);
 static BOOL       FLD_PageInfo(DLGTEMPLATE * pTemplate, FLDHDRINFO * pFhi, int index, BOOL resize);
@@ -179,19 +179,19 @@ static void       FLD_Cancel( HWND hWndDlg, LPARAM lParam );
 static BOOL       FLD_ShowPage( HWND hWndDlg, int index, FLDHDRINFO * pFhi );
 static void       FLD_Changed( HWND hWndParent, HWND hWndDlg );
 static void       FLD_UnChanged( HWND hWndParent, HWND hWndDlg );
-static LRESULT    FLD_HwndToIndex( HWND hWndDlg, HWND hPageDlg );
+static LRESULT    FLD_HwndToIndex(HWND hWndDlg, HWND hPageDlg);
 static void       FLD_CleanUp( HWND hWndDlg );
 static void       FLD_Help( HWND hwndDlg );
 static void       FLD_AddBitmap(HWND hWndFolder);
-static BOOL       FLD_isAppThemed( void );
+static BOOL       FLD_isAppThemed(void);
 
 
-static BOOL FLD_isAppThemed( void )
+static BOOL FLD_isAppThemed(void)
 {
    BOOL bRet = FALSE;
 
    if( hUxTheme == NULL )
-      hUxTheme = LoadLibraryEx( TEXT("uxtheme.dll"), NULL, 0 );
+      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), NULL, 0);
 
    if( hUxTheme )
    {
@@ -217,7 +217,7 @@ LRESULT CALLBACK HMG_FldProc( HWND hWndDlg, UINT message, WPARAM wParam, LPARAM 
       // hwndCtl = (HWND) lParam;      // handle of control
       case WM_INITDIALOG:
          pFhi = ( FLDHDRINFO * ) lParam;
-         FLD_FolderInit( hWndDlg, pFhi );
+         FLD_FolderInit(hWndDlg, pFhi);
          FLD_AddBitmap(hWndDlg);
          break;
 
@@ -301,7 +301,7 @@ LRESULT CALLBACK HMG_PageFldProc( HWND hWndDlg, UINT message, WPARAM wParam, LPA
          hfpi = pFhi->fhpage;
          fpi  = ( FLDPAGEINFO * ) hfpi[ iSel ];
 
-         FLD_ChildDialogInit( hWndDlg, hWndParent, fpi->idrc );
+         FLD_ChildDialogInit(hWndDlg, hWndParent, fpi->idrc);
          return TRUE;
    }
 
@@ -332,7 +332,7 @@ LRESULT CALLBACK HMG_PageFldProc( HWND hWndDlg, UINT message, WPARAM wParam, LPA
 HB_FUNC( CREATEFOLDERPAGEINDIRECT )
 {
    DLGTEMPLATE * pdlgtemplate;
-   FLDPAGEINFO * pfpi = ( FLDPAGEINFO * ) LocalAlloc( LPTR, sizeof(FLDPAGEINFO) );
+   FLDPAGEINFO * pfpi = ( FLDPAGEINFO * ) LocalAlloc(LPTR, sizeof(FLDPAGEINFO));
 
    TCHAR * strTitle;
    TCHAR * ImageName;
@@ -354,14 +354,14 @@ HB_FUNC( CREATEFOLDERPAGEINDIRECT )
    #ifndef UNICODE
    strTitle = ( TCHAR * ) hb_arrayGetCPtr(sArray, 1);                          // Tab Title
    #else
-   strTitle = ( TCHAR * ) AnsiToWide( ( char * ) hb_arrayGetCPtr(sArray, 1) ); // Tab Title
+   strTitle = ( TCHAR * ) AnsiToWide(( char * ) hb_arrayGetCPtr(sArray, 1)); // Tab Title
    #endif
    idRC      = hb_arrayGetNI( sArray, 2 );                                       // Id Dialog resource
    PageStyle = hb_arrayGetNI( sArray, 3 );                                       // Page Style
    #ifndef UNICODE
    ImageName = ( TCHAR * ) hb_arrayGetCPtr(sArray, 4);
    #else
-   ImageName = ( TCHAR * ) AnsiToWide( ( char * ) hb_arrayGetCPtr(sArray, 4) );
+   ImageName = ( TCHAR * ) AnsiToWide(( char * ) hb_arrayGetCPtr(sArray, 4));
    #endif
 
    pfpi->dwFlags  = PageStyle;
@@ -389,7 +389,7 @@ HB_FUNC( CREATEFOLDERPAGEINDIRECT )
  *****************************************************************************/
 HB_FUNC( CREATEFOLDERPAGE )
 {
-   FLDPAGEINFO * pfpi = ( FLDPAGEINFO * ) LocalAlloc( LPTR, sizeof(FLDPAGEINFO) );
+   FLDPAGEINFO * pfpi = ( FLDPAGEINFO * ) LocalAlloc(LPTR, sizeof(FLDPAGEINFO));
 
    PHB_ITEM sArray;
    TCHAR *  strTitle;
@@ -403,14 +403,14 @@ HB_FUNC( CREATEFOLDERPAGE )
    #ifndef UNICODE
    strTitle = ( TCHAR * ) hb_arrayGetCPtr(sArray, 1);                          // Caption
    #else
-   strTitle = ( TCHAR * ) AnsiToWide( ( char * ) hb_arrayGetCPtr(sArray, 1) ); // Caption
+   strTitle = ( TCHAR * ) AnsiToWide(( char * ) hb_arrayGetCPtr(sArray, 1)); // Caption
    #endif
    idRC      = hb_arrayGetNI( sArray, 2 );                                       // Id Dialog resource
    PageStyle = hb_arrayGetNI( sArray, 3 );                                       // Page Style
    #ifndef UNICODE
    caption = ( TCHAR * ) hb_arrayGetCPtr(sArray, 4);                           // Page Image
    #else
-   caption = ( TCHAR * ) AnsiToWide( ( char * ) hb_arrayGetCPtr(sArray, 4) );  // Page Image
+   caption = ( TCHAR * ) AnsiToWide(( char * ) hb_arrayGetCPtr(sArray, 4));  // Page Image
    #endif
    pfpi->dwFlags     = PageStyle;
    pfpi->pszTemplate = MAKEINTRESOURCE(idRC);
@@ -440,7 +440,7 @@ HB_FUNC( CREATEFOLDERPAGE )
 HB_FUNC( CREATEDLGFOLDER )
 {
    HFLDPAGEINFO * hfpi;
-   FLDHDRINFO *   pFhi = ( FLDHDRINFO * ) LocalAlloc( LPTR, sizeof(FLDHDRINFO) );
+   FLDHDRINFO *   pFhi = ( FLDHDRINFO * ) LocalAlloc(LPTR, sizeof(FLDHDRINFO));
    DWORD          dwDlgBase = GetDialogBaseUnits();
    int baseunitX = LOWORD(dwDlgBase), baseunitY = HIWORD(dwDlgBase);
    LPDLGTEMPLATE pdlgtemplate;
@@ -492,7 +492,7 @@ HB_FUNC( CREATEDLGFOLDER )
    if( hb_arrayGetL( pArray, 24 ) )
       Style = Style | TCS_MULTILINE;
 
-   hfpi = ( HFLDPAGEINFO * ) malloc( sizeof(HFLDPAGEINFO) * nPages );
+   hfpi = ( HFLDPAGEINFO * ) malloc(sizeof(HFLDPAGEINFO) * nPages);
 
    for( s = 0; s < nPages; s = s + 1 )
       hfpi[ s ] = ( HFLDPAGEINFO ) ( PHB_ITEM ) HB_arrayGetNL( sArray, s + 1 );
@@ -542,7 +542,7 @@ HB_FUNC( FOLDERHWNDTOINDEX )
 {
    int iPageIndex;
 
-   iPageIndex = ( int ) FLD_HwndToIndex( hmg_par_HWND(1), hmg_par_HWND(2) );
+   iPageIndex = ( int ) FLD_HwndToIndex(hmg_par_HWND(1), hmg_par_HWND(2));
 
    hb_retni( iPageIndex );
 }
@@ -673,7 +673,7 @@ HB_FUNC( FOLDER_CLEANUP )
 /*-----------------------------------------------------------------
       FLD_FolderInit()
    -----------------------------------------------------------------*/
-VOID WINAPI FLD_FolderInit( HWND hWndDlg, FLDHDRINFO * pFhi )
+VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
 {
    HFLDPAGEINFO * hfpi;
    FLDPAGEINFO *  fpi;
@@ -693,13 +693,13 @@ VOID WINAPI FLD_FolderInit( HWND hWndDlg, FLDHDRINFO * pFhi )
 
    icc.dwSize = sizeof(INITCOMMONCONTROLSEX);
    icc.dwICC  = ICC_TAB_CLASSES;
-   InitCommonControlsEx( &icc );
+   InitCommonControlsEx(&icc);
 
    // Save a pointer to the FLDHDR structure.
    SetWindowLongPtr(hWndDlg, GWLP_USERDATA, ( LONG_PTR ) pFhi);
 
    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-   GetVersionEx( &osvi );
+   GetVersionEx(&osvi);
 
    nPages = pFhi->nPages;
    hfpi   = pFhi->fhpage;
@@ -883,7 +883,7 @@ DLGTEMPLATE * WINAPI FLD_SetStyleDlgRes( DLGTEMPLATE * pTemplate, DWORD resSize 
 {
    LPVOID temp;
 
-   temp = LocalAlloc( LPTR, resSize );
+   temp = LocalAlloc(LPTR, resSize);
    if( ! temp )
       return FALSE;
    memcpy(temp, pTemplate, resSize);
@@ -958,7 +958,7 @@ VOID WINAPI FLD_SelChanged( HWND hWndDlg )
 /*-----------------------------------------------------------------
        FLD_ChildDialogInit()
    -----------------------------------------------------------------*/
-VOID WINAPI FLD_ChildDialogInit( HWND hWndDlg, HWND hWndParent, int idrc )
+VOID WINAPI FLD_ChildDialogInit(HWND hWndDlg, HWND hWndParent, int idrc)
 {
    RECT rcTab;
 
@@ -1419,7 +1419,7 @@ static BOOL FLD_ShowPage( HWND hWndDlg, int index, FLDHDRINFO * pFhi )
 /*-----------------------------------------------------------------
       FLD_HwndToIndex()
    -----------------------------------------------------------------*/
-static LRESULT FLD_HwndToIndex( HWND hWndDlg, HWND hPageDlg )
+static LRESULT FLD_HwndToIndex(HWND hWndDlg, HWND hPageDlg)
 {
    int index;
 
@@ -1522,14 +1522,14 @@ static void FLD_AddBitmap(HWND hWndFolder)
 
       if( himl != NULL )
       {
-         ImageList_GetIconSize( himl, &cx, &cy );
+         ImageList_GetIconSize(himl, &cx, &cy);
 
          ImageList_Destroy( himl );
       }
 
       if( ( cx > 0 ) && ( cy > 0 ) )
       {
-         himl = ImageList_Create( cx, cy, ILC_COLOR8 | ILC_MASK, l + 1, l + 1 );
+         himl = ImageList_Create(cx, cy, ILC_COLOR8 | ILC_MASK, l + 1, l + 1);
 
          if( himl != NULL )
          {
@@ -1565,7 +1565,7 @@ static void FLD_AddBitmap(HWND hWndFolder)
 
                if( hbmp != NULL )
                {
-                  ImageList_AddMasked( himl, hbmp, CLR_DEFAULT );
+                  ImageList_AddMasked(himl, hbmp, CLR_DEFAULT);
                   DeleteObject(hbmp);
                }
                else
@@ -1574,7 +1574,7 @@ static void FLD_AddBitmap(HWND hWndFolder)
                   hDC  = GetDC(pFhi->hwndTab);
                   hbmp = CreateCompatibleBitmap(hDC, cx, cy);
 
-                  ImageList_AddMasked( himl, hbmp, CLR_DEFAULT );
+                  ImageList_AddMasked(himl, hbmp, CLR_DEFAULT);
 
                   DeleteObject(hbmp);
                   ReleaseDC(pFhi->hwndTab, hDC);

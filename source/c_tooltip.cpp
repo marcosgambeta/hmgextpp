@@ -87,15 +87,15 @@ typedef struct _tagEDITBALLOONTIP
 
 extern BOOL _isValidCtrlClass( HWND, LPCTSTR );
 
-extern BOOL Array2Point( PHB_ITEM aPoint, POINT * pt );
+extern BOOL Array2Point(PHB_ITEM aPoint, POINT * pt);
 extern BOOL Array2Rect(PHB_ITEM aPoint, RECT * rect);
 extern BOOL Array2ColorRef(PHB_ITEM aCRef, COLORREF * cr);
-extern HB_EXPORT PHB_ITEM Rect2Array( RECT * rc );
+extern HB_EXPORT PHB_ITEM Rect2Array(RECT * rc);
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
+LPWSTR AnsiToWide(LPCSTR);
 #endif
-HINSTANCE GetInstance( void );
+HINSTANCE GetInstance(void);
 
 static HB_BOOL g_bIsToolTipActive  = TRUE;
 static HB_BOOL g_bIsToolTipBalloon = FALSE;
@@ -166,7 +166,7 @@ HB_FUNC( INITTOOLTIP )
          dwStyle |= TTS_BALLOON;
       }
 
-      InitCommonControlsEx( &icex );
+      InitCommonControlsEx(&icex);
       /* Create a tooltip */
       hwndToolTip = CreateWindowEx
                     (
@@ -201,7 +201,7 @@ HB_FUNC( SETTOOLTIP )
 #ifndef UNICODE
          LPSTR lpText = ( LPSTR ) hb_parc(2);
 #else
-         LPWSTR lpText = AnsiToWide( ( char * ) hb_parc(2) );
+         LPWSTR lpText = AnsiToWide(( char * ) hb_parc(2));
 #endif
          TOOLINFO ti; memset(&ti, 0, sizeof(TOOLINFO));
          /* Set up "tool" information */
@@ -308,7 +308,7 @@ HB_FUNC( INITTOOLTIPEX )
       LPSTR lpszTitle = ( LPSTR ) ( HB_ISCHAR(4) ? hb_parc(4) : NULL );
 #else
       LPWSTR lpszText  = ( LPWSTR ) NULL;
-      LPWSTR lpszTitle = HB_ISCHAR(4) ? AnsiToWide( ( char * ) hb_parc(4) ) : NULL;
+      LPWSTR lpszTitle = HB_ISCHAR(4) ? AnsiToWide(( char * ) hb_parc(4)) : NULL;
 #endif
       int      nIcon   = hb_parnidef( 5, TTI_NONE );
       DWORD    dwStyle = WS_POPUP;
@@ -327,7 +327,7 @@ HB_FUNC( INITTOOLTIPEX )
       #ifndef UNICODE
          lpszText = ( LPSTR ) hb_parc(3);
       #else
-         lpszText = AnsiToWide( ( char * ) hb_parc(3) );
+         lpszText = AnsiToWide(( char * ) hb_parc(3));
       #endif
       }
       else if( HB_ISNUM(3) )
@@ -345,7 +345,7 @@ HB_FUNC( INITTOOLTIPEX )
          uFlags = hmg_par_UINT(7);
       }
 
-      InitCommonControlsEx( &icex );
+      InitCommonControlsEx(&icex);
       /* Create a tooltip */
       hwndToolTip = CreateWindowEx
                     (
@@ -483,7 +483,7 @@ HB_FUNC( TTM_GETMARGIN )
 
       SendMessage( hwndToolTip, TTM_GETMARGIN, 0, ( LPARAM ) &rect );
 
-      hb_itemReturnRelease( Rect2Array( &rect ) );
+      hb_itemReturnRelease(Rect2Array(&rect));
    }
    else
    {
@@ -802,7 +802,7 @@ HB_FUNC( TTM_TRACKPOSITION )
    {
       POINT point;
 
-      if( Array2Point( hb_param( 3, Harbour::Item::ARRAY ), &point ) )
+      if( Array2Point(hb_param( 3, Harbour::Item::ARRAY ), &point) )
       {
          ClientToScreen( hwndTool, &point );
 
@@ -851,7 +851,7 @@ HB_FUNC( TTM_UPDATETIPTEXT ) //old HB_FUNC( UPDATETOOLTIPTEXT )
 #ifndef UNICODE
          LPSTR lpszText = ( LPSTR ) hb_parc(3);
 #else
-         LPWSTR lpszText = AnsiToWide( ( char * ) hb_parc(3) );
+         LPWSTR lpszText = AnsiToWide(( char * ) hb_parc(3));
 #endif
          TOOLINFO ti; memset(&ti, 0, sizeof(TOOLINFO));
 
@@ -888,7 +888,7 @@ HB_FUNC( TTM_WINDOWFROMPOINT )
    {
       POINT point;
 
-      if( Array2Point( hb_param( 3, Harbour::Item::ARRAY ), &point ) )
+      if( Array2Point(hb_param( 3, Harbour::Item::ARRAY ), &point) )
       {
          ClientToScreen( hwndTool, &point );
 

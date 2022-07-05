@@ -53,12 +53,12 @@
 #include "hbapiitm.h"
 
 #if defined( __BORLANDC__ )
-WINGDIAPI BOOL WINAPI GdiFlush( void );
+WINGDIAPI BOOL WINAPI GdiFlush(void);
 #endif
 
 extern HB_EXPORT BOOL Array2ColorRef(PHB_ITEM aCRef, COLORREF * cr);
 extern HB_EXPORT BOOL Array2Rect(PHB_ITEM aRect, RECT * rc);
-extern HB_EXPORT PHB_ITEM Rect2Array( RECT * rc );
+extern HB_EXPORT PHB_ITEM Rect2Array(RECT * rc);
 
 
 HB_FUNC( BEGINPAINT )
@@ -161,7 +161,7 @@ HB_FUNC( GETUPDATERECT )
          RECT rc;
 
          hb_retl( GetUpdateRect(hWnd, &rc, hb_parl(3)) ? HB_TRUE : HB_FALSE );
-         hb_itemParamStoreRelease( 2, Rect2Array( &rc ) );
+         hb_itemParamStoreRelease(2, Rect2Array(&rc));
       }
    }
    else

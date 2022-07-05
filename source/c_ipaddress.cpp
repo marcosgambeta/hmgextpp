@@ -51,7 +51,7 @@
 
 #include <commctrl.h>
 
-HINSTANCE GetInstance( void );
+HINSTANCE GetInstance(void);
 
 HB_FUNC( INITIPADDRESS )
 {
@@ -63,7 +63,7 @@ HB_FUNC( INITIPADDRESS )
 
    icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
    icex.dwICC  = ICC_INTERNET_CLASSES;
-   InitCommonControlsEx( &icex );
+   InitCommonControlsEx(&icex);
 
    hWnd = hmg_par_HWND(1);
 

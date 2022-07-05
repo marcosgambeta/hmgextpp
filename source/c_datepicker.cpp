@@ -57,10 +57,10 @@
 #include "hbdate.h"
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
+LPWSTR AnsiToWide(LPCSTR);
 #endif
 
-HINSTANCE GetInstance( void );
+HINSTANCE GetInstance(void);
 
 LRESULT CALLBACK  OwnPickProc( HWND hbutton, UINT msg, WPARAM wParam, LPARAM lParam );
 
@@ -77,7 +77,7 @@ HB_FUNC( INITDATEPICK )
 
    i.dwSize = sizeof(INITCOMMONCONTROLSEX);
    i.dwICC  = ICC_DATE_CLASSES;
-   InitCommonControlsEx( &i );
+   InitCommonControlsEx(&i);
 
    hwnd = hmg_par_HWND(1);
 
@@ -128,7 +128,7 @@ HB_FUNC( INITTIMEPICK )
 
    i.dwSize = sizeof(INITCOMMONCONTROLSEX);
    i.dwICC  = ICC_DATE_CLASSES;
-   InitCommonControlsEx( &i );
+   InitCommonControlsEx(&i);
 
    hwnd = hmg_par_HWND(1);
 
@@ -481,7 +481,7 @@ HB_FUNC( SETDATEPICKERDATEFORMAT )
 #ifndef UNICODE
    LPCSTR lpFormat = hb_parc(2);
 #else
-   LPCWSTR lpFormat = AnsiToWide( ( char * ) hb_parc(2) );
+   LPCWSTR lpFormat = AnsiToWide(( char * ) hb_parc(2));
 #endif
 
    hb_retl( ( int ) SendMessage( hmg_par_HWND(1), DTM_SETFORMAT, 0, ( LPARAM ) lpFormat ) );

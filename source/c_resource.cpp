@@ -52,10 +52,10 @@
 
 #include "hbapifs.h"
 
-HINSTANCE GetInstance( void );
+HINSTANCE GetInstance(void);
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
+LPWSTR AnsiToWide(LPCSTR);
 #endif
 static HINSTANCE hResources = 0;
 static HINSTANCE HMG_DllStore[ 256 ];
@@ -67,16 +67,16 @@ static HINSTANCE HMG_LoadDll( char * DllName )
 #ifndef UNICODE
    LPCSTR lpLibFileName = DllName;
 #else
-   LPCWSTR lpLibFileName = AnsiToWide( DllName );
+   LPCWSTR lpLibFileName = AnsiToWide(DllName);
 #endif
 
    DllCnt = ( DllCnt + 1 ) & 255;
    FreeLibrary( HMG_DllStore[ DllCnt ] );
 
-   return HMG_DllStore[ DllCnt ] = LoadLibraryEx( lpLibFileName, NULL, 0 );
+   return HMG_DllStore[ DllCnt ] = LoadLibraryEx(lpLibFileName, NULL, 0);
 }
 
-static void HMG_UnloadDll( void )
+static void HMG_UnloadDll(void)
 {
    register int i;
 
@@ -86,7 +86,7 @@ static void HMG_UnloadDll( void )
    }
 }
 
-HINSTANCE GetResources( void )
+HINSTANCE GetResources(void)
 {
    return ( hResources ) ? ( hResources ) : ( GetInstance() );
 }
@@ -127,7 +127,7 @@ HB_FUNC( RCDATATOFILE )
    HANDLE  hFile;
 
    if( hb_parclen(1) > 0 )
-      hResInfo = FindResourceA( hModule, hb_parc(1), lpType );
+      hResInfo = FindResourceA(hModule, hb_parc(1), lpType);
    else
       hResInfo = FindResource(hModule, MAKEINTRESOURCE(hb_parni(1)), lpType);
 
@@ -192,8 +192,8 @@ HB_FUNC( RCDATATOFILE )
    LPCSTR lpName = hb_parc(1);
    LPCSTR lpType = ( hb_parclen(3) > 0 ) ? ( LPCSTR ) hb_parc(3) : MAKEINTRESOURCE(hb_parnidef( 3, 10 ));
 #else
-   LPCWSTR lpName = AnsiToWide( ( char * ) hb_parc(1) );
-   LPCWSTR lpType = HB_ISCHAR(3) ? AnsiToWide( ( char * ) hb_parc(3) ) : ( LPCWSTR ) MAKEINTRESOURCE(hb_parnidef( 3, 10 ));
+   LPCWSTR lpName = AnsiToWide(( char * ) hb_parc(1));
+   LPCWSTR lpType = HB_ISCHAR(3) ? AnsiToWide(( char * ) hb_parc(3)) : ( LPCWSTR ) MAKEINTRESOURCE(hb_parnidef( 3, 10 ));
 #endif
    HRSRC   hResInfo;
    HGLOBAL hResData = NULL;
@@ -227,12 +227,12 @@ HB_FUNC( RCDATATOFILE )
 
          if( NULL != pFile )
          {
-            dwResult = hb_fileWrite( pFile, ( const void * ) lpData, ( HB_SIZE ) dwSize, -1 );
+            dwResult = hb_fileWrite(pFile, ( const void * ) lpData, ( HB_SIZE ) dwSize, -1);
 
             if( dwResult != dwSize )
                dwResult = ( HB_SIZE ) -5;  // can't write
 
-            hb_fileClose( pFile );
+            hb_fileClose(pFile);
          }
          else
             dwResult = ( HB_SIZE ) -4;  // can't open

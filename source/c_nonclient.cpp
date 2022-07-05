@@ -50,8 +50,8 @@
 #include <mgdefs.h>
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
-LPSTR  WideToAnsi( LPWSTR );
+LPWSTR AnsiToWide(LPCSTR);
+LPSTR  WideToAnsi(LPWSTR);
 #endif
 
 /* Grigory Filatov <gfilatov@gmail.com> HMG 18.05 */
@@ -95,7 +95,7 @@ HB_FUNC( GETNONCLIENTFONT )
 #ifndef UNICODE
          HB_STORC( ncm.lfCaptionFont.lfFaceName, -1, 1 );
 #else
-         pStr = WideToAnsi( ncm.lfCaptionFont.lfFaceName );
+         pStr = WideToAnsi(ncm.lfCaptionFont.lfFaceName);
          HB_STORC( pStr, -1, 1 );
          hb_xfree(pStr);
 #endif
@@ -107,7 +107,7 @@ HB_FUNC( GETNONCLIENTFONT )
 #ifndef UNICODE
          HB_STORC( ncm.lfMenuFont.lfFaceName, -1, 1 );
 #else
-         pStr = WideToAnsi( ncm.lfMenuFont.lfFaceName );
+         pStr = WideToAnsi(ncm.lfMenuFont.lfFaceName);
          HB_STORC( pStr, -1, 1 );
          hb_xfree(pStr);
 #endif
@@ -119,7 +119,7 @@ HB_FUNC( GETNONCLIENTFONT )
 #ifndef UNICODE
          HB_STORC( ncm.lfStatusFont.lfFaceName, -1, 1 );
 #else
-         pStr = WideToAnsi( ncm.lfStatusFont.lfFaceName );
+         pStr = WideToAnsi(ncm.lfStatusFont.lfFaceName);
          HB_STORC( pStr, -1, 1 );
          hb_xfree(pStr);
 #endif
@@ -131,7 +131,7 @@ HB_FUNC( GETNONCLIENTFONT )
 #ifndef UNICODE
          HB_STORC( ncm.lfMessageFont.lfFaceName, -1, 1 );
 #else
-         pStr = WideToAnsi( ncm.lfMessageFont.lfFaceName );
+         pStr = WideToAnsi(ncm.lfMessageFont.lfFaceName);
          HB_STORC( pStr, -1, 1 );
          hb_xfree(pStr);
 #endif
@@ -177,13 +177,13 @@ HB_FUNC( SETNONCLIENTFONT )
 
    memset(&lf, 0, sizeof(LOGFONT));
 #ifdef UNICODE
-   pWStr = AnsiToWide( hb_parc(2) );
+   pWStr = AnsiToWide(hb_parc(2));
    lstrcpy(lf.lfFaceName, pWStr);
    hb_xfree(pWStr);
 #else
    lstrcpy(lf.lfFaceName, hb_parc(2));
 #endif
-   lf.lfHeight  = -MulDiv( hb_parni(3), GetDeviceCaps( hDC, LOGPIXELSY ), 72 );
+   lf.lfHeight  = -MulDiv( hb_parni(3), GetDeviceCaps(hDC, LOGPIXELSY), 72 );
    lf.lfWeight  = ( HB_ISLOG(4) && hb_parl(4) ) ? 700 : 400;
    lf.lfCharSet = ( BYTE ) ( HB_ISNIL(5) ? 0 : hb_parni(5) );
 

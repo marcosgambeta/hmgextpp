@@ -67,13 +67,13 @@
 
 // extern functions
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
-LPSTR  WideToAnsi( LPWSTR );
+LPWSTR AnsiToWide(LPCSTR);
+LPSTR  WideToAnsi(LPWSTR);
 #endif
-HINSTANCE      GetResources( void );
+HINSTANCE      GetResources(void);
 extern HB_PTRUINT wapi_GetProcAddress( HMODULE hModule, LPCSTR lpProcName );
 extern void    hmg_ErrorExit( LPCTSTR lpMessage, DWORD dwError, BOOL bExit );
-extern HBITMAP HMG_LoadImage( const char * FileName, const char * pszTypeOfRes );
+extern HBITMAP HMG_LoadImage(const char * FileName, const char * pszTypeOfRes);
 // Minigui Resources control system
 void           RegisterResource(HANDLE hResource, LPSTR szType);
 // local  function
@@ -85,7 +85,7 @@ HACCEL g_hAccel   = NULL;
 // static variables
 static HWND hDlgModeless = NULL;
 
-BOOL SetAcceleratorTable( HWND hWnd, HACCEL hHaccel )
+BOOL SetAcceleratorTable(HWND hWnd, HACCEL hHaccel)
 {
    g_hWndMain = hWnd;
    g_hAccel   = hHaccel;
@@ -220,7 +220,7 @@ HB_FUNC( SETWINDOWTEXT )
 #ifndef UNICODE
    LPCSTR lpString = ( LPCSTR ) hb_parc(2);
 #else
-   LPCWSTR lpString = AnsiToWide( ( char * ) hb_parc(2) );
+   LPCWSTR lpString = AnsiToWide(( char * ) hb_parc(2));
 #endif
    SetWindowText(hmg_par_HWND(1), lpString);
 
@@ -258,7 +258,7 @@ HB_FUNC( FLASHWINDOWEX )
    FlashWinInfo.uCount    = hmg_par_UINT(3);
    FlashWinInfo.dwTimeout = ( DWORD ) hb_parnl(4);
 
-   hb_retl( ( BOOL ) FlashWindowEx( &FlashWinInfo ) );
+   hb_retl( ( BOOL ) FlashWindowEx(&FlashWinInfo) );
 }
 
 HB_FUNC( SETLAYEREDWINDOWATTRIBUTES )
@@ -372,7 +372,7 @@ HB_FUNC( GETWINDOWTEXT )
 #else
    GetWindowText(hWnd, szText, iLen + 1);
 
-   pStr = WideToAnsi( szText );
+   pStr = WideToAnsi(szText);
    hb_retc( pStr );
    hb_xfree(pStr);
 #endif
@@ -540,7 +540,7 @@ HB_FUNC( SHOWNOTIFYICON )
 #ifndef UNICODE
    char * szText = ( char * ) hb_parc(4);
 #else
-   TCHAR * szText = ( TCHAR * ) AnsiToWide( ( char * ) hb_parc(4) );
+   TCHAR * szText = ( TCHAR * ) AnsiToWide(( char * ) hb_parc(4));
 #endif
    hb_retl( ( BOOL ) ShowNotifyIcon(hmg_par_HWND(1), hmg_par_BOOL(2), hmg_par_HICON(3), ( TCHAR * ) szText) );
 
@@ -611,15 +611,15 @@ HB_FUNC( LOADTRAYICON )
 #ifndef UNICODE
    LPCTSTR lpIconName = HB_ISCHAR(2) ? hb_parc(2) : MAKEINTRESOURCE(hb_parni(2));   // name string or resource identifier
 #else
-   LPCWSTR lpIconName = HB_ISCHAR(2) ? AnsiToWide( ( char * ) hb_parc(2) ) : ( LPCWSTR ) MAKEINTRESOURCE(hb_parni(2));
+   LPCWSTR lpIconName = HB_ISCHAR(2) ? AnsiToWide(( char * ) hb_parc(2)) : ( LPCWSTR ) MAKEINTRESOURCE(hb_parni(2));
 #endif
    int cxDesired = HB_ISNUM(3) ? hb_parni(3) : GetSystemMetrics( SM_CXSMICON );
    int cyDesired = HB_ISNUM(4) ? hb_parni(4) : GetSystemMetrics( SM_CYSMICON );
 
-   hIcon = ( HICON ) LoadImage( hInstance, lpIconName, IMAGE_ICON, cxDesired, cyDesired, LR_DEFAULTCOLOR );
+   hIcon = ( HICON ) LoadImage(hInstance, lpIconName, IMAGE_ICON, cxDesired, cyDesired, LR_DEFAULTCOLOR);
 
    if( hIcon == NULL )
-      hIcon = ( HICON ) LoadImage( hInstance, lpIconName, IMAGE_ICON, cxDesired, cyDesired, LR_LOADFROMFILE | LR_DEFAULTCOLOR );
+      hIcon = ( HICON ) LoadImage(hInstance, lpIconName, IMAGE_ICON, cxDesired, cyDesired, LR_LOADFROMFILE | LR_DEFAULTCOLOR);
 
    RegisterResource(hIcon, const_cast<char*>("ICON"));
    HB_RETNL( ( LONG_PTR ) hIcon );
@@ -651,7 +651,7 @@ HB_FUNC( CHANGENOTIFYICON )
 #ifndef UNICODE
    char * szText = ( char * ) hb_parc(3);
 #else
-   TCHAR * szText = ( TCHAR * ) AnsiToWide( ( char * ) hb_parc(3) );
+   TCHAR * szText = ( TCHAR * ) AnsiToWide(( char * ) hb_parc(3));
 #endif
    hb_retl( ( BOOL ) ChangeNotifyIcon(hmg_par_HWND(1), hmg_par_HICON(2), ( TCHAR * ) szText) );
 
@@ -701,7 +701,7 @@ static BOOL CALLBACK EnumWindowsProc( HWND hWnd, LPARAM pArray )
    PHB_ITEM pHWnd = hb_itemPutNInt( NULL, ( LONG_PTR ) hWnd );
 
    hb_arrayAddForward( ( PHB_ITEM ) pArray, pHWnd );
-   hb_itemRelease( pHWnd );
+   hb_itemRelease(pHWnd);
 
    return TRUE;
 }
@@ -712,7 +712,7 @@ HB_FUNC( ENUMWINDOWS )
 
    EnumWindows( ( WNDENUMPROC ) EnumWindowsProc, ( LPARAM ) pArray );
 
-   hb_itemReturnRelease( pArray );
+   hb_itemReturnRelease(pArray);
 }
 
 static BOOL CALLBACK EnumChildProc( HWND hWnd, LPARAM lParam )
@@ -725,7 +725,7 @@ static BOOL CALLBACK EnumChildProc( HWND hWnd, LPARAM lParam )
       hb_evalBlock1( pCodeBlock, pHWnd );
    }
 
-   hb_itemRelease( pHWnd );
+   hb_itemRelease(pHWnd);
 
    return hmg_par_BOOL(-1);
 }
@@ -762,7 +762,7 @@ HB_FUNC( ADDSPLITBOXITEM )
 #ifndef UNICODE
    LPSTR lpText = ( LPSTR ) hb_parc(5);
 #else
-   LPWSTR lpText = AnsiToWide( ( char * ) hb_parc(5) );
+   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(5));
 #endif
 
    if( hb_parl(4) )
@@ -851,9 +851,9 @@ HB_FUNC( C_SETWINDOWRGN )
             break;
 
          case 4:
-            hbmp = ( HBITMAP ) LoadImage( GetResources(), ( TCHAR * ) hb_parc(2), IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION );
+            hbmp = ( HBITMAP ) LoadImage(GetResources(), ( TCHAR * ) hb_parc(2), IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION);
             if( hbmp == NULL )
-               hbmp = ( HBITMAP ) LoadImage( NULL, ( TCHAR * ) hb_parc(2), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION );
+               hbmp = ( HBITMAP ) LoadImage(NULL, ( TCHAR * ) hb_parc(2), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
 
             hRgn = BitmapToRegion(hbmp, ( COLORREF ) RGB(( int ) HB_PARNI( 3, 1 ), ( int ) HB_PARNI( 3, 2 ), ( int ) HB_PARNI( 3, 3 )), 0x101010);
             DeleteObject(hbmp);
@@ -875,7 +875,7 @@ HB_FUNC( C_SETPOLYWINDOWRGN )
    HRGN  hRgn;
    POINT lppt[ 512 ];
    int   i, fnPolyFillMode;
-   int   cPoints = ( int ) hb_parinfa( 2, 0 );
+   int   cPoints = ( int ) hb_parinfa(2, 0);
 
    if( hb_parni(4) == 1 )
       fnPolyFillMode = WINDING;
@@ -958,7 +958,7 @@ HB_FUNC( SETGRIDQUERYDATA )
    // Copy the text to the LV_ITEM structure
    // Maximum number of characters is in pDispInfo->Item.cchTextMax
 #ifdef UNICODE
-   LPWSTR lpText = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(2));
    lstrcpyn( pDispInfo->item.pszText, lpText, pDispInfo->item.cchTextMax );
    hb_xfree(lpText);
 #else
@@ -980,10 +980,10 @@ HB_FUNC( FINDWINDOWEX )
    LPCSTR lpszClass  = ( char * ) hb_parc(3);
    LPCSTR lpszWindow = ( char * ) hb_parc(4);
 #else
-   LPWSTR lpszClass  = ( hb_parc(3) != NULL ) ? hb_osStrU16Encode( hb_parc(3) ) : NULL;
-   LPWSTR lpszWindow = ( hb_parc(4) != NULL ) ? hb_osStrU16Encode( hb_parc(4) ) : NULL;
+   LPWSTR lpszClass  = ( hb_parc(3) != NULL ) ? hb_osStrU16Encode(hb_parc(3)) : NULL;
+   LPWSTR lpszWindow = ( hb_parc(4) != NULL ) ? hb_osStrU16Encode(hb_parc(4)) : NULL;
 #endif
-   HB_RETNL( ( LONG_PTR ) FindWindowEx( hmg_par_HWND(1), hmg_par_HWND(2), lpszClass, lpszWindow ) );
+   HB_RETNL( ( LONG_PTR ) FindWindowEx(hmg_par_HWND(1), hmg_par_HWND(2), lpszClass, lpszWindow) );
 
 #ifdef UNICODE
    if( lpszClass != NULL )
@@ -1057,7 +1057,7 @@ HB_FUNC( GETTABBEDCONTROLBRUSH )
    SetBkMode( hDC, TRANSPARENT );
    GetWindowRect(hmg_par_HWND(2), &rc);
    MapWindowPoints( NULL, hmg_par_HWND(3), ( LPPOINT ) ( &rc ), 2 );
-   SetBrushOrgEx( hDC, -rc.left, -rc.top, NULL );
+   SetBrushOrgEx(hDC, -rc.left, -rc.top, NULL);
    hBrush = ( HBRUSH ) HB_PARNL(4);
 
    HB_RETNL( ( LONG_PTR ) hBrush );
@@ -1182,18 +1182,18 @@ HB_FUNC( CREATEPATTERNBRUSH )
 #ifndef UNICODE
    LPCTSTR lpImageName = HB_ISCHAR(1) ? hb_parc(1) : ( HB_ISNUM(1) ? MAKEINTRESOURCE(hb_parni(1)) : NULL );
 #else
-   LPCWSTR lpImageName = HB_ISCHAR(1) ? AnsiToWide( ( char * ) hb_parc(1) ) : ( HB_ISNUM(1) ? ( LPCWSTR ) MAKEINTRESOURCE(hb_parni(1)) : NULL );
+   LPCWSTR lpImageName = HB_ISCHAR(1) ? AnsiToWide(( char * ) hb_parc(1)) : ( HB_ISNUM(1) ? ( LPCWSTR ) MAKEINTRESOURCE(hb_parni(1)) : NULL );
 #endif
 
-   hImage = ( HBITMAP ) LoadImage( GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
+   hImage = ( HBITMAP ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
    if( hImage == NULL && HB_ISCHAR(1) )
    {
-      hImage = ( HBITMAP ) LoadImage( NULL, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
+      hImage = ( HBITMAP ) LoadImage(NULL, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
    }
    if( hImage == NULL )
    {
-      hImage = ( HBITMAP ) HMG_LoadImage( hb_parc(1), NULL );
+      hImage = ( HBITMAP ) HMG_LoadImage(hb_parc(1), NULL);
    }
 
    HB_RETNL( ( hImage != NULL ) ? ( LONG_PTR ) CreatePatternBrush(hImage) : ( LONG_PTR ) 0 );
@@ -1277,12 +1277,12 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
 
                // Copy the bitmap into the memory DC
                holdBmp = ( HBITMAP ) SelectObject(hDC, hBmp);
-               BitBlt( hMemDC, 0, 0, bm.bmWidth, bm.bmHeight, hDC, 0, 0, SRCCOPY );
+               BitBlt(hMemDC, 0, 0, bm.bmWidth, bm.bmHeight, hDC, 0, 0, SRCCOPY);
 
                // For better performances, we will use the  ExtCreateRegion() function to create the  region.
                // This function take a RGNDATA structure on  entry.
                // We will add rectangles by amount of ALLOC_UNIT number in this structure.
-               hData = GlobalAlloc( GMEM_MOVEABLE, sizeof(RGNDATAHEADER) + ( sizeof(RECT) * maxRects ) );
+               hData = GlobalAlloc(GMEM_MOVEABLE, sizeof(RGNDATAHEADER) + ( sizeof(RECT) * maxRects ));
 
                pData = ( RGNDATA * ) GlobalLock(hData);
                pData->rdh.dwSize = sizeof(RGNDATAHEADER);
@@ -1331,7 +1331,7 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
                         {
                            GlobalUnlock(hData);
                            maxRects += ALLOC_UNIT;
-                           hData     = GlobalReAlloc( hData, sizeof(RGNDATAHEADER) + ( sizeof(RECT) * maxRects ), GMEM_MOVEABLE );
+                           hData     = GlobalReAlloc(hData, sizeof(RGNDATAHEADER) + (sizeof(RECT) * maxRects), GMEM_MOVEABLE);
                            pData     = ( RGNDATA * ) GlobalLock(hData);
                         }
 

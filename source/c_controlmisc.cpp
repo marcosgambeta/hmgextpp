@@ -52,7 +52,7 @@
 #include <commctrl.h>
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
+LPWSTR AnsiToWide(LPCSTR);
 #endif
 void pascal DelResource(HANDLE hResource);
 
@@ -128,7 +128,7 @@ HB_FUNC( INSERTSHIFTTAB )
 
 HB_FUNC( SYSTEMPARAMETERSINFO )
 {
-   hb_retl( SystemParametersInfoA( hmg_par_UINT(1), hmg_par_UINT(2), ( VOID * ) hb_parc(3), hmg_par_UINT(4) ) );
+   hb_retl( SystemParametersInfoA(hmg_par_UINT(1), hmg_par_UINT(2), ( VOID * ) hb_parc(3), hmg_par_UINT(4)) );
 }
 
 HB_FUNC( GETTEXTWIDTH ) // returns the width of a string in pixels
@@ -143,7 +143,7 @@ HB_FUNC( GETTEXTWIDTH ) // returns the width of a string in pixels
 #ifndef UNICODE
    LPCSTR lpString = hb_parc(2);
 #else
-   LPCWSTR lpString = AnsiToWide( ( char * ) hb_parc(2) );
+   LPCWSTR lpString = AnsiToWide(( char * ) hb_parc(2));
 #endif
 
    if( ! hDC )

@@ -55,9 +55,9 @@
 #endif
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
+LPWSTR AnsiToWide(LPCSTR);
 #endif
-HINSTANCE GetInstance( void );
+HINSTANCE GetInstance(void);
 
 /* Modified by P.Ch. 16.12. */
 
@@ -73,7 +73,7 @@ HB_FUNC( INITFRAME )
 #ifndef UNICODE
       LPCSTR lpWindowName = hb_parc(7);
 #else
-      LPWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc(7) );
+      LPWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(7));
 #endif
 
       hbutton = CreateWindowEx

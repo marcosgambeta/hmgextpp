@@ -58,7 +58,7 @@
 LRESULT APIENTRY SubClassFunc( HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam );
 static WNDPROC lpfnOldWndProc;
 
-HINSTANCE GetInstance( void );
+HINSTANCE GetInstance(void);
 
 HB_FUNC( INITBROWSE )
 {
@@ -70,7 +70,7 @@ HB_FUNC( INITBROWSE )
 
    i.dwSize = sizeof(INITCOMMONCONTROLSEX);
    i.dwICC  = ICC_LISTVIEW_CLASSES;
-   InitCommonControlsEx( &i );
+   InitCommonControlsEx(&i);
 
    style = LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_CHILD | WS_VISIBLE | LVS_REPORT;
 
@@ -105,7 +105,7 @@ LRESULT APIENTRY SubClassFunc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
    if( msg == WM_MOUSEWHEEL )
    {
       // sprintf( res,"zDelta: %d", (short) HIWORD (wParam) );
-      // MessageBox( GetActiveWindow(), res, "", MB_OK | MB_ICONINFORMATION );
+      // MessageBox(GetActiveWindow(), res, "", MB_OK | MB_ICONINFORMATION);
 
       if( ( short ) HIWORD(wParam) > 0 )
          keybd_event

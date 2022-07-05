@@ -67,7 +67,7 @@ HB_FUNC( REGOPENKEYEXA )
    long    lError;
    HKEY    phwHandle;
 
-   lError = RegOpenKeyExA( ( HKEY ) hwKey, lpValue, 0, ( REGSAM ) hb_parnl(4), &phwHandle );
+   lError = RegOpenKeyExA(( HKEY ) hwKey, lpValue, 0, ( REGSAM ) hb_parnl(4), &phwHandle);
 
    if( lError != ERROR_SUCCESS )
       hb_retnl( -1 );
@@ -84,14 +84,14 @@ HB_FUNC( REGQUERYVALUEEXA )
    DWORD lpType   = hb_parnl(4);
    DWORD lpcbData = 0;
 
-   lError = RegQueryValueExA( ( HKEY ) HB_PARNL(1), ( LPTSTR ) hb_parc(2), NULL, &lpType, NULL, &lpcbData );
+   lError = RegQueryValueExA(( HKEY ) HB_PARNL(1), ( LPTSTR ) hb_parc(2), NULL, &lpType, NULL, &lpcbData);
 
    if( lError == ERROR_SUCCESS )
    {
       BYTE * lpData;
 
       lpData = ( BYTE * ) hb_xgrab(lpcbData + 1);
-      lError = RegQueryValueExA( ( HKEY ) HB_PARNL(1), ( LPTSTR ) hb_parc(2), NULL, &lpType, ( BYTE * ) lpData, &lpcbData );
+      lError = RegQueryValueExA(( HKEY ) HB_PARNL(1), ( LPTSTR ) hb_parc(2), NULL, &lpType, ( BYTE * ) lpData, &lpcbData);
 
       if( lError != ERROR_SUCCESS )
          hb_retnl( -1 );
@@ -119,7 +119,7 @@ HB_FUNC( REGENUMKEYEXA )
    TCHAR    Class[ 255 ];
    DWORD    dwClass = 255;
 
-   bErr = RegEnumKeyEx( ( HKEY ) HB_PARNL(1), hb_parnl(2), Buffer, &dwBuffSize, NULL, Class, &dwClass, &ft );
+   bErr = RegEnumKeyEx(( HKEY ) HB_PARNL(1), hb_parnl(2), Buffer, &dwBuffSize, NULL, Class, &dwClass, &ft);
 
    if( bErr != ERROR_SUCCESS )
       hb_retnl( -1 );
@@ -140,7 +140,7 @@ HB_FUNC( REGSETVALUEEXA )
 
    if( nType != REG_DWORD )
    {
-      if( RegSetValueExA( ( HKEY ) HB_PARNL(1), hb_parc(2), ( DWORD ) 0, hb_parnl(4), ( BYTE * ) hb_parc(5), ( DWORD ) hb_parclen(5) + 1 ) == ERROR_SUCCESS )
+      if( RegSetValueExA(( HKEY ) HB_PARNL(1), hb_parc(2), ( DWORD ) 0, hb_parnl(4), ( BYTE * ) hb_parc(5), ( DWORD ) hb_parclen(5) + 1) == ERROR_SUCCESS )
          hb_retnl(0);
       else
          hb_retnl( -1 );
@@ -148,7 +148,7 @@ HB_FUNC( REGSETVALUEEXA )
    else
    {
       DWORD nSpace = hb_parnl(5);
-      if( RegSetValueExA( ( HKEY ) HB_PARNL(1), hb_parc(2), ( DWORD ) 0, hb_parnl(4), ( BYTE * ) &nSpace, sizeof(REG_DWORD) ) == ERROR_SUCCESS )
+      if( RegSetValueExA(( HKEY ) HB_PARNL(1), hb_parc(2), ( DWORD ) 0, hb_parnl(4), ( BYTE * ) &nSpace, sizeof(REG_DWORD)) == ERROR_SUCCESS )
          hb_retnl(0);
       else
          hb_retnl( -1 );
@@ -176,7 +176,7 @@ HB_FUNC( REGENUMVALUEA )
    DWORD dwClass    = 255;
    long  lError;
 
-   lError = RegEnumValueA( ( HKEY ) HB_PARNL(1), hb_parnl(2), Buffer, &dwBuffSize, NULL, &lpType, NULL, &dwClass );
+   lError = RegEnumValueA(( HKEY ) HB_PARNL(1), hb_parnl(2), Buffer, &dwBuffSize, NULL, &lpType, NULL, &dwClass);
 
    if( lError != ERROR_SUCCESS )
       hb_retnl( -1 );
@@ -198,7 +198,7 @@ HB_FUNC( REGDELETEKEY )
 
 HB_FUNC( REGDELETEVALUEA )
 {
-   if( RegDeleteValueA( ( HKEY ) HB_PARNL(1), hb_parc(2) ) == ERROR_SUCCESS )
+   if( RegDeleteValueA(( HKEY ) HB_PARNL(1), hb_parc(2)) == ERROR_SUCCESS )
       hb_retnl(0);
    else
       hb_retnl( -1 );

@@ -84,9 +84,9 @@ HWND MCIWndCreateW(
 #include <vfw.h>
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
+LPWSTR AnsiToWide(LPCSTR);
 #endif
-HINSTANCE GetResources( void );
+HINSTANCE GetResources(void);
 
 HB_FUNC( MESSAGEBEEP )
 {
@@ -101,7 +101,7 @@ HB_FUNC( C_PLAYWAVE )
 #ifndef UNICODE
    LPCSTR pszSound = hb_parc(1);
 #else
-   LPCWSTR pszSound = AnsiToWide( ( char * ) hb_parc(1) );
+   LPCWSTR pszSound = AnsiToWide(( char * ) hb_parc(1));
 #endif
 
    if( hb_parl(2) )
@@ -143,7 +143,7 @@ HB_FUNC( INITPLAYER )
 #ifndef UNICODE
    LPCSTR szFile = hb_parc(2);
 #else
-   LPCWSTR szFile = AnsiToWide( ( char * ) hb_parc(2) );
+   LPCWSTR szFile = AnsiToWide(( char * ) hb_parc(2));
 #endif
    int Style = WS_VISIBLE | WS_CHILD | WS_BORDER;
 
@@ -177,14 +177,14 @@ HB_FUNC( INITPLAYER )
    if( hb_parl(16) )
       Style = Style | MCIWNDF_SHOWPOS;
 
-   hwnd = MCIWndCreate( hmg_par_HWND(1), NULL, Style, szFile );
+   hwnd = MCIWndCreate(hmg_par_HWND(1), NULL, Style, szFile);
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) szFile);
 #endif
    if( hwnd == NULL )
    {
-      MessageBox( 0, TEXT("Player Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL );
+      MessageBox(0, TEXT("Player Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
       return;
    }
 
@@ -245,11 +245,11 @@ HB_FUNC( INITANIMATE )
    if( hb_parl(8) )
       Style = Style | ACS_TRANSPARENT;
 
-   hwnd = Animate_Create( hmg_par_HWND(1), NULL, Style, GetResources() );
+   hwnd = Animate_Create(hmg_par_HWND(1), NULL, Style, GetResources());
 
    if( hwnd == NULL )
    {
-      MessageBox( 0, TEXT("AnimateBox Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL );
+      MessageBox(0, TEXT("AnimateBox Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
       return;
    }
 
@@ -262,7 +262,7 @@ HB_FUNC( OPENANIMATE )
 #ifndef UNICODE
    LPCSTR szName = hb_parc(2);
 #else
-   LPCWSTR szName = AnsiToWide( ( char * ) hb_parc(2) );
+   LPCWSTR szName = AnsiToWide(( char * ) hb_parc(2));
 #endif
    Animate_Open(hmg_par_HWND(1), szName);
 
@@ -278,7 +278,7 @@ HB_FUNC( PLAYANIMATE )
 
 HB_FUNC( SEEKANIMATE )
 {
-   Animate_Seek( hmg_par_HWND(1), hb_parni(2) );
+   Animate_Seek(hmg_par_HWND(1), hb_parni(2));
 }
 
 HB_FUNC( STOPANIMATE )
@@ -288,5 +288,5 @@ HB_FUNC( STOPANIMATE )
 
 HB_FUNC( CLOSEANIMATE )
 {
-   Animate_Close( hmg_par_HWND(1) );
+   Animate_Close(hmg_par_HWND(1));
 }

@@ -56,11 +56,11 @@
 #include <mgdefs.h>
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
+LPWSTR AnsiToWide(LPCSTR);
 #endif
 
-HINSTANCE GetInstance( void );
-HINSTANCE GetResources( void );
+HINSTANCE GetInstance(void);
+HINSTANCE GetResources(void);
 
 HB_FUNC( LOADCURSOR )
 {
@@ -71,7 +71,7 @@ HB_FUNC( LOADCURSOR )
 
    HB_RETNL( ( LONG_PTR ) LoadCursor(hInstance, lpCursorName) );
 #else
-   LPWSTR  pW = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR  pW = AnsiToWide(( char * ) hb_parc(2));
    LPCWSTR lpCursorName = HB_ISCHAR(2) ? pW : ( LPCWSTR ) MAKEINTRESOURCE(hb_parni(2));
 
    HB_RETNL( ( LONG_PTR ) LoadCursor(hInstance, lpCursorName) );
@@ -84,7 +84,7 @@ HB_FUNC( LOADCURSORFROMFILE )
 #ifndef UNICODE
    HB_RETNL( ( LONG_PTR ) LoadCursorFromFile(( LPCSTR ) hb_parc(1)) );
 #else
-   LPCWSTR lpFileName = AnsiToWide( ( char * ) hb_parc(1) );
+   LPCWSTR lpFileName = AnsiToWide(( char * ) hb_parc(1));
    HB_RETNL( ( LONG_PTR ) LoadCursorFromFile(lpFileName) );
    hb_xfree(( TCHAR * ) lpFileName);
 #endif
@@ -100,7 +100,7 @@ HB_FUNC( FILECURSOR )
 #ifndef UNICODE
    HB_RETNL( ( LONG_PTR ) SetCursor(LoadCursorFromFile(( LPCSTR ) hb_parc(1))) );
 #else
-   LPCWSTR lpFileName = AnsiToWide( ( char * ) hb_parc(1) );
+   LPCWSTR lpFileName = AnsiToWide(( char * ) hb_parc(1));
    HB_RETNL( ( LONG_PTR ) SetCursor(LoadCursorFromFile(lpFileName)) );
    hb_xfree(( TCHAR * ) lpFileName);
 #endif
@@ -122,7 +122,7 @@ HB_FUNC( SETWINDOWCURSOR )
 #ifndef UNICODE
    LPCSTR lpCursorName = ( hb_parinfo(2) & Harbour::Item::STRING ) ? hb_parc(2) : ( LPCSTR ) MAKEINTRESOURCE(hb_parni(2));
 #else
-   LPWSTR  pW = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR  pW = AnsiToWide(( char * ) hb_parc(2));
    LPCWSTR lpCursorName = HB_ISCHAR(2) ? pW : ( LPCWSTR ) MAKEINTRESOURCE(hb_parni(2));
 #endif
 

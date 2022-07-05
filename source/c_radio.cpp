@@ -52,9 +52,9 @@
 #endif
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
+LPWSTR AnsiToWide(LPCSTR);
 #endif
-HINSTANCE GetInstance( void );
+HINSTANCE GetInstance(void);
 
 HB_FUNC( INITRADIOGROUP )
 {
@@ -64,7 +64,7 @@ HB_FUNC( INITRADIOGROUP )
 #ifndef UNICODE
    LPCSTR lpWindowName = hb_parc(2);
 #else
-   LPWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(2));
 #endif
    int Style = BS_NOTIFY | WS_CHILD | BS_AUTORADIOBUTTON | WS_GROUP;
 
@@ -109,7 +109,7 @@ HB_FUNC( INITRADIOBUTTON )
 #ifndef UNICODE
    LPCSTR lpWindowName = hb_parc(2);
 #else
-   LPWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(2));
 #endif
    int Style = BS_NOTIFY | WS_CHILD | BS_AUTORADIOBUTTON;
 

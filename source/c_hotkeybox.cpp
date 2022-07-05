@@ -53,10 +53,10 @@
 #include <commctrl.h>
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
-LPSTR  WideToAnsi( LPWSTR );
+LPWSTR AnsiToWide(LPCSTR);
+LPSTR  WideToAnsi(LPWSTR);
 #endif
-HINSTANCE GetInstance( void );
+HINSTANCE GetInstance(void);
 
 void InterpretHotKey( UINT setting, TCHAR * szKeyName )
 {
@@ -84,7 +84,7 @@ void InterpretHotKey( UINT setting, TCHAR * szKeyName )
 #ifndef UNICODE
    lpString = szKeyName;
 #else
-   lpString = AnsiToWide( ( char * ) szKeyName );
+   lpString = AnsiToWide(( char * ) szKeyName);
 #endif
    WorkKey = MapVirtualKey( uVKey, 0 );
 
@@ -119,7 +119,7 @@ HB_FUNC( C_GETHOTKEYNAME )
 #ifndef UNICODE
    hb_retclen( szKeyName, 100 );
 #else
-   pStr = WideToAnsi( szKeyName );
+   pStr = WideToAnsi(szKeyName);
    hb_retclen( pStr, 100 );
    hb_xfree(pStr);
 #endif

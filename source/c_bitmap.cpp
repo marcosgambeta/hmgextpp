@@ -59,13 +59,13 @@
 #include "hbapifs.h"
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
+LPWSTR AnsiToWide(LPCSTR);
 #endif
 
 HANDLE   DibFromBitmap(HBITMAP, HPALETTE);
 WORD     GetDIBColors( LPSTR );
 
-HINSTANCE GetResources( void );
+HINSTANCE GetResources(void);
 
 // Minigui Resources control system
 void RegisterResource(HANDLE hResource, LPSTR szType);
@@ -84,7 +84,7 @@ HB_FUNC( SAVEWINDOWBYHANDLE )
 #ifndef UNICODE
    LPCSTR lpFileName = ( char * ) hb_parc(2);
 #else
-   LPCWSTR lpFileName = AnsiToWide( ( char * ) hb_parc(2) );
+   LPCWSTR lpFileName = AnsiToWide(( char * ) hb_parc(2));
 #endif
    int top    = hb_parni(3);
    int left   = hb_parni(4);
@@ -112,7 +112,7 @@ HB_FUNC( SAVEWINDOWBYHANDLE )
    hMemDC  = CreateCompatibleDC(hDC);
    hBitmap = CreateCompatibleBitmap(hDC, rc.right - rc.left, rc.bottom - rc.top);
    hOldBmp = ( HBITMAP ) SelectObject(hMemDC, hBitmap);
-   BitBlt( hMemDC, 0, 0, rc.right - rc.left, rc.bottom - rc.top, hDC, rc.top, rc.left, SRCCOPY );
+   BitBlt(hMemDC, 0, 0, rc.right - rc.left, rc.bottom - rc.top, hDC, rc.top, rc.left, SRCCOPY);
    SelectObject(hMemDC, hOldBmp);
    hDIB = DibFromBitmap(hBitmap, hPal);
 
@@ -166,7 +166,7 @@ HB_FUNC( WNDCOPY )
 #ifndef UNICODE
    LPCSTR lpFileName = ( char * ) hb_parc(3);
 #else
-   LPCWSTR lpFileName = AnsiToWide( ( char * ) hb_parc(3) );
+   LPCWSTR lpFileName = AnsiToWide(( char * ) hb_parc(3));
 #endif
    HANDLE hDIB;
    BITMAPFILEHEADER   bmfHdr;
@@ -184,7 +184,7 @@ HB_FUNC( WNDCOPY )
    hMemDC  = CreateCompatibleDC(hDC);
    hBitmap = CreateCompatibleBitmap(hDC, rc.right - rc.left, rc.bottom - rc.top);
    hOldBmp = ( HBITMAP ) SelectObject(hMemDC, hBitmap);
-   BitBlt( hMemDC, 0, 0, rc.right - rc.left, rc.bottom - rc.top, hDC, 0, 0, SRCCOPY );
+   BitBlt(hMemDC, 0, 0, rc.right - rc.left, rc.bottom - rc.top, hDC, 0, 0, SRCCOPY);
    SelectObject(hMemDC, hOldBmp);
    hDIB = DibFromBitmap(hBitmap, hPal);
 
@@ -260,7 +260,7 @@ WORD DibNumColors( VOID FAR * pv )
    }
 }
 
-static WORD PaletteSize( VOID FAR * pv )
+static WORD PaletteSize(VOID FAR * pv)
 {
    LPBITMAPINFOHEADER lpbi;
    WORD NumColors;
@@ -310,13 +310,13 @@ HANDLE DibFromBitmap(HBITMAP hbm, HPALETTE hpal)
    bi.biClrUsed       = 0;
    bi.biClrImportant  = 0;
 
-   dwLen = bi.biSize + PaletteSize( &bi );
+   dwLen = bi.biSize + PaletteSize(&bi);
 
    hdc  = GetDC(NULL);
    hpal = SelectPalette( hdc, hpal, FALSE );
    RealizePalette( hdc );
 
-   hdib = GlobalAlloc( GHND, dwLen );
+   hdib = GlobalAlloc(GHND, dwLen);
 
    if( ! hdib )
    {
@@ -345,9 +345,9 @@ HANDLE DibFromBitmap(HBITMAP hbm, HPALETTE hpal)
    }
 
    /*  realloc the buffer big enough to hold all the bits */
-   dwLen = bi.biSize + PaletteSize( &bi ) + bi.biSizeImage;
+   dwLen = bi.biSize + PaletteSize(&bi) + bi.biSizeImage;
 
-   h = GlobalReAlloc( hdib, dwLen, 0 );
+   h = GlobalReAlloc(hdib, dwLen, 0);
    if( h )
       hdib = h;
    else
@@ -365,7 +365,7 @@ HANDLE DibFromBitmap(HBITMAP hbm, HPALETTE hpal)
    lpbi = ( LPBITMAPINFOHEADER ) GlobalLock(hdib);
 
    if( GetDIBits( hdc, hbm, 0L, ( DWORD ) bi.biHeight,
-                  ( LPBYTE ) lpbi + ( WORD ) lpbi->biSize + PaletteSize( lpbi ),
+                  ( LPBYTE ) lpbi + ( WORD ) lpbi->biSize + PaletteSize(lpbi),
                   ( LPBITMAPINFO ) lpbi, ( DWORD ) DIB_RGB_COLORS ) == 0 )
    {
       GlobalUnlock(hdib);
@@ -395,7 +395,7 @@ HB_FUNC( C_HASALPHA ) // hBitmap --> lYesNo
    BOOL   bAlphaChannel = FALSE;
    HDC    hDC = GetDC(GetDesktopWindow());
 
-   if( GetDeviceCaps( hDC, BITSPIXEL ) < 32 )
+   if( GetDeviceCaps(hDC, BITSPIXEL) < 32 )
    {
       ReleaseDC(GetDesktopWindow(), hDC);
       hb_retl( FALSE );
@@ -409,7 +409,7 @@ HB_FUNC( C_HASALPHA ) // hBitmap --> lYesNo
    if( hDib )
    {
       LPBITMAPINFO    lpbmi = ( LPBITMAPINFO ) GlobalLock(hDib);
-      unsigned char * uc    = ( LPBYTE ) lpbmi + ( WORD ) lpbmi->bmiHeader.biSize + PaletteSize( lpbmi );
+      unsigned char * uc    = ( LPBYTE ) lpbmi + ( WORD ) lpbmi->bmiHeader.biSize + PaletteSize(lpbmi);
       unsigned long   ul;
 
       for( ul = 0; ul < lpbmi->bmiHeader.biSizeImage && ! bAlphaChannel; ul += 4 )
@@ -437,8 +437,8 @@ HBITMAP Icon2Bmp( HICON hIcon )
    hBmp    = CreateCompatibleBitmap(hDC, bitmap.bmWidth, bitmap.bmHeight);
    hOldBmp = ( HBITMAP ) SelectObject(hMemDC, hBmp);
 
-   PatBlt( hMemDC, 0, 0, bitmap.bmWidth, bitmap.bmHeight, WHITENESS );
-   DrawIconEx( hMemDC, 0, 0, hIcon, bitmap.bmWidth, bitmap.bmHeight, 0, NULL, DI_NORMAL );
+   PatBlt(hMemDC, 0, 0, bitmap.bmWidth, bitmap.bmHeight, WHITENESS);
+   DrawIconEx(hMemDC, 0, 0, hIcon, bitmap.bmWidth, bitmap.bmHeight, 0, NULL, DI_NORMAL);
    SelectObject(hMemDC, hOldBmp);
    DeleteDC(hMemDC);
    DeleteObject(icon.hbmMask);
@@ -466,8 +466,8 @@ HBITMAP IconMask2Bmp( HICON hIcon )
    hBmp    = CreateCompatibleBitmap(hDC, bitmap.bmWidth, bitmap.bmHeight);
    hOldBmp = ( HBITMAP ) SelectObject(hMemDC, hBmp);
 
-   PatBlt( hMemDC, 0, 0, bitmap.bmWidth, bitmap.bmHeight, WHITENESS );
-   DrawIconEx( hMemDC, 0, 0, hIcon, bitmap.bmWidth, bitmap.bmHeight, 0, NULL, DI_MASK );
+   PatBlt(hMemDC, 0, 0, bitmap.bmWidth, bitmap.bmHeight, WHITENESS);
+   DrawIconEx(hMemDC, 0, 0, hIcon, bitmap.bmWidth, bitmap.bmHeight, 0, NULL, DI_MASK);
    SelectObject(hMemDC, hOldBmp);
    DeleteDC(hMemDC);
    DeleteObject(icon.hbmMask);
@@ -530,7 +530,7 @@ HB_FUNC( DRAWGLYPH )
       {
          // just simply draw it - nothing to do
          // (API is faster and the transparent colour is more accurate)
-         DrawIconEx( hDC, x, y, ( HICON ) hBmp, dx, dy, 0, NULL, DI_NORMAL );
+         DrawIconEx(hDC, x, y, ( HICON ) hBmp, dx, dy, 0, NULL, DI_NORMAL);
          return;
       }
       else
@@ -561,7 +561,7 @@ HB_FUNC( DRAWGLYPH )
       SelectObject(hDCMem, hBmpStretch);
       hDCStretch  = CreateCompatibleDC(hDC);
       hBmpDefault = ( HBITMAP ) SelectObject(hDCStretch, hBmp);
-      StretchBlt( hDCMem, 0, 0, dx, dy, hDCStretch, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCCOPY );
+      StretchBlt(hDCMem, 0, 0, dx, dy, hDCStretch, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCCOPY);
       SelectObject(hDCStretch, hBmpDefault);
       DeleteDC(hDCStretch);
    }
@@ -576,43 +576,43 @@ HB_FUNC( DRAWGLYPH )
    hDCNoBlink     = CreateCompatibleDC(hDC);
    hBmpNoBlink    = CreateCompatibleBitmap(hDC, dx, dy);
    hBmpNoBlinkOld = ( HBITMAP ) SelectObject(hDCNoBlink, hBmpNoBlink);
-   BitBlt( hDCNoBlink, 0, 0, dx, dy, hDC, x, y, SRCCOPY );
+   BitBlt(hDCNoBlink, 0, 0, dx, dy, hDC, x, y, SRCCOPY);
    SetBkColor(hDCNoBlink, RGB(255, 255, 255));    //White
    SetTextColor(hDCNoBlink, RGB(0, 0, 0));        //Black
 
    // was background colour given?
    // no? get the color automatically
    if( ! bHasBkColor )
-      rgbTransparent = GetPixel( hDCMem, 0, 0 );
+      rgbTransparent = GetPixel(hDCMem, 0, 0);
 
    // build mask based on transparent color.
    hDCMask       = CreateCompatibleDC(hDCNoBlink);
    hBmpTransMask = CreateBitmap(dx, dy, 1, 1, NULL);
    SelectObject(hDCMask, hBmpTransMask);
    SetBkColor(hDCMem, rgbTransparent);
-   BitBlt( hDCMask, 0, 0, dx, dy, hDCMem, 0, 0, SRCCOPY );
+   BitBlt(hDCMask, 0, 0, dx, dy, hDCMem, 0, 0, SRCCOPY);
 
    if( disabled )
    {
       hBr  = CreateSolidBrush(GetSysColor(COLOR_BTNHIGHLIGHT));
       hOld = ( HBRUSH ) SelectObject(hDCNoBlink, hBr);
-      BitBlt( hDCNoBlink, 1, 1, dx - 0, dy - 0, hDCMask, 0, 0, 12060490 );
+      BitBlt(hDCNoBlink, 1, 1, dx - 0, dy - 0, hDCMask, 0, 0, 12060490);
       SelectObject(hDCNoBlink, hOld);
       DeleteObject(hBr);
       hBr  = CreateSolidBrush(GetSysColor(COLOR_BTNSHADOW));
       hOld = ( HBRUSH ) SelectObject(hDCNoBlink, hBr);
-      BitBlt( hDCNoBlink, 0, 0, dx - 0, dy - 0, hDCMask, 0, 0, 12060490 );
+      BitBlt(hDCNoBlink, 0, 0, dx - 0, dy - 0, hDCMask, 0, 0, 12060490);
       SelectObject(hDCNoBlink, hOld);
       DeleteObject(hBr);
    }
    else
    {
-      BitBlt( hDCNoBlink, 0, 0, dx, dy, hDCMem, 0, 0, SRCINVERT );
-      BitBlt( hDCNoBlink, 0, 0, dx, dy, hDCMask, 0, 0, SRCAND );
-      BitBlt( hDCNoBlink, 0, 0, dx, dy, hDCMem, 0, 0, SRCINVERT );
+      BitBlt(hDCNoBlink, 0, 0, dx, dy, hDCMem, 0, 0, SRCINVERT);
+      BitBlt(hDCNoBlink, 0, 0, dx, dy, hDCMask, 0, 0, SRCAND);
+      BitBlt(hDCNoBlink, 0, 0, dx, dy, hDCMem, 0, 0, SRCINVERT);
    }
 
-   BitBlt( hDC, x, y, dx, dy, hDCNoBlink, 0, 0, SRCCOPY );
+   BitBlt(hDC, x, y, dx, dy, hDCNoBlink, 0, 0, SRCCOPY);
 
    // clean up
    SelectObject(hDCMem, hBmpDefault);
@@ -661,7 +661,7 @@ HB_FUNC( DRAWGLYPHMASK )
    dx = ( dx > 0 ? HB_MIN(dx, bitmap.bmWidth) : bitmap.bmWidth );
    dy = ( dy > 0 ? HB_MIN(dy, bitmap.bmHeight) : bitmap.bmHeight );
    hBmpDefault    = ( HBITMAP ) SelectObject(hDCMem, hBmp);
-   rgbTransparent = GetPixel( hDCMem, 0, 0 );
+   rgbTransparent = GetPixel(hDCMem, 0, 0);
 
    // build mask based on transparent color
    hDCMask       = CreateCompatibleDC(hDC);
@@ -669,7 +669,7 @@ HB_FUNC( DRAWGLYPHMASK )
 
    SelectObject(hDCMask, hBmpTransMask);
    SetBkColor(hDCMem, rgbTransparent);
-   BitBlt( hDCMask, 0, 0, dx, dy, hDCMem, 0, 0, SRCCOPY );
+   BitBlt(hDCMask, 0, 0, dx, dy, hDCMem, 0, 0, SRCCOPY);
 
    // handle to bitmaped button mask
    if( hwnd != NULL )
@@ -704,14 +704,14 @@ HB_FUNC( LOADBITMAP )
 #ifndef UNICODE
    LPCSTR lpImageName = hb_parc(1);
 #else
-   LPWSTR lpImageName = AnsiToWide( ( char * ) hb_parc(1) );
+   LPWSTR lpImageName = AnsiToWide(( char * ) hb_parc(1));
 #endif
    HBITMAP hBitmap;
 
-   hBitmap = ( HBITMAP ) LoadImage( GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR );
+   hBitmap = ( HBITMAP ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR);
 
    if( hBitmap == NULL )
-      hBitmap = ( HBITMAP ) LoadImage( NULL, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR );
+      hBitmap = ( HBITMAP ) LoadImage(NULL, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR);
 
    RegisterResource(hBitmap, const_cast<LPSTR>("BMP"));
    HB_RETNL( ( LONG_PTR ) hBitmap );
@@ -752,7 +752,7 @@ VOID DrawGlyph( HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rg
 
       if( ! disabled && ! stretched )
       {
-         DrawIconEx( hDC, x, y, ( HICON ) hBmp, dx, dy, 0, NULL, DI_NORMAL );
+         DrawIconEx(hDC, x, y, ( HICON ) hBmp, dx, dy, 0, NULL, DI_NORMAL);
          return;
       }
       else
@@ -785,7 +785,7 @@ VOID DrawGlyph( HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rg
       hDCStretch  = CreateCompatibleDC(hDC);
       hBmpDefault = ( HBITMAP ) SelectObject(hDCStretch, hBmp);
 
-      StretchBlt( hDCMem, 0, 0, dx, dy, hDCStretch, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCCOPY );
+      StretchBlt(hDCMem, 0, 0, dx, dy, hDCStretch, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCCOPY);
 
       SelectObject(hDCStretch, hBmpDefault);
       DeleteDC(hDCStretch);
@@ -801,44 +801,44 @@ VOID DrawGlyph( HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rg
    hDCNoBlink     = CreateCompatibleDC(hDC);
    hBmpNoBlink    = CreateCompatibleBitmap(hDC, dx, dy);
    hBmpNoBlinkOld = ( HBITMAP ) SelectObject(hDCNoBlink, hBmpNoBlink);
-   BitBlt( hDCNoBlink, 0, 0, dx, dy, hDC, x, y, SRCCOPY );
+   BitBlt(hDCNoBlink, 0, 0, dx, dy, hDC, x, y, SRCCOPY);
    SetBkColor(hDCNoBlink, RGB(255, 255, 255));
    SetTextColor(hDCNoBlink, RGB(0, 0, 0));
 
    // was background colour given?
    // no? get the color automatically
    if( ! bHasBkColor )
-      rgbTransparent = GetPixel( hDCMem, 0, 0 );
+      rgbTransparent = GetPixel(hDCMem, 0, 0);
 
    // build mask based on transparent color.
    hDCMask       = CreateCompatibleDC(hDCNoBlink);
    hBmpTransMask = CreateBitmap(dx, dy, 1, 1, NULL);
    SelectObject(hDCMask, hBmpTransMask);
    SetBkColor(hDCMem, rgbTransparent);
-   BitBlt( hDCMask, 0, 0, dx, dy, hDCMem, 0, 0, SRCCOPY );
+   BitBlt(hDCMask, 0, 0, dx, dy, hDCMem, 0, 0, SRCCOPY);
 
    if( disabled )
    {
       hBr  = CreateSolidBrush(GetSysColor(COLOR_BTNHIGHLIGHT));
       hOld = ( HBRUSH ) SelectObject(hDCNoBlink, hBr);
-      BitBlt( hDCNoBlink, 1, 1, dx - 0, dy - 0, hDCMask, 0, 0, 12060490 );
+      BitBlt(hDCNoBlink, 1, 1, dx - 0, dy - 0, hDCMask, 0, 0, 12060490);
       SelectObject(hDCNoBlink, hOld);
       DeleteObject(hBr);
 
       hBr  = CreateSolidBrush(GetSysColor(COLOR_BTNSHADOW));
       hOld = ( HBRUSH ) SelectObject(hDCNoBlink, hBr);
-      BitBlt( hDCNoBlink, 0, 0, dx - 0, dy - 0, hDCMask, 0, 0, 12060490 );
+      BitBlt(hDCNoBlink, 0, 0, dx - 0, dy - 0, hDCMask, 0, 0, 12060490);
       SelectObject(hDCNoBlink, hOld);
       DeleteObject(hBr);
    }
    else
    {
-      BitBlt( hDCNoBlink, 0, 0, dx, dy, hDCMem, 0, 0, SRCINVERT );
-      BitBlt( hDCNoBlink, 0, 0, dx, dy, hDCMask, 0, 0, SRCAND );
-      BitBlt( hDCNoBlink, 0, 0, dx, dy, hDCMem, 0, 0, SRCINVERT );
+      BitBlt(hDCNoBlink, 0, 0, dx, dy, hDCMem, 0, 0, SRCINVERT);
+      BitBlt(hDCNoBlink, 0, 0, dx, dy, hDCMask, 0, 0, SRCAND);
+      BitBlt(hDCNoBlink, 0, 0, dx, dy, hDCMem, 0, 0, SRCINVERT);
    }
 
-   BitBlt( hDC, x, y, dx, dy, hDCNoBlink, 0, 0, SRCCOPY );
+   BitBlt(hDC, x, y, dx, dy, hDCNoBlink, 0, 0, SRCCOPY);
 
    // clean up
    SelectObject(hDCMem, hBmpDefault);
@@ -863,7 +863,7 @@ VOID DrawGlyph( HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rg
  * Function GetImageSize()
  * Author: Andi Jahja <harbour@cbn.net.id>
  */
-BOOL GetImageSize( const char * fn, int * x, int * y )
+BOOL GetImageSize(const char * fn, int * x, int * y)
 {
    unsigned char buf[ 24 ];
    long          len;
@@ -873,15 +873,15 @@ BOOL GetImageSize( const char * fn, int * x, int * y )
    if( ! f )
       return FALSE;
 
-   fseek( f, 0, SEEK_END );
+   fseek(f, 0, SEEK_END);
 
    len = ftell( f );
 
-   fseek( f, 0, SEEK_SET );
+   fseek(f, 0, SEEK_SET);
 
    if( len < 24 )
    {
-      fclose( f );
+      fclose(f);
       return FALSE;
    }
 
@@ -891,7 +891,7 @@ BOOL GetImageSize( const char * fn, int * x, int * y )
    // reading JPEG dimensions requires scanning through jpeg chunks
    // In all formats, the file is at least 24 bytes big, so we'll read
    // that always
-   fread( buf, 1, 24, f );
+   fread(buf, 1, 24, f);
 
    // For JPEGs, we need to read the first 12 bytes of each chunk.
    // We'll read those 12 bytes at buf+2...buf+14, i.e. overwriting
@@ -909,12 +909,12 @@ BOOL GetImageSize( const char * fn, int * x, int * y )
          pos += 2 + ( buf[ 4 ] << 8 ) + buf[ 5 ];
          if( pos + 12 > len )
             break;
-         fseek( f, pos, SEEK_SET );
-         fread( buf + 2, 1, 12, f );
+         fseek(f, pos, SEEK_SET);
+         fread(buf + 2, 1, 12, f);
       }
    }
 
-   fclose( f );
+   fclose(f);
 
    // JPEG: (first two bytes of buf are first two bytes of the jpeg
    // file; rest of buf is the DCT frame
@@ -950,7 +950,7 @@ BOOL GetImageSize( const char * fn, int * x, int * y )
 }
 
 /*
- * Syntax: hb_GetImageSize( cPicFile )
+ * Syntax: hb_GetImageSize(cPicFile)
  * Parameter: cPicFile = graphic file (JPG, GIF, PNG)
  * Return: 2 dim array -> array[1] = width, array[2] = height
  */
@@ -958,7 +958,7 @@ HB_FUNC( HB_GETIMAGESIZE )
 {
    int x = 0, y = 0;
 
-   GetImageSize( hb_parcx(1), &x, &y );
+   GetImageSize(hb_parcx(1), &x, &y);
 
    hb_reta(2);
    HB_STORNI( x, -1, 1 );
@@ -972,7 +972,7 @@ HB_FUNC( HB_GETIMAGESIZE )
    Function BitmapSize()
    ---------------------
    Syntax
-     BitmapSize( xBitmap ) --> aTarget
+     BitmapSize(xBitmap) --> aTarget
 
    Arguments
      <xBitmap> is the NAME of the bitmap file or resource
@@ -1010,13 +1010,13 @@ HB_FUNC( GETBITMAPSIZE )
 #ifndef UNICODE
       LPCSTR lpImageName = hb_parc(1);
 #else
-      LPWSTR lpImageName = AnsiToWide( ( char * ) hb_parc(1) );
+      LPWSTR lpImageName = AnsiToWide(( char * ) hb_parc(1));
 #endif
 
-      hBitmap = ( HBITMAP ) LoadImage( GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION );
+      hBitmap = ( HBITMAP ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION);
 
       if( hBitmap == NULL )
-         hBitmap = ( HBITMAP ) LoadImage( NULL, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION );
+         hBitmap = ( HBITMAP ) LoadImage(NULL, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
 
 #ifdef UNICODE
       hb_xfree(lpImageName);
@@ -1044,7 +1044,7 @@ HB_FUNC( GETBITMAPSIZE )
          DeleteObject(hBitmap);
    }
 
-   hb_itemReturnRelease( pResult );
+   hb_itemReturnRelease(pResult);
 }
 
 HB_FUNC( GETICONSIZE )
@@ -1070,7 +1070,7 @@ HB_FUNC( GETICONSIZE )
       }
    }
 
-   hb_itemReturnRelease( pResult );
+   hb_itemReturnRelease(pResult);
 }
 
 HB_FUNC( GETPIXELCOLOR )
@@ -1078,7 +1078,7 @@ HB_FUNC( GETPIXELCOLOR )
    COLORREF pixel, C1, C2, C3;
    BOOL     result;
 
-   pixel = GetPixel( hmg_par_HDC(1), hb_parni(2), hb_parni(3) );
+   pixel = GetPixel(hmg_par_HDC(1), hb_parni(2), hb_parni(3));
 
    result = ( pixel != CLR_INVALID ? HB_TRUE : HB_FALSE );
    if( result )

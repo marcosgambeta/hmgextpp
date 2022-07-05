@@ -53,8 +53,8 @@
 HIMAGELIST HMG_ImageListLoadFirst( const char * FileName, int cGrow, int Transparent, int * nWidth, int * nHeight );
 void HMG_ImageListAdd( HIMAGELIST himl, char * FileName, int Transparent );
 
-HINSTANCE GetInstance( void );
-HINSTANCE GetResources( void );
+HINSTANCE GetInstance(void);
+HINSTANCE GetResources(void);
 
 HB_FUNC( INITTREE )
 {
@@ -70,7 +70,7 @@ HB_FUNC( INITTREE )
 
    icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
    icex.dwICC  = ICC_TREEVIEW_CLASSES;
-   InitCommonControlsEx( &icex );
+   InitCommonControlsEx(&icex);
 
    hWndTV = CreateWindowEx
             (
@@ -101,7 +101,7 @@ HB_FUNC( INITTREEVIEWBITMAP ) //Tree+
    int        nCount;
    int        s;
 
-   nCount = ( int ) hb_parinfa( 2, 0 );
+   nCount = ( int ) hb_parinfa(2, 0);
 
    if( nCount > 0 )
    {
@@ -185,7 +185,7 @@ HB_FUNC( ADDTREEITEM )
 #ifndef UNICODE
    LPSTR lpText = ( LPSTR ) hb_parc(3);
 #else
-   LPWSTR lpText = hb_osStrU16Encode( ( char * ) hb_parc(3) );
+   LPWSTR lpText = hb_osStrU16Encode(( char * ) hb_parc(3));
 #endif
 
    TV_ITEM tvi;
@@ -300,7 +300,7 @@ HB_FUNC( TREEVIEW_DELETEITEM )
 HB_FUNC( TREEVIEW_DELETEALLITEMS )
 {
    HWND    TreeHandle = hmg_par_HWND(1);
-   int     nCount     = ( int ) hb_parinfa( 2, 0 );
+   int     nCount     = ( int ) hb_parinfa(2, 0);
    int     i;
    TV_ITEM TreeItem;
    HMG_StructTreeItemLPARAM * TreeItemLPARAM;
@@ -318,7 +318,7 @@ HB_FUNC( TREEVIEW_DELETEALLITEMS )
          hb_xfree(TreeItemLPARAM);
    }
 
-   TreeView_DeleteAllItems( TreeHandle );
+   TreeView_DeleteAllItems(TreeHandle);
 }
 
 HB_FUNC( TREEVIEW_GETCOUNT )
@@ -393,7 +393,7 @@ HB_FUNC( TREEVIEW_SETITEM )
 
    memset(&TreeItem, 0, sizeof(TV_ITEM));
 #ifdef UNICODE
-   lpText = hb_osStrU16Encode( hb_parc(3) );
+   lpText = hb_osStrU16Encode(hb_parc(3));
    lstrcpy(ItemText, lpText);
 #else
    lstrcpy(ItemText, hb_parc(3));
@@ -640,20 +640,20 @@ int CALLBACK TreeViewCompareFunc( LPARAM lParam1, LPARAM lParam2, LPARAM lParamS
    return CmpValue;
 }
 
-void TreeView_SortChildrenRecursiveCB( HWND hWndTV, TVSORTCB TVSortCB )
+void TreeView_SortChildrenRecursiveCB(HWND hWndTV, TVSORTCB TVSortCB)
 {
    HTREEITEM ChildItem;
    HTREEITEM NextItem;
 
    if( TreeView_IsNode( hWndTV, TVSortCB.hParent ) )
    {
-      TreeView_SortChildrenCB( hWndTV, &TVSortCB, 0 );
+      TreeView_SortChildrenCB(hWndTV, &TVSortCB, 0);
       ChildItem = TreeView_GetChild( hWndTV, TVSortCB.hParent );
 
       while( ChildItem != NULL )
       {
          TVSortCB.hParent = ( HTREEITEM ) ChildItem;
-         TreeView_SortChildrenRecursiveCB( hWndTV, TVSortCB );
+         TreeView_SortChildrenRecursiveCB(hWndTV, TVSortCB);
 
          NextItem  = TreeView_GetNextSibling( hWndTV, ChildItem );
          ChildItem = NextItem;
@@ -685,12 +685,12 @@ HB_FUNC( TREEVIEW_SORTCHILDRENRECURSIVECB )
    TVSortCB.lParam      = ( LPARAM ) &TreeViewCompareInfo;
 
    if( fRecurse == FALSE )
-      TreeView_SortChildrenCB( hWndTV, &TVSortCB, 0 );
+      TreeView_SortChildrenCB(hWndTV, &TVSortCB, 0);
    else
    {
       EnableWindow(hWndParent, FALSE);
 
-      TreeView_SortChildrenRecursiveCB( hWndTV, TVSortCB );
+      TreeView_SortChildrenRecursiveCB(hWndTV, TVSortCB);
 
       if( lEnabled == TRUE )
          EnableWindow(hWndParent, TRUE);

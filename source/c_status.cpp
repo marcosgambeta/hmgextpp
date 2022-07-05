@@ -52,11 +52,11 @@
 #include <commctrl.h>
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
-LPSTR  WideToAnsi( LPWSTR );
+LPWSTR AnsiToWide(LPCSTR);
+LPSTR  WideToAnsi(LPWSTR);
 #endif
-HINSTANCE GetInstance( void );
-HINSTANCE GetResources( void );
+HINSTANCE GetInstance(void);
+HINSTANCE GetResources(void);
 
 HB_FUNC( INITMESSAGEBAR )
 {
@@ -92,9 +92,9 @@ HB_FUNC( INITITEMBAR )
    LPCSTR lpIconName = hb_parc(6);
    LPCSTR lpTipText  = hb_parc(7);
 #else
-   LPWSTR lpText     = AnsiToWide( ( char * ) hb_parc(2) );
-   LPWSTR lpIconName = AnsiToWide( ( char * ) hb_parc(6) );
-   LPWSTR lpTipText  = AnsiToWide( ( char * ) hb_parc(7) );
+   LPWSTR lpText     = AnsiToWide(( char * ) hb_parc(2));
+   LPWSTR lpIconName = AnsiToWide(( char * ) hb_parc(6));
+   LPWSTR lpTipText  = AnsiToWide(( char * ) hb_parc(7));
 #endif
 
    hWndSB = hmg_par_HWND(1);
@@ -144,10 +144,10 @@ HB_FUNC( INITITEMBAR )
    cy = rect.bottom - rect.top - 4;
    cx = cy;
 
-   hIcon = ( HICON ) LoadImage( GetResources(), lpIconName, IMAGE_ICON, cx, cy, 0 );
+   hIcon = ( HICON ) LoadImage(GetResources(), lpIconName, IMAGE_ICON, cx, cy, 0);
 
    if( hIcon == NULL )
-      hIcon = ( HICON ) LoadImage( NULL, lpIconName, IMAGE_ICON, cx, cy, LR_LOADFROMFILE );
+      hIcon = ( HICON ) LoadImage(NULL, lpIconName, IMAGE_ICON, cx, cy, LR_LOADFROMFILE);
 
    if( ! ( hIcon == NULL ) )
       SendMessage( hWndSB, SB_SETICON, ( WPARAM ) nrOfParts - 1, ( LPARAM ) hIcon );
@@ -173,7 +173,7 @@ HB_FUNC( SETITEMBAR )
 #ifndef UNICODE
    LPCSTR lpText = hb_parc(2);
 #else
-   LPWSTR lpText = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(2));
 #endif
 
    nFlags = HIWORD(SendMessage( hWnd, SB_GETTEXTLENGTH, ( WPARAM ) iPos, 0 ));
@@ -199,7 +199,7 @@ HB_FUNC( GETITEMBAR )
 #ifndef UNICODE
    hb_retc( cString );
 #else
-   pStr = WideToAnsi( cString );
+   pStr = WideToAnsi(cString);
    hb_retc( pStr );
    hb_xfree(pStr);
 #endif
@@ -292,7 +292,7 @@ HB_FUNC( SETSTATUSITEMICON )
 #ifndef UNICODE
    LPCSTR lpIconName = hb_parc(3);
 #else
-   LPWSTR lpIconName = AnsiToWide( ( char * ) hb_parc(3) );
+   LPWSTR lpIconName = AnsiToWide(( char * ) hb_parc(3));
 #endif
 
    hwnd = hmg_par_HWND(1);
@@ -306,10 +306,10 @@ HB_FUNC( SETSTATUSITEMICON )
    cy = rect.bottom - rect.top - 4;
    cx = cy;
 
-   hIcon = ( HICON ) LoadImage( GetResources(), lpIconName, IMAGE_ICON, cx, cy, 0 );
+   hIcon = ( HICON ) LoadImage(GetResources(), lpIconName, IMAGE_ICON, cx, cy, 0);
 
    if( hIcon == NULL )
-      hIcon = ( HICON ) LoadImage( NULL, lpIconName, IMAGE_ICON, cx, cy, LR_LOADFROMFILE );
+      hIcon = ( HICON ) LoadImage(NULL, lpIconName, IMAGE_ICON, cx, cy, LR_LOADFROMFILE);
 
    SendMessage( hwnd, SB_SETICON, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) hIcon );
 
@@ -324,13 +324,13 @@ HB_FUNC( SETSTATUSBARSIZE )
    LPINT  lpParts;
 
    HWND hwndStatus = hmg_par_HWND(1);
-   int  nParts     = ( int ) hb_parinfa( 2, 0 );
+   int  nParts     = ( int ) hb_parinfa(2, 0);
    int  nWidth;
    int  i;
 
    // Set Widths from array
 
-   hloc    = LocalAlloc( LHND, sizeof(int) * nParts );
+   hloc    = LocalAlloc(LHND, sizeof(int) * nParts);
    lpParts = ( LPINT ) LocalLock(hloc);
 
    nWidth = 0;

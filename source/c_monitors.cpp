@@ -53,7 +53,7 @@
 #include "hbapierr.h"
 #include "hbapiitm.h"
 
-extern HB_EXPORT BOOL Array2Point( PHB_ITEM aPoint, POINT * pt );
+extern HB_EXPORT BOOL Array2Point(PHB_ITEM aPoint, POINT * pt);
 HB_EXPORT PHB_ITEM Rect2Hash( RECT * rc );
 BOOL CALLBACK _MonitorEnumProc0( HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData );
 //BOOL CALLBACK _MonitorEnumProc1( HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData );
@@ -81,7 +81,7 @@ HB_FUNC( ENUMDISPLAYMONITORS )
 
    EnumDisplayMonitors( NULL, NULL, _MonitorEnumProc0, ( LPARAM ) pMonitorEnum );
 
-   hb_itemReturnRelease( pMonitorEnum );
+   hb_itemReturnRelease(pMonitorEnum);
 }
 
 BOOL CALLBACK _MonitorEnumProc0( HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData )
@@ -96,8 +96,8 @@ BOOL CALLBACK _MonitorEnumProc0( HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcM
 
    hb_arrayAddForward( ( PHB_ITEM ) dwData, pMonitor );
 
-   hb_itemRelease( pMonitor );
-   hb_itemRelease( pRect );
+   hb_itemRelease(pMonitor);
+   hb_itemRelease(pRect);
 
    return TRUE;
 }
@@ -119,32 +119,32 @@ HB_FUNC( GETMONITORINFO )
       hb_itemArrayPut( pMonInfo, 2, pWork );
       hb_arraySetNInt( pMonInfo, 3, ( LONG_PTR ) mi.dwFlags );
 
-      hb_itemReturnRelease( pMonInfo );
-      hb_itemRelease( pMonitor );
-      hb_itemRelease( pWork );
+      hb_itemReturnRelease(pMonInfo);
+      hb_itemRelease(pMonitor);
+      hb_itemRelease(pWork);
    }
    else
       hb_ret();
 }
 
-// HMONITOR MonitorFromPoint( POINT pt, DWORD dwFlags )
+// HMONITOR MonitorFromPoint(POINT pt, DWORD dwFlags)
 HB_FUNC( MONITORFROMPOINT )
 {
    POINT pt;
 
    if( HB_ISARRAY(1) )
    {
-      if( ! Array2Point( hb_param( 1, Harbour::Item::ARRAY ), &pt ) )
+      if( ! Array2Point(hb_param( 1, Harbour::Item::ARRAY ), &pt) )
          hb_errRT_BASE_SubstR( EG_ARG, 5000, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
       else
-         HB_RETNL( ( LONG_PTR ) MonitorFromPoint( pt, hb_parnldef( 2, MONITOR_DEFAULTTONULL ) ) );
+         HB_RETNL( ( LONG_PTR ) MonitorFromPoint(pt, hb_parnldef( 2, MONITOR_DEFAULTTONULL )) );
    }
    else if( HB_ISNUM(1) && HB_ISNUM(2) )
    {
       pt.x = hb_parnl(1);
       pt.y = hb_parnl(2);
 
-      HB_RETNL( ( LONG_PTR ) MonitorFromPoint( pt, hb_parnldef( 3, MONITOR_DEFAULTTONULL ) ) );
+      HB_RETNL( ( LONG_PTR ) MonitorFromPoint(pt, hb_parnldef( 3, MONITOR_DEFAULTTONULL )) );
    }
    else
       hb_errRT_BASE_SubstR( EG_ARG, 5000, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
@@ -251,8 +251,8 @@ HB_EXPORT PHB_ITEM Rect2Hash( RECT * rc )
    hb_itemPutNL( pValue, rc->bottom );
    hb_hashAddNew( phRect, pKey, pValue );
 
-   hb_itemRelease( pKey );
-   hb_itemRelease( pValue );
+   hb_itemRelease(pKey);
+   hb_itemRelease(pValue);
 
    return phRect;
 }

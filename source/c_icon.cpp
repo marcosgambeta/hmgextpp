@@ -53,11 +53,11 @@
 #include <shellapi.h>
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
+LPWSTR AnsiToWide(LPCSTR);
 #endif
 
-HINSTANCE GetInstance( void );
-HINSTANCE GetResources( void );
+HINSTANCE GetInstance(void);
+HINSTANCE GetResources(void);
 
 // Minigui Resources control system
 void RegisterResource(HANDLE hResource, LPSTR szType);
@@ -103,7 +103,7 @@ HB_FUNC( LOADICON )
 #ifndef UNICODE
    hIcon = LoadIcon(hinstance, HB_ISCHAR(2) ? hb_parc(2) : MAKEINTRESOURCE(hb_parni(2)));
 #else
-   LPWSTR pW = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR pW = AnsiToWide(( char * ) hb_parc(2));
    hIcon = LoadIcon(hinstance, HB_ISCHAR(2) ? pW : ( LPCWSTR ) MAKEINTRESOURCE(hb_parni(2)));
 #endif
 
@@ -123,7 +123,7 @@ HB_FUNC( EXTRACTICON )
 #ifndef UNICODE
    hIcon = ExtractIcon(GetInstance(), hb_parc(1), hmg_par_UINT(2));
 #else
-   LPWSTR pW = AnsiToWide( ( char * ) hb_parc(1) );
+   LPWSTR pW = AnsiToWide(( char * ) hb_parc(1));
    hIcon = ExtractIcon(GetInstance(), pW, hmg_par_UINT(2));
 #endif
 
@@ -135,22 +135,22 @@ HB_FUNC( EXTRACTICON )
 #endif
 }
 
-// UINT ExtractIconEx( LPCTSTR lpszFile, int nIconIndex, HICON *phiconLarge, HICON *phiconSmall, UINT nIcons )
+// UINT ExtractIconEx(LPCTSTR lpszFile, int nIconIndex, HICON *phiconLarge, HICON *phiconSmall, UINT nIcons)
 HB_FUNC( EXTRACTICONEX )
 {
 #ifndef UNICODE
    char * lpFileName = ( char * ) hb_parc(1);
 #else
-   LPWSTR lpFileName = AnsiToWide( ( char * ) hb_parc(1) );
+   LPWSTR lpFileName = AnsiToWide(( char * ) hb_parc(1));
 #endif
    int nIconIndex = hb_parni(2);
 
    if( nIconIndex == -1 )
-      hb_retni( ExtractIconEx( lpFileName, -1, NULL, NULL, 0 ) );
+      hb_retni( ExtractIconEx(lpFileName, -1, NULL, NULL, 0) );
    else
    {
       HICON hIconLarge, hIconSmall;
-      UINT  nIconCount = ExtractIconEx( lpFileName, nIconIndex, &hIconLarge, &hIconSmall, 1 );
+      UINT  nIconCount = ExtractIconEx(lpFileName, nIconIndex, &hIconLarge, &hIconSmall, 1);
 
       if( nIconCount > 0 )
       {
@@ -175,16 +175,16 @@ HB_FUNC( LOADICONBYNAME )
 #ifndef UNICODE
       const char * pszResOrFile = hb_parc(1);
 #else
-      LPCWSTR pszResOrFile = AnsiToWide( ( char * ) hb_parc(1) );
+      LPCWSTR pszResOrFile = AnsiToWide(( char * ) hb_parc(1));
 #endif
       int       cxDesired = hb_parni(2);
       int       cyDesired = hb_parni(3);
       HINSTANCE hInstance = HB_PARNL(4) ? hmg_par_HINSTANCE(4) : GetResources();
 
-      hIcon = ( HICON ) LoadImage( hInstance, pszResOrFile, IMAGE_ICON, cxDesired, cyDesired, LR_DEFAULTCOLOR );
+      hIcon = ( HICON ) LoadImage(hInstance, pszResOrFile, IMAGE_ICON, cxDesired, cyDesired, LR_DEFAULTCOLOR);
 
       if( hIcon == NULL )
-         hIcon = ( HICON ) LoadImage( 0, pszResOrFile, IMAGE_ICON, cxDesired, cyDesired, LR_LOADFROMFILE | LR_DEFAULTCOLOR );
+         hIcon = ( HICON ) LoadImage(0, pszResOrFile, IMAGE_ICON, cxDesired, cyDesired, LR_LOADFROMFILE | LR_DEFAULTCOLOR);
 
       if( hIcon != NULL )
          RegisterResource(hIcon, const_cast<LPSTR>("ICON"));
@@ -207,7 +207,7 @@ HB_FUNC( DRAWICONEX )
       HDC    hdc   = GetDC(hwnd);
       HBRUSH hbrFlickerFreeDraw = CreateSolidBrush(hb_parni(7));
 
-      hb_retl( DrawIconEx( hdc, hb_parni(2), hb_parni(3), hIcon, hb_parni(5), hb_parni(6), 0, hbrFlickerFreeDraw, DI_NORMAL ) );
+      hb_retl( DrawIconEx(hdc, hb_parni(2), hb_parni(3), hIcon, hb_parni(5), hb_parni(6), 0, hbrFlickerFreeDraw, DI_NORMAL) );
 
       DeleteObject(hbrFlickerFreeDraw);
 

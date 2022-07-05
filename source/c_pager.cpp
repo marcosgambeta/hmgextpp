@@ -53,13 +53,13 @@
 
 #if defined ( __MINGW32__ ) && defined ( __MINGW32_VERSION )
 
-#define Pager_ForwardMouse( hwnd, bForward ) \
+#define Pager_ForwardMouse(hwnd, bForward) \
    ( void ) SendMessage( ( hwnd ), PGM_FORWARDMOUSE, ( WPARAM ) ( bForward ), 0 )
 
-#define Pager_SetBorder( hwnd, iBorder ) \
+#define Pager_SetBorder(hwnd, iBorder) \
    ( int ) SendMessage( ( hwnd ), PGM_SETBORDER, 0, ( LPARAM ) ( iBorder ) )
 
-#define Pager_GetBorder( hwnd ) \
+#define Pager_GetBorder(hwnd) \
    ( int ) SendMessage( ( hwnd ), PGM_GETBORDER, 0, 0 )
 
 #define Pager_SetPos(hwnd, iPos) \
@@ -68,18 +68,18 @@
 #define Pager_GetPos(hwnd) \
    ( int ) SendMessage( ( hwnd ), PGM_GETPOS, 0, 0 )
 
-#define Pager_SetButtonSize( hwnd, iSize ) \
+#define Pager_SetButtonSize(hwnd, iSize) \
    ( int ) SendMessage( ( hwnd ), PGM_SETBUTTONSIZE, 0, ( LPARAM ) ( iSize ) )
 
-#define Pager_GetButtonSize( hwnd ) \
+#define Pager_GetButtonSize(hwnd) \
    ( int ) SendMessage( ( hwnd ), PGM_GETBUTTONSIZE, 0, 0 )
 
 #endif
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
+LPWSTR AnsiToWide(LPCSTR);
 #endif
-HINSTANCE GetInstance( void );
+HINSTANCE GetInstance(void);
 
 HB_FUNC( GETHANDLEREBAR )  // GetHandleRebar(hPager)
 {
@@ -133,14 +133,14 @@ HB_FUNC( INITPAGER )       // InitPager ( ParentForm, hRebar, nWidth, nHeight, v
 #ifndef UNICODE
    LPSTR lpText = ( char * ) hb_parc(6);
 #else
-   LPWSTR lpText = AnsiToWide( ( char * ) hb_parc(6) );
+   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(6));
 #endif
 
    INITCOMMONCONTROLSEX i;
 
    i.dwSize = sizeof(INITCOMMONCONTROLSEX);
    i.dwICC  = ICC_COOL_CLASSES | ICC_BAR_CLASSES | ICC_PAGESCROLLER_CLASS;
-   InitCommonControlsEx( &i );
+   InitCommonControlsEx(&i);
 
    hRebar  = hmg_par_HWND(1);
    nWidth  = hmg_par_INT(2);
@@ -161,7 +161,7 @@ HB_FUNC( INITPAGER )       // InitPager ( ParentForm, hRebar, nWidth, nHeight, v
    rbBand.cxMinChild = 0;
    rbBand.cyMinChild = 0;
 
-   hPager = CreateWindowEx( 0, WC_PAGESCROLLER, NULL, Style, 0, 0, 0, 0, hRebar, NULL, GetInstance(), NULL );
+   hPager = CreateWindowEx(0, WC_PAGESCROLLER, NULL, Style, 0, 0, 0, 0, hRebar, NULL, GetInstance(), NULL);
 
    if( hb_parclen(6) > 0 )
       rbBand.lpText = lpText;
@@ -194,27 +194,27 @@ HB_FUNC( INITPAGER )       // InitPager ( ParentForm, hRebar, nWidth, nHeight, v
 
 HB_FUNC( PAGERFORWARDMOUSE )
 {
-   Pager_ForwardMouse( hmg_par_HWND(1), hmg_par_BOOL(2) );
+   Pager_ForwardMouse(hmg_par_HWND(1), hmg_par_BOOL(2));
 }
 
 HB_FUNC( PAGERGETBUTTONSIZE )
 {
-   hb_retni( ( INT ) Pager_GetButtonSize( hmg_par_HWND(1) ) );
+   hb_retni( ( INT ) Pager_GetButtonSize(hmg_par_HWND(1)) );
 }
 
 HB_FUNC( PAGERSETBUTTONSIZE )
 {
-   Pager_SetButtonSize( hmg_par_HWND(1), hmg_par_INT(2) );
+   Pager_SetButtonSize(hmg_par_HWND(1), hmg_par_INT(2));
 }
 
 HB_FUNC( PAGERGETBORDER )
 {
-   hb_retni( ( INT ) Pager_GetBorder( hmg_par_HWND(1) ) );
+   hb_retni( ( INT ) Pager_GetBorder(hmg_par_HWND(1)) );
 }
 
 HB_FUNC( PAGERSETBORDER )
 {
-   hb_retni( ( INT ) Pager_SetBorder( hmg_par_HWND(1), hmg_par_INT(2) ) );
+   hb_retni( ( INT ) Pager_SetBorder(hmg_par_HWND(1), hmg_par_INT(2)) );
 }
 
 HB_FUNC( PAGERGETPOS )

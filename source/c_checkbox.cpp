@@ -64,10 +64,10 @@ HBITMAP HMG_LoadPicture( const char * FileName, int New_Width, int New_Height, H
 HIMAGELIST HMG_SetButtonImageList( HWND hButton, const char * FileName, int Transparent, UINT uAlign );
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
+LPWSTR AnsiToWide(LPCSTR);
 #endif
-HINSTANCE GetInstance( void );
-HINSTANCE GetResources( void );
+HINSTANCE GetInstance(void);
+HINSTANCE GetResources(void);
 
 #if ( defined( __BORLANDC__ ) && __BORLANDC__ < 1410 ) || ( defined ( __MINGW32__ ) && defined ( __MINGW32_VERSION ) )
 typedef struct
@@ -86,7 +86,7 @@ HB_FUNC( INITCHECKBOX )
 #ifndef UNICODE
    LPCSTR lpWindowName = hb_parc(2);
 #else
-   LPWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(2));
 #endif
 
    int Style;
@@ -145,7 +145,7 @@ HB_FUNC( INITCHECKBUTTON )
 #ifndef UNICODE
    LPCSTR lpWindowName = hb_parc(2);
 #else
-   LPWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(2));
 #endif
 
    hwnd = hmg_par_HWND(1);
@@ -191,7 +191,7 @@ HB_FUNC( INITIMAGECHECKBUTTON )
 #ifndef UNICODE
    LPCSTR lpWindowName = hb_parc(2);
 #else
-   LPWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(2));
 #endif
    int Transparent = hb_parl(7) ? 0 : 1;
 

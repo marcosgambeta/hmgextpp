@@ -71,15 +71,15 @@ BOOL _isValidCtrlClassW( HWND hwndTip, LPWSTR ClassName )
       return FALSE;
 }
 #else
-BOOL _isValidCtrlClassA( HWND hwndTip, const char * ClassName );  /* P.Ch. 16.10. */
+BOOL _isValidCtrlClassA(HWND hwndTip, const char * ClassName);  /* P.Ch. 16.10. */
 
-BOOL _isValidCtrlClassA( HWND hwndTip, const char * ClassName )
+BOOL _isValidCtrlClassA(HWND hwndTip, const char * ClassName)
 {
    char lpClassName[ 256 ];
    int  iLen = 0;
 
    if( IsWindow(hwndTip) )
-      iLen = GetClassNameA( hwndTip, lpClassName, 256 );
+      iLen = GetClassNameA(hwndTip, lpClassName, 256);
 
    if( ( iLen > 0 ) && ( strncmp( ( const char * ) lpClassName, ClassName, iLen ) == 0 ) )
       return TRUE;
@@ -104,7 +104,7 @@ HB_FUNC( GETCLASSNAME )
       char ClassName[ 256 ];
       int  iLen;
 
-      iLen = GetClassNameA( hwnd, ClassName, sizeof(ClassName) / sizeof(char) );
+      iLen = GetClassNameA(hwnd, ClassName, sizeof(ClassName) / sizeof(char));
 
       if( iLen > 0 )
          hb_retclen( ( const char * ) ClassName, iLen );
@@ -136,10 +136,10 @@ HB_FUNC( GETCLASSNAMEBYREF )
 
       if( pBuffer )
       {
-         int nResult = GetClassNameA( hwnd, pBuffer, ( int ) nLen );
+         int nResult = GetClassNameA(hwnd, pBuffer, ( int ) nLen);
 
          if( nResult > 0 )
-            hb_retni( hb_storclen_buffer( pBuffer, ( HB_SIZE ) nResult, 2 ) );
+            hb_retni( hb_storclen_buffer(pBuffer, ( HB_SIZE ) nResult, 2) );
          else
             hb_xfree(pBuffer);
       }

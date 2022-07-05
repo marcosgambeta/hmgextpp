@@ -56,7 +56,7 @@
 #include "hbdate.h"
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
+LPWSTR AnsiToWide(LPCSTR);
 #endif
 
 // #ifdef __cplusplus
@@ -69,7 +69,7 @@ extern HFONT PrepareFont( TCHAR *, int, int, DWORD, DWORD, DWORD, DWORD, DWORD )
 // #endif
 LRESULT CALLBACK  OwnMCProc( HWND hmonthcal, UINT Msg, WPARAM wParam, LPARAM lParam );
 
-HINSTANCE GetInstance( void );
+HINSTANCE GetInstance(void);
 
 HB_FUNC( INITMONTHCAL )
 {
@@ -91,7 +91,7 @@ HB_FUNC( INITMONTHCAL )
 
    icex.dwSize = sizeof(icex);
    icex.dwICC  = ICC_DATE_CLASSES;
-   InitCommonControlsEx( &icex );
+   InitCommonControlsEx(&icex);
 
    hwnd = hmg_par_HWND(1);
 
@@ -112,7 +112,7 @@ HB_FUNC( INITMONTHCAL )
    if( ! hb_parl(13) )
       Style = Style | WS_TABSTOP;
 
-   hmonthcal = CreateWindowEx( 0, MONTHCAL_CLASS, TEXT(""), Style, 0, 0, 0, 0, hwnd, hmg_par_HMENU(2), GetInstance(), NULL );
+   hmonthcal = CreateWindowEx(0, MONTHCAL_CLASS, TEXT(""), Style, 0, 0, 0, 0, hwnd, hmg_par_HMENU(2), GetInstance(), NULL);
 
    SetProp( ( HWND ) hmonthcal, TEXT("oldmcproc"), ( HWND ) GetWindowLongPtr(( HWND ) hmonthcal, GWLP_WNDPROC) );
    SetWindowLongPtr(hmonthcal, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnMCProc);
@@ -130,7 +130,7 @@ HB_FUNC( INITMONTHCAL )
       strikeout = 1;
 
 #ifdef UNICODE
-   pStr  = AnsiToWide( hb_parc(7) );
+   pStr  = AnsiToWide(hb_parc(7));
    hfont = PrepareFont( ( TCHAR * ) pStr, ( LPARAM ) hb_parni(8), bold, italic, underline, strikeout, angle, DEFAULT_CHARSET );
    hb_xfree(pStr);
 #else
@@ -188,7 +188,7 @@ HB_FUNC( GETMONTHCALDATE )
    long       lJulian;
 
    SendMessage( hmg_par_HWND(1), MCM_GETCURSEL, 0, ( LPARAM ) &st );
-   lJulian = hb_dateEncode( st.wYear, st.wMonth, st.wDay );
+   lJulian = hb_dateEncode(st.wYear, st.wMonth, st.wDay);
 
    hb_retdl( lJulian );
 }
@@ -223,8 +223,8 @@ HB_FUNC( GETMONTHRANGE )
 
    hb_reta(3);
    HB_STORNI( iCount, -1, 1 );
-   HB_STORDL( hb_dateEncode( sysTime[ 0 ].wYear, sysTime[ 0 ].wMonth, sysTime[ 0 ].wDay ), -1, 2 );
-   HB_STORDL( hb_dateEncode( sysTime[ 1 ].wYear, sysTime[ 1 ].wMonth, sysTime[ 1 ].wDay ), -1, 3 );
+   HB_STORDL( hb_dateEncode(sysTime[ 0 ].wYear, sysTime[ 0 ].wMonth, sysTime[ 0 ].wDay), -1, 2 );
+   HB_STORDL( hb_dateEncode(sysTime[ 1 ].wYear, sysTime[ 1 ].wMonth, sysTime[ 1 ].wDay), -1, 3 );
 }
 
 #ifndef BOLDDAY
@@ -291,7 +291,7 @@ HB_FUNC( GETDAYSTATEDATA )
 
    hb_reta(2);
    HB_STORNI( ( int ) pData->cDayState, -1, 1 );
-   HB_STORDL( hb_dateEncode( pData->stStart.wYear, pData->stStart.wMonth, pData->stStart.wDay ), -1, 2 );
+   HB_STORDL( hb_dateEncode(pData->stStart.wYear, pData->stStart.wMonth, pData->stStart.wDay), -1, 2 );
 }
 
 LRESULT CALLBACK OwnMCProc( HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam )

@@ -51,7 +51,7 @@
 
 #include <commctrl.h>
 
-HINSTANCE GetInstance( void );
+HINSTANCE GetInstance(void);
 
 HB_FUNC( INITPROGRESSBAR )
 {
@@ -64,7 +64,7 @@ HB_FUNC( INITPROGRESSBAR )
 
    i.dwSize = sizeof(INITCOMMONCONTROLSEX);
    i.dwICC  = ICC_PROGRESS_CLASS;
-   InitCommonControlsEx( &i );
+   InitCommonControlsEx(&i);
 
    hwnd = hmg_par_HWND(1);
 

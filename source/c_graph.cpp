@@ -50,7 +50,7 @@
 #include <commctrl.h>
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
+LPWSTR AnsiToWide(LPCSTR);
 #endif
 
 // #ifdef __cplusplus
@@ -87,7 +87,7 @@ HB_FUNC( TEXTDRAW )
 #ifndef UNICODE
       LPCSTR lpString = hb_parc(4);
 #else
-      LPCWSTR lpString = AnsiToWide( ( char * ) hb_parc(4) );
+      LPCWSTR lpString = AnsiToWide(( char * ) hb_parc(4));
       LPWSTR  pStr;
 #endif
 
@@ -99,7 +99,7 @@ HB_FUNC( TEXTDRAW )
       RECT     rect;
 
 #ifdef UNICODE
-      pStr = AnsiToWide( hb_parc(9) );
+      pStr = AnsiToWide(hb_parc(9));
       font = PrepareFont( ( TCHAR * ) pStr, hb_parni(10), bold, italic, underline, strikeout, angle, DEFAULT_CHARSET );
       hb_xfree(pStr);
 #else
@@ -160,7 +160,7 @@ HB_FUNC( LINEDRAW )
    hdc1     = GetDC(( HWND ) hWnd1);
    hpen     = CreatePen(PS_SOLID, ( int ) hb_parni(7), ( COLORREF ) RGB(( int ) HB_PARNI( 6, 1 ), ( int ) HB_PARNI( 6, 2 ), ( int ) HB_PARNI( 6, 3 )));
    hgdiobj1 = SelectObject(hdc1, hpen);
-   MoveToEx( hdc1, ( int ) hb_parni(3), ( int ) hb_parni(2), NULL );
+   MoveToEx(hdc1, ( int ) hb_parni(3), ( int ) hb_parni(2), NULL);
    LineTo( hdc1, ( int ) hb_parni(5), ( int ) hb_parni(4) );
    SelectObject(hdc1, hgdiobj1);
    DeleteObject(hpen);
@@ -357,7 +357,7 @@ HB_FUNC( POLYGONDRAW )
    HBRUSH   hbrush;
    LOGBRUSH br;
    POINT    apoints[ 1024 ];
-   int      number = ( int ) hb_parinfa( 2, 0 );
+   int      number = ( int ) hb_parinfa(2, 0);
    int      i;
 
    hWnd1    = hmg_par_HWND(1);
@@ -397,7 +397,7 @@ HB_FUNC( POLYBEZIERDRAW )
    HGDIOBJ hgdiobj1;
    HPEN    hpen;
    POINT   apoints[ 1024 ];
-   DWORD   number = ( DWORD ) hb_parinfa( 2, 0 );
+   DWORD   number = ( DWORD ) hb_parinfa(2, 0);
    DWORD   i;
 
    hWnd1    = hmg_par_HWND(1);
@@ -416,18 +416,18 @@ HB_FUNC( POLYBEZIERDRAW )
    ReleaseDC(hWnd1, hdc1);
 }
 
-void WndDrawBox( HDC hDC, RECT * rct, HPEN hPUpLeft, HPEN hPBotRit )
+void WndDrawBox(HDC hDC, RECT * rct, HPEN hPUpLeft, HPEN hPBotRit)
 {
    HPEN  hOldPen = ( HPEN ) SelectObject(hDC, hPUpLeft);
    POINT pt;
 
-   MoveToEx( hDC, rct->left, rct->bottom, &pt );
+   MoveToEx(hDC, rct->left, rct->bottom, &pt);
 
    LineTo( hDC, rct->left, rct->top );
    LineTo( hDC, rct->right, rct->top );
    SelectObject(hDC, hPBotRit);
 
-   MoveToEx( hDC, rct->left, rct->bottom, &pt );
+   MoveToEx(hDC, rct->left, rct->bottom, &pt);
 
    LineTo( hDC, rct->right, rct->bottom );
    LineTo( hDC, rct->right, rct->top - 1 );
@@ -440,7 +440,7 @@ void WindowBoxIn( HDC hDC, RECT * pRect )
    HPEN hWhite = CreatePen(PS_SOLID, 1, GetSysColor(COLOR_BTNHIGHLIGHT));
    HPEN hGray  = CreatePen(PS_SOLID, 1, GetSysColor(COLOR_BTNSHADOW));
 
-   WndDrawBox( hDC, pRect, hGray, hWhite );
+   WndDrawBox(hDC, pRect, hGray, hWhite);
 
    DeleteObject(hGray);
    DeleteObject(hWhite);
@@ -451,7 +451,7 @@ void WindowRaised( HDC hDC, RECT * pRect )
    HPEN hGray  = CreatePen(PS_SOLID, 1, GetSysColor(COLOR_BTNSHADOW));
    HPEN hWhite = CreatePen(PS_SOLID, 1, GetSysColor(COLOR_BTNHIGHLIGHT));
 
-   WndDrawBox( hDC, pRect, hWhite, hGray );
+   WndDrawBox(hDC, pRect, hWhite, hGray);
 
    DeleteObject(hGray);
    DeleteObject(hWhite);

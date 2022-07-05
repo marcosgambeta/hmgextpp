@@ -125,13 +125,13 @@ typedef struct tagWinEventsHolder
 
 // extern functions
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
-LPSTR  WideToAnsi( LPWSTR );
+LPWSTR AnsiToWide(LPCSTR);
+LPSTR  WideToAnsi(LPWSTR);
 #endif
-HINSTANCE      GetInstance( void );
-HINSTANCE      GetResources( void );
+HINSTANCE      GetInstance(void);
+HINSTANCE      GetResources(void);
 extern void    hmg_ErrorExit( LPCTSTR lpMessage, DWORD dwError, BOOL bExit );
-extern HBITMAP HMG_LoadImage( const char * FileName, const char * pszTypeOfRes );
+extern HBITMAP HMG_LoadImage(const char * FileName, const char * pszTypeOfRes);
 
 // local functions
 static size_t  AppEventScan( EVENTSHOLDER * events, UINT message );
@@ -206,7 +206,7 @@ static HB_BOOL AppEventRemove( HWND hWnd, const char * pszProp, UINT message )
    if( IsWindow(hWnd) )
    {
    #ifdef UNICODE
-      LPWSTR pW = AnsiToWide( pszProp );
+      LPWSTR pW = AnsiToWide(pszProp);
       EVENTSHOLDER * events = ( EVENTSHOLDER * ) GetProp( hWnd, pW );
    #else
       EVENTSHOLDER * events = ( EVENTSHOLDER * ) GetProp( hWnd, pszProp );
@@ -220,7 +220,7 @@ static HB_BOOL AppEventRemove( HWND hWnd, const char * pszProp, UINT message )
 
             if( nPos > 0 )                                           // if found
             {
-               hb_itemRelease( events->events[ nPos - 1 ].bAction ); // delete old codeblock
+               hb_itemRelease(events->events[ nPos - 1 ].bAction); // delete old codeblock
 
                events->events[ nPos - 1 ].message = 0;
                events->events[ nPos - 1 ].bAction = NULL;
@@ -235,7 +235,7 @@ static HB_BOOL AppEventRemove( HWND hWnd, const char * pszProp, UINT message )
 
             for( i = 0; i < events->count; i++ ) // delete all not empty items with codeblocks
                if( events->events[ i ].bAction != NULL && HB_IS_BLOCK( events->events[ i ].bAction ) )
-                  hb_itemRelease( events->events[ i ].bAction );
+                  hb_itemRelease(events->events[ i ].bAction);
 
             HB_ATOM_SET( &events->used, 0 );
          }
@@ -275,10 +275,10 @@ static LRESULT AppEventDo( EVENTSHOLDER * events, HB_BOOL bOnce, HWND hWnd, UINT
 
       hb_evalBlock( events->events[ nPos - 1 ].bAction, phWnd, pmessage, pwParam, plParam, NULL );
 
-      hb_itemRelease( phWnd );
-      hb_itemRelease( pmessage );
-      hb_itemRelease( pwParam );
-      hb_itemRelease( plParam );
+      hb_itemRelease(phWnd);
+      hb_itemRelease(pmessage);
+      hb_itemRelease(pwParam);
+      hb_itemRelease(plParam);
 
       if( HB_TRUE == bOnce )
          AppEventRemove( hWnd, "ONCE", message );
@@ -326,7 +326,7 @@ HB_FUNC( APPEVENTS )
       BOOL bInit = FALSE;
       const char *   pszProp = hb_parldef( 5, HB_TRUE ) ? "ONCE" : "ON";
    #ifdef UNICODE
-      LPWSTR pW = AnsiToWide( pszProp );
+      LPWSTR pW = AnsiToWide(pszProp);
       EVENTSHOLDER * events = ( EVENTSHOLDER * ) GetProp( hWnd, pW );
    #else
       EVENTSHOLDER * events = ( EVENTSHOLDER * ) GetProp( hWnd, pszProp );
@@ -348,7 +348,7 @@ HB_FUNC( APPEVENTS )
       nPos = AppEventScan( events, message ); // arleady exists ?
 
       if( nPos > 0 )
-         hb_itemRelease( events->events[ nPos - 1 ].bAction );
+         hb_itemRelease(events->events[ nPos - 1 ].bAction);
       else
       {
          nPos = bInit ? 1 : AppEventScan( events, 0 );
@@ -408,7 +408,7 @@ HB_FUNC( APPEVENTSUPDATE )
    {
       const char *   pszProp = hb_parldef( 5, HB_TRUE ) ? "ONCE" : "ON";
    #ifdef UNICODE
-      LPWSTR pW = AnsiToWide( pszProp );
+      LPWSTR pW = AnsiToWide(pszProp);
       EVENTSHOLDER * events = ( EVENTSHOLDER * ) GetProp( hWnd, pW );
    #else
       EVENTSHOLDER * events = ( EVENTSHOLDER * ) GetProp( hWnd, pszProp );
@@ -424,7 +424,7 @@ HB_FUNC( APPEVENTSUPDATE )
             {
                if( HB_IS_BLOCK( hb_param( 3, Harbour::Item::ANY ) ) )
                {
-                  hb_itemRelease( events->events[ nPos - 1 ].bAction );
+                  hb_itemRelease(events->events[ nPos - 1 ].bAction);
                   events->events[ nPos - 1 ].bAction = hb_itemNew( hb_param( 3, Harbour::Item::BLOCK ) );
                }
 
@@ -457,7 +457,7 @@ HB_FUNC( ENUMAPPEVENTS )
    if( IsWindow(hWnd) )
    {
    #ifdef UNICODE
-      LPWSTR pW = AnsiToWide( pszProp );
+      LPWSTR pW = AnsiToWide(pszProp);
       EVENTSHOLDER * events = ( EVENTSHOLDER * ) GetProp( hWnd, pW );
    #else
       EVENTSHOLDER * events = ( EVENTSHOLDER * ) GetProp( hWnd, pszProp );
@@ -481,7 +481,7 @@ HB_FUNC( ENUMAPPEVENTS )
 
             hb_arrayAddForward( aEvents, aEvent );
 
-            hb_itemRelease( aEvent );
+            hb_itemRelease(aEvent);
          }
       }
    #ifdef UNICODE
@@ -489,7 +489,7 @@ HB_FUNC( ENUMAPPEVENTS )
    #endif
    }
 
-   hb_itemReturnRelease( aEvents );
+   hb_itemReturnRelease(aEvents);
 }
 
 HB_FUNC( GETAPPEVENTSINFO )
@@ -501,7 +501,7 @@ HB_FUNC( GETAPPEVENTSINFO )
    if( IsWindow(hWnd) )
    {
    #ifdef UNICODE
-      LPWSTR pW = AnsiToWide( pszProp );
+      LPWSTR pW = AnsiToWide(pszProp);
       EVENTSHOLDER * events = ( EVENTSHOLDER * ) GetProp( hWnd, pW );
    #else
       EVENTSHOLDER * events = ( EVENTSHOLDER * ) GetProp( hWnd, pszProp );
@@ -523,7 +523,7 @@ HB_FUNC( GETAPPEVENTSINFO )
    else
       aInfo = hb_itemArrayNew(0);
 
-   hb_itemReturnRelease( aInfo );
+   hb_itemReturnRelease(aInfo);
 }
 
 static size_t WinEventScan( WINEVENTSHOLDER * events, UINT message )
@@ -546,7 +546,7 @@ static HB_BOOL WinEventRemove( HWND hWnd, const char * pszProp, UINT message )
    if( IsWindow(hWnd) )
    {
    #ifdef UNICODE
-      LPWSTR pW = AnsiToWide( pszProp );
+      LPWSTR pW = AnsiToWide(pszProp);
       WINEVENTSHOLDER * events = ( WINEVENTSHOLDER * ) GetProp( hWnd, pW );
    #else
       WINEVENTSHOLDER * events = ( WINEVENTSHOLDER * ) GetProp( hWnd, pszProp );
@@ -560,7 +560,7 @@ static HB_BOOL WinEventRemove( HWND hWnd, const char * pszProp, UINT message )
 
             if( nPos > 0 )                                           // if found
             {
-               hb_itemRelease( events->events[ nPos - 1 ].bAction ); // delete old codeblock
+               hb_itemRelease(events->events[ nPos - 1 ].bAction); // delete old codeblock
 
                events->events[ nPos - 1 ].message = 0;
                events->events[ nPos - 1 ].bAction = NULL;
@@ -575,7 +575,7 @@ static HB_BOOL WinEventRemove( HWND hWnd, const char * pszProp, UINT message )
 
             for( i = 0; i < events->count; i++ ) // delete all not empty items with codeblocks
                if( events->events[ i ].bAction != NULL && HB_IS_BLOCK( events->events[ i ].bAction ) )
-                  hb_itemRelease( events->events[ i ].bAction );
+                  hb_itemRelease(events->events[ i ].bAction);
 
             HB_ATOM_SET( &events->used, 0 );
          }
@@ -615,10 +615,10 @@ static LRESULT WinEventDo( WINEVENTSHOLDER * events, HB_BOOL bOnce, HWND hWnd, U
 
       hb_evalBlock( events->events[ nPos - 1 ].bAction, phWnd, pmessage, pwParam, plParam, NULL );
 
-      hb_itemRelease( phWnd );
-      hb_itemRelease( pmessage );
-      hb_itemRelease( pwParam );
-      hb_itemRelease( plParam );
+      hb_itemRelease(phWnd);
+      hb_itemRelease(pmessage);
+      hb_itemRelease(pwParam);
+      hb_itemRelease(plParam);
 
       if( HB_TRUE == bOnce )
          WinEventRemove( hWnd, "ONCE", message );
@@ -666,7 +666,7 @@ HB_FUNC( WINEVENTS )
       BOOL bInit = FALSE;
       const char *      pszProp = hb_parldef( 5, HB_TRUE ) ? "ONCE" : "ON";
    #ifdef UNICODE
-      LPWSTR pW = AnsiToWide( pszProp );
+      LPWSTR pW = AnsiToWide(pszProp);
       WINEVENTSHOLDER * events = ( WINEVENTSHOLDER * ) GetProp( hWnd, pW );
    #else
       WINEVENTSHOLDER * events = ( WINEVENTSHOLDER * ) GetProp( hWnd, pszProp );
@@ -688,7 +688,7 @@ HB_FUNC( WINEVENTS )
       nPos = WinEventScan( events, message ); // arleady exists ?
 
       if( nPos > 0 )
-         hb_itemRelease( events->events[ nPos - 1 ].bAction );
+         hb_itemRelease(events->events[ nPos - 1 ].bAction);
       else
       {
          nPos = bInit ? 1 : WinEventScan( events, 0 );
@@ -748,7 +748,7 @@ HB_FUNC( WINEVENTSUPDATE )
    {
       const char *      pszProp = hb_parldef( 5, HB_TRUE ) ? "ONCE" : "ON";
    #ifdef UNICODE
-      LPWSTR pW = AnsiToWide( pszProp );
+      LPWSTR pW = AnsiToWide(pszProp);
       WINEVENTSHOLDER * events = ( WINEVENTSHOLDER * ) GetProp( hWnd, pW );
    #else
       WINEVENTSHOLDER * events = ( WINEVENTSHOLDER * ) GetProp( hWnd, pszProp );
@@ -764,7 +764,7 @@ HB_FUNC( WINEVENTSUPDATE )
             {
                if( HB_IS_BLOCK( hb_param( 3, Harbour::Item::ANY ) ) )
                {
-                  hb_itemRelease( events->events[ nPos - 1 ].bAction );
+                  hb_itemRelease(events->events[ nPos - 1 ].bAction);
                   events->events[ nPos - 1 ].bAction = hb_itemNew( hb_param( 3, Harbour::Item::BLOCK ) );
                }
 
@@ -797,7 +797,7 @@ HB_FUNC( ENUMWINEVENTS )
    if( IsWindow(hWnd) )
    {
    #ifdef UNICODE
-      LPWSTR pW = AnsiToWide( pszProp );
+      LPWSTR pW = AnsiToWide(pszProp);
       WINEVENTSHOLDER * events = ( WINEVENTSHOLDER * ) GetProp( hWnd, pW );
    #else
       WINEVENTSHOLDER * events = ( WINEVENTSHOLDER * ) GetProp( hWnd, pszProp );
@@ -821,7 +821,7 @@ HB_FUNC( ENUMWINEVENTS )
 
             hb_arrayAddForward( aEvents, aEvent );
 
-            hb_itemRelease( aEvent );
+            hb_itemRelease(aEvent);
          }
       }
    #ifdef UNICODE
@@ -829,7 +829,7 @@ HB_FUNC( ENUMWINEVENTS )
    #endif
    }
 
-   hb_itemReturnRelease( aEvents );
+   hb_itemReturnRelease(aEvents);
 }
 
 HB_FUNC( GETWINEVENTSINFO )
@@ -841,7 +841,7 @@ HB_FUNC( GETWINEVENTSINFO )
    if( IsWindow(hWnd) )
    {
    #ifdef UNICODE
-      LPWSTR pW = AnsiToWide( pszProp );
+      LPWSTR pW = AnsiToWide(pszProp);
       WINEVENTSHOLDER * events = ( WINEVENTSHOLDER * ) GetProp( hWnd, pW );
    #else
       WINEVENTSHOLDER * events = ( WINEVENTSHOLDER * ) GetProp( hWnd, pszProp );
@@ -863,7 +863,7 @@ HB_FUNC( GETWINEVENTSINFO )
    else
       aInfo = hb_itemArrayNew(0);
 
-   hb_itemReturnRelease( aInfo );
+   hb_itemReturnRelease(aInfo);
 }
 
 LRESULT CALLBACK MsgOnlyWndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
@@ -954,7 +954,7 @@ HB_FUNC( INITMESSAGEONLYWINDOW )
       wcx.hInstance = GetInstance();
       wcx.lpszClassName = lpClassName;
 
-      if( RegisterClassEx( &wcx ) )
+      if( RegisterClassEx(&wcx) )
       {
          const char * pszFuncName = hb_parc(2);
 
@@ -965,10 +965,10 @@ HB_FUNC( INITMESSAGEONLYWINDOW )
             pUserData->cbSize = sizeof(MYUSERDATA);
             pUserData->myParam.Listener = hb_dynsymGet( pszFuncName );
 
-            hwnd = CreateWindowEx( 0, lpClassName, 0, 0, 0, 0, 0, 0, HWND_MESSAGE, 0, GetInstance(), ( LPVOID ) pUserData );
+            hwnd = CreateWindowEx(0, lpClassName, 0, 0, 0, 0, 0, 0, HWND_MESSAGE, 0, GetInstance(), ( LPVOID ) pUserData);
          }
          else
-            hwnd = CreateWindowEx( 0, lpClassName, 0, 0, 0, 0, 0, 0, HWND_MESSAGE, 0, GetInstance(), 0 );
+            hwnd = CreateWindowEx(0, lpClassName, 0, 0, 0, 0, 0, 0, HWND_MESSAGE, 0, GetInstance(), 0);
       }
       else
          hmg_ErrorExit( TEXT("Window Registration Failed!"), 0, TRUE );
@@ -981,7 +981,7 @@ HB_FUNC( INITMESSAGEONLYWINDOW )
 /* Modified by P.Ch. 17.06. */
 HB_FUNC( INITDUMMY )
 {
-   HB_RETNL( ( LONG_PTR ) CreateWindowEx( 0, WC_STATIC, TEXT(""), WS_CHILD, 0, 0, 0, 0, ( HWND ) ( LONG_PTR ) HB_PARNL(1), ( HMENU ) 0, GetInstance(), NULL ) );
+   HB_RETNL( ( LONG_PTR ) CreateWindowEx(0, WC_STATIC, TEXT(""), WS_CHILD, 0, 0, 0, 0, ( HWND ) ( LONG_PTR ) HB_PARNL(1), ( HMENU ) 0, GetInstance(), NULL) );
 }
 
 /* Modified by P.Ch. 17.06. */
@@ -997,7 +997,7 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
 
       if( IsWindow(g_hWndMain) && hWnd == g_hWndMain && g_hAccel != NULL )
       {
-         if( DestroyAcceleratorTable( g_hAccel ) )
+         if( DestroyAcceleratorTable(g_hAccel) )
             g_hAccel = NULL;
       }
    }
@@ -1033,8 +1033,8 @@ HB_FUNC( INITWINDOW )
    LPCSTR lpWindowName = hb_parc(1);
    LPCSTR lpClassName = hb_parc(12);
 #else
-   LPWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc(1) );
-   LPWSTR lpClassName = AnsiToWide( ( char * ) hb_parc(12) );
+   LPWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(1));
+   LPWSTR lpClassName = AnsiToWide(( char * ) hb_parc(12));
 #endif
 
    if( hb_parl(16) )
@@ -1095,7 +1095,7 @@ HB_FUNC( INITWINDOW )
    if( NULL != hwnd )
       HB_RETNL( ( LONG_PTR ) hwnd );
    else
-      MessageBox( 0, TEXT("Window Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL );
+      MessageBox(0, TEXT("Window Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpWindowName);
@@ -1114,8 +1114,8 @@ HB_FUNC( INITMODALWINDOW )
    LPCSTR lpWindowName = hb_parc(1);
    LPCSTR lpClassName = hb_parc(10);
 #else
-   LPWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc(1) );
-   LPWSTR lpClassName = AnsiToWide( ( char * ) hb_parc(10) );
+   LPWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(1));
+   LPWSTR lpClassName = AnsiToWide(( char * ) hb_parc(10));
 #endif
 
    if( hb_parl(13) )
@@ -1159,7 +1159,7 @@ HB_FUNC( INITMODALWINDOW )
    if( NULL != hwnd )
       HB_RETNL( ( LONG_PTR ) hwnd );
    else
-      MessageBox( 0, TEXT("Window Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL );
+      MessageBox(0, TEXT("Window Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpWindowName);
@@ -1176,8 +1176,8 @@ HB_FUNC( INITSPLITCHILDWINDOW )
    LPCSTR lpWindowName = hb_parc(5);
    LPCSTR lpClassName = hb_parc(3);
 #else
-   LPWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc(5) );
-   LPWSTR lpClassName = AnsiToWide( ( char * ) hb_parc(3) );
+   LPWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(5));
+   LPWSTR lpClassName = AnsiToWide(( char * ) hb_parc(3));
 #endif
 
    Style = WS_POPUP;
@@ -1210,7 +1210,7 @@ HB_FUNC( INITSPLITCHILDWINDOW )
    if( NULL != hwnd )
       HB_RETNL( ( LONG_PTR ) hwnd );
    else
-      MessageBox( 0, TEXT("Window Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL );
+      MessageBox(0, TEXT("Window Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpWindowName);
@@ -1235,7 +1235,7 @@ HB_FUNC( INITSPLITBOX )
 
    icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
    icex.dwICC = ICC_COOL_CLASSES | ICC_BAR_CLASSES;
-   InitCommonControlsEx( &icex );
+   InitCommonControlsEx(&icex);
 
    hwndRB = CreateWindowEx
             (
@@ -1273,7 +1273,7 @@ HB_FUNC( REGISTERWINDOW )
 #ifndef UNICODE
    LPCTSTR lpIconName = HB_ISCHAR(1) ? hb_parc(1) : ( HB_ISNUM(1) ? MAKEINTRESOURCE(( WORD ) hb_parnl(1)) : NULL );
 #else
-   LPWSTR lpIconName = HB_ISCHAR(1) ? AnsiToWide( ( char * ) hb_parc(1) ) : ( HB_ISNUM(1) ? ( LPWSTR ) MAKEINTRESOURCE(( WORD ) hb_parnl(1)) : NULL );
+   LPWSTR lpIconName = HB_ISCHAR(1) ? AnsiToWide(( char * ) hb_parc(1)) : ( HB_ISNUM(1) ? ( LPWSTR ) MAKEINTRESOURCE(( WORD ) hb_parnl(1)) : NULL );
 #endif
 
    void *  hClassName;
@@ -1281,7 +1281,7 @@ HB_FUNC( REGISTERWINDOW )
 #ifndef UNICODE
    LPCSTR lpCursorName = HB_ISCHAR(4) ? hb_parc(4) : ( HB_ISNUM(4) ? MAKEINTRESOURCE(( WORD ) hb_parnl(4)) : NULL );
 #else
-   LPWSTR lpCursorName = HB_ISCHAR(4) ? AnsiToWide( ( char * ) hb_parc(4) ) : ( HB_ISNUM(4) ? ( LPWSTR ) MAKEINTRESOURCE(( WORD ) hb_parnl(4)) : NULL );
+   LPWSTR lpCursorName = HB_ISCHAR(4) ? AnsiToWide(( char * ) hb_parc(4)) : ( HB_ISNUM(4) ? ( LPWSTR ) MAKEINTRESOURCE(( WORD ) hb_parnl(4)) : NULL );
 #endif
 
    WndClass.style = CS_DBLCLKS | /*CS_HREDRAW | CS_VREDRAW |*/ CS_OWNDC;
@@ -1294,7 +1294,7 @@ HB_FUNC( REGISTERWINDOW )
    hIcon = LoadIcon(GetResources(), lpIconName);
    // from file
    if( NULL == hIcon && HB_ISCHAR(1) )
-      hIcon = ( HICON ) LoadImage( NULL, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE );
+      hIcon = ( HICON ) LoadImage(NULL, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE);
    WndClass.hIcon = ( ( NULL != hIcon ) ? hIcon : LoadIcon(NULL, IDI_APPLICATION) );
 
    // cursor from resource
@@ -1317,19 +1317,19 @@ HB_FUNC( REGISTERWINDOW )
 #ifndef UNICODE
       LPCTSTR lpImageName = HB_ISCHAR(3) ? hb_parc(3) : ( HB_ISNUM(3) ? MAKEINTRESOURCE(( WORD ) hb_parnl(3)) : NULL );
 #else
-      LPWSTR lpImageName = HB_ISCHAR(3) ? AnsiToWide( ( char * ) hb_parc(3) ) : ( HB_ISNUM(3) ? ( LPWSTR ) MAKEINTRESOURCE(( WORD ) hb_parnl(3)) : NULL );
+      LPWSTR lpImageName = HB_ISCHAR(3) ? AnsiToWide(( char * ) hb_parc(3)) : ( HB_ISNUM(3) ? ( LPWSTR ) MAKEINTRESOURCE(( WORD ) hb_parnl(3)) : NULL );
 #endif
 
-      hImage = ( HBITMAP ) LoadImage( GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
+      hImage = ( HBITMAP ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
       if( hImage == NULL && HB_ISCHAR(3) )
-         hImage = ( HBITMAP ) LoadImage( NULL, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT );
+         hImage = ( HBITMAP ) LoadImage(NULL, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
 #ifdef UNICODE
       hb_xfree(( TCHAR * ) lpImageName);
 #endif
       if( hImage == NULL )
-         hImage = ( HBITMAP ) HMG_LoadImage( hb_parc(3), NULL );
+         hImage = ( HBITMAP ) HMG_LoadImage(hb_parc(3), NULL);
 
       if( hImage != NULL )
          hBrush = CreatePatternBrush(hImage);
@@ -1361,7 +1361,7 @@ HB_FUNC( REGISTERSPLITCHILDWINDOW )
 #ifndef UNICODE
    LPCTSTR lpIcon = HB_ISCHAR(1) ? hb_parc(1) : ( HB_ISNIL(1) ? NULL : MAKEINTRESOURCE(( WORD ) hb_parnl(1)) );
 #else
-   LPWSTR lpIcon = HB_ISCHAR(1) ? AnsiToWide( ( char * ) hb_parc(1) ) : ( HB_ISNIL(1) ? NULL : ( LPWSTR ) MAKEINTRESOURCE(( WORD ) hb_parnl(1)) );
+   LPWSTR lpIcon = HB_ISCHAR(1) ? AnsiToWide(( char * ) hb_parc(1)) : ( HB_ISNIL(1) ? NULL : ( LPWSTR ) MAKEINTRESOURCE(( WORD ) hb_parnl(1)) );
 #endif
 
    void *  hClassName;
@@ -1374,7 +1374,7 @@ HB_FUNC( REGISTERSPLITCHILDWINDOW )
    WndClass.hInstance = GetInstance();
    WndClass.hIcon = LoadIcon(GetInstance(), lpIcon);
    if( WndClass.hIcon == NULL )
-      WndClass.hIcon = ( HICON ) LoadImage( 0, lpIcon, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE );
+      WndClass.hIcon = ( HICON ) LoadImage(0, lpIcon, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE);
 
    if( WndClass.hIcon == NULL )
       WndClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
@@ -1482,7 +1482,7 @@ HB_FUNC( BORLANDC )
    strcpy(pszCompiler, "");
    #endif /* __BORLANDC__ */
 
-   hb_retc_buffer( pszCompiler );
+   hb_retc_buffer(pszCompiler);
 }
 
 #include "mgver.h"
@@ -1495,7 +1495,7 @@ HB_FUNC( HMG_VERSION )
    hb_snprintf( pszVersion, 40, "Harbour MiniGUI %d.%d.%d (%s)",
                 MG_VER_MAJOR, MG_VER_MINOR, MG_VER_RELEASE, MG_VER_STATUS );
 
-   hb_retc_buffer( pszVersion );
+   hb_retc_buffer(pszVersion);
 }
 
 HB_FUNC( HMG_ISALPHA )
@@ -1503,10 +1503,10 @@ HB_FUNC( HMG_ISALPHA )
 #ifndef UNICODE
    LPSTR ch = ( char * ) hb_parc(1);
 #else
-   LPWSTR ch = AnsiToWide( ( char * ) hb_parc(1) );
+   LPWSTR ch = AnsiToWide(( char * ) hb_parc(1));
 #endif
 
-   hb_retl( ( BOOL ) IsCharAlpha( ch[ 0 ] ) );
+   hb_retl( ( BOOL ) IsCharAlpha(ch[ 0 ]) );
 }
 
 HB_FUNC( HMG_ISDIGIT )
@@ -1514,17 +1514,17 @@ HB_FUNC( HMG_ISDIGIT )
 #ifndef UNICODE
    LPSTR ch = ( char * ) hb_parc(1);
 #else
-   LPWSTR ch = AnsiToWide( ( char * ) hb_parc(1) );
+   LPWSTR ch = AnsiToWide(( char * ) hb_parc(1));
 #endif
 
-   hb_retl( ( BOOL ) ( IsCharAlphaNumeric( ch[ 0 ] ) && ! IsCharAlpha( ch[ 0 ] ) ) );
+   hb_retl( ( BOOL ) ( IsCharAlphaNumeric( ch[ 0 ] ) && ! IsCharAlpha(ch[ 0 ]) ) );
 }
 
 #ifdef UNICODE
 HB_FUNC( HMG_LOWER )
 {
    LPSTR pStr;
-   TCHAR * Text = ( TCHAR * ) AnsiToWide( ( char * ) hb_parc(1) );
+   TCHAR * Text = ( TCHAR * ) AnsiToWide(( char * ) hb_parc(1));
    INT nLen;
    TCHAR * Buffer;
 
@@ -1540,8 +1540,8 @@ HB_FUNC( HMG_LOWER )
    if( Buffer != NULL )
    {
       lstrcpy(Buffer, Text);
-      CharLower( Buffer );
-      pStr = WideToAnsi( Buffer );
+      CharLower(Buffer);
+      pStr = WideToAnsi(Buffer);
       hb_retc( pStr );
       hb_xfree(pStr);
    }
@@ -1555,7 +1555,7 @@ HB_FUNC( HMG_LOWER )
 HB_FUNC( HMG_UPPER )
 {
    LPSTR pStr;
-   TCHAR * Text = ( TCHAR * ) AnsiToWide( ( char * ) hb_parc(1) );
+   TCHAR * Text = ( TCHAR * ) AnsiToWide(( char * ) hb_parc(1));
    INT nLen;
    TCHAR * Buffer;
 
@@ -1571,8 +1571,8 @@ HB_FUNC( HMG_UPPER )
    if( Buffer != NULL )
    {
       lstrcpy(Buffer, Text);
-      CharUpper( Buffer );
-      pStr = WideToAnsi( Buffer );
+      CharUpper(Buffer);
+      pStr = WideToAnsi(Buffer);
       hb_retc( pStr );
       hb_xfree(pStr);
    }
@@ -1588,9 +1588,9 @@ HB_FUNC( HMG_ISLOWER )
 #ifndef UNICODE
    LPSTR Text = ( LPSTR ) hb_parc(1);
 #else
-   LPWSTR Text = AnsiToWide( ( char * ) hb_parc(1) );
+   LPWSTR Text = AnsiToWide(( char * ) hb_parc(1));
 #endif
-   hb_retl( ( BOOL ) IsCharLower( Text[ 0 ] ) );
+   hb_retl( ( BOOL ) IsCharLower(Text[ 0 ]) );
 
 #ifdef UNICODE
    hb_xfree(Text);
@@ -1602,9 +1602,9 @@ HB_FUNC( HMG_ISUPPER )
 #ifndef UNICODE
    LPSTR Text = ( LPSTR ) hb_parc(1);
 #else
-   LPWSTR Text = AnsiToWide( ( char * ) hb_parc(1) );
+   LPWSTR Text = AnsiToWide(( char * ) hb_parc(1));
 #endif
-   hb_retl( ( BOOL ) IsCharUpper( Text[ 0 ] ) );
+   hb_retl( ( BOOL ) IsCharUpper(Text[ 0 ]) );
 
 #ifdef UNICODE
    hb_xfree(Text);

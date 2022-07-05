@@ -57,10 +57,10 @@
 #define TOTAL_TABS  10
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
-LPSTR  WideToAnsi( LPWSTR );
+LPWSTR AnsiToWide(LPCSTR);
+LPSTR  WideToAnsi(LPWSTR);
 #endif
-HINSTANCE GetInstance( void );
+HINSTANCE GetInstance(void);
 
 HB_FUNC( INITLISTBOX )
 {
@@ -115,7 +115,7 @@ HB_FUNC( LISTBOXADDSTRING )
  #ifndef UNICODE
    LPTSTR lpString = ( LPTSTR ) hb_parc(2);
 #else
-   LPWSTR lpString = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR lpString = AnsiToWide(( char * ) hb_parc(2));
 #endif
    SendMessage( hmg_par_HWND(1), LB_ADDSTRING, 0, ( LPARAM ) lpString );
 #ifdef UNICODE
@@ -128,7 +128,7 @@ HB_FUNC( LISTBOXINSERTSTRING )
  #ifndef UNICODE
    LPTSTR lpString = ( LPTSTR ) hb_parc(2);
 #else
-   LPWSTR lpString = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR lpString = AnsiToWide(( char * ) hb_parc(2));
 #endif
    SendMessage( hmg_par_HWND(1), LB_INSERTSTRING, ( WPARAM ) hb_parni(3) - 1, ( LPARAM ) lpString );
 #ifdef UNICODE
@@ -149,11 +149,11 @@ HB_FUNC( LISTBOXGETSTRING )
    {
       SendMessage( hmg_par_HWND(1), LB_GETTEXT, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) cString );
    #ifdef UNICODE
-      lpString = WideToAnsi( cString );
+      lpString = WideToAnsi(cString);
       hb_retc( lpString );
       hb_xfree(lpString);
    #else
-      hb_retclen_buffer( cString, iLen );
+      hb_retclen_buffer(cString, iLen);
    #endif
    }
    else
@@ -218,7 +218,7 @@ HB_FUNC( LISTBOXGETMULTISEL )
 
    SendMessage( hwnd, LB_GETSELITEMS, ( WPARAM ) ( n ), ( LPARAM ) buffer );
 
-   hb_reta( n );
+   hb_reta(n);
 
    for( i = 0; i < n; i++ )
       HB_STORNI( buffer[ i ] + 1, -1, i + 1 );
@@ -234,7 +234,7 @@ HB_FUNC( LISTBOXSETMULTISEL )
 
    wArray = hb_param( 2, Harbour::Item::ARRAY );
 
-   l = ( int ) hb_parinfa( 2, 0 ) - 1;
+   l = ( int ) hb_parinfa(2, 0) - 1;
 
    n = ( int ) SendMessage( hwnd, LB_GETCOUNT, 0, 0 );
 
@@ -259,7 +259,7 @@ HB_FUNC( LISTBOXSETMULTITAB )
 
    wArray = hb_param( 2, Harbour::Item::ARRAY );
 
-   l = ( int ) hb_parinfa( 2, 0 ) - 1;
+   l = ( int ) hb_parinfa(2, 0) - 1;
 
    for( i = 0; i <= l; i++ )
       nTabStops[ i ] = MulDiv( hb_arrayGetNI( wArray, i + 1 ), 4, baseunitX );

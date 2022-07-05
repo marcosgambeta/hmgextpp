@@ -65,10 +65,10 @@
 static BOOL IsWinxpSp1Min(void);
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
-LPSTR  WideToAnsi( LPWSTR );
+LPWSTR AnsiToWide(LPCSTR);
+LPSTR  WideToAnsi(LPWSTR);
 #endif
-HINSTANCE GetInstance( void );
+HINSTANCE GetInstance(void);
 
 static HINSTANCE hRELib = NULL;
 
@@ -171,7 +171,7 @@ HB_FUNC( STREAMIN )        //StreamIn(HWND hwndCtrl, LPCTSTR lpszPath, int typ )
 #ifndef UNICODE
    LPCSTR cFileName = ( char * ) hb_parc(2);
 #else
-   LPCWSTR cFileName = AnsiToWide( ( char * ) hb_parc(2) );
+   LPCWSTR cFileName = AnsiToWide(( char * ) hb_parc(2));
 #endif
    EDITSTREAM es;
    long       Flag, Mode;
@@ -225,7 +225,7 @@ HB_FUNC( STREAMOUT )       //StreamOut(HWND hwndCtrl, LPCTSTR lpszPath, int Typ 
 #ifndef UNICODE
    LPCSTR cFileName = ( char * ) hb_parc(2);
 #else
-   LPCWSTR cFileName = AnsiToWide( ( char * ) hb_parc(2) );
+   LPCWSTR cFileName = AnsiToWide(( char * ) hb_parc(2));
 #endif
    EDITSTREAM es;
    long       Flag;
@@ -354,7 +354,7 @@ HB_FUNC( GETFONTRTF )
 #ifndef UNICODE
    HB_STORC( cF.szFaceName, -1, 1 );
 #else
-   pStr = WideToAnsi( cF.szFaceName );
+   pStr = WideToAnsi(cF.szFaceName);
    HB_STORC( pStr, -1, 1 );
    hb_xfree(pStr);
 #endif
@@ -378,7 +378,7 @@ HB_FUNC( SETFONTRTF )
 #ifndef UNICODE
    TCHAR * szFaceName = ( TCHAR * ) hb_parc(3);
 #else
-   TCHAR * szFaceName = ( TCHAR * ) hb_osStrU16Encode( ( char * ) hb_parc(3) );
+   TCHAR * szFaceName = ( TCHAR * ) hb_osStrU16Encode(( char * ) hb_parc(3));
 #endif
 
    cF.cbSize = sizeof(CHARFORMAT);
@@ -437,7 +437,7 @@ static BOOL IsWinxpSp1Min(void)
 
    osvi.dwOSVersionInfoSize = sizeof(osvi);
 
-   if( ! GetVersionEx( &osvi ) )
+   if( ! GetVersionEx(&osvi) )
       return FALSE;
 
    if( osvi.dwMajorVersion >= 5 )

@@ -5,11 +5,11 @@
 #include <commctrl.h>
 
 #ifdef UNICODE
-   LPWSTR AnsiToWide( LPCSTR );
-   LPSTR  WideToAnsi( LPWSTR );
+   LPWSTR AnsiToWide(LPCSTR);
+   LPSTR  WideToAnsi(LPWSTR);
 #endif
 BOOL Array2Rect(PHB_ITEM aRect, RECT * rc);
-PHB_ITEM             Rect2Array( RECT * rc );
+PHB_ITEM             Rect2Array(RECT * rc);
 
 // Minigui Resources control system
 void RegisterResource(HANDLE hResource, LPSTR szType);
@@ -137,7 +137,7 @@ HB_FUNC( MOVETO )
 {
    POINT pt;
 
-   MoveToEx( hmg_par_HDC(1), hmg_par_INT(2), hmg_par_INT(3), &pt );
+   MoveToEx(hmg_par_HDC(1), hmg_par_INT(2), hmg_par_INT(3), &pt);
 }
 
 HB_FUNC( LINETO )
@@ -181,7 +181,7 @@ HB_FUNC( GETCLASSINFO )
 #ifndef UNICODE
    LPCSTR lpString = ( LPCSTR ) hb_parc(2);
 #else
-   LPWSTR lpString = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR lpString = AnsiToWide(( char * ) hb_parc(2));
    LPSTR pStr;
 #endif
    WNDCLASS WndClass;
@@ -190,7 +190,7 @@ HB_FUNC( GETCLASSINFO )
    {
    #ifdef UNICODE
       hb_reta(1);
-      pStr = WideToAnsi( ( LPWSTR ) WndClass.lpszClassName );
+      pStr = WideToAnsi(( LPWSTR ) WndClass.lpszClassName);
       HB_STORC( pStr, -1, 1 );
       hb_xfree(pStr);
    #else
@@ -224,8 +224,8 @@ HB_FUNC( MOVEFILE )
    LPCSTR lpExistingFileName = hb_parc(1);
    LPCSTR lpNewFileName = hb_parc(2);
 #else
-   LPWSTR lpExistingFileName = AnsiToWide( ( char * ) hb_parc(1) );
-   LPWSTR lpNewFileName = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR lpExistingFileName = AnsiToWide(( char * ) hb_parc(1));
+   LPWSTR lpNewFileName = AnsiToWide(( char * ) hb_parc(2));
 #endif
 
    hb_retl( ( BOOL ) MoveFile(lpExistingFileName, lpNewFileName) );

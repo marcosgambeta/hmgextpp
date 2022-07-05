@@ -63,10 +63,10 @@ LRESULT CALLBACK  MdiWndProc( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam 
 LRESULT CALLBACK  MdiChildWndProc( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam );
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
+LPWSTR AnsiToWide(LPCSTR);
 #endif
-HINSTANCE GetResources( void );
-HINSTANCE GetInstance( void );
+HINSTANCE GetResources(void);
+HINSTANCE GetInstance(void);
 
 static HWND hwndMDIClient;
 
@@ -76,7 +76,7 @@ HB_FUNC( REGISTERMDIWINDOW )
    LPCTSTR      lpIconName  = HB_ISCHAR(1) ? hb_parc(1) : NULL;
    const char * lpClassName = hb_parc(2);
 #else
-   LPWSTR  lpIconName = HB_ISCHAR(1) ? AnsiToWide( ( char * ) hb_parc(1) ) : NULL;
+   LPWSTR  lpIconName = HB_ISCHAR(1) ? AnsiToWide(( char * ) hb_parc(1)) : NULL;
    void *  hClassName;
    LPCTSTR lpClassName = HB_PARSTR( 2, &hClassName, NULL );
 #endif
@@ -93,7 +93,7 @@ HB_FUNC( REGISTERMDIWINDOW )
    WndClass.hInstance   = GetInstance();
    WndClass.hIcon       = LoadIcon(GetResources(), lpIconName);
    if( WndClass.hIcon == NULL )
-      WndClass.hIcon = ( HICON ) LoadImage( NULL, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE );
+      WndClass.hIcon = ( HICON ) LoadImage(NULL, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE);
 
    if( WndClass.hIcon == NULL )
       WndClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
@@ -112,7 +112,7 @@ HB_FUNC( REGISTERMDIWINDOW )
 
    if( ! RegisterClass( &WndClass ) )
    {
-      MessageBox( 0, TEXT("Window MDI Registration Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL );
+      MessageBox(0, TEXT("Window MDI Registration Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
       ExitProcess(0);
    }
 
@@ -126,7 +126,7 @@ HB_FUNC( REGISTERMDIWINDOW )
 
    WndClass.hIcon = LoadIcon(GetResources(), lpIconName);
    if( WndClass.hIcon == NULL )
-      WndClass.hIcon = ( HICON ) LoadImage( NULL, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE );
+      WndClass.hIcon = ( HICON ) LoadImage(NULL, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE);
 
    if( WndClass.hIcon == NULL )
       WndClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
@@ -142,7 +142,7 @@ HB_FUNC( REGISTERMDIWINDOW )
    WndClass.lpszClassName = TEXT("MdiChildWndClass");
    if( ! RegisterClass( ( LPWNDCLASS ) &WndClass ) )
    {
-      MessageBox( 0, TEXT("Window MdiChild Registration Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL );
+      MessageBox(0, TEXT("Window MdiChild Registration Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
       ExitProcess(0);
    }
 
@@ -214,8 +214,8 @@ HB_FUNC( INITMDIWINDOW )
    LPCSTR lpWindowName = hb_parc(1);
    LPCSTR lpClassName  = hb_parc(12);
 #else
-   LPWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc(1) );
-   LPWSTR lpClassName  = AnsiToWide( ( char * ) hb_parc(12) );
+   LPWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(1));
+   LPWSTR lpClassName  = AnsiToWide(( char * ) hb_parc(12));
 #endif
    HWND  hwnd;
    DWORD Style = WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_BORDER | WS_SYSMENU | WS_THICKFRAME;
@@ -269,7 +269,7 @@ HB_FUNC( INITMDIWINDOW )
 
    if( hwnd == NULL )
    {
-      MessageBox( 0, TEXT("MDI Window Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL );
+      MessageBox(0, TEXT("MDI Window Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
       return;
    }
 
@@ -340,7 +340,7 @@ HB_FUNC( INITMDICHILDWINDOW )
 #ifndef UNICODE
          LPCTSTR lpTitle = hb_parc(2);
 #else
-         LPWSTR lpTitle = AnsiToWide( ( char * ) hb_parc(2) );
+         LPWSTR lpTitle = AnsiToWide(( char * ) hb_parc(2));
 #endif
          HB_STRNCPY(rgch, lpTitle, 149);
          rgch[ 149 ] = 0;

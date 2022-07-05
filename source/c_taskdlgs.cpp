@@ -17,8 +17,8 @@
 #define UNICODE
 
 #if defined( __MINGW32__ )
-# define MAKEINTRESOURCEA( i )  ( ( LPSTR ) ( ( ULONG_PTR ) ( ( WORD ) ( i ) ) ) )
-# define MAKEINTRESOURCEW( i )  ( ( LPWSTR ) ( ( ULONG_PTR ) ( ( WORD ) ( i ) ) ) )
+# define MAKEINTRESOURCEA(i)  ( ( LPSTR ) ( ( ULONG_PTR ) ( ( WORD ) ( i ) ) ) )
+# define MAKEINTRESOURCEW(i)  ( ( LPWSTR ) ( ( ULONG_PTR ) ( ( WORD ) ( i ) ) ) )
 # ifdef UNICODE
 #  define MAKEINTRESOURCE  MAKEINTRESOURCEW
 # else
@@ -42,7 +42,7 @@
 
 HRESULT TaskDialog( HWND hwndParent, HINSTANCE hInstance, PCWSTR pszWindowTitle, PCWSTR pszMainInstruction, PCWSTR pszContent, TASKDIALOG_COMMON_BUTTON_FLAGS dwCommonButtons, PCWSTR pszIcon, int * pnButton )
 {
-   HMODULE hCommCtl = LoadLibraryEx( TEXT("comctl32.dll"), NULL, 0 );
+   HMODULE hCommCtl = LoadLibraryEx(TEXT("comctl32.dll"), NULL, 0);
 
    if( hCommCtl )
    {
@@ -62,7 +62,7 @@ HRESULT TaskDialog( HWND hwndParent, HINSTANCE hInstance, PCWSTR pszWindowTitle,
 
 HRESULT TaskDialogIndirect(const TASKDIALOGCONFIG * pTaskConfig, int * pnButton, int * pnRadioButton, BOOL * pfVerificationFlagChecked)
 {
-   HMODULE hCommCtl = LoadLibraryEx( TEXT("comctl32.dll"), NULL, 0 );
+   HMODULE hCommCtl = LoadLibraryEx(TEXT("comctl32.dll"), NULL, 0);
 
    if( hCommCtl )
    {
@@ -510,7 +510,7 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
          hb_xfree(hRadioButton);
 
       if( hb_arrayGetType(pConfig, TDC_CALLBACK) & Harbour::Item::EVALITEM )
-         hb_itemRelease( ( PHB_ITEM ) config.lpCallbackData );
+         hb_itemRelease(( PHB_ITEM ) config.lpCallbackData);
 
       if( hResult == S_OK )
       {
@@ -547,7 +547,7 @@ static HB_BOOL TD_CheckButton( const PHB_ITEM arrayOfButtons, HB_SIZE arraysize 
    for( i = 1; i <= arraysize; ++i )
    {
       button = hb_arrayGetItemPtr(arrayOfButtons, i);
-      if( HB_IS_ARRAY( button ) && hb_arrayLen( button ) > 1 )
+      if( HB_IS_ARRAY(button) && hb_arrayLen( button ) > 1 )
       {
          if( ! ( ( ( hb_arrayGetType(button, 1) & Harbour::Item::NUMERIC ) != 0 ) &&
                  ( ( hb_arrayGetType(button, 2) & ( Harbour::Item::STRING | Harbour::Item::NUMERIC ) ) != 0 ) ) )
@@ -591,7 +591,7 @@ HRESULT CALLBACK __ClsCBFunc( HWND hWnd, UINT uiNotification, WPARAM wParam, LPA
                PHB_ITEM itmTimeOut = hb_itemPutL( NULL, HB_TRUE );
                // Set TimedOut property to TRUE
                hb_objSendMsg( pObject, ( const char * ) "TIMEDOUT", 1, itmTimeOut );
-               hb_itemRelease( itmTimeOut );
+               hb_itemRelease(itmTimeOut);
                // And cancel a Dialog
                SendMessage( hWnd, TDM_CLICK_BUTTON, IDCANCEL, ( LPARAM ) 0 );
             }
@@ -635,7 +635,7 @@ HRESULT CALLBACK __ClsCBFunc( HWND hWnd, UINT uiNotification, WPARAM wParam, LPA
 
          hRes = ( ( hb_parl( -1 ) == HB_TRUE ) ? S_OK : S_FALSE );
 
-         hb_itemRelease( itmStr );
+         hb_itemRelease(itmStr);
          hb_vmRequestRestore();
 
          return hRes;
@@ -671,7 +671,7 @@ static const char * TD_NotifyToMsg( UINT uiNotification, PHB_ITEM pObj )
    UINT uiPos;
    const char * sMsgName = NULL;
 
-   for( uiPos = 0; uiPos < ( UINT ) HB_SIZEOFARRAY( s_NOTIFY_MSG ); ++uiPos )
+   for( uiPos = 0; uiPos < ( UINT ) HB_SIZEOFARRAY(s_NOTIFY_MSG); ++uiPos )
    {
       if( s_NOTIFY_MSG[ uiPos ].Notification == uiNotification )
       {
@@ -706,11 +706,11 @@ static BOOL TD_objSendMsg( PHB_ITEM pObject, const char * sMsgName, HRESULT * hR
       if( NULL != hRes )
          ( *hRes ) = ( hb_itemGetL(  itmResult ) == HB_TRUE ? S_OK : S_FALSE );
 
-      hb_itemRelease( itmResult );
-      hb_itemRelease( itmHWND );
-      hb_itemRelease( itmNotify );
-      hb_itemRelease( itmWParam );
-      hb_itemRelease( itmLParam );
+      hb_itemRelease(itmResult);
+      hb_itemRelease(itmHWND);
+      hb_itemRelease(itmNotify);
+      hb_itemRelease(itmWParam);
+      hb_itemRelease(itmLParam);
 
       return TRUE;
    }

@@ -61,10 +61,10 @@ static WNDPROC LabelOldWndProc;
 extern HBITMAP HMG_LoadPicture( const char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage,
                                 HB_BOOL bAlphaFormat, int iAlpfaConstant );
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
+LPWSTR AnsiToWide(LPCSTR);
 #endif
-HINSTANCE GetInstance( void );
-HINSTANCE GetResources( void );
+HINSTANCE GetInstance(void);
+HINSTANCE GetResources(void);
 
 typedef struct
 {
@@ -98,9 +98,9 @@ HBITMAP CreateBitmapMask(HBITMAP hbmColour, COLORREF crTransparent)
 
    SetBkColor(hdcMem2, crTransparent);
 
-   BitBlt( hdcMem2, 0, 0, bm.bmWidth, bm.bmHeight, hdcMem, 0, 0, SRCCOPY );
+   BitBlt(hdcMem2, 0, 0, bm.bmWidth, bm.bmHeight, hdcMem, 0, 0, SRCCOPY);
 
-   BitBlt( hdcMem, 0, 0, bm.bmWidth, bm.bmHeight, hdcMem2, 0, 0, SRCINVERT );
+   BitBlt(hdcMem, 0, 0, bm.bmWidth, bm.bmHeight, hdcMem2, 0, 0, SRCINVERT);
 
    DeleteDC(hdcMem);
    DeleteDC(hdcMem2);
@@ -125,7 +125,7 @@ BOOL InsertCheck(HWND hWnd, HBITMAP himage, HBITMAP himage2, int BtnWidth, BOOL 
 {
    INSCHK * pbtn;
 
-   pbtn = ( INSCHK * ) HeapAlloc( GetProcessHeap(), 0, sizeof(INSCHK) );
+   pbtn = ( INSCHK * ) HeapAlloc(GetProcessHeap(), 0, sizeof(INSCHK));
 
    if( ! pbtn )
       return FALSE;
@@ -187,10 +187,10 @@ static void DrawCheck(HWND hWnd, INSCHK * pbtn, RECT * prect)
          HBITMAP hbmOld = ( HBITMAP ) SelectObject(hdcMem, hBitmapMask);
          GetObject(hBitmap, sizeof(bm), &bm);
 
-         BitBlt( hdc, wCol, wRow, bm.bmWidth, bm.bmHeight, hdcMem, 0, 0, SRCAND );
+         BitBlt(hdc, wCol, wRow, bm.bmWidth, bm.bmHeight, hdcMem, 0, 0, SRCAND);
 
          SelectObject(hdcMem, hBitmap);
-         BitBlt( hdc, wCol, wRow, bm.bmWidth, bm.bmHeight, hdcMem, 0, 0, SRCPAINT );
+         BitBlt(hdc, wCol, wRow, bm.bmWidth, bm.bmHeight, hdcMem, 0, 0, SRCPAINT);
          SelectObject(hdcMem, hbmOld);
       }
       else if( hBitmap2 != NULL )
@@ -198,10 +198,10 @@ static void DrawCheck(HWND hWnd, INSCHK * pbtn, RECT * prect)
          HBITMAP hbmOld = ( HBITMAP ) SelectObject(hdcMem, hBitmapMask2);
          GetObject(hBitmap2, sizeof(bm), &bm);
 
-         BitBlt( hdc, wCol, wRow, bm.bmWidth, bm.bmHeight, hdcMem, 0, 0, SRCAND );
+         BitBlt(hdc, wCol, wRow, bm.bmWidth, bm.bmHeight, hdcMem, 0, 0, SRCAND);
 
          SelectObject(hdcMem, hBitmap2);
-         BitBlt( hdc, wCol, wRow, bm.bmWidth, bm.bmHeight, hdcMem, 0, 0, SRCPAINT );
+         BitBlt(hdc, wCol, wRow, bm.bmWidth, bm.bmHeight, hdcMem, 0, 0, SRCPAINT);
          SelectObject(hdcMem, hbmOld);
       }
       DeleteDC(hdcMem);
@@ -221,7 +221,7 @@ HB_FUNC( INITCHKLABEL )
 #ifndef UNICODE
    LPCSTR lpWindowName = hb_parc(2);
 #else
-   LPWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(2));
 #endif
 
    int BtnWidth = hb_parni(7);

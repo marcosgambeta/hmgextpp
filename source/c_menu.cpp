@@ -69,12 +69,12 @@
 
 // extern functions
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
-LPSTR  WideToAnsi( LPWSTR );
+LPWSTR AnsiToWide(LPCSTR);
+LPSTR  WideToAnsi(LPWSTR);
 #endif
-HINSTANCE        GetResources( void );
+HINSTANCE        GetResources(void);
 extern HBITMAP   Icon2Bmp( HICON hIcon );
-extern BOOL      SetAcceleratorTable( HWND, HACCEL );
+extern BOOL      SetAcceleratorTable(HWND, HACCEL);
 
 HBITMAP HMG_LoadPicture( const char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage,
                          HB_BOOL bAlphaFormat, int iAlpfaConstant );
@@ -85,7 +85,7 @@ HB_FUNC( SETACCELERATORTABLE )
    HACCEL hAccel   = ( HACCEL ) ( LONG_PTR ) HB_PARNL(2);
 
    if( hWndMain && hAccel )
-      SetAcceleratorTable( hWndMain, hAccel );
+      SetAcceleratorTable(hWndMain, hAccel);
 }
 
 HB_FUNC( ACCELERATORTABLE2ARRAY )
@@ -95,15 +95,15 @@ HB_FUNC( ACCELERATORTABLE2ARRAY )
 
    if( hAccel )
    {
-      int cAccelEntries = CopyAcceleratorTable( hAccel, NULL, 0 );
+      int cAccelEntries = CopyAcceleratorTable(hAccel, NULL, 0);
 
       if( cAccelEntries > 0 )
       {
-         LPACCEL lpAccel = ( LPACCEL ) hb_xalloc(  cAccelEntries * sizeof(ACCEL) );
+         LPACCEL lpAccel = ( LPACCEL ) hb_xalloc(cAccelEntries * sizeof(ACCEL));
 
          if( NULL != lpAccel )
          {
-            if( CopyAcceleratorTable( hAccel, lpAccel, cAccelEntries ) )
+            if( CopyAcceleratorTable(hAccel, lpAccel, cAccelEntries) )
             {
                int i;
 
@@ -117,7 +117,7 @@ HB_FUNC( ACCELERATORTABLE2ARRAY )
 
                   hb_arrayAddForward( aAccels, aAccel );
 
-                  hb_itemRelease( aAccel );
+                  hb_itemRelease(aAccel);
                }
 
                hb_xfree(lpAccel);
@@ -126,7 +126,7 @@ HB_FUNC( ACCELERATORTABLE2ARRAY )
       }
    }
 
-   hb_itemReturnRelease( aAccels );
+   hb_itemReturnRelease(aAccels);
 }
 
 HB_FUNC( ARRAY2ACCELERATORTABLE )
@@ -137,7 +137,7 @@ HB_FUNC( ARRAY2ACCELERATORTABLE )
 
    if( pArray && ( ( nLen = ( int ) hb_arrayLen( pArray ) ) > 0 ) )
    {
-      LPACCEL lpAccel = ( LPACCEL ) hb_xalloc(  nLen * sizeof(ACCEL) );
+      LPACCEL lpAccel = ( LPACCEL ) hb_xalloc(nLen * sizeof(ACCEL));
 
       if( NULL != lpAccel )
       {
@@ -158,7 +158,7 @@ HB_FUNC( ARRAY2ACCELERATORTABLE )
             }
          }
 
-         hAccel = CreateAcceleratorTable( lpAccel, nLen );
+         hAccel = CreateAcceleratorTable(lpAccel, nLen);
          hb_xfree(lpAccel);
       }
    }
@@ -167,7 +167,7 @@ HB_FUNC( ARRAY2ACCELERATORTABLE )
 }
 
 
-// int WINAPI CopyAcceleratorTable( HACCEL hAccelSrc, LPACCEL lpAccelDst, int cAccelEntries )
+// int WINAPI CopyAcceleratorTable(HACCEL hAccelSrc, LPACCEL lpAccelDst, int cAccelEntries)
 HB_FUNC( COPYACCELERATORTABLE )
 {
    HACCEL hAccelSrc = ( HACCEL ) ( LONG_PTR ) HB_PARNL(1);
@@ -176,15 +176,15 @@ HB_FUNC( COPYACCELERATORTABLE )
 
    if( NULL != hAccelSrc )
    {
-      int cAccelEntries = CopyAcceleratorTable( hAccelSrc, NULL, 0 );
+      int cAccelEntries = CopyAcceleratorTable(hAccelSrc, NULL, 0);
 
       if( cAccelEntries > 0 )
       {
-         LPACCEL lpAccelDst = ( LPACCEL ) hb_xalloc(  cAccelEntries * sizeof(ACCEL) );
+         LPACCEL lpAccelDst = ( LPACCEL ) hb_xalloc(cAccelEntries * sizeof(ACCEL));
 
          if( NULL != lpAccelDst )
          {
-            hb_retni( CopyAcceleratorTable( hAccelSrc, lpAccelDst, cAccelEntries ) );
+            hb_retni( CopyAcceleratorTable(hAccelSrc, lpAccelDst, cAccelEntries) );
 
             hb_storptr(lpAccelDst, 2);
          }
@@ -192,7 +192,7 @@ HB_FUNC( COPYACCELERATORTABLE )
    }
 }
 
-// HACCEL WINAPI CreateAcceleratorTable( LPACCEL lpAccel, int cAccelEntries )
+// HACCEL WINAPI CreateAcceleratorTable(LPACCEL lpAccel, int cAccelEntries)
 HB_FUNC( CREATEACCELERATORTABLE )
 {
    LPACCEL lpAccels      = ( LPACCEL ) hb_parptr(1);
@@ -201,7 +201,7 @@ HB_FUNC( CREATEACCELERATORTABLE )
 
    if( lpAccels && ( cAccelEntries > 0 ) )
    {
-      hAccel = CreateAcceleratorTable( lpAccels, cAccelEntries );
+      hAccel = CreateAcceleratorTable(lpAccels, cAccelEntries);
 
       hb_xfree(lpAccels);
    }
@@ -209,12 +209,12 @@ HB_FUNC( CREATEACCELERATORTABLE )
    HB_RETNL( ( LONG_PTR ) hAccel );
 }
 
-// BOOL WINAPI DestroyAcceleratorTable( HACCEL hAccel )
+// BOOL WINAPI DestroyAcceleratorTable(HACCEL hAccel)
 HB_FUNC( DESTROYACCELERATORTABLE )
 {
    HACCEL hAccel = ( HACCEL ) ( LONG_PTR ) HB_PARNL(1);
 
-   hb_retl( DestroyAcceleratorTable( hAccel ) ? HB_TRUE : HB_FALSE );
+   hb_retl( DestroyAcceleratorTable(hAccel) ? HB_TRUE : HB_FALSE );
 }
 
 // HACCEL WINAPI LoadAccelerators( HINSTANCE hInstance, LPCTSTR lpTableName )
@@ -351,7 +351,7 @@ HB_FUNC( APPENDMENUSTRING )
 #ifndef UNICODE
    LPCSTR lpNewItem = hb_parc(3);
 #else
-   LPWSTR lpNewItem = AnsiToWide( ( char * ) hb_parc(3) );
+   LPWSTR lpNewItem = AnsiToWide(( char * ) hb_parc(3));
 #endif
    UINT Style;
 
@@ -411,7 +411,7 @@ HB_FUNC( APPENDMENUPOPUP )
 #ifndef UNICODE
    LPCSTR lpNewItem = hb_parc(3);
 #else
-   LPWSTR lpNewItem = AnsiToWide( ( char * ) hb_parc(3) );
+   LPWSTR lpNewItem = AnsiToWide(( char * ) hb_parc(3));
 #endif
    if( s_bCustomDraw )
    {
@@ -459,7 +459,7 @@ HB_FUNC( MODIFYMENUITEM )
 #ifndef UNICODE
    LPCSTR lpNewItem = hb_parc(4);
 #else
-   LPWSTR lpNewItem = AnsiToWide( ( char * ) hb_parc(4) );
+   LPWSTR lpNewItem = AnsiToWide(( char * ) hb_parc(4));
 #endif
    hb_retl( ModifyMenu( hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND | MF_STRING, hb_parni(3), lpNewItem ) );
 
@@ -473,7 +473,7 @@ HB_FUNC( INSERTMENUITEM )
 #ifndef UNICODE
    LPCSTR lpNewItem = hb_parc(4);
 #else
-   LPWSTR lpNewItem = AnsiToWide( ( char * ) hb_parc(4) );
+   LPWSTR lpNewItem = AnsiToWide(( char * ) hb_parc(4));
 #endif
    hb_retl( InsertMenu( hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND | MF_STRING, hb_parni(3), lpNewItem ) );
 
@@ -562,12 +562,12 @@ HB_FUNC( MENUITEM_SETICON )
 #ifndef UNICODE
    LPCSTR lpIconName = hb_parc(3);
 #else
-   LPWSTR lpIconName = AnsiToWide( ( char * ) hb_parc(3) );
+   LPWSTR lpIconName = AnsiToWide(( char * ) hb_parc(3));
 #endif
 
-   hIcon = ( HICON ) LoadImage( GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_DEFAULTCOLOR );
+   hIcon = ( HICON ) LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_DEFAULTCOLOR);
    if( hIcon == NULL )
-      hIcon = ( HICON ) LoadImage( NULL, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR );
+      hIcon = ( HICON ) LoadImage(NULL, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR);
 
    // convert icon to bitmap
    himage1 = Icon2Bmp( hIcon );
@@ -647,7 +647,7 @@ HB_FUNC( XGETMENUCAPTION )
       #ifndef UNICODE
          hb_retclen( lpMenuItem->caption, lpMenuItem->cch );
       #else
-         pStr = WideToAnsi( lpMenuItem->caption );
+         pStr = WideToAnsi(lpMenuItem->caption);
          hb_retclen( pStr, lpMenuItem->cch );
          hb_xfree(pStr);
       #endif
@@ -664,7 +664,7 @@ HB_FUNC( XSETMENUCAPTION )
    #ifndef UNICODE
       LPCSTR lpNewItem = hb_parc(3);
    #else
-      LPWSTR lpNewItem = AnsiToWide( ( char * ) hb_parc(3) );
+      LPWSTR lpNewItem = AnsiToWide(( char * ) hb_parc(3));
       LPSTR  pStr;
    #endif
       MENUITEMINFO MenuItemInfo;
@@ -683,7 +683,7 @@ HB_FUNC( XSETMENUCAPTION )
       #ifndef UNICODE
          hb_retclen( lpMenuItem->caption, lpMenuItem->cch );
       #else
-         pStr = WideToAnsi( lpMenuItem->caption );
+         pStr = WideToAnsi(lpMenuItem->caption);
          hb_retclen( pStr, lpMenuItem->cch );
          hb_xfree(pStr);
       #endif
@@ -878,7 +878,7 @@ HB_FUNC( _ONDRAWMENUITEM )
          rect.right  = rect.left + bm_size + cx_delta;
          rect.bottom = rect.top + bm_size + cy_delta;
 
-         MoveToEx( lpdis->hDC, rect.left, rect.top, NULL );
+         MoveToEx(lpdis->hDC, rect.left, rect.top, NULL);
 
          LineTo( lpdis->hDC, rect.right, rect.top );
          SelectObject(lpdis->hDC, pen);
@@ -972,7 +972,7 @@ VOID DrawSeparator( HDC hDC, RECT r )
    }
 
    rect.top += ( rect.bottom - rect.top ) / 2;
-   MoveToEx( hDC, rect.left, rect.top, NULL );
+   MoveToEx(hDC, rect.left, rect.top, NULL);
    LineTo( hDC, rect.right, rect.top );
 
    if( eSeparatorType == Double )
@@ -982,7 +982,7 @@ VOID DrawSeparator( HDC hDC, RECT r )
       oldPen1 = ( HPEN ) SelectObject(hDC, pen1);
 
       rect.top += 1;
-      MoveToEx( hDC, rect.left, rect.top, NULL );
+      MoveToEx(hDC, rect.left, rect.top, NULL);
       LineTo( hDC, rect.right, rect.top );
 
       SelectObject(hDC, oldPen1);
@@ -1074,7 +1074,7 @@ VOID DrawItemBk( HDC hDC, RECT r, BOOL Selected, BOOL Grayed, UINT itemType, BOO
    }
 }
 
-VOID DrawSelectedItemBorder( HDC hDC, RECT r, UINT itemType, BOOL clear )
+VOID DrawSelectedItemBorder(HDC hDC, RECT r, UINT itemType, BOOL clear)
 {
    HPEN pen, pen1, oldPen;
    RECT rect;
@@ -1098,7 +1098,7 @@ VOID DrawSelectedItemBorder( HDC hDC, RECT r, UINT itemType, BOOL clear )
 
    InflateRect(&rect, -1, -1);
 
-   MoveToEx( hDC, rect.left, rect.top, NULL );
+   MoveToEx(hDC, rect.left, rect.top, NULL);
 
    if( ( itemType == 1 ) && bSelectedItemBorder3d )
    {
@@ -1169,15 +1169,15 @@ VOID DrawCheck(HDC hdc, SIZE size, RECT rect, BOOL disabled, BOOL selected, HBIT
 
       SelectObject(hdc, pen);
 
-      MoveToEx( hdc, x + 1, y + 5, NULL );
+      MoveToEx(hdc, x + 1, y + 5, NULL);
       LineTo( hdc, x + 4, y + h - 2 );
-      MoveToEx( hdc, x + 2, y + 5, NULL );
+      MoveToEx(hdc, x + 2, y + 5, NULL);
       LineTo( hdc, x + 4, y + h - 3 );
-      MoveToEx( hdc, x + 2, y + 4, NULL );
+      MoveToEx(hdc, x + 2, y + 4, NULL);
       LineTo( hdc, x + 5, y + h - 3 );
-      MoveToEx( hdc, x + 4, y + h - 3, NULL );
+      MoveToEx(hdc, x + 4, y + h - 3, NULL);
       LineTo( hdc, x + w + 2, y - 1 );
-      MoveToEx( hdc, x + 4, y + h - 2, NULL );
+      MoveToEx(hdc, x + 4, y + h - 2, NULL);
       LineTo( hdc, x + w - 2, y + 3 );
 
       SelectObject(hdc, oldPen);
@@ -1280,7 +1280,7 @@ HB_FUNC( GETMENUCOLORS )
    HB_arraySetNL( aResult, 27, clrCheckMarkSq );
    HB_arraySetNL( aResult, 28, clrCheckMarkGr );
 
-   hb_itemReturnRelease( aResult );
+   hb_itemReturnRelease(aResult);
 }
 
 HB_FUNC( SETMENUCOLORS )
@@ -1335,7 +1335,7 @@ HB_FUNC( _ONDESTROYMENU )
 #ifdef _ERRORMSG_
       if( ! bResult )
       {
-         MessageBox( NULL, "Menu is not destroyed successfully", "Warning", MB_OK | MB_ICONWARNING );
+         MessageBox(NULL, "Menu is not destroyed successfully", "Warning", MB_OK | MB_ICONWARNING);
       }
 #endif
       if( hb_pcount() > 1 && hb_parl(2) )

@@ -66,20 +66,20 @@
 #include "inkey.ch"
 
 #if defined( _MSC_VER )
-# define itoa( __value, __string, __radix )  _itoa( __value, __string, __radix )
+# define itoa(__value, __string, __radix)  _itoa(__value, __string, __radix)
 #endif
 
 extern HB_EXPORT BOOL Array2Rect(PHB_ITEM aRect, RECT * rc);
-extern HB_EXPORT PHB_ITEM Rect2Array( RECT * rc );
+extern HB_EXPORT PHB_ITEM Rect2Array(RECT * rc);
 extern void hmg_ErrorExit( LPCTSTR lpMessage, DWORD dwError, BOOL bExit );
 
 typedef HMODULE ( __stdcall * SHGETFOLDERPATH )( HWND, int, HANDLE, DWORD, LPTSTR );
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
-LPSTR  WideToAnsi( LPWSTR );
+LPWSTR AnsiToWide(LPCSTR);
+LPSTR  WideToAnsi(LPWSTR);
 #endif
-BOOL SysRefresh( void );
+BOOL SysRefresh(void);
 
 // Minigui Resources control system
 void RegisterResource(HANDLE hResource, LPSTR szType);
@@ -108,7 +108,7 @@ HB_FUNC( WAITRUNPIPE )
 #ifndef UNICODE
    LPSTR lpCommandLine = ( char * ) hb_parc(1);
 #else
-   LPWSTR lpCommandLine = AnsiToWide( ( char * ) hb_parc(1) );
+   LPWSTR lpCommandLine = AnsiToWide(( char * ) hb_parc(1));
 #endif
    const char *        szFile = ( const char * ) hb_parc(3);
    HB_FHANDLE          nHandle;
@@ -123,11 +123,11 @@ HB_FUNC( WAITRUNPIPE )
    memset(&ProcessInfo, 0, sizeof(ProcessInfo));
 
    if( ! hb_fsFile(szFile) )
-      nHandle = hb_fsCreate( szFile, 0 );
+      nHandle = hb_fsCreate(szFile, 0);
    else
    {
       nHandle = hb_fsOpen(szFile, 2);
-      hb_fsSeek( nHandle, 0, 2 );
+      hb_fsSeek(nHandle, 0, 2);
    }
 
    if( ! CreatePipe( &ReadPipeHandle, &WritePipeHandle, &sa, 0 ) )
@@ -179,7 +179,7 @@ HB_FUNC( WAITRUNPIPE )
          }
 
          Data[ BytesRead ] = TEXT('\0');
-         hb_fsWriteLarge( nHandle, Data, BytesRead );
+         hb_fsWriteLarge(nHandle, Data, BytesRead);
       }
       else
       {
@@ -213,7 +213,7 @@ HB_FUNC( COPYRTFTOCLIPBOARD ) // CopyRtfToClipboard(cRtfText) store cRTFText in 
 
    EmptyClipboard();
 
-   hglbCopy = GlobalAlloc( GMEM_MOVEABLE | GMEM_DDESHARE, ( nLen + 4 ) * sizeof(TCHAR) );
+   hglbCopy = GlobalAlloc(GMEM_MOVEABLE | GMEM_DDESHARE, ( nLen + 4 ) * sizeof(TCHAR));
    if( hglbCopy == NULL )
    {
       CloseClipboard();
@@ -225,7 +225,7 @@ HB_FUNC( COPYRTFTOCLIPBOARD ) // CopyRtfToClipboard(cRtfText) store cRTFText in 
    lptstrCopy[ nLen ] = ( TCHAR ) 0;  // NULL character
    GlobalUnlock(hglbCopy);
 
-   SetClipboardData( cf, hglbCopy );
+   SetClipboardData(cf, hglbCopy);
    CloseClipboard();
 }
 
@@ -242,7 +242,7 @@ HB_FUNC( COPYTOCLIPBOARD ) // CopyToClipboard(cText) store cText in Windows clip
 
    EmptyClipboard();
 
-   hglbCopy = GlobalAlloc( GMEM_DDESHARE, ( nLen + 1 ) * sizeof(TCHAR) );
+   hglbCopy = GlobalAlloc(GMEM_DDESHARE, ( nLen + 1 ) * sizeof(TCHAR));
    if( hglbCopy == NULL )
    {
       CloseClipboard();
@@ -254,7 +254,7 @@ HB_FUNC( COPYTOCLIPBOARD ) // CopyToClipboard(cText) store cText in Windows clip
    lptstrCopy[ nLen ] = ( TCHAR ) 0;  // null character
    GlobalUnlock(hglbCopy);
 
-   SetClipboardData( HB_ISNUM(2) ? hmg_par_UINT(2) : CF_TEXT, hglbCopy );
+   SetClipboardData(HB_ISNUM(2) ? hmg_par_UINT(2) : CF_TEXT, hglbCopy);
    CloseClipboard();
 }
 
@@ -265,7 +265,7 @@ HB_FUNC( RETRIEVETEXTFROMCLIPBOARD )
 
    if( IsClipboardFormatAvailable( CF_TEXT ) && OpenClipboard( GetActiveWindow() ) )
    {
-      hClipMem = GetClipboardData( CF_TEXT );
+      hClipMem = GetClipboardData(CF_TEXT);
       if( hClipMem )
       {
          lpClip = ( LPSTR ) GlobalLock(hClipMem);
@@ -509,7 +509,7 @@ HB_FUNC( MEMORYSTATUS )
 
          mstex.dwLength = sizeof(mstex);
 
-         if( fn_GlobalMemoryStatusEx( &mstex ) )
+         if( fn_GlobalMemoryStatusEx(&mstex) )
          {
             switch( hb_parni(1) )
             {
@@ -548,8 +548,8 @@ HB_FUNC( C_SHELLABOUT )
    LPCSTR szApp        = hb_parc(2);
    LPCSTR szOtherStuff = hb_parc(3);
 #else
-   LPCWSTR szApp        = AnsiToWide( ( char * ) hb_parc(2) );
-   LPCWSTR szOtherStuff = AnsiToWide( ( char * ) hb_parc(3) );
+   LPCWSTR szApp        = AnsiToWide(( char * ) hb_parc(2));
+   LPCWSTR szOtherStuff = AnsiToWide(( char * ) hb_parc(3));
 #endif
    hb_retl( ShellAbout(hmg_par_HWND(1), szApp, szOtherStuff, hmg_par_HICON(4)) );
 #ifdef UNICODE
@@ -601,7 +601,7 @@ HB_FUNC( GETWINDOWSDIR )
 #ifndef UNICODE
    hb_retc( szBuffer );
 #else
-   pStr = WideToAnsi( szBuffer );
+   pStr = WideToAnsi(szBuffer);
    hb_retc( pStr );
    hb_xfree(pStr);
 #endif
@@ -620,7 +620,7 @@ HB_FUNC( GETSYSTEMDIR )
 #ifndef UNICODE
    hb_retc( szBuffer );
 #else
-   pStr = WideToAnsi( szBuffer );
+   pStr = WideToAnsi(szBuffer);
    hb_retc( pStr );
    hb_xfree(pStr);
 #endif
@@ -639,7 +639,7 @@ HB_FUNC( GETTEMPDIR )
 #ifndef UNICODE
    hb_retc( szBuffer );
 #else
-   pStr = WideToAnsi( szBuffer );
+   pStr = WideToAnsi(szBuffer);
    hb_retc( pStr );
    hb_xfree(pStr);
 #endif
@@ -677,10 +677,10 @@ HB_FUNC( SHELLEXECUTE )
    LPCSTR lpParameters = hb_parc(4);
    LPCSTR lpDirectory  = hb_parc(5);
 #else
-   LPCWSTR lpOperation  = AnsiToWide( ( char * ) hb_parc(2) );
-   LPCWSTR lpFile       = AnsiToWide( ( char * ) hb_parc(3) );
-   LPCWSTR lpParameters = AnsiToWide( ( char * ) hb_parc(4) );
-   LPCWSTR lpDirectory  = AnsiToWide( ( char * ) hb_parc(5) );
+   LPCWSTR lpOperation  = AnsiToWide(( char * ) hb_parc(2));
+   LPCWSTR lpFile       = AnsiToWide(( char * ) hb_parc(3));
+   LPCWSTR lpParameters = AnsiToWide(( char * ) hb_parc(4));
+   LPCWSTR lpDirectory  = AnsiToWide(( char * ) hb_parc(5));
 #endif
    LPFN_ISWOW64PROCESS fnIsWow64Process;
    BOOL bIsWow64 = FALSE;
@@ -750,10 +750,10 @@ HB_FUNC( SHELLEXECUTEEX )
    LPCSTR lpParameters = hb_parc(4);
    LPCSTR lpDirectory  = hb_parc(5);
 #else
-   LPCWSTR lpOperation  = AnsiToWide( ( char * ) hb_parc(2) );
-   LPCWSTR lpFile       = AnsiToWide( ( char * ) hb_parc(3) );
-   LPCWSTR lpParameters = AnsiToWide( ( char * ) hb_parc(4) );
-   LPCWSTR lpDirectory  = AnsiToWide( ( char * ) hb_parc(5) );
+   LPCWSTR lpOperation  = AnsiToWide(( char * ) hb_parc(2));
+   LPCWSTR lpFile       = AnsiToWide(( char * ) hb_parc(3));
+   LPCWSTR lpParameters = AnsiToWide(( char * ) hb_parc(4));
+   LPCWSTR lpDirectory  = AnsiToWide(( char * ) hb_parc(5));
 #endif
    SHELLEXECUTEINFO SHExecInfo;
    ZeroMemory(&SHExecInfo, sizeof(SHExecInfo));
@@ -767,7 +767,7 @@ HB_FUNC( SHELLEXECUTEEX )
    SHExecInfo.lpDirectory  = HB_ISNIL(5) ? NULL : lpDirectory;
    SHExecInfo.nShow        = hb_parni(6);
 
-   if( ShellExecuteEx( &SHExecInfo ) )
+   if( ShellExecuteEx(&SHExecInfo) )
       HB_RETNL( ( LONG_PTR ) SHExecInfo.hProcess );
    else
       HB_RETNL( ( LONG_PTR ) NULL );
@@ -787,7 +787,7 @@ HB_FUNC( WAITRUN )
 #ifndef UNICODE
    LPSTR lpCommandLine = ( char * ) hb_parc(1);
 #else
-   LPWSTR lpCommandLine = AnsiToWide( ( char * ) hb_parc(1) );
+   LPWSTR lpCommandLine = AnsiToWide(( char * ) hb_parc(1));
 #endif
 
    STARTUPINFO stInfo;
@@ -830,8 +830,8 @@ HB_FUNC( WAITRUNTERM )
    LPSTR  lpCommandLine      = ( char * ) hb_parc(1);
    LPCSTR lpCurrentDirectory = hb_parc(2);
 #else
-   LPWSTR  lpCommandLine      = AnsiToWide( ( char * ) hb_parc(1) );
-   LPCWSTR lpCurrentDirectory = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR  lpCommandLine      = AnsiToWide(( char * ) hb_parc(1));
+   LPCWSTR lpCurrentDirectory = AnsiToWide(( char * ) hb_parc(2));
 #endif
    PHB_ITEM    pWaitProc  = hb_param( 4, Harbour::Item::BLOCK );
    ULONG       ulWaitMsec = ( HB_ISNIL(5) ? 2000 : hb_parnl(5) );
@@ -910,12 +910,12 @@ HB_FUNC( WAITRUNTERM )
 
 HB_FUNC( ISEXERUNNING ) // ( cExeNameCaseSensitive ) --> lResult
 {
-   HANDLE hMutex = CreateMutex( NULL, FALSE, ( LPTSTR ) hb_parc(1) );
+   HANDLE hMutex = CreateMutex(NULL, FALSE, ( LPTSTR ) hb_parc(1));
 
    hb_retl( GetLastError() == ERROR_ALREADY_EXISTS );
 
    if( hMutex != NULL )
-      ReleaseMutex( hMutex );
+      ReleaseMutex(hMutex);
 }
 
 HB_FUNC( SETSCROLLPOS )
@@ -933,7 +933,7 @@ HB_FUNC( CREATEFOLDER )
 #ifndef UNICODE
    LPCSTR lpPathName = hb_parc(1);
 #else
-   LPCWSTR lpPathName = AnsiToWide( hb_parc(1) );
+   LPCWSTR lpPathName = AnsiToWide(hb_parc(1));
 #endif
    hb_retl( CreateDirectory( lpPathName, NULL ) );
 #ifdef UNICODE
@@ -946,7 +946,7 @@ HB_FUNC( SETCURRENTFOLDER )
 #ifndef UNICODE
    LPCSTR lpPathName = hb_parc(1);
 #else
-   LPCWSTR lpPathName = AnsiToWide( hb_parc(1) );
+   LPCWSTR lpPathName = AnsiToWide(hb_parc(1));
 #endif
    hb_retl( SetCurrentDirectory( lpPathName ) );
 #ifdef UNICODE
@@ -959,7 +959,7 @@ HB_FUNC( REMOVEFOLDER )
 #ifndef UNICODE
    LPCSTR lpPathName = hb_parc(1);
 #else
-   LPCWSTR lpPathName = AnsiToWide( hb_parc(1) );
+   LPCWSTR lpPathName = AnsiToWide(hb_parc(1));
 #endif
    hb_retl( RemoveDirectory( lpPathName ) );
 #ifdef UNICODE
@@ -978,7 +978,7 @@ HB_FUNC( GETCURRENTFOLDER )
 #ifndef UNICODE
    hb_retc( Path );
 #else
-   pStr = WideToAnsi( Path );
+   pStr = WideToAnsi(Path);
    hb_retc( pStr );
    hb_xfree(pStr);
 #endif
@@ -1039,11 +1039,11 @@ HB_FUNC( WINVERSION )
    ZeroMemory(&osvi, sizeof(OSVERSIONINFOEX));
    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
 
-   bOsVersionInfoEx = GetVersionEx( ( OSVERSIONINFO * ) &osvi );
+   bOsVersionInfoEx = GetVersionEx(( OSVERSIONINFO * ) &osvi);
    if( ! bOsVersionInfoEx )
    {
       osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-      if( ! GetVersionEx( ( OSVERSIONINFO * ) &osvi ) )
+      if( ! GetVersionEx(( OSVERSIONINFO * ) &osvi) )
          szVersion = TEXT(const_cast<char*>("Unknown Operating System"));
    }
 
@@ -1136,13 +1136,13 @@ HB_FUNC( WINVERSION )
                DWORD dwBufLen = 80;
                LONG  lRetVal;
 
-               lRetVal = RegOpenKeyEx( HKEY_LOCAL_MACHINE, TEXT("SYSTEM\\CurrentControlSet\\Control\\ProductOptions"), 0, KEY_QUERY_VALUE, &hKey );
+               lRetVal = RegOpenKeyEx(HKEY_LOCAL_MACHINE, TEXT("SYSTEM\\CurrentControlSet\\Control\\ProductOptions"), 0, KEY_QUERY_VALUE, &hKey);
 
                if( lRetVal != ERROR_SUCCESS )
                   szVersion = TEXT(const_cast<char*>("Unknown Operating System"));
                else
                {
-                  lRetVal = RegQueryValueEx( hKey, TEXT("ProductType"), NULL, NULL, ( LPBYTE ) szProductType, &dwBufLen );
+                  lRetVal = RegQueryValueEx(hKey, TEXT("ProductType"), NULL, NULL, ( LPBYTE ) szProductType, &dwBufLen);
                   if( ( lRetVal != ERROR_SUCCESS ) || ( dwBufLen > 80 ) )
                      szVersion = TEXT(const_cast<char*>("Unknown Operating System"));
                }
@@ -1256,16 +1256,16 @@ HB_FUNC( WINVERSION )
    HB_STORC( szBuild, -1, 3 );
    HB_STORC( szVersionEx, -1, 4 );
 #else
-   pStr = WideToAnsi( szVersion );
+   pStr = WideToAnsi(szVersion);
    HB_STORC( pStr, -1, 1 );
    hb_xfree(pStr);
-   pStr = WideToAnsi( szServicePack );
+   pStr = WideToAnsi(szServicePack);
    HB_STORC( pStr, -1, 2 );
    hb_xfree(pStr);
-   pStr = WideToAnsi( szBuild );
+   pStr = WideToAnsi(szBuild);
    HB_STORC( pStr, -1, 3 );
    hb_xfree(pStr);
-   pStr = WideToAnsi( szVersionEx );
+   pStr = WideToAnsi(szVersionEx);
    HB_STORC( pStr, -1, 4 );
    hb_xfree(pStr);
 #endif
@@ -1281,7 +1281,7 @@ HB_FUNC( GETDLLVERSION )
 #ifndef UNICODE
    LPCSTR lpLibFileName = hb_parc(1);
 #else
-   LPCWSTR lpLibFileName = AnsiToWide( hb_parc(1) );
+   LPCWSTR lpLibFileName = AnsiToWide(hb_parc(1));
 #endif
 
    hModule = LoadLibrary( lpLibFileName );
@@ -1305,7 +1305,7 @@ HB_FUNC( GETDLLVERSION )
          }
       }
       else
-         MessageBox( NULL, TEXT("Cannot get DllGetVersion function."), TEXT("DllGetVersion"), MB_OK | MB_ICONERROR );
+         MessageBox(NULL, TEXT("Cannot get DllGetVersion function."), TEXT("DllGetVersion"), MB_OK | MB_ICONERROR);
 
       FreeLibrary( hModule );
    }
@@ -1382,7 +1382,7 @@ BOOL IsAppHung( IN HWND hWnd, OUT PBOOL pbHung )
    osvi.dwOSVersionInfoSize = sizeof(osvi);
 
    // detect OS version
-   GetVersionEx( &osvi );
+   GetVersionEx(&osvi);
 
    // get handle of USER32.DLL
    hUser = GetModuleHandle(TEXT("user32.dll"));
@@ -1413,7 +1413,7 @@ BOOL IsAppHung( IN HWND hWnd, OUT PBOOL pbHung )
          return SetLastError( ERROR_PROC_NOT_FOUND ), FALSE;
 
       // call the function IsHungThread
-      *pbHung = _IsHungThread( dwThreadId );
+      *pbHung = _IsHungThread(dwThreadId);
    }
 
    return TRUE;
@@ -1433,7 +1433,7 @@ HB_FUNC( ISAPPHUNG )
    {
       if( GetLastError() != ERROR_INVALID_PARAMETER )
       {
-         MessageBox( NULL, TEXT("Process not found"), TEXT("Warning"), MB_OK | MB_ICONWARNING );
+         MessageBox(NULL, TEXT("Process not found"), TEXT("Warning"), MB_OK | MB_ICONWARNING);
       }
       hb_retl( HB_FALSE );
    }
@@ -1487,7 +1487,7 @@ HB_FUNC( EMPTYWORKINGSET )
 // Grigory Filatov <gfilatov@gmail.com> HMG 1.1 Experimental Build 10d
 HB_FUNC( CLEANPROGRAMMEMORY )
 {
-   hb_retl( SetProcessWorkingSetSize( GetCurrentProcess(), ( SIZE_T ) -1, ( SIZE_T ) -1 ) );
+   hb_retl( SetProcessWorkingSetSize(GetCurrentProcess(), ( SIZE_T ) -1, ( SIZE_T ) -1) );
 }
 
 // Grigory Filatov <gfilatov@gmail.com> HMG 1.1 Experimental Build 11a
@@ -1516,7 +1516,7 @@ HB_FUNC( GETSHORTPATHNAME )
    LPCSTR lpszLongPath = hb_parc(1);
 #else
    TCHAR   buffer[ MAX_PATH + 1 ] = { 0 };
-   LPCWSTR lpszLongPath = AnsiToWide( ( char * ) hb_parc(1) );
+   LPCWSTR lpszLongPath = AnsiToWide(( char * ) hb_parc(1));
    LPSTR   pStr;
 #endif
 
@@ -1526,7 +1526,7 @@ HB_FUNC( GETSHORTPATHNAME )
 #ifndef UNICODE
       hb_retni( hb_storclen( buffer, ( HB_SIZE ) iRet, 2 ) );
 #else
-      pStr = WideToAnsi( buffer );
+      pStr = WideToAnsi(buffer);
       hb_retni( hb_storclen( pStr, ( HB_SIZE ) iRet, 2 ) );
       hb_xfree(pStr);
 #endif
@@ -1546,7 +1546,7 @@ HB_FUNC( DRAWTEXT )
 #ifndef UNICODE
    LPCSTR lpchText = hb_parc(2);
 #else
-   LPCWSTR lpchText = AnsiToWide( ( char * ) hb_parc(2) );
+   LPCWSTR lpchText = AnsiToWide(( char * ) hb_parc(2));
 #endif
    RECT rc;
 
@@ -1613,7 +1613,7 @@ HB_FUNC( GETTEXTMETRIC )
       HB_arraySetNL( aMetr, 7, tm.tmExternalLeading );
    }
 
-   hb_itemReturnRelease( aMetr );
+   hb_itemReturnRelease(aMetr);
 }
 
 HB_FUNC( _GETCLIENTRECT )
@@ -1625,7 +1625,7 @@ HB_FUNC( _GETCLIENTRECT )
    {
       GetClientRect(hWnd, &rc);
 
-      hb_itemReturnRelease( Rect2Array( &rc ) );
+      hb_itemReturnRelease(Rect2Array(&rc));
    }
    else
    {
@@ -1706,7 +1706,7 @@ HB_FUNC( DRAGQUERYFILES )
    LPSTR pStr;
 #endif
 
-   hb_reta( iFiles );
+   hb_reta(iFiles);
 
    for( i = 0; i < iFiles; i++ )
    {
@@ -1714,7 +1714,7 @@ HB_FUNC( DRAGQUERYFILES )
    #ifndef UNICODE
       HB_STORC( ( TCHAR * ) bBuffer, -1, i + 1 );
    #else
-      pStr = WideToAnsi( bBuffer );
+      pStr = WideToAnsi(bBuffer);
       HB_STORC( pStr, -1, i + 1 );
       hb_xfree(pStr);
    #endif
@@ -1729,7 +1729,7 @@ HB_FUNC( DRAGFINISH )
 HB_FUNC( HMG_CHARSETNAME )
 {
 #ifdef UNICODE
-   hb_retc( WideToAnsi( TEXT("UNICODE") ) );
+   hb_retc( WideToAnsi(TEXT("UNICODE")) );
 #else
    hb_retc( "ANSI" );
 #endif
@@ -1751,7 +1751,7 @@ HB_FUNC( HMG_GETLOCALEINFO )
    GetLocaleInfo(LOCALE_USER_DEFAULT, LCType, cText, HB_FILE_TYPE_MAX);
 
 #ifdef UNICODE
-   pStr = WideToAnsi( cText );
+   pStr = WideToAnsi(cText);
    hb_retc( pStr );
    hb_xfree(pStr);
 #else
@@ -1865,9 +1865,9 @@ static HRESULT CreateShortCut( LPWSTR pszTargetfile, LPWSTR pszTargetargs,
             lstrcpy(wszLinkfile, pszLinkfile);
 #endif
             hRes = pPersistFile->lpVtbl->Save( pPersistFile, reinterpret_cast<LPCOLESTR>(wszLinkfile), TRUE );
-            pPersistFile->lpVtbl->Release( pPersistFile );
+            pPersistFile->lpVtbl->Release(pPersistFile);
          }
-         pShellLink->lpVtbl->Release( pShellLink );
+         pShellLink->lpVtbl->Release(pShellLink);
       }
 
    }
@@ -1902,12 +1902,12 @@ HB_FUNC( CREATELINK )
    LPWSTR szDescription;     /* <Description> */
    LPWSTR szCurdir;          /* <Curdir> (optional) */
    LPWSTR szIconfile;        /* <Iconfile> (optional) */
-   szTargetfile  = AnsiToWide( ( char * ) hb_parc(1) );
-   szTargetargs  = HB_ISCHAR(2) ? AnsiToWide( ( char * ) hb_parc(2) ) : TEXT("");
-   szLinkfile    = AnsiToWide( ( char * ) hb_parc(3) );
-   szDescription = HB_ISCHAR(4) ? AnsiToWide( ( char * ) hb_parc(4) ) : TEXT("");
-   szCurdir      = HB_ISCHAR(6) ? AnsiToWide( ( char * ) hb_parc(6) ) : TEXT("");
-   szIconfile    = HB_ISCHAR(7) ? AnsiToWide( ( char * ) hb_parc(7) ) : TEXT("");
+   szTargetfile  = AnsiToWide(( char * ) hb_parc(1));
+   szTargetargs  = HB_ISCHAR(2) ? AnsiToWide(( char * ) hb_parc(2)) : TEXT("");
+   szLinkfile    = AnsiToWide(( char * ) hb_parc(3));
+   szDescription = HB_ISCHAR(4) ? AnsiToWide(( char * ) hb_parc(4)) : TEXT("");
+   szCurdir      = HB_ISCHAR(6) ? AnsiToWide(( char * ) hb_parc(6)) : TEXT("");
+   szIconfile    = HB_ISCHAR(7) ? AnsiToWide(( char * ) hb_parc(7)) : TEXT("");
 #endif
    iShowmode  = hb_parnidef( 5, 0 );
    iIconindex = hb_parnidef( 8, 0 );

@@ -32,8 +32,8 @@
 #endif
 
 #if defined( _MSC_VER )
-# define itoa( __value, __string, __radix )  _itoa( __value, __string, __radix )
-# define ltoa( __value, __string, __radix )  _ltoa( __value, __string, __radix )
+# define itoa(__value, __string, __radix)  _itoa(__value, __string, __radix)
+# define ltoa(__value, __string, __radix)  _ltoa(__value, __string, __radix)
 #endif
 
 static HDC hDC    = NULL;
@@ -66,11 +66,11 @@ static HBITMAP       hbmp[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 static OSVERSIONINFO osvi;
 
 #ifdef UNICODE
-  LPWSTR AnsiToWide( LPCSTR );
-  LPSTR  WideToAnsi( LPWSTR );
+  LPWSTR AnsiToWide(LPCSTR);
+  LPSTR  WideToAnsi(LPWSTR);
 #endif
-HINSTANCE GetResources( void );
-void      rr_getdevmode( void );
+HINSTANCE GetResources(void);
+void      rr_getdevmode(void);
 
 HB_FUNC( RR_FINISH )
 {
@@ -103,7 +103,7 @@ HB_FUNC( RR_PRINTERNAME )
 #ifndef UNICODE
    hb_retc( PrinterName );
 #else
-   LPSTR pStr = WideToAnsi( PrinterName );
+   LPSTR pStr = WideToAnsi(PrinterName);
    hb_retc( pStr );
    hb_xfree(pStr);
 #endif
@@ -175,7 +175,7 @@ HB_FUNC( RR_PRINTDIALOG )
 HB_FUNC( RR_GETDC )
 {
 #ifdef UNICODE
-   LPWSTR pwszDevice = AnsiToWide( ( char * ) hb_parc(1) );
+   LPWSTR pwszDevice = AnsiToWide(( char * ) hb_parc(1));
 
    if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT )
       hDC = CreateDC( TEXT("WINSPOOL"), pwszDevice, NULL, NULL );
@@ -206,7 +206,7 @@ HB_FUNC( RR_GETDC )
 #endif
 }
 
-void rr_getdevmode( void )
+void rr_getdevmode(void)
 {
    DWORD dwNeeded = 0;
 
@@ -214,17 +214,17 @@ void rr_getdevmode( void )
    pd.DesiredAccess = PRINTER_ALL_ACCESS;
    OpenPrinter( PrinterName, &hPrinter, NULL );
    GetPrinter( hPrinter, 2, 0, 0, &dwNeeded );
-   pi2 = ( PRINTER_INFO_2 * ) GlobalAlloc( GPTR, dwNeeded );
+   pi2 = ( PRINTER_INFO_2 * ) GlobalAlloc(GPTR, dwNeeded);
    GetPrinter( hPrinter, 2, ( LPBYTE ) pi2, dwNeeded, &dwNeeded );
-   pi22 = ( PRINTER_INFO_2 * ) GlobalAlloc( GPTR, dwNeeded );
+   pi22 = ( PRINTER_INFO_2 * ) GlobalAlloc(GPTR, dwNeeded);
    GetPrinter( hPrinter, 2, ( LPBYTE ) pi22, dwNeeded, &dwNeeded );
    if( pDevMode )
       pi2->pDevMode = pDevMode;
    else if( pi2->pDevMode == NULL )
    {
-      dwNeeded  = DocumentProperties( NULL, hPrinter, PrinterName, NULL, NULL, 0 );
-      pDevMode2 = ( DEVMODE * ) GlobalAlloc( GPTR, dwNeeded );
-      DocumentProperties( NULL, hPrinter, PrinterName, pDevMode2, NULL, DM_OUT_BUFFER );
+      dwNeeded  = DocumentProperties(NULL, hPrinter, PrinterName, NULL, NULL, 0);
+      pDevMode2 = ( DEVMODE * ) GlobalAlloc(GPTR, dwNeeded);
+      DocumentProperties(NULL, hPrinter, PrinterName, pDevMode2, NULL, DM_OUT_BUFFER);
       pi2->pDevMode = pDevMode2;
    }
 
@@ -269,16 +269,16 @@ HB_FUNC( RR_GETDEVICECAPS )
       SelectObject(hDCRef, xfont);
 
    GetTextMetrics( hDCRef, &tm );
-   devcaps[ 1 ]  = GetDeviceCaps( hDCRef, VERTSIZE );
-   devcaps[ 2 ]  = GetDeviceCaps( hDCRef, HORZSIZE );
-   devcaps[ 3 ]  = GetDeviceCaps( hDCRef, VERTRES );
-   devcaps[ 4 ]  = GetDeviceCaps( hDCRef, HORZRES );
-   devcaps[ 5 ]  = GetDeviceCaps( hDCRef, LOGPIXELSY );
-   devcaps[ 6 ]  = GetDeviceCaps( hDCRef, LOGPIXELSX );
-   devcaps[ 7 ]  = GetDeviceCaps( hDCRef, PHYSICALHEIGHT );
-   devcaps[ 8 ]  = GetDeviceCaps( hDCRef, PHYSICALWIDTH );
-   devcaps[ 9 ]  = GetDeviceCaps( hDCRef, PHYSICALOFFSETY );
-   devcaps[ 10 ] = GetDeviceCaps( hDCRef, PHYSICALOFFSETX );
+   devcaps[ 1 ]  = GetDeviceCaps(hDCRef, VERTSIZE);
+   devcaps[ 2 ]  = GetDeviceCaps(hDCRef, HORZSIZE);
+   devcaps[ 3 ]  = GetDeviceCaps(hDCRef, VERTRES);
+   devcaps[ 4 ]  = GetDeviceCaps(hDCRef, HORZRES);
+   devcaps[ 5 ]  = GetDeviceCaps(hDCRef, LOGPIXELSY);
+   devcaps[ 6 ]  = GetDeviceCaps(hDCRef, LOGPIXELSX);
+   devcaps[ 7 ]  = GetDeviceCaps(hDCRef, PHYSICALHEIGHT);
+   devcaps[ 8 ]  = GetDeviceCaps(hDCRef, PHYSICALWIDTH);
+   devcaps[ 9 ]  = GetDeviceCaps(hDCRef, PHYSICALOFFSETY);
+   devcaps[ 10 ] = GetDeviceCaps(hDCRef, PHYSICALOFFSETX);
 
    devcaps[ 11 ] = tm.tmHeight;
    devcaps[ 12 ] = tm.tmAveCharWidth;
@@ -287,7 +287,7 @@ HB_FUNC( RR_GETDEVICECAPS )
    devcaps[ 15 ] = ( int ) pi2->pDevMode->dmOrientation;
    devcaps[ 16 ] = ( int ) tm.tmAscent;
    devcaps[ 17 ] = ( int ) pi2->pDevMode->dmPaperSize;
-   for( i = 1; i <= hb_parinfa( 1, 0 ); i++ )
+   for( i = 1; i <= hb_parinfa(1, 0); i++ )
       HB_STORNI( devcaps[ i ], 1, i );
 
    if( xfont != 0 )
@@ -327,7 +327,7 @@ HB_FUNC( RR_SETDEVMODE )
          pi2->pDevMode->dmDuplex = ( short ) hb_parni(2);
    }
 
-   DocumentProperties( NULL, hPrinter, PrinterName, pi2->pDevMode, pi2->pDevMode, DM_IN_BUFFER | DM_OUT_BUFFER );
+   DocumentProperties(NULL, hPrinter, PrinterName, pi2->pDevMode, pi2->pDevMode, DM_IN_BUFFER | DM_OUT_BUFFER);
    SetPrinter( hPrinter, 2, ( LPBYTE ) pi2, 0 );
    ResetDC( hDCRef, pi2->pDevMode );
    HB_RETNL( ( LONG_PTR ) hDCRef );
@@ -345,7 +345,7 @@ HB_FUNC( RR_SETUSERMODE )
       pi2->pDevMode->dmPaperLength = ( short ) hb_parnl(3);
    }
 
-   DocumentProperties( NULL, hPrinter, PrinterName, pi2->pDevMode, pi2->pDevMode, DM_IN_BUFFER | DM_OUT_BUFFER );
+   DocumentProperties(NULL, hPrinter, PrinterName, pi2->pDevMode, pi2->pDevMode, DM_IN_BUFFER | DM_OUT_BUFFER);
    SetPrinter( hPrinter, 2, ( LPBYTE ) pi2, 0 );
    ResetDC( hDCRef, pi2->pDevMode );
    HB_RETNL( ( LONG_PTR ) hDCRef );
@@ -372,7 +372,7 @@ HB_FUNC( RR_GETDEFAULTPRINTER )
    if( osvi.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS ) /* Windows 95 or 98 */
    {
       EnumPrinters( PRINTER_ENUM_DEFAULT, NULL, 5, NULL, 0, &Needed, &Returned );
-      PrinterInfo = ( LPPRINTER_INFO_5 ) LocalAlloc( LPTR, Needed );
+      PrinterInfo = ( LPPRINTER_INFO_5 ) LocalAlloc(LPTR, Needed);
       EnumPrinters( PRINTER_ENUM_DEFAULT, NULL, 5, ( LPBYTE ) PrinterInfo, Needed, &Needed, &Returned );
       lstrcpy(PrinterDefault, PrinterInfo->pPrinterName);
       LocalFree(PrinterInfo);
@@ -418,7 +418,7 @@ HB_FUNC( RR_GETDEFAULTPRINTER )
 #ifndef UNICODE
    hb_retc( PrinterDefault );
 #else
-   pStr = WideToAnsi( PrinterDefault );
+   pStr = WideToAnsi(PrinterDefault);
    hb_retc( pStr );
    hb_xfree(pStr);
 #endif
@@ -443,7 +443,7 @@ HB_FUNC( RR_GETPRINTERS )
 #endif
 
    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-   GetVersionEx( &osvi );
+   GetVersionEx(&osvi);
    if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT )
    {
       level = 4;
@@ -457,7 +457,7 @@ HB_FUNC( RR_GETPRINTERS )
 
    EnumPrinters( flags, NULL, level, NULL, 0, &dwSize, &dwPrinters );
 
-   pBuffer = ( char * ) GlobalAlloc( GPTR, dwSize );
+   pBuffer = ( char * ) GlobalAlloc(GPTR, dwSize);
    if( pBuffer == NULL )
    {
       hb_retc( ",," );
@@ -473,7 +473,7 @@ HB_FUNC( RR_GETPRINTERS )
       return;
    }
 
-   cBuffer = ( char * ) GlobalAlloc( GPTR, dwPrinters * 256 );
+   cBuffer = ( char * ) GlobalAlloc(GPTR, dwPrinters * 256);
 
    if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT )
       pInfo4 = ( PRINTER_INFO_4 * ) pBuffer;
@@ -508,7 +508,7 @@ HB_FUNC( RR_GETPRINTERS )
 #ifndef UNICODE
    hb_retc( ( const char * ) cBuffer );
 #else
-   pStr = WideToAnsi( cBuffer );
+   pStr = WideToAnsi(cBuffer);
    hb_retc( pStr );
    hb_xfree(pStr);
 #endif
@@ -521,7 +521,7 @@ HB_FUNC( RR_STARTDOC )
 #ifndef UNICODE
    LPTSTR lpText = ( LPTSTR ) hb_parc(1);
 #else
-   LPWSTR lpText = AnsiToWide( ( char * ) hb_parc(1) );
+   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(1));
 #endif
    memset(&di, 0, sizeof(di));
    di.cbSize      = sizeof(di);
@@ -567,28 +567,28 @@ HB_FUNC( RR_DEVICECAPABILITIES )
 #endif
 
 #ifdef UNICODE
-   numpapers = DeviceCapabilities( AnsiToWide( ( LPSTR ) pi2->pPrinterName ), AnsiToWide( ( LPSTR ) pi2->pPortName ), DC_PAPERNAMES, NULL, NULL );
+   numpapers = DeviceCapabilities(AnsiToWide(( LPSTR ) pi2->pPrinterName), AnsiToWide(( LPSTR ) pi2->pPortName), DC_PAPERNAMES, NULL, NULL);
 #else
-   numpapers = DeviceCapabilities( pi2->pPrinterName, pi2->pPortName, DC_PAPERNAMES, NULL, NULL );
+   numpapers = DeviceCapabilities(pi2->pPrinterName, pi2->pPortName, DC_PAPERNAMES, NULL, NULL);
 #endif
    if( numpapers > 0 )
    {
-      pGBuffer = GlobalAlloc( GPTR, numpapers * 64 );
-      nGBuffer = GlobalAlloc( GPTR, numpapers * sizeof(WORD) );
-      sGBuffer = GlobalAlloc( GPTR, numpapers * sizeof(POINT) );
-      cGBuffer = GlobalAlloc( GPTR, numpapers * 128 );
+      pGBuffer = GlobalAlloc(GPTR, numpapers * 64);
+      nGBuffer = GlobalAlloc(GPTR, numpapers * sizeof(WORD));
+      sGBuffer = GlobalAlloc(GPTR, numpapers * sizeof(POINT));
+      cGBuffer = GlobalAlloc(GPTR, numpapers * 128);
       pBuffer  = ( TCHAR * ) pGBuffer;
       nBuffer  = ( TCHAR * ) nGBuffer;
       sBuffer  = ( TCHAR * ) sGBuffer;
       cBuffer  = ( TCHAR * ) cGBuffer;
 #ifdef UNICODE
-      DeviceCapabilities( AnsiToWide( ( LPSTR ) pi2->pPrinterName ), AnsiToWide( ( LPSTR ) pi2->pPortName ), DC_PAPERNAMES, pBuffer, pi2->pDevMode );
-      DeviceCapabilities( AnsiToWide( ( LPSTR ) pi2->pPrinterName ), AnsiToWide( ( LPSTR ) pi2->pPortName ), DC_PAPERS, nBuffer, pi2->pDevMode );
-      DeviceCapabilities( AnsiToWide( ( LPSTR ) pi2->pPrinterName ), AnsiToWide( ( LPSTR ) pi2->pPortName ), DC_PAPERSIZE, sBuffer, pi2->pDevMode );
+      DeviceCapabilities(AnsiToWide(( LPSTR ) pi2->pPrinterName), AnsiToWide(( LPSTR ) pi2->pPortName), DC_PAPERNAMES, pBuffer, pi2->pDevMode);
+      DeviceCapabilities(AnsiToWide(( LPSTR ) pi2->pPrinterName), AnsiToWide(( LPSTR ) pi2->pPortName), DC_PAPERS, nBuffer, pi2->pDevMode);
+      DeviceCapabilities(AnsiToWide(( LPSTR ) pi2->pPrinterName), AnsiToWide(( LPSTR ) pi2->pPortName), DC_PAPERSIZE, sBuffer, pi2->pDevMode);
 #else
-      DeviceCapabilities( pi2->pPrinterName, pi2->pPortName, DC_PAPERNAMES, pBuffer, pi2->pDevMode );
-      DeviceCapabilities( pi2->pPrinterName, pi2->pPortName, DC_PAPERS, nBuffer, pi2->pDevMode );
-      DeviceCapabilities( pi2->pPrinterName, pi2->pPortName, DC_PAPERSIZE, sBuffer, pi2->pDevMode );
+      DeviceCapabilities(pi2->pPrinterName, pi2->pPortName, DC_PAPERNAMES, pBuffer, pi2->pDevMode);
+      DeviceCapabilities(pi2->pPrinterName, pi2->pPortName, DC_PAPERS, nBuffer, pi2->pDevMode);
+      DeviceCapabilities(pi2->pPrinterName, pi2->pPortName, DC_PAPERSIZE, sBuffer, pi2->pDevMode);
 #endif
       cBuffer[ 0 ] = 0;
       for( i = 0; i < numpapers; i++ )
@@ -612,7 +612,7 @@ HB_FUNC( RR_DEVICECAPABILITIES )
 #ifndef UNICODE
       hb_storc( cBuffer, 1 );
 #else
-      pStr = WideToAnsi( cBuffer );
+      pStr = WideToAnsi(cBuffer);
       hb_storc( pStr, 1 );
       hb_xfree(pStr);
 #endif
@@ -626,24 +626,24 @@ HB_FUNC( RR_DEVICECAPABILITIES )
       hb_storc( "", 1 );
 
 #ifdef UNICODE
-   numbins = DeviceCapabilities( AnsiToWide( ( LPSTR ) pi2->pPrinterName ), AnsiToWide( ( LPSTR ) pi2->pPortName ), DC_BINNAMES, NULL, NULL );
+   numbins = DeviceCapabilities(AnsiToWide(( LPSTR ) pi2->pPrinterName), AnsiToWide(( LPSTR ) pi2->pPortName), DC_BINNAMES, NULL, NULL);
 #else
-   numbins = DeviceCapabilities( pi2->pPrinterName, pi2->pPortName, DC_BINNAMES, NULL, NULL );
+   numbins = DeviceCapabilities(pi2->pPrinterName, pi2->pPortName, DC_BINNAMES, NULL, NULL);
 #endif
    if( numbins > 0 )
    {
-      bnGBuffer = GlobalAlloc( GPTR, numbins * 24 );
-      bwGBuffer = GlobalAlloc( GPTR, numbins * sizeof(WORD) );
-      bcGBuffer = GlobalAlloc( GPTR, numbins * 64 );
+      bnGBuffer = GlobalAlloc(GPTR, numbins * 24);
+      bwGBuffer = GlobalAlloc(GPTR, numbins * sizeof(WORD));
+      bcGBuffer = GlobalAlloc(GPTR, numbins * 64);
       bnBuffer  = ( TCHAR * ) bnGBuffer;
       bwBuffer  = ( TCHAR * ) bwGBuffer;
       bcBuffer  = ( TCHAR * ) bcGBuffer;
 #ifdef UNICODE
-      DeviceCapabilities( AnsiToWide( ( LPSTR ) pi2->pPrinterName ), AnsiToWide( ( LPSTR ) pi2->pPortName ), DC_BINNAMES, bnBuffer, pi2->pDevMode );
-      DeviceCapabilities( AnsiToWide( ( LPSTR ) pi2->pPrinterName ), AnsiToWide( ( LPSTR ) pi2->pPortName ), DC_BINS, bwBuffer, pi2->pDevMode );
+      DeviceCapabilities(AnsiToWide(( LPSTR ) pi2->pPrinterName), AnsiToWide(( LPSTR ) pi2->pPortName), DC_BINNAMES, bnBuffer, pi2->pDevMode);
+      DeviceCapabilities(AnsiToWide(( LPSTR ) pi2->pPrinterName), AnsiToWide(( LPSTR ) pi2->pPortName), DC_BINS, bwBuffer, pi2->pDevMode);
 #else
-      DeviceCapabilities( pi2->pPrinterName, pi2->pPortName, DC_BINNAMES, bnBuffer, pi2->pDevMode );
-      DeviceCapabilities( pi2->pPrinterName, pi2->pPortName, DC_BINS, bwBuffer, pi2->pDevMode );
+      DeviceCapabilities(pi2->pPrinterName, pi2->pPortName, DC_BINNAMES, bnBuffer, pi2->pDevMode);
+      DeviceCapabilities(pi2->pPrinterName, pi2->pPortName, DC_BINS, bwBuffer, pi2->pDevMode);
 #endif
       bcBuffer[ 0 ] = 0;
       for( i = 0; i < numbins; i++ )
@@ -661,7 +661,7 @@ HB_FUNC( RR_DEVICECAPABILITIES )
 #ifndef UNICODE
       hb_storc( bcBuffer, 2 );
 #else
-      pStr = WideToAnsi( bcBuffer );
+      pStr = WideToAnsi(bcBuffer);
       hb_storc( pStr, 2 );
       hb_xfree(pStr);
 #endif
@@ -710,7 +710,7 @@ HB_FUNC( RR_DELETEOBJECTS )
 {
    UINT i;
 
-   for( i = 2; i <= hb_parinfa( 1, 0 ); i++ )
+   for( i = 2; i <= hb_parinfa(1, 0); i++ )
       DeleteObject(( HGDIOBJ ) HB_PARVNL( 1, i ));
 }
 
@@ -718,7 +718,7 @@ HB_FUNC( RR_DELETEIMAGELISTS )
 {
    UINT i;
 
-   for( i = 1; i <= hb_parinfa( 1, 0 ); i++ )
+   for( i = 1; i <= hb_parinfa(1, 0); i++ )
       ImageList_Destroy( ( HIMAGELIST ) HB_PARNL3( 1, i, 1 ) );
 }
 
@@ -727,7 +727,7 @@ HB_FUNC( RR_SAVEMETAFILE )
 #ifndef UNICODE
    LPSTR FileName = ( LPSTR ) hb_parc(2);
 #else
-   LPWSTR FileName = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR FileName = AnsiToWide(( char * ) hb_parc(2));
 #endif
    CopyEnhMetaFile(( HENHMETAFILE ) HB_PARNL(1), FileName);
 
@@ -852,7 +852,7 @@ HB_FUNC( RR_CREATEFONT )
 #ifndef UNICODE
    TCHAR *      FontName  = ( TCHAR * ) hb_parc(1);
 #else
-   TCHAR *      FontName  = AnsiToWide( ( char * ) hb_parc(1) );
+   TCHAR *      FontName  = AnsiToWide(( char * ) hb_parc(1));
 #endif
    int          FontSize  = hb_parni(2);
    LONG         FontWidth = hb_parnl(3);
@@ -896,7 +896,7 @@ HB_FUNC( RR_CREATEFONT )
    else
       bStrikeOut = 1;
 
-   FontHeight = -MulDiv( FontSize, GetDeviceCaps( hDCRef, LOGPIXELSY ), 72 );
+   FontHeight = -MulDiv( FontSize, GetDeviceCaps(hDCRef, LOGPIXELSY), 72 );
    hxfont     = CreateFont
                 (
       FontHeight,
@@ -963,7 +963,7 @@ HB_FUNC( RR_MODIFYFONT )
 
       if( hb_parni(3) > 0 )
       {
-         nHeight      = -MulDiv( hb_parni(3), GetDeviceCaps( hDC, LOGPIXELSY ), 72 );
+         nHeight      = -MulDiv( hb_parni(3), GetDeviceCaps(hDC, LOGPIXELSY), 72 );
          ppn.lfHeight = nHeight;
       }
 
@@ -1022,7 +1022,7 @@ HB_FUNC( RR_TEXTOUT )
 #ifndef UNICODE
    LPTSTR lpText = ( LPTSTR ) hb_parc(1);
 #else
-   LPWSTR lpText = AnsiToWide( ( char * ) hb_parc(1) );
+   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(1));
 #endif
    HGDIOBJ xfont    = hmg_par_HFONT(3);
    HFONT   prevfont = NULL;
@@ -1057,7 +1057,7 @@ HB_FUNC( RR_DRAWTEXT )
 #ifndef UNICODE
    LPCSTR pszData = hb_parc(3);
 #else
-   LPCWSTR pszData = AnsiToWide( ( char * ) hb_parc(3) );
+   LPCWSTR pszData = AnsiToWide(( char * ) hb_parc(3));
 #endif
    int     iLen     = ( int ) lstrlen( pszData );
    HGDIOBJ xfont    = hmg_par_HFONT(5);
@@ -1131,11 +1131,11 @@ HB_FUNC( RR_CREATEMFILE )
 #ifndef UNICODE
    LPSTR FileName = ( LPSTR ) hb_parc(1);
 #else
-   LPWSTR FileName = AnsiToWide( ( char * ) hb_parc(1) );
+   LPWSTR FileName = AnsiToWide(( char * ) hb_parc(1));
 #endif
    RECT    emfrect;
 
-   SetRect(&emfrect, 0, 0, GetDeviceCaps( hDCRef, HORZSIZE ) * 100, GetDeviceCaps( hDCRef, VERTSIZE ) * 100);
+   SetRect(&emfrect, 0, 0, GetDeviceCaps(hDCRef, HORZSIZE) * 100, GetDeviceCaps(hDCRef, VERTSIZE) * 100);
    hDC = CreateEnhMetaFile(hDCRef, FileName, &emfrect, TEXT("hbprinter\0emf file\0\0"));
    SetTextAlign(hDC, TA_BASELINE);
    preview = 1;
@@ -1155,7 +1155,7 @@ HB_FUNC( RR_CREATERGN )
 {
    POINT lpp;
 
-   GetViewportOrgEx( hDC, &lpp );
+   GetViewportOrgEx(hDC, &lpp);
    if( hb_parni(3) == 2 )
       HB_RETNL( ( LONG_PTR ) CreateEllipticRgn(HB_PARNI( 1, 2 ) + lpp.x, HB_PARNI( 1, 1 ) + lpp.y, HB_PARNI( 2, 2 ) + lpp.x, HB_PARNI( 2, 1 ) + lpp.y) );
    else if( hb_parni(3) == 3 )
@@ -1177,7 +1177,7 @@ HB_FUNC( RR_CREATERGN )
 
 HB_FUNC( RR_CREATEPOLYGONRGN )
 {
-   int   number = ( int ) hb_parinfa( 1, 0 );
+   int   number = ( int ) hb_parinfa(1, 0);
    int   i;
    POINT apoints[ 1024 ];
 
@@ -1206,14 +1206,14 @@ HB_FUNC( RR_SELECTCLIPRGN )
 
 HB_FUNC( RR_SETVIEWPORTORG )
 {
-   hb_retl( SetViewportOrgEx( hDC, HB_PARNI( 1, 2 ), HB_PARNI( 1, 1 ), NULL ) );
+   hb_retl( SetViewportOrgEx(hDC, HB_PARNI( 1, 2 ), HB_PARNI( 1, 1 ), NULL) );
 }
 
 HB_FUNC( RR_GETVIEWPORTORG )
 {
    POINT lpp;
 
-   hb_retl( GetViewportOrgEx( hDC, &lpp ) );
+   hb_retl( GetViewportOrgEx(hDC, &lpp) );
    HB_STORVNL( lpp.x, 1, 2 );
    HB_STORVNL( lpp.y, 1, 1 );
 }
@@ -1225,12 +1225,12 @@ HB_FUNC( RR_SETRGB )
 
 HB_FUNC( RR_SETTEXTCHAREXTRA )
 {
-   hb_retni( SetTextCharacterExtra( hDC, hb_parni(1) ) );
+   hb_retni( SetTextCharacterExtra(hDC, hb_parni(1)) );
 }
 
 HB_FUNC( RR_GETTEXTCHAREXTRA )
 {
-   hb_retni( GetTextCharacterExtra( hDC ) );
+   hb_retni( GetTextCharacterExtra(hDC) );
 }
 
 HB_FUNC( RR_SETTEXTJUSTIFICATION )
@@ -1267,7 +1267,7 @@ HB_FUNC( RR_PICTURE )
 #ifndef UNICODE
    LPSTR      cFileName = ( LPSTR ) hb_parc(1);
 #else
-   LPWSTR     cFileName = AnsiToWide( ( char * ) hb_parc(1) );
+   LPWSTR     cFileName = AnsiToWide(( char * ) hb_parc(1));
 #endif
    int        r   = HB_PARNI( 2, 1 );
    int        c   = HB_PARNI( 2, 2 );
@@ -1286,8 +1286,8 @@ HB_FUNC( RR_PICTURE )
    if( hFile == INVALID_HANDLE_VALUE )
       return;
 
-   nFileSize = GetFileSize( hFile, NULL );
-   hGlobal   = GlobalAlloc( GMEM_MOVEABLE, nFileSize );
+   nFileSize = GetFileSize(hFile, NULL);
+   hGlobal   = GlobalAlloc(GMEM_MOVEABLE, nFileSize);
    pGlobal   = GlobalLock(hGlobal);
    ReadFile(hFile, pGlobal, nFileSize, &nReadByte, NULL);
    CloseHandle(hFile);
@@ -1295,7 +1295,7 @@ HB_FUNC( RR_PICTURE )
    CreateStreamOnHGlobal( hGlobal, TRUE, &iStream );
    OleLoadPicture( iStream, nFileSize, TRUE, IID_IPicture, ( LPVOID * ) &iPicture );
    GlobalFree(hGlobal);
-   iStream->lpVtbl->Release( iStream );
+   iStream->lpVtbl->Release(iStream);
    if( iPicture == NULL )
       return;
 
@@ -1317,7 +1317,7 @@ HB_FUNC( RR_PICTURE )
    y  = r;
    xe = c + toc - 1;
    ye = r + tor - 1;
-   GetViewportOrgEx( hDC, &lpp );
+   GetViewportOrgEx(hDC, &lpp);
    hrgn1 = CreateRectRgn(c + lpp.x, r + lpp.y, xe + lpp.x, ye + lpp.y);
    if( hrgn == NULL )
       SelectClipRgn(hDC, hrgn1);
@@ -1336,7 +1336,7 @@ HB_FUNC( RR_PICTURE )
       x += dc;
    }
 
-   iPicture->lpVtbl->Release( iPicture );
+   iPicture->lpVtbl->Release(iPicture);
    SelectClipRgn(hDC, hrgn);
    DeleteObject(hrgn1);
    hb_retni(0);
@@ -1354,7 +1354,7 @@ LPVOID rr_loadpicturefromresource(TCHAR * resname, LONG * lwidth, LONG * lheight
    LPVOID     lpVoid;
    int        nSize;
 
-   hbmpx = ( HBITMAP ) LoadImage( GetResources(), resname, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION );
+   hbmpx = ( HBITMAP ) LoadImage(GetResources(), resname, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION);
    if( hbmpx != NULL )
    {
       picd.cbSizeofstruct = sizeof(PICTDESC);
@@ -1377,7 +1377,7 @@ LPVOID rr_loadpicturefromresource(TCHAR * resname, LONG * lwidth, LONG * lheight
          return NULL;
 
       nSize   = SizeofResource(GetResources(), hSource);
-      hGlobal = GlobalAlloc( GPTR, nSize );
+      hGlobal = GlobalAlloc(GPTR, nSize);
       if( hGlobal == NULL )
          return NULL;
 
@@ -1391,7 +1391,7 @@ LPVOID rr_loadpicturefromresource(TCHAR * resname, LONG * lwidth, LONG * lheight
       }
 
       OleLoadPicture( iStream, nSize, TRUE, IID_IPicture, ( LPVOID * ) &iPicture );
-      iStream->lpVtbl->Release( iStream );
+      iStream->lpVtbl->Release(iStream);
       GlobalFree(hGlobal);
    }
 
@@ -1417,8 +1417,8 @@ LPVOID rr_loadpicture( TCHAR * filename, LONG * lwidth, LONG * lheight )
    if( hFile == INVALID_HANDLE_VALUE )
       return NULL;
 
-   nFileSize = GetFileSize( hFile, NULL );
-   hGlobal   = GlobalAlloc( GMEM_MOVEABLE, nFileSize + 4096 );
+   nFileSize = GetFileSize(hFile, NULL);
+   hGlobal   = GlobalAlloc(GMEM_MOVEABLE, nFileSize + 4096);
    pGlobal   = GlobalLock(hGlobal);
    ReadFile(hFile, pGlobal, nFileSize, &nReadByte, NULL);
    CloseHandle(hFile);
@@ -1434,7 +1434,7 @@ LPVOID rr_loadpicture( TCHAR * filename, LONG * lwidth, LONG * lheight )
    OleLoadPicture( iStream, nFileSize, TRUE, IID_IPicture, ( LPVOID * ) &iPicture );
    GlobalUnlock(hGlobal);
    GlobalFree(hGlobal);
-   iStream->lpVtbl->Release( iStream );
+   iStream->lpVtbl->Release(iStream);
    iStream = NULL;
    if( iPicture != NULL )
    {
@@ -1470,7 +1470,7 @@ HB_FUNC( RR_DRAWPICTURE )
 #ifndef UNICODE
    LPSTR      cFileName = ( LPSTR ) hb_parc(1);
 #else
-   LPWSTR     cFileName = AnsiToWide( ( char * ) hb_parc(1) );
+   LPWSTR     cFileName = AnsiToWide(( char * ) hb_parc(1));
 #endif
    IPicture * ipic;
    int        x, y, xe, ye;
@@ -1513,7 +1513,7 @@ HB_FUNC( RR_DRAWPICTURE )
    y  = r;
    xe = c + toc - 1;
    ye = r + tor - 1;
-   GetViewportOrgEx( hDC, &lpp );
+   GetViewportOrgEx(hDC, &lpp);
    hrgn1 = CreateRectRgn(c + lpp.x, r + lpp.y, xe + lpp.x, ye + lpp.y);
    if( hrgn == NULL )
       SelectClipRgn(hDC, hrgn1);
@@ -1533,7 +1533,7 @@ HB_FUNC( RR_DRAWPICTURE )
       x += dc;
    }
 
-   ipic->lpVtbl->Release( ipic );
+   ipic->lpVtbl->Release(ipic);
    SelectClipRgn(hDC, hrgn);
    DeleteObject(hrgn1);
    hb_retni(0);
@@ -1548,16 +1548,16 @@ HB_FUNC( RR_CREATEIMAGELIST )
 #ifndef UNICODE
    LPSTR      cFileName = ( LPSTR ) hb_parc(1);
 #else
-   LPWSTR     cFileName = AnsiToWide( ( char * ) hb_parc(1) );
+   LPWSTR     cFileName = AnsiToWide(( char * ) hb_parc(1));
 #endif
    HBITMAP    hbmpx;
    BITMAP     bm;
    HIMAGELIST himl;
    int        dx, number;
 
-   hbmpx = ( HBITMAP ) LoadImage( 0, cFileName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION );
+   hbmpx = ( HBITMAP ) LoadImage(0, cFileName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
    if( hbmpx == NULL )
-      hbmpx = ( HBITMAP ) LoadImage( GetModuleHandle(NULL), cFileName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION );
+      hbmpx = ( HBITMAP ) LoadImage(GetModuleHandle(NULL), cFileName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION);
 
    if( hbmpx == NULL )
       return;
@@ -1572,8 +1572,8 @@ HB_FUNC( RR_CREATEIMAGELIST )
    else
       dx = ( int ) bm.bmWidth / number;
 
-   himl = ImageList_Create( dx, bm.bmHeight, ILC_COLOR24 | ILC_MASK, number, 0 );
-   ImageList_AddMasked( himl, hbmpx, CLR_DEFAULT );
+   himl = ImageList_Create(dx, bm.bmHeight, ILC_COLOR24 | ILC_MASK, number, 0);
+   ImageList_AddMasked(himl, hbmpx, CLR_DEFAULT);
    hb_storni( dx, 3 );
    hb_storni( bm.bmHeight, 4 );
    DeleteObject(hbmpx);
@@ -1601,22 +1601,22 @@ HB_FUNC( RR_DRAWIMAGELIST )
    hbmpx       = CreateCompatibleBitmap(temp2dc, hb_parni(5), hb_parni(6));
    ReleaseDC(hwnd, temp2dc);
    SelectObject(tempdc, hbmpx);
-   BitBlt( tempdc, 0, 0, hb_parni(5), hb_parni(6), tempdc, 0, 0, WHITENESS );
+   BitBlt(tempdc, 0, 0, hb_parni(5), hb_parni(6), tempdc, 0, 0, WHITENESS);
    if( hb_parnl(8) >= 0 )
       ImageList_SetBkColor(himl, hmg_par_COLORREF(8));
 
-   ImageList_Draw( himl, hb_parni(2) - 1, tempdc, 0, 0, hb_parni(7) );
+   ImageList_Draw(himl, hb_parni(2) - 1, tempdc, 0, 0, hb_parni(7));
    if( hb_parnl(8) >= 0 )
       ImageList_SetBkColor(himl, CLR_NONE);
 
-   hb_retl( StretchBlt( hDC, rect.left, rect.top, rect.right, rect.bottom, tempdc, 0, 0, hb_parni(5), hb_parni(6), SRCCOPY ) );
+   hb_retl( StretchBlt(hDC, rect.left, rect.top, rect.right, rect.bottom, tempdc, 0, 0, hb_parni(5), hb_parni(6), SRCCOPY) );
    DeleteDC(tempdc);
    DeleteObject(hbmpx);
 }
 
 HB_FUNC( RR_POLYGON )
 {
-   int      number = ( int ) hb_parinfa( 1, 0 );
+   int      number = ( int ) hb_parinfa(1, 0);
    int      i;
    int      styl = GetPolyFillMode( hDC );
    POINT    apoints[ 1024 ];
@@ -1650,7 +1650,7 @@ HB_FUNC( RR_POLYGON )
 
 HB_FUNC( RR_POLYBEZIER )
 {
-   DWORD    number = ( DWORD ) hb_parinfa( 1, 0 );
+   DWORD    number = ( DWORD ) hb_parinfa(1, 0);
    DWORD    i;
    POINT    apoints[ 1024 ];
    LONG_PTR xpen = HB_PARNL(3);
@@ -1672,7 +1672,7 @@ HB_FUNC( RR_POLYBEZIER )
 
 HB_FUNC( RR_POLYBEZIERTO )
 {
-   DWORD    number = ( DWORD ) hb_parinfa( 1, 0 );
+   DWORD    number = ( DWORD ) hb_parinfa(1, 0);
    DWORD    i;
    POINT    apoints[ 1024 ];
    LONG_PTR xpen = HB_PARNL(3);
@@ -1697,7 +1697,7 @@ HB_FUNC( RR_GETTEXTEXTENT )
 #ifndef UNICODE
    LPTSTR lpText = ( LPTSTR ) hb_parc(1);
 #else
-   LPWSTR lpText = AnsiToWide( ( char * ) hb_parc(1) );
+   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(1));
 #endif
    LONG_PTR xfont = HB_PARNL(3);
    SIZE     szMetric;
@@ -1851,7 +1851,7 @@ HB_FUNC( RR_LINE )
    if( xpen != 0 )
       SelectObject(hDC, ( HPEN ) xpen);
 
-   MoveToEx( hDC, HB_PARNI( 1, 2 ), HB_PARNI( 1, 1 ), NULL );
+   MoveToEx(hDC, HB_PARNI( 1, 2 ), HB_PARNI( 1, 1 ), NULL);
    hb_retni( LineTo( hDC, HB_PARNI( 2, 2 ), HB_PARNI( 2, 1 ) ) );
    if( xpen != 0 )
       SelectObject(hDC, hpen);
@@ -1919,7 +1919,7 @@ HB_FUNC( RR_PREVIEWPLAY )
 #ifndef UNICODE
    LPSTR FileName = ( LPSTR ) HB_PARC( 2, 1 );
 #else
-   LPWSTR FileName = AnsiToWide( ( char * ) HB_PARC( 2, 1 ) );
+   LPWSTR FileName = AnsiToWide(( char * ) HB_PARC( 2, 1 ));
 #endif
    HENHMETAFILE hh = GetEnhMetaFile(FileName);
 
@@ -1959,8 +1959,8 @@ HB_FUNC( RR_PLAYTHUMB )
    LPSTR FileName  = ( LPSTR ) HB_PARC( 2, 1 );
    LPTSTR lpText   = ( LPTSTR ) hb_parc(3);
 #else
-   LPWSTR FileName = AnsiToWide( ( char * ) HB_PARC( 2, 1 ) );
-   LPWSTR lpText   = AnsiToWide( ( char * ) hb_parc(3) );
+   LPWSTR FileName = AnsiToWide(( char * ) HB_PARC( 2, 1 ));
+   LPWSTR lpText   = AnsiToWide(( char * ) hb_parc(3));
 #endif
    HENHMETAFILE hh = GetEnhMetaFile(FileName);
    int          i;
@@ -1990,7 +1990,7 @@ HB_FUNC( RR_PLAYENHMETAFILE )
 #ifndef UNICODE
    LPSTR FileName  = ( LPSTR ) HB_PARC( 1, 1 );
 #else
-   LPWSTR FileName = AnsiToWide( ( char * ) HB_PARC( 1, 1 ) );
+   LPWSTR FileName = AnsiToWide(( char * ) HB_PARC( 1, 1 ));
 #endif
    HENHMETAFILE hh = GetEnhMetaFile(FileName);
 

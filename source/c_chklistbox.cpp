@@ -62,9 +62,9 @@
 #define BUFFER      MAX_PATH
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
+LPWSTR AnsiToWide(LPCSTR);
 #endif
-HINSTANCE GetInstance( void );
+HINSTANCE GetInstance(void);
 
 static int m_nHeightItem = 16;
 
@@ -155,7 +155,7 @@ HB_FUNC( CHKLISTBOXINSERTITEM )
 #ifndef UNICODE
    LPTSTR lpString = ( LPTSTR ) hb_parc(2);
 #else
-   LPWSTR lpString = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR lpString = AnsiToWide(( char * ) hb_parc(2));
 #endif
    int lbItem   = hb_parni(3) - 1;
    int bChecked = hb_parni(4);
@@ -175,7 +175,7 @@ HB_FUNC( CHKLISTBOXADDITEM )
 #ifndef UNICODE
    LPTSTR lpString = ( LPTSTR ) hb_parc(2);
 #else
-   LPWSTR lpString = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR lpString = AnsiToWide(( char * ) hb_parc(2));
 #endif
    int bChecked = hb_parni(3);
    int lbItem;

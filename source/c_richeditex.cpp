@@ -74,10 +74,10 @@
 #endif
 
 #ifdef UNICODE
-LPWSTR AnsiToWide( LPCSTR );
-LPSTR  WideToAnsi( LPWSTR );
+LPWSTR AnsiToWide(LPCSTR);
+LPSTR  WideToAnsi(LPWSTR);
 #endif
-HINSTANCE GetInstance( void );
+HINSTANCE GetInstance(void);
 
 static HINSTANCE hRELib = NULL;
 
@@ -108,17 +108,17 @@ HB_FUNC( INITRICHEDITBOXEX )
 
    if( hRELib )
    {
-      hWndControl = CreateWindowEx( WS_EX_CLIENTEDGE, ( LPCTSTR ) RICHEDIT_CLASS,
-                                    TEXT(""),
-                                    Style,
-                                    hb_parni(3),
-                                    hb_parni(4),
-                                    hb_parni(5),
-                                    hb_parni(6),
-                                    hWnd,
-                                    hMenu,
-                                    GetInstance(),
-                                    NULL );
+      hWndControl = CreateWindowEx(WS_EX_CLIENTEDGE, ( LPCTSTR ) RICHEDIT_CLASS,
+                                   TEXT(""),
+                                   Style,
+                                   hb_parni(3),
+                                   hb_parni(4),
+                                   hb_parni(5),
+                                   hb_parni(6),
+                                   hWnd,
+                                   hMenu,
+                                   GetInstance(),
+                                   NULL);
 
       SendMessage( hWndControl, EM_LIMITTEXT, ( WPARAM ) hb_parni(9), 0 );
       SendMessage( hWndControl, EM_SETEVENTMASK, ( WPARAM ) 0, ( LPARAM ) ( ENM_CHANGE | ENM_SELCHANGE | ENM_PROTECTED | ENM_SCROLL | ENM_LINK | ENM_KEYEVENTS | ENM_REQUESTRESIZE | ENM_MOUSEEVENTS ) );
@@ -141,7 +141,7 @@ HB_FUNC( UNLOADRICHEDITEXLIB )
    }
 }
 
-DWORD CALLBACK EditStreamCallbackRead( DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb, LONG * pcb )
+DWORD CALLBACK EditStreamCallbackRead(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb, LONG * pcb)
 {
    HANDLE hFile = ( HANDLE ) dwCookie;
 
@@ -159,7 +159,7 @@ HB_FUNC( RICHEDITBOX_STREAMIN )
 #ifndef UNICODE
    LPCSTR cFileName = ( char * ) hb_parc(2);
 #else
-   LPCWSTR cFileName = AnsiToWide( ( char * ) hb_parc(2) );
+   LPCWSTR cFileName = AnsiToWide(( char * ) hb_parc(2));
 #endif
    BOOL       lSelection  = hmg_par_BOOL(3);
    LONG       nDataFormat = hmg_par_LONG(4);
@@ -206,7 +206,7 @@ HB_FUNC( RICHEDITBOX_STREAMIN )
       hb_retl( TRUE );
 }
 
-DWORD CALLBACK EditStreamCallbackWrite( DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb, LONG * pcb )
+DWORD CALLBACK EditStreamCallbackWrite(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb, LONG * pcb)
 {
    HANDLE hFile = ( HANDLE ) dwCookie;
 
@@ -224,7 +224,7 @@ HB_FUNC( RICHEDITBOX_STREAMOUT )
 #ifndef UNICODE
    LPCSTR cFileName = ( char * ) hb_parc(2);
 #else
-   LPCWSTR cFileName = AnsiToWide( ( char * ) hb_parc(2) );
+   LPCWSTR cFileName = AnsiToWide(( char * ) hb_parc(2));
 #endif
    BOOL       lSelection  = hmg_par_BOOL(3);
    LONG       nDataFormat = hmg_par_LONG(4);
@@ -279,7 +279,7 @@ HB_FUNC( RICHEDITBOX_RTFLOADRESOURCEFILE )
 #ifndef UNICODE
    LPCSTR cFileName = ( char * ) hb_parc(2);
 #else
-   LPCWSTR cFileName = AnsiToWide( ( char * ) hb_parc(2) );
+   LPCWSTR cFileName = AnsiToWide(( char * ) hb_parc(2));
 #endif
    BOOL lSelect = hmg_par_BOOL(3);
 
@@ -406,7 +406,7 @@ HB_FUNC( RICHEDITBOX_SETFONT )
 #ifndef UNICODE
       TCHAR * szFaceName = ( TCHAR * ) hb_parc(2);
 #else
-      TCHAR * szFaceName = ( TCHAR * ) hb_osStrU16Encode( ( char * ) hb_parc(2) );
+      TCHAR * szFaceName = ( TCHAR * ) hb_osStrU16Encode(( char * ) hb_parc(2));
 #endif
       Mask = Mask | CFM_FACE;
       lstrcpy(CharFormat2.szFaceName, szFaceName);
@@ -518,7 +518,7 @@ HB_FUNC( RICHEDITBOX_GETFONT )
 #ifndef UNICODE
       hb_storc( CharFormat2.szFaceName, 2 );
 #else
-      pStr = WideToAnsi( CharFormat2.szFaceName );
+      pStr = WideToAnsi(CharFormat2.szFaceName);
       hb_storc( pStr, 2 );
       hb_xfree(pStr);
 #endif
@@ -604,7 +604,7 @@ HB_FUNC( RICHEDITBOX_REPLACESEL )
 #ifndef UNICODE
    LPCTSTR cBuffer = ( LPCTSTR ) hb_parc(2);
 #else
-   LPCTSTR cBuffer = ( LPCTSTR ) AnsiToWide( hb_parc(2) );
+   LPCTSTR cBuffer = ( LPCTSTR ) AnsiToWide(hb_parc(2));
 #endif
 
    SendMessage( hWndControl, EM_REPLACESEL, ( WPARAM ) ( BOOL ) TRUE, ( LPARAM ) cBuffer );
@@ -619,7 +619,7 @@ HB_FUNC( RICHEDITBOX_SETTEXT )
 #ifndef UNICODE
    LPCTSTR cBuffer = ( LPCTSTR ) hb_parc(3);
 #else
-   LPCTSTR cBuffer = ( LPCTSTR ) AnsiToWide( hb_parc(3) );
+   LPCTSTR cBuffer = ( LPCTSTR ) AnsiToWide(hb_parc(3));
 #endif
 
    SETTEXTEX ST;
@@ -661,7 +661,7 @@ HB_FUNC( RICHEDITBOX_GETTEXT )
 #ifndef UNICODE
    hb_retc( cBuffer );
 #else
-   pStr = WideToAnsi( cBuffer );
+   pStr = WideToAnsi(cBuffer);
    hb_retc( pStr );
    hb_xfree(pStr);
 #endif
@@ -706,7 +706,7 @@ HB_FUNC( RICHEDITBOX_GETTEXTRANGE )
 #ifndef UNICODE
    hb_retc( TextRange.lpstrText );
 #else
-   pStr = WideToAnsi( TextRange.lpstrText );
+   pStr = WideToAnsi(TextRange.lpstrText);
    hb_retc( pStr );
    hb_xfree(pStr);
 #endif
@@ -720,7 +720,7 @@ HB_FUNC( RICHEDITBOX_FINDTEXT )
 #ifndef UNICODE
    LPSTR cFind = ( LPSTR ) hb_parc(2);
 #else
-   LPWSTR cFind = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR cFind = AnsiToWide(( char * ) hb_parc(2));
 #endif
    BOOL Down           = ( BOOL ) ( HB_ISNIL(3) ? TRUE  : hb_parl(3) );
    BOOL MatchCase      = ( BOOL ) ( HB_ISNIL(4) ? FALSE : hb_parl(4) );
@@ -1212,9 +1212,9 @@ HB_FUNC( FINDREPLACEDLG )
    LPSTR ReplaceWith = ( LPSTR ) hb_parc(9);
    LPSTR cTitle      = ( LPSTR ) hb_parc(11);
 #else
-   LPWSTR FindWhat    = AnsiToWide( ( char * ) hb_parc(8) );
-   LPWSTR ReplaceWith = AnsiToWide( ( char * ) hb_parc(9) );
-   LPWSTR cTitle      = AnsiToWide( ( char * ) hb_parc(11) );
+   LPWSTR FindWhat    = AnsiToWide(( char * ) hb_parc(8));
+   LPWSTR ReplaceWith = AnsiToWide(( char * ) hb_parc(9));
+   LPWSTR cTitle      = AnsiToWide(( char * ) hb_parc(11));
 #endif
 
    if( hDlgFindReplace == NULL )
@@ -1256,7 +1256,7 @@ HB_FUNC( FINDREPLACEDLGSETTITLE )
 #ifndef UNICODE
    LPCSTR cTitle = ( LPCSTR ) hb_parc(1);
 #else
-   LPCWSTR cTitle = AnsiToWide( ( char * ) hb_parc(1) );
+   LPCWSTR cTitle = AnsiToWide(( char * ) hb_parc(1));
 #endif
 
    if( hDlgFindReplace != NULL )
@@ -1280,7 +1280,7 @@ HB_FUNC( FINDREPLACEDLGGETTITLE )
 #ifndef UNICODE
       hb_retc( cTitle );
 #else
-      pStr = WideToAnsi( cTitle );
+      pStr = WideToAnsi(cTitle);
       hb_retc( pStr );
       hb_xfree(pStr);
 #endif
@@ -1290,7 +1290,7 @@ HB_FUNC( FINDREPLACEDLGGETTITLE )
 #ifndef UNICODE
       hb_retc( "" );
 #else
-      pStr = WideToAnsi( TEXT("") );
+      pStr = WideToAnsi(TEXT(""));
       hb_retc( pStr );
       hb_xfree(pStr);
 #endif
@@ -1356,14 +1356,14 @@ HB_FUNC( FINDREPLACEDLGGETOPTIONS )
 #ifndef UNICODE
    HB_STORC( FR->lpstrFindWhat, -1, 2 );
 #else
-   pStr = WideToAnsi( FR->lpstrFindWhat );
+   pStr = WideToAnsi(FR->lpstrFindWhat);
    HB_STORC( pStr, -1, 2 );
    hb_xfree(pStr);
 #endif
 #ifndef UNICODE
    HB_STORC( FR->lpstrReplaceWith, -1, 3 );
 #else
-   pStr2 = WideToAnsi( FR->lpstrReplaceWith );
+   pStr2 = WideToAnsi(FR->lpstrReplaceWith);
    HB_STORC( pStr2, -1, 3 );
    hb_xfree(pStr2);
 #endif

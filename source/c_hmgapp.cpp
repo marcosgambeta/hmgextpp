@@ -65,9 +65,9 @@
 #define PACKVERSION( major, minor )  MAKELONG( minor, major )
 
 extern void hmg_ErrorExit( LPCTSTR lpMessage, DWORD dwError, BOOL bExit );
-extern GpStatus GdiplusInit( void );
+extern GpStatus GdiplusInit(void);
 
-HINSTANCE GetInstance( void );
+HINSTANCE GetInstance(void);
 HMODULE   hmg_LoadLibrarySystem( LPCTSTR pFileName );
 
 // auxiliary functions
@@ -83,25 +83,25 @@ typedef HRESULT ( CALLBACK * _DLLGETVERSIONPROC )( DLLVERSIONINFO2 * );
 static HINSTANCE g_hInstance     = NULL;
 static DWORD     g_dwComCtl32Ver = 0;
 
-static void hmg_init( void * cargo )
+static void hmg_init(void * cargo)
 {
    LPCTSTR lpszDllName = TEXT("ComCtl32.dll");
 
    HB_SYMBOL_UNUSED( cargo );
 
-   if( S_FALSE == CoInitializeEx( NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE | COINIT_SPEED_OVER_MEMORY ) )
-      hmg_ErrorExit( TEXT("hmg_init( void )"), S_FALSE, TRUE );
+   if( S_FALSE == CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE | COINIT_SPEED_OVER_MEMORY) )
+      hmg_ErrorExit( TEXT("hmg_init(void)"), S_FALSE, TRUE );
 
    g_dwComCtl32Ver = DllGetVersion( lpszDllName );
 
    GetInstance();
 
    if( Ok != GdiplusInit() )
-      hmg_ErrorExit( TEXT("GdiplusInit( void )"), 0, TRUE );
+      hmg_ErrorExit( TEXT("GdiplusInit(void)"), 0, TRUE );
 }
 
 HB_CALL_ON_STARTUP_BEGIN( _hmg_init_ )
-hb_vmAtInit( hmg_init, NULL );
+hb_vmAtInit(hmg_init, NULL);
 HB_CALL_ON_STARTUP_END( _hmg_init_ )
 
 #if defined( HB_PRAGMA_STARTUP )
@@ -111,7 +111,7 @@ HB_CALL_ON_STARTUP_END( _hmg_init_ )
    #include "hbiniseg.h"
 #endif
 
-HINSTANCE GetInstance( void )
+HINSTANCE GetInstance(void)
 {
    if( ! g_hInstance )
       g_hInstance = GetModuleHandle(0);
@@ -170,7 +170,7 @@ HB_FUNC( OLEDATARELEASE )
 # define LOAD_LIBRARY_SEARCH_SYSTEM32  0x00000800
 #endif
 
-static HB_BOOL win_has_search_system32( void )
+static HB_BOOL win_has_search_system32(void)
 {
    HMODULE hKernel32 = GetModuleHandle(TEXT("kernel32.dll"));
 
@@ -184,7 +184,7 @@ HMODULE hmg_LoadLibrarySystem( LPCTSTR pFileName )
 {
    TCHAR * pLibPath = hmg_FileNameAtSystemDir( pFileName );
 
-   HMODULE h = LoadLibraryEx( pLibPath, NULL, win_has_search_system32() ? LOAD_LIBRARY_SEARCH_SYSTEM32 : LOAD_WITH_ALTERED_SEARCH_PATH );
+   HMODULE h = LoadLibraryEx(pLibPath, NULL, win_has_search_system32() ? LOAD_LIBRARY_SEARCH_SYSTEM32 : LOAD_WITH_ALTERED_SEARCH_PATH);
 
    hb_xfree(pLibPath);
 

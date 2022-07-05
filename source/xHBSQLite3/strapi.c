@@ -209,7 +209,7 @@ BOOL hb_arraySetStrUTF8( PHB_ITEM pArray, ULONG nIndex, const char * pStr)
 {
    HB_TRACE(HB_TR_DEBUG, ("hb_arraySetStrUTF8(%p, %lu, %p)", pArray, nIndex, pStr));
    
-   if( HB_IS_ARRAY( pArray ) && nIndex > 0 && nIndex <= pArray->item.asArray.value->ulLen ) 
+   if( HB_IS_ARRAY(pArray) && nIndex > 0 && nIndex <= pArray->item.asArray.value->ulLen ) 
    {
       hb_itemPutStrUTF8( pArray->item.asArray.value->pItems + nIndex - 1, pStr );
       return TRUE;
