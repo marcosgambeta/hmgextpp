@@ -4,6 +4,7 @@ libs=minigui
 libs=bostaurus
 libs=hbprinter
 libs=miniprint
+libs=winreport
 libs=vfw32
 libs=gdiplus
 libs=xhb.hbc

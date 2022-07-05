@@ -1,0 +1,11 @@
+-hblib
+
+-olib/${hb_plat}/${hb_comp}/winreport
+
+-iinclude
+
+-prgflag=-n -w2 -es2
+
+source\WinReport\fncMyError.Prg
+source\WinReport\h_WreMix.prg
+source\WinReport\h_wrepint.prg
