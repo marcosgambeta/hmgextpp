@@ -1,0 +1,24 @@
+-hblib
+
+-olib/${hb_plat}/${hb_comp}/tsbrowse
+
+-iinclude
+
+-prgflag=-n -w2 -es2
+
+source\TsBrowse\c_controlmisc1.cpp
+source\TsBrowse\c_TBrowse.cpp
+
+source\TsBrowse\h_controlmisc1.prg
+source\TsBrowse\h_controlmisc2.prg
+source\TsBrowse\h_tbrowse.prg
+source\TsBrowse\SBMSG.PRG
+source\TsBrowse\SCRLLBAR.PRG
+source\TsBrowse\TBtnBox.prg
+source\TsBrowse\TComboBox.prg
+source\TsBrowse\TControl.prg
+source\TsBrowse\TCursor.prg
+source\TsBrowse\TDatePicker.prg
+source\TsBrowse\TGetBox.prg
+source\TsBrowse\TSCOLUMN.PRG
+source\TsBrowse\TSMULTI.PRG
