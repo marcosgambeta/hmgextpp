@@ -281,7 +281,7 @@ HB_FUNC( SETLAYEREDWINDOWATTRIBUTES )
          if( NULL != fn_SetLayeredWindowAttributes )
          {
             COLORREF crKey   = hmg_par_COLORREF(2);
-            BYTE     bAlpha  = ( BYTE ) hb_parni(3);
+            BYTE     bAlpha  = hmg_par_BYTE(3);
             DWORD    dwFlags = ( DWORD ) hb_parnl(4);
 
             if( ! ( GetWindowLongPtr(hWnd, GWL_EXSTYLE) & WS_EX_LAYERED ) )

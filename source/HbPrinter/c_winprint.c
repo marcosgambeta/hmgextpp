@@ -985,13 +985,13 @@ HB_FUNC( RR_MODIFYFONT )
       }
 
       if( hb_parni(7) >= 0 )
-         ppn.lfItalic = ( BYTE ) hb_parni(7);
+         ppn.lfItalic = hmg_par_BYTE(7);
 
       if( hb_parni(8) >= 0 )
-         ppn.lfUnderline = ( BYTE ) hb_parni(8);
+         ppn.lfUnderline = hmg_par_BYTE(8);
 
       if( hb_parni(9) >= 0 )
-         ppn.lfStrikeOut = ( BYTE ) hb_parni(9);
+         ppn.lfStrikeOut = hmg_par_BYTE(9);
 
       hf = CreateFontIndirect(&ppn);
       if( hf != NULL )

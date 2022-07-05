@@ -175,7 +175,7 @@ HB_FUNC( KEYBD_EVENT )
 {
    keybd_event
    (
-      ( BYTE ) hb_parni(1),                      // virtual-key code
+      hmg_par_BYTE(1),                      // virtual-key code
       ( BYTE ) MapVirtualKey( hb_parni(1), 0 ),  // hardware scan code
       hb_parl(2) ? KEYEVENTF_KEYUP : 0,          // flags specifying various function options
       0                                            // additional data associated with keystroke
@@ -186,7 +186,7 @@ HB_FUNC( INSERTVKEY )
 {
    keybd_event
    (
-      ( BYTE ) hb_parni(1),  // virtual-key code
+      hmg_par_BYTE(1),  // virtual-key code
       0,
       0,
       0

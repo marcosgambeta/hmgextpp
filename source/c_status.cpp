@@ -275,7 +275,7 @@ HB_FUNC( KEYTOGGLE )
 
 HB_FUNC( KEYTOGGLENT )
 {
-   BYTE wKey = ( BYTE ) hb_parni(1);
+   BYTE wKey = hmg_par_BYTE(1);
 
    keybd_event( wKey, 0x45, KEYEVENTF_EXTENDEDKEY | 0, 0 );
    keybd_event( wKey, 0x45, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0 );

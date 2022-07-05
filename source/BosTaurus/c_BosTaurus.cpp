@@ -1323,7 +1323,7 @@ HB_FUNC( BT_DRAW_HDC_BITMAPALPHABLEND )
    Width2  = hmg_par_INT(9);
    Height2 = hmg_par_INT(10);
 
-   Alpha        = ( BYTE ) hb_parni(11);
+   Alpha        = hmg_par_BYTE(11);
    Mode_Stretch = hmg_par_INT(12);
 
 
@@ -1797,7 +1797,7 @@ HB_FUNC( BT_DRAW_HDC_TO_HDC_ALPHABLEND )
    Width2  = hmg_par_INT(9);
    Height2 = hmg_par_INT(10);
 
-   Alpha        = ( BYTE ) hb_parni(11);
+   Alpha        = hmg_par_BYTE(11);
    Mode_Stretch = hmg_par_INT(12);
 
    blend.BlendOp             = AC_SRC_OVER;
@@ -2535,7 +2535,7 @@ HB_FUNC( BT_BMP_PASTE_ALPHABLEND )
    Width2    = hmg_par_INT(9);
    Height2   = hmg_par_INT(10);
 
-   Alpha        = ( BYTE ) hb_parni(11);
+   Alpha        = hmg_par_BYTE(11);
    Mode_Stretch = hmg_par_INT(12);
 
 

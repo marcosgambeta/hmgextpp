@@ -99,10 +99,10 @@ HB_FUNC( SETIPADDRESS )
 
    hWnd = hmg_par_HWND(1);
 
-   v1 = ( BYTE ) hb_parni(2);
-   v2 = ( BYTE ) hb_parni(3);
-   v3 = ( BYTE ) hb_parni(4);
-   v4 = ( BYTE ) hb_parni(5);
+   v1 = hmg_par_BYTE(2);
+   v2 = hmg_par_BYTE(3);
+   v3 = hmg_par_BYTE(4);
+   v4 = hmg_par_BYTE(5);
 
    SendMessage( hWnd, IPM_SETADDRESS, 0, MAKEIPADDRESS( v1, v2, v3, v4 ) );
 }
