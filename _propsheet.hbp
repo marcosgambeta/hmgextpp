@@ -1,0 +1,10 @@
+-hblib
+
+-olib/${hb_plat}/${hb_comp}/propsheet
+
+-iinclude
+
+-prgflag=-n -w2 -es2
+
+source\PropSheet\c_PropSheet.cpp
+source\PropSheet\h_PropSheet.prg
