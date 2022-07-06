@@ -97,13 +97,13 @@ HB_FUNC( SOCKETCONNECT )
       lpszAsciiDestination = hb_parc(2);
       nPort = hb_parni(3);
 
-      m_hSocket = socket( AF_INET, SOCK_STREAM, 0 );
+      m_hSocket = socket(AF_INET, SOCK_STREAM, 0);
       if( m_hSocket != INVALID_SOCKET )
       {
          /* Determine if the address is in dotted notation */
          ZeroMemory(&sockDestinationAddr, sizeof(sockDestinationAddr));
          sockDestinationAddr.sin_family = AF_INET;
-         sockDestinationAddr.sin_port = htons( ( u_short ) nPort );
+         sockDestinationAddr.sin_port = htons(( u_short ) nPort);
          sockDestinationAddr.sin_addr.s_addr = inet_addr( lpszAsciiDestination );
 
          /* if the address is not dotted notation, then do a DNS lookup of it */
@@ -145,13 +145,13 @@ HB_FUNC( SOCKETBIND )
       lpszAsciiDestination = hb_parc(2);
       nPort = hb_parni(3);
 
-      m_hSocket = socket( AF_INET, SOCK_STREAM, 0 );
+      m_hSocket = socket(AF_INET, SOCK_STREAM, 0);
       if( m_hSocket != INVALID_SOCKET )
       {
          /* Determine if the address is in dotted notation */
          ZeroMemory(&sockDestinationAddr, sizeof(sockDestinationAddr));
          sockDestinationAddr.sin_family = AF_INET;
-         sockDestinationAddr.sin_port = htons( ( u_short ) nPort );
+         sockDestinationAddr.sin_port = htons(( u_short ) nPort);
          sockDestinationAddr.sin_addr.s_addr = inet_addr( lpszAsciiDestination );
 
          /* if the address is not dotted notation, then do a DNS lookup of it */
@@ -193,11 +193,11 @@ HB_FUNC( SOCKETLISTEN )
    {
       if( m_hSocket != INVALID_SOCKET )
       {
-         int nRet = listen( m_hSocket, hb_parni(2) );    // Backlog 10
+         int nRet = listen(m_hSocket, hb_parni(2));    // Backlog 10
          if( nRet != SOCKET_ERROR )
          {
             int iAddrLen = sizeof(remote_addr);
-            sClient = accept( m_hSocket, ( struct sockaddr * ) &remote_addr, &iAddrLen );
+            sClient = accept(m_hSocket, ( struct sockaddr * ) &remote_addr, &iAddrLen);
 
             // Error?
             if( ( long int ) sClient != SOCKET_ERROR )
@@ -235,7 +235,7 @@ HB_FUNC( SOCKETSEND )
          {
             int sendtimeout = hb_parni(3);
             if( sendtimeout != -1 )
-               setsockopt( m_hSocket, SOL_SOCKET, SO_SNDTIMEO, ( char * ) &sendtimeout, sizeof(sendtimeout) );
+               setsockopt(m_hSocket, SOL_SOCKET, SO_SNDTIMEO, ( char * ) &sendtimeout, sizeof(sendtimeout));
          }
 
          hb_retl( send(m_hSocket, pszBuf, nBuf, 0) != SOCKET_ERROR );
@@ -265,13 +265,13 @@ HB_FUNC( SOCKETRECEIVE )
             {
                int recvtimeout = hb_parni(3);
                if( recvtimeout != -1 )
-                  setsockopt( m_hSocket, SOL_SOCKET, SO_RCVTIMEO, ( char * ) &recvtimeout, sizeof(recvtimeout) );
+                  setsockopt(m_hSocket, SOL_SOCKET, SO_RCVTIMEO, ( char * ) &recvtimeout, sizeof(recvtimeout));
             }
 
-            nLen = recv( m_hSocket, pRead, nLen, 0 );
+            nLen = recv(m_hSocket, pRead, nLen, 0);
             if( nLen < 0 )
                nLen = 0;
-            hb_storclen( pRead, nLen, 2 );
+            hb_storclen(pRead, nLen, 2);
             hb_xfree(pRead);
             hb_retni( nLen );
          }
@@ -363,7 +363,7 @@ HB_FUNC( SOCKETMD5 )
       for( j = 0; j < sizeof digest; j++ )
          sprintf( pRet + ( j * 2 ), "%02x", digest[ j ] );
 
-      hb_retclen( pRet, sizeof digest * 2 );
+      hb_retclen(pRet, sizeof digest * 2);
       hb_xfree(pRet);
    }
    else
@@ -397,9 +397,9 @@ HB_FUNC( SOCKETENCODE64 )
       pRet[ nEncodeLen ] = 0;
       memset(pRet, '=', nEncodeLen);
 
-      b64encodelen( string, pRet, hb_parclen(1), nSubLen );
+      b64encodelen(string, pRet, hb_parclen(1), nSubLen);
 
-      hb_retclen( pRet, nEncodeLen );
+      hb_retclen(pRet, nEncodeLen);
       hb_xfree(pRet);
    }
    else
@@ -422,7 +422,7 @@ HB_FUNC( SOCKETDECODE64 )
 
       b64decode(string, pRet);
 
-      hb_retclen( pRet, nEncodeLen );
+      hb_retclen(pRet, nEncodeLen);
       hb_xfree(pRet);
    }
    else

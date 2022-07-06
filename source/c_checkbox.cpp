@@ -61,7 +61,7 @@
 HBITMAP HMG_LoadPicture(const char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage,
                         HB_BOOL bAlphaFormat, int iAlpfaConstant);
 
-HIMAGELIST HMG_SetButtonImageList( HWND hButton, const char * FileName, int Transparent, UINT uAlign );
+HIMAGELIST HMG_SetButtonImageList(HWND hButton, const char * FileName, int Transparent, UINT uAlign);
 
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);
@@ -232,7 +232,7 @@ HB_FUNC( INITIMAGECHECKBUTTON )
    }
    else
    {
-      himl = HMG_SetButtonImageList( hbutton, hb_parc(8), Transparent, BUTTON_IMAGELIST_ALIGN_CENTER );
+      himl = HMG_SetButtonImageList(hbutton, hb_parc(8), Transparent, BUTTON_IMAGELIST_ALIGN_CENTER);
 
       hb_reta(2);
       HB_STORVNL( ( LONG_PTR ) hbutton, -1, 1 );

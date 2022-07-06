@@ -51,7 +51,7 @@
 int WINAPI MessageBoxTimeout(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT uType, WORD wLanguageId, DWORD dwMilliseconds);
 
 HINSTANCE GetInstance(void);
-extern HB_PTRUINT wapi_GetProcAddress( HMODULE hModule, LPCSTR lpProcName );
+extern HB_PTRUINT wapi_GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
 
 // JK HMG 1.2 Experimental Build 16g
 // MessageBoxIndirect([hWnd], [cText], [cCaption], [nStyle], [xIcon], [hInst], [nHelpId], [nProc], [nLang])
@@ -93,7 +93,7 @@ HB_FUNC( MESSAGEBOXTIMEOUT )
    TCHAR * lpText    = hb_osStrU16Encode(hb_parc(1));
    TCHAR * lpCaption = hb_osStrU16Encode(hb_parc(2));
 #endif
-   UINT  uType          = ( UINT ) hb_parnldef( 3, MB_OK );
+   UINT  uType          = ( UINT ) hb_parnldef(3, MB_OK);
    WORD  wLanguageId    = MAKELANGID( LANG_NEUTRAL, SUBLANG_NEUTRAL );
    DWORD dwMilliseconds = HB_ISNUM(4) ? ( DWORD ) hb_parnl(4) : ( DWORD ) 0xFFFFFFFF;
 
@@ -107,12 +107,12 @@ int WINAPI MessageBoxTimeout(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT 
 
    if( pMessageBoxTimeout == NULL )
    {
-      HMODULE hLib = LoadLibrary( TEXT("User32.dll") );
+      HMODULE hLib = LoadLibrary(TEXT("User32.dll"));
 
    #ifdef UNICODE
-      pMessageBoxTimeout = ( PMessageBoxTimeout ) wapi_GetProcAddress( hLib, "MessageBoxTimeoutW" );
+      pMessageBoxTimeout = ( PMessageBoxTimeout ) wapi_GetProcAddress(hLib, "MessageBoxTimeoutW");
    #else
-      pMessageBoxTimeout = ( PMessageBoxTimeout ) wapi_GetProcAddress( hLib, "MessageBoxTimeoutA" );
+      pMessageBoxTimeout = ( PMessageBoxTimeout ) wapi_GetProcAddress(hLib, "MessageBoxTimeoutA");
    #endif
    }
 

@@ -57,7 +57,7 @@ HB_FUNC( REGCLOSEKEY )
 {
    HKEY hwHandle = ( HKEY ) HB_PARNL(1);
 
-   hb_retnl( ( RegCloseKey( hwHandle ) == ERROR_SUCCESS ) ? ERROR_SUCCESS : -1 );
+   hb_retnl( ( RegCloseKey(hwHandle) == ERROR_SUCCESS ) ? ERROR_SUCCESS : -1 );
 }
 
 HB_FUNC( REGOPENKEYEXA )
@@ -159,7 +159,7 @@ HB_FUNC( REGCREATEKEY )
 {
    HKEY hKey;
 
-   if( RegCreateKey( ( HKEY ) HB_PARNL(1), hb_parc(2), &hKey ) == ERROR_SUCCESS )
+   if( RegCreateKey(( HKEY ) HB_PARNL(1), hb_parc(2), &hKey) == ERROR_SUCCESS )
    {
       HB_STORNL( PtrToLong(hKey), 3 );
       hb_retnl(0);
@@ -193,7 +193,7 @@ HB_FUNC( REGENUMVALUEA )
 
 HB_FUNC( REGDELETEKEY )
 {
-   hb_retnl( RegDeleteKey( ( HKEY ) HB_PARNL(1), hb_parc(2) ) );
+   hb_retnl( RegDeleteKey(( HKEY ) HB_PARNL(1), hb_parc(2)) );
 }
 
 HB_FUNC( REGDELETEVALUEA )
@@ -211,7 +211,7 @@ HB_FUNC( REGCONNECTREGISTRY )
    long    lError;
    HKEY    phwHandle;
 
-   lError = RegConnectRegistry( lpValue, ( HKEY ) hwKey, &phwHandle );
+   lError = RegConnectRegistry(lpValue, ( HKEY ) hwKey, &phwHandle);
 
    if( lError != ERROR_SUCCESS )
       hb_retnl( -1 );

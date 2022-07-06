@@ -78,7 +78,7 @@ HB_FUNC( REGISTERMDIWINDOW )
 #else
    LPWSTR  lpIconName = HB_ISCHAR(1) ? AnsiToWide(( char * ) hb_parc(1)) : NULL;
    void *  hClassName;
-   LPCTSTR lpClassName = HB_PARSTR( 2, &hClassName, NULL );
+   LPCTSTR lpClassName = HB_PARSTR(2, &hClassName, NULL);
 #endif
    WNDCLASS WndClass;
 
@@ -99,18 +99,18 @@ HB_FUNC( REGISTERMDIWINDOW )
       WndClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
 
    WndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
-   if( HB_PARNI( 3, 1 ) == -1 )
+   if( HB_PARNI(3, 1) == -1 )
       WndClass.hbrBackground = ( HBRUSH ) ( COLOR_WINDOW + 1 );
    else
    {
-      hbrush = CreateSolidBrush(RGB(HB_PARNI( 3, 1 ), HB_PARNI( 3, 2 ), HB_PARNI( 3, 3 )));
+      hbrush = CreateSolidBrush(RGB(HB_PARNI(3, 1), HB_PARNI(3, 2), HB_PARNI(3, 3)));
       WndClass.hbrBackground = hbrush;
    }
 
    WndClass.lpszMenuName  = NULL;
    WndClass.lpszClassName = lpClassName;
 
-   if( ! RegisterClass( &WndClass ) )
+   if( ! RegisterClass(&WndClass) )
    {
       MessageBox(0, TEXT("Window MDI Registration Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
       ExitProcess(0);
@@ -133,14 +133,14 @@ HB_FUNC( REGISTERMDIWINDOW )
 
    WndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
 
-   if( HB_PARNI( 3, 1 ) == -1 )
+   if( HB_PARNI(3, 1) == -1 )
       WndClass.hbrBackground = ( HBRUSH ) ( COLOR_WINDOW + 1 );
    else
       WndClass.hbrBackground = hbrush;
 
    WndClass.lpszMenuName  = NULL;
    WndClass.lpszClassName = TEXT("MdiChildWndClass");
-   if( ! RegisterClass( ( LPWNDCLASS ) &WndClass ) )
+   if( ! RegisterClass(( LPWNDCLASS ) &WndClass) )
    {
       MessageBox(0, TEXT("Window MdiChild Registration Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
       ExitProcess(0);
@@ -292,11 +292,11 @@ HB_FUNC( INITMDICLIENTWINDOW )
 
    hwndparent = hmg_par_HWND(1);
 
-   icount = GetMenuItemCount( GetMenu( hwndparent ) );
+   icount = GetMenuItemCount(GetMenu(hwndparent));
 
    // Find window menu where children will be listed
 
-   ccs.hWindowMenu  = GetSubMenu( GetMenu( hwndparent ), icount - 2 );
+   ccs.hWindowMenu  = GetSubMenu(GetMenu(hwndparent), icount - 2);
    ccs.idFirstChild = 0;
 
    // Create the MDI client filling the client area
@@ -392,7 +392,7 @@ HB_FUNC( INITMDICHILDWINDOW )
 
 HB_FUNC( ARRANGEICONICWINDOWS )
 {
-   hb_retni( ArrangeIconicWindows( hmg_par_HWND(1) ) );
+   hb_retni( ArrangeIconicWindows(hmg_par_HWND(1)) );
 }
 
 HB_FUNC( DEFMDICHILDPROC )
@@ -413,7 +413,7 @@ HB_FUNC( SIZECLIENTWINDOW )
    if( HB_PARNL(2) )
    {
       GetWindowRect(hmg_par_HWND(2), &rc);
-      ScreenToClient( hmg_par_HWND(1), ( LPPOINT ) &rc.left );
+      ScreenToClient(hmg_par_HWND(1), ( LPPOINT ) &rc.left);
       rcClient.bottom = rc.top;
    }
 

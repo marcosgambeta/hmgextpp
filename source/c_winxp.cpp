@@ -59,7 +59,7 @@
 
 #include <commctrl.h>
 
-extern HB_PTRUINT wapi_GetProcAddress( HMODULE hModule, LPCSTR lpProcName );
+extern HB_PTRUINT wapi_GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
 
 typedef HANDLE HTHEME;
 
@@ -109,7 +109,7 @@ HRESULT WINAPI GetThemeBackgroundRegion(HTHEME, HDC, int, int, const RECT *, HRG
 HRESULT WINAPI GetThemeBool(HTHEME, int, int, int, BOOL *);
 HRESULT WINAPI GetThemeColor(HTHEME, int, int, int, COLORREF *);
 
-HRESULT WINAPI GetThemeDocumentationProperty( LPCWSTR, LPCWSTR, LPWSTR, int );
+HRESULT WINAPI GetThemeDocumentationProperty(LPCWSTR, LPCWSTR, LPWSTR, int);
 HRESULT WINAPI GetThemeEnumValue(HTHEME, int, int, int, int *);
 HRESULT WINAPI GetThemeFilename(HTHEME, int, int, int, LPWSTR, int);
 HRESULT WINAPI GetThemeFont(HTHEME, HDC, int, int, int, LOGFONTW *);
@@ -291,7 +291,7 @@ void EndUxTheme(void)
 {
    if( hUxTheme != NULL )
    {
-      FreeLibrary( hUxTheme );
+      FreeLibrary(hUxTheme);
       hUxTheme = NULL;
    }
 }
@@ -315,7 +315,7 @@ HB_FUNC( ISTHEMEACTIVE )
 
    if( hUxTheme )
    {
-      fnIsThemeActive pfn = ( fnIsThemeActive ) wapi_GetProcAddress( hUxTheme, "IsThemeActive" );
+      fnIsThemeActive pfn = ( fnIsThemeActive ) wapi_GetProcAddress(hUxTheme, "IsThemeActive");
       if( pfn )
          bRet = ( BOOL ) pfn();
    }
@@ -332,7 +332,7 @@ HB_FUNC( ISAPPTHEMED )
 
    if( hUxTheme )
    {
-      fnIsAppThemed pfn = ( fnIsAppThemed ) wapi_GetProcAddress( hUxTheme, "IsAppThemed" );
+      fnIsAppThemed pfn = ( fnIsAppThemed ) wapi_GetProcAddress(hUxTheme, "IsAppThemed");
       if( pfn )
          bRet = ( BOOL ) pfn();
    }
@@ -352,9 +352,9 @@ HB_FUNC( OPENTHEMEDATA )
 
    if( hUxTheme )
    {
-      fnOpenThemeData pfn = ( fnOpenThemeData ) wapi_GetProcAddress( hUxTheme, "OpenThemeData" );
+      fnOpenThemeData pfn = ( fnOpenThemeData ) wapi_GetProcAddress(hUxTheme, "OpenThemeData");
       if( pfn )
-         nRet = ( HTHEME ) pfn( hWnd, pszClassList );
+         nRet = ( HTHEME ) pfn(hWnd, pszClassList);
    }
 
    if( nRet != NULL )
@@ -372,7 +372,7 @@ HB_FUNC( CLOSETHEMEDATA )
 
    if( hUxTheme )
    {
-      fnCloseThemeData pfn = ( fnCloseThemeData ) wapi_GetProcAddress( hUxTheme, "CloseThemeData" );
+      fnCloseThemeData pfn = ( fnCloseThemeData ) wapi_GetProcAddress(hUxTheme, "CloseThemeData");
       if( pfn )
          nRet = ( HRESULT ) pfn(hTheme);
    }
@@ -401,7 +401,7 @@ HB_FUNC( DRAWTHEMEBACKGROUND )
 
    if( hUxTheme )
    {
-      fnDrawThemeBackground pfn = ( fnDrawThemeBackground ) wapi_GetProcAddress( hUxTheme, "DrawThemeBackground" );
+      fnDrawThemeBackground pfn = ( fnDrawThemeBackground ) wapi_GetProcAddress(hUxTheme, "DrawThemeBackground");
       if( pfn )
          nRet = ( HRESULT ) pfn(hTheme, hDC, iPartId, iStateId, &pRect, &pClipRect);
    }
@@ -425,9 +425,9 @@ HB_FUNC( DRAWTHEMEPARENTBACKGROUND )
 
    if( hUxTheme )
    {
-      fnDrawThemeParentBackground pfn = ( fnDrawThemeParentBackground ) wapi_GetProcAddress( hUxTheme, "DrawThemeParentBackground" );
+      fnDrawThemeParentBackground pfn = ( fnDrawThemeParentBackground ) wapi_GetProcAddress(hUxTheme, "DrawThemeParentBackground");
       if( pfn )
-         nRet = ( HRESULT ) pfn( hWnd, hDC, &pRect );
+         nRet = ( HRESULT ) pfn(hWnd, hDC, &pRect);
    }
 
    hb_retl( ( nRet == S_OK ) );
@@ -446,9 +446,9 @@ HB_FUNC( SETWINDOWTHEME )
 
    if( hUxTheme )
    {
-      fnSetWindowTheme pfn = ( fnSetWindowTheme ) wapi_GetProcAddress( hUxTheme, "SetWindowTheme" );
+      fnSetWindowTheme pfn = ( fnSetWindowTheme ) wapi_GetProcAddress(hUxTheme, "SetWindowTheme");
       if( pfn )
-         nRet = ( HRESULT ) pfn( hWnd, pszSubAppName, pszSubIdList );
+         nRet = ( HRESULT ) pfn(hWnd, pszSubAppName, pszSubIdList);
    }
 
    hb_retl( ( nRet == S_OK ) );
@@ -466,9 +466,9 @@ HB_FUNC( ENABLETHEMEDIALOGTEXTURE )
 
    if( hUxTheme )
    {
-      fnEnableThemeDialogTexture pfn = ( fnEnableThemeDialogTexture ) wapi_GetProcAddress( hUxTheme, "EnableThemeDialogTexture" );
+      fnEnableThemeDialogTexture pfn = ( fnEnableThemeDialogTexture ) wapi_GetProcAddress(hUxTheme, "EnableThemeDialogTexture");
       if( pfn )
-         nRet = ( HRESULT ) pfn( hWnd, flags );
+         nRet = ( HRESULT ) pfn(hWnd, flags);
    }
 
    hb_retl( ( nRet == S_OK ) );
@@ -490,7 +490,7 @@ HB_FUNC( PTINRECT )
 
 BOOL Array2Rect(PHB_ITEM aRect, RECT * rc)
 {
-   if( HB_IS_ARRAY(aRect) && hb_arrayLen( aRect ) == 4 )
+   if( HB_IS_ARRAY(aRect) && hb_arrayLen(aRect) == 4 )
    {
       rc->left   = hb_arrayGetNI( aRect, 1 );
       rc->top    = hb_arrayGetNI( aRect, 2 );
@@ -505,7 +505,7 @@ BOOL Array2Rect(PHB_ITEM aRect, RECT * rc)
 
 BOOL Array2Point(PHB_ITEM aPoint, POINT * pt)
 {
-   if( HB_IS_ARRAY(aPoint) && hb_arrayLen( aPoint ) == 2 )
+   if( HB_IS_ARRAY(aPoint) && hb_arrayLen(aPoint) == 2 )
    {
       pt->x = hb_arrayGetNI( aPoint, 1 );
       pt->y = hb_arrayGetNI( aPoint, 2 );
@@ -518,7 +518,7 @@ BOOL Array2Point(PHB_ITEM aPoint, POINT * pt)
 
 BOOL Array2ColorRef(PHB_ITEM aCRef, COLORREF * cr)
 {
-   if( HB_IS_ARRAY(aCRef) && hb_arrayLen( aCRef ) == 3 )
+   if( HB_IS_ARRAY(aCRef) && hb_arrayLen(aCRef) == 3 )
    {
       USHORT r, g, b;
 

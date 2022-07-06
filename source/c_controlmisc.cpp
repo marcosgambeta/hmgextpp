@@ -91,12 +91,12 @@ HB_FUNC( IMAGELIST_DESTROY )
    HIMAGELIST himl = hmg_par_HIMAGELIST(1);
 
    DelResource(himl);
-   hb_retl( ImageList_Destroy( himl ) );
+   hb_retl( ImageList_Destroy(himl) );
 }
 
 HB_FUNC( SETFOCUS )
 {
-   HB_RETNL( ( LONG_PTR ) SetFocus( hmg_par_HWND(1) ) );
+   HB_RETNL( ( LONG_PTR ) SetFocus(hmg_par_HWND(1)) );
 }
 
 HB_FUNC( INSERTSHIFTTAB )
@@ -176,7 +176,7 @@ HB_FUNC( KEYBD_EVENT )
    keybd_event
    (
       hmg_par_BYTE(1),                      // virtual-key code
-      ( BYTE ) MapVirtualKey( hb_parni(1), 0 ),  // hardware scan code
+      ( BYTE ) MapVirtualKey(hb_parni(1), 0),  // hardware scan code
       hb_parl(2) ? KEYEVENTF_KEYUP : 0,          // flags specifying various function options
       0                                            // additional data associated with keystroke
    );
@@ -205,12 +205,12 @@ HB_FUNC( _HMG_SETHSCROLLVALUE )
 
 HB_FUNC( SHOWCARET )
 {
-   hb_retl( ShowCaret( hmg_par_HWND(1) ) );
+   hb_retl( ShowCaret(hmg_par_HWND(1)) );
 }
 
 HB_FUNC( HIDECARET )
 {
-   hb_retl( HideCaret( hmg_par_HWND(1) ) );
+   hb_retl( HideCaret(hmg_par_HWND(1)) );
 }
 
 HB_FUNC( DESTROYCARET )
@@ -220,7 +220,7 @@ HB_FUNC( DESTROYCARET )
 
 HB_FUNC( CREATECARET )
 {
-   hb_retl( CreateCaret( hmg_par_HWND(1), hmg_par_HBITMAP(2), ( int ) hb_parni(3), ( int ) hb_parni(4) ) );
+   hb_retl( CreateCaret(hmg_par_HWND(1), hmg_par_HBITMAP(2), ( int ) hb_parni(3), ( int ) hb_parni(4)) );
 }
 
 /*
@@ -295,8 +295,8 @@ HB_FUNC( HB_LEFTEQI )
    PHB_ITEM pItem2 = hb_param(2, Harbour::Item::STRING);
 
    if( pItem1 && pItem2 )
-      hb_retl( hb_cdpicmp( hb_itemGetCPtr(pItem1), hb_itemGetCLen( pItem1 ),
-                           hb_itemGetCPtr(pItem2), hb_itemGetCLen( pItem2 ), hb_cdppage(), HB_FALSE ) == 0 );
+      hb_retl( hb_cdpicmp(hb_itemGetCPtr(pItem1), hb_itemGetCLen(pItem1),
+                          hb_itemGetCPtr(pItem2), hb_itemGetCLen(pItem2), hb_cdppage(), HB_FALSE) == 0 );
    else
       hb_errRT_BASE_SubstR( EG_ARG, 1071, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }

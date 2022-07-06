@@ -250,7 +250,7 @@ HB_FUNC( _HMG_PRINTER_C_PRINT )
       else
          FontAngle = 0;
 
-      FontHeight = -MulDiv( FontSize, GetDeviceCaps(hdcPrint, LOGPIXELSY), 72 );
+      FontHeight = -MulDiv(FontSize, GetDeviceCaps(hdcPrint, LOGPIXELSY), 72);
 
       hfont = CreateFont
               (
@@ -280,14 +280,14 @@ HB_FUNC( _HMG_PRINTER_C_PRINT )
               ( x * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000 ) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX),
               ( y * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000 ) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY),
               hb_parc(9),
-              strlen( hb_parc(9) ));
+              strlen(hb_parc(9)));
 #else
       pText = AnsiToWide(hb_parc(9));
       TextOut(hdcPrint,
               ( x * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000 ) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX),
               ( y * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000 ) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY),
               pText,
-              lstrlen( pText ));
+              lstrlen(pText));
       hb_xfree(pText);
 #endif
 
@@ -423,7 +423,7 @@ HB_FUNC( _HMG_PRINTER_C_MULTILINE_PRINT )
       else
          FontSize = 10;
 
-      FontHeight = -MulDiv( FontSize, GetDeviceCaps(hdcPrint, LOGPIXELSY), 72 );
+      FontHeight = -MulDiv(FontSize, GetDeviceCaps(hdcPrint, LOGPIXELSY), 72);
 
       hfont = CreateFont
               (
@@ -463,7 +463,7 @@ HB_FUNC( _HMG_PRINTER_C_MULTILINE_PRINT )
 #ifndef UNICODE
       DrawText(hdcPrint,
                hb_parc(9),
-               strlen( hb_parc(9) ),
+               strlen(hb_parc(9)),
                &rect,
                uFormat
                );
@@ -471,7 +471,7 @@ HB_FUNC( _HMG_PRINTER_C_MULTILINE_PRINT )
       pText = AnsiToWide(hb_parc(9));
       DrawText(hdcPrint,
                pText,
-               lstrlen( pText ),
+               lstrlen(pText),
                &rect,
                uFormat
                );
@@ -604,9 +604,9 @@ HB_FUNC( APRINTERS )
    GetVersionEx(&osvi);
 
    if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT )
-      EnumPrinters( PRINTER_ENUM_LOCAL | PRINTER_ENUM_CONNECTIONS, NULL, 4, NULL, 0, &dwSize, &dwPrinters );
+      EnumPrinters(PRINTER_ENUM_LOCAL | PRINTER_ENUM_CONNECTIONS, NULL, 4, NULL, 0, &dwSize, &dwPrinters);
    else
-      EnumPrinters( PRINTER_ENUM_LOCAL, NULL, 5, NULL, 0, &dwSize, &dwPrinters );
+      EnumPrinters(PRINTER_ENUM_LOCAL, NULL, 5, NULL, 0, &dwSize, &dwPrinters);
 
    pBuffer = ( char * ) GlobalAlloc(GPTR, dwSize);
 
@@ -618,9 +618,9 @@ HB_FUNC( APRINTERS )
    }
 
    if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT )
-      EnumPrinters( PRINTER_ENUM_LOCAL | PRINTER_ENUM_CONNECTIONS, NULL, 4, ( LPBYTE ) pBuffer, dwSize, &dwSize, &dwPrinters );
+      EnumPrinters(PRINTER_ENUM_LOCAL | PRINTER_ENUM_CONNECTIONS, NULL, 4, ( LPBYTE ) pBuffer, dwSize, &dwSize, &dwPrinters);
    else
-      EnumPrinters( PRINTER_ENUM_LOCAL, NULL, 5, ( LPBYTE ) pBuffer, dwSize, &dwSize, &dwPrinters );
+      EnumPrinters(PRINTER_ENUM_LOCAL, NULL, 5, ( LPBYTE ) pBuffer, dwSize, &dwSize, &dwPrinters);
 
    if( dwPrinters == 0 )
    {
@@ -640,7 +640,7 @@ HB_FUNC( APRINTERS )
       for( i = 0; i < dwPrinters; i++, pInfo4++ )
       {
          cBuffer = GlobalAlloc(GPTR, 256);
-         lstrcat( reinterpret_cast<LPSTR>(cBuffer), pInfo4->pPrinterName );
+         lstrcat(reinterpret_cast<LPSTR>(cBuffer), pInfo4->pPrinterName);
 #ifndef UNICODE
          HB_STORC( ( const char * ) cBuffer, -1, i + 1 );
 #else
@@ -654,7 +654,7 @@ HB_FUNC( APRINTERS )
       for( i = 0; i < dwPrinters; i++, pInfo++ )
       {
          cBuffer = GlobalAlloc(GPTR, 256);
-         lstrcat( reinterpret_cast<LPSTR>(cBuffer), pInfo->pPrinterName );
+         lstrcat(reinterpret_cast<LPSTR>(cBuffer), pInfo->pPrinterName);
 #ifndef UNICODE
          HB_STORC( ( const char * ) cBuffer, -1, i + 1 );
 #else
@@ -948,10 +948,10 @@ HB_FUNC( _HMG_PRINTER_C_LINE )
                NULL
                );
 
-      LineTo( hdcPrint,
-              ( tox * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000 ) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX),
-              ( toy * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000 ) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY)
-              );
+      LineTo(hdcPrint,
+             ( tox * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000 ) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX),
+             ( toy * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000 ) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY)
+             );
 
       SelectObject(hdcPrint, ( HGDIOBJ ) hgdiobj);
 
@@ -1477,9 +1477,9 @@ HB_FUNC( GETDEFAULTPRINTER )
    if( osvi.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS )
    {
 
-      EnumPrinters( PRINTER_ENUM_DEFAULT, NULL, 5, NULL, 0, &Needed, &Returned );
+      EnumPrinters(PRINTER_ENUM_DEFAULT, NULL, 5, NULL, 0, &Needed, &Returned);
       PrinterInfo = ( LPPRINTER_INFO_5 ) LocalAlloc(LPTR, Needed);
-      EnumPrinters( PRINTER_ENUM_DEFAULT, NULL, 5, ( LPBYTE ) PrinterInfo, Needed, &Needed, &Returned );
+      EnumPrinters(PRINTER_ENUM_DEFAULT, NULL, 5, ( LPBYTE ) PrinterInfo, Needed, &Needed, &Returned);
       lstrcpy(DefaultPrinter, PrinterInfo->pPrinterName);
       LocalFree(PrinterInfo);
 
@@ -1488,7 +1488,7 @@ HB_FUNC( GETDEFAULTPRINTER )
    {
 
       GetProfileString(TEXT("windows"), TEXT("device"), TEXT(""), DefaultPrinter, BufferSize);
-      _tcstok( DefaultPrinter, TEXT(",") );
+      _tcstok(DefaultPrinter, TEXT(","));
 
    }
 

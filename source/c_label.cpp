@@ -156,7 +156,7 @@ LRESULT APIENTRY LabelSubClassFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM l
             tme.hwndTrack   = hWnd;
             tme.dwHoverTime = HOVER_DEFAULT;
 
-            if( _TrackMouseEvent( &tme ) == TRUE )
+            if( _TrackMouseEvent(&tme) == TRUE )
             {
 #if _OLD_STYLE
                bCallUDF = TRUE;

@@ -150,7 +150,7 @@ HB_FUNC( INITGETBOX )
       NULL
            );
 
-   SetProp( ( HWND ) hedit, TEXT("OldWndProc"), ( HWND ) GetWindowLongPtr(( HWND ) hedit, GWLP_WNDPROC) );
+   SetProp(( HWND ) hedit, TEXT("OldWndProc"), ( HWND ) GetWindowLongPtr(( HWND ) hedit, GWLP_WNDPROC));
    SetWindowLongPtr(hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnGetProc);
 
    SendMessage(hedit, ( UINT ) EM_LIMITTEXT, ( WPARAM ) hb_parni(9), ( LPARAM ) 0);
@@ -333,7 +333,7 @@ LRESULT CALLBACK OwnGetProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
    long int        r;
    WNDPROC         OldWndProc;
 
-   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp( hwnd, TEXT("OldWndProc") );
+   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp(hwnd, TEXT("OldWndProc"));
    switch( Msg )
    {
       case WM_NCDESTROY:

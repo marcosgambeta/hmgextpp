@@ -69,7 +69,7 @@ HFONT PrepareFont(TCHAR * FontName, int FontSize, int Weight, DWORD Italic, DWOR
 {
    HDC hDC = GetDC(HWND_DESKTOP);
 
-   FontSize = -MulDiv( FontSize, GetDeviceCaps(hDC, LOGPIXELSY), 72 );
+   FontSize = -MulDiv(FontSize, GetDeviceCaps(hDC, LOGPIXELSY), 72);
 
    ReleaseDC(HWND_DESKTOP, hDC);
 
@@ -90,7 +90,7 @@ HB_FUNC( INITFONT )
    DWORD underline = ( DWORD ) hb_parl(5);
    DWORD strikeout = ( DWORD ) hb_parl(6);
    DWORD angle     = hb_parnl(7);
-   DWORD charset   = hb_parnldef( 8, DEFAULT_CHARSET );
+   DWORD charset   = hb_parnldef(8, DEFAULT_CHARSET);
 
 #ifdef UNICODE
    LPWSTR pStr = AnsiToWide(hb_parc(1));
@@ -119,7 +119,7 @@ HB_FUNC( _SETFONT )
       DWORD underline = ( DWORD ) hb_parl(6);
       DWORD strikeout = ( DWORD ) hb_parl(7);
       DWORD angle     = hb_parnl(8);
-      DWORD charset   = hb_parnldef( 9, DEFAULT_CHARSET );
+      DWORD charset   = hb_parnldef(9, DEFAULT_CHARSET);
 
 #ifdef UNICODE
       pStr  = AnsiToWide(hb_parc(2));
@@ -220,12 +220,12 @@ HB_FUNC( ENUMFONTSEX )
       ReleaseDC(NULL, hdc);
 
    if( HB_ISBLOCK(6) )
-      hb_arraySort( pArray, NULL, NULL, hb_param(6, Harbour::Item::BLOCK) );
+      hb_arraySort(pArray, NULL, NULL, hb_param(6, Harbour::Item::BLOCK));
 
    if( HB_ISBYREF(7) )
    {
       PHB_ITEM aFontName = hb_param(7, Harbour::Item::ANY);
-      int      nLen = ( int ) hb_arrayLen( pArray );
+      int      nLen = ( int ) hb_arrayLen(pArray);
 
       hb_arrayNew(aFontName, nLen);
 

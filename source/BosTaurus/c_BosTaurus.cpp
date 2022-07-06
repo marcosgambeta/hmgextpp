@@ -62,7 +62,7 @@
 #  include <math.h>  
 #endif
 
-extern HB_PTRUINT wapi_GetProcAddress( HMODULE hModule, LPCSTR lpProcName );
+extern HB_PTRUINT wapi_GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
 
 
 // ::::::::::::::::::::::::::::::::::::
@@ -133,7 +133,7 @@ BOOL bt_bmp_is_24bpp (HBITMAP hBitmap)
 //* bt_bmp_create_24bpp (int Width, int Height) ---> Return hBITMAP
 //*************************************************************************************************
 
-HBITMAP bt_bmp_create_24bpp( int Width, int Height )
+HBITMAP bt_bmp_create_24bpp(int Width, int Height)
 {
    LPBYTE     Bitmap_mem_pBits;
    HBITMAP    hBitmap_mem;
@@ -154,7 +154,7 @@ HBITMAP bt_bmp_create_24bpp( int Width, int Height )
    Bitmap_Info.bmiHeader.biClrUsed       = 0;
    Bitmap_Info.bmiHeader.biClrImportant  = 0;
 
-   hBitmap_mem = CreateDIBSection( hDC_mem, ( BITMAPINFO * ) &Bitmap_Info, DIB_RGB_COLORS, ( VOID ** ) &Bitmap_mem_pBits, NULL, 0 );
+   hBitmap_mem = CreateDIBSection(hDC_mem, ( BITMAPINFO * ) &Bitmap_Info, DIB_RGB_COLORS, ( VOID ** ) &Bitmap_mem_pBits, NULL, 0);
 
    DeleteDC(hDC_mem);
 
@@ -170,14 +170,14 @@ HBITMAP bt_bmp_create_24bpp( int Width, int Height )
 #define BMP_DELETE_ORIGINAL_HBITMAP      TRUE
 #define BMP_NOT_DELETE_ORIGINAL_HBITMAP  FALSE
 
-HBITMAP bt_bmp_convert_to_24bpp( HBITMAP hBitmap_Original, BOOL IsDelete_hBitmap_Original )
+HBITMAP bt_bmp_convert_to_24bpp(HBITMAP hBitmap_Original, BOOL IsDelete_hBitmap_Original)
 {
    HDC     memDC1, memDC2;
    HBITMAP hBitmap_New;
    BITMAP  bm;
 
    GetObject(hBitmap_Original, sizeof(BITMAP), ( LPBYTE ) &bm);
-   hBitmap_New = bt_bmp_create_24bpp( bm.bmWidth, bm.bmHeight );
+   hBitmap_New = bt_bmp_create_24bpp(bm.bmWidth, bm.bmHeight);
 
    memDC1 = CreateCompatibleDC(NULL);
    SelectObject(memDC1, hBitmap_Original);
@@ -200,7 +200,7 @@ HBITMAP bt_bmp_convert_to_24bpp( HBITMAP hBitmap_Original, BOOL IsDelete_hBitmap
 //*************************************************************************************************
 // bt_LoadFileFromResources (FileName, TypeResource) ---> Return hGlobalAlloc
 //*************************************************************************************************
-HGLOBAL bt_LoadFileFromResources( TCHAR * FileName, TCHAR * TypeResource )
+HGLOBAL bt_LoadFileFromResources(TCHAR * FileName, TCHAR * TypeResource)
 {
    HRSRC   hResourceData;
    HGLOBAL hGlobalAlloc, hGlobalResource;
@@ -241,7 +241,7 @@ HGLOBAL bt_LoadFileFromResources( TCHAR * FileName, TCHAR * TypeResource )
 //*************************************************************************************************
 //  bt_LoadFileFromDisk (FileName) ---> Return hGlobalAlloc
 //*************************************************************************************************
-HGLOBAL bt_LoadFileFromDisk( TCHAR * FileName )
+HGLOBAL bt_LoadFileFromDisk(TCHAR * FileName)
 {
    HGLOBAL hGlobalAlloc;
    LPVOID  lpGlobalAlloc;
@@ -292,9 +292,9 @@ HBITMAP bt_LoadOLEPicture(TCHAR * FileName, TCHAR * TypePictureResource)
    POINT      Point;
 
    if( TypePictureResource != NULL )
-      hGlobalAlloc = bt_LoadFileFromResources( FileName, TypePictureResource );
+      hGlobalAlloc = bt_LoadFileFromResources(FileName, TypePictureResource);
    else
-      hGlobalAlloc = bt_LoadFileFromDisk( FileName );
+      hGlobalAlloc = bt_LoadFileFromDisk(FileName);
 
    if( hGlobalAlloc == NULL )
       return NULL;
@@ -326,13 +326,13 @@ HBITMAP bt_LoadOLEPicture(TCHAR * FileName, TCHAR * TypePictureResource)
 
    // Convert HiMetric to Pixel
    #define HIMETRIC_PER_INCH  2540                                                            // Number of HIMETRIC units per INCH
-   #define bt_LOGHIMETRIC_TO_PIXEL(hm, ppli)  MulDiv( ( hm ), ( ppli ), HIMETRIC_PER_INCH ) // ppli = Point per Logic Inch
-   #define bt_PIXEL_TO_LOGHIMETRIC( px, ppli )  MulDiv( ( px ), HIMETRIC_PER_INCH, ( ppli ) ) // ppli = Point per Logic Inch
+   #define bt_LOGHIMETRIC_TO_PIXEL(hm, ppli)  MulDiv((hm), (ppli), HIMETRIC_PER_INCH) // ppli = Point per Logic Inch
+   #define bt_PIXEL_TO_LOGHIMETRIC(px, ppli)  MulDiv((px), HIMETRIC_PER_INCH, (ppli)) // ppli = Point per Logic Inch
 
    pxWidth  = bt_LOGHIMETRIC_TO_PIXEL(hmWidth, GetDeviceCaps(memDC, LOGPIXELSX));
    pxHeight = bt_LOGHIMETRIC_TO_PIXEL(hmHeight, GetDeviceCaps(memDC, LOGPIXELSY));
 
-   hBitmap = bt_bmp_create_24bpp( pxWidth, pxHeight );
+   hBitmap = bt_bmp_create_24bpp(pxWidth, pxHeight);
    SelectObject(memDC, hBitmap);
 
    iPicture->lpVtbl->Render( iPicture, memDC, 0, 0, pxWidth, pxHeight, 0, hmHeight, hmWidth, -hmHeight, NULL );
@@ -481,19 +481,19 @@ BOOL bt_Release_GDIplus(void);
 //  Load Library GDI Plus
 BOOL bt_Load_GDIplus(void)
 {
-   GdiPlusHandle = LoadLibrary( TEXT("GdiPlus.dll" ) );
+   GdiPlusHandle = LoadLibrary(TEXT("GdiPlus.dll"));
    if( GdiPlusHandle == NULL )
       return FALSE;
 
-   GdiPlusStartup  = ( Func_GdiPlusStartup ) wapi_GetProcAddress( GdiPlusHandle, "GdiplusStartup" );
-   GdiPlusShutdown = ( Func_GdiPlusShutdown ) wapi_GetProcAddress( GdiPlusHandle, "GdiplusShutdown" );
-   GdipCreateBitmapFromStream  = ( Func_GdipCreateBitmapFromStream ) wapi_GetProcAddress( GdiPlusHandle, "GdipCreateBitmapFromStream" );
-   GdipCreateHBITMAPFromBitmap = ( Func_GdipCreateHBITMAPFromBitmap ) wapi_GetProcAddress( GdiPlusHandle, "GdipCreateHBITMAPFromBitmap" );
+   GdiPlusStartup  = ( Func_GdiPlusStartup ) wapi_GetProcAddress(GdiPlusHandle, "GdiplusStartup");
+   GdiPlusShutdown = ( Func_GdiPlusShutdown ) wapi_GetProcAddress(GdiPlusHandle, "GdiplusShutdown");
+   GdipCreateBitmapFromStream  = ( Func_GdipCreateBitmapFromStream ) wapi_GetProcAddress(GdiPlusHandle, "GdipCreateBitmapFromStream");
+   GdipCreateHBITMAPFromBitmap = ( Func_GdipCreateHBITMAPFromBitmap ) wapi_GetProcAddress(GdiPlusHandle, "GdipCreateHBITMAPFromBitmap");
 
-   GdipGetImageEncodersSize = ( Func_GdipGetImageEncodersSize ) wapi_GetProcAddress( GdiPlusHandle, "GdipGetImageEncodersSize" );
-   GdipGetImageEncoders     = ( Func_GdipGetImageEncoders ) wapi_GetProcAddress( GdiPlusHandle, "GdipGetImageEncoders" );
-   GdipLoadImageFromStream  = ( Func_GdipLoadImageFromStream ) wapi_GetProcAddress( GdiPlusHandle, "GdipLoadImageFromStream" );
-   GdipSaveImageToFile      = ( Func_GdipSaveImageToFile ) wapi_GetProcAddress( GdiPlusHandle, "GdipSaveImageToFile" );
+   GdipGetImageEncodersSize = ( Func_GdipGetImageEncodersSize ) wapi_GetProcAddress(GdiPlusHandle, "GdipGetImageEncodersSize");
+   GdipGetImageEncoders     = ( Func_GdipGetImageEncoders ) wapi_GetProcAddress(GdiPlusHandle, "GdipGetImageEncoders");
+   GdipLoadImageFromStream  = ( Func_GdipLoadImageFromStream ) wapi_GetProcAddress(GdiPlusHandle, "GdipLoadImageFromStream");
+   GdipSaveImageToFile      = ( Func_GdipSaveImageToFile ) wapi_GetProcAddress(GdiPlusHandle, "GdipSaveImageToFile");
 
 
    if( GdiPlusStartup == NULL ||
@@ -505,7 +505,7 @@ BOOL bt_Load_GDIplus(void)
        GdipLoadImageFromStream == NULL ||
        GdipSaveImageToFile == NULL )
    {
-      FreeLibrary( GdiPlusHandle );
+      FreeLibrary(GdiPlusHandle);
       GdiPlusHandle = NULL;
       return FALSE;
    }
@@ -515,9 +515,9 @@ BOOL bt_Load_GDIplus(void)
    GDIPlusStartupInput.SuppressBackgroundThread = FALSE;
    GDIPlusStartupInput.SuppressExternalCodecs   = FALSE;
 
-   if( GdiPlusStartup( &GdiPlusToken, &GDIPlusStartupInput, NULL ) )
+   if( GdiPlusStartup(&GdiPlusToken, &GDIPlusStartupInput, NULL) )
    {
-      FreeLibrary( GdiPlusHandle );
+      FreeLibrary(GdiPlusHandle);
       GdiPlusHandle = NULL;
       return FALSE;
    }
@@ -532,8 +532,8 @@ BOOL bt_Release_GDIplus(void)
       return FALSE;
    else
    {
-      GdiPlusShutdown( GdiPlusToken );
-      FreeLibrary( GdiPlusHandle );
+      GdiPlusShutdown(GdiPlusToken);
+      FreeLibrary(GdiPlusHandle);
       GdiPlusHandle = NULL;
       return TRUE;
    }
@@ -556,9 +556,9 @@ HBITMAP bt_LoadGDIPlusPicture(TCHAR * FileName, TCHAR * TypePictureResource)
       return NULL;
 
    if( TypePictureResource != NULL )
-      hGlobalAlloc = bt_LoadFileFromResources( FileName, TypePictureResource );
+      hGlobalAlloc = bt_LoadFileFromResources(FileName, TypePictureResource);
    else
-      hGlobalAlloc = bt_LoadFileFromDisk( FileName );
+      hGlobalAlloc = bt_LoadFileFromDisk(FileName);
 
    if( hGlobalAlloc == NULL )
       return NULL;
@@ -600,7 +600,7 @@ HGLOBAL bt_Bitmap_To_Stream(HBITMAP hBitmap)
 
    bm.bmBitsPixel  = 24;
    bm.bmWidthBytes = ( bm.bmWidth * bm.bmBitsPixel + 31 ) / 32 * 4;
-   nBytes_Bits     = ( DWORD ) ( bm.bmWidthBytes * labs( bm.bmHeight ) );
+   nBytes_Bits     = ( DWORD ) ( bm.bmWidthBytes * labs(bm.bmHeight) );
 
 
    BIFH.bfType      = ( 'M' << 8 ) + 'B';
@@ -630,7 +630,7 @@ HGLOBAL bt_Bitmap_To_Stream(HBITMAP hBitmap)
 
    memcpy(lp_hGlobalAlloc, &BIFH, sizeof(BITMAPFILEHEADER));
    memcpy((lp_hGlobalAlloc + sizeof(BITMAPFILEHEADER)), &Bitmap_Info, sizeof(BITMAPINFO));
-   GetDIBits( memDC, hBitmap, 0, Bitmap_Info.bmiHeader.biHeight, ( LPVOID ) ( lp_hGlobalAlloc + BIFH.bfOffBits ), &Bitmap_Info, DIB_RGB_COLORS );
+   GetDIBits(memDC, hBitmap, 0, Bitmap_Info.bmiHeader.biHeight, ( LPVOID ) ( lp_hGlobalAlloc + BIFH.bfOffBits ), &Bitmap_Info, DIB_RGB_COLORS);
 
 
    GlobalUnlock(hGlobalAlloc);
@@ -655,11 +655,11 @@ BOOL bt_GetEncoderCLSID(WCHAR * format, CLSID * pClsid)
    if( pImageCodecInfo == NULL )
       return FALSE;
 
-   GdipGetImageEncoders( num, size, pImageCodecInfo );
+   GdipGetImageEncoders(num, size, pImageCodecInfo);
 
    for( UINT i = 0; i < num; ++i )
    {
-      if( wcscmp( pImageCodecInfo[ i ].MimeType, format ) == 0 )
+      if( wcscmp(pImageCodecInfo[ i ].MimeType, format) == 0 )
       {
          *pClsid = pImageCodecInfo[ i ].Clsid;
          free(pImageCodecInfo);
@@ -849,21 +849,21 @@ HB_FUNC( BT_DC_DELETE )
 
 //   GdiSetBatchLimit (0);
 
-   BT.Type = ( INT ) hb_parvni( 1, 1 );
-   BT.hWnd = ( HWND ) HB_PARVNL( 1, 2 );
-   BT.hDC  = ( HDC ) HB_PARVNL( 1, 3 );
+   BT.Type = ( INT ) hb_parvni(1, 1);
+   BT.hWnd = ( HWND ) HB_PARVNL(1, 2);
+   BT.hDC  = ( HDC ) HB_PARVNL(1, 3);
    // PAINTSTRUCT
-   BT.PaintStruct.hdc            = ( HDC ) HB_PARVNL( 1, 4 );             // HDC  hdc;
-   BT.PaintStruct.fErase         = ( BOOL ) hb_parvni( 1, 5 );            // BOOL fErase;
-   BT.PaintStruct.rcPaint.left   = ( LONG ) HB_PARVNL( 1, 6 );            // RECT rcPaint.left;
-   BT.PaintStruct.rcPaint.top    = ( LONG ) HB_PARVNL( 1, 7 );            // RECT rcPaint.top;
-   BT.PaintStruct.rcPaint.right  = ( LONG ) HB_PARVNL( 1, 8 );            // RECT rcPaint.right;
-   BT.PaintStruct.rcPaint.bottom = ( LONG ) HB_PARVNL( 1, 9 );            // RECT rcPaint.bottom;
-   BT.PaintStruct.fRestore       = ( BOOL ) hb_parvni( 1, 10 );           // BOOL fRestore;
-   BT.PaintStruct.fIncUpdate     = ( BOOL ) hb_parvni( 1, 11 );           // BOOL fIncUpdate;
+   BT.PaintStruct.hdc            = ( HDC ) HB_PARVNL(1, 4);             // HDC  hdc;
+   BT.PaintStruct.fErase         = ( BOOL ) hb_parvni(1, 5);            // BOOL fErase;
+   BT.PaintStruct.rcPaint.left   = ( LONG ) HB_PARVNL(1, 6);            // RECT rcPaint.left;
+   BT.PaintStruct.rcPaint.top    = ( LONG ) HB_PARVNL(1, 7);            // RECT rcPaint.top;
+   BT.PaintStruct.rcPaint.right  = ( LONG ) HB_PARVNL(1, 8);            // RECT rcPaint.right;
+   BT.PaintStruct.rcPaint.bottom = ( LONG ) HB_PARVNL(1, 9);            // RECT rcPaint.bottom;
+   BT.PaintStruct.fRestore       = ( BOOL ) hb_parvni(1, 10);           // BOOL fRestore;
+   BT.PaintStruct.fIncUpdate     = ( BOOL ) hb_parvni(1, 11);           // BOOL fIncUpdate;
    for( INT i = 0; i < 32; i++ )
    {
-      BT.PaintStruct.rgbReserved[ i ] = ( BYTE ) hb_parvni( 1, 12 + i );  // BYTE rgbReserved[32];
+      BT.PaintStruct.rgbReserved[ i ] = ( BYTE ) hb_parvni(1, 12 + i);  // BYTE rgbReserved[32];
    }
 
    switch( BT.Type )
@@ -992,7 +992,7 @@ HB_FUNC( BT_SCR_INVALIDATERECT )
    {
       pArrayRect = hb_param(2, Harbour::Item::ARRAY);
 
-      if( hb_arrayLen( pArrayRect ) == 4 )
+      if( hb_arrayLen(pArrayRect) == 4 )
       {
          rect.left   = hb_arrayGetNL( pArrayRect, 1 );
          rect.top    = hb_arrayGetNL( pArrayRect, 2 );
@@ -1074,8 +1074,8 @@ HB_FUNC( BT_DRAW_HDC_POLY )
       #endif
       for( INT i = 0; i < nLen; i++ )
       {
-         aPoint[ i ].x = hb_parvni( 2, i + 1 );
-         aPoint[ i ].y = hb_parvni( 3, i + 1 );
+         aPoint[ i ].x = hb_parvni(2, i + 1);
+         aPoint[ i ].y = hb_parvni(3, i + 1);
       }
 
       hPen     = CreatePen(PS_SOLID, nWidthLine, ColorLine);
@@ -1089,7 +1089,7 @@ HB_FUNC( BT_DRAW_HDC_POLY )
             Polyline(hDC, aPoint, nLen);
             break;
          case BT_DRAW_POLYGON:
-            Polygon( hDC, aPoint, nLen );
+            Polygon(hDC, aPoint, nLen);
             break;
          case BT_DRAW_POLYBEZIER:
             PolyBezier( hDC, aPoint, nLen );
@@ -1488,7 +1488,7 @@ HB_FUNC( BT_DRAW_HDC_TEXTOUT )
    SetTextAlign(hDC, Align);
    SetTextColor(hDC, Text_Color);
 
-   TextOut(hDC, x, y, lpText, lstrlen( lpText ));
+   TextOut(hDC, x, y, lpText, lstrlen(lpText));
 
 /*
    When GetTextExtentPoint32() returns the text extent, it assumes that the text is HORIZONTAL,
@@ -1664,7 +1664,7 @@ HB_FUNC( BT_DRAW_HDC_TEXTSIZE )
 
    iFirstChar = ( UINT ) lpText[ 0 ];
    iLastChar  = ( UINT ) lpText[ 0 ];
-   GetCharABCWidthsFloat( hDC, iFirstChar, iLastChar, &ABCfloat );
+   GetCharABCWidthsFloat(hDC, iFirstChar, iLastChar, &ABCfloat);
    hb_storvnd(( double ) ( FLOAT ) ( ABCfloat.abcfA + ABCfloat.abcfB + ABCfloat.abcfC ), -1, 3);
    hb_storvnd(( double ) ( FLOAT ) ABCfloat.abcfA, -1, 4);
    hb_storvnd(( double ) ( FLOAT ) ABCfloat.abcfB, -1, 5);
@@ -1842,7 +1842,7 @@ HB_FUNC( BT_BMP_CREATE )
    Height        = hmg_par_INT(2);
    Color_Fill_Bk = hmg_par_COLORREF(3);
 
-   hBitmap_New = bt_bmp_create_24bpp( Width, Height );
+   hBitmap_New = bt_bmp_create_24bpp(Width, Height);
 
    memDC = CreateCompatibleDC(NULL);
    SelectObject(memDC, hBitmap_New);
@@ -1945,7 +1945,7 @@ HB_FUNC( BT_BITMAPLOADEMF )
 #else
    TCHAR *   FileName       = ( TCHAR * ) hb_osStrU16Encode(hb_parc(1));
 #endif
-   COLORREF BackgroundColor = ( COLORREF ) RGB(HB_PARVNL( 2, 1 ), HB_PARVNL( 2, 2 ), HB_PARVNL( 2, 3 ));
+   COLORREF BackgroundColor = ( COLORREF ) RGB(HB_PARVNL(2, 1), HB_PARVNL(2, 2), HB_PARVNL(2, 3));
    INT      ModeStretch     = ( HB_ISNUM(5) ? ( INT ) hb_parnl(5) : BT_SCALE );
 
    HDC           memDC;
@@ -1970,7 +1970,7 @@ HB_FUNC( BT_BITMAPLOADEMF )
       {
          lpGlobalResource = LockResource(hGlobalResource);
          nFileSize        = SizeofResource(NULL, hResourceData);
-         hEMF = SetEnhMetaFileBits( nFileSize, reinterpret_cast<const BYTE*>(lpGlobalResource) );
+         hEMF = SetEnhMetaFileBits(nFileSize, reinterpret_cast<const BYTE*>(lpGlobalResource));
       }
    }
 
@@ -2008,7 +2008,7 @@ HB_FUNC( BT_BITMAPLOADEMF )
 
    // Create Bitmap
    memDC   = CreateCompatibleDC(NULL);
-   hBitmap = bt_bmp_create_24bpp( nWidth, nHeight );
+   hBitmap = bt_bmp_create_24bpp(nWidth, nHeight);
    SelectObject(memDC, hBitmap);
 
    // Paint the background of the Bitmap
@@ -2066,7 +2066,7 @@ BOOL bt_bmp_SaveFile(HBITMAP hBitmap, TCHAR * FileName, INT nTypePicture)
 
    bm.bmBitsPixel  = 24;
    bm.bmWidthBytes = ( bm.bmWidth * bm.bmBitsPixel + 31 ) / 32 * 4;
-   nBytes_Bits     = ( DWORD ) ( bm.bmWidthBytes * labs( bm.bmHeight ) );
+   nBytes_Bits     = ( DWORD ) ( bm.bmWidthBytes * labs(bm.bmHeight) );
 
 
    BIFH.bfType      = ( 'M' << 8 ) + 'B';
@@ -2094,7 +2094,7 @@ BOOL bt_bmp_SaveFile(HBITMAP hBitmap, TCHAR * FileName, INT nTypePicture)
 
    lp_hBits = ( LPBYTE ) GlobalLock(hBits);
 
-   GetDIBits( memDC, hBitmap, 0, Bitmap_Info.bmiHeader.biHeight, ( LPVOID ) lp_hBits, &Bitmap_Info, DIB_RGB_COLORS );
+   GetDIBits(memDC, hBitmap, 0, Bitmap_Info.bmiHeader.biHeight, ( LPVOID ) lp_hBits, &Bitmap_Info, DIB_RGB_COLORS);
 
    hFile = CreateFile(FileName, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, NULL);
 
@@ -2215,7 +2215,7 @@ HB_FUNC( BT_BMP_CLONE )
    SelectObject(memDC1, hBitmap);
 
    memDC2      = CreateCompatibleDC(NULL);
-   hBitmap_New = bt_bmp_create_24bpp( Width1, Height1 );
+   hBitmap_New = bt_bmp_create_24bpp(Width1, Height1);
    SelectObject(memDC2, hBitmap_New);
 
    BitBlt(memDC2, 0, 0, Width1, Height1, memDC1, x1, y1, SRCCOPY);
@@ -2247,7 +2247,7 @@ typedef struct
 #define BT_BMP_SETBITS  1
 
 
-BOOL bt_BMP_BITS( bt_BMPIMAGE * Image, INT nAction )
+BOOL bt_BMP_BITS(bt_BMPIMAGE * Image, INT nAction)
 {
    HDC        memDC;
    BITMAPINFO BI;
@@ -2289,9 +2289,9 @@ BOOL bt_BMP_BITS( bt_BMPIMAGE * Image, INT nAction )
    memDC   = CreateCompatibleDC(NULL);
 
    if( nAction == BT_BMP_GETBITS )
-      GetDIBits( memDC, Image->hBitmap, 0, bm.bmHeight, ( LPVOID ) lp_Bits, &BI, DIB_RGB_COLORS );
+      GetDIBits(memDC, Image->hBitmap, 0, bm.bmHeight, ( LPVOID ) lp_Bits, &BI, DIB_RGB_COLORS);
    else
-      SetDIBits( memDC, Image->hBitmap, 0, bm.bmHeight, ( LPVOID ) lp_Bits, &BI, DIB_RGB_COLORS );
+      SetDIBits(memDC, Image->hBitmap, 0, bm.bmHeight, ( LPVOID ) lp_Bits, &BI, DIB_RGB_COLORS);
 
    DeleteDC(memDC);
    GlobalUnlock(Image->hGlobal);
@@ -2317,7 +2317,7 @@ int bt_BMP_SETBYTE(bt_BMPIMAGE Image, int x, int y, int channel, BYTE value)
 }
 
 
-HBITMAP bt_BiLinearInterpolation( HBITMAP hBitmap, int newWidth, int newHeight )
+HBITMAP bt_BiLinearInterpolation(HBITMAP hBitmap, int newWidth, int newHeight)
 {
    double      a, b, c, d, Color;
    double      x_diff, y_diff, x_ratio, y_ratio;
@@ -2325,11 +2325,11 @@ HBITMAP bt_BiLinearInterpolation( HBITMAP hBitmap, int newWidth, int newHeight )
    bt_BMPIMAGE Image1, Image2;
 
    Image1.hBitmap = hBitmap;
-   if( bt_BMP_BITS( &Image1, BT_BMP_GETBITS ) == FALSE )
+   if( bt_BMP_BITS(&Image1, BT_BMP_GETBITS) == FALSE )
       return NULL;
 
-   Image2.hBitmap = bt_bmp_create_24bpp( newWidth, newHeight );
-   if( bt_BMP_BITS( &Image2, BT_BMP_GETBITS ) == FALSE )
+   Image2.hBitmap = bt_bmp_create_24bpp(newWidth, newHeight);
+   if( bt_BMP_BITS(&Image2, BT_BMP_GETBITS) == FALSE )
    {
       GlobalFree(Image1.hGlobal);
       if( Image2.hBitmap != NULL )
@@ -2370,7 +2370,7 @@ HBITMAP bt_BiLinearInterpolation( HBITMAP hBitmap, int newWidth, int newHeight )
    GlobalUnlock(Image1.hGlobal);
    GlobalUnlock(Image2.hGlobal);
 
-   bt_BMP_BITS( &Image2, BT_BMP_SETBITS );
+   bt_BMP_BITS(&Image2, BT_BMP_SETBITS);
 
    GlobalFree(Image1.hGlobal);
    GlobalFree(Image2.hGlobal);
@@ -2411,7 +2411,7 @@ HB_FUNC( BT_BMP_COPYANDRESIZE )
 
    if( nAlgorithm == BT_RESIZE_COLORONCOLOR || nAlgorithm == BT_RESIZE_HALFTONE )
    {
-      hBitmap_New = bt_bmp_create_24bpp( New_Width, New_Height );
+      hBitmap_New = bt_bmp_create_24bpp(New_Width, New_Height);
 
       memDC2 = CreateCompatibleDC(NULL);
       SelectObject(memDC2, hBitmap_New);
@@ -2433,7 +2433,7 @@ HB_FUNC( BT_BMP_COPYANDRESIZE )
 
 
    if( nAlgorithm == BT_RESIZE_BILINEAR )
-      hBitmap_New = bt_BiLinearInterpolation( hBitmap1, New_Width, New_Height );
+      hBitmap_New = bt_BiLinearInterpolation(hBitmap1, New_Width, New_Height);
 
    HB_RETNL( ( LONG_PTR ) hBitmap_New );
 }
@@ -2605,7 +2605,7 @@ HB_FUNC( BT_BMP_CAPTURESCR )
          return;
    }
 
-   hBitmap = bt_bmp_create_24bpp( Width1, Height1 );
+   hBitmap = bt_bmp_create_24bpp(Width1, Height1);
 
    memDC = CreateCompatibleDC(NULL);
    SelectObject(memDC, hBitmap);
@@ -2659,8 +2659,8 @@ HB_FUNC( BT_BMP_PROCESS )
       BYTE B;
    } bt_RGBCOLORBYTE;
 
-   #define bt_RGB_TO_GRAY( R, G, B )  ( INT ) ( ( FLOAT ) R * 0.299 + ( FLOAT ) G * 0.587 + ( FLOAT ) B * 0.114 )
-   #define bt_GAMMA(index, gamma)   ( HB_MIN(255, ( INT ) ( ( 255.0 * pow( ( ( DOUBLE ) index / 255.0 ), ( 1.0 / ( DOUBLE ) gamma ) ) ) + 0.5 )) )
+   #define bt_RGB_TO_GRAY(R, G, B)  ( INT ) (( FLOAT ) R * 0.299 + ( FLOAT ) G * 0.587 + ( FLOAT ) B * 0.114)
+   #define bt_GAMMA(index, gamma)   (HB_MIN(255, ( INT ) ((255.0 * pow((( DOUBLE ) index / 255.0), (1.0 / ( DOUBLE ) gamma))) + 0.5)))
    //  redGamma[i] = (byte)           Min (255, (int)(( 255.0 *Pow(i/255.0, 1.0/g_red)) + 0.5));
 
    HGLOBAL           hBits;
@@ -2714,7 +2714,7 @@ HB_FUNC( BT_BMP_PROCESS )
             hb_retl( FALSE );
             return;
          }
-         ContrastConstant = tan( ContrastAngle * M_PI / 180.0 );
+         ContrastConstant = tan(ContrastAngle * M_PI / 180.0);
          break;
 
       case BT_BMP_PROCESS_MODIFYCOLOR:
@@ -2723,9 +2723,9 @@ HB_FUNC( BT_BMP_PROCESS )
             hb_retl( FALSE );
             return;
          }
-         RLevel = ( INT ) hb_parvni( 3, 1 );
-         GLevel = ( INT ) hb_parvni( 3, 2 );
-         BLevel = ( INT ) hb_parvni( 3, 3 );
+         RLevel = ( INT ) hb_parvni(3, 1);
+         GLevel = ( INT ) hb_parvni(3, 2);
+         BLevel = ( INT ) hb_parvni(3, 3);
          if( ( HB_MIN(HB_MIN(RLevel, GLevel), BLevel) < -255 ) || ( HB_MAX(HB_MAX(RLevel, GLevel), BLevel) > 255 ) )
          {
             hb_retl( FALSE );
@@ -2771,7 +2771,7 @@ HB_FUNC( BT_BMP_PROCESS )
    BI.bmiHeader.biClrImportant  = 0;
 
    bm.bmWidthBytes = ( bm.bmWidth * BI.bmiHeader.biBitCount + 31 ) / 32 * 4;
-   nBytes_Bits     = ( DWORD ) ( bm.bmWidthBytes * labs( bm.bmHeight ) );
+   nBytes_Bits     = ( DWORD ) ( bm.bmWidthBytes * labs(bm.bmHeight) );
 
    hBits = GlobalAlloc(GHND, ( DWORD ) nBytes_Bits);
    if( hBits == NULL )
@@ -2783,7 +2783,7 @@ HB_FUNC( BT_BMP_PROCESS )
       lp_Bits = ( LPBYTE ) GlobalLock(hBits);
 
    memDC = CreateCompatibleDC(NULL);
-   GetDIBits( memDC, hBitmap, 0, bm.bmHeight, ( LPVOID ) lp_Bits, &BI, DIB_RGB_COLORS );
+   GetDIBits(memDC, hBitmap, 0, bm.bmHeight, ( LPVOID ) lp_Bits, &BI, DIB_RGB_COLORS);
 
    for( INT y = 0; y < bm.bmHeight; y++ )
    {
@@ -2800,7 +2800,7 @@ HB_FUNC( BT_BMP_PROCESS )
 
          if( Action == BT_BMP_PROCESS_GRAYNESS )
          {
-            GrayValue   = ( BYTE ) bt_RGB_TO_GRAY( RGBcolor->R, RGBcolor->G, RGBcolor->B );
+            GrayValue   = ( BYTE ) bt_RGB_TO_GRAY(RGBcolor->R, RGBcolor->G, RGBcolor->B);
             RGBcolor->R = ( BYTE ) ( RGBcolor->R + ( GrayValue - RGBcolor->R ) * GrayLevel );
             RGBcolor->G = ( BYTE ) ( RGBcolor->G + ( GrayValue - RGBcolor->G ) * GrayLevel );
             RGBcolor->B = ( BYTE ) ( RGBcolor->B + ( GrayValue - RGBcolor->B ) * GrayLevel );
@@ -2841,7 +2841,7 @@ HB_FUNC( BT_BMP_PROCESS )
       }
    }
 
-   SetDIBits( memDC, hBitmap, 0, bm.bmHeight, lp_Bits, &BI, DIB_RGB_COLORS );
+   SetDIBits(memDC, hBitmap, 0, bm.bmHeight, lp_Bits, &BI, DIB_RGB_COLORS);
    DeleteDC(memDC);
 
    GlobalUnlock(hBits);
@@ -2930,7 +2930,7 @@ HB_FUNC( BT_BMP_FILTER3X3 )
    }
    for( INT i = 0; i < nMATFILTER; i++ )
    {
-      MatKernel3x3Filter[ i ] = ( INT ) hb_parvni( 2, i + 1 );
+      MatKernel3x3Filter[ i ] = ( INT ) hb_parvni(2, i + 1);
    }
 
    GetObject(hBitmap, sizeof(BITMAP), ( LPBYTE ) &bm);
@@ -2949,7 +2949,7 @@ HB_FUNC( BT_BMP_FILTER3X3 )
 
 
    bm.bmWidthBytes = ( bm.bmWidth * BI.bmiHeader.biBitCount + 31 ) / 32 * 4;
-   nBytes_Bits     = ( DWORD ) ( bm.bmWidthBytes * labs( bm.bmHeight ) );
+   nBytes_Bits     = ( DWORD ) ( bm.bmWidthBytes * labs(bm.bmHeight) );
 
    hBits_O = GlobalAlloc(GHND, ( DWORD ) nBytes_Bits);
    if( hBits_O == NULL )
@@ -2971,7 +2971,7 @@ HB_FUNC( BT_BMP_FILTER3X3 )
 
    memDC = CreateCompatibleDC(NULL);
 
-   GetDIBits( memDC, hBitmap, 0, bm.bmHeight, ( LPVOID ) lp_Bits_O, &BI, DIB_RGB_COLORS );
+   GetDIBits(memDC, hBitmap, 0, bm.bmHeight, ( LPVOID ) lp_Bits_O, &BI, DIB_RGB_COLORS);
 
    for( INT y = 0; y < bm.bmHeight; y++ )
    {
@@ -3008,7 +3008,7 @@ HB_FUNC( BT_BMP_FILTER3X3 )
       }
    }
 
-   SetDIBits( memDC, hBitmap, 0, bm.bmHeight, lp_Bits_D, &BI, DIB_RGB_COLORS );
+   SetDIBits(memDC, hBitmap, 0, bm.bmHeight, lp_Bits_D, &BI, DIB_RGB_COLORS);
 
    DeleteDC(memDC);
 
@@ -3107,20 +3107,20 @@ HB_FUNC( BT_BMP_TRANSFORM )
       // new_y = (x * sin A) + (y * cos A)
 
 
-      x1 = ( ( double ) Width * cos( radianes ) );
-      y1 = ( ( double ) Width * sin( radianes ) );
+      x1 = ( ( double ) Width * cos(radianes) );
+      y1 = ( ( double ) Width * sin(radianes) );
 
-      x2 = ( ( double ) Width * cos( radianes ) ) - ( ( double ) Height * sin( radianes ) );
-      y2 = ( ( double ) Width * sin( radianes ) ) + ( ( double ) Height * cos( radianes ) );
+      x2 = ( ( double ) Width * cos(radianes) ) - ( ( double ) Height * sin(radianes) );
+      y2 = ( ( double ) Width * sin(radianes) ) + ( ( double ) Height * cos(radianes) );
 
-      x3 = -( ( double ) Height * sin( radianes ) );
-      y3 = ( ( double ) Height * cos( radianes ) );
+      x3 = -( ( double ) Height * sin(radianes) );
+      y3 = ( ( double ) Height * cos(radianes) );
 
 
-      xform2.eM11 = ( FLOAT ) cos( radianes );
-      xform2.eM12 = ( FLOAT ) sin( radianes );
-      xform2.eM21 = ( FLOAT ) -sin( radianes );
-      xform2.eM22 = ( FLOAT ) cos( radianes );
+      xform2.eM11 = ( FLOAT ) cos(radianes);
+      xform2.eM12 = ( FLOAT ) sin(radianes);
+      xform2.eM21 = ( FLOAT ) -sin(radianes);
+      xform2.eM22 = ( FLOAT ) cos(radianes);
       xform2.eDx  = ( FLOAT ) 0.0;
       xform2.eDy  = ( FLOAT ) 0.0;
 
@@ -3130,9 +3130,9 @@ HB_FUNC( BT_BMP_TRANSFORM )
          xform2.eDx = ( FLOAT ) -x3;
          xform2.eDy = ( FLOAT ) 0.0;
 
-         Width = ( LONG ) dABS( ( x3 - x1 ) );
+         Width = ( LONG ) dABS((x3 - x1));
 
-         Height = ( LONG ) dABS( y2 );
+         Height = ( LONG ) dABS(y2);
       }
 
       if( ( Angle > 90.0 ) && ( Angle <= 180.0 ) )
@@ -3140,9 +3140,9 @@ HB_FUNC( BT_BMP_TRANSFORM )
          xform2.eDx = ( FLOAT ) -x2;
          xform2.eDy = ( FLOAT ) -y3;
 
-         Width = ( LONG ) dABS( x2 );
+         Width = ( LONG ) dABS(x2);
 
-         Height = ( LONG ) dABS( ( y3 - y1 ) );
+         Height = ( LONG ) dABS((y3 - y1));
       }
 
       if( ( Angle > 180.0 ) && ( Angle <= 270.0 ) )
@@ -3150,9 +3150,9 @@ HB_FUNC( BT_BMP_TRANSFORM )
          xform2.eDx = ( FLOAT ) -x1;
          xform2.eDy = ( FLOAT ) -y2;
 
-         Width = ( LONG ) dABS( ( x3 - x1 ) );
+         Width = ( LONG ) dABS((x3 - x1));
 
-         Height = ( LONG ) dABS( y2 );
+         Height = ( LONG ) dABS(y2);
       }
 
       if( ( Angle > 270.0 ) && ( Angle <= 360.0 ) )
@@ -3160,9 +3160,9 @@ HB_FUNC( BT_BMP_TRANSFORM )
          xform2.eDx = ( FLOAT ) 0.0;
          xform2.eDy = ( FLOAT ) -y1;
 
-         Width = ( LONG ) dABS( x2 );
+         Width = ( LONG ) dABS(x2);
 
-         Height = ( LONG ) dABS( ( y3 - y1 ) );
+         Height = ( LONG ) dABS((y3 - y1));
       }
 
       Width++;
@@ -3181,7 +3181,7 @@ HB_FUNC( BT_BMP_TRANSFORM )
 
    }
 
-   hBitmap_D = bt_bmp_create_24bpp( Width, Height );
+   hBitmap_D = bt_bmp_create_24bpp(Width, Height);
    SelectObject(memDC2, hBitmap_D);
 
    //SetStretchBltMode (memDC2, COLORONCOLOR);
@@ -3194,8 +3194,8 @@ HB_FUNC( BT_BMP_TRANSFORM )
    SetRect(&rectang, 0, 0, Width, Height);
    FillRect(memDC2, &rectang, hBrush);
 
-   CombineTransform( &xform_D, &xform1, &xform2 );
-   SetWorldTransform( memDC2, &xform_D );
+   CombineTransform(&xform_D, &xform1, &xform2);
+   SetWorldTransform(memDC2, &xform_D);
 
    StretchBlt(memDC2, 0, 0, bm.bmWidth, bm.bmHeight, memDC1, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
 
@@ -3314,8 +3314,8 @@ HB_FUNC( BT_BMP_GET_CLIPBOARD )
 
    memDC = CreateCompatibleDC(NULL);
 
-   hBitmap = CreateDIBSection( memDC, &BI, DIB_RGB_COLORS, ( VOID ** ) &lp_Bits2, NULL, 0 );
-   SetDIBits( memDC, hBitmap, 0, BI.bmiHeader.biHeight, lp_Bits, lp_BI, DIB_RGB_COLORS );
+   hBitmap = CreateDIBSection(memDC, &BI, DIB_RGB_COLORS, ( VOID ** ) &lp_Bits2, NULL, 0);
+   SetDIBits(memDC, hBitmap, 0, BI.bmiHeader.biHeight, lp_Bits, lp_BI, DIB_RGB_COLORS);
 
    DeleteDC(memDC);
 
@@ -3361,7 +3361,7 @@ HB_FUNC( BT_BMP_PUT_CLIPBOARD )
 
    bm.bmWidthBytes = ( bm.bmWidth * BI.bmiHeader.biBitCount + 31 ) / 32 * 4;
 
-   nBytes_Bits  = ( DWORD ) ( bm.bmWidthBytes * labs( bm.bmHeight ) );
+   nBytes_Bits  = ( DWORD ) ( bm.bmWidthBytes * labs(bm.bmHeight) );
    nBytes_Total = sizeof(BITMAPINFOHEADER) + nBytes_Bits;
 
    if( ! OpenClipboard(hWnd) )
@@ -3384,7 +3384,7 @@ HB_FUNC( BT_BMP_PUT_CLIPBOARD )
    memcpy(lp_Clipboard, &BI.bmiHeader, sizeof(BITMAPINFOHEADER));
 
    memDC = CreateCompatibleDC(NULL);
-   GetDIBits( memDC, hBitmap, 0, bm.bmHeight, ( LPVOID ) ( lp_Clipboard + sizeof(BITMAPINFOHEADER) ), &BI, DIB_RGB_COLORS );
+   GetDIBits(memDC, hBitmap, 0, bm.bmHeight, ( LPVOID ) ( lp_Clipboard + sizeof(BITMAPINFOHEADER) ), &BI, DIB_RGB_COLORS);
 
    GlobalUnlock(hClipboard);
 

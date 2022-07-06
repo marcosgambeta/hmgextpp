@@ -64,8 +64,8 @@ HINSTANCE GetInstance(void);
 
 LRESULT CALLBACK  OwnPickProc(HWND hbutton, UINT msg, WPARAM wParam, LPARAM lParam);
 
-extern HB_EXPORT double hb_timeStampPack( int iYear, int iMonth, int iDay,
-                                          int iHour, int iMinutes, int iSeconds, int iMSec );
+extern HB_EXPORT double hb_timeStampPack(int iYear, int iMonth, int iDay,
+                                         int iHour, int iMinutes, int iSeconds, int iMSec);
 
 HB_FUNC( INITDATEPICK )
 {
@@ -112,7 +112,7 @@ HB_FUNC( INITDATEPICK )
       NULL
              );
 
-   SetProp( ( HWND ) hbutton, TEXT("oldpickproc"), ( HWND ) GetWindowLongPtr(( HWND ) hbutton, GWLP_WNDPROC) );
+   SetProp(( HWND ) hbutton, TEXT("oldpickproc"), ( HWND ) GetWindowLongPtr(( HWND ) hbutton, GWLP_WNDPROC));
    SetWindowLongPtr(hbutton, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnPickProc);
 
    HB_RETNL( ( LONG_PTR ) hbutton );
@@ -157,7 +157,7 @@ HB_FUNC( INITTIMEPICK )
       NULL
              );
 
-   SetProp( ( HWND ) hbutton, TEXT("oldpickproc"), ( HWND ) GetWindowLongPtr(( HWND ) hbutton, GWLP_WNDPROC) );
+   SetProp(( HWND ) hbutton, TEXT("oldpickproc"), ( HWND ) GetWindowLongPtr(( HWND ) hbutton, GWLP_WNDPROC));
    SetWindowLongPtr(hbutton, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnPickProc);
 
    HB_RETNL( ( LONG_PTR ) hbutton );
@@ -169,7 +169,7 @@ LRESULT CALLBACK OwnPickProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
    long int        r;
    WNDPROC         OldWndProc;
 
-   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp( hButton, TEXT("oldpickproc") );
+   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp(hButton, TEXT("oldpickproc"));
 
    switch( Msg )
    {
@@ -360,7 +360,7 @@ HB_FUNC( DTP_SETDATETIME )
    {
       int iYear, iMonth, iDay, iHour, iMinute, iSecond, iMSec;
 
-      hb_timeStampUnpack( hb_partd(2), &iYear, &iMonth, &iDay, &iHour, &iMinute, &iSecond, &iMSec );
+      hb_timeStampUnpack(hb_partd(2), &iYear, &iMonth, &iDay, &iHour, &iMinute, &iSecond, &iMSec);
 
       sysTime.wYear      = ( WORD ) iYear;
       sysTime.wMonth     = ( WORD ) iMonth;
@@ -389,9 +389,9 @@ HB_FUNC( DTP_SETDATETIME )
    }
    else
    {
-      sysTime.wYear      = ( WORD ) hb_parnidef( 2, 2005 );
-      sysTime.wMonth     = ( WORD ) hb_parnidef( 3, 1 );
-      sysTime.wDay       = ( WORD ) hb_parnidef( 4, 1 );
+      sysTime.wYear      = ( WORD ) hb_parnidef(2, 2005);
+      sysTime.wMonth     = ( WORD ) hb_parnidef(3, 1);
+      sysTime.wDay       = ( WORD ) hb_parnidef(4, 1);
       sysTime.wDayOfWeek = 0;
 
       if( hb_pcount() >= 7 )
@@ -425,7 +425,7 @@ HB_FUNC( DTP_GETDATETIME )
 
    SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st);
 
-   hb_rettd( hb_timeStampPack( st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond, st.wMilliseconds ) );
+   hb_rettd( hb_timeStampPack(st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond, st.wMilliseconds) );
 }
 
 HB_FUNC( SETDATEPICKNULL )

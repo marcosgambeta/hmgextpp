@@ -64,7 +64,7 @@
 
 
 extern PWORD   CreateDlgTemplate(long lTemplateSize,  PHB_ITEM dArray,PHB_ITEM cArray);
-extern long    GetSizeDlgTemp( PHB_ITEM dArray, PHB_ITEM cArray );
+extern long    GetSizeDlgTemp(PHB_ITEM dArray, PHB_ITEM cArray);
 
 /****************************************************************************/
 LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPARAM lParam)
@@ -72,8 +72,8 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
    static PHB_SYMB   pSymbol = NULL;
    static PHB_SYMB   pSymbol2 = NULL;
    static PHB_SYMB   pSymbol3 = NULL;
-   long int          r ;
-   int               nPage, nId ;
+   long int          r;
+   int               nPage, nId;
    LPNMHDR     lpnmhdr;
    PSHNOTIFY   *psn;
 
@@ -256,12 +256,12 @@ HB_FUNC( CREATEPROPERTYSEEETPAGE )
 
    strTitle      = (char *) hb_arrayGetCPtr(sArray, 1);  // Caption
    idRC          = hb_arrayGetNI( sArray, 2 );             // Id Dialog resource
-   PageStyle     = hb_arrayGetNI( sArray, 3 ) ;            // Page Style
+   PageStyle     = hb_arrayGetNI( sArray, 3 );            // Page Style
    strHdTitle    = (char *) hb_arrayGetCPtr(sArray, 4);  // HdTitle
    strSubHdTitle = (char *) hb_arrayGetCPtr(sArray, 5);  // HdSubTitle
 
    psp.dwSize        = sizeof(PROPSHEETPAGE);
-   psp.dwFlags       = PageStyle ;
+   psp.dwFlags       = PageStyle;
    psp.hInstance     = GetModuleHandle(NULL);
 #if ( defined( __BORLANDC__ ) && __BORLANDC__ <= 1410 )
    psp.DUMMYUNIONNAME.pszTemplate = MAKEINTRESOURCE(idRC);
@@ -283,7 +283,7 @@ HB_FUNC( CREATEPROPERTYSEEETPAGE )
 }
 
 /****************************************************************************
- CreatePropertySheet( hWnd, ahPage, aPropSheet, modeless )
+ CreatePropertySheet(hWnd, ahPage, aPropSheet, modeless)
 *****************************************************************************/
 
 HB_FUNC( CREATEPROPERTYSHEET )
@@ -301,7 +301,7 @@ HB_FUNC( CREATEPROPERTYSHEET )
    sArray = hb_param(2, Harbour::Item::ARRAY);
    pArray = hb_param(3, Harbour::Item::ARRAY);
 
-   nPages = hb_arrayLen( sArray );
+   nPages = hb_arrayLen(sArray);
 
    hpsp = (HPROPSHEETPAGE *)malloc(sizeof(HPROPSHEETPAGE)* nPages );
 
@@ -326,7 +326,7 @@ HB_FUNC( CREATEPROPERTYSHEET )
 
    //Fill out the PROPSHEETHEADER
    psh.dwSize           = sizeof(PROPSHEETHEADER);
-   psh.dwFlags          = Style ;
+   psh.dwFlags          = Style;
    psh.hwndParent       = hwnd;
    psh.hInstance        = GetModuleHandle(NULL);
    #if ( defined( __BORLANDC__ ) && __BORLANDC__ <= 1410 )
@@ -347,7 +347,7 @@ HB_FUNC( CREATEPROPERTYSHEET )
      psh.pszbmHeader    = MAKEINTRESOURCE(idHeader);
    #endif
    psh.pszCaption       = strPropSheet;
-   psh.nPages           = nPages ;
+   psh.nPages           = nPages;
    psh.pfnCallback      = (PFNPROPSHEETCALLBACK)HMG_PropSheetProc;
 
    if (hb_parl(4))
@@ -400,7 +400,7 @@ HB_FUNC( PROPSHEETGETCURRENTPAGEHWND )
 }
 
 /****************************************************************************
- PropSheetSetWizButtons( hWndPropSheet, nBtnStyle )
+ PropSheetSetWizButtons(hWndPropSheet, nBtnStyle)
 *****************************************************************************/
 
 HB_FUNC( PROPSHEETSETWIZBUTTONS )
@@ -447,7 +447,7 @@ HB_FUNC( PROPSHEET_UNCHANGED )
  DestroyPropSheet(hWndParent, hWndDlg)
 *****************************************************************************/
 
-HB_FUNC (DESTROYPROPSHEET )
+HB_FUNC( DESTROYPROPSHEET )
 {
    HWND hWnd    = (HWND) hb_parnl(1);
    HWND hWndDlg = (HWND) hb_parnl(2);
@@ -489,7 +489,7 @@ HB_FUNC( PROPSHEET_SETRESULT )
 HB_FUNC( PROPSHEET_GETRESULT )
 {
  int nRes;
-  nRes = PropSheet_GetResult( (HWND) hb_parnl(1) );
+  nRes = PropSheet_GetResult((HWND) hb_parnl(1));
   if ( nRes > 0 )
      hb_retl (TRUE);
   else
@@ -514,25 +514,25 @@ HB_FUNC( CREATEPROPSEEETPAGEINDIRECT )
    PHB_ITEM dArray;
    PHB_ITEM cArray;
 
-   long     lTemplateSize ;
+   long     lTemplateSize;
 
    sArray = hb_param(1, Harbour::Item::ARRAY);   //Property Sheet Array
    dArray = hb_param(2, Harbour::Item::ARRAY);   //Property Sheet Page Array
    cArray = hb_param(3, Harbour::Item::ARRAY);   //Page Controls Array
 
-   lTemplateSize = GetSizeDlgTemp( dArray, cArray);
+   lTemplateSize = GetSizeDlgTemp(dArray, cArray);
    pdlgtemplate = CreateDlgTemplate(lTemplateSize, dArray, cArray);
 
    strTitle       = (char *) hb_arrayGetCPtr(sArray, 1);  // Caption
    idRC           = hb_arrayGetNI( sArray, 2 );             // Id Dialog resource
-   PageStyle      = hb_arrayGetNI( sArray, 3 ) ;            // Page Style
+   PageStyle      = hb_arrayGetNI( sArray, 3 );            // Page Style
    strHdTitle     = (char *) hb_arrayGetCPtr(sArray, 4);  // HdTitle
    strSubHdTitle  = (char *) hb_arrayGetCPtr(sArray, 5);  // SubHdTitle
 
    ZeroMemory ( &psp, sizeof(PROPSHEETPAGE) );
 
    psp.dwSize        = sizeof(PROPSHEETPAGE);
-   psp.dwFlags       = PageStyle | PSP_DLGINDIRECT ;
+   psp.dwFlags       = PageStyle | PSP_DLGINDIRECT;
    psp.hInstance     = GetModuleHandle(NULL);
 #if ( defined( __BORLANDC__ ) && __BORLANDC__ <= 1410 )
    psp.DUMMYUNIONNAME.pResource = (DLGTEMPLATE*) pdlgtemplate;

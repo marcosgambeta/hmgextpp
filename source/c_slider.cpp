@@ -87,8 +87,8 @@ HB_FUNC( INITSLIDER )
    if( hb_parl(16) )  /* P.Ch. 16.10 */
    {
       Style  |= TBS_ENABLESELRANGE;
-      iSelMin = HB_MIN(hb_parnidef( 17, 0 ), hb_parnidef( 18, 0 ));
-      iSelMax = HB_MAX(hb_parnidef( 17, 0 ), hb_parnidef( 18, 0 ));
+      iSelMin = HB_MIN(hb_parnidef(17, 0), hb_parnidef(18, 0));
+      iSelMax = HB_MAX(hb_parnidef(17, 0), hb_parnidef(18, 0));
    }
 
    hTrackBar = CreateWindow

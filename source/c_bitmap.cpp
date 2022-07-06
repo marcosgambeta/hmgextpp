@@ -63,7 +63,7 @@ LPWSTR AnsiToWide(LPCSTR);
 #endif
 
 HANDLE   DibFromBitmap(HBITMAP, HPALETTE);
-WORD     GetDIBColors( LPSTR );
+WORD     GetDIBColors(LPSTR);
 
 HINSTANCE GetResources(void);
 
@@ -123,7 +123,7 @@ HB_FUNC( SAVEWINDOWBYHANDLE )
    {
       bmfHdr.bfType = ( ( WORD ) ( 'M' << 8 ) | 'B' );
 
-      dwDIBSize = *( LPDWORD ) lpBI + ( GetDIBColors( ( LPSTR ) lpBI ) * sizeof(RGBTRIPLE) );
+      dwDIBSize = *( LPDWORD ) lpBI + ( GetDIBColors(( LPSTR ) lpBI) * sizeof(RGBTRIPLE) );
 
       dwBmBitsSize      = ( ( ( ( lpBI->biWidth ) * ( ( DWORD ) lpBI->biBitCount ) ) + 31 ) / 32 * 4 ) * lpBI->biHeight;
       dwDIBSize        += dwBmBitsSize;
@@ -133,7 +133,7 @@ HB_FUNC( SAVEWINDOWBYHANDLE )
       bmfHdr.bfReserved1 = 0;
       bmfHdr.bfReserved2 = 0;
 
-      bmfHdr.bfOffBits = ( DWORD ) sizeof(BITMAPFILEHEADER) + lpBI->biSize + ( GetDIBColors( ( LPSTR ) lpBI ) * sizeof(RGBTRIPLE) );
+      bmfHdr.bfOffBits = ( DWORD ) sizeof(BITMAPFILEHEADER) + lpBI->biSize + ( GetDIBColors(( LPSTR ) lpBI) * sizeof(RGBTRIPLE) );
 
       WriteFile(filehandle, ( LPSTR ) &bmfHdr, sizeof(BITMAPFILEHEADER), &dwWritten, NULL);
 
@@ -195,7 +195,7 @@ HB_FUNC( WNDCOPY )
    {
       bmfHdr.bfType = ( ( WORD ) ( 'M' << 8 ) | 'B' );
 
-      dwDIBSize = *( LPDWORD ) lpBI + ( GetDIBColors( ( LPSTR ) lpBI ) * sizeof(RGBTRIPLE) );
+      dwDIBSize = *( LPDWORD ) lpBI + ( GetDIBColors(( LPSTR ) lpBI) * sizeof(RGBTRIPLE) );
 
       dwBmBitsSize      = ( ( ( ( lpBI->biWidth ) * ( ( DWORD ) lpBI->biBitCount ) ) + 31 ) / 32 * 4 ) * lpBI->biHeight;
       dwDIBSize        += dwBmBitsSize;
@@ -205,7 +205,7 @@ HB_FUNC( WNDCOPY )
       bmfHdr.bfReserved1 = 0;
       bmfHdr.bfReserved2 = 0;
 
-      bmfHdr.bfOffBits = ( DWORD ) sizeof(BITMAPFILEHEADER) + lpBI->biSize + ( GetDIBColors( ( LPSTR ) lpBI ) * sizeof(RGBTRIPLE) );
+      bmfHdr.bfOffBits = ( DWORD ) sizeof(BITMAPFILEHEADER) + lpBI->biSize + ( GetDIBColors(( LPSTR ) lpBI) * sizeof(RGBTRIPLE) );
 
       WriteFile(filehandle, ( LPSTR ) &bmfHdr, sizeof(BITMAPFILEHEADER), &dwWritten, NULL);
 
@@ -223,7 +223,7 @@ HB_FUNC( WNDCOPY )
    ReleaseDC(hWnd, hDC);
 }
 
-WORD DibNumColors( VOID FAR * pv )
+WORD DibNumColors(VOID FAR * pv)
 {
    int bits;
    LPBITMAPINFOHEADER lpbi;
@@ -267,7 +267,7 @@ static WORD PaletteSize(VOID FAR * pv)
 
    lpbi = ( LPBITMAPINFOHEADER ) pv;
 
-   NumColors = DibNumColors( lpbi );
+   NumColors = DibNumColors(lpbi);
 
    if( lpbi->biSize == sizeof(BITMAPCOREHEADER) )
       return ( WORD ) ( NumColors * sizeof(RGBTRIPLE) );
@@ -275,7 +275,7 @@ static WORD PaletteSize(VOID FAR * pv)
       return ( WORD ) ( NumColors * sizeof(RGBQUAD) );
 }
 
-#define WIDTHBYTES( i )  ( ( i + 31 ) / 32 * 4 )
+#define WIDTHBYTES(i)  ( ( i + 31 ) / 32 * 4 )
 
 HANDLE DibFromBitmap(HBITMAP hbm, HPALETTE hpal)
 {
@@ -332,8 +332,8 @@ HANDLE DibFromBitmap(HBITMAP hbm, HPALETTE hpal)
    /*  call GetDIBits with a NULL lpBits param, so it will calculate the
     *  biSizeImage field for us
     */
-   GetDIBits( hdc, hbm, 0L, ( DWORD ) bi.biHeight,
-              ( LPBYTE ) NULL, ( LPBITMAPINFO ) lpbi, ( DWORD ) DIB_RGB_COLORS );
+   GetDIBits(hdc, hbm, 0L, ( DWORD ) bi.biHeight,
+              ( LPBYTE ) NULL, ( LPBITMAPINFO ) lpbi, ( DWORD ) DIB_RGB_COLORS);
 
    memcpy(( char * ) &bi, ( char * ) lpbi, sizeof(bi));
    GlobalUnlock(hdib);
@@ -341,7 +341,7 @@ HANDLE DibFromBitmap(HBITMAP hbm, HPALETTE hpal)
    /* If the driver did not fill in the biSizeImage field, make one up */
    if( bi.biSizeImage == 0 )
    {
-      bi.biSizeImage = WIDTHBYTES( ( DWORD ) bm.bmWidth * biBits ) * bm.bmHeight;
+      bi.biSizeImage = WIDTHBYTES(( DWORD ) bm.bmWidth * biBits) * bm.bmHeight;
    }
 
    /*  realloc the buffer big enough to hold all the bits */
@@ -364,9 +364,9 @@ HANDLE DibFromBitmap(HBITMAP hbm, HPALETTE hpal)
     */
    lpbi = ( LPBITMAPINFOHEADER ) GlobalLock(hdib);
 
-   if( GetDIBits( hdc, hbm, 0L, ( DWORD ) bi.biHeight,
-                  ( LPBYTE ) lpbi + ( WORD ) lpbi->biSize + PaletteSize(lpbi),
-                  ( LPBITMAPINFO ) lpbi, ( DWORD ) DIB_RGB_COLORS ) == 0 )
+   if( GetDIBits(hdc, hbm, 0L, ( DWORD ) bi.biHeight,
+                 ( LPBYTE ) lpbi + ( WORD ) lpbi->biSize + PaletteSize(lpbi),
+                 ( LPBITMAPINFO ) lpbi, ( DWORD ) DIB_RGB_COLORS) == 0 )
    {
       GlobalUnlock(hdib);
 
@@ -382,7 +382,7 @@ HANDLE DibFromBitmap(HBITMAP hbm, HPALETTE hpal)
    return hdib;
 }
 
-WORD GetDIBColors( LPSTR lpDIB )
+WORD GetDIBColors(LPSTR lpDIB)
 {
    WORD wBitCount = ( ( LPBITMAPCOREHEADER ) lpDIB )->bcBitCount;
 
@@ -424,7 +424,7 @@ HB_FUNC( C_HASALPHA ) // hBitmap --> lYesNo
    hb_retl( bAlphaChannel );
 }
 
-HBITMAP Icon2Bmp( HICON hIcon )
+HBITMAP Icon2Bmp(HICON hIcon)
 {
    HDC      hDC    = GetDC(NULL);
    HDC      hMemDC = CreateCompatibleDC(hDC);
@@ -453,7 +453,7 @@ HBITMAP Icon2Bmp( HICON hIcon )
 /*
  * Function IconMask2Bmp converts icon mask to bitmap
  */
-HBITMAP IconMask2Bmp( HICON hIcon )
+HBITMAP IconMask2Bmp(HICON hIcon)
 {
    HDC      hDC    = GetDC(NULL);
    HDC      hMemDC = CreateCompatibleDC(hDC);
@@ -538,10 +538,10 @@ HB_FUNC( DRAWGLYPH )
       {
          if( ! stretched )
             // convert icon to bitmap mask.
-            hBmp = IconMask2Bmp( ( HICON ) hBmp );
+            hBmp = IconMask2Bmp(( HICON ) hBmp);
          else
             // convert icon to bitmap.
-            hBmp = Icon2Bmp( ( HICON ) hBmp );
+            hBmp = Icon2Bmp(( HICON ) hBmp);
 
          hBmpIcon = hBmp;
 
@@ -760,10 +760,10 @@ VOID DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgb
       {
          if( ! stretched )
             // convert icon to bitmap mask.
-            hBmp = IconMask2Bmp( ( HICON ) hBmp );
+            hBmp = IconMask2Bmp(( HICON ) hBmp);
          else
             // convert icon to bitmap.
-            hBmp = Icon2Bmp( ( HICON ) hBmp );
+            hBmp = Icon2Bmp(( HICON ) hBmp);
 
          hBmpIcon = hBmp;
 
@@ -993,7 +993,7 @@ HB_FUNC( HB_GETIMAGESIZE )
      BitmapSize returns an array {0, 0, 4} for compatibility
  */
 
-static void _arraySet( PHB_ITEM pArray, int Width, int Height, int BitsPixel )
+static void _arraySet(PHB_ITEM pArray, int Width, int Height, int BitsPixel)
 {
    HB_arraySetNL( pArray, 1, Width );
    HB_arraySetNL( pArray, 2, Height );
@@ -1032,14 +1032,14 @@ HB_FUNC( GETBITMAPSIZE )
       }
    }
 
-   _arraySet( pResult, 0, 0, 4 );
+   _arraySet(pResult, 0, 0, 4);
 
    if( hBitmap != NULL )
    {
       BITMAP bm;
 
       if( GetObject(hBitmap, sizeof(BITMAP), &bm) )
-         _arraySet( pResult, bm.bmWidth, bm.bmHeight, bm.bmBitsPixel );
+         _arraySet(pResult, bm.bmWidth, bm.bmHeight, bm.bmBitsPixel);
 
       if( bDelete )
          DeleteObject(hBitmap);
@@ -1053,7 +1053,7 @@ HB_FUNC( GETICONSIZE )
    PHB_ITEM pResult = hb_itemArrayNew(3);
    HICON    hIcon   = hmg_par_HICON(1);
 
-   _arraySet( pResult, 0, 0, 4 );
+   _arraySet(pResult, 0, 0, 4);
 
    if( hIcon )
    {
@@ -1064,7 +1064,7 @@ HB_FUNC( GETICONSIZE )
          BITMAP bm;
 
          if( GetObject(sIconInfo.hbmColor, sizeof(BITMAP), &bm) )
-            _arraySet( pResult, bm.bmWidth, bm.bmHeight, bm.bmBitsPixel );
+            _arraySet(pResult, bm.bmWidth, bm.bmHeight, bm.bmBitsPixel);
 
          DeleteObject(sIconInfo.hbmMask);
          DeleteObject(sIconInfo.hbmColor);

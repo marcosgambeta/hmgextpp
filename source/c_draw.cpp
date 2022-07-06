@@ -71,7 +71,7 @@ HB_FUNC( BEGINPAINT )
 
       HB_RETNL( ( LONG_PTR ) BeginPaint(hWnd, &ps) );
 
-      hb_storclen( ( const char * ) &ps, sizeof(PAINTSTRUCT), 2 );
+      hb_storclen(( const char * ) &ps, sizeof(PAINTSTRUCT), 2);
    }
    else
       HB_RETNL( ( LONG_PTR ) NULL );
@@ -288,13 +288,13 @@ HB_FUNC( C_SETBACKCOLOR )
       if( ! Array2ColorRef(hb_param(2, Harbour::Item::ANY), &cr) )
          cr = ( COLORREF ) RGB(hb_parni(2), hb_parni(3), hb_parni(4));
 
-      hb_retns( ( HB_ISIZ ) SetBkColor(hDC, cr) );
+      hb_retns(( HB_ISIZ ) SetBkColor(hDC, cr));
 
       if( bDC )
          ReleaseDC(hWnd, hDC);
    }
    else
-      hb_retns( ( HB_ISIZ ) CLR_INVALID );
+      hb_retns(( HB_ISIZ ) CLR_INVALID);
 }
 
 HB_FUNC( SETBKMODE )

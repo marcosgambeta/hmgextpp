@@ -51,12 +51,12 @@
 
 #include <mgdefs.h>
 
-extern HB_SIZE hmg_tstrlen( const TCHAR * pText );
+extern HB_SIZE hmg_tstrlen(const TCHAR * pText);
 
-extern HB_EXPORT PHB_ITEM  hb_errRT_SubstParams( const char * szSubSystem, HB_ERRCODE errGenCode, HB_ERRCODE errSubCode, const char * szDescription, const char * szOperation );
+extern HB_EXPORT PHB_ITEM  hb_errRT_SubstParams(const char * szSubSystem, HB_ERRCODE errGenCode, HB_ERRCODE errSubCode, const char * szDescription, const char * szOperation);
 
 // fixed P.Ch. 16.12.
-void hmg_ErrorExit( LPCTSTR lpszMessage, DWORD dwError, BOOL bExit )
+void hmg_ErrorExit(LPCTSTR lpszMessage, DWORD dwError, BOOL bExit)
 {
    LPVOID lpMsgBuf;
    LPVOID lpDisplayBuf;
@@ -75,16 +75,16 @@ void hmg_ErrorExit( LPCTSTR lpszMessage, DWORD dwError, BOOL bExit )
       0, NULL );
 
    // Display the error message and exit the process
-   lpDisplayBuf = ( LPVOID ) LocalAlloc(LMEM_ZEROINIT, ( hmg_tstrlen( ( LPCTSTR ) lpMsgBuf ) +
-                                                         hmg_tstrlen( lpszMessage ) + 40 ) * sizeof(TCHAR));
+   lpDisplayBuf = ( LPVOID ) LocalAlloc(LMEM_ZEROINIT, (hmg_tstrlen(( LPCTSTR ) lpMsgBuf) +
+                                                        hmg_tstrlen(lpszMessage) + 40) * sizeof(TCHAR));
 
 #ifdef UNICODE
 #if ( ( defined( __BORLANDC__ ) && __BORLANDC__ <= 1410 ) )
    swprintf( ( LPTSTR ) lpDisplayBuf, TEXT("'%s' failed with error %lu : %s"),
              lpszMessage, nError, ( LPTSTR ) lpMsgBuf );
 #else
-   swprintf_s( ( LPTSTR ) lpDisplayBuf, LocalSize(lpDisplayBuf) / sizeof(TCHAR), TEXT("'%s' failed with error %lu : %s"),
-               lpszMessage, nError, ( LPTSTR ) lpMsgBuf );
+   swprintf_s(( LPTSTR ) lpDisplayBuf, LocalSize(lpDisplayBuf) / sizeof(TCHAR), TEXT("'%s' failed with error %lu : %s"),
+               lpszMessage, nError, ( LPTSTR ) lpMsgBuf);
 #endif
 #else
    hb_snprintf( ( LPTSTR ) lpDisplayBuf, LocalSize(lpDisplayBuf) / sizeof(TCHAR), TEXT("'%s' failed with error %lu : %s"),
@@ -97,5 +97,5 @@ void hmg_ErrorExit( LPCTSTR lpszMessage, DWORD dwError, BOOL bExit )
    LocalFree(lpDisplayBuf);
 
    if( bExit )
-      ExitProcess( nError );
+      ExitProcess(nError);
 }

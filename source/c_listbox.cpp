@@ -102,7 +102,7 @@ HB_FUNC( INITLISTBOX )
              );
 
    if( hb_parl(12) )
-      MakeDragList( hbutton );
+      MakeDragList(hbutton);
 
    if( hb_parl(14) )
       SendMessage(hbutton, LB_SETCOLUMNWIDTH, ( WPARAM ) ( hb_parni(5) - 20 ), 0);
@@ -202,7 +202,7 @@ HB_FUNC( INITMULTILISTBOX )
              );
 
    if( hb_parl(12) )
-      MakeDragList( hbutton );
+      MakeDragList(hbutton);
 
    HB_RETNL( ( LONG_PTR ) hbutton );
 }
@@ -268,7 +268,7 @@ HB_FUNC( LISTBOXSETMULTITAB )
 
    for( int i = 0; i <= l; i++ )
    {
-      nTabStops[ i ] = MulDiv( hb_arrayGetNI( wArray, i + 1 ), 4, baseunitX );
+      nTabStops[ i ] = MulDiv(hb_arrayGetNI(wArray, i + 1), 4, baseunitX);
    }
 
    SendMessage(hwnd, LB_SETTABSTOPS, l, ( LPARAM ) &nTabStops);
@@ -297,7 +297,7 @@ HB_FUNC( GET_DRAG_LIST_DRAGITEM )
    LPARAM lParam        = ( LPARAM ) HB_PARNL(1);
    LPDRAGLISTINFO lpdli = ( LPDRAGLISTINFO ) lParam;
 
-   nDragItem = LBItemFromPt( lpdli->hWnd, lpdli->ptCursor, TRUE );
+   nDragItem = LBItemFromPt(lpdli->hWnd, lpdli->ptCursor, TRUE);
 
    hb_retni( nDragItem );
 }
@@ -313,9 +313,9 @@ HB_FUNC( DRAG_LIST_DRAWINSERT )
    nItemCount = ( int ) SendMessage(( HWND ) lpdli->hWnd, LB_GETCOUNT, 0, 0);
 
    if( nItem < nItemCount )
-      DrawInsert( hwnd, lpdli->hWnd, nItem );
+      DrawInsert(hwnd, lpdli->hWnd, nItem);
    else
-      DrawInsert( hwnd, lpdli->hWnd, -1 );
+      DrawInsert(hwnd, lpdli->hWnd, -1);
 }
 
 HB_FUNC( DRAG_LIST_MOVE_ITEMS )

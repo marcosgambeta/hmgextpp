@@ -211,7 +211,7 @@ HB_FUNC( DRAWICONEX )
 
       DeleteObject(hbrFlickerFreeDraw);
 
-      if( hb_parldef( 8, HB_TRUE ) )
+      if( hb_parldef(8, HB_TRUE) )
       {
          DelResource(hIcon);
          DestroyIcon(hIcon);

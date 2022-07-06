@@ -104,7 +104,7 @@ HB_FUNC( INITRICHEDITBOXEX )
    Style = Style | ( ( ! hb_parl(14) ) ? WS_VSCROLL : ES_AUTOVSCROLL );
 
    if( ! hRELib )
-      hRELib = LoadLibrary( TEXT("RichEd20.dll") );
+      hRELib = LoadLibrary(TEXT("RichEd20.dll"));
 
    if( hRELib )
    {
@@ -125,8 +125,8 @@ HB_FUNC( INITRICHEDITBOXEX )
 
       SendMessage(hWndControl, EM_SETTYPOGRAPHYOPTIONS, TO_ADVANCEDTYPOGRAPHY, TO_ADVANCEDTYPOGRAPHY);
 
-      RegisterClipboardFormat( CF_RTF );
-      RegisterClipboardFormat( CF_RETEXTOBJ );
+      RegisterClipboardFormat(CF_RTF);
+      RegisterClipboardFormat(CF_RETEXTOBJ);
    }
 
    HB_RETNL( ( LONG_PTR ) hWndControl );
@@ -136,7 +136,7 @@ HB_FUNC( UNLOADRICHEDITEXLIB )
 {
    if( hRELib )
    {
-      FreeLibrary( hRELib );
+      FreeLibrary(hRELib);
       hRELib = NULL;
    }
 }
@@ -362,7 +362,7 @@ HB_FUNC( RICHEDITBOX_SETBKGNDCOLOR )
    HWND hWndControl = hmg_par_HWND(1);
 
    if( HB_ISARRAY(2) )
-      SendMessage(hWndControl, EM_SETBKGNDCOLOR, 0, ( LPARAM ) RGB(HB_PARNI( 2, 1 ), HB_PARNI( 2, 2 ), HB_PARNI( 2, 3 )));
+      SendMessage(hWndControl, EM_SETBKGNDCOLOR, 0, ( LPARAM ) RGB(HB_PARNI(2, 1), HB_PARNI(2, 2), HB_PARNI(2, 3)));
    else
       SendMessage(hWndControl, EM_SETBKGNDCOLOR, ( WPARAM ) 1, 0);  // Set to the window background system color
 }
@@ -449,7 +449,7 @@ HB_FUNC( RICHEDITBOX_SETFONT )
    if( HB_ISARRAY(8) )
    {
       Mask = Mask | CFM_COLOR;
-      CharFormat2.crTextColor = RGB(HB_PARNI( 8, 1 ), HB_PARNI( 8, 2 ), HB_PARNI( 8, 3 ));
+      CharFormat2.crTextColor = RGB(HB_PARNI(8, 1), HB_PARNI(8, 2), HB_PARNI(8, 3));
    }
    else if( HB_ISNUM(8) && hb_parnl(8) == -1 )
    {
@@ -460,7 +460,7 @@ HB_FUNC( RICHEDITBOX_SETFONT )
    if( HB_ISARRAY(9) )
    {
       Mask = Mask | CFM_BACKCOLOR;
-      CharFormat2.crBackColor = RGB(HB_PARNI( 9, 1 ), HB_PARNI( 9, 2 ), HB_PARNI( 9, 3 ));
+      CharFormat2.crBackColor = RGB(HB_PARNI(9, 1), HB_PARNI(9, 2), HB_PARNI(9, 3));
    }
    else if( HB_ISNUM(9) && hb_parnl(9) == -1 )
    {
@@ -578,8 +578,8 @@ HB_FUNC( RICHEDITBOX_SETSELRANGE )
    CHARRANGE CharRange;
    HWND      hWndControl = hmg_par_HWND(1);
 
-   CharRange.cpMin = ( LONG ) HB_PARVNL( 2, 1 );
-   CharRange.cpMax = ( LONG ) HB_PARVNL( 2, 2 );
+   CharRange.cpMin = ( LONG ) HB_PARVNL(2, 1);
+   CharRange.cpMax = ( LONG ) HB_PARVNL(2, 2);
 
    SendMessage(hWndControl, EM_EXSETSEL, 0, ( LPARAM ) &CharRange);
 }
@@ -1087,10 +1087,10 @@ HB_FUNC( RICHEDITBOX_SETRECT )
    HWND hWndControl = hmg_par_HWND(1);
    RECT rc;
 
-   rc.left   = HB_PARNI( 2, 1 );
-   rc.top    = HB_PARNI( 2, 2 );
-   rc.right  = HB_PARNI( 2, 3 );
-   rc.bottom = HB_PARNI( 2, 4 );
+   rc.left   = HB_PARNI(2, 1);
+   rc.top    = HB_PARNI(2, 2);
+   rc.right  = HB_PARNI(2, 3);
+   rc.bottom = HB_PARNI(2, 4);
 
    SendMessage(hWndControl, EM_SETRECT, ( WPARAM ) 1, ( LPARAM ) &rc);
 }
@@ -1173,7 +1173,7 @@ HB_FUNC( RICHEDITBOX_POSFROMCHAR )
    {
       Point.x = ( INT ) PointL.x;
       Point.y = ( INT ) PointL.y;
-      ClientToScreen( hWndControl, &Point );
+      ClientToScreen(hWndControl, &Point);
    }
 
    HB_STORNI( ( INT ) Point.y, -1, 1 );

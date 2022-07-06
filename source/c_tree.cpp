@@ -50,7 +50,7 @@
 #include <mgdefs.h>
 #include <commctrl.h>
 
-HIMAGELIST HMG_ImageListLoadFirst( const char * FileName, int cGrow, int Transparent, int * nWidth, int * nHeight );
+HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transparent, int * nWidth, int * nHeight);
 void HMG_ImageListAdd( HIMAGELIST himl, char * FileName, int Transparent );
 
 HINSTANCE GetInstance(void);
@@ -112,7 +112,7 @@ HB_FUNC( INITTREEVIEWBITMAP ) //Tree+
          FileName = ( char * ) hb_arrayGetCPtr(hArray, s);
 
          if( himl == NULL )
-            himl = HMG_ImageListLoadFirst( FileName, nCount, Transparent, NULL, NULL );
+            himl = HMG_ImageListLoadFirst(FileName, nCount, Transparent, NULL, NULL);
          else
             HMG_ImageListAdd( himl, FileName, Transparent );
       }
@@ -120,7 +120,7 @@ HB_FUNC( INITTREEVIEWBITMAP ) //Tree+
       if( himl != NULL )
          SendMessage(hbutton, TVM_SETIMAGELIST, ( WPARAM ) TVSIL_NORMAL, ( LPARAM ) himl);
 
-      ic = ImageList_GetImageCount( himl );
+      ic = ImageList_GetImageCount(himl);
    }
 
    hb_retni( ( INT ) ic );
@@ -133,7 +133,7 @@ HB_FUNC( ADDTREEVIEWBITMAP )  // Tree+
    int        Transparent = hb_parl(3) ? 0 : 1;
    int        ic = 0;
 
-   himl = TreeView_GetImageList( hbutton, TVSIL_NORMAL );
+   himl = TreeView_GetImageList(hbutton, TVSIL_NORMAL);
 
    if( himl != NULL )
    {
@@ -141,7 +141,7 @@ HB_FUNC( ADDTREEVIEWBITMAP )  // Tree+
 
       SendMessage(hbutton, TVM_SETIMAGELIST, ( WPARAM ) TVSIL_NORMAL, ( LPARAM ) himl);
 
-      ic = ImageList_GetImageCount( himl );
+      ic = ImageList_GetImageCount(himl);
    }
 
    hb_retni( ( INT ) ic );
@@ -156,7 +156,7 @@ typedef struct
    BOOL      IsNodeFlag;
 } HMG_StructTreeItemLPARAM;
 
-void AddTreeItemLPARAM( HWND hWndTV, HTREEITEM ItemHandle, LONG nID, BOOL IsNodeFlag )
+void AddTreeItemLPARAM(HWND hWndTV, HTREEITEM ItemHandle, LONG nID, BOOL IsNodeFlag)
 {
    TV_ITEM TV_Item;
 
@@ -170,7 +170,7 @@ void AddTreeItemLPARAM( HWND hWndTV, HTREEITEM ItemHandle, LONG nID, BOOL IsNode
       TV_Item.mask   = TVIF_PARAM;
       TV_Item.hItem  = ( HTREEITEM ) ItemHandle;
       TV_Item.lParam = ( LPARAM ) TreeItemLPARAM;
-      TreeView_SetItem( hWndTV, &TV_Item );
+      TreeView_SetItem(hWndTV, &TV_Item);
    }
 }
 
@@ -217,9 +217,9 @@ HB_FUNC( ADDTREEITEM )
       is.hParent      = hPrev;
    }
 
-   hRet = TreeView_InsertItem( hWndTV, &is );
+   hRet = TreeView_InsertItem(hWndTV, &is);
 
-   AddTreeItemLPARAM( hWndTV, hRet, nID, IsNodeFlag );
+   AddTreeItemLPARAM(hWndTV, hRet, nID, IsNodeFlag);
 
    HB_RETNL( ( LONG_PTR ) hRet );
 
@@ -235,7 +235,7 @@ HB_FUNC( TREEVIEW_GETSELECTION )
 
    TreeHandle = hmg_par_HWND(1);
 
-   ItemHandle = TreeView_GetSelection( TreeHandle );
+   ItemHandle = TreeView_GetSelection(TreeHandle);
 
    if( ItemHandle != NULL )
    {
@@ -251,7 +251,7 @@ HB_FUNC( TREEVIEW_SELECTITEM )
    TreeHandle = hmg_par_HWND(1);
    ItemHandle = hmg_par_HTREEITEM(2);
 
-   TreeView_SelectItem( TreeHandle, ItemHandle );
+   TreeView_SelectItem(TreeHandle, ItemHandle);
 }
 
 void TreeView_FreeMemoryLPARAMRecursive(HWND hWndTV, HTREEITEM ItemHandle)
@@ -264,14 +264,14 @@ void TreeView_FreeMemoryLPARAMRecursive(HWND hWndTV, HTREEITEM ItemHandle)
    TreeItem.mask   = TVIF_PARAM;
    TreeItem.hItem  = ItemHandle;
    TreeItem.lParam = ( LPARAM ) NULL;
-   TreeView_GetItem( hWndTV, &TreeItem );
+   TreeView_GetItem(hWndTV, &TreeItem);
 
    TreeItemLPARAM = ( HMG_StructTreeItemLPARAM * ) TreeItem.lParam;
    if( TreeItemLPARAM != NULL )
    {
       hb_xfree(TreeItemLPARAM);
       TreeItem.lParam = ( LPARAM ) NULL;      // for security set lParam = NULL
-      TreeView_SetItem( hWndTV, &TreeItem );
+      TreeView_SetItem(hWndTV, &TreeItem);
    }
 
    ChildItem = TreeView_GetChild( hWndTV, ItemHandle );
@@ -293,7 +293,7 @@ HB_FUNC( TREEVIEW_DELETEITEM )
 
    TreeView_FreeMemoryLPARAMRecursive(TreeHandle, ItemHandle);
 
-   TreeView_DeleteItem( TreeHandle, ItemHandle );
+   TreeView_DeleteItem(TreeHandle, ItemHandle);
 }
 
 HB_FUNC( TREEVIEW_DELETEALLITEMS )
@@ -306,10 +306,10 @@ HB_FUNC( TREEVIEW_DELETEALLITEMS )
    for( int i = 1; i <= nCount; i++ )
    {
       TreeItem.mask   = TVIF_PARAM;
-      TreeItem.hItem  = ( HTREEITEM ) HB_PARVNL( 2, i );
+      TreeItem.hItem  = ( HTREEITEM ) HB_PARVNL(2, i);
       TreeItem.lParam = ( LPARAM ) 0;
 
-      TreeView_GetItem( TreeHandle, &TreeItem );
+      TreeView_GetItem(TreeHandle, &TreeItem);
 
       TreeItemLPARAM = ( HMG_StructTreeItemLPARAM * ) TreeItem.lParam;
       if( TreeItemLPARAM != NULL )
@@ -325,7 +325,7 @@ HB_FUNC( TREEVIEW_GETCOUNT )
 
    TreeHandle = hmg_par_HWND(1);
 
-   hb_retni( TreeView_GetCount( TreeHandle ) );
+   hb_retni( TreeView_GetCount(TreeHandle) );
 }
 
 HB_FUNC( TREEVIEW_GETPREVSIBLING )
@@ -364,7 +364,7 @@ HB_FUNC( TREEVIEW_GETITEM )
    TreeItem.pszText    = ItemText;
    TreeItem.cchTextMax = sizeof(ItemText) / sizeof(TCHAR);
 
-   TreeView_GetItem( TreeHandle, &TreeItem );
+   TreeView_GetItem(TreeHandle, &TreeItem);
 
 #ifndef UNICODE
    hb_retc( ItemText );
@@ -403,7 +403,7 @@ HB_FUNC( TREEVIEW_SETITEM )
    TreeItem.pszText    = ItemText;
    TreeItem.cchTextMax = sizeof(ItemText) / sizeof(TCHAR);
 
-   TreeView_SetItem( TreeHandle, &TreeItem );
+   TreeView_SetItem(TreeHandle, &TreeItem);
 
 #ifdef UNICODE
    hb_xfree(lpText);
@@ -421,7 +421,7 @@ HB_FUNC( TREEITEM_SETIMAGEINDEX )
    TreeItem.iImage         = hb_parni(3);
    TreeItem.iSelectedImage = hb_parni(4);
 
-   TreeView_SetItem( TreeHandle, &TreeItem );
+   TreeView_SetItem(TreeHandle, &TreeItem);
 }
 
 HB_FUNC( TREEVIEW_GETSELECTIONID )
@@ -432,7 +432,7 @@ HB_FUNC( TREEVIEW_GETSELECTIONID )
    HMG_StructTreeItemLPARAM * TreeItemLPARAM;
 
    TreeHandle = hmg_par_HWND(1);
-   ItemHandle = TreeView_GetSelection( TreeHandle );
+   ItemHandle = TreeView_GetSelection(TreeHandle);
 
    if( ItemHandle != NULL )
    {
@@ -440,7 +440,7 @@ HB_FUNC( TREEVIEW_GETSELECTIONID )
       TreeItem.hItem  = ItemHandle;
       TreeItem.lParam = ( LPARAM ) 0;
 
-      TreeView_GetItem( TreeHandle, &TreeItem );
+      TreeView_GetItem(TreeHandle, &TreeItem);
 
       TreeItemLPARAM = ( HMG_StructTreeItemLPARAM * ) TreeItem.lParam;
 
@@ -599,13 +599,13 @@ int CALLBACK TreeViewCompareFunc( LPARAM lParam1, LPARAM lParam2, LPARAM lParamS
    TV_Item1.pszText    = ItemText1;
    TV_Item1.cchTextMax = sizeof(ItemText1) / sizeof(TCHAR);
    TV_Item1.hItem      = ( HTREEITEM ) ItemHandle1;
-   TreeView_GetItem( hWndTV, &TV_Item1 );
+   TreeView_GetItem(hWndTV, &TV_Item1);
 
    TV_Item2.mask       = TVIF_TEXT;
    TV_Item2.pszText    = ItemText2;
    TV_Item2.cchTextMax = sizeof(ItemText2) / sizeof(TCHAR);
    TV_Item2.hItem      = ( HTREEITEM ) ItemHandle2;
-   TreeView_GetItem( hWndTV, &TV_Item2 );
+   TreeView_GetItem(hWndTV, &TV_Item2);
 
    IsTreeNode1 = ( TreeItemLPARAM1->IsNodeFlag == TRUE || TreeView_GetChild( hWndTV, ItemHandle1 ) != NULL ) ? TRUE : FALSE;
    IsTreeNode2 = ( TreeItemLPARAM2->IsNodeFlag == TRUE || TreeView_GetChild( hWndTV, ItemHandle2 ) != NULL ) ? TRUE : FALSE;
@@ -613,7 +613,7 @@ int CALLBACK TreeViewCompareFunc( LPARAM lParam1, LPARAM lParam2, LPARAM lParamS
    if( TreeViewCompareInfo->CaseSensitive == FALSE )
       CmpValue = lstrcmpi( ItemText1, ItemText2 );
    else
-      CmpValue = lstrcmp( ItemText1, ItemText2 );
+      CmpValue = lstrcmp(ItemText1, ItemText2);
 
 
    if( TreeViewCompareInfo->AscendingOrder == FALSE )
@@ -698,7 +698,7 @@ HB_FUNC( TREEVIEW_SORTCHILDRENRECURSIVECB )
 HB_FUNC( TREEVIEW_GETROOT )
 {
    HWND      hWndTV         = hmg_par_HWND(1);
-   HTREEITEM RootItemHandle = TreeView_GetRoot( hWndTV );
+   HTREEITEM RootItemHandle = TreeView_GetRoot(hWndTV);
 
    HB_RETNL( ( LONG_PTR ) RootItemHandle );
 }
@@ -714,7 +714,7 @@ HB_FUNC( TREEITEM_GETID )
    TreeItem.hItem  = ItemHandle;
    TreeItem.lParam = ( LPARAM ) 0;
 
-   if( TreeView_GetItem( hWndTV, &TreeItem ) == TRUE )
+   if( TreeView_GetItem(hWndTV, &TreeItem) == TRUE )
    {
       HMG_StructTreeItemLPARAM * TreeItemLPARAM = ( HMG_StructTreeItemLPARAM * ) TreeItem.lParam;
       hb_retnl( ( LONG ) TreeItemLPARAM->nID );
@@ -733,12 +733,12 @@ HB_FUNC( TREEITEM_SETNODEFLAG )
    TreeItem.mask   = TVIF_PARAM;
    TreeItem.hItem  = ItemHandle;
    TreeItem.lParam = ( LPARAM ) 0;
-   TreeView_GetItem( hWndTV, &TreeItem );
+   TreeView_GetItem(hWndTV, &TreeItem);
 
    TreeItemLPARAM = ( HMG_StructTreeItemLPARAM * ) TreeItem.lParam;
    TreeItemLPARAM->IsNodeFlag = IsNodeFlag;
    TreeItem.lParam = ( LPARAM ) TreeItemLPARAM;
-   TreeView_SetItem( hWndTV, &TreeItem );
+   TreeView_SetItem(hWndTV, &TreeItem);
 }
 
 HB_FUNC( TREEITEM_GETNODEFLAG )
@@ -753,7 +753,7 @@ HB_FUNC( TREEITEM_GETNODEFLAG )
    TreeItem.hItem  = ItemHandle;
    TreeItem.lParam = ( LPARAM ) 0;
 
-   TreeView_GetItem( hWndTV, &TreeItem );
+   TreeView_GetItem(hWndTV, &TreeItem);
 
    TreeItemLPARAM = ( HMG_StructTreeItemLPARAM * ) TreeItem.lParam;
    hb_retl( ( BOOL ) TreeItemLPARAM->IsNodeFlag );

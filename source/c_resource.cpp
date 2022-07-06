@@ -71,7 +71,7 @@ static HINSTANCE HMG_LoadDll( char * DllName )
 #endif
 
    DllCnt = ( DllCnt + 1 ) & 255;
-   FreeLibrary( HMG_DllStore[ DllCnt ] );
+   FreeLibrary(HMG_DllStore[ DllCnt ]);
 
    return HMG_DllStore[ DllCnt ] = LoadLibraryEx(lpLibFileName, NULL, 0);
 }
@@ -80,7 +80,7 @@ static void HMG_UnloadDll(void)
 {
    for( int i = 255; i >= 0; i-- )
    {
-      FreeLibrary( HMG_DllStore[ i ] );
+      FreeLibrary(HMG_DllStore[ i ]);
    }
 }
 
@@ -188,10 +188,10 @@ HB_FUNC( RCDATATOFILE )
    /* lpType is RT_RCDATA by default */
 #ifndef UNICODE
    LPCSTR lpName = hb_parc(1);
-   LPCSTR lpType = ( hb_parclen(3) > 0 ) ? ( LPCSTR ) hb_parc(3) : MAKEINTRESOURCE(hb_parnidef( 3, 10 ));
+   LPCSTR lpType = ( hb_parclen(3) > 0 ) ? ( LPCSTR ) hb_parc(3) : MAKEINTRESOURCE(hb_parnidef(3, 10));
 #else
    LPCWSTR lpName = AnsiToWide(( char * ) hb_parc(1));
-   LPCWSTR lpType = HB_ISCHAR(3) ? AnsiToWide(( char * ) hb_parc(3)) : ( LPCWSTR ) MAKEINTRESOURCE(hb_parnidef( 3, 10 ));
+   LPCWSTR lpType = HB_ISCHAR(3) ? AnsiToWide(( char * ) hb_parc(3)) : ( LPCWSTR ) MAKEINTRESOURCE(hb_parnidef(3, 10));
 #endif
    HRSRC   hResInfo;
    HGLOBAL hResData = NULL;

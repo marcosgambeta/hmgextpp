@@ -55,17 +55,17 @@
 #include "hbapistr.h"
 
 #ifdef UNICODE
-BOOL _isValidCtrlClassW( HWND hwndTip, LPWSTR ClassName );
+BOOL _isValidCtrlClassW(HWND hwndTip, LPWSTR ClassName);
 
-BOOL _isValidCtrlClassW( HWND hwndTip, LPWSTR ClassName )
+BOOL _isValidCtrlClassW(HWND hwndTip, LPWSTR ClassName)
 {
    TCHAR lpClassName[ 256 ];
    int   iLen = 0;
 
    if( IsWindow(hwndTip) )
-      iLen = GetClassNameW( hwndTip, lpClassName, 256 );
+      iLen = GetClassNameW(hwndTip, lpClassName, 256);
 
-   if( ( iLen > 0 ) && ( hb_wstrncmp( ( TCHAR * ) lpClassName, ClassName, iLen ) == 0 ) )
+   if( ( iLen > 0 ) && ( hb_wstrncmp(( TCHAR * ) lpClassName, ClassName, iLen) == 0 ) )
       return TRUE;
    else
       return FALSE;
@@ -81,7 +81,7 @@ BOOL _isValidCtrlClassA(HWND hwndTip, const char * ClassName)
    if( IsWindow(hwndTip) )
       iLen = GetClassNameA(hwndTip, lpClassName, 256);
 
-   if( ( iLen > 0 ) && ( strncmp( ( const char * ) lpClassName, ClassName, iLen ) == 0 ) )
+   if( ( iLen > 0 ) && ( strncmp(( const char * ) lpClassName, ClassName, iLen) == 0 ) )
       return TRUE;
    else
       return FALSE;
@@ -91,7 +91,7 @@ BOOL _isValidCtrlClassA(HWND hwndTip, const char * ClassName)
 
 /*
    cClassName := GetClassName(nHwnd)
-   IF ! Empty( cClassName )
+   IF ! Empty(cClassName)
       ..
    ..
  */
@@ -107,7 +107,7 @@ HB_FUNC( GETCLASSNAME )
       iLen = GetClassNameA(hwnd, ClassName, sizeof(ClassName) / sizeof(char));
 
       if( iLen > 0 )
-         hb_retclen( ( const char * ) ClassName, iLen );
+         hb_retclen(( const char * ) ClassName, iLen);
       else
          hb_retc_null();
    }
@@ -189,7 +189,7 @@ HB_FUNC( GETWINDOWSTYLE )
    nOldStyle := SetWindowStyle(Form_1.Button_1.Handle, WS_TABSTOP, .T.)
 
    IF nOldStyle == 0
-      MsgExclamation( "Cannot add WS_TABSTOP style to Button_1", "Warning!")
+      MsgExclamation("Cannot add WS_TABSTOP style to Button_1", "Warning!")
    ENDIF
  */
 HB_FUNC( SETWINDOWSTYLE )

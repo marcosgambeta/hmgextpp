@@ -142,7 +142,7 @@ HB_FUNC( MOVETO )
 
 HB_FUNC( LINETO )
 {
-   LineTo( hmg_par_HDC(1), hmg_par_INT(2), hmg_par_INT(3) );
+   LineTo(hmg_par_HDC(1), hmg_par_INT(2), hmg_par_INT(3));
 }
 
 HB_FUNC( DRAWICON )
@@ -194,7 +194,7 @@ HB_FUNC( GETCLASSINFO )
       HB_STORC( pStr, -1, 1 );
       hb_xfree(pStr);
    #else
-      hb_retclen( ( char * ) &WndClass, sizeof(WNDCLASS) );
+      hb_retclen(( char * ) &WndClass, sizeof(WNDCLASS));
    #endif
    }
 

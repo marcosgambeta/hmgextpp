@@ -52,7 +52,7 @@
 #endif
 #include <commctrl.h>
 
-extern HB_PTRUINT wapi_GetProcAddress( HMODULE hModule, LPCSTR lpProcName );
+extern HB_PTRUINT wapi_GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
 
 typedef BOOL ( WINAPI * VERIFYSCREENSAVEPWD )( HWND hwnd );
 typedef VOID ( WINAPI * PWDCHANGEPASSWORD )( LPCSTR lpcRegkeyname, HWND hwnd, UINT uiReserved1, UINT uiReserved2 );
@@ -76,22 +76,22 @@ HB_FUNC( VERIFYPASSWORD )
    if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT )
       hb_retl( TRUE );
 
-   hpwdcpl = LoadLibrary( TEXT("PASSWORD.CPL") );
+   hpwdcpl = LoadLibrary(TEXT("PASSWORD.CPL"));
 
    if( hpwdcpl == NULL )
       hb_retl( FALSE );
 
-   VerifyScreenSavePwd = ( VERIFYSCREENSAVEPWD ) wapi_GetProcAddress( hpwdcpl, "VerifyScreenSavePwd" );
+   VerifyScreenSavePwd = ( VERIFYSCREENSAVEPWD ) wapi_GetProcAddress(hpwdcpl, "VerifyScreenSavePwd");
    if( VerifyScreenSavePwd == NULL )
    {
-      FreeLibrary( hpwdcpl );
+      FreeLibrary(hpwdcpl);
       hb_retl( FALSE );
    }
 
    hwnd = hmg_par_HWND(1);
 
    bres = VerifyScreenSavePwd( hwnd );
-   FreeLibrary( hpwdcpl );
+   FreeLibrary(hpwdcpl);
 
    hb_retl( bres );
 }
@@ -102,23 +102,23 @@ HB_FUNC( CHANGEPASSWORD )
 
    HWND hwnd;
 
-   HINSTANCE hmpr = LoadLibrary( TEXT("MPR.DLL") );
+   HINSTANCE hmpr = LoadLibrary(TEXT("MPR.DLL"));
    PWDCHANGEPASSWORD PwdChangePassword;
 
    if( hmpr == NULL )
       hb_retl( FALSE );
 
-   PwdChangePassword = ( PWDCHANGEPASSWORD ) wapi_GetProcAddress( hmpr, "PwdChangePasswordA" );
+   PwdChangePassword = ( PWDCHANGEPASSWORD ) wapi_GetProcAddress(hmpr, "PwdChangePasswordA");
 
    if( PwdChangePassword == NULL )
    {
-      FreeLibrary( hmpr );
+      FreeLibrary(hmpr);
       hb_retl( FALSE );
    }
 
    hwnd = hmg_par_HWND(1);
    PwdChangePassword( "SCRSAVE", hwnd, 0, 0 );
-   FreeLibrary( hmpr );
+   FreeLibrary(hmpr);
 
    hb_retl( TRUE );
 }

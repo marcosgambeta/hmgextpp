@@ -82,7 +82,7 @@ HB_FUNC( GETPRIVATEPROFILESTRING )
    if( dwLen )
    {
 #ifndef UNICODE
-      hb_retclen( ( TCHAR * ) bBuffer, dwLen );
+      hb_retclen(( TCHAR * ) bBuffer, dwLen);
 #else
       pStr = WideToAnsi(bBuffer);
       hb_retc( pStr );
@@ -168,7 +168,7 @@ static TCHAR * FindNextSubString(TCHAR * Strings)
 {
    TCHAR * p = Strings;
 
-   p = p + lstrlen( Strings ) + 1;
+   p = p + lstrlen(Strings) + 1;
    if( *p == 0 )
       p = NULL;
    return p;
@@ -203,7 +203,7 @@ HB_FUNC( _GETPRIVATEPROFILESECTIONNAMES )
 #endif
 
    ZeroMemory(bBuffer, sizeof(bBuffer));
-   GetPrivateProfileSectionNames( bBuffer, sizeof(bBuffer) / sizeof(TCHAR), lpFileName );
+   GetPrivateProfileSectionNames(bBuffer, sizeof(bBuffer) / sizeof(TCHAR), lpFileName);
 
    p    = ( TCHAR * ) bBuffer;
    nLen = FindLenSubString(p);
@@ -248,7 +248,7 @@ HB_FUNC( _GETPRIVATEPROFILESECTION )
 #endif
 
    ZeroMemory(bBuffer, sizeof(bBuffer));
-   GetPrivateProfileSection( lpSectionName, bBuffer, sizeof(bBuffer) / sizeof(TCHAR), lpFileName );
+   GetPrivateProfileSection(lpSectionName, bBuffer, sizeof(bBuffer) / sizeof(TCHAR), lpFileName);
    p    = ( TCHAR * ) bBuffer;
    nLen = FindLenSubString(p);
    hb_reta(nLen);

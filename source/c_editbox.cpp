@@ -102,7 +102,7 @@ HB_FUNC( INITEDITBOX )
 
    SendMessage(hbutton, ( UINT ) EM_LIMITTEXT, ( WPARAM ) hb_parni(9), ( LPARAM ) 0);
 
-   SetProp( ( HWND ) hbutton, TEXT("oldeditproc"), ( HWND ) GetWindowLongPtr(( HWND ) hbutton, GWLP_WNDPROC) );
+   SetProp(( HWND ) hbutton, TEXT("oldeditproc"), ( HWND ) GetWindowLongPtr(( HWND ) hbutton, GWLP_WNDPROC));
    SetWindowLongPtr(hbutton, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnEditProc);
 
    HB_RETNL( ( LONG_PTR ) hbutton );

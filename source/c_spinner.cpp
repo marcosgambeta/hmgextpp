@@ -136,7 +136,7 @@ HB_FUNC( INITSPINNER )
    SendMessage(hupdown, UDM_SETRANGE32, ( WPARAM ) hb_parni(8), ( LPARAM ) hb_parni(9));
 
    // 2006.08.13 JD
-   SetProp( ( HWND ) hedit, TEXT("oldspinproc"), ( HWND ) GetWindowLongPtr(( HWND ) hedit, GWLP_WNDPROC) );
+   SetProp(( HWND ) hedit, TEXT("oldspinproc"), ( HWND ) GetWindowLongPtr(( HWND ) hedit, GWLP_WNDPROC));
    SetWindowLongPtr(hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnSpinProc);
 
    hb_reta(2);
@@ -161,13 +161,13 @@ LRESULT CALLBACK OwnSpinProc(HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam)
    long int        r;
    WNDPROC         OldWndProc;
 
-   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp( hedit, TEXT("oldspinproc") );
+   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp(hedit, TEXT("oldspinproc"));
 
    switch( Msg )
    {
       case WM_DESTROY:
          SetWindowLongPtr(hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OldWndProc);
-         RemoveProp( hedit, TEXT("oldspinproc") );
+         RemoveProp(hedit, TEXT("oldspinproc"));
          break;
 
       case WM_CONTEXTMENU:

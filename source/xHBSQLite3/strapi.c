@@ -120,7 +120,7 @@ void hb_retstr_utf8(const char * szText)
    HB_TRACE(HB_TR_DEBUG, ("hb_retstr_utf8(%s)", szText));
 
    hb_itemPutStrLenUTF8(hb_stackReturnItem(), szText,
-                        szText ? strlen( szText ) : 0);
+                        szText ? strlen(szText) : 0);
 }
 
 
@@ -138,7 +138,7 @@ PHB_ITEM hb_itemPutStrLenUTF8(PHB_ITEM pItem, const char * pStr, ULONG nLen)
    cdp = hb_cdppage();
    nDest = hb_cdpStringInUTF8Length(cdp, FALSE, pStr, nLen);
    pszDest = ( char * ) hb_xgrab(nDest + 1);
-   hb_cdpStrnToUTF8n( cdp, FALSE, pStr, nLen, pszDest, nDest + 1 );
+   hb_cdpStrnToUTF8n(cdp, FALSE, pStr, nLen, pszDest, nDest + 1);
 
    return hb_itemPutCLPtr(pItem, pszDest, nDest);
 }
@@ -160,9 +160,9 @@ const char * hb_itemGetStrUTF8(PHB_ITEM pItem, void ** phString, ULONG * pnLen)
 		if( nLen != pItem->item.asString.length )
 		{
 			char * pszUtf8 = ( char * ) hb_xgrab(nLen + 1);
-			hb_cdpStrnToUTF8n( cdp, FALSE,
+			hb_cdpStrnToUTF8n(cdp, FALSE,
                           pItem->item.asString.value, pItem->item.asString.length,
-                          pszUtf8, nLen + 1 );
+                          pszUtf8, nLen + 1);
 			* phString = ( void * ) pszUtf8;
 			return pszUtf8;
 		}
@@ -196,10 +196,10 @@ PHB_ITEM hb_itemPutStrUTF8(PHB_ITEM pItem, const char * pStr)
       return hb_itemPutC( pItem, NULL );
 
    cdp = hb_cdppage(); 
-   nLen = strlen( pStr );
+   nLen = strlen(pStr);
    nDest = hb_cdpStringInUTF8Length(cdp, FALSE, pStr, nLen);
    pszDest = ( char * ) hb_xgrab(nDest + 1);
-   hb_cdpStrnToUTF8n( cdp, FALSE, pStr, nLen, pszDest, nDest + 1 );
+   hb_cdpStrnToUTF8n(cdp, FALSE, pStr, nLen, pszDest, nDest + 1);
 
    return hb_itemPutCLPtr(pItem, pszDest, nDest);
 }

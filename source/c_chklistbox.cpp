@@ -330,7 +330,7 @@ HB_FUNC( _ONDRAWLISTBOXITEM )
             yPos = ( pdis->rcItem.bottom + pdis->rcItem.top -
                      tm.tmHeight ) / 2;
             // Get the character length of the item string.
-            cch = ( int ) HB_STRLEN( achBuffer );
+            cch = ( int ) HB_STRLEN(achBuffer);
             // Draw the string in the item rectangle, leaving a six
             // pixel gap between the item bitmap and the string.
             TextOut(pdis->hDC, rcCheck.right + 6, yPos, achBuffer, cch);

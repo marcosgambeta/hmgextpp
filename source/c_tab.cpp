@@ -52,7 +52,7 @@
 
 extern BOOL Array2Point(PHB_ITEM aPoint, POINT * pt);
 
-HIMAGELIST HMG_ImageListLoadFirst( const char * FileName, int cGrow, int Transparent, int * nWidth, int * nHeight );
+HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transparent, int * nWidth, int * nHeight);
 void HMG_ImageListAdd( HIMAGELIST himl, char * FileName, int Transparent );
 
 #ifdef UNICODE
@@ -136,7 +136,7 @@ HB_FUNC( INITTABCONTROL )
    #endif
       tie.pszText = lpText;
 
-      TabCtrl_InsertItem( hbutton, 0, &tie );
+      TabCtrl_InsertItem(hbutton, 0, &tie);
 
 #ifdef UNICODE
       hb_xfree(( TCHAR * ) lpText);
@@ -186,7 +186,7 @@ HB_FUNC( TABCTRL_INSERTITEM )
    tie.iImage  = -1;
    tie.pszText = lpText;
 
-   TabCtrl_InsertItem( hwnd, i, &tie );
+   TabCtrl_InsertItem(hwnd, i, &tie);
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpText);
@@ -201,7 +201,7 @@ HB_FUNC( TABCTRL_DELETEITEM )
    hwnd = hmg_par_HWND(1);
    i    = hb_parni(2);
 
-   TabCtrl_DeleteItem( hwnd, i );
+   TabCtrl_DeleteItem(hwnd, i);
 }
 
 HB_FUNC( SETTABCAPTION )
@@ -217,7 +217,7 @@ HB_FUNC( SETTABCAPTION )
 
    tie.pszText = lpText;
 
-   TabCtrl_SetItem( hmg_par_HWND(1), hb_parni(2) - 1, &tie );
+   TabCtrl_SetItem(hmg_par_HWND(1), hb_parni(2) - 1, &tie);
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpText);
@@ -245,7 +245,7 @@ HB_FUNC( ADDTABBITMAP )
          FileName = ( char * ) hb_arrayGetCPtr(hArray, i);
 
          if( himl == NULL )
-            himl = HMG_ImageListLoadFirst( FileName, nCount, Transparent, NULL, NULL );
+            himl = HMG_ImageListLoadFirst(FileName, nCount, Transparent, NULL, NULL);
          else
             HMG_ImageListAdd( himl, FileName, Transparent );
       }
@@ -257,7 +257,7 @@ HB_FUNC( ADDTABBITMAP )
       {
          tie.mask   = TCIF_IMAGE;
          tie.iImage = i;
-         TabCtrl_SetItem( ( HWND ) hbutton, i, &tie );
+         TabCtrl_SetItem(( HWND ) hbutton, i, &tie);
       }
    }
 

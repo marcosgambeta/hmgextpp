@@ -34,7 +34,7 @@ GpStatus GdiplusInit(void)
    GDIPLUS_STARTUP_INPUT GdiplusStartupInput = { 1, NULL, FALSE, FALSE };
 
    if( NULL == g_GpModule )
-      g_GpModule = LoadLibrary( lpFileName );
+      g_GpModule = LoadLibrary(lpFileName);
 
    if( NULL == g_GpModule )
       return GdiplusNotInitialized;
@@ -75,16 +75,16 @@ GpStatus GdiplusInit(void)
    if( _EMPTY_PTR(g_GpModule, GdipGetImageThumbnail) )
       return NotImplemented;
 
-   return fn_GdiplusStartup( &g_GpToken, &GdiplusStartupInput, NULL );
+   return fn_GdiplusStartup(&g_GpToken, &GdiplusStartupInput, NULL);
 }
 
 HB_FUNC( GDIPLUSSHUTDOWN )
 {
    if( NULL != fn_GdiplusShutdown )
-      fn_GdiplusShutdown( g_GpToken );
+      fn_GdiplusShutdown(g_GpToken);
 
-   if( HB_TRUE == hb_parldef( 1, HB_TRUE ) && ( NULL != g_GpModule ) )
-      FreeLibrary( g_GpModule );
+   if( HB_TRUE == hb_parldef(1, HB_TRUE) && ( NULL != g_GpModule ) )
+      FreeLibrary(g_GpModule);
 }
 
 HB_FUNC( GDIPCREATEBITMAPFROMFILE )

@@ -117,10 +117,10 @@ HB_FUNC( GETIPADDRESS )
 
    SendMessage(hWnd, IPM_GETADDRESS, 0, ( LPARAM ) ( LPDWORD ) &pdwAddr);
 
-   v1 = FIRST_IPADDRESS( pdwAddr );
-   v2 = SECOND_IPADDRESS( pdwAddr );
-   v3 = THIRD_IPADDRESS( pdwAddr );
-   v4 = FOURTH_IPADDRESS( pdwAddr );
+   v1 = FIRST_IPADDRESS(pdwAddr);
+   v2 = SECOND_IPADDRESS(pdwAddr);
+   v3 = THIRD_IPADDRESS(pdwAddr);
+   v4 = FOURTH_IPADDRESS(pdwAddr);
 
    hb_reta(4);
    HB_STORNI( ( INT ) v1, -1, 1 );

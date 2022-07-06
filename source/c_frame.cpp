@@ -87,7 +87,7 @@ HB_FUNC( INITFRAME )
          hb_parni(5),
          hb_parni(6),
          hwnd,
-         ( IsMenu( hmenu ) ? hmenu : NULL ),
+         ( IsMenu(hmenu) ? hmenu : NULL ),
          GetInstance(),
          NULL
                 );

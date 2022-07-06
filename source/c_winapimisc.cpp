@@ -71,7 +71,7 @@
 
 extern HB_EXPORT BOOL Array2Rect(PHB_ITEM aRect, RECT * rc);
 extern HB_EXPORT PHB_ITEM Rect2Array(RECT * rc);
-extern void hmg_ErrorExit( LPCTSTR lpMessage, DWORD dwError, BOOL bExit );
+extern void hmg_ErrorExit(LPCTSTR lpMessage, DWORD dwError, BOOL bExit);
 
 typedef HMODULE ( __stdcall * SHGETFOLDERPATH )( HWND, int, HANDLE, DWORD, LPTSTR );
 
@@ -84,11 +84,11 @@ BOOL SysRefresh(void);
 // Minigui Resources control system
 void RegisterResource(HANDLE hResource, LPSTR szType);
 
-HB_PTRUINT wapi_GetProcAddress( HMODULE hModule, LPCSTR lpProcName )
+HB_PTRUINT wapi_GetProcAddress(HMODULE hModule, LPCSTR lpProcName)
 {
    FARPROC pProc;
 
-   pProc = GetProcAddress( hModule, lpProcName );
+   pProc = GetProcAddress(hModule, lpProcName);
    return ( HB_PTRUINT ) pProc;
 }
 
@@ -143,7 +143,7 @@ HB_FUNC( WAITRUNPIPE )
    StartupInfo.hStdOutput  = WritePipeHandle;
    StartupInfo.hStdError   = WritePipeHandle;
 
-   if( ! CreateProcess( NULL, lpCommandLine, 0, 0, FALSE, CREATE_NEW_CONSOLE | NORMAL_PRIORITY_CLASS, 0, 0, &StartupInfo, &ProcessInfo ) )
+   if( ! CreateProcess(NULL, lpCommandLine, 0, 0, FALSE, CREATE_NEW_CONSOLE | NORMAL_PRIORITY_CLASS, 0, 0, &StartupInfo, &ProcessInfo) )
    {
       hb_retnl( -1 );
       return;
@@ -203,13 +203,13 @@ HB_FUNC( COPYRTFTOCLIPBOARD ) // CopyRtfToClipboard(cRtfText) store cRTFText in 
    char *       lptstrCopy;
    UINT         cf;
    const char * cStr = HB_ISCHAR(1) ? hb_parc(1) : "";
-   int          nLen = ( int ) strlen( cStr );
+   int          nLen = ( int ) strlen(cStr);
 
    if( ( nLen == 0 ) || ! OpenClipboard( GetActiveWindow() ) )
       return;
 
    // Get Clipboard format id for RTF.
-   cf = RegisterClipboardFormat( TEXT("Rich Text Format") );
+   cf = RegisterClipboardFormat(TEXT("Rich Text Format"));
 
    EmptyClipboard();
 
@@ -235,7 +235,7 @@ HB_FUNC( COPYTOCLIPBOARD ) // CopyToClipboard(cText) store cText in Windows clip
    char *  lptstrCopy;
 
    const char * cStr = HB_ISCHAR(1) ? hb_parc(1) : "";
-   int          nLen = ( int ) strlen( cStr );
+   int          nLen = ( int ) strlen(cStr);
 
    if( ( nLen == 0 ) || ! OpenClipboard( GetActiveWindow() ) )
       return;
@@ -343,7 +343,7 @@ HB_FUNC( HMG_MOUSECLEARBUFFER )
 
 HB_FUNC( INKEYGUI )
 {
-   UINT     uElapse = hb_parnidef( 1, USER_TIMER_MINIMUM );
+   UINT     uElapse = hb_parnidef(1, USER_TIMER_MINIMUM);
    UINT_PTR uTimer;
    MSG      Msg;
    BOOL     bRet, bBreak = FALSE;
@@ -359,7 +359,7 @@ HB_FUNC( INKEYGUI )
       if( bRet == -1 )
       {
          // handle the error and possibly exit
-         hmg_ErrorExit( TEXT("INKEYGUI"), 0, TRUE );
+         hmg_ErrorExit(TEXT("INKEYGUI"), 0, TRUE);
       }
       else
       {
@@ -394,7 +394,7 @@ HB_FUNC( INKEYGUI )
       }
    }
 
-   hb_retns( uRet );
+   hb_retns(uRet);
 }
 
 HB_FUNC( GETDC )
@@ -425,8 +425,8 @@ HB_FUNC( C_GETSPECIALFOLDER ) // Contributed By Ryszard Ryüko
    TCHAR *      lpBuffer = ( TCHAR * ) hb_xgrab((MAX_PATH + 1) * sizeof(TCHAR));
    LPITEMIDLIST pidlBrowse;   // PIDL selected by user
 
-   SHGetSpecialFolderLocation( GetActiveWindow(), hb_parni(1), &pidlBrowse );
-   SHGetPathFromIDList( pidlBrowse, lpBuffer );
+   SHGetSpecialFolderLocation(GetActiveWindow(), hb_parni(1), &pidlBrowse);
+   SHGetPathFromIDList(pidlBrowse, lpBuffer);
 
 #ifndef UNICODE
    hb_retc( lpBuffer );
@@ -447,11 +447,11 @@ HB_FUNC( C_GETSPECIALFOLDER ) // Contributed By Ryszard Ryüko
 HB_FUNC( C_GETDLLSPECIALFOLDER )
 {
    TCHAR   szPath[ MAX_PATH ];
-   HMODULE hModule = LoadLibrary( TEXT("SHFolder.dll") );
+   HMODULE hModule = LoadLibrary(TEXT("SHFolder.dll"));
 
    if( hModule )
    {
-      SHGETFOLDERPATH fnShGetFolderPath = ( SHGETFOLDERPATH ) wapi_GetProcAddress( hModule, "SHGetFolderPathA" );
+      SHGETFOLDERPATH fnShGetFolderPath = ( SHGETFOLDERPATH ) wapi_GetProcAddress(hModule, "SHGetFolderPathA");
 
       if( fnShGetFolderPath )
       {
@@ -460,7 +460,7 @@ HB_FUNC( C_GETDLLSPECIALFOLDER )
          else
             hb_retc( "" );
       }
-      FreeLibrary( hModule );
+      FreeLibrary(hModule);
    }
 }
 #endif /* __WIN98__ */
@@ -477,13 +477,13 @@ HB_FUNC( GETPHYSICALLYINSTALLEDSYSTEMMEMORY )
    if( NULL != hDll )
    {
       GetPhysicallyInstalledSystemMemory_ptr fn_GetPhysicallyInstalledSystemMemory =
-         ( GetPhysicallyInstalledSystemMemory_ptr ) wapi_GetProcAddress( hDll, "GetPhysicallyInstalledSystemMemory" );
+         ( GetPhysicallyInstalledSystemMemory_ptr ) wapi_GetProcAddress(hDll, "GetPhysicallyInstalledSystemMemory");
 
       if( NULL != fn_GetPhysicallyInstalledSystemMemory )
       {
          ULONGLONG ullTotalMemoryInKilobytes;
 
-         if( fn_GetPhysicallyInstalledSystemMemory( &ullTotalMemoryInKilobytes ) )
+         if( fn_GetPhysicallyInstalledSystemMemory(&ullTotalMemoryInKilobytes) )
             hb_retnll( ( HB_LONGLONG ) ullTotalMemoryInKilobytes );
       }
    }
@@ -501,7 +501,7 @@ HB_FUNC( MEMORYSTATUS )
    if( NULL != hDll )
    {
       GlobalMemoryStatusEx_ptr fn_GlobalMemoryStatusEx =
-         ( GlobalMemoryStatusEx_ptr ) wapi_GetProcAddress( hDll, "GlobalMemoryStatusEx" );
+         ( GlobalMemoryStatusEx_ptr ) wapi_GetProcAddress(hDll, "GlobalMemoryStatusEx");
 
       if( NULL != fn_GlobalMemoryStatusEx )
       {
@@ -527,7 +527,7 @@ HB_FUNC( MEMORYSTATUS )
          MEMORYSTATUS mst;
 
          mst.dwLength = sizeof(MEMORYSTATUS);
-         GlobalMemoryStatus( &mst );
+         GlobalMemoryStatus(&mst);
 
          switch( hb_parni(1) )
          {
@@ -572,7 +572,7 @@ HB_FUNC( PAINTBKGND )
 
    if( hb_pcount() > 1 && ! HB_ISNIL(2) )
    {
-      hBrush = CreateSolidBrush(RGB(HB_PARNI( 2, 1 ), HB_PARNI( 2, 2 ), HB_PARNI( 2, 3 )));
+      hBrush = CreateSolidBrush(RGB(HB_PARNI(2, 1), HB_PARNI(2, 2), HB_PARNI(2, 3)));
       FillRect(hdc, &recClie, hBrush);
    }
    else
@@ -587,7 +587,7 @@ HB_FUNC( PAINTBKGND )
    HB_RETNL( ( LONG_PTR ) hBrush );
 }
 
-/* Functions Contributed  By Luiz Rafael Culik Guimaraes( culikr@uol.com.br) */
+/* Functions Contributed  By Luiz Rafael Culik Guimaraes(culikr@uol.com.br) */
 HB_FUNC( GETWINDOWSDIR )
 {
    TCHAR szBuffer[ MAX_PATH + 1 ] = { 0 };
@@ -596,7 +596,7 @@ HB_FUNC( GETWINDOWSDIR )
    LPSTR pStr;
 #endif
 
-   GetWindowsDirectory( szBuffer, MAX_PATH );
+   GetWindowsDirectory(szBuffer, MAX_PATH);
 
 #ifndef UNICODE
    hb_retc( szBuffer );
@@ -615,7 +615,7 @@ HB_FUNC( GETSYSTEMDIR )
    LPSTR pStr;
 #endif
 
-   GetSystemDirectory( szBuffer, MAX_PATH );
+   GetSystemDirectory(szBuffer, MAX_PATH);
 
 #ifndef UNICODE
    hb_retc( szBuffer );
@@ -662,7 +662,7 @@ HB_FUNC( GETSTOCKOBJECT )
 
 HB_FUNC( GETNEXTDLGTABITEM )
 {
-   HB_RETNL( ( LONG_PTR ) GetNextDlgTabItem( hmg_par_HWND(1), hmg_par_HWND(2), hb_parl(3) ) );
+   HB_RETNL( ( LONG_PTR ) GetNextDlgTabItem(hmg_par_HWND(1), hmg_par_HWND(2), hb_parl(3)) );
 }
 
 typedef BOOL ( WINAPI * LPFN_ISWOW64PROCESS )( HANDLE, PBOOL );
@@ -690,15 +690,15 @@ HB_FUNC( SHELLEXECUTE )
    LPFN_WOW64REVERTWOW64FSREDIRECTION fnRevert;
    HMODULE hDll = GetModuleHandle(TEXT("kernel32.dll"));
 
-   fnIsWow64Process = ( LPFN_ISWOW64PROCESS ) wapi_GetProcAddress( hDll, "IsWow64Process" );
+   fnIsWow64Process = ( LPFN_ISWOW64PROCESS ) wapi_GetProcAddress(hDll, "IsWow64Process");
    if( NULL != fnIsWow64Process )
    {
-      fnIsWow64Process( GetCurrentProcess(), &bIsWow64 );
+      fnIsWow64Process(GetCurrentProcess(), &bIsWow64);
    }
 
    if( bIsWow64 )
    {
-      fnDisable = ( LPFN_WOW64DISABLEWOW64FSREDIRECTION ) wapi_GetProcAddress( hDll, "Wow64DisableWow64FsRedirection" );
+      fnDisable = ( LPFN_WOW64DISABLEWOW64FSREDIRECTION ) wapi_GetProcAddress(hDll, "Wow64DisableWow64FsRedirection");
       if( NULL != fnDisable )
       {
          if( fnDisable(&OldValue) )
@@ -723,14 +723,14 @@ HB_FUNC( SHELLEXECUTE )
       )
    );
 
-   hb_idleSleep( 1.0 );
+   hb_idleSleep(1.0);
 
    if( bRestore )
    {
-      fnRevert = ( LPFN_WOW64REVERTWOW64FSREDIRECTION ) wapi_GetProcAddress( hDll, "Wow64RevertWow64FsRedirection" );
+      fnRevert = ( LPFN_WOW64REVERTWOW64FSREDIRECTION ) wapi_GetProcAddress(hDll, "Wow64RevertWow64FsRedirection");
       if( NULL != fnRevert )
       {
-         fnRevert( OldValue );
+         fnRevert(OldValue);
       }
    }
 
@@ -802,7 +802,7 @@ HB_FUNC( WAITRUN )
 
    stInfo.wShowWindow = ( WORD ) hb_parni(2);
 
-   bResult = CreateProcess( NULL, lpCommandLine, NULL, NULL, TRUE, CREATE_NEW_CONSOLE | NORMAL_PRIORITY_CLASS, NULL, NULL, &stInfo, &prInfo );
+   bResult = CreateProcess(NULL, lpCommandLine, NULL, NULL, TRUE, CREATE_NEW_CONSOLE | NORMAL_PRIORITY_CLASS, NULL, NULL, &stInfo, &prInfo);
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpCommandLine);
@@ -815,7 +815,7 @@ HB_FUNC( WAITRUN )
 
    WaitForSingleObject(prInfo.hProcess, INFINITE);
 
-   GetExitCodeProcess( prInfo.hProcess, &dwExitCode );
+   GetExitCodeProcess(prInfo.hProcess, &dwExitCode);
 
    CloseHandle(prInfo.hThread);
    CloseHandle(prInfo.hProcess);
@@ -884,7 +884,7 @@ HB_FUNC( WAITRUNTERM )
             bWait = hb_parl( -1 );
             if( ! bWait )
             {
-               if( TerminateProcess( prInfo.hProcess, 0 ) != 0 )
+               if( TerminateProcess(prInfo.hProcess, 0) != 0 )
                   bTerm = TRUE;
                else
                   bWait = TRUE;
@@ -901,7 +901,7 @@ HB_FUNC( WAITRUNTERM )
    if( bTerm )
       dwExitCode = ( DWORD ) -1;
    else
-      GetExitCodeProcess( prInfo.hProcess, &dwExitCode );
+      GetExitCodeProcess(prInfo.hProcess, &dwExitCode);
 
    CloseHandle(prInfo.hThread);
    CloseHandle(prInfo.hProcess);
@@ -935,7 +935,7 @@ HB_FUNC( CREATEFOLDER )
 #else
    LPCWSTR lpPathName = AnsiToWide(hb_parc(1));
 #endif
-   hb_retl( CreateDirectory( lpPathName, NULL ) );
+   hb_retl( CreateDirectory(lpPathName, NULL) );
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpPathName);
 #endif
@@ -948,7 +948,7 @@ HB_FUNC( SETCURRENTFOLDER )
 #else
    LPCWSTR lpPathName = AnsiToWide(hb_parc(1));
 #endif
-   hb_retl( SetCurrentDirectory( lpPathName ) );
+   hb_retl( SetCurrentDirectory(lpPathName) );
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpPathName);
 #endif
@@ -961,7 +961,7 @@ HB_FUNC( REMOVEFOLDER )
 #else
    LPCWSTR lpPathName = AnsiToWide(hb_parc(1));
 #endif
-   hb_retl( RemoveDirectory( lpPathName ) );
+   hb_retl( RemoveDirectory(lpPathName) );
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpPathName);
 #endif
@@ -974,7 +974,7 @@ HB_FUNC( GETCURRENTFOLDER )
 #ifdef UNICODE
    LPSTR pStr;
 #endif
-   GetCurrentDirectory( MAX_PATH, Path );
+   GetCurrentDirectory(MAX_PATH, Path);
 #ifndef UNICODE
    hb_retc( Path );
 #else
@@ -1147,7 +1147,7 @@ HB_FUNC( WINVERSION )
                      szVersion = TEXT(const_cast<char*>("Unknown Operating System"));
                }
 
-               RegCloseKey( hKey );
+               RegCloseKey(hKey);
 
                if( lstrcmpi( TEXT("Unknown Operating System"), szVersion ) != 0 )
                {
@@ -1160,9 +1160,9 @@ HB_FUNC( WINVERSION )
                   if( lstrcmpi( TEXT("SERVERNT"), szProductType ) == 0 )
                      szVersionEx = TEXT(const_cast<char*>("Advanced Server "));
 
-                  szVersion = lstrcat( szVersion, _itot( osvi.dwMajorVersion, buffer, 10 ) );
-                  szVersion = lstrcat( szVersion, TEXT(".") );
-                  szVersion = lstrcat( szVersion, _itot( osvi.dwMinorVersion, buffer, 10 ) );
+                  szVersion = lstrcat(szVersion, _itot(osvi.dwMajorVersion, buffer, 10));
+                  szVersion = lstrcat(szVersion, TEXT("."));
+                  szVersion = lstrcat(szVersion, _itot(osvi.dwMinorVersion, buffer, 10));
                }
             }
 
@@ -1182,20 +1182,20 @@ HB_FUNC( WINVERSION )
                if( lRetVal == ERROR_SUCCESS )
                {
                   szServicePack = TEXT(const_cast<char*>("Service Pack 6a"));
-                  szBuild       = _itot( osvi.dwBuildNumber & 0xFFFF, buffer, 10 );
+                  szBuild       = _itot(osvi.dwBuildNumber & 0xFFFF, buffer, 10);
                }
                else
                {
                   szServicePack = osvi.szCSDVersion;
-                  szBuild       = _itot( osvi.dwBuildNumber & 0xFFFF, buffer, 10 );
+                  szBuild       = _itot(osvi.dwBuildNumber & 0xFFFF, buffer, 10);
                }
 
-               RegCloseKey( hKey );
+               RegCloseKey(hKey);
             }
             else
             {
                szServicePack = osvi.szCSDVersion;
-               szBuild       = _itot( osvi.dwBuildNumber & 0xFFFF, buffer, 10 );
+               szBuild       = _itot(osvi.dwBuildNumber & 0xFFFF, buffer, 10);
             }
             break;
 
@@ -1221,7 +1221,7 @@ HB_FUNC( WINVERSION )
                   }
                }
 
-               szBuild = _itot( osvi.dwBuildNumber & 0x0000FFFF, buffer, 10 );
+               szBuild = _itot(osvi.dwBuildNumber & 0x0000FFFF, buffer, 10);
             }
 
             if( ( osvi.dwMajorVersion == 4 ) && ( osvi.dwMinorVersion == 10 ) )
@@ -1237,13 +1237,13 @@ HB_FUNC( WINVERSION )
                   szServicePack = TEXT(const_cast<char*>("First Edition"));
                }
 
-               szBuild = _itot( osvi.dwBuildNumber & 0x0000FFFF, buffer, 10 );
+               szBuild = _itot(osvi.dwBuildNumber & 0x0000FFFF, buffer, 10);
             }
 
             if( ( osvi.dwMajorVersion == 4 ) && ( osvi.dwMinorVersion == 90 ) )
             {
                szVersion = TEXT(const_cast<char*>("Windows ME"));
-               szBuild   = _itot( osvi.dwBuildNumber & 0x0000FFFF, buffer, 10 );
+               szBuild   = _itot(osvi.dwBuildNumber & 0x0000FFFF, buffer, 10);
             }
             break;
       }
@@ -1284,12 +1284,12 @@ HB_FUNC( GETDLLVERSION )
    LPCWSTR lpLibFileName = AnsiToWide(hb_parc(1));
 #endif
 
-   hModule = LoadLibrary( lpLibFileName );
+   hModule = LoadLibrary(lpLibFileName);
    if( hModule )
    {
       DLLGETVERSIONPROC fnDllGetVersion;
 
-      fnDllGetVersion = ( DLLGETVERSIONPROC ) wapi_GetProcAddress( hModule, "DllGetVersion" );
+      fnDllGetVersion = ( DLLGETVERSIONPROC ) wapi_GetProcAddress(hModule, "DllGetVersion");
 
       if( fnDllGetVersion )
       {
@@ -1297,7 +1297,7 @@ HB_FUNC( GETDLLVERSION )
 
          dvi.cbSize = sizeof(dvi);
 
-         if( fnDllGetVersion( &dvi ) == S_OK )
+         if( fnDllGetVersion(&dvi) == S_OK )
          {
             dwMajorVersion = dvi.dwMajorVersion;
             dwMinorVersion = dvi.dwMinorVersion;
@@ -1307,7 +1307,7 @@ HB_FUNC( GETDLLVERSION )
       else
          MessageBox(NULL, TEXT("Cannot get DllGetVersion function."), TEXT("DllGetVersion"), MB_OK | MB_ICONERROR);
 
-      FreeLibrary( hModule );
+      FreeLibrary(hModule);
    }
 
    hb_reta(3);
@@ -1393,7 +1393,7 @@ BOOL IsAppHung(IN HWND hWnd, OUT PBOOL pbHung)
 
       // found the function IsHungAppWindow
       *( FARPROC * )&_IsHungAppWindow =
-         GetProcAddress( hUser, "IsHungAppWindow" );
+         GetProcAddress(hUser, "IsHungAppWindow");
       if( _IsHungAppWindow == NULL )
          return SetLastError( ERROR_PROC_NOT_FOUND ), FALSE;
 
@@ -1408,7 +1408,7 @@ BOOL IsAppHung(IN HWND hWnd, OUT PBOOL pbHung)
 
       // found the function IsHungThread
       *( FARPROC * )&_IsHungThread =
-         GetProcAddress( hUser, "IsHungThread" );
+         GetProcAddress(hUser, "IsHungThread");
       if( _IsHungThread == NULL )
          return SetLastError( ERROR_PROC_NOT_FOUND ), FALSE;
 
@@ -1443,7 +1443,7 @@ HB_FUNC( ISAPPHUNG )
 #define PROCESS_QUERY_LIMITED_INFORMATION  ( 0x1000 )
 #endif
 
-// EmptyWorkingSet( [ ProcessID ] ) ---> lBoolean
+// EmptyWorkingSet([ProcessID]) ---> lBoolean
 HB_FUNC( EMPTYWORKINGSET )
 {
    // It removes as many pages as possible from the process working set (clean the working set memory).
@@ -1456,24 +1456,24 @@ HB_FUNC( EMPTYWORKINGSET )
 
    if( pEmptyWorkingSet == NULL )
    {
-      HMODULE hLib = LoadLibrary( TEXT("Kernel32.dll") );
-      pEmptyWorkingSet = ( Func_EmptyWorkingSet ) wapi_GetProcAddress( hLib, "K32EmptyWorkingSet" );
+      HMODULE hLib = LoadLibrary(TEXT("Kernel32.dll"));
+      pEmptyWorkingSet = ( Func_EmptyWorkingSet ) wapi_GetProcAddress(hLib, "K32EmptyWorkingSet");
    }
 
    if( pEmptyWorkingSet == NULL )
    {
-      HMODULE hLib = LoadLibrary( TEXT("Psapi.dll") );
-      pEmptyWorkingSet = ( Func_EmptyWorkingSet ) wapi_GetProcAddress( hLib, "K32EmptyWorkingSet" );
+      HMODULE hLib = LoadLibrary(TEXT("Psapi.dll"));
+      pEmptyWorkingSet = ( Func_EmptyWorkingSet ) wapi_GetProcAddress(hLib, "K32EmptyWorkingSet");
    }
 
    if( pEmptyWorkingSet != NULL )
    {
       ProcessID = HB_ISNUM(1) ? ( DWORD ) hb_parnl(1) : GetCurrentProcessId();
 
-      hProcess = OpenProcess( PROCESS_QUERY_LIMITED_INFORMATION | PROCESS_SET_QUOTA, FALSE, ProcessID );
+      hProcess = OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION | PROCESS_SET_QUOTA, FALSE, ProcessID);
       if( hProcess != NULL )
       {
-         hb_retl( ( BOOL ) pEmptyWorkingSet( hProcess ) );
+         hb_retl( ( BOOL ) pEmptyWorkingSet(hProcess) );
 
          CloseHandle(hProcess);
       }
@@ -1495,14 +1495,14 @@ typedef INT ( WINAPI * _GETCOMPACTPATH )( LPTSTR pszOut, LPTSTR pszSrc, INT cchM
 
 HB_FUNC( GETCOMPACTPATH )
 {
-   HINSTANCE handle = LoadLibrary( TEXT("shlwapi.dll") );
+   HINSTANCE handle = LoadLibrary(TEXT("shlwapi.dll"));
 
    if( handle )
    {
       _GETCOMPACTPATH pFunc;
-      pFunc = ( _GETCOMPACTPATH ) wapi_GetProcAddress( handle, "PathCompactPathExA" );
+      pFunc = ( _GETCOMPACTPATH ) wapi_GetProcAddress(handle, "PathCompactPathExA");
       hb_retni( pFunc( ( LPTSTR ) hb_parc(1), ( LPTSTR ) hb_parc(2), hmg_par_INT(3), ( DWORD ) hb_parnl(4) ) );
-      FreeLibrary( handle );
+      FreeLibrary(handle);
    }
 }
 
@@ -1524,10 +1524,10 @@ HB_FUNC( GETSHORTPATHNAME )
    if( iRet < MAX_PATH )
    {
 #ifndef UNICODE
-      hb_retni( hb_storclen( buffer, ( HB_SIZE ) iRet, 2 ) );
+      hb_retni( hb_storclen(buffer, ( HB_SIZE ) iRet, 2) );
 #else
       pStr = WideToAnsi(buffer);
-      hb_retni( hb_storclen( pStr, ( HB_SIZE ) iRet, 2 ) );
+      hb_retni( hb_storclen(pStr, ( HB_SIZE ) iRet, 2) );
       hb_xfree(pStr);
 #endif
    }
@@ -1559,7 +1559,7 @@ HB_FUNC( DRAWTEXT )
    (
       hmg_par_HDC(1),       // device context
       lpchText,                    // pointer to string
-      ( int ) lstrlen( lpchText ), // length of  string
+      ( int ) lstrlen(lpchText), // length of  string
       &rc,                         // rectangle
       hb_parni(7)                // draw style
    );
@@ -1692,7 +1692,7 @@ HB_FUNC( GETOBJECTTYPE )
  */
 HB_FUNC( DRAGACCEPTFILES )
 {
-   DragAcceptFiles( hmg_par_HWND(1), hb_parl(2) );
+   DragAcceptFiles(hmg_par_HWND(1), hb_parl(2));
 }
 
 HB_FUNC( DRAGQUERYFILES )
@@ -1797,15 +1797,15 @@ HB_FUNC( HMG_GETLOCALEINFO )
    --------------------------------------------------------------------------------
  */
 #ifndef UNICODE
-static HRESULT CreateShortCut( LPSTR pszTargetfile, LPSTR pszTargetargs,
-                               LPSTR pszLinkfile, LPSTR pszDescription,
-                               int iShowmode, LPSTR pszCurdir,
-                               LPSTR pszIconfile, int iIconindex )
+static HRESULT CreateShortCut(LPSTR pszTargetfile, LPSTR pszTargetargs,
+                              LPSTR pszLinkfile, LPSTR pszDescription,
+                              int iShowmode, LPSTR pszCurdir,
+                              LPSTR pszIconfile, int iIconindex)
 #else
-static HRESULT CreateShortCut( LPWSTR pszTargetfile, LPWSTR pszTargetargs,
-                               LPWSTR pszLinkfile, LPWSTR pszDescription,
-                               int iShowmode, LPWSTR pszCurdir,
-                               LPWSTR pszIconfile, int iIconindex )
+static HRESULT CreateShortCut(LPWSTR pszTargetfile, LPWSTR pszTargetargs,
+                              LPWSTR pszLinkfile, LPWSTR pszDescription,
+                              int iShowmode, LPWSTR pszCurdir,
+                              LPWSTR pszIconfile, int iIconindex)
 #endif
 {
    HRESULT        hRes;                /* Returned COM result code */
@@ -1815,9 +1815,9 @@ static HRESULT CreateShortCut( LPWSTR pszTargetfile, LPWSTR pszTargetargs,
 
    hRes = E_INVALIDARG;
    if(
-      ( pszTargetfile != NULL ) && ( lstrlen( pszTargetfile ) > 0 ) &&
+      ( pszTargetfile != NULL ) && ( lstrlen(pszTargetfile) > 0 ) &&
       ( pszTargetargs != NULL ) &&
-      ( pszLinkfile != NULL ) && ( lstrlen( pszLinkfile ) > 0 ) &&
+      ( pszLinkfile != NULL ) && ( lstrlen(pszLinkfile) > 0 ) &&
       ( pszDescription != NULL ) &&
       ( iShowmode >= 0 ) &&
       ( pszCurdir != NULL ) &&
@@ -1834,22 +1834,22 @@ static HRESULT CreateShortCut( LPWSTR pszTargetfile, LPWSTR pszTargetargs,
       {
          /* Set the fields in the IShellLink object */
          pShellLink->lpVtbl->SetPath(pShellLink, pszTargetfile);
-         pShellLink->lpVtbl->SetArguments( pShellLink, pszTargetargs );
-         if( lstrlen( pszDescription ) > 0 )
+         pShellLink->lpVtbl->SetArguments(pShellLink, pszTargetargs);
+         if( lstrlen(pszDescription) > 0 )
          {
-            pShellLink->lpVtbl->SetDescription( pShellLink, pszDescription );
+            pShellLink->lpVtbl->SetDescription(pShellLink, pszDescription);
          }
          if( iShowmode > 0 )
          {
             pShellLink->lpVtbl->SetShowCmd( pShellLink, iShowmode );
          }
-         if( lstrlen( pszCurdir ) > 0 )
+         if( lstrlen(pszCurdir) > 0 )
          {
-            pShellLink->lpVtbl->SetWorkingDirectory( pShellLink, pszCurdir );
+            pShellLink->lpVtbl->SetWorkingDirectory(pShellLink, pszCurdir);
          }
-         if( lstrlen( pszIconfile ) > 0 && iIconindex >= 0 )
+         if( lstrlen(pszIconfile) > 0 && iIconindex >= 0 )
          {
-            pShellLink->lpVtbl->SetIconLocation( pShellLink, pszIconfile, iIconindex );
+            pShellLink->lpVtbl->SetIconLocation(pShellLink, pszIconfile, iIconindex);
          }
 
          /* Use the IPersistFile object to save the shell link */
@@ -1908,21 +1908,21 @@ HB_FUNC( CREATELINK )
    szCurdir      = HB_ISCHAR(6) ? AnsiToWide(( char * ) hb_parc(6)) : TEXT("");
    szIconfile    = HB_ISCHAR(7) ? AnsiToWide(( char * ) hb_parc(7)) : TEXT("");
 #endif
-   iShowmode  = hb_parnidef( 5, 0 );
-   iIconindex = hb_parnidef( 8, 0 );
+   iShowmode  = hb_parnidef(5, 0);
+   iIconindex = hb_parnidef(8, 0);
 
    /* Call CoInitialize() and create the link if OK. */
    hRes = CoInitialize(NULL);
    if( SUCCEEDED( hRes ) )
    {
-      hRes = CreateShortCut( szTargetfile,  /* Targetfile */
-                             szTargetargs,  /* Target arguments */
-                             szLinkfile,    /* Short-cut filename */
-                             szDescription, /* Short-cut description */
-                             iShowmode,     /* Showmode constant */
-                             szCurdir,      /* Working directory for linked file */
-                             szIconfile,    /* Icon file shown for the link */
-                             iIconindex );  /* Index of icon in the file */
+      hRes = CreateShortCut(szTargetfile,  /* Targetfile */
+                            szTargetargs,  /* Target arguments */
+                            szLinkfile,    /* Short-cut filename */
+                            szDescription, /* Short-cut description */
+                            iShowmode,     /* Showmode constant */
+                            szCurdir,      /* Working directory for linked file */
+                            szIconfile,    /* Icon file shown for the link */
+                            iIconindex);   /* Index of icon in the file */
       if( SUCCEEDED( hRes ) )
       {
          hb_retnl( hRes );

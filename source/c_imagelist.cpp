@@ -255,7 +255,7 @@ HB_FUNC( IL_ENDDRAG )      //IL_EndDrag(hwnd)
    ImageList_DragLeave(hmg_par_HWND(1));
 }
 
-HB_FUNC( IL_GETIMAGECOUNT ) //IL_GetImageCount( himl )
+HB_FUNC( IL_GETIMAGECOUNT ) //IL_GetImageCount(himl)
 {
-   hb_retni( ImageList_GetImageCount( hmg_par_HIMAGELIST(1) ) );
+   hb_retni( ImageList_GetImageCount(hmg_par_HIMAGELIST(1)) );
 }

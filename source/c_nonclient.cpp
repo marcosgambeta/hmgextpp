@@ -183,7 +183,7 @@ HB_FUNC( SETNONCLIENTFONT )
 #else
    lstrcpy(lf.lfFaceName, hb_parc(2));
 #endif
-   lf.lfHeight  = -MulDiv( hb_parni(3), GetDeviceCaps(hDC, LOGPIXELSY), 72 );
+   lf.lfHeight  = -MulDiv(hb_parni(3), GetDeviceCaps(hDC, LOGPIXELSY), 72);
    lf.lfWeight  = ( HB_ISLOG(4) && hb_parl(4) ) ? 700 : 400;
    lf.lfCharSet = ( BYTE ) ( HB_ISNIL(5) ? 0 : hb_parni(5) );
 

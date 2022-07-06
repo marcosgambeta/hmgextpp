@@ -226,7 +226,7 @@ HB_FUNC( INITTOOLBUTTON )
    HB_RETNL( ( LONG_PTR ) himage );
 }
 
-LONG WidestBtn( LPCTSTR pszStr, HWND hwnd )
+LONG WidestBtn(LPCTSTR pszStr, HWND hwnd)
 {
    SIZE    sz;
    LOGFONT lf;
@@ -375,13 +375,13 @@ HB_FUNC( INITTOOLBUTTONEX )
 #ifdef UNICODE
       hb_xfree(lpText);
 #endif
-      tSize = WidestBtn( ( LPCTSTR ) hb_parc(2), hwndTB );
+      tSize = WidestBtn(( LPCTSTR ) hb_parc(2), hwndTB);
       tmax  = HIWORD(tSize);
       for( int i = 0; i < xBtn; i++ )
       {
          SendMessage(hwndTB, TB_GETBUTTON, i, ( LPARAM ) &lpBtn);
          SendMessage(hwndTB, TB_GETBUTTONTEXT, lpBtn.idCommand, ( LPARAM ) ( LPCTSTR ) cBuff);
-         tSize = WidestBtn( cBuff, hwndTB );
+         tSize = WidestBtn(cBuff, hwndTB);
          if( tmax < HIWORD(tSize) )
             tmax = HIWORD(tSize);
       }
@@ -440,10 +440,10 @@ HB_FUNC( INITTOOLBUTTONEX )
          if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT && osvi.dwMajorVersion <= 4 )
          {
             if( ! ( TbStyle & TBSTYLE_LIST ) )
-               SendMessage(hwndTB, TB_SETPADDING, 0, MAKELPARAM( px, py ));
+               SendMessage(hwndTB, TB_SETPADDING, 0, MAKELPARAM(px, py));
          }
          else if( ! ( Style & BTNS_SHOWTEXT ) )
-            SendMessage(hwndTB, TB_SETPADDING, 0, MAKELPARAM( px, py ));
+            SendMessage(hwndTB, TB_SETPADDING, 0, MAKELPARAM(px, py));
 
          SendMessage(hwndTB, TB_SETBITMAPSIZE, 0, ( LPARAM ) MAKELONG(ix, iy));
       }
@@ -570,7 +570,7 @@ HB_FUNC( MAXTEXTBTNTOOLBAR )
       SendMessage(hwndTB, TB_GETBUTTON, i, ( LPARAM ) &lpBtn);
       SendMessage(hwndTB, TB_GETBUTTONTEXT, lpBtn.idCommand, ( LPARAM ) ( LPCTSTR ) cString);
 
-      tSize = WidestBtn( cString, hwndTB );
+      tSize = WidestBtn(cString, hwndTB);
       ty    = HIWORD(tSize);
 
       if( tmax < LOWORD(tSize) )
@@ -795,7 +795,7 @@ HB_FUNC( SETCAPTIONSPLITBOXITEM )
 #endif
 }
 
-int TestHidenBtn( HWND tbHwnd, RECT rcRb, INT dv, INT nBtn )
+int TestHidenBtn(HWND tbHwnd, RECT rcRb, INT dv, INT nBtn)
 {
    RECT rcDst, rcBt;
    int  nBtnV = 0;
@@ -850,7 +850,7 @@ HB_FUNC( CREATEPOPUPCHEVRON )
    dv   = rcTB.left - rcRR.left + 1;
    nBtn = ( INT ) SendMessage(( HWND ) tbHwnd, TB_BUTTONCOUNT, 0, 0);
 
-   tx = TestHidenBtn( ( HWND ) tbHwnd, rcRb, dv, nBtn );
+   tx = TestHidenBtn(( HWND ) tbHwnd, rcRb, dv, nBtn);
 
    hb_reta(7);
    HB_STORVNL( rcCvr.left, -1, 1 );
@@ -896,12 +896,12 @@ HB_FUNC( GETIMAGELIST )
 
 HB_FUNC( SETCHEVRONIMAGE )
 {
-   SetMenuItemBitmaps( hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND, hmg_par_HBITMAP(3), hmg_par_HBITMAP(3) );
+   SetMenuItemBitmaps(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND, hmg_par_HBITMAP(3), hmg_par_HBITMAP(3));
 }
 
 HB_FUNC( DESTROYMENU )
 {
-   DestroyMenu( hmg_par_HMENU(1) );
+   DestroyMenu(hmg_par_HMENU(1));
 }
 
 HB_FUNC( ADJUSTFLOATTOOLBAR )
@@ -921,7 +921,7 @@ HB_FUNC( ADJUSTFLOATTOOLBAR )
    width += 2 * GetSystemMetrics(SM_CXDLGFRAME);
    pt.x   = pt.y = 50;
 
-   MapWindowPoints( hmg_par_HWND(1), HWND_DESKTOP, ( LPPOINT ) &pt, 1 );
+   MapWindowPoints(hmg_par_HWND(1), HWND_DESKTOP, ( LPPOINT ) &pt, 1);
    MoveWindow(hmg_par_HWND(2), pt.x, pt.y, width, height, TRUE);
 }
 
@@ -964,7 +964,7 @@ int ResizeToolbar( HWND hwndTB, int widthTb )
    hwndParent = GetParent(hwndTB);
    style      = GetWindowLong(hwndParent, GWL_STYLE);
    AdjustWindowRect(&rcb, style, 0);
-   MapWindowPoints( hwndParent, HWND_DESKTOP, ( LPPOINT ) &rcb, 2 );
+   MapWindowPoints(hwndParent, HWND_DESKTOP, ( LPPOINT ) &rcb, 2);
 
    nBtnRow = nButtons / ( nrow );
    if( nrow > 1 )

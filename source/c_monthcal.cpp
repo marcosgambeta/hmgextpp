@@ -114,7 +114,7 @@ HB_FUNC( INITMONTHCAL )
 
    hmonthcal = CreateWindowEx(0, MONTHCAL_CLASS, TEXT(""), Style, 0, 0, 0, 0, hwnd, hmg_par_HMENU(2), GetInstance(), NULL);
 
-   SetProp( ( HWND ) hmonthcal, TEXT("oldmcproc"), ( HWND ) GetWindowLongPtr(( HWND ) hmonthcal, GWLP_WNDPROC) );
+   SetProp(( HWND ) hmonthcal, TEXT("oldmcproc"), ( HWND ) GetWindowLongPtr(( HWND ) hmonthcal, GWLP_WNDPROC));
    SetWindowLongPtr(hmonthcal, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnMCProc);
 
    if( hb_parl(14) )
@@ -207,7 +207,7 @@ HB_FUNC( SETPOSMONTHCAL )
    if( dwWidth > ( DWORD ) rc.right )
       rc.right = dwWidth;
 
-   if( hb_parldef( 4, HB_FALSE ) )
+   if( hb_parldef(4, HB_FALSE) )
       InflateRect(&rc, 6, 6);
 
    SetWindowPos(hWndMonthCal, NULL, hb_parni(2), hb_parni(3), rc.right, rc.bottom, SWP_NOZORDER);
@@ -228,7 +228,7 @@ HB_FUNC( GETMONTHRANGE )
 }
 
 #ifndef BOLDDAY
-# define BOLDDAY( ds, iDay )  if( iDay > 0 && iDay < 32 )( ds ) |= ( 0x00000001 << ( iDay - 1 ) )
+# define BOLDDAY(ds, iDay)  if( iDay > 0 && iDay < 32 )( ds ) |= ( 0x00000001 << ( iDay - 1 ) )
 #endif
 
 HB_FUNC( C_SETDAYSTATE )
@@ -249,7 +249,7 @@ HB_FUNC( C_SETDAYSTATE )
       {
          if( hb_arrayGetNI( hArray, i * 32 + j ) == 1 )
          {
-            BOLDDAY( rgMonths[ i ], j );
+            BOLDDAY(rgMonths[ i ], j);
          }
       }
    }
@@ -276,7 +276,7 @@ HB_FUNC( C_RETDAYSTATE )
       {
          if( hb_arrayGetNI( hArray, i * 32 + j ) == 1 )
          {
-            BOLDDAY( rgMonths[ i ], j );
+            BOLDDAY(rgMonths[ i ], j);
          }
       }
    }
@@ -300,13 +300,13 @@ LRESULT CALLBACK OwnMCProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
    long int        r;
    WNDPROC         OldWndProc;
 
-   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp( hwnd, TEXT("oldmcproc") );
+   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp(hwnd, TEXT("oldmcproc"));
 
    switch( Msg )
    {
       case WM_DESTROY:
          SetWindowLongPtr(hwnd, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OldWndProc);
-         RemoveProp( hwnd, TEXT("oldmcproc") );
+         RemoveProp(hwnd, TEXT("oldmcproc"));
          break;
 
       case WM_MOUSEACTIVATE:

@@ -75,9 +75,9 @@
 #define FLN_FINISH       ( FLN_FIRST - 7 )
 
 extern PWORD   CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray);
-extern long    GetSizeDlgTemp( PHB_ITEM dArray, PHB_ITEM cArray );
+extern long    GetSizeDlgTemp(PHB_ITEM dArray, PHB_ITEM cArray);
 
-extern HB_PTRUINT wapi_GetProcAddress( HMODULE hModule, LPCSTR lpProcName );
+extern HB_PTRUINT wapi_GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
 
 typedef BOOL ( WINAPI * fnIsAppThemed )(void);
 
@@ -165,8 +165,8 @@ typedef struct _FLHNOTIFY
 } FLHNOTIFY, FAR * LPFLHNOTIFY;
 
 VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi);
-DLGTEMPLATE * WINAPI FLD_SetStyleDlgRes( DLGTEMPLATE * pTemplate, DWORD resSize );
-DLGTEMPLATE * WINAPI FLD_LockDlgRes( TCHAR * lpszResName );
+DLGTEMPLATE * WINAPI FLD_SetStyleDlgRes(DLGTEMPLATE * pTemplate, DWORD resSize);
+DLGTEMPLATE * WINAPI FLD_LockDlgRes(TCHAR * lpszResName);
 BOOL WINAPI IsAppThemed(void);
 VOID WINAPI       FLD_SelChanged( HWND hWndDlg );
 VOID WINAPI       FLD_ChildDialogInit(HWND hWndDlg, HWND hWndParent, int idrc);
@@ -174,14 +174,14 @@ LRESULT CALLBACK  HMG_PageFldProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
 VOID WINAPI       FLD_DialogAlign(HWND hWndDlg);
 static BOOL       FLD_PageInfo(DLGTEMPLATE * pTemplate, FLDHDRINFO * pFhi, int index, BOOL resize);
 static BOOL       FLD_DoCommand( HWND hWndDlg, WORD wID );
-static BOOL       FLD_Apply( HWND hWndDlg, LPARAM lParam );
+static BOOL       FLD_Apply(HWND hWndDlg, LPARAM lParam);
 static void       FLD_Cancel( HWND hWndDlg, LPARAM lParam );
 static BOOL       FLD_ShowPage(HWND hWndDlg, int index, FLDHDRINFO * pFhi);
 static void       FLD_Changed( HWND hWndParent, HWND hWndDlg );
 static void       FLD_UnChanged( HWND hWndParent, HWND hWndDlg );
 static LRESULT    FLD_HwndToIndex(HWND hWndDlg, HWND hPageDlg);
-static void       FLD_CleanUp( HWND hWndDlg );
-static void       FLD_Help( HWND hwndDlg );
+static void       FLD_CleanUp(HWND hWndDlg);
+static void       FLD_Help(HWND hwndDlg);
 static void       FLD_AddBitmap(HWND hWndFolder);
 static BOOL       FLD_isAppThemed(void);
 
@@ -195,7 +195,7 @@ static BOOL FLD_isAppThemed(void)
 
    if( hUxTheme )
    {
-      fnIsAppThemed pfn = ( fnIsAppThemed ) wapi_GetProcAddress( hUxTheme, "IsAppThemed" );
+      fnIsAppThemed pfn = ( fnIsAppThemed ) wapi_GetProcAddress(hUxTheme, "IsAppThemed");
       if( pfn )
          bRet = ( BOOL ) pfn();
    }
@@ -347,7 +347,7 @@ HB_FUNC( CREATEFOLDERPAGEINDIRECT )
    sArray        = hb_param(1, Harbour::Item::ARRAY); //Folder Array
    dArray        = hb_param(2, Harbour::Item::ARRAY); //Folder Page Array
    cArray        = hb_param(3, Harbour::Item::ARRAY); //Page Controls Array
-   lTemplateSize = GetSizeDlgTemp( dArray, cArray );
+   lTemplateSize = GetSizeDlgTemp(dArray, cArray);
    pdlgtemplate  = ( DLGTEMPLATE * ) CreateDlgTemplate(lTemplateSize, dArray, cArray);
    ZeroMemory(pfpi, sizeof(FLDPAGEINFO));
 
@@ -370,7 +370,7 @@ HB_FUNC( CREATEFOLDERPAGEINDIRECT )
    pfpi->apRes    = ( DLGTEMPLATE * ) pdlgtemplate;
    pfpi->hwndPage = 0;
    pfpi->isDirty  = FALSE;
-   if( lstrlen( ImageName ) )
+   if( lstrlen(ImageName) )
    {
       pfpi->hasIcon     = TRUE;
       pfpi->pszTemplate = ImageName;
@@ -417,10 +417,10 @@ HB_FUNC( CREATEFOLDERPAGE )
    pfpi->pszText     = strTitle;
    pfpi->idrc        = idRC;
 
-   pfpi->apRes    = FLD_LockDlgRes( ( TCHAR * ) MAKEINTRESOURCE(idRC) );
+   pfpi->apRes    = FLD_LockDlgRes(( TCHAR * ) MAKEINTRESOURCE(idRC));
    pfpi->hwndPage = 0;
    pfpi->isDirty  = FALSE;
-   if( lstrlen( caption ) )
+   if( lstrlen(caption) )
    {
       pfpi->hasIcon     = TRUE;
       pfpi->pszTemplate = caption;
@@ -468,7 +468,7 @@ HB_FUNC( CREATEDLGFOLDER )
    //  _HMG_aFolderTemplate -> {0,ParentHandle,modal,style,styleEx ,x,y,w,h,caption,fontname,fontsize,bold,Italic,lOkBtn,lApplyBtn,lCancelBtn, buttons , flat , hottrack , vertical , bottom, multiline}
    modal = hb_arrayGetL( pArray, 3 );
 
-   nPages = ( int ) hb_arrayLen( sArray );
+   nPages = ( int ) hb_arrayLen(sArray);
    x      = hb_arrayGetNI( pArray, 6 );      //x
    y      = hb_arrayGetNI( pArray, 7 );      //y
    cx     = hb_arrayGetNI( pArray, 8 );      //w
@@ -505,10 +505,10 @@ HB_FUNC( CREATEDLGFOLDER )
    pFhi->hwnd        = hWndDlg;
    pFhi->fhpage      = hfpi;
    pFhi->nPages      = nPages;
-   pFhi->x           = MulDiv( x, 4, baseunitX );  // x
-   pFhi->y           = MulDiv( y, 8, baseunitY );  // y
-   pFhi->cx          = MulDiv( cx, 4, baseunitX ); // cx
-   pFhi->cy          = MulDiv( cy, 8, baseunitY ); // cy
+   pFhi->x           = MulDiv(x, 4, baseunitX);  // x
+   pFhi->y           = MulDiv(y, 8, baseunitY);  // y
+   pFhi->cx          = MulDiv(cx, 4, baseunitX); // cx
+   pFhi->cy          = MulDiv(cy, 8, baseunitY); // cy
    pFhi->hasOk       = hb_arrayGetL( pArray, 15 );
    pFhi->hasApply    = hb_arrayGetL( pArray, 16 );
    pFhi->hasCancel   = hb_arrayGetL( pArray, 17 );
@@ -519,18 +519,18 @@ HB_FUNC( CREATEDLGFOLDER )
    pFhi->nIdFld      = nIdFld;
    pFhi->FolderStyle = Style;
 
-   lTemplateSize = GetSizeDlgTemp( pArray, cArray );
+   lTemplateSize = GetSizeDlgTemp(pArray, cArray);
    pdlgtemplate  = ( LPDLGTEMPLATE ) CreateDlgTemplate(lTemplateSize, pArray, cArray);
 
    if( modal )
    {
-      lResult = DialogBoxIndirectParam( GetResources(), ( LPDLGTEMPLATE ) pdlgtemplate, hwnd, ( DLGPROC ) HMG_FldProc, ( LPARAM ) pFhi );
+      lResult = DialogBoxIndirectParam(GetResources(), ( LPDLGTEMPLATE ) pdlgtemplate, hwnd, ( DLGPROC ) HMG_FldProc, ( LPARAM ) pFhi);
       LocalFree(pdlgtemplate);
       HB_RETNL( ( LONG_PTR ) lResult );
    }
    else
    {
-      hWndDlg = CreateDialogIndirectParam( GetResources(), ( LPDLGTEMPLATE ) pdlgtemplate, hwnd, ( DLGPROC ) HMG_FldProc, ( LPARAM ) pFhi );
+      hWndDlg = CreateDialogIndirectParam(GetResources(), ( LPDLGTEMPLATE ) pdlgtemplate, hwnd, ( DLGPROC ) HMG_FldProc, ( LPARAM ) pFhi);
       LocalFree(pdlgtemplate);
    }
 
@@ -592,7 +592,7 @@ HB_FUNC( FOLDER_UNCHANGED )
 }
 
 /******************************************************************************
-      Folder_IsDirty( hWndParent )
+      Folder_IsDirty(hWndParent)
  *****************************************************************************/
 HB_FUNC( FOLDER_ISDIRTY )
 {
@@ -664,11 +664,11 @@ HB_FUNC( FOLDER_GETTABHANDLE )
 }
 
 /******************************************************************************
-      Folder_CleanUp( hWndParent )
+      Folder_CleanUp(hWndParent)
  *****************************************************************************/
 HB_FUNC( FOLDER_CLEANUP )
 {
-   FLD_CleanUp( hmg_par_HWND(1) );
+   FLD_CleanUp(hmg_par_HWND(1));
 }
 
 /*-----------------------------------------------------------------
@@ -725,11 +725,11 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
    {
       fpi         = ( FLDPAGEINFO * ) hfpi[ s ];
       tie.pszText = ( LPTSTR ) fpi->pszText;
-      TabCtrl_InsertItem( pFhi->hwndTab, s, &tie );
+      TabCtrl_InsertItem(pFhi->hwndTab, s, &tie);
    }
 
    // Determine the bounding rectangle for all child dialog boxes.
-   SetRectEmpty( &rcTab );
+   SetRectEmpty(&rcTab);
 
    //The x, y, cx, and cy members specify values in dialog box units.
    for( int i = 0; i < nPages; i++ )
@@ -776,7 +776,7 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
 
       if( hUxTheme != NULL )
       {
-         FreeLibrary( hUxTheme );
+         FreeLibrary(hUxTheme);
          hUxTheme = NULL;
       }
 
@@ -800,7 +800,7 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
          if( pFhi->hasOk )
          {
             // Move the first button "OK" below the tab control.
-            hwndButton = GetDlgItem( hWndDlg, FLBTN_OK );
+            hwndButton = GetDlgItem(hWndDlg, FLBTN_OK);
             GetWindowRect(hwndButton, &rcButton);
             buttonWidth  = rcButton.right - rcButton.left;
             buttonHeight = rcButton.bottom - rcButton.top;
@@ -813,7 +813,7 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
          if( pFhi->hasCancel )
          {
             // Move the second button "Cancel" to the right of the first.
-            hwndButton = GetDlgItem( hWndDlg, FLBTN_CANCEL );
+            hwndButton = GetDlgItem(hWndDlg, FLBTN_CANCEL);
             if( buttonHeight == 0 )
             {
                GetWindowRect(hwndButton, &rcButton);
@@ -830,7 +830,7 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
          if( pFhi->hasApply )
          {
             // Move the thrid button "Apply" to the right of the second.
-            hwndButton = GetDlgItem( hWndDlg, FLBTN_APPLY );
+            hwndButton = GetDlgItem(hWndDlg, FLBTN_APPLY);
             if( buttonHeight == 0 )
             {
                GetWindowRect(hwndButton, &rcButton);
@@ -849,7 +849,7 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
          if( pFhi->hasHelp )
          {
             // Move the thrid button "Help" to the right of the second.
-            hwndButton = GetDlgItem( hWndDlg, FLBTN_HELP );
+            hwndButton = GetDlgItem(hWndDlg, FLBTN_HELP);
             if( buttonHeight == 0 )
             {
                GetWindowRect(hwndButton, &rcButton);
@@ -880,7 +880,7 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
    FLD_SelChanged( hWndDlg );
 }
 
-DLGTEMPLATE * WINAPI FLD_SetStyleDlgRes( DLGTEMPLATE * pTemplate, DWORD resSize )
+DLGTEMPLATE * WINAPI FLD_SetStyleDlgRes(DLGTEMPLATE * pTemplate, DWORD resSize)
 {
    LPVOID temp;
 
@@ -926,7 +926,7 @@ DLGTEMPLATE * WINAPI FLD_SetStyleDlgRes( DLGTEMPLATE * pTemplate, DWORD resSize 
 // Returns the address of the locked resource.
 // lpszResName - name of the resource
 //-----------------------------------------------------------------
-DLGTEMPLATE * WINAPI FLD_LockDlgRes( TCHAR * lpszResName )
+DLGTEMPLATE * WINAPI FLD_LockDlgRes(TCHAR * lpszResName)
 {
    DLGTEMPLATE * pTemplate;
    DWORD         resSize;
@@ -939,7 +939,7 @@ DLGTEMPLATE * WINAPI FLD_LockDlgRes( TCHAR * lpszResName )
    hglb = LoadResource(GetResources(), hrsrc);
 
    pTemplate = ( DLGTEMPLATE * ) LockResource(hglb);
-   pTemplate = FLD_SetStyleDlgRes( pTemplate, resSize );
+   pTemplate = FLD_SetStyleDlgRes(pTemplate, resSize);
 
    return pTemplate;
 }
@@ -1071,7 +1071,7 @@ static BOOL FLD_PageInfo(DLGTEMPLATE * pTemplate, FLDHDRINFO * pFhi, int index, 
    {
       case 0x0000:   p++; break;
       case 0xffff:   p += 2; break;
-      default:       p += lstrlenW( ( LPCWSTR ) p ) + 1; break;
+      default:       p += lstrlenW(( LPCWSTR ) p) + 1; break;
    }
 
    /* class */
@@ -1079,7 +1079,7 @@ static BOOL FLD_PageInfo(DLGTEMPLATE * pTemplate, FLDHDRINFO * pFhi, int index, 
    {
       case 0x0000:   p++; break;
       case 0xffff:   p += 2; break;
-      default:       p += lstrlenW( ( LPCWSTR ) p ) + 1; break;
+      default:       p += lstrlenW(( LPCWSTR ) p) + 1; break;
    }
 
    /* Extract the caption */
@@ -1111,7 +1111,7 @@ static void FLD_Changed( HWND hWndParent, HWND hwndDirtyPage )
    /* Enable the Apply button.  */
    if( pFhi->hasApply && pFhi->activeValid )
    {
-      HWND hwndApplyBtn = GetDlgItem( hWndParent, FLBTN_APPLY );
+      HWND hwndApplyBtn = GetDlgItem(hWndParent, FLBTN_APPLY);
 
       EnableWindow(hwndApplyBtn, TRUE);
    }
@@ -1145,7 +1145,7 @@ static void FLD_UnChanged( HWND hWndParent, HWND hwndCleanPage )
    /* Disable Apply button.  */
    if( pFhi->hasApply )
    {
-      HWND hwndApplyBtn = GetDlgItem( hWndParent, FLBTN_APPLY );
+      HWND hwndApplyBtn = GetDlgItem(hWndParent, FLBTN_APPLY);
       if( noPageDirty )
          EnableWindow(hwndApplyBtn, FALSE);
    }
@@ -1162,10 +1162,10 @@ static BOOL FLD_DoCommand( HWND hWndDlg, WORD wID )
       case FLBTN_APPLY:
       {
          FLDHDRINFO * pFhi         = ( FLDHDRINFO * ) GetWindowLongPtr(hWndDlg, GWLP_USERDATA);
-         HWND         hwndApplyBtn = GetDlgItem( hWndDlg, FLBTN_APPLY );
+         HWND         hwndApplyBtn = GetDlgItem(hWndDlg, FLBTN_APPLY);
          if( pFhi->activeValid )
          {
-            if( FLD_Apply( hWndDlg, wID ) == FALSE )
+            if( FLD_Apply(hWndDlg, wID) == FALSE )
                break;
 
             if( wID == FLBTN_OK )
@@ -1208,7 +1208,7 @@ static BOOL FLD_DoCommand( HWND hWndDlg, WORD wID )
          break;
 
       case FLBTN_HELP:
-         FLD_Help( hWndDlg );
+         FLD_Help(hWndDlg);
          break;
 
       default:
@@ -1221,7 +1221,7 @@ static BOOL FLD_DoCommand( HWND hWndDlg, WORD wID )
 /*-----------------------------------------------------------------
        FLD_Apply()
    -----------------------------------------------------------------*/
-static BOOL FLD_Apply( HWND hWndDlg, LPARAM lParam )
+static BOOL FLD_Apply(HWND hWndDlg, LPARAM lParam)
 {
    FLDPAGEINFO *  fpi;
    HFLDPAGEINFO * hfpi;
@@ -1337,7 +1337,7 @@ static void FLD_Cancel( HWND hWndDlg, LPARAM lParam )
 /*-----------------------------------------------------------------
       FLD_Help()
    -----------------------------------------------------------------*/
-static void FLD_Help( HWND hWndDlg )
+static void FLD_Help(HWND hWndDlg)
 {
    FLDHDRINFO *   pFhi = ( FLDHDRINFO * ) GetWindowLongPtr(hWndDlg, GWLP_USERDATA);
    HWND           hwndPage;
@@ -1434,7 +1434,7 @@ static LRESULT FLD_HwndToIndex(HWND hWndDlg, HWND hPageDlg)
 /*-----------------------------------------------------------------
       FLD_CleanUp()
    -----------------------------------------------------------------*/
-static void FLD_CleanUp( HWND hWndDlg )
+static void FLD_CleanUp(HWND hWndDlg)
 {
    FLDHDRINFO * pFhi = ( FLDHDRINFO * ) GetWindowLongPtr(hWndDlg, GWLP_USERDATA);
 
@@ -1451,7 +1451,7 @@ static void FLD_CleanUp( HWND hWndDlg )
    }
 
    /* If we created the bitmaps, destroy them */
-   ImageList_Destroy( pFhi->hImageList );
+   ImageList_Destroy(pFhi->hImageList);
    LocalFree(pFhi->fhpage);
 
    GlobalFree(( HGLOBAL ) pFhi);
@@ -1516,7 +1516,7 @@ static void FLD_AddBitmap(HWND hWndFolder)
       {
          ImageList_GetIconSize(himl, &cx, &cy);
 
-         ImageList_Destroy( himl );
+         ImageList_Destroy(himl);
       }
 
       if( ( cx > 0 ) && ( cy > 0 ) )
@@ -1579,7 +1579,7 @@ static void FLD_AddBitmap(HWND hWndFolder)
             {
                tie.mask   = TCIF_IMAGE;
                tie.iImage = s;
-               TabCtrl_SetItem( ( HWND ) pFhi->hwndTab, s, &tie );
+               TabCtrl_SetItem(( HWND ) pFhi->hwndTab, s, &tie);
             }
          }
       }

@@ -383,7 +383,7 @@ LRESULT APIENTRY ChkLabelFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam
          tme.dwFlags     = TME_LEAVE;
          tme.hwndTrack   = hWnd;
          tme.dwHoverTime = HOVER_DEFAULT;
-         _TrackMouseEvent( &tme );
+         _TrackMouseEvent(&tme);
 
          if( ! pSymbol )
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OLABELEVENTS"));

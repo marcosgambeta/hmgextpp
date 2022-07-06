@@ -63,7 +63,7 @@ HB_FUNC( DBINSERT )
       if( HB_ISNUM(1) )
          ulRec = hb_parnl(1);
       else
-         SELF_RECNO( ( AREAP ) pArea, &ulRec );
+         SELF_RECNO(( AREAP ) pArea, &ulRec);
 
       if( ulRec == 0 || ulRec > pArea->ulRecCount )
          bOk = FALSE;
@@ -114,7 +114,7 @@ HB_FUNC( DBINSERT )
          }
       }
 
-      if( bOk && SELF_GOTO( ( AREAP ) pArea, ulRec ) != HB_SUCCESS )
+      if( bOk && SELF_GOTO(( AREAP ) pArea, ulRec) != HB_SUCCESS )
          bOk = FALSE;
    }
 

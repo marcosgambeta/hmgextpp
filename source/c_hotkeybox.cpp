@@ -58,7 +58,7 @@ LPSTR  WideToAnsi(LPWSTR);
 #endif
 HINSTANCE GetInstance(void);
 
-void InterpretHotKey( UINT setting, TCHAR * szKeyName )
+void InterpretHotKey(UINT setting, TCHAR * szKeyName)
 {
    BOOL Ctrl, Alt, Shift;
    UINT WorkKey, uCode, uVKey;
@@ -77,23 +77,23 @@ void InterpretHotKey( UINT setting, TCHAR * szKeyName )
    Alt   = uCode & HOTKEYF_ALT;
    Shift = uCode & HOTKEYF_SHIFT;
 
-   lstrcat( szKeyName, Ctrl ? TEXT("Ctrl + ") : TEXT("") );
-   lstrcat( szKeyName, Shift ? TEXT("Shift + ") : TEXT("") );
-   lstrcat( szKeyName, Alt ? TEXT("Alt + ") : TEXT("") );
+   lstrcat(szKeyName, Ctrl ? TEXT("Ctrl + ") : TEXT(""));
+   lstrcat(szKeyName, Shift ? TEXT("Shift + ") : TEXT(""));
+   lstrcat(szKeyName, Alt ? TEXT("Alt + ") : TEXT(""));
 
 #ifndef UNICODE
    lpString = szKeyName;
 #else
    lpString = AnsiToWide(( char * ) szKeyName);
 #endif
-   WorkKey = MapVirtualKey( uVKey, 0 );
+   WorkKey = MapVirtualKey(uVKey, 0);
 
    if( uCode & 0x00000008 )  // extended key
       WorkKey = 0x03000000 | ( WorkKey << 16 );
    else
       WorkKey = 0x02000000 | ( WorkKey << 16 );
 
-   GetKeyNameText(WorkKey, lpString + lstrlen( lpString ), 100);
+   GetKeyNameText(WorkKey, lpString + lstrlen(lpString), 100);
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpString);
@@ -114,13 +114,13 @@ HB_FUNC( C_GETHOTKEYNAME )
 
    wHotKey = ( WORD ) SendMessage(hWnd, HKM_GETHOTKEY, 0, 0);
 
-   InterpretHotKey( wHotKey, szKeyName );
+   InterpretHotKey(wHotKey, szKeyName);
 
 #ifndef UNICODE
-   hb_retclen( szKeyName, 100 );
+   hb_retclen(szKeyName, 100);
 #else
    pStr = WideToAnsi(szKeyName);
-   hb_retclen( pStr, 100 );
+   hb_retclen(pStr, 100);
    hb_xfree(pStr);
 #endif
 }
@@ -171,7 +171,7 @@ HB_FUNC( SETHOTKEYVALUE )
       SendMessage(hWnd, HKM_SETHOTKEY, wHotKey, 0);
 
    SendMessage(hWnd, HKM_SETRULES, ( WPARAM ) HKCOMB_NONE | HKCOMB_S,  // invalid key combinations
-               MAKELPARAM( HOTKEYF_ALT, 0 ));                         // add ALT to invalid entries
+               MAKELPARAM(HOTKEYF_ALT, 0));                         // add ALT to invalid entries
 }
 
 HB_FUNC( C_GETHOTKEYVALUE )

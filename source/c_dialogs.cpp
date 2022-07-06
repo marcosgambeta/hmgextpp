@@ -79,7 +79,7 @@ HB_FUNC( CHOOSEFONT )
    hwnd = GetActiveWindow();
    hdc  = GetDC(hwnd);
 
-   lf.lfHeight = -MulDiv( hb_parnl(2), GetDeviceCaps(hdc, LOGPIXELSY), 72 );
+   lf.lfHeight = -MulDiv(hb_parnl(2), GetDeviceCaps(hdc, LOGPIXELSY), 72);
 
    if( hb_parl(3) )
       lf.lfWeight = 700;
@@ -133,7 +133,7 @@ HB_FUNC( CHOOSEFONT )
       return;
    }
 
-   PointSize = -MulDiv( lf.lfHeight, 72, GetDeviceCaps(hdc, LOGPIXELSY) );
+   PointSize = -MulDiv(lf.lfHeight, 72, GetDeviceCaps(hdc, LOGPIXELSY));
 
    if( lf.lfWeight == 700 )
       bold = 1;
@@ -182,12 +182,12 @@ HB_FUNC( C_GETFILE )
 
    while( *p != '\0' )
    {
-      cont += ( int ) strlen( p ) + 1;
+      cont += ( int ) strlen(p) + 1;
       if( cont < 4096 )
       {
          lstrcpy(&Filter[ j ], AnsiToWide(p));
-         j += lstrlen( AnsiToWide(p) ) + 1;
-         p += strlen( p ) + 1;
+         j += lstrlen(AnsiToWide(p)) + 1;
+         p += strlen(p) + 1;
       }
       else
          break;
@@ -241,16 +241,16 @@ HB_FUNC( C_GETFILE )
       else
       {
          wsprintf( cCurDir, TEXT("%s"), &buffer[ iPosition ] );
-         iPosition = iPosition + ( int ) lstrlen( cCurDir ) + 1;
+         iPosition = iPosition + ( int ) lstrlen(cCurDir) + 1;
 
          do
          {
             iNumSelected++;
             wsprintf( cFileName, TEXT("%s"), &buffer[ iPosition ] );
-            iPosition = iPosition + ( int ) lstrlen( cFileName ) + 1;
+            iPosition = iPosition + ( int ) lstrlen(cFileName) + 1;
             wsprintf( cFullName[ iNumSelected ], TEXT("%s\\%s"), cCurDir, cFileName );
          }
-         while( ( lstrlen( cFileName ) != 0 ) && ( iNumSelected <= 255 ) );
+         while( ( lstrlen(cFileName) != 0 ) && ( iNumSelected <= 255 ) );
 
          if( iNumSelected > 1 )
          {
@@ -310,12 +310,12 @@ HB_FUNC( C_PUTFILE ) // JK JP
 
    while( *p != '\0' )
    {
-      cont += ( int ) strlen( p ) + 1;
+      cont += ( int ) strlen(p) + 1;
       if( cont < 4096 )
       {
          lstrcpy(&Filter[ j ], AnsiToWide(p));
-         j += lstrlen( AnsiToWide(p) ) + 1;
-         p += strlen( p ) + 1;
+         j += lstrlen(AnsiToWide(p)) + 1;
+         p += strlen(p) + 1;
       }
       else
          break;
@@ -369,8 +369,8 @@ HB_FUNC( C_PUTFILE ) // JK JP
    {
       if( ofn.nFileExtension == 0 )
       {
-         ofn.lpstrFile = lstrcat( ofn.lpstrFile, TEXT(".") );
-         ofn.lpstrFile = lstrcat( ofn.lpstrFile, ofn.lpstrDefExt );
+         ofn.lpstrFile = lstrcat(ofn.lpstrFile, TEXT("."));
+         ofn.lpstrFile = lstrcat(ofn.lpstrFile, ofn.lpstrDefExt);
       }
       if( HB_ISBYREF(6) )
          hb_storni( ( int ) ofn.nFilterIndex, 6 );
@@ -417,10 +417,10 @@ int CALLBACK BrowseCallbackProc(HWND hWnd, UINT uMsg, LPARAM lParam, LPARAM lpDa
 #endif
          }
          break;
-      case BFFM_VALIDATEFAILED:  MessageBeep( MB_ICONHAND ); return 1;
+      case BFFM_VALIDATEFAILED:  MessageBeep(MB_ICONHAND); return 1;
       case BFFM_SELCHANGED:   if( lpData )
          {
-            SHGetPathFromIDList( ( LPITEMIDLIST ) lParam, szPath );
+            SHGetPathFromIDList(( LPITEMIDLIST ) lParam, szPath);
             SendMessage(hWnd, BFFM_SETSTATUSTEXT, 0, ( LPARAM ) szPath);
          }
    }
@@ -449,7 +449,7 @@ HB_FUNC( C_BROWSEFORFOLDER )  // Syntax: C_BROWSEFORFOLDER([<hWnd>],[<cTitle>],[
 #endif
    }
 
-   SHGetSpecialFolderLocation( hWnd, HB_ISNIL(4) ? CSIDL_DRIVES : hb_parni(4), &pidlBrowse );
+   SHGetSpecialFolderLocation(hWnd, HB_ISNIL(4) ? CSIDL_DRIVES : hb_parni(4), &pidlBrowse);
 
    BrowseInfo.hwndOwner      = hWnd;
    BrowseInfo.pidlRoot       = pidlBrowse;
@@ -474,7 +474,7 @@ HB_FUNC( C_BROWSEFORFOLDER )  // Syntax: C_BROWSEFORFOLDER([<hWnd>],[<cTitle>],[
 
    if( pidlBrowse )
    {
-      SHGetPathFromIDList( pidlBrowse, lpBuffer );
+      SHGetPathFromIDList(pidlBrowse, lpBuffer);
 #ifndef UNICODE
       hb_retc( lpBuffer );
 #else
@@ -500,7 +500,7 @@ HB_FUNC( CHOOSECOLOR )
 
    for( int i = 0; i < 16; i++ )
    {
-      crCustClr[ i ] = ( HB_ISARRAY(3) ? ( COLORREF ) HB_PARVNL( 3, i + 1 ) : GetSysColor(COLOR_BTNFACE) );
+      crCustClr[ i ] = ( HB_ISARRAY(3) ? ( COLORREF ) HB_PARVNL(3, i + 1) : GetSysColor(COLOR_BTNFACE) );
    }
 
    memset(&cc, 0, sizeof(cc));
@@ -522,7 +522,7 @@ HB_FUNC( UNITSTOPIXELSX )
    int   UnitsX = hb_parni(1);
    DWORD dwDLU  = GetDialogBaseUnits();
 
-   int cx = MulDiv( UnitsX, LOWORD(dwDLU), 4 );
+   int cx = MulDiv(UnitsX, LOWORD(dwDLU), 4);
 
    hb_retni( cx );
 }
@@ -532,7 +532,7 @@ HB_FUNC( UNITSTOPIXELSY )
    int   UnitsY = hb_parni(1);
    DWORD dwDLU  = GetDialogBaseUnits();
 
-   int cy = MulDiv( UnitsY, HIWORD(dwDLU), 8 );
+   int cy = MulDiv(UnitsY, HIWORD(dwDLU), 8);
 
    hb_retni( cy );
 }

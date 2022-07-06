@@ -73,13 +73,13 @@ HB_FUNC( ISSAMEDISPLAYFORMAT )
    The  EnumDisplayMonitors  function  enumerates  display monitors
         (including invisible pseudo-monitors associated with the mirroring drivers)
 
-        BOOL EnumDisplayMonitors( HDC hdc, LPCRECT lprcClip, MONITORENUMPROC lpfnEnum, LPARAM dwData )
+        BOOL EnumDisplayMonitors(HDC hdc, LPCRECT lprcClip, MONITORENUMPROC lpfnEnum, LPARAM dwData)
  */
 HB_FUNC( ENUMDISPLAYMONITORS )
 {
    PHB_ITEM pMonitorEnum = hb_itemArrayNew(0);
 
-   EnumDisplayMonitors( NULL, NULL, _MonitorEnumProc0, ( LPARAM ) pMonitorEnum );
+   EnumDisplayMonitors(NULL, NULL, _MonitorEnumProc0, ( LPARAM ) pMonitorEnum);
 
    hb_itemReturnRelease(pMonitorEnum);
 }
@@ -137,14 +137,14 @@ HB_FUNC( MONITORFROMPOINT )
       if( ! Array2Point(hb_param(1, Harbour::Item::ARRAY), &pt) )
          hb_errRT_BASE_SubstR( EG_ARG, 5000, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
       else
-         HB_RETNL( ( LONG_PTR ) MonitorFromPoint(pt, hb_parnldef( 2, MONITOR_DEFAULTTONULL )) );
+         HB_RETNL( ( LONG_PTR ) MonitorFromPoint(pt, hb_parnldef(2, MONITOR_DEFAULTTONULL)) );
    }
    else if( HB_ISNUM(1) && HB_ISNUM(2) )
    {
       pt.x = hb_parnl(1);
       pt.y = hb_parnl(2);
 
-      HB_RETNL( ( LONG_PTR ) MonitorFromPoint(pt, hb_parnldef( 3, MONITOR_DEFAULTTONULL )) );
+      HB_RETNL( ( LONG_PTR ) MonitorFromPoint(pt, hb_parnldef(3, MONITOR_DEFAULTTONULL)) );
    }
    else
       hb_errRT_BASE_SubstR( EG_ARG, 5000, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
@@ -156,7 +156,7 @@ HB_FUNC( MONITORFROMWINDOW )
    HWND hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) )
-      HB_RETNL( ( LONG_PTR ) MonitorFromWindow(hwnd, hb_parnldef( 2, MONITOR_DEFAULTTONULL )) );
+      HB_RETNL( ( LONG_PTR ) MonitorFromWindow(hwnd, hb_parnldef(2, MONITOR_DEFAULTTONULL)) );
    else
       hb_errRT_BASE_SubstR( EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
@@ -185,7 +185,7 @@ HB_FUNC( WINDOWTOMONITOR )
    if( IsWindow(hwnd) )
    {
       HMONITOR hMonitor = HB_ISNUM(2) ? ( HMONITOR ) HB_PARNL(2) : NULL;
-      UINT     flags    = 0 | ( ( UINT ) hb_parnldef( 3, ( MONITOR_CENTER | MONITOR_WORKAREA ) ) );
+      UINT     flags    = 0 | ( ( UINT ) hb_parnldef(3, (MONITOR_CENTER | MONITOR_WORKAREA)) );
       RECT     rc;
 
       GetWindowRect(hwnd, &rc);
@@ -234,20 +234,20 @@ static void ClipOrCenterRectToMonitor( LPRECT prc, HMONITOR hMonitor, UINT flags
 HB_EXPORT PHB_ITEM Rect2Hash(RECT * rc)
 {
    PHB_ITEM phRect = hb_hashNew(NULL);
-   PHB_ITEM pKey   = hb_itemPutCConst( NULL, "left" );
+   PHB_ITEM pKey   = hb_itemPutCConst(NULL, "left");
    PHB_ITEM pValue = hb_itemPutNL( NULL, rc->left );
 
    hb_hashAddNew(phRect, pKey, pValue);
 
-   hb_itemPutCConst( pKey, "top" );
+   hb_itemPutCConst(pKey, "top");
    hb_itemPutNL( pValue, rc->top );
    hb_hashAddNew(phRect, pKey, pValue);
 
-   hb_itemPutCConst( pKey, "right" );
+   hb_itemPutCConst(pKey, "right");
    hb_itemPutNL( pValue, rc->right );
    hb_hashAddNew(phRect, pKey, pValue);
 
-   hb_itemPutCConst( pKey, "bottom" );
+   hb_itemPutCConst(pKey, "bottom");
    hb_itemPutNL( pValue, rc->bottom );
    hb_hashAddNew(phRect, pKey, pValue);
 

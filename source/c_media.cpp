@@ -90,7 +90,7 @@ HINSTANCE GetResources(void);
 
 HB_FUNC( MESSAGEBEEP )
 {
-   hb_retl( MessageBeep( hb_parni(1) ) );
+   hb_retl( MessageBeep(hb_parni(1)) );
 }
 
 HB_FUNC( C_PLAYWAVE )
@@ -273,7 +273,7 @@ HB_FUNC( OPENANIMATE )
 
 HB_FUNC( PLAYANIMATE )
 {
-   Animate_Play( hmg_par_HWND(1), 0, -1, 1 );
+   Animate_Play(hmg_par_HWND(1), 0, -1, 1);
 }
 
 HB_FUNC( SEEKANIMATE )
@@ -283,7 +283,7 @@ HB_FUNC( SEEKANIMATE )
 
 HB_FUNC( STOPANIMATE )
 {
-   Animate_Stop( hmg_par_HWND(1) );
+   Animate_Stop(hmg_par_HWND(1));
 }
 
 HB_FUNC( CLOSEANIMATE )

@@ -55,9 +55,9 @@
 
 #include "hbapicdp.h"
 
-extern BOOL _isValidCtrlClass( HWND, LPCTSTR );
+extern BOOL _isValidCtrlClass(HWND, LPCTSTR);
 
-HIMAGELIST HMG_ImageListLoadFirst( const char * FileName, int cGrow, int Transparent, int * nWidth, int * nHeight );
+HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transparent, int * nWidth, int * nHeight);
 void HMG_ImageListAdd( HIMAGELIST himl, char * FileName, int Transparent );
 
 #ifdef UNICODE
@@ -168,15 +168,15 @@ typedef struct tagLVGROUP
 } LVGROUP, * PLVGROUP;
 
 #define LVM_ENABLEGROUPVIEW     ( LVM_FIRST + 157 )
-#define ListView_EnableGroupView( hwnd, fEnable ) \
+#define ListView_EnableGroupView(hwnd, fEnable) \
    SNDMSG(( hwnd ), LVM_ENABLEGROUPVIEW, ( WPARAM ) ( fEnable ), 0)
 
 #define LVM_REMOVEALLGROUPS     ( LVM_FIRST + 160 )
-#define ListView_RemoveAllGroups( hwnd ) \
+#define ListView_RemoveAllGroups(hwnd) \
    SNDMSG(( hwnd ), LVM_REMOVEALLGROUPS, 0, 0)
 
 #define LVM_HASGROUP            ( LVM_FIRST + 161 )
-#define ListView_HasGroup( hwnd, dwGroupId ) \
+#define ListView_HasGroup(hwnd, dwGroupId) \
    SNDMSG(( hwnd ), LVM_HASGROUP, dwGroupId, 0)
 
 #define LVM_ISGROUPVIEWENABLED  ( LVM_FIRST + 175 )
@@ -184,17 +184,17 @@ typedef struct tagLVGROUP
    ( BOOL ) SNDMSG(( hwnd ), LVM_ISGROUPVIEWENABLED, 0, 0)
 
 #define LVM_INSERTGROUP         ( LVM_FIRST + 145 )
-#define ListView_InsertGroup( hwnd, index, pgrp )      SNDMSG(( hwnd ), LVM_INSERTGROUP, ( WPARAM ) index, ( LPARAM ) pgrp)
+#define ListView_InsertGroup(hwnd, index, pgrp)      SNDMSG(( hwnd ), LVM_INSERTGROUP, ( WPARAM ) index, ( LPARAM ) pgrp)
 #define LVM_SETGROUPINFO        ( LVM_FIRST + 147 )
 #define ListView_SetGroupInfo(hwnd, iGroupId, pgrp)  SNDMSG(( hwnd ), LVM_SETGROUPINFO, ( WPARAM ) iGroupId, ( LPARAM ) pgrp)
 #define LVM_GETGROUPINFO        ( LVM_FIRST + 149 )
 #define ListView_GetGroupInfo(hwnd, iGroupId, pgrp)  SNDMSG(( hwnd ), LVM_GETGROUPINFO, ( WPARAM ) iGroupId, ( LPARAM ) pgrp)
 #define LVM_REMOVEGROUP         ( LVM_FIRST + 150 )
-#define ListView_RemoveGroup( hwnd, iGroupId )         SNDMSG(( hwnd ), LVM_REMOVEGROUP, ( WPARAM ) iGroupId, 0)
+#define ListView_RemoveGroup(hwnd, iGroupId)         SNDMSG(( hwnd ), LVM_REMOVEGROUP, ( WPARAM ) iGroupId, 0)
 #define LVM_MOVEGROUP           ( LVM_FIRST + 151 )
-#define ListView_MoveGroup( hwnd, iGroupId, toIndex )  SNDMSG(( hwnd ), LVM_MOVEGROUP, ( WPARAM ) iGroupId, ( LPARAM ) toIndex)
+#define ListView_MoveGroup(hwnd, iGroupId, toIndex)  SNDMSG(( hwnd ), LVM_MOVEGROUP, ( WPARAM ) iGroupId, ( LPARAM ) toIndex)
 #define LVM_GETGROUPCOUNT       ( LVM_FIRST + 152 )
-#define ListView_GetGroupCount( hwnd )                 SNDMSG(( hwnd ), LVM_GETGROUPCOUNT, ( WPARAM ) 0, ( LPARAM ) 0)
+#define ListView_GetGroupCount(hwnd)                 SNDMSG(( hwnd ), LVM_GETGROUPCOUNT, ( WPARAM ) 0, ( LPARAM ) 0)
 
 #endif
 
@@ -245,14 +245,14 @@ HB_FUNC( INITLISTVIEW )
              );
 
    if( hb_parl(7) )
-      ListView_SetItemCount( hbutton, hb_parni(8) );
+      ListView_SetItemCount(hbutton, hb_parni(8));
 
    HB_RETNL( ( LONG_PTR ) hbutton );
 }
 
 HB_FUNC( LISTVIEW_SETITEMCOUNT )
 {
-   ListView_SetItemCount( hmg_par_HWND(1), hb_parni(2) );
+   ListView_SetItemCount(hmg_par_HWND(1), hb_parni(2));
 }
 
 HB_FUNC( ADDLISTVIEWBITMAP )       // Grid+
@@ -275,7 +275,7 @@ HB_FUNC( ADDLISTVIEWBITMAP )       // Grid+
          FileName = ( char * ) hb_arrayGetCPtr(hArray, s);
 
          if( himl == NULL )
-            himl = HMG_ImageListLoadFirst( FileName, nCount, 1, &cx, NULL );
+            himl = HMG_ImageListLoadFirst(FileName, nCount, 1, &cx, NULL);
          else
             HMG_ImageListAdd( himl, FileName, 1 );
       }
@@ -310,7 +310,7 @@ HB_FUNC( ADDLISTVIEWBITMAPHEADER )  // Grid+
             FileName = ( char * ) hb_arrayGetCPtr(hArray, s);
 
             if( himl == NULL )
-               himl = HMG_ImageListLoadFirst( FileName, nCount, 1, NULL, NULL );
+               himl = HMG_ImageListLoadFirst(FileName, nCount, 1, NULL, NULL);
             else
                HMG_ImageListAdd( himl, FileName, 1 );
          }
@@ -328,12 +328,12 @@ HB_FUNC( ADDLISTVIEWBITMAPHEADER )  // Grid+
 
 HB_FUNC( LISTVIEW_GETFOCUSEDITEM )
 {
-   hb_retni( ListView_GetNextItem( hmg_par_HWND(1), -1, LVNI_ALL | LVNI_FOCUSED ) + 1 );
+   hb_retni( ListView_GetNextItem(hmg_par_HWND(1), -1, LVNI_ALL | LVNI_FOCUSED) + 1 );
 }
 
 HB_FUNC( LISTVIEW_GETFIRSTITEM )
 {
-   hb_retni( ListView_GetNextItem( hmg_par_HWND(1), -1, LVNI_ALL | LVNI_SELECTED ) + 1 );
+   hb_retni( ListView_GetNextItem(hmg_par_HWND(1), -1, LVNI_ALL | LVNI_SELECTED) + 1 );
 }
 
 /* code INITLISTVIEWCOLUMNS function was borrowed from ooHG */
@@ -412,7 +412,7 @@ HB_FUNC( ADDLISTVIEWITEMS )
    h      = hmg_par_HWND(1);
    l      = ( int ) hb_parinfa(2, 0) - 1;
    hArray = hb_param(2, Harbour::Item::ARRAY);
-   c      = ListView_GetItemCount( h );
+   c      = ListView_GetItemCount(h);
 
    caption = ( char * ) hb_arrayGetCPtr(hArray, 1);
 #ifndef UNICODE
@@ -428,7 +428,7 @@ HB_FUNC( ADDLISTVIEWITEMS )
    LI.iSubItem  = 0;
    LI.iItem     = c;
    LI.pszText   = lpText;
-   ListView_InsertItem( h, &LI );
+   ListView_InsertItem(h, &LI);
 
    for( int s = 1; s <= l; s = s + 1 )
    {
@@ -464,7 +464,7 @@ HB_FUNC( LISTVIEWGETMULTISEL )
 
    while(1)
    {
-      i = ListView_GetNextItem( hwnd, i, LVNI_ALL | LVNI_SELECTED );
+      i = ListView_GetNextItem(hwnd, i, LVNI_ALL | LVNI_SELECTED);
 
       if( i == -1 )
          break;
@@ -490,7 +490,7 @@ HB_FUNC( LISTVIEWSETMULTISEL )
 
    while(1)
    {
-      i = ListView_GetNextItem( hwnd, i, LVNI_ALL | LVNI_SELECTED );
+      i = ListView_GetNextItem(hwnd, i, LVNI_ALL | LVNI_SELECTED);
 
       if( i == -1 )
          break;
@@ -594,14 +594,14 @@ HB_FUNC( LISTVIEWGETITEMROW )
 {
    POINT point;
 
-   ListView_GetItemPosition( hmg_par_HWND(1), hb_parni(2), &point );
+   ListView_GetItemPosition(hmg_par_HWND(1), hb_parni(2), &point);
 
    hb_retnl( point.y );
 }
 
 HB_FUNC( LISTVIEWGETITEMCOUNT )
 {
-   hb_retnl( ListView_GetItemCount( hmg_par_HWND(1) ) );
+   hb_retnl( ListView_GetItemCount(hmg_par_HWND(1)) );
 }
 
 HB_FUNC( SETGRIDCOLUMNJUSTIFY )
@@ -676,7 +676,7 @@ HB_FUNC( SETIMAGELISTVIEWITEMS )
    LI.iSubItem  = 0;
    LI.iItem     = hb_parni(2) - 1;
 
-   ListView_SetItem( h, &LI );
+   ListView_SetItem(h, &LI);
 }
 
 HB_FUNC( GETIMAGELISTVIEWITEMS )
@@ -693,10 +693,10 @@ HB_FUNC( GETIMAGELISTVIEWITEMS )
    LI.iSubItem  = 0;
    LI.iItem     = hb_parni(2) - 1;
 
-   ListView_GetItem( h, &LI );
+   ListView_GetItem(h, &LI);
    i = LI.iImage;
 
-   hb_retni( i );
+   hb_retni(i);
 }
 
 HB_FUNC( LISTVIEW_GETTOPINDEX )
@@ -721,7 +721,7 @@ HB_FUNC( LISTVIEW_HITTEST )
 
    if( hb_parni(4) )  // checkbox area.
    {
-      ListView_HitTest( hmg_par_HWND(1), &lvhti );
+      ListView_HitTest(hmg_par_HWND(1), &lvhti);
 
       if( lvhti.flags & LVHT_ONITEMSTATEICON )
          hb_retl(1);
@@ -730,7 +730,7 @@ HB_FUNC( LISTVIEW_HITTEST )
    }
    else  // item area.
    {
-      ListView_SubItemHitTest( hmg_par_HWND(1), &lvhti );
+      ListView_SubItemHitTest(hmg_par_HWND(1), &lvhti);
 
       if( lvhti.flags & LVHT_ONITEM )
       {
@@ -852,7 +852,7 @@ HB_FUNC( LISTVIEW_ADDCOLUMN )
    int       iColumn = hb_parni(2) - 1;
    PHB_ITEM  pValue  = hb_itemNew(NULL);
 
-   hb_itemCopy( pValue, hb_param(4, Harbour::Item::STRING) );
+   hb_itemCopy(pValue, hb_param(4, Harbour::Item::STRING));
 
    COL.mask = LVCF_WIDTH | LVCF_TEXT | LVCF_FMT | LVCF_SUBITEM;
    COL.cx   = hb_parni(3);
@@ -907,7 +907,7 @@ HB_FUNC( LISTVIEW_GETCHECKSTATE )
 {
    HWND hwndLV = hmg_par_HWND(1);
 
-   if( _isValidCtrlClass( hwndLV, WC_LISTVIEW ) )
+   if( _isValidCtrlClass(hwndLV, WC_LISTVIEW) )
    {
       hb_retl( ListView_GetCheckState(hwndLV, hb_parni(2) - 1) );
    }
@@ -921,7 +921,7 @@ HB_FUNC( LISTVIEW_SETCHECKSTATE )
 {
    HWND hwndLV = hmg_par_HWND(1);
 
-   if( _isValidCtrlClass( hwndLV, WC_LISTVIEW ) )
+   if( _isValidCtrlClass(hwndLV, WC_LISTVIEW) )
    {
       ListView_SetCheckState(hwndLV, hb_parni(2) - 1, hb_parl(3));
 
@@ -937,9 +937,9 @@ HB_FUNC( LISTVIEW_GETCOLUMNCOUNT )  // Dr. Claudio Soto 2016/APR/07
 {
    HWND hwndLV = hmg_par_HWND(1);
 
-   if( _isValidCtrlClass( hwndLV, WC_LISTVIEW ) )
+   if( _isValidCtrlClass(hwndLV, WC_LISTVIEW) )
    {
-      hb_retni( Header_GetItemCount( ListView_GetHeader(hwndLV) ) );
+      hb_retni( Header_GetItemCount(ListView_GetHeader(hwndLV)) );
    }
    else
    {
@@ -985,7 +985,7 @@ HB_FUNC( LISTVIEW_SETCOLUMNORDERARRAY )
 
          for( int i = 0; i < iColumn; i++ )
          {
-            iArray[ i ] = HB_PARNI( 3, i + 1 ) - 1;
+            iArray[ i ] = HB_PARNI(3, i + 1) - 1;
          }
 
          ListView_SetColumnOrderArray(hmg_par_HWND(1), iColumn, ( int * ) iArray);
@@ -1114,7 +1114,7 @@ HB_FUNC( LISTVIEW_GROUPITEMSETID )
    LVI.iSubItem = 0;
    LVI.iGroupId = GroupID;
 
-   hb_retl( ( BOOL ) ListView_SetItem( hWnd, &LVI ) );
+   hb_retl( ( BOOL ) ListView_SetItem(hWnd, &LVI) );
 }
 
 //        ListView_GroupItemGetID ( hWnd, nRow )
@@ -1131,7 +1131,7 @@ HB_FUNC( LISTVIEW_GROUPITEMGETID )
    LVI.mask     = LVIF_GROUPID;
    LVI.iItem    = nRow;
    LVI.iSubItem = 0;
-   ListView_GetItem( hWnd, &LVI );
+   ListView_GetItem(hWnd, &LVI);
 
    hb_retni( ( INT ) LVI.iGroupId );
 }
@@ -1150,7 +1150,7 @@ HB_FUNC( LISTVIEW_ENABLEGROUPVIEW )
    HWND hWnd   = hmg_par_HWND(1);
    BOOL Enable = hmg_par_BOOL(2);
 
-   ListView_EnableGroupView( hWnd, Enable );
+   ListView_EnableGroupView(hWnd, Enable);
 }
 
 //        ListView_GroupDeleteAll ( hWnd )
@@ -1158,7 +1158,7 @@ HB_FUNC( LISTVIEW_GROUPDELETEALL )
 {
    HWND hWnd = hmg_par_HWND(1);
 
-   ListView_RemoveAllGroups( hWnd );
+   ListView_RemoveAllGroups(hWnd);
 }
 
 //        ListView_GroupDelete ( hWnd, nGroupID )
@@ -1167,7 +1167,7 @@ HB_FUNC( LISTVIEW_GROUPDELETE )
    HWND hWnd    = hmg_par_HWND(1);
    INT  GroupID = hmg_par_INT(2);
 
-   hb_retni( ( INT ) ListView_RemoveGroup( hWnd, GroupID ) );
+   hb_retni( ( INT ) ListView_RemoveGroup(hWnd, GroupID) );
 }
 
 //        ListView_GroupAdd ( hWnd, nGroupID, [ nIndex ] )
@@ -1188,7 +1188,7 @@ HB_FUNC( LISTVIEW_GROUPADD )
    LVG.uAlign    = LVGA_HEADER_LEFT | LVGA_FOOTER_LEFT;
    LVG.state     = LVGS_NORMAL;
 
-   hb_retni( ( INT ) ListView_InsertGroup( hWnd, nIndex, &LVG ) );
+   hb_retni( ( INT ) ListView_InsertGroup(hWnd, nIndex, &LVG) );
 }
 
 //        ListView_GroupSetInfo ( hWnd, nGroupID, cHeader, nAlignHeader, cFooter, nAlingFooter, nState )
@@ -1270,5 +1270,5 @@ HB_FUNC( LISTVIEW_HASGROUP )
    HWND hWnd    = hmg_par_HWND(1);
    INT  GroupID = hmg_par_INT(2);
 
-   hb_retl( ( BOOL ) ListView_HasGroup( hWnd, GroupID ) );
+   hb_retl( ( BOOL ) ListView_HasGroup(hWnd, GroupID) );
 }

@@ -66,7 +66,7 @@ static HBRUSH CreateGradientBrush(HDC hDC, INT nWidth, INT nHeight, COLORREF Col
 HBITMAP HMG_LoadPicture(const char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage,
                         HB_BOOL bAlphaFormat, int iAlpfaConstant);
 
-HIMAGELIST HMG_SetButtonImageList( HWND hButton, const char * FileName, int Transparent, UINT uAlign );
+HIMAGELIST HMG_SetButtonImageList(HWND hButton, const char * FileName, int Transparent, UINT uAlign);
 BOOL bmp_SaveFile(HBITMAP hBitmap, TCHAR * FileName);
 
 LRESULT CALLBACK  OwnButtonProc(HWND hbutton, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -208,7 +208,7 @@ HB_FUNC( INITIMAGEBUTTON )
       }
       else
       {
-         himl = HMG_SetButtonImageList( hbutton, hb_parc(8), Transparent, BUTTON_IMAGELIST_ALIGN_CENTER );
+         himl = HMG_SetButtonImageList(hbutton, hb_parc(8), Transparent, BUTTON_IMAGELIST_ALIGN_CENTER);
 
          hb_reta(2);
          HB_STORVNL( ( LONG_PTR ) hbutton, -1, 1 );
@@ -327,7 +327,7 @@ HB_FUNC( INITOWNERBUTTON )
       NULL
              );
 
-   SetProp( ( HWND ) hbutton, TEXT("oldbtnproc"), ( HWND ) GetWindowLongPtr(( HWND ) hbutton, GWLP_WNDPROC) );
+   SetProp(( HWND ) hbutton, TEXT("oldbtnproc"), ( HWND ) GetWindowLongPtr(( HWND ) hbutton, GWLP_WNDPROC));
    SetWindowLongPtr(hbutton, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnButtonProc);
 
    if( hb_parl(10) )
@@ -337,10 +337,10 @@ HB_FUNC( INITOWNERBUTTON )
 
    if( HB_ISNIL(14) )
    {
-      himage = ( HWND ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef( 15, 0 ), 0), HB_MAX(hb_parnidef( 16, 0 ), 0), LR_LOADMAP3DCOLORS | ImgStyle);
+      himage = ( HWND ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef(15, 0), 0), HB_MAX(hb_parnidef(16, 0), 0), LR_LOADMAP3DCOLORS | ImgStyle);
 
       if( himage == NULL )
-         himage = ( HWND ) LoadImage(NULL, lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef( 15, 0 ), 0), HB_MAX(hb_parnidef( 16, 0 ), 0), LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | ImgStyle);
+         himage = ( HWND ) LoadImage(NULL, lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef(15, 0), 0), HB_MAX(hb_parnidef(16, 0), 0), LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | ImgStyle);
 
       hb_reta(2);
       HB_STORVNL( ( LONG_PTR ) hbutton, -1, 1 );
@@ -381,10 +381,10 @@ HB_FUNC( _SETBTNPICTURE )
 
    hwnd = hmg_par_HWND(1);
 
-   himage = ( HWND ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef( 3, 0 ), 0), HB_MAX(hb_parnidef( 4, 0 ), 0), LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+   himage = ( HWND ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef(3, 0), 0), HB_MAX(hb_parnidef(4, 0), 0), LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
    if( himage == NULL )
-      himage = ( HWND ) LoadImage(NULL, lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef( 3, 0 ), 0), HB_MAX(hb_parnidef( 4, 0 ), 0), LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+      himage = ( HWND ) LoadImage(NULL, lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef(3, 0), 0), HB_MAX(hb_parnidef(4, 0), 0), LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
    if( himage == NULL )
       himage = ( HWND ) HMG_LoadPicture(hb_parc(2), hb_parni(3), hb_parni(4), hwnd, 0, 1, -1, 0, HB_FALSE, 255);
@@ -416,7 +416,7 @@ HB_FUNC( _SETMIXEDBTNPICTURE )
    HIMAGELIST himl;
    int        Transparent = hb_parl(3) ? 0 : 1;
 
-   himl = HMG_SetButtonImageList( hmg_par_HWND(1), hb_parc(2), Transparent, BUTTON_IMAGELIST_ALIGN_CENTER );
+   himl = HMG_SetButtonImageList(hmg_par_HWND(1), hb_parc(2), Transparent, BUTTON_IMAGELIST_ALIGN_CENTER);
 
    RegisterResource(himl, const_cast<LPSTR>("IMAGELIST"));
    HB_RETNL( ( LONG_PTR ) himl );
@@ -518,8 +518,8 @@ HB_FUNC( DRAWBUTTON )
 
    if( iFocus == 1 )
    {
-      HPEN   OldPen   = ( HPEN ) SelectObject(pps->hDC, GetStockObject( BLACK_PEN ));
-      HBRUSH OldBrush = ( HBRUSH ) SelectObject(pps->hDC, GetStockObject( NULL_BRUSH ));
+      HPEN   OldPen   = ( HPEN ) SelectObject(pps->hDC, GetStockObject(BLACK_PEN));
+      HBRUSH OldBrush = ( HBRUSH ) SelectObject(pps->hDC, GetStockObject(NULL_BRUSH));
 
       InflateRect(&pps->rcItem, 1, 1);
       Rectangle(pps->hDC, pps->rcItem.left, pps->rcItem.top, pps->rcItem.right, pps->rcItem.bottom);
@@ -621,7 +621,7 @@ LRESULT CALLBACK OwnButtonProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPa
    TRACKMOUSEEVENT tme;
    WNDPROC         OldWndProc;
 
-   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp( hButton, TEXT("oldbtnproc") );
+   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp(hButton, TEXT("oldbtnproc"));
 
    switch( Msg )
    {
@@ -634,7 +634,7 @@ LRESULT CALLBACK OwnButtonProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPa
          tme.dwFlags     = TME_LEAVE;
          tme.hwndTrack   = hButton;
          tme.dwHoverTime = 0;
-         _TrackMouseEvent( &tme );
+         _TrackMouseEvent(&tme);
 
          if( ! pSymbol )
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OBTNEVENTS"));
@@ -731,7 +731,7 @@ static HBRUSH CreateGradientBrush(HDC hDC, INT nWidth, INT nHeight, COLORREF Col
    return hBrushPat;
 }
 
-HIMAGELIST HMG_SetButtonImageList( HWND hButton, const char * FileName, int Transparent, UINT uAlign )
+HIMAGELIST HMG_SetButtonImageList(HWND hButton, const char * FileName, int Transparent, UINT uAlign)
 {
    HBITMAP          hBitmap;
    HIMAGELIST       hImageList;

@@ -97,14 +97,14 @@ HB_FUNC( INITRICHEDITBOX )
    if( IsWinxpSp1Min() )
    {
       if( ! hRELib )
-         hRELib = LoadLibrary( TEXT("Msftedit.dll") );
+         hRELib = LoadLibrary(TEXT("Msftedit.dll"));
 
       lpClassName = MSFTEDIT_CLASS;
    }
    else
    {
       if( ! hRELib )
-         hRELib = LoadLibrary( TEXT("RichEd20.dll") );
+         hRELib = LoadLibrary(TEXT("RichEd20.dll"));
 
       lpClassName = RICHEDIT_CLASS;
    }
@@ -138,7 +138,7 @@ HB_FUNC( UNLOADRICHEDITLIB )
 {
    if( hRELib )
    {
-      FreeLibrary( hRELib );
+      FreeLibrary(hRELib);
       hRELib = NULL;
    }
 }
@@ -153,7 +153,7 @@ DWORD CALLBACK EditStreamCallbackR( DWORD_PTR dwCookie, LPBYTE lpbBuff, LONG cb,
    return 0;
 }
 
-DWORD CALLBACK EditStreamCallbackW( DWORD_PTR dwCookie, LPBYTE lpbBuff, LONG cb, LONG FAR * pcb )
+DWORD CALLBACK EditStreamCallbackW(DWORD_PTR dwCookie, LPBYTE lpbBuff, LONG cb, LONG FAR * pcb)
 {
    HANDLE hFile = ( HANDLE ) dwCookie;
 

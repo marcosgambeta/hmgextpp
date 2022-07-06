@@ -130,19 +130,19 @@ HB_FUNC( GETDIALOGITEMHANDLE )
 {
    HWND CtrlItem;
 
-   CtrlItem = GetDlgItem( hmg_par_HWND(1), hb_parni(2) );
+   CtrlItem = GetDlgItem(hmg_par_HWND(1), hb_parni(2));
 
    HB_RETNL( ( LONG_PTR ) CtrlItem );
 }
 
 HB_FUNC( CHECKDLGBUTTON )
 {
-   CheckDlgButton( hmg_par_HWND(2), hb_parni(1), BST_CHECKED );
+   CheckDlgButton(hmg_par_HWND(2), hb_parni(1), BST_CHECKED);
 }
 
 HB_FUNC( UNCHECKDLGBUTTON )
 {
-   CheckDlgButton( hmg_par_HWND(2), hb_parni(1), BST_UNCHECKED );
+   CheckDlgButton(hmg_par_HWND(2), hb_parni(1), BST_UNCHECKED);
 }
 
 HB_FUNC( SETDIALOGITEMTEXT )
@@ -182,11 +182,11 @@ HB_FUNC( ADDDIALOGPAGES )
    {
       tie.pszText = ( TCHAR * ) hb_arrayGetCPtr(hArray, i + 1);
 
-      TabCtrl_InsertItem( hwnd, 0, &tie );
+      TabCtrl_InsertItem(hwnd, 0, &tie);
    }
 
    TabCtrl_SetCurSel( hwnd, hb_parni(3) - 1 );
-   TabCtrl_SetCurFocus( hwnd, hb_parni(3) - 1 );
+   TabCtrl_SetCurFocus(hwnd, hb_parni(3) - 1);
 }
 
 HB_FUNC( GETDLGCTRLID )
@@ -237,7 +237,7 @@ HB_FUNC( GETEDITTEXT )
 #endif
    HWND    hDlg  = hmg_par_HWND(1);
    int     id    = hb_parni(2);
-   USHORT  iLen  = ( USHORT ) SendMessage(GetDlgItem( hDlg, id ), WM_GETTEXTLENGTH, 0, 0);
+   USHORT  iLen  = ( USHORT ) SendMessage(GetDlgItem(hDlg, id), WM_GETTEXTLENGTH, 0, 0);
    TCHAR * cText = ( TCHAR * ) hb_xgrab((iLen + 2) * sizeof(TCHAR));
 
    GetDlgItemText
@@ -314,20 +314,20 @@ static int nCopyAnsiToWideChar( LPWORD lpWCStr, LPCSTR lpAnsiIn )
    return nDstLen;
 }
 
-HB_SIZE GetSizeDlgTemp( PHB_ITEM dArray, PHB_ITEM cArray )
+HB_SIZE GetSizeDlgTemp(PHB_ITEM dArray, PHB_ITEM cArray)
 {
    PHB_ITEM iArray;
    HB_SIZE  ln;
    int      nItem;
    HB_SIZE  lTemplateSize = 36;
 
-   nItem = ( int ) hb_arrayLen( cArray );
+   nItem = ( int ) hb_arrayLen(cArray);
 
-   ln = hb_arrayGetCLen( dArray, 10 );    //caption
+   ln = hb_arrayGetCLen(dArray, 10);    //caption
    lTemplateSize += ln * 2;
    if( hb_arrayGetNI( dArray, 4 ) & DS_SETFONT )
    {
-      ln = hb_arrayGetCLen( dArray, 11 ); //fontname
+      ln = hb_arrayGetCLen(dArray, 11); //fontname
       lTemplateSize += ln * 2;
       lTemplateSize += 3;
    }
@@ -336,9 +336,9 @@ HB_SIZE GetSizeDlgTemp( PHB_ITEM dArray, PHB_ITEM cArray )
    {
       iArray         = ( PHB_ITEM ) hb_arrayGetItemPtr(cArray, s + 1);
       lTemplateSize += 36;
-      ln = hb_arrayGetCLen( iArray, 3 );  //class
+      ln = hb_arrayGetCLen(iArray, 3);  //class
       lTemplateSize += ln * 2;
-      ln = hb_arrayGetCLen( iArray, 10 ); //caption
+      ln = hb_arrayGetCLen(iArray, 10); //caption
       lTemplateSize += ln * 2;
    }
 
@@ -375,7 +375,7 @@ PWORD CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
    y       = hb_arrayGetNI( dArray, 7 );  //y
    w       = hb_arrayGetNI( dArray, 8 );  //w
    h       = hb_arrayGetNI( dArray, 9 );  //h
-   nItem   = ( int ) hb_arrayLen( cArray );
+   nItem   = ( int ) hb_arrayLen(cArray);
 
    *pw++   = 1;            // DlgVer
    *pw++   = 0xFFFF;       // Signature
@@ -386,10 +386,10 @@ PWORD CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
    *pw++   = LOWORD(Style);
    *pw++   = HIWORD(Style);
    *pw++   = ( WORD ) nItem;                              // NumberOfItems
-   *pw++   = ( WORD ) MulDiv( x, 4, baseunitX );          // x
-   *pw++   = ( WORD ) MulDiv( y, 8, baseunitY );          // y
-   *pw++   = ( WORD ) MulDiv( w, 4, baseunitX );          // cx
-   *pw++   = ( WORD ) MulDiv( h, 8, baseunitY );          // cy
+   *pw++   = ( WORD ) MulDiv(x, 4, baseunitX);          // x
+   *pw++   = ( WORD ) MulDiv(y, 8, baseunitY);          // y
+   *pw++   = ( WORD ) MulDiv(w, 4, baseunitX);          // cx
+   *pw++   = ( WORD ) MulDiv(h, 8, baseunitY);          // cy
    *pw++   = 0;                                           // Menu
    *pw++   = 0;                                           // Class
    strtemp = ( char * ) hb_arrayGetCPtr(dArray, 10);    //caption
@@ -422,10 +422,10 @@ PWORD CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
       *pw++ = HIWORD(ExStyle);
       *pw++ = LOWORD(Style);
       *pw++ = HIWORD(Style);
-      *pw++ = ( WORD ) MulDiv( hb_arrayGetNI( iArray, 6 ), 4, baseunitX ); // x
-      *pw++ = ( WORD ) MulDiv( hb_arrayGetNI( iArray, 7 ), 8, baseunitY ); // y
-      *pw++ = ( WORD ) MulDiv( hb_arrayGetNI( iArray, 8 ), 4, baseunitX ); // cx
-      *pw++ = ( WORD ) MulDiv( hb_arrayGetNI( iArray, 9 ), 8, baseunitY ); // cy
+      *pw++ = ( WORD ) MulDiv(hb_arrayGetNI(iArray, 6), 4, baseunitX); // x
+      *pw++ = ( WORD ) MulDiv(hb_arrayGetNI(iArray, 7), 8, baseunitY); // y
+      *pw++ = ( WORD ) MulDiv(hb_arrayGetNI(iArray, 8), 4, baseunitX); // cx
+      *pw++ = ( WORD ) MulDiv(hb_arrayGetNI(iArray, 9), 8, baseunitY); // cy
       *pw++ = ( WORD ) Id;                                                 // LOWORD (Control ID)
       *pw++ = 0;                                                           // HOWORD (Control ID)
 
@@ -462,7 +462,7 @@ HB_FUNC( CREATEDLGTEMPLATE )
    cArray = hb_param(3, Harbour::Item::ARRAY);
    modal  = hb_arrayGetL( dArray, 3 );
 
-   lTemplateSize = ( long ) GetSizeDlgTemp( dArray, cArray );
+   lTemplateSize = ( long ) GetSizeDlgTemp(dArray, cArray);
 
    pdlgtemplate = CreateDlgTemplate(( long ) lTemplateSize, dArray, cArray);
 

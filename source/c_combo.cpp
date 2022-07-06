@@ -54,7 +54,7 @@
 #define WC_COMBOBOX  "ComboBox"
 #endif
 
-HIMAGELIST HMG_ImageListLoadFirst( const char * FileName, int cGrow, int Transparent, int * nWidth, int * nHeight );
+HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transparent, int * nWidth, int * nHeight);
 void HMG_ImageListAdd( HIMAGELIST himl, char * FileName, int Transparent );
 
 #ifdef UNICODE
@@ -172,7 +172,7 @@ HB_FUNC( INITCOMBOBOXEX )
          FileName = ( char * ) hb_arrayGetCPtr(hArray, s);
 
          if( himl == NULL )
-            himl = HMG_ImageListLoadFirst( FileName, nCount, Transparent, NULL, NULL );
+            himl = HMG_ImageListLoadFirst(FileName, nCount, Transparent, NULL, NULL);
          else
             HMG_ImageListAdd( himl, FileName, Transparent );
       }

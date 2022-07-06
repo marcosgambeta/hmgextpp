@@ -68,7 +68,7 @@ LPSTR  WideToAnsi(LPWSTR);
 //------------------------------------------------------------------------------
 //                   General, universal GetProp/SetProp functions
 //------------------------------------------------------------------------------
-// usage: SetProp( hWnd, cPropName, xValue, [lHandle] ) -> lSuccess
+// usage: SetProp(hWnd, cPropName, xValue, [lHandle]) -> lSuccess
 // [lHandle] is optional and indicates that no memory management is required
 //           if lHandle = .T., xValue must be numerical (integer)
 
@@ -113,7 +113,7 @@ HB_FUNC( SETPROP )
    }
    else if( HB_IS_NUMINT(hb_param(3, Harbour::Item::ANY)) )
    {
-      if( ( BOOL ) hb_parldef( 4, HB_FALSE ) )
+      if( ( BOOL ) hb_parldef(4, HB_FALSE) )
          chType = 'X';                 // if 'X' memory HANDLE passed
       else
          chType = 'I';                 // int
@@ -136,7 +136,7 @@ HB_FUNC( SETPROP )
 #else
       pW = AnsiToWide(( char * ) hb_parc(2));
 #endif
-      hb_retl( SetProp( hwnd, pW, ( HANDLE ) ( LONG_PTR ) HB_PARNL(3) ) ? HB_TRUE : HB_FALSE );
+      hb_retl( SetProp(hwnd, pW, ( HANDLE ) ( LONG_PTR ) HB_PARNL(3)) ? HB_TRUE : HB_FALSE );
    #ifdef UNICODE
       hb_xfree(pW);
    #endif
@@ -176,14 +176,14 @@ HB_FUNC( SETPROP )
    pW = AnsiToWide(( char * ) hb_parc(2));
 #endif
 
-   hb_retl( SetProp( hwnd, pW, hMem ) ? HB_TRUE : HB_FALSE  );
+   hb_retl( SetProp(hwnd, pW, hMem) ? HB_TRUE : HB_FALSE  );
 
 #ifdef UNICODE
    hb_xfree(pW);
 #endif
 }
 
-// usage: GetProp( hWnd, cPropName, [lHandle] ) -> Value | NIL
+// usage: GetProp(hWnd, cPropName, [lHandle]) -> Value | NIL
 // [lHandle] : .T. =  return the value directly
 HB_FUNC( GETPROP )
 {
@@ -203,16 +203,16 @@ HB_FUNC( GETPROP )
    if( ! IsWindow(hwnd) || hb_parclen(2) == 0 )
       return;
 
-   if( hb_parldef( 3, HB_FALSE ) )
+   if( hb_parldef(3, HB_FALSE) )
    {
-      HB_RETNL( ( LONG_PTR ) GetProp( hwnd, pW ) );
+      HB_RETNL( ( LONG_PTR ) GetProp(hwnd, pW) );
    #ifdef UNICODE
       hb_xfree(pW);
    #endif
       return;
    }
 
-   hMem = ( HGLOBAL ) GetProp( hwnd, pW );
+   hMem = ( HGLOBAL ) GetProp(hwnd, pW);
 #ifdef UNICODE
    hb_xfree(pW);
 #endif
@@ -230,9 +230,9 @@ HB_FUNC( GETPROP )
    nLen = ( int ) *( int * ) ( lpMem + 1 );
    switch( lpMem[ 0 ] )
    {
-      case 'C':   hb_retclen( lpMem + sizeof(int) + 1, nLen ); break;
+      case 'C':   hb_retclen(lpMem + sizeof(int) + 1, nLen); break;
       case 'L':   hb_retl( ( BOOL ) *( BOOL * ) ( lpMem + sizeof(int) + 1 ) ); break;
-      case 'D':   hb_retds( lpMem + sizeof(int) + 1 ); break;
+      case 'D':   hb_retds(lpMem + sizeof(int) + 1); break;
       case 'I':   hb_retni( ( INT ) *( INT * ) ( lpMem + sizeof(int) + 1 ) ); break;
       case 'F':   hb_retnd( ( double ) *( double * ) ( lpMem + sizeof(int) + 1 ) ); break;
    }
@@ -240,7 +240,7 @@ HB_FUNC( GETPROP )
    GlobalUnlock(hMem);
 }
 
-// Usage: RemoveProp( hWnd, cPropName, [lNoFree] ) -> hMem | NIL
+// Usage: RemoveProp(hWnd, cPropName, [lNoFree]) -> hMem | NIL
 HB_FUNC( REMOVEPROP )
 {
    HWND    hwnd = hmg_par_HWND(1);
@@ -259,10 +259,10 @@ HB_FUNC( REMOVEPROP )
    hMem = RemovePropA(hwnd, hb_parc(2));
 #else
    lpString = AnsiToWide(( char * ) hb_parc(2));
-   hMem     = RemovePropW( hwnd, lpString );
+   hMem     = RemovePropW(hwnd, lpString);
    hb_xfree(( TCHAR * ) lpString);
 #endif
-   if( ( NULL != hMem ) && ( ! hb_parldef( 3, HB_FALSE ) ) )
+   if( ( NULL != hMem ) && ( ! hb_parldef(3, HB_FALSE) ) )
    {
       GlobalFree(hMem);
       hMem = NULL;
@@ -275,7 +275,7 @@ HB_FUNC( REMOVEPROP )
 
 static BOOL CALLBACK PropsEnumProc(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULONG_PTR lParam);
 
-/* Usage: aProps := EnumProps( nHandle ) */
+/* Usage: aProps := EnumProps(nHandle) */
 HB_FUNC( ENUMPROPS )
 {
    HWND hWnd = hmg_par_HWND(1);
@@ -292,7 +292,7 @@ HB_FUNC( ENUMPROPS )
 
 static BOOL CALLBACK PropsEnumProc(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULONG_PTR lParam)
 {
-   int iLen = lstrlen( pszPropName );
+   int iLen = lstrlen(pszPropName);
 
    if( iLen )
    {
@@ -362,7 +362,7 @@ HB_FUNC( ENUMPROPSEX )
 BOOL CALLBACK PropsEnumProcEx(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULONG_PTR lParam)
 {
    PHB_ITEM pCodeBlock = ( PHB_ITEM ) lParam;
-   int      iLen       = lstrlen( pszPropName );
+   int      iLen       = lstrlen(pszPropName);
 
    if( iLen )
    {
@@ -377,7 +377,7 @@ BOOL CALLBACK PropsEnumProcEx(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULO
    #else
       pPropName = hb_itemPutCPtr(NULL, WideToAnsi(pszName));
    #endif
-      hb_evalBlock( pCodeBlock, pHWnd, pPropName, pHandle, NULL );
+      hb_evalBlock(pCodeBlock, pHWnd, pPropName, pHandle, NULL);
 
       hb_itemRelease(pHWnd);
       hb_itemRelease(pPropName);

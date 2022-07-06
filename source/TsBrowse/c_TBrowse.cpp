@@ -24,7 +24,7 @@ static void DegradColor(HDC, RECT *, COLORREF, signed long);
 
 static HWND hwndMDIClient;
 
-LRESULT CALLBACK WndProcBrw( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
+LRESULT CALLBACK WndProcBrw(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
    static PHB_SYMB pSymbol = NULL;
    long int        r;
@@ -82,7 +82,7 @@ HB_FUNC( REGISTER_CLASS )
 {
 #ifdef UNICODE
    void *  hClassName;
-   LPCTSTR lpClassName = HB_PARSTR( 1, &hClassName, NULL );
+   LPCTSTR lpClassName = HB_PARSTR(1, &hClassName, NULL);
 #else
    const char * lpClassName = hb_parc(1);
 #endif
@@ -106,7 +106,7 @@ HB_FUNC( REGISTER_CLASS )
    WndClass.lpszMenuName  = NULL;
    WndClass.lpszClassName = lpClassName;
 
-   if( ! RegisterClass( &WndClass ) )
+   if( ! RegisterClass(&WndClass) )
    {
       MessageBox(0, TEXT("Window Registration Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
       ExitProcess(0);
@@ -125,9 +125,9 @@ HB_FUNC( _CREATEWINDOWEX )
    DWORD  dwExStyle  = hb_parnl(1);
 #ifdef UNICODE
    void *  hClassName;
-   LPCTSTR cClass = HB_PARSTR( 2, &hClassName, NULL );
+   LPCTSTR cClass = HB_PARSTR(2, &hClassName, NULL);
    void *  hTitle;
-   LPCTSTR cTitle = HB_PARSTR( 3, &hTitle, NULL );
+   LPCTSTR cTitle = HB_PARSTR(3, &hTitle, NULL);
 #else
    LPCSTR cClass     = ( LPCSTR ) hb_parc(2);
    LPCSTR cTitle     = ( LPCSTR ) hb_parc(3);
@@ -275,7 +275,7 @@ HB_FUNC( TSDRAWCELL )
 #else
    LPWSTR   cData = AnsiToWide(( char * ) hb_parc(6));
 #endif
-   int      nLen         = ( int ) lstrlen( cData );
+   int      nLen         = ( int ) lstrlen(cData);
    DWORD    nAlign       = hb_parnl(7);
    COLORREF clrFore      = hb_parnl(8);
    COLORREF clrBack      = hb_parnl(9);
@@ -303,7 +303,7 @@ HB_FUNC( TSDRAWCELL )
    COLORREF nClr3DS      = hb_parnl(30);
    long     lCursor      = hb_parnl(31);
    BOOL     bSelec       = ( HB_ISNIL(32) ? FALSE : hb_parl(32) );
-   int      nBitmapMask  = hb_parni(33) ;  // SergKis 11.11.21
+   int      nBitmapMask  = hb_parni(33);  // SergKis 11.11.21
 
    int ixLayOut = HIWORD(nAlign);
    int iAlign   = LOWORD(nAlign);
@@ -577,33 +577,33 @@ void WndBoxDraw(HDC hDC, RECT * rct, HPEN hPUpLeft, HPEN hPBotRit, int nLineStyl
       case 1:
          SelectObject(hDC, hPBotRit);
          GoToPoint(hDC, rct->left, rct->bottom - (bHeader ? 1 : 0));
-         LineTo( hDC, rct->right - 1, rct->bottom - (bHeader ? 1 : 0) );
-         LineTo( hDC, rct->right - 1, rct->top - 1 );
+         LineTo(hDC, rct->right - 1, rct->bottom - (bHeader ? 1 : 0));
+         LineTo(hDC, rct->right - 1, rct->top - 1);
          if( bHeader )
-            LineTo( hDC, rct->left - 1, rct->top - 1 );
+            LineTo(hDC, rct->left - 1, rct->top - 1);
          break;
 
       case 2:
          SelectObject(hDC, hPBotRit);
          GoToPoint(hDC, rct->right - 1, rct->bottom);
-         LineTo( hDC, rct->right - 1, rct->top - 1 );
+         LineTo(hDC, rct->right - 1, rct->top - 1);
          break;
 
       case 3:
          SelectObject(hDC, hPBotRit);
          GoToPoint(hDC, rct->left, rct->bottom);
-         LineTo( hDC, rct->right, rct->bottom );
+         LineTo(hDC, rct->right, rct->bottom);
          break;
 
       case 4:
          SelectObject(hDC, hPUpLeft);
          GoToPoint(hDC, rct->left, rct->bottom);
-         LineTo( hDC, rct->left, rct->top );
-         LineTo( hDC, rct->right, rct->top );
+         LineTo(hDC, rct->left, rct->top);
+         LineTo(hDC, rct->right, rct->top);
          SelectObject(hDC, hPBotRit);
          GoToPoint(hDC, rct->left, rct->bottom - (bHeader ? 1 : 0));
-         LineTo( hDC, rct->right - 1, rct->bottom - ( bHeader ? 1 : 0 ) );
-         LineTo( hDC, rct->right - 1, rct->top - 1 );
+         LineTo(hDC, rct->right - 1, rct->bottom - ( bHeader ? 1 : 0 ));
+         LineTo(hDC, rct->right - 1, rct->top - 1);
          break;
 
       case 5:
@@ -867,16 +867,16 @@ static void DrawCheck(HDC hDC, LPRECT rct, HPEN hWhitePen, int nAlign, BOOL bChe
 
       SelectObject(hDC, hBlackPen);
 
-      LineTo( hDC, lrct.right - 4, lrct.bottom - 3 );
-      LineTo( hDC, lrct.right - 6, lrct.bottom - 5 );
+      LineTo(hDC, lrct.right - 4, lrct.bottom - 3);
+      LineTo(hDC, lrct.right - 6, lrct.bottom - 5);
 
       GoToPoint(hDC, lrct.right, lrct.top + 1);
-      LineTo( hDC, lrct.right - 4, lrct.bottom - 2 );
-      LineTo( hDC, lrct.right - 6, lrct.bottom - 4 );
+      LineTo(hDC, lrct.right - 4, lrct.bottom - 2);
+      LineTo(hDC, lrct.right - 6, lrct.bottom - 4);
 
       GoToPoint(hDC, lrct.right, lrct.top + 2);
-      LineTo( hDC, lrct.right - 4, lrct.bottom - 1 );
-      LineTo( hDC, lrct.right - 6, lrct.bottom - 3 );
+      LineTo(hDC, lrct.right - 4, lrct.bottom - 1);
+      LineTo(hDC, lrct.right - 6, lrct.bottom - 3);
    }
 
    SelectObject(hDC, hOldPen);
