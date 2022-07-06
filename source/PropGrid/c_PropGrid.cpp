@@ -84,6 +84,7 @@
 #include "hbvm.h"
 #include "hbstack.h"
 #include "hbapiitm.h"
+#include "mgdefs.h"
 
 #define HB_STORC( n, x, y )  hb_storvc( n, x, y )
 #define HB_STORL( n, x, y )  hb_storvl( n, x, y )
@@ -191,7 +192,7 @@ BOOL InsertBtnPG(HWND hWnd, HTREEITEM hItem, int nBtn, int ItemType, PROPGRD pgr
 {
    INSBTN   *pbtn;
 
-   pbtn = HeapAlloc(GetProcessHeap(), 0, sizeof(INSBTN));
+   pbtn = reinterpret_cast<INSBTN*>(HeapAlloc(GetProcessHeap(), 0, sizeof(INSBTN)));
 
    if( !pbtn )
    {
@@ -354,7 +355,7 @@ BOOL InitPropGrd
    int cxMargin = GetSystemMetrics(SM_CYDLGFRAME);
    int buttonWidth;
    int buttonHeight = 0;
-   ppgrd = HeapAlloc(GetProcessHeap(), 0, sizeof(PROPGRD));
+   ppgrd = reinterpret_cast<PROPGRD*>(HeapAlloc(GetProcessHeap(), 0, sizeof(PROPGRD)));
 
    if( !ppgrd )
    {
@@ -923,7 +924,7 @@ LRESULT PropGridOnCustomDraw ( HWND hWnd, LPARAM lParam )
          {
             HFONT    hFontBold, hOldFont;
             HFONT    hFont = ( HFONT ) SendMessage(hWnd, WM_GETFONT, 0, 0);
-            LOGFONT  lf = { 0 };
+            LOGFONT  lf; memset(&lf, 0, sizeof(lf));
             GetObject(hFont, sizeof(LOGFONT), &lf);
             lf.lfWeight |= FW_BOLD;
 
@@ -2124,7 +2125,7 @@ HB_FUNC( CREATECOLORBMP1 ) //CreateColorBmp(hWnd, nColor, BmpWidh, BmpHeight)
 
    SelectObject(tmpDC, hBmp);
 
-   hOldBrush = SelectObject(tmpDC, hBgBrush);
+   hOldBrush = reinterpret_cast<HBRUSH>(SelectObject(tmpDC, hBgBrush));
    FillRect(tmpDC, &rect, hBgBrush);
 
    rect.left += 1;
@@ -2184,7 +2185,7 @@ HB_FUNC( CREATECOLORBMP )  //CreateColorBmp(hWnd, nColor, BmpWidh, BmpHeight)
 
    SelectObject(tmpDC, hBmp);
 
-   hOldBrush = SelectObject(tmpDC, hBgBrush);
+   hOldBrush = reinterpret_cast<HBRUSH>(SelectObject(tmpDC, hBgBrush));
    FillRect(tmpDC, &rect, hBgBrush);
 
    rect.left += 1;

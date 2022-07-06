@@ -4,6 +4,7 @@ libs=minigui
 libs=bostaurus
 libs=hbprinter
 libs=miniprint
+libs=propgrid
 libs=tsbrowse
 libs=winreport
 libs=vfw32

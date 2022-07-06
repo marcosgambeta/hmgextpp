@@ -1,0 +1,11 @@
+-hblib
+
+-olib/${hb_plat}/${hb_comp}/propgrid
+
+-iinclude
+
+-prgflag=-n -w2 -es2
+
+source\PropGrid\c_PropGrid.cpp
+source\PropGrid\h_PGLang.prg
+source\PropGrid\h_PropGrid.prg
