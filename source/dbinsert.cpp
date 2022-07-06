@@ -79,7 +79,7 @@ HB_FUNC( DBINSERT )
          }
 
          if( hb_setGetHardCommit() )
-            SELF_FLUSH( ( AREAP ) pArea );
+            SELF_FLUSH(( AREAP ) pArea);
 
          if( bOk )
          {

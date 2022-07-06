@@ -118,7 +118,7 @@ HB_FUNC( CHOOSEFONT )
    cf.nSizeMin    = 0;
    cf.nSizeMax    = 0;
 
-   if( ! ChooseFont( &cf ) )
+   if( ! ChooseFont(&cf) )
    {
       hb_reta(8);
       HB_STORC( "", -1, 1 );
@@ -226,14 +226,14 @@ HB_FUNC( C_GETFILE )
    ofn.nMaxFileTitle = 512;
    ofn.Flags         = flags;
 
-   if( GetOpenFileName( &ofn ) )
+   if( GetOpenFileName(&ofn) )
    {
       if( ofn.nFileExtension != 0 )
       {
 #ifndef UNICODE
          hb_retc( ofn.lpstrFile );
 #else
-         pStr = hb_osStrU16Decode( ofn.lpstrFile );
+         pStr = hb_osStrU16Decode(ofn.lpstrFile);
          hb_retc( pStr );
          hb_xfree(pStr);
 #endif
@@ -261,7 +261,7 @@ HB_FUNC( C_GETFILE )
 #ifndef UNICODE
                HB_STORC( cFullName[ n ], -1, n );
 #else
-               pStr = hb_osStrU16Decode( cFullName[ n ] );
+               pStr = hb_osStrU16Decode(cFullName[ n ]);
                HB_STORC( pStr, -1, n );
                hb_xfree(pStr);
 #endif
@@ -365,7 +365,7 @@ HB_FUNC( C_PUTFILE ) // JK JP
    ofn.Flags        = flags;
    ofn.lpstrDefExt  = cExt;
 
-   if( GetSaveFileName( &ofn ) )
+   if( GetSaveFileName(&ofn) )
    {
       if( ofn.nFileExtension == 0 )
       {
@@ -378,7 +378,7 @@ HB_FUNC( C_PUTFILE ) // JK JP
 #ifndef UNICODE
       hb_retc( ofn.lpstrFile );
 #else
-      pStr = hb_osStrU16Decode( ofn.lpstrFile );
+      pStr = hb_osStrU16Decode(ofn.lpstrFile);
       hb_retc( pStr );
       hb_xfree(pStr);
 #endif
@@ -401,7 +401,7 @@ static TCHAR s_szWinName[ MAX_PATH + 1 ];
 // JK HMG 1.0 Experimental Build 8
 // --- callback function for C_BROWSEFORFOLDER(). Contributed By Andy Wos.
 
-int CALLBACK BrowseCallbackProc( HWND hWnd, UINT uMsg, LPARAM lParam, LPARAM lpData )
+int CALLBACK BrowseCallbackProc(HWND hWnd, UINT uMsg, LPARAM lParam, LPARAM lpData)
 {
    TCHAR szPath[ MAX_PATH ];
 
@@ -409,7 +409,7 @@ int CALLBACK BrowseCallbackProc( HWND hWnd, UINT uMsg, LPARAM lParam, LPARAM lpD
    {
       case BFFM_INITIALIZED:  if( lpData )
          {
-            SendMessage( hWnd, BFFM_SETSELECTION, TRUE, lpData );
+            SendMessage(hWnd, BFFM_SETSELECTION, TRUE, lpData);
 #ifndef UNICODE
             SetWindowText(hWnd, ( LPCSTR ) s_szWinName);
 #else
@@ -421,7 +421,7 @@ int CALLBACK BrowseCallbackProc( HWND hWnd, UINT uMsg, LPARAM lParam, LPARAM lpD
       case BFFM_SELCHANGED:   if( lpData )
          {
             SHGetPathFromIDList( ( LPITEMIDLIST ) lParam, szPath );
-            SendMessage( hWnd, BFFM_SETSTATUSTEXT, 0, ( LPARAM ) szPath );
+            SendMessage(hWnd, BFFM_SETSTATUSTEXT, 0, ( LPARAM ) szPath);
          }
    }
 
@@ -478,7 +478,7 @@ HB_FUNC( C_BROWSEFORFOLDER )  // Syntax: C_BROWSEFORFOLDER([<hWnd>],[<cTitle>],[
 #ifndef UNICODE
       hb_retc( lpBuffer );
 #else
-      pStr = hb_osStrU16Decode( lpBuffer );
+      pStr = hb_osStrU16Decode(lpBuffer);
       hb_retc( pStr );
       hb_xfree(pStr);
 #endif
@@ -486,7 +486,7 @@ HB_FUNC( C_BROWSEFORFOLDER )  // Syntax: C_BROWSEFORFOLDER([<hWnd>],[<cTitle>],[
    else
       hb_retc( "" );
 
-   CoTaskMemFree( pidlBrowse );
+   CoTaskMemFree(pidlBrowse);
    #ifdef UNICODE
    hb_xfree(pW);
    hb_xfree(pW2);

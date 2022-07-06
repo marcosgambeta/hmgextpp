@@ -121,7 +121,7 @@ HB_FUNC( _HMG_PRINTER_STARTPAGE )
    HDC hdcPrint = hmg_par_HDC(1);
 
    if( hdcPrint != 0 )
-      StartPage( hdcPrint );
+      StartPage(hdcPrint);
 
 }
 
@@ -273,7 +273,7 @@ HB_FUNC( _HMG_PRINTER_C_PRINT )
       hgdiobj = SelectObject(hdcPrint, hfont);
 
       SetTextColor(hdcPrint, RGB(r, g, b));
-      SetBkMode( hdcPrint, TRANSPARENT );
+      SetBkMode(hdcPrint, TRANSPARENT);
 
 #ifndef UNICODE
       TextOut(hdcPrint,
@@ -453,7 +453,7 @@ HB_FUNC( _HMG_PRINTER_C_MULTILINE_PRINT )
       hgdiobj = SelectObject(hdcPrint, hfont);
 
       SetTextColor(hdcPrint, RGB(r, g, b));
-      SetBkMode( hdcPrint, TRANSPARENT );
+      SetBkMode(hdcPrint, TRANSPARENT);
 
       rect.left   = ( x * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000 ) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX);
       rect.top    = ( y * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000 ) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY);
@@ -492,7 +492,7 @@ HB_FUNC( _HMG_PRINTER_ENDPAGE )
    HDC hdcPrint = hmg_par_HDC(1);
 
    if( hdcPrint != 0 )
-      EndPage( hdcPrint );
+      EndPage(hdcPrint);
 
 }
 
@@ -545,7 +545,7 @@ HB_FUNC( _HMG_PRINTER_PRINTDIALOG )
    pd.hPrintTemplate      = ( HANDLE ) NULL;
    pd.hSetupTemplate      = ( HANDLE ) NULL;
 
-   if( PrintDlg( &pd ) )
+   if( PrintDlg(&pd) )
    {
       pDevMode = ( LPDEVMODE ) GlobalLock(pd.hDevMode);
 
@@ -751,7 +751,7 @@ HB_FUNC( _HMG_PRINTER_C_RECTANGLE )
       if( hb_parl(12) && hb_parl(13) )
          FillRect(hdcPrint, &rect, ( HBRUSH ) hbrush);
       else
-         Rectangle( hdcPrint, rect.left, rect.top, rect.right, rect.bottom );
+         Rectangle(hdcPrint, rect.left, rect.top, rect.right, rect.bottom);
 
       SelectObject(hdcPrint, ( HGDIOBJ ) hgdiobj);
 
@@ -1487,7 +1487,7 @@ HB_FUNC( GETDEFAULTPRINTER )
    else if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT )
    {
 
-      GetProfileString( TEXT("windows"), TEXT("device"), TEXT(""), DefaultPrinter, BufferSize );
+      GetProfileString(TEXT("windows"), TEXT("device"), TEXT(""), DefaultPrinter, BufferSize);
       _tcstok( DefaultPrinter, TEXT(",") );
 
    }
@@ -1549,7 +1549,7 @@ HB_FUNC( _HMG_PRINTER_SHOWPAGE )
    int         xOffset;
    int         yOffset;
    PAINTSTRUCT ps;
-   HDC         hDC = BeginPaint( hWnd, &ps );
+   HDC         hDC = BeginPaint(hWnd, &ps);
 
    hemf = GetEnhMetaFile(FileName);
 
@@ -1609,7 +1609,7 @@ HB_FUNC( _HMG_PRINTER_SHOWPAGE )
 
    DeleteEnhMetaFile(hemf);
 
-   EndPaint( hWnd, &ps );
+   EndPaint(hWnd, &ps);
 
 }
 
@@ -1639,11 +1639,11 @@ HB_FUNC( _HMG_PRINTER_PRINTPAGE )
 
    SetRect(&rect, 0, 0, GetDeviceCaps(hmg_par_HDC(1), HORZRES), GetDeviceCaps(hmg_par_HDC(1), VERTRES));
 
-   StartPage( hmg_par_HDC(1) );
+   StartPage(hmg_par_HDC(1));
 
    PlayEnhMetaFile(hmg_par_HDC(1), ( HENHMETAFILE ) hemf, &rect);
 
-   EndPage( hmg_par_HDC(1) );
+   EndPage(hmg_par_HDC(1));
 
    DeleteEnhMetaFile(hemf);
 
@@ -1794,11 +1794,11 @@ HB_FUNC( _HMG_PRINTER_C_IMAGE )
       if( ! bBmpImage )
       {
          if( hb_parl(7) )             // Stretch
-            SetStretchBltMode( hdcPrint, COLORONCOLOR );
+            SetStretchBltMode(hdcPrint, COLORONCOLOR);
          else
          {
             GetBrushOrgEx(hdcPrint, &Point);
-            SetStretchBltMode( hdcPrint, HALFTONE );
+            SetStretchBltMode(hdcPrint, HALFTONE);
             SetBrushOrgEx(hdcPrint, Point.x, Point.y, NULL);
          }
       }
@@ -1885,7 +1885,7 @@ HB_FUNC( _HMG_PRINTGETJOBINFO )
             HB_STORNI( ( INT ) Job_Info_1->TotalPages, -1, 11 );
             HB_STORNI( ( INT ) Job_Info_1->PagesPrinted, -1, 12 );
 
-            SystemTimeToTzSpecificLocalTime( NULL, &Job_Info_1->Submitted, &LocalSystemTime );
+            SystemTimeToTzSpecificLocalTime(NULL, &Job_Info_1->Submitted, &LocalSystemTime);
 
             wsprintf( cDateTime, TEXT("%02d/%02d/%02d"), LocalSystemTime.wYear, LocalSystemTime.wMonth, LocalSystemTime.wDay );
 #ifndef UNICODE
@@ -2011,7 +2011,7 @@ HB_FUNC( C_SETEMFFILE )
    hBitmap = loademffile(cFileName, hb_parni(3), hb_parni(4), hmg_par_HWND(1), hb_parni(5), hb_parni(6));
 
    if( hBitmap != NULL )
-      SendMessage( hmg_par_HWND(1), ( UINT ) STM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) hBitmap );
+      SendMessage(hmg_par_HWND(1), ( UINT ) STM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) hBitmap);
 
    HB_RETNL( ( LONG_PTR ) hBitmap );
 
@@ -2119,9 +2119,9 @@ static HBITMAP loademffile(TCHAR * filename, int width, int height, HWND handle,
    }
    // Load from stream
 #if defined( __cplusplus )
-   hr = OleLoadPicture( iStream, nFileSize, ( nFileSize == 0 ), IID_IPicture, ( LPVOID * ) &iPicture );
+   hr = OleLoadPicture(iStream, nFileSize, ( nFileSize == 0 ), IID_IPicture, ( LPVOID * ) &iPicture);
 #else
-   hr = OleLoadPicture( iStream, nFileSize, ( nFileSize == 0 ), &IID_IPicture, ( LPVOID * ) &iPicture );
+   hr = OleLoadPicture(iStream, nFileSize, ( nFileSize == 0 ), &IID_IPicture, ( LPVOID * ) &iPicture);
    iStream->lpVtbl->Release(iStream);
 #endif
    if( hr != S_OK || iPicture == NULL )
@@ -2131,8 +2131,8 @@ static HBITMAP loademffile(TCHAR * filename, int width, int height, HWND handle,
       return NULL;
    }
 
-   iPicture->lpVtbl->get_Width( iPicture, &lWidth );
-   iPicture->lpVtbl->get_Height( iPicture, &lHeight );
+   iPicture->lpVtbl->get_Width(iPicture, &lWidth);
+   iPicture->lpVtbl->get_Height(iPicture, &lHeight);
 
    calc_rect(handle, width, height, scalestrech, lWidth, lHeight, &rect, &rect2);
 

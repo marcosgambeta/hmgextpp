@@ -169,32 +169,32 @@ typedef struct tagLVGROUP
 
 #define LVM_ENABLEGROUPVIEW     ( LVM_FIRST + 157 )
 #define ListView_EnableGroupView( hwnd, fEnable ) \
-   SNDMSG( ( hwnd ), LVM_ENABLEGROUPVIEW, ( WPARAM ) ( fEnable ), 0 )
+   SNDMSG(( hwnd ), LVM_ENABLEGROUPVIEW, ( WPARAM ) ( fEnable ), 0)
 
 #define LVM_REMOVEALLGROUPS     ( LVM_FIRST + 160 )
 #define ListView_RemoveAllGroups( hwnd ) \
-   SNDMSG( ( hwnd ), LVM_REMOVEALLGROUPS, 0, 0 )
+   SNDMSG(( hwnd ), LVM_REMOVEALLGROUPS, 0, 0)
 
 #define LVM_HASGROUP            ( LVM_FIRST + 161 )
 #define ListView_HasGroup( hwnd, dwGroupId ) \
-   SNDMSG( ( hwnd ), LVM_HASGROUP, dwGroupId, 0 )
+   SNDMSG(( hwnd ), LVM_HASGROUP, dwGroupId, 0)
 
 #define LVM_ISGROUPVIEWENABLED  ( LVM_FIRST + 175 )
 #define ListView_IsGroupViewEnabled( hwnd ) \
-   ( BOOL ) SNDMSG( ( hwnd ), LVM_ISGROUPVIEWENABLED, 0, 0 )
+   ( BOOL ) SNDMSG(( hwnd ), LVM_ISGROUPVIEWENABLED, 0, 0)
 
 #define LVM_INSERTGROUP         ( LVM_FIRST + 145 )
-#define ListView_InsertGroup( hwnd, index, pgrp )      SNDMSG( ( hwnd ), LVM_INSERTGROUP, ( WPARAM ) index, ( LPARAM ) pgrp )
+#define ListView_InsertGroup( hwnd, index, pgrp )      SNDMSG(( hwnd ), LVM_INSERTGROUP, ( WPARAM ) index, ( LPARAM ) pgrp)
 #define LVM_SETGROUPINFO        ( LVM_FIRST + 147 )
-#define ListView_SetGroupInfo(hwnd, iGroupId, pgrp)  SNDMSG( ( hwnd ), LVM_SETGROUPINFO, ( WPARAM ) iGroupId, ( LPARAM ) pgrp )
+#define ListView_SetGroupInfo(hwnd, iGroupId, pgrp)  SNDMSG(( hwnd ), LVM_SETGROUPINFO, ( WPARAM ) iGroupId, ( LPARAM ) pgrp)
 #define LVM_GETGROUPINFO        ( LVM_FIRST + 149 )
-#define ListView_GetGroupInfo(hwnd, iGroupId, pgrp)  SNDMSG( ( hwnd ), LVM_GETGROUPINFO, ( WPARAM ) iGroupId, ( LPARAM ) pgrp )
+#define ListView_GetGroupInfo(hwnd, iGroupId, pgrp)  SNDMSG(( hwnd ), LVM_GETGROUPINFO, ( WPARAM ) iGroupId, ( LPARAM ) pgrp)
 #define LVM_REMOVEGROUP         ( LVM_FIRST + 150 )
-#define ListView_RemoveGroup( hwnd, iGroupId )         SNDMSG( ( hwnd ), LVM_REMOVEGROUP, ( WPARAM ) iGroupId, 0 )
+#define ListView_RemoveGroup( hwnd, iGroupId )         SNDMSG(( hwnd ), LVM_REMOVEGROUP, ( WPARAM ) iGroupId, 0)
 #define LVM_MOVEGROUP           ( LVM_FIRST + 151 )
-#define ListView_MoveGroup( hwnd, iGroupId, toIndex )  SNDMSG( ( hwnd ), LVM_MOVEGROUP, ( WPARAM ) iGroupId, ( LPARAM ) toIndex )
+#define ListView_MoveGroup( hwnd, iGroupId, toIndex )  SNDMSG(( hwnd ), LVM_MOVEGROUP, ( WPARAM ) iGroupId, ( LPARAM ) toIndex)
 #define LVM_GETGROUPCOUNT       ( LVM_FIRST + 152 )
-#define ListView_GetGroupCount( hwnd )                 SNDMSG( ( hwnd ), LVM_GETGROUPCOUNT, ( WPARAM ) 0, ( LPARAM ) 0 )
+#define ListView_GetGroupCount( hwnd )                 SNDMSG(( hwnd ), LVM_GETGROUPCOUNT, ( WPARAM ) 0, ( LPARAM ) 0)
 
 #endif
 
@@ -268,7 +268,7 @@ HB_FUNC( ADDLISTVIEWBITMAP )       // Grid+
 
    if( nCount > 0 )
    {
-      hArray = hb_param( 2, Harbour::Item::ARRAY );
+      hArray = hb_param(2, Harbour::Item::ARRAY);
 
       for( int s = 1; s <= nCount; s++ )
       {
@@ -281,7 +281,7 @@ HB_FUNC( ADDLISTVIEWBITMAP )       // Grid+
       }
 
       if( himl != NULL )
-         SendMessage( hbutton, LVM_SETIMAGELIST, ( WPARAM ) LVSIL_SMALL, ( LPARAM ) himl );
+         SendMessage(hbutton, LVM_SETIMAGELIST, ( WPARAM ) LVSIL_SMALL, ( LPARAM ) himl);
    }
 
    hb_retni( ( INT ) cx );
@@ -303,7 +303,7 @@ HB_FUNC( ADDLISTVIEWBITMAPHEADER )  // Grid+
 
       if( nCount > 0 )
       {
-         hArray = hb_param( 2, Harbour::Item::ARRAY );
+         hArray = hb_param(2, Harbour::Item::ARRAY);
 
          for( int s = 1; s <= nCount; s++ )
          {
@@ -317,7 +317,7 @@ HB_FUNC( ADDLISTVIEWBITMAPHEADER )  // Grid+
 
          if( himl != NULL )
          {
-            SendMessage( hheader, HDM_SETIMAGELIST, 0, ( LPARAM ) himl );
+            SendMessage(hheader, HDM_SETIMAGELIST, 0, ( LPARAM ) himl);
             RegisterResource(himl, const_cast<LPSTR>("IMAGELIST"));
          }
       }
@@ -358,9 +358,9 @@ HB_FUNC( INITLISTVIEWCOLUMNS )
    hc = hmg_par_HWND(1);
 
    iLen   = ( int ) hb_parinfa(2, 0) - 1;
-   hArray = hb_param( 2, Harbour::Item::ARRAY );
-   wArray = hb_param( 3, Harbour::Item::ARRAY );
-   jArray = hb_param( 4, Harbour::Item::ARRAY );
+   hArray = hb_param(2, Harbour::Item::ARRAY);
+   wArray = hb_param(3, Harbour::Item::ARRAY);
+   jArray = hb_param(4, Harbour::Item::ARRAY);
 
    COL.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM;
 
@@ -375,12 +375,12 @@ HB_FUNC( INITLISTVIEWCOLUMNS )
    #endif
       COL.pszText  = lpText;
       COL.iSubItem = iColumn;
-      ListView_InsertColumn( hc, iColumn, &COL );
+      ListView_InsertColumn(hc, iColumn, &COL);
       if( iColumn == 0 && COL.fmt != LVCFMT_LEFT )
       {
          iColumn++;
          COL.iSubItem = iColumn;
-         ListView_InsertColumn( hc, iColumn, &COL );
+         ListView_InsertColumn(hc, iColumn, &COL);
       }
 
       iColumn++;
@@ -391,7 +391,7 @@ HB_FUNC( INITLISTVIEWCOLUMNS )
    }
 
    if( iColumn != s )
-      ListView_DeleteColumn( hc, 0 );
+      ListView_DeleteColumn(hc, 0);
 }
 
 HB_FUNC( ADDLISTVIEWITEMS )
@@ -411,7 +411,7 @@ HB_FUNC( ADDLISTVIEWITEMS )
 
    h      = hmg_par_HWND(1);
    l      = ( int ) hb_parinfa(2, 0) - 1;
-   hArray = hb_param( 2, Harbour::Item::ARRAY );
+   hArray = hb_param(2, Harbour::Item::ARRAY);
    c      = ListView_GetItemCount( h );
 
    caption = ( char * ) hb_arrayGetCPtr(hArray, 1);
@@ -458,7 +458,7 @@ HB_FUNC( LISTVIEWGETMULTISEL )
    int  n;
    int  j = 0;
 
-   n = ( int ) SendMessage( hwnd, LVM_GETSELECTEDCOUNT, 0, 0 );
+   n = ( int ) SendMessage(hwnd, LVM_GETSELECTEDCOUNT, 0, 0);
 
    hb_reta(n);
 
@@ -482,7 +482,7 @@ HB_FUNC( LISTVIEWSETMULTISEL )
    int      i    = -1;
    int      l;
 
-   wArray = hb_param( 2, Harbour::Item::ARRAY );
+   wArray = hb_param(2, Harbour::Item::ARRAY);
 
    l = ( int ) hb_parinfa(2, 0) - 1;
 
@@ -520,7 +520,7 @@ HB_FUNC( LISTVIEWSETITEM )
    int  l = ( int ) hb_parinfa(2, 0) - 1;
    int  c = hb_parni(3) - 1;
 
-   hArray = hb_param( 2, Harbour::Item::ARRAY );
+   hArray = hb_param(2, Harbour::Item::ARRAY);
 
    for( int s = 0; s <= l; s = s + 1 )
    {
@@ -557,7 +557,7 @@ static TCHAR * GetLVItemText(HWND hListView, int i, int iSubItem_)
       lpText         = ( TCHAR * ) hb_xrealloc(lpText, sizeof(TCHAR) * nLen);
       lvi.cchTextMax = nLen;
       lvi.pszText    = lpText;
-      nRes           = ( int ) SendMessage( hListView, LVM_GETITEMTEXT, ( WPARAM ) i, ( LPARAM ) ( LV_ITEM FAR * ) &lvi );
+      nRes           = ( int ) SendMessage(hListView, LVM_GETITEMTEXT, ( WPARAM ) i, ( LPARAM ) ( LV_ITEM FAR * ) &lvi);
    }
    while( nRes >= nLen - 1 );
 
@@ -611,7 +611,7 @@ HB_FUNC( SETGRIDCOLUMNJUSTIFY )
    COL.mask = LVCF_FMT;
    COL.fmt  = hb_parni(3);
 
-   ListView_SetColumn( hmg_par_HWND(1), hb_parni(2) - 1, &COL );
+   ListView_SetColumn(hmg_par_HWND(1), hb_parni(2) - 1, &COL);
 }
 
 HB_FUNC( SETGRIDCOLUMNHEADER )
@@ -627,7 +627,7 @@ HB_FUNC( SETGRIDCOLUMNHEADER )
    COL.pszText = lpText;
    COL.fmt     = hb_parni(4);
 
-   ListView_SetColumn( hmg_par_HWND(1), hb_parni(2) - 1, &COL );
+   ListView_SetColumn(hmg_par_HWND(1), hb_parni(2) - 1, &COL);
 
 #ifdef UNICODE
    hb_xfree(lpText);
@@ -649,17 +649,17 @@ HB_FUNC( SETGRIDCOLUMNHEADERIMAGE )
    COL.fmt    = fmt;
    COL.iImage = hb_parni(3) - 1;
 
-   ListView_SetColumn( hmg_par_HWND(1), hb_parni(2) - 1, &COL );
+   ListView_SetColumn(hmg_par_HWND(1), hb_parni(2) - 1, &COL);
 }
 
 HB_FUNC( LISTVIEWGETCOUNTPERPAGE )
 {
-   hb_retnl( ListView_GetCountPerPage( hmg_par_HWND(1) ) );
+   hb_retnl( ListView_GetCountPerPage(hmg_par_HWND(1)) );
 }
 
 HB_FUNC( LISTVIEW_ENSUREVISIBLE )
 {
-   ListView_EnsureVisible( hmg_par_HWND(1), hb_parni(2) - 1, 1 );
+   ListView_EnsureVisible(hmg_par_HWND(1), hb_parni(2) - 1, 1);
 }
 
 HB_FUNC( SETIMAGELISTVIEWITEMS )
@@ -783,7 +783,7 @@ HB_FUNC( LISTVIEW_GETITEMRECT )
 
 HB_FUNC( LISTVIEW_UPDATE )
 {
-   ListView_Update( hmg_par_HWND(1), hb_parni(2) - 1 );
+   ListView_Update(hmg_par_HWND(1), hb_parni(2) - 1);
 }
 
 HB_FUNC( LISTVIEW_SCROLL )
@@ -850,9 +850,9 @@ HB_FUNC( LISTVIEW_ADDCOLUMN )
    LV_COLUMN COL;
    HWND      hwnd    = hmg_par_HWND(1);
    int       iColumn = hb_parni(2) - 1;
-   PHB_ITEM  pValue  = hb_itemNew( NULL );
+   PHB_ITEM  pValue  = hb_itemNew(NULL);
 
-   hb_itemCopy( pValue, hb_param( 4, Harbour::Item::STRING ) );
+   hb_itemCopy( pValue, hb_param(4, Harbour::Item::STRING) );
 
    COL.mask = LVCF_WIDTH | LVCF_TEXT | LVCF_FMT | LVCF_SUBITEM;
    COL.cx   = hb_parni(3);
@@ -865,7 +865,7 @@ HB_FUNC( LISTVIEW_ADDCOLUMN )
    COL.iSubItem = iColumn;
    COL.fmt      = hb_parni(5);
 
-   ListView_InsertColumn( hwnd, iColumn, &COL );
+   ListView_InsertColumn(hwnd, iColumn, &COL);
 
 #ifdef UNICODE
    hb_xfree(lpText);
@@ -873,11 +873,11 @@ HB_FUNC( LISTVIEW_ADDCOLUMN )
    if( iColumn == 0 && COL.fmt != LVCFMT_LEFT )
    {
       COL.iSubItem = 1;
-      ListView_InsertColumn( hwnd, 1, &COL );
-      ListView_DeleteColumn( hwnd, 0 );
+      ListView_InsertColumn(hwnd, 1, &COL);
+      ListView_DeleteColumn(hwnd, 0);
    }
 
-   SendMessage( hwnd, LVM_DELETEALLITEMS, 0, 0 );
+   SendMessage(hwnd, LVM_DELETEALLITEMS, 0, 0);
 
    RedrawWindow(hwnd, NULL, NULL, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
 }
@@ -886,21 +886,21 @@ HB_FUNC( LISTVIEW_DELETECOLUMN )
 {
    HWND hwnd = hmg_par_HWND(1);
 
-   ListView_DeleteColumn( hwnd, hb_parni(2) - 1 );
+   ListView_DeleteColumn(hwnd, hb_parni(2) - 1);
 
-   SendMessage( hwnd, LVM_DELETEALLITEMS, 0, 0 );
+   SendMessage(hwnd, LVM_DELETEALLITEMS, 0, 0);
 
    RedrawWindow(hwnd, NULL, NULL, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
 }
 
 HB_FUNC( LISTVIEW_GETCOLUMNWIDTH )
 {
-   hb_retni( ListView_GetColumnWidth( hmg_par_HWND(1), hb_parni(2) ) );
+   hb_retni( ListView_GetColumnWidth(hmg_par_HWND(1), hb_parni(2)) );
 }
 
 HB_FUNC( LISTVIEW_SETCOLUMNWIDTH )  // (JK) HMG Experimental Build 6
 {
-   hb_retl( ListView_SetColumnWidth( hmg_par_HWND(1), hb_parni(2), hb_parni(3) ) );
+   hb_retl( ListView_SetColumnWidth(hmg_par_HWND(1), hb_parni(2), hb_parni(3)) );
 }
 
 HB_FUNC( LISTVIEW_GETCHECKSTATE )
@@ -954,7 +954,7 @@ HB_FUNC( LISTVIEW_GETCOLUMNORDERARRAY )
    if( iCols )
    {
       int *    iArray = ( int * ) hb_xgrab(iCols * sizeof(int));
-      PHB_ITEM pArray = hb_itemArrayNew( ( HB_SIZE ) iCols );
+      PHB_ITEM pArray = hb_itemArrayNew(( HB_SIZE ) iCols);
 
       ListView_GetColumnOrderArray(hmg_par_HWND(1), iCols, ( int * ) iArray);
 
@@ -973,7 +973,7 @@ HB_FUNC( LISTVIEW_GETCOLUMNORDERARRAY )
 
 HB_FUNC( LISTVIEW_SETCOLUMNORDERARRAY )
 {
-   PHB_ITEM pOrder = hb_param( 3, Harbour::Item::ARRAY );
+   PHB_ITEM pOrder = hb_param(3, Harbour::Item::ARRAY);
 
    if( NULL != pOrder )
    {
@@ -1003,9 +1003,9 @@ HB_FUNC( LISTVIEW_CHANGEEXTENDEDSTYLE )  // Dr. Claudio Soto
    DWORD Remove = ( DWORD ) hb_parnl(3);
    DWORD OldStyle, NewStyle, Style;
 
-   OldStyle = ListView_GetExtendedListViewStyle( hWnd );
+   OldStyle = ListView_GetExtendedListViewStyle(hWnd);
    NewStyle = ( OldStyle | Add ) & ( ~Remove );
-   Style    = ListView_SetExtendedListViewStyle( hWnd, NewStyle );
+   Style    = ListView_SetExtendedListViewStyle(hWnd, NewStyle);
 
    hb_retnl( ( LONG ) Style );
 }
@@ -1015,7 +1015,7 @@ HB_FUNC( LISTVIEW_GETEXTENDEDSTYLE )  // Dr. Claudio Soto
 {
    HWND  hWnd     = hmg_par_HWND(1);
    DWORD ExStyle  = ( DWORD ) hb_parnl(2);
-   DWORD OldStyle = ListView_GetExtendedListViewStyle( hWnd );
+   DWORD OldStyle = ListView_GetExtendedListViewStyle(hWnd);
 
    if( HB_ISNUM(2) )
       hb_retl( ( BOOL ) ( ( OldStyle & ExStyle ) == ExStyle ) );
@@ -1032,7 +1032,7 @@ HB_FUNC( LISTVIEW_GETEXTENDEDSTYLE )  // Dr. Claudio Soto
 //                                /*0==none, positive==UP arrow or negative==DOWN arrow*/] ) -> nType (previous setting)
 HB_FUNC( LISTVIEW_SETSORTHEADER )
 {
-   HWND   hWndHD = ( HWND ) SendMessage( hmg_par_HWND(1), LVM_GETHEADER, 0, 0 );
+   HWND   hWndHD = ( HWND ) SendMessage(hmg_par_HWND(1), LVM_GETHEADER, 0, 0);
    INT    nItem  = hb_parni(2) - 1;
    INT    nType;
    HDITEM hdItem;
@@ -1041,7 +1041,7 @@ HB_FUNC( LISTVIEW_SETSORTHEADER )
    {
       hdItem.mask = HDI_FORMAT;
 
-      SendMessage( hWndHD, HDM_GETITEM, nItem, ( LPARAM ) &hdItem );
+      SendMessage(hWndHD, HDM_GETITEM, nItem, ( LPARAM ) &hdItem);
 
       if( hdItem.fmt & HDF_SORTUP )
          hb_retni(1);
@@ -1061,14 +1061,14 @@ HB_FUNC( LISTVIEW_SETSORTHEADER )
          else
             hdItem.fmt = ( hdItem.fmt & ~HDF_SORTUP ) | HDF_SORTDOWN;
 
-         SendMessage( hWndHD, HDM_SETITEM, nItem, ( LPARAM ) &hdItem );
+         SendMessage(hWndHD, HDM_SETITEM, nItem, ( LPARAM ) &hdItem);
       }
    }
    else
    {
       hdItem.mask = HDI_BITMAP | HDI_FORMAT;
 
-      SendMessage( hWndHD, HDM_GETITEM, nItem, ( LPARAM ) &hdItem );
+      SendMessage(hWndHD, HDM_GETITEM, nItem, ( LPARAM ) &hdItem);
 
       nType = hb_parni(3);
 
@@ -1091,7 +1091,7 @@ HB_FUNC( LISTVIEW_SETSORTHEADER )
             hdItem.fmt |= HDF_BITMAP_ON_RIGHT;
       }
 
-      SendMessage( hWndHD, HDM_SETITEM, nItem, ( LPARAM ) &hdItem );
+      SendMessage(hWndHD, HDM_SETITEM, nItem, ( LPARAM ) &hdItem);
    }
 }
 

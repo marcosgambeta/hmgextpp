@@ -40,7 +40,7 @@
 
 #if ( ( defined( __BORLANDC__ ) && __BORLANDC__ <= 1410 ) )
 
-HRESULT TaskDialog( HWND hwndParent, HINSTANCE hInstance, PCWSTR pszWindowTitle, PCWSTR pszMainInstruction, PCWSTR pszContent, TASKDIALOG_COMMON_BUTTON_FLAGS dwCommonButtons, PCWSTR pszIcon, int * pnButton )
+HRESULT TaskDialog(HWND hwndParent, HINSTANCE hInstance, PCWSTR pszWindowTitle, PCWSTR pszMainInstruction, PCWSTR pszContent, TASKDIALOG_COMMON_BUTTON_FLAGS dwCommonButtons, PCWSTR pszIcon, int * pnButton)
 {
    HMODULE hCommCtl = LoadLibraryEx(TEXT("comctl32.dll"), NULL, 0);
 
@@ -52,7 +52,7 @@ HRESULT TaskDialog( HWND hwndParent, HINSTANCE hInstance, PCWSTR pszWindowTitle,
       if( NULL != pfn )
       {
          hResult = pfn( hwndParent, hInstance, pszWindowTitle, pszMainInstruction, pszContent, dwCommonButtons, pszIcon, pnButton );
-         /* HB_TRACE( HB_TR_DEBUG, ( "TaskDialog() returns %08lX", hResult ) ); */
+         /* HB_TRACE(HB_TR_DEBUG, ("TaskDialog() returns %08lX", hResult)); */
       }
       FreeLibrary( hCommCtl );
       return hResult;
@@ -146,8 +146,8 @@ HB_FUNC( WIN_TASKDIALOG0 )
       pszIcon = MAKEINTRESOURCE(hb_parni(7));
    }
 
-   hResult = TaskDialog( hWndParent, hInstance, pszWindowTitle, pszMainInstruction, pszContent, dwCommonButtons, pszIcon, &nButton );
-   /* HB_TRACE( HB_TR_DEBUG, ( "win_TaskDialog0() returns %08lX", hResult ) ); */
+   hResult = TaskDialog(hWndParent, hInstance, pszWindowTitle, pszMainInstruction, pszContent, dwCommonButtons, pszIcon, &nButton);
+   /* HB_TRACE(HB_TR_DEBUG, ("win_TaskDialog0() returns %08lX", hResult)); */
 
    if( S_OK == hResult )
    {
@@ -165,17 +165,17 @@ HB_FUNC( WIN_TASKDIALOG0 )
       hb_stor(8);
    }
 
-   hb_retnint( hResult );
+   hb_retnint(hResult);
 
    while( --iText >= 0 )
-      hb_strfree( hText[ iText ] );
+      hb_strfree(hText[ iText ]);
 
    hb_xfree(hText);
 }
 
 HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
 {
-   PHB_ITEM pConfig = hb_param( 1, Harbour::Item::ARRAY );
+   PHB_ITEM pConfig = hb_param(1, Harbour::Item::ARRAY);
 
    if( pConfig && hb_arrayLen( pConfig ) >= TDC_CONFIG )
    {
@@ -467,10 +467,10 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
       // 22 PFTASKDIALOGCALLBACK pfCallback;
       // 23 LONG_PTR lpCallbackData;
       if( hb_arrayGetType(pConfig, TDC_CALLBACK) & Harbour::Item::EVALITEM )
-         pCallbackData = hb_itemNew( hb_arrayGetItemPtr(pConfig, TDC_CALLBACK) );
+         pCallbackData = hb_itemNew(hb_arrayGetItemPtr(pConfig, TDC_CALLBACK));
 
       if( hb_arrayGetType(pConfig, 23) & Harbour::Item::OBJECT )
-         pCallbackData = hb_itemNew( hb_arrayGetItemPtr(pConfig, 23) );
+         pCallbackData = hb_itemNew(hb_arrayGetItemPtr(pConfig, 23));
 
       if( NULL != pCallbackData )
       {
@@ -486,21 +486,21 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
       ////////////////////////////////////////////////////////////////////////////////////////////
       hResult = TaskDialogIndirect(&config, &nButton, &nRadioButton, &fVerificationFlagChecked);
       ////////////////////////////////////////////////////////////////////////////////////////////
-      /* HB_TRACE( HB_TR_DEBUG, ( "win_TaskDialogIndirect0() returns %08lX", hResult ) );*/
+      /* HB_TRACE(HB_TR_DEBUG, ("win_TaskDialogIndirect0() returns %08lX", hResult));*/
 
       while( --iText >= 0 )
-         hb_strfree( hText[ iText ] );
+         hb_strfree(hText[ iText ]);
 
       hb_xfree(hText);
 
       while( --iButton >= 0 )
-         hb_strfree( hButton[ iButton ] );
+         hb_strfree(hButton[ iButton ]);
 
       if( NULL != hButton )
          hb_xfree(hButton);
 
       while( --iRadioButton >= 0 )
-         hb_strfree( hRadioButton[ iRadioButton ] );
+         hb_strfree(hRadioButton[ iRadioButton ]);
 
       if( NULL != hRadioButton )
          hb_xfree(hRadioButton);
@@ -529,7 +529,7 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
          hb_stor(4);
       }
 
-      hb_retnint( hResult );
+      hb_retnint(hResult);
    }
    else
       hb_errRT_BASE_SubstR( EG_ARG, 5000, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
@@ -570,7 +570,7 @@ HRESULT CALLBACK __ClsCBFunc( HWND hWnd, UINT uiNotification, WPARAM wParam, LPA
          return S_OK;
 
       // Get TimedOut property
-      hb_objSendMsg( pObject, ( const char * ) "TIMEDOUT", 0 );
+      hb_objSendMsg(pObject, ( const char * ) "TIMEDOUT", 0);
 
       if( ! hmg_par_BOOL(-1) )  // if FALSE - it's not the time yet
       {
@@ -578,28 +578,28 @@ HRESULT CALLBACK __ClsCBFunc( HWND hWnd, UINT uiNotification, WPARAM wParam, LPA
          {
             DWORD nMilliSec;
             // Get timeoutMS property
-            hb_objSendMsg( pObject, ( const char * ) "TIMEOUTMS", 0 );
+            hb_objSendMsg(pObject, ( const char * ) "TIMEOUTMS", 0);
             nMilliSec = hb_parni( -1 );
             // Remember what wParam is the time in milliseconds since dialog created or timer reset
             if( ( 0 != nMilliSec ) && ( nMilliSec < wParam ) ) // If the condition is met - the time out!
             {
                PHB_ITEM itmTimeOut = hb_itemPutL( NULL, HB_TRUE );
                // Set TimedOut property to TRUE
-               hb_objSendMsg( pObject, ( const char * ) "TIMEDOUT", 1, itmTimeOut );
+               hb_objSendMsg(pObject, ( const char * ) "TIMEDOUT", 1, itmTimeOut);
                hb_itemRelease(itmTimeOut);
                // And cancel a Dialog
-               SendMessage( hWnd, TDM_CLICK_BUTTON, IDCANCEL, ( LPARAM ) 0 );
+               SendMessage(hWnd, TDM_CLICK_BUTTON, IDCANCEL, ( LPARAM ) 0);
             }
             else
-               TD_objSendMsg( pObject, ( const char * ) "ONTIMER", NULL, hWnd, uiNotification, wParam, lParam );
+               TD_objSendMsg(pObject, ( const char * ) "ONTIMER", NULL, hWnd, uiNotification, wParam, lParam);
 
             return S_OK; // Not reset timer
          }
       }
 
-      sMsgName = TD_NotifyToMsg( uiNotification, ( PHB_ITEM ) dwRefData );
+      sMsgName = TD_NotifyToMsg(uiNotification, ( PHB_ITEM ) dwRefData);
 
-      if( TD_objSendMsg( pObject, sMsgName, &hRes, hWnd, uiNotification, wParam, lParam ) )
+      if( TD_objSendMsg(pObject, sMsgName, &hRes, hWnd, uiNotification, wParam, lParam) )
          return hRes;
    }
    else if( iType & Harbour::Item::EVALITEM )
@@ -609,13 +609,13 @@ HRESULT CALLBACK __ClsCBFunc( HWND hWnd, UINT uiNotification, WPARAM wParam, LPA
       if( pCallback && hb_vmRequestReenter() )
       {
          HRESULT  hRes;
-         PHB_ITEM itmStr = hb_itemNew( NULL );
+         PHB_ITEM itmStr = hb_itemNew(NULL);
 
          hb_vmPushEvalSym();
-         hb_vmPush( pCallback );
-         hb_vmPushNumInt( ( HB_MAXINT ) ( HB_PTRUINT ) hWnd );
-         hb_vmPushNumInt( uiNotification );
-         hb_vmPushNumInt( wParam );
+         hb_vmPush(pCallback);
+         hb_vmPushNumInt(( HB_MAXINT ) ( HB_PTRUINT ) hWnd);
+         hb_vmPushNumInt(uiNotification);
+         hb_vmPushNumInt(wParam);
 
          if( uiNotification == TDN_HYPERLINK_CLICKED )
          {
@@ -624,7 +624,7 @@ HRESULT CALLBACK __ClsCBFunc( HWND hWnd, UINT uiNotification, WPARAM wParam, LPA
             hb_vmPush/*ItemRef*/ ( itmStr );
          }
          else
-            hb_vmPushNumInt( lParam );
+            hb_vmPushNumInt(lParam);
 
          hb_vmSend(4);
 
@@ -642,7 +642,7 @@ HRESULT CALLBACK __ClsCBFunc( HWND hWnd, UINT uiNotification, WPARAM wParam, LPA
    return S_OK;
 }
 
-static const char * TD_NotifyToMsg( UINT uiNotification, PHB_ITEM pObj )
+static const char * TD_NotifyToMsg(UINT uiNotification, PHB_ITEM pObj)
 {
    typedef struct
    {
@@ -674,28 +674,28 @@ static const char * TD_NotifyToMsg( UINT uiNotification, PHB_ITEM pObj )
       }
    }
 
-   if( ( NULL != sMsgName ) && hb_objHasMsg( pObj, sMsgName ) )
+   if( ( NULL != sMsgName ) && hb_objHasMsg(pObj, sMsgName) )
       return sMsgName;
 
    return ( const char * ) "LISTENER";
 }
 
-static BOOL TD_objSendMsg( PHB_ITEM pObject, const char * sMsgName, HRESULT * hRes, HWND hWnd, UINT uiNotification, WPARAM wParam, LPARAM lParam )
+static BOOL TD_objSendMsg(PHB_ITEM pObject, const char * sMsgName, HRESULT * hRes, HWND hWnd, UINT uiNotification, WPARAM wParam, LPARAM lParam)
 {
-   if( hb_objHasMsg( pObject, sMsgName ) )
+   if( hb_objHasMsg(pObject, sMsgName) )
    {
-      PHB_ITEM itmHWND   = hb_itemPutNInt( NULL, ( HB_MAXINT ) ( HB_PTRUINT ) hWnd );
-      PHB_ITEM itmNotify = hb_itemPutNInt( NULL, uiNotification );
-      PHB_ITEM itmWParam = hb_itemPutNInt( NULL, wParam );
-      PHB_ITEM itmLParam = hb_itemNew( NULL );
+      PHB_ITEM itmHWND   = hb_itemPutNInt(NULL, ( HB_MAXINT ) ( HB_PTRUINT ) hWnd);
+      PHB_ITEM itmNotify = hb_itemPutNInt(NULL, uiNotification);
+      PHB_ITEM itmWParam = hb_itemPutNInt(NULL, wParam);
+      PHB_ITEM itmLParam = hb_itemNew(NULL);
       PHB_ITEM itmResult;
 
       if( uiNotification == TDN_HYPERLINK_CLICKED )
          HB_ITEMPUTSTR( itmLParam, ( HB_WCHAR * ) lParam );
       else
-         hb_itemPutNInt( itmLParam, lParam );
+         hb_itemPutNInt(itmLParam, lParam);
 
-      itmResult = hb_objSendMsg( pObject, sMsgName, 4, itmHWND, itmNotify, itmWParam, itmLParam );
+      itmResult = hb_objSendMsg(pObject, sMsgName, 4, itmHWND, itmNotify, itmWParam, itmLParam);
 
       if( NULL != hRes )
          ( *hRes ) = ( hb_itemGetL(  itmResult ) == HB_TRUE ? S_OK : S_FALSE );
@@ -724,7 +724,7 @@ HB_FUNC( _SETWINDOWTITLE )
       SetWindowText(hmg_par_HWND(1), pszText);
 
       if( HB_ISCHAR(2) )
-         hb_strfree( hText );
+         hb_strfree(hText);
    }
 }
 
@@ -733,37 +733,37 @@ HB_FUNC( _SETWINDOWTITLE )
 // TDM_CLICK_BUTTON - Simulates the action of a button click in a task dialog
 HB_FUNC( _CLICKBUTTON )
 {
-   SendMessage( hmg_par_HWND(1), TDM_CLICK_BUTTON, ( WPARAM ) hb_parni(2), ( LPARAM ) 0 );
+   SendMessage(hmg_par_HWND(1), TDM_CLICK_BUTTON, ( WPARAM ) hb_parni(2), ( LPARAM ) 0);
 }
 
 // TDM_CLICK_RADIO_BUTTON - Simulates the action of a radio button click in a task dialog
 HB_FUNC( _CLICKRADIOBUTTON )
 {
-   SendMessage( hmg_par_HWND(1), TDM_CLICK_RADIO_BUTTON, ( WPARAM ) hb_parni(2), ( LPARAM ) 0 );
+   SendMessage(hmg_par_HWND(1), TDM_CLICK_RADIO_BUTTON, ( WPARAM ) hb_parni(2), ( LPARAM ) 0);
 }
 
 // TDM_CLICK_VERIFICATION - Simulates a click of the verification checkbox of a task dialog, if it exists.
 HB_FUNC( _CLICKVERIFICATION )
 {
-   SendMessage( hmg_par_HWND(1), TDM_CLICK_VERIFICATION, ( WPARAM ) hmg_par_BOOL(2), ( LPARAM ) hmg_par_BOOL(3) );
+   SendMessage(hmg_par_HWND(1), TDM_CLICK_VERIFICATION, ( WPARAM ) hmg_par_BOOL(2), ( LPARAM ) hmg_par_BOOL(3));
 }
 
 // TDM_ENABLE_BUTTON - Enables or disables a push button in a task dialog
 HB_FUNC( _ENABLEBUTTON )
 {
-   SendMessage( hmg_par_HWND(1), TDM_ENABLE_BUTTON, ( WPARAM ) hb_parni(2), ( LPARAM ) hmg_par_BOOL(3) );
+   SendMessage(hmg_par_HWND(1), TDM_ENABLE_BUTTON, ( WPARAM ) hb_parni(2), ( LPARAM ) hmg_par_BOOL(3));
 }
 
 // TDM_ENABLE_RADIO_BUTTON - Enables or disables a push button in a task dialog
 HB_FUNC( _ENABLERADIOBUTTON )
 {
-   SendMessage( hmg_par_HWND(1), TDM_ENABLE_RADIO_BUTTON, ( WPARAM ) hb_parni(2), ( LPARAM ) hmg_par_BOOL(3) );
+   SendMessage(hmg_par_HWND(1), TDM_ENABLE_RADIO_BUTTON, ( WPARAM ) hb_parni(2), ( LPARAM ) hmg_par_BOOL(3));
 }
 
 // TDM_SET_BUTTON_ELEVATION_REQUIRED_STATE - Specifies whether a given task dialog button or command link should have a UAC shield icon
 HB_FUNC( _SETBUTTONELEVATIONREQUIRED )
 {
-   SendMessage( hmg_par_HWND(1), TDM_SET_BUTTON_ELEVATION_REQUIRED_STATE, ( WPARAM ) hb_parni(2), ( LPARAM ) hmg_par_BOOL(3) );
+   SendMessage(hmg_par_HWND(1), TDM_SET_BUTTON_ELEVATION_REQUIRED_STATE, ( WPARAM ) hb_parni(2), ( LPARAM ) hmg_par_BOOL(3));
 }
 
 // TDM_SET_ELEMENT_TEXT - Updates a text element in a task dialog
@@ -773,10 +773,10 @@ HB_FUNC( _SETMAININSTRUCTION )
    PCWSTR pszMainInstruction = HB_ISCHAR(2) ? HB_PARSTRDEF( 2, &hText, NULL ) :
                                ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : NULL );
 
-   SendMessage( hmg_par_HWND(1), TDM_SET_ELEMENT_TEXT, ( WPARAM ) TDE_MAIN_INSTRUCTION, ( LPARAM ) pszMainInstruction );
+   SendMessage(hmg_par_HWND(1), TDM_SET_ELEMENT_TEXT, ( WPARAM ) TDE_MAIN_INSTRUCTION, ( LPARAM ) pszMainInstruction);
 
    if( hText )
-      hb_strfree( hText );
+      hb_strfree(hText);
 }
 
 HB_FUNC( _SETCONTENT )
@@ -785,10 +785,10 @@ HB_FUNC( _SETCONTENT )
    PCWSTR pszContent = HB_ISCHAR(2) ? HB_PARSTRDEF( 2, &hText, NULL ) :
                        ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : NULL );
 
-   SendMessage( hmg_par_HWND(1), TDM_SET_ELEMENT_TEXT, ( WPARAM ) TDE_CONTENT, ( LPARAM ) pszContent );
+   SendMessage(hmg_par_HWND(1), TDM_SET_ELEMENT_TEXT, ( WPARAM ) TDE_CONTENT, ( LPARAM ) pszContent);
 
    if( hText )
-      hb_strfree( hText );
+      hb_strfree(hText);
 }
 
 HB_FUNC( _SETFOOTER )
@@ -797,10 +797,10 @@ HB_FUNC( _SETFOOTER )
    PCWSTR pszFooter = HB_ISCHAR(2) ? HB_PARSTRDEF( 2, &hText, NULL ) :
                       ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : NULL );
 
-   SendMessage( hmg_par_HWND(1), TDM_SET_ELEMENT_TEXT, ( WPARAM ) TDE_FOOTER, ( LPARAM ) pszFooter );
+   SendMessage(hmg_par_HWND(1), TDM_SET_ELEMENT_TEXT, ( WPARAM ) TDE_FOOTER, ( LPARAM ) pszFooter);
 
    if( hText )
-      hb_strfree( hText );
+      hb_strfree(hText);
 }
 
 HB_FUNC( _SETEXPANDEDINFORMATION )
@@ -809,16 +809,16 @@ HB_FUNC( _SETEXPANDEDINFORMATION )
    PCWSTR pszExpandedInformation = HB_ISCHAR(2) ? HB_PARSTRDEF( 2, &hText, NULL ) :
                                    ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : NULL );
 
-   SendMessage( hmg_par_HWND(1), TDM_SET_ELEMENT_TEXT, ( WPARAM ) TDE_EXPANDED_INFORMATION, ( LPARAM ) pszExpandedInformation );
+   SendMessage(hmg_par_HWND(1), TDM_SET_ELEMENT_TEXT, ( WPARAM ) TDE_EXPANDED_INFORMATION, ( LPARAM ) pszExpandedInformation);
 
    if( hText )
-      hb_strfree( hText );
+      hb_strfree(hText);
 }
 
 // TDM_SET_PROGRESS_BAR_POS - Sets the position of the progress bar in a task dialog
 HB_FUNC( _SETPROGRESSBARPOS )
 {
-   SendMessage( hmg_par_HWND(1), TDM_SET_PROGRESS_BAR_POS, ( WPARAM ) hb_parni(2), ( LPARAM ) 0 );
+   SendMessage(hmg_par_HWND(1), TDM_SET_PROGRESS_BAR_POS, ( WPARAM ) hb_parni(2), ( LPARAM ) 0);
 }
 
 // TDM_SET_PROGRESS_BAR_RANGE - Sets the minimum and maximum values for the progress bar in a task dialog
@@ -826,26 +826,26 @@ HB_FUNC( _SETPROGRESSBARRANGE )
 {
    LPARAM range = MAKELPARAM( ( ( WORD ) hb_parni(2) ), ( ( WORD ) hb_parni(3) ) );
 
-   SendMessage( hmg_par_HWND(1), TDM_SET_PROGRESS_BAR_RANGE, ( WPARAM ) 0, range );
+   SendMessage(hmg_par_HWND(1), TDM_SET_PROGRESS_BAR_RANGE, ( WPARAM ) 0, range);
 }
 
 // TDM_SET_PROGRESS_BAR_STATE - Sets the state of the progress bar in a task dialog.
 HB_FUNC( _SETPROGRESSBARSTATE )
 {
-   SendMessage( hmg_par_HWND(1), TDM_SET_PROGRESS_BAR_STATE, ( WPARAM ) hb_parni(2), ( LPARAM ) 0 );
+   SendMessage(hmg_par_HWND(1), TDM_SET_PROGRESS_BAR_STATE, ( WPARAM ) hb_parni(2), ( LPARAM ) 0);
 }
 
 // TDM_SET_PROGRESS_BAR_MARQUEE - Starts and stops the marquee display of the progress bar in a task dialog,
 //                                and sets the speed of the marquee.
 HB_FUNC( _SETPROGRESSBARMARQUEE )
 {
-   SendMessage( hmg_par_HWND(1), TDM_SET_PROGRESS_BAR_MARQUEE, ( WPARAM ) hb_parl(2), ( LPARAM ) hb_parni(3) );
+   SendMessage(hmg_par_HWND(1), TDM_SET_PROGRESS_BAR_MARQUEE, ( WPARAM ) hb_parl(2), ( LPARAM ) hb_parni(3));
 }
 
 // TDM_SET_MARQUEE_PROGRESS_BAR - Indicates whether the hosted progress bar of a task dialog should be displayed in marquee mode
 HB_FUNC( _SETMARQUEEPROGRESSBAR )
 {
-   SendMessage( hmg_par_HWND(1), TDM_SET_MARQUEE_PROGRESS_BAR, ( WPARAM ) hb_parl(2), ( LPARAM ) 0 );
+   SendMessage(hmg_par_HWND(1), TDM_SET_MARQUEE_PROGRESS_BAR, ( WPARAM ) hb_parl(2), ( LPARAM ) 0);
 }
 
 // TDM_UPDATE_ELEMENT_TEXT - Updates a text element in a task dialog
@@ -855,10 +855,10 @@ HB_FUNC( _UPDATEMAININSTRUCTION )
    PCWSTR pszMainInstruction = HB_ISCHAR(2) ? HB_PARSTRDEF( 2, &hText, NULL ) :
                                ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : NULL );
 
-   SendMessage( hmg_par_HWND(1), TDM_UPDATE_ELEMENT_TEXT, ( WPARAM ) TDE_MAIN_INSTRUCTION, ( LPARAM ) pszMainInstruction );
+   SendMessage(hmg_par_HWND(1), TDM_UPDATE_ELEMENT_TEXT, ( WPARAM ) TDE_MAIN_INSTRUCTION, ( LPARAM ) pszMainInstruction);
 
    if( hText )
-      hb_strfree( hText );
+      hb_strfree(hText);
 }
 
 HB_FUNC( _UPDATECONTENT )
@@ -867,10 +867,10 @@ HB_FUNC( _UPDATECONTENT )
    PCWSTR pszContent = HB_ISCHAR(2) ? HB_PARSTRDEF( 2, &hText, NULL ) :
                        ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : NULL );
 
-   SendMessage( hmg_par_HWND(1), TDM_UPDATE_ELEMENT_TEXT, ( WPARAM ) TDE_CONTENT, ( LPARAM ) pszContent );
+   SendMessage(hmg_par_HWND(1), TDM_UPDATE_ELEMENT_TEXT, ( WPARAM ) TDE_CONTENT, ( LPARAM ) pszContent);
 
    if( hText )
-      hb_strfree( hText );
+      hb_strfree(hText);
 }
 
 HB_FUNC( _UPDATEFOOTER )
@@ -879,10 +879,10 @@ HB_FUNC( _UPDATEFOOTER )
    PCWSTR pszFooter = HB_ISCHAR(2) ? HB_PARSTRDEF( 2, &hText, NULL ) :
                       ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : NULL );
 
-   SendMessage( hmg_par_HWND(1), TDM_UPDATE_ELEMENT_TEXT, ( WPARAM ) TDE_FOOTER, ( LPARAM ) pszFooter );
+   SendMessage(hmg_par_HWND(1), TDM_UPDATE_ELEMENT_TEXT, ( WPARAM ) TDE_FOOTER, ( LPARAM ) pszFooter);
 
    if( hText )
-      hb_strfree( hText );
+      hb_strfree(hText);
 }
 
 HB_FUNC( _UPDATEEXPANDEDINFORMATION )
@@ -891,48 +891,48 @@ HB_FUNC( _UPDATEEXPANDEDINFORMATION )
    PCWSTR pszExpandedInformation = HB_ISCHAR(2) ? HB_PARSTRDEF( 2, &hText, NULL ) :
                                    ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : NULL );
 
-   SendMessage( hmg_par_HWND(1), TDM_UPDATE_ELEMENT_TEXT, ( WPARAM ) TDE_EXPANDED_INFORMATION, ( LPARAM ) pszExpandedInformation );
+   SendMessage(hmg_par_HWND(1), TDM_UPDATE_ELEMENT_TEXT, ( WPARAM ) TDE_EXPANDED_INFORMATION, ( LPARAM ) pszExpandedInformation);
 
    if( HB_ISCHAR(2) )
-      hb_strfree( hText );
+      hb_strfree(hText);
 }
 
 /* TODO */
 HB_FUNC( _UPDATEMAINICON )
 {
    if( HB_ISNUM(2) )
-      SendMessage( hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_MAIN, ( LPARAM ) MAKEINTRESOURCE(hb_parni(2)) );
+      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_MAIN, ( LPARAM ) MAKEINTRESOURCE(hb_parni(2)));
    else if( HB_ISCHAR(2) )
    {
       void * hText;
       PCWSTR pszIcon = HB_PARSTRDEF( 2, &hText, NULL );
 
-      SendMessage( hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_MAIN, ( LPARAM ) pszIcon );
-      hb_strfree( hText );
+      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_MAIN, ( LPARAM ) pszIcon);
+      hb_strfree(hText);
    }
    else if( HB_ISPOINTER(2) )
-      SendMessage( hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_MAIN, ( LPARAM ) ( HICON ) hb_parptr(2) );
+      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_MAIN, ( LPARAM ) ( HICON ) hb_parptr(2));
    else
-      SendMessage( hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_MAIN, ( LPARAM ) NULL );
+      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_MAIN, ( LPARAM ) NULL);
 }
 
 /* TODO */
 HB_FUNC( _UPDATEFOOTERICON )
 {
    if( HB_ISNUM(2) )
-      SendMessage( hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_FOOTER, ( LPARAM ) MAKEINTRESOURCE(hb_parni(2)) );
+      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_FOOTER, ( LPARAM ) MAKEINTRESOURCE(hb_parni(2)));
    else if( HB_ISCHAR(2) )
    {
       void * hText;
       PCWSTR pszIcon = HB_PARSTRDEF( 2, &hText, NULL );
 
-      SendMessage( hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_FOOTER, ( LPARAM ) pszIcon );
-      hb_strfree( hText );
+      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_FOOTER, ( LPARAM ) pszIcon);
+      hb_strfree(hText);
    }
    else if( HB_ISPOINTER(2) )
-      SendMessage( hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_FOOTER, ( LPARAM ) ( HICON ) hb_parptr(2) );
+      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_FOOTER, ( LPARAM ) ( HICON ) hb_parptr(2));
    else
-      SendMessage( hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_FOOTER, ( LPARAM ) NULL );
+      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_FOOTER, ( LPARAM ) NULL);
 }
 
 #endif

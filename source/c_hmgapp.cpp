@@ -62,7 +62,7 @@
 #include "hbgdiplus.h"
 #undef _HMG_STUB_
 
-#define PACKVERSION( major, minor )  MAKELONG( minor, major )
+#define PACKVERSION( major, minor )  MAKELONG(minor, major)
 
 extern void hmg_ErrorExit( LPCTSTR lpMessage, DWORD dwError, BOOL bExit );
 extern GpStatus GdiplusInit(void);
@@ -157,7 +157,7 @@ HB_FUNC( GETINSTANCE )
 
 HB_FUNC( GETCOMCTL32DLLVER )
 {
-   hb_retnint( g_dwComCtl32Ver );
+   hb_retnint(g_dwComCtl32Ver);
 }
 
 HB_FUNC( OLEDATARELEASE )

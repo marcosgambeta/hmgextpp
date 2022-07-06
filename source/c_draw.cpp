@@ -69,7 +69,7 @@ HB_FUNC( BEGINPAINT )
    {
       PAINTSTRUCT ps;
 
-      HB_RETNL( ( LONG_PTR ) BeginPaint( hWnd, &ps ) );
+      HB_RETNL( ( LONG_PTR ) BeginPaint(hWnd, &ps) );
 
       hb_storclen( ( const char * ) &ps, sizeof(PAINTSTRUCT), 2 );
    }
@@ -83,7 +83,7 @@ HB_FUNC( ENDPAINT )
    PAINTSTRUCT * pps = ( PAINTSTRUCT * ) hb_parc(2);
 
    if( IsWindow(hWnd) && pps )
-      hb_retl( EndPaint( hWnd, pps ) );
+      hb_retl( EndPaint(hWnd, pps) );
    else
       hb_retl( HB_FALSE );
 }
@@ -122,8 +122,8 @@ HB_FUNC( DRAWSTATE )
       WPARAM   wData   = ( WPARAM ) hb_parclen(4);
       HB_ISIZ  fuFlags = hb_parns(10);
 
-      if( Array2ColorRef(hb_param( 2, Harbour::Item::ANY ), &crBrush) )
-         hBrush = CreateSolidBrush( crBrush );
+      if( Array2ColorRef(hb_param(2, Harbour::Item::ANY), &crBrush) )
+         hBrush = CreateSolidBrush(crBrush);
 
       if( wData > 0 )
          lpData = ( LPARAM ) hb_parc(4);
@@ -203,10 +203,10 @@ HB_FUNC( GRAYSTRING )
          COLORREF     crBrush;
          const char * lpData = hb_parc(4);
 
-         if( Array2ColorRef(hb_param( 2, Harbour::Item::ANY ), &crBrush) )
+         if( Array2ColorRef(hb_param(2, Harbour::Item::ANY), &crBrush) )
             hBrush = CreateSolidBrush(crBrush);
 
-         hb_retl( GrayString( hDC, hBrush, NULL, ( LPARAM ) lpData, nCount, hb_parni(6), hb_parni(7), hb_parni(8), hb_parni(9) )
+         hb_retl( GrayString(hDC, hBrush, NULL, ( LPARAM ) lpData, nCount, hb_parni(6), hb_parni(7), hb_parni(8), hb_parni(9))
                   ? HB_TRUE : HB_FALSE );
 
          if( bDC )
@@ -230,7 +230,7 @@ HB_FUNC( INVALIDATERECT )
 
       if( ( hb_pcount() > 2 ) && ( ! HB_ISNIL(3) ) )
       {
-         bRect = Array2Rect(hb_param( 3, Harbour::Item::ANY ), &rc);
+         bRect = Array2Rect(hb_param(3, Harbour::Item::ANY), &rc);
 
          if( ! bRect )
          {
@@ -285,7 +285,7 @@ HB_FUNC( C_SETBACKCOLOR )
    {
       COLORREF cr;
 
-      if( ! Array2ColorRef(hb_param( 2, Harbour::Item::ANY ), &cr) )
+      if( ! Array2ColorRef(hb_param(2, Harbour::Item::ANY), &cr) )
          cr = ( COLORREF ) RGB(hb_parni(2), hb_parni(3), hb_parni(4));
 
       hb_retns( ( HB_ISIZ ) SetBkColor(hDC, cr) );
@@ -313,7 +313,7 @@ HB_FUNC( SETBKMODE )
 
    if( GetObjectType(( HGDIOBJ ) hDC) == OBJ_DC )
    {
-      hb_retni( SetBkMode( hDC, hb_parnidef( 2, OPAQUE ) ) );
+      hb_retni( SetBkMode(hDC, hb_parnidef(2, OPAQUE)) );
 
       if( bDC )
          ReleaseDC(hWnd, hDC);
@@ -343,7 +343,7 @@ HB_FUNC( VALIDATERECT )
 
       if( ( hb_pcount() > 1 ) && ( ! HB_ISNIL(2) ) )
       {
-         bRect = Array2Rect(hb_param( 2, Harbour::Item::ANY ), &rc);
+         bRect = Array2Rect(hb_param(2, Harbour::Item::ANY), &rc);
 
          if( ! bRect )
          {

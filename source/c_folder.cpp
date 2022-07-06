@@ -74,7 +74,7 @@
 #define FLN_QUERYCANCEL  ( FLN_FIRST - 6 )
 #define FLN_FINISH       ( FLN_FIRST - 7 )
 
-extern PWORD   CreateDlgTemplate( long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray );
+extern PWORD   CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray);
 extern long    GetSizeDlgTemp( PHB_ITEM dArray, PHB_ITEM cArray );
 
 extern HB_PTRUINT wapi_GetProcAddress( HMODULE hModule, LPCSTR lpProcName );
@@ -170,13 +170,13 @@ DLGTEMPLATE * WINAPI FLD_LockDlgRes( TCHAR * lpszResName );
 BOOL WINAPI IsAppThemed(void);
 VOID WINAPI       FLD_SelChanged( HWND hWndDlg );
 VOID WINAPI       FLD_ChildDialogInit(HWND hWndDlg, HWND hWndParent, int idrc);
-LRESULT CALLBACK  HMG_PageFldProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam );
+LRESULT CALLBACK  HMG_PageFldProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 VOID WINAPI       FLD_DialogAlign(HWND hWndDlg);
 static BOOL       FLD_PageInfo(DLGTEMPLATE * pTemplate, FLDHDRINFO * pFhi, int index, BOOL resize);
 static BOOL       FLD_DoCommand( HWND hWndDlg, WORD wID );
 static BOOL       FLD_Apply( HWND hWndDlg, LPARAM lParam );
 static void       FLD_Cancel( HWND hWndDlg, LPARAM lParam );
-static BOOL       FLD_ShowPage( HWND hWndDlg, int index, FLDHDRINFO * pFhi );
+static BOOL       FLD_ShowPage(HWND hWndDlg, int index, FLDHDRINFO * pFhi);
 static void       FLD_Changed( HWND hWndParent, HWND hWndDlg );
 static void       FLD_UnChanged( HWND hWndParent, HWND hWndDlg );
 static LRESULT    FLD_HwndToIndex(HWND hWndDlg, HWND hPageDlg);
@@ -203,7 +203,7 @@ static BOOL FLD_isAppThemed(void)
    return bRet;
 }
 
-LRESULT CALLBACK HMG_FldProc( HWND hWndDlg, UINT message, WPARAM wParam, LPARAM lParam )
+LRESULT CALLBACK HMG_FldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
    static PHB_SYMB pSymbol = NULL;
    long int        r;
@@ -243,7 +243,7 @@ LRESULT CALLBACK HMG_FldProc( HWND hWndDlg, UINT message, WPARAM wParam, LPARAM 
                   HFLDPAGEINFO * hfpi = pFhi->fhpage;
                   FLDPAGEINFO *  fpi  = ( FLDPAGEINFO * ) hfpi[ pFhi->active_page ];
                   HWND hwndPage       = fpi->hwndPage;
-                  SendMessage( hwndPage, WM_COMMAND, wParam, lParam );
+                  SendMessage(hwndPage, WM_COMMAND, wParam, lParam);
                }
             }
 
@@ -259,16 +259,16 @@ LRESULT CALLBACK HMG_FldProc( HWND hWndDlg, UINT message, WPARAM wParam, LPARAM 
    }
 
    if( ! pSymbol )
-      pSymbol = hb_dynsymSymbol( hb_dynsymGet( "FOLDERPROC" ) );
+      pSymbol = hb_dynsymSymbol(hb_dynsymGet("FOLDERPROC"));
 
    if( pSymbol )
    {
-      hb_vmPushSymbol( pSymbol );
+      hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
-      hb_vmPushNumInt( ( LONG_PTR ) hWndDlg );
-      hb_vmPushLong( message );
-      hb_vmPushNumInt( wParam );
-      hb_vmPushNumInt( lParam );
+      hb_vmPushNumInt(( LONG_PTR ) hWndDlg);
+      hb_vmPushLong(message);
+      hb_vmPushNumInt(wParam);
+      hb_vmPushNumInt(lParam);
       hb_vmDo(4);
    }
 
@@ -279,7 +279,7 @@ LRESULT CALLBACK HMG_FldProc( HWND hWndDlg, UINT message, WPARAM wParam, LPARAM 
       return FALSE;
 }
 
-LRESULT CALLBACK HMG_PageFldProc( HWND hWndDlg, UINT message, WPARAM wParam, LPARAM lParam )
+LRESULT CALLBACK HMG_PageFldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
    static PHB_SYMB pSymbol = NULL;
    long int        r;
@@ -289,7 +289,7 @@ LRESULT CALLBACK HMG_PageFldProc( HWND hWndDlg, UINT message, WPARAM wParam, LPA
    HFLDPAGEINFO * hfpi;
    FLDHDRINFO *   pFhi;
 
-   hWndParent = GetParent( hWndDlg );
+   hWndParent = GetParent(hWndDlg);
    switch( message )
    {
       // wNotifyCode = HIWORD(wParam); // notification code
@@ -306,16 +306,16 @@ LRESULT CALLBACK HMG_PageFldProc( HWND hWndDlg, UINT message, WPARAM wParam, LPA
    }
 
    if( ! pSymbol )
-      pSymbol = hb_dynsymSymbol( hb_dynsymGet( "PAGEFLDPROC" ) );
+      pSymbol = hb_dynsymSymbol(hb_dynsymGet("PAGEFLDPROC"));
 
    if( pSymbol )
    {
-      hb_vmPushSymbol( pSymbol );
+      hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
-      hb_vmPushNumInt( ( LONG_PTR ) hWndDlg );
-      hb_vmPushLong( message );
-      hb_vmPushNumInt( wParam );
-      hb_vmPushNumInt( lParam );
+      hb_vmPushNumInt(( LONG_PTR ) hWndDlg);
+      hb_vmPushLong(message);
+      hb_vmPushNumInt(wParam);
+      hb_vmPushNumInt(lParam);
       hb_vmDo(4);
    }
 
@@ -344,11 +344,11 @@ HB_FUNC( CREATEFOLDERPAGEINDIRECT )
 
    long lTemplateSize;
 
-   sArray        = hb_param( 1, Harbour::Item::ARRAY ); //Folder Array
-   dArray        = hb_param( 2, Harbour::Item::ARRAY ); //Folder Page Array
-   cArray        = hb_param( 3, Harbour::Item::ARRAY ); //Page Controls Array
+   sArray        = hb_param(1, Harbour::Item::ARRAY); //Folder Array
+   dArray        = hb_param(2, Harbour::Item::ARRAY); //Folder Page Array
+   cArray        = hb_param(3, Harbour::Item::ARRAY); //Page Controls Array
    lTemplateSize = GetSizeDlgTemp( dArray, cArray );
-   pdlgtemplate  = ( DLGTEMPLATE * ) CreateDlgTemplate( lTemplateSize, dArray, cArray );
+   pdlgtemplate  = ( DLGTEMPLATE * ) CreateDlgTemplate(lTemplateSize, dArray, cArray);
    ZeroMemory(pfpi, sizeof(FLDPAGEINFO));
 
    #ifndef UNICODE
@@ -396,7 +396,7 @@ HB_FUNC( CREATEFOLDERPAGE )
    TCHAR *  caption;
    int      idRC, PageStyle;
 
-   sArray = hb_param( 1, Harbour::Item::ARRAY );
+   sArray = hb_param(1, Harbour::Item::ARRAY);
 
    ZeroMemory(pfpi, sizeof(FLDPAGEINFO));
 
@@ -460,9 +460,9 @@ HB_FUNC( CREATEDLGFOLDER )
    nIdFld  = ( int ) hb_parni(1);
    hWndDlg = hmg_par_HWND(2);
 
-   sArray = hb_param( 3, Harbour::Item::ARRAY );      // aHwndFolderPages
-   pArray = hb_param( 4, Harbour::Item::ARRAY );      //_HMG_aFolderTemplate
-   cArray = hb_param( 5, Harbour::Item::ARRAY );      //_HMG_aDialogItems
+   sArray = hb_param(3, Harbour::Item::ARRAY);      // aHwndFolderPages
+   pArray = hb_param(4, Harbour::Item::ARRAY);      //_HMG_aFolderTemplate
+   cArray = hb_param(5, Harbour::Item::ARRAY);      //_HMG_aDialogItems
 
    //  _HMG_aFolderTemplate := {0,ParentHandle,modal,style,styleEx ,x,y,w,h,caption,fontname,fontsize,bold,Italic,lApplyBtn,lCancelBtn}
    //  _HMG_aFolderTemplate -> {0,ParentHandle,modal,style,styleEx ,x,y,w,h,caption,fontname,fontsize,bold,Italic,lOkBtn,lApplyBtn,lCancelBtn, buttons , flat , hottrack , vertical , bottom, multiline}
@@ -520,7 +520,7 @@ HB_FUNC( CREATEDLGFOLDER )
    pFhi->FolderStyle = Style;
 
    lTemplateSize = GetSizeDlgTemp( pArray, cArray );
-   pdlgtemplate  = ( LPDLGTEMPLATE ) CreateDlgTemplate( lTemplateSize, pArray, cArray );
+   pdlgtemplate  = ( LPDLGTEMPLATE ) CreateDlgTemplate(lTemplateSize, pArray, cArray);
 
    if( modal )
    {
@@ -618,7 +618,7 @@ HB_FUNC( FOLDER_ISDIRTY )
 }
 
 /******************************************************************************
-      Folder_IsFinish( hWndParent )
+      Folder_IsFinish(hWndParent)
  *****************************************************************************/
 HB_FUNC( FOLDER_ISFINISH )
 {
@@ -870,8 +870,8 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
          NULL,
          0,
          0,
-         rcTab.right + cyMargin + 2 * GetSystemMetrics( SM_CXDLGFRAME ) + 2 * cx,
-         rcTab.bottom + 2 * cx + buttonHeight + 2 * cyMargin + 2 * GetSystemMetrics( SM_CYDLGFRAME ) + GetSystemMetrics( SM_CYCAPTION ),
+         rcTab.right + cyMargin + 2 * GetSystemMetrics(SM_CXDLGFRAME) + 2 * cx,
+         rcTab.bottom + 2 * cx + buttonHeight + 2 * cyMargin + 2 * GetSystemMetrics(SM_CYDLGFRAME) + GetSystemMetrics(SM_CYCAPTION),
          SWP_NOMOVE | SWP_NOZORDER
       );
    }
@@ -953,7 +953,7 @@ VOID WINAPI FLD_SelChanged( HWND hWndDlg )
 
    int iSel = TabCtrl_GetCurSel( pFhi->hwndTab );
 
-   FLD_ShowPage( hWndDlg, iSel, pFhi );
+   FLD_ShowPage(hWndDlg, iSel, pFhi);
 }
 
 /*-----------------------------------------------------------------
@@ -977,14 +977,14 @@ VOID WINAPI FLD_ChildDialogInit(HWND hWndDlg, HWND hWndParent, int idrc)
 
       SetWindowPos(hWndDlg, NULL, pFhi->rcDisplay.left + rcTab.left - cxMargin - 1, pFhi->rcDisplay.top + rcTab.top - cyMargin, 0, 0, SWP_NOSIZE);
 
-      pSymbol = hb_dynsymSymbol( hb_dynsymGet( "INITPAGEFLDPROC" ) );
+      pSymbol = hb_dynsymSymbol(hb_dynsymGet("INITPAGEFLDPROC"));
       if( pSymbol )
       {
-         hb_vmPushSymbol( pSymbol );
+         hb_vmPushSymbol(pSymbol);
          hb_vmPushNil();
-         hb_vmPushNumInt( ( LONG_PTR ) hWndParent );
-         hb_vmPushNumInt( ( LONG_PTR ) hWndDlg );
-         hb_vmPushLong( ( LONG ) idrc );
+         hb_vmPushNumInt(( LONG_PTR ) hWndParent);
+         hb_vmPushNumInt(( LONG_PTR ) hWndDlg);
+         hb_vmPushLong(( LONG ) idrc);
          hb_vmDo(3);
       }
    }
@@ -1198,7 +1198,7 @@ static BOOL FLD_DoCommand( HWND hWndDlg, WORD wID )
             fpi      = ( FLDPAGEINFO * ) hfpi[ pFhi->active_page ];
             hwndPage = fpi->hwndPage;
 
-            SendMessage( hwndPage, WM_NOTIFY, 0, ( LPARAM ) &fln );
+            SendMessage(hwndPage, WM_NOTIFY, 0, ( LPARAM ) &fln);
          }
          break;
       }
@@ -1243,7 +1243,7 @@ static BOOL FLD_Apply( HWND hWndDlg, LPARAM lParam )
    fpi      = ( FLDPAGEINFO * ) hfpi[ pFhi->active_page ];
    hwndPage = fpi->hwndPage;
 
-   if( SendMessage( hwndPage, WM_NOTIFY, 0, ( LPARAM ) &fln ) != FALSE )
+   if( SendMessage(hwndPage, WM_NOTIFY, 0, ( LPARAM ) &fln) != FALSE )
       return FALSE;
 
    /* Send FLN_APPLY to all pages.  */
@@ -1256,7 +1256,7 @@ static BOOL FLD_Apply( HWND hWndDlg, LPARAM lParam )
       fpi      = ( FLDPAGEINFO * ) hfpi[ i ];
       hwndPage = fpi->hwndPage;
       if( hwndPage )
-         SendMessage( hwndPage, WM_NOTIFY, ( WPARAM ) lParam, ( LPARAM ) &fln );
+         SendMessage(hwndPage, WM_NOTIFY, ( WPARAM ) lParam, ( LPARAM ) &fln);
    }
 
    if( lParam == FLBTN_OK )
@@ -1276,7 +1276,7 @@ static BOOL FLD_Apply( HWND hWndDlg, LPARAM lParam )
       fpi      = ( FLDPAGEINFO * ) hfpi[ pFhi->active_page ];
       hwndPage = fpi->hwndPage;
 
-      SendMessage( hwndPage, WM_NOTIFY, ( WPARAM ) lParam, ( LPARAM ) &fln );
+      SendMessage(hwndPage, WM_NOTIFY, ( WPARAM ) lParam, ( LPARAM ) &fln);
    }
 
    return TRUE;
@@ -1306,7 +1306,7 @@ static void FLD_Cancel( HWND hWndDlg, LPARAM lParam )
    fln.hdr.idFrom   = 0;
    fln.lParam       = 0;
 
-   if( SendMessage( hwndPage, WM_NOTIFY, ( WPARAM ) lParam, ( LPARAM ) &fln ) )
+   if( SendMessage(hwndPage, WM_NOTIFY, ( WPARAM ) lParam, ( LPARAM ) &fln) )
       return;
 
    fln.hdr.code = FLN_RESET;
@@ -1319,7 +1319,7 @@ static void FLD_Cancel( HWND hWndDlg, LPARAM lParam )
       hwndPage = fpi->hwndPage;
 
       if( hwndPage )
-         SendMessage( hwndPage, WM_NOTIFY, ( WPARAM ) lParam, ( LPARAM ) &fln );
+         SendMessage(hwndPage, WM_NOTIFY, ( WPARAM ) lParam, ( LPARAM ) &fln);
    }
 
    if( ! pFhi->isModal )
@@ -1331,7 +1331,7 @@ static void FLD_Cancel( HWND hWndDlg, LPARAM lParam )
    fpi      = ( FLDPAGEINFO * ) hfpi[ pFhi->active_page ];
    hwndPage = fpi->hwndPage;
    if( hwndPage )
-      SendMessage( hwndPage, WM_NOTIFY, ( WPARAM ) lParam, ( LPARAM ) &fln );
+      SendMessage(hwndPage, WM_NOTIFY, ( WPARAM ) lParam, ( LPARAM ) &fln);
 }
 
 /*-----------------------------------------------------------------
@@ -1357,13 +1357,13 @@ static void FLD_Help( HWND hWndDlg )
    fln.hdr.idFrom   = 0;
    fln.lParam       = 0;
 
-   SendMessage( hwndPage, WM_NOTIFY, 0, ( LPARAM ) &fln );
+   SendMessage(hwndPage, WM_NOTIFY, 0, ( LPARAM ) &fln);
 }
 
 /*-----------------------------------------------------------------
       FLD_ShowPage()
    -----------------------------------------------------------------*/
-static BOOL FLD_ShowPage( HWND hWndDlg, int index, FLDHDRINFO * pFhi )
+static BOOL FLD_ShowPage(HWND hWndDlg, int index, FLDHDRINFO * pFhi)
 {
    FLDPAGEINFO *  fpi;
    HFLDPAGEINFO * hfpi = pFhi->fhpage;
@@ -1405,7 +1405,7 @@ static BOOL FLD_ShowPage( HWND hWndDlg, int index, FLDHDRINFO * pFhi )
    ShowWindow(fpi->hwndPage, SW_SHOW);
 
    /* Synchronize current selection with tab control*/
-   SendMessage( pFhi->hwndTab, TCM_SETCURSEL, index, 0 );
+   SendMessage(pFhi->hwndTab, TCM_SETCURSEL, index, 0);
 
    pFhi->active_page = index;
    pFhi->activeValid = TRUE;
@@ -1573,7 +1573,7 @@ static void FLD_AddBitmap(HWND hWndFolder)
                }
             }
 
-            SendMessage( pFhi->hwndTab, TCM_SETIMAGELIST, ( WPARAM ) 0, ( LPARAM ) himl );
+            SendMessage(pFhi->hwndTab, TCM_SETIMAGELIST, ( WPARAM ) 0, ( LPARAM ) himl);
 
             for( int s = 0; s <= l; s++ )
             {

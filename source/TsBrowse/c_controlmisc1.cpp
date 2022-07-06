@@ -171,7 +171,7 @@ HB_FUNC( INVERTRECT )
 
    if( HB_ISARRAY(2) )
    {
-      Array2Rect(hb_param( 2, Harbour::Item::ARRAY ), &rc);
+      Array2Rect(hb_param(2, Harbour::Item::ARRAY), &rc);
       InvertRect(hmg_par_HDC(1), &rc);
    }
 }
@@ -205,7 +205,7 @@ HB_FUNC( GETCLASSINFO )
 
 HB_FUNC( SETCAPTURE )
 {
-   HB_RETNL( ( LONG_PTR ) SetCapture( hmg_par_HWND(1) ) );
+   HB_RETNL( ( LONG_PTR ) SetCapture(hmg_par_HWND(1)) );
 }
 
 HB_FUNC( GETTEXTCOLOR )

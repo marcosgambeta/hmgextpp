@@ -90,7 +90,7 @@ BOOL _isValidCtrlClassA(HWND hwndTip, const char * ClassName)
 #endif
 
 /*
-   cClassName := GetClassName( nHwnd )
+   cClassName := GetClassName(nHwnd)
    IF ! Empty( cClassName )
       ..
    ..
@@ -116,7 +116,7 @@ HB_FUNC( GETCLASSNAME )
 }
 
 /*
-   cClassName := Space( 32 )
+   cClassName := Space(32)
    ..
    nLen := GetClassNameByRef(nHwnd, @cClassName)
    IF nLen > 0
@@ -167,12 +167,12 @@ HB_FUNC( SETWINDOWLONG )
 }
 
 /*
-   nCtlStyle := GetWindowStyle( Form_1.Button_1.Handle )
+   nCtlStyle := GetWindowStyle(Form_1.Button_1.Handle)
 
    IF hb_bitAnd( nCtlStyle, WS_TABSTOP ) != 0
-      SetWindowStyle( nButtonHandle, WS_TABSTOP, .F. )   // Turn WS_TABSTOP style off
+      SetWindowStyle(nButtonHandle, WS_TABSTOP, .F.)   // Turn WS_TABSTOP style off
    ELSE
-      SetWindowStyle( nButtonHandle, WS_TABSTOP, .T. )   // Turn WS_TABSTOP style on
+      SetWindowStyle(nButtonHandle, WS_TABSTOP, .T.)   // Turn WS_TABSTOP style on
    ENDIF
  */
 HB_FUNC( GETWINDOWSTYLE )
@@ -186,7 +186,7 @@ HB_FUNC( GETWINDOWSTYLE )
 }
 
 /*
-   nOldStyle := SetWindowStyle( Form_1.Button_1.Handle, WS_TABSTOP, .T. )
+   nOldStyle := SetWindowStyle(Form_1.Button_1.Handle, WS_TABSTOP, .T.)
 
    IF nOldStyle == 0
       MsgExclamation( "Cannot add WS_TABSTOP style to Button_1", "Warning!")
@@ -208,10 +208,10 @@ HB_FUNC( SETWINDOWSTYLE )
 }
 
 /*
-   IF GetClassName( nCtlHandle ) == "Button" .AND. IsWindowHasStyle( nCtlHandle, WS_TABSTOP )
-      SetWindowStyle( nCtlHandle, WS_TABSTOP, .F. )   // Turn WS_TABSTOP style off
+   IF GetClassName(nCtlHandle) == "Button" .AND. IsWindowHasStyle(nCtlHandle, WS_TABSTOP)
+      SetWindowStyle(nCtlHandle, WS_TABSTOP, .F.)   // Turn WS_TABSTOP style off
    ELSE
-      SetWindowStyle( nCtlHandle, WS_TABSTOP, .T. )   // Turn WS_TABSTOP style on
+      SetWindowStyle(nCtlHandle, WS_TABSTOP, .T.)   // Turn WS_TABSTOP style on
    ENDIF
  */
 HB_FUNC( ISWINDOWHASSTYLE )

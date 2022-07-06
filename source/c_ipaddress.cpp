@@ -104,7 +104,7 @@ HB_FUNC( SETIPADDRESS )
    v3 = hmg_par_BYTE(4);
    v4 = hmg_par_BYTE(5);
 
-   SendMessage( hWnd, IPM_SETADDRESS, 0, MAKEIPADDRESS( v1, v2, v3, v4 ) );
+   SendMessage(hWnd, IPM_SETADDRESS, 0, MAKEIPADDRESS(v1, v2, v3, v4));
 }
 
 HB_FUNC( GETIPADDRESS )
@@ -115,7 +115,7 @@ HB_FUNC( GETIPADDRESS )
 
    hWnd = hmg_par_HWND(1);
 
-   SendMessage( hWnd, IPM_GETADDRESS, 0, ( LPARAM ) ( LPDWORD ) &pdwAddr );
+   SendMessage(hWnd, IPM_GETADDRESS, 0, ( LPARAM ) ( LPDWORD ) &pdwAddr);
 
    v1 = FIRST_IPADDRESS( pdwAddr );
    v2 = SECOND_IPADDRESS( pdwAddr );

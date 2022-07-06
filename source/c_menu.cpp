@@ -76,8 +76,8 @@ HINSTANCE        GetResources(void);
 extern HBITMAP   Icon2Bmp( HICON hIcon );
 extern BOOL      SetAcceleratorTable(HWND, HACCEL);
 
-HBITMAP HMG_LoadPicture( const char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage,
-                         HB_BOOL bAlphaFormat, int iAlpfaConstant );
+HBITMAP HMG_LoadPicture(const char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage,
+                        HB_BOOL bAlphaFormat, int iAlpfaConstant);
 
 HB_FUNC( SETACCELERATORTABLE )
 {
@@ -129,7 +129,7 @@ HB_FUNC( ACCELERATORTABLE2ARRAY )
 
 HB_FUNC( ARRAY2ACCELERATORTABLE )
 {
-   PHB_ITEM pArray = hb_param( 1, Harbour::Item::ARRAY );
+   PHB_ITEM pArray = hb_param(1, Harbour::Item::ARRAY);
    int      nLen;
    HACCEL   hAccel = NULL;
 
@@ -231,7 +231,7 @@ HB_FUNC( LOADACCELERATORS )
       void * hTableName;
       lpTableName = HB_PARSTR( 2, &hTableName, NULL );
       hAccel = LoadAccelerators( hInstance, lpTableName );
-      hb_strfree( hTableName );
+      hb_strfree(hTableName);
    }
 
    HB_RETNL( ( LONG_PTR ) hAccel );
@@ -255,7 +255,7 @@ HB_FUNC( LOADMENU )
       void * hMenuName;
       lpMenuName = HB_PARSTR( 2, &hMenuName, NULL );
       hMenu = LoadMenu( hInstance, lpMenuName );
-      hb_strfree( hMenuName );
+      hb_strfree(hMenuName);
    }
 
    HB_RETNL( ( LONG_PTR ) hMenu );
@@ -284,7 +284,7 @@ HB_FUNC( TRACKPOPUPMENU )
 
    if( hb_pcount() > 4 && HB_ISLOG(5) && hb_parl(5) )
    {
-      PostMessage( hwnd, WM_NULL, 0, 0 );  /* hack for tray menu closing */
+      PostMessage(hwnd, WM_NULL, 0, 0);  /* hack for tray menu closing */
    }
 }
 
@@ -488,7 +488,7 @@ HB_FUNC( MENUITEM_SETBITMAPS )
    HBITMAP himage1;
    int     Transparent = s_bCustomDraw ? 0 : 1;
 
-   himage1 = HMG_LoadPicture( hb_parc(3), -1, -1, NULL, 0, Transparent, -1, 0, HB_FALSE, 255 );
+   himage1 = HMG_LoadPicture(hb_parc(3), -1, -1, NULL, 0, Transparent, -1, 0, HB_FALSE, 255);
 
    if( s_bCustomDraw )
    {
@@ -511,7 +511,7 @@ HB_FUNC( MENUITEM_SETBITMAPS )
    {
       HBITMAP himage2;
 
-      himage2 = HMG_LoadPicture( hb_parc(4), -1, -1, NULL, 0, Transparent, -1, 0, HB_FALSE, 255 );
+      himage2 = HMG_LoadPicture(hb_parc(4), -1, -1, NULL, 0, Transparent, -1, 0, HB_FALSE, 255);
 
       SetMenuItemBitmaps( hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND, himage1, himage2 );
    }
@@ -527,8 +527,8 @@ HB_FUNC( MENUITEM_SETCHECKMARKS )
       HBITMAP      himage1;
       HBITMAP      himage2;
 
-      himage1 = HMG_LoadPicture( hb_parc(3), -1, -1, NULL, 0, 0, -1, 0, HB_FALSE, 255 );
-      himage2 = HMG_LoadPicture( hb_parc(4), -1, -1, NULL, 0, 0, -1, 0, HB_FALSE, 255 );
+      himage1 = HMG_LoadPicture(hb_parc(3), -1, -1, NULL, 0, 0, -1, 0, HB_FALSE, 255);
+      himage2 = HMG_LoadPicture(hb_parc(4), -1, -1, NULL, 0, 0, -1, 0, HB_FALSE, 255);
 
       MenuItemInfo.cbSize = sizeof(MENUITEMINFO);
       MenuItemInfo.fMask  = MIIM_CHECKMARKS;
@@ -797,7 +797,7 @@ HB_FUNC( _ONDRAWMENUITEM )
    // save prev. colours state
    clrText       = SetTextColor(lpdis->hDC, clrText1);
    clrBackground = SetBkColor(lpdis->hDC, clrBk1);
-   bkMode        = SetBkMode( lpdis->hDC, TRANSPARENT );
+   bkMode        = SetBkMode(lpdis->hDC, TRANSPARENT);
 
    // set colours and flags ( fSelected etc. )
    if( ( ( lpdis->itemAction & ODA_SELECT ) || ( lpdis->itemAction & ODA_DRAWENTIRE ) ) && ( ! ( lpdis->itemState & ODS_GRAYED ) ) )
@@ -922,7 +922,7 @@ HB_FUNC( _ONDRAWMENUITEM )
    // restore prev. colours state
    SetTextColor(lpdis->hDC, clrText);
    SetBkColor(lpdis->hDC, clrBackground);
-   SetBkMode( lpdis->hDC, bkMode );
+   SetBkMode(lpdis->hDC, bkMode);
 }
 
 VOID DrawSeparator( HDC hDC, RECT r )
@@ -1154,7 +1154,7 @@ VOID DrawCheck(HDC hdc, SIZE size, RECT rect, BOOL disabled, BOOL selected, HBIT
       x = rect.left + ( min_width - w ) / 2;
       y = rect.top + ( min_height + cy_delta - h ) / 2;
 
-      Rectangle( hdc, x, y, x + w, y + h );
+      Rectangle(hdc, x, y, x + w, y + h);
 
       DeleteObject(pen);
 
@@ -1245,7 +1245,7 @@ static BOOL IsColorEqual( COLORREF clr1, COLORREF clr2 )
 
 HB_FUNC( GETMENUCOLORS )
 {
-   PHB_ITEM aResult = hb_itemArrayNew( 28 );
+   PHB_ITEM aResult = hb_itemArrayNew(28);
 
    HB_arraySetNL( aResult, 1, clrMenuBar1 );
    HB_arraySetNL( aResult, 2, clrMenuBar2 );
@@ -1281,7 +1281,7 @@ HB_FUNC( GETMENUCOLORS )
 
 HB_FUNC( SETMENUCOLORS )
 {
-   PHB_ITEM pArray = hb_param( 1, Harbour::Item::ARRAY );
+   PHB_ITEM pArray = hb_param(1, Harbour::Item::ARRAY);
 
    if( ( pArray != NULL ) && ( hb_arrayLen( pArray ) >= 28 ) )
    {
@@ -1438,7 +1438,7 @@ HB_FUNC( _ONMEASUREMENUITEM )
       }
       else
       {
-         GetTextExtentPoint32( hdc, lpMenuItem->caption, lpMenuItem->cch, &size );
+         GetTextExtentPoint32(hdc, lpMenuItem->caption, lpMenuItem->cch, &size);
       }
 
       if( lpMenuItem->uiItemType == 1 )

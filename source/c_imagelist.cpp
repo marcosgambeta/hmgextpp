@@ -57,8 +57,8 @@ WINCOMMCTRLAPI void WINAPI ImageList_EndDrag(void);
 #endif
 
 extern HBITMAP HMG_LoadImage(const char * FileName, const char * pszTypeOfRes);
-extern HBITMAP HMG_LoadPicture( const char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage,
-                                HB_BOOL bAlphaFormat, int iAlpfaConstant );
+extern HBITMAP HMG_LoadPicture(const char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage,
+                               HB_BOOL bAlphaFormat, int iAlpfaConstant);
 
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);
@@ -162,7 +162,7 @@ HB_FUNC( IL_ADDMASKED )    //IL_AddMasked(himl , image , color , ix , iy , image
       himage1 = ( HBITMAP ) LoadImage(NULL, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
    if( himage1 == NULL )
-      himage1 = ( HBITMAP ) HMG_LoadPicture( hb_parc(2), -1, -1, NULL, 0, 1, -1, 0, HB_FALSE, 255 );
+      himage1 = ( HBITMAP ) HMG_LoadPicture(hb_parc(2), -1, -1, NULL, 0, 1, -1, 0, HB_FALSE, 255);
 
 #ifdef UNICODE
    hb_xfree(lpImageName);
@@ -194,13 +194,13 @@ HB_FUNC( IL_DRAW )         //BOOL IL_Draw(HWND hwnd, HIMAGELIST himl, int imagei
    hb_retl( TRUE );
 }
 
-HB_FUNC( IL_REMOVE )       //IL_Remove( hwnd , imageindex )
+HB_FUNC( IL_REMOVE )       //IL_Remove(hwnd , imageindex)
 {
    HIMAGELIST himlIcons;
 
    himlIcons = hmg_par_HIMAGELIST(1);
 
-   hb_retl( ImageList_Remove( himlIcons, hmg_par_INT(2) ) );
+   hb_retl( ImageList_Remove(himlIcons, hmg_par_INT(2)) );
 }
 
 HB_FUNC( IL_SETBKCOLOR )   //IL_SetBkColor(hwnd, color)
@@ -223,7 +223,7 @@ HB_FUNC( IL_ERASEIMAGE )   //IL_EraseImage(hwnd, ix, iy, dx, dy)
    UpdateWindow(hmg_par_HWND(1));
 }
 
-HB_FUNC( IL_BEGINDRAG )    //IL_BeginDrag( hwnd, himl, ImageInx, ix, iy )
+HB_FUNC( IL_BEGINDRAG )    //IL_BeginDrag(hwnd, himl, ImageInx, ix, iy)
 {
    INT  cx;
    INT  cy;
@@ -236,12 +236,12 @@ HB_FUNC( IL_BEGINDRAG )    //IL_BeginDrag( hwnd, himl, ImageInx, ix, iy )
       UpdateWindow(hmg_par_HWND(1));
    }
 
-   hb_retl( ImageList_BeginDrag( hmg_par_HIMAGELIST(2), hmg_par_INT(3), ( INT ) 0, ( INT ) 0 ) );
+   hb_retl( ImageList_BeginDrag(hmg_par_HIMAGELIST(2), hmg_par_INT(3), ( INT ) 0, ( INT ) 0) );
 }
 
-HB_FUNC( IL_DRAGMOVE )     //IL_DragMove( ix, iy )
+HB_FUNC( IL_DRAGMOVE )     //IL_DragMove(ix, iy)
 {
-   hb_retl( ImageList_DragMove( hmg_par_INT(1), hmg_par_INT(2) ) );
+   hb_retl( ImageList_DragMove(hmg_par_INT(1), hmg_par_INT(2)) );
 }
 
 HB_FUNC( IL_DRAGENTER )    //IL_DragEnter( hwnd, ix, iy )
@@ -249,10 +249,10 @@ HB_FUNC( IL_DRAGENTER )    //IL_DragEnter( hwnd, ix, iy )
    hb_retl( ImageList_DragEnter( hmg_par_HWND(1), hmg_par_INT(2), hmg_par_INT(3) ) );
 }
 
-HB_FUNC( IL_ENDDRAG )      //IL_EndDrag( hwnd )
+HB_FUNC( IL_ENDDRAG )      //IL_EndDrag(hwnd)
 {
    ImageList_EndDrag();
-   ImageList_DragLeave( hmg_par_HWND(1) );
+   ImageList_DragLeave(hmg_par_HWND(1));
 }
 
 HB_FUNC( IL_GETIMAGECOUNT ) //IL_GetImageCount( himl )

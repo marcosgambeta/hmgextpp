@@ -93,7 +93,7 @@
 #ifdef MAKELONG
   #undef MAKELONG
 #endif
-#define MAKELONG( a, b )   ( ( LONG ) ( ( ( WORD ) ( ( DWORD_PTR ) ( a ) & 0xffff ) ) | ( ( ( DWORD ) ( ( WORD ) ( ( DWORD_PTR ) ( b ) & 0xffff ) ) ) << 16 ) ) )
+#define MAKELONG(a, b)   ( ( LONG ) ( ( ( WORD ) ( ( DWORD_PTR ) ( a ) & 0xffff ) ) | ( ( ( DWORD ) ( ( WORD ) ( ( DWORD_PTR ) ( b ) & 0xffff ) ) ) << 16 ) ) )
 
 typedef struct
 {
@@ -171,14 +171,14 @@ struct fontProcData
    LOGFONT     *plfTreeView;
 };
 
-extern HBITMAP    HMG_LoadPicture( char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage );
+extern HBITMAP    HMG_LoadPicture(char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage);
 
-HWND              EditPG( HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd, BOOL DisEdit );
-HTREEITEM         GetNextItemPG( HWND TreeHandle, HTREEITEM hTreeItem );
-LRESULT CALLBACK  OwnPropGridProc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam );
-LRESULT CALLBACK  OwnFramePgProc( HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM lParam );
-LRESULT CALLBACK  PGEditProc( HWND hEdit, UINT msg, WPARAM wParam, LPARAM lParam );
-void              SetIndentLine( HWND hWnd, HTREEITEM hParent, RECT *rc, RECT *rcIndent, int nIndent );
+HWND              EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd, BOOL DisEdit);
+HTREEITEM         GetNextItemPG(HWND TreeHandle, HTREEITEM hTreeItem);
+LRESULT CALLBACK  OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam);
+LRESULT CALLBACK  OwnFramePgProc(HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM lParam);
+LRESULT CALLBACK  PGEditProc(HWND hEdit, UINT msg, WPARAM wParam, LPARAM lParam);
+void              SetIndentLine(HWND hWnd, HTREEITEM hParent, RECT *rc, RECT *rcIndent, int nIndent);
 void              _ToggleInfo(HWND hWndPg);
 
 static COLORREF   m_crText, m_crTextCg, m_crBack, m_crBackCg, m_crLine, m_crTextDis;
@@ -187,7 +187,7 @@ static int        m_nHeightHeader = 0;
 
 //----------------------------------------------------------------------------------
 
-BOOL InsertBtnPG( HWND hWnd, HTREEITEM hItem, int nBtn, int ItemType, PROPGRD pgrd )
+BOOL InsertBtnPG(HWND hWnd, HTREEITEM hItem, int nBtn, int ItemType, PROPGRD pgrd)
 {
    INSBTN   *pbtn;
 
@@ -202,17 +202,17 @@ BOOL InsertBtnPG( HWND hWnd, HTREEITEM hItem, int nBtn, int ItemType, PROPGRD pg
    pbtn->nButton = nBtn;
    pbtn->ItemType = ItemType;
    pbtn->hItem = hItem;
-   pbtn->cxButton = GetSystemMetrics( SM_CXVSCROLL );
+   pbtn->cxButton = GetSystemMetrics(SM_CXVSCROLL);
    pbtn->ppgrd = pgrd;
    pbtn->himage = 0;       // todo
 
    // replace the old window procedure with our new one
 
-   pbtn->oldproc = ( WNDPROC ) SetWindowLong( hWnd, GWL_WNDPROC, (LONG) PGEditProc );
+   pbtn->oldproc = ( WNDPROC ) SetWindowLong(hWnd, GWL_WNDPROC, (LONG) PGEditProc);
 
    // associate our button state structure with the window
 
-   SetWindowLong( hWnd, GWL_USERDATA, (LONG) pbtn );
+   SetWindowLong(hWnd, GWL_USERDATA, (LONG) pbtn);
 
    // force the edit control to update its non-client area
 
@@ -223,7 +223,7 @@ BOOL InsertBtnPG( HWND hWnd, HTREEITEM hItem, int nBtn, int ItemType, PROPGRD pg
 
 //----------------------------------------------------------------------------------
 
-void GetBtnPG( INSBTN *pbtn, RECT *rect )
+void GetBtnPG(INSBTN *pbtn, RECT *rect)
 {
    if( pbtn->nButton > 0 )
    {
@@ -240,7 +240,7 @@ void GetBtnPG( INSBTN *pbtn, RECT *rect )
 
 //----------------------------------------------------------------------------------
 
-void DrawInsBtnPG( HWND hWnd, INSBTN *pbtn, RECT *prect )
+void DrawInsBtnPG(HWND hWnd, INSBTN *pbtn, RECT *prect)
 {
    HDC   hdc;
    HWND  hBitmap = pbtn->himage;
@@ -249,19 +249,19 @@ void DrawInsBtnPG( HWND hWnd, INSBTN *pbtn, RECT *prect )
    {
       if( pbtn->fButtonDown == TRUE )
       {
-         DrawEdge( hdc, prect, EDGE_RAISED, BF_RECT | BF_FLAT | BF_ADJUST );
+         DrawEdge(hdc, prect, EDGE_RAISED, BF_RECT | BF_FLAT | BF_ADJUST);
          FillRect(hdc, prect, GetSysColorBrush(COLOR_BTNFACE));
          OffsetRect(prect, 1, 1);
       }
       else
       {
-         DrawEdge( hdc, prect, EDGE_RAISED, BF_RECT | BF_ADJUST );
+         DrawEdge(hdc, prect, EDGE_RAISED, BF_RECT | BF_ADJUST);
          FillRect(hdc, prect, GetSysColorBrush(COLOR_BTNFACE));
       }
 
       if( hBitmap == NULL )
       {
-         SetBkMode( hdc, TRANSPARENT );
+         SetBkMode(hdc, TRANSPARENT);
          DrawText(hdc, "...", 3, prect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
       }
       else
@@ -302,7 +302,7 @@ void LineVert( HDC hDC, int x, int y0, int y1 )
    Line[0].y = y0;
    Line[1].x = x;
    Line[1].y = y1;
-   Polyline( hDC, Line, 2 );
+   Polyline(hDC, Line, 2);
 }
 
 //----------------------------------------------------------------------------------
@@ -314,7 +314,7 @@ void LineHorz( HDC hDC, int x0, int x1, int y )
    Line[0].y = y;
    Line[1].x = x1;
    Line[1].y = y;
-   Polyline( hDC, Line, 2 );
+   Polyline(hDC, Line, 2);
 }
 
 //----------------------------------------------------------------------------------
@@ -350,8 +350,8 @@ BOOL InitPropGrd
    HWND  hwndButton;
    int num_buttons = 0;
    int x, y, h ;
-   int cyMargin = GetSystemMetrics( SM_CYFRAME )  ;
-   int cxMargin = GetSystemMetrics( SM_CYDLGFRAME );
+   int cyMargin = GetSystemMetrics(SM_CYFRAME)  ;
+   int cxMargin = GetSystemMetrics(SM_CYDLGFRAME);
    int buttonWidth;
    int buttonHeight = 0;
    ppgrd = HeapAlloc(GetProcessHeap(), 0, sizeof(PROPGRD));
@@ -510,18 +510,18 @@ BOOL InitPropGrd
 
    // replace the old window procedure with our new one
 
-   ppgrd->oldproc = ( WNDPROC ) SetWindowLong( hWndPG, GWL_WNDPROC, (LONG) OwnPropGridProc );
-   SetWindowLong( hFramePG, GWL_WNDPROC, (LONG) (WNDPROC) OwnFramePgProc );
+   ppgrd->oldproc = ( WNDPROC ) SetWindowLong(hWndPG, GWL_WNDPROC, (LONG) OwnPropGridProc);
+   SetWindowLong(hFramePG, GWL_WNDPROC, (LONG) (WNDPROC) OwnFramePgProc);
 
    // associate our button state structure with the window
 
-   SetWindowLong( hFramePG,GWL_USERDATA, (LONG) ppgrd );
-   SetWindowLong( hWndPG,  GWL_USERDATA, (LONG) ppgrd );
-   SetWindowLong( hHeader, GWL_USERDATA, (LONG) ppgrd );
-   SetWindowLong( hBtnOk,  GWL_USERDATA, (LONG) ppgrd );
-   SetWindowLong( hBtnCancel,GWL_USERDATA, (LONG) ppgrd );
-   SetWindowLong( hBtnApply, GWL_USERDATA, (LONG) ppgrd );
-   SetWindowLong( hBtnHelp,  GWL_USERDATA, (LONG) ppgrd );
+   SetWindowLong(hFramePG,GWL_USERDATA, (LONG) ppgrd);
+   SetWindowLong(hWndPG,  GWL_USERDATA, (LONG) ppgrd);
+   SetWindowLong(hHeader, GWL_USERDATA, (LONG) ppgrd);
+   SetWindowLong(hBtnOk,  GWL_USERDATA, (LONG) ppgrd);
+   SetWindowLong(hBtnCancel,GWL_USERDATA, (LONG) ppgrd);
+   SetWindowLong(hBtnApply, GWL_USERDATA, (LONG) ppgrd);
+   SetWindowLong(hBtnHelp,  GWL_USERDATA, (LONG) ppgrd);
 
    // force the edit control to update its non-client area
 
@@ -629,7 +629,7 @@ void PropGridPaintButton( HDC hDC, RECT rc, BOOL bExpanded, int nIndent )
 
    // Draw the box
 
-   Rectangle( hDC, x, y, x + 9, y + 9 );
+   Rectangle(hDC, x, y, x + 9, y + 9);
 
    // Now, the - or + sign
 
@@ -656,7 +656,7 @@ LRESULT PropGridOnCustomDraw ( HWND hWnd, LPARAM lParam )
    DWORD          dwDrawStage;
    HBRUSH         m_brush = NULL;
    LRESULT        pResult;
-   PROPGRD        *ppgrd = ( PROPGRD * ) GetWindowLong( hWnd, GWL_USERDATA );
+   PROPGRD        *ppgrd = ( PROPGRD * ) GetWindowLong(hWnd, GWL_USERDATA);
    int            nIndent = ppgrd->nIndent;
 
    pResult = CDRF_SKIPDEFAULT;
@@ -676,7 +676,7 @@ LRESULT PropGridOnCustomDraw ( HWND hWnd, LPARAM lParam )
       HDC         hDC = pCD->nmcd.hdc;
       HPEN        hLinPen, hOldPen;
       HBRUSH      hBackBrush, hOldBrush, hIndentBrush;
-      HTREEITEM   hItem = ( HTREEITEM ) pCD->nmcd.dwItemSpec, hParent = TreeView_GetParent( hWnd, hItem );
+      HTREEITEM   hItem = ( HTREEITEM ) pCD->nmcd.dwItemSpec, hParent = TreeView_GetParent(hWnd, hItem);
       RECT        rc = pCD->nmcd.rc;
       TV_DISPINFO tvdi;
       LPARAMDATA  *pItemData = NULL;
@@ -741,7 +741,7 @@ LRESULT PropGridOnCustomDraw ( HWND hWnd, LPARAM lParam )
 
          if( hParent )
          {
-            SetIndentLine( hWnd, hParent, &rc, &rcIndent, nIndent );
+            SetIndentLine(hWnd, hParent, &rc, &rcIndent, nIndent);
          }
 
          // Clear the background
@@ -770,8 +770,8 @@ LRESULT PropGridOnCustomDraw ( HWND hWnd, LPARAM lParam )
 
          // Draw the grid lines
 
-         DrawEdge( hDC, &rcItem, BDR_RAISEDOUTER, BF_BOTTOM );
-         DrawEdge( hDC, &rcProp, BDR_SUNKENOUTER, BF_LEFT );
+         DrawEdge(hDC, &rcItem, BDR_RAISEDOUTER, BF_BOTTOM);
+         DrawEdge(hDC, &rcProp, BDR_SUNKENOUTER, BF_LEFT);
 
          // DrawEdge(hDC, &rcItem, BDR_SUNKENINNER, BF_BOTTOM);
          // DrawEdge(hDC, &rcProp, BDR_SUNKENINNER, BF_LEFT);
@@ -872,7 +872,7 @@ LRESULT PropGridOnCustomDraw ( HWND hWnd, LPARAM lParam )
             {
                if( ppgrd->hItemEdit )
                {
-                  PostMessage( ppgrd->hPropEdit, WM_CLOSE, 0, 0 );
+                  PostMessage(ppgrd->hPropEdit, WM_CLOSE, 0, 0);
                   ppgrd->hItemEdit = 0;
                }
 
@@ -887,16 +887,16 @@ LRESULT PropGridOnCustomDraw ( HWND hWnd, LPARAM lParam )
                      rcEdit.left = ppgrd->cxMiddleEdge;
                   }
 
-                  hFont = SendMessage( hWnd, WM_GETFONT, 0, 0 );
-                  hPropEdit = EditPG( hWnd, rcEdit, hItem, pItemData->ItemType, *ppgrd, pItemData->ItemEdit );
+                  hFont = SendMessage(hWnd, WM_GETFONT, 0, 0);
+                  hPropEdit = EditPG(hWnd, rcEdit, hItem, pItemData->ItemType, *ppgrd, pItemData->ItemEdit);
                   rcEdit = rcProp;
                   if( ppgrd->hItemEdit )
                   {
-                     PostMessage( ppgrd->hPropEdit, WM_CLOSE, 0, 0 );
+                     PostMessage(ppgrd->hPropEdit, WM_CLOSE, 0, 0);
                   }
 
                   ppgrd->hItemEdit = hItem;
-                  SendMessage( hPropEdit, WM_SETFONT, (WPARAM) hFont, TRUE );
+                  SendMessage(hPropEdit, WM_SETFONT, (WPARAM) hFont, TRUE);
                   ppgrd->hPropEdit = hPropEdit;
                }
             }
@@ -922,7 +922,7 @@ LRESULT PropGridOnCustomDraw ( HWND hWnd, LPARAM lParam )
          if( pItemData->ItemChanged )
          {
             HFONT    hFontBold, hOldFont;
-            HFONT    hFont = ( HFONT ) SendMessage( hWnd, WM_GETFONT, 0, 0 );
+            HFONT    hFont = ( HFONT ) SendMessage(hWnd, WM_GETFONT, 0, 0);
             LOGFONT  lf = { 0 };
             GetObject(hFont, sizeof(LOGFONT), &lf);
             lf.lfWeight |= FW_BOLD;
@@ -984,8 +984,8 @@ HB_FUNC( INITPROPGRID )
    icex.dwICC = ICC_TREEVIEW_CLASSES | ICC_DATE_CLASSES | ICC_USEREX_CLASSES;;
    InitCommonControlsEx(&icex);
 
-   hArray = hb_param( 11, Harbour::Item::ARRAY );
-   MsgArray = hb_param( 17, Harbour::Item::ARRAY );
+   hArray = hb_param(11, Harbour::Item::ARRAY);
+   MsgArray = hb_param(17, Harbour::Item::ARRAY);
 
    hFramePG = CreateWindowEx
       (
@@ -1210,7 +1210,7 @@ HB_FUNC( INITPROPGRID )
    HB_STORNL( (LONG) hBtnHelp,   -1, 10 );
 }
 
-LRESULT CALLBACK OwnPropGridProc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam )
+LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
    static PHB_SYMB   pSymbol = NULL;
 
@@ -1231,14 +1231,14 @@ LRESULT CALLBACK OwnPropGridProc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
 
    // get the button state structure
 
-   PROPGRD           *ppgrd = ( PROPGRD * ) GetWindowLong( hWnd, GWL_USERDATA );
+   PROPGRD           *ppgrd = ( PROPGRD * ) GetWindowLong(hWnd, GWL_USERDATA);
    OldWndProc = ppgrd->oldproc;
    switch( Msg )
    {
       case WM_DESTROY:
          OldWndProc = ppgrd->oldproc;
-         HeapFree( GetProcessHeap(), 0, ppgrd );
-         return CallWindowProc( OldWndProc, hWnd, Msg, wParam, lParam );
+         HeapFree(GetProcessHeap(), 0, ppgrd);
+         return CallWindowProc(OldWndProc, hWnd, Msg, wParam, lParam);
 
       case WM_DRAWITEM:
          lpdis = ( LPDRAWITEMSTRUCT ) lParam;
@@ -1271,7 +1271,7 @@ LRESULT CALLBACK OwnPropGridProc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
             rc.left += cx;
          }
 
-         SendMessage( lpdis->hwndItem, CB_GETLBTEXT, lpdis->itemID, (LPARAM) (LPCSTR) achTemp );
+         SendMessage(lpdis->hwndItem, CB_GETLBTEXT, lpdis->itemID, (LPARAM) (LPCSTR) achTemp);
          rc.left += 6;
          if( lpdis->itemState & ODS_COMBOBOXEDIT )
          {
@@ -1300,7 +1300,7 @@ LRESULT CALLBACK OwnPropGridProc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
          {
             GetWindowRect(hWnd, &rect);
             OffsetRect(&rect, -rect.left, -rect.top);
-            CallWindowProc( ppgrd->oldproc, hWnd, Msg, wParam, lParam );
+            CallWindowProc(ppgrd->oldproc, hWnd, Msg, wParam, lParam);
             ppgrd->cxLeftPG = rect.left;
 //            ppgrd->cxRightEdge = rect.right;
             ppgrd->cyTopPG = rect.top;
@@ -1311,12 +1311,12 @@ LRESULT CALLBACK OwnPropGridProc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
       case WM_NCPAINT:
          m_crBack =  GetSysColor(COLOR_WINDOW) ;
 
-         CallWindowProc( ppgrd->oldproc, hWnd, Msg, wParam, lParam );
+         CallWindowProc(ppgrd->oldproc, hWnd, Msg, wParam, lParam);
          return 0;
 
       case WM_VSCROLL:
          {
-            PostMessage( ppgrd->hPropEdit, WM_CLOSE, 0, 0 );
+            PostMessage(ppgrd->hPropEdit, WM_CLOSE, 0, 0);
             ppgrd->hItemEdit = 0;
             SetFocus( hWnd );
             break;
@@ -1337,7 +1337,7 @@ LRESULT CALLBACK OwnPropGridProc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
                iCheck = iCheck == 2 ? 1 : 2;
                tvi.state = INDEXTOSTATEIMAGEMASK(iCheck);
                TreeView_SetItem( hWnd, &tvi );
-               PostMessage( hWnd, WM_COMMAND, MAKEWPARAM(iCheck, BN_CLICKED), (LPARAM) ppgrd->hItemActive );
+               PostMessage(hWnd, WM_COMMAND, MAKEWPARAM(iCheck, BN_CLICKED), (LPARAM) ppgrd->hItemActive);
             }
             break;
          }
@@ -1347,7 +1347,7 @@ LRESULT CALLBACK OwnPropGridProc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
       case WM_KILLFOCUS:
          if( !((HWND) wParam == ppgrd->hPropEdit) )
          {
-            PostMessage( ppgrd->hPropEdit, WM_CLOSE, 0, 0 );
+            PostMessage(ppgrd->hPropEdit, WM_CLOSE, 0, 0);
             ppgrd->hItemEdit = 0;
          }
          break;
@@ -1355,7 +1355,7 @@ LRESULT CALLBACK OwnPropGridProc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
       case NM_SETFOCUS:
          if( !((HWND) wParam == ppgrd->hPropEdit) )
          {
-            PostMessage( ppgrd->hPropEdit, WM_CLOSE, 0, 0 );
+            PostMessage(ppgrd->hPropEdit, WM_CLOSE, 0, 0);
             ppgrd->hItemEdit = 0;
          }
          break;
@@ -1366,19 +1366,19 @@ LRESULT CALLBACK OwnPropGridProc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
          {
             if( !pSymbol )
             {
-               pSymbol = hb_dynsymSymbol( hb_dynsymGet("OPROPGRIDEVENTS") );
+               pSymbol = hb_dynsymSymbol(hb_dynsymGet("OPROPGRIDEVENTS"));
             }
 
             if( pSymbol )
             {
-               hb_vmPushSymbol( pSymbol );
+               hb_vmPushSymbol(pSymbol);
                hb_vmPushNil();
-               hb_vmPushLong( (LONG) hWnd );
-               hb_vmPushLong( Msg );
-               hb_vmPushLong( wParam );
-               hb_vmPushLong( lParam );
-               hb_vmPushLong( (LONG) ppgrd->hItemActive );
-               hb_vmPushLong( (LONG) ppgrd->hPropEdit );
+               hb_vmPushLong((LONG) hWnd);
+               hb_vmPushLong(Msg);
+               hb_vmPushLong(wParam);
+               hb_vmPushLong(lParam);
+               hb_vmPushLong((LONG) ppgrd->hItemActive);
+               hb_vmPushLong((LONG) ppgrd->hPropEdit);
                hb_vmDo(6);
             }
 
@@ -1398,27 +1398,27 @@ LRESULT CALLBACK OwnPropGridProc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPa
    return ( CallWindowProc(OldWndProc, hWnd, Msg, wParam, lParam) );
 }
 
-LRESULT CALLBACK OwnFramePgProc( HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM lParam )
+LRESULT CALLBACK OwnFramePgProc(HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
    static PHB_SYMB   pSymbol = NULL;
    long int          r;
    WNDPROC           OldWndProc;
    HDC               hDC;
    RECT              rc;
-   PROPGRD  *ppgrd = ( PROPGRD * ) GetWindowLong( hFramePG, GWL_USERDATA );
+   PROPGRD  *ppgrd = ( PROPGRD * ) GetWindowLong(hFramePG, GWL_USERDATA);
 
    OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp( hFramePG, "oldframepgproc" );
 
    switch( Msg )
    {
       case WM_DESTROY:
-         SetWindowLong( hFramePG, GWL_WNDPROC, (DWORD) OldWndProc );
+         SetWindowLong(hFramePG, GWL_WNDPROC, (DWORD) OldWndProc);
          RemoveProp( hFramePG, "oldframepgproc" );
          break;
 
       case WM_DRAWITEM:
 
-         hDC = GetWindowDC( GetParent(  hFramePG ));
+         hDC = GetWindowDC(GetParent(hFramePG));
          rc = ppgrd->rcInfo;
 
          rc.left   += 1;
@@ -1436,15 +1436,15 @@ LRESULT CALLBACK OwnFramePgProc( HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM 
                {
                      if( !pSymbol )
                      {
-                        pSymbol = hb_dynsymSymbol( hb_dynsymGet("PGBTNEVENTS") );
+                        pSymbol = hb_dynsymSymbol(hb_dynsymGet("PGBTNEVENTS"));
                      }
 
                      if( pSymbol )
                      {
-                           hb_vmPushSymbol( pSymbol );
+                           hb_vmPushSymbol(pSymbol);
                            hb_vmPushNil();
-                           hb_vmPushLong( (LONG) ppgrd->hPropGrid );
-                           hb_vmPushLong( (LONG) lParam );
+                           hb_vmPushLong((LONG) ppgrd->hPropGrid);
+                           hb_vmPushLong((LONG) lParam);
                            hb_vmDo(2);
                      }
 
@@ -1503,14 +1503,14 @@ LRESULT CALLBACK OwnFramePgProc( HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM 
                      {
                         if( !pSymbol )
                         {
-                           pSymbol = hb_dynsymSymbol( hb_dynsymGet("EXPANDPG") );
+                           pSymbol = hb_dynsymSymbol(hb_dynsymGet("EXPANDPG"));
                         }
 
                         if( pSymbol )
                         {
-                           hb_vmPushSymbol( pSymbol );
+                           hb_vmPushSymbol(pSymbol);
                            hb_vmPushNil();
-                           hb_vmPushLong( (LONG) ppgrd->hPropGrid );
+                           hb_vmPushLong((LONG) ppgrd->hPropGrid);
                            hb_vmPushLong(0);
                            hb_vmDo(2);
                         }
@@ -1543,16 +1543,16 @@ HB_FUNC( PROPGRIDONCUSTOMDRAW )
    hb_retnl( pResult );
 }
 
-void SetIndentLine( HWND hWnd, HTREEITEM hParent, RECT *rc, RECT *rcIndent, int nIndent )
+void SetIndentLine(HWND hWnd, HTREEITEM hParent, RECT *rc, RECT *rcIndent, int nIndent)
 {
    HTREEITEM   hGrand;
 
    // Check if the parent has a parent itself and process it
 
-   hGrand = TreeView_GetParent( hWnd, hParent );
+   hGrand = TreeView_GetParent(hWnd, hParent);
    if( hGrand )
    {
-      SetIndentLine( hWnd, hGrand, rc, rcIndent, nIndent );
+      SetIndentLine(hWnd, hGrand, rc, rcIndent, nIndent);
    }
 
    rc->left += nIndent;
@@ -1646,7 +1646,7 @@ void Pg_SetData(HWND hWnd, HTREEITEM hItem, LPTSTR cValue, LPTSTR cData, BOOL lD
          {
             pData->ItemValue = hb_strndup( cValue, 1024 );
             pData->ItemChanged = TRUE;
-            PostMessage( TreeHandle, WM_COMMAND, MAKEWPARAM(pData->ItemType, EN_CHANGE), (LPARAM) TreeItemHandle );
+            PostMessage(TreeHandle, WM_COMMAND, MAKEWPARAM(pData->ItemType, EN_CHANGE), (LPARAM) TreeItemHandle);
          }
 
          if( !(strcmp(pData->ItemData, cData) == 0) && (lData) )
@@ -1684,7 +1684,7 @@ HB_FUNC( PG_ENABLEITEM )     //   Pg_EnableItem(  TreeHandle, TreeItemHandle, lE
       if( pData )
       {
          pData->ItemDisabled = (BOOL) !hb_parl(3);
-         PostMessage( TreeHandle, WM_SETREDRAW, (WPARAM ) TRUE, 0);
+         PostMessage(TreeHandle, WM_SETREDRAW, (WPARAM ) TRUE, 0);
       }
    }
 }
@@ -1793,21 +1793,21 @@ HB_FUNC( PG_GETITEM )
    }
 }
 
-HTREEITEM GetNextItemPG( HWND TreeHandle, HTREEITEM hTreeItem )
+HTREEITEM GetNextItemPG(HWND TreeHandle, HTREEITEM hTreeItem)
 {
    HTREEITEM   hTreeItemBack = hTreeItem;
    hTreeItem = TreeView_GetChild( TreeHandle, hTreeItem );
    if( !hTreeItem )
    {
-      hTreeItem = TreeView_GetNextSibling( TreeHandle, hTreeItemBack );
+      hTreeItem = TreeView_GetNextSibling(TreeHandle, hTreeItemBack);
    }
 
    if( !hTreeItem )
    {
       while( (!hTreeItem) && (hTreeItemBack) )
       {
-         hTreeItemBack = TreeView_GetParent( TreeHandle, hTreeItemBack );
-         hTreeItem = TreeView_GetNextSibling( TreeHandle, hTreeItemBack );
+         hTreeItemBack = TreeView_GetParent(TreeHandle, hTreeItemBack);
+         hTreeItem = TreeView_GetNextSibling(TreeHandle, hTreeItemBack);
       }
    }
 
@@ -1822,7 +1822,7 @@ HB_FUNC( PG_GETNEXTITEM )
 
    TreeHandle = ( HWND ) hb_parnl(1);
    ItemHandle = ( HTREEITEM ) hb_parnl(2);
-   NextItemHandle = GetNextItemPG( TreeHandle, ItemHandle );
+   NextItemHandle = GetNextItemPG(TreeHandle, ItemHandle);
    hb_retnl( (LONG) NextItemHandle );
 }
 
@@ -1847,7 +1847,7 @@ HB_FUNC( PG_ENSUREVISIBLE )
    TreeHandle = ( HWND ) hb_parnl(1);
    ItemHandle = ( HTREEITEM ) hb_parnl(2);
 
-   lVisible = TreeView_EnsureVisible( TreeHandle, ItemHandle );
+   lVisible = TreeView_EnsureVisible(TreeHandle, ItemHandle);
 
    hb_retl( (BOOL) lVisible );
 
@@ -1871,7 +1871,7 @@ HB_FUNC( PG_ISVISIBLE )
          lVisible = TRUE;
          break;
       }
-      ItemHdl = TreeView_GetNextVisible( TreeHandle, ItemHdl );
+      ItemHdl = TreeView_GetNextVisible(TreeHandle, ItemHdl);
    }
    hb_retl( (BOOL) lVisible );
 }
@@ -1900,7 +1900,7 @@ HB_FUNC( PG_SEARCHID )        //PG_SearchID(hWndPG,nID)
          break;
       }
 
-      TreeItemHandle = GetNextItemPG( TreeHandle, TreeItemHandle );
+      TreeItemHandle = GetNextItemPG(TreeHandle, TreeItemHandle);
    }
 
    hb_retnl( (LONG) TreeItemHandle );
@@ -1928,7 +1928,7 @@ HB_FUNC( PG_SEARCHCATEGORY )  //PG_SearchCategory(hWndPG,cCategory)
          break;
       }
 
-      TreeItemHandle = GetNextItemPG( TreeHandle, TreeItemHandle );
+      TreeItemHandle = GetNextItemPG(TreeHandle, TreeItemHandle);
    }
 
    hb_retnl( (LONG) TreeItemHandle );
@@ -1941,7 +1941,7 @@ HB_FUNC( PG_TOGGLEINFO )   // Pg_ToggleInfo(hWndPG)
 
 void _ToggleInfo(HWND hWndPG)
 {
-   PROPGRD  *ppgrd = ( PROPGRD * ) GetWindowLong( hWndPG, GWL_USERDATA );
+   PROPGRD  *ppgrd = ( PROPGRD * ) GetWindowLong(hWndPG, GWL_USERDATA);
    int      height, width;
 
    width = ppgrd->cxWidthPG;
@@ -1978,7 +1978,7 @@ HB_FUNC( ADDTREEITEMS )
 
    h = ( HWND ) hb_parnl(1);
    l = hb_parinfa(2, 0) - 1;
-   hArray = hb_param( 2, Harbour::Item::ARRAY );
+   hArray = hb_param(2, Harbour::Item::ARRAY);
    c = ListView_GetItemCount( h );
 
    caption = (char *) hb_arrayGetCPtr(hArray, 1);
@@ -2011,7 +2011,7 @@ HB_FUNC( INITPROPGRIDIMAGELIST )
 
    if( himl != NULL )
    {
-      SendMessage( hWndPG, TVM_SETIMAGELIST, (WPARAM) TVSIL_NORMAL, (LPARAM) himl );
+      SendMessage(hWndPG, TVM_SETIMAGELIST, (WPARAM) TVSIL_NORMAL, (LPARAM) himl);
       cx = ImageList_GetImageCount( himl );
    }
 
@@ -2036,9 +2036,9 @@ HB_FUNC( RESETPROPGRIDIMAGELIST )
 
    TreeView_GetItem( (HWND) hWndPG, &TItem );
 
-   himl = ( HIMAGELIST ) SendMessage( hWndPG, TVM_GETIMAGELIST, (WPARAM) TVSIL_NORMAL, 0 );
-   ImageList_Replace( himl, ( int ) TItem.iImage - 1, (HBITMAP) hb_parnl(3), 0 );
-   SendMessage( hWndPG, TVM_SETIMAGELIST, (WPARAM) TVSIL_NORMAL, (LPARAM) himl );
+   himl = ( HIMAGELIST ) SendMessage(hWndPG, TVM_GETIMAGELIST, (WPARAM) TVSIL_NORMAL, 0);
+   ImageList_Replace(himl, ( int ) TItem.iImage - 1, (HBITMAP) hb_parnl(3), 0);
+   SendMessage(hWndPG, TVM_SETIMAGELIST, (WPARAM) TVSIL_NORMAL, (LPARAM) himl);
    cx = ImageList_GetImageCount( himl );
    hb_retni( (INT) cx );
 }
@@ -2087,10 +2087,10 @@ HB_FUNC( PGCOMBOADDSTRING )
    DWORD       dwIndex;
    HIMAGELIST  hILst = ( HIMAGELIST ) hb_parnl(3);
    char        *cString = (char *) hb_parc(2);
-   dwIndex = SendMessage( (HWND) hb_parnl(1), CB_ADDSTRING, 0, (LPARAM) cString );
+   dwIndex = SendMessage((HWND) hb_parnl(1), CB_ADDSTRING, 0, (LPARAM) cString);
    if( hb_parnl(3) )
    {
-      SendMessage( (HWND) hb_parnl(1), CB_SETITEMDATA, dwIndex, (LPARAM) hILst );
+      SendMessage((HWND) hb_parnl(1), CB_SETITEMDATA, dwIndex, (LPARAM) hILst);
    }
 }
 
@@ -2098,7 +2098,7 @@ HB_FUNC( PG_SETPICTURE )
 {
    HBITMAP  hBitmap;
 
-   hBitmap = HMG_LoadPicture( (char *) hb_parc(2), hb_parni(3), hb_parni(4), (HWND) hb_parnl(1), 0, 0, -1, 0 );
+   hBitmap = HMG_LoadPicture((char *) hb_parc(2), hb_parni(3), hb_parni(4), (HWND) hb_parnl(1), 0, 0, -1, 0);
 
    hb_retnl( (LONG) hBitmap );
 }
@@ -2133,7 +2133,7 @@ HB_FUNC( CREATECOLORBMP1 ) //CreateColorBmp( hWnd,nColor,BmpWidh,BmpHeight)
    rect.bottom -= 1;
 
    SelectObject(tmpDC, hBlackBrush);
-   DrawEdge( tmpDC, &rect, BDR_SUNKENINNER, BF_RECT );
+   DrawEdge(tmpDC, &rect, BDR_SUNKENINNER, BF_RECT);
 
    rect.top += 1;
    rect.left += 1;
@@ -2193,7 +2193,7 @@ HB_FUNC( CREATECOLORBMP )  //CreateColorBmp( hWnd,nColor,BmpWidh,BmpHeight)
    rect.bottom -= 1;
 
    SelectObject(tmpDC, hBlackBrush);
-   DrawEdge( tmpDC, &rect, BDR_SUNKENINNER, BF_RECT );
+   DrawEdge(tmpDC, &rect, BDR_SUNKENINNER, BF_RECT);
 
    rect.top += 1;
    rect.left += 1;
@@ -2262,7 +2262,7 @@ HB_FUNC( GETDATEPICKER )
    hb_retni( (LONG) DateTime_GetMonthCal((HWND) hb_parnl(1)) );
 }
 
-HWND EditPG( HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd , BOOL DisEdit)
+HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd , BOOL DisEdit)
 {
    static PHB_SYMB   pSymbol = NULL;
    HWND              hEdit;
@@ -2359,8 +2359,8 @@ HWND EditPG( HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd , 
    switch( ItemType )
    {
       case PG_LOGIC:
-         SendMessage( hEdit, CB_SETITEMHEIGHT, (WPARAM) - 1, (LPARAM) rc.bottom - rc.top - 6 );
-         SendMessage( hEdit, CB_SETITEMHEIGHT, (WPARAM) 0, (LPARAM) rc.bottom - rc.top );
+         SendMessage(hEdit, CB_SETITEMHEIGHT, (WPARAM) - 1, (LPARAM) rc.bottom - rc.top - 6);
+         SendMessage(hEdit, CB_SETITEMHEIGHT, (WPARAM) 0, (LPARAM) rc.bottom - rc.top);
          break;
 
       case PG_COLOR:
@@ -2372,36 +2372,36 @@ HWND EditPG( HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd , 
       case PG_LIST:
       case PG_SYSCOLOR:
          {
-            SendMessage( hEdit, CB_SETITEMHEIGHT, (WPARAM) - 1, (LPARAM) rc.bottom - rc.top - 6 );
+            SendMessage(hEdit, CB_SETITEMHEIGHT, (WPARAM) - 1, (LPARAM) rc.bottom - rc.top - 6);
             break;
          }
 
       case PG_ARRAY:
-         SendMessage( hEdit, CB_SETITEMHEIGHT, (WPARAM) - 1, (LPARAM) rc.bottom - rc.top - 6 );
+         SendMessage(hEdit, CB_SETITEMHEIGHT, (WPARAM) - 1, (LPARAM) rc.bottom - rc.top - 6);
    }
 
-   InsertBtnPG( hEdit, hItem, nBtn, ItemType, ppgrd );
+   InsertBtnPG(hEdit, hItem, nBtn, ItemType, ppgrd);
 
    if( !pSymbol )
    {
-      pSymbol = hb_dynsymSymbol( hb_dynsymGet("_PGINITDATA") );
+      pSymbol = hb_dynsymSymbol(hb_dynsymGet("_PGINITDATA"));
    }
 
    if( pSymbol )
    {
-      hb_vmPushSymbol( pSymbol );
+      hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
-      hb_vmPushLong( (LONG) hWnd );
-      hb_vmPushLong( (LONG) hEdit );
-      hb_vmPushLong( (LONG) hItem );
-      hb_vmPushLong( (LONG) ItemType );
+      hb_vmPushLong((LONG) hWnd);
+      hb_vmPushLong((LONG) hEdit);
+      hb_vmPushLong((LONG) hItem);
+      hb_vmPushLong((LONG) ItemType);
       hb_vmDo(4);
    }
 
    return hEdit;
 }
 
-LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam )
+LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
    static PHB_SYMB   pSymbol = NULL;
    long int          r;
@@ -2416,17 +2416,17 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
 
    // get the button state structure
 
-   INSBTN            *pbtn = ( INSBTN * ) GetWindowLong( hEdit, GWL_USERDATA );
+   INSBTN            *pbtn = ( INSBTN * ) GetWindowLong(hEdit, GWL_USERDATA);
    OldWndProc = pbtn->oldproc;
    hItem = pbtn->hItem;
-   hWndParent = GetParent( hEdit );
+   hWndParent = GetParent(hEdit);
 
    switch( Msg )
    {
       case WM_NCDESTROY:
          OldWndProc = pbtn->oldproc;
-         HeapFree( GetProcessHeap(), 0, pbtn );
-         return CallWindowProc( OldWndProc, hEdit, Msg, wParam, lParam );
+         HeapFree(GetProcessHeap(), 0, pbtn);
+         return CallWindowProc(OldWndProc, hEdit, Msg, wParam, lParam);
 
       case WM_GETDLGCODE:
          return DLGC_WANTALLKEYS;   //+DLGC_WANTARROWS+DLGC_WANTCHARS+DLGC_HASSETSEL ;
@@ -2436,8 +2436,8 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
             prect = ( RECT * ) lParam;
             oldrect = *prect;
 
-            CallWindowProc( pbtn->oldproc, hEdit, Msg, wParam, lParam );
-            SendMessage( hEdit, WM_SETREDRAW, 1, 0 );
+            CallWindowProc(pbtn->oldproc, hEdit, Msg, wParam, lParam);
+            SendMessage(hEdit, WM_SETREDRAW, 1, 0);
 
             if( pbtn->nButton )
             {
@@ -2453,15 +2453,15 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
 
       case WM_NCPAINT:
          {
-            CallWindowProc( pbtn->oldproc, hEdit, Msg, wParam, lParam );
+            CallWindowProc(pbtn->oldproc, hEdit, Msg, wParam, lParam);
             if( pbtn->nButton )
             {
                GetWindowRect(hEdit, &rect);
                OffsetRect(&rect, -rect.left, -rect.top);
 
-               GetBtnPG( pbtn, &rect );
+               GetBtnPG(pbtn, &rect);
 
-               DrawInsBtnPG( hEdit, pbtn, &rect );
+               DrawInsBtnPG(hEdit, pbtn, &rect);
             }
 
             return 0;
@@ -2474,7 +2474,7 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
             pt.y = HIWORD(lParam);
 
             GetWindowRect(hEdit, &rect);
-            GetBtnPG( pbtn, &rect );
+            GetBtnPG(pbtn, &rect);
 
             if( PtInRect(&rect, pt) )
             {
@@ -2494,14 +2494,14 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
             pt.x -= rect.left;
             pt.y -= rect.top;
             OffsetRect(&rect, -rect.left, -rect.top);
-            GetBtnPG( pbtn, &rect );
+            GetBtnPG(pbtn, &rect);
 
             if( PtInRect(&rect, pt) )
             {
-               SetCapture( hEdit );
+               SetCapture(hEdit);
                pbtn->fButtonDown = TRUE;
                pbtn->fMouseDown = TRUE;
-               DrawInsBtnPG( hEdit, pbtn, &rect );
+               DrawInsBtnPG(hEdit, pbtn, &rect);
             }
          }
          break;
@@ -2521,7 +2521,7 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
                pt.y -= rect.top;
                OffsetRect(&rect, -rect.left, -rect.top);
 
-               GetBtnPG( pbtn, &rect );
+               GetBtnPG(pbtn, &rect);
 
                oldstate = pbtn->fButtonDown;
 
@@ -2536,7 +2536,7 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
 
                if( oldstate != pbtn->fButtonDown )
                {
-                  DrawInsBtnPG( hEdit, pbtn, &rect );
+                  DrawInsBtnPG(hEdit, pbtn, &rect);
                }
             }
          }
@@ -2548,7 +2548,7 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
             LPSTR cData[1024];
             GetWindowText(hEdit, (LPSTR) cData, 1024);
             Pg_SetData(GetParent(hEdit), pbtn->hItem, (LPSTR) cData, "", FALSE);
-            PostMessage( GetParent(hEdit), WM_KEYDOWN, VK_DOWN, MAKEWPARAM(0, 0) );
+            PostMessage(GetParent(hEdit), WM_KEYDOWN, VK_DOWN, MAKEWPARAM(0, 0));
             SetFocus( GetParent(hEdit) );
          }
 
@@ -2557,7 +2557,7 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
             LPSTR cData[1024];
             GetWindowText(hEdit, (LPSTR) cData, 1024);
             Pg_SetData(GetParent(hEdit), pbtn->hItem, (LPSTR) cData, "", FALSE);
-            PostMessage( GetParent(hEdit), WM_KEYDOWN, VK_UP, MAKEWPARAM(0, 0) );
+            PostMessage(GetParent(hEdit), WM_KEYDOWN, VK_UP, MAKEWPARAM(0, 0));
             SetFocus( GetParent(hEdit) );
          }
          break;
@@ -2577,11 +2577,11 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
                pt.y -= rect.top;
                OffsetRect(&rect, -rect.left, -rect.top);
 
-               GetBtnPG( pbtn, &rect );
+               GetBtnPG(pbtn, &rect);
 
                if( PtInRect(&rect, pt) )
                {
-                  PostMessage( hEdit, WM_COMMAND, MAKEWPARAM(pbtn->ItemType, BN_CLICKED), (LPARAM) hItem );
+                  PostMessage(hEdit, WM_COMMAND, MAKEWPARAM(pbtn->ItemType, BN_CLICKED), (LPARAM) hItem);
                   SetFocus( hEdit );
                }
 
@@ -2589,7 +2589,7 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
                pbtn->fButtonDown = FALSE;
                pbtn->fMouseDown = FALSE;
 
-               DrawInsBtnPG( hEdit, pbtn, &rect );
+               DrawInsBtnPG(hEdit, pbtn, &rect);
             }
          }
          break;
@@ -2600,7 +2600,7 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
             LPSTR cData[1024];
             GetWindowText(hEdit, (LPSTR) cData, 1024);
             Pg_SetData(GetParent(hEdit), pbtn->hItem, (LPSTR) cData, "", FALSE);
-            PostMessage( GetParent(hEdit), WM_KEYDOWN, VK_DOWN, MAKEWPARAM(0, 0) );
+            PostMessage(GetParent(hEdit), WM_KEYDOWN, VK_DOWN, MAKEWPARAM(0, 0));
             SetFocus( GetParent(hEdit) );
          }
          break;
@@ -2612,19 +2612,19 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
          {
             if( !pSymbol )
             {
-               pSymbol = hb_dynsymSymbol( hb_dynsymGet("OPGEDITEVENTS") );
+               pSymbol = hb_dynsymSymbol(hb_dynsymGet("OPGEDITEVENTS"));
             }
 
             if( pSymbol )
             {
-               hb_vmPushSymbol( pSymbol );
+               hb_vmPushSymbol(pSymbol);
                hb_vmPushNil();
-               hb_vmPushLong( (LONG) hEdit );
-               hb_vmPushLong( Msg );
-               hb_vmPushLong( wParam );
-               hb_vmPushLong( lParam );
-               hb_vmPushLong( (LONG) hWndParent );
-               hb_vmPushLong( (LONG) hItem );
+               hb_vmPushLong((LONG) hEdit);
+               hb_vmPushLong(Msg);
+               hb_vmPushLong(wParam);
+               hb_vmPushLong(lParam);
+               hb_vmPushLong((LONG) hWndParent);
+               hb_vmPushLong((LONG) hItem);
                hb_vmDo(6);
             }
 
@@ -2644,25 +2644,25 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
          {
             if( pbtn->ppgrd.hItemEdit )
             {
-               PostMessage( pbtn->ppgrd.hPropEdit, WM_CLOSE, 0, 0 );
+               PostMessage(pbtn->ppgrd.hPropEdit, WM_CLOSE, 0, 0);
                pbtn->ppgrd.hItemEdit = 0;
             }
 
             if( !pSymbol )
             {
-               pSymbol = hb_dynsymSymbol( hb_dynsymGet("OPGEDITEVENTS") );
+               pSymbol = hb_dynsymSymbol(hb_dynsymGet("OPGEDITEVENTS"));
             }
 
             if( pSymbol )
             {
-               hb_vmPushSymbol( pSymbol );
+               hb_vmPushSymbol(pSymbol);
                hb_vmPushNil();
-               hb_vmPushLong( (LONG) hEdit );
-               hb_vmPushLong( Msg );
-               hb_vmPushLong( wParam );
-               hb_vmPushLong( lParam );
-               hb_vmPushLong( (LONG) hWndParent );
-               hb_vmPushLong( (LONG) hItem );
+               hb_vmPushLong((LONG) hEdit);
+               hb_vmPushLong(Msg);
+               hb_vmPushLong(wParam);
+               hb_vmPushLong(lParam);
+               hb_vmPushLong((LONG) hWndParent);
+               hb_vmPushLong((LONG) hItem);
                hb_vmDo(6);
             }
 
@@ -2686,7 +2686,7 @@ LRESULT CALLBACK PGEditProc( HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam 
 #pragma argsused
 #endif
 
-int CALLBACK enumFontFamilyProc( ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *lpntme, DWORD FontType, LPARAM lParam )
+int CALLBACK enumFontFamilyProc(ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *lpntme, DWORD FontType, LPARAM lParam)
 {
 #if defined( __MINGW32__ )
    UNREFERENCED_PARAMETER( lpntme );
@@ -2695,7 +2695,7 @@ int CALLBACK enumFontFamilyProc( ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *lpntme,
    {
       if( FontType == TRUETYPE_FONTTYPE )
       {  //DEVICE_FONTTYPE | RASTER_FONTTYPE
-         SendMessage( (HWND) lParam, CB_ADDSTRING, 0, (LPARAM) (LPSTR) lpelfe->elfFullName );
+         SendMessage((HWND) lParam, CB_ADDSTRING, 0, (LPARAM) (LPSTR) lpelfe->elfFullName);
       }
    }
 

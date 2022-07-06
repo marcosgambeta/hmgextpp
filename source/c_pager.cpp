@@ -54,25 +54,25 @@
 #if defined ( __MINGW32__ ) && defined ( __MINGW32_VERSION )
 
 #define Pager_ForwardMouse(hwnd, bForward) \
-   ( void ) SendMessage( ( hwnd ), PGM_FORWARDMOUSE, ( WPARAM ) ( bForward ), 0 )
+   ( void ) SendMessage(( hwnd ), PGM_FORWARDMOUSE, ( WPARAM ) ( bForward ), 0)
 
 #define Pager_SetBorder(hwnd, iBorder) \
-   ( int ) SendMessage( ( hwnd ), PGM_SETBORDER, 0, ( LPARAM ) ( iBorder ) )
+   ( int ) SendMessage(( hwnd ), PGM_SETBORDER, 0, ( LPARAM ) ( iBorder ))
 
 #define Pager_GetBorder(hwnd) \
-   ( int ) SendMessage( ( hwnd ), PGM_GETBORDER, 0, 0 )
+   ( int ) SendMessage(( hwnd ), PGM_GETBORDER, 0, 0)
 
 #define Pager_SetPos(hwnd, iPos) \
-   ( int ) SendMessage( ( hwnd ), PGM_SETPOS, 0, ( LPARAM ) ( iPos ) )
+   ( int ) SendMessage(( hwnd ), PGM_SETPOS, 0, ( LPARAM ) ( iPos ))
 
 #define Pager_GetPos(hwnd) \
-   ( int ) SendMessage( ( hwnd ), PGM_GETPOS, 0, 0 )
+   ( int ) SendMessage(( hwnd ), PGM_GETPOS, 0, 0)
 
 #define Pager_SetButtonSize(hwnd, iSize) \
-   ( int ) SendMessage( ( hwnd ), PGM_SETBUTTONSIZE, 0, ( LPARAM ) ( iSize ) )
+   ( int ) SendMessage(( hwnd ), PGM_SETBUTTONSIZE, 0, ( LPARAM ) ( iSize ))
 
 #define Pager_GetButtonSize(hwnd) \
-   ( int ) SendMessage( ( hwnd ), PGM_GETBUTTONSIZE, 0, 0 )
+   ( int ) SendMessage(( hwnd ), PGM_GETBUTTONSIZE, 0, 0)
 
 #endif
 
@@ -93,13 +93,13 @@ HB_FUNC( ADDTOPAGER )      // AdToPager (hwndPG , hToolBar)
    HWND hPager = hmg_par_HWND(1);
    HWND hTool  = hmg_par_HWND(2);
 
-   SendMessage( hPager, PGM_SETCHILD, 0, ( LPARAM ) hTool );
-   SendMessage( hPager, PGM_RECALCSIZE, 0, 0 );
+   SendMessage(hPager, PGM_SETCHILD, 0, ( LPARAM ) hTool);
+   SendMessage(hPager, PGM_RECALCSIZE, 0, 0);
 }
 
 HB_FUNC( SETBKCOLORPAGER ) // SetBkColorPager(hwndPG , COLOR[])
 {
-   SendMessage( hmg_par_HWND(1), PGM_SETBKCOLOR, 0, ( LPARAM ) RGB(hb_parni(2), hb_parni(3), hb_parni(4)) );
+   SendMessage(hmg_par_HWND(1), PGM_SETBKCOLOR, 0, ( LPARAM ) RGB(hb_parni(2), hb_parni(3), hb_parni(4)));
 }
 
 HB_FUNC( PAGERCALCSIZE )   // PagerCalcSize(lParam , nWidth)
@@ -181,7 +181,7 @@ HB_FUNC( INITPAGER )       // InitPager ( ParentForm, hRebar, nWidth, nHeight, v
       rbBand.cx         = nWidth;
    }
 
-   SendMessage( hRebar, RB_INSERTBAND, ( WPARAM ) -1, ( LPARAM ) &rbBand );
+   SendMessage(hRebar, RB_INSERTBAND, ( WPARAM ) -1, ( LPARAM ) &rbBand);
 
    SetWindowLongPtr(hPager, GWLP_USERDATA, ( LONG_PTR ) hRebar);
 

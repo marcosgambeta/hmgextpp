@@ -143,7 +143,7 @@ HB_FUNC( QHTM_SETRETURNVALUE )
 void CALLBACK FormCallback( HWND hWndQHTM, LPQHTMFORMSubmit pFormSubmit, LPARAM lParam )
 {
    PHB_DYNS pSymTest;
-   PHB_ITEM aMetr = hb_itemArrayNew( pFormSubmit->uFieldCount );
+   PHB_ITEM aMetr = hb_itemArrayNew(pFormSubmit->uFieldCount);
    PHB_ITEM atemp, temp;
    int      i;
 
@@ -151,13 +151,13 @@ void CALLBACK FormCallback( HWND hWndQHTM, LPQHTMFORMSubmit pFormSubmit, LPARAM 
    {
       atemp = hb_itemArrayNew(2);
       temp = hb_itemPutC( NULL, ( char * ) ((pFormSubmit->parrFields + i)->pcszName) );
-      hb_itemArrayPut( atemp, 1, temp );
+      hb_itemArrayPut(atemp, 1, temp);
       hb_itemRelease(temp);
       temp = hb_itemPutC( NULL, ( char * ) ((pFormSubmit->parrFields + i)->pcszValue) );
-      hb_itemArrayPut( atemp, 2, temp );
+      hb_itemArrayPut(atemp, 2, temp);
       hb_itemRelease(temp);
 
-      hb_itemArrayPut( aMetr, i + 1, atemp );
+      hb_itemArrayPut(aMetr, i + 1, atemp);
       hb_itemRelease(atemp);
    }
 
@@ -167,21 +167,21 @@ void CALLBACK FormCallback( HWND hWndQHTM, LPQHTMFORMSubmit pFormSubmit, LPARAM 
    // procedure QHTMFormProc() (!!! with a such name !!!)
    if( (pSymTest = hb_dynsymFind("QHTMFORMPROC")) != NULL )
    {
-      hb_vmPushSymbol( hb_dynsymSymbol(pSymTest) );
+      hb_vmPushSymbol(hb_dynsymSymbol(pSymTest));
       hb_vmPushNil();
-      hb_vmPushLong( (LONG) hWndQHTM );
-      hb_vmPushString( ( char * ) pFormSubmit->pcszMethod, strlen(pFormSubmit->pcszMethod) );
-      hb_vmPushString( ( char * ) pFormSubmit->pcszAction, strlen(pFormSubmit->pcszAction) );
+      hb_vmPushLong((LONG) hWndQHTM);
+      hb_vmPushString(( char * ) pFormSubmit->pcszMethod, strlen(pFormSubmit->pcszMethod));
+      hb_vmPushString(( char * ) pFormSubmit->pcszAction, strlen(pFormSubmit->pcszAction));
       if( pFormSubmit->pcszName )
       {
-         hb_vmPushString( ( char * ) pFormSubmit->pcszName, strlen(pFormSubmit->pcszName) );
+         hb_vmPushString(( char * ) pFormSubmit->pcszName, strlen(pFormSubmit->pcszName));
       }
       else
       {
          hb_vmPushNil();
       }
 
-      hb_vmPush( aMetr );
+      hb_vmPush(aMetr);
       hb_vmDo(5);
    }
 
@@ -249,12 +249,12 @@ HB_FUNC( QHTM_ADDHTML )
 {
    if( hQhtmDll )
    {
-      SendMessage( (HWND) hb_parnl(1), QHTM_ADD_HTML, 0, (LPARAM) hb_parc(2) );
+      SendMessage((HWND) hb_parnl(1), QHTM_ADD_HTML, 0, (LPARAM) hb_parc(2));
    }
 }
 
 /*
-  QHTM_AddHtml2( handle, cText, bScrollToEnd ) 
+  QHTM_AddHtml2(handle, cText, bScrollToEnd)
    
   Adding web-page text to display text (autoscroll/no scroll)
 */
@@ -262,12 +262,12 @@ HB_FUNC( QHTM_ADDHTML2 )
 {
    if( hQhtmDll )
    {
-      SendMessage( (HWND) hb_parnl(1), QHTM_ADD_HTML, (WPARAM) hb_parnl(3), (LPARAM) hb_parc(2) );
+      SendMessage((HWND) hb_parnl(1), QHTM_ADD_HTML, (WPARAM) hb_parnl(3), (LPARAM) hb_parc(2));
    }
 }
 
 /*
-   QHTM_GetTitle( handle ) 
+   QHTM_GetTitle(handle) 
    
    Receive web-page title (<TITLE></TITLE>)
 */
@@ -276,7 +276,7 @@ HB_FUNC( QHTM_GETTITLE )
    if( hQhtmDll )
    {
       char  szBuffer[256];
-      SendMessage( (HWND) hb_parnl(1), QHTM_GET_HTML_TITLE, 256, (LPARAM) szBuffer );
+      SendMessage((HWND) hb_parnl(1), QHTM_GET_HTML_TITLE, 256, (LPARAM) szBuffer);
       hb_retc( szBuffer );
    }
    else
@@ -302,11 +302,11 @@ HB_FUNC( QHTM_GETSIZE )
          PHB_ITEM temp;
 
          temp = hb_itemPutNL( NULL, size.cx );
-         hb_itemArrayPut( aMetr, 1, temp );
+         hb_itemArrayPut(aMetr, 1, temp);
          hb_itemRelease(temp);
 
          temp = hb_itemPutNL( NULL, size.cy );
-         hb_itemArrayPut( aMetr, 2, temp );
+         hb_itemArrayPut(aMetr, 2, temp);
          hb_itemRelease(temp);
 
          hb_itemReturn(aMetr);
@@ -487,7 +487,7 @@ HB_FUNC( QHTM_PRINTLAYOUT )
 }
 
 /*
-   QHTM_PrintPage( hDC,hContext,nPage )
+   QHTM_PrintPage(hDC, hContext, nPage)
    
    Print page
 */

@@ -62,22 +62,22 @@ LPSTR  WideToAnsi(LPWSTR);
 #endif
 HINSTANCE GetResources(void);
 
-LRESULT CALLBACK HMG_DlgProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
+LRESULT CALLBACK HMG_DlgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
    static PHB_SYMB pSymbol = NULL;
    long int        r;
 
    if( ! pSymbol )
-      pSymbol = hb_dynsymSymbol( hb_dynsymGet( "DIALOGPROC" ) );
+      pSymbol = hb_dynsymSymbol(hb_dynsymGet("DIALOGPROC"));
 
    if( pSymbol )
    {
-      hb_vmPushSymbol( pSymbol );
+      hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
-      hb_vmPushNumInt( ( LONG_PTR ) hWnd );
-      hb_vmPushLong( message );
-      hb_vmPushNumInt( wParam );
-      hb_vmPushNumInt( lParam );
+      hb_vmPushNumInt(( LONG_PTR ) hWnd);
+      hb_vmPushLong(message);
+      hb_vmPushNumInt(wParam);
+      hb_vmPushNumInt(lParam);
       hb_vmDo(4);
    }
 
@@ -85,22 +85,22 @@ LRESULT CALLBACK HMG_DlgProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
    return r;
 }
 
-LRESULT CALLBACK HMG_ModalDlgProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
+LRESULT CALLBACK HMG_ModalDlgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
    static PHB_SYMB pSymbol = NULL;
    long int        r;
 
    if( ! pSymbol )
-      pSymbol = hb_dynsymSymbol( hb_dynsymGet( "MODALDIALOGPROC" ) );
+      pSymbol = hb_dynsymSymbol(hb_dynsymGet("MODALDIALOGPROC"));
 
    if( pSymbol )
    {
-      hb_vmPushSymbol( pSymbol );
+      hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
-      hb_vmPushNumInt( ( LONG_PTR ) hWnd );
-      hb_vmPushLong( message );
-      hb_vmPushNumInt( wParam );
-      hb_vmPushNumInt( lParam );
+      hb_vmPushNumInt(( LONG_PTR ) hWnd);
+      hb_vmPushLong(message);
+      hb_vmPushNumInt(wParam);
+      hb_vmPushNumInt(lParam);
       hb_vmDo(4);
    }
 
@@ -121,7 +121,7 @@ HB_FUNC( INITDIALOG )
 {
    HWND hwndDlg;
 
-   hwndDlg = CreateDialog( GetResources(), MAKEINTRESOURCE(hb_parni(2)), hmg_par_HWND(1), ( DLGPROC ) HMG_DlgProc );
+   hwndDlg = CreateDialog(GetResources(), MAKEINTRESOURCE(hb_parni(2)), hmg_par_HWND(1), ( DLGPROC ) HMG_DlgProc);
 
    HB_RETNL( ( LONG_PTR ) hwndDlg );
 }
@@ -160,7 +160,7 @@ HB_FUNC( SETDIALOGITEMTEXT )
 
 HB_FUNC( ENDDIALOG )
 {
-   EndDialog( hmg_par_HWND(1), hb_parni(2) );
+   EndDialog(hmg_par_HWND(1), hb_parni(2));
 }
 
 HB_FUNC( ADDDIALOGPAGES )
@@ -173,7 +173,7 @@ HB_FUNC( ADDDIALOGPAGES )
    hwnd = hmg_par_HWND(1);
 
    l      = ( int ) hb_parinfa(2, 0) - 1;
-   hArray = hb_param( 2, Harbour::Item::ARRAY );
+   hArray = hb_param(2, Harbour::Item::ARRAY);
 
    tie.mask   = TCIF_TEXT;
    tie.iImage = -1;
@@ -237,7 +237,7 @@ HB_FUNC( GETEDITTEXT )
 #endif
    HWND    hDlg  = hmg_par_HWND(1);
    int     id    = hb_parni(2);
-   USHORT  iLen  = ( USHORT ) SendMessage( GetDlgItem( hDlg, id ), WM_GETTEXTLENGTH, 0, 0 );
+   USHORT  iLen  = ( USHORT ) SendMessage(GetDlgItem( hDlg, id ), WM_GETTEXTLENGTH, 0, 0);
    TCHAR * cText = ( TCHAR * ) hb_xgrab((iLen + 2) * sizeof(TCHAR));
 
    GetDlgItemText
@@ -345,7 +345,7 @@ HB_SIZE GetSizeDlgTemp( PHB_ITEM dArray, PHB_ITEM cArray )
    return lTemplateSize;
 }
 
-PWORD CreateDlgTemplate( long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray )
+PWORD CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
 {
    PWORD pw, pdlgtemplate;
 
@@ -458,13 +458,13 @@ HB_FUNC( CREATEDLGTEMPLATE )
 
    hwnd = hmg_par_HWND(1);
 
-   dArray = hb_param( 2, Harbour::Item::ARRAY );
-   cArray = hb_param( 3, Harbour::Item::ARRAY );
+   dArray = hb_param(2, Harbour::Item::ARRAY);
+   cArray = hb_param(3, Harbour::Item::ARRAY);
    modal  = hb_arrayGetL( dArray, 3 );
 
    lTemplateSize = ( long ) GetSizeDlgTemp( dArray, cArray );
 
-   pdlgtemplate = CreateDlgTemplate( ( long ) lTemplateSize, dArray, cArray );
+   pdlgtemplate = CreateDlgTemplate(( long ) lTemplateSize, dArray, cArray);
 
    if( modal )
    {

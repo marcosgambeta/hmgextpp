@@ -94,9 +94,9 @@ HRESULT WINAPI DrawThemeText(HTHEME, HDC, int, int, LPCWSTR, int, DWORD, DWORD, 
 #define ETDT_USETABTEXTURE     0x00000004
 #define ETDT_ENABLETAB         ( ETDT_ENABLE | ETDT_USETABTEXTURE )
 
-HRESULT WINAPI EnableThemeDialogTexture( HWND, DWORD );
-HRESULT WINAPI EnableTheming( BOOL );
-HRESULT WINAPI GetCurrentThemeName( LPWSTR, int, LPWSTR, int, LPWSTR, int );
+HRESULT WINAPI EnableThemeDialogTexture(HWND, DWORD);
+HRESULT WINAPI EnableTheming(BOOL);
+HRESULT WINAPI GetCurrentThemeName(LPWSTR, int, LPWSTR, int, LPWSTR, int);
 
 #define STAP_ALLOW_NONCLIENT   ( 1 << 0 )
 #define STAP_ALLOW_CONTROLS    ( 1 << 1 )
@@ -166,7 +166,7 @@ int WINAPI GetThemeSysSize(HTHEME, int);
 HRESULT WINAPI GetThemeSysString(HTHEME, int, LPWSTR, int);
 HRESULT WINAPI GetThemeTextExtent(HTHEME, HDC, int, int, LPCWSTR, int, DWORD, const RECT *, RECT *);
 HRESULT WINAPI GetThemeTextMetrics(HTHEME, HDC, int, int, TEXTMETRICW *);
-HTHEME WINAPI GetWindowTheme( HWND );
+HTHEME WINAPI GetWindowTheme(HWND);
 
 #define HTTB_BACKGROUNDSEG          0x0000
 #define HTTB_FIXEDBORDER            0x0002
@@ -187,7 +187,7 @@ BOOL WINAPI IsThemeDialogTextureEnabled(void);
 BOOL WINAPI IsThemePartDefined(HTHEME, int, int);
 HTHEME WINAPI OpenThemeData(HWND, LPCWSTR);
 void WINAPI SetThemeAppProperties(DWORD);
-HRESULT WINAPI SetWindowTheme( HWND, LPCWSTR, LPCWSTR );
+HRESULT WINAPI SetWindowTheme(HWND, LPCWSTR, LPCWSTR);
 #endif /* __WINE_UXTHEME_H */
 
 BOOL Array2Rect(PHB_ITEM aRect, RECT * rc);
@@ -393,8 +393,8 @@ HB_FUNC( DRAWTHEMEBACKGROUND )
    RECT pRect;
    RECT pClipRect;
 
-   Array2Rect(hb_param( 5, Harbour::Item::ARRAY ), &pRect);
-   Array2Rect(hb_param( 6, Harbour::Item::ARRAY ), &pClipRect);
+   Array2Rect(hb_param(5, Harbour::Item::ARRAY), &pRect);
+   Array2Rect(hb_param(6, Harbour::Item::ARRAY), &pClipRect);
 
    if( hUxTheme == NULL )
       hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), NULL, 0);
@@ -418,7 +418,7 @@ HB_FUNC( DRAWTHEMEPARENTBACKGROUND )
    RECT pRect;
 
    if( HB_ISARRAY(7) )
-      Array2Rect(hb_param( 3, Harbour::Item::ARRAY ), &pRect);
+      Array2Rect(hb_param(3, Harbour::Item::ARRAY), &pRect);
 
    if( hUxTheme == NULL )
       hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), NULL, 0);
@@ -480,7 +480,7 @@ HB_FUNC( PTINRECT )
    RECT    rect;
    HB_BOOL bIn = HB_FALSE;
 
-   if( ( Array2Point(hb_param( 1, Harbour::Item::ANY ), &point) && Array2Rect(hb_param( 2, Harbour::Item::ANY ), &rect) ) )
+   if( ( Array2Point(hb_param(1, Harbour::Item::ANY), &point) && Array2Rect(hb_param(2, Harbour::Item::ANY), &rect) ) )
    {
       bIn = PtInRect(&rect, point) ? HB_TRUE : HB_FALSE;
    }

@@ -127,8 +127,8 @@ HB_FUNC( INITRICHEDITBOX )
          NULL
             );
 
-      SendMessage( hRE, ( UINT ) EM_EXLIMITTEXT, ( WPARAM ) hb_parni(9), ( LPARAM ) 0 );
-      SendMessage( hRE, ( UINT ) EM_SETEVENTMASK, ( WPARAM ) 0, ( LPARAM ) ENM_SELCHANGE | ENM_DRAGDROPDONE | ENM_CHANGE | ENM_SCROLL );
+      SendMessage(hRE, ( UINT ) EM_EXLIMITTEXT, ( WPARAM ) hb_parni(9), ( LPARAM ) 0);
+      SendMessage(hRE, ( UINT ) EM_SETEVENTMASK, ( WPARAM ) 0, ( LPARAM ) ENM_SELCHANGE | ENM_DRAGDROPDONE | ENM_CHANGE | ENM_SCROLL);
    }
 
    HB_RETNL( ( LONG_PTR ) hRE );
@@ -206,8 +206,8 @@ HB_FUNC( STREAMIN )        //StreamIn(HWND hwndCtrl, LPCTSTR lpszPath, int typ )
    es.dwError     = 0;
 
    // send EM_STREAMIN message to the Rich Edit Control.
-   SendMessage( hwnd, ( UINT ) EM_STREAMIN, ( WPARAM ) Flag, ( LPARAM ) &es );
-   SendMessage( hwnd, ( UINT ) EM_SETTEXTMODE, ( WPARAM ) Mode, 0 );
+   SendMessage(hwnd, ( UINT ) EM_STREAMIN, ( WPARAM ) Flag, ( LPARAM ) &es);
+   SendMessage(hwnd, ( UINT ) EM_SETTEXTMODE, ( WPARAM ) Mode, 0);
 
    CloseHandle(hFile);
 
@@ -260,7 +260,7 @@ HB_FUNC( STREAMOUT )       //StreamOut(HWND hwndCtrl, LPCTSTR lpszPath, int Typ 
    es.dwError     = 0;
 
    // send EM_STREAMOUT message to the Rich Edit Control.
-   SendMessage( hwnd, EM_STREAMOUT, ( WPARAM ) Flag, ( LPARAM ) &es );
+   SendMessage(hwnd, EM_STREAMOUT, ( WPARAM ) Flag, ( LPARAM ) &es);
 
    CloseHandle(hFile);
 
@@ -276,7 +276,7 @@ HB_FUNC( GETAUTOFONTRTF )  // GetAutoFont(HWND hwnd)
    LRESULT lAuto;
 
    hwnd  = hmg_par_HWND(1);
-   lAuto = SendMessage( hwnd, EM_GETLANGOPTIONS, 0, 0 ) & IMF_AUTOFONT;
+   lAuto = SendMessage(hwnd, EM_GETLANGOPTIONS, 0, 0) & IMF_AUTOFONT;
 
    if( lAuto )
       hb_retl( TRUE );
@@ -290,14 +290,14 @@ HB_FUNC( SETAUTOFONTRTF )  // SetAutoFont(HWND hwnd, lAutoFont)
    LRESULT lOpt, lResult;
 
    hwnd = hmg_par_HWND(1);
-   lOpt = SendMessage( hwnd, EM_GETLANGOPTIONS, 0, 0 );
+   lOpt = SendMessage(hwnd, EM_GETLANGOPTIONS, 0, 0);
 
    if( hb_parl(2) )
       lOpt &= IMF_AUTOFONT;
    else
       lOpt &= ~IMF_AUTOFONT;
 
-   lResult = SendMessage( hwnd, EM_SETLANGOPTIONS, 0, lOpt );
+   lResult = SendMessage(hwnd, EM_SETLANGOPTIONS, 0, lOpt);
 
    if( lResult )
       hb_retl( TRUE );
@@ -315,7 +315,7 @@ HB_FUNC( SETBKGNDCOLOR )   // SetBkgndColor(HWND hwnd, lSyscol, nRed, nGreen, nB
    if( hb_parl(2) )
       syscol = 0;
 
-   lResult = SendMessage( hmg_par_HWND(1), ( UINT ) EM_SETBKGNDCOLOR, ( WPARAM ) syscol, ( LPARAM ) bkgcolor );
+   lResult = SendMessage(hmg_par_HWND(1), ( UINT ) EM_SETBKGNDCOLOR, ( WPARAM ) syscol, ( LPARAM ) bkgcolor);
 
    hb_retnl( ( LONG ) lResult );
 }
@@ -341,7 +341,7 @@ HB_FUNC( GETFONTRTF )
    else
       SelText = SCF_DEFAULT;
 
-   SendMessage( hmg_par_HWND(1), EM_GETCHARFORMAT, ( WPARAM ) SelText, ( LPARAM ) &cF );
+   SendMessage(hmg_par_HWND(1), EM_GETCHARFORMAT, ( WPARAM ) SelText, ( LPARAM ) &cF);
 
    PointSize = cF.yHeight / 20;
 
@@ -382,7 +382,7 @@ HB_FUNC( SETFONTRTF )
 #endif
 
    cF.cbSize = sizeof(CHARFORMAT);
-   Mask      = ( DWORD ) SendMessage( hmg_par_HWND(1), EM_GETCHARFORMAT, ( WPARAM ) SelText, ( LPARAM ) &cF );
+   Mask      = ( DWORD ) SendMessage(hmg_par_HWND(1), EM_GETCHARFORMAT, ( WPARAM ) SelText, ( LPARAM ) &cF);
 
    if( hb_parni(10) > 0 )
       Mask = hb_parni(10);
@@ -415,7 +415,7 @@ HB_FUNC( SETFONTRTF )
    if( hb_parclen(3) > 0 )
       lstrcpy(cF.szFaceName, szFaceName);
 
-   lResult = SendMessage( hmg_par_HWND(1), EM_SETCHARFORMAT, ( WPARAM ) SelText, ( LPARAM ) &cF );
+   lResult = SendMessage(hmg_par_HWND(1), EM_SETCHARFORMAT, ( WPARAM ) SelText, ( LPARAM ) &cF);
 
    if( lResult )
       hb_retl( TRUE );

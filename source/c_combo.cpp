@@ -165,7 +165,7 @@ HB_FUNC( INITCOMBOBOXEX )
    if( nCount > 0 )
    {
       int Transparent = hb_parl(7) ? 0 : 1;
-      hArray = hb_param( 14, Harbour::Item::ARRAY );
+      hArray = hb_param(14, Harbour::Item::ARRAY);
 
       for( int s = 1; s <= nCount; s++ )
       {
@@ -184,7 +184,7 @@ HB_FUNC( INITCOMBOBOXEX )
    // set imagelist for created ComboEx
 
    if( himl != NULL )
-      SendMessage( ( HWND ) hCombo, CBEM_SETIMAGELIST, 0, ( LPARAM ) himl );
+      SendMessage(( HWND ) hCombo, CBEM_SETIMAGELIST, 0, ( LPARAM ) himl);
    else
       // extend combo without images
       SendMessage
@@ -203,24 +203,24 @@ HB_FUNC( COMBOSETITEMHEIGHT )
    HWND hWnd = hmg_par_HWND(1);
    int  iDesiredHeight = hb_parni(2);
 
-   SendMessage( hWnd, CB_SETITEMHEIGHT, ( WPARAM ) -1, ( LPARAM ) iDesiredHeight );
+   SendMessage(hWnd, CB_SETITEMHEIGHT, ( WPARAM ) -1, ( LPARAM ) iDesiredHeight);
 }
 
 HB_FUNC( COMBOSHOWDROPDOWN )
 {
-   SendMessage( hmg_par_HWND(1), CB_SHOWDROPDOWN, ( WPARAM ) 1, ( LPARAM ) 0 );
+   SendMessage(hmg_par_HWND(1), CB_SHOWDROPDOWN, ( WPARAM ) 1, ( LPARAM ) 0);
 }
 
 HB_FUNC( COMBOEDITSETSEL )
 {
-   hb_retni( ( int ) SendMessage( hmg_par_HWND(1), CB_SETEDITSEL, ( WPARAM ) 0, ( LPARAM ) MAKELPARAM( hb_parni(2), hb_parni(3) ) ) );
+   hb_retni( ( int ) SendMessage(hmg_par_HWND(1), CB_SETEDITSEL, ( WPARAM ) 0, ( LPARAM ) MAKELPARAM(hb_parni(2), hb_parni(3))) );
 }
 
 HB_FUNC( COMBOGETEDITSEL )
 {
    DWORD pos;
 
-   pos = ( DWORD ) SendMessage( hmg_par_HWND(1), CB_GETEDITSEL, ( WPARAM ) NULL, ( LPARAM ) NULL );
+   pos = ( DWORD ) SendMessage(hmg_par_HWND(1), CB_GETEDITSEL, ( WPARAM ) NULL, ( LPARAM ) NULL);
 
    hb_reta(2);
 
@@ -230,7 +230,7 @@ HB_FUNC( COMBOGETEDITSEL )
 
 HB_FUNC( COMBOSELECTSTRING )
 {
-   hb_retni( ( int ) SendMessage( hmg_par_HWND(1), CB_SELECTSTRING, ( WPARAM ) -1, ( LPARAM ) hb_parc(2) ) );
+   hb_retni( ( int ) SendMessage(hmg_par_HWND(1), CB_SELECTSTRING, ( WPARAM ) -1, ( LPARAM ) hb_parc(2)) );
 }
 
 /* Added by P.Ch. 16.10. */
@@ -241,7 +241,7 @@ HB_FUNC( COMBOFINDSTRING )
 #else
    LPWSTR lpText = AnsiToWide(( char * ) hb_parc(2));
 #endif
-   hb_retnl( ( LONG ) SendMessage( hmg_par_HWND(1), ( UINT ) CB_FINDSTRING, ( WPARAM ) -1, ( LPARAM ) lpText ) + 1 );
+   hb_retnl( ( LONG ) SendMessage(hmg_par_HWND(1), ( UINT ) CB_FINDSTRING, ( WPARAM ) -1, ( LPARAM ) lpText) + 1 );
 #ifdef UNICODE
    hb_xfree(lpText);
 #endif
@@ -254,7 +254,7 @@ HB_FUNC( COMBOFINDSTRINGEXACT )
 #else
    LPWSTR lpText = AnsiToWide(( char * ) hb_parc(2));
 #endif
-   hb_retnl( ( LONG ) SendMessage( hmg_par_HWND(1), ( UINT ) CB_FINDSTRINGEXACT, ( WPARAM ) -1, ( LPARAM ) lpText ) + 1 );
+   hb_retnl( ( LONG ) SendMessage(hmg_par_HWND(1), ( UINT ) CB_FINDSTRINGEXACT, ( WPARAM ) -1, ( LPARAM ) lpText) + 1 );
 #ifdef UNICODE
    hb_xfree(lpText);
 #endif
@@ -266,12 +266,12 @@ HB_FUNC( COMBOGETSTRING )
 #ifdef UNICODE
    LPSTR lpString;
 #endif
-   int     iLen = ( int ) SendMessage( hmg_par_HWND(1), CB_GETLBTEXTLEN, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) 0 );
+   int     iLen = ( int ) SendMessage(hmg_par_HWND(1), CB_GETLBTEXTLEN, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) 0);
    TCHAR * cString;
 
    if( iLen > 0 && NULL != ( cString = ( TCHAR * ) hb_xgrab((iLen + 1) * sizeof(TCHAR)) ) )
    {
-      SendMessage( hmg_par_HWND(1), CB_GETLBTEXT, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) cString );
+      SendMessage(hmg_par_HWND(1), CB_GETLBTEXT, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) cString);
    #ifdef UNICODE
       lpString = WideToAnsi(cString);
       hb_retc( lpString );
@@ -293,7 +293,7 @@ HB_FUNC( COMBOADDSTRING )
 #else
    LPWSTR lpString = AnsiToWide(( char * ) hb_parc(2));
 #endif
-   SendMessage( hmg_par_HWND(1), CB_ADDSTRING, 0, ( LPARAM ) lpString );
+   SendMessage(hmg_par_HWND(1), CB_ADDSTRING, 0, ( LPARAM ) lpString);
 #ifdef UNICODE
    hb_xfree(lpString);
 #endif
@@ -306,7 +306,7 @@ HB_FUNC( COMBOINSERTSTRING )
 #else
    LPWSTR lpString = AnsiToWide(( char * ) hb_parc(2));
 #endif
-   SendMessage( hmg_par_HWND(1), CB_INSERTSTRING, hb_parni(3) - 1, ( LPARAM ) lpString );
+   SendMessage(hmg_par_HWND(1), CB_INSERTSTRING, hb_parni(3) - 1, ( LPARAM ) lpString);
 #ifdef UNICODE
    hb_xfree(lpString);
 #endif
@@ -332,7 +332,7 @@ HB_FUNC( COMBOADDSTRINGEX )
    cbei.iOverlay       = ( nImage - 1 ) * 3 + 2;
    cbei.iIndent        = 0;
 
-   SendMessage( hmg_par_HWND(1), CBEM_INSERTITEM, 0, ( LPARAM ) &cbei );
+   SendMessage(hmg_par_HWND(1), CBEM_INSERTITEM, 0, ( LPARAM ) &cbei);
 #ifdef UNICODE
    hb_xfree(lpText);
 #endif
@@ -357,7 +357,7 @@ HB_FUNC( COMBOINSERTSTRINGEX )
    cbei.iOverlay       = ( nImage - 1 ) * 3 + 2;
    cbei.iIndent        = 0;
 
-   SendMessage( hmg_par_HWND(1), CBEM_INSERTITEM, 0, ( LPARAM ) &cbei );
+   SendMessage(hmg_par_HWND(1), CBEM_INSERTITEM, 0, ( LPARAM ) &cbei);
 #ifdef UNICODE
    hb_xfree(lpText);
 #endif
@@ -381,7 +381,7 @@ HB_FUNC( COMBOADDDATASTRINGEX )
    cbei.iOverlay       = 2;
    cbei.iIndent        = 0;
 
-   SendMessage( hmg_par_HWND(1), CBEM_INSERTITEM, 0, ( LPARAM ) &cbei );
+   SendMessage(hmg_par_HWND(1), CBEM_INSERTITEM, 0, ( LPARAM ) &cbei);
 #ifdef UNICODE
    hb_xfree(lpText);
 #endif

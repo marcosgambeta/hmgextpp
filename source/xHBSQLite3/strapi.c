@@ -74,15 +74,15 @@ const char * hb_strnull( const char * str )
    return str ? str : "";
 }
 
-void hb_retstrlen_utf8( const char * szText, ULONG nLen )
+void hb_retstrlen_utf8(const char * szText, ULONG nLen)
 {
    HB_THREAD_STUB
 
-   hb_itemPutStrLenUTF8( hb_stackReturnItem(), szText, nLen );
+   hb_itemPutStrLenUTF8(hb_stackReturnItem(), szText, nLen);
 }
 
 
-const char * hb_parstr_utf8( int iParam, void ** phString, ULONG * pnLen )
+const char * hb_parstr_utf8(int iParam, void ** phString, ULONG * pnLen)
 {
 	HB_THREAD_STUB
 
@@ -90,12 +90,12 @@ const char * hb_parstr_utf8( int iParam, void ** phString, ULONG * pnLen )
 
 	if( iParam >= -1 && iParam <= hb_pcount() )
 	{
-		PHB_ITEM pItem = ( iParam == -1 ) ? hb_stackReturnItem() : hb_stackItemFromBase( iParam );
+		PHB_ITEM pItem = ( iParam == -1 ) ? hb_stackReturnItem() : hb_stackItemFromBase(iParam);
 
 		if( HB_IS_BYREF(pItem) )
 			pItem = hb_itemUnRef(pItem);
 
-		return hb_itemGetStrUTF8( pItem, phString, pnLen );
+		return hb_itemGetStrUTF8(pItem, phString, pnLen);
 	}
 
 	if( pnLen )
@@ -105,26 +105,26 @@ const char * hb_parstr_utf8( int iParam, void ** phString, ULONG * pnLen )
 	return NULL;
 }
 
-void hb_strfree( void * hString )
+void hb_strfree(void * hString)
 {
    HB_TRACE(HB_TR_DEBUG, ("hb_strfree(%p)", hString));
 
    if( hString && hString != ( void * ) s_szConstStr )
-      hb_xRefFree( hString );
+      hb_xRefFree(hString);
 }
 
-void hb_retstr_utf8( const char * szText )
+void hb_retstr_utf8(const char * szText)
 {
    HB_THREAD_STUB
 
    HB_TRACE(HB_TR_DEBUG, ("hb_retstr_utf8(%s)", szText));
 
-   hb_itemPutStrLenUTF8( hb_stackReturnItem(), szText,
-                         szText ? strlen( szText ) : 0 );
+   hb_itemPutStrLenUTF8(hb_stackReturnItem(), szText,
+                        szText ? strlen( szText ) : 0);
 }
 
 
-PHB_ITEM hb_itemPutStrLenUTF8( PHB_ITEM pItem, const char * pStr, ULONG nLen )
+PHB_ITEM hb_itemPutStrLenUTF8(PHB_ITEM pItem, const char * pStr, ULONG nLen)
 {
    PHB_CODEPAGE cdp;
    char * pszDest;
@@ -136,24 +136,24 @@ PHB_ITEM hb_itemPutStrLenUTF8( PHB_ITEM pItem, const char * pStr, ULONG nLen )
       return hb_itemPutC( pItem, NULL );
 
    cdp = hb_cdppage();
-   nDest = hb_cdpStringInUTF8Length( cdp, FALSE, pStr, nLen );
+   nDest = hb_cdpStringInUTF8Length(cdp, FALSE, pStr, nLen);
    pszDest = ( char * ) hb_xgrab(nDest + 1);
    hb_cdpStrnToUTF8n( cdp, FALSE, pStr, nLen, pszDest, nDest + 1 );
 
    return hb_itemPutCLPtr(pItem, pszDest, nDest);
 }
 
-const char * hb_itemGetStrUTF8( PHB_ITEM pItem, void ** phString, ULONG * pnLen )
+const char * hb_itemGetStrUTF8(PHB_ITEM pItem, void ** phString, ULONG * pnLen)
 {
    HB_TRACE(HB_TR_DEBUG, ("hb_itemGetStrUTF8(%p,%p,%p)", pItem, phString, pnLen));
 
-   if( pItem && HB_IS_STRING( pItem ) )
+   if( pItem && HB_IS_STRING(pItem) )
    {
 		PHB_CODEPAGE cdp = hb_cdppage(); 
      
-		ULONG nLen = hb_cdpStringInUTF8Length( cdp, FALSE,
+		ULONG nLen = hb_cdpStringInUTF8Length(cdp, FALSE,
                                          pItem->item.asString.value,
-                                         pItem->item.asString.length );								 
+                                         pItem->item.asString.length);
 		if( pnLen )
 			*pnLen = nLen;
 
@@ -184,7 +184,7 @@ const char * hb_itemGetStrUTF8( PHB_ITEM pItem, void ** phString, ULONG * pnLen 
 	return NULL;
 }
 
-PHB_ITEM hb_itemPutStrUTF8( PHB_ITEM pItem, const char * pStr )
+PHB_ITEM hb_itemPutStrUTF8(PHB_ITEM pItem, const char * pStr)
 {
    PHB_CODEPAGE cdp;
    char * pszDest;
@@ -197,7 +197,7 @@ PHB_ITEM hb_itemPutStrUTF8( PHB_ITEM pItem, const char * pStr )
 
    cdp = hb_cdppage(); 
    nLen = strlen( pStr );
-   nDest = hb_cdpStringInUTF8Length( cdp, FALSE, pStr, nLen );
+   nDest = hb_cdpStringInUTF8Length(cdp, FALSE, pStr, nLen);
    pszDest = ( char * ) hb_xgrab(nDest + 1);
    hb_cdpStrnToUTF8n( cdp, FALSE, pStr, nLen, pszDest, nDest + 1 );
 
@@ -205,13 +205,13 @@ PHB_ITEM hb_itemPutStrUTF8( PHB_ITEM pItem, const char * pStr )
 }
 
 
-BOOL hb_arraySetStrUTF8( PHB_ITEM pArray, ULONG nIndex, const char * pStr)
+BOOL hb_arraySetStrUTF8(PHB_ITEM pArray, ULONG nIndex, const char * pStr)
 {
    HB_TRACE(HB_TR_DEBUG, ("hb_arraySetStrUTF8(%p, %lu, %p)", pArray, nIndex, pStr));
    
-   if( HB_IS_ARRAY(pArray) && nIndex > 0 && nIndex <= pArray->item.asArray.value->ulLen ) 
+   if( HB_IS_ARRAY(pArray) && nIndex > 0 && nIndex <= pArray->item.asArray.value->ulLen )
    {
-      hb_itemPutStrUTF8( pArray->item.asArray.value->pItems + nIndex - 1, pStr );
+      hb_itemPutStrUTF8(pArray->item.asArray.value->pItems + nIndex - 1, pStr);
       return TRUE;
    }
    else

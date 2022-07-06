@@ -61,7 +61,7 @@
 #define ICC_STANDARD_CLASSES  0x00004000
 #endif
 
-LRESULT CALLBACK  OwnSpinProc( HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam );
+LRESULT CALLBACK  OwnSpinProc(HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam);
 
 HINSTANCE GetInstance(void);
 
@@ -132,8 +132,8 @@ HB_FUNC( INITSPINNER )
       NULL
              );
 
-   SendMessage( hupdown, UDM_SETBUDDY, ( WPARAM ) hedit, ( LPARAM ) NULL );
-   SendMessage( hupdown, UDM_SETRANGE32, ( WPARAM ) hb_parni(8), ( LPARAM ) hb_parni(9) );
+   SendMessage(hupdown, UDM_SETBUDDY, ( WPARAM ) hedit, ( LPARAM ) NULL);
+   SendMessage(hupdown, UDM_SETRANGE32, ( WPARAM ) hb_parni(8), ( LPARAM ) hb_parni(9));
 
    // 2006.08.13 JD
    SetProp( ( HWND ) hedit, TEXT("oldspinproc"), ( HWND ) GetWindowLongPtr(( HWND ) hedit, GWLP_WNDPROC) );
@@ -151,11 +151,11 @@ HB_FUNC( SETSPINNERINCREMENT )
    inc.nSec = 0;
    inc.nInc = hb_parni(2);
 
-   SendMessage( hmg_par_HWND(1), UDM_SETACCEL, ( WPARAM ) 1, ( LPARAM ) &inc );
+   SendMessage(hmg_par_HWND(1), UDM_SETACCEL, ( WPARAM ) 1, ( LPARAM ) &inc);
 }
 
 // 2006.08.13 JD
-LRESULT CALLBACK OwnSpinProc( HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam )
+LRESULT CALLBACK OwnSpinProc(HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
    static PHB_SYMB pSymbol = NULL;
    long int        r;
@@ -173,23 +173,23 @@ LRESULT CALLBACK OwnSpinProc( HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam
       case WM_CONTEXTMENU:
       case WM_GETDLGCODE:
          if( ! pSymbol )
-            pSymbol = hb_dynsymSymbol( hb_dynsymGet( "OSPINEVENTS" ) );
+            pSymbol = hb_dynsymSymbol(hb_dynsymGet("OSPINEVENTS"));
 
          if( pSymbol )
          {
-            hb_vmPushSymbol( pSymbol );
+            hb_vmPushSymbol(pSymbol);
             hb_vmPushNil();
-            hb_vmPushNumInt( ( LONG_PTR ) hedit );
-            hb_vmPushLong( Msg );
-            hb_vmPushNumInt( wParam );
-            hb_vmPushNumInt( lParam );
+            hb_vmPushNumInt(( LONG_PTR ) hedit);
+            hb_vmPushLong(Msg);
+            hb_vmPushNumInt(wParam);
+            hb_vmPushNumInt(lParam);
             hb_vmDo(4);
          }
 
          r = hb_parnl( -1 );  /* P.Ch. 10.16. */
 
-         return ( r != 0 ) ? r : CallWindowProc( OldWndProc, hedit, Msg, wParam, lParam );
+         return ( r != 0 ) ? r : CallWindowProc(OldWndProc, hedit, Msg, wParam, lParam);
    }
 
-   return CallWindowProc( OldWndProc, hedit, Msg, wParam, lParam );
+   return CallWindowProc(OldWndProc, hedit, Msg, wParam, lParam);
 }

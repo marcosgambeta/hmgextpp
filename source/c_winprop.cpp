@@ -111,7 +111,7 @@ HB_FUNC( SETPROP )
       chType = 'D';     // date
       nLen   = 9;       // len of "yyyymmdd"
    }
-   else if( HB_IS_NUMINT( hb_param( 3, Harbour::Item::ANY ) ) )
+   else if( HB_IS_NUMINT(hb_param(3, Harbour::Item::ANY)) )
    {
       if( ( BOOL ) hb_parldef( 4, HB_FALSE ) )
          chType = 'X';                 // if 'X' memory HANDLE passed
@@ -273,7 +273,7 @@ HB_FUNC( REMOVEPROP )
 }
 
 
-static BOOL CALLBACK PropsEnumProc( HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULONG_PTR lParam );
+static BOOL CALLBACK PropsEnumProc(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULONG_PTR lParam);
 
 /* Usage: aProps := EnumProps( nHandle ) */
 HB_FUNC( ENUMPROPS )
@@ -290,7 +290,7 @@ HB_FUNC( ENUMPROPS )
    }
 }
 
-static BOOL CALLBACK PropsEnumProc( HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULONG_PTR lParam )
+static BOOL CALLBACK PropsEnumProc(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULONG_PTR lParam)
 {
    int iLen = lstrlen( pszPropName );
 
@@ -301,13 +301,13 @@ static BOOL CALLBACK PropsEnumProc( HWND hWnd, LPCTSTR pszPropName, HANDLE handl
 
       lstrcpy(pszName, pszPropName);
 
-      hb_arraySetNInt( item, 1, ( LONG_PTR ) hWnd );
+      hb_arraySetNInt(item, 1, ( LONG_PTR ) hWnd);
    #ifndef UNICODE
       hb_arraySetCLPtr(item, 2, pszName, iLen);
    #else
       hb_arraySetCLPtr(item, 2, WideToAnsi(pszName), iLen);
    #endif
-      hb_arraySetNInt( item, 3, ( LONG_PTR ) handle );
+      hb_arraySetNInt(item, 3, ( LONG_PTR ) handle);
 
       hb_arrayAddForward( ( PHB_ITEM ) lParam, item );
       hb_itemRelease(item);
@@ -351,7 +351,7 @@ BOOL CALLBACK PropsEnumProcEx(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULO
 HB_FUNC( ENUMPROPSEX )
 {
    HWND     hWnd       = hmg_par_HWND(1);
-   PHB_ITEM pCodeBlock = hb_param( 2, Harbour::Item::BLOCK );
+   PHB_ITEM pCodeBlock = hb_param(2, Harbour::Item::BLOCK);
 
    if( IsWindow(hWnd) && pCodeBlock )
       hb_retni( EnumPropsEx(hWnd, ( PROPENUMPROCEX ) PropsEnumProcEx, ( LPARAM ) pCodeBlock) );
@@ -366,9 +366,9 @@ BOOL CALLBACK PropsEnumProcEx(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULO
 
    if( iLen )
    {
-      PHB_ITEM pHWnd = hb_itemPutNInt( NULL, ( LONG_PTR ) hWnd );
+      PHB_ITEM pHWnd = hb_itemPutNInt(NULL, ( LONG_PTR ) hWnd);
       PHB_ITEM pPropName;
-      PHB_ITEM pHandle = hb_itemPutNInt( NULL, ( LONG_PTR ) handle );
+      PHB_ITEM pHandle = hb_itemPutNInt(NULL, ( LONG_PTR ) handle);
       LPTSTR   pszName = ( LPTSTR ) hb_xgrabz((iLen + 1) * sizeof(TCHAR));
 
       lstrcpy(pszName, pszPropName);

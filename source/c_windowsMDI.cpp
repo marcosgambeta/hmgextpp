@@ -59,8 +59,8 @@
 # define HB_STRNCPY  hb_strncpy
 #endif
 
-LRESULT CALLBACK  MdiWndProc( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam );
-LRESULT CALLBACK  MdiChildWndProc( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam );
+LRESULT CALLBACK  MdiWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+LRESULT CALLBACK  MdiChildWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);
@@ -147,29 +147,29 @@ HB_FUNC( REGISTERMDIWINDOW )
    }
 
 #ifdef UNICODE
-   hb_strfree( hClassName );
+   hb_strfree(hClassName);
    if( HB_ISCHAR(1) )
       hb_xfree(( TCHAR * ) lpIconName);
 #endif
    HB_RETNL( ( LONG_PTR ) hbrush );
 }
 
-LRESULT CALLBACK MdiWndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
+LRESULT CALLBACK MdiWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
    static PHB_SYMB pSymbol = NULL;
    long int        r;
 
    if( ! pSymbol )
-      pSymbol = hb_dynsymSymbol( hb_dynsymGet( "EVENTS" ) );
+      pSymbol = hb_dynsymSymbol(hb_dynsymGet("EVENTS"));
 
    if( pSymbol )
    {
-      hb_vmPushSymbol( pSymbol );
+      hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
-      hb_vmPushNumInt( ( LONG_PTR ) hWnd );
-      hb_vmPushLong( message );
-      hb_vmPushNumInt( wParam );
-      hb_vmPushNumInt( lParam );
+      hb_vmPushNumInt(( LONG_PTR ) hWnd);
+      hb_vmPushLong(message );
+      hb_vmPushNumInt(wParam);
+      hb_vmPushNumInt(lParam);
       hb_vmDo(4);
    }
 
@@ -178,32 +178,32 @@ LRESULT CALLBACK MdiWndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
    if( r != 0 )
       return r;
    else
-      return DefFrameProc( hWnd, hwndMDIClient, message, wParam, lParam );
+      return DefFrameProc(hWnd, hwndMDIClient, message, wParam, lParam);
 }
 
-LRESULT CALLBACK MdiChildWndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
+LRESULT CALLBACK MdiChildWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
    static PHB_SYMB pSymbol = NULL;
    long int        r;
 
    if( ! pSymbol )
-      pSymbol = hb_dynsymSymbol( hb_dynsymGet( "MDIEVENTS" ) );
+      pSymbol = hb_dynsymSymbol(hb_dynsymGet("MDIEVENTS"));
 
    if( pSymbol )
    {
-      hb_vmPushSymbol( pSymbol );
+      hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
-      hb_vmPushNumInt( ( LONG_PTR ) hWnd );
-      hb_vmPushLong( message );
-      hb_vmPushNumInt( wParam );
-      hb_vmPushNumInt( lParam );
+      hb_vmPushNumInt(( LONG_PTR ) hWnd);
+      hb_vmPushLong(message);
+      hb_vmPushNumInt(wParam);
+      hb_vmPushNumInt(lParam);
       hb_vmDo(4);
    }
 
    r = hb_parnl( -1 );
 
    if( r == 0 )
-      return DefMDIChildProc( hWnd, message, wParam, lParam );
+      return DefMDIChildProc(hWnd, message, wParam, lParam);
    else
       return r;
 }
@@ -367,11 +367,11 @@ HB_FUNC( INITMDICHILDWINDOW )
    mcs.cy      = hb_parni(6);              // height
    mcs.style   = Style;                      // window style
    mcs.lParam  = 0;                          // lparam
-   hwndChild   = ( HWND ) SendMessage( hmg_par_HWND(1), WM_MDICREATE, 0, ( LPARAM ) ( LPMDICREATESTRUCT ) &mcs );
+   hwndChild   = ( HWND ) SendMessage(hmg_par_HWND(1), WM_MDICREATE, 0, ( LPARAM ) ( LPMDICREATESTRUCT ) &mcs);
 
    if( hwndChild != NULL )
    {
-      Style = GetWindowLong( hwndChild, GWL_STYLE );
+      Style = GetWindowLong(hwndChild, GWL_STYLE);
 
       if( hb_parl(7) )
          Style = Style & ( ~WS_MINIMIZEBOX );
@@ -397,12 +397,12 @@ HB_FUNC( ARRANGEICONICWINDOWS )
 
 HB_FUNC( DEFMDICHILDPROC )
 {
-   hb_retnl( ( LONG ) DefMDIChildProc( hmg_par_HWND(1), hb_parnl(2), hb_parnl(3), hb_parnl(4) ) );
+   hb_retnl( ( LONG ) DefMDIChildProc(hmg_par_HWND(1), hb_parnl(2), hb_parnl(3), hb_parnl(4)) );
 }
 
 HB_FUNC( DEFFRAMEPROC )
 {
-   hb_retnl( ( LONG ) DefFrameProc( hmg_par_HWND(1), hmg_par_HWND(2), hb_parnl(3), hb_parnl(4), hb_parnl(5) ) );
+   hb_retnl( ( LONG ) DefFrameProc(hmg_par_HWND(1), hmg_par_HWND(2), hb_parnl(3), hb_parnl(4), hb_parnl(5)) );
 }
 
 HB_FUNC( SIZECLIENTWINDOW )

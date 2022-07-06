@@ -58,8 +58,8 @@
 LRESULT APIENTRY ChkLabelFunc( HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam );
 static WNDPROC LabelOldWndProc;
 
-extern HBITMAP HMG_LoadPicture( const char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage,
-                                HB_BOOL bAlphaFormat, int iAlpfaConstant );
+extern HBITMAP HMG_LoadPicture(const char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage,
+                               HB_BOOL bAlphaFormat, int iAlpfaConstant);
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);
 #endif
@@ -132,10 +132,10 @@ BOOL InsertCheck(HWND hWnd, HBITMAP himage, HBITMAP himage2, int BtnWidth, BOOL 
 
    pbtn->lCheck     = lCheck;
    pbtn->lLeftCheck = lLeftCheck;
-   pbtn->cxButton   = HB_MAX(BtnWidth, GetSystemMetrics( SM_CXVSCROLL ));
+   pbtn->cxButton   = HB_MAX(BtnWidth, GetSystemMetrics(SM_CXVSCROLL));
    pbtn->himage     = himage;
    pbtn->himage2    = himage2;
-   pbtn->cxSpace    = GetSystemMetrics( SM_CXSIZEFRAME ) / 4;
+   pbtn->cxSpace    = GetSystemMetrics(SM_CXSIZEFRAME) / 4;
 
    if( himage != NULL )
       pbtn->himagemask = CreateBitmapMask(himage, RGB(0, 0, 0));
@@ -172,7 +172,7 @@ static void DrawCheck(HWND hWnd, INSCHK * pbtn, RECT * prect)
    if( hBitmap == NULL )
    {
       FillRect(hdc, prect, GetSysColorBrush(COLOR_WINDOW));
-      SetBkMode( hdc, TRANSPARENT );
+      SetBkMode(hdc, TRANSPARENT);
       DrawText(hdc, TEXT("V"), 1, prect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
    }
    else
@@ -275,12 +275,12 @@ HB_FUNC( INITCHKLABEL )
              );
 
    if( hb_parc(19) != NULL )
-      himage = HMG_LoadPicture( hb_parc(19), -1, -1, NULL, 0, 0, -1, 0, HB_FALSE, 255 );
+      himage = HMG_LoadPicture(hb_parc(19), -1, -1, NULL, 0, 0, -1, 0, HB_FALSE, 255);
    else
       himage = NULL;
 
    if( hb_parc(20) != NULL )
-      himage2 = HMG_LoadPicture( hb_parc(20), -1, -1, NULL, 0, 0, -1, 0, HB_FALSE, 255 );
+      himage2 = HMG_LoadPicture(hb_parc(20), -1, -1, NULL, 0, 0, -1, 0, HB_FALSE, 255);
    else
       himage2 = NULL;
 
@@ -339,8 +339,8 @@ LRESULT APIENTRY ChkLabelFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam
          prect   = ( RECT * ) lParam;
          oldrect = *prect;
 
-         CallWindowProc( LabelOldWndProc, hWnd, Msg, wParam, lParam );
-         SendMessage( hWnd, WM_SETREDRAW, 1, 0 );
+         CallWindowProc(LabelOldWndProc, hWnd, Msg, wParam, lParam);
+         SendMessage(hWnd, WM_SETREDRAW, 1, 0);
          if( ! pbtn )
             return 0;
 
@@ -360,7 +360,7 @@ LRESULT APIENTRY ChkLabelFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam
          return 0;
 
       case WM_NCPAINT:
-         CallWindowProc( LabelOldWndProc, hWnd, Msg, wParam, lParam );
+         CallWindowProc(LabelOldWndProc, hWnd, Msg, wParam, lParam);
          if( pbtn->lCheck )
          {
             GetWindowRect(hWnd, &rect);
@@ -386,42 +386,42 @@ LRESULT APIENTRY ChkLabelFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam
          _TrackMouseEvent( &tme );
 
          if( ! pSymbol )
-            pSymbol = hb_dynsymSymbol( hb_dynsymGet( "OLABELEVENTS" ) );
+            pSymbol = hb_dynsymSymbol(hb_dynsymGet("OLABELEVENTS"));
 
          if( pSymbol )
          {
-            hb_vmPushSymbol( pSymbol );
+            hb_vmPushSymbol(pSymbol);
             hb_vmPushNil();
-            hb_vmPushNumInt( ( LONG_PTR ) hWnd );
-            hb_vmPushLong( Msg );
-            hb_vmPushNumInt( wParam );
-            hb_vmPushNumInt( lParam );
+            hb_vmPushNumInt(( LONG_PTR ) hWnd);
+            hb_vmPushLong(Msg);
+            hb_vmPushNumInt(wParam);
+            hb_vmPushNumInt(lParam);
             hb_vmDo(4);
          }
 
          r = hb_parnl( -1 );
 
-         return ( r != 0 ) ? r : CallWindowProc( LabelOldWndProc, hWnd, 0, 0, 0 );
+         return ( r != 0 ) ? r : CallWindowProc(LabelOldWndProc, hWnd, 0, 0, 0);
 
       case WM_MOUSELEAVE:
          if( ! pSymbol )
-            pSymbol = hb_dynsymSymbol( hb_dynsymGet( "OLABELEVENTS" ) );
+            pSymbol = hb_dynsymSymbol(hb_dynsymGet("OLABELEVENTS"));
 
          if( pSymbol )
          {
-            hb_vmPushSymbol( pSymbol );
+            hb_vmPushSymbol(pSymbol);
             hb_vmPushNil();
-            hb_vmPushNumInt( ( LONG_PTR ) hWnd );
-            hb_vmPushLong( Msg );
-            hb_vmPushNumInt( wParam );
-            hb_vmPushNumInt( lParam );
+            hb_vmPushNumInt(( LONG_PTR ) hWnd);
+            hb_vmPushLong(Msg);
+            hb_vmPushNumInt(wParam);
+            hb_vmPushNumInt(lParam);
             hb_vmDo(4);
          }
 
          r = hb_parnl( -1 );
 
-         return ( r != 0 ) ? r : CallWindowProc( LabelOldWndProc, hWnd, 0, 0, 0 );
+         return ( r != 0 ) ? r : CallWindowProc(LabelOldWndProc, hWnd, 0, 0, 0);
    }
 
-   return CallWindowProc( LabelOldWndProc, hWnd, Msg, wParam, lParam );
+   return CallWindowProc(LabelOldWndProc, hWnd, Msg, wParam, lParam);
 }

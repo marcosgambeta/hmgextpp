@@ -105,7 +105,7 @@ HB_FUNC( INITLISTBOX )
       MakeDragList( hbutton );
 
    if( hb_parl(14) )
-      SendMessage( hbutton, LB_SETCOLUMNWIDTH, ( WPARAM ) ( hb_parni(5) - 20 ), 0 );
+      SendMessage(hbutton, LB_SETCOLUMNWIDTH, ( WPARAM ) ( hb_parni(5) - 20 ), 0);
 
    HB_RETNL( ( LONG_PTR ) hbutton );
 }
@@ -117,7 +117,7 @@ HB_FUNC( LISTBOXADDSTRING )
 #else
    LPWSTR lpString = AnsiToWide(( char * ) hb_parc(2));
 #endif
-   SendMessage( hmg_par_HWND(1), LB_ADDSTRING, 0, ( LPARAM ) lpString );
+   SendMessage(hmg_par_HWND(1), LB_ADDSTRING, 0, ( LPARAM ) lpString);
 #ifdef UNICODE
    hb_xfree(lpString);
 #endif
@@ -130,7 +130,7 @@ HB_FUNC( LISTBOXINSERTSTRING )
 #else
    LPWSTR lpString = AnsiToWide(( char * ) hb_parc(2));
 #endif
-   SendMessage( hmg_par_HWND(1), LB_INSERTSTRING, ( WPARAM ) hb_parni(3) - 1, ( LPARAM ) lpString );
+   SendMessage(hmg_par_HWND(1), LB_INSERTSTRING, ( WPARAM ) hb_parni(3) - 1, ( LPARAM ) lpString);
 #ifdef UNICODE
    hb_xfree(lpString);
 #endif
@@ -142,12 +142,12 @@ HB_FUNC( LISTBOXGETSTRING )
 #ifdef UNICODE
    LPSTR lpString;
 #endif
-   int     iLen = ( int ) SendMessage( hmg_par_HWND(1), LB_GETTEXTLEN, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) 0 );
+   int     iLen = ( int ) SendMessage(hmg_par_HWND(1), LB_GETTEXTLEN, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) 0);
    TCHAR * cString;
 
    if( iLen > 0 && NULL != ( cString = ( TCHAR * ) hb_xgrab((iLen + 1) * sizeof(TCHAR)) ) )
    {
-      SendMessage( hmg_par_HWND(1), LB_GETTEXT, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) cString );
+      SendMessage(hmg_par_HWND(1), LB_GETTEXT, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) cString);
    #ifdef UNICODE
       lpString = WideToAnsi(cString);
       hb_retc( lpString );
@@ -213,9 +213,9 @@ HB_FUNC( LISTBOXGETMULTISEL )
    int  buffer[ 32768 ];
    int  n;
 
-   n = ( int ) SendMessage( hwnd, LB_GETSELCOUNT, 0, 0 );
+   n = ( int ) SendMessage(hwnd, LB_GETSELCOUNT, 0, 0);
 
-   SendMessage( hwnd, LB_GETSELITEMS, ( WPARAM ) ( n ), ( LPARAM ) buffer );
+   SendMessage(hwnd, LB_GETSELITEMS, ( WPARAM ) ( n ), ( LPARAM ) buffer);
 
    hb_reta(n);
 
@@ -233,22 +233,22 @@ HB_FUNC( LISTBOXSETMULTISEL )
 
    int n, l;
 
-   wArray = hb_param( 2, Harbour::Item::ARRAY );
+   wArray = hb_param(2, Harbour::Item::ARRAY);
 
    l = ( int ) hb_parinfa(2, 0) - 1;
 
-   n = ( int ) SendMessage( hwnd, LB_GETCOUNT, 0, 0 );
+   n = ( int ) SendMessage(hwnd, LB_GETCOUNT, 0, 0);
 
    // CLEAR CURRENT SELECTIONS
    for( int i = 0; i < n; i++ )
    {
-      SendMessage( hwnd, LB_SETSEL, ( WPARAM ) (0), ( LPARAM ) i );
+      SendMessage(hwnd, LB_SETSEL, ( WPARAM ) (0), ( LPARAM ) i);
    }
 
    // SET NEW SELECTIONS
    for( int i = 0; i <= l; i++ )
    {
-      SendMessage( hwnd, LB_SETSEL, ( WPARAM ) (1), ( LPARAM ) ( hb_arrayGetNI( wArray, i + 1 ) ) - 1 );
+      SendMessage(hwnd, LB_SETSEL, ( WPARAM ) (1), ( LPARAM ) ( hb_arrayGetNI( wArray, i + 1 ) ) - 1);
    }
 }
 
@@ -262,7 +262,7 @@ HB_FUNC( LISTBOXSETMULTITAB )
 
    HWND hwnd = hmg_par_HWND(1);
 
-   wArray = hb_param( 2, Harbour::Item::ARRAY );
+   wArray = hb_param(2, Harbour::Item::ARRAY);
 
    l = ( int ) hb_parinfa(2, 0) - 1;
 
@@ -271,14 +271,14 @@ HB_FUNC( LISTBOXSETMULTITAB )
       nTabStops[ i ] = MulDiv( hb_arrayGetNI( wArray, i + 1 ), 4, baseunitX );
    }
 
-   SendMessage( hwnd, LB_SETTABSTOPS, l, ( LPARAM ) &nTabStops );
+   SendMessage(hwnd, LB_SETTABSTOPS, l, ( LPARAM ) &nTabStops);
 }
 
 HB_FUNC( _GETDDLMESSAGE )
 {
    UINT g_dDLMessage;
 
-   g_dDLMessage = RegisterWindowMessage( DRAGLISTMSGSTRING );
+   g_dDLMessage = RegisterWindowMessage(DRAGLISTMSGSTRING);
 
    hb_retnl( ( LONG ) g_dDLMessage );
 }
@@ -310,7 +310,7 @@ HB_FUNC( DRAG_LIST_DRAWINSERT )
    LPDRAGLISTINFO lpdli = ( LPDRAGLISTINFO ) lParam;
    int nItemCount;
 
-   nItemCount = ( int ) SendMessage( ( HWND ) lpdli->hWnd, LB_GETCOUNT, 0, 0 );
+   nItemCount = ( int ) SendMessage(( HWND ) lpdli->hWnd, LB_GETCOUNT, 0, 0);
 
    if( nItem < nItemCount )
       DrawInsert( hwnd, lpdli->hWnd, nItem );
@@ -328,9 +328,9 @@ HB_FUNC( DRAG_LIST_MOVE_ITEMS )
 
    result = ListBox_GetText(lpdli->hWnd, hb_parni(2), string);
    if( result != LB_ERR )
-      result = ListBox_DeleteString( lpdli->hWnd, hb_parni(2) );
+      result = ListBox_DeleteString(lpdli->hWnd, hb_parni(2));
    if( result != LB_ERR )
-      result = ListBox_InsertString( lpdli->hWnd, hb_parni(3), string );
+      result = ListBox_InsertString(lpdli->hWnd, hb_parni(3), string);
    if( result != LB_ERR )
       result = ListBox_SetCurSel( lpdli->hWnd, hb_parni(3) );
 

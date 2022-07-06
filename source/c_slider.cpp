@@ -106,11 +106,11 @@ HB_FUNC( INITSLIDER )
       NULL
                );
 
-   SendMessage( hTrackBar, TBM_SETRANGE, ( WPARAM ) TRUE, MAKELONG( hb_parni(7), hb_parni(8) ) );
+   SendMessage(hTrackBar, TBM_SETRANGE, ( WPARAM ) TRUE, MAKELONG(hb_parni(7), hb_parni(8)));
 
    if( ( hb_parl(16) ) && ( iSelMin != iSelMax ) )
    {
-      SendMessage( hTrackBar, TBM_SETSEL, ( WPARAM ) TRUE, MAKELONG( iSelMin, iSelMax ) );  /* P.Ch. 16.10 */
+      SendMessage(hTrackBar, TBM_SETSEL, ( WPARAM ) TRUE, MAKELONG(iSelMin, iSelMax) );  /* P.Ch. 16.10 */
    }
 
    HB_RETNL( ( LONG_PTR ) hTrackBar );

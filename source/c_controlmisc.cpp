@@ -59,13 +59,13 @@ void pascal DelResource(HANDLE hResource);
 
 #ifndef HMG_LEGACY_OFF
 #if ! defined( __MINGW32__ ) && ( __HARBOUR__ - 0 > 0x020000 ) && ( __HARBOUR__ - 0 < 0x030200 )
-HB_FUNC_TRANSLATE( HB_SETCODEPAGE, HB_CDPSELECT )
+HB_FUNC_TRANSLATE(HB_SETCODEPAGE, HB_CDPSELECT)
 #endif
 #endif /* HMG_LEGACY_OFF */
 
 HB_FUNC( MAKELONG )
 {
-   hb_retnl( MAKELONG( hb_parni(1), hb_parni(2) ) );
+   hb_retnl( MAKELONG(hb_parni(1), hb_parni(2)) );
 }
 
 HB_FUNC( _ENABLESCROLLBARS )
@@ -156,7 +156,7 @@ HB_FUNC( GETTEXTWIDTH ) // returns the width of a string in pixels
    if( hFont )
       hOldFont = ( HFONT ) SelectObject(hDC, hFont);
 
-   GetTextExtentPoint32( hDC, lpString, ( int ) lstrlen( lpString ), &sz );
+   GetTextExtentPoint32(hDC, lpString, ( int ) lstrlen(lpString), &sz);
 
    if( hFont )
       SelectObject(hDC, hOldFont);
@@ -195,12 +195,12 @@ HB_FUNC( INSERTVKEY )
 
 HB_FUNC( _HMG_SETVSCROLLVALUE )
 {
-   SendMessage( hmg_par_HWND(1), WM_VSCROLL, MAKEWPARAM( SB_THUMBPOSITION, hb_parni(2) ), 0 );
+   SendMessage(hmg_par_HWND(1), WM_VSCROLL, MAKEWPARAM(SB_THUMBPOSITION, hb_parni(2)), 0);
 }
 
 HB_FUNC( _HMG_SETHSCROLLVALUE )
 {
-   SendMessage( hmg_par_HWND(1), WM_HSCROLL, MAKEWPARAM( SB_THUMBPOSITION, hb_parni(2) ), 0 );
+   SendMessage(hmg_par_HWND(1), WM_HSCROLL, MAKEWPARAM(SB_THUMBPOSITION, hb_parni(2)), 0);
 }
 
 HB_FUNC( SHOWCARET )
@@ -261,7 +261,7 @@ HB_FUNC( MOVEBTNTEXTBOX )   //MoveBtnTextBox(hEdit, hBtn1, hBtn2, fBtn2, BtnWidt
    int  height = ( int ) hb_parni(7);
    BOOL fBtns  = ( hb_parnl(2) > 0 );
 
-   BtnWidth  = ( BtnWidth >= GetSystemMetrics( SM_CYSIZE ) ? BtnWidth : GetSystemMetrics( SM_CYSIZE ) - 1 );
+   BtnWidth  = ( BtnWidth >= GetSystemMetrics(SM_CYSIZE) ? BtnWidth : GetSystemMetrics(SM_CYSIZE) - 1 );
    BtnWidth  = ( fBtns ? BtnWidth : 0 );
    BtnWidth2 = ( fBtn2 ? BtnWidth : 0 );
 
@@ -291,8 +291,8 @@ HB_FUNC( HB_DATE )
 
 HB_FUNC( HB_LEFTEQI )
 {
-   PHB_ITEM pItem1 = hb_param( 1, Harbour::Item::STRING );
-   PHB_ITEM pItem2 = hb_param( 2, Harbour::Item::STRING );
+   PHB_ITEM pItem1 = hb_param(1, Harbour::Item::STRING);
+   PHB_ITEM pItem2 = hb_param(2, Harbour::Item::STRING);
 
    if( pItem1 && pItem2 )
       hb_retl( hb_cdpicmp( hb_itemGetCPtr(pItem1), hb_itemGetCLen( pItem1 ),

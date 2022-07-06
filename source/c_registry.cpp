@@ -50,7 +50,7 @@
 #include "hbapiitm.h"
 
 #if ( defined( __BORLANDC__ ) && defined( _WIN64 ) )
-#define PtrToLong( p )  ( ( LONG ) ( p ) )
+#define PtrToLong(p)  ( ( LONG ) ( p ) )
 #endif
 
 HB_FUNC( REGCLOSEKEY )
@@ -73,7 +73,7 @@ HB_FUNC( REGOPENKEYEXA )
       hb_retnl( -1 );
    else
    {
-      HB_STORNL( PtrToLong( phwHandle ), 5 );
+      HB_STORNL( PtrToLong(phwHandle), 5 );
       hb_retnl(0);
    }
 }
@@ -161,7 +161,7 @@ HB_FUNC( REGCREATEKEY )
 
    if( RegCreateKey( ( HKEY ) HB_PARNL(1), hb_parc(2), &hKey ) == ERROR_SUCCESS )
    {
-      HB_STORNL( PtrToLong( hKey ), 3 );
+      HB_STORNL( PtrToLong(hKey), 3 );
       hb_retnl(0);
    }
    else
@@ -217,7 +217,7 @@ HB_FUNC( REGCONNECTREGISTRY )
       hb_retnl( -1 );
    else
    {
-      HB_STORNL( PtrToLong( phwHandle ), 3 );
+      HB_STORNL( PtrToLong(phwHandle), 3 );
       hb_retnl( lError );
    }
 }

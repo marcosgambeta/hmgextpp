@@ -107,15 +107,15 @@ HB_EXPORT char * hb_parcstruct( int iParam, ... )
    {
        pHB_CSTRUCTURE = hb_dynsymFind( "HB_CSTRUCTURE" );
 
-       pPOINTER       = hb_dynsymGetCase( "POINTER" );
-       pVALUE         = hb_dynsymGetCase( "VALUE" );
-       pBUFFER        = hb_dynsymGetCase( "BUFFER" );
-       pDEVALUE       = hb_dynsymGetCase( "DEVALUE" );
+       pPOINTER       = hb_dynsymGetCase("POINTER");
+       pVALUE         = hb_dynsymGetCase("VALUE");
+       pBUFFER        = hb_dynsymGetCase("BUFFER");
+       pDEVALUE       = hb_dynsymGetCase("DEVALUE");
    }
 
    if( ( iParam >= 0 && iParam <= hb_pcount() ) || ( iParam == -1 ) )
    {
-      PHB_ITEM pItem = ( iParam == -1 ) ? hb_stackReturnItem() : hb_stackItemFromBase( iParam );
+      PHB_ITEM pItem = ( iParam == -1 ) ? hb_stackReturnItem() : hb_stackItemFromBase(iParam);
       BOOL bRelease = FALSE;
 
       if( HB_IS_BYREF(pItem) )
@@ -130,19 +130,19 @@ HB_EXPORT char * hb_parcstruct( int iParam, ... )
          PHB_ITEM pArray = pItem;
 
          va_start( va, iParam );
-         ulArrayIndex = va_arg( va, ULONG );
+         ulArrayIndex = va_arg(va, ULONG);
          va_end( va );
 
-         pItem = hb_itemNew( NULL );
+         pItem = hb_itemNew(NULL);
          bRelease = TRUE;
 
-         hb_arrayGet( pArray, ulArrayIndex, pItem );
+         hb_arrayGet(pArray, ulArrayIndex, pItem);
       }
 
-      if( strncmp( hb_objGetClsName( pItem ), "C Structure", 11 ) == 0 )
+      if( strncmp( hb_objGetClsName(pItem), "C Structure", 11 ) == 0 )
       {
-         hb_vmPushSymbol( pVALUE->pSymbol );
-         hb_vmPush( pItem );
+         hb_vmPushSymbol(pVALUE->pSymbol);
+         hb_vmPush(pItem);
          hb_vmSend(0);
 
          if( bRelease )
@@ -255,13 +255,13 @@ HB_FUNC( DLLPREPARECALL )
       {
          LPVOID lpMsgBuf;
 
-         FormatMessage( FORMAT_MESSAGE_ALLOCATE_BUFFER |
+         FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER |
          FORMAT_MESSAGE_FROM_SYSTEM,
          NULL,
          GetLastError(),
          MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
          (LPTSTR) &lpMsgBuf,
-         0, NULL );
+         0, NULL);
 
          MessageBox(GetActiveWindow(), (LPCSTR) lpMsgBuf, "DllPrepareCall:GetProcAddress() failed!", MB_OK | MB_ICONERROR);
 
@@ -405,7 +405,7 @@ RESULT DynaCall(int Flags, LPVOID lpFunction, int nArgs,
 //==================================================================
 
 // Based originally on CallDLL from What32
-static void DllExec( int iFlags, LPVOID lpFunction, int iParams, int iFirst, int iArgCnt, PEXECSTRUCT xec )
+static void DllExec(int iFlags, LPVOID lpFunction, int iParams, int iFirst, int iArgCnt, PEXECSTRUCT xec)
 {
    int iRtype;
    int iCnt = 0;
@@ -489,7 +489,7 @@ static void DllExec( int iFlags, LPVOID lpFunction, int iParams, int iFirst, int
                break;
 
             case Harbour::Item::ARRAY             :
-               if( strncmp( hb_objGetClsName( hb_param(i, Harbour::Item::ANY ) ), "C Structure", 11 ) == 0 )
+               if( strncmp( hb_objGetClsName(hb_param(i, Harbour::Item::ANY )), "C Structure", 11 ) == 0 )
                {
                   Parm[iCnt].nWidth = sizeof(void*);
                   Parm[iCnt].dwArg = (DWORD) hb_parcstruct( i );
@@ -519,13 +519,13 @@ static void DllExec( int iFlags, LPVOID lpFunction, int iParams, int iFirst, int
    {
       LPVOID lpMsgBuf;
 
-      FormatMessage( FORMAT_MESSAGE_ALLOCATE_BUFFER |
+      FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER |
       FORMAT_MESSAGE_FROM_SYSTEM,
       NULL,
       GetLastError(),
       MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
       (LPTSTR) &lpMsgBuf,
-      0, NULL );
+      0, NULL);
 
       MessageBox(GetActiveWindow(), (LPCSTR) lpMsgBuf, "DllExec:DynaCall() failed!", MB_OK | MB_ICONERROR);
 
@@ -563,14 +563,14 @@ static void DllExec( int iFlags, LPVOID lpFunction, int iParams, int iFirst, int
                case Harbour::Item::STRING            :
                case Harbour::Item::MEMO              :
                   hb_storclen( (char *) Parm[iCnt].pArg, hb_parclen( i ), i );
-                  free( Parm[iCnt].pArg );
+                  free(Parm[iCnt].pArg);
                   break;
 
                case Harbour::Item::ARRAY             :
-                  if( strncmp( hb_objGetClsName( hb_param(i, Harbour::Item::ANY ) ), "C Structure", 11 ) == 0 )
+                  if( strncmp(hb_objGetClsName(hb_param(i, Harbour::Item::ANY)), "C Structure", 11) == 0 )
                   {
-                     hb_vmPushSymbol( pDEVALUE->pSymbol );
-                     hb_vmPush( hb_param( i, Harbour::Item::ANY ) );
+                     hb_vmPushSymbol(pDEVALUE->pSymbol);
+                     hb_vmPush(hb_param(i, Harbour::Item::ANY));
                      hb_vmSend(0);
 
                      break;
@@ -668,7 +668,7 @@ HB_FUNC( DLLEXECUTECALL )
          {
             if ( xec->lpFunc != NULL )
             {
-               DllExec( 0, NULL, iParams, iFirst, iArgCnt, xec );
+               DllExec(0, NULL, iParams, iFirst, iArgCnt, xec);
             }
          }
       }
@@ -719,7 +719,7 @@ HB_FUNC( DLLCALL )
 
    if (lpFunction != NULL)
    {
-      DllExec( iFlags, lpFunction, iParams, iFirst, iArgCnt, NULL );
+      DllExec(iFlags, lpFunction, iParams, iFirst, iArgCnt, NULL);
    }
 
    if ( lUnload )
@@ -815,9 +815,9 @@ RESULT DynaCall(int Flags,       LPVOID lpFunction, int nArgs,
 
    // Reserve 256 bytes of stack space for our arguments
    #if defined( __MINGW32__ )
-      asm volatile( "\tmovl %%esp, %0\n"
-                    "\tsubl $0x100, %%esp\n"
-                    : "=r" (pStack) );
+      asm volatile("\tmovl %%esp, %0\n"
+                   "\tsubl $0x100, %%esp\n"
+                   : "=r" (pStack));
    #elif defined( __BORLANDC__ ) || defined(__DMC__)
       pStack = (DWORD *)_ESP;
       _ESP -= 0x100;
@@ -866,27 +866,27 @@ RESULT DynaCall(int Flags,       LPVOID lpFunction, int nArgs,
       *pStack = (DWORD)pRet;  // SS:[ESP] = pMem
    }
    #if defined( __MINGW32__ )
-      asm volatile( "\taddl $0x100, %%esp\n" /* Restore to original position */
-                    "\tsubl %2, %%esp\n"     /* Adjust for our new parameters */
+      asm volatile("\taddl $0x100, %%esp\n" /* Restore to original position */
+                   "\tsubl %2, %%esp\n"     /* Adjust for our new parameters */
 
-                    /* Stack is now properly built, we can call the function */
-                    "\tcall *%3\n"
-                    : "=a" (dwEAX), "=d" (dwEDX) /* Save eax/edx registers */
-                    : "r" (dwStSize), "r" (lpFunction) );
+                   /* Stack is now properly built, we can call the function */
+                   "\tcall *%3\n"
+                   : "=a" (dwEAX), "=d" (dwEDX) /* Save eax/edx registers */
+                   : "r" (dwStSize), "r" (lpFunction));
 
       /* Possibly adjust stack and read return values. */
       if (Flags & DC_CALL_CDECL)
       {
-         asm volatile( "\taddl %0, %%esp\n" : : "r" (dwStSize) );
+         asm volatile("\taddl %0, %%esp\n" : : "r" (dwStSize));
       }
 
       if (Flags & DC_RETVAL_MATH4)
       {
-         asm volatile( "\tfstps (%0)\n" : "=r" (Res) );
+         asm volatile("\tfstps (%0)\n" : "=r" (Res));
       }
       else if (Flags & DC_RETVAL_MATH8)
       {
-         asm volatile( "\tfstpl (%0)\n" : "=r" (Res) );
+         asm volatile("\tfstpl (%0)\n" : "=r" (Res));
       }
       else if (pRet == NULL)
       {
@@ -1007,7 +1007,7 @@ HB_FUNC( CALLDLL )
    lpFunction = (LPVOID) hb_parptr(1);
    if (lpFunction != NULL)
    {
-      DllExec( DC_CALL_STD, lpFunction, iParams, iFirst, iArgCnt, NULL );
+      DllExec(DC_CALL_STD, lpFunction, iParams, iFirst, iArgCnt, NULL);
    }
 
 }

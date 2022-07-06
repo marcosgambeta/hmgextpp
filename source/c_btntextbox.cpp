@@ -62,7 +62,7 @@
 #define TBB1       2
 #define TBB2       3
 
-LRESULT CALLBACK OwnBtnTextProc( HWND hbutton, UINT msg, WPARAM wParam, LPARAM lParam );
+LRESULT CALLBACK OwnBtnTextProc(HWND hbutton, UINT msg, WPARAM wParam, LPARAM lParam);
 
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);
@@ -85,7 +85,7 @@ HB_FUNC( INITBTNTEXTBOX )
    // Get the handle of the parent window/form.
    hwnd = hmg_par_HWND(1);
 
-   BtnWidth  = ( BtnWidth >= GetSystemMetrics( SM_CYSIZE ) ? BtnWidth : GetSystemMetrics( SM_CYSIZE ) - 1 );
+   BtnWidth  = ( BtnWidth >= GetSystemMetrics(SM_CYSIZE) ? BtnWidth : GetSystemMetrics(SM_CYSIZE) - 1 );
    BtnWidth2 = ( fBtn2 ? BtnWidth : 0 );
 
    iStyle = WS_CHILD | ES_AUTOHSCROLL | WS_CLIPCHILDREN;
@@ -136,7 +136,7 @@ HB_FUNC( INITBTNTEXTBOX )
    SetProp( ( HWND ) hedit, TEXT("OldWndProc"), ( HWND ) GetWindowLongPtr(( HWND ) hedit, GWLP_WNDPROC) );
    SetWindowLongPtr(hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnBtnTextProc);
 
-   SendMessage( hedit, ( UINT ) EM_LIMITTEXT, ( WPARAM ) hb_parni(9), ( LPARAM ) 0 );
+   SendMessage(hedit, ( UINT ) EM_LIMITTEXT, ( WPARAM ) hb_parni(9), ( LPARAM ) 0);
 
    if( hb_parc(17) != NULL )
    {
@@ -249,10 +249,10 @@ HB_FUNC( INITBTNTEXTBOX )
       hBtn2 = 0;
 
    if( himage != NULL )
-      SendMessage( hBtn1, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage );
+      SendMessage(hBtn1, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage);
 
    if( himage2 != NULL )
-      SendMessage( hBtn2, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage2 );
+      SendMessage(hBtn2, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage2);
 
    hb_reta(5);
    HB_STORVNL( ( LONG_PTR ) hedit, -1, 1 );
@@ -273,7 +273,7 @@ HB_FUNC( REDEFBTNTEXTBOX )
 
    hedit     = hmg_par_HWND(1);
    fBtn2     = hb_parl(5);
-   BtnWidth  = ( BtnWidth >= GetSystemMetrics( SM_CYSIZE ) ? BtnWidth : GetSystemMetrics( SM_CYSIZE ) - 1 );
+   BtnWidth  = ( BtnWidth >= GetSystemMetrics(SM_CYSIZE) ? BtnWidth : GetSystemMetrics(SM_CYSIZE) - 1 );
    BtnWidth2 = ( fBtn2 ?  BtnWidth : 0 );
    width     = hb_parni(6);
    height    = hb_parni(7);
@@ -380,12 +380,12 @@ HB_FUNC( REDEFBTNTEXTBOX )
       hBtn2 = 0;
 
    if( ! ( himage == NULL ) )
-      SendMessage( hBtn1, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage );
+      SendMessage(hBtn1, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage);
 
    if( ! ( himage2 == NULL ) )
-      SendMessage( hBtn2, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage2 );
+      SendMessage(hBtn2, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage2);
 
-   SendMessage( hedit, EM_SETMARGINS, EC_LEFTMARGIN | EC_RIGHTMARGIN, MAKELONG( 0, BtnWidth + BtnWidth2 + 2 ) );
+   SendMessage(hedit, EM_SETMARGINS, EC_LEFTMARGIN | EC_RIGHTMARGIN, MAKELONG(0, BtnWidth + BtnWidth2 + 2));
 
    hb_reta(5);
    HB_STORVNL( ( LONG_PTR ) hedit, -1, 1 );
@@ -403,14 +403,14 @@ HB_FUNC( SETTBBTNMARGIN )   //SetTbBtnMargin(hEdit, BtnWidth, fBtns, fBtn2)
    BOOL fBtn2    = hb_parl(4);
    int  BtnWidth2;
 
-   BtnWidth  = ( BtnWidth >= GetSystemMetrics( SM_CYSIZE ) ? BtnWidth : GetSystemMetrics( SM_CYSIZE ) - 1 );
+   BtnWidth  = ( BtnWidth >= GetSystemMetrics(SM_CYSIZE) ? BtnWidth : GetSystemMetrics(SM_CYSIZE) - 1 );
    BtnWidth  = ( fBtns ? BtnWidth : 0 );
    BtnWidth2 = ( fBtn2 ? BtnWidth : 0 );
 
-   SendMessage( hedit, EM_SETMARGINS, EC_LEFTMARGIN | EC_RIGHTMARGIN, MAKELONG( 0, BtnWidth + BtnWidth2 + 2 ) );
+   SendMessage(hedit, EM_SETMARGINS, EC_LEFTMARGIN | EC_RIGHTMARGIN, MAKELONG(0, BtnWidth + BtnWidth2 + 2));
 }
 
-LRESULT CALLBACK OwnBtnTextProc( HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam )
+LRESULT CALLBACK OwnBtnTextProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
    static PHB_SYMB pSymbol = NULL;
    long int        r;
@@ -426,15 +426,15 @@ LRESULT CALLBACK OwnBtnTextProc( HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lPar
          if( lParam != 0 && ( HIWORD(wParam) == BN_CLICKED || Msg == WM_CONTEXTMENU ) )
          {
             if( ! pSymbol )
-               pSymbol = hb_dynsymSymbol( hb_dynsymGet( "TBBTNEVENTS" ) );
+               pSymbol = hb_dynsymSymbol(hb_dynsymGet("TBBTNEVENTS"));
 
             if( pSymbol )
             {
-               hb_vmPushSymbol( pSymbol );
+               hb_vmPushSymbol(pSymbol);
                hb_vmPushNil();
-               hb_vmPushNumInt( ( LONG_PTR ) hwnd );
-               hb_vmPushNumInt( lParam );
-               hb_vmPushLong( Msg );
+               hb_vmPushNumInt(( LONG_PTR ) hwnd);
+               hb_vmPushNumInt(lParam);
+               hb_vmPushLong(Msg);
                hb_vmDo(3);
             }
 
@@ -443,9 +443,9 @@ LRESULT CALLBACK OwnBtnTextProc( HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lPar
             if( r != 0 )
                return r;
             else
-               return CallWindowProc( OldWndProc, hwnd, Msg, wParam, lParam );
+               return CallWindowProc(OldWndProc, hwnd, Msg, wParam, lParam);
          }
    }
 
-   return CallWindowProc( OldWndProc, hwnd, Msg, wParam, lParam );
+   return CallWindowProc(OldWndProc, hwnd, Msg, wParam, lParam);
 }

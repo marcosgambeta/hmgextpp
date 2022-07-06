@@ -280,7 +280,7 @@ BOOL _bt_OleInitialize_Flag_ = FALSE;
 //*************************************************************************************************
 //  bt_LoadOLEPicture (FileName, TypePicture) ---> Return hBitmap  (Load GIF and JPG image)
 //*************************************************************************************************
-HBITMAP bt_LoadOLEPicture( TCHAR * FileName, TCHAR * TypePictureResource )
+HBITMAP bt_LoadOLEPicture(TCHAR * FileName, TCHAR * TypePictureResource)
 {
    IStream *  iStream;
    IPicture * iPicture;
@@ -302,20 +302,20 @@ HBITMAP bt_LoadOLEPicture( TCHAR * FileName, TCHAR * TypePictureResource )
    if( _bt_OleInitialize_Flag_ == FALSE )
    {
       _bt_OleInitialize_Flag_ = TRUE;
-      OleInitialize( NULL );
+      OleInitialize(NULL);
    }
 
    iPicture = NULL;
    CreateStreamOnHGlobal( hGlobalAlloc, TRUE, &iStream );
-   OleLoadPicture( iStream, 0, TRUE, IID_IPicture, ( LPVOID * ) &iPicture );
+   OleLoadPicture(iStream, 0, TRUE, IID_IPicture, ( LPVOID * ) &iPicture);
    if( iPicture == NULL )
    {
       GlobalFree(hGlobalAlloc);
       return NULL;
    }
 
-   iPicture->lpVtbl->get_Width( iPicture, &hmWidth );
-   iPicture->lpVtbl->get_Height( iPicture, &hmHeight );
+   iPicture->lpVtbl->get_Width(iPicture, &hmWidth);
+   iPicture->lpVtbl->get_Height(iPicture, &hmHeight);
 
    memDC = CreateCompatibleDC(NULL);
    //SetStretchBltMode (memDC, COLORONCOLOR);
@@ -544,7 +544,7 @@ BOOL bt_Release_GDIplus(void)
 //  bt_LoadGDIPlusPicture (FileName, TypePicture) ---> Return hBitmap  (Load BMP, GIF, JPG, TIF and PNG image)
 //*************************************************************************************************************
 
-HBITMAP bt_LoadGDIPlusPicture( TCHAR * FileName, TCHAR * TypePictureResource )
+HBITMAP bt_LoadGDIPlusPicture(TCHAR * FileName, TCHAR * TypePictureResource)
 {
    IStream *  iStream;
    HBITMAP    hBitmap;
@@ -662,11 +662,11 @@ BOOL bt_GetEncoderCLSID(WCHAR * format, CLSID * pClsid)
       if( wcscmp( pImageCodecInfo[ i ].MimeType, format ) == 0 )
       {
          *pClsid = pImageCodecInfo[ i ].Clsid;
-         free( pImageCodecInfo );
+         free(pImageCodecInfo);
          return TRUE;
       }
    }
-   free( pImageCodecInfo );
+   free(pImageCodecInfo);
    return FALSE;
 }
 
@@ -678,7 +678,7 @@ BOOL bt_GetEncoderCLSID(WCHAR * format, CLSID * pClsid)
 #define BT_FILEFORMAT_TIF  3
 #define BT_FILEFORMAT_PNG  4
 
-BOOL bt_SaveGDIPlusPicture( HBITMAP hBitmap, TCHAR * FileName, INT TypePicture )
+BOOL bt_SaveGDIPlusPicture(HBITMAP hBitmap, TCHAR * FileName, INT TypePicture)
 {
    CLSID     encoderClsid;
    BOOL      result;
@@ -802,7 +802,7 @@ HB_FUNC( BT_DC_CREATE )
 
       case BT_HDC_INVALIDCLIENTAREA:
          BT.hWnd = hmg_par_HWND(2);
-         BT.hDC  = BeginPaint( BT.hWnd, &BT.PaintStruct );
+         BT.hDC  = BeginPaint(BT.hWnd, &BT.PaintStruct);
          break;
 
       case BT_HDC_BITMAP:
@@ -882,7 +882,7 @@ HB_FUNC( BT_DC_DELETE )
          break;
 
       case BT_HDC_INVALIDCLIENTAREA:
-         EndPaint( BT.hWnd, &BT.PaintStruct );
+         EndPaint(BT.hWnd, &BT.PaintStruct);
          break;
 
       case BT_HDC_BITMAP:
@@ -952,8 +952,8 @@ HB_FUNC( BT_SCR_GETINFO )
    switch( Mode )
    {
       case BT_SCR_DESKTOP:
-         rect.right  = GetSystemMetrics( SM_CXSCREEN );
-         rect.bottom = GetSystemMetrics( SM_CYSCREEN );
+         rect.right  = GetSystemMetrics(SM_CXSCREEN);
+         rect.bottom = GetSystemMetrics(SM_CYSCREEN);
          break;
       case BT_SCR_WINDOW:
          GetWindowRect(hWnd, &rect);
@@ -990,7 +990,7 @@ HB_FUNC( BT_SCR_INVALIDATERECT )
       hb_retl( InvalidateRect(hmg_par_HWND(1), NULL, hb_parl(3)) );  // Invalidate all client area
    else
    {
-      pArrayRect = hb_param( 2, Harbour::Item::ARRAY );
+      pArrayRect = hb_param(2, Harbour::Item::ARRAY);
 
       if( hb_arrayLen( pArrayRect ) == 4 )
       {
@@ -1028,7 +1028,7 @@ HB_FUNC( BT_DRAWEDGE )
    Rect.right  = hb_parni(4);
    Rect.bottom = hb_parni(5);
 
-   DrawEdge( hDC, &Rect, Edge, GrfFlags );
+   DrawEdge(hDC, &Rect, Edge, GrfFlags);
 }
 
 
@@ -1086,7 +1086,7 @@ HB_FUNC( BT_DRAW_HDC_POLY )
       switch( nPOLY )
       {
          case BT_DRAW_POLYLINE:
-            Polyline( hDC, aPoint, nLen );
+            Polyline(hDC, aPoint, nLen);
             break;
          case BT_DRAW_POLYGON:
             Polygon( hDC, aPoint, nLen );
@@ -1160,7 +1160,7 @@ HB_FUNC( BT_DRAW_HDC_ARCX )
          Chord(hDC, x1, y1, x2, y2, XStartArc, YStartArc, XEndArc, YEndArc);
          break;
       case BT_DRAW_PIE:
-         Pie( hDC, x1, y1, x2, y2, XStartArc, YStartArc, XEndArc, YEndArc );
+         Pie(hDC, x1, y1, x2, y2, XStartArc, YStartArc, XEndArc, YEndArc);
          break;
    }
 
@@ -1213,10 +1213,10 @@ HB_FUNC( BT_DRAW_HDC_FILLEDOBJECT )
    switch( Type )
    {
       case BT_FILLRECTANGLE:
-         Rectangle( hDC, x1, y1, x1 + Width1, y1 + Height1 );
+         Rectangle(hDC, x1, y1, x1 + Width1, y1 + Height1);
          break;
       case BT_FILLELLIPSE:
-         Ellipse( hDC, x1, y1, x1 + Width1, y1 + Height1 );
+         Ellipse(hDC, x1, y1, x1 + Width1, y1 + Height1);
          break;
       case BT_FILLROUNDRECT:
          RoundRect(hDC, x1, y1, x1 + Width1, y1 + Height1, RoundWidth, RoundHeight);
@@ -1480,8 +1480,8 @@ HB_FUNC( BT_DRAW_HDC_TEXTOUT )
 
    // CreateFont (Height, Width, Escapement, Orientation, Weight, Italic, Underline, StrikeOut,
    //             CharSet, OutputPrecision, ClipPrecision, Quality, PitchAndFamily, Face);
-   hFont = CreateFont( 0 - FontSize, 0, Orientation, Orientation, Bold, Italic, Underline, StrikeOut,
-                       DEFAULT_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, FontName );
+   hFont = CreateFont(0 - FontSize, 0, Orientation, Orientation, Bold, Italic, Underline, StrikeOut,
+                      DEFAULT_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, FontName);
 
    hOldFont = ( HFONT ) SelectObject(hDC, hFont);
 
@@ -1580,8 +1580,8 @@ HB_FUNC( BT_DRAW_HDC_DRAWTEXT )
 
    // CreateFont (Height, Width, Escapement, Orientation, Weight, Italic, Underline, StrikeOut,
    //             CharSet, OutputPrecision, ClipPrecision, Quality, PitchAndFamily, Face);
-   hFont = CreateFont( 0 - FontSize, 0, ( int ) Orientation, ( int ) Orientation, Bold, Italic, Underline, StrikeOut,
-                       DEFAULT_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, FontName );
+   hFont = CreateFont(0 - FontSize, 0, ( int ) Orientation, ( int ) Orientation, Bold, Italic, Underline, StrikeOut,
+                      DEFAULT_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, FontName);
 
    hOldFont = ( HFONT ) SelectObject(hDC, hFont);
 
@@ -1652,12 +1652,12 @@ HB_FUNC( BT_DRAW_HDC_TEXTSIZE )
 
    // CreateFont (Height, Width, Escapement, Orientation, Weight, Italic, Underline, StrikeOut,
    //             CharSet, OutputPrecision, ClipPrecision, Quality, PitchAndFamily, Face);
-   hFont = CreateFont( 0 - FontSize, 0, Orientation, Orientation, Bold, Italic, Underline, StrikeOut,
-                       DEFAULT_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, FontName );
+   hFont = CreateFont(0 - FontSize, 0, Orientation, Orientation, Bold, Italic, Underline, StrikeOut,
+                      DEFAULT_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, FontName);
 
    hOldFont = ( HFONT ) SelectObject(hDC, hFont);
 
-   GetTextExtentPoint32( hDC, lpText, lstrlen( lpText ), &SizeText );
+   GetTextExtentPoint32(hDC, lpText, lstrlen(lpText), &SizeText);
    hb_reta(6);
    HB_STORVNL( ( LONG ) SizeText.cx, -1, 1 );
    HB_STORVNL( ( LONG ) SizeText.cy, -1, 2 );
@@ -1898,27 +1898,27 @@ HB_FUNC( BT_BMP_LOADFILE )
 
    // If fail: find JPG Image in resourses
    if( hBitmap == NULL )
-      hBitmap = bt_LoadOLEPicture( FileName, TEXT(const_cast<TCHAR*>("JPG")) );
+      hBitmap = bt_LoadOLEPicture(FileName, TEXT(const_cast<TCHAR*>("JPG")));
 
    // If fail: find GIF Image in resourses
    if( hBitmap == NULL )
-      hBitmap = bt_LoadOLEPicture( FileName, TEXT(const_cast<TCHAR*>("GIF")) );
+      hBitmap = bt_LoadOLEPicture(FileName, TEXT(const_cast<TCHAR*>("GIF")));
 
    // If fail: find PNG Image in resourses
    if( hBitmap == NULL )
-      hBitmap = bt_LoadGDIPlusPicture( FileName, TEXT(const_cast<TCHAR*>("PNG")) );
+      hBitmap = bt_LoadGDIPlusPicture(FileName, TEXT(const_cast<TCHAR*>("PNG")));
 
    // If fail: find TIF Image in resourses
    if( hBitmap == NULL )
-      hBitmap = bt_LoadGDIPlusPicture( FileName, TEXT(const_cast<TCHAR*>("TIF")) );
+      hBitmap = bt_LoadGDIPlusPicture(FileName, TEXT(const_cast<TCHAR*>("TIF")));
 
    // If fail: find JPG and GIF Image in disk
    if( hBitmap == NULL )
-      hBitmap = bt_LoadOLEPicture( FileName, NULL );
+      hBitmap = bt_LoadOLEPicture(FileName, NULL);
 
    // If fail: find PNG and TIF Image in disk
    if( hBitmap == NULL )
-      hBitmap = bt_LoadGDIPlusPicture( FileName, NULL );
+      hBitmap = bt_LoadGDIPlusPicture(FileName, NULL);
 
    // If fail load: return zero
    if( hBitmap == NULL )
@@ -2058,7 +2058,7 @@ BOOL bt_bmp_SaveFile(HBITMAP hBitmap, TCHAR * FileName, INT nTypePicture)
    BOOL   ret;
 
    if( nTypePicture != 0 )
-      return ( BOOL ) bt_SaveGDIPlusPicture( hBitmap, FileName, nTypePicture );
+      return ( BOOL ) bt_SaveGDIPlusPicture(hBitmap, FileName, nTypePicture);
 
    memDC = CreateCompatibleDC(NULL);
    SelectObject(memDC, hBitmap);
@@ -2299,7 +2299,7 @@ BOOL bt_BMP_BITS( bt_BMPIMAGE * Image, INT nAction )
 }
 
 
-int bt_BMP_GETBYTE( bt_BMPIMAGE Image, int x, int y, int channel )
+int bt_BMP_GETBYTE(bt_BMPIMAGE Image, int x, int y, int channel)
 {
    if( x >= 0 && x < Image.Width && y >= 0 && y < Image.Height )
       return ( int ) Image.lp_Bits[ ( y * Image.WidthBytes ) + ( x * Image.nChannels + channel ) ];
@@ -2308,7 +2308,7 @@ int bt_BMP_GETBYTE( bt_BMPIMAGE Image, int x, int y, int channel )
 }
 
 
-int bt_BMP_SETBYTE( bt_BMPIMAGE Image, int x, int y, int channel, BYTE value )
+int bt_BMP_SETBYTE(bt_BMPIMAGE Image, int x, int y, int channel, BYTE value)
 {
    if( x >= 0 && x < Image.Width && y >= 0 && y < Image.Height )
       return ( int ) ( Image.lp_Bits[ ( y * Image.WidthBytes ) + ( x * Image.nChannels + channel ) ] = value );
@@ -2355,15 +2355,15 @@ HBITMAP bt_BiLinearInterpolation( HBITMAP hBitmap, int newWidth, int newHeight )
 
          for( int Channel = 0; Channel < 3; Channel++ )  // color channel C = R,G,B
          {
-            a = ( double ) bt_BMP_GETBYTE( Image1, ( x + 0 ), ( y + 0 ), Channel );
-            b = ( double ) bt_BMP_GETBYTE( Image1, ( x + 1 ), ( y + 0 ), Channel );
-            c = ( double ) bt_BMP_GETBYTE( Image1, ( x + 0 ), ( y + 1 ), Channel );
-            d = ( double ) bt_BMP_GETBYTE( Image1, ( x + 1 ), ( y + 1 ), Channel );
+            a = ( double ) bt_BMP_GETBYTE(Image1, ( x + 0 ), ( y + 0 ), Channel);
+            b = ( double ) bt_BMP_GETBYTE(Image1, ( x + 1 ), ( y + 0 ), Channel);
+            c = ( double ) bt_BMP_GETBYTE(Image1, ( x + 0 ), ( y + 1 ), Channel);
+            d = ( double ) bt_BMP_GETBYTE(Image1, ( x + 1 ), ( y + 1 ), Channel);
 
             // Color = A(1-w)(1-h) + B(w)(1-h) + C(h)(1-w) + D(wh)
             Color = a * ( 1.00 - x_diff ) * ( 1.00 - y_diff ) + b * ( x_diff ) * ( 1.00 - y_diff ) + c * ( y_diff ) * ( 1.00 - x_diff ) + d * ( x_diff * y_diff );
 
-            bt_BMP_SETBYTE( Image2, Col, Row, Channel, ( BYTE ) Color );
+            bt_BMP_SETBYTE(Image2, Col, Row, Channel, ( BYTE ) Color);
          }
       }
    }
@@ -2868,7 +2868,7 @@ typedef struct
 #define  BT_Kernel3x3Filter5  { 1, 0, 0, 0, 0, 0, 0, 0, -1, 1, 128 }                // Emboss 135°
 #define  BT_Kernel3x3Filter6  { 0, 1, 0, 0, 0, 0, 0, -1, 0, 2, 128 }                // Emboss 90° 50%
 
-bt_RGBCOLORBYTE bt_ConvolutionKernel3x3( bt_RGBCOLORBYTE * Y_previous, bt_RGBCOLORBYTE * Y_current, bt_RGBCOLORBYTE * Y_posterior, INT K[] )
+bt_RGBCOLORBYTE bt_ConvolutionKernel3x3(bt_RGBCOLORBYTE * Y_previous, bt_RGBCOLORBYTE * Y_current, bt_RGBCOLORBYTE * Y_posterior, INT K[])
 {
    bt_RGBCOLORBYTE RGBcolor;
    INT Red, Green, Blue;
@@ -2893,11 +2893,11 @@ bt_RGBCOLORBYTE bt_ConvolutionKernel3x3( bt_RGBCOLORBYTE * Y_previous, bt_RGBCOL
             ( Y_current - 1 )->B * K[ 3 ] + ( Y_current + 0 )->B * K[ 4 ] + ( Y_current + 1 )->B * K[ 5 ] +
             ( Y_posterior - 1 )->B * K[ 6 ] + ( Y_posterior + 0 )->B * K[ 7 ] + ( Y_posterior + 1 )->B * K[ 8 ] ) / Divisor + Bias;
 
-   #define bt_BoundRange( Value, RangeMin, RangeMax )  ( ( Value < RangeMin ) ? RangeMin : ( ( Value > RangeMax ) ? RangeMax : Value ) )
+   #define bt_BoundRange(Value, RangeMin, RangeMax)  ((Value < RangeMin) ? RangeMin : ((Value > RangeMax) ? RangeMax : Value))
 
-   RGBcolor.R = ( BYTE ) bt_BoundRange( Red, 0, 255 );
-   RGBcolor.G = ( BYTE ) bt_BoundRange( Green, 0, 255 );
-   RGBcolor.B = ( BYTE ) bt_BoundRange( Blue, 0, 255 );
+   RGBcolor.R = ( BYTE ) bt_BoundRange(Red, 0, 255);
+   RGBcolor.G = ( BYTE ) bt_BoundRange(Green, 0, 255);
+   RGBcolor.B = ( BYTE ) bt_BoundRange(Blue, 0, 255);
 
    return RGBcolor;
 }
@@ -2986,10 +2986,10 @@ HB_FUNC( BT_BMP_FILTER3X3 )
             RGBcolor_Ycurrent_Xcurrent   = ( bt_RGBCOLORBYTE * ) ( lp_Bits_O + ( LONG ) ( y + 0 ) * bm.bmWidthBytes + x * sizeof(bt_RGBCOLORBYTE) );
             RGBcolor_Yposterior_Xcurrent = ( bt_RGBCOLORBYTE * ) ( lp_Bits_O + ( LONG ) ( y + 1 ) * bm.bmWidthBytes + x * sizeof(bt_RGBCOLORBYTE) );
 
-            RGBcolor_Ret = bt_ConvolutionKernel3x3( RGBcolor_Yprevious_Xcurrent,
-                                                    RGBcolor_Ycurrent_Xcurrent,
-                                                    RGBcolor_Yposterior_Xcurrent,
-                                                    MatKernel3x3Filter );
+            RGBcolor_Ret = bt_ConvolutionKernel3x3(RGBcolor_Yprevious_Xcurrent,
+                                                   RGBcolor_Ycurrent_Xcurrent,
+                                                   RGBcolor_Yposterior_Xcurrent,
+                                                   MatKernel3x3Filter);
             RGBcolor_D->R = RGBcolor_Ret.R;
             RGBcolor_D->G = RGBcolor_Ret.G;
             RGBcolor_D->B = RGBcolor_Ret.B;
@@ -3053,8 +3053,8 @@ HB_FUNC( BT_BMP_TRANSFORM )
 
    const double pi = 3.141592;
 
-   #define dABS( n )     ( ( double ) n >= 0.0 ? ( double ) n : ( double ) -n )
-   #define SCALING( n )  ( ( double ) n > 1.0 ? ( double ) ( 1.0 / n ) : ( double ) 1.0 )
+   #define dABS(n)     ( ( double ) n >= 0.0 ? ( double ) n : ( double ) -n )
+   #define SCALING(n)  ( ( double ) n > 1.0 ? ( double ) ( 1.0 / n ) : ( double ) 1.0 )
 
    hBitmap_O     = hmg_par_HBITMAP(1);
    Mode          = ( INT ) hb_parnl(2);
@@ -3214,7 +3214,7 @@ HB_FUNC( BT_BMP_TRANSFORM )
 
 HB_FUNC( BT_BMP_CLIPBOARD_ISEMPTY )
 {
-   if( IsClipboardFormatAvailable( CF_DIB ) )
+   if( IsClipboardFormatAvailable(CF_DIB) )
       hb_retl( FALSE );  // Not empty clipboard
    else
       hb_retl( TRUE );   // Empty clipboard
@@ -3229,7 +3229,7 @@ HB_FUNC( BT_BMP_CLEAN_CLIPBOARD )
 {
    HWND hWnd;
 
-   if( ! IsClipboardFormatAvailable( CF_DIB ) )
+   if( ! IsClipboardFormatAvailable(CF_DIB) )
    {
       hb_retl( FALSE );
       return;
@@ -3264,7 +3264,7 @@ HB_FUNC( BT_BMP_GET_CLIPBOARD )
    LPBYTE       lp_Bits, lp_Bits2, lp_Clipboard;
    WORD         nBytes_Offset;
 
-   if( ! IsClipboardFormatAvailable( CF_DIB ) )
+   if( ! IsClipboardFormatAvailable(CF_DIB) )
    {
       hb_retnl(0);
       return;
@@ -3428,10 +3428,10 @@ HB_FUNC( BT_DELAY_EXECUTION_WITH_DOEVENTS )
 
    while( clock() - inicio <= ciclos )
    {
-      if( PeekMessage( ( LPMSG ) &Msg, 0, 0, 0, PM_REMOVE ) )
+      if( PeekMessage(( LPMSG ) &Msg, 0, 0, 0, PM_REMOVE) )
       {
-         TranslateMessage( &Msg );
-         DispatchMessage( &Msg );
+         TranslateMessage(&Msg);
+         DispatchMessage(&Msg);
       }
    }
 }
@@ -3528,8 +3528,8 @@ HB_FUNC( BT_TEXTOUT_SIZE )
 
    FontSize = FontSize * GetDeviceCaps(hDC, LOGPIXELSY) / 72;   // Size of font in logic points
 
-   hFont = CreateFont( 0 - FontSize, 0, 0, 0, Bold, Italic, Underline, StrikeOut,
-                       DEFAULT_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, FontName );
+   hFont = CreateFont(0 - FontSize, 0, 0, 0, Bold, Italic, Underline, StrikeOut,
+                      DEFAULT_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, FontName);
 
    hOldFont = ( HFONT ) SelectObject(hDC, hFont);
 
@@ -3541,7 +3541,7 @@ HB_FUNC( BT_TEXTOUT_SIZE )
    The app must convert it explicitly.
  */
 
-   GetTextExtentPoint32( hDC, lpText, lstrlen( lpText ), &SizeText );
+   GetTextExtentPoint32(hDC, lpText, lstrlen(lpText), &SizeText);
    hb_reta(2);
    HB_STORVNL( ( LONG ) SizeText.cx, -1, 1 );
    HB_STORVNL( ( LONG ) SizeText.cy, -1, 2 );

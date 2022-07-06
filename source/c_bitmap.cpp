@@ -313,14 +313,14 @@ HANDLE DibFromBitmap(HBITMAP hbm, HPALETTE hpal)
    dwLen = bi.biSize + PaletteSize(&bi);
 
    hdc  = GetDC(NULL);
-   hpal = SelectPalette( hdc, hpal, FALSE );
-   RealizePalette( hdc );
+   hpal = SelectPalette(hdc, hpal, FALSE);
+   RealizePalette(hdc);
 
    hdib = GlobalAlloc(GHND, dwLen);
 
    if( ! hdib )
    {
-      SelectPalette( hdc, hpal, FALSE );
+      SelectPalette(hdc, hpal, FALSE);
       ReleaseDC(NULL, hdc);
       return NULL;
    }
@@ -354,7 +354,7 @@ HANDLE DibFromBitmap(HBITMAP hbm, HPALETTE hpal)
    {
       GlobalFree(hdib);
 
-      SelectPalette( hdc, hpal, FALSE );
+      SelectPalette(hdc, hpal, FALSE);
       ReleaseDC(NULL, hdc);
       return NULL;
    }
@@ -370,13 +370,13 @@ HANDLE DibFromBitmap(HBITMAP hbm, HPALETTE hpal)
    {
       GlobalUnlock(hdib);
 
-      SelectPalette( hdc, hpal, FALSE );
+      SelectPalette(hdc, hpal, FALSE);
       ReleaseDC(NULL, hdc);
       return NULL;
    }
 
    GlobalUnlock(hdib);
-   SelectPalette( hdc, hpal, FALSE );
+   SelectPalette(hdc, hpal, FALSE);
    ReleaseDC(NULL, hdc);
 
    return hdib;
@@ -674,7 +674,7 @@ HB_FUNC( DRAWGLYPHMASK )
 
    // handle to bitmaped button mask
    if( hwnd != NULL )
-      SendMessage( hwnd, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) hBmpTransMask );
+      SendMessage(hwnd, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) hBmpTransMask);
 
    SelectObject(hDCMem, hBmpDefault);
    SelectObject(hDCMask, hBmpDefault);
@@ -727,7 +727,7 @@ HB_FUNC( LOADBITMAP )
  *
  * Harbour MiniGUI 1.3 Extended (Build 34)
  */
-VOID DrawGlyph( HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgbTransparent, BOOL disabled, BOOL stretched )
+VOID DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgbTransparent, BOOL disabled, BOOL stretched)
 {
    HDC      hDCMem, hDCMask, hDCStretch, hDCNoBlink;
    HBITMAP  hBmpDefault, hBmpTransMask, hBmpStretch = NULL;

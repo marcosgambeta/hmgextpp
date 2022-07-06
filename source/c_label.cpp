@@ -183,16 +183,16 @@ LRESULT APIENTRY LabelSubClassFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM l
       {
 #endif
       if( ! pSymbol )
-         pSymbol = hb_dynsymSymbol( hb_dynsymGet( "OLABELEVENTS" ) );
+         pSymbol = hb_dynsymSymbol(hb_dynsymGet("OLABELEVENTS"));
 
       if( pSymbol && hb_vmRequestReenter() )
       {
-         hb_vmPushSymbol( pSymbol );
+         hb_vmPushSymbol(pSymbol);
          hb_vmPushNil();
-         hb_vmPushNumInt( ( LONG_PTR ) hWnd );
-         hb_vmPushLong( Msg );
-         hb_vmPushNumInt( wParam );
-         hb_vmPushNumInt( lParam );
+         hb_vmPushNumInt(( LONG_PTR ) hWnd);
+         hb_vmPushLong(Msg);
+         hb_vmPushNumInt(wParam);
+         hb_vmPushNumInt(lParam);
          hb_vmDo(4);
 
          r = hb_parnl( -1 );
@@ -202,11 +202,11 @@ LRESULT APIENTRY LabelSubClassFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM l
 #if _OLD_STYLE
    }
 #endif
-      return ( r != 0 ) ? r : CallWindowProc( LabelOldWndProc, hWnd, 0, 0, 0 );
+      return ( r != 0 ) ? r : CallWindowProc(LabelOldWndProc, hWnd, 0, 0, 0);
    }
 
    bMouseTracking = FALSE;
 
-   return CallWindowProc( LabelOldWndProc, hWnd, Msg, wParam, lParam );
+   return CallWindowProc(LabelOldWndProc, hWnd, Msg, wParam, lParam);
 }
 #undef _OLD_STYLE

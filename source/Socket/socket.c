@@ -110,7 +110,7 @@ HB_FUNC( SOCKETCONNECT )
          if( sockDestinationAddr.sin_addr.s_addr == INADDR_NONE )
          {
             LPHOSTENT lphost;
-            lphost = gethostbyname( lpszAsciiDestination );
+            lphost = gethostbyname(lpszAsciiDestination);
             if( lphost != NULL )
                sockDestinationAddr.sin_addr.s_addr = ( ( LPIN_ADDR ) lphost->h_addr )->s_addr;
             else
@@ -158,7 +158,7 @@ HB_FUNC( SOCKETBIND )
          if( sockDestinationAddr.sin_addr.s_addr == INADDR_NONE )
          {
             LPHOSTENT lphost;
-            lphost = gethostbyname( lpszAsciiDestination );
+            lphost = gethostbyname(lpszAsciiDestination);
             if( lphost != NULL )
                sockDestinationAddr.sin_addr.s_addr = ( ( LPIN_ADDR ) lphost->h_addr )->s_addr;
             else
@@ -319,7 +319,7 @@ HB_FUNC( SOCKETLOCALADDRESS )
 
    if( bInit && gethostname(ac, sizeof(ac) ) != SOCKET_ERROR )
    {
-      struct hostent *phe = gethostbyname( ac );
+      struct hostent *phe = gethostbyname(ac);
       if( phe != 0 )
       {
          int i = 0;
@@ -356,7 +356,7 @@ HB_FUNC( SOCKETMD5 )
       string = ( unsigned char * ) hb_parc(1);
 
       MD5Init(&context);
-      MD5Update( &context, ( unsigned char * ) string, len );
+      MD5Update(&context, ( unsigned char * ) string, len);
       MD5Final( digest, &context );
 
       pRet = ( char * ) hb_xgrab(sizeof digest * 2 + 1);
@@ -420,7 +420,7 @@ HB_FUNC( SOCKETDECODE64 )
       pRet = ( char * ) hb_xgrab(nEncodeLen);
       memset(pRet, 0, nEncodeLen);
 
-      b64decode( string, pRet );
+      b64decode(string, pRet);
 
       hb_retclen( pRet, nEncodeLen );
       hb_xfree(pRet);
@@ -443,7 +443,7 @@ HB_FUNC( SOCKETHMAC_MD5 )
       char *password = ( char * ) hb_parc(2);
       char *challenge = ( char * ) hb_parc(3);
 
-      hmac_md5( ( unsigned char * ) challenge, strlen(challenge), ( unsigned char * ) password, strlen(password), ( unsigned char * ) digest );
+      hmac_md5(( unsigned char * ) challenge, strlen(challenge), ( unsigned char * ) password, strlen(password), ( unsigned char * ) digest);
 
       digasc[ 32 ] = 0;
       for( i = 0; i < 16; i++ )

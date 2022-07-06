@@ -126,7 +126,7 @@ HB_FUNC( RR_PRINTDIALOG )
    pdlg.nMinPage    = 1;
    pdlg.nMaxPage    = 0xFFFF;
 
-   if( PrintDlg( &pdlg ) )
+   if( PrintDlg(&pdlg) )
    {
       hDC = pdlg.hDC;
 
@@ -268,7 +268,7 @@ HB_FUNC( RR_GETDEVICECAPS )
    if( xfont != 0 )
       SelectObject(hDCRef, xfont);
 
-   GetTextMetrics( hDCRef, &tm );
+   GetTextMetrics(hDCRef, &tm);
    devcaps[ 1 ]  = GetDeviceCaps(hDCRef, VERTSIZE);
    devcaps[ 2 ]  = GetDeviceCaps(hDCRef, HORZSIZE);
    devcaps[ 3 ]  = GetDeviceCaps(hDCRef, VERTRES);
@@ -410,7 +410,7 @@ HB_FUNC( RR_GETDEFAULTPRINTER )
       }
       else  /* Windows NT 4.0 or earlier */
       {
-         GetProfileString( TEXT("windows"), TEXT("device"), TEXT(""), PrinterDefault, BuffSize );
+         GetProfileString(TEXT("windows"), TEXT("device"), TEXT(""), PrinterDefault, BuffSize);
          _tcstok( PrinterDefault, TEXT(",") );
       }
    }
@@ -535,13 +535,13 @@ HB_FUNC( RR_STARTDOC )
 
 HB_FUNC( RR_STARTPAGE )
 {
-   StartPage( hDC );
+   StartPage(hDC);
    SetTextAlign(hDC, TA_BASELINE);
 }
 
 HB_FUNC( RR_ENDPAGE )
 {
-   EndPage( hDC );
+   EndPage(hDC);
 }
 
 HB_FUNC( RR_ENDDOC )
@@ -676,10 +676,10 @@ HB_FUNC( RR_DEVICECAPABILITIES )
 
 HB_FUNC( RR_SETPOLYFILLMODE )
 {
-   if( SetPolyFillMode( hDC, hmg_par_COLORREF(1) ) != 0 )
+   if( SetPolyFillMode(hDC, hmg_par_COLORREF(1)) != 0 )
       hb_retnl( hb_parnl(1) );
    else
-      hb_retnl( ( LONG ) GetPolyFillMode( hDC ) );
+      hb_retnl( ( LONG ) GetPolyFillMode(hDC) );
 }
 
 HB_FUNC( RR_SETTEXTCOLOR )
@@ -701,9 +701,9 @@ HB_FUNC( RR_SETBKCOLOR )
 HB_FUNC( RR_SETBKMODE )
 {
    if( hb_parni(1) == 1 )
-      SetBkMode( hDC, TRANSPARENT );
+      SetBkMode(hDC, TRANSPARENT);
    else
-      SetBkMode( hDC, OPAQUE );
+      SetBkMode(hDC, OPAQUE);
 }
 
 HB_FUNC( RR_DELETEOBJECTS )
@@ -719,7 +719,7 @@ HB_FUNC( RR_DELETEIMAGELISTS )
    UINT i;
 
    for( i = 1; i <= hb_parinfa(1, 0); i++ )
-      ImageList_Destroy( ( HIMAGELIST ) HB_PARNL3( 1, i, 1 ) );
+      ImageList_Destroy( ( HIMAGELIST ) HB_PARNL3(1, i, 1) );
 }
 
 HB_FUNC( RR_SAVEMETAFILE )
@@ -917,7 +917,7 @@ HB_FUNC( RR_CREATEFONT )
    if( FontWidth < 0 )
    {
       oldfont = ( HFONT ) SelectObject(hDC, hxfont);
-      GetTextMetrics( hDC, &tm );
+      GetTextMetrics(hDC, &tm);
       SelectObject(hDC, oldfont);
       DeleteObject(hxfont);
       newWidth = ( int ) ( ( float ) -( tm.tmAveCharWidth + tm.tmOverhang ) * FontWidth / 100 );
@@ -1034,7 +1034,7 @@ HB_FUNC( RR_TEXTOUT )
 
    if( textjust > 0 )
    {
-      GetTextExtentPoint32( hDC, lpText, ( int ) lstrlen( lpText ), &szMetric );
+      GetTextExtentPoint32(hDC, lpText, ( int ) lstrlen(lpText), &szMetric);
       if( szMetric.cx < textjust )      // or can be for better look (szMetric.cx>(int) textjust*2/3)
          if( lspace > 0 )
             SetTextJustification( hDC, ( int ) textjust - szMetric.cx, lspace );
@@ -1074,7 +1074,7 @@ HB_FUNC( RR_DRAWTEXT )
    if( xfont != 0 )
       prevfont = ( HFONT ) SelectObject(hDC, xfont);
 
-   GetTextExtentPoint32( hDC, pszData, iLen, &sSize );
+   GetTextExtentPoint32(hDC, pszData, iLen, &sSize);
    w = ( LONG ) sSize.cx;  // text width
    h = ( LONG ) sSize.cy;  // text height
 
@@ -1113,7 +1113,7 @@ HB_FUNC( RR_RECTANGLE )
    if( xbrush != 0 )
       SelectObject(hDC, ( HBRUSH ) xbrush);
 
-   hb_retni( Rectangle( hDC, HB_PARNI( 1, 2 ), HB_PARNI( 1, 1 ), HB_PARNI( 2, 2 ), HB_PARNI( 2, 1 ) ) );
+   hb_retni( Rectangle(hDC, HB_PARNI( 1, 2 ), HB_PARNI( 1, 1 ), HB_PARNI( 2, 2 ), HB_PARNI( 2, 1 )) );
    if( xpen != 0 )
       SelectObject(hDC, hpen);
 
@@ -1293,14 +1293,14 @@ HB_FUNC( RR_PICTURE )
    CloseHandle(hFile);
    GlobalUnlock(hGlobal);
    CreateStreamOnHGlobal( hGlobal, TRUE, &iStream );
-   OleLoadPicture( iStream, nFileSize, TRUE, IID_IPicture, ( LPVOID * ) &iPicture );
+   OleLoadPicture(iStream, nFileSize, TRUE, IID_IPicture, ( LPVOID * ) &iPicture);
    GlobalFree(hGlobal);
    iStream->lpVtbl->Release(iStream);
    if( iPicture == NULL )
       return;
 
-   iPicture->lpVtbl->get_Width( iPicture, &lWidth );
-   iPicture->lpVtbl->get_Height( iPicture, &lHeight );
+   iPicture->lpVtbl->get_Width(iPicture, &lWidth);
+   iPicture->lpVtbl->get_Height(iPicture, &lHeight);
    if( dc == 0 )
       dc = ( int ) ( ( float ) dr * lWidth / lHeight );
 
@@ -1390,21 +1390,21 @@ LPVOID rr_loadpicturefromresource(TCHAR * resname, LONG * lwidth, LONG * lheight
          return NULL;
       }
 
-      OleLoadPicture( iStream, nSize, TRUE, IID_IPicture, ( LPVOID * ) &iPicture );
+      OleLoadPicture(iStream, nSize, TRUE, IID_IPicture, ( LPVOID * ) &iPicture);
       iStream->lpVtbl->Release(iStream);
       GlobalFree(hGlobal);
    }
 
    if( iPicture != NULL )
    {
-      iPicture->lpVtbl->get_Width( iPicture, lwidth );
-      iPicture->lpVtbl->get_Height( iPicture, lheight );
+      iPicture->lpVtbl->get_Width(iPicture, lwidth);
+      iPicture->lpVtbl->get_Height(iPicture, lheight);
    }
 
    return iPicture;
 }
 
-LPVOID rr_loadpicture( TCHAR * filename, LONG * lwidth, LONG * lheight )
+LPVOID rr_loadpicture(TCHAR * filename, LONG * lwidth, LONG * lheight)
 {
    IStream *  iStream  = NULL;
    IPicture * iPicture = NULL;
@@ -1431,15 +1431,15 @@ LPVOID rr_loadpicture( TCHAR * filename, LONG * lwidth, LONG * lheight )
       return NULL;
    }
 
-   OleLoadPicture( iStream, nFileSize, TRUE, IID_IPicture, ( LPVOID * ) &iPicture );
+   OleLoadPicture(iStream, nFileSize, TRUE, IID_IPicture, ( LPVOID * ) &iPicture);
    GlobalUnlock(hGlobal);
    GlobalFree(hGlobal);
    iStream->lpVtbl->Release(iStream);
    iStream = NULL;
    if( iPicture != NULL )
    {
-      iPicture->lpVtbl->get_Width( iPicture, lwidth );
-      iPicture->lpVtbl->get_Height( iPicture, lheight );
+      iPicture->lpVtbl->get_Width(iPicture, lwidth);
+      iPicture->lpVtbl->get_Height(iPicture, lheight);
    }
 
    return iPicture;
@@ -1458,8 +1458,8 @@ LPVOID rr_loadfromhbitmap(HBITMAP hbmpx, LONG * lwidth, LONG * lheight)
    OleCreatePictureIndirect(&picd, IID_IPicture, TRUE, ( LPVOID * ) &iPicture);
    if( iPicture != NULL )
    {
-      iPicture->lpVtbl->get_Width( iPicture, lwidth );
-      iPicture->lpVtbl->get_Height( iPicture, lheight );
+      iPicture->lpVtbl->get_Width(iPicture, lwidth);
+      iPicture->lpVtbl->get_Height(iPicture, lheight);
    }
 
    return iPicture;
@@ -1487,7 +1487,7 @@ HB_FUNC( RR_DRAWPICTURE )
    POINT      lpp;
    int        lw, lh;
 
-   ipic = ( IPicture * ) rr_loadpicture( cFileName, &lwidth, &lheight );
+   ipic = ( IPicture * ) rr_loadpicture(cFileName, &lwidth, &lheight);
    if( ipic == NULL )
       ipic = ( IPicture * ) rr_loadpicturefromresource(cFileName, &lwidth, &lheight);
    if( ipic == NULL && HB_ISNUM(1) )
@@ -1618,7 +1618,7 @@ HB_FUNC( RR_POLYGON )
 {
    int      number = ( int ) hb_parinfa(1, 0);
    int      i;
-   int      styl = GetPolyFillMode( hDC );
+   int      styl = GetPolyFillMode(hDC);
    POINT    apoints[ 1024 ];
    LONG_PTR xpen   = HB_PARNL(3);
    LONG_PTR xbrush = HB_PARNL(4);
@@ -1635,7 +1635,7 @@ HB_FUNC( RR_POLYGON )
    if( xbrush != 0 )
       SelectObject(hDC, ( HBRUSH ) xbrush);
 
-   SetPolyFillMode( hDC, hb_parni(5) );
+   SetPolyFillMode(hDC, hb_parni(5));
 
    hb_retnl( ( LONG ) Polygon( hDC, apoints, number ) );
 
@@ -1645,7 +1645,7 @@ HB_FUNC( RR_POLYGON )
    if( xbrush != 0 )
       SelectObject(hDC, hbrush);
 
-   SetPolyFillMode( hDC, styl );
+   SetPolyFillMode(hDC, styl);
 }
 
 HB_FUNC( RR_POLYBEZIER )
@@ -1705,7 +1705,7 @@ HB_FUNC( RR_GETTEXTEXTENT )
    if( xfont != 0 )
       SelectObject(hDC, ( HPEN ) xfont);
 
-   hb_retni( GetTextExtentPoint32( hDC, lpText, ( int ) lstrlen( lpText ), &szMetric ) );
+   hb_retni( GetTextExtentPoint32(hDC, lpText, ( int ) lstrlen(lpText), &szMetric) );
    HB_STORNI( szMetric.cy, 2, 1 );
    HB_STORNI( szMetric.cx, 2, 2 );
    if( xfont != 0 )
@@ -1747,7 +1747,7 @@ HB_FUNC( RR_ELLIPSE )
    if( xbrush != 0 )
       SelectObject(hDC, ( HBRUSH ) xbrush);
 
-   hb_retni( Ellipse( hDC, HB_PARNI( 1, 2 ), HB_PARNI( 1, 1 ), HB_PARNI( 2, 2 ), HB_PARNI( 2, 1 ) ) );
+   hb_retni( Ellipse(hDC, HB_PARNI( 1, 2 ), HB_PARNI( 1, 1 ), HB_PARNI( 2, 2 ), HB_PARNI( 2, 1 )) );
 
    if( xpen != 0 )
       SelectObject(hDC, hpen);
@@ -1813,7 +1813,7 @@ HB_FUNC( RR_PIE )
    if( xbrush != 0 )
       SelectObject(hDC, ( HBRUSH ) xbrush);
 
-   hb_retni( Pie( hDC, HB_PARNI( 1, 2 ), HB_PARNI( 1, 1 ), HB_PARNI( 2, 2 ), HB_PARNI( 2, 1 ), HB_PARNI( 3, 2 ), HB_PARNI( 3, 1 ), HB_PARNI( 4, 2 ), HB_PARNI( 4, 1 ) ) );
+   hb_retni( Pie(hDC, HB_PARNI( 1, 2 ), HB_PARNI( 1, 1 ), HB_PARNI( 2, 2 ), HB_PARNI( 2, 1 ), HB_PARNI( 3, 2 ), HB_PARNI( 3, 1 ), HB_PARNI( 4, 2 ), HB_PARNI( 4, 1 )) );
 
    if( xpen != 0 )
       SelectObject(hDC, hpen);
@@ -1941,7 +1941,7 @@ HB_FUNC( RR_PREVIEWPLAY )
    FillRect(tmpDC, &rect, ( HBRUSH ) GetStockObject(WHITE_BRUSH));
    PlayEnhMetaFile(tmpDC, hh, &rect);
    DeleteEnhMetaFile(hh);
-   SendMessage( hmg_par_HWND(1), ( UINT ) STM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himgbmp );
+   SendMessage(hmg_par_HWND(1), ( UINT ) STM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himgbmp);
    ReleaseDC(hmg_par_HWND(1), imgDC);
    DeleteDC(tmpDC);
    if( himgbmp == 0 )
@@ -1974,7 +1974,7 @@ HB_FUNC( RR_PLAYTHUMB )
    PlayEnhMetaFile(tmpDC, hh, &rect);
    DeleteEnhMetaFile(hh);
    TextOut(tmpDC, ( int ) rect.right / 2 - 5, ( int ) rect.bottom / 2 - 5, lpText, ( int ) lstrlen( lpText ));
-   SendMessage( ( HWND ) HB_PARVNL( 1, 5 ), ( UINT ) STM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) hbmp[ i ] );
+   SendMessage(( HWND ) HB_PARVNL( 1, 5 ), ( UINT ) STM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) hbmp[ i ]);
    ReleaseDC(( HWND ) HB_PARVNL( 1, 5 ), imgDC);
    DeleteDC(tmpDC);
 

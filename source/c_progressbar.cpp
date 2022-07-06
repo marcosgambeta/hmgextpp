@@ -93,8 +93,8 @@ HB_FUNC( INITPROGRESSBAR )
       NULL
              );
 
-   SendMessage( hbutton, PBM_SETRANGE, 0, MAKELONG( hb_parni(7), hb_parni(8) ) );
-   SendMessage( hbutton, PBM_SETPOS, ( WPARAM ) hb_parni(12), 0 );
+   SendMessage(hbutton, PBM_SETRANGE, 0, MAKELONG(hb_parni(7), hb_parni(8)));
+   SendMessage(hbutton, PBM_SETPOS, ( WPARAM ) hb_parni(12), 0);
 
    HB_RETNL( ( LONG_PTR ) hbutton );
 }

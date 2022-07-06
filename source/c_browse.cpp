@@ -124,10 +124,10 @@ LRESULT APIENTRY SubClassFunc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
             0        // additional data associated with keystroke
          );
 
-      return CallWindowProc( lpfnOldWndProc, hWnd, 0, 0, 0 );
+      return CallWindowProc(lpfnOldWndProc, hWnd, 0, 0, 0);
    }
    else
-      return CallWindowProc( lpfnOldWndProc, hWnd, msg, wParam, lParam );
+      return CallWindowProc(lpfnOldWndProc, hWnd, msg, wParam, lParam);
 }
 
 HB_FUNC( INITVSCROLLBAR )
@@ -169,7 +169,7 @@ HB_FUNC( GETSCROLLRANGEMAX )
 {
    int MinPos, MaxPos;
 
-   GetScrollRange( hmg_par_HWND(1), hb_parni(2), &MinPos, &MaxPos );
+   GetScrollRange(hmg_par_HWND(1), hb_parni(2), &MinPos, &MaxPos);
 
    hb_retni( MaxPos );
 }

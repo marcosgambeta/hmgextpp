@@ -30,16 +30,16 @@ LRESULT CALLBACK WndProcBrw( HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
    long int        r;
 
    if( ! pSymbol )
-      pSymbol = hb_dynsymSymbol( hb_dynsymGet( "EVENTS" ) );
+      pSymbol = hb_dynsymSymbol(hb_dynsymGet("EVENTS"));
 
    if( pSymbol )
    {
-      hb_vmPushSymbol( pSymbol );
+      hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
-      hb_vmPushNumInt( ( LONG_PTR ) hWnd );
-      hb_vmPushLong( message );
-      hb_vmPushNumInt( wParam );
-      hb_vmPushNumInt( lParam );
+      hb_vmPushNumInt(( LONG_PTR ) hWnd);
+      hb_vmPushLong(message);
+      hb_vmPushNumInt(wParam);
+      hb_vmPushNumInt(lParam);
       hb_vmDo(4);
    }
 
@@ -48,7 +48,7 @@ LRESULT CALLBACK WndProcBrw( HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
    if( r != 0 )
       return r;
    else
-      return DefWindowProc( hWnd, message, wParam, lParam );
+      return DefWindowProc(hWnd, message, wParam, lParam);
 }
 
 LRESULT CALLBACK WndProcMDI( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
@@ -57,16 +57,16 @@ LRESULT CALLBACK WndProcMDI( HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
    long int        r;
 
    if( ! pSymbol )
-      pSymbol = hb_dynsymSymbol( hb_dynsymGet( "EVENTS" ) );
+      pSymbol = hb_dynsymSymbol(hb_dynsymGet("EVENTS"));
 
    if( pSymbol )
    {
-      hb_vmPushSymbol( pSymbol );
+      hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
-      hb_vmPushNumInt( ( LONG_PTR ) hWnd );
-      hb_vmPushLong( message );
-      hb_vmPushNumInt( wParam );
-      hb_vmPushNumInt( lParam );
+      hb_vmPushNumInt(( LONG_PTR ) hWnd);
+      hb_vmPushLong(message);
+      hb_vmPushNumInt(wParam);
+      hb_vmPushNumInt(lParam);
       hb_vmDo(4);
    }
 
@@ -75,7 +75,7 @@ LRESULT CALLBACK WndProcMDI( HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
    if( r != 0 )
       return r;
    else
-      return DefFrameProc( hWnd, hwndMDIClient, message, wParam, lParam );
+      return DefFrameProc(hWnd, hwndMDIClient, message, wParam, lParam);
 }
 
 HB_FUNC( REGISTER_CLASS )
@@ -115,7 +115,7 @@ HB_FUNC( REGISTER_CLASS )
    HB_RETNL( ( LONG_PTR ) hbrush );
 
 #ifdef UNICODE
-   hb_strfree( hClassName );
+   hb_strfree(hClassName);
 #endif
 }
 
@@ -146,8 +146,8 @@ HB_FUNC( _CREATEWINDOWEX )
    HB_RETNL( ( LONG_PTR ) hWnd );
 
 #ifdef UNICODE
-   hb_strfree( hClassName );
-   hb_strfree( hTitle );
+   hb_strfree(hClassName);
+   hb_strfree(hTitle);
 #endif
 }
 
@@ -183,7 +183,7 @@ void MaskRegion(HDC hdc, RECT * rct, COLORREF cTransparentColor, COLORREF cBackg
 
    BitBlt(hdcTemp, 0, 0, ptSize.x, ptSize.y, hdc, rct->left, rct->top, SRCCOPY);
 
-   SetMapMode( hdcTemp, GetMapMode( hdc ) );
+   SetMapMode(hdcTemp, GetMapMode(hdc));
 
    cColor = SetBkColor(hdcTemp, cTransparentColor);
 
@@ -330,7 +330,7 @@ HB_FUNC( TSDRAWCELL )
 
    memset(&bm, 0, sizeof(BITMAP));
 
-   if( GetTextExtentPoint32( hDC, cData, nLen, &size ) )
+   if( GetTextExtentPoint32(hDC, cData, nLen, &size) )
       iTxtW = size.cx;
 
    if( ! hDC )
@@ -480,7 +480,7 @@ HB_FUNC( TSDRAWCELL )
             DrawCheck(hDC, &rct, hWhitePen, iAlign, bChecked);
          else
          {
-            nBkOld = SetBkMode( hDC, TRANSPARENT );
+            nBkOld = SetBkMode(hDC, TRANSPARENT);
 
             if( b3D )
             {
@@ -509,7 +509,7 @@ HB_FUNC( TSDRAWCELL )
             }
 
             DrawTextEx(hDC, cData, nLen, &rct, iFlags, NULL);
-            SetBkMode( hDC, nBkOld );
+            SetBkMode(hDC, nBkOld);
          }
 
          if( iAlign == DT_LEFT )
@@ -726,7 +726,7 @@ HB_FUNC( SBGETHEIGHT )   // ( hWnd, hFont, nTotal )
       if( hFont )
          hOldFont = ( HFONT ) SelectObject(hDC, hFont);
 
-      GetTextMetrics( hDC, &tm );
+      GetTextMetrics(hDC, &tm);
       if( hFont )
          SelectObject(hDC, hOldFont);
 
@@ -817,7 +817,7 @@ static void DrawCheck(HDC hDC, LPRECT rct, HPEN hWhitePen, int nAlign, BOOL bChe
    lrct.bottom += 1;
 
    hOldPen = ( HPEN ) SelectObject(hDC, hBlackPen);
-   Rectangle( hDC, lrct.left, lrct.top, lrct.right, lrct.bottom );
+   Rectangle(hDC, lrct.left, lrct.top, lrct.right, lrct.bottom);
 
    lrct.left   += 1;
    lrct.top    += 1;
@@ -841,7 +841,7 @@ static void DrawCheck(HDC hDC, LPRECT rct, HPEN hWhitePen, int nAlign, BOOL bChe
    lrct.bottom -= 1;
 
    SelectObject(hDC, hGrayPen);
-   Rectangle( hDC, lrct.left, lrct.top, lrct.right, lrct.bottom );
+   Rectangle(hDC, lrct.left, lrct.top, lrct.right, lrct.bottom);
 
    lrct.top    += 1;
    lrct.left   += 1;
@@ -849,13 +849,13 @@ static void DrawCheck(HDC hDC, LPRECT rct, HPEN hWhitePen, int nAlign, BOOL bChe
    lrct.bottom -= 1;
 
    SelectObject(hDC, hBlackPen);
-   Rectangle( hDC, lrct.left, lrct.top, lrct.right, lrct.bottom );
+   Rectangle(hDC, lrct.left, lrct.top, lrct.right, lrct.bottom);
 
    lrct.top  += 1;
    lrct.left += 1;
 
    SelectObject(hDC, hWhitePen);
-   Rectangle( hDC, lrct.left, lrct.top, lrct.right, lrct.bottom );
+   Rectangle(hDC, lrct.left, lrct.top, lrct.right, lrct.bottom);
 
    lrct.top    += 1;
    lrct.right  -= 2;
@@ -1019,9 +1019,9 @@ HB_FUNC( GETSCRLRANGE )  // ( hWnd, nFlags )
 {
    int iMin = 0, iMax = 0;
 
-   GetScrollRange( hmg_par_HWND(1), // its hWnd
+   GetScrollRange(hmg_par_HWND(1), // its hWnd
                    hb_parni(2),          // Scroll bar flags
-                   &iMin, &iMax );
+                   &iMin, &iMax);
 
    hb_reta(2);  // { nMin, nMax }
    HB_STORNI( iMin, -1, 1 );
@@ -1051,7 +1051,7 @@ HB_FUNC( INITEDSPINNER )
    hupdown = CreateUpDownControl( Style, hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6), hwnd, 0, GetModuleHandle(NULL),
                                   hedit, iMax, iMin, hb_parni(9) );
 
-   SendMessage( hupdown, UDM_SETRANGE32, ( WPARAM ) iMin, ( LPARAM ) iMax );
+   SendMessage(hupdown, UDM_SETRANGE32, ( WPARAM ) iMin, ( LPARAM ) iMax);
 
    HB_RETNL( ( LONG_PTR ) hupdown );
 }
@@ -1060,10 +1060,10 @@ HB_FUNC( SETINCREMENTSPINNER )
 {
    UDACCEL inc;
 
-   SendMessage( hmg_par_HWND(1), UDM_GETACCEL, ( WPARAM ) 1, ( LPARAM ) &inc );
+   SendMessage(hmg_par_HWND(1), UDM_GETACCEL, ( WPARAM ) 1, ( LPARAM ) &inc);
 
    inc.nSec = 1;
    inc.nInc = hb_parni(2);
 
-   SendMessage( hmg_par_HWND(1), UDM_SETACCEL, ( WPARAM ) 1, ( LPARAM ) &inc );
+   SendMessage(hmg_par_HWND(1), UDM_SETACCEL, ( WPARAM ) 1, ( LPARAM ) &inc);
 }

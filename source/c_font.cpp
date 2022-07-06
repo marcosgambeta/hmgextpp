@@ -65,7 +65,7 @@ LPSTR  WideToAnsi(LPWSTR);
 // Minigui Resources control system
 void RegisterResource(HANDLE hResource, LPSTR szType);
 
-HFONT PrepareFont( TCHAR * FontName, int FontSize, int Weight, DWORD Italic, DWORD Underline, DWORD StrikeOut, DWORD Angle, DWORD charset )
+HFONT PrepareFont(TCHAR * FontName, int FontSize, int Weight, DWORD Italic, DWORD Underline, DWORD StrikeOut, DWORD Angle, DWORD charset)
 {
    HDC hDC = GetDC(HWND_DESKTOP);
 
@@ -73,13 +73,13 @@ HFONT PrepareFont( TCHAR * FontName, int FontSize, int Weight, DWORD Italic, DWO
 
    ReleaseDC(HWND_DESKTOP, hDC);
 
-   return CreateFont( FontSize, 0, Angle, 0, Weight, Italic, Underline, StrikeOut, charset,
-                      OUT_TT_PRECIS,
-                      CLIP_DEFAULT_PRECIS,
-                      DEFAULT_QUALITY,
-                      FF_DONTCARE,
-                      FontName
-                      );
+   return CreateFont(FontSize, 0, Angle, 0, Weight, Italic, Underline, StrikeOut, charset,
+                     OUT_TT_PRECIS,
+                     CLIP_DEFAULT_PRECIS,
+                     DEFAULT_QUALITY,
+                     FF_DONTCARE,
+                     FontName
+                     );
 }
 
 HB_FUNC( INITFONT )
@@ -94,10 +94,10 @@ HB_FUNC( INITFONT )
 
 #ifdef UNICODE
    LPWSTR pStr = AnsiToWide(hb_parc(1));
-   hFont = PrepareFont( ( TCHAR * ) pStr, hb_parni(2), bold, italic, underline, strikeout, angle, charset );
+   hFont = PrepareFont(( TCHAR * ) pStr, hb_parni(2), bold, italic, underline, strikeout, angle, charset);
    hb_xfree(pStr);
 #else
-   hFont = PrepareFont( ( TCHAR * ) hb_parc(1), hb_parni(2), bold, italic, underline, strikeout, angle, charset );
+   hFont = PrepareFont(( TCHAR * ) hb_parc(1), hb_parni(2), bold, italic, underline, strikeout, angle, charset);
 #endif
 
    RegisterResource(hFont, const_cast<LPSTR>("FONT"));
@@ -123,13 +123,13 @@ HB_FUNC( _SETFONT )
 
 #ifdef UNICODE
       pStr  = AnsiToWide(hb_parc(2));
-      hFont = PrepareFont( ( TCHAR * ) pStr, hb_parni(3), bold, italic, underline, strikeout, angle, charset );
+      hFont = PrepareFont(( TCHAR * ) pStr, hb_parni(3), bold, italic, underline, strikeout, angle, charset);
       hb_xfree(pStr);
 #else
-      hFont = PrepareFont( ( TCHAR * ) hb_parc(2), hb_parni(3), bold, italic, underline, strikeout, angle, charset );
+      hFont = PrepareFont(( TCHAR * ) hb_parc(2), hb_parni(3), bold, italic, underline, strikeout, angle, charset);
 #endif
 
-      SendMessage( ( HWND ) hwnd, ( UINT ) WM_SETFONT, ( WPARAM ) hFont, ( LPARAM ) 1 );
+      SendMessage(( HWND ) hwnd, ( UINT ) WM_SETFONT, ( WPARAM ) hFont, ( LPARAM ) 1);
 
       RegisterResource(hFont, const_cast<LPSTR>("FONT"));
       HB_RETNL( ( LONG_PTR ) hFont );
@@ -145,7 +145,7 @@ HB_FUNC( _SETFONTHANDLE )
    if( IsWindow(hwnd) )
    {
       if( GetObjectType(hmg_par_HGDIOBJ(2)) == OBJ_FONT )
-         SendMessage( hwnd, ( UINT ) WM_SETFONT, ( WPARAM ) hmg_par_HFONT(2), ( LPARAM ) 1 );
+         SendMessage(hwnd, ( UINT ) WM_SETFONT, ( WPARAM ) hmg_par_HFONT(2), ( LPARAM ) 1);
       else
          hb_errRT_BASE_SubstR( EG_ARG, 5050 + OBJ_FONT, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
    }
@@ -186,7 +186,7 @@ HB_FUNC( GETSYSTEMFONT )
              --> return array { { cFontName, nCharSet, nPitchAndFamily, nFontType }, ... }
  */
 
-int CALLBACK EnumFontFamExProc( ENUMLOGFONTEX * lpelfe, NEWTEXTMETRICEX * lpntme, DWORD FontType, LPARAM lParam );
+int CALLBACK EnumFontFamExProc(ENUMLOGFONTEX * lpelfe, NEWTEXTMETRICEX * lpntme, DWORD FontType, LPARAM lParam);
 
 HB_FUNC( ENUMFONTSEX )
 {
@@ -220,14 +220,14 @@ HB_FUNC( ENUMFONTSEX )
       ReleaseDC(NULL, hdc);
 
    if( HB_ISBLOCK(6) )
-      hb_arraySort( pArray, NULL, NULL, hb_param( 6, Harbour::Item::BLOCK ) );
+      hb_arraySort( pArray, NULL, NULL, hb_param(6, Harbour::Item::BLOCK) );
 
    if( HB_ISBYREF(7) )
    {
-      PHB_ITEM aFontName = hb_param( 7, Harbour::Item::ANY );
+      PHB_ITEM aFontName = hb_param(7, Harbour::Item::ANY);
       int      nLen = ( int ) hb_arrayLen( pArray );
 
-      hb_arrayNew( aFontName, nLen );
+      hb_arrayNew(aFontName, nLen);
 
       for( int i = 1; i <= nLen; i++ )
       {
@@ -238,7 +238,7 @@ HB_FUNC( ENUMFONTSEX )
    hb_itemReturnRelease(pArray);
 }
 
-int CALLBACK EnumFontFamExProc( ENUMLOGFONTEX * lpelfe, NEWTEXTMETRICEX * lpntme, DWORD FontType, LPARAM lParam )
+int CALLBACK EnumFontFamExProc(ENUMLOGFONTEX * lpelfe, NEWTEXTMETRICEX * lpntme, DWORD FontType, LPARAM lParam)
 {
 #ifdef UNICODE
    LPSTR pStr;

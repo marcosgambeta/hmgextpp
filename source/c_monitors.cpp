@@ -54,19 +54,19 @@
 #include "hbapiitm.h"
 
 extern HB_EXPORT BOOL Array2Point(PHB_ITEM aPoint, POINT * pt);
-HB_EXPORT PHB_ITEM Rect2Hash( RECT * rc );
-BOOL CALLBACK _MonitorEnumProc0( HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData );
-//BOOL CALLBACK _MonitorEnumProc1( HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData );
+HB_EXPORT PHB_ITEM Rect2Hash(RECT * rc);
+BOOL CALLBACK _MonitorEnumProc0(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData);
+//BOOL CALLBACK _MonitorEnumProc1(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData);
 static void ClipOrCenterRectToMonitor( LPRECT prc, HMONITOR hMonitor, UINT flags );
 
 HB_FUNC( COUNTMONITORS )
 {
-   hb_retni( GetSystemMetrics( SM_CMONITORS ) );
+   hb_retni( GetSystemMetrics(SM_CMONITORS) );
 }
 
 HB_FUNC( ISSAMEDISPLAYFORMAT )
 {
-   hb_retl( GetSystemMetrics( SM_SAMEDISPLAYFORMAT ) ? HB_TRUE : HB_FALSE );
+   hb_retl( GetSystemMetrics(SM_SAMEDISPLAYFORMAT) ? HB_TRUE : HB_FALSE );
 }
 
 /*
@@ -84,15 +84,15 @@ HB_FUNC( ENUMDISPLAYMONITORS )
    hb_itemReturnRelease(pMonitorEnum);
 }
 
-BOOL CALLBACK _MonitorEnumProc0( HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData )
+BOOL CALLBACK _MonitorEnumProc0(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData)
 {
    PHB_ITEM pMonitor = hb_itemArrayNew(2);
-   PHB_ITEM pRect    = Rect2Hash( lprcMonitor );
+   PHB_ITEM pRect    = Rect2Hash(lprcMonitor);
 
    HB_SYMBOL_UNUSED( hdcMonitor );
 
-   hb_arraySetNInt( pMonitor, 1, ( LONG_PTR ) hMonitor );
-   hb_itemArrayPut( pMonitor, 2, pRect );
+   hb_arraySetNInt(pMonitor, 1, ( LONG_PTR ) hMonitor);
+   hb_itemArrayPut(pMonitor, 2, pRect);
 
    hb_arrayAddForward( ( PHB_ITEM ) dwData, pMonitor );
 
@@ -112,12 +112,12 @@ HB_FUNC( GETMONITORINFO )
    if( GetMonitorInfo(( HMONITOR ) HB_PARNL(1), &mi) )
    {
       PHB_ITEM pMonInfo = hb_itemArrayNew(3);
-      PHB_ITEM pMonitor = Rect2Hash( &mi.rcMonitor );
-      PHB_ITEM pWork    = Rect2Hash( &mi.rcWork );
+      PHB_ITEM pMonitor = Rect2Hash(&mi.rcMonitor);
+      PHB_ITEM pWork    = Rect2Hash(&mi.rcWork);
 
-      hb_itemArrayPut( pMonInfo, 1, pMonitor );
-      hb_itemArrayPut( pMonInfo, 2, pWork );
-      hb_arraySetNInt( pMonInfo, 3, ( LONG_PTR ) mi.dwFlags );
+      hb_itemArrayPut(pMonInfo, 1, pMonitor);
+      hb_itemArrayPut(pMonInfo, 2, pWork);
+      hb_arraySetNInt(pMonInfo, 3, ( LONG_PTR ) mi.dwFlags);
 
       hb_itemReturnRelease(pMonInfo);
       hb_itemRelease(pMonitor);
@@ -134,7 +134,7 @@ HB_FUNC( MONITORFROMPOINT )
 
    if( HB_ISARRAY(1) )
    {
-      if( ! Array2Point(hb_param( 1, Harbour::Item::ARRAY ), &pt) )
+      if( ! Array2Point(hb_param(1, Harbour::Item::ARRAY), &pt) )
          hb_errRT_BASE_SubstR( EG_ARG, 5000, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
       else
          HB_RETNL( ( LONG_PTR ) MonitorFromPoint(pt, hb_parnldef( 2, MONITOR_DEFAULTTONULL )) );
@@ -231,25 +231,25 @@ static void ClipOrCenterRectToMonitor( LPRECT prc, HMONITOR hMonitor, UINT flags
    }
 }
 
-HB_EXPORT PHB_ITEM Rect2Hash( RECT * rc )
+HB_EXPORT PHB_ITEM Rect2Hash(RECT * rc)
 {
-   PHB_ITEM phRect = hb_hashNew( NULL );
+   PHB_ITEM phRect = hb_hashNew(NULL);
    PHB_ITEM pKey   = hb_itemPutCConst( NULL, "left" );
    PHB_ITEM pValue = hb_itemPutNL( NULL, rc->left );
 
-   hb_hashAddNew( phRect, pKey, pValue );
+   hb_hashAddNew(phRect, pKey, pValue);
 
    hb_itemPutCConst( pKey, "top" );
    hb_itemPutNL( pValue, rc->top );
-   hb_hashAddNew( phRect, pKey, pValue );
+   hb_hashAddNew(phRect, pKey, pValue);
 
    hb_itemPutCConst( pKey, "right" );
    hb_itemPutNL( pValue, rc->right );
-   hb_hashAddNew( phRect, pKey, pValue );
+   hb_hashAddNew(phRect, pKey, pValue);
 
    hb_itemPutCConst( pKey, "bottom" );
    hb_itemPutNL( pValue, rc->bottom );
-   hb_hashAddNew( phRect, pKey, pValue );
+   hb_hashAddNew(phRect, pKey, pValue);
 
    hb_itemRelease(pKey);
    hb_itemRelease(pValue);

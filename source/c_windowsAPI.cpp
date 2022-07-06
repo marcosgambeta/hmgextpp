@@ -98,7 +98,7 @@ HB_FUNC( DOMESSAGELOOP )
    MSG Msg;
    int status;
 
-   while( ( status = GetMessage( &Msg, NULL, 0, 0 ) ) != 0 )
+   while( ( status = GetMessage(&Msg, NULL, 0, 0) ) != 0 )
    {
       if( status == -1 )  // Exception
       {
@@ -113,11 +113,11 @@ HB_FUNC( DOMESSAGELOOP )
          hDlgModeless = GetActiveWindow();
 
          if( hDlgModeless == ( HWND ) NULL || (
-                ! IsDialogMessage( hDlgModeless, &Msg ) &&
+                ! IsDialogMessage(hDlgModeless, &Msg) &&
                 ! TranslateAccelerator( g_hWndMain, g_hAccel, &Msg ) ) )
          {
-            TranslateMessage( &Msg );
-            DispatchMessage( &Msg );
+            TranslateMessage(&Msg);
+            DispatchMessage(&Msg);
          }
       }
    }
@@ -133,14 +133,14 @@ HB_FUNC( DOEVENTS )
 {
    MSG Msg;
 
-   while( PeekMessage( ( LPMSG ) &Msg, 0, 0, 0, PM_REMOVE ) )
+   while( PeekMessage(( LPMSG ) &Msg, 0, 0, 0, PM_REMOVE) )
    {
       hDlgModeless = GetActiveWindow();
 
-      if( hDlgModeless == NULL || ! IsDialogMessage( hDlgModeless, &Msg ) )
+      if( hDlgModeless == NULL || ! IsDialogMessage(hDlgModeless, &Msg) )
       {
-         TranslateMessage( &Msg );
-         DispatchMessage( &Msg );
+         TranslateMessage(&Msg);
+         DispatchMessage(&Msg);
       }
    }
 }
@@ -169,7 +169,7 @@ HB_FUNC( SETACTIVEWINDOW )
 
 HB_FUNC( POSTQUITMESSAGE )
 {
-   PostQuitMessage( hb_parni(1) );
+   PostQuitMessage(hb_parni(1));
 }
 
 HB_FUNC( DESTROYWINDOW )
@@ -179,7 +179,7 @@ HB_FUNC( DESTROYWINDOW )
 
 HB_FUNC( ISWINDOWVISIBLE )
 {
-   hb_retl( IsWindowVisible( hmg_par_HWND(1) ) );
+   hb_retl( IsWindowVisible(hmg_par_HWND(1)) );
 }
 
 HB_FUNC( ISWINDOWENABLED )
@@ -295,7 +295,7 @@ HB_FUNC( SETLAYEREDWINDOWATTRIBUTES )
       hb_errRT_BASE_SubstR( EG_ARG, 3012, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-static BOOL CenterIntoParent( HWND hwnd )
+static BOOL CenterIntoParent(HWND hwnd)
 {
    HWND hwndParent;
    RECT rect, rectP;
@@ -304,7 +304,7 @@ static BOOL CenterIntoParent( HWND hwnd )
    int  x, y;
 
    // make the window relative to its parent
-   hwndParent = GetParent( hwnd );
+   hwndParent = GetParent(hwnd);
 
    GetWindowRect(hwnd, &rect);
    GetWindowRect(hwndParent, &rectP);
@@ -315,8 +315,8 @@ static BOOL CenterIntoParent( HWND hwnd )
    x = ( ( rectP.right - rectP.left ) - width ) / 2 + rectP.left;
    y = ( ( rectP.bottom - rectP.top ) - height ) / 2 + rectP.top;
 
-   screenwidth  = GetSystemMetrics( SM_CXSCREEN );
-   screenheight = GetSystemMetrics( SM_CYSCREEN );
+   screenwidth  = GetSystemMetrics(SM_CXSCREEN);
+   screenheight = GetSystemMetrics(SM_CYSCREEN);
 
    // make sure that the child window never moves outside of the screen
    if( x < 0 )
@@ -342,13 +342,13 @@ HB_FUNC( C_CENTER )
    hwnd = hmg_par_HWND(1);
 
    if( hb_parl(2) )
-      CenterIntoParent( hwnd );
+      CenterIntoParent(hwnd);
    else
    {
       GetWindowRect(hwnd, &rect);
       w = rect.right - rect.left;
       h = rect.bottom - rect.top;
-      x = GetSystemMetrics( SM_CXSCREEN );
+      x = GetSystemMetrics(SM_CXSCREEN);
       SystemParametersInfo(SPI_GETWORKAREA, 1, &rect, 0);
       y = rect.bottom - rect.top;
 
@@ -362,7 +362,7 @@ HB_FUNC( GETWINDOWTEXT )
    LPSTR pStr;
 #endif
    HWND   hWnd   = hmg_par_HWND(1);
-   int    iLen   = GetWindowTextLength( hWnd );
+   int    iLen   = GetWindowTextLength(hWnd);
    LPTSTR szText = ( TCHAR * ) hb_xgrab((iLen + 1) * sizeof(TCHAR));
 
 #ifndef UNICODE
@@ -384,14 +384,14 @@ HB_FUNC( SENDMESSAGE )
    HWND hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) )
-      HB_RETNL( ( LONG_PTR ) SendMessage( hwnd, hmg_par_UINT(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) hb_parnl(4) ) );
+      HB_RETNL( ( LONG_PTR ) SendMessage(hwnd, hmg_par_UINT(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) hb_parnl(4)) );
    else
       hb_errRT_BASE_SubstR( EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
 HB_FUNC( SENDMESSAGESTRING )
 {
-   HB_RETNL( ( LONG_PTR ) SendMessage( hmg_par_HWND(1), hmg_par_UINT(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) ( LPSTR ) hb_parc(4) ) );
+   HB_RETNL( ( LONG_PTR ) SendMessage(hmg_par_HWND(1), hmg_par_UINT(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) ( LPSTR ) hb_parc(4)) );
 }
 
 HB_FUNC( GETNOTIFYCODE )
@@ -458,7 +458,7 @@ HB_FUNC( MOVEWINDOW )
 
 HB_FUNC( GETSYSTEMMETRICS )
 {
-   hb_retni( GetSystemMetrics( hb_parni(1) ) );
+   hb_retni( GetSystemMetrics(hb_parni(1)) );
 }
 
 HB_FUNC( GETWINDOWRECT )
@@ -613,8 +613,8 @@ HB_FUNC( LOADTRAYICON )
 #else
    LPCWSTR lpIconName = HB_ISCHAR(2) ? AnsiToWide(( char * ) hb_parc(2)) : ( LPCWSTR ) MAKEINTRESOURCE(hb_parni(2));
 #endif
-   int cxDesired = HB_ISNUM(3) ? hb_parni(3) : GetSystemMetrics( SM_CXSMICON );
-   int cyDesired = HB_ISNUM(4) ? hb_parni(4) : GetSystemMetrics( SM_CYSMICON );
+   int cxDesired = HB_ISNUM(3) ? hb_parni(3) : GetSystemMetrics(SM_CXSMICON);
+   int cyDesired = HB_ISNUM(4) ? hb_parni(4) : GetSystemMetrics(SM_CYSMICON);
 
    hIcon = ( HICON ) LoadImage(hInstance, lpIconName, IMAGE_ICON, cxDesired, cyDesired, LR_DEFAULTCOLOR);
 
@@ -667,7 +667,7 @@ HB_FUNC( GETITEMPOS )
 
 HB_FUNC( SETSCROLLRANGE )
 {
-   hb_retl( SetScrollRange( hmg_par_HWND(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parl(5) ) );
+   hb_retl( SetScrollRange(hmg_par_HWND(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parl(5)) );
 }
 
 HB_FUNC( GETSCROLLPOS )
@@ -688,7 +688,7 @@ HB_FUNC( GETWINDOWSTATE )
 
 HB_FUNC( GETPARENT )
 {
-   HB_RETNL( ( LONG_PTR ) GetParent( hmg_par_HWND(1) ) );
+   HB_RETNL( ( LONG_PTR ) GetParent(hmg_par_HWND(1)) );
 }
 
 HB_FUNC( GETDESKTOPWINDOW )
@@ -696,9 +696,9 @@ HB_FUNC( GETDESKTOPWINDOW )
    HB_RETNL( ( LONG_PTR ) GetDesktopWindow() );
 }
 
-static BOOL CALLBACK EnumWindowsProc( HWND hWnd, LPARAM pArray )
+static BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM pArray)
 {
-   PHB_ITEM pHWnd = hb_itemPutNInt( NULL, ( LONG_PTR ) hWnd );
+   PHB_ITEM pHWnd = hb_itemPutNInt(NULL, ( LONG_PTR ) hWnd);
 
    hb_arrayAddForward( ( PHB_ITEM ) pArray, pHWnd );
    hb_itemRelease(pHWnd);
@@ -715,14 +715,14 @@ HB_FUNC( ENUMWINDOWS )
    hb_itemReturnRelease(pArray);
 }
 
-static BOOL CALLBACK EnumChildProc( HWND hWnd, LPARAM lParam )
+static BOOL CALLBACK EnumChildProc(HWND hWnd, LPARAM lParam)
 {
    PHB_ITEM pCodeBlock = ( PHB_ITEM ) lParam;
-   PHB_ITEM pHWnd      = hb_itemPutNInt( NULL, ( LONG_PTR ) hWnd );
+   PHB_ITEM pHWnd      = hb_itemPutNInt(NULL, ( LONG_PTR ) hWnd);
 
    if( pCodeBlock )
    {
-      hb_evalBlock1( pCodeBlock, pHWnd );
+      hb_evalBlock1(pCodeBlock, pHWnd);
    }
 
    hb_itemRelease(pHWnd);
@@ -733,7 +733,7 @@ static BOOL CALLBACK EnumChildProc( HWND hWnd, LPARAM lParam )
 HB_FUNC( C_ENUMCHILDWINDOWS )
 {
    HWND     hWnd       = hmg_par_HWND(1);
-   PHB_ITEM pCodeBlock = hb_param( 2, Harbour::Item::BLOCK );
+   PHB_ITEM pCodeBlock = hb_param(2, Harbour::Item::BLOCK);
 
    if( IsWindow(hWnd) && pCodeBlock )
    {
@@ -820,7 +820,7 @@ HB_FUNC( ADDSPLITBOXITEM )
       }
    }
 
-   SendMessage( hmg_par_HWND(2), RB_INSERTBAND, ( WPARAM ) -1, ( LPARAM ) &rbBand );
+   SendMessage(hmg_par_HWND(2), RB_INSERTBAND, ( WPARAM ) -1, ( LPARAM ) &rbBand);
 
 #ifdef UNICODE
    hb_xfree(lpText);
@@ -1054,7 +1054,7 @@ HB_FUNC( GETTABBEDCONTROLBRUSH )
    HBRUSH hBrush;
    HDC    hDC = hmg_par_HDC(1);
 
-   SetBkMode( hDC, TRANSPARENT );
+   SetBkMode(hDC, TRANSPARENT);
    GetWindowRect(hmg_par_HWND(2), &rc);
    MapWindowPoints( NULL, hmg_par_HWND(3), ( LPPOINT ) ( &rc ), 2 );
    SetBrushOrgEx(hDC, -rc.left, -rc.top, NULL);
@@ -1081,7 +1081,7 @@ HB_FUNC( GETTABBRUSH )
 
    hOldBmp = ( HBITMAP ) SelectObject(hDCMem, hBmp);
 
-   SendMessage( hWnd, WM_PRINTCLIENT, ( WPARAM ) hDCMem, ( LPARAM ) PRF_ERASEBKGND | PRF_CLIENT | PRF_NONCLIENT );
+   SendMessage(hWnd, WM_PRINTCLIENT, ( WPARAM ) hDCMem, ( LPARAM ) PRF_ERASEBKGND | PRF_CLIENT | PRF_NONCLIENT);
 
    hBrush = CreatePatternBrush(hBmp);
 
@@ -1098,19 +1098,19 @@ HB_FUNC( INITMINMAXINFO )  // ( hWnd ) --> aMinMaxInfo
 {
    long x, y, mx, my;
 
-   if( GetWindowLong( hmg_par_HWND(1), GWL_STYLE ) & WS_SIZEBOX )
+   if( GetWindowLong(hmg_par_HWND(1), GWL_STYLE) & WS_SIZEBOX )
    {
-      x = -GetSystemMetrics( SM_CXFRAME );
-      y = -GetSystemMetrics( SM_CYFRAME );
+      x = -GetSystemMetrics(SM_CXFRAME);
+      y = -GetSystemMetrics(SM_CYFRAME);
    }
    else
    {
-      x = -GetSystemMetrics( SM_CXBORDER );
-      y = -GetSystemMetrics( SM_CYBORDER );
+      x = -GetSystemMetrics(SM_CXBORDER);
+      y = -GetSystemMetrics(SM_CYBORDER);
    }
 
-   mx = GetSystemMetrics( SM_CXSCREEN ) - 2 * x;
-   my = GetSystemMetrics( SM_CYSCREEN ) - 2 * y;
+   mx = GetSystemMetrics(SM_CXSCREEN) - 2 * x;
+   my = GetSystemMetrics(SM_CYSCREEN) - 2 * y;
 
    hb_reta(8);
    HB_STORVNL( ( LONG ) mx, -1, 1 );
@@ -1141,7 +1141,7 @@ HB_FUNC( SETMINMAXINFO )   // ( pMinMaxInfo, aMinMaxInfo ) --> 0
 
 HB_FUNC( LOCKWINDOWUPDATE )
 {
-   hb_retl( LockWindowUpdate( hmg_par_HWND(1) ) ? HB_TRUE : HB_FALSE );
+   hb_retl( LockWindowUpdate(hmg_par_HWND(1)) ? HB_TRUE : HB_FALSE );
 }
 
 HB_FUNC( ISWINDOWHANDLE )

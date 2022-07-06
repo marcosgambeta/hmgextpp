@@ -105,7 +105,7 @@ HB_FUNC( INITTREEVIEWBITMAP ) //Tree+
    if( nCount > 0 )
    {
       int Transparent = hb_parl(3) ? 0 : 1;
-      hArray = hb_param( 2, Harbour::Item::ARRAY );
+      hArray = hb_param(2, Harbour::Item::ARRAY);
 
       for( int s = 1; s <= nCount; s++ )
       {
@@ -118,7 +118,7 @@ HB_FUNC( INITTREEVIEWBITMAP ) //Tree+
       }
 
       if( himl != NULL )
-         SendMessage( hbutton, TVM_SETIMAGELIST, ( WPARAM ) TVSIL_NORMAL, ( LPARAM ) himl );
+         SendMessage(hbutton, TVM_SETIMAGELIST, ( WPARAM ) TVSIL_NORMAL, ( LPARAM ) himl);
 
       ic = ImageList_GetImageCount( himl );
    }
@@ -139,7 +139,7 @@ HB_FUNC( ADDTREEVIEWBITMAP )  // Tree+
    {
       HMG_ImageListAdd( himl, ( char * ) hb_parc(2), Transparent );
 
-      SendMessage( hbutton, TVM_SETIMAGELIST, ( WPARAM ) TVSIL_NORMAL, ( LPARAM ) himl );
+      SendMessage(hbutton, TVM_SETIMAGELIST, ( WPARAM ) TVSIL_NORMAL, ( LPARAM ) himl);
 
       ic = ImageList_GetImageCount( himl );
    }
@@ -254,7 +254,7 @@ HB_FUNC( TREEVIEW_SELECTITEM )
    TreeView_SelectItem( TreeHandle, ItemHandle );
 }
 
-void TreeView_FreeMemoryLPARAMRecursive( HWND hWndTV, HTREEITEM ItemHandle )
+void TreeView_FreeMemoryLPARAMRecursive(HWND hWndTV, HTREEITEM ItemHandle)
 {
    HMG_StructTreeItemLPARAM * TreeItemLPARAM;
    TV_ITEM   TreeItem;
@@ -277,8 +277,8 @@ void TreeView_FreeMemoryLPARAMRecursive( HWND hWndTV, HTREEITEM ItemHandle )
    ChildItem = TreeView_GetChild( hWndTV, ItemHandle );
    while( ChildItem != NULL )
    {
-      TreeView_FreeMemoryLPARAMRecursive( hWndTV, ChildItem );
-      NextItem  = TreeView_GetNextSibling( hWndTV, ChildItem );
+      TreeView_FreeMemoryLPARAMRecursive(hWndTV, ChildItem);
+      NextItem  = TreeView_GetNextSibling(hWndTV, ChildItem);
       ChildItem = NextItem;
    }
 }
@@ -291,7 +291,7 @@ HB_FUNC( TREEVIEW_DELETEITEM )
    TreeHandle = hmg_par_HWND(1);
    ItemHandle = hmg_par_HTREEITEM(2);
 
-   TreeView_FreeMemoryLPARAMRecursive( TreeHandle, ItemHandle );
+   TreeView_FreeMemoryLPARAMRecursive(TreeHandle, ItemHandle);
 
    TreeView_DeleteItem( TreeHandle, ItemHandle );
 }
@@ -337,7 +337,7 @@ HB_FUNC( TREEVIEW_GETPREVSIBLING )
    TreeHandle = hmg_par_HWND(1);
    ItemHandle = hmg_par_HTREEITEM(2);
 
-   PrevItemHandle = TreeView_GetPrevSibling( TreeHandle, ItemHandle );
+   PrevItemHandle = TreeView_GetPrevSibling(TreeHandle, ItemHandle);
 
    HB_RETNL( ( LONG_PTR ) PrevItemHandle );
 }
@@ -369,7 +369,7 @@ HB_FUNC( TREEVIEW_GETITEM )
 #ifndef UNICODE
    hb_retc( ItemText );
 #else
-   pStr = hb_osStrU16Decode( ItemText );
+   pStr = hb_osStrU16Decode(ItemText);
    hb_retc( pStr );
    hb_xfree(pStr);
 #endif
@@ -457,7 +457,7 @@ HB_FUNC( TREEVIEW_GETNEXTSIBLING )
    TreeHandle = hmg_par_HWND(1);
    ItemHandle = hmg_par_HTREEITEM(2);
 
-   NextItemHandle = TreeView_GetNextSibling( TreeHandle, ItemHandle );
+   NextItemHandle = TreeView_GetNextSibling(TreeHandle, ItemHandle);
 
    HB_RETNL( ( LONG_PTR ) NextItemHandle );
 }
@@ -485,7 +485,7 @@ HB_FUNC( TREEVIEW_GETPARENT )
    TreeHandle = hmg_par_HWND(1);
    ItemHandle = hmg_par_HTREEITEM(2);
 
-   ParentItemHandle = TreeView_GetParent( TreeHandle, ItemHandle );
+   ParentItemHandle = TreeView_GetParent(TreeHandle, ItemHandle);
 
    HB_RETNL( ( LONG_PTR ) ParentItemHandle );
 }
@@ -504,7 +504,7 @@ HB_FUNC( TREEVIEW_GETITEMSTATE )
    hb_retni( ( INT ) State );
 }
 
-BOOL TreeView_IsNode( HWND hWndTV, HTREEITEM ItemHandle )
+BOOL TreeView_IsNode(HWND hWndTV, HTREEITEM ItemHandle)
 {
    if( TreeView_GetChild( hWndTV, ItemHandle ) != NULL )
       return TRUE;
@@ -516,21 +516,21 @@ BOOL TreeView_IsNode( HWND hWndTV, HTREEITEM ItemHandle )
 //   TreeView_ExpandChildrenRecursive ( hWndTV, ItemHandle, nExpand, fRecurse )
 //--------------------------------------------------------------------------------------------------------
 
-void TreeView_ExpandChildrenRecursive( HWND hWndTV, HTREEITEM ItemHandle, UINT nExpand )
+void TreeView_ExpandChildrenRecursive(HWND hWndTV, HTREEITEM ItemHandle, UINT nExpand)
 {
    HTREEITEM ChildItem;
    HTREEITEM NextItem;
 
-   if( TreeView_IsNode( hWndTV, ItemHandle ) )
+   if( TreeView_IsNode(hWndTV, ItemHandle) )
    {
       TreeView_Expand( hWndTV, ItemHandle, nExpand );
       ChildItem = TreeView_GetChild( hWndTV, ItemHandle );
 
       while( ChildItem != NULL )
       {
-         TreeView_ExpandChildrenRecursive( hWndTV, ChildItem, nExpand );
+         TreeView_ExpandChildrenRecursive(hWndTV, ChildItem, nExpand);
 
-         NextItem  = TreeView_GetNextSibling( hWndTV, ChildItem );
+         NextItem  = TreeView_GetNextSibling(hWndTV, ChildItem);
          ChildItem = NextItem;
       }
    }
@@ -542,7 +542,7 @@ HB_FUNC( TREEVIEW_EXPANDCHILDRENRECURSIVE )
    HTREEITEM ItemHandle = hmg_par_HTREEITEM(2);
    UINT      nExpand    = hmg_par_UINT(3);
    BOOL      fRecurse   = hmg_par_BOOL(4);
-   HWND      hWndParent = GetParent( hWndTV );
+   HWND      hWndParent = GetParent(hWndTV);
    BOOL      lEnabled   = IsWindowEnabled( hWndParent );
 
    if( fRecurse == FALSE )
@@ -551,7 +551,7 @@ HB_FUNC( TREEVIEW_EXPANDCHILDRENRECURSIVE )
    {
       EnableWindow(hWndParent, FALSE);
 
-      TreeView_ExpandChildrenRecursive( hWndTV, ItemHandle, nExpand );
+      TreeView_ExpandChildrenRecursive(hWndTV, ItemHandle, nExpand);
 
       if( lEnabled == TRUE )
          EnableWindow(hWndParent, TRUE);
@@ -643,7 +643,7 @@ void TreeView_SortChildrenRecursiveCB(HWND hWndTV, TVSORTCB TVSortCB)
    HTREEITEM ChildItem;
    HTREEITEM NextItem;
 
-   if( TreeView_IsNode( hWndTV, TVSortCB.hParent ) )
+   if( TreeView_IsNode(hWndTV, TVSortCB.hParent) )
    {
       TreeView_SortChildrenCB(hWndTV, &TVSortCB, 0);
       ChildItem = TreeView_GetChild( hWndTV, TVSortCB.hParent );
@@ -653,7 +653,7 @@ void TreeView_SortChildrenRecursiveCB(HWND hWndTV, TVSORTCB TVSortCB)
          TVSortCB.hParent = ( HTREEITEM ) ChildItem;
          TreeView_SortChildrenRecursiveCB(hWndTV, TVSortCB);
 
-         NextItem  = TreeView_GetNextSibling( hWndTV, ChildItem );
+         NextItem  = TreeView_GetNextSibling(hWndTV, ChildItem);
          ChildItem = NextItem;
       }
    }
@@ -667,7 +667,7 @@ HB_FUNC( TREEVIEW_SORTCHILDRENRECURSIVECB )
    BOOL      lCaseSensitive  = hmg_par_BOOL(4);
    BOOL      lAscendingOrder = hmg_par_BOOL(5);
    INT       nNodePosition   = hmg_par_INT(6);
-   HWND      hWndParent      = GetParent( hWndTV );
+   HWND      hWndParent      = GetParent(hWndTV);
    BOOL      lEnabled        = IsWindowEnabled( hWndParent );
 
    TVSORTCB TVSortCB;

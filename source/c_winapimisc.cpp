@@ -130,7 +130,7 @@ HB_FUNC( WAITRUNPIPE )
       hb_fsSeek(nHandle, 0, 2);
    }
 
-   if( ! CreatePipe( &ReadPipeHandle, &WritePipeHandle, &sa, 0 ) )
+   if( ! CreatePipe(&ReadPipeHandle, &WritePipeHandle, &sa, 0) )
    {
       hb_retnl( -1 );
       return;
@@ -163,7 +163,7 @@ HB_FUNC( WAITRUNPIPE )
       DWORD BytesLeft;
 
       // Check for the presence of data in the pipe
-      if( ! PeekNamedPipe( ReadPipeHandle, Data, sizeof(Data), &BytesRead, &TotalBytes, &BytesLeft ) )
+      if( ! PeekNamedPipe(ReadPipeHandle, Data, sizeof(Data), &BytesRead, &TotalBytes, &BytesLeft) )
       {
          hb_retnl( -1 );
          return;
@@ -263,7 +263,7 @@ HB_FUNC( RETRIEVETEXTFROMCLIPBOARD )
    HGLOBAL hClipMem;
    LPSTR   lpClip;
 
-   if( IsClipboardFormatAvailable( CF_TEXT ) && OpenClipboard( GetActiveWindow() ) )
+   if( IsClipboardFormatAvailable(CF_TEXT) && OpenClipboard( GetActiveWindow() ) )
    {
       hClipMem = GetClipboardData(CF_TEXT);
       if( hClipMem )
@@ -322,7 +322,7 @@ HB_FUNC( HMG_KEYBOARDCLEARBUFFER )
 {
    MSG Msg;
 
-   while( PeekMessage( &Msg, NULL, WM_KEYFIRST, WM_KEYLAST, PM_REMOVE ) )
+   while( PeekMessage(&Msg, NULL, WM_KEYFIRST, WM_KEYLAST, PM_REMOVE) )
       ;
 }
 
@@ -330,7 +330,7 @@ HB_FUNC( HMG_MOUSECLEARBUFFER )
 {
    MSG Msg;
 
-   while( PeekMessage( &Msg, NULL, WM_MOUSEFIRST, WM_MOUSELAST, PM_REMOVE ) )
+   while( PeekMessage(&Msg, NULL, WM_MOUSEFIRST, WM_MOUSELAST, PM_REMOVE) )
       ;
 }
 
@@ -354,7 +354,7 @@ HB_FUNC( INKEYGUI )
 
    uTimer = SetTimer( NULL, 0, uElapse, NULL );
 
-   while( ( bRet = GetMessage( &Msg, NULL, 0, 0 ) ) != 0 )
+   while( (bRet = GetMessage(&Msg, NULL, 0, 0)) != 0 )
    {
       if( bRet == -1 )
       {
@@ -377,7 +377,7 @@ HB_FUNC( INKEYGUI )
             case WM_RBUTTONDOWN:
                bBreak = TRUE;
                uRet   = ( Msg.message == WM_LBUTTONDOWN ) ? K_LBUTTONDOWN : K_RBUTTONDOWN;
-               PostMessage( Msg.hwnd, Msg.message, Msg.wParam, Msg.lParam );
+               PostMessage(Msg.hwnd, Msg.message, Msg.wParam, Msg.lParam);
                break;
          }
       }
@@ -389,8 +389,8 @@ HB_FUNC( INKEYGUI )
       }
       else
       {
-         TranslateMessage( &Msg );  // Translates virtual key codes
-         DispatchMessage( &Msg );   // Dispatches message to window
+         TranslateMessage(&Msg);  // Translates virtual key codes
+         DispatchMessage(&Msg);   // Dispatches message to window
       }
    }
 
@@ -431,7 +431,7 @@ HB_FUNC( C_GETSPECIALFOLDER ) // Contributed By Ryszard Ryüko
 #ifndef UNICODE
    hb_retc( lpBuffer );
 #else
-   pStr = hb_osStrU16Decode( lpBuffer );
+   pStr = hb_osStrU16Decode(lpBuffer);
    hb_retc( pStr );
    hb_xfree(pStr);
 #endif
@@ -455,7 +455,7 @@ HB_FUNC( C_GETDLLSPECIALFOLDER )
 
       if( fnShGetFolderPath )
       {
-         if( fnShGetFolderPath( NULL, hb_parni(1), NULL, 0, szPath ) == S_OK )
+         if( fnShGetFolderPath(NULL, hb_parni(1), NULL, 0, szPath) == S_OK )
             hb_retc( szPath );
          else
             hb_retc( "" );
@@ -634,7 +634,7 @@ HB_FUNC( GETTEMPDIR )
    LPSTR pStr;
 #endif
 
-   GetTempPath( MAX_PATH, szBuffer );
+   GetTempPath(MAX_PATH, szBuffer);
 
 #ifndef UNICODE
    hb_retc( szBuffer );
@@ -647,12 +647,12 @@ HB_FUNC( GETTEMPDIR )
 
 HB_FUNC( POSTMESSAGE )
 {
-   hb_retnl( ( LONG ) PostMessage( hmg_par_HWND(1), hmg_par_UINT(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) hb_parnl(4) ) );
+   hb_retnl( ( LONG ) PostMessage(hmg_par_HWND(1), hmg_par_UINT(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) hb_parnl(4)) );
 }
 
 HB_FUNC( DEFWINDOWPROC )
 {
-   HB_RETNL( ( LONG_PTR ) DefWindowProc( hmg_par_HWND(1), hmg_par_UINT(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) hb_parnl(4) ) );
+   HB_RETNL( ( LONG_PTR ) DefWindowProc(hmg_par_HWND(1), hmg_par_UINT(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) hb_parnl(4)) );
 }
 
 HB_FUNC( GETSTOCKOBJECT )
@@ -701,14 +701,14 @@ HB_FUNC( SHELLEXECUTE )
       fnDisable = ( LPFN_WOW64DISABLEWOW64FSREDIRECTION ) wapi_GetProcAddress( hDll, "Wow64DisableWow64FsRedirection" );
       if( NULL != fnDisable )
       {
-         if( fnDisable( &OldValue ) )
+         if( fnDisable(&OldValue) )
          {
             bRestore = TRUE;
          }
       }
    }
 
-   CoInitialize( NULL );
+   CoInitialize(NULL);
 
    HB_RETNL
    (
@@ -833,7 +833,7 @@ HB_FUNC( WAITRUNTERM )
    LPWSTR  lpCommandLine      = AnsiToWide(( char * ) hb_parc(1));
    LPCWSTR lpCurrentDirectory = AnsiToWide(( char * ) hb_parc(2));
 #endif
-   PHB_ITEM    pWaitProc  = hb_param( 4, Harbour::Item::BLOCK );
+   PHB_ITEM    pWaitProc  = hb_param(4, Harbour::Item::BLOCK);
    ULONG       ulWaitMsec = ( HB_ISNIL(5) ? 2000 : hb_parnl(5) );
    BOOL        bTerm      = FALSE;
    BOOL        bWait;
@@ -880,7 +880,7 @@ HB_FUNC( WAITRUNTERM )
          ulNoSignal = WaitForSingleObject(prInfo.hProcess, ulWaitMsec);
          if( ulNoSignal )
          {
-            hb_evalBlock0( pWaitProc );
+            hb_evalBlock0(pWaitProc);
             bWait = hb_parl( -1 );
             if( ! bWait )
             {
@@ -1347,7 +1347,7 @@ HB_FUNC( FILLRECT )
       RECT rc;
       int  iParam = 6;
 
-      if( Array2Rect(hb_param( 2, Harbour::Item::ANY ), &rc) )
+      if( Array2Rect(hb_param(2, Harbour::Item::ANY), &rc) )
          iParam = 3;
       else
       {
@@ -1371,7 +1371,7 @@ HB_FUNC( FILLRECT )
 # pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  /* __MINGW32__ */
 
-BOOL IsAppHung( IN HWND hWnd, OUT PBOOL pbHung )
+BOOL IsAppHung(IN HWND hWnd, OUT PBOOL pbHung)
 {
    OSVERSIONINFO osvi;
    HINSTANCE     hUser;
@@ -1427,7 +1427,7 @@ HB_FUNC( ISAPPHUNG )
 {
    BOOL bIsHung;
 
-   if( IsAppHung( hmg_par_HWND(1), &bIsHung ) )
+   if( IsAppHung(hmg_par_HWND(1), &bIsHung) )
       hb_retl( bIsHung );
    else
    {
@@ -1520,7 +1520,7 @@ HB_FUNC( GETSHORTPATHNAME )
    LPSTR   pStr;
 #endif
 
-   iRet = GetShortPathName( lpszLongPath, buffer, MAX_PATH );
+   iRet = GetShortPathName(lpszLongPath, buffer, MAX_PATH);
    if( iRet < MAX_PATH )
    {
 #ifndef UNICODE
@@ -1574,7 +1574,7 @@ HB_FUNC( GETTEXTMETRIC )
    TEXTMETRIC tm;
    PHB_ITEM   aMetr = hb_itemArrayNew(7);
 
-   if( GetTextMetrics( hmg_par_HDC(1), // handle of device context
+   if( GetTextMetrics(hmg_par_HDC(1), // handle of device context
                        &tm                    // address of text metrics structure
                        ) )
    {
@@ -1722,7 +1722,7 @@ HB_FUNC( DRAGQUERYFILES )
 
 HB_FUNC( DRAGFINISH )
 {
-   DragFinish( ( HDROP ) HB_PARNL(1) );
+   DragFinish(( HDROP ) HB_PARNL(1));
 }
 
 HB_FUNC( HMG_CHARSETNAME )
@@ -1825,15 +1825,15 @@ static HRESULT CreateShortCut( LPWSTR pszTargetfile, LPWSTR pszTargetargs,
       ( iIconindex >= 0 )
       )
    {
-      hRes = CoCreateInstance( CLSID_ShellLink,           /* pre-defined CLSID of the IShellLink object */
-                               NULL,                       /* pointer to parent interface if part of aggregate */
-                               CLSCTX_INPROC_SERVER,       /* caller and called code are in same process */
-                               IID_IShellLink,            /* pre-defined interface of the IShellLink object */
-                               ( LPVOID * ) &pShellLink ); /* Returns a pointer to the IShellLink object */
+      hRes = CoCreateInstance(CLSID_ShellLink,           /* pre-defined CLSID of the IShellLink object */
+                              NULL,                       /* pointer to parent interface if part of aggregate */
+                              CLSCTX_INPROC_SERVER,       /* caller and called code are in same process */
+                              IID_IShellLink,            /* pre-defined interface of the IShellLink object */
+                              ( LPVOID * ) &pShellLink); /* Returns a pointer to the IShellLink object */
       if( SUCCEEDED( hRes ) )
       {
          /* Set the fields in the IShellLink object */
-         pShellLink->lpVtbl->SetPath( pShellLink, pszTargetfile );
+         pShellLink->lpVtbl->SetPath(pShellLink, pszTargetfile);
          pShellLink->lpVtbl->SetArguments( pShellLink, pszTargetargs );
          if( lstrlen( pszDescription ) > 0 )
          {
@@ -1853,9 +1853,9 @@ static HRESULT CreateShortCut( LPWSTR pszTargetfile, LPWSTR pszTargetargs,
          }
 
          /* Use the IPersistFile object to save the shell link */
-         hRes = pShellLink->lpVtbl->QueryInterface( pShellLink,                   /* existing IShellLink object */
-                                                    IID_IPersistFile,            /* pre-defined interface of the IPersistFile object */
-                                                    ( LPVOID * ) &pPersistFile ); /* returns a pointer to the IPersistFile object */
+         hRes = pShellLink->lpVtbl->QueryInterface(pShellLink,                   /* existing IShellLink object */
+                                                   IID_IPersistFile,            /* pre-defined interface of the IPersistFile object */
+                                                   ( LPVOID * ) &pPersistFile); /* returns a pointer to the IPersistFile object */
          if( SUCCEEDED( hRes ) )
          {
 #ifndef UNICODE
@@ -1863,7 +1863,7 @@ static HRESULT CreateShortCut( LPWSTR pszTargetfile, LPWSTR pszTargetargs,
 #else
             lstrcpy(wszLinkfile, pszLinkfile);
 #endif
-            hRes = pPersistFile->lpVtbl->Save( pPersistFile, reinterpret_cast<LPCOLESTR>(wszLinkfile), TRUE );
+            hRes = pPersistFile->lpVtbl->Save(pPersistFile, reinterpret_cast<LPCOLESTR>(wszLinkfile), TRUE);
             pPersistFile->lpVtbl->Release(pPersistFile);
          }
          pShellLink->lpVtbl->Release(pShellLink);
@@ -1912,7 +1912,7 @@ HB_FUNC( CREATELINK )
    iIconindex = hb_parnidef( 8, 0 );
 
    /* Call CoInitialize() and create the link if OK. */
-   hRes = CoInitialize( NULL );
+   hRes = CoInitialize(NULL);
    if( SUCCEEDED( hRes ) )
    {
       hRes = CreateShortCut( szTargetfile,  /* Targetfile */

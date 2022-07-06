@@ -58,8 +58,8 @@
 # define BCM_SETIMAGELIST  ( BCM_FIRST + 0x0002 )
 #endif
 
-HBITMAP HMG_LoadPicture( const char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage,
-                         HB_BOOL bAlphaFormat, int iAlpfaConstant );
+HBITMAP HMG_LoadPicture(const char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage,
+                        HB_BOOL bAlphaFormat, int iAlpfaConstant);
 
 HIMAGELIST HMG_SetButtonImageList( HWND hButton, const char * FileName, int Transparent, UINT uAlign );
 
@@ -222,9 +222,9 @@ HB_FUNC( INITIMAGECHECKBUTTON )
 
    if( ! hb_parl(13) )
    {
-      himage = ( HWND ) HMG_LoadPicture( hb_parc(8), -1, -1, hwnd, 0, Transparent, -1, 0, HB_FALSE, 255 );
+      himage = ( HWND ) HMG_LoadPicture(hb_parc(8), -1, -1, hwnd, 0, Transparent, -1, 0, HB_FALSE, 255);
 
-      SendMessage( hbutton, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage );
+      SendMessage(hbutton, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage);
 
       hb_reta(2);
       HB_STORVNL( ( LONG_PTR ) hbutton, -1, 1 );

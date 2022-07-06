@@ -63,13 +63,13 @@
 
 static HBRUSH CreateGradientBrush(HDC hDC, INT nWidth, INT nHeight, COLORREF Color1, COLORREF Color2);
 
-HBITMAP HMG_LoadPicture( const char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage,
-                         HB_BOOL bAlphaFormat, int iAlpfaConstant );
+HBITMAP HMG_LoadPicture(const char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage,
+                        HB_BOOL bAlphaFormat, int iAlpfaConstant);
 
 HIMAGELIST HMG_SetButtonImageList( HWND hButton, const char * FileName, int Transparent, UINT uAlign );
 BOOL bmp_SaveFile(HBITMAP hBitmap, TCHAR * FileName);
 
-LRESULT CALLBACK  OwnButtonProc( HWND hbutton, UINT msg, WPARAM wParam, LPARAM lParam );
+LRESULT CALLBACK  OwnButtonProc(HWND hbutton, UINT msg, WPARAM wParam, LPARAM lParam);
 
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);
@@ -198,9 +198,9 @@ HB_FUNC( INITIMAGEBUTTON )
    {
       if( ! hb_parl(17) )
       {
-         himage = ( HWND ) HMG_LoadPicture( hb_parc(8), -1, -1, hwnd, 0, Transparent, -1, 0, HB_FALSE, 255 );
+         himage = ( HWND ) HMG_LoadPicture(hb_parc(8), -1, -1, hwnd, 0, Transparent, -1, 0, HB_FALSE, 255);
 
-         SendMessage( hbutton, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage );
+         SendMessage(hbutton, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage);
 
          hb_reta(2);
          HB_STORVNL( ( LONG_PTR ) hbutton, -1, 1 );
@@ -254,7 +254,7 @@ HB_FUNC( INITIMAGEBUTTON )
 
          ImageList_AddIcon(bi.himl, hIcon);
 
-         SendMessage( ( HWND ) hbutton, ( UINT ) BCM_SETIMAGELIST, ( WPARAM ) 0, ( LPARAM ) &bi );
+         SendMessage(( HWND ) hbutton, ( UINT ) BCM_SETIMAGELIST, ( WPARAM ) 0, ( LPARAM ) &bi);
 
          DeleteObject(sIconInfo.hbmMask);
          DeleteObject(sIconInfo.hbmColor);
@@ -266,7 +266,7 @@ HB_FUNC( INITIMAGEBUTTON )
       }
       else
       {
-         SendMessage( hbutton, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_ICON, ( LPARAM ) hIcon );
+         SendMessage(hbutton, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_ICON, ( LPARAM ) hIcon);
 
          hb_reta(2);
          HB_STORVNL( ( LONG_PTR ) hbutton, -1, 1 );
@@ -387,9 +387,9 @@ HB_FUNC( _SETBTNPICTURE )
       himage = ( HWND ) LoadImage(NULL, lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef( 3, 0 ), 0), HB_MAX(hb_parnidef( 4, 0 ), 0), LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
    if( himage == NULL )
-      himage = ( HWND ) HMG_LoadPicture( hb_parc(2), hb_parni(3), hb_parni(4), hwnd, 0, 1, -1, 0, HB_FALSE, 255 );
+      himage = ( HWND ) HMG_LoadPicture(hb_parc(2), hb_parni(3), hb_parni(4), hwnd, 0, 1, -1, 0, HB_FALSE, 255);
 
-   SendMessage( hwnd, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage );
+   SendMessage(hwnd, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage);
 
    RegisterResource(himage, const_cast<LPSTR>("BMP"));
    HB_RETNL( ( LONG_PTR ) himage );
@@ -406,7 +406,7 @@ HB_FUNC( _GETBTNPICTUREHANDLE )
 
    hwnd = hmg_par_HWND(1);
 
-   himage = ( HWND ) SendMessage( hwnd, ( UINT ) BM_GETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage );
+   himage = ( HWND ) SendMessage(hwnd, ( UINT ) BM_GETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage);
 
    HB_RETNL( ( LONG_PTR ) himage );
 }
@@ -441,7 +441,7 @@ HB_FUNC( _SETBTNICON )
    if( hIcon == NULL )
       hIcon = ( HICON ) LoadImage(NULL, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR);
 
-   SendMessage( hwnd, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_ICON, ( LPARAM ) hIcon );
+   SendMessage(hwnd, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_ICON, ( LPARAM ) hIcon);
 
    RegisterResource(hIcon, const_cast<LPSTR>("ICON"));
    HB_RETNL( ( LONG_PTR ) hIcon );
@@ -488,7 +488,7 @@ HB_FUNC( _SETMIXEDBTNICON )
 
    ImageList_AddIcon(bi.himl, hIcon);
 
-   SendMessage( hwnd, ( UINT ) BCM_SETIMAGELIST, ( WPARAM ) 0, ( LPARAM ) &bi );
+   SendMessage(hwnd, ( UINT ) BCM_SETIMAGELIST, ( WPARAM ) 0, ( LPARAM ) &bi);
 
    DeleteObject(sIconInfo.hbmMask);
    DeleteObject(sIconInfo.hbmColor);
@@ -522,7 +522,7 @@ HB_FUNC( DRAWBUTTON )
       HBRUSH OldBrush = ( HBRUSH ) SelectObject(pps->hDC, GetStockObject( NULL_BRUSH ));
 
       InflateRect(&pps->rcItem, 1, 1);
-      Rectangle( pps->hDC, pps->rcItem.left, pps->rcItem.top, pps->rcItem.right, pps->rcItem.bottom );
+      Rectangle(pps->hDC, pps->rcItem.left, pps->rcItem.top, pps->rcItem.right, pps->rcItem.bottom);
 
       SelectObject(pps->hDC, OldBrush);
       SelectObject(pps->hDC, OldPen);
@@ -614,7 +614,7 @@ HB_FUNC( GETOWNBTNRECT )
    hb_itemReturnRelease(aMetr);
 }
 
-LRESULT CALLBACK OwnButtonProc( HWND hButton, UINT Msg, WPARAM wParam, LPARAM lParam )
+LRESULT CALLBACK OwnButtonProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
    static PHB_SYMB pSymbol = NULL;
    long int        r;
@@ -626,7 +626,7 @@ LRESULT CALLBACK OwnButtonProc( HWND hButton, UINT Msg, WPARAM wParam, LPARAM lP
    switch( Msg )
    {
       case WM_LBUTTONDBLCLK:
-         SendMessage( hButton, WM_LBUTTONDOWN, wParam, lParam );
+         SendMessage(hButton, WM_LBUTTONDOWN, wParam, lParam);
          break;
 
       case WM_MOUSEMOVE:
@@ -637,44 +637,44 @@ LRESULT CALLBACK OwnButtonProc( HWND hButton, UINT Msg, WPARAM wParam, LPARAM lP
          _TrackMouseEvent( &tme );
 
          if( ! pSymbol )
-            pSymbol = hb_dynsymSymbol( hb_dynsymGet( "OBTNEVENTS" ) );
+            pSymbol = hb_dynsymSymbol(hb_dynsymGet("OBTNEVENTS"));
 
          if( pSymbol )
          {
-            hb_vmPushSymbol( pSymbol );
+            hb_vmPushSymbol(pSymbol);
             hb_vmPushNil();
-            hb_vmPushNumInt( ( LONG_PTR ) hButton );
-            hb_vmPushLong( Msg );
-            hb_vmPushNumInt( wParam );
-            hb_vmPushNumInt( lParam );
+            hb_vmPushNumInt(( LONG_PTR ) hButton);
+            hb_vmPushLong(Msg);
+            hb_vmPushNumInt(wParam);
+            hb_vmPushNumInt(lParam);
             hb_vmDo(4);
          }
 
          r = hb_parnl( -1 );
 
-         return ( r != 0 ) ? r : DefWindowProc( hButton, Msg, wParam, lParam );
+         return ( r != 0 ) ? r : DefWindowProc(hButton, Msg, wParam, lParam);
 
       case WM_MOUSELEAVE:
          if( ! pSymbol )
-            pSymbol = hb_dynsymSymbol( hb_dynsymGet( "OBTNEVENTS" ) );
+            pSymbol = hb_dynsymSymbol(hb_dynsymGet("OBTNEVENTS"));
 
          if( pSymbol )
          {
-            hb_vmPushSymbol( pSymbol );
+            hb_vmPushSymbol(pSymbol);
             hb_vmPushNil();
-            hb_vmPushNumInt( ( LONG_PTR ) hButton );
-            hb_vmPushLong( Msg );
-            hb_vmPushNumInt( wParam );
-            hb_vmPushNumInt( lParam );
+            hb_vmPushNumInt(( LONG_PTR ) hButton);
+            hb_vmPushLong(Msg);
+            hb_vmPushNumInt(wParam);
+            hb_vmPushNumInt(lParam);
             hb_vmDo(4);
          }
 
          r = hb_parnl( -1 );
 
-         return ( r != 0 ) ? r : DefWindowProc( hButton, Msg, wParam, lParam );
+         return ( r != 0 ) ? r : DefWindowProc(hButton, Msg, wParam, lParam);
    }
 
-   return CallWindowProc( OldWndProc, hButton, Msg, wParam, lParam );
+   return CallWindowProc(OldWndProc, hButton, Msg, wParam, lParam);
 }
 
 /*
@@ -739,14 +739,14 @@ HIMAGELIST HMG_SetButtonImageList( HWND hButton, const char * FileName, int Tran
    BUTTON_IMAGELIST bi;
    TCHAR TempPathFileName[ MAX_PATH ];
 
-   hBitmap = HMG_LoadPicture( FileName, -1, -1, NULL, 0, 0, -1, 0, HB_FALSE, 255 );
+   hBitmap = HMG_LoadPicture(FileName, -1, -1, NULL, 0, 0, -1, 0, HB_FALSE, 255);
    if( hBitmap == NULL )
       return NULL;
 
    GetObject(hBitmap, sizeof(BITMAP), &Bmp);
 
-   GetTempPath( MAX_PATH, TempPathFileName );
-   lstrcat( TempPathFileName, TEXT("_MG_temp.BMP") );
+   GetTempPath(MAX_PATH, TempPathFileName);
+   lstrcat(TempPathFileName, TEXT("_MG_temp.BMP"));
    bmp_SaveFile(hBitmap, TempPathFileName);
    DeleteObject(hBitmap);
 
@@ -764,7 +764,7 @@ HIMAGELIST HMG_SetButtonImageList( HWND hButton, const char * FileName, int Tran
    bi.margin.right  = 10;
    bi.uAlign        = uAlign;
 
-   SendMessage( hButton, BCM_SETIMAGELIST, ( WPARAM ) 0, ( LPARAM ) &bi );
+   SendMessage(hButton, BCM_SETIMAGELIST, ( WPARAM ) 0, ( LPARAM ) &bi);
 
    return hImageList;
 }

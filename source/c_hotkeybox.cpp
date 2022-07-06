@@ -112,7 +112,7 @@ HB_FUNC( C_GETHOTKEYNAME )
 
    hWnd = hmg_par_HWND(1);
 
-   wHotKey = ( WORD ) SendMessage( hWnd, HKM_GETHOTKEY, 0, 0 );
+   wHotKey = ( WORD ) SendMessage(hWnd, HKM_GETHOTKEY, 0, 0);
 
    InterpretHotKey( wHotKey, szKeyName );
 
@@ -168,10 +168,10 @@ HB_FUNC( SETHOTKEYVALUE )
    wHotKey = ( WORD ) hb_parnl(2);
 
    if( wHotKey != 0 )
-      SendMessage( hWnd, HKM_SETHOTKEY, wHotKey, 0 );
+      SendMessage(hWnd, HKM_SETHOTKEY, wHotKey, 0);
 
-   SendMessage( hWnd, HKM_SETRULES, ( WPARAM ) HKCOMB_NONE | HKCOMB_S,  // invalid key combinations
-                MAKELPARAM( HOTKEYF_ALT, 0 ) );                         // add ALT to invalid entries
+   SendMessage(hWnd, HKM_SETRULES, ( WPARAM ) HKCOMB_NONE | HKCOMB_S,  // invalid key combinations
+               MAKELPARAM( HOTKEYF_ALT, 0 ));                         // add ALT to invalid entries
 }
 
 HB_FUNC( C_GETHOTKEYVALUE )
@@ -184,10 +184,10 @@ HB_FUNC( C_GETHOTKEYVALUE )
 
    hWnd = hmg_par_HWND(1);
 
-   wHotKey = ( WORD ) SendMessage( hWnd, HKM_GETHOTKEY, 0, 0 );
+   wHotKey = ( WORD ) SendMessage(hWnd, HKM_GETHOTKEY, 0, 0);
 
-   uVirtualKeyCode = LOBYTE( LOWORD(wHotKey) );
-   uModifiers      = HIBYTE( LOWORD(wHotKey) );
+   uVirtualKeyCode = LOBYTE(LOWORD(wHotKey));
+   uModifiers      = HIBYTE(LOWORD(wHotKey));
    iModifierKeys   =                                                        //
                      ( ( uModifiers & HOTKEYF_CONTROL ) ? MOD_CONTROL : 0 ) //
                      | ( ( uModifiers & HOTKEYF_ALT ) ? MOD_ALT : 0 )       //
@@ -203,7 +203,7 @@ HB_FUNC( C_GETHOTKEY )
    HWND hWnd = hmg_par_HWND(1);
    WORD wHotKey;
 
-   wHotKey = ( WORD ) SendMessage( hWnd, HKM_GETHOTKEY, 0, 0 );
+   wHotKey = ( WORD ) SendMessage(hWnd, HKM_GETHOTKEY, 0, 0);
 
    hb_retnl( ( WORD ) wHotKey );
 }

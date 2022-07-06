@@ -53,7 +53,7 @@
 #define WC_EDIT  "Edit"
 #endif
 
-extern LRESULT CALLBACK OwnEditProc( HWND hbutton, UINT msg, WPARAM wParam, LPARAM lParam );
+extern LRESULT CALLBACK OwnEditProc(HWND hbutton, UINT msg, WPARAM wParam, LPARAM lParam);
 
 HINSTANCE GetInstance(void);
 
@@ -100,7 +100,7 @@ HB_FUNC( INITEDITBOX )
       NULL
              );
 
-   SendMessage( hbutton, ( UINT ) EM_LIMITTEXT, ( WPARAM ) hb_parni(9), ( LPARAM ) 0 );
+   SendMessage(hbutton, ( UINT ) EM_LIMITTEXT, ( WPARAM ) hb_parni(9), ( LPARAM ) 0);
 
    SetProp( ( HWND ) hbutton, TEXT("oldeditproc"), ( HWND ) GetWindowLongPtr(( HWND ) hbutton, GWLP_WNDPROC) );
    SetWindowLongPtr(hbutton, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnEditProc);

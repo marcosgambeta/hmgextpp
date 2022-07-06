@@ -160,8 +160,8 @@ HB_FUNC( CHKLISTBOXINSERTITEM )
    int lbItem   = hb_parni(3) - 1;
    int bChecked = hb_parni(4);
 
-   SendMessage( hwnd, LB_INSERTSTRING, ( WPARAM ) lbItem, ( LPARAM ) lpString );
-   SendMessage( hwnd, LB_SETITEMDATA, ( WPARAM ) ( int ) lbItem, ( LPARAM ) bChecked );
+   SendMessage(hwnd, LB_INSERTSTRING, ( WPARAM ) lbItem, ( LPARAM ) lpString);
+   SendMessage(hwnd, LB_SETITEMDATA, ( WPARAM ) ( int ) lbItem, ( LPARAM ) bChecked);
 
 #ifdef UNICODE
    hb_xfree(lpString);
@@ -181,8 +181,8 @@ HB_FUNC( CHKLISTBOXADDITEM )
    int lbItem;
 
    m_nHeightItem = hb_parni(4);
-   lbItem        = ( int ) SendMessage( hwnd, LB_ADDSTRING, 0, ( LPARAM ) lpString );
-   SendMessage( hwnd, LB_SETITEMDATA, ( WPARAM ) ( int ) lbItem, ( LPARAM ) bChecked );
+   lbItem        = ( int ) SendMessage(hwnd, LB_ADDSTRING, 0, ( LPARAM ) lpString);
+   SendMessage(hwnd, LB_SETITEMDATA, ( WPARAM ) ( int ) lbItem, ( LPARAM ) bChecked);
 
 #ifdef UNICODE
    hb_xfree(lpString);
@@ -203,18 +203,18 @@ HB_FUNC( SETCHKLBITEMHEIGHT ) // set the height of a string in pixels
       hwnd = GetActiveWindow();
       hdc  = GetDC(hwnd);
    }
-   SendMessage( hwnd, LB_GETTEXT, 0, ( LPARAM ) achBuffer );
+   SendMessage(hwnd, LB_GETTEXT, 0, ( LPARAM ) achBuffer);
 
    if( hFont )
       hOldFont = ( HFONT ) SelectObject(hdc, hFont);
 
-   GetTextExtentPoint32( hdc, achBuffer, ( int ) HB_STRLEN( achBuffer ), &sz );
+   GetTextExtentPoint32(hdc, achBuffer, ( int ) HB_STRLEN(achBuffer), &sz);
 
    if( sz.cy > m_nHeightItem )
    {
       m_nHeightItem = sz.cy;
 
-      SendMessage( hwnd, LB_SETITEMHEIGHT, 0, MAKELPARAM( m_nHeightItem, 0 ) );
+      SendMessage(hwnd, LB_SETITEMHEIGHT, 0, MAKELPARAM(m_nHeightItem, 0));
    }
 
    if( hFont )
@@ -230,17 +230,17 @@ HB_FUNC( CHKLIST_SETCHECKBOX )
    int   bChecked        = hb_parni(3);
    TCHAR cString[ 1024 ] = { TEXT("") };
 
-   SendMessage( hwnd, LB_GETTEXT, ( WPARAM ) lbItem, ( LPARAM ) cString );
-   SendMessage( hwnd, LB_DELETESTRING, ( WPARAM ) lbItem, 0 );
-   SendMessage( hwnd, LB_INSERTSTRING, ( WPARAM ) lbItem, ( LPARAM ) cString );
-   SendMessage( hwnd, LB_SETITEMDATA, ( WPARAM ) lbItem, ( LPARAM ) bChecked );
+   SendMessage(hwnd, LB_GETTEXT, ( WPARAM ) lbItem, ( LPARAM ) cString);
+   SendMessage(hwnd, LB_DELETESTRING, ( WPARAM ) lbItem, 0);
+   SendMessage(hwnd, LB_INSERTSTRING, ( WPARAM ) lbItem, ( LPARAM ) cString);
+   SendMessage(hwnd, LB_SETITEMDATA, ( WPARAM ) lbItem, ( LPARAM ) bChecked);
 }
 
 HB_FUNC( CHKLIST_GETCHECKBOX )
 {
    HWND hwnd   = hmg_par_HWND(1);
    int  lbItem = hb_parni(2);
-   int  iCheck = ( int ) SendMessage( hwnd, LB_GETITEMDATA, ( WPARAM ) lbItem - 1, 0 );
+   int  iCheck = ( int ) SendMessage(hwnd, LB_GETITEMDATA, ( WPARAM ) lbItem - 1, 0);
 
    hb_retl( ( BOOL ) iCheck - 1 );
 }
@@ -278,7 +278,7 @@ HB_FUNC( _ONDRAWLISTBOXITEM )
          case ODA_SELECT:
          case ODA_DRAWENTIRE:
 
-            iCheck = ( int ) SendMessage( pdis->hwndItem, LB_GETITEMDATA, pdis->itemID, 0 );
+            iCheck = ( int ) SendMessage(pdis->hwndItem, LB_GETITEMDATA, pdis->itemID, 0);
 
             if( pdis->itemState & ODS_SELECTED )
             {
@@ -318,11 +318,11 @@ HB_FUNC( _ONDRAWLISTBOXITEM )
             // Draw the string associated with the item.
             //
             // Get the item string from the list box.
-            SendMessage( pdis->hwndItem, LB_GETTEXT,
-                         pdis->itemID, ( LPARAM ) achBuffer );
+            SendMessage(pdis->hwndItem, LB_GETTEXT,
+                        pdis->itemID, ( LPARAM ) achBuffer);
 
             // Get the metrics for the current font.
-            GetTextMetrics( pdis->hDC, &tm );
+            GetTextMetrics(pdis->hDC, &tm);
 
             // Calculate the vertical position for the item string
             // so that the string will be vertically centered in the

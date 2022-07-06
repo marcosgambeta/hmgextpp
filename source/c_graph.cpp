@@ -57,8 +57,8 @@ LPWSTR AnsiToWide(LPCSTR);
 // extern "C" {
 // #endif
 extern BOOL Array2ColorRef(PHB_ITEM aCRef, COLORREF * cr);
-//extern HFONT PrepareFont( TCHAR *, int, int, int, int, int, int, int );
-extern HFONT PrepareFont( TCHAR * FontName, int FontSize, int Weight, DWORD Italic, DWORD Underline, DWORD StrikeOut, DWORD Angle, DWORD charset );
+//extern HFONT PrepareFont(TCHAR *, int, int, int, int, int, int, int);
+extern HFONT PrepareFont(TCHAR * FontName, int FontSize, int Weight, DWORD Italic, DWORD Underline, DWORD StrikeOut, DWORD Angle, DWORD charset);
 // #ifdef __cplusplus
 // }
 // #endif
@@ -100,25 +100,25 @@ HB_FUNC( TEXTDRAW )
 
 #ifdef UNICODE
       pStr = AnsiToWide(hb_parc(9));
-      font = PrepareFont( ( TCHAR * ) pStr, hb_parni(10), bold, italic, underline, strikeout, angle, DEFAULT_CHARSET );
+      font = PrepareFont(( TCHAR * ) pStr, hb_parni(10), bold, italic, underline, strikeout, angle, DEFAULT_CHARSET);
       hb_xfree(pStr);
 #else
-      font = PrepareFont( ( TCHAR * ) hb_parc(9), hb_parni(10), bold, italic, underline, strikeout, angle, DEFAULT_CHARSET );
+      font = PrepareFont(( TCHAR * ) hb_parc(9), hb_parni(10), bold, italic, underline, strikeout, angle, DEFAULT_CHARSET);
 #endif
 
       hgdiobj = SelectObject(hDC, font);
 
       if( hb_parl(15) )
-         iBkMode = SetBkMode( hDC, TRANSPARENT );
+         iBkMode = SetBkMode(hDC, TRANSPARENT);
       else
       {
-         iBkMode = SetBkMode( hDC, OPAQUE );
+         iBkMode = SetBkMode(hDC, OPAQUE);
 
-         if( Array2ColorRef(hb_param( 8, Harbour::Item::ANY ), &crBkColor) )
+         if( Array2ColorRef(hb_param(8, Harbour::Item::ANY), &crBkColor) )
             crBkColor = SetBkColor(hDC, crBkColor);
       }
 
-      if( Array2ColorRef(hb_param( 7, Harbour::Item::ANY ), &crFgColor) )
+      if( Array2ColorRef(hb_param(7, Harbour::Item::ANY), &crFgColor) )
          SetTextColor(hDC, crFgColor);
 
       SetRect(&rect, hb_parni(3), hb_parni(2), hb_parni(6), hb_parni(5));
@@ -132,7 +132,7 @@ HB_FUNC( TEXTDRAW )
       SelectObject(hDC, hgdiobj);
 
       if( 0 != iBkMode )
-         SetBkMode( hDC, iBkMode );
+         SetBkMode(hDC, iBkMode);
 
       if( CLR_INVALID != crBkColor )
          SetBkColor(hDC, crBkColor);
@@ -193,7 +193,7 @@ HB_FUNC( RECTDRAW )
       hgdiobj2   = SelectObject(hdc1, hbrush);
    }
 
-   Rectangle( hdc1, ( int ) hb_parni(3), ( int ) hb_parni(2), ( int ) hb_parni(5), ( int ) hb_parni(4) );
+   Rectangle(hdc1, ( int ) hb_parni(3), ( int ) hb_parni(2), ( int ) hb_parni(5), ( int ) hb_parni(4));
    SelectObject(hdc1, hgdiobj1);
    SelectObject(hdc1, hgdiobj2);
    DeleteObject(hpen);
@@ -268,7 +268,7 @@ HB_FUNC( ELLIPSEDRAW )
       hgdiobj2   = SelectObject(hdc1, hbrush);
    }
 
-   Ellipse( hdc1, ( int ) hb_parni(3), ( int ) hb_parni(2), ( int ) hb_parni(5), ( int ) hb_parni(4) );
+   Ellipse(hdc1, ( int ) hb_parni(3), ( int ) hb_parni(2), ( int ) hb_parni(5), ( int ) hb_parni(4));
    SelectObject(hdc1, hgdiobj1);
    SelectObject(hdc1, hgdiobj2);
    DeleteObject(hpen);

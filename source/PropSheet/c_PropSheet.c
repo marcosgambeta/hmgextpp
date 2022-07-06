@@ -63,11 +63,11 @@
 #include "hbapiitm.h"
 
 
-extern PWORD   CreateDlgTemplate( long lTemplateSize,  PHB_ITEM dArray,PHB_ITEM cArray );
+extern PWORD   CreateDlgTemplate(long lTemplateSize,  PHB_ITEM dArray,PHB_ITEM cArray);
 extern long    GetSizeDlgTemp( PHB_ITEM dArray, PHB_ITEM cArray );
 
 /****************************************************************************/
-LRESULT CALLBACK HMG_PageDlgProc( HWND hWndDlg, UINT message, WPARAM wParam, LPARAM lParam )
+LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
    static PHB_SYMB   pSymbol = NULL;
    static PHB_SYMB   pSymbol2 = NULL;
@@ -89,15 +89,15 @@ LRESULT CALLBACK HMG_PageDlgProc( HWND hWndDlg, UINT message, WPARAM wParam, LPA
       ps = (PROPSHEETPAGE *)lParam;
       if( !pSymbol2 )
       {
-         pSymbol2 = hb_dynsymSymbol( hb_dynsymGet("INITPAGEDLGPROC") );
+         pSymbol2 = hb_dynsymSymbol(hb_dynsymGet("INITPAGEDLGPROC"));
       }
       if( pSymbol2 )
       {
-         hb_vmPushSymbol( pSymbol2 );
+         hb_vmPushSymbol(pSymbol2);
          hb_vmPushNil();
-         hb_vmPushLong( (LONG) hWndDlg );
-         hb_vmPushLong( (LONG)ps->lParam );
-         hb_vmPushLong( (LONG)hWndParent );
+         hb_vmPushLong((LONG) hWndDlg);
+         hb_vmPushLong((LONG)ps->lParam);
+         hb_vmPushLong((LONG)hWndParent);
          hb_vmDo(3);
       }
       return (TRUE);
@@ -115,16 +115,16 @@ LRESULT CALLBACK HMG_PageDlgProc( HWND hWndDlg, UINT message, WPARAM wParam, LPA
 
       if( !pSymbol3 )
       {
-         pSymbol3 = hb_dynsymSymbol( hb_dynsymGet("BUTTONPAGEDLGPROC") );
+         pSymbol3 = hb_dynsymSymbol(hb_dynsymGet("BUTTONPAGEDLGPROC"));
       }
       if( pSymbol3 )
       {
-         hb_vmPushSymbol( pSymbol3 );
+         hb_vmPushSymbol(pSymbol3);
          hb_vmPushNil();
-         hb_vmPushLong( (LONG) hWndDlg );
-         hb_vmPushLong( (LONG) lpnmhdr->code  );
-         hb_vmPushLong( (LONG) nId );
-         hb_vmPushLong( (LONG) nPage );
+         hb_vmPushLong((LONG) hWndDlg);
+         hb_vmPushLong((LONG) lpnmhdr->code);
+         hb_vmPushLong((LONG) nId);
+         hb_vmPushLong((LONG) nPage);
          hb_vmDo(4);
       }
 
@@ -182,18 +182,18 @@ LRESULT CALLBACK HMG_PageDlgProc( HWND hWndDlg, UINT message, WPARAM wParam, LPA
 
    if( !pSymbol )
    {
-      pSymbol = hb_dynsymSymbol( hb_dynsymGet("PAGEDLGPROC") );
+      pSymbol = hb_dynsymSymbol(hb_dynsymGet("PAGEDLGPROC"));
    }
 
    if( pSymbol )
    {
-      hb_vmPushSymbol( pSymbol );
+      hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
-      hb_vmPushLong( (LONG) hWndParent );
-      hb_vmPushLong( (LONG) hWndDlg );
-      hb_vmPushLong( message );
-      hb_vmPushLong( wParam );
-      hb_vmPushLong( lParam );
+      hb_vmPushLong((LONG) hWndParent);
+      hb_vmPushLong((LONG) hWndDlg);
+      hb_vmPushLong(message);
+      hb_vmPushLong(wParam);
+      hb_vmPushLong(lParam);
       hb_vmDo(5);
    }
 
@@ -201,7 +201,7 @@ LRESULT CALLBACK HMG_PageDlgProc( HWND hWndDlg, UINT message, WPARAM wParam, LPA
 }
 
 /****************************************************************************/
-LRESULT CALLBACK HMG_PropSheetProc( HWND hwndPropSheet, UINT message, LPARAM lParam )
+LRESULT CALLBACK HMG_PropSheetProc(HWND hwndPropSheet, UINT message, LPARAM lParam)
 {
    static PHB_SYMB  pSymbol = NULL;
 
@@ -220,16 +220,16 @@ LRESULT CALLBACK HMG_PropSheetProc( HWND hwndPropSheet, UINT message, LPARAM lPa
    }
    if( !pSymbol )
    {
-      pSymbol = hb_dynsymSymbol( hb_dynsymGet("PROPSHEETPROC") );
+      pSymbol = hb_dynsymSymbol(hb_dynsymGet("PROPSHEETPROC"));
    }
 
    if( pSymbol )
    {
-      hb_vmPushSymbol( pSymbol );
+      hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
-      hb_vmPushLong( (LONG) hwndPropSheet );
-      hb_vmPushLong( message );
-      hb_vmPushLong( lParam );
+      hb_vmPushLong((LONG) hwndPropSheet);
+      hb_vmPushLong(message);
+      hb_vmPushLong(lParam);
       hb_vmDo(3);
    }
 
@@ -250,7 +250,7 @@ HB_FUNC( CREATEPROPERTYSEEETPAGE )
    char    *strSubHdTitle;
    int     idRC, PageStyle;
 
-   sArray = hb_param( 1, Harbour::Item::ARRAY );
+   sArray = hb_param(1, Harbour::Item::ARRAY);
 
    ZeroMemory ( &psp, sizeof(PROPSHEETPAGE) );
 
@@ -277,7 +277,7 @@ HB_FUNC( CREATEPROPERTYSEEETPAGE )
 
    psp.lParam        = idRC;
 
-   hPage =  CreatePropertySheetPage( &psp);
+   hPage =  CreatePropertySheetPage(&psp);
 
    hb_retnl( (LONG) hPage);
 }
@@ -298,8 +298,8 @@ HB_FUNC( CREATEPROPERTYSHEET )
    int      s, idWM, nPages, idHeader, idIcon, Style;
 
    HWND hwnd = (HWND) hb_parnl(1);
-   sArray = hb_param( 2, Harbour::Item::ARRAY );
-   pArray = hb_param( 3, Harbour::Item::ARRAY );
+   sArray = hb_param(2, Harbour::Item::ARRAY);
+   pArray = hb_param(3, Harbour::Item::ARRAY);
 
    nPages = hb_arrayLen( sArray );
 
@@ -470,8 +470,8 @@ HB_FUNC( SENDDLGITEMMESSAGE )
 {
    LRESULT lResult;
 
-   lResult = SendDlgItemMessage( (HWND) hb_parnl(1), (int) hb_parni(2), (UINT) hb_parnl(3),
-                                 (WPARAM) hb_parni(4), (LPARAM) hb_parni(5) );
+   lResult = SendDlgItemMessage((HWND) hb_parnl(1), (int) hb_parni(2), (UINT) hb_parnl(3),
+                                 (WPARAM) hb_parni(4), (LPARAM) hb_parni(5));
    hb_retnl( (LONG) lResult );
 }
 
@@ -480,7 +480,7 @@ HB_FUNC( SENDDLGITEMMESSAGE )
 *****************************************************************************/
 HB_FUNC( PROPSHEET_SETRESULT )
 {
-  SetWindowLong( (HWND) hb_parnl(1), DWL_MSGRESULT, (BOOL) hb_parl(2));
+  SetWindowLong((HWND) hb_parnl(1), DWL_MSGRESULT, (BOOL) hb_parl(2));
 }
 
 /****************************************************************************
@@ -516,12 +516,12 @@ HB_FUNC( CREATEPROPSEEETPAGEINDIRECT )
 
    long     lTemplateSize ;
 
-   sArray = hb_param( 1, Harbour::Item::ARRAY );   //Property Sheet Array
-   dArray = hb_param( 2, Harbour::Item::ARRAY );   //Property Sheet Page Array
-   cArray = hb_param( 3, Harbour::Item::ARRAY );   //Page Controls Array
+   sArray = hb_param(1, Harbour::Item::ARRAY);   //Property Sheet Array
+   dArray = hb_param(2, Harbour::Item::ARRAY);   //Property Sheet Page Array
+   cArray = hb_param(3, Harbour::Item::ARRAY);   //Page Controls Array
 
    lTemplateSize = GetSizeDlgTemp( dArray, cArray);
-   pdlgtemplate = CreateDlgTemplate( lTemplateSize, dArray, cArray);
+   pdlgtemplate = CreateDlgTemplate(lTemplateSize, dArray, cArray);
 
    strTitle       = (char *) hb_arrayGetCPtr(sArray, 1);  // Caption
    idRC           = hb_arrayGetNI( sArray, 2 );             // Id Dialog resource
@@ -548,7 +548,7 @@ HB_FUNC( CREATEPROPSEEETPAGEINDIRECT )
 
    psp.lParam        = idRC;
 
-   hPage = CreatePropertySheetPage( &psp);
+   hPage = CreatePropertySheetPage(&psp);
 
    hb_retnl( (LONG) hPage );
 }

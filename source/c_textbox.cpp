@@ -55,7 +55,7 @@
 #define WC_EDIT  "Edit"
 #endif
 
-LRESULT CALLBACK  OwnEditProc( HWND hbutton, UINT msg, WPARAM wParam, LPARAM lParam );
+LRESULT CALLBACK  OwnEditProc(HWND hbutton, UINT msg, WPARAM wParam, LPARAM lParam);
 
 HINSTANCE GetInstance(void);
 
@@ -168,7 +168,7 @@ HB_FUNC( INITTEXTBOX )
       NULL
            );
 
-   SendMessage( hedit, ( UINT ) EM_LIMITTEXT, ( WPARAM ) hb_parni(9), ( LPARAM ) 0 );
+   SendMessage(hedit, ( UINT ) EM_LIMITTEXT, ( WPARAM ) hb_parni(9), ( LPARAM ) 0);
 
    SetProp( ( HWND ) hedit, TEXT("oldeditproc"), ( HWND ) GetWindowLongPtr(( HWND ) hedit, GWLP_WNDPROC) );
    SetWindowLongPtr(hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnEditProc);
@@ -227,7 +227,7 @@ HB_FUNC( INITCHARMASKTEXTBOX )
    HB_RETNL( ( LONG_PTR ) hbutton );
 }
 
-LRESULT CALLBACK OwnEditProc( HWND hButton, UINT Msg, WPARAM wParam, LPARAM lParam )
+LRESULT CALLBACK OwnEditProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
    static PHB_SYMB pSymbol = NULL;
    long int        r;
@@ -245,16 +245,16 @@ LRESULT CALLBACK OwnEditProc( HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPar
       case WM_CONTEXTMENU:
       case WM_CHAR:
          if( ! pSymbol )
-            pSymbol = hb_dynsymSymbol( hb_dynsymGet( "OEDITEVENTS" ) );
+            pSymbol = hb_dynsymSymbol(hb_dynsymGet("OEDITEVENTS"));
 
          if( pSymbol )
          {
-            hb_vmPushSymbol( pSymbol );
+            hb_vmPushSymbol(pSymbol);
             hb_vmPushNil();
-            hb_vmPushNumInt( ( LONG_PTR ) hButton );
-            hb_vmPushLong( Msg );
-            hb_vmPushNumInt( wParam );
-            hb_vmPushNumInt( lParam );
+            hb_vmPushNumInt(( LONG_PTR ) hButton);
+            hb_vmPushLong(Msg);
+            hb_vmPushNumInt(wParam);
+            hb_vmPushNumInt(lParam);
             hb_vmDo(4);
          }
 
@@ -263,8 +263,8 @@ LRESULT CALLBACK OwnEditProc( HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPar
          if( r != 0 )
             return r;
          else
-            return CallWindowProc( OldWndProc, hButton, Msg, wParam, lParam );
+            return CallWindowProc(OldWndProc, hButton, Msg, wParam, lParam);
    }
 
-   return CallWindowProc( OldWndProc, hButton, Msg, wParam, lParam );
+   return CallWindowProc(OldWndProc, hButton, Msg, wParam, lParam);
 }
