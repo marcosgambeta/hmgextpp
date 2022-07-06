@@ -243,7 +243,7 @@ LRESULT CALLBACK HMG_PropSheetProc(HWND hwndPropSheet, UINT message, LPARAM lPar
 HB_FUNC( CREATEPROPERTYSEEETPAGE )
 {
    HPROPSHEETPAGE hPage;
-   PROPSHEETPAGE psp = {0};
+   PROPSHEETPAGE psp; memset(&psp, 0, sizeof(psp));
    PHB_ITEM sArray;
    char    *strTitle;
    char    *strHdTitle;
@@ -504,7 +504,7 @@ HB_FUNC( CREATEPROPSEEETPAGEINDIRECT )
    PWORD    pdlgtemplate;
 
    HPROPSHEETPAGE hPage;
-   PROPSHEETPAGE psp = {0};
+   PROPSHEETPAGE psp; memset(&psp, 0, sizeof(psp));
    char     *strTitle;
    char     *strHdTitle;
    char     *strSubHdTitle;
