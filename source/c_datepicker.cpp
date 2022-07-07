@@ -220,9 +220,9 @@ HB_FUNC( SETDATEPICK )
    }
    else if( hb_pcount() > 2 )
    {
-      sysTime.wYear  = ( WORD ) hb_parni(2);
-      sysTime.wMonth = ( WORD ) hb_parni(3);
-      sysTime.wDay   = ( WORD ) hb_parni(4);
+      sysTime.wYear  = hmg_par_WORD(2);
+      sysTime.wMonth = hmg_par_WORD(3);
+      sysTime.wDay   = hmg_par_WORD(4);
    }
    else
    {
@@ -255,9 +255,9 @@ HB_FUNC( SETTIMEPICK )
    sysTime.wDay       = 1;
    sysTime.wDayOfWeek = 0;
 
-   sysTime.wHour         = ( WORD ) hb_parni(2);
-   sysTime.wMinute       = ( WORD ) hb_parni(3);
-   sysTime.wSecond       = ( WORD ) hb_parni(4);
+   sysTime.wHour         = hmg_par_WORD(2);
+   sysTime.wMinute       = hmg_par_WORD(3);
+   sysTime.wSecond       = hmg_par_WORD(4);
    sysTime.wMilliseconds = 0;
 
    if( SendMessage(hwnd, DTM_SETSYSTEMTIME, GDT_VALID, ( LPARAM ) &sysTime) == GDT_VALID )
@@ -396,10 +396,10 @@ HB_FUNC( DTP_SETDATETIME )
 
       if( hb_pcount() >= 7 )
       {
-         sysTime.wHour         = ( WORD ) hb_parni(5);
-         sysTime.wMinute       = ( WORD ) hb_parni(6);
-         sysTime.wSecond       = ( WORD ) hb_parni(7);
-         sysTime.wMilliseconds = ( WORD ) hb_parni(8);
+         sysTime.wHour         = hmg_par_WORD(5);
+         sysTime.wMinute       = hmg_par_WORD(6);
+         sysTime.wSecond       = hmg_par_WORD(7);
+         sysTime.wMilliseconds = hmg_par_WORD(8);
       }
       else
          bTimeToZero = TRUE;

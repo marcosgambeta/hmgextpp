@@ -155,3 +155,4 @@ extern HB_PTRUINT wapi_GetProcAddress( HMODULE hmodule, LPCSTR lpProcName );
 #define hmg_par_LONG(n) static_cast<LONG>(hb_parnl(n))
 #define hmg_par_BYTE(n) static_cast<BYTE>(hb_parni(n))
 #define hmg_par_DWORD(n) static_cast<DWORD>(hb_parnl(n))
+#define hmg_par_WORD(n) static_cast<WORD>(hb_parni(n))

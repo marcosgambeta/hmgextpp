@@ -139,7 +139,7 @@ HB_FUNC( WAITRUNPIPE )
    ProcessInfo.hProcess    = INVALID_HANDLE_VALUE;
    ProcessInfo.hThread     = INVALID_HANDLE_VALUE;
    StartupInfo.dwFlags     = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
-   StartupInfo.wShowWindow = ( WORD ) hb_parni(2);
+   StartupInfo.wShowWindow = hmg_par_WORD(2);
    StartupInfo.hStdOutput  = WritePipeHandle;
    StartupInfo.hStdError   = WritePipeHandle;
 
@@ -800,7 +800,7 @@ HB_FUNC( WAITRUN )
 
    stInfo.dwFlags = STARTF_USESHOWWINDOW;
 
-   stInfo.wShowWindow = ( WORD ) hb_parni(2);
+   stInfo.wShowWindow = hmg_par_WORD(2);
 
    bResult = CreateProcess(NULL, lpCommandLine, NULL, NULL, TRUE, CREATE_NEW_CONSOLE | NORMAL_PRIORITY_CLASS, NULL, NULL, &stInfo, &prInfo);
 

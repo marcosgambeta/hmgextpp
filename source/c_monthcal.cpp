@@ -155,9 +155,9 @@ HB_FUNC( SETMONTHCALVALUE )
 
    hwnd = hmg_par_HWND(1);
 
-   sysTime.wYear      = ( WORD ) hb_parni(2);
-   sysTime.wMonth     = ( WORD ) hb_parni(3);
-   sysTime.wDay       = ( WORD ) hb_parni(4);
+   sysTime.wYear      = hmg_par_WORD(2);
+   sysTime.wMonth     = hmg_par_WORD(3);
+   sysTime.wDay       = hmg_par_WORD(4);
    sysTime.wDayOfWeek = LOWORD(SendMessage(hwnd, MCM_GETFIRSTDAYOFWEEK, 0, 0));
 
    sysTime.wHour         = 0;

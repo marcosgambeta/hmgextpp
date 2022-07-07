@@ -1116,8 +1116,8 @@ HB_FUNC( RICHEDITBOX_PASTESPECIAL )    // Paste a specific clipboard format in a
 HB_FUNC( RICHEDITBOX_SETMARGINS )
 {
    HWND hWndControl = hmg_par_HWND(1);
-   WORD LeftMargin  = ( WORD ) hb_parni(2); // in pixels
-   WORD RightMargin = ( WORD ) hb_parni(3); // in pixels
+   WORD LeftMargin  = hmg_par_WORD(2); // in pixels
+   WORD RightMargin = hmg_par_WORD(3); // in pixels
 
    SendMessage(hWndControl, EM_SETMARGINS, EC_USEFONTINFO, ( LPARAM ) MAKELPARAM(LeftMargin, RightMargin));
 }

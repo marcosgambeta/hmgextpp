@@ -262,7 +262,7 @@ HB_FUNC( REFRESHITEMBAR )
 HB_FUNC( KEYTOGGLE )
 {
    BYTE pBuffer[ 256 ];
-   WORD wKey = ( WORD ) hb_parni(1);
+   WORD wKey = hmg_par_WORD(1);
 
    GetKeyboardState(pBuffer);
 

@@ -824,7 +824,7 @@ HB_FUNC( _SETPROGRESSBARPOS )
 // TDM_SET_PROGRESS_BAR_RANGE - Sets the minimum and maximum values for the progress bar in a task dialog
 HB_FUNC( _SETPROGRESSBARRANGE )
 {
-   LPARAM range = MAKELPARAM((( WORD ) hb_parni(2)), (( WORD ) hb_parni(3)));
+   LPARAM range = MAKELPARAM(hmg_par_WORD(2), hmg_par_WORD(3));
 
    SendMessage(hmg_par_HWND(1), TDM_SET_PROGRESS_BAR_RANGE, ( WPARAM ) 0, range);
 }

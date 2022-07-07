@@ -222,7 +222,7 @@ HB_FUNC( LOADACCELERATORS )
 
    if( HB_ISNUM(2) )
    {
-      lpTableName = MAKEINTRESOURCE(( WORD ) hb_parni(2));
+      lpTableName = MAKEINTRESOURCE(hmg_par_WORD(2));
 
       hAccel = LoadAccelerators(hInstance, lpTableName);
    }
@@ -246,7 +246,7 @@ HB_FUNC( LOADMENU )
 
    if( HB_ISNUM(2) )
    {
-      lpMenuName = MAKEINTRESOURCE(( WORD ) hb_parni(2));
+      lpMenuName = MAKEINTRESOURCE(hmg_par_WORD(2));
 
       hMenu = LoadMenu(hInstance, lpMenuName);
    }
