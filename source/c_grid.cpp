@@ -999,8 +999,8 @@ HB_FUNC( LISTVIEW_SETCOLUMNORDERARRAY )
 HB_FUNC( LISTVIEW_CHANGEEXTENDEDSTYLE )  // Dr. Claudio Soto
 {
    HWND  hWnd = hmg_par_HWND(1);
-   DWORD Add = ( DWORD ) hb_parnl(2);
-   DWORD Remove = ( DWORD ) hb_parnl(3);
+   DWORD Add = hmg_par_DWORD(2);
+   DWORD Remove = hmg_par_DWORD(3);
    DWORD OldStyle, NewStyle, Style;
 
    OldStyle = ListView_GetExtendedListViewStyle(hWnd);
@@ -1014,7 +1014,7 @@ HB_FUNC( LISTVIEW_CHANGEEXTENDEDSTYLE )  // Dr. Claudio Soto
 HB_FUNC( LISTVIEW_GETEXTENDEDSTYLE )  // Dr. Claudio Soto
 {
    HWND  hWnd     = hmg_par_HWND(1);
-   DWORD ExStyle  = ( DWORD ) hb_parnl(2);
+   DWORD ExStyle  = hmg_par_DWORD(2);
    DWORD OldStyle = ListView_GetExtendedListViewStyle(hWnd);
 
    if( HB_ISNUM(2) )

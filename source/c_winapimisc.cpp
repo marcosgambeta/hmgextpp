@@ -409,12 +409,12 @@ HB_FUNC( RELEASEDC )
 
 HB_FUNC( HIWORD )
 {
-   hb_retni( ( int ) HIWORD(( DWORD ) hb_parnl(1)) );
+   hb_retni( ( int ) HIWORD(hmg_par_DWORD(1)) );
 }
 
 HB_FUNC( LOWORD )
 {
-   hb_retni( ( int ) LOWORD(( DWORD ) hb_parnl(1)) );
+   hb_retni( ( int ) LOWORD(hmg_par_DWORD(1)) );
 }
 
 HB_FUNC( C_GETSPECIALFOLDER ) // Contributed By Ryszard Ryüko
@@ -1468,7 +1468,7 @@ HB_FUNC( EMPTYWORKINGSET )
 
    if( pEmptyWorkingSet != NULL )
    {
-      ProcessID = HB_ISNUM(1) ? ( DWORD ) hb_parnl(1) : GetCurrentProcessId();
+      ProcessID = HB_ISNUM(1) ? hmg_par_DWORD(1) : GetCurrentProcessId();
 
       hProcess = OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION | PROCESS_SET_QUOTA, FALSE, ProcessID);
       if( hProcess != NULL )
@@ -1501,7 +1501,7 @@ HB_FUNC( GETCOMPACTPATH )
    {
       _GETCOMPACTPATH pFunc;
       pFunc = ( _GETCOMPACTPATH ) wapi_GetProcAddress(handle, "PathCompactPathExA");
-      hb_retni( pFunc( ( LPTSTR ) hb_parc(1), ( LPTSTR ) hb_parc(2), hmg_par_INT(3), ( DWORD ) hb_parnl(4) ) );
+      hb_retni( pFunc( ( LPTSTR ) hb_parc(1), ( LPTSTR ) hb_parc(2), hmg_par_INT(3), hmg_par_DWORD(4) ) );
       FreeLibrary(handle);
    }
 }

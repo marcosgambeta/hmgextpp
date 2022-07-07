@@ -95,7 +95,7 @@ HB_FUNC( MESSAGEBOXTIMEOUT )
 #endif
    UINT  uType          = ( UINT ) hb_parnldef(3, MB_OK);
    WORD  wLanguageId    = MAKELANGID( LANG_NEUTRAL, SUBLANG_NEUTRAL );
-   DWORD dwMilliseconds = HB_ISNUM(4) ? ( DWORD ) hb_parnl(4) : ( DWORD ) 0xFFFFFFFF;
+   DWORD dwMilliseconds = HB_ISNUM(4) ? hmg_par_DWORD(4) : ( DWORD ) 0xFFFFFFFF;
 
    hb_retni( MessageBoxTimeout(hWnd, lpText, lpCaption, uType, wLanguageId, dwMilliseconds) );
 }

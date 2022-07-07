@@ -341,7 +341,7 @@ HB_FUNC( INITTOOLTIPEX )
 
       if( HB_ISNUM(6) )
       {
-         dwStyle |= ( DWORD ) hb_parnl(6);
+         dwStyle |= hmg_par_DWORD(6);
       }
 
       if( HB_ISNUM(7) )

@@ -242,8 +242,8 @@ HB_FUNC( SETWINDOWPOS )
 HB_FUNC( ANIMATEWINDOW )
 {
    HWND  hWnd    = hmg_par_HWND(1);
-   DWORD dwTime  = ( DWORD ) hb_parnl(2);
-   DWORD dwFlags = ( DWORD ) hb_parnl(3);
+   DWORD dwTime  = hmg_par_DWORD(2);
+   DWORD dwFlags = hmg_par_DWORD(3);
 
    hb_retl( ( BOOL ) AnimateWindow(hWnd, dwTime, dwFlags) );
 }
@@ -254,9 +254,9 @@ HB_FUNC( FLASHWINDOWEX )
 
    FlashWinInfo.cbSize    = sizeof(FLASHWINFO);
    FlashWinInfo.hwnd      = hmg_par_HWND(1);
-   FlashWinInfo.dwFlags   = ( DWORD ) hb_parnl(2);
+   FlashWinInfo.dwFlags   = hmg_par_DWORD(2);
    FlashWinInfo.uCount    = hmg_par_UINT(3);
-   FlashWinInfo.dwTimeout = ( DWORD ) hb_parnl(4);
+   FlashWinInfo.dwTimeout = hmg_par_DWORD(4);
 
    hb_retl( ( BOOL ) FlashWindowEx(&FlashWinInfo) );
 }
@@ -282,7 +282,7 @@ HB_FUNC( SETLAYEREDWINDOWATTRIBUTES )
          {
             COLORREF crKey   = hmg_par_COLORREF(2);
             BYTE     bAlpha  = hmg_par_BYTE(3);
-            DWORD    dwFlags = ( DWORD ) hb_parnl(4);
+            DWORD    dwFlags = hmg_par_DWORD(4);
 
             if( ! ( GetWindowLongPtr(hWnd, GWL_EXSTYLE) & WS_EX_LAYERED ) )
                SetWindowLongPtr(hWnd, GWL_EXSTYLE, GetWindowLongPtr( hWnd, GWL_EXSTYLE ) | WS_EX_LAYERED);

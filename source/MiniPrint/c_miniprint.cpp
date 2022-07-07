@@ -82,7 +82,7 @@ extern HBITMAP HMG_LoadImage(const char * FileName, const char * s);
 
 HB_FUNC( _HMG_SETCHARSET )
 {
-   charset = ( DWORD ) hb_parnl(1);
+   charset = hmg_par_DWORD(1);
 }
 
 HB_FUNC( _HMG_PRINTER_ABORTDOC )

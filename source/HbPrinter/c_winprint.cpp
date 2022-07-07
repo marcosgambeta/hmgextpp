@@ -1014,7 +1014,7 @@ HB_FUNC( RR_SELECTFONT )
 
 HB_FUNC( RR_SETCHARSET )
 {
-   charset = ( DWORD ) hb_parnl(1);
+   charset = hmg_par_DWORD(1);
 }
 
 HB_FUNC( RR_TEXTOUT )

@@ -138,7 +138,7 @@ HB_FUNC( WIN_TASKDIALOG0 )
 
    if( HB_ISNUM(6) )
    {
-      dwCommonButtons = ( DWORD ) hb_parnl(6);
+      dwCommonButtons = hmg_par_DWORD(6);
    }
 
    if( HB_ISNUM(7) )
