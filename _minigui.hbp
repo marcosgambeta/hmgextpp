@@ -8,6 +8,7 @@
 -cflag=-DCINTERFACE
 
 # C++
+source\c_animate.cpp
 source\c_bitmap.cpp
 source\c_browse.cpp
 source\c_btntextbox.cpp
