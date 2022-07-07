@@ -67,9 +67,6 @@ WORD     GetDIBColors(LPSTR);
 
 HINSTANCE GetResources(void);
 
-// Minigui Resources control system
-void RegisterResource(HANDLE hResource, LPSTR szType);
-
 HB_FUNC( SAVEWINDOWBYHANDLE )
 {
    HWND     hWnd = hmg_par_HWND(1);
@@ -714,7 +711,7 @@ HB_FUNC( LOADBITMAP )
    if( hBitmap == NULL )
       hBitmap = ( HBITMAP ) LoadImage(NULL, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR);
 
-   RegisterResource(hBitmap, const_cast<LPSTR>("BMP"));
+   RegisterResource(hBitmap, "BMP");
    HB_RETNL( ( LONG_PTR ) hBitmap );
 
 #ifdef UNICODE

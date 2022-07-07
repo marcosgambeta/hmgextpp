@@ -101,9 +101,6 @@ LPWSTR AnsiToWide(LPCSTR);
 #endif
 HINSTANCE GetResources(void);
 
-// Minigui Resources control system
-void RegisterResource(HANDLE hResource, LPSTR szType);
-
 static WNDPROC s_Image_WNDPROC;
 static char *  MimeTypeOld;
 
@@ -332,7 +329,7 @@ HB_FUNC( C_SETPICTURE )
       if( hBitmap != NULL )
       {
          HBITMAP hOldBitmap = ( HBITMAP ) SendMessage(hWnd, STM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) hBitmap);
-         RegisterResource(hBitmap, const_cast<LPSTR>("BMP"));
+         RegisterResource(hBitmap, "BMP");
 
          if( hOldBitmap != NULL )
             DeleteObject(hOldBitmap);
@@ -364,7 +361,7 @@ HB_FUNC( LOADIMAGE )
                 );
 
       if( hBitmap != NULL )
-         RegisterResource(hBitmap, const_cast<LPSTR>("BMP"));
+         RegisterResource(hBitmap, "BMP");
    }
 
    HB_RETNL( ( LONG_PTR ) hBitmap );
@@ -377,7 +374,7 @@ HB_FUNC( C_GETRESPICTURE )
    hBitmap = HMG_LoadImage(hb_parc(1), hb_parc(2));
 
    if( hBitmap != NULL )
-      RegisterResource(hBitmap, const_cast<LPSTR>("BMP"));
+      RegisterResource(hBitmap, "BMP");
 
    HB_RETNL( ( LONG_PTR ) hBitmap );
 }

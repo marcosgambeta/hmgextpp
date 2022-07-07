@@ -61,9 +61,6 @@ LPWSTR AnsiToWide(LPCSTR);
 HINSTANCE GetInstance(void);
 HINSTANCE GetResources(void);
 
-// Minigui Resources control system
-void RegisterResource(HANDLE hResource, LPSTR szType);
-
 HB_FUNC( INITTABCONTROL )
 {
    PHB_ITEM hArray;
@@ -261,7 +258,7 @@ HB_FUNC( ADDTABBITMAP )
       }
    }
 
-   RegisterResource(himl, const_cast<LPSTR>("IMAGELIST"));
+   RegisterResource(himl, "IMAGELIST");
    HB_RETNL( ( LONG_PTR ) himl );
 }
 

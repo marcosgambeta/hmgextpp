@@ -77,9 +77,6 @@ LPWSTR AnsiToWide(LPCSTR);
 HINSTANCE GetInstance(void);
 HINSTANCE GetResources(void);
 
-// Minigui Resources control system
-void RegisterResource(HANDLE hResource, LPSTR szType);
-
 #if ( defined( __BORLANDC__ ) && __BORLANDC__ < 1410 ) || ( defined ( __MINGW32__ ) && defined ( __MINGW32_VERSION ) )
 typedef struct
 {
@@ -391,7 +388,7 @@ HB_FUNC( _SETBTNPICTURE )
 
    SendMessage(hwnd, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage);
 
-   RegisterResource(himage, const_cast<LPSTR>("BMP"));
+   RegisterResource(himage, "BMP");
    HB_RETNL( ( LONG_PTR ) himage );
 
 #ifdef UNICODE
@@ -418,7 +415,7 @@ HB_FUNC( _SETMIXEDBTNPICTURE )
 
    himl = HMG_SetButtonImageList(hmg_par_HWND(1), hb_parc(2), Transparent, BUTTON_IMAGELIST_ALIGN_CENTER);
 
-   RegisterResource(himl, const_cast<LPSTR>("IMAGELIST"));
+   RegisterResource(himl, "IMAGELIST");
    HB_RETNL( ( LONG_PTR ) himl );
 }
 
@@ -443,7 +440,7 @@ HB_FUNC( _SETBTNICON )
 
    SendMessage(hwnd, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_ICON, ( LPARAM ) hIcon);
 
-   RegisterResource(hIcon, const_cast<LPSTR>("ICON"));
+   RegisterResource(hIcon, "ICON");
    HB_RETNL( ( LONG_PTR ) hIcon );
 
 #ifdef UNICODE
@@ -494,7 +491,7 @@ HB_FUNC( _SETMIXEDBTNICON )
    DeleteObject(sIconInfo.hbmColor);
    DestroyIcon(hIcon);
 
-   RegisterResource(himl, const_cast<LPSTR>("IMAGELIST"));
+   RegisterResource(himl, "IMAGELIST");
    HB_RETNL( ( LONG_PTR ) himl );
 
 #ifdef UNICODE

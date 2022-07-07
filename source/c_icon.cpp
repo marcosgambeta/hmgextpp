@@ -59,10 +59,6 @@ LPWSTR AnsiToWide(LPCSTR);
 HINSTANCE GetInstance(void);
 HINSTANCE GetResources(void);
 
-// Minigui Resources control system
-void RegisterResource(HANDLE hResource, LPSTR szType);
-void pascal DelResource(HANDLE hResource);
-
 // HICON WINAPI CopyIcon(HICON hIcon)
 HB_FUNC( COPYICON )
 {
@@ -70,7 +66,7 @@ HB_FUNC( COPYICON )
 
    hIcon = CopyIcon(( HICON ) ( LONG_PTR ) HB_PARNL(1));
 
-   RegisterResource(hIcon, const_cast<LPSTR>("ICON"));
+   RegisterResource(hIcon, "ICON");
    HB_RETNL( ( LONG_PTR ) hIcon );
 }
 
@@ -90,7 +86,7 @@ HB_FUNC( DUPLICATEICON )
 
    hIcon = DuplicateIcon(( HINSTANCE ) NULL, ( HICON ) ( LONG_PTR ) HB_PARNL(1));
 
-   RegisterResource(hIcon, const_cast<LPSTR>("ICON"));
+   RegisterResource(hIcon, "ICON");
    HB_RETNL( ( LONG_PTR ) hIcon );
 }
 
@@ -107,7 +103,7 @@ HB_FUNC( LOADICON )
    hIcon = LoadIcon(hinstance, HB_ISCHAR(2) ? pW : ( LPCWSTR ) MAKEINTRESOURCE(hb_parni(2)));
 #endif
 
-   RegisterResource(hIcon, const_cast<LPSTR>("ICON"));
+   RegisterResource(hIcon, "ICON");
    HB_RETNL( ( LONG_PTR ) hIcon );
 
 #ifdef UNICODE
@@ -127,7 +123,7 @@ HB_FUNC( EXTRACTICON )
    hIcon = ExtractIcon(GetInstance(), pW, hmg_par_UINT(2));
 #endif
 
-   RegisterResource(hIcon, const_cast<LPSTR>("ICON"));
+   RegisterResource(hIcon, "ICON");
    HB_RETNL( ( LONG_PTR ) hIcon );
 
 #ifdef UNICODE
@@ -187,7 +183,7 @@ HB_FUNC( LOADICONBYNAME )
          hIcon = ( HICON ) LoadImage(0, pszResOrFile, IMAGE_ICON, cxDesired, cyDesired, LR_LOADFROMFILE | LR_DEFAULTCOLOR);
 
       if( hIcon != NULL )
-         RegisterResource(hIcon, const_cast<LPSTR>("ICON"));
+         RegisterResource(hIcon, "ICON");
 
 #ifdef UNICODE
       hb_xfree(( TCHAR * ) pszResOrFile);

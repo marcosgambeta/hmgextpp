@@ -935,9 +935,6 @@ RETURN
 
 #include <commctrl.h>
 
-// Minigui Resources control system
-void RegisterResource( HANDLE hResource, LPSTR szType );
-
 HB_FUNC ( SETBRUSHORG )
 {
     HDC hDC  = ( HDC ) HB_PARNL( 1 );
@@ -1021,7 +1018,7 @@ HB_FUNC( CREATEPATTERNHBRUSH ) // ( hBitmap ) --> hBrush
 {
    HBRUSH hBrush = CreatePatternBrush( ( HBITMAP ) HB_PARNL( 1 ) );
 
-   RegisterResource( hBrush, const_cast<LPSTR>("BRUSH") );
+   RegisterResource(hBrush, "BRUSH");
 
    HB_RETNL( ( LONG_PTR ) hBrush );
 }

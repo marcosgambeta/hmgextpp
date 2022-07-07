@@ -81,9 +81,6 @@ LPSTR  WideToAnsi(LPWSTR);
 #endif
 BOOL SysRefresh(void);
 
-// Minigui Resources control system
-void RegisterResource(HANDLE hResource, LPSTR szType);
-
 HB_PTRUINT wapi_GetProcAddress(HMODULE hModule, LPCSTR lpProcName)
 {
    FARPROC pProc;
@@ -583,7 +580,7 @@ HB_FUNC( PAINTBKGND )
 
    ReleaseDC(hwnd, hdc);
 
-   RegisterResource(hBrush, const_cast<LPSTR>("BRUSH"));
+   RegisterResource(hBrush, "BRUSH");
    HB_RETNL( ( LONG_PTR ) hBrush );
 }
 
@@ -988,7 +985,7 @@ HB_FUNC( CREATESOLIDBRUSH )
 {
    HBRUSH hBrush = CreateSolidBrush(( COLORREF ) RGB(hb_parni(1), hb_parni(2), hb_parni(3)));
 
-   RegisterResource(hBrush, const_cast<LPSTR>("BRUSH"));
+   RegisterResource(hBrush, "BRUSH");
    HB_RETNL( ( LONG_PTR ) hBrush );
 }
 

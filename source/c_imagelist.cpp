@@ -66,9 +66,6 @@ LPWSTR AnsiToWide(LPCSTR);
 HINSTANCE GetInstance(void);
 HINSTANCE GetResources(void);
 
-// Minigui Resources control system
-void RegisterResource(HANDLE hResource, LPSTR szType);
-
 HB_FUNC( INITIMAGELIST )   //InitImageList ( cx , cy, mask , nCount )
 {
    HIMAGELIST himlIcons;
@@ -81,7 +78,7 @@ HB_FUNC( INITIMAGELIST )   //InitImageList ( cx , cy, mask , nCount )
 
    himlIcons = ImageList_Create(hmg_par_INT(1), hmg_par_INT(2), Styl, hmg_par_INT(4), 0);
 
-   RegisterResource(himlIcons, const_cast<LPSTR>("IMAGELIST"));
+   RegisterResource(himlIcons, "IMAGELIST");
    HB_RETNL( ( LONG_PTR ) himlIcons );
 }
 

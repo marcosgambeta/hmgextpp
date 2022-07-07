@@ -64,7 +64,7 @@ RETURN NIL
 #include <hbapiitm.h>
 #include <hbvm.h>
 
-void RegisterResource( HANDLE hRes, LPSTR szType )
+void RegisterResource( HANDLE hRes, LPCSTR szType )
 {
    PHB_ITEM pRet = hb_itemNew( hb_param( -1, HB_IT_ANY ) );
 

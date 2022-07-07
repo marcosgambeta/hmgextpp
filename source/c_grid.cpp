@@ -67,9 +67,6 @@ LPSTR  WideToAnsi(LPWSTR);
 HINSTANCE GetInstance(void);
 HINSTANCE GetResources(void);
 
-// Minigui Resources control system
-void RegisterResource(HANDLE hResource, LPSTR szType);
-
 #if ( ( defined( __BORLANDC__ ) && __BORLANDC__ < 1410 ) )
 
 typedef struct tagLVITEMA2
@@ -318,7 +315,7 @@ HB_FUNC( ADDLISTVIEWBITMAPHEADER )  // Grid+
          if( himl != NULL )
          {
             SendMessage(hheader, HDM_SETIMAGELIST, 0, ( LPARAM ) himl);
-            RegisterResource(himl, const_cast<LPSTR>("IMAGELIST"));
+            RegisterResource(himl, "IMAGELIST");
          }
       }
    }

@@ -62,9 +62,6 @@ LPWSTR AnsiToWide(LPCSTR);
 LPSTR  WideToAnsi(LPWSTR);
 #endif
 
-// Minigui Resources control system
-void RegisterResource(HANDLE hResource, LPSTR szType);
-
 HFONT PrepareFont(TCHAR * FontName, int FontSize, int Weight, DWORD Italic, DWORD Underline, DWORD StrikeOut, DWORD Angle, DWORD charset)
 {
    HDC hDC = GetDC(HWND_DESKTOP);
@@ -100,7 +97,7 @@ HB_FUNC( INITFONT )
    hFont = PrepareFont(( TCHAR * ) hb_parc(1), hb_parni(2), bold, italic, underline, strikeout, angle, charset);
 #endif
 
-   RegisterResource(hFont, const_cast<LPSTR>("FONT"));
+   RegisterResource(hFont, "FONT");
    HB_RETNL( ( LONG_PTR ) hFont );
 }
 
@@ -131,7 +128,7 @@ HB_FUNC( _SETFONT )
 
       SendMessage(( HWND ) hwnd, ( UINT ) WM_SETFONT, ( WPARAM ) hFont, ( LPARAM ) 1);
 
-      RegisterResource(hFont, const_cast<LPSTR>("FONT"));
+      RegisterResource(hFont, "FONT");
       HB_RETNL( ( LONG_PTR ) hFont );
    }
    else
