@@ -808,7 +808,7 @@ RESULT DynaCall(int Flags,       LPVOID lpFunction, int nArgs,
    BYTE   *pArg;
 
    #if defined( __MINGW32__ )
-   #elif defined( __BORLANDC__ ) || defined(__DMC__)
+   #elif defined( __BORLANDC__ )
    #else
       DWORD *pESP;
    #endif
@@ -818,7 +818,7 @@ RESULT DynaCall(int Flags,       LPVOID lpFunction, int nArgs,
       asm volatile("\tmovl %%esp, %0\n"
                    "\tsubl $0x100, %%esp\n"
                    : "=r" (pStack));
-   #elif defined( __BORLANDC__ ) || defined(__DMC__)
+   #elif defined( __BORLANDC__ )
       pStack = (DWORD *)_ESP;
       _ESP -= 0x100;
    #else
@@ -899,7 +899,7 @@ RESULT DynaCall(int Flags,       LPVOID lpFunction, int nArgs,
          ((int *)pRet)[0] = dwEAX;
          ((int *)pRet)[1] = dwEDX;
       }
-   #elif defined( __BORLANDC__ ) || defined(__DMC__)
+   #elif defined( __BORLANDC__ )
       _ESP += (0x100 - dwStSize);
       _EDX =  (DWORD) &lpFunction;
       __emit__(0xff,0x12); // call [edx];
