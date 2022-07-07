@@ -6,12 +6,15 @@
 #include <commctrl.h>
 #include "hbapi.h"
 
-#pragma argsused    // We need a lowercase!!!
+// #pragma argsused    // We need a lowercase!!!
 
-void CALLBACK
-MessageBoxTimer(HWND hwnd , UINT uiMsg , UINT idEvent , DWORD  dwTime)
+void CALLBACK MessageBoxTimer(HWND hwnd, UINT uiMsg, UINT idEvent, DWORD dwTime)
 {
-    PostQuitMessage(0);
+   HB_SYMBOL_UNUSED(hwnd);
+   HB_SYMBOL_UNUSED(uiMsg);
+   HB_SYMBOL_UNUSED(idEvent);
+   HB_SYMBOL_UNUSED(dwTime);
+   PostQuitMessage(0);
 }
 
 UINT
