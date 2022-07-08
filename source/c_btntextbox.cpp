@@ -80,7 +80,7 @@ HB_FUNC( INITBTNTEXTBOX )
    HWND hBtn1, hBtn2;
    BOOL fBtn2 = hb_parl(20);
    int  BtnWidth2;
-   int  BtnWidth = ( HB_ISNIL(18) ? 0 : ( int ) hb_parni(18) );
+   int  BtnWidth = ( HB_ISNIL(18) ? 0 : hmg_par_int(18) );
 
    // Get the handle of the parent window/form.
    hwnd = hmg_par_HWND(1);
@@ -269,7 +269,7 @@ HB_FUNC( REDEFBTNTEXTBOX )
    HWND hBtn1, hBtn2;
    BOOL fBtn2;
    int  width, height, BtnWidth2;
-   int  BtnWidth = ( HB_ISNIL(3) ? 0 : ( int ) hb_parni(3) );
+   int  BtnWidth = ( HB_ISNIL(3) ? 0 : hmg_par_int(3) );
 
    hedit     = hmg_par_HWND(1);
    fBtn2     = hb_parl(5);
@@ -398,7 +398,7 @@ HB_FUNC( REDEFBTNTEXTBOX )
 HB_FUNC( SETTBBTNMARGIN )   //SetTbBtnMargin(hEdit, BtnWidth, fBtns, fBtn2)
 {
    HWND hedit    = hmg_par_HWND(1);
-   int  BtnWidth = ( int ) hb_parni(2);
+   int  BtnWidth = hmg_par_int(2);
    BOOL fBtns    = hb_parl(3);
    BOOL fBtn2    = hb_parl(4);
    int  BtnWidth2;

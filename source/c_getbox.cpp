@@ -97,7 +97,7 @@ HB_FUNC( INITGETBOX )
    hwnd = hmg_par_HWND(1);
    if( fBtns )
    {
-      BtnWidth  = ( HB_ISNIL(19) ? 0 : ( int ) hb_parni(19) );
+      BtnWidth  = ( HB_ISNIL(19) ? 0 : hmg_par_int(19) );
       BtnWidth  = ( BtnWidth >= GetSystemMetrics(SM_CYSIZE) ? BtnWidth : GetSystemMetrics(SM_CYSIZE) );
       BtnWidth2 = ( fBtn2 ? BtnWidth : 0 );
    }

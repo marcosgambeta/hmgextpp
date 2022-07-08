@@ -220,7 +220,7 @@ HB_FUNC( DESTROYCARET )
 
 HB_FUNC( CREATECARET )
 {
-   hb_retl( CreateCaret(hmg_par_HWND(1), hmg_par_HBITMAP(2), ( int ) hb_parni(3), ( int ) hb_parni(4)) );
+   hb_retl( CreateCaret(hmg_par_HWND(1), hmg_par_HBITMAP(2), hmg_par_int(3), hmg_par_int(4)) );
 }
 
 /*
@@ -255,10 +255,10 @@ HB_FUNC( MOVEBTNTEXTBOX )   //MoveBtnTextBox(hEdit, hBtn1, hBtn2, fBtn2, BtnWidt
    HWND hBtn1    = hmg_par_HWND(2);
    HWND hBtn2    = hmg_par_HWND(3);
    BOOL fBtn2    = hb_parl(4);
-   int  BtnWidth = ( int ) hb_parni(5);
+   int  BtnWidth = hmg_par_int(5);
    int  BtnWidth2;
-   int  width  = ( int ) hb_parni(6);
-   int  height = ( int ) hb_parni(7);
+   int  width  = hmg_par_int(6);
+   int  height = hmg_par_int(7);
    BOOL fBtns  = ( hb_parnl(2) > 0 );
 
    BtnWidth  = ( BtnWidth >= GetSystemMetrics(SM_CYSIZE) ? BtnWidth : GetSystemMetrics(SM_CYSIZE) - 1 );

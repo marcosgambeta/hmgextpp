@@ -457,7 +457,7 @@ HB_FUNC( CREATEDLGFOLDER )
    int     nPages, Style, nIdFld;
    int     x, y, cx, cy;
 
-   nIdFld  = ( int ) hb_parni(1);
+   nIdFld  = hmg_par_int(1);
    hWndDlg = hmg_par_HWND(2);
 
    sArray = hb_param(3, Harbour::Item::ARRAY);      // aHwndFolderPages
@@ -644,7 +644,7 @@ HB_FUNC( FOLDER_GETIDFLD )
    FLDHDRINFO * pFhi = ( FLDHDRINFO * ) GetWindowLongPtr(hWndParent, GWLP_USERDATA);
 
    if( ! pFhi )
-      hb_retni( ( int ) hb_parni(2) );
+      hb_retni( hmg_par_int(2) );
    else
       hb_retni( ( int ) pFhi->nIdFld );
 }

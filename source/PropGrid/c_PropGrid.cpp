@@ -1727,7 +1727,7 @@ HB_FUNC( PG_GETITEM )
 
    TreeHandle = ( HWND ) hb_parnl(1);
    TreeItemHandle = ( HTREEITEM ) hb_parnl(2);
-   nType = ( int ) hb_parni(3);
+   nType = hmg_par_int(3);
 
    TreeItem.mask = TVIF_HANDLE | TVIF_PARAM;
    TreeItem.hItem = TreeItemHandle;
@@ -1887,7 +1887,7 @@ HB_FUNC( PG_SEARCHID )        //PG_SearchID(hWndPG,nID)
 
    memset(&TreeItem, 0, sizeof(TV_ITEM));
    TreeHandle = ( HWND ) hb_parnl(1);
-   nID = ( int ) hb_parni(2);
+   nID = hmg_par_int(2);
    TreeItemHandle = TreeView_GetRoot(TreeHandle);
    while( TreeItemHandle )
    {
