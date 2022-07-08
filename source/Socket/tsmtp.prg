@@ -183,7 +183,7 @@ local cLines := ""
 local cLine
 
 while ( len(cLine := ::oSocket:ReceiveLine())>0 )
-   cLines += if( len(cLine)>0, cLine + CHR(13) + CHR(10), "" ) 
+   cLines += iif( len(cLine)>0, cLine + CHR(13) + CHR(10), "" ) 
    if substr(cLine,4,1)==" " .or. len(cLine)<=3 .or. substr(cLine,4,1)==CHR(10)
       exit
    endif
@@ -429,7 +429,7 @@ if ::oSocket:SendString( "MAIL FROM: " +::cEmail +CHR(13)+CHR(10) )
                //## add properties to modify it
                cHeader += "X-Mailer: Harbour TSMTP by Matteo Baccan" +CHR(13)+CHR(10)
                cHeader += "X-Priority: " + trans(::nPriority, "9 ") + "(";
-                     + if(::nPriority==1, "Highest", if(::nPriority==5, "Low", "Normal")) + ")" +CHR(13)+CHR(10)
+                     + iif(::nPriority==1, "Highest", iif(::nPriority==5, "Low", "Normal")) + ")" +CHR(13)+CHR(10)
                if bRequestReturnReceipt
                   cHeader += "Disposition-Notification-To: " +::cEmail +CHR(13)+CHR(10)
                endif
@@ -514,7 +514,7 @@ local cRet := ""
 
 if len( aEmail ) > 0
    cRet += cTok
-   AEVAL( aEmail, {|aSub, nPos| cRet += if( nPos==1, "", ","+CHR(13)+CHR(10)+"   " ) + aSub[2]} )
+   AEVAL( aEmail, {|aSub, nPos| cRet += iif( nPos==1, "", ","+CHR(13)+CHR(10)+"   " ) + aSub[2]} )
    cRet += CHR(13)+CHR(10)
 endif
 
@@ -550,9 +550,9 @@ LOCAL n1 := RAt( "\", cPathMask ), n2 := RAt( "/", cPathMask ), n
 
 	n := max( n1, n2 )
 
-Return If( n > 0 .and. n < Len( cPathMask ), ;
+Return IIf( n > 0 .and. n < Len( cPathMask ), ;
    Right( cPathMask, Len( cPathMask ) - n ), ;
-   If( ( n := At( ":", cPathMask ) ) > 0, ;
+   IIf( ( n := At( ":", cPathMask ) ) > 0, ;
    Right( cPathMask, Len( cPathMask ) - n ), cPathMask ) )
 
 

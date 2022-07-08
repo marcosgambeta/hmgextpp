@@ -335,7 +335,7 @@ FUNCTION _DefinePropGrid ( ControlName, ParentFormName, row, col, width, height,
    _HMG_aControlRow   [k] := Row
    _HMG_aControlCol   [k] := Col
    _HMG_aControlWidth   [k] := Width
-   _HMG_aControlHeight   [k] := Height - IF( lInfo, infoHeight, 0 )
+   _HMG_aControlHeight   [k] := Height - IIF( lInfo, infoHeight, 0 )
    _HMG_aControlSpacing   [k] := hColorIL
    _HMG_aControlContainerRow  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , - 1 )
    _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , - 1 )
@@ -549,7 +549,7 @@ FUNCTION PgCheckData( typePG, cValue, aData, mod )
          ret := .F.
       ENDIF
    CASE typePG == PG_COLOR
-      aData := If( ValType( aData ) == "B", ;
+      aData := IIf( ValType( aData ) == "B", ;
          Eval( aData ), aData )
       aCol := PgIdentData( aData, PG_COLOR )
       TOKENINIT ( cValue, ' ,()' )
@@ -888,7 +888,7 @@ FUNCTION PgGetAttr( oXmlNode, cAttr )
 *------------------------------------------------------------------------------*
    LOCAL xAttr := oXmlNode:GetAttribute( cAttr )
 
-RETURN IF( xAttr == Nil, "", xAttr )
+RETURN IIF( xAttr == Nil, "", xAttr )
 
 *------------------------------------------------------------------------------*
 FUNCTION ExpandPG( hWndPG, typ )
@@ -946,16 +946,16 @@ FUNCTION PgAddItem( ControlHandle, aRowIt, nLev, aNodeHandle, nIndex, lSelect )
    DEFAULT lSelect := .F.
    PropType := Lower( aRowIt[APG_TYPE] )
    ItemType   := PgIdentType( aRowIt[APG_TYPE] )
-   ItemId := IF( Len( aRowIt ) < APG_ID, 0, aRowIt[APG_ID] )
-   cInfo := IF( Len( aRowIt ) < APG_INFO, "", aRowIt[APG_INFO] )
-   cValName := IF( Len( aRowIt ) < APG_VALNAME, "", aRowIt[APG_VALNAME] )
+   ItemId := IIF( Len( aRowIt ) < APG_ID, 0, aRowIt[APG_ID] )
+   cInfo := IIF( Len( aRowIt ) < APG_INFO, "", aRowIt[APG_INFO] )
+   cValName := IIF( Len( aRowIt ) < APG_VALNAME, "", aRowIt[APG_VALNAME] )
    DO CASE
    CASE PropType == 'category'
       IF Lower( aRowIt[2] ) == 'end'
          nLev--
          RETURN nLev
       ELSE
-         nNodePrevH := IF( nLev > 0, aNodeHandle [nLev] , 0 )
+         nNodePrevH := IIF( nLev > 0, aNodeHandle [nLev] , 0 )
          nNodeH := AddPGItem ( ControlHandle , nNodePrevH , "", 0, 0 , 0, aRowIt[2], aRowIt[3], aRowIt[4], aRowIt[5], aRowIt[6], aRowIt[7], ItemType, ItemID, cInfo, cValName )
          nLev++
          IF Len( aNodeHandle ) >= nLev
@@ -1032,7 +1032,7 @@ FUNCTION PgAddItem( ControlHandle, aRowIt, nLev, aNodeHandle, nIndex, lSelect )
       IF  PropType == 'check'
          aData := PgIdentData( aRowIt[APG_DATA] )
          IF Len( aData ) == 1
-            nCheck := IF( aData[1] == 'true', 2, 1 )
+            nCheck := IIF( aData[1] == 'true', 2, 1 )
          ELSE
             IF ( nCheck := AScan( aData,aRowIt[APG_VALUE] ) ) == 0
                nCheck := 1
@@ -1160,7 +1160,7 @@ FUNCTION PgIdentData( cData, typePG, cValue, sep )
       TOKENINIT ( cData, ';' )
       DO WHILE !TOKENEND()
          cToken := AllTrim( TOKENNEXT ( cData ) )
-         cLogic := IF( At( cToken,cValue ) != 0, 'true', 'false' )
+         cLogic := IIF( At( cToken,cValue ) != 0, 'true', 'false' )
          AAdd( aData, { 'logic', cToken, cLogic } )
          IF cLogic == 'false'
             aData[1,3] := cLogic
@@ -1480,7 +1480,7 @@ FUNCTION AttrTran( xData, type )
    LOCAL n, cData
    DO CASE
    CASE ValType( xData ) == 'U'
-      RETURN IF( Type == 'L', "false", "" )
+      RETURN IIF( Type == 'L', "false", "" )
    CASE Type == 'C'
       IF ValType( xData ) == 'C'
          RETURN xData
@@ -1494,20 +1494,20 @@ FUNCTION AttrTran( xData, type )
          cData := ""
          FOR n := 1 TO Len( xData )
             IF ValType( xdata[n] ) == 'N'
-               cData += AllTrim( Str( xData[n] ) ) + IF( n < Len( xData ), ';', '' )
+               cData += AllTrim( Str( xData[n] ) ) + IIF( n < Len( xData ), ';', '' )
             ENDIF
             IF ValType( xdata[n] ) == 'C'
-               cData += xData[n] + IF( n < Len( xData ), ';', '' )
+               cData += xData[n] + IIF( n < Len( xData ), ';', '' )
             ENDIF
             IF ValType( xdata[n] ) == 'L'
-               cData += IF( xData[n], "true", "false" ) + IF( n < Len( xData ), ';', '' )
+               cData += IIF( xData[n], "true", "false" ) + IIF( n < Len( xData ), ';', '' )
             ENDIF
          NEXT
          RETURN cData
       ENDIF
    CASE Type == 'L'
       IF ValType( xData ) == 'L'
-         RETURN IF( xData, "true", "false" )
+         RETURN IIF( xData, "true", "false" )
       ENDIF
    ENDCASE
 
@@ -1704,7 +1704,7 @@ FUNCTION OPROPGRIDEVENTS( hWnd, nMsg, wParam, lParam, hItem, hEdit )
                   PG_SETDATAITEM( hWnd, hItem, cValue, cData, .F. )
                ELSE
                   cValue := PG_GETITEM( hWnd, hItem, PGI_VALUE )
-                  cData := IF( iCheck == 2, 'true', 'false' )
+                  cData := IIF( iCheck == 2, 'true', 'false' )
                   PG_SETDATAITEM( hWnd, hItem, cValue, cData, .T. )
                ENDIF
             ENDIF
@@ -1767,7 +1767,7 @@ FUNCTION aCol2Str( aColor )
 *------------------------------------------------------------------------------*
    LOCAL n, cColor := "("
    FOR n := 1 TO 3
-      cColor += AllTrim( Str( aColor[n] ) + IF( n < 3,',',')' ) )
+      cColor += AllTrim( Str( aColor[n] ) + IIF( n < 3,',',')' ) )
    NEXT
 
 RETURN cColor
@@ -1797,13 +1797,13 @@ FUNCTION aVal2Str( aData, sep )
    IF ValType( aData ) == 'A'
       FOR n := 1 TO Len( aData )
          IF ValType( adata[n] ) == 'N'
-            cData += AllTrim( Str( aData[n] ) ) + IF( n < Len( aData ), sep, '' )
+            cData += AllTrim( Str( aData[n] ) ) + IIF( n < Len( aData ), sep, '' )
          ENDIF
          IF ValType( adata[n] ) == 'C'
-            cData += aData[n] + IF( n < Len( aData ), sep, '' )
+            cData += aData[n] + IIF( n < Len( aData ), sep, '' )
          ENDIF
          IF ValType( adata[n] ) == 'L'
-            cData += IF( aData[n], "true", "false" ) + IF( n < Len( aData ), sep, '' )
+            cData += IIF( aData[n], "true", "false" ) + IIF( n < Len( aData ), sep, '' )
          ENDIF
       NEXT
    ENDIF
@@ -1980,7 +1980,7 @@ FUNCTION ValueTran( cValue, ItType, cData, nSubIt )
          xData := PgIdentColor( 0, cValue )
          xData := { GetRed ( xData ), GetGreen ( xData ), GetBlue ( xData ) }
       CASE ItType ==  PG_LOGIC
-         xData := IF( RTrim( cValue ) == "true", .T. , .F. )
+         xData := IIF( RTrim( cValue ) == "true", .T. , .F. )
       CASE ItType ==  PG_DATE
          xData := CToD( cValue )
       CASE ItType == PG_FONT
@@ -1988,7 +1988,7 @@ FUNCTION ValueTran( cValue, ItType, cData, nSubIt )
          IF nSubIt > 0 .AND. nSubIt <= Len( xData )
             xdata := Val( xData[nSubIt] )
          ELSE
-            AEval( xData, {|x| x := IF( x == 'true', .T. , .F. ) }, 3 )
+            AEval( xData, {|x| x := IIF( x == 'true', .T. , .F. ) }, 3 )
             ASize( xData, 8 )
             xData := AIns( xData, 5 )
             xData[5] := { 0, 0, 0 }
@@ -1999,7 +1999,7 @@ FUNCTION ValueTran( cValue, ItType, cData, nSubIt )
       CASE ItType == PG_CHECK
          aData := PgIdentData( cData )
          IF Len( aData ) == 1
-            xData := IF( aData[1] == 'true', .T. , .F. )
+            xData := IIF( aData[1] == 'true', .T. , .F. )
          ELSE
             IF AScan( aData, cValue ) == 1
                xData := .F.
@@ -2226,10 +2226,10 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
             cData := PG_GETITEM( hWndPG, hItem, PGI_DATA )
             aData := PgIdentData( cData, PG_FONT )
             aDataNew := GetFont ( aData[1,3], Val( aData[2,3] ) , ;
-               if(len(aData)>=3,aData[3,3] == "true",.f.) ,;
-               if(len(aData)>=4,aData[4,3] == "true",.f.) , ,;
-               if(len(aData)>=5,aData[5,3] == "true",.f.) , ;
-               if(len(aData)>=6,aData[6,3] == "true",.f.) )
+               iif(len(aData)>=3,aData[3,3] == "true",.f.) ,;
+               iif(len(aData)>=4,aData[4,3] == "true",.f.) , ,;
+               iif(len(aData)>=5,aData[5,3] == "true",.f.) , ;
+               iif(len(aData)>=6,aData[6,3] == "true",.f.) )
             IF !Empty( aDataNew[1] )
                ADel( aDataNew, 5 )
                ASize( aDataNew, 6 )
@@ -2367,7 +2367,7 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
                   lChg := lChg .OR. PG_GETITEM( hWndPG, hChildItem,  PGI_CHG )
                   cVal := PG_GETITEM( hWndPG, hChildItem, PGI_VALUE )
                   IF cVal  == 'true'
-                     cValue += IF( Len( cValue ) > 1, ',' , '' ) + PG_GETITEM( hWndPG, hChildItem, PGI_NAME )
+                     cValue += IIF( Len( cValue ) > 1, ',' , '' ) + PG_GETITEM( hWndPG, hChildItem, PGI_NAME )
                   ENDIF
                ENDIF
             ENDDO
@@ -2522,7 +2522,7 @@ FUNCTION _PGInitData( hWnd, hEdit, hWndItem, ItemType )
          ComboBoxReset( hEdit )
          ComboAddString ( hEdit, "true" )
          ComboAddString ( hEdit, "false" )
-         ComboSetCurSel ( hEdit, IF( Lower(PG_GETITEM(hWnd,hWndItem,PGI_VALUE ) ) == "true",1,2 ) )
+         ComboSetCurSel ( hEdit, IIF( Lower(PG_GETITEM(hWnd,hWndItem,PGI_VALUE ) ) == "true",1,2 ) )
       CASE ItemType == PG_ENUM .OR. ItemType == PG_LIST
          hParentItem := TreeView_GetParent( hWnd, hWndItem )      // Parent Item
          SetWindowText ( hEdit, PG_GETITEM( hWnd,hWndItem,PGI_VALUE ) )
@@ -2576,8 +2576,8 @@ FUNCTION ArrayDlg( cArr, FormName )
       nRow := DialogUnitsY( aPos[1] )
       nCol := DialogUnitsX( aPos[2] )
 
-      nRow := IF( nRow + 300 >  getdesktopheight(), nRow - 300, nRow )
-      nCol := IF( nCol + 270 > getdesktopwidth(), nCol - 270, nCol )
+      nRow := IIF( nRow + 300 >  getdesktopheight(), nRow - 300, nRow )
+      nCol := IIF( nCol + 270 > getdesktopwidth(), nCol - 270, nCol )
 
       aItem := PgIdentData( cArr, , , ',' )
       aItemOld := AClone( aItem )

@@ -134,7 +134,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
    IF cIndexName == NIL
 
-      cIndexName := IF( ( nExprAlias := RAt( ".", xcFile ) ) > RAt( "\", xcFile ), SubStr( xcFile, 1, nExprAlias - 1 ), xcFile ) + IndexExt()
+      cIndexName := IIF( ( nExprAlias := RAt( ".", xcFile ) ) > RAt( "\", xcFile ), SubStr( xcFile, 1, nExprAlias - 1 ), xcFile ) + IndexExt()
 
    ENDIF
 

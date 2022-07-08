@@ -531,14 +531,14 @@ METHOD DefineFont( defname, lfontname, lfontsize, lfontwidth, langle, lweight, l
    IF lhand <> 0
       RETURN self
    ENDIF
-   lfontname := if( lfontname == NIL, "", Upper( AllTrim( lfontname ) ) )
+   lfontname := iif( lfontname == NIL, "", Upper( AllTrim( lfontname ) ) )
    hb_default( @lfontsize, -1 )
    hb_default( @lfontwidth, 0 )
    hb_default( @langle, -1 )
-   lweight := if( Empty( lweight ), 0, 1 )
-   litalic := if( Empty( litalic ), 0, 1 )
-   lunderline := if( Empty( lunderline ), 0, 1 )
-   lstrikeout := if( Empty( lstrikeout ), 0, 1 )
+   lweight := iif( Empty( lweight ), 0, 1 )
+   litalic := iif( Empty( litalic ), 0, 1 )
+   lunderline := iif( Empty( lunderline ), 0, 1 )
+   lstrikeout := iif( Empty( lstrikeout ), 0, 1 )
    AAdd( ::Fonts[ 1 ], rr_createfont( lfontname, lfontsize, -lfontwidth, langle * 10, lweight, litalic, lunderline, lstrikeout ) )
    AAdd( ::Fonts[ 2 ], Upper( AllTrim( defname ) ) )
    AAdd( ::Fonts[ 4 ], { lfontname, lfontsize, lfontwidth, langle, lweight, litalic, lunderline, lstrikeout } )
@@ -601,8 +601,8 @@ METHOD SetUnits( newvalue, r, c ) CLASS HBPrinter
 
    LOCAL oldvalue := ::Units
 
-   newvalue := if( ValType( newvalue ) == "N", newvalue, 0 )
-   ::Units := if( newvalue < 0 .OR. newvalue > 4, 0, newvalue )
+   newvalue := iif( ValType( newvalue ) == "N", newvalue, 0 )
+   ::Units := iif( newvalue < 0 .OR. newvalue > 4, 0, newvalue )
    SWITCH ::Units
    CASE 0 // ROWCOL
       ::MaxRow := ::DevCaps[ 13 ] - 1
@@ -644,12 +644,12 @@ METHOD Convert( arr, lsize ) CLASS HBPrinter
       aret[ 2 ] := ( arr[ 2 ] ) * ::DEVCAPS[ 4 ] / ( ::maxcol + 1 )
       EXIT
    CASE 1 // MM
-      aret[ 1 ] := ( arr[ 1 ] ) * ::DEVCAPS[ 5 ] / 25.4 - if( lsize == NIL, ::DEVCAPS[ 9 ], 0 )
-      aret[ 2 ] := ( arr[ 2 ] ) * ::DEVCAPS[ 6 ] / 25.4 - if( lsize == NIL, ::DEVCAPS[ 10 ], 0 )
+      aret[ 1 ] := ( arr[ 1 ] ) * ::DEVCAPS[ 5 ] / 25.4 - iif( lsize == NIL, ::DEVCAPS[ 9 ], 0 )
+      aret[ 2 ] := ( arr[ 2 ] ) * ::DEVCAPS[ 6 ] / 25.4 - iif( lsize == NIL, ::DEVCAPS[ 10 ], 0 )
       EXIT
    CASE 2 // INCHES
-      aret[ 1 ] := ( arr[ 1 ] ) * ::DEVCAPS[ 5 ] - if( lsize == NIL, ::DEVCAPS[ 9 ], 0 )
-      aret[ 2 ] := ( arr[ 2 ] ) * ::DEVCAPS[ 6 ] - if( lsize == NIL, ::DEVCAPS[ 10 ], 0 )
+      aret[ 1 ] := ( arr[ 1 ] ) * ::DEVCAPS[ 5 ] - iif( lsize == NIL, ::DEVCAPS[ 9 ], 0 )
+      aret[ 2 ] := ( arr[ 2 ] ) * ::DEVCAPS[ 6 ] - iif( lsize == NIL, ::DEVCAPS[ 10 ], 0 )
       EXIT
    DEFAULT
       aret[ 1 ] := ( arr[ 1 ] ) * ::DEVCAPS[ 11 ]
@@ -687,7 +687,7 @@ METHOD Say( row, col, txt, defname, lcolor, lalign ) CLASS HBPrinter
    DO CASE
    CASE ValType( txt ) == "N" ;  AAdd( atxt, Str( txt ) )
    CASE ValType( txt ) == "D" ;  AAdd( atxt, DToC( txt ) )
-   CASE ValType( txt ) == "L" ;  AAdd( atxt, if( txt, ".T.", ".F." ) )
+   CASE ValType( txt ) == "L" ;  AAdd( atxt, iif( txt, ".T.", ".F." ) )
    CASE ValType( txt ) == "U" ;  AAdd( atxt, "NIL" )
    CASE ValType( txt ) $ "BO" ;  AAdd( atxt, "" )
    CASE ValType( txt ) == "A" ;  AEval( txt, {| x | AAdd( atxt, sayconvert( x ) ) } )
@@ -1056,8 +1056,8 @@ RETURN self
 
 METHOD SetViewPortOrg( row, col ) CLASS HBPrinter
 
-   row := if( row <> NIL, row, 0 )
-   col := if( col <> NIL, col, 0 )
+   row := iif( row <> NIL, row, 0 )
+   col := iif( col <> NIL, col, 0 )
    ::ViewPortOrg := ::convert( { row, col } )
    rr_setviewportorg( ::ViewPortOrg )
 
@@ -1241,9 +1241,9 @@ METHOD DXCOLORS( par ) CLASS HBPrinter
    aColorNames := _SetGetGlobal( "rgbcolornames" )
    IF ValType( par ) == "C"
       par := Lower( AllTrim( par ) )
-      AEval( aColorNames, {| x | if( x[ 1 ] == par, ltemp := x[ 2 ], '' ) } )
+      AEval( aColorNames, {| x | iif( x[ 1 ] == par, ltemp := x[ 2 ], '' ) } )
    ELSEIF ValType( par ) == "N"
-      ltemp := if( par <= Len( aColorNames ), aColorNames[ par, 2 ], 0 )
+      ltemp := iif( par <= Len( aColorNames ), aColorNames[ par, 2 ], 0 )
    ENDIF
 
 RETURN ltemp
@@ -1308,7 +1308,7 @@ STATIC FUNCTION sayconvert( ltxt )
    CASE ValType( ltxt ) $ "MC" ;  RETURN ltxt
    CASE ValType( ltxt ) == "N" ;  RETURN Str( ltxt )
    CASE ValType( ltxt ) == "D" ;  RETURN DToC( ltxt )
-   CASE ValType( ltxt ) == "L" ;  RETURN IF( ltxt, ".T.", ".F." )
+   CASE ValType( ltxt ) == "L" ;  RETURN IIF( ltxt, ".T.", ".F." )
    ENDCASE
 
 RETURN ""
@@ -1322,7 +1322,7 @@ STATIC FUNCTION str2arr( cList, cDelimiter )
    LOCAL asub
    DO CASE
    CASE ValType( cDelimiter ) == 'C'
-      cDelimiter := if( cDelimiter == NIL, ",", cDelimiter )
+      cDelimiter := iif( cDelimiter == NIL, ",", cDelimiter )
       nlencd := Len( cdelimiter )
       DO WHILE ( nPos := At( cDelimiter, cList ) ) != 0
          AAdd( aList, SubStr( cList, 1, nPos - 1 ) )
@@ -2236,9 +2236,9 @@ METHOD Preview() CLASS HBPrinter
       _DefineHotKey( "HBPREVIEW", 0, VK_ESCAPE, {|| ::PrevClose( .T. ) } ) // Escape
       _DefineHotKey( "HBPREVIEW", 0, VK_ADD, {|| scale := scale * 1.25, ::PrevShow() } ) // zoom in
       _DefineHotKey( "HBPREVIEW", 0, VK_SUBTRACT, {|| scale := scale / 1.25, ::PrevShow() } ) // zoom out
-      _definehotkey( "HBPREVIEW", MOD_CONTROL, VK_P, {|| ::prevprint(), if( ::CLSPREVIEW, ::PrevClose( .F. ), NIL ) } ) // Print
-      _DefineHotKey( "HBPREVIEW", 0, VK_PRIOR, {|| page := ::CurPage := if( page == 1, 1, page - 1 ), HBPREVIEW.combo_1.VALUE := page, ::PrevShow() } ) // back
-      _DefineHotKey( "HBPREVIEW", 0, VK_NEXT, {|| page := ::CurPage := if( page == iloscstron, page, page + 1 ), HBPREVIEW.combo_1.VALUE := page, ::PrevShow() } ) // next
+      _definehotkey( "HBPREVIEW", MOD_CONTROL, VK_P, {|| ::prevprint(), iif( ::CLSPREVIEW, ::PrevClose( .F. ), NIL ) } ) // Print
+      _DefineHotKey( "HBPREVIEW", 0, VK_PRIOR, {|| page := ::CurPage := iif( page == 1, 1, page - 1 ), HBPREVIEW.combo_1.VALUE := page, ::PrevShow() } ) // back
+      _DefineHotKey( "HBPREVIEW", 0, VK_NEXT, {|| page := ::CurPage := iif( page == iloscstron, page, page + 1 ), HBPREVIEW.combo_1.VALUE := page, ::PrevShow() } ) // next
 
       DEFINE STATUSBAR
       STATUSITEM aopisy[ 15 ] + " " + hb_ntos( page ) WIDTH 100
@@ -2443,12 +2443,12 @@ METHOD ReportData( l_x1, l_x2, l_x3, l_x4, l_x5, l_x6 ) CLASS HBPrinter
    SET CONSOLE OFF
    ? '-----------------', Date(), Time()
    ?
-   ?? if( ValType( l_x1 ) <> "U", l_x1, "," )
-   ?? if( ValType( l_x2 ) <> "U", l_x2, "," )
-   ?? if( ValType( l_x3 ) <> "U", l_x3, "," )
-   ?? if( ValType( l_x4 ) <> "U", l_x4, "," )
-   ?? if( ValType( l_x5 ) <> "U", l_x5, "," )
-   ?? if( ValType( l_x6 ) <> "U", l_x6, "," )
+   ?? iif( ValType( l_x1 ) <> "U", l_x1, "," )
+   ?? iif( ValType( l_x2 ) <> "U", l_x2, "," )
+   ?? iif( ValType( l_x3 ) <> "U", l_x3, "," )
+   ?? iif( ValType( l_x4 ) <> "U", l_x4, "," )
+   ?? iif( ValType( l_x5 ) <> "U", l_x5, "," )
+   ?? iif( ValType( l_x6 ) <> "U", l_x6, "," )
    ? 'HDC            :', ::HDC
    ? 'HDCREF         :', ::HDCREF
    ? 'PRINTERNAME    :', ::PRINTERNAME

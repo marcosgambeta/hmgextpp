@@ -440,7 +440,7 @@ FUNCTION _HMG_HPDF_MULTILINE_PRINT( nRow, nCol, nToRow, nToCol, cFontName, nFont
                nLineCount++
                cLine := Trim( SubStr( cTextIn, 1, nLineLen ) )
                cTextIn := SubStr( cTextIn, nLineLen + 1 )
-               cTextOut += cLine + IF( !Empty( cTextIn ), " ", "" )
+               cTextOut += cLine + IIF( !Empty( cTextIn ), " ", "" )
             ENDDO
 
             nAreaHeight := ( ( nLineCount - 1 ) * nLineSpacing /* Lines: 1 .. Last-1. The height of each line equals the line spacing. */ ) + ;
@@ -2097,7 +2097,7 @@ FUNCTION _HMG_HPDF_SeekInLocalOptions( FontName, lBold, lItalic )
       ENDIF
    ENDIF
 
-RETURN IF( File( cRet ), cRet, "" )
+RETURN IIF( File( cRet ), cRet, "" )
 
 FUNCTION _HMG_HPDF_SetDash( nMode )
 

@@ -133,7 +133,7 @@ METHOD KeyChar( nKey, nFlags ) CLASS TSMulti
    HB_SYMBOL_UNUSED( nFlags )
 
    IF _GetKeyState( VK_CONTROL )
-      nKey := If( Upper( Chr( nKey ) ) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey )
+      nKey := IIf( Upper( Chr( nKey ) ) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey )
    ENDIF
 
    IF nKey == VK_TAB .OR. nKey == VK_ESCAPE
@@ -179,7 +179,7 @@ RETURN NIL
 METHOD KeyDown( nKey, nFlags ) CLASS TSMulti
 
    IF _GetKeyState( VK_CONTROL )
-      nKey := If( Upper( Chr( nKey ) ) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey )
+      nKey := IIf( Upper( Chr( nKey ) ) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey )
    ENDIF
 
    ::nLastKey := nKey

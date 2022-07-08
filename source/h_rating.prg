@@ -94,7 +94,7 @@ FUNCTION _DefineRating ( ControlName, ParentForm, x, y, w, h, nValue, aImages, n
    AAdd( _HMG_aControlRangeMin, 0 )
    AAdd( _HMG_aControlRangeMax, 0 )
    AAdd( _HMG_aControlCaption, '' )
-   AAdd( _HMG_aControlVisible, if( invisible, FALSE, TRUE ) )
+   AAdd( _HMG_aControlVisible, iif( invisible, FALSE, TRUE ) )
    AAdd( _HMG_aControlHelpId, 0 )
    AAdd( _HMG_aControlFontHandle, 0 )
    AAdd( _HMG_aControlBrushHandle, 0 )

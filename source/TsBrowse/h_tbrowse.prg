@@ -4423,7 +4423,7 @@ METHOD CellMarginLeftRight( nJ, cData, oColumn, nAlign, lMultiLine, nOut ) CLASS
    LOCAL nCellMarginLR, aTmp, cTmp, nK, nN, cBuf
    LOCAL uTmp := ::nCellMarginLR
 
-   nCellMarginLR := If( ValType( uTmp ) == "B", Eval( uTmp, nJ, Self, oColumn, nAlign, nOut ), uTmp )
+   nCellMarginLR := IIf( ValType( uTmp ) == "B", Eval( uTmp, nJ, Self, oColumn, nAlign, nOut ), uTmp )
 
    IF HB_ISNUMERIC ( nCellMarginLR ) ; cBuf := Space( nCellMarginLR )
    ELSEIF HB_ISCHAR( nCellMarginLR ) ; cBuf := nCellMarginLR

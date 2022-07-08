@@ -7,7 +7,7 @@
 #include "hbclass.ch"
 
 #TRANSLATE MSG	=> MSGBOX
-#define NTrim( n ) LTRIM( STR( n,20, IF( n == INT( n ), 0, set(_SET_DECIMALS) ) ))
+#define NTrim( n ) LTRIM( STR( n,20, IIF( n == INT( n ), 0, set(_SET_DECIMALS) ) ))
 #TRANSLATE ZAPS(<X>) => NTrim(<X>)
 #TRANSLATE Test( <c> ) => MsgInfo( <c>, [<c>] )
 #define MsgInfo( c ) MsgInfo( c, , , .f. )
@@ -198,7 +198,7 @@ if ritorna
    epar   :={|x|if( "(" $ X .or."->" $ x,&(X),val(eval(vsect,x)))}
 
    vpar   :={|x,y|if(ascan(x,[y])#0,y[ascan(x,[y])+1],NIL)}
-   chblk  :={|x,y|if(ascan(x,y)>0,if(len(X)>ascan(x,y),x[ascan(x,y)+1],''),'')}
+   chblk  :={|x,y|if(ascan(x,y)>0,iif(len(X)>ascan(x,y),x[ascan(x,y)+1],''),'')}
    chkArg :={|x|if(ascan(x,{|aVal,y| aVal[1]== y})> 0 ,x[ascan(x,{|aVal,y| aVal[1]==y})][2],'KKK')}
 
    //msgbox( zaps(ascan(_aAlign,{|aVal,y| upper(aVal[1])== Y})),"FGFGFG")
@@ -255,7 +255,7 @@ Function StampeEsegui(_MainArea,_psd,db_arc,_prw)
    if !empty(_MainArea)
        oWr:aStat [ 'area1' ]  := substr(_MainArea,at('(',_MainArea)+1)
        oWr:aStat [ 'FldRel' ] := substr(oWr:aStat [ 'area1' ],at("->",oWr:aStat [ 'area1' ])+2)
-       oWr:aStat [ 'FldRel' ] := substr(oWr:aStat [ 'FldRel' ],1,if(at(')',oWr:aStat [ 'FldRel' ])>0,at(')',oWr:aStat [ 'FldRel' ])-1,len(oWr:aStat [ 'FldRel' ]))) //+(at("->",oWr:aStat [ 'area1' ])))
+       oWr:aStat [ 'FldRel' ] := substr(oWr:aStat [ 'FldRel' ],1,iif(at(')',oWr:aStat [ 'FldRel' ])>0,at(')',oWr:aStat [ 'FldRel' ])-1,len(oWr:aStat [ 'FldRel' ]))) //+(at("->",oWr:aStat [ 'area1' ])))
        oWr:aStat [ 'area1' ]  := left(oWr:aStat [ 'area1' ],at("->",oWr:aStat [ 'area1' ])-1)
    else
        oWr:aStat [ 'area1' ]  := dbf()
@@ -674,7 +674,7 @@ FUNC Any2Strg( xAny )
                     { "C", { | x | x }},;
                     { "M", { | x | x   } },;
                     { "D", { | x | DTOC( x ) } },;
-                    { "L", { | x | IF( x,"On","Off") } },;
+                    { "L", { | x | IIF( x,"On","Off") } },;
                     { "N", { | x | NTrim( x )  } },;
                     { "O", { |  | ":Object:" } },;
                     { "U", { |  | "<NIL>" } } }
@@ -705,7 +705,7 @@ Function Msgt (nTimeout, Message, Title, Flags)
         endif
 
         Flags:=UPPER(Flags)
-        Message+= if(empty(Message),"Empty string!",'')
+        Message+= iif(empty(Message),"Empty string!",'')
 
         if switch
            do case
@@ -808,7 +808,7 @@ DATA aStat            INIT { 'Define'     => .F. , ;    // Define Section
                              'Yes_Memo'   => .F. , ;
                              'Yes_Array'  => .F. , ;
                              'JobName'    => 'HbPrinter' , ;
-                             'Test'       => "{|X| LTRIM( STR( X,20, IF( X == INT( X ), 0, 2 ) ))}" , ;
+                             'Test'       => "{|X| LTRIM( STR( X,20, IIF( X == INT( X ), 0, 2 ) ))}" , ;
                              'Control'    => .F. , ;
                              'InlineSbt'  => .T. , ;
                              'InlineTot'  => .T. , ;
@@ -1441,7 +1441,7 @@ elseif upper(left(string,8))="DEBUG_OF"
    ::aStat [ 'Control' ] := .f.
 elseif upper(left(string,9))=="SET"+chr(07)+"DEBUG"
    dbg := right(string,4)
-   ::aStat [ 'Control' ] := if(val(dbg)> 0,.t.,if(".T." $ dbg .or. "ON" $ Dbg ,.t.,.f.))
+   ::aStat [ 'Control' ] := iif(val(dbg)> 0,.t.,iif(".T." $ dbg .or. "ON" $ Dbg ,.t.,.f.))
 endif
 
 tokeninit(string,chr(07))      //set the command separator -> ONLY A BEL
@@ -1520,7 +1520,7 @@ BEGIN SEQUENCE
          ::aStat [ 'EntroIF' ] := .F.
          ::aStat [ 'ElseStat' ] := .T.
       Endif
-       //msgbox(if( ::aStat [ 'DelMode' ]," ::aStat [ 'DelMode' ] .t.","::aStat [ 'DelMode' ] .f.")+crlf+if( ::aStat [ 'ElseStat' ]," ::aStat [ 'ElseStat' ] .t.","::aStat [ 'ElseStat' ] .f.")," risulta")
+       //msgbox(iif( ::aStat [ 'DelMode' ]," ::aStat [ 'DelMode' ] .t.","::aStat [ 'DelMode' ] .f.")+crlf+if( ::aStat [ 'ElseStat' ]," ::aStat [ 'ElseStat' ] .t.","::aStat [ 'ElseStat' ] .f.")," risulta")
       if !::aStat [ 'EntroIF' ] .and. !::aStat [ 'DelMode' ] // i am on false condition
          if ::aStat [ 'ElseStat' ]
             //msginfo(ifc ,"Cancellato")
@@ -1534,7 +1534,7 @@ BEGIN SEQUENCE
          endif
       Endif
 
-      aeval(transpar,{|x| if(x # NIL,aadd(ArryPar,X), nil ) } )
+      aeval(transpar,{|x| iif(x # NIL,aadd(ArryPar,X), nil ) } )
 
       if ::aStat [ 'Control' ] .and. (UPPER(LEFT(STRING,5)) <> "DEBUG")
          aeval(Arrypar,{|x,y|x:=nil,MsgBox("Section "+ssection+" Line is n° "+zaps(cmdline)+CRLF+"String =";
@@ -1558,7 +1558,7 @@ return ritorno
 METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpreter
 *-----------------------------------------------------------------------------*
      local _arg1,_arg2, _arg3,__elex ,aX:={} , _varmem ,;
-     blse := {|x| if(val(x)> 0,.t.,if(x=".T.".or. x ="ON",.T.,.F.))}, al, _align
+     blse := {|x| iif(val(x)> 0,.t.,iif(x=".T.".or. x ="ON",.T.,.F.))}, al, _align
      string1 := ''
      if len(ArryPar) < 1 ;return .F. ;endif
 
@@ -1674,34 +1674,34 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
            case ArryPar[1]+arryPar[2]=[DEFINEFONT]
                 //                    1        2      3      4       5        6        7            8            9
                 //hbprn:definefont(<cfont>,<cface>,<size>,<width>,<angle>,<.bold.>,<.italic.>,<.underline.>,<.strikeout.>)
-                hbprn:definefont(if(ascan(arryPar,[FONT])=2,ArryPar[3],NIL);
-                           ,if(ascan(arryPar,[NAME])=4,ArryPar[5],NIL);
-                           ,if(ascan(arryPar,[SIZE])=6,VAL(ArryPar[7]),NIL);
-                           ,if(ascan(arryPar,[WIDTH])# 0, VAL(eval(chblk,arrypar,[WIDTH])),NIL);
-                           ,if(ascan(arryPar,[ANGLE])# 0,VAL(eval(chblk,arrypar,[ANGLE])),NIL);
-                           ,if(ascan(arryPar,[BOLD])# 0,1,"");
-                           ,if(ascan(arryPar,[ITALIC])# 0,1,"");
-                           ,if(ascan(arryPar,[UNDERLINE])# 0,1,"");
-                           ,if(ascan(arryPar,[STRIKEOUT])# 0,1,""))
+                hbprn:definefont(iif(ascan(arryPar,[FONT])=2,ArryPar[3],NIL);
+                           ,iif(ascan(arryPar,[NAME])=4,ArryPar[5],NIL);
+                           ,iif(ascan(arryPar,[SIZE])=6,VAL(ArryPar[7]),NIL);
+                           ,iif(ascan(arryPar,[WIDTH])# 0, VAL(eval(chblk,arrypar,[WIDTH])),NIL);
+                           ,iif(ascan(arryPar,[ANGLE])# 0,VAL(eval(chblk,arrypar,[ANGLE])),NIL);
+                           ,iif(ascan(arryPar,[BOLD])# 0,1,"");
+                           ,iif(ascan(arryPar,[ITALIC])# 0,1,"");
+                           ,iif(ascan(arryPar,[UNDERLINE])# 0,1,"");
+                           ,iif(ascan(arryPar,[STRIKEOUT])# 0,1,""))
 
            case ArryPar[1]+arryPar[2]=[CHANGEFONT]
-                hbprn:modifyfont(if(ascan(arryPar,[FONT])=2,ArryPar[3],NIL);
-                           ,if(ascan(arryPar,[NAME])=4,ArryPar[5],NIL);
-                           ,if(ascan(arryPar,[SIZE])=6,VAL(ArryPar[7]),NIL);
-                           ,if(ascan(arryPar,[WIDTH])# 0, VAL(eval(chblk,arrypar,[WIDTH])),NIL);
-                           ,if(ascan(arryPar,[ANGLE])# 0,VAL(eval(chblk,arrypar,[ANGLE])),NIL);
-                           ,if(ascan(arryPar,[BOLD])#0,.T.,.f.);
-                           ,if(ascan(arryPar,[NOBOLD])#0,.T.,.f.);
-                           ,if(ascan(arryPar,[ITALIC])#0,.t.,.f.);
-                           ,if(ascan(arryPar,[NOITALIC])#0,.t.,.f.);
-                           ,if(ascan(arryPar,[UNDERLINE])#0,.t.,.f.);
-                           ,if(ascan(arryPar,[NOUNDERLINE])#0,.t.,.f.);
-                           ,if(ascan(arryPar,[STRIKEOUT])#0,.t.,.f.);
-                           ,if(ascan(arryPar,[NOSTRIKEOUT])#0,.t.,.f.))
+                hbprn:modifyfont(iif(ascan(arryPar,[FONT])=2,ArryPar[3],NIL);
+                           ,iif(ascan(arryPar,[NAME])=4,ArryPar[5],NIL);
+                           ,iif(ascan(arryPar,[SIZE])=6,VAL(ArryPar[7]),NIL);
+                           ,iif(ascan(arryPar,[WIDTH])# 0, VAL(eval(chblk,arrypar,[WIDTH])),NIL);
+                           ,iif(ascan(arryPar,[ANGLE])# 0,VAL(eval(chblk,arrypar,[ANGLE])),NIL);
+                           ,iif(ascan(arryPar,[BOLD])#0,.T.,.f.);
+                           ,iif(ascan(arryPar,[NOBOLD])#0,.T.,.f.);
+                           ,iif(ascan(arryPar,[ITALIC])#0,.t.,.f.);
+                           ,iif(ascan(arryPar,[NOITALIC])#0,.t.,.f.);
+                           ,iif(ascan(arryPar,[UNDERLINE])#0,.t.,.f.);
+                           ,iif(ascan(arryPar,[NOUNDERLINE])#0,.t.,.f.);
+                           ,iif(ascan(arryPar,[STRIKEOUT])#0,.t.,.f.);
+                           ,iif(ascan(arryPar,[NOSTRIKEOUT])#0,.t.,.f.))
 
            case ArryPar[1]+arryPar[2]=[COMBINEREGIONS]
                 hbprn:combinergn(eval(chblk,arrypar,[TO]),ArryPar[3],ArryPar[4];
-                ,if( val(ArryPar[8])>0,val(ArryPar[8]),::what_ele(eval(chblk,arrypar,[STYLE]),::aCh,"_aRegion")))
+                ,iif( val(ArryPar[8])>0,val(ArryPar[8]),::what_ele(eval(chblk,arrypar,[STYLE]),::aCh,"_aRegion")))
 
            case ascan(arryPar,"SELECT")=1 .and. len(ArryPar)=3
                 if len(ArryPar)=3
@@ -1739,7 +1739,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                         _arg1:=eval(chblk,arrypar,[ORIENTATION])
                         _arg2:=eval(chblk,arrypar,[PAPERSIZE])
                         _arg3:=eval(chblk,arrypar,[FONT])
-                        hbprn:setpage(if(val(_arg1)>0,val(_arg1),if([PORT]$ _arg1,1,2));
+                        hbprn:setpage(iif(val(_arg1)>0,val(_arg1),iif([PORT]$ _arg1,1,2));
                         ,::what_ele(eval(chblk,arrypar,[PAPERSIZE]),::aCh,"_apaper"),_arg3)
 
                    case ascan(arryPar,[ALIGN])=3
@@ -1764,7 +1764,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                         hbprn:setdevmode(DM_DUPLEX,::what_ele(eval(chblk,arrypar,[DUPLEX]),::aCh,"_aDuplex"))
 
     	               case ascan(ArryPar,[PREVIEW])=2 .and. len(arrypar)= 3
-                        hbprn:PreviewMode := if(eval(chblk,arrypar,[PREVIEW])=[OFF],.f.,.T.)
+                        hbprn:PreviewMode := iif(eval(chblk,arrypar,[PREVIEW])=[OFF],.f.,.T.)
 
                    case ascan(arryPar,[BIN])=2
                         if val(Arrypar[3])> 0
@@ -1902,7 +1902,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
 
                    case ArryPar[2]= [COLORMODE] //=1
                         hbprn:setdevmode(DM_COLOR,;
-                        if(val(arrypar[3])>0,val(arrypar[3]),if(arrypar[3]=".T.",2;
+                        iif(val(arrypar[3])>0,val(arrypar[3]),iif(arrypar[3]=".T.",2;
                         ,::what_ele(eval(chblk,arrypar,[COLORMODE]),::aCh,"_acolor"))))
 
                    case ArryPar[2]= [QUALITY]   //=1
@@ -1943,7 +1943,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
 
                    case ascan(arryPar,[EXTENT])> 0
                         hbprn:gettextextent(eval(chblk,arrypar,[EXTENT]);
-                        ,&(eval(chblk,arrypar,[TO])),if(ascan(arryPar,[FONT])>0,eval(chblk,arrypar,[FONT]),NIL))
+                        ,&(eval(chblk,arrypar,[TO])),iif(ascan(arryPar,[FONT])>0,eval(chblk,arrypar,[FONT]),NIL))
 
                    case ArryPar[1]+ArryPar[2]+ArryPar[3]+ArryPar[4]=[GETPOLYFILLMODETO]
                         &(eval(chblk,arrypar,[TO])):=hbprn:getpolyfillmode()
@@ -2041,10 +2041,10 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                 endcase
 
            case ASCAN(ArryPar,[LINETO])=3
-                hbprn:lineto(eval(epar,ArryPar[1]),eval(epar,ArryPar[2]),if(ASCAN(ArryPar,[PEN])= 4,ArryPar[5],NIL))
+                hbprn:lineto(eval(epar,ArryPar[1]),eval(epar,ArryPar[2]),iif(ASCAN(ArryPar,[PEN])= 4,ArryPar[5],NIL))
 
            case ascan(ArryPar,[LINE])=5
-                hbprn:line(eval(epar,ArryPar[1]),eval(epar,ArryPar[2]),eval(epar,ArryPar[3]),eval(epar,Arrypar[4]),if(ASCAN(ArryPar,[PEN])= 6,ArryPar[7],NIL))
+                hbprn:line(eval(epar,ArryPar[1]),eval(epar,ArryPar[2]),eval(epar,ArryPar[3]),eval(epar,Arrypar[4]),iif(ASCAN(ArryPar,[PEN])= 6,ArryPar[7],NIL))
 
            case ascan(ArryPar,[PICTURE])=3
                 /*
@@ -2088,16 +2088,16 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                 if ascan(ArryPar,[FONT])=5
                    if "->" $ ArryPar[4] .or. "(" $ ArryPar[4]
                       __elex:=ArryPar[4]
-                      hbprn:textout(if([LINE]$ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])),eval(epar,ArryPar[2]),&(__elex),"FX")
+                      hbprn:textout(iif([LINE]$ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])),eval(epar,ArryPar[2]),&(__elex),"FX")
                    else
-                      hbprn:textout(if([LINE]$ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])),eval(epar,ArryPar[2]),ArryPar[4],"Fx")
+                      hbprn:textout(iif([LINE]$ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])),eval(epar,ArryPar[2]),ArryPar[4],"Fx")
                    endif
                 elseif LEN(ArryPar)=4
                    if "->" $ ArryPar[4] .or. "(" $ ArryPar[4]
                       __elex:=ArryPar[4]
-                      hbprn:textout(if([LINE]$ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])),eval(epar,ArryPar[2]),&(__elex))
+                      hbprn:textout(iif([LINE]$ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])),eval(epar,ArryPar[2]),&(__elex))
                    else
-                      hbprn:textout(if([LINE]$ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])),eval(epar,ArryPar[2]),ArryPar[4])
+                      hbprn:textout(iif([LINE]$ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])),eval(epar,ArryPar[2]),ArryPar[4])
                    endif
                 ENDIF
 
@@ -2108,12 +2108,12 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
 
                 al := ::UsaFont(arrypar)
 
-                hbprn:say(if([LINE] $ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])),eval(epar,ArryPar[2]);
-                         ,if("->" $ ArryPar[4] .or. [(] $ ArryPar[4],::MACROCOMPILE(ArryPar[4],.t.,cmdline,section),ArryPar[4]);
-                         ,if(ascan(hbprn:Fonts[2],eval(chblk,arrypar,[FONT]) )> 0,eval(chblk,arrypar,[FONT]),"FX")  ;
-                         ,if(ascan(arryPar,[COLOR])>0,::UsaColor(eval(chblk,arrypar,[COLOR])),NIL);
+                hbprn:say(iif([LINE] $ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])),eval(epar,ArryPar[2]);
+                         ,iif("->" $ ArryPar[4] .or. [(] $ ArryPar[4],::MACROCOMPILE(ArryPar[4],.t.,cmdline,section),ArryPar[4]);
+                         ,iif(ascan(hbprn:Fonts[2],eval(chblk,arrypar,[FONT]) )> 0,eval(chblk,arrypar,[FONT]),"FX")  ;
+                         ,iif(ascan(arryPar,[COLOR])>0,::UsaColor(eval(chblk,arrypar,[COLOR])),NIL);
                          ,nil )
-                         //,if(ascan(arryPar,[ALIGN])>0,::what_ele(eval(chblk,arrypar,[ALIGN]),::aCh,"_aAlign"),NIL))
+                         //,iif(ascan(arryPar,[ALIGN])>0,::what_ele(eval(chblk,arrypar,[ALIGN]),::aCh,"_aAlign"),NIL))
 
                 hbprn:settextalign( al[1] )
                 hbprn:settexcolor ( al[2] )
@@ -2122,17 +2122,17 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
 
                 al := ::UsaFont(arrypar)
 
-                ::MemoSay(if([LINE] $ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])) ;
+                ::MemoSay(iif([LINE] $ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])) ;
                    ,eval(epar,ArryPar[2]) ;
                    ,::MACROCOMPILE(ArryPar[4],.t.,cmdline,section) ;
-                   ,if(ascan(arryPar,[LEN])>0,if(valtype(oWr:argm[3])=="A",;
+                   ,iif(ascan(arryPar,[LEN])>0,iif(valtype(oWr:argm[3])=="A",;
                                               ::MACROCOMPILE(eval(chblk,arrypar,[LEN]),.t.,cmdline,section) , ;
                                               val(eval(chblk,arrypar,[LEN]))),NIL) ;
-                   ,if(ascan(arryPar,[FONT])>0,"FX",NIL);
-                   ,if(ascan(arryPar,[COLOR])>0,::UsaColor(eval(chblk,arrypar,[COLOR])),NIL);
+                   ,iif(ascan(arryPar,[FONT])>0,"FX",NIL);
+                   ,iif(ascan(arryPar,[COLOR])>0,::UsaColor(eval(chblk,arrypar,[COLOR])),NIL);
                    ,NIL ;
-                   ;//,if(ascan(arryPar,[ALIGN])>0,::what_ele(eval(chblk,arrypar,[ALIGN]),::aCh,"_aAlign"),NIL);
-                   ,if(ascan(arryPar,[.F.])>0,".F.","");
+                   ;//,iif(ascan(arryPar,[ALIGN])>0,::what_ele(eval(chblk,arrypar,[ALIGN]),::aCh,"_aAlign"),NIL);
+                   ,iif(ascan(arryPar,[.F.])>0,".F.","");
                    ,arrypar)
 
                 hbprn:settextalign( al[1] )
@@ -2142,17 +2142,17 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
 
                 al := ::UsaFont(arrypar)
 
-                ::Putarray(if([LINE] $ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])) ;
+                ::Putarray(iif([LINE] $ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])) ;
                    ,eval(epar,ArryPar[2]) ;
                    ,::MACROCOMPILE(ArryPar[4],.t.,cmdline,section)    ;            //arr
-                   ,if(ascan(arryPar,[LEN])>0,::macrocompile(eval(chblk,arrypar,[LEN])),NIL) ; //awidts
+                   ,iif(ascan(arryPar,[LEN])>0,::macrocompile(eval(chblk,arrypar,[LEN])),NIL) ; //awidts
                    ,nil                                                           ;      //rowheight
                    ,nil                                                           ;      //vertalign
                    ,(ascan(arryPar,[NOFRAME])>0)                                  ;      //noframes
                    ,nil                                                           ;      //abrushes
                    ,nil                                                           ;      //apens
-                   ,if(ascan(arryPar,[FONT])>0,NIL,NIL)                           ;      //afonts
-                   ,if(ascan(arryPar,[COLOR])> 0,::UsaColor(eval(chblk,arrypar,[COLOR])),NIL);//afontscolor
+                   ,iif(ascan(arryPar,[FONT])>0,NIL,NIL)                           ;      //afonts
+                   ,iif(ascan(arryPar,[COLOR])> 0,::UsaColor(eval(chblk,arrypar,[COLOR])),NIL);//afontscolor
                    ,NIL                                                           ;      //abitmaps
                    ,nil )                                                                //userfun
 
@@ -2178,7 +2178,7 @@ METHOD WHAT_ELE(Arg1,Arg2,Arg3) CLASS WREPORT
              {"_AQLT","DMRES_DRAFT"}, {"_STYLE","DT_TOP"}}
      default arg3 to "_APAPER"
      Arg3:=upper(Arg3)
-     aeval(aSr,{|x| if(x[1]== Arg3,ltemp:=x[2],'')})
+     aeval(aSr,{|x| iif(x[1]== Arg3,ltemp:=x[2],'')})
      if ! empty(ltemp)
         default arg1 to ltemp
         if arg3="_ACOLOR" .and. arg1 = ".F."
@@ -2232,7 +2232,7 @@ METHOD MEMOSAY(row,col,argm1,argl1,argf1,argcolor1,argalign,onlyone,arrypar) CLA
    next
  Endif
  if empty(onlyone)
-    hbprn:say(if(UNITS > 0.and.units < 4,nline*lstep,nline),col,arrymemo[1],argf1,argcolor1,argalign)
+    hbprn:say(iif(UNITS > 0.and.units < 4,nline*lstep,nline),col,arrymemo[1],argf1,argcolor1,argalign)
     ::aStat [ 'Yes_Memo' ]:= .t.
  else
     for mcl := 2 to len(arrymemo)
@@ -2242,7 +2242,7 @@ METHOD MEMOSAY(row,col,argm1,argl1,argf1,argcolor1,argalign,onlyone,arrypar) CLA
            ::TheHead()
            ::UsaFont(arrypar)
         endif
-        hbprn:say(if(UNITS > 0.and.units < 4,nline*lstep,nline),col,arrymemo[mcl],argf1,argcolor1,argalign)
+        hbprn:say(iif(UNITS > 0.and.units < 4,nline*lstep,nline),col,arrymemo[mcl],argf1,argcolor1,argalign)
     next
     if !typa
        dbskip()
@@ -2327,12 +2327,12 @@ IsMono := ::Ismono(arr)
       Else
       //FOR NOW DO NONE !!!
       /*
-        _HMG_PRINTER_H_PRINT( if(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) ;
+        _HMG_PRINTER_H_PRINT( iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) ;
          , nline*lstep , arg2, argf1 , argsize , afontscolor[1], afontscolor[2], afontscolor[3] ;
          , xwa, abold, aita, aunder, astrike;
-         , if(valtype(afontscolor)=="A", .t.,.f.) ;
-         , if(valtype(argf1)=="C", .t.,.f.) ;
-         , if(valtype(argsize)=="N", .t.,.f.) ;
+         , iif(valtype(afontscolor)=="A", .t.,.f.) ;
+         , iif(valtype(argf1)=="C", .t.,.f.) ;
+         , iif(valtype(argsize)=="N", .t.,.f.) ;
          , argalign )
       */
       Endif
@@ -2360,7 +2360,7 @@ return ritorno
 METHOD GROUP(GField, s_head, s_col, gftotal, wheregt, s_total, t_col, p_f_e_g) CLASS WREPORT
 *                1        2      3       4        5        6       7       8
 *-----------------------------------------------------------------------------*
-local ritorno := if( indexord()> 0 ,.t.,.f. )
+local ritorno := iif( indexord()> 0 ,.t.,.f. )
 local posiz   := 0, P1 := 0, P2 := 0, P3 := 0, cnt := 1
 local Aposiz  := {}, k, Rl, Rm, Rr, ghf:=''
 local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
@@ -2446,7 +2446,7 @@ local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
             EXV := alltrim(substr(S_HEAD,at("||",S_HEAD)+2,at("}",S_HEAD)-4))
          Endif
          GHstring:=substr(::aBody[posiz,1],1,P1)+;
-         IF("{||" = LEFT(S_HEAD,3), Any2Strg(eval({||exv })) ;
+         IIF("{||" = LEFT(S_HEAD,3), Any2Strg(eval({||exv })) ;
           ,"(["+ s_head+"]+"+::Hgconvert(substr(::aBody[posiz,1],P1+1,P2-p1))+")" ) ;
          +substr(::aBody[posiz,1],p2+1)
          if upper(s_col) # [AUTO]
@@ -2519,7 +2519,7 @@ return ritorno
 METHOD GrHead() CLASS WREPORT
 *-----------------------------------------------------------------------------*
 local db_arc:=dbf()
-local ValSee:= if(!empty(gfield),trans((db_arc)->&(GField),"@!"),"")
+local ValSee:= iif(!empty(gfield),trans((db_arc)->&(GField),"@!"),"")
 
       if ValSee == ::aStat[ 'TempHead' ]
          ::aStat [ 'Ghead' ]    := .F.
@@ -2610,7 +2610,7 @@ return r
 METHOD Hgconvert(ltxt) CLASS WREPORT
 *-----------------------------------------------------------------------------*
    do case
-      case valtype(&ltxt)$"MC" ; return if("trans" $ lower(ltxt),ltxt,'FIELD->'+ltxt)
+      case valtype(&ltxt)$"MC" ; return iif("trans" $ lower(ltxt),ltxt,'FIELD->'+ltxt)
       case valtype(&ltxt)=="N" ; return 'str(FIELD->'+ltxt+')'
       case valtype(&ltxt)=="D" ; return 'dtoc(FIELD->'+ltxt+')'
       case valtype(&ltxt)=="L" ; return 'if(FIELD->'+ltxt+',".T.",".F.")'
@@ -2646,7 +2646,7 @@ local grd, nkol
          if ::aStat ['r_paint']        // La testa
             aeval(::aHead,{|x,y|if(Y>1 ,::traduci(x[1],,x[2]),'')})
          endif
-         nline := if(nPgr =1,if(flob < 1,eval(::Valore,::aHead[1])-1,flob),eval(::Valore,::aHead[1])-1)
+         nline := iif(nPgr =1,iif(flob < 1,eval(::Valore,::aHead[1])-1,flob),eval(::Valore,::aHead[1])-1)
          shd := .t.
 return nil
 /*
@@ -2701,7 +2701,7 @@ Local sstring := "NLINE"+chr(07)+NTrim(t_col)+chr(07)+"SAY"+chr(07)
              endif
           next
       Else
-         do While if(used(),! (dbf())->(Eof()),nPgr < ::aStat [ 'end_pr' ] )
+         do While iif(used(),! (dbf())->(Eof()),nPgr < ::aStat [ 'end_pr' ] )
                   ::aStat [ 'GHline' ] := if (sbt =.F.,sbt ,::aStat [ 'GHline' ] )
 
                   if nxtp .and. ::aStat [ 'GHline' ] .and. ::aStat ['r_paint'] .and. sgh // La seconda pagina
@@ -2821,7 +2821,7 @@ METHOD TheFeet(last) CLASS WREPORT            //Feet // IL Piede
    if !last_pag
       eline := nline // if (eval(::Valore,::aBody[1])+eval(::Valore,::aBody[1]) < nline,nline,eline)
    endif
-   aeval(::aFeet,{|x,y|if(Y>1 ,::traduci(x[1],if(!(grdemo .or. gcdemo),'',.f.),x[2]),'')})
+   aeval(::aFeet,{|x,y|if(Y>1 ,::traduci(x[1],iif(!(grdemo .or. gcdemo),'',.f.),x[2]),'')})
    last_pag := last
    Last := .T.
    if ::PrnDrv = "HBPR"
@@ -2901,7 +2901,7 @@ Method TheMiniHead() Class Wreport
          aeval(oWr:aHead,{|x,y|if(Y>1 ,oWr:traduci(x[1],,x[2]),'')})
       endif
 
-      nline := if(nPgr =1,if(flob < 1,eval(oWr:Valore,oWr:aHead[1])-1,flob),eval(oWr:Valore,oWr:aHead[1])-1)
+      nline := iif(nPgr =1,iif(flob < 1,eval(oWr:Valore,oWr:aHead[1])-1,flob),eval(oWr:Valore,oWr:aHead[1])-1)
 
 return nil
 /*
@@ -2958,7 +2958,7 @@ local oErrAntes, oErr, lMyError := .F., n , al ,an
           next
       Else
 
-         do While if(used(),! (dbf())->(Eof()),nPgr<oWr:aStat [ 'end_pr' ])
+         do While iif(used(),! (dbf())->(Eof()),nPgr<oWr:aStat [ 'end_pr' ])
                   if nxtp .and. ::aStat [ 'GHline' ] .and. ::aStat [ 'r_paint' ]
                      ::traduci(Ghstring)
                      nxtp := .F.
@@ -3010,7 +3010,7 @@ local oErrAntes, oErr, lMyError := .F., n , al ,an
                       if Gfexec        // Display the subtotal of group
                          if ::GFeet()
                             if gfline
-                               @nline,t_col PRINT if(oWr:aStat [ 'r_paint' ],s_total,[]) COLOR BLUE
+                               @nline,t_col PRINT iif(oWr:aStat [ 'r_paint' ],s_total,[]) COLOR BLUE
                                if oWr:aStat['InlineSbt']= .F.
                                   nline ++
                                Endif
@@ -3038,7 +3038,7 @@ local oErrAntes, oErr, lMyError := .F., n , al ,an
                       else
                           if Gfexec  //.and. gcounter # 0     //display total of group
                              if len(m->tts) > 0
-                                @nline,t_col PRINT if(oWr:aStat [ 'r_paint' ],[Totale],[])
+                                @nline,t_col PRINT iif(oWr:aStat [ 'r_paint' ],[Totale],[])
                                 if ::aStat['InlineTot']= .F.
                                    NLINE ++
                                 Endif

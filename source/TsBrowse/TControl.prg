@@ -91,7 +91,7 @@ CLASS TControl
                                 "nWidth", "nHeight", "Cargo" }
 
    METHOD AddControl( hControl ) INLINE ;
-                        If( ::aControls == nil, ::aControls := {},),;
+                        IIf( ::aControls == nil, ::aControls := {},),;
                         AAdd( ::aControls, hControl ), ::lValidating := .f.
 
    METHOD AddVars(hControl)
@@ -132,7 +132,7 @@ CLASS TControl
 
    METHOD GetRect()
 
-   METHOD GetNewId() INLINE If( ::nId == nil, ::nId := 100, ), ++::nId
+   METHOD GetNewId() INLINE IIf( ::nId == nil, ::nId := 100, ), ++::nId
 
    METHOD GotFocus( hCtlLost )
 
@@ -156,10 +156,10 @@ CLASS TControl
 
    METHOD KillFocus( hCtlFocus )
 
-   METHOD VarPut( uVal ) INLINE  If( ValType( ::bSetGet ) == "B",;
+   METHOD VarPut( uVal ) INLINE  IIf( ValType( ::bSetGet ) == "B",;
                                  Eval( ::bSetGet, uVal ), )
 
-   METHOD VarGet() INLINE If( ValType( ::bSetGet ) == "B", Eval( ::bSetGet ), )
+   METHOD VarGet() INLINE IIf( ValType( ::bSetGet ) == "B", Eval( ::bSetGet ), )
 
    METHOD LButtonDown( nRow, nCol, nKeyFlags )
 
@@ -185,25 +185,25 @@ CLASS TControl
    METHOD Capture() INLINE  SetCapture( ::hWnd ) //TWindow
 
    METHOD GetDC() INLINE ;
-       If( ::hDC == nil, ::hDC := GetDC(::hWnd),),;
-       If( ::nPaintCount == nil, ::nPaintCount := 1, ::nPaintCount++ ), ::hDC
+       IIf( ::hDC == nil, ::hDC := GetDC(::hWnd),),;
+       IIf( ::nPaintCount == nil, ::nPaintCount := 1, ::nPaintCount++ ), ::hDC
 
-   METHOD ReleaseDC() INLINE  ::nPaintCount--, If( ::nPaintCount == 0,;
-                              If( ReleaseDC(::hWnd, ::hDC), ::hDC := nil,), )
+   METHOD ReleaseDC() INLINE  ::nPaintCount--, IIf( ::nPaintCount == 0,;
+                              IIf( ReleaseDC(::hWnd, ::hDC), ::hDC := nil,), )
 
    METHOD PostMsg( nMsg, nWParam, nLParam ) INLINE ;
                PostMessage( ::hWnd, nMsg, nWParam, nLParam )
 
-   METHOD lValid() INLINE If( ::bValid != nil, Eval( ::bValid ), .t. )
+   METHOD lValid() INLINE IIf( ::bValid != nil, Eval( ::bValid ), .t. )
 
    METHOD SetMsg( cText, lDefault )
 
-   METHOD lWhen() INLINE  If( ::bWhen != nil, Eval( ::bWhen ), .t. )
+   METHOD lWhen() INLINE  IIf( ::bWhen != nil, Eval( ::bWhen ), .t. )
 
    METHOD SetColor( nClrFore, nClrBack, hBrush )
 
    METHOD EndCtrl() BLOCK ;   // It has to be Block
-      { | Self, lEnd | If( lEnd := ::lValid(), ::PostMsg( WM_CLOSE ),), lEnd }
+      { | Self, lEnd | IIf( lEnd := ::lValid(), ::PostMsg( WM_CLOSE ),), lEnd }
 
    METHOD Hide() INLINE ShowWindow( ::hWnd, SW_HIDE )
 
@@ -220,7 +220,7 @@ CLASS TControl
    METHOD Notify( nWParam, nLParam )
 
    METHOD Refresh( lErase ) INLINE InvalidateRect( ::hWnd,;
-                                   If( lErase == NIL .OR. !lErase, 0, 1 ) )
+                                   IIf( lErase == NIL .OR. !lErase, 0, 1 ) )
 
    METHOD nGetChrHeight() INLINE ::hDC := GetDC(::hWnd), ;
                           ::nChrHeight := _GetTextHeight( ::hWnd, ::hDC ) //Temp
@@ -249,7 +249,7 @@ METHOD Init( hDlg ) CLASS TControl
 
       ::Move (::nTop,::nLeft,::nRight - ::nLeft, ::nBottom - ::nTop)
 
-      If( ::lActive, ::Enable(), ::Disable() )
+      IIf( ::lActive, ::Enable(), ::Disable() )
 
       ::Link()
 
@@ -407,7 +407,7 @@ return nil
 METHOD End() CLASS TControl
 
    local ix
-   local nAt := If( ! Empty( ::oWnd:aControls ),;
+   local nAt := IIf( ! Empty( ::oWnd:aControls ),;
               AScan( ::oWnd:aControls, { | hCtrl | hCtrl == Self:hWnd } ), 0 )
 
    if nAt != 0

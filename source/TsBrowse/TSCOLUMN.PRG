@@ -284,9 +284,9 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
 
    If aAlign != Nil
       AEval( aAlign, { |nAli,n| ;
-                       aTmpAlign[ n ] := If( ValType( nAli ) == "N" .or. ;
+                       aTmpAlign[ n ] := IIf( ValType( nAli ) == "N" .or. ;
                        ValType( nAli ) == "B", nAli, ;
-                       If( ( xVar := AScan( { "LEFT", "CENTER", "RIGHT", "VERT" }, ;
+                       IIf( ( xVar := AScan( { "LEFT", "CENTER", "RIGHT", "VERT" }, ;
                            Upper( nAli ) ) ) > 0, xVar - 1, xVar ) ) } )
    Endif
 
@@ -363,7 +363,7 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
 
    EndIf
 
-   Default aTmp3D[ 1 ]    := If( oBrw == Nil, .F., oBrw:l3DLook )
+   Default aTmp3D[ 1 ]    := IIf( oBrw == Nil, .F., oBrw:l3DLook )
 
    Default aTmp3D[ 2 ]    := aTmp3D[ 1 ], ;
            aTmp3D[ 3 ]    := aTmp3D[ 1 ]
@@ -379,7 +379,7 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
          uAlign := AScan( { "LEFT", "CENTER", "RIGHT" }, ;
                           {| c |  Upper( aTmpAlign[ nEle ] ) $ c } ) - 1
 
-         uAlign := If( uAlign < 0, DT_LEFT, uAlign )
+         uAlign := IIf( uAlign < 0, DT_LEFT, uAlign )
          aTmpAlign[ nEle ] := uAlign
       Endif
 
@@ -390,7 +390,7 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
       If ValType( aTmp3D[ nEle ] ) == "C"
          uAlign := AScan( {"T",".T.","SI","YES"}, ;
                           {| c |  Upper( aTmp3D[ nEle ] ) == c } )
-         aTmp3D[ nEle ] := If( uAlign > 0, .T., .F. )
+         aTmp3D[ nEle ] := IIf( uAlign > 0, .T., .F. )
       Endif
 
    Next
@@ -426,16 +426,16 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
    If nWidth == Nil
 
       If oBrw != Nil
-         nWidth := SBGetHeight( oBrw:hWnd, If( ::hFont != Nil, ;
+         nWidth := SBGetHeight( oBrw:hWnd, IIf( ::hFont != Nil, ;
                                                ::hFont, 0 ), 1 )
-         nEle   := Max( If( LoWord(aTmpAlign[ 2 ]) == 3, 2, Len( cHeading ) ), ;
-                   Len( If( Empty( cPicture ), cValToChar( Eval( ::bData ) ), ;
+         nEle   := Max( IIf( LoWord(aTmpAlign[ 2 ]) == 3, 2, Len( cHeading ) ), ;
+                   Len( IIf( Empty( cPicture ), cValToChar( Eval( ::bData ) ), ;
                    Transform( cValToChar( Eval( ::bData ) ), cPicture ) ) ) )
          nWidth := Round( nWidth * ( nEle + 1 ) * 1.3, 0 )         //V90
       Else
-         nWidth := Int( If( ! lBitMap .and. ! lCheck, 0.67 * ;
+         nWidth := Int( IIf( ! lBitMap .and. ! lCheck, 0.67 * ;
                    GetTextWidth( 0, Replicate( "B", ;
-                   Max( Len( cHeading ), Len( If( Empty( cPicture ), ;
+                   Max( Len( cHeading ), Len( IIf( Empty( cPicture ), ;
                    cValToChar( Eval( bData ) ), ;
                    Transform( cValToChar( Eval( bData ) ), cPicture ) ) ) ) + ;
                    1 ), 0 ), 16 ) )
@@ -671,10 +671,10 @@ METHOD DefFont( oBrw ) CLASS TSColumn
    If oBrw != Nil
 
       hFont      := oBrw:hFont
-      hFontHead  := If( Empty( oBrw:hFontHead  ), oBrw:hFont, oBrw:hFontHead  )
-      hFontFoot  := If( Empty( oBrw:hFontFoot  ), oBrw:hFont, oBrw:hFontFoot  )
-      hFontEdit  := If( Empty( oBrw:hFontEdit  ), oBrw:hFont, oBrw:hFontEdit  )
-      hFontSpcHd := If( Empty( oBrw:hFontSpcHd ), oBrw:hFont, oBrw:hFontSpcHd )
+      hFontHead  := IIf( Empty( oBrw:hFontHead  ), oBrw:hFont, oBrw:hFontHead  )
+      hFontFoot  := IIf( Empty( oBrw:hFontFoot  ), oBrw:hFont, oBrw:hFontFoot  )
+      hFontEdit  := IIf( Empty( oBrw:hFontEdit  ), oBrw:hFont, oBrw:hFontEdit  )
+      hFontSpcHd := IIf( Empty( oBrw:hFontSpcHd ), oBrw:hFont, oBrw:hFontSpcHd )
 
       Default ::hFont      := hFont     , ;
               ::hFontHead  := hFontHead , ;
@@ -878,7 +878,7 @@ Function BiffRec( nOpCode, uData, nRow, nCol, lBorder, nAlign, nPic, nFont )
 
    aAttr[ 1 ] := Chr( 64 )
    aAttr[ 2 ] := Chr( ( ( 2 ** 6 ) * nFont ) + nPic )
-   aAttr[ 3 ] := Chr( If( lBorder, 120, 0 ) + nAlign )
+   aAttr[ 3 ] := Chr( IIf( lBorder, 120, 0 ) + nAlign )
 
    Do Case  // in order of apearence
 
@@ -907,10 +907,10 @@ Function BiffRec( nOpCode, uData, nRow, nCol, lBorder, nAlign, nPic, nFont )
          cHead := I2Bin( 49 ) + ; // opCode
                   I2Bin( 5 + Len( uData[ 1 ] ) ) // body length
          cBody := I2Bin( uData[ 2 ] * 20 ) + ;   // font height in 1/20ths of a point
-                  I2Bin( nOr( If( uData[ 3 ], 1, 0 ), ; // lBold    //JP nOr
-                            If( uData[ 4 ], 2, 0 ), ;   // lItalic
-                            If( uData[ 5 ], 4, 0 ), ;   // lUnderline
-                            If( uData[ 6 ], 8, 0 ) ) ) + ;  // lStrikeout
+                  I2Bin( nOr( IIf( uData[ 3 ], 1, 0 ), ; // lBold    //JP nOr
+                            IIf( uData[ 4 ], 2, 0 ), ;   // lItalic
+                            IIf( uData[ 5 ], 4, 0 ), ;   // lUnderline
+                            IIf( uData[ 6 ], 8, 0 ) ) ) + ;  // lStrikeout
                   Chr( Len( uData[ 1 ] ) ) + ;          // length of cFaceName
                   uData[ 1 ]                            // cFaceName
 
@@ -1016,7 +1016,7 @@ Return nCount
 Function StrWBlock( cField, nLen, nDec )
 
    Local bBlock := &( "{|x|If(Pcount()>0," + cField + ":=x,Str(" + cField + ;
-                      "," + LTrim( Str( nLen ) ) + If( nDec == Nil, "", ;
+                      "," + LTrim( Str( nLen ) ) + IIf( nDec == Nil, "", ;
                       "," + Ltrim( Str( nDec ) ) ) + "))}" )
 
 Return bBlock
@@ -1045,7 +1045,7 @@ Return .F.
 
 Function ArrayWBlock( oBrw, nEle )
 
-Return {|x| If(PCount() > 0, oBrw:aArray[ oBrw:nAt, nEle ] := x, ;
+Return {|x| IIf(PCount() > 0, oBrw:aArray[ oBrw:nAt, nEle ] := x, ;
             oBrw:aArray[ oBrw:nAt, nEle ] ) }
 
 * ============================================================================
@@ -1102,12 +1102,12 @@ Function ComboWBlock( oBrw, uField, nCol, aList )
 
       If aData == Nil
 
-         bBlock := {|x| If( PCount() > 0, ( oBrw:cAlias )->( FieldPut( uField, x ) ), ;
+         bBlock := {|x| IIf( PCount() > 0, ( oBrw:cAlias )->( FieldPut( uField, x ) ), ;
                     aItems[ Max( 1, AScan( aItems, ( oBrw:cAlias )->( FieldGet( uField ) ) ) ) ] ) }
       Else
 
-         bBlock := {|x| If( PCount() > 0, ( oBrw:cAlias )->( FieldPut( uField, x ) ), ;
-                    If( nCol <= Len( oBrw:aColumns ) .and. ! Empty( oBrw:aColumns[ nCol ]:aItems ), ;
+         bBlock := {|x| IIf( PCount() > 0, ( oBrw:cAlias )->( FieldPut( uField, x ) ), ;
+                    IIf( nCol <= Len( oBrw:aColumns ) .and. ! Empty( oBrw:aColumns[ nCol ]:aItems ), ;
                     oBrw:aColumns[ nCol ]:aItems[ Max( 1, AScan( oBrw:aColumns[ nCol ]:aData, ;
                     ( oBrw:cAlias )->( FieldGet( uField ) ) ) ) ], Nil ) ) }
       EndIf
@@ -1120,12 +1120,12 @@ Function ComboWBlock( oBrw, uField, nCol, aList )
 
       If aData == Nil
 
-         bBlock := {|x| If( PCount() > 0, ;
+         bBlock := {|x| IIf( PCount() > 0, ;
                     oBrw:aArray[ oBrw:nAt, uField ] := x, ;
                     aItems[ Max( 1, AScan( aItems, oBrw:aArray[ oBrw:nAt, uField ] ) ) ] ) }
       Else
 
-         bBlock := {|x| If( PCount() > 0, ;
+         bBlock := {|x| IIf( PCount() > 0, ;
                     oBrw:aArray[ oBrw:nAt, uField ] := x, ;
                     aItems[ Max( 1, AScan( aData, oBrw:aArray[ oBrw:nAt, uField ] ) ) ] ) }
       EndIf

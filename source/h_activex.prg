@@ -304,10 +304,10 @@ ENDCLASS
 
 METHOD New( cWindowName, cProgId, nRow, nCol, nWidth, nHeight ) CLASS TActiveX
 
-   if( Empty( nRow )    , nRow    := 0 , )
-   if( Empty( nCol )    , nCol    := 0 , )
-   if( Empty( nWidth )  , nWidth  := GetProperty( cWindowName , "width" ) , )
-   if( Empty( nHeight ) , nHeight := GetProperty( cWindowName , "Height" ) , )
+   iif( Empty( nRow )    , nRow    := 0 , )
+   iif( Empty( nCol )    , nCol    := 0 , )
+   iif( Empty( nWidth )  , nWidth  := GetProperty( cWindowName , "width" ) , )
+   iif( Empty( nHeight ) , nHeight := GetProperty( cWindowName , "Height" ) , )
    ::nRow := nRow
    ::nCol := nCol
    ::nWidth := nWidth

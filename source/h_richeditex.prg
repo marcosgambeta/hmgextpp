@@ -251,7 +251,7 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
    _HMG_aControlRangeMin[ k ] := OnLink
    _HMG_aControlRangeMax[ k ] := OnVScroll
    _HMG_aControlCaption[ k ] := ''
-   _HMG_aControlVisible[ k ] := if( invisible, .F., .T. )
+   _HMG_aControlVisible[ k ] := iif( invisible, .F., .T. )
    _HMG_aControlHelpId[ k ] := HelpId
    _HMG_aControlFontHandle[ k ] := FontHandle
    _HMG_aControlBrushHandle[ k ] := 0
