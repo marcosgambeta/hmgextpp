@@ -130,7 +130,7 @@ HB_FUNC( LISTBOXINSERTSTRING )
 #else
    LPWSTR lpString = AnsiToWide(( char * ) hb_parc(2));
 #endif
-   SendMessage(hmg_par_HWND(1), LB_INSERTSTRING, ( WPARAM ) hb_parni(3) - 1, ( LPARAM ) lpString);
+   SendMessage(hmg_par_HWND(1), LB_INSERTSTRING, hmg_par_WPARAM(3) - 1, ( LPARAM ) lpString);
 #ifdef UNICODE
    hb_xfree(lpString);
 #endif
@@ -142,12 +142,12 @@ HB_FUNC( LISTBOXGETSTRING )
 #ifdef UNICODE
    LPSTR lpString;
 #endif
-   int     iLen = ( int ) SendMessage(hmg_par_HWND(1), LB_GETTEXTLEN, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) 0);
+   int     iLen = ( int ) SendMessage(hmg_par_HWND(1), LB_GETTEXTLEN, hmg_par_WPARAM(2) - 1, ( LPARAM ) 0);
    TCHAR * cString;
 
    if( iLen > 0 && nullptr != ( cString = ( TCHAR * ) hb_xgrab((iLen + 1) * sizeof(TCHAR)) ) )
    {
-      SendMessage(hmg_par_HWND(1), LB_GETTEXT, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) cString);
+      SendMessage(hmg_par_HWND(1), LB_GETTEXT, hmg_par_WPARAM(2) - 1, ( LPARAM ) cString);
    #ifdef UNICODE
       lpString = WideToAnsi(cString);
       hb_retc( lpString );

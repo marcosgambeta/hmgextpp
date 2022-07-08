@@ -127,7 +127,7 @@ HB_FUNC( INITRICHEDITBOX )
          nullptr
             );
 
-      SendMessage(hRE, ( UINT ) EM_EXLIMITTEXT, ( WPARAM ) hb_parni(9), ( LPARAM ) 0);
+      SendMessage(hRE, ( UINT ) EM_EXLIMITTEXT, hmg_par_WPARAM(9), ( LPARAM ) 0);
       SendMessage(hRE, ( UINT ) EM_SETEVENTMASK, ( WPARAM ) 0, ( LPARAM ) ENM_SELCHANGE | ENM_DRAGDROPDONE | ENM_CHANGE | ENM_SCROLL);
    }
 

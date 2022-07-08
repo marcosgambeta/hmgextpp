@@ -161,3 +161,4 @@ void pascal DelResource(HANDLE hResource);
 #define hmg_par_BYTE(n) static_cast<BYTE>(hb_parni(n))
 #define hmg_par_DWORD(n) static_cast<DWORD>(hb_parnl(n))
 #define hmg_par_WORD(n) static_cast<WORD>(hb_parni(n))
+#define hmg_par_WPARAM(n) static_cast<WPARAM>(hb_parni(n))

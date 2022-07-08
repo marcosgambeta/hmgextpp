@@ -136,7 +136,7 @@ HB_FUNC( INITBTNTEXTBOX )
    SetProp(( HWND ) hedit, TEXT("OldWndProc"), ( HWND ) GetWindowLongPtr(( HWND ) hedit, GWLP_WNDPROC));
    SetWindowLongPtr(hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnBtnTextProc);
 
-   SendMessage(hedit, ( UINT ) EM_LIMITTEXT, ( WPARAM ) hb_parni(9), ( LPARAM ) 0);
+   SendMessage(hedit, ( UINT ) EM_LIMITTEXT, hmg_par_WPARAM(9), ( LPARAM ) 0);
 
    if( hb_parc(17) != nullptr )
    {

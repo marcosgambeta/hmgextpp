@@ -606,7 +606,7 @@ HB_FUNC( ISBUTTONBARCHECKED )
 {
    TBBUTTON lpBtn;
 
-   SendMessage(hmg_par_HWND(1), TB_GETBUTTON, ( WPARAM ) hb_parni(2), ( LPARAM ) &lpBtn);
+   SendMessage(hmg_par_HWND(1), TB_GETBUTTON, hmg_par_WPARAM(2), ( LPARAM ) &lpBtn);
    hb_retl( ( int ) SendMessage(hmg_par_HWND(1), TB_ISBUTTONCHECKED, lpBtn.idCommand, 0) );
 }
 
@@ -614,7 +614,7 @@ HB_FUNC( CHECKBUTTONBAR )
 {
    TBBUTTON lpBtn;
 
-   SendMessage(hmg_par_HWND(1), TB_GETBUTTON, ( WPARAM ) hb_parni(2), ( LPARAM ) &lpBtn);
+   SendMessage(hmg_par_HWND(1), TB_GETBUTTON, hmg_par_WPARAM(2), ( LPARAM ) &lpBtn);
    SendMessage(hmg_par_HWND(1), TB_CHECKBUTTON, lpBtn.idCommand, hb_parl(3));
 }
 
@@ -622,7 +622,7 @@ HB_FUNC( ISBUTTONENABLED )
 {
    TBBUTTON lpBtn;
 
-   SendMessage(hmg_par_HWND(1), TB_GETBUTTON, ( WPARAM ) hb_parni(2), ( LPARAM ) &lpBtn);
+   SendMessage(hmg_par_HWND(1), TB_GETBUTTON, hmg_par_WPARAM(2), ( LPARAM ) &lpBtn);
    hb_retl( ( int ) SendMessage(hmg_par_HWND(1), TB_ISBUTTONENABLED, lpBtn.idCommand, 0) );
 }
 
@@ -630,7 +630,7 @@ HB_FUNC( GETBUTTONBARRECT )
 {
    RECT rc;
 
-   SendMessage(hmg_par_HWND(1), TB_GETITEMRECT, ( WPARAM ) hb_parni(2), ( LPARAM ) &rc);
+   SendMessage(hmg_par_HWND(1), TB_GETITEMRECT, hmg_par_WPARAM(2), ( LPARAM ) &rc);
    hb_retnl( MAKELONG(rc.left, rc.bottom) );
 }
 
@@ -666,7 +666,7 @@ HB_FUNC( SETTOOLBUTTONCAPTION )
    tbinfo.dwMask  = TBIF_TEXT;
    tbinfo.pszText = lpText;
 
-   SendMessage(hmg_par_HWND(1), TB_SETBUTTONINFO, ( WPARAM ) hb_parni(2), ( LPARAM ) &tbinfo);
+   SendMessage(hmg_par_HWND(1), TB_SETBUTTONINFO, hmg_par_WPARAM(2), ( LPARAM ) &tbinfo);
 
 #ifdef UNICODE
    hb_xfree(lpText);
@@ -679,10 +679,10 @@ HB_FUNC( SETTOOLBUTTONIMAGE )
 
    tbinfo.cbSize = sizeof(tbinfo);
    tbinfo.dwMask = TBIF_IMAGE;
-   SendMessage(hmg_par_HWND(1), TB_GETBUTTONINFO, ( WPARAM ) hb_parni(2), ( LPARAM ) &tbinfo);
+   SendMessage(hmg_par_HWND(1), TB_GETBUTTONINFO, hmg_par_WPARAM(2), ( LPARAM ) &tbinfo);
 
    tbinfo.iImage = hb_parni(3);
-   SendMessage(hmg_par_HWND(1), TB_SETBUTTONINFO, ( WPARAM ) hb_parni(2), ( LPARAM ) &tbinfo);
+   SendMessage(hmg_par_HWND(1), TB_SETBUTTONINFO, hmg_par_WPARAM(2), ( LPARAM ) &tbinfo);
 }
 
 HB_FUNC( REPLACETOOLBUTTONIMAGE )
@@ -749,7 +749,7 @@ HB_FUNC( RESIZESPLITBOXITEM )
    rbBand.cbSize = sizeof(REBARBANDINFO);
    rbBand.fMask  = RBBIM_CHILDSIZE | RBBIM_IDEALSIZE;
 
-   SendMessage(hmg_par_HWND(1), RB_GETBANDINFO, ( WPARAM ) hb_parni(2), ( LPARAM ) &rbBand);
+   SendMessage(hmg_par_HWND(1), RB_GETBANDINFO, hmg_par_WPARAM(2), ( LPARAM ) &rbBand);
 
    rbBand.fStyle     = rbBand.fStyle | RBBS_USECHEVRON;
    rbBand.cxMinChild = hb_parni(3);
@@ -757,7 +757,7 @@ HB_FUNC( RESIZESPLITBOXITEM )
    rbBand.cxIdeal    = hb_parni(5);
    rbBand.cx         = hb_parni(5);
 
-   SendMessage(hmg_par_HWND(1), RB_SETBANDINFO, ( WPARAM ) hb_parni(2), ( LPARAM ) &rbBand);
+   SendMessage(hmg_par_HWND(1), RB_SETBANDINFO, hmg_par_WPARAM(2), ( LPARAM ) &rbBand);
 }
 
 HB_FUNC( SETCHEVRONSTYLESPLITBOXITEM )
@@ -767,12 +767,12 @@ HB_FUNC( SETCHEVRONSTYLESPLITBOXITEM )
    rbBand.cbSize = sizeof(REBARBANDINFO);
    rbBand.fMask  = RBBIM_STYLE | RBBIM_IDEALSIZE;
 
-   SendMessage(hmg_par_HWND(1), RB_GETBANDINFO, ( WPARAM ) hb_parni(2), ( LPARAM ) &rbBand);
+   SendMessage(hmg_par_HWND(1), RB_GETBANDINFO, hmg_par_WPARAM(2), ( LPARAM ) &rbBand);
 
    rbBand.fStyle  = rbBand.fStyle | RBBS_USECHEVRON;
    rbBand.cxIdeal = hb_parni(3) + 50;
 
-   hb_retl( ( int ) SendMessage(hmg_par_HWND(1), RB_SETBANDINFO, ( WPARAM ) hb_parni(2), ( LPARAM ) &rbBand) );
+   hb_retl( ( int ) SendMessage(hmg_par_HWND(1), RB_SETBANDINFO, hmg_par_WPARAM(2), ( LPARAM ) &rbBand) );
 }
 
 HB_FUNC( SETCAPTIONSPLITBOXITEM )
@@ -788,7 +788,7 @@ HB_FUNC( SETCAPTIONSPLITBOXITEM )
    rbBand.fMask  = RBBIM_TEXT;
    rbBand.lpText = lpText;
 
-   SendMessage(hmg_par_HWND(1), RB_SETBANDINFO, ( WPARAM ) hb_parni(2), ( LPARAM ) &rbBand);
+   SendMessage(hmg_par_HWND(1), RB_SETBANDINFO, hmg_par_WPARAM(2), ( LPARAM ) &rbBand);
 
 #ifdef UNICODE
    hb_xfree(lpText);
@@ -868,7 +868,7 @@ HB_FUNC( GETBUTTONBAR )
    BOOL     lSep;
    BOOL     lEnable;
 
-   SendMessage(hmg_par_HWND(1), TB_GETBUTTON, ( WPARAM ) hb_parni(2), ( LPARAM ) &lpBtn);
+   SendMessage(hmg_par_HWND(1), TB_GETBUTTON, hmg_par_WPARAM(2), ( LPARAM ) &lpBtn);
 
    lSep    = ( lpBtn.fsStyle & TBSTYLE_SEP ) ? TRUE : FALSE;
    lEnable = ( lpBtn.fsState & TBSTATE_ENABLED ) ? TRUE : FALSE;

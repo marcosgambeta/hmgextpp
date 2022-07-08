@@ -300,7 +300,7 @@ HB_FUNC( SETSTATUSITEMICON )
 
    // Unloads from memory current icon
 
-   DestroyIcon(( HICON ) SendMessage(hwnd, SB_GETICON, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) 0));
+   DestroyIcon(( HICON ) SendMessage(hwnd, SB_GETICON, hmg_par_WPARAM(2) - 1, ( LPARAM ) 0));
 
    GetClientRect(hwnd, &rect);
 
@@ -312,7 +312,7 @@ HB_FUNC( SETSTATUSITEMICON )
    if( hIcon == nullptr )
       hIcon = ( HICON ) LoadImage(nullptr, lpIconName, IMAGE_ICON, cx, cy, LR_LOADFROMFILE);
 
-   SendMessage(hwnd, SB_SETICON, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) hIcon);
+   SendMessage(hwnd, SB_SETICON, hmg_par_WPARAM(2) - 1, ( LPARAM ) hIcon);
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpIconName);
@@ -354,7 +354,7 @@ HB_FUNC( REFRESHPROGRESSITEM )       // RefreshProgressItem(HwndStatus, NrItem, 
    HWND hwndStatus = hmg_par_HWND(1);
    RECT rc;
 
-   SendMessage(hwndStatus, SB_GETRECT, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) &rc);
+   SendMessage(hwndStatus, SB_GETRECT, hmg_par_WPARAM(2) - 1, ( LPARAM ) &rc);
    SetWindowPos(hmg_par_HWND(3), 0, rc.left, rc.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
 }
 
@@ -365,7 +365,7 @@ HB_FUNC( CREATEPROGRESSBARITEM )     // CreateProgressBarItem(HwndStatus, NrItem
    RECT rc;
    int  Style = WS_CHILD | PBS_SMOOTH;
 
-   SendMessage(hwndStatus, SB_GETRECT, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) &rc);
+   SendMessage(hwndStatus, SB_GETRECT, hmg_par_WPARAM(2) - 1, ( LPARAM ) &rc);
    if( hb_parni(3) )
       Style = Style | WS_VISIBLE;
 
@@ -391,7 +391,7 @@ HB_FUNC( CREATEPROGRESSBARITEM )     // CreateProgressBarItem(HwndStatus, NrItem
    )
    {
       SendMessage(hwndProgressBar, PBM_SETRANGE, 0, MAKELONG(hb_parni(4), hb_parni(5)));
-      SendMessage(hwndProgressBar, PBM_SETPOS, ( WPARAM ) hb_parni(3), 0);
+      SendMessage(hwndProgressBar, PBM_SETPOS, hmg_par_WPARAM(3), 0);
 
       HB_RETNL( ( LONG_PTR ) hwndProgressBar );
    }
@@ -406,5 +406,5 @@ HB_FUNC( SETPOSPROGRESSBARITEM )     // SetPosProgressBarItem(HwndProgressBar, n
    HWND hwndProgressBar = hmg_par_HWND(1);
 
    ShowWindow(hwndProgressBar, hb_parni(2) ? SW_SHOW : SW_HIDE);
-   SendMessage(hwndProgressBar, PBM_SETPOS, ( WPARAM ) hb_parni(2), 0);
+   SendMessage(hwndProgressBar, PBM_SETPOS, hmg_par_WPARAM(2), 0);
 }

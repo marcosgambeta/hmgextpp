@@ -120,7 +120,7 @@ HB_FUNC( INITRICHEDITBOXEX )
                                    GetInstance(),
                                    nullptr);
 
-      SendMessage(hWndControl, EM_LIMITTEXT, ( WPARAM ) hb_parni(9), 0);
+      SendMessage(hWndControl, EM_LIMITTEXT, hmg_par_WPARAM(9), 0);
       SendMessage(hWndControl, EM_SETEVENTMASK, ( WPARAM ) 0, ( LPARAM ) (ENM_CHANGE | ENM_SELCHANGE | ENM_PROTECTED | ENM_SCROLL | ENM_LINK | ENM_KEYEVENTS | ENM_REQUESTRESIZE | ENM_MOUSEEVENTS));
 
       SendMessage(hWndControl, EM_SETTYPOGRAPHYOPTIONS, TO_ADVANCEDTYPOGRAPHY, TO_ADVANCEDTYPOGRAPHY);
@@ -372,7 +372,7 @@ HB_FUNC( RICHEDITBOX_SETZOOM ) // ZoomRatio = nNumerator / nDenominator
 {
    HWND hWndControl = hmg_par_HWND(1);
 
-   SendMessage(hWndControl, EM_SETZOOM, ( WPARAM ) hb_parni(2), ( LPARAM ) hb_parni(3)); //    1/64 < ZoomRatio < 64
+   SendMessage(hWndControl, EM_SETZOOM, hmg_par_WPARAM(2), ( LPARAM ) hb_parni(3)); //    1/64 < ZoomRatio < 64
 }
 
 //        RichEditBox_GetZoom ( hWndControl, @nNumerator, @nDenominator )

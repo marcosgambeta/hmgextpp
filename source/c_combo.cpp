@@ -266,12 +266,12 @@ HB_FUNC( COMBOGETSTRING )
 #ifdef UNICODE
    LPSTR lpString;
 #endif
-   int     iLen = ( int ) SendMessage(hmg_par_HWND(1), CB_GETLBTEXTLEN, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) 0);
+   int     iLen = ( int ) SendMessage(hmg_par_HWND(1), CB_GETLBTEXTLEN, hmg_par_WPARAM(2) - 1, ( LPARAM ) 0);
    TCHAR * cString;
 
    if( iLen > 0 && nullptr != ( cString = ( TCHAR * ) hb_xgrab((iLen + 1) * sizeof(TCHAR)) ) )
    {
-      SendMessage(hmg_par_HWND(1), CB_GETLBTEXT, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) cString);
+      SendMessage(hmg_par_HWND(1), CB_GETLBTEXT, hmg_par_WPARAM(2) - 1, ( LPARAM ) cString);
    #ifdef UNICODE
       lpString = WideToAnsi(cString);
       hb_retc( lpString );
