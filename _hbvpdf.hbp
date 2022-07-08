@@ -1,0 +1,11 @@
+-hblib
+
+-olib/${hb_plat}/${hb_comp}/hbvpdf
+
+-iinclude
+-isource\HbVpdf
+
+-prgflag=-n -w3 -es2
+
+source\HbVpdf\hbvpdf.prg
+source\HbVpdf\hbvpsup.prg
