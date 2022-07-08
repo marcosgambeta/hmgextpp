@@ -1,2 +1,2 @@
 # hmgextpp
-Harbour MiniGUI Extended for Harbour++ (experimental project)
+Harbour MiniGUI Extended for Harbour++
