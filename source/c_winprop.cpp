@@ -144,12 +144,12 @@ HB_FUNC( SETPROP )
    }
 
    // type conversion
-   if( (hMem = GlobalAlloc(GPTR, nLen + sizeof(int) + 1)) == NULL )
+   if( (hMem = GlobalAlloc(GPTR, nLen + sizeof(int) + 1)) == nullptr )
       return;
    else
    {
       lpMem = ( char * ) GlobalLock(hMem);
-      if( lpMem == NULL )
+      if( lpMem == nullptr )
       {
          GlobalFree(hMem);
          return;
@@ -217,13 +217,13 @@ HB_FUNC( GETPROP )
    hb_xfree(pW);
 #endif
 
-   if( NULL == hMem )
+   if( nullptr == hMem )
       return;
    else
    {
       lpMem = ( char * ) GlobalLock(hMem);
 
-      if( lpMem == NULL )
+      if( lpMem == nullptr )
          return;
    }
 
@@ -262,13 +262,13 @@ HB_FUNC( REMOVEPROP )
    hMem     = RemovePropW(hwnd, lpString);
    hb_xfree(( TCHAR * ) lpString);
 #endif
-   if( ( NULL != hMem ) && ( ! hb_parldef(3, HB_FALSE) ) )
+   if( ( nullptr != hMem ) && ( ! hb_parldef(3, HB_FALSE) ) )
    {
       GlobalFree(hMem);
-      hMem = NULL;
+      hMem = nullptr;
    }
    // !!!
-   if( NULL != hMem )
+   if( nullptr != hMem )
       HB_RETNL( ( LONG_PTR ) hMem );      // ( ( ULONG_PTR ) hMem )
 }
 
@@ -366,18 +366,18 @@ BOOL CALLBACK PropsEnumProcEx(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULO
 
    if( iLen )
    {
-      PHB_ITEM pHWnd = hb_itemPutNInt(NULL, ( LONG_PTR ) hWnd);
+      PHB_ITEM pHWnd = hb_itemPutNInt(nullptr, ( LONG_PTR ) hWnd);
       PHB_ITEM pPropName;
-      PHB_ITEM pHandle = hb_itemPutNInt(NULL, ( LONG_PTR ) handle);
+      PHB_ITEM pHandle = hb_itemPutNInt(nullptr, ( LONG_PTR ) handle);
       LPTSTR   pszName = ( LPTSTR ) hb_xgrabz((iLen + 1) * sizeof(TCHAR));
 
       lstrcpy(pszName, pszPropName);
    #ifndef UNICODE
-      pPropName = hb_itemPutCPtr(NULL, pszName);
+      pPropName = hb_itemPutCPtr(nullptr, pszName);
    #else
-      pPropName = hb_itemPutCPtr(NULL, WideToAnsi(pszName));
+      pPropName = hb_itemPutCPtr(nullptr, WideToAnsi(pszName));
    #endif
-      hb_evalBlock(pCodeBlock, pHWnd, pPropName, pHandle, NULL);
+      hb_evalBlock(pCodeBlock, pHWnd, pPropName, pHandle, nullptr);
 
       hb_itemRelease(pHWnd);
       hb_itemRelease(pPropName);

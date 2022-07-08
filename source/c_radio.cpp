@@ -91,7 +91,7 @@ HB_FUNC( INITRADIOGROUP )
       hwnd,
       hmg_par_HMENU(3),
       GetInstance(),
-      NULL
+      nullptr
              );
 
    HB_RETNL( ( LONG_PTR ) hbutton );
@@ -133,7 +133,7 @@ HB_FUNC( INITRADIOBUTTON )
       hwnd,
       hmg_par_HMENU(3),
       GetInstance(),
-      NULL
+      nullptr
              );
 
    HB_RETNL( ( LONG_PTR ) hbutton );

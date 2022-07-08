@@ -70,11 +70,11 @@ LPSTR  WideToAnsi(LPWSTR);
 #endif
 HINSTANCE GetInstance(void);
 
-static HINSTANCE hRELib = NULL;
+static HINSTANCE hRELib = nullptr;
 
 HB_FUNC( INITRICHEDITBOX )
 {
-   HWND    hRE = NULL;
+   HWND    hRE = nullptr;
    int     Style;
    TCHAR * lpClassName;
 
@@ -124,7 +124,7 @@ HB_FUNC( INITRICHEDITBOX )
          hmg_par_HWND(1),
          hmg_par_HMENU(2),
          GetInstance(),
-         NULL
+         nullptr
             );
 
       SendMessage(hRE, ( UINT ) EM_EXLIMITTEXT, ( WPARAM ) hb_parni(9), ( LPARAM ) 0);
@@ -139,7 +139,7 @@ HB_FUNC( UNLOADRICHEDITLIB )
    if( hRELib )
    {
       FreeLibrary(hRELib);
-      hRELib = NULL;
+      hRELib = nullptr;
    }
 }
 
@@ -147,7 +147,7 @@ DWORD CALLBACK EditStreamCallbackR( DWORD_PTR dwCookie, LPBYTE lpbBuff, LONG cb,
 {
    HANDLE hFile = ( HANDLE ) dwCookie;
 
-   if( ! ReadFile(hFile, ( LPVOID ) lpbBuff, cb, ( LPDWORD ) pcb, NULL) )
+   if( ! ReadFile(hFile, ( LPVOID ) lpbBuff, cb, ( LPDWORD ) pcb, nullptr) )
       return ( DWORD ) -1;
 
    return 0;
@@ -157,7 +157,7 @@ DWORD CALLBACK EditStreamCallbackW(DWORD_PTR dwCookie, LPBYTE lpbBuff, LONG cb, 
 {
    HANDLE hFile = ( HANDLE ) dwCookie;
 
-   if( ! WriteFile(hFile, ( LPVOID ) lpbBuff, cb, ( LPDWORD ) pcb, NULL) )
+   if( ! WriteFile(hFile, ( LPVOID ) lpbBuff, cb, ( LPDWORD ) pcb, nullptr) )
       return ( DWORD ) -1;
 
    return 0;
@@ -189,7 +189,7 @@ HB_FUNC( STREAMIN )        //StreamIn(HWND hwndCtrl, LPCTSTR lpszPath, int typ )
    }
 
    // open the source file.
-   if( ( hFile = CreateFile(cFileName, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL) ) == INVALID_HANDLE_VALUE )
+   if( ( hFile = CreateFile(cFileName, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr) ) == INVALID_HANDLE_VALUE )
    {
       hb_retl( FALSE );
       return;
@@ -243,7 +243,7 @@ HB_FUNC( STREAMOUT )       //StreamOut(HWND hwndCtrl, LPCTSTR lpszPath, int Typ 
    }
 
    // open the destination file.
-   if( ( hFile = CreateFile(cFileName, GENERIC_WRITE, FILE_SHARE_WRITE, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL) ) == INVALID_HANDLE_VALUE )
+   if( ( hFile = CreateFile(cFileName, GENERIC_WRITE, FILE_SHARE_WRITE, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr) ) == INVALID_HANDLE_VALUE )
    {
       hb_retl( FALSE );
       return;

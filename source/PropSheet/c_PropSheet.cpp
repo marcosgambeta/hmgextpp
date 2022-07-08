@@ -69,9 +69,9 @@ extern long    GetSizeDlgTemp(PHB_ITEM dArray, PHB_ITEM cArray);
 /****************************************************************************/
 LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
-   static PHB_SYMB   pSymbol = NULL;
-   static PHB_SYMB   pSymbol2 = NULL;
-   static PHB_SYMB   pSymbol3 = NULL;
+   static PHB_SYMB   pSymbol = nullptr;
+   static PHB_SYMB   pSymbol2 = nullptr;
+   static PHB_SYMB   pSymbol3 = nullptr;
    long int          r;
    int               nPage, nId;
    LPNMHDR     lpnmhdr;
@@ -203,11 +203,11 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
 /****************************************************************************/
 LRESULT CALLBACK HMG_PropSheetProc(HWND hwndPropSheet, UINT message, LPARAM lParam)
 {
-   static PHB_SYMB  pSymbol = NULL;
+   static PHB_SYMB  pSymbol = nullptr;
 
    switch(message){
    //called before the dialog is created,
-   //hwndPropSheet = NULL, lParam points
+   //hwndPropSheet = nullptr, lParam points
    //lpTemplate = {style, dwExtendStyle, cdit, x, y, cx, cy }  //ToDo
 
    case PSCB_PRECREATE:
@@ -262,13 +262,13 @@ HB_FUNC( CREATEPROPERTYSEEETPAGE )
 
    psp.dwSize        = sizeof(PROPSHEETPAGE);
    psp.dwFlags       = PageStyle;
-   psp.hInstance     = GetModuleHandle(NULL);
+   psp.hInstance     = GetModuleHandle(nullptr);
 #if ( defined( __BORLANDC__ ) && __BORLANDC__ <= 1410 )
    psp.DUMMYUNIONNAME.pszTemplate = MAKEINTRESOURCE(idRC);
-   psp.DUMMYUNIONNAME2.pszIcon    = NULL;
+   psp.DUMMYUNIONNAME2.pszIcon    = nullptr;
 #else
    psp.pszTemplate   = MAKEINTRESOURCE(idRC);
-   psp.pszIcon       = NULL;
+   psp.pszIcon       = nullptr;
 #endif
    psp.pfnDlgProc    = (DLGPROC)HMG_PageDlgProc;
    psp.pszTitle      = strTitle;
@@ -316,9 +316,9 @@ HB_FUNC( CREATEPROPERTYSHEET )
    if( Style & PSP_USEHICON )
    {
       hicon = ( HICON ) LoadImage(0, hb_arrayGetCPtr(pArray, 20), IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE);
-      if( hicon == NULL )
+      if( hicon == nullptr )
       {
-         hicon = ( HICON ) LoadImage(GetModuleHandle(NULL), hb_arrayGetCPtr(pArray, 20), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+         hicon = ( HICON ) LoadImage(GetModuleHandle(nullptr), hb_arrayGetCPtr(pArray, 20), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
       }
     }
     else
@@ -328,7 +328,7 @@ HB_FUNC( CREATEPROPERTYSHEET )
    psh.dwSize           = sizeof(PROPSHEETHEADER);
    psh.dwFlags          = Style;
    psh.hwndParent       = hwnd;
-   psh.hInstance        = GetModuleHandle(NULL);
+   psh.hInstance        = GetModuleHandle(nullptr);
    #if ( defined( __BORLANDC__ ) && __BORLANDC__ <= 1410 )
      if( Style & PSP_USEHICON )
         psh.DUMMYUNIONNAME.hIcon       =  hicon;
@@ -355,7 +355,7 @@ HB_FUNC( CREATEPROPERTYSHEET )
    else {
       if (PropertySheet(&psh) < 0)
       {
-         MessageBox(NULL, TEXT("Property Sheet could not be created"), TEXT("Error"),
+         MessageBox(nullptr, TEXT("Property Sheet could not be created"), TEXT("Error"),
              MB_OK | MB_ICONERROR | MB_DEFBUTTON1 | MB_APPLMODAL | MB_SETFOREGROUND);
          hb_retni( -1 );
       }
@@ -533,13 +533,13 @@ HB_FUNC( CREATEPROPSEEETPAGEINDIRECT )
 
    psp.dwSize        = sizeof(PROPSHEETPAGE);
    psp.dwFlags       = PageStyle | PSP_DLGINDIRECT;
-   psp.hInstance     = GetModuleHandle(NULL);
+   psp.hInstance     = GetModuleHandle(nullptr);
 #if ( defined( __BORLANDC__ ) && __BORLANDC__ <= 1410 )
    psp.DUMMYUNIONNAME.pResource = (DLGTEMPLATE*) pdlgtemplate;
-   psp.DUMMYUNIONNAME2.pszIcon       = NULL;
+   psp.DUMMYUNIONNAME2.pszIcon       = nullptr;
 #else
    psp.pResource   = (DLGTEMPLATE*) pdlgtemplate;
-   psp.pszIcon       = NULL;
+   psp.pszIcon       = nullptr;
 #endif
    psp.pfnDlgProc    = (DLGPROC) HMG_PageDlgProc;
    psp.pszTitle      = strTitle;

@@ -64,7 +64,7 @@ HINSTANCE GetResources(void);
 
 HB_FUNC( LOADCURSOR )
 {
-   HINSTANCE hInstance = HB_ISNIL(1) ? NULL : hmg_par_HINSTANCE(1);
+   HINSTANCE hInstance = HB_ISNIL(1) ? nullptr : hmg_par_HINSTANCE(1);
 
 #ifndef UNICODE
    LPCSTR lpCursorName = ( hb_parinfo(2) & Harbour::Item::STRING ) ? hb_parc(2) : ( LPCSTR ) MAKEINTRESOURCE(hb_parni(2));
@@ -109,7 +109,7 @@ HB_FUNC( FILECURSOR )
 HB_FUNC( CURSORHAND )
 {
 #if ( WINVER >= 0x0500 )
-   HB_RETNL( ( LONG_PTR ) SetCursor(LoadCursor(NULL, IDC_HAND)) );
+   HB_RETNL( ( LONG_PTR ) SetCursor(LoadCursor(nullptr, IDC_HAND)) );
 #else
    HB_RETNL( ( LONG_PTR ) SetCursor(LoadCursor(GetInstance(), TEXT("MINIGUI_FINGER"))) );
 #endif
@@ -126,12 +126,12 @@ HB_FUNC( SETWINDOWCURSOR )
    LPCWSTR lpCursorName = HB_ISCHAR(2) ? pW : ( LPCWSTR ) MAKEINTRESOURCE(hb_parni(2));
 #endif
 
-   ch = LoadCursor(( HB_ISCHAR(2) ) ? GetResources() : NULL, lpCursorName);
+   ch = LoadCursor(( HB_ISCHAR(2) ) ? GetResources() : nullptr, lpCursorName);
 
-   if( ( ch == NULL ) && HB_ISCHAR(2) )
+   if( ( ch == nullptr ) && HB_ISCHAR(2) )
       ch = LoadCursorFromFile(lpCursorName);
 
-   if( ch != NULL )
+   if( ch != nullptr )
       SetClassLongPtr(hmg_par_HWND(1),  // window handle
                       GCLP_HCURSOR,            // change cursor
                       ( LONG_PTR ) ch);       // new cursor
@@ -144,7 +144,7 @@ HB_FUNC( SETHANDCURSOR )
 {
 #if ( WINVER >= 0x0500 )
    SetClassLongPtr(hmg_par_HWND(1), GCLP_HCURSOR,
-                   ( LONG_PTR ) LoadCursor(NULL, IDC_HAND));
+                   ( LONG_PTR ) LoadCursor(nullptr, IDC_HAND));
 #else
    SetClassLongPtr(hmg_par_HWND(1), GCLP_HCURSOR,
                    ( LONG_PTR ) LoadCursor(GetInstance(), TEXT("MINIGUI_FINGER")));

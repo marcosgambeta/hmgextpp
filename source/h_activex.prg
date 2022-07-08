@@ -466,7 +466,7 @@ extern HB_PTRUINT wapi_GetProcAddress( HMODULE hModule, LPCSTR lpProcName );
 typedef HRESULT ( WINAPI * LPAtlAxWinInit )( void );
 typedef HRESULT ( WINAPI * LPAtlAxGetControl )( HWND, IUnknown ** );
 
-static HMODULE    hAtl = NULL;
+static HMODULE    hAtl = nullptr;
 LPAtlAxWinInit    AtlAxWinInit;
 LPAtlAxGetControl AtlAxGetControl;
 
@@ -491,7 +491,7 @@ HB_FUNC( ATLAXWINEND )
    if( hAtl )
    {
       FreeLibrary( hAtl );
-      hAtl = NULL;
+      hAtl = nullptr;
    }
 }
 
@@ -521,7 +521,7 @@ HB_FUNC_STATIC( CREATEWINDOWEX ) // ( hWnd, cProgId ) -> hActiveXWnd
 #else
                           AnsiToWide( ( char * ) hb_parc( 2 ) ),
 #endif
-                          WS_VISIBLE | WS_CHILD, 0, 0, 0, 0, ( HWND ) HB_PARNL( 1 ), 0, 0, NULL );
+                          WS_VISIBLE | WS_CHILD, 0, 0, 0, 0, ( HWND ) HB_PARNL( 1 ), 0, 0, nullptr );
    HB_RETNL( ( LONG_PTR ) hControl );
 }
 
@@ -707,7 +707,7 @@ static ULONG STDMETHODCALLTYPE Invoke( IEventHandler * self, DISPID dispid, REFI
    HB_SIZE    ulPos;
    PHB_ITEM   Key;
 
-   Key = hb_itemNew( NULL );
+   Key = hb_itemNew( nullptr );
 
    // We implement only a "default" interface
    if( ! IsEqualIID( riid, IID_NULL ) )
@@ -732,7 +732,7 @@ static ULONG STDMETHODCALLTYPE Invoke( IEventHandler * self, DISPID dispid, REFI
 #else
 
    ulPos = hb_arrayScan( ( ( MyRealIEventHandler * ) self )->pEvents, hb_itemPutNL( Key, dispid ),
-                         NULL, NULL, 0 );
+                         nullptr, nullptr, 0 );
 
    if( ulPos )
    {
@@ -782,7 +782,7 @@ static ULONG STDMETHODCALLTYPE Invoke( IEventHandler * self, DISPID dispid, REFI
          iArg = params->cArgs;
          for( i = 1; i <= iArg; i++ )
          {
-            pItem = hb_itemNew( NULL );
+            pItem = hb_itemNew( nullptr );
             hb_oleVariantToItem( pItem, &( params->rgvarg[ iArg - i ] ) );
             pItemArray[ i - 1 ] = pItem;
             // set bit i
@@ -897,9 +897,9 @@ typedef IEventHandler device_interface;
 
 HB_FUNC( SETUPCONNECTIONPOINT )
 {
-   IConnectionPointContainer * pIConnectionPointContainerTemp = NULL;
-   IUnknown *                  pIUnknown = NULL;
-   IConnectionPoint *          m_pIConnectionPoint = NULL;
+   IConnectionPointContainer * pIConnectionPointContainerTemp = nullptr;
+   IUnknown *                  pIUnknown = nullptr;
+   IConnectionPoint *          m_pIConnectionPoint = nullptr;
    IEnumConnectionPoints *     m_pIEnumConnectionPoints;
    HRESULT hr;
    IID     rriid; // = {0};
@@ -948,7 +948,7 @@ HB_FUNC( SETUPCONNECTIONPOINT )
             {
                do
                {
-                  hr = m_pIEnumConnectionPoints->lpVtbl->Next( m_pIEnumConnectionPoints, 1, &m_pIConnectionPoint, NULL );
+                  hr = m_pIEnumConnectionPoints->lpVtbl->Next( m_pIEnumConnectionPoints, 1, &m_pIConnectionPoint, nullptr );
                   if( hr == S_OK )
                   {
                      if( m_pIConnectionPoint->lpVtbl->GetConnectionInterface( m_pIConnectionPoint, &rriid ) == S_OK )
@@ -963,7 +963,7 @@ HB_FUNC( SETUPCONNECTIONPOINT )
             }
 
             pIConnectionPointContainerTemp->lpVtbl->Release( pIConnectionPointContainerTemp );
-            pIConnectionPointContainerTemp = NULL;
+            pIConnectionPointContainerTemp = nullptr;
          }
 
          if( hr == S_OK && m_pIConnectionPoint )
@@ -981,7 +981,7 @@ HB_FUNC( SETUPCONNECTIONPOINT )
          }
 
          pIUnknown->lpVtbl->Release( pIUnknown );
-         pIUnknown = NULL;
+         pIUnknown = nullptr;
 
       }
    }
@@ -1012,7 +1012,7 @@ HB_FUNC( SHUTDOWNCONNECTIONPOINT )
       self->pIConnectionPoint->lpVtbl->Unadvise( self->pIConnectionPoint, self->dwEventCookie );
       self->dwEventCookie = 0;
       self->pIConnectionPoint->lpVtbl->Release( self->pIConnectionPoint );
-      self->pIConnectionPoint = NULL;
+      self->pIConnectionPoint = nullptr;
    }
 }
 

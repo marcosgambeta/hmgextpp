@@ -170,15 +170,15 @@ typedef BOOL ( WINAPI * AlphaBlendPtr )( HDC, int, int, int, int, HDC, int, int,
 typedef BOOL ( WINAPI * TransparentBltPtr )( HDC, int, int, int, int, HDC, int, int, int, int, UINT );
 typedef BOOL ( WINAPI * GradientFillPtr )( HDC, CONST PTRIVERTEX, DWORD, CONST PVOID, DWORD, DWORD );
 
-static HINSTANCE s_hDLL = NULL;
+static HINSTANCE s_hDLL = nullptr;
 
-static GradientFillPtr   f_GradientFill   = NULL;
-static AlphaBlendPtr     f_AlphaBlend     = NULL;
-static TransparentBltPtr f_TransparentBlt = NULL;
+static GradientFillPtr   f_GradientFill   = nullptr;
+static AlphaBlendPtr     f_AlphaBlend     = nullptr;
+static TransparentBltPtr f_TransparentBlt = nullptr;
 
 BOOL EnabledGradient( void )
 {
-   return s_hDLL != NULL ? TRUE : FALSE;
+   return s_hDLL != nullptr ? TRUE : FALSE;
 }
 
 HB_FUNC( ISENABLEDGRADIENT )
@@ -190,35 +190,35 @@ HB_FUNC( _INITGRADIENTFUNC )
 {
    s_hDLL = LoadLibrary( TEXT( "gdi32.dll" ) );
 
-   if( s_hDLL != NULL )
+   if( s_hDLL != nullptr )
    {
       f_AlphaBlend     = ( AlphaBlendPtr ) wapi_GetProcAddress( s_hDLL, "GdiAlphaBlend" );
       f_TransparentBlt = ( TransparentBltPtr ) wapi_GetProcAddress( s_hDLL, "GdiTransparentBlt" );
       f_GradientFill   = ( GradientFillPtr ) wapi_GetProcAddress( s_hDLL, "GdiGradientFill" );
 
-      if( ( f_AlphaBlend == NULL ) && ( f_TransparentBlt == NULL ) &&
-          ( f_GradientFill == NULL ) )
+      if( ( f_AlphaBlend == nullptr ) && ( f_TransparentBlt == nullptr ) &&
+          ( f_GradientFill == nullptr ) )
       {
          FreeLibrary( s_hDLL );
-         s_hDLL = NULL;
+         s_hDLL = nullptr;
       }
    }
 
-   if( s_hDLL == NULL )
+   if( s_hDLL == nullptr )
    {
       s_hDLL = LoadLibrary( TEXT( "msimg32.dll" ) );
 
-      if( s_hDLL != NULL )
+      if( s_hDLL != nullptr )
       {
          f_AlphaBlend     = ( AlphaBlendPtr ) wapi_GetProcAddress( s_hDLL, "AlphaBlend" );
          f_TransparentBlt = ( TransparentBltPtr ) wapi_GetProcAddress( s_hDLL, "TransparentBlt" );
          f_GradientFill   = ( GradientFillPtr ) wapi_GetProcAddress( s_hDLL, "GradientFill" );
 
-         if( ( f_AlphaBlend == NULL ) && ( f_TransparentBlt == NULL ) &&
-             ( f_GradientFill == NULL ) )
+         if( ( f_AlphaBlend == nullptr ) && ( f_TransparentBlt == nullptr ) &&
+             ( f_GradientFill == nullptr ) )
          {
             FreeLibrary( s_hDLL );
-            s_hDLL = NULL;
+            s_hDLL = nullptr;
          }
       }
    }
@@ -228,10 +228,10 @@ HB_FUNC( _INITGRADIENTFUNC )
 
 HB_FUNC( _EXITGRADIENTFUNC )
 {
-   if( s_hDLL != NULL )
+   if( s_hDLL != nullptr )
    {
       FreeLibrary( s_hDLL );
-      s_hDLL = NULL;
+      s_hDLL = nullptr;
    }
 }
 
@@ -243,7 +243,7 @@ HB_FUNC( ALPHABLEND )
 
    if( ( GetObjectType( hdc1 ) & ( OBJ_DC | OBJ_MEMDC ) ) && ( GetObjectType( hdc2 ) & ( OBJ_DC | OBJ_MEMDC ) ) )
    {
-      if( ( s_hDLL != NULL ) && ( f_AlphaBlend != NULL ) )
+      if( ( s_hDLL != nullptr ) && ( f_AlphaBlend != nullptr ) )
       {
          BLENDFUNCTION bf;
 
@@ -271,7 +271,7 @@ HB_FUNC( TRANSPARENTBLT )
 
    if( ( GetObjectType( hdc1 ) & ( OBJ_DC | OBJ_MEMDC ) ) && ( GetObjectType( hdc2 ) & ( OBJ_DC | OBJ_MEMDC ) ) )
    {
-      if( ( s_hDLL != NULL ) && ( f_TransparentBlt != NULL ) )
+      if( ( s_hDLL != nullptr ) && ( f_TransparentBlt != nullptr ) )
       {
          int   iStretchMode = hb_parnidef( 12, COLORONCOLOR );
          BOOL  bHiRes       = ( iStretchMode == HALFTONE );
@@ -283,7 +283,7 @@ HB_FUNC( TRANSPARENTBLT )
          SetStretchBltMode( hdc1, iStretchMode );
 
          if( bHiRes )
-            SetBrushOrgEx( hdc1, pt.x, pt.y, NULL );
+            SetBrushOrgEx( hdc1, pt.x, pt.y, nullptr );
 
          bRes = f_TransparentBlt( hdc1,
                                   hb_parnl( 2 ), hb_parnl( 3 ), hb_parnl( 4 ), hb_parnl( 5 ),
@@ -321,7 +321,7 @@ BOOL FillGradient( HDC hDC, RECT * rect, BOOL vertical, COLORREF crFrom, COLORRE
 {
    BOOL bRes = FALSE;
 
-   if( ( s_hDLL != NULL ) && ( f_GradientFill != NULL ) )
+   if( ( s_hDLL != nullptr ) && ( f_GradientFill != nullptr ) )
    {
       TRIVERTEX     rcVertex[ 2 ];
       GRADIENT_RECT gRect;
@@ -370,7 +370,7 @@ HBRUSH LinearGradientBrush( HDC pDC, long cx, long cy, COLORREF crFrom, COLORREF
 {
    HDC     memDC;
    HBITMAP memBmp;
-   HBRUSH  pGradientBrush = ( HBRUSH ) NULL;
+   HBRUSH  pGradientBrush = ( HBRUSH ) nullptr;
 
    memDC  = CreateCompatibleDC(pDC);
    memBmp = CreateCompatibleBitmap( pDC, cx, cy );
@@ -399,9 +399,9 @@ HBRUSH LinearGradientBrush( HDC pDC, long cx, long cy, COLORREF crFrom, COLORREF
 
       SelectObject( memDC, memBmp );
 
-      if( s_hDLL != NULL )
+      if( s_hDLL != nullptr )
       {
-         if( f_GradientFill != NULL )
+         if( f_GradientFill != nullptr )
          {
             f_GradientFill( memDC, rcVertex, 2, &gRect, 1,
                             bVert ? GRADIENT_FILL_RECT_V : GRADIENT_FILL_RECT_H );

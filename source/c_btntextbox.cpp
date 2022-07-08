@@ -128,9 +128,9 @@ HB_FUNC( INITBTNTEXTBOX )
       hb_parni(5),
       hb_parni(6),
       ( HWND ) hwnd,
-      ( HMENU ) NULL,
+      ( HMENU ) nullptr,
       GetInstance(),
-      NULL
+      nullptr
            );
 
    SetProp(( HWND ) hedit, TEXT("OldWndProc"), ( HWND ) GetWindowLongPtr(( HWND ) hedit, GWLP_WNDPROC));
@@ -138,7 +138,7 @@ HB_FUNC( INITBTNTEXTBOX )
 
    SendMessage(hedit, ( UINT ) EM_LIMITTEXT, ( WPARAM ) hb_parni(9), ( LPARAM ) 0);
 
-   if( hb_parc(17) != NULL )
+   if( hb_parc(17) != nullptr )
    {
 #ifndef UNICODE
       LPCSTR lpImageName = hb_parc(17);
@@ -147,10 +147,10 @@ HB_FUNC( INITBTNTEXTBOX )
 #endif
       himage = ( HWND ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
-      if( himage == NULL )
-         himage = ( HWND ) LoadImage(NULL, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+      if( himage == nullptr )
+         himage = ( HWND ) LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
-      if( himage != NULL )
+      if( himage != nullptr )
       {
          BITMAP bm;
          GetObject(himage, sizeof(BITMAP), &bm);
@@ -159,8 +159,8 @@ HB_FUNC( INITBTNTEXTBOX )
             DeleteObject(himage);
             himage = ( HWND ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, BtnWidth - 4, hb_parni(
                                             6 ) - 6, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
-            if( himage == NULL )
-               himage = ( HWND ) LoadImage(NULL, lpImageName, IMAGE_BITMAP, BtnWidth - 4, hb_parni(
+            if( himage == nullptr )
+               himage = ( HWND ) LoadImage(nullptr, lpImageName, IMAGE_BITMAP, BtnWidth - 4, hb_parni(
                                                6 ) - 6, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
          }
       }
@@ -169,9 +169,9 @@ HB_FUNC( INITBTNTEXTBOX )
 #endif
    }
    else
-      himage = NULL;
+      himage = nullptr;
 
-   if( hb_parc(19) != NULL )
+   if( hb_parc(19) != nullptr )
    {
 #ifndef UNICODE
       LPCSTR lpImageName2 = hb_parc(19);
@@ -180,10 +180,10 @@ HB_FUNC( INITBTNTEXTBOX )
 #endif
       himage2 = ( HWND ) LoadImage(GetResources(), lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
-      if( himage2 == NULL )
-         himage2 = ( HWND ) LoadImage(NULL, lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+      if( himage2 == nullptr )
+         himage2 = ( HWND ) LoadImage(nullptr, lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
-      if( himage2 != NULL )
+      if( himage2 != nullptr )
       {
          BITMAP bm;
          GetObject(himage2, sizeof(BITMAP), &bm);
@@ -193,8 +193,8 @@ HB_FUNC( INITBTNTEXTBOX )
             himage2 = ( HWND ) LoadImage(GetResources(), lpImageName2, IMAGE_BITMAP, BtnWidth2 - 4, hb_parni(
                                              6 ) - 6, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
-            if( himage2 == NULL )
-               himage2 = ( HWND ) LoadImage(NULL, lpImageName2, IMAGE_BITMAP, BtnWidth2 - 4, hb_parni(
+            if( himage2 == nullptr )
+               himage2 = ( HWND ) LoadImage(nullptr, lpImageName2, IMAGE_BITMAP, BtnWidth2 - 4, hb_parni(
                                                 6 ) - 6, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
          }
       }
@@ -203,18 +203,18 @@ HB_FUNC( INITBTNTEXTBOX )
 #endif
    }
    else
-      himage2 = NULL;
+      himage2 = nullptr;
 
    ibtnStyle1 = BS_NOTIFY | WS_CHILD | WS_VISIBLE;
 
    ibtnStyle1 = ibtnStyle1 | ( hb_parl(22) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON );
 
-   if( himage != NULL )
+   if( himage != nullptr )
       ibtnStyle1 = ibtnStyle1 | BS_BITMAP;
 
    ibtnStyle2 = BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE;
 
-   if( himage2 != NULL )
+   if( himage2 != nullptr )
       ibtnStyle2 = ibtnStyle2 | BS_BITMAP;
 
    hBtn1 = CreateWindow
@@ -228,7 +228,7 @@ HB_FUNC( INITBTNTEXTBOX )
               ( HWND ) hedit,
               ( HMENU ) TBB1,
               GetInstance(),
-              NULL
+              nullptr
               );
 
    if( fBtn2 )
@@ -243,15 +243,15 @@ HB_FUNC( INITBTNTEXTBOX )
                  ( HWND ) hedit,
                  ( HMENU ) TBB2,
                  GetInstance(),
-                 NULL
+                 nullptr
                  );
    else
       hBtn2 = 0;
 
-   if( himage != NULL )
+   if( himage != nullptr )
       SendMessage(hBtn1, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage);
 
-   if( himage2 != NULL )
+   if( himage2 != nullptr )
       SendMessage(hBtn2, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage2);
 
    hb_reta(5);
@@ -281,7 +281,7 @@ HB_FUNC( REDEFBTNTEXTBOX )
    SetProp(( HWND ) hedit, TEXT("OldWndProc"), ( HWND ) GetWindowLongPtr(( HWND ) hedit, GWLP_WNDPROC));
    SetWindowLongPtr(hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnBtnTextProc);
 
-   if( ! ( hb_parc(2) == NULL ) )
+   if( ! ( hb_parc(2) == nullptr ) )
    {
 #ifndef UNICODE
       LPCSTR lpImageName = hb_parc(2);
@@ -290,10 +290,10 @@ HB_FUNC( REDEFBTNTEXTBOX )
 #endif
       himage = ( HWND ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
-      if( himage == NULL )
-         himage = ( HWND ) LoadImage(NULL, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+      if( himage == nullptr )
+         himage = ( HWND ) LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
-      if( himage != NULL )
+      if( himage != nullptr )
       {
          BITMAP bm;
          GetObject(himage, sizeof(BITMAP), &bm);
@@ -301,8 +301,8 @@ HB_FUNC( REDEFBTNTEXTBOX )
          {
             DeleteObject(himage);
             himage = ( HWND ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, BtnWidth - 4, height - 6, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
-            if( himage == NULL )
-               himage = ( HWND ) LoadImage(NULL, lpImageName, IMAGE_BITMAP, BtnWidth - 4, height - 6, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+            if( himage == nullptr )
+               himage = ( HWND ) LoadImage(nullptr, lpImageName, IMAGE_BITMAP, BtnWidth - 4, height - 6, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
          }
       }
 #ifdef UNICODE
@@ -310,9 +310,9 @@ HB_FUNC( REDEFBTNTEXTBOX )
 #endif
    }
    else
-      himage = NULL;
+      himage = nullptr;
 
-   if( ! ( hb_parc(4) == NULL ) )
+   if( ! ( hb_parc(4) == nullptr ) )
    {
 #ifndef UNICODE
       LPCSTR lpImageName2 = hb_parc(4);
@@ -321,10 +321,10 @@ HB_FUNC( REDEFBTNTEXTBOX )
 #endif
       himage2 = ( HWND ) LoadImage(GetResources(), lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
-      if( himage2 == NULL )
-         himage2 = ( HWND ) LoadImage(NULL, lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+      if( himage2 == nullptr )
+         himage2 = ( HWND ) LoadImage(nullptr, lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
-      if( himage2 != NULL )
+      if( himage2 != nullptr )
       {
          BITMAP bm;
          GetObject(himage2, sizeof(BITMAP), &bm);
@@ -334,8 +334,8 @@ HB_FUNC( REDEFBTNTEXTBOX )
             himage2 = ( HWND ) LoadImage(GetResources(), lpImageName2,
                                           IMAGE_BITMAP, BtnWidth2 - 4, height - 6, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
-            if( himage2 == NULL )
-               himage2 = ( HWND ) LoadImage(NULL, lpImageName2,
+            if( himage2 == nullptr )
+               himage2 = ( HWND ) LoadImage(nullptr, lpImageName2,
                                              IMAGE_BITMAP, BtnWidth2 - 4, height - 6, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
          }
       }
@@ -344,7 +344,7 @@ HB_FUNC( REDEFBTNTEXTBOX )
 #endif
    }
    else
-      himage2 = NULL;
+      himage2 = nullptr;
 
    hBtn1 = CreateWindow
            (
@@ -358,7 +358,7 @@ HB_FUNC( REDEFBTNTEXTBOX )
       ( HWND ) hedit,
       ( HMENU ) TBB1,
       GetInstance(),
-      NULL
+      nullptr
            );
 
    if( fBtn2 )
@@ -374,15 +374,15 @@ HB_FUNC( REDEFBTNTEXTBOX )
          ( HWND ) hedit,
          ( HMENU ) TBB2,
          GetInstance(),
-         NULL
+         nullptr
               );
    else
       hBtn2 = 0;
 
-   if( ! ( himage == NULL ) )
+   if( ! ( himage == nullptr ) )
       SendMessage(hBtn1, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage);
 
-   if( ! ( himage2 == NULL ) )
+   if( ! ( himage2 == nullptr ) )
       SendMessage(hBtn2, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage2);
 
    SendMessage(hedit, EM_SETMARGINS, EC_LEFTMARGIN | EC_RIGHTMARGIN, MAKELONG(0, BtnWidth + BtnWidth2 + 2));
@@ -412,7 +412,7 @@ HB_FUNC( SETTBBTNMARGIN )   //SetTbBtnMargin(hEdit, BtnWidth, fBtns, fBtn2)
 
 LRESULT CALLBACK OwnBtnTextProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
-   static PHB_SYMB pSymbol = NULL;
+   static PHB_SYMB pSymbol = nullptr;
    long int        r;
    WNDPROC         OldWndProc;
 

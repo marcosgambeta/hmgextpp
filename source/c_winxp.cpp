@@ -281,18 +281,18 @@ static HINSTANCE hUxTheme;
 
 HINSTANCE InitUxTheme(void)
 {
-   if( hUxTheme == NULL )
-      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), NULL, 0);
+   if( hUxTheme == nullptr )
+      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
 
    return hUxTheme;
 }
 
 void EndUxTheme(void)
 {
-   if( hUxTheme != NULL )
+   if( hUxTheme != nullptr )
    {
       FreeLibrary(hUxTheme);
-      hUxTheme = NULL;
+      hUxTheme = nullptr;
    }
 }
 
@@ -310,8 +310,8 @@ HB_FUNC( ISTHEMEACTIVE )
 {
    BOOL bRet = FALSE;
 
-   if( hUxTheme == NULL )
-      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), NULL, 0);
+   if( hUxTheme == nullptr )
+      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
 
    if( hUxTheme )
    {
@@ -327,8 +327,8 @@ HB_FUNC( ISAPPTHEMED )
 {
    BOOL bRet = FALSE;
 
-   if( hUxTheme == NULL )
-      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), NULL, 0);
+   if( hUxTheme == nullptr )
+      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
 
    if( hUxTheme )
    {
@@ -342,13 +342,13 @@ HB_FUNC( ISAPPTHEMED )
 
 HB_FUNC( OPENTHEMEDATA )
 {
-   HTHEME nRet = ( HTHEME ) NULL;
+   HTHEME nRet = ( HTHEME ) nullptr;
    HWND   hWnd = hmg_par_HWND(1);
 
    LPCWSTR pszClassList = ( LPCWSTR ) hb_parc(2);
 
-   if( hUxTheme == NULL )
-      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), NULL, 0);
+   if( hUxTheme == nullptr )
+      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
 
    if( hUxTheme )
    {
@@ -357,7 +357,7 @@ HB_FUNC( OPENTHEMEDATA )
          nRet = ( HTHEME ) pfn(hWnd, pszClassList);
    }
 
-   if( nRet != NULL )
+   if( nRet != nullptr )
       HB_RETNL( ( LONG_PTR ) nRet );
 }
 
@@ -367,8 +367,8 @@ HB_FUNC( CLOSETHEMEDATA )
 
    HTHEME hTheme = ( HTHEME ) HB_PARNL(1);
 
-   if( hUxTheme == NULL )
-      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), NULL, 0);
+   if( hUxTheme == nullptr )
+      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
 
    if( hUxTheme )
    {
@@ -377,7 +377,7 @@ HB_FUNC( CLOSETHEMEDATA )
          nRet = ( HRESULT ) pfn(hTheme);
    }
 
-   if( nRet != ( LONG_PTR ) NULL )
+   if( nRet != ( LONG_PTR ) nullptr )
       HB_RETNL( ( LONG_PTR ) nRet );
 }
 
@@ -396,8 +396,8 @@ HB_FUNC( DRAWTHEMEBACKGROUND )
    Array2Rect(hb_param(5, Harbour::Item::ARRAY), &pRect);
    Array2Rect(hb_param(6, Harbour::Item::ARRAY), &pClipRect);
 
-   if( hUxTheme == NULL )
-      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), NULL, 0);
+   if( hUxTheme == nullptr )
+      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
 
    if( hUxTheme )
    {
@@ -420,8 +420,8 @@ HB_FUNC( DRAWTHEMEPARENTBACKGROUND )
    if( HB_ISARRAY(7) )
       Array2Rect(hb_param(3, Harbour::Item::ARRAY), &pRect);
 
-   if( hUxTheme == NULL )
-      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), NULL, 0);
+   if( hUxTheme == nullptr )
+      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
 
    if( hUxTheme )
    {
@@ -441,8 +441,8 @@ HB_FUNC( SETWINDOWTHEME )
    LPCWSTR pszSubAppName = ( LPCWSTR ) hb_parc(2);
    LPCWSTR pszSubIdList  = ( LPCWSTR ) hb_parc(3);
 
-   if( hUxTheme == NULL )
-      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), NULL, 0);
+   if( hUxTheme == nullptr )
+      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
 
    if( hUxTheme )
    {
@@ -461,8 +461,8 @@ HB_FUNC( ENABLETHEMEDIALOGTEXTURE )
    HWND  hWnd  = hmg_par_HWND(1);
    DWORD flags = hb_parnl(2);
 
-   if( hUxTheme == NULL )
-      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), NULL, 0);
+   if( hUxTheme == nullptr )
+      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
 
    if( hUxTheme )
    {

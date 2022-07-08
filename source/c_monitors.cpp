@@ -79,7 +79,7 @@ HB_FUNC( ENUMDISPLAYMONITORS )
 {
    PHB_ITEM pMonitorEnum = hb_itemArrayNew(0);
 
-   EnumDisplayMonitors(NULL, NULL, _MonitorEnumProc0, ( LPARAM ) pMonitorEnum);
+   EnumDisplayMonitors(nullptr, nullptr, _MonitorEnumProc0, ( LPARAM ) pMonitorEnum);
 
    hb_itemReturnRelease(pMonitorEnum);
 }
@@ -184,14 +184,14 @@ HB_FUNC( WINDOWTOMONITOR )
 
    if( IsWindow(hwnd) )
    {
-      HMONITOR hMonitor = HB_ISNUM(2) ? ( HMONITOR ) HB_PARNL(2) : NULL;
+      HMONITOR hMonitor = HB_ISNUM(2) ? ( HMONITOR ) HB_PARNL(2) : nullptr;
       UINT     flags    = 0 | ( ( UINT ) hb_parnldef(3, (MONITOR_CENTER | MONITOR_WORKAREA)) );
       RECT     rc;
 
       GetWindowRect(hwnd, &rc);
       ClipOrCenterRectToMonitor( &rc, hMonitor, flags );
 
-      SetWindowPos(hwnd, NULL, rc.left, rc.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
+      SetWindowPos(hwnd, nullptr, rc.left, rc.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
    }
    else
       hb_errRT_BASE_SubstR( EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
@@ -205,7 +205,7 @@ static void ClipOrCenterRectToMonitor( LPRECT prc, HMONITOR hMonitor, UINT flags
    int         h = prc->bottom - prc->top;
 
    // get the nearest monitor to the passed rect.
-   if( NULL == hMonitor )
+   if( nullptr == hMonitor )
       hMonitor = MonitorFromRect(prc, MONITOR_DEFAULTTONEAREST);
 
    // get the work area or entire monitor rect.
@@ -233,9 +233,9 @@ static void ClipOrCenterRectToMonitor( LPRECT prc, HMONITOR hMonitor, UINT flags
 
 HB_EXPORT PHB_ITEM Rect2Hash(RECT * rc)
 {
-   PHB_ITEM phRect = hb_hashNew(NULL);
-   PHB_ITEM pKey   = hb_itemPutCConst(NULL, "left");
-   PHB_ITEM pValue = hb_itemPutNL( NULL, rc->left );
+   PHB_ITEM phRect = hb_hashNew(nullptr);
+   PHB_ITEM pKey   = hb_itemPutCConst(nullptr, "left");
+   PHB_ITEM pValue = hb_itemPutNL( nullptr, rc->left );
 
    hb_hashAddNew(phRect, pKey, pValue);
 

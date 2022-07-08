@@ -84,14 +84,14 @@ HB_FUNC( REGQUERYVALUEEXA )
    DWORD lpType   = hb_parnl(4);
    DWORD lpcbData = 0;
 
-   lError = RegQueryValueExA(( HKEY ) HB_PARNL(1), ( LPTSTR ) hb_parc(2), NULL, &lpType, NULL, &lpcbData);
+   lError = RegQueryValueExA(( HKEY ) HB_PARNL(1), ( LPTSTR ) hb_parc(2), nullptr, &lpType, nullptr, &lpcbData);
 
    if( lError == ERROR_SUCCESS )
    {
       BYTE * lpData;
 
       lpData = ( BYTE * ) hb_xgrab(lpcbData + 1);
-      lError = RegQueryValueExA(( HKEY ) HB_PARNL(1), ( LPTSTR ) hb_parc(2), NULL, &lpType, ( BYTE * ) lpData, &lpcbData);
+      lError = RegQueryValueExA(( HKEY ) HB_PARNL(1), ( LPTSTR ) hb_parc(2), nullptr, &lpType, ( BYTE * ) lpData, &lpcbData);
 
       if( lError != ERROR_SUCCESS )
          hb_retnl( -1 );
@@ -119,7 +119,7 @@ HB_FUNC( REGENUMKEYEXA )
    TCHAR    Class[ 255 ];
    DWORD    dwClass = 255;
 
-   bErr = RegEnumKeyEx(( HKEY ) HB_PARNL(1), hb_parnl(2), Buffer, &dwBuffSize, NULL, Class, &dwClass, &ft);
+   bErr = RegEnumKeyEx(( HKEY ) HB_PARNL(1), hb_parnl(2), Buffer, &dwBuffSize, nullptr, Class, &dwClass, &ft);
 
    if( bErr != ERROR_SUCCESS )
       hb_retnl( -1 );
@@ -176,7 +176,7 @@ HB_FUNC( REGENUMVALUEA )
    DWORD dwClass    = 255;
    long  lError;
 
-   lError = RegEnumValueA(( HKEY ) HB_PARNL(1), hb_parnl(2), Buffer, &dwBuffSize, NULL, &lpType, NULL, &dwClass);
+   lError = RegEnumValueA(( HKEY ) HB_PARNL(1), hb_parnl(2), Buffer, &dwBuffSize, nullptr, &lpType, nullptr, &dwClass);
 
    if( lError != ERROR_SUCCESS )
       hb_retnl( -1 );

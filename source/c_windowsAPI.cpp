@@ -78,10 +78,10 @@ extern HBITMAP HMG_LoadImage(const char * FileName, const char * pszTypeOfRes);
 HRGN           BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cTolerance);
 
 // global variables
-HWND   g_hWndMain = NULL;
-HACCEL g_hAccel   = NULL;
+HWND   g_hWndMain = nullptr;
+HACCEL g_hAccel   = nullptr;
 // static variables
-static HWND hDlgModeless = NULL;
+static HWND hDlgModeless = nullptr;
 
 BOOL SetAcceleratorTable(HWND hWnd, HACCEL hHaccel)
 {
@@ -96,7 +96,7 @@ HB_FUNC( DOMESSAGELOOP )
    MSG Msg;
    int status;
 
-   while( ( status = GetMessage(&Msg, NULL, 0, 0) ) != 0 )
+   while( ( status = GetMessage(&Msg, nullptr, 0, 0) ) != 0 )
    {
       if( status == -1 )  // Exception
       {
@@ -110,7 +110,7 @@ HB_FUNC( DOMESSAGELOOP )
       {
          hDlgModeless = GetActiveWindow();
 
-         if( hDlgModeless == ( HWND ) NULL || (
+         if( hDlgModeless == ( HWND ) nullptr || (
                 ! IsDialogMessage(hDlgModeless, &Msg) &&
                 ! TranslateAccelerator( g_hWndMain, g_hAccel, &Msg ) ) )
          {
@@ -135,7 +135,7 @@ HB_FUNC( DOEVENTS )
    {
       hDlgModeless = GetActiveWindow();
 
-      if( hDlgModeless == NULL || ! IsDialogMessage(hDlgModeless, &Msg) )
+      if( hDlgModeless == nullptr || ! IsDialogMessage(hDlgModeless, &Msg) )
       {
          TranslateMessage(&Msg);
          DispatchMessage(&Msg);
@@ -269,14 +269,14 @@ HB_FUNC( SETLAYEREDWINDOWATTRIBUTES )
 
       hb_retl( HB_FALSE );
 
-      if( NULL != hDll )
+      if( nullptr != hDll )
       {
          typedef BOOL ( __stdcall * SetLayeredWindowAttributes_ptr )( HWND, COLORREF, BYTE, DWORD );
 
          SetLayeredWindowAttributes_ptr fn_SetLayeredWindowAttributes =
             ( SetLayeredWindowAttributes_ptr ) wapi_GetProcAddress(hDll, "SetLayeredWindowAttributes");
 
-         if( NULL != fn_SetLayeredWindowAttributes )
+         if( nullptr != fn_SetLayeredWindowAttributes )
          {
             COLORREF crKey   = hmg_par_COLORREF(2);
             BYTE     bAlpha  = hmg_par_BYTE(3);
@@ -512,7 +512,7 @@ HB_FUNC( GETTASKBARHEIGHT )
 {
    RECT rect;
 
-   GetWindowRect(FindWindow(TEXT("Shell_TrayWnd"), NULL), &rect);
+   GetWindowRect(FindWindow(TEXT("Shell_TrayWnd"), nullptr), &rect);
    hb_retni( ( INT ) rect.bottom - rect.top );
 }
 
@@ -616,7 +616,7 @@ HB_FUNC( LOADTRAYICON )
 
    hIcon = ( HICON ) LoadImage(hInstance, lpIconName, IMAGE_ICON, cxDesired, cyDesired, LR_DEFAULTCOLOR);
 
-   if( hIcon == NULL )
+   if( hIcon == nullptr )
       hIcon = ( HICON ) LoadImage(hInstance, lpIconName, IMAGE_ICON, cxDesired, cyDesired, LR_LOADFROMFILE | LR_DEFAULTCOLOR);
 
    RegisterResource(hIcon, "ICON");
@@ -696,7 +696,7 @@ HB_FUNC( GETDESKTOPWINDOW )
 
 static BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM pArray)
 {
-   PHB_ITEM pHWnd = hb_itemPutNInt(NULL, ( LONG_PTR ) hWnd);
+   PHB_ITEM pHWnd = hb_itemPutNInt(nullptr, ( LONG_PTR ) hWnd);
 
    hb_arrayAddForward( ( PHB_ITEM ) pArray, pHWnd );
    hb_itemRelease(pHWnd);
@@ -716,7 +716,7 @@ HB_FUNC( ENUMWINDOWS )
 static BOOL CALLBACK EnumChildProc(HWND hWnd, LPARAM lParam)
 {
    PHB_ITEM pCodeBlock = ( PHB_ITEM ) lParam;
-   PHB_ITEM pHWnd      = hb_itemPutNInt(NULL, ( LONG_PTR ) hWnd);
+   PHB_ITEM pHWnd      = hb_itemPutNInt(nullptr, ( LONG_PTR ) hWnd);
 
    if( pCodeBlock )
    {
@@ -748,7 +748,7 @@ HB_FUNC( REDRAWWINDOWCONTROLRECT )
    r.bottom = hb_parni(4);
    r.right  = hb_parni(5);
 
-   RedrawWindow(hmg_par_HWND(1), &r, NULL, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
+   RedrawWindow(hmg_par_HWND(1), &r, nullptr, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
 }
 
 HB_FUNC( ADDSPLITBOXITEM )
@@ -827,11 +827,11 @@ HB_FUNC( ADDSPLITBOXITEM )
 
 HB_FUNC( C_SETWINDOWRGN )
 {
-   HRGN    hRgn = NULL;
+   HRGN    hRgn = nullptr;
    HBITMAP hbmp;
 
    if( hb_parni(6) == 0 )
-      SetWindowRgn(GetActiveWindow(), NULL, TRUE);
+      SetWindowRgn(GetActiveWindow(), nullptr, TRUE);
    else
    {
       switch( hb_parni(6) )
@@ -850,8 +850,8 @@ HB_FUNC( C_SETWINDOWRGN )
 
          case 4:
             hbmp = ( HBITMAP ) LoadImage(GetResources(), ( TCHAR * ) hb_parc(2), IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION);
-            if( hbmp == NULL )
-               hbmp = ( HBITMAP ) LoadImage(NULL, ( TCHAR * ) hb_parc(2), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+            if( hbmp == nullptr )
+               hbmp = ( HBITMAP ) LoadImage(nullptr, ( TCHAR * ) hb_parc(2), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
 
             hRgn = BitmapToRegion(hbmp, ( COLORREF ) RGB(( int ) HB_PARNI(3, 1), ( int ) HB_PARNI(3, 2), ( int ) HB_PARNI(3, 3)), 0x101010);
             DeleteObject(hbmp);
@@ -978,15 +978,15 @@ HB_FUNC( FINDWINDOWEX )
    LPCSTR lpszClass  = ( char * ) hb_parc(3);
    LPCSTR lpszWindow = ( char * ) hb_parc(4);
 #else
-   LPWSTR lpszClass  = ( hb_parc(3) != NULL ) ? hb_osStrU16Encode(hb_parc(3)) : NULL;
-   LPWSTR lpszWindow = ( hb_parc(4) != NULL ) ? hb_osStrU16Encode(hb_parc(4)) : NULL;
+   LPWSTR lpszClass  = ( hb_parc(3) != nullptr ) ? hb_osStrU16Encode(hb_parc(3)) : nullptr;
+   LPWSTR lpszWindow = ( hb_parc(4) != nullptr ) ? hb_osStrU16Encode(hb_parc(4)) : nullptr;
 #endif
    HB_RETNL( ( LONG_PTR ) FindWindowEx(hmg_par_HWND(1), hmg_par_HWND(2), lpszClass, lpszWindow) );
 
 #ifdef UNICODE
-   if( lpszClass != NULL )
+   if( lpszClass != nullptr )
       hb_xfree(lpszClass);
-   if( lpszWindow != NULL )
+   if( lpszWindow != nullptr )
       hb_xfree(lpszWindow);
 #endif
 
@@ -1054,8 +1054,8 @@ HB_FUNC( GETTABBEDCONTROLBRUSH )
 
    SetBkMode(hDC, TRANSPARENT);
    GetWindowRect(hmg_par_HWND(2), &rc);
-   MapWindowPoints(NULL, hmg_par_HWND(3), ( LPPOINT ) (&rc), 2);
-   SetBrushOrgEx(hDC, -rc.left, -rc.top, NULL);
+   MapWindowPoints(nullptr, hmg_par_HWND(3), ( LPPOINT ) (&rc), 2);
+   SetBrushOrgEx(hDC, -rc.left, -rc.top, nullptr);
    hBrush = ( HBRUSH ) HB_PARNL(4);
 
    HB_RETNL( ( LONG_PTR ) hBrush );
@@ -1178,23 +1178,23 @@ HB_FUNC( CREATEPATTERNBRUSH )
    HBITMAP hImage;
 
 #ifndef UNICODE
-   LPCTSTR lpImageName = HB_ISCHAR(1) ? hb_parc(1) : ( HB_ISNUM(1) ? MAKEINTRESOURCE(hb_parni(1)) : NULL );
+   LPCTSTR lpImageName = HB_ISCHAR(1) ? hb_parc(1) : ( HB_ISNUM(1) ? MAKEINTRESOURCE(hb_parni(1)) : nullptr );
 #else
-   LPCWSTR lpImageName = HB_ISCHAR(1) ? AnsiToWide(( char * ) hb_parc(1)) : ( HB_ISNUM(1) ? ( LPCWSTR ) MAKEINTRESOURCE(hb_parni(1)) : NULL );
+   LPCWSTR lpImageName = HB_ISCHAR(1) ? AnsiToWide(( char * ) hb_parc(1)) : ( HB_ISNUM(1) ? ( LPCWSTR ) MAKEINTRESOURCE(hb_parni(1)) : nullptr );
 #endif
 
    hImage = ( HBITMAP ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
-   if( hImage == NULL && HB_ISCHAR(1) )
+   if( hImage == nullptr && HB_ISCHAR(1) )
    {
-      hImage = ( HBITMAP ) LoadImage(NULL, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+      hImage = ( HBITMAP ) LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
    }
-   if( hImage == NULL )
+   if( hImage == nullptr )
    {
-      hImage = ( HBITMAP ) HMG_LoadImage(hb_parc(1), NULL);
+      hImage = ( HBITMAP ) HMG_LoadImage(hb_parc(1), nullptr);
    }
 
-   HB_RETNL( ( hImage != NULL ) ? ( LONG_PTR ) CreatePatternBrush(hImage) : ( LONG_PTR ) 0 );
+   HB_RETNL( ( hImage != nullptr ) ? ( LONG_PTR ) CreatePatternBrush(hImage) : ( LONG_PTR ) 0 );
 
 #ifdef UNICODE
    if( HB_ISCHAR(1) )
@@ -1221,14 +1221,14 @@ HB_FUNC( CREATEPATTERNBRUSH )
 
 HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cTolerance)
 {
-   HRGN   hRgn = NULL;
+   HRGN   hRgn = nullptr;
    VOID * pbits32;
    DWORD  maxRects = ALLOC_UNIT;
 
    if( hBmp )
    {
       // Create a memory DC inside which we will scan the bitmap content
-      HDC hMemDC = CreateCompatibleDC(NULL);
+      HDC hMemDC = CreateCompatibleDC(nullptr);
       if( hMemDC )
       {
          BITMAP bm;
@@ -1251,7 +1251,7 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
          RGB32BITSBITMAPINFO.biClrUsed       = 0;
          RGB32BITSBITMAPINFO.biClrImportant  = 0;
 
-         hbm32 = CreateDIBSection(hMemDC, ( BITMAPINFO * ) &RGB32BITSBITMAPINFO, DIB_RGB_COLORS, &pbits32, NULL, 0);
+         hbm32 = CreateDIBSection(hMemDC, ( BITMAPINFO * ) &RGB32BITSBITMAPINFO, DIB_RGB_COLORS, &pbits32, nullptr, 0);
          if( hbm32 )
          {
             HBITMAP holdBmp = ( HBITMAP ) SelectObject(hMemDC, hbm32);
@@ -1353,7 +1353,7 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
                         // Therefore, we have to create the region by multiple steps.
                         if( pData->rdh.nCount == 2000 )
                         {
-                           h = ExtCreateRegion(NULL, sizeof(RGNDATAHEADER) + ( sizeof(RECT) * maxRects ), pData);
+                           h = ExtCreateRegion(nullptr, sizeof(RGNDATAHEADER) + ( sizeof(RECT) * maxRects ), pData);
                            if( hRgn )
                            {
                               CombineRgn(hRgn, hRgn, h, RGN_OR);
@@ -1373,7 +1373,7 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
                }
 
                // Create or extend the region with the remaining  rectangles
-               h = ExtCreateRegion(NULL, sizeof(RGNDATAHEADER) + ( sizeof(RECT) * maxRects ), pData);
+               h = ExtCreateRegion(nullptr, sizeof(RGNDATAHEADER) + ( sizeof(RECT) * maxRects ), pData);
                if( hRgn )
                {
                   CombineRgn(hRgn, hRgn, h, RGN_OR);

@@ -102,7 +102,7 @@ HB_FUNC( INITCHKLISTBOX )
       hwnd,
       hmg_par_HMENU(2),
       GetInstance(),
-      NULL
+      nullptr
              );
 
    HB_RETNL( ( LONG_PTR ) hbutton );
@@ -142,7 +142,7 @@ HB_FUNC( INITMULTICHKLISTBOX )
       hwnd,
       hmg_par_HMENU(2),
       GetInstance(),
-      NULL
+      nullptr
              );
 
    HB_RETNL( ( LONG_PTR ) hbutton );
@@ -195,7 +195,7 @@ HB_FUNC( SETCHKLBITEMHEIGHT ) // set the height of a string in pixels
    HWND  hwnd     = hmg_par_HWND(1);
    HDC   hdc      = GetDC(hwnd);
    HFONT hFont    = hmg_par_HFONT(2);
-   HFONT hOldFont = ( HFONT ) NULL;
+   HFONT hOldFont = ( HFONT ) nullptr;
    SIZE  sz;
 
    if( ! hdc )

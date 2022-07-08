@@ -80,7 +80,7 @@ static TCHAR * hmg_FileNameAtSystemDir( const TCHAR * pFileName );
 
 typedef HRESULT ( CALLBACK * _DLLGETVERSIONPROC )( DLLVERSIONINFO2 * );
 
-static HINSTANCE g_hInstance     = NULL;
+static HINSTANCE g_hInstance     = nullptr;
 static DWORD     g_dwComCtl32Ver = 0;
 
 static void hmg_init(void * cargo)
@@ -89,7 +89,7 @@ static void hmg_init(void * cargo)
 
    HB_SYMBOL_UNUSED( cargo );
 
-   if( S_FALSE == CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE | COINIT_SPEED_OVER_MEMORY) )
+   if( S_FALSE == CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE | COINIT_SPEED_OVER_MEMORY) )
       hmg_ErrorExit(TEXT("hmg_init(void)"), S_FALSE, TRUE);
 
    g_dwComCtl32Ver = DllGetVersion(lpszDllName);
@@ -101,7 +101,7 @@ static void hmg_init(void * cargo)
 }
 
 HB_CALL_ON_STARTUP_BEGIN(_hmg_init_)
-hb_vmAtInit(hmg_init, NULL);
+hb_vmAtInit(hmg_init, nullptr);
 HB_CALL_ON_STARTUP_END(_hmg_init_)
 
 #if defined( HB_PRAGMA_STARTUP )
@@ -175,7 +175,7 @@ static HB_BOOL win_has_search_system32(void)
    HMODULE hKernel32 = GetModuleHandle(TEXT("kernel32.dll"));
 
    if( hKernel32 )
-      return GetProcAddress(hKernel32, "AddDllDirectory") != NULL;  /* Detect KB2533623 */
+      return GetProcAddress(hKernel32, "AddDllDirectory") != nullptr;  /* Detect KB2533623 */
 
    return HB_FALSE;
 }
@@ -184,7 +184,7 @@ HMODULE hmg_LoadLibrarySystem(LPCTSTR pFileName)
 {
    TCHAR * pLibPath = hmg_FileNameAtSystemDir( pFileName );
 
-   HMODULE h = LoadLibraryEx(pLibPath, NULL, win_has_search_system32() ? LOAD_LIBRARY_SEARCH_SYSTEM32 : LOAD_WITH_ALTERED_SEARCH_PATH);
+   HMODULE h = LoadLibraryEx(pLibPath, nullptr, win_has_search_system32() ? LOAD_LIBRARY_SEARCH_SYSTEM32 : LOAD_WITH_ALTERED_SEARCH_PATH);
 
    hb_xfree(pLibPath);
 
@@ -193,7 +193,7 @@ HMODULE hmg_LoadLibrarySystem(LPCTSTR pFileName)
 
 static TCHAR * hmg_FileNameAtSystemDir( const TCHAR * pFileName )
 {
-   UINT nLen = GetSystemDirectory(NULL, 0);
+   UINT nLen = GetSystemDirectory(nullptr, 0);
 
    if( nLen )
    {

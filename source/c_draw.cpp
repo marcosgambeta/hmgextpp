@@ -74,7 +74,7 @@ HB_FUNC( BEGINPAINT )
       hb_storclen(( const char * ) &ps, sizeof(PAINTSTRUCT), 2);
    }
    else
-      HB_RETNL( ( LONG_PTR ) NULL );
+      HB_RETNL( ( LONG_PTR ) nullptr );
 }
 
 HB_FUNC( ENDPAINT )
@@ -116,7 +116,7 @@ HB_FUNC( DRAWSTATE )
 
    if( GetObjectType(( HGDIOBJ ) hDC) == OBJ_DC )
    {
-      HBRUSH   hBrush = ( HBRUSH ) NULL;
+      HBRUSH   hBrush = ( HBRUSH ) nullptr;
       COLORREF crBrush;
       LPARAM   lpData;
       WPARAM   wData   = ( WPARAM ) hb_parclen(4);
@@ -130,7 +130,7 @@ HB_FUNC( DRAWSTATE )
       else
          lpData = ( LPARAM ) ( LONG_PTR ) HB_PARNL(4);
 
-      hb_retl( DrawState(hDC, hBrush, NULL, lpData, wData, hb_parni(6), hb_parni(7), hb_parni(8), hb_parni(9), ( UINT ) fuFlags)
+      hb_retl( DrawState(hDC, hBrush, nullptr, lpData, wData, hb_parni(6), hb_parni(7), hb_parni(8), hb_parni(9), ( UINT ) fuFlags)
                ? HB_TRUE : HB_FALSE );
 
       if( bDC )
@@ -155,7 +155,7 @@ HB_FUNC( GETUPDATERECT )
    if( IsWindow(hWnd) )
    {
       if( HB_ISNIL(2) )
-         hb_retl( GetUpdateRect(hWnd, NULL, hb_parl(3)) ? HB_TRUE : HB_FALSE );
+         hb_retl( GetUpdateRect(hWnd, nullptr, hb_parl(3)) ? HB_TRUE : HB_FALSE );
       else
       {
          RECT rc;
@@ -199,14 +199,14 @@ HB_FUNC( GRAYSTRING )
 
       if( GetObjectType(( HGDIOBJ ) hDC) == OBJ_DC )
       {
-         HBRUSH       hBrush = ( HBRUSH ) NULL;
+         HBRUSH       hBrush = ( HBRUSH ) nullptr;
          COLORREF     crBrush;
          const char * lpData = hb_parc(4);
 
          if( Array2ColorRef(hb_param(2, Harbour::Item::ANY), &crBrush) )
             hBrush = CreateSolidBrush(crBrush);
 
-         hb_retl( GrayString(hDC, hBrush, NULL, ( LPARAM ) lpData, nCount, hb_parni(6), hb_parni(7), hb_parni(8), hb_parni(9))
+         hb_retl( GrayString(hDC, hBrush, nullptr, ( LPARAM ) lpData, nCount, hb_parni(6), hb_parni(7), hb_parni(8), hb_parni(9))
                   ? HB_TRUE : HB_FALSE );
 
          if( bDC )
@@ -243,7 +243,7 @@ HB_FUNC( INVALIDATERECT )
          }
       }
 
-      hb_retl( InvalidateRect(hWnd, bRect ? &rc : NULL, hb_parni(2) /* erase-background flag */)
+      hb_retl( InvalidateRect(hWnd, bRect ? &rc : nullptr, hb_parni(2) /* erase-background flag */)
                ? HB_TRUE : HB_FALSE );
    }
    else
@@ -261,7 +261,7 @@ HB_FUNC( REDRAWWINDOW )
       if( HB_TRUE == hb_parl(2) )
          uiFlags |= RDW_INTERNALPAINT;
 
-      hb_retl( RedrawWindow(hWnd, NULL, NULL, uiFlags) ? HB_TRUE : HB_FALSE );
+      hb_retl( RedrawWindow(hWnd, nullptr, nullptr, uiFlags) ? HB_TRUE : HB_FALSE );
    }
    else
       hb_retl( HB_FALSE );
@@ -356,7 +356,7 @@ HB_FUNC( VALIDATERECT )
          }
       }
 
-      hb_retl( ValidateRect(hWnd, bRect ? &rc : NULL) );
+      hb_retl( ValidateRect(hWnd, bRect ? &rc : nullptr) );
    }
    else
       hb_retl( HB_FALSE );

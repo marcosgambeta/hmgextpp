@@ -145,9 +145,9 @@ HB_FUNC( INITGETBOX )
       hb_parni(5),
       hb_parni(6),
       ( HWND ) hwnd,
-      ( HMENU ) NULL,
+      ( HMENU ) nullptr,
       GetInstance(),
-      NULL
+      nullptr
            );
 
    SetProp(( HWND ) hedit, TEXT("OldWndProc"), ( HWND ) GetWindowLongPtr(( HWND ) hedit, GWLP_WNDPROC));
@@ -155,7 +155,7 @@ HB_FUNC( INITGETBOX )
 
    SendMessage(hedit, ( UINT ) EM_LIMITTEXT, ( WPARAM ) hb_parni(9), ( LPARAM ) 0);
 
-   if( hb_parc(18) != NULL )
+   if( hb_parc(18) != nullptr )
    {
 #ifndef UNICODE
       LPCSTR lpImageName = hb_parc(18);
@@ -164,10 +164,10 @@ HB_FUNC( INITGETBOX )
 #endif
       himage = ( HWND ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
-      if( himage == NULL )
-         himage = ( HWND ) LoadImage(NULL, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+      if( himage == nullptr )
+         himage = ( HWND ) LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
-      if( himage != NULL )
+      if( himage != nullptr )
       {
          BITMAP bm;
          GetObject(himage, sizeof(BITMAP), &bm);
@@ -176,8 +176,8 @@ HB_FUNC( INITGETBOX )
             DeleteObject(himage);
             himage = ( HWND ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, BtnWidth - 4, hb_parni(
                                             6 ) - 6, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
-            if( himage == NULL )
-               himage = ( HWND ) LoadImage(NULL, lpImageName, IMAGE_BITMAP, BtnWidth - 4, hb_parni(
+            if( himage == nullptr )
+               himage = ( HWND ) LoadImage(nullptr, lpImageName, IMAGE_BITMAP, BtnWidth - 4, hb_parni(
                                                6 ) - 6, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
          }
       }
@@ -186,9 +186,9 @@ HB_FUNC( INITGETBOX )
 #endif
    }
    else
-      himage = NULL;
+      himage = nullptr;
 
-   if( hb_parc(21) != NULL )
+   if( hb_parc(21) != nullptr )
    {
 #ifndef UNICODE
       LPCSTR lpImageName2 = hb_parc(21);
@@ -197,10 +197,10 @@ HB_FUNC( INITGETBOX )
 #endif
       himage2 = ( HWND ) LoadImage(GetResources(), lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
-      if( himage2 == NULL )
-         himage2 = ( HWND ) LoadImage(NULL, lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+      if( himage2 == nullptr )
+         himage2 = ( HWND ) LoadImage(nullptr, lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
-      if( himage2 != NULL )
+      if( himage2 != nullptr )
       {
          BITMAP bm;
          GetObject(himage2, sizeof(BITMAP), &bm);
@@ -210,8 +210,8 @@ HB_FUNC( INITGETBOX )
             himage2 = ( HWND ) LoadImage(GetResources(), lpImageName2, IMAGE_BITMAP, BtnWidth2 - 4, hb_parni(
                                              6 ) - 6, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
-            if( himage2 == NULL )
-               himage2 = ( HWND ) LoadImage(NULL, lpImageName2, IMAGE_BITMAP, BtnWidth2 - 4, hb_parni(
+            if( himage2 == nullptr )
+               himage2 = ( HWND ) LoadImage(nullptr, lpImageName2, IMAGE_BITMAP, BtnWidth2 - 4, hb_parni(
                                                 6 ) - 6, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
          }
       }
@@ -220,16 +220,16 @@ HB_FUNC( INITGETBOX )
 #endif
    }
    else
-      himage2 = NULL;
+      himage2 = nullptr;
 
    ibtnStyle1 = BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE;
 
-   if( himage != NULL )
+   if( himage != nullptr )
       ibtnStyle1 = ibtnStyle1 | BS_BITMAP;
 
    ibtnStyle2 = BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE;
 
-   if( himage2 != NULL )
+   if( himage2 != nullptr )
       ibtnStyle2 = ibtnStyle2 | BS_BITMAP;
 
    if( fBtns )
@@ -244,7 +244,7 @@ HB_FUNC( INITGETBOX )
                  ( HWND ) hedit,
                  ( HMENU ) GBB1,
                  GetInstance(),
-                 NULL
+                 nullptr
                  );
    else
       hBtn1 = 0;
@@ -261,15 +261,15 @@ HB_FUNC( INITGETBOX )
                  ( HWND ) hedit,
                  ( HMENU ) GBB2,
                  GetInstance(),
-                 NULL
+                 nullptr
                  );
    else
       hBtn2 = 0;
 
-   if( himage != NULL )
+   if( himage != nullptr )
       SendMessage(hBtn1, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage);
 
-   if( himage2 != NULL )
+   if( himage2 != nullptr )
       SendMessage(hBtn2, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage2);
 
    SendMessage(hedit, EM_SETMARGINS, EC_LEFTMARGIN | EC_RIGHTMARGIN, MAKELONG(0, BtnWidth + BtnWidth2 + 2));
@@ -290,10 +290,10 @@ HB_FUNC( CHECKBIT )
 HB_FUNC( GETTEXTHEIGHT )               // returns the height of a string in pixels
 {
    HDC   hDC        = hmg_par_HDC(1);
-   HWND  hWnd       = ( HWND ) NULL;
+   HWND  hWnd       = ( HWND ) nullptr;
    BOOL  bDestroyDC = FALSE;
    HFONT hFont      = hmg_par_HFONT(3);
-   HFONT hOldFont   = ( HFONT ) NULL;
+   HFONT hOldFont   = ( HFONT ) nullptr;
    SIZE  sz;
 
 #ifndef UNICODE
@@ -329,7 +329,7 @@ HB_FUNC( GETTEXTHEIGHT )               // returns the height of a string in pixe
 
 LRESULT CALLBACK OwnGetProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
-   static PHB_SYMB pSymbol = NULL;
+   static PHB_SYMB pSymbol = nullptr;
    long int        r;
    WNDPROC         OldWndProc;
 

@@ -603,15 +603,15 @@ HB_FUNC_STATIC( MEMOREAD )
             hb_retclen_buffer( ( char * ) pbyBuffer, ulSize );
          }
          else
-            hb_retc( NULL );
+            hb_retc( nullptr );
 
          hb_fsClose( fhnd );
       }
       else
-         hb_retc( NULL );
+         hb_retc( nullptr );
    }
    else
-      hb_retc( NULL );
+      hb_retc( nullptr );
 }
 
 #pragma ENDDUMP

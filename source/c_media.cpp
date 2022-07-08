@@ -96,7 +96,7 @@ HB_FUNC( MESSAGEBEEP )
 HB_FUNC( C_PLAYWAVE )
 {
    int     Style = SND_ASYNC;
-   HMODULE hmod  = NULL;
+   HMODULE hmod  = nullptr;
 
 #ifndef UNICODE
    LPCSTR pszSound = hb_parc(1);
@@ -133,7 +133,7 @@ HB_FUNC( C_PLAYWAVE )
 
 HB_FUNC( STOPWAVE )
 {
-   hb_retl( PlaySound( NULL, ( HMODULE ) GetResources(), SND_PURGE ) );
+   hb_retl( PlaySound( nullptr, ( HMODULE ) GetResources(), SND_PURGE ) );
 }
 
 HB_FUNC( INITPLAYER )
@@ -177,12 +177,12 @@ HB_FUNC( INITPLAYER )
    if( hb_parl(16) )
       Style = Style | MCIWNDF_SHOWPOS;
 
-   hwnd = MCIWndCreate(hmg_par_HWND(1), NULL, Style, szFile);
+   hwnd = MCIWndCreate(hmg_par_HWND(1), nullptr, Style, szFile);
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) szFile);
 #endif
-   if( hwnd == NULL )
+   if( hwnd == nullptr )
    {
       MessageBox(0, TEXT("Player Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
       return;
@@ -245,9 +245,9 @@ HB_FUNC( INITANIMATE )
    if( hb_parl(8) )
       Style = Style | ACS_TRANSPARENT;
 
-   hwnd = Animate_Create(hmg_par_HWND(1), NULL, Style, GetResources());
+   hwnd = Animate_Create(hmg_par_HWND(1), nullptr, Style, GetResources());
 
-   if( hwnd == NULL )
+   if( hwnd == nullptr )
    {
       MessageBox(0, TEXT("AnimateBox Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
       return;

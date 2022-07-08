@@ -88,7 +88,7 @@ HBITMAP CreateBitmapMask(HBITMAP hbmColour, COLORREF crTransparent)
    BITMAP  bm;
 
    GetObject(hbmColour, sizeof(BITMAP), &bm);
-   hbmMask = CreateBitmap(bm.bmWidth, bm.bmHeight, 1, 1, NULL);
+   hbmMask = CreateBitmap(bm.bmWidth, bm.bmHeight, 1, 1, nullptr);
 
    hdcMem  = CreateCompatibleDC(0);
    hdcMem2 = CreateCompatibleDC(0);
@@ -137,15 +137,15 @@ BOOL InsertCheck(HWND hWnd, HBITMAP himage, HBITMAP himage2, int BtnWidth, BOOL 
    pbtn->himage2    = himage2;
    pbtn->cxSpace    = GetSystemMetrics(SM_CXSIZEFRAME) / 4;
 
-   if( himage != NULL )
+   if( himage != nullptr )
       pbtn->himagemask = CreateBitmapMask(himage, RGB(0, 0, 0));
    else
-      pbtn->himagemask = NULL;
+      pbtn->himagemask = nullptr;
 
-   if( himage2 != NULL )
+   if( himage2 != nullptr )
       pbtn->himagemask2 = CreateBitmapMask(himage2, RGB(0, 0, 0));
    else
-      pbtn->himagemask2 = NULL;
+      pbtn->himagemask2 = nullptr;
 
    // associate our button state structure with the window
 
@@ -169,7 +169,7 @@ static void DrawCheck(HWND hWnd, INSCHK * pbtn, RECT * prect)
 
    hdc = GetWindowDC( hWnd );
 
-   if( hBitmap == NULL )
+   if( hBitmap == nullptr )
    {
       FillRect(hdc, prect, GetSysColorBrush(COLOR_WINDOW));
       SetBkMode(hdc, TRANSPARENT);
@@ -193,7 +193,7 @@ static void DrawCheck(HWND hWnd, INSCHK * pbtn, RECT * prect)
          BitBlt(hdc, wCol, wRow, bm.bmWidth, bm.bmHeight, hdcMem, 0, 0, SRCPAINT);
          SelectObject(hdcMem, hbmOld);
       }
-      else if( hBitmap2 != NULL )
+      else if( hBitmap2 != nullptr )
       {
          HBITMAP hbmOld = ( HBITMAP ) SelectObject(hdcMem, hBitmapMask2);
          GetObject(hBitmap2, sizeof(bm), &bm);
@@ -271,18 +271,18 @@ HB_FUNC( INITCHKLABEL )
       hwnd,
       hmg_par_HMENU(3),
       GetInstance(),
-      NULL
+      nullptr
              );
 
-   if( hb_parc(19) != NULL )
-      himage = HMG_LoadPicture(hb_parc(19), -1, -1, NULL, 0, 0, -1, 0, HB_FALSE, 255);
+   if( hb_parc(19) != nullptr )
+      himage = HMG_LoadPicture(hb_parc(19), -1, -1, nullptr, 0, 0, -1, 0, HB_FALSE, 255);
    else
-      himage = NULL;
+      himage = nullptr;
 
-   if( hb_parc(20) != NULL )
-      himage2 = HMG_LoadPicture(hb_parc(20), -1, -1, NULL, 0, 0, -1, 0, HB_FALSE, 255);
+   if( hb_parc(20) != nullptr )
+      himage2 = HMG_LoadPicture(hb_parc(20), -1, -1, nullptr, 0, 0, -1, 0, HB_FALSE, 255);
    else
-      himage2 = NULL;
+      himage2 = nullptr;
 
    InsertCheck(hbutton, himage, himage2, BtnWidth, hb_parl(22), hb_parl(21));
 
@@ -324,7 +324,7 @@ HB_FUNC( GETCHKLABEL )
 
 LRESULT APIENTRY ChkLabelFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam )
 {
-   static PHB_SYMB pSymbol = NULL;
+   static PHB_SYMB pSymbol = nullptr;
    long int        r;
    RECT *          prect;
    RECT oldrect;
@@ -369,7 +369,7 @@ LRESULT APIENTRY ChkLabelFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam
             DrawCheck(hWnd, pbtn, &rect);
          }
          else
-         if( pbtn->himage2 != NULL )
+         if( pbtn->himage2 != nullptr )
          {
             GetWindowRect(hWnd, &rect);
             OffsetRect(&rect, -rect.left, -rect.top);

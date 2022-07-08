@@ -92,11 +92,11 @@ HB_FUNC( SENDMESSAGESTRINGW )
 
    if( IsWindow(hwnd) )
    {
-      HB_WCHAR * lpWCStr = ( HB_WCHAR * ) ( ( hb_parclen(4) == 0 ) ? NULL : hb_mbtowc( hb_parc(4) ) );
+      HB_WCHAR * lpWCStr = ( HB_WCHAR * ) ( ( hb_parclen(4) == 0 ) ? nullptr : hb_mbtowc( hb_parc(4) ) );
 
       HB_RETNL( ( LONG_PTR ) SendMessage(hwnd, hmg_par_UINT(2),
                                           ( WPARAM ) hb_parl(3), ( LPARAM ) ( LPCWSTR ) lpWCStr) );
-      if( NULL != lpWCStr )
+      if( nullptr != lpWCStr )
       {
          hb_xfree(lpWCStr);
       }

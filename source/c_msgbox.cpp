@@ -65,17 +65,17 @@ HB_FUNC( MESSAGEBOXINDIRECT )
    mbp.hwndOwner = HB_ISNUM(1) ? hmg_par_HWND(1) : GetActiveWindow();
    mbp.hInstance = HB_ISNUM(6) ? hmg_par_HINSTANCE(6) : GetInstance();
 #ifndef UNICODE
-   mbp.lpszText    = HB_ISCHAR(2) ? hb_parc(2) : ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : NULL );
+   mbp.lpszText    = HB_ISCHAR(2) ? hb_parc(2) : ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : nullptr );
    mbp.lpszCaption = HB_ISCHAR(3) ? hb_parc(3) : ( HB_ISNUM(3) ? MAKEINTRESOURCE(hb_parni(3)) : "" );
-   mbp.lpszIcon    = HB_ISCHAR(5) ? hb_parc(5) : ( HB_ISNUM(5) ? MAKEINTRESOURCE(hb_parni(5)) : NULL );
+   mbp.lpszIcon    = HB_ISCHAR(5) ? hb_parc(5) : ( HB_ISNUM(5) ? MAKEINTRESOURCE(hb_parni(5)) : nullptr );
 #else
-   mbp.lpszText    = ( LPCWSTR ) ( HB_ISCHAR(2) ? hb_osStrU16Encode(hb_parc(2)) : ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : NULL ) );
+   mbp.lpszText    = ( LPCWSTR ) ( HB_ISCHAR(2) ? hb_osStrU16Encode(hb_parc(2)) : ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : nullptr ) );
    mbp.lpszCaption = ( LPCWSTR ) ( HB_ISCHAR(3) ? hb_osStrU16Encode(hb_parc(3)) : ( HB_ISNUM(3) ? MAKEINTRESOURCE(hb_parni(3)) : TEXT("") ) );
-   mbp.lpszIcon    = ( LPCWSTR ) ( HB_ISCHAR(5) ? hb_osStrU16Encode(hb_parc(5)) : ( HB_ISNUM(5) ? MAKEINTRESOURCE(hb_parni(5)) : NULL ) );
+   mbp.lpszIcon    = ( LPCWSTR ) ( HB_ISCHAR(5) ? hb_osStrU16Encode(hb_parc(5)) : ( HB_ISNUM(5) ? MAKEINTRESOURCE(hb_parni(5)) : nullptr ) );
 #endif
    mbp.dwStyle            = ( DWORD ) hb_parni(4);
    mbp.dwContextHelpId    = HB_ISNUM(7) ? ( DWORD ) hb_parni(7) : 0;
-   mbp.lpfnMsgBoxCallback = NULL; /* Modified by P.Ch. 16.10. */
+   mbp.lpfnMsgBoxCallback = nullptr; /* Modified by P.Ch. 16.10. */
    mbp.dwLanguageId       = HB_ISNUM(9) ? ( DWORD ) hb_parni(9) : MAKELANGID( LANG_NEUTRAL, SUBLANG_NEUTRAL );
 
    hb_retni( MessageBoxIndirect(&mbp) );
@@ -103,9 +103,9 @@ HB_FUNC( MESSAGEBOXTIMEOUT )
 int WINAPI MessageBoxTimeout(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT uType, WORD wLanguageId, DWORD dwMilliseconds)
 {
    typedef int ( WINAPI * PMessageBoxTimeout )( HWND, LPCTSTR, LPCTSTR, UINT, WORD, DWORD );
-   static PMessageBoxTimeout pMessageBoxTimeout = NULL;
+   static PMessageBoxTimeout pMessageBoxTimeout = nullptr;
 
-   if( pMessageBoxTimeout == NULL )
+   if( pMessageBoxTimeout == nullptr )
    {
       HMODULE hLib = LoadLibrary(TEXT("User32.dll"));
 
@@ -116,5 +116,5 @@ int WINAPI MessageBoxTimeout(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT 
    #endif
    }
 
-   return pMessageBoxTimeout == NULL ? 0 : pMessageBoxTimeout(hWnd, lpText, lpCaption, uType, wLanguageId, dwMilliseconds);
+   return pMessageBoxTimeout == nullptr ? 0 : pMessageBoxTimeout(hWnd, lpText, lpCaption, uType, wLanguageId, dwMilliseconds);
 }

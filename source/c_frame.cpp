@@ -64,7 +64,7 @@ HINSTANCE GetInstance(void);
 HB_FUNC( INITFRAME )
 {
    HWND hwnd    = hmg_par_HWND(1);
-   HWND hbutton = NULL;
+   HWND hbutton = nullptr;
 
    if( IsWindow(hwnd) )
    {
@@ -87,9 +87,9 @@ HB_FUNC( INITFRAME )
          hb_parni(5),
          hb_parni(6),
          hwnd,
-         ( IsMenu(hmenu) ? hmenu : NULL ),
+         ( IsMenu(hmenu) ? hmenu : nullptr ),
          GetInstance(),
-         NULL
+         nullptr
                 );
 #ifdef UNICODE
       hb_xfree(( TCHAR * ) lpWindowName);

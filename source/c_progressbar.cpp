@@ -90,7 +90,7 @@ HB_FUNC( INITPROGRESSBAR )
       hwnd,
       hmg_par_HMENU(2),
       GetInstance(),
-      NULL
+      nullptr
              );
 
    SendMessage(hbutton, PBM_SETRANGE, 0, MAKELONG(hb_parni(7), hb_parni(8)));

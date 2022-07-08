@@ -150,9 +150,9 @@ HB_FUNC( INITHOTKEYBOX )
       hb_parni(4),
       hb_parni(5),
       hWnd,
-      NULL,
+      nullptr,
       GetInstance(),
-      NULL
+      nullptr
                 );
 
    HB_RETNL( ( LONG_PTR ) hwndHotKey );

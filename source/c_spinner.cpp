@@ -110,7 +110,7 @@ HB_FUNC( INITSPINNER )
       hwnd,
       hmg_par_HMENU(2),
       GetInstance(),
-      NULL
+      nullptr
            );
 
    i.dwICC = ICC_UPDOWN_CLASS;  /* P.Ch. 10.16. */
@@ -129,10 +129,10 @@ HB_FUNC( INITSPINNER )
       hwnd,
       ( HMENU ) 0,
       GetInstance(),
-      NULL
+      nullptr
              );
 
-   SendMessage(hupdown, UDM_SETBUDDY, ( WPARAM ) hedit, ( LPARAM ) NULL);
+   SendMessage(hupdown, UDM_SETBUDDY, ( WPARAM ) hedit, ( LPARAM ) nullptr);
    SendMessage(hupdown, UDM_SETRANGE32, ( WPARAM ) hb_parni(8), ( LPARAM ) hb_parni(9));
 
    // 2006.08.13 JD
@@ -157,7 +157,7 @@ HB_FUNC( SETSPINNERINCREMENT )
 // 2006.08.13 JD
 LRESULT CALLBACK OwnSpinProc(HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
-   static PHB_SYMB pSymbol = NULL;
+   static PHB_SYMB pSymbol = nullptr;
    long int        r;
    WNDPROC         OldWndProc;
 

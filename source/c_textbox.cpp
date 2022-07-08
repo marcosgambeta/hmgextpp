@@ -104,7 +104,7 @@ HB_FUNC( INITMASKEDTEXTBOX )
       hwnd,
       hmg_par_HMENU(2),
       GetInstance(),
-      NULL
+      nullptr
              );
 
    HB_RETNL( ( LONG_PTR ) hbutton );
@@ -165,7 +165,7 @@ HB_FUNC( INITTEXTBOX )
       hwnd,
       hmg_par_HMENU(2),
       GetInstance(),
-      NULL
+      nullptr
            );
 
    SendMessage(hedit, ( UINT ) EM_LIMITTEXT, ( WPARAM ) hb_parni(9), ( LPARAM ) 0);
@@ -221,7 +221,7 @@ HB_FUNC( INITCHARMASKTEXTBOX )
       hwnd,
       hmg_par_HMENU(2),
       GetInstance(),
-      NULL
+      nullptr
              );
 
    HB_RETNL( ( LONG_PTR ) hbutton );
@@ -229,7 +229,7 @@ HB_FUNC( INITCHARMASKTEXTBOX )
 
 LRESULT CALLBACK OwnEditProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
-   static PHB_SYMB pSymbol = NULL;
+   static PHB_SYMB pSymbol = nullptr;
    long int        r;
    WNDPROC         OldWndProc;
 

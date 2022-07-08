@@ -109,7 +109,7 @@ HB_FUNC( INITTABCONTROL )
    hbutton = CreateWindow
              (
       WC_TABCONTROL,
-      NULL,
+      nullptr,
       Style,
       hb_parni(3),
       hb_parni(4),
@@ -118,7 +118,7 @@ HB_FUNC( INITTABCONTROL )
       hwnd,
       hmg_par_HMENU(2),
       GetInstance(),
-      NULL
+      nullptr
              );
 
    tie.mask   = TCIF_TEXT;
@@ -225,7 +225,7 @@ HB_FUNC( ADDTABBITMAP )
 {
    HWND       hbutton = hmg_par_HWND(1);
    TC_ITEM    tie;
-   HIMAGELIST himl = ( HIMAGELIST ) NULL;
+   HIMAGELIST himl = ( HIMAGELIST ) nullptr;
    PHB_ITEM   hArray;
    char *     FileName;
    int        nCount;
@@ -241,13 +241,13 @@ HB_FUNC( ADDTABBITMAP )
       {
          FileName = ( char * ) hb_arrayGetCPtr(hArray, i);
 
-         if( himl == NULL )
-            himl = HMG_ImageListLoadFirst(FileName, nCount, Transparent, NULL, NULL);
+         if( himl == nullptr )
+            himl = HMG_ImageListLoadFirst(FileName, nCount, Transparent, nullptr, nullptr);
          else
             HMG_ImageListAdd( himl, FileName, Transparent );
       }
 
-      if( himl != NULL )
+      if( himl != nullptr )
          SendMessage(hbutton, TCM_SETIMAGELIST, ( WPARAM ) 0, ( LPARAM ) himl);
 
       for( int i = 0; i < nCount; i++ )

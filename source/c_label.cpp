@@ -122,7 +122,7 @@ HB_FUNC( INITLABEL )
                          hWndParent,
                          hmg_par_HMENU(3),
                          GetInstance(),
-                         NULL);
+                         nullptr);
 
    if( hb_parl(10) )
       LabelOldWndProc = ( WNDPROC ) SetWindowLongPtr(( HWND ) hWnd, GWLP_WNDPROC, ( LONG_PTR ) LabelSubClassFunc);
@@ -138,7 +138,7 @@ HB_FUNC( INITLABEL )
 LRESULT APIENTRY LabelSubClassFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam )
 {
    TRACKMOUSEEVENT tme;
-   static PHB_SYMB pSymbol        = NULL;
+   static PHB_SYMB pSymbol        = nullptr;
    static BOOL     bMouseTracking = FALSE;
    long r = 0;
 

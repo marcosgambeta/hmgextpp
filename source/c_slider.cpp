@@ -103,7 +103,7 @@ HB_FUNC( INITSLIDER )
       hmg_par_HWND(1),
       hmg_par_HMENU(2),
       GetInstance(),
-      NULL
+      nullptr
                );
 
    SendMessage(hTrackBar, TBM_SETRANGE, ( WPARAM ) TRUE, MAKELONG(hb_parni(7), hb_parni(8)));

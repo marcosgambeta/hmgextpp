@@ -112,7 +112,7 @@ HB_FUNC( INITMONTHCAL )
    if( ! hb_parl(13) )
       Style = Style | WS_TABSTOP;
 
-   hmonthcal = CreateWindowEx(0, MONTHCAL_CLASS, TEXT(""), Style, 0, 0, 0, 0, hwnd, hmg_par_HMENU(2), GetInstance(), NULL);
+   hmonthcal = CreateWindowEx(0, MONTHCAL_CLASS, TEXT(""), Style, 0, 0, 0, 0, hwnd, hmg_par_HMENU(2), GetInstance(), nullptr);
 
    SetProp(( HWND ) hmonthcal, TEXT("oldmcproc"), ( HWND ) GetWindowLongPtr(( HWND ) hmonthcal, GWLP_WNDPROC));
    SetWindowLongPtr(hmonthcal, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnMCProc);
@@ -141,7 +141,7 @@ HB_FUNC( INITMONTHCAL )
 
    MonthCal_GetMinReqRect(hmonthcal, &rc);
 
-   SetWindowPos(hmonthcal, NULL, hb_parni(3), hb_parni(4), rc.right, rc.bottom, SWP_NOZORDER);
+   SetWindowPos(hmonthcal, nullptr, hb_parni(3), hb_parni(4), rc.right, rc.bottom, SWP_NOZORDER);
 
    hb_reta(2);
    HB_STORVNL( ( LONG_PTR ) hmonthcal, -1, 1 );
@@ -210,7 +210,7 @@ HB_FUNC( SETPOSMONTHCAL )
    if( hb_parldef(4, HB_FALSE) )
       InflateRect(&rc, 6, 6);
 
-   SetWindowPos(hWndMonthCal, NULL, hb_parni(2), hb_parni(3), rc.right, rc.bottom, SWP_NOZORDER);
+   SetWindowPos(hWndMonthCal, nullptr, hb_parni(2), hb_parni(3), rc.right, rc.bottom, SWP_NOZORDER);
 }
 
 HB_FUNC( GETMONTHRANGE )
@@ -296,7 +296,7 @@ HB_FUNC( GETDAYSTATEDATA )
 
 LRESULT CALLBACK OwnMCProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
-   static PHB_SYMB pSymbol = NULL;
+   static PHB_SYMB pSymbol = nullptr;
    long int        r;
    WNDPROC         OldWndProc;
 

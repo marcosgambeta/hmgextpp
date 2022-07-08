@@ -26,7 +26,7 @@ static HWND hwndMDIClient;
 
 LRESULT CALLBACK WndProcBrw(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-   static PHB_SYMB pSymbol = NULL;
+   static PHB_SYMB pSymbol = nullptr;
    long int        r;
 
    if( ! pSymbol )
@@ -53,7 +53,7 @@ LRESULT CALLBACK WndProcBrw(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 
 LRESULT CALLBACK WndProcMDI( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 {
-   static PHB_SYMB pSymbol = NULL;
+   static PHB_SYMB pSymbol = nullptr;
    long int        r;
 
    if( ! pSymbol )
@@ -82,7 +82,7 @@ HB_FUNC( REGISTER_CLASS )
 {
 #ifdef UNICODE
    void *  hClassName;
-   LPCTSTR lpClassName = HB_PARSTR(1, &hClassName, NULL);
+   LPCTSTR lpClassName = HB_PARSTR(1, &hClassName, nullptr);
 #else
    const char * lpClassName = hb_parc(1);
 #endif
@@ -98,12 +98,12 @@ HB_FUNC( REGISTER_CLASS )
 
    WndClass.cbClsExtra = 0;
    WndClass.cbWndExtra = 0;
-   WndClass.hInstance  = GetModuleHandle(NULL);
+   WndClass.hInstance  = GetModuleHandle(nullptr);
    WndClass.hIcon      = 0;
-   WndClass.hCursor    = LoadCursor(NULL, IDC_ARROW);
+   WndClass.hCursor    = LoadCursor(nullptr, IDC_ARROW);
    hbrush = ( HBRUSH ) ( HB_ISNIL(2) ? COLOR_WINDOW + 1 : HB_PARNL(2) );
    WndClass.hbrBackground = hbrush;
-   WndClass.lpszMenuName  = NULL;
+   WndClass.lpszMenuName  = nullptr;
    WndClass.lpszClassName = lpClassName;
 
    if( ! RegisterClass(&WndClass) )
@@ -125,9 +125,9 @@ HB_FUNC( _CREATEWINDOWEX )
    DWORD  dwExStyle  = hb_parnl(1);
 #ifdef UNICODE
    void *  hClassName;
-   LPCTSTR cClass = HB_PARSTR(2, &hClassName, NULL);
+   LPCTSTR cClass = HB_PARSTR(2, &hClassName, nullptr);
    void *  hTitle;
-   LPCTSTR cTitle = HB_PARSTR(3, &hTitle, NULL);
+   LPCTSTR cTitle = HB_PARSTR(3, &hTitle, nullptr);
 #else
    LPCSTR cClass     = ( LPCSTR ) hb_parc(2);
    LPCSTR cTitle     = ( LPCSTR ) hb_parc(3);
@@ -138,10 +138,10 @@ HB_FUNC( _CREATEWINDOWEX )
    int    nWidth     = HB_ISNIL(7) ? 0 : hb_parni(7);
    int    nHeight    = HB_ISNIL(8) ? 0 : hb_parni(8);
    HWND   hWndParent = hmg_par_HWND(9);
-   HMENU  hMenu      = ( HMENU ) NULL;
+   HMENU  hMenu      = ( HMENU ) nullptr;
    HANDLE hInstance  = ( HANDLE ) HB_PARNL(11);
 
-   hWnd = CreateWindowEx(dwExStyle, cClass, cTitle, nStyle, x, y, nWidth, nHeight, hWndParent, hMenu, ( HINSTANCE ) hInstance, NULL);
+   hWnd = CreateWindowEx(dwExStyle, cClass, cTitle, nStyle, x, y, nWidth, nHeight, hWndParent, hMenu, ( HINSTANCE ) hInstance, nullptr);
 
    HB_RETNL( ( LONG_PTR ) hWnd );
 
@@ -171,8 +171,8 @@ void MaskRegion(HDC hdc, RECT * rct, COLORREF cTransparentColor, COLORREF cBackg
 
    bmAndTemp   = CreateCompatibleBitmap(hdc, ptSize.x, ptSize.y);
    bmAndMem    = CreateCompatibleBitmap(hdc, ptSize.x, ptSize.y);
-   bmAndObject = CreateBitmap(ptSize.x, ptSize.y, 1, 1, NULL);
-   bmAndBack   = CreateBitmap(ptSize.x, ptSize.y, 1, 1, NULL);
+   bmAndObject = CreateBitmap(ptSize.x, ptSize.y, 1, 1, nullptr);
+   bmAndBack   = CreateBitmap(ptSize.x, ptSize.y, 1, 1, nullptr);
 
    bmTempOld   = ( HBITMAP ) SelectObject(hdcTemp, bmAndTemp);
    bmMemOld    = ( HBITMAP ) SelectObject(hdcMem, bmAndMem);
@@ -316,7 +316,7 @@ HB_FUNC( TSDRAWCELL )
    BOOL  bChecked   = ( nVertText == 3 ? TRUE : FALSE );
    BOOL  bBrush     = FALSE;
    BOOL  bDegrad    = ( bBrush || clrTo == clrBack ? FALSE : TRUE );
-   HFONT hOldFont   = NULL;
+   HFONT hOldFont   = nullptr;
    BOOL  bDestroyDC = FALSE;
    HPEN  hGrayPen   = CreatePen(PS_SOLID, 1, clrLine);
    HPEN  hWhitePen  = CreatePen(PS_SOLID, 1, GetSysColor(COLOR_BTNHIGHLIGHT));
@@ -490,7 +490,7 @@ HB_FUNC( TSDRAWCELL )
                rct.right  -= 1;
 
                SetTextColor(hDC, b3DInv ? nClr3DS : nClr3DL);
-               DrawTextEx(hDC, cData, nLen, &rct, iFlags, NULL);
+               DrawTextEx(hDC, cData, nLen, &rct, iFlags, nullptr);
 
                rct.top    += 2;
                rct.left   += 2;
@@ -498,7 +498,7 @@ HB_FUNC( TSDRAWCELL )
                rct.right  += 2;
 
                SetTextColor(hDC, b3DInv ? nClr3DL : nClr3DS);
-               DrawTextEx(hDC, cData, nLen, &rct, iFlags, NULL);
+               DrawTextEx(hDC, cData, nLen, &rct, iFlags, nullptr);
 
                rct.top    -= 1;
                rct.left   -= 1;
@@ -508,7 +508,7 @@ HB_FUNC( TSDRAWCELL )
                SetTextColor(hDC, clrFore);
             }
 
-            DrawTextEx(hDC, cData, nLen, &rct, iFlags, NULL);
+            DrawTextEx(hDC, cData, nLen, &rct, iFlags, nullptr);
             SetBkMode(hDC, nBkOld);
          }
 
@@ -630,7 +630,7 @@ HB_FUNC( TSBRWSCROLL )
    int   nHeightSuper  = hb_parni(7);
    int   nHeightSpecHd = hb_parni(8);
 
-   HFONT hOldFont = NULL;
+   HFONT hOldFont = nullptr;
    HDC   hDC      = GetDC(hWnd);
    RECT  rct;
 
@@ -718,7 +718,7 @@ HB_FUNC( SBGETHEIGHT )   // ( hWnd, hFont, nTotal )
 
    RECT  rct;
    HDC   hDC = GetDC(hWnd);
-   HFONT hOldFont = NULL;
+   HFONT hOldFont = nullptr;
    LONG  lTotHeight, lReturn;
 
    if( iTotal < 2 )
@@ -1048,7 +1048,7 @@ HB_FUNC( INITEDSPINNER )
    iMin  = hb_parni(7);
    iMax  = hb_parni(8);
 
-   hupdown = CreateUpDownControl( Style, hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6), hwnd, 0, GetModuleHandle(NULL),
+   hupdown = CreateUpDownControl( Style, hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6), hwnd, 0, GetModuleHandle(nullptr),
                                   hedit, iMax, iMin, hb_parni(9) );
 
    SendMessage(hupdown, UDM_SETRANGE32, ( WPARAM ) iMin, ( LPARAM ) iMax);

@@ -92,7 +92,7 @@ HB_FUNC( INITBROWSE )
       hwnd,
       hmg_par_HMENU(2),
       GetInstance(),
-      NULL
+      nullptr
              );
 
    lpfnOldWndProc = ( WNDPROC ) SetWindowLongPtr(( HWND ) hbutton, GWLP_WNDPROC, ( LONG_PTR ) SubClassFunc);
@@ -150,7 +150,7 @@ HB_FUNC( INITVSCROLLBAR )
       hwnd,
       ( HMENU ) 0,
       GetInstance(),
-      NULL
+      nullptr
                 );
 
    SetScrollRange
@@ -184,7 +184,7 @@ HB_FUNC( INITVSCROLLBARBUTTON )
 
    Style = WS_CHILD | WS_VISIBLE | SS_SUNKEN;
 
-   hbutton = CreateWindow(WC_STATIC, TEXT(""), Style, hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), hwnd, ( HMENU ) NULL, GetInstance(), NULL);
+   hbutton = CreateWindow(WC_STATIC, TEXT(""), Style, hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), hwnd, ( HMENU ) nullptr, GetInstance(), nullptr);
 
    HB_RETNL( ( LONG_PTR ) hbutton );
 }

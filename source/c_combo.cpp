@@ -106,7 +106,7 @@ HB_FUNC( INITCOMBOBOX )
       hwnd,
       hmg_par_HMENU(2),
       GetInstance(),
-      NULL
+      nullptr
              );
 
    HB_RETNL( ( LONG_PTR ) hbutton );
@@ -117,7 +117,7 @@ HB_FUNC( INITCOMBOBOXEX )
    HWND       hwnd = hmg_par_HWND(1);
    HWND       hCombo;
    PHB_ITEM   hArray;
-   HIMAGELIST himl = ( HIMAGELIST ) NULL;
+   HIMAGELIST himl = ( HIMAGELIST ) nullptr;
    char *     FileName;
 
    int nCount;
@@ -155,7 +155,7 @@ HB_FUNC( INITCOMBOBOXEX )
       hwnd,
       hmg_par_HMENU(2),
       GetInstance(),
-      NULL
+      nullptr
             );
 
    // create ImageList from aImage array
@@ -171,19 +171,19 @@ HB_FUNC( INITCOMBOBOXEX )
       {
          FileName = ( char * ) hb_arrayGetCPtr(hArray, s);
 
-         if( himl == NULL )
-            himl = HMG_ImageListLoadFirst(FileName, nCount, Transparent, NULL, NULL);
+         if( himl == nullptr )
+            himl = HMG_ImageListLoadFirst(FileName, nCount, Transparent, nullptr, nullptr);
          else
             HMG_ImageListAdd( himl, FileName, Transparent );
       }
    }
 
-   if( himl == NULL && HB_PARNL(15) > 0 )
+   if( himl == nullptr && HB_PARNL(15) > 0 )
       himl = hmg_par_HIMAGELIST(15);
 
    // set imagelist for created ComboEx
 
-   if( himl != NULL )
+   if( himl != nullptr )
       SendMessage(( HWND ) hCombo, CBEM_SETIMAGELIST, 0, ( LPARAM ) himl);
    else
       // extend combo without images
@@ -220,7 +220,7 @@ HB_FUNC( COMBOGETEDITSEL )
 {
    DWORD pos;
 
-   pos = ( DWORD ) SendMessage(hmg_par_HWND(1), CB_GETEDITSEL, ( WPARAM ) NULL, ( LPARAM ) NULL);
+   pos = ( DWORD ) SendMessage(hmg_par_HWND(1), CB_GETEDITSEL, ( WPARAM ) nullptr, ( LPARAM ) nullptr);
 
    hb_reta(2);
 
@@ -269,7 +269,7 @@ HB_FUNC( COMBOGETSTRING )
    int     iLen = ( int ) SendMessage(hmg_par_HWND(1), CB_GETLBTEXTLEN, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) 0);
    TCHAR * cString;
 
-   if( iLen > 0 && NULL != ( cString = ( TCHAR * ) hb_xgrab((iLen + 1) * sizeof(TCHAR)) ) )
+   if( iLen > 0 && nullptr != ( cString = ( TCHAR * ) hb_xgrab((iLen + 1) * sizeof(TCHAR)) ) )
    {
       SendMessage(hmg_par_HWND(1), CB_GETLBTEXT, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) cString);
    #ifdef UNICODE

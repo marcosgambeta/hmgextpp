@@ -114,7 +114,7 @@ HB_FUNC( WAITRUNPIPE )
    ZeroMemory(&sa, sizeof(SECURITY_ATTRIBUTES));
    sa.nLength              = sizeof(SECURITY_ATTRIBUTES);
    sa.bInheritHandle       = 1;
-   sa.lpSecurityDescriptor = NULL;
+   sa.lpSecurityDescriptor = nullptr;
 
    memset(&StartupInfo, 0, sizeof(StartupInfo));
    memset(&ProcessInfo, 0, sizeof(ProcessInfo));
@@ -140,7 +140,7 @@ HB_FUNC( WAITRUNPIPE )
    StartupInfo.hStdOutput  = WritePipeHandle;
    StartupInfo.hStdError   = WritePipeHandle;
 
-   if( ! CreateProcess(NULL, lpCommandLine, 0, 0, FALSE, CREATE_NEW_CONSOLE | NORMAL_PRIORITY_CLASS, 0, 0, &StartupInfo, &ProcessInfo) )
+   if( ! CreateProcess(nullptr, lpCommandLine, 0, 0, FALSE, CREATE_NEW_CONSOLE | NORMAL_PRIORITY_CLASS, 0, 0, &StartupInfo, &ProcessInfo) )
    {
       hb_retnl( -1 );
       return;
@@ -169,7 +169,7 @@ HB_FUNC( WAITRUNPIPE )
       // If there is bytes, read them
       if( BytesRead )
       {
-         if( ! ReadFile(ReadPipeHandle, Data, sizeof(Data) - 1, &BytesRead, NULL) )
+         if( ! ReadFile(ReadPipeHandle, Data, sizeof(Data) - 1, &BytesRead, nullptr) )
          {
             hb_retnl( -1 );
             return;
@@ -211,7 +211,7 @@ HB_FUNC( COPYRTFTOCLIPBOARD ) // CopyRtfToClipboard(cRtfText) store cRTFText in 
    EmptyClipboard();
 
    hglbCopy = GlobalAlloc(GMEM_MOVEABLE | GMEM_DDESHARE, ( nLen + 4 ) * sizeof(TCHAR));
-   if( hglbCopy == NULL )
+   if( hglbCopy == nullptr )
    {
       CloseClipboard();
       return;
@@ -240,7 +240,7 @@ HB_FUNC( COPYTOCLIPBOARD ) // CopyToClipboard(cText) store cText in Windows clip
    EmptyClipboard();
 
    hglbCopy = GlobalAlloc(GMEM_DDESHARE, ( nLen + 1 ) * sizeof(TCHAR));
-   if( hglbCopy == NULL )
+   if( hglbCopy == nullptr )
    {
       CloseClipboard();
       return;
@@ -275,12 +275,12 @@ HB_FUNC( RETRIEVETEXTFROMCLIPBOARD )
             hb_retc( "" );
       }
       else
-         hb_retc( NULL );
+         hb_retc( nullptr );
 
       CloseClipboard();
    }
    else
-      hb_retc( NULL );
+      hb_retc( nullptr );
 }
 
 HB_FUNC( CLEARCLIPBOARD )
@@ -319,7 +319,7 @@ HB_FUNC( HMG_KEYBOARDCLEARBUFFER )
 {
    MSG Msg;
 
-   while( PeekMessage(&Msg, NULL, WM_KEYFIRST, WM_KEYLAST, PM_REMOVE) )
+   while( PeekMessage(&Msg, nullptr, WM_KEYFIRST, WM_KEYLAST, PM_REMOVE) )
       ;
 }
 
@@ -327,7 +327,7 @@ HB_FUNC( HMG_MOUSECLEARBUFFER )
 {
    MSG Msg;
 
-   while( PeekMessage(&Msg, NULL, WM_MOUSEFIRST, WM_MOUSELAST, PM_REMOVE) )
+   while( PeekMessage(&Msg, nullptr, WM_MOUSEFIRST, WM_MOUSELAST, PM_REMOVE) )
       ;
 }
 
@@ -349,9 +349,9 @@ HB_FUNC( INKEYGUI )
    if( uElapse == 0 )
       uElapse = USER_TIMER_MAXIMUM;
 
-   uTimer = SetTimer( NULL, 0, uElapse, NULL );
+   uTimer = SetTimer( nullptr, 0, uElapse, nullptr );
 
-   while( (bRet = GetMessage(&Msg, NULL, 0, 0)) != 0 )
+   while( (bRet = GetMessage(&Msg, nullptr, 0, 0)) != 0 )
    {
       if( bRet == -1 )
       {
@@ -381,7 +381,7 @@ HB_FUNC( INKEYGUI )
 
       if( bBreak )
       {
-         KillTimer( NULL, uTimer );
+         KillTimer( nullptr, uTimer );
          break;
       }
       else
@@ -452,7 +452,7 @@ HB_FUNC( C_GETDLLSPECIALFOLDER )
 
       if( fnShGetFolderPath )
       {
-         if( fnShGetFolderPath(NULL, hb_parni(1), NULL, 0, szPath) == S_OK )
+         if( fnShGetFolderPath(nullptr, hb_parni(1), nullptr, 0, szPath) == S_OK )
             hb_retc( szPath );
          else
             hb_retc( "" );
@@ -471,12 +471,12 @@ HB_FUNC( GETPHYSICALLYINSTALLEDSYSTEMMEMORY )
 
    hb_retnll(0);
 
-   if( NULL != hDll )
+   if( nullptr != hDll )
    {
       GetPhysicallyInstalledSystemMemory_ptr fn_GetPhysicallyInstalledSystemMemory =
          ( GetPhysicallyInstalledSystemMemory_ptr ) wapi_GetProcAddress(hDll, "GetPhysicallyInstalledSystemMemory");
 
-      if( NULL != fn_GetPhysicallyInstalledSystemMemory )
+      if( nullptr != fn_GetPhysicallyInstalledSystemMemory )
       {
          ULONGLONG ullTotalMemoryInKilobytes;
 
@@ -495,12 +495,12 @@ HB_FUNC( MEMORYSTATUS )
 
    HB_RETNL(0);
 
-   if( NULL != hDll )
+   if( nullptr != hDll )
    {
       GlobalMemoryStatusEx_ptr fn_GlobalMemoryStatusEx =
          ( GlobalMemoryStatusEx_ptr ) wapi_GetProcAddress(hDll, "GlobalMemoryStatusEx");
 
-      if( NULL != fn_GlobalMemoryStatusEx )
+      if( nullptr != fn_GlobalMemoryStatusEx )
       {
          MEMORYSTATUSEX mstex;
 
@@ -682,13 +682,13 @@ HB_FUNC( SHELLEXECUTE )
    LPFN_ISWOW64PROCESS fnIsWow64Process;
    BOOL bIsWow64 = FALSE;
    LPFN_WOW64DISABLEWOW64FSREDIRECTION fnDisable;
-   PVOID OldValue = NULL;
+   PVOID OldValue = nullptr;
    BOOL  bRestore = FALSE;
    LPFN_WOW64REVERTWOW64FSREDIRECTION fnRevert;
    HMODULE hDll = GetModuleHandle(TEXT("kernel32.dll"));
 
    fnIsWow64Process = ( LPFN_ISWOW64PROCESS ) wapi_GetProcAddress(hDll, "IsWow64Process");
-   if( NULL != fnIsWow64Process )
+   if( nullptr != fnIsWow64Process )
    {
       fnIsWow64Process(GetCurrentProcess(), &bIsWow64);
    }
@@ -696,7 +696,7 @@ HB_FUNC( SHELLEXECUTE )
    if( bIsWow64 )
    {
       fnDisable = ( LPFN_WOW64DISABLEWOW64FSREDIRECTION ) wapi_GetProcAddress(hDll, "Wow64DisableWow64FsRedirection");
-      if( NULL != fnDisable )
+      if( nullptr != fnDisable )
       {
          if( fnDisable(&OldValue) )
          {
@@ -705,17 +705,17 @@ HB_FUNC( SHELLEXECUTE )
       }
    }
 
-   CoInitialize(NULL);
+   CoInitialize(nullptr);
 
    HB_RETNL
    (
       ( LONG_PTR ) ShellExecute
       (
          hmg_par_HWND(1),
-         HB_ISNIL(2) ? NULL : lpOperation,
+         HB_ISNIL(2) ? nullptr : lpOperation,
          lpFile,
-         HB_ISNIL(4) ? NULL : lpParameters,
-         HB_ISNIL(5) ? NULL : lpDirectory,
+         HB_ISNIL(4) ? nullptr : lpParameters,
+         HB_ISNIL(5) ? nullptr : lpDirectory,
          hb_parni(6)
       )
    );
@@ -725,7 +725,7 @@ HB_FUNC( SHELLEXECUTE )
    if( bRestore )
    {
       fnRevert = ( LPFN_WOW64REVERTWOW64FSREDIRECTION ) wapi_GetProcAddress(hDll, "Wow64RevertWow64FsRedirection");
-      if( NULL != fnRevert )
+      if( nullptr != fnRevert )
       {
          fnRevert(OldValue);
       }
@@ -758,16 +758,16 @@ HB_FUNC( SHELLEXECUTEEX )
    SHExecInfo.cbSize       = sizeof(SHExecInfo);
    SHExecInfo.fMask        = SEE_MASK_NOCLOSEPROCESS;
    SHExecInfo.hwnd         = HB_ISNIL(1) ? GetActiveWindow() : hmg_par_HWND(1);
-   SHExecInfo.lpVerb       = HB_ISNIL(2) ? NULL : lpOperation;
+   SHExecInfo.lpVerb       = HB_ISNIL(2) ? nullptr : lpOperation;
    SHExecInfo.lpFile       = lpFile;
-   SHExecInfo.lpParameters = HB_ISNIL(4) ? NULL : lpParameters;
-   SHExecInfo.lpDirectory  = HB_ISNIL(5) ? NULL : lpDirectory;
+   SHExecInfo.lpParameters = HB_ISNIL(4) ? nullptr : lpParameters;
+   SHExecInfo.lpDirectory  = HB_ISNIL(5) ? nullptr : lpDirectory;
    SHExecInfo.nShow        = hb_parni(6);
 
    if( ShellExecuteEx(&SHExecInfo) )
       HB_RETNL( ( LONG_PTR ) SHExecInfo.hProcess );
    else
-      HB_RETNL( ( LONG_PTR ) NULL );
+      HB_RETNL( ( LONG_PTR ) nullptr );
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpOperation);
@@ -799,7 +799,7 @@ HB_FUNC( WAITRUN )
 
    stInfo.wShowWindow = hmg_par_WORD(2);
 
-   bResult = CreateProcess(NULL, lpCommandLine, NULL, NULL, TRUE, CREATE_NEW_CONSOLE | NORMAL_PRIORITY_CLASS, NULL, NULL, &stInfo, &prInfo);
+   bResult = CreateProcess(nullptr, lpCommandLine, nullptr, nullptr, TRUE, CREATE_NEW_CONSOLE | NORMAL_PRIORITY_CLASS, nullptr, nullptr, &stInfo, &prInfo);
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpCommandLine);
@@ -847,14 +847,14 @@ HB_FUNC( WAITRUNTERM )
 
    bResult = CreateProcess
              (
-      NULL,
+      nullptr,
       lpCommandLine,
-      NULL,
-      NULL,
+      nullptr,
+      nullptr,
       TRUE,
       CREATE_NEW_CONSOLE | NORMAL_PRIORITY_CLASS,
-      NULL,
-      HB_ISNIL(2) ? NULL : lpCurrentDirectory,
+      nullptr,
+      HB_ISNIL(2) ? nullptr : lpCurrentDirectory,
       &stInfo,
       &prInfo
              );
@@ -907,11 +907,11 @@ HB_FUNC( WAITRUNTERM )
 
 HB_FUNC( ISEXERUNNING ) // ( cExeNameCaseSensitive ) --> lResult
 {
-   HANDLE hMutex = CreateMutex(NULL, FALSE, ( LPTSTR ) hb_parc(1));
+   HANDLE hMutex = CreateMutex(nullptr, FALSE, ( LPTSTR ) hb_parc(1));
 
    hb_retl( GetLastError() == ERROR_ALREADY_EXISTS );
 
-   if( hMutex != NULL )
+   if( hMutex != nullptr )
       ReleaseMutex(hMutex);
 }
 
@@ -932,7 +932,7 @@ HB_FUNC( CREATEFOLDER )
 #else
    LPCWSTR lpPathName = AnsiToWide(hb_parc(1));
 #endif
-   hb_retl( CreateDirectory(lpPathName, NULL) );
+   hb_retl( CreateDirectory(lpPathName, nullptr) );
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpPathName);
 #endif
@@ -1023,12 +1023,12 @@ HB_FUNC( WINVERSION )
 
    OSVERSIONINFOEX osvi;
    BOOL    bOsVersionInfoEx;
-   TCHAR * szVersion     = NULL;
-   TCHAR * szServicePack = NULL;
-   TCHAR * szBuild       = NULL;
+   TCHAR * szVersion     = nullptr;
+   TCHAR * szServicePack = nullptr;
+   TCHAR * szBuild       = nullptr;
    TCHAR   buffer[ 5 ];
 
-   TCHAR * szVersionEx = NULL;
+   TCHAR * szVersionEx = nullptr;
 #ifdef UNICODE
    LPSTR pStr;
 #endif
@@ -1044,7 +1044,7 @@ HB_FUNC( WINVERSION )
          szVersion = TEXT(const_cast<char*>("Unknown Operating System"));
    }
 
-   if( szVersion == NULL )
+   if( szVersion == nullptr )
    {
       switch( osvi.dwPlatformId )
       {
@@ -1139,7 +1139,7 @@ HB_FUNC( WINVERSION )
                   szVersion = TEXT(const_cast<char*>("Unknown Operating System"));
                else
                {
-                  lRetVal = RegQueryValueEx(hKey, TEXT("ProductType"), NULL, NULL, ( LPBYTE ) szProductType, &dwBufLen);
+                  lRetVal = RegQueryValueEx(hKey, TEXT("ProductType"), nullptr, nullptr, ( LPBYTE ) szProductType, &dwBufLen);
                   if( ( lRetVal != ERROR_SUCCESS ) || ( dwBufLen > 80 ) )
                      szVersion = TEXT(const_cast<char*>("Unknown Operating System"));
                }
@@ -1302,7 +1302,7 @@ HB_FUNC( GETDLLVERSION )
          }
       }
       else
-         MessageBox(NULL, TEXT("Cannot get DllGetVersion function."), TEXT("DllGetVersion"), MB_OK | MB_ICONERROR);
+         MessageBox(nullptr, TEXT("Cannot get DllGetVersion function."), TEXT("DllGetVersion"), MB_OK | MB_ICONERROR);
 
       FreeLibrary(hModule);
    }
@@ -1391,7 +1391,7 @@ BOOL IsAppHung(IN HWND hWnd, OUT PBOOL pbHung)
       // found the function IsHungAppWindow
       *( FARPROC * )&_IsHungAppWindow =
          GetProcAddress(hUser, "IsHungAppWindow");
-      if( _IsHungAppWindow == NULL )
+      if( _IsHungAppWindow == nullptr )
          return SetLastError( ERROR_PROC_NOT_FOUND ), FALSE;
 
       // call the function IsHungAppWindow
@@ -1399,14 +1399,14 @@ BOOL IsAppHung(IN HWND hWnd, OUT PBOOL pbHung)
    }
    else
    {
-      DWORD dwThreadId = GetWindowThreadProcessId( hWnd, NULL );
+      DWORD dwThreadId = GetWindowThreadProcessId( hWnd, nullptr );
 
       BOOL( WINAPI * _IsHungThread )( DWORD );
 
       // found the function IsHungThread
       *( FARPROC * )&_IsHungThread =
          GetProcAddress(hUser, "IsHungThread");
-      if( _IsHungThread == NULL )
+      if( _IsHungThread == nullptr )
          return SetLastError( ERROR_PROC_NOT_FOUND ), FALSE;
 
       // call the function IsHungThread
@@ -1430,7 +1430,7 @@ HB_FUNC( ISAPPHUNG )
    {
       if( GetLastError() != ERROR_INVALID_PARAMETER )
       {
-         MessageBox(NULL, TEXT("Process not found"), TEXT("Warning"), MB_OK | MB_ICONWARNING);
+         MessageBox(nullptr, TEXT("Process not found"), TEXT("Warning"), MB_OK | MB_ICONWARNING);
       }
       hb_retl( HB_FALSE );
    }
@@ -1449,26 +1449,26 @@ HB_FUNC( EMPTYWORKINGSET )
    HANDLE hProcess;
 
    typedef BOOL ( WINAPI * Func_EmptyWorkingSet )( HANDLE );
-   static Func_EmptyWorkingSet pEmptyWorkingSet = NULL;
+   static Func_EmptyWorkingSet pEmptyWorkingSet = nullptr;
 
-   if( pEmptyWorkingSet == NULL )
+   if( pEmptyWorkingSet == nullptr )
    {
       HMODULE hLib = LoadLibrary(TEXT("Kernel32.dll"));
       pEmptyWorkingSet = ( Func_EmptyWorkingSet ) wapi_GetProcAddress(hLib, "K32EmptyWorkingSet");
    }
 
-   if( pEmptyWorkingSet == NULL )
+   if( pEmptyWorkingSet == nullptr )
    {
       HMODULE hLib = LoadLibrary(TEXT("Psapi.dll"));
       pEmptyWorkingSet = ( Func_EmptyWorkingSet ) wapi_GetProcAddress(hLib, "K32EmptyWorkingSet");
    }
 
-   if( pEmptyWorkingSet != NULL )
+   if( pEmptyWorkingSet != nullptr )
    {
       ProcessID = HB_ISNUM(1) ? hmg_par_DWORD(1) : GetCurrentProcessId();
 
       hProcess = OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION | PROCESS_SET_QUOTA, FALSE, ProcessID);
-      if( hProcess != NULL )
+      if( hProcess != nullptr )
       {
          hb_retl( ( BOOL ) pEmptyWorkingSet(hProcess) );
 
@@ -1812,18 +1812,18 @@ static HRESULT CreateShortCut(LPWSTR pszTargetfile, LPWSTR pszTargetargs,
 
    hRes = E_INVALIDARG;
    if(
-      ( pszTargetfile != NULL ) && ( lstrlen(pszTargetfile) > 0 ) &&
-      ( pszTargetargs != NULL ) &&
-      ( pszLinkfile != NULL ) && ( lstrlen(pszLinkfile) > 0 ) &&
-      ( pszDescription != NULL ) &&
+      ( pszTargetfile != nullptr ) && ( lstrlen(pszTargetfile) > 0 ) &&
+      ( pszTargetargs != nullptr ) &&
+      ( pszLinkfile != nullptr ) && ( lstrlen(pszLinkfile) > 0 ) &&
+      ( pszDescription != nullptr ) &&
       ( iShowmode >= 0 ) &&
-      ( pszCurdir != NULL ) &&
-      ( pszIconfile != NULL ) &&
+      ( pszCurdir != nullptr ) &&
+      ( pszIconfile != nullptr ) &&
       ( iIconindex >= 0 )
       )
    {
       hRes = CoCreateInstance(CLSID_ShellLink,           /* pre-defined CLSID of the IShellLink object */
-                              NULL,                       /* pointer to parent interface if part of aggregate */
+                              nullptr,                       /* pointer to parent interface if part of aggregate */
                               CLSCTX_INPROC_SERVER,       /* caller and called code are in same process */
                               IID_IShellLink,            /* pre-defined interface of the IShellLink object */
                               ( LPVOID * ) &pShellLink); /* Returns a pointer to the IShellLink object */
@@ -1909,7 +1909,7 @@ HB_FUNC( CREATELINK )
    iIconindex = hb_parnidef(8, 0);
 
    /* Call CoInitialize() and create the link if OK. */
-   hRes = CoInitialize(NULL);
+   hRes = CoInitialize(nullptr);
    if( SUCCEEDED( hRes ) )
    {
       hRes = CreateShortCut(szTargetfile,  /* Targetfile */

@@ -260,7 +260,7 @@ void DrawInsBtnPG(HWND hWnd, INSBTN *pbtn, RECT *prect)
          FillRect(hdc, prect, GetSysColorBrush(COLOR_BTNFACE));
       }
 
-      if( hBitmap == NULL )
+      if( hBitmap == nullptr )
       {
          SetBkMode(hdc, TRANSPARENT);
          DrawText(hdc, "...", 3, prect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
@@ -582,21 +582,21 @@ HWND CreateHeaderWindow(HWND hwndParent)
             (
                0,
                WC_HEADER,
-               (LPCTSTR) NULL,
+               (LPCTSTR) nullptr,
                WS_CHILD | WS_BORDER | HDS_BUTTONS | HDS_HORZ,
                0,
                0,
                0,
                0,             // No size or position.
                hwndParent,    // Handle to the parent window.
-               (HMENU) NULL,  // ID for the header window.
-               GetModuleHandle(NULL),  // Current instance.
-               (LPVOID) NULL
+               (HMENU) nullptr,  // ID for the header window.
+               GetModuleHandle(nullptr),  // Current instance.
+               (LPVOID) nullptr
             )
-      ) == NULL
+      ) == nullptr
    )
    {  // No application-defined data.
-      return ( HWND ) NULL;
+      return ( HWND ) nullptr;
    }
 
    GetClientRect(hwndParent, &rcParent);
@@ -606,7 +606,7 @@ HWND CreateHeaderWindow(HWND hwndParent)
 
    if( Header_Layout(hwndHeader, &hdl) == FALSE )
    {
-      return ( HWND ) NULL;
+      return ( HWND ) nullptr;
    }
 
    SetWindowPos(hwndHeader, wp.hwndInsertAfter, wp.x, wp.y, wp.cx, wp.cy, wp.flags | SWP_SHOWWINDOW);
@@ -655,7 +655,7 @@ LRESULT PropGridOnCustomDraw ( HWND hWnd, LPARAM lParam )
    NMHDR          *pNMHDR = ( NMHDR FAR * ) lParam;
    NMTVCUSTOMDRAW *pCD = ( NMTVCUSTOMDRAW * ) pNMHDR;
    DWORD          dwDrawStage;
-   HBRUSH         m_brush = NULL;
+   HBRUSH         m_brush = nullptr;
    LRESULT        pResult;
    PROPGRD        *ppgrd = ( PROPGRD * ) GetWindowLong(hWnd, GWL_USERDATA);
    int            nIndent = ppgrd->nIndent;
@@ -680,7 +680,7 @@ LRESULT PropGridOnCustomDraw ( HWND hWnd, LPARAM lParam )
       HTREEITEM   hItem = ( HTREEITEM ) pCD->nmcd.dwItemSpec, hParent = TreeView_GetParent(hWnd, hItem);
       RECT        rc = pCD->nmcd.rc;
       TV_DISPINFO tvdi;
-      LPARAMDATA  *pItemData = NULL;
+      LPARAMDATA  *pItemData = nullptr;
       HWND        hPropEdit;
       LONG        hFont;
       RECT        rcText, rcItem, rcProp, rcEdit, rcCheck, rcIndent;
@@ -999,9 +999,9 @@ HB_FUNC( INITPROPGRID )
          w,
          h,
          (HWND) hwndParent,
-         (HMENU)  NULL,
-         GetModuleHandle(NULL),
-         NULL
+         (HMENU)  nullptr,
+         GetModuleHandle(nullptr),
+         nullptr
       );
 
 
@@ -1047,9 +1047,9 @@ HB_FUNC( INITPROPGRID )
          w,
          PGHeight ,
          (HWND)  hFramePG,
-         (HMENU)  NULL,
-         GetModuleHandle(NULL),
-         NULL
+         (HMENU)  nullptr,
+         GetModuleHandle(nullptr),
+         nullptr
       );
 
 
@@ -1065,9 +1065,9 @@ HB_FUNC( INITPROPGRID )
          w,
          iHeight ,
          (HWND)  hFramePG,
-         (HMENU)  NULL,
-         GetModuleHandle(NULL),
-         NULL
+         (HMENU)  nullptr,
+         GetModuleHandle(nullptr),
+         nullptr
       );
 
    hTitle = CreateWindowEx
@@ -1081,9 +1081,9 @@ HB_FUNC( INITPROPGRID )
          w - 20,
          20,
          (HWND)  hFramePG,
-         (HMENU) NULL,
-         GetModuleHandle(NULL),
-         NULL
+         (HMENU) nullptr,
+         GetModuleHandle(nullptr),
+         nullptr
       );
 
    hInfo = CreateWindowEx
@@ -1097,9 +1097,9 @@ HB_FUNC( INITPROPGRID )
          w - 30,
          iHeight - 36,
          (HWND)  hFramePG,
-         (HMENU)  NULL,
-         GetModuleHandle(NULL),
-         NULL
+         (HMENU)  nullptr,
+         GetModuleHandle(nullptr),
+         nullptr
       );
    if( hb_parl(13) )
      {
@@ -1112,9 +1112,9 @@ HB_FUNC( INITPROPGRID )
             70,
             20,
             (HWND)  hFramePG,
-            (HMENU) NULL,
-            GetModuleHandle(NULL),
-            NULL
+            (HMENU) nullptr,
+            GetModuleHandle(nullptr),
+            nullptr
             );
 
 
@@ -1131,9 +1131,9 @@ HB_FUNC( INITPROPGRID )
             70,
             20,
             (HWND)  hFramePG,
-            (HMENU) NULL,
-            GetModuleHandle(NULL),
-            NULL
+            (HMENU) nullptr,
+            GetModuleHandle(nullptr),
+            nullptr
             );
 
       } else  hBtnApply = 0;
@@ -1149,9 +1149,9 @@ HB_FUNC( INITPROPGRID )
             70,
             20,
             (HWND)  hFramePG,
-            (HMENU) NULL,
-            GetModuleHandle(NULL),
-            NULL
+            (HMENU) nullptr,
+            GetModuleHandle(nullptr),
+            nullptr
             );
       } else hBtnCancel = 0;
 
@@ -1166,9 +1166,9 @@ HB_FUNC( INITPROPGRID )
             70,
             20,
             (HWND)  hFramePG,
-            (HMENU) NULL,
-            GetModuleHandle(NULL),
-            NULL
+            (HMENU) nullptr,
+            GetModuleHandle(nullptr),
+            nullptr
             );
       } else hBtnHelp = 0;
 
@@ -1213,7 +1213,7 @@ HB_FUNC( INITPROPGRID )
 
 LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
-   static PHB_SYMB   pSymbol = NULL;
+   static PHB_SYMB   pSymbol = nullptr;
 
    long int          r;
    WNDPROC           OldWndProc;
@@ -1401,7 +1401,7 @@ LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPar
 
 LRESULT CALLBACK OwnFramePgProc(HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
-   static PHB_SYMB   pSymbol = NULL;
+   static PHB_SYMB   pSymbol = nullptr;
    long int          r;
    WNDPROC           OldWndProc;
    HDC               hDC;
@@ -1487,7 +1487,7 @@ LRESULT CALLBACK OwnFramePgProc(HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM l
                      ppgrd->cxMiddleEdge = hdi.cxy - 3;
                      Header_GetItem(hWndHD, 1, &hdi);
                      hdi.cxy += dWidth;
-                     RedrawWindow(ppgrd->hPropGrid, NULL, NULL, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
+                     RedrawWindow(ppgrd->hPropGrid, nullptr, nullptr, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
                      break;
                   }
 
@@ -1610,7 +1610,7 @@ HB_FUNC( ADDPGITEM )
    if( hPrev == 0 )
    {
       is.hInsertAfter = hPrev;
-      is.hParent = NULL;
+      is.hParent = nullptr;
    }
    else
    {
@@ -2010,7 +2010,7 @@ HB_FUNC( INITPROPGRIDIMAGELIST )
    hWndPG = ( HWND ) hb_parnl(1);
    himl = ( HIMAGELIST ) hb_parnl(2);
 
-   if( himl != NULL )
+   if( himl != nullptr )
    {
       SendMessage(hWndPG, TVM_SETIMAGELIST, (WPARAM) TVSIL_NORMAL, (LPARAM) himl);
       cx = ImageList_GetImageCount(himl);
@@ -2265,7 +2265,7 @@ HB_FUNC( GETDATEPICKER )
 
 HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd , BOOL DisEdit)
 {
-   static PHB_SYMB   pSymbol = NULL;
+   static PHB_SYMB   pSymbol = nullptr;
    HWND              hEdit;
    char              *cClass, *cName;
 
@@ -2353,8 +2353,8 @@ HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd , B
          height,
          hWnd,
          (HMENU) hb_parni(2),
-         GetModuleHandle(NULL),
-         NULL
+         GetModuleHandle(nullptr),
+         nullptr
       );
 
    switch( ItemType )
@@ -2404,7 +2404,7 @@ HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd , B
 
 LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
-   static PHB_SYMB   pSymbol = NULL;
+   static PHB_SYMB   pSymbol = nullptr;
    long int          r;
    WNDPROC           OldWndProc;
    HTREEITEM         hItem;
@@ -2706,7 +2706,7 @@ int CALLBACK enumFontFamilyProc(ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *lpntme, 
 void enumFonts(HWND hWndEdit)  // , BYTE lfCharSet)
 {
    LOGFONT  lf;
-   HDC      hDC = GetDC(NULL);
+   HDC      hDC = GetDC(nullptr);
    HWND     hWnd = hWndEdit;
    lf.lfCharSet = ANSI_CHARSET;
    lf.lfPitchAndFamily = 0;
@@ -2714,7 +2714,7 @@ void enumFonts(HWND hWndEdit)  // , BYTE lfCharSet)
 
    EnumFontFamiliesEx(hDC, &lf, (FONTENUMPROC) enumFontFamilyProc, (LPARAM) hWnd, 0);
 
-   ReleaseDC(NULL, hDC);
+   ReleaseDC(nullptr, hDC);
 }
 
 HB_FUNC( PG_GETFONTS )

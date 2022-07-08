@@ -96,7 +96,7 @@ HB_FUNC( INITANIMATERES )
 
    AnimationCtrl = CreateWindowEx( 0,                       // Style
                                    ANIMATE_CLASS,           // Class Name
-                                   NULL,                    // Window name
+                                   nullptr,                    // Window name
                                    Style,                   // Window Style
                                    hb_parni( 3 ),           // Left
                                    hb_parni( 4 ),           // Top
@@ -105,7 +105,7 @@ HB_FUNC( INITANIMATERES )
                                    hwnd,                    // Handle of parent
                                    ( HMENU ) HB_PARNL( 2 ), // Menu
                                    avi,                     // hInstance
-                                   NULL );                  // User defined style
+                                   nullptr );                  // User defined style
 
    Animate_OpenEx( ( HWND ) AnimationCtrl, avi, MAKEINTRESOURCE(hb_parni( 8 )) );
 

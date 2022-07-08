@@ -99,10 +99,10 @@ static far BYTE DragAnd[] = {
    0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
    0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
 
-static far HCURSOR hHand  = NULL;
-static far HCURSOR hStop  = NULL;
-static far HCURSOR hCatch = NULL;
-static far HCURSOR hDrag  = NULL;
+static far HCURSOR hHand  = nullptr;
+static far HCURSOR hStop  = nullptr;
+static far HCURSOR hCatch = nullptr;
+static far HCURSOR hDrag  = nullptr;
 
 HB_FUNC( NOR )
 {
@@ -182,7 +182,7 @@ HB_FUNC( GETCLASSINFO )
 #endif
    WNDCLASS WndClass;
 
-   if( GetClassInfo(HB_ISNIL(1) ? NULL : hmg_par_HINSTANCE(1), lpString, &WndClass) )
+   if( GetClassInfo(HB_ISNIL(1) ? nullptr : hmg_par_HINSTANCE(1), lpString, &WndClass) )
    {
    #ifdef UNICODE
       hb_reta(1);
@@ -241,7 +241,7 @@ HB_FUNC( GETCURSORHAND )
 {
    if( ! hHand )
    {
-      hHand = CreateCursor(GetModuleHandle(NULL), 6, 0, 32, 32, HandAnd, HandXor );
+      hHand = CreateCursor(GetModuleHandle(nullptr), 6, 0, 32, 32, HandAnd, HandXor );
       RegisterResource(hHand, "CUR");
    }
 
@@ -252,7 +252,7 @@ HB_FUNC( GETCURSORDRAG )
 {
    if( ! hDrag )
    {
-      hDrag = CreateCursor(GetModuleHandle(NULL), 6, 0, 32, 32, DragAnd, DragXor);
+      hDrag = CreateCursor(GetModuleHandle(nullptr), 6, 0, 32, 32, DragAnd, DragXor);
       RegisterResource(hDrag, "CUR");
    }
 
@@ -263,7 +263,7 @@ HB_FUNC( GETCURSORCATCH )
 {
    if( ! hCatch )
    {
-      hCatch = CreateCursor(GetModuleHandle(NULL), 16, 16, 32, 32, CatchAnd, CatchXor);
+      hCatch = CreateCursor(GetModuleHandle(nullptr), 16, 16, 32, 32, CatchAnd, CatchXor);
       RegisterResource(hCatch, "CUR");
    }
 
@@ -274,7 +274,7 @@ HB_FUNC( GETCURSORSTOP )
 {
    if( ! hStop )
    {
-      hStop = CreateCursor(GetModuleHandle(NULL), 6, 0, 32, 32, StopAnd, StopXor);
+      hStop = CreateCursor(GetModuleHandle(nullptr), 6, 0, 32, 32, StopAnd, StopXor);
       RegisterResource(hStop, "CUR");
    }
 
@@ -285,7 +285,7 @@ HB_FUNC( CURSORSTOP )
 {
    if( ! hStop )
    {
-      hStop = CreateCursor(GetModuleHandle(NULL), 6, 0, 32, 32, StopAnd, StopXor);
+      hStop = CreateCursor(GetModuleHandle(nullptr), 6, 0, 32, 32, StopAnd, StopXor);
    }
 
    SetCursor(hStop);
@@ -296,13 +296,13 @@ HB_FUNC( DESTROYCURSOR )
    HCURSOR hCur = ( HCURSOR ) HB_PARNL(1);
 
    if( hCur == hDrag )
-      hDrag  = NULL;
+      hDrag  = nullptr;
    else if( hCur == hCatch )
-      hCatch = NULL;
+      hCatch = nullptr;
    else if( hCur == hStop )
-      hStop  = NULL;
+      hStop  = nullptr;
    else if( hCur == hHand )
-      hHand  = NULL;
+      hHand  = nullptr;
 
    DelResource(hCur);
    hb_retl( ( BOOL ) DestroyCursor(hCur) );

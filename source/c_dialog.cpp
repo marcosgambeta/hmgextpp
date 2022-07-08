@@ -64,7 +64,7 @@ HINSTANCE GetResources(void);
 
 LRESULT CALLBACK HMG_DlgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-   static PHB_SYMB pSymbol = NULL;
+   static PHB_SYMB pSymbol = nullptr;
    long int        r;
 
    if( ! pSymbol )
@@ -87,7 +87,7 @@ LRESULT CALLBACK HMG_DlgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 
 LRESULT CALLBACK HMG_ModalDlgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-   static PHB_SYMB pSymbol = NULL;
+   static PHB_SYMB pSymbol = nullptr;
    long int        r;
 
    if( ! pSymbol )
@@ -295,7 +295,7 @@ static int nCopyAnsiToWideChar( LPWORD lpWCStr, LPCSTR lpAnsiIn )
 {
    int    CodePage = GetACP();
    LPWSTR pszDst;
-   int    nDstLen = MultiByteToWideChar( CodePage, 0, lpAnsiIn, -1, NULL, 0 );
+   int    nDstLen = MultiByteToWideChar( CodePage, 0, lpAnsiIn, -1, nullptr, 0 );
 
    if( nDstLen > 0 )
    {

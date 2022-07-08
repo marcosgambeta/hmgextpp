@@ -64,7 +64,7 @@ HB_FUNC( INITMESSAGEBAR )
    int  ptArray[ 40 ];  // Array defining the number of parts/sections
    int  nrOfParts = 1;
 
-   hWndSB = CreateStatusWindow(WS_CHILD | WS_VISIBLE | SBT_TOOLTIPS, NULL, hmg_par_HWND(1), hb_parni(2));
+   hWndSB = CreateStatusWindow(WS_CHILD | WS_VISIBLE | SBT_TOOLTIPS, nullptr, hmg_par_HWND(1), hb_parni(2));
 
    if( hWndSB )
       SendMessage(hWndSB, SB_SETPARTS, ( WPARAM ) nrOfParts, ( LPARAM ) ( LPINT ) ptArray);
@@ -147,10 +147,10 @@ HB_FUNC( INITITEMBAR )
 
    hIcon = ( HICON ) LoadImage(GetResources(), lpIconName, IMAGE_ICON, cx, cy, 0);
 
-   if( hIcon == NULL )
-      hIcon = ( HICON ) LoadImage(NULL, lpIconName, IMAGE_ICON, cx, cy, LR_LOADFROMFILE);
+   if( hIcon == nullptr )
+      hIcon = ( HICON ) LoadImage(nullptr, lpIconName, IMAGE_ICON, cx, cy, LR_LOADFROMFILE);
 
-   if( ! ( hIcon == NULL ) )
+   if( ! ( hIcon == nullptr ) )
       SendMessage(hWndSB, SB_SETICON, ( WPARAM ) nrOfParts - 1, ( LPARAM ) hIcon);
 
    SendMessage(hWndSB, SB_SETTEXT, ( WPARAM ) ( ( nrOfParts - 1 ) | displayFlags ), ( LPARAM ) lpText);
@@ -309,8 +309,8 @@ HB_FUNC( SETSTATUSITEMICON )
 
    hIcon = ( HICON ) LoadImage(GetResources(), lpIconName, IMAGE_ICON, cx, cy, 0);
 
-   if( hIcon == NULL )
-      hIcon = ( HICON ) LoadImage(NULL, lpIconName, IMAGE_ICON, cx, cy, LR_LOADFROMFILE);
+   if( hIcon == nullptr )
+      hIcon = ( HICON ) LoadImage(nullptr, lpIconName, IMAGE_ICON, cx, cy, LR_LOADFROMFILE);
 
    SendMessage(hwnd, SB_SETICON, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) hIcon);
 
@@ -376,18 +376,18 @@ HB_FUNC( CREATEPROGRESSBARITEM )     // CreateProgressBarItem(HwndStatus, NrItem
                            (
             0,
             PROGRESS_CLASS,
-            ( LPCTSTR ) NULL,
+            ( LPCTSTR ) nullptr,
             Style,
             rc.top,
             rc.left,
             rc.right - rc.left,
             rc.bottom - rc.top - 1, // No size or position.
             hwndStatus,             // Handle to the parent window.
-            ( HMENU ) NULL,         // ID for the progress window.
+            ( HMENU ) nullptr,         // ID for the progress window.
             GetInstance(),          // Current instance.
-            ( LPVOID ) NULL
+            ( LPVOID ) nullptr
                            )
-      ) != NULL
+      ) != nullptr
    )
    {
       SendMessage(hwndProgressBar, PBM_SETRANGE, 0, MAKELONG(hb_parni(4), hb_parni(5)));
@@ -397,7 +397,7 @@ HB_FUNC( CREATEPROGRESSBARITEM )     // CreateProgressBarItem(HwndStatus, NrItem
    }
    else // No application-defined data.
    {
-      HB_RETNL( ( LONG_PTR ) NULL );
+      HB_RETNL( ( LONG_PTR ) nullptr );
    }
 }
 

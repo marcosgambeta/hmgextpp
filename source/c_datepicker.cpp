@@ -109,7 +109,7 @@ HB_FUNC( INITDATEPICK )
       hwnd,
       hmg_par_HMENU(2),
       GetInstance(),
-      NULL
+      nullptr
              );
 
    SetProp(( HWND ) hbutton, TEXT("oldpickproc"), ( HWND ) GetWindowLongPtr(( HWND ) hbutton, GWLP_WNDPROC));
@@ -154,7 +154,7 @@ HB_FUNC( INITTIMEPICK )
       hwnd,
       hmg_par_HMENU(2),
       GetInstance(),
-      NULL
+      nullptr
              );
 
    SetProp(( HWND ) hbutton, TEXT("oldpickproc"), ( HWND ) GetWindowLongPtr(( HWND ) hbutton, GWLP_WNDPROC));
@@ -165,7 +165,7 @@ HB_FUNC( INITTIMEPICK )
 
 LRESULT CALLBACK OwnPickProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
-   static PHB_SYMB pSymbol = NULL;
+   static PHB_SYMB pSymbol = nullptr;
    long int        r;
    WNDPROC         OldWndProc;
 

@@ -73,7 +73,7 @@ static HINSTANCE HMG_LoadDll( char * DllName )
    DllCnt = ( DllCnt + 1 ) & 255;
    FreeLibrary(HMG_DllStore[ DllCnt ]);
 
-   return HMG_DllStore[ DllCnt ] = LoadLibraryEx(lpLibFileName, NULL, 0);
+   return HMG_DllStore[ DllCnt ] = LoadLibraryEx(lpLibFileName, nullptr, 0);
 }
 
 static void HMG_UnloadDll(void)
@@ -129,7 +129,7 @@ HB_FUNC( RCDATATOFILE )
    else
       hResInfo = FindResource(hModule, MAKEINTRESOURCE(hb_parni(1)), lpType);
 
-   if( NULL == hResInfo )
+   if( nullptr == hResInfo )
    {
       hb_retnl( -1 );
       return;
@@ -137,7 +137,7 @@ HB_FUNC( RCDATATOFILE )
 
    hResData = LoadResource(hModule, hResInfo);
 
-   if( NULL == hResData )
+   if( nullptr == hResData )
    {
       hb_retnl( -2 );
       return;
@@ -145,7 +145,7 @@ HB_FUNC( RCDATATOFILE )
 
    lpData = LockResource(hResData);
 
-   if( NULL == lpData )
+   if( nullptr == lpData )
    {
       FreeResource(hResData);
       hb_retnl( -3 );
@@ -154,7 +154,7 @@ HB_FUNC( RCDATATOFILE )
 
    dwSize = SizeofResource(hModule, hResInfo);
 
-   hFile = CreateFile(hb_parc(2), GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, ( DWORD ) 0, NULL);
+   hFile = CreateFile(hb_parc(2), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, ( DWORD ) 0, nullptr);
 
    if( INVALID_HANDLE_VALUE == hFile )
    {
@@ -163,7 +163,7 @@ HB_FUNC( RCDATATOFILE )
       return;
    }
 
-   WriteFile(hFile, lpData, dwSize, &dwRet, NULL);
+   WriteFile(hFile, lpData, dwSize, &dwRet, nullptr);
 
    FreeResource(hResData);
 
@@ -194,7 +194,7 @@ HB_FUNC( RCDATATOFILE )
    LPCWSTR lpType = HB_ISCHAR(3) ? AnsiToWide(( char * ) hb_parc(3)) : ( LPCWSTR ) MAKEINTRESOURCE(hb_parnidef(3, 10));
 #endif
    HRSRC   hResInfo;
-   HGLOBAL hResData = NULL;
+   HGLOBAL hResData = nullptr;
    HB_SIZE dwResult = 0;
 
    if( HB_ISCHAR(1) )
@@ -202,11 +202,11 @@ HB_FUNC( RCDATATOFILE )
    else
       hResInfo = FindResource(hModule, MAKEINTRESOURCE(hb_parni(1)), lpType);
 
-   if( NULL != hResInfo )
+   if( nullptr != hResInfo )
    {
       hResData = LoadResource(hModule, hResInfo);
 
-      if( NULL == hResData )
+      if( nullptr == hResData )
          dwResult = ( HB_SIZE ) -2;  // can't load
    }
    else
@@ -216,14 +216,14 @@ HB_FUNC( RCDATATOFILE )
    {
       LPVOID lpData = LockResource(hResData);
 
-      if( NULL != lpData )
+      if( nullptr != lpData )
       {
          DWORD    dwSize = SizeofResource(hModule, hResInfo);
          PHB_FILE pFile;
 
-         pFile = hb_fileExtOpen(hb_parcx(2), NULL, FO_CREAT | FO_WRITE | FO_EXCLUSIVE | FO_PRIVATE, NULL, NULL);
+         pFile = hb_fileExtOpen(hb_parcx(2), nullptr, FO_CREAT | FO_WRITE | FO_EXCLUSIVE | FO_PRIVATE, nullptr, nullptr);
 
-         if( NULL != pFile )
+         if( nullptr != pFile )
          {
             dwResult = hb_fileWrite(pFile, ( const void * ) lpData, ( HB_SIZE ) dwSize, -1);
 

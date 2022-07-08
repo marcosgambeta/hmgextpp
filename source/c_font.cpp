@@ -198,7 +198,7 @@ HB_FUNC( ENUMFONTSEX )
       hdc = hmg_par_HDC(1);
    else
    {
-      hdc        = GetDC(NULL);
+      hdc        = GetDC(nullptr);
       bReleaseDC = TRUE;
    }
 
@@ -214,10 +214,10 @@ HB_FUNC( ENUMFONTSEX )
    EnumFontFamiliesEx(hdc, &lf, ( FONTENUMPROC ) EnumFontFamExProc, ( LPARAM ) pArray, ( DWORD ) 0);
 
    if( bReleaseDC )
-      ReleaseDC(NULL, hdc);
+      ReleaseDC(nullptr, hdc);
 
    if( HB_ISBLOCK(6) )
-      hb_arraySort(pArray, NULL, NULL, hb_param(6, Harbour::Item::BLOCK));
+      hb_arraySort(pArray, nullptr, nullptr, hb_param(6, Harbour::Item::BLOCK));
 
    if( HB_ISBYREF(7) )
    {

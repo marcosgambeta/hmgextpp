@@ -939,7 +939,7 @@ HB_FUNC ( SETBRUSHORG )
 {
     HDC hDC  = ( HDC ) HB_PARNL( 1 );
 
-    SetBrushOrgEx( hDC, hb_parni( 2 ), hb_parni( 3 ), NULL );
+    SetBrushOrgEx( hDC, hb_parni( 2 ), hb_parni( 3 ), nullptr );
 }
 
 HB_FUNC( SETSTRETCHBLTMODE )

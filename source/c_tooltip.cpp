@@ -145,7 +145,7 @@ HB_FUNC( SETTOOLTIPMAXWIDTH )
  */
 HB_FUNC( INITTOOLTIP )
 {
-   HWND hwndParent = HB_ISNUM(1) ? hmg_par_HWND(1) : ( HWND ) NULL;
+   HWND hwndParent = HB_ISNUM(1) ? hmg_par_HWND(1) : ( HWND ) nullptr;
 
    if( HB_ISNIL(1) ? TRUE : IsWindow(hwndParent) )  // hack for ModalWindow
    {
@@ -172,13 +172,13 @@ HB_FUNC( INITTOOLTIP )
                     (
          0,
          TOOLTIPS_CLASS,
-         NULL,
+         nullptr,
          dwStyle,
          CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
          hwndParent,
-         ( HMENU ) NULL,
+         ( HMENU ) nullptr,
          GetInstance(),
-         NULL
+         nullptr
                     );
 
       HB_RETNL( ( LONG_PTR ) hwndToolTip );
@@ -254,8 +254,8 @@ HB_FUNC( SHOWBALLOONTIP )
    if( IsWindow(hWnd) )
    {
       bl.cbStruct = sizeof(EDITBALLOONTIP);
-      bl.pszTitle = NULL;
-      bl.pszText  = NULL;
+      bl.pszTitle = nullptr;
+      bl.pszText  = nullptr;
       bl.ttiIcon  = hb_parnidef(4, 0 /*TTI_NONE*/);
 
       if( HB_ISCHAR(2) )
@@ -308,11 +308,11 @@ HB_FUNC( INITTOOLTIPEX )
       PHB_ITEM aRect = hb_param(2, Harbour::Item::ANY);
       RECT     rect;
 #ifndef UNICODE
-      LPSTR lpszText  = ( LPSTR ) NULL;
-      LPSTR lpszTitle = ( LPSTR ) ( HB_ISCHAR(4) ? hb_parc(4) : NULL );
+      LPSTR lpszText  = ( LPSTR ) nullptr;
+      LPSTR lpszTitle = ( LPSTR ) ( HB_ISCHAR(4) ? hb_parc(4) : nullptr );
 #else
-      LPWSTR lpszText  = ( LPWSTR ) NULL;
-      LPWSTR lpszTitle = HB_ISCHAR(4) ? AnsiToWide(( char * ) hb_parc(4)) : NULL;
+      LPWSTR lpszText  = ( LPWSTR ) nullptr;
+      LPWSTR lpszTitle = HB_ISCHAR(4) ? AnsiToWide(( char * ) hb_parc(4)) : nullptr;
 #endif
       int      nIcon   = hb_parnidef(5, TTI_NONE);
       DWORD    dwStyle = WS_POPUP;
@@ -355,13 +355,13 @@ HB_FUNC( INITTOOLTIPEX )
                     (
          WS_EX_TOPMOST,
          TOOLTIPS_CLASS,
-         NULL,
+         nullptr,
          dwStyle,
          CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
          hwndParent,
-         ( HMENU ) NULL,
+         ( HMENU ) nullptr,
          GetInstance(),
-         NULL
+         nullptr
                     );
 
       SetWindowPos(hwndToolTip, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
@@ -378,7 +378,7 @@ HB_FUNC( INITTOOLTIPEX )
       // Associate the tooltip with the "tool" window.
       SendMessage(hwndToolTip, TTM_ADDTOOL, 0, ( LPARAM ) ( LPTOOLINFO ) &ti);
 
-      if( NULL != lpszTitle )
+      if( nullptr != lpszTitle )
       {
          SendMessage(hwndToolTip, TTM_SETTITLE, nIcon, ( LPARAM ) lpszTitle);
       }
@@ -393,9 +393,9 @@ HB_FUNC( INITTOOLTIPEX )
       HB_RETNL( ( LONG_PTR ) hwndToolTip );
 
 #ifdef UNICODE
-      if( lpszText != NULL )
+      if( lpszText != nullptr )
          hb_xfree(( TCHAR * ) lpszText);
-      if( lpszTitle != NULL )
+      if( lpszTitle != nullptr )
          hb_xfree(( TCHAR * ) lpszTitle);
 #endif
    }
@@ -867,7 +867,7 @@ HB_FUNC( TTM_UPDATETIPTEXT ) //old HB_FUNC( UPDATETOOLTIPTEXT )
 
          SendMessage(hwndToolTip, TTM_UPDATETIPTEXT, 0, ( LPARAM ) ( LPTOOLINFO ) &ti);
 #ifdef UNICODE
-         if( lpszText != NULL )
+         if( lpszText != nullptr )
             hb_xfree(( TCHAR * ) lpszText);
 #endif
       }

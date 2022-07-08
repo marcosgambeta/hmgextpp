@@ -81,7 +81,7 @@ void bt_MsgDebugInfo (char *Format, ...)
    va_list Args;
    va_start (Args, Format);
    vsprintf (Buffer, Format, Args);
-   MessageBox (NULL, Buffer, "BT - DEBUG INFO", MB_OK);
+   MessageBox (nullptr, Buffer, "BT - DEBUG INFO", MB_OK);
 }
 */
 
@@ -140,7 +140,7 @@ HBITMAP bt_bmp_create_24bpp(int Width, int Height)
    HDC        hDC_mem;
    BITMAPINFO Bitmap_Info;
 
-   hDC_mem = CreateCompatibleDC(NULL);
+   hDC_mem = CreateCompatibleDC(nullptr);
 
    Bitmap_Info.bmiHeader.biSize          = sizeof(BITMAPINFOHEADER);
    Bitmap_Info.bmiHeader.biWidth         = Width;
@@ -154,7 +154,7 @@ HBITMAP bt_bmp_create_24bpp(int Width, int Height)
    Bitmap_Info.bmiHeader.biClrUsed       = 0;
    Bitmap_Info.bmiHeader.biClrImportant  = 0;
 
-   hBitmap_mem = CreateDIBSection(hDC_mem, ( BITMAPINFO * ) &Bitmap_Info, DIB_RGB_COLORS, ( VOID ** ) &Bitmap_mem_pBits, NULL, 0);
+   hBitmap_mem = CreateDIBSection(hDC_mem, ( BITMAPINFO * ) &Bitmap_Info, DIB_RGB_COLORS, ( VOID ** ) &Bitmap_mem_pBits, nullptr, 0);
 
    DeleteDC(hDC_mem);
 
@@ -179,10 +179,10 @@ HBITMAP bt_bmp_convert_to_24bpp(HBITMAP hBitmap_Original, BOOL IsDelete_hBitmap_
    GetObject(hBitmap_Original, sizeof(BITMAP), ( LPBYTE ) &bm);
    hBitmap_New = bt_bmp_create_24bpp(bm.bmWidth, bm.bmHeight);
 
-   memDC1 = CreateCompatibleDC(NULL);
+   memDC1 = CreateCompatibleDC(nullptr);
    SelectObject(memDC1, hBitmap_Original);
 
-   memDC2 = CreateCompatibleDC(NULL);
+   memDC2 = CreateCompatibleDC(nullptr);
    SelectObject(memDC2, hBitmap_New);
 
    StretchBlt(memDC2, 0, 0, bm.bmWidth, bm.bmHeight, memDC1, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
@@ -207,25 +207,25 @@ HGLOBAL bt_LoadFileFromResources(TCHAR * FileName, TCHAR * TypeResource)
    LPVOID  lpGlobalAlloc, lpGlobalResource;
    DWORD   nFileSize;
 
-   hResourceData = FindResource(NULL, FileName, TypeResource);
-   if( hResourceData == NULL )
-      return NULL;
+   hResourceData = FindResource(nullptr, FileName, TypeResource);
+   if( hResourceData == nullptr )
+      return nullptr;
 
-   hGlobalResource = LoadResource(NULL, hResourceData);
-   if( hGlobalResource == NULL )
-      return NULL;
+   hGlobalResource = LoadResource(nullptr, hResourceData);
+   if( hGlobalResource == nullptr )
+      return nullptr;
 
    lpGlobalResource = LockResource(hGlobalResource);
-   if( lpGlobalResource == NULL )
-      return NULL;
+   if( lpGlobalResource == nullptr )
+      return nullptr;
 
-   nFileSize = SizeofResource(NULL, hResourceData);
+   nFileSize = SizeofResource(nullptr, hResourceData);
 
    hGlobalAlloc = GlobalAlloc(GHND, nFileSize);
-   if( hGlobalAlloc == NULL )
+   if( hGlobalAlloc == nullptr )
    {
       FreeResource(hGlobalResource);
-      return NULL;
+      return nullptr;
    }
 
    lpGlobalAlloc = GlobalLock(hGlobalAlloc);
@@ -249,25 +249,25 @@ HGLOBAL bt_LoadFileFromDisk(TCHAR * FileName)
    DWORD   nFileSize;
    DWORD   nReadByte;
 
-   hFile = CreateFile(FileName, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+   hFile = CreateFile(FileName, GENERIC_READ, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
    if( hFile == INVALID_HANDLE_VALUE )
-      return NULL;
+      return nullptr;
 
-   nFileSize = GetFileSize(hFile, NULL);
+   nFileSize = GetFileSize(hFile, nullptr);
    if( nFileSize == INVALID_FILE_SIZE )
    {
       CloseHandle(hFile);
-      return NULL;
+      return nullptr;
    }
 
    hGlobalAlloc = GlobalAlloc(GHND, nFileSize);
-   if( hGlobalAlloc == NULL )
+   if( hGlobalAlloc == nullptr )
    {
       CloseHandle(hFile);
-      return NULL;
+      return nullptr;
    }
    lpGlobalAlloc = GlobalLock(hGlobalAlloc);
-   ReadFile(hFile, lpGlobalAlloc, nFileSize, &nReadByte, NULL);
+   ReadFile(hFile, lpGlobalAlloc, nFileSize, &nReadByte, nullptr);
    GlobalUnlock(hGlobalAlloc);
 
    CloseHandle(hFile);
@@ -291,37 +291,37 @@ HBITMAP bt_LoadOLEPicture(TCHAR * FileName, TCHAR * TypePictureResource)
    INT        pxWidth, pxHeight;
    POINT      Point;
 
-   if( TypePictureResource != NULL )
+   if( TypePictureResource != nullptr )
       hGlobalAlloc = bt_LoadFileFromResources(FileName, TypePictureResource);
    else
       hGlobalAlloc = bt_LoadFileFromDisk(FileName);
 
-   if( hGlobalAlloc == NULL )
-      return NULL;
+   if( hGlobalAlloc == nullptr )
+      return nullptr;
 
    if( _bt_OleInitialize_Flag_ == FALSE )
    {
       _bt_OleInitialize_Flag_ = TRUE;
-      OleInitialize(NULL);
+      OleInitialize(nullptr);
    }
 
-   iPicture = NULL;
+   iPicture = nullptr;
    CreateStreamOnHGlobal( hGlobalAlloc, TRUE, &iStream );
    OleLoadPicture(iStream, 0, TRUE, IID_IPicture, ( LPVOID * ) &iPicture);
-   if( iPicture == NULL )
+   if( iPicture == nullptr )
    {
       GlobalFree(hGlobalAlloc);
-      return NULL;
+      return nullptr;
    }
 
    iPicture->lpVtbl->get_Width(iPicture, &hmWidth);
    iPicture->lpVtbl->get_Height(iPicture, &hmHeight);
 
-   memDC = CreateCompatibleDC(NULL);
+   memDC = CreateCompatibleDC(nullptr);
    //SetStretchBltMode (memDC, COLORONCOLOR);
    GetBrushOrgEx(memDC, &Point);
    SetStretchBltMode(memDC, HALFTONE);
-   SetBrushOrgEx(memDC, Point.x, Point.y, NULL);
+   SetBrushOrgEx(memDC, Point.x, Point.y, nullptr);
 
 
    // Convert HiMetric to Pixel
@@ -335,7 +335,7 @@ HBITMAP bt_LoadOLEPicture(TCHAR * FileName, TCHAR * TypePictureResource)
    hBitmap = bt_bmp_create_24bpp(pxWidth, pxHeight);
    SelectObject(memDC, hBitmap);
 
-   iPicture->lpVtbl->Render( iPicture, memDC, 0, 0, pxWidth, pxHeight, 0, hmHeight, hmWidth, -hmHeight, NULL );
+   iPicture->lpVtbl->Render( iPicture, memDC, 0, 0, pxWidth, pxHeight, 0, hmHeight, hmWidth, -hmHeight, nullptr );
    iPicture->lpVtbl->Release(iPicture);
    iStream->lpVtbl->Release(iStream);
 
@@ -471,7 +471,7 @@ Func_GdipLoadImageFromStream  GdipLoadImageFromStream;
 Func_GdipSaveImageToFile      GdipSaveImageToFile;
 
 // Global Variables
-HMODULE GdiPlusHandle = NULL; // VOID *    GdiPlusHandle = NULL;
+HMODULE GdiPlusHandle = nullptr; // VOID *    GdiPlusHandle = nullptr;
 ULONG_PTR GdiPlusToken;
 GdiplusStartupInput GDIPlusStartupInput;
 
@@ -482,7 +482,7 @@ BOOL bt_Release_GDIplus(void);
 BOOL bt_Load_GDIplus(void)
 {
    GdiPlusHandle = LoadLibrary(TEXT("GdiPlus.dll"));
-   if( GdiPlusHandle == NULL )
+   if( GdiPlusHandle == nullptr )
       return FALSE;
 
    GdiPlusStartup  = ( Func_GdiPlusStartup ) wapi_GetProcAddress(GdiPlusHandle, "GdiplusStartup");
@@ -496,29 +496,29 @@ BOOL bt_Load_GDIplus(void)
    GdipSaveImageToFile      = ( Func_GdipSaveImageToFile ) wapi_GetProcAddress(GdiPlusHandle, "GdipSaveImageToFile");
 
 
-   if( GdiPlusStartup == NULL ||
-       GdiPlusShutdown == NULL ||
-       GdipCreateBitmapFromStream == NULL ||
-       GdipCreateHBITMAPFromBitmap == NULL ||
-       GdipGetImageEncodersSize == NULL ||
-       GdipGetImageEncoders == NULL ||
-       GdipLoadImageFromStream == NULL ||
-       GdipSaveImageToFile == NULL )
+   if( GdiPlusStartup == nullptr ||
+       GdiPlusShutdown == nullptr ||
+       GdipCreateBitmapFromStream == nullptr ||
+       GdipCreateHBITMAPFromBitmap == nullptr ||
+       GdipGetImageEncodersSize == nullptr ||
+       GdipGetImageEncoders == nullptr ||
+       GdipLoadImageFromStream == nullptr ||
+       GdipSaveImageToFile == nullptr )
    {
       FreeLibrary(GdiPlusHandle);
-      GdiPlusHandle = NULL;
+      GdiPlusHandle = nullptr;
       return FALSE;
    }
 
    GDIPlusStartupInput.GdiplusVersion           = 1;
-   GDIPlusStartupInput.DebugEventCallback       = NULL;
+   GDIPlusStartupInput.DebugEventCallback       = nullptr;
    GDIPlusStartupInput.SuppressBackgroundThread = FALSE;
    GDIPlusStartupInput.SuppressExternalCodecs   = FALSE;
 
-   if( GdiPlusStartup(&GdiPlusToken, &GDIPlusStartupInput, NULL) )
+   if( GdiPlusStartup(&GdiPlusToken, &GDIPlusStartupInput, nullptr) )
    {
       FreeLibrary(GdiPlusHandle);
-      GdiPlusHandle = NULL;
+      GdiPlusHandle = nullptr;
       return FALSE;
    }
    return TRUE;
@@ -528,13 +528,13 @@ BOOL bt_Load_GDIplus(void)
 // Release Library GDI Plus
 BOOL bt_Release_GDIplus(void)
 {
-   if( GdiPlusHandle == NULL )
+   if( GdiPlusHandle == nullptr )
       return FALSE;
    else
    {
       GdiPlusShutdown(GdiPlusToken);
       FreeLibrary(GdiPlusHandle);
-      GdiPlusHandle = NULL;
+      GdiPlusHandle = nullptr;
       return TRUE;
    }
 }
@@ -553,18 +553,18 @@ HBITMAP bt_LoadGDIPlusPicture(TCHAR * FileName, TCHAR * TypePictureResource)
    ARGB       BkColor;
 
    if( bt_Load_GDIplus() == FALSE )
-      return NULL;
+      return nullptr;
 
-   if( TypePictureResource != NULL )
+   if( TypePictureResource != nullptr )
       hGlobalAlloc = bt_LoadFileFromResources(FileName, TypePictureResource);
    else
       hGlobalAlloc = bt_LoadFileFromDisk(FileName);
 
-   if( hGlobalAlloc == NULL )
-      return NULL;
+   if( hGlobalAlloc == nullptr )
+      return nullptr;
 
-   iStream = NULL;
-   hBitmap = NULL;
+   iStream = nullptr;
+   hBitmap = nullptr;
    if( CreateStreamOnHGlobal( hGlobalAlloc, FALSE, &iStream ) == S_OK )
    {
       BkColor = 0xFF000000UL;
@@ -594,7 +594,7 @@ HGLOBAL bt_Bitmap_To_Stream(HBITMAP hBitmap)
    BITMAP bm;
    DWORD  nBytes_Bits;
 
-   memDC = CreateCompatibleDC(NULL);
+   memDC = CreateCompatibleDC(nullptr);
    SelectObject(memDC, hBitmap);
    GetObject(hBitmap, sizeof(BITMAP), ( LPBYTE ) &bm);
 
@@ -623,8 +623,8 @@ HGLOBAL bt_Bitmap_To_Stream(HBITMAP hBitmap)
    Bitmap_Info.bmiHeader.biClrImportant  = 0;
 
    hGlobalAlloc = GlobalAlloc(GHND, ( DWORD ) (BIFH.bfSize));
-   if( hGlobalAlloc == NULL )
-      return NULL;
+   if( hGlobalAlloc == nullptr )
+      return nullptr;
 
    lp_hGlobalAlloc = ( LPBYTE ) GlobalLock(hGlobalAlloc);
 
@@ -652,7 +652,7 @@ BOOL bt_GetEncoderCLSID(WCHAR * format, CLSID * pClsid)
       return FALSE;
 
    pImageCodecInfo = ( ImageCodecInfo * ) ( malloc(size) );
-   if( pImageCodecInfo == NULL )
+   if( pImageCodecInfo == nullptr )
       return FALSE;
 
    GdipGetImageEncoders(num, size, pImageCodecInfo);
@@ -718,7 +718,7 @@ BOOL bt_SaveGDIPlusPicture(HBITMAP hBitmap, TCHAR * FileName, INT TypePicture)
    if( result == TRUE )
    {
       hGlobalAlloc = bt_Bitmap_To_Stream(hBitmap);
-      iStream      = NULL;
+      iStream      = nullptr;
       if( CreateStreamOnHGlobal( hGlobalAlloc, FALSE, &iStream ) == S_OK )
       {
       #ifdef UNICODE
@@ -728,7 +728,7 @@ BOOL bt_SaveGDIPlusPicture(HBITMAP hBitmap, TCHAR * FileName, INT TypePicture)
       #endif
 
          ret1 = GdipLoadImageFromStream(iStream, &image);
-         ret2 = GdipSaveImageToFile(image, wFileName, &encoderClsid, NULL);  // Save the image
+         ret2 = GdipSaveImageToFile(image, wFileName, &encoderClsid, nullptr);  // Save the image
 
          iStream->lpVtbl->Release(iStream);
          bt_Release_GDIplus();
@@ -784,8 +784,8 @@ HB_FUNC( BT_DC_CREATE )
    switch( BT.Type )
    {
       case BT_HDC_DESKTOP:
-         // BT.hDC  = CreateDC ("DISPLAY", NULL, NULL, NULL);
-         // BT.hDC  = GetDC (NULL);
+         // BT.hDC  = CreateDC ("DISPLAY", nullptr, nullptr, nullptr);
+         // BT.hDC  = GetDC (nullptr);
          BT.hWnd = GetDesktopWindow();
          BT.hDC  = GetDC(BT.hWnd);
          break;
@@ -807,7 +807,7 @@ HB_FUNC( BT_DC_CREATE )
 
       case BT_HDC_BITMAP:
          hBitmap = hmg_par_HBITMAP(2);
-         BT.hDC  = CreateCompatibleDC(NULL);
+         BT.hDC  = CreateCompatibleDC(nullptr);
          SelectObject(BT.hDC, hBitmap);
          break;
 
@@ -930,7 +930,7 @@ HB_FUNC( BT_SCR_GETDESKTOPHANDLE )
 HB_FUNC( BT_SCR_GETINFO )
 {
    HWND hWnd;
-   HDC  hDC = NULL;
+   HDC  hDC = nullptr;
    RECT rect;
    INT  Mode, info;
 
@@ -987,7 +987,7 @@ HB_FUNC( BT_SCR_INVALIDATERECT )
    PHB_ITEM pArrayRect;
 
    if( ! HB_ISARRAY(2) )
-      hb_retl( InvalidateRect(hmg_par_HWND(1), NULL, hb_parl(3)) );  // Invalidate all client area
+      hb_retl( InvalidateRect(hmg_par_HWND(1), nullptr, hb_parl(3)) );  // Invalidate all client area
    else
    {
       pArrayRect = hb_param(2, Harbour::Item::ARRAY);
@@ -1267,7 +1267,7 @@ HB_FUNC( BT_DRAW_HDC_BITMAP )
    color_transp = hmg_par_COLORREF(13);
 
 
-   memDC = CreateCompatibleDC(NULL);
+   memDC = CreateCompatibleDC(nullptr);
    SelectObject(memDC, hBitmap);
 
    bt_bmp_adjust_rect(&Width1, &Height1, &Width2, &Height2, Mode_Stretch);
@@ -1275,7 +1275,7 @@ HB_FUNC( BT_DRAW_HDC_BITMAP )
    //SetStretchBltMode (hDC, COLORONCOLOR);
    GetBrushOrgEx(hDC, &Point);
    SetStretchBltMode(hDC, HALFTONE);
-   SetBrushOrgEx(hDC, Point.x, Point.y, NULL);
+   SetBrushOrgEx(hDC, Point.x, Point.y, nullptr);
 
    switch( Action )
    {
@@ -1334,7 +1334,7 @@ HB_FUNC( BT_DRAW_HDC_BITMAPALPHABLEND )
    blend.SourceConstantAlpha = Alpha;
 
 
-   memDC = CreateCompatibleDC(NULL);
+   memDC = CreateCompatibleDC(nullptr);
    SelectObject(memDC, hBitmap);
 
    bt_bmp_adjust_rect(&Width1, &Height1, &Width2, &Height2, Mode_Stretch);
@@ -1342,7 +1342,7 @@ HB_FUNC( BT_DRAW_HDC_BITMAPALPHABLEND )
    //SetStretchBltMode (hDC, COLORONCOLOR);
    GetBrushOrgEx(hDC, &Point);
    SetStretchBltMode(hDC, HALFTONE);
-   SetBrushOrgEx(hDC, Point.x, Point.y, NULL);
+   SetBrushOrgEx(hDC, Point.x, Point.y, nullptr);
 
    AlphaBlend(hDC, x1, y1, Width1, Height1, memDC, x2, y2, Width2, Height2, blend);
 
@@ -1750,7 +1750,7 @@ HB_FUNC( BT_DRAW_HDC_TO_HDC )
    //SetStretchBltMode (hDC1, COLORONCOLOR);
    GetBrushOrgEx(hDC1, &Point);
    SetStretchBltMode(hDC1, HALFTONE);
-   SetBrushOrgEx(hDC1, Point.x, Point.y, NULL);
+   SetBrushOrgEx(hDC1, Point.x, Point.y, nullptr);
 
 
    switch( Action )
@@ -1811,7 +1811,7 @@ HB_FUNC( BT_DRAW_HDC_TO_HDC_ALPHABLEND )
    //SetStretchBltMode (hDC1, COLORONCOLOR);
    GetBrushOrgEx(hDC1, &Point);
    SetStretchBltMode(hDC1, HALFTONE);
-   SetBrushOrgEx(hDC1, Point.x, Point.y, NULL);
+   SetBrushOrgEx(hDC1, Point.x, Point.y, nullptr);
 
    AlphaBlend(hDC1, x1, y1, Width1, Height1, hDC2, x2, y2, Width2, Height2, blend);
 
@@ -1844,7 +1844,7 @@ HB_FUNC( BT_BMP_CREATE )
 
    hBitmap_New = bt_bmp_create_24bpp(Width, Height);
 
-   memDC = CreateCompatibleDC(NULL);
+   memDC = CreateCompatibleDC(nullptr);
    SelectObject(memDC, hBitmap_New);
 
    GetObject(hBitmap_New, sizeof(BITMAP), ( LPBYTE ) &bm);
@@ -1890,38 +1890,38 @@ HB_FUNC( BT_BMP_LOADFILE )
 #endif
 
    // First find BMP image in resourses (.EXE file)
-   hBitmap = ( HBITMAP ) LoadImage(GetModuleHandle(NULL), FileName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION);
+   hBitmap = ( HBITMAP ) LoadImage(GetModuleHandle(nullptr), FileName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION);
 
    // If fail: find BMP in disk
-   if( hBitmap == NULL )
-      hBitmap = ( HBITMAP ) LoadImage(NULL, FileName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+   if( hBitmap == nullptr )
+      hBitmap = ( HBITMAP ) LoadImage(nullptr, FileName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
 
    // If fail: find JPG Image in resourses
-   if( hBitmap == NULL )
+   if( hBitmap == nullptr )
       hBitmap = bt_LoadOLEPicture(FileName, TEXT(const_cast<TCHAR*>("JPG")));
 
    // If fail: find GIF Image in resourses
-   if( hBitmap == NULL )
+   if( hBitmap == nullptr )
       hBitmap = bt_LoadOLEPicture(FileName, TEXT(const_cast<TCHAR*>("GIF")));
 
    // If fail: find PNG Image in resourses
-   if( hBitmap == NULL )
+   if( hBitmap == nullptr )
       hBitmap = bt_LoadGDIPlusPicture(FileName, TEXT(const_cast<TCHAR*>("PNG")));
 
    // If fail: find TIF Image in resourses
-   if( hBitmap == NULL )
+   if( hBitmap == nullptr )
       hBitmap = bt_LoadGDIPlusPicture(FileName, TEXT(const_cast<TCHAR*>("TIF")));
 
    // If fail: find JPG and GIF Image in disk
-   if( hBitmap == NULL )
-      hBitmap = bt_LoadOLEPicture(FileName, NULL);
+   if( hBitmap == nullptr )
+      hBitmap = bt_LoadOLEPicture(FileName, nullptr);
 
    // If fail: find PNG and TIF Image in disk
-   if( hBitmap == NULL )
-      hBitmap = bt_LoadGDIPlusPicture(FileName, NULL);
+   if( hBitmap == nullptr )
+      hBitmap = bt_LoadGDIPlusPicture(FileName, nullptr);
 
    // If fail load: return zero
-   if( hBitmap == NULL )
+   if( hBitmap == nullptr )
    {
       hb_retnl(0);
       return;
@@ -1950,7 +1950,7 @@ HB_FUNC( BT_BITMAPLOADEMF )
 
    HDC           memDC;
    HBITMAP       hBitmap;
-   HENHMETAFILE  hEMF = NULL;
+   HENHMETAFILE  hEMF = nullptr;
    ENHMETAHEADER emh;
    HRSRC         hResourceData;
    HGLOBAL       hGlobalResource;
@@ -1962,26 +1962,26 @@ HB_FUNC( BT_BITMAPLOADEMF )
    HBRUSH        hBrush, OldBrush;
 
    // Load MetaFile from Resource
-   hResourceData = FindResource(NULL, FileName, TEXT("EMF"));
+   hResourceData = FindResource(nullptr, FileName, TEXT("EMF"));
    if( hResourceData )
    {
-      hGlobalResource = LoadResource(NULL, hResourceData);
+      hGlobalResource = LoadResource(nullptr, hResourceData);
       if( hGlobalResource )
       {
          lpGlobalResource = LockResource(hGlobalResource);
-         nFileSize        = SizeofResource(NULL, hResourceData);
+         nFileSize        = SizeofResource(nullptr, hResourceData);
          hEMF = SetEnhMetaFileBits(nFileSize, reinterpret_cast<const BYTE*>(lpGlobalResource));
       }
    }
 
    // If fail load MetaFile from Disk
-   if( hEMF == NULL )
+   if( hEMF == nullptr )
       hEMF = GetEnhMetaFile(FileName);
 
-   // If fail load from Resource and Disk return Null
-   if( hEMF == NULL )
+   // If fail load from Resource and Disk return nullptr
+   if( hEMF == nullptr )
    {
-      HB_RETNL( ( LONG_PTR ) NULL );
+      HB_RETNL( ( LONG_PTR ) nullptr );
       return;
    }
 
@@ -1991,7 +1991,7 @@ HB_FUNC( BT_BITMAPLOADEMF )
    if( GetEnhMetaFileHeader(hEMF, sizeof(ENHMETAHEADER), &emh) == 0 )
    {
       DeleteEnhMetaFile(hEMF);
-      HB_RETNL( ( LONG_PTR ) NULL );
+      HB_RETNL( ( LONG_PTR ) nullptr );
       return;
    }
 
@@ -2007,7 +2007,7 @@ HB_FUNC( BT_BITMAPLOADEMF )
    Rect.bottom = nHeight;
 
    // Create Bitmap
-   memDC   = CreateCompatibleDC(NULL);
+   memDC   = CreateCompatibleDC(nullptr);
    hBitmap = bt_bmp_create_24bpp(nWidth, nHeight);
    SelectObject(memDC, hBitmap);
 
@@ -2018,7 +2018,7 @@ HB_FUNC( BT_BITMAPLOADEMF )
 
    GetBrushOrgEx(memDC, &Point);
    SetStretchBltMode(memDC, HALFTONE);
-   SetBrushOrgEx(memDC, Point.x, Point.y, NULL);
+   SetBrushOrgEx(memDC, Point.x, Point.y, nullptr);
 
    // Play MetaFile into Bitmap
    PlayEnhMetaFile(memDC, hEMF, &Rect);
@@ -2060,7 +2060,7 @@ BOOL bt_bmp_SaveFile(HBITMAP hBitmap, TCHAR * FileName, INT nTypePicture)
    if( nTypePicture != 0 )
       return ( BOOL ) bt_SaveGDIPlusPicture(hBitmap, FileName, nTypePicture);
 
-   memDC = CreateCompatibleDC(NULL);
+   memDC = CreateCompatibleDC(nullptr);
    SelectObject(memDC, hBitmap);
    GetObject(hBitmap, sizeof(BITMAP), ( LPBYTE ) &bm);
 
@@ -2089,20 +2089,20 @@ BOOL bt_bmp_SaveFile(HBITMAP hBitmap, TCHAR * FileName, INT nTypePicture)
    Bitmap_Info.bmiHeader.biClrImportant  = 0;
 
    hBits = GlobalAlloc(GHND, ( DWORD ) nBytes_Bits);
-   if( hBits == NULL )
+   if( hBits == nullptr )
       return FALSE;
 
    lp_hBits = ( LPBYTE ) GlobalLock(hBits);
 
    GetDIBits(memDC, hBitmap, 0, Bitmap_Info.bmiHeader.biHeight, ( LPVOID ) lp_hBits, &Bitmap_Info, DIB_RGB_COLORS);
 
-   hFile = CreateFile(FileName, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, NULL);
+   hFile = CreateFile(FileName, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
 
    if( hFile != INVALID_HANDLE_VALUE )
    {
-      WriteFile(hFile, ( LPBYTE ) &BIFH, sizeof(BITMAPFILEHEADER), &nBytes_Written, NULL);
-      WriteFile(hFile, ( LPBYTE ) &Bitmap_Info.bmiHeader, sizeof(BITMAPINFOHEADER), &nBytes_Written, NULL);
-      WriteFile(hFile, ( LPBYTE ) lp_hBits, nBytes_Bits, &nBytes_Written, NULL);
+      WriteFile(hFile, ( LPBYTE ) &BIFH, sizeof(BITMAPFILEHEADER), &nBytes_Written, nullptr);
+      WriteFile(hFile, ( LPBYTE ) &Bitmap_Info.bmiHeader, sizeof(BITMAPINFOHEADER), &nBytes_Written, nullptr);
+      WriteFile(hFile, ( LPBYTE ) lp_hBits, nBytes_Bits, &nBytes_Written, nullptr);
       CloseHandle(hFile);
       ret = TRUE;
    }
@@ -2181,7 +2181,7 @@ HB_FUNC( BT_BMP_GETINFO )
       case BT_BITMAP_INFO_GETCOLORPIXEL:
          x     = hmg_par_INT(3);
          y     = hmg_par_INT(4);
-         memDC = CreateCompatibleDC(NULL);
+         memDC = CreateCompatibleDC(nullptr);
          SelectObject(memDC, hBitmap);
          color = GetPixel(memDC, x, y);
          DeleteDC(memDC);
@@ -2211,10 +2211,10 @@ HB_FUNC( BT_BMP_CLONE )
    Height1 = hmg_par_INT(5);
 
 
-   memDC1 = CreateCompatibleDC(NULL);
+   memDC1 = CreateCompatibleDC(nullptr);
    SelectObject(memDC1, hBitmap);
 
-   memDC2      = CreateCompatibleDC(NULL);
+   memDC2      = CreateCompatibleDC(nullptr);
    hBitmap_New = bt_bmp_create_24bpp(Width1, Height1);
    SelectObject(memDC2, hBitmap_New);
 
@@ -2282,11 +2282,11 @@ BOOL bt_BMP_BITS(bt_BMPIMAGE * Image, INT nAction)
       Image->hGlobal    = GlobalAlloc(GHND, ( DWORD ) (bm.bmWidthBytes * labs(bm.bmHeight)));
    }
 
-   if( Image->hGlobal == NULL )
+   if( Image->hGlobal == nullptr )
       return FALSE;
 
    lp_Bits = ( LPBYTE ) GlobalLock(Image->hGlobal);
-   memDC   = CreateCompatibleDC(NULL);
+   memDC   = CreateCompatibleDC(nullptr);
 
    if( nAction == BT_BMP_GETBITS )
       GetDIBits(memDC, Image->hBitmap, 0, bm.bmHeight, ( LPVOID ) lp_Bits, &BI, DIB_RGB_COLORS);
@@ -2326,15 +2326,15 @@ HBITMAP bt_BiLinearInterpolation(HBITMAP hBitmap, int newWidth, int newHeight)
 
    Image1.hBitmap = hBitmap;
    if( bt_BMP_BITS(&Image1, BT_BMP_GETBITS) == FALSE )
-      return NULL;
+      return nullptr;
 
    Image2.hBitmap = bt_bmp_create_24bpp(newWidth, newHeight);
    if( bt_BMP_BITS(&Image2, BT_BMP_GETBITS) == FALSE )
    {
       GlobalFree(Image1.hGlobal);
-      if( Image2.hBitmap != NULL )
+      if( Image2.hBitmap != nullptr )
          DeleteObject(Image2.hBitmap);
-      return NULL;
+      return nullptr;
    }
 
    Image1.lp_Bits = ( LPBYTE ) GlobalLock(Image1.hGlobal);
@@ -2399,9 +2399,9 @@ HB_FUNC( BT_BMP_COPYANDRESIZE )
    New_Height   = hmg_par_INT(3);
    Mode_Stretch = hmg_par_INT(4);
    nAlgorithm   = hmg_par_INT(5);
-   hBitmap_New  = NULL;
+   hBitmap_New  = nullptr;
 
-   memDC1 = CreateCompatibleDC(NULL);
+   memDC1 = CreateCompatibleDC(nullptr);
    SelectObject(memDC1, hBitmap1);
    GetObject(hBitmap1, sizeof(BITMAP), ( LPBYTE ) &bm);
 
@@ -2413,7 +2413,7 @@ HB_FUNC( BT_BMP_COPYANDRESIZE )
    {
       hBitmap_New = bt_bmp_create_24bpp(New_Width, New_Height);
 
-      memDC2 = CreateCompatibleDC(NULL);
+      memDC2 = CreateCompatibleDC(nullptr);
       SelectObject(memDC2, hBitmap_New);
 
       if( nAlgorithm == BT_RESIZE_COLORONCOLOR )
@@ -2422,7 +2422,7 @@ HB_FUNC( BT_BMP_COPYANDRESIZE )
       {
          GetBrushOrgEx(memDC2, &Point);
          SetStretchBltMode(memDC2, HALFTONE);
-         SetBrushOrgEx(memDC2, Point.x, Point.y, NULL);
+         SetBrushOrgEx(memDC2, Point.x, Point.y, nullptr);
       }
       StretchBlt(memDC2, 0, 0, New_Width, New_Height, memDC1, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY);
 
@@ -2473,10 +2473,10 @@ HB_FUNC( BT_BMP_PASTE )
    color_transp = hmg_par_COLORREF(13);
 
 
-   memDC_D = CreateCompatibleDC(NULL);
+   memDC_D = CreateCompatibleDC(nullptr);
    SelectObject(memDC_D, hBitmap_D);
 
-   memDC_O = CreateCompatibleDC(NULL);
+   memDC_O = CreateCompatibleDC(nullptr);
    SelectObject(memDC_O, hBitmap_O);
 
    bt_bmp_adjust_rect(&Width1, &Height1, &Width2, &Height2, Mode_Stretch);
@@ -2484,7 +2484,7 @@ HB_FUNC( BT_BMP_PASTE )
    //SetStretchBltMode (memDC_D, COLORONCOLOR);
    GetBrushOrgEx(memDC_D, &Point);
    SetStretchBltMode(memDC_D, HALFTONE);
-   SetBrushOrgEx(memDC_D, Point.x, Point.y, NULL);
+   SetBrushOrgEx(memDC_D, Point.x, Point.y, nullptr);
 
 
    switch( Action )
@@ -2545,10 +2545,10 @@ HB_FUNC( BT_BMP_PASTE_ALPHABLEND )
    blend.SourceConstantAlpha = Alpha;
 
 
-   memDC_D = CreateCompatibleDC(NULL);
+   memDC_D = CreateCompatibleDC(nullptr);
    SelectObject(memDC_D, hBitmap_D);
 
-   memDC_O = CreateCompatibleDC(NULL);
+   memDC_O = CreateCompatibleDC(nullptr);
    SelectObject(memDC_O, hBitmap_O);
 
    bt_bmp_adjust_rect(&Width1, &Height1, &Width2, &Height2, Mode_Stretch);
@@ -2556,7 +2556,7 @@ HB_FUNC( BT_BMP_PASTE_ALPHABLEND )
    //SetStretchBltMode (memDC_D, COLORONCOLOR);
    GetBrushOrgEx(memDC_D, &Point);
    SetStretchBltMode(memDC_D, HALFTONE);
-   SetBrushOrgEx(memDC_D, Point.x, Point.y, NULL);
+   SetBrushOrgEx(memDC_D, Point.x, Point.y, nullptr);
 
    AlphaBlend(memDC_D, x1, y1, Width1, Height1, memDC_O, x2, y2, Width2, Height2, blend);
 
@@ -2607,7 +2607,7 @@ HB_FUNC( BT_BMP_CAPTURESCR )
 
    hBitmap = bt_bmp_create_24bpp(Width1, Height1);
 
-   memDC = CreateCompatibleDC(NULL);
+   memDC = CreateCompatibleDC(nullptr);
    SelectObject(memDC, hBitmap);
 
    BitBlt(memDC, 0, 0, Width1, Height1, hDC, x1, y1, SRCCOPY);
@@ -2774,7 +2774,7 @@ HB_FUNC( BT_BMP_PROCESS )
    nBytes_Bits     = ( DWORD ) ( bm.bmWidthBytes * labs(bm.bmHeight) );
 
    hBits = GlobalAlloc(GHND, ( DWORD ) nBytes_Bits);
-   if( hBits == NULL )
+   if( hBits == nullptr )
    {
       hb_retl( FALSE );
       return;
@@ -2782,7 +2782,7 @@ HB_FUNC( BT_BMP_PROCESS )
    else
       lp_Bits = ( LPBYTE ) GlobalLock(hBits);
 
-   memDC = CreateCompatibleDC(NULL);
+   memDC = CreateCompatibleDC(nullptr);
    GetDIBits(memDC, hBitmap, 0, bm.bmHeight, ( LPVOID ) lp_Bits, &BI, DIB_RGB_COLORS);
 
    for( INT y = 0; y < bm.bmHeight; y++ )
@@ -2952,14 +2952,14 @@ HB_FUNC( BT_BMP_FILTER3X3 )
    nBytes_Bits     = ( DWORD ) ( bm.bmWidthBytes * labs(bm.bmHeight) );
 
    hBits_O = GlobalAlloc(GHND, ( DWORD ) nBytes_Bits);
-   if( hBits_O == NULL )
+   if( hBits_O == nullptr )
    {
       hb_retl( FALSE );
       return;
    }
 
    hBits_D = GlobalAlloc(GHND, ( DWORD ) nBytes_Bits);
-   if( hBits_D == NULL )
+   if( hBits_D == nullptr )
    {
       GlobalFree(hBits_O);
       hb_retl( FALSE );
@@ -2969,7 +2969,7 @@ HB_FUNC( BT_BMP_FILTER3X3 )
    lp_Bits_O = ( LPBYTE ) GlobalLock(hBits_O);
    lp_Bits_D = ( LPBYTE ) GlobalLock(hBits_D);
 
-   memDC = CreateCompatibleDC(NULL);
+   memDC = CreateCompatibleDC(nullptr);
 
    GetDIBits(memDC, hBitmap, 0, bm.bmHeight, ( LPVOID ) lp_Bits_O, &BI, DIB_RGB_COLORS);
 
@@ -3061,7 +3061,7 @@ HB_FUNC( BT_BMP_TRANSFORM )
    Angle         = ( FLOAT ) hb_parnd(3);
    Color_Fill_Bk = hmg_par_COLORREF(4);
 
-   memDC1 = CreateCompatibleDC(NULL);
+   memDC1 = CreateCompatibleDC(nullptr);
    SelectObject(memDC1, hBitmap_O);
    GetObject(hBitmap_O, sizeof(BITMAP), ( LPBYTE ) &bm);
 
@@ -3069,7 +3069,7 @@ HB_FUNC( BT_BMP_TRANSFORM )
    Height = bm.bmHeight;
 
 
-   memDC2 = CreateCompatibleDC(NULL);
+   memDC2 = CreateCompatibleDC(nullptr);
    SetGraphicsMode(memDC2, GM_ADVANCED);
 
    if( ( Mode & BT_BITMAP_REFLECT_HORIZONTAL ) == BT_BITMAP_REFLECT_HORIZONTAL )
@@ -3187,7 +3187,7 @@ HB_FUNC( BT_BMP_TRANSFORM )
    //SetStretchBltMode (memDC2, COLORONCOLOR);
    GetBrushOrgEx(memDC2, &Point);
    SetStretchBltMode(memDC2, HALFTONE);
-   SetBrushOrgEx(memDC2, Point.x, Point.y, NULL);
+   SetBrushOrgEx(memDC2, Point.x, Point.y, nullptr);
 
    hBrush   = CreateSolidBrush(Color_Fill_Bk);
    OldBrush = ( HBRUSH ) SelectObject(memDC2, hBrush);
@@ -3278,7 +3278,7 @@ HB_FUNC( BT_BMP_GET_CLIPBOARD )
    }
 
    hClipboard = GetClipboardData(CF_DIB);
-   if( hClipboard == NULL )
+   if( hClipboard == nullptr )
    {
       CloseClipboard();
       hb_retnl(0);
@@ -3312,9 +3312,9 @@ HB_FUNC( BT_BMP_GET_CLIPBOARD )
    BI.bmiHeader.biClrUsed       = 0;
    BI.bmiHeader.biClrImportant  = 0;
 
-   memDC = CreateCompatibleDC(NULL);
+   memDC = CreateCompatibleDC(nullptr);
 
-   hBitmap = CreateDIBSection(memDC, &BI, DIB_RGB_COLORS, ( VOID ** ) &lp_Bits2, NULL, 0);
+   hBitmap = CreateDIBSection(memDC, &BI, DIB_RGB_COLORS, ( VOID ** ) &lp_Bits2, nullptr, 0);
    SetDIBits(memDC, hBitmap, 0, BI.bmiHeader.biHeight, lp_Bits, lp_BI, DIB_RGB_COLORS);
 
    DeleteDC(memDC);
@@ -3372,7 +3372,7 @@ HB_FUNC( BT_BMP_PUT_CLIPBOARD )
 
 
    hClipboard = GlobalAlloc(GHND, ( DWORD ) nBytes_Total);
-   if( hClipboard == NULL )
+   if( hClipboard == nullptr )
    {
       CloseClipboard();
       hb_retl( FALSE );
@@ -3383,7 +3383,7 @@ HB_FUNC( BT_BMP_PUT_CLIPBOARD )
 
    memcpy(lp_Clipboard, &BI.bmiHeader, sizeof(BITMAPINFOHEADER));
 
-   memDC = CreateCompatibleDC(NULL);
+   memDC = CreateCompatibleDC(nullptr);
    GetDIBits(memDC, hBitmap, 0, bm.bmHeight, ( LPVOID ) ( lp_Clipboard + sizeof(BITMAPINFOHEADER) ), &BI, DIB_RGB_COLORS);
 
    GlobalUnlock(hClipboard);

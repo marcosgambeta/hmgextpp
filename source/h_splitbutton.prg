@@ -311,8 +311,8 @@ HB_FUNC( INITSPLITBUTTON )
                            hb_parni( 7 ),
                            hwnd,
                            ( HMENU ) HB_PARNL( 8 ),
-                           GetModuleHandle( NULL ),
-                           NULL );
+                           GetModuleHandle( nullptr ),
+                           nullptr );
 
    HB_RETNL( ( LONG_PTR ) hbutton );
 }

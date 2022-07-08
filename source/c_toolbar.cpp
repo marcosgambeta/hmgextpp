@@ -107,7 +107,7 @@ HB_FUNC( INITTOOLBAR )
    if( hb_parl(16) )
       Style = Style | CCS_ADJUSTABLE;
 
-   hwndTB = CreateWindowEx(ExStyle, TOOLBARCLASSNAME, NULL, Style, 0, 0, 0, 0, hwnd, hmg_par_HMENU(3), GetInstance(), NULL);
+   hwndTB = CreateWindowEx(ExStyle, TOOLBARCLASSNAME, nullptr, Style, 0, 0, 0, 0, hwnd, hmg_par_HMENU(3), GetInstance(), nullptr);
 
    if( hb_parni(6) && hb_parni(7) )
    {
@@ -124,7 +124,7 @@ HB_FUNC( INITTOOLBAR )
 HB_FUNC( INITTOOLBUTTON )
 {
    HWND        hwndTB = hmg_par_HWND(1);
-   HWND        himage = NULL;
+   HWND        himage = nullptr;
    TBADDBITMAP tbab;
    TBBUTTON    tbb[ NUM_TOOLBAR_BUTTONS ];
    DWORD       tSize;
@@ -168,7 +168,7 @@ HB_FUNC( INITTOOLBUTTON )
       Style |= TBSTYLE_AUTOSIZE;
 
    nBtn       = 0;
-   tbab.hInst = NULL;
+   tbab.hInst = nullptr;
    tbab.nID   = ( UINT_PTR ) himage;
    nPoz       = ( int ) SendMessage(hwndTB, TB_ADDBITMAP, ( WPARAM ) 1, ( LPARAM ) &tbab);
 
@@ -301,7 +301,7 @@ HB_FUNC( INITTOOLBAREX )
    if( hb_parl(17) )
       Style = Style | CCS_ADJUSTABLE;
 
-   hwndTB = CreateWindowEx(ExStyle, TOOLBARCLASSNAME, NULL, Style, 0, 0, 0, 0, hwnd, hmg_par_HMENU(3), GetInstance(), NULL);
+   hwndTB = CreateWindowEx(ExStyle, TOOLBARCLASSNAME, nullptr, Style, 0, 0, 0, 0, hwnd, hmg_par_HMENU(3), GetInstance(), nullptr);
 
    if( hb_parni(6) && hb_parni(7) )
    {
@@ -320,7 +320,7 @@ HB_FUNC( INITTOOLBAREX )
 HB_FUNC( INITTOOLBUTTONEX )
 {
    HWND          hwndTB;
-   HWND          himage = ( HWND ) NULL;
+   HWND          himage = ( HWND ) nullptr;
    BITMAP        bm;
    TBADDBITMAP   tbab;
    TBBUTTON      lpBtn;
@@ -405,9 +405,9 @@ HB_FUNC( INITTOOLBUTTONEX )
       lpImageName = AnsiToWide(( char * ) hb_parc(8));
 #endif
       himage = ( HWND ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, ix, iy, fuLoad);
-      if( himage == NULL )
-         himage = ( HWND ) LoadImage(NULL, lpImageName, IMAGE_BITMAP, ix, iy, LR_LOADFROMFILE | fuLoad);
-      if( himage == NULL )
+      if( himage == nullptr )
+         himage = ( HWND ) LoadImage(nullptr, lpImageName, IMAGE_BITMAP, ix, iy, LR_LOADFROMFILE | fuLoad);
+      if( himage == nullptr )
          himage = ( HWND ) HMG_LoadPicture(hb_parc(8), hb_parl(16) ? ix : -1, hb_parl(16) ? iy : -1, hwndTB, 1, Transparent, -1, hb_parl(16) ? 1 : 0, HB_FALSE, 255);
 
 #ifdef UNICODE
@@ -415,7 +415,7 @@ HB_FUNC( INITTOOLBUTTONEX )
 #endif
    }
 
-   if( himage != NULL )
+   if( himage != nullptr )
    {
       tSize = ( DWORD ) SendMessage(hwndTB, TB_GETPADDING, 0, 0);
       px    = LOWORD(tSize);
@@ -479,7 +479,7 @@ HB_FUNC( INITTOOLBUTTONEX )
    }
    else
    {
-      tbab.hInst = NULL;
+      tbab.hInst = nullptr;
       tbab.nID   = ( UINT_PTR ) ( HBITMAP ) himage;
       nPoz       = ( int ) SendMessage(hwndTB, TB_ADDBITMAP, ( WPARAM ) 1, ( LPARAM ) &tbab);
    }
@@ -649,7 +649,7 @@ HB_FUNC( SETBUTTONTIP )
    LPTOOLTIPTEXT lpttt;
 
    lpttt           = ( LPTOOLTIPTEXT ) HB_PARNL(1);
-   lpttt->hinst    = GetModuleHandle(NULL);
+   lpttt->hinst    = GetModuleHandle(nullptr);
    lpttt->lpszText = lpText;
 }
 
@@ -695,12 +695,12 @@ HB_FUNC( REPLACETOOLBUTTONIMAGE )
 
    hBitmapNew = ( HBITMAP ) HMG_LoadPicture(hb_parc(3), -1, -1, hwndTB, 1, 1, -1, 0, HB_FALSE, 255);
 
-   if( ( hBitmapOld != NULL ) && ( hBitmapNew != NULL ) )
+   if( ( hBitmapOld != nullptr ) && ( hBitmapNew != nullptr ) )
    {
       TBREPLACEBITMAP tbrb;
-      tbrb.hInstOld = NULL;
+      tbrb.hInstOld = nullptr;
       tbrb.nIDOld   = ( UINT_PTR ) hBitmapOld;
-      tbrb.hInstNew = NULL;
+      tbrb.hInstNew = nullptr;
       tbrb.nIDNew   = ( UINT_PTR ) hBitmapNew;
       tbrb.nButtons = 1;
       SendMessage(hwndTB, TB_REPLACEBITMAP, 0, ( LPARAM ) &tbrb);
@@ -710,10 +710,10 @@ HB_FUNC( REPLACETOOLBUTTONIMAGE )
       TBBUTTONINFO tbinfo;
       int          iBitMapIndex;
 
-      if( hBitmapNew != NULL )
+      if( hBitmapNew != nullptr )
       {
          TBADDBITMAP tbab;
-         tbab.hInst   = NULL;
+         tbab.hInst   = nullptr;
          tbab.nID     = ( UINT_PTR ) hBitmapNew;
          iBitMapIndex = ( int ) SendMessage(hwndTB, TB_ADDBITMAP, ( WPARAM ) 1, ( LPARAM ) &tbab);
       }

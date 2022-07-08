@@ -134,10 +134,10 @@ HB_FUNC( SYSTEMPARAMETERSINFO )
 HB_FUNC( GETTEXTWIDTH ) // returns the width of a string in pixels
 {
    HDC   hDC        = hmg_par_HDC(1);
-   HWND  hWnd       = ( HWND ) NULL;
+   HWND  hWnd       = ( HWND ) nullptr;
    BOOL  bDestroyDC = FALSE;
    HFONT hFont      = hmg_par_HFONT(3);
-   HFONT hOldFont   = ( HFONT ) NULL;
+   HFONT hOldFont   = ( HFONT ) nullptr;
    SIZE  sz;
 
 #ifndef UNICODE
@@ -246,7 +246,7 @@ HB_FUNC( CHANGESTYLE )
 
    HB_RETNL( ( LONG_PTR ) SetWindowLongPtr(hWnd, iStyle, dwNewStyle) );
 
-   SetWindowPos(hWnd, NULL, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER);
+   SetWindowPos(hWnd, nullptr, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER);
 }
 
 HB_FUNC( MOVEBTNTEXTBOX )   //MoveBtnTextBox(hEdit, hBtn1, hBtn2, fBtn2, BtnWidth, width, height)
@@ -265,12 +265,12 @@ HB_FUNC( MOVEBTNTEXTBOX )   //MoveBtnTextBox(hEdit, hBtn1, hBtn2, fBtn2, BtnWidt
    BtnWidth  = ( fBtns ? BtnWidth : 0 );
    BtnWidth2 = ( fBtn2 ? BtnWidth : 0 );
 
-   SetWindowPos(hedit, NULL, 0, 0, width, height, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);
+   SetWindowPos(hedit, nullptr, 0, 0, width, height, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);
    if( fBtns )
    {
-      SetWindowPos(hBtn1, NULL, width - BtnWidth - 4, -1, BtnWidth, height - 2, SWP_NOACTIVATE | SWP_NOZORDER);
+      SetWindowPos(hBtn1, nullptr, width - BtnWidth - 4, -1, BtnWidth, height - 2, SWP_NOACTIVATE | SWP_NOZORDER);
       if( fBtn2 )
-         SetWindowPos(hBtn2, NULL, width - BtnWidth - BtnWidth2 - 4, -1, BtnWidth2, height - 2, SWP_NOACTIVATE | SWP_NOZORDER);
+         SetWindowPos(hBtn2, nullptr, width - BtnWidth - BtnWidth2 - 4, -1, BtnWidth2, height - 2, SWP_NOACTIVATE | SWP_NOZORDER);
    }
 }
 
@@ -298,7 +298,7 @@ HB_FUNC( HB_LEFTEQI )
       hb_retl( hb_cdpicmp(hb_itemGetCPtr(pItem1), hb_itemGetCLen(pItem1),
                           hb_itemGetCPtr(pItem2), hb_itemGetCLen(pItem2), hb_cdppage(), HB_FALSE) == 0 );
    else
-      hb_errRT_BASE_SubstR( EG_ARG, 1071, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+      hb_errRT_BASE_SubstR( EG_ARG, 1071, nullptr, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
 #endif

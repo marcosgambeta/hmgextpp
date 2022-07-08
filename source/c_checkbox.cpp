@@ -126,7 +126,7 @@ HB_FUNC( INITCHECKBOX )
       hwnd,
       hmg_par_HMENU(3),
       GetInstance(),
-      NULL
+      nullptr
              );
 
    HB_RETNL( ( LONG_PTR ) hbutton );
@@ -170,7 +170,7 @@ HB_FUNC( INITCHECKBUTTON )
       hwnd,
       hmg_par_HMENU(3),
       GetInstance(),
-      NULL
+      nullptr
              );
 
    HB_RETNL( ( LONG_PTR ) hbutton );
@@ -217,7 +217,7 @@ HB_FUNC( INITIMAGECHECKBUTTON )
       hwnd,
       hmg_par_HMENU(3),
       GetInstance(),
-      NULL
+      nullptr
              );
 
    if( ! hb_parl(13) )

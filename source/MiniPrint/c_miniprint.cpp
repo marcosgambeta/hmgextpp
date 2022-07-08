@@ -526,24 +526,24 @@ HB_FUNC( _HMG_PRINTER_PRINTDIALOG )
    LPDEVMODE pDevMode;
 
    pd.lStructSize         = sizeof(PRINTDLG);
-   pd.hDevMode            = ( HANDLE ) NULL;
-   pd.hDevNames           = ( HANDLE ) NULL;
+   pd.hDevMode            = ( HANDLE ) nullptr;
+   pd.hDevNames           = ( HANDLE ) nullptr;
    pd.Flags               = PD_RETURNDC | PD_PRINTSETUP;
-   pd.hwndOwner           = NULL;
-   pd.hDC                 = NULL;
+   pd.hwndOwner           = nullptr;
+   pd.hDC                 = nullptr;
    pd.nFromPage           = 1;
    pd.nToPage             = 0xFFFF;
    pd.nMinPage            = 1;
    pd.nMaxPage            = 0xFFFF;
    pd.nCopies             = 1;
-   pd.hInstance           = ( HINSTANCE ) NULL;
+   pd.hInstance           = ( HINSTANCE ) nullptr;
    pd.lCustData           = 0L;
-   pd.lpfnPrintHook       = ( LPPRINTHOOKPROC ) NULL;
-   pd.lpfnSetupHook       = ( LPSETUPHOOKPROC ) NULL;
-   pd.lpPrintTemplateName = NULL;
-   pd.lpSetupTemplateName = NULL;
-   pd.hPrintTemplate      = ( HANDLE ) NULL;
-   pd.hSetupTemplate      = ( HANDLE ) NULL;
+   pd.lpfnPrintHook       = ( LPPRINTHOOKPROC ) nullptr;
+   pd.lpfnSetupHook       = ( LPSETUPHOOKPROC ) nullptr;
+   pd.lpPrintTemplateName = nullptr;
+   pd.lpSetupTemplateName = nullptr;
+   pd.hPrintTemplate      = ( HANDLE ) nullptr;
+   pd.hSetupTemplate      = ( HANDLE ) nullptr;
 
    if( PrintDlg(&pd) )
    {
@@ -596,21 +596,21 @@ HB_FUNC( APRINTERS )
    LPSTR pStr;
 #endif
 
-   PRINTER_INFO_4 * pInfo4 = NULL;
-   PRINTER_INFO_5 * pInfo  = NULL;
+   PRINTER_INFO_4 * pInfo4 = nullptr;
+   PRINTER_INFO_5 * pInfo  = nullptr;
 
    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
 
    GetVersionEx(&osvi);
 
    if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT )
-      EnumPrinters(PRINTER_ENUM_LOCAL | PRINTER_ENUM_CONNECTIONS, NULL, 4, NULL, 0, &dwSize, &dwPrinters);
+      EnumPrinters(PRINTER_ENUM_LOCAL | PRINTER_ENUM_CONNECTIONS, nullptr, 4, nullptr, 0, &dwSize, &dwPrinters);
    else
-      EnumPrinters(PRINTER_ENUM_LOCAL, NULL, 5, NULL, 0, &dwSize, &dwPrinters);
+      EnumPrinters(PRINTER_ENUM_LOCAL, nullptr, 5, nullptr, 0, &dwSize, &dwPrinters);
 
    pBuffer = ( char * ) GlobalAlloc(GPTR, dwSize);
 
-   if( pBuffer == NULL )
+   if( pBuffer == nullptr )
    {
       hb_reta(0);
       GlobalFree(pBuffer);
@@ -618,9 +618,9 @@ HB_FUNC( APRINTERS )
    }
 
    if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT )
-      EnumPrinters(PRINTER_ENUM_LOCAL | PRINTER_ENUM_CONNECTIONS, NULL, 4, ( LPBYTE ) pBuffer, dwSize, &dwSize, &dwPrinters);
+      EnumPrinters(PRINTER_ENUM_LOCAL | PRINTER_ENUM_CONNECTIONS, nullptr, 4, ( LPBYTE ) pBuffer, dwSize, &dwSize, &dwPrinters);
    else
-      EnumPrinters(PRINTER_ENUM_LOCAL, NULL, 5, ( LPBYTE ) pBuffer, dwSize, &dwSize, &dwPrinters);
+      EnumPrinters(PRINTER_ENUM_LOCAL, nullptr, 5, ( LPBYTE ) pBuffer, dwSize, &dwSize, &dwPrinters);
 
    if( dwPrinters == 0 )
    {
@@ -699,8 +699,8 @@ HB_FUNC( _HMG_PRINTER_C_RECTANGLE )
 
    HDC     hdcPrint = hmg_par_HDC(1);
    HGDIOBJ hgdiobj;
-   HBRUSH  hbrush = NULL;
-   HPEN    hpen   = NULL;
+   HBRUSH  hbrush = nullptr;
+   HPEN    hpen   = nullptr;
    RECT    rect;
 
    if( hdcPrint != 0 )
@@ -796,8 +796,8 @@ HB_FUNC( _HMG_PRINTER_C_ROUNDRECTANGLE )
 
    HDC     hdcPrint = hmg_par_HDC(1);
    HGDIOBJ hgdiobj;
-   HBRUSH  hbrush = NULL;
-   HPEN    hpen   = NULL;
+   HBRUSH  hbrush = nullptr;
+   HPEN    hpen   = nullptr;
 
    if( hdcPrint != 0 )
    {
@@ -945,7 +945,7 @@ HB_FUNC( _HMG_PRINTER_C_LINE )
       MoveToEx(hdcPrint,
                ( x * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000 ) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX),
                ( y * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000 ) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY),
-               NULL
+               nullptr
                );
 
       LineTo(hdcPrint,
@@ -963,10 +963,10 @@ HB_FUNC( _HMG_PRINTER_C_LINE )
 
 HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 {
-   HANDLE hPrinter = NULL;
+   HANDLE hPrinter = nullptr;
    DWORD  dwNeeded = 0;
    PRINTER_INFO_2 * pi2;
-   DEVMODE *        pDevMode = NULL;
+   DEVMODE *        pDevMode = nullptr;
    BOOL bFlag;
    LONG lFlag;
 
@@ -980,14 +980,14 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
    int fields = 0;
 
 #ifndef UNICODE
-   bFlag = OpenPrinter( ( LPSTR ) hb_parc(1), &hPrinter, NULL );
+   bFlag = OpenPrinter( ( LPSTR ) hb_parc(1), &hPrinter, nullptr );
 #else
    pPrinterName = AnsiToWide(hb_parc(1));
-   bFlag        = OpenPrinter( pPrinterName, &hPrinter, NULL );
+   bFlag        = OpenPrinter( pPrinterName, &hPrinter, nullptr );
    hb_xfree(pPrinterName);
 #endif
 
-   if( ! bFlag || ( hPrinter == NULL ) )
+   if( ! bFlag || ( hPrinter == nullptr ) )
    {
 #ifdef _ERRORMSG_
       MessageBox(0, TEXT("Printer Configuration Failed! (001)"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
@@ -1022,7 +1022,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 
    pi2 = ( PRINTER_INFO_2 * ) GlobalAlloc(GPTR, dwNeeded);
 
-   if( pi2 == NULL )
+   if( pi2 == nullptr )
    {
       ClosePrinter( hPrinter );
 #ifdef _ERRORMSG_
@@ -1055,13 +1055,13 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
       return;
    }
 
-   if( pi2->pDevMode == NULL )
+   if( pi2->pDevMode == nullptr )
    {
 #ifndef UNICODE
-      dwNeeded = DocumentProperties(NULL, hPrinter, ( LPSTR ) hb_parc(1), NULL, NULL, 0);
+      dwNeeded = DocumentProperties(nullptr, hPrinter, ( LPSTR ) hb_parc(1), nullptr, nullptr, 0);
 #else
       pDeviceName = AnsiToWide(hb_parc(1));
-      dwNeeded    = DocumentProperties(NULL, hPrinter, pDeviceName, NULL, NULL, 0);
+      dwNeeded    = DocumentProperties(nullptr, hPrinter, pDeviceName, nullptr, nullptr, 0);
       hb_xfree(pDeviceName);
 #endif
       if( dwNeeded > 0 )
@@ -1082,7 +1082,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
          return;
       }
 
-      if( pDevMode == NULL )
+      if( pDevMode == nullptr )
       {
          GlobalFree(pi2);
          ClosePrinter( hPrinter );
@@ -1099,13 +1099,13 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
       }
 
 #ifndef UNICODE
-      lFlag = DocumentProperties(NULL, hPrinter, ( LPSTR ) hb_parc(1), pDevMode, NULL, DM_OUT_BUFFER);
+      lFlag = DocumentProperties(nullptr, hPrinter, ( LPSTR ) hb_parc(1), pDevMode, nullptr, DM_OUT_BUFFER);
 #else
       pDeviceName = AnsiToWide(hb_parc(1));
-      lFlag       = DocumentProperties(NULL, hPrinter, pDeviceName, pDevMode, NULL, DM_OUT_BUFFER);
+      lFlag       = DocumentProperties(nullptr, hPrinter, pDeviceName, pDevMode, nullptr, DM_OUT_BUFFER);
       hb_xfree(pDeviceName);
 #endif
-      if( lFlag != IDOK || pDevMode == NULL )
+      if( lFlag != IDOK || pDevMode == nullptr )
       {
          GlobalFree(pDevMode);
          GlobalFree(pi2);
@@ -1382,13 +1382,13 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 
    //////////////////////////////////////////////////////////////////////
 
-   pi2->pSecurityDescriptor = NULL;
+   pi2->pSecurityDescriptor = nullptr;
 
 #ifndef UNICODE
-   lFlag = DocumentProperties(NULL, hPrinter, ( LPSTR ) hb_parc(1), pi2->pDevMode, pi2->pDevMode, DM_IN_BUFFER | DM_OUT_BUFFER);
+   lFlag = DocumentProperties(nullptr, hPrinter, ( LPSTR ) hb_parc(1), pi2->pDevMode, pi2->pDevMode, DM_IN_BUFFER | DM_OUT_BUFFER);
 #else
    pDeviceName = AnsiToWide(hb_parc(1));
-   lFlag       = DocumentProperties(NULL, hPrinter, pDeviceName, pi2->pDevMode, pi2->pDevMode, DM_IN_BUFFER | DM_OUT_BUFFER);
+   lFlag       = DocumentProperties(nullptr, hPrinter, pDeviceName, pi2->pDevMode, pi2->pDevMode, DM_IN_BUFFER | DM_OUT_BUFFER);
    hb_xfree(pDeviceName);
 #endif
    if( lFlag != IDOK )
@@ -1411,12 +1411,12 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 
 #ifdef UNICODE
    pwszDevice = AnsiToWide(( char * ) hb_parc(1));
-   hdcPrint   = CreateDC( NULL, pwszDevice, NULL, pi2->pDevMode );
+   hdcPrint   = CreateDC( nullptr, pwszDevice, nullptr, pi2->pDevMode );
 #else
-   hdcPrint = CreateDC( NULL, hb_parc(1), NULL, pi2->pDevMode );
+   hdcPrint = CreateDC( nullptr, hb_parc(1), nullptr, pi2->pDevMode );
 #endif
 
-   if( hdcPrint != NULL )
+   if( hdcPrint != nullptr )
    {
       hb_reta(4);
       HB_STORVNL( ( LONG_PTR ) hdcPrint, -1, 1 );
@@ -1477,9 +1477,9 @@ HB_FUNC( GETDEFAULTPRINTER )
    if( osvi.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS )
    {
 
-      EnumPrinters(PRINTER_ENUM_DEFAULT, NULL, 5, NULL, 0, &Needed, &Returned);
+      EnumPrinters(PRINTER_ENUM_DEFAULT, nullptr, 5, nullptr, 0, &Needed, &Returned);
       PrinterInfo = ( LPPRINTER_INFO_5 ) LocalAlloc(LPTR, Needed);
-      EnumPrinters(PRINTER_ENUM_DEFAULT, NULL, 5, ( LPBYTE ) PrinterInfo, Needed, &Needed, &Returned);
+      EnumPrinters(PRINTER_ENUM_DEFAULT, nullptr, 5, ( LPBYTE ) PrinterInfo, Needed, &Needed, &Returned);
       lstrcpy(DefaultPrinter, PrinterInfo->pPrinterName);
       LocalFree(PrinterInfo);
 
@@ -1750,7 +1750,7 @@ HB_FUNC( _HMG_PRINTER_C_IMAGE )
    int     dr;
    int     dc;
 
-   if( hdcPrint != NULL )
+   if( hdcPrint != nullptr )
    {
       c  = ( c * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000 ) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX);
       r  = ( r * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000 ) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY);
@@ -1759,15 +1759,15 @@ HB_FUNC( _HMG_PRINTER_C_IMAGE )
 
       hBitmap = ( HBITMAP ) LoadImage(GetInstance(), FileName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION);
 
-      if( hBitmap == NULL )
-         hBitmap = ( HBITMAP ) LoadImage(NULL, FileName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+      if( hBitmap == nullptr )
+         hBitmap = ( HBITMAP ) LoadImage(nullptr, FileName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
 
-      if( hBitmap == NULL )
+      if( hBitmap == nullptr )
       {
          bBmpImage = FALSE;
-         hBitmap   = HMG_LoadImage(( char * ) hb_parc(2), NULL);
+         hBitmap   = HMG_LoadImage(( char * ) hb_parc(2), nullptr);
       }
-      if( hBitmap == NULL )
+      if( hBitmap == nullptr )
          return;
 
       GetObject(hBitmap, sizeof(BITMAP), &Bmp);
@@ -1799,7 +1799,7 @@ HB_FUNC( _HMG_PRINTER_C_IMAGE )
          {
             GetBrushOrgEx(hdcPrint, &Point);
             SetStretchBltMode(hdcPrint, HALFTONE);
-            SetBrushOrgEx(hdcPrint, Point.x, Point.y, NULL);
+            SetBrushOrgEx(hdcPrint, Point.x, Point.y, nullptr);
          }
       }
 
@@ -1811,7 +1811,7 @@ HB_FUNC( _HMG_PRINTER_C_IMAGE )
       else
          StretchBlt(hdcPrint, c, r, dc, dr, memDC, 0, 0, nWidth, nHeight, SRCCOPY);
 
-      SelectClipRgn(hdcPrint, NULL);
+      SelectClipRgn(hdcPrint, nullptr);
 
       DeleteObject(hBitmap);
       DeleteDC(memDC);
@@ -1831,17 +1831,17 @@ HB_FUNC( _HMG_PRINTGETJOBINFO )
    LPSTR  pStr;
 #endif
    DWORD      nJobID   = ( DWORD ) hb_parni(2);
-   HANDLE     hPrinter = NULL;
+   HANDLE     hPrinter = nullptr;
    TCHAR      cDateTime[ 256 ];
    SYSTEMTIME LocalSystemTime;
 
-   if( OpenPrinter( cPrinterName, &hPrinter, NULL ) )
+   if( OpenPrinter( cPrinterName, &hPrinter, nullptr ) )
    {
       DWORD        nBytesNeeded = 0;
       DWORD        nBytesUsed   = 0;
       JOB_INFO_1 * Job_Info_1;
 
-      GetJob(hPrinter, nJobID, 1, NULL, 0, &nBytesNeeded);
+      GetJob(hPrinter, nJobID, 1, nullptr, 0, &nBytesNeeded);
 
       if( nBytesNeeded > 0 )
       {
@@ -1885,7 +1885,7 @@ HB_FUNC( _HMG_PRINTGETJOBINFO )
             HB_STORNI( ( INT ) Job_Info_1->TotalPages, -1, 11 );
             HB_STORNI( ( INT ) Job_Info_1->PagesPrinted, -1, 12 );
 
-            SystemTimeToTzSpecificLocalTime(NULL, &Job_Info_1->Submitted, &LocalSystemTime);
+            SystemTimeToTzSpecificLocalTime(nullptr, &Job_Info_1->Submitted, &LocalSystemTime);
 
             wsprintf( cDateTime, TEXT("%02d/%02d/%02d"), LocalSystemTime.wYear, LocalSystemTime.wMonth, LocalSystemTime.wDay );
 #ifndef UNICODE
@@ -1929,14 +1929,14 @@ HB_FUNC( _HMG_PRINTERGETSTATUS )
 #else
    LPWSTR cPrinterName = AnsiToWide(( char * ) hb_parc(1));
 #endif
-   HANDLE hPrinter     = NULL;
+   HANDLE hPrinter     = nullptr;
    DWORD  nBytesNeeded = 0;
    DWORD  nBytesUsed   = 0;
    PRINTER_INFO_6 * Printer_Info_6;
 
-   if( OpenPrinter( cPrinterName, &hPrinter, NULL ) )
+   if( OpenPrinter( cPrinterName, &hPrinter, nullptr ) )
    {
-      GetPrinter( hPrinter, 6, NULL, 0, &nBytesNeeded );
+      GetPrinter( hPrinter, 6, nullptr, 0, &nBytesNeeded );
       if( nBytesNeeded > 0 )
       {
          Printer_Info_6 = ( PRINTER_INFO_6 * ) hb_xgrab(nBytesNeeded);
@@ -1989,7 +1989,7 @@ HB_FUNC( INITEMFFILE )
    if( hb_parl(6) )
       Style |= SS_NOTIFY;
 
-   hWnd = CreateWindowEx(0, WC_STATIC, NULL, Style, hb_parni(3), hb_parni(4), 0, 0, hWndParent, hmg_par_HMENU(2), GetInstance(), NULL);
+   hWnd = CreateWindowEx(0, WC_STATIC, nullptr, Style, hb_parni(3), hb_parni(4), 0, 0, hWndParent, hmg_par_HMENU(2), GetInstance(), nullptr);
 
    HB_RETNL( ( LONG_PTR ) hWnd );
 
@@ -2006,11 +2006,11 @@ HB_FUNC( C_SETEMFFILE )
    HBITMAP hBitmap;
 
    if( hb_parclen(2) == 0 )
-      HB_RETNL( ( LONG_PTR ) NULL );
+      HB_RETNL( ( LONG_PTR ) nullptr );
 
    hBitmap = loademffile(cFileName, hb_parni(3), hb_parni(4), hmg_par_HWND(1), hb_parni(5), hb_parni(6));
 
-   if( hBitmap != NULL )
+   if( hBitmap != nullptr )
       SendMessage(hmg_par_HWND(1), ( UINT ) STM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) hBitmap);
 
    HB_RETNL( ( LONG_PTR ) hBitmap );
@@ -2027,13 +2027,13 @@ static BOOL read_image(TCHAR * filename, DWORD * nFileSize, HGLOBAL * hMem)
    BOOL   bRead;
 
    // open the file
-   hFile = CreateFile(filename, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+   hFile = CreateFile(filename, GENERIC_READ, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
    if( hFile == INVALID_HANDLE_VALUE )
       return FALSE;
    // we will read the whole file in global memory, find the size first
-   dwFileSize = GetFileSize(hFile, NULL);
+   dwFileSize = GetFileSize(hFile, nullptr);
    // allocate memory to read the whole file
-   if( dwFileSize == INVALID_FILE_SIZE || ( *hMem = GlobalAlloc(GHND, dwFileSize) ) == NULL )
+   if( dwFileSize == INVALID_FILE_SIZE || ( *hMem = GlobalAlloc(GHND, dwFileSize) ) == nullptr )
    {
       CloseHandle(hFile);
       return FALSE;
@@ -2044,7 +2044,7 @@ static BOOL read_image(TCHAR * filename, DWORD * nFileSize, HGLOBAL * hMem)
    // lock memory for image
    lpDest = GlobalLock(*hMem);
 
-   if( lpDest == NULL )
+   if( lpDest == nullptr )
    {
       GlobalFree(*hMem);
       CloseHandle(hFile);
@@ -2052,7 +2052,7 @@ static BOOL read_image(TCHAR * filename, DWORD * nFileSize, HGLOBAL * hMem)
    }
 
    // read file and store in global memory
-   bRead = ReadFile(hFile, lpDest, dwFileSize, &dwBytesRead, NULL);
+   bRead = ReadFile(hFile, lpDest, dwFileSize, &dwBytesRead, nullptr);
 
    GlobalUnlock(*hMem);
    CloseHandle(hFile);
@@ -2094,8 +2094,8 @@ static HBITMAP loademffile(TCHAR * filename, int width, int height, HWND handle,
 {
 
    IStream *  iStream;
-   IPicture * iPicture = NULL;
-   HGLOBAL    hMem     = ( HGLOBAL ) NULL;
+   IPicture * iPicture = nullptr;
+   HGLOBAL    hMem     = ( HGLOBAL ) nullptr;
    HRESULT    hr;
    DWORD      nFileSize = 0;
    RECT       rect, rect2;
@@ -2107,15 +2107,15 @@ static HBITMAP loademffile(TCHAR * filename, int width, int height, HWND handle,
    if( read_image(filename, &nFileSize, &hMem ) == FALSE)
    {
       ReleaseDC(handle, imgDC);
-      return NULL;
+      return nullptr;
    }
    // don't delete memory on object's release
    hr = CreateStreamOnHGlobal( hMem, FALSE, &iStream );
-   if( hr != S_OK || iStream == NULL )
+   if( hr != S_OK || iStream == nullptr )
    {
       GlobalFree(hMem);
       ReleaseDC(handle, imgDC);
-      return NULL;
+      return nullptr;
    }
    // Load from stream
 #if defined( __cplusplus )
@@ -2124,11 +2124,11 @@ static HBITMAP loademffile(TCHAR * filename, int width, int height, HWND handle,
    hr = OleLoadPicture(iStream, nFileSize, ( nFileSize == 0 ), &IID_IPicture, ( LPVOID * ) &iPicture);
    iStream->lpVtbl->Release(iStream);
 #endif
-   if( hr != S_OK || iPicture == NULL )
+   if( hr != S_OK || iPicture == nullptr )
    {
       GlobalFree(hMem);
       ReleaseDC(handle, imgDC);
-      return NULL;
+      return nullptr;
    }
 
    iPicture->lpVtbl->get_Width(iPicture, &lWidth);
@@ -2146,7 +2146,7 @@ static HBITMAP loademffile(TCHAR * filename, int width, int height, HWND handle,
       FillRect(tmpDC, &rect2, ( HBRUSH ) GetSysColorBrush(COLOR_BTNFACE));
 
    // Render to device context
-   iPicture->lpVtbl->Render( iPicture, tmpDC, rect.left, rect.top, rect.right, rect.bottom, 0, lHeight, lWidth, -lHeight, NULL );
+   iPicture->lpVtbl->Render( iPicture, tmpDC, rect.left, rect.top, rect.right, rect.bottom, 0, lHeight, lWidth, -lHeight, nullptr );
    iPicture->lpVtbl->Release(iPicture);
    GlobalFree(hMem);
 

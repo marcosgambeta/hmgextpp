@@ -190,8 +190,8 @@ static BOOL FLD_isAppThemed(void)
 {
    BOOL bRet = FALSE;
 
-   if( hUxTheme == NULL )
-      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), NULL, 0);
+   if( hUxTheme == nullptr )
+      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
 
    if( hUxTheme )
    {
@@ -205,7 +205,7 @@ static BOOL FLD_isAppThemed(void)
 
 LRESULT CALLBACK HMG_FldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
-   static PHB_SYMB pSymbol = NULL;
+   static PHB_SYMB pSymbol = nullptr;
    long int        r;
    LPNMHDR         lpnmhdr;
    FLDHDRINFO *    pFhi;
@@ -281,7 +281,7 @@ LRESULT CALLBACK HMG_FldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPARAM l
 
 LRESULT CALLBACK HMG_PageFldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
-   static PHB_SYMB pSymbol = NULL;
+   static PHB_SYMB pSymbol = nullptr;
    long int        r;
    int  iSel;
    HWND hWndParent;
@@ -707,12 +707,12 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
    Style  = pFhi->FolderStyle;
 
    // Create the tab control.
-   pFhi->hwndTab = CreateWindow(WC_TABCONTROL, TEXT(""), Style, 0, 0, 100, 100, hWndDlg, NULL, GetInstance(), NULL);
+   pFhi->hwndTab = CreateWindow(WC_TABCONTROL, TEXT(""), Style, 0, 0, 100, 100, hWndDlg, nullptr, GetInstance(), nullptr);
 
-   if( pFhi->hwndTab == NULL )
+   if( pFhi->hwndTab == nullptr )
       MessageBox
       (
-         NULL,
+         nullptr,
          TEXT("Tab Control for Folder could not be created"),
          TEXT("Error"),
          MB_OK | MB_ICONERROR | MB_DEFBUTTON1 | MB_APPLMODAL | MB_SETFOREGROUND
@@ -761,7 +761,7 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
    TabCtrl_AdjustRect(pFhi->hwndTab, FALSE, &pFhi->rcDisplay);
 
    // Set the size and position of the tab control, buttons and dialog box.
-   SetWindowPos(pFhi->hwndTab, NULL, rcTab.left, rcTab.top, rcTab.right - rcTab.left, rcTab.bottom - rcTab.top, SWP_NOZORDER);
+   SetWindowPos(pFhi->hwndTab, nullptr, rcTab.left, rcTab.top, rcTab.right - rcTab.left, rcTab.bottom - rcTab.top, SWP_NOZORDER);
 
    // Created and position of the buttons
    {
@@ -774,10 +774,10 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
       if( cx )
          cx = osvi.dwMajorVersion >= 6 ? 4 : cx;
 
-      if( hUxTheme != NULL )
+      if( hUxTheme != nullptr )
       {
          FreeLibrary(hUxTheme);
-         hUxTheme = NULL;
+         hUxTheme = nullptr;
       }
 
       rcButton.bottom = 0;
@@ -867,7 +867,7 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
       SetWindowPos
       (
          hWndDlg,
-         NULL,
+         nullptr,
          0,
          0,
          rcTab.right + cyMargin + 2 * GetSystemMetrics(SM_CXDLGFRAME) + 2 * cx,
@@ -963,7 +963,7 @@ VOID WINAPI FLD_ChildDialogInit(HWND hWndDlg, HWND hWndParent, int idrc)
 {
    RECT rcTab;
 
-   static PHB_SYMB pSymbol = NULL;
+   static PHB_SYMB pSymbol = nullptr;
 
    DWORD dwDlgBase = GetDialogBaseUnits();
    int   cxMargin  = LOWORD(dwDlgBase) / 4;
@@ -975,7 +975,7 @@ VOID WINAPI FLD_ChildDialogInit(HWND hWndDlg, HWND hWndParent, int idrc)
    {
       GetWindowRect(pFhi->hwndTab, &rcTab);
 
-      SetWindowPos(hWndDlg, NULL, pFhi->rcDisplay.left + rcTab.left - cxMargin - 1, pFhi->rcDisplay.top + rcTab.top - cyMargin, 0, 0, SWP_NOSIZE);
+      SetWindowPos(hWndDlg, nullptr, pFhi->rcDisplay.left + rcTab.left - cxMargin - 1, pFhi->rcDisplay.top + rcTab.top - cyMargin, 0, 0, SWP_NOSIZE);
 
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("INITPAGEFLDPROC"));
       if( pSymbol )
@@ -1008,7 +1008,7 @@ VOID WINAPI FLD_DialogAlign(HWND hWndDlg)
       SetWindowPos
       (
          pFhi->hwndDisplay,
-         NULL,
+         nullptr,
          pFhi->rcDisplay.left + rcTab.left - cxMargin - 1,
          pFhi->rcDisplay.top + rcTab.top - cyMargin,
          0,
@@ -1378,7 +1378,7 @@ static BOOL FLD_ShowPage(HWND hWndDlg, int index, FLDHDRINFO * pFhi)
    }
 
    fpi = ( FLDPAGEINFO * ) hfpi[ index ];
-   if( fpi->hwndPage == NULL )
+   if( fpi->hwndPage == nullptr )
    {
       pFhi->hwndDisplay = CreateDialogIndirectParam
                           (
@@ -1462,9 +1462,9 @@ static void FLD_CleanUp(HWND hWndDlg)
    -----------------------------------------------------------------*/
 static void FLD_AddBitmap(HWND hWndFolder)
 {
-   HIMAGELIST    himl = ( HIMAGELIST ) NULL;
+   HIMAGELIST    himl = ( HIMAGELIST ) nullptr;
    HBITMAP       hbmp;
-   FLDPAGEINFO * pfpi = NULL;
+   FLDPAGEINFO * pfpi = nullptr;
    TC_ITEM       tie;
    HDC hDC;
    int l;
@@ -1500,7 +1500,7 @@ static void FLD_AddBitmap(HWND hWndFolder)
          LR_LOADTRANSPARENT | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS
              );
 
-      if( himl == NULL )
+      if( himl == nullptr )
          himl = ImageList_LoadImage
                 (
             GetResources(),
@@ -1512,7 +1512,7 @@ static void FLD_AddBitmap(HWND hWndFolder)
             LR_LOADTRANSPARENT | LR_LOADFROMFILE | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS
                 );
 
-      if( himl != NULL )
+      if( himl != nullptr )
       {
          ImageList_GetIconSize(himl, &cx, &cy);
 
@@ -1523,13 +1523,13 @@ static void FLD_AddBitmap(HWND hWndFolder)
       {
          himl = ImageList_Create(cx, cy, ILC_COLOR8 | ILC_MASK, l + 1, l + 1);
 
-         if( himl != NULL )
+         if( himl != nullptr )
          {
             for( int s = 0; s <= l; s++ )
             {
                pfpi = ( FLDPAGEINFO * ) pFhi->fhpage[ s ];
 
-               hbmp = NULL;
+               hbmp = nullptr;
 
                if( pfpi->hasIcon )
                {
@@ -1543,10 +1543,10 @@ static void FLD_AddBitmap(HWND hWndFolder)
                      LR_LOADTRANSPARENT | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS
                          );
 
-                  if( hbmp == NULL )
+                  if( hbmp == nullptr )
                      hbmp = ( HBITMAP ) LoadImage
                             (
-                        NULL,
+                        nullptr,
                         pfpi->pszTemplate,
                         IMAGE_BITMAP,
                         cx,
@@ -1555,7 +1555,7 @@ static void FLD_AddBitmap(HWND hWndFolder)
                             );
                }
 
-               if( hbmp != NULL )
+               if( hbmp != nullptr )
                {
                   ImageList_AddMasked(himl, hbmp, CLR_DEFAULT);
                   DeleteObject(hbmp);

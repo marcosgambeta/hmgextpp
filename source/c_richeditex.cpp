@@ -79,13 +79,13 @@ LPSTR  WideToAnsi(LPWSTR);
 #endif
 HINSTANCE GetInstance(void);
 
-static HINSTANCE hRELib = NULL;
+static HINSTANCE hRELib = nullptr;
 
 HB_FUNC( INITRICHEDITBOXEX )
 {
    HWND  hWnd        = hmg_par_HWND(1);
    HMENU hMenu       = hmg_par_HMENU(2);
-   HWND  hWndControl = NULL;
+   HWND  hWndControl = nullptr;
 
    int Style = ES_MULTILINE | ES_WANTRETURN | WS_CHILD | ES_NOHIDESEL;
 
@@ -118,7 +118,7 @@ HB_FUNC( INITRICHEDITBOXEX )
                                    hWnd,
                                    hMenu,
                                    GetInstance(),
-                                   NULL);
+                                   nullptr);
 
       SendMessage(hWndControl, EM_LIMITTEXT, ( WPARAM ) hb_parni(9), 0);
       SendMessage(hWndControl, EM_SETEVENTMASK, ( WPARAM ) 0, ( LPARAM ) (ENM_CHANGE | ENM_SELCHANGE | ENM_PROTECTED | ENM_SCROLL | ENM_LINK | ENM_KEYEVENTS | ENM_REQUESTRESIZE | ENM_MOUSEEVENTS));
@@ -137,7 +137,7 @@ HB_FUNC( UNLOADRICHEDITEXLIB )
    if( hRELib )
    {
       FreeLibrary(hRELib);
-      hRELib = NULL;
+      hRELib = nullptr;
    }
 }
 
@@ -145,7 +145,7 @@ DWORD CALLBACK EditStreamCallbackRead(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb
 {
    HANDLE hFile = ( HANDLE ) dwCookie;
 
-   if( ReadFile(hFile, ( LPVOID ) lpBuff, ( DWORD ) cb, ( LPDWORD ) pcb, NULL) )
+   if( ReadFile(hFile, ( LPVOID ) lpBuff, ( DWORD ) cb, ( LPDWORD ) pcb, nullptr) )
       return 0;
    else
       return ( DWORD ) -1;
@@ -180,7 +180,7 @@ HB_FUNC( RICHEDITBOX_STREAMIN )
    if( lSelection )
       Format = Format | SFF_SELECTION;
 
-   if( ( hFile = CreateFile(cFileName, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, NULL) ) == INVALID_HANDLE_VALUE )
+   if( ( hFile = CreateFile(cFileName, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, nullptr) ) == INVALID_HANDLE_VALUE )
    {
       hb_retl( FALSE );
       return;
@@ -210,7 +210,7 @@ DWORD CALLBACK EditStreamCallbackWrite(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG c
 {
    HANDLE hFile = ( HANDLE ) dwCookie;
 
-   if( WriteFile(hFile, ( LPVOID ) lpBuff, ( DWORD ) cb, ( LPDWORD ) pcb, NULL) )
+   if( WriteFile(hFile, ( LPVOID ) lpBuff, ( DWORD ) cb, ( LPDWORD ) pcb, nullptr) )
       return 0;
    else
       return ( DWORD ) -1;
@@ -245,7 +245,7 @@ HB_FUNC( RICHEDITBOX_STREAMOUT )
    if( lSelection )
       Format = Format | SFF_SELECTION;
 
-   if( ( hFile = CreateFile(cFileName, GENERIC_WRITE, FILE_SHARE_WRITE, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL) ) == INVALID_HANDLE_VALUE )
+   if( ( hFile = CreateFile(cFileName, GENERIC_WRITE, FILE_SHARE_WRITE, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr) ) == INVALID_HANDLE_VALUE )
    {
       hb_retl( FALSE );
       return;
@@ -285,16 +285,16 @@ HB_FUNC( RICHEDITBOX_RTFLOADRESOURCEFILE )
 
    HRSRC   hResourceData;
    HGLOBAL hGlobalResource;
-   TCHAR * lpGlobalResource = NULL;
+   TCHAR * lpGlobalResource = nullptr;
 
-   hResourceData = FindResource(NULL, cFileName, TEXT("RTF"));
-   if( hResourceData != NULL )
+   hResourceData = FindResource(nullptr, cFileName, TEXT("RTF"));
+   if( hResourceData != nullptr )
    {
-      hGlobalResource = LoadResource(NULL, hResourceData);
-      if( hGlobalResource != NULL )
+      hGlobalResource = LoadResource(nullptr, hResourceData);
+      if( hGlobalResource != nullptr )
       {
          lpGlobalResource = reinterpret_cast<TCHAR*>(LockResource(hGlobalResource));
-         if( lpGlobalResource != NULL )
+         if( lpGlobalResource != nullptr )
          {
             SETTEXTEX ST;
             ST.flags = ( lSelect ? ST_SELECTION : ST_DEFAULT );
@@ -309,7 +309,7 @@ HB_FUNC( RICHEDITBOX_RTFLOADRESOURCEFILE )
       }
    }
 
-   if( lpGlobalResource == NULL )
+   if( lpGlobalResource == nullptr )
       hb_retl( ( BOOL ) FALSE );
    else
       hb_retl( ( BOOL ) TRUE );
@@ -653,8 +653,8 @@ HB_FUNC( RICHEDITBOX_GETTEXT )
    #else
    GT.codepage = CP_ACP;
    #endif
-   GT.lpDefaultChar = NULL;
-   GT.lpUsedDefChar = NULL;
+   GT.lpDefaultChar = nullptr;
+   GT.lpUsedDefChar = nullptr;
 
    SendMessage(hWndControl, EM_GETTEXTEX, ( WPARAM ) &GT, ( LPARAM ) &cBuffer);
 
@@ -1103,12 +1103,12 @@ HB_FUNC( RICHEDITBOX_PASTESPECIAL )    // Paste a specific clipboard format in a
    if( HB_ISCHAR(2) )
    {
       CHAR * ClipboardFormat = ( CHAR * ) hb_parc(2);
-      SendMessage(hWndControl, EM_PASTESPECIAL, ( WPARAM ) ClipboardFormat, ( LPARAM ) NULL);
+      SendMessage(hWndControl, EM_PASTESPECIAL, ( WPARAM ) ClipboardFormat, ( LPARAM ) nullptr);
    }
    else
    {
       WPARAM ClipboardFormat = ( WPARAM ) hb_parnl(2);
-      SendMessage(hWndControl, EM_PASTESPECIAL, ( WPARAM ) ClipboardFormat, ( LPARAM ) NULL);
+      SendMessage(hWndControl, EM_PASTESPECIAL, ( WPARAM ) ClipboardFormat, ( LPARAM ) nullptr);
    }
 }
 
@@ -1146,7 +1146,7 @@ HB_FUNC( RICHEDITBOX_FORMATRANGE )
 
    cpMin = ( LONG ) SendMessage(hWndControl, EM_FORMATRANGE, ( WPARAM ) ( BOOL ) TRUE, ( LPARAM ) &FormatRange);
 
-   SendMessage(hWndControl, EM_FORMATRANGE, ( WPARAM ) ( BOOL ) FALSE, ( LPARAM ) NULL);
+   SendMessage(hWndControl, EM_FORMATRANGE, ( WPARAM ) ( BOOL ) FALSE, ( LPARAM ) nullptr);
 
    hb_retnl( ( LONG ) cpMin );
 }
@@ -1187,7 +1187,7 @@ HB_FUNC( RICHEDITBOX_POSFROMCHAR )
 static TCHAR       cFindWhat[ 1024 ];
 static TCHAR       cReplaceWith[ 1024 ];
 static FINDREPLACE FindReplace;
-static HWND        hDlgFindReplace = NULL;
+static HWND        hDlgFindReplace = nullptr;
 
 HB_FUNC( REGISTERFINDMSGSTRING )
 {
@@ -1217,7 +1217,7 @@ HB_FUNC( FINDREPLACEDLG )
    LPWSTR cTitle      = AnsiToWide(( char * ) hb_parc(11));
 #endif
 
-   if( hDlgFindReplace == NULL )
+   if( hDlgFindReplace == nullptr )
    {
       ZeroMemory(&FindReplace, sizeof(FindReplace));
 
@@ -1259,7 +1259,7 @@ HB_FUNC( FINDREPLACEDLGSETTITLE )
    LPCWSTR cTitle = AnsiToWide(( char * ) hb_parc(1));
 #endif
 
-   if( hDlgFindReplace != NULL )
+   if( hDlgFindReplace != nullptr )
       SetWindowText(hDlgFindReplace, cTitle);
 
 #ifdef UNICODE
@@ -1274,7 +1274,7 @@ HB_FUNC( FINDREPLACEDLGGETTITLE )
 #endif
    TCHAR cTitle[ 256 ];
 
-   if( hDlgFindReplace != NULL )
+   if( hDlgFindReplace != nullptr )
    {
       GetWindowText(hDlgFindReplace, cTitle, sizeof(cTitle) / sizeof(TCHAR));
 #ifndef UNICODE
@@ -1301,7 +1301,7 @@ HB_FUNC( FINDREPLACEDLGSHOW )
 {
    BOOL lShow = HB_ISNIL(1) ? TRUE : hb_parl(1);
 
-   if( hDlgFindReplace != NULL )
+   if( hDlgFindReplace != nullptr )
    {
       if( lShow )
          ShowWindow(hDlgFindReplace, SW_SHOW);
@@ -1317,16 +1317,16 @@ HB_FUNC( FINDREPLACEDLGGETHANDLE )
 
 HB_FUNC( FINDREPLACEDLGISRELEASE )
 {
-   hb_retl( ( BOOL ) ( hDlgFindReplace == NULL ) );
+   hb_retl( ( BOOL ) ( hDlgFindReplace == nullptr ) );
 }
 
 HB_FUNC( FINDREPLACEDLGRELEASE )
 {
    BOOL lDestroy = HB_ISNIL(1) ? TRUE : hb_parl(1);
 
-   if( hDlgFindReplace != NULL && lDestroy )
+   if( hDlgFindReplace != nullptr && lDestroy )
       DestroyWindow(hDlgFindReplace);
-   hDlgFindReplace = NULL;
+   hDlgFindReplace = nullptr;
 }
 
 HB_FUNC( FINDREPLACEDLGGETOPTIONS )

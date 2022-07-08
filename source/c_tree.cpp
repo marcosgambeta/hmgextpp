@@ -85,7 +85,7 @@ HB_FUNC( INITTREE )
       hmg_par_HWND(1),
       hmg_par_HMENU(6),
       GetInstance(),
-      NULL
+      nullptr
             );
 
    HB_RETNL( ( LONG_PTR ) hWndTV );
@@ -94,7 +94,7 @@ HB_FUNC( INITTREE )
 HB_FUNC( INITTREEVIEWBITMAP ) //Tree+
 {
    HWND       hbutton = hmg_par_HWND(1);
-   HIMAGELIST himl    = ( HIMAGELIST ) NULL;
+   HIMAGELIST himl    = ( HIMAGELIST ) nullptr;
    PHB_ITEM   hArray;
    char *     FileName;
    int        ic = 0;
@@ -111,13 +111,13 @@ HB_FUNC( INITTREEVIEWBITMAP ) //Tree+
       {
          FileName = ( char * ) hb_arrayGetCPtr(hArray, s);
 
-         if( himl == NULL )
-            himl = HMG_ImageListLoadFirst(FileName, nCount, Transparent, NULL, NULL);
+         if( himl == nullptr )
+            himl = HMG_ImageListLoadFirst(FileName, nCount, Transparent, nullptr, nullptr);
          else
             HMG_ImageListAdd( himl, FileName, Transparent );
       }
 
-      if( himl != NULL )
+      if( himl != nullptr )
          SendMessage(hbutton, TVM_SETIMAGELIST, ( WPARAM ) TVSIL_NORMAL, ( LPARAM ) himl);
 
       ic = ImageList_GetImageCount(himl);
@@ -135,7 +135,7 @@ HB_FUNC( ADDTREEVIEWBITMAP )  // Tree+
 
    himl = TreeView_GetImageList(hbutton, TVSIL_NORMAL);
 
-   if( himl != NULL )
+   if( himl != nullptr )
    {
       HMG_ImageListAdd( himl, ( char * ) hb_parc(2), Transparent );
 
@@ -160,7 +160,7 @@ void AddTreeItemLPARAM(HWND hWndTV, HTREEITEM ItemHandle, LONG nID, BOOL IsNodeF
 {
    TV_ITEM TV_Item;
 
-   if( ( hWndTV != NULL ) && ( ItemHandle != NULL ) )
+   if( ( hWndTV != nullptr ) && ( ItemHandle != nullptr ) )
    {
       HMG_StructTreeItemLPARAM * TreeItemLPARAM = ( HMG_StructTreeItemLPARAM * ) hb_xgrab(sizeof(HMG_StructTreeItemLPARAM));
       TreeItemLPARAM->ItemHandle = ItemHandle;
@@ -209,7 +209,7 @@ HB_FUNC( ADDTREEITEM )
    if( hPrev == 0 )
    {
       is.hInsertAfter = hPrev;
-      is.hParent      = NULL;
+      is.hParent      = nullptr;
    }
    else
    {
@@ -237,7 +237,7 @@ HB_FUNC( TREEVIEW_GETSELECTION )
 
    ItemHandle = TreeView_GetSelection(TreeHandle);
 
-   if( ItemHandle != NULL )
+   if( ItemHandle != nullptr )
    {
       HB_RETNL( ( LONG_PTR ) ItemHandle );
    }
@@ -263,19 +263,19 @@ void TreeView_FreeMemoryLPARAMRecursive(HWND hWndTV, HTREEITEM ItemHandle)
 
    TreeItem.mask   = TVIF_PARAM;
    TreeItem.hItem  = ItemHandle;
-   TreeItem.lParam = ( LPARAM ) NULL;
+   TreeItem.lParam = ( LPARAM ) nullptr;
    TreeView_GetItem(hWndTV, &TreeItem);
 
    TreeItemLPARAM = ( HMG_StructTreeItemLPARAM * ) TreeItem.lParam;
-   if( TreeItemLPARAM != NULL )
+   if( TreeItemLPARAM != nullptr )
    {
       hb_xfree(TreeItemLPARAM);
-      TreeItem.lParam = ( LPARAM ) NULL;      // for security set lParam = NULL
+      TreeItem.lParam = ( LPARAM ) nullptr;      // for security set lParam = nullptr
       TreeView_SetItem(hWndTV, &TreeItem);
    }
 
    ChildItem = TreeView_GetChild( hWndTV, ItemHandle );
-   while( ChildItem != NULL )
+   while( ChildItem != nullptr )
    {
       TreeView_FreeMemoryLPARAMRecursive(hWndTV, ChildItem);
       NextItem  = TreeView_GetNextSibling(hWndTV, ChildItem);
@@ -312,7 +312,7 @@ HB_FUNC( TREEVIEW_DELETEALLITEMS )
       TreeView_GetItem(TreeHandle, &TreeItem);
 
       TreeItemLPARAM = ( HMG_StructTreeItemLPARAM * ) TreeItem.lParam;
-      if( TreeItemLPARAM != NULL )
+      if( TreeItemLPARAM != nullptr )
          hb_xfree(TreeItemLPARAM);
    }
 
@@ -434,7 +434,7 @@ HB_FUNC( TREEVIEW_GETSELECTIONID )
    TreeHandle = hmg_par_HWND(1);
    ItemHandle = TreeView_GetSelection(TreeHandle);
 
-   if( ItemHandle != NULL )
+   if( ItemHandle != nullptr )
    {
       TreeItem.mask   = TVIF_PARAM;
       TreeItem.hItem  = ItemHandle;
@@ -506,7 +506,7 @@ HB_FUNC( TREEVIEW_GETITEMSTATE )
 
 BOOL TreeView_IsNode(HWND hWndTV, HTREEITEM ItemHandle)
 {
-   if( TreeView_GetChild( hWndTV, ItemHandle ) != NULL )
+   if( TreeView_GetChild( hWndTV, ItemHandle ) != nullptr )
       return TRUE;
    else
       return FALSE;
@@ -526,7 +526,7 @@ void TreeView_ExpandChildrenRecursive(HWND hWndTV, HTREEITEM ItemHandle, UINT nE
       TreeView_Expand( hWndTV, ItemHandle, nExpand );
       ChildItem = TreeView_GetChild( hWndTV, ItemHandle );
 
-      while( ChildItem != NULL )
+      while( ChildItem != nullptr )
       {
          TreeView_ExpandChildrenRecursive(hWndTV, ChildItem, nExpand);
 
@@ -607,8 +607,8 @@ int CALLBACK TreeViewCompareFunc( LPARAM lParam1, LPARAM lParam2, LPARAM lParamS
    TV_Item2.hItem      = ( HTREEITEM ) ItemHandle2;
    TreeView_GetItem(hWndTV, &TV_Item2);
 
-   IsTreeNode1 = ( TreeItemLPARAM1->IsNodeFlag == TRUE || TreeView_GetChild( hWndTV, ItemHandle1 ) != NULL ) ? TRUE : FALSE;
-   IsTreeNode2 = ( TreeItemLPARAM2->IsNodeFlag == TRUE || TreeView_GetChild( hWndTV, ItemHandle2 ) != NULL ) ? TRUE : FALSE;
+   IsTreeNode1 = ( TreeItemLPARAM1->IsNodeFlag == TRUE || TreeView_GetChild( hWndTV, ItemHandle1 ) != nullptr ) ? TRUE : FALSE;
+   IsTreeNode2 = ( TreeItemLPARAM2->IsNodeFlag == TRUE || TreeView_GetChild( hWndTV, ItemHandle2 ) != nullptr ) ? TRUE : FALSE;
 
    if( TreeViewCompareInfo->CaseSensitive == FALSE )
       CmpValue = lstrcmpi( ItemText1, ItemText2 );
@@ -648,7 +648,7 @@ void TreeView_SortChildrenRecursiveCB(HWND hWndTV, TVSORTCB TVSortCB)
       TreeView_SortChildrenCB(hWndTV, &TVSortCB, 0);
       ChildItem = TreeView_GetChild( hWndTV, TVSortCB.hParent );
 
-      while( ChildItem != NULL )
+      while( ChildItem != nullptr )
       {
          TVSortCB.hParent = ( HTREEITEM ) ChildItem;
          TreeView_SortChildrenRecursiveCB(hWndTV, TVSortCB);

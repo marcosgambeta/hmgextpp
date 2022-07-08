@@ -86,7 +86,7 @@ HB_FUNC( INITIPADDRESS )
       hWnd,
       hmg_par_HMENU(2),
       GetInstance(),
-      NULL
+      nullptr
                 );
 
    HB_RETNL( ( LONG_PTR ) hIpAddress );

@@ -238,7 +238,7 @@ HB_FUNC( INITLISTVIEW )
       hwnd,
       hmg_par_HMENU(2),
       GetInstance(),
-      NULL
+      nullptr
              );
 
    if( hb_parl(7) )
@@ -255,7 +255,7 @@ HB_FUNC( LISTVIEW_SETITEMCOUNT )
 HB_FUNC( ADDLISTVIEWBITMAP )       // Grid+
 {
    HWND       hbutton = hmg_par_HWND(1);
-   HIMAGELIST himl    = ( HIMAGELIST ) NULL;
+   HIMAGELIST himl    = ( HIMAGELIST ) nullptr;
    PHB_ITEM   hArray;
    char *     FileName;
    int        nCount;
@@ -271,13 +271,13 @@ HB_FUNC( ADDLISTVIEWBITMAP )       // Grid+
       {
          FileName = ( char * ) hb_arrayGetCPtr(hArray, s);
 
-         if( himl == NULL )
-            himl = HMG_ImageListLoadFirst(FileName, nCount, 1, &cx, NULL);
+         if( himl == nullptr )
+            himl = HMG_ImageListLoadFirst(FileName, nCount, 1, &cx, nullptr);
          else
             HMG_ImageListAdd( himl, FileName, 1 );
       }
 
-      if( himl != NULL )
+      if( himl != nullptr )
          SendMessage(hbutton, LVM_SETIMAGELIST, ( WPARAM ) LVSIL_SMALL, ( LPARAM ) himl);
    }
 
@@ -287,7 +287,7 @@ HB_FUNC( ADDLISTVIEWBITMAP )       // Grid+
 HB_FUNC( ADDLISTVIEWBITMAPHEADER )  // Grid+
 {
    HWND       hheader;
-   HIMAGELIST himl = ( HIMAGELIST ) NULL;
+   HIMAGELIST himl = ( HIMAGELIST ) nullptr;
    PHB_ITEM   hArray;
    char *     FileName;
    int        nCount;
@@ -306,13 +306,13 @@ HB_FUNC( ADDLISTVIEWBITMAPHEADER )  // Grid+
          {
             FileName = ( char * ) hb_arrayGetCPtr(hArray, s);
 
-            if( himl == NULL )
-               himl = HMG_ImageListLoadFirst(FileName, nCount, 1, NULL, NULL);
+            if( himl == nullptr )
+               himl = HMG_ImageListLoadFirst(FileName, nCount, 1, nullptr, nullptr);
             else
                HMG_ImageListAdd( himl, FileName, 1 );
          }
 
-         if( himl != NULL )
+         if( himl != nullptr )
          {
             SendMessage(hheader, HDM_SETIMAGELIST, 0, ( LPARAM ) himl);
             RegisterResource(himl, "IMAGELIST");
@@ -847,7 +847,7 @@ HB_FUNC( LISTVIEW_ADDCOLUMN )
    LV_COLUMN COL;
    HWND      hwnd    = hmg_par_HWND(1);
    int       iColumn = hb_parni(2) - 1;
-   PHB_ITEM  pValue  = hb_itemNew(NULL);
+   PHB_ITEM  pValue  = hb_itemNew(nullptr);
 
    hb_itemCopy(pValue, hb_param(4, Harbour::Item::STRING));
 
@@ -876,7 +876,7 @@ HB_FUNC( LISTVIEW_ADDCOLUMN )
 
    SendMessage(hwnd, LVM_DELETEALLITEMS, 0, 0);
 
-   RedrawWindow(hwnd, NULL, NULL, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
+   RedrawWindow(hwnd, nullptr, nullptr, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
 }
 
 HB_FUNC( LISTVIEW_DELETECOLUMN )
@@ -887,7 +887,7 @@ HB_FUNC( LISTVIEW_DELETECOLUMN )
 
    SendMessage(hwnd, LVM_DELETEALLITEMS, 0, 0);
 
-   RedrawWindow(hwnd, NULL, NULL, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
+   RedrawWindow(hwnd, nullptr, nullptr, RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW);
 }
 
 HB_FUNC( LISTVIEW_GETCOLUMNWIDTH )
@@ -972,7 +972,7 @@ HB_FUNC( LISTVIEW_SETCOLUMNORDERARRAY )
 {
    PHB_ITEM pOrder = hb_param(3, Harbour::Item::ARRAY);
 
-   if( NULL != pOrder )
+   if( nullptr != pOrder )
    {
       int iColumn = hb_parni(2);
 
@@ -1180,8 +1180,8 @@ HB_FUNC( LISTVIEW_GROUPADD )
    LVG.stateMask = LVM_SETGROUPINFO;
    LVG.mask      = LVGF_GROUPID | LVGF_HEADER | LVGF_FOOTER | LVGF_ALIGN | LVGF_STATE;
    LVG.iGroupId  = GroupID;
-   LVG.pszHeader = NULL; //L""; // TODO: check
-   LVG.pszFooter = NULL; //L""; // TODO: check
+   LVG.pszHeader = nullptr; //L""; // TODO: check
+   LVG.pszFooter = nullptr; //L""; // TODO: check
    LVG.uAlign    = LVGA_HEADER_LEFT | LVGA_FOOTER_LEFT;
    LVG.state     = LVGS_NORMAL;
 
@@ -1193,9 +1193,9 @@ HB_FUNC( LISTVIEW_GROUPSETINFO )
 {
    HWND       hWnd         = hmg_par_HWND(1);
    INT        GroupID      = hmg_par_INT(2);
-   HB_WCHAR * cHeader      = ( HB_WCHAR * ) ( ( hb_parclen(3) == 0 ) ? NULL : hb_mbtowc( hb_parc(3) ) );
+   HB_WCHAR * cHeader      = ( HB_WCHAR * ) ( ( hb_parclen(3) == 0 ) ? nullptr : hb_mbtowc( hb_parc(3) ) );
    UINT       nAlignHeader = hmg_par_UINT(4);
-   HB_WCHAR * cFooter      = ( ( hb_parclen(5) == 0 ) ? NULL : hb_mbtowc( hb_parc(5) ) );
+   HB_WCHAR * cFooter      = ( ( hb_parclen(5) == 0 ) ? nullptr : hb_mbtowc( hb_parc(5) ) );
    UINT       nAlignFooter = hmg_par_UINT(6);
    UINT       nState       = hmg_par_UINT(7);
 
@@ -1216,8 +1216,8 @@ HB_FUNC( LISTVIEW_GROUPSETINFO )
    {
       UINT nAlign = 0;
       LVG.stateMask = LVM_SETGROUPINFO;
-      LVG.pszHeader = ( cHeader != NULL ) ? cHeader : cHeaderBuffer;
-      LVG.pszFooter = ( cFooter != NULL ) ? cFooter : cFooterBuffer;
+      LVG.pszHeader = ( cHeader != nullptr ) ? cHeader : cHeaderBuffer;
+      LVG.pszFooter = ( cFooter != nullptr ) ? cFooter : cFooterBuffer;
       nAlign        = nAlign | ( ( nAlignHeader != 0 ) ?  nAlignHeader       : ( LVG.uAlign & 0x07 ) );
       nAlign        = nAlign | ( ( nAlignFooter != 0 ) ? ( nAlignFooter << 3 ) : ( LVG.uAlign & 0x38 ) );
       LVG.uAlign    = nAlign;

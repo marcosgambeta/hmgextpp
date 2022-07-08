@@ -98,7 +98,7 @@ HB_FUNC( INITLISTBOX )
       hwnd,
       hmg_par_HMENU(2),
       GetInstance(),
-      NULL
+      nullptr
              );
 
    if( hb_parl(12) )
@@ -145,7 +145,7 @@ HB_FUNC( LISTBOXGETSTRING )
    int     iLen = ( int ) SendMessage(hmg_par_HWND(1), LB_GETTEXTLEN, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) 0);
    TCHAR * cString;
 
-   if( iLen > 0 && NULL != ( cString = ( TCHAR * ) hb_xgrab((iLen + 1) * sizeof(TCHAR)) ) )
+   if( iLen > 0 && nullptr != ( cString = ( TCHAR * ) hb_xgrab((iLen + 1) * sizeof(TCHAR)) ) )
    {
       SendMessage(hmg_par_HWND(1), LB_GETTEXT, ( WPARAM ) hb_parni(2) - 1, ( LPARAM ) cString);
    #ifdef UNICODE
@@ -198,7 +198,7 @@ HB_FUNC( INITMULTILISTBOX )
       hwnd,
       hmg_par_HMENU(2),
       GetInstance(),
-      NULL
+      nullptr
              );
 
    if( hb_parl(12) )

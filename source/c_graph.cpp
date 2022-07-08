@@ -123,7 +123,7 @@ HB_FUNC( TEXTDRAW )
 
       SetRect(&rect, hb_parni(3), hb_parni(2), hb_parni(6), hb_parni(5));
 
-      hb_retl( ExtTextOut(hDC, hb_parni(3), hb_parni(2), ETO_OPAQUE, &rect, lpString, ( int ) lstrlen(lpString), NULL)
+      hb_retl( ExtTextOut(hDC, hb_parni(3), hb_parni(2), ETO_OPAQUE, &rect, lpString, ( int ) lstrlen(lpString), nullptr)
                ? HB_TRUE : HB_FALSE );
 
 #ifdef UNICODE
@@ -160,7 +160,7 @@ HB_FUNC( LINEDRAW )
    hdc1     = GetDC(( HWND ) hWnd1);
    hpen     = CreatePen(PS_SOLID, ( int ) hb_parni(7), ( COLORREF ) RGB(( int ) HB_PARNI(6, 1), ( int ) HB_PARNI(6, 2), ( int ) HB_PARNI(6, 3)));
    hgdiobj1 = SelectObject(hdc1, hpen);
-   MoveToEx(hdc1, ( int ) hb_parni(3), ( int ) hb_parni(2), NULL);
+   MoveToEx(hdc1, ( int ) hb_parni(3), ( int ) hb_parni(2), nullptr);
    LineTo(hdc1, ( int ) hb_parni(5), ( int ) hb_parni(4));
    SelectObject(hdc1, hgdiobj1);
    DeleteObject(hpen);

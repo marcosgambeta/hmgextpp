@@ -73,12 +73,12 @@ static HWND hwndMDIClient;
 HB_FUNC( REGISTERMDIWINDOW )
 {
 #ifndef UNICODE
-   LPCTSTR      lpIconName  = HB_ISCHAR(1) ? hb_parc(1) : NULL;
+   LPCTSTR      lpIconName  = HB_ISCHAR(1) ? hb_parc(1) : nullptr;
    const char * lpClassName = hb_parc(2);
 #else
-   LPWSTR  lpIconName = HB_ISCHAR(1) ? AnsiToWide(( char * ) hb_parc(1)) : NULL;
+   LPWSTR  lpIconName = HB_ISCHAR(1) ? AnsiToWide(( char * ) hb_parc(1)) : nullptr;
    void *  hClassName;
-   LPCTSTR lpClassName = HB_PARSTR(2, &hClassName, NULL);
+   LPCTSTR lpClassName = HB_PARSTR(2, &hClassName, nullptr);
 #endif
    WNDCLASS WndClass;
 
@@ -92,13 +92,13 @@ HB_FUNC( REGISTERMDIWINDOW )
    WndClass.cbWndExtra  = 0;
    WndClass.hInstance   = GetInstance();
    WndClass.hIcon       = LoadIcon(GetResources(), lpIconName);
-   if( WndClass.hIcon == NULL )
-      WndClass.hIcon = ( HICON ) LoadImage(NULL, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE);
+   if( WndClass.hIcon == nullptr )
+      WndClass.hIcon = ( HICON ) LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE);
 
-   if( WndClass.hIcon == NULL )
-      WndClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+   if( WndClass.hIcon == nullptr )
+      WndClass.hIcon = LoadIcon(nullptr, IDI_APPLICATION);
 
-   WndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
+   WndClass.hCursor = LoadCursor(nullptr, IDC_ARROW);
    if( HB_PARNI(3, 1) == -1 )
       WndClass.hbrBackground = ( HBRUSH ) ( COLOR_WINDOW + 1 );
    else
@@ -107,7 +107,7 @@ HB_FUNC( REGISTERMDIWINDOW )
       WndClass.hbrBackground = hbrush;
    }
 
-   WndClass.lpszMenuName  = NULL;
+   WndClass.lpszMenuName  = nullptr;
    WndClass.lpszClassName = lpClassName;
 
    if( ! RegisterClass(&WndClass) )
@@ -125,20 +125,20 @@ HB_FUNC( REGISTERMDIWINDOW )
    // Owner of this class
 
    WndClass.hIcon = LoadIcon(GetResources(), lpIconName);
-   if( WndClass.hIcon == NULL )
-      WndClass.hIcon = ( HICON ) LoadImage(NULL, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE);
+   if( WndClass.hIcon == nullptr )
+      WndClass.hIcon = ( HICON ) LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE);
 
-   if( WndClass.hIcon == NULL )
-      WndClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+   if( WndClass.hIcon == nullptr )
+      WndClass.hIcon = LoadIcon(nullptr, IDI_APPLICATION);
 
-   WndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
+   WndClass.hCursor = LoadCursor(nullptr, IDC_ARROW);
 
    if( HB_PARNI(3, 1) == -1 )
       WndClass.hbrBackground = ( HBRUSH ) ( COLOR_WINDOW + 1 );
    else
       WndClass.hbrBackground = hbrush;
 
-   WndClass.lpszMenuName  = NULL;
+   WndClass.lpszMenuName  = nullptr;
    WndClass.lpszClassName = TEXT("MdiChildWndClass");
    if( ! RegisterClass(( LPWNDCLASS ) &WndClass) )
    {
@@ -156,7 +156,7 @@ HB_FUNC( REGISTERMDIWINDOW )
 
 LRESULT CALLBACK MdiWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-   static PHB_SYMB pSymbol = NULL;
+   static PHB_SYMB pSymbol = nullptr;
    long int        r;
 
    if( ! pSymbol )
@@ -183,7 +183,7 @@ LRESULT CALLBACK MdiWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 
 LRESULT CALLBACK MdiChildWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-   static PHB_SYMB pSymbol = NULL;
+   static PHB_SYMB pSymbol = nullptr;
    long int        r;
 
    if( ! pSymbol )
@@ -262,12 +262,12 @@ HB_FUNC( INITMDIWINDOW )
       hb_parni(4),
       hb_parni(5),
       hmg_par_HWND(13),
-      ( HMENU ) NULL,
+      ( HMENU ) nullptr,
       GetInstance(),
-      NULL
+      nullptr
           );
 
-   if( hwnd == NULL )
+   if( hwnd == nullptr )
    {
       MessageBox(0, TEXT("MDI Window Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
       return;
@@ -304,7 +304,7 @@ HB_FUNC( INITMDICLIENTWINDOW )
    hwndMDIClient = CreateWindow
                    (
       TEXT("mdiclient"),
-      NULL,
+      nullptr,
       WS_CHILD | WS_CLIPCHILDREN | WS_VSCROLL | WS_HSCROLL | WS_VISIBLE,
       0,
       0,
@@ -333,7 +333,7 @@ HB_FUNC( INITMDICHILDWINDOW )
       rgch[ 0 ] = 0;
    else
    {
-      if( hb_parc(2) == NULL )
+      if( hb_parc(2) == nullptr )
          wsprintf( rgch, TEXT("Untitled%d"), cUntitled++ );
       else
       {
@@ -369,7 +369,7 @@ HB_FUNC( INITMDICHILDWINDOW )
    mcs.lParam  = 0;                          // lparam
    hwndChild   = ( HWND ) SendMessage(hmg_par_HWND(1), WM_MDICREATE, 0, ( LPARAM ) ( LPMDICREATESTRUCT ) &mcs);
 
-   if( hwndChild != NULL )
+   if( hwndChild != nullptr )
    {
       Style = GetWindowLong(hwndChild, GWL_STYLE);
 

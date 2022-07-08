@@ -477,8 +477,8 @@ HB_FUNC( INITCLBUTTON )
                            hb_parni( 7 ),
                            hwnd,
                            ( HMENU ) HB_PARNL( 8 ),
-                           GetModuleHandle( NULL ),
-                           NULL );
+                           GetModuleHandle( nullptr ),
+                           nullptr );
 
    HB_RETNL( ( LONG_PTR ) hbutton );
 }
@@ -492,7 +492,7 @@ HB_FUNC( CLBUTTON_SETNOTE )
    if( HB_ISCHAR( 2 ) )
    {
       LPSTR  szText        = ( LPSTR ) hb_parc( 2 );
-      int    nConvertedLen = MultiByteToWideChar( CP_ACP, MB_PRECOMPOSED, szText, -1, NULL, 0 );
+      int    nConvertedLen = MultiByteToWideChar( CP_ACP, MB_PRECOMPOSED, szText, -1, nullptr, 0 );
       LPWSTR lpwText       = ( LPWSTR ) hb_xgrab(nConvertedLen * 2 + 1);
 
       MultiByteToWideChar( CP_ACP, MB_PRECOMPOSED, szText, -1, lpwText, nConvertedLen );
@@ -528,7 +528,7 @@ HB_FUNC( CLBUTTON_SETIMAGE )
 
    himl = ImageList_LoadImage
           (
-      GetModuleHandle( NULL ),
+      GetModuleHandle( nullptr ),
       lpImageName,
       0,
       6,
@@ -537,10 +537,10 @@ HB_FUNC( CLBUTTON_SETIMAGE )
       LR_CREATEDIBSECTION | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT
           );
 
-   if( himl == NULL )
+   if( himl == nullptr )
       himl = ImageList_LoadImage
              (
-         GetModuleHandle( NULL ),
+         GetModuleHandle( nullptr ),
          lpImageName,
          0,
          6,

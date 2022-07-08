@@ -68,11 +68,11 @@ void hmg_ErrorExit(LPCTSTR lpszMessage, DWORD dwError, BOOL bExit)
       FORMAT_MESSAGE_ALLOCATE_BUFFER |
       FORMAT_MESSAGE_FROM_SYSTEM |
       FORMAT_MESSAGE_IGNORE_INSERTS,
-      NULL,
+      nullptr,
       nError,
       MAKELANGID( LANG_NEUTRAL, SUBLANG_DEFAULT ),
       ( LPTSTR ) &lpMsgBuf,
-      0, NULL );
+      0, nullptr );
 
    // Display the error message and exit the process
    lpDisplayBuf = ( LPVOID ) LocalAlloc(LMEM_ZEROINIT, (hmg_tstrlen(( LPCTSTR ) lpMsgBuf) +
@@ -91,7 +91,7 @@ void hmg_ErrorExit(LPCTSTR lpszMessage, DWORD dwError, BOOL bExit)
                 lpszMessage, nError, ( LPTSTR ) lpMsgBuf );
 #endif
 
-   MessageBox(NULL, ( LPCTSTR ) lpDisplayBuf, TEXT("MiniGUI Error"), MB_OK);
+   MessageBox(nullptr, ( LPCTSTR ) lpDisplayBuf, TEXT("MiniGUI Error"), MB_OK);
 
    LocalFree(lpMsgBuf);
    LocalFree(lpDisplayBuf);

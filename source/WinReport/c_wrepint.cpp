@@ -32,21 +32,21 @@ TimedMessageBox(
     /*
      *  Set a timer to dismiss the Message box.
      */
-    idTimer = SetTimer(NULL, 0, dwTimeout, (TIMERPROC)MessageBoxTimer);
+    idTimer = SetTimer(nullptr, 0, dwTimeout, (TIMERPROC)MessageBoxTimer);
 
     uiResult = MessageBox(hwndParent, ptszMessage ? ptszMessage : "", ptszTitle ? ptszTitle :"", flags);
 
     /*
      *  Finished with the timer.
      */
-    KillTimer(NULL, idTimer);
+    KillTimer(nullptr, idTimer);
 
     /*
      *  See if there is a WM_QUIT Message in the queue. If so,
      *  then you timed out. Eat the Message so you don't quit the
      *  entire application.
      */
-    if (PeekMessage(&msg, NULL, WM_QUIT, WM_QUIT, PM_REMOVE)) {
+    if (PeekMessage(&msg, nullptr, WM_QUIT, WM_QUIT, PM_REMOVE)) {
 
         /*
          *  If you timed out, then return zero.
@@ -60,21 +60,21 @@ TimedMessageBox(
 HB_FUNC( C_T_MSGRETRYCANCEL )
 {
 	int r;
-	r = TimedMessageBox(NULL, hb_parc(1), hb_parc(2), MB_RETRYCANCEL | MB_ICONQUESTION | MB_SYSTEMMODAL, hb_parni(3));
+	r = TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_RETRYCANCEL | MB_ICONQUESTION | MB_SYSTEMMODAL, hb_parni(3));
 	hb_retni ( r );
 }
 
 HB_FUNC( C_T_MSGOKCANCEL )
 {
 	int r;
-	r = TimedMessageBox(NULL, hb_parc(1), hb_parc(2), MB_OKCANCEL | MB_ICONQUESTION | MB_SYSTEMMODAL, hb_parni(3));
+	r = TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_OKCANCEL | MB_ICONQUESTION | MB_SYSTEMMODAL, hb_parni(3));
 	hb_retni ( r );
 }
 
 HB_FUNC( C_T_MSGYESNO )
 {
 	int r;
-	r = TimedMessageBox(NULL, hb_parc(1), hb_parc(2), MB_YESNO | MB_ICONQUESTION | MB_SYSTEMMODAL, hb_parni(3));
+	r = TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_YESNO | MB_ICONQUESTION | MB_SYSTEMMODAL, hb_parni(3));
 	hb_retni ( r );
 
 }
@@ -82,28 +82,28 @@ HB_FUNC( C_T_MSGYESNO )
 HB_FUNC( C_T_MSGYESNO_ID )
 {
 	int r;
-	r = TimedMessageBox(NULL, hb_parc(1), hb_parc(2), MB_YESNO | MB_ICONQUESTION | MB_SYSTEMMODAL | MB_DEFBUTTON2, hb_parni(3));
+	r = TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_YESNO | MB_ICONQUESTION | MB_SYSTEMMODAL | MB_DEFBUTTON2, hb_parni(3));
 	hb_retni ( r );
 }
 
 HB_FUNC( C_T_MSGBOX )
 {
-	TimedMessageBox(NULL, hb_parc(1), hb_parc(2), MB_SYSTEMMODAL, hb_parni(3));
+	TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_SYSTEMMODAL, hb_parni(3));
 }
 
 HB_FUNC( C_T_MSGINFO )
 {
-	TimedMessageBox(NULL, hb_parc(1), hb_parc(2), MB_OK | MB_ICONINFORMATION | MB_SYSTEMMODAL, hb_parni(3));
+	TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_OK | MB_ICONINFORMATION | MB_SYSTEMMODAL, hb_parni(3));
 }
 
 HB_FUNC( C_T_MSGSTOP )
 {
-	TimedMessageBox(NULL, hb_parc(1), hb_parc(2), MB_OK | MB_ICONSTOP | MB_SYSTEMMODAL, hb_parni(3));
+	TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_OK | MB_ICONSTOP | MB_SYSTEMMODAL, hb_parni(3));
 }
 
 HB_FUNC( C_T_MSGEXCLAMATION )
 {
-	TimedMessageBox(NULL, hb_parc(1), hb_parc(2), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL, hb_parni(3));
+	TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL, hb_parni(3));
 }
 
 HB_FUNC( _HMG_PRINTER_GETPRINTABLEAREAPHYSICALWIDTH )

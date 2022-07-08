@@ -78,11 +78,11 @@ HB_FUNC( VERIFYPASSWORD )
 
    hpwdcpl = LoadLibrary(TEXT("PASSWORD.CPL"));
 
-   if( hpwdcpl == NULL )
+   if( hpwdcpl == nullptr )
       hb_retl( FALSE );
 
    VerifyScreenSavePwd = ( VERIFYSCREENSAVEPWD ) wapi_GetProcAddress(hpwdcpl, "VerifyScreenSavePwd");
-   if( VerifyScreenSavePwd == NULL )
+   if( VerifyScreenSavePwd == nullptr )
    {
       FreeLibrary(hpwdcpl);
       hb_retl( FALSE );
@@ -105,12 +105,12 @@ HB_FUNC( CHANGEPASSWORD )
    HINSTANCE hmpr = LoadLibrary(TEXT("MPR.DLL"));
    PWDCHANGEPASSWORD PwdChangePassword;
 
-   if( hmpr == NULL )
+   if( hmpr == nullptr )
       hb_retl( FALSE );
 
    PwdChangePassword = ( PWDCHANGEPASSWORD ) wapi_GetProcAddress(hmpr, "PwdChangePasswordA");
 
-   if( PwdChangePassword == NULL )
+   if( PwdChangePassword == nullptr )
    {
       FreeLibrary(hmpr);
       hb_retl( FALSE );
