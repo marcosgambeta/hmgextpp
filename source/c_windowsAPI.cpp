@@ -382,7 +382,7 @@ HB_FUNC( SENDMESSAGE )
    HWND hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) )
-      HB_RETNL( ( LONG_PTR ) SendMessage(hwnd, hmg_par_UINT(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) hb_parnl(4)) );
+      HB_RETNL( ( LONG_PTR ) SendMessage(hwnd, hmg_par_UINT(2), ( WPARAM ) hb_parnl(3), hmg_par_LPARAM(4)) );
    else
       hb_errRT_BASE_SubstR( EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }

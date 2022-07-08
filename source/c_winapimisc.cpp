@@ -644,12 +644,12 @@ HB_FUNC( GETTEMPDIR )
 
 HB_FUNC( POSTMESSAGE )
 {
-   hb_retnl( ( LONG ) PostMessage(hmg_par_HWND(1), hmg_par_UINT(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) hb_parnl(4)) );
+   hb_retnl( ( LONG ) PostMessage(hmg_par_HWND(1), hmg_par_UINT(2), ( WPARAM ) hb_parnl(3), hmg_par_LPARAM(4)) );
 }
 
 HB_FUNC( DEFWINDOWPROC )
 {
-   HB_RETNL( ( LONG_PTR ) DefWindowProc(hmg_par_HWND(1), hmg_par_UINT(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) hb_parnl(4)) );
+   HB_RETNL( ( LONG_PTR ) DefWindowProc(hmg_par_HWND(1), hmg_par_UINT(2), ( WPARAM ) hb_parnl(3), hmg_par_LPARAM(4)) );
 }
 
 HB_FUNC( GETSTOCKOBJECT )
