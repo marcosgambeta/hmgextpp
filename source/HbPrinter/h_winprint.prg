@@ -357,9 +357,9 @@ METHOD SetTextColor( clr ) CLASS HBPrinter
    LOCAL lret := ::Textcolor
    IF clr <> NIL
       // BEGIN RL 2003-08-03
-      IF ValType ( clr ) == 'N'
+      IF ValType( clr ) == 'N'
          ::TextColor := rr_settextcolor( clr )
-      ELSEIF ValType ( clr ) == 'A'
+      ELSEIF ValType( clr ) == 'A'
          ::TextColor := rr_settextcolor( RGB ( clr[ 1 ], clr[ 2 ], clr[ 3 ] ) )
       ENDIF
       // END RL
@@ -380,9 +380,9 @@ METHOD SetBkColor( clr ) CLASS HBPrinter
 
    LOCAL lret := ::BkColor
    // BEGIN RL 2003-08-03
-   IF ValType ( clr ) == 'N'
+   IF ValType( clr ) == 'N'
       ::BkColor := rr_setbkcolor( clr )
-   ELSEIF ValType ( clr ) == 'A'
+   ELSEIF ValType( clr ) == 'A'
       ::BkColor := rr_setbkcolor( RGB ( clr[ 1 ], clr[ 2 ], clr[ 3 ] ) )
    ENDIF
    // END RL
@@ -406,7 +406,7 @@ METHOD DefineBrush( defname, lstyle, lcolor, lhatch ) CLASS HBPrinter
       RETURN self
    ENDIF
    // BEGIN RL 2003-08-03
-   IF ISARRAY ( lcolor )
+   IF ISARRAY( lcolor )
       lcolor := RGB ( lcolor[ 1 ], lcolor[ 2 ], lcolor[ 3 ] )
    ENDIF
    // END RL
@@ -447,7 +447,7 @@ METHOD ModifyBrush( defname, lstyle, lcolor, lhatch ) CLASS HBPrinter
       RETURN self
    ENDIF
    // BEGIN RL 2003-08-03
-   IF ISARRAY ( lcolor )
+   IF ISARRAY( lcolor )
       lcolor := RGB ( lcolor[ 1 ], lcolor[ 2 ], lcolor[ 3 ] )
    ENDIF
    // END RL
@@ -469,7 +469,7 @@ METHOD DefinePen( defname, lstyle, lwidth, lcolor ) CLASS HBPrinter
       RETURN self
    ENDIF
    // BEGIN RL 2003-08-03
-   IF ISARRAY ( lcolor )
+   IF ISARRAY( lcolor )
       lcolor := RGB ( lcolor[ 1 ], lcolor[ 2 ], lcolor[ 3 ] )
    ENDIF
    // END RL
@@ -499,7 +499,7 @@ METHOD ModifyPen( defname, lstyle, lwidth, lcolor ) CLASS HBPrinter
       RETURN self
    ENDIF
    // BEGIN RL 2003-08-03
-   IF ISARRAY ( lcolor )
+   IF ISARRAY( lcolor )
       lcolor := RGB ( lcolor[ 1 ], lcolor[ 2 ], lcolor[ 3 ] )
    ENDIF
    // END RL
@@ -696,9 +696,9 @@ METHOD Say( row, col, txt, defname, lcolor, lalign ) CLASS HBPrinter
    apos := ::convert( { row, col } )
    IF lcolor <> NIL
       // BEGIN RL 2003-08-03
-      IF ValType ( lcolor ) == 'N'
+      IF ValType( lcolor ) == 'N'
          rr_settextcolor( lcolor )
-      ELSEIF ValType ( lcolor ) == 'A'
+      ELSEIF ValType( lcolor ) == 'A'
          rr_settextcolor( RGB ( lcolor[ 1 ], lcolor[ 2 ], lcolor[ 3 ] ) )
       ENDIF
       // END RL

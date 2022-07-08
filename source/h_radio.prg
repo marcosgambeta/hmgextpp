@@ -103,9 +103,9 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " Already defined." )
    ENDIF
 
-   IF ValType ( aReadOnly ) != 'A'
-      aReadOnly := Array ( Len( aOptions ) )
-      AFill ( aReadOnly, .F. )
+   IF ValType( aReadOnly ) != 'A'
+      aReadOnly := Array( Len( aOptions ) )
+      AFill( aReadOnly, .F. )
    ENDIF
 
    mVar := '_' + ParentFormName + '_' + ControlName
@@ -157,7 +157,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
          width := GetWindowWidth  ( Controlhandle )
          spacing := GetWindowHeight ( Controlhandle )
 
-         FOR i := 1 TO Len ( aId )
+         FOR i := 1 TO Len( aId )
 
             ControlHandle := GetDialogItemHandle( ParentFormHandle, aId[i] )
             SetWindowStyle ( ControlHandle, BS_NOTIFY + WS_CHILD + BS_AUTORADIOBUTTON, .T. )
@@ -182,7 +182,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
                ENDIF
             ENDIF
 
-            AAdd ( aHandles , ControlHandle )
+            AAdd( aHandles , ControlHandle )
 
          NEXT i
 
@@ -213,9 +213,9 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
          MoveWindow ( ControlHandle, x, y, width, GetTextHeight ( NIL, aOptions [1], FontHandle ) + 8, .T. )
       ENDIF
 
-      AAdd ( aHandles , ControlHandle )
+      AAdd( aHandles , ControlHandle )
 
-      FOR i := 2 TO Len ( aOptions )
+      FOR i := 2 TO Len( aOptions )
 
          IF horizontal
             x += Width + Spacing
@@ -238,7 +238,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
             MoveWindow ( ControlHandle, x, y, width, GetTextHeight ( NIL, aOptions [i], FontHandle ) + 8, .T. )
          ENDIF
 
-         AAdd ( aHandles , ControlHandle )
+         AAdd( aHandles , ControlHandle )
 
          IF ValType( tooltip ) != "U"
             SetToolTip ( aHandles [i] , tooltip , GetFormToolTipHandle ( ParentFormName ) )
@@ -251,11 +251,11 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
    IF .NOT. lDialogInMemory
 
       IF _HMG_IsThemed .AND. ( IsArrayRGB ( backcolor ) .OR. IsArrayRGB ( fontcolor ) )
-         AEval ( aHandles, { | h | SetWindowTheme ( h, "", "" ) } )
+         AEval( aHandles, { | h | SetWindowTheme ( h, "", "" ) } )
       ENDIF
 
       IF _HMG_BeginTabActive
-         AAdd ( _HMG_ActiveTabCurrentPageMap , aHandles )
+         AAdd( _HMG_ActiveTabCurrentPageMap , aHandles )
       ENDIF
 
       IF ValType( tooltip ) != "U"
@@ -277,7 +277,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
    _HMG_aControlIds  [k] :=  aId
    _HMG_aControlProcedures  [k] :=  ""
    _HMG_aControlPageMap  [k] := aReadOnly
-   _HMG_aControlValue  [k] :=  iif( ValType ( Value ) == 'N', Value, 0 )
+   _HMG_aControlValue  [k] :=  iif( ValType( Value ) == 'N', Value, 0 )
    _HMG_aControlInputMask  [k] :=  transparent
    _HMG_aControllostFocusProcedure  [k] :=  lostfocus
    _HMG_aControlGotFocusProcedure  [k] :=  gotfocus
@@ -290,18 +290,18 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
    _HMG_aControlRow  [k] :=  BackRow
    _HMG_aControlCol  [k] :=  BackCol
    _HMG_aControlWidth  [k] :=  iif( autosize, BackWidth, Width )
-   _HMG_aControlHeight  [k] :=  iif( horizontal, 28, Spacing * Len ( aOptions ) + GetBorderHeight() )
+   _HMG_aControlHeight  [k] :=  iif( horizontal, 28, Spacing * Len( aOptions ) + GetBorderHeight() )
    _HMG_aControlSpacing  [k] :=  Spacing
-   _HMG_aControlContainerRow  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerRow  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
    _HMG_aControlPicture  [k] :=  .NOT. NoTabStop
    _HMG_aControlContainerHandle  [k] :=  0
    _HMG_aControlFontName  [k] :=  fontname
    _HMG_aControlFontSize  [k] :=  fontsize
    _HMG_aControlFontAttributes  [k] :=  { bold, italic, underline, strikeout }
    _HMG_aControlToolTip  [k] :=   tooltip
-   _HMG_aControlRangeMin  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveTabName , '' )
-   _HMG_aControlRangeMax  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameParentFormName [_HMG_FrameLevel] , '' )
+   _HMG_aControlRangeMin  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveTabName , '' )
+   _HMG_aControlRangeMax  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameParentFormName [_HMG_FrameLevel] , '' )
    _HMG_aControlCaption  [k] :=   aOptions
    _HMG_aControlVisible  [k] :=   iif( invisible, FALSE, TRUE )
    _HMG_aControlHelpId  [k] :=   HelpId
@@ -312,14 +312,14 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
    _HMG_aControlMiscData2 [k] := ''
 
    IF .NOT. lDialogInMemory
-      IF ValType ( Value ) == 'N' .AND. Value > 0  // EF 93
+      IF ValType( Value ) == 'N' .AND. Value > 0  // EF 93
          _SetValue ( , , Value , k )
       ENDIF
       SetProperty ( ParentFormName , ControlName , 'ReadOnly' , aReadOnly )
    ENDIF
 
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnControlInit, k, mVar )
+      Eval( _HMG_bOnControlInit, k, mVar )
 #ifdef _OBJECT_
       ow := _WindowObj ( ParentFormHandle )
       oc := _ControlObj( ControlHandle )
@@ -339,7 +339,7 @@ FUNCTION InitDialogRadioGroup( ParentName, ControlHandle, k )
    aHandles := _HMG_aControlHandles [k]
    Value := _HMG_aControlValue [k]
 // EF 93
-   IF ValType ( Value ) == 'N' .AND. Value > 0 .AND. ControlHandle > 0
+   IF ValType( Value ) == 'N' .AND. Value > 0 .AND. ControlHandle > 0
       _SetValue ( , , Value , k )
    ENDIF
 //JP V40

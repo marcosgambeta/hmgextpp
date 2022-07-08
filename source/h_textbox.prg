@@ -93,7 +93,7 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    hb_default( @lNumeric, .F. )
    hb_default( @lPassword, .F. )
 
-   IF ValType ( Field ) != 'U'
+   IF ValType( Field ) != 'U'
       IF  hb_UAt ( '>', Field ) == 0
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name." )
       ELSE
@@ -209,7 +209,7 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
       ENDIF
 
       IF _HMG_BeginTabActive
-         AAdd ( _HMG_ActiveTabCurrentPageMap , ControlHandle )
+         AAdd( _HMG_ActiveTabCurrentPageMap , ControlHandle )
       ENDIF
 
       // Add a tooltip if param has value
@@ -246,8 +246,8 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    _HMG_aControlWidth   [k] := w
    _HMG_aControlHeight   [k] := h
    _HMG_aControlSpacing  [k] :=  0
-   _HMG_aControlContainerRow  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerRow  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
    _HMG_aControlPicture  [k] :=  ""
    _HMG_aControlContainerHandle  [k] :=  0
    _HMG_aControlFontName  [k] :=  FontName
@@ -266,7 +266,7 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    _HMG_aControlMiscData2 [k] := ''
 
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnControlInit, k, mVar )
+      Eval( _HMG_bOnControlInit, k, mVar )
    ENDIF
 
    IF .NOT. lDialogInMemory
@@ -310,10 +310,10 @@ FUNCTION InitDialogTextBox( ParentName, ControlHandle, k )
    cValue      := _HMG_aControlValue [k]
    lNumeric    := ( _HMG_aControlType [k] == "NUMTEXT" )
 
-   IF ValType ( readonly ) == 'L'
+   IF ValType( readonly ) == 'L'
       SendMessage( ControlHandle , EM_SETREADONLY , iif( readonly, 1, 0 ) , 0 )
    ENDIF
-   IF ValType ( nMaxLength ) != 'U'
+   IF ValType( nMaxLength ) != 'U'
       SendMessage( ControlHandle , EM_LIMITTEXT , nMaxLength , 0 )
    ENDIF
 
@@ -329,8 +329,8 @@ FUNCTION InitDialogTextBox( ParentName, ControlHandle, k )
       SetWindowText ( ControlHandle , cValue )
    ENDIF
 
-   IF ValType ( Field ) != 'U'
-      AAdd ( _HMG_aFormBrowseList [ GetFormIndex ( ParentName ) ] , k )
+   IF ValType( Field ) != 'U'
+      AAdd( _HMG_aFormBrowseList [ GetFormIndex ( ParentName ) ] , k )
    ENDIF
 // JP 62
    IF Len( _HMG_aDialogTemplate ) != 0 .AND. _HMG_aDialogTemplate[3]   // Modal
@@ -357,7 +357,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
 
    HB_SYMBOL_UNUSED( RightAlign )
 
-   IF ValType ( Field ) != 'U'
+   IF ValType( Field ) != 'U'
       IF  hb_UAt ( '>', Field ) == 0
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name." )
       ELSE
@@ -370,9 +370,9 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
 
    __defaultNIL( @Format, "" )
 
-   FOR i := 1 TO hb_ULen ( InputMask )
+   FOR i := 1 TO hb_ULen( InputMask )
 
-      c := hb_USubStr ( InputMask , i , 1 )
+      c := hb_USubStr( InputMask , i , 1 )
 
       IF c != '9' .AND. c != '$' .AND. c != '*' .AND. c != '.' .AND. c != ',' .AND. c != ' ' .AND. c != '€'
          MsgMiniGuiError( "@...TEXTBOX: Wrong InputMask Definition." )
@@ -380,9 +380,9 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
 
    NEXT i
 
-   FOR i := 1 TO hb_ULen ( Format )
+   FOR i := 1 TO hb_ULen( Format )
 
-      c := hb_USubStr ( Format , i , 1 )
+      c := hb_USubStr( Format , i , 1 )
 
       IF c != 'C' .AND. c != 'X' .AND. c != '(' .AND. c != 'E'
          MsgMiniGuiError( "@...TEXTBOX: Wrong Format Definition." )
@@ -398,7 +398,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
    __defaultNIL( @lostfocus, "" )
    __defaultNIL( @enter, "" )
 
-   IF .NOT. Empty ( Format )
+   IF .NOT. Empty( Format )
       Format := '@' + AllTrim( Format )
    ENDIF
 
@@ -488,7 +488,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
       ENDIF
 
       IF _HMG_BeginTabActive
-         AAdd ( _HMG_ActiveTabCurrentPageMap , ControlHandle )
+         AAdd( _HMG_ActiveTabCurrentPageMap , ControlHandle )
       ENDIF
 
       IF ValType( tooltip ) != "U"
@@ -524,8 +524,8 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
    _HMG_aControlWidth  [k] :=  w
    _HMG_aControlHeight  [k] :=  h
    _HMG_aControlSpacing  [k] :=  .F.
-   _HMG_aControlContainerRow  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerRow  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
    _HMG_aControlPicture   [k] := ""
    _HMG_aControlContainerHandle  [k] :=  0
    _HMG_aControlFontName  [k] :=  fontname
@@ -544,7 +544,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
    _HMG_aControlMiscData2 [k] := ''
 
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnControlInit, k, mVar )
+      Eval( _HMG_bOnControlInit, k, mVar )
    ENDIF
 
    IF .NOT. lDialogInMemory
@@ -554,8 +554,8 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
 
       SetWindowText ( ControlHandle , value )
 
-      IF ValType ( Field ) != 'U'
-         AAdd ( _HMG_aFormBrowseList [ GetFormIndex ( ParentFormName ) ] , k )
+      IF ValType( Field ) != 'U'
+         AAdd( _HMG_aFormBrowseList [ GetFormIndex ( ParentFormName ) ] , k )
       ENDIF
    ENDIF
 
@@ -580,8 +580,8 @@ FUNCTION InitDialogMaskedTextBox( ParentName, ControlHandle, k )
       SetWindowText ( ControlHandle , DToC ( cValue ) )
    ENDIF
 
-   IF ValType ( Field ) != 'U'
-      AAdd ( _HMG_aFormBrowseList [ GetFormIndex ( ParentName ) ] , k )
+   IF ValType( Field ) != 'U'
+      AAdd( _HMG_aFormBrowseList [ GetFormIndex ( ParentName ) ] , k )
    ENDIF
 
 // JP 62
@@ -598,7 +598,7 @@ FUNCTION GetNumFromText ( Text , i )
    LOCAL c
    LOCAL x
 
-   FOR x := 1 TO hb_ULen ( Text )
+   FOR x := 1 TO hb_ULen( Text )
 
       c := hb_USubStr( Text, x, 1 )
 
@@ -623,7 +623,7 @@ STATIC FUNCTION GetNumMask ( Text )
    LOCAL c
    LOCAL i
 
-   FOR i := 1 TO hb_ULen ( Text )
+   FOR i := 1 TO hb_ULen( Text )
 
       c := hb_USubStr( Text, i, 1 )
 
@@ -654,7 +654,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
    LOCAL blInit
    LOCAL lDialogInMemory
 
-   IF ValType ( Field ) != 'U'
+   IF ValType( Field ) != 'U'
       IF  hb_UAt ( '>', Field ) == 0
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name." )
       ELSE
@@ -673,7 +673,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
    __defaultNIL( @lostfocus, "" )
    __defaultNIL( @enter, "" )
 
-   IF ValType ( Value ) == "U"
+   IF ValType( Value ) == "U"
       Value := iif( date, CToD ( '  /  /  ' ), "" )
    ENDIF
 
@@ -768,7 +768,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
       ENDIF
 
       IF _HMG_BeginTabActive
-         AAdd ( _HMG_ActiveTabCurrentPageMap , ControlHandle )
+         AAdd( _HMG_ActiveTabCurrentPageMap , ControlHandle )
       ENDIF
 
       IF ValType( tooltip ) != "U"
@@ -805,8 +805,8 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
    _HMG_aControlWidth [k] := w
    _HMG_aControlHeight [k] := h
    _HMG_aControlSpacing [k] := 0
-   _HMG_aControlContainerRow  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerRow  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
    _HMG_aControlPicture [k] := ""
    _HMG_aControlContainerHandle [k] := 0
    _HMG_aControlFontName [k] := fontname
@@ -825,7 +825,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
    _HMG_aControlMiscData2 [k] := ''
 
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnControlInit, k, mVar )
+      Eval( _HMG_bOnControlInit, k, mVar )
    ENDIF
 
    IF .NOT. lDialogInMemory
@@ -837,7 +837,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
          SendMessageWideString ( ControlHandle, EM_SETCUEBANNER, .T. /*show on focus*/, cuetext )
       ENDIF
 
-      IF ValType ( Value ) != "U"
+      IF ValType( Value ) != "U"
          IF date == .F.
             SetWindowText ( ControlHandle , Value )
          ELSE
@@ -845,8 +845,8 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
          ENDIF
       ENDIF
 
-      IF ValType ( Field ) != 'U'
-         AAdd ( _HMG_aFormBrowseList [ GetFormIndex ( ParentFormName ) ] , k )
+      IF ValType( Field ) != 'U'
+         AAdd( _HMG_aFormBrowseList [ GetFormIndex ( ParentFormName ) ] , k )
       ENDIF
    ENDIF
 
@@ -869,7 +869,7 @@ PROCEDURE ProcessCharMask ( i , d )
    LOCAL ncp
    LOCAL x
 
-   IF ValType ( _HMG_aControlSpacing [i] ) == 'L'
+   IF ValType( _HMG_aControlSpacing [i] ) == 'L'
       IF _HMG_aControlSpacing [i] == .F.
          RETURN
       ENDIF
@@ -884,7 +884,7 @@ PROCEDURE ProcessCharMask ( i , d )
    InBuffer := GetWindowText ( _HMG_aControlHandles [i] )
 
    // RL 104
-   IF Left ( AllTrim( InBuffer ) , 1 ) == '-' .AND. Val ( InBuffer ) == 0
+   IF Left ( AllTrim( InBuffer ) , 1 ) == '-' .AND. Val( InBuffer ) == 0
       NegativeZero := .T.
    ENDIF
 
@@ -893,8 +893,8 @@ PROCEDURE ProcessCharMask ( i , d )
    IF PCount() > 1
 
       // Point Count For Numeric InputMask
-      FOR x := 1 TO hb_ULen ( InBuffer )
-         CB := hb_USubStr ( InBuffer , x , 1 )
+      FOR x := 1 TO hb_ULen( InBuffer )
+         CB := hb_USubStr( InBuffer , x , 1 )
          IF CB == '.' .OR. CB == ','
             pc++
          ENDIF
@@ -906,8 +906,8 @@ PROCEDURE ProcessCharMask ( i , d )
       ENDIF
 
       // Find First Non-Blank Position
-      FOR x := 1 TO hb_ULen ( InBuffer )
-         CB := hb_USubStr ( InBuffer , x , 1 )
+      FOR x := 1 TO hb_ULen( InBuffer )
+         CB := hb_USubStr( InBuffer , x , 1 )
          IF CB != ' '
             fnb := x
             EXIT
@@ -918,13 +918,13 @@ PROCEDURE ProcessCharMask ( i , d )
 
    BackInBuffer := InBuffer
 
-   OldChar := hb_USubStr ( InBuffer , icp + 1 , 1 )
+   OldChar := hb_USubStr( InBuffer , icp + 1 , 1 )
 
-   IF Len ( InBuffer ) < Len ( Mask )
+   IF Len( InBuffer ) < Len( Mask )
 
       InBufferLeft := hb_ULeft ( InBuffer , icp )
 
-      InBufferRight := hb_URight ( InBuffer , hb_ULen ( InBuffer ) - icp )
+      InBufferRight := hb_URight ( InBuffer , hb_ULen( InBuffer ) - icp )
 
       IF CharMaskTekstOK( InBufferLeft + ' ' + InBufferRight, Mask ) .AND. !CharMaskTekstOK( InBufferLeft + InBufferRight, Mask )
          InBuffer := InBufferLeft + ' ' + InBufferRight
@@ -934,30 +934,30 @@ PROCEDURE ProcessCharMask ( i , d )
 
    ENDIF
 
-   IF Len ( InBuffer ) > Len ( Mask )
+   IF Len( InBuffer ) > Len( Mask )
 
       InBufferLeft := hb_ULeft ( InBuffer , icp )
 
-      InBufferRight := hb_URight ( InBuffer , hb_ULen ( InBuffer ) - icp - 1 )
+      InBufferRight := hb_URight ( InBuffer , hb_ULen( InBuffer ) - icp - 1 )
 
       InBuffer := InBufferLeft + InBufferRight
 
    ENDIF
 
    // Process Mask
-   FOR x := 1 TO hb_ULen ( Mask )
+   FOR x := 1 TO hb_ULen( Mask )
 
-      CB := hb_USubStr ( InBuffer , x , 1 )
-      CM := hb_USubStr ( Mask , x , 1 )
+      CB := hb_USubStr( InBuffer , x , 1 )
+      CM := hb_USubStr( Mask , x , 1 )
 
       DO CASE
 
       CASE CM == 'A' .OR. CM == 'N' .OR. CM == '!'
 
-         IF hmg_IsAlpha ( CB ) .OR. CB == ' ' .OR. ( ( CM == 'N' .OR. CM == '!' ) .AND. hmg_IsDigit ( CB ) )
+         IF hmg_IsAlpha( CB ) .OR. CB == ' ' .OR. ( ( CM == 'N' .OR. CM == '!' ) .AND. hmg_IsDigit( CB ) )
 
-            IF CM == "!" .AND. ! hmg_IsDigit ( CB )
-               OutBuffer += hmg_Upper ( CB )
+            IF CM == "!" .AND. ! hmg_IsDigit( CB )
+               OutBuffer += hmg_Upper( CB )
             ELSE
                OutBuffer += CB
             ENDIF
@@ -975,7 +975,7 @@ PROCEDURE ProcessCharMask ( i , d )
 
       CASE CM == '9'
 
-         IF hmg_IsDigit ( CB ) .OR. CB == ' ' .OR. ( CB == '-' .AND. x == fnb .AND. PCount() > 1 )
+         IF hmg_IsDigit( CB ) .OR. CB == ' ' .OR. ( CB == '-' .AND. x == fnb .AND. PCount() > 1 )
 
             OutBuffer += CB
 
@@ -1063,13 +1063,13 @@ PROCEDURE ProcessCharMask ( i , d )
 
          SendMessage ( _HMG_aControlhandles [i] , EM_SETSEL , icp , icp )
 
-         pc := hb_ULen ( OutBuffer )
+         pc := hb_ULen( OutBuffer )
 
          // Skip Protected Characters
          FOR x := 1 TO pc
 
-            CB := hb_USubStr ( OutBuffer , icp + x , 1 )
-            CM := hb_USubStr ( Mask , icp + x , 1 )
+            CB := hb_USubStr( OutBuffer , icp + x , 1 )
+            CM := hb_USubStr( Mask , icp + x , 1 )
 
             IF CM == 'X'
                EXIT
@@ -1102,11 +1102,11 @@ STATIC FUNCTION CharMaskTekstOK( cString, cMask )
       CM := hb_USubStr( cMask , x , 1 )
       DO CASE  // JK
       CASE CM == 'A'
-         lPassed := ( hmg_IsAlpha ( CB ) .OR. CB == ' ' )
+         lPassed := ( hmg_IsAlpha( CB ) .OR. CB == ' ' )
       CASE CM == 'N' .OR. CM == '!'
-         lPassed := ( hmg_IsDigit ( CB ) .OR. hmg_IsAlpha ( CB ) .OR. CB == ' ' )
+         lPassed := ( hmg_IsDigit( CB ) .OR. hmg_IsAlpha( CB ) .OR. CB == ' ' )
       CASE CM == '9'
-         lPassed := ( hmg_IsDigit ( CB ) .OR. CB == ' ' )
+         lPassed := ( hmg_IsDigit( CB ) .OR. CB == ' ' )
       CASE CM == ' '
          lPassed := ( CB == ' ' )
       OTHERWISE
@@ -1130,8 +1130,8 @@ PROCEDURE _DataTextBoxRefresh ( i )
       Field := _HMG_aControlPageMap [i]
    ENDIF
 
-   IF ValType ( Field ) != 'U'
-      _SetValue ( , , iif( Type ( Field ) == 'C' , RTrim ( &Field ) , &Field ) , i )
+   IF ValType( Field ) != 'U'
+      _SetValue ( , , iif( Type ( Field ) == 'C' , RTrim( &Field ) , &Field ) , i )
    ELSE
       RedrawWindow ( _HMG_aControlHandles [i] )
    ENDIF
@@ -1178,9 +1178,9 @@ PROCEDURE ProcessNumText ( i )
    BackInBuffer := InBuffer
 
    // Find First Non-Blank Position
-   FOR x := 1 TO hb_ULen ( InBuffer )
+   FOR x := 1 TO hb_ULen( InBuffer )
 
-      CB := hb_USubStr ( InBuffer , x , 1 )
+      CB := hb_USubStr( InBuffer , x , 1 )
 
       IF CB != ' '
          fnb := x
@@ -1190,11 +1190,11 @@ PROCEDURE ProcessNumText ( i )
    NEXT x
 
    // Process Mask
-   FOR x := 1 TO hb_ULen ( InBuffer )
+   FOR x := 1 TO hb_ULen( InBuffer )
 
-      CB := hb_USubStr ( InBuffer , x , 1 )
+      CB := hb_USubStr( InBuffer , x , 1 )
 
-      IF IsDigit ( CB ) .OR. ( CB == '-' .AND. x == fnb ) .OR. ;
+      IF IsDigit( CB ) .OR. ( CB == '-' .AND. x == fnb ) .OR. ;
          ( ( CB == '.' .OR. CB == ',' ) .AND. hb_UAt ( '.', OutBuffer ) == 0 )
 
          OutBuffer += CB
@@ -1227,9 +1227,9 @@ FUNCTION GETNumFromTextSP( Text, i )
    LOCAL s As String
    LOCAL x , c
 
-   FOR x := 1 TO hb_ULen ( Text )
+   FOR x := 1 TO hb_ULen( Text )
 
-      c := hb_USubStr ( Text, x, 1 )
+      c := hb_USubStr( Text, x, 1 )
 
       IF hmg_IsDigit( c ) .OR. c = ',' .OR. c = '-' .OR. c = '.'
 
@@ -1264,7 +1264,7 @@ FUNCTION OEDITEVENTS( hWnd, nMsg, wParam, lParam )
    LOCAL icp, icpe
    LOCAL i
 
-   i := AScan ( _HMG_aControlHandles , hWnd )
+   i := AScan( _HMG_aControlHandles , hWnd )
 
    SWITCH nMsg
 

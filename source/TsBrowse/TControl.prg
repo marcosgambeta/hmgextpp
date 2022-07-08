@@ -242,10 +242,10 @@ METHOD Init( hDlg ) CLASS TControl
    if( ( ::hWnd := GetDialogItemHandle( hDlg, ::nId ) ) != 0 )    //JP
       oRect     := ::GetRect()
 
-      ::nTop    := iif (::nTop    == nil, oRect:nTop,   ::nTop    )
-      ::nLeft   := iif (::nLeft   == nil, oRect:nLeft,  ::nLeft   )
-      ::nBottom := iif (::nBottom == nil, oRect:nBottom,::nBottom )
-      ::nRight  := iif (::nRight  == nil, oRect:nRight, ::nRight  )
+      ::nTop    := iif(::nTop    == nil, oRect:nTop,   ::nTop    )
+      ::nLeft   := iif(::nLeft   == nil, oRect:nLeft,  ::nLeft   )
+      ::nBottom := iif(::nBottom == nil, oRect:nBottom,::nBottom )
+      ::nRight  := iif(::nRight  == nil, oRect:nRight, ::nRight  )
 
       ::Move (::nTop,::nLeft,::nRight - ::nLeft, ::nBottom - ::nTop)
 
@@ -761,7 +761,7 @@ METHOD SetMsg( cText, lDefault ) CLASS TControl
             if !(AllTrim(cOldText) == AllTrim(cText))
                SetProperty( cParentWnd, "StatusBar", "Item", ::nStatusItem, cText )
             endif
-         elseif valtype ( _HMG_DefaultStatusBarMessage ) == "C"
+         elseif valtype( _HMG_DefaultStatusBarMessage ) == "C"
             SetProperty( cParentWnd, "StatusBar", "Item", ::nStatusItem, _HMG_DefaultStatusBarMessage )
          endif
       endif

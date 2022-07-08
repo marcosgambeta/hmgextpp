@@ -63,7 +63,7 @@ FUNCTION _BeginPager( ControlName, ParentName, nWidth, nHeight, nScroll, cCaptio
       MsgMiniGuiError( "PAGERBOX can't be defined inside Tab control." )
    ENDIF
 
-   IF ValType ( ParentName ) == 'U' .AND. _HMG_BeginWindowActive
+   IF ValType( ParentName ) == 'U' .AND. _HMG_BeginWindowActive
       ParentName := _HMG_ActiveFormName
    ENDIF
    IF .NOT. _IsWindowDefined ( ParentName )
@@ -154,7 +154,7 @@ FUNCTION _BeginPager( ControlName, ParentName, nWidth, nHeight, nScroll, cCaptio
    _HMG_aControlMiscData2 [k] := ''
 /*
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnControlInit, k, mVar )
+      Eval( _HMG_bOnControlInit, k, mVar )
    ENDIF
 */
 RETURN ControlHandle

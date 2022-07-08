@@ -61,32 +61,32 @@ FUNCTION GetData()
 
    ADir ( _HMG_CommPath + _HMG_StationName + '.*' , PacketNames )
 
-   IF Len ( PacketNames ) > 0
+   IF Len( PacketNames ) > 0
 
       Packet := MemoRead ( _HMG_CommPath + PacketNames [1] )
 
-      Rows := Val ( SubStr ( MemoLine ( Packet , , 1 ) , 11 , 99 ) )
-      Cols := Val ( SubStr ( MemoLine ( Packet , , 2 ) , 11 , 99 ) )
+      Rows := Val( SubStr( MemoLine( Packet , , 1 ) , 11 , 99 ) )
+      Cols := Val( SubStr( MemoLine( Packet , , 2 ) , 11 , 99 ) )
 
       DO CASE
 
       // Single Data
       CASE Rows == 0 .AND. Cols == 0
 
-         DataType := SubStr ( MemoLine ( Packet ,  , 3 ) , 12 , 1 )
-         DataLength := Val ( SubStr ( MemoLine ( Packet , , 3 ) , 14 , 99 ) )
+         DataType := SubStr( MemoLine( Packet ,  , 3 ) , 12 , 1 )
+         DataLength := Val( SubStr( MemoLine( Packet , , 3 ) , 14 , 99 ) )
 
-         DataValue := MemoLine ( Packet , 254 , 4 )
+         DataValue := MemoLine( Packet , 254 , 4 )
 
          DO CASE
          CASE DataType == 'C'
             RetVal := Left ( DataValue , DataLength )
          CASE DataType == 'N'
-            RetVal := Val ( DataValue )
+            RetVal := Val( DataValue )
          CASE DataType == 'D'
             RetVal := CToD ( DataValue )
          CASE DataType == 'L'
-            RetVal := ( AllTrim ( DataValue ) == 'T' )
+            RetVal := ( AllTrim( DataValue ) == 'T' )
          END CASE
 
       // One Dimension Array Data
@@ -96,25 +96,25 @@ FUNCTION GetData()
 
          DO WHILE i < MLCount ( Packet )
 
-            DataType   := SubStr ( MemoLine ( Packet , , i ) , 12 , 1 )
-            DataLength := Val ( SubStr ( MemoLine ( Packet , , i ) , 14 , 99 ) )
+            DataType   := SubStr( MemoLine( Packet , , i ) , 12 , 1 )
+            DataLength := Val( SubStr( MemoLine( Packet , , i ) , 14 , 99 ) )
 
             i++
 
-            DataValue  := MemoLine ( Packet , 254 , i )
+            DataValue  := MemoLine( Packet , 254 , i )
 
             DO CASE
             CASE DataType == 'C'
                aItem := Left ( DataValue , DataLength )
             CASE DataType == 'N'
-               aItem := Val ( DataValue )
+               aItem := Val( DataValue )
             CASE DataType == 'D'
                aItem := CToD ( DataValue )
             CASE DataType == 'L'
-               aItem := ( AllTrim ( DataValue ) == 'T' )
+               aItem := ( AllTrim( DataValue ) == 'T' )
             END CASE
 
-            AAdd ( aTemp , aItem )
+            AAdd( aTemp , aItem )
 
             i++
 
@@ -127,29 +127,29 @@ FUNCTION GetData()
 
          i := 3
 
-         aTemp := Array ( Rows , Cols )
+         aTemp := Array( Rows , Cols )
 
          r := 1
          c := 1
 
          DO WHILE i < MLCount ( Packet )
 
-            DataType   := SubStr ( MemoLine ( Packet , , i ) , 12 , 1 )
-            DataLength := Val ( SubStr ( MemoLine ( Packet , , i ) , 14 , 99 ) )
+            DataType   := SubStr( MemoLine( Packet , , i ) , 12 , 1 )
+            DataLength := Val( SubStr( MemoLine( Packet , , i ) , 14 , 99 ) )
 
             i++
 
-            DataValue  := MemoLine ( Packet , 254 , i )
+            DataValue  := MemoLine( Packet , 254 , i )
 
             DO CASE
             CASE DataType == 'C'
                aItem := Left ( DataValue , DataLength )
             CASE DataType == 'N'
-               aItem := Val ( DataValue )
+               aItem := Val( DataValue )
             CASE DataType == 'D'
                aItem := CToD ( DataValue )
             CASE DataType == 'L'
-               aItem := ( AllTrim ( DataValue ) == 'T' )
+               aItem := ( AllTrim( DataValue ) == 'T' )
             END CASE
 
             aTemp [r] [c] := aItem
@@ -184,16 +184,16 @@ FUNCTION SendData ( cDest , Data )
 
    FileName := _HMG_CommPath + cDest + '.' + _HMG_StationName + '.' + hb_ntos ( ++_HMG_SendDataCount )
 
-   IF ValType ( Data ) == 'A'
+   IF ValType( Data ) == 'A'
 
-      IF ValType ( Data [1] ) != 'A'
+      IF ValType( Data [1] ) != 'A'
 
          cData := '#DataRows=' + hb_ntos( Len(Data ) ) + Chr( 13 ) + Chr( 10 )
          cData += '#DataCols=0' + Chr( 13 ) + Chr( 10 )
 
-         FOR i := 1 TO Len ( Data )
+         FOR i := 1 TO Len( Data )
 
-            cType := ValType ( Data [i] )
+            cType := ValType( Data [i] )
 
             IF cType == 'D'
                pData := hb_ntos( Year( data[i] ) ) + '.' + hb_ntos( Month( data[i] ) ) + '.' + hb_ntos( Day( data[i] ) )
@@ -202,7 +202,7 @@ FUNCTION SendData ( cDest , Data )
                pData := iif( Data [i] == .T. , 'T', 'F' )
                cLen := hb_ntos( Len( pData ) )
             ELSEIF cType == 'N'
-               pData := Str ( Data [i] )
+               pData := Str( Data [i] )
                cLen := hb_ntos( Len( pData ) )
             ELSEIF cType == 'C'
                pData := Data [i]
@@ -220,8 +220,8 @@ FUNCTION SendData ( cDest , Data )
 
       ELSE
 
-         Rows := Len ( Data )
-         Cols := Len ( Data [1] )
+         Rows := Len( Data )
+         Cols := Len( Data [1] )
 
          cData := '#DataRows=' + hb_ntos( Rows ) + Chr( 13 ) + Chr( 10 )
          cData += '#DataCols=' + hb_ntos( Cols ) + Chr( 13 ) + Chr( 10 )
@@ -230,7 +230,7 @@ FUNCTION SendData ( cDest , Data )
 
             FOR j := 1 TO Cols
 
-               cType := ValType ( Data [i] [j] )
+               cType := ValType( Data [i] [j] )
 
                IF cType == 'D'
                   pData := hb_ntos( Year( data[i][j] ) ) + '.' + hb_ntos( Month( data[i][j] ) ) + '.' + hb_ntos( Day( data[i][j] ) )
@@ -239,7 +239,7 @@ FUNCTION SendData ( cDest , Data )
                   pData := iif( Data [i] [j] == .T. , 'T', 'F' )
                   cLen := hb_ntos( Len( pData ) )
                ELSEIF cType == 'N'
-                  pData := Str ( Data [i] [j] )
+                  pData := Str( Data [i] [j] )
                   cLen := hb_ntos( Len( pData ) )
                ELSEIF cType == 'C'
                   pData := Data [i] [j]
@@ -260,7 +260,7 @@ FUNCTION SendData ( cDest , Data )
 
    ELSE
 
-      cType := ValType ( Data )
+      cType := ValType( Data )
 
       IF cType == 'D'
          pData := hb_ntos( Year( data ) ) + '.' + hb_ntos( Month( data ) ) + '.' + hb_ntos( Day( data ) )
@@ -269,7 +269,7 @@ FUNCTION SendData ( cDest , Data )
          pData := iif( Data == .T. , 'T', 'F' )
          cLen := hb_ntos( Len( pData ) )
       ELSEIF cType == 'N'
-         pData := Str ( Data )
+         pData := Str( Data )
          cLen := hb_ntos( Len( pData ) )
       ELSEIF cType == 'C'
          pData := Data

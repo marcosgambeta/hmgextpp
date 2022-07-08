@@ -96,7 +96,7 @@ PROCEDURE _DefineActivex ( cControlName, cParentForm, nRow, nCol, nWidth, nHeigh
       MsgMiniGuiError ( "Control: " + cControlName + " Of " + cParentForm + " PROGID Property Invalid Type." )
    ENDIF
 
-   IF Empty ( cProgId )
+   IF Empty( cProgId )
       MsgMiniGuiError ( "Control: " + cControlName + " Of " + cParentForm + " PROGID Can't be empty." )
    ENDIF
 
@@ -115,13 +115,13 @@ PROCEDURE _DefineActivex ( cControlName, cParentForm, nRow, nCol, nWidth, nHeigh
    nAtlDllHandle := oActiveX:hAtl
 
    IF ! Empty( oActiveX:hSink )
-      IF ISARRAY ( aEvents ) .AND. Len ( aEvents ) > 0 .AND. ISARRAY ( aEvents [1] )
-         AEval ( aEvents, { | x | oActiveX:EventMap( x [1], x [2] ) } )
+      IF ISARRAY( aEvents ) .AND. Len( aEvents ) > 0 .AND. ISARRAY( aEvents [1] )
+         AEval( aEvents, { | x | oActiveX:EventMap( x [1], x [2] ) } )
       ENDIF
    ENDIF
 
    IF _HMG_BeginTabActive
-      AAdd ( _HMG_ActiveTabCurrentPageMap, nControlhandle )
+      AAdd( _HMG_ActiveTabCurrentPageMap, nControlhandle )
    ENDIF
 
    IF hb_defaultValue( clientedge, .F. )
@@ -160,8 +160,8 @@ PROCEDURE _DefineActivex ( cControlName, cParentForm, nRow, nCol, nWidth, nHeigh
    _HMG_aControlWidth[ k ] := nWidth
    _HMG_aControlHeight[ k ] := nHeight
    _HMG_aControlSpacing[ k ] := 0
-   _HMG_aControlContainerRow[ k ] :=  iif ( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[ _HMG_FrameLevel ], -1 )
-   _HMG_aControlContainerCol[ k ] :=  iif ( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[ _HMG_FrameLevel ], -1 )
+   _HMG_aControlContainerRow[ k ] :=  iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[ _HMG_FrameLevel ], -1 )
+   _HMG_aControlContainerCol[ k ] :=  iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[ _HMG_FrameLevel ], -1 )
    _HMG_aControlPicture[ k ] :=  ""
    _HMG_aControlContainerHandle[ k ] :=  0
    _HMG_aControlFontName[ k ] :=  Nil

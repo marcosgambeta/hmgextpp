@@ -79,7 +79,7 @@ FUNCTION _DefineProgressWheel ( cControlName, cParentForm, nCol, nRow, nWidth, ;
 
    // If defined inside DEFINE WINDOW structure, determine cParentForm
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
-      cParentForm := iif ( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
+      cParentForm := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
    ENDIF
 
    IF .NOT. _IsWindowDefined ( cParentForm )
@@ -181,7 +181,7 @@ FUNCTION _DefineProgressWheel ( cControlName, cParentForm, nCol, nRow, nWidth, ;
 
    nId := GetFormIndex ( cParentForm )
 
-   AAdd ( _HMG_aFormGraphTasks[ nId ], ;
+   AAdd( _HMG_aFormGraphTasks[ nId ], ;
       {|| ProgressWheelPaint( cParentForm, cImageName, nWidth, nHeight, nPosition, ;
       nStartAngle, nInnerSize, nGradientMode, _HMG_aControlCaption[ k ], lShowText, nMin, nMax, ;
       nColorDoneMin, nColorDoneMax, nColorRemain, nColorInner ) } )
@@ -866,7 +866,7 @@ RETURN { Y, X }
 STATIC FUNCTION BT_DrawPieEx ( hDC, Row1, Col1, Row2, Col2, RowStartArc, ColStartArc, RowEndArc, ColEndArc, aColorRGBLine, nWidthLine, aColorRGBFill, hBrushBitmap )
 *------------------------------------------------------------------------------*
 
-   nWidthLine := IF ( ValType ( nWidthLine ) == "U", 1, nWidthLine )
+   nWidthLine := IF ( ValType( nWidthLine ) == "U", 1, nWidthLine )
    BT_DRAW_HDC_ARCX_EX ( hDC, Col1, Row1, Col2, Row2, ColStartArc, RowStartArc, ColEndArc, RowEndArc, ArrayRGB_TO_COLORREF( aColorRGBLine ), nWidthLine, ArrayRGB_TO_COLORREF( aColorRGBFill ), BT_DRAW_PIE, hBrushBitmap )
 
 RETURN NIL

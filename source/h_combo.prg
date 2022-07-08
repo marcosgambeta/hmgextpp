@@ -121,20 +121,20 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " Already defined." )
    ENDIF
 
-   IF ValType ( ItemSource ) != 'U' .AND. Sort == .T.
+   IF ValType( ItemSource ) != 'U' .AND. Sort == .T.
       MsgMiniGuiError ( "Sort and ItemSource clauses can't be used simultaneously." )
    ENDIF
 
-   IF ValType ( ValueSource ) != 'U' .AND. Sort == .T.
+   IF ValType( ValueSource ) != 'U' .AND. Sort == .T.
       MsgMiniGuiError ( "Sort and ValueSource clauses can't be used simultaneously." )
    ENDIF
 
-   IF ValType ( itemsource ) != 'U'
+   IF ValType( itemsource ) != 'U'
       IF hb_UAt ( '>' , ItemSource ) == 0
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " (ItemSource): You must specify a fully qualified field name." )
       ELSE
          WorkArea := hb_ULeft ( ItemSource , hb_UAt ( '>' , ItemSource ) - 2 )
-         cField := hb_URight ( ItemSource , hb_ULen ( ItemSource ) - hb_UAt ( '>' , ItemSource ) )
+         cField := hb_URight ( ItemSource , hb_ULen( ItemSource ) - hb_UAt ( '>' , ItemSource ) )
       ENDIF
    ENDIF
 
@@ -262,10 +262,10 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
       ENDIF
 
       IF _HMG_BeginTabActive
-         AAdd ( _HMG_ActiveTabCurrentPageMap , Controlhandle )
+         AAdd( _HMG_ActiveTabCurrentPageMap , Controlhandle )
       ENDIF
 
-      IF ValType ( tooltip ) != "U"
+      IF ValType( tooltip ) != "U"
          SetToolTip ( ControlHandle , tooltip , GetFormToolTipHandle ( ParentFormName ) )
       ENDIF
 
@@ -299,8 +299,8 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
    _HMG_aControlWidth   [k] := w
    _HMG_aControlHeight   [k] := h
    _HMG_aControlSpacing   [k] := WorkArea
-   _HMG_aControlContainerRow  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerRow  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
    _HMG_aControlPicture  [k] :=  OnListCloseProcedure
    _HMG_aControlContainerHandle  [k] :=  ContainerHandle
    _HMG_aControlFontName  [k] :=  fontname
@@ -323,7 +323,7 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
    ENDIF
 
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnControlInit, k, mVar )
+      Eval( _HMG_bOnControlInit, k, mVar )
 #ifdef _OBJECT_
       ow := _WindowObj ( ParentFormHandle )
       oc := _ControlObj( ControlHandle )
@@ -397,8 +397,8 @@ FUNCTION InitDialogComboBox( ParentName, ControlHandle, k )
 
    ELSE
 
-      IF Len ( rows ) > 0
-         AEval ( rows, { |v| ComboAddString ( ControlHandle, v ) } )
+      IF Len( rows ) > 0
+         AEval( rows, { |v| ComboAddString ( ControlHandle, v ) } )
       ENDIF
 
       IF ISNUMBER( value ) .AND. value <> 0
@@ -411,8 +411,8 @@ FUNCTION InitDialogComboBox( ParentName, ControlHandle, k )
       ComboSetItemHeight ( ControlHandle , ItemHeight )
    ENDIF
 
-   IF ValType ( ItemSource ) != 'U'
-      AAdd ( _HMG_aFormBrowseList [ GetFormIndex ( ParentName ) ] , k )
+   IF ValType( ItemSource ) != 'U'
+      AAdd( _HMG_aFormBrowseList [ GetFormIndex ( ParentName ) ] , k )
    ENDIF
    // JP 62
    IF Len( _HMG_aDialogTemplate ) != 0 .AND. _HMG_aDialogTemplate[3]   // Modal
@@ -426,7 +426,7 @@ PROCEDURE _DataComboRefresh ( i )  // (JK) Modified for extend COMBO HMG 1.0 Bui
 *-----------------------------------------------------------------------------*
    LOCAL BackValue , BackRec , WorkArea , cField , ControlHandle
 
-   IF Empty ( _HMG_aControlCaption [i] )
+   IF Empty( _HMG_aControlCaption [i] )
       BackValue := _GetValue ( , , i )
    ELSE
       cField := _HMG_aControlCaption [i]

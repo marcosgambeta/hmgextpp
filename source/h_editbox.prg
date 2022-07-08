@@ -87,7 +87,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
-   IF ValType ( Field ) != 'U'
+   IF ValType( Field ) != 'U'
       IF  hb_UAt ( '>', Field ) == 0
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name." )
       ELSE
@@ -162,8 +162,8 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
          w := GetWindowWidth  ( Controlhandle )
          h := GetWindowHeight ( Controlhandle )
 
-         IF ValType ( Value ) == 'C' .OR. ValType ( Value ) == 'M'
-            IF .NOT. Empty ( Value )
+         IF ValType( Value ) == 'C' .OR. ValType( Value ) == 'M'
+            IF .NOT. Empty( Value )
                SetWindowText ( ControlHandle , value )
             ENDIF
          ENDIF
@@ -200,11 +200,11 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
             AddSplitBoxItem ( Controlhandle , _HMG_aFormReBarHandle [i] , w , break , , , , _HMG_ActiveSplitBoxInverted )
             Containerhandle := _HMG_aFormReBarHandle [i]
 
-            IF ValType ( Value ) == 'C';
+            IF ValType( Value ) == 'C';
                   .OR. ;
-                  ValType ( Value ) == 'M'
+                  ValType( Value ) == 'M'
 
-               IF .NOT. Empty ( Value )
+               IF .NOT. Empty( Value )
                   SetWindowText ( ControlHandle , value )
                ENDIF
 
@@ -216,11 +216,11 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
 
          ControlHandle := InitEditBox ( ParentFormHandle, 0, x, y, w, h, '', 0 , maxlength , readonly, invisible, notabstop , novscroll , nohscroll )
 
-         IF ValType ( Value ) == 'C';
+         IF ValType( Value ) == 'C';
                .OR. ;
-               ValType ( Value ) == 'M'
+               ValType( Value ) == 'M'
 
-            IF .NOT. Empty ( Value )
+            IF .NOT. Empty( Value )
                SetWindowText ( ControlHandle , value )
             ENDIF
 
@@ -232,7 +232,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
    IF .NOT. lDialogInMemory
 
       IF _HMG_BeginTabActive
-         AAdd ( _HMG_ActiveTabCurrentPageMap , Controlhandle )
+         AAdd( _HMG_ActiveTabCurrentPageMap , Controlhandle )
       ENDIF
 
       IF FontHandle != 0
@@ -278,8 +278,8 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
    _HMG_aControlWidth   [k] := w
    _HMG_aControlHeight   [k] := h
    _HMG_aControlSpacing   [k] := 0
-   _HMG_aControlContainerRow  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerRow  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
    _HMG_aControlPicture  [k] :=  ""
    _HMG_aControlContainerHandle  [k] :=  ContainerHandle
    _HMG_aControlFontName  [k] :=  fontname
@@ -301,12 +301,12 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
       InitDialogEdit( ParentFormName, ControlHandle, k )
    ENDIF
 
-   IF ValType ( Field ) != 'U'
-      AAdd ( _HMG_aFormBrowseList [ GetFormIndex ( ParentFormName ) ] , k )
+   IF ValType( Field ) != 'U'
+      AAdd( _HMG_aFormBrowseList [ GetFormIndex ( ParentFormName ) ] , k )
    ENDIF
 
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnControlInit, k, mVar )
+      Eval( _HMG_bOnControlInit, k, mVar )
 #ifdef _OBJECT_
       ow := _WindowObj ( ParentFormHandle )
       oc := _ControlObj( ControlHandle )
@@ -322,7 +322,7 @@ PROCEDURE _DataEditBoxRefresh ( i )
 *-----------------------------------------------------------------------------*
    LOCAL Field := _HMG_aControlPageMap [i], icp
 
-   IF ValType ( Field ) != 'U'
+   IF ValType( Field ) != 'U'
       _SetValue ( ,  , &Field , i )
    ELSE
       // Store Initial CaretPos
@@ -347,10 +347,10 @@ FUNCTION InitDialogEdit( ParentName, ControlHandle, k )
    maxlength := _HMG_aControlMiscData1 [k,2]
    readonly  := _HMG_aControlMiscData1 [k,3]
 
-   IF ValType ( readonly ) == 'L'
+   IF ValType( readonly ) == 'L'
       SendMessage( ControlHandle , EM_SETREADONLY , iif( readonly, 1, 0 ) , 0 )
    ENDIF
-   IF ValType ( maxlength ) != 'U'
+   IF ValType( maxlength ) != 'U'
       SendMessage( ControlHandle , EM_LIMITTEXT , maxlength , 0 )
    ENDIF
 // JP 62

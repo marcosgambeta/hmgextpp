@@ -566,7 +566,7 @@ if Valtype(m->__arg1)="C"
 elseif VALTYPE(m->__arg1) = "N"
    *- convert to a string
    * MSG(VALtype(m->__arg1),[val2])
-   arg2 := STR (__arg1)
+   arg2 := STR(__arg1)
    *- look for a decimal point
    IF ("." $ arg2)
       *- return a picture reflecting a decimal point
@@ -697,7 +697,7 @@ Function Msgt (nTimeout, Message, Title, Flags)
         DEFAULT Message TO ""   ;  DEFAULT Title TO ""
         DEFAULT Flags   TO "MSGBOX"
 
-        If ValType (nTimeout) != 'U' .and. ValType (nTimeout) = 'C'
+        If ValType(nTimeout) != 'U' .and. ValType(nTimeout) = 'C'
               Flags    :=  Title
               Title    :=  Message
               Message  :=  nTimeout
@@ -1299,7 +1299,7 @@ METHOD Transpace(arg1,arg2,arg3) CLASS WREPORT // The core of parser
         // msgbox("|"+::aStat [ 'lblsplash' ]+"|" ,"Arges")
         return ''
      endif
-     for n := 1 to len (arg1)
+     for n := 1 to len(arg1)
          pt := substr(arg1,n,1)
          if pt <> chr(32)
             tmpstr := pt
@@ -1560,7 +1560,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
      local _arg1,_arg2, _arg3,__elex ,aX:={} , _varmem ,;
      blse := {|x| if(val(x)> 0,.t.,if(x=".T.".or. x ="ON",.T.,.F.))}, al, _align
      string1 := ''
-     if len (ArryPar) < 1 ;return .F. ;endif
+     if len(ArryPar) < 1 ;return .F. ;endif
 
      if ::PrnDrv = "MINI"
         //msginfo(arrypar[1],"Rmini")
@@ -2327,7 +2327,7 @@ IsMono := ::Ismono(arr)
       Else
       //FOR NOW DO NONE !!!
       /*
-        _HMG_PRINTER_H_PRINT ( if(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) ;
+        _HMG_PRINTER_H_PRINT( if(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) ;
          , nline*lstep , arg2, argf1 , argsize , afontscolor[1], afontscolor[2], afontscolor[3] ;
          , xwa, abold, aita, aunder, astrike;
          , if(valtype(afontscolor)=="A", .t.,.f.) ;
@@ -2440,7 +2440,7 @@ local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
       Aeval(::aBody,{|x,y|if(upper(m->gfield) $ upper(x[1]),Posiz :=y,'')})
 
       if posiz > 0  //IS A BODY DECLARED FIELD
-         P1 := max (at("SAY",upper ( ::aBody[posiz,1] ))+3,at("PRINT", upper( ::aBody[posiz,1] ) )+5)
+         P1 := max(at("SAY",upper( ::aBody[posiz,1] ))+3,at("PRINT", upper( ::aBody[posiz,1] ) )+5)
          P2 := at("FONT",upper( ::aBody[posiz,1] ) )-2
          IF "{||" = LEFT(S_HEAD,3)
             EXV := alltrim(substr(S_HEAD,at("||",S_HEAD)+2,at("}",S_HEAD)-4))
@@ -2464,7 +2464,7 @@ local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
       m->gftotal := aclone(gftotal)
 
       for each k in ::aBody
-          P1 := at( "SAY", upper( k[1] ) ); P2 := at( "PRINT", upper ( k[1] ) )
+          P1 := at( "SAY", upper( k[1] ) ); P2 := at( "PRINT", upper( k[1] ) )
           P3 := at( "TEXTOUT", upper( k[1] ) )
           if max(p3,max(p1,p2)) = p3
              P1 := P3 + 8
@@ -2788,7 +2788,7 @@ Local sstring := "NLINE"+chr(07)+NTrim(t_col)+chr(07)+"SAY"+chr(07)
                             nxtp := .t.
                          endif
                       else
-                          if Gfexec  //len (gcounter) # 0     //display group total
+                          if Gfexec  //len(gcounter) # 0     //display group total
                              if len(m->tts) > 0
                                 ::traduci(strtran(sstring,chr(05),m->tts))
                                 if ::aStat['InlineTot']= .F.

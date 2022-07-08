@@ -118,7 +118,7 @@ FUNCTION MdiEvents ( hWnd, nMsg, wParam, lParam )
 
       IF _HMG_MdiChildActive == .F.
 
-         i := AScan ( _HMG_aFormHandles , hWnd )
+         i := AScan( _HMG_aFormHandles , hWnd )
          IF i > 0
             _DoWindowEventProcedure ( _HMG_aFormClickProcedure [i] , i )
          ENDIF
@@ -143,7 +143,7 @@ FUNCTION MdiEvents ( hWnd, nMsg, wParam, lParam )
 
       IF _HMG_MdiChildActive == .F.
 
-         i := AScan ( _HMG_aFormhandles , hWnd )
+         i := AScan( _HMG_aFormhandles , hWnd )
 
          IF i > 0
             _DoWindowEventProcedure ( _HMG_aFormMoveProcedure  [i] , i )
@@ -157,7 +157,7 @@ FUNCTION MdiEvents ( hWnd, nMsg, wParam, lParam )
 
       IF _HMG_MdiChildActive == .F.
 
-         i := AScan ( _HMG_aFormHandles , hWnd )
+         i := AScan( _HMG_aFormHandles , hWnd )
          IF i > 0
 
             IF wParam == SIZE_MAXIMIZED
@@ -196,9 +196,9 @@ FUNCTION MdiEvents ( hWnd, nMsg, wParam, lParam )
    CASE nMsg == WM_DESTROY
    //**********************************************************************
 
-      ControlCount := Len ( _HMG_aControlHandles )
+      ControlCount := Len( _HMG_aControlHandles )
 
-      i := AScan ( _HMG_aFormhandles , hWnd )
+      i := AScan( _HMG_aFormhandles , hWnd )
 
       IF i > 0
 
@@ -321,7 +321,7 @@ FUNCTION _DefineChildMDIWindow ( FormName, x, y, w, h, nominimize, nomaximize, ;
       ENDIF
    ENDIF
 
-   i := AScan ( _HMG_aFormType , 'A' )
+   i := AScan( _HMG_aFormType , 'A' )
 
    IF i <= 0
       MsgMiniGuiError( "Main Window Is Not Defined." )
@@ -365,7 +365,7 @@ FUNCTION _DefineChildMDIWindow ( FormName, x, y, w, h, nominimize, nomaximize, ;
       // JP MDI Background
       aRGB := _HMG_aFormBkColor [i]
       // End
-      IF ValType ( cursor ) != "U"
+      IF ValType( cursor ) != "U"
          SetWindowCursor( Formhandle , cursor )
       ENDIF
 
@@ -379,7 +379,7 @@ FUNCTION _DefineChildMDIWindow ( FormName, x, y, w, h, nominimize, nomaximize, ;
 //JP End
    _HMG_ActiveMDIChildIndex := ChildIndex
 
-   k := AScan ( _HMG_aFormDeleted , .T. )
+   k := AScan( _HMG_aFormDeleted , .T. )
 
    IF k > 0
 
@@ -453,58 +453,58 @@ FUNCTION _DefineChildMDIWindow ( FormName, x, y, w, h, nominimize, nomaximize, ;
       Public &mVar. := k
 #endif
 
-      AAdd ( _HMG_aFormNames , FormName )
-      AAdd ( _HMG_aFormHandles , FormHandle )
-      AAdd ( _HMG_aFormActive , .F. )
-      AAdd ( _HMG_aFormType , 'Y' )
-      AAdd ( _HMG_aFormParentHandle , GetFormHandle( ParentForm ) )
-      AAdd ( _HMG_aFormReleaseProcedure , ReleaseProcedure  )
-      AAdd ( _HMG_aFormInitProcedure , initprocedure  )
-      AAdd ( _HMG_aFormToolTipHandle , hToolTip )
-      AAdd ( _HMG_aFormContextMenuHandle , 0 )
-      AAdd ( _HMG_aFormMouseDragProcedure , "" )
-      AAdd ( _HMG_aFormSizeProcedure , SizeProcedure )
-      AAdd ( _HMG_aFormClickProcedure , ClickProcedure )
-      AAdd ( _HMG_aFormMouseMoveProcedure , MouseMoveProcedure )
-      AAdd ( _HMG_aFormMoveProcedure , "" )
-      AAdd ( _HMG_aFormDropProcedure , "" )
-      AAdd ( _HMG_aFormDeleted, .F. )
-      AAdd ( _HMG_aFormBkColor, Nil )
-      AAdd ( _HMG_aFormPaintProcedure , "" )
-      AAdd ( _HMG_aFormNoShow , .F. )
-      AAdd ( _HMG_aFormNotifyIconName , "" )
-      AAdd ( _HMG_aFormNotifyIconToolTip , "" )
-      AAdd ( _HMG_aFormNotifyIconLeftClick , "" )
-      AAdd ( _HMG_aFormNotifyIconDblClick  , "" )
-      AAdd ( _HMG_aFormGotFocusProcedure   , gotfocus )
-      AAdd ( _HMG_aFormLostFocusProcedure  , lostfocus )
-      AAdd ( _HMG_aFormReBarHandle       , 0 )
-      AAdd ( _HMG_aFormNotifyMenuHandle  , 0 )
-      AAdd ( _HMG_aFormBrowseList        , {} )
-      AAdd ( _HMG_aFormSplitChildList    , {} )
-      AAdd ( _HMG_aFormVirtualHeight     , 0 )
-      AAdd ( _HMG_aFormVirtualWidth      , 0 )
-      AAdd ( _HMG_aFormFocused           , Focused )
-      AAdd ( _HMG_aFormScrollUp          , "" )
-      AAdd ( _HMG_aFormScrollDown        , "" )
-      AAdd ( _HMG_aFormScrollLeft        , "" )
-      AAdd ( _HMG_aFormScrollRight       , "" )
-      AAdd ( _HMG_aFormHScrollBox        , "" )
-      AAdd ( _HMG_aFormVScrollBox        , "" )
-      AAdd ( _HMG_aFormBrushHandle       , 0 )
-      AAdd ( _HMG_aFormFocusedControl    , 0 )
-      AAdd ( _HMG_aFormGraphTasks        , {} )
-      AAdd ( _HMG_aFormMaximizeProcedure , maximizeprocedure )
-      AAdd ( _HMG_aFormMinimizeProcedure , minimizeprocedure )
-      AAdd ( _HMG_aFormRestoreProcedure  ,  "" )
-      AAdd ( _HMG_aFormAutoRelease       , .T. )
-      AAdd ( _HMG_aFormInteractiveCloseProcedure , InteractiveCloseProcedure )
-      AAdd ( _HMG_aFormMinMaxInfo , {} )
-      AAdd ( _HMG_aFormActivateId , 0 )
-      AAdd ( _HMG_aFormMiscData1  , {} )
-      AAdd ( _HMG_aFormMiscData2  , '' )
+      AAdd( _HMG_aFormNames , FormName )
+      AAdd( _HMG_aFormHandles , FormHandle )
+      AAdd( _HMG_aFormActive , .F. )
+      AAdd( _HMG_aFormType , 'Y' )
+      AAdd( _HMG_aFormParentHandle , GetFormHandle( ParentForm ) )
+      AAdd( _HMG_aFormReleaseProcedure , ReleaseProcedure  )
+      AAdd( _HMG_aFormInitProcedure , initprocedure  )
+      AAdd( _HMG_aFormToolTipHandle , hToolTip )
+      AAdd( _HMG_aFormContextMenuHandle , 0 )
+      AAdd( _HMG_aFormMouseDragProcedure , "" )
+      AAdd( _HMG_aFormSizeProcedure , SizeProcedure )
+      AAdd( _HMG_aFormClickProcedure , ClickProcedure )
+      AAdd( _HMG_aFormMouseMoveProcedure , MouseMoveProcedure )
+      AAdd( _HMG_aFormMoveProcedure , "" )
+      AAdd( _HMG_aFormDropProcedure , "" )
+      AAdd( _HMG_aFormDeleted, .F. )
+      AAdd( _HMG_aFormBkColor, Nil )
+      AAdd( _HMG_aFormPaintProcedure , "" )
+      AAdd( _HMG_aFormNoShow , .F. )
+      AAdd( _HMG_aFormNotifyIconName , "" )
+      AAdd( _HMG_aFormNotifyIconToolTip , "" )
+      AAdd( _HMG_aFormNotifyIconLeftClick , "" )
+      AAdd( _HMG_aFormNotifyIconDblClick  , "" )
+      AAdd( _HMG_aFormGotFocusProcedure   , gotfocus )
+      AAdd( _HMG_aFormLostFocusProcedure  , lostfocus )
+      AAdd( _HMG_aFormReBarHandle       , 0 )
+      AAdd( _HMG_aFormNotifyMenuHandle  , 0 )
+      AAdd( _HMG_aFormBrowseList        , {} )
+      AAdd( _HMG_aFormSplitChildList    , {} )
+      AAdd( _HMG_aFormVirtualHeight     , 0 )
+      AAdd( _HMG_aFormVirtualWidth      , 0 )
+      AAdd( _HMG_aFormFocused           , Focused )
+      AAdd( _HMG_aFormScrollUp          , "" )
+      AAdd( _HMG_aFormScrollDown        , "" )
+      AAdd( _HMG_aFormScrollLeft        , "" )
+      AAdd( _HMG_aFormScrollRight       , "" )
+      AAdd( _HMG_aFormHScrollBox        , "" )
+      AAdd( _HMG_aFormVScrollBox        , "" )
+      AAdd( _HMG_aFormBrushHandle       , 0 )
+      AAdd( _HMG_aFormFocusedControl    , 0 )
+      AAdd( _HMG_aFormGraphTasks        , {} )
+      AAdd( _HMG_aFormMaximizeProcedure , maximizeprocedure )
+      AAdd( _HMG_aFormMinimizeProcedure , minimizeprocedure )
+      AAdd( _HMG_aFormRestoreProcedure  ,  "" )
+      AAdd( _HMG_aFormAutoRelease       , .T. )
+      AAdd( _HMG_aFormInteractiveCloseProcedure , InteractiveCloseProcedure )
+      AAdd( _HMG_aFormMinMaxInfo , {} )
+      AAdd( _HMG_aFormActivateId , 0 )
+      AAdd( _HMG_aFormMiscData1  , {} )
+      AAdd( _HMG_aFormMiscData2  , '' )
 #ifdef _HMG_COMPAT_
-      AAdd ( _HMG_StopWindowEventProcedure, .F. )
+      AAdd( _HMG_StopWindowEventProcedure, .F. )
 #endif
 
    ENDIF
@@ -512,7 +512,7 @@ FUNCTION _DefineChildMDIWindow ( FormName, x, y, w, h, nominimize, nomaximize, ;
    _SetThisFormInfo( k )
 
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnFormInit, k, mVar )
+      Eval( _HMG_bOnFormInit, k, mVar )
    ENDIF
 
 RETURN ( FormHandle )
@@ -583,7 +583,7 @@ FUNCTION _MdiChildClose ( hWnd )
 *-----------------------------------------------------------------------------*
    LOCAL i, xRetVal
 
-   i := AScan ( _HMG_aFormHandles , hWnd )
+   i := AScan( _HMG_aFormHandles , hWnd )
 
    IF i > 0
 
@@ -591,7 +591,7 @@ FUNCTION _MdiChildClose ( hWnd )
 
       IF ISBLOCK ( _HMG_aFormInteractiveCloseProcedure [i] )
          xRetVal := _DoWindowEventProcedure ( _HMG_aFormInteractiveCloseProcedure [i] , i , 'WINDOW_ONINTERACTIVECLOSE' )
-         IF ValType ( xRetVal ) == 'L'
+         IF ValType( xRetVal ) == 'L'
             IF !xRetVal
                RETURN 1
             ENDIF

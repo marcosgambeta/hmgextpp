@@ -86,7 +86,7 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
-   IF ValType ( Field ) != 'U'
+   IF ValType( Field ) != 'U'
       IF hb_UAt ( '>', Field ) == 0
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name." )
       ELSE
@@ -124,7 +124,7 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
       Caption := cValToChar ( Caption )
    ENDIF
 
-   IF ValType ( aBitmap ) != 'A'
+   IF ValType( aBitmap ) != 'A'
       cBmp := aBitmap
       aBitmap := Array( 2 )
       aBitmap[ 1 ] := iif( Empty( cBmp ), GetCheckBmp(), cBmp )
@@ -225,7 +225,7 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
       ENDIF
 
       IF _HMG_BeginTabActive
-         AAdd ( _HMG_ActiveTabCurrentPageMap , Controlhandle )
+         AAdd( _HMG_ActiveTabCurrentPageMap , Controlhandle )
       ENDIF
 
       IF ValType( tooltip ) != "U"
@@ -261,9 +261,9 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
    _HMG_aControlCol  [k] :=  x
    _HMG_aControlWidth  [k] :=  w
    _HMG_aControlHeight   [k] :=  h
-   _HMG_aControlSpacing  [k] :=  iif ( autosize == .T. , 1 , 0 )
-   _HMG_aControlContainerRow  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlSpacing  [k] :=  iif( autosize == .T. , 1 , 0 )
+   _HMG_aControlContainerRow  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
    _HMG_aControlPicture  [k] :=  abitmap
    _HMG_aControlContainerHandle  [k] :=  0
    _HMG_aControlFontName  [k] :=  fontname
@@ -293,12 +293,12 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
       RedrawWindow ( ControlHandle )
    ENDIF
 
-   IF ValType ( Field ) != 'U'
-      AAdd ( _HMG_aFormBrowseList [ GetFormIndex ( ParentFormName ) ] , k )
+   IF ValType( Field ) != 'U'
+      AAdd( _HMG_aFormBrowseList [ GetFormIndex ( ParentFormName ) ] , k )
    ENDIF
 /*
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnControlInit, k, mVar )
+      Eval( _HMG_bOnControlInit, k, mVar )
 #ifdef _OBJECT_
       ow := _WindowObj ( ParentFormHandle )
       oc := _ControlObj( ControlHandle )

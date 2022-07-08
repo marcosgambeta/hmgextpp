@@ -95,13 +95,13 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    hb_default( @lDefault, .F. )
    hb_default( @keepfocus, .T. )
 
-   IF ValType ( aBitmap ) != 'A'
+   IF ValType( aBitmap ) != 'A'
       cBmp := aBitmap
       aBitmap := Array( 2 )
       aBitmap[1] := cBmp
    ENDIF
 
-   IF ValType ( Field ) != 'U'
+   IF ValType( Field ) != 'U'
       IF  hb_UAt ( '>', Field ) == 0
          MsgMiniGuiError ( "Control " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name." )
       ELSE
@@ -112,7 +112,7 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
       ENDIF
    ENDIF
 
-   IF ValType ( aToolTip ) != 'A'
+   IF ValType( aToolTip ) != 'A'
       tmp := aToolTip
       aToolTip := Array( 3 )
       aToolTip[1] := tmp
@@ -232,7 +232,7 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
       ENDIF
 
       IF _HMG_BeginTabActive
-         AAdd ( _HMG_ActiveTabCurrentPageMap , aControlHandle )
+         AAdd( _HMG_ActiveTabCurrentPageMap , aControlHandle )
       ENDIF
 
       // Add a ToolTip if param has value
@@ -272,8 +272,8 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    _HMG_aControlWidth   [k] := w
    _HMG_aControlHeight   [k] := h
    _HMG_aControlSpacing  [k] :=  aControlHandle
-   _HMG_aControlContainerRow  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerRow  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
    _HMG_aControlPicture  [k] :=  abitmap
    _HMG_aControlContainerHandle  [k] :=  0
    _HMG_aControlFontName  [k] :=  FontName
@@ -314,7 +314,7 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    ENDIF
 
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnControlInit, k, mVar )
+      Eval( _HMG_bOnControlInit, k, mVar )
 #ifdef _OBJECT_
       ow := _WindowObj ( ParentFormHandle )
       oc := _ControlObj( aControlHandle[1] )
@@ -339,7 +339,7 @@ FUNCTION InitDialogBtnTextBox( ParentName, ControlHandle, k )
    lBtn2          := _HMG_aControlMiscData1  [k,2]
    aControlHandle := _HMG_aControlSpacing [k]
 
-   IF ValType ( nMaxLength ) != 'U'
+   IF ValType( nMaxLength ) != 'U'
       SendMessage( aControlHandle [1] , EM_LIMITTEXT , nMaxLength , 0 )
    ENDIF
 
@@ -373,13 +373,13 @@ FUNCTION TBBtnEvents( hwndEdit, HwndBtn, nMsg )
    LOCAL ParentForm
    LOCAL i, aHandle
 
-   i := AScan ( _HMG_aControlSpacing, { |x| ValType( x ) == 'A' .AND. Len( x ) > 0 .AND. ValType( x [1] ) == 'N' .AND. x [1] == hwndEdit } )
+   i := AScan( _HMG_aControlSpacing, { |x| ValType( x ) == 'A' .AND. Len( x ) > 0 .AND. ValType( x [1] ) == 'N' .AND. x [1] == hwndEdit } )
 
    IF i > 0 .AND. HwndBtn > 0
 
       aHandle := _HMG_aControlSpacing [i]
 
-      SWITCH AScan ( aHandle, HwndBtn )
+      SWITCH AScan( aHandle, HwndBtn )
       CASE TBB1
          IF _DoControlEventProcedure ( _HMG_aControlProcedures [i], i )
             IF ValType( _HMG_aControlMiscData1 [i] ) == 'A' .AND. Len( _HMG_aControlMiscData1 [i] ) >= 4 .AND. ! _HMG_aControlMiscData1 [i] [4]

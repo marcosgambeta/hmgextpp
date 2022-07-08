@@ -190,7 +190,7 @@ FUNCTION _DefineOwnerButton ( ControlName, ParentForm, x, y, Caption, ;
    ENDIF
 
    IF _HMG_BeginTabActive
-      AAdd ( _HMG_ActiveTabCurrentPageMap , Controlhandle )
+      AAdd( _HMG_ActiveTabCurrentPageMap , Controlhandle )
    ENDIF
 
    IF ValType( tooltip ) != "U"
@@ -227,8 +227,8 @@ FUNCTION _DefineOwnerButton ( ControlName, ParentForm, x, y, Caption, ;
    _HMG_aControlWidth [k]     :=  w
    _HMG_aControlHeight [k]    :=  h
    _HMG_aControlSpacing [k]   :=  iif( lvertical, 1, 0 ) + iif( lefttext, OBT_LEFTTEXT, 0 ) + iif( uptext, OBT_UPTEXT, 0 ) + iif( !lnohotlight, OBT_HOTLIGHT, 0 ) + iif( flat, OBT_FLAT, 0 ) + iif( notrans, OBT_NOTRANSPARENT, 0 ) + iif( lnoxpstyle, OBT_NOXPSTYLE, 0 ) + iif( ladjust, OBT_ADJUST, 0 )
-   _HMG_aControlContainerRow  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerRow  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
    _HMG_aControlPicture [k]   :=   cPicture
    _HMG_aControlContainerHandle [k] :=   0
    _HMG_aControlFontName [k]    := fontname
@@ -261,7 +261,7 @@ FUNCTION _DefineOwnerButton ( ControlName, ParentForm, x, y, Caption, ;
    ENDIF
 
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnControlInit, k, mVar )
+      Eval( _HMG_bOnControlInit, k, mVar )
 #ifdef _OBJECT_
       ow := _WindowObj ( ParentForm )
       oc := _ControlObj( ControlHandle )
@@ -366,7 +366,7 @@ FUNCTION OwnButtonPaint( pdis )
    aBtnRc := GETOWNBTNRECT( pdis )
    itemState := GETOWNBTNSTATE( pdis )
 
-   i := AScan ( _HMG_aControlHandles , hWnd )
+   i := AScan( _HMG_aControlHandles , hWnd )
 
    IF ( i <= 0 .OR. _HMG_aControlType[ i ] <> "OBUTTON" )
       RETURN ( 1 )

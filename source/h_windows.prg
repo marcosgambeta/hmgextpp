@@ -105,7 +105,7 @@ FUNCTION _DefineWindow ( FormName, Caption, x, y, w, h, nominimize, nomaximize, 
 
    IF Main
 
-      IF AScan ( _HMG_aFormType, 'A' ) > 0
+      IF AScan( _HMG_aFormType, 'A' ) > 0
          MsgMiniGuiError( "Main Window is already defined." )
       ENDIF
 
@@ -120,7 +120,7 @@ FUNCTION _DefineWindow ( FormName, Caption, x, y, w, h, nominimize, nomaximize, 
    ELSE
 
       IF _HMG_MainWindowFirst == .T.
-         IF AScan ( _HMG_aFormType, 'A' ) == 0
+         IF AScan( _HMG_aFormType, 'A' ) == 0
             MsgMiniGuiError( "Main Window is not defined." )
          ENDIF
       ENDIF
@@ -129,7 +129,7 @@ FUNCTION _DefineWindow ( FormName, Caption, x, y, w, h, nominimize, nomaximize, 
          MsgMiniGuiError( "Window: " + FormName + " is already defined." )
       ENDIF
 
-      IF ! Empty ( NotifyIconName )
+      IF ! Empty( NotifyIconName )
          MsgMiniGuiError( "Notification icon allowed only in Main Window." )
       ENDIF
 
@@ -248,11 +248,11 @@ FUNCTION _DefineWindow ( FormName, Caption, x, y, w, h, nominimize, nomaximize, 
       ENDIF
    ENDIF
 
-   IF ValType ( aRGB ) != 'C' .AND. IsArrayRGB ( aRGB ) == .F.
+   IF ValType( aRGB ) != 'C' .AND. IsArrayRGB ( aRGB ) == .F.
       aRGB := { -1, -1, -1 }
    ENDIF
 
-   IF ValType ( icon ) == 'U' .AND. ValType ( _HMG_DefaultIconName ) != 'U'
+   IF ValType( icon ) == 'U' .AND. ValType( _HMG_DefaultIconName ) != 'U'
       icon := _HMG_DefaultIconName
    ENDIF
 
@@ -279,7 +279,7 @@ FUNCTION _DefineWindow ( FormName, Caption, x, y, w, h, nominimize, nomaximize, 
       xDisableCloseButton( FormHandle, .F. )
    ENDIF
 
-   IF mdi .AND. ValType ( cursor ) != "U"  /* P.Ch. 16.10. */
+   IF mdi .AND. ValType( cursor ) != "U"  /* P.Ch. 16.10. */
       SetWindowCursor ( FormHandle, cursor )
    ENDIF
 
@@ -290,7 +290,7 @@ FUNCTION _DefineWindow ( FormName, Caption, x, y, w, h, nominimize, nomaximize, 
       ENDIF
    ENDIF
 
-   IF ValType ( NotifyIconName ) == "U"
+   IF ValType( NotifyIconName ) == "U"
       NotifyIconName := ""
    ELSE
       hnotifyicon := LoadTrayIcon( GetResources(), NotifyIconName )
@@ -305,7 +305,7 @@ FUNCTION _DefineWindow ( FormName, Caption, x, y, w, h, nominimize, nomaximize, 
 
    cType := iif( Main == .T., 'A', iif( Child == .T., 'C', iif( Panel == .T., 'P', 'S' ) ) )
 
-   k := AScan ( _HMG_aFormDeleted, .T. )
+   k := AScan( _HMG_aFormDeleted, .T. )
 
    IF k > 0
 
@@ -379,65 +379,65 @@ FUNCTION _DefineWindow ( FormName, Caption, x, y, w, h, nominimize, nomaximize, 
       Public &mVar. := k
 #endif
 
-      AAdd ( _HMG_aFormNames, FormName )
-      AAdd ( _HMG_aFormHandles, FormHandle )
-      AAdd ( _HMG_aFormActive, .F. )
-      AAdd ( _HMG_aFormType, cType )
-      AAdd ( _HMG_aFormParentHandle, iif( panel, ParentHandle, 0 ) )
-      AAdd ( _HMG_aFormReleaseProcedure, ReleaseProcedure )
-      AAdd ( _HMG_aFormInitProcedure, InitProcedure )
-      AAdd ( _HMG_aFormToolTipHandle, htooltip )
-      AAdd ( _HMG_aFormContextMenuHandle, 0 )
-      AAdd ( _HMG_aFormMouseDragProcedure, MouseDragProcedure )
-      AAdd ( _HMG_aFormSizeProcedure, SizeProcedure )
-      AAdd ( _HMG_aFormClickProcedure, ClickProcedure )
-      AAdd ( _HMG_aFormMouseMoveProcedure, MouseMoveProcedure )
-      AAdd ( _HMG_aFormMoveProcedure, MoveProcedure )
-      AAdd ( _HMG_aFormDropProcedure, DropProcedure )
-      AAdd ( _HMG_aFormDeleted, .F. )
-      AAdd ( _HMG_aFormBkColor, aRGB )
-      AAdd ( _HMG_aFormPaintProcedure, PaintProcedure )
-      AAdd ( _HMG_aFormNoShow, noshow )
-      AAdd ( _HMG_aFormNotifyIconName, NotifyIconName    )
-      AAdd ( _HMG_aFormNotifyIconToolTip, NotifyIconToolTip    )
-      AAdd ( _HMG_aFormNotifyIconLeftClick, NotifyIconLeftClick    )
-      AAdd ( _HMG_aFormNotifyIconDblClick, NotifyIconDblClick    )
-      AAdd ( _HMG_aFormGotFocusProcedure, GotFocus )
-      AAdd ( _HMG_aFormLostFocusProcedure, LostFocus )
-      AAdd ( _HMG_aFormReBarHandle, 0 )
-      AAdd ( _HMG_aFormNotifyMenuHandle, 0 )
-      AAdd ( _HMG_aFormBrowseList, {} )
-      AAdd ( _HMG_aFormSplitChildList, {} )
-      AAdd ( _HMG_aFormVirtualHeight, VirtualHeight )
-      AAdd ( _HMG_aFormVirtualWidth, VirtualWidth )
-      AAdd ( _HMG_aFormFocused, .F. )
-      AAdd ( _HMG_aFormScrollUp, ScrollUp )
-      AAdd ( _HMG_aFormScrollDown, ScrollDown )
-      AAdd ( _HMG_aFormScrollLeft, ScrollLeft )
-      AAdd ( _HMG_aFormScrollRight, ScrollRight )
-      AAdd ( _HMG_aFormHScrollBox, HScrollBox )
-      AAdd ( _HMG_aFormVScrollBox, VScrollBox )
-      AAdd ( _HMG_aFormBrushHandle, BrushHandle )
-      AAdd ( _HMG_aFormFocusedControl, 0 )
-      AAdd ( _HMG_aFormGraphTasks, {} )
-      AAdd ( _HMG_aFormMaximizeProcedure, MaximizeProcedure )
-      AAdd ( _HMG_aFormMinimizeProcedure, MinimizeProcedure )
-      AAdd ( _HMG_aFormRestoreProcedure, RestoreProcedure )
-      AAdd ( _HMG_aFormAutoRelease, ! NoAutoRelease )
-      AAdd ( _HMG_aFormInteractiveCloseProcedure, InteractiveCloseProcedure )
-      AAdd ( _HMG_aFormMinMaxInfo, InitMinMaxInfo ( FormHandle ) )
-      AAdd ( _HMG_aFormActivateId, 0 )
-      AAdd ( _HMG_aFormMiscData1, {hnotifyicon, cursor, 0} )
-      AAdd ( _HMG_aFormMiscData2, '' )
+      AAdd( _HMG_aFormNames, FormName )
+      AAdd( _HMG_aFormHandles, FormHandle )
+      AAdd( _HMG_aFormActive, .F. )
+      AAdd( _HMG_aFormType, cType )
+      AAdd( _HMG_aFormParentHandle, iif( panel, ParentHandle, 0 ) )
+      AAdd( _HMG_aFormReleaseProcedure, ReleaseProcedure )
+      AAdd( _HMG_aFormInitProcedure, InitProcedure )
+      AAdd( _HMG_aFormToolTipHandle, htooltip )
+      AAdd( _HMG_aFormContextMenuHandle, 0 )
+      AAdd( _HMG_aFormMouseDragProcedure, MouseDragProcedure )
+      AAdd( _HMG_aFormSizeProcedure, SizeProcedure )
+      AAdd( _HMG_aFormClickProcedure, ClickProcedure )
+      AAdd( _HMG_aFormMouseMoveProcedure, MouseMoveProcedure )
+      AAdd( _HMG_aFormMoveProcedure, MoveProcedure )
+      AAdd( _HMG_aFormDropProcedure, DropProcedure )
+      AAdd( _HMG_aFormDeleted, .F. )
+      AAdd( _HMG_aFormBkColor, aRGB )
+      AAdd( _HMG_aFormPaintProcedure, PaintProcedure )
+      AAdd( _HMG_aFormNoShow, noshow )
+      AAdd( _HMG_aFormNotifyIconName, NotifyIconName    )
+      AAdd( _HMG_aFormNotifyIconToolTip, NotifyIconToolTip    )
+      AAdd( _HMG_aFormNotifyIconLeftClick, NotifyIconLeftClick    )
+      AAdd( _HMG_aFormNotifyIconDblClick, NotifyIconDblClick    )
+      AAdd( _HMG_aFormGotFocusProcedure, GotFocus )
+      AAdd( _HMG_aFormLostFocusProcedure, LostFocus )
+      AAdd( _HMG_aFormReBarHandle, 0 )
+      AAdd( _HMG_aFormNotifyMenuHandle, 0 )
+      AAdd( _HMG_aFormBrowseList, {} )
+      AAdd( _HMG_aFormSplitChildList, {} )
+      AAdd( _HMG_aFormVirtualHeight, VirtualHeight )
+      AAdd( _HMG_aFormVirtualWidth, VirtualWidth )
+      AAdd( _HMG_aFormFocused, .F. )
+      AAdd( _HMG_aFormScrollUp, ScrollUp )
+      AAdd( _HMG_aFormScrollDown, ScrollDown )
+      AAdd( _HMG_aFormScrollLeft, ScrollLeft )
+      AAdd( _HMG_aFormScrollRight, ScrollRight )
+      AAdd( _HMG_aFormHScrollBox, HScrollBox )
+      AAdd( _HMG_aFormVScrollBox, VScrollBox )
+      AAdd( _HMG_aFormBrushHandle, BrushHandle )
+      AAdd( _HMG_aFormFocusedControl, 0 )
+      AAdd( _HMG_aFormGraphTasks, {} )
+      AAdd( _HMG_aFormMaximizeProcedure, MaximizeProcedure )
+      AAdd( _HMG_aFormMinimizeProcedure, MinimizeProcedure )
+      AAdd( _HMG_aFormRestoreProcedure, RestoreProcedure )
+      AAdd( _HMG_aFormAutoRelease, ! NoAutoRelease )
+      AAdd( _HMG_aFormInteractiveCloseProcedure, InteractiveCloseProcedure )
+      AAdd( _HMG_aFormMinMaxInfo, InitMinMaxInfo ( FormHandle ) )
+      AAdd( _HMG_aFormActivateId, 0 )
+      AAdd( _HMG_aFormMiscData1, {hnotifyicon, cursor, 0} )
+      AAdd( _HMG_aFormMiscData2, '' )
 #ifdef _HMG_COMPAT_
-      AAdd ( _HMG_StopWindowEventProcedure, .F. )
+      AAdd( _HMG_StopWindowEventProcedure, .F. )
 #endif
 
    ENDIF
 
 #ifdef _PANEL_
    IF _HMG_BeginTabActive .AND. Panel
-      AAdd ( _HMG_ActiveTabCurrentPageMap, FormHandle )
+      AAdd( _HMG_ActiveTabCurrentPageMap, FormHandle )
       IF _HMG_ActiveTabPage > 1
          _HMG_aFormParentHandle [ k ] := 0
       ENDIF
@@ -447,7 +447,7 @@ FUNCTION _DefineWindow ( FormName, Caption, x, y, w, h, nominimize, nomaximize, 
    _SetThisFormInfo ( k )
 
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnFormInit, k, mVar )
+      Eval( _HMG_bOnFormInit, k, mVar )
    ENDIF
 
    IF !mdi  // JP MDI
@@ -461,7 +461,7 @@ FUNCTION _DefineWindow ( FormName, Caption, x, y, w, h, nominimize, nomaximize, 
       SetScrollRange ( Formhandle, SB_HORZ, 0, VirtualWidth - w, .T. )
    ENDIF
 
-   IF ISARRAY ( aMin ) .AND. ISARRAY ( aMax )
+   IF ISARRAY( aMin ) .AND. ISARRAY( aMax )
       iif( aMin[ 1 ] == NIL, NIL, _HMG_aFormMinMaxInfo [ k ] [ 5 ] := aMin[ 1 ] )
       iif( aMin[ 2 ] == NIL, NIL, _HMG_aFormMinMaxInfo [ k ] [ 6 ] := aMin[ 2 ] )
       iif( aMax[ 1 ] == NIL, NIL, _HMG_aFormMinMaxInfo [ k ] [ 7 ] := aMax[ 1 ] )
@@ -489,7 +489,7 @@ FUNCTION _DefineModalWindow ( FormName, Caption, x, y, w, h, Parent, nosize, nos
    ENDIF
 
    IF _HMG_MainWindowFirst == .T.
-      IF AScan ( _HMG_aFormType, 'A' ) == 0
+      IF AScan( _HMG_aFormType, 'A' ) == 0
          MsgMiniGuiError( "Main Window is not defined." )
       ENDIF
    ENDIF
@@ -566,11 +566,11 @@ FUNCTION _DefineModalWindow ( FormName, Caption, x, y, w, h, Parent, nosize, nos
       ENDIF
    ENDIF
 
-   IF ValType ( aRGB ) != 'C' .AND. IsArrayRGB ( aRGB ) == .F.
+   IF ValType( aRGB ) != 'C' .AND. IsArrayRGB ( aRGB ) == .F.
       aRGB := { -1, -1, -1 }
    ENDIF
 
-   IF ValType ( icon ) == 'U' .AND. ValType ( _HMG_DefaultIconName ) != 'U'
+   IF ValType( icon ) == 'U' .AND. ValType( _HMG_DefaultIconName ) != 'U'
       icon := _HMG_DefaultIconName
    ENDIF
 
@@ -589,11 +589,11 @@ FUNCTION _DefineModalWindow ( FormName, Caption, x, y, w, h, Parent, nosize, nos
    BrushHandle := RegisterWindow( icon, ClassName, aRGB )
    Formhandle := InitModalWindow ( Caption, x, y, w, h, Parent, nosize, nosysmenu, nocaption, ClassName, vscroll, hscroll, helpbutton )
 
-   IF Empty ( _HMG_InteractiveClose ) .AND. !nosysmenu .AND. !nocaption
+   IF Empty( _HMG_InteractiveClose ) .AND. !nosysmenu .AND. !nocaption
       xDisableCloseButton( FormHandle, .F. )
    ENDIF
 
-   IF ValType ( cursor ) != "U"
+   IF ValType( cursor ) != "U"
       SetWindowCursor( FormHandle, cursor )
    ENDIF
 
@@ -603,7 +603,7 @@ FUNCTION _DefineModalWindow ( FormName, Caption, x, y, w, h, Parent, nosize, nos
       SendMessage( htooltip, TTM_SETMAXTIPWIDTH, 0, SetToolTipMaxWidth() )
    ENDIF
 
-   k := AScan ( _HMG_aFormDeleted, .T. )
+   k := AScan( _HMG_aFormDeleted, .T. )
 
    IF k > 0
 
@@ -677,58 +677,58 @@ FUNCTION _DefineModalWindow ( FormName, Caption, x, y, w, h, Parent, nosize, nos
       Public &mVar. := k
 #endif
 
-      AAdd ( _HMG_aFormNames, FormName )
-      AAdd ( _HMG_aFormHandles, FormHandle )
-      AAdd ( _HMG_aFormActive, .F. )
-      AAdd ( _HMG_aFormType, "M" )
-      AAdd ( _HMG_aFormParentHandle, Parent )
-      AAdd ( _HMG_aFormReleaseProcedure, ReleaseProcedure )
-      AAdd ( _HMG_aFormInitProcedure, InitProcedure )
-      AAdd ( _HMG_aFormToolTipHandle, htooltip )
-      AAdd ( _HMG_aFormContextMenuHandle, 0 )
-      AAdd ( _HMG_aFormMouseDragProcedure, MouseDragProcedure )
-      AAdd ( _HMG_aFormSizeProcedure, SizeProcedure )
-      AAdd ( _HMG_aFormClickProcedure, ClickProcedure )
-      AAdd ( _HMG_aFormMouseMoveProcedure, MouseMoveProcedure )
-      AAdd ( _HMG_aFormMoveProcedure, MoveProcedure )
-      AAdd ( _HMG_aFormDropProcedure, DropProcedure )
-      AAdd ( _HMG_aFormDeleted, .F. )
-      AAdd ( _HMG_aFormBkColor, aRGB )
-      AAdd ( _HMG_aFormPaintProcedure, PaintProcedure )
-      AAdd ( _HMG_aFormNoShow, noshow )
-      AAdd ( _HMG_aFormNotifyIconName, '' )
-      AAdd ( _HMG_aFormNotifyIconToolTip, '' )
-      AAdd ( _HMG_aFormNotifyIconLeftClick, '' )
-      AAdd ( _HMG_aFormNotifyIconDblClick, '' )
-      AAdd ( _HMG_aFormGotFocusProcedure, GotFocus )
-      AAdd ( _HMG_aFormLostFocusProcedure, LostFocus )
-      AAdd ( _HMG_aFormReBarHandle, 0 )
-      AAdd ( _HMG_aFormNotifyMenuHandle, 0 )
-      AAdd ( _HMG_aFormBrowseList, {} )
-      AAdd ( _HMG_aFormSplitChildList, {} )
-      AAdd ( _HMG_aFormVirtualHeight, VirtualHeight )
-      AAdd ( _HMG_aFormVirtualWidth, VirtualWidth )
-      AAdd ( _HMG_aFormFocused, flashexit )
-      AAdd ( _HMG_aFormScrollUp, ScrollUp )
-      AAdd ( _HMG_aFormScrollDown, ScrollDown )
-      AAdd ( _HMG_aFormScrollLeft, ScrollLeft )
-      AAdd ( _HMG_aFormScrollRight, ScrollRight )
-      AAdd ( _HMG_aFormHScrollBox, HScrollBox )
-      AAdd ( _HMG_aFormVScrollBox, VScrollBox )
-      AAdd ( _HMG_aFormBrushHandle, BrushHandle )
-      AAdd ( _HMG_aFormFocusedControl, 0 )
-      AAdd ( _HMG_aFormGraphTasks, {} )
-      AAdd ( _HMG_aFormMaximizeProcedure, Nil )
-      AAdd ( _HMG_aFormMinimizeProcedure, Nil )
-      AAdd ( _HMG_aFormRestoreProcedure, Nil )
-      AAdd ( _HMG_aFormAutoRelease, ! NoAutoRelease )
-      AAdd ( _HMG_aFormInteractiveCloseProcedure, InteractiveCloseProcedure )
-      AAdd ( _HMG_aFormMinMaxInfo, InitMinMaxInfo ( FormHandle ) )
-      AAdd ( _HMG_aFormActivateId, 0 )
-      AAdd ( _HMG_aFormMiscData1, {NIL, cursor, 0} )
-      AAdd ( _HMG_aFormMiscData2, '' )
+      AAdd( _HMG_aFormNames, FormName )
+      AAdd( _HMG_aFormHandles, FormHandle )
+      AAdd( _HMG_aFormActive, .F. )
+      AAdd( _HMG_aFormType, "M" )
+      AAdd( _HMG_aFormParentHandle, Parent )
+      AAdd( _HMG_aFormReleaseProcedure, ReleaseProcedure )
+      AAdd( _HMG_aFormInitProcedure, InitProcedure )
+      AAdd( _HMG_aFormToolTipHandle, htooltip )
+      AAdd( _HMG_aFormContextMenuHandle, 0 )
+      AAdd( _HMG_aFormMouseDragProcedure, MouseDragProcedure )
+      AAdd( _HMG_aFormSizeProcedure, SizeProcedure )
+      AAdd( _HMG_aFormClickProcedure, ClickProcedure )
+      AAdd( _HMG_aFormMouseMoveProcedure, MouseMoveProcedure )
+      AAdd( _HMG_aFormMoveProcedure, MoveProcedure )
+      AAdd( _HMG_aFormDropProcedure, DropProcedure )
+      AAdd( _HMG_aFormDeleted, .F. )
+      AAdd( _HMG_aFormBkColor, aRGB )
+      AAdd( _HMG_aFormPaintProcedure, PaintProcedure )
+      AAdd( _HMG_aFormNoShow, noshow )
+      AAdd( _HMG_aFormNotifyIconName, '' )
+      AAdd( _HMG_aFormNotifyIconToolTip, '' )
+      AAdd( _HMG_aFormNotifyIconLeftClick, '' )
+      AAdd( _HMG_aFormNotifyIconDblClick, '' )
+      AAdd( _HMG_aFormGotFocusProcedure, GotFocus )
+      AAdd( _HMG_aFormLostFocusProcedure, LostFocus )
+      AAdd( _HMG_aFormReBarHandle, 0 )
+      AAdd( _HMG_aFormNotifyMenuHandle, 0 )
+      AAdd( _HMG_aFormBrowseList, {} )
+      AAdd( _HMG_aFormSplitChildList, {} )
+      AAdd( _HMG_aFormVirtualHeight, VirtualHeight )
+      AAdd( _HMG_aFormVirtualWidth, VirtualWidth )
+      AAdd( _HMG_aFormFocused, flashexit )
+      AAdd( _HMG_aFormScrollUp, ScrollUp )
+      AAdd( _HMG_aFormScrollDown, ScrollDown )
+      AAdd( _HMG_aFormScrollLeft, ScrollLeft )
+      AAdd( _HMG_aFormScrollRight, ScrollRight )
+      AAdd( _HMG_aFormHScrollBox, HScrollBox )
+      AAdd( _HMG_aFormVScrollBox, VScrollBox )
+      AAdd( _HMG_aFormBrushHandle, BrushHandle )
+      AAdd( _HMG_aFormFocusedControl, 0 )
+      AAdd( _HMG_aFormGraphTasks, {} )
+      AAdd( _HMG_aFormMaximizeProcedure, Nil )
+      AAdd( _HMG_aFormMinimizeProcedure, Nil )
+      AAdd( _HMG_aFormRestoreProcedure, Nil )
+      AAdd( _HMG_aFormAutoRelease, ! NoAutoRelease )
+      AAdd( _HMG_aFormInteractiveCloseProcedure, InteractiveCloseProcedure )
+      AAdd( _HMG_aFormMinMaxInfo, InitMinMaxInfo ( FormHandle ) )
+      AAdd( _HMG_aFormActivateId, 0 )
+      AAdd( _HMG_aFormMiscData1, {NIL, cursor, 0} )
+      AAdd( _HMG_aFormMiscData2, '' )
 #ifdef _HMG_COMPAT_
-      AAdd ( _HMG_StopWindowEventProcedure, .F. )
+      AAdd( _HMG_StopWindowEventProcedure, .F. )
 #endif
 
    ENDIF
@@ -736,7 +736,7 @@ FUNCTION _DefineModalWindow ( FormName, Caption, x, y, w, h, Parent, nosize, nos
    _SetThisFormInfo ( k )
 
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnFormInit, k, mVar )
+      Eval( _HMG_bOnFormInit, k, mVar )
    ENDIF
 
    InitDummy ( FormHandle )
@@ -748,7 +748,7 @@ FUNCTION _DefineModalWindow ( FormName, Caption, x, y, w, h, Parent, nosize, nos
       SetScrollRange ( Formhandle, SB_HORZ, 0, VirtualWidth - w, .T. )
    ENDIF
 
-   IF ISARRAY ( aMin ) .AND. ISARRAY ( aMax )
+   IF ISARRAY( aMin ) .AND. ISARRAY( aMax )
       iif( aMin[ 1 ] == NIL, NIL, _HMG_aFormMinMaxInfo[ k ] [ 5 ] := aMin[ 1 ] )
       iif( aMin[ 2 ] == NIL, NIL, _HMG_aFormMinMaxInfo[ k ] [ 6 ] := aMin[ 2 ] )
       iif( aMax[ 1 ] == NIL, NIL, _HMG_aFormMinMaxInfo[ k ] [ 7 ] := aMax[ 1 ] )
@@ -776,7 +776,7 @@ FUNCTION _DefineSplitChildWindow ( FormName, w, h, break, grippertext, nocaption
    ENDIF
 
    IF _HMG_MainWindowFirst == .T.
-      IF AScan ( _HMG_aFormType, 'A' ) == 0
+      IF AScan( _HMG_aFormType, 'A' ) == 0
          MsgMiniGuiError( "Main Window is not defined." )
       ENDIF
    ENDIF
@@ -833,7 +833,7 @@ FUNCTION _DefineSplitChildWindow ( FormName, w, h, break, grippertext, nocaption
 
       Formhandle := InitSplitChildWindow ( w, h, FormName, nocaption, title, 0, vscroll, hscroll )
 
-      IF ValType ( cursor ) != "U"
+      IF ValType( cursor ) != "U"
          SetWindowCursor( FormHandle, cursor )
       ENDIF
 
@@ -862,7 +862,7 @@ FUNCTION _DefineSplitChildWindow ( FormName, w, h, break, grippertext, nocaption
       SendMessage( htooltip, TTM_SETMAXTIPWIDTH, 0, SetToolTipMaxWidth() )
    ENDIF
 
-   k := AScan ( _HMG_aFormDeleted, .T. )
+   k := AScan( _HMG_aFormDeleted, .T. )
 
    IF k > 0
 
@@ -936,58 +936,58 @@ FUNCTION _DefineSplitChildWindow ( FormName, w, h, break, grippertext, nocaption
       Public &mVar. := k
 #endif
 
-      AAdd ( _HMG_aFormNames, FormName )
-      AAdd ( _HMG_aFormHandles, FormHandle )
-      AAdd ( _HMG_aFormActive, .F. )
-      AAdd ( _HMG_aFormType, 'X' )
-      AAdd ( _HMG_aFormParentHandle, GetFormHandle( ParentForm ) )
-      AAdd ( _HMG_aFormReleaseProcedure, "" )
-      AAdd ( _HMG_aFormInitProcedure, "" )
-      AAdd ( _HMG_aFormToolTipHandle, hToolTip )
-      AAdd ( _HMG_aFormContextMenuHandle, 0 )
-      AAdd ( _HMG_aFormMouseDragProcedure, "" )
-      AAdd ( _HMG_aFormSizeProcedure, "" )
-      AAdd ( _HMG_aFormClickProcedure, "" )
-      AAdd ( _HMG_aFormMouseMoveProcedure, "" )
-      AAdd ( _HMG_aFormMoveProcedure, "" )
-      AAdd ( _HMG_aFormDropProcedure, "" )
-      AAdd ( _HMG_aFormDeleted, .F. )
-      AAdd ( _HMG_aFormBkColor, aRGB )
-      AAdd ( _HMG_aFormPaintProcedure, "" )
-      AAdd ( _HMG_aFormNoShow, .F. )
-      AAdd ( _HMG_aFormNotifyIconName, "" )
-      AAdd ( _HMG_aFormNotifyIconToolTip, "" )
-      AAdd ( _HMG_aFormNotifyIconLeftClick, "" )
-      AAdd ( _HMG_aFormNotifyIconDblClick, "" )
-      AAdd ( _HMG_aFormGotFocusProcedure, gotfocus )
-      AAdd ( _HMG_aFormLostFocusProcedure, lostfocus )
-      AAdd ( _HMG_aFormReBarHandle, 0 )
-      AAdd ( _HMG_aFormNotifyMenuHandle, _HMG_aFormReBarHandle [i] )
-      AAdd ( _HMG_aFormBrowseList, {} )
-      AAdd ( _HMG_aFormSplitChildList, {} )
-      AAdd ( _HMG_aFormVirtualHeight, VirtualHeight )
-      AAdd ( _HMG_aFormVirtualWidth, VirtualWidth )
-      AAdd ( _HMG_aFormFocused, Focused )
-      AAdd ( _HMG_aFormScrollUp, ScrollUp )
-      AAdd ( _HMG_aFormScrollDown, ScrollDown )
-      AAdd ( _HMG_aFormScrollLeft, ScrollLeft )
-      AAdd ( _HMG_aFormScrollRight, ScrollRight )
-      AAdd ( _HMG_aFormHScrollBox, HScrollBox )
-      AAdd ( _HMG_aFormVScrollBox, VScrollBox )
-      AAdd ( _HMG_aFormBrushHandle, BrushHandle )
-      AAdd ( _HMG_aFormFocusedControl, 0 )
-      AAdd ( _HMG_aFormGraphTasks, {} )
-      AAdd ( _HMG_aFormMaximizeProcedure, Nil )
-      AAdd ( _HMG_aFormMinimizeProcedure, Nil )
-      AAdd ( _HMG_aFormRestoreProcedure, Nil )
-      AAdd ( _HMG_aFormAutoRelease, .T. )
-      AAdd ( _HMG_aFormInteractiveCloseProcedure, iif( nocaption, {|| .F.}, "" ) )
-      AAdd ( _HMG_aFormMinMaxInfo, {} )
-      AAdd ( _HMG_aFormActivateId, 0 )
-      AAdd ( _HMG_aFormMiscData1, {NIL, cursor, 0, nBand, grippertext} )
-      AAdd ( _HMG_aFormMiscData2, '' )
+      AAdd( _HMG_aFormNames, FormName )
+      AAdd( _HMG_aFormHandles, FormHandle )
+      AAdd( _HMG_aFormActive, .F. )
+      AAdd( _HMG_aFormType, 'X' )
+      AAdd( _HMG_aFormParentHandle, GetFormHandle( ParentForm ) )
+      AAdd( _HMG_aFormReleaseProcedure, "" )
+      AAdd( _HMG_aFormInitProcedure, "" )
+      AAdd( _HMG_aFormToolTipHandle, hToolTip )
+      AAdd( _HMG_aFormContextMenuHandle, 0 )
+      AAdd( _HMG_aFormMouseDragProcedure, "" )
+      AAdd( _HMG_aFormSizeProcedure, "" )
+      AAdd( _HMG_aFormClickProcedure, "" )
+      AAdd( _HMG_aFormMouseMoveProcedure, "" )
+      AAdd( _HMG_aFormMoveProcedure, "" )
+      AAdd( _HMG_aFormDropProcedure, "" )
+      AAdd( _HMG_aFormDeleted, .F. )
+      AAdd( _HMG_aFormBkColor, aRGB )
+      AAdd( _HMG_aFormPaintProcedure, "" )
+      AAdd( _HMG_aFormNoShow, .F. )
+      AAdd( _HMG_aFormNotifyIconName, "" )
+      AAdd( _HMG_aFormNotifyIconToolTip, "" )
+      AAdd( _HMG_aFormNotifyIconLeftClick, "" )
+      AAdd( _HMG_aFormNotifyIconDblClick, "" )
+      AAdd( _HMG_aFormGotFocusProcedure, gotfocus )
+      AAdd( _HMG_aFormLostFocusProcedure, lostfocus )
+      AAdd( _HMG_aFormReBarHandle, 0 )
+      AAdd( _HMG_aFormNotifyMenuHandle, _HMG_aFormReBarHandle [i] )
+      AAdd( _HMG_aFormBrowseList, {} )
+      AAdd( _HMG_aFormSplitChildList, {} )
+      AAdd( _HMG_aFormVirtualHeight, VirtualHeight )
+      AAdd( _HMG_aFormVirtualWidth, VirtualWidth )
+      AAdd( _HMG_aFormFocused, Focused )
+      AAdd( _HMG_aFormScrollUp, ScrollUp )
+      AAdd( _HMG_aFormScrollDown, ScrollDown )
+      AAdd( _HMG_aFormScrollLeft, ScrollLeft )
+      AAdd( _HMG_aFormScrollRight, ScrollRight )
+      AAdd( _HMG_aFormHScrollBox, HScrollBox )
+      AAdd( _HMG_aFormVScrollBox, VScrollBox )
+      AAdd( _HMG_aFormBrushHandle, BrushHandle )
+      AAdd( _HMG_aFormFocusedControl, 0 )
+      AAdd( _HMG_aFormGraphTasks, {} )
+      AAdd( _HMG_aFormMaximizeProcedure, Nil )
+      AAdd( _HMG_aFormMinimizeProcedure, Nil )
+      AAdd( _HMG_aFormRestoreProcedure, Nil )
+      AAdd( _HMG_aFormAutoRelease, .T. )
+      AAdd( _HMG_aFormInteractiveCloseProcedure, iif( nocaption, {|| .F.}, "" ) )
+      AAdd( _HMG_aFormMinMaxInfo, {} )
+      AAdd( _HMG_aFormActivateId, 0 )
+      AAdd( _HMG_aFormMiscData1, {NIL, cursor, 0, nBand, grippertext} )
+      AAdd( _HMG_aFormMiscData2, '' )
 #ifdef _HMG_COMPAT_
-      AAdd ( _HMG_StopWindowEventProcedure, .F. )
+      AAdd( _HMG_StopWindowEventProcedure, .F. )
 #endif
 
    ENDIF
@@ -996,12 +996,12 @@ FUNCTION _DefineSplitChildWindow ( FormName, w, h, break, grippertext, nocaption
    _SetThisFormInfo ( k )
 
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnFormInit, k, mVar )
+      Eval( _HMG_bOnFormInit, k, mVar )
    ENDIF
 
    InitDummy ( FormHandle )
 
-   AAdd ( _HMG_aFormSplitChildList [i] , _HMG_ActiveSplitChildIndex )
+   AAdd( _HMG_aFormSplitChildList [i] , _HMG_ActiveSplitChildIndex )
 
    IF VirtualHeight > 0
       SetScrollRange ( FormHandle, SB_VERT, 0, VirtualHeight - h, .T. )
@@ -1119,7 +1119,7 @@ FUNCTION _SetNotifyIconTooltip ( FormName, TooltipText )
 
    IF ( i := GetFormIndex ( FormName ) ) > 0 .AND. _HMG_aFormType [ i ] == 'A'
 
-      IF _HMG_aFormMiscData1 [ i ] [ 1 ] == NIL .AND. ! Empty ( _HMG_aFormNotifyIconName [ i ] )
+      IF _HMG_aFormMiscData1 [ i ] [ 1 ] == NIL .AND. ! Empty( _HMG_aFormNotifyIconName [ i ] )
          _HMG_aFormMiscData1 [ i ] [ 1 ] := LoadTrayIcon ( GetResources(), _HMG_aFormNotifyIconName [ i ] )
       ENDIF
 
@@ -1227,7 +1227,7 @@ FUNCTION InputBox ( cInputPrompt, cDialogCaption, cDefaultValue, nTimeout, cTime
    LOCAL lIsVistaOrLater := IsVistaOrLater()
    LOCAL nBordW  := iif( lIsVistaOrLater, GetBorderWidth() / 2 + 2, 0 )
    LOCAL nTitleH := GetTitleHeight() + iif( lIsVistaOrLater, GetBorderHeight() / 2 + 2, 0 )
-   LOCAL nMLines := iif( ValType ( lMultiLine ) == 'L' .AND. lMultiLine, 150, 0 )
+   LOCAL nMLines := iif( ValType( lMultiLine ) == 'L' .AND. lMultiLine, 150, 0 )
    LOCAL bCancel := {|| _HMG_DialogCancelled := lCanceled := .T., DoMethod( '_InputBox', 'Release' ) }
    LOCAL RetVal  := '', lOk := .F.
 
@@ -1336,7 +1336,7 @@ FUNCTION _ActivateWindow ( aForm, lNoWait, lDebugger, bInit )
    LOCAL TmpId
    LOCAL i
 #ifdef _PANEL_
-   LOCAL x, FormCount := Len ( _HMG_aFormNames )
+   LOCAL x, FormCount := Len( _HMG_aFormNames )
 #endif
 
    IF _HMG_ThisEventType == 'WINDOW_RELEASE'
@@ -1575,7 +1575,7 @@ FUNCTION _ActivateAllWindows ( bInit )
    LOCAL i
 
    * If Already Exists Activated Windows When Abort Command
-   IF AScan ( _HMG_aFormActive, .T. ) > 0
+   IF AScan( _HMG_aFormActive, .T. ) > 0
       MsgMiniGuiError( "ACTIVATE WINDOW ALL: this command should be used at application startup only." )
    ENDIF
 
@@ -1597,7 +1597,7 @@ FUNCTION _ActivateAllWindows ( bInit )
             ELSE
                _HMG_aFormNoShow [ i ] := .T.
                _HMG_aFormAutoRelease [ i ] := .F.
-               AAdd ( aForm, FormName )
+               AAdd( aForm, FormName )
             ENDIF
 
          ENDIF
@@ -1607,13 +1607,13 @@ FUNCTION _ActivateAllWindows ( bInit )
    NEXT
 
    * Check For Error And Call Activate Window Command
-   IF Empty ( MainName )
+   IF Empty( MainName )
       MsgMiniGuiError( "ACTIVATE WINDOW ALL: Main Window is not defined." )
-   ELSEIF Len ( aForm ) == 0
+   ELSEIF Len( aForm ) == 0
       MsgMiniGuiError( "ACTIVATE WINDOW ALL: Child windows are not defined." )
    ENDIF
 
-   AAdd ( aForm, MainName )
+   AAdd( aForm, MainName )
 
    _ActivateWindow ( aForm, , , bInit )
 
@@ -1626,7 +1626,7 @@ PROCEDURE _RefreshDataControls ( i )
    LOCAL SplitIndex
    LOCAL v
 
-   IF ( Len ( _HMG_aFormGraphTasks [ i ] ) > 0 .OR. ;
+   IF ( Len( _HMG_aFormGraphTasks [ i ] ) > 0 .OR. ;
       ISBLOCK( _HMG_aFormPaintProcedure [ i ] ) ) .AND. _HMG_ProgrammaticChange
       InvalidateRect( _HMG_aFormHandles [ i ], 0 )  // GF 07/11/2012
    ENDIF
@@ -1642,7 +1642,7 @@ PROCEDURE _RefreshDataControls ( i )
 
    NEXT
 
-   IF Len ( _HMG_aFormSplitChildList [ i ] ) > 0
+   IF Len( _HMG_aFormSplitChildList [ i ] ) > 0
 
       FOR EACH SplitIndex IN _HMG_aFormSplitChildList [ i ]
 
@@ -1671,8 +1671,8 @@ PROCEDURE _SetActivationFlag ( i )
 
    _HMG_aFormActive [i] := .T.
 
-   IF Len ( _HMG_aFormSplitChildList [i] ) > 0
-      AEval ( _HMG_aFormSplitChildList [i], {|x| _HMG_aFormActive [x] := .T. } )
+   IF Len( _HMG_aFormSplitChildList [i] ) > 0
+      AEval( _HMG_aFormSplitChildList [i], {|x| _HMG_aFormActive [x] := .T. } )
    ENDIF
 
    IF ISBLOCK ( _HMG_aFormDropProcedure [i] )
@@ -1726,7 +1726,7 @@ PROCEDURE _ProcessInitProcedure ( i )
       _HMG_ThisControlName := ""
 
       IF ISBLOCK ( _HMG_aFormInitProcedure [ i ] )
-         Eval ( _HMG_aFormInitProcedure [ i ] )
+         Eval( _HMG_aFormInitProcedure [ i ] )
       ENDIF
 
       _PopEventInfo()
@@ -1749,7 +1749,7 @@ FUNCTION _SetFocusedSplitChild ( i )
    LOCAL SplitFocusFlag := .F.
    LOCAL nIndex
 
-   IF Len ( _HMG_aFormSplitChildList [ i ] ) > 0
+   IF Len( _HMG_aFormSplitChildList [ i ] ) > 0
 
       FOR EACH nIndex IN _HMG_aFormSplitChildList [ i ]
 
@@ -1808,7 +1808,7 @@ PROCEDURE _SetActivationFocus ( i )
                   EXIT
                ENDIF
 
-            ELSEIF ISARRAY ( hControl )
+            ELSEIF ISARRAY( hControl )
                IF hControl [1] == Sp
                   FocusDefined := .T.
                   EXIT
@@ -1824,8 +1824,8 @@ PROCEDURE _SetActivationFocus ( i )
 
    IF FocusDefined == .F.
 
-      IF ( x := AScan ( _HMG_aControlHandles, GetNextDlgTabItem ( hParent, 0, .F. ) ) ) > 0 .OR. ;
-         ( x := AScan ( _HMG_aControlHandles, { |x| iif ( ISARRAY( x ), x [1] == GetNextDlgTabItem ( hParent, 0, .F. ), .F. ) } ) ) > 0
+      IF ( x := AScan( _HMG_aControlHandles, GetNextDlgTabItem ( hParent, 0, .F. ) ) ) > 0 .OR. ;
+         ( x := AScan( _HMG_aControlHandles, { |x| iif( ISARRAY( x ), x [1] == GetNextDlgTabItem ( hParent, 0, .F. ), .F. ) } ) ) > 0
          _SetFocus ( , , x )
       ENDIF
 
@@ -1845,7 +1845,7 @@ STATIC FUNCTION _GenActivateId ( nForm )
 
    REPEAT
 
-      TmpId := Int ( Seconds() * 100 )
+      TmpId := Int( Seconds() * 100 )
       TmpStr := '_HMG_ACTIVATE_' + hb_ntos ( TmpId )
 
 #ifdef _NAMES_LIST_
@@ -1884,7 +1884,7 @@ PROCEDURE _hmg_OnHideFocusManagement ( i )
 
       * Modal
 
-      IF ( x := AScan ( _HMG_aFormHandles, _HMG_aFormParenthandle [ i ] ) ) > 0
+      IF ( x := AScan( _HMG_aFormHandles, _HMG_aFormParenthandle [ i ] ) ) > 0
 
          IF _HMG_aFormType [ x ] == "M"
 
@@ -1904,7 +1904,7 @@ PROCEDURE _hmg_OnHideFocusManagement ( i )
             _HMG_IsModalActive := .F.
             _HMG_ActiveModalHandle := 0
 
-            AEval ( _HMG_aFormHandles, bEnableWindow )
+            AEval( _HMG_aFormHandles, bEnableWindow )
 
             SetFocus ( _HMG_aFormParenthandle [ i ] )
 
@@ -1917,7 +1917,7 @@ PROCEDURE _hmg_OnHideFocusManagement ( i )
          _HMG_IsModalActive := .F.
          _hmg_ActiveModalHandle := 0
 
-         AEval ( _HMG_aFormHandles, bEnableWindow )
+         AEval( _HMG_aFormHandles, bEnableWindow )
 
          SetFocus ( _HMG_MainHandle )
 
@@ -1942,14 +1942,14 @@ FUNCTION _DoControlEventProcedure ( bBlock, i, cEventType, nParam, nParam2 )
 #endif
    IF ISBLOCK ( bBlock )
       _PushEventInfo()
-      _HMG_ThisFormIndex := AScan ( _HMG_aFormHandles, _HMG_aControlParentHandles [ i ] )
+      _HMG_ThisFormIndex := AScan( _HMG_aFormHandles, _HMG_aControlParentHandles [ i ] )
       _HMG_ThisType := 'C'
       _HMG_ThisIndex := i
       _HMG_ThisFormName := _HMG_aFormNames[ _HMG_ThisFormIndex ]
       _HMG_ThisControlName := _HMG_aControlNames[ _HMG_ThisIndex ]
 
       IF _HMG_BeginWindowActive == .F. .OR. !( hb_defaultValue( cEventType, '' ) == 'CONTROL_ONCHANGE' ) .OR. _HMG_MainClientMDIHandle != 0
-         lRetVal := Eval ( bBlock, hb_defaultValue( nParam, 0 ), nParam2 )
+         lRetVal := Eval( bBlock, hb_defaultValue( nParam, 0 ), nParam2 )
       ENDIF
 
       _PopEventInfo()
@@ -1982,7 +1982,7 @@ FUNCTION _DoWindowEventProcedure ( bBlock, i, cEventType )
       _HMG_ThisFormName := _HMG_aFormNames[ _HMG_ThisFormIndex ]
       _HMG_ThisControlName :=  ""
 
-      lRetVal := Eval ( bBlock )
+      lRetVal := Eval( bBlock )
 
       _PopEventInfo()
    ENDIF
@@ -2055,7 +2055,7 @@ PROCEDURE VirtualChildControlFocusProcess ( nControlHandle, nWindowHandle )
 
    * Get Window Width / Height / Virtual Width / Virtual Height
 
-   FOR x := 1 TO Len ( _HMG_aFormHandles )
+   FOR x := 1 TO Len( _HMG_aFormHandles )
 
       IF _HMG_aFormHandles [ x ] == nWindowHandle
 
@@ -2076,7 +2076,7 @@ PROCEDURE VirtualChildControlFocusProcess ( nControlHandle, nWindowHandle )
 
    * Get Control Row / Col / Width / Height
 
-   FOR x := 1 TO Len ( _HMG_aControlHandles )
+   FOR x := 1 TO Len( _HMG_aControlHandles )
 
       IF ISNUMBER ( nControlHandle )
 
@@ -2092,9 +2092,9 @@ PROCEDURE VirtualChildControlFocusProcess ( nControlHandle, nWindowHandle )
 
             ENDIF
 
-         ELSEIF ISARRAY ( _HMG_aControlHandles [ x ] )
+         ELSEIF ISARRAY( _HMG_aControlHandles [ x ] )
 
-            IF AScan ( _HMG_aControlHandles [ x ], nControlHandle ) > 0
+            IF AScan( _HMG_aControlHandles [ x ], nControlHandle ) > 0
 
                nControlHeight := _HMG_aControlHeight[ x ]
                nControlWidth := _HMG_aControlWidth[ x ]
@@ -2333,12 +2333,12 @@ FUNCTION ReleaseAllWindows ()
             _DoWindowEventProcedure ( _HMG_aFormReleaseProcedure [ i ], i, 'WINDOW_RELEASE' )
 
             IF _HMG_lOOPEnabled
-               Eval ( _HMG_bOnFormDestroy, i )
+               Eval( _HMG_bOnFormDestroy, i )
             ENDIF
 
          ENDIF
 
-         IF ! Empty ( _HMG_aFormNotifyIconName [ i ] )
+         IF ! Empty( _HMG_aFormNotifyIconName [ i ] )
 
             _HMG_aFormNotifyIconName [ i ] := ''
             ShowNotifyIcon ( FormHandle, .F., NIL, NIL )
@@ -2349,11 +2349,11 @@ FUNCTION ReleaseAllWindows ()
             DeleteObject ( _HMG_aFormBrushHandle [ i ] )
          ENDIF
 
-         IF Len ( _HMG_aFormMiscData1[ i ] ) > 0 .AND. _HMG_aFormMiscData1 [ i ] [ 1 ] != NIL
+         IF Len( _HMG_aFormMiscData1[ i ] ) > 0 .AND. _HMG_aFormMiscData1 [ i ] [ 1 ] != NIL
             DestroyIcon ( _HMG_aFormMiscData1 [ i ] [ 1 ] )
          ENDIF
 
-         IF Len ( _HMG_aFormMiscData1[ i ] ) > 2 .AND. ! Empty ( _HMG_aFormMiscData1 [ i ] [ 3 ] )
+         IF Len( _HMG_aFormMiscData1[ i ] ) > 2 .AND. ! Empty( _HMG_aFormMiscData1 [ i ] [ 3 ] )
             DeleteObject ( _HMG_aFormMiscData1 [ i ] [ 3 ] )
          ENDIF
 
@@ -2387,7 +2387,7 @@ FUNCTION ReleaseAllWindows ()
          OTHERWISE
 
             IF ISCHARACTER ( _HMG_aControlNames [ i ] )
-               _EraseControl ( i , AScan ( _HMG_aFormHandles , _HMG_aControlParentHandles [ i ] ) )
+               _EraseControl ( i , AScan( _HMG_aFormHandles , _HMG_aControlParentHandles [ i ] ) )
             ENDIF
 
          ENDCASE
@@ -2510,7 +2510,7 @@ FUNCTION _ShowWindow ( FormName, lProcessMessages )
 
          ActiveWindowHandle := _HMG_UserWindowHandle
 
-         IF AScan ( _HMG_aFormHandles, ActiveWindowHandle ) == 0
+         IF AScan( _HMG_aFormHandles, ActiveWindowHandle ) == 0
             ActiveWindowHandle := _HMG_MainHandle
          ENDIF
 
@@ -2518,11 +2518,11 @@ FUNCTION _ShowWindow ( FormName, lProcessMessages )
 
       ENDIF
 
-      AEval ( _HMG_aFormHandles, { |y, x| iif( x <> i .AND. ! _HMG_aFormType [ x ] $ 'XP' .AND. ;
+      AEval( _HMG_aFormHandles, { |y, x| iif( x <> i .AND. ! _HMG_aFormType [ x ] $ 'XP' .AND. ;
          _HMG_aFormParentHandle [ x ] != _HMG_aFormHandles [ i ], DisableWindow ( _HMG_aFormHandles [ x ] ), ), HB_SYMBOL_UNUSED( y ) } )
 
-      IF Len ( _HMG_aFormSplitChildList [ i ] ) > 0
-         AEval ( _HMG_aFormSplitChildList [ i ], { | x | EnableWindow ( _HMG_aFormHandles[ x ] ) } )
+      IF Len( _HMG_aFormSplitChildList [ i ] ) > 0
+         AEval( _HMG_aFormSplitChildList [ i ], { | x | EnableWindow ( _HMG_aFormHandles[ x ] ) } )
       ENDIF
 
       IF _HMG_MainWindowFirst == .T.

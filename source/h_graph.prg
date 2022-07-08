@@ -80,7 +80,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
 
    DEFAULT lPrint := .F., cTitle := "", nSep := 0, nLegendsWidth := 50, cPicture := "999,999.99"
 
-   IF ( Len ( aSeries ) != Len ( aData ) ) .OR. ( Len ( aSeries ) > Len ( aColors ) )
+   IF ( Len( aSeries ) != Len( aData ) ) .OR. ( Len( aSeries ) > Len( aColors ) )
       MsgMiniGuiError( "DRAW GRAPH: 'Series' / 'SerieNames' / 'Colors' arrays size mismatch." )
    ENDIF
 
@@ -1084,10 +1084,10 @@ FUNCTION PrintWindow ( cWindowName, lPreview, ldialog, nRow, nCol, nWidth, nHeig
    LOCAL bw, bh, r, tw := 0, th
    LOCAL ntop, nleft, nbottom, nright
 
-   IF ValType ( nRow ) == 'U' .OR. ;
-      ValType ( nCol ) == 'U' .OR. ;
-      ValType ( nWidth ) == 'U' .OR. ;
-      ValType ( nHeight ) == 'U'
+   IF ValType( nRow ) == 'U' .OR. ;
+      ValType( nCol ) == 'U' .OR. ;
+      ValType( nWidth ) == 'U' .OR. ;
+      ValType( nHeight ) == 'U'
 
       ntop := -1
       nleft := -1
@@ -1103,11 +1103,11 @@ FUNCTION PrintWindow ( cWindowName, lPreview, ldialog, nRow, nCol, nWidth, nHeig
 
    ENDIF
 
-   IF ValType ( lDialog ) == 'U'
+   IF ValType( lDialog ) == 'U'
       lDialog := .F.
    ENDIF
 
-   IF ValType ( lPreview ) == 'U'
+   IF ValType( lPreview ) == 'U'
       lPreview := .F.
    ENDIF
 

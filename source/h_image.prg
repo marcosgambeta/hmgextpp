@@ -156,7 +156,7 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
    IF .NOT. lDialogInMemory
 
       IF _HMG_BeginTabActive
-         AAdd ( _HMG_ActiveTabCurrentPageMap , ControlHandle )
+         AAdd( _HMG_ActiveTabCurrentPageMap , ControlHandle )
       ENDIF
 
       IF ValType( tooltip ) != "U"
@@ -178,8 +178,8 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
    _HMG_aControlIds  [k] :=  nId
    _HMG_aControlProcedures [k] :=  ProcedureName
    _HMG_aControlPageMap   [k] :=  {}
-   _HMG_aControlValue  [k] :=  iif ( stretch, 1, 0 )
-   _HMG_aControlInputMask  [k] :=  iif ( transparent, 1, 0 )
+   _HMG_aControlValue  [k] :=  iif( stretch, 1, 0 )
+   _HMG_aControlInputMask  [k] :=  iif( transparent, 1, 0 )
    _HMG_aControllostFocusProcedure  [k] :=  mouseleave
    _HMG_aControlGotFocusProcedure  [k] :=  mouseover
    _HMG_aControlChangeProcedure  [k] :=  rclick
@@ -193,8 +193,8 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
    _HMG_aControlWidth  [k] :=  w
    _HMG_aControlHeight  [k] :=  h
    _HMG_aControlSpacing  [k] :=  BackgroundColor
-   _HMG_aControlContainerRow  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerRow  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
    _HMG_aControlPicture  [k] :=  FileName
    _HMG_aControlContainerHandle [k] :=  0
    _HMG_aControlFontName  [k] :=  ''
@@ -203,7 +203,7 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
    _HMG_aControlToolTip   [k] :=  tooltip
    _HMG_aControlRangeMin  [k] :=  w
    _HMG_aControlRangeMax  [k] :=  h
-   _HMG_aControlCaption  [k] :=  iif ( adjustimage, 1, 0 )
+   _HMG_aControlCaption  [k] :=  iif( adjustimage, 1, 0 )
    _HMG_aControlVisible  [k] :=  iif( invisible, .F. , .T. )
    _HMG_aControlHelpId  [k] :=  HelpId
    _HMG_aControlFontHandle  [k] :=   0
@@ -217,7 +217,7 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
    ENDIF
 
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnControlInit, k, mVar )
+      Eval( _HMG_bOnControlInit, k, mVar )
 #ifdef _OBJECT_
       ow := _WindowObj ( ParentFormHandle )
       oc := _ControlObj( ControlHandle )

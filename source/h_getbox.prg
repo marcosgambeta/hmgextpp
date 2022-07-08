@@ -108,7 +108,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
       MsgMiniGUIError( "GETBOX: Initial Value or Field must be specified." )
    ENDIF
 
-   IF ValType ( Field ) != 'U'
+   IF ValType( Field ) != 'U'
       IF  hb_UAt ( '>', Field ) == 0
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name." )
       ELSE
@@ -131,23 +131,23 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    cPicture := hb_asciiUpper( cPicture )
 
    DO CASE
-   CASE ValType ( Value ) == "N" .AND. !( "B" $ cPicture )
+   CASE ValType( Value ) == "N" .AND. !( "B" $ cPicture )
       right := .T.
-   CASE ValType ( Value ) == "D"
+   CASE ValType( Value ) == "D"
       nMaxLength := hb_ULen( DToC( Date() ) )
-   CASE ValType ( Value ) == "L"
+   CASE ValType( Value ) == "L"
       nMaxLength := 1
-   CASE ValType ( Value ) == "C"
+   CASE ValType( Value ) == "C"
       nMaxLength := hb_ULen( Value )
    ENDCASE
 
-   IF ValType ( aBitmap ) != 'A'
+   IF ValType( aBitmap ) != 'A'
       cBmp := aBitmap
       aBitmap := Array( 2 )
       aBitmap[1] := cBmp
    ENDIF
 
-   IF ValType ( aToolTip ) != 'A'
+   IF ValType( aToolTip ) != 'A'
       tmp := aToolTip
       aToolTip := Array( 3 )
       aToolTip[1] := tmp
@@ -261,7 +261,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
       ENDIF
 
       IF _HMG_BeginTabActive
-         AAdd ( _HMG_ActiveTabCurrentPageMap , ControlHandle )
+         AAdd( _HMG_ActiveTabCurrentPageMap , ControlHandle )
       ENDIF
 
       FOR tmp := 1 TO 3
@@ -324,8 +324,8 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    _HMG_aControlWidth  [k] :=  w
    _HMG_aControlHeight  [k] :=  h
    _HMG_aControlSpacing  [k] :=  cValidMessage
-   _HMG_aControlContainerRow  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerRow  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
    _HMG_aControlPicture  [k] :=  ""
    _HMG_aControlContainerHandle  [k] :=  0
    _HMG_aControlFontName  [k] :=  FontName
@@ -363,13 +363,13 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
          _DispGetBoxText ( ControlHandle , oGet:buffer )
       ENDIF
 
-      IF ValType ( Field ) != 'U'
-         AAdd ( _HMG_aFormBrowseList [ GetFormIndex ( ParentFormName ) ] , k )
+      IF ValType( Field ) != 'U'
+         AAdd( _HMG_aFormBrowseList [ GetFormIndex ( ParentFormName ) ] , k )
       ENDIF
    ENDIF
 
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnControlInit, k, mVar )
+      Eval( _HMG_bOnControlInit, k, mVar )
 #ifdef _OBJECT_
       ow := _WindowObj ( ParentFormHandle )
       oc := _ControlObj( ControlHandle )
@@ -389,7 +389,7 @@ STATIC PROCEDURE _GetBoxSetNextFocus( lPrevious )
    NextControlHandle := GetNextDlgTabITem ( GetActiveWindow() , GetFocus() , lPrevious )
    setfocus ( NextControlHandle )
 
-   IF ( i := AScan ( _HMG_aControlHandles , NextControlHandle ) ) > 0
+   IF ( i := AScan( _HMG_aControlHandles , NextControlHandle ) ) > 0
 
       IF _HMG_aControlType [i] == 'BUTTON'
          SendMessage ( NextControlHandle , BM_SETSTYLE , LOWORD ( BS_DEFPUSHBUTTON ) , 1 )
@@ -404,7 +404,7 @@ PROCEDURE _DataGetBoxRefresh ( i )
 *-----------------------------------------------------------------------------*
    LOCAL Field := _HMG_aControlPageMap [i]
 
-   _SetGetBoxValue( i, _HMG_aControlHandles [i], iif( ValType ( Field ) == 'U', _HMG_aControlValue [i], &( Field ) ) )
+   _SetGetBoxValue( i, _HMG_aControlHandles [i], iif( ValType( Field ) == 'U', _HMG_aControlValue [i], &( Field ) ) )
 
 RETURN
 
@@ -440,7 +440,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
    LOCAL readonly
    LOCAL lAllowEdit
    LOCAL aKey
-   LOCAL i := AScan ( _HMG_aControlHandles, hWnd )
+   LOCAL i := AScan( _HMG_aControlHandles, hWnd )
 
    STATIC lInValid := .F.
 
@@ -1311,7 +1311,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
          IF ValType( aHandle ) == 'A' .AND. Len( aHandle ) >= 1 .AND. aHandle [1] == hWnd
 
-            SWITCH AScan ( aHandle , HwndBtn )
+            SWITCH AScan( aHandle , HwndBtn )
             CASE GBB1
                _DoControlEventProcedure ( _HMG_aControlProcedures [i] , i )
                EXIT
@@ -1340,7 +1340,7 @@ PROCEDURE _SetGetBoxValue( nId, hWnd, Value )
 
    IF ValType( Value ) == ValType( oGet:VarGet() )
 
-      _HMG_ThisFormIndex   := AScan ( _HMG_aFormHandles , _HMG_aControlParentHandles [nId] )
+      _HMG_ThisFormIndex   := AScan( _HMG_aFormHandles , _HMG_aControlParentHandles [nId] )
       _HMG_ThisFormName    := _HMG_aFormNames [_HMG_ThisFormIndex]
       _HMG_ThisControlName := _HMG_aControlNames [nId]
       _HMG_aControlValue [nId] := Value
@@ -1415,7 +1415,7 @@ PROCEDURE _DispGetBoxText( hWnd, cText )
    LOCAL ControlHandle
    LOCAL i
 
-   IF ( i := AScan ( _HMG_aControlHandles, hWnd ) ) > 0
+   IF ( i := AScan( _HMG_aControlHandles, hWnd ) ) > 0
 
       ControlHandle := _HMG_aControlHandles [i]
 

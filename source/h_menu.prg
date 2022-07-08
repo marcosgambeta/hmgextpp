@@ -157,14 +157,14 @@ PROCEDURE _DefineMenuPopup ( Caption, Name, Image, Font )
       FormName := iif( _HMG_xMenuType == 'MAIN', _HMG_xMainMenuParentName, _HMG_xContextMenuParentName )
       k := _GetControlFree()
 
-      IF ValType ( name ) == 'U'
+      IF ValType( name ) == 'U'
 #ifndef _EMPTY_MENU_
          Name := 'DummyPopupName' + hb_ntos( k )
 #else
          Name := ''
 #endif
       ENDIF
-      IF !Empty ( name )
+      IF !Empty( name )
          mVar := '_' + FormName + '_' + Name
 #ifdef _NAMES_LIST_
          _SetNameList( mVar , k )
@@ -224,7 +224,7 @@ PROCEDURE _DefineMenuPopup ( Caption, Name, Image, Font )
       ENDIF
 
       IF _HMG_lOOPEnabled
-         Eval ( _HMG_bOnControlInit, k, mVar )
+         Eval( _HMG_bOnControlInit, k, mVar )
       ENDIF
 
    ELSE
@@ -317,30 +317,30 @@ PROCEDURE _DefineMenuItem ( caption, action, name, Image, checked, disabled, cMe
          AppendMenuString( ControlHandle , id , caption , nBreakCode )
       ENDIF
 
-      IF ValType ( image ) != 'U'
+      IF ValType( image ) != 'U'
          hBitmap := MenuItem_SetBitMaps ( _HMG_xMenuPopuphandle [_HMG_xMenuPopupLevel ] , id , image , '' )
-      ELSEIF ValType ( icon ) != 'U'
+      ELSEIF ValType( icon ) != 'U'
          hBitmap := MenuItem_SetIcon ( _HMG_xMenuPopuphandle [_HMG_xMenuPopupLevel ] , id , icon )
       ENDIF
 
-      IF ValType ( check_image ) != 'U'
+      IF ValType( check_image ) != 'U'
          MenuItem_SetCheckMarks( _HMG_xMenuPopuphandle [_HMG_xMenuPopupLevel ] , id , check_image , '' )
       ENDIF
 
-      IF ValType ( font ) != 'U'
+      IF ValType( font ) != 'U'
          MenuItem_SetFont( _HMG_xMenuPopuphandle [_HMG_xMenuPopupLevel ] , id , font )
       ENDIF
 
       k := _GetControlFree()
 
-      IF ValType ( name ) == 'U'
+      IF ValType( name ) == 'U'
 #ifndef _EMPTY_MENU_
          Name := 'DummyMenuName' + hb_ntos( k )
 #else
          Name := ''
 #endif
       ENDIF
-      IF !Empty ( name )
+      IF !Empty( name )
          mVar := '_' + _HMG_xMainMenuParentName + '_' + Name
 #ifdef _NAMES_LIST_
          _SetNameList( mVar , k )
@@ -391,7 +391,7 @@ PROCEDURE _DefineMenuItem ( caption, action, name, Image, checked, disabled, cMe
       _HMG_aControlMiscData2 [k] := ''
 
       IF _HMG_lOOPEnabled
-         Eval ( _HMG_bOnControlInit, k, mVar )
+         Eval( _HMG_bOnControlInit, k, mVar )
       ENDIF
 
       IF checked
@@ -420,28 +420,28 @@ PROCEDURE _DefineMenuItem ( caption, action, name, Image, checked, disabled, cMe
          ControlHandle := ContextMenuHandle
       ENDIF
 
-      IF ValType ( image ) != 'U'
+      IF ValType( image ) != 'U'
          hBitmap := MenuItem_SetBitMaps( ContextMenuHandle, id, image , '' )
       ENDIF
 
-      IF ValType ( check_image ) != 'U'
+      IF ValType( check_image ) != 'U'
          MenuItem_SetCheckMarks( ContextMenuHandle, id, check_image , '' )
       ENDIF
 
-      IF ValType ( font ) != 'U'
+      IF ValType( font ) != 'U'
          MenuItem_SetFont( ContextMenuHandle, id, font )
       ENDIF
 
       k := _GetControlFree()
 
-      IF ValType ( name ) == 'U'
+      IF ValType( name ) == 'U'
 #ifndef _EMPTY_MENU_
          Name := 'DummyMenuName' + hb_ntos( k )
 #else
          Name := ''
 #endif
       ENDIF
-      IF !Empty ( name )
+      IF !Empty( name )
          mVar := '_' + _HMG_xContextMenuParentName + '_' + Name
 #ifdef _NAMES_LIST_
          _SetNameList( mVar , k )
@@ -492,7 +492,7 @@ PROCEDURE _DefineMenuItem ( caption, action, name, Image, checked, disabled, cMe
       _HMG_aControlMiscData2 [k] := ''
 
       IF _HMG_lOOPEnabled
-         Eval ( _HMG_bOnControlInit, k, mVar )
+         Eval( _HMG_bOnControlInit, k, mVar )
       ENDIF
 
       IF checked
@@ -611,7 +611,7 @@ PROCEDURE _EndMenu()
 
          image := _HMG_aControlPicture [i]
 
-         IF ValType ( image ) != 'U'
+         IF ValType( image ) != 'U'
             _HMG_aControlBrushHandle [i] := MenuItem_SetBitMaps ( _HMG_aControlPageMap [i] , _HMG_aControlSpacing [i] , image , '' )
          ENDIF
 
@@ -897,7 +897,7 @@ FUNCTION _SetMenuItemFont ( ItemName , FormName , Font )
 *-----------------------------------------------------------------------------*
    LOCAL a := _GetMenuIds ( ItemName , FormName )
 
-RETURN MenuItem_SetFont ( a [1] , a [2] , iif ( ISCHARACTER( Font ) , GetFontHandle( Font ) , Font ) )
+RETURN MenuItem_SetFont ( a [1] , a [2] , iif( ISCHARACTER( Font ) , GetFontHandle( Font ) , Font ) )
 
 *-----------------------------------------------------------------------------*
 FUNCTION _InsertMenuItem ( ItemName , FormName , caption , action , name , Image )
@@ -910,7 +910,7 @@ FUNCTION _InsertMenuItem ( ItemName , FormName , caption , action , name , Image
 
    Id := _GetId()
 
-   IF ValType ( name ) != 'U'
+   IF ValType( name ) != 'U'
       mVar := '_' + _HMG_xMainMenuParentName + '_' + Name
 #ifdef _NAMES_LIST_
       _SetNameList( mVar , Len( _HMG_aControlNames ) + 1 )
@@ -928,53 +928,53 @@ FUNCTION _InsertMenuItem ( ItemName , FormName , caption , action , name , Image
 
    InsertMenuItem ( Controlhandle , a [2] , Id , caption )
 
-   IF ValType ( image ) != 'U'
+   IF ValType( image ) != 'U'
       hBitmap := MenuItem_SetBitMaps ( Controlhandle , Id , image , '' )
    ENDIF
 
-   AAdd ( _HMG_aControlType , "MENU" )
-   AAdd ( _HMG_aControlNames , Name )
-   AAdd ( _HMG_aControlHandles , Controlhandle )
-   AAdd ( _HMG_aControlParentHandles , _HMG_xMainMenuParentHandle )
-   AAdd ( _HMG_aControlIds , id )
-   AAdd ( _HMG_aControlProcedures , action )
-   AAdd ( _HMG_aControlPageMap , a [1] )
-   AAdd ( _HMG_aControlValue , Nil ) 
-   AAdd ( _HMG_aControlInputMask , "" ) 
-   AAdd ( _HMG_aControllostFocusProcedure , "" ) 
-   AAdd ( _HMG_aControlGotFocusProcedure , "" ) 
-   AAdd ( _HMG_aControlChangeProcedure , "" ) 
-   AAdd ( _HMG_aControlDeleted , .F. ) 
-   AAdd ( _HMG_aControlBkColor , Nil )
-   AAdd ( _HMG_aControlFontColor , Nil )
-   AAdd ( _HMG_aControlDblClick , "" )
-   AAdd ( _HMG_aControlHeadClick , {} )
-   AAdd ( _HMG_aControlRow , 0 )
-   AAdd ( _HMG_aControlCol , 0 )
-   AAdd ( _HMG_aControlWidth , 0 )
-   AAdd ( _HMG_aControlHeight , 0 )
-   AAdd ( _HMG_aControlSpacing , 0 )
-   AAdd ( _HMG_aControlContainerRow , -1 )
-   AAdd ( _HMG_aControlContainerCol , -1 )
-   AAdd ( _HMG_aControlPicture , "" )
-   AAdd ( _HMG_aControlContainerHandle , 0 )
-   AAdd ( _HMG_aControlFontName , '' )
-   AAdd ( _HMG_aControlFontSize , 0 )
-   AAdd ( _HMG_aControlFontAttributes , { .F. , .F. , .F. , .F. } )
-   AAdd ( _HMG_aControlToolTip  , ''  )
-   AAdd ( _HMG_aControlRangeMin  , 0  )
-   AAdd ( _HMG_aControlRangeMax  , 0  )
-   AAdd ( _HMG_aControlCaption  , Caption  )
-   AAdd ( _HMG_aControlVisible  , .T. )
-   AAdd ( _HMG_aControlHelpId  , 0 )
-   AAdd ( _HMG_aControlFontHandle  , 0 )
-   AAdd ( _HMG_aControlBrushHandle , hBitmap )
-   AAdd ( _HMG_aControlEnabled  , .T. )
-   AAdd ( _HMG_aControlMiscData1 , 0 )
-   AAdd ( _HMG_aControlMiscData2 , '' )
+   AAdd( _HMG_aControlType , "MENU" )
+   AAdd( _HMG_aControlNames , Name )
+   AAdd( _HMG_aControlHandles , Controlhandle )
+   AAdd( _HMG_aControlParentHandles , _HMG_xMainMenuParentHandle )
+   AAdd( _HMG_aControlIds , id )
+   AAdd( _HMG_aControlProcedures , action )
+   AAdd( _HMG_aControlPageMap , a [1] )
+   AAdd( _HMG_aControlValue , Nil )
+   AAdd( _HMG_aControlInputMask , "" )
+   AAdd( _HMG_aControllostFocusProcedure , "" )
+   AAdd( _HMG_aControlGotFocusProcedure , "" )
+   AAdd( _HMG_aControlChangeProcedure , "" )
+   AAdd( _HMG_aControlDeleted , .F. )
+   AAdd( _HMG_aControlBkColor , Nil )
+   AAdd( _HMG_aControlFontColor , Nil )
+   AAdd( _HMG_aControlDblClick , "" )
+   AAdd( _HMG_aControlHeadClick , {} )
+   AAdd( _HMG_aControlRow , 0 )
+   AAdd( _HMG_aControlCol , 0 )
+   AAdd( _HMG_aControlWidth , 0 )
+   AAdd( _HMG_aControlHeight , 0 )
+   AAdd( _HMG_aControlSpacing , 0 )
+   AAdd( _HMG_aControlContainerRow , -1 )
+   AAdd( _HMG_aControlContainerCol , -1 )
+   AAdd( _HMG_aControlPicture , "" )
+   AAdd( _HMG_aControlContainerHandle , 0 )
+   AAdd( _HMG_aControlFontName , '' )
+   AAdd( _HMG_aControlFontSize , 0 )
+   AAdd( _HMG_aControlFontAttributes , { .F. , .F. , .F. , .F. } )
+   AAdd( _HMG_aControlToolTip  , ''  )
+   AAdd( _HMG_aControlRangeMin  , 0  )
+   AAdd( _HMG_aControlRangeMax  , 0  )
+   AAdd( _HMG_aControlCaption  , Caption  )
+   AAdd( _HMG_aControlVisible  , .T. )
+   AAdd( _HMG_aControlHelpId  , 0 )
+   AAdd( _HMG_aControlFontHandle  , 0 )
+   AAdd( _HMG_aControlBrushHandle , hBitmap )
+   AAdd( _HMG_aControlEnabled  , .T. )
+   AAdd( _HMG_aControlMiscData1 , 0 )
+   AAdd( _HMG_aControlMiscData2 , '' )
 
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnControlInit, Len( _HMG_aControlNames ), mVar )
+      Eval( _HMG_bOnControlInit, Len( _HMG_aControlNames ), mVar )
    ENDIF
 
 RETURN Nil
@@ -989,7 +989,7 @@ FUNCTION _ModifyMenuItem ( ItemName , FormName , Caption , action , name , Image
 
    Id := _HMG_aControlIds [x]
 
-   IF ValType ( name ) != 'U'
+   IF ValType( name ) != 'U'
       mVar := '_' + _HMG_xMainMenuParentName + '_' + Name
 #ifdef _NAMES_LIST_
       _SetNameList( mVar , x )
@@ -1007,7 +1007,7 @@ FUNCTION _ModifyMenuItem ( ItemName , FormName , Caption , action , name , Image
 
    ModifyMenuItem ( a [1] , a [2] , Id , Caption )
 
-   IF ValType ( image ) != 'U'
+   IF ValType( image ) != 'U'
       DeleteObject ( _HMG_aControlBrushHandle [x] )
       _HMG_aControlBrushHandle [x] := MenuItem_SetBitMaps ( a [1] , Id , image , '' )
    ENDIF
@@ -1032,12 +1032,12 @@ FUNCTION HMG_SetMenuTheme ( nType , cFormName , aUserDefined )
 
    hb_default ( @nType, MNUCLR_THEME_DEFAULT )
 
-   IF PCount() < 2 .AND. Len ( _HMG_aFormHandles ) > 0
+   IF PCount() < 2 .AND. Len( _HMG_aFormHandles ) > 0
       cFormName := ThisWindow.Name
    ENDIF
 
-   IF PCount() > 2 .AND. ! ISARRAY ( aUserDefined )
-      aUserDefined := Array ( 24 )
+   IF PCount() > 2 .AND. ! ISARRAY( aUserDefined )
+      aUserDefined := Array( 24 )
    ENDIF
 
    SWITCH nType

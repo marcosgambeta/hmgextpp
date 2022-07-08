@@ -75,7 +75,7 @@ PROCEDURE _DefineCLButton ( cName, nRow, nCol, cCaption, cNotes, bAction, cParen
    CLButton_SetNote( hControlHandle, cNotes )
 
    IF _HMG_BeginTabActive
-      AAdd ( _HMG_ActiveTabCurrentPageMap, hControlHandle )
+      AAdd( _HMG_ActiveTabCurrentPageMap, hControlHandle )
    ENDIF
 
 #ifdef _NAMES_LIST_
@@ -106,8 +106,8 @@ PROCEDURE _DefineCLButton ( cName, nRow, nCol, cCaption, cNotes, bAction, cParen
    _HMG_aControlWidth[k] := w
    _HMG_aControlHeight[k] := h
    _HMG_aControlSpacing[k] := 0
-   _HMG_aControlContainerRow [k] :=  iif ( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[ _HMG_FrameLevel ], -1 )
-   _HMG_aControlContainerCol [k] :=  iif ( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[ _HMG_FrameLevel ], -1 )
+   _HMG_aControlContainerRow [k] :=  iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[ _HMG_FrameLevel ], -1 )
+   _HMG_aControlContainerCol [k] :=  iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[ _HMG_FrameLevel ], -1 )
    _HMG_aControlPicture[k] :=  "Arrow"
    _HMG_aControlContainerHandle[k ] :=   0
    _HMG_aControlFontName[k] :=  Nil
@@ -126,7 +126,7 @@ PROCEDURE _DefineCLButton ( cName, nRow, nCol, cCaption, cNotes, bAction, cParen
    _HMG_aControlMiscData2[k] :=  ''
 
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnControlInit, k, mVar )
+      Eval( _HMG_bOnControlInit, k, mVar )
    ENDIF
 
    IF ! Empty( cBitmap )
@@ -171,7 +171,7 @@ FUNCTION CLButtonEventhandler ( hWnd, nMsg, wParam, lParam )
 
    IF nMsg == WM_COMMAND
 
-      i := AScan ( _HMG_aControlHandles, lParam )
+      i := AScan( _HMG_aControlHandles, lParam )
 
       IF i > 0 .AND. _HMG_aControlType[ i ] == 'CLBUTTON'
 
@@ -225,7 +225,7 @@ PROCEDURE CLButtonSetFocus ( cWindow, cControl )
       _HMG_UserComponentProcess := .T.
 
       hWnd := GetControlHandle ( cControl, cWindow )
-      ControlCount := Len ( _HMG_aControlNames )
+      ControlCount := Len( _HMG_aControlNames )
       ParentFormHandle := _HMG_aControlParentHandles [ GetControlIndex ( cControl, cWindow ) ]
       FOR x := 1 TO ControlCount
          IF _HMG_aControlType [x] == 'CLBUTTON'

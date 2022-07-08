@@ -240,7 +240,7 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
       ENDIF
 
       IF _HMG_BeginTabActive
-         AAdd ( _HMG_ActiveTabCurrentPageMap, ControlHandle )
+         AAdd( _HMG_ActiveTabCurrentPageMap, ControlHandle )
       ENDIF
 
       IF ValType( tooltip ) != "U"
@@ -299,8 +299,8 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
    _HMG_aControlWidth[ k ] := Width
    _HMG_aControlHeight[ k ] := Height
    _HMG_aControlSpacing[ k ] := 0
-   _HMG_aControlContainerRow[ k ] :=  iif ( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[ _HMG_FrameLevel ], -1 )
-   _HMG_aControlContainerCol[ k ] :=  iif ( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[ _HMG_FrameLevel ], -1 )
+   _HMG_aControlContainerRow[ k ] :=  iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[ _HMG_FrameLevel ], -1 )
+   _HMG_aControlContainerCol[ k ] :=  iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[ _HMG_FrameLevel ], -1 )
    _HMG_aControlPicture[ k ] :=  {}
    _HMG_aControlContainerHandle[ k ] :=  0
    _HMG_aControlFontName[ k ] :=  fontname
@@ -319,7 +319,7 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
    _HMG_aControlMiscData2[ k ] := ''
 
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnControlInit, k, mVar )
+      Eval( _HMG_bOnControlInit, k, mVar )
 #ifdef _OBJECT_
       ow := _WindowObj ( ParentFormHandle )
       oc := _ControlObj( ControlHandle )
@@ -395,12 +395,12 @@ FUNCTION InitDialogTree( ParentName, ControlHandle, k )
       ENDIF
       IF _HMG_aDialogTreeItem[ n, 5 ] == 'NODE'
          _HMG_NodeHandle[ NodeIndex ] := AddTreeItem ( _HMG_ActiveTreeHandle, _HMG_NodeHandle[ NodeIndex - 1 ], text, iUnsel, iSel, Id, .T. )
-         AAdd ( _HMG_aTreeMap, _HMG_NodeHandle[ NodeIndex ] )
-         AAdd ( _HMG_aTreeIdMap, Id )
+         AAdd( _HMG_aTreeMap, _HMG_NodeHandle[ NodeIndex ] )
+         AAdd( _HMG_aTreeIdMap, Id )
       ELSE
          handle := AddTreeItem ( _HMG_ActiveTreeHandle, NodeHandle, text, iUnSel, iSel, Id, .F. )
-         AAdd ( _HMG_aTreeMap, Handle )
-         AAdd ( _HMG_aTreeIdMap, Id )
+         AAdd( _HMG_aTreeMap, Handle )
+         AAdd( _HMG_aTreeIdMap, Id )
       ENDIF
    NEXT
 
@@ -413,7 +413,7 @@ FUNCTION InitDialogTree( ParentName, ControlHandle, k )
       IF _HMG_ActiveTreeItemIds == .F.
          TreeView_SelectItem ( _HMG_ActiveTreeHandle, _HMG_aTreeMap[ _HMG_ActiveTreeValue ] )
       ELSE
-         TreeView_SelectItem ( _HMG_ActiveTreeHandle, _HMG_aTreeMap[ AScan ( _HMG_aTreeIdMap, _HMG_ActiveTreeValue ) ] )
+         TreeView_SelectItem ( _HMG_ActiveTreeHandle, _HMG_aTreeMap[ AScan( _HMG_aTreeIdMap, _HMG_ActiveTreeValue ) ] )
       ENDIF
    ENDIF
    // JP 62
@@ -434,7 +434,7 @@ FUNCTION _DefineTreeNode ( text, aImage, Id, Cargo )
    IF _SetGetGlobal( "_HMG_lDialogInMemory" )
 
       _HMG_NodeIndex++
-      AAdd ( _HMG_aDialogTreeItem, { text, aImage, Id, _HMG_NodeIndex, 'NODE', Cargo } )
+      AAdd( _HMG_aDialogTreeItem, { text, aImage, Id, _HMG_NodeIndex, 'NODE', Cargo } )
 
    ELSE
 
@@ -452,9 +452,9 @@ FUNCTION _DefineTreeNode ( text, aImage, Id, Cargo )
 
       _HMG_NodeIndex++
       _HMG_NodeHandle[ _HMG_NodeIndex ] := AddTreeItem ( _HMG_ActiveTreeHandle, _HMG_NodeHandle[ _HMG_NodeIndex - 1 ], text, iUnsel, iSel, Id, .T. )
-      AAdd ( _HMG_aTreeMap, _HMG_NodeHandle[ _HMG_NodeIndex ] )
-      AAdd ( _HMG_aTreeIdMap, Id )
-      AAdd ( a_Node_Item_Cargo, Cargo )
+      AAdd( _HMG_aTreeMap, _HMG_NodeHandle[ _HMG_NodeIndex ] )
+      AAdd( _HMG_aTreeIdMap, Id )
+      AAdd( a_Node_Item_Cargo, Cargo )
 
    ENDIF
 
@@ -479,7 +479,7 @@ FUNCTION _DefineTreeItem ( text, aImage, Id, Cargo )
 
    IF _SetGetGlobal( "_HMG_lDialogInMemory" )
 
-      AAdd ( _HMG_aDialogTreeItem, { text, aImage, Id, _HMG_NodeIndex, 'ITEM', Cargo } )
+      AAdd( _HMG_aDialogTreeItem, { text, aImage, Id, _HMG_NodeIndex, 'ITEM', Cargo } )
 
    ELSE
 
@@ -496,9 +496,9 @@ FUNCTION _DefineTreeItem ( text, aImage, Id, Cargo )
       ENDIF
 
       handle := AddTreeItem ( _HMG_ActiveTreeHandle, _HMG_NodeHandle[ _HMG_NodeIndex ], text, iUnSel, iSel, Id, .F. )
-      AAdd ( _HMG_aTreeMap, Handle )
-      AAdd ( _HMG_aTreeIdMap, Id )
-      AAdd ( a_Node_Item_Cargo, Cargo )
+      AAdd( _HMG_aTreeMap, Handle )
+      AAdd( _HMG_aTreeIdMap, Id )
+      AAdd( a_Node_Item_Cargo, Cargo )
 
    ENDIF
 
@@ -519,7 +519,7 @@ FUNCTION _EndTree()
          IF _HMG_ActiveTreeItemIds == .F.
             TreeView_SelectItem ( _HMG_ActiveTreeHandle, _HMG_aTreeMap[ _HMG_ActiveTreeValue ] )
          ELSE
-            TreeView_SelectItem ( _HMG_ActiveTreeHandle, _HMG_aTreeMap[ AScan ( _HMG_aTreeIdMap, _HMG_ActiveTreeValue ) ] )
+            TreeView_SelectItem ( _HMG_ActiveTreeHandle, _HMG_aTreeMap[ AScan( _HMG_aTreeIdMap, _HMG_ActiveTreeValue ) ] )
          ENDIF
 
       ENDIF
@@ -568,11 +568,11 @@ STATIC FUNCTION TreeItemGetHandle ( ControlName, ParentForm, Item )
    IF ( i := GetControlIndex( ControlName, ParentForm ) ) > 0
 
       IF _HMG_aControlInputMask [i] == .F.
-         IF Item <= Len ( _HMG_aControlPageMap[ i ] )
+         IF Item <= Len( _HMG_aControlPageMap[ i ] )
             ItemHandle := _HMG_aControlPageMap[ i ][ Item ]
          ENDIF
       ELSE
-         Pos := AScan ( _HMG_aControlPicture[ i ], Item )
+         Pos := AScan( _HMG_aControlPicture[ i ], Item )
          IF Pos > 0
             ItemHandle := _HMG_aControlPageMap[ i ][ Pos ]
          ENDIF
@@ -610,7 +610,7 @@ FUNCTION TreeItemGetRootValue ( ControlName, ParentForm )
 
    IF ( i := GetControlIndex ( ControlName, ParentForm ) ) > 0 .AND. ItemHandle <> 0
       IF _HMG_aControlInputMask [i] == .F.
-         nPos := AScan ( _HMG_aControlPageMap [i], ItemHandle )
+         nPos := AScan( _HMG_aControlPageMap [i], ItemHandle )
          RETURN nPos
       ELSE
          nID := TREEITEM_GETID ( nControlHandle, ItemHandle )
@@ -630,7 +630,7 @@ FUNCTION TreeItemGetParentValue ( ControlName , ParentForm , nItem )
 
    IF ( i := GetControlIndex ( ControlName, ParentForm ) ) > 0 .AND. ItemHandle <> 0
       IF _HMG_aControlInputMask [i] == .F.
-         nPos := AScan ( _HMG_aControlPageMap [i], ItemHandle )
+         nPos := AScan( _HMG_aControlPageMap [i], ItemHandle )
          RETURN nPos
       ELSE
          nID := TREEITEM_GETID ( nControlHandle, ItemHandle )
@@ -665,7 +665,7 @@ PROCEDURE TreeItemSort ( cTreeName, cFormName, nItem, lRecurse, lCaseSensitive, 
 
    nControlHandle := GetControlHandle ( cTreeName, cFormName )
 
-   IF ValType (nItem) == "U"
+   IF ValType(nItem) == "U"
       nItemHandle := TreeView_GetRoot ( nControlHandle )
    ELSE
       nItemHandle := TreeItemGetHandle( cTreeName, cFormName, nItem )
@@ -722,7 +722,7 @@ FUNCTION TreeNodeItemCargo( ControlName, ParentForm, Item, Value )
 
       IF _HMG_aControlInputMask [i] == .F.
 
-         IF Item > 0 .AND. Item <= Len ( _HMG_aControlHeadClick[ i ] )
+         IF Item > 0 .AND. Item <= Len( _HMG_aControlHeadClick[ i ] )
             xData := _HMG_aControlHeadClick[ i ][ Item ]
             IF PCount() > 3
                _HMG_aControlHeadClick[ i ][ Item ] := Value
@@ -731,8 +731,8 @@ FUNCTION TreeNodeItemCargo( ControlName, ParentForm, Item, Value )
 
       ELSE
 
-         Pos := AScan ( _HMG_aControlPicture[ i ], Item )
-         IF Pos > 0 .AND. Pos <= Len ( _HMG_aControlHeadClick[ i ] )
+         Pos := AScan( _HMG_aControlPicture[ i ], Item )
+         IF Pos > 0 .AND. Pos <= Len( _HMG_aControlHeadClick[ i ] )
             xData := _HMG_aControlHeadClick[ i ][ Pos ]
             IF PCount() > 3
                _HMG_aControlHeadClick[ i ][ Pos ] := Value

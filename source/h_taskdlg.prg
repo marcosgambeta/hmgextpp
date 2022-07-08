@@ -635,7 +635,7 @@ RETURN nOldVal
    Parent window name (read/write).
  */
 METHOD Parent( cFormName ) CLASS TTaskDialog
-RETURN _HMG_aFormNames[ AScan ( _HMG_aFormHandles, ::ParentHandle( GetFormHandle( cFormName ) ) ) ]
+RETURN _HMG_aFormNames[ AScan( _HMG_aFormHandles, ::ParentHandle( GetFormHandle( cFormName ) ) ) ]
 
 /*
    NOTE: Method CallBackBlock will be deleted in future (not near)

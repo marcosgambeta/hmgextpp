@@ -1596,9 +1596,9 @@ FUNCTION NoArray( aOldArray )
 
    LOCAL aNewArray := {}
 
-   IF ISARRAY ( aOldArray )
-      ASize ( aNewArray, Len ( aOldArray ) )
-      AEval ( aOldArray, {| x, i | aNewArray[ i ] := ! x } )
+   IF ISARRAY( aOldArray )
+      ASize( aNewArray, Len( aOldArray ) )
+      AEval( aOldArray, {| x, i | aNewArray[ i ] := ! x } )
    ENDIF
 
 RETURN ( aNewArray )

@@ -69,7 +69,7 @@ FUNCTION _BeginMessageBar( ControlName, ParentForm, kbd, fontname, fontsize, bol
 
    _HMG_ActiveMessageBarName  := ControlName
 
-   IF ValType ( ParentForm ) == 'U'
+   IF ValType( ParentForm ) == 'U'
       ParentForm := _HMG_ActiveFormName
    ENDIF
 
@@ -160,7 +160,7 @@ FUNCTION _BeginMessageBar( ControlName, ParentForm, kbd, fontname, fontsize, bol
    _HMG_aControlMiscData2 [k] := ''
 
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnControlInit, k, mVar )
+      Eval( _HMG_bOnControlInit, k, mVar )
    ENDIF
 
    _HMG_StatusItemCount := 0
@@ -206,7 +206,7 @@ FUNCTION _DefineItemMessage ( ControlName, ParentControl, x, y, Caption, Procedu
       MsgMiniGuiError( "Window: " + ParentForm + " is not defined." )
    ENDIF
 
-   IF ValType ( ParentControl ) == 'U'
+   IF ValType( ParentControl ) == 'U'
       ParentControl := _HMG_ActiveMessageBarName
    ENDIF
 
@@ -223,7 +223,7 @@ FUNCTION _DefineItemMessage ( ControlName, ParentControl, x, y, Caption, Procedu
 
    IF ! Empty( ProcedureName )  // P.D. 24/11/2013
 
-      cCaption := Upper ( Caption )
+      cCaption := Upper( Caption )
 
       IF ( i := hb_UAt ( '&', cCaption ) ) > 0
          _DefineLetterOrDigitHotKey ( cCaption, i, cParentForm, ProcedureName )
@@ -297,7 +297,7 @@ FUNCTION _DefineItemMessage ( ControlName, ParentControl, x, y, Caption, Procedu
    _HMG_aControlMiscData2 [k] := ''
 
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnControlInit, k, mVar )
+      Eval( _HMG_bOnControlInit, k, mVar )
    ENDIF
 
    IF IsArrayRGB( backcolor ) .OR. IsArrayRGB( fontcolor )
@@ -344,9 +344,9 @@ FUNCTION _SetStatusKeybrd ( BarName , FormName , Width , ToolTip , action )
       iif( IsInsertActive(), "zzz_led_on", "zzz_led_off" ), "", ToolTip )
 
    _DefineTimer ( 'StatusKeyBrd' , FormName , 250 , ;
-      {|| _SetStatusIcon ( BarName , FormName , nrItem1 , iif ( IsNumLockActive() , "zzz_led_on" , "zzz_led_off" ) ), ;
-      _SetStatusIcon ( BarName , FormName , nrItem2 , iif ( IsCapsLockActive() , "zzz_led_on" , "zzz_led_off" ) ), ;
-      _SetStatusIcon ( BarName , FormName , nrItem3 , iif ( IsInsertActive() , "zzz_led_on" , "zzz_led_off" ) ) } )
+      {|| _SetStatusIcon ( BarName , FormName , nrItem1 , iif( IsNumLockActive() , "zzz_led_on" , "zzz_led_off" ) ), ;
+      _SetStatusIcon ( BarName , FormName , nrItem2 , iif( IsCapsLockActive() , "zzz_led_on" , "zzz_led_off" ) ), ;
+      _SetStatusIcon ( BarName , FormName , nrItem3 , iif( IsInsertActive() , "zzz_led_on" , "zzz_led_off" ) ) } )
 
 RETURN Nil
 

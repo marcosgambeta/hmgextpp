@@ -1304,7 +1304,7 @@ STATIC FUNCTION pdfTextPrint( nI, nLeft, lParagraph, nJustify, nSpace, nNew, nLe
          // version 0.02
          pdfAtSay( cColor + cToken, pdfR2M( nRow + s_aReport[ PDFTOP ] ), nL, "M" )
       ENDIF
-      nL += pdfLen ( cToken ) + nB
+      nL += pdfLen( cToken ) + nB
    NEXT
 
    nStart := nFinish + 1

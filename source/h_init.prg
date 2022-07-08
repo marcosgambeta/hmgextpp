@@ -106,15 +106,15 @@ PROCEDURE Init
    _HMG_aABMLangButton := {}
    _HMG_aABMLangError  := {}
 
-   _HMG_MESSAGE := Array ( 12 )
-   _HMG_RPTDATA := Array ( 165 )
+   _HMG_MESSAGE := Array( 12 )
+   _HMG_RPTDATA := Array( 165 )
 
    _HMG_SetFocusExecuted := .F.
 
    _HMG_InteractiveCloseStarted := .F.
    _HMG_aEventInfo := {}
 
-   _HMG_aUserBlocks := Array ( 7 )
+   _HMG_aUserBlocks := Array( 7 )
    _HMG_lOOPEnabled := .F.
 
 #ifdef _OBJECT_
@@ -130,7 +130,7 @@ PROCEDURE Init
    _HMG_ThisFormName := Nil
    _HMG_ThisControlName := Nil
 
-   _HMG_aBrowseSyncStatus := Array ( 2 )
+   _HMG_aBrowseSyncStatus := Array( 2 )
    _HMG_BrowseSyncStatus := .F.
    _HMG_BrowseUpdateStatus := .F.
 
@@ -150,7 +150,7 @@ PROCEDURE Init
 
    _HMG_xContextMenuButtonIndex := 0
 
-   _HMG_GridInplaceEdit := Array ( 3 )
+   _HMG_GridInplaceEdit := Array( 3 )
    _HMG_GridInplaceEdit_StageEvent    := 0
    _HMG_GridInplaceEdit_ControlHandle := 0
    _HMG_GridInplaceEdit_GridIndex     := 0
@@ -212,15 +212,15 @@ PROCEDURE Init
    _HMG_xMainMenuHandle := 0
    _HMG_xMainMenuParentHandle := 0
    _HMG_xMenuPopupLevel := 0
-   _HMG_xMenuPopuphandle := Array ( 255 )
-   _HMG_xMenuPopupCaption := Array ( 255 )
+   _HMG_xMenuPopuphandle := Array( 255 )
+   _HMG_xMenuPopupCaption := Array( 255 )
    _HMG_xMainMenuParentName := ""
 
    _HMG_xContextMenuHandle := 0
    _HMG_xContextMenuParentHandle := 0
    _HMG_xContextPopupLevel := 0
-   _HMG_xContextPopuphandle := Array ( 255 )
-   _HMG_xContextPopupCaption := Array ( 255 )
+   _HMG_xContextPopuphandle := Array( 255 )
+   _HMG_xContextPopupCaption := Array( 255 )
    _HMG_xContextMenuParentName := ""
 
    _HMG_aControlsContextMenu := {}
@@ -232,7 +232,7 @@ PROCEDURE Init
    _HMG_ActiveTreeIndex := 0
 
    _HMG_ActiveTreeHandle := 0
-   _HMG_NodeHandle := Array ( 255 )
+   _HMG_NodeHandle := Array( 255 )
    _HMG_NodeIndex := Nil
    _HMG_aTreeMap := {}
    _HMG_aTreeIdMap := {}
@@ -274,9 +274,9 @@ PROCEDURE Init
    _HMG_ActiveFontSize  := 0
 
    _HMG_FrameLevel      := 0
-   _HMG_ActiveFrameParentFormName := Array ( 128 )
-   _HMG_ActiveFrameRow  := Array ( 128 )
-   _HMG_ActiveFrameCol  := Array ( 128 )
+   _HMG_ActiveFrameParentFormName := Array( 128 )
+   _HMG_ActiveFrameRow  := Array( 128 )
+   _HMG_ActiveFrameCol  := Array( 128 )
 
    _HMG_ActiveDialogName   := ""
    _HMG_ActiveDialogHandle := 0
@@ -437,7 +437,7 @@ PROCEDURE Init
    _HMG_aControlMiscData2 := {}
 
    _HMG_ListBoxDragNotification := _GetDDLMessage()
-   _HMG_FindReplaceOptions := Array ( 6 )
+   _HMG_FindReplaceOptions := Array( 6 )
    _HMG_CharRange_Min := 0
    _HMG_CharRange_Max := 0
    _HMG_MsgIDFindDlg := RegisterFindMsgString()
@@ -450,7 +450,7 @@ PROCEDURE Init
 #endif
 
    _HMG_ParentWindowActive  := .F.
-   _HMG_aErrorBlocks := Array ( 3 )
+   _HMG_aErrorBlocks := Array( 3 )
    _HMG_lOnErrorStop := .F.
    _HMG_ProceedEachRadioButtonEvent := .T.
 

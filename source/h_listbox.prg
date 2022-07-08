@@ -224,7 +224,7 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
       ENDIF
 
       IF _HMG_BeginTabActive
-         AAdd ( _HMG_ActiveTabCurrentPageMap , ControlHandle )
+         AAdd( _HMG_ActiveTabCurrentPageMap , ControlHandle )
       ENDIF
 
       IF ValType( tooltip ) != "U"
@@ -239,7 +239,7 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := iif ( multiselect , "MULTILIST" , "LIST" )
+   _HMG_aControlType [k] := iif( multiselect , "MULTILIST" , "LIST" )
    _HMG_aControlNames  [k] :=  ControlName
    _HMG_aControlHandles  [k] :=  ControlHandle
    _HMG_aControlParenthandles  [k] :=  ParentFormHandle
@@ -261,8 +261,8 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
    _HMG_aControlWidth   [k] := w
    _HMG_aControlHeight   [k] := h
    _HMG_aControlSpacing   [k] := 0
-   _HMG_aControlContainerRow  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerRow  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
    _HMG_aControlPicture   [k] := ""
    _HMG_aControlContainerHandle  [k] :=  0
    _HMG_aControlFontName  [k] :=  fontname
@@ -281,14 +281,14 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
    _HMG_aControlMiscData2 [k] := ''
 
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnControlInit, k, mVar )
+      Eval( _HMG_bOnControlInit, k, mVar )
    ENDIF
 
    IF Len( _HMG_aDialogTemplate ) == 0        //Dialog Template
 
-      AEval ( Rows , { | r | ListboxAddString ( ControlHandle , r ) } )
+      AEval( Rows , { | r | ListboxAddString ( ControlHandle , r ) } )
       IF multiselect
-         IF ISARRAY ( value )
+         IF ISARRAY( value )
             LISTBOXSETMULTISEL ( ControlHandle , Value )
          ENDIF
       ELSE
@@ -318,10 +318,10 @@ FUNCTION InitDialogListBox( ParentName, ControlHandle, k )
    aWidth := _HMG_aControlRangeMax [k]
    multitabs := _HMG_aControlMiscData1 [k] [2]
 
-   AEval ( Rows , { | r | ListboxAddString ( ControlHandle , r ) } )
+   AEval( Rows , { | r | ListboxAddString ( ControlHandle , r ) } )
 
    IF _HMG_aControlType [k] == "MULTILIST"
-      IF ISARRAY ( value )
+      IF ISARRAY( value )
          LISTBOXSETMULTISEL ( ControlHandle , Value )
       ENDIF
    ELSE

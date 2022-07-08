@@ -187,15 +187,15 @@ FUNCTION _BeginPropSheet(  FormName, ParentForm, row, col, width, height, captio
    ENDIF
 
    IF _HMG_BeginWindowActive = .T.
-      IF .NOT. Empty ( _HMG_ActiveFontName ) .AND. ValType( fontname ) == "U"
+      IF .NOT. Empty( _HMG_ActiveFontName ) .AND. ValType( fontname ) == "U"
          fontname := _HMG_ActiveFontName
       ENDIF
-      IF .NOT. Empty ( _HMG_ActiveFontSize ) .AND. ValType( fontsize ) == "U"
+      IF .NOT. Empty( _HMG_ActiveFontSize ) .AND. ValType( fontsize ) == "U"
          fontsize := _HMG_ActiveFontSize
       ENDIF
    ENDIF
 
-   IF ValType ( ParentForm ) == 'U'
+   IF ValType( ParentForm ) == 'U'
       ParentForm := _HMG_ActiveFormName
    ENDIF
 
@@ -256,7 +256,7 @@ FUNCTION _DefinePropSheet ( FormName, ParentForm,  y, x, w, h,  caption, IdIcon,
    _HMG_ActivePropSheetWizard := wizard
    FormName := AllTrim( FormName )
 
-   i := AScan ( _HMG_aFormType, 'A' )
+   i := AScan( _HMG_aFormType, 'A' )
    IF i <= 0
       MsgMiniGuiError( "Main Window Not Defined." )
    ENDIF
@@ -322,7 +322,7 @@ FUNCTION _DefinePropSheet ( FormName, ParentForm,  y, x, w, h,  caption, IdIcon,
       _HMG_ActiveFontSize := FontSize
    ENDIF
 
-   k := AScan ( _HMG_aFormDeleted, .T. )
+   k := AScan( _HMG_aFormDeleted, .T. )
 
    IF k > 0
 
@@ -393,56 +393,56 @@ FUNCTION _DefinePropSheet ( FormName, ParentForm,  y, x, w, h,  caption, IdIcon,
       Public &mVar. := k
 #endif
 
-      AAdd ( _HMG_aFormNames, FormName )
-      AAdd ( _HMG_aFormHandles, FormHandle )
-      AAdd ( _HMG_aFormActive, .T. )
-      AAdd ( _HMG_aFormType, 'S'  )    // Windows type PropSheet
-      AAdd ( _HMG_aFormParentHandle, ParentHandle )
-      AAdd ( _HMG_aFormReleaseProcedure, ApplyProcedure )
-      AAdd ( _HMG_aFormInitProcedure, InitProcedure )
-      AAdd ( _HMG_aFormToolTipHandle, htooltip )
-      AAdd ( _HMG_aFormContextMenuHandle, 0 )
-      AAdd ( _HMG_aFormMouseDragProcedure, "" )
-      AAdd ( _HMG_aFormSizeProcedure, "" )
-      AAdd ( _HMG_aFormClickProcedure, PropSheetProcedure )
-      AAdd ( _HMG_aFormMouseMoveProcedure, "" )
-      AAdd ( _HMG_aFormMoveProcedure, "" )
-      AAdd ( _HMG_aFormDropProcedure, "" )
-      AAdd ( _HMG_aFormDeleted, .F. )
-      AAdd ( _HMG_aFormBkColor, { -1, -1, -1 } )
-      AAdd ( _HMG_aFormPaintProcedure, "" )
-      AAdd ( _HMG_aFormNoShow, .F. )
-      AAdd ( _HMG_aFormNotifyIconName, ""    )
-      AAdd ( _HMG_aFormNotifyIconToolTip, ""    )
-      AAdd ( _HMG_aFormNotifyIconLeftClick, ""    )
-      AAdd ( _HMG_aFormNotifyIconDblClick, ""    )
-      AAdd ( _HMG_aFormGotFocusProcedure, "" )
-      AAdd ( _HMG_aFormLostFocusProcedure, ValidProcedure )
-      AAdd ( _HMG_aFormReBarHandle, 0 )
-      AAdd ( _HMG_aFormNotifyMenuHandle, 0 )
-      AAdd ( _HMG_aFormBrowseList, {} )
-      AAdd ( _HMG_aFormSplitChildList, {} )
-      AAdd ( _HMG_aFormVirtualHeight, 0 )
-      AAdd ( _HMG_aFormVirtualWidth, 0 )
-      AAdd ( _HMG_aFormFocused, .F. )
-      AAdd ( _HMG_aFormScrollUp, "" )
-      AAdd ( _HMG_aFormScrollDown, "" )
-      AAdd ( _HMG_aFormScrollLeft, "" )
-      AAdd ( _HMG_aFormScrollRight, "" )
-      AAdd ( _HMG_aFormHScrollBox, "" )
-      AAdd ( _HMG_aFormVScrollBox, "" )
-      AAdd ( _HMG_aFormBrushHandle, 0 )
-      AAdd ( _HMG_aFormFocusedControl, 0 )
-      AAdd ( _HMG_aFormGraphTasks, {} )
-      AAdd ( _HMG_aFormMaximizeProcedure, "" )
-      AAdd ( _HMG_aFormMinimizeProcedure, "" )
-      AAdd ( _HMG_aFormRestoreProcedure, CancelProcedure )
-      AAdd ( _HMG_aFormAutoRelease, .F. )
-      AAdd ( _HMG_aFormInteractiveCloseProcedure, "" )
-      AAdd ( _HMG_aFormMinMaxInfo, {} )
-      AAdd ( _HMG_aFormActivateId, 0 )
-      AAdd ( _HMG_aFormMiscData1, {} )
-      AAdd ( _HMG_aFormMiscData2, '' )
+      AAdd( _HMG_aFormNames, FormName )
+      AAdd( _HMG_aFormHandles, FormHandle )
+      AAdd( _HMG_aFormActive, .T. )
+      AAdd( _HMG_aFormType, 'S'  )    // Windows type PropSheet
+      AAdd( _HMG_aFormParentHandle, ParentHandle )
+      AAdd( _HMG_aFormReleaseProcedure, ApplyProcedure )
+      AAdd( _HMG_aFormInitProcedure, InitProcedure )
+      AAdd( _HMG_aFormToolTipHandle, htooltip )
+      AAdd( _HMG_aFormContextMenuHandle, 0 )
+      AAdd( _HMG_aFormMouseDragProcedure, "" )
+      AAdd( _HMG_aFormSizeProcedure, "" )
+      AAdd( _HMG_aFormClickProcedure, PropSheetProcedure )
+      AAdd( _HMG_aFormMouseMoveProcedure, "" )
+      AAdd( _HMG_aFormMoveProcedure, "" )
+      AAdd( _HMG_aFormDropProcedure, "" )
+      AAdd( _HMG_aFormDeleted, .F. )
+      AAdd( _HMG_aFormBkColor, { -1, -1, -1 } )
+      AAdd( _HMG_aFormPaintProcedure, "" )
+      AAdd( _HMG_aFormNoShow, .F. )
+      AAdd( _HMG_aFormNotifyIconName, ""    )
+      AAdd( _HMG_aFormNotifyIconToolTip, ""    )
+      AAdd( _HMG_aFormNotifyIconLeftClick, ""    )
+      AAdd( _HMG_aFormNotifyIconDblClick, ""    )
+      AAdd( _HMG_aFormGotFocusProcedure, "" )
+      AAdd( _HMG_aFormLostFocusProcedure, ValidProcedure )
+      AAdd( _HMG_aFormReBarHandle, 0 )
+      AAdd( _HMG_aFormNotifyMenuHandle, 0 )
+      AAdd( _HMG_aFormBrowseList, {} )
+      AAdd( _HMG_aFormSplitChildList, {} )
+      AAdd( _HMG_aFormVirtualHeight, 0 )
+      AAdd( _HMG_aFormVirtualWidth, 0 )
+      AAdd( _HMG_aFormFocused, .F. )
+      AAdd( _HMG_aFormScrollUp, "" )
+      AAdd( _HMG_aFormScrollDown, "" )
+      AAdd( _HMG_aFormScrollLeft, "" )
+      AAdd( _HMG_aFormScrollRight, "" )
+      AAdd( _HMG_aFormHScrollBox, "" )
+      AAdd( _HMG_aFormVScrollBox, "" )
+      AAdd( _HMG_aFormBrushHandle, 0 )
+      AAdd( _HMG_aFormFocusedControl, 0 )
+      AAdd( _HMG_aFormGraphTasks, {} )
+      AAdd( _HMG_aFormMaximizeProcedure, "" )
+      AAdd( _HMG_aFormMinimizeProcedure, "" )
+      AAdd( _HMG_aFormRestoreProcedure, CancelProcedure )
+      AAdd( _HMG_aFormAutoRelease, .F. )
+      AAdd( _HMG_aFormInteractiveCloseProcedure, "" )
+      AAdd( _HMG_aFormMinMaxInfo, {} )
+      AAdd( _HMG_aFormActivateId, 0 )
+      AAdd( _HMG_aFormMiscData1, {} )
+      AAdd( _HMG_aFormMiscData2, '' )
    ENDIF
 
    IF Len( _HMG_aPropSheetTemplate ) > 0
@@ -571,7 +571,7 @@ FUNCTION _DefineSheetDialog ( FormName, Id_resource, FormHandle, hWndParent  )
       _HMG_aDialogItems := {}
    ENDIF
 
-   k := AScan ( _HMG_aFormDeleted, .T. )
+   k := AScan( _HMG_aFormDeleted, .T. )
 
    IF k > 0
 
@@ -642,56 +642,56 @@ FUNCTION _DefineSheetDialog ( FormName, Id_resource, FormHandle, hWndParent  )
       Public &mVar. := k
 #endif
 
-      AAdd ( _HMG_aFormNames, FormName )
-      AAdd ( _HMG_aFormHandles, FormHandle )
-      AAdd ( _HMG_aFormActive, .T. )
-      AAdd ( _HMG_aFormType, 'S'  )    // Windows type Dialog
-      AAdd ( _HMG_aFormParentHandle, hWndParent )
-      AAdd ( _HMG_aFormReleaseProcedure, "" )
-      AAdd ( _HMG_aFormInitProcedure, "" )
-      AAdd ( _HMG_aFormToolTipHandle, 0 )
-      AAdd ( _HMG_aFormContextMenuHandle, 0 )
-      AAdd ( _HMG_aFormMouseDragProcedure, "" )
-      AAdd ( _HMG_aFormSizeProcedure, "" )
-      AAdd ( _HMG_aFormClickProcedure, "" )
-      AAdd ( _HMG_aFormMouseMoveProcedure, "" )
-      AAdd ( _HMG_aFormMoveProcedure, "" )
-      AAdd ( _HMG_aFormDropProcedure, "" )
-      AAdd ( _HMG_aFormDeleted, .F. )
-      AAdd ( _HMG_aFormBkColor, { -1, -1, -1 } )
-      AAdd ( _HMG_aFormPaintProcedure, "" )
-      AAdd ( _HMG_aFormNoShow, .F. )
-      AAdd ( _HMG_aFormNotifyIconName, ""    )
-      AAdd ( _HMG_aFormNotifyIconToolTip, ""    )
-      AAdd ( _HMG_aFormNotifyIconLeftClick, ""    )
-      AAdd ( _HMG_aFormNotifyIconDblClick, ""    )
-      AAdd ( _HMG_aFormGotFocusProcedure, "" )
-      AAdd ( _HMG_aFormLostFocusProcedure, "" )
-      AAdd ( _HMG_aFormReBarHandle, 0 )
-      AAdd ( _HMG_aFormNotifyMenuHandle, 0 )
-      AAdd ( _HMG_aFormBrowseList, {} )
-      AAdd ( _HMG_aFormSplitChildList, {} )
-      AAdd ( _HMG_aFormVirtualHeight, 0 )
-      AAdd ( _HMG_aFormVirtualWidth, 0 )
-      AAdd ( _HMG_aFormFocused, .F. )
-      AAdd ( _HMG_aFormScrollUp, "" )
-      AAdd ( _HMG_aFormScrollDown, "" )
-      AAdd ( _HMG_aFormScrollLeft, "" )
-      AAdd ( _HMG_aFormScrollRight, "" )
-      AAdd ( _HMG_aFormHScrollBox, "" )
-      AAdd ( _HMG_aFormVScrollBox, "" )
-      AAdd ( _HMG_aFormBrushHandle, 0 )
-      AAdd ( _HMG_aFormFocusedControl, 0 )
-      AAdd ( _HMG_aFormGraphTasks, {} )
-      AAdd ( _HMG_aFormMaximizeProcedure, "" )
-      AAdd ( _HMG_aFormMinimizeProcedure, "" )
-      AAdd ( _HMG_aFormRestoreProcedure, Nil )
-      AAdd ( _HMG_aFormAutoRelease, .F. )
-      AAdd ( _HMG_aFormInteractiveCloseProcedure, "" )
-      AAdd ( _HMG_aFormMinMaxInfo, {} )
-      AAdd ( _HMG_aFormActivateId, 0 )
-      AAdd ( _HMG_aFormMiscData1, {} )
-      AAdd ( _HMG_aFormMiscData2, '' )
+      AAdd( _HMG_aFormNames, FormName )
+      AAdd( _HMG_aFormHandles, FormHandle )
+      AAdd( _HMG_aFormActive, .T. )
+      AAdd( _HMG_aFormType, 'S'  )    // Windows type Dialog
+      AAdd( _HMG_aFormParentHandle, hWndParent )
+      AAdd( _HMG_aFormReleaseProcedure, "" )
+      AAdd( _HMG_aFormInitProcedure, "" )
+      AAdd( _HMG_aFormToolTipHandle, 0 )
+      AAdd( _HMG_aFormContextMenuHandle, 0 )
+      AAdd( _HMG_aFormMouseDragProcedure, "" )
+      AAdd( _HMG_aFormSizeProcedure, "" )
+      AAdd( _HMG_aFormClickProcedure, "" )
+      AAdd( _HMG_aFormMouseMoveProcedure, "" )
+      AAdd( _HMG_aFormMoveProcedure, "" )
+      AAdd( _HMG_aFormDropProcedure, "" )
+      AAdd( _HMG_aFormDeleted, .F. )
+      AAdd( _HMG_aFormBkColor, { -1, -1, -1 } )
+      AAdd( _HMG_aFormPaintProcedure, "" )
+      AAdd( _HMG_aFormNoShow, .F. )
+      AAdd( _HMG_aFormNotifyIconName, ""    )
+      AAdd( _HMG_aFormNotifyIconToolTip, ""    )
+      AAdd( _HMG_aFormNotifyIconLeftClick, ""    )
+      AAdd( _HMG_aFormNotifyIconDblClick, ""    )
+      AAdd( _HMG_aFormGotFocusProcedure, "" )
+      AAdd( _HMG_aFormLostFocusProcedure, "" )
+      AAdd( _HMG_aFormReBarHandle, 0 )
+      AAdd( _HMG_aFormNotifyMenuHandle, 0 )
+      AAdd( _HMG_aFormBrowseList, {} )
+      AAdd( _HMG_aFormSplitChildList, {} )
+      AAdd( _HMG_aFormVirtualHeight, 0 )
+      AAdd( _HMG_aFormVirtualWidth, 0 )
+      AAdd( _HMG_aFormFocused, .F. )
+      AAdd( _HMG_aFormScrollUp, "" )
+      AAdd( _HMG_aFormScrollDown, "" )
+      AAdd( _HMG_aFormScrollLeft, "" )
+      AAdd( _HMG_aFormScrollRight, "" )
+      AAdd( _HMG_aFormHScrollBox, "" )
+      AAdd( _HMG_aFormVScrollBox, "" )
+      AAdd( _HMG_aFormBrushHandle, 0 )
+      AAdd( _HMG_aFormFocusedControl, 0 )
+      AAdd( _HMG_aFormGraphTasks, {} )
+      AAdd( _HMG_aFormMaximizeProcedure, "" )
+      AAdd( _HMG_aFormMinimizeProcedure, "" )
+      AAdd( _HMG_aFormRestoreProcedure, Nil )
+      AAdd( _HMG_aFormAutoRelease, .F. )
+      AAdd( _HMG_aFormInteractiveCloseProcedure, "" )
+      AAdd( _HMG_aFormMinMaxInfo, {} )
+      AAdd( _HMG_aFormActivateId, 0 )
+      AAdd( _HMG_aFormMiscData1, {} )
+      AAdd( _HMG_aFormMiscData2, '' )
    ENDIF
 
 RETURN NIL
@@ -706,11 +706,11 @@ FUNCTION InitPageDlgProc( hwndDlg, idDlg, hWndParent )
    _HMG_ActiveDlgProcHandle    := hwndDlg
    _HMG_ActiveDlgProcId        := idDlg
 
-   i := AScan (  _HMG_aPropSheetActivePages,  hwndDlg )
+   i := AScan(  _HMG_aPropSheetActivePages,  hwndDlg )
    IF i == 0
       AAdd( _HMG_aPropSheetActivePages, hwndDlg )
    ENDIF
-   i := AScan (  _HMG_aPropSheetPages, {| x| x[ 2 ] == idDlg } )
+   i := AScan(  _HMG_aPropSheetPages, {| x| x[ 2 ] == idDlg } )
    IF i > 0
       _HMG_ActiveDialogName   := _HMG_aPropSheetPages[ i, 1 ]
       aDialogItems            := _HMG_aPropSheetPages[ i, 4 ]
@@ -745,10 +745,10 @@ FUNCTION InitPageDlgProc( hwndDlg, idDlg, hWndParent )
                      _HMG_aControlHandles [k] :=  ControlHandle
                   ELSE
                      _HMG_aControlHandles [k] :=  {}
-                     AAdd ( _HMG_aControlHandles [k], ControlHandle )
+                     AAdd( _HMG_aControlHandles [k], ControlHandle )
                   ENDIF
                ELSE
-                  AAdd ( _HMG_aControlHandles [k], ControlHandle )
+                  AAdd( _HMG_aControlHandles [k], ControlHandle )
                ENDIF
                _HMG_aControlParentHandles [k] :=  _HMG_ActiveDialogHandle
                k_old := k
@@ -783,7 +783,7 @@ FUNCTION ButtonPageDlgProc( hwndDlg, Msg, IdDlg, nPage )
       i := nPage + 1
       IdDlg  :=  _HMG_aPropSheetPages[ i, 2 ]
    ELSE
-      i := AScan ( _HMG_aPropSheetPages, {| x| x[ 2 ] == IdDlg } )
+      i := AScan( _HMG_aPropSheetPages, {| x| x[ 2 ] == IdDlg } )
    ENDIF
    IF i > 0
       _HMG_ActiveDialogName := _HMG_aPropSheetPages[ i, 1 ]
@@ -872,7 +872,7 @@ FUNCTION PageDlgProc( hwndParent, hwndDlg, nMsg, wParam, lParam )
       _ReleasePropertySheet( hwndParent, hwndDlg )
    CASE nMsg == WM_COMMAND
       nPage := PropSheetHwndToIndex( hwndParent, hwndDlg )
-      i := AScan ( _HMG_aFormhandles, hwndParent )  // find PropSheetProcedure
+      i := AScan( _HMG_aFormhandles, hwndParent )  // find PropSheetProcedure
       IF i > 0
          IF ValType( _HMG_aFormClickProcedure[ i ] ) == 'B' .AND. _HMG_aFormType[ i ] == 'S'
             IF ( lRet := RetValue( Eval( _HMG_aFormClickProcedure[ i ], hwndDlg, nMsg, LOWORD(wParam), HIWORD(wParam) ), lRet ) )
@@ -919,7 +919,7 @@ FUNCTION PageDlgProc( hwndParent, hwndDlg, nMsg, wParam, lParam )
          EXIT
       CASE PSN_RESET   // sent when Cancel button pressed
 
-         i := AScan ( _HMG_aPropSheetActivePages,  hwndDlg )
+         i := AScan( _HMG_aPropSheetActivePages,  hwndDlg )
          IF i > 0
             ADel( _HMG_aPropSheetActivePages, i )
             ASize( _HMG_aPropSheetActivePages, Len( _HMG_aPropSheetActivePages ) -1 )
@@ -968,7 +968,7 @@ RETURN  lRet
 *------------------------------------------------------------------------------*
 FUNCTION PropSheet_Chd( hWndParent, hWndDlg )
 *------------------------------------------------------------------------------*
-   LOCAL  i := AScan ( _HMG_aPropSheetPages, {| x| x[ 3 ] == hWndDlg } )
+   LOCAL  i := AScan( _HMG_aPropSheetPages, {| x| x[ 3 ] == hWndDlg } )
    IF i > 0
       _HMG_aPropSheetPages[ i, 6 ] := .T.
    ENDIF
@@ -1012,7 +1012,7 @@ STATIC FUNCTION ErasePropSheet( hWnd )
 *------------------------------------------------------------------------------*
    LOCAL i
 
-   i := AScan ( _HMG_aFormhandles, hWnd )
+   i := AScan( _HMG_aFormhandles, hWnd )
    IF i > 0
 
       mVar := '_' + _HMG_aFormNames[ i ]

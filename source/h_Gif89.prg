@@ -22,7 +22,7 @@ FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidt
 
    // If defined inside DEFINE WINDOW structure, determine cParentForm
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
-      cParentForm := iif ( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
+      cParentForm := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
    ENDIF
 
    IF .NOT. _IsWindowDefined ( cParentForm )
@@ -37,7 +37,7 @@ FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidt
       MsgMiniGuiError ( "Control: " + cControlName + " Of " + cParentForm + " PICTURE Property Invalid Type." )
    ENDIF
 
-   IF Empty ( cFilename )
+   IF Empty( cFilename )
       MsgMiniGuiError ( "Control: " + cControlName + " Of " + cParentForm + " PICTURE Can't Be Empty." )
    ENDIF
 
@@ -113,7 +113,7 @@ FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidt
       _HMG_aControlIds[ k ] := oGif
 
       IF _HMG_BeginTabActive
-         AAdd ( _HMG_ActiveTabCurrentPageMap, nControlHandle )
+         AAdd( _HMG_ActiveTabCurrentPageMap, nControlHandle )
       ENDIF
    ENDIF
 
@@ -130,11 +130,11 @@ PROCEDURE _ReleaseAniGif ( GifName, FormName )
    LOCAL oGif
    LOCAL i
 
-   IF AScan ( _HMG_aControlNames, GifName ) > 0
+   IF AScan( _HMG_aControlNames, GifName ) > 0
 
       hWnd := GetFormHandle ( FormName )
 
-      FOR i := 1 TO Len ( _HMG_aControlHandles )
+      FOR i := 1 TO Len( _HMG_aControlHandles )
 
          IF _HMG_aControlParentHandles[ i ] == hWnd .AND. _HMG_aControlType[ i ] == "ANIGIF"
             oGif := _HMG_aControlIds[ i ]
@@ -468,7 +468,7 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
          ENDIF
 
          cPicBuf := cGifHeader + SubStr( cStream, i - 1, j - i )
-         imgHeader = Left( SubStr ( cStream, i - 1, j - i ), 16 )
+         imgHeader = Left( SubStr( cStream, i - 1, j - i ), 16 )
 
          IF FWrite( nFileHandle, cPicBuf ) <> Len( cPicBuf )
             RETURN FALSE

@@ -50,7 +50,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 #define DT_CENTER     1
 
 *------------------------------------------------------------------------------*
-FUNCTION OwnTabPaint ( lParam )
+FUNCTION OwnTabPaint( lParam )
 *------------------------------------------------------------------------------*
    LOCAL hDC, hBrush, hOldFont, hImage
    LOCAL aBkColor, aForeColor, aInactiveColor, aBmp, aMetr, aBtnRc

@@ -102,16 +102,16 @@ PROCEDURE _EndReport
 
    aMiscData := {}
 
-   AAdd ( aMiscData, _HMG_RPTDATA[ 120 ] ) // nGroupCount
-   AAdd ( aMiscData, _HMG_RPTDATA[ 152 ] ) // nHeadeHeight
-   AAdd ( aMiscData, _HMG_RPTDATA[ 153 ] ) // nDetailHeight
-   AAdd ( aMiscData, _HMG_RPTDATA[ 154 ] ) // nFooterHeight
-   AAdd ( aMiscData, _HMG_RPTDATA[ 127 ] ) // nSummaryHeight
-   AAdd ( aMiscData, _HMG_RPTDATA[ 124 ] ) // nGroupHeaderHeight
-   AAdd ( aMiscData, _HMG_RPTDATA[ 123 ] ) // nGroupFooterHeight
-   AAdd ( aMiscData, _HMG_RPTDATA[ 125 ] ) // xGroupExpression
-   AAdd ( aMiscData, _HMG_RPTDATA[ 164 ] ) // xSkipProcedure
-   AAdd ( aMiscData, _HMG_RPTDATA[ 165 ] ) // xEOF
+   AAdd( aMiscData, _HMG_RPTDATA[ 120 ] ) // nGroupCount
+   AAdd( aMiscData, _HMG_RPTDATA[ 152 ] ) // nHeadeHeight
+   AAdd( aMiscData, _HMG_RPTDATA[ 153 ] ) // nDetailHeight
+   AAdd( aMiscData, _HMG_RPTDATA[ 154 ] ) // nFooterHeight
+   AAdd( aMiscData, _HMG_RPTDATA[ 127 ] ) // nSummaryHeight
+   AAdd( aMiscData, _HMG_RPTDATA[ 124 ] ) // nGroupHeaderHeight
+   AAdd( aMiscData, _HMG_RPTDATA[ 123 ] ) // nGroupFooterHeight
+   AAdd( aMiscData, _HMG_RPTDATA[ 125 ] ) // xGroupExpression
+   AAdd( aMiscData, _HMG_RPTDATA[ 164 ] ) // xSkipProcedure
+   AAdd( aMiscData, _HMG_RPTDATA[ 165 ] ) // xEOF
 
    cReportName := _HMG_RPTDATA[ 162 ]
 
@@ -129,10 +129,10 @@ RETURN
 
 PROCEDURE _EndLayout
 
-   AAdd ( _HMG_RPTDATA[ 159 ], _HMG_RPTDATA[ 155 ] )
-   AAdd ( _HMG_RPTDATA[ 159 ], _HMG_RPTDATA[ 156 ] )
-   AAdd ( _HMG_RPTDATA[ 159 ], _HMG_RPTDATA[ 118 ] )
-   AAdd ( _HMG_RPTDATA[ 159 ], _HMG_RPTDATA[ 119 ] )
+   AAdd( _HMG_RPTDATA[ 159 ], _HMG_RPTDATA[ 155 ] )
+   AAdd( _HMG_RPTDATA[ 159 ], _HMG_RPTDATA[ 156 ] )
+   AAdd( _HMG_RPTDATA[ 159 ], _HMG_RPTDATA[ 118 ] )
+   AAdd( _HMG_RPTDATA[ 159 ], _HMG_RPTDATA[ 119 ] )
 
 RETURN
 
@@ -238,27 +238,27 @@ PROCEDURE _EndText
 
    IF _HMG_RPTDATA[ 161 ] == 'HEADER'
 
-      AAdd (  _HMG_RPTDATA[ 160 ], aText )
+      AAdd(  _HMG_RPTDATA[ 160 ], aText )
 
    ELSEIF _HMG_RPTDATA[ 161 ] == 'DETAIL'
 
-      AAdd ( _HMG_RPTDATA[ 158 ], aText )
+      AAdd( _HMG_RPTDATA[ 158 ], aText )
 
    ELSEIF _HMG_RPTDATA[ 161 ] == 'FOOTER'
 
-      AAdd ( _HMG_RPTDATA[ 157 ], aText )
+      AAdd( _HMG_RPTDATA[ 157 ], aText )
 
    ELSEIF _HMG_RPTDATA[ 161 ] == 'SUMMARY'
 
-      AAdd ( _HMG_RPTDATA[ 126 ], aText )
+      AAdd( _HMG_RPTDATA[ 126 ], aText )
 
    ELSEIF _HMG_RPTDATA[ 161 ] == 'GROUPHEADER'
 
-      AAdd ( _HMG_RPTDATA[ 121 ], aText )
+      AAdd( _HMG_RPTDATA[ 121 ], aText )
 
    ELSEIF _HMG_RPTDATA[ 161 ] == 'GROUPFOOTER'
 
-      AAdd ( _HMG_RPTDATA[ 122 ], aText )
+      AAdd( _HMG_RPTDATA[ 122 ], aText )
 
    ENDIF
 
@@ -344,13 +344,13 @@ PROCEDURE ExecuteReport ( cReportName, lPreview, lSelect, cOutputFileName )
    _HMG_RPTDATA[ 150 ] := .F.
    _HMG_RPTDATA[ 163 ] := .F.
 
-   IF ValType ( cOutputFileName ) == 'C'
+   IF ValType( cOutputFileName ) == 'C'
 
-      IF AllTrim ( Upper ( Right ( cOutputFileName, 4 ) ) ) == '.PDF'
+      IF AllTrim( Upper( Right ( cOutputFileName, 4 ) ) ) == '.PDF'
 
          _HMG_RPTDATA[ 150 ] := .T.
 
-      ELSEIF AllTrim ( Upper ( Right ( cOutputFileName, 5 ) ) ) == '.HTML'
+      ELSEIF AllTrim( Upper( Right ( cOutputFileName, 5 ) ) ) == '.HTML'
 
          _HMG_RPTDATA[ 163 ] := .T.
 
@@ -376,7 +376,7 @@ PROCEDURE ExecuteReport ( cReportName, lPreview, lSelect, cOutputFileName )
       pdfOpen( cOutputFileName, 200, .T. )
    ENDIF
 
-   IF ValType ( xSkipProcedure ) == 'U'
+   IF ValType( xSkipProcedure ) == 'U'
 
       * If not workarea open, cancel report execution
 
@@ -419,11 +419,11 @@ PROCEDURE ExecuteReport ( cReportName, lPreview, lSelect, cOutputFileName )
    nPaperWidth  := aLayout[ 3 ]
    nPaperHeight := aLayout[ 4 ]
 
-   IF ValType ( lPreview ) <> 'L'
+   IF ValType( lPreview ) <> 'L'
       lPreview := .F.
    ENDIF
 
-   IF ValType ( lSelect ) <> 'L'
+   IF ValType( lSelect ) <> 'L'
       lSelect := .F.
    ENDIF
 
@@ -435,7 +435,7 @@ PROCEDURE ExecuteReport ( cReportName, lPreview, lSelect, cOutputFileName )
          cPrinter := GetDefaultPrinter()
       ENDIF
 
-      IF Empty ( cPrinter )
+      IF Empty( cPrinter )
          RETURN
       ENDIF
 
@@ -645,14 +645,14 @@ PROCEDURE ExecuteReport ( cReportName, lPreview, lSelect, cOutputFileName )
 
    ENDIF
 
-   IF ValType ( xSkipProcedure ) == 'U'
+   IF ValType( xSkipProcedure ) == 'U'
       GO TOP
    ENDIF
 
    xPreviousGroupExpression := ''
    lGroupStarted := .F.
 
-   IF ValType ( xSkipProcedure ) == 'U'
+   IF ValType( xSkipProcedure ) == 'U'
       lTempEof := Eof()
    ELSE
       lTempEof := Eval( xEof )
@@ -682,7 +682,7 @@ PROCEDURE ExecuteReport ( cReportName, lPreview, lSelect, cOutputFileName )
 
             IF nGroupCount > 0
 
-               IF ( ValType ( xPreviousGroupExpression ) != ValType ( xGroupExpression ) ) .OR. ( xPreviousGroupExpression <> xGroupExpression )
+               IF ( ValType( xPreviousGroupExpression ) != ValType( xGroupExpression ) ) .OR. ( xPreviousGroupExpression <> xGroupExpression )
 
                   IF lGroupStarted
 
@@ -706,7 +706,7 @@ PROCEDURE ExecuteReport ( cReportName, lPreview, lSelect, cOutputFileName )
 
             nCurrentOffset += nDetailHeight
 
-            IF ValType ( xSkipProcedure ) == 'U'
+            IF ValType( xSkipProcedure ) == 'U'
                SKIP
                lTempEof := Eof()
             ELSE
@@ -754,7 +754,7 @@ PROCEDURE ExecuteReport ( cReportName, lPreview, lSelect, cOutputFileName )
 
                * If Summary defined, PRINT it.
 
-               IF Len ( aSummary ) > 0
+               IF Len( aSummary ) > 0
 
                   * If summary don't fit in the current page, print footer,
                   * start a NEW page and PRINT header first
@@ -855,7 +855,7 @@ PROCEDURE ExecuteReport ( cReportName, lPreview, lSelect, cOutputFileName )
 
             nCurrentOffset += nDetailHeight
 
-            IF ValType ( xSkipProcedure ) == 'U'
+            IF ValType( xSkipProcedure ) == 'U'
                SKIP
                lTempEof := Eof()
             ELSE
@@ -876,7 +876,7 @@ PROCEDURE ExecuteReport ( cReportName, lPreview, lSelect, cOutputFileName )
 
                * If Summary defined, PRINT it.
 
-               IF Len ( aSummary ) > 0
+               IF Len( aSummary ) > 0
                   _ProcessBand ( aSummary, nCurrentOffset )
                   nCurrentOffset += nSummaryHeight
                ENDIF
@@ -918,7 +918,7 @@ PROCEDURE ExecuteReport ( cReportName, lPreview, lSelect, cOutputFileName )
 
    ENDIF
 
-   IF ValType ( xSkipProcedure ) == 'U'
+   IF ValType( xSkipProcedure ) == 'U'
       GO nPreviousRecNo
    ENDIF
 
@@ -929,7 +929,7 @@ STATIC PROCEDURE _ProcessBand ( aBand, nOffset )
 *.............................................................................*
    LOCAL i
 
-   FOR i := 1 TO Len ( aBand )
+   FOR i := 1 TO Len( aBand )
 
       _PrintObject ( aBand[i ], nOffset )
 
@@ -1001,19 +1001,19 @@ STATIC PROCEDURE _PrintText( aObject, nOffset )
 
       ENDIF
 
-      _HMG_PRINTER_H_MULTILINE_PRINT ( _HMG_PRINTER_HDC, nRow  + nOffset, nCol, nRow + nHeight  + nOffset, nCol + nWidth, cFontName, nFontSize, aFontColor[ 1 ], aFontColor[ 2 ], aFontColor[ 3 ], cValue, lFontBold, lFontItalic, lFontUnderline, lFontStrikeout, .T., .T., .T., cAlignment )
+      _HMG_PRINTER_H_MULTILINE_PRINT( _HMG_PRINTER_HDC, nRow  + nOffset, nCol, nRow + nHeight  + nOffset, nCol + nWidth, cFontName, nFontSize, aFontColor[ 1 ], aFontColor[ 2 ], aFontColor[ 3 ], cValue, lFontBold, lFontItalic, lFontUnderline, lFontStrikeout, .T., .T., .T., cAlignment )
 
    ELSEIF _HMG_RPTDATA[ 163 ] == .T.
 
-      IF ValType ( cValue ) == "N"
+      IF ValType( cValue ) == "N"
 
          cValue := AllTrim( Str( cValue ) )
 
-      ELSEIF ValType ( cValue ) == "D"
+      ELSEIF ValType( cValue ) == "D"
 
          cValue := DToC ( cValue )
 
-      ELSEIF ValType ( cValue ) == "L"
+      ELSEIF ValType( cValue ) == "L"
 
          cValue := if ( cValue == .T., _HMG_RPTDATA[ 371 ][ 24 ], _HMG_RPTDATA[ 371 ][ 25 ] )
 
@@ -1037,15 +1037,15 @@ STATIC PROCEDURE _PrintText( aObject, nOffset )
 
    ELSEIF _HMG_RPTDATA[ 150 ] == .T.
 
-      IF ValType ( cValue ) == "N"
+      IF ValType( cValue ) == "N"
 
          cValue := AllTrim( Str( cValue ) )
 
-      ELSEIF ValType ( cValue ) == "D"
+      ELSEIF ValType( cValue ) == "D"
 
          cValue := DToC ( cValue )
 
-      ELSEIF ValType ( cValue ) == "L"
+      ELSEIF ValType( cValue ) == "L"
 
          cValue := if ( cValue == .T., _HMG_RPTDATA[ 371 ][ 24 ], _HMG_RPTDATA[ 371 ][ 25 ] )
 
@@ -1128,7 +1128,7 @@ STATIC PROCEDURE _PrintImage( aObject, nOffset )
 
    ELSEIF _HMG_RPTDATA[ 150 ] == .T.
 
-      IF Upper ( Right( cValue, 4 ) ) == '.JPG'
+      IF Upper( Right( cValue, 4 ) ) == '.JPG'
 
          pdfImage ( cValue, nRow + nOffset, nCol, "M", nHeight, nWidth )
 
@@ -1235,27 +1235,27 @@ PROCEDURE _EndLine
 
    IF _HMG_RPTDATA[ 161 ] == 'HEADER'
 
-      AAdd (  _HMG_RPTDATA[ 160 ], aLine )
+      AAdd(  _HMG_RPTDATA[ 160 ], aLine )
 
    ELSEIF _HMG_RPTDATA[ 161 ] == 'DETAIL'
 
-      AAdd ( _HMG_RPTDATA[ 158 ], aLine )
+      AAdd( _HMG_RPTDATA[ 158 ], aLine )
 
    ELSEIF _HMG_RPTDATA[ 161 ] == 'FOOTER'
 
-      AAdd ( _HMG_RPTDATA[ 157 ], aLine )
+      AAdd( _HMG_RPTDATA[ 157 ], aLine )
 
    ELSEIF _HMG_RPTDATA[ 161 ] == 'SUMMARY'
 
-      AAdd ( _HMG_RPTDATA[ 126 ], aLine )
+      AAdd( _HMG_RPTDATA[ 126 ], aLine )
 
    ELSEIF _HMG_RPTDATA[ 161 ] == 'GROUPHEADER'
 
-      AAdd ( _HMG_RPTDATA[ 121 ], aLine )
+      AAdd( _HMG_RPTDATA[ 121 ], aLine )
 
    ELSEIF _HMG_RPTDATA[ 161 ] == 'GROUPFOOTER'
 
-      AAdd ( _HMG_RPTDATA[ 122 ], aLine )
+      AAdd( _HMG_RPTDATA[ 122 ], aLine )
 
    ENDIF
 
@@ -1290,27 +1290,27 @@ PROCEDURE _EndImage
 
    IF _HMG_RPTDATA[ 161 ] == 'HEADER'
 
-      AAdd (  _HMG_RPTDATA[ 160 ], aImage )
+      AAdd(  _HMG_RPTDATA[ 160 ], aImage )
 
    ELSEIF _HMG_RPTDATA[ 161 ] == 'DETAIL'
 
-      AAdd ( _HMG_RPTDATA[ 158 ], aImage )
+      AAdd( _HMG_RPTDATA[ 158 ], aImage )
 
    ELSEIF _HMG_RPTDATA[ 161 ] == 'FOOTER'
 
-      AAdd ( _HMG_RPTDATA[ 157 ], aImage )
+      AAdd( _HMG_RPTDATA[ 157 ], aImage )
 
    ELSEIF _HMG_RPTDATA[ 161 ] == 'SUMMARY'
 
-      AAdd ( _HMG_RPTDATA[ 126 ], aImage )
+      AAdd( _HMG_RPTDATA[ 126 ], aImage )
 
    ELSEIF _HMG_RPTDATA[ 161 ] == 'GROUPHEADER'
 
-      AAdd ( _HMG_RPTDATA[ 121 ], aImage )
+      AAdd( _HMG_RPTDATA[ 121 ], aImage )
 
    ELSEIF _HMG_RPTDATA[ 161 ] == 'GROUPFOOTER'
 
-      AAdd ( _HMG_RPTDATA[ 122 ], aImage )
+      AAdd( _HMG_RPTDATA[ 122 ], aImage )
 
    ENDIF
 
@@ -1345,27 +1345,27 @@ PROCEDURE _EndRectangle
 
    IF _HMG_RPTDATA[ 161 ] == 'HEADER'
 
-      AAdd (  _HMG_RPTDATA[ 160 ], aRectangle )
+      AAdd(  _HMG_RPTDATA[ 160 ], aRectangle )
 
    ELSEIF _HMG_RPTDATA[ 161 ] == 'DETAIL'
 
-      AAdd ( _HMG_RPTDATA[ 158 ], aRectangle )
+      AAdd( _HMG_RPTDATA[ 158 ], aRectangle )
 
    ELSEIF _HMG_RPTDATA[ 161 ] == 'FOOTER'
 
-      AAdd ( _HMG_RPTDATA[ 157 ], aRectangle )
+      AAdd( _HMG_RPTDATA[ 157 ], aRectangle )
 
    ELSEIF _HMG_RPTDATA[ 161 ] == 'SUMMARY'
 
-      AAdd ( _HMG_RPTDATA[ 126 ], aRectangle )
+      AAdd( _HMG_RPTDATA[ 126 ], aRectangle )
 
    ELSEIF _HMG_RPTDATA[ 161 ] == 'GROUPHEADER'
 
-      AAdd ( _HMG_RPTDATA[ 121 ], aRectangle )
+      AAdd( _HMG_RPTDATA[ 121 ], aRectangle )
 
    ELSEIF _HMG_RPTDATA[ 161 ] == 'GROUPFOOTER'
 
-      AAdd ( _HMG_RPTDATA[ 122 ], aRectangle )
+      AAdd( _HMG_RPTDATA[ 122 ], aRectangle )
 
    ENDIF
 

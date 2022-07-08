@@ -339,7 +339,7 @@ Static Function memosay(arg1,arg2,argm1,argl1,argf1,argsize,abold,aita,aunder,as
     next
  Endif
  if empty(onlyone)
-    _HMG_PRINTER_H_PRINT ( if(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) ;
+    _HMG_PRINTER_H_PRINT( if(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) ;
    , arg1 ;
    , arg2  ;
    , argf1 ;
@@ -364,7 +364,7 @@ Static Function memosay(arg1,arg2,argm1,argl1,argf1,argsize,abold,aita,aunder,as
             oWr:TheFeet()
             oWr:TheMiniHead()
          endif
-         _HMG_PRINTER_H_PRINT ( if(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) ;
+         _HMG_PRINTER_H_PRINT( if(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) ;
          , nline*lstep , arg2, argf1 , argsize , argcolor1[1], argcolor1[2], argcolor1[3] ;
          , arrymemo[mcl], abold, aita, aunder, astrike;
          , if(valtype(argcolor1)=="A", .t.,.f.) ;
@@ -385,7 +385,7 @@ Function RMiniPar(ArryPar,cmdline,section)
      local _arg1,Aclr,blse := {|x| if(val(x)> 0,.t.,if(x=".T.".or. x ="ON",.T.,.F.))}
      local ax := {}
 
-     if len (ArryPar) < 1 ;return .F. ;endif
+     if len(ArryPar) < 1 ;return .F. ;endif
 
      maxrow  := int(_HMG_PRINTER_GETPAGEHEIGHT(if(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc))/LStep)
      maxcol  := int(_HMG_PRINTER_GETPAGEWIDTH(if(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc))/1)
@@ -660,7 +660,7 @@ Function RMiniPar(ArryPar,cmdline,section)
                      ArryPar[4]:= trans(eval(epar,ArryPar[4]),"@A")
                      // MSGBOX(ARRYPAR[4],[ap4Post])
                   endif
-                 _HMG_PRINTER_H_PRINT ( if(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) ;
+                 _HMG_PRINTER_H_PRINT( if(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) ;
                 , if([LINE]$ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])) ;
                 , eval(epar,ArryPar[2])  ;
                 , eval(chblk,arrypar,[FONT]) ;

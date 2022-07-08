@@ -124,12 +124,12 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentForm + " Already defined." )
    ENDIF
 
-   IF ValType ( itemsource ) != 'U'
+   IF ValType( itemsource ) != 'U'
       IF  hb_UAt ( '>', ItemSource ) == 0
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentForm + " (ItemSource): You must specify a fully qualified field name." )
       ELSE
          WorkArea := hb_ULeft ( ItemSource , hb_UAt ( '>', ItemSource ) - 2 )
-         cField   := hb_URight ( ItemSource , hb_ULen ( ItemSource ) - hb_UAt ( '>', ItemSource ) )
+         cField   := hb_URight ( ItemSource , hb_ULen( ItemSource ) - hb_UAt ( '>', ItemSource ) )
       ENDIF
    ENDIF
 
@@ -212,7 +212,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
    ENDIF
 
    IF _HMG_BeginTabActive
-      AAdd ( _HMG_ActiveTabCurrentPageMap , ControlHandle )
+      AAdd( _HMG_ActiveTabCurrentPageMap , ControlHandle )
    ENDIF
 
    IF ValType( nItemHeight ) != "U"
@@ -257,8 +257,8 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
    _HMG_aControlWidth   [k] := w
    _HMG_aControlHeight   [k] := h
    _HMG_aControlSpacing   [k] := WorkArea
-   _HMG_aControlContainerRow  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerRow  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
    _HMG_aControlPicture  [k] :=  OnListCloseProcedure
    _HMG_aControlContainerHandle  [k] :=  ContainerHandle
    _HMG_aControlFontName  [k] :=  fontname
@@ -316,8 +316,8 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
 
    ELSE
 
-      IF Len ( rows ) > 0
-         AEval ( rows, { |v, i| ComboAddStringEx ( ControlHandle, v, i ) } )
+      IF Len( rows ) > 0
+         AEval( rows, { |v, i| ComboAddStringEx ( ControlHandle, v, i ) } )
       ENDIF
 
       IF ISNUMBER( value ) .AND. value <> 0
@@ -326,12 +326,12 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
 
    ENDIF
 
-   IF ValType ( ItemSource ) != 'U'
-      AAdd ( _HMG_aFormBrowseList [ GetFormIndex ( cParentForm ) ] , k )
+   IF ValType( ItemSource ) != 'U'
+      AAdd( _HMG_aFormBrowseList [ GetFormIndex ( cParentForm ) ] , k )
    ENDIF
 
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnControlInit, k, mVar )
+      Eval( _HMG_bOnControlInit, k, mVar )
 #ifdef _OBJECT_
       ow := _WindowObj ( ParentForm )
       oc := _ControlObj( ControlHandle )

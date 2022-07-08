@@ -175,7 +175,7 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
       h := GetWindowHeight ( aControlHandle[ 1 ] )
 
       IF _HMG_BeginTabActive
-         AAdd ( _HMG_ActiveTabCurrentPageMap, aControlhandle[ 1 ] )
+         AAdd( _HMG_ActiveTabCurrentPageMap, aControlhandle[ 1 ] )
       ENDIF
 
       SetMonthCalValue( aControlHandle[ 1 ], Year( value ), Month( value ), Day( value ) )
@@ -207,15 +207,15 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
    _HMG_aControlDeleted[ k ] := .F.
    _HMG_aControlBkColor[ k ] := backcolor
    _HMG_aControlFontColor[ k ] := fontcolor
-   _HMG_aControlDblClick[ k ] := iif ( IsVistaOrLater(), select, "" )
+   _HMG_aControlDblClick[ k ] := iif( IsVistaOrLater(), select, "" )
    _HMG_aControlHeadClick[ k ] := {}
    _HMG_aControlRow[ k ] := y
    _HMG_aControlCol[ k ] := x
    _HMG_aControlWidth[ k ] := w
    _HMG_aControlHeight[ k ] := h
    _HMG_aControlSpacing[ k ] := 0
-   _HMG_aControlContainerRow[ k ] := iif ( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[ _HMG_FrameLevel ], -1 )
-   _HMG_aControlContainerCol[ k ] := iif ( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[ _HMG_FrameLevel ], -1 )
+   _HMG_aControlContainerRow[ k ] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[ _HMG_FrameLevel ], -1 )
+   _HMG_aControlContainerCol[ k ] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[ _HMG_FrameLevel ], -1 )
    _HMG_aControlPicture[ k ] := ""
    _HMG_aControlContainerHandle[ k ] := 0
    _HMG_aControlFontName[ k ] := fontname
@@ -274,7 +274,7 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
    ENDIF
 
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnControlInit, k, mVar )
+      Eval( _HMG_bOnControlInit, k, mVar )
 #ifdef _OBJECT_
       ow := _WindowObj ( ParentFormHandle )
       oc := _ControlObj( aControlHandle[ 1 ] )
@@ -302,7 +302,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION OMONTHCALEVENTS( hWnd, nMsg, wParam, lParam ) // GF 2016.04.02
 *-----------------------------------------------------------------------------*
-   LOCAL i := AScan ( _HMG_aControlHandles, hWnd )
+   LOCAL i := AScan( _HMG_aControlHandles, hWnd )
 
    HB_SYMBOL_UNUSED( wParam )
    HB_SYMBOL_UNUSED( lParam )

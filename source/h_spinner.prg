@@ -123,11 +123,11 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
    ENDIF
 
    IF _HMG_BeginTabActive
-      AAdd ( _HMG_ActiveTabCurrentPageMap , RetArray )
+      AAdd( _HMG_ActiveTabCurrentPageMap , RetArray )
    ENDIF
 
    IF ValType( tooltip ) != "U"
-      AEval ( RetArray, { |x| SetToolTip ( x , tooltip , GetFormToolTipHandle ( cParentForm ) ) } )
+      AEval( RetArray, { |x| SetToolTip ( x , tooltip , GetFormToolTipHandle ( cParentForm ) ) } )
    ENDIF
 
    k := _GetControlFree()
@@ -160,8 +160,8 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
    _HMG_aControlWidth  [k] :=  w
    _HMG_aControlHeight   [k] := h
    _HMG_aControlSpacing  [k] :=  0
-   _HMG_aControlContainerRow  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerRow  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
    _HMG_aControlPicture  [k] :=  increment
    _HMG_aControlContainerHandle  [k] :=  0
    _HMG_aControlFontName [k] :=   fontname
@@ -179,7 +179,7 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
    _HMG_aControlMiscData1 [k] := { 0, readonly }
    _HMG_aControlMiscData2 [k] := ''
 
-   IF ! Empty ( cuetext ) .AND. IsVistaOrLater() .AND. IsThemed()
+   IF ! Empty( cuetext ) .AND. IsVistaOrLater() .AND. IsThemed()
       value := ""
       SendMessageWideString ( ControlHandle, EM_SETCUEBANNER, .T., cuetext )
    ENDIF
@@ -193,7 +193,7 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
    ENDIF
 
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnControlInit, k, mVar )
+      Eval( _HMG_bOnControlInit, k, mVar )
 #ifdef _OBJECT_
       ow := _WindowObj ( ParentForm )
       oc := _ControlObj( ControlHandle )

@@ -112,7 +112,7 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
       maxlength := -1 // for compatibility with TextBox and EditBox
    ENDIF
 
-   IF ValType ( Field ) != 'U'
+   IF ValType( Field ) != 'U'
       IF hb_UAt ( '>', Field ) == 0
          MsgHMGError ( "Control: " + ControlName + " Of " + ParentForm + " : You must specify a fully qualified field name." )
       ELSE
@@ -125,10 +125,10 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
 
    IF _HMG_BeginWindowActive = .T.
       ParentForm := _HMG_ActiveFormName
-      IF .NOT. Empty ( _HMG_DefaultFontName ) .AND. ValType( FontName ) == "U"
+      IF .NOT. Empty( _HMG_DefaultFontName ) .AND. ValType( FontName ) == "U"
          fontname := _HMG_DefaultFontName
       ENDIF
-      IF .NOT. Empty ( _HMG_DefaultFontSize ) .AND. ValType( FontSize ) == "U"
+      IF .NOT. Empty( _HMG_DefaultFontSize ) .AND. ValType( FontSize ) == "U"
          fontsize := _HMG_DefaultFontSize
       ENDIF
    ENDIF
@@ -200,7 +200,7 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
    ENDIF
 
    IF _HMG_BeginTabActive = .T.
-      AAdd ( _HMG_ActiveTabCurrentPageMap, Controlhandle )
+      AAdd( _HMG_ActiveTabCurrentPageMap, Controlhandle )
    ENDIF
 
    IF ValType( tooltip ) != "U"
@@ -240,8 +240,8 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
    _HMG_aControlWidth[ k ] := w
    _HMG_aControlHeight[ k ] := h
    _HMG_aControlSpacing[ k ] := selectionchange
-   _HMG_aControlContainerRow[ k ] := iif ( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[ _HMG_FrameLevel ], -1 )
-   _HMG_aControlContainerCol[ k ] := iif ( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[ _HMG_FrameLevel ], -1 )
+   _HMG_aControlContainerRow[ k ] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[ _HMG_FrameLevel ], -1 )
+   _HMG_aControlContainerCol[ k ] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[ _HMG_FrameLevel ], -1 )
    _HMG_aControlPicture[ k ] := ""
    _HMG_aControlContainerHandle[ k ] := ContainerHandle
    _HMG_aControlFontName[ k ] := fontname
@@ -259,8 +259,8 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
    _HMG_aControlMiscData1[ k ] := 1
    _HMG_aControlMiscData2[ k ] := ""
 
-   IF ValType ( Field ) != 'U'
-      AAdd ( _HMG_aFormBrowseList [ GetFormIndex ( cParentForm ) ], k )
+   IF ValType( Field ) != 'U'
+      AAdd( _HMG_aFormBrowseList [ GetFormIndex ( cParentForm ) ], k )
    ENDIF
 
    IF IsArrayRGB ( backcolor )
@@ -407,7 +407,7 @@ RETURN NIL
 
 #define TWIPS     1440 / 25.4
 *-----------------------------------------------------------------------------*
-FUNCTION RichEditBox_RTFPrint ( hWndControl, aSelRange, nLeft, nTop, nRight, nBottom, PrintPageCodeBlock )
+FUNCTION RichEditBox_RTFPrint( hWndControl, aSelRange, nLeft, nTop, nRight, nBottom, PrintPageCodeBlock )
 *-----------------------------------------------------------------------------*
    LOCAL nPageWidth, nPageHeight
    LOCAL nNextChar := 0
@@ -442,7 +442,7 @@ FUNCTION RichEditBox_RTFPrint ( hWndControl, aSelRange, nLeft, nTop, nRight, nBo
 
       START PRINTPAGE
 
-      Eval ( PrintPageCodeBlock )
+      Eval( PrintPageCodeBlock )
       nNextChar := RichEditBox_FormatRange ( hWndControl, OpenPrinterGetPageDC(), nLeft, nTop, nRight, nBottom, aSelRange )
       aSelRange[ 1 ] := nNextChar
       DO EVENTS

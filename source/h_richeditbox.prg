@@ -167,7 +167,7 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
    ENDIF
 
    IF _HMG_BeginTabActive
-      AAdd ( _HMG_ActiveTabCurrentPageMap , Controlhandle )
+      AAdd( _HMG_ActiveTabCurrentPageMap , Controlhandle )
    ENDIF
 
    IF ValType( tooltip ) != "U"
@@ -214,8 +214,8 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
    _HMG_aControlWidth   [k] := w
    _HMG_aControlHeight   [k] := h
    _HMG_aControlSpacing   [k] := 0
-   _HMG_aControlContainerRow  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerRow  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
    _HMG_aControlPicture  [k] :=  ""
    _HMG_aControlContainerHandle [k] :=   ContainerHandle
    _HMG_aControlFontName  [k] :=  fontname
@@ -234,7 +234,7 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
    _HMG_aControlMiscData2 [k] := ''
 
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnControlInit, k, mVar )
+      Eval( _HMG_bOnControlInit, k, mVar )
    ENDIF
 
    IF Len( value ) > 0
@@ -251,7 +251,7 @@ PROCEDURE _DataBaseRichEditBoxSave ( ControlName, ParentForm, typ )
    LOCAL Field
    LOCAL i
 
-   IF ! Empty ( cTempFile )
+   IF ! Empty( cTempFile )
       i := GetControlIndex ( ControlName, ParentForm )
 
       Field := _HMG_aControlPageMap [i]
@@ -274,7 +274,7 @@ FUNCTION _DataRichEditBoxSetValue ( ControlName, ParentForm, cRichValue, typ )
 *-----------------------------------------------------------------------------*
    LOCAL cTempFile := TempFile( GetTempFolder(), 'txt' )
 
-   IF ! Empty ( cTempFile )
+   IF ! Empty( cTempFile )
       hb_MemoWrit ( cTempFile, cRichValue )
 
       _DataRichEditBoxOpen ( ControlName, ParentForm, cTempFile, typ )
@@ -292,7 +292,7 @@ FUNCTION _DataRichEditBoxGetValue ( ControlName, ParentForm, typ )
    LOCAL cTempFile := TempFile( GetTempFolder(), 'txt' )
    LOCAL cRichValue
 
-   IF ! Empty ( cTempFile )
+   IF ! Empty( cTempFile )
       _DataRichEditBoxSave ( ControlName, ParentForm, cTempFile, typ )
 
       cRichValue := MemoRead ( cTempFile )

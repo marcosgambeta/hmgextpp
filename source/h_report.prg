@@ -657,7 +657,7 @@ FUNCTION extreport( cfilerep )
    IF Len( npapersize ) == 0
       npapersize := NIL
    ELSE
-      ipaper := AScan ( apapeles , npapersize )
+      ipaper := AScan( apapeles , npapersize )
       IF ipaper == 0
          ipaper := 1
       ENDIF

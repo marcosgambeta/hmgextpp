@@ -205,7 +205,7 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
       ENDIF
 
       IF _HMG_BeginTabActive
-         AAdd ( _HMG_ActiveTabCurrentPageMap , ControlHandle )
+         AAdd( _HMG_ActiveTabCurrentPageMap , ControlHandle )
       ENDIF
 
       IF ValType( tooltip ) != "U"
@@ -220,7 +220,7 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := iif ( multiselect , "MULTICHKLIST" , "CHKLIST" )
+   _HMG_aControlType [k] := iif( multiselect , "MULTICHKLIST" , "CHKLIST" )
    _HMG_aControlNames  [k] :=  ControlName
    _HMG_aControlHandles  [k] :=  ControlHandle
    _HMG_aControlParenthandles  [k] :=  ParentFormHandle
@@ -242,8 +242,8 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
    _HMG_aControlWidth   [k] := w
    _HMG_aControlHeight   [k] := h
    _HMG_aControlSpacing   [k] :=  nItemHeight
-   _HMG_aControlContainerRow  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerRow  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
    _HMG_aControlPicture   [k] := ""
    _HMG_aControlContainerHandle  [k] :=  0
    _HMG_aControlFontName  [k] :=  fontname
@@ -253,7 +253,7 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
    _HMG_aControlRangeMin   [k] :=  rows
    _HMG_aControlRangeMax  [k] :=   aCheck
    _HMG_aControlCaption   [k] :=  ""
-   _HMG_aControlVisible  [k] :=   iif ( invisible, FALSE, TRUE )
+   _HMG_aControlVisible  [k] :=   iif( invisible, FALSE, TRUE )
    _HMG_aControlHelpId   [k] :=  HelpId
    _HMG_aControlFontHandle  [k] :=   FontHandle
    _HMG_aControlBrushHandle  [k] :=  0
@@ -262,20 +262,20 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
    _HMG_aControlMiscData2 [k] := ''
 
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnControlInit, k, mVar )
+      Eval( _HMG_bOnControlInit, k, mVar )
    ENDIF
 
-   IF Len ( _HMG_aDialogTemplate ) == 0     //Dialog Template
-      IF Len ( aRows ) > 0
-         AEval ( Rows, { | r,n | ChkListboxAddItem ( ControlHandle, r, aChkItem[n], nItemHeight ) } )
+   IF Len( _HMG_aDialogTemplate ) == 0     //Dialog Template
+      IF Len( aRows ) > 0
+         AEval( Rows, { | r,n | ChkListboxAddItem ( ControlHandle, r, aChkItem[n], nItemHeight ) } )
       ENDIF
 
-      IF FontSize != _HMG_DefaultFontSize .AND. Len ( Rows ) > 0
+      IF FontSize != _HMG_DefaultFontSize .AND. Len( Rows ) > 0
          SetChkLBItemHeight ( ControlHandle , FontHandle )
       ENDIF
 
       IF multiselect
-         IF ISARRAY ( value )
+         IF ISARRAY( value )
             LISTBOXSETMULTISEL ( ControlHandle , Value )
          ENDIF
       ELSE
@@ -299,8 +299,8 @@ FUNCTION InitDialogChkListBox( ParentName, ControlHandle, k )
    FontSize    := _HMG_aControlFontSize  [k]
    FontHandle  := _HMG_aControlFontHandle  [k]
 
-   IF Len ( Rows ) > 0
-      AEval ( Rows , { | r | ListboxAddString ( ControlHandle , r ) } )
+   IF Len( Rows ) > 0
+      AEval( Rows , { | r | ListboxAddString ( ControlHandle , r ) } )
    ENDIF
 
    IF FontSize != _HMG_DefaultFontSize .AND. Len( Rows ) > 0
@@ -308,7 +308,7 @@ FUNCTION InitDialogChkListBox( ParentName, ControlHandle, k )
    ENDIF
 
    IF _HMG_aControlType [k] == "MULTICHKLIST"
-      IF ISARRAY ( value )
+      IF ISARRAY( value )
          LISTBOXSETMULTISEL ( ControlHandle , Value )
       ENDIF
    ELSE

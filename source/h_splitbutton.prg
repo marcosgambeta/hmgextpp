@@ -73,7 +73,7 @@ PROCEDURE _DefineSplitButton ( cName, nRow, nCol, cCaption, bAction, cParent, ;
       )
 
    IF _HMG_BeginTabActive
-      AAdd ( _HMG_ActiveTabCurrentPageMap, hControlHandle )
+      AAdd( _HMG_ActiveTabCurrentPageMap, hControlHandle )
    ENDIF
 
    IF FontHandle != 0
@@ -112,8 +112,8 @@ PROCEDURE _DefineSplitButton ( cName, nRow, nCol, cCaption, bAction, cParent, ;
    _HMG_aControlWidth [k] := w
    _HMG_aControlHeight [k] := h
    _HMG_aControlSpacing [k] := 0
-   _HMG_aControlContainerRow [k] :=  iif ( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[ _HMG_FrameLevel ], -1 )
-   _HMG_aControlContainerCol [k] :=  iif ( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[ _HMG_FrameLevel ], -1 )
+   _HMG_aControlContainerRow [k] :=  iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[ _HMG_FrameLevel ], -1 )
+   _HMG_aControlContainerCol [k] :=  iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[ _HMG_FrameLevel ], -1 )
    _HMG_aControlPicture [k] :=  Nil
    _HMG_aControlContainerHandle [k] :=  0
    _HMG_aControlFontName [k] :=  fontname
@@ -132,7 +132,7 @@ PROCEDURE _DefineSplitButton ( cName, nRow, nCol, cCaption, bAction, cParent, ;
    _HMG_aControlMiscData2 [k] := ''
 
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnControlInit, k, mVar )
+      Eval( _HMG_bOnControlInit, k, mVar )
    ENDIF
 
    IF ValType( tooltip ) != "U"
@@ -163,7 +163,7 @@ FUNCTION SPButtonEventHandler ( hWnd, nMsg, wParam, lParam )
 
    ELSEIF nMsg == WM_COMMAND
 
-      i := AScan ( _HMG_aControlHandles, lParam )
+      i := AScan( _HMG_aControlHandles, lParam )
 
       IF i > 0 .AND. _HMG_aControlType[ i ] == 'SPBUTTON'
 
@@ -195,7 +195,7 @@ PROCEDURE SPButtonSetFocus ( cWindow, cControl )
 
       hWnd := GetControlHandle ( cControl, cWindow )
 
-      ControlCount := Len ( _HMG_aControlNames )
+      ControlCount := Len( _HMG_aControlNames )
       ParentFormHandle := _HMG_aControlParentHandles [ GetControlIndex ( cControl, cWindow ) ]
       FOR x := 1 TO ControlCount
          IF _HMG_aControlType [x] == 'SPBUTTON'
@@ -258,7 +258,7 @@ STATIC FUNCTION LaunchDropdownMenu( nHwnd )
    LOCAL aPos := {0, 0, 0, 0}
    LOCAL nIdx
 
-   nIdx := AScan ( _HMG_aControlHandles, nHwnd )
+   nIdx := AScan( _HMG_aControlHandles, nHwnd )
 
    IF nIdx > 0
 

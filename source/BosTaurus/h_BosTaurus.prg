@@ -283,7 +283,7 @@ RETURN aSize
 
 FUNCTION BT_DrawPolyLine ( hDC, aPointY, aPointX, aColorRGBLine, nWidthLine )
 
-   nWidthLine := IF ( ValType ( nWidthLine ) == "U", 1, nWidthLine )
+   nWidthLine := IF ( ValType( nWidthLine ) == "U", 1, nWidthLine )
    BT_DRAW_HDC_POLY ( hDC, aPointX, aPointY, ArrayRGB_TO_COLORREF( aColorRGBLine ), nWidthLine, 0, BT_DRAW_POLYLINE )
 
 RETURN NIL
@@ -291,7 +291,7 @@ RETURN NIL
 
 FUNCTION BT_DrawPolygon ( hDC, aPointY, aPointX, aColorRGBLine, nWidthLine, aColorRGBFill )
 
-   nWidthLine := IF ( ValType ( nWidthLine ) == "U", 1, nWidthLine )
+   nWidthLine := IF ( ValType( nWidthLine ) == "U", 1, nWidthLine )
    BT_DRAW_HDC_POLY ( hDC, aPointX, aPointY, ArrayRGB_TO_COLORREF( aColorRGBLine ), nWidthLine, ArrayRGB_TO_COLORREF( aColorRGBFill ), BT_DRAW_POLYGON )
 
 RETURN NIL
@@ -299,7 +299,7 @@ RETURN NIL
 
 FUNCTION BT_DrawPolyBezier ( hDC, aPointY, aPointX, aColorRGBLine, nWidthLine )
 
-   nWidthLine := IF ( ValType ( nWidthLine ) == "U", 1, nWidthLine )
+   nWidthLine := IF ( ValType( nWidthLine ) == "U", 1, nWidthLine )
    BT_DRAW_HDC_POLY ( hDC, aPointX, aPointY, ArrayRGB_TO_COLORREF( aColorRGBLine ), nWidthLine, 0, BT_DRAW_POLYBEZIER )
 
 RETURN NIL
@@ -307,7 +307,7 @@ RETURN NIL
 
 FUNCTION BT_DrawArc ( hDC, Row1, Col1, Row2, Col2, RowStartArc, ColStartArc, RowEndArc, ColEndArc, aColorRGBLine, nWidthLine )
 
-   nWidthLine := IF ( ValType ( nWidthLine ) == "U", 1, nWidthLine )
+   nWidthLine := IF ( ValType( nWidthLine ) == "U", 1, nWidthLine )
    BT_DRAW_HDC_ARCX ( hDC, Col1, Row1, Col2, Row2, ColStartArc, RowStartArc, ColEndArc, RowEndArc, ArrayRGB_TO_COLORREF( aColorRGBLine ), nWidthLine, 0, BT_DRAW_ARC )
 
 RETURN NIL
@@ -315,7 +315,7 @@ RETURN NIL
 
 FUNCTION BT_DrawChord ( hDC, Row1, Col1, Row2, Col2, RowStartArc, ColStartArc, RowEndArc, ColEndArc, aColorRGBLine, nWidthLine, aColorRGBFill )
 
-   nWidthLine := IF ( ValType ( nWidthLine ) == "U", 1, nWidthLine )
+   nWidthLine := IF ( ValType( nWidthLine ) == "U", 1, nWidthLine )
    BT_DRAW_HDC_ARCX ( hDC, Col1, Row1, Col2, Row2, ColStartArc, RowStartArc, ColEndArc, RowEndArc, ArrayRGB_TO_COLORREF( aColorRGBLine ), nWidthLine, ArrayRGB_TO_COLORREF( aColorRGBFill ), BT_DRAW_CHORD )
 
 RETURN NIL
@@ -323,7 +323,7 @@ RETURN NIL
 
 FUNCTION BT_DrawPie ( hDC, Row1, Col1, Row2, Col2, RowStartArc, ColStartArc, RowEndArc, ColEndArc, aColorRGBLine, nWidthLine, aColorRGBFill )
 
-   nWidthLine := IF ( ValType ( nWidthLine ) == "U", 1, nWidthLine )
+   nWidthLine := IF ( ValType( nWidthLine ) == "U", 1, nWidthLine )
    BT_DRAW_HDC_ARCX ( hDC, Col1, Row1, Col2, Row2, ColStartArc, RowStartArc, ColEndArc, RowEndArc, ArrayRGB_TO_COLORREF( aColorRGBLine ), nWidthLine, ArrayRGB_TO_COLORREF( aColorRGBFill ), BT_DRAW_PIE )
 
 RETURN NIL
@@ -334,7 +334,7 @@ FUNCTION BT_DrawLine ( hDC, Row1, Col1, Row2, Col2, aColorRGBLine, nWidthLine )
    LOCAL aPointX := { Col1, Col2 }
    LOCAL aPointY := { Row1, Row2 }
 
-   nWidthLine := IF ( ValType ( nWidthLine ) == "U", 1, nWidthLine )
+   nWidthLine := IF ( ValType( nWidthLine ) == "U", 1, nWidthLine )
    BT_DrawPolyLine ( hDC, aPointY, aPointX, aColorRGBLine, nWidthLine )
 
 RETURN NIL
@@ -342,15 +342,15 @@ RETURN NIL
 
 FUNCTION BT_DrawRectangle ( hDC, Row, Col, Width, Height, aColorRGBLine, nWidthLine )
 
-   LOCAL aPointX := Array ( 5 )
-   LOCAL aPointY := Array ( 5 )
+   LOCAL aPointX := Array( 5 )
+   LOCAL aPointY := Array( 5 )
 
    aPointX[ 1 ] := Col ;          aPointY[ 1 ] := Row
    aPointX[ 2 ] := Col + Width ;    aPointY[ 2 ] := Row
    aPointX[ 3 ] := Col + Width ;    aPointY[ 3 ] := Row + Height
    aPointX[ 4 ] := Col ;          aPointY[ 4 ] := Row + Height
    aPointX[ 5 ] := Col ;          aPointY[ 5 ] := Row
-   nWidthLine := IF ( ValType ( nWidthLine ) == "U", 1, nWidthLine )
+   nWidthLine := IF ( ValType( nWidthLine ) == "U", 1, nWidthLine )
    BT_DrawPolyLine ( hDC, aPointY, aPointX, aColorRGBLine, nWidthLine )
 
 RETURN NIL
@@ -366,7 +366,7 @@ FUNCTION BT_DrawEllipse ( hDC, Row1, Col1, Width, Height, aColorRGBLine, nWidthL
    Row2 := Row1 + Height
    ColStartArc := ColEndArc := Col1
    RowStartArc := RowEndArc := Row1
-   nWidthLine := IF ( ValType ( nWidthLine ) == "U", 1, nWidthLine )
+   nWidthLine := IF ( ValType( nWidthLine ) == "U", 1, nWidthLine )
    BT_DrawArc ( hDC, Row1, Col1, Row2, Col2, RowStartArc, ColStartArc, RowEndArc, ColEndArc, aColorRGBLine, nWidthLine )
 
 RETURN NIL
@@ -375,8 +375,8 @@ RETURN NIL
 
 FUNCTION BT_DrawFillRectangle ( hDC, Row, Col, Width, Height, aColorRGBFill, aColorRGBLine, nWidthLine )
 
-   aColorRGBLine := IF ( ValType ( nWidthLine ) == "U", aColorRGBFill, aColorRGBLine )
-   nWidthLine := IF ( ValType ( nWidthLine ) == "U", 1, nWidthLine )
+   aColorRGBLine := IF ( ValType( nWidthLine ) == "U", aColorRGBFill, aColorRGBLine )
+   nWidthLine := IF ( ValType( nWidthLine ) == "U", 1, nWidthLine )
    BT_DRAW_HDC_FILLEDOBJECT ( hDC, Col, Row, Width, Height, ArrayRGB_TO_COLORREF( aColorRGBFill ), ArrayRGB_TO_COLORREF( aColorRGBLine ), nWidthLine, BT_FILLRECTANGLE, 0, 0 )
 
 RETURN NIL
@@ -384,8 +384,8 @@ RETURN NIL
 
 FUNCTION BT_DrawFillEllipse ( hDC, Row, Col, Width, Height, aColorRGBFill, aColorRGBLine, nWidthLine )
 
-   aColorRGBLine := IF ( ValType ( nWidthLine ) == "U", aColorRGBFill, aColorRGBLine )
-   nWidthLine := IF ( ValType ( nWidthLine ) == "U", 1, nWidthLine )
+   aColorRGBLine := IF ( ValType( nWidthLine ) == "U", aColorRGBFill, aColorRGBLine )
+   nWidthLine := IF ( ValType( nWidthLine ) == "U", 1, nWidthLine )
    BT_DRAW_HDC_FILLEDOBJECT ( hDC, Col, Row, Width, Height, ArrayRGB_TO_COLORREF( aColorRGBFill ), ArrayRGB_TO_COLORREF( aColorRGBLine ), nWidthLine, BT_FILLELLIPSE, 0, 0 )
 
 RETURN NIL
@@ -393,8 +393,8 @@ RETURN NIL
 
 FUNCTION BT_DrawFillRoundRect ( hDC, Row, Col, Width, Height, RoundWidth, RoundHeight, aColorRGBFill, aColorRGBLine, nWidthLine )
 
-   aColorRGBLine := IF ( ValType ( nWidthLine ) == "U", aColorRGBFill, aColorRGBLine )
-   nWidthLine := IF ( ValType ( nWidthLine ) == "U", 1, nWidthLine )
+   aColorRGBLine := IF ( ValType( nWidthLine ) == "U", aColorRGBFill, aColorRGBLine )
+   nWidthLine := IF ( ValType( nWidthLine ) == "U", 1, nWidthLine )
    BT_DRAW_HDC_FILLEDOBJECT ( hDC, Col, Row, Width, Height, ArrayRGB_TO_COLORREF( aColorRGBFill ), ArrayRGB_TO_COLORREF( aColorRGBLine ), nWidthLine, BT_FILLROUNDRECT, RoundWidth, RoundHeight )
 
 RETURN NIL
@@ -460,7 +460,7 @@ FUNCTION bt_StatusBarHandle ( Win )
    LOCAL hWnd := bt_WinHandle ( Win )
    LOCAL k, hWndStatusBar := 0
 
-   FOR k := 1 TO Len ( _HMG_aControlType )
+   FOR k := 1 TO Len( _HMG_aControlType )
       IF _HMG_aControlType[ k ] == "MESSAGEBAR" .AND. _HMG_aControlParenthandles[ k ] == hWnd
          hWndStatusBar := _HMG_aControlHandles[ k ]
       ENDIF
@@ -499,7 +499,7 @@ FUNCTION bt_ToolBarBottomHandle ( Win )
    LOCAL hWnd := bt_WinHandle ( Win )
    LOCAL k, hWndToolBar := 0
 
-   FOR k := 1 TO Len ( _HMG_aControlType )
+   FOR k := 1 TO Len( _HMG_aControlType )
       IF _HMG_aControlType[ k ] == "TOOLBAR" .AND. _HMG_aControlParenthandles[ k ] == hWnd .AND. And( GetWindowLong( _HMG_aControlHandles[ k ], GWL_STYLE ), CCS_BOTTOM ) == CCS_BOTTOM
          hWndToolBar := _HMG_aControlHandles[ k ]
       ENDIF
@@ -538,7 +538,7 @@ FUNCTION bt_ToolBarTopHandle ( Win )
    LOCAL hWnd := bt_WinHandle ( Win )
    LOCAL k, hWndToolBar := 0
 
-   FOR k := 1 TO Len ( _HMG_aControlType )
+   FOR k := 1 TO Len( _HMG_aControlType )
       IF _HMG_aControlType[ k ] == "TOOLBAR" .AND. _HMG_aControlParenthandles[ k ] == hWnd .AND. And( GetWindowLong( _HMG_aControlHandles[ k ], GWL_STYLE ), CCS_BOTTOM ) != CCS_BOTTOM
          hWndToolBar := _HMG_aControlHandles[ k ]
       ENDIF
@@ -724,8 +724,8 @@ FUNCTION BT_BitmapCopyAndResize ( hBitmap, New_Width, New_Height, Mode_Stretch, 
 
    LOCAL New_hBitmap
 
-   Mode_Stretch := IF ( ValType ( Mode_Stretch ) == "U", BT_STRETCH, Mode_Stretch )
-   Algorithm := IF ( ValType ( Algorithm ) == "U", BT_RESIZE_HALFTONE, Algorithm )
+   Mode_Stretch := IF ( ValType( Mode_Stretch ) == "U", BT_STRETCH, Mode_Stretch )
+   Algorithm := IF ( ValType( Algorithm ) == "U", BT_RESIZE_HALFTONE, Algorithm )
    New_hBitmap := BT_BMP_COPYANDRESIZE ( hBitmap, New_Width, New_Height, Mode_Stretch, Algorithm )
 
 RETURN New_hBitmap
@@ -836,7 +836,7 @@ FUNCTION BT_BitmapClipboardClean ( Win )
 RETURN lRet
 
 
-FUNCTION BT_BitmapClipboardIsEmpty ()
+FUNCTION BT_BitmapClipboardIsEmpty()
 
    LOCAL lRet := BT_BMP_CLIPBOARD_ISEMPTY()
 
@@ -886,7 +886,7 @@ FUNCTION BT_HMGSetImage ( cFormName, cControlName, hBitmap, lReleasePreviousBitm
    MEMVAR _HMG_SYSDATA
 #endif
 
-   IF ValType ( lReleasePreviousBitmap ) <> "L"
+   IF ValType( lReleasePreviousBitmap ) <> "L"
       lReleasePreviousBitmap := .T.
    ENDIF
 

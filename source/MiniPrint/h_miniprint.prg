@@ -139,8 +139,8 @@ Local icb
 
 	DEFINE WINDOW _HMG_PRINTER_SHOWPREVIEW ;
 			AT 0,0 ;
-			WIDTH GetDesktopWidth() - 103 - iif ( IsVistaThemed , 25 , 0);
-			HEIGHT GetDesktopHeight() - 103  - iif ( IsVistaThemed , 25 , 0);
+			WIDTH GetDesktopWidth() - 103 - iif( IsVistaThemed , 25 , 0);
+			HEIGHT GetDesktopHeight() - 103  - iif( IsVistaThemed , 25 , 0);
 			VIRTUAL WIDTH ( GetDesktopWidth() - 103 ) * 2 ;
 			VIRTUAL HEIGHT ( GetDesktopHeight() - 103 ) * 2 ;
 			TITLE _hmg_printer_usermessages [01] + ' [' + alltrim(str(_hmg_printer_CurrentPageNumber)) + '/' + ;
@@ -194,7 +194,7 @@ Local icb
 			FontSize 9
 			Value 1
 			Options { _hmg_printer_usermessages [16] , _hmg_printer_usermessages [17] }
-			OnChange iif ( This.value == 1 , ( _HMG_PRINTER_PRINTPAGES.Label_1.Enabled := .F. , _HMG_PRINTER_PRINTPAGES.Label_2.Enabled := .F. , _HMG_PRINTER_PRINTPAGES.Spinner_1.Enabled := .F. , _HMG_PRINTER_PRINTPAGES.Spinner_2.Enabled := .F. , _HMG_PRINTER_PRINTPAGES.Combo_1.Enabled := .F.  , _HMG_PRINTER_PRINTPAGES.Label_4.Enabled := .F. ) , ( _HMG_PRINTER_PRINTPAGES.Label_1.Enabled := .T. , _HMG_PRINTER_PRINTPAGES.Label_2.Enabled := .T. , _HMG_PRINTER_PRINTPAGES.Spinner_1.Enabled := .T. , _HMG_PRINTER_PRINTPAGES.Spinner_2.Enabled := .T. , _HMG_PRINTER_PRINTPAGES.Combo_1.Enabled := .T.  , _HMG_PRINTER_PRINTPAGES.Label_4.Enabled := .T. , _HMG_PRINTER_PRINTPAGES.Spinner_1.SetFocus ) )
+			OnChange iif( This.value == 1 , ( _HMG_PRINTER_PRINTPAGES.Label_1.Enabled := .F. , _HMG_PRINTER_PRINTPAGES.Label_2.Enabled := .F. , _HMG_PRINTER_PRINTPAGES.Spinner_1.Enabled := .F. , _HMG_PRINTER_PRINTPAGES.Spinner_2.Enabled := .F. , _HMG_PRINTER_PRINTPAGES.Combo_1.Enabled := .F.  , _HMG_PRINTER_PRINTPAGES.Label_4.Enabled := .F. ) , ( _HMG_PRINTER_PRINTPAGES.Label_1.Enabled := .T. , _HMG_PRINTER_PRINTPAGES.Label_2.Enabled := .T. , _HMG_PRINTER_PRINTPAGES.Spinner_1.Enabled := .T. , _HMG_PRINTER_PRINTPAGES.Spinner_2.Enabled := .T. , _HMG_PRINTER_PRINTPAGES.Combo_1.Enabled := .T.  , _HMG_PRINTER_PRINTPAGES.Label_4.Enabled := .T. , _HMG_PRINTER_PRINTPAGES.Spinner_1.SetFocus ) )
 		End RadioGroup
 
 		Define Label Label_1
@@ -300,7 +300,7 @@ Local icb
 			Value _hmg_printer_copies
 			RangeMin 1
 			RangeMax 999
-			OnChange iif ( IsControlDefined (CheckBox_1,_HMG_PRINTER_PRINTPAGES) , iif ( This.Value > 1 , SetProperty( '_HMG_PRINTER_PRINTPAGES' , 'CheckBox_1','Enabled',.T.) , SetProperty( '_HMG_PRINTER_PRINTPAGES','CheckBox_1','Enabled', .F. ) ) , Nil )
+			OnChange iif( IsControlDefined (CheckBox_1,_HMG_PRINTER_PRINTPAGES) , iif( This.Value > 1 , SetProperty( '_HMG_PRINTER_PRINTPAGES' , 'CheckBox_1','Enabled',.T.) , SetProperty( '_HMG_PRINTER_PRINTPAGES','CheckBox_1','Enabled', .F. ) ) , Nil )
 		End Spinner
 
 		Define CheckBox CheckBox_1
@@ -309,7 +309,7 @@ Local icb
 			Width 110
 			FontName 'Arial'
 			FontSize 9
-			Value iif ( _hmg_printer_collate == 1 , .T. , .F. )
+			Value iif( _hmg_printer_collate == 1 , .T. , .F. )
 			Caption _hmg_printer_usermessages [14]
 		End CheckBox
 
@@ -383,7 +383,7 @@ Local icb
 
 	tHeight :=_HMG_PRINTER_GETPAGEHEIGHT(_hmg_printer_hdc_bak) * tFactor
 
-	tHeight := Int (tHeight)	
+	tHeight := Int(tHeight)	
 
 	tvHeight := ( _hmg_printer_PageCount * (tHeight + 10) ) + GetHScrollbarHeight() + GetTitleHeight() + ( GetBorderHeight() * 2 ) + 7 
 
@@ -418,9 +418,9 @@ Local icb
 	endif
 
 	DEFINE WINDOW _HMG_PRINTER_PPNAV ;
-			AT 1 + iif ( IsVistaThemed , 3 , 0 ) , GetDesktopWidth() - 320 - iif ( IsVistaThemed , 5 , 0 ) ;
+			AT 1 + iif( IsVistaThemed , 3 , 0 ) , GetDesktopWidth() - 320 - iif( IsVistaThemed , 5 , 0 ) ;
 			WIDTH 312 + GetBorderWidth() ;
-			HEIGHT 35 + GetTitleHeight() - iif ( IsVistaThemed .Or. ! _HMG_IsXP , 0 , GetBorderHeight() ) ;
+			HEIGHT 35 + GetTitleHeight() - iif( IsVistaThemed .Or. ! _HMG_IsXP , 0 , GetBorderHeight() ) ;
 			TITLE ' ' + _hmg_printer_usermessages [02] ;
 			PALETTE ;
 			NOMAXIMIZE ;
@@ -548,7 +548,7 @@ Local icb
 
 	CENTER WINDOW _HMG_PRINTER_SHOWPREVIEW
 
-	Tmp := _HMG_PRINTER_SHOWPREVIEW.ROW + GetTitleHeight() + iif ( IsVistaThemed , GetBorderHeight() , 0 )
+	Tmp := _HMG_PRINTER_SHOWPREVIEW.ROW + GetTitleHeight() + iif( IsVistaThemed , GetBorderHeight() , 0 )
 
 	_HMG_PRINTER_SHOWPREVIEW.ROW := Tmp
 
@@ -566,7 +566,7 @@ Local i
 
 	If ModalHandle != 0
 
-		For i := 1 To Len ( _HMG_aFormHandles )
+		For i := 1 To Len( _HMG_aFormHandles )
 			If _HMG_aFormDeleted [i] == .F.
 				If _HMG_aFormType [i] != 'X'
 					If _HMG_aFormHandles [i] != ModalHandle
@@ -578,7 +578,7 @@ Local i
 
 		EnableWindow ( ModalHandle )
 
-		For i := 1 To Len ( _HMG_aFormHandles )
+		For i := 1 To Len( _HMG_aFormHandles )
 			If _HMG_aFormDeleted [i] == .F.
 				If _HMG_aFormType [i] == 'P' .And. _HMG_aFormParentHandle [i] == ModalHandle  // Panel window into Modal window
 					EnableWindow (_HMG_aFormHandles [i] )
@@ -640,7 +640,7 @@ Local cAction
 	tWidth	:=_HMG_PRINTER_GETPAGEWIDTH(_hmg_printer_hdc_bak) * tFactor
 	tHeight :=_HMG_PRINTER_GETPAGEHEIGHT(_hmg_printer_hdc_bak) * tFactor
 
-	tHeight := Int (tHeight)	
+	tHeight := Int(tHeight)	
 
 	ttHandle := GetFormToolTipHandle ( '_HMG_PRINTER_SHOWTHUMBNAILS' )
 
@@ -820,7 +820,7 @@ Local nScrollMax
 			_hmg_printer_PrevPageNumber := _hmg_printer_CurrentPageNumber
 			hwnd := GetFormHandle('_HMG_PRINTER_SHOWTHUMBNAILS')
 			nRow := GetProperty ( '_HMG_PRINTER_SHOWTHUMBNAILS' , 'Image' + AllTrim(Str(_hmg_printer_CurrentPageNumber)) , 'Row' )
-			nScrollMax := GetScrollRangeMax ( hwnd , SB_VERT )
+			nScrollMax := GetScrollRangeMax( hwnd , SB_VERT )
 
 		if _hmg_printer_PageCount == _hmg_printer_CurrentPageNumber
 
@@ -928,7 +928,7 @@ Local EvenOnly := .F.
 
 	_hmg_printer_JobId := _HMG_PRINTER_StartDoc ( _hmg_printer_hdc_bak, _hmg_printer_JobName )
 
-	If ! Empty ( _hmg_printer_JobData )
+	If ! Empty( _hmg_printer_JobData )
 		If __mvExist( _hmg_printer_JobData )
 			__mvPut( _hmg_printer_JobData , OpenPrinterGetJobData() )
 		Else
@@ -941,11 +941,11 @@ Local EvenOnly := .F.
 		For i := PageFrom To PageTo
 
 			If OddOnly == .T.
-				If i / 2 != int (i / 2)
+				If i / 2 != int(i / 2)
 					_HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak , _hmg_printer_BasePageName + strzero(i,4) + ".emf" )
 				EndIf
 			ElseIf EvenOnly == .T.
-				If i / 2 == int (i / 2)
+				If i / 2 == int(i / 2)
 					_HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak , _hmg_printer_BasePageName + strzero(i,4) + ".emf" )
 				EndIf
 			Else
@@ -963,11 +963,11 @@ Local EvenOnly := .F.
 				For i := PageFrom To PageTo
 
 					If OddOnly == .T.
-						If i / 2 != int (i / 2)
+						If i / 2 != int(i / 2)
 							_HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak , _hmg_printer_BasePageName + strzero(i,4) + ".emf" )
 						EndIf
 					ElseIf EvenOnly == .T.
-						If i / 2 == int (i / 2)
+						If i / 2 == int(i / 2)
 							_HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak , _hmg_printer_BasePageName + strzero(i,4) + ".emf" )
 						EndIf
 					Else
@@ -985,11 +985,11 @@ Local EvenOnly := .F.
 				For p := 1 To _HMG_PRINTER_PrintPages.Spinner_3.Value
 
 					If OddOnly == .T.
-						If i / 2 != int (i / 2)
+						If i / 2 != int(i / 2)
 							_HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak , _hmg_printer_BasePageName + strzero(i,4) + ".emf" )
 						EndIf
 					ElseIf EvenOnly == .T.
-						If i / 2 == int (i / 2)
+						If i / 2 == int(i / 2)
 							_HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak , _hmg_printer_BasePageName + strzero(i,4) + ".emf" )
 						EndIf
 					Else
@@ -1065,7 +1065,7 @@ Local cDefaultPrinter	:= GetDefaultPrinter()
 Local i
 Local nInitPosition	:= 0
 
-	For i := 1 to Len ( Printers )
+	For i := 1 to Len( Printers )
 
 		If Printers [i] == cDefaultPrinter
 			nInitPosition := i
@@ -1108,37 +1108,37 @@ Return RetVal
 #define TA_RIGHT	2
 
 *------------------------------------------------------------------------------*
-Procedure _HMG_PRINTER_H_PRINT ( nHdc , nRow , nCol , cFontName , nFontSize , nColor1 , nColor2 , nColor3 , cText , lbold , litalic , lunderline , lstrikeout , lcolor , lfont , lsize , cAlign , lAngle , nAngle )
+Procedure _HMG_PRINTER_H_PRINT( nHdc , nRow , nCol , cFontName , nFontSize , nColor1 , nColor2 , nColor3 , cText , lbold , litalic , lunderline , lstrikeout , lcolor , lfont , lsize , cAlign , lAngle , nAngle )
 *------------------------------------------------------------------------------*
 Local lAlignChanged := .F.
 
 	DEFAULT lAngle TO .F., ;
 		nAngle TO 0
 
-	if ValType (cText) == "N"
+	if ValType(cText) == "N"
 		cText := AllTrim(Str(cText))
-	Elseif ValType (cText) == "D"
+	Elseif ValType(cText) == "D"
 		cText := dtoc (cText)
-	Elseif ValType (cText) == "L"
-		cText := iif ( cText == .T. , _hmg_printer_usermessages [24] , _hmg_printer_usermessages [25] )
-	Elseif ValType (cText) == "A"
+	Elseif ValType(cText) == "L"
+		cText := iif( cText == .T. , _hmg_printer_usermessages [24] , _hmg_printer_usermessages [25] )
+	Elseif ValType(cText) == "A"
 		Return
-	Elseif ValType (cText) == "B"
+	Elseif ValType(cText) == "B"
 		Return
-	Elseif ValType (cText) == "O"
+	Elseif ValType(cText) == "O"
 		Return
-	Elseif ValType (cText) == "U"
+	Elseif ValType(cText) == "U"
 		Return
 	EndIf
 
-	nRow := Int ( nRow * 10000 / 254 )
-	nCol := Int ( nCol * 10000 / 254 )
+	nRow := Int( nRow * 10000 / 254 )
+	nCol := Int( nCol * 10000 / 254 )
 
-	if valtype ( cAlign ) = 'C'
-		if upper ( cAlign ) = 'CENTER'
+	if valtype( cAlign ) = 'C'
+		if upper( cAlign ) = 'CENTER'
 			SetTextAlign ( nHdc , TA_CENTER )
 			lAlignChanged := .T.
-		elseif upper ( cAlign ) = 'RIGHT'
+		elseif upper( cAlign ) = 'RIGHT'
 			SetTextAlign ( nHdc , TA_RIGHT )
 			lAlignChanged := .T.
 		endif			
@@ -1148,7 +1148,7 @@ Local lAlignChanged := .F.
 		nAngle *= 10
 	EndIf
 
-	_HMG_PRINTER_C_PRINT ( nHdc , nRow , nCol , cFontName , nFontSize , nColor1 , nColor2 , nColor3 , cText , lbold , litalic , lunderline , lstrikeout , lcolor , lfont , lsize , lAngle , nAngle )
+	_HMG_PRINTER_C_PRINT( nHdc , nRow , nCol , cFontName , nFontSize , nColor1 , nColor2 , nColor3 , cText , lbold , litalic , lunderline , lstrikeout , lcolor , lfont , lsize , lAngle , nAngle )
 
 	if lAlignChanged
 		SetTextAlign ( nHdc , TA_LEFT )
@@ -1157,50 +1157,50 @@ Local lAlignChanged := .F.
 Return
 
 *------------------------------------------------------------------------------*
-Procedure _HMG_PRINTER_H_MULTILINE_PRINT ( nHdc , nRow , nCol , nToRow , nToCol , cFontName , nFontSize , nColor1 , nColor2 , nColor3 , cText , lbold , litalic , lunderline , lstrikeout , lcolor , lfont , lsize , cAlign )
+Procedure _HMG_PRINTER_H_MULTILINE_PRINT( nHdc , nRow , nCol , nToRow , nToCol , cFontName , nFontSize , nColor1 , nColor2 , nColor3 , cText , lbold , litalic , lunderline , lstrikeout , lcolor , lfont , lsize , cAlign )
 *------------------------------------------------------------------------------*
 Local nAlign := TA_LEFT
 
-	If ValType (cText) == "N"
+	If ValType(cText) == "N"
 		cText := AllTrim(Str(cText))
-	Elseif ValType (cText) == "D"
+	Elseif ValType(cText) == "D"
 		cText := dtoc (cText)
-	Elseif ValType (cText) == "L"
-		cText := iif ( cText == .T. , _hmg_printer_usermessages [24] , _hmg_printer_usermessages [25] )
-	Elseif ValType (cText) == "A"
+	Elseif ValType(cText) == "L"
+		cText := iif( cText == .T. , _hmg_printer_usermessages [24] , _hmg_printer_usermessages [25] )
+	Elseif ValType(cText) == "A"
 		Return
-	Elseif ValType (cText) == "B"
+	Elseif ValType(cText) == "B"
 		Return
-	Elseif ValType (cText) == "O"
+	Elseif ValType(cText) == "O"
 		Return
-	Elseif ValType (cText) == "U"
+	Elseif ValType(cText) == "U"
 		Return
 	EndIf
 
-	nRow := Int ( nRow * 10000 / 254 )
-	nCol := Int ( nCol * 10000 / 254 )
-	nToRow := Int ( nToRow * 10000 / 254 )
-	nToCol := Int ( nToCol * 10000 / 254 )
+	nRow := Int( nRow * 10000 / 254 )
+	nCol := Int( nCol * 10000 / 254 )
+	nToRow := Int( nToRow * 10000 / 254 )
+	nToCol := Int( nToCol * 10000 / 254 )
 
-	If ValType ( cAlign ) = 'C'
-		If Upper ( cAlign ) = 'CENTER'
+	If ValType( cAlign ) = 'C'
+		If Upper( cAlign ) = 'CENTER'
 			nAlign := TA_CENTER
-		ElseIf Upper ( cAlign ) = 'RIGHT'
+		ElseIf Upper( cAlign ) = 'RIGHT'
 			nAlign := TA_RIGHT
 		EndIf			
 	EndIf
 
-	_HMG_PRINTER_C_MULTILINE_PRINT ( nHdc , nRow , nCol , cFontName , nFontSize , nColor1 , nColor2 , nColor3 , cText , lbold , litalic , lunderline , lstrikeout , lcolor , lfont , lsize , nToRow , nToCol , nAlign )
+	_HMG_PRINTER_C_MULTILINE_PRINT( nHdc , nRow , nCol , cFontName , nFontSize , nColor1 , nColor2 , nColor3 , cText , lbold , litalic , lunderline , lstrikeout , lcolor , lfont , lsize , nToRow , nToCol , nAlign )
 
 Return
 *------------------------------------------------------------------------------*
 Procedure _HMG_PRINTER_H_IMAGE ( nHdc , cImage , nRow , nCol , nHeight , nWidth , lStretch , lTransparent )
 *------------------------------------------------------------------------------*
 
-	nRow	:= Int ( nRow * 10000 / 254 )
-	nCol	:= Int ( nCol * 10000 / 254 )
-	nWidth	:= Int ( nWidth * 10000 / 254 )
-	nHeight	:= Int ( nHeight * 10000 / 254 )
+	nRow	:= Int( nRow * 10000 / 254 )
+	nCol	:= Int( nCol * 10000 / 254 )
+	nWidth	:= Int( nWidth * 10000 / 254 )
+	nHeight	:= Int( nHeight * 10000 / 254 )
 
 	_HMG_PRINTER_C_IMAGE ( nHdc , cImage , nRow , nCol , nHeight , nWidth , lStretch , lTransparent )
 
@@ -1209,15 +1209,15 @@ Return
 Procedure _HMG_PRINTER_H_LINE ( nHdc , nRow , nCol , nToRow , nToCol , nWidth , nColor1 , nColor2 , nColor3 , lwidth , lcolor , nstyle )
 *------------------------------------------------------------------------------*
 
-	nRow	:= Int ( nRow * 10000 / 254 )
-	nCol	:= Int ( nCol * 10000 / 254 )
-	nToRow	:= Int ( nToRow * 10000 / 254 )
-	nToCol	:= Int ( nToCol * 10000 / 254 )
+	nRow	:= Int( nRow * 10000 / 254 )
+	nCol	:= Int( nCol * 10000 / 254 )
+	nToRow	:= Int( nToRow * 10000 / 254 )
+	nToCol	:= Int( nToCol * 10000 / 254 )
 
 	DEFAULT nstyle TO 0
 
-	If ValType ( nWidth ) != 'U'
-		nWidth	:= Int ( nWidth * 10000 / 254 )
+	If ValType( nWidth ) != 'U'
+		nWidth	:= Int( nWidth * 10000 / 254 )
 	ElseIf nstyle > 0
 		If nstyle == 1
 			nWidth := 1
@@ -1238,13 +1238,13 @@ Return
 Procedure _HMG_PRINTER_H_RECTANGLE ( nHdc , nRow , nCol , nToRow , nToCol , nWidth , nColor1 , nColor2 , nColor3 , lwidth , lcolor , lfilled , lnoborder )
 *------------------------------------------------------------------------------*
 
-	nRow	:= Int ( nRow * 10000 / 254 )
-	nCol	:= Int ( nCol * 10000 / 254 )
-	nToRow	:= Int ( nToRow * 10000 / 254 )
-	nToCol	:= Int ( nToCol * 10000 / 254 )
+	nRow	:= Int( nRow * 10000 / 254 )
+	nCol	:= Int( nCol * 10000 / 254 )
+	nToRow	:= Int( nToRow * 10000 / 254 )
+	nToCol	:= Int( nToCol * 10000 / 254 )
 
-	If ValType ( nWidth ) != 'U'
-		nWidth	:= Int ( nWidth * 10000 / 254 )
+	If ValType( nWidth ) != 'U'
+		nWidth	:= Int( nWidth * 10000 / 254 )
 	EndIf
 
 	_HMG_PRINTER_C_RECTANGLE ( nHdc , nRow , nCol , nToRow , nToCol , nWidth , nColor1 , nColor2 , nColor3 , lwidth , lcolor, lfilled, lnoborder )
@@ -1254,13 +1254,13 @@ Return
 Procedure _HMG_PRINTER_H_ROUNDRECTANGLE ( nHdc , nRow , nCol , nToRow , nToCol , nWidth , nColor1 , nColor2 , nColor3 , lwidth , lcolor, lfilled )
 *------------------------------------------------------------------------------*
 
-	nRow	:= Int ( nRow * 10000 / 254 )
-	nCol	:= Int ( nCol * 10000 / 254 )
-	nToRow	:= Int ( nToRow * 10000 / 254 )
-	nToCol	:= Int ( nToCol * 10000 / 254 )
+	nRow	:= Int( nRow * 10000 / 254 )
+	nCol	:= Int( nCol * 10000 / 254 )
+	nToRow	:= Int( nToRow * 10000 / 254 )
+	nToCol	:= Int( nToCol * 10000 / 254 )
 
-	If ValType ( nWidth ) != 'U'
-		nWidth	:= Int ( nWidth * 10000 / 254 )
+	If ValType( nWidth ) != 'U'
+		nWidth	:= Int( nWidth * 10000 / 254 )
 	EndIf
 
 	_HMG_PRINTER_C_ROUNDRECTANGLE ( nHdc , nRow , nCol , nToRow , nToCol , nWidth , nColor1 , nColor2 , nColor3 , lwidth , lcolor, lfilled )
@@ -2180,8 +2180,8 @@ FUNCTION _DefineEmfFile ( ControlName, ParentFormName, x, y, FileName, w, h, ;
    _HMG_aControlIds  [k] :=  0
    _HMG_aControlProcedures [k] :=  ProcedureName
    _HMG_aControlPageMap   [k] :=  {}
-   _HMG_aControlValue  [k] :=  iif ( stretch, 1, 0 )
-   _HMG_aControlInputMask  [k] :=  iif ( transparent, 1, 0 )
+   _HMG_aControlValue  [k] :=  iif( stretch, 1, 0 )
+   _HMG_aControlInputMask  [k] :=  iif( transparent, 1, 0 )
    _HMG_aControllostFocusProcedure  [k] :=  ""
    _HMG_aControlGotFocusProcedure  [k] :=  ""
    _HMG_aControlChangeProcedure  [k] :=  ""
@@ -2194,7 +2194,7 @@ FUNCTION _DefineEmfFile ( ControlName, ParentFormName, x, y, FileName, w, h, ;
    _HMG_aControlCol  [k] :=  x
    _HMG_aControlWidth  [k] :=  w
    _HMG_aControlHeight  [k] :=  h
-   _HMG_aControlSpacing  [k] :=  iif ( WhiteBackground, 1, 0 )
+   _HMG_aControlSpacing  [k] :=  iif( WhiteBackground, 1, 0 )
    _HMG_aControlContainerRow  [k] :=  -1
    _HMG_aControlContainerCol  [k] :=  -1
    _HMG_aControlPicture  [k] :=  FileName

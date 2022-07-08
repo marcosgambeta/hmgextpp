@@ -9757,7 +9757,7 @@ METHOD HScroll( nWParam, nLParam ) CLASS TSBrowse
          ++nCol
       ENDDO
 
-      IF nCol < Len ( ::aColumns )
+      IF nCol < Len( ::aColumns )
          ::nColPos := ::nCell := nCol
          ::Refresh( .F. )
          ::oHScroll:SetPos( nCol )
@@ -15382,13 +15382,13 @@ STATIC FUNCTION BuildAutoSeek( oTb )
                CASE cType == "C"
                   uValue := RTrim( uValue )
                   nLen := Len( uValue )
-                  cLocateBlock := "{|oTb|Ascan ( oTb:aArray, {|x,y| substr(x[" + LTrim( Str( nCol ) ) + "],1," + ;
+                  cLocateBlock := "{|oTb|Ascan( oTb:aArray, {|x,y| substr(x[" + LTrim( Str( nCol ) ) + "],1," + ;
                      LTrim( Str( nLen ) ) + " ) == '" + uValue + "'"
                CASE cType == "N" .OR. cType == "L"
-                  cLocateBlock := "{|oTb|Ascan ( oTb:aArray, {|x,y| x[" + LTrim( Str( nCol ) ) + "] == " + ;
+                  cLocateBlock := "{|oTb|Ascan( oTb:aArray, {|x,y| x[" + LTrim( Str( nCol ) ) + "] == " + ;
                      cValToChar( uValue )
                CASE cType == "D"
-                  cLocateBlock := "{|oTb|Ascan ( oTb:aArray, {|x,y| x[" + LTrim( Str( nCol ) ) + "] == " + ;
+                  cLocateBlock := "{|oTb|Ascan( oTb:aArray, {|x,y| x[" + LTrim( Str( nCol ) ) + "] == " + ;
                      "CToD( '" + DToC( uValue ) + "' )"
                ENDCASE
             ELSE

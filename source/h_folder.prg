@@ -96,7 +96,7 @@ FUNCTION _BeginFolder( name , parent , lRes , x , y , w , h, caption , fontname 
       __defaultNIL( @FontSize, _HMG_ActiveFontSize )
    ENDIF
 
-   IF ValType ( parent ) == 'U'
+   IF ValType( parent ) == 'U'
       parent := _HMG_ActiveFormName
    ENDIF
 
@@ -141,7 +141,7 @@ FUNCTION _DefineFolder ( FormName, ParentForm, lRes , x , y , w , h , caption , 
 
    FormName := AllTrim( FormName )
 
-   i := AScan ( _HMG_aFormType , 'A' )
+   i := AScan( _HMG_aFormType , 'A' )
    IF i <= 0
       MsgMiniGuiError( "Main Window Not Defined." )
    ENDIF
@@ -180,7 +180,7 @@ FUNCTION _DefineFolder ( FormName, ParentForm, lRes , x , y , w , h , caption , 
 
    _HMG_ActiveFontSize := hb_defaultValue( FontSize, _HMG_DefaultFontSize )
 
-   k := AScan ( _HMG_aFormDeleted , .T. )
+   k := AScan( _HMG_aFormDeleted , .T. )
 
    IF k > 0
 
@@ -254,65 +254,65 @@ FUNCTION _DefineFolder ( FormName, ParentForm, lRes , x , y , w , h , caption , 
       Public &mVar. := k
 #endif
 
-      AAdd ( _HMG_aFormNames , FormName )
-      AAdd ( _HMG_aFormHandles , 0 )
-      AAdd ( _HMG_aFormActive , .T. )
-      AAdd ( _HMG_aFormType , 'F'  )    // Windows type Folder
-      AAdd ( _HMG_aFormParentHandle , ParentHandle )
-      AAdd ( _HMG_aFormReleaseProcedure , HelpProcedure )
-      AAdd ( _HMG_aFormInitProcedure , InitProcedure )
-      AAdd ( _HMG_aFormToolTipHandle , 0 )
-      AAdd ( _HMG_aFormContextMenuHandle , 0 )
-      AAdd ( _HMG_aFormMouseDragProcedure , "" )
-      AAdd ( _HMG_aFormSizeProcedure , "" )
-      AAdd ( _HMG_aFormClickProcedure , FolderProcedure )
-      AAdd ( _HMG_aFormMouseMoveProcedure , "" )
-      AAdd ( _HMG_aFormMoveProcedure , "" )
-      AAdd ( _HMG_aFormDropProcedure , "" )
-      AAdd ( _HMG_aFormDeleted, .F. )
-      AAdd ( _HMG_aFormBkColor, { -1 , -1 , -1 } )
-      AAdd ( _HMG_aFormPaintProcedure , "" )
-      AAdd ( _HMG_aFormNoShow , .F. )
-      AAdd ( _HMG_aFormNotifyIconName       , ""    )
-      AAdd ( _HMG_aFormNotifyIconToolTip      , ""    )
-      AAdd ( _HMG_aFormNotifyIconLeftClick   , ""    )
-      AAdd ( _HMG_aFormNotifyIconDblClick  ,  ""  )
-      AAdd ( _HMG_aFormGotFocusProcedure      , "" )
-      AAdd ( _HMG_aFormLostFocusProcedure      , "" )
-      AAdd ( _HMG_aFormReBarHandle      , FontHandle )
-      AAdd ( _HMG_aFormNotifyMenuHandle      , 0 )
-      AAdd ( _HMG_aFormBrowseList         , {} )
-      AAdd ( _HMG_aFormSplitChildList      , {} )
-      AAdd ( _HMG_aFormVirtualHeight      , 0 )
-      AAdd ( _HMG_aFormVirtualWidth      , 0 )
-      AAdd ( _HMG_aFormFocused         , .F. )
-      AAdd ( _HMG_aFormScrollUp         , "" )
-      AAdd ( _HMG_aFormScrollDown         , "" )
-      AAdd ( _HMG_aFormScrollLeft         , "" )
-      AAdd ( _HMG_aFormScrollRight      , "" )
-      AAdd ( _HMG_aFormHScrollBox         , "" )
-      AAdd ( _HMG_aFormVScrollBox         , "" )
-      AAdd ( _HMG_aFormBrushHandle      , 0 )
-      AAdd ( _HMG_aFormFocusedControl      , 0 )
-      AAdd ( _HMG_aFormGraphTasks         , {} )
-      AAdd ( _HMG_aFormMaximizeProcedure      , "" )
-      AAdd ( _HMG_aFormMinimizeProcedure      , "" )
-      AAdd ( _HMG_aFormRestoreProcedure      , "" )
-      AAdd ( _HMG_aFormAutoRelease      , .F. )
-      AAdd ( _HMG_aFormInteractiveCloseProcedure , CancelProcedure )
-      AAdd ( _HMG_aFormMinMaxInfo , {} )
-      AAdd ( _HMG_aFormActivateId , 0 )
-      AAdd ( _HMG_aFormMiscData1  , {} )
-      AAdd ( _HMG_aFormMiscData2  , '' )
+      AAdd( _HMG_aFormNames , FormName )
+      AAdd( _HMG_aFormHandles , 0 )
+      AAdd( _HMG_aFormActive , .T. )
+      AAdd( _HMG_aFormType , 'F'  )    // Windows type Folder
+      AAdd( _HMG_aFormParentHandle , ParentHandle )
+      AAdd( _HMG_aFormReleaseProcedure , HelpProcedure )
+      AAdd( _HMG_aFormInitProcedure , InitProcedure )
+      AAdd( _HMG_aFormToolTipHandle , 0 )
+      AAdd( _HMG_aFormContextMenuHandle , 0 )
+      AAdd( _HMG_aFormMouseDragProcedure , "" )
+      AAdd( _HMG_aFormSizeProcedure , "" )
+      AAdd( _HMG_aFormClickProcedure , FolderProcedure )
+      AAdd( _HMG_aFormMouseMoveProcedure , "" )
+      AAdd( _HMG_aFormMoveProcedure , "" )
+      AAdd( _HMG_aFormDropProcedure , "" )
+      AAdd( _HMG_aFormDeleted, .F. )
+      AAdd( _HMG_aFormBkColor, { -1 , -1 , -1 } )
+      AAdd( _HMG_aFormPaintProcedure , "" )
+      AAdd( _HMG_aFormNoShow , .F. )
+      AAdd( _HMG_aFormNotifyIconName       , ""    )
+      AAdd( _HMG_aFormNotifyIconToolTip      , ""    )
+      AAdd( _HMG_aFormNotifyIconLeftClick   , ""    )
+      AAdd( _HMG_aFormNotifyIconDblClick  ,  ""  )
+      AAdd( _HMG_aFormGotFocusProcedure      , "" )
+      AAdd( _HMG_aFormLostFocusProcedure      , "" )
+      AAdd( _HMG_aFormReBarHandle      , FontHandle )
+      AAdd( _HMG_aFormNotifyMenuHandle      , 0 )
+      AAdd( _HMG_aFormBrowseList         , {} )
+      AAdd( _HMG_aFormSplitChildList      , {} )
+      AAdd( _HMG_aFormVirtualHeight      , 0 )
+      AAdd( _HMG_aFormVirtualWidth      , 0 )
+      AAdd( _HMG_aFormFocused         , .F. )
+      AAdd( _HMG_aFormScrollUp         , "" )
+      AAdd( _HMG_aFormScrollDown         , "" )
+      AAdd( _HMG_aFormScrollLeft         , "" )
+      AAdd( _HMG_aFormScrollRight      , "" )
+      AAdd( _HMG_aFormHScrollBox         , "" )
+      AAdd( _HMG_aFormVScrollBox         , "" )
+      AAdd( _HMG_aFormBrushHandle      , 0 )
+      AAdd( _HMG_aFormFocusedControl      , 0 )
+      AAdd( _HMG_aFormGraphTasks         , {} )
+      AAdd( _HMG_aFormMaximizeProcedure      , "" )
+      AAdd( _HMG_aFormMinimizeProcedure      , "" )
+      AAdd( _HMG_aFormRestoreProcedure      , "" )
+      AAdd( _HMG_aFormAutoRelease      , .F. )
+      AAdd( _HMG_aFormInteractiveCloseProcedure , CancelProcedure )
+      AAdd( _HMG_aFormMinMaxInfo , {} )
+      AAdd( _HMG_aFormActivateId , 0 )
+      AAdd( _HMG_aFormMiscData1  , {} )
+      AAdd( _HMG_aFormMiscData2  , '' )
 #ifdef _HMG_COMPAT_
-      AAdd ( _HMG_StopWindowEventProcedure, .F. )
+      AAdd( _HMG_StopWindowEventProcedure, .F. )
 #endif
    ENDIF
 
    _SetThisFormInfo( k )
 /*
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnFormInit, k, mVar )
+      Eval( _HMG_bOnFormInit, k, mVar )
    ENDIF
 */
    IF Len( _HMG_aFolderInfo[_HMG_FldID,FLD_FLT ] ) > 0
@@ -453,7 +453,7 @@ FUNCTION _DefineFolderDialog ( FormName, FormHandle, hWndParent  )
       _HMG_aDialogItems := {}
    ENDIF
 
-   k := AScan ( _HMG_aFormDeleted , .T. )
+   k := AScan( _HMG_aFormDeleted , .T. )
    IF k > 0
 
 #ifdef _NAMES_LIST_
@@ -526,65 +526,65 @@ FUNCTION _DefineFolderDialog ( FormName, FormHandle, hWndParent  )
       Public &mVar. := k
 #endif
 
-      AAdd ( _HMG_aFormNames , FormName )
-      AAdd ( _HMG_aFormHandles , FormHandle )
-      AAdd ( _HMG_aFormActive , .T. )
-      AAdd ( _HMG_aFormType , 'D' )    // Windows type Dialog
-      AAdd ( _HMG_aFormParentHandle , hWndParent )
-      AAdd ( _HMG_aFormReleaseProcedure , "" )
-      AAdd ( _HMG_aFormInitProcedure , "" )
-      AAdd ( _HMG_aFormToolTipHandle , 0 )
-      AAdd ( _HMG_aFormContextMenuHandle , 0 )
-      AAdd ( _HMG_aFormMouseDragProcedure , "" )
-      AAdd ( _HMG_aFormSizeProcedure , "" )
-      AAdd ( _HMG_aFormClickProcedure , "" )
-      AAdd ( _HMG_aFormMouseMoveProcedure , "" )
-      AAdd ( _HMG_aFormMoveProcedure , "" )
-      AAdd ( _HMG_aFormDropProcedure , "" )
-      AAdd ( _HMG_aFormDeleted, .F. )
-      AAdd ( _HMG_aFormBkColor, { -1 , -1 , -1 } )
-      AAdd ( _HMG_aFormPaintProcedure , "" )
-      AAdd ( _HMG_aFormNoShow , .F. )
-      AAdd ( _HMG_aFormNotifyIconName       , ""    )
-      AAdd ( _HMG_aFormNotifyIconToolTip      , ""    )
-      AAdd ( _HMG_aFormNotifyIconLeftClick   , ""    )
-      AAdd ( _HMG_aFormNotifyIconDblClick   , ""    )
-      AAdd ( _HMG_aFormGotFocusProcedure      , "" )
-      AAdd ( _HMG_aFormLostFocusProcedure      , "" )
-      AAdd ( _HMG_aFormReBarHandle      , 0 )
-      AAdd ( _HMG_aFormNotifyMenuHandle      , 0 )
-      AAdd ( _HMG_aFormBrowseList         , {} )
-      AAdd ( _HMG_aFormSplitChildList      , {} )
-      AAdd ( _HMG_aFormVirtualHeight      , 0 )
-      AAdd ( _HMG_aFormVirtualWidth      , 0 )
-      AAdd ( _HMG_aFormFocused         , .F. )
-      AAdd ( _HMG_aFormScrollUp         , "" )
-      AAdd ( _HMG_aFormScrollDown         , "" )
-      AAdd ( _HMG_aFormScrollLeft         , "" )
-      AAdd ( _HMG_aFormScrollRight      , "" )
-      AAdd ( _HMG_aFormHScrollBox         , "" )
-      AAdd ( _HMG_aFormVScrollBox         , "" )
-      AAdd ( _HMG_aFormBrushHandle      , 0 )
-      AAdd ( _HMG_aFormFocusedControl      , 0 )
-      AAdd ( _HMG_aFormGraphTasks         , {} )
-      AAdd ( _HMG_aFormMaximizeProcedure      , "" )
-      AAdd ( _HMG_aFormMinimizeProcedure      , "" )
-      AAdd ( _HMG_aFormRestoreProcedure      , "" )
-      AAdd ( _HMG_aFormAutoRelease      , .F. )
-      AAdd ( _HMG_aFormInteractiveCloseProcedure , "" )
-      AAdd ( _HMG_aFormMinMaxInfo , {} )
-      AAdd ( _HMG_aFormActivateId , 0 )
-      AAdd ( _HMG_aFormMiscData1   , {} )
-      AAdd ( _HMG_aFormMiscData2   , '' )
+      AAdd( _HMG_aFormNames , FormName )
+      AAdd( _HMG_aFormHandles , FormHandle )
+      AAdd( _HMG_aFormActive , .T. )
+      AAdd( _HMG_aFormType , 'D' )    // Windows type Dialog
+      AAdd( _HMG_aFormParentHandle , hWndParent )
+      AAdd( _HMG_aFormReleaseProcedure , "" )
+      AAdd( _HMG_aFormInitProcedure , "" )
+      AAdd( _HMG_aFormToolTipHandle , 0 )
+      AAdd( _HMG_aFormContextMenuHandle , 0 )
+      AAdd( _HMG_aFormMouseDragProcedure , "" )
+      AAdd( _HMG_aFormSizeProcedure , "" )
+      AAdd( _HMG_aFormClickProcedure , "" )
+      AAdd( _HMG_aFormMouseMoveProcedure , "" )
+      AAdd( _HMG_aFormMoveProcedure , "" )
+      AAdd( _HMG_aFormDropProcedure , "" )
+      AAdd( _HMG_aFormDeleted, .F. )
+      AAdd( _HMG_aFormBkColor, { -1 , -1 , -1 } )
+      AAdd( _HMG_aFormPaintProcedure , "" )
+      AAdd( _HMG_aFormNoShow , .F. )
+      AAdd( _HMG_aFormNotifyIconName       , ""    )
+      AAdd( _HMG_aFormNotifyIconToolTip      , ""    )
+      AAdd( _HMG_aFormNotifyIconLeftClick   , ""    )
+      AAdd( _HMG_aFormNotifyIconDblClick   , ""    )
+      AAdd( _HMG_aFormGotFocusProcedure      , "" )
+      AAdd( _HMG_aFormLostFocusProcedure      , "" )
+      AAdd( _HMG_aFormReBarHandle      , 0 )
+      AAdd( _HMG_aFormNotifyMenuHandle      , 0 )
+      AAdd( _HMG_aFormBrowseList         , {} )
+      AAdd( _HMG_aFormSplitChildList      , {} )
+      AAdd( _HMG_aFormVirtualHeight      , 0 )
+      AAdd( _HMG_aFormVirtualWidth      , 0 )
+      AAdd( _HMG_aFormFocused         , .F. )
+      AAdd( _HMG_aFormScrollUp         , "" )
+      AAdd( _HMG_aFormScrollDown         , "" )
+      AAdd( _HMG_aFormScrollLeft         , "" )
+      AAdd( _HMG_aFormScrollRight      , "" )
+      AAdd( _HMG_aFormHScrollBox         , "" )
+      AAdd( _HMG_aFormVScrollBox         , "" )
+      AAdd( _HMG_aFormBrushHandle      , 0 )
+      AAdd( _HMG_aFormFocusedControl      , 0 )
+      AAdd( _HMG_aFormGraphTasks         , {} )
+      AAdd( _HMG_aFormMaximizeProcedure      , "" )
+      AAdd( _HMG_aFormMinimizeProcedure      , "" )
+      AAdd( _HMG_aFormRestoreProcedure      , "" )
+      AAdd( _HMG_aFormAutoRelease      , .F. )
+      AAdd( _HMG_aFormInteractiveCloseProcedure , "" )
+      AAdd( _HMG_aFormMinMaxInfo , {} )
+      AAdd( _HMG_aFormActivateId , 0 )
+      AAdd( _HMG_aFormMiscData1   , {} )
+      AAdd( _HMG_aFormMiscData2   , '' )
 #ifdef _HMG_COMPAT_
-      AAdd ( _HMG_StopWindowEventProcedure, .F. )
+      AAdd( _HMG_StopWindowEventProcedure, .F. )
 #endif
    ENDIF
 
    _SetThisFormInfo( k )
 /*
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnFormInit, k, mVar )
+      Eval( _HMG_bOnFormInit, k, mVar )
    ENDIF
 */
 RETURN Nil
@@ -601,13 +601,13 @@ FUNCTION InitPageFldProc( hWndParent, hwndDlg, idDlg )
    _HMG_ActiveDlgProcId       := idDlg
    _HMG_FldID                 := Folder_GetIdFld( hWndParent, _HMG_FldID )
 
-   i := AScan ( _HMG_aFolderInfo[_HMG_FldID,FLD_FPG], {|x| x[2] == idDlg } )
+   i := AScan( _HMG_aFolderInfo[_HMG_FldID,FLD_FPG], {|x| x[2] == idDlg } )
    IF i > 0
       _HMG_ActiveDialogName   := _HMG_aFolderInfo[_HMG_FldID,FLD_FPG, i,1]
       aDialogItems            := _HMG_aFolderInfo[_HMG_FldID,FLD_FPG, i,4]
       _HMG_aFolderInfo[_HMG_FldID,FLD_HFP, i ] :=  hwndDlg
    ENDIF
-   IF AScan ( _HMG_aFormHandles , hwndDlg ) == 0
+   IF AScan( _HMG_aFormHandles , hwndDlg ) == 0
       _DefineFolderDialog ( _HMG_ActiveDialogName, hwndDlg, hWndParent )
    ENDIF
    IF _HMG_aFolderInfo[_HMG_FldID,FLD_INM] .AND. ValType( aDialogItems ) == 'A'
@@ -634,12 +634,12 @@ FUNCTION InitPageFldProc( hWndParent, hwndDlg, idDlg )
 
          IF Len( aDialogItems[n] ) >= 20
             IF ValType( aDialogItems[n,20] ) == "L" .AND. aDialogItems[n,20] == TRUE
-               AAdd ( _HMG_ActiveTabCurrentPageMap , Controlhandle )
+               AAdd( _HMG_ActiveTabCurrentPageMap , Controlhandle )
                IF aDialogItems[n,21]
                   WHILE Len( _HMG_ActiveTabFullPageMap ) + 1 < aDialogItems[n,22]
-                     AAdd ( _HMG_ActiveTabFullPageMap , {} )
+                     AAdd( _HMG_ActiveTabFullPageMap , {} )
                   ENDDO
-                  AAdd ( _HMG_ActiveTabFullPageMap , _HMG_ActiveTabCurrentPageMap )
+                  AAdd( _HMG_ActiveTabFullPageMap , _HMG_ActiveTabCurrentPageMap )
                   _HMG_ActiveTabCurrentPageMap := {}
                ENDIF
             ENDIF
@@ -654,7 +654,7 @@ FUNCTION InitPageFldProc( hWndParent, hwndDlg, idDlg )
                IF k_old != k
                   _HMG_aControlHandles  [ k ] :=  { ControlHandle }
                ELSE
-                  AAdd ( _HMG_aControlHandles  [ k ] , ControlHandle )
+                  AAdd( _HMG_aControlHandles  [ k ] , ControlHandle )
                ENDIF
             ENDIF
             _HMG_aControlParentHandles  [ k ] := hwndDlg
@@ -691,7 +691,7 @@ FUNCTION FolderProc( hwndDlg, nMsg, wParam, lParam )
          _HMG_aFolderInfo[_HMG_FldID,FLD_FLT ,2] :=  hwndDlg
          _HMG_aFormHandles [_HMG_aFolderInfo[_HMG_FldID,FLD_FLT ,1]] := hwndDlg
       ENDIF
-      i := AScan ( _HMG_aFormhandles, hwndDlg )
+      i := AScan( _HMG_aFormhandles, hwndDlg )
       IF i > 0
          IF ValType( _HMG_aFormInitProcedure[i] ) == 'B' .AND. _HMG_aFormType [i] == 'F'
             Eval( _HMG_aFormInitProcedure[i], hwndDlg )
@@ -702,7 +702,7 @@ FUNCTION FolderProc( hwndDlg, nMsg, wParam, lParam )
       _HMG_FldID  := Folder_GetIdFld( hwndDlg, _HMG_FldID )
       ret := EraseFolder( hwndDlg, _HMG_aFolderInfo[_HMG_FldID,FLD_MOD ] )
    CASE nMsg == WM_COMMAND
-      i := AScan ( _HMG_aFormhandles, hwndDlg )  // find DialogProcedure
+      i := AScan( _HMG_aFormhandles, hwndDlg )  // find DialogProcedure
       IF i > 0
          IF ValType( _HMG_aFormClickProcedure [i] ) == 'B' .AND. _HMG_aFormType [i] == 'F'
             ret :=  RetValue( Eval( _HMG_aFormClickProcedure [i], nMsg, LOWORD(wParam), HIWORD(wParam) ), FALSE )
@@ -746,7 +746,7 @@ FUNCTION PageFldProc( hWndDlg, nMsg, wParam, lParam )
    DO CASE
    CASE nMsg == WM_COMMAND
 
-      i := AScan ( _HMG_aControlhandles , lParam )
+      i := AScan( _HMG_aControlhandles , lParam )
 
       IF _HMG_aFolderInfo[nFldID, FLD_FLT, 2] > 0
          IF i > 0
@@ -758,9 +758,9 @@ FUNCTION PageFldProc( hWndDlg, nMsg, wParam, lParam )
          ELSE
             IF _HMG_aFolderInfo[nFldID,FLD_INM]
                IF HIWORD(wParam) == BN_CLICKED
-                  FOR i := 1 TO Len ( _HMG_aControlHandles )
-                     IF ValType ( _HMG_aControlHandles [i] ) == "A" .AND. _HMG_aControlParentHandles [i] == hwndDlg
-                        FOR x := 1 TO Len ( _HMG_aControlHandles [i] )
+                  FOR i := 1 TO Len( _HMG_aControlHandles )
+                     IF ValType( _HMG_aControlHandles [i] ) == "A" .AND. _HMG_aControlParentHandles [i] == hwndDlg
+                        FOR x := 1 TO Len( _HMG_aControlHandles [i] )
                            IF _HMG_aControlHandles [i] [x] == lParam
                               Folder_Changed( hwndFolder, hWndDlg )
                            ENDIF
@@ -793,7 +793,7 @@ FUNCTION PageFldProc( hWndDlg, nMsg, wParam, lParam )
       CASE FLN_APPLY
          Folder_UnChanged( hwndFolder, hWndDlg )
 
-         i := AScan ( _HMG_aFormhandles,  hwndFolder )  // find FolderProcedure
+         i := AScan( _HMG_aFormhandles,  hwndFolder )  // find FolderProcedure
          IF i > 0
             IF ValType( _HMG_aFormClickProcedure [i] ) == 'B' .AND. _HMG_aFormType [i] == 'F'
                lRet :=  RetValue( Eval( _HMG_aFormClickProcedure [i], nMsg, LOWORD(wParam ), HIWORD(wParam ) ), FALSE )
@@ -812,10 +812,10 @@ FUNCTION PageFldProc( hWndDlg, nMsg, wParam, lParam )
          EXIT
 
       CASE FLN_RESET
-         i := AScan ( _HMG_aFolderInfo[nFldID,FLD_HFP],  hwndDlg )
+         i := AScan( _HMG_aFolderInfo[nFldID,FLD_HFP],  hwndDlg )
          IF i > 0
             _HMG_aFolderInfo[nFldID,FLD_HFP, i] := 0
-            i := AScan ( _HMG_aFormhandles,  hwndFolder )  // find FolderProcedure
+            i := AScan( _HMG_aFormhandles,  hwndFolder )  // find FolderProcedure
             IF i > 0
                IF ValType( _HMG_aFormInteractiveCloseProcedure [i] ) == 'B' .AND. _HMG_aFormType [i] == 'F'
                   lRet := RetValue( Eval( _HMG_aFormInteractiveCloseProcedure [i], nMsg, LOWORD(wParam ), HIWORD(wParam ) ), FALSE )
@@ -836,7 +836,7 @@ FUNCTION PageFldProc( hWndDlg, nMsg, wParam, lParam )
          EXIT
 
       CASE FLN_HELP
-         i := AScan ( _HMG_aFormhandles,  hwndFolder )  // find FolderProcedure
+         i := AScan( _HMG_aFormhandles,  hwndFolder )  // find FolderProcedure
          IF i > 0
             IF ValType( _HMG_aFormReleaseProcedure [i] ) == 'B' .AND. _HMG_aFormType [i] == 'F'
                lRet :=  RetValue( Eval( _HMG_aFormReleaseProcedure [i], nMsg, LOWORD(wParam ), HIWORD(wParam ) ), FALSE )
@@ -879,7 +879,7 @@ RETURN  lRet
 *-----------------------------------------------------------------------------*
 FUNCTION GetFolderHandle( hwndDlg )
 *-----------------------------------------------------------------------------*
-   LOCAL i := AScan ( _HMG_aFormHandles , hwndDlg )
+   LOCAL i := AScan( _HMG_aFormHandles , hwndDlg )
 
 RETURN iif( i > 0, _HMG_aFormParentHandle[i], 0 )
 
@@ -888,9 +888,9 @@ FUNCTION EraseFolder( hwndDlg, lModal )
 *------------------------------------------------------------------------------*
    LOCAL i, x, ControlCount, mVar
 
-   i := AScan ( _HMG_aFormhandles , hwndDlg )
+   i := AScan( _HMG_aFormhandles , hwndDlg )
    IF i > 0
-      ControlCount := Len ( _HMG_aControlHandles )
+      ControlCount := Len( _HMG_aControlHandles )
       FOR x := 1 TO ControlCount
          IF _HMG_aControlParentHandles [x] == hwndDlg
             mVar := '_' + _HMG_aFormNames [i] + '_' + _HMG_aControlNames [x]

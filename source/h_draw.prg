@@ -78,7 +78,7 @@ FUNCTION drawtextout( window, row, col, string, fontcolor, backcolor, fontname, 
       tocol := col + ( Len( string ) - 1 ) * fontsize
       textdraw( FormHandle, row, col, string, torow, tocol, fontcolor, backcolor, fontname, fontsize, bold, italic, underline, strikeout, transparent, angle )
       IF ! once
-         AAdd ( _HMG_aFormGraphTasks [i], {|| textdraw( FormHandle,row,col,string,torow,tocol,fontcolor,backcolor,fontname,fontsize,bold,italic,underline,strikeout,transparent,angle ) } )
+         AAdd( _HMG_aFormGraphTasks [i], {|| textdraw( FormHandle,row,col,string,torow,tocol,fontcolor,backcolor,fontname,fontsize,bold,italic,underline,strikeout,transparent,angle ) } )
       ENDIF
    ENDIF
 
@@ -96,7 +96,7 @@ FUNCTION drawline( window, row, col, row1, col1, penrgb, penwidth )
       hb_default( @penwidth, 1 )
 
       linedraw( FormHandle, row, col, row1, col1, penrgb, penwidth )
-      AAdd ( _HMG_aFormGraphTasks [i] , {|| linedraw( FormHandle,row,col,row1,col1,penrgb,penwidth ) } )
+      AAdd( _HMG_aFormGraphTasks [i] , {|| linedraw( FormHandle,row,col,row1,col1,penrgb,penwidth ) } )
    ENDIF
 
 RETURN NIL
@@ -117,7 +117,7 @@ FUNCTION drawrect( window, row, col, row1, col1, penrgb, penwidth, fillrgb )
       ENDIF
 
       rectdraw( FormHandle, row, col, row1, col1, penrgb, penwidth, fillrgb, fill )
-      AAdd ( _HMG_aFormGraphTasks [i] , {|| rectdraw( FormHandle,row,col,row1,col1,penrgb,penwidth,fillrgb,fill ) } )
+      AAdd( _HMG_aFormGraphTasks [i] , {|| rectdraw( FormHandle,row,col,row1,col1,penrgb,penwidth,fillrgb,fill ) } )
    ENDIF
 
 RETURN NIL
@@ -138,7 +138,7 @@ FUNCTION drawroundrect( window, row, col, row1, col1, width, height, penrgb, pen
       ENDIF
 
       roundrectdraw( FormHandle, row, col, row1, col1, width, height, penrgb, penwidth, fillrgb, fill )
-      AAdd ( _HMG_aFormGraphTasks [i] , {|| roundrectdraw( FormHandle,row,col,row1,col1,width,height,penrgb,penwidth,fillrgb,fill ) } )
+      AAdd( _HMG_aFormGraphTasks [i] , {|| roundrectdraw( FormHandle,row,col,row1,col1,width,height,penrgb,penwidth,fillrgb,fill ) } )
    ENDIF
 
 RETURN NIL
@@ -159,7 +159,7 @@ FUNCTION drawellipse( window, row, col, row1, col1, penrgb, penwidth, fillrgb )
       ENDIF
 
       ellipsedraw( FormHandle, row, col, row1, col1, penrgb, penwidth, fillrgb, fill )
-      AAdd ( _HMG_aFormGraphTasks [i] , {|| ellipsedraw( FormHandle,row,col,row1,col1,penrgb,penwidth,fillrgb,fill ) } )
+      AAdd( _HMG_aFormGraphTasks [i] , {|| ellipsedraw( FormHandle,row,col,row1,col1,penrgb,penwidth,fillrgb,fill ) } )
    ENDIF
 
 RETURN NIL
@@ -176,7 +176,7 @@ FUNCTION drawarc( window, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb
       hb_default( @penwidth, 1 )
 
       arcdraw( FormHandle, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb, penwidth )
-      AAdd ( _HMG_aFormGraphTasks [i] , {|| arcdraw( FormHandle,row,col,row1,col1,rowr,colr,rowr1,colr1,penrgb,penwidth ) } )
+      AAdd( _HMG_aFormGraphTasks [i] , {|| arcdraw( FormHandle,row,col,row1,col1,rowr,colr,rowr1,colr1,penrgb,penwidth ) } )
    ENDIF
 
 RETURN NIL
@@ -319,8 +319,8 @@ FUNCTION EraseWindow( window )
 
    IF ( i := GetFormIndex ( Window ) ) > 0
       IF _HMG_aFormDeleted [i] == .F.
-         IF ISARRAY ( _HMG_aFormGraphTasks [i] )
-            ASize ( _HMG_aFormGraphTasks [i], 0 )
+         IF ISARRAY( _HMG_aFormGraphTasks [i] )
+            ASize( _HMG_aFormGraphTasks [i], 0 )
             RedrawWindow ( _HMG_aFormHandles [i] )
          ENDIF
       ENDIF

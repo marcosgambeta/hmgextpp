@@ -103,12 +103,12 @@ FUNCTION _DefineLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " Already defined." )
    ENDIF
 
-   IF ISARRAY ( Caption )
+   IF ISARRAY( Caption )
       mVar := ''
-      AEval ( Caption, {|v| mVar += cValToChar ( v ) } )
+      AEval( Caption, {|v| mVar += cValToChar ( v ) } )
       Caption := mVar
    ELSEIF ISBLOCK ( Caption )
-      Caption := cValToChar ( Eval ( Caption ) )
+      Caption := cValToChar ( Eval( Caption ) )
    ELSE
       Caption := cValToChar ( Caption )
    ENDIF
@@ -194,7 +194,7 @@ FUNCTION _DefineLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
       ENDIF
 
       IF _HMG_BeginTabActive
-         AAdd ( _HMG_ActiveTabCurrentPageMap , Controlhandle )
+         AAdd( _HMG_ActiveTabCurrentPageMap , Controlhandle )
       ENDIF
 
       IF ValType( tooltip ) != "U"
@@ -230,17 +230,17 @@ FUNCTION _DefineLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
    _HMG_aControlCol  [k] :=  x
    _HMG_aControlWidth  [k] :=  w
    _HMG_aControlHeight   [k] :=  h
-   _HMG_aControlSpacing  [k] :=  iif ( autosize == .T. , 1 , 0 )
-   _HMG_aControlContainerRow  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol  [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlSpacing  [k] :=  iif( autosize == .T. , 1 , 0 )
+   _HMG_aControlContainerRow  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
    _HMG_aControlPicture  [k] :=  ""
    _HMG_aControlContainerHandle  [k] :=  0
    _HMG_aControlFontName  [k] :=  fontname
    _HMG_aControlFontSize  [k] := fontsize
    _HMG_aControlFontAttributes  [k] :=  { bold, italic, underline, strikeout }
    _HMG_aControlToolTip  [k] :=  tooltip
-   _HMG_aControlRangeMin [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveTabName , '' )
-   _HMG_aControlRangeMax [k] :=  iif ( _HMG_FrameLevel > 0 , _HMG_ActiveFrameParentFormName [_HMG_FrameLevel] , '' )
+   _HMG_aControlRangeMin [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveTabName , '' )
+   _HMG_aControlRangeMax [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameParentFormName [_HMG_FrameLevel] , '' )
    _HMG_aControlCaption  [k] :=  Caption
    _HMG_aControlVisible  [k] :=  iif( invisible, FALSE, TRUE )
    _HMG_aControlHelpId  [k] :=  HelpId
@@ -262,7 +262,7 @@ FUNCTION _DefineLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
    ENDIF
 
    IF _HMG_lOOPEnabled
-      Eval ( _HMG_bOnControlInit, k, mVar )
+      Eval( _HMG_bOnControlInit, k, mVar )
 #ifdef _OBJECT_
       ow := _WindowObj ( ParentFormHandle )
       oc := _ControlObj( ControlHandle )
@@ -300,7 +300,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION OLABELEVENTS( hWnd, nMsg, wParam, lParam )
 *-----------------------------------------------------------------------------*
-   LOCAL i := AScan ( _HMG_aControlHandles, hWnd )
+   LOCAL i := AScan( _HMG_aControlHandles, hWnd )
 
    HB_SYMBOL_UNUSED( wParam )
    HB_SYMBOL_UNUSED( lParam )
