@@ -191,7 +191,7 @@ static INT FindLenSubString(TCHAR * Strings)
 
 HB_FUNC( _GETPRIVATEPROFILESECTIONNAMES )
 {
-   TCHAR   bBuffer[ 32767 ];
+   TCHAR   bBuffer[32767];
    TCHAR * p;
    INT     nLen;
 
@@ -234,7 +234,7 @@ HB_FUNC( _GETPRIVATEPROFILESECTIONNAMES )
 
 HB_FUNC( _GETPRIVATEPROFILESECTION )
 {
-   TCHAR   bBuffer[ 32767 ];
+   TCHAR   bBuffer[32767];
    TCHAR * p;
    INT     nLen;
 

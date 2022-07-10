@@ -162,10 +162,10 @@ HB_FUNC( CHOOSEFONT )
 HB_FUNC( C_GETFILE )
 {
    OPENFILENAME ofn;
-   TCHAR        buffer[ 32768 ];
-   TCHAR        cFullName[ 256 ][ 1024 ];
-   TCHAR        cCurDir[ 512 ];
-   TCHAR        cFileName[ 512 ];
+   TCHAR        buffer[32768];
+   TCHAR        cFullName[256][1024];
+   TCHAR        cCurDir[512];
+   TCHAR        cFileName[512];
    int          iFilterIndex = 1;
    int          iPosition    = 0;
    int          iNumSelected = 0;
@@ -177,7 +177,7 @@ HB_FUNC( C_GETFILE )
    LPSTR  pStr;
    int    j = 0, cont = 0;
    char * p = ( char * ) hb_parc(1);
-   TCHAR  Filter[ 4096 ];
+   TCHAR  Filter[4096];
    memset(( void * ) &Filter, 0, sizeof(Filter));
 
    while( *p != '\0' )
@@ -185,7 +185,7 @@ HB_FUNC( C_GETFILE )
       cont += ( int ) strlen(p) + 1;
       if( cont < 4096 )
       {
-         lstrcpy(&Filter[ j ], AnsiToWide(p));
+         lstrcpy(&Filter[j], AnsiToWide(p));
          j += lstrlen(AnsiToWide(p)) + 1;
          p += strlen(p) + 1;
       }
@@ -194,7 +194,7 @@ HB_FUNC( C_GETFILE )
    }
 #endif
 
-   buffer[ 0 ] = 0;
+   buffer[0] = 0;
 
    if( hb_parl(4) )
       flags = flags | OFN_ALLOWMULTISELECT | OFN_EXPLORER;
@@ -240,15 +240,15 @@ HB_FUNC( C_GETFILE )
       }
       else
       {
-         wsprintf( cCurDir, TEXT("%s"), &buffer[ iPosition ] );
+         wsprintf( cCurDir, TEXT("%s"), &buffer[iPosition] );
          iPosition = iPosition + ( int ) lstrlen(cCurDir) + 1;
 
          do
          {
             iNumSelected++;
-            wsprintf( cFileName, TEXT("%s"), &buffer[ iPosition ] );
+            wsprintf( cFileName, TEXT("%s"), &buffer[iPosition] );
             iPosition = iPosition + ( int ) lstrlen(cFileName) + 1;
-            wsprintf( cFullName[ iNumSelected ], TEXT("%s\\%s"), cCurDir, cFileName );
+            wsprintf( cFullName[iNumSelected], TEXT("%s\\%s"), cCurDir, cFileName );
          }
          while( ( lstrlen(cFileName) != 0 ) && ( iNumSelected <= 255 ) );
 
@@ -259,9 +259,9 @@ HB_FUNC( C_GETFILE )
             for( int n = 1; n < iNumSelected; n++ )
             {
 #ifndef UNICODE
-               HB_STORC( cFullName[ n ], -1, n );
+               HB_STORC( cFullName[n], -1, n );
 #else
-               pStr = hb_osStrU16Decode(cFullName[ n ]);
+               pStr = hb_osStrU16Decode(cFullName[n]);
                HB_STORC( pStr, -1, n );
                hb_xfree(pStr);
 #endif
@@ -270,9 +270,9 @@ HB_FUNC( C_GETFILE )
          else
          {
 #ifndef UNICODE
-            hb_retc( &buffer[ 0 ] );
+            hb_retc( &buffer[0] );
 #else
-            pStr = WideToAnsi(&buffer[ 0 ]);
+            pStr = WideToAnsi(&buffer[0]);
             hb_retc( pStr );
             hb_xfree(pStr);
 #endif
@@ -295,8 +295,8 @@ HB_FUNC( C_GETFILE )
 HB_FUNC( C_PUTFILE ) // JK JP
 {
    OPENFILENAME ofn;
-   TCHAR        buffer[ 512 ];
-   TCHAR        cExt[ 4 ];
+   TCHAR        buffer[512];
+   TCHAR        cExt[4];
    int          iFilterIndex = 1;
    DWORD        flags        = OFN_FILEMUSTEXIST | OFN_EXPLORER;
 
@@ -305,7 +305,7 @@ HB_FUNC( C_PUTFILE ) // JK JP
    LPSTR  pStr;
    int    j = 0, cont = 0;
    char * p = ( char * ) hb_parc(1);
-   TCHAR  Filter[ 4096 ];
+   TCHAR  Filter[4096];
    memset(( void * ) &Filter, 0, sizeof(Filter));
 
    while( *p != '\0' )
@@ -313,7 +313,7 @@ HB_FUNC( C_PUTFILE ) // JK JP
       cont += ( int ) strlen(p) + 1;
       if( cont < 4096 )
       {
-         lstrcpy(&Filter[ j ], AnsiToWide(p));
+         lstrcpy(&Filter[j], AnsiToWide(p));
          j += lstrlen(AnsiToWide(p)) + 1;
          p += strlen(p) + 1;
       }
@@ -396,14 +396,14 @@ HB_FUNC( C_PUTFILE ) // JK JP
 #endif
 }
 
-static TCHAR s_szWinName[ MAX_PATH + 1 ];
+static TCHAR s_szWinName[MAX_PATH + 1];
 
 // JK HMG 1.0 Experimental Build 8
 // --- callback function for C_BROWSEFORFOLDER(). Contributed By Andy Wos.
 
 int CALLBACK BrowseCallbackProc(HWND hWnd, UINT uMsg, LPARAM lParam, LPARAM lpData)
 {
-   TCHAR szPath[ MAX_PATH ];
+   TCHAR szPath[MAX_PATH];
 
    switch( uMsg )
    {
@@ -432,7 +432,7 @@ HB_FUNC( C_BROWSEFORFOLDER )  // Syntax: C_BROWSEFORFOLDER([<hWnd>],[<cTitle>],[
 {
    HWND         hWnd = HB_ISNIL(1) ? GetActiveWindow() : hmg_par_HWND(1);
    BROWSEINFO   BrowseInfo;
-   TCHAR        lpBuffer[ MAX_PATH ];
+   TCHAR        lpBuffer[MAX_PATH];
    LPITEMIDLIST pidlBrowse;
 
 #ifdef UNICODE
@@ -496,11 +496,11 @@ HB_FUNC( C_BROWSEFORFOLDER )  // Syntax: C_BROWSEFORFOLDER([<hWnd>],[<cTitle>],[
 HB_FUNC( CHOOSECOLOR )
 {
    CHOOSECOLOR cc;
-   COLORREF    crCustClr[ 16 ];
+   COLORREF    crCustClr[16];
 
    for( int i = 0; i < 16; i++ )
    {
-      crCustClr[ i ] = ( HB_ISARRAY(3) ? ( COLORREF ) HB_PARVNL(3, i + 1) : GetSysColor(COLOR_BTNFACE) );
+      crCustClr[i] = ( HB_ISARRAY(3) ? ( COLORREF ) HB_PARVNL(3, i + 1) : GetSysColor(COLOR_BTNFACE) );
    }
 
    memset(&cc, 0, sizeof(cc));

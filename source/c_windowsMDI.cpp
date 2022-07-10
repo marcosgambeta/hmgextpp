@@ -325,12 +325,12 @@ HB_FUNC( INITMDICHILDWINDOW )
 {
    HWND hwndChild;
    MDICREATESTRUCT mcs;
-   TCHAR      rgch[ 150 ];
+   TCHAR      rgch[150];
    static int cUntitled;
    DWORD      Style = 0;
 
    if( hb_parl(9) )
-      rgch[ 0 ] = 0;
+      rgch[0] = 0;
    else
    {
       if( hb_parc(2) == nullptr )
@@ -343,7 +343,7 @@ HB_FUNC( INITMDICHILDWINDOW )
          LPWSTR lpTitle = AnsiToWide(( char * ) hb_parc(2));
 #endif
          HB_STRNCPY(rgch, lpTitle, 149);
-         rgch[ 149 ] = 0;
+         rgch[149] = 0;
 #ifdef UNICODE
          hb_xfree(( TCHAR * ) lpTitle);
 #endif

@@ -109,9 +109,9 @@ HB_FUNC( ACCELERATORTABLE2ARRAY )
                {
                   PHB_ITEM aAccel = hb_itemArrayNew(3);
 
-                  hb_arraySetNI( aAccel, 1, lpAccel[ i ].fVirt );
-                  hb_arraySetNL( aAccel, 2, lpAccel[ i ].key );
-                  hb_arraySetNL( aAccel, 3, lpAccel[ i ].cmd );
+                  hb_arraySetNI( aAccel, 1, lpAccel[i].fVirt );
+                  hb_arraySetNL( aAccel, 2, lpAccel[i].key );
+                  hb_arraySetNL( aAccel, 3, lpAccel[i].cmd );
 
                   hb_arrayAddForward( aAccels, aAccel );
 
@@ -147,9 +147,9 @@ HB_FUNC( ARRAY2ACCELERATORTABLE )
 
                if( hb_arrayLen(pAccel) == 3 )
                {
-                  lpAccel[ i ].fVirt = ( BYTE ) hb_arrayGetNI( pAccel, 1 );
-                  lpAccel[ i ].key   = ( WORD ) hb_arrayGetNL( pAccel, 2 );
-                  lpAccel[ i ].cmd   = ( WORD ) hb_arrayGetNL( pAccel, 3 );
+                  lpAccel[i].fVirt = ( BYTE ) hb_arrayGetNI( pAccel, 1 );
+                  lpAccel[i].key   = ( WORD ) hb_arrayGetNL( pAccel, 2 );
+                  lpAccel[i].cmd   = ( WORD ) hb_arrayGetNL( pAccel, 3 );
                }
             }
          }

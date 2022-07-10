@@ -215,7 +215,7 @@ HB_FUNC( SETPOSMONTHCAL )
 
 HB_FUNC( GETMONTHRANGE )
 {
-   SYSTEMTIME sysTime[ 2 ];
+   SYSTEMTIME sysTime[2];
    int        iCount;
 
    memset(&sysTime, 0, sizeof(sysTime));
@@ -223,8 +223,8 @@ HB_FUNC( GETMONTHRANGE )
 
    hb_reta(3);
    HB_STORNI( iCount, -1, 1 );
-   HB_STORDL( hb_dateEncode(sysTime[ 0 ].wYear, sysTime[ 0 ].wMonth, sysTime[ 0 ].wDay), -1, 2 );
-   HB_STORDL( hb_dateEncode(sysTime[ 1 ].wYear, sysTime[ 1 ].wMonth, sysTime[ 1 ].wDay), -1, 3 );
+   HB_STORDL( hb_dateEncode(sysTime[0].wYear, sysTime[0].wMonth, sysTime[0].wDay), -1, 2 );
+   HB_STORDL( hb_dateEncode(sysTime[1].wYear, sysTime[1].wMonth, sysTime[1].wDay), -1, 3 );
 }
 
 #ifndef BOLDDAY
@@ -249,7 +249,7 @@ HB_FUNC( C_SETDAYSTATE )
       {
          if( hb_arrayGetNI( hArray, i * 32 + j ) == 1 )
          {
-            BOLDDAY(rgMonths[ i ], j);
+            BOLDDAY(rgMonths[i], j);
          }
       }
    }
@@ -276,7 +276,7 @@ HB_FUNC( C_RETDAYSTATE )
       {
          if( hb_arrayGetNI( hArray, i * 32 + j ) == 1 )
          {
-            BOLDDAY(rgMonths[ i ], j);
+            BOLDDAY(rgMonths[i], j);
          }
       }
    }

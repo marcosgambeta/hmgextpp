@@ -435,7 +435,7 @@ HB_FUNC( SETDATEPICKNULL )
 
 HB_FUNC( SETDATEPICKRANGE )
 {
-   SYSTEMTIME sysTime[ 2 ];
+   SYSTEMTIME sysTime[2];
    char *     cDate;
    DWORD      y, m, d;
    WPARAM     wLimit = 0;
@@ -445,30 +445,30 @@ HB_FUNC( SETDATEPICKRANGE )
       memset(&sysTime, 0, sizeof(sysTime));
 
       cDate = ( char * ) hb_pards(2);
-      if( ! ( cDate[ 0 ] == ' ' ) )
+      if( ! ( cDate[0] == ' ' ) )
       {
-         y = ( DWORD ) ( ( cDate[ 0 ] - '0' ) * 1000 ) +
-             ( ( cDate[ 1 ] - '0' ) * 100 ) +
-             ( ( cDate[ 2 ] - '0' ) * 10 ) + ( cDate[ 3 ] - '0' );
-         sysTime[ 0 ].wYear = ( WORD ) y;
-         m = ( DWORD ) ( ( cDate[ 4 ] - '0' ) * 10 ) + ( cDate[ 5 ] - '0' );
-         sysTime[ 0 ].wMonth = ( WORD ) m;
-         d = ( DWORD ) ( ( cDate[ 6 ] - '0' ) * 10 ) + ( cDate[ 7 ] - '0' );
-         sysTime[ 0 ].wDay = ( WORD ) d;
+         y = ( DWORD ) ( ( cDate[0] - '0' ) * 1000 ) +
+             ( ( cDate[1] - '0' ) * 100 ) +
+             ( ( cDate[2] - '0' ) * 10 ) + ( cDate[3] - '0' );
+         sysTime[0].wYear = ( WORD ) y;
+         m = ( DWORD ) ( ( cDate[4] - '0' ) * 10 ) + ( cDate[5] - '0' );
+         sysTime[0].wMonth = ( WORD ) m;
+         d = ( DWORD ) ( ( cDate[6] - '0' ) * 10 ) + ( cDate[7] - '0' );
+         sysTime[0].wDay = ( WORD ) d;
          wLimit |= GDTR_MIN;
       }
 
       cDate = ( char * ) hb_pards(3);
-      if( ! ( cDate[ 0 ] == ' ' ) )
+      if( ! ( cDate[0] == ' ' ) )
       {
-         y = ( DWORD ) ( ( cDate[ 0 ] - '0' ) * 1000 ) +
-             ( ( cDate[ 1 ] - '0' ) * 100 ) +
-             ( ( cDate[ 2 ] - '0' ) * 10 ) + ( cDate[ 3 ] - '0' );
-         sysTime[ 1 ].wYear = ( WORD ) y;
-         m = ( DWORD ) ( ( cDate[ 4 ] - '0' ) * 10 ) + ( cDate[ 5 ] - '0' );
-         sysTime[ 1 ].wMonth = ( WORD ) m;
-         d = ( DWORD ) ( ( cDate[ 6 ] - '0' ) * 10 ) + ( cDate[ 7 ] - '0' );
-         sysTime[ 1 ].wDay = ( WORD ) d;
+         y = ( DWORD ) ( ( cDate[0] - '0' ) * 1000 ) +
+             ( ( cDate[1] - '0' ) * 100 ) +
+             ( ( cDate[2] - '0' ) * 10 ) + ( cDate[3] - '0' );
+         sysTime[1].wYear = ( WORD ) y;
+         m = ( DWORD ) ( ( cDate[4] - '0' ) * 10 ) + ( cDate[5] - '0' );
+         sysTime[1].wMonth = ( WORD ) m;
+         d = ( DWORD ) ( ( cDate[6] - '0' ) * 10 ) + ( cDate[7] - '0' );
+         sysTime[1].wDay = ( WORD ) d;
          wLimit |= GDTR_MAX;
       }
 

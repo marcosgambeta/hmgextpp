@@ -59,7 +59,7 @@ BOOL _isValidCtrlClassW(HWND hwndTip, LPWSTR ClassName);
 
 BOOL _isValidCtrlClassW(HWND hwndTip, LPWSTR ClassName)
 {
-   TCHAR lpClassName[ 256 ];
+   TCHAR lpClassName[256];
    int   iLen = 0;
 
    if( IsWindow(hwndTip) )
@@ -75,7 +75,7 @@ BOOL _isValidCtrlClassA(HWND hwndTip, const char * ClassName);  /* P.Ch. 16.10. 
 
 BOOL _isValidCtrlClassA(HWND hwndTip, const char * ClassName)
 {
-   char lpClassName[ 256 ];
+   char lpClassName[256];
    int  iLen = 0;
 
    if( IsWindow(hwndTip) )
@@ -101,7 +101,7 @@ HB_FUNC( GETCLASSNAME )
 
    if( IsWindow(hwnd) )
    {
-      char ClassName[ 256 ];
+      char ClassName[256];
       int  iLen;
 
       iLen = GetClassNameA(hwnd, ClassName, sizeof(ClassName) / sizeof(char));

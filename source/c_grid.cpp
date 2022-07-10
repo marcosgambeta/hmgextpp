@@ -957,7 +957,7 @@ HB_FUNC( LISTVIEW_GETCOLUMNORDERARRAY )
 
       for( int i = 0; i < iCols; i++ )
       {
-         hb_arraySetNI( pArray, ( HB_SIZE ) i + 1, iArray[ i ] + 1 );
+         hb_arraySetNI( pArray, ( HB_SIZE ) i + 1, iArray[i] + 1 );
       }
 
       hb_xfree(iArray);
@@ -982,7 +982,7 @@ HB_FUNC( LISTVIEW_SETCOLUMNORDERARRAY )
 
          for( int i = 0; i < iColumn; i++ )
          {
-            iArray[ i ] = HB_PARNI(3, i + 1) - 1;
+            iArray[i] = HB_PARNI(3, i + 1) - 1;
          }
 
          ListView_SetColumnOrderArray(hmg_par_HWND(1), iColumn, ( int * ) iArray);
@@ -992,7 +992,7 @@ HB_FUNC( LISTVIEW_SETCOLUMNORDERARRAY )
    }
 }
 
-//       ListView_ChangeExtendedStyle ( hWnd, [ nAddStyle ], [ nRemoveStyle ] )
+//       ListView_ChangeExtendedStyle ( hWnd, [nAddStyle], [nRemoveStyle] )
 HB_FUNC( LISTVIEW_CHANGEEXTENDEDSTYLE )  // Dr. Claudio Soto
 {
    HWND  hWnd = hmg_par_HWND(1);
@@ -1007,7 +1007,7 @@ HB_FUNC( LISTVIEW_CHANGEEXTENDEDSTYLE )  // Dr. Claudio Soto
    hb_retnl( ( LONG ) Style );
 }
 
-//       ListView_GetExtendedStyle ( hWnd, [ nExStyle ] )
+//       ListView_GetExtendedStyle ( hWnd, [nExStyle] )
 HB_FUNC( LISTVIEW_GETEXTENDEDSTYLE )  // Dr. Claudio Soto
 {
    HWND  hWnd     = hmg_par_HWND(1);
@@ -1167,7 +1167,7 @@ HB_FUNC( LISTVIEW_GROUPDELETE )
    hb_retni( ( INT ) ListView_RemoveGroup(hWnd, GroupID) );
 }
 
-//        ListView_GroupAdd ( hWnd, nGroupID, [ nIndex ] )
+//        ListView_GroupAdd ( hWnd, nGroupID, [nIndex] )
 HB_FUNC( LISTVIEW_GROUPADD )
 {
    HWND hWnd    = hmg_par_HWND(1);
@@ -1199,8 +1199,8 @@ HB_FUNC( LISTVIEW_GROUPSETINFO )
    UINT       nAlignFooter = hmg_par_UINT(6);
    UINT       nState       = hmg_par_UINT(7);
 
-   HB_WCHAR cHeaderBuffer[ MAX_GROUP_BUFFER ];
-   HB_WCHAR cFooterBuffer[ MAX_GROUP_BUFFER ];
+   HB_WCHAR cHeaderBuffer[MAX_GROUP_BUFFER];
+   HB_WCHAR cFooterBuffer[MAX_GROUP_BUFFER];
 
    LVGROUP LVG;
 
@@ -1236,8 +1236,8 @@ HB_FUNC( LISTVIEW_GROUPGETINFO )
    INT  GroupID = hmg_par_INT(2);
 
    INT      nRet;
-   HB_WCHAR cHeaderBuffer[ MAX_GROUP_BUFFER ];
-   HB_WCHAR cFooterBuffer[ MAX_GROUP_BUFFER ];
+   HB_WCHAR cHeaderBuffer[MAX_GROUP_BUFFER];
+   HB_WCHAR cFooterBuffer[MAX_GROUP_BUFFER];
 
    LVGROUP LVG;
 

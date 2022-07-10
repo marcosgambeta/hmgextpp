@@ -191,7 +191,7 @@ HB_FUNC( CHKLISTBOXADDITEM )
 
 HB_FUNC( SETCHKLBITEMHEIGHT ) // set the height of a string in pixels
 {
-   TCHAR achBuffer[ BUFFER ];
+   TCHAR achBuffer[BUFFER];
    HWND  hwnd     = hmg_par_HWND(1);
    HDC   hdc      = GetDC(hwnd);
    HFONT hFont    = hmg_par_HFONT(2);
@@ -228,7 +228,7 @@ HB_FUNC( CHKLIST_SETCHECKBOX )
    HWND  hwnd            = hmg_par_HWND(1);
    int   lbItem          = hb_parni(2) - 1;
    int   bChecked        = hb_parni(3);
-   TCHAR cString[ 1024 ] = { TEXT("") };
+   TCHAR cString[1024] = { TEXT("") };
 
    SendMessage(hwnd, LB_GETTEXT, ( WPARAM ) lbItem, ( LPARAM ) cString);
    SendMessage(hwnd, LB_DELETESTRING, ( WPARAM ) lbItem, 0);
@@ -258,7 +258,7 @@ HB_FUNC( _ONMEASURELISTBOXITEM )
 HB_FUNC( _ONDRAWLISTBOXITEM )
 {
    PDRAWITEMSTRUCT pdis;
-   TCHAR      achBuffer[ BUFFER ];
+   TCHAR      achBuffer[BUFFER];
    int        cch;
    int        yPos, iCheck, style = 0;
    TEXTMETRIC tm;

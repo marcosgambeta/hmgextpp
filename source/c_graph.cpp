@@ -356,7 +356,7 @@ HB_FUNC( POLYGONDRAW )
    HPEN     hpen;
    HBRUSH   hbrush;
    LOGBRUSH br;
-   POINT    apoints[ 1024 ];
+   POINT    apoints[1024];
    int      number = ( int ) hb_parinfa(2, 0);
 
    hWnd1    = hmg_par_HWND(1);
@@ -377,8 +377,8 @@ HB_FUNC( POLYGONDRAW )
 
    for( int i = 0; i <= number - 1; i++ )
    {
-      apoints[ i ].x = HB_PARNI(2, i + 1);
-      apoints[ i ].y = HB_PARNI(3, i + 1);
+      apoints[i].x = HB_PARNI(2, i + 1);
+      apoints[i].y = HB_PARNI(3, i + 1);
    }
 
    Polygon(hdc1, apoints, number);
@@ -395,7 +395,7 @@ HB_FUNC( POLYBEZIERDRAW )
    HDC     hdc1;
    HGDIOBJ hgdiobj1;
    HPEN    hpen;
-   POINT   apoints[ 1024 ];
+   POINT   apoints[1024];
    DWORD   number = ( DWORD ) hb_parinfa(2, 0);
 
    hWnd1    = hmg_par_HWND(1);
@@ -404,8 +404,8 @@ HB_FUNC( POLYBEZIERDRAW )
    hgdiobj1 = SelectObject(hdc1, hpen);
    for( DWORD i = 0; i <= number - 1; i++ )
    {
-      apoints[ i ].x = HB_PARNI(2, i + 1);
-      apoints[ i ].y = HB_PARNI(3, i + 1);
+      apoints[i].x = HB_PARNI(2, i + 1);
+      apoints[i].y = HB_PARNI(3, i + 1);
    }
 
    PolyBezier( hdc1, apoints, number );

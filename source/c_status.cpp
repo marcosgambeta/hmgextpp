@@ -61,7 +61,7 @@ HINSTANCE GetResources(void);
 HB_FUNC( INITMESSAGEBAR )
 {
    HWND hWndSB;
-   int  ptArray[ 40 ];  // Array defining the number of parts/sections
+   int  ptArray[40];  // Array defining the number of parts/sections
    int  nrOfParts = 1;
 
    hWndSB = CreateStatusWindow(WS_CHILD | WS_VISIBLE | SBT_TOOLTIPS, nullptr, hmg_par_HWND(1), hb_parni(2));
@@ -76,7 +76,7 @@ HB_FUNC( INITITEMBAR )
 {
    HWND  hWndSB;
    int   cSpaceInBetween = 8;
-   int   ptArray[ 40 ]; // Array defining the number of parts/sections
+   int   ptArray[40]; // Array defining the number of parts/sections
    int   nrOfParts = 0;
    RECT  rect;
    HDC   hDC;
@@ -119,23 +119,23 @@ HB_FUNC( INITITEMBAR )
    GetClientRect(hWndSB, &rect);
 
    if( hb_parnl(5) == 0 )
-      ptArray[ nrOfParts - 1 ] = rect.right;
+      ptArray[nrOfParts - 1] = rect.right;
    else
    {
       for( int n = 0; n < nrOfParts - 1; n++ )
       {
-         ptArray[ n ] -= hb_parni(4) - cSpaceInBetween;
+         ptArray[n] -= hb_parni(4) - cSpaceInBetween;
       }
 
       if( Style & WS_SIZEBOX )
       {
          if( nrOfParts == 2 )
-            ptArray[ 0 ] -= 21;
+            ptArray[0] -= 21;
 
-         ptArray[ nrOfParts - 1 ] = rect.right - rect.bottom - rect.top + 2;
+         ptArray[nrOfParts - 1] = rect.right - rect.bottom - rect.top + 2;
       }
       else
-         ptArray[ nrOfParts - 1 ] = rect.right;
+         ptArray[nrOfParts - 1] = rect.right;
    }
 
    ReleaseDC(hWndSB, hDC);
@@ -210,7 +210,7 @@ HB_FUNC( GETITEMBAR )
 HB_FUNC( REFRESHITEMBAR )
 {
    HWND hWndSB;
-   int  ptArray[ 40 ];  // Array defining the number of parts/sections
+   int  ptArray[40];  // Array defining the number of parts/sections
    int  nDev;
    int  s;
    int  nrOfParts;
@@ -227,9 +227,9 @@ HB_FUNC( REFRESHITEMBAR )
    GetClientRect(hWndSB, &rect);
 
    if( ( nrOfParts == 1 ) || ( IsZoomed( GetParent(hWndSB) ) ) || ( ! (GetWindowLong(( HWND ) GetParent(hWndSB), GWL_STYLE) & WS_SIZEBOX) ) )
-      nDev = rect.right - ptArray[ nrOfParts - 1 ];
+      nDev = rect.right - ptArray[nrOfParts - 1];
    else
-      nDev = rect.right - ptArray[ nrOfParts - 1 ] - rect.bottom - rect.top + 2;
+      nDev = rect.right - ptArray[nrOfParts - 1] - rect.bottom - rect.top + 2;
 
    s = TRUE;
    if( rect.right > 0 )
@@ -238,18 +238,18 @@ HB_FUNC( REFRESHITEMBAR )
 
          if( n == 0 )
          {
-            if( size >= ptArray[ n ] && nDev < 0 )
+            if( size >= ptArray[n] && nDev < 0 )
                s = FALSE;
             else
             {
-               if( ptArray[ n ] + nDev < size )
-                  nDev = size - ptArray[ n ];
+               if( ptArray[n] + nDev < size )
+                  nDev = size - ptArray[n];
 
-               ptArray[ n ] += nDev;
+               ptArray[n] += nDev;
             }
          }
          else if( s )
-            ptArray[ n ] += nDev;
+            ptArray[n] += nDev;
 
       }
 
@@ -261,15 +261,15 @@ HB_FUNC( REFRESHITEMBAR )
 
 HB_FUNC( KEYTOGGLE )
 {
-   BYTE pBuffer[ 256 ];
+   BYTE pBuffer[256];
    WORD wKey = hmg_par_WORD(1);
 
    GetKeyboardState(pBuffer);
 
-   if( pBuffer[ wKey ] & 0x01 )
-      pBuffer[ wKey ] &= 0xFE;
+   if( pBuffer[wKey] & 0x01 )
+      pBuffer[wKey] &= 0xFE;
    else
-      pBuffer[ wKey ] |= 0x01;
+      pBuffer[wKey] |= 0x01;
 
    SetKeyboardState(pBuffer);
 }
@@ -338,7 +338,7 @@ HB_FUNC( SETSTATUSBARSIZE )
    for( int i = 0; i < nParts; i++ )
    {
       nWidth       = nWidth + HB_PARNI(2, i + 1);
-      lpParts[ i ] = nWidth;
+      lpParts[i] = nWidth;
    }
 
    SendMessage(hwndStatus, SB_SETPARTS, ( WPARAM ) nParts, ( LPARAM ) lpParts);

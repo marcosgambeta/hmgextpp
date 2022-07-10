@@ -119,7 +119,7 @@ HRESULT WINAPI GetThemeInt(HTHEME, int, int, int, int *);
 typedef struct _INTLIST
 {
    int iValueCount;
-   int iValues[ MAX_INTLIST_COUNT ];
+   int iValues[MAX_INTLIST_COUNT];
 } INTLIST, * PINTLIST;
 
 HRESULT WINAPI GetThemeIntList(HTHEME, int, int, int, INTLIST *);

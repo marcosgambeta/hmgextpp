@@ -734,7 +734,7 @@ HIMAGELIST HMG_SetButtonImageList(HWND hButton, const char * FileName, int Trans
    HIMAGELIST       hImageList;
    BITMAP           Bmp;
    BUTTON_IMAGELIST bi;
-   TCHAR TempPathFileName[ MAX_PATH ];
+   TCHAR TempPathFileName[MAX_PATH];
 
    hBitmap = HMG_LoadPicture(FileName, -1, -1, nullptr, 0, 0, -1, 0, HB_FALSE, 255);
    if( hBitmap == nullptr )

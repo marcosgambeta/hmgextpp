@@ -210,7 +210,7 @@ HB_FUNC( INITMULTILISTBOX )
 HB_FUNC( LISTBOXGETMULTISEL )
 {
    HWND hwnd = hmg_par_HWND(1);
-   int  buffer[ 32768 ];
+   int  buffer[32768];
    int  n;
 
    n = ( int ) SendMessage(hwnd, LB_GETSELCOUNT, 0, 0);
@@ -221,7 +221,7 @@ HB_FUNC( LISTBOXGETMULTISEL )
 
    for( INT i = 0; i < n; i++ )
    {
-      HB_STORNI( buffer[ i ] + 1, -1, i + 1 );
+      HB_STORNI( buffer[i] + 1, -1, i + 1 );
    }
 }
 
@@ -255,7 +255,7 @@ HB_FUNC( LISTBOXSETMULTISEL )
 HB_FUNC( LISTBOXSETMULTITAB )
 {
    PHB_ITEM wArray;
-   int      nTabStops[ TOTAL_TABS ];
+   int      nTabStops[TOTAL_TABS];
    int      l;
    DWORD    dwDlgBase = GetDialogBaseUnits();
    int      baseunitX = LOWORD(dwDlgBase);
@@ -268,7 +268,7 @@ HB_FUNC( LISTBOXSETMULTITAB )
 
    for( int i = 0; i <= l; i++ )
    {
-      nTabStops[ i ] = MulDiv(hb_arrayGetNI(wArray, i + 1), 4, baseunitX);
+      nTabStops[i] = MulDiv(hb_arrayGetNI(wArray, i + 1), 4, baseunitX);
    }
 
    SendMessage(hwnd, LB_SETTABSTOPS, l, ( LPARAM ) &nTabStops);
@@ -323,7 +323,7 @@ HB_FUNC( DRAG_LIST_MOVE_ITEMS )
    LPARAM lParam        = ( LPARAM ) HB_PARNL(1);
    LPDRAGLISTINFO lpdli = ( LPDRAGLISTINFO ) lParam;
 
-   char string[ 1024 ];
+   char string[1024];
    int  result;
 
    result = ListBox_GetText(lpdli->hWnd, hb_parni(2), string);

@@ -241,7 +241,7 @@ LRESULT CALLBACK HMG_FldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPARAM l
                if( pFhi->activeValid && pFhi->active_page != -1 )
                {
                   HFLDPAGEINFO * hfpi = pFhi->fhpage;
-                  FLDPAGEINFO *  fpi  = ( FLDPAGEINFO * ) hfpi[ pFhi->active_page ];
+                  FLDPAGEINFO *  fpi  = ( FLDPAGEINFO * ) hfpi[pFhi->active_page];
                   HWND hwndPage       = fpi->hwndPage;
                   SendMessage(hwndPage, WM_COMMAND, wParam, lParam);
                }
@@ -299,7 +299,7 @@ LRESULT CALLBACK HMG_PageFldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
          pFhi = ( FLDHDRINFO * ) lParam;
          iSel = TabCtrl_GetCurSel( pFhi->hwndTab );
          hfpi = pFhi->fhpage;
-         fpi  = ( FLDPAGEINFO * ) hfpi[ iSel ];
+         fpi  = ( FLDPAGEINFO * ) hfpi[iSel];
 
          FLD_ChildDialogInit(hWndDlg, hWndParent, fpi->idrc);
          return TRUE;
@@ -496,7 +496,7 @@ HB_FUNC( CREATEDLGFOLDER )
 
    for( int s = 0; s < nPages; s = s + 1 )
    {
-      hfpi[ s ] = ( HFLDPAGEINFO ) ( PHB_ITEM ) HB_arrayGetNL( sArray, s + 1 );
+      hfpi[s] = ( HFLDPAGEINFO ) ( PHB_ITEM ) HB_arrayGetNL( sArray, s + 1 );
    }
 
    hwnd = ( HWND ) HB_arrayGetNL( pArray, 2 );
@@ -564,7 +564,7 @@ HB_FUNC( FOLDERGETCURRENTPAGEHWND )
    hfpi = pFhi->fhpage;
    iSel = TabCtrl_GetCurSel( pFhi->hwndTab );
 
-   fpi = ( FLDPAGEINFO * ) hfpi[ iSel ];
+   fpi = ( FLDPAGEINFO * ) hfpi[iSel];
 
    HB_RETNL( ( LONG_PTR ) fpi->hwndPage );
 }
@@ -607,7 +607,7 @@ HB_FUNC( FOLDER_ISDIRTY )
    for( int i = 0; i < pFhi->nPages; i++ )
    {
       HFLDPAGEINFO * hfpi = pFhi->fhpage;
-      FLDPAGEINFO *  fpi  = ( FLDPAGEINFO * ) hfpi[ i ];
+      FLDPAGEINFO *  fpi  = ( FLDPAGEINFO * ) hfpi[i];
 
       /* look to see if there's any dirty pages */
       if( fpi->isDirty && ! pFhi->activeValid )
@@ -723,7 +723,7 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
 
    for( int s = 0; s < nPages; s = s + 1 )
    {
-      fpi         = ( FLDPAGEINFO * ) hfpi[ s ];
+      fpi         = ( FLDPAGEINFO * ) hfpi[s];
       tie.pszText = ( LPTSTR ) fpi->pszText;
       TabCtrl_InsertItem(pFhi->hwndTab, s, &tie);
    }
@@ -734,7 +734,7 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
    //The x, y, cx, and cy members specify values in dialog box units.
    for( int i = 0; i < nPages; i++ )
    {
-      fpi = ( FLDPAGEINFO * ) hfpi[ i ];
+      fpi = ( FLDPAGEINFO * ) hfpi[i];
       if( ! pFhi->isInDirect )
       {
          pTemplate = ( DLGTEMPLATE * ) fpi->apRes;
@@ -1083,7 +1083,7 @@ static BOOL FLD_PageInfo(DLGTEMPLATE * pTemplate, FLDHDRINFO * pFhi, int index, 
    }
 
    /* Extract the caption */
-   fpi = ( FLDPAGEINFO * ) pFhi->fhpage[ index ];
+   fpi = ( FLDPAGEINFO * ) pFhi->fhpage[index];
    fpi->pszText = ( LPCTSTR ) p;
 
    return TRUE;
@@ -1103,7 +1103,7 @@ static void FLD_Changed( HWND hWndParent, HWND hwndDirtyPage )
    for( int i = 0; i < pFhi->nPages; i++ )
    {
       HFLDPAGEINFO * hfpi = pFhi->fhpage;
-      FLDPAGEINFO *  fpi  = ( FLDPAGEINFO * ) hfpi[ i ];
+      FLDPAGEINFO *  fpi  = ( FLDPAGEINFO * ) hfpi[i];
       if( fpi->hwndPage == hwndDirtyPage )
          fpi->isDirty = TRUE;
    }
@@ -1133,7 +1133,7 @@ static void FLD_UnChanged( HWND hWndParent, HWND hwndCleanPage )
    {
       /* set the specified page as clean */
       HFLDPAGEINFO * hfpi = pFhi->fhpage;
-      FLDPAGEINFO *  fpi  = ( FLDPAGEINFO * ) hfpi[ i ];
+      FLDPAGEINFO *  fpi  = ( FLDPAGEINFO * ) hfpi[i];
       if( fpi->hwndPage == hwndCleanPage )
          fpi->isDirty = FALSE;
 
@@ -1195,7 +1195,7 @@ static BOOL FLD_DoCommand( HWND hWndDlg, WORD wID )
             fln.hdr.code     = FLN_FINISH;
 
             hfpi     = pFhi->fhpage;
-            fpi      = ( FLDPAGEINFO * ) hfpi[ pFhi->active_page ];
+            fpi      = ( FLDPAGEINFO * ) hfpi[pFhi->active_page];
             hwndPage = fpi->hwndPage;
 
             SendMessage(hwndPage, WM_NOTIFY, 0, ( LPARAM ) &fln);
@@ -1240,7 +1240,7 @@ static BOOL FLD_Apply(HWND hWndDlg, LPARAM lParam)
    fln.hdr.code = FLN_KILLACTIVE;
 
    hfpi     = pFhi->fhpage;
-   fpi      = ( FLDPAGEINFO * ) hfpi[ pFhi->active_page ];
+   fpi      = ( FLDPAGEINFO * ) hfpi[pFhi->active_page];
    hwndPage = fpi->hwndPage;
 
    if( SendMessage(hwndPage, WM_NOTIFY, 0, ( LPARAM ) &fln) != FALSE )
@@ -1253,7 +1253,7 @@ static BOOL FLD_Apply(HWND hWndDlg, LPARAM lParam)
    for( int i = 0; i < pFhi->nPages; i++ )
    {
       hfpi     = pFhi->fhpage;
-      fpi      = ( FLDPAGEINFO * ) hfpi[ i ];
+      fpi      = ( FLDPAGEINFO * ) hfpi[i];
       hwndPage = fpi->hwndPage;
       if( hwndPage )
          SendMessage(hwndPage, WM_NOTIFY, ( WPARAM ) lParam, ( LPARAM ) &fln);
@@ -1273,7 +1273,7 @@ static BOOL FLD_Apply(HWND hWndDlg, LPARAM lParam)
          fln.hdr.code = FLN_SETACTIVE;
 
       hfpi     = pFhi->fhpage;
-      fpi      = ( FLDPAGEINFO * ) hfpi[ pFhi->active_page ];
+      fpi      = ( FLDPAGEINFO * ) hfpi[pFhi->active_page];
       hwndPage = fpi->hwndPage;
 
       SendMessage(hwndPage, WM_NOTIFY, ( WPARAM ) lParam, ( LPARAM ) &fln);
@@ -1298,7 +1298,7 @@ static void FLD_Cancel( HWND hWndDlg, LPARAM lParam )
       return;
 
    hfpi     = pFhi->fhpage;
-   fpi      = ( FLDPAGEINFO * ) hfpi[ pFhi->active_page ];
+   fpi      = ( FLDPAGEINFO * ) hfpi[pFhi->active_page];
    hwndPage = fpi->hwndPage;
 
    fln.hdr.code     = FLN_QUERYCANCEL;
@@ -1315,7 +1315,7 @@ static void FLD_Cancel( HWND hWndDlg, LPARAM lParam )
    for( int i = 0; i < pFhi->nPages; i++ )
    {
       hfpi     = pFhi->fhpage;
-      fpi      = ( FLDPAGEINFO * ) hfpi[ i ];
+      fpi      = ( FLDPAGEINFO * ) hfpi[i];
       hwndPage = fpi->hwndPage;
 
       if( hwndPage )
@@ -1328,7 +1328,7 @@ static void FLD_Cancel( HWND hWndDlg, LPARAM lParam )
       pFhi->ended = TRUE;
 
    fln.hdr.code = FLN_FINISH;
-   fpi      = ( FLDPAGEINFO * ) hfpi[ pFhi->active_page ];
+   fpi      = ( FLDPAGEINFO * ) hfpi[pFhi->active_page];
    hwndPage = fpi->hwndPage;
    if( hwndPage )
       SendMessage(hwndPage, WM_NOTIFY, ( WPARAM ) lParam, ( LPARAM ) &fln);
@@ -1349,7 +1349,7 @@ static void FLD_Help(HWND hWndDlg)
       return;
 
    hfpi     = pFhi->fhpage;
-   fpi      = ( FLDPAGEINFO * ) hfpi[ pFhi->active_page ];
+   fpi      = ( FLDPAGEINFO * ) hfpi[pFhi->active_page];
    hwndPage = fpi->hwndPage;
 
    fln.hdr.code     = FLN_HELP;
@@ -1370,14 +1370,14 @@ static BOOL FLD_ShowPage(HWND hWndDlg, int index, FLDHDRINFO * pFhi)
 
    if( index == pFhi->active_page )
    {
-      fpi = ( FLDPAGEINFO * ) hfpi[ index ];
+      fpi = ( FLDPAGEINFO * ) hfpi[index];
       if( GetTopWindow(hWndDlg) != fpi->hwndPage )
          SetWindowPos(fpi->hwndPage, HWND_TOP, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE);
 
       return TRUE;
    }
 
-   fpi = ( FLDPAGEINFO * ) hfpi[ index ];
+   fpi = ( FLDPAGEINFO * ) hfpi[index];
    if( fpi->hwndPage == nullptr )
    {
       pFhi->hwndDisplay = CreateDialogIndirectParam
@@ -1397,11 +1397,11 @@ static BOOL FLD_ShowPage(HWND hWndDlg, int index, FLDHDRINFO * pFhi)
 
    if( pFhi->active_page != -1 )
    {
-      fpi = ( FLDPAGEINFO * ) hfpi[ pFhi->active_page ];
+      fpi = ( FLDPAGEINFO * ) hfpi[pFhi->active_page];
       ShowWindow(fpi->hwndPage, SW_HIDE);
    }
 
-   fpi = ( FLDPAGEINFO * ) hfpi[ index ];
+   fpi = ( FLDPAGEINFO * ) hfpi[index];
    ShowWindow(fpi->hwndPage, SW_SHOW);
 
    /* Synchronize current selection with tab control*/
@@ -1423,7 +1423,7 @@ static LRESULT FLD_HwndToIndex(HWND hWndDlg, HWND hPageDlg)
    for( int index = 0; index < pFhi->nPages; index++ )
    {
       HFLDPAGEINFO * hfpi = pFhi->fhpage;
-      FLDPAGEINFO *  fpi  = ( FLDPAGEINFO * ) hfpi[ index ];
+      FLDPAGEINFO *  fpi  = ( FLDPAGEINFO * ) hfpi[index];
       if( fpi->hwndPage == hPageDlg )
          return index;
    }
@@ -1444,7 +1444,7 @@ static void FLD_CleanUp(HWND hWndDlg)
    for( int i = 0; i < pFhi->nPages; i++ )
    {
       HFLDPAGEINFO * hfpi = pFhi->fhpage;
-      FLDPAGEINFO *  fpi  = ( FLDPAGEINFO * ) hfpi[ i ];
+      FLDPAGEINFO *  fpi  = ( FLDPAGEINFO * ) hfpi[i];
 
       if( fpi->hwndPage )
          DestroyWindow(fpi->hwndPage);
@@ -1478,7 +1478,7 @@ static void FLD_AddBitmap(HWND hWndFolder)
 
    for( int s = 0; s <= l; s++ )
    {
-      pfpi = ( FLDPAGEINFO * ) pFhi->fhpage[ s ];
+      pfpi = ( FLDPAGEINFO * ) pFhi->fhpage[s];
       if( pfpi->hasIcon )
       {
          i = s + 1;
@@ -1527,7 +1527,7 @@ static void FLD_AddBitmap(HWND hWndFolder)
          {
             for( int s = 0; s <= l; s++ )
             {
-               pfpi = ( FLDPAGEINFO * ) pFhi->fhpage[ s ];
+               pfpi = ( FLDPAGEINFO * ) pFhi->fhpage[s];
 
                hbmp = nullptr;
 

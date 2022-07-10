@@ -440,7 +440,7 @@ typedef struct EncoderParameter
 typedef struct EncoderParameters
 {
    UINT Count;
-   EncoderParameter Parameter[ 1 ];
+   EncoderParameter Parameter[1];
 } EncoderParameters;
 
 typedef ULONG ARGB;
@@ -659,9 +659,9 @@ BOOL bt_GetEncoderCLSID(WCHAR * format, CLSID * pClsid)
 
    for( UINT i = 0; i < num; ++i )
    {
-      if( wcscmp(pImageCodecInfo[ i ].MimeType, format) == 0 )
+      if( wcscmp(pImageCodecInfo[i].MimeType, format) == 0 )
       {
-         *pClsid = pImageCodecInfo[ i ].Clsid;
+         *pClsid = pImageCodecInfo[i].Clsid;
          free(pImageCodecInfo);
          return TRUE;
       }
@@ -684,10 +684,10 @@ BOOL bt_SaveGDIPlusPicture(HBITMAP hBitmap, TCHAR * FileName, INT TypePicture)
    BOOL      result;
    IStream * iStream;
    GpImage * image;
-   WCHAR     format[ 21 ];
+   WCHAR     format[21];
    HGLOBAL   hGlobalAlloc;
    INT       ret1, ret2;
-   WCHAR     wFileName[ MAX_PATH ];
+   WCHAR     wFileName[MAX_PATH];
 
    switch( TypePicture )
    {
@@ -832,7 +832,7 @@ HB_FUNC( BT_DC_CREATE )
    HB_STORVNI( ( INT ) BT.PaintStruct.fIncUpdate, -1, 11 );               // BOOL fIncUpdate;
    for( INT i = 0; i < 32; i++ )
    {
-      HB_STORVNI( ( INT ) BT.PaintStruct.rgbReserved[ i ], -1, 12 + i );  // BYTE rgbReserved[32];
+      HB_STORVNI( ( INT ) BT.PaintStruct.rgbReserved[i], -1, 12 + i );  // BYTE rgbReserved[32];
    }
 
 //   GdiSetBatchLimit (100);
@@ -863,7 +863,7 @@ HB_FUNC( BT_DC_DELETE )
    BT.PaintStruct.fIncUpdate     = ( BOOL ) hb_parvni(1, 11);           // BOOL fIncUpdate;
    for( INT i = 0; i < 32; i++ )
    {
-      BT.PaintStruct.rgbReserved[ i ] = ( BYTE ) hb_parvni(1, 12 + i);  // BYTE rgbReserved[32];
+      BT.PaintStruct.rgbReserved[i] = ( BYTE ) hb_parvni(1, 12 + i);  // BYTE rgbReserved[32];
    }
 
    switch( BT.Type )
@@ -978,7 +978,7 @@ HB_FUNC( BT_SCR_GETINFO )
 
 
 //*************************************************************************************************
-// BT_SCR_INVALIDATERECT ( hWnd , [ {x_left, y_top, x_right, y_bottom} ] , lEraseBackground )
+// BT_SCR_INVALIDATERECT ( hWnd , [{x_left, y_top, x_right, y_bottom}] , lEraseBackground )
 //*************************************************************************************************
 
 HB_FUNC( BT_SCR_INVALIDATERECT )
@@ -1054,7 +1054,7 @@ HB_FUNC( BT_DRAW_HDC_POLY )
    INT      nPOLY;
 
    #ifndef __MINGW_H
-   POINT aPoint[ 2048 ];
+   POINT aPoint[2048];
    #endif
 
    hDC        = hmg_par_HDC(1);
@@ -1070,12 +1070,12 @@ HB_FUNC( BT_DRAW_HDC_POLY )
    if( nLen > 0 )
    {
       #ifdef __MINGW_H
-      POINT aPoint[ nLen ];
+      POINT aPoint[nLen];
       #endif
       for( INT i = 0; i < nLen; i++ )
       {
-         aPoint[ i ].x = hb_parvni(2, i + 1);
-         aPoint[ i ].y = hb_parvni(3, i + 1);
+         aPoint[i].x = hb_parvni(2, i + 1);
+         aPoint[i].y = hb_parvni(3, i + 1);
       }
 
       hPen     = CreatePen(PS_SOLID, nWidthLine, ColorLine);
@@ -1361,7 +1361,7 @@ HB_FUNC( BT_DRAW_HDC_BITMAPALPHABLEND )
 HB_FUNC( BT_DRAW_HDC_GRADIENTFILL )
 {
    HDC           hDC;
-   TRIVERTEX     Vert[ 2 ];
+   TRIVERTEX     Vert[2];
    GRADIENT_RECT gRect;
    COLORREF      Color_RGB_O, Color_RGB_D;
    ULONG         Mode;
@@ -1372,19 +1372,19 @@ HB_FUNC( BT_DRAW_HDC_GRADIENTFILL )
    Color_RGB_D = hmg_par_COLORREF(7);
    Mode        = ( ULONG ) hb_parnl(8);
 
-   Vert[ 0 ].x     = hb_parnl(2);
-   Vert[ 0 ].y     = hb_parnl(3);
-   Vert[ 0 ].Red   = ( COLOR16 ) ( GetRValue(Color_RGB_O) << 8 );
-   Vert[ 0 ].Green = ( COLOR16 ) ( GetGValue(Color_RGB_O) << 8 );
-   Vert[ 0 ].Blue  = ( COLOR16 ) ( GetBValue(Color_RGB_O) << 8 );
-   Vert[ 0 ].Alpha = 0x0000;
+   Vert[0].x     = hb_parnl(2);
+   Vert[0].y     = hb_parnl(3);
+   Vert[0].Red   = ( COLOR16 ) ( GetRValue(Color_RGB_O) << 8 );
+   Vert[0].Green = ( COLOR16 ) ( GetGValue(Color_RGB_O) << 8 );
+   Vert[0].Blue  = ( COLOR16 ) ( GetBValue(Color_RGB_O) << 8 );
+   Vert[0].Alpha = 0x0000;
 
-   Vert[ 1 ].x     = hb_parnl(2) + hb_parnl(4);
-   Vert[ 1 ].y     = hb_parnl(3) + hb_parnl(5);
-   Vert[ 1 ].Red   = ( COLOR16 ) ( GetRValue(Color_RGB_D) << 8 );
-   Vert[ 1 ].Green = ( COLOR16 ) ( GetGValue(Color_RGB_D) << 8 );
-   Vert[ 1 ].Blue  = ( COLOR16 ) ( GetBValue(Color_RGB_D) << 8 );
-   Vert[ 1 ].Alpha = 0x0000;
+   Vert[1].x     = hb_parnl(2) + hb_parnl(4);
+   Vert[1].y     = hb_parnl(3) + hb_parnl(5);
+   Vert[1].Red   = ( COLOR16 ) ( GetRValue(Color_RGB_D) << 8 );
+   Vert[1].Green = ( COLOR16 ) ( GetGValue(Color_RGB_D) << 8 );
+   Vert[1].Blue  = ( COLOR16 ) ( GetBValue(Color_RGB_D) << 8 );
+   Vert[1].Alpha = 0x0000;
 
    gRect.UpperLeft  = 0;
    gRect.LowerRight = 1;
@@ -1662,8 +1662,8 @@ HB_FUNC( BT_DRAW_HDC_TEXTSIZE )
    HB_STORVNL( ( LONG ) SizeText.cx, -1, 1 );
    HB_STORVNL( ( LONG ) SizeText.cy, -1, 2 );
 
-   iFirstChar = ( UINT ) lpText[ 0 ];
-   iLastChar  = ( UINT ) lpText[ 0 ];
+   iFirstChar = ( UINT ) lpText[0];
+   iLastChar  = ( UINT ) lpText[0];
    GetCharABCWidthsFloat(hDC, iFirstChar, iLastChar, &ABCfloat);
    hb_storvnd(( double ) ( FLOAT ) ( ABCfloat.abcfA + ABCfloat.abcfB + ABCfloat.abcfC ), -1, 3);
    hb_storvnd(( double ) ( FLOAT ) ABCfloat.abcfA, -1, 4);
@@ -1935,7 +1935,7 @@ HB_FUNC( BT_BMP_LOADFILE )
 
 
 //*********************************************************************************************************************************
-//* BT_BitmapLoadEMF ( cFileName, [ aRGBBackgroundColor ], [ nNewWidth ], [ nNewHeight ], [ ModeStretch ] )  ---> Return hBITMAP
+//* BT_BitmapLoadEMF ( cFileName, [aRGBBackgroundColor], [nNewWidth], [nNewHeight], [ModeStretch] )  ---> Return hBITMAP
 //*********************************************************************************************************************************
 
 HB_FUNC( BT_BITMAPLOADEMF )
@@ -2302,7 +2302,7 @@ BOOL bt_BMP_BITS(bt_BMPIMAGE * Image, INT nAction)
 int bt_BMP_GETBYTE(bt_BMPIMAGE Image, int x, int y, int channel)
 {
    if( x >= 0 && x < Image.Width && y >= 0 && y < Image.Height )
-      return ( int ) Image.lp_Bits[ ( y * Image.WidthBytes ) + ( x * Image.nChannels + channel ) ];
+      return ( int ) Image.lp_Bits[( y * Image.WidthBytes ) + ( x * Image.nChannels + channel )];
    else
       return 0;
 }
@@ -2311,7 +2311,7 @@ int bt_BMP_GETBYTE(bt_BMPIMAGE Image, int x, int y, int channel)
 int bt_BMP_SETBYTE(bt_BMPIMAGE Image, int x, int y, int channel, BYTE value)
 {
    if( x >= 0 && x < Image.Width && y >= 0 && y < Image.Height )
-      return ( int ) ( Image.lp_Bits[ ( y * Image.WidthBytes ) + ( x * Image.nChannels + channel ) ] = value );
+      return ( int ) ( Image.lp_Bits[( y * Image.WidthBytes ) + ( x * Image.nChannels + channel )] = value );
    else
       return -1;
 }
@@ -2676,9 +2676,9 @@ HB_FUNC( BT_BMP_PROCESS )
    INT               LightLevel = 0, RLevel = 0, GLevel = 0, BLevel = 0;
    DOUBLE            ContrastAngle, ContrastConstant = 0, ContrastValue;
    DOUBLE            RedGamma, GreenGamma, BlueGamma;
-   BYTE              RedGammaRamp[ 256 ];
-   BYTE              GreenGammaRamp[ 256 ];
-   BYTE              BlueGammaRamp[ 256 ];
+   BYTE              RedGammaRamp[256];
+   BYTE              GreenGammaRamp[256];
+   BYTE              BlueGammaRamp[256];
    INT               Action;
 
    hBitmap = hmg_par_HBITMAP(1);
@@ -2744,9 +2744,9 @@ HB_FUNC( BT_BMP_PROCESS )
          BlueGamma  = ( DOUBLE ) hb_parvnd(3, 3);
          for( INT i = 0; i < 256; i++ )
          {
-            RedGammaRamp[ i ]   = ( BYTE ) bt_GAMMA(i, RedGamma);
-            GreenGammaRamp[ i ] = ( BYTE ) bt_GAMMA(i, GreenGamma);
-            BlueGammaRamp[ i ]  = ( BYTE ) bt_GAMMA(i, BlueGamma);
+            RedGammaRamp[i]   = ( BYTE ) bt_GAMMA(i, RedGamma);
+            GreenGammaRamp[i] = ( BYTE ) bt_GAMMA(i, GreenGamma);
+            BlueGammaRamp[i]  = ( BYTE ) bt_GAMMA(i, BlueGamma);
          }
          break;
 
@@ -2832,9 +2832,9 @@ HB_FUNC( BT_BMP_PROCESS )
 
          if( Action == BT_BMP_PROCESS_GAMMACORRECT )
          {
-            RGBcolor->R = RedGammaRamp[ RGBcolor->R ];
-            RGBcolor->G = GreenGammaRamp[ RGBcolor->G ];
-            RGBcolor->B = BlueGammaRamp[ RGBcolor->B ];
+            RGBcolor->R = RedGammaRamp[RGBcolor->R];
+            RGBcolor->G = GreenGammaRamp[RGBcolor->G];
+            RGBcolor->B = BlueGammaRamp[RGBcolor->B];
          }
 
          RGBcolor++;
@@ -2872,26 +2872,26 @@ bt_RGBCOLORBYTE bt_ConvolutionKernel3x3(bt_RGBCOLORBYTE * Y_previous, bt_RGBCOLO
 {
    bt_RGBCOLORBYTE RGBcolor;
    INT Red, Green, Blue;
-   INT Divisor = K[ 9 ];
-   INT Bias    = K[ 10 ];
+   INT Divisor = K[9];
+   INT Bias    = K[10];
 
    if( Divisor == 0 )
       Divisor = 1;
 
    //   Y-1,X-1                    Y-1,X+0                    Y-1,X+1
-   //   Y+0,X-1                  [ Y+0,X+0 ]                  Y+0,X+1
+   //   Y+0,X-1                  [Y+0,X+0]                  Y+0,X+1
    //   Y+1,X-1                    Y+1,X+0                    Y+1,X+1
-   Red = ( ( Y_previous - 1 )->R * K[ 0 ] + ( Y_previous + 0 )->R * K[ 1 ] + ( Y_previous + 1 )->R * K[ 2 ] +                      // Y_previous  = Y-1,X+0
-           ( Y_current - 1 )->R * K[ 3 ] + ( Y_current + 0 )->R * K[ 4 ] + ( Y_current + 1 )->R * K[ 5 ] +                         // Y_current   = Y+0,X+0
-           ( Y_posterior - 1 )->R * K[ 6 ] + ( Y_posterior + 0 )->R * K[ 7 ] + ( Y_posterior + 1 )->R * K[ 8 ] ) / Divisor + Bias; // Y_posterior = Y+1,X+0
+   Red = ( ( Y_previous - 1 )->R * K[0] + ( Y_previous + 0 )->R * K[1] + ( Y_previous + 1 )->R * K[2] +                      // Y_previous  = Y-1,X+0
+           ( Y_current - 1 )->R * K[3] + ( Y_current + 0 )->R * K[4] + ( Y_current + 1 )->R * K[5] +                         // Y_current   = Y+0,X+0
+           ( Y_posterior - 1 )->R * K[6] + ( Y_posterior + 0 )->R * K[7] + ( Y_posterior + 1 )->R * K[8] ) / Divisor + Bias; // Y_posterior = Y+1,X+0
 
-   Green = ( ( Y_previous - 1 )->G * K[ 0 ] + ( Y_previous + 0 )->G * K[ 1 ] + ( Y_previous + 1 )->G * K[ 2 ] +
-             ( Y_current - 1 )->G * K[ 3 ] + ( Y_current + 0 )->G * K[ 4 ] + ( Y_current + 1 )->G * K[ 5 ] +
-             ( Y_posterior - 1 )->G * K[ 6 ] + ( Y_posterior + 0 )->G * K[ 7 ] + ( Y_posterior + 1 )->G * K[ 8 ] ) / Divisor + Bias;
+   Green = ( ( Y_previous - 1 )->G * K[0] + ( Y_previous + 0 )->G * K[1] + ( Y_previous + 1 )->G * K[2] +
+             ( Y_current - 1 )->G * K[3] + ( Y_current + 0 )->G * K[4] + ( Y_current + 1 )->G * K[5] +
+             ( Y_posterior - 1 )->G * K[6] + ( Y_posterior + 0 )->G * K[7] + ( Y_posterior + 1 )->G * K[8] ) / Divisor + Bias;
 
-   Blue = ( ( Y_previous - 1 )->B * K[ 0 ] + ( Y_previous + 0 )->B * K[ 1 ] + ( Y_previous + 1 )->B * K[ 2 ] +
-            ( Y_current - 1 )->B * K[ 3 ] + ( Y_current + 0 )->B * K[ 4 ] + ( Y_current + 1 )->B * K[ 5 ] +
-            ( Y_posterior - 1 )->B * K[ 6 ] + ( Y_posterior + 0 )->B * K[ 7 ] + ( Y_posterior + 1 )->B * K[ 8 ] ) / Divisor + Bias;
+   Blue = ( ( Y_previous - 1 )->B * K[0] + ( Y_previous + 0 )->B * K[1] + ( Y_previous + 1 )->B * K[2] +
+            ( Y_current - 1 )->B * K[3] + ( Y_current + 0 )->B * K[4] + ( Y_current + 1 )->B * K[5] +
+            ( Y_posterior - 1 )->B * K[6] + ( Y_posterior + 0 )->B * K[7] + ( Y_posterior + 1 )->B * K[8] ) / Divisor + Bias;
 
    #define bt_BoundRange(Value, RangeMin, RangeMax)  ((Value < RangeMin) ? RangeMin : ((Value > RangeMax) ? RangeMax : Value))
 
@@ -2919,7 +2919,7 @@ HB_FUNC( BT_BMP_FILTER3X3 )
 // bt_RGBCOLORBYTE *RGBcolor_O;
    bt_RGBCOLORBYTE * RGBcolor_D, RGBcolor_Ret;
    bt_RGBCOLORBYTE * RGBcolor_Yprevious_Xcurrent, * RGBcolor_Ycurrent_Xcurrent, * RGBcolor_Yposterior_Xcurrent;
-   INT MatKernel3x3Filter[ nMATFILTER ];
+   INT MatKernel3x3Filter[nMATFILTER];
 
 
    hBitmap = hmg_par_HBITMAP(1);
@@ -2930,7 +2930,7 @@ HB_FUNC( BT_BMP_FILTER3X3 )
    }
    for( INT i = 0; i < nMATFILTER; i++ )
    {
-      MatKernel3x3Filter[ i ] = ( INT ) hb_parvni(2, i + 1);
+      MatKernel3x3Filter[i] = ( INT ) hb_parvni(2, i + 1);
    }
 
    GetObject(hBitmap, sizeof(BITMAP), ( LPBYTE ) &bm);

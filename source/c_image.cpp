@@ -669,7 +669,7 @@ HB_FUNC( GPLUSGETENCODERSMIMETYPE )
 
    for( UINT i = 0; i < num; ++i )
    {
-      WideCharToMultiByte(CP_ACP, 0, pImageCodecInfo[ i ].MimeType, -1, RecvMimeType, size, nullptr, nullptr);
+      WideCharToMultiByte(CP_ACP, 0, pImageCodecInfo[i].MimeType, -1, RecvMimeType, size, nullptr, nullptr);
 
       pItem = hb_itemPutC( nullptr, RecvMimeType );
 
@@ -724,7 +724,7 @@ static BOOL GetEnCodecClsid( const char * MimeType, CLSID * Clsid )
 
    for( CodecIndex = 0; CodecIndex < num; ++CodecIndex )
    {
-      WideCharToMultiByte(CP_ACP, 0, pImageCodecInfo[ CodecIndex ].MimeType, -1, RecvMimeType, size, nullptr, nullptr);
+      WideCharToMultiByte(CP_ACP, 0, pImageCodecInfo[CodecIndex].MimeType, -1, RecvMimeType, size, nullptr, nullptr);
 
       if( strcmp(MimeType, RecvMimeType) == 0 )
       {
@@ -734,7 +734,7 @@ static BOOL GetEnCodecClsid( const char * MimeType, CLSID * Clsid )
    }
 
    if( bFounded )
-      CopyMemory(Clsid, &pImageCodecInfo[ CodecIndex ].Clsid, sizeof(CLSID));
+      CopyMemory(Clsid, &pImageCodecInfo[CodecIndex].Clsid, sizeof(CLSID));
 
    hb_xfree(pImageCodecInfo);
    LocalFree(RecvMimeType);
@@ -799,20 +799,20 @@ BOOL SaveHBitmapToFile(void * HBitmap, const char * FileName, unsigned int Width
 
    ZeroMemory(&EncoderParameters, sizeof(EncoderParameters));
    EncoderParameters.Count = 1;
-   EncoderParameters.Parameter[ 0 ].Guid.Data1      = 0x1d5be4b5;
-   EncoderParameters.Parameter[ 0 ].Guid.Data2      = 0xfa4a;
-   EncoderParameters.Parameter[ 0 ].Guid.Data3      = 0x452d;
-   EncoderParameters.Parameter[ 0 ].Guid.Data4[ 0 ] = 0x9c;
-   EncoderParameters.Parameter[ 0 ].Guid.Data4[ 1 ] = 0xdd;
-   EncoderParameters.Parameter[ 0 ].Guid.Data4[ 2 ] = 0x5d;
-   EncoderParameters.Parameter[ 0 ].Guid.Data4[ 3 ] = 0xb3;
-   EncoderParameters.Parameter[ 0 ].Guid.Data4[ 4 ] = 0x51;
-   EncoderParameters.Parameter[ 0 ].Guid.Data4[ 5 ] = 0x05;
-   EncoderParameters.Parameter[ 0 ].Guid.Data4[ 6 ] = 0xe7;
-   EncoderParameters.Parameter[ 0 ].Guid.Data4[ 7 ] = 0xeb;
-   EncoderParameters.Parameter[ 0 ].NumberOfValues  = 1;
-   EncoderParameters.Parameter[ 0 ].Type  = 4;
-   EncoderParameters.Parameter[ 0 ].Value = ( void * ) &JpgQuality;
+   EncoderParameters.Parameter[0].Guid.Data1      = 0x1d5be4b5;
+   EncoderParameters.Parameter[0].Guid.Data2      = 0xfa4a;
+   EncoderParameters.Parameter[0].Guid.Data3      = 0x452d;
+   EncoderParameters.Parameter[0].Guid.Data4[0] = 0x9c;
+   EncoderParameters.Parameter[0].Guid.Data4[1] = 0xdd;
+   EncoderParameters.Parameter[0].Guid.Data4[2] = 0x5d;
+   EncoderParameters.Parameter[0].Guid.Data4[3] = 0xb3;
+   EncoderParameters.Parameter[0].Guid.Data4[4] = 0x51;
+   EncoderParameters.Parameter[0].Guid.Data4[5] = 0x05;
+   EncoderParameters.Parameter[0].Guid.Data4[6] = 0xe7;
+   EncoderParameters.Parameter[0].Guid.Data4[7] = 0xeb;
+   EncoderParameters.Parameter[0].NumberOfValues  = 1;
+   EncoderParameters.Parameter[0].Type  = 4;
+   EncoderParameters.Parameter[0].Value = ( void * ) &JpgQuality;
 
    GBitmap = 0;
 
@@ -1120,10 +1120,10 @@ BOOL SaveIconToFile(TCHAR * szIconFile, HICON hIcon[], int nNumIcons)
       ICONINFO iconInfo;
       BITMAP   bmpColor, bmpMask;
 
-      GetIconBitmapInfo(hIcon[ i ], &iconInfo, &bmpColor, &bmpMask);
+      GetIconBitmapInfo(hIcon[i], &iconInfo, &bmpColor, &bmpMask);
 
       // record the file-offset of the icon image for when we write the icon directories
-      pImageOffset[ i ] = SetFilePointer( hFile, 0, 0, FILE_CURRENT );
+      pImageOffset[i] = SetFilePointer( hFile, 0, 0, FILE_CURRENT );
 
       // bitmapinfoheader + colortable
       WriteIconImageHeader(hFile, &bmpColor, &bmpMask);
@@ -1143,7 +1143,7 @@ BOOL SaveIconToFile(TCHAR * szIconFile, HICON hIcon[], int nNumIcons)
 
    for( int i = 0; i < nNumIcons; i++ )
    {
-      WriteIconDirectoryEntry(hFile, hIcon[ i ], pImageOffset[ i ]);
+      WriteIconDirectoryEntry(hFile, hIcon[i], pImageOffset[i]);
    }
 
    free(pImageOffset);
@@ -1164,7 +1164,7 @@ HB_FUNC( C_SAVEHICONTOFILE )
 #else
    TCHAR * szIconFile = ( TCHAR * ) AnsiToWide(( char * ) hb_parc(1));
 #endif
-   HICON    hIcon[ 9 ];
+   HICON    hIcon[9];
    PHB_ITEM pArray = hb_param(2, Harbour::Item::ARRAY);
    int      nLen;
 
@@ -1172,7 +1172,7 @@ HB_FUNC( C_SAVEHICONTOFILE )
    {
       for( int i = 0; i < nLen; i++ )
       {
-         hIcon[ i ] = ( HICON ) ( LONG_PTR ) hb_arrayGetNL( pArray, i + 1 );
+         hIcon[i] = ( HICON ) ( LONG_PTR ) hb_arrayGetNL( pArray, i + 1 );
       }
 
       if( SaveIconToFile(szIconFile, hIcon, hb_parnidef(3, nLen)) )
@@ -1182,7 +1182,7 @@ HB_FUNC( C_SAVEHICONTOFILE )
          // clean up
          for( int i = 0; i < nLen; i++ )
          {
-            DestroyIcon(hIcon[ i ]);
+            DestroyIcon(hIcon[i]);
          }   
       }
       else
@@ -1267,7 +1267,7 @@ HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transpar
    HIMAGELIST hImageList;
    HBITMAP    hBitmap;
    BITMAP     Bmp;
-   TCHAR      TempPathFileName[ MAX_PATH ];
+   TCHAR      TempPathFileName[MAX_PATH];
 
    hBitmap = HMG_LoadPicture(FileName, -1, -1, nullptr, 0, 0, -1, 0, HB_FALSE, 255);
    if( hBitmap == nullptr )

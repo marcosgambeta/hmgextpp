@@ -237,12 +237,12 @@ HB_FUNC( SETTOOLTIP )
 }
 
 /*
-   ShowBalloonTip ( hWnd, cText [ , cTitle ] [ , nTypeIcon ] )
+   ShowBalloonTip ( hWnd, cText [, cTitle] [, nTypeIcon] )
  */
 HB_FUNC( SHOWBALLOONTIP )
 {
-   WCHAR Text[ 512 ];
-   WCHAR Title[ 512 ];
+   WCHAR Text[512];
+   WCHAR Title[512];
    EDITBALLOONTIP bl;
    const char *   s;
    int k;
@@ -265,7 +265,7 @@ HB_FUNC( SHOWBALLOONTIP )
          s = ( const char * ) hb_parc(2);
          for( int i = 0; i < k; i++ )
          {
-            Text[ i ] = HB_cdpGetU16(s_cdpHost, TRUE, s[ i ]);
+            Text[i] = HB_cdpGetU16(s_cdpHost, TRUE, s[i]);
          }
 
          bl.pszText = Text;
@@ -278,7 +278,7 @@ HB_FUNC( SHOWBALLOONTIP )
          s = ( const char * ) hb_parc(3);
          for( int i = 0; i < k; i++ )
          {
-            Title[ i ] = HB_cdpGetU16(s_cdpHost, TRUE, s[ i ]);
+            Title[i] = HB_cdpGetU16(s_cdpHost, TRUE, s[i]);
          }
 
          bl.pszTitle = Title;

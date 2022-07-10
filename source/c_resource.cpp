@@ -58,7 +58,7 @@ HINSTANCE GetInstance(void);
 LPWSTR AnsiToWide(LPCSTR);
 #endif
 static HINSTANCE hResources = 0;
-static HINSTANCE HMG_DllStore[ 256 ];
+static HINSTANCE HMG_DllStore[256];
 
 static HINSTANCE HMG_LoadDll( char * DllName )
 {
@@ -71,16 +71,16 @@ static HINSTANCE HMG_LoadDll( char * DllName )
 #endif
 
    DllCnt = ( DllCnt + 1 ) & 255;
-   FreeLibrary(HMG_DllStore[ DllCnt ]);
+   FreeLibrary(HMG_DllStore[DllCnt]);
 
-   return HMG_DllStore[ DllCnt ] = LoadLibraryEx(lpLibFileName, nullptr, 0);
+   return HMG_DllStore[DllCnt] = LoadLibraryEx(lpLibFileName, nullptr, 0);
 }
 
 static void HMG_UnloadDll(void)
 {
    for( int i = 255; i >= 0; i-- )
    {
-      FreeLibrary(HMG_DllStore[ i ]);
+      FreeLibrary(HMG_DllStore[i]);
    }
 }
 

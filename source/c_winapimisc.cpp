@@ -175,7 +175,7 @@ HB_FUNC( WAITRUNPIPE )
             return;
          }
 
-         Data[ BytesRead ] = TEXT('\0');
+         Data[BytesRead] = TEXT('\0');
          hb_fsWriteLarge(nHandle, Data, BytesRead);
       }
       else
@@ -219,7 +219,7 @@ HB_FUNC( COPYRTFTOCLIPBOARD ) // CopyRtfToClipboard(cRtfText) store cRTFText in 
 
    lptstrCopy = ( char * ) GlobalLock(hglbCopy);
    memcpy(lptstrCopy, cStr, nLen * sizeof(TCHAR));
-   lptstrCopy[ nLen ] = ( TCHAR ) 0;  // NULL character
+   lptstrCopy[nLen] = ( TCHAR ) 0;  // NULL character
    GlobalUnlock(hglbCopy);
 
    SetClipboardData(cf, hglbCopy);
@@ -248,7 +248,7 @@ HB_FUNC( COPYTOCLIPBOARD ) // CopyToClipboard(cText) store cText in Windows clip
 
    lptstrCopy = ( char * ) GlobalLock(hglbCopy);
    memcpy(lptstrCopy, cStr, nLen * sizeof(TCHAR));
-   lptstrCopy[ nLen ] = ( TCHAR ) 0;  // null character
+   lptstrCopy[nLen] = ( TCHAR ) 0;  // null character
    GlobalUnlock(hglbCopy);
 
    SetClipboardData(HB_ISNUM(2) ? hmg_par_UINT(2) : CF_TEXT, hglbCopy);
@@ -443,7 +443,7 @@ HB_FUNC( C_GETSPECIALFOLDER ) // Contributed By Ryszard Ryüko
  */
 HB_FUNC( C_GETDLLSPECIALFOLDER )
 {
-   TCHAR   szPath[ MAX_PATH ];
+   TCHAR   szPath[MAX_PATH];
    HMODULE hModule = LoadLibrary(TEXT("SHFolder.dll"));
 
    if( hModule )
@@ -587,7 +587,7 @@ HB_FUNC( PAINTBKGND )
 /* Functions Contributed  By Luiz Rafael Culik Guimaraes(culikr@uol.com.br) */
 HB_FUNC( GETWINDOWSDIR )
 {
-   TCHAR szBuffer[ MAX_PATH + 1 ] = { 0 };
+   TCHAR szBuffer[MAX_PATH + 1] = { 0 };
 
 #ifdef UNICODE
    LPSTR pStr;
@@ -606,7 +606,7 @@ HB_FUNC( GETWINDOWSDIR )
 
 HB_FUNC( GETSYSTEMDIR )
 {
-   TCHAR szBuffer[ MAX_PATH + 1 ] = { 0 };
+   TCHAR szBuffer[MAX_PATH + 1] = { 0 };
 
 #ifdef UNICODE
    LPSTR pStr;
@@ -625,7 +625,7 @@ HB_FUNC( GETSYSTEMDIR )
 
 HB_FUNC( GETTEMPDIR )
 {
-   TCHAR szBuffer[ MAX_PATH + 1 ] = { 0 };
+   TCHAR szBuffer[MAX_PATH + 1] = { 0 };
 
 #ifdef UNICODE
    LPSTR pStr;
@@ -966,7 +966,7 @@ HB_FUNC( REMOVEFOLDER )
 
 HB_FUNC( GETCURRENTFOLDER )
 {
-   TCHAR Path[ MAX_PATH + 1 ] = { 0 };
+   TCHAR Path[MAX_PATH + 1] = { 0 };
 
 #ifdef UNICODE
    LPSTR pStr;
@@ -1026,7 +1026,7 @@ HB_FUNC( WINVERSION )
    TCHAR * szVersion     = nullptr;
    TCHAR * szServicePack = nullptr;
    TCHAR * szBuild       = nullptr;
-   TCHAR   buffer[ 5 ];
+   TCHAR   buffer[5];
 
    TCHAR * szVersionEx = nullptr;
 #ifdef UNICODE
@@ -1129,7 +1129,7 @@ HB_FUNC( WINVERSION )
             else
             {
                HKEY  hKey;
-               TCHAR szProductType[ 80 ];
+               TCHAR szProductType[80];
                DWORD dwBufLen = 80;
                LONG  lRetVal;
 
@@ -1199,14 +1199,14 @@ HB_FUNC( WINVERSION )
          case VER_PLATFORM_WIN32_WINDOWS:
             if( ( osvi.dwMajorVersion == 4 ) && ( osvi.dwMinorVersion == 0 ) )
             {
-               if( osvi.szCSDVersion[ 1 ] == TEXT('B') )
+               if( osvi.szCSDVersion[1] == TEXT('B') )
                {
                   szVersion     = TEXT(const_cast<char*>("Windows 95 B"));
                   szServicePack = TEXT(const_cast<char*>("OSR2"));
                }
                else
                {
-                  if( osvi.szCSDVersion[ 1 ] == TEXT('C') )
+                  if( osvi.szCSDVersion[1] == TEXT('C') )
                   {
                      szVersion     = TEXT(const_cast<char*>("Windows 95 C"));
                      szServicePack = TEXT(const_cast<char*>("OSR2"));
@@ -1223,7 +1223,7 @@ HB_FUNC( WINVERSION )
 
             if( ( osvi.dwMajorVersion == 4 ) && ( osvi.dwMinorVersion == 10 ) )
             {
-               if( osvi.szCSDVersion[ 1 ] == 'A' )
+               if( osvi.szCSDVersion[1] == 'A' )
                {
                   szVersion     = TEXT(const_cast<char*>("Windows 98 A"));
                   szServicePack = TEXT(const_cast<char*>("Second Edition"));
@@ -1509,10 +1509,10 @@ HB_FUNC( GETSHORTPATHNAME )
    HB_SIZE iRet;
 
 #ifndef UNICODE
-   char   buffer[ MAX_PATH + 1 ] = { 0 };
+   char   buffer[MAX_PATH + 1] = { 0 };
    LPCSTR lpszLongPath = hb_parc(1);
 #else
-   TCHAR   buffer[ MAX_PATH + 1 ] = { 0 };
+   TCHAR   buffer[MAX_PATH + 1] = { 0 };
    LPCWSTR lpszLongPath = AnsiToWide(( char * ) hb_parc(1));
    LPSTR   pStr;
 #endif
@@ -1639,7 +1639,7 @@ HB_FUNC( ISOEMTEXT )
 
    while( w < wLen && ! bOem )
    {
-      bOem = pString[ w ] >= 128 && pString[ w ] <= 168;
+      bOem = pString[w] >= 128 && pString[w] <= 168;
       w++;
    }
 
@@ -1696,7 +1696,7 @@ HB_FUNC( DRAGQUERYFILES )
 {
    HDROP hDrop  = ( HDROP ) HB_PARNL(1);
    int   iFiles = DragQueryFile(hDrop, ( UINT ) -1, 0, 0);
-   TCHAR bBuffer[ 250 ];
+   TCHAR bBuffer[250];
 
 #ifdef UNICODE
    LPSTR pStr;
@@ -1808,7 +1808,7 @@ static HRESULT CreateShortCut(LPWSTR pszTargetfile, LPWSTR pszTargetargs,
    HRESULT        hRes;                /* Returned COM result code */
    IShellLink *   pShellLink;          /* IShellLink object pointer */
    IPersistFile * pPersistFile;        /* IPersistFile object pointer */
-   WORD wszLinkfile[ MAX_PATH ];       /* pszLinkfile as Unicode string */
+   WORD wszLinkfile[MAX_PATH];       /* pszLinkfile as Unicode string */
 
    hRes = E_INVALIDARG;
    if(

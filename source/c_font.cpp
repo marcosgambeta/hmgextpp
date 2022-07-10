@@ -179,7 +179,7 @@ HB_FUNC( GETSYSTEMFONT )
    Added by P.Ch. for 16.12.
    Parts of this code based on an original work by Dr. Claudio Soto (January 2014)
 
-   EnumFontsEx ( [ hDC ], [ cFontFamilyName ], [ nCharSet ], [ nPitch ], [ nFontType ], [ SortCodeBlock ], [ @aFontName ] )
+   EnumFontsEx ( [hDC], [cFontFamilyName], [nCharSet], [nPitch], [nFontType], [SortCodeBlock], [@aFontName] )
              --> return array { { cFontName, nCharSet, nPitchAndFamily, nFontType }, ... }
  */
 
@@ -205,7 +205,7 @@ HB_FUNC( ENUMFONTSEX )
    if( hb_parclen(2) > 0 )
       HB_STRNCPY(lf.lfFaceName, ( LPCTSTR ) hb_parc(2), HB_MIN(LF_FACESIZE - 1, hb_parclen(2)));
    else
-      lf.lfFaceName[ 0 ] = TEXT('\0');
+      lf.lfFaceName[0] = TEXT('\0');
 
    lf.lfCharSet        = ( BYTE ) ( HB_ISNUM(3) ? ( hb_parni(3) == DEFAULT_CHARSET ? GetTextCharset ( hdc ) : hb_parni(3) ) : -1 );
    lf.lfPitchAndFamily = ( BYTE ) ( HB_ISNUM(4) ? ( hb_parni(4) == DEFAULT_PITCH ? -1 : ( hb_parni(4) | FF_DONTCARE ) ) : -1 );
@@ -242,7 +242,7 @@ int CALLBACK EnumFontFamExProc(ENUMLOGFONTEX * lpelfe, NEWTEXTMETRICEX * lpntme,
 #endif
    HB_SYMBOL_UNUSED( lpntme );
 
-   if( lpelfe->elfLogFont.lfFaceName[ 0 ] != '@' )
+   if( lpelfe->elfLogFont.lfFaceName[0] != '@' )
    {
       PHB_ITEM pSubArray = hb_itemArrayNew(4);
 

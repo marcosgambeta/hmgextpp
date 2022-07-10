@@ -126,7 +126,7 @@ HB_FUNC( INITTOOLBUTTON )
    HWND        hwndTB = hmg_par_HWND(1);
    HWND        himage = nullptr;
    TBADDBITMAP tbab;
-   TBBUTTON    tbb[ NUM_TOOLBAR_BUTTONS ];
+   TBBUTTON    tbb[NUM_TOOLBAR_BUTTONS];
    DWORD       tSize;
    int         index;
    int         nPoz;
@@ -182,7 +182,7 @@ HB_FUNC( INITTOOLBUTTON )
       lpText = AnsiToWide(( char * ) hb_parc(2));
 #endif
       index = ( int ) SendMessage(hwndTB, TB_ADDSTRING, ( WPARAM ) 0, ( LPARAM ) lpText);
-      tbb[ nBtn ].iString = index;
+      tbb[nBtn].iString = index;
 #ifdef UNICODE
       hb_xfree(lpText);
 #endif
@@ -204,16 +204,16 @@ HB_FUNC( INITTOOLBUTTON )
 
    // Button New
 
-   tbb[ nBtn ].iBitmap   = nPoz;
-   tbb[ nBtn ].idCommand = hb_parni(3);
-   tbb[ nBtn ].fsState   = TBSTATE_ENABLED;
-   tbb[ nBtn ].fsStyle   = ( BYTE ) Style;
+   tbb[nBtn].iBitmap   = nPoz;
+   tbb[nBtn].idCommand = hb_parni(3);
+   tbb[nBtn].fsState   = TBSTATE_ENABLED;
+   tbb[nBtn].fsStyle   = ( BYTE ) Style;
    nBtn++;
 
    if( hb_parl(10) )
    {
-      tbb[ nBtn ].fsState = 0;
-      tbb[ nBtn ].fsStyle = TBSTYLE_SEP;
+      tbb[nBtn].fsState = 0;
+      tbb[nBtn].fsStyle = TBSTYLE_SEP;
       nBtn++;
    }
 
@@ -324,9 +324,9 @@ HB_FUNC( INITTOOLBUTTONEX )
    BITMAP        bm;
    TBADDBITMAP   tbab;
    TBBUTTON      lpBtn;
-   TBBUTTON      tbb[ NUM_TOOLBAR_BUTTONS ];
+   TBBUTTON      tbb[NUM_TOOLBAR_BUTTONS];
    DWORD         tSize;
-   TCHAR         cBuff[ 255 ] = { 0 };
+   TCHAR         cBuff[255] = { 0 };
    int           index;
    int           nPoz, xBtn;
    int           nBtn, tmax;
@@ -370,7 +370,7 @@ HB_FUNC( INITTOOLBUTTONEX )
       lpText = AnsiToWide(( char * ) hb_parc(2));
 #endif
       index = ( int ) SendMessage(hwndTB, TB_ADDSTRING, 0, ( LPARAM ) lpText);
-      tbb[ nBtn ].iString = index;
+      tbb[nBtn].iString = index;
       Style = Style | BTNS_SHOWTEXT;
 #ifdef UNICODE
       hb_xfree(lpText);
@@ -500,16 +500,16 @@ HB_FUNC( INITTOOLBUTTONEX )
 
    // Button New
 
-   tbb[ nBtn ].iBitmap   = nPoz;
-   tbb[ nBtn ].idCommand = hb_parni(3);
-   tbb[ nBtn ].fsState   = TBSTATE_ENABLED;
-   tbb[ nBtn ].fsStyle   = ( BYTE ) Style;
+   tbb[nBtn].iBitmap   = nPoz;
+   tbb[nBtn].idCommand = hb_parni(3);
+   tbb[nBtn].fsState   = TBSTATE_ENABLED;
+   tbb[nBtn].fsStyle   = ( BYTE ) Style;
    nBtn++;
 
    if( hb_parl(10) )
    {
-      tbb[ nBtn ].fsState = 0;
-      tbb[ nBtn ].fsStyle = TBSTYLE_SEP;
+      tbb[nBtn].fsState = 0;
+      tbb[nBtn].fsStyle = TBSTYLE_SEP;
       nBtn++;
    }
 
@@ -553,7 +553,7 @@ HB_FUNC( GETSIZETOOLBAR )
 
 HB_FUNC( MAXTEXTBTNTOOLBAR )
 {
-   TCHAR cString[ 255 ] = { 0 };
+   TCHAR cString[255] = { 0 };
    HWND  hwndTB;
 
    int      nBtn;
@@ -1033,7 +1033,7 @@ HB_FUNC( TOOLBAREXCUSTFUNC )
                else
                {
                   SendMessage(lpTB->hdr.hwndFrom, TB_GETBUTTON, lpTbNotify->iItem, ( LPARAM ) &lpBtn);
-                  lpTbNotify->tbButton = lpSaveButtons[ lpTbNotify->iItem ];
+                  lpTbNotify->tbButton = lpSaveButtons[lpTbNotify->iItem];
 
                   hb_retl( TRUE );
                }

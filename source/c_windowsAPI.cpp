@@ -871,7 +871,7 @@ HB_FUNC( C_SETWINDOWRGN )
 HB_FUNC( C_SETPOLYWINDOWRGN )
 {
    HRGN  hRgn;
-   POINT lppt[ 512 ];
+   POINT lppt[512];
    int   fnPolyFillMode;
    int   cPoints = ( int ) hb_parinfa(2, 0);
 
@@ -882,8 +882,8 @@ HB_FUNC( C_SETPOLYWINDOWRGN )
 
    for( int i = 0; i <= cPoints - 1; i++ )
    {
-      lppt[ i ].x = HB_PARNI(2, i + 1);
-      lppt[ i ].y = HB_PARNI(3, i + 1);
+      lppt[i].x = HB_PARNI(2, i + 1);
+      lppt[i].y = HB_PARNI(3, i + 1);
    }
 
    hRgn = CreatePolygonRgn(lppt, cPoints, fnPolyFillMode);
@@ -1333,7 +1333,7 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
                         }
 
                         pr = ( RECT * ) &pData->Buffer;
-                        SetRect(&pr[ pData->rdh.nCount ], x0, y, x, y + 1);
+                        SetRect(&pr[pData->rdh.nCount], x0, y, x, y + 1);
                         if( x0 < pData->rdh.rcBound.left )
                            pData->rdh.rcBound.left = x0;
 

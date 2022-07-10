@@ -87,7 +87,7 @@ typedef struct tagEventsHolder
    BOOL       active;
    size_t     count;
    HB_COUNTER used;
-   APPEVENT   events[ MAX_EVENTS ];
+   APPEVENT   events[MAX_EVENTS];
 } EVENTSHOLDER, * EVENTSHOLDER_PTR;
 
 typedef struct tagMyParam
@@ -120,7 +120,7 @@ typedef struct tagWinEventsHolder
    BOOL active;
    size_t count;
    HB_COUNTER used;
-   WINEVENT events[ MAX_EVENTS ];
+   WINEVENT events[MAX_EVENTS];
 } WINEVENTSHOLDER, * WINEVENTSHOLDER_PTR;
 
 // extern functions
@@ -192,7 +192,7 @@ static size_t AppEventScan(EVENTSHOLDER * events, UINT message)
 
    for( size_t i = 0; i < events->count; i++ )
    {
-      if( message == events->events[ i ].message )
+      if( message == events->events[i].message )
       {
          nPos = ( i + 1 ); break;
       }
@@ -220,11 +220,11 @@ static HB_BOOL AppEventRemove(HWND hWnd, const char * pszProp, UINT message)
 
             if( nPos > 0 )                                           // if found
             {
-               hb_itemRelease(events->events[ nPos - 1 ].bAction); // delete old codeblock
+               hb_itemRelease(events->events[nPos - 1].bAction); // delete old codeblock
 
-               events->events[ nPos - 1 ].message = 0;
-               events->events[ nPos - 1 ].bAction = nullptr;
-               events->events[ nPos - 1 ].active = FALSE;
+               events->events[nPos - 1].message = 0;
+               events->events[nPos - 1].bAction = nullptr;
+               events->events[nPos - 1].active = FALSE;
 
                HB_ATOM_DEC( &events->used );
             }
@@ -233,8 +233,8 @@ static HB_BOOL AppEventRemove(HWND hWnd, const char * pszProp, UINT message)
          {
             for( size_t i = 0; i < events->count; i++ ) // delete all not empty items with codeblocks
             {
-               if( events->events[ i ].bAction != nullptr && HB_IS_BLOCK(events->events[ i ].bAction) )
-                  hb_itemRelease(events->events[ i ].bAction);
+               if( events->events[i].bAction != nullptr && HB_IS_BLOCK(events->events[i].bAction) )
+                  hb_itemRelease(events->events[i].bAction);
             }
 
             HB_ATOM_SET(&events->used, 0);
@@ -265,15 +265,15 @@ static LRESULT AppEventDo(EVENTSHOLDER * events, HB_BOOL bOnce, HWND hWnd, UINT 
 {
    size_t nPos = AppEventScan(events, message);
 
-   if( ( nPos > 0 ) && events->active && ( events->events[ nPos - 1 ].active &&
-                                           ( ( events->events[ nPos - 1 ].bAction != nullptr ) && HB_IS_BLOCK(events->events[ nPos - 1 ].bAction) ) ) )
+   if( ( nPos > 0 ) && events->active && ( events->events[nPos - 1].active &&
+                                           ( ( events->events[nPos - 1].bAction != nullptr ) && HB_IS_BLOCK(events->events[nPos - 1].bAction) ) ) )
    {
       PHB_ITEM phWnd = hb_itemPutNInt(nullptr, ( LONG_PTR ) hWnd);
       PHB_ITEM pmessage = hb_itemPutNS(nullptr, message);
       PHB_ITEM pwParam = hb_itemPutNInt(nullptr, ( LONG_PTR ) wParam);
       PHB_ITEM plParam = hb_itemPutNInt(nullptr, ( LONG_PTR ) lParam);
 
-      hb_evalBlock(events->events[ nPos - 1 ].bAction, phWnd, pmessage, pwParam, plParam, nullptr);
+      hb_evalBlock(events->events[nPos - 1].bAction, phWnd, pmessage, pwParam, plParam, nullptr);
 
       hb_itemRelease(phWnd);
       hb_itemRelease(pmessage);
@@ -348,7 +348,7 @@ HB_FUNC( APPEVENTS )
       nPos = AppEventScan(events, message); // arleady exists ?
 
       if( nPos > 0 )
-         hb_itemRelease(events->events[ nPos - 1 ].bAction);
+         hb_itemRelease(events->events[nPos - 1].bAction);
       else
       {
          nPos = bInit ? 1 : AppEventScan(events, 0);
@@ -358,9 +358,9 @@ HB_FUNC( APPEVENTS )
 
       if( nPos > 0 )
       {
-         events->events[ nPos - 1 ].message = message;
-         events->events[ nPos - 1 ].bAction = hb_itemNew(hb_param(3, Harbour::Item::BLOCK));
-         events->events[ nPos - 1 ].active = hb_parldef(4, HB_TRUE);
+         events->events[nPos - 1].message = message;
+         events->events[nPos - 1].bAction = hb_itemNew(hb_param(3, Harbour::Item::BLOCK));
+         events->events[nPos - 1].active = hb_parldef(4, HB_TRUE);
 
          bRes = TRUE;
       }
@@ -424,11 +424,11 @@ HB_FUNC( APPEVENTSUPDATE )
             {
                if( HB_IS_BLOCK(hb_param(3, Harbour::Item::ANY)) )
                {
-                  hb_itemRelease(events->events[ nPos - 1 ].bAction);
-                  events->events[ nPos - 1 ].bAction = hb_itemNew(hb_param(3, Harbour::Item::BLOCK));
+                  hb_itemRelease(events->events[nPos - 1].bAction);
+                  events->events[nPos - 1].bAction = hb_itemNew(hb_param(3, Harbour::Item::BLOCK));
                }
 
-               events->events[ nPos - 1 ].active = hb_parldef(4, HB_TRUE);
+               events->events[nPos - 1].active = hb_parldef(4, HB_TRUE);
 
                bUpd = HB_TRUE;
             }
@@ -469,11 +469,11 @@ HB_FUNC( ENUMAPPEVENTS )
          {
             PHB_ITEM aEvent = hb_itemArrayNew(3);
 
-            hb_arraySetNInt(aEvent, 1, events->events[ i ].message);
-            hb_arraySetL( aEvent, 2, events->events[ i ].active );
+            hb_arraySetNInt(aEvent, 1, events->events[i].message);
+            hb_arraySetL( aEvent, 2, events->events[i].active );
 
-            if( events->events[ i ].bAction != nullptr && HB_IS_BLOCK(events->events[ i ].bAction) )
-               hb_arraySet(aEvent, 3, hb_itemClone(events->events[ i ].bAction));
+            if( events->events[i].bAction != nullptr && HB_IS_BLOCK(events->events[i].bAction) )
+               hb_arraySet(aEvent, 3, hb_itemClone(events->events[i].bAction));
             else
                hb_arraySet(aEvent, 3, nullptr);
 
@@ -530,7 +530,7 @@ static size_t WinEventScan(WINEVENTSHOLDER * events, UINT message)
 
    for( size_t i = 0; i < events->count; i++ )
    {
-      if( message == events->events[ i ].message )
+      if( message == events->events[i].message )
       {
          nPos = ( i + 1 ); break;
       }
@@ -558,11 +558,11 @@ static HB_BOOL WinEventRemove(HWND hWnd, const char * pszProp, UINT message)
 
             if( nPos > 0 )                                           // if found
             {
-               hb_itemRelease(events->events[ nPos - 1 ].bAction); // delete old codeblock
+               hb_itemRelease(events->events[nPos - 1].bAction); // delete old codeblock
 
-               events->events[ nPos - 1 ].message = 0;
-               events->events[ nPos - 1 ].bAction = nullptr;
-               events->events[ nPos - 1 ].active = FALSE;
+               events->events[nPos - 1].message = 0;
+               events->events[nPos - 1].bAction = nullptr;
+               events->events[nPos - 1].active = FALSE;
 
                HB_ATOM_DEC( &events->used );
             }
@@ -571,8 +571,8 @@ static HB_BOOL WinEventRemove(HWND hWnd, const char * pszProp, UINT message)
          {
             for( size_t i = 0; i < events->count; i++ ) // delete all not empty items with codeblocks
             {
-               if( events->events[ i ].bAction != nullptr && HB_IS_BLOCK(events->events[ i ].bAction) )
-                  hb_itemRelease(events->events[ i ].bAction);
+               if( events->events[i].bAction != nullptr && HB_IS_BLOCK(events->events[i].bAction) )
+                  hb_itemRelease(events->events[i].bAction);
             }
 
             HB_ATOM_SET(&events->used, 0);
@@ -603,15 +603,15 @@ static LRESULT WinEventDo(WINEVENTSHOLDER * events, HB_BOOL bOnce, HWND hWnd, UI
 {
    size_t nPos = WinEventScan(events, message);
 
-   if( ( nPos > 0 ) && events->active && ( events->events[ nPos - 1 ].active &&
-                                           ( ( events->events[ nPos - 1 ].bAction != nullptr ) && HB_IS_BLOCK(events->events[ nPos - 1 ].bAction) ) ) )
+   if( ( nPos > 0 ) && events->active && ( events->events[nPos - 1].active &&
+                                           ( ( events->events[nPos - 1].bAction != nullptr ) && HB_IS_BLOCK(events->events[nPos - 1].bAction) ) ) )
    {
       PHB_ITEM phWnd = hb_itemPutNInt(nullptr, ( LONG_PTR ) hWnd);
       PHB_ITEM pmessage = hb_itemPutNS(nullptr, message);
       PHB_ITEM pwParam = hb_itemPutNInt(nullptr, ( LONG_PTR ) wParam);
       PHB_ITEM plParam = hb_itemPutNInt(nullptr, ( LONG_PTR ) lParam);
 
-      hb_evalBlock(events->events[ nPos - 1 ].bAction, phWnd, pmessage, pwParam, plParam, nullptr);
+      hb_evalBlock(events->events[nPos - 1].bAction, phWnd, pmessage, pwParam, plParam, nullptr);
 
       hb_itemRelease(phWnd);
       hb_itemRelease(pmessage);
@@ -686,7 +686,7 @@ HB_FUNC( WINEVENTS )
       nPos = WinEventScan(events, message); // arleady exists ?
 
       if( nPos > 0 )
-         hb_itemRelease(events->events[ nPos - 1 ].bAction);
+         hb_itemRelease(events->events[nPos - 1].bAction);
       else
       {
          nPos = bInit ? 1 : WinEventScan(events, 0);
@@ -696,9 +696,9 @@ HB_FUNC( WINEVENTS )
 
       if( nPos > 0 )
       {
-         events->events[ nPos - 1 ].message = message;
-         events->events[ nPos - 1 ].bAction = hb_itemNew(hb_param(3, Harbour::Item::BLOCK));
-         events->events[ nPos - 1 ].active = hb_parldef(4, HB_TRUE);
+         events->events[nPos - 1].message = message;
+         events->events[nPos - 1].bAction = hb_itemNew(hb_param(3, Harbour::Item::BLOCK));
+         events->events[nPos - 1].active = hb_parldef(4, HB_TRUE);
 
          bRes = TRUE;
       }
@@ -762,11 +762,11 @@ HB_FUNC( WINEVENTSUPDATE )
             {
                if( HB_IS_BLOCK(hb_param(3, Harbour::Item::ANY)) )
                {
-                  hb_itemRelease(events->events[ nPos - 1 ].bAction);
-                  events->events[ nPos - 1 ].bAction = hb_itemNew(hb_param(3, Harbour::Item::BLOCK));
+                  hb_itemRelease(events->events[nPos - 1].bAction);
+                  events->events[nPos - 1].bAction = hb_itemNew(hb_param(3, Harbour::Item::BLOCK));
                }
 
-               events->events[ nPos - 1 ].active = hb_parldef(4, HB_TRUE);
+               events->events[nPos - 1].active = hb_parldef(4, HB_TRUE);
 
                bUpd = HB_TRUE;
             }
@@ -807,11 +807,11 @@ HB_FUNC( ENUMWINEVENTS )
          {
             PHB_ITEM aEvent = hb_itemArrayNew(3);
 
-            hb_arraySetNInt(aEvent, 1, events->events[ i ].message);
-            hb_arraySetL( aEvent, 2, events->events[ i ].active );
+            hb_arraySetNInt(aEvent, 1, events->events[i].message);
+            hb_arraySetL( aEvent, 2, events->events[i].active );
 
-            if( events->events[ i ].bAction != nullptr && HB_IS_BLOCK(events->events[ i ].bAction) )
-               hb_arraySet(aEvent, 3, hb_itemClone(events->events[ i ].bAction));
+            if( events->events[i].bAction != nullptr && HB_IS_BLOCK(events->events[i].bAction) )
+               hb_arraySet(aEvent, 3, hb_itemClone(events->events[i].bAction));
             else
                hb_arraySet(aEvent, 3, nullptr);
 
@@ -1426,14 +1426,14 @@ HB_FUNC( BORLANDC )
    #ifdef __BORLANDC__
 
    const char * pszName;
-   char szSub[ 64 ];
+   char szSub[64];
 
    int iVerMajor;
    int iVerMinor;
    int iVerPatch;
 
    pszCompiler = ( char * ) hb_xgrab(COMPILER_BUF_SIZE);
-   szSub[ 0 ] = '\0';
+   szSub[0] = '\0';
 
    #if ( __BORLANDC__ >= 0x0590 )    /* Version 5.9 */
       #if ( __BORLANDC__ >= 0x0620 ) /* Version 6.2 */
@@ -1502,7 +1502,7 @@ HB_FUNC( HMG_ISALPHA )
    LPWSTR ch = AnsiToWide(( char * ) hb_parc(1));
 #endif
 
-   hb_retl( ( BOOL ) IsCharAlpha(ch[ 0 ]) );
+   hb_retl( ( BOOL ) IsCharAlpha(ch[0]) );
 }
 
 HB_FUNC( HMG_ISDIGIT )
@@ -1513,7 +1513,7 @@ HB_FUNC( HMG_ISDIGIT )
    LPWSTR ch = AnsiToWide(( char * ) hb_parc(1));
 #endif
 
-   hb_retl( ( BOOL ) ( IsCharAlphaNumeric( ch[ 0 ] ) && ! IsCharAlpha(ch[ 0 ]) ) );
+   hb_retl( ( BOOL ) ( IsCharAlphaNumeric( ch[0] ) && ! IsCharAlpha(ch[0]) ) );
 }
 
 #ifdef UNICODE
@@ -1586,7 +1586,7 @@ HB_FUNC( HMG_ISLOWER )
 #else
    LPWSTR Text = AnsiToWide(( char * ) hb_parc(1));
 #endif
-   hb_retl( ( BOOL ) IsCharLower(Text[ 0 ]) );
+   hb_retl( ( BOOL ) IsCharLower(Text[0]) );
 
 #ifdef UNICODE
    hb_xfree(Text);
@@ -1600,7 +1600,7 @@ HB_FUNC( HMG_ISUPPER )
 #else
    LPWSTR Text = AnsiToWide(( char * ) hb_parc(1));
 #endif
-   hb_retl( ( BOOL ) IsCharUpper(Text[ 0 ]) );
+   hb_retl( ( BOOL ) IsCharUpper(Text[0]) );
 
 #ifdef UNICODE
    hb_xfree(Text);

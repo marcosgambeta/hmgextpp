@@ -156,7 +156,7 @@ HB_FUNC( SETPROP )
       }
    }
 
-   lpMem[ 0 ] = chType;
+   lpMem[0] = chType;
    memcpy(lpMem + 1, ( char * ) &nLen, sizeof(int));
 
    switch( chType )
@@ -228,7 +228,7 @@ HB_FUNC( GETPROP )
    }
 
    nLen = ( int ) *( int * ) ( lpMem + 1 );
-   switch( lpMem[ 0 ] )
+   switch( lpMem[0] )
    {
       case 'C':   hb_retclen(lpMem + sizeof(int) + 1, nLen); break;
       case 'L':   hb_retl( ( BOOL ) *( BOOL * ) ( lpMem + sizeof(int) + 1 ) ); break;

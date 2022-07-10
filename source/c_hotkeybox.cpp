@@ -104,7 +104,7 @@ HB_FUNC( C_GETHOTKEYNAME )
 {
    HWND  hWnd;
    WORD  wHotKey;
-   TCHAR szKeyName[ 100 ];
+   TCHAR szKeyName[100];
 
 #ifdef UNICODE
    LPSTR pStr;

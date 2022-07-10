@@ -99,7 +99,7 @@ HB_FUNC( WIN_TASKDIALOG0 )
 
    if( HB_ISCHAR(3) )
    {
-      pszWindowTitle = HB_PARSTRDEF(3, &hText[ iText++ ], nullptr);
+      pszWindowTitle = HB_PARSTRDEF(3, &hText[iText++], nullptr);
    }
    else if( HB_ISNUM(3) )
    {
@@ -112,7 +112,7 @@ HB_FUNC( WIN_TASKDIALOG0 )
 
    if( HB_ISCHAR(4) )
    {
-      pszMainInstruction = HB_PARSTRDEF(4, &hText[ iText++ ], nullptr);
+      pszMainInstruction = HB_PARSTRDEF(4, &hText[iText++], nullptr);
    }
    else if( HB_ISNUM(4) )
    {
@@ -125,7 +125,7 @@ HB_FUNC( WIN_TASKDIALOG0 )
 
    if( HB_ISCHAR(5) )
    {
-      pszContent = HB_PARSTRDEF(5, &hText[ iText++ ], nullptr);
+      pszContent = HB_PARSTRDEF(5, &hText[iText++], nullptr);
    }
    else if( HB_ISNUM(5) )
    {
@@ -168,7 +168,7 @@ HB_FUNC( WIN_TASKDIALOG0 )
    hb_retnint(hResult);
 
    while( --iText >= 0 )
-      hb_strfree(hText[ iText ]);
+      hb_strfree(hText[iText]);
 
    hb_xfree(hText);
 }
@@ -241,7 +241,7 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
       iType = hb_arrayGetType(pConfig, TDC_WINDOWTITLE);
       if( iType & Harbour::Item::STRING )
       {
-         config.pszWindowTitle = HB_PARASTRDEF(1, TDC_WINDOWTITLE, &hText[ iText++ ], nullptr);
+         config.pszWindowTitle = HB_PARASTRDEF(1, TDC_WINDOWTITLE, &hText[iText++], nullptr);
       }
       else if( iType & Harbour::Item::NUMERIC )
       {
@@ -286,7 +286,7 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
       iType = hb_arrayGetType(pConfig, TDC_MAININSTRUCTION);
       if( iType & Harbour::Item::STRING )
       {
-         config.pszMainInstruction = HB_PARASTRDEF(1, TDC_MAININSTRUCTION, &hText[ iText++ ], nullptr);
+         config.pszMainInstruction = HB_PARASTRDEF(1, TDC_MAININSTRUCTION, &hText[iText++], nullptr);
       }
       else if( iType & Harbour::Item::NUMERIC )
       {
@@ -297,7 +297,7 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
       iType = hb_arrayGetType(pConfig, TDC_CONTENT);
       if( iType & Harbour::Item::STRING )
       {
-         config.pszContent = HB_PARASTRDEF(1, TDC_CONTENT, &hText[ iText++ ], nullptr);
+         config.pszContent = HB_PARASTRDEF(1, TDC_CONTENT, &hText[iText++], nullptr);
       }
       else if( iType & Harbour::Item::NUMERIC )
       {
@@ -322,14 +322,14 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
             {
                PHB_ITEM button = hb_arrayGetItemPtr(pButtons, i + 1);
 
-               buttons[ i ].nButtonID = hb_arrayGetNI( button, 1 );
+               buttons[i].nButtonID = hb_arrayGetNI( button, 1 );
                if( ( hb_arrayGetType(button, 2) & Harbour::Item::STRING ) != 0 )
                {
-                  buttons[ i ].pszButtonText = HB_ARRAYGETSTR( button, 2, &hButton[ iButton++ ], nullptr );
+                  buttons[i].pszButtonText = HB_ARRAYGETSTR( button, 2, &hButton[iButton++], nullptr );
                }
                else
                {
-                  buttons[ i ].pszButtonText = MAKEINTRESOURCE(hb_arrayGetNI( button, 2 ));
+                  buttons[i].pszButtonText = MAKEINTRESOURCE(hb_arrayGetNI( button, 2 ));
                }
             }
             config.cButtons = HB_MIN(config.cButtons, ( UINT ) arrsize);
@@ -360,14 +360,14 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
             {
                PHB_ITEM button = hb_arrayGetItemPtr(pButtons, i + 1);
 
-               radiobuttons[ i ].nButtonID = hb_arrayGetNI( button, 1 );
+               radiobuttons[i].nButtonID = hb_arrayGetNI( button, 1 );
                if( ( hb_arrayGetType(button, 2) & Harbour::Item::STRING ) != 0 )
                {
-                  radiobuttons[ i ].pszButtonText = HB_ARRAYGETSTR( button, 2, &hRadioButton[ iRadioButton++ ], nullptr );
+                  radiobuttons[i].pszButtonText = HB_ARRAYGETSTR( button, 2, &hRadioButton[iRadioButton++], nullptr );
                }
                else
                {
-                  radiobuttons[ i ].pszButtonText = MAKEINTRESOURCE(hb_arrayGetNI( button, 2 ));
+                  radiobuttons[i].pszButtonText = MAKEINTRESOURCE(hb_arrayGetNI( button, 2 ));
                }
             }
             config.cRadioButtons = HB_MIN(config.cRadioButtons, ( UINT ) arrsize);
@@ -383,7 +383,7 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
       iType = hb_arrayGetType(pConfig, TDC_VERIFICATIONTEXT);
       if( iType & Harbour::Item::STRING )
       {
-         config.pszVerificationText = HB_PARASTRDEF(1, TDC_VERIFICATIONTEXT, &hText[ iText++ ], nullptr);
+         config.pszVerificationText = HB_PARASTRDEF(1, TDC_VERIFICATIONTEXT, &hText[iText++], nullptr);
       }
       else if( iType & Harbour::Item::NUMERIC )
       {
@@ -398,7 +398,7 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
       iType = hb_arrayGetType(pConfig, TDC_EXPANDEDINFORMATION);
       if( iType & Harbour::Item::STRING )
       {
-         config.pszExpandedInformation = HB_PARASTRDEF(1, TDC_EXPANDEDINFORMATION, &hText[ iText++ ], nullptr);
+         config.pszExpandedInformation = HB_PARASTRDEF(1, TDC_EXPANDEDINFORMATION, &hText[iText++], nullptr);
       }
       else if( iType & Harbour::Item::NUMERIC )
       {
@@ -409,7 +409,7 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
       iType = hb_arrayGetType(pConfig, TDC_EXPANDEDCONTROLTEXT);
       if( iType & Harbour::Item::STRING )
       {
-         config.pszExpandedControlText = HB_PARASTRDEF(1, TDC_EXPANDEDCONTROLTEXT, &hText[ iText++ ], nullptr);
+         config.pszExpandedControlText = HB_PARASTRDEF(1, TDC_EXPANDEDCONTROLTEXT, &hText[iText++], nullptr);
       }
       else if( iType & Harbour::Item::NUMERIC )
       {
@@ -420,7 +420,7 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
       iType = hb_arrayGetType(pConfig, TDC_COLLAPSEDCONTROLTEXT);
       if( iType & Harbour::Item::STRING )
       {
-         config.pszCollapsedControlText = HB_PARASTRDEF(1, TDC_COLLAPSEDCONTROLTEXT, &hText[ iText++ ], nullptr);
+         config.pszCollapsedControlText = HB_PARASTRDEF(1, TDC_COLLAPSEDCONTROLTEXT, &hText[iText++], nullptr);
       }
       else if( iType & Harbour::Item::NUMERIC )
       {
@@ -460,7 +460,7 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
       // 21 PCWSTR pszFooter;
       iType = hb_arrayGetType(pConfig, TDC_FOOTER);
       if( iType & Harbour::Item::STRING )
-         config.pszFooter = HB_PARASTRDEF(1, TDC_FOOTER, &hText[ iText++ ], nullptr);
+         config.pszFooter = HB_PARASTRDEF(1, TDC_FOOTER, &hText[iText++], nullptr);
       else if( iType & Harbour::Item::NUMERIC )
          config.pszFooter = MAKEINTRESOURCE(hb_arrayGetNI( pConfig, TDC_FOOTER ));
 
@@ -489,18 +489,18 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
       /* HB_TRACE(HB_TR_DEBUG, ("win_TaskDialogIndirect0() returns %08lX", hResult));*/
 
       while( --iText >= 0 )
-         hb_strfree(hText[ iText ]);
+         hb_strfree(hText[iText]);
 
       hb_xfree(hText);
 
       while( --iButton >= 0 )
-         hb_strfree(hButton[ iButton ]);
+         hb_strfree(hButton[iButton]);
 
       if( nullptr != hButton )
          hb_xfree(hButton);
 
       while( --iRadioButton >= 0 )
-         hb_strfree(hRadioButton[ iRadioButton ]);
+         hb_strfree(hRadioButton[iRadioButton]);
 
       if( nullptr != hRadioButton )
          hb_xfree(hRadioButton);
@@ -667,9 +667,9 @@ static const char * TD_NotifyToMsg(UINT uiNotification, PHB_ITEM pObj)
 
    for( UINT uiPos = 0; uiPos < ( UINT ) HB_SIZEOFARRAY(s_NOTIFY_MSG); ++uiPos )
    {
-      if( s_NOTIFY_MSG[ uiPos ].Notification == uiNotification )
+      if( s_NOTIFY_MSG[uiPos].Notification == uiNotification )
       {
-         sMsgName = s_NOTIFY_MSG[ uiPos ].MsgName;
+         sMsgName = s_NOTIFY_MSG[uiPos].MsgName;
          break;
       }
    }

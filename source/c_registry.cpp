@@ -114,9 +114,9 @@ HB_FUNC( REGENUMKEYEXA )
 {
    FILETIME ft;
    long     bErr;
-   TCHAR    Buffer[ 255 ];
+   TCHAR    Buffer[255];
    DWORD    dwBuffSize = 255;
-   TCHAR    Class[ 255 ];
+   TCHAR    Class[255];
    DWORD    dwClass = 255;
 
    bErr = RegEnumKeyEx(( HKEY ) HB_PARNL(1), hb_parnl(2), Buffer, &dwBuffSize, nullptr, Class, &dwClass, &ft);
@@ -171,7 +171,7 @@ HB_FUNC( REGCREATEKEY )
 HB_FUNC( REGENUMVALUEA )
 {
    DWORD lpType = 1;
-   TCHAR Buffer[ 255 ];
+   TCHAR Buffer[255];
    DWORD dwBuffSize = 255;
    DWORD dwClass    = 255;
    long  lError;

@@ -50,8 +50,8 @@ static PRINTDLG         pdlg;
 static DOCINFO          di;
 static int           nFromPage = 0;
 static int           nToPage   = 0;
-static TCHAR         PrinterName[ 128 ];
-static TCHAR         PrinterDefault[ 128 ];
+static TCHAR         PrinterName[128];
+static TCHAR         PrinterDefault[128];
 static DWORD         charset = DEFAULT_CHARSET;
 static HFONT         hfont;
 static HPEN          hpen;
@@ -90,7 +90,7 @@ HB_FUNC( RR_FINISH )
    hbrush    = nullptr;
    textjust  = 0;
    memset(&devcaps, 0, sizeof(devcaps));
-   devcaps[ 15 ] = 1;
+   devcaps[15] = 1;
    preview       = 0;
    polyfillmode  = 1;
    hrgn    = nullptr;
@@ -269,26 +269,26 @@ HB_FUNC( RR_GETDEVICECAPS )
       SelectObject(hDCRef, xfont);
 
    GetTextMetrics(hDCRef, &tm);
-   devcaps[ 1 ]  = GetDeviceCaps(hDCRef, VERTSIZE);
-   devcaps[ 2 ]  = GetDeviceCaps(hDCRef, HORZSIZE);
-   devcaps[ 3 ]  = GetDeviceCaps(hDCRef, VERTRES);
-   devcaps[ 4 ]  = GetDeviceCaps(hDCRef, HORZRES);
-   devcaps[ 5 ]  = GetDeviceCaps(hDCRef, LOGPIXELSY);
-   devcaps[ 6 ]  = GetDeviceCaps(hDCRef, LOGPIXELSX);
-   devcaps[ 7 ]  = GetDeviceCaps(hDCRef, PHYSICALHEIGHT);
-   devcaps[ 8 ]  = GetDeviceCaps(hDCRef, PHYSICALWIDTH);
-   devcaps[ 9 ]  = GetDeviceCaps(hDCRef, PHYSICALOFFSETY);
-   devcaps[ 10 ] = GetDeviceCaps(hDCRef, PHYSICALOFFSETX);
+   devcaps[1]  = GetDeviceCaps(hDCRef, VERTSIZE);
+   devcaps[2]  = GetDeviceCaps(hDCRef, HORZSIZE);
+   devcaps[3]  = GetDeviceCaps(hDCRef, VERTRES);
+   devcaps[4]  = GetDeviceCaps(hDCRef, HORZRES);
+   devcaps[5]  = GetDeviceCaps(hDCRef, LOGPIXELSY);
+   devcaps[6]  = GetDeviceCaps(hDCRef, LOGPIXELSX);
+   devcaps[7]  = GetDeviceCaps(hDCRef, PHYSICALHEIGHT);
+   devcaps[8]  = GetDeviceCaps(hDCRef, PHYSICALWIDTH);
+   devcaps[9]  = GetDeviceCaps(hDCRef, PHYSICALOFFSETY);
+   devcaps[10] = GetDeviceCaps(hDCRef, PHYSICALOFFSETX);
 
-   devcaps[ 11 ] = tm.tmHeight;
-   devcaps[ 12 ] = tm.tmAveCharWidth;
-   devcaps[ 13 ] = ( int ) ( ( devcaps[ 3 ] - tm.tmAscent ) / tm.tmHeight );
-   devcaps[ 14 ] = ( int ) ( devcaps[ 4 ] / tm.tmAveCharWidth );
-   devcaps[ 15 ] = ( int ) pi2->pDevMode->dmOrientation;
-   devcaps[ 16 ] = ( int ) tm.tmAscent;
-   devcaps[ 17 ] = ( int ) pi2->pDevMode->dmPaperSize;
+   devcaps[11] = tm.tmHeight;
+   devcaps[12] = tm.tmAveCharWidth;
+   devcaps[13] = ( int ) ( ( devcaps[3] - tm.tmAscent ) / tm.tmHeight );
+   devcaps[14] = ( int ) ( devcaps[4] / tm.tmAveCharWidth );
+   devcaps[15] = ( int ) pi2->pDevMode->dmOrientation;
+   devcaps[16] = ( int ) tm.tmAscent;
+   devcaps[17] = ( int ) pi2->pDevMode->dmPaperSize;
    for( i = 1; i <= hb_parinfa(1, 0); i++ )
-      HB_STORNI( devcaps[ i ], 1, i );
+      HB_STORNI( devcaps[i], 1, i );
 
    if( xfont != 0 )
       SelectObject(hDCRef, hfont);
@@ -382,7 +382,7 @@ HB_FUNC( RR_GETDEFAULTPRINTER )
       if( osvi.dwMajorVersion == 5 ) /* Windows 2000 or XP */
       {
          BOOL  bFlag;
-         TCHAR lpPrinterName[ MAX_BUFFER_SIZE ];
+         TCHAR lpPrinterName[MAX_BUFFER_SIZE];
          _GETDEFAULTPRINTER fnGetDefaultPrinter;
 
          HMODULE hWinSpool = LoadLibrary(TEXT("winspool.drv"));
@@ -561,7 +561,7 @@ HB_FUNC( RR_DEVICECAPABILITIES )
    TCHAR * cBuffer, * pBuffer, * nBuffer, * sBuffer, * bnBuffer, * bwBuffer, * bcBuffer;
    DWORD   numpapers, numbins, i;
    LPPOINT lp;
-   TCHAR   buffer[ sizeof(long) * 8 + 1 ];
+   TCHAR   buffer[sizeof(long) * 8 + 1];
 #ifdef UNICODE
    LPSTR pStr;
 #endif
@@ -590,7 +590,7 @@ HB_FUNC( RR_DEVICECAPABILITIES )
       DeviceCapabilities(pi2->pPrinterName, pi2->pPortName, DC_PAPERS, nBuffer, pi2->pDevMode);
       DeviceCapabilities(pi2->pPrinterName, pi2->pPortName, DC_PAPERSIZE, sBuffer, pi2->pDevMode);
 #endif
-      cBuffer[ 0 ] = 0;
+      cBuffer[0] = 0;
       for( i = 0; i < numpapers; i++ )
       {
          lstrcat(cBuffer, pBuffer);
@@ -645,7 +645,7 @@ HB_FUNC( RR_DEVICECAPABILITIES )
       DeviceCapabilities(pi2->pPrinterName, pi2->pPortName, DC_BINNAMES, bnBuffer, pi2->pDevMode);
       DeviceCapabilities(pi2->pPrinterName, pi2->pPortName, DC_BINS, bwBuffer, pi2->pDevMode);
 #endif
-      bcBuffer[ 0 ] = 0;
+      bcBuffer[0] = 0;
       for( i = 0; i < numbins; i++ )
       {
          lstrcat(bcBuffer, bnBuffer);
@@ -1040,7 +1040,7 @@ HB_FUNC( RR_TEXTOUT )
             SetTextJustification(hDC, ( int ) textjust - szMetric.cx, lspace);
    }
 
-   hb_retl( TextOut(hDC, HB_PARNI(2, 2), HB_PARNI(2, 1) + devcaps[ 16 ], lpText, ( int ) lstrlen(lpText)) );
+   hb_retl( TextOut(hDC, HB_PARNI(2, 2), HB_PARNI(2, 1) + devcaps[16], lpText, ( int ) lstrlen(lpText)) );
    if( xfont != 0 )
       SelectObject(hDC, prevfont);
 
@@ -1179,12 +1179,12 @@ HB_FUNC( RR_CREATEPOLYGONRGN )
 {
    int   number = ( int ) hb_parinfa(1, 0);
    int   i;
-   POINT apoints[ 1024 ];
+   POINT apoints[1024];
 
    for( i = 0; i <= number - 1; i++ )
    {
-      apoints[ i ].x = HB_PARNI(1, i + 1);
-      apoints[ i ].y = HB_PARNI(2, i + 1);
+      apoints[i].x = HB_PARNI(1, i + 1);
+      apoints[i].y = HB_PARNI(2, i + 1);
    }
 
    HB_RETNL( ( LONG_PTR ) CreatePolygonRgn(apoints, number, hb_parni(3)) );
@@ -1495,8 +1495,8 @@ HB_FUNC( RR_DRAWPICTURE )
    if( ipic == nullptr )
       return;
 
-   lw = MulDiv(lwidth, devcaps[ 6 ], 2540);
-   lh = MulDiv(lheight, devcaps[ 5 ], 2540);
+   lw = MulDiv(lwidth, devcaps[6], 2540);
+   lh = MulDiv(lheight, devcaps[5], 2540);
    if( dc == 0 )
       dc = ( int ) ( ( float ) dr * lw / lh );
 
@@ -1619,14 +1619,14 @@ HB_FUNC( RR_POLYGON )
    int      number = ( int ) hb_parinfa(1, 0);
    int      i;
    int      styl = GetPolyFillMode(hDC);
-   POINT    apoints[ 1024 ];
+   POINT    apoints[1024];
    LONG_PTR xpen   = HB_PARNL(3);
    LONG_PTR xbrush = HB_PARNL(4);
 
    for( i = 0; i <= number - 1; i++ )
    {
-      apoints[ i ].x = HB_PARNI(1, i + 1);
-      apoints[ i ].y = HB_PARNI(2, i + 1);
+      apoints[i].x = HB_PARNI(1, i + 1);
+      apoints[i].y = HB_PARNI(2, i + 1);
    }
 
    if( xpen != 0 )
@@ -1652,13 +1652,13 @@ HB_FUNC( RR_POLYBEZIER )
 {
    DWORD    number = ( DWORD ) hb_parinfa(1, 0);
    DWORD    i;
-   POINT    apoints[ 1024 ];
+   POINT    apoints[1024];
    LONG_PTR xpen = HB_PARNL(3);
 
    for( i = 0; i <= number - 1; i++ )
    {
-      apoints[ i ].x = HB_PARNI(1, i + 1);
-      apoints[ i ].y = HB_PARNI(2, i + 1);
+      apoints[i].x = HB_PARNI(1, i + 1);
+      apoints[i].y = HB_PARNI(2, i + 1);
    }
 
    if( xpen != 0 )
@@ -1674,13 +1674,13 @@ HB_FUNC( RR_POLYBEZIERTO )
 {
    DWORD    number = ( DWORD ) hb_parinfa(1, 0);
    DWORD    i;
-   POINT    apoints[ 1024 ];
+   POINT    apoints[1024];
    LONG_PTR xpen = HB_PARNL(3);
 
    for( i = 0; i <= number - 1; i++ )
    {
-      apoints[ i ].x = HB_PARNI(1, i + 1);
-      apoints[ i ].y = HB_PARNI(2, i + 1);
+      apoints[i].x = HB_PARNI(1, i + 1);
+      apoints[i].y = HB_PARNI(2, i + 1);
    }
 
    if( xpen != 0 )
@@ -1968,13 +1968,13 @@ HB_FUNC( RR_PLAYTHUMB )
    i     = hb_parni(4) - 1;
    tmpDC = CreateCompatibleDC(imgDC);
    SetRect(&rect, 0, 0, HB_PARNI(1, 4), HB_PARNI(1, 3));
-   hbmp[ i ] = CreateCompatibleBitmap(imgDC, rect.right, rect.bottom);
-   DeleteObject(SelectObject(tmpDC, hbmp[ i ]));
+   hbmp[i] = CreateCompatibleBitmap(imgDC, rect.right, rect.bottom);
+   DeleteObject(SelectObject(tmpDC, hbmp[i]));
    FillRect(tmpDC, &rect, ( HBRUSH ) GetStockObject(WHITE_BRUSH));
    PlayEnhMetaFile(tmpDC, hh, &rect);
    DeleteEnhMetaFile(hh);
    TextOut(tmpDC, ( int ) rect.right / 2 - 5, ( int ) rect.bottom / 2 - 5, lpText, ( int ) lstrlen(lpText));
-   SendMessage(( HWND ) HB_PARVNL(1, 5), ( UINT ) STM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) hbmp[ i ]);
+   SendMessage(( HWND ) HB_PARVNL(1, 5), ( UINT ) STM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) hbmp[i]);
    ReleaseDC(( HWND ) HB_PARVNL(1, 5), imgDC);
    DeleteDC(tmpDC);
 

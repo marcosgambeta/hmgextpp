@@ -347,7 +347,7 @@ HB_FUNC( TREEVIEW_GETITEM )
    HWND      TreeHandle;
    HTREEITEM TreeItemHandle;
    TV_ITEM   TreeItem;
-   TCHAR     ItemText[ MAX_ITEM_TEXT ];
+   TCHAR     ItemText[MAX_ITEM_TEXT];
 
 #ifdef UNICODE
    LPSTR pStr;
@@ -380,7 +380,7 @@ HB_FUNC( TREEVIEW_SETITEM )
    HWND      TreeHandle;
    HTREEITEM TreeItemHandle;
    TV_ITEM   TreeItem;
-   TCHAR     ItemText[ MAX_ITEM_TEXT ];
+   TCHAR     ItemText[MAX_ITEM_TEXT];
 
 #ifdef UNICODE
    LPWSTR lpText;
@@ -590,9 +590,9 @@ int CALLBACK TreeViewCompareFunc( LPARAM lParam1, LPARAM lParam2, LPARAM lParamS
    BOOL IsTreeNode2;
    int  CmpValue;
 
-   TCHAR   ItemText1[ MAX_ITEM_TEXT ];
+   TCHAR   ItemText1[MAX_ITEM_TEXT];
    TV_ITEM TV_Item1;
-   TCHAR   ItemText2[ MAX_ITEM_TEXT ];
+   TCHAR   ItemText2[MAX_ITEM_TEXT];
    TV_ITEM TV_Item2;
 
    TV_Item1.mask       = TVIF_TEXT;

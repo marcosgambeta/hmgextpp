@@ -149,7 +149,7 @@ HB_FUNC( _HMG_PRINTER_C_PRINT )
 
    HGDIOBJ hgdiobj;
 
-   TCHAR FontName[ 32 ];
+   TCHAR FontName[32];
    int   FontSize;
 
 #ifdef UNICODE
@@ -326,7 +326,7 @@ HB_FUNC( _HMG_PRINTER_C_MULTILINE_PRINT )
 
    HGDIOBJ hgdiobj;
 
-   TCHAR FontName[ 32 ];
+   TCHAR FontName[32];
    int   FontSize;
 
 #ifdef UNICODE
@@ -1464,7 +1464,7 @@ HB_FUNC( GETDEFAULTPRINTER )
    DWORD Needed, Returned;
    DWORD BufferSize = 254;
 
-   TCHAR DefaultPrinter[ 254 ];
+   TCHAR DefaultPrinter[254];
 
 #ifdef UNICODE
    LPSTR pStr;
@@ -1832,7 +1832,7 @@ HB_FUNC( _HMG_PRINTGETJOBINFO )
 #endif
    DWORD      nJobID   = ( DWORD ) hb_parni(2);
    HANDLE     hPrinter = nullptr;
-   TCHAR      cDateTime[ 256 ];
+   TCHAR      cDateTime[256];
    SYSTEMTIME LocalSystemTime;
 
    if( OpenPrinter( cPrinterName, &hPrinter, nullptr ) )

@@ -356,7 +356,7 @@ HB_FUNC( RICHEDITBOX_GETAUTOURLDETECT )
    hb_retl( ( BOOL ) lLink );
 }
 
-//        RichEditBox_SetBkgndColor ( hWndControl, [ aBkgndColor ] )
+//        RichEditBox_SetBkgndColor ( hWndControl, [aBkgndColor] )
 HB_FUNC( RICHEDITBOX_SETBKGNDCOLOR )
 {
    HWND hWndControl = hmg_par_HWND(1);
@@ -642,7 +642,7 @@ HB_FUNC( RICHEDITBOX_GETTEXT )
    HWND hWndControl = hmg_par_HWND(1);
    BOOL lSelect     = hmg_par_BOOL(2);
 
-   TCHAR cBuffer[ 4096 ];
+   TCHAR cBuffer[4096];
 
    GETTEXTEX GT;
 
@@ -693,7 +693,7 @@ HB_FUNC( RICHEDITBOX_GETTEXTRANGE )
 #endif
    HWND hWndControl = hmg_par_HWND(1);
 
-   TCHAR cBuffer[ 4096 ];
+   TCHAR cBuffer[4096];
 
    TEXTRANGE TextRange;
 
@@ -1184,8 +1184,8 @@ HB_FUNC( RICHEDITBOX_POSFROMCHAR )
 // by Dr. Claudio Soto ( January 2014 )
 //********************************************************************
 
-static TCHAR       cFindWhat[ 1024 ];
-static TCHAR       cReplaceWith[ 1024 ];
+static TCHAR       cFindWhat[1024];
+static TCHAR       cReplaceWith[1024];
 static FINDREPLACE FindReplace;
 static HWND        hDlgFindReplace = nullptr;
 
@@ -1272,7 +1272,7 @@ HB_FUNC( FINDREPLACEDLGGETTITLE )
 #ifdef UNICODE
    LPSTR pStr;
 #endif
-   TCHAR cTitle[ 256 ];
+   TCHAR cTitle[256];
 
    if( hDlgFindReplace != nullptr )
    {
