@@ -283,14 +283,18 @@ HB_FUNC( SETLAYEREDWINDOWATTRIBUTES )
             DWORD    dwFlags = hmg_par_DWORD(4);
 
             if( ! ( GetWindowLongPtr(hWnd, GWL_EXSTYLE) & WS_EX_LAYERED ) )
+            {
                SetWindowLongPtr(hWnd, GWL_EXSTYLE, GetWindowLongPtr( hWnd, GWL_EXSTYLE ) | WS_EX_LAYERED);
+            }
 
             hb_retl( fn_SetLayeredWindowAttributes(hWnd, crKey, bAlpha, dwFlags) ? HB_TRUE : HB_FALSE );
          }
       }
    }
    else
+   {
       hb_errRT_BASE_SubstR( EG_ARG, 3012, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+   }
 }
 
 static BOOL CenterIntoParent(HWND hwnd)
@@ -318,13 +322,21 @@ static BOOL CenterIntoParent(HWND hwnd)
 
    // make sure that the child window never moves outside of the screen
    if( x < 0 )
+   {
       x = 0;
+   }
    if( y < 0 )
+   {
       y = 0;
+   }
    if( x + width > screenwidth )
+   {
       x = screenwidth - width;
+   }
    if( y + height > screenheight )
+   {
       y = screenheight - height;
+   }
 
    MoveWindow(hwnd, x, y, width, height, FALSE);
 
@@ -340,7 +352,9 @@ HB_FUNC( C_CENTER )
    hwnd = hmg_par_HWND(1);
 
    if( hb_parl(2) )
+   {
       CenterIntoParent(hwnd);
+   }
    else
    {
       GetWindowRect(hwnd, &rect);
@@ -382,9 +396,13 @@ HB_FUNC( SENDMESSAGE )
    HWND hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) )
+   {
       HB_RETNL( ( LONG_PTR ) SendMessage(hwnd, hmg_par_UINT(2), ( WPARAM ) hb_parnl(3), hmg_par_LPARAM(4)) );
+   }
    else
+   {
       hb_errRT_BASE_SubstR( EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+   }
 }
 
 HB_FUNC( SENDMESSAGESTRING )
@@ -553,7 +571,9 @@ HB_FUNC( GETCURSORPOS )
 
    GetCursorPos(&pt);
    if( hb_pcount() == 1 )
+   {
       ScreenToClient(hmg_par_HWND(1), &pt);
+   }
 
    hb_reta(2);
    if( hb_pcount() == 0 )
@@ -596,9 +616,13 @@ HB_FUNC( CLIENTTOSCREEN )
    hb_retl( ClientToScreen(hmg_par_HWND(1), &pt) );
 
    if( HB_ISBYREF(2) )
+   {
       hb_storni( pt.x, 2 );
+   }
    if( HB_ISBYREF(3) )
+   {
       hb_storni( pt.y, 3 );
+   }
 }
 
 HB_FUNC( LOADTRAYICON )
@@ -617,14 +641,18 @@ HB_FUNC( LOADTRAYICON )
    hIcon = ( HICON ) LoadImage(hInstance, lpIconName, IMAGE_ICON, cxDesired, cyDesired, LR_DEFAULTCOLOR);
 
    if( hIcon == nullptr )
+   {
       hIcon = ( HICON ) LoadImage(hInstance, lpIconName, IMAGE_ICON, cxDesired, cyDesired, LR_LOADFROMFILE | LR_DEFAULTCOLOR);
+   }
 
    RegisterResource(hIcon, "ICON");
    HB_RETNL( ( LONG_PTR ) hIcon );
 
 #ifdef UNICODE
    if( HB_ISCHAR(2) )
+   {
       hb_xfree(( TCHAR * ) lpIconName);
+   }
 #endif
 }
 
@@ -764,7 +792,9 @@ HB_FUNC( ADDSPLITBOXITEM )
 #endif
 
    if( hb_parl(4) )
+   {
       Style = Style | RBBS_BREAK;
+   }
 
    GetWindowRect(hmg_par_HWND(1), &rc);
 
@@ -777,7 +807,9 @@ HB_FUNC( ADDSPLITBOXITEM )
    rbBand.hwndChild = hmg_par_HWND(1);
 
    if( hb_parni(9) )
+   {
       rbBand.fMask = rbBand.fMask | RBBIM_IDEALSIZE;
+   }
 
    if( ! hb_parl(8) )
    {
@@ -791,7 +823,9 @@ HB_FUNC( ADDSPLITBOXITEM )
          rbBand.cxMinChild = hb_parni(9);
       }
       else
+      {
          rbBand.cxMinChild = hb_parni(6) ? hb_parni(6) : 0;
+      }
    }
    else
    {
@@ -814,7 +848,9 @@ HB_FUNC( ADDSPLITBOXITEM )
             rbBand.cxMinChild = hb_parni(9);
          }
          else
+         {
             rbBand.cxMinChild = hb_parni(7) ? hb_parni(7) : rc.bottom - rc.top;
+         }
       }
    }
 
@@ -831,7 +867,9 @@ HB_FUNC( C_SETWINDOWRGN )
    HBITMAP hbmp;
 
    if( hb_parni(6) == 0 )
+   {
       SetWindowRgn(GetActiveWindow(), nullptr, TRUE);
+   }
    else
    {
       switch( hb_parni(6) )
@@ -851,7 +889,9 @@ HB_FUNC( C_SETWINDOWRGN )
          case 4:
             hbmp = ( HBITMAP ) LoadImage(GetResources(), ( TCHAR * ) hb_parc(2), IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION);
             if( hbmp == nullptr )
+            {
                hbmp = ( HBITMAP ) LoadImage(nullptr, ( TCHAR * ) hb_parc(2), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+            }
 
             hRgn = BitmapToRegion(hbmp, ( COLORREF ) RGB(( int ) HB_PARNI(3, 1), ( int ) HB_PARNI(3, 2), ( int ) HB_PARNI(3, 3)), 0x101010);
             DeleteObject(hbmp);
@@ -876,9 +916,13 @@ HB_FUNC( C_SETPOLYWINDOWRGN )
    int   cPoints = ( int ) hb_parinfa(2, 0);
 
    if( hb_parni(4) == 1 )
+   {
       fnPolyFillMode = WINDING;
+   }
    else
+   {
       fnPolyFillMode = ALTERNATE;
+   }
 
    for( int i = 0; i <= cPoints - 1; i++ )
    {
@@ -985,9 +1029,13 @@ HB_FUNC( FINDWINDOWEX )
 
 #ifdef UNICODE
    if( lpszClass != nullptr )
+   {
       hb_xfree(lpszClass);
+   }
    if( lpszWindow != nullptr )
+   {
       hb_xfree(lpszWindow);
+   }
 #endif
 
 }
@@ -998,7 +1046,9 @@ HB_FUNC( GETDS )
    LPNMLVCUSTOMDRAW lplvcd = ( LPNMLVCUSTOMDRAW ) lParam;
 
    if( lplvcd->nmcd.dwDrawStage == CDDS_PREPAINT )
+   {
       hb_retni( CDRF_NOTIFYITEMDRAW );
+   }
    else if( lplvcd->nmcd.dwDrawStage == CDDS_ITEMPREPAINT )
    {
       if( hb_pcount() > 1 )
@@ -1009,9 +1059,13 @@ HB_FUNC( GETDS )
       hb_retni( CDRF_NOTIFYSUBITEMDRAW );
    }
    else if( lplvcd->nmcd.dwDrawStage == ( CDDS_SUBITEM | CDDS_ITEMPREPAINT ) )
+   {
       hb_retni( -1 );
+   }
    else
+   {
       hb_retni( CDRF_DODEFAULT );
+   }
 }
 
 HB_FUNC( GETRC )     // Get ListView CustomDraw Row and Column
@@ -1198,7 +1252,9 @@ HB_FUNC( CREATEPATTERNBRUSH )
 
 #ifdef UNICODE
    if( HB_ISCHAR(1) )
+   {
       hb_xfree(( TCHAR * ) lpImageName);
+   }
 #endif
 }
 
@@ -1313,7 +1369,9 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
                            {
                               b = GetBValue(*p);
                               if( b >= lb && b <= hb )
+                              {
                                  break;   // This pixel is "transparent"
+                              }
                            }
                         }
 
@@ -1335,16 +1393,24 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
                         pr = ( RECT * ) &pData->Buffer;
                         SetRect(&pr[pData->rdh.nCount], x0, y, x, y + 1);
                         if( x0 < pData->rdh.rcBound.left )
+                        {
                            pData->rdh.rcBound.left = x0;
+                        }
 
                         if( y < pData->rdh.rcBound.top )
+                        {
                            pData->rdh.rcBound.top = y;
+                        }
 
                         if( x > pData->rdh.rcBound.right )
+                        {
                            pData->rdh.rcBound.right = x;
+                        }
 
                         if( y + 1 > pData->rdh.rcBound.bottom )
+                        {
                            pData->rdh.rcBound.bottom = y + 1;
+                        }
 
                         pData->rdh.nCount++;
 
@@ -1360,7 +1426,9 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
                               DeleteObject(h);
                            }
                            else
+                           {
                               hRgn = h;
+                           }
 
                            pData->rdh.nCount = 0;
                            SetRect(&pData->rdh.rcBound, MAXLONG, MAXLONG, 0, 0);
@@ -1380,7 +1448,9 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
                   DeleteObject(h);
                }
                else
+               {
                   hRgn = h;
+               }
 
                // Clean up
                GlobalFree(hData);

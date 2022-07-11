@@ -460,17 +460,25 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
       // 21 PCWSTR pszFooter;
       iType = hb_arrayGetType(pConfig, TDC_FOOTER);
       if( iType & Harbour::Item::STRING )
+      {
          config.pszFooter = HB_PARASTRDEF(1, TDC_FOOTER, &hText[iText++], nullptr);
+      }
       else if( iType & Harbour::Item::NUMERIC )
+      {
          config.pszFooter = MAKEINTRESOURCE(hb_arrayGetNI( pConfig, TDC_FOOTER ));
+      }
 
       // 22 PFTASKDIALOGCALLBACK pfCallback;
       // 23 LONG_PTR lpCallbackData;
       if( hb_arrayGetType(pConfig, TDC_CALLBACK) & Harbour::Item::EVALITEM )
+      {
          pCallbackData = hb_itemNew(hb_arrayGetItemPtr(pConfig, TDC_CALLBACK));
+      }
 
       if( hb_arrayGetType(pConfig, 23) & Harbour::Item::OBJECT )
+      {
          pCallbackData = hb_itemNew(hb_arrayGetItemPtr(pConfig, 23));
+      }
 
       if( nullptr != pCallbackData )
       {
@@ -497,28 +505,42 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
          hb_strfree(hButton[iButton]);
 
       if( nullptr != hButton )
+      {
          hb_xfree(hButton);
+      }
 
       while( --iRadioButton >= 0 )
          hb_strfree(hRadioButton[iRadioButton]);
 
       if( nullptr != hRadioButton )
+      {
          hb_xfree(hRadioButton);
+      }
 
       if( hb_arrayGetType(pConfig, TDC_CALLBACK) & Harbour::Item::EVALITEM )
+      {
          hb_itemRelease(( PHB_ITEM ) config.lpCallbackData);
+      }
 
       if( hResult == S_OK )
       {
          if( nButton )
+         {
             hb_storni( nButton, 2 );
+         }
          else
+         {
             hb_stor(2);
+         }
 
          if( nRadioButton )
+         {
             hb_storni( nRadioButton, 3 );
+         }
          else
+         {
             hb_stor(3);
+         }
 
          hb_storl( fVerificationFlagChecked, 4 );
       }
@@ -532,7 +554,9 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
       hb_retnint(hResult);
    }
    else
+   {
       hb_errRT_BASE_SubstR( EG_ARG, 5000, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+   }
 }
 
 static HB_BOOL TD_CheckButton(const PHB_ITEM arrayOfButtons, HB_SIZE arraysize)
@@ -546,10 +570,14 @@ static HB_BOOL TD_CheckButton(const PHB_ITEM arrayOfButtons, HB_SIZE arraysize)
       {
          if( ! ( ( ( hb_arrayGetType(button, 1) & Harbour::Item::NUMERIC ) != 0 ) &&
                  ( ( hb_arrayGetType(button, 2) & ( Harbour::Item::STRING | Harbour::Item::NUMERIC ) ) != 0 ) ) )
+         {
             return HB_FALSE;
+         }
       }
       else
+      {
          return HB_FALSE;
+      }
    }
 
    return HB_TRUE;
@@ -567,7 +595,9 @@ HRESULT CALLBACK __ClsCBFunc( HWND hWnd, UINT uiNotification, WPARAM wParam, LPA
 
       // Standard of Behavior
       if( ( uiNotification == TDN_BUTTON_CLICKED ) && ( wParam == IDOK || wParam == IDCANCEL ) )
+      {
          return S_OK;
+      }
 
       // Get TimedOut property
       hb_objSendMsg(pObject, ( const char * ) "TIMEDOUT", 0);
@@ -591,7 +621,9 @@ HRESULT CALLBACK __ClsCBFunc( HWND hWnd, UINT uiNotification, WPARAM wParam, LPA
                SendMessage(hWnd, TDM_CLICK_BUTTON, IDCANCEL, ( LPARAM ) 0);
             }
             else
+            {
                TD_objSendMsg(pObject, ( const char * ) "ONTIMER", nullptr, hWnd, uiNotification, wParam, lParam);
+            }
 
             return S_OK; // Not reset timer
          }
@@ -600,7 +632,9 @@ HRESULT CALLBACK __ClsCBFunc( HWND hWnd, UINT uiNotification, WPARAM wParam, LPA
       sMsgName = TD_NotifyToMsg(uiNotification, ( PHB_ITEM ) dwRefData);
 
       if( TD_objSendMsg(pObject, sMsgName, &hRes, hWnd, uiNotification, wParam, lParam) )
+      {
          return hRes;
+      }
    }
    else if( iType & Harbour::Item::EVALITEM )
    {
@@ -624,7 +658,9 @@ HRESULT CALLBACK __ClsCBFunc( HWND hWnd, UINT uiNotification, WPARAM wParam, LPA
             hb_vmPush/*ItemRef*/ ( itmStr );
          }
          else
+         {
             hb_vmPushNumInt(lParam);
+         }
 
          hb_vmSend(4);
 
@@ -675,7 +711,9 @@ static const char * TD_NotifyToMsg(UINT uiNotification, PHB_ITEM pObj)
    }
 
    if( ( nullptr != sMsgName ) && hb_objHasMsg(pObj, sMsgName) )
+   {
       return sMsgName;
+   }
 
    return ( const char * ) "LISTENER";
 }
@@ -691,14 +729,20 @@ static BOOL TD_objSendMsg(PHB_ITEM pObject, const char * sMsgName, HRESULT * hRe
       PHB_ITEM itmResult;
 
       if( uiNotification == TDN_HYPERLINK_CLICKED )
+      {
          HB_ITEMPUTSTR( itmLParam, ( HB_WCHAR * ) lParam );
+      }
       else
+      {
          hb_itemPutNInt(itmLParam, lParam);
+      }
 
       itmResult = hb_objSendMsg(pObject, sMsgName, 4, itmHWND, itmNotify, itmWParam, itmLParam);
 
       if( nullptr != hRes )
+      {
          ( *hRes ) = ( hb_itemGetL(  itmResult ) == HB_TRUE ? S_OK : S_FALSE );
+      }
 
       hb_itemRelease(itmResult);
       hb_itemRelease(itmHWND);
@@ -724,7 +768,9 @@ HB_FUNC( _SETWINDOWTITLE )
       SetWindowText(hmg_par_HWND(1), pszText);
 
       if( HB_ISCHAR(2) )
+      {
          hb_strfree(hText);
+      }
    }
 }
 
@@ -776,7 +822,9 @@ HB_FUNC( _SETMAININSTRUCTION )
    SendMessage(hmg_par_HWND(1), TDM_SET_ELEMENT_TEXT, ( WPARAM ) TDE_MAIN_INSTRUCTION, ( LPARAM ) pszMainInstruction);
 
    if( hText )
+   {
       hb_strfree(hText);
+   }
 }
 
 HB_FUNC( _SETCONTENT )
@@ -788,7 +836,9 @@ HB_FUNC( _SETCONTENT )
    SendMessage(hmg_par_HWND(1), TDM_SET_ELEMENT_TEXT, ( WPARAM ) TDE_CONTENT, ( LPARAM ) pszContent);
 
    if( hText )
+   {
       hb_strfree(hText);
+   }
 }
 
 HB_FUNC( _SETFOOTER )
@@ -800,7 +850,9 @@ HB_FUNC( _SETFOOTER )
    SendMessage(hmg_par_HWND(1), TDM_SET_ELEMENT_TEXT, ( WPARAM ) TDE_FOOTER, ( LPARAM ) pszFooter);
 
    if( hText )
+   {
       hb_strfree(hText);
+   }
 }
 
 HB_FUNC( _SETEXPANDEDINFORMATION )
@@ -812,7 +864,9 @@ HB_FUNC( _SETEXPANDEDINFORMATION )
    SendMessage(hmg_par_HWND(1), TDM_SET_ELEMENT_TEXT, ( WPARAM ) TDE_EXPANDED_INFORMATION, ( LPARAM ) pszExpandedInformation);
 
    if( hText )
+   {
       hb_strfree(hText);
+   }
 }
 
 // TDM_SET_PROGRESS_BAR_POS - Sets the position of the progress bar in a task dialog
@@ -858,7 +912,9 @@ HB_FUNC( _UPDATEMAININSTRUCTION )
    SendMessage(hmg_par_HWND(1), TDM_UPDATE_ELEMENT_TEXT, ( WPARAM ) TDE_MAIN_INSTRUCTION, ( LPARAM ) pszMainInstruction);
 
    if( hText )
+   {
       hb_strfree(hText);
+   }
 }
 
 HB_FUNC( _UPDATECONTENT )
@@ -870,7 +926,9 @@ HB_FUNC( _UPDATECONTENT )
    SendMessage(hmg_par_HWND(1), TDM_UPDATE_ELEMENT_TEXT, ( WPARAM ) TDE_CONTENT, ( LPARAM ) pszContent);
 
    if( hText )
+   {
       hb_strfree(hText);
+   }
 }
 
 HB_FUNC( _UPDATEFOOTER )
@@ -882,7 +940,9 @@ HB_FUNC( _UPDATEFOOTER )
    SendMessage(hmg_par_HWND(1), TDM_UPDATE_ELEMENT_TEXT, ( WPARAM ) TDE_FOOTER, ( LPARAM ) pszFooter);
 
    if( hText )
+   {
       hb_strfree(hText);
+   }
 }
 
 HB_FUNC( _UPDATEEXPANDEDINFORMATION )
@@ -894,14 +954,18 @@ HB_FUNC( _UPDATEEXPANDEDINFORMATION )
    SendMessage(hmg_par_HWND(1), TDM_UPDATE_ELEMENT_TEXT, ( WPARAM ) TDE_EXPANDED_INFORMATION, ( LPARAM ) pszExpandedInformation);
 
    if( HB_ISCHAR(2) )
+   {
       hb_strfree(hText);
+   }
 }
 
 /* TODO */
 HB_FUNC( _UPDATEMAINICON )
 {
    if( HB_ISNUM(2) )
+   {
       SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_MAIN, ( LPARAM ) MAKEINTRESOURCE(hb_parni(2)));
+   }
    else if( HB_ISCHAR(2) )
    {
       void * hText;
@@ -911,16 +975,22 @@ HB_FUNC( _UPDATEMAINICON )
       hb_strfree(hText);
    }
    else if( HB_ISPOINTER(2) )
+   {
       SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_MAIN, ( LPARAM ) ( HICON ) hb_parptr(2));
+   }
    else
+   {
       SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_MAIN, ( LPARAM ) nullptr);
+   }
 }
 
 /* TODO */
 HB_FUNC( _UPDATEFOOTERICON )
 {
    if( HB_ISNUM(2) )
+   {
       SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_FOOTER, ( LPARAM ) MAKEINTRESOURCE(hb_parni(2)));
+   }
    else if( HB_ISCHAR(2) )
    {
       void * hText;
@@ -930,9 +1000,13 @@ HB_FUNC( _UPDATEFOOTERICON )
       hb_strfree(hText);
    }
    else if( HB_ISPOINTER(2) )
+   {
       SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_FOOTER, ( LPARAM ) ( HICON ) hb_parptr(2));
+   }
    else
+   {
       SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_FOOTER, ( LPARAM ) nullptr);
+   }
 }
 
 #endif

@@ -282,7 +282,9 @@ static HINSTANCE hUxTheme;
 HINSTANCE InitUxTheme(void)
 {
    if( hUxTheme == nullptr )
+   {
       hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
+   }
 
    return hUxTheme;
 }
@@ -311,13 +313,17 @@ HB_FUNC( ISTHEMEACTIVE )
    BOOL bRet = FALSE;
 
    if( hUxTheme == nullptr )
+   {
       hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
+   }
 
    if( hUxTheme )
    {
       fnIsThemeActive pfn = ( fnIsThemeActive ) wapi_GetProcAddress(hUxTheme, "IsThemeActive");
       if( pfn )
+      {
          bRet = ( BOOL ) pfn();
+      }
    }
 
    hb_retl( bRet );
@@ -328,13 +334,17 @@ HB_FUNC( ISAPPTHEMED )
    BOOL bRet = FALSE;
 
    if( hUxTheme == nullptr )
+   {
       hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
+   }
 
    if( hUxTheme )
    {
       fnIsAppThemed pfn = ( fnIsAppThemed ) wapi_GetProcAddress(hUxTheme, "IsAppThemed");
       if( pfn )
+      {
          bRet = ( BOOL ) pfn();
+      }
    }
 
    hb_retl( bRet );
@@ -348,17 +358,23 @@ HB_FUNC( OPENTHEMEDATA )
    LPCWSTR pszClassList = ( LPCWSTR ) hb_parc(2);
 
    if( hUxTheme == nullptr )
+   {
       hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
+   }
 
    if( hUxTheme )
    {
       fnOpenThemeData pfn = ( fnOpenThemeData ) wapi_GetProcAddress(hUxTheme, "OpenThemeData");
       if( pfn )
+      {
          nRet = ( HTHEME ) pfn(hWnd, pszClassList);
+      }
    }
 
    if( nRet != nullptr )
+   {
       HB_RETNL( ( LONG_PTR ) nRet );
+   }
 }
 
 HB_FUNC( CLOSETHEMEDATA )
@@ -368,17 +384,23 @@ HB_FUNC( CLOSETHEMEDATA )
    HTHEME hTheme = ( HTHEME ) HB_PARNL(1);
 
    if( hUxTheme == nullptr )
+   {
       hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
+   }
 
    if( hUxTheme )
    {
       fnCloseThemeData pfn = ( fnCloseThemeData ) wapi_GetProcAddress(hUxTheme, "CloseThemeData");
       if( pfn )
+      {
          nRet = ( HRESULT ) pfn(hTheme);
+      }
    }
 
    if( nRet != ( LONG_PTR ) nullptr )
+   {
       HB_RETNL( ( LONG_PTR ) nRet );
+   }
 }
 
 HB_FUNC( DRAWTHEMEBACKGROUND )
@@ -397,13 +419,17 @@ HB_FUNC( DRAWTHEMEBACKGROUND )
    Array2Rect(hb_param(6, Harbour::Item::ARRAY), &pClipRect);
 
    if( hUxTheme == nullptr )
+   {
       hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
+   }
 
    if( hUxTheme )
    {
       fnDrawThemeBackground pfn = ( fnDrawThemeBackground ) wapi_GetProcAddress(hUxTheme, "DrawThemeBackground");
       if( pfn )
+      {
          nRet = ( HRESULT ) pfn(hTheme, hDC, iPartId, iStateId, &pRect, &pClipRect);
+      }
    }
 
    hb_retl( ( nRet == S_OK ) );
@@ -418,16 +444,22 @@ HB_FUNC( DRAWTHEMEPARENTBACKGROUND )
    RECT pRect;
 
    if( HB_ISARRAY(7) )
+   {
       Array2Rect(hb_param(3, Harbour::Item::ARRAY), &pRect);
+   }
 
    if( hUxTheme == nullptr )
+   {
       hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
+   }
 
    if( hUxTheme )
    {
       fnDrawThemeParentBackground pfn = ( fnDrawThemeParentBackground ) wapi_GetProcAddress(hUxTheme, "DrawThemeParentBackground");
       if( pfn )
+      {
          nRet = ( HRESULT ) pfn(hWnd, hDC, &pRect);
+      }
    }
 
    hb_retl( ( nRet == S_OK ) );
@@ -442,13 +474,17 @@ HB_FUNC( SETWINDOWTHEME )
    LPCWSTR pszSubIdList  = ( LPCWSTR ) hb_parc(3);
 
    if( hUxTheme == nullptr )
+   {
       hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
+   }
 
    if( hUxTheme )
    {
       fnSetWindowTheme pfn = ( fnSetWindowTheme ) wapi_GetProcAddress(hUxTheme, "SetWindowTheme");
       if( pfn )
+      {
          nRet = ( HRESULT ) pfn(hWnd, pszSubAppName, pszSubIdList);
+      }
    }
 
    hb_retl( ( nRet == S_OK ) );
@@ -462,13 +498,17 @@ HB_FUNC( ENABLETHEMEDIALOGTEXTURE )
    DWORD flags = hb_parnl(2);
 
    if( hUxTheme == nullptr )
+   {
       hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
+   }
 
    if( hUxTheme )
    {
       fnEnableThemeDialogTexture pfn = ( fnEnableThemeDialogTexture ) wapi_GetProcAddress(hUxTheme, "EnableThemeDialogTexture");
       if( pfn )
+      {
          nRet = ( HRESULT ) pfn(hWnd, flags);
+      }
    }
 
    hb_retl( ( nRet == S_OK ) );

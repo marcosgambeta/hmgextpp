@@ -75,7 +75,9 @@ HB_FUNC( INITBROWSE )
    style = LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_CHILD | WS_VISIBLE | LVS_REPORT;
 
    if( ! hb_parl(7) )
+   {
       style = style | WS_TABSTOP;
+   }
 
    hwnd = hmg_par_HWND(1);
 
@@ -108,6 +110,7 @@ LRESULT APIENTRY SubClassFunc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
       // MessageBox(GetActiveWindow(), res, "", MB_OK | MB_ICONINFORMATION);
 
       if( ( short ) HIWORD(wParam) > 0 )
+      {
          keybd_event
          (
             VK_UP,   // virtual-key code
@@ -115,7 +118,9 @@ LRESULT APIENTRY SubClassFunc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
             0,       // flags specifying various function options
             0        // additional data associated with keystroke
          );
+      }
       else
+      {
          keybd_event
          (
             VK_DOWN, // virtual-key code
@@ -123,11 +128,14 @@ LRESULT APIENTRY SubClassFunc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
             0,       // flags specifying various function options
             0        // additional data associated with keystroke
          );
+      }
 
       return CallWindowProc(lpfnOldWndProc, hWnd, 0, 0, 0);
    }
    else
+   {
       return CallWindowProc(lpfnOldWndProc, hWnd, msg, wParam, lParam);
+   }
 }
 
 HB_FUNC( INITVSCROLLBAR )

@@ -81,30 +81,42 @@ HB_FUNC( INITRICHEDITBOX )
    Style = ES_MULTILINE | ES_WANTRETURN | WS_CHILD | ES_NOHIDESEL;
 
    if( hb_parl(10) )
+   {
       Style = Style | ES_READONLY;
+   }
 
    if( ! hb_parl(11) )
+   {
       Style = Style | WS_VISIBLE;
+   }
 
    if( ! hb_parl(12) )
+   {
       Style = Style | WS_TABSTOP;
+   }
 
    if( ! hb_parl(13) )
+   {
       Style = Style | WS_HSCROLL;
+   }
 
    Style = ( hb_parl(14) ) ? ( Style | ES_AUTOVSCROLL ) : ( Style | WS_VSCROLL );
 
    if( IsWinxpSp1Min() )
    {
       if( ! hRELib )
+      {
          hRELib = LoadLibrary(TEXT("Msftedit.dll"));
+      }
 
       lpClassName = MSFTEDIT_CLASS;
    }
    else
    {
       if( ! hRELib )
+      {
          hRELib = LoadLibrary(TEXT("RichEd20.dll"));
+      }
 
       lpClassName = RICHEDIT_CLASS;
    }
@@ -148,7 +160,9 @@ DWORD CALLBACK EditStreamCallbackR( DWORD_PTR dwCookie, LPBYTE lpbBuff, LONG cb,
    HANDLE hFile = ( HANDLE ) dwCookie;
 
    if( ! ReadFile(hFile, ( LPVOID ) lpbBuff, cb, ( LPDWORD ) pcb, nullptr) )
+   {
       return ( DWORD ) -1;
+   }
 
    return 0;
 }
@@ -158,7 +172,9 @@ DWORD CALLBACK EditStreamCallbackW(DWORD_PTR dwCookie, LPBYTE lpbBuff, LONG cb, 
    HANDLE hFile = ( HANDLE ) dwCookie;
 
    if( ! WriteFile(hFile, ( LPVOID ) lpbBuff, cb, ( LPDWORD ) pcb, nullptr) )
+   {
       return ( DWORD ) -1;
+   }
 
    return 0;
 }
@@ -212,9 +228,13 @@ HB_FUNC( STREAMIN )        //StreamIn(HWND hwndCtrl, LPCTSTR lpszPath, int typ )
    CloseHandle(hFile);
 
    if( es.dwError )
+   {
       hb_retl( FALSE );
+   }
    else
+   {
       hb_retl( TRUE );
+   }
 }
 
 HB_FUNC( STREAMOUT )       //StreamOut(HWND hwndCtrl, LPCTSTR lpszPath, int Typ )
@@ -265,9 +285,13 @@ HB_FUNC( STREAMOUT )       //StreamOut(HWND hwndCtrl, LPCTSTR lpszPath, int Typ 
    CloseHandle(hFile);
 
    if( es.dwError )
+   {
       hb_retl( FALSE );
+   }
    else
+   {
       hb_retl( TRUE );
+   }
 }
 
 HB_FUNC( GETAUTOFONTRTF )  // GetAutoFont(HWND hwnd)
@@ -279,9 +303,13 @@ HB_FUNC( GETAUTOFONTRTF )  // GetAutoFont(HWND hwnd)
    lAuto = SendMessage(hwnd, EM_GETLANGOPTIONS, 0, 0) & IMF_AUTOFONT;
 
    if( lAuto )
+   {
       hb_retl( TRUE );
+   }
    else
+   {
       hb_retl( FALSE );
+   }
 }
 
 HB_FUNC( SETAUTOFONTRTF )  // SetAutoFont(HWND hwnd, lAutoFont)
@@ -293,16 +321,24 @@ HB_FUNC( SETAUTOFONTRTF )  // SetAutoFont(HWND hwnd, lAutoFont)
    lOpt = SendMessage(hwnd, EM_GETLANGOPTIONS, 0, 0);
 
    if( hb_parl(2) )
+   {
       lOpt &= IMF_AUTOFONT;
+   }
    else
+   {
       lOpt &= ~IMF_AUTOFONT;
+   }
 
    lResult = SendMessage(hwnd, EM_SETLANGOPTIONS, 0, lOpt);
 
    if( lResult )
+   {
       hb_retl( TRUE );
+   }
    else
+   {
       hb_retl( FALSE );
+   }
 }
 
 HB_FUNC( SETBKGNDCOLOR )   // SetBkgndColor(HWND hwnd, lSyscol, nRed, nGreen, nBlue)
@@ -313,7 +349,9 @@ HB_FUNC( SETBKGNDCOLOR )   // SetBkgndColor(HWND hwnd, lSyscol, nRed, nGreen, nB
 
    bkgcolor = ( COLORREF ) RGB(hb_parni(3), hb_parni(4), hb_parni(5));
    if( hb_parl(2) )
+   {
       syscol = 0;
+   }
 
    lResult = SendMessage(hmg_par_HWND(1), ( UINT ) EM_SETBKGNDCOLOR, ( WPARAM ) syscol, ( LPARAM ) bkgcolor);
 
@@ -337,9 +375,13 @@ HB_FUNC( GETFONTRTF )
    cF.cbSize = sizeof(CHARFORMAT);
    cF.dwMask = CFM_BOLD | CFM_ITALIC | CFM_UNDERLINE | CFM_SIZE;
    if( hb_parni(2) > 0 )
+   {
       SelText = SCF_SELECTION;
+   }
    else
+   {
       SelText = SCF_DEFAULT;
+   }
 
    SendMessage(hmg_par_HWND(1), EM_GETCHARFORMAT, ( WPARAM ) SelText, ( LPARAM ) &cF);
 
@@ -385,42 +427,64 @@ HB_FUNC( SETFONTRTF )
    Mask      = ( DWORD ) SendMessage(hmg_par_HWND(1), EM_GETCHARFORMAT, ( WPARAM ) SelText, ( LPARAM ) &cF);
 
    if( hb_parni(10) > 0 )
+   {
       Mask = hb_parni(10);
+   }
 
    if( hb_parni(2) > 0 )
+   {
       SelText = SCF_SELECTION | SCF_WORD;
+   }
 
    if( hb_parni(2) < 0 )
+   {
       SelText = SCF_ALL;
+   }
 
    if( hb_parl(5) )
+   {
       Effects = Effects | CFE_BOLD;
+   }
 
    if( hb_parl(6) )
+   {
       Effects = Effects | CFE_ITALIC;
+   }
 
    if( hb_parl(8) )
+   {
       Effects = Effects | CFE_UNDERLINE;
+   }
 
    if( hb_parl(9) )
+   {
       Effects = Effects | CFE_STRIKEOUT;
+   }
 
    cF.dwMask    = Mask;
    cF.dwEffects = Effects;
    if( hb_parnl(4) )
+   {
       cF.yHeight = hb_parnl(4) * 20;
+   }
 
    cF.crTextColor = hb_parnl(7);
 
    if( hb_parclen(3) > 0 )
+   {
       lstrcpy(cF.szFaceName, szFaceName);
+   }
 
    lResult = SendMessage(hmg_par_HWND(1), EM_SETCHARFORMAT, ( WPARAM ) SelText, ( LPARAM ) &cF);
 
    if( lResult )
+   {
       hb_retl( TRUE );
+   }
    else
+   {
       hb_retl( FALSE );
+   }
 }
 
 #if defined( _MSC_VER )
@@ -438,12 +502,16 @@ static BOOL IsWinxpSp1Min(void)
    osvi.dwOSVersionInfoSize = sizeof(osvi);
 
    if( ! GetVersionEx(&osvi) )
+   {
       return FALSE;
+   }
 
    if( osvi.dwMajorVersion >= 5 )
    {
       if( osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 0 )
+      {
          return FALSE;
+      }
       else if( osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 1 )
       {
 #ifndef UNICODE
@@ -452,9 +520,13 @@ static BOOL IsWinxpSp1Min(void)
          pch = _tcsstr( osvi.szCSDVersion, TEXT("Service Pack") );
 #endif
          if( lstrcmpi( pch, TEXT("Service Pack 1") ) >= 0 )
+         {
             return TRUE;
+         }
          else
+         {
             return FALSE;
+         }
       }
       return TRUE;
    }

@@ -82,24 +82,40 @@ HB_FUNC( CHOOSEFONT )
    lf.lfHeight = -MulDiv(hb_parnl(2), GetDeviceCaps(hdc, LOGPIXELSY), 72);
 
    if( hb_parl(3) )
+   {
       lf.lfWeight = 700;
+   }
    else
+   {
       lf.lfWeight = 400;
+   }
 
    if( hb_parl(4) )
+   {
       lf.lfItalic = TRUE;
+   }
    else
+   {
       lf.lfItalic = FALSE;
+   }
 
    if( hb_parl(6) )
+   {
       lf.lfUnderline = TRUE;
+   }
    else
+   {
       lf.lfUnderline = FALSE;
+   }
 
    if( hb_parl(7) )
+   {
       lf.lfStrikeOut = TRUE;
+   }
    else
+   {
       lf.lfStrikeOut = FALSE;
+   }
 
    lf.lfCharSet = ( BYTE ) ( HB_ISNIL(8) ? DEFAULT_CHARSET : hb_parni(8) );
 
@@ -136,9 +152,13 @@ HB_FUNC( CHOOSEFONT )
    PointSize = -MulDiv(lf.lfHeight, 72, GetDeviceCaps(hdc, LOGPIXELSY));
 
    if( lf.lfWeight == 700 )
+   {
       bold = 1;
+   }
    else
+   {
       bold = 0;
+   }
 
    hb_reta(8);
 #ifndef UNICODE
@@ -190,20 +210,28 @@ HB_FUNC( C_GETFILE )
          p += strlen(p) + 1;
       }
       else
+      {
          break;
+      }
    }
 #endif
 
    buffer[0] = 0;
 
    if( hb_parl(4) )
+   {
       flags = flags | OFN_ALLOWMULTISELECT | OFN_EXPLORER;
+   }
 
    if( hb_parl(5) )
+   {
       flags = flags | OFN_NOCHANGEDIR;
+   }
 
    if( hb_parni(6) )
+   {
       iFilterIndex = hb_parni(6);
+   }
 
    memset(( void * ) &ofn, 0, sizeof(OPENFILENAME));
    ofn.lStructSize = sizeof(ofn);
@@ -280,11 +308,13 @@ HB_FUNC( C_GETFILE )
       }
    }
    else
+   {
 #ifndef UNICODE
       hb_retc( "" );
 #else
       hb_retc( WideToAnsi(TEXT("")) );
 #endif
+   }
 
 #ifdef UNICODE
    hb_xfree(pW1);
@@ -318,21 +348,31 @@ HB_FUNC( C_PUTFILE ) // JK JP
          p += strlen(p) + 1;
       }
       else
+      {
          break;
+      }
    }
 #endif
 
    if( hb_parl(4) )
+   {
       flags |= OFN_NOCHANGEDIR;
+   }
 
    if( hb_parl(7) )  // p.d. 12/05/2016
+   {
       flags |= OFN_OVERWRITEPROMPT;
+   }
 
 #ifndef UNICODE
    if( hb_parclen(5) > 0 )
+   {
       strcpy(buffer, hb_parc(5));
+   }
    else
+   {
       strcpy(buffer, "");
+   }
 #else
    pW = AnsiToWide(hb_parc(5));
    lstrcpy(buffer, pW);
@@ -342,7 +382,9 @@ HB_FUNC( C_PUTFILE ) // JK JP
    lstrcpy(cExt, TEXT(""));
 
    if( hb_parni(6) )
+   {
       iFilterIndex = hb_parni(6);
+   }
 
    memset(( void * ) &ofn, 0, sizeof(OPENFILENAME));
    ofn.lStructSize = sizeof(ofn);
@@ -373,7 +415,9 @@ HB_FUNC( C_PUTFILE ) // JK JP
          ofn.lpstrFile = lstrcat(ofn.lpstrFile, ofn.lpstrDefExt);
       }
       if( HB_ISBYREF(6) )
+      {
          hb_storni( ( int ) ofn.nFilterIndex, 6 );
+      }
 
 #ifndef UNICODE
       hb_retc( ofn.lpstrFile );
@@ -384,11 +428,13 @@ HB_FUNC( C_PUTFILE ) // JK JP
 #endif
    }
    else
+   {
 #ifndef UNICODE
       hb_retc( "" );
 #else
       hb_retc( WideToAnsi(TEXT("")) );
 #endif
+   }
 
 #ifdef UNICODE
    hb_xfree(pW1);
@@ -407,7 +453,8 @@ int CALLBACK BrowseCallbackProc(HWND hWnd, UINT uMsg, LPARAM lParam, LPARAM lpDa
 
    switch( uMsg )
    {
-      case BFFM_INITIALIZED:  if( lpData )
+      case BFFM_INITIALIZED:
+         if( lpData )
          {
             SendMessage(hWnd, BFFM_SETSELECTION, TRUE, lpData);
 #ifndef UNICODE
@@ -417,8 +464,11 @@ int CALLBACK BrowseCallbackProc(HWND hWnd, UINT uMsg, LPARAM lParam, LPARAM lpDa
 #endif
          }
          break;
-      case BFFM_VALIDATEFAILED:  MessageBeep(MB_ICONHAND); return 1;
-      case BFFM_SELCHANGED:   if( lpData )
+      case BFFM_VALIDATEFAILED:
+         MessageBeep(MB_ICONHAND);
+         return 1;
+      case BFFM_SELCHANGED:
+         if( lpData )
          {
             SHGetPathFromIDList(( LPITEMIDLIST ) lParam, szPath);
             SendMessage(hWnd, BFFM_SETSTATUSTEXT, 0, ( LPARAM ) szPath);
@@ -484,7 +534,9 @@ HB_FUNC( C_BROWSEFORFOLDER )  // Syntax: C_BROWSEFORFOLDER([<hWnd>],[<cTitle>],[
 #endif
    }
    else
+   {
       hb_retc( "" );
+   }
 
    CoTaskMemFree(pidlBrowse);
    #ifdef UNICODE
@@ -512,9 +564,13 @@ HB_FUNC( CHOOSECOLOR )
    cc.Flags        = ( WORD ) ( HB_ISNIL(4) ? CC_ANYCOLOR | CC_FULLOPEN | CC_RGBINIT : hb_parnl(4) );
 
    if( ! ChooseColor(&cc) )
+   {
       hb_retnl( -1 );
+   }
    else
+   {
       hb_retnl( cc.rgbResult );
+   }
 }
 
 HB_FUNC( UNITSTOPIXELSX )

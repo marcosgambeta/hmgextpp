@@ -93,7 +93,9 @@ HB_FUNC( SETPROP )
    hb_retl( HB_FALSE );
    // check params
    if( ! IsWindow(hwnd) || hb_parclen(2) == 0 )
+   {
       return;
+   }
 
    // check data
    if( HB_ISCHAR(3) )
@@ -114,9 +116,13 @@ HB_FUNC( SETPROP )
    else if( HB_IS_NUMINT(hb_param(3, Harbour::Item::ANY)) )
    {
       if( ( BOOL ) hb_parldef(4, HB_FALSE) )
+      {
          chType = 'X';                 // if 'X' memory HANDLE passed
+      }
       else
+      {
          chType = 'I';                 // int
+      }
 
       nLen = sizeof(INT);
    }
@@ -126,7 +132,9 @@ HB_FUNC( SETPROP )
       nLen   = sizeof(double);
    }
    else                 // unsupported type
+   {
       return;
+   }
 
    // direct assignment of a long value
    if( chType == 'X' )
@@ -145,7 +153,9 @@ HB_FUNC( SETPROP )
 
    // type conversion
    if( (hMem = GlobalAlloc(GPTR, nLen + sizeof(int) + 1)) == nullptr )
+   {
       return;
+   }
    else
    {
       lpMem = ( char * ) GlobalLock(hMem);
@@ -201,7 +211,9 @@ HB_FUNC( GETPROP )
    hb_ret();
    // check params
    if( ! IsWindow(hwnd) || hb_parclen(2) == 0 )
+   {
       return;
+   }
 
    if( hb_parldef(3, HB_FALSE) )
    {
@@ -218,13 +230,17 @@ HB_FUNC( GETPROP )
 #endif
 
    if( nullptr == hMem )
+   {
       return;
+   }
    else
    {
       lpMem = ( char * ) GlobalLock(hMem);
 
       if( lpMem == nullptr )
+      {
          return;
+      }
    }
 
    nLen = ( int ) *( int * ) ( lpMem + 1 );
@@ -253,7 +269,9 @@ HB_FUNC( REMOVEPROP )
    hb_ret();
 
    if( ! IsWindow(hwnd) || ( hb_parclen(2) == 0 ) )
+   {
       return;
+   }
 
 #ifndef UNICODE
    hMem = RemovePropA(hwnd, hb_parc(2));
@@ -269,7 +287,9 @@ HB_FUNC( REMOVEPROP )
    }
    // !!!
    if( nullptr != hMem )
+   {
       HB_RETNL( ( LONG_PTR ) hMem );      // ( ( ULONG_PTR ) hMem )
+   }
 }
 
 
@@ -354,9 +374,13 @@ HB_FUNC( ENUMPROPSEX )
    PHB_ITEM pCodeBlock = hb_param(2, Harbour::Item::BLOCK);
 
    if( IsWindow(hWnd) && pCodeBlock )
+   {
       hb_retni( EnumPropsEx(hWnd, ( PROPENUMPROCEX ) PropsEnumProcEx, ( LPARAM ) pCodeBlock) );
+   }
    else
+   {
       hb_retni( -2 );
+   }
 }
 
 BOOL CALLBACK PropsEnumProcEx(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULONG_PTR lParam)

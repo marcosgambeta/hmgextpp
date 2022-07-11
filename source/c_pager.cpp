@@ -108,10 +108,14 @@ HB_FUNC( PAGERCALCSIZE )   // PagerCalcSize(lParam , nWidth)
 
    lpCalcSize = ( LPNMPGCALCSIZE ) HB_PARNL(1);
    if( lpCalcSize->dwFlag == PGF_CALCWIDTH )
+   {
       lpCalcSize->iWidth = hmg_par_INT(2);
+   }
 
    if( lpCalcSize->dwFlag == PGF_CALCHEIGHT )
+   {
       lpCalcSize->iHeight = hmg_par_INT(2);
+   }
 }
 
 HB_FUNC( PAGERSCROLL )     // PagerScroll(lParam , nScroll)
@@ -147,12 +151,18 @@ HB_FUNC( INITPAGER )       // InitPager ( ParentForm, hRebar, nWidth, nHeight, v
    nHeight = hmg_par_INT(3);
 
    if( hb_parl(4) )
+   {
       Style = Style | PGS_VERT;
+   }
    else
+   {
       Style = Style | PGS_HORZ;
+   }
 
    if( hb_parl(5) )
+   {
       Style = Style | PGS_AUTOSCROLL;
+   }
 
    ZeroMemory(&rbBand, sizeof(REBARBANDINFO));
    rbBand.cbSize     = sizeof(REBARBANDINFO);
@@ -164,7 +174,9 @@ HB_FUNC( INITPAGER )       // InitPager ( ParentForm, hRebar, nWidth, nHeight, v
    hPager = CreateWindowEx(0, WC_PAGESCROLLER, nullptr, Style, 0, 0, 0, 0, hRebar, nullptr, GetInstance(), nullptr);
 
    if( hb_parclen(6) > 0 )
+   {
       rbBand.lpText = lpText;
+   }
 
    rbBand.hwndChild = hPager;
 

@@ -71,19 +71,29 @@ HB_FUNC( INITLISTBOX )
    hwnd = hmg_par_HWND(1);
 
    if( ! hb_parl(9) )
+   {
       Style = Style | WS_VISIBLE;
+   }
 
    if( ! hb_parl(10) )
+   {
       Style = Style | WS_TABSTOP;
+   }
 
    if( hb_parl(11) )
+   {
       Style = Style | LBS_SORT;
+   }
 
    if( hb_parl(13) )
+   {
       Style = Style | LBS_USETABSTOPS;
+   }
 
    if( hb_parl(14) )
+   {
       Style = Style | LBS_MULTICOLUMN | WS_HSCROLL;
+   }
 
    hbutton = CreateWindowEx
              (
@@ -102,10 +112,14 @@ HB_FUNC( INITLISTBOX )
              );
 
    if( hb_parl(12) )
+   {
       MakeDragList(hbutton);
+   }
 
    if( hb_parl(14) )
+   {
       SendMessage(hbutton, LB_SETCOLUMNWIDTH, ( WPARAM ) ( hb_parni(5) - 20 ), 0);
+   }
 
    HB_RETNL( ( LONG_PTR ) hbutton );
 }
@@ -171,19 +185,29 @@ HB_FUNC( INITMULTILISTBOX )
    hwnd = hmg_par_HWND(1);
 
    if( ! hb_parl(9) )
+   {
       Style = Style | WS_VISIBLE;
+   }
 
    if( ! hb_parl(10) )
+   {
       Style = Style | WS_TABSTOP;
+   }
 
    if( hb_parl(11) )
+   {
       Style = Style | LBS_SORT;
+   }
 
    if( hb_parl(13) )
+   {
       Style = Style | LBS_USETABSTOPS;
+   }
 
    if( hb_parl(14) )
+   {
       Style = Style | LBS_MULTICOLUMN;
+   }
 
    hbutton = CreateWindowEx
              (
@@ -202,7 +226,9 @@ HB_FUNC( INITMULTILISTBOX )
              );
 
    if( hb_parl(12) )
+   {
       MakeDragList(hbutton);
+   }
 
    HB_RETNL( ( LONG_PTR ) hbutton );
 }
@@ -313,9 +339,13 @@ HB_FUNC( DRAG_LIST_DRAWINSERT )
    nItemCount = ( int ) SendMessage(( HWND ) lpdli->hWnd, LB_GETCOUNT, 0, 0);
 
    if( nItem < nItemCount )
+   {
       DrawInsert(hwnd, lpdli->hWnd, nItem);
+   }
    else
+   {
       DrawInsert(hwnd, lpdli->hWnd, -1);
+   }
 }
 
 HB_FUNC( DRAG_LIST_MOVE_ITEMS )
@@ -328,11 +358,17 @@ HB_FUNC( DRAG_LIST_MOVE_ITEMS )
 
    result = ListBox_GetText(lpdli->hWnd, hb_parni(2), string);
    if( result != LB_ERR )
+   {
       result = ListBox_DeleteString(lpdli->hWnd, hb_parni(2));
+   }
    if( result != LB_ERR )
+   {
       result = ListBox_InsertString(lpdli->hWnd, hb_parni(3), string);
+   }
    if( result != LB_ERR )
+   {
       result = ListBox_SetCurSel( lpdli->hWnd, hb_parni(3) );
+   }
 
    hb_retl( result != LB_ERR ? TRUE : FALSE );
 }

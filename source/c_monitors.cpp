@@ -124,7 +124,9 @@ HB_FUNC( GETMONITORINFO )
       hb_itemRelease(pWork);
    }
    else
+   {
       hb_ret();
+   }
 }
 
 // HMONITOR MonitorFromPoint(POINT pt, DWORD dwFlags)
@@ -135,9 +137,13 @@ HB_FUNC( MONITORFROMPOINT )
    if( HB_ISARRAY(1) )
    {
       if( ! Array2Point(hb_param(1, Harbour::Item::ARRAY), &pt) )
+      {
          hb_errRT_BASE_SubstR( EG_ARG, 5000, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+      }
       else
+      {
          HB_RETNL( ( LONG_PTR ) MonitorFromPoint(pt, hb_parnldef(2, MONITOR_DEFAULTTONULL)) );
+      }
    }
    else if( HB_ISNUM(1) && HB_ISNUM(2) )
    {
@@ -147,7 +153,9 @@ HB_FUNC( MONITORFROMPOINT )
       HB_RETNL( ( LONG_PTR ) MonitorFromPoint(pt, hb_parnldef(3, MONITOR_DEFAULTTONULL)) );
    }
    else
+   {
       hb_errRT_BASE_SubstR( EG_ARG, 5000, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+   }
 }
 
 // HMONITOR MonitorFromWindow(HWND  hwnd, DWORD dwFlags)
@@ -156,9 +164,13 @@ HB_FUNC( MONITORFROMWINDOW )
    HWND hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) )
+   {
       HB_RETNL( ( LONG_PTR ) MonitorFromWindow(hwnd, hb_parnldef(2, MONITOR_DEFAULTTONULL)) );
+   }
    else
+   {
       hb_errRT_BASE_SubstR( EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+   }
 }
 
 /*
@@ -194,7 +206,9 @@ HB_FUNC( WINDOWTOMONITOR )
       SetWindowPos(hwnd, nullptr, rc.left, rc.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
    }
    else
+   {
       hb_errRT_BASE_SubstR( EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+   }
 }
 
 static void ClipOrCenterRectToMonitor( LPRECT prc, HMONITOR hMonitor, UINT flags )
@@ -206,7 +220,9 @@ static void ClipOrCenterRectToMonitor( LPRECT prc, HMONITOR hMonitor, UINT flags
 
    // get the nearest monitor to the passed rect.
    if( nullptr == hMonitor )
+   {
       hMonitor = MonitorFromRect(prc, MONITOR_DEFAULTTONEAREST);
+   }
 
    // get the work area or entire monitor rect.
    mi.cbSize = sizeof(mi);

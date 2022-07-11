@@ -110,19 +110,29 @@ HB_FUNC( C_PLAYWAVE )
       hmod  = GetResources();
    }
    else
+   {
       Style = Style | SND_FILENAME;
+   }
 
    if( hb_parl(3) )
+   {
       Style = Style | SND_SYNC;
+   }
 
    if( hb_parl(4) )
+   {
       Style = Style | SND_NOSTOP;
+   }
 
    if( hb_parl(5) )
+   {
       Style = Style | SND_LOOP;
+   }
 
    if( hb_parl(6) )
+   {
       Style = Style | SND_NODEFAULT;
+   }
 
    hb_retl( PlaySound( pszSound, hmod, Style ) );
 
@@ -148,34 +158,54 @@ HB_FUNC( INITPLAYER )
    int Style = WS_VISIBLE | WS_CHILD | WS_BORDER;
 
    if( hb_parl(7) )
+   {
       Style = Style | MCIWNDF_NOAUTOSIZEWINDOW;
+   }
 
    if( hb_parl(8) )
+   {
       Style = Style | MCIWNDF_NOAUTOSIZEMOVIE;
+   }
 
    if( hb_parl(9) )
+   {
       Style = Style | MCIWNDF_NOERRORDLG;
+   }
 
    if( hb_parl(10) )
+   {
       Style = Style | MCIWNDF_NOMENU;
+   }
 
    if( hb_parl(11) )
+   {
       Style = Style | MCIWNDF_NOOPEN;
+   }
 
    if( hb_parl(12) )
+   {
       Style = Style | MCIWNDF_NOPLAYBAR;
+   }
 
    if( hb_parl(13) )
+   {
       Style = Style | MCIWNDF_SHOWALL;
+   }
 
    if( hb_parl(14) )
+   {
       Style = Style | MCIWNDF_SHOWMODE;
+   }
 
    if( hb_parl(15) )
+   {
       Style = Style | MCIWNDF_SHOWNAME;
+   }
 
    if( hb_parl(16) )
+   {
       Style = Style | MCIWNDF_SHOWPOS;
+   }
 
    hwnd = MCIWndCreate(hmg_par_HWND(1), nullptr, Style, szFile);
 
@@ -229,7 +259,9 @@ HB_FUNC( INITANIMATE )
    int  Style = WS_CHILD;
 
    if( hb_parl(9) )
+   {
       Style = Style | WS_BORDER;
+   }
 
    if( ! hb_parl(10) )
    {
@@ -237,13 +269,19 @@ HB_FUNC( INITANIMATE )
    }
 
    if( hb_parl(6) )
+   {
       Style = Style | ACS_AUTOPLAY;
+   }
 
    if( hb_parl(7) )
+   {
       Style = Style | ACS_CENTER;
+   }
 
    if( hb_parl(8) )
+   {
       Style = Style | ACS_TRANSPARENT;
+   }
 
    hwnd = Animate_Create(hmg_par_HWND(1), nullptr, Style, GetResources());
 

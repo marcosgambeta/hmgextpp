@@ -129,12 +129,16 @@ HB_FUNC( SETWINDOWCURSOR )
    ch = LoadCursor(( HB_ISCHAR(2) ) ? GetResources() : nullptr, lpCursorName);
 
    if( ( ch == nullptr ) && HB_ISCHAR(2) )
+   {
       ch = LoadCursorFromFile(lpCursorName);
+   }
 
    if( ch != nullptr )
+   {
       SetClassLongPtr(hmg_par_HWND(1),  // window handle
                       GCLP_HCURSOR,            // change cursor
                       ( LONG_PTR ) ch);       // new cursor
+   }                   
 #ifdef UNICODE
    hb_xfree(pW);
 #endif

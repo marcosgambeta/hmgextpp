@@ -74,7 +74,9 @@ HB_FUNC( BEGINPAINT )
       hb_storclen(( const char * ) &ps, sizeof(PAINTSTRUCT), 2);
    }
    else
+   {
       HB_RETNL( ( LONG_PTR ) nullptr );
+   }
 }
 
 HB_FUNC( ENDPAINT )
@@ -83,9 +85,13 @@ HB_FUNC( ENDPAINT )
    PAINTSTRUCT * pps = ( PAINTSTRUCT * ) hb_parc(2);
 
    if( IsWindow(hWnd) && pps )
+   {
       hb_retl( EndPaint(hWnd, pps) );
+   }
    else
+   {
       hb_retl( HB_FALSE );
+   }
 }
 
 HB_FUNC( DRAWFOCUSRECT )
@@ -112,7 +118,9 @@ HB_FUNC( DRAWSTATE )
       bDC = TRUE;
    }
    else
+   {
       hDC = ( HDC ) ( LONG_PTR ) HB_PARNL(1);
+   }
 
    if( GetObjectType(( HGDIOBJ ) hDC) == OBJ_DC )
    {
@@ -123,29 +131,43 @@ HB_FUNC( DRAWSTATE )
       HB_ISIZ  fuFlags = hb_parns(10);
 
       if( Array2ColorRef(hb_param(2, Harbour::Item::ANY), &crBrush) )
+      {
          hBrush = CreateSolidBrush(crBrush);
+      }
 
       if( wData > 0 )
+      {
          lpData = ( LPARAM ) hb_parc(4);
+      }
       else
+      {
          lpData = ( LPARAM ) ( LONG_PTR ) HB_PARNL(4);
+      }
 
       hb_retl( DrawState(hDC, hBrush, nullptr, lpData, wData, hb_parni(6), hb_parni(7), hb_parni(8), hb_parni(9), ( UINT ) fuFlags)
                ? HB_TRUE : HB_FALSE );
 
       if( bDC )
+      {
          ReleaseDC(hWnd, hDC);
+      }
 
       if( hb_parl(11) )
       {
          if( GetObjectType(( HGDIOBJ ) hDC) == OBJ_BITMAP )
+         {
             DeleteObject(( HBITMAP ) lpData);
+         }
          else
+         {
             DestroyIcon(( HICON ) lpData);
+         }
       }
    }
    else
+   {
       hb_retl( HB_FALSE );
+   }
 }
 
 HB_FUNC( GETUPDATERECT )
@@ -155,7 +177,9 @@ HB_FUNC( GETUPDATERECT )
    if( IsWindow(hWnd) )
    {
       if( HB_ISNIL(2) )
+      {
          hb_retl( GetUpdateRect(hWnd, nullptr, hb_parl(3)) ? HB_TRUE : HB_FALSE );
+      }
       else
       {
          RECT rc;
@@ -165,7 +189,9 @@ HB_FUNC( GETUPDATERECT )
       }
    }
    else
+   {
       hb_retl( HB_FALSE );
+   }
 }
 
 HB_FUNC( GDIFLUSH )
@@ -179,9 +205,13 @@ HB_FUNC( GRAYSTRING )
    int nLen   = ( int ) hb_parclen(4);
 
    if( nCount > 0 )
+   {
       nCount = HB_MIN(nCount, nLen);
+   }
    else
+   {
       nCount = nLen;
+   }
 
    if( nLen > 0 )
    {
@@ -195,7 +225,9 @@ HB_FUNC( GRAYSTRING )
          bDC = TRUE;
       }
       else
+      {
          hDC = ( HDC ) ( LONG_PTR ) HB_PARNL(1);
+      }
 
       if( GetObjectType(( HGDIOBJ ) hDC) == OBJ_DC )
       {
@@ -204,19 +236,27 @@ HB_FUNC( GRAYSTRING )
          const char * lpData = hb_parc(4);
 
          if( Array2ColorRef(hb_param(2, Harbour::Item::ANY), &crBrush) )
+         {
             hBrush = CreateSolidBrush(crBrush);
+         }
 
          hb_retl( GrayString(hDC, hBrush, nullptr, ( LPARAM ) lpData, nCount, hb_parni(6), hb_parni(7), hb_parni(8), hb_parni(9))
                   ? HB_TRUE : HB_FALSE );
 
          if( bDC )
+         {
             ReleaseDC(hWnd, hDC);
+         }
       }
       else
+      {
          hb_retl( HB_FALSE );
+      }
    }
    else
+   {
       hb_retl( HB_FALSE );
+   }
 }
 
 HB_FUNC( INVALIDATERECT )
@@ -247,7 +287,9 @@ HB_FUNC( INVALIDATERECT )
                ? HB_TRUE : HB_FALSE );
    }
    else
+   {
       hb_retl( HB_FALSE );
+   }
 }
 
 HB_FUNC( REDRAWWINDOW )
@@ -259,12 +301,16 @@ HB_FUNC( REDRAWWINDOW )
       UINT uiFlags = RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_ERASENOW | RDW_UPDATENOW;
 
       if( HB_TRUE == hb_parl(2) )
+      {
          uiFlags |= RDW_INTERNALPAINT;
+      }
 
       hb_retl( RedrawWindow(hWnd, nullptr, nullptr, uiFlags) ? HB_TRUE : HB_FALSE );
    }
    else
+   {
       hb_retl( HB_FALSE );
+   }
 }
 
 HB_FUNC( C_SETBACKCOLOR )
@@ -279,22 +325,30 @@ HB_FUNC( C_SETBACKCOLOR )
       bDC = TRUE;
    }
    else
+   {
       hDC = ( HDC ) ( LONG_PTR ) HB_PARNL(1);
+   }
 
    if( GetObjectType(( HGDIOBJ ) hDC) == OBJ_DC )
    {
       COLORREF cr;
 
       if( ! Array2ColorRef(hb_param(2, Harbour::Item::ANY), &cr) )
+      {
          cr = ( COLORREF ) RGB(hb_parni(2), hb_parni(3), hb_parni(4));
+      }
 
       hb_retns(( HB_ISIZ ) SetBkColor(hDC, cr));
 
       if( bDC )
+      {
          ReleaseDC(hWnd, hDC);
+      }
    }
    else
+   {
       hb_retns(( HB_ISIZ ) CLR_INVALID);
+   }
 }
 
 HB_FUNC( SETBKMODE )
@@ -309,17 +363,23 @@ HB_FUNC( SETBKMODE )
       bDC = TRUE;
    }
    else
+   {
       hDC = ( HDC ) ( LONG_PTR ) HB_PARNL(1);
+   }
 
    if( GetObjectType(( HGDIOBJ ) hDC) == OBJ_DC )
    {
       hb_retni( SetBkMode(hDC, hb_parnidef(2, OPAQUE)) );
 
       if( bDC )
+      {
          ReleaseDC(hWnd, hDC);
+      }
    }
    else
+   {
       hb_retni(0);
+   }
 }
 
 HB_FUNC( UPDATEWINDOW )
@@ -327,9 +387,13 @@ HB_FUNC( UPDATEWINDOW )
    HWND hWnd = ( HWND ) ( LONG_PTR ) HB_PARNL(1);
 
    if( IsWindow(hWnd) )
+   {
       hb_retl( UpdateWindow(hWnd) ? HB_TRUE : HB_FALSE );
+   }
    else
+   {
       hb_retl( HB_FALSE );
+   }
 }
 
 HB_FUNC( VALIDATERECT )
@@ -359,7 +423,9 @@ HB_FUNC( VALIDATERECT )
       hb_retl( ValidateRect(hWnd, bRect ? &rc : nullptr) );
    }
    else
+   {
       hb_retl( HB_FALSE );
+   }
 }
 
 HB_FUNC( WINDOWFROMDC )

@@ -142,7 +142,9 @@ HB_FUNC( EXTRACTICONEX )
    int nIconIndex = hb_parni(2);
 
    if( nIconIndex == -1 )
+   {
       hb_retni( ExtractIconEx(lpFileName, -1, nullptr, nullptr, 0) );
+   }
    else
    {
       HICON hIconLarge, hIconSmall;
@@ -180,10 +182,14 @@ HB_FUNC( LOADICONBYNAME )
       hIcon = ( HICON ) LoadImage(hInstance, pszResOrFile, IMAGE_ICON, cxDesired, cyDesired, LR_DEFAULTCOLOR);
 
       if( hIcon == nullptr )
+      {
          hIcon = ( HICON ) LoadImage(0, pszResOrFile, IMAGE_ICON, cxDesired, cyDesired, LR_LOADFROMFILE | LR_DEFAULTCOLOR);
+      }
 
       if( hIcon != nullptr )
+      {
          RegisterResource(hIcon, "ICON");
+      }
 
 #ifdef UNICODE
       hb_xfree(( TCHAR * ) pszResOrFile);

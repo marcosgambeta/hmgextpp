@@ -68,7 +68,9 @@ LRESULT CALLBACK HMG_DlgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
    long int        r;
 
    if( ! pSymbol )
+   {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("DIALOGPROC"));
+   }
 
    if( pSymbol )
    {
@@ -91,7 +93,9 @@ LRESULT CALLBACK HMG_ModalDlgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
    long int        r;
 
    if( ! pSymbol )
+   {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("MODALDIALOGPROC"));
+   }
 
    if( pSymbol )
    {
@@ -275,9 +279,13 @@ HB_FUNC( ISDLGBUTTONCHECKED )
                                    );
 
    if( nRes == BST_CHECKED )
+   {
       hb_retl( TRUE );
+   }
    else
+   {
       hb_retl( FALSE );
+   }
 }
 
 static LPWORD lpwAlign(LPWORD lpIn)

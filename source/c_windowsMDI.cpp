@@ -93,14 +93,20 @@ HB_FUNC( REGISTERMDIWINDOW )
    WndClass.hInstance   = GetInstance();
    WndClass.hIcon       = LoadIcon(GetResources(), lpIconName);
    if( WndClass.hIcon == nullptr )
+   {
       WndClass.hIcon = ( HICON ) LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE);
+   }
 
    if( WndClass.hIcon == nullptr )
+   {
       WndClass.hIcon = LoadIcon(nullptr, IDI_APPLICATION);
+   }
 
    WndClass.hCursor = LoadCursor(nullptr, IDC_ARROW);
    if( HB_PARNI(3, 1) == -1 )
+   {
       WndClass.hbrBackground = ( HBRUSH ) ( COLOR_WINDOW + 1 );
+   }
    else
    {
       hbrush = CreateSolidBrush(RGB(HB_PARNI(3, 1), HB_PARNI(3, 2), HB_PARNI(3, 3)));
@@ -126,17 +132,25 @@ HB_FUNC( REGISTERMDIWINDOW )
 
    WndClass.hIcon = LoadIcon(GetResources(), lpIconName);
    if( WndClass.hIcon == nullptr )
+   {
       WndClass.hIcon = ( HICON ) LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE);
+   }
 
    if( WndClass.hIcon == nullptr )
+   {
       WndClass.hIcon = LoadIcon(nullptr, IDI_APPLICATION);
+   }
 
    WndClass.hCursor = LoadCursor(nullptr, IDC_ARROW);
 
    if( HB_PARNI(3, 1) == -1 )
+   {
       WndClass.hbrBackground = ( HBRUSH ) ( COLOR_WINDOW + 1 );
+   }
    else
+   {
       WndClass.hbrBackground = hbrush;
+   }
 
    WndClass.lpszMenuName  = nullptr;
    WndClass.lpszClassName = TEXT("MdiChildWndClass");
@@ -149,7 +163,9 @@ HB_FUNC( REGISTERMDIWINDOW )
 #ifdef UNICODE
    hb_strfree(hClassName);
    if( HB_ISCHAR(1) )
+   {
       hb_xfree(( TCHAR * ) lpIconName);
+   }
 #endif
    HB_RETNL( ( LONG_PTR ) hbrush );
 }
@@ -160,7 +176,9 @@ LRESULT CALLBACK MdiWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
    long int        r;
 
    if( ! pSymbol )
+   {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("EVENTS"));
+   }
 
    if( pSymbol )
    {
@@ -176,9 +194,13 @@ LRESULT CALLBACK MdiWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
    r = hb_parnl( -1 );
 
    if( r != 0 )
+   {
       return r;
+   }
    else
+   {
       return DefFrameProc(hWnd, hwndMDIClient, message, wParam, lParam);
+   }
 }
 
 LRESULT CALLBACK MdiChildWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -187,7 +209,9 @@ LRESULT CALLBACK MdiChildWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
    long int        r;
 
    if( ! pSymbol )
+   {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("MDIEVENTS"));
+   }
 
    if( pSymbol )
    {
@@ -203,9 +227,13 @@ LRESULT CALLBACK MdiChildWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
    r = hb_parnl( -1 );
 
    if( r == 0 )
+   {
       return DefMDIChildProc(hWnd, message, wParam, lParam);
+   }
    else
+   {
       return r;
+   }
 }
 
 HB_FUNC( INITMDIWINDOW )
@@ -222,34 +250,52 @@ HB_FUNC( INITMDIWINDOW )
    DWORD ExStyle;
 
    if( hb_parl(16) )
+   {
       ExStyle = WS_EX_CONTEXTHELP;
+   }
    else
    {
       ExStyle = 0;
       if( ! hb_parl(6) )
+      {
          Style = Style | WS_MINIMIZEBOX;
+      }
 
       if( ! hb_parl(7) )
+      {
          Style = Style | WS_MAXIMIZEBOX;
+      }
    }
 
    if( ! hb_parl(8) )
+   {
       Style = Style | WS_SIZEBOX;
+   }
 
    if( ! hb_parl(9) )
+   {
       Style = Style | WS_SYSMENU;
+   }
 
    if( ! hb_parl(10) )
+   {
       Style = Style | WS_CAPTION;
+   }
 
    if( hb_parl(11) )
+   {
       ExStyle = ExStyle | WS_EX_TOPMOST;
+   }
 
    if( hb_parl(14) )
+   {
       Style = Style | WS_VSCROLL;
+   }
 
    if( hb_parl(15) )
+   {
       Style = Style | WS_HSCROLL;
+   }
 
    hwnd = CreateWindowEx
           (
@@ -330,11 +376,15 @@ HB_FUNC( INITMDICHILDWINDOW )
    DWORD      Style = 0;
 
    if( hb_parl(9) )
+   {
       rgch[0] = 0;
+   }
    else
    {
       if( hb_parc(2) == nullptr )
+      {
          wsprintf( rgch, TEXT("Untitled%d"), cUntitled++ );
+      }
       else
       {
 #ifndef UNICODE
@@ -351,10 +401,14 @@ HB_FUNC( INITMDICHILDWINDOW )
    }
 
    if( hb_parl(10) )
+   {
       Style = Style | WS_VSCROLL;
+   }
 
    if( hb_parl(11) )
+   {
       Style = Style | WS_HSCROLL;
+   }
 
    // Create the MDI child window
 
@@ -374,13 +428,19 @@ HB_FUNC( INITMDICHILDWINDOW )
       Style = GetWindowLong(hwndChild, GWL_STYLE);
 
       if( hb_parl(7) )
+      {
          Style = Style & ( ~WS_MINIMIZEBOX );
+      }
 
       if( hb_parl(8) )
+      {
          Style = Style & ( ~WS_MAXIMIZEBOX );
+      }
 
       if( hb_parl(9) )
+      {
          Style = Style & ( ~WS_CAPTION );
+      }
 
       SetWindowLongPtr(hwndChild, GWL_STYLE, Style);
 

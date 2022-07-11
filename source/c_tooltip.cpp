@@ -293,7 +293,9 @@ HB_FUNC( HIDEBALLOONTIP )
    HWND hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) )
+   {
       Edit_HideBalloonTip(hWnd);
+   }
 }
 
 /*
@@ -394,9 +396,13 @@ HB_FUNC( INITTOOLTIPEX )
 
 #ifdef UNICODE
       if( lpszText != nullptr )
+      {
          hb_xfree(( TCHAR * ) lpszText);
+      }
       if( lpszTitle != nullptr )
+      {
          hb_xfree(( TCHAR * ) lpszTitle);
+      }
 #endif
    }
    else
@@ -868,7 +874,9 @@ HB_FUNC( TTM_UPDATETIPTEXT ) //old HB_FUNC( UPDATETOOLTIPTEXT )
          SendMessage(hwndToolTip, TTM_UPDATETIPTEXT, 0, ( LPARAM ) ( LPTOOLINFO ) &ti);
 #ifdef UNICODE
          if( lpszText != nullptr )
+         {
             hb_xfree(( TCHAR * ) lpszText);
+         }
 #endif
       }
    }

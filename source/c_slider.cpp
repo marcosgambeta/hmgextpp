@@ -65,24 +65,36 @@ HB_FUNC( INITSLIDER )
    InitCommonControlsEx(&i);
 
    if( hb_parl(9) )
+   {
       Style |= TBS_VERT;
+   }
 
    Style |= ( hb_parl(10) ? TBS_NOTICKS : TBS_AUTOTICKS );
 
    if( hb_parl(11) )
+   {
       Style |= TBS_BOTH;
+   }
 
    if( hb_parl(12) )
+   {
       Style |= TBS_TOP;
+   }
 
    if( hb_parl(13) )
+   {
       Style |= TBS_LEFT;
+   }
 
    if( ! hb_parl(14) )
+   {
       Style |= WS_VISIBLE;
+   }
 
    if( ! hb_parl(15) )
+   {
       Style |= WS_TABSTOP;
+   }
 
    if( hb_parl(16) )  /* P.Ch. 16.10 */
    {

@@ -83,7 +83,9 @@ HB_FUNC( DELETEOBJECT )
       hb_retl( DeleteObject(( HGDIOBJ ) hRes) );
    }
    else
+   {
       hb_retl( HB_FALSE );
+   }
 }
 
 HB_FUNC( IMAGELIST_DESTROY )
@@ -154,15 +156,21 @@ HB_FUNC( GETTEXTWIDTH ) // returns the width of a string in pixels
    }
 
    if( hFont )
+   {
       hOldFont = ( HFONT ) SelectObject(hDC, hFont);
+   }
 
    GetTextExtentPoint32(hDC, lpString, ( int ) lstrlen(lpString), &sz);
 
    if( hFont )
+   {
       SelectObject(hDC, hOldFont);
+   }
 
    if( bDestroyDC )
+   {
       ReleaseDC(hWnd, hDC);
+   }
 
    hb_retnl( sz.cx );
 
@@ -270,7 +278,9 @@ HB_FUNC( MOVEBTNTEXTBOX )   //MoveBtnTextBox(hEdit, hBtn1, hBtn2, fBtn2, BtnWidt
    {
       SetWindowPos(hBtn1, nullptr, width - BtnWidth - 4, -1, BtnWidth, height - 2, SWP_NOACTIVATE | SWP_NOZORDER);
       if( fBtn2 )
+      {
          SetWindowPos(hBtn2, nullptr, width - BtnWidth - BtnWidth2 - 4, -1, BtnWidth2, height - 2, SWP_NOACTIVATE | SWP_NOZORDER);
+      }
    }
 }
 
@@ -295,10 +305,14 @@ HB_FUNC( HB_LEFTEQI )
    PHB_ITEM pItem2 = hb_param(2, Harbour::Item::STRING);
 
    if( pItem1 && pItem2 )
+   {
       hb_retl( hb_cdpicmp(hb_itemGetCPtr(pItem1), hb_itemGetCLen(pItem1),
                           hb_itemGetCPtr(pItem2), hb_itemGetCLen(pItem2), hb_cdppage(), HB_FALSE) == 0 );
+   }
    else
+   {
       hb_errRT_BASE_SubstR( EG_ARG, 1071, nullptr, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+   }
 }
 
 #endif

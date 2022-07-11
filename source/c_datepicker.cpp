@@ -82,19 +82,29 @@ HB_FUNC( INITDATEPICK )
    hwnd = hmg_par_HWND(1);
 
    if( hb_parl(9) )
+   {
       Style |= DTS_SHOWNONE;
+   }
 
    if( hb_parl(10) )
+   {
       Style |= DTS_UPDOWN;
+   }
 
    if( hb_parl(11) )
+   {
       Style |= DTS_RIGHTALIGN;
+   }
 
    if( ! hb_parl(12) )
+   {
       Style |= WS_VISIBLE;
+   }
 
    if( ! hb_parl(13) )
+   {
       Style |= WS_TABSTOP;
+   }
 
    hbutton = CreateWindowEx
              (
@@ -133,13 +143,19 @@ HB_FUNC( INITTIMEPICK )
    hwnd = hmg_par_HWND(1);
 
    if( hb_parl(9) )
+   {
       Style |= DTS_SHOWNONE;
+   }
 
    if( ! hb_parl(10) )
+   {
       Style |= WS_VISIBLE;
+   }
 
    if( ! hb_parl(11) )
+   {
       Style |= WS_TABSTOP;
+   }
 
    hbutton = CreateWindowEx
              (
@@ -175,7 +191,9 @@ LRESULT CALLBACK OwnPickProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
    {
       case WM_ERASEBKGND:
          if( ! pSymbol )
+         {
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OPICKEVENTS"));
+         }
 
          if( pSymbol )
          {
@@ -191,9 +209,13 @@ LRESULT CALLBACK OwnPickProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
          r = hb_parnl( -1 );
 
          if( r != 0 )
+         {
             return r;
+         }
          else
+         {
             return CallWindowProc(OldWndProc, hButton, Msg, wParam, lParam);
+         }
    }
 
    return CallWindowProc(OldWndProc, hButton, Msg, wParam, lParam);
@@ -238,9 +260,13 @@ HB_FUNC( SETDATEPICK )
    sysTime.wMilliseconds = 0;
 
    if( SendMessage(hwnd, DTM_SETSYSTEMTIME, GDT_VALID, ( LPARAM ) &sysTime) == GDT_VALID )
+   {
       hb_retl( HB_TRUE );
+   }
    else
+   {
       hb_retl( HB_FALSE );
+   }
 }
 
 HB_FUNC( SETTIMEPICK )
@@ -261,9 +287,13 @@ HB_FUNC( SETTIMEPICK )
    sysTime.wMilliseconds = 0;
 
    if( SendMessage(hwnd, DTM_SETSYSTEMTIME, GDT_VALID, ( LPARAM ) &sysTime) == GDT_VALID )
+   {
       hb_retl( HB_TRUE );
+   }
    else
+   {
       hb_retl( HB_FALSE );
+   }
 }
 
 HB_FUNC( GETDATEPICKDATE )
@@ -319,9 +349,13 @@ HB_FUNC( GETDATEPICKHOUR )
    st.wHour = 0;
 
    if( SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st) == GDT_VALID )
+   {
       hb_retni( st.wHour );
+   }
    else
+   {
       hb_retni( -1 );
+   }
 }
 
 HB_FUNC( GETDATEPICKMINUTE )
@@ -331,9 +365,13 @@ HB_FUNC( GETDATEPICKMINUTE )
    st.wMinute = 0;
 
    if( SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st) == GDT_VALID )
+   {
       hb_retni( st.wMinute );
+   }
    else
+   {
       hb_retni( -1 );
+   }
 }
 
 HB_FUNC( GETDATEPICKSECOND )
@@ -343,9 +381,13 @@ HB_FUNC( GETDATEPICKSECOND )
    st.wSecond = 0;
 
    if( SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st) == GDT_VALID )
+   {
       hb_retni( st.wSecond );
+   }
    else
+   {
       hb_retni( -1 );
+   }
 }
 
 HB_FUNC( DTP_SETDATETIME )
@@ -402,7 +444,9 @@ HB_FUNC( DTP_SETDATETIME )
          sysTime.wMilliseconds = hmg_par_WORD(8);
       }
       else
+      {
          bTimeToZero = TRUE;
+      }
    }
 
    if( bTimeToZero )
@@ -414,9 +458,13 @@ HB_FUNC( DTP_SETDATETIME )
    }
 
    if( SendMessage(hwnd, DTM_SETSYSTEMTIME, GDT_VALID, ( LPARAM ) &sysTime) == GDT_VALID )
+   {
       hb_retl( HB_TRUE );
+   }
    else
+   {
       hb_retl( HB_FALSE );
+   }
 }
 
 HB_FUNC( DTP_GETDATETIME )
@@ -496,7 +544,11 @@ HB_FUNC( DTP_ISCHECKED )
    SYSTEMTIME st;
 
    if( SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st) == GDT_VALID )
+   {
       hb_retl( HB_TRUE );
+   }
    else
+   {
       hb_retl( HB_FALSE );
+   }
 }

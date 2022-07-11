@@ -72,22 +72,34 @@ HB_FUNC( INITMASKEDTEXTBOX )
    Style = WS_CHILD | ES_AUTOHSCROLL;
 
    if( hb_parl(9) )
+   {
       Style = Style | ES_UPPERCASE;
+   }
 
    if( hb_parl(10) )
+   {
       Style = Style | ES_LOWERCASE;
+   }
 
    if( hb_parl(12) )
+   {
       Style = Style | ES_RIGHT;
+   }
 
    if( hb_parl(13) )
+   {
       Style = Style | ES_READONLY;
+   }
 
    if( ! hb_parl(14) )
+   {
       Style = Style | WS_VISIBLE;
+   }
 
    if( ! hb_parl(15) )
+   {
       Style = Style | WS_TABSTOP;
+   }
 
    ExStyle = hb_parl(16) ? 0 : WS_EX_CLIENTEDGE;
 
@@ -124,30 +136,46 @@ HB_FUNC( INITTEXTBOX )
    iStyle = WS_CHILD | ES_AUTOHSCROLL | BS_FLAT;
 
    if( hb_parl(12) )              // if <lNumeric> is TRUE, then ES_NUMBER style is added.
+   {
       iStyle = iStyle | ES_NUMBER;  // Set to a numeric TEXTBOX, so don't worry about other "textual" styles.
+   }
    else
    {
       if( hb_parl(10) ) // if <lUpper> is TRUE, then ES_UPPERCASE style is added.
+      {
          iStyle = iStyle | ES_UPPERCASE;
+      }
 
       if( hb_parl(11) ) // if <lLower> is TRUE, then ES_LOWERCASE style is added.
+      {
          iStyle = iStyle | ES_LOWERCASE;
+      }
    }
 
    if( hb_parl(13) )  // if <lPassword> is TRUE, then ES_PASSWORD style is added.
+   {
       iStyle = iStyle | ES_PASSWORD;
+   }
 
    if( hb_parl(14) )
+   {
       iStyle = iStyle | ES_RIGHT;
+   }
 
    if( hb_parl(15) )
+   {
       iStyle = iStyle | ES_READONLY;
+   }
 
    if( ! hb_parl(16) )
+   {
       iStyle = iStyle | WS_VISIBLE;
+   }
 
    if( ! hb_parl(17) )
+   {
       iStyle = iStyle | WS_TABSTOP;
+   }
 
    iExStyle = hb_parl(18) ? 0 : WS_EX_CLIENTEDGE;
 
@@ -189,22 +217,34 @@ HB_FUNC( INITCHARMASKTEXTBOX )
    Style = WS_CHILD | ES_AUTOHSCROLL;
 
    if( hb_parl(9) )
+   {
       Style = Style | ES_UPPERCASE;
+   }
 
    if( hb_parl(10) )
+   {
       Style = Style | ES_LOWERCASE;
+   }
 
    if( hb_parl(12) )
+   {
       Style = Style | ES_RIGHT;
+   }
 
    if( hb_parl(13) )
+   {
       Style = Style | ES_READONLY;
+   }
 
    if( ! hb_parl(14) )
+   {
       Style = Style | WS_VISIBLE;
+   }
 
    if( ! hb_parl(15) )
+   {
       Style = Style | WS_TABSTOP;
+   }
 
    ExStyle = hb_parl(16) ? 0 : WS_EX_CLIENTEDGE;
 
@@ -245,7 +285,9 @@ LRESULT CALLBACK OwnEditProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
       case WM_CONTEXTMENU:
       case WM_CHAR:
          if( ! pSymbol )
+         {
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OEDITEVENTS"));
+         }
 
          if( pSymbol )
          {
@@ -261,9 +303,13 @@ LRESULT CALLBACK OwnEditProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
          r = hb_parnl( -1 );
 
          if( r != 0 )
+         {
             return r;
+         }
          else
+         {
             return CallWindowProc(OldWndProc, hButton, Msg, wParam, lParam);
+         }
    }
 
    return CallWindowProc(OldWndProc, hButton, Msg, wParam, lParam);

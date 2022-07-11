@@ -86,16 +86,24 @@ HB_FUNC( INITSPINNER )
    }
 
    if( ! hb_parl(12) )
+   {
       Style1 = Style1 | WS_TABSTOP;
+   }
 
    if( hb_parl(13) )
+   {
       Style2 = Style2 | UDS_WRAP;
+   }
 
    if( hb_parl(14) )
+   {
       Style1 = Style1 | ES_READONLY;
+   }
 
    if( hb_parl(15) )
+   {
       Style2 = Style2 | UDS_HORZ | UDS_ALIGNRIGHT;  /* P.Ch. 10.16. */
+   }
 
    hedit = CreateWindowEx
            (

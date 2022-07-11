@@ -75,7 +75,9 @@ HB_FUNC( TEXTDRAW )
       bDC = TRUE;
    }
    else
+   {
       hDC = ( HDC ) ( LONG_PTR ) HB_PARNL(1);
+   }
 
    if( GetObjectType(( HGDIOBJ ) hDC) == OBJ_DC )
    {
@@ -109,17 +111,23 @@ HB_FUNC( TEXTDRAW )
       hgdiobj = SelectObject(hDC, font);
 
       if( hb_parl(15) )
+      {
          iBkMode = SetBkMode(hDC, TRANSPARENT);
+      }
       else
       {
          iBkMode = SetBkMode(hDC, OPAQUE);
 
          if( Array2ColorRef(hb_param(8, Harbour::Item::ANY), &crBkColor) )
+         {
             crBkColor = SetBkColor(hDC, crBkColor);
+         }
       }
 
       if( Array2ColorRef(hb_param(7, Harbour::Item::ANY), &crFgColor) )
+      {
          SetTextColor(hDC, crFgColor);
+      }
 
       SetRect(&rect, hb_parni(3), hb_parni(2), hb_parni(6), hb_parni(5));
 
@@ -132,21 +140,31 @@ HB_FUNC( TEXTDRAW )
       SelectObject(hDC, hgdiobj);
 
       if( 0 != iBkMode )
+      {
          SetBkMode(hDC, iBkMode);
+      }
 
       if( CLR_INVALID != crBkColor )
+      {
          SetBkColor(hDC, crBkColor);
+      }
 
       if( CLR_INVALID != crFgColor )
+      {
          SetTextColor(hDC, crFgColor);
+      }
 
       DeleteObject(font);
 
       if( bDC )
+      {
          ReleaseDC(hWnd, hDC);
+      }
    }
    else
+   {
       hb_retl( HB_FALSE );
+   }
 }
 
 HB_FUNC( LINEDRAW )

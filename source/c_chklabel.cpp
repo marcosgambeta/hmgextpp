@@ -112,12 +112,18 @@ void GetCheck(INSCHK * pbtn, RECT * rect)
 {
 
    if( ! ( pbtn->lLeftCheck ) )
+   {
       rect->left = rect->right - pbtn->cxButton;
+   }
    else
+   {
       rect->right = rect->left + pbtn->cxButton;
+   }
 
    if( pbtn->cxRightEdge > pbtn->cxLeftEdge )
+   {
       OffsetRect(rect, pbtn->cxRightEdge - pbtn->cxLeftEdge, 0);
+   }
 
 }
 
@@ -128,7 +134,9 @@ BOOL InsertCheck(HWND hWnd, HBITMAP himage, HBITMAP himage2, int BtnWidth, BOOL 
    pbtn = ( INSCHK * ) HeapAlloc(GetProcessHeap(), 0, sizeof(INSCHK));
 
    if( ! pbtn )
+   {
       return FALSE;
+   }
 
    pbtn->lCheck     = lCheck;
    pbtn->lLeftCheck = lLeftCheck;
@@ -138,14 +146,22 @@ BOOL InsertCheck(HWND hWnd, HBITMAP himage, HBITMAP himage2, int BtnWidth, BOOL 
    pbtn->cxSpace    = GetSystemMetrics(SM_CXSIZEFRAME) / 4;
 
    if( himage != nullptr )
+   {
       pbtn->himagemask = CreateBitmapMask(himage, RGB(0, 0, 0));
+   }
    else
+   {
       pbtn->himagemask = nullptr;
+   }
 
    if( himage2 != nullptr )
+   {
       pbtn->himagemask2 = CreateBitmapMask(himage2, RGB(0, 0, 0));
+   }
    else
+   {
       pbtn->himagemask2 = nullptr;
+   }
 
    // associate our button state structure with the window
 
@@ -232,31 +248,49 @@ HB_FUNC( INITCHKLABEL )
    hwnd = hmg_par_HWND(1);
 
    if( hb_parl(12) )
+   {
       ExStyle = ExStyle | WS_EX_CLIENTEDGE;
+   }
 
    if( hb_parl(11) )
+   {
       Style |= WS_BORDER;
+   }
 
    if( hb_parl(13) )
+   {
       Style |= WS_HSCROLL;
+   }
 
    if( hb_parl(14) )
+   {
       Style |= WS_VSCROLL;
+   }
 
    if( hb_parl(15) )
+   {
       ExStyle = ExStyle | WS_EX_TRANSPARENT;
+   }
 
    if( ! hb_parl(16) )
+   {
       Style |= WS_VISIBLE;
+   }
 
    if( hb_parl(17) )
+   {
       Style |= ES_RIGHT;
+   }
 
    if( hb_parl(18) )
+   {
       Style |= ES_CENTER;
+   }
 
    if( hb_parl(23) )
+   {
       Style |= SS_CENTERIMAGE;
+   }
 
    hbutton = CreateWindowEx
              (
@@ -275,14 +309,22 @@ HB_FUNC( INITCHKLABEL )
              );
 
    if( hb_parc(19) != nullptr )
+   {
       himage = HMG_LoadPicture(hb_parc(19), -1, -1, nullptr, 0, 0, -1, 0, HB_FALSE, 255);
+   }
    else
+   {
       himage = nullptr;
+   }
 
    if( hb_parc(20) != nullptr )
+   {
       himage2 = HMG_LoadPicture(hb_parc(20), -1, -1, nullptr, 0, 0, -1, 0, HB_FALSE, 255);
+   }
    else
+   {
       himage2 = nullptr;
+   }
 
    InsertCheck(hbutton, himage, himage2, BtnWidth, hb_parl(22), hb_parl(21));
 
@@ -342,7 +384,9 @@ LRESULT APIENTRY ChkLabelFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam
          CallWindowProc(LabelOldWndProc, hWnd, Msg, wParam, lParam);
          SendMessage(hWnd, WM_SETREDRAW, 1, 0);
          if( ! pbtn )
+         {
             return 0;
+         }
 
          if( pbtn->lLeftCheck )
          {
@@ -368,8 +412,7 @@ LRESULT APIENTRY ChkLabelFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam
             GetCheck(pbtn, &rect);
             DrawCheck(hWnd, pbtn, &rect);
          }
-         else
-         if( pbtn->himage2 != nullptr )
+         else if( pbtn->himage2 != nullptr )
          {
             GetWindowRect(hWnd, &rect);
             OffsetRect(&rect, -rect.left, -rect.top);
@@ -386,7 +429,9 @@ LRESULT APIENTRY ChkLabelFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam
          _TrackMouseEvent(&tme);
 
          if( ! pSymbol )
+         {
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OLABELEVENTS"));
+         }
 
          if( pSymbol )
          {
@@ -405,7 +450,9 @@ LRESULT APIENTRY ChkLabelFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam
 
       case WM_MOUSELEAVE:
          if( ! pSymbol )
+         {
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OLABELEVENTS"));
+         }
 
          if( pSymbol )
          {

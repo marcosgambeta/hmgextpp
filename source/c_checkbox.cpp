@@ -97,21 +97,31 @@ HB_FUNC( INITCHECKBOX )
    Style = BS_NOTIFY | WS_CHILD;
 
    if( ! hb_parl(10) )
+   {
       Style = Style | WS_VISIBLE;
+   }
 
    if( ! hb_parl(11) )
+   {
       Style = Style | WS_TABSTOP;
+   }
 
    if( hb_parl(12) )
+   {
       Style = Style | BS_LEFTTEXT;
+   }
 
    if( hb_parl(6) )
+   {
       Style = Style | BS_MULTILINE;
+   }
 
    Style |= ( hb_parl(7) ? BS_AUTO3STATE : BS_AUTOCHECKBOX );
 
    if( hb_parl(13) )
+   {
       ExStyle |= WS_EX_TRANSPARENT;
+   }
 
    hbutton = CreateWindowEx
              (
@@ -153,10 +163,14 @@ HB_FUNC( INITCHECKBUTTON )
    Style = BS_NOTIFY | WS_CHILD | BS_AUTOCHECKBOX | BS_PUSHLIKE;
 
    if( ! hb_parl(10) )
+   {
       Style = Style | WS_VISIBLE;
+   }
 
    if( ! hb_parl(11) )
+   {
       Style = Style | WS_TABSTOP;
+   }
 
    hbutton = CreateWindow
              (
@@ -200,10 +214,14 @@ HB_FUNC( INITIMAGECHECKBUTTON )
    Style = BS_NOTIFY | BS_BITMAP | WS_CHILD | BS_AUTOCHECKBOX | BS_PUSHLIKE;
 
    if( ! hb_parl(11) )
+   {
       Style = Style | WS_VISIBLE;
+   }
 
    if( ! hb_parl(12) )
+   {
       Style = Style | WS_TABSTOP;
+   }
 
    hbutton = CreateWindow
              (

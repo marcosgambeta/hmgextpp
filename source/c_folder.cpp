@@ -191,13 +191,17 @@ static BOOL FLD_isAppThemed(void)
    BOOL bRet = FALSE;
 
    if( hUxTheme == nullptr )
+   {
       hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
+   }
 
    if( hUxTheme )
    {
       fnIsAppThemed pfn = ( fnIsAppThemed ) wapi_GetProcAddress(hUxTheme, "IsAppThemed");
       if( pfn )
+      {
          bRet = ( BOOL ) pfn();
+      }
    }
 
    return bRet;
@@ -231,11 +235,14 @@ LRESULT CALLBACK HMG_FldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPARAM l
 
       case WM_COMMAND:
          if( lParam != 0 && HIWORD(wParam) == BN_CLICKED )
+         {
             if( ! FLD_DoCommand( hWndDlg, LOWORD(wParam) ) )
             {
                pFhi = ( FLDHDRINFO * ) GetWindowLongPtr(hWndDlg, GWLP_USERDATA);
                if( ! pFhi )
+               {
                   return FALSE;
+               }
 
                /* No default handler, forward notification to active page */
                if( pFhi->activeValid && pFhi->active_page != -1 )
@@ -246,20 +253,27 @@ LRESULT CALLBACK HMG_FldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPARAM l
                   SendMessage(hwndPage, WM_COMMAND, wParam, lParam);
                }
             }
+         }
 
          return TRUE;
 
       case WM_NOTIFY:
          lpnmhdr = ( NMHDR FAR * ) lParam;
          if( lpnmhdr != 0 )
+         {
             if( lpnmhdr->code == TCN_SELCHANGE )
+            {
                FLD_SelChanged( hWndDlg );
+            }
+         }
 
          return FALSE;
    }
 
    if( ! pSymbol )
+   {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("FOLDERPROC"));
+   }
 
    if( pSymbol )
    {
@@ -274,9 +288,13 @@ LRESULT CALLBACK HMG_FldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPARAM l
 
    r = hb_parnl( -1 );
    if( r )
+   {
       return TRUE;
+   }
    else
+   {
       return FALSE;
+   }
 }
 
 LRESULT CALLBACK HMG_PageFldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPARAM lParam)
@@ -306,7 +324,9 @@ LRESULT CALLBACK HMG_PageFldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
    }
 
    if( ! pSymbol )
+   {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("PAGEFLDPROC"));
+   }
 
    if( pSymbol )
    {
@@ -321,9 +341,13 @@ LRESULT CALLBACK HMG_PageFldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
 
    r = hb_parnl( -1 );
    if( r )
+   {
       return TRUE;
+   }
    else
+   {
       return FALSE;
+   }
 }
 
 /****************************************************************************
@@ -475,22 +499,34 @@ HB_FUNC( CREATEDLGFOLDER )
    cy     = hb_arrayGetNI( pArray, 9 );      //h
    Style  = WS_CHILD | WS_VISIBLE;
    if( hb_arrayGetL( pArray, 19 ) )
+   {
       Style = Style | TCS_BUTTONS;
+   }
 
    if( hb_arrayGetL( pArray, 20 ) )
+   {
       Style = Style | TCS_FLATBUTTONS;
+   }
 
    if( hb_arrayGetL( pArray, 21 ) )
+   {
       Style = Style | TCS_HOTTRACK;
+   }
 
    if( hb_arrayGetL( pArray, 22 ) )
+   {
       Style = Style | TCS_VERTICAL;
+   }
 
    if( hb_arrayGetL( pArray, 23 ) )
+   {
       Style = Style | TCS_BOTTOM;
+   }
 
    if( hb_arrayGetL( pArray, 24 ) )
+   {
       Style = Style | TCS_MULTILINE;
+   }
 
    hfpi = ( HFLDPAGEINFO * ) malloc(sizeof(HFLDPAGEINFO) * nPages);
 
@@ -602,7 +638,9 @@ HB_FUNC( FOLDER_ISDIRTY )
    FLDHDRINFO * pFhi = ( FLDHDRINFO * ) GetWindowLongPtr(hWndParent, GWLP_USERDATA);
 
    if( ! pFhi )
+   {
       return;
+   }
 
    for( int i = 0; i < pFhi->nPages; i++ )
    {
@@ -611,7 +649,9 @@ HB_FUNC( FOLDER_ISDIRTY )
 
       /* look to see if there's any dirty pages */
       if( fpi->isDirty && ! pFhi->activeValid )
+      {
          lPageDirty = TRUE;
+      }
    }
 
    hb_retl( ( BOOL ) lPageDirty );
@@ -628,9 +668,13 @@ HB_FUNC( FOLDER_ISFINISH )
    FLDHDRINFO * pFhi = ( FLDHDRINFO * ) GetWindowLongPtr(hWndParent, GWLP_USERDATA);
 
    if( ! pFhi->isModal )
+   {
       lFooderFinish = ! pFhi->activeValid;
+   }
    else
+   {
       lFooderFinish = pFhi->ended;
+   }
 
    hb_retl( ( BOOL ) lFooderFinish );
 }
@@ -644,9 +688,13 @@ HB_FUNC( FOLDER_GETIDFLD )
    FLDHDRINFO * pFhi = ( FLDHDRINFO * ) GetWindowLongPtr(hWndParent, GWLP_USERDATA);
 
    if( ! pFhi )
+   {
       hb_retni( hmg_par_int(2) );
+   }
    else
+   {
       hb_retni( ( int ) pFhi->nIdFld );
+   }
 }
 
 /******************************************************************************
@@ -658,9 +706,13 @@ HB_FUNC( FOLDER_GETTABHANDLE )
    FLDHDRINFO * pFhi = ( FLDHDRINFO * ) GetWindowLongPtr(hWndParent, GWLP_USERDATA);
 
    if( ! pFhi )
+   {
       hb_retnl(0);
+   }
    else
+   {
       HB_RETNL( ( LONG_PTR ) pFhi->hwndTab );
+   }
 }
 
 /******************************************************************************
@@ -710,6 +762,7 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
    pFhi->hwndTab = CreateWindow(WC_TABCONTROL, TEXT(""), Style, 0, 0, 100, 100, hWndDlg, nullptr, GetInstance(), nullptr);
 
    if( pFhi->hwndTab == nullptr )
+   {
       MessageBox
       (
          nullptr,
@@ -717,6 +770,7 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
          TEXT("Error"),
          MB_OK | MB_ICONERROR | MB_DEFBUTTON1 | MB_APPLMODAL | MB_SETFOREGROUND
       );
+   }
 
    tie.mask   = TCIF_TEXT | TCIF_IMAGE;
    tie.iImage = -1;
@@ -743,10 +797,14 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
    }
 
    if( pFhi->cx > rcTab.right )
+   {
       rcTab.right = pFhi->cx;
+   }
 
    if( pFhi->cy > rcTab.bottom )
+   {
       rcTab.bottom = pFhi->cy;
+   }
 
    rcTab.right  = rcTab.right * LOWORD(dwDlgBase) / 4;
    rcTab.bottom = rcTab.bottom * HIWORD(dwDlgBase) / 8;
@@ -772,7 +830,9 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
       int cx = FLD_isAppThemed() ? 2 : 0;
 
       if( cx )
+      {
          cx = osvi.dwMajorVersion >= 6 ? 4 : cx;
+      }
 
       if( hUxTheme != nullptr )
       {
@@ -783,16 +843,24 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
       rcButton.bottom = 0;
       rcButton.right  = 0;
       if( pFhi->hasOk )
+      {
          num_buttons++;
+      }
 
       if( pFhi->hasApply )
+      {
          num_buttons++;
+      }
 
       if( pFhi->hasCancel )
+      {
          num_buttons++;
+      }
 
       if( pFhi->hasHelp )
+      {
          num_buttons++;
+      }
 
       if( num_buttons > 0 )
       {
@@ -886,7 +954,9 @@ DLGTEMPLATE * WINAPI FLD_SetStyleDlgRes(DLGTEMPLATE * pTemplate, DWORD resSize)
 
    temp = LocalAlloc(LPTR, resSize);
    if( ! temp )
+   {
       return FALSE;
+   }
    memcpy(temp, pTemplate, resSize);
    pTemplate = ( DLGTEMPLATE * ) temp;
 
@@ -1028,7 +1098,9 @@ static BOOL FLD_PageInfo(DLGTEMPLATE * pTemplate, FLDHDRINFO * pFhi, int index, 
    FLDPAGEINFO * fpi;
 
    if( ! pTemplate )
+   {
       return FALSE;
+   }
 
    p = ( const WORD * ) pTemplate;
 
@@ -1060,10 +1132,14 @@ static BOOL FLD_PageInfo(DLGTEMPLATE * pTemplate, FLDHDRINFO * pFhi, int index, 
    if( resize )
    {
       if( width > pFhi->cx )
+      {
          pFhi->cx = width;
+      }
 
       if( height > pFhi->cy )
+      {
          pFhi->cy = height;
+      }
    }
 
    /* menu */
@@ -1097,7 +1173,9 @@ static void FLD_Changed( HWND hWndParent, HWND hwndDirtyPage )
    FLDHDRINFO * pFhi = ( FLDHDRINFO * ) GetWindowLongPtr(hWndParent, GWLP_USERDATA);
 
    if( ! pFhi )
+   {
       return;
+   }
 
    /* Set the dirty flag of this page.  */
    for( int i = 0; i < pFhi->nPages; i++ )
@@ -1105,7 +1183,9 @@ static void FLD_Changed( HWND hWndParent, HWND hwndDirtyPage )
       HFLDPAGEINFO * hfpi = pFhi->fhpage;
       FLDPAGEINFO *  fpi  = ( FLDPAGEINFO * ) hfpi[i];
       if( fpi->hwndPage == hwndDirtyPage )
+      {
          fpi->isDirty = TRUE;
+      }
    }
 
    /* Enable the Apply button.  */
@@ -1127,7 +1207,9 @@ static void FLD_UnChanged( HWND hWndParent, HWND hwndCleanPage )
    FLDHDRINFO * pFhi = ( FLDHDRINFO * ) GetWindowLongPtr(hWndParent, GWLP_USERDATA);
 
    if( ! pFhi )
+   {
       return;
+   }
 
    for( int i = 0; i < pFhi->nPages; i++ )
    {
@@ -1135,11 +1217,15 @@ static void FLD_UnChanged( HWND hWndParent, HWND hwndCleanPage )
       HFLDPAGEINFO * hfpi = pFhi->fhpage;
       FLDPAGEINFO *  fpi  = ( FLDPAGEINFO * ) hfpi[i];
       if( fpi->hwndPage == hwndCleanPage )
+      {
          fpi->isDirty = FALSE;
+      }
 
       /* look to see if there's any dirty pages */
       if( fpi->isDirty )
+      {
          noPageDirty = FALSE;
+      }
    }
 
    /* Disable Apply button.  */
@@ -1147,7 +1233,9 @@ static void FLD_UnChanged( HWND hWndParent, HWND hwndCleanPage )
    {
       HWND hwndApplyBtn = GetDlgItem(hWndParent, FLBTN_APPLY);
       if( noPageDirty )
+      {
          EnableWindow(hwndApplyBtn, FALSE);
+      }
    }
 }
 
@@ -1166,20 +1254,30 @@ static BOOL FLD_DoCommand( HWND hWndDlg, WORD wID )
          if( pFhi->activeValid )
          {
             if( FLD_Apply(hWndDlg, wID) == FALSE )
+            {
                break;
+            }
 
             if( wID == FLBTN_OK )
             {
                if( ! pFhi )
+               {
                   return FALSE;
+               }
 
                if( ! pFhi->isModal )
+               {
                   pFhi->activeValid = FALSE;
+               }
                else
+               {
                   pFhi->ended = TRUE;
+               }
             }
             else
+            {
                EnableWindow(hwndApplyBtn, FALSE);
+            }
          }
          else
          {
@@ -1230,7 +1328,9 @@ static BOOL FLD_Apply(HWND hWndDlg, LPARAM lParam)
    FLDHDRINFO * pFhi = ( FLDHDRINFO * ) GetWindowLongPtr(hWndDlg, GWLP_USERDATA);
 
    if( pFhi->active_page < 0 )
+   {
       return FALSE;
+   }
 
    fln.hdr.hwndFrom = hWndDlg;
    fln.hdr.idFrom   = 0;
@@ -1244,7 +1344,9 @@ static BOOL FLD_Apply(HWND hWndDlg, LPARAM lParam)
    hwndPage = fpi->hwndPage;
 
    if( SendMessage(hwndPage, WM_NOTIFY, 0, ( LPARAM ) &fln) != FALSE )
+   {
       return FALSE;
+   }
 
    /* Send FLN_APPLY to all pages.  */
    fln.hdr.code = FLN_APPLY;
@@ -1256,11 +1358,15 @@ static BOOL FLD_Apply(HWND hWndDlg, LPARAM lParam)
       fpi      = ( FLDPAGEINFO * ) hfpi[i];
       hwndPage = fpi->hwndPage;
       if( hwndPage )
+      {
          SendMessage(hwndPage, WM_NOTIFY, ( WPARAM ) lParam, ( LPARAM ) &fln);
+      }
    }
 
    if( lParam == FLBTN_OK )
+   {
       pFhi->activeValid = FALSE;
+   }
 
    if( pFhi->active_page >= 0 )
    {
@@ -1268,9 +1374,13 @@ static BOOL FLD_Apply(HWND hWndDlg, LPARAM lParam)
       fln.hdr.idFrom   = 0;
       fln.lParam       = 0;
       if( lParam == FLBTN_OK )
+      {
          fln.hdr.code = FLN_FINISH;
+      }
       else
+      {
          fln.hdr.code = FLN_SETACTIVE;
+      }
 
       hfpi     = pFhi->fhpage;
       fpi      = ( FLDPAGEINFO * ) hfpi[pFhi->active_page];
@@ -1295,7 +1405,9 @@ static void FLD_Cancel( HWND hWndDlg, LPARAM lParam )
    FLDHDRINFO * pFhi = ( FLDHDRINFO * ) GetWindowLongPtr(hWndDlg, GWLP_USERDATA);
 
    if( pFhi->active_page < 0 )
+   {
       return;
+   }
 
    hfpi     = pFhi->fhpage;
    fpi      = ( FLDPAGEINFO * ) hfpi[pFhi->active_page];
@@ -1307,7 +1419,9 @@ static void FLD_Cancel( HWND hWndDlg, LPARAM lParam )
    fln.lParam       = 0;
 
    if( SendMessage(hwndPage, WM_NOTIFY, ( WPARAM ) lParam, ( LPARAM ) &fln) )
+   {
       return;
+   }
 
    fln.hdr.code = FLN_RESET;
    fln.lParam   = lParam;
@@ -1319,19 +1433,27 @@ static void FLD_Cancel( HWND hWndDlg, LPARAM lParam )
       hwndPage = fpi->hwndPage;
 
       if( hwndPage )
+      {
          SendMessage(hwndPage, WM_NOTIFY, ( WPARAM ) lParam, ( LPARAM ) &fln);
+      }
    }
 
    if( ! pFhi->isModal )
+   {
       pFhi->activeValid = FALSE;
+   }
    else
+   {
       pFhi->ended = TRUE;
+   }
 
    fln.hdr.code = FLN_FINISH;
    fpi      = ( FLDPAGEINFO * ) hfpi[pFhi->active_page];
    hwndPage = fpi->hwndPage;
    if( hwndPage )
+   {
       SendMessage(hwndPage, WM_NOTIFY, ( WPARAM ) lParam, ( LPARAM ) &fln);
+   }
 }
 
 /*-----------------------------------------------------------------
@@ -1346,7 +1468,9 @@ static void FLD_Help(HWND hWndDlg)
    FLHNOTIFY      fln;
 
    if( pFhi->active_page < 0 )
+   {
       return;
+   }
 
    hfpi     = pFhi->fhpage;
    fpi      = ( FLDPAGEINFO * ) hfpi[pFhi->active_page];
@@ -1372,7 +1496,9 @@ static BOOL FLD_ShowPage(HWND hWndDlg, int index, FLDHDRINFO * pFhi)
    {
       fpi = ( FLDPAGEINFO * ) hfpi[index];
       if( GetTopWindow(hWndDlg) != fpi->hwndPage )
+      {
          SetWindowPos(fpi->hwndPage, HWND_TOP, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE);
+      }
 
       return TRUE;
    }
@@ -1391,7 +1517,9 @@ static BOOL FLD_ShowPage(HWND hWndDlg, int index, FLDHDRINFO * pFhi)
       fpi->hwndPage = pFhi->hwndDisplay;
    }
    else
+   {
       pFhi->hwndDisplay = fpi->hwndPage;
+   }
 
    FLD_DialogAlign(hWndDlg);
 
@@ -1425,7 +1553,9 @@ static LRESULT FLD_HwndToIndex(HWND hWndDlg, HWND hPageDlg)
       HFLDPAGEINFO * hfpi = pFhi->fhpage;
       FLDPAGEINFO *  fpi  = ( FLDPAGEINFO * ) hfpi[index];
       if( fpi->hwndPage == hPageDlg )
+      {
          return index;
+      }
    }
 
    return -1;
@@ -1439,7 +1569,9 @@ static void FLD_CleanUp(HWND hWndDlg)
    FLDHDRINFO * pFhi = ( FLDHDRINFO * ) GetWindowLongPtr(hWndDlg, GWLP_USERDATA);
 
    if( ! pFhi )
+   {
       return;
+   }
 
    for( int i = 0; i < pFhi->nPages; i++ )
    {
@@ -1447,7 +1579,9 @@ static void FLD_CleanUp(HWND hWndDlg)
       FLDPAGEINFO *  fpi  = ( FLDPAGEINFO * ) hfpi[i];
 
       if( fpi->hwndPage )
+      {
          DestroyWindow(fpi->hwndPage);
+      }
    }
 
    /* If we created the bitmaps, destroy them */
@@ -1501,6 +1635,7 @@ static void FLD_AddBitmap(HWND hWndFolder)
              );
 
       if( himl == nullptr )
+      {
          himl = ImageList_LoadImage
                 (
             GetResources(),
@@ -1511,6 +1646,7 @@ static void FLD_AddBitmap(HWND hWndFolder)
             IMAGE_BITMAP,
             LR_LOADTRANSPARENT | LR_LOADFROMFILE | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS
                 );
+      }
 
       if( himl != nullptr )
       {
@@ -1544,6 +1680,7 @@ static void FLD_AddBitmap(HWND hWndFolder)
                          );
 
                   if( hbmp == nullptr )
+                  {
                      hbmp = ( HBITMAP ) LoadImage
                             (
                         nullptr,
@@ -1553,6 +1690,7 @@ static void FLD_AddBitmap(HWND hWndFolder)
                         cy,
                         LR_LOADTRANSPARENT | LR_LOADFROMFILE | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS
                             );
+                  }
                }
 
                if( hbmp != nullptr )

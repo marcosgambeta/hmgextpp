@@ -989,9 +989,13 @@ HB_FUNC( BT_DRAW_HDC_ARCX_EX )
    OldPen   = ( HPEN ) SelectObject( hDC, hPen );
 
    if( hb_parnl( 14 ) )
+   {
       hBrush   = ( HBRUSH ) HB_PARNL( 14 );
+   }
    else
+   {
       hBrush   = CreateSolidBrush( ColorFill );
+   }
 
    OldBrush = ( HBRUSH ) SelectObject( hDC, hBrush );
 

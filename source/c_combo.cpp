@@ -75,24 +75,36 @@ HB_FUNC( INITCOMBOBOX )
    Style = WS_CHILD | WS_VSCROLL;
 
    if( ! hb_parl(9) )
+   {
       Style = Style | WS_VISIBLE;
+   }
 
    if( ! hb_parl(10) )
+   {
       Style = Style | WS_TABSTOP;
+   }
 
    if( hb_parl(11) )
+   {
       Style = Style | CBS_SORT;
+   }
 
    Style = ( hb_parl(12) ) ? ( Style | CBS_DROPDOWN ) : ( Style | CBS_DROPDOWNLIST );
 
    if( hb_parl(13) )
+   {
       Style = Style | CBS_NOINTEGRALHEIGHT;
+   }
 
    if( hb_parl(6) )
+   {
       Style = Style | CBS_UPPERCASE;
+   }
 
    if( hb_parl(7) )
+   {
       Style = Style | CBS_LOWERCASE;
+   }
 
    hbutton = CreateWindow
              (
@@ -132,15 +144,21 @@ HB_FUNC( INITCOMBOBOXEX )
    Style = WS_CHILD | WS_VSCROLL;
 
    if( ! hb_parl(9) )
+   {
       Style = Style | WS_VISIBLE;
+   }
 
    if( ! hb_parl(10) )
+   {
       Style = Style | WS_TABSTOP;
+   }
 
    Style = ( hb_parl(12) ) ? ( Style | CBS_DROPDOWN ) : ( Style | CBS_DROPDOWNLIST );
 
    if( hb_parl(13) )
+   {
       Style = Style | CBS_NOINTEGRALHEIGHT;
+   }
 
    hCombo = CreateWindowEx
             (
@@ -172,19 +190,27 @@ HB_FUNC( INITCOMBOBOXEX )
          FileName = ( char * ) hb_arrayGetCPtr(hArray, s);
 
          if( himl == nullptr )
+         {
             himl = HMG_ImageListLoadFirst(FileName, nCount, Transparent, nullptr, nullptr);
+         }
          else
+         {
             HMG_ImageListAdd( himl, FileName, Transparent );
+         }
       }
    }
 
    if( himl == nullptr && HB_PARNL(15) > 0 )
+   {
       himl = hmg_par_HIMAGELIST(15);
+   }
 
    // set imagelist for created ComboEx
 
    if( himl != nullptr )
+   {
       SendMessage(( HWND ) hCombo, CBEM_SETIMAGELIST, 0, ( LPARAM ) himl);
+   }
    else
       // extend combo without images
       SendMessage

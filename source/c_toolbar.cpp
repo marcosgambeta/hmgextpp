@@ -87,25 +87,39 @@ HB_FUNC( INITTOOLBAR )
    hwnd = hmg_par_HWND(1);
 
    if( hb_parl(14) )
+   {
       ExStyle = ExStyle | WS_EX_CLIENTEDGE;
+   }
 
    if( hb_parl(10) )
+   {
       Style = Style | TBSTYLE_FLAT;
+   }
 
    if( hb_parl(11) )
+   {
       Style = Style | CCS_BOTTOM;
+   }
 
    if( hb_parl(12) )
+   {
       Style = Style | TBSTYLE_LIST;
+   }
 
    if( hb_parl(13) )
+   {
       Style = Style | CCS_NOPARENTALIGN | CCS_NODIVIDER | CCS_NORESIZE;
+   }
 
    if( hb_parl(15) )
+   {
       Style = Style | TBSTYLE_WRAPABLE;
+   }
 
    if( hb_parl(16) )
+   {
       Style = Style | CCS_ADJUSTABLE;
+   }
 
    hwndTB = CreateWindowEx(ExStyle, TOOLBARCLASSNAME, nullptr, Style, 0, 0, 0, 0, hwnd, hmg_par_HMENU(3), GetInstance(), nullptr);
 
@@ -165,7 +179,9 @@ HB_FUNC( INITTOOLBUTTON )
    // Add the bitmap containing button images to the toolbar.
 
    if( hb_parl(11) )
+   {
       Style |= TBSTYLE_AUTOSIZE;
+   }
 
    nBtn       = 0;
    tbab.hInst = nullptr;
@@ -189,16 +205,24 @@ HB_FUNC( INITTOOLBUTTON )
    }
 
    if( hb_parl(12) )
+   {
       Style |= BTNS_CHECK;
+   }
 
    if( hb_parl(13) )
+   {
       Style |= BTNS_GROUP;
+   }
 
    if( hb_parl(14) )
+   {
       Style |= BTNS_DROPDOWN;
+   }
 
    if( hb_parl(15) )
+   {
       Style |= BTNS_WHOLEDROPDOWN;
+   }
 
    SendMessage(hwndTB, TB_AUTOSIZE, 0, 0);
 
@@ -276,30 +300,48 @@ HB_FUNC( INITTOOLBAREX )
    hwnd = hmg_par_HWND(1);
 
    if( hb_parl(14) )
+   {
       ExStyle = ExStyle | WS_EX_CLIENTEDGE;
+   }
    else
+   {
       TbExStyle = TbExStyle | TBSTYLE_EX_HIDECLIPPEDBUTTONS;
+   }
 
    if( hb_parl(10) )
+   {
       Style = Style | TBSTYLE_FLAT;
+   }
 
    if( hb_parl(11) )
+   {
       Style = Style | CCS_BOTTOM;
+   }
 
    if( hb_parl(12) )
+   {
       Style = Style | TBSTYLE_LIST;
+   }
 
    if( hb_parl(13) )
+   {
       Style = Style | CCS_NOPARENTALIGN | CCS_NODIVIDER | CCS_NORESIZE;
+   }
 
    if( hb_parl(15) )
+   {
       TbExStyle = TbExStyle | TBSTYLE_EX_MIXEDBUTTONS;
+   }
 
    if( hb_parl(16) )
+   {
       Style = Style | TBSTYLE_WRAPABLE;
+   }
 
    if( hb_parl(17) )
+   {
       Style = Style | CCS_ADJUSTABLE;
+   }
 
    hwndTB = CreateWindowEx(ExStyle, TOOLBARCLASSNAME, nullptr, Style, 0, 0, 0, 0, hwnd, hmg_par_HMENU(3), GetInstance(), nullptr);
 
@@ -383,7 +425,9 @@ HB_FUNC( INITTOOLBUTTONEX )
          SendMessage(hwndTB, TB_GETBUTTONTEXT, lpBtn.idCommand, ( LPARAM ) ( LPCTSTR ) cBuff);
          tSize = WidestBtn(cBuff, hwndTB);
          if( tmax < HIWORD(tSize) )
+         {
             tmax = HIWORD(tSize);
+         }
       }
    }
 
@@ -406,9 +450,13 @@ HB_FUNC( INITTOOLBUTTONEX )
 #endif
       himage = ( HWND ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, ix, iy, fuLoad);
       if( himage == nullptr )
+      {
          himage = ( HWND ) LoadImage(nullptr, lpImageName, IMAGE_BITMAP, ix, iy, LR_LOADFROMFILE | fuLoad);
+      }
       if( himage == nullptr )
+      {
          himage = ( HWND ) HMG_LoadPicture(hb_parc(8), hb_parl(16) ? ix : -1, hb_parl(16) ? iy : -1, hwndTB, 1, Transparent, -1, hb_parl(16) ? 1 : 0, HB_FALSE, 255);
+      }
 
 #ifdef UNICODE
       hb_xfree(lpImageName);
@@ -425,25 +473,39 @@ HB_FUNC( INITTOOLBUTTONEX )
          ix = bm.bmWidth;
          iy = bm.bmHeight;
          if( TbStyle & TBSTYLE_LIST )
+         {
             tmax = 0;
+         }
 
          if( ( ix + px ) > hb_parni(6) )
+         {
             ix = hb_parni(6) - px;
+         }
          else
+         {
             px = hb_parni(6) - ix;
+         }
 
          if( ( iy + tmax + py ) > hb_parni(7) )
+         {
             iy = hb_parni(7) - tmax - py;
+         }
          else
+         {
             py = hb_parni(7) - tmax - iy;
+         }
 
          if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT && osvi.dwMajorVersion <= 4 )
          {
             if( ! ( TbStyle & TBSTYLE_LIST ) )
+            {
                SendMessage(hwndTB, TB_SETPADDING, 0, MAKELPARAM(px, py));
+            }
          }
          else if( ! ( Style & BTNS_SHOWTEXT ) )
+         {
             SendMessage(hwndTB, TB_SETPADDING, 0, MAKELPARAM(px, py));
+         }
 
          SendMessage(hwndTB, TB_SETBITMAPSIZE, 0, ( LPARAM ) MAKELONG(ix, iy));
       }
@@ -452,7 +514,9 @@ HB_FUNC( INITTOOLBUTTONEX )
    // Add the bitmap containing button images to the toolbar.
 
    if( hb_parl(11) )
+   {
       Style = Style | TBSTYLE_AUTOSIZE;
+   }
 
    nBtn = 0;
    if( hb_parni(17) > -1 )
@@ -463,7 +527,9 @@ HB_FUNC( INITTOOLBUTTONEX )
          {
             SendMessage(hwndTB, TB_SETIMAGELIST, ( WPARAM ) 0, ( LPARAM ) hmg_par_HIMAGELIST(18));
             if( hb_parni(19) )
+            {
                SendMessage(hwndTB, TB_SETHOTIMAGELIST, ( WPARAM ) 0, ( LPARAM ) hmg_par_HIMAGELIST(19));
+            }
 
             tbab.nID = hb_parni(18);
          }
@@ -485,16 +551,24 @@ HB_FUNC( INITTOOLBUTTONEX )
    }
 
    if( hb_parl(12) )
+   {
       Style = Style | BTNS_CHECK;
+   }
 
    if( hb_parl(13) )
+   {
       Style = Style | BTNS_GROUP;
+   }
 
    if( hb_parl(14) )
+   {
       Style = Style | BTNS_DROPDOWN;
+   }
 
    if( hb_parl(15) )
+   {
       Style = Style | BTNS_WHOLEDROPDOWN;
+   }
 
    SendMessage(hwndTB, TB_AUTOSIZE, 0, 0);
 
@@ -541,11 +615,17 @@ HB_FUNC( GETSIZETOOLBAR )
    {
       SendMessage(hwndTB, TB_GETBUTTON, i, ( LPARAM ) &lpBtn);
       if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT && osvi.dwMajorVersion <= 4 )
+      {
          if( lpBtn.fsStyle & TBSTYLE_SEP )
+         {
             lpSize.cx = lpSize.cx + 3;
+         }
+      }
 
       if( lpBtn.fsStyle & BTNS_DROPDOWN )
+      {
          lpSize.cx = lpSize.cx + 16;
+      }
    }
 
    hb_retnl( MAKELONG(lpSize.cy, lpSize.cx) );
@@ -574,7 +654,9 @@ HB_FUNC( MAXTEXTBTNTOOLBAR )
       ty    = HIWORD(tSize);
 
       if( tmax < LOWORD(tSize) )
+      {
          tmax = LOWORD(tSize);
+      }
    }
 
    if( tmax == 0 )
@@ -718,7 +800,9 @@ HB_FUNC( REPLACETOOLBUTTONIMAGE )
          iBitMapIndex = ( int ) SendMessage(hwndTB, TB_ADDBITMAP, ( WPARAM ) 1, ( LPARAM ) &tbab);
       }
       else
+      {
          iBitMapIndex = iImageIdx;
+      }
 
       tbinfo.cbSize = sizeof(tbinfo);
       tbinfo.dwMask = TBIF_IMAGE;
@@ -811,7 +895,9 @@ int TestHidenBtn(HWND tbHwnd, RECT rcRb, INT dv, INT nBtn)
 
       IntersectRect(&rcDst, &rcRb, &rcBt);
       if( EqualRect(&rcDst, &rcBt) )
+      {
          nBtnV++;
+      }
    }
 
    return nBtnV;
@@ -940,7 +1026,9 @@ int ResizeToolbar( HWND hwndTB, int widthTb )
    SendMessage(hwndTB, TB_GETITEMRECT, 0, ( LPARAM ) &rc);
    bwidth = rc.right;
    if( widthTb < bwidth )
+   {
       return 0;
+   }
 
    GetWindowRect(hwndTB, &rc);
    heightTB = rc.bottom - rc.top;
@@ -949,14 +1037,22 @@ int ResizeToolbar( HWND hwndTB, int widthTb )
 
    memset(&rcb, 0, sizeof(RECT));
    if( bwidth > 0 )
+   {
       n = widthTb / ( bwidth );
+   }
    else
+   {
       return 0;
+   }
 
    if( nButtons % n == 0 )
+   {
       nrow = nButtons / n;
+   }
    else
+   {
       nrow = nButtons / n + 1;
+   }
 
    SendMessage(hwndTB, TB_SETROWS, ( WPARAM ) MAKEWPARAM(nrow, TRUE), ( LPARAM ) &rcb);
    SendMessage(hwndTB, TB_AUTOSIZE, 0, 0);
@@ -968,14 +1064,18 @@ int ResizeToolbar( HWND hwndTB, int widthTb )
 
    nBtnRow = nButtons / ( nrow );
    if( nrow > 1 )
+   {
       nBtnRow += nButtons & 1;
+   }
 
    width  = nBtnRow * bwidth;
    width += 2 * GetSystemMetrics(SM_CXDLGFRAME);
    width += 2 * GetSystemMetrics(SM_CXBORDER);
    height = rcb.bottom - rcb.top;
    if( ! ( width == widthTb ) || ! ( height == heightTB ) )
+   {
       MoveWindow(hwndParent, rcb.left, rcb.top, width, height, TRUE);
+   }
 
    return 1;
 }
@@ -986,12 +1086,16 @@ HB_FUNC( RESIZEFLOATTOOLBAR )
    int  widthTb = hb_parni(2);
 
    if( isInSizeMsg )
+   {
       hb_retl( FALSE );
+   }
 
    isInSizeMsg = 1;
 
    if( hwndTB )
+   {
       ResizeToolbar( hwndTB, widthTb );
+   }
 
    isInSizeMsg = 0;
 
@@ -1029,7 +1133,9 @@ HB_FUNC( TOOLBAREXCUSTFUNC )
                LPTBNOTIFY lpTbNotify = ( LPTBNOTIFY ) lParam;
 
                if( lpTbNotify->iItem >= buttonCount || lpTbNotify->iItem < 0 )
+               {
                   hb_retl( FALSE );
+               }
                else
                {
                   SendMessage(lpTB->hdr.hwndFrom, TB_GETBUTTON, lpTbNotify->iItem, ( LPARAM ) &lpBtn);

@@ -78,16 +78,24 @@ HB_FUNC( INITCHKLISTBOX )
    m_nHeightItem = 16;
 
    if( ! hb_parl(9) )
+   {
       Style = Style | WS_VISIBLE;
+   }
 
    if( ! hb_parl(10) )
+   {
       Style = Style | WS_TABSTOP;
+   }
 
    if( hb_parl(11) )
+   {
       Style = Style | LBS_SORT;
+   }
 
    if( hb_parni(12) )
+   {
       m_nHeightItem = hb_parni(12);
+   }
 
    hbutton = CreateWindowEx
              (
@@ -118,16 +126,24 @@ HB_FUNC( INITMULTICHKLISTBOX )
    m_nHeightItem = 16;
 
    if( ! hb_parl(9) )
+   {
       Style = Style | WS_VISIBLE;
+   }
 
    if( ! hb_parl(10) )
+   {
       Style = Style | WS_TABSTOP;
+   }
 
    if( hb_parl(11) )
+   {
       Style = Style | LBS_SORT;
+   }
 
    if( hb_parni(12) )
+   {
       m_nHeightItem = hb_parni(12);
+   }
 
    hbutton = CreateWindowEx
              (
@@ -206,7 +222,9 @@ HB_FUNC( SETCHKLBITEMHEIGHT ) // set the height of a string in pixels
    SendMessage(hwnd, LB_GETTEXT, 0, ( LPARAM ) achBuffer);
 
    if( hFont )
+   {
       hOldFont = ( HFONT ) SelectObject(hdc, hFont);
+   }
 
    GetTextExtentPoint32(hdc, achBuffer, ( int ) HB_STRLEN(achBuffer), &sz);
 
@@ -218,7 +236,9 @@ HB_FUNC( SETCHKLBITEMHEIGHT ) // set the height of a string in pixels
    }
 
    if( hFont )
+   {
       SelectObject(hdc, hOldFont);
+   }
 
    ReleaseDC(hwnd, hdc);
 }
@@ -352,5 +372,7 @@ HB_FUNC( GETMISCTLTYPE )
    LPMEASUREITEMSTRUCT pmis = ( LPMEASUREITEMSTRUCT ) HB_PARNL(1);
 
    if( pmis )
+   {
       hb_retni( ( UINT ) pmis->CtlType );
+   }
 }

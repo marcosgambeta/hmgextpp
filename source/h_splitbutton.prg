@@ -300,7 +300,9 @@ HB_FUNC( INITSPLITBUTTON )
    Style = BS_SPLITBUTTON;
 
    if( hb_parl( 5 ) )
+   {
       Style = BS_DEFSPLITBUTTON;
+   }
 
    hbutton = CreateWindow( TEXT( "button" ),
                            lpWindowName,

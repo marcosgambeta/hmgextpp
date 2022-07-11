@@ -90,14 +90,18 @@ static void hmg_init(void * cargo)
    HB_SYMBOL_UNUSED( cargo );
 
    if( S_FALSE == CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE | COINIT_SPEED_OVER_MEMORY) )
+   {
       hmg_ErrorExit(TEXT("hmg_init(void)"), S_FALSE, TRUE);
+   }
 
    g_dwComCtl32Ver = DllGetVersion(lpszDllName);
 
    GetInstance();
 
    if( Ok != GdiplusInit() )
+   {
       hmg_ErrorExit(TEXT("GdiplusInit(void)"), 0, TRUE);
+   }   
 }
 
 HB_CALL_ON_STARTUP_BEGIN(_hmg_init_)
@@ -114,7 +118,9 @@ HB_CALL_ON_STARTUP_END(_hmg_init_)
 HINSTANCE GetInstance(void)
 {
    if( ! g_hInstance )
+   {
       g_hInstance = GetModuleHandle(0);
+   }
 
    return g_hInstance;
 }
@@ -142,7 +148,9 @@ static DWORD DllGetVersion(LPCTSTR lpszDllName)
 
          hr = ( *pDllGetVersion )( &dvi );
          if( S_OK == hr )
+         {
             dwVersion = PACKVERSION(dvi.info1.dwMajorVersion, dvi.info1.dwMinorVersion);
+         }
       }
       FreeLibrary(hinstDll);
    }
@@ -175,7 +183,9 @@ static HB_BOOL win_has_search_system32(void)
    HMODULE hKernel32 = GetModuleHandle(TEXT("kernel32.dll"));
 
    if( hKernel32 )
+   {
       return GetProcAddress(hKernel32, "AddDllDirectory") != nullptr;  /* Detect KB2533623 */
+   }
 
    return HB_FALSE;
 }
@@ -200,7 +210,9 @@ static TCHAR * hmg_FileNameAtSystemDir( const TCHAR * pFileName )
       LPTSTR buffer;
 
       if( pFileName )
+      {
          nLen += ( UINT ) hmg_tstrlen(pFileName) + 1;
+      }
 
       buffer = ( LPTSTR ) hb_xgrab(nLen * sizeof(TCHAR));
 
@@ -215,7 +227,9 @@ static TCHAR * hmg_FileNameAtSystemDir( const TCHAR * pFileName )
       return buffer;
    }
    else
+   {
       return hmg_tstrdup(pFileName);
+   }
 }
 
 TCHAR * hmg_tstrdup(const TCHAR * pszText)

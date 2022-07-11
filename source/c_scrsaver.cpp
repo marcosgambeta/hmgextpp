@@ -74,12 +74,16 @@ HB_FUNC( VERIFYPASSWORD )
    GetVersionEx(&osvi);
 
    if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT )
+   {
       hb_retl( TRUE );
+   }
 
    hpwdcpl = LoadLibrary(TEXT("PASSWORD.CPL"));
 
    if( hpwdcpl == nullptr )
+   {
       hb_retl( FALSE );
+   }
 
    VerifyScreenSavePwd = ( VERIFYSCREENSAVEPWD ) wapi_GetProcAddress(hpwdcpl, "VerifyScreenSavePwd");
    if( VerifyScreenSavePwd == nullptr )
@@ -106,7 +110,9 @@ HB_FUNC( CHANGEPASSWORD )
    PWDCHANGEPASSWORD PwdChangePassword;
 
    if( hmpr == nullptr )
+   {
       hb_retl( FALSE );
+   }
 
    PwdChangePassword = ( PWDCHANGEPASSWORD ) wapi_GetProcAddress(hmpr, "PwdChangePasswordA");
 

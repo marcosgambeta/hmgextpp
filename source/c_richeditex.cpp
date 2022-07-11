@@ -90,21 +90,31 @@ HB_FUNC( INITRICHEDITBOXEX )
    int Style = ES_MULTILINE | ES_WANTRETURN | WS_CHILD | ES_NOHIDESEL;
 
    if( hb_parl(10) )
+   {
       Style = Style | ES_READONLY;
+   }
 
    if( ! hb_parl(11) )
+   {
       Style = Style | WS_VISIBLE;
+   }
 
    if( ! hb_parl(12) )
+   {
       Style = Style | WS_TABSTOP;
+   }
 
    if( ! hb_parl(13) )
+   {
       Style = Style | WS_HSCROLL;
+   }
 
    Style = Style | ( ( ! hb_parl(14) ) ? WS_VSCROLL : ES_AUTOVSCROLL );
 
    if( ! hRELib )
+   {
       hRELib = LoadLibrary(TEXT("RichEd20.dll"));
+   }
 
    if( hRELib )
    {
@@ -146,9 +156,13 @@ DWORD CALLBACK EditStreamCallbackRead(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb
    HANDLE hFile = ( HANDLE ) dwCookie;
 
    if( ReadFile(hFile, ( LPVOID ) lpBuff, ( DWORD ) cb, ( LPDWORD ) pcb, nullptr) )
+   {
       return 0;
+   }
    else
+   {
       return ( DWORD ) -1;
+   }
 }
 
 //        RichEditBox_StreamIn ( hWndControl, cFileName, lSelection, nDataFormat )
@@ -178,7 +192,9 @@ HB_FUNC( RICHEDITBOX_STREAMIN )
    }
 
    if( lSelection )
+   {
       Format = Format | SFF_SELECTION;
+   }
 
    if( ( hFile = CreateFile(cFileName, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, nullptr) ) == INVALID_HANDLE_VALUE )
    {
@@ -201,9 +217,13 @@ HB_FUNC( RICHEDITBOX_STREAMIN )
    CloseHandle(hFile);
 
    if( es.dwError )
+   {
       hb_retl( FALSE );
+   }
    else
+   {
       hb_retl( TRUE );
+   }
 }
 
 DWORD CALLBACK EditStreamCallbackWrite(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb, LONG * pcb)
@@ -211,9 +231,13 @@ DWORD CALLBACK EditStreamCallbackWrite(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG c
    HANDLE hFile = ( HANDLE ) dwCookie;
 
    if( WriteFile(hFile, ( LPVOID ) lpBuff, ( DWORD ) cb, ( LPDWORD ) pcb, nullptr) )
+   {
       return 0;
+   }
    else
+   {
       return ( DWORD ) -1;
+   }
 }
 
 //        RichEditBox_StreamOut ( hWndControl, cFileName, lSelection, nDataFormat )
@@ -243,7 +267,9 @@ HB_FUNC( RICHEDITBOX_STREAMOUT )
    }
 
    if( lSelection )
+   {
       Format = Format | SFF_SELECTION;
+   }
 
    if( ( hFile = CreateFile(cFileName, GENERIC_WRITE, FILE_SHARE_WRITE, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr) ) == INVALID_HANDLE_VALUE )
    {
@@ -266,9 +292,13 @@ HB_FUNC( RICHEDITBOX_STREAMOUT )
    CloseHandle(hFile);
 
    if( es.dwError )
+   {
       hb_retl( FALSE );
+   }
    else
+   {
       hb_retl( TRUE );
+   }
 }
 
 //        RichEditBox_RTFLoadResourceFile ( hWndControl, cFileName, lSelect )
@@ -310,9 +340,13 @@ HB_FUNC( RICHEDITBOX_RTFLOADRESOURCEFILE )
    }
 
    if( lpGlobalResource == nullptr )
+   {
       hb_retl( ( BOOL ) FALSE );
+   }
    else
+   {
       hb_retl( ( BOOL ) TRUE );
+   }
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) cFileName);
@@ -362,9 +396,13 @@ HB_FUNC( RICHEDITBOX_SETBKGNDCOLOR )
    HWND hWndControl = hmg_par_HWND(1);
 
    if( HB_ISARRAY(2) )
+   {
       SendMessage(hWndControl, EM_SETBKGNDCOLOR, 0, ( LPARAM ) RGB(HB_PARNI(2, 1), HB_PARNI(2, 2), HB_PARNI(2, 3)));
+   }
    else
+   {
       SendMessage(hWndControl, EM_SETBKGNDCOLOR, ( WPARAM ) 1, 0);  // Set to the window background system color
+   }
 }
 
 //        RichEditBox_SetZoom ( hWndControl, nNumerator, nDenominator )
@@ -384,10 +422,14 @@ HB_FUNC( RICHEDITBOX_GETZOOM )
    SendMessage(hWndControl, EM_GETZOOM, ( WPARAM ) &nNumerator, ( LPARAM ) &nDenominator);
 
    if( HB_ISBYREF(2) )
+   {
       hb_storni( nNumerator, 2 );
+   }
 
    if( HB_ISBYREF(3) )
+   {
       hb_storni( nDenominator, 3 );
+   }
 }
 
 //        RichEditBox_SetFont(hWndControl, cFontName, nFontSize, lBold, lItalic, lUnderline, lStrikeout, aTextColor, aBackColor, nScript, lLink)
@@ -422,28 +464,36 @@ HB_FUNC( RICHEDITBOX_SETFONT )
    {
       Mask = Mask | CFM_BOLD;
       if( hb_parl(4) )
+      {
          Effects = Effects | CFE_BOLD;
+      }
    }
 
    if( HB_ISLOG(5) )
    {
       Mask = Mask | CFM_ITALIC;
       if( hb_parl(5) )
+      {
          Effects = Effects | CFE_ITALIC;
+      }
    }
 
    if( HB_ISLOG(6) )
    {
       Mask = Mask | CFM_UNDERLINE;
       if( hb_parl(6) )
+      {
          Effects = Effects | CFE_UNDERLINE;
+      }
    }
 
    if( HB_ISLOG(7) )
    {
       Mask = Mask | CFM_STRIKEOUT;
       if( hb_parl(7) )
+      {
          Effects = Effects | CFE_STRIKEOUT;
+      }
    }
 
    if( HB_ISARRAY(8) )
@@ -472,25 +522,35 @@ HB_FUNC( RICHEDITBOX_SETFONT )
    {
       Mask = Mask | CFM_SUBSCRIPT | CFM_SUPERSCRIPT;    // The CFE_SUPERSCRIPT and CFE_SUBSCRIPT values are mutually exclusive
       if( hb_parnl(10) == 1 )
+      {
          Effects = Effects | CFE_SUBSCRIPT;
+      }
       if( hb_parnl(10) == 2 )
+      {
          Effects = Effects | CFE_SUPERSCRIPT;
+      }
    }
 
    if( HB_ISLOG(11) )
    {
       Mask = Mask | CFM_LINK;
       if( hb_parl(11) )
+      {
          Effects = Effects | CFE_LINK;
+      }
    }
 
    CharFormat2.dwMask    = Mask;
    CharFormat2.dwEffects = Effects;
 
    if( SendMessage(hWndControl, EM_SETCHARFORMAT, SCF_SELECTION, ( LPARAM ) &CharFormat2 ))
+   {
       hb_retl( TRUE );
+   }
    else
+   {
       hb_retl( FALSE );
+   }
 }
 
 //        RichEditBox_GetFont(hWndControl, @cFontName, @nFontSize, @lBold, @lItalic, @lUnderline, @lStrikeout, @aTextColor, @aBackColor, @nScript, @lLink)
@@ -525,19 +585,29 @@ HB_FUNC( RICHEDITBOX_GETFONT )
    }
 
    if( HB_ISBYREF(3) )
+   {
       hb_stornl( ( LONG ) ( CharFormat2.yHeight * 1 / 20 ), 3 );  // yHeight (character height) is in twips (1/1440 of an inch or 1/20 of a printer point)
+   }
 
    if( HB_ISBYREF(4) )
+   {
       hb_storl( ( BOOL ) ( Effects & CFE_BOLD ), 4 );
+   }
 
    if( HB_ISBYREF(5) )
+   {
       hb_storl( ( BOOL ) ( Effects & CFE_ITALIC ), 5 );
+   }
 
    if( HB_ISBYREF(6) )
+   {
       hb_storl( ( BOOL ) ( Effects & CFE_UNDERLINE ), 6 );
+   }
 
    if( HB_ISBYREF(7) )
+   {
       hb_storl( ( BOOL ) ( Effects & CFE_STRIKEOUT ), 7 );
+   }
 
    if( HB_ISBYREF(8) )
    {
@@ -560,15 +630,23 @@ HB_FUNC( RICHEDITBOX_GETFONT )
    if( HB_ISBYREF(10) )
    {
       if( Effects & CFE_SUPERSCRIPT )
+      {
          hb_stornl( ( LONG ) 2, 10 );
+      }
       else if( Effects & CFE_SUBSCRIPT )
+      {
          hb_stornl( ( LONG ) 1, 10 );
+      }
       else
+      {
          hb_stornl( ( LONG ) 0, 10 );
+      }
    }
 
    if( HB_ISBYREF(11) )
+   {
       hb_storl( ( BOOL ) ( Effects & CFE_LINK ), 11 );
+   }
 
 }
 
@@ -737,13 +815,19 @@ HB_FUNC( RICHEDITBOX_FINDTEXT )
    #endif
 
    if( Down )
+   {
       Options = Options | FR_DOWN;
+   }
 
    if( MatchCase )
+   {
       Options = Options | FR_MATCHCASE;
+   }
 
    if( WholeWord )
+   {
       Options = Options | FR_WHOLEWORD;
+   }
 
    SendMessage(hWndControl, EM_EXGETSEL, 0, ( LPARAM ) &CharRange);
 
@@ -768,7 +852,9 @@ HB_FUNC( RICHEDITBOX_FINDTEXT )
    #endif
 
    if( SelectFindText == FALSE )
+   {
       FindText.chrgText.cpMin = FindText.chrgText.cpMax;
+   }
 
    SendMessage(hWndControl, EM_EXSETSEL, 0, ( LPARAM ) &FindText.chrgText);
 
@@ -906,13 +992,21 @@ HB_FUNC( RICHEDITBOX_GETPARAFORMAT )
    if( HB_ISBYREF(2) )
    {
       if( ParaFormat2.wAlignment == PFA_LEFT )
+      {
          Alignment = 1;
+      }
       else if( ParaFormat2.wAlignment == PFA_RIGHT )
+      {
          Alignment = 2;
+      }
       else if( ParaFormat2.wAlignment == PFA_CENTER )
+      {
          Alignment = 3;
+      }
       else if( ParaFormat2.wAlignment == PFA_JUSTIFY )
+      {
          Alignment = 4;
+      }
 
       hb_stornl( ( LONG ) Alignment, 2 );
    }
@@ -920,21 +1014,37 @@ HB_FUNC( RICHEDITBOX_GETPARAFORMAT )
    if( HB_ISBYREF(3) )
    {
       if( ParaFormat2.wNumbering == 0 )
+      {
          Numbering = 1;
+      }
       else if( ParaFormat2.wNumbering == PFN_BULLET )
+      {
          Numbering = 2;
+      }
       else if( ParaFormat2.wNumbering == PFN_ARABIC )
+      {
          Numbering = 3;
+      }
       else if( ParaFormat2.wNumbering == PFN_LCLETTER )
+      {
          Numbering = 4;
+      }
       else if( ParaFormat2.wNumbering == PFN_LCROMAN )
+      {
          Numbering = 5;
+      }
       else if( ParaFormat2.wNumbering == PFN_UCLETTER )
+      {
          Numbering = 6;
+      }
       else if( ParaFormat2.wNumbering == PFN_UCROMAN )
+      {
          Numbering = 7;
+      }
       else if( ParaFormat2.wNumbering == 7 )
+      {
          Numbering = 8;
+      }
 
       hb_stornl( ( LONG ) Numbering, 3 );
    }
@@ -942,19 +1052,33 @@ HB_FUNC( RICHEDITBOX_GETPARAFORMAT )
    if( HB_ISBYREF(4) )
    {
       if( ParaFormat2.wNumberingStyle == PFNS_PAREN )
+      {
          NumberingStyle = 1;
+      }
       else if( ParaFormat2.wNumberingStyle == PFNS_PARENS )
+      {
          NumberingStyle = 2;
+      }
       else if( ParaFormat2.wNumberingStyle == PFNS_PERIOD )
+      {
          NumberingStyle = 3;
+      }
       else if( ParaFormat2.wNumberingStyle == PFNS_PLAIN )
+      {
          NumberingStyle = 4;
+      }
       else if( ParaFormat2.wNumberingStyle == PFNS_NONUMBER )
+      {
          NumberingStyle = 5;
+      }
       else if( ParaFormat2.wNumberingStyle == PFNS_NEWNUMBER )
+      {
          NumberingStyle = 6;
+      }
       else
+      {
          NumberingStyle = 0;
+      }
 
       hb_stornl( ( LONG ) NumberingStyle, 4 );
    }
@@ -974,17 +1098,29 @@ HB_FUNC( RICHEDITBOX_GETPARAFORMAT )
    if( HB_ISBYREF(7) )
    {
       if( ParaFormat2.bLineSpacingRule == 0 )
+      {
          LineSpacing = 1.0;
+      }
       else if( ParaFormat2.bLineSpacingRule == 1 )
+      {
          LineSpacing = 1.5;
+      }
       else if( ParaFormat2.bLineSpacingRule == 2 )
+      {
          LineSpacing = 2.0;
+      }
       else if( ParaFormat2.bLineSpacingRule == 3 )
+      {
          LineSpacing = ( ( double ) ParaFormat2.dyLineSpacing ) * -1.0;  // if < 0 is in twips
+      }
       else if( ParaFormat2.bLineSpacingRule == 4 )
+      {
          LineSpacing = ( ( double ) ParaFormat2.dyLineSpacing ) * -1.0;  // if < 0 is in twips
+      }
       else if( ParaFormat2.bLineSpacingRule == 5 )
+      {
          LineSpacing = ( ( double ) ParaFormat2.dyLineSpacing ) * 1.0 / 20.0;
+      }
 
       hb_stornd( ( double ) LineSpacing, 7 );
    }
@@ -1234,12 +1370,18 @@ HB_FUNC( FINDREPLACEDLG )
       FindReplace.wReplaceWithLen  = sizeof(cReplaceWith) / sizeof(TCHAR);
 
       if( lReplace )
+      {
          hDlgFindReplace = ReplaceText(&FindReplace);
+      }
       else
+      {
          hDlgFindReplace = FindText(&FindReplace);
+      }
 
       if( HB_ISCHAR(11) )
+      {
          SetWindowText(hDlgFindReplace, cTitle);
+      }
 
       ShowWindow(hDlgFindReplace, SW_SHOW);
    }
@@ -1260,7 +1402,9 @@ HB_FUNC( FINDREPLACEDLGSETTITLE )
 #endif
 
    if( hDlgFindReplace != nullptr )
+   {
       SetWindowText(hDlgFindReplace, cTitle);
+   }
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) cTitle);
@@ -1304,9 +1448,13 @@ HB_FUNC( FINDREPLACEDLGSHOW )
    if( hDlgFindReplace != nullptr )
    {
       if( lShow )
+      {
          ShowWindow(hDlgFindReplace, SW_SHOW);
+      }
       else
+      {
          ShowWindow(hDlgFindReplace, SW_HIDE);
+      }
    }
 }
 
@@ -1339,16 +1487,24 @@ HB_FUNC( FINDREPLACEDLGGETOPTIONS )
    LONG          nRet   = -1;
 
    if( FR->Flags & FR_DIALOGTERM )
+   {
       nRet = 0;
+   }
 
    if( FR->Flags & FR_FINDNEXT )
+   {
       nRet = 1;
+   }
 
    if( FR->Flags & FR_REPLACE )
+   {
       nRet = 2;
+   }
 
    if( FR->Flags & FR_REPLACEALL )
+   {
       nRet = 3;
+   }
 
    hb_reta(6);
 

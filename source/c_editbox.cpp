@@ -68,21 +68,33 @@ HB_FUNC( INITEDITBOX )
    Style = ES_MULTILINE | ES_WANTRETURN | WS_CHILD;
 
    if( hb_parl(10) )
+   {
       Style = Style | ES_READONLY;
+   }
 
    if( ! hb_parl(11) )
+   {
       Style = Style | WS_VISIBLE;
+   }
 
    if( ! hb_parl(12) )
+   {
       Style = Style | WS_TABSTOP;
+   }
 
    if( ! hb_parl(13) )
+   {
       Style = Style | WS_VSCROLL;
+   }
    else
+   {
       Style = Style | ES_AUTOVSCROLL;
+   }
 
    if( ! hb_parl(14) )
+   {
       Style = Style | WS_HSCROLL;
+   }
 
    hbutton = CreateWindowEx
              (

@@ -85,7 +85,9 @@ HB_FUNC( SETACCELERATORTABLE )
    HACCEL hAccel   = ( HACCEL ) ( LONG_PTR ) HB_PARNL(2);
 
    if( hWndMain && hAccel )
+   {
       SetAcceleratorTable(hWndMain, hAccel);
+   }
 }
 
 HB_FUNC( ACCELERATORTABLE2ARRAY )
@@ -264,7 +266,9 @@ HB_FUNC( LOADMENU )
 HB_FUNC( _NEWMENUSTYLE )
 {
    if( HB_ISLOG(1) )
+   {
       s_bCustomDraw = hb_parl(1);
+   }
 
    hb_retl( s_bCustomDraw );
 }
@@ -329,7 +333,9 @@ HB_FUNC( CREATEMENU )
 
    #ifndef __WINNT__
    if( s_bCustomDraw )
+   {
       SetMenuBarColor(hMenu, clrMenuBar1, TRUE);
+   }
    #endif
 
    HB_RETNL( ( LONG_PTR ) hMenu );
@@ -447,7 +453,9 @@ HB_FUNC( APPENDMENUSEPARATOR )
       hb_retl( AppendMenu(hmg_par_HMENU(1), MF_SEPARATOR | MF_OWNERDRAW, 0, ( LPTSTR ) lpMenuItem) );
    }
    else
+   {
       hb_retl( AppendMenu(hmg_par_HMENU(1), MF_SEPARATOR, 0, nullptr) );
+   }
 }
 
 HB_FUNC( MODIFYMENUITEM )
@@ -502,7 +510,9 @@ HB_FUNC( MENUITEM_SETBITMAPS )
       {
          pMENUITEM = ( MENUITEM * ) MenuItemInfo.dwItemData;
          if( pMENUITEM->hBitmap != nullptr )
+         {
             DeleteObject(pMENUITEM->hBitmap);
+         }
 
          pMENUITEM->hBitmap = himage1;
       }
@@ -536,12 +546,16 @@ HB_FUNC( MENUITEM_SETCHECKMARKS )
       if( GetMenuItemInfo(hmg_par_HMENU(1), hb_parni(2), FALSE, &MenuItemInfo) )
       {
          if( MenuItemInfo.hbmpChecked != nullptr )
+         {
             DeleteObject(MenuItemInfo.hbmpChecked);
+         }
 
          MenuItemInfo.hbmpChecked = himage1;
 
          if( MenuItemInfo.hbmpUnchecked != nullptr )
+         {
             DeleteObject(MenuItemInfo.hbmpUnchecked);
+         }
 
          MenuItemInfo.hbmpUnchecked = himage2;
 
@@ -563,7 +577,9 @@ HB_FUNC( MENUITEM_SETICON )
 
    hIcon = ( HICON ) LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_DEFAULTCOLOR);
    if( hIcon == nullptr )
+   {
       hIcon = ( HICON ) LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR);
+   }
 
    // convert icon to bitmap
    himage1 = Icon2Bmp(hIcon);
@@ -580,13 +596,17 @@ HB_FUNC( MENUITEM_SETICON )
       {
          lpMenuItem = ( LPMENUITEM ) MenuItemInfo.dwItemData;
          if( lpMenuItem->hBitmap != nullptr )
+         {
             DeleteObject(lpMenuItem->hBitmap);
+         }
 
          lpMenuItem->hBitmap = himage1;
       }
    }
    else
+   {
       SetMenuItemBitmaps(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND, himage1, himage1);
+   }
 
    DestroyIcon(hIcon);
 
@@ -614,7 +634,9 @@ HB_FUNC( MENUITEM_SETFONT )
          if( GetObjectType(hmg_par_HGDIOBJ(3)) == OBJ_FONT )
          {
             if( lpMenuItem->hFont != nullptr )
+            {
                DeleteObject(lpMenuItem->hFont);
+            }
 
             lpMenuItem->hFont = hmg_par_HFONT(3);
          }
@@ -649,7 +671,9 @@ HB_FUNC( XGETMENUCAPTION )
       #endif
       }
       else
+      {
          hb_retc( "" );
+      }
    }
 }
 
@@ -690,7 +714,9 @@ HB_FUNC( XSETMENUCAPTION )
          lpMenuItem->caption = HB_STRNDUP(lpNewItem, cch);
       }
       else
+      {
          hb_retc( "" );
+      }
 
 #ifdef UNICODE
       hb_xfree(lpNewItem);
@@ -705,9 +731,13 @@ HB_FUNC( XGETMENUCHECKSTATE )
    state = GetMenuState(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND);
 
    if( state != 0xFFFFFFFF )
+   {
       hb_retl( ( state & MF_CHECKED ) ? TRUE : FALSE );
+   }
    else
+   {
       hb_retl( FALSE );
+   }
 }
 
 HB_FUNC( XGETMENUENABLEDSTATE )
@@ -717,9 +747,13 @@ HB_FUNC( XGETMENUENABLEDSTATE )
    state = GetMenuState(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND);
 
    if( state != 0xFFFFFFFF )
+   {
       hb_retl( ( ( state & MF_GRAYED ) || ( state & MF_DISABLED ) ) ? FALSE : TRUE );
+   }
    else
+   {
       hb_retl( FALSE );
+   }
 }
 
 HB_FUNC( ISMENU )
@@ -780,7 +814,9 @@ HB_FUNC( _ONDRAWMENUITEM )
    lpMenuItem = ( MENUITEM * ) lpdis->itemData;
 
    if( lpdis->CtlType != ODT_MENU )
+   {
       return;
+   }
 
    // draw SEPARATOR
    if( lpdis->itemID == 0 )
@@ -790,9 +826,13 @@ HB_FUNC( _ONDRAWMENUITEM )
    }
 
    if( lpMenuItem->hFont != nullptr )
+   {
       oldfont = ( HFONT ) SelectObject(lpdis->hDC, lpMenuItem->hFont);
+   }
    else
+   {
       oldfont = ( HFONT ) SelectObject(lpdis->hDC, GetStockObject(DEFAULT_GUI_FONT));
+   }
 
    // save prev. colours state
    clrText       = SetTextColor(lpdis->hDC, clrText1);
@@ -823,17 +863,22 @@ HB_FUNC( _ONDRAWMENUITEM )
    }
 
    if( lpdis->itemState & ODS_CHECKED )
+   {
       fChecked = TRUE;
+   }
 
    // draw menu item bitmap background
    if( lpMenuItem->uiItemType != 1 )
+   {
       DrawBitmapBK(lpdis->hDC, lpdis->rcItem);
+   }
 
    //draw menu item background
    DrawItemBk(lpdis->hDC, lpdis->rcItem, fSelected, fGrayed, lpMenuItem->uiItemType, ( ( lpMenuItem->hBitmap == nullptr ) && ( ! fChecked ) ));
 
    // draw menu item border
    if( fSelected && ( ! fGrayed ) )
+   {
       DrawSelectedItemBorder
       (
          lpdis->hDC,
@@ -841,6 +886,7 @@ HB_FUNC( _ONDRAWMENUITEM )
          lpMenuItem->uiItemType,
          ( ( lpMenuItem->hBitmap == nullptr ) && ( ! fChecked ) )
       );
+   }
 
    // draw bitmap
    if( ( lpMenuItem->hBitmap != nullptr ) && ( ! fChecked ) )
@@ -894,7 +940,9 @@ HB_FUNC( _ONDRAWMENUITEM )
    iLen = ( int ) HB_STRNLEN(lpMenuItem->caption, MAX_ITEM_TEXT * sizeof(TCHAR));
 
    if( lpMenuItem->uiItemType == 1 )
+   {
       DrawText(lpdis->hDC, lpMenuItem->caption, iLen, &lpdis->rcItem, DT_CENTER | DT_VCENTER | DT_SINGLELINE | DT_END_ELLIPSIS | DT_EXPANDTABS);
+   }
    else
    {
       lpdis->rcItem.left += ( min_width + cx_delta + 2 );
@@ -934,7 +982,9 @@ VOID DrawSeparator( HDC hDC, RECT r )
    rect.right = rect.left + min_width + cx_delta / 2;
 
    if( ( EnabledGradient() ) && ( ! IsColorEqual( clrImageBk1, clrImageBk2 ) ) )
+   {
       FillGradient(hDC, &rect, FALSE, clrImageBk1, clrImageBk2);
+   }
    else
    {
       HBRUSH brush = CreateSolidBrush(clrImageBk1);
@@ -946,7 +996,9 @@ VOID DrawSeparator( HDC hDC, RECT r )
    rect.left += ( min_width + cx_delta / 2 );
 
    if( ( EnabledGradient() ) && ( ! IsColorEqual( clrBk1, clrBk2 ) ) )
+   {
       FillGradient(hDC, &rect, FALSE, clrBk1, clrBk2);
+   }
    else
    {
       HBRUSH brush = CreateSolidBrush(clrBk1);
@@ -960,7 +1012,9 @@ VOID DrawSeparator( HDC hDC, RECT r )
    oldPen = ( HPEN ) SelectObject(hDC, pen);
 
    if( eSeparatorPosition == Right )
+   {
       rect.left += ( min_width + cx_delta + 2 );
+   }
    else if( eSeparatorPosition == Middle )
    {
       rect.left  += ( min_width - cx_delta );
@@ -997,7 +1051,9 @@ VOID DrawBitmapBK(HDC hDC, RECT r)
    rect.right = rect.left + min_width + cx_delta / 2;
 
    if( ( EnabledGradient() ) && ( ! IsColorEqual( clrImageBk1, clrImageBk2 ) ) )
+   {
       FillGradient(hDC, &rect, FALSE, clrImageBk1, clrImageBk2);
+   }
    else
    {
       HBRUSH brush = CreateSolidBrush(clrImageBk1);
@@ -1012,16 +1068,21 @@ VOID DrawItemBk(HDC hDC, RECT r, BOOL Selected, BOOL Grayed, UINT itemType, BOOL
 
    CopyRect(&rect, &r);
    if( ( ! Selected ) && ( itemType != 1 ) )
+   {
       rect.left += ( min_width + cx_delta / 2 );
+   }
 
    if( ( Selected ) && ( itemType != 1 ) && ( eMenuCursorType == Short ) && ( ! clear ) )
+   {
       rect.left += ( min_width + cx_delta / 2 );
+   }
 
    if( ! Grayed )
    {
       if( Selected )
       {
          if( EnabledGradient() )
+         {
             FillGradient
             (
                hDC,
@@ -1030,6 +1091,7 @@ VOID DrawItemBk(HDC hDC, RECT r, BOOL Selected, BOOL Grayed, UINT itemType, BOOL
                ( itemType == 1 ) ? clrSelectedMenuBarItem1 : clrSelectedBk1,
                ( itemType == 1 ) ? clrSelectedMenuBarItem2 : clrSelectedBk2
             );
+         }
          else
          {
             HBRUSH brush = CreateSolidBrush(( itemType == 1 ) ? clrSelectedMenuBarItem1 : clrSelectedBk1);
@@ -1041,6 +1103,7 @@ VOID DrawItemBk(HDC hDC, RECT r, BOOL Selected, BOOL Grayed, UINT itemType, BOOL
       {
          if( EnabledGradient() && ( ! IsColorEqual( clrMenuBar1, clrMenuBar2 ) ||
                                     ( ! IsColorEqual( clrBk1, clrBk2 ) && ( itemType != 1 ) ) ) )
+         {
             FillGradient
             (
                hDC,
@@ -1049,6 +1112,7 @@ VOID DrawItemBk(HDC hDC, RECT r, BOOL Selected, BOOL Grayed, UINT itemType, BOOL
                ( ( itemType == 1 ) ? clrMenuBar1 : clrBk1 ),
                ( ( itemType == 1 ) ? clrMenuBar2 : clrBk2 )
             );
+         }
          else
          {
             HBRUSH brush = CreateSolidBrush(( itemType == 1 ) ? clrMenuBar1 : clrBk1);
@@ -1060,7 +1124,9 @@ VOID DrawItemBk(HDC hDC, RECT r, BOOL Selected, BOOL Grayed, UINT itemType, BOOL
    else
    {
       if( EnabledGradient() )
+      {
          FillGradient(hDC, &rect, FALSE, clrGrayedBk1, clrGrayedBk2);
+      }
       else
       {
          HBRUSH brush = CreateSolidBrush(clrGrayedBk1);
@@ -1090,7 +1156,9 @@ VOID DrawSelectedItemBorder(HDC hDC, RECT r, UINT itemType, BOOL clear)
 
    CopyRect(&rect, &r);
    if( ( eMenuCursorType == Short ) && ( itemType != 1 ) && ( ! clear ) )
+   {
       rect.left += ( min_width + cx_delta / 2 );
+   }
 
    InflateRect(&rect, -1, -1);
 
@@ -1121,6 +1189,7 @@ VOID DrawSelectedItemBorder(HDC hDC, RECT r, UINT itemType, BOOL clear)
 VOID DrawCheck(HDC hdc, SIZE size, RECT rect, BOOL disabled, BOOL selected, HBITMAP hbitmap)
 {
    if( hbitmap != 0 )
+   {
       DrawGlyph
       (
          hdc,
@@ -1133,6 +1202,7 @@ VOID DrawCheck(HDC hdc, SIZE size, RECT rect, BOOL disabled, BOOL selected, HBIT
          ( ( disabled ) ? TRUE : FALSE ),
          TRUE
       );
+   }
    else
    {
       HPEN   pen, oldPen;
@@ -1140,9 +1210,13 @@ VOID DrawCheck(HDC hdc, SIZE size, RECT rect, BOOL disabled, BOOL selected, HBIT
       UINT   x, y, w, h;
 
       if( ( selected ) && ( eMenuCursorType != Short ) )
+      {
          brush = CreateSolidBrush(clrSelectedBk1);
+      }
       else
+      {
          brush = CreateSolidBrush(clrCheckMarkBk);
+      }
 
       oldBrush = ( HBRUSH ) SelectObject(hdc, brush);
 
@@ -1159,9 +1233,13 @@ VOID DrawCheck(HDC hdc, SIZE size, RECT rect, BOOL disabled, BOOL selected, HBIT
       DeleteObject(pen);
 
       if( disabled )
+      {
          pen = CreatePen(PS_SOLID, ( UINT ) 1, clrCheckMarkGr);
+      }
       else
+      {
          pen = CreatePen(PS_SOLID, ( UINT ) 1, clrCheckMark);
+      }
 
       SelectObject(hdc, pen);
 
@@ -1230,7 +1308,9 @@ VOID SetMenuBarColor(HMENU hMenu, COLORREF clrBk, BOOL fSubMenu)
 
    MenuInfo.fMask = MIM_BACKGROUND;
    if( fSubMenu )
+   {
       MenuInfo.fMask |= MIM_APPLYTOSUBMENUS;
+   }
 
    MenuInfo.hbrBack = CreateSolidBrush(clrBk);
    SetMenuInfo(hMenu, &MenuInfo);

@@ -466,7 +466,9 @@ HB_FUNC( INITCLBUTTON )
    Style = BS_COMMANDLINK;
 
    if( hb_parl( 5 ) )
+   {
       Style = BS_DEFCOMMANDLINK;
+   }
 
    hbutton = CreateWindow( TEXT( "button" ),
                            lpWindowName,
@@ -538,6 +540,7 @@ HB_FUNC( CLBUTTON_SETIMAGE )
           );
 
    if( himl == nullptr )
+   {
       himl = ImageList_LoadImage
              (
          GetModuleHandle( nullptr ),
@@ -548,6 +551,7 @@ HB_FUNC( CLBUTTON_SETIMAGE )
          IMAGE_BITMAP,
          LR_LOADFROMFILE | LR_CREATEDIBSECTION | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT
              );
+   }
 
    bi.himl          = himl;
    bi.margin.left   = 10;

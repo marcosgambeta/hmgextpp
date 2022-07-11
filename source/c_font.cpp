@@ -132,7 +132,9 @@ HB_FUNC( _SETFONT )
       HB_RETNL( ( LONG_PTR ) hFont );
    }
    else
+   {
       hb_errRT_BASE_SubstR( EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+   }
 }
 
 HB_FUNC( _SETFONTHANDLE )
@@ -142,12 +144,18 @@ HB_FUNC( _SETFONTHANDLE )
    if( IsWindow(hwnd) )
    {
       if( GetObjectType(hmg_par_HGDIOBJ(2)) == OBJ_FONT )
+      {
          SendMessage(hwnd, ( UINT ) WM_SETFONT, ( WPARAM ) hmg_par_HFONT(2), ( LPARAM ) 1);
+      }
       else
+      {
          hb_errRT_BASE_SubstR( EG_ARG, 5050 + OBJ_FONT, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+      }
    }
    else
+   {
       hb_errRT_BASE_SubstR( EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+   }
 }
 
 HB_FUNC( GETSYSTEMFONT )
@@ -195,7 +203,9 @@ HB_FUNC( ENUMFONTSEX )
    memset(&lf, 0, sizeof(LOGFONT));
 
    if( GetObjectType(hmg_par_HGDIOBJ(1)) == OBJ_DC )
+   {
       hdc = hmg_par_HDC(1);
+   }
    else
    {
       hdc        = GetDC(nullptr);
@@ -203,9 +213,13 @@ HB_FUNC( ENUMFONTSEX )
    }
 
    if( hb_parclen(2) > 0 )
+   {
       HB_STRNCPY(lf.lfFaceName, ( LPCTSTR ) hb_parc(2), HB_MIN(LF_FACESIZE - 1, hb_parclen(2)));
+   }
    else
+   {
       lf.lfFaceName[0] = TEXT('\0');
+   }
 
    lf.lfCharSet        = ( BYTE ) ( HB_ISNUM(3) ? ( hb_parni(3) == DEFAULT_CHARSET ? GetTextCharset ( hdc ) : hb_parni(3) ) : -1 );
    lf.lfPitchAndFamily = ( BYTE ) ( HB_ISNUM(4) ? ( hb_parni(4) == DEFAULT_PITCH ? -1 : ( hb_parni(4) | FF_DONTCARE ) ) : -1 );
@@ -214,10 +228,14 @@ HB_FUNC( ENUMFONTSEX )
    EnumFontFamiliesEx(hdc, &lf, ( FONTENUMPROC ) EnumFontFamExProc, ( LPARAM ) pArray, ( DWORD ) 0);
 
    if( bReleaseDC )
+   {
       ReleaseDC(nullptr, hdc);
+   }
 
    if( HB_ISBLOCK(6) )
+   {
       hb_arraySort(pArray, nullptr, nullptr, hb_param(6, Harbour::Item::BLOCK));
+   }
 
    if( HB_ISBYREF(7) )
    {

@@ -515,7 +515,7 @@ HB_FUNC_STATIC( CREATEWINDOWEX ) // ( hWnd, cProgId ) -> hActiveXWnd
 {
    HWND hControl;
 
-   hControl = CreateWindowEx( 0, TEXT( "AtlAxWin" ), 
+   hControl = CreateWindowEx( 0, TEXT( "AtlAxWin" ),
 #ifndef UNICODE
                           hb_parc( 2 ),
 #else
@@ -711,7 +711,9 @@ static ULONG STDMETHODCALLTYPE Invoke( IEventHandler * self, DISPID dispid, REFI
 
    // We implement only a "default" interface
    if( ! IsEqualIID( riid, IID_NULL ) )
+   {
       return ( ULONG ) DISP_E_UNKNOWNINTERFACE;
+   }
 
    HB_SYMBOL_UNUSED( lcid );
    HB_SYMBOL_UNUSED( wFlags );
@@ -763,9 +765,13 @@ static ULONG STDMETHODCALLTYPE Invoke( IEventHandler * self, DISPID dispid, REFI
                hb_vmPushSymbol( hb_dynsymSymbol( hb_dynsymFindName( hb_itemGetCPtr( pExec ) ) ) );
 
                if( HB_IS_OBJECT( pObject ) )
+               {
                   hb_vmPush( pObject );
+               }
                else
+               {
                   hb_vmPushNil();
+               }
                break;
 
             }

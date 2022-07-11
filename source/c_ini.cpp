@@ -160,7 +160,9 @@ static TCHAR * FindFirstSubString(TCHAR * Strings)
    TCHAR * p = Strings;
 
    if( *p == 0 )
+   {
       p = nullptr;
+   }
    return p;
 }
 
@@ -170,7 +172,9 @@ static TCHAR * FindNextSubString(TCHAR * Strings)
 
    p = p + lstrlen(Strings) + 1;
    if( *p == 0 )
+   {
       p = nullptr;
+   }
    return p;
 }
 
@@ -180,10 +184,12 @@ static INT FindLenSubString(TCHAR * Strings)
    TCHAR * p = Strings;
 
    if( ( p = FindFirstSubString(p) ) != nullptr )
+   {
       for( i = 1; ( p = FindNextSubString(p) ) != nullptr; i++ )
       {
          ;
       }
+   }
    return i;
 }
 

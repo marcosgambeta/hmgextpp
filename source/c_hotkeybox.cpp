@@ -89,9 +89,13 @@ void InterpretHotKey(UINT setting, TCHAR * szKeyName)
    WorkKey = MapVirtualKey(uVKey, 0);
 
    if( uCode & 0x00000008 )  // extended key
+   {
       WorkKey = 0x03000000 | ( WorkKey << 16 );
+   }
    else
+   {
       WorkKey = 0x02000000 | ( WorkKey << 16 );
+   }
 
    GetKeyNameText(WorkKey, lpString + lstrlen(lpString), 100);
 
@@ -134,10 +138,14 @@ HB_FUNC( INITHOTKEYBOX )
    hWnd = hmg_par_HWND(1);
 
    if( ! hb_parl(8) )
+   {
       Style = Style | WS_VISIBLE;
+   }
 
    if( ! hb_parl(9) )
+   {
       Style = Style | WS_TABSTOP;
+   }
 
    hwndHotKey = CreateWindowEx
                 (
@@ -168,7 +176,9 @@ HB_FUNC( SETHOTKEYVALUE )
    wHotKey = ( WORD ) hb_parnl(2);
 
    if( wHotKey != 0 )
+   {
       SendMessage(hWnd, HKM_SETHOTKEY, wHotKey, 0);
+   }
 
    SendMessage(hWnd, HKM_SETRULES, ( WPARAM ) HKCOMB_NONE | HKCOMB_S,  // invalid key combinations
                MAKELPARAM(HOTKEYF_ALT, 0));                         // add ALT to invalid entries

@@ -67,7 +67,9 @@ HB_FUNC( INITMESSAGEBAR )
    hWndSB = CreateStatusWindow(WS_CHILD | WS_VISIBLE | SBT_TOOLTIPS, nullptr, hmg_par_HWND(1), hb_parni(2));
 
    if( hWndSB )
+   {
       SendMessage(hWndSB, SB_SETPARTS, ( WPARAM ) nrOfParts, ( LPARAM ) ( LPINT ) ptArray);
+   }
 
    HB_RETNL( ( LONG_PTR ) hWndSB );
 }
@@ -119,7 +121,9 @@ HB_FUNC( INITITEMBAR )
    GetClientRect(hWndSB, &rect);
 
    if( hb_parnl(5) == 0 )
+   {
       ptArray[nrOfParts - 1] = rect.right;
+   }
    else
    {
       for( int n = 0; n < nrOfParts - 1; n++ )
@@ -130,12 +134,16 @@ HB_FUNC( INITITEMBAR )
       if( Style & WS_SIZEBOX )
       {
          if( nrOfParts == 2 )
+         {
             ptArray[0] -= 21;
+         }
 
          ptArray[nrOfParts - 1] = rect.right - rect.bottom - rect.top + 2;
       }
       else
+      {
          ptArray[nrOfParts - 1] = rect.right;
+      }
    }
 
    ReleaseDC(hWndSB, hDC);
@@ -148,10 +156,14 @@ HB_FUNC( INITITEMBAR )
    hIcon = ( HICON ) LoadImage(GetResources(), lpIconName, IMAGE_ICON, cx, cy, 0);
 
    if( hIcon == nullptr )
+   {
       hIcon = ( HICON ) LoadImage(nullptr, lpIconName, IMAGE_ICON, cx, cy, LR_LOADFROMFILE);
+   }
 
    if( ! ( hIcon == nullptr ) )
+   {
       SendMessage(hWndSB, SB_SETICON, ( WPARAM ) nrOfParts - 1, ( LPARAM ) hIcon);
+   }
 
    SendMessage(hWndSB, SB_SETTEXT, ( WPARAM ) ( ( nrOfParts - 1 ) | displayFlags ), ( LPARAM ) lpText);
    SendMessage(hWndSB, SB_SETTIPTEXT, ( WPARAM ) nrOfParts - 1, ( LPARAM ) lpTipText);
@@ -227,31 +239,43 @@ HB_FUNC( REFRESHITEMBAR )
    GetClientRect(hWndSB, &rect);
 
    if( ( nrOfParts == 1 ) || ( IsZoomed( GetParent(hWndSB) ) ) || ( ! (GetWindowLong(( HWND ) GetParent(hWndSB), GWL_STYLE) & WS_SIZEBOX) ) )
+   {
       nDev = rect.right - ptArray[nrOfParts - 1];
+   }
    else
+   {
       nDev = rect.right - ptArray[nrOfParts - 1] - rect.bottom - rect.top + 2;
+   }
 
    s = TRUE;
    if( rect.right > 0 )
+   {
       for( int n = 0; n <= nrOfParts - 1; n++ )
       {
 
          if( n == 0 )
          {
             if( size >= ptArray[n] && nDev < 0 )
+            {
                s = FALSE;
+            }
             else
             {
                if( ptArray[n] + nDev < size )
+               {
                   nDev = size - ptArray[n];
+               }
 
                ptArray[n] += nDev;
             }
          }
          else if( s )
+         {
             ptArray[n] += nDev;
+         }
 
       }
+   }
 
    ReleaseDC(hWndSB, hDC);
 
@@ -267,9 +291,13 @@ HB_FUNC( KEYTOGGLE )
    GetKeyboardState(pBuffer);
 
    if( pBuffer[wKey] & 0x01 )
+   {
       pBuffer[wKey] &= 0xFE;
+   }
    else
+   {
       pBuffer[wKey] |= 0x01;
+   }
 
    SetKeyboardState(pBuffer);
 }
@@ -310,7 +338,9 @@ HB_FUNC( SETSTATUSITEMICON )
    hIcon = ( HICON ) LoadImage(GetResources(), lpIconName, IMAGE_ICON, cx, cy, 0);
 
    if( hIcon == nullptr )
+   {
       hIcon = ( HICON ) LoadImage(nullptr, lpIconName, IMAGE_ICON, cx, cy, LR_LOADFROMFILE);
+   }
 
    SendMessage(hwnd, SB_SETICON, hmg_par_WPARAM(2) - 1, ( LPARAM ) hIcon);
 
@@ -367,13 +397,11 @@ HB_FUNC( CREATEPROGRESSBARITEM )     // CreateProgressBarItem(HwndStatus, NrItem
 
    SendMessage(hwndStatus, SB_GETRECT, hmg_par_WPARAM(2) - 1, ( LPARAM ) &rc);
    if( hb_parni(3) )
+   {
       Style = Style | WS_VISIBLE;
+   }
 
-   if
-   (
-      (
-         hwndProgressBar = CreateWindowEx
-                           (
+   if( ( hwndProgressBar = CreateWindowEx(
             0,
             PROGRESS_CLASS,
             ( LPCTSTR ) nullptr,
@@ -385,10 +413,7 @@ HB_FUNC( CREATEPROGRESSBARITEM )     // CreateProgressBarItem(HwndStatus, NrItem
             hwndStatus,             // Handle to the parent window.
             ( HMENU ) nullptr,         // ID for the progress window.
             GetInstance(),          // Current instance.
-            ( LPVOID ) nullptr
-                           )
-      ) != nullptr
-   )
+            ( LPVOID ) nullptr) ) != nullptr )
    {
       SendMessage(hwndProgressBar, PBM_SETRANGE, 0, MAKELONG(hb_parni(4), hb_parni(5)));
       SendMessage(hwndProgressBar, PBM_SETPOS, hmg_par_WPARAM(3), 0);

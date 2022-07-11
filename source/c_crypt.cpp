@@ -67,7 +67,9 @@ HB_FUNC( CHARXOR )
    Str2 = ( char * ) hb_parc(2);
    len2 = hb_parclen(2);
    if( ! len1 )
+   {
       hb_retclen("", 0);
+   }
    else
    {
       Res = ( char * ) hb_xgrab(len1);
@@ -75,7 +77,9 @@ HB_FUNC( CHARXOR )
       {
          Res[nl1] = Str1[nl1] ^ Str2[nl2];
          if( ( ++nl2 ) >= len2 )
+         {
             nl2 = 0;
+         }
       }
 
       hb_retclen(Res, len1);

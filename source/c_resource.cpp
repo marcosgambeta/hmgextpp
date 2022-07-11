@@ -97,9 +97,13 @@ HB_FUNC( GETRESOURCES )
 HB_FUNC( SETRESOURCES )
 {
    if( HB_ISCHAR(1) )
+   {
       hResources = HMG_LoadDll( ( char * ) hb_parc(1) );
+   }
    else if( HB_ISNUM(1) )
+   {
       hResources = hmg_par_HINSTANCE(1);
+   }
 
    HB_RETNL( ( LONG_PTR ) hResources );
 }
@@ -109,7 +113,9 @@ HB_FUNC( FREERESOURCES )
    HMG_UnloadDll();
 
    if( hResources )
+   {
       hResources = 0;
+   }
 }
 
 #if ( __HARBOUR__ - 0 < 0x030200 )
@@ -125,9 +131,13 @@ HB_FUNC( RCDATATOFILE )
    HANDLE  hFile;
 
    if( hb_parclen(1) > 0 )
+   {
       hResInfo = FindResourceA(hModule, hb_parc(1), lpType);
+   }
    else
+   {
       hResInfo = FindResource(hModule, MAKEINTRESOURCE(hb_parni(1)), lpType);
+   }
 
    if( nullptr == hResInfo )
    {
@@ -198,19 +208,27 @@ HB_FUNC( RCDATATOFILE )
    HB_SIZE dwResult = 0;
 
    if( HB_ISCHAR(1) )
+   {
       hResInfo = FindResource(hModule, lpName, lpType);
+   }
    else
+   {
       hResInfo = FindResource(hModule, MAKEINTRESOURCE(hb_parni(1)), lpType);
+   }
 
    if( nullptr != hResInfo )
    {
       hResData = LoadResource(hModule, hResInfo);
 
       if( nullptr == hResData )
+      {
          dwResult = ( HB_SIZE ) -2;  // can't load
+      }
    }
    else
+   {
       dwResult = ( HB_SIZE ) -1;  // can't find
+   }
 
    if( 0 == dwResult )
    {
@@ -228,15 +246,21 @@ HB_FUNC( RCDATATOFILE )
             dwResult = hb_fileWrite(pFile, ( const void * ) lpData, ( HB_SIZE ) dwSize, -1);
 
             if( dwResult != dwSize )
+            {
                dwResult = ( HB_SIZE ) -5;  // can't write
+            }
 
             hb_fileClose(pFile);
          }
          else
+         {
             dwResult = ( HB_SIZE ) -4;  // can't open
+         }
       }
       else
+      {
          dwResult = ( HB_SIZE ) -3;  // can't lock
+      }
 
       FreeResource(hResData);
    }
@@ -246,7 +270,9 @@ HB_FUNC( RCDATATOFILE )
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpName);
    if( HB_ISCHAR(3) )
+   {
       hb_xfree(( TCHAR * ) lpType);
+   }
 #endif
 }
 

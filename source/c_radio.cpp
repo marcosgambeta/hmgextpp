@@ -71,13 +71,19 @@ HB_FUNC( INITRADIOGROUP )
    hwnd = hmg_par_HWND(1);
 
    if( ! hb_parl(9) )
+   {
       Style = Style | WS_VISIBLE;
+   }
 
    if( ! hb_parl(10) )
+   {
       Style = Style | WS_TABSTOP;
+   }
 
    if( hb_parl(11) )
+   {
       Style = Style | BS_LEFTTEXT;
+   }
 
    hbutton = CreateWindow
              (
@@ -116,10 +122,14 @@ HB_FUNC( INITRADIOBUTTON )
    hwnd = hmg_par_HWND(1);
 
    if( ! hb_parl(9) )
+   {
       Style = Style | WS_VISIBLE;
+   }
 
    if( hb_parl(10) )
+   {
       Style = Style | BS_LEFTTEXT;
+   }
 
    hbutton = CreateWindow
              (

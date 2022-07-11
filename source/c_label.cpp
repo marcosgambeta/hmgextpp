@@ -79,37 +79,59 @@ HB_FUNC( INITLABEL )
 #endif
 
    if( hb_parl(9) || hb_parl(10) )
+   {
       Style |= SS_NOTIFY;
+   }
 
    if( hb_parl(11) )
+   {
       Style |= WS_BORDER;
+   }
 
    if( hb_parl(13) )
+   {
       Style |= WS_HSCROLL;
+   }
 
    if( hb_parl(14) )
+   {
       Style |= WS_VSCROLL;
+   }
 
    if( ! hb_parl(16) )
+   {
       Style |= WS_VISIBLE;
+   }
 
    if( hb_parl(17) )
+   {
       Style |= ES_RIGHT;
+   }
 
    if( hb_parl(18) )
+   {
       Style |= ES_CENTER;
+   }
 
    if( hb_parl(19) )
+   {
       Style |= SS_CENTERIMAGE;
+   }
 
    if( hb_parl(20) )
+   {
       Style |= SS_NOPREFIX;
+   }
 
    if( hb_parl(12) )
+   {
       ExStyle |= WS_EX_CLIENTEDGE;
+   }
 
    if( hb_parl(15) )
+   {
       ExStyle |= WS_EX_TRANSPARENT;
+   }
 
    hWnd = CreateWindowEx(ExStyle,
                          WC_STATIC,
@@ -125,7 +147,9 @@ HB_FUNC( INITLABEL )
                          nullptr);
 
    if( hb_parl(10) )
+   {
       LabelOldWndProc = ( WNDPROC ) SetWindowLongPtr(( HWND ) hWnd, GWLP_WNDPROC, ( LONG_PTR ) LabelSubClassFunc);
+   }
 
    HB_RETNL( ( LONG_PTR ) hWnd );
 
@@ -183,7 +207,9 @@ LRESULT APIENTRY LabelSubClassFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM l
       {
 #endif
       if( ! pSymbol )
+      {
          pSymbol = hb_dynsymSymbol(hb_dynsymGet("OLABELEVENTS"));
+      }
 
       if( pSymbol && hb_vmRequestReenter() )
       {

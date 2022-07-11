@@ -69,13 +69,19 @@ HB_FUNC( INITPROGRESSBAR )
    hwnd = hmg_par_HWND(1);
 
    if( hb_parl(9) )
+   {
       Style = Style | PBS_VERTICAL;
+   }
 
    if( hb_parl(10) )
+   {
       Style = Style | PBS_SMOOTH;
+   }
 
    if( ! hb_parl(11) )
+   {
       Style = Style | WS_VISIBLE;
+   }
 
    hbutton = CreateWindowEx
              (

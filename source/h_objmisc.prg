@@ -295,10 +295,14 @@ HB_FUNC( HMG_SETWINDOWOBJECT )
          hb_retl( TRUE );
       }
       else
+      {
          hb_retl( FALSE );
+      }
    }
    else
+   {
       hb_retl( FALSE );
+   }
 }
 
 HB_FUNC( HMG_DELWINDOWOBJECT )
@@ -325,9 +329,13 @@ HB_FUNC( HMG_GETWINDOWOBJECT )
    HWND hWnd = ( HWND ) HB_PARNL( 1 );
 
    if( IsWindow( hWnd ) )
+   {
       hb_itemReturn( ( PHB_ITEM ) GetWindowLongPtr( hWnd, GWLP_USERDATA ) );
+   }
    else
+   {
       hb_ret();
+   }
 }
 
 HB_FUNC( HMG_ISWINDOWOBJECT )
@@ -343,7 +351,9 @@ HB_FUNC( HMG_ISWINDOWOBJECT )
       hb_retl( pObject && HB_IS_OBJECT( pObject ) );
    }
    else
+   {
       hb_retl( FALSE );
+   }
 }
 
 #pragma ENDDUMP

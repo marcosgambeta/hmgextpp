@@ -212,18 +212,28 @@ HB_FUNC( INITLISTVIEW )
    style = LVS_SHOWSELALWAYS | WS_CHILD | WS_VISIBLE | LVS_REPORT;
 
    if( ! hb_parl(9) )
+   {
       style = style | LVS_SINGLESEL;
+   }
 
    if( ! hb_parl(12) )
+   {
       style = style | WS_TABSTOP;
+   }
 
    if( ! hb_parl(10) )
+   {
       style = style | LVS_NOCOLUMNHEADER;
+   }
    else if( hb_parl(11) )
+   {
       style = style | LVS_NOSORTHEADER;
+   }
 
    if( hb_parl(7) )
+   {
       style = style | LVS_OWNERDATA;
+   }
 
    hbutton = CreateWindowEx
              (
@@ -242,7 +252,9 @@ HB_FUNC( INITLISTVIEW )
              );
 
    if( hb_parl(7) )
+   {
       ListView_SetItemCount(hbutton, hb_parni(8));
+   }
 
    HB_RETNL( ( LONG_PTR ) hbutton );
 }
@@ -272,13 +284,19 @@ HB_FUNC( ADDLISTVIEWBITMAP )       // Grid+
          FileName = ( char * ) hb_arrayGetCPtr(hArray, s);
 
          if( himl == nullptr )
+         {
             himl = HMG_ImageListLoadFirst(FileName, nCount, 1, &cx, nullptr);
+         }
          else
+         {
             HMG_ImageListAdd( himl, FileName, 1 );
+         }
       }
 
       if( himl != nullptr )
+      {
          SendMessage(hbutton, LVM_SETIMAGELIST, ( WPARAM ) LVSIL_SMALL, ( LPARAM ) himl);
+      }
    }
 
    hb_retni( ( INT ) cx );
@@ -307,9 +325,13 @@ HB_FUNC( ADDLISTVIEWBITMAPHEADER )  // Grid+
             FileName = ( char * ) hb_arrayGetCPtr(hArray, s);
 
             if( himl == nullptr )
+            {
                himl = HMG_ImageListLoadFirst(FileName, nCount, 1, nullptr, nullptr);
+            }
             else
+            {
                HMG_ImageListAdd( himl, FileName, 1 );
+            }
          }
 
          if( himl != nullptr )
@@ -388,7 +410,9 @@ HB_FUNC( INITLISTVIEWCOLUMNS )
    }
 
    if( iColumn != s )
+   {
       ListView_DeleteColumn(hc, 0);
+   }
 }
 
 HB_FUNC( ADDLISTVIEWITEMS )
@@ -464,9 +488,13 @@ HB_FUNC( LISTVIEWGETMULTISEL )
       i = ListView_GetNextItem(hwnd, i, LVNI_ALL | LVNI_SELECTED);
 
       if( i == -1 )
+      {
          break;
+      }
       else
+      {
          j++;
+      }
 
       HB_STORNI( i + 1, -1, j );
    }
@@ -490,9 +518,13 @@ HB_FUNC( LISTVIEWSETMULTISEL )
       i = ListView_GetNextItem(hwnd, i, LVNI_ALL | LVNI_SELECTED);
 
       if( i == -1 )
+      {
          break;
+      }
       else
+      {
          ListView_SetItemState(hwnd, ( WPARAM ) i, 0, LVIS_FOCUSED | LVIS_SELECTED);
+      }
    }
 
    // SET NEW SELECTIONS
@@ -639,9 +671,13 @@ HB_FUNC( SETGRIDCOLUMNHEADERIMAGE )
    COL.mask = LVCF_FMT | LVCF_IMAGE;
 
    if( hb_parl(4) )
+   {
       fmt = fmt | LVCFMT_BITMAP_ON_RIGHT | LVCFMT_RIGHT;
+   }
    else
+   {
       fmt = fmt | LVCFMT_LEFT;
+   }
 
    COL.fmt    = fmt;
    COL.iImage = hb_parni(3) - 1;
@@ -721,9 +757,13 @@ HB_FUNC( LISTVIEW_HITTEST )
       ListView_HitTest(hmg_par_HWND(1), &lvhti);
 
       if( lvhti.flags & LVHT_ONITEMSTATEICON )
+      {
          hb_retl(1);
+      }
       else
+      {
          hb_retl(0);
+      }
    }
    else  // item area.
    {
@@ -832,9 +872,13 @@ HB_FUNC( GETHEADERLISTVIEWITEMCX )
    LPNMHEADER lpnmheader = ( LPNMHEADER ) HB_PARNL(1);
 
    if( lpnmheader->pitem->mask == HDI_WIDTH )
+   {
       hb_retni( lpnmheader->pitem->cxy );
+   }
    else
+   {
       hb_retni( -1 );
+   }
 }
 
 HB_FUNC( LISTVIEW_ADDCOLUMN )
@@ -965,7 +1009,9 @@ HB_FUNC( LISTVIEW_GETCOLUMNORDERARRAY )
       hb_itemReturnRelease(pArray);
    }
    else
+   {
       hb_reta(0);
+   }
 }
 
 HB_FUNC( LISTVIEW_SETCOLUMNORDERARRAY )
@@ -1015,9 +1061,13 @@ HB_FUNC( LISTVIEW_GETEXTENDEDSTYLE )  // Dr. Claudio Soto
    DWORD OldStyle = ListView_GetExtendedListViewStyle(hWnd);
 
    if( HB_ISNUM(2) )
+   {
       hb_retl( ( BOOL ) ( ( OldStyle & ExStyle ) == ExStyle ) );
+   }
    else
+   {
       hb_retnl( ( LONG ) OldStyle );
+   }
 }
 
 #if ( ( defined( __BORLANDC__ ) && __BORLANDC__ < 1410 ) )
@@ -1041,22 +1091,34 @@ HB_FUNC( LISTVIEW_SETSORTHEADER )
       SendMessage(hWndHD, HDM_GETITEM, nItem, ( LPARAM ) &hdItem);
 
       if( hdItem.fmt & HDF_SORTUP )
+      {
          hb_retni(1);
+      }
       else if( hdItem.fmt & HDF_SORTDOWN )
+      {
          hb_retni( -1 );
+      }
       else
+      {
          hb_retni(0);
+      }
 
       if( ( hb_pcount() > 2 ) && HB_ISNUM(3) )
       {
          nType = hb_parni(3);
 
          if( nType == 0 )
+         {
             hdItem.fmt &= ~( HDF_SORTDOWN | HDF_SORTUP );
+         }
          else if( nType > 0 )
+         {
             hdItem.fmt = ( hdItem.fmt & ~HDF_SORTDOWN ) | HDF_SORTUP;
+         }
          else
+         {
             hdItem.fmt = ( hdItem.fmt & ~HDF_SORTUP ) | HDF_SORTDOWN;
+         }
 
          SendMessage(hWndHD, HDM_SETITEM, nItem, ( LPARAM ) &hdItem);
       }
@@ -1077,15 +1139,23 @@ HB_FUNC( LISTVIEW_SETSORTHEADER )
       else
       {
          if( nType > 0 )
+         {
             hdItem.hbm = ( HBITMAP ) LoadImage(GetInstance(), TEXT("MINIGUI_GRID_ASC"), IMAGE_BITMAP, 0, 0, LR_LOADTRANSPARENT | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS);
+         }
          else
+         {
             hdItem.hbm = ( HBITMAP ) LoadImage(GetInstance(), TEXT("MINIGUI_GRID_DSC"), IMAGE_BITMAP, 0, 0, LR_LOADTRANSPARENT | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS);
+         }
 
          hdItem.fmt |= HDF_BITMAP;
          if( hdItem.fmt & HDF_RIGHT )
+         {
             hdItem.fmt &= ~HDF_BITMAP_ON_RIGHT;
+         }
          else
+         {
             hdItem.fmt |= HDF_BITMAP_ON_RIGHT;
+         }
       }
 
       SendMessage(hWndHD, HDM_SETITEM, nItem, ( LPARAM ) &hdItem);
@@ -1226,7 +1296,9 @@ HB_FUNC( LISTVIEW_GROUPSETINFO )
       hb_retni( ( INT ) ListView_SetGroupInfo(hWnd, GroupID, &LVG) );
    }
    else
+   {
       hb_retni( -1 );
+   }
 }
 
 //        ListView_GroupGetInfo ( hWnd, nGroupID, @cHeader, @nAlignHeader, @cFooter, @nAlingFooter, @nState )

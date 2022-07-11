@@ -98,19 +98,29 @@ HB_FUNC( INITMONTHCAL )
    Style = WS_BORDER | WS_CHILD | MCS_DAYSTATE;
 
    if( hb_parl(9) )
+   {
       Style = Style | MCS_NOTODAY;
+   }
 
    if( hb_parl(10) )
+   {
       Style = Style | MCS_NOTODAYCIRCLE;
+   }
 
    if( hb_parl(11) )
+   {
       Style = Style | MCS_WEEKNUMBERS;
+   }
 
    if( ! hb_parl(12) )
+   {
       Style = Style | WS_VISIBLE;
+   }
 
    if( ! hb_parl(13) )
+   {
       Style = Style | WS_TABSTOP;
+   }
 
    hmonthcal = CreateWindowEx(0, MONTHCAL_CLASS, TEXT(""), Style, 0, 0, 0, 0, hwnd, hmg_par_HMENU(2), GetInstance(), nullptr);
 
@@ -118,16 +128,24 @@ HB_FUNC( INITMONTHCAL )
    SetWindowLongPtr(hmonthcal, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnMCProc);
 
    if( hb_parl(14) )
+   {
       bold = FW_BOLD;
+   }
 
    if( hb_parl(15) )
+   {
       italic = 1;
+   }
 
    if( hb_parl(16) )
+   {
       underline = 1;
+   }
 
    if( hb_parl(17) )
+   {
       strikeout = 1;
+   }
 
 #ifdef UNICODE
    pStr  = AnsiToWide(hb_parc(7));
@@ -205,10 +223,14 @@ HB_FUNC( SETPOSMONTHCAL )
 
    dwWidth = MonthCal_GetMaxTodayWidth(hWndMonthCal);
    if( dwWidth > ( DWORD ) rc.right )
+   {
       rc.right = dwWidth;
+   }
 
    if( hb_parldef(4, HB_FALSE) )
+   {
       InflateRect(&rc, 6, 6);
+   }
 
    SetWindowPos(hWndMonthCal, nullptr, hb_parni(2), hb_parni(3), rc.right, rc.bottom, SWP_NOZORDER);
 }
@@ -329,9 +351,13 @@ LRESULT CALLBACK OwnMCProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
          r = hb_parnl( -1 );
 
          if( r != 0 )
+         {
             return r;
+         }
          else
+         {
             return CallWindowProc(OldWndProc, hwnd, Msg, wParam, lParam);
+         }
    }
 
    return CallWindowProc(OldWndProc, hwnd, Msg, wParam, lParam);

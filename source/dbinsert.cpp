@@ -61,25 +61,37 @@ HB_FUNC( DBINSERT )
       HB_FHANDLE hFile = hb_fileHandle(pArea->pDataFile);
 
       if( HB_ISNUM(1) )
+      {
          ulRec = hb_parnl(1);
+      }
       else
+      {
          SELF_RECNO(( AREAP ) pArea, &ulRec);
+      }
 
       if( ulRec == 0 || ulRec > pArea->ulRecCount )
+      {
          bOk = FALSE;
+      }
 
       if( bOk && SELF_GOCOLD( ( AREAP ) pArea ) != HB_SUCCESS )
+      {
          bOk = FALSE;
+      }
       else
       {
          for( ULONG ulIndex = 0; ulIndex < ulCount; ulIndex++ )
          {
             if( bOk && SELF_APPEND( ( AREAP ) pArea, TRUE ) != HB_SUCCESS )
+            {
                bOk = FALSE;
+            }
          }
 
          if( hb_setGetHardCommit() )
+         {
             SELF_FLUSH(( AREAP ) pArea);
+         }
 
          if( bOk )
          {
@@ -115,7 +127,9 @@ HB_FUNC( DBINSERT )
       }
 
       if( bOk && SELF_GOTO(( AREAP ) pArea, ulRec) != HB_SUCCESS )
+      {
          bOk = FALSE;
+      }
    }
 
    hb_retl( bOk );

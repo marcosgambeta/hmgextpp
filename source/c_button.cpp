@@ -103,16 +103,24 @@ HB_FUNC( INITBUTTON )
    Style = BS_NOTIFY | WS_CHILD | ( hb_parl(14) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON ); //JK
 
    if( hb_parl(10) )
+   {
       Style = Style | BS_FLAT;
+   }
 
    if( ! hb_parl(11) )
+   {
       Style = Style | WS_TABSTOP;
+   }
 
    if( ! hb_parl(12) )
+   {
       Style = Style | WS_VISIBLE;
+   }
 
    if( hb_parl(13) )
+   {
       Style = Style | BS_MULTILINE;
+   }
 
    hbutton = CreateWindowEx
              (
@@ -164,13 +172,19 @@ HB_FUNC( INITIMAGEBUTTON )
    Style |= ( ( hb_parc(14) == nullptr ) ? BS_BITMAP : BS_ICON );                        //JK
 
    if( hb_parl(9) )
+   {
       Style = Style | BS_FLAT;
+   }
 
    if( ! hb_parl(11) )
+   {
       Style = Style | WS_VISIBLE;
+   }
 
    if( ! hb_parl(12) )
+   {
       Style = Style | WS_TABSTOP;
+   }
 
    hbutton = CreateWindowEx
              (
@@ -219,14 +233,18 @@ HB_FUNC( INITIMAGEBUTTON )
          hIcon = ( HICON ) LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR);
 
          if( hIcon == nullptr )
+         {
             hIcon = ( HICON ) LoadImage(0, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR);
+         }
       }
       else
       {
          hIcon = ( HICON ) ExtractIcon(GetInstance(), lpIconName, hb_parni(16));
 
          if( hIcon == nullptr )
+         {
             hIcon = ( HICON ) ExtractIcon(GetInstance(), TEXT("user.exe"), 0);
+         }
       }
 
 #ifdef UNICODE
@@ -298,13 +316,19 @@ HB_FUNC( INITOWNERBUTTON )
    Style |= ( HB_ISNIL(14) ? BS_BITMAP : BS_ICON );
 
    if( hb_parl(9) )
+   {
       Style = Style | BS_FLAT;
+   }
 
    if( ! hb_parl(11) )
+   {
       Style = Style | WS_VISIBLE;
+   }
 
    if( ! hb_parl(12) )
+   {
       Style = Style | WS_TABSTOP;
+   }
 
    Style |= ( hb_parl(13) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON );
 
@@ -328,16 +352,22 @@ HB_FUNC( INITOWNERBUTTON )
    SetWindowLongPtr(hbutton, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnButtonProc);
 
    if( hb_parl(10) )
+   {
       ImgStyle = 0;
+   }
    else
+   {
       ImgStyle = LR_LOADTRANSPARENT;
+   }
 
    if( HB_ISNIL(14) )
    {
       himage = ( HWND ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef(15, 0), 0), HB_MAX(hb_parnidef(16, 0), 0), LR_LOADMAP3DCOLORS | ImgStyle);
 
       if( himage == nullptr )
+      {
          himage = ( HWND ) LoadImage(nullptr, lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef(15, 0), 0), HB_MAX(hb_parnidef(16, 0), 0), LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | ImgStyle);
+      }
 
       hb_reta(2);
       HB_STORVNL( ( LONG_PTR ) hbutton, -1, 1 );
@@ -348,10 +378,14 @@ HB_FUNC( INITOWNERBUTTON )
       hIcon = ( HICON ) LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR);
 
       if( hIcon == nullptr )
+      {
          hIcon = ( HICON ) LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR);
+      }
 
       if( hIcon == nullptr )
+      {
          hIcon = ( HICON ) ExtractIcon(GetInstance(), lpIconName, 0);
+      }
 
       hb_reta(2);
       HB_STORVNL( ( LONG_PTR ) hbutton, -1, 1 );
@@ -381,10 +415,14 @@ HB_FUNC( _SETBTNPICTURE )
    himage = ( HWND ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef(3, 0), 0), HB_MAX(hb_parnidef(4, 0), 0), LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
    if( himage == nullptr )
+   {
       himage = ( HWND ) LoadImage(nullptr, lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef(3, 0), 0), HB_MAX(hb_parnidef(4, 0), 0), LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+   }
 
    if( himage == nullptr )
+   {
       himage = ( HWND ) HMG_LoadPicture(hb_parc(2), hb_parni(3), hb_parni(4), hwnd, 0, 1, -1, 0, HB_FALSE, 255);
+   }
 
    SendMessage(hwnd, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage);
 
@@ -436,7 +474,9 @@ HB_FUNC( _SETBTNICON )
    hIcon = ( HICON ) LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR);
 
    if( hIcon == nullptr )
+   {
       hIcon = ( HICON ) LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR);
+   }
 
    SendMessage(hwnd, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_ICON, ( LPARAM ) hIcon);
 
@@ -469,7 +509,9 @@ HB_FUNC( _SETMIXEDBTNICON )
    hIcon = ( HICON ) LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR);
 
    if( hIcon == nullptr )
+   {
       hIcon = ( HICON ) LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR);
+   }
 
    GetIconInfo(hIcon, &sIconInfo);
    GetObject(sIconInfo.hbmColor, sizeof(BITMAP), ( LPVOID ) &bm);
@@ -509,7 +551,9 @@ HB_FUNC( DRAWBUTTON )
    UINT iFlat      = hb_parni(6);
 
    if( iFocus == 1 || iMouseOver == 1 )
+   {
       InflateRect(&pps->rcItem, -1, -1);
+   }
 
    DrawFrameControl( pps->hDC, &pps->rcItem, DFC_BUTTON, ( ! iFlat ) ? iState : ( iState | DFCS_FLAT ) );
 
@@ -534,7 +578,9 @@ HB_FUNC( GETOWNBTNHANDLE )
    DRAWITEMSTRUCT * pps = ( DRAWITEMSTRUCT * ) HB_PARNL(1);
 
    if( pps )
+   {
       HB_RETNL( ( LONG_PTR ) pps->hwndItem );
+   }
 }
 
 /*
@@ -545,7 +591,9 @@ HB_FUNC( GETOWNBTNSTATE )
    DRAWITEMSTRUCT * pps = ( DRAWITEMSTRUCT * ) HB_PARNL(1);
 
    if( pps )
+   {
       hb_retnl( ( LONG ) pps->itemState );
+   }
 }
 
 /*
@@ -556,7 +604,9 @@ HB_FUNC( GETOWNBTNDC )
    DRAWITEMSTRUCT * pps = ( DRAWITEMSTRUCT * ) HB_PARNL(1);
 
    if( pps )
+   {
       HB_RETNL( ( LONG_PTR ) pps->hDC );
+   }
 }
 
 /*
@@ -567,7 +617,9 @@ HB_FUNC( GETOWNBTNITEMID )
    DRAWITEMSTRUCT * pps = ( DRAWITEMSTRUCT * ) HB_PARNL(1);
 
    if( pps )
+   {
       hb_retnl( ( LONG ) pps->itemID );
+   }
 }
 
 /*
@@ -578,7 +630,9 @@ HB_FUNC( GETOWNBTNITEMACTION )
    DRAWITEMSTRUCT * pps = ( DRAWITEMSTRUCT * ) HB_PARNL(1);
 
    if( pps )
+   {
       hb_retnl( ( LONG ) pps->itemAction );
+   }
 }
 
 /*
@@ -589,7 +643,9 @@ HB_FUNC( GETOWNBTNCTLTYPE )
    DRAWITEMSTRUCT * pps = ( DRAWITEMSTRUCT * ) HB_PARNL(1);
 
    if( pps )
+   {
       hb_retni( ( UINT ) pps->CtlType );
+   }
 }
 
 /*
@@ -634,7 +690,9 @@ LRESULT CALLBACK OwnButtonProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPa
          _TrackMouseEvent(&tme);
 
          if( ! pSymbol )
+         {
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OBTNEVENTS"));
+         }
 
          if( pSymbol )
          {
@@ -653,7 +711,9 @@ LRESULT CALLBACK OwnButtonProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPa
 
       case WM_MOUSELEAVE:
          if( ! pSymbol )
+         {
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OBTNEVENTS"));
+         }
 
          if( pSymbol )
          {
@@ -738,7 +798,9 @@ HIMAGELIST HMG_SetButtonImageList(HWND hButton, const char * FileName, int Trans
 
    hBitmap = HMG_LoadPicture(FileName, -1, -1, nullptr, 0, 0, -1, 0, HB_FALSE, 255);
    if( hBitmap == nullptr )
+   {
       return nullptr;
+   }
 
    GetObject(hBitmap, sizeof(BITMAP), &Bmp);
 
@@ -748,9 +810,13 @@ HIMAGELIST HMG_SetButtonImageList(HWND hButton, const char * FileName, int Trans
    DeleteObject(hBitmap);
 
    if( Transparent == 1 )
+   {
       hImageList = ImageList_LoadImage(GetResources(), TempPathFileName, Bmp.bmWidth, 6, CLR_DEFAULT, IMAGE_BITMAP, LR_LOADFROMFILE | LR_CREATEDIBSECTION | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+   }
    else
+   {
       hImageList = ImageList_LoadImage(GetResources(), TempPathFileName, Bmp.bmWidth, 6, CLR_NONE, IMAGE_BITMAP, LR_LOADFROMFILE | LR_CREATEDIBSECTION | LR_LOADMAP3DCOLORS);
+   }
 
    DeleteFile(TempPathFileName);
 

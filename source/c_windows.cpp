@@ -160,9 +160,13 @@ static HB_CRITICAL_NEW(s_lst_mtx);
 HB_FUNC( GETGLOBALLISTENER )
 {
    if( nullptr != g_ListenerDyns )
+   {
       hb_retc( hb_dynsymName(g_ListenerDyns) );
+   }
    else
+   {
       hb_retc_null();
+   }
 }
 
 HB_FUNC( SETGLOBALLISTENER )
@@ -176,7 +180,9 @@ HB_FUNC( SETGLOBALLISTENER )
       HMG_LISTENER_UNLOCK;
    }
    else
+   {
       hb_retl( HB_FALSE );
+   }
 }
 
 HB_FUNC( RESETGLOBALLISTENER )
@@ -234,7 +240,9 @@ static HB_BOOL AppEventRemove(HWND hWnd, const char * pszProp, UINT message)
             for( size_t i = 0; i < events->count; i++ ) // delete all not empty items with codeblocks
             {
                if( events->events[i].bAction != nullptr && HB_IS_BLOCK(events->events[i].bAction) )
+               {
                   hb_itemRelease(events->events[i].bAction);
+               }
             }
 
             HB_ATOM_SET(&events->used, 0);
@@ -281,7 +289,9 @@ static LRESULT AppEventDo(EVENTSHOLDER * events, HB_BOOL bOnce, HWND hWnd, UINT 
       hb_itemRelease(plParam);
 
       if( HB_TRUE == bOnce )
+      {
          AppEventRemove(hWnd, "ONCE", message);
+      }
 
       return ( LRESULT ) hb_parnl( -1 );
    }
@@ -300,7 +310,9 @@ static LRESULT AppEventOn(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
       if( nullptr != events )
       {
          if( hWnd == events->hwnd )
+         {
             r = AppEventDo(events, HB_TRUE, hWnd, message, wParam, lParam);
+         }
       }
 
       events = ( EVENTSHOLDER * ) GetProp(hWnd, TEXT("ON"));
@@ -308,7 +320,9 @@ static LRESULT AppEventOn(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
       if( nullptr != events )
       {
          if( hWnd == events->hwnd )
+         {
             r = AppEventDo(events, HB_FALSE, hWnd, message, wParam, lParam);
+         }
       }
    }
 
@@ -348,12 +362,16 @@ HB_FUNC( APPEVENTS )
       nPos = AppEventScan(events, message); // arleady exists ?
 
       if( nPos > 0 )
+      {
          hb_itemRelease(events->events[nPos - 1].bAction);
+      }
       else
       {
          nPos = bInit ? 1 : AppEventScan(events, 0);
          if( nPos > 0 )
+         {
             HB_ATOM_INC( &events->used );
+         }
       }
 
       if( nPos > 0 )
@@ -473,9 +491,13 @@ HB_FUNC( ENUMAPPEVENTS )
             hb_arraySetL( aEvent, 2, events->events[i].active );
 
             if( events->events[i].bAction != nullptr && HB_IS_BLOCK(events->events[i].bAction) )
+            {
                hb_arraySet(aEvent, 3, hb_itemClone(events->events[i].bAction));
+            }
             else
+            {
                hb_arraySet(aEvent, 3, nullptr);
+            }
 
             hb_arrayAddForward( aEvents, aEvent );
 
@@ -519,7 +541,9 @@ HB_FUNC( GETAPPEVENTSINFO )
    #endif
    }
    else
+   {
       aInfo = hb_itemArrayNew(0);
+   }
 
    hb_itemReturnRelease(aInfo);
 }
@@ -572,7 +596,9 @@ static HB_BOOL WinEventRemove(HWND hWnd, const char * pszProp, UINT message)
             for( size_t i = 0; i < events->count; i++ ) // delete all not empty items with codeblocks
             {
                if( events->events[i].bAction != nullptr && HB_IS_BLOCK(events->events[i].bAction) )
+               {
                   hb_itemRelease(events->events[i].bAction);
+               }
             }
 
             HB_ATOM_SET(&events->used, 0);
@@ -619,7 +645,9 @@ static LRESULT WinEventDo(WINEVENTSHOLDER * events, HB_BOOL bOnce, HWND hWnd, UI
       hb_itemRelease(plParam);
 
       if( HB_TRUE == bOnce )
+      {
          WinEventRemove(hWnd, "ONCE", message);
+      }
 
       return ( LRESULT ) hb_parnl( -1 );
    }
@@ -638,7 +666,9 @@ static LRESULT WinEventOn(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
       if( nullptr != events )
       {
          if( hWnd == events->hwnd )
+         {
             r = WinEventDo(events, HB_TRUE, hWnd, message, wParam, lParam);
+         }
       }
 
       events = ( WINEVENTSHOLDER * ) GetProp(hWnd, TEXT("ON"));
@@ -646,7 +676,9 @@ static LRESULT WinEventOn(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
       if( nullptr != events )
       {
          if( hWnd == events->hwnd )
+         {
             r = WinEventDo(events, HB_FALSE, hWnd, message, wParam, lParam);
+         }
       }
    }
 
@@ -686,12 +718,16 @@ HB_FUNC( WINEVENTS )
       nPos = WinEventScan(events, message); // arleady exists ?
 
       if( nPos > 0 )
+      {
          hb_itemRelease(events->events[nPos - 1].bAction);
+      }
       else
       {
          nPos = bInit ? 1 : WinEventScan(events, 0);
          if( nPos > 0 )
+         {
             HB_ATOM_INC( &events->used );
+         }
       }
 
       if( nPos > 0 )
@@ -811,9 +847,13 @@ HB_FUNC( ENUMWINEVENTS )
             hb_arraySetL( aEvent, 2, events->events[i].active );
 
             if( events->events[i].bAction != nullptr && HB_IS_BLOCK(events->events[i].bAction) )
+            {
                hb_arraySet(aEvent, 3, hb_itemClone(events->events[i].bAction));
+            }
             else
+            {
                hb_arraySet(aEvent, 3, nullptr);
+            }
 
             hb_arrayAddForward( aEvents, aEvent );
 
@@ -857,7 +897,9 @@ HB_FUNC( GETWINEVENTSINFO )
    #endif
    }
    else
+   {
       aInfo = hb_itemArrayNew(0);
+   }
 
    hb_itemReturnRelease(aInfo);
 }
@@ -878,9 +920,13 @@ LRESULT CALLBACK MsgOnlyWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
          SetWindowLongPtr(hWnd, GWLP_USERDATA, ( LONG_PTR ) pUserData);
 
          if( GetLastError() != 0 )
+         {
             return -1;
+         }
          else
+         {
             SetWindowPos(hWnd, 0, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
+         }
       }
    }
    else if( message == WM_NCDESTROY )
@@ -892,7 +938,9 @@ LRESULT CALLBACK MsgOnlyWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
          PMYUSERDATA pUserData = ( PMYUSERDATA ) lpUserData;
 
          if( pUserData->cbSize == sizeof(MYUSERDATA) )
+         {
             hb_xfree(pUserData);
+         }
       }
    }
    else if( message == WM_DESTROY )
@@ -964,10 +1012,14 @@ HB_FUNC( INITMESSAGEONLYWINDOW )
             hwnd = CreateWindowEx(0, lpClassName, 0, 0, 0, 0, 0, 0, HWND_MESSAGE, 0, GetInstance(), ( LPVOID ) pUserData);
          }
          else
+         {
             hwnd = CreateWindowEx(0, lpClassName, 0, 0, 0, 0, 0, 0, HWND_MESSAGE, 0, GetInstance(), 0);
+         }
       }
       else
+      {
          hmg_ErrorExit(TEXT("Window Registration Failed!"), 0, TRUE);
+      }
    }
 
    hb_strfree(hClassName);
@@ -994,12 +1046,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
       if( IsWindow(g_hWndMain) && hWnd == g_hWndMain && g_hAccel != nullptr )
       {
          if( DestroyAcceleratorTable(g_hAccel) )
+         {
             g_hAccel = nullptr;
+         }
       }
    }
 
    if( message >= WM_APP && message <= ( WM_APP + MAX_EVENTS ) )
+   {
       r = AppEventOn(hWnd, message, wParam, lParam);
+   }
    else if( g_ListenerSymb )
    {
       if( hb_vmRequestReenter() )
@@ -1034,37 +1090,57 @@ HB_FUNC( INITWINDOW )
 #endif
 
    if( hb_parl(16) )
+   {
       ExStyle = WS_EX_CONTEXTHELP;
+   }
    else
    {
       ExStyle = 0;
       if( ! hb_parl(6) )
+      {
          Style = Style | WS_MINIMIZEBOX;
+      }
 
       if( ! hb_parl(7) )
+      {
          Style = Style | WS_MAXIMIZEBOX;
+      }
    }
 
    if( ! hb_parl(8) )
+   {
       Style = Style | WS_SIZEBOX;
+   }
 
    if( ! hb_parl(9) )
+   {
       Style = Style | WS_SYSMENU;
+   }
 
    if( ! hb_parl(10) )
+   {
       Style = Style | WS_CAPTION;
+   }
 
    if( hb_parl(11) )
+   {
       ExStyle = ExStyle | WS_EX_TOPMOST;
+   }
 
    if( hb_parl(14) )
+   {
       Style = Style | WS_VSCROLL;
+   }
 
    if( hb_parl(15) )
+   {
       Style = Style | WS_HSCROLL;
+   }
 
    if( hb_parl(17) )
+   {
       ExStyle = ExStyle | WS_EX_PALETTEWINDOW;
+   }
 
    if( hb_parl(18) ) // Panel
    {
@@ -1089,9 +1165,13 @@ HB_FUNC( INITWINDOW )
           );
 
    if( nullptr != hwnd )
+   {
       HB_RETNL( ( LONG_PTR ) hwnd );
+   }
    else
+   {
       MessageBox(0, TEXT("Window Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+   }
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpWindowName);
@@ -1115,26 +1195,38 @@ HB_FUNC( INITMODALWINDOW )
 #endif
 
    if( hb_parl(13) )
+   {
       ExStyle = WS_EX_CONTEXTHELP;
+   }
 
    parent = ( HWND ) ( LONG_PTR ) HB_PARNL(6);
 
    Style = WS_POPUP;
 
    if( ! hb_parl(7) )
+   {
       Style = Style | WS_SIZEBOX;
+   }
 
    if( ! hb_parl(8) )
+   {
       Style = Style | WS_SYSMENU;
+   }
 
    if( ! hb_parl(9) )
+   {
       Style = Style | WS_CAPTION;
+   }
 
    if( hb_parl(11) )
+   {
       Style = Style | WS_VSCROLL;
+   }
 
    if( hb_parl(12) )
+   {
       Style = Style | WS_HSCROLL;
+   }
 
    hwnd = CreateWindowEx
           (
@@ -1153,9 +1245,13 @@ HB_FUNC( INITMODALWINDOW )
           );
 
    if( nullptr != hwnd )
+   {
       HB_RETNL( ( LONG_PTR ) hwnd );
+   }
    else
+   {
       MessageBox(0, TEXT("Window Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+   }
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpWindowName);
@@ -1179,13 +1275,19 @@ HB_FUNC( INITSPLITCHILDWINDOW )
    Style = WS_POPUP;
 
    if( ! hb_parl(4) )
+   {
       Style = Style | WS_CAPTION;
+   }
 
    if( hb_parl(7) )
+   {
       Style = Style | WS_VSCROLL;
+   }
 
    if( hb_parl(8) )
+   {
       Style = Style | WS_HSCROLL;
+   }
 
    hwnd = CreateWindowEx
           (
@@ -1204,9 +1306,13 @@ HB_FUNC( INITSPLITCHILDWINDOW )
           );
 
    if( nullptr != hwnd )
+   {
       HB_RETNL( ( LONG_PTR ) hwnd );
+   }
    else
+   {
       MessageBox(0, TEXT("Window Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+   }
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpWindowName);
@@ -1224,10 +1330,14 @@ HB_FUNC( INITSPLITBOX )
    int Style = WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | RBS_BANDBORDERS | RBS_VARHEIGHT | RBS_FIXEDORDER;
 
    if( hb_parl(2) )
+   {
       Style = Style | CCS_BOTTOM;
+   }
 
    if( hb_parl(3) )
+   {
       Style = Style | CCS_VERT;
+   }
 
    icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
    icex.dwICC = ICC_COOL_CLASSES | ICC_BAR_CLASSES;
@@ -1290,22 +1400,30 @@ HB_FUNC( REGISTERWINDOW )
    hIcon = LoadIcon(GetResources(), lpIconName);
    // from file
    if( nullptr == hIcon && HB_ISCHAR(1) )
+   {
       hIcon = ( HICON ) LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE);
+   }
    WndClass.hIcon = ( ( nullptr != hIcon ) ? hIcon : LoadIcon(nullptr, IDI_APPLICATION) );
 
    // cursor from resource
    hCursor = LoadCursor(GetResources(), lpCursorName);
    // from file
    if( ( nullptr == hCursor ) && HB_ISCHAR(4) )
+   {
       hCursor = LoadCursorFromFile(lpCursorName);
+   }
    WndClass.hCursor = ( ( nullptr != hCursor ) ? hCursor : LoadCursor(nullptr, IDC_ARROW) );
 
    if( HB_ISARRAY(3) )  // old behavior (before 16.10)
    {
       if( HB_PARNI(3, 1) == -1 )
+      {
          hBrush = ( HBRUSH ) ( COLOR_BTNFACE + 1 );
+      }
       else
+      {
          hBrush = CreateSolidBrush(RGB(HB_PARNI(3, 1), HB_PARNI(3, 2), HB_PARNI(3, 3)));
+      }
    }
    else if( HB_ISCHAR(3) || HB_ISNUM(3) )
    {
@@ -1319,16 +1437,22 @@ HB_FUNC( REGISTERWINDOW )
       hImage = ( HBITMAP ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 
       if( hImage == nullptr && HB_ISCHAR(3) )
+      {
          hImage = ( HBITMAP ) LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+      }
 
 #ifdef UNICODE
       hb_xfree(( TCHAR * ) lpImageName);
 #endif
       if( hImage == nullptr )
+      {
          hImage = ( HBITMAP ) HMG_LoadImage(hb_parc(3), nullptr);
+      }
 
       if( hImage != nullptr )
+      {
          hBrush = CreatePatternBrush(hImage);
+      }
    }
 
    WndClass.hbrBackground = ( nullptr != hBrush ) ? hBrush : ( hBrush = ( HBRUSH ) ( COLOR_BTNFACE + 1 ) );
@@ -1336,14 +1460,20 @@ HB_FUNC( REGISTERWINDOW )
    WndClass.lpszClassName = lpClassName;
 
    if( ! RegisterClass(&WndClass) )
+   {
       hmg_ErrorExit(TEXT("Window Registration Failed!"), 0, TRUE);
+   }
 
    hb_strfree(hClassName);
 #ifdef UNICODE
    if( HB_ISCHAR(1) )
+   {
       hb_xfree(( TCHAR * ) lpIconName);
+   }
    if( HB_ISCHAR(4) )
+   {
       hb_xfree(( TCHAR * ) lpCursorName);
+   }
 #endif
    HB_RETNL( ( LONG_PTR ) hBrush );
 }
@@ -1370,15 +1500,21 @@ HB_FUNC( REGISTERSPLITCHILDWINDOW )
    WndClass.hInstance = GetInstance();
    WndClass.hIcon = LoadIcon(GetInstance(), lpIcon);
    if( WndClass.hIcon == nullptr )
+   {
       WndClass.hIcon = ( HICON ) LoadImage(0, lpIcon, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE);
+   }
 
    if( WndClass.hIcon == nullptr )
+   {
       WndClass.hIcon = LoadIcon(nullptr, IDI_APPLICATION);
+   }
 
    WndClass.hCursor = LoadCursor(nullptr, IDC_ARROW);
 
    if( HB_PARNI(3, 1) == -1 )
+   {
       WndClass.hbrBackground = ( HBRUSH ) ( COLOR_BTNFACE + 1 );
+   }
    else
    {
       hbrush = CreateSolidBrush(RGB(HB_PARNI(3, 1), HB_PARNI(3, 2), HB_PARNI(3, 3)));
@@ -1389,7 +1525,9 @@ HB_FUNC( REGISTERSPLITCHILDWINDOW )
    WndClass.lpszClassName = lpClassName;
 
    if( ! RegisterClass(&WndClass) )
+   {
       hmg_ErrorExit(TEXT("Window Registration Failed!"), 0, TRUE);
+   }
 
    hb_strfree(hClassName);
 #ifdef UNICODE
@@ -1458,14 +1596,22 @@ HB_FUNC( BORLANDC )
    if( pszName )
    {
       if( iVerPatch != 0 )
+      {
          hb_snprintf( pszCompiler, COMPILER_BUF_SIZE, "%s%s %d.%d.%d", pszName, szSub, iVerMajor, iVerMinor, iVerPatch );
+      }
       else if( iVerMajor != 0 || iVerMinor != 0 )
+      {
          hb_snprintf( pszCompiler, COMPILER_BUF_SIZE, "%s%s %d.%d0", pszName, szSub, iVerMajor, iVerMinor );
+      }
       else
+      {
          hb_snprintf( pszCompiler, COMPILER_BUF_SIZE, "%s%s", pszName, szSub );
+      }
    }
    else
+   {
       hb_strncpy(pszCompiler, "(unknown)", COMPILER_BUF_SIZE - 1);
+   }
 
    #if defined( HB_ARCH_32BIT )
    hb_strncat(pszCompiler, " (32-bit)", COMPILER_BUF_SIZE - 1);
@@ -1542,7 +1688,9 @@ HB_FUNC( HMG_LOWER )
       hb_xfree(pStr);
    }
    else
+   {
       hb_retc( nullptr );
+   }
 
    hb_xfree(Text);
    hb_xfree(Buffer);
@@ -1573,7 +1721,9 @@ HB_FUNC( HMG_UPPER )
       hb_xfree(pStr);
    }
    else
+   {
       hb_retc( nullptr );
+   }
 
    hb_xfree(Text);
    hb_xfree(Buffer);
