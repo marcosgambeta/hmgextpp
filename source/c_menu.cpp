@@ -49,7 +49,7 @@
    Copyright 2007-2017 (C) P.Chornyj <myorg63@mail.ru>
    ----------------------------------------------------------------------*/
 
-#if ! defined( __WINNT__ )
+#if !defined( __WINNT__ )
 # define __WINNT__
 #endif
 
@@ -840,7 +840,7 @@ HB_FUNC( _ONDRAWMENUITEM )
    bkMode        = SetBkMode(lpdis->hDC, TRANSPARENT);
 
    // set colours and flags ( fSelected etc. )
-   if( ( ( lpdis->itemAction & ODA_SELECT ) || ( lpdis->itemAction & ODA_DRAWENTIRE ) ) && ( ! ( lpdis->itemState & ODS_GRAYED ) ) )
+   if( ( ( lpdis->itemAction & ODA_SELECT ) || ( lpdis->itemAction & ODA_DRAWENTIRE ) ) && ( !( lpdis->itemState & ODS_GRAYED ) ) )
    {
       if( lpdis->itemState & ODS_SELECTED )
       {
@@ -874,22 +874,22 @@ HB_FUNC( _ONDRAWMENUITEM )
    }
 
    //draw menu item background
-   DrawItemBk(lpdis->hDC, lpdis->rcItem, fSelected, fGrayed, lpMenuItem->uiItemType, ( ( lpMenuItem->hBitmap == nullptr ) && ( ! fChecked ) ));
+   DrawItemBk(lpdis->hDC, lpdis->rcItem, fSelected, fGrayed, lpMenuItem->uiItemType, ( ( lpMenuItem->hBitmap == nullptr ) && ( !fChecked ) ));
 
    // draw menu item border
-   if( fSelected && ( ! fGrayed ) )
+   if( fSelected && ( !fGrayed ) )
    {
       DrawSelectedItemBorder
       (
          lpdis->hDC,
          lpdis->rcItem,
          lpMenuItem->uiItemType,
-         ( ( lpMenuItem->hBitmap == nullptr ) && ( ! fChecked ) )
+         ( ( lpMenuItem->hBitmap == nullptr ) && ( !fChecked ) )
       );
    }
 
    // draw bitmap
-   if( ( lpMenuItem->hBitmap != nullptr ) && ( ! fChecked ) )
+   if( ( lpMenuItem->hBitmap != nullptr ) && ( !fChecked ) )
    {
       DrawGlyph
       (
@@ -981,7 +981,7 @@ VOID DrawSeparator( HDC hDC, RECT r )
    CopyRect(&rect, &r);
    rect.right = rect.left + min_width + cx_delta / 2;
 
-   if( ( EnabledGradient() ) && ( ! IsColorEqual( clrImageBk1, clrImageBk2 ) ) )
+   if( ( EnabledGradient() ) && ( !IsColorEqual( clrImageBk1, clrImageBk2 ) ) )
    {
       FillGradient(hDC, &rect, FALSE, clrImageBk1, clrImageBk2);
    }
@@ -995,7 +995,7 @@ VOID DrawSeparator( HDC hDC, RECT r )
    CopyRect(&rect, &r);
    rect.left += ( min_width + cx_delta / 2 );
 
-   if( ( EnabledGradient() ) && ( ! IsColorEqual( clrBk1, clrBk2 ) ) )
+   if( ( EnabledGradient() ) && ( !IsColorEqual( clrBk1, clrBk2 ) ) )
    {
       FillGradient(hDC, &rect, FALSE, clrBk1, clrBk2);
    }
@@ -1050,7 +1050,7 @@ VOID DrawBitmapBK(HDC hDC, RECT r)
    CopyRect(&rect, &r);
    rect.right = rect.left + min_width + cx_delta / 2;
 
-   if( ( EnabledGradient() ) && ( ! IsColorEqual( clrImageBk1, clrImageBk2 ) ) )
+   if( ( EnabledGradient() ) && ( !IsColorEqual( clrImageBk1, clrImageBk2 ) ) )
    {
       FillGradient(hDC, &rect, FALSE, clrImageBk1, clrImageBk2);
    }
@@ -1067,17 +1067,17 @@ VOID DrawItemBk(HDC hDC, RECT r, BOOL Selected, BOOL Grayed, UINT itemType, BOOL
    RECT rect;
 
    CopyRect(&rect, &r);
-   if( ( ! Selected ) && ( itemType != 1 ) )
+   if( ( !Selected ) && ( itemType != 1 ) )
    {
       rect.left += ( min_width + cx_delta / 2 );
    }
 
-   if( ( Selected ) && ( itemType != 1 ) && ( eMenuCursorType == Short ) && ( ! clear ) )
+   if( ( Selected ) && ( itemType != 1 ) && ( eMenuCursorType == Short ) && ( !clear ) )
    {
       rect.left += ( min_width + cx_delta / 2 );
    }
 
-   if( ! Grayed )
+   if( !Grayed )
    {
       if( Selected )
       {
@@ -1101,8 +1101,8 @@ VOID DrawItemBk(HDC hDC, RECT r, BOOL Selected, BOOL Grayed, UINT itemType, BOOL
       }
       else
       {
-         if( EnabledGradient() && ( ! IsColorEqual( clrMenuBar1, clrMenuBar2 ) ||
-                                    ( ! IsColorEqual( clrBk1, clrBk2 ) && ( itemType != 1 ) ) ) )
+         if( EnabledGradient() && ( !IsColorEqual( clrMenuBar1, clrMenuBar2 ) ||
+                                    ( !IsColorEqual( clrBk1, clrBk2 ) && ( itemType != 1 ) ) ) )
          {
             FillGradient
             (
@@ -1155,7 +1155,7 @@ VOID DrawSelectedItemBorder(HDC hDC, RECT r, UINT itemType, BOOL clear)
    oldPen = ( HPEN ) SelectObject(hDC, pen);
 
    CopyRect(&rect, &r);
-   if( ( eMenuCursorType == Short ) && ( itemType != 1 ) && ( ! clear ) )
+   if( ( eMenuCursorType == Short ) && ( itemType != 1 ) && ( !clear ) )
    {
       rect.left += ( min_width + cx_delta / 2 );
    }
@@ -1409,7 +1409,7 @@ HB_FUNC( _ONDESTROYMENU )
       HB_BOOL bResult = _DestroyMenu(menu);
 
 #ifdef _ERRORMSG_
-      if( ! bResult )
+      if( !bResult )
       {
          MessageBox(nullptr, "Menu is not destroyed successfully", "Warning", MB_OK | MB_ICONWARNING);
       }

@@ -138,12 +138,12 @@ HB_FUNC( INITGETBOX )
       iStyle = iStyle | ES_READONLY;
    }
 
-   if( ! hb_parl(16) )
+   if( !hb_parl(16) )
    {
       iStyle = iStyle | WS_VISIBLE;
    }
 
-   if( ! hb_parl(17) )
+   if( !hb_parl(17) )
    {
       iStyle = iStyle | WS_TABSTOP;
    }
@@ -346,7 +346,7 @@ HB_FUNC( GETTEXTHEIGHT )               // returns the height of a string in pixe
    LPCWSTR lpString = AnsiToWide(( char * ) hb_parc(2));
 #endif
 
-   if( ! hDC )
+   if( !hDC )
    {
       bDestroyDC = TRUE;
       hWnd       = GetActiveWindow();
@@ -393,7 +393,7 @@ LRESULT CALLBACK OwnGetProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
          return DLGC_WANTALLKEYS + DLGC_WANTARROWS + DLGC_WANTCHARS + DLGC_HASSETSEL;
 
       case EM_DISPLAYBAND:
-         if( ! pSymbol )
+         if( !pSymbol )
          {
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OGETEVENTS"));
          }
@@ -420,7 +420,7 @@ LRESULT CALLBACK OwnGetProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
          }
 
       case WM_CHAR:
-         if( ! pSymbol )
+         if( !pSymbol )
          {
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OGETEVENTS"));
          }
@@ -448,7 +448,7 @@ LRESULT CALLBACK OwnGetProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
          }
 
       case EM_CANPASTE:
-         if( ! pSymbol )
+         if( !pSymbol )
          {
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OGETEVENTS"));
          }
@@ -475,7 +475,7 @@ LRESULT CALLBACK OwnGetProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
          }
 
       case WM_PASTE:
-         if( ! pSymbol )
+         if( !pSymbol )
          {
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OGETEVENTS"));
          }
@@ -505,7 +505,7 @@ LRESULT CALLBACK OwnGetProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
       case WM_CONTEXTMENU:
       case WM_KILLFOCUS:
       case WM_SETFOCUS:
-         if( ! pSymbol )
+         if( !pSymbol )
          {
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OGETEVENTS"));
          }
@@ -535,7 +535,7 @@ LRESULT CALLBACK OwnGetProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
       case WM_LBUTTONDBLCLK:
       case WM_KEYDOWN:
       case WM_KEYUP:
-         if( ! pSymbol )
+         if( !pSymbol )
          {
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OGETEVENTS"));
          }
@@ -563,7 +563,7 @@ LRESULT CALLBACK OwnGetProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
          }
 
       case WM_CUT:
-         if( ! pSymbol )
+         if( !pSymbol )
          {
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OGETEVENTS"));
          }
@@ -593,7 +593,7 @@ LRESULT CALLBACK OwnGetProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
       case WM_COMMAND:
          if( lParam != 0 && HIWORD(wParam) == BN_CLICKED )
          {
-            if( ! pSymbol )
+            if( !pSymbol )
             {
                pSymbol = hb_dynsymSymbol(hb_dynsymGet("OGETEVENTS"));
             }

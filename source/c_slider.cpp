@@ -86,12 +86,12 @@ HB_FUNC( INITSLIDER )
       Style |= TBS_LEFT;
    }
 
-   if( ! hb_parl(14) )
+   if( !hb_parl(14) )
    {
       Style |= WS_VISIBLE;
    }
 
-   if( ! hb_parl(15) )
+   if( !hb_parl(15) )
    {
       Style |= WS_TABSTOP;
    }

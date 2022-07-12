@@ -53,7 +53,7 @@
    Notes:      This is very simple crypt algorithm based on XOR encryption.
  */
 
-#if ! defined( __MINGW32__ )
+#if !defined( __MINGW32__ )
 
 #include "hbapi.h"
 
@@ -66,7 +66,7 @@ HB_FUNC( CHARXOR )
    len1 = hb_parclen(1);
    Str2 = ( char * ) hb_parc(2);
    len2 = hb_parclen(2);
-   if( ! len1 )
+   if( !len1 )
    {
       hb_retclen("", 0);
    }

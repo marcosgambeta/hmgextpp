@@ -248,7 +248,7 @@ static HB_BOOL AppEventRemove(HWND hWnd, const char * pszProp, UINT message)
             HB_ATOM_SET(&events->used, 0);
          }
 
-         if( ! HB_ATOM_GET(&events->used) )
+         if( !HB_ATOM_GET(&events->used) )
          {
    #ifdef UNICODE
             events = ( EVENTSHOLDER * ) RemoveProp(hWnd, pW);
@@ -604,7 +604,7 @@ static HB_BOOL WinEventRemove(HWND hWnd, const char * pszProp, UINT message)
             HB_ATOM_SET(&events->used, 0);
          }
 
-         if( ! HB_ATOM_GET(&events->used) )
+         if( !HB_ATOM_GET(&events->used) )
          {
    #ifdef UNICODE
             events = ( WINEVENTSHOLDER * ) RemoveProp(hWnd, pW);
@@ -1096,28 +1096,28 @@ HB_FUNC( INITWINDOW )
    else
    {
       ExStyle = 0;
-      if( ! hb_parl(6) )
+      if( !hb_parl(6) )
       {
          Style = Style | WS_MINIMIZEBOX;
       }
 
-      if( ! hb_parl(7) )
+      if( !hb_parl(7) )
       {
          Style = Style | WS_MAXIMIZEBOX;
       }
    }
 
-   if( ! hb_parl(8) )
+   if( !hb_parl(8) )
    {
       Style = Style | WS_SIZEBOX;
    }
 
-   if( ! hb_parl(9) )
+   if( !hb_parl(9) )
    {
       Style = Style | WS_SYSMENU;
    }
 
-   if( ! hb_parl(10) )
+   if( !hb_parl(10) )
    {
       Style = Style | WS_CAPTION;
    }
@@ -1203,17 +1203,17 @@ HB_FUNC( INITMODALWINDOW )
 
    Style = WS_POPUP;
 
-   if( ! hb_parl(7) )
+   if( !hb_parl(7) )
    {
       Style = Style | WS_SIZEBOX;
    }
 
-   if( ! hb_parl(8) )
+   if( !hb_parl(8) )
    {
       Style = Style | WS_SYSMENU;
    }
 
-   if( ! hb_parl(9) )
+   if( !hb_parl(9) )
    {
       Style = Style | WS_CAPTION;
    }
@@ -1274,7 +1274,7 @@ HB_FUNC( INITSPLITCHILDWINDOW )
 
    Style = WS_POPUP;
 
-   if( ! hb_parl(4) )
+   if( !hb_parl(4) )
    {
       Style = Style | WS_CAPTION;
    }
@@ -1459,7 +1459,7 @@ HB_FUNC( REGISTERWINDOW )
    WndClass.lpszMenuName = nullptr;
    WndClass.lpszClassName = lpClassName;
 
-   if( ! RegisterClass(&WndClass) )
+   if( !RegisterClass(&WndClass) )
    {
       hmg_ErrorExit(TEXT("Window Registration Failed!"), 0, TRUE);
    }
@@ -1524,7 +1524,7 @@ HB_FUNC( REGISTERSPLITCHILDWINDOW )
    WndClass.lpszMenuName = nullptr;
    WndClass.lpszClassName = lpClassName;
 
-   if( ! RegisterClass(&WndClass) )
+   if( !RegisterClass(&WndClass) )
    {
       hmg_ErrorExit(TEXT("Window Registration Failed!"), 0, TRUE);
    }
@@ -1659,7 +1659,7 @@ HB_FUNC( HMG_ISDIGIT )
    LPWSTR ch = AnsiToWide(( char * ) hb_parc(1));
 #endif
 
-   hb_retl( ( BOOL ) ( IsCharAlphaNumeric( ch[0] ) && ! IsCharAlpha(ch[0]) ) );
+   hb_retl( ( BOOL ) ( IsCharAlphaNumeric( ch[0] ) && !IsCharAlpha(ch[0]) ) );
 }
 
 #ifdef UNICODE

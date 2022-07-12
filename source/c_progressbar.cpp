@@ -78,7 +78,7 @@ HB_FUNC( INITPROGRESSBAR )
       Style = Style | PBS_SMOOTH;
    }
 
-   if( ! hb_parl(11) )
+   if( !hb_parl(11) )
    {
       Style = Style | WS_VISIBLE;
    }

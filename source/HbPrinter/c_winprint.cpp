@@ -386,13 +386,13 @@ HB_FUNC( RR_GETDEFAULTPRINTER )
          _GETDEFAULTPRINTER fnGetDefaultPrinter;
 
          HMODULE hWinSpool = LoadLibrary(TEXT("winspool.drv"));
-         if( ! hWinSpool )
+         if( !hWinSpool )
          {
             hb_retc( "" );
             return;
          }
          fnGetDefaultPrinter = ( _GETDEFAULTPRINTER ) GetProcAddress(hWinSpool, GETDEFAULTPRINTER);
-         if( ! fnGetDefaultPrinter )
+         if( !fnGetDefaultPrinter )
          {
             FreeLibrary(hWinSpool);
             hb_retc( "" );
@@ -402,7 +402,7 @@ HB_FUNC( RR_GETDEFAULTPRINTER )
          bFlag = ( *fnGetDefaultPrinter )( lpPrinterName, &BuffSize );
          lstrcpy(PrinterDefault, lpPrinterName);
          FreeLibrary(hWinSpool);
-         if( ! bFlag )
+         if( !bFlag )
          {
             hb_retc( "" );
             return;

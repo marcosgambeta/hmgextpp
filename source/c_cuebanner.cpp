@@ -54,8 +54,8 @@
 
 #include "hbwinuni.h"
 
-#if ( ! defined( EM_GETCUEBANNER ) )
-# if ( ! defined( ECM_FIRST ) )
+#if ( !defined( EM_GETCUEBANNER ) )
+# if ( !defined( ECM_FIRST ) )
 #  define ECM_FIRST       0x1500
 # endif
 # define EM_GETCUEBANNER  ( ECM_FIRST + 2 )

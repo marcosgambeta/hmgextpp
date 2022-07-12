@@ -58,7 +58,7 @@ void pascal DelResource(HANDLE hResource);
 
 
 #ifndef HMG_LEGACY_OFF
-#if ! defined( __MINGW32__ ) && ( __HARBOUR__ - 0 > 0x020000 ) && ( __HARBOUR__ - 0 < 0x030200 )
+#if !defined( __MINGW32__ ) && ( __HARBOUR__ - 0 > 0x020000 ) && ( __HARBOUR__ - 0 < 0x030200 )
 HB_FUNC_TRANSLATE(HB_SETCODEPAGE, HB_CDPSELECT)
 #endif
 #endif /* HMG_LEGACY_OFF */
@@ -148,7 +148,7 @@ HB_FUNC( GETTEXTWIDTH ) // returns the width of a string in pixels
    LPCWSTR lpString = AnsiToWide(( char * ) hb_parc(2));
 #endif
 
-   if( ! hDC )
+   if( !hDC )
    {
       bDestroyDC = TRUE;
       hWnd       = GetActiveWindow();

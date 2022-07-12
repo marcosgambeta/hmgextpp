@@ -568,7 +568,7 @@ static HB_BOOL TD_CheckButton(const PHB_ITEM arrayOfButtons, HB_SIZE arraysize)
       button = hb_arrayGetItemPtr(arrayOfButtons, i);
       if( HB_IS_ARRAY(button) && hb_arrayLen(button) > 1 )
       {
-         if( ! ( ( ( hb_arrayGetType(button, 1) & Harbour::Item::NUMERIC ) != 0 ) &&
+         if( !( ( ( hb_arrayGetType(button, 1) & Harbour::Item::NUMERIC ) != 0 ) &&
                  ( ( hb_arrayGetType(button, 2) & ( Harbour::Item::STRING | Harbour::Item::NUMERIC ) ) != 0 ) ) )
          {
             return HB_FALSE;
@@ -602,7 +602,7 @@ HRESULT CALLBACK __ClsCBFunc( HWND hWnd, UINT uiNotification, WPARAM wParam, LPA
       // Get TimedOut property
       hb_objSendMsg(pObject, ( const char * ) "TIMEDOUT", 0);
 
-      if( ! hmg_par_BOOL(-1) )  // if FALSE - it's not the time yet
+      if( !hmg_par_BOOL(-1) )  // if FALSE - it's not the time yet
       {
          if( uiNotification == TDN_TIMER )
          {

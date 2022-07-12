@@ -285,7 +285,7 @@ LRESULT APIENTRY ImageSubClassFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM l
          bMouseTracking = FALSE;
       }
 
-      if( ! pSymbol )
+      if( !pSymbol )
       {
          pSymbol = hb_dynsymSymbol(hb_dynsymGet("OLABELEVENTS"));
       }
@@ -317,7 +317,7 @@ HB_FUNC( INITIMAGE )
    HWND hWndParent = hmg_par_HWND(1);
    int  Style      = WS_CHILD | SS_BITMAP;
 
-   if( ! hb_parl(5) )
+   if( !hb_parl(5) )
    {
       Style |= WS_VISIBLE;
    }
@@ -852,7 +852,7 @@ BOOL SaveHBitmapToFile(void * HBitmap, const char * FileName, unsigned int Width
 
    if( MimeTypeOld == nullptr )
    {
-      if( ! GetEnCodecClsid( MimeType, &Clsid ) )
+      if( !GetEnCodecClsid( MimeType, &Clsid ) )
       {
          HB_GPLUS_MSG_ERROR( "Wrong MimeType" );
          return FALSE;
@@ -874,7 +874,7 @@ BOOL SaveHBitmapToFile(void * HBitmap, const char * FileName, unsigned int Width
       {
          LocalFree(MimeTypeOld);
 
-         if( ! GetEnCodecClsid( MimeType, &Clsid ) )
+         if( !GetEnCodecClsid( MimeType, &Clsid ) )
          {
             HB_GPLUS_MSG_ERROR( "Wrong MimeType" );
             return FALSE;
@@ -1080,17 +1080,17 @@ static UINT WriteIconImageHeader(HANDLE hFile, BITMAP * pbmpColor, BITMAP * pbmp
 //*************************************************************************************************
 static BOOL GetIconBitmapInfo(HICON hIcon, ICONINFO * pIconInfo, BITMAP * pbmpColor, BITMAP * pbmpMask)
 {
-   if( ! GetIconInfo(hIcon, pIconInfo) )
+   if( !GetIconInfo(hIcon, pIconInfo) )
    {
       return FALSE;
    }
 
-   if( ! GetObject(pIconInfo->hbmColor, sizeof(BITMAP), pbmpColor) )
+   if( !GetObject(pIconInfo->hbmColor, sizeof(BITMAP), pbmpColor) )
    {
       return FALSE;
    }
 
-   if( ! GetObject(pIconInfo->hbmMask, sizeof(BITMAP), pbmpMask) )
+   if( !GetObject(pIconInfo->hbmMask, sizeof(BITMAP), pbmpMask) )
    {
       return FALSE;
    }

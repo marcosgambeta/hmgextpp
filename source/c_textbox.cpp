@@ -91,12 +91,12 @@ HB_FUNC( INITMASKEDTEXTBOX )
       Style = Style | ES_READONLY;
    }
 
-   if( ! hb_parl(14) )
+   if( !hb_parl(14) )
    {
       Style = Style | WS_VISIBLE;
    }
 
-   if( ! hb_parl(15) )
+   if( !hb_parl(15) )
    {
       Style = Style | WS_TABSTOP;
    }
@@ -167,12 +167,12 @@ HB_FUNC( INITTEXTBOX )
       iStyle = iStyle | ES_READONLY;
    }
 
-   if( ! hb_parl(16) )
+   if( !hb_parl(16) )
    {
       iStyle = iStyle | WS_VISIBLE;
    }
 
-   if( ! hb_parl(17) )
+   if( !hb_parl(17) )
    {
       iStyle = iStyle | WS_TABSTOP;
    }
@@ -236,12 +236,12 @@ HB_FUNC( INITCHARMASKTEXTBOX )
       Style = Style | ES_READONLY;
    }
 
-   if( ! hb_parl(14) )
+   if( !hb_parl(14) )
    {
       Style = Style | WS_VISIBLE;
    }
 
-   if( ! hb_parl(15) )
+   if( !hb_parl(15) )
    {
       Style = Style | WS_TABSTOP;
    }
@@ -284,7 +284,7 @@ LRESULT CALLBACK OwnEditProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
 
       case WM_CONTEXTMENU:
       case WM_CHAR:
-         if( ! pSymbol )
+         if( !pSymbol )
          {
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OEDITEVENTS"));
          }

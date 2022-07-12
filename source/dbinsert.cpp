@@ -55,7 +55,7 @@ HB_FUNC( DBINSERT )
    DBFAREAP pArea = ( DBFAREAP ) hb_rddGetCurrentWorkAreaPointer();
    BOOL     bOk   = TRUE;
 
-   if( pArea && ! pArea->fReadonly && ! pArea->fShared )
+   if( pArea && !pArea->fReadonly && !pArea->fShared )
    {
       ULONG      ulRec, ulCount = HB_ISNUM(2) ? hb_parnl(2) : 1;
       HB_FHANDLE hFile = hb_fileHandle(pArea->pDataFile);

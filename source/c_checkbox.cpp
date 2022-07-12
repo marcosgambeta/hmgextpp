@@ -96,12 +96,12 @@ HB_FUNC( INITCHECKBOX )
 
    Style = BS_NOTIFY | WS_CHILD;
 
-   if( ! hb_parl(10) )
+   if( !hb_parl(10) )
    {
       Style = Style | WS_VISIBLE;
    }
 
-   if( ! hb_parl(11) )
+   if( !hb_parl(11) )
    {
       Style = Style | WS_TABSTOP;
    }
@@ -162,12 +162,12 @@ HB_FUNC( INITCHECKBUTTON )
 
    Style = BS_NOTIFY | WS_CHILD | BS_AUTOCHECKBOX | BS_PUSHLIKE;
 
-   if( ! hb_parl(10) )
+   if( !hb_parl(10) )
    {
       Style = Style | WS_VISIBLE;
    }
 
-   if( ! hb_parl(11) )
+   if( !hb_parl(11) )
    {
       Style = Style | WS_TABSTOP;
    }
@@ -213,12 +213,12 @@ HB_FUNC( INITIMAGECHECKBUTTON )
 
    Style = BS_NOTIFY | BS_BITMAP | WS_CHILD | BS_AUTOCHECKBOX | BS_PUSHLIKE;
 
-   if( ! hb_parl(11) )
+   if( !hb_parl(11) )
    {
       Style = Style | WS_VISIBLE;
    }
 
-   if( ! hb_parl(12) )
+   if( !hb_parl(12) )
    {
       Style = Style | WS_TABSTOP;
    }
@@ -238,7 +238,7 @@ HB_FUNC( INITIMAGECHECKBUTTON )
       nullptr
              );
 
-   if( ! hb_parl(13) )
+   if( !hb_parl(13) )
    {
       himage = ( HWND ) HMG_LoadPicture(hb_parc(8), -1, -1, hwnd, 0, Transparent, -1, 0, HB_FALSE, 255);
 

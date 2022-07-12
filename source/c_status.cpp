@@ -160,7 +160,7 @@ HB_FUNC( INITITEMBAR )
       hIcon = ( HICON ) LoadImage(nullptr, lpIconName, IMAGE_ICON, cx, cy, LR_LOADFROMFILE);
    }
 
-   if( ! ( hIcon == nullptr ) )
+   if( !( hIcon == nullptr ) )
    {
       SendMessage(hWndSB, SB_SETICON, ( WPARAM ) nrOfParts - 1, ( LPARAM ) hIcon);
    }
@@ -238,7 +238,7 @@ HB_FUNC( REFRESHITEMBAR )
    hDC = GetDC(hWndSB);
    GetClientRect(hWndSB, &rect);
 
-   if( ( nrOfParts == 1 ) || ( IsZoomed( GetParent(hWndSB) ) ) || ( ! (GetWindowLong(( HWND ) GetParent(hWndSB), GWL_STYLE) & WS_SIZEBOX) ) )
+   if( ( nrOfParts == 1 ) || ( IsZoomed( GetParent(hWndSB) ) ) || ( !(GetWindowLong(( HWND ) GetParent(hWndSB), GWL_STYLE) & WS_SIZEBOX) ) )
    {
       nDev = rect.right - ptArray[nrOfParts - 1];
    }

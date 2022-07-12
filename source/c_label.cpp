@@ -98,7 +98,7 @@ HB_FUNC( INITLABEL )
       Style |= WS_VSCROLL;
    }
 
-   if( ! hb_parl(16) )
+   if( !hb_parl(16) )
    {
       Style |= WS_VISIBLE;
    }
@@ -206,7 +206,7 @@ LRESULT APIENTRY LabelSubClassFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM l
       if( bCallUDF == TRUE )
       {
 #endif
-      if( ! pSymbol )
+      if( !pSymbol )
       {
          pSymbol = hb_dynsymSymbol(hb_dynsymGet("OLABELEVENTS"));
       }

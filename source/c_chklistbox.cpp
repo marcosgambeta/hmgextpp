@@ -77,12 +77,12 @@ HB_FUNC( INITCHKLISTBOX )
    hwnd = hmg_par_HWND(1);
    m_nHeightItem = 16;
 
-   if( ! hb_parl(9) )
+   if( !hb_parl(9) )
    {
       Style = Style | WS_VISIBLE;
    }
 
-   if( ! hb_parl(10) )
+   if( !hb_parl(10) )
    {
       Style = Style | WS_TABSTOP;
    }
@@ -125,12 +125,12 @@ HB_FUNC( INITMULTICHKLISTBOX )
    hwnd = hmg_par_HWND(1);
    m_nHeightItem = 16;
 
-   if( ! hb_parl(9) )
+   if( !hb_parl(9) )
    {
       Style = Style | WS_VISIBLE;
    }
 
-   if( ! hb_parl(10) )
+   if( !hb_parl(10) )
    {
       Style = Style | WS_TABSTOP;
    }
@@ -214,7 +214,7 @@ HB_FUNC( SETCHKLBITEMHEIGHT ) // set the height of a string in pixels
    HFONT hOldFont = ( HFONT ) nullptr;
    SIZE  sz;
 
-   if( ! hdc )
+   if( !hdc )
    {
       hwnd = GetActiveWindow();
       hdc  = GetDC(hwnd);

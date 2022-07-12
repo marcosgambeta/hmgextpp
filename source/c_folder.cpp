@@ -236,10 +236,10 @@ LRESULT CALLBACK HMG_FldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPARAM l
       case WM_COMMAND:
          if( lParam != 0 && HIWORD(wParam) == BN_CLICKED )
          {
-            if( ! FLD_DoCommand( hWndDlg, LOWORD(wParam) ) )
+            if( !FLD_DoCommand( hWndDlg, LOWORD(wParam) ) )
             {
                pFhi = ( FLDHDRINFO * ) GetWindowLongPtr(hWndDlg, GWLP_USERDATA);
-               if( ! pFhi )
+               if( !pFhi )
                {
                   return FALSE;
                }
@@ -270,7 +270,7 @@ LRESULT CALLBACK HMG_FldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPARAM l
          return FALSE;
    }
 
-   if( ! pSymbol )
+   if( !pSymbol )
    {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("FOLDERPROC"));
    }
@@ -323,7 +323,7 @@ LRESULT CALLBACK HMG_PageFldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
          return TRUE;
    }
 
-   if( ! pSymbol )
+   if( !pSymbol )
    {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("PAGEFLDPROC"));
    }
@@ -637,7 +637,7 @@ HB_FUNC( FOLDER_ISDIRTY )
 
    FLDHDRINFO * pFhi = ( FLDHDRINFO * ) GetWindowLongPtr(hWndParent, GWLP_USERDATA);
 
-   if( ! pFhi )
+   if( !pFhi )
    {
       return;
    }
@@ -648,7 +648,7 @@ HB_FUNC( FOLDER_ISDIRTY )
       FLDPAGEINFO *  fpi  = ( FLDPAGEINFO * ) hfpi[i];
 
       /* look to see if there's any dirty pages */
-      if( fpi->isDirty && ! pFhi->activeValid )
+      if( fpi->isDirty && !pFhi->activeValid )
       {
          lPageDirty = TRUE;
       }
@@ -667,9 +667,9 @@ HB_FUNC( FOLDER_ISFINISH )
 
    FLDHDRINFO * pFhi = ( FLDHDRINFO * ) GetWindowLongPtr(hWndParent, GWLP_USERDATA);
 
-   if( ! pFhi->isModal )
+   if( !pFhi->isModal )
    {
-      lFooderFinish = ! pFhi->activeValid;
+      lFooderFinish = !pFhi->activeValid;
    }
    else
    {
@@ -687,7 +687,7 @@ HB_FUNC( FOLDER_GETIDFLD )
    HWND hWndParent   = hmg_par_HWND(1);
    FLDHDRINFO * pFhi = ( FLDHDRINFO * ) GetWindowLongPtr(hWndParent, GWLP_USERDATA);
 
-   if( ! pFhi )
+   if( !pFhi )
    {
       hb_retni( hmg_par_int(2) );
    }
@@ -705,7 +705,7 @@ HB_FUNC( FOLDER_GETTABHANDLE )
    HWND hWndParent   = hmg_par_HWND(1);
    FLDHDRINFO * pFhi = ( FLDHDRINFO * ) GetWindowLongPtr(hWndParent, GWLP_USERDATA);
 
-   if( ! pFhi )
+   if( !pFhi )
    {
       hb_retnl(0);
    }
@@ -789,7 +789,7 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
    for( int i = 0; i < nPages; i++ )
    {
       fpi = ( FLDPAGEINFO * ) hfpi[i];
-      if( ! pFhi->isInDirect )
+      if( !pFhi->isInDirect )
       {
          pTemplate = ( DLGTEMPLATE * ) fpi->apRes;
          FLD_PageInfo(pTemplate, pFhi, i, TRUE);
@@ -953,7 +953,7 @@ DLGTEMPLATE * WINAPI FLD_SetStyleDlgRes(DLGTEMPLATE * pTemplate, DWORD resSize)
    LPVOID temp;
 
    temp = LocalAlloc(LPTR, resSize);
-   if( ! temp )
+   if( !temp )
    {
       return FALSE;
    }
@@ -1097,7 +1097,7 @@ static BOOL FLD_PageInfo(DLGTEMPLATE * pTemplate, FLDHDRINFO * pFhi, int index, 
    int           width, height;
    FLDPAGEINFO * fpi;
 
-   if( ! pTemplate )
+   if( !pTemplate )
    {
       return FALSE;
    }
@@ -1172,7 +1172,7 @@ static void FLD_Changed( HWND hWndParent, HWND hwndDirtyPage )
 {
    FLDHDRINFO * pFhi = ( FLDHDRINFO * ) GetWindowLongPtr(hWndParent, GWLP_USERDATA);
 
-   if( ! pFhi )
+   if( !pFhi )
    {
       return;
    }
@@ -1206,7 +1206,7 @@ static void FLD_UnChanged( HWND hWndParent, HWND hwndCleanPage )
 
    FLDHDRINFO * pFhi = ( FLDHDRINFO * ) GetWindowLongPtr(hWndParent, GWLP_USERDATA);
 
-   if( ! pFhi )
+   if( !pFhi )
    {
       return;
    }
@@ -1260,12 +1260,12 @@ static BOOL FLD_DoCommand( HWND hWndDlg, WORD wID )
 
             if( wID == FLBTN_OK )
             {
-               if( ! pFhi )
+               if( !pFhi )
                {
                   return FALSE;
                }
 
-               if( ! pFhi->isModal )
+               if( !pFhi->isModal )
                {
                   pFhi->activeValid = FALSE;
                }
@@ -1438,7 +1438,7 @@ static void FLD_Cancel( HWND hWndDlg, LPARAM lParam )
       }
    }
 
-   if( ! pFhi->isModal )
+   if( !pFhi->isModal )
    {
       pFhi->activeValid = FALSE;
    }
@@ -1568,7 +1568,7 @@ static void FLD_CleanUp(HWND hWndDlg)
 {
    FLDHDRINFO * pFhi = ( FLDHDRINFO * ) GetWindowLongPtr(hWndDlg, GWLP_USERDATA);
 
-   if( ! pFhi )
+   if( !pFhi )
    {
       return;
    }

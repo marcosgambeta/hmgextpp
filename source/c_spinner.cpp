@@ -79,13 +79,13 @@ HB_FUNC( INITSPINNER )
 
    hwnd = hmg_par_HWND(1);
 
-   if( ! hb_parl(11) )
+   if( !hb_parl(11) )
    {
       Style1 = Style1 | WS_VISIBLE;
       Style2 = Style2 | WS_VISIBLE;
    }
 
-   if( ! hb_parl(12) )
+   if( !hb_parl(12) )
    {
       Style1 = Style1 | WS_TABSTOP;
    }
@@ -180,7 +180,7 @@ LRESULT CALLBACK OwnSpinProc(HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam)
 
       case WM_CONTEXTMENU:
       case WM_GETDLGCODE:
-         if( ! pSymbol )
+         if( !pSymbol )
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OSPINEVENTS"));
 
          if( pSymbol )

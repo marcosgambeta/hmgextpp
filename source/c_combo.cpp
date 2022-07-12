@@ -74,12 +74,12 @@ HB_FUNC( INITCOMBOBOX )
 
    Style = WS_CHILD | WS_VSCROLL;
 
-   if( ! hb_parl(9) )
+   if( !hb_parl(9) )
    {
       Style = Style | WS_VISIBLE;
    }
 
-   if( ! hb_parl(10) )
+   if( !hb_parl(10) )
    {
       Style = Style | WS_TABSTOP;
    }
@@ -143,12 +143,12 @@ HB_FUNC( INITCOMBOBOXEX )
 
    Style = WS_CHILD | WS_VSCROLL;
 
-   if( ! hb_parl(9) )
+   if( !hb_parl(9) )
    {
       Style = Style | WS_VISIBLE;
    }
 
-   if( ! hb_parl(10) )
+   if( !hb_parl(10) )
    {
       Style = Style | WS_TABSTOP;
    }

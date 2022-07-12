@@ -117,12 +117,12 @@ HB_FUNC( INITBTNTEXTBOX )
       iStyle = iStyle | ES_RIGHT;
    }
 
-   if( ! hb_parl(15) )
+   if( !hb_parl(15) )
    {
       iStyle = iStyle | WS_VISIBLE;
    }
 
-   if( ! hb_parl(16) )
+   if( !hb_parl(16) )
    {
       iStyle = iStyle | WS_TABSTOP;
    }
@@ -321,7 +321,7 @@ HB_FUNC( REDEFBTNTEXTBOX )
    SetProp(( HWND ) hedit, TEXT("OldWndProc"), ( HWND ) GetWindowLongPtr(( HWND ) hedit, GWLP_WNDPROC));
    SetWindowLongPtr(hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnBtnTextProc);
 
-   if( ! ( hb_parc(2) == nullptr ) )
+   if( !( hb_parc(2) == nullptr ) )
    {
 #ifndef UNICODE
       LPCSTR lpImageName = hb_parc(2);
@@ -358,7 +358,7 @@ HB_FUNC( REDEFBTNTEXTBOX )
       himage = nullptr;
    }
 
-   if( ! ( hb_parc(4) == nullptr ) )
+   if( !( hb_parc(4) == nullptr ) )
    {
 #ifndef UNICODE
       LPCSTR lpImageName2 = hb_parc(4);
@@ -435,12 +435,12 @@ HB_FUNC( REDEFBTNTEXTBOX )
       hBtn2 = 0;
    }
 
-   if( ! ( himage == nullptr ) )
+   if( !( himage == nullptr ) )
    {
       SendMessage(hBtn1, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage);
    }
 
-   if( ! ( himage2 == nullptr ) )
+   if( !( himage2 == nullptr ) )
    {
       SendMessage(hBtn2, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage2);
    }
@@ -485,7 +485,7 @@ LRESULT CALLBACK OwnBtnTextProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lPara
 
          if( lParam != 0 && ( HIWORD(wParam) == BN_CLICKED || Msg == WM_CONTEXTMENU ) )
          {
-            if( ! pSymbol )
+            if( !pSymbol )
             {
                pSymbol = hb_dynsymSymbol(hb_dynsymGet("TBBTNEVENTS"));
             }

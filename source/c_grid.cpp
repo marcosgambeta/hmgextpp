@@ -211,17 +211,17 @@ HB_FUNC( INITLISTVIEW )
 
    style = LVS_SHOWSELALWAYS | WS_CHILD | WS_VISIBLE | LVS_REPORT;
 
-   if( ! hb_parl(9) )
+   if( !hb_parl(9) )
    {
       style = style | LVS_SINGLESEL;
    }
 
-   if( ! hb_parl(12) )
+   if( !hb_parl(12) )
    {
       style = style | WS_TABSTOP;
    }
 
-   if( ! hb_parl(10) )
+   if( !hb_parl(10) )
    {
       style = style | LVS_NOCOLUMNHEADER;
    }

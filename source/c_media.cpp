@@ -263,7 +263,7 @@ HB_FUNC( INITANIMATE )
       Style = Style | WS_BORDER;
    }
 
-   if( ! hb_parl(10) )
+   if( !hb_parl(10) )
    {
       Style = Style | WS_VISIBLE;
    }

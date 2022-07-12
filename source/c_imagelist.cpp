@@ -211,7 +211,7 @@ HB_FUNC( IL_DRAW )         //BOOL IL_Draw(HWND hwnd, HIMAGELIST himl, int imagei
       hb_retl( FALSE );
    }
 
-   if( ! ImageList_Draw(hmg_par_HIMAGELIST(2), hmg_par_INT(3), hdc, hb_parni(4), hb_parni(5), ILD_TRANSPARENT) )
+   if( !ImageList_Draw(hmg_par_HIMAGELIST(2), hmg_par_INT(3), hdc, hb_parni(4), hb_parni(5), ILD_TRANSPARENT) )
    {
       hb_retl( FALSE );
    }

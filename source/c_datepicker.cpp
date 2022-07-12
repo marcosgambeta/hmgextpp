@@ -96,12 +96,12 @@ HB_FUNC( INITDATEPICK )
       Style |= DTS_RIGHTALIGN;
    }
 
-   if( ! hb_parl(12) )
+   if( !hb_parl(12) )
    {
       Style |= WS_VISIBLE;
    }
 
-   if( ! hb_parl(13) )
+   if( !hb_parl(13) )
    {
       Style |= WS_TABSTOP;
    }
@@ -147,12 +147,12 @@ HB_FUNC( INITTIMEPICK )
       Style |= DTS_SHOWNONE;
    }
 
-   if( ! hb_parl(10) )
+   if( !hb_parl(10) )
    {
       Style |= WS_VISIBLE;
    }
 
-   if( ! hb_parl(11) )
+   if( !hb_parl(11) )
    {
       Style |= WS_TABSTOP;
    }
@@ -190,7 +190,7 @@ LRESULT CALLBACK OwnPickProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
    switch( Msg )
    {
       case WM_ERASEBKGND:
-         if( ! pSymbol )
+         if( !pSymbol )
          {
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OPICKEVENTS"));
          }
@@ -493,7 +493,7 @@ HB_FUNC( SETDATEPICKRANGE )
       memset(&sysTime, 0, sizeof(sysTime));
 
       cDate = ( char * ) hb_pards(2);
-      if( ! ( cDate[0] == ' ' ) )
+      if( !( cDate[0] == ' ' ) )
       {
          y = ( DWORD ) ( ( cDate[0] - '0' ) * 1000 ) +
              ( ( cDate[1] - '0' ) * 100 ) +
@@ -507,7 +507,7 @@ HB_FUNC( SETDATEPICKRANGE )
       }
 
       cDate = ( char * ) hb_pards(3);
-      if( ! ( cDate[0] == ' ' ) )
+      if( !( cDate[0] == ' ' ) )
       {
          y = ( DWORD ) ( ( cDate[0] - '0' ) * 1000 ) +
              ( ( cDate[1] - '0' ) * 100 ) +

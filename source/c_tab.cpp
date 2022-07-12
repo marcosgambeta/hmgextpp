@@ -112,7 +112,7 @@ HB_FUNC( INITTABCONTROL )
       Style = Style | TCS_OWNERDRAWFIXED;
    }
 
-   if( ! hb_parl(18) )
+   if( !hb_parl(18) )
    {
       Style = Style | WS_TABSTOP;
    }

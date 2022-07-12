@@ -137,12 +137,12 @@ HB_FUNC( INITHOTKEYBOX )
 
    hWnd = hmg_par_HWND(1);
 
-   if( ! hb_parl(8) )
+   if( !hb_parl(8) )
    {
       Style = Style | WS_VISIBLE;
    }
 
-   if( ! hb_parl(9) )
+   if( !hb_parl(9) )
    {
       Style = Style | WS_TABSTOP;
    }

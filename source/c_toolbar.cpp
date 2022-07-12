@@ -497,12 +497,12 @@ HB_FUNC( INITTOOLBUTTONEX )
 
          if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT && osvi.dwMajorVersion <= 4 )
          {
-            if( ! ( TbStyle & TBSTYLE_LIST ) )
+            if( !( TbStyle & TBSTYLE_LIST ) )
             {
                SendMessage(hwndTB, TB_SETPADDING, 0, MAKELPARAM(px, py));
             }
          }
-         else if( ! ( Style & BTNS_SHOWTEXT ) )
+         else if( !( Style & BTNS_SHOWTEXT ) )
          {
             SendMessage(hwndTB, TB_SETPADDING, 0, MAKELPARAM(px, py));
          }
@@ -1072,7 +1072,7 @@ int ResizeToolbar( HWND hwndTB, int widthTb )
    width += 2 * GetSystemMetrics(SM_CXDLGFRAME);
    width += 2 * GetSystemMetrics(SM_CXBORDER);
    height = rcb.bottom - rcb.top;
-   if( ! ( width == widthTb ) || ! ( height == heightTB ) )
+   if( !( width == widthTb ) || !( height == heightTB ) )
    {
       MoveWindow(hwndParent, rcb.left, rcb.top, width, height, TRUE);
    }

@@ -136,7 +136,7 @@ HB_FUNC( MONITORFROMPOINT )
 
    if( HB_ISARRAY(1) )
    {
-      if( ! Array2Point(hb_param(1, Harbour::Item::ARRAY), &pt) )
+      if( !Array2Point(hb_param(1, Harbour::Item::ARRAY), &pt) )
       {
          hb_errRT_BASE_SubstR( EG_ARG, 5000, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
       }

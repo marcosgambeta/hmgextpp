@@ -111,8 +111,8 @@ HB_FUNC( DOMESSAGELOOP )
          hDlgModeless = GetActiveWindow();
 
          if( hDlgModeless == ( HWND ) nullptr || (
-                ! IsDialogMessage(hDlgModeless, &Msg) &&
-                ! TranslateAccelerator( g_hWndMain, g_hAccel, &Msg ) ) )
+                !IsDialogMessage(hDlgModeless, &Msg) &&
+                !TranslateAccelerator( g_hWndMain, g_hAccel, &Msg ) ) )
          {
             TranslateMessage(&Msg);
             DispatchMessage(&Msg);
@@ -135,7 +135,7 @@ HB_FUNC( DOEVENTS )
    {
       hDlgModeless = GetActiveWindow();
 
-      if( hDlgModeless == nullptr || ! IsDialogMessage(hDlgModeless, &Msg) )
+      if( hDlgModeless == nullptr || !IsDialogMessage(hDlgModeless, &Msg) )
       {
          TranslateMessage(&Msg);
          DispatchMessage(&Msg);
@@ -282,7 +282,7 @@ HB_FUNC( SETLAYEREDWINDOWATTRIBUTES )
             BYTE     bAlpha  = hmg_par_BYTE(3);
             DWORD    dwFlags = hmg_par_DWORD(4);
 
-            if( ! ( GetWindowLongPtr(hWnd, GWL_EXSTYLE) & WS_EX_LAYERED ) )
+            if( !( GetWindowLongPtr(hWnd, GWL_EXSTYLE) & WS_EX_LAYERED ) )
             {
                SetWindowLongPtr(hWnd, GWL_EXSTYLE, GetWindowLongPtr( hWnd, GWL_EXSTYLE ) | WS_EX_LAYERED);
             }
@@ -811,7 +811,7 @@ HB_FUNC( ADDSPLITBOXITEM )
       rbBand.fMask = rbBand.fMask | RBBIM_IDEALSIZE;
    }
 
-   if( ! hb_parl(8) )
+   if( !hb_parl(8) )
    {
       // Not Horizontal
       rbBand.cxMinChild = hb_parni(6) ? hb_parni(6) : 0;

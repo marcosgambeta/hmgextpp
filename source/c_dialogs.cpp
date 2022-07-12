@@ -134,7 +134,7 @@ HB_FUNC( CHOOSEFONT )
    cf.nSizeMin    = 0;
    cf.nSizeMax    = 0;
 
-   if( ! ChooseFont(&cf) )
+   if( !ChooseFont(&cf) )
    {
       hb_reta(8);
       HB_STORC( "", -1, 1 );
@@ -563,7 +563,7 @@ HB_FUNC( CHOOSECOLOR )
    cc.lpCustColors = crCustClr;
    cc.Flags        = ( WORD ) ( HB_ISNIL(4) ? CC_ANYCOLOR | CC_FULLOPEN | CC_RGBINIT : hb_parnl(4) );
 
-   if( ! ChooseColor(&cc) )
+   if( !ChooseColor(&cc) )
    {
       hb_retnl( -1 );
    }

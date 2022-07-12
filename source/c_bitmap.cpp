@@ -297,7 +297,7 @@ HANDLE DibFromBitmap(HBITMAP hbm, HPALETTE hpal)
    HANDLE h;
    HDC    hdc;
 
-   if( ! hbm )
+   if( !hbm )
    {
       return nullptr;
    }
@@ -331,7 +331,7 @@ HANDLE DibFromBitmap(HBITMAP hbm, HPALETTE hpal)
 
    hdib = GlobalAlloc(GHND, dwLen);
 
-   if( ! hdib )
+   if( !hdib )
    {
       SelectPalette(hdc, hpal, FALSE);
       ReleaseDC(nullptr, hdc);
@@ -426,7 +426,7 @@ HB_FUNC( C_HASALPHA ) // hBitmap --> lYesNo
       LPBITMAPINFO    lpbmi = ( LPBITMAPINFO ) GlobalLock(hDib);
       unsigned char * uc    = ( LPBYTE ) lpbmi + ( WORD ) lpbmi->bmiHeader.biSize + PaletteSize(lpbmi);
 
-      for( unsigned long ul = 0; ul < lpbmi->bmiHeader.biSizeImage && ! bAlphaChannel; ul += 4 )
+      for( unsigned long ul = 0; ul < lpbmi->bmiHeader.biSizeImage && !bAlphaChannel; ul += 4 )
       {
          if( uc[ul + 3] != 0 )
          {
@@ -510,7 +510,7 @@ HB_FUNC( DRAWGLYPH )
    COLORREF rgbTransparent = RGB(255, 255, 255);
    BOOL     disabled       = hb_parl(8);
    BOOL     stretched      = HB_ISNIL(9) ? FALSE : hb_parl(9);
-   BOOL     bHasBkColor    = ! HB_ISNIL(7);
+   BOOL     bHasBkColor    = !HB_ISNIL(7);
 
    HDC hDCMem;
    HDC hDCMask;
@@ -537,7 +537,7 @@ HB_FUNC( DRAWGLYPH )
    if( ( UINT ) GetObject(hBmp, sizeof(BITMAP), ( LPVOID ) &bitmap) != sizeof(BITMAP) )
    {
       // is it an icon?
-      if( ! GetIconInfo(( HICON ) hBmp, &icon) )
+      if( !GetIconInfo(( HICON ) hBmp, &icon) )
       {
          return;
       }
@@ -545,12 +545,12 @@ HB_FUNC( DRAWGLYPH )
       DeleteObject(icon.hbmMask);
       DeleteObject(icon.hbmColor);
 
-      if( ! icon.fIcon )
+      if( !icon.fIcon )
       {
          return;
       }
       
-      if( ! disabled && ! stretched )
+      if( !disabled && !stretched )
       {
          // just simply draw it - nothing to do
          // (API is faster and the transparent colour is more accurate)
@@ -559,7 +559,7 @@ HB_FUNC( DRAWGLYPH )
       }
       else
       {
-         if( ! stretched )
+         if( !stretched )
          {
             // convert icon to bitmap mask.
             hBmp = IconMask2Bmp(( HICON ) hBmp);
@@ -608,7 +608,7 @@ HB_FUNC( DRAWGLYPH )
 
    // was background colour given?
    // no? get the color automatically
-   if( ! bHasBkColor )
+   if( !bHasBkColor )
    {
       rgbTransparent = GetPixel(hDCMem, 0, 0);
    }
@@ -771,13 +771,13 @@ VOID DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgb
    BITMAP   bitmap;
    ICONINFO icon;
    HBRUSH   hBr, hOld;
-   BOOL     bHasBkColor = ! HB_ISNIL(7);
+   BOOL     bHasBkColor = !HB_ISNIL(7);
 
    // is it a bitmap?
    if( ( UINT ) GetObject(hBmp, sizeof(BITMAP), ( LPVOID ) &bitmap) != sizeof(BITMAP) )
    {
       // is it an icon?
-      if( ! GetIconInfo(( HICON ) hBmp, &icon) )
+      if( !GetIconInfo(( HICON ) hBmp, &icon) )
       {
          return;
       }
@@ -785,19 +785,19 @@ VOID DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgb
       DeleteObject(icon.hbmMask);
       DeleteObject(icon.hbmColor);
 
-      if( ! icon.fIcon )
+      if( !icon.fIcon )
       {
          return;
       }
       
-      if( ! disabled && ! stretched )
+      if( !disabled && !stretched )
       {
          DrawIconEx(hDC, x, y, ( HICON ) hBmp, dx, dy, 0, nullptr, DI_NORMAL);
          return;
       }
       else
       {
-         if( ! stretched )
+         if( !stretched )
          {
             // convert icon to bitmap mask.
             hBmp = IconMask2Bmp(( HICON ) hBmp);
@@ -851,7 +851,7 @@ VOID DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgb
 
    // was background colour given?
    // no? get the color automatically
-   if( ! bHasBkColor )
+   if( !bHasBkColor )
    {
       rgbTransparent = GetPixel(hDCMem, 0, 0);
    }
@@ -920,7 +920,7 @@ BOOL GetImageSize(const char * fn, int * x, int * y)
 
    FILE * f = hb_fopen(fn, "rb");
 
-   if( ! f )
+   if( !f )
    {
       return FALSE;
    }

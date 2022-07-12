@@ -323,7 +323,7 @@ HB_FUNC( INITTOOLTIPEX )
       UINT     uFlags = 0;
       INITCOMMONCONTROLSEX icex = { sizeof(INITCOMMONCONTROLSEX), ICC_BAR_CLASSES };
 
-      if( ! Array2Rect(aRect, &rect) )
+      if( !Array2Rect(aRect, &rect) )
       {
          GetClientRect(hwndParent, &rect);
       }

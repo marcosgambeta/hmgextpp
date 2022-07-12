@@ -92,7 +92,7 @@ HB_FUNC( SETPROP )
 
    hb_retl( HB_FALSE );
    // check params
-   if( ! IsWindow(hwnd) || hb_parclen(2) == 0 )
+   if( !IsWindow(hwnd) || hb_parclen(2) == 0 )
    {
       return;
    }
@@ -210,7 +210,7 @@ HB_FUNC( GETPROP )
 
    hb_ret();
    // check params
-   if( ! IsWindow(hwnd) || hb_parclen(2) == 0 )
+   if( !IsWindow(hwnd) || hb_parclen(2) == 0 )
    {
       return;
    }
@@ -268,7 +268,7 @@ HB_FUNC( REMOVEPROP )
 
    hb_ret();
 
-   if( ! IsWindow(hwnd) || ( hb_parclen(2) == 0 ) )
+   if( !IsWindow(hwnd) || ( hb_parclen(2) == 0 ) )
    {
       return;
    }
@@ -280,7 +280,7 @@ HB_FUNC( REMOVEPROP )
    hMem     = RemovePropW(hwnd, lpString);
    hb_xfree(( TCHAR * ) lpString);
 #endif
-   if( ( nullptr != hMem ) && ( ! hb_parldef(3, HB_FALSE) ) )
+   if( ( nullptr != hMem ) && ( !hb_parldef(3, HB_FALSE) ) )
    {
       GlobalFree(hMem);
       hMem = nullptr;
@@ -359,7 +359,7 @@ static BOOL CALLBACK PropsEnumProc(HWND hWnd, LPCTSTR pszPropName, HANDLE handle
 
         bCodeBlock := {|hWnd,cPropName,hHandle| HB_SYMBOL_UNUSED( hWnd ), ;
                                            HB_SYMBOL_UNUSED( hHandle ),;
-                                           ( ! ( cPropName == "MY_PROP" ) ) }
+                                           ( !( cPropName == "MY_PROP" ) ) }
 
         nRetVal := EnumPropsEx(nHandle, bCodeBlock)
         IF nRetVal == 0

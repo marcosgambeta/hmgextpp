@@ -987,7 +987,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
    hb_xfree(pPrinterName);
 #endif
 
-   if( ! bFlag || ( hPrinter == nullptr ) )
+   if( !bFlag || ( hPrinter == nullptr ) )
    {
 #ifdef _ERRORMSG_
       MessageBox(0, TEXT("Printer Configuration Failed! (001)"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
@@ -1005,7 +1005,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 
    bFlag = GetPrinter( hPrinter, 2, 0, 0, &dwNeeded );
 
-   if( ( ! bFlag ) && ( ( GetLastError() != ERROR_INSUFFICIENT_BUFFER ) || ( dwNeeded == 0 ) ) )
+   if( ( !bFlag ) && ( ( GetLastError() != ERROR_INSUFFICIENT_BUFFER ) || ( dwNeeded == 0 ) ) )
    {
       ClosePrinter( hPrinter );
 #ifdef _ERRORMSG_
@@ -1039,7 +1039,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 
    bFlag = GetPrinter( hPrinter, 2, ( LPBYTE ) pi2, dwNeeded, &dwNeeded );
 
-   if( ! bFlag )
+   if( !bFlag )
    {
       GlobalFree(pi2);
       ClosePrinter( hPrinter );
@@ -1176,7 +1176,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
    // Orientation
    if( hb_parni(2) != -999 )
    {
-      if( ! ( pi2->pDevMode->dmFields & DM_ORIENTATION ) )
+      if( !( pi2->pDevMode->dmFields & DM_ORIENTATION ) )
       {
 #ifdef _ERRORMSG_
          MessageBox(0, TEXT("Printer Configuration Failed: ORIENTATION Property Not Supported By Selected Printer"), TEXT("Error!"),
@@ -1197,7 +1197,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
    // PaperSize
    if( hb_parni(3) != -999 )
    {
-      if( ! ( pi2->pDevMode->dmFields & DM_PAPERSIZE ) )
+      if( !( pi2->pDevMode->dmFields & DM_PAPERSIZE ) )
       {
 #ifdef _ERRORMSG_
          MessageBox(0, TEXT("Printer Configuration Failed: PAPERSIZE Property Not Supported By Selected Printer"), TEXT("Error!"),
@@ -1218,7 +1218,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
    // PaperLength
    if( hb_parni(4) != -999 )
    {
-      if( ! ( pi2->pDevMode->dmFields & DM_PAPERLENGTH ) )
+      if( !( pi2->pDevMode->dmFields & DM_PAPERLENGTH ) )
       {
 #ifdef _ERRORMSG_
          MessageBox(0, TEXT("Printer Configuration Failed: PAPERLENGTH Property Not Supported By Selected Printer"), TEXT("Error!"),
@@ -1239,7 +1239,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
    // PaperWidth
    if( hb_parni(5) != -999 )
    {
-      if( ! ( pi2->pDevMode->dmFields & DM_PAPERWIDTH ) )
+      if( !( pi2->pDevMode->dmFields & DM_PAPERWIDTH ) )
       {
 #ifdef _ERRORMSG_
          MessageBox(0, TEXT("Printer Configuration Failed: PAPERWIDTH Property Not Supported By Selected Printer"), TEXT("Error!"),
@@ -1260,7 +1260,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
    // Copies
    if( hb_parni(6) != -999 )
    {
-      if( ! ( pi2->pDevMode->dmFields & DM_COPIES ) )
+      if( !( pi2->pDevMode->dmFields & DM_COPIES ) )
       {
 #ifdef _ERRORMSG_
          MessageBox(0, TEXT("Printer Configuration Failed: COPIES Property Not Supported By Selected Printer"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
@@ -1280,7 +1280,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
    // Default Source
    if( hb_parni(7) != -999 )
    {
-      if( ! ( pi2->pDevMode->dmFields & DM_DEFAULTSOURCE ) )
+      if( !( pi2->pDevMode->dmFields & DM_DEFAULTSOURCE ) )
       {
 #ifdef _ERRORMSG_
          MessageBox(0, TEXT("Printer Configuration Failed: DEFAULTSOURCE Property Not Supported By Selected Printer"), TEXT("Error!"),
@@ -1301,7 +1301,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
    // Print Quality
    if( hb_parni(8) != -999 )
    {
-      if( ! ( pi2->pDevMode->dmFields & DM_PRINTQUALITY ) )
+      if( !( pi2->pDevMode->dmFields & DM_PRINTQUALITY ) )
       {
 #ifdef _ERRORMSG_
          MessageBox(0, TEXT("Printer Configuration Failed: QUALITY Property Not Supported By Selected Printer"), TEXT("Error!"),
@@ -1322,7 +1322,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
    // Print Color
    if( hb_parni(9) != -999 )
    {
-      if( ! ( pi2->pDevMode->dmFields & DM_COLOR ) )
+      if( !( pi2->pDevMode->dmFields & DM_COLOR ) )
       {
 #ifdef _ERRORMSG_
          MessageBox(0, TEXT("Printer Configuration Failed: COLOR Property Not Supported By Selected Printer"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
@@ -1342,7 +1342,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
    // Print Duplex
    if( hb_parni(10) != -999 )
    {
-      if( ! ( pi2->pDevMode->dmFields & DM_DUPLEX ) )
+      if( !( pi2->pDevMode->dmFields & DM_DUPLEX ) )
       {
 #ifdef _ERRORMSG_
          MessageBox(0, TEXT("Printer Configuration Failed: DUPLEX Property Not Supported By Selected Printer"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
@@ -1362,7 +1362,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
    // Print Collate
    if( hb_parni(11) != -999 )
    {
-      if( ! ( pi2->pDevMode->dmFields & DM_COLLATE ) )
+      if( !( pi2->pDevMode->dmFields & DM_COLLATE ) )
       {
 #ifdef _ERRORMSG_
          MessageBox(0, TEXT("Printer Configuration Failed: COLLATE Property Not Supported By Selected Printer"), TEXT("Error!"),
@@ -1454,7 +1454,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 
 }
 
-#if ! ( ( defined( __MINGW32__ ) ) )
+#if !( ( defined( __MINGW32__ ) ) )
 
 HB_FUNC( GETDEFAULTPRINTER )
 {
@@ -1774,7 +1774,7 @@ HB_FUNC( _HMG_PRINTER_C_IMAGE )
       nWidth  = Bmp.bmWidth;
       nHeight = Bmp.bmHeight;
 
-      if( ! hb_parl(7) ) // Scale
+      if( !hb_parl(7) ) // Scale
       {
          if( odr * nHeight / nWidth <= odr )
             dr = odc * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000 * nHeight / nWidth;
@@ -1791,7 +1791,7 @@ HB_FUNC( _HMG_PRINTER_C_IMAGE )
 
       SelectClipRgn(hdcPrint, hRgn);
 
-      if( ! bBmpImage )
+      if( !bBmpImage )
       {
          if( hb_parl(7) )             // Stretch
             SetStretchBltMode(hdcPrint, COLORONCOLOR);
@@ -1806,7 +1806,7 @@ HB_FUNC( _HMG_PRINTER_C_IMAGE )
       memDC = CreateCompatibleDC(hdcPrint);
       SelectObject(memDC, hBitmap);
 
-      if( hb_parl(8) && ! bBmpImage ) // Transparent
+      if( hb_parl(8) && !bBmpImage ) // Transparent
          TransparentBlt(hdcPrint, c, r, dc, dr, memDC, 0, 0, nWidth, nHeight, GetPixel(memDC, 0, 0));
       else
          StretchBlt(hdcPrint, c, r, dc, dr, memDC, 0, 0, nWidth, nHeight, SRCCOPY);
@@ -1983,7 +1983,7 @@ HB_FUNC( INITEMFFILE )
    HWND hWndParent = hmg_par_HWND(1);
    int  Style      = WS_CHILD | SS_BITMAP;
 
-   if( ! hb_parl(5) )
+   if( !hb_parl(5) )
       Style |= WS_VISIBLE;
 
    if( hb_parl(6) )
@@ -2057,7 +2057,7 @@ static BOOL read_image(TCHAR * filename, DWORD * nFileSize, HGLOBAL * hMem)
    GlobalUnlock(*hMem);
    CloseHandle(hFile);
 
-   if( ! bRead )
+   if( !bRead )
    {
       GlobalFree(*hMem);
       return FALSE;

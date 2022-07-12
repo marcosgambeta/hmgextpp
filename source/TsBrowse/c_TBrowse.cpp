@@ -29,7 +29,7 @@ LRESULT CALLBACK WndProcBrw(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
    static PHB_SYMB pSymbol = nullptr;
    long int        r;
 
-   if( ! pSymbol )
+   if( !pSymbol )
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("EVENTS"));
 
    if( pSymbol )
@@ -56,7 +56,7 @@ LRESULT CALLBACK WndProcMDI( HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
    static PHB_SYMB pSymbol = nullptr;
    long int        r;
 
-   if( ! pSymbol )
+   if( !pSymbol )
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("EVENTS"));
 
    if( pSymbol )
@@ -106,7 +106,7 @@ HB_FUNC( REGISTER_CLASS )
    WndClass.lpszMenuName  = nullptr;
    WndClass.lpszClassName = lpClassName;
 
-   if( ! RegisterClass(&WndClass) )
+   if( !RegisterClass(&WndClass) )
    {
       MessageBox(0, TEXT("Window Registration Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
       ExitProcess(0);
@@ -215,7 +215,7 @@ void DrawBitmap(HDC hDC, HBITMAP hBitmap, int wRow, int wCol, int wWidth, int wH
    BITMAP  bitmap;
    HBITMAP hBmpOld;
 
-   if( ! dwRaster )
+   if( !dwRaster )
       dwRaster = SRCCOPY;
 
    hBmpOld = ( HBITMAP ) SelectObject(hDCmem, hBitmap);
@@ -297,7 +297,7 @@ HB_FUNC( TSDRAWCELL )
    COLORREF clrTo        = hb_parnl(25);
    BOOL     bOpaque      = hb_parl(26);
    // HBRUSH   wBrush       = ( HBRUSH ) HB_PARNL(27);
-   BOOL     b3DInv       = ( HB_ISNIL(28) ? FALSE : ! hb_parl(28) );
+   BOOL     b3DInv       = ( HB_ISNIL(28) ? FALSE : !hb_parl(28) );
    BOOL     b3D          = ( HB_ISNIL(28) ? FALSE : TRUE );
    COLORREF nClr3DL      = hb_parnl(29);
    COLORREF nClr3DS      = hb_parnl(30);
@@ -333,7 +333,7 @@ HB_FUNC( TSDRAWCELL )
    if( GetTextExtentPoint32(hDC, cData, nLen, &size) )
       iTxtW = size.cx;
 
-   if( ! hDC )
+   if( !hDC )
    {
       bDestroyDC = TRUE;
       hDC        = GetDC(hWnd);
@@ -371,12 +371,12 @@ HB_FUNC( TSDRAWCELL )
       if( ( nWidth >= 0 ) && ( ( rct.left + nWidth - rct.right ) <= 0 ) )  // negative values have different meanings
          rct.right = rct.left + nWidth;
 
-      if( ! bDegrad )
+      if( !bDegrad )
       {
          rct.bottom += ( bHeader ? 0 : 1 );
          rct.right  += 1;
 
-         if( ! bBrush )
+         if( !bBrush )
             ExtTextOut(hDC, rct.left, rct.top, ETO_OPAQUE | ETO_CLIPPED, &rct, TEXT(""), 0, 0);
 //       else
 //          FillRect(hDC, &rct, wBrush);
@@ -389,7 +389,7 @@ HB_FUNC( TSDRAWCELL )
 
       if( hBitMap )
       {
-         if( ! bAdjBmp )
+         if( !bAdjBmp )
          {
             GetObject(hBitMap, sizeof(BITMAP), ( LPSTR ) &bm);
             nTop = rct.top + ( ( rct.bottom - rct.top + 1 ) / 2 ) - ( bm.bmHeight / 2 );
@@ -435,7 +435,7 @@ HB_FUNC( TSDRAWCELL )
                DrawBitmap(hDC, hBitMap, nTop, rct.left - 1, rct.right - rct.left + 1, rct.bottom - rct.top - 1, bSelec ? 0 : nBitmapMask);
                hBitMap = 0;
 
-               if( ! bOpaque )
+               if( !bOpaque )
                   MaskRegion(hDC, &rct, GetPixel(hDC, nLeft, nTop), GetBkColor(hDC));
             }
             else if( bOpaque )
@@ -450,7 +450,7 @@ HB_FUNC( TSDRAWCELL )
                DrawBitmap(hDC, hBitMap, rct.top, rct.left - 2, rct.right - rct.left + 3, rct.bottom - rct.top - 1, bSelec ? 0 : nBitmapMask);
                hBitMap = 0;
 
-               if( ! bOpaque )
+               if( !bOpaque )
                   MaskRegion(hDC, &rct, GetPixel(hDC, nLeft, nTop), GetBkColor(hDC));
             }
             else if( bOpaque )
@@ -897,7 +897,7 @@ static void DegradColor(HDC hDC, RECT * rori, COLORREF cFrom, signed long cTo)
    float  clr1r, clr1g, clr1b, clr2r, clr2g, clr2b;
    float  iEle, iRed, iGreen, iBlue;
    BOOL   bDir, bHoriz = cTo < 0;
-   long   iTot = ( ! bHoriz ? ( rori->bottom + 2 - rori->top ) : ( rori->right + 2 - rori->left ) );
+   long   iTot = ( !bHoriz ? ( rori->bottom + 2 - rori->top ) : ( rori->right + 2 - rori->left ) );
    RECT   rct;
    HBRUSH hOldBrush, hBrush;
 
@@ -927,7 +927,7 @@ static void DegradColor(HDC hDC, RECT * rori, COLORREF cFrom, signed long cTo)
    iGreen = ( iGreen < 0 ? -iGreen : iGreen );
    iBlue  = ( iBlue < 0 ? -iBlue : iBlue );
 
-   if( ! bHoriz )
+   if( !bHoriz )
       rct.bottom = rct.top + 1;
    else
       rct.right = rct.left + 1;
@@ -968,7 +968,7 @@ static void DegradColor(HDC hDC, RECT * rori, COLORREF cFrom, signed long cTo)
       SelectObject(hDC, hBrush);
       FillRect(hDC, &rct, hBrush);
 
-      if( ! bHoriz )
+      if( !bHoriz )
       {
          rct.top++;
          rct.bottom++;

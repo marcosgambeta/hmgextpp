@@ -85,17 +85,17 @@ HB_FUNC( INITRICHEDITBOX )
       Style = Style | ES_READONLY;
    }
 
-   if( ! hb_parl(11) )
+   if( !hb_parl(11) )
    {
       Style = Style | WS_VISIBLE;
    }
 
-   if( ! hb_parl(12) )
+   if( !hb_parl(12) )
    {
       Style = Style | WS_TABSTOP;
    }
 
-   if( ! hb_parl(13) )
+   if( !hb_parl(13) )
    {
       Style = Style | WS_HSCROLL;
    }
@@ -104,7 +104,7 @@ HB_FUNC( INITRICHEDITBOX )
 
    if( IsWinxpSp1Min() )
    {
-      if( ! hRELib )
+      if( !hRELib )
       {
          hRELib = LoadLibrary(TEXT("Msftedit.dll"));
       }
@@ -113,7 +113,7 @@ HB_FUNC( INITRICHEDITBOX )
    }
    else
    {
-      if( ! hRELib )
+      if( !hRELib )
       {
          hRELib = LoadLibrary(TEXT("RichEd20.dll"));
       }
@@ -159,7 +159,7 @@ DWORD CALLBACK EditStreamCallbackR( DWORD_PTR dwCookie, LPBYTE lpbBuff, LONG cb,
 {
    HANDLE hFile = ( HANDLE ) dwCookie;
 
-   if( ! ReadFile(hFile, ( LPVOID ) lpbBuff, cb, ( LPDWORD ) pcb, nullptr) )
+   if( !ReadFile(hFile, ( LPVOID ) lpbBuff, cb, ( LPDWORD ) pcb, nullptr) )
    {
       return ( DWORD ) -1;
    }
@@ -171,7 +171,7 @@ DWORD CALLBACK EditStreamCallbackW(DWORD_PTR dwCookie, LPBYTE lpbBuff, LONG cb, 
 {
    HANDLE hFile = ( HANDLE ) dwCookie;
 
-   if( ! WriteFile(hFile, ( LPVOID ) lpbBuff, cb, ( LPDWORD ) pcb, nullptr) )
+   if( !WriteFile(hFile, ( LPVOID ) lpbBuff, cb, ( LPDWORD ) pcb, nullptr) )
    {
       return ( DWORD ) -1;
    }
@@ -501,7 +501,7 @@ static BOOL IsWinxpSp1Min(void)
 
    osvi.dwOSVersionInfoSize = sizeof(osvi);
 
-   if( ! GetVersionEx(&osvi) )
+   if( !GetVersionEx(&osvi) )
    {
       return FALSE;
    }

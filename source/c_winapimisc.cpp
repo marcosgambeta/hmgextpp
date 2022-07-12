@@ -119,7 +119,7 @@ HB_FUNC( WAITRUNPIPE )
    memset(&StartupInfo, 0, sizeof(StartupInfo));
    memset(&ProcessInfo, 0, sizeof(ProcessInfo));
 
-   if( ! hb_fsFile(szFile) )
+   if( !hb_fsFile(szFile) )
    {
       nHandle = hb_fsCreate(szFile, 0);
    }
@@ -129,7 +129,7 @@ HB_FUNC( WAITRUNPIPE )
       hb_fsSeek(nHandle, 0, 2);
    }
 
-   if( ! CreatePipe(&ReadPipeHandle, &WritePipeHandle, &sa, 0) )
+   if( !CreatePipe(&ReadPipeHandle, &WritePipeHandle, &sa, 0) )
    {
       hb_retnl( -1 );
       return;
@@ -142,7 +142,7 @@ HB_FUNC( WAITRUNPIPE )
    StartupInfo.hStdOutput  = WritePipeHandle;
    StartupInfo.hStdError   = WritePipeHandle;
 
-   if( ! CreateProcess(nullptr, lpCommandLine, 0, 0, FALSE, CREATE_NEW_CONSOLE | NORMAL_PRIORITY_CLASS, 0, 0, &StartupInfo, &ProcessInfo) )
+   if( !CreateProcess(nullptr, lpCommandLine, 0, 0, FALSE, CREATE_NEW_CONSOLE | NORMAL_PRIORITY_CLASS, 0, 0, &StartupInfo, &ProcessInfo) )
    {
       hb_retnl( -1 );
       return;
@@ -162,7 +162,7 @@ HB_FUNC( WAITRUNPIPE )
       DWORD BytesLeft;
 
       // Check for the presence of data in the pipe
-      if( ! PeekNamedPipe(ReadPipeHandle, Data, sizeof(Data), &BytesRead, &TotalBytes, &BytesLeft) )
+      if( !PeekNamedPipe(ReadPipeHandle, Data, sizeof(Data), &BytesRead, &TotalBytes, &BytesLeft) )
       {
          hb_retnl( -1 );
          return;
@@ -171,7 +171,7 @@ HB_FUNC( WAITRUNPIPE )
       // If there is bytes, read them
       if( BytesRead )
       {
-         if( ! ReadFile(ReadPipeHandle, Data, sizeof(Data) - 1, &BytesRead, nullptr) )
+         if( !ReadFile(ReadPipeHandle, Data, sizeof(Data) - 1, &BytesRead, nullptr) )
          {
             hb_retnl( -1 );
             return;
@@ -206,7 +206,7 @@ HB_FUNC( COPYRTFTOCLIPBOARD ) // CopyRtfToClipboard(cRtfText) store cRTFText in 
    const char * cStr = HB_ISCHAR(1) ? hb_parc(1) : "";
    int          nLen = ( int ) strlen(cStr);
 
-   if( ( nLen == 0 ) || ! OpenClipboard( GetActiveWindow() ) )
+   if( ( nLen == 0 ) || !OpenClipboard( GetActiveWindow() ) )
    {
       return;
    }
@@ -240,7 +240,7 @@ HB_FUNC( COPYTOCLIPBOARD ) // CopyToClipboard(cText) store cText in Windows clip
    const char * cStr = HB_ISCHAR(1) ? hb_parc(1) : "";
    int          nLen = ( int ) strlen(cStr);
 
-   if( ( nLen == 0 ) || ! OpenClipboard( GetActiveWindow() ) )
+   if( ( nLen == 0 ) || !OpenClipboard( GetActiveWindow() ) )
    {
       return;
    }
@@ -591,7 +591,7 @@ HB_FUNC( PAINTBKGND )
 
    GetClientRect(hwnd, &recClie);
 
-   if( hb_pcount() > 1 && ! HB_ISNIL(2) )
+   if( hb_pcount() > 1 && !HB_ISNIL(2) )
    {
       hBrush = CreateSolidBrush(RGB(HB_PARNI(2, 1), HB_PARNI(2, 2), HB_PARNI(2, 3)));
       FillRect(hdc, &recClie, hBrush);
@@ -832,7 +832,7 @@ HB_FUNC( WAITRUN )
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpCommandLine);
 #endif
-   if( ! bResult )
+   if( !bResult )
    {
       hb_retnl( -1 );
       return;
@@ -892,7 +892,7 @@ HB_FUNC( WAITRUNTERM )
    hb_xfree(( TCHAR * ) lpCurrentDirectory);
 #endif
 
-   if( ! bResult )
+   if( !bResult )
    {
       hb_retnl( -2 );
       return;
@@ -907,7 +907,7 @@ HB_FUNC( WAITRUNTERM )
          {
             hb_evalBlock0(pWaitProc);
             bWait = hb_parl( -1 );
-            if( ! bWait )
+            if( !bWait )
             {
                if( TerminateProcess(prInfo.hProcess, 0) != 0 )
                {
@@ -1079,10 +1079,10 @@ HB_FUNC( WINVERSION )
    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
 
    bOsVersionInfoEx = GetVersionEx(( OSVERSIONINFO * ) &osvi);
-   if( ! bOsVersionInfoEx )
+   if( !bOsVersionInfoEx )
    {
       osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-      if( ! GetVersionEx(( OSVERSIONINFO * ) &osvi) )
+      if( !GetVersionEx(( OSVERSIONINFO * ) &osvi) )
       {
          szVersion = TEXT(const_cast<char*>("Unknown Operating System"));
       }
@@ -1491,7 +1491,7 @@ BOOL IsAppHung(IN HWND hWnd, OUT PBOOL pbHung)
    OSVERSIONINFO osvi;
    HINSTANCE     hUser;
 
-   if( ! IsWindow(hWnd) )
+   if( !IsWindow(hWnd) )
    {
       return SetLastError( ERROR_INVALID_PARAMETER ), FALSE;
    }
@@ -1767,7 +1767,7 @@ HB_FUNC( ISOEMTEXT )
    WORD   w = 0, wLen = ( WORD ) hb_parclen(1);
    BOOL   bOem = FALSE;
 
-   while( w < wLen && ! bOem )
+   while( w < wLen && !bOem )
    {
       bOem = pString[w] >= 128 && pString[w] <= 168;
       w++;

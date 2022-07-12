@@ -107,12 +107,12 @@ HB_FUNC( INITBUTTON )
       Style = Style | BS_FLAT;
    }
 
-   if( ! hb_parl(11) )
+   if( !hb_parl(11) )
    {
       Style = Style | WS_TABSTOP;
    }
 
-   if( ! hb_parl(12) )
+   if( !hb_parl(12) )
    {
       Style = Style | WS_VISIBLE;
    }
@@ -176,12 +176,12 @@ HB_FUNC( INITIMAGEBUTTON )
       Style = Style | BS_FLAT;
    }
 
-   if( ! hb_parl(11) )
+   if( !hb_parl(11) )
    {
       Style = Style | WS_VISIBLE;
    }
 
-   if( ! hb_parl(12) )
+   if( !hb_parl(12) )
    {
       Style = Style | WS_TABSTOP;
    }
@@ -207,7 +207,7 @@ HB_FUNC( INITIMAGEBUTTON )
 #endif
    if( HB_ISNIL(14) )
    {
-      if( ! hb_parl(17) )
+      if( !hb_parl(17) )
       {
          himage = ( HWND ) HMG_LoadPicture(hb_parc(8), -1, -1, hwnd, 0, Transparent, -1, 0, HB_FALSE, 255);
 
@@ -228,7 +228,7 @@ HB_FUNC( INITIMAGEBUTTON )
    }
    else
    {
-      if( ! hb_parl(15) )
+      if( !hb_parl(15) )
       {
          hIcon = ( HICON ) LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR);
 
@@ -320,12 +320,12 @@ HB_FUNC( INITOWNERBUTTON )
       Style = Style | BS_FLAT;
    }
 
-   if( ! hb_parl(11) )
+   if( !hb_parl(11) )
    {
       Style = Style | WS_VISIBLE;
    }
 
-   if( ! hb_parl(12) )
+   if( !hb_parl(12) )
    {
       Style = Style | WS_TABSTOP;
    }
@@ -555,7 +555,7 @@ HB_FUNC( DRAWBUTTON )
       InflateRect(&pps->rcItem, -1, -1);
    }
 
-   DrawFrameControl( pps->hDC, &pps->rcItem, DFC_BUTTON, ( ! iFlat ) ? iState : ( iState | DFCS_FLAT ) );
+   DrawFrameControl( pps->hDC, &pps->rcItem, DFC_BUTTON, ( !iFlat ) ? iState : ( iState | DFCS_FLAT ) );
 
    if( iFocus == 1 )
    {
@@ -689,7 +689,7 @@ LRESULT CALLBACK OwnButtonProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPa
          tme.dwHoverTime = 0;
          _TrackMouseEvent(&tme);
 
-         if( ! pSymbol )
+         if( !pSymbol )
          {
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OBTNEVENTS"));
          }
@@ -710,7 +710,7 @@ LRESULT CALLBACK OwnButtonProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPa
          return ( r != 0 ) ? r : DefWindowProc(hButton, Msg, wParam, lParam);
 
       case WM_MOUSELEAVE:
-         if( ! pSymbol )
+         if( !pSymbol )
          {
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OBTNEVENTS"));
          }

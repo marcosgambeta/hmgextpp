@@ -111,7 +111,7 @@ HBITMAP CreateBitmapMask(HBITMAP hbmColour, COLORREF crTransparent)
 void GetCheck(INSCHK * pbtn, RECT * rect)
 {
 
-   if( ! ( pbtn->lLeftCheck ) )
+   if( !( pbtn->lLeftCheck ) )
    {
       rect->left = rect->right - pbtn->cxButton;
    }
@@ -133,7 +133,7 @@ BOOL InsertCheck(HWND hWnd, HBITMAP himage, HBITMAP himage2, int BtnWidth, BOOL 
 
    pbtn = ( INSCHK * ) HeapAlloc(GetProcessHeap(), 0, sizeof(INSCHK));
 
-   if( ! pbtn )
+   if( !pbtn )
    {
       return FALSE;
    }
@@ -272,7 +272,7 @@ HB_FUNC( INITCHKLABEL )
       ExStyle = ExStyle | WS_EX_TRANSPARENT;
    }
 
-   if( ! hb_parl(16) )
+   if( !hb_parl(16) )
    {
       Style |= WS_VISIBLE;
    }
@@ -383,7 +383,7 @@ LRESULT APIENTRY ChkLabelFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam
 
          CallWindowProc(LabelOldWndProc, hWnd, Msg, wParam, lParam);
          SendMessage(hWnd, WM_SETREDRAW, 1, 0);
-         if( ! pbtn )
+         if( !pbtn )
          {
             return 0;
          }
@@ -428,7 +428,7 @@ LRESULT APIENTRY ChkLabelFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam
          tme.dwHoverTime = HOVER_DEFAULT;
          _TrackMouseEvent(&tme);
 
-         if( ! pSymbol )
+         if( !pSymbol )
          {
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OLABELEVENTS"));
          }
@@ -449,7 +449,7 @@ LRESULT APIENTRY ChkLabelFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam
          return ( r != 0 ) ? r : CallWindowProc(LabelOldWndProc, hWnd, 0, 0, 0);
 
       case WM_MOUSELEAVE:
-         if( ! pSymbol )
+         if( !pSymbol )
          {
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OLABELEVENTS"));
          }

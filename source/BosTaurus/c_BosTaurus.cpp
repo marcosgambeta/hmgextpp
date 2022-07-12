@@ -986,7 +986,7 @@ HB_FUNC( BT_SCR_INVALIDATERECT )
    RECT     rect;
    PHB_ITEM pArrayRect;
 
-   if( ! HB_ISARRAY(2) )
+   if( !HB_ISARRAY(2) )
       hb_retl( InvalidateRect(hmg_par_HWND(1), nullptr, hb_parl(3)) );  // Invalidate all client area
    else
    {
@@ -2718,7 +2718,7 @@ HB_FUNC( BT_BMP_PROCESS )
          break;
 
       case BT_BMP_PROCESS_MODIFYCOLOR:
-         if( ! HB_ISARRAY(3) || hb_parinfa(3, 0) != 3 )
+         if( !HB_ISARRAY(3) || hb_parinfa(3, 0) != 3 )
          {
             hb_retl( FALSE );
             return;
@@ -2734,7 +2734,7 @@ HB_FUNC( BT_BMP_PROCESS )
          break;
 
       case BT_BMP_PROCESS_GAMMACORRECT:
-         if( ! HB_ISARRAY(3) || hb_parinfa(3, 0) != 3 )
+         if( !HB_ISARRAY(3) || hb_parinfa(3, 0) != 3 )
          {
             hb_retl( FALSE );
             return;
@@ -2923,7 +2923,7 @@ HB_FUNC( BT_BMP_FILTER3X3 )
 
 
    hBitmap = hmg_par_HBITMAP(1);
-   if( ! HB_ISARRAY(2) || hb_parinfa(2, 0) != nMATFILTER )
+   if( !HB_ISARRAY(2) || hb_parinfa(2, 0) != nMATFILTER )
    {
       hb_retl( FALSE );
       return;
@@ -3229,14 +3229,14 @@ HB_FUNC( BT_BMP_CLEAN_CLIPBOARD )
 {
    HWND hWnd;
 
-   if( ! IsClipboardFormatAvailable(CF_DIB) )
+   if( !IsClipboardFormatAvailable(CF_DIB) )
    {
       hb_retl( FALSE );
       return;
    }
 
    hWnd = hmg_par_HWND(1);
-   if( ! OpenClipboard(hWnd) )
+   if( !OpenClipboard(hWnd) )
    {
       hb_retl( FALSE );
       return;
@@ -3264,14 +3264,14 @@ HB_FUNC( BT_BMP_GET_CLIPBOARD )
    LPBYTE       lp_Bits, lp_Bits2, lp_Clipboard;
    WORD         nBytes_Offset;
 
-   if( ! IsClipboardFormatAvailable(CF_DIB) )
+   if( !IsClipboardFormatAvailable(CF_DIB) )
    {
       hb_retnl(0);
       return;
    }
 
    hWnd = hmg_par_HWND(1);
-   if( ! OpenClipboard(hWnd) )
+   if( !OpenClipboard(hWnd) )
    {
       hb_retnl(0);
       return;
@@ -3364,7 +3364,7 @@ HB_FUNC( BT_BMP_PUT_CLIPBOARD )
    nBytes_Bits  = ( DWORD ) ( bm.bmWidthBytes * labs(bm.bmHeight) );
    nBytes_Total = sizeof(BITMAPINFOHEADER) + nBytes_Bits;
 
-   if( ! OpenClipboard(hWnd) )
+   if( !OpenClipboard(hWnd) )
    {
       hb_retl( FALSE );
       return;

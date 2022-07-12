@@ -94,24 +94,24 @@ HB_FUNC( INITRICHEDITBOXEX )
       Style = Style | ES_READONLY;
    }
 
-   if( ! hb_parl(11) )
+   if( !hb_parl(11) )
    {
       Style = Style | WS_VISIBLE;
    }
 
-   if( ! hb_parl(12) )
+   if( !hb_parl(12) )
    {
       Style = Style | WS_TABSTOP;
    }
 
-   if( ! hb_parl(13) )
+   if( !hb_parl(13) )
    {
       Style = Style | WS_HSCROLL;
    }
 
-   Style = Style | ( ( ! hb_parl(14) ) ? WS_VSCROLL : ES_AUTOVSCROLL );
+   Style = Style | ( ( !hb_parl(14) ) ? WS_VSCROLL : ES_AUTOVSCROLL );
 
-   if( ! hRELib )
+   if( !hRELib )
    {
       hRELib = LoadLibrary(TEXT("RichEd20.dll"));
    }

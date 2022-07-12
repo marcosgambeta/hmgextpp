@@ -103,7 +103,7 @@ BOOL _isValidCtrlClassA(HWND hwndTip, const char * ClassName)
 
 /*
    cClassName := GetClassName(nHwnd)
-   IF ! Empty(cClassName)
+   IF !Empty(cClassName)
       ..
    ..
  */

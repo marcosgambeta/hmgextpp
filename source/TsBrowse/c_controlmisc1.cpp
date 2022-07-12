@@ -239,7 +239,7 @@ HB_FUNC( GETACP )
 
 HB_FUNC( GETCURSORHAND )
 {
-   if( ! hHand )
+   if( !hHand )
    {
       hHand = CreateCursor(GetModuleHandle(nullptr), 6, 0, 32, 32, HandAnd, HandXor );
       RegisterResource(hHand, "CUR");
@@ -250,7 +250,7 @@ HB_FUNC( GETCURSORHAND )
 
 HB_FUNC( GETCURSORDRAG )
 {
-   if( ! hDrag )
+   if( !hDrag )
    {
       hDrag = CreateCursor(GetModuleHandle(nullptr), 6, 0, 32, 32, DragAnd, DragXor);
       RegisterResource(hDrag, "CUR");
@@ -261,7 +261,7 @@ HB_FUNC( GETCURSORDRAG )
 
 HB_FUNC( GETCURSORCATCH )
 {
-   if( ! hCatch )
+   if( !hCatch )
    {
       hCatch = CreateCursor(GetModuleHandle(nullptr), 16, 16, 32, 32, CatchAnd, CatchXor);
       RegisterResource(hCatch, "CUR");
@@ -272,7 +272,7 @@ HB_FUNC( GETCURSORCATCH )
 
 HB_FUNC( GETCURSORSTOP )
 {
-   if( ! hStop )
+   if( !hStop )
    {
       hStop = CreateCursor(GetModuleHandle(nullptr), 6, 0, 32, 32, StopAnd, StopXor);
       RegisterResource(hStop, "CUR");
@@ -283,7 +283,7 @@ HB_FUNC( GETCURSORSTOP )
 
 HB_FUNC( CURSORSTOP )
 {
-   if( ! hStop )
+   if( !hStop )
    {
       hStop = CreateCursor(GetModuleHandle(nullptr), 6, 0, 32, 32, StopAnd, StopXor);
    }

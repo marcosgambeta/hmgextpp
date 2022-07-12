@@ -268,11 +268,11 @@ HB_FUNC( INVALIDATERECT )
       BOOL bRect = FALSE;
       RECT rc;
 
-      if( ( hb_pcount() > 2 ) && ( ! HB_ISNIL(3) ) )
+      if( ( hb_pcount() > 2 ) && ( !HB_ISNIL(3) ) )
       {
          bRect = Array2Rect(hb_param(3, Harbour::Item::ANY), &rc);
 
-         if( ! bRect )
+         if( !bRect )
          {
             rc.left   = hb_parni(3);
             rc.top    = hb_parni(4);
@@ -333,7 +333,7 @@ HB_FUNC( C_SETBACKCOLOR )
    {
       COLORREF cr;
 
-      if( ! Array2ColorRef(hb_param(2, Harbour::Item::ANY), &cr) )
+      if( !Array2ColorRef(hb_param(2, Harbour::Item::ANY), &cr) )
       {
          cr = ( COLORREF ) RGB(hb_parni(2), hb_parni(3), hb_parni(4));
       }
@@ -405,11 +405,11 @@ HB_FUNC( VALIDATERECT )
       BOOL bRect = FALSE;
       RECT rc;
 
-      if( ( hb_pcount() > 1 ) && ( ! HB_ISNIL(2) ) )
+      if( ( hb_pcount() > 1 ) && ( !HB_ISNIL(2) ) )
       {
          bRect = Array2Rect(hb_param(2, Harbour::Item::ANY), &rc);
 
-         if( ! bRect )
+         if( !bRect )
          {
             rc.left   = hb_parni(2);
             rc.top    = hb_parni(3);

@@ -74,7 +74,7 @@ HB_FUNC( INITBROWSE )
 
    style = LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_CHILD | WS_VISIBLE | LVS_REPORT;
 
-   if( ! hb_parl(7) )
+   if( !hb_parl(7) )
    {
       style = style | WS_TABSTOP;
    }

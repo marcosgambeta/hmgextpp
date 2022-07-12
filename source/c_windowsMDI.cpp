@@ -116,7 +116,7 @@ HB_FUNC( REGISTERMDIWINDOW )
    WndClass.lpszMenuName  = nullptr;
    WndClass.lpszClassName = lpClassName;
 
-   if( ! RegisterClass(&WndClass) )
+   if( !RegisterClass(&WndClass) )
    {
       MessageBox(0, TEXT("Window MDI Registration Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
       ExitProcess(0);
@@ -154,7 +154,7 @@ HB_FUNC( REGISTERMDIWINDOW )
 
    WndClass.lpszMenuName  = nullptr;
    WndClass.lpszClassName = TEXT("MdiChildWndClass");
-   if( ! RegisterClass(( LPWNDCLASS ) &WndClass) )
+   if( !RegisterClass(( LPWNDCLASS ) &WndClass) )
    {
       MessageBox(0, TEXT("Window MdiChild Registration Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
       ExitProcess(0);
@@ -175,7 +175,7 @@ LRESULT CALLBACK MdiWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
    static PHB_SYMB pSymbol = nullptr;
    long int        r;
 
-   if( ! pSymbol )
+   if( !pSymbol )
    {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("EVENTS"));
    }
@@ -208,7 +208,7 @@ LRESULT CALLBACK MdiChildWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
    static PHB_SYMB pSymbol = nullptr;
    long int        r;
 
-   if( ! pSymbol )
+   if( !pSymbol )
    {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("MDIEVENTS"));
    }
@@ -256,28 +256,28 @@ HB_FUNC( INITMDIWINDOW )
    else
    {
       ExStyle = 0;
-      if( ! hb_parl(6) )
+      if( !hb_parl(6) )
       {
          Style = Style | WS_MINIMIZEBOX;
       }
 
-      if( ! hb_parl(7) )
+      if( !hb_parl(7) )
       {
          Style = Style | WS_MAXIMIZEBOX;
       }
    }
 
-   if( ! hb_parl(8) )
+   if( !hb_parl(8) )
    {
       Style = Style | WS_SIZEBOX;
    }
 
-   if( ! hb_parl(9) )
+   if( !hb_parl(9) )
    {
       Style = Style | WS_SYSMENU;
    }
 
-   if( ! hb_parl(10) )
+   if( !hb_parl(10) )
    {
       Style = Style | WS_CAPTION;
    }

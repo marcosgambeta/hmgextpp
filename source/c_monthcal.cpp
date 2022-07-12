@@ -112,12 +112,12 @@ HB_FUNC( INITMONTHCAL )
       Style = Style | MCS_WEEKNUMBERS;
    }
 
-   if( ! hb_parl(12) )
+   if( !hb_parl(12) )
    {
       Style = Style | WS_VISIBLE;
    }
 
-   if( ! hb_parl(13) )
+   if( !hb_parl(13) )
    {
       Style = Style | WS_TABSTOP;
    }
@@ -334,7 +334,7 @@ LRESULT CALLBACK OwnMCProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
       case WM_MOUSEACTIVATE:
       case WM_SETFOCUS:
       case WM_KILLFOCUS:
-         if( ! pSymbol )
+         if( !pSymbol )
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OMONTHCALEVENTS"));
 
          if( pSymbol )

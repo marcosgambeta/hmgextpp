@@ -117,7 +117,7 @@ HB_CALL_ON_STARTUP_END(_hmg_init_)
 
 HINSTANCE GetInstance(void)
 {
-   if( ! g_hInstance )
+   if( !g_hInstance )
    {
       g_hInstance = GetModuleHandle(0);
    }

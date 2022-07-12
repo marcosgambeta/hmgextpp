@@ -67,7 +67,7 @@ LRESULT CALLBACK HMG_DlgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
    static PHB_SYMB pSymbol = nullptr;
    long int        r;
 
-   if( ! pSymbol )
+   if( !pSymbol )
    {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("DIALOGPROC"));
    }
@@ -92,7 +92,7 @@ LRESULT CALLBACK HMG_ModalDlgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
    static PHB_SYMB pSymbol = nullptr;
    long int        r;
 
-   if( ! pSymbol )
+   if( !pSymbol )
    {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("MODALDIALOGPROC"));
    }
@@ -205,7 +205,7 @@ HB_FUNC( SETDLGITEMINT )
       hmg_par_HWND(1),             // handle of dialog box
       hb_parni(2),                      // identifier of control
       hmg_par_UINT(3),             // text to set
-      ( hb_pcount() < 4 || HB_ISNIL(4) || ! hb_parl(4) ) ? 0 : 1
+      ( hb_pcount() < 4 || HB_ISNIL(4) || !hb_parl(4) ) ? 0 : 1
    );
 }
 
