@@ -68,58 +68,52 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 HB_FUNC( INITANIMATERES )
 {
-   HWND      hwnd;
-   HWND      AnimationCtrl;
-   HINSTANCE avi;
 #ifndef UNICODE
-   LPCSTR lpszDllName = hb_parc( 7 );
+   LPCSTR lpszDllName = hb_parc(7);
 #else
-   LPWSTR lpszDllName = AnsiToWide( ( char * ) hb_parc( 7 ) );
+   LPWSTR lpszDllName = AnsiToWide(static_cast<char*>(hb_parc(7)));
 #endif
+
+   INITCOMMONCONTROLSEX i;
+   i.dwSize = sizeof(INITCOMMONCONTROLSEX);
+   i.dwICC  = ICC_ANIMATE_CLASS;
+   InitCommonControlsEx(&i);
 
    int Style = WS_CHILD | WS_VISIBLE | ACS_TRANSPARENT | ACS_CENTER | ACS_AUTOPLAY;
 
-   INITCOMMONCONTROLSEX i;
-
-   i.dwSize = sizeof(INITCOMMONCONTROLSEX);
-   i.dwICC  = ICC_ANIMATE_CLASS;
-   InitCommonControlsEx( &i );
-
-   hwnd = ( HWND ) HB_PARNL( 1 );
-
-   if( ! hb_parl( 9 ) )
+   if( !hb_parl(9) )
    {
       Style = Style | WS_VISIBLE;
    }
 
-   avi = LoadLibrary( lpszDllName );
+   HINSTANCE avi = LoadLibrary(lpszDllName);
 
-   AnimationCtrl = CreateWindowEx( 0,                       // Style
-                                   ANIMATE_CLASS,           // Class Name
-                                   nullptr,                    // Window name
-                                   Style,                   // Window Style
-                                   hb_parni( 3 ),           // Left
-                                   hb_parni( 4 ),           // Top
-                                   hb_parni( 5 ),           // Right
-                                   hb_parni( 6 ),           // Bottom
-                                   hwnd,                    // Handle of parent
-                                   ( HMENU ) HB_PARNL( 2 ), // Menu
-                                   avi,                     // hInstance
-                                   nullptr );                  // User defined style
+   HWND AnimationCtrl = CreateWindowEx(0,                       // Style
+                                       ANIMATE_CLASS,           // Class Name
+                                       nullptr,                 // Window name
+                                       Style,                   // Window Style
+                                       hmg_par_int(3),          // Left
+                                       hmg_par_int(4),          // Top
+                                       hmg_par_int(5),          // Right
+                                       hmg_par_int(6),          // Bottom
+                                       hmg_par_HWND(1),         // Handle of parent
+                                       hmg_par_HMENU(2),        // Menu
+                                       avi,                     // hInstance
+                                       nullptr);                // User defined style
 
-   Animate_OpenEx( ( HWND ) AnimationCtrl, avi, MAKEINTRESOURCE(hb_parni( 8 )) );
+   Animate_OpenEx(AnimationCtrl, avi, MAKEINTRESOURCE(hb_parni(8)));
 
-   HB_STORNL( ( LONG_PTR ) avi, 2 );
-   HB_RETNL( ( LONG_PTR ) AnimationCtrl );
+   HB_STORNL(reinterpret_cast<LONG_PTR>(avi), 2);
+   HB_RETNL(reinterpret_cast<LONG_PTR>(AnimationCtrl));
 }
 
 HB_FUNC( UNLOADANIMATELIB )
 {
-   HINSTANCE hLib = ( HINSTANCE ) HB_PARNL( 1 );
+   HINSTANCE hLib = hmg_par_HINSTANCE(1);
 
-   if( hLib )
+   if( hLib != nullptr )
    {
-      FreeLibrary( hLib );
+      FreeLibrary(hLib);
    }
 }
 
