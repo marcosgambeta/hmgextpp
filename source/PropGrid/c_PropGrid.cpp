@@ -86,6 +86,20 @@
 #include "hbapiitm.h"
 #include "mgdefs.h"
 
+// TODO: revisar e corrigir as redefinições abaixo
+#ifdef HB_STORC
+  #undef HB_STORC
+#endif
+#ifdef HB_STORL
+  #undef HB_STORL
+#endif
+#ifdef HB_STORNI
+  #undef HB_STORNI
+#endif
+#ifdef HB_STORNL
+  #undef HB_STORNL
+#endif
+
 #define HB_STORC( n, x, y )  hb_storvc( n, x, y )
 #define HB_STORL( n, x, y )  hb_storvl( n, x, y )
 #define HB_STORNI( n, x, y ) hb_storvni( n, x, y )
