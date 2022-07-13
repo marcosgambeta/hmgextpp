@@ -494,7 +494,7 @@ return aRect
 
 METHOD GetDlgCode( nLastKey ) CLASS TControl
 
-   if .not. ::oWnd:lValidating
+   if .NOT. ::oWnd:lValidating
       if nLastKey == VK_RETURN .OR. nLastKey == VK_TAB
          ::oWnd:nLastKey := nLastKey
 
