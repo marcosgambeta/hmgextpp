@@ -55,9 +55,9 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 INIT PROCEDURE _InitAnimateRes
 *------------------------------------------------------------------------------*
 
-   InstallMethodHandler ( 'Release', 'ReleaseAnimateRes' )
-   InstallPropertyHandler ( 'File', 'SetAnimateResFile', 'GetAnimateResFile' )
-   InstallPropertyHandler ( 'ResId', 'SetAnimateResId', 'GetAnimateResId' )
+   InstallMethodHandler ( "Release", "ReleaseAnimateRes" )
+   InstallPropertyHandler ( "File", "SetAnimateResFile", "GetAnimateResFile" )
+   InstallPropertyHandler ( "ResId", "SetAnimateResId", "GetAnimateResId" )
 
 RETURN
 
@@ -92,7 +92,7 @@ FUNCTION _DefineAnimateRes ( ControlName, ParentForm, x, y, w, h, cFile, nRes, ;
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentForm + " Already defined." )
    ENDIF
 
-   mVar := '_' + ParentForm + '_' + ControlName
+   mVar := "_" + ParentForm + "_" + ControlName
 #ifdef _NAMES_LIST_
    _SetNameList( mVar , Len( _HMG_aControlNames ) + 1 )
 #else
@@ -139,20 +139,20 @@ FUNCTION _DefineAnimateRes ( ControlName, ParentForm, x, y, w, h, cFile, nRes, ;
    AAdd( _HMG_aControlContainerCol, iif( _HMG_FrameLevel > 0,_HMG_ActiveFrameCol[_HMG_FrameLevel ], -1 ) )
    AAdd( _HMG_aControlPicture, "" )
    AAdd( _HMG_aControlContainerHandle, 0 )
-   AAdd( _HMG_aControlFontName, '' )
+   AAdd( _HMG_aControlFontName, "" )
    AAdd( _HMG_aControlFontSize, 0 )
    AAdd( _HMG_aControlFontAttributes, { FALSE, FALSE, FALSE, FALSE } )
    AAdd( _HMG_aControlToolTip, tooltip  )
    AAdd( _HMG_aControlRangeMin, 0  )
    AAdd( _HMG_aControlRangeMax, 0  )
-   AAdd( _HMG_aControlCaption, ''  )
+   AAdd( _HMG_aControlCaption, ""  )
    AAdd( _HMG_aControlVisible, iif( invisible, FALSE, TRUE ) )
    AAdd( _HMG_aControlHelpId, HelpId )
    AAdd( _HMG_aControlFontHandle, 0 )
    AAdd( _HMG_aControlBrushHandle, 0 )
    AAdd( _HMG_aControlEnabled, .T. )
    AAdd( _HMG_aControlMiscData1, hAvi )
-   AAdd( _HMG_aControlMiscData2, '' )
+   AAdd( _HMG_aControlMiscData2, "" )
 
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, Len( _HMG_aControlNames ), mVar )
@@ -164,7 +164,7 @@ RETURN NIL
 FUNCTION SetAnimateResFile ( cWindow, cControl, cProperty, cValue )
 *------------------------------------------------------------------------------*
 
-   IF GetControlType ( cControl, cWindow ) == 'ANIMATERES' .AND. Upper( cProperty ) == 'FILE'
+   IF GetControlType ( cControl, cWindow ) == "ANIMATERES" .AND. Upper( cProperty ) == "FILE"
 
       _HMG_UserComponentProcess := .T.
 
@@ -183,7 +183,7 @@ FUNCTION GetAnimateResFile ( cWindow, cControl )
 *------------------------------------------------------------------------------*
    LOCAL RetVal := Nil
 
-   IF GetControlType ( cControl, cWindow ) == 'ANIMATERES'
+   IF GetControlType ( cControl, cWindow ) == "ANIMATERES"
 
       _HMG_UserComponentProcess := .T.
 
@@ -201,7 +201,7 @@ RETURN RetVal
 FUNCTION SetAnimateResId ( cWindow, cControl, cProperty, cValue )
 *------------------------------------------------------------------------------*
 
-   IF GetControlType ( cControl, cWindow ) == 'ANIMATERES' .AND. Upper( cProperty ) == 'RESID'
+   IF GetControlType ( cControl, cWindow ) == "ANIMATERES" .AND. Upper( cProperty ) == "RESID"
 
       _HMG_UserComponentProcess := .T.
 
@@ -220,7 +220,7 @@ FUNCTION GetAnimateResId ( cWindow, cControl )
 *------------------------------------------------------------------------------*
    LOCAL RetVal := Nil
 
-   IF GetControlType ( cControl, cWindow ) == 'ANIMATERES'
+   IF GetControlType ( cControl, cWindow ) == "ANIMATERES"
 
       _HMG_UserComponentProcess := .T.
 
@@ -238,7 +238,7 @@ RETURN RetVal
 PROCEDURE ReleaseAnimateRes ( cWindow, cControl )
 *------------------------------------------------------------------------------*
 
-   IF _IsControlDefined ( cControl, cWindow ) .AND. GetControlType ( cControl, cWindow ) == 'ANIMATERES'
+   IF _IsControlDefined ( cControl, cWindow ) .AND. GetControlType ( cControl, cWindow ) == "ANIMATERES"
 
       UnloadAnimateLib( _GetControlObject ( cControl, cWindow ) )
 

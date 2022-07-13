@@ -645,7 +645,7 @@ FUNCTION DB_CODE( cData, cKey, aFields, cPass, cFor, cWhile )
       NEXT
 
       SELECT &cAlias
-      AFill( aString, '' )
+      AFill( aString, "" )
 
       cBuf := &cSeek
       cVal := cBuf

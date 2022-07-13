@@ -453,7 +453,7 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
    ENDIF
 
    IF HB_ISBLOCK( bBlock )
-      Do_WindowEventProcedure( bBlock, This.Index, 'WINDOW_INIT' )
+      Do_WindowEventProcedure( bBlock, This.Index, "WINDOW_INIT" )
    ENDIF
 
    IF _IsControlDefined( "oTimer", cForm )

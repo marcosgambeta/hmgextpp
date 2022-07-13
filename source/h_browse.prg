@@ -154,7 +154,7 @@ FUNCTION _DefineBrowse ( ControlName, ParentFormName, x, y, w, h, aHeaders, aWid
    hb_default( @doublebuffer, .F. )
    lsort := ( ISARRAY( columnsort ) )
 
-   mVar := '_' + ParentFormName + '_' + ControlName
+   mVar := "_" + ParentFormName + "_" + ControlName
    k := _GetControlFree()
 
    IF _HMG_BeginDialogActive
@@ -195,11 +195,11 @@ FUNCTION _DefineBrowse ( ControlName, ParentFormName, x, y, w, h, aHeaders, aWid
          // If splitboxed force no vertical scrollbar
          novscroll := .T.
 
-         IF _HMG_SplitLastControl == 'TOOLBAR'
+         IF _HMG_SplitLastControl == "TOOLBAR"
             Break := .T.
          ENDIF
 
-         _HMG_SplitLastControl := 'GRID'
+         _HMG_SplitLastControl := "GRID"
 
          i := GetFormIndex ( ParentFormName )
 
@@ -321,7 +321,7 @@ FUNCTION _DefineBrowse ( ControlName, ParentFormName, x, y, w, h, aHeaders, aWid
                                    iif( lsort, Array( Len( aHeaders ) ), 0 ), ;  // 20
                                    aPict , ;                   // 21 add jsz
                                    aInputMask }                // 22
-   _HMG_aControlMiscData2 [k] := ''
+   _HMG_aControlMiscData2 [k] := ""
 
    IF .NOT. lDialogInMemory
 
@@ -333,7 +333,7 @@ FUNCTION _DefineBrowse ( ControlName, ParentFormName, x, y, w, h, aHeaders, aWid
 
             FOR i := 1 TO Min( Len( columnsort ), Len( _HMG_aControlMiscData1 [k][20] ) )
 
-               IF ValType( columnsort [i] ) == 'L'
+               IF ValType( columnsort [i] ) == "L"
                   _HMG_aControlMiscData1 [k][20][i] := columnsort [i]
                ENDIF
 
@@ -436,7 +436,7 @@ FUNCTION InitDialogBrowse( ParentName, ControlHandle, i )
    _HMG_aControlIds [i] := ScrollBarHandle
    _HMG_aControlMiscData1 [i] [1] := ScrollBarButtonHandle
 
-   _BrowseRefresh( '', '', i )
+   _BrowseRefresh( "", "", i )
 
    IF Len( _HMG_aDialogTemplate ) != 0 .AND. _HMG_aDialogTemplate[3]  // Modal
       _HMG_aControlDeleted [i] := .T.
@@ -472,10 +472,10 @@ STATIC PROCEDURE HMG_OrdCreate( i )
    FOR nColumn := 1 TO Len( aFields )
 
       IF _HMG_aControlMiscData1 [i][20][nColumn] == .F. .OR. FieldPos( aFields [nColumn] ) == 0
-         ordCreate( , 'Bag' + StrZero( Random( 999999 ), 6 ), 'Field->' + FieldName( 1 ) )
+         ordCreate( , "Bag" + StrZero( Random( 999999 ), 6 ), "Field->" + FieldName( 1 ) )
       ELSE
          cField := FieldName( FieldPos( aFields [nColumn] ) )
-         cOrdKey := Alias() + '->' + cField
+         cOrdKey := Alias() + "->" + cField
          ordCreate( , cField, cOrdKey, hb_macroBlock( cOrdKey ), .F. /*lUnique*/ )
       ENDIF
 
@@ -533,7 +533,7 @@ PROCEDURE HMG_SetOrder( nColumn, lDescend )
 
       ListView_SetSortHeader( _BrowseHandle, nOrder, 0, _HMG_IsThemed )
 
-      IF ValType( lDescend ) != 'L'
+      IF ValType( lDescend ) != "L"
          lDescend := iif( nOrder == nColumn, ! ordDescend( nOrder ), .F. )
       ENDIF
 
@@ -548,7 +548,7 @@ PROCEDURE HMG_SetOrder( nColumn, lDescend )
 
       RestoreWorkArea( _Alias )
 
-      _BrowseRefresh( '', '', i )
+      _BrowseRefresh( "", "", i )
 
    ENDIF
 
@@ -634,14 +634,14 @@ PROCEDURE _BrowseUpdate( ControlName, ParentName, z )
 
          SWITCH Left( Type ( cTemp ), 1 )
 
-         CASE 'N'
+         CASE "N"
             image := &cTemp
             EXIT
-         CASE 'L'
+         CASE "L"
             image := iif( &cTemp, 1, 0 )
             EXIT
-         CASE 'U'
-            image := iif( ValType( &cTemp ) == 'N', &cTemp, iif( ValType( &cTemp ) == 'L', iif( &cTemp, 1, 0 ), 0 ) )
+         CASE "U"
+            image := iif( ValType( &cTemp ) == "N", &cTemp, iif( ValType( &cTemp ) == "L", iif( &cTemp, 1, 0 ), 0 ) )
             EXIT
          DEFAULT
             image := 0
@@ -685,7 +685,7 @@ PROCEDURE _BrowseUpdate( ControlName, ParentName, z )
                NEXT k
 
                IF ! lFound
-                  AAdd( aTemp , '' )
+                  AAdd( aTemp , "" )
                ENDIF
             ELSE
                AAdd( aTemp , _GetBrowseFieldValue( cTemp , aPict [j] ) )  // add jsz
@@ -752,45 +752,45 @@ RETURN
 *-----------------------------------------------------------------------------*
 FUNCTION _GetBrowseFieldValue ( cTemp , cPict )  // add jsz   param
 *-----------------------------------------------------------------------------*
-   LOCAL cRet := 'Nil'
+   LOCAL cRet := "Nil"
    LOCAL cType := _TypeEx ( cTemp )
 
    SWITCH Left( cType, 1 )
 
-   CASE 'N'
-   CASE '+'
-   CASE 'F'
-   CASE 'I'
-   CASE 'B'
-   CASE 'Y'
+   CASE "N"
+   CASE "+"
+   CASE "F"
+   CASE "I"
+   CASE "B"
+   CASE "Y"
       cRet := TransForm ( &cTemp, cPict )  // add jsz
       EXIT
-   CASE 'D'
+   CASE "D"
       cRet := DToC ( &cTemp )
       EXIT
-   CASE 'T'
+   CASE "T"
       cRet := hb_TSToStr( &cTemp, .T. )
       EXIT
-   CASE 'C'
+   CASE "C"
       cRet := TransForm ( RTrim( &cTemp ), cPict )  // add jsz
       EXIT
-   CASE 'L'
-      cRet := iif( &cTemp == .T., '.T.', '.F.' )
+   CASE "L"
+      cRet := iif( &cTemp == .T., ".T.", ".F." )
       EXIT
-   CASE 'M'
-      cRet := iif( Empty( &cTemp ), '<memo>', '<Memo>' )
+   CASE "M"
+      cRet := iif( Empty( &cTemp ), "<memo>", "<Memo>" )
       EXIT
-   CASE 'V'
-   CASE '@'
+   CASE "V"
+   CASE "@"
       cRet := TransForm ( RTrim( hb_ValToStr( &cTemp ) ), cPict )  // add jsz
       EXIT
-   CASE 'G'
-      cRet := '<General>'
+   CASE "G"
+      cRet := "<General>"
       EXIT
    DEFAULT
-      IF cType == 'UE'
-         cRet := '<R-Next>'
-      ELSEIF cType == 'UI'
+      IF cType == "UE"
+         cRet := "<R-Next>"
+      ELSEIF cType == "UI"
          cRet := _GetBrowseFnValue( cTemp, cPict )  // add jsz
       ENDIF
 
@@ -801,24 +801,24 @@ RETURN cRet
 *-----------------------------------------------------------------------------*
 FUNCTION _GetBrowseFnValue ( cTemp , cPict )  // add jsz   param
 *-----------------------------------------------------------------------------*
-   LOCAL cRet := 'Nil'
+   LOCAL cRet := "Nil"
 
    SWITCH ValType( cTemp )
 
-   CASE 'N'
+   CASE "N"
       cRet := TransForm ( &cTemp, cPict )  // add jsz
       EXIT
-   CASE 'D'
+   CASE "D"
       cRet := DToC ( &cTemp )
       EXIT
-   CASE 'L'
-      cRet := iif( &cTemp == .T., '.T.', '.F.' )
+   CASE "L"
+      cRet := iif( &cTemp == .T., ".T.", ".F." )
       EXIT
-   CASE 'C'
+   CASE "C"
       cRet := TransForm ( RTrim( &cTemp ), cPict )  // add jsz
       EXIT
-   CASE 'M'
-      cRet := '<Memo>'
+   CASE "M"
+      cRet := "<Memo>"
 
    END SWITCH
 
@@ -869,7 +869,7 @@ PROCEDURE _BrowseNext ( ControlName , ParentForm , z )
 
       GO _BrowseRecMap [PageLength]
 
-      _BrowseUpdate( '', '', i )
+      _BrowseUpdate( "", "", i )
       _BrowseVscrollUpdate( i )
 
       ListView_Scroll( _BrowseHandle , _DeltaScroll[2] * ( -1 ) , 0 )
@@ -916,7 +916,7 @@ PROCEDURE _BrowsePrior ( ControlName , ParentForm , z )
       Skip - LISTVIEWGETCOUNTPERPAGE ( _BrowseHandle ) + 1
 
       _BrowseVscrollUpdate( i )
-      _BrowseUpdate( '', '', i )
+      _BrowseUpdate( "", "", i )
 
       ListView_Scroll( _BrowseHandle , _DeltaScroll[2] * ( -1 ) , 0 )
 
@@ -959,7 +959,7 @@ PROCEDURE _BrowseHome ( ControlName , ParentForm , z )
    GO TOP
 
    _BrowseVscrollUpdate( i )
-   _BrowseUpdate( '', '', i )
+   _BrowseUpdate( "", "", i )
 
    ListView_Scroll( _BrowseHandle , _DeltaScroll[2] * ( -1 ) , 0 )
 
@@ -999,7 +999,7 @@ PROCEDURE _BrowseEnd ( ControlName , ParentForm , z )
    _BrowseVscrollUpdate( i )
    Skip - LISTVIEWGETCOUNTPERPAGE ( _BrowseHandle ) + 1
 
-   _BrowseUpdate( '', '', i )
+   _BrowseUpdate( "", "", i )
    ListView_Scroll( _BrowseHandle , _DeltaScroll[2] * ( -1 ) , 0 )
 
    GO _RecNo
@@ -1042,7 +1042,7 @@ PROCEDURE _BrowseUp ( ControlName , ParentForm , z )
 
       IF !( _BrowseRecMap [1] == RecNo() )  // BAA 18-Mar-2012
          _BrowseVscrollUpdate( i )
-         _BrowseUpdate( '', '', i )
+         _BrowseUpdate( "", "", i )
          ListView_Scroll( _BrowseHandle , _DeltaScroll[2] * ( -1 ) , 0 )
       ENDIF
 
@@ -1105,7 +1105,7 @@ PROCEDURE _BrowseDown ( ControlName , ParentForm , z )
       GO _BrowseRecMap [1]
       SKIP
 
-      _BrowseUpdate( '', '', i )
+      _BrowseUpdate( "", "", i )
       _BrowseVscrollUpdate( i )
 
       ListView_Scroll( _BrowseHandle , _DeltaScroll[2] * ( -1 ) , 0 )
@@ -1140,7 +1140,7 @@ PROCEDURE _BrowseRefresh ( ControlName , ParentForm , z )
 
    i := iif( PCount() == 2 , GetControlIndex ( ControlName , ParentForm ) , z )
 
-   v := _BrowseGetValue ( '', '', i )
+   v := _BrowseGetValue ( "", "", i )
 
    _BrowseHandle := _HMG_aControlHandles [i]
    _DeltaScroll := ListView_GetSubItemRect ( _BrowseHandle , 0 , 0 )
@@ -1201,7 +1201,7 @@ PROCEDURE _BrowseRefresh ( ControlName , ParentForm , z )
       Skip - s + 1
    ENDIF
 
-   _BrowseUpdate( '', '', i )
+   _BrowseUpdate( "", "", i )
 
    ListView_Scroll( _BrowseHandle , _DeltaScroll[2] * ( -1 ) , 0 )
    ListView_SetCursel ( _BrowseHandle , AScan( _HMG_aControlRangeMax [i] , v ) )
@@ -1221,9 +1221,9 @@ PROCEDURE _BrowseSetValue ( ControlName , ParentForm , Value , z , mp )
       RETURN
    ENDIF
 
-   i := iif( ValType( z ) == 'U' , GetControlIndex ( ControlName , ParentForm ) , z )
+   i := iif( ValType( z ) == "U" , GetControlIndex ( ControlName , ParentForm ) , z )
 
-   IF _HMG_ThisEventType == 'BROWSE_ONCHANGE'
+   IF _HMG_ThisEventType == "BROWSE_ONCHANGE"
       IF i == _HMG_THISINDEX
          MsgMiniGuiError ( "BROWSE: Value property can't be changed inside ONCHANGE event." )
       ENDIF
@@ -1249,7 +1249,7 @@ PROCEDURE _BrowseSetValue ( ControlName , ParentForm , Value , z , mp )
       RETURN
    ENDIF
 
-   IF ValType( mp ) == 'U'
+   IF ValType( mp ) == "U"
       m := Int( ListViewGetCountPerPage ( _BrowseHandle ) / 2 )
    ELSE
       m := mp
@@ -1289,16 +1289,16 @@ PROCEDURE _BrowseSetValue ( ControlName , ParentForm , Value , z , mp )
    ENDIF
 
    _HMG_aControlValue [i] := Value
-   _BrowseUpdate( '' , '' , i )
+   _BrowseUpdate( "" , "" , i )
    GO _RecNo
    RestoreWorkArea( _Alias )
 
    ListView_Scroll( _BrowseHandle , _DeltaScroll[2] * ( -1 ) , 0 )
    ListView_SetCursel ( _BrowseHandle , AScan( _HMG_aControlRangeMax [i] , Value ) )
 
-   _HMG_ThisEventType := 'BROWSE_ONCHANGE'
+   _HMG_ThisEventType := "BROWSE_ONCHANGE"
    _BrowseOnChange ( i )
-   _HMG_ThisEventType := ''
+   _HMG_ThisEventType := ""
 
 RETURN
 
@@ -1392,7 +1392,7 @@ FUNCTION  _BrowseDelete (  ControlName , ParentForm , z  )
 
       ENDIF
 
-      _BrowseSetValue( '' , '' , RecNo() , i , LISTVIEW_GETFIRSTITEM ( _HMG_aControlHandles [i] ) )
+      _BrowseSetValue( "" , "" , RecNo() , i , LISTVIEW_GETFIRSTITEM ( _HMG_aControlHandles [i] ) )
 
    ENDIF
 
@@ -1414,7 +1414,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
    hb_default( @inplace, .T. )
 #endif
    IF LISTVIEW_GETFIRSTITEM ( GridHandle ) == 0
-      IF ValType( append ) != 'U'
+      IF ValType( append ) != "U"
          IF append == .F.
             RETURN Nil
          ENDIF
@@ -1458,7 +1458,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
 
    Col := GCol + ( GWidth - 310 ) / 2
 
-   IF ValType( append ) != 'U'
+   IF ValType( append ) != "U"
       Title := _HMG_BRWLangButton [ iif( append == .t., 1, 2 ) ]
    ELSE
       Title := _HMG_BRWLangButton [2]
@@ -1471,7 +1471,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
 
    BackRec := RecNo()
 
-   IF ValType( append ) != 'U'
+   IF ValType( append ) != "U"
       IF append == .T.
          GO BOTTOM
          SKIP
@@ -1484,7 +1484,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
 
    FOR EACH tvar IN _HMG_aControlRangeMin [i]
 
-      IF ValType( &tvar ) == 'C'
+      IF ValType( &tvar ) == "C"
          AAdd( aInitValues , AllTrim( &tvar ) )
       ELSE
          AAdd( aInitValues , &tvar )
@@ -1496,14 +1496,14 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
 
       tvar := Upper( _HMG_aControlrangeMin [i] [z] )
 
-      q := hb_UAt ( '>' , tvar )
+      q := hb_UAt ( ">" , tvar )
 
       IF q == 0
 
          Select &BrowseArea
          aStru := dbStruct ()
 
-         AAdd( TmpNames , 'MemVar' + BrowseArea + tvar )
+         AAdd( TmpNames , "MemVar" + BrowseArea + tvar )
 
       ELSE
 
@@ -1513,7 +1513,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
 
          tvar := hb_URight ( tvar , hb_ULen( tvar ) - q )
 
-         AAdd( TmpNames , 'MemVar' + svar + tvar )
+         AAdd( TmpNames , "MemVar" + svar + tvar )
 
          IF Upper( svar ) != Upper( BrowseArea )
             MixedFields := .T.
@@ -1521,7 +1521,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
 
       ENDIF
 
-      IF ValType( append ) != 'U'
+      IF ValType( append ) != "U"
          IF append == .T.
             IF MixedFields == .T.
                MsgMiniGuiError( _HMG_BRWLangError[8], .F. )
@@ -1536,22 +1536,22 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
          IF item [DBS_NAME] == tvar
             q := .T.
             SWITCH item [DBS_TYPE]
-            CASE 'N'
+            CASE "N"
                IF item [DBS_DEC] == 0
-                  AAdd( aFormats, Replicate( '9', item [DBS_LEN] ) )
+                  AAdd( aFormats, Replicate( "9", item [DBS_LEN] ) )
                ELSEIF item [DBS_DEC] > 0
-                  AAdd( aFormats, Replicate( '9', ( item [DBS_LEN] - item [DBS_DEC] - 1 ) ) + '.' + Replicate( '9', item [DBS_DEC] ) )
+                  AAdd( aFormats, Replicate( "9", ( item [DBS_LEN] - item [DBS_DEC] - 1 ) ) + "." + Replicate( "9", item [DBS_DEC] ) )
                ENDIF
                EXIT
-            CASE 'C'
-            CASE 'M'
+            CASE "C"
+            CASE "M"
                AAdd( aFormats, item [DBS_LEN] )
                EXIT
-            CASE 'D'
-            CASE 'L'
+            CASE "D"
+            CASE "L"
                AAdd( aFormats, Nil )
                EXIT
-            CASE '+'
+            CASE "+"
                q := .F.
             END SWITCH
          ENDIF
@@ -1560,7 +1560,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
 
       IF ! q  // field not found, but maybe an expression (readonly hopefully!)
          // force to readonly
-         IF ValType( aReadOnly ) == 'U'
+         IF ValType( aReadOnly ) == "U"
             aReadonly := Array( Len( _HMG_aControlRangeMin [i] ) )
             AFill( aReadonly, .F. )
             aReadonly [z] := .T.
@@ -1596,9 +1596,9 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
    aResults := _EditRecord ( Title , aLabels , aInitValues , aFormats , GRow , Col , aValid , TmpNames , aValidMessages , aReadOnly , actpos [4] - actpos [2] )
 
    tvar := aResults [1]
-   IF ValType( tvar ) != 'U'
+   IF ValType( tvar ) != "U"
 
-      IF ValType( append ) != 'U'
+      IF ValType( append ) != "U"
          IF append == .T.
             APPEND BLANK
             NewRec := RecNo()
@@ -1611,7 +1611,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
 
       FOR z := 1 TO Len( aResults )
 
-         IF ValType( aReadOnly ) == 'U' .OR. aReadOnly [z] == .F.
+         IF ValType( aReadOnly ) == "U" .OR. aReadOnly [z] == .F.
 
             tvar := _HMG_aControlRangeMin [i] [z]
             Replace &tvar WITH aResults [z]
@@ -1620,7 +1620,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
 
       NEXT z
 
-      _BrowseRefresh ( '' , '' , i )
+      _BrowseRefresh ( "" , "" , i )
 
    ENDIF
 
@@ -1633,7 +1633,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
 
    _SetFocus( ControlName , FormName )
 
-   IF ValType( append ) != 'U'
+   IF ValType( append ) != "U"
       IF append == .T.
          IF NewRec != 0
             _SetValue ( ControlName , FormName , NewRec )
@@ -1649,16 +1649,16 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION _EditRecord ( Title , aLabels , aValues , aFormats , row , col , aValid , TmpNames , aValidMessages , aReadOnly , h )
 *-----------------------------------------------------------------------------*
-   LOCAL i, ControlRow, e := 0, LN, CN, ControlFocused := 'Control_1', th, lFirstEnabledControl := .T.
+   LOCAL i, ControlRow, e := 0, LN, CN, ControlFocused := "Control_1", th, lFirstEnabledControl := .T.
 
    PRIVATE l := Len( aLabels )
    PRIVATE aResult [l]
 
    FOR i := 1 TO l
 
-      IF ValType( aValues[i] ) == 'C'
+      IF ValType( aValues[i] ) == "C"
 
-         IF ValType( aFormats[i] ) == 'N'
+         IF ValType( aFormats[i] ) == "N"
 
             IF aFormats[i] > 32
                e++
@@ -1668,7 +1668,7 @@ FUNCTION _EditRecord ( Title , aLabels , aValues , aFormats , row , col , aValid
 
       ENDIF
 
-      IF ValType( aValues[i] ) == 'M'
+      IF ValType( aValues[i] ) == "M"
          e++
       ENDIF
 
@@ -1686,7 +1686,7 @@ FUNCTION _EditRecord ( Title , aLabels , aValues , aFormats , row , col , aValid
       HEIGHT h - 19 + GetTitleHeight();
       TITLE Title;
       MODAL NOSIZE;
-      ON INIT _SetFocus ( ControlFocused , '_Split_1' )
+      ON INIT _SetFocus ( ControlFocused , "_Split_1" )
 
    ON KEY ALT + O ACTION _EditRecordOk ( aValid, TmpNames, aValidMessages )
    ON KEY ALT + C ACTION _EditRecordCancel()
@@ -1697,7 +1697,7 @@ FUNCTION _EditRecord ( Title , aLabels , aValues , aFormats , row , col , aValid
       WIDTH 310;
       HEIGHT H - 90;
       VIRTUAL HEIGHT TH;
-      SPLITCHILD NOCAPTION FONT 'Arial' SIZE 10 BREAK FOCUSED
+      SPLITCHILD NOCAPTION FONT "Arial" SIZE 10 BREAK FOCUSED
 
       ON KEY ALT + O ACTION _EditRecordOk ( aValid, TmpNames, aValidMessages )
       ON KEY ALT + C ACTION _EditRecordCancel()
@@ -1706,74 +1706,74 @@ FUNCTION _EditRecord ( Title , aLabels , aValues , aFormats , row , col , aValid
 
       FOR i := 1 TO l
 
-         LN := 'Label_' + hb_ntos( i )
-         CN := 'Control_' + hb_ntos( i )
+         LN := "Label_" + hb_ntos( i )
+         CN := "Control_" + hb_ntos( i )
 
          @ ControlRow , 10 LABEL &LN OF _Split_1 VALUE aLabels [i] WIDTH 90
 
          SWITCH ValType( aValues [i] )
-         CASE 'L'
+         CASE "L"
 
-            @ ControlRow , 120 CHECKBOX &CN OF _Split_1 CAPTION '' VALUE aValues[i];
+            @ ControlRow , 120 CHECKBOX &CN OF _Split_1 CAPTION "" VALUE aValues[i];
                ON LOSTFOCUS _WHENEVAL()
             ControlRow += 30
             EXIT
-         CASE 'D'
+         CASE "D"
 
             @ ControlRow , 120 DATEPICKER &CN  OF _Split_1 VALUE aValues[i] WIDTH 140;
                ON LOSTFOCUS _WHENEVAL();
                SHOWNONE
             ControlRow += 30
             EXIT
-         CASE 'N'
+         CASE "N"
 
-            IF ValType( aFormats [i] ) == 'A'
-               @ ControlRow , 120 COMBOBOX &CN  OF _Split_1 ITEMS aFormats[i] VALUE aValues[i] WIDTH 140  FONT 'Arial' SIZE 10;
+            IF ValType( aFormats [i] ) == "A"
+               @ ControlRow , 120 COMBOBOX &CN  OF _Split_1 ITEMS aFormats[i] VALUE aValues[i] WIDTH 140  FONT "Arial" SIZE 10;
                   ON GOTFOCUS ( LN := _Split_1.FocusedControl, ;
-                  SendMessage ( GetControlHandle( LN , '_Split_1' ) , EM_SETSEL , 0 , -1 ) );
+                  SendMessage ( GetControlHandle( LN , "_Split_1" ) , EM_SETSEL , 0 , -1 ) );
                   ON LOSTFOCUS _WHENEVAL()
 
-            ELSEIF ValType( aFormats [i] ) == 'C'
+            ELSEIF ValType( aFormats [i] ) == "C"
 
-               @ ControlRow , 120 GETBOX &CN  OF _Split_1 VALUE aValues[i] WIDTH 140 FONT 'Arial' SIZE 10 PICTURE aFormats [i];
+               @ ControlRow , 120 GETBOX &CN  OF _Split_1 VALUE aValues[i] WIDTH 140 FONT "Arial" SIZE 10 PICTURE aFormats [i];
                   ON GOTFOCUS ( LN := _Split_1.FocusedControl, ;
-                  SendMessage ( GetControlHandle( LN , '_Split_1' ) , EM_SETSEL , 0 , -1 ) );
+                  SendMessage ( GetControlHandle( LN , "_Split_1" ) , EM_SETSEL , 0 , -1 ) );
                   ON LOSTFOCUS _WHENEVAL()
                ELSE
-               @ ControlRow , 120 GETBOX &CN  OF _Split_1 VALUE aValues[i] WIDTH 140 FONT 'Arial' SIZE 10;
+               @ ControlRow , 120 GETBOX &CN  OF _Split_1 VALUE aValues[i] WIDTH 140 FONT "Arial" SIZE 10;
                   ON GOTFOCUS ( LN := _Split_1.FocusedControl, ;
-                  SendMessage ( GetControlHandle( LN , '_Split_1' ) , EM_SETSEL , 0 , -1 ) );
+                  SendMessage ( GetControlHandle( LN , "_Split_1" ) , EM_SETSEL , 0 , -1 ) );
                   ON LOSTFOCUS _WHENEVAL()
                ENDIF
                ControlRow += 30
             EXIT
-         CASE 'C'
+         CASE "C"
 
-            IF ValType( aFormats [i] ) == 'N'
+            IF ValType( aFormats [i] ) == "N"
                IF  aFormats [i] <= 32
-                  @ ControlRow , 120 GETBOX &CN  OF _Split_1 VALUE aValues[i] WIDTH 140 FONT 'Arial' SIZE 10 PICTURE Replicate( "X", aFormats [i] );
+                  @ ControlRow , 120 GETBOX &CN  OF _Split_1 VALUE aValues[i] WIDTH 140 FONT "Arial" SIZE 10 PICTURE Replicate( "X", aFormats [i] );
                      ON GOTFOCUS ( LN := _Split_1.FocusedControl, ;
-                     SendMessage ( GetControlHandle( LN , '_Split_1' ) , EM_SETSEL , 0 , -1 ) );
+                     SendMessage ( GetControlHandle( LN , "_Split_1" ) , EM_SETSEL , 0 , -1 ) );
                      ON LOSTFOCUS _WHENEVAL()
                   ControlRow += 30
                ELSE
                   _Split_1.&(LN).Height := 90
-                  @ ControlRow , 120 EDITBOX &CN  OF _Split_1 WIDTH 140 HEIGHT 90 VALUE aValues[i] FONT 'Arial' SIZE 10 MAXLENGTH aFormats[i];
+                  @ ControlRow , 120 EDITBOX &CN  OF _Split_1 WIDTH 140 HEIGHT 90 VALUE aValues[i] FONT "Arial" SIZE 10 MAXLENGTH aFormats[i];
                      ON LOSTFOCUS _WHENEVAL()
                   ControlRow += 94
                ENDIF
             ENDIF
             EXIT
-         CASE 'M'
+         CASE "M"
 
-            @ ControlRow , 120 EDITBOX &CN  OF _Split_1 WIDTH 140 HEIGHT 90 VALUE aValues[i] FONT 'Arial' SIZE 10 ON LOSTFOCUS _WHENEVAL()
+            @ ControlRow , 120 EDITBOX &CN  OF _Split_1 WIDTH 140 HEIGHT 90 VALUE aValues[i] FONT "Arial" SIZE 10 ON LOSTFOCUS _WHENEVAL()
             ControlRow += 94
 
          ENDSWITCH
 
-         IF ValType( aReadOnly ) != 'U'
+         IF ValType( aReadOnly ) != "U"
             IF aReadOnly [i] == .T.
-               _DisableControl ( CN , '_Split_1' )
+               _DisableControl ( CN , "_Split_1" )
             ELSEIF lFirstEnabledControl == .T.
                lFirstEnabledControl := .F.
                ControlFocused := CN
@@ -1787,7 +1787,7 @@ FUNCTION _EditRecord ( Title , aLabels , aValues , aFormats , row , col , aValid
       DEFINE WINDOW _Split_2;
          WIDTH 300;
          HEIGHT 50;
-         SPLITCHILD NOCAPTION FONT 'Arial' SIZE 10 BREAK
+         SPLITCHILD NOCAPTION FONT "Arial" SIZE 10 BREAK
 
       @ 10, 40 BUTTON BUTTON_1;
          OF _Split_2;
@@ -1817,16 +1817,16 @@ STATIC PROCEDURE _WHENEVAL()
    LOCAL Result
    LOCAL i, x
 
-   IF ValType( aWhen ) == 'A'
+   IF ValType( aWhen ) == "A"
 
       IF Len( aWhen ) >= l
 
          FOR x := 1 TO l
 
-            IF ValType( aWhen [x] ) != 'U'
+            IF ValType( aWhen [x] ) != "U"
 
-               ControlName := 'Control_' + AllTrim( Str( x ) )
-               Result := _GetValue ( ControlName , '_Split_1' )
+               ControlName := "Control_" + AllTrim( Str( x ) )
+               Result := _GetValue ( ControlName , "_Split_1" )
 
                mVar := aWhenVarNames [x]
                &mVar := Result
@@ -1838,14 +1838,14 @@ STATIC PROCEDURE _WHENEVAL()
 
          FOR i := 1 TO l
 
-            IF ValType( aWhen [i] ) == 'B'
+            IF ValType( aWhen [i] ) == "B"
 
-               ControlName := 'Control_' + AllTrim( Str( i ) )
+               ControlName := "Control_" + AllTrim( Str( i ) )
 
                IF Eval( aWhen [i] )
-                  _EnableControl ( ControlName , '_Split_1' )
+                  _EnableControl ( ControlName , "_Split_1" )
                ELSE
-                  _DisableControl ( ControlName , '_Split_1' )
+                  _DisableControl ( ControlName , "_Split_1" )
                ENDIF
 
             ENDIF
@@ -1868,10 +1868,10 @@ STATIC FUNCTION _EditRecordOk ( aValid , TmpNames , aValidMessages )
 
    FOR i := 1 TO l
 
-      ControlName := 'Control_' + AllTrim( Str( i ) )
-      aResult [i] := _GetValue ( ControlName , '_Split_1' )
+      ControlName := "Control_" + AllTrim( Str( i ) )
+      aResult [i] := _GetValue ( ControlName , "_Split_1" )
 
-      IF ValType( aValid ) != 'U'
+      IF ValType( aValid ) != "U"
 
          mVar := TmpNames [i]
          &mVar := aResult [i]
@@ -1880,17 +1880,17 @@ STATIC FUNCTION _EditRecordOk ( aValid , TmpNames , aValidMessages )
 
    NEXT i
 
-   IF ValType( aValid ) == 'A'
+   IF ValType( aValid ) == "A"
 
       FOR i := 1 TO l
 
-         IF ValType( aValid [i] ) == 'B'
+         IF ValType( aValid [i] ) == "B"
 
             IF ! Eval( aValid [i] )
 
-               IF ValType( aValidMessages ) == 'A'
+               IF ValType( aValidMessages ) == "A"
 
-                  IF ValType( aValidMessages [i] ) != 'U'
+                  IF ValType( aValidMessages [i] ) != "U"
 
                      MsgAlert ( aValidMessages[i], _HMG_BRWLangError[10] )
 
@@ -1906,7 +1906,7 @@ STATIC FUNCTION _EditRecordOk ( aValid , TmpNames , aValidMessages )
 
                ENDIF
 
-               _SetFocus ( 'Control_' + hb_ntos( i ) , '_Split_1' )
+               _SetFocus ( "Control_" + hb_ntos( i ) , "_Split_1" )
 
                RETURN Nil
 
@@ -1936,22 +1936,22 @@ RETURN Nil
 STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock , append , aInputItems )
 *-----------------------------------------------------------------------------*
    LOCAL GridCol , GridRow , i , nrec , _GridWorkArea , BackArea , BackRec
-   LOCAL _GridFields , FieldName , CellData := '' , CellColIndex
+   LOCAL _GridFields , FieldName , CellData := "" , CellColIndex
    LOCAL aStruct , Width , Decimals , sFieldname , ControlType
    LOCAL Ldelta := 0 , aTemp , E , r , p , lInputItems := .F. , aItems := {} , aValues := {}
    LOCAL aEnabledTypes := { "N", "C", "D", "L", "M" }
    LOCAL aInputMask
 
-   IF _HMG_ThisEventType == 'BROWSE_WHEN'
+   IF _HMG_ThisEventType == "BROWSE_WHEN"
       MsgMiniGuiError( "BROWSE: Editing within WHEN event procedure is not allowed." )
 
-   ELSEIF _HMG_ThisEventType == 'BROWSE_VALID'
+   ELSEIF _HMG_ThisEventType == "BROWSE_VALID"
       MsgMiniGuiError( "BROWSE: Editing within VALID event procedure is not allowed." )
    ENDIF
 
    IF append
       i := AScan( _HMG_aControlHandles , GridHandle )
-      _BrowseInPlaceAppend ( '' , '' , i )
+      _BrowseInPlaceAppend ( "" , "" , i )
       RETURN Nil
    ENDIF
 
@@ -1978,11 +1978,11 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
 
    aInputMask := _HMG_aControlMiscData1 [ i ] [ 22 ]
 
-   IF ValType( aInputItems ) == 'A'
+   IF ValType( aInputItems ) == "A"
 
       IF Len( aInputItems ) >= CellColIndex
 
-         IF ValType( aInputItems [ CellColIndex ] ) == 'A'
+         IF ValType( aInputItems [ CellColIndex ] ) == "A"
             lInputItems := .T.
          ENDIF
 
@@ -1990,7 +1990,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
 
    ENDIF
 
-   IF ValType( aReadOnly ) == 'A'
+   IF ValType( aReadOnly ) == "A"
 
       IF Len( aReadOnly ) >= CellColIndex
 
@@ -2014,7 +2014,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
       RETURN Nil
    ENDIF
 
-   r := hb_UAt ( '>', FieldName )
+   r := hb_UAt ( ">", FieldName )
 
    IF r != 0
       sFieldName := Right ( FieldName, Len( Fieldname ) - r )
@@ -2039,7 +2039,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
    BackRec := RecNo()
 
    IF _GridWorkArea == _HMG_aControlSpacing [i]
-      nRec := _GetValue ( '', '' , i )
+      nRec := _GetValue ( "", "" , i )
       GO nRec
    ENDIF
 
@@ -2064,14 +2064,14 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
 
    aTemp := _HMG_aControlMiscData1 [i] [ 11 ]
 
-   IF ValType( aTemp ) == 'A'
+   IF ValType( aTemp ) == "A"
 
       IF Len( aTemp ) >= Len( _GridFields )
 
-         IF ValType( aTemp [CellColIndex] ) == 'B'
-            _HMG_ThisEventType := 'BROWSE_WHEN'
+         IF ValType( aTemp [CellColIndex] ) == "B"
+            _HMG_ThisEventType := "BROWSE_WHEN"
             E := Eval( aTemp [CellColIndex] )
-            _HMG_ThisEventType := ''
+            _HMG_ThisEventType := ""
             IF ISLOGICAL( E ) .AND. E == .F.
                PlayHand()
                // Restore Original Record Pointer
@@ -2112,7 +2112,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
 
    IF lInputItems == .T.
 
-      ControlType := 'X'
+      ControlType := "X"
       Ldelta := 1
 
    ELSE
@@ -2120,17 +2120,17 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
       p := Type ( FieldName )
       SWITCH p
 
-      CASE 'C'
-      CASE 'D'
-      CASE 'M'
+      CASE "C"
+      CASE "D"
+      CASE "M"
          ControlType := p
          EXIT
-      CASE 'L'
+      CASE "L"
          ControlType := p
          Ldelta := 1
          EXIT
-      CASE 'N'
-         ControlType := IFEMPTY( Decimals, 'I', 'F' )
+      CASE "N"
+         ControlType := IFEMPTY( Decimals, "I", "F" )
 
       END SWITCH
 
@@ -2138,9 +2138,9 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
 
    _HMG_InplaceParentHandle := iif( _HMG_BeginWindowMDIActive, GetActiveMdiHandle(), GetActiveWindow() )
 
-   IF ControlType == 'M'
+   IF ControlType == "M"
 
-      r := InputBox ( '' , _HMG_aControlCaption [i][CellColIndex] , StrTran( CellData, Chr( 141 ), ' ' ) , , , .T. )
+      r := InputBox ( "" , _HMG_aControlCaption [i][CellColIndex] , StrTran( CellData, Chr( 141 ), " " ) , , , .T. )
 
       IF _HMG_DialogCancelled == .F.
          Replace &FieldName WITH r
@@ -2163,13 +2163,13 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
          NOCAPTION ;
          NOSIZE
 
-      ON KEY CONTROL + U ACTION iif( _IsWindowActive( '_InPlaceEdit' ), ;
-         _InPlaceEdit.Control_1.Value := iif( ControlType == 'L', iif( CellData , 1 , 2 ), CellData ), NIL )
-      ON KEY RETURN ACTION iif( _IsWindowActive( '_InPlaceEdit' ), ;
+      ON KEY CONTROL + U ACTION iif( _IsWindowActive( "_InPlaceEdit" ), ;
+         _InPlaceEdit.Control_1.Value := iif( ControlType == "L", iif( CellData , 1 , 2 ), CellData ), NIL )
+      ON KEY RETURN ACTION iif( _IsWindowActive( "_InPlaceEdit" ), ;
          _InPlaceEditOk ( i , _InPlaceEdit.Control_1.Value , aValid , CellColIndex , ;
          sFieldName , _GridWorkArea , aValidMessages , lock , ControlType , aInputItems ), NIL )
       ON KEY ESCAPE ACTION ( _HMG_IPE_CANCELLED := .T. , iif( lock == .T. , dbUnlock(), NIL ) , ;
-         iif( _IsWindowActive( '_InPlaceEdit' ), _InPlaceEdit.Release, NIL ) )
+         iif( _IsWindowActive( "_InPlaceEdit" ), _InPlaceEdit.Release, NIL ) )
 
       IF lInputItems == .T.
 
@@ -2190,7 +2190,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
            FONTSIZE _hmg_aControlFontSize [i]
          END COMBOBOX
 
-      ELSEIF ControlType == 'C'
+      ELSEIF ControlType == "C"
 
          CellData := RTrim( CellData )
 
@@ -2201,9 +2201,9 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
            HEIGHT This.CellHeight + 6
            VALUE CellData
            MAXLENGTH Width
-           IF VALTYPE( AINPUTMASK ) == 'A'
+           IF VALTYPE( AINPUTMASK ) == "A"
               IF LEN( AINPUTMASK ) >= CellColIndex
-                 IF VALTYPE( AINPUTMASK [CellColIndex] ) == 'C' .AND. ! EMPTY( AINPUTMASK [CellColIndex] )
+                 IF VALTYPE( AINPUTMASK [CellColIndex] ) == "C" .AND. ! EMPTY( AINPUTMASK [CellColIndex] )
                     INPUTMASK AINPUTMASK [CellColIndex]
                  ENDIF
               ENDIF
@@ -2212,7 +2212,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
            FONTSIZE _hmg_aControlFontSize [i]
          END TEXTBOX
 
-      ELSEIF ControlType == 'D'
+      ELSEIF ControlType == "D"
 
          DEFINE DATEPICKER Control_1
            ROW 0
@@ -2226,19 +2226,19 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
            FONTSIZE _hmg_aControlFontSize [i]
          END DATEPICKER
 
-      ELSEIF ControlType == 'L'
+      ELSEIF ControlType == "L"
 
          DEFINE COMBOBOX Control_1
            ROW 0
            COL 0
-           ITEMS { '.T.', '.F.' }
+           ITEMS { ".T.", ".F." }
            WIDTH This.CellWidth
            VALUE iif( CellData , 1 , 2 )
            FONTNAME _hmg_aControlFontName [i]
            FONTSIZE _hmg_aControlFontSize [i]
          END COMBOBOX
 
-      ELSEIF ControlType == 'I'
+      ELSEIF ControlType == "I"
 
          DEFINE TEXTBOX Control_1
            ROW 0
@@ -2247,9 +2247,9 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
            WIDTH This.CellWidth
            HEIGHT This.CellHeight + 6
            VALUE CellData
-           IF VALTYPE( AINPUTMASK ) == 'A'
+           IF VALTYPE( AINPUTMASK ) == "A"
               IF LEN( AINPUTMASK ) >= CellColIndex
-                 IF VALTYPE( AINPUTMASK [CellColIndex] ) == 'C' .AND. ! EMPTY( AINPUTMASK [CellColIndex] )
+                 IF VALTYPE( AINPUTMASK [CellColIndex] ) == "C" .AND. ! EMPTY( AINPUTMASK [CellColIndex] )
                     INPUTMASK AINPUTMASK [CellColIndex]
                  ELSE
                     MAXLENGTH Width
@@ -2264,24 +2264,24 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
            FONTSIZE _hmg_aControlFontSize [i]
          END TEXTBOX
 
-      ELSEIF ControlType == 'F'
+      ELSEIF ControlType == "F"
 
          DEFINE TEXTBOX Control_1
            ROW 0
            COL 0
            NUMERIC   .T.
-           IF VALTYPE( AINPUTMASK ) == 'A'
+           IF VALTYPE( AINPUTMASK ) == "A"
               IF LEN( AINPUTMASK ) >= CellColIndex
-                 IF VALTYPE( AINPUTMASK [CellColIndex] ) == 'C' .AND. ! EMPTY( AINPUTMASK [CellColIndex] )
+                 IF VALTYPE( AINPUTMASK [CellColIndex] ) == "C" .AND. ! EMPTY( AINPUTMASK [CellColIndex] )
                     INPUTMASK AINPUTMASK [CellColIndex]
                  ELSE
-                    INPUTMASK Replicate ( '9', Width - Decimals - 1 ) + '.' + Replicate ( '9', Decimals )
+                    INPUTMASK Replicate ( "9", Width - Decimals - 1 ) + "." + Replicate ( "9", Decimals )
                  ENDIF
               ELSE
-                 INPUTMASK Replicate ( '9', Width - Decimals - 1 ) + '.' + Replicate ( '9', Decimals )
+                 INPUTMASK Replicate ( "9", Width - Decimals - 1 ) + "." + Replicate ( "9", Decimals )
               ENDIF
            ELSE
-              INPUTMASK Replicate ( '9', Width - Decimals - 1 ) + '.' + Replicate ( '9', Decimals )
+              INPUTMASK Replicate ( "9", Width - Decimals - 1 ) + "." + Replicate ( "9", Decimals )
            ENDIF
            WIDTH This.CellWidth
            HEIGHT This.CellHeight + 6
@@ -2294,7 +2294,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
 
       END WINDOW
 
-      _SetFocus ( 'Control_1' , '_InPlaceEdit' )
+      _SetFocus ( "Control_1" , "_InPlaceEdit" )
 
       ACTIVATE WINDOW _InPlaceEdit
 
@@ -2321,11 +2321,11 @@ STATIC PROCEDURE _InPlaceEditOk ( i , r , aValid , CellColIndex , sFieldName , A
    LOCAL b
    LOCAL Result
 
-   IF ControlType == 'X' .Or. ControlType == 'L'
+   IF ControlType == "X" .Or. ControlType == "L"
 
-      IF SendMessage ( GetControlHandle ( 'Control_1' , '_InPlaceEdit' ) , CB_GETDROPPEDSTATE , 0 , 0 ) == 1
+      IF SendMessage ( GetControlHandle ( "Control_1" , "_InPlaceEdit" ) , CB_GETDROPPEDSTATE , 0 , 0 ) == 1
 
-         SendMessage ( GetControlHandle ( 'Control_1' , '_InPlaceEdit' ) , CB_SHOWDROPDOWN , 0 , 0 )
+         SendMessage ( GetControlHandle ( "Control_1" , "_InPlaceEdit" ) , CB_SHOWDROPDOWN , 0 , 0 )
          InsertReturn()
          RETURN
 
@@ -2333,43 +2333,43 @@ STATIC PROCEDURE _InPlaceEditOk ( i , r , aValid , CellColIndex , sFieldName , A
 
    ENDIF
 
-   IF ValType( aValid ) == 'A'
+   IF ValType( aValid ) == "A"
 
       IF Len( aValid ) >= CellColIndex
 
          IF aValid [ CellColIndex ] != Nil
 
-            Result := _GetValue ( 'Control_1' , '_InPlaceEdit' )
+            Result := _GetValue ( "Control_1" , "_InPlaceEdit" )
 
-            IF ControlType == 'L'
+            IF ControlType == "L"
                Result := ( Result == 1 )
-            ELSEIF ControlType == 'X'
+            ELSEIF ControlType == "X"
                Result := aInputItems [ CellColIndex ] [ r ] [ 2 ]
             ENDIF
 
-            TmpName := 'MemVar' + AreaName + sFieldname
+            TmpName := "MemVar" + AreaName + sFieldname
             mVar    := TmpName
             &mVar   := Result
 
-            _HMG_ThisEventType := 'BROWSE_VALID'
+            _HMG_ThisEventType := "BROWSE_VALID"
 
             b := Eval( aValid [ CellColIndex ] )
 
-            _HMG_ThisEventType := ''
+            _HMG_ThisEventType := ""
 
             IF ISLOGICAL( b ) .AND. b == .F.
 
-               IF ValType( aValidMessages ) == 'A'
+               IF ValType( aValidMessages ) == "A"
 
                   IF Len( aValidMessages ) >= CellColIndex
 
                      IF aValidMessages [CellColIndex] != Nil
 
-                        IF ValType( aValidMessages [CellColIndex] ) == 'C'
+                        IF ValType( aValidMessages [CellColIndex] ) == "C"
 
                            MsgAlert ( aValidMessages [CellColIndex], _HMG_BRWLangError[10] )
 
-                        ELSEIF ValType( aValidMessages [CellColIndex] ) == 'B'
+                        ELSEIF ValType( aValidMessages [CellColIndex] ) == "B"
 
                            Eval( aValidMessages [ CellColIndex ], Result )
 
@@ -2432,9 +2432,9 @@ STATIC PROCEDURE _InPlaceEditSave ( i , FieldName , Alias , r , lock , ControlTy
 
    IF ISNUMERIC( r )
 
-      IF ControlType == 'L'
+      IF ControlType == "L"
          r := ( r == 1 )
-      ELSEIF ControlType == 'X'
+      ELSEIF ControlType == "X"
          r := aInputItems [ CellColIndex ] [ r ] [ 2 ]
       ENDIF
 
@@ -2447,7 +2447,7 @@ STATIC PROCEDURE _InPlaceEditSave ( i , FieldName , Alias , r , lock , ControlTy
       ( Alias )->( dbRUnlock() )
    ENDIF
 
-   _BrowseRefresh ( '' , '' , i )
+   _BrowseRefresh ( "" , "" , i )
 
    _InPlaceEdit.Release
 
@@ -2514,7 +2514,7 @@ PROCEDURE ProcessInPlaceKbdEdit( i )
       _BrowseEdit ( _hmg_acontrolhandles [i] , _HMG_acontrolmiscdata1 [i] [4] , _HMG_acontrolmiscdata1 [i] [5] , _HMG_acontrolmiscdata1 [i] [3] , _HMG_aControlInputMask [i] , .F. , _HMG_aControlFontColor [i] , _HMG_acontrolmiscdata1 [i] [13] )
 
       _HMG_ThisIndex := 0
-      _HMG_ThisType := ''
+      _HMG_ThisType := ""
 
       _HMG_ThisItemRowIndex := 0
       _HMG_ThisItemColIndex := 0
@@ -2568,7 +2568,7 @@ STATIC PROCEDURE _BrowseSync ( i )
    Select &_BrowseArea
    _RecNo := RecNo()
 
-   _CurrentValue := _BrowseGetValue ( '' , '' , i )
+   _CurrentValue := _BrowseGetValue ( "" , "" , i )
 
    IF _RecNo != _CurrentValue
       GO _CurrentValue
@@ -2616,7 +2616,7 @@ STATIC PROCEDURE _BrowseInPlaceAppend ( ControlName , ParentForm , z )
    IF LISTVIEWGETITEMCOUNT( _HMG_aControlhandles [i] ) != 0
       _BrowseVscrollUpdate( i )
       Skip - LISTVIEWGETCOUNTPERPAGE ( _HMG_aControlhandles [i] ) + 2
-      _BrowseUpdate( '' , '' , i )
+      _BrowseUpdate( "" , "" , i )
    ENDIF
 
    NetAppend()
@@ -2626,7 +2626,7 @@ STATIC PROCEDURE _BrowseInPlaceAppend ( ControlName , ParentForm , z )
 
    IF ! NetError()
       aTemp := Array( Len( _HMG_aControlRangeMin [i] ) )
-      AFill( aTemp , '' )
+      AFill( aTemp , "" )
       AAdd( _HMG_aControlRangeMax [i] , _NewRec )
 
       AddListViewItems ( _HMG_aControlHandles [i] , aTemp , 0 )
@@ -2706,7 +2706,7 @@ FUNCTION _SetGetBrowseProperty ( ControlName, ParentForm, nId, Value )
    LOCAL i := GetControlIndex ( ControlName, ParentForm )
    LOCAL RetVal := .T.
 
-   IF i > 0 .AND. _HMG_aControlType [i] == 'BROWSE'
+   IF i > 0 .AND. _HMG_aControlType [i] == "BROWSE"
 
       IF PCount() > 3
          _HMG_aControlMiscData1 [ i ] [ nId ] := Value

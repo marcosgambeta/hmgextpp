@@ -86,11 +86,11 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
-   IF ValType( Field ) != 'U'
-      IF hb_UAt ( '>', Field ) == 0
+   IF ValType( Field ) != "U"
+      IF hb_UAt ( ">", Field ) == 0
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name." )
       ELSE
-         WorkArea := hb_ULeft ( Field , hb_UAt ( '>', Field ) - 2 )
+         WorkArea := hb_ULeft ( Field , hb_UAt ( ">", Field ) - 2 )
          IF Select ( WorkArea ) != 0
             lChecked := &( Field )
          ENDIF
@@ -124,13 +124,13 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
       Caption := cValToChar ( Caption )
    ENDIF
 
-   IF ValType( aBitmap ) != 'A'
+   IF ValType( aBitmap ) != "A"
       cBmp := aBitmap
       aBitmap := Array( 2 )
       aBitmap[ 1 ] := iif( Empty( cBmp ), GetCheckBmp(), cBmp )
    ENDIF
 
-   mVar := '_' + ParentFormName + '_' + ControlName
+   mVar := "_" + ParentFormName + "_" + ControlName
    k := _GetControlFree()
 
    IF _HMG_BeginDialogActive
@@ -169,7 +169,7 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
 
       IF lDialogInMemory         //Dialog Template
 
-         //          {{'ID',k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
+         //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {|x, y, z| InitDialogLabel( x, y, z ) }
          AAdd( _HMG_aDialogItems, { nId, k, "static", style, 0, x, y, w, h, caption, HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage } )
 
@@ -207,7 +207,7 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
 
       ParentFormHandle := GetFormHandle ( ParentFormName )
 
-      Controlhandle := InitChkLabel ( ParentFormHandle, Caption, 0, x, y, w, h, '', 0, ;
+      Controlhandle := InitChkLabel ( ParentFormHandle, Caption, 0, x, y, w, h, "", 0, ;
          ( ValType( mouseover ) == "B" .OR. ValType( mouseleave ) == "B" ) , border , clientedge , ;
          HSCROLL , VSCROLL , TRANSPARENT , invisible , rightalign , centeralign, ;
          abitmap[ 1 ], abitmap[ 2 ], leftcheck, lChecked , VCenterAlign )
@@ -279,10 +279,10 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
    _HMG_aControlBrushHandle   [k] :=  0
    _HMG_aControlEnabled   [k] :=  .T.
    _HMG_aControlMiscData1 [k] :=  { 0, blink, .T. }
-   _HMG_aControlMiscData2 [k] :=  ''
+   _HMG_aControlMiscData2 [k] :=  ""
 
    IF blink == .T. .AND. .NOT. lDialogInMemory
-      _DefineTimer ( 'BlinkTimer' + hb_ntos( k ) , ParentFormName , 500 , {|| _HMG_aControlMiscData1 [k] [3] := ! _HMG_aControlMiscData1 [k] [3], ;
+      _DefineTimer ( "BlinkTimer" + hb_ntos( k ) , ParentFormName , 500 , {|| _HMG_aControlMiscData1 [k] [3] := ! _HMG_aControlMiscData1 [k] [3], ;
          iif( _HMG_aControlMiscData1 [k] [3] == .T. , _ShowControl ( ControlName , ParentFormName ), _HideControl ( ControlName , ParentFormName ) ) } )
    ENDIF
 
@@ -293,7 +293,7 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
       RedrawWindow ( ControlHandle )
    ENDIF
 
-   IF ValType( Field ) != 'U'
+   IF ValType( Field ) != "U"
       AAdd( _HMG_aFormBrowseList [ GetFormIndex ( ParentFormName ) ] , k )
    ENDIF
 /*
@@ -341,13 +341,13 @@ STATIC FUNCTION GetCheckBmp()
    ENDIF
 
    IF ( nHandle := FCreate( cBmpFile ) ) < 0
-      RETURN ''
+      RETURN ""
    ENDIF
 
    nWrite := Len( cBmp )
 
    IF FWrite( nHandle, cBmp, nWrite ) < nWrite
-      cBmpFile := ''
+      cBmpFile := ""
    ENDIF
 
    FClose( nHandle )

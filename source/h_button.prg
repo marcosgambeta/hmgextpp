@@ -93,7 +93,7 @@ FUNCTION _DefineButton ( ControlName, ParentFormName, x, y, Caption, ;
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " Already defined." )
    ENDIF
 
-   mVar := '_' + ParentFormName + '_' + ControlName
+   mVar := "_" + ParentFormName + "_" + ControlName
    k := _GetControlFree()
 
    IF _HMG_BeginDialogActive
@@ -113,7 +113,7 @@ FUNCTION _DefineButton ( ControlName, ParentFormName, x, y, Caption, ;
 
       IF lDialogInMemory         //Dialog Template
 
-         //           {{'ID',k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
+         //           {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {|x, y, z| InitDialogButtonImage( x, y, z ) }
          AAdd( _HMG_aDialogItems, { nId, k, "button", style, 0, x, y, w, h, caption, HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage } )
 
@@ -147,7 +147,7 @@ FUNCTION _DefineButton ( ControlName, ParentFormName, x, y, Caption, ;
 
       ParentFormHandle := GetFormHandle ( ParentFormName )
 
-      ControlHandle := InitButton ( ParentFormHandle, Caption, 0, x, y, w, h, '', 0, flat, NoTabStop, invisible, multiline, default )
+      ControlHandle := InitButton ( ParentFormHandle, Caption, 0, x, y, w, h, "", 0, flat, NoTabStop, invisible, multiline, default )
 
    ENDIF
 
@@ -210,7 +210,7 @@ FUNCTION _DefineButton ( ControlName, ParentFormName, x, y, Caption, ;
    _HMG_aControlBrushHandle [k] := 0
    _HMG_aControlEnabled [k] := .T.
    _HMG_aControlMiscData1 [k] := 0
-   _HMG_aControlMiscData2 [k] := ''
+   _HMG_aControlMiscData2 [k] := ""
 
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
@@ -280,7 +280,7 @@ FUNCTION _DefineImageButton ( ControlName, ParentFormName, x, y, Caption, ;
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + ". Either bitmap or icon must be specified." )
    ENDIF
 
-   mVar := '_' + ParentFormName + '_' + ControlName
+   mVar := "_" + ParentFormName + "_" + ControlName
    k := _GetControlFree()
 
    cPicture := IFEMPTY( icon, image, icon )
@@ -305,7 +305,7 @@ FUNCTION _DefineImageButton ( ControlName, ParentFormName, x, y, Caption, ;
 
       IF lDialogInMemory         //Dialog Template
 
-         //          {{'ID',k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,ToolTip,FontName,FontSize,bold,italic,,}}  --->_HMG_aDialogItems
+         //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,ToolTip,FontName,FontSize,bold,italic,,}}  --->_HMG_aDialogItems
          blInit := {|x, y, z| InitDialogButtonImage( x, y, z ) }
          AAdd( _HMG_aDialogItems, { nId, k, "button", style, 0, x, y, w, h, caption, HelpId, tooltip, , , , , , , blInit, _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage } )
 
@@ -367,7 +367,7 @@ FUNCTION _DefineImageButton ( ControlName, ParentFormName, x, y, Caption, ;
    _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
    _HMG_aControlPicture [k] :=   cPicture
    _HMG_aControlContainerHandle [k] :=   0
-   _HMG_aControlFontName [k] :=   ''
+   _HMG_aControlFontName [k] :=   ""
    _HMG_aControlFontSize [k] :=   0
    _HMG_aControlFontAttributes [k] :=   { .F. , .F. , .F. , .F. }
    _HMG_aControlToolTip [k] :=    tooltip
@@ -380,7 +380,7 @@ FUNCTION _DefineImageButton ( ControlName, ParentFormName, x, y, Caption, ;
    _HMG_aControlBrushHandle [k] := nhImage
    _HMG_aControlEnabled [k] :=   .T.
    _HMG_aControlMiscData1 [k] := IFEMPTY( icon, 0, 1 )  // 0 - bitmap  1 - icon
-   _HMG_aControlMiscData2 [k] := ''
+   _HMG_aControlMiscData2 [k] := ""
 
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
@@ -408,7 +408,7 @@ FUNCTION InitDialogButtonImage( ParentFormName, ControlHandle, k )
    LOCAL image
 
    image := _HMG_aControlPicture  [k]
-   IF !Empty( image ) .AND. ValType( ParentFormName ) <> 'U'
+   IF !Empty( image ) .AND. ValType( ParentFormName ) <> "U"
       _SetBtnPicture( ControlHandle, image )
    ENDIF
 // JP 62

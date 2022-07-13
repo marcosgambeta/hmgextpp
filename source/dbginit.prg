@@ -12,7 +12,7 @@
 INIT PROCEDURE _DbgInit
 
    LOCAL cIniCont
-   LOCAL cIniFile := 'init.mgd'
+   LOCAL cIniFile := "init.mgd"
    LOCAL cLine
    LOCAL nCols    := 0
    LOCAL nLine
@@ -26,13 +26,13 @@ INIT PROCEDURE _DbgInit
       nLines   := MLCount( cIniCont, nLineLen )
       FOR nLine := 1 TO nLines
          cLine := Upper( AllTrim( MemoLine( cIniCont, nLineLen, nLine ) ) )
-         IF Left( cLine, 7 ) == 'SCREEN '
-            nPos  := At( ' ', cLine )
+         IF Left( cLine, 7 ) == "SCREEN "
+            nPos  := At( " ", cLine )
             cLine := AllTrim( SubStr( cLine, nPos + 1 ) )
-            IF Left( cLine, 5 ) == 'SIZE '
-               nPos  := At( ' ', cLine )
+            IF Left( cLine, 5 ) == "SIZE "
+               nPos  := At( " ", cLine )
                cLine := AllTrim( SubStr( cLine, nPos + 1 ) )
-               IF ' ' $ cLine
+               IF " " $ cLine
                   nRows := Max( Val( AllTrim( Left( cLine, nPos - 1 ) ) ), 25 )
                   nCols := Max( Val( AllTrim( SubStr( cLine, nPos + 1 ) ) ), 80 )
                ENDIF

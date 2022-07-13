@@ -84,7 +84,7 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
          AEval( arows, { |x, y| HB_SYMBOL_UNUSED( x ), nPos := y, AAdd( aChkItem, iif( AScan( aCheck, { |z| z == nPos } ) > 0, 2, 1) ) } )
       ELSE
          AEval( arows, { |x| AAdd( rows, x[1] ) } )
-         AEval( arows, { |x, y| nPos := y, AAdd( aChkItem, iif( ValType( x[2] ) == 'L' .AND. x[2] .OR. AScan( aCheck, { |z| z == nPos } ) > 0, 2, 1) ) } )
+         AEval( arows, { |x, y| nPos := y, AAdd( aChkItem, iif( ValType( x[2] ) == "L" .AND. x[2] .OR. AScan( aCheck, { |z| z == nPos } ) > 0, 2, 1) ) } )
       ENDIF
    ENDIF
 
@@ -109,7 +109,7 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " Already defined." )
    ENDIF
 
-   mVar := '_' + ParentFormName + '_' + ControlName
+   mVar := "_" + ParentFormName + "_" + ControlName
    k := _GetControlFree()
 
    IF _HMG_BeginDialogActive
@@ -137,7 +137,7 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
 
       IF lDialogInMemory         //Dialog Template
 
-         //          {{'ID',k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
+         //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {|x, y, z| InitDialogChkListBox( x, y, z ) }
          AAdd( _HMG_aDialogItems, { nId, k, "LISTBOX", style, 0, x, y, w, h, "", HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage } )
 
@@ -171,7 +171,7 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
             IF multiselect
                ControlHandle := InitMultiChkListBox ( _HMG_aFormReBarHandle [i], 0, x, y, w, h, fontname, fontsize, invisible, notabstop, sort, nItemHeight )
             ELSE
-               ControlHandle := InitChkListBox ( _HMG_aFormReBarHandle [i] , 0 , 0 , 0 , w , h , '' , 0 , invisible , notabstop, sort, nItemHeight )
+               ControlHandle := InitChkListBox ( _HMG_aFormReBarHandle [i] , 0 , 0 , 0 , w , h , "" , 0 , invisible , notabstop, sort, nItemHeight )
             ENDIF
 
             AddSplitBoxItem ( Controlhandle , _HMG_aFormReBarHandle [i] , w , break , , , , _HMG_ActiveSplitBoxInverted )
@@ -185,7 +185,7 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
          IF multiselect
             ControlHandle := InitMultiChkListBox ( ParentFormHandle, 0, x, y, w, h, fontname, fontsize, invisible, notabstop, sort, nItemHeight )
          ELSE
-            ControlHandle := InitChkListBox ( ParentFormHandle , 0 , x , y , w , h , '' , 0 , invisible, notabstop, sort, nItemHeight )
+            ControlHandle := InitChkListBox ( ParentFormHandle , 0 , x , y , w , h , "" , 0 , invisible, notabstop, sort, nItemHeight )
          ENDIF
 
       ENDIF
@@ -258,8 +258,8 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
    _HMG_aControlFontHandle  [k] :=   FontHandle
    _HMG_aControlBrushHandle  [k] :=  0
    _HMG_aControlEnabled  [k] :=  .T.
-   _HMG_aControlMiscData1 [k] := ''
-   _HMG_aControlMiscData2 [k] := ''
+   _HMG_aControlMiscData1 [k] := ""
+   _HMG_aControlMiscData2 [k] := ""
 
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )

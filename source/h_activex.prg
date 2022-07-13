@@ -57,8 +57,8 @@ ANNOUNCE CLASS_TACTIVEX
 INIT PROCEDURE _InitActiveX
 *-----------------------------------------------------------------------------*
 
-   InstallMethodHandler ( 'Release', 'ReleaseActiveX' )
-   InstallPropertyHandler ( 'XObject', 'SetActiveXObject', 'GetActiveXObject' )
+   InstallMethodHandler ( "Release", "ReleaseActiveX" )
+   InstallPropertyHandler ( "XObject", "SetActiveXObject", "GetActiveXObject" )
 
 RETURN
 
@@ -101,7 +101,7 @@ PROCEDURE _DefineActivex ( cControlName, cParentForm, nRow, nCol, nWidth, nHeigh
    ENDIF
 
    // Define public variable associated with control
-   mVar := '_' + cParentForm + '_' + cControlName
+   mVar := "_" + cParentForm + "_" + cControlName
 
    // Init ActiveX object
 
@@ -167,17 +167,17 @@ PROCEDURE _DefineActivex ( cControlName, cParentForm, nRow, nCol, nWidth, nHeigh
    _HMG_aControlFontName[ k ] :=  Nil
    _HMG_aControlFontSize[ k ] :=  Nil
    _HMG_aControlFontAttributes[ k ] :=  {}
-   _HMG_aControlToolTip[ k ] :=  ''
+   _HMG_aControlToolTip[ k ] :=  ""
    _HMG_aControlRangeMin[ k ] :=  0
    _HMG_aControlRangeMax[ k ] :=  0
-   _HMG_aControlCaption[ k ] :=   ''
+   _HMG_aControlCaption[ k ] :=   ""
    _HMG_aControlVisible[ k ] :=  .T.
    _HMG_aControlHelpId[ k ] :=  nAtlDllHandle
    _HMG_aControlFontHandle[ k ] :=  Nil
    _HMG_aControlBrushHandle[ k ] :=  0
    _HMG_aControlEnabled[ k ] :=  .T.
    _HMG_aControlMiscData1[ k ] := oOle
-   _HMG_aControlMiscData2[ k ] := ''
+   _HMG_aControlMiscData2[ k ] := ""
 
 RETURN
 
@@ -186,7 +186,7 @@ PROCEDURE ReleaseActiveX ( cWindow, cControl )
 *-----------------------------------------------------------------------------*
    LOCAL oActiveX
 
-   IF _IsControlDefined ( cControl, cWindow ) .AND. GetControlType ( cControl, cWindow ) == 'ACTIVEX'
+   IF _IsControlDefined ( cControl, cWindow ) .AND. GetControlType ( cControl, cWindow ) == "ACTIVEX"
 
       oActiveX := _HMG_aControlIds[ GetControlIndex ( cControl, cWindow ) ]
 
@@ -208,9 +208,9 @@ RETURN
 FUNCTION SetActiveXObject ( cWindow, cControl )
 *-----------------------------------------------------------------------------*
 
-   IF GetControlType ( cControl, cWindow ) == 'ACTIVEX'
+   IF GetControlType ( cControl, cWindow ) == "ACTIVEX"
 
-      MsgExclamation ( 'This Property is Read Only!', 'Warning' )
+      MsgExclamation ( "This Property is Read Only!", "Warning" )
 
       _HMG_UserComponentProcess := .T.
 
@@ -227,7 +227,7 @@ FUNCTION GetActiveXObject ( cWindow, cControl )
 *-----------------------------------------------------------------------------*
    LOCAL RetVal
 
-   IF GetControlType ( cControl, cWindow ) == 'ACTIVEX'
+   IF GetControlType ( cControl, cWindow ) == "ACTIVEX"
 
       _HMG_UserComponentProcess := .T.
 

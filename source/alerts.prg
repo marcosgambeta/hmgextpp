@@ -10,7 +10,7 @@
 *-----------------------------------------------------------------------------*
 FUNCTION AlertYesNo ( Message, Title, RevertDefault, Icon, nSize, aColors, lTopMost, bInit )
 *-----------------------------------------------------------------------------*
-   LOCAL aOptions := { '&' + _HMG_aABMLangLabel [20], '&' + _HMG_aABMLangLabel [21] }
+   LOCAL aOptions := { "&" + _HMG_aABMLangLabel [20], "&" + _HMG_aABMLangLabel [21] }
    LOCAL nDefaultButton := 1
 
    IF hb_defaultValue( RevertDefault, .F. )
@@ -22,7 +22,7 @@ RETURN ( _Alert( Message, aOptions, Title, , nDefaultButton, Icon, nSize, aColor
 *-----------------------------------------------------------------------------*
 FUNCTION AlertYesNoCancel ( Message, Title, nDefaultButton, Icon, nSize, aColors, lTopMost, bInit )
 *-----------------------------------------------------------------------------*
-   LOCAL aOptions := { '&' + _HMG_aABMLangLabel [20], '&' + _HMG_aABMLangLabel [21], '&' + _HMG_aABMLangButton [13] }
+   LOCAL aOptions := { "&" + _HMG_aABMLangLabel [20], "&" + _HMG_aABMLangLabel [21], "&" + _HMG_aABMLangButton [13] }
 
    SWITCH _Alert( Message, aOptions, Title, , hb_defaultValue( nDefaultButton, 1 ), Icon, nSize, aColors, lTopMost, bInit, .T. )
 
@@ -108,7 +108,7 @@ STATIC FUNCTION _Alert ( cMsg, aOptions, cTitle, nType, nDefault, xIcon, nSize, 
       bInit := {|| This.TopMost := .T. }
    ENDIF
 
-   IF AScan( _HMG_aFormType, 'A' ) == 0
+   IF AScan( _HMG_aFormType, "A" ) == 0
       _HMG_MainWindowFirst := .F.
    ENDIF
 

@@ -106,19 +106,19 @@ STATIC FUNCTION DefError( oError )
    HtmArch := Html_ErrorLog()
    cText   := ErrorMessage( oError )
 
-   Html_RawText( HtmArch, '<div class="record">' )
-   Html_RawText( HtmArch, '<p class="updated">' )
-   Html_LineText( HtmArch, 'Date: <span class="date">' + DToC( Date() ) + '</span> ' + 'Time: <span class="time">' + Time() + '</span>' )
-   Html_LineText( HtmArch, 'Application: ' + GetExeFileName() )
-   Html_LineText( HtmArch, 'User: ' + NetName() + " / " + GetUserName() )
-   Html_LineText( HtmArch, 'Time from start: ' + TimeFromStart() )
-   Html_RawText( HtmArch, '<span class="error">' + cText + '</span>' )
-   Html_RawText( HtmArch, '</p>' )
+   Html_RawText( HtmArch, "<div class='record'>" )
+   Html_RawText( HtmArch, "<p class='updated'>" )
+   Html_LineText( HtmArch, "Date: <span class='date'>" + DToC( Date() ) + "</span> " + "Time: <span class='time'>" + Time() + "</span>" )
+   Html_LineText( HtmArch, "Application: " + GetExeFileName() )
+   Html_LineText( HtmArch, "User: " + NetName() + " / " + GetUserName() )
+   Html_LineText( HtmArch, "Time from start: " + TimeFromStart() )
+   Html_RawText( HtmArch, "<span class='error'>" + cText + "</span>" )
+   Html_RawText( HtmArch, "</p>" )
    cText += CRLF + CRLF
 
    HTML_RawText( HtmArch, "<details><summary>" )
    HTML_RawText( HtmArch, PadC( " Stack Trace ", 79, "-" ) )
-   HTML_RawText( HtmArch, '<br/></summary><span class="stacktrace">' )
+   HTML_RawText( HtmArch, "<br/></summary><span class='stacktrace'>" )
 
    n := 1
    WHILE ! Empty( ProcName( ++n ) )
@@ -137,7 +137,7 @@ STATIC FUNCTION DefError( oError )
    ENDIF
 
    Html_Line( HtmArch )
-   Html_RawText( HtmArch, '</div>' )
+   Html_RawText( HtmArch, "</div>" )
    Html_End( HtmArch )
 
    ShowError( cText, oError )
@@ -222,7 +222,7 @@ STATIC PROCEDURE ShowError( cErrorMessage, oError )
 
       IF ISLOGICAL( _HMG_lOnErrorStop ) .AND. _HMG_lOnErrorStop == .F.
 
-         MsgStop( StrTran( cMsg, ";", CRLF ), 'Program Error', NIL, .F. )
+         MsgStop( StrTran( cMsg, ";", CRLF ), "Program Error", NIL, .F. )
 
       ELSE
 
@@ -232,7 +232,7 @@ STATIC PROCEDURE ShowError( cErrorMessage, oError )
             SetProperty( "oDlg", "Say_02", "FontColor", YELLOW ), ;
             SetProperty( "oDlg", "Say_02", "Alignment", "CENTER" ) ) ) }
 
-         IF AScan( _HMG_aFormType, 'A' ) == 0
+         IF AScan( _HMG_aFormType, "A" ) == 0
             _HMG_MainWindowFirst := .F.
          ENDIF
 

@@ -164,7 +164,7 @@ FUNCTION _DefineOwnerButton ( ControlName, ParentForm, x, y, Caption, ;
       aRGB_font := nRGB2Arr( aRGB_font )
    ENDIF
 
-   mVar := '_' + ParentForm + '_' + ControlName
+   mVar := "_" + ParentForm + "_" + ControlName
 
    cParentForm := ParentForm
 
@@ -244,7 +244,7 @@ FUNCTION _DefineOwnerButton ( ControlName, ParentForm, x, y, Caption, ;
    _HMG_aControlBrushHandle [k] :=  aRet [2]  // handle to an Image (Icon or Bitmap)
    _HMG_aControlEnabled [k]     :=  .T.
    _HMG_aControlMiscData1 [k]   :=  IFEMPTY( icon, 0, 1 )  // 0 - bitmap  1 - icon
-   _HMG_aControlMiscData2 [k]   :=  ''
+   _HMG_aControlMiscData2 [k]   :=  ""
 
    IF ! Empty( _HMG_aControlBrushHandle [k] ) .AND. imagewidth < 0 .AND. imageheight < 0
 

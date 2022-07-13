@@ -121,27 +121,27 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " Already defined." )
    ENDIF
 
-   IF ValType( ItemSource ) != 'U' .AND. Sort == .T.
+   IF ValType( ItemSource ) != "U" .AND. Sort == .T.
       MsgMiniGuiError ( "Sort and ItemSource clauses can't be used simultaneously." )
    ENDIF
 
-   IF ValType( ValueSource ) != 'U' .AND. Sort == .T.
+   IF ValType( ValueSource ) != "U" .AND. Sort == .T.
       MsgMiniGuiError ( "Sort and ValueSource clauses can't be used simultaneously." )
    ENDIF
 
-   IF ValType( itemsource ) != 'U'
-      IF hb_UAt ( '>' , ItemSource ) == 0
+   IF ValType( itemsource ) != "U"
+      IF hb_UAt ( ">" , ItemSource ) == 0
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " (ItemSource): You must specify a fully qualified field name." )
       ELSE
-         WorkArea := hb_ULeft ( ItemSource , hb_UAt ( '>' , ItemSource ) - 2 )
-         cField := hb_URight ( ItemSource , hb_ULen( ItemSource ) - hb_UAt ( '>' , ItemSource ) )
+         WorkArea := hb_ULeft ( ItemSource , hb_UAt ( ">" , ItemSource ) - 2 )
+         cField := hb_URight ( ItemSource , hb_ULen( ItemSource ) - hb_UAt ( ">" , ItemSource ) )
       ENDIF
    ENDIF
 
    hb_default( @value, 0 )
    __defaultNIL( @uEnter, "" )
 
-   mVar := '_' + ParentFormName + '_' + ControlName
+   mVar := "_" + ParentFormName + "_" + ControlName
    k := _GetControlFree()
 
    IF _HMG_BeginDialogActive
@@ -184,7 +184,7 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
 
       IF lDialogInMemory         //Dialog Template
 
-         //          {{'ID',k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
+         //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {|x, y, z| InitDialogComboBox( x, y, z ) }
          AAdd( _HMG_aDialogItems, { nId, k, "COMBOBOX", style, 0, x, y, w, h, "", HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage } )
 
@@ -217,7 +217,7 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
 
       IF ValType( x ) == "U" .OR. ValType( y ) == "U"
 
-         _HMG_SplitLastControl := 'COMBOBOX'
+         _HMG_SplitLastControl := "COMBOBOX"
 
          i := GetFormIndex ( ParentFormName )
 
@@ -316,7 +316,7 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
    _HMG_aControlBrushHandle  [k] :=   0
    _HMG_aControlEnabled  [k] :=   .T.
    _HMG_aControlMiscData1 [k] := { 0, DisplayChange, ItemSource, rows, ListWidth, cuetext, AutoComplete, lShowDropDown, 0, OnCancel, nItemHeight }
-   _HMG_aControlMiscData2 [k] := ''
+   _HMG_aControlMiscData2 [k] := ""
 
    IF Len( _HMG_aDialogTemplate ) == 0
       InitDialogComboBox( ParentFormName, ControlHandle, k )
@@ -411,7 +411,7 @@ FUNCTION InitDialogComboBox( ParentName, ControlHandle, k )
       ComboSetItemHeight ( ControlHandle , ItemHeight )
    ENDIF
 
-   IF ValType( ItemSource ) != 'U'
+   IF ValType( ItemSource ) != "U"
       AAdd( _HMG_aFormBrowseList [ GetFormIndex ( ParentName ) ] , k )
    ENDIF
    // JP 62

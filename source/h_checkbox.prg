@@ -91,11 +91,11 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
-   IF ValType( Field ) != 'U'
-      IF hb_UAt ( '>', Field ) == 0
+   IF ValType( Field ) != "U"
+      IF hb_UAt ( ">", Field ) == 0
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name." )
       ELSE
-         WorkArea := hb_ULeft ( Field , hb_UAt ( '>', Field ) - 2 )
+         WorkArea := hb_ULeft ( Field , hb_UAt ( ">", Field ) - 2 )
          IF Select ( WorkArea ) != 0
             Value := &( Field )
          ENDIF
@@ -134,7 +134,7 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
       ENDIF
    ENDIF
 
-   mVar := '_' + ParentFormName + '_' + ControlName
+   mVar := "_" + ParentFormName + "_" + ControlName
    k := _GetControlFree()
 
    IF _HMG_BeginDialogActive
@@ -157,7 +157,7 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
 
       IF lDialogInMemory         //Dialog Template
 
-         //           {{'ID',k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
+         //           {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {|x, y, z| InitDialogCheckButton( x, y, z ) }
          AAdd( _HMG_aDialogItems, { nId, k, "button", style, 0, x, y, w, h, caption, HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage } )
 
@@ -246,8 +246,8 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
    _HMG_aControlFontSize  [k] :=  fontsize
    _HMG_aControlFontAttributes  [k] :=  { bold, italic, underline, strikeout }
    _HMG_aControlToolTip  [k] :=  tooltip
-   _HMG_aControlRangeMin [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveTabName , '' )
-   _HMG_aControlRangeMax [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameParentFormName [_HMG_FrameLevel] , '' )
+   _HMG_aControlRangeMin [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveTabName , "" )
+   _HMG_aControlRangeMax [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameParentFormName [_HMG_FrameLevel] , "" )
    _HMG_aControlCaption  [k] :=  Caption
    _HMG_aControlVisible  [k] :=  iif( invisible, FALSE, TRUE )
    _HMG_aControlHelpId   [k] :=  HelpId
@@ -255,7 +255,7 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
    _HMG_aControlBrushHandle  [k] :=  0
    _HMG_aControlEnabled   [k] :=  .T.
    _HMG_aControlMiscData1 [k] :=  0
-   _HMG_aControlMiscData2 [k] := ''
+   _HMG_aControlMiscData2 [k] := ""
 
    IF .NOT. lDialogInMemory
       IF threestate .AND. value == NIL
@@ -271,7 +271,7 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
       ENDIF
    ENDIF
 
-   IF ValType( Field ) != 'U'
+   IF ValType( Field ) != "U"
       AAdd( _HMG_aFormBrowseList [ GetFormIndex ( ParentFormName ) ] , k )
    ENDIF
 
@@ -333,7 +333,7 @@ FUNCTION _DefineCheckButton ( ControlName, ParentFormName, x, y, Caption, Value,
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " Already defined." )
    ENDIF
 
-   mVar := '_' + ParentFormName + '_' + ControlName
+   mVar := "_" + ParentFormName + "_" + ControlName
    k := _GetControlFree()
 
    IF _HMG_BeginDialogActive
@@ -373,7 +373,7 @@ FUNCTION _DefineCheckButton ( ControlName, ParentFormName, x, y, Caption, Value,
 
       ParentFormHandle := GetFormHandle ( ParentFormName )
 
-      Controlhandle := InitCheckButton ( ParentFormHandle, Caption, 0, x, y, '', 0, w, h, invisible, notabstop )
+      Controlhandle := InitCheckButton ( ParentFormHandle, Caption, 0, x, y, "", 0, w, h, invisible, notabstop )
 
    ENDIF
 
@@ -444,7 +444,7 @@ FUNCTION _DefineCheckButton ( ControlName, ParentFormName, x, y, Caption, Value,
    _HMG_aControlBrushHandle   [k] :=  0
    _HMG_aControlEnabled  [k] :=  .T.
    _HMG_aControlMiscData1 [k] := 2
-   _HMG_aControlMiscData2 [k] := ''
+   _HMG_aControlMiscData2 [k] := ""
 
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
@@ -464,7 +464,7 @@ FUNCTION InitDialogCheckButton ( ParentName, ControlHandle, k )
    BitMap := _HMG_aControlPicture [k]
    Value := _HMG_aControlValue [k]
    threestate := _HMG_aControlSpacing [k]
-   IF !Empty( BitMap ) .AND. ValType( ParentName ) <> 'U'
+   IF !Empty( BitMap ) .AND. ValType( ParentName ) <> "U"
       _SetBtnPicture( ControlHandle, BitMap )
    ENDIF
    IF value == .T.
@@ -522,7 +522,7 @@ FUNCTION _DefineImageCheckButton ( ControlName, ParentFormName, x, y, BitMap, ;
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " Already defined." )
    ENDIF
 
-   mVar := '_' + ParentFormName + '_' + ControlName
+   mVar := "_" + ParentFormName + "_" + ControlName
    k := _GetControlFree()
 
    IF _HMG_BeginDialogActive
@@ -558,7 +558,7 @@ FUNCTION _DefineImageCheckButton ( ControlName, ParentFormName, x, y, BitMap, ;
 
       ParentFormHandle := GetFormHandle ( ParentFormName )
 
-      aRet := InitImageCheckButton ( ParentFormHandle, "", 0, x, y, '', notrans, bitmap, w, h, invisible, notabstop, _HMG_IsThemed )
+      aRet := InitImageCheckButton ( ParentFormHandle, "", 0, x, y, "", notrans, bitmap, w, h, invisible, notabstop, _HMG_IsThemed )
 
       ControlHandle := aRet[1]
       nhImage := aRet[2]
@@ -614,14 +614,14 @@ FUNCTION _DefineImageCheckButton ( ControlName, ParentFormName, x, y, BitMap, ;
    _HMG_aControlToolTip  [k] :=   tooltip
    _HMG_aControlRangeMin   [k] :=  0
    _HMG_aControlRangeMax   [k] :=  0
-   _HMG_aControlCaption  [k] :=   ''
+   _HMG_aControlCaption  [k] :=   ""
    _HMG_aControlVisible  [k] :=   iif( invisible, FALSE, TRUE )
    _HMG_aControlHelpId  [k] :=   HelpId
    _HMG_aControlFontHandle  [k] :=   0
    _HMG_aControlBrushHandle  [k] :=  nhImage
    _HMG_aControlEnabled  [k] :=  .T.
    _HMG_aControlMiscData1 [k] := 1
-   _HMG_aControlMiscData2 [k] := ''
+   _HMG_aControlMiscData2 [k] := ""
 
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )

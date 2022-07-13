@@ -124,12 +124,12 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentForm + " Already defined." )
    ENDIF
 
-   IF ValType( itemsource ) != 'U'
-      IF  hb_UAt ( '>', ItemSource ) == 0
+   IF ValType( itemsource ) != "U"
+      IF  hb_UAt ( ">", ItemSource ) == 0
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentForm + " (ItemSource): You must specify a fully qualified field name." )
       ELSE
-         WorkArea := hb_ULeft ( ItemSource , hb_UAt ( '>', ItemSource ) - 2 )
-         cField   := hb_URight ( ItemSource , hb_ULen( ItemSource ) - hb_UAt ( '>', ItemSource ) )
+         WorkArea := hb_ULeft ( ItemSource , hb_UAt ( ">", ItemSource ) - 2 )
+         cField   := hb_URight ( ItemSource , hb_ULen( ItemSource ) - hb_UAt ( ">", ItemSource ) )
       ENDIF
    ENDIF
 
@@ -143,7 +143,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
       ENDIF
    ENDIF
 
-   mVar := '_' + ParentForm + '_' + ControlName
+   mVar := "_" + ParentForm + "_" + ControlName
 
    cParentForm := ParentForm
 
@@ -171,13 +171,13 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
 
    IF ValType( x ) == "U" .OR. ValType( y ) == "U"
 
-      _HMG_SplitLastControl := 'COMBOBOX'
+      _HMG_SplitLastControl := "COMBOBOX"
 
       i := GetFormIndex ( cParentForm )
 
       IF i > 0
 
-         ControlHandle := InitComboBoxEx ( _HMG_aFormReBarHandle [i], 0, x, y, w, '', notrans , h, invisible, notabstop, .F. , displaychange, _HMG_IsXPorLater, aImages, ImageList )
+         ControlHandle := InitComboBoxEx ( _HMG_aFormReBarHandle [i], 0, x, y, w, "", notrans , h, invisible, notabstop, .F. , displaychange, _HMG_IsXPorLater, aImages, ImageList )
 
          IF FontHandle != 0
             _SetFontHandle( ControlHandle, FontHandle )
@@ -197,7 +197,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
 
    ELSE
 
-      ControlHandle := InitComboBoxEx ( ParentForm, 0, x, y, w, '', notrans , h, invisible, notabstop, .F. , displaychange, _HMG_IsXPorLater, aImages, ImageList )
+      ControlHandle := InitComboBoxEx ( ParentForm, 0, x, y, w, "", notrans , h, invisible, notabstop, .F. , displaychange, _HMG_IsXPorLater, aImages, ImageList )
 
       IF FontHandle != 0
          _SetFontHandle( ControlHandle, FontHandle )
@@ -274,7 +274,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
    _HMG_aControlBrushHandle  [k] :=  0
    _HMG_aControlEnabled  [k] :=  .T.
    _HMG_aControlMiscData1 [k] := { 1, displaychange }  // value used for recognition between extend and standard COMBO
-   _HMG_aControlMiscData2 [k] := ''
+   _HMG_aControlMiscData2 [k] := ""
 
    IF DisplayChange == .T.
       // handle for ComboBoxEx edit window
@@ -326,7 +326,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
 
    ENDIF
 
-   IF ValType( ItemSource ) != 'U'
+   IF ValType( ItemSource ) != "U"
       AAdd( _HMG_aFormBrowseList [ GetFormIndex ( cParentForm ) ] , k )
    ENDIF
 
