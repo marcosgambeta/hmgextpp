@@ -270,7 +270,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] :=  "RADIOGROUP"
+   _HMG_aControlType [k] :=  CONTROL_TYPE_RADIOGROUP
    _HMG_aControlNames  [k] :=  ControlName
    _HMG_aControlHandles  [k] :=  aHandles
    _HMG_aControlParenthandles [k] :=  ParentFormHandle

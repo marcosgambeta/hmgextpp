@@ -181,7 +181,7 @@ FUNCTION _DefineSlider ( ControlName, ParentFormName, x, y, w, h, lo, hi, value,
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := "SLIDER"
+   _HMG_aControlType [k] := CONTROL_TYPE_SLIDER
    _HMG_aControlNames [k] :=  ControlName
    _HMG_aControlHandles [k] :=  ControlHandle
    _HMG_aControlParentHandles  [k] :=  ParentFormHandle

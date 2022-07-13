@@ -239,7 +239,7 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := iif( multiselect , "MULTILIST" , "LIST" )
+   _HMG_aControlType [k] := iif( multiselect , CONTROL_TYPE_MULTILIST , CONTROL_TYPE_LIST )
    _HMG_aControlNames  [k] :=  ControlName
    _HMG_aControlHandles  [k] :=  ControlHandle
    _HMG_aControlParenthandles  [k] :=  ParentFormHandle
@@ -320,7 +320,7 @@ FUNCTION InitDialogListBox( ParentName, ControlHandle, k )
 
    AEval( Rows , { | r | ListboxAddString ( ControlHandle , r ) } )
 
-   IF _HMG_aControlType [k] == "MULTILIST"
+   IF _HMG_aControlType [k] == CONTROL_TYPE_MULTILIST
       IF ISARRAY( value )
          LISTBOXSETMULTISEL ( ControlHandle , Value )
       ENDIF

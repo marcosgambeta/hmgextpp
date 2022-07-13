@@ -250,7 +250,7 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := iif( lNumeric, "BTNNUMTEXT", "BTNTEXT" )
+   _HMG_aControlType [k] := iif( lNumeric, CONTROL_TYPE_BTNNUMTEXT, CONTROL_TYPE_BTNTEXT )
    _HMG_aControlNames  [k] :=  ControlName
    _HMG_aControlHandles  [k] :=  aControlHandle[1]
    _HMG_aControlParenthandles  [k] :=  ParentFormHandle
@@ -333,7 +333,7 @@ FUNCTION InitDialogBtnTextBox( ParentName, ControlHandle, k )
    Field          := _HMG_aControlPageMap  [k]
    nMaxLength     := _HMG_aControlRangeMax  [k]
    cValue         := _HMG_aControlValue  [k]
-   lNumeric       := ( _HMG_aControlType [k] == "BTNNUMTEXT" )
+   lNumeric       := ( _HMG_aControlType [k] == CONTROL_TYPE_BTNNUMTEXT )
    abitmap        := _HMG_aControlPicture  [k]
    BtnWidth       := _HMG_aControlRangeMin  [k]
    lBtn2          := _HMG_aControlMiscData1  [k,2]

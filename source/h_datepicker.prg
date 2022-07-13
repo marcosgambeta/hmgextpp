@@ -216,7 +216,7 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType[ k ] := "DATEPICK"
+   _HMG_aControlType[ k ] := CONTROL_TYPE_DATEPICK
    _HMG_aControlNames[ k ] := ControlName
    _HMG_aControlHandles[ k ] := ControlHandle
    _HMG_aControlParentHandles[ k ] := ParentFormHandle
@@ -446,7 +446,7 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType[ k ] := "TIMEPICK"
+   _HMG_aControlType[ k ] := CONTROL_TYPE_TIMEPICK
    _HMG_aControlNames[ k ] := ControlName
    _HMG_aControlHandles[ k ] := ControlHandle
    _HMG_aControlParentHandles[ k ] := ParentFormHandle

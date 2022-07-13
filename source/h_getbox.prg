@@ -302,7 +302,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType  [k] :=  "GETBOX"
+   _HMG_aControlType  [k] :=  CONTROL_TYPE_GETBOX
    _HMG_aControlNames  [k] :=  ControlName
    _HMG_aControlHandles  [k] :=  ControlHandle
    _HMG_aControlParenthandles  [k] :=  ParentFormHandle
@@ -391,7 +391,7 @@ STATIC PROCEDURE _GetBoxSetNextFocus( lPrevious )
 
    IF ( i := AScan( _HMG_aControlHandles , NextControlHandle ) ) > 0
 
-      IF _HMG_aControlType [i] == "BUTTON"
+      IF _HMG_aControlType [i] == CONTROL_TYPE_BUTTON
          SendMessage ( NextControlHandle , BM_SETSTYLE , LOWORD ( BS_DEFPUSHBUTTON ) , 1 )
       ENDIF
 
@@ -1714,7 +1714,7 @@ STATIC FUNCTION _GetDefinedStatusBarItemValue( ParentHandle, ItemID )
 
       i := hb_enumindex( h )
 
-      IF _HMG_aControlType [i] == "ITEMMESSAGE" .AND. h == ParentHandle
+      IF _HMG_aControlType [i] == CONTROL_TYPE_ITEMMESSAGE .AND. h == ParentHandle
 
          IF ++nLocID == ItemID
             EXIT

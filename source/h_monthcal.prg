@@ -192,7 +192,7 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType[ k ] := "MONTHCAL"
+   _HMG_aControlType[ k ] := CONTROL_TYPE_MONTHCAL
    _HMG_aControlNames[ k ] := ControlName
    _HMG_aControlHandles[ k ] := aControlHandle[ 1 ]
    _HMG_aControlParentHandles[ k ] := ParentFormHandle

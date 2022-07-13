@@ -277,7 +277,7 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := "COMBO"
+   _HMG_aControlType [k] := CONTROL_TYPE_COMBO
    _HMG_aControlNames  [k] :=  ControlName
    _HMG_aControlHandles  [k] :=  ControlHandle
    _HMG_aControlParenthandles  [k] :=  ParentFormHandle

@@ -125,7 +125,7 @@ FUNCTION _DefineHotKeyBox ( ControlName, ParentForm, x, y, w, h, value, fontname
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := "HOTKEYBOX"
+   _HMG_aControlType [k] := CONTROL_TYPE_HOTKEYBOX
    _HMG_aControlNames  [k] :=  ControlName
    _HMG_aControlHandles  [k] :=  ControlHandle
    _HMG_aControlParentHandles  [k] :=  ParentForm

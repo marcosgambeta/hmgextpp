@@ -113,7 +113,7 @@ FUNCTION _DefineAnimateRes ( ControlName, ParentForm, x, y, w, h, cFile, nRes, ;
       SetToolTip ( ControlHandle, tooltip, GetFormToolTipHandle ( cParentForm ) )
    ENDIF
 
-   AAdd( _HMG_aControlType, "ANIMATERES" )
+   AAdd( _HMG_aControlType, CONTROL_TYPE_ANIMATERES )
    AAdd( _HMG_aControlNames, ControlName )
    AAdd( _HMG_aControlHandles, ControlHandle )
    AAdd( _HMG_aControlParentHandles, ParentForm )

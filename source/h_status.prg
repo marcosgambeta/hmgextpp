@@ -118,7 +118,7 @@ FUNCTION _BeginMessageBar( ControlName, ParentForm, kbd, fontname, fontsize, bol
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] :=  "MESSAGEBAR"
+   _HMG_aControlType [k] :=  CONTROL_TYPE_MESSAGEBAR
    _HMG_aControlNames  [k] :=  ControlName
    _HMG_aControlHandles  [k] :=  ControlHandle
    _HMG_aControlParenthandles [k] :=  ParentFormHandle

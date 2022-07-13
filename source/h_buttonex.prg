@@ -205,7 +205,7 @@ FUNCTION _DefineOwnerButton ( ControlName, ParentForm, x, y, Caption, ;
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] :=  "OBUTTON"
+   _HMG_aControlType [k] :=  CONTROL_TYPE_OBUTTON
    _HMG_aControlNames [k] :=   ControlName
    _HMG_aControlHandles [k] :=   ControlHandle
    _HMG_aControlParenthandles [k] :=   ParentForm
@@ -279,7 +279,7 @@ FUNCTION OBTNEVENTS( hWnd, nMsg, wParam, lParam )
 *-----------------------------------------------------------------------------*
    LOCAL i
 
-   IF ( i := AScan( _HMG_aControlHandles, hWnd ) ) > 0 .AND. _HMG_aControlType [i] == "OBUTTON"
+   IF ( i := AScan( _HMG_aControlHandles, hWnd ) ) > 0 .AND. _HMG_aControlType [i] == CONTROL_TYPE_OBUTTON
 
       wParam := _HMG_aControlRangeMax [i][1]
       lParam := _HMG_aControlRangeMax [i][2]
@@ -368,7 +368,7 @@ FUNCTION OwnButtonPaint( pdis )
 
    i := AScan( _HMG_aControlHandles , hWnd )
 
-   IF ( i <= 0 .OR. _HMG_aControlType[ i ] <> "OBUTTON" )
+   IF ( i <= 0 .OR. _HMG_aControlType[ i ] <> CONTROL_TYPE_OBUTTON )
       RETURN ( 1 )
    ENDIF
 

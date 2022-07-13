@@ -61,7 +61,7 @@ FUNCTION _DefineRating ( ControlName, ParentForm, x, y, w, h, nValue, aImages, n
       AAdd( _HMG_ActiveTabCurrentPageMap, Controlhandle )
    ENDIF
 
-   AAdd( _HMG_aControlType, "RATING" )
+   AAdd( _HMG_aControlType, CONTROL_TYPE_RATING )
    AAdd( _HMG_aControlNames, ControlName )
    AAdd( _HMG_aControlHandles, ControlHandle )
    AAdd( _HMG_aControlParentHandles, ParentForm )

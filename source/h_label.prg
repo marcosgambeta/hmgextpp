@@ -209,7 +209,7 @@ FUNCTION _DefineLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] :=  "LABEL"
+   _HMG_aControlType [k] :=  CONTROL_TYPE_LABEL
    _HMG_aControlNames  [k] :=  ControlName
    _HMG_aControlHandles  [k] :=  ControlHandle
    _HMG_aControlParenthandles  [k] :=  ParentFormHandle

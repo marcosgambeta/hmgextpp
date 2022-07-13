@@ -260,7 +260,7 @@ FUNCTION _DefineBrowse ( ControlName, ParentFormName, x, y, w, h, aHeaders, aWid
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := "BROWSE"
+   _HMG_aControlType [k] := CONTROL_TYPE_BROWSE
    _HMG_aControlNames [k] :=   ControlName
    _HMG_aControlHandles [k] :=   ControlHandle
    _HMG_aControlParenthandles [k] :=   ParentFormHandle
@@ -2706,7 +2706,7 @@ FUNCTION _SetGetBrowseProperty ( ControlName, ParentForm, nId, Value )
    LOCAL i := GetControlIndex ( ControlName, ParentForm )
    LOCAL RetVal := .T.
 
-   IF i > 0 .AND. _HMG_aControlType [i] == "BROWSE"
+   IF i > 0 .AND. _HMG_aControlType [i] == CONTROL_TYPE_BROWSE
 
       IF PCount() > 3
          _HMG_aControlMiscData1 [ i ] [ nId ] := Value

@@ -542,7 +542,7 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
    PUBLIC &mVar. := k
 #endif
 
-   _HMG_aControlType[ k ] := "TBROWSE"
+   _HMG_aControlType[ k ] := CONTROL_TYPE_TBROWSE
    _HMG_aControlNames[ k ] := ControlName
    _HMG_aControlHandles[ k ] := ControlHandle
    _HMG_aControlParenthandles[ k ] := ParentFormHandle

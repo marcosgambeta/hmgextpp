@@ -126,7 +126,7 @@ FUNCTION _DefineIPAddress ( ControlName, ParentForm, x, y, w, h, aValue, ;
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := "IPADDRESS"
+   _HMG_aControlType [k] := CONTROL_TYPE_IPADDRESS
    _HMG_aControlNames  [k] :=  ControlName
    _HMG_aControlHandles  [k] :=  ControlHandle
    _HMG_aControlParentHandles  [k] :=  ParentForm

@@ -87,7 +87,7 @@ FUNCTION _DefineTimer ( ControlName , ParentForm , Interval , ProcedureName , On
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := "TIMER"
+   _HMG_aControlType [k] := CONTROL_TYPE_TIMER
    _HMG_aControlNames [k] :=   ControlName
    _HMG_aControlHandles [k] :=   0
    _HMG_aControlParenthandles [k] :=  ParentFormHandle

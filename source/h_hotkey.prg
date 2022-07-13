@@ -92,7 +92,7 @@ FUNCTION _DefineHotKey ( cParentForm , nMod , nKey , bAction )
 
    k := _GetControlFree()
 
-   _HMG_aControlType [k] :=  "HOTKEY"
+   _HMG_aControlType [k] :=  CONTROL_TYPE_HOTKEY
    _HMG_aControlNames  [k] :=  ""
    _HMG_aControlHandles  [k] :=  0
    _HMG_aControlParentHandles  [k] :=  nParentForm
@@ -144,7 +144,7 @@ PROCEDURE _ReleaseHotKey ( cParentForm, nMod , nKey )
 
    FOR EACH ControlType IN _HMG_aControlType
       i := hb_enumindex( ControlType )
-      IF ControlType == "HOTKEY" .AND. _HMG_aControlParentHandles [i] == nParentFormHandle .AND. _HMG_aControlPageMap [i] == nMod .AND. _HMG_aControlValue [i] == nKey
+      IF ControlType == CONTROL_TYPE_HOTKEY .AND. _HMG_aControlParentHandles [i] == nParentFormHandle .AND. _HMG_aControlPageMap [i] == nMod .AND. _HMG_aControlValue [i] == nKey
          _EraseControl( i, GetFormIndex ( cParentForm ) )
          EXIT
       ENDIF
@@ -162,7 +162,7 @@ FUNCTION _GetHotKeyBlock ( cParentForm, nMod, nKey )
 
    FOR EACH ControlType IN _HMG_aControlType
       i := hb_enumindex( ControlType )
-      IF ControlType == "HOTKEY" .AND. _HMG_aControlParentHandles [i] == nParentFormHandle .AND. _HMG_aControlPageMap [i] == nMod .AND. _HMG_aControlValue [i] == nKey
+      IF ControlType == CONTROL_TYPE_HOTKEY .AND. _HMG_aControlParentHandles [i] == nParentFormHandle .AND. _HMG_aControlPageMap [i] == nMod .AND. _HMG_aControlValue [i] == nKey
          bRetVal := _HMG_aControlProcedures [i]
          EXIT
       ENDIF

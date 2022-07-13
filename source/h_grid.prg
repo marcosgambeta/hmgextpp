@@ -318,7 +318,7 @@ FUNCTION _DefineGrid ( ControlName, ParentFormName, ;
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := iif( multiselect , "MULTIGRID" , "GRID" )
+   _HMG_aControlType [k] := iif( multiselect , CONTROL_TYPE_MULTIGRID , CONTROL_TYPE_GRID )
    _HMG_aControlNames [k] :=   ControlName
    _HMG_aControlHandles [k] :=   ControlHandle
    _HMG_aControlParenthandles [k] :=   ParentFormHandle

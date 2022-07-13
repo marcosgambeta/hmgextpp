@@ -138,7 +138,7 @@ PROCEDURE _DefineActivex ( cControlName, cParentForm, nRow, nCol, nWidth, nHeigh
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType[ k ] := "ACTIVEX"
+   _HMG_aControlType[ k ] := CONTROL_TYPE_ACTIVEX
    _HMG_aControlNames[ k ] :=  cControlName
    _HMG_aControlHandles[ k ] := nControlHandle
    _HMG_aControlParenthandles[ k ] := nParentFormHandle

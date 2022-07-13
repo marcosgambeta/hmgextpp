@@ -256,7 +256,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := "EDIT"
+   _HMG_aControlType [k] := CONTROL_TYPE_EDIT
    _HMG_aControlNames  [k] :=  ControlName
    _HMG_aControlHandles  [k] :=  ControlHandle
    _HMG_aControlParenthandles  [k] :=  ParentFormHandle

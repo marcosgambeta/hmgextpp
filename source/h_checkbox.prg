@@ -216,7 +216,7 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := "CHECKBOX"
+   _HMG_aControlType [k] := CONTROL_TYPE_CHECKBOX
    _HMG_aControlNames [k] :=  ControlName
    _HMG_aControlHandles [k] :=  ControlHandle
    _HMG_aControlParenthandles [k] :=  ParentFormHandle
@@ -405,7 +405,7 @@ FUNCTION _DefineCheckButton ( ControlName, ParentFormName, x, y, Caption, Value,
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := "CHECKBOX"
+   _HMG_aControlType [k] := CONTROL_TYPE_CHECKBOX
    _HMG_aControlNames [k] :=   ControlName
    _HMG_aControlHandles [k] :=   ControlHandle
    _HMG_aControlParenthandles [k] :=   ParentFormHandle
@@ -582,7 +582,7 @@ FUNCTION _DefineImageCheckButton ( ControlName, ParentFormName, x, y, BitMap, ;
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := "CHECKBOX"
+   _HMG_aControlType [k] := CONTROL_TYPE_CHECKBOX
    _HMG_aControlNames [k] :=   ControlName
    _HMG_aControlHandles [k] :=   ControlHandle
    _HMG_aControlParenthandles [k] :=   ParentFormHandle

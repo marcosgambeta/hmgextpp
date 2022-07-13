@@ -171,7 +171,7 @@ FUNCTION _DefineButton ( ControlName, ParentFormName, x, y, Caption, ;
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := "BUTTON"
+   _HMG_aControlType [k] := CONTROL_TYPE_BUTTON
    _HMG_aControlNames [k] := ControlName
    _HMG_aControlHandles [k] := ControlHandle
    _HMG_aControlParenthandles [k] := ParentFormHandle
@@ -341,7 +341,7 @@ FUNCTION _DefineImageButton ( ControlName, ParentFormName, x, y, Caption, ;
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] :=  "BUTTON"
+   _HMG_aControlType [k] :=  CONTROL_TYPE_BUTTON
    _HMG_aControlNames [k] :=  ControlName
    _HMG_aControlHandles [k] :=  ControlHandle
    _HMG_aControlParenthandles [k] :=  ParentFormHandle

@@ -112,7 +112,7 @@ FUNCTION _BeginPager( ControlName, ParentName, nWidth, nHeight, nScroll, cCaptio
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType  [k] := "PAGER"
+   _HMG_aControlType  [k] := CONTROL_TYPE_PAGER
    _HMG_aControlNames   [k] := ControlName
    _HMG_aControlHandles  [k] :=  ControlHandle
    _HMG_aControlParenthandles  [k] :=  ParentForm

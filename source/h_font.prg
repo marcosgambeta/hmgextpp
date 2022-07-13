@@ -98,7 +98,7 @@ PROCEDURE _DefineFont( FontName, fName, fSize, bold, italic, underline, strikeou
 
    FontHandle := InitFont( fName, fSize, bold, italic, underline, strikeout, nAngle * 10, charset )
 
-   _HMG_aControlType [k] := "FONT"
+   _HMG_aControlType [k] := CONTROL_TYPE_FONT
    _HMG_aControlNames [k] := FontName
    _HMG_aControlHandles [k] := FontHandle
    _HMG_aControlParenthandles [k] := 0
@@ -150,7 +150,7 @@ PROCEDURE _ReleaseFont( FontName )
 
    LOCAL i := AScan( _HMG_aControlNames, FontName )
 
-   IF i > 0 .AND. _HMG_aControlType [i] == "FONT"
+   IF i > 0 .AND. _HMG_aControlType [i] == CONTROL_TYPE_FONT
       _EraseFontDef( i )
    ENDIF
 
@@ -232,7 +232,7 @@ FUNCTION GetFontHandle( FontName )
    IF i > 0
       IF GetFontParamByRef( _HMG_aControlHandles [i] )
          RETURN _HMG_aControlHandles [i]
-      ELSEIF _HMG_aControlType [i] == "FONT"
+      ELSEIF _HMG_aControlType [i] == CONTROL_TYPE_FONT
          _EraseFontDef( i )
       ENDIF
    ENDIF
@@ -247,7 +247,7 @@ FUNCTION GetFontParam( FontHandle )
 
    aFontAttr := { _HMG_DefaultFontName, _HMG_DefaultFontSize, .F., .F., .F., .F., 0, 0, 0, "" }
 
-   IF i > 0 .AND. _HMG_aControlType[ i ] == "FONT"
+   IF i > 0 .AND. _HMG_aControlType[ i ] == CONTROL_TYPE_FONT
       aFontAttr := { ;
          _HMG_aControlFontName[ i ], ;
          _HMG_aControlFontSize[ i ], ;
@@ -325,17 +325,17 @@ FUNCTION _SetFontAttr( ControlName, ParentForm, Value, nType )
    t := _HMG_aControlType[ i ]
 
    DO CASE
-   CASE t == "SPINNER"
+   CASE t == CONTROL_TYPE_SPINNER
       _HMG_aControlFontHandle[ i ] := _SetFont( h[ 1 ], n, s, ab, ai, au, as, aa )
 
-   CASE t == "RADIOGROUP"
+   CASE t == CONTROL_TYPE_RADIOGROUP
       _HMG_aControlFontHandle[ i ] := _SetFont( h[ 1 ], n, s, ab, ai, au, as, aa )
       AEval( h, {|x| SendMessage ( x, WM_SETFONT, _HMG_aControlFontHandle[ i ], 1 ) }, 2 )
 
    OTHERWISE
       IF IsWindowHandle( h )
          _HMG_aControlFontHandle[ i ] := _SetFont( h, n, s, ab, ai, au, as, aa )
-         IF t == "MONTHCAL"
+         IF t == CONTROL_TYPE_MONTHCAL
             SetPosMonthCal ( h, _HMG_aControlCol[ i ], _HMG_aControlRow[ i ] )
             _HMG_aControlWidth[ i ] := GetWindowWidth ( h )
             _HMG_aControlHeight[ i ] := GetWindowHeight ( h )

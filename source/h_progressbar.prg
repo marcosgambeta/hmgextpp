@@ -172,7 +172,7 @@ FUNCTION _DefineProgressBar ( ControlName, ParentFormName, x, y, w, h, lo, hi, ;
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := "PROGRESSBAR"
+   _HMG_aControlType [k] := CONTROL_TYPE_PROGRESSBAR
    _HMG_aControlNames [k] :=  ControlName
    _HMG_aControlHandles  [k] :=  ControlHandle
    _HMG_aControlParentHandles [k] :=  ParentFormHandle

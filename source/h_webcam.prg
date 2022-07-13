@@ -113,7 +113,7 @@ FUNCTION _DefineWebCam ( ControlName, ParentForm, x, y, w, h, lStart, nRate, TOO
       SetToolTip ( ControlHandle, TOOLTIP, GetFormToolTipHandle ( cParentForm ) )
    ENDIF
 
-   AAdd( _HMG_aControlType, "WEBCAM" )
+   AAdd( _HMG_aControlType, CONTROL_TYPE_WEBCAM )
    AAdd( _HMG_aControlNames, ControlName )
    AAdd( _HMG_aControlHandles, ControlHandle )
    AAdd( _HMG_aControlParentHandles, ParentForm )

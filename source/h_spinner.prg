@@ -138,7 +138,7 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := "SPINNER"
+   _HMG_aControlType [k] := CONTROL_TYPE_SPINNER
    _HMG_aControlNames  [k] :=  ControlName
    _HMG_aControlHandles [k] :=   RetArray
    _HMG_aControlParenthandles [k] :=   ParentForm

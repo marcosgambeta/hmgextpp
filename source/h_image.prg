@@ -171,7 +171,7 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType  [k] :=  "IMAGE"
+   _HMG_aControlType  [k] :=  CONTROL_TYPE_IMAGE
    _HMG_aControlNames [k] :=  ControlName
    _HMG_aControlHandles [k] :=  ControlHandle
    _HMG_aControlParentHandles  [k] :=  ParentFormHandle

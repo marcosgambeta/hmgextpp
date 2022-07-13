@@ -270,7 +270,7 @@ STATIC FUNCTION _DefineTab( ControlName, ParentFormName, x, y, w, h, aCaptions, 
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] :=  "TAB"
+   _HMG_aControlType [k] :=  CONTROL_TYPE_TAB
    _HMG_aControlNames [k] :=  ControlName
    _HMG_aControlParenthandles [k] :=  ParentFormHandle
    _HMG_aControlHandles [k] :=  Controlhandle
@@ -656,13 +656,13 @@ FUNCTION _AddTabControl ( TabName , ControlName , ParentForm , PageNumber , Row 
       t := _HMG_aControlType [x]
 
       // JD 07/20/2007
-      IF t == "BROWSE" .AND. _HMG_aControlMiscData1 [x,8] == .F.
+      IF t == CONTROL_TYPE_BROWSE .AND. _HMG_aControlMiscData1 [x,8] == .F.
          AAdd( _HMG_aControlPageMap [i] [PageNumber] , { _HMG_aControlHandles [x] , _HMG_aControlIds [x], _HMG_aControlMiscData1 [x] [1] } )
       ELSE
          AAdd( _HMG_aControlPageMap [i] [PageNumber] , _HMG_aControlHandles [x] )
       ENDIF
 
-      IF t == "SLIDER"
+      IF t == CONTROL_TYPE_SLIDER
 
          _HMG_aControlFontHandle [x] :=  TabName
          _HMG_aControlMiscData1  [x] :=  ParentForm
@@ -683,7 +683,7 @@ FUNCTION _AddTabControl ( TabName , ControlName , ParentForm , PageNumber , Row 
       UpdateTab ( i )
 
 #ifdef _USERINIT_
-      IF t == "SPBUTTON" .AND. _HMG_aControlVisible [x]
+      IF t == CONTROL_TYPE_SPBUTTON .AND. _HMG_aControlVisible [x]
          BringWindowToTop ( _HMG_aControlHandles [x] )
       ENDIF
 #endif

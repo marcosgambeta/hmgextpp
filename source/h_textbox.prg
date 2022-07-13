@@ -224,7 +224,7 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := iif( lNumeric, "NUMTEXT", "TEXT" )
+   _HMG_aControlType [k] := iif( lNumeric, CONTROL_TYPE_NUMTEXT, CONTROL_TYPE_TEXT )
    _HMG_aControlNames  [k] :=  ControlName
    _HMG_aControlHandles  [k] :=  ControlHandle
    _HMG_aControlParenthandles  [k] :=  ParentFormHandle
@@ -308,7 +308,7 @@ FUNCTION InitDialogTextBox( ParentName, ControlHandle, k )
    nMaxLength  := _HMG_aControlRangeMax [k]
    readonly    := _HMG_aControlMiscData1 [k,2]
    cValue      := _HMG_aControlValue [k]
-   lNumeric    := ( _HMG_aControlType [k] == "NUMTEXT" )
+   lNumeric    := ( _HMG_aControlType [k] == CONTROL_TYPE_NUMTEXT )
 
    IF ValType( readonly ) == "L"
       SendMessage( ControlHandle , EM_SETREADONLY , iif( readonly, 1, 0 ) , 0 )
@@ -502,7 +502,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := "MASKEDTEXT"
+   _HMG_aControlType [k] := CONTROL_TYPE_MASKEDTEXT
    _HMG_aControlNames  [k] :=  ControlName
    _HMG_aControlHandles [k] :=   ControlHandle
    _HMG_aControlParenthandles [k] :=   ParentFormHandle
@@ -783,7 +783,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := "CHARMASKTEXT"
+   _HMG_aControlType [k] := CONTROL_TYPE_CHARMASKTEXT
    _HMG_aControlNames [k] := ControlName
    _HMG_aControlHandles [k] := ControlHandle
    _HMG_aControlParenthandles [k] := ParentFormHandle
@@ -1124,7 +1124,7 @@ PROCEDURE _DataTextBoxRefresh ( i )
 *-----------------------------------------------------------------------------*
    LOCAL Field
 
-   IF _HMG_aControlType [i] == "MASKEDTEXT"
+   IF _HMG_aControlType [i] == CONTROL_TYPE_MASKEDTEXT
       Field := _HMG_aControlHeadClick [i]
    ELSE
       Field := _HMG_aControlPageMap [i]
@@ -1146,7 +1146,7 @@ PROCEDURE _DataTextBoxSave ( ControlName, ParentForm )
 
    i := GetControlIndex ( ControlName , ParentForm )
 
-   IF _HMG_aControlType [i] == "MASKEDTEXT"
+   IF _HMG_aControlType [i] == CONTROL_TYPE_MASKEDTEXT
       Field := _HMG_aControlHeadClick [i]
    ELSE
       Field := _HMG_aControlPageMap [i]

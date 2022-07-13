@@ -277,7 +277,7 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
 
    _HMG_ActiveTreeIndex := k
 
-   _HMG_aControlType[ k ] := "TREE"
+   _HMG_aControlType[ k ] := CONTROL_TYPE_TREE
    _HMG_aControlNames[ k ] :=   ControlName
    _HMG_aControlHandles[ k ] :=   ControlHandle
    _HMG_aControlParentHandles[ k ] :=   ParentFormHandle

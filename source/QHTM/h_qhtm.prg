@@ -115,7 +115,7 @@ k := _GetControlFree()
 
 Public &mVar. := k
 
-_HMG_aControlType [k] :=  "QHTM" 
+_HMG_aControlType [k] :=  CONTROL_TYPE_QHTM 
 _HMG_aControlNames [k] :=  ControlName 
 _HMG_aControlHandles [k] :=  ControlHandle
 _HMG_aControlParenthandles [k] :=  ParentFormHandle

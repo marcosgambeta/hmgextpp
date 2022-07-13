@@ -90,7 +90,7 @@ FUNCTION _DefinePlayer ( ControlName, ParentFormName, file, x, y, w, h, noasw, n
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType  [k] := "PLAYER"
+   _HMG_aControlType  [k] := CONTROL_TYPE_PLAYER
    _HMG_aControlNames  [k] :=  ControlName
    _HMG_aControlHandles  [k] :=  ControlHandle
    _HMG_aControlParentHandles  [k] :=  GetFormHandle( ParentFormName )
@@ -285,7 +285,7 @@ FUNCTION _DefineAnimateBox( ControlName, ParentFormName, x, y, w, h, autoplay, c
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] :=  "ANIMATEBOX"
+   _HMG_aControlType [k] :=  CONTROL_TYPE_ANIMATEBOX
    _HMG_aControlNames  [k] :=  ControlName
    _HMG_aControlHandles  [k] :=  ControlHandle
    _HMG_aControlParentHandles  [k] :=  ParentFormHandle

@@ -133,7 +133,7 @@ FUNCTION _DefineProgressWheel ( cControlName, cParentForm, nCol, nRow, nWidth, ;
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType[ k ] := "PROGRESSWHEEL"
+   _HMG_aControlType[ k ] := CONTROL_TYPE_PROGRESSWHEEL
    _HMG_aControlNames[ k ] := cControlName
    _HMG_aControlHandles[ k ] := nControlHandle
    _HMG_aControlParentHandles[ k ] := nParentFormHandle

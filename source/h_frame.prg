@@ -151,7 +151,7 @@ STATIC FUNCTION _DefineFrame ( ControlName, ParentFormName, x, y, w, h, ;
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := "FRAME"
+   _HMG_aControlType [k] := CONTROL_TYPE_FRAME
    _HMG_aControlNames  [k] :=  ControlName
    _HMG_aControlHandles  [k] :=  ControlHandle
    _HMG_aControlParenthandles  [k] :=  ParentFormHandle

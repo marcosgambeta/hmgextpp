@@ -66,7 +66,7 @@ FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidt
 
 #endif
 
-   _HMG_aControlType[ k ] := "ANIGIF"
+   _HMG_aControlType[ k ] := CONTROL_TYPE_ANIGIF
    _HMG_aControlNames[ k ] := cControlName
    _HMG_aControlParentHandles[ k ] := nParentFormHandle
    _HMG_aControlProcedures[ k ] := ""
@@ -136,7 +136,7 @@ PROCEDURE _ReleaseAniGif ( GifName, FormName )
 
       FOR i := 1 TO Len( _HMG_aControlHandles )
 
-         IF _HMG_aControlParentHandles[ i ] == hWnd .AND. _HMG_aControlType[ i ] == "ANIGIF"
+         IF _HMG_aControlParentHandles[ i ] == hWnd .AND. _HMG_aControlType[ i ] == CONTROL_TYPE_ANIGIF
             oGif := _HMG_aControlIds[ i ]
             oGif:End()
             _EraseGifDef ( FormName, i )

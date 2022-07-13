@@ -461,7 +461,7 @@ FUNCTION bt_StatusBarHandle ( Win )
    LOCAL k, hWndStatusBar := 0
 
    FOR k := 1 TO Len( _HMG_aControlType )
-      IF _HMG_aControlType[ k ] == "MESSAGEBAR" .AND. _HMG_aControlParenthandles[ k ] == hWnd
+      IF _HMG_aControlType[ k ] == CONTROL_TYPE_MESSAGEBAR .AND. _HMG_aControlParenthandles[ k ] == hWnd
          hWndStatusBar := _HMG_aControlHandles[ k ]
       ENDIF
    NEXT
@@ -500,7 +500,7 @@ FUNCTION bt_ToolBarBottomHandle ( Win )
    LOCAL k, hWndToolBar := 0
 
    FOR k := 1 TO Len( _HMG_aControlType )
-      IF _HMG_aControlType[ k ] == "TOOLBAR" .AND. _HMG_aControlParenthandles[ k ] == hWnd .AND. And( GetWindowLong( _HMG_aControlHandles[ k ], GWL_STYLE ), CCS_BOTTOM ) == CCS_BOTTOM
+      IF _HMG_aControlType[ k ] == CONTROL_TYPE_TOOLBAR .AND. _HMG_aControlParenthandles[ k ] == hWnd .AND. And( GetWindowLong( _HMG_aControlHandles[ k ], GWL_STYLE ), CCS_BOTTOM ) == CCS_BOTTOM
          hWndToolBar := _HMG_aControlHandles[ k ]
       ENDIF
    NEXT
@@ -539,7 +539,7 @@ FUNCTION bt_ToolBarTopHandle ( Win )
    LOCAL k, hWndToolBar := 0
 
    FOR k := 1 TO Len( _HMG_aControlType )
-      IF _HMG_aControlType[ k ] == "TOOLBAR" .AND. _HMG_aControlParenthandles[ k ] == hWnd .AND. And( GetWindowLong( _HMG_aControlHandles[ k ], GWL_STYLE ), CCS_BOTTOM ) != CCS_BOTTOM
+      IF _HMG_aControlType[ k ] == CONTROL_TYPE_TOOLBAR .AND. _HMG_aControlParenthandles[ k ] == hWnd .AND. And( GetWindowLong( _HMG_aControlHandles[ k ], GWL_STYLE ), CCS_BOTTOM ) != CCS_BOTTOM
          hWndToolBar := _HMG_aControlHandles[ k ]
       ENDIF
    NEXT

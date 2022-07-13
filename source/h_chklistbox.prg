@@ -220,7 +220,7 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := iif( multiselect , "MULTICHKLIST" , "CHKLIST" )
+   _HMG_aControlType [k] := iif( multiselect , CONTROL_TYPE_MULTICHKLIST , CONTROL_TYPE_CHKLIST )
    _HMG_aControlNames  [k] :=  ControlName
    _HMG_aControlHandles  [k] :=  ControlHandle
    _HMG_aControlParenthandles  [k] :=  ParentFormHandle
@@ -307,7 +307,7 @@ FUNCTION InitDialogChkListBox( ParentName, ControlHandle, k )
       SetChkLBItemHeight ( ControlHandle , FontHandle )
    ENDIF
 
-   IF _HMG_aControlType [k] == "MULTICHKLIST"
+   IF _HMG_aControlType [k] == CONTROL_TYPE_MULTICHKLIST
       IF ISARRAY( value )
          LISTBOXSETMULTISEL ( ControlHandle , Value )
       ENDIF

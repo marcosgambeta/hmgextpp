@@ -100,24 +100,24 @@ FUNCTION _GetValue ( ControlName, ParentForm, Index )
 
    DO CASE
 #ifdef _DBFBROWSE_
-   CASE T == "BROWSE"
+   CASE T == CONTROL_TYPE_BROWSE
       retval := _BrowseGetValue ( "" , "" , ix )
 #endif
-   CASE T == "PROGRESSBAR"
+   CASE T == CONTROL_TYPE_PROGRESSBAR
       retval := SendMessage ( c, PBM_GETPOS, 0, 0 )
 
-   CASE T == "IPADDRESS"
+   CASE T == CONTROL_TYPE_IPADDRESS
       retval := GetIPAddress ( c )
 
-   CASE T == "MONTHCAL"
+   CASE T == CONTROL_TYPE_MONTHCAL
       retval := GetMonthCalDate( c )
 
-   CASE T == "TREE"
+   CASE T == CONTROL_TYPE_TREE
       retval := iif( _HMG_aControlInputMask [ix] == .F. , ;
          AScan( _HMG_aControlPageMap [ix] , TreeView_GetSelection ( c ) ) , ;
          TreeView_GetSelectionId ( c ) )
 
-   CASE T == "MASKEDTEXT"
+   CASE T == CONTROL_TYPE_MASKEDTEXT
       IF "E" $ _HMG_aControlPageMap [ix]
          Ts := GetWindowText ( c )
 
@@ -142,8 +142,8 @@ FUNCTION _GetValue ( ControlName, ParentForm, Index )
          retval := GetNumFromText ( GetWindowText ( c ) , ix )
       ENDIF
 
-   CASE T == "TEXT" .OR. T == "BTNTEXT" .OR. T == "EDIT" .OR. "LABEL" $ T .OR. T == "HYPERLINK" .OR. T == "CHARMASKTEXT" .OR. T == "RICHEDIT"
-      IF t == "CHARMASKTEXT"
+   CASE T == CONTROL_TYPE_TEXT .OR. T == CONTROL_TYPE_BTNTEXT .OR. T == CONTROL_TYPE_EDIT .OR. CONTROL_TYPE_LABEL $ T .OR. T == CONTROL_TYPE_HYPERLINK .OR. T == CONTROL_TYPE_CHARMASKTEXT .OR. T == CONTROL_TYPE_RICHEDIT
+      IF t == CONTROL_TYPE_CHARMASKTEXT
          IF ISLOGICAL ( _HMG_aControlHeadCLick [ix] )
             IF _HMG_aControlHeadCLick [ix] == .T.
                retval := CToD ( AllTrim( GetWindowText ( c ) ) )
@@ -157,13 +157,13 @@ FUNCTION _GetValue ( ControlName, ParentForm, Index )
          retval := GetWindowText ( c )
       ENDIF
 
-   CASE "NUMTEXT" $ T
+   CASE "NUMTEXT" $ T /* TODO: usar constante */
       retval := Int( Val( GetWindowText( c ) ) )
 
-   CASE T == "SPINNER"
+   CASE T == CONTROL_TYPE_SPINNER
       retval := GetSpinnerValue ( c [2] )
 
-   CASE T == "CHECKBOX"
+   CASE T == CONTROL_TYPE_CHECKBOX
       auxval := SendMessage ( c , BM_GETCHECK , 0 , 0 )
 
       SWITCH auxval
@@ -177,7 +177,7 @@ FUNCTION _GetValue ( ControlName, ParentForm, Index )
          retval := Nil
       ENDSWITCH
 
-   CASE T == "RADIOGROUP"
+   CASE T == CONTROL_TYPE_RADIOGROUP
       FOR EACH x IN c
          IF x > 0
             auxval := SendMessage ( x , BM_GETCHECK , 0 , 0 )
@@ -188,7 +188,7 @@ FUNCTION _GetValue ( ControlName, ParentForm, Index )
          ENDIF
       NEXT
 
-   CASE T == "COMBO"
+   CASE T == CONTROL_TYPE_COMBO
       IF ISCHARACTER ( _HMG_aControlSpacing [ix] )
          auxval := ComboGetCursel ( c )
          WorkArea := _HMG_aControlSpacing [ix]
@@ -210,17 +210,17 @@ FUNCTION _GetValue ( ControlName, ParentForm, Index )
          retval := ComboGetCursel ( c )
       ENDIF
 
-   CASE T == "LIST" .OR. T == "CHKLIST"
+   CASE T == CONTROL_TYPE_LIST .OR. T == CONTROL_TYPE_CHKLIST
       retval := ListBoxGetCursel ( c )
 
-   CASE T == "GRID"
+   CASE T == CONTROL_TYPE_GRID
       retval := iif( _HMG_aControlFontColor [ix] == .T. , { _HMG_aControlMiscData1 [ix] [ 1 ], _HMG_aControlMiscData1 [ix] [ 17 ] }, ;
          LISTVIEW_GETFIRSTITEM ( c ) )
 
-   CASE T == "TAB"
+   CASE T == CONTROL_TYPE_TAB
       retval := TABCTRL_GETCURSEL ( c )
 
-   CASE T == "DATEPICK"
+   CASE T == CONTROL_TYPE_DATEPICK
       IF Empty( Ts := _SetGetDatePickerDateFormat ( _HMG_aControlNames [ix] , GetParentFormName( ix ) ) ) .OR. ;
          !( "HH:" $ Upper( Ts ) ) .OR. !( "mm:" $ Lower( Ts ) )
          retval := GetDatePickDate ( c )
@@ -228,31 +228,31 @@ FUNCTION _GetValue ( ControlName, ParentForm, Index )
          retval := dtp_GetDateTime ( c )
       ENDIF
 
-   CASE T == "TIMEPICK"
+   CASE T == CONTROL_TYPE_TIMEPICK
       retval := iif( GetDatePickHour ( c ) >= 0, ;
          StrZero( GetDatePickHour ( c ), 2 ) + ":" + StrZero( GetDatePickMinute ( c ), 2 ) + ":" + StrZero( GetDatePickSecond ( c ), 2 ), "" )
 
-   CASE T == "SLIDER"
+   CASE T == CONTROL_TYPE_SLIDER
       retval := SendMessage( c, TBM_GETPOS, 0, 0 )
 
-   CASE T == "MULTILIST" .OR. T == "MULTICHKLIST"
+   CASE T == CONTROL_TYPE_MULTILIST .OR. T == CONTROL_TYPE_MULTICHKLIST
       retval := ListBoxGetMultiSel ( c )
 
-   CASE T == "MULTIGRID"
+   CASE T == CONTROL_TYPE_MULTIGRID
       retval := ListViewGetMultiSel ( c )
 
-   CASE T == "TOOLBUTTON"
+   CASE T == CONTROL_TYPE_TOOLBUTTON
       retval := IsButtonBarChecked( _HMG_aControlContainerHandle [ix] , _HMG_aControlValue [ix] - 1 )
 
-   CASE T == "GETBOX"
+   CASE T == CONTROL_TYPE_GETBOX
       oGet := _HMG_aControlHeadClick [ix]
       retval := oGet:VarGet()
 #ifdef _TSBROWSE_
-   CASE T == "TBROWSE"
+   CASE T == CONTROL_TYPE_TBROWSE
       oGet := _HMG_aControlIds [ix]
       retval := oGet:GetValue( oGet:nCell )
 #endif
-   CASE T == "HOTKEYBOX"
+   CASE T == CONTROL_TYPE_HOTKEYBOX
       retval := C_GetHotKey ( c )
 
    OTHERWISE
@@ -283,17 +283,17 @@ FUNCTION _SetValue ( ControlName, ParentForm, Value, index )
 
       aTemp := _GetValue ( , , ix )
 
-      IF ISARRAY( aTemp ) .AND. T != "OBUTTON"
+      IF ISARRAY( aTemp ) .AND. T != CONTROL_TYPE_OBUTTON
          IF HMG_IsEqualArr ( aTemp, Value ) == .T.
             RETURN Nil
          ENDIF
       ENDIF
 
-   ELSEIF !( "LABEL" $ T ) .AND. T != "RICHEDIT" .AND. T != "TREE"
+   ELSEIF !( "LABEL" $ T ) .AND. T != CONTROL_TYPE_RICHEDIT .AND. T != CONTROL_TYPE_TREE /* TODO: usar constante */
 
       xPreviousValue := _GetValue ( , , ix )
 
-      IF T == "GRID" .AND. ISARRAY( xPreviousValue )
+      IF T == CONTROL_TYPE_GRID .AND. ISARRAY( xPreviousValue )
          xPreviousValue := xPreviousValue [1]
       ENDIF
 
@@ -307,10 +307,10 @@ FUNCTION _SetValue ( ControlName, ParentForm, Value, index )
 
    DO CASE
 #ifdef _DBFBROWSE_
-   CASE T == "BROWSE"
+   CASE T == CONTROL_TYPE_BROWSE
       _BrowseSetValue ( "" , "" , Value , ix )
 #endif
-   CASE T == "IPADDRESS"
+   CASE T == CONTROL_TYPE_IPADDRESS
       Value := IFEMPTY( Value, {}, Value )
 
       IF Len( Value ) == 0
@@ -319,7 +319,7 @@ FUNCTION _SetValue ( ControlName, ParentForm, Value, index )
          SetIPAddress ( c , Value [1] , Value [2] , Value [3] , Value [4] )
       ENDIF
 
-   CASE T == "MONTHCAL"
+   CASE T == CONTROL_TYPE_MONTHCAL
       Value := IFEMPTY( Value, BLANK_DATE, Value )
       SetMonthCalValue ( c, Year ( value ), Month ( value ), Day ( value ) )
 
@@ -328,7 +328,7 @@ FUNCTION _SetValue ( ControlName, ParentForm, Value, index )
          SetDayState( _HMG_aControlNames [ix] , GetParentFormName( ix ) )
       ENDIF
 
-   CASE T == "TREE"
+   CASE T == CONTROL_TYPE_TREE
       IF Empty( Value )
          RETURN Nil
       ENDIF
@@ -348,7 +348,7 @@ FUNCTION _SetValue ( ControlName, ParentForm, Value, index )
 
       TreeView_SelectItem ( c , TreeItemHandle )
 
-   CASE T == "MASKEDTEXT"
+   CASE T == CONTROL_TYPE_MASKEDTEXT
       Value := IFEMPTY( Value, 0, Value )
 
       IF GetFocus() == c
@@ -357,7 +357,7 @@ FUNCTION _SetValue ( ControlName, ParentForm, Value, index )
          SetWindowText ( _HMG_aControlhandles [ix] , Transform ( value , _HMG_aControlPageMap [ix] ) )
       ENDIF
 
-   CASE T == "TIMER"
+   CASE T == CONTROL_TYPE_TIMER
       x := _HMG_aControlIds [ix]
       IF _HMG_aControlEnabled [ix] == .T.
          KillTimer ( _HMG_aControlParentHandles [ix] , x )
@@ -373,7 +373,7 @@ FUNCTION _SetValue ( ControlName, ParentForm, Value, index )
          ENDIF
       NEXT
 
-   CASE "LABEL" $ T .OR. T == "HYPERLINK"
+   CASE "LABEL" $ T .OR. T == CONTROL_TYPE_HYPERLINK /* TODO: usar constante */
       IF Empty( Value )
          value := iif( "LABEL" $ T, iif( ISCHARACTER ( Value ), Value, "" ), "@" )
       ENDIF
@@ -405,10 +405,10 @@ FUNCTION _SetValue ( ControlName, ParentForm, Value, index )
          ENDIF
       ENDIF
 
-   CASE T == "TEXT" .OR. T == "BTNTEXT" .OR. T == "EDIT" .OR. T == "CHARMASKTEXT" .OR. T == "RICHEDIT"
+   CASE T == CONTROL_TYPE_TEXT .OR. T == CONTROL_TYPE_BTNTEXT .OR. T == CONTROL_TYPE_EDIT .OR. T == CONTROL_TYPE_CHARMASKTEXT .OR. T == CONTROL_TYPE_RICHEDIT
       Value := IFEMPTY( Value, "", Value )
 
-      IF T == "CHARMASKTEXT"
+      IF T == CONTROL_TYPE_CHARMASKTEXT
          IF ISLOGICAL ( _HMG_aControlHeadCLick [ix] )
             IF _HMG_aControlHeadCLick [ix] == .T.
                SetWindowText ( c , RTrim( DToC( hb_defaultValue( value, BLANK_DATE ) ) ) )
@@ -419,11 +419,11 @@ FUNCTION _SetValue ( ControlName, ParentForm, Value, index )
             SetWindowText ( c , RTrim( value ) )
          ENDIF
 
-      ELSEIF T == "EDIT"
+      ELSEIF T == CONTROL_TYPE_EDIT
          SetWindowText ( c , value )
          _DoControlEventProcedure ( _HMG_aControlChangeProcedure [ix] , ix , "CONTROL_ONCHANGE" )
 
-      ELSEIF T == "RICHEDIT" .AND. _HMG_IsXPorLater
+      ELSEIF T == CONTROL_TYPE_RICHEDIT .AND. _HMG_IsXPorLater
          IF Empty( value ) .OR. !( Left( value, 7 ) == "{\rtf1\" )
             SetWindowText ( c , value )
          ELSE
@@ -438,11 +438,11 @@ FUNCTION _SetValue ( ControlName, ParentForm, Value, index )
       Value := IFEMPTY( Value, 0, Value )
       SetWindowText ( c , hb_ntos( Int( value ) ) )
 
-   CASE T == "SPINNER"
+   CASE T == CONTROL_TYPE_SPINNER
       Value := IFEMPTY( Value, 0, Value )
       SetSpinnerValue ( c [2] , Value )
 
-   CASE T == "CHECKBOX"
+   CASE T == CONTROL_TYPE_CHECKBOX
       Value := iif( ISLOGICAL ( Value ), Value, NIL )
 
       DO CASE
@@ -461,7 +461,7 @@ FUNCTION _SetValue ( ControlName, ParentForm, Value, index )
          _DoControlEventProcedure ( _HMG_aControlChangeProcedure [ix] , ix , "CONTROL_ONCHANGE" )
       ENDIF
 
-   CASE T == "RADIOGROUP"
+   CASE T == CONTROL_TYPE_RADIOGROUP
       IF ISNUMERIC( Value ) .AND. Value <= Len( c )  // EF 93
          AEval( c, { |x| iif( x > 0, SendMessage( x , BM_SETCHECK , BST_UNCHECKED , 0 ), ) } )
 
@@ -483,7 +483,7 @@ FUNCTION _SetValue ( ControlName, ParentForm, Value, index )
          _DoControlEventProcedure ( _HMG_aControlChangeProcedure [ix] , ix , "CONTROL_ONCHANGE" )
       ENDIF
 
-   CASE T == "COMBO"
+   CASE T == CONTROL_TYPE_COMBO
       Value := IFNUMERIC( Value, Value, 0 )
 
       IF ISCHARACTER ( _HMG_aControlSpacing [ix] )
@@ -508,14 +508,14 @@ FUNCTION _SetValue ( ControlName, ParentForm, Value, index )
          _DoControlEventProcedure ( _HMG_aControlChangeProcedure [ix] , ix , "CONTROL_ONCHANGE" )
       ENDIF
 
-   CASE T == "LIST" .OR. T == "CHKLIST"
+   CASE T == CONTROL_TYPE_LIST .OR. T == CONTROL_TYPE_CHKLIST
       Value := IFNUMERIC( Value, Value, 0 )
 
       ListBoxSetCursel ( c , value )
 
       _DoControlEventProcedure ( _HMG_aControlChangeProcedure [ix] , ix , "CONTROL_ONCHANGE" )
 
-   CASE T == "GRID"
+   CASE T == CONTROL_TYPE_GRID
       IF _HMG_aControlFontColor [ix] == .F.
 
          ListView_SetCursel ( c, iif( ISARRAY( Value ), value [1], value ) )
@@ -544,7 +544,7 @@ FUNCTION _SetValue ( ControlName, ParentForm, Value, index )
 
       ENDIF
 
-   CASE T == "TAB"
+   CASE T == CONTROL_TYPE_TAB
       Assign nValue := value
 
       IF nValue < 1
@@ -558,7 +558,7 @@ FUNCTION _SetValue ( ControlName, ParentForm, Value, index )
          _DoControlEventProcedure ( _HMG_aControlChangeProcedure [ix] , ix , "CONTROL_ONCHANGE" )
       ENDIF
 
-   CASE T == "DATEPICK"
+   CASE T == CONTROL_TYPE_DATEPICK
       IF Empty( Value )
          SetDatePickNull ( c )
       ELSE
@@ -579,7 +579,7 @@ FUNCTION _SetValue ( ControlName, ParentForm, Value, index )
 
       _DoControlEventProcedure ( _HMG_aControlChangeProcedure [ix] , ix , "CONTROL_ONCHANGE" )
 
-   CASE T == "TIMEPICK"
+   CASE T == CONTROL_TYPE_TIMEPICK
       IF Empty( Value )
          SetDatePickNull( c )
       ELSEIF ISCHARACTER( Value )
@@ -588,20 +588,20 @@ FUNCTION _SetValue ( ControlName, ParentForm, Value, index )
 
       _DoControlEventProcedure ( _HMG_aControlChangeProcedure [ix] , ix , "CONTROL_ONCHANGE" )
 
-   CASE T == "PROGRESSBAR"
+   CASE T == CONTROL_TYPE_PROGRESSBAR
       Value := IFEMPTY( Value, 0, Value )
       SendMessage( c, PBM_SETPOS , value , 0 )
 
-   CASE T == "SLIDER"
+   CASE T == CONTROL_TYPE_SLIDER
       Value := IFEMPTY( Value, 0, Value )
       SendMessage( c , TBM_SETPOS , 1 , value )
 
       _DoControlEventProcedure ( _HMG_aControlChangeProcedure [ix] , ix , "CONTROL_ONCHANGE" )
 
-   CASE T == "MULTILIST" .OR. T == "MULTICHKLIST"
+   CASE T == CONTROL_TYPE_MULTILIST .OR. T == CONTROL_TYPE_MULTICHKLIST
       LISTBOXSETMULTISEL ( c , value )
 
-   CASE T == "MULTIGRID"
+   CASE T == CONTROL_TYPE_MULTIGRID
       IF ISNUMBER ( value )  // GF 09/02/2013
          Value := { Value }
       ENDIF
@@ -611,10 +611,10 @@ FUNCTION _SetValue ( ControlName, ParentForm, Value, index )
          ListView_EnsureVisible ( c , value [1] )
       ENDIF
 
-   CASE T == "TOOLBUTTON"
+   CASE T == CONTROL_TYPE_TOOLBUTTON
       CheckButtonBar ( _HMG_aControlContainerHandle [ ix ] , _HMG_aControlValue [ix] - 1 , value )
 
-   CASE T == "GETBOX"
+   CASE T == CONTROL_TYPE_GETBOX
       _SetGetBoxValue( ix , c , Value )
 
       oGet := _HMG_aControlHeadClick [ix]
@@ -622,7 +622,7 @@ FUNCTION _SetValue ( ControlName, ParentForm, Value, index )
          _DoControlEventProcedure ( _HMG_aControlChangeProcedure [ix] , ix , "CONTROL_ONCHANGE" )
       ENDIF
 #ifdef _TSBROWSE_
-   CASE T == "TBROWSE"
+   CASE T == CONTROL_TYPE_TBROWSE
       oGet := _HMG_aControlIds [ix]
       IF oGet:lInitGoTop
          IF ISNUMBER( Value ) .AND. Value > 0
@@ -634,7 +634,7 @@ FUNCTION _SetValue ( ControlName, ParentForm, Value, index )
          oGet:SetValue( oGet:nCell, Value )
       ENDIF
 #endif
-   CASE T == "HOTKEYBOX"
+   CASE T == CONTROL_TYPE_HOTKEYBOX
       SetHotKeyValue ( c , value )
 
    OTHERWISE
@@ -670,7 +670,7 @@ FUNCTION _AddItem ( ControlName , ParentForm , Value , Parent , aImage , Id )
 
    DO CASE
 
-   CASE T == "TREE"
+   CASE T == CONTROL_TYPE_TREE
       IF _HMG_aControlInputmask [ix] == .F.
 
          IF Parent > TreeView_GetCount ( c ) .OR. Parent < 0
@@ -802,7 +802,7 @@ FUNCTION _AddItem ( ControlName , ParentForm , Value , Parent , aImage , Id )
 
       ENDIF
 
-   CASE T == "COMBO"
+   CASE T == CONTROL_TYPE_COMBO
       // (JK) HMG 1.0 Experimental Build 8
       IF _HMG_aControlMiscData1 [ix][1] == 0      // standard combo
          ComboAddString ( c , value )
@@ -829,7 +829,7 @@ FUNCTION _AddItem ( ControlName , ParentForm , Value , Parent , aImage , Id )
          ENDIF
       ENDIF
 #ifdef _TSBROWSE_
-   CASE T == "TBROWSE"
+   CASE T == CONTROL_TYPE_TBROWSE
       oGet := GetObjectByHandle( c )
       IF ISOBJECT( oGet )
          oGet:AddItem( value )
@@ -858,7 +858,7 @@ FUNCTION _DeleteItem ( ControlName , ParentForm , Value )
 
    DO CASE
 
-   CASE T == "TREE"
+   CASE T == CONTROL_TYPE_TREE
       BeforeCount := TreeView_GetCount ( c )
 
       IF _HMG_aControlInputmask [ix] == .F.
@@ -921,7 +921,7 @@ FUNCTION _DeleteItem ( ControlName , ParentForm , Value )
    CASE "LIST" $ T
       ListBoxDeleteString ( c , value )
 
-   CASE T == "COMBO"
+   CASE T == CONTROL_TYPE_COMBO
       ComboBoxDeleteString ( c , value )
       ComboSetCursel ( c , value )
 
@@ -952,7 +952,7 @@ FUNCTION _DeleteItem ( ControlName , ParentForm , Value )
 
       ENDIF
 #ifdef _TSBROWSE_
-   CASE T == "TBROWSE"
+   CASE T == CONTROL_TYPE_TBROWSE
       oGet := GetObjectByHandle( c )
       IF ISOBJECT( oGet )
          oGet:DeleteRow()
@@ -977,7 +977,7 @@ FUNCTION _DeleteAllItems ( ControlName , ParentForm )
 
    DO CASE
 
-   CASE t == "TREE"
+   CASE t == CONTROL_TYPE_TREE
       TreeView_DeleteAllItems ( c , _HMG_aControlPageMap [i] )  // Tree+
       ASize( _HMG_aControlPageMap [i] , 0 )
       ASize( _HMG_aControlPicture [i] , 0 )
@@ -986,7 +986,7 @@ FUNCTION _DeleteAllItems ( ControlName , ParentForm )
    CASE "LIST" $ t
       ListBoxReset ( c )
 
-   CASE t == "COMBO"
+   CASE t == CONTROL_TYPE_COMBO
       ComboBoxReset ( c )
 
    CASE "GRID" $ t
@@ -1001,7 +1001,7 @@ FUNCTION _DeleteAllItems ( ControlName , ParentForm )
 
       ENDIF
 #ifdef _TSBROWSE_
-   CASE t == "TBROWSE"
+   CASE t == CONTROL_TYPE_TBROWSE
       oGet := GetObjectByHandle( c )
       IF ISOBJECT( oGet ) .AND. oGet:lIsArr
          oGet:DeleteRow( .T. )
@@ -1125,7 +1125,7 @@ FUNCTION _SetFocus ( ControlName , ParentForm , Index )
 
    DO CASE
 
-   CASE T == "TEXT" .OR. T == "NUMTEXT" .OR. T == "MASKEDTEXT" .OR. T == "BTNTEXT" .OR. T == "BTNNUMTEXT"
+   CASE T == CONTROL_TYPE_TEXT .OR. T == CONTROL_TYPE_NUMTEXT .OR. T == CONTROL_TYPE_MASKEDTEXT .OR. T == CONTROL_TYPE_BTNTEXT .OR. T == CONTROL_TYPE_BTNNUMTEXT
       setfocus ( H )
       SendMessage ( H , EM_SETSEL , 0 , -1 )
 
@@ -1133,7 +1133,7 @@ FUNCTION _SetFocus ( ControlName , ParentForm , Index )
       setfocus ( H )
       _UpdateGridColors ( i )
 
-   CASE T == "CHARMASKTEXT"
+   CASE T == CONTROL_TYPE_CHARMASKTEXT
       setfocus ( H )
 
       FOR x := 1 TO hb_ULen( _HMG_aControlInputMask [i] )
@@ -1151,7 +1151,7 @@ FUNCTION _SetFocus ( ControlName , ParentForm , Index )
          SendMessage ( H , EM_SETSEL , MaskStart - 1 , -1 )
       ENDIF
 
-   CASE T == "BUTTON"
+   CASE T == CONTROL_TYPE_BUTTON
       IF _HMG_aControlEnabled [i] == .T.
 
          ParentFormHandle := _HMG_aControlParentHandles [i]
@@ -1178,11 +1178,11 @@ FUNCTION _SetFocus ( ControlName , ParentForm , Index )
 
       ENDIF
 
-   CASE T == "SPINNER"
+   CASE T == CONTROL_TYPE_SPINNER
       setfocus ( H [1] )
       SendMessage ( H [1] , EM_SETSEL , 0 , -1 )
 
-   CASE T == "RADIOGROUP"
+   CASE T == CONTROL_TYPE_RADIOGROUP
       x := _GetValue ( , , i )
       _HMG_aControlValue [i] := x
 
@@ -1479,7 +1479,7 @@ FUNCTION _ShowControl ( ControlName , ParentForm )
 
    FOR i := 1 TO Len( _HMG_aControlPageMap )
 
-      IF _HMG_aControlType [i] == "TAB"
+      IF _HMG_aControlType [i] == CONTROL_TYPE_TAB
 
          s := TabCtrl_GetCurSel ( _HMG_aControlHandles [i] )
 
@@ -1487,7 +1487,7 @@ FUNCTION _ShowControl ( ControlName , ParentForm )
 
             FOR w := 1 TO Len( _HMG_aControlPageMap [i] [r] )
 
-               IF t == "RADIOGROUP"
+               IF t == CONTROL_TYPE_RADIOGROUP
 
                   IF ValType( _HMG_aControlPageMap [i] [r] [w] ) == "A"
 
@@ -1503,7 +1503,7 @@ FUNCTION _ShowControl ( ControlName , ParentForm )
 
                   ENDIF
 
-               ELSEIF t == "SPINNER"
+               ELSEIF t == CONTROL_TYPE_SPINNER
 
                   IF ValType( _HMG_aControlPageMap [i] [r] [w] ) == "A"
 
@@ -1519,7 +1519,7 @@ FUNCTION _ShowControl ( ControlName , ParentForm )
 
                   ENDIF
 #ifdef _DBFBROWSE_
-               ELSEIF t == "BROWSE"
+               ELSEIF t == CONTROL_TYPE_BROWSE
 
                   IF ValType( _HMG_aControlPageMap [i] [r] [w] ) == "A"
 
@@ -1580,11 +1580,11 @@ FUNCTION _ShowControl ( ControlName , ParentForm )
 
    DO CASE
 
-   CASE T == "SPINNER"
+   CASE T == CONTROL_TYPE_SPINNER
       AEval( c, { |y| CShowControl ( y ) } )
 
 #ifdef _DBFBROWSE_
-   CASE T == "BROWSE"
+   CASE T == CONTROL_TYPE_BROWSE
       CShowControl ( c )
 
       IF _HMG_aControlIds [y] != 0
@@ -1594,7 +1594,7 @@ FUNCTION _ShowControl ( ControlName , ParentForm )
          CShowControl ( _HMG_aControlMiscData1 [y] [1] )
       ENDIF
 #endif
-   CASE T == "TAB"
+   CASE T == CONTROL_TYPE_TAB
       CShowControl ( c )
 
       s := TabCtrl_GetCurSel ( _HMG_aControlHandles [y] )
@@ -1609,24 +1609,24 @@ FUNCTION _ShowControl ( ControlName , ParentForm )
          ENDIF
       NEXT
 
-   CASE T == "RADIOGROUP"
+   CASE T == CONTROL_TYPE_RADIOGROUP
       AEval( c, {|y| ShowWindow ( y ) } )
 
 #ifdef _PROPGRID_
-   CASE T == "PROPGRID"
+   CASE T == CONTROL_TYPE_PROPGRID
       AEval( c, {|y| ShowWindow ( y ) } )
 #endif
-   CASE T == "GETBOX"
+   CASE T == CONTROL_TYPE_GETBOX
       FOR z := 1 TO 3
          CShowControl ( _HMG_aControlRangeMin [y][z] )
       NEXT z
 
-   CASE T == "BTNTEXT" .OR. T == "BTNNUMTEXT"
+   CASE T == CONTROL_TYPE_BTNTEXT .OR. T == CONTROL_TYPE_BTNNUMTEXT
       FOR z := 1 TO 3
          CShowControl ( _HMG_aControlSpacing [y][z] )
       NEXT z
 
-   CASE T == "TIMER"
+   CASE T == CONTROL_TYPE_TIMER
       // Do nothing
    OTHERWISE
       CShowControl ( c )
@@ -1732,7 +1732,7 @@ FUNCTION _SetItem ( ControlName , ParentForm , Item , Value , index )
    c := _HMG_aControlHandles [i]
 
    DO CASE
-   CASE t == "TREE"
+   CASE t == CONTROL_TYPE_TREE
 
       IF _HMG_aControlInputmask [i] == .F.
          IF Item > TreeView_GetCount ( c ) .OR. Item < 1
@@ -1758,7 +1758,7 @@ FUNCTION _SetItem ( ControlName , ParentForm , Item , Value , index )
 
       TreeView_SetItem ( TreeHandle , ItemHandle , Value )
 
-   CASE T == "LIST"
+   CASE T == CONTROL_TYPE_LIST
 
       IF _HMG_aControlMiscData1 [i] [2] .AND. ISARRAY( value )
          value := LB_Array2String ( value )
@@ -1768,21 +1768,21 @@ FUNCTION _SetItem ( ControlName , ParentForm , Item , Value , index )
       ListBoxInsertString ( c , value , Item )
       ListBoxSetCurSel ( c , Item )
 
-   CASE T == "CHKLIST"
+   CASE T == CONTROL_TYPE_CHKLIST
 
       Pos := iif( ChkList_GetCheckBox ( c , Item ), 2, 1 )
       ListBoxDeleteString ( c , Item )
       ChkListBoxInsertItem ( c , value , Item, Pos )
       ListBoxSetCurSel ( c , Item )
 
-   CASE T == "MULTILIST"
+   CASE T == CONTROL_TYPE_MULTILIST
 
       aTemp := ListBoxGetMultiSel ( c )
       ListBoxDeleteString ( c , Item )
       ListBoxInsertString ( c , value , Item )
       ListBoxSetMultiSel ( c , aTemp )
 
-   CASE T == "MULTICHKLIST"
+   CASE T == CONTROL_TYPE_MULTICHKLIST
 
       Pos := iif( ChkList_GetCheckBox ( c , Item ), 2, 1 )
       aTemp := ListBoxGetMultiSel ( c )
@@ -1790,7 +1790,7 @@ FUNCTION _SetItem ( ControlName , ParentForm , Item , Value , index )
       ChkListBoxInsertItem ( c , value , Item, Pos )
       ListBoxSetMultiSel ( c , aTemp )
 
-   CASE T == "COMBO"
+   CASE T == CONTROL_TYPE_COMBO
 
       IF _HMG_aControlMiscData1 [i][1] == 0       // standard combo
          ComboBoxDeleteString ( c , Item )
@@ -1890,7 +1890,7 @@ FUNCTION _SetItem ( ControlName , ParentForm , Item , Value , index )
 
       ENDIF
 
-   CASE T == "MESSAGEBAR"  // JP
+   CASE T == CONTROL_TYPE_MESSAGEBAR  // JP
 
       IF _IsOwnerDrawStatusBarItem ( c , Item , Value , .T. )
          MoveWindow ( c , 0 , 0 , 0 , 0 , .T. )
@@ -1925,7 +1925,7 @@ FUNCTION _GetItem ( ControlName , ParentForm , Item , index )
    c := _HMG_aControlHandles [i]
 
    DO CASE
-   CASE t == "TREE"
+   CASE t == CONTROL_TYPE_TREE
 
       IF _HMG_aControlInputmask [i] == .F.
          IF Item > TreeView_GetCount ( c ) .OR. Item < 1
@@ -1958,7 +1958,7 @@ FUNCTION _GetItem ( ControlName , ParentForm , Item , index )
          RetVal := LB_String2Array( RetVal )
       ENDIF
 
-   CASE T == "COMBO"
+   CASE T == CONTROL_TYPE_COMBO
 
       RetVal := ComboGetString ( c , Item )
 
@@ -2045,7 +2045,7 @@ FUNCTION _GetItem ( ControlName , ParentForm , Item , index )
 
       ENDIF
 
-   CASE T == "MESSAGEBAR"  //JK
+   CASE T == CONTROL_TYPE_MESSAGEBAR  //JK
 
       IF _IsOwnerDrawStatusBarItem ( c , Item , @i )
          RetVal := _HMG_aControlCaption [i]
@@ -2114,7 +2114,7 @@ FUNCTION _SetControlSizePos ( ControlName, ParentForm, row, col, width, height )
             ELSE
 
                p := AScan( _HMG_aControlhandles , _HMG_aControlPageMap [x] [r] [w] [1] )
-               IF p > 0 .AND. _HMG_aControlType [p] == "BROWSE"
+               IF p > 0 .AND. _HMG_aControlType [p] == CONTROL_TYPE_BROWSE
 #ifdef _DBFBROWSE_
                   tCol    := _HMG_aControlCol    [p]
                   tRow    := _HMG_aControlRow    [p]
@@ -2159,14 +2159,14 @@ FUNCTION _SetControlSizePos ( ControlName, ParentForm, row, col, width, height )
                   _HMG_aControlContainerRow [p] := Row
                   _HMG_aControlContainerCol [p] := Col
 #endif
-               ELSEIF p > 0 .AND. ( _HMG_aControlType [p] == "BTNNUMTEXT" .OR. _HMG_aControlType [p] == "BTNTEXT" .OR. ( _HMG_aControlType [p] == "GETBOX" .AND. _HMG_aControlMiscData1 [p] [4] != Nil ) )
+               ELSEIF p > 0 .AND. ( _HMG_aControlType [p] == CONTROL_TYPE_BTNNUMTEXT .OR. _HMG_aControlType [p] == CONTROL_TYPE_BTNTEXT .OR. ( _HMG_aControlType [p] == CONTROL_TYPE_GETBOX .AND. _HMG_aControlMiscData1 [p] [4] != Nil ) )
 
                   tCol    := _HMG_aControlCol    [p]
                   tRow    := _HMG_aControlRow    [p]
                   tWidth  := _HMG_aControlWidth  [p]
                   tHeight := _HMG_aControlHeight [p]
 
-                  IF _HMG_aControlType [p] == "GETBOX"
+                  IF _HMG_aControlType [p] == CONTROL_TYPE_GETBOX
                      MoveWindow ( _HMG_aControlRangeMin [p] [1] , tCol + DeltaCol - sx , tRow + DeltaRow - sy , tWidth + DelTaWidth , tHeight , .T. )
                      MoveBtnTextBox( _HMG_aControlRangeMin [p] [1], _HMG_aControlRangeMin [p] [2], _HMG_aControlRangeMin [p] [3], ;
                         _HMG_aControlMiscData1 [p] [7], _HMG_aControlMiscData1 [p] [6], tWidth + DelTaWidth, tHeight )
@@ -2183,7 +2183,7 @@ FUNCTION _SetControlSizePos ( ControlName, ParentForm, row, col, width, height )
                   _HMG_aControlContainerRow [ p ] := Row
                   _HMG_aControlContainerCol [ p ] := Col
 
-               ELSEIF p > 0 .AND. _HMG_aControlType [p] == "GETBOX"
+               ELSEIF p > 0 .AND. _HMG_aControlType [p] == CONTROL_TYPE_GETBOX
 
                   MoveWindow ( _HMG_aControlRangeMin [p] [1] , _HMG_aControlCol [p] + DeltaCol - sx , _HMG_aControlRow [p] + DeltaRow - sy , _HMG_aControlWidth [p] , _HMG_aControlHeight [p] , .T. )
 
@@ -2202,7 +2202,7 @@ FUNCTION _SetControlSizePos ( ControlName, ParentForm, row, col, width, height )
 
                            IF _HMG_aControlPageMap [x] [r] [w] == _HMG_aControlhandles [xx]
 
-                              IF _HMG_aControlType [xx] == "RADIOGROUP"
+                              IF _HMG_aControlType [xx] == CONTROL_TYPE_RADIOGROUP
                                  IF _HMG_aControlMiscData1 [ xx ] == .T.
                                     MoveWindow ( _HMG_aControlhandles [xx] [z] , _HMG_aControlCol [xx] + DeltaCol - sx + ( _HMG_aControlWidth [xx] + _HMG_aControlSpacing [xx] ) * ( z - 1 ) , _HMG_aControlRow [xx] + DeltaRow - sy, ;
                                        _HMG_aControlWidth [xx] , _HMG_aControlHeight [xx] , .T. )
@@ -2211,20 +2211,20 @@ FUNCTION _SetControlSizePos ( ControlName, ParentForm, row, col, width, height )
                                  ENDIF
                               ENDIF
 
-                              IF _HMG_aControlType [xx] == "RADIOGROUP" .AND. z == Len( _HMG_aControlPageMap [x] [r] [w] )
+                              IF _HMG_aControlType [xx] == CONTROL_TYPE_RADIOGROUP .AND. z == Len( _HMG_aControlPageMap [x] [r] [w] )
                                  _HMG_aControlRow [ xx ] := _HMG_aControlRow [ xx ] + DeltaRow
                                  _HMG_aControlCol [ xx ] := _HMG_aControlCol [ xx ] + DeltaCol
                                  _HMG_aControlContainerRow [ xx ] := Row
                                  _HMG_aControlContainerCol [ xx ] := Col
                               ENDIF
 
-                              IF _HMG_aControlType [xx] == "SPINNER" .AND. z == 1
+                              IF _HMG_aControlType [xx] == CONTROL_TYPE_SPINNER .AND. z == 1
                                  // JD 07/22/2007
                                  SpinW := GetWindowWidth( _HMG_aControlhandles [xx] [2] )
                                  MoveWindow ( _HMG_aControlhandles [xx] [1] , _HMG_aControlCol [xx] + DeltaCol - sx , _HMG_aControlRow [xx] + DeltaRow - sy , _HMG_aControlWidth [xx] - SpinW + Get3DEdgeWidth() , _HMG_aControlHeight [xx] , .T. )
                               ENDIF
 
-                              IF _HMG_aControlType [xx] == "SPINNER" .AND. z == 2
+                              IF _HMG_aControlType [xx] == CONTROL_TYPE_SPINNER .AND. z == 2
                                  // JD 07/22/2007
                                  SpinW := GetWindowWidth( _HMG_aControlhandles [xx] [2] )
                                  MoveWindow ( _HMG_aControlhandles [xx] [2] , _HMG_aControlCol [xx] + DeltaCol - sx + _HMG_aControlWidth [xx] - SpinW , _HMG_aControlRow [xx] + DeltaRow - sy , SpinW , _HMG_aControlHeight [xx] , .T. )
@@ -2606,7 +2606,7 @@ FUNCTION _SetControlCaption ( ControlName , ParentForm , Value )
 
       Assign cValue := Value
 
-      IF _HMG_aControlType [i] == "TOOLBUTTON"
+      IF _HMG_aControlType [i] == CONTROL_TYPE_TOOLBUTTON
 
          cCaption := Upper( _HMG_aControlCaption [i] )
 
@@ -2630,7 +2630,7 @@ FUNCTION _SetControlCaption ( ControlName , ParentForm , Value )
 
          _HMG_aControlCaption [i] := cValue
 
-      ELSEIF _HMG_aControlType [i] == "TOOLBAR"
+      ELSEIF _HMG_aControlType [i] == CONTROL_TYPE_TOOLBAR
 
          IF _IsControlSplitBoxed ( ControlName , ParentForm )
             x := GetFormIndex ( ParentForm )
@@ -2869,7 +2869,7 @@ STATIC FUNCTION _SetGetChkListItemState ( ControlName, ParentForm, Item, lState 
          IF item > 0 .AND. item <= ListBoxGetItemCount ( _HMG_aControlHandles [i] )
 
             IF ISLOGICAL ( lState )
-               IF T == "MULTICHKLIST"
+               IF T == CONTROL_TYPE_MULTICHKLIST
                   uSel := ListBoxGetMultiSel ( _HMG_aControlHandles [i] )
                ELSE
                   uSel := ListBoxGetCursel ( _HMG_aControlHandles [i] )
@@ -2877,7 +2877,7 @@ STATIC FUNCTION _SetGetChkListItemState ( ControlName, ParentForm, Item, lState 
 
                ChkList_SetCheckBox ( _HMG_aControlHandles [i], Item, iif( lState, 2, 1 ) )
 
-               IF T == "MULTICHKLIST"
+               IF T == CONTROL_TYPE_MULTICHKLIST
                   ListBoxSetMultiSel ( _HMG_aControlHandles [i], uSel )
                ELSE
                   ListBoxSetCursel ( _HMG_aControlHandles [i], uSel )
@@ -3116,7 +3116,7 @@ FUNCTION _GetControlAction ( ControlName , ParentForm , cEvent )
          ENDIF
 
       CASE cEvent == "ONENTER"
-         IF "TEXT" $ _HMG_aControlType [i] .OR. _HMG_aControlType [i] == "COMBO"
+         IF "TEXT" $ _HMG_aControlType [i] .OR. _HMG_aControlType [i] == CONTROL_TYPE_COMBO
             bAction := _HMG_aControlDblClick [i]
          ELSE
             bAction := _HMG_aControlProcedures [i]
@@ -3159,7 +3159,7 @@ STATIC FUNCTION _SetControlAction ( ControlName , ParentForm , Value , cEvent )
          ENDIF
 
       CASE cEvent == "ONENTER"
-         IF "TEXT" $ _HMG_aControlType [i] .OR. _HMG_aControlType [i] == "COMBO"
+         IF "TEXT" $ _HMG_aControlType [i] .OR. _HMG_aControlType [i] == CONTROL_TYPE_COMBO
             _HMG_aControlDblClick [i] := bBlock
          ELSE
             _HMG_aControlProcedures [i] := bBlock
@@ -3634,16 +3634,16 @@ FUNCTION _ReleaseControl ( ControlName, ParentForm )
 
    DO CASE
 
-   CASE t == "ANIGIF"
+   CASE t == CONTROL_TYPE_ANIGIF
       _HMG_aControlIds [i]:End()
 
-   CASE t == "ANIMATEBOX"
+   CASE t == CONTROL_TYPE_ANIMATEBOX
       _DestroyAnimateBox ( ControlName, ParentForm )
 
-   CASE t == "PLAYER"
+   CASE t == CONTROL_TYPE_PLAYER
       _DestroyPlayer ( ControlName, ParentForm )
 
-   CASE t == "PROGRESSWHEEL"
+   CASE t == CONTROL_TYPE_PROGRESSWHEEL
       IF GetProperty ( ParentForm, ControlName, "GradientMode" ) == 3
          SetProperty ( ParentForm, ControlName, "GradientMode", 1 )
       ENDIF
@@ -3651,10 +3651,10 @@ FUNCTION _ReleaseControl ( ControlName, ParentForm )
       hb_ADel( _HMG_aFormGraphTasks[ GetFormIndex ( ParentForm ) ] , _HMG_aControlMiscData1 [i] , .T. )
       ReleaseControl ( _HMG_aControlHandles [i] )
 
-   CASE t == "SPINNER" .OR. t == "RADIOGROUP"
+   CASE t == CONTROL_TYPE_SPINNER .OR. t == CONTROL_TYPE_RADIOGROUP
       AEval( _HMG_aControlHandles [i], { |y| ReleaseControl ( y ) } )
 
-   CASE t == "MESSAGEBAR"
+   CASE t == CONTROL_TYPE_MESSAGEBAR
       IF _IsControlDefined ( "StatusBarKbd" , ParentForm )
          ReleaseControl ( _HMG_aControlHandles [ GetControlIndex ( "StatusBarKbd" , ParentForm ) ] )
          _EraseControl ( GetControlIndex ( "StatusBarKbd" , ParentForm ) , k )
@@ -3679,7 +3679,7 @@ FUNCTION _ReleaseControl ( ControlName, ParentForm )
       ReleaseControl ( _HMG_aControlHandles [i] )
 
 #ifdef _DBFBROWSE_
-   CASE t == "BROWSE"
+   CASE t == CONTROL_TYPE_BROWSE
       ReleaseControl ( _HMG_aControlHandles [i] )
 
       IF _HMG_aControlIds [i] != 0
@@ -3690,7 +3690,7 @@ FUNCTION _ReleaseControl ( ControlName, ParentForm )
       ENDIF
 #endif
 
-   CASE t == "TAB"
+   CASE t == CONTROL_TYPE_TAB
       FOR r := 1 TO Len( _HMG_aControlPageMap [i] )
 
          FOR w := 1 TO Len( _HMG_aControlPageMap [i] [r] )
@@ -3738,13 +3738,13 @@ FUNCTION _ReleaseControl ( ControlName, ParentForm )
 
    FOR y := 1 TO Len( _HMG_aControlPageMap )
 
-      IF _HMG_aControlType [y] == "TAB"
+      IF _HMG_aControlType [y] == CONTROL_TYPE_TAB
 
          FOR r := 1 TO Len( _HMG_aControlPageMap [y] )
 
             FOR w := 1 TO Len( _HMG_aControlPageMap [y] [r] )
 
-               IF t == "RADIOGROUP"
+               IF t == CONTROL_TYPE_RADIOGROUP
 
                   IF ValType( _HMG_aControlPageMap [y] [r] [w] ) == "A"
 
@@ -3758,7 +3758,7 @@ FUNCTION _ReleaseControl ( ControlName, ParentForm )
 
                   ENDIF
 
-               ELSEIF t == "SPINNER"
+               ELSEIF t == CONTROL_TYPE_SPINNER
 
                   IF ValType( _HMG_aControlPageMap [y] [r] [w] ) == "A"
 
@@ -3772,7 +3772,7 @@ FUNCTION _ReleaseControl ( ControlName, ParentForm )
 
                   ENDIF
 #ifdef _DBFBROWSE_
-               ELSEIF t == "BROWSE"
+               ELSEIF t == CONTROL_TYPE_BROWSE
 
                   IF ValType( _HMG_aControlPageMap [y] [r] [w] ) == "A"
 
@@ -3834,7 +3834,7 @@ FUNCTION _EraseControl ( i, p )
    x := _HMG_aControlFontHandle [i]
 
    IF ISNUMERIC ( x ) .AND. ! Empty( x ) .AND. ;
-      !( ( t := AScan( _HMG_aControlHandles, x ) ) > 0 .AND. _HMG_aControlType [t] == "FONT" )
+      !( ( t := AScan( _HMG_aControlHandles, x ) ) > 0 .AND. _HMG_aControlType [t] == CONTROL_TYPE_FONT )
       DeleteObject ( x )
    ENDIF
 
@@ -3852,7 +3852,7 @@ FUNCTION _EraseControl ( i, p )
 
    DO CASE
 
-   CASE t == "HOTKEY"
+   CASE t == CONTROL_TYPE_HOTKEY
       ReleaseHotKey ( _HMG_aControlParentHandles [i] , _HMG_aControlIds [i] )
 
    CASE "LABEL" $ t
@@ -3866,28 +3866,28 @@ FUNCTION _EraseControl ( i, p )
          ENDIF
       ENDIF
 
-   CASE t == "BUTTON"
+   CASE t == CONTROL_TYPE_BUTTON
       IF ! Empty( _HMG_aControlBrushHandle [i] ) .AND. _HMG_IsThemed .AND. ISLOGICAL ( _HMG_aControlDblClick [i] ) .AND. _HMG_aControlDblClick [i] == .F.
          ImageList_Destroy ( _HMG_aControlBrushHandle [i] )
       ENDIF
 
-   CASE t == "CHECKBOX"
+   CASE t == CONTROL_TYPE_CHECKBOX
       IF ! Empty( _HMG_aControlBrushHandle [i] ) .AND. _HMG_IsThemed
          ImageList_Destroy ( _HMG_aControlBrushHandle [i] )
       ENDIF
 
-   CASE t == "GETBOX"
+   CASE t == CONTROL_TYPE_GETBOX
       AEval( _HMG_aControlRangeMin [i], { |x| DeleteObject ( x ) } )
 
-   CASE t == "BTNTEXT" .OR. t == "BTNNUMTEXT"
+   CASE t == CONTROL_TYPE_BTNTEXT .OR. t == CONTROL_TYPE_BTNNUMTEXT
       AEval( _HMG_aControlSpacing [i], { |x| DeleteObject ( x ) } )
 
-   CASE t == "TAB"
+   CASE t == CONTROL_TYPE_TAB
       IF !Empty( _HMG_aControlInputMask [i] )
          IMAGELIST_DESTROY ( _HMG_aControlInputMask [i] )
       ENDIF
 #ifdef _DBFBROWSE_
-   CASE t == "BROWSE"
+   CASE t == CONTROL_TYPE_BROWSE
       IF !Empty( _HMG_aControlMiscData1 [i] [15] )
          IMAGELIST_DESTROY ( _HMG_aControlMiscData1 [i] [15] )
       ENDIF
@@ -3897,10 +3897,10 @@ FUNCTION _EraseControl ( i, p )
          IMAGELIST_DESTROY ( _HMG_aControlRangeMin [i] )
       ENDIF
 
-   CASE t == "TOOLBUTTON"
+   CASE t == CONTROL_TYPE_TOOLBUTTON
       DeleteObject ( _HMG_aControlHandles [i] )
 
-   CASE t == "PAGER"
+   CASE t == CONTROL_TYPE_PAGER
       // Remove Pager Child Controls
       hWnd := _HMG_aControlHandles [i]
       FOR x := 1 TO Len( _HMG_aControlHandles )
@@ -4327,7 +4327,7 @@ PROCEDURE SetProperty( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 )
 
          ix := GetControlIndex ( Arg2 , Arg1 )
 
-         IF _HMG_aControltype [ix] == "COMBO"
+         IF _HMG_aControltype [ix] == CONTROL_TYPE_COMBO
             _HMG_aControlInputMask [ix] := Arg4
          ENDIF
 
@@ -5157,12 +5157,12 @@ FUNCTION GetProperty ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7, Arg8 )
          IF _HMG_lOOPEnabled
 #ifdef _OBJECT_
             RetVal := _ControlObj ( Arg2 , Arg1 )
-            IF HB_ISOBJECT( RetVal ) .AND. _HMG_aControlType[ RetVal:Index ] == "TBROWSE"
+            IF HB_ISOBJECT( RetVal ) .AND. _HMG_aControlType[ RetVal:Index ] == CONTROL_TYPE_TBROWSE
                RetVal := _HMG_aControlIds[ RetVal:Index ]
             ENDIF
 #endif
          ELSEIF ( ix := GetControlIndex ( Arg2 , Arg1 ) ) > 0
-            IF _HMG_aControlType[ ix ] == "TBROWSE"
+            IF _HMG_aControlType[ ix ] == CONTROL_TYPE_TBROWSE
                RetVal := _HMG_aControlIds[ ix ]
             ENDIF
          ENDIF
@@ -5257,7 +5257,7 @@ FUNCTION GetProperty ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7, Arg8 )
 
          ix := GetControlIndex ( Arg2 , Arg1 )
 
-         IF _HMG_aControltype [ix] == "COMBO"
+         IF _HMG_aControltype [ix] == CONTROL_TYPE_COMBO
             RetVal := _HMG_aControlInputMask [ix]
          ENDIF
 
@@ -5266,11 +5266,11 @@ FUNCTION GetProperty ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7, Arg8 )
          //(JK) HMG 1.0 Experimental Build 14
          ix := GetControlIndex ( Arg2 , Arg1 )
 
-         IF _HMG_aControltype [ix] == "GETBOX"
+         IF _HMG_aControltype [ix] == CONTROL_TYPE_GETBOX
 
             RetVal := GetWindowText ( GetControlHandle ( Arg2 , Arg1 ) )
 
-         ELSEIF _HMG_aControltype [ix] == "COMBO"
+         ELSEIF _HMG_aControltype [ix] == CONTROL_TYPE_COMBO
 
             IF _HMG_aControlMiscData1 [ix][1] == 1
 
@@ -6639,7 +6639,7 @@ STATIC FUNCTION _SetArrayToControl ( ControlName , ParentForm , aValue )  // GF 
 
       _SetValue ( , , BackValue , i )
 
-   CASE T == "COMBO"
+   CASE T == CONTROL_TYPE_COMBO
       IF ValType( _HMG_aControlSpacing [i] ) != "C" .AND. _HMG_aControlMiscData1 [i][1] <> 1
          _HMG_aControlMiscData1 [i][4] := aValue
          _Refresh( i )
@@ -6659,7 +6659,7 @@ STATIC FUNCTION _SetArrayToControl ( ControlName , ParentForm , aValue )  // GF 
       ENDIF
 
 #ifdef _TSBROWSE_
-   CASE T == "TBROWSE"
+   CASE T == CONTROL_TYPE_TBROWSE
       oGet := GetObjectByHandle( _HMG_aControlHandles [i] )
       IF ISOBJECT( oGet )
          oGet:SetItems( aValue )
@@ -7378,7 +7378,7 @@ PROCEDURE _Refresh( i )
    CASE "TEXT" $ T
       _DataTextBoxRefresh ( i )
 
-   CASE T == "COMBO"
+   CASE T == CONTROL_TYPE_COMBO
       IF ValType( _HMG_aControlSpacing [i] ) == "C"
          _DataComboRefresh ( i )
 
@@ -7396,11 +7396,11 @@ PROCEDURE _Refresh( i )
 
       ENDIF
 
-   CASE "PICK" $ T .OR. T == "CHECKBOX" .OR. T == "RICHEDIT" .OR. T == "CHECKLABEL"
+   CASE "PICK" $ T .OR. T == CONTROL_TYPE_CHECKBOX .OR. T == CONTROL_TYPE_RICHEDIT .OR. T == CONTROL_TYPE_CHECKLABEL
       Field := _HMG_aControlPageMap [i]
 
       IF ValType( Field ) != "U"
-         IF T == "CHECKLABEL"
+         IF T == CONTROL_TYPE_CHECKLABEL
             SetProperty ( GetParentFormName ( i ), _HMG_aControlNames [i], "Checked", &Field )
          ELSE
             _SetValue (  ,  , &Field , i )
@@ -7409,14 +7409,14 @@ PROCEDURE _Refresh( i )
          MsgMiniGuiError ( "Control: " + _HMG_aControlNames [i] + " Of " + GetParentFormName ( i ) + " : Refresh method can be used only if FIELD clause is set." )
       ENDIF
 
-   CASE T == "EDIT"
+   CASE T == CONTROL_TYPE_EDIT
       _DataEditBoxRefresh ( i )
 
-   CASE T == "GETBOX"
+   CASE T == CONTROL_TYPE_GETBOX
       _DataGetBoxRefresh ( i )
 
 #ifdef _DBFBROWSE_
-   CASE T == "BROWSE"
+   CASE T == CONTROL_TYPE_BROWSE
       _BrowseRefresh ( "", "", i )
 #endif
    CASE "GRID" $ T
@@ -7447,21 +7447,21 @@ PROCEDURE _SaveData ( ControlName, ParentForm )
    CASE "TEXT" $ T
       _DataTextBoxSave ( ControlName , ParentForm )
 
-   CASE "PICK" $ T .OR. T == "CHECKBOX" .OR. T == "EDIT" .OR. T == "CHECKLABEL"
+   CASE "PICK" $ T .OR. T == CONTROL_TYPE_CHECKBOX .OR. T == CONTROL_TYPE_EDIT .OR. T == CONTROL_TYPE_CHECKLABEL
       Field := _HMG_aControlPageMap [i]
 
       IF _IsFieldExists ( Field )
-         IF T == "CHECKLABEL"
+         IF T == CONTROL_TYPE_CHECKLABEL
             REPLACE &Field WITH GetProperty ( ParentForm, ControlName, "Checked" )
          ELSE
             REPLACE &Field WITH _GetValue ( ControlName , ParentForm )
          ENDIF
       ENDIF
 
-   CASE T == "RICHEDIT"  // JP Exp. build 8
+   CASE T == CONTROL_TYPE_RICHEDIT  // JP Exp. build 8
       _DataBaseRichEditBoxSave ( ControlName , ParentForm )
 
-   CASE T == "GETBOX"
+   CASE T == CONTROL_TYPE_GETBOX
       _DataGetBoxSave ( ControlName , ParentForm )
 
    END CASE
@@ -7612,20 +7612,20 @@ STATIC FUNCTION _SetFontColor ( ControlName , ParentForm , Value )
 
    DO CASE
 
-   CASE "GRID" $ t .OR. t == "BROWSE"
+   CASE "GRID" $ t .OR. t == CONTROL_TYPE_BROWSE
       ListView_SetTextColor ( c, value [1] , value [2] , value [3] )
       RedrawWindow ( c )
 
-   CASE t == "RICHEDIT"
+   CASE t == CONTROL_TYPE_RICHEDIT
       SetFontRTF ( c, -1, _HMG_aControlFontName [i], _HMG_aControlFontSize [i], _HMG_aControlFontAttributes [i][1], _HMG_aControlFontAttributes [i][2], ;
          RGB ( Value [1], Value [2], Value [3] ), _HMG_aControlFontAttributes [i][3], _HMG_aControlFontAttributes [i][4] )
       RedrawWindow ( c )
 
-   CASE t == "DATEPICK"
+   CASE t == CONTROL_TYPE_DATEPICK
       _HMG_aControlFontColor [i] := Value
       SetDatePickFontColor ( c, value [1], value [2], value [3] )
 
-   CASE t == "MONTHCAL"
+   CASE t == CONTROL_TYPE_MONTHCAL
       _HMG_aControlFontColor [i] := Value
       IF _HMG_IsThemed .AND. IsArrayRGB ( Value )
          SetWindowTheme ( c, "", "" )
@@ -7635,22 +7635,22 @@ STATIC FUNCTION _SetFontColor ( ControlName , ParentForm , Value )
       ENDIF
       SetMonthCalFontColor ( c, value [1], value [2], value [3] )
 
-   CASE t == "PROGRESSBAR"
+   CASE t == CONTROL_TYPE_PROGRESSBAR
       _HMG_aControlFontColor [i] := Value
       IF _HMG_IsThemed .AND. IsArrayRGB ( Value )
          SetWindowTheme ( c, "", "" )
       ENDIF
       SetProgressBarBarColor ( c, value [1], value [2], value [3] )
 
-   CASE t == "TREE"
+   CASE t == CONTROL_TYPE_TREE
       _HMG_aControlFontColor [i] := Value
       TreeView_SetTextColor ( c, value )
 
-   CASE "TEXT" $ t .OR. t == "EDIT"
+   CASE "TEXT" $ t .OR. t == CONTROL_TYPE_EDIT
       _HMG_aControlFontColor [i] := iif( ISARRAY( Value ), Value, nRGB2Arr ( default ) )
       RedrawWindow ( c )
 
-   CASE t == "CHECKLABEL"
+   CASE t == CONTROL_TYPE_CHECKLABEL
       _HMG_aControlFontColor [i] := Value
       RedrawWindowControlRect ( _HMG_aControlParentHandles [i] , _HMG_aControlRow [i] , _HMG_aControlCol [i] , _HMG_aControlRow [i] + _HMG_aControlHeight [i] , _HMG_aControlCol [i] + _HMG_aControlWidth [i] )
 
@@ -7678,7 +7678,7 @@ STATIC FUNCTION _SetBackColor ( ControlName , ParentForm , Value )
 
    DO CASE
 
-   CASE t == "SLIDER"
+   CASE t == CONTROL_TYPE_SLIDER
       _HMG_aControlBkColor [i] := Value
       RedrawWindow ( c )
       f := GetFocus()
@@ -7690,15 +7690,15 @@ STATIC FUNCTION _SetBackColor ( ControlName , ParentForm , Value )
       ListView_SetTextBkColor ( c, Value [1], Value [2], Value [3] )
       RedrawWindow ( c )
 
-   CASE t == "RICHEDIT"
+   CASE t == CONTROL_TYPE_RICHEDIT
       SendMessage ( c, EM_SETBKGNDCOLOR, 0, RGB ( Value [1], Value [2], Value [3] ) )
       RedrawWindow ( c )
 
-   CASE t == "DATEPICK"
+   CASE t == CONTROL_TYPE_DATEPICK
       _HMG_aControlBkColor [i] := Value
       SetDatePickBkColor ( c, Value [1], Value [2], Value [3] )
 
-   CASE t == "MONTHCAL"
+   CASE t == CONTROL_TYPE_MONTHCAL
       _HMG_aControlBkColor [i] := Value
       IF _HMG_IsThemed .AND. IsArrayRGB ( Value )
          SetWindowTheme ( c, "", "" )
@@ -7708,18 +7708,18 @@ STATIC FUNCTION _SetBackColor ( ControlName , ParentForm , Value )
       ENDIF
       SetMonthCalMonthBkColor ( c, Value [1], Value [2], Value [3] )
 
-   CASE t == "PROGRESSBAR"
+   CASE t == CONTROL_TYPE_PROGRESSBAR
       _HMG_aControlBkColor [i] := Value
       IF _HMG_IsThemed .AND. IsArrayRGB ( Value )
          SetWindowTheme ( c, "", "" )
       ENDIF
       SetProgressBarBkColor ( c, Value [1], Value [2], Value [3] )
 
-   CASE t == "TREE"
+   CASE t == CONTROL_TYPE_TREE
       _HMG_aControlBkColor [i] := Value
       TreeView_SetBkColor ( c, Value )
 
-   CASE t == "TAB"
+   CASE t == CONTROL_TYPE_TAB
       IF IsArrayRGB ( Value ) .AND. Value [1] != -1
          IF ! ISARRAY( _HMG_aControlBkColor [i] )
             ChangeStyle ( c , TCS_OWNERDRAWFIXED )
@@ -7730,11 +7730,11 @@ STATIC FUNCTION _SetBackColor ( ControlName , ParentForm , Value )
          SetWindowBrush ( c, _HMG_aControlBrushHandle [i] )
       ENDIF
 
-   CASE "TEXT" $ t .OR. t == "EDIT" .OR. t == "GETBOX"
+   CASE "TEXT" $ t .OR. t == CONTROL_TYPE_EDIT .OR. t == CONTROL_TYPE_GETBOX
       _HMG_aControlBkColor [i] := iif( ISARRAY( Value ), Value, { nRGB2Arr ( d ), nRGB2Arr ( f ), nRGB2Arr ( d ) } )
       RedrawWindow ( c )
 
-   CASE t == "IMAGE"
+   CASE t == CONTROL_TYPE_IMAGE
       _HMG_aControlSpacing [i] := iif( ISARRAY( Value ), RGB ( Value [1], Value [2], Value [3] ), Value )
       _SetPicture ( ControlName , ParentForm , _HMG_aControlPicture [i] )
 
@@ -7757,7 +7757,7 @@ STATIC FUNCTION _GetFontColor ( ControlName , ParentForm )
 
       t := GetControlType ( ControlName, ParentForm )
 
-      IF "GRID" $ t .OR. t == "BROWSE"
+      IF "GRID" $ t .OR. t == CONTROL_TYPE_BROWSE
          nTmp := ListView_GetTextColor ( _HMG_aControlHandles [i] )
          RetVal := nRGB2Arr ( nTmp )
       ELSE
@@ -7960,28 +7960,28 @@ STATIC PROCEDURE _SetTextEditReadOnly ( ControlName , ParentForm , Value )
    i := GetControlIndex ( ControlName, ParentForm )
    t := GetControlType ( ControlName, ParentForm )
 
-   IF t == "TEXT" .OR. t == "NUMTEXT" .OR. t == "MASKEDTEXT" .OR. t == "CHARMASKTEXT" .OR. t == "SPINNER"
+   IF t == CONTROL_TYPE_TEXT .OR. t == CONTROL_TYPE_NUMTEXT .OR. t == CONTROL_TYPE_MASKEDTEXT .OR. t == CONTROL_TYPE_CHARMASKTEXT .OR. t == CONTROL_TYPE_SPINNER
       _HMG_aControlMiscData1 [ i, 2 ] := lValue
 
-   ELSEIF t == "GETBOX"
+   ELSEIF t == CONTROL_TYPE_GETBOX
       _HMG_aControlMiscData1 [ i, 2 ] := lValue
       _HMG_aControlProcedures [i] := iif( lValue, NIL, _HMG_aControlMiscData1 [ i, 4 ] )
       _HMG_aControlDblClick [i] := iif( lValue, NIL, _HMG_aControlMiscData1 [ i, 5 ] )
 
-   ELSEIF t == "EDIT" .OR. t == "BTNTEXT" .OR. t == "BTNNUMTEXT"
+   ELSEIF t == CONTROL_TYPE_EDIT .OR. t == CONTROL_TYPE_BTNTEXT .OR. t == CONTROL_TYPE_BTNNUMTEXT
       _HMG_aControlMiscData1 [ i, 3 ] := lValue
 
    ENDIF
 
    IF _HMG_aControlEnabled [i] == .T.
 
-      IF t == "SPINNER"
+      IF t == CONTROL_TYPE_SPINNER
          SendMessage ( _HMG_aControlHandles [i][1], EM_SETREADONLY, iif( lValue, 1, 0 ), 0 )
 
-      ELSEIF t == "COMBO" .AND. _HMG_aControlMiscData1 [i][2] == .T.
+      ELSEIF t == CONTROL_TYPE_COMBO .AND. _HMG_aControlMiscData1 [i][2] == .T.
          SendMessage ( _HMG_aControlRangeMin [i], EM_SETREADONLY, iif( lValue, 1, 0 ), 0 )
 
-      ELSEIF "TEXT" $ t .OR. t == "EDIT" .OR. t == "GETBOX"
+      ELSEIF "TEXT" $ t .OR. t == CONTROL_TYPE_EDIT .OR. t == CONTROL_TYPE_GETBOX
          SendMessage ( _HMG_aControlHandles [i], EM_SETREADONLY, iif( lValue, 1, 0 ), 0 )
 
       ENDIF
@@ -8095,7 +8095,7 @@ FUNCTION _EnableListViewUpdate ( ControlName, ParentForm, lEnable )
    i := GetControlIndex ( ControlName, ParentForm )
    t := _HMG_aControlType [i]
 
-   IF "GRID" $ t .OR. t == "COMBO" .OR. "BROWSE" $ t .OR. t == "TREE"
+   IF "GRID" $ t .OR. t == CONTROL_TYPE_COMBO .OR. "BROWSE" $ t .OR. t == CONTROL_TYPE_TREE
       SendMessage ( _HMG_aControlHandles [i], WM_SETREDRAW, iif( lEnable, 1, 0 ), 0 )
       _HMG_aControlEnabled [i] := lEnable
    ELSE
@@ -8124,7 +8124,7 @@ FUNCTION _ExtDisableControl ( ControlName, ParentForm )
       ENDIF
       HideCaret ( hWnd )
 #ifdef _DBFBROWSE_
-      IF GetControlType ( ControlName, ParentForm ) == "BROWSE"
+      IF GetControlType ( ControlName, ParentForm ) == CONTROL_TYPE_BROWSE
          idx := GetControlIndex ( ControlName, ParentForm )
          IF _HMG_aControlIds [idx] != 0
             ChangeStyle ( _HMG_aControlIds [idx] , WS_DISABLED , , .F. )
@@ -8147,7 +8147,7 @@ FUNCTION _ExtEnableControl ( ControlName, ParentForm )
       ChangeStyle ( hWnd, , WS_DISABLED, .F. )
       ShowCaret ( hWnd )
 #ifdef _DBFBROWSE_
-      IF GetControlType ( ControlName, ParentForm ) == "BROWSE"
+      IF GetControlType ( ControlName, ParentForm ) == CONTROL_TYPE_BROWSE
          idx := GetControlIndex ( ControlName, ParentForm )
          IF _HMG_aControlIds [idx] != 0
             ChangeStyle ( _HMG_aControlIds [idx], , WS_DISABLED, .F. )
@@ -8166,7 +8166,7 @@ STATIC FUNCTION _SetGetRichValue ( ControlName, ParentForm, cValue, nType )
    LOCAL RetVal As String
    LOCAL i
 
-   IF ( i := GetControlIndex ( ControlName , ParentForm ) ) > 0 .AND. _HMG_aControlType [i] == "RICHEDIT"
+   IF ( i := GetControlIndex ( ControlName , ParentForm ) ) > 0 .AND. _HMG_aControlType [i] == CONTROL_TYPE_RICHEDIT
 
       IF ValType( cValue ) == "C"
          _DataRichEditBoxSetValue ( ControlName, ParentForm, cValue, nType )
@@ -8186,7 +8186,7 @@ STATIC FUNCTION _SetGetAutoFont ( ControlName, ParentForm, lAuto )
    LOCAL RetVal
    LOCAL i
 
-   IF ( i := GetControlIndex ( ControlName , ParentForm ) ) > 0 .AND. _HMG_aControlType [i] == "RICHEDIT"
+   IF ( i := GetControlIndex ( ControlName , ParentForm ) ) > 0 .AND. _HMG_aControlType [i] == CONTROL_TYPE_RICHEDIT
 
       IF ISLOGICAL ( lAuto )
          SetAutoFontRTF ( GetControlHandle ( ControlName , ParentForm ), lAuto )
@@ -8299,7 +8299,7 @@ FUNCTION _IsComboExtend ( ControlName, ParentForm )
 
    IF ( i := GetControlIndex ( ControlName, ParentForm ) ) > 0
 
-      IF GetControlType ( ControlName, ParentForm ) == "COMBO" .AND. ;
+      IF GetControlType ( ControlName, ParentForm ) == CONTROL_TYPE_COMBO .AND. ;
          _HMG_aControlMiscData1 [i] [1] == 1
          RETURN .T.
       ENDIF
@@ -8344,7 +8344,7 @@ STATIC FUNCTION _SetGetImageHBitmap ( ControlName , ParentForm , hBitmap )
    LOCAL RetVal
    LOCAL i
 
-   IF ( i := GetControlIndex ( ControlName , ParentForm ) ) > 0 .AND. _HMG_aControlType [i] == "IMAGE"
+   IF ( i := GetControlIndex ( ControlName , ParentForm ) ) > 0 .AND. _HMG_aControlType [i] == CONTROL_TYPE_IMAGE
 
       IF PCount() == 2
 
@@ -8391,8 +8391,8 @@ FUNCTION _GetCaption ( ControlName , ParentForm )
 
    IF ( i := GetControlIndex ( ControlName , ParentForm ) ) > 0
 
-      IF _HMG_aControlType [i] == "TOOLBAR" .OR. _HMG_aControlType [i] == "TOOLBUTTON" .OR. ;
-         _HMG_aControlType [i] == "MENU" .OR. _HMG_aControlType [i] == "RADIOGROUP"
+      IF _HMG_aControlType [i] == CONTROL_TYPE_TOOLBAR .OR. _HMG_aControlType [i] == CONTROL_TYPE_TOOLBUTTON .OR. ;
+         _HMG_aControlType [i] == CONTROL_TYPE_MENU .OR. _HMG_aControlType [i] == CONTROL_TYPE_RADIOGROUP
          cRetVal := _HMG_aControlCaption [i]
       ELSE
          cRetVal := GetWindowText ( _HMG_aControlHandles [i] )
@@ -8424,13 +8424,13 @@ FUNCTION _IsControlEnabled ( ControlName, ParentForm, Position )
    i := GetControlIndex ( ControlName, ParentForm )
    t := GetControlType ( ControlName, ParentForm )
 
-   IF t == "MENU"
+   IF t == CONTROL_TYPE_MENU
       RetVal := _IsMenuItemEnabled ( ControlName, ParentForm )
 
-   ELSEIF t == "RADIOGROUP"
+   ELSEIF t == CONTROL_TYPE_RADIOGROUP
       RetVal := IsWindowEnabled( _HMG_aControlHandles [i] [hb_defaultValue( Position, 1 )] )
 
-   ELSEIF t == "TAB" .AND. ISNUMBER( Position )
+   ELSEIF t == CONTROL_TYPE_TAB .AND. ISNUMBER( Position )
       FOR EACH w IN _HMG_aControlPageMap [i] [Position]
 
          IF ValType( w ) <> "A"
@@ -8584,7 +8584,7 @@ STATIC FUNCTION GetUserControlType ( ControlName, ParentForm )
       RETURN ""
    ENDIF
 
-   cRetName := _HMG_aControlType [i]
+   cRetName := _HMG_aControlType [i] /* TODO: usar constantes */
 
    IF cRetName == "CHECKBOX" .AND. ValType( _HMG_aControlPageMap [i] ) == "A"
       cRetName := "CHECKBUTTON"
@@ -8705,7 +8705,7 @@ STATIC FUNCTION _SetTransparent ( ControlName , ParentForm , lTransparent )
                ChangeStyle ( h, , WS_EX_TRANSPARENT, .T. )
             ENDIF
 
-         CASE cType == "CHECKBOX"
+         CASE cType == CONTROL_TYPE_CHECKBOX
             IF lTransparent
                ChangeStyle ( h, WS_EX_TRANSPARENT, , .T. )
                _HMG_aControlBkColor [i] := _HMG_aFormBkColor [ix]
@@ -8714,7 +8714,7 @@ STATIC FUNCTION _SetTransparent ( ControlName , ParentForm , lTransparent )
                _HMG_aControlBkColor [i] := nRGB2Arr( GetSysColor ( COLOR_BTNFACE ) )
             ENDIF
 
-         CASE cType == "RADIOGROUP"
+         CASE cType == CONTROL_TYPE_RADIOGROUP
             IF lTransparent
                _HMG_aControlBkColor [i] := NIL
             ELSE
@@ -8744,7 +8744,7 @@ STATIC FUNCTION _RedrawControl ( i )
 
       IF ValType( ControlHandle ) == "A"
          AEval( ControlHandle, {|x| RedrawWindow ( x , .T. ) } )
-      ELSEIF _HMG_aControlType [i] == "OBUTTON"
+      ELSEIF _HMG_aControlType [i] == CONTROL_TYPE_OBUTTON
          InvalidateRect( ControlHandle, 0 )
       ELSE
          RedrawWindow ( ControlHandle )
@@ -8760,7 +8760,7 @@ STATIC FUNCTION _SetGetTabHTColors ( ControlName, ParentForm, nId, Value )
    LOCAL i := GetControlIndex ( ControlName, ParentForm )
    LOCAL RetVal := .T.
 
-   IF i > 0 .AND. _HMG_aControlType [i] == "TAB" .AND. _HMG_aControlMiscData1 [i] [5]  // HotTrack
+   IF i > 0 .AND. _HMG_aControlType [i] == CONTROL_TYPE_TAB .AND. _HMG_aControlMiscData1 [i] [5]  // HotTrack
 
       IF PCount() > 3
          _HMG_aControlMiscData1 [ i ] [ nId ] := Value
@@ -8778,7 +8778,7 @@ STATIC FUNCTION _SetGetSpacingProperty ( ControlName, ParentForm, Value )
    LOCAL i := GetControlIndex ( ControlName, ParentForm )
    LOCAL CurrValue
 
-   IF i > 0 .AND. ( _HMG_aControlType [i] == "GETBOX" .OR. "GRID" $ _HMG_aControlType [i] )
+   IF i > 0 .AND. ( _HMG_aControlType [i] == CONTROL_TYPE_GETBOX .OR. "GRID" $ _HMG_aControlType [i] )
 
       IF PCount() > 2
          _HMG_aControlSpacing [i] := Value

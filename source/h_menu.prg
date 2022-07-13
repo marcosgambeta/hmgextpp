@@ -173,7 +173,7 @@ PROCEDURE _DefineMenuPopup ( Caption, Name, Image, Font )
 #endif
       ENDIF
 
-      _HMG_aControlType [k] :=  "POPUP"
+      _HMG_aControlType [k] :=  CONTROL_TYPE_POPUP
       _HMG_aControlNames  [k] :=  Name
       _HMG_aControlHandles  [k] :=  0
       _HMG_aControlIds  [k] :=  iif( _HMG_xMenuType == "MAIN", _HMG_xMenuPopupLevel, _HMG_xContextPopupLevel )
@@ -349,7 +349,7 @@ PROCEDURE _DefineMenuItem ( caption, action, name, Image, checked, disabled, cMe
 #endif
       ENDIF
 
-      _HMG_aControlType [k] :=  "MENU"
+      _HMG_aControlType [k] :=  CONTROL_TYPE_MENU
       _HMG_aControlNames  [k] :=  Name
       _HMG_aControlHandles  [k] :=  ControlHandle
       _HMG_aControlParentHandles  [k] :=  _HMG_xMainMenuParentHandle
@@ -450,7 +450,7 @@ PROCEDURE _DefineMenuItem ( caption, action, name, Image, checked, disabled, cMe
 #endif
       ENDIF
 
-      _HMG_aControlType  [k] :=  "MENU"
+      _HMG_aControlType  [k] :=  CONTROL_TYPE_MENU
       _HMG_aControlNames  [k] :=  Name
       _HMG_aControlHandles  [k] :=  ControlHandle
       _HMG_aControlParentHandles  [k] :=  _HMG_xContextMenuParentHandle
@@ -607,7 +607,7 @@ PROCEDURE _EndMenu()
 
       i := hb_enumindex( h )
 
-      IF _HMG_aControlType [i] == "POPUP"
+      IF _HMG_aControlType [i] == CONTROL_TYPE_POPUP
 
          image := _HMG_aControlPicture [i]
 
@@ -632,11 +632,11 @@ STATIC FUNCTION _GetMenuIds ( ItemName , FormName )
 
       h := _HMG_aControlPageMap [ x ]
 
-      IF _HMG_aControlType [ x ] == "MENU"
+      IF _HMG_aControlType [ x ] == CONTROL_TYPE_MENU
 
          id := _HMG_aControlIds [ x ]
 
-      ELSEIF _HMG_aControlType [ x ] == "POPUP"
+      ELSEIF _HMG_aControlType [ x ] == CONTROL_TYPE_POPUP
 
          id := _HMG_aControlSpacing [ x ]
 
@@ -932,7 +932,7 @@ FUNCTION _InsertMenuItem ( ItemName , FormName , caption , action , name , Image
       hBitmap := MenuItem_SetBitMaps ( Controlhandle , Id , image , "" )
    ENDIF
 
-   AAdd( _HMG_aControlType , "MENU" )
+   AAdd( _HMG_aControlType , CONTROL_TYPE_MENU )
    AAdd( _HMG_aControlNames , Name )
    AAdd( _HMG_aControlHandles , Controlhandle )
    AAdd( _HMG_aControlParentHandles , _HMG_xMainMenuParentHandle )

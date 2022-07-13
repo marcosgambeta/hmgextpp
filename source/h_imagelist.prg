@@ -95,7 +95,7 @@ FUNCTION _DefineImageList ( ControlName , ParentForm , w , h , aImage , aImageMa
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := "IMAGELIST"
+   _HMG_aControlType [k] := CONTROL_TYPE_IMAGELIST
    _HMG_aControlNames [k] :=  ControlName
    _HMG_aControlHandles [k] :=  ControlHandles
    _HMG_aControlParenthandles [k] :=  GetFormHandle( ParentForm )

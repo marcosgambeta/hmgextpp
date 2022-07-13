@@ -315,7 +315,7 @@ FUNCTION _DefinePropGrid ( ControlName, ParentFormName, row, col, width, height,
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := "PROPGRID"
+   _HMG_aControlType [k] := CONTROL_TYPE_PROPGRID
    _HMG_aControlNames [k] :=   ControlName
    _HMG_aControlHandles [k] :=   aControlHandle
    _HMG_aControlParentHandles [k] :=   ParentFormHandle

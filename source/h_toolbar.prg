@@ -117,7 +117,7 @@ FUNCTION _DefineToolBar ( ControlName, ParentForm, x, y, caption, ProcedureName,
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType  [k] := "TOOLBAR"
+   _HMG_aControlType  [k] := CONTROL_TYPE_TOOLBAR
    _HMG_aControlNames   [k] := ControlName
    _HMG_aControlHandles  [k] :=  ControlHandle
    _HMG_aControlParenthandles  [k] :=  ParentForm
@@ -276,7 +276,7 @@ FUNCTION _DefineToolButton ( ControlName, ParentControl, x, y, Caption, Procedur
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := "TOOLBUTTON"
+   _HMG_aControlType [k] := CONTROL_TYPE_TOOLBUTTON
    _HMG_aControlNames  [k] :=  ControlName
    _HMG_aControlHandles  [k] :=  ControlHandle
    _HMG_aControlParenthandles [k] :=   hParentForm
@@ -523,7 +523,7 @@ STATIC PROCEDURE _DropDownShortcut ( nToolButtonId , nParentWindowHandle , i , n
    LOCAL aPos, aSize
    LOCAL x
 
-   IF ( x := AScan( _HMG_aControlIds , nToolButtonId ) ) > 0 .AND. _HMG_aControlType [x] == "TOOLBUTTON"
+   IF ( x := AScan( _HMG_aControlIds , nToolButtonId ) ) > 0 .AND. _HMG_aControlType [x] == CONTROL_TYPE_TOOLBUTTON
       aPos := { 0, 0, 0, 0 }
       GetWindowRect ( _HMG_aControlHandles [i] , aPos )
 
