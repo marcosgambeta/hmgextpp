@@ -140,7 +140,7 @@ METHOD Get( cRegVar, uVar ) CLASS TReg32
 
    IF ! ::lError
 
-      DEFAULT cRegVar TO ''
+      DEFAULT cRegVar TO ""
       cType := ValType( uVar )
 
       ::nError := RegQueryValueExA( ::nHandle, cRegVar, 0, @nType, @cValue, @nLen )
@@ -171,10 +171,10 @@ METHOD Set( cRegVar, uVar ) CLASS TReg32
 
    IF ! ::lError
 
-      DEFAULT cRegVar TO ''
+      DEFAULT cRegVar TO ""
       cType := ValType( uVar )
 
-      IF cType == 'N'
+      IF cType == "N"
          nType := REG_DWORD
       ELSE
          nType := REG_SZ
@@ -244,21 +244,21 @@ FUNCTION GetRegistryValue( nKey, cRegKey, cRegVar, cType )
    LOCAL oReg
    LOCAL uVal
 
-   DEFAULT cRegVar TO '', cType TO 'C'
+   DEFAULT cRegVar TO "", cType TO "C"
 
    oReg := TReg32():New( nKey, cRegKey, .F. )
 
    IF ! oReg:lError
 
       DO CASE
-      CASE cType == 'N'
+      CASE cType == "N"
          uVal := 0
-      CASE cType == 'D'
-         uVal := CToD( '' )
-      CASE cType == 'L'
+      CASE cType == "D"
+         uVal := CToD( "" )
+      CASE cType == "L"
          uVal := .F.
       OTHERWISE
-         uVal := ''
+         uVal := ""
       ENDCASE
 
       uVal := oReg:Get( cRegVar, uVal )
@@ -278,7 +278,7 @@ FUNCTION SetRegistryValue( nKey, cRegKey, cRegVar, uVal )
    LOCAL oReg
    LOCAL lSuccess := .F.
 
-   DEFAULT cRegVar TO ''
+   DEFAULT cRegVar TO ""
 
    oReg := TReg32():New( nKey, cRegKey, .F. )
 
@@ -297,7 +297,7 @@ FUNCTION DeleteRegistryVar( nKey, cRegKey, cRegVar )
    LOCAL oReg
    LOCAL lSuccess := .F.
 
-   DEFAULT cRegVar TO ''
+   DEFAULT cRegVar TO ""
 
    oReg := TReg32():New( nKey, cRegKey, .F. )
 

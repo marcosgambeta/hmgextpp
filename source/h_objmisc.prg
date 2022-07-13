@@ -50,7 +50,7 @@ FUNCTION Do_ControlEventProcedure( bBlock, i, p1, p2, p3, p4 )
       _PushEventInfo()
 
       _HMG_ThisFormIndex := AScan( _HMG_aFormHandles, _HMG_aControlParentHandles[ i ] )
-      _HMG_ThisType := 'C'
+      _HMG_ThisType := "C"
       _HMG_ThisIndex := i
       _HMG_ThisFormName := _HMG_aFormNames[ _HMG_ThisFormIndex ]
       _HMG_ThisControlName := _HMG_aControlNames[ _HMG_ThisIndex ]
@@ -73,8 +73,8 @@ FUNCTION Do_WindowEventProcedure( bBlock, i, p1, p2, p3, p4 )
       _PushEventInfo()
 
       _HMG_ThisFormIndex := i
-      _HMG_ThisEventType := ''
-      _HMG_ThisType := 'W'
+      _HMG_ThisEventType := ""
+      _HMG_ThisType := "W"
       _HMG_ThisIndex := i
       _HMG_ThisFormName := _HMG_aFormNames[ _HMG_ThisFormIndex ]
       _HMG_ThisControlName := ""
@@ -114,7 +114,7 @@ FUNCTION _wPost( nEvent, nIndex, xParam )
    LOCAL oWnd
 
    IF HB_ISOBJECT( nIndex )
-      IF nIndex:ClassName == 'TSBROWSE'
+      IF nIndex:ClassName == "TSBROWSE"
          oWnd   := _WindowObj( nIndex:cParentWnd )
          IF ! HB_ISOBJECT( oWnd )
             RETURN NIL
@@ -141,7 +141,7 @@ FUNCTION _wSend( nEvent, nIndex, xParam )
    LOCAL oWnd
 
    IF HB_ISOBJECT( nIndex )
-      IF nIndex:ClassName == 'TSBROWSE'
+      IF nIndex:ClassName == "TSBROWSE"
          oWnd   := _WindowObj( nIndex:cParentWnd )
          IF ! HB_ISOBJECT( oWnd )
             RETURN NIL
@@ -199,10 +199,10 @@ FUNC Do_OnWndRelease( i )
 
    IF hmg_IsWindowObject( hWnd )
       o := hmg_GetWindowObject( hWnd )
-      IF __objHasMethod( o, 'Del' )
+      IF __objHasMethod( o, "Del" )
          o:Del()
       ENDIF
-      IF __objHasMethod( o, 'Destroy' )
+      IF __objHasMethod( o, "Destroy" )
          o:Destroy()
       ENDIF
       RETURN .T.
@@ -232,10 +232,10 @@ FUNC Do_OnCtlRelease( i )
 
    IF hmg_IsWindowObject( hWnd )
       o := hmg_GetWindowObject( hWnd )
-      IF __objHasMethod( o, 'Del' )
+      IF __objHasMethod( o, "Del" )
          o:Del()
       ENDIF
-      IF __objHasMethod( o, 'Destroy' )
+      IF __objHasMethod( o, "Destroy" )
          o:Destroy()
       ENDIF
       RETURN .T.

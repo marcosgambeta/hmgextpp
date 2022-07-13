@@ -94,7 +94,7 @@ FUNCTION _DefineProgressBar ( ControlName, ParentFormName, x, y, w, h, lo, hi, ;
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " Already defined." )
    ENDIF
 
-   mVar := '_' + ParentFormName + '_' + ControlName
+   mVar := "_" + ParentFormName + "_" + ControlName
    k := _GetControlFree()
 
    IF _HMG_BeginDialogActive
@@ -116,7 +116,7 @@ FUNCTION _DefineProgressBar ( ControlName, ParentFormName, x, y, w, h, lo, hi, ;
 
       IF lDialogInMemory         //Dialog Template
 
-         //          {{'ID',k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
+         //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {|x, y, z| InitDialogProgressBar( x, y, z ) }
          AAdd( _HMG_aDialogItems, { nId, k, "msctls_progress32", style, 0, x, y, w, h, "", HelpId, tooltip, "", 0, , , , , blInit, _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage } )
 
@@ -198,20 +198,20 @@ FUNCTION _DefineProgressBar ( ControlName, ParentFormName, x, y, w, h, lo, hi, ;
    _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
    _HMG_aControlPicture  [k] :=  ""
    _HMG_aControlContainerHandle  [k] :=  0
-   _HMG_aControlFontName [k] :=   ''
+   _HMG_aControlFontName [k] :=   ""
    _HMG_aControlFontSize  [k] :=  0
    _HMG_aControlFontAttributes  [k] :=  { FALSE, FALSE, FALSE, FALSE }
    _HMG_aControlToolTip  [k] :=   tooltip
    _HMG_aControlRangeMin  [k] :=   Lo
    _HMG_aControlRangeMax  [k] :=   Hi
-   _HMG_aControlCaption  [k] :=   ''
+   _HMG_aControlCaption  [k] :=   ""
    _HMG_aControlVisible  [k] :=   iif( invisible, FALSE, TRUE )
    _HMG_aControlHelpId  [k] :=   HelpId
    _HMG_aControlFontHandle  [k] :=   0
    _HMG_aControlBrushHandle  [k] :=   0
    _HMG_aControlEnabled  [k] :=   .T.
    _HMG_aControlMiscData1 [k] := 0
-   _HMG_aControlMiscData2 [k] := ''
+   _HMG_aControlMiscData2 [k] := ""
 
    IF .NOT. lDialogInMemory
       IF IsArrayRGB( BackColor )
@@ -248,7 +248,7 @@ FUNCTION InitDialogProgressBar( ParentName, ControlHandle, k )
       SetWindowTheme ( ControlHandle, "", "" )
    ENDIF
 
-   IF ValType( ParentName ) <> 'U'
+   IF ValType( ParentName ) <> "U"
       SendMessage( ControlHandle , PBM_SETPOS , _HMG_aControlValue [k] , 0 )
    ENDIF
 

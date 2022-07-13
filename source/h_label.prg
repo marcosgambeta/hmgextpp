@@ -104,7 +104,7 @@ FUNCTION _DefineLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
    ENDIF
 
    IF ISARRAY( Caption )
-      mVar := ''
+      mVar := ""
       AEval( Caption, {|v| mVar += cValToChar ( v ) } )
       Caption := mVar
    ELSEIF ISBLOCK ( Caption )
@@ -113,7 +113,7 @@ FUNCTION _DefineLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
       Caption := cValToChar ( Caption )
    ENDIF
 
-   mVar := '_' + ParentFormName + '_' + ControlName
+   mVar := "_" + ParentFormName + "_" + ControlName
    k := _GetControlFree()
 
    IF _HMG_BeginDialogActive
@@ -152,7 +152,7 @@ FUNCTION _DefineLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
 
       IF lDialogInMemory         //Dialog Template
 
-         //          {{'ID',k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
+         //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {|x, y, z| InitDialogLabel( x, y, z ) }
          AAdd( _HMG_aDialogItems, { nId, k, "static", style, 0, x, y, w, h, caption, HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage } )
 
@@ -177,7 +177,7 @@ FUNCTION _DefineLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
 
       ParentFormHandle := GetFormHandle ( ParentFormName )
 
-      Controlhandle := InitLabel ( ParentFormHandle, Caption, 0, x, y, w, h, '', ( ISBLOCK( ProcedureName ) .OR. ISBLOCK( dblclick ) .OR. ISBLOCK( rclick ) .OR. ISSTRING( tooltip ) ), ( ISBLOCK( mouseover ) .OR. ISBLOCK( mouseleave ) ) , border , clientedge , HSCROLL , VSCROLL , TRANSPARENT , invisible , rightalign , centeralign , VCenterAlign , NoPrefix )
+      Controlhandle := InitLabel ( ParentFormHandle, Caption, 0, x, y, w, h, "", ( ISBLOCK( ProcedureName ) .OR. ISBLOCK( dblclick ) .OR. ISBLOCK( rclick ) .OR. ISSTRING( tooltip ) ), ( ISBLOCK( mouseover ) .OR. ISBLOCK( mouseleave ) ) , border , clientedge , HSCROLL , VSCROLL , TRANSPARENT , invisible , rightalign , centeralign , VCenterAlign , NoPrefix )
 
    ENDIF
 
@@ -239,8 +239,8 @@ FUNCTION _DefineLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
    _HMG_aControlFontSize  [k] := fontsize
    _HMG_aControlFontAttributes  [k] :=  { bold, italic, underline, strikeout }
    _HMG_aControlToolTip  [k] :=  tooltip
-   _HMG_aControlRangeMin [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveTabName , '' )
-   _HMG_aControlRangeMax [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameParentFormName [_HMG_FrameLevel] , '' )
+   _HMG_aControlRangeMin [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveTabName , "" )
+   _HMG_aControlRangeMax [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameParentFormName [_HMG_FrameLevel] , "" )
    _HMG_aControlCaption  [k] :=  Caption
    _HMG_aControlVisible  [k] :=  iif( invisible, FALSE, TRUE )
    _HMG_aControlHelpId  [k] :=  HelpId
@@ -248,10 +248,10 @@ FUNCTION _DefineLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
    _HMG_aControlBrushHandle   [k] :=  0
    _HMG_aControlEnabled   [k] :=  .T.
    _HMG_aControlMiscData1 [k] :=  { 0, blink, .T. }
-   _HMG_aControlMiscData2 [k] :=  ''
+   _HMG_aControlMiscData2 [k] :=  ""
 
    IF blink == .T. .AND. .NOT. lDialogInMemory
-      _DefineTimer ( 'BlinkTimer' + hb_ntos( k ) , ParentFormName , 500 , {|| _HMG_aControlMiscData1 [k] [3] := ! _HMG_aControlMiscData1 [k] [3], ;
+      _DefineTimer ( "BlinkTimer" + hb_ntos( k ) , ParentFormName , 500 , {|| _HMG_aControlMiscData1 [k] [3] := ! _HMG_aControlMiscData1 [k] [3], ;
          iif( _HMG_aControlMiscData1 [k] [3] == .T. , _ShowControl ( ControlName , ParentFormName ), _HideControl ( ControlName , ParentFormName ) ) } )
    ENDIF
 
@@ -279,7 +279,7 @@ FUNCTION InitDialogLabel( ParentFormName, ControlHandle, k )
    LOCAL ControlName := _HMG_aControlNames [k]
 
    IF _HMG_aControlMiscData1 [k] [2] == .T.
-      _DefineTimer ( 'BlinkTimer' + hb_ntos( k ) , ParentFormName , 500 , {|| _HMG_aControlMiscData1 [k] [3] := ! _HMG_aControlMiscData1 [k] [3], ;
+      _DefineTimer ( "BlinkTimer" + hb_ntos( k ) , ParentFormName , 500 , {|| _HMG_aControlMiscData1 [k] [3] := ! _HMG_aControlMiscData1 [k] [3], ;
          iif( _HMG_aControlMiscData1 [k] [3] == .T. , _ShowControl ( ControlName , ParentFormName ), _HideControl ( ControlName , ParentFormName ) ) } )
    ENDIF
 

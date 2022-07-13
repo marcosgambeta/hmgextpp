@@ -15,7 +15,7 @@ FUNCTION _DefineRating ( ControlName, ParentForm, x, y, w, h, nValue, aImages, n
    DEFAULT h TO 20
    DEFAULT w TO 100
    DEFAULT nValue TO 0
-   DEFAULT aImages := { 'empty.png', 'full.png' }
+   DEFAULT aImages := { "empty.png", "full.png" }
    DEFAULT nCnt TO 5
    DEFAULT border TO FALSE
    DEFAULT readonly TO FALSE
@@ -41,11 +41,11 @@ FUNCTION _DefineRating ( ControlName, ParentForm, x, y, w, h, nValue, aImages, n
    ENDIF
 
    IF resource
-      aImages [1] := '_empty'
-      aImages [2] := '_full'
+      aImages [1] := "_empty"
+      aImages [2] := "_full"
    ENDIF
 
-   mVar := '_' + ParentForm + '_' + ControlName
+   mVar := "_" + ParentForm + "_" + ControlName
 #ifdef _NAMES_LIST_
    _SetNameList( mVar , Len( _HMG_aControlNames ) + 1 )
 #else
@@ -87,20 +87,20 @@ FUNCTION _DefineRating ( ControlName, ParentForm, x, y, w, h, nValue, aImages, n
    AAdd( _HMG_aControlContainerCol, iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[ _HMG_FrameLevel ], -1 ) )
    AAdd( _HMG_aControlPicture, "" )
    AAdd( _HMG_aControlContainerHandle, 0 )
-   AAdd( _HMG_aControlFontName, '' )
+   AAdd( _HMG_aControlFontName, "" )
    AAdd( _HMG_aControlFontSize, 0 )
    AAdd( _HMG_aControlFontAttributes, { FALSE, FALSE, FALSE, FALSE } )
    AAdd( _HMG_aControlToolTip, tooltip )
    AAdd( _HMG_aControlRangeMin, 0 )
    AAdd( _HMG_aControlRangeMax, 0 )
-   AAdd( _HMG_aControlCaption, '' )
+   AAdd( _HMG_aControlCaption, "" )
    AAdd( _HMG_aControlVisible, iif( invisible, FALSE, TRUE ) )
    AAdd( _HMG_aControlHelpId, 0 )
    AAdd( _HMG_aControlFontHandle, 0 )
    AAdd( _HMG_aControlBrushHandle, 0 )
    AAdd( _HMG_aControlEnabled, .T. )
    AAdd( _HMG_aControlMiscData1, 0 )
-   AAdd( _HMG_aControlMiscData2, '' )
+   AAdd( _HMG_aControlMiscData2, "" )
 
 RETURN NIL
 
@@ -113,7 +113,7 @@ PROCEDURE _ReleaseRating ( cWindow, cControl )
 
       FOR i := 1 TO GetControlId ( cControl, cWindow )
          img_name := cWindow + "_" + cControl + "_" + hb_ntos( i )
-         DoMethod( cWindow, img_name, 'Release' )
+         DoMethod( cWindow, img_name, "Release" )
       NEXT
 
       EraseWindow( cWindow )
@@ -142,8 +142,8 @@ FUNCTION _InitRating ( ParentForm, ControlName, x, y, w, h, nValue, aImages, nCn
          TOOLTIP tooltip
          ONMOUSEHOVER iif( readonly, NIL, OnHoverRate( ParentForm, ControlName ) )
          ONMOUSELEAVE iif( readonly, NIL, OnLeaveRate( ParentForm, ControlName, onchangeprocedure ) )
-         ONCLICK iif( readonly, NIL, ( SetProperty( ParentForm, ControlName, 'Value', ;
-            Val( SubStr( This.NAME, RAt('_', This.Name ) + 1 ) ) ), ;
+         ONCLICK iif( readonly, NIL, ( SetProperty( ParentForm, ControlName, "Value", ;
+            Val( SubStr( This.NAME, RAt("_", This.Name ) + 1 ) ) ), ;
             OnSelectRate( ParentForm, ControlName, onchangeprocedure ) ) )
          INVISIBLE invisible
       END IMAGE
@@ -186,12 +186,12 @@ RETURN _GetId()
 STATIC FUNCTION OnHoverRate( cWindow, cControl )
 
    LOCAL i, img_name
-   LOCAL select := Val( SubStr( This.Name, RAt( '_', This.Name ) + 1 ) )
+   LOCAL select := Val( SubStr( This.Name, RAt( "_", This.Name ) + 1 ) )
 
    ClearRating( cWindow, cControl )
    FOR i := 1 TO select
       img_name := cWindow + "_" + cControl + "_" + hb_ntos( i )
-      SetProperty( cWindow, img_name, 'Picture', GetProperty( cWindow, img_name, 'Cargo' ) [2] )
+      SetProperty( cWindow, img_name, "Picture", GetProperty( cWindow, img_name, "Cargo" ) [2] )
    NEXT
 
 RETURN NIL
@@ -199,7 +199,7 @@ RETURN NIL
 
 STATIC FUNCTION OnLeaveRate( cWindow, cControl, onchange )
 
-   LOCAL pressed := GetProperty( cWindow, cControl, 'Value' )
+   LOCAL pressed := GetProperty( cWindow, cControl, "Value" )
 
    IF pressed == 0
       ClearRating( cWindow, cControl )
@@ -216,13 +216,13 @@ RETURN NIL
 STATIC FUNCTION OnSelectRate( cWindow, cControl, onchange )
 
    LOCAL i, img_name
-   LOCAL pressed := GetProperty( cWindow, cControl, 'Value' )
+   LOCAL pressed := GetProperty( cWindow, cControl, "Value" )
 
    IF pressed > 0
       ClearRating( cWindow, cControl )
       FOR i := 1 TO pressed
          img_name := cWindow + "_" + cControl + "_" + hb_ntos( i )
-         SetProperty( cWindow, img_name, 'Picture', GetProperty( cWindow, img_name, 'Cargo' ) [2] )
+         SetProperty( cWindow, img_name, "Picture", GetProperty( cWindow, img_name, "Cargo" ) [2] )
       NEXT
       IF ISBLOCK( onchange )
          Eval( onchange, pressed )
@@ -239,7 +239,7 @@ FUNCTION ClearRating( cWindow, cControl )
 
    FOR i := 1 TO nCount
       img_name := cWindow + "_" + cControl + "_" + hb_ntos( i )
-      SetProperty( cWindow, img_name, 'Picture', GetProperty( cWindow, img_name, 'Cargo' ) [1] )
+      SetProperty( cWindow, img_name, "Picture", GetProperty( cWindow, img_name, "Cargo" ) [1] )
    NEXT
 
 RETURN NIL
@@ -247,6 +247,6 @@ RETURN NIL
 
 FUNCTION RefreshRating( ParentForm, ControlName )
 
-   LOCAL onchangeprocedure := _GetControlAction( ControlName, ParentForm, 'ONCHANGE' )
+   LOCAL onchangeprocedure := _GetControlAction( ControlName, ParentForm, "ONCHANGE" )
 
 RETURN OnLeaveRate( ParentForm, ControlName, onchangeprocedure )

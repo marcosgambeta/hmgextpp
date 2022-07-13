@@ -49,8 +49,8 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
  ---------------------------------------------------------------------------*/
 
-#include 'minigui.ch'
-#include 'fileio.ch'
+#include "minigui.ch"
+#include "fileio.ch"
 
 #if ( __HARBOUR__ - 0 < 0x030200 )
   #xtranslate hb_ULeft( <c>, <n> ) => Left( <c>, <n> )
@@ -93,15 +93,15 @@ FUNCTION _LogFile( lCrLf, ... )
             FOR i := 2 TO nParams
                xVal := aParams[ i ]
                cTp  := ValType( xVal )
-               IF     cTp == 'C' ; xVal := iif( Empty( xVal ), "'" + "'", Trim( xVal ) )
-               ELSEIF cTp == 'N' ; xVal := hb_ntos( xVal )
-               ELSEIF cTp == 'L' ; xVal := iif( xVal, ".T.", ".F." )
-               ELSEIF cTp == 'D' ; xVal := hb_DToC( xVal, 'DD.MM.YYYY' )
-               ELSEIF cTp == 'A' ; xVal := "ARRAY["  + hb_ntos( Len( xVal ) ) + "]"
-               ELSEIF cTp == 'H' ; xVal :=  "HASH["  + hb_ntos( Len( xVal ) ) + "]"
-               ELSEIF cTp == 'B' ; xVal := "'" + "B" + "'"
-               ELSEIF cTp == 'T' ; xVal := hb_TSToStr( xVal, .T. )
-               ELSEIF cTp == 'U' ; xVal := 'NIL'
+               IF     cTp == "C" ; xVal := iif( Empty( xVal ), "'" + "'", Trim( xVal ) )
+               ELSEIF cTp == "N" ; xVal := hb_ntos( xVal )
+               ELSEIF cTp == "L" ; xVal := iif( xVal, ".T.", ".F." )
+               ELSEIF cTp == "D" ; xVal := hb_DToC( xVal, "DD.MM.YYYY" )
+               ELSEIF cTp == "A" ; xVal := "ARRAY["  + hb_ntos( Len( xVal ) ) + "]"
+               ELSEIF cTp == "H" ; xVal :=  "HASH["  + hb_ntos( Len( xVal ) ) + "]"
+               ELSEIF cTp == "B" ; xVal := "'" + "B" + "'"
+               ELSEIF cTp == "T" ; xVal := hb_TSToStr( xVal, .T. )
+               ELSEIF cTp == "U" ; xVal := "NIL"
                ELSE              ; xVal := "'" + cTp + "'"
                ENDIF
                FWrite( hFile, xVal + Chr( 9 ) )
@@ -213,7 +213,7 @@ RETURN ret
 *-----------------------------------------------------------------------------*
 FUNCTION _EndIni()
 *-----------------------------------------------------------------------------*
-   _HMG_ActiveIniFile := ''
+   _HMG_ActiveIniFile := ""
 
 RETURN NIL
 
@@ -412,7 +412,7 @@ FUNCTION xValue( cValue, cType )
    CASE cType $  "CM"; xValue := cValue
    CASE cType == "D" ; xValue := SToD( cValue )
    CASE cType == "N" ; xValue := Val( cValue )
-   CASE cType == "L" ; xValue := ( cValue == 'T' )
+   CASE cType == "L" ; xValue := ( cValue == "T" )
    CASE cType == "A" ; xValue := CToA( cValue )
    OTHERWISE         ; xValue := NIL                 // Nil, Block, Object
    ENDCASE

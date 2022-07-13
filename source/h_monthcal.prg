@@ -100,7 +100,7 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " Already defined." )
    ENDIF
 
-   mVar := '_' + ParentFormName + '_' + ControlName
+   mVar := "_" + ParentFormName + "_" + ControlName
    k := _GetControlFree()
 
    IF _HMG_BeginDialogActive
@@ -132,7 +132,7 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
       IF lDialogInMemory // Dialog Template
          InitExCommonControls( 1 )
 
-         // {{'ID',k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
+         // {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {| x, y, z | InitDialogMonthCalendar( x, y, z ) }
 
          AAdd( _HMG_aDialogItems, { nId, k, "SysMonthCal32", style, 0, x, y, w, h, "", HelpId, tooltip, fontname, fontsize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage } )
@@ -224,14 +224,14 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
    _HMG_aControlToolTip[ k ] := tooltip
    _HMG_aControlRangeMin[ k ] := 0
    _HMG_aControlRangeMax[ k ] := 0
-   _HMG_aControlCaption[ k ] := ''
+   _HMG_aControlCaption[ k ] := ""
    _HMG_aControlVisible[ k ] := iif( invisible, FALSE, TRUE )
    _HMG_aControlHelpId[ k ] := HelpId
    _HMG_aControlFontHandle[ k ] := aControlHandle[ 2 ]
    _HMG_aControlBrushHandle[ k ] := 0
    _HMG_aControlEnabled[ k ] := .T.
    _HMG_aControlMiscData1[ k ] := 0
-   _HMG_aControlMiscData2[ k ] := ''
+   _HMG_aControlMiscData2[ k ] := ""
 
    IF .NOT. lDialogInMemory
 

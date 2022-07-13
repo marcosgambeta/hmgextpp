@@ -121,7 +121,7 @@ FUNCTION _DefineProgressWheel ( cControlName, cParentForm, nCol, nRow, nWidth, ;
    nControlHandle := GetControlHandle ( cImageName, cParentForm )
 
    // Define public variable associated with control
-   mVar := '_' + cParentForm + '_' + cControlName
+   mVar := "_" + cParentForm + "_" + cControlName
 
    nParentFormHandle := GetFormHandle ( cParentForm )
 
@@ -162,7 +162,7 @@ FUNCTION _DefineProgressWheel ( cControlName, cParentForm, nCol, nRow, nWidth, ;
    _HMG_aControlFontName[ k ] := NIL
    _HMG_aControlFontSize[ k ] := NIL
    _HMG_aControlFontAttributes[ k ] := {}
-   _HMG_aControlToolTip[ k ] := ''
+   _HMG_aControlToolTip[ k ] := ""
    _HMG_aControlRangeMin[ k ] := nMin
    _HMG_aControlRangeMax[ k ] := nMax
    _HMG_aControlCaption[ k ] := ""
@@ -171,7 +171,7 @@ FUNCTION _DefineProgressWheel ( cControlName, cParentForm, nCol, nRow, nWidth, ;
    _HMG_aControlFontHandle[ k ] := NIL
    _HMG_aControlBrushHandle[ k ] := 0
    _HMG_aControlEnabled[ k ] := .T.
-   _HMG_aControlMiscData2[ k ] := ''
+   _HMG_aControlMiscData2[ k ] := ""
 
    ProgressWheelPaint( cParentForm, cImageName, nWidth, nHeight, nPosition, ;
       nStartAngle, nInnerSize, nGradientMode, _HMG_aControlCaption[ k ], lShowText, nMin, nMax, ;
@@ -746,7 +746,7 @@ PROCEDURE ProgressWheelPaint( cParentForm, cImgName, Width, Height, ;
       IF ISBLOCK( cText )
          cText := Eval( cText, Position, Max )
       ELSE
-         cText := hb_ntos( Int( 100 * ( Position - Min ) / ( Max - Min ) ) ) + '%'
+         cText := hb_ntos( Int( 100 * ( Position - Min ) / ( Max - Min ) ) ) + "%"
       ENDIF
 
       Row := R[ 4 ] / 2 - InnerSize * Width / 6000 - 6

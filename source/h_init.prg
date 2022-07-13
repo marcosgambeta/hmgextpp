@@ -89,13 +89,13 @@ PROCEDURE Init
 
    _HMG_InplaceParentHandle := 0
    _HMG_DefaultStatusBarMessage := 0
-   _HMG_ActiveToolBarFormName := ''
+   _HMG_ActiveToolBarFormName := ""
 
    _HMG_IsXP := os_isWinXP()
    _HMG_IsXPorLater := IsWinXPorLater ()
    _HMG_IsThemed := IsThemed ()
 
-   _HMG_LANG_ID := ''
+   _HMG_LANG_ID := ""
 
    _HMG_aLangButton    := {}
    _HMG_aLangLabel     := {}
@@ -144,7 +144,7 @@ PROCEDURE Init
 
    _HMG_InteractiveClose := 1
 
-   _HMG_ThisEventType := ''
+   _HMG_ThisEventType := ""
 
    _HMG_ExtendedNavigation := .F.
 
@@ -184,7 +184,7 @@ PROCEDURE Init
    _HMG_ThisQueryRowIndex  := 0
    _HMG_ThisQueryColIndex  := 0
 
-   _HMG_ThisType    := ''
+   _HMG_ThisType    := ""
    _HMG_ThisIndex    := 0
    _HMG_ShowContextMenus  := .T.
    _HMG_lMultiple   := .T.
@@ -208,7 +208,7 @@ PROCEDURE Init
 
    _HMG_ActiveSplitChildIndex := 0
 
-   _HMG_xMenuType := ''
+   _HMG_xMenuType := ""
    _HMG_xMainMenuHandle := 0
    _HMG_xMainMenuParentHandle := 0
    _HMG_xMenuPopupLevel := 0
@@ -237,7 +237,7 @@ PROCEDURE Init
    _HMG_aTreeMap := {}
    _HMG_aTreeIdMap := {}
 
-   _HMG_ActiveToolBarCaption := ''
+   _HMG_ActiveToolBarCaption := ""
 
    _HMG_SplitChildActive   := .F.
 
@@ -481,7 +481,7 @@ PROCEDURE Init
 
    ResetGlobalListener() // set default Events function
 
-   _HMG_IsMultiple := IsExeRunning ( StrTran( GetExeFileName (), '\', '_' ) )
+   _HMG_IsMultiple := IsExeRunning ( StrTran( GetExeFileName (), "\", "_" ) )
 
    _SetErrorLogFile( _GetErrorLogFile() ) // set default ErrorLog file
 
@@ -589,7 +589,7 @@ FUNCTION GetRegistryValue( nKey, cRegKey, cRegVar, cType, nRegSam )
    LOCAL uVal
    LOCAL xKey
 
-   DEFAULT cRegVar TO '', cType TO 'C'
+   DEFAULT cRegVar TO "", cType TO "C"
 
    IF HB_ISNIL( nRegSam ) .AND. IsWin64()
       nRegSam := KEY_WOW64_64KEY
@@ -598,14 +598,14 @@ FUNCTION GetRegistryValue( nKey, cRegKey, cRegVar, cType, nRegSam )
    xKey := win_regGet( nKey, cRegKey, cRegVar, , nRegSam )
 
    DO CASE
-      CASE cType == 'N'
+      CASE cType == "N"
          uVal := 0
-      CASE cType == 'D'
+      CASE cType == "D"
          uVal := BLANK_DATE
-      CASE cType == 'L'
+      CASE cType == "L"
          uVal := .F.
       OTHERWISE
-         uVal := ''
+         uVal := ""
    ENDCASE
 
    IF xKey != NIL .AND. cType == ValType( xKey )
@@ -619,7 +619,7 @@ RETURN uVal
 
 FUNCTION SetRegistryValue( nKey, cRegKey, cRegVar, uVal, nRegSam )
 
-   DEFAULT cRegVar TO ''
+   DEFAULT cRegVar TO ""
 
    IF HB_ISNIL( nRegSam ) .AND. IsWin64()
       nRegSam := KEY_WOW64_64KEY
@@ -633,7 +633,7 @@ FUNCTION DeleteRegistryVar( nKey, cRegKey, cRegVar, nRegSam )
    LOCAL pKeyHandle
    LOCAL lSuccess := .F.
 
-   DEFAULT cRegVar TO '', nRegSam TO 0
+   DEFAULT cRegVar TO "", nRegSam TO 0
 
    IF Empty( nRegSam ) .AND. IsWin64()
       nRegSam := KEY_WOW64_64KEY
@@ -745,18 +745,18 @@ PROCEDURE InitMessages
 
    // MISC MESSAGES (ENGLISH DEFAULT)
 
-   _HMG_MESSAGE [1] := 'Are you sure ?'
-   _HMG_MESSAGE [2] := 'Close Window'
-   _HMG_MESSAGE [3] := 'Close not allowed'
-   _HMG_MESSAGE [4] := 'Program Already Running'
-   _HMG_MESSAGE [5] := 'Edit'
-   _HMG_MESSAGE [6] := 'Ok'
-   _HMG_MESSAGE [7] := 'Cancel'
-   _HMG_MESSAGE [8] := 'Apply'
-   _HMG_MESSAGE [9] := 'Pag.'
-   _HMG_MESSAGE [10] := 'Attention'
-   _HMG_MESSAGE [11] := 'Information'
-   _HMG_MESSAGE [12] := 'Stop'
+   _HMG_MESSAGE [1] := "Are you sure ?"
+   _HMG_MESSAGE [2] := "Close Window"
+   _HMG_MESSAGE [3] := "Close not allowed"
+   _HMG_MESSAGE [4] := "Program Already Running"
+   _HMG_MESSAGE [5] := "Edit"
+   _HMG_MESSAGE [6] := "Ok"
+   _HMG_MESSAGE [7] := "Cancel"
+   _HMG_MESSAGE [8] := "Apply"
+   _HMG_MESSAGE [9] := "Pag."
+   _HMG_MESSAGE [10] := "Attention"
+   _HMG_MESSAGE [11] := "Information"
+   _HMG_MESSAGE [12] := "Stop"
 
    // BROWSE MESSAGES (ENGLISH DEFAULT)
 
@@ -777,7 +777,7 @@ PROCEDURE InitMessages
       "Record Is Being Edited By Another User"                , ;
       "Warning"                                               , ;
       "Invalid Entry" }
-   _HMG_BRWLangMessage := { 'Are you sure ?' , 'Delete Record' }
+   _HMG_BRWLangMessage := { "Are you sure ?" , "Delete Record" }
 
    // EDIT MESSAGES (ENGLISH DEFAULT)
 
@@ -935,8 +935,8 @@ PROCEDURE InitMessages
 
 #ifdef _MULTILINGUAL_
 
-   IF _HMG_LANG_ID == 'FI'  // FINNISH - Language Is Not Supported By hb_langSelect() Function
-      cLang := 'FI'
+   IF _HMG_LANG_ID == "FI"  // FINNISH - Language Is Not Supported By hb_langSelect() Function
+      cLang := "FI"
    ELSE
       cLang := Upper( Left( Set ( _SET_LANGUAGE ), 2 ) )
    ENDIF
@@ -950,18 +950,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := 'Jste si jist(a)?'
-      _HMG_MESSAGE [2] := 'Zavшi okno'
-      _HMG_MESSAGE [3] := 'Uzavшenн zakбzбno'
-      _HMG_MESSAGE [4] := 'Program uћ bмћн'
-      _HMG_MESSAGE [5] := 'Ъprava'
-      _HMG_MESSAGE [6] := 'Ok'
-      _HMG_MESSAGE [7] := 'Storno'
-      _HMG_MESSAGE [8] := 'Apply'
-      _HMG_MESSAGE [9] := 'Str.'
-      _HMG_MESSAGE [10] := 'Attention'
-      _HMG_MESSAGE [11] := 'Information'
-      _HMG_MESSAGE [12] := 'Stop'
+      _HMG_MESSAGE [1] := "Jste si jist(a)?"
+      _HMG_MESSAGE [2] := "Zavшi okno"
+      _HMG_MESSAGE [3] := "Uzavшenн zakбzбno"
+      _HMG_MESSAGE [4] := "Program uћ bмћн"
+      _HMG_MESSAGE [5] := "Ъprava"
+      _HMG_MESSAGE [6] := "Ok"
+      _HMG_MESSAGE [7] := "Storno"
+      _HMG_MESSAGE [8] := "Apply"
+      _HMG_MESSAGE [9] := "Str."
+      _HMG_MESSAGE [10] := "Attention"
+      _HMG_MESSAGE [11] := "Information"
+      _HMG_MESSAGE [12] := "Stop"
 
       // BROWSE MESSAGES
 
@@ -980,7 +980,7 @@ PROCEDURE InitMessages
          "Zбznam edituje jinэ uћivatel"                , ;
          "Varovбnн"                                              , ;
          "Chybnэ vstup"                                          }
-      _HMG_BRWLangMessage := { 'Jste si jist(a)?' , 'Smazat zбznam' }
+      _HMG_BRWLangMessage := { "Jste si jist(a)?" , "Smazat zбznam" }
 
       // EDIT MESSAGES
 
@@ -1139,18 +1139,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := 'Are you sure ?'
-      _HMG_MESSAGE [2] := 'Zatvori prozor'
-      _HMG_MESSAGE [3] := 'Zatvaranje nije dozvoljeno'
-      _HMG_MESSAGE [4] := 'Program je veж pokrenut'
-      _HMG_MESSAGE [5] := 'Uredi'
-      _HMG_MESSAGE [6] := 'U redu'
-      _HMG_MESSAGE [7] := 'Prekid'
-      _HMG_MESSAGE [8] := 'Apply'
-      _HMG_MESSAGE [9] := 'Pag.'
-      _HMG_MESSAGE [10] := 'Attention'
-      _HMG_MESSAGE [11] := 'Information'
-      _HMG_MESSAGE [12] := 'Stop'
+      _HMG_MESSAGE [1] := "Are you sure ?"
+      _HMG_MESSAGE [2] := "Zatvori prozor"
+      _HMG_MESSAGE [3] := "Zatvaranje nije dozvoljeno"
+      _HMG_MESSAGE [4] := "Program je veж pokrenut"
+      _HMG_MESSAGE [5] := "Uredi"
+      _HMG_MESSAGE [6] := "U redu"
+      _HMG_MESSAGE [7] := "Prekid"
+      _HMG_MESSAGE [8] := "Apply"
+      _HMG_MESSAGE [9] := "Pag."
+      _HMG_MESSAGE [10] := "Attention"
+      _HMG_MESSAGE [11] := "Information"
+      _HMG_MESSAGE [12] := "Stop"
 
       // BROWSE MESSAGES
 
@@ -1169,7 +1169,7 @@ PROCEDURE InitMessages
          "Record Is Being Edited By Another User"                , ;
          "Warning"                                               , ;
          "Invalid Entry"                                          }
-      _HMG_BRWLangMessage := { 'Are you sure ?' , 'Delete Record' }
+      _HMG_BRWLangMessage := { "Are you sure ?" , "Delete Record" }
 
       // EDIT MESSAGES
 
@@ -1328,18 +1328,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := 'Are you sure ?'
-      _HMG_MESSAGE [2] := 'Close Window'
-      _HMG_MESSAGE [3] := 'Close not allowed'
-      _HMG_MESSAGE [4] := 'Program Already Running'
-      _HMG_MESSAGE [5] := 'Edit'
-      _HMG_MESSAGE [6] := 'Ok'
-      _HMG_MESSAGE [7] := 'Cancel'
-      _HMG_MESSAGE [8] := 'Apply'
-      _HMG_MESSAGE [9] := 'Pag.'
-      _HMG_MESSAGE [10] := 'Attention'
-      _HMG_MESSAGE [11] := 'Information'
-      _HMG_MESSAGE [12] := 'Stop'
+      _HMG_MESSAGE [1] := "Are you sure ?"
+      _HMG_MESSAGE [2] := "Close Window"
+      _HMG_MESSAGE [3] := "Close not allowed"
+      _HMG_MESSAGE [4] := "Program Already Running"
+      _HMG_MESSAGE [5] := "Edit"
+      _HMG_MESSAGE [6] := "Ok"
+      _HMG_MESSAGE [7] := "Cancel"
+      _HMG_MESSAGE [8] := "Apply"
+      _HMG_MESSAGE [9] := "Pag."
+      _HMG_MESSAGE [10] := "Attention"
+      _HMG_MESSAGE [11] := "Information"
+      _HMG_MESSAGE [12] := "Stop"
 
       // BROWSE MESSAGES
 
@@ -1358,7 +1358,7 @@ PROCEDURE InitMessages
          "Record Is Being Edited By Another User"                , ;
          "Warning"                                               , ;
          "Invalid Entry"                                          }
-      _HMG_BRWLangMessage := { 'Are you sure ?' , 'Delete Record' }
+      _HMG_BRWLangMessage := { "Are you sure ?" , "Delete Record" }
 
       // EDIT MESSAGES
 
@@ -1517,18 +1517,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := 'Etes-vous sыre ?'
-      _HMG_MESSAGE [2] := 'Fermer la fenкtre'
-      _HMG_MESSAGE [3] := 'Fermeture interdite'
-      _HMG_MESSAGE [4] := 'Programme dйjа activй'
-      _HMG_MESSAGE [5] := 'Editer'
-      _HMG_MESSAGE [6] := 'Ok'
-      _HMG_MESSAGE [7] := 'Abandonner'
-      _HMG_MESSAGE [8] := 'Apply'
-      _HMG_MESSAGE [9] := 'Pag.'
-      _HMG_MESSAGE [10] := 'Attention'
-      _HMG_MESSAGE [11] := 'Information'
-      _HMG_MESSAGE [12] := 'Stop'
+      _HMG_MESSAGE [1] := "Etes-vous sыre ?"
+      _HMG_MESSAGE [2] := "Fermer la fenкtre"
+      _HMG_MESSAGE [3] := "Fermeture interdite"
+      _HMG_MESSAGE [4] := "Programme dйjа activй"
+      _HMG_MESSAGE [5] := "Editer"
+      _HMG_MESSAGE [6] := "Ok"
+      _HMG_MESSAGE [7] := "Abandonner"
+      _HMG_MESSAGE [8] := "Apply"
+      _HMG_MESSAGE [9] := "Pag."
+      _HMG_MESSAGE [10] := "Attention"
+      _HMG_MESSAGE [11] := "Information"
+      _HMG_MESSAGE [12] := "Stop"
 
       // BROWSE
 
@@ -1547,7 +1547,7 @@ PROCEDURE InitMessages
          "L'enregistrement est utilisй par un autre utilisateur"  , ;
          "Erreur"                                                , ;
          "Entrйe invalide"                                        }
-      _HMG_BRWLangMessage := { 'Etes-vous sыre ?' , 'Enregistrement dйtruit' }
+      _HMG_BRWLangMessage := { "Etes-vous sыre ?" , "Enregistrement dйtruit" }
 
       // EDIT
 
@@ -1704,18 +1704,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := 'Sind Sie sicher ?'
-      _HMG_MESSAGE [2] := 'Fenster schlieЯen'
-      _HMG_MESSAGE [3] := 'SchlieЯen nicht erlaubt'
-      _HMG_MESSAGE [4] := 'Programm lдuft bereits'
-      _HMG_MESSAGE [5] := 'Bearbeiten'
-      _HMG_MESSAGE [6] := 'OK'
-      _HMG_MESSAGE [7] := 'Abbruch'
-      _HMG_MESSAGE [8] := 'Anwenden'
-      _HMG_MESSAGE [9] := 'Seite'
-      _HMG_MESSAGE [10] := 'Warnung'
-      _HMG_MESSAGE [11] := 'Information'
-      _HMG_MESSAGE [12] := 'Stop'
+      _HMG_MESSAGE [1] := "Sind Sie sicher ?"
+      _HMG_MESSAGE [2] := "Fenster schlieЯen"
+      _HMG_MESSAGE [3] := "SchlieЯen nicht erlaubt"
+      _HMG_MESSAGE [4] := "Programm lдuft bereits"
+      _HMG_MESSAGE [5] := "Bearbeiten"
+      _HMG_MESSAGE [6] := "OK"
+      _HMG_MESSAGE [7] := "Abbruch"
+      _HMG_MESSAGE [8] := "Anwenden"
+      _HMG_MESSAGE [9] := "Seite"
+      _HMG_MESSAGE [10] := "Warnung"
+      _HMG_MESSAGE [11] := "Information"
+      _HMG_MESSAGE [12] := "Stop"
 
       // BROWSE
 
@@ -1734,7 +1734,7 @@ PROCEDURE InitMessages
          "Datensatz in Bearbeitung eines anderen Nutzers"        , ;
          "Warnung"                                               , ;
          "Ungьltiger Eintrag"                                          }
-      _HMG_BRWLangMessage := { 'Sind Sie sicher ?' , 'Datensatz lцschen' }
+      _HMG_BRWLangMessage := { "Sind Sie sicher ?" , "Datensatz lцschen" }
 
       // EDIT
 
@@ -1892,18 +1892,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := 'Sei sicuro ?'
-      _HMG_MESSAGE [2] := 'Chiudi la finestra'
-      _HMG_MESSAGE [3] := 'Chiusura non consentita'
-      _HMG_MESSAGE [4] := 'Il programma и giа in esecuzione'
-      _HMG_MESSAGE [5] := 'Edita'
-      _HMG_MESSAGE [6] := 'Conferma'
-      _HMG_MESSAGE [7] := 'Annulla'
-      _HMG_MESSAGE [8] := 'Applica'
-      _HMG_MESSAGE [9] := 'Pag.'
-      _HMG_MESSAGE [10] := 'Attention'
-      _HMG_MESSAGE [11] := 'Information'
-      _HMG_MESSAGE [12] := 'Stop'
+      _HMG_MESSAGE [1] := "Sei sicuro ?"
+      _HMG_MESSAGE [2] := "Chiudi la finestra"
+      _HMG_MESSAGE [3] := "Chiusura non consentita"
+      _HMG_MESSAGE [4] := "Il programma и giа in esecuzione"
+      _HMG_MESSAGE [5] := "Edita"
+      _HMG_MESSAGE [6] := "Conferma"
+      _HMG_MESSAGE [7] := "Annulla"
+      _HMG_MESSAGE [8] := "Applica"
+      _HMG_MESSAGE [9] := "Pag."
+      _HMG_MESSAGE [10] := "Attention"
+      _HMG_MESSAGE [11] := "Information"
+      _HMG_MESSAGE [12] := "Stop"
 
       // BROWSE
 
@@ -1922,7 +1922,7 @@ PROCEDURE InitMessages
          "Record gi… utilizzato da altro utente"                 , ;
          "Attenzione!"                                           , ;
          "Dato non valido" }
-      _HMG_BRWLangMessage := { 'Sei sicuro ?' , 'Cancella Record' }
+      _HMG_BRWLangMessage := { "Sei sicuro ?" , "Cancella Record" }
 
       // EDIT
 
@@ -2079,18 +2079,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := 'Czy jesteњ pewny ?'
-      _HMG_MESSAGE [2] := 'Zamknij okno'
-      _HMG_MESSAGE [3] := 'Zamkniкcie niedozwolone'
-      _HMG_MESSAGE [4] := 'Program juї uruchomiony'
-      _HMG_MESSAGE [5] := 'Edycja'
-      _HMG_MESSAGE [6] := 'Ok'
-      _HMG_MESSAGE [7] := 'Porzuж'
-      _HMG_MESSAGE [8] := 'Zastosuj'
-      _HMG_MESSAGE [9] := 'Str.'
-      _HMG_MESSAGE [10] := 'Attention'
-      _HMG_MESSAGE [11] := 'Information'
-      _HMG_MESSAGE [12] := 'Stop'
+      _HMG_MESSAGE [1] := "Czy jesteњ pewny ?"
+      _HMG_MESSAGE [2] := "Zamknij okno"
+      _HMG_MESSAGE [3] := "Zamkniкcie niedozwolone"
+      _HMG_MESSAGE [4] := "Program juї uruchomiony"
+      _HMG_MESSAGE [5] := "Edycja"
+      _HMG_MESSAGE [6] := "Ok"
+      _HMG_MESSAGE [7] := "Porzuж"
+      _HMG_MESSAGE [8] := "Zastosuj"
+      _HMG_MESSAGE [9] := "Str."
+      _HMG_MESSAGE [10] := "Attention"
+      _HMG_MESSAGE [11] := "Information"
+      _HMG_MESSAGE [12] := "Stop"
 
       // BROWSE
 
@@ -2109,7 +2109,7 @@ PROCEDURE InitMessages
          "Rekord edytowany przez innego uїytkownika"                , ;
          "Ostrzeїenie"                                               , ;
          "Nieprawidіowy wpis"                                          }
-      _HMG_BRWLangMessage := { 'Czy jesteњ pewny ?' , 'Skasuj rekord' }
+      _HMG_BRWLangMessage := { "Czy jesteњ pewny ?" , "Skasuj rekord" }
 
       // EDIT
 
@@ -2275,9 +2275,9 @@ PROCEDURE InitMessages
       _HMG_MESSAGE [7] := "Cancela"
       _HMG_MESSAGE [8] := "Aplicar"
       _HMG_MESSAGE [9] := "Pбg."
-      _HMG_MESSAGE [10] := 'Atenзгo'
-      _HMG_MESSAGE [11] := 'Informaзгo'
-      _HMG_MESSAGE [12] := 'Pare'
+      _HMG_MESSAGE [10] := "Atenзгo"
+      _HMG_MESSAGE [11] := "Informaзгo"
+      _HMG_MESSAGE [12] := "Pare"
 
       // BROWSE
 
@@ -2451,18 +2451,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := 'Вы уверены ?'
-      _HMG_MESSAGE [2] := 'Закрыть окно'
-      _HMG_MESSAGE [3] := 'Закрытие не допускается'
-      _HMG_MESSAGE [4] := 'Программа уже запущена'
-      _HMG_MESSAGE [5] := 'Изменить'
-      _HMG_MESSAGE [6] := 'Да'
-      _HMG_MESSAGE [7] := 'Отмена'
-      _HMG_MESSAGE [8] := 'Применить'
-      _HMG_MESSAGE [9] := 'Стр.'
-      _HMG_MESSAGE[10] := 'Внимание'
-      _HMG_MESSAGE[11] := 'Информация'
-      _HMG_MESSAGE[12] := 'Стоп'
+      _HMG_MESSAGE [1] := "Вы уверены ?"
+      _HMG_MESSAGE [2] := "Закрыть окно"
+      _HMG_MESSAGE [3] := "Закрытие не допускается"
+      _HMG_MESSAGE [4] := "Программа уже запущена"
+      _HMG_MESSAGE [5] := "Изменить"
+      _HMG_MESSAGE [6] := "Да"
+      _HMG_MESSAGE [7] := "Отмена"
+      _HMG_MESSAGE [8] := "Применить"
+      _HMG_MESSAGE [9] := "Стр."
+      _HMG_MESSAGE[10] := "Внимание"
+      _HMG_MESSAGE[11] := "Информация"
+      _HMG_MESSAGE[12] := "Стоп"
 
       // BROWSE
 
@@ -2483,7 +2483,7 @@ PROCEDURE InitMessages
          "Запись сейчас редактируется другим пользователем"        , ;
          "Предупреждение"                                          , ;
          "Введены неправильные данные" }
-      _HMG_BRWLangMessage := { 'Вы уверены ?' , 'Удалить запись' }
+      _HMG_BRWLangMessage := { "Вы уверены ?" , "Удалить запись" }
 
       // EDIT
 
@@ -2644,18 +2644,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE[ 1 ] := 'Ви впевненi ?'
-      _HMG_MESSAGE[ 2 ] := 'Закрити вiкно.'
-      _HMG_MESSAGE[ 3 ] := 'Закриття не дозволяється.'
-      _HMG_MESSAGE[ 4 ] := ( 'Програма виконується.' + CRLF + 'Запуск ще однiєї копiї заборонено.' )
-      _HMG_MESSAGE[ 5 ] := 'Змiнити'
-      _HMG_MESSAGE[ 6 ] := 'Гаразд'
-      _HMG_MESSAGE[ 7 ] := 'Скасувати'
-      _HMG_MESSAGE[ 8 ] := 'Застосувати'
-      _HMG_MESSAGE[ 9 ] := 'Стор.'
-      _HMG_MESSAGE[10 ] := 'Увага!'
-      _HMG_MESSAGE[11 ] := 'Iнформація'
-      _HMG_MESSAGE[12 ] := 'Стоп'
+      _HMG_MESSAGE[ 1 ] := "Ви впевненi ?"
+      _HMG_MESSAGE[ 2 ] := "Закрити вiкно."
+      _HMG_MESSAGE[ 3 ] := "Закриття не дозволяється."
+      _HMG_MESSAGE[ 4 ] := ( "Програма виконується." + CRLF + "Запуск ще однiєї копiї заборонено." )
+      _HMG_MESSAGE[ 5 ] := "Змiнити"
+      _HMG_MESSAGE[ 6 ] := "Гаразд"
+      _HMG_MESSAGE[ 7 ] := "Скасувати"
+      _HMG_MESSAGE[ 8 ] := "Застосувати"
+      _HMG_MESSAGE[ 9 ] := "Стор."
+      _HMG_MESSAGE[10 ] := "Увага!"
+      _HMG_MESSAGE[11 ] := "Iнформація"
+      _HMG_MESSAGE[12 ] := "Стоп"
 
       // BROWSE
 
@@ -2674,7 +2674,7 @@ PROCEDURE InitMessages
          "Запис зараз редагується iншим користувачем"              , ;
          "Попередження"                                            , ;
          "Введено помилковi данi"                                 }
-      _HMG_BRWLangMessage := { 'Ви впевненi ?' , 'Видалити запис' }
+      _HMG_BRWLangMessage := { "Ви впевненi ?" , "Видалити запис" }
 
       // EDIT
 
@@ -2831,18 +2831,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := 'Estб seguro ?'
-      _HMG_MESSAGE [2] := 'Cerrar Ventana'
-      _HMG_MESSAGE [3] := 'Operaciуn no permitida'
-      _HMG_MESSAGE [4] := 'EL programa ya estб ejecutбndose'
-      _HMG_MESSAGE [5] := 'Editar'
-      _HMG_MESSAGE [6] := 'Aceptar'
-      _HMG_MESSAGE [7] := 'Cancelar'
-      _HMG_MESSAGE [8] := 'Apply'
-      _HMG_MESSAGE [9] := 'Pag.'
-      _HMG_MESSAGE [10] := 'Atencion'
-      _HMG_MESSAGE [11] := 'Informaciуn'
-      _HMG_MESSAGE [12] := 'Detener'
+      _HMG_MESSAGE [1] := "Estб seguro ?"
+      _HMG_MESSAGE [2] := "Cerrar Ventana"
+      _HMG_MESSAGE [3] := "Operaciуn no permitida"
+      _HMG_MESSAGE [4] := "EL programa ya estб ejecutбndose"
+      _HMG_MESSAGE [5] := "Editar"
+      _HMG_MESSAGE [6] := "Aceptar"
+      _HMG_MESSAGE [7] := "Cancelar"
+      _HMG_MESSAGE [8] := "Apply"
+      _HMG_MESSAGE [9] := "Pag."
+      _HMG_MESSAGE [10] := "Atencion"
+      _HMG_MESSAGE [11] := "Informaciуn"
+      _HMG_MESSAGE [12] := "Detener"
 
       // BROWSE
 
@@ -2861,7 +2861,7 @@ PROCEDURE InitMessages
          "El registro estб siendo editado por otro usuario"      , ;
          "Peligro"                                               , ;
          "Entrada no vбlida"                                      }
-      _HMG_BRWLangMessage := { 'Estб Seguro ?' , 'Eliminar Registro' }
+      _HMG_BRWLangMessage := { "Estб Seguro ?" , "Eliminar Registro" }
 
       // EDIT
 
@@ -3018,18 +3018,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := 'Oletko varma ?'
-      _HMG_MESSAGE [2] := 'Sulje ikkuna'
-      _HMG_MESSAGE [3] := 'Sulkeminen ei sallittu'
-      _HMG_MESSAGE [4] := 'Ohjelma on jo kдynnissд'
-      _HMG_MESSAGE [5] := 'Korjaa'
-      _HMG_MESSAGE [6] := 'Ok'
-      _HMG_MESSAGE [7] := 'Keskeytд'
-      _HMG_MESSAGE [8] := 'Apply'
-      _HMG_MESSAGE [9] := 'Sivu.'
-      _HMG_MESSAGE [10] := 'Attention'
-      _HMG_MESSAGE [11] := 'Information'
-      _HMG_MESSAGE [12] := 'Stop'
+      _HMG_MESSAGE [1] := "Oletko varma ?"
+      _HMG_MESSAGE [2] := "Sulje ikkuna"
+      _HMG_MESSAGE [3] := "Sulkeminen ei sallittu"
+      _HMG_MESSAGE [4] := "Ohjelma on jo kдynnissд"
+      _HMG_MESSAGE [5] := "Korjaa"
+      _HMG_MESSAGE [6] := "Ok"
+      _HMG_MESSAGE [7] := "Keskeytд"
+      _HMG_MESSAGE [8] := "Apply"
+      _HMG_MESSAGE [9] := "Sivu."
+      _HMG_MESSAGE [10] := "Attention"
+      _HMG_MESSAGE [11] := "Information"
+      _HMG_MESSAGE [12] := "Stop"
 
       // BROWSE
 
@@ -3050,7 +3050,7 @@ PROCEDURE InitMessages
          "Varoitus" , ;
          "Virheellinen arvo" }
 
-      _HMG_BRWLangMessage := { 'Oletko varma ?' , 'Poista tietue' }
+      _HMG_BRWLangMessage := { "Oletko varma ?" , "Poista tietue" }
 
       // EDIT
       _HMG_aABMLangUser   := { Chr( 13 ) + "Poista tietue" + Chr( 13 ) + "Oletko varma?" + Chr( 13 )                  , ;
@@ -3209,18 +3209,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := 'Weet u het zeker?'
-      _HMG_MESSAGE [2] := 'Sluit venster'
-      _HMG_MESSAGE [3] := 'Sluiten niet toegestaan'
-      _HMG_MESSAGE [4] := 'Programma is al actief'
-      _HMG_MESSAGE [5] := 'Bewerken'
-      _HMG_MESSAGE [6] := 'Ok'
-      _HMG_MESSAGE [7] := 'Annuleren'
-      _HMG_MESSAGE [8] := 'Apply'
-      _HMG_MESSAGE [9] := 'Pag.'
-      _HMG_MESSAGE [10] := 'Aandacht'
-      _HMG_MESSAGE [11] := 'Informatie'
-      _HMG_MESSAGE [12] := 'Hou op'
+      _HMG_MESSAGE [1] := "Weet u het zeker?"
+      _HMG_MESSAGE [2] := "Sluit venster"
+      _HMG_MESSAGE [3] := "Sluiten niet toegestaan"
+      _HMG_MESSAGE [4] := "Programma is al actief"
+      _HMG_MESSAGE [5] := "Bewerken"
+      _HMG_MESSAGE [6] := "Ok"
+      _HMG_MESSAGE [7] := "Annuleren"
+      _HMG_MESSAGE [8] := "Apply"
+      _HMG_MESSAGE [9] := "Pag."
+      _HMG_MESSAGE [10] := "Aandacht"
+      _HMG_MESSAGE [11] := "Informatie"
+      _HMG_MESSAGE [12] := "Hou op"
 
       // BROWSE
 
@@ -3240,7 +3240,7 @@ PROCEDURE InitMessages
          "Waarschuwing"                                               , ;
          "Onjuiste invoer"                                            }
 
-      _HMG_BRWLangMessage := { 'Weet u het zeker?' , 'Verwijder regel' }
+      _HMG_BRWLangMessage := { "Weet u het zeker?" , "Verwijder regel" }
 
       // EDIT
 
@@ -3398,18 +3398,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := 'Ste prepriиani ?'
-      _HMG_MESSAGE [2] := 'Zapri okno'
-      _HMG_MESSAGE [3] := 'Zapiranje ni dovoljeno'
-      _HMG_MESSAGE [4] := 'Program je ћe zagnan'
-      _HMG_MESSAGE [5] := 'Popravi'
-      _HMG_MESSAGE [6] := 'V redu'
-      _HMG_MESSAGE [7] := 'Prekini'
-      _HMG_MESSAGE [8] := 'Apply'
-      _HMG_MESSAGE [9] := 'Str.'
-      _HMG_MESSAGE [10] := 'Attention'
-      _HMG_MESSAGE [11] := 'Information'
-      _HMG_MESSAGE [12] := 'Stop'
+      _HMG_MESSAGE [1] := "Ste prepriиani ?"
+      _HMG_MESSAGE [2] := "Zapri okno"
+      _HMG_MESSAGE [3] := "Zapiranje ni dovoljeno"
+      _HMG_MESSAGE [4] := "Program je ћe zagnan"
+      _HMG_MESSAGE [5] := "Popravi"
+      _HMG_MESSAGE [6] := "V redu"
+      _HMG_MESSAGE [7] := "Prekini"
+      _HMG_MESSAGE [8] := "Apply"
+      _HMG_MESSAGE [9] := "Str."
+      _HMG_MESSAGE [10] := "Attention"
+      _HMG_MESSAGE [11] := "Information"
+      _HMG_MESSAGE [12] := "Stop"
 
       // BROWSE MESSAGES
 
@@ -3430,7 +3430,7 @@ PROCEDURE InitMessages
          "Opozorilo"                            , ;
          "Narobe vnos" }
 
-      _HMG_BRWLangMessage := { 'Ste prepriиani ?' , 'Briљi vrstico' }
+      _HMG_BRWLangMessage := { "Ste prepriиani ?" , "Briљi vrstico" }
 
       // EDIT MESSAGES
 
@@ -3590,18 +3590,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := 'Ste si istэ(б)?'
-      _HMG_MESSAGE [2] := 'Zatvor okno'
-      _HMG_MESSAGE [3] := 'Zatvorenie nedovolenй'
-      _HMG_MESSAGE [4] := 'Program uћ beћн'
-      _HMG_MESSAGE [5] := 'Ъprava'
-      _HMG_MESSAGE [6] := 'Ok'
-      _HMG_MESSAGE [7] := 'Storno'
-      _HMG_MESSAGE [8] := 'Aplikuj'
-      _HMG_MESSAGE [9] := 'Str.'
-      _HMG_MESSAGE [10] := 'Attention'
-      _HMG_MESSAGE [11] := 'Information'
-      _HMG_MESSAGE [12] := 'Stop'
+      _HMG_MESSAGE [1] := "Ste si istэ(б)?"
+      _HMG_MESSAGE [2] := "Zatvor okno"
+      _HMG_MESSAGE [3] := "Zatvorenie nedovolenй"
+      _HMG_MESSAGE [4] := "Program uћ beћн"
+      _HMG_MESSAGE [5] := "Ъprava"
+      _HMG_MESSAGE [6] := "Ok"
+      _HMG_MESSAGE [7] := "Storno"
+      _HMG_MESSAGE [8] := "Aplikuj"
+      _HMG_MESSAGE [9] := "Str."
+      _HMG_MESSAGE [10] := "Attention"
+      _HMG_MESSAGE [11] := "Information"
+      _HMG_MESSAGE [12] := "Stop"
 
       // BROWSE MESSAGES
 
@@ -3620,7 +3620,7 @@ PROCEDURE InitMessages
          "Zбznam upravuje inэ uћнvateѕ"                      , ;
          "Varovanie"                                         , ;
          "Chybnэ vstup"                                         }
-      _HMG_BRWLangMessage := { 'Ste si istэ(б) ?' , 'Zmazaќ zбznam' }
+      _HMG_BRWLangMessage := { "Ste si istэ(б) ?" , "Zmazaќ zбznam" }
 
       // EDIT MESSAGES
 
@@ -3779,18 +3779,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := 'Biztos benne?'
-      _HMG_MESSAGE [2] := 'Zбrja be az ablakot'
-      _HMG_MESSAGE [3] := 'Bezбrбs tiltva'
-      _HMG_MESSAGE [4] := 'Program mбr fut'
-      _HMG_MESSAGE [5] := 'Szerkesztйs'
-      _HMG_MESSAGE [6] := 'Ok'
-      _HMG_MESSAGE [7] := 'Mйgse'
-      _HMG_MESSAGE [8] := 'Apply'
-      _HMG_MESSAGE [9] := 'Old.'
-      _HMG_MESSAGE [10] := 'Attention'
-      _HMG_MESSAGE [11] := 'Information'
-      _HMG_MESSAGE [12] := 'Stop'
+      _HMG_MESSAGE [1] := "Biztos benne?"
+      _HMG_MESSAGE [2] := "Zбrja be az ablakot"
+      _HMG_MESSAGE [3] := "Bezбrбs tiltva"
+      _HMG_MESSAGE [4] := "Program mбr fut"
+      _HMG_MESSAGE [5] := "Szerkesztйs"
+      _HMG_MESSAGE [6] := "Ok"
+      _HMG_MESSAGE [7] := "Mйgse"
+      _HMG_MESSAGE [8] := "Apply"
+      _HMG_MESSAGE [9] := "Old."
+      _HMG_MESSAGE [10] := "Attention"
+      _HMG_MESSAGE [11] := "Information"
+      _HMG_MESSAGE [12] := "Stop"
 
       // BROWSE MESSAGES
 
@@ -3809,7 +3809,7 @@ PROCEDURE InitMessages
          "A rekordot egy mбsik felhasznбlу szerkeszti"                      , ;
          "Figyelmeztetйs"                                         , ;
          "Hibбs adat"                                         }
-      _HMG_BRWLangMessage := { 'Biztos benne ?' , 'Rekord tцrlйse' }
+      _HMG_BRWLangMessage := { "Biztos benne ?" , "Rekord tцrlйse" }
 
       // EDIT MESSAGES
 
@@ -3968,18 +3968,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES (GREEK EL)
 
-      _HMG_MESSAGE [1] := 'ЕЯуфе вЭвбйпй?'
-      _HMG_MESSAGE [2] := 'КлеЯуймп рбсбиэспх'
-      _HMG_MESSAGE [3] := 'Ден ерйфсЭрефбй фп клеЯуймп'
-      _HMG_MESSAGE [4] := 'Фп рсьгсбммб екфелеЯфбй Юдз'
-      _HMG_MESSAGE [5] := 'Ерео.'
-      _HMG_MESSAGE [6] := 'Ok'
-      _HMG_MESSAGE [7] := 'Бкхсп'
-      _HMG_MESSAGE [8] := 'ЕцбсмпгЮ'
-      _HMG_MESSAGE [9] := 'Уел.'
-      _HMG_MESSAGE [10] := 'РспупчЮ'
-      _HMG_MESSAGE [11] := 'РлзспцпсЯб'
-      _HMG_MESSAGE [12] := 'Stop'
+      _HMG_MESSAGE [1] := "ЕЯуфе вЭвбйпй?"
+      _HMG_MESSAGE [2] := "КлеЯуймп рбсбиэспх"
+      _HMG_MESSAGE [3] := "Ден ерйфсЭрефбй фп клеЯуймп"
+      _HMG_MESSAGE [4] := "Фп рсьгсбммб екфелеЯфбй Юдз"
+      _HMG_MESSAGE [5] := "Ерео."
+      _HMG_MESSAGE [6] := "Ok"
+      _HMG_MESSAGE [7] := "Бкхсп"
+      _HMG_MESSAGE [8] := "ЕцбсмпгЮ"
+      _HMG_MESSAGE [9] := "Уел."
+      _HMG_MESSAGE [10] := "РспупчЮ"
+      _HMG_MESSAGE [11] := "РлзспцпсЯб"
+      _HMG_MESSAGE [12] := "Stop"
 
       // BROWSE MESSAGES (GREEK EL)
 
@@ -4000,7 +4000,7 @@ PROCEDURE InitMessages
          "РспупчЮ"                                               , ;
          "Мз брпдекфЮ фймЮ"                                          }
 
-      _HMG_BRWLangMessage := { 'ЕЯуфе вЭвбйпй ?' , 'ДйбгсбцЮ еггсбцЮт' }
+      _HMG_BRWLangMessage := { "ЕЯуфе вЭвбйпй ?" , "ДйбгсбцЮ еггсбцЮт" }
 
       // EDIT MESSAGES (GREEK - ЕЛЛЗНЙКБ)
 
@@ -4162,18 +4162,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := 'Сигурни ли сте ?'
-      _HMG_MESSAGE [2] := 'Затваряне на прозореца'
-      _HMG_MESSAGE [3] := 'Затварянето не се допуска'
-      _HMG_MESSAGE [4] := 'Програмата вече е стартирана'
-      _HMG_MESSAGE [5] := 'Измененение'
-      _HMG_MESSAGE [6] := 'Да'
-      _HMG_MESSAGE [7] := 'Отмяна'
-      _HMG_MESSAGE [8] := 'Apply'
-      _HMG_MESSAGE [9] := 'Стр.'
-      _HMG_MESSAGE [10] := 'Attention'
-      _HMG_MESSAGE [11] := 'Information'
-      _HMG_MESSAGE [12] := 'Stop'
+      _HMG_MESSAGE [1] := "Сигурни ли сте ?"
+      _HMG_MESSAGE [2] := "Затваряне на прозореца"
+      _HMG_MESSAGE [3] := "Затварянето не се допуска"
+      _HMG_MESSAGE [4] := "Програмата вече е стартирана"
+      _HMG_MESSAGE [5] := "Измененение"
+      _HMG_MESSAGE [6] := "Да"
+      _HMG_MESSAGE [7] := "Отмяна"
+      _HMG_MESSAGE [8] := "Apply"
+      _HMG_MESSAGE [9] := "Стр."
+      _HMG_MESSAGE [10] := "Attention"
+      _HMG_MESSAGE [11] := "Information"
+      _HMG_MESSAGE [12] := "Stop"
 
       // BROWSE
 
@@ -4192,7 +4192,7 @@ PROCEDURE InitMessages
          "Записа сега се редактира от друг потребител"           , ;
          "Предупреждение"                                             , ;
          "Въведени са неправилни дани"                                 }
-      _HMG_BRWLangMessage := { 'Сигурни ли сте ?' , 'Изтриване на запис' }
+      _HMG_BRWLangMessage := { "Сигурни ли сте ?" , "Изтриване на запис" }
 
       // EDIT
 

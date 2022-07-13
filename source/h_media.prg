@@ -73,7 +73,7 @@ FUNCTION _DefinePlayer ( ControlName, ParentFormName, file, x, y, w, h, noasw, n
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " Already defined." )
    ENDIF
 
-   mVar := '_' + ParentFormName + '_' + ControlName
+   mVar := "_" + ParentFormName + "_" + ControlName
 
    ControlHandle := InitPlayer ( GetFormHandle( ParentFormName ) , ;
       file ,  x ,  y , w , h , noasw, noasm, noed, nom, noo, nop, sha, shm, shn, shp )
@@ -116,20 +116,20 @@ FUNCTION _DefinePlayer ( ControlName, ParentFormName, file, x, y, w, h, noasw, n
    _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
    _HMG_aControlPicture  [k] :=  ""
    _HMG_aControlContainerHandle  [k] :=  0
-   _HMG_aControlFontName  [k] :=  ''
+   _HMG_aControlFontName  [k] :=  ""
    _HMG_aControlFontSize  [k] :=  0
    _HMG_aControlFontAttributes  [k] :=  { .F. , .F. , .F. , .F. }
-   _HMG_aControlToolTip   [k] :=  ''
+   _HMG_aControlToolTip   [k] :=  ""
    _HMG_aControlRangeMin  [k] :=   0
    _HMG_aControlRangeMax  [k] :=   0
-   _HMG_aControlCaption  [k] :=   ''
+   _HMG_aControlCaption  [k] :=   ""
    _HMG_aControlVisible  [k] :=   .T.
    _HMG_aControlHelpId  [k] :=   HelpId
    _HMG_aControlFontHandle  [k] :=   0
    _HMG_aControlBrushHandle  [k] :=  0
    _HMG_aControlEnabled  [k] :=  .T.
    _HMG_aControlMiscData1 [k] := 0
-   _HMG_aControlMiscData2 [k] := ''
+   _HMG_aControlMiscData2 [k] := ""
 
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
@@ -205,7 +205,7 @@ FUNCTION _DefineAnimateBox( ControlName, ParentFormName, x, y, w, h, autoplay, c
    LOCAL blInit
    LOCAL mVar
    LOCAL k
-   LOCAL tooltip := ''
+   LOCAL tooltip := ""
    LOCAL Style
    LOCAL lDialogInMemory
 
@@ -230,7 +230,7 @@ FUNCTION _DefineAnimateBox( ControlName, ParentFormName, x, y, w, h, autoplay, c
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " Already defined." )
    ENDIF
 
-   mVar := '_' + ParentFormName + '_' + ControlName
+   mVar := "_" + ParentFormName + "_" + ControlName
 
    k := _GetControlFree()
 
@@ -249,7 +249,7 @@ FUNCTION _DefineAnimateBox( ControlName, ParentFormName, x, y, w, h, autoplay, c
 
       IF lDialogInMemory         //Dialog Template
 
-         //          {{'ID',k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout,blInit,.f.}}  --->_HMG_aDialogItems
+         //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout,blInit,.f.}}  --->_HMG_aDialogItems
          blInit := {|x, y, z| InitDialogAnimateBox( x, y, z ) }
          AAdd( _HMG_aDialogItems, { nId, k, "SysAnimate32", style, 0, x, y, w, h, "", HelpId, tooltip, "", 0, , , , , blInit, _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage } )
 
@@ -311,10 +311,10 @@ FUNCTION _DefineAnimateBox( ControlName, ParentFormName, x, y, w, h, autoplay, c
    _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
    _HMG_aControlPicture  [k] :=  ""
    _HMG_aControlContainerHandle   [k] := 0
-   _HMG_aControlFontName  [k] :=  ''
+   _HMG_aControlFontName  [k] :=  ""
    _HMG_aControlFontSize  [k] :=  0
    _HMG_aControlFontAttributes  [k] :=  { .F. , .F. , .F. , .F. }
-   _HMG_aControlToolTip   [k] :=  ''
+   _HMG_aControlToolTip   [k] :=  ""
    _HMG_aControlRangeMin  [k] :=   0
    _HMG_aControlRangeMax  [k] :=   0
    _HMG_aControlCaption  [k] :=   file
@@ -324,14 +324,14 @@ FUNCTION _DefineAnimateBox( ControlName, ParentFormName, x, y, w, h, autoplay, c
    _HMG_aControlBrushHandle  [k] :=  0
    _HMG_aControlEnabled  [k] :=  .T.
    _HMG_aControlMiscData1 [k] := 0
-   _HMG_aControlMiscData2 [k] := ''
+   _HMG_aControlMiscData2 [k] := ""
 
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
    ENDIF
 
    IF .NOT. lDialogInMemory
-      IF ValType( file ) <> 'U'
+      IF ValType( file ) <> "U"
          _OpenAnimateBox ( ControlName , ParentFormName , File )
       ENDIF
    ENDIF
@@ -344,7 +344,7 @@ FUNCTION InitDialogAnimateBox( ParentName, ControlHandle, k )
    LOCAL File
 
    File := _HMG_aControlCaption [k]
-   IF ValType( File ) <> 'U' .AND. ValType( ControlHandle ) <> 'U'
+   IF ValType( File ) <> "U" .AND. ValType( ControlHandle ) <> "U"
       _OpenAnimateBox ( _HMG_aControlNames [k] , ParentName , File )
    ENDIF
 // JP 62

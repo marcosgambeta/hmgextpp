@@ -101,7 +101,7 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
 
    hb_default( @w, 120 )
    hb_default( @h, 240 )
-   hb_default( @value, '' )
+   hb_default( @value, "" )
    hb_default( @maxlength, -1 )
    hb_default( @invisible, .F. )
    hb_default( @notabstop, .F. )
@@ -112,11 +112,11 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
       maxlength := -1 // for compatibility with TextBox and EditBox
    ENDIF
 
-   IF ValType( Field ) != 'U'
-      IF hb_UAt ( '>', Field ) == 0
+   IF ValType( Field ) != "U"
+      IF hb_UAt ( ">", Field ) == 0
          MsgHMGError ( "Control: " + ControlName + " Of " + ParentForm + " : You must specify a fully qualified field name." )
       ELSE
-         WorkArea := hb_ULeft ( Field, hb_UAt ( '>', Field ) - 2 )
+         WorkArea := hb_ULeft ( Field, hb_UAt ( ">", Field ) - 2 )
          IF SELECT ( WorkArea ) != 0
             value := &( Field )
          ENDIF
@@ -148,7 +148,7 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
       MsgHMGError ( "Control: " + ControlName + " Of " + ParentForm + " Already defined." )
    ENDIF
 
-   mVar := '_' + ParentForm + '_' + ControlName
+   mVar := "_" + ParentForm + "_" + ControlName
 
    cParentForm := ParentForm
 
@@ -156,17 +156,17 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
 
    IF ValType( x ) == "U" .OR. ValType( y ) == "U"
 
-      IF _HMG_SplitLastControl == 'TOOLBAR'
+      IF _HMG_SplitLastControl == "TOOLBAR"
          Break := .T.
       ENDIF
 
-      _HMG_SplitLastControl := 'RICHEDIT'
+      _HMG_SplitLastControl := "RICHEDIT"
 
       i := GetFormIndex ( cParentForm )
 
       IF i > 0
 
-         ControlHandle := InitRichEditBoxEx ( _HMG_aFormReBarHandle[ i ], 0, x, y, w, h, '', 0, maxlength, readonly, invisible, notabstop, noHscroll, noVscroll )
+         ControlHandle := InitRichEditBoxEx ( _HMG_aFormReBarHandle[ i ], 0, x, y, w, h, "", 0, maxlength, readonly, invisible, notabstop, noHscroll, noVscroll )
          IF ValType( fontname ) != "U" .AND. ValType( fontsize ) != "U"
             FontHandle := _SetFont ( ControlHandle, fontname, fontsize, bold, italic, underline, strikeout )
          ELSE
@@ -184,7 +184,7 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
 
    ELSE
 
-      ControlHandle := InitRichEditBoxEx ( ParentForm, 0, x, y, w, h, '', 0, maxlength, readonly, invisible, notabstop, noHscroll, noVscroll )
+      ControlHandle := InitRichEditBoxEx ( ParentForm, 0, x, y, w, h, "", 0, maxlength, readonly, invisible, notabstop, noHscroll, noVscroll )
       IF IsWindowHandle( ControlHandle )
          IF ValType( fontname ) != "U" .AND. ValType( fontsize ) != "U"
             FontHandle := _SetFont ( ControlHandle, fontname, fontsize, bold, italic, underline, strikeout )
@@ -250,7 +250,7 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
    _HMG_aControlToolTip[ k ] := tooltip
    _HMG_aControlRangeMin[ k ] := OnLink
    _HMG_aControlRangeMax[ k ] := OnVScroll
-   _HMG_aControlCaption[ k ] := ''
+   _HMG_aControlCaption[ k ] := ""
    _HMG_aControlVisible[ k ] := iif( invisible, .F., .T. )
    _HMG_aControlHelpId[ k ] := HelpId
    _HMG_aControlFontHandle[ k ] := FontHandle
@@ -259,7 +259,7 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
    _HMG_aControlMiscData1[ k ] := 1
    _HMG_aControlMiscData2[ k ] := ""
 
-   IF ValType( Field ) != 'U'
+   IF ValType( Field ) != "U"
       AAdd( _HMG_aFormBrowseList [ GetFormIndex ( cParentForm ) ], k )
    ENDIF
 

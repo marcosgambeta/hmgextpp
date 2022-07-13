@@ -45,21 +45,21 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
  ---------------------------------------------------------------------------*/
 
-#include 'minigui.ch'
+#include "minigui.ch"
 
 SET PROCEDURE TO h_cdomail.prg
 
 *-----------------------------------------------------------------------------*
 FUNCTION GetData()
 *-----------------------------------------------------------------------------*
-   LOCAL PacketNames [ aDir ( _HMG_CommPath + _HMG_StationName + '.*' ) ]
+   LOCAL PacketNames [ aDir ( _HMG_CommPath + _HMG_StationName + ".*" ) ]
    LOCAL i, Rows, Cols, RetVal := Nil, aItem, aTemp := {}, r, c
    LOCAL DataValue, DataType, DataLength, Packet
    LOCAL bd := Set ( _SET_DATEFORMAT )
 
    SET DATE TO ANSI
 
-   ADir ( _HMG_CommPath + _HMG_StationName + '.*' , PacketNames )
+   ADir ( _HMG_CommPath + _HMG_StationName + ".*" , PacketNames )
 
    IF Len( PacketNames ) > 0
 
@@ -79,14 +79,14 @@ FUNCTION GetData()
          DataValue := MemoLine( Packet , 254 , 4 )
 
          DO CASE
-         CASE DataType == 'C'
+         CASE DataType == "C"
             RetVal := Left ( DataValue , DataLength )
-         CASE DataType == 'N'
+         CASE DataType == "N"
             RetVal := Val( DataValue )
-         CASE DataType == 'D'
+         CASE DataType == "D"
             RetVal := CToD ( DataValue )
-         CASE DataType == 'L'
-            RetVal := ( AllTrim( DataValue ) == 'T' )
+         CASE DataType == "L"
+            RetVal := ( AllTrim( DataValue ) == "T" )
          END CASE
 
       // One Dimension Array Data
@@ -104,14 +104,14 @@ FUNCTION GetData()
             DataValue  := MemoLine( Packet , 254 , i )
 
             DO CASE
-            CASE DataType == 'C'
+            CASE DataType == "C"
                aItem := Left ( DataValue , DataLength )
-            CASE DataType == 'N'
+            CASE DataType == "N"
                aItem := Val( DataValue )
-            CASE DataType == 'D'
+            CASE DataType == "D"
                aItem := CToD ( DataValue )
-            CASE DataType == 'L'
-               aItem := ( AllTrim( DataValue ) == 'T' )
+            CASE DataType == "L"
+               aItem := ( AllTrim( DataValue ) == "T" )
             END CASE
 
             AAdd( aTemp , aItem )
@@ -142,14 +142,14 @@ FUNCTION GetData()
             DataValue  := MemoLine( Packet , 254 , i )
 
             DO CASE
-            CASE DataType == 'C'
+            CASE DataType == "C"
                aItem := Left ( DataValue , DataLength )
-            CASE DataType == 'N'
+            CASE DataType == "N"
                aItem := Val( DataValue )
-            CASE DataType == 'D'
+            CASE DataType == "D"
                aItem := CToD ( DataValue )
-            CASE DataType == 'L'
-               aItem := ( AllTrim( DataValue ) == 'T' )
+            CASE DataType == "L"
+               aItem := ( AllTrim( DataValue ) == "T" )
             END CASE
 
             aTemp [r] [c] := aItem
@@ -182,36 +182,36 @@ FUNCTION SendData ( cDest , Data )
    LOCAL cData, i, j
    LOCAL pData, cLen, cType, FileName, Rows, Cols
 
-   FileName := _HMG_CommPath + cDest + '.' + _HMG_StationName + '.' + hb_ntos ( ++_HMG_SendDataCount )
+   FileName := _HMG_CommPath + cDest + "." + _HMG_StationName + "." + hb_ntos ( ++_HMG_SendDataCount )
 
-   IF ValType( Data ) == 'A'
+   IF ValType( Data ) == "A"
 
-      IF ValType( Data [1] ) != 'A'
+      IF ValType( Data [1] ) != "A"
 
-         cData := '#DataRows=' + hb_ntos( Len(Data ) ) + Chr( 13 ) + Chr( 10 )
-         cData += '#DataCols=0' + Chr( 13 ) + Chr( 10 )
+         cData := "#DataRows=" + hb_ntos( Len(Data ) ) + Chr( 13 ) + Chr( 10 )
+         cData += "#DataCols=0" + Chr( 13 ) + Chr( 10 )
 
          FOR i := 1 TO Len( Data )
 
             cType := ValType( Data [i] )
 
-            IF cType == 'D'
-               pData := hb_ntos( Year( data[i] ) ) + '.' + hb_ntos( Month( data[i] ) ) + '.' + hb_ntos( Day( data[i] ) )
+            IF cType == "D"
+               pData := hb_ntos( Year( data[i] ) ) + "." + hb_ntos( Month( data[i] ) ) + "." + hb_ntos( Day( data[i] ) )
                cLen := hb_ntos( Len( pData ) )
-            ELSEIF cType == 'L'
-               pData := iif( Data [i] == .T. , 'T', 'F' )
+            ELSEIF cType == "L"
+               pData := iif( Data [i] == .T. , "T", "F" )
                cLen := hb_ntos( Len( pData ) )
-            ELSEIF cType == 'N'
+            ELSEIF cType == "N"
                pData := Str( Data [i] )
                cLen := hb_ntos( Len( pData ) )
-            ELSEIF cType == 'C'
+            ELSEIF cType == "C"
                pData := Data [i]
                cLen := hb_ntos( Len( pData ) )
             ELSE
-               MsgMiniGuiError( 'SendData: Type Not Supported.' )
+               MsgMiniGuiError( "SendData: Type Not Supported." )
             ENDIF
 
-            cData += '#DataBlock=' + cType + ',' + cLen + Chr( 13 ) + Chr( 10 )
+            cData += "#DataBlock=" + cType + "," + cLen + Chr( 13 ) + Chr( 10 )
             cData += pData + Chr( 13 ) + Chr( 10 )
 
          NEXT i
@@ -223,8 +223,8 @@ FUNCTION SendData ( cDest , Data )
          Rows := Len( Data )
          Cols := Len( Data [1] )
 
-         cData := '#DataRows=' + hb_ntos( Rows ) + Chr( 13 ) + Chr( 10 )
-         cData += '#DataCols=' + hb_ntos( Cols ) + Chr( 13 ) + Chr( 10 )
+         cData := "#DataRows=" + hb_ntos( Rows ) + Chr( 13 ) + Chr( 10 )
+         cData += "#DataCols=" + hb_ntos( Cols ) + Chr( 13 ) + Chr( 10 )
 
          FOR i := 1 TO Rows
 
@@ -232,23 +232,23 @@ FUNCTION SendData ( cDest , Data )
 
                cType := ValType( Data [i] [j] )
 
-               IF cType == 'D'
-                  pData := hb_ntos( Year( data[i][j] ) ) + '.' + hb_ntos( Month( data[i][j] ) ) + '.' + hb_ntos( Day( data[i][j] ) )
+               IF cType == "D"
+                  pData := hb_ntos( Year( data[i][j] ) ) + "." + hb_ntos( Month( data[i][j] ) ) + "." + hb_ntos( Day( data[i][j] ) )
                   cLen := hb_ntos( Len( pData ) )
-               ELSEIF cType == 'L'
-                  pData := iif( Data [i] [j] == .T. , 'T', 'F' )
+               ELSEIF cType == "L"
+                  pData := iif( Data [i] [j] == .T. , "T", "F" )
                   cLen := hb_ntos( Len( pData ) )
-               ELSEIF cType == 'N'
+               ELSEIF cType == "N"
                   pData := Str( Data [i] [j] )
                   cLen := hb_ntos( Len( pData ) )
-               ELSEIF cType == 'C'
+               ELSEIF cType == "C"
                   pData := Data [i] [j]
                   cLen := hb_ntos( Len( pData ) )
                ELSE
-                  MsgMiniGuiError( 'SendData: Type Not Supported.' )
+                  MsgMiniGuiError( "SendData: Type Not Supported." )
                ENDIF
 
-               cData += '#DataBlock=' + cType + ',' + cLen + Chr( 13 ) + Chr( 10 )
+               cData += "#DataBlock=" + cType + "," + cLen + Chr( 13 ) + Chr( 10 )
                cData += pData + Chr( 13 ) + Chr( 10 )
 
             NEXT j
@@ -262,26 +262,26 @@ FUNCTION SendData ( cDest , Data )
 
       cType := ValType( Data )
 
-      IF cType == 'D'
-         pData := hb_ntos( Year( data ) ) + '.' + hb_ntos( Month( data ) ) + '.' + hb_ntos( Day( data ) )
+      IF cType == "D"
+         pData := hb_ntos( Year( data ) ) + "." + hb_ntos( Month( data ) ) + "." + hb_ntos( Day( data ) )
          cLen := hb_ntos( Len( pData ) )
-      ELSEIF cType == 'L'
-         pData := iif( Data == .T. , 'T', 'F' )
+      ELSEIF cType == "L"
+         pData := iif( Data == .T. , "T", "F" )
          cLen := hb_ntos( Len( pData ) )
-      ELSEIF cType == 'N'
+      ELSEIF cType == "N"
          pData := Str( Data )
          cLen := hb_ntos( Len( pData ) )
-      ELSEIF cType == 'C'
+      ELSEIF cType == "C"
          pData := Data
          cLen := hb_ntos( Len( pData ) )
       ELSE
-         MsgMiniGuiError( 'SendData: Type Not Supported.' )
+         MsgMiniGuiError( "SendData: Type Not Supported." )
       ENDIF
 
-      cData := '#DataRows=0' + Chr( 13 ) + Chr( 10 )
-      cData += '#DataCols=0' + Chr( 13 ) + Chr( 10 )
+      cData := "#DataRows=0" + Chr( 13 ) + Chr( 10 )
+      cData += "#DataCols=0" + Chr( 13 ) + Chr( 10 )
 
-      cData += '#DataBlock=' + cType + ',' + cLen + Chr( 13 ) + Chr( 10 )
+      cData += "#DataBlock=" + cType + "," + cLen + Chr( 13 ) + Chr( 10 )
       cData += pData + Chr( 13 ) + Chr( 10 )
 
       MemoWrit ( FileName , cData )
@@ -352,10 +352,10 @@ FUNCTION uCharToVal( cText, cType )
    LOCAL cTrue := "|.T.|T|TRUE|YES|SI|"
    LOCAL cFalse := "|.F.|F|FALSE|NO|"
 
-   IF ValType( cType ) == 'C' .AND. Len( cType ) == 1 .AND. ( cType := Upper( cType ) ) $ 'CDLMN'
+   IF ValType( cType ) == "C" .AND. Len( cType ) == 1 .AND. ( cType := Upper( cType ) ) $ "CDLMN"
 
-      IF cType == 'M'
-         cType := 'C'
+      IF cType == "M"
+         cType := "C"
       ENDIF
 
    ELSE
@@ -364,29 +364,29 @@ FUNCTION uCharToVal( cText, cType )
 
    ENDIF
 
-   IF cType == 'T'
-      cType := 'D'
+   IF cType == "T"
+      cType := "D"
    ENDIF
 
-   IF ValType( cText ) == 'C'
+   IF ValType( cText ) == "C"
 
       cText := AllTrim( cText )
 
       DO CASE
 
-      CASE cType == 'C'
+      CASE cType == "C"
 
          uVal := cText
 
-      CASE cType == 'N'
+      CASE cType == "N"
 
          uVal := IfNil( nStrToNum( cText, , .T. ), Val( cText ) )
 
-      CASE cType == 'L'
+      CASE cType == "L"
 
-         uVal := ( '|' + Upper( cText ) + '|' $ cTrue )
+         uVal := ( "|" + Upper( cText ) + "|" $ cTrue )
 
-      CASE cType == 'D'
+      CASE cType == "D"
 
          uVal := dCharToDate( cText )
 
@@ -394,17 +394,17 @@ FUNCTION uCharToVal( cText, cType )
 
          IF ( uVal := nStrToNum( cText ) ) != NIL
 
-            cType := 'N'
+            cType := "N"
 
-         ELSEIF '|' + Upper( cText ) + '|' $ cTrue
+         ELSEIF "|" + Upper( cText ) + "|" $ cTrue
 
             uVal := .T.
-            cType := 'L'
+            cType := "L"
 
-         ELSEIF '|' + Upper( cText ) + '|' $ cFalse
+         ELSEIF "|" + Upper( cText ) + "|" $ cFalse
 
             uVal := .F.
-            cType := 'L'
+            cType := "L"
 
          ELSE
 
@@ -413,11 +413,11 @@ FUNCTION uCharToVal( cText, cType )
             IF Empty( uVal )
 
                uVal := cText
-               cType := 'C'
+               cType := "C"
 
             ELSE
 
-               cType := 'D'
+               cType := "D"
 
             ENDIF
 
@@ -527,7 +527,7 @@ STATIC FUNCTION IfNil( ... )
    LOCAL aParams := hb_AParams()
    LOCAL u
 
-   IF Len( aParams ) == 1 .AND. ValType( aParams[ 1 ] ) == 'A'
+   IF Len( aParams ) == 1 .AND. ValType( aParams[ 1 ] ) == "A"
       aParams := aParams[ 1 ]
    ENDIF
 
@@ -573,9 +573,9 @@ STATIC FUNCTION dCharToDate( cDate )
    IF Empty( dDate )
 
       cc := Lower( Left( cFormat, 2 ) )
-      Set( _SET_DATEFORMAT, iif( cc == 'dd', 'mm/dd/yy', 'dd/mm/yy' ) )
+      Set( _SET_DATEFORMAT, iif( cc == "dd", "mm/dd/yy", "dd/mm/yy" ) )
       dDate := CToD( cDate )
-      IF cc == 'yy' .AND. Empty( dDate )
+      IF cc == "yy" .AND. Empty( dDate )
          SET DATE AMERICAN
          dDate := CToD( cDate )
       ENDIF
@@ -640,7 +640,7 @@ RETURN dDate
 STATIC FUNCTION ParseNumsFromDateStr( cStr )
 *-----------------------------------------------------------------------------*
    LOCAL aNum := {}
-   LOCAL cNum := ''
+   LOCAL cNum := ""
    LOCAL c
 
    FOR EACH c IN cStr
@@ -651,7 +651,7 @@ STATIC FUNCTION ParseNumsFromDateStr( cStr )
 
       ELSE
 
-         IF c == ':' .AND. Len( aNum ) < 2
+         IF c == ":" .AND. Len( aNum ) < 2
 
             ASize( aNum, 2 )
 
@@ -660,7 +660,7 @@ STATIC FUNCTION ParseNumsFromDateStr( cStr )
          IF ! Empty( cNum )
 
             AAdd( aNum, cNum )
-            cNum := ''
+            cNum := ""
 
          ENDIF
 

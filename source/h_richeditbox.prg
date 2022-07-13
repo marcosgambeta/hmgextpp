@@ -85,10 +85,10 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
    ENDIF
 
    IF !Empty( Field )
-      IF  hb_UAt ( '>', Field ) == 0
+      IF  hb_UAt ( ">", Field ) == 0
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentForm + " : You must specify a fully qualified field name." )
       ELSE
-         WorkArea := hb_ULeft ( Field , hb_UAt ( '>', Field ) - 2 )
+         WorkArea := hb_ULeft ( Field , hb_UAt ( ">", Field ) - 2 )
          IF Select ( WorkArea ) != 0
             Value := &( Field )
          ENDIF
@@ -114,7 +114,7 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentForm + " Already defined." )
    ENDIF
 
-   mVar := '_' + ParentForm + '_' + ControlName
+   mVar := "_" + ParentForm + "_" + ControlName
 
    cParentForm := ParentForm
 
@@ -122,17 +122,17 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
 
    IF ValType( x ) == "U" .OR. ValType( y ) == "U"
 
-      IF _HMG_SplitLastControl == 'TOOLBAR'
+      IF _HMG_SplitLastControl == "TOOLBAR"
          Break := .T.
       ENDIF
 
-      _HMG_SplitLastControl := 'RICHEDIT'
+      _HMG_SplitLastControl := "RICHEDIT"
 
       i := GetFormIndex ( cParentForm )
 
       IF i > 0
 
-         ControlHandle := InitRichEditBox ( _HMG_aFormReBarHandle [i] , 0, x, y, w, h, '', 0 , maxlength , readonly, invisible, notabstop, nohscroll, novscroll )
+         ControlHandle := InitRichEditBox ( _HMG_aFormReBarHandle [i] , 0, x, y, w, h, "", 0 , maxlength , readonly, invisible, notabstop, nohscroll, novscroll )
          IF FontHandle != 0
             _SetFontHandle( ControlHandle, FontHandle )
          ELSE
@@ -150,7 +150,7 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
 
    ELSE
 
-      ControlHandle := InitRichEditBox ( ParentForm, 0, x, y, w, h, '', 0 , maxlength , readonly, invisible, notabstop, nohscroll, novscroll )
+      ControlHandle := InitRichEditBox ( ParentForm, 0, x, y, w, h, "", 0 , maxlength , readonly, invisible, notabstop, nohscroll, novscroll )
       IF FontHandle != 0
          _SetFontHandle( ControlHandle, FontHandle )
       ELSE
@@ -231,7 +231,7 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
    _HMG_aControlBrushHandle  [k] :=  0
    _HMG_aControlEnabled  [k] :=  .T.
    _HMG_aControlMiscData1 [k] := 0
-   _HMG_aControlMiscData2 [k] := ''
+   _HMG_aControlMiscData2 [k] := ""
 
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
@@ -247,7 +247,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 PROCEDURE _DataBaseRichEditBoxSave ( ControlName, ParentForm, typ )
 *-----------------------------------------------------------------------------*
-   LOCAL cTempFile := TempFile( GetTempFolder(), 'txt' )
+   LOCAL cTempFile := TempFile( GetTempFolder(), "txt" )
    LOCAL Field
    LOCAL i
 
@@ -272,7 +272,7 @@ RETURN
 *-----------------------------------------------------------------------------*
 FUNCTION _DataRichEditBoxSetValue ( ControlName, ParentForm, cRichValue, typ )
 *-----------------------------------------------------------------------------*
-   LOCAL cTempFile := TempFile( GetTempFolder(), 'txt' )
+   LOCAL cTempFile := TempFile( GetTempFolder(), "txt" )
 
    IF ! Empty( cTempFile )
       hb_MemoWrit ( cTempFile, cRichValue )
@@ -289,7 +289,7 @@ RETURN cRichValue
 *-----------------------------------------------------------------------------*
 FUNCTION _DataRichEditBoxGetValue ( ControlName, ParentForm, typ )
 *-----------------------------------------------------------------------------*
-   LOCAL cTempFile := TempFile( GetTempFolder(), 'txt' )
+   LOCAL cTempFile := TempFile( GetTempFolder(), "txt" )
    LOCAL cRichValue
 
    IF ! Empty( cTempFile )

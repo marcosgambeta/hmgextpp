@@ -63,7 +63,7 @@ FUNCTION _BeginPager( ControlName, ParentName, nWidth, nHeight, nScroll, cCaptio
       MsgMiniGuiError( "PAGERBOX can't be defined inside Tab control." )
    ENDIF
 
-   IF ValType( ParentName ) == 'U' .AND. _HMG_BeginWindowActive
+   IF ValType( ParentName ) == "U" .AND. _HMG_BeginWindowActive
       ParentName := _HMG_ActiveFormName
    ENDIF
    IF .NOT. _IsWindowDefined ( ParentName )
@@ -93,7 +93,7 @@ FUNCTION _BeginPager( ControlName, ParentName, nWidth, nHeight, nScroll, cCaptio
 
    _HMG_ActivePagerForm := ControlHandle
 
-   mVar := '_' + ParentName + '_' + ControlName
+   mVar := "_" + ParentName + "_" + ControlName
    Id := _GetId()
 
    IF ValType( tooltip ) != "U"
@@ -138,7 +138,7 @@ FUNCTION _BeginPager( ControlName, ParentName, nWidth, nHeight, nScroll, cCaptio
    _HMG_aControlContainerCol  [k] :=  -1
    _HMG_aControlPicture   [k] := ""
    _HMG_aControlContainerHandle  [k] :=  0
-   _HMG_aControlFontName  [k] :=  ''
+   _HMG_aControlFontName  [k] :=  ""
    _HMG_aControlFontSize   [k] := 0
    _HMG_aControlFontAttributes  [k] :=  { .F. , .F. , .F. , .F. }
    _HMG_aControlToolTip  [k] :=  tooltip
@@ -151,7 +151,7 @@ FUNCTION _BeginPager( ControlName, ParentName, nWidth, nHeight, nScroll, cCaptio
    _HMG_aControlBrushHandle [k] :=  0
    _HMG_aControlEnabled  [k] :=  .T.
    _HMG_aControlMiscData1 [k] :=  vertical
-   _HMG_aControlMiscData2 [k] := ''
+   _HMG_aControlMiscData2 [k] := ""
 /*
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )

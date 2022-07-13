@@ -102,14 +102,14 @@ FUNCTION AddMenuElement( NewItem , cAction )
    LOCAL cyMRU_Id , cxMRU_Id
    LOCAL x , n , cx
 
-   Caption := iif( Len( NewItem ) < 40, NewItem, SubStr( NewItem, 1, 3 ) + '...' + SubStr( NewItem, Len( NewItem ) - 34 ) )
-   action := iif( cAction == NIL, {|| Nil }, &( '{|| ' + Left( cAction, At("(",cAction ) ) + ' "' + NewItem + '" ) }' ) )
+   Caption := iif( Len( NewItem ) < 40, NewItem, SubStr( NewItem, 1, 3 ) + "..." + SubStr( NewItem, Len( NewItem ) - 34 ) )
+   action := iif( cAction == NIL, {|| Nil }, &( "{|| " + Left( cAction, At("(",cAction ) ) + " " + Chr(34) + NewItem + Chr(34) + " ) }" ) )
 
    // Check if this is the first item
    IF MRUCount == 0
       // Modify a first element the menu
       cxMRU_Id := cMRU_Id
-      _ModifyMenuItem ( cxMRU_Id , MRUParentForm , '&1 ' + caption , action )
+      _ModifyMenuItem ( cxMRU_Id , MRUParentForm , "&1 " + caption , action )
       AAdd( aMRU_File , { caption, NewItem, cxMRU_Id, action, 1 } )
    ELSE
       // Add a new element to the menu
@@ -121,15 +121,15 @@ FUNCTION AddMenuElement( NewItem , cAction )
          ENDIF
       NEXT
 
-      cyMRU_Id := cMRU_Id + '_' + hb_ntos( x )
+      cyMRU_Id := cMRU_Id + "_" + hb_ntos( x )
       cxMRU_Id := aMRU_File[1, 3]
-      _InsertMenuItem ( cxMRU_Id , MRUParentForm , '&1 ' + caption , action, cyMRU_Id )
+      _InsertMenuItem ( cxMRU_Id , MRUParentForm , "&1 " + caption , action, cyMRU_Id )
       // Insert a first element the menu
       AIns( aMRU_File, 1, { caption, NewItem, cyMRU_Id, action, x }, .T. )
       FOR n := 1 TO Len( aMRU_File )
          cx := hb_ntos( n )
          cxMRU_Id := aMRU_File[n, 3]
-         xCaption := '&' + cx + ' ' + aMRU_File[n, 1]
+         xCaption := "&" + cx + " " + aMRU_File[n, 1]
          _ModifyMenuItem ( cxMRU_Id , MRUParentForm , xCaption , aMRU_File[n, 4] )
       NEXT
       IF Len( aMRU_File ) > maxMRU_Files
@@ -250,8 +250,8 @@ FUNCTION ClearMRUList()
    FOR EACH n IN aMRU_File DESCEND
       cxMRU_Id := n[ 3 ]
       IF n:__enumIsLast()
-         _ModifyMenuItem( cxMRU_Id , MRUParentForm , ' (Empty) ' , {|| Nil } )
-         SetProperty( MRUParentForm , cxMRU_Id , 'Enabled' , .F. )
+         _ModifyMenuItem( cxMRU_Id , MRUParentForm , " (Empty) " , {|| Nil } )
+         SetProperty( MRUParentForm , cxMRU_Id , "Enabled" , .F. )
          cMRU_Id := cxMRU_Id
          aMRU_File := {}
          MRUCount := 0

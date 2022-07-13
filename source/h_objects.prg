@@ -273,14 +273,14 @@ METHOD ToValue( cStr ) CLASS TIniData
 
    IF left(cStr, 1) == "{"  .and. right(cStr, 1) == "}" .or. ;
       left(cStr, 1) == "'"  .and. right(cStr, 1) == "'" .or. ;
-      left(cStr, 1) == '"'  .and. right(cStr, 1) == '"' .or. ;
-      left(cStr, 2) == 'e"' .and. right(cStr, 1) == '"' .or. ;
-      left(cStr, 2) == 't"' .and. right(cStr, 1) == '"' .or. ;
-      left(cStr, 4) == '0d20' .and. Len(cStr) == 10
+      left(cStr, 1) == Chr(34)  .and. right(cStr, 1) == Chr(34) .or. ;
+      left(cStr, 2) == "e" + Chr(34) .and. right(cStr, 1) == Chr(34) .or. ;
+      left(cStr, 2) == "t" + Chr(34) .and. right(cStr, 1) == Chr(34) .or. ;
+      left(cStr, 4) == "0d20" .and. Len(cStr) == 10
       BEGIN SEQUENCE WITH { |e|break(e) }
          xVal := &(cStr)
       END SEQUENCE
-      IF left(cStr, 2) == 't"' .and. right(cStr, 1) == '"' .and. ;
+      IF left(cStr, 2) == "t" + Chr(34) .and. right(cStr, 1) == Chr(34) .and. ;
          Valtype(xVal) == "T" .and. Len( subs(cStr, 3) ) == 11
          xVal := hb_TtoD( xVal )
       ENDIF
@@ -314,11 +314,11 @@ METHOD ToString( xVal ) CLASS TIniData
             cStr := StrTran( cStr, chr(9), "\t" )
          ENDIF
          IF lE
-            IF left ( cStr, 1 ) == '"' ; cStr := subs( cStr, 2 )
+            IF left ( cStr, 1 ) == Chr(34) ; cStr := subs( cStr, 2 )
             ENDIF
-            IF right( cStr, 1 ) == '"' ; cStr := left( cStr, Len(cStr) - 1 )
+            IF right( cStr, 1 ) == Chr(34) ; cStr := left( cStr, Len(cStr) - 1 )
             ENDIF
-            cStr := 'e"' + cStr + '"'
+            cStr := "e" + Chr(34) + cStr + Chr(34)
          ENDIF
       ENDIF
    ELSEIF HB_ISLOGICAL( xVal ) .and. ::lYesNo
@@ -469,7 +469,7 @@ FUNCTION oDlu2Pixel( nPrcW, nPrcH, nFontSize )
          nPrcH := nPrcW[ 2 ]
          nPrcW := nPrcW[ 1 ]
       ELSEIF HB_ISCHAR ( nPrcW )
-         nPrcW := hb_ATokens( nPrcW, ',' )
+         nPrcW := hb_ATokens( nPrcW, "," )
          ASize( nPrcW, 2 )
          nPrcH := Val( nPrcW[ 2 ] )
          nPrcW := Val( nPrcW[ 1 ] )
@@ -768,16 +768,16 @@ METHOD GetGaps( aGaps, oWnd ) CLASS TDlu2Pix
       ::nB := aGaps[4]
    EndIf
 
-   If '.' $ hb_ntos( ::nL ); ::nL := oApp:GW( ::nL )
+   If "." $ hb_ntos( ::nL ); ::nL := oApp:GW( ::nL )
    EndIf
 
-   If '.' $ hb_ntos( ::nT); ::nT := oApp:GH( ::nT )
+   If "." $ hb_ntos( ::nT); ::nT := oApp:GH( ::nT )
    EndIf
 
-   If '.' $ hb_ntos( ::nR ); ::nR := oApp:GW( ::nR )
+   If "." $ hb_ntos( ::nR ); ::nR := oApp:GW( ::nR )
    EndIf
 
-   If '.' $ hb_ntos( ::nB ); ::nB := oApp:GH( ::nB )
+   If "." $ hb_ntos( ::nB ); ::nB := oApp:GH( ::nB )
    EndIf
 
 RETURN ( ::LTRB )
@@ -786,12 +786,12 @@ METHOD TextWidth( cText, nSize, cFont, lBold, cChar ) CLASS TDlu2Pix
 
    LOCAL hFont, nWidth
 
-   cChar := hb_defaultValue( cChar, 'A' )
+   cChar := hb_defaultValue( cChar, "A" )
    cText := hb_defaultValue( cText, Replicate( cChar, 2 ) )
    lBold := hb_defaultValue( lBold, .F. )
    cFont := hb_defaultValue( cFont, _HMG_DefaultFontName )
    nSize := hb_defaultValue( nSize, iif( Empty( ::nSize ), _HMG_DefaultFontSize, ::nSize ) )
-   IF ValType( cText ) == 'N' ; cText := Replicate( cChar, cText )
+   IF ValType( cText ) == "N" ; cText := Replicate( cChar, cText )
    ENDIF
    hFont := InitFont( cFont, nSize, lBold )
    nWidth := GetTextWidth( Nil, cText, hFont )
@@ -830,13 +830,13 @@ CLASS TWndData
 ///////////////////////////////////////////////////////////////////////////////
 
    PROTECTED:
-   VAR cVar INIT ''
-   VAR cName INIT ''
-   VAR cType INIT ''
+   VAR cVar INIT ""
+   VAR cName INIT ""
+   VAR cType INIT ""
    VAR nIndex INIT 0
    VAR nHandle INIT 0
    VAR nParent INIT 0
-   VAR cChr INIT ','
+   VAR cChr INIT ","
    VAR lAction INIT .T.
 
    VAR oStatusBar AS OBJECT
@@ -967,8 +967,8 @@ CLASS TWndData
    ACCESS Enabled         INLINE IsWindowEnabled ( ::nHandle )
    ASSIGN Enabled( xVal ) INLINE iif( Empty( xVal ), DisableWindow ( ::nHandle ), EnableWindow ( ::nHandle ) )
 
-   ACCESS BackColor                       INLINE  GetProperty( ::cName, 'BACKCOLOR'      )
-   ASSIGN BackColor( Val )                INLINE  SetProperty( ::cName, 'BACKCOLOR', Val )
+   ACCESS BackColor                       INLINE  GetProperty( ::cName, "BACKCOLOR"      )
+   ASSIGN BackColor( Val )                INLINE  SetProperty( ::cName, "BACKCOLOR", Val )
 
    ACCESS Cargo INLINE _WindowCargo( Self )
    ASSIGN Cargo( xVal ) INLINE _WindowCargo( Self, xVal )
@@ -1179,13 +1179,13 @@ CLASS TCnlData INHERIT TWndData
    ACCESS Height INLINE _GetControlHeight( ::cName, ::oWin:Name )
    ASSIGN Height( nVal ) INLINE _SetControlHeight( ::cName, ::oWin:Name, nVal )
 
-   ACCESS Align INLINE GetProperty( ::oWin:Name, ::cName, 'ALIGNMENT' )
-   ASSIGN Align( cAlign ) INLINE SetProperty( ::oWin:Name, ::cName, 'ALIGNMENT', cAlign )
+   ACCESS Align INLINE GetProperty( ::oWin:Name, ::cName, "ALIGNMENT" )
+   ASSIGN Align( cAlign ) INLINE SetProperty( ::oWin:Name, ::cName, "ALIGNMENT", cAlign )
 
-   ACCESS BackColor                       INLINE  GetProperty( ::oWin:cName, ::cName, 'BACKCOLOR'      )
-   ASSIGN BackColor( Val )                INLINE  SetProperty( ::oWin:cName, ::cName, 'BACKCOLOR', Val )
-   ACCESS FontColor                       INLINE  GetProperty( ::oWin:cName, ::cName, 'FONTCOLOR'      )
-   ASSIGN FontColor( Val )                INLINE  SetProperty( ::oWin:cName, ::cName, 'FONTCOLOR', Val )
+   ACCESS BackColor                       INLINE  GetProperty( ::oWin:cName, ::cName, "BACKCOLOR"      )
+   ASSIGN BackColor( Val )                INLINE  SetProperty( ::oWin:cName, ::cName, "BACKCOLOR", Val )
+   ACCESS FontColor                       INLINE  GetProperty( ::oWin:cName, ::cName, "FONTCOLOR"      )
+   ASSIGN FontColor( Val )                INLINE  SetProperty( ::oWin:cName, ::cName, "FONTCOLOR", Val )
 
    ACCESS Title INLINE ::oWin:cTitle
    ACCESS Caption INLINE _GetCaption ( ::cName, ::oWin:cName )
@@ -1311,7 +1311,7 @@ CLASS TStbData INHERIT TCnlData
       Self )
 
    METHOD Say ( cText, nItem ) INLINE _SetItem( ::cName, ::oWin:cName, hb_defaultValue( nItem, 1 ), ;
-      hb_defaultValue( cText, '' ) )
+      hb_defaultValue( cText, "" ) )
 
    METHOD Icon ( cIcon, nItem ) INLINE SetStatusItemIcon( ::nHandle, hb_defaultValue( nItem, 1 ), cIcon )
 
@@ -1710,11 +1710,11 @@ FUNCTION oWndData( nIndex, cName, nHandle, nParent, cType, cVar )
    LOCAL o
 
    DEFAULT nIndex := 0, ;
-      cName := '', ;
+      cName := "", ;
       nHandle := 0, ;
       nParent := 0, ;
-      cType := '', ;
-      cVar := ''
+      cType := "", ;
+      cVar := ""
 
    IF Empty( nIndex ) .OR. Empty( nHandle ) .OR. Empty( cName )
       RETURN o
@@ -1730,11 +1730,11 @@ FUNCTION oCnlData( nIndex, cName, nHandle, nParent, cType, cVar, oWin )
    LOCAL o, ob
 
    DEFAULT nIndex := 0, ;
-      cName := '', ;
+      cName := "", ;
       nHandle := 0, ;
       nParent := 0, ;
-      cType := '', ;
-      cVar := ''
+      cType := "", ;
+      cVar := ""
 
    IF Empty( nIndex ) .OR. Empty( nHandle ) .OR. Empty( nParent ) .OR. Empty( cName ) ; RETURN o
    ENDIF
@@ -1743,13 +1743,13 @@ FUNCTION oCnlData( nIndex, cName, nHandle, nParent, cType, cVar, oWin )
 
    IF HB_ISOBJECT( oWin )
 
-      IF cType == 'TBROWSE'
+      IF cType == "TBROWSE"
          ob := _HMG_aControlIds[ nIndex ]
          o := TTsbData():New( oWin, ob ):Def( nIndex, cName, nHandle, nParent, cType, cVar )
-      ELSEIF cType == 'GETBOX'
+      ELSEIF cType == "GETBOX"
          ob := _HMG_aControlHeadClick[ nIndex ]
          o := TGetData():New( oWin, ob ):Def( nIndex, cName, nHandle, nParent, cType, cVar )
-      ELSEIF cType == 'STATUSBAR'
+      ELSEIF cType == "STATUSBAR"
          o := TStbData():New( oWin ):Def( nIndex, cName, nHandle, nParent, cType, cVar )
       ELSE
          o := TCnlData():New( oWin ):Def( nIndex, cName, nHandle, nParent, cType, cVar )
