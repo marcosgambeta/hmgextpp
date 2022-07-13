@@ -185,7 +185,7 @@ METHOD LostFocus() CLASS TComboBox
 
    DEFAULT ::lAppend := .F.
 
-   If ::nLastKey == Nil .and. ::lAppend
+   If ::nLastKey == Nil .AND. ::lAppend
       ::SetFocus()
       ::nLastKey := 0
       Return 0
@@ -245,7 +245,7 @@ METHOD LButtonDown( nRow, nCol ) CLASS TComboBox
    HB_SYMBOL_UNUSED( nRow )
    HB_SYMBOL_UNUSED( nCol )
 
-   If ::nLastKey != Nil .and. ::nLastKey == 9999
+   If ::nLastKey != Nil .AND. ::nLastKey == 9999
       nShow := 0
       ::nLastKey := 0
    Else

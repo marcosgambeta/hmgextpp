@@ -448,7 +448,7 @@ METHOD EraseBkGnd( hDC ) CLASS TControl
       return 0
    endif
 
-   if ::hBrush != nil .and. ! Empty( ::hBrush )   //JP
+   if ::hBrush != nil .AND. ! Empty( ::hBrush )   //JP
         aRect := ::GetCliRect( ::hWnd )
         FillRect( hDC, aRect[1], aRect[2], aRect[3], aRect[4], ::hBrush )
       return 1
@@ -570,7 +570,7 @@ METHOD KeyChar( nKey, nFlags ) CLASS TControl
    LOCAL bKeyAction := SetKey( nKey )
 
    do case
-      case nKey == VK_TAB .and. _GetKeyState( VK_SHIFT )
+      case nKey == VK_TAB .AND. _GetKeyState( VK_SHIFT )
            ::GoPrevCtrl( ::hWnd )
            return 0    // We don't want API default behavior
 
@@ -595,7 +595,7 @@ METHOD KeyDown( nKey, nFlags ) CLASS TControl
 
    local bKeyAction := SetKey( nKey )
 
-   if nKey == VK_TAB .and. ::hWnd != nil
+   if nKey == VK_TAB .AND. ::hWnd != nil
       ::GoNextCtrl( ::hWnd )
       return 0
    endif
@@ -939,11 +939,11 @@ METHOD Command( nWParam, nLParam ) CLASS TControl
    case hWndCtl == 0
 
       * TGet Enter ......................................
-      if HiWord(nWParam) == 0 .and. LoWord(nWParam) == 1
+      if HiWord(nWParam) == 0 .AND. LoWord(nWParam) == 1
          ::KeyDown( VK_RETURN, 0 )
       EndIf
       * TGet Escape .....................................
-      if HiWord(nwParam) == 0 .and. LoWord(nwParam) == 2
+      if HiWord(nwParam) == 0 .AND. LoWord(nwParam) == 2
          ::KeyDown( VK_ESCAPE, 0 )
       endif
 

@@ -66,11 +66,11 @@ If _HMG_BeginWindowActive
 
    ParentForm := _HMG_ActiveFormName
 
-   If !Empty( ParentForm ) .and. ValType( FontName ) == "U"
+   If !Empty( ParentForm ) .AND. ValType( FontName ) == "U"
       FontName := _HMG_ActiveFontName
    EndIf
 
-   If !Empty( ParentForm ) .and. ValType( FontSize ) == "U"
+   If !Empty( ParentForm ) .AND. ValType( FontSize ) == "U"
       FontSize := _HMG_ActiveFontSize
    EndIf
 
@@ -246,7 +246,7 @@ Switch nParamCount
      Exit
 
    Case 2
-     If ( IsNumber( nHandle ) .and. IsNumber( nPos ) )
+     If ( IsNumber( nHandle ) .AND. IsNumber( nPos ) )
         QHTM_SetScrollPos( nHandle, nPos )
      Else
         nPos := 0

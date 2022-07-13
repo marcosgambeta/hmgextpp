@@ -144,20 +144,20 @@ Procedure PrMiniEsegui(_MainArea,_psd,db_arc,_prw)
             endcase
          endif
 
-         if lselect .and. lpreview
+         if lselect .AND. lpreview
             SELECT PRINTER DIALOG PREVIEW
          endif
-         if lselect .and. (!lpreview)
+         if lselect .AND. (!lpreview)
             SELECT PRINTER DIALOG
          endif
-         if !lselect .and. lpreview
+         if !lselect .AND. lpreview
             if ascan(aprinters,_PSD) > 0
                SELECT PRINTER _PSD PREVIEW
             else
                SELECT PRINTER DEFAULT PREVIEW
             endif
          endif
-         if !lselect .and. !lpreview
+         if !lselect .AND. !lpreview
             if ascan(aprinters,_PSD) > 0
                SELECT PRINTER _PSD
             else
@@ -416,7 +416,7 @@ Function RMiniPar(ArryPar,cmdline,section)
              nline --
 
         case len(ArryPar)=1
-             if "DEBUG_" != left(ArryPar[1],6) .and. "ELSE" != left(ArryPar[1],4)
+             if "DEBUG_" != left(ArryPar[1],6) .AND. "ELSE" != left(ArryPar[1],4)
                  oWr:MACROCOMPILE(ArryPar[1],.T.,cmdline,section)
              Endif
 
@@ -425,7 +425,7 @@ Function RMiniPar(ArryPar,cmdline,section)
 
         case ascan(arryPar,[DEBUG])=2
              if ascan(arryPar,[LIST])= 3
-                if npag < 2 .and. len( arrypar ) = 4
+                if npag < 2 .AND. len( arrypar ) = 4
                    asize(ax,0)
                    do case
                       case ascan(arryPar,[DECLARE])= 4

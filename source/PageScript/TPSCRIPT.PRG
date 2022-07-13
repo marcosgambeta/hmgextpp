@@ -1949,7 +1949,7 @@ Description : Sets the page size to a predifined paper size
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetPageSize( nPageSize )
 
-   IF ValType( nPageSize ) == "N" // .and. (nPageSize >= DMPAPER_FIRST .and. nPageSize <= DMPAPER_LAST)
+   IF ValType( nPageSize ) == "N" // .AND. (nPageSize >= DMPAPER_FIRST .AND. nPageSize <= DMPAPER_LAST)
       DllCall( ::hDll, DLL_STDCALL, "PSSetPageSize", nPageSize )
    ENDIF
 

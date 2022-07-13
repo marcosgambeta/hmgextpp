@@ -212,7 +212,7 @@ local nRet
 do while .T.
    nRet := SocketReceive( ::m_hSocket, @cBuf, ::nReceiveTimeout )
    // If EOF, return
-   if nRet==1 .and. right(cBuf,1)==CHR(10)
+   if nRet==1 .AND. right(cBuf,1)==CHR(10)
       // If last char is CHR(13) remove it
       if right(cRet,1)==CHR(13)
          cRet := substr( cRet, 1, len(cRet)-1 )

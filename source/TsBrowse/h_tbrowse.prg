@@ -1821,7 +1821,7 @@ METHOD FastDrawClear( cCell ) CLASS TSBrowse
 
    IF ! ::lFastDrawCell
 
-   ELSEIF ISLOGICAL( cCell ) .and. cCell
+   ELSEIF ISLOGICAL( cCell ) .AND. cCell
       ::aFastDrawCell := hb_Hash()
 
    ELSEIF ISCHAR( cCell )
@@ -9985,7 +9985,7 @@ METHOD InsColNumber( nWidth, nColumn, cName ) CLASS TSBrowse
    oCol:nFieldLen := 10
    oCol:nFieldDec := 0
 
-   IF nColumn > 0 .and. nColumn <= Len( ::aColumns )
+   IF nColumn > 0 .AND. nColumn <= Len( ::aColumns )
       ::InsColumn( nColumn, oCol )
    ENDIF
 
@@ -15275,36 +15275,36 @@ STATIC FUNCTION BuildSkip( cAlias, cField, uValue1, uValue2, oTb )
    DO CASE
    CASE cType == "C"
       IF ! lDescend
-         bSkipBlock := &( "{|| " + cField + ">= '" + uValue1 + "' .and. " + ;
+         bSkipBlock := &( "{|| " + cField + ">= '" + uValue1 + "' .AND. " + ;
             cField + "<= '" + uValue2 + "' }" )
       ELSE
-         bSkipBlock := &( "{|| " + cField + "<= '" + uValue1 + "' .and. " + ;
+         bSkipBlock := &( "{|| " + cField + "<= '" + uValue1 + "' .AND. " + ;
             cField + ">= '" + uValue2 + "' }" )
       ENDIF
    CASE cType == "D"
       IF ! lDescend
-         bSkipBlock := &( "{|| " + cField + ">= CToD( '" + DToC( uValue1 ) + "') .and. " + ;
+         bSkipBlock := &( "{|| " + cField + ">= CToD( '" + DToC( uValue1 ) + "') .AND. " + ;
             cField + "<= CToD( '" + DToC( uValue2 ) + "') }" )
       ELSE
-         bSkipBlock := &( "{|| " + cField + "<= CToD( '" + DToC( uValue1 ) + "') .and. " + ;
+         bSkipBlock := &( "{|| " + cField + "<= CToD( '" + DToC( uValue1 ) + "') .AND. " + ;
             cField + ">= CToD( '" + DToC( uValue2 ) + "') }" )
       ENDIF
 
    CASE cType == "N"
       IF ! lDescend
-         bSkipBlock := &( "{|| " + cField + ">= " + cValToChar( uValue1 ) + " .and. " + ;
+         bSkipBlock := &( "{|| " + cField + ">= " + cValToChar( uValue1 ) + " .AND. " + ;
             cField + "<= " + cValToChar( uValue2 ) + " }" )
       ELSE
-         bSkipBlock := &( "{|| " + cField + "<= " + cValToChar( uValue1 ) + " .and. " + ;
+         bSkipBlock := &( "{|| " + cField + "<= " + cValToChar( uValue1 ) + " .AND. " + ;
             cField + ">= " + cValToChar( uValue2 ) + " }" )
       ENDIF
 
    CASE cType == "L"
       IF ! lDescend
-         bSkipBlock := &( "{|| " + cField + ">= " + cValToChar( uValue1 ) + " .and. " + ;
+         bSkipBlock := &( "{|| " + cField + ">= " + cValToChar( uValue1 ) + " .AND. " + ;
             cField + "<= " + cValToChar( uValue2 ) + " }" )
       ELSE
-         bSkipBlock := &( "{|| " + cField + "<= " + cValToChar( uValue1 ) + " .and. " + ;
+         bSkipBlock := &( "{|| " + cField + "<= " + cValToChar( uValue1 ) + " .AND. " + ;
             cField + ">= " + cValToChar( uValue2 ) + " }" )
       ENDIF
    ENDCASE
@@ -15324,36 +15324,36 @@ STATIC FUNCTION BuildFiltr( cField, uValue1, uValue2, oTb )
    DO CASE
    CASE cType == "C"
       IF ! lDescend
-         cFiltrBlock := "{||" + cField + ">= '" + uValue1 + "' .and." + ;
+         cFiltrBlock := "{||" + cField + ">= '" + uValue1 + "' .AND." + ;
             cField + "<= '" + uValue2 + "' }"
       ELSE
-         cFiltrBlock := "{||" + cField + "<= '" + uValue1 + "' .and." + ;
+         cFiltrBlock := "{||" + cField + "<= '" + uValue1 + "' .AND." + ;
             cField + ">= '" + uValue2 + "' }"
       ENDIF
    CASE cType == "D"
       IF ! lDescend
-         cFiltrBlock := "{||" + cField + ">= CToD( '" + DToC( uValue1 ) + "') .and." + ;
+         cFiltrBlock := "{||" + cField + ">= CToD( '" + DToC( uValue1 ) + "') .AND." + ;
             cField + "<= CToD( '" + DToC( uValue2 ) + "') }"
       ELSE
-         cFiltrBlock := "{||" + cField + "<= CToD( '" + DToC( uValue1 ) + "') .and." + ;
+         cFiltrBlock := "{||" + cField + "<= CToD( '" + DToC( uValue1 ) + "') .AND." + ;
             cField + ">= CToD( '" + DToC( uValue2 ) + "') }"
       ENDIF
 
    CASE cType == "N"
       IF ! lDescend
-         cFiltrBlock := "{||" + cField + ">= " + cValToChar( uValue1 ) + " .and." + ;
+         cFiltrBlock := "{||" + cField + ">= " + cValToChar( uValue1 ) + " .AND." + ;
             cField + "<= " + cValToChar( uValue2 ) + " }"
       ELSE
-         cFiltrBlock := "{||" + cField + "<= " + cValToChar( uValue1 ) + " .and." + ;
+         cFiltrBlock := "{||" + cField + "<= " + cValToChar( uValue1 ) + " .AND." + ;
             cField + ">= " + cValToChar( uValue2 ) + " }"
       ENDIF
 
    CASE cType == "L"
       IF ! lDescend
-         cFiltrBlock := "{||" + cField + ">= " + cValToChar( uValue1 ) + " .and." + ;
+         cFiltrBlock := "{||" + cField + ">= " + cValToChar( uValue1 ) + " .AND." + ;
             cField + "<= " + cValToChar( uValue2 ) + " }"
       ELSE
-         cFiltrBlock := "{||" + cField + "<= " + cValToChar( uValue1 ) + " .and." + ;
+         cFiltrBlock := "{||" + cField + "<= " + cValToChar( uValue1 ) + " .AND." + ;
             cField + ">= " + cValToChar( uValue2 ) + " }"
       ENDIF
    ENDCASE
@@ -15396,13 +15396,13 @@ STATIC FUNCTION BuildAutoSeek( oTb )
                CASE cType == "C"
                   uValue := RTrim( uValue )
                   nLen := Len( uValue )
-                  cLocateBlock += " .and. substr(x[" + LTrim( Str( nCol ) ) + "],1," + ;
+                  cLocateBlock += " .AND. substr(x[" + LTrim( Str( nCol ) ) + "],1," + ;
                      LTrim( Str( nLen ) ) + " ) == '" + uValue + "'"
                CASE cType == "N" .OR. cType == "L"
-                  cLocateBlock = " .and. x[" + LTrim( Str( nCol ) ) + "] == " + ;
+                  cLocateBlock = " .AND. x[" + LTrim( Str( nCol ) ) + "] == " + ;
                      cValToChar( uValue )
                CASE cType == "D"
-                  cLocateBlock += " .and. x[" + LTrim( Str( nCol ) ) + "] == " + ;
+                  cLocateBlock += " .AND. x[" + LTrim( Str( nCol ) ) + "] == " + ;
                      "CToD( '" + DToC( uValue ) + "' )"
                ENDCASE
             ENDIF

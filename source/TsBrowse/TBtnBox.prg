@@ -226,7 +226,7 @@ METHOD LostFocus( hCtlFocus ) CLASS TBtnBox
 
    DEFAULT ::lAppend := .F.
 
-   If ::nLastKey == Nil .and. ::lAppend
+   If ::nLastKey == Nil .AND. ::lAppend
       ::SetFocus()
       ::nLastKey := 0
       Return 0
@@ -250,7 +250,7 @@ METHOD LButtonDown( nRow, nCol ) CLASS TBtnBox
    HB_SYMBOL_UNUSED( nRow )
    HB_SYMBOL_UNUSED( nCol )
 
-   If ::nLastKey != Nil .and. ::nLastKey == 9999
+   If ::nLastKey != Nil .AND. ::nLastKey == 9999
       ::nLastKey := 0
    Else
       ::nLastKey := 9999

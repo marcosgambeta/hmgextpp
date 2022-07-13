@@ -5157,7 +5157,7 @@ FUNCTION GetProperty ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7, Arg8 )
          IF _HMG_lOOPEnabled
 #ifdef _OBJECT_
             RetVal := _ControlObj ( Arg2 , Arg1 )
-            IF HB_ISOBJECT( RetVal ) .and. _HMG_aControlType[ RetVal:Index ] == "TBROWSE"
+            IF HB_ISOBJECT( RetVal ) .AND. _HMG_aControlType[ RetVal:Index ] == "TBROWSE"
                RetVal := _HMG_aControlIds[ RetVal:Index ]
             ENDIF
 #endif

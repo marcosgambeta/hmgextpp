@@ -266,9 +266,9 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
    EndIf
 
    If aColors != Nil
-      If HB_ISARRAY( aColors ) .and. Len( aColors ) > 0 .and. HB_ISARRAY( aColors[1] )
+      If HB_ISARRAY( aColors ) .AND. Len( aColors ) > 0 .AND. HB_ISARRAY( aColors[1] )
          FOR EACH aClr IN aColors
-            If HB_ISARRAY( aClr ) .and. HB_ISNUMERIC( aClr[1] ) .and. aClr[1] > 0 .and. aClr[1] <= Len( aTmpColor )
+            If HB_ISARRAY( aClr ) .AND. HB_ISNUMERIC( aClr[1] ) .AND. aClr[1] > 0 .AND. aClr[1] <= Len( aTmpColor )
                aTmpColor[ aClr[1] ] := aClr[2]
             EndIf
          NEXT
@@ -399,7 +399,7 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
       ::uBmpCell := bData
       bData := {||Nil}
       cData := '{||Nil}'
-   ElseIf ValType( Eval( bData ) ) == "N" .and. lBitMap
+   ElseIf ValType( Eval( bData ) ) == "N" .AND. lBitMap
       ::uBmpCell := bData
       bData := {||Nil}
       cData := '{||Nil}'
@@ -433,7 +433,7 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
                    Transform( cValToChar( Eval( ::bData ) ), cPicture ) ) ) )
          nWidth := Round( nWidth * ( nEle + 1 ) * 1.3, 0 )         //V90
       Else
-         nWidth := Int( IIf( ! lBitMap .and. ! lCheck, 0.67 * ;
+         nWidth := Int( IIf( ! lBitMap .AND. ! lCheck, 0.67 * ;
                    GetTextWidth( 0, Replicate( "B", ;
                    Max( Len( cHeading ), Len( IIf( Empty( cPicture ), ;
                    cValToChar( Eval( bData ) ), ;
@@ -444,7 +444,7 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
     Endif
 
    ::cOrder       = cOrder
-   ::lSeek        = ! Empty( cOrder ) .and. ! lEdit     //V90
+   ::lSeek        = ! Empty( cOrder ) .AND. ! lEdit     //V90
    ::cHeading     = cHeading
    ::cFooting     = cFooting
    ::cSpcHeading  = cSpcHeading
@@ -502,7 +502,7 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
    ::oCellFoot   := TSBcell():New()
    ::oCell       := TSBcell():New()
 
-   If ! Empty( oBrw ) .and. oBrw:lIsArr
+   If ! Empty( oBrw ) .AND. oBrw:lIsArr
       ::lIndexCol := .T.
    EndIf
 
@@ -808,7 +808,7 @@ METHOD ToWidth( uLen, nKfc, lHeader ) CLASS TSColumn
       ELSE
          cChr := uLen
       ENDIF
-   ElseIf ! Empty( ::cPicture ) .and. HB_ISCHAR( ::cPicture )
+   ElseIf ! Empty( ::cPicture ) .AND. HB_ISCHAR( ::cPicture )
       If Empty( uLen )
          cChr := ::cPicture
          If Left( cChr, 2 ) == '@K'
@@ -1001,7 +1001,7 @@ Function StrCharCount( cStr, cChr )
    Local nAt, ;
          nCount := 0
 
-   While ! Empty( cStr ) .and. ( nAt := At( cChr, cStr ) ) > 0
+   While ! Empty( cStr ) .AND. ( nAt := At( cChr, cStr ) ) > 0
       nCount ++
       cStr := SubStr( cStr, nAt + 1 )
    EndDo
@@ -1107,7 +1107,7 @@ Function ComboWBlock( oBrw, uField, nCol, aList )
       Else
 
          bBlock := {|x| IIf( PCount() > 0, ( oBrw:cAlias )->( FieldPut( uField, x ) ), ;
-                    IIf( nCol <= Len( oBrw:aColumns ) .and. ! Empty( oBrw:aColumns[ nCol ]:aItems ), ;
+                    IIf( nCol <= Len( oBrw:aColumns ) .AND. ! Empty( oBrw:aColumns[ nCol ]:aItems ), ;
                     oBrw:aColumns[ nCol ]:aItems[ Max( 1, AScan( oBrw:aColumns[ nCol ]:aData, ;
                     ( oBrw:cAlias )->( FieldGet( uField ) ) ) ) ], Nil ) ) }
       EndIf

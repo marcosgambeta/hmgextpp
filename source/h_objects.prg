@@ -183,7 +183,7 @@ METHOD Read() CLASS TIniData
    LOCAL hIni, cStr, cBuf, aBuf, nBuf, cSec, hSec, oSec, nLen := 1024
    LOCAL cChr := ::cCommentChar, xVal, hKey, nKey, cNote
 
-   IF ::lIni .and. ( hIni := FOpen( ::cIni, 2 ) ) > 0
+   IF ::lIni .AND. ( hIni := FOpen( ::cIni, 2 ) ) > 0
       cStr := space( Len( ::cBOM ) )
       cBuf := space( nLen )
       FRead( hIni, @cStr, Len( ::cBOM ) )
@@ -194,7 +194,7 @@ METHOD Read() CLASS TIniData
       aBuf := hb_ATokens( cBuf, CRLF )
       FOR EACH cBuf IN aBuf
           IF left( cBuf, 1 ) == "#"
-             IF ! ::lUtf .and. ::lUtf8
+             IF ! ::lUtf .AND. ::lUtf8
                 ::cCommentBegin := hb_Utf8ToStr( cBuf )
              ELSE
                 ::cCommentBegin := cBuf
@@ -211,7 +211,7 @@ METHOD Read() CLASS TIniData
       FOR nBuf := Len(aBuf) TO 1 STEP -1
           cBuf := aBuf[ nBuf ]
           IF left( cBuf, 1 ) == "#"
-             IF ! ::lUtf .and. ::lUtf8
+             IF ! ::lUtf .AND. ::lUtf8
                 ::cCommentEnd := hb_Utf8ToStr( cBuf )
              ELSE
                 ::cCommentEnd := cBuf
@@ -225,7 +225,7 @@ METHOD Read() CLASS TIniData
       ::hHash := hb_hSetCaseMatch( hb_IniRead( ::cIni, , , ::lAutoMain ), .T. )
 
       FOR EACH cSec, hSec IN hb_HKeys( ::hHash ), hb_HValues( ::hHash )
-          IF ! ::lUtf .and. ::lUtf8
+          IF ! ::lUtf .AND. ::lUtf8
              cSec := hb_Utf8ToStr( cSec )
           ENDIF
           oSec := oHmgData()
@@ -233,14 +233,14 @@ METHOD Read() CLASS TIniData
           hKey := { => }
           FOR EACH cStr, cBuf IN hb_HKeys( hSec ), hb_HValues( hSec )
               cNote := ""
-              IF ! ::lUtf .and. ::lUtf8
+              IF ! ::lUtf .AND. ::lUtf8
                  cStr := hb_Utf8ToStr( cStr )
                  cBuf := hb_Utf8ToStr( cBuf )
               ENDIF
               IF left(cBuf, 2) == "{|" .or. left(cBuf, 3) == "{ |"
                  cNote := cBuf
               ENDIF
-              IF ! Empty( cChr ) .and. ( nBuf := At( cChr, cBuf ) ) > 0
+              IF ! Empty( cChr ) .AND. ( nBuf := At( cChr, cBuf ) ) > 0
                  IF ! ( left(cBuf, 2) == "{|" .or. left(cBuf, 3) == "{ |" )
                     cNote := subs( cBuf, nBuf )
                  ENDIF
@@ -248,7 +248,7 @@ METHOD Read() CLASS TIniData
               ENDIF
               nKey := Max( nKey, Len( cStr ) )
               hb_HSet( hKey, upper(cStr), { cStr, cNote } )
-              IF ::lMacro .and. ! HB_ISNIL( xVal := ::ToValue( cBuf ) )
+              IF ::lMacro .AND. ! HB_ISNIL( xVal := ::ToValue( cBuf ) )
                  oSec:Set( cStr, xVal )
               ELSE
                  oSec:Set( cStr, cBuf )
@@ -271,17 +271,17 @@ METHOD ToValue( cStr ) CLASS TIniData
    IF Empty( cStr ) ; RETURN cStr
    ENDIF
 
-   IF left(cStr, 1) == "{"  .and. right(cStr, 1) == "}" .or. ;
-      left(cStr, 1) == "'"  .and. right(cStr, 1) == "'" .or. ;
-      left(cStr, 1) == Chr(34)  .and. right(cStr, 1) == Chr(34) .or. ;
-      left(cStr, 2) == "e" + Chr(34) .and. right(cStr, 1) == Chr(34) .or. ;
-      left(cStr, 2) == "t" + Chr(34) .and. right(cStr, 1) == Chr(34) .or. ;
-      left(cStr, 4) == "0d20" .and. Len(cStr) == 10
+   IF left(cStr, 1) == "{"  .AND. right(cStr, 1) == "}" .or. ;
+      left(cStr, 1) == "'"  .AND. right(cStr, 1) == "'" .or. ;
+      left(cStr, 1) == Chr(34)  .AND. right(cStr, 1) == Chr(34) .or. ;
+      left(cStr, 2) == "e" + Chr(34) .AND. right(cStr, 1) == Chr(34) .or. ;
+      left(cStr, 2) == "t" + Chr(34) .AND. right(cStr, 1) == Chr(34) .or. ;
+      left(cStr, 4) == "0d20" .AND. Len(cStr) == 10
       BEGIN SEQUENCE WITH { |e|break(e) }
          xVal := &(cStr)
       END SEQUENCE
-      IF left(cStr, 2) == "t" + Chr(34) .and. right(cStr, 1) == Chr(34) .and. ;
-         Valtype(xVal) == "T" .and. Len( subs(cStr, 3) ) == 11
+      IF left(cStr, 2) == "t" + Chr(34) .AND. right(cStr, 1) == Chr(34) .AND. ;
+         Valtype(xVal) == "T" .AND. Len( subs(cStr, 3) ) == 11
          xVal := hb_TtoD( xVal )
       ENDIF
    ELSEIF hb_ntos(Val(cStr)) == cStr
@@ -321,7 +321,7 @@ METHOD ToString( xVal ) CLASS TIniData
             cStr := "e" + Chr(34) + cStr + Chr(34)
          ENDIF
       ENDIF
-   ELSEIF HB_ISLOGICAL( xVal ) .and. ::lYesNo
+   ELSEIF HB_ISLOGICAL( xVal ) .AND. ::lYesNo
       cStr := ::aYesNo[ iif( xVal, 1, 2 ) ]
    ELSE
       cStr := hb_valtoexp( xVal )
@@ -348,18 +348,18 @@ METHOD Write( cFile, lUtf8 ) CLASS TIniData
            xVal := aSec[2]
            lBlk := HB_ISBLOCK( xVal )
            cVal := ::ToString( xVal )
-           IF ! ::lUtf .and. lUtf8
+           IF ! ::lUtf .AND. lUtf8
               cKey := hb_StrToUtf8( cKey )
               cVal := hb_StrToUtf8( cVal )
            ENDIF
            cStr := hb_HGetDef( hKey, cKey, Nil )
-           IF HB_ISARRAY( cStr ) .and. Len( cStr ) > 1
+           IF HB_ISARRAY( cStr ) .AND. Len( cStr ) > 1
               cKey := cStr[1]
               IF ! Empty( cStr[2] )
                  IF lBlk
-                    cVal := iif( ! ::lUtf .and. lUtf8, hb_StrToUtf8( cStr[2] ), cStr[2] )
+                    cVal := iif( ! ::lUtf .AND. lUtf8, hb_StrToUtf8( cStr[2] ), cStr[2] )
                  ELSE
-                    cVal += space(3) + iif( ! ::lUtf .and. lUtf8, hb_StrToUtf8( cStr[2] ), cStr[2] )
+                    cVal += space(3) + iif( ! ::lUtf .AND. lUtf8, hb_StrToUtf8( cStr[2] ), cStr[2] )
                  ENDIF
               ENDIF
            ENDIF
@@ -372,7 +372,7 @@ METHOD Write( cFile, lUtf8 ) CLASS TIniData
 
    IF ! Empty( ::cCommentBegin )
       cBegin += iif( Left( ::cCommentBegin, 1 ) == "#", "", "#" ) + ::cCommentBegin
-      IF ! ::lUtf .and. lUtf8
+      IF ! ::lUtf .AND. lUtf8
          cBegin := hb_StrToUtf8( cBegin )
       ENDIF
    ENDIF
@@ -381,7 +381,7 @@ METHOD Write( cFile, lUtf8 ) CLASS TIniData
 
    IF ! Empty( ::cCommentEnd )
       cEnd += CRLF + iif( Left( ::cCommentEnd, 1 ) == "#", "", "#" ) + ::cCommentEnd
-      IF ! ::lUtf .and. lUtf8
+      IF ! ::lUtf .AND. lUtf8
          cEnd := hb_StrToUtf8( cEnd )
       ENDIF
    ENDIF

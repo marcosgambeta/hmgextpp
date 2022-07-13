@@ -167,7 +167,7 @@ if ritorna
          //MSG(CWORD,[CWORD])
          _object_ := eval(oWr:aStat [ 'TrSpace' ], CWORD, .T., lcnt)
          //msg(cWord+crlf+_object_,[linea ]+str(lcnt))
-         if left(CWORD,1) != "#" .or. left(CWORD,1) != "[" .and. !empty(trim(_object_))
+         if left(CWORD,1) != "#" .or. left(CWORD,1) != "[" .AND. !empty(trim(_object_))
             if !empty(_object_)
                a1 := at("FONT", upper(_object_))
                if a1 > 0
@@ -313,20 +313,20 @@ Function StampeEsegui(_MainArea,_psd,db_arc,_prw)
            nfsize:=12
       endcase
    endif
-   if lselect .and. lpreview
+   if lselect .AND. lpreview
       hbprn:selectprinter("",.T.) // SELECT BY DIALOG PREVIEW
    endif
-   if lselect .and. (!lpreview)
+   if lselect .AND. (!lpreview)
       hbprn:selectprinter("",.T.) // SELECT BY DIALOG
    endif
-   if !lselect .and. lpreview
+   if !lselect .AND. lpreview
       if ascan(aprinters,_PSD) > 0
          hbprn:selectprinter(_PSD,.T.) // SELECT PRINTER _PSD PREVIEW
       else
          hbprn:selectprinter(NIL,.T.) // SELECT DEFAULT PREVIEW
       endif
    endif
-   if !lselect .and. !lpreview
+   if !lselect .AND. !lpreview
       if ascan(aprinters,_PSD) > 0
         hbprn:selectprinter(_psd,.F.) // SELECT PRINTER _PSD
       else
@@ -486,7 +486,7 @@ RETURN outStr
 Function Color(GR,GR1,GR2)
 *-----------------------------------------------------------------------------*
    LOCAL DATO
-   if PCOUNT()=1 .and. valtype(GR)=="C"
+   if PCOUNT()=1 .AND. valtype(GR)=="C"
       if "," $ GR
          gr :=  STRTRAN(gr,"{",'')
          gr :=  STRTRAN(gr,"}",'')
@@ -499,7 +499,7 @@ Function Color(GR,GR1,GR2)
       else
          dato := oWr:SetMyRgb(hbPrn:DXCOLORS(gr))
       Endif
-   ELSEif PCOUNT()=1 .and. VALtype(GR)=="A"
+   ELSEif PCOUNT()=1 .AND. VALtype(GR)=="A"
          DATO := rgb(GR[1],GR[2],GR[3])
    elseIF PCOUNT()=3
       DATO := rgb(GR,GR1,GR2)
@@ -697,7 +697,7 @@ Function Msgt (nTimeout, Message, Title, Flags)
         DEFAULT Message TO ""   ;  DEFAULT Title TO ""
         DEFAULT Flags   TO "MSGBOX"
 
-        If ValType(nTimeout) != 'U' .and. ValType(nTimeout) = 'C'
+        If ValType(nTimeout) != 'U' .AND. ValType(nTimeout) = 'C'
               Flags    :=  Title
               Title    :=  Message
               Message  :=  nTimeout
@@ -1328,12 +1328,12 @@ METHOD Transpace(arg1,arg2,arg3) CLASS WREPORT // The core of parser
                extFnc := .F.
                al2 := .F.
             endif
-            if tmpstr = "|" .and. cdc > 0
+            if tmpstr = "|" .AND. cdc > 0
                extfnc := .T.
             elseif cdc < 1
                extfnc := .F.
             endif
-            if Pt == ',' .and. extFnc == .F. .and. al1 == .F. .and. opp < 1
+            if Pt == ',' .AND. extFnc == .F. .AND. al1 == .F. .AND. opp < 1
                nr := substr(nr,1,len(nr)-1) + chr(07)
             endif
          else
@@ -1408,7 +1408,7 @@ if lMesg
 
        dbgstr := section+zaps(cmdline)+" With: "+cStr
        aeval(::aStat[ 'ErrorLine' ],{|x|if (dbgstr == x,  lvl:=1 ,'')} )
-       if lvl < 1 .and. cmdline > 0 //# ::aStat [ 'ErrorLine' ]
+       if lvl < 1 .AND. cmdline > 0 //# ::aStat [ 'ErrorLine' ]
           MSGSTOP(dbgstr,"MiniGui Extended Report Interpreter Error")
           aadd(::aStat [ 'ErrorLine' ] , dbgstr )
        Endif
@@ -1447,7 +1447,7 @@ endif
 tokeninit(string,chr(07))      //set the command separator -> ONLY A BEL
 do While .NOT. tokENEND()      //                             ----
    cWord  :=  tokENNEXT(String)
-   if left(cword,1)="[" .and. right(cword,1) <> "]"
+   if left(cword,1)="[" .AND. right(cword,1) <> "]"
       cword :=substr(cword,2)+" "+tokENNEXT(String)
       do while .T.
          if right(cword,1)="]"
@@ -1521,14 +1521,14 @@ BEGIN SEQUENCE
          ::aStat [ 'ElseStat' ] := .T.
       Endif
        //msgbox(iif( ::aStat [ 'DelMode' ]," ::aStat [ 'DelMode' ] .T.","::aStat [ 'DelMode' ] .F.")+crlf+if( ::aStat [ 'ElseStat' ]," ::aStat [ 'ElseStat' ] .T.","::aStat [ 'ElseStat' ] .F.")," risulta")
-      if !::aStat [ 'EntroIF' ] .and. !::aStat [ 'DelMode' ] // i am on false condition
+      if !::aStat [ 'EntroIF' ] .AND. !::aStat [ 'DelMode' ] // i am on false condition
          if ::aStat [ 'ElseStat' ]
             //msginfo(ifc ,"Cancellato")
             adel(TransPar,1)    // i must erase else commands
          Endif
       Endif
-      if ::aStat [ 'EntroIF' ] .and. ::aStat [ 'DelMode' ] // i am on verified condition
-         if ::aStat [ 'DelMode' ] .and. !::aStat [ 'ElseStat' ]
+      if ::aStat [ 'EntroIF' ] .AND. ::aStat [ 'DelMode' ] // i am on verified condition
+         if ::aStat [ 'DelMode' ] .AND. !::aStat [ 'ElseStat' ]
             //msgbox(ifc ,"Cancellato")
             adel(TransPar,1)// i must erase if commands
          endif
@@ -1536,7 +1536,7 @@ BEGIN SEQUENCE
 
       aeval(transpar,{|x| iif(x # NIL,aadd(ArryPar,X), nil ) } )
 
-      if ::aStat [ 'Control' ] .and. (UPPER(LEFT(STRING,5)) <> "DEBUG")
+      if ::aStat [ 'Control' ] .AND. (UPPER(LEFT(STRING,5)) <> "DEBUG")
          aeval(Arrypar,{|x,y|x:=nil,MsgBox("Section "+ssection+" Line is n° "+zaps(cmdline)+CRLF+"String =";
         +string+CRLF+CRLF+"Argument N°"+zaps(y)+[ ]+ArryPar[y],+::Filename+[ Pag n°]+zaps(npag))})
       endif
@@ -1548,7 +1548,7 @@ BEGIN SEQUENCE
       endif
 END
 ERRORBLOCK(oErrAntes)
-   if lMyError .and. ::aStat [ 'Control' ]
+   if lMyError .AND. ::aStat [ 'Control' ]
       MsgBox("Error in  line n° "+zaps(cmdline)+CRLF+string,+::Filename+[ Pag n°]+zaps(npag) )
    endif
 return ritorno
@@ -1600,7 +1600,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
 
            case len(ArryPar)=1
                 //msgExclamation(arrypar[1],"int Traduci")
-                if "DEBUG_" != left(ArryPar[1],6) .and. "ELSE" != left(ArryPar[1],4)
+                if "DEBUG_" != left(ArryPar[1],6) .AND. "ELSE" != left(ArryPar[1],4)
                    ::MACROCOMPILE(ArryPar[1],.T.,cmdline,section)
                 Endif
 
@@ -1627,7 +1627,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
            case ArryPar[1]+ArryPar[2]=[DEFINEIMAGELIST]
                 hbprn:defineimagelist(Arrypar[3],eval(chblk,arrypar,[PICTURE]),eval(chblk,arrypar,[ICONCOUNT]))
 
-           case ascan(arrypar,[IMAGELIST]) > 0 .and. len(arrypar) > 6
+           case ascan(arrypar,[IMAGELIST]) > 0 .AND. len(arrypar) > 6
                 do case
                    case ascan(arryPar,[BLEND25]) > 0
                         hbprn:drawimagelist(eval(chblk,arrypar,[IMAGELIST]),val(eval(chblk,arrypar,[ICON]));
@@ -1703,7 +1703,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                 hbprn:combinergn(eval(chblk,arrypar,[TO]),ArryPar[3],ArryPar[4];
                 ,iif( val(ArryPar[8])>0,val(ArryPar[8]),::what_ele(eval(chblk,arrypar,[STYLE]),::aCh,"_aRegion")))
 
-           case ascan(arryPar,"SELECT")=1 .and. len(ArryPar)=3
+           case ascan(arryPar,"SELECT")=1 .AND. len(ArryPar)=3
                 if len(ArryPar)=3
                    do case
                       case ascan(ArryPar,[PRINTER])=2
@@ -1721,10 +1721,10 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                    endcase
                 endif
 
-           case ArryPar[1]+ArryPar[2]="SELECTCLIP" .and. len(ArryPar)=4
+           case ArryPar[1]+ArryPar[2]="SELECTCLIP" .AND. len(ArryPar)=4
                 hbprn:selectcliprgn(eval(chblk,arrypar,[REGION]))
 
-           case ascan(arryPar,"DELETE")=1 .and. len(ArryPar)=4
+           case ascan(arryPar,"DELETE")=1 .AND. len(ArryPar)=4
                 hbprn:deletecliprgn()
 
            case ascan(arryPar,"SET")=1
@@ -1763,7 +1763,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                    case ascan(ArryPar,[DUPLEX])=2
                         hbprn:setdevmode(DM_DUPLEX,::what_ele(eval(chblk,arrypar,[DUPLEX]),::aCh,"_aDuplex"))
 
-    	               case ascan(ArryPar,[PREVIEW])=2 .and. len(arrypar)= 3
+    	               case ascan(ArryPar,[PREVIEW])=2 .AND. len(arrypar)= 3
                         hbprn:PreviewMode := iif(eval(chblk,arrypar,[PREVIEW])=[OFF],.F.,.T.)
 
                    case ascan(arryPar,[BIN])=2
@@ -1848,7 +1848,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
 
                    case ascan(arryPar,[DEBUG])=2
                         if ascan(arryPar,[LIST])= 3
-                           if npag < 2 .and. len( arrypar ) = 4
+                           if npag < 2 .AND. len( arrypar ) = 4
                               asize(ax,0)
                               do case
                                  case ascan(arryPar,[DECLARE])= 4
@@ -1884,14 +1884,14 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                    case ascan(arryPar,[MARGINS])=3
                         hbprn:setviewportorg(val(eval(chblk,arrypar,[TOP])),val(eval(chblk,arrypar,[LEFT])))
 
-                   case (ascan(ArryPar,[POLYFILL])=2 .and. Arrypar[3]==[MODE])
+                   case (ascan(ArryPar,[POLYFILL])=2 .AND. Arrypar[3]==[MODE])
                         if val(Arrypar[4])> 0
                             hbprn:setpolyfillmode(val(Arrypar[4]))
                         else
                             hbprn:setpolyfillmode(::what_ele(eval(chblk,arrypar,[MODE]),::aCh,"_apoly"))
                         endif
 
-                   case ascan(ArryPar,[POLYFILL])=2 .and. len(arrypar)=3
+                   case ascan(ArryPar,[POLYFILL])=2 .AND. len(arrypar)=3
                         hbprn:setpolyfillmode(::what_ele(eval(chblk,arrypar,[POLYFILL]),::aCh,"_aPoly"))
 
                    case ascan(ArryPar,[VIEWPORTORG])=2
@@ -1960,14 +1960,14 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
 
                 endcase
 
-           case ascan(arryPar,[START])=1 .and. len(ArryPar)=2
+           case ascan(arryPar,[START])=1 .AND. len(ArryPar)=2
                 if ArryPar[2]=[DOC]
                    hbprn:startdoc()
                 elseif ArryPar[2]=[PAGE]
                    hbprn:startpage()
                 endif
 
-           case ascan(arryPar,[END])=1 .and. len(ArryPar)=2
+           case ascan(arryPar,[END])=1 .AND. len(ArryPar)=2
                 if ArryPar[2]=[DOC]
                    hbprn:enddoc()
                 elseif ArryPar[2]=[PAGE]
@@ -1978,7 +1978,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                 hbprn:polygon(&(arrypar[2]),eval(chblk,arrypar,[PEN]);
                 ,eval(chblk,arrypar,[BRUSH]),eval(chblk,arrypar,[STYLE]))
 
-           case ascan(arryPar,[DRAW])=5 .and. ascan(arryPar,[TEXT])=6
+           case ascan(arryPar,[DRAW])=5 .AND. ascan(arryPar,[TEXT])=6
                 /*
                 aeval(arrypar,{|x,y|msginfo(x,zaps(y)) } )
                 #xcommand @ <row>,<col>,<row2>,<col2> DRAW TEXT <txt> [STYLE <style>] [FONT <cfont>];
@@ -2181,7 +2181,7 @@ METHOD WHAT_ELE(Arg1,Arg2,Arg3) CLASS WREPORT
      aeval(aSr,{|x| iif(x[1]== Arg3,ltemp:=x[2],'')})
      if ! empty(ltemp)
         default arg1 to ltemp
-        if arg3="_ACOLOR" .and. arg1 = ".F."
+        if arg3="_ACOLOR" .AND. arg1 = ".F."
            arg1 := "MONO"
         Endif
      endif
@@ -2232,7 +2232,7 @@ METHOD MEMOSAY(row,col,argm1,argl1,argf1,argcolor1,argalign,onlyone,arrypar) CLA
    next
  Endif
  if empty(onlyone)
-    hbprn:say(iif(UNITS > 0.and.units < 4,nline*lstep,nline),col,arrymemo[1],argf1,argcolor1,argalign)
+    hbprn:say(iif(UNITS > 0.AND.units < 4,nline*lstep,nline),col,arrymemo[1],argf1,argcolor1,argalign)
     ::aStat [ 'Yes_Memo' ]:= .T.
  else
     for mcl := 2 to len(arrymemo)
@@ -2242,7 +2242,7 @@ METHOD MEMOSAY(row,col,argm1,argl1,argf1,argcolor1,argalign,onlyone,arrypar) CLA
            ::TheHead()
            ::UsaFont(arrypar)
         endif
-        hbprn:say(iif(UNITS > 0.and.units < 4,nline*lstep,nline),col,arrymemo[mcl],argf1,argcolor1,argalign)
+        hbprn:say(iif(UNITS > 0.AND.units < 4,nline*lstep,nline),col,arrymemo[mcl],argf1,argcolor1,argalign)
     next
     if !typa
        dbskip()
@@ -2454,7 +2454,7 @@ local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
          Endif
       else   // NOT DECLARED INTO BODY
          ghf := ::Hgconvert(gfield)
-         Ghstring :=if (UNITS > 0 .and. units < 4 ,"(NLINE*LSTEP)","NLINE")+CHR(07)+zaps(M->S_COL)+CHR(07)
+         Ghstring :=if (UNITS > 0 .AND. units < 4 ,"(NLINE*LSTEP)","NLINE")+CHR(07)+zaps(M->S_COL)+CHR(07)
          Ghstring +="SAY"+CHR(07)+"(["+s_head+']+'+ghf+')'+CHR(07)+"FONT"+CHR(07)+"FNT01"
       endif
 
@@ -2626,7 +2626,7 @@ local grd, nkol
          START PAGE
          nPgr ++ ; nPag ++ ; nline := 0
          // Top of Form //La Testa
-         if (grdemo .or. gcdemo) .and. nPgr < 2
+         if (grdemo .or. gcdemo) .AND. nPgr < 2
             hbprn:modifypen("*",0,0.1,{255,255,255})
             if grdemo
                 for grd= 0 to ::mx_ln_doc -1
@@ -2704,14 +2704,14 @@ Local sstring := "NLINE"+chr(07)+NTrim(t_col)+chr(07)+"SAY"+chr(07)
          do While iif(used(),! (dbf())->(Eof()),nPgr < ::aStat [ 'end_pr' ] )
                   ::aStat [ 'GHline' ] := if (sbt =.F.,sbt ,::aStat [ 'GHline' ] )
 
-                  if nxtp .and. ::aStat [ 'GHline' ] .and. ::aStat ['r_paint'] .and. sgh // La seconda pagina
+                  if nxtp .AND. ::aStat [ 'GHline' ] .AND. ::aStat ['r_paint'] .AND. sgh // La seconda pagina
                      ::traduci(Ghstring)
                      // @nline,0 say "**"+if(m->insgh =.T.,[.T.],[.F.])  FONT "F1" to print
                      nxtp := .F. ; nline ++
                   endif
 
-                  if ::GrHead() //.and. ::aStat [ 'GHline' ]    // La testata
-                     if ::aStat ['r_paint'] .and. (shd .or. sbt) .and. sgh .and. !insgh
+                  if ::GrHead() //.AND. ::aStat [ 'GHline' ]    // La testata
+                     if ::aStat ['r_paint'] .AND. (shd .or. sbt) .AND. sgh .AND. !insgh
                         ::traduci(Ghstring)
                         // @nline,0 say "@@"+if(m->insgh =.T.,[.T.],[.F.])  FONT "F1" to print
                         nxtp := .F. ; nline ++
@@ -2756,7 +2756,7 @@ Local sstring := "NLINE"+chr(07)+NTrim(t_col)+chr(07)+"SAY"+chr(07)
 
                       if Gfexec        // Display the subtotal of group
                          if ::GFeet()
-                            if gfline .and. sbt
+                            if gfline .AND. sbt
                                ::traduci(strtran(sstring,chr(05),s_total))
                                if ::aStat['InlineSbt']= .F.
                                   nline ++
@@ -2959,12 +2959,12 @@ local oErrAntes, oErr, lMyError := .F., n , al ,an
       Else
 
          do While iif(used(),! (dbf())->(Eof()),nPgr<oWr:aStat [ 'end_pr' ])
-                  if nxtp .and. ::aStat [ 'GHline' ] .and. ::aStat [ 'r_paint' ]
+                  if nxtp .AND. ::aStat [ 'GHline' ] .AND. ::aStat [ 'r_paint' ]
                      ::traduci(Ghstring)
                      nxtp := .F.
                      nline ++
                   endif
-                  if ::GrHead() .and. ::aStat [ 'GHline' ]
+                  if ::GrHead() .AND. ::aStat [ 'GHline' ]
                      if ::aStat [ 'r_paint' ]
                         ::traduci(Ghstring)
                         nxtp := .F.
@@ -3036,7 +3036,7 @@ local oErrAntes, oErr, lMyError := .F., n , al ,an
                              nxtp := .T.
                           endif
                       else
-                          if Gfexec  //.and. gcounter # 0     //display total of group
+                          if Gfexec  //.AND. gcounter # 0     //display total of group
                              if len(m->tts) > 0
                                 @nline,t_col PRINT iif(oWr:aStat [ 'r_paint' ],[Totale],[])
                                 if ::aStat['InlineTot']= .F.

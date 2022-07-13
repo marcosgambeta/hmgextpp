@@ -4138,7 +4138,7 @@ PROCEDURE _PopEventInfo( n )
 
       DEFAULT n := 0
 
-      IF n > 0 .and. n <= l; l := n
+      IF n > 0 .AND. n <= l; l := n
       ENDIF
 
       _HMG_ThisFormIndex   := _HMG_aEventInfo [l] [1]

@@ -390,7 +390,7 @@ if ::oSocket:SendString( "MAIL FROM: " +::cEmail +CHR(13)+CHR(10) )
          if bMail
             ::oSocket:SendString( "RCPT TO: " +aEmails[nPos] +CHR(13)+CHR(10) )
             cErr := ::GetLines()
-            if !(LEFT(cErr,3)=="250") .and. !bIgnoreTOError
+            if !(LEFT(cErr,3)=="250") .AND. !bIgnoreTOError
                ::cError := cErr
                bMail := .F.
             endif
@@ -550,7 +550,7 @@ LOCAL n1 := RAt( "\", cPathMask ), n2 := RAt( "/", cPathMask ), n
 
 	n := max( n1, n2 )
 
-Return IIf( n > 0 .and. n < Len( cPathMask ), ;
+Return IIf( n > 0 .AND. n < Len( cPathMask ), ;
    Right( cPathMask, Len( cPathMask ) - n ), ;
    IIf( ( n := At( ":", cPathMask ) ) > 0, ;
    Right( cPathMask, Len( cPathMask ) - n ), cPathMask ) )

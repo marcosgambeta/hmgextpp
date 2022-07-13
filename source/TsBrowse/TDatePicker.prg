@@ -205,7 +205,7 @@ METHOD LostFocus() CLASS TDatePicker
 
    Default ::lAppend := .F.
 
-   If ::nLastKey == Nil .and. ::lAppend
+   If ::nLastKey == Nil .AND. ::lAppend
       ::SetFocus()
       ::nLastKey := 0
       Return 0

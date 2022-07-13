@@ -277,4 +277,4 @@ METHOD SetMode( l32Bit ) CLASS TSBScrlBar
 
    Default l32Bit := .T.
 
-Return iif( l32Bit .and. ! lWin32, .F., l32Bit )
+Return iif( l32Bit .AND. ! lWin32, .F., l32Bit )
