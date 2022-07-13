@@ -183,7 +183,7 @@ FUNCTION _DefineButton ( ControlName, ParentFormName, x, y, Caption, ;
    _HMG_aControllostFocusProcedure [k] := lostfocus
    _HMG_aControlGotFocusProcedure [k] := gotfocus
    _HMG_aControlChangeProcedure [k] := ""
-   _HMG_aControlDeleted [k] := FALSE
+   _HMG_aControlDeleted [k] := .F.
    _HMG_aControlBkColor [k] := Nil
    _HMG_aControlFontColor [k] := Nil
    _HMG_aControlDblClick [k] := ""
@@ -204,7 +204,7 @@ FUNCTION _DefineButton ( ControlName, ParentFormName, x, y, Caption, ;
    _HMG_aControlRangeMin [k] := 0
    _HMG_aControlRangeMax [k] := 0
    _HMG_aControlCaption [k] := Caption
-   _HMG_aControlVisible [k] := iif( invisible, FALSE, .T. )
+   _HMG_aControlVisible [k] := iif( invisible, .F., .T. )
    _HMG_aControlHelpId [k] := HelpId
    _HMG_aControlFontHandle [k] := FontHandle
    _HMG_aControlBrushHandle [k] := 0
@@ -353,7 +353,7 @@ FUNCTION _DefineImageButton ( ControlName, ParentFormName, x, y, Caption, ;
    _HMG_aControllostFocusProcedure [k] :=  lostfocus
    _HMG_aControlGotFocusProcedure [k] :=  gotfocus
    _HMG_aControlChangeProcedure [k] :=  ""
-   _HMG_aControlDeleted [k] :=  FALSE
+   _HMG_aControlDeleted [k] :=  .F.
    _HMG_aControlBkColor [k] :=  Nil
    _HMG_aControlFontColor [k] :=  Nil
    _HMG_aControlDblClick  [k] :=  noxpstyle
@@ -374,7 +374,7 @@ FUNCTION _DefineImageButton ( ControlName, ParentFormName, x, y, Caption, ;
    _HMG_aControlRangeMin [k] :=   0
    _HMG_aControlRangeMax [k] :=   0
    _HMG_aControlCaption [k] :=    Caption
-   _HMG_aControlVisible [k] :=    iif( invisible, FALSE, .T. )
+   _HMG_aControlVisible [k] :=    iif( invisible, .F., .T. )
    _HMG_aControlHelpId [k] :=    HelpId
    _HMG_aControlFontHandle [k] :=  0
    _HMG_aControlBrushHandle [k] := nhImage

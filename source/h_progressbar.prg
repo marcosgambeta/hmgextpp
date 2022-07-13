@@ -184,7 +184,7 @@ FUNCTION _DefineProgressBar ( ControlName, ParentFormName, x, y, w, h, lo, hi, ;
    _HMG_aControllostFocusProcedure  [k] :=  ""
    _HMG_aControlGotFocusProcedure  [k] :=  ""
    _HMG_aControlChangeProcedure  [k] :=  ""
-   _HMG_aControlDeleted  [k] :=  FALSE
+   _HMG_aControlDeleted  [k] :=  .F.
    _HMG_aControlBkColor  [k] :=  BackColor
    _HMG_aControlFontColor  [k] :=  BarColor
    _HMG_aControlDblClick  [k] :=  ""
@@ -200,12 +200,12 @@ FUNCTION _DefineProgressBar ( ControlName, ParentFormName, x, y, w, h, lo, hi, ;
    _HMG_aControlContainerHandle  [k] :=  0
    _HMG_aControlFontName [k] :=   ""
    _HMG_aControlFontSize  [k] :=  0
-   _HMG_aControlFontAttributes  [k] :=  { FALSE, FALSE, FALSE, FALSE }
+   _HMG_aControlFontAttributes  [k] :=  { .F., .F., .F., .F. }
    _HMG_aControlToolTip  [k] :=   tooltip
    _HMG_aControlRangeMin  [k] :=   Lo
    _HMG_aControlRangeMax  [k] :=   Hi
    _HMG_aControlCaption  [k] :=   ""
-   _HMG_aControlVisible  [k] :=   iif( invisible, FALSE, .T. )
+   _HMG_aControlVisible  [k] :=   iif( invisible, .F., .T. )
    _HMG_aControlHelpId  [k] :=   HelpId
    _HMG_aControlFontHandle  [k] :=   0
    _HMG_aControlBrushHandle  [k] :=   0

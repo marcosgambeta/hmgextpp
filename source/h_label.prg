@@ -242,7 +242,7 @@ FUNCTION _DefineLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
    _HMG_aControlRangeMin [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveTabName , "" )
    _HMG_aControlRangeMax [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameParentFormName [_HMG_FrameLevel] , "" )
    _HMG_aControlCaption  [k] :=  Caption
-   _HMG_aControlVisible  [k] :=  iif( invisible, FALSE, .T. )
+   _HMG_aControlVisible  [k] :=  iif( invisible, .F., .T. )
    _HMG_aControlHelpId  [k] :=  HelpId
    _HMG_aControlFontHandle  [k] :=  FontHandle
    _HMG_aControlBrushHandle   [k] :=  0

@@ -65,9 +65,9 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
    DEFAULT value           TO 0
    DEFAULT changeprocedure TO ""
    DEFAULT dblclick        TO ""
-   DEFAULT invisible       TO FALSE
-   DEFAULT notabstop       TO FALSE
-   DEFAULT sort            TO FALSE
+   DEFAULT invisible       TO .F.
+   DEFAULT notabstop       TO .F.
+   DEFAULT sort            TO .F.
    DEFAULT aCheck          TO {}
    DEFAULT nItemHeight     TO 16
 
@@ -232,7 +232,7 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
    _HMG_aControllostFocusProcedure  [k] :=  lostfocus
    _HMG_aControlGotFocusProcedure  [k] :=  gotfocus
    _HMG_aControlChangeProcedure  [k] :=  ChangeProcedure
-   _HMG_aControlDeleted  [k] :=  FALSE
+   _HMG_aControlDeleted  [k] :=  .F.
    _HMG_aControlBkColor  [k] :=  backcolor
    _HMG_aControlFontColor  [k] :=  fontcolor
    _HMG_aControlDblClick  [k] :=  dblclick
@@ -253,7 +253,7 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
    _HMG_aControlRangeMin   [k] :=  rows
    _HMG_aControlRangeMax  [k] :=   aCheck
    _HMG_aControlCaption   [k] :=  ""
-   _HMG_aControlVisible  [k] :=   iif( invisible, FALSE, .T. )
+   _HMG_aControlVisible  [k] :=   iif( invisible, .F., .T. )
    _HMG_aControlHelpId   [k] :=  HelpId
    _HMG_aControlFontHandle  [k] :=   FontHandle
    _HMG_aControlBrushHandle  [k] :=  0

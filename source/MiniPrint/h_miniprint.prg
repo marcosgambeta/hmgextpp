@@ -2158,7 +2158,7 @@ FUNCTION _DefineEmfFile ( ControlName, ParentFormName, x, y, FileName, w, h, ;
       action := .T.
    ENDIF
 
-   DEFAULT stretch TO FALSE, WhiteBackground TO FALSE, transparent TO FALSE
+   DEFAULT stretch TO .F., WhiteBackground TO .F., transparent TO .F.
 
    mVar := '_' + ParentFormName + '_' + ControlName
    k := _GetControlFree()

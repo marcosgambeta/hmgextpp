@@ -17,10 +17,10 @@ FUNCTION _DefineRating ( ControlName, ParentForm, x, y, w, h, nValue, aImages, n
    DEFAULT nValue TO 0
    DEFAULT aImages := { "empty.png", "full.png" }
    DEFAULT nCnt TO 5
-   DEFAULT border TO FALSE
-   DEFAULT readonly TO FALSE
-   DEFAULT invisible TO FALSE
-   DEFAULT vertical TO FALSE
+   DEFAULT border TO .F.
+   DEFAULT readonly TO .F.
+   DEFAULT invisible TO .F.
+   DEFAULT vertical TO .F.
 
    IF _HMG_BeginWindowActive
       ParentForm := _HMG_ActiveFormName
@@ -89,12 +89,12 @@ FUNCTION _DefineRating ( ControlName, ParentForm, x, y, w, h, nValue, aImages, n
    AAdd( _HMG_aControlContainerHandle, 0 )
    AAdd( _HMG_aControlFontName, "" )
    AAdd( _HMG_aControlFontSize, 0 )
-   AAdd( _HMG_aControlFontAttributes, { FALSE, FALSE, FALSE, FALSE } )
+   AAdd( _HMG_aControlFontAttributes, { .F., .F., .F., .F. } )
    AAdd( _HMG_aControlToolTip, tooltip )
    AAdd( _HMG_aControlRangeMin, 0 )
    AAdd( _HMG_aControlRangeMax, 0 )
    AAdd( _HMG_aControlCaption, "" )
-   AAdd( _HMG_aControlVisible, iif( invisible, FALSE, .T. ) )
+   AAdd( _HMG_aControlVisible, iif( invisible, .F., .T. ) )
    AAdd( _HMG_aControlHelpId, 0 )
    AAdd( _HMG_aControlFontHandle, 0 )
    AAdd( _HMG_aControlBrushHandle, 0 )

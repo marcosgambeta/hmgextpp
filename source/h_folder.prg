@@ -676,7 +676,7 @@ RETURN Nil
 *------------------------------------------------------------------------------*
 FUNCTION FolderProc( hwndDlg, nMsg, wParam, lParam )
 *------------------------------------------------------------------------------*
-   LOCAL ret := FALSE , i, ControlHandle
+   LOCAL ret := .F. , i, ControlHandle
 
    _HMG_ActiveDlgProcHandle    := hwndDlg
    _HMG_ActiveDlgProcMsg       := nMsg
@@ -705,21 +705,21 @@ FUNCTION FolderProc( hwndDlg, nMsg, wParam, lParam )
       i := AScan( _HMG_aFormhandles, hwndDlg )  // find DialogProcedure
       IF i > 0
          IF ValType( _HMG_aFormClickProcedure [i] ) == "B" .AND. _HMG_aFormType [i] == "F"
-            ret :=  RetValue( Eval( _HMG_aFormClickProcedure [i], nMsg, LOWORD(wParam), HIWORD(wParam) ), FALSE )
+            ret :=  RetValue( Eval( _HMG_aFormClickProcedure [i], nMsg, LOWORD(wParam), HIWORD(wParam) ), .F. )
          ELSE
             ControlHandle := GetDialogITemHandle( hwndDlg, LOWORD(wParam) )
             Events( hwndDlg, nMsg, wParam, ControlHandle )
             ret := .T.
          ENDIF
       ENDIF
-      IF ret == FALSE
+      IF ret == .F.
          ControlHandle := GetDialogITemHandle( hwndDlg, LOWORD(wParam) )
          Events( hwndDlg, nMsg, wParam, ControlHandle )
          ret := .T.
       ENDIF
    OTHERWISE
       Events( hwndDlg, nMsg, wParam, lParam )
-      ret := FALSE
+      ret := .F.
    ENDCASE
 
    _HMG_ActiveDlgProcHandle    := 0
@@ -732,7 +732,7 @@ RETURN ret
 *------------------------------------------------------------------------------*
 FUNCTION PageFldProc( hWndDlg, nMsg, wParam, lParam )
 *------------------------------------------------------------------------------*
-   LOCAL lRet := FALSE, i, ControlHandle, x, hwndFolder, nFldID
+   LOCAL lRet := .F., i, ControlHandle, x, hwndFolder, nFldID
 
    _HMG_ActiveDlgProcHandle    := hwndDlg
    _HMG_ActiveDlgProcMsg       := nMsg
@@ -779,7 +779,7 @@ FUNCTION PageFldProc( hWndDlg, nMsg, wParam, lParam )
             ENDIF
          ENDIF
       ENDIF
-      IF lRet == FALSE
+      IF lRet == .F.
          IF GetDialogITemHandle( hwndDlg, LOWORD(wParam) ) != 0
             Events( hwndDlg, nMsg, wParam, lParam )
             lRet := .T.
@@ -796,14 +796,14 @@ FUNCTION PageFldProc( hWndDlg, nMsg, wParam, lParam )
          i := AScan( _HMG_aFormhandles,  hwndFolder )  // find FolderProcedure
          IF i > 0
             IF ValType( _HMG_aFormClickProcedure [i] ) == "B" .AND. _HMG_aFormType [i] == "F"
-               lRet :=  RetValue( Eval( _HMG_aFormClickProcedure [i], nMsg, LOWORD(wParam ), HIWORD(wParam ) ), FALSE )
+               lRet :=  RetValue( Eval( _HMG_aFormClickProcedure [i], nMsg, LOWORD(wParam ), HIWORD(wParam ) ), .F. )
             ELSE
                ControlHandle := GetDialogITemHandle( hwndDlg, LOWORD(wParam) )
                Events( hwndDlg, nMsg, wParam, ControlHandle )
                lRet := .T.
             ENDIF
          ENDIF
-         IF lret == FALSE
+         IF lret == .F.
             ControlHandle := GetDialogITemHandle( hwndDlg, LOWORD(wParam) )
             IF ControlHandle != 0
                Events( hwndDlg, nMsg, wParam, ControlHandle )
@@ -818,10 +818,10 @@ FUNCTION PageFldProc( hWndDlg, nMsg, wParam, lParam )
             i := AScan( _HMG_aFormhandles,  hwndFolder )  // find FolderProcedure
             IF i > 0
                IF ValType( _HMG_aFormInteractiveCloseProcedure [i] ) == "B" .AND. _HMG_aFormType [i] == "F"
-                  lRet := RetValue( Eval( _HMG_aFormInteractiveCloseProcedure [i], nMsg, LOWORD(wParam ), HIWORD(wParam ) ), FALSE )
+                  lRet := RetValue( Eval( _HMG_aFormInteractiveCloseProcedure [i], nMsg, LOWORD(wParam ), HIWORD(wParam ) ), .F. )
                ENDIF
             ENDIF
-            IF lret == FALSE
+            IF lret == .F.
                ControlHandle := GetDialogITemHandle( hwndDlg, LOWORD(wParam) )
                IF  ControlHandle != 0
                   Events( hwndDlg, nMsg, wParam, ControlHandle )
@@ -839,7 +839,7 @@ FUNCTION PageFldProc( hWndDlg, nMsg, wParam, lParam )
          i := AScan( _HMG_aFormhandles,  hwndFolder )  // find FolderProcedure
          IF i > 0
             IF ValType( _HMG_aFormReleaseProcedure [i] ) == "B" .AND. _HMG_aFormType [i] == "F"
-               lRet :=  RetValue( Eval( _HMG_aFormReleaseProcedure [i], nMsg, LOWORD(wParam ), HIWORD(wParam ) ), FALSE )
+               lRet :=  RetValue( Eval( _HMG_aFormReleaseProcedure [i], nMsg, LOWORD(wParam ), HIWORD(wParam ) ), .F. )
             ENDIF
          ENDIF
          EXIT
@@ -856,7 +856,7 @@ FUNCTION PageFldProc( hWndDlg, nMsg, wParam, lParam )
          ENDIF
 
       ENDSWITCH
-      IF lRet == FALSE
+      IF lRet == .F.
          IF GetDialogITemHandle( hwndDlg, LOWORD(wParam) ) != 0
             Events( hwndDlg, nMsg, wParam, lParam )
             lRet := .T.
@@ -986,7 +986,7 @@ STATIC FUNCTION RetValue( lRet, def )
 *-----------------------------------------------------------------------------*
    IF lRet == Nil .OR. ValType( lRet ) != "L"
       IF ValType( lRet ) == "N"
-         lRet := iif( lRet == 0, FALSE, .T. )
+         lRet := iif( lRet == 0, .F., .T. )
       ELSE
          lRet := def
       ENDIF

@@ -422,7 +422,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION DialogProc( hwndDlg, nMsg, wParam, lParam )
 *-----------------------------------------------------------------------------*
-   LOCAL ret := FALSE, i, ControlHandle
+   LOCAL ret := .F., i, ControlHandle
    _HMG_ActiveDlgProcHandle    := hwndDlg
    _HMG_ActiveDlgProcMsg       := nMsg
    _HMG_ActiveDlgProcId        := wParam
@@ -453,9 +453,9 @@ FUNCTION DialogProc( hwndDlg, nMsg, wParam, lParam )
          IF ValType( _HMG_aFormClickProcedure [i] ) == "B" .AND. _HMG_aFormType [i] == "D"
             ret := Eval( _HMG_aFormClickProcedure [i], nMsg, LOWORD(wParam), HIWORD(wParam) )
             IF ValType( ret ) == "N"
-               ret := iif( ret = 0, FALSE, .T. )
+               ret := iif( ret = 0, .F., .T. )
             ELSE
-               ret := FALSE
+               ret := .F.
             ENDIF
          ELSE
             IF  ( ControlHandle := GetDialogITemHandle( hwndDlg,LOWORD(wParam ) ) ) == 0    //JP 66
@@ -465,7 +465,7 @@ FUNCTION DialogProc( hwndDlg, nMsg, wParam, lParam )
             ret := .T.
          ENDIF
       ENDIF
-      IF ret == FALSE
+      IF ret == .F.
          IF  ( ControlHandle := GetDialogITemHandle( hwndDlg,LOWORD(wParam ) ) ) == 0    //JP 66
             ControlHandle := lParam
          ENDIF
@@ -474,7 +474,7 @@ FUNCTION DialogProc( hwndDlg, nMsg, wParam, lParam )
       ENDIF
    OTHERWISE
       Events( hwndDlg, nMsg, wParam, lParam )
-      ret := FALSE
+      ret := .F.
    ENDCASE
    _HMG_ActiveDlgProcHandle    := 0
    _HMG_ActiveDlgProcMsg       := 0
@@ -521,7 +521,7 @@ FUNCTION ModalDialogProc( hwndDlg, nMsg, wParam, lParam )
          ret := .T.
       ENDCASE
    OTHERWISE
-      ret := FALSE
+      ret := .F.
    ENDCASE
    _HMG_ActiveDlgProcHandle    := 0
    _HMG_ActiveDlgProcMsg       := 0

@@ -442,7 +442,7 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
    hb_default( @aImgInfo, {} )
 
    IF ! ReadFromStream( GIF, @cStream )
-      RETURN FALSE
+      RETURN .F.
    ENDIF
 
    nImgCount := 0
@@ -464,18 +464,18 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
          cFile := cPath + hb_ps() + cFileNoExt( GIF ) + "_frame_" + hb_ntos( nID ) + "_" + StrZero( nImgCount, 4 ) + ".gif"
          nFileHandle := FCreate( cFile, FC_NORMAL )
          IF FError() <> 0
-            RETURN FALSE
+            RETURN .F.
          ENDIF
 
          cPicBuf := cGifHeader + SubStr( cStream, i - 1, j - i )
          imgHeader = Left( SubStr( cStream, i - 1, j - i ), 16 )
 
          IF FWrite( nFileHandle, cPicBuf ) <> Len( cPicBuf )
-            RETURN FALSE
+            RETURN .F.
          ENDIF
 
          IF .NOT. FClose( nFileHandle )
-            RETURN FALSE
+            RETURN .F.
          ENDIF
 
          AAdd( aFrames, cFile )
@@ -497,18 +497,18 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
       cFile := cPath + hb_ps() + cFileNoExt( GIF ) + "_frame_" + hb_ntos( nID ) + "_" + StrZero( ++nImgCount, 4 ) + ".gif"
       nFileHandle := FCreate( cFile, FC_NORMAL )
       IF FError() <> 0
-         RETURN FALSE
+         RETURN .F.
       ENDIF
 
       cPicBuf := cGifHeader + SubStr( cStream, i - 1, Len( cStream ) - i )
       imgHeader := Left( SubStr( cStream, i - 1, Len( cStream ) - i ), 16 )
 
       IF FWrite( nFileHandle, cPicBuf ) <> Len( cPicBuf )
-         RETURN FALSE
+         RETURN .F.
       ENDIF
 
       IF .NOT. FClose( nFileHandle )
-         RETURN FALSE
+         RETURN .F.
       ENDIF
 
       AAdd( aFrames, cFile )

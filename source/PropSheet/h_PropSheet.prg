@@ -802,7 +802,7 @@ FUNCTION ButtonPageDlgProc( hwndDlg, Msg, IdDlg, nPage )
          IF ValType( _HMG_CancelPropSheetProcedure ) == 'B' .AND. lChd
             lRet := RetValue( Eval( _HMG_CancelPropSheetProcedure, hwndDlg, idDlg, nPage ), lRet )
          ELSE
-            lRet := FALSE
+            lRet := .F.
          ENDIF
       ENDIF
 
@@ -860,7 +860,7 @@ RETURN IIF( lRet, 1, 0 )
 *------------------------------------------------------------------------------*
 FUNCTION PageDlgProc( hwndParent, hwndDlg, nMsg, wParam, lParam )
 *------------------------------------------------------------------------------*
-   LOCAL lRet := FALSE, i, nPage, nPageMode, NotifyCode, hwndActive, ControlHandle
+   LOCAL lRet := .F., i, nPage, nPageMode, NotifyCode, hwndActive, ControlHandle
    _HMG_ActiveDlgProcHandle    := hwndDlg
    _HMG_ActiveDlgProcMsg       := nMsg
    _HMG_ActiveDlgProcId        := wParam
@@ -900,7 +900,7 @@ FUNCTION PageDlgProc( hwndParent, hwndDlg, nMsg, wParam, lParam )
             lRet := .T.
          ENDIF
       ENDIF
-      IF lRet == FALSE
+      IF lRet == .F.
          ControlHandle := GetDialogITemHandle( hwndDlg, LOWORD(wParam) )
          Events( hwndDlg, nMsg, wParam, ControlHandle )
          lRet := .T.
@@ -981,7 +981,7 @@ FUNCTION RetValue( lRet, def )
 *------------------------------------------------------------------------------*
    IF lRet == NIL .OR. ValType( lRet ) != 'L'
       IF ValType( lRet ) == "N"
-         lRet := iif( lRet == 0, FALSE, .T. )
+         lRet := iif( lRet == 0, .F., .T. )
       ELSE
          lRet := def
       ENDIF

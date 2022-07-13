@@ -141,7 +141,7 @@ FUNCTION _DefineWebCam ( ControlName, ParentForm, x, y, w, h, lStart, nRate, TOO
    AAdd( _HMG_aControlContainerHandle, 0 )
    AAdd( _HMG_aControlFontName, "" )
    AAdd( _HMG_aControlFontSize, 0 )
-   AAdd( _HMG_aControlFontAttributes, { FALSE, FALSE, FALSE, FALSE } )
+   AAdd( _HMG_aControlFontAttributes, { .F., .F., .F., .F. } )
    AAdd( _HMG_aControlToolTip, tooltip )
    AAdd( _HMG_aControlRangeMin, 0 )
    AAdd( _HMG_aControlRangeMax, 0 )

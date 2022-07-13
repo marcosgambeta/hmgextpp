@@ -158,7 +158,7 @@ FUNCTION _DefineHotKeyBox ( ControlName, ParentForm, x, y, w, h, value, fontname
    _HMG_aControlRangeMin  [k] :=   0
    _HMG_aControlRangeMax  [k] :=   0
    _HMG_aControlCaption  [k] :=   ""
-   _HMG_aControlVisible  [k] :=  iif( invisible, FALSE, .T. )
+   _HMG_aControlVisible  [k] :=  iif( invisible, .F., .T. )
    _HMG_aControlHelpId   [k] :=  HelpId
    _HMG_aControlFontHandle  [k] :=   FontHandle
    _HMG_aControlBrushHandle  [k] :=  0

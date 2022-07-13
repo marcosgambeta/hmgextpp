@@ -1815,7 +1815,7 @@ FUNCTION SetPropGridValue ( ParentForm, ControlName, nID, cValue, cData, lExp )
 *------------------------------------------------------------------------------*
    LOCAL hItem, RetVal := "", ItemType, i, lData := .T.
    LOCAL hWndPG, hEdit := 0
-   DEFAULT nID := 0, lExp := FALSE
+   DEFAULT nID := 0, lExp := .F.
    IF ValType( ParentForm ) == 'U'
       IF _HMG_BeginWindowActive
          ParentForm := _HMG_ActiveFormName
