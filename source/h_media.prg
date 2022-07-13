@@ -318,7 +318,7 @@ FUNCTION _DefineAnimateBox( ControlName, ParentFormName, x, y, w, h, autoplay, c
    _HMG_aControlRangeMin  [k] :=   0
    _HMG_aControlRangeMax  [k] :=   0
    _HMG_aControlCaption  [k] :=   file
-   _HMG_aControlVisible  [k] :=   iif( invisible, FALSE, TRUE )
+   _HMG_aControlVisible  [k] :=   iif( invisible, FALSE, .T. )
    _HMG_aControlHelpId  [k] :=   HelpId
    _HMG_aControlFontHandle   [k] :=  0
    _HMG_aControlBrushHandle  [k] :=  0

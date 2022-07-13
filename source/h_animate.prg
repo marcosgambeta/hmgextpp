@@ -146,7 +146,7 @@ FUNCTION _DefineAnimateRes ( ControlName, ParentForm, x, y, w, h, cFile, nRes, ;
    AAdd( _HMG_aControlRangeMin, 0  )
    AAdd( _HMG_aControlRangeMax, 0  )
    AAdd( _HMG_aControlCaption, ""  )
-   AAdd( _HMG_aControlVisible, iif( invisible, FALSE, TRUE ) )
+   AAdd( _HMG_aControlVisible, iif( invisible, FALSE, .T. ) )
    AAdd( _HMG_aControlHelpId, HelpId )
    AAdd( _HMG_aControlFontHandle, 0 )
    AAdd( _HMG_aControlBrushHandle, 0 )

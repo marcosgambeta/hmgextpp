@@ -375,7 +375,7 @@ FUNCTION _EndDialog()
                   FontHandle := _SetFont ( ControlHandle, _HMG_DefaultFontName, _HMG_DefaultFontSize, _HMG_aDialogItems[n,15], _HMG_aDialogItems[n,16], _HMG_aDialogItems[n,17], _HMG_aDialogItems[n,18] )
                ENDIF
             ENDIF
-            IF ValType( _HMG_aDialogItems[n,20] ) == "L" .AND. _HMG_aDialogItems[n,20] == TRUE  //_HMG_BeginTabActive
+            IF ValType( _HMG_aDialogItems[n,20] ) == "L" .AND. _HMG_aDialogItems[n,20] == .T.  //_HMG_BeginTabActive
                AAdd( _HMG_ActiveTabCurrentPageMap , Controlhandle )
                IF _HMG_aDialogItems[n,21]
                   WHILE Len( _HMG_ActiveTabFullPageMap ) + 1 < _HMG_aDialogItems[n,22]
@@ -433,11 +433,11 @@ FUNCTION DialogProc( hwndDlg, nMsg, wParam, lParam )
    CASE nMsg == WM_INITDIALOG
       IF ValType( _HMG_InitDialogProcedure ) == "B"
          Eval( _HMG_InitDialogProcedure, hwndDlg )
-         ret := TRUE
+         ret := .T.
       ENDIF
    CASE nMsg == WM_DESTROY
       EraseDialog( hwndDlg )
-      ret := TRUE
+      ret := .T.
    CASE nMsg == WM_CLOSE
       i := AScan( _HMG_aFormhandles, hwndDlg )
       IF i > 0
@@ -446,14 +446,14 @@ FUNCTION DialogProc( hwndDlg, nMsg, wParam, lParam )
          ENDIF
       ENDIF
       EraseDialog( hwndDlg )
-      ret := TRUE
+      ret := .T.
    CASE nMsg == WM_COMMAND
       i := AScan( _HMG_aFormhandles, hwndDlg )  // find DialogProcedure
       IF i > 0
          IF ValType( _HMG_aFormClickProcedure [i] ) == "B" .AND. _HMG_aFormType [i] == "D"
             ret := Eval( _HMG_aFormClickProcedure [i], nMsg, LOWORD(wParam), HIWORD(wParam) )
             IF ValType( ret ) == "N"
-               ret := iif( ret = 0, FALSE, TRUE )
+               ret := iif( ret = 0, FALSE, .T. )
             ELSE
                ret := FALSE
             ENDIF
@@ -462,7 +462,7 @@ FUNCTION DialogProc( hwndDlg, nMsg, wParam, lParam )
                ControlHandle := lParam
             ENDIF
             Events( hwndDlg, nMsg, wParam, ControlHandle )
-            ret := TRUE
+            ret := .T.
          ENDIF
       ENDIF
       IF ret == FALSE
@@ -470,7 +470,7 @@ FUNCTION DialogProc( hwndDlg, nMsg, wParam, lParam )
             ControlHandle := lParam
          ENDIF
          Events( hwndDlg, nMsg, wParam, ControlHandle )
-         ret := TRUE
+         ret := .T.
       ENDIF
    OTHERWISE
       Events( hwndDlg, nMsg, wParam, lParam )
@@ -500,25 +500,25 @@ FUNCTION ModalDialogProc( hwndDlg, nMsg, wParam, lParam )
       IF ValType( _HMG_InitDialogProcedure ) == "B"
          Eval( _HMG_InitDialogProcedure )
       ENDIF
-      ret := TRUE
+      ret := .T.
    CASE nMsg == WM_CLOSE
       EndDialog( hwndDlg, 0 )
-      ret := TRUE
+      ret := .T.
    CASE nMsg == WM_COMMAND
       DO CASE
       CASE LOWORD(wParam) == IDOK .AND. HIWORD(wParam) == BN_CLICKED
          EndDialog( hwndDlg, IDOK )
-         ret := TRUE
+         ret := .T.
       CASE LOWORD(wParam) == IDCANCEL .AND. HIWORD(wParam) == BN_CLICKED
          EndDialog( hwndDlg, IDCANCEL )
-         ret := TRUE
+         ret := .T.
       CASE LOWORD(wParam) == IDIGNORE .AND. HIWORD(wParam) == BN_CLICKED
-         ret := TRUE
+         ret := .T.
       OTHERWISE
          IF ValType( _HMG_ModalDialogProcedure ) == "B"
             Eval( _HMG_ModalDialogProcedure, hwndDlg, nMsg, LOWORD(wParam), HIWORD(wParam) )
          ENDIF
-         ret := TRUE
+         ret := .T.
       ENDCASE
    OTHERWISE
       ret := FALSE

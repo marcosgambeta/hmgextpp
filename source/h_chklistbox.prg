@@ -253,7 +253,7 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
    _HMG_aControlRangeMin   [k] :=  rows
    _HMG_aControlRangeMax  [k] :=   aCheck
    _HMG_aControlCaption   [k] :=  ""
-   _HMG_aControlVisible  [k] :=   iif( invisible, FALSE, TRUE )
+   _HMG_aControlVisible  [k] :=   iif( invisible, FALSE, .T. )
    _HMG_aControlHelpId   [k] :=  HelpId
    _HMG_aControlFontHandle  [k] :=   FontHandle
    _HMG_aControlBrushHandle  [k] :=  0

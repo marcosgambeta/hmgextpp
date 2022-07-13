@@ -238,7 +238,7 @@ FUNCTION _DefineOwnerButton ( ControlName, ParentForm, x, y, Caption, ;
    _HMG_aControlRangeMin [k]    :=  hb_defaultValue( lhorizontal, .F. )
    _HMG_aControlRangeMax [k]    :=  { iif( lnohotlight, 2, 0 ), .F. }  // used for mouse hot tracking !!
    _HMG_aControlCaption [k]     :=  Caption
-   _HMG_aControlVisible [k]     :=  iif( invisible, FALSE, TRUE )
+   _HMG_aControlVisible [k]     :=  iif( invisible, FALSE, .T. )
    _HMG_aControlHelpId [k]      :=  HelpId
    _HMG_aControlFontHandle [k]  :=  FontHandle
    _HMG_aControlBrushHandle [k] :=  aRet [2]  // handle to an Image (Icon or Bitmap)

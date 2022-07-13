@@ -272,7 +272,7 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
    _HMG_aControlRangeMin   [k] :=  rows
    _HMG_aControlRangeMax  [k] :=   aWidth
    _HMG_aControlCaption   [k] :=  ""
-   _HMG_aControlVisible  [k] :=   iif( invisible, FALSE, TRUE )
+   _HMG_aControlVisible  [k] :=   iif( invisible, FALSE, .T. )
    _HMG_aControlHelpId   [k] :=  HelpId
    _HMG_aControlFontHandle  [k] :=   FontHandle
    _HMG_aControlBrushHandle  [k] :=  0

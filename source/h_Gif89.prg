@@ -516,7 +516,7 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
 
    ENDIF
 
-RETURN TRUE
+RETURN .T.
 
 *------------------------------------------------------------------------------*
 STATIC FUNCTION ReadFromStream( cFile, cStream )

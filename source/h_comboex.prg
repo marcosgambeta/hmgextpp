@@ -268,7 +268,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
    _HMG_aControlRangeMin  [k] :=  0
    _HMG_aControlRangeMax  [k] :=  0
    _HMG_aControlCaption   [k] :=  valuesource
-   _HMG_aControlVisible  [k] :=   iif( invisible, FALSE, TRUE )
+   _HMG_aControlVisible  [k] :=   iif( invisible, FALSE, .T. )
    _HMG_aControlHelpId  [k] :=  HelpId
    _HMG_aControlFontHandle  [k] :=   FontHandle
    _HMG_aControlBrushHandle  [k] :=  0

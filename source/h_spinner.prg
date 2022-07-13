@@ -171,7 +171,7 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
    _HMG_aControlRangeMin  [k] :=   Rl
    _HMG_aControlRangeMax  [k] :=   Rh
    _HMG_aControlCaption  [k] :=   ""
-   _HMG_aControlVisible  [k] :=   iif( invisible, FALSE, TRUE )
+   _HMG_aControlVisible  [k] :=   iif( invisible, FALSE, .T. )
    _HMG_aControlHelpId  [k] :=   HelpId
    _HMG_aControlFontHandle  [k] :=   FontHandle
    _HMG_aControlBrushHandle  [k] :=  0

@@ -204,7 +204,7 @@ FUNCTION _DefineButton ( ControlName, ParentFormName, x, y, Caption, ;
    _HMG_aControlRangeMin [k] := 0
    _HMG_aControlRangeMax [k] := 0
    _HMG_aControlCaption [k] := Caption
-   _HMG_aControlVisible [k] := iif( invisible, FALSE, TRUE )
+   _HMG_aControlVisible [k] := iif( invisible, FALSE, .T. )
    _HMG_aControlHelpId [k] := HelpId
    _HMG_aControlFontHandle [k] := FontHandle
    _HMG_aControlBrushHandle [k] := 0
@@ -374,7 +374,7 @@ FUNCTION _DefineImageButton ( ControlName, ParentFormName, x, y, Caption, ;
    _HMG_aControlRangeMin [k] :=   0
    _HMG_aControlRangeMax [k] :=   0
    _HMG_aControlCaption [k] :=    Caption
-   _HMG_aControlVisible [k] :=    iif( invisible, FALSE, TRUE )
+   _HMG_aControlVisible [k] :=    iif( invisible, FALSE, .T. )
    _HMG_aControlHelpId [k] :=    HelpId
    _HMG_aControlFontHandle [k] :=  0
    _HMG_aControlBrushHandle [k] := nhImage

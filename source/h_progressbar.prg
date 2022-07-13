@@ -205,7 +205,7 @@ FUNCTION _DefineProgressBar ( ControlName, ParentFormName, x, y, w, h, lo, hi, ;
    _HMG_aControlRangeMin  [k] :=   Lo
    _HMG_aControlRangeMax  [k] :=   Hi
    _HMG_aControlCaption  [k] :=   ""
-   _HMG_aControlVisible  [k] :=   iif( invisible, FALSE, TRUE )
+   _HMG_aControlVisible  [k] :=   iif( invisible, FALSE, .T. )
    _HMG_aControlHelpId  [k] :=   HelpId
    _HMG_aControlFontHandle  [k] :=   0
    _HMG_aControlBrushHandle  [k] :=   0

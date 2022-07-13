@@ -633,7 +633,7 @@ FUNCTION InitPageFldProc( hWndParent, hwndDlg, idDlg )
          ENDIF
 
          IF Len( aDialogItems[n] ) >= 20
-            IF ValType( aDialogItems[n,20] ) == "L" .AND. aDialogItems[n,20] == TRUE
+            IF ValType( aDialogItems[n,20] ) == "L" .AND. aDialogItems[n,20] == .T.
                AAdd( _HMG_ActiveTabCurrentPageMap , Controlhandle )
                IF aDialogItems[n,21]
                   WHILE Len( _HMG_ActiveTabFullPageMap ) + 1 < aDialogItems[n,22]
@@ -695,7 +695,7 @@ FUNCTION FolderProc( hwndDlg, nMsg, wParam, lParam )
       IF i > 0
          IF ValType( _HMG_aFormInitProcedure[i] ) == "B" .AND. _HMG_aFormType [i] == "F"
             Eval( _HMG_aFormInitProcedure[i], hwndDlg )
-            ret := TRUE
+            ret := .T.
          ENDIF
       ENDIF
    CASE nMsg == WM_CLOSE
@@ -709,13 +709,13 @@ FUNCTION FolderProc( hwndDlg, nMsg, wParam, lParam )
          ELSE
             ControlHandle := GetDialogITemHandle( hwndDlg, LOWORD(wParam) )
             Events( hwndDlg, nMsg, wParam, ControlHandle )
-            ret := TRUE
+            ret := .T.
          ENDIF
       ENDIF
       IF ret == FALSE
          ControlHandle := GetDialogITemHandle( hwndDlg, LOWORD(wParam) )
          Events( hwndDlg, nMsg, wParam, ControlHandle )
-         ret := TRUE
+         ret := .T.
       ENDIF
    OTHERWISE
       Events( hwndDlg, nMsg, wParam, lParam )
@@ -782,7 +782,7 @@ FUNCTION PageFldProc( hWndDlg, nMsg, wParam, lParam )
       IF lRet == FALSE
          IF GetDialogITemHandle( hwndDlg, LOWORD(wParam) ) != 0
             Events( hwndDlg, nMsg, wParam, lParam )
-            lRet := TRUE
+            lRet := .T.
          ENDIF
       ENDIF
 
@@ -800,7 +800,7 @@ FUNCTION PageFldProc( hWndDlg, nMsg, wParam, lParam )
             ELSE
                ControlHandle := GetDialogITemHandle( hwndDlg, LOWORD(wParam) )
                Events( hwndDlg, nMsg, wParam, ControlHandle )
-               lRet := TRUE
+               lRet := .T.
             ENDIF
          ENDIF
          IF lret == FALSE
@@ -859,7 +859,7 @@ FUNCTION PageFldProc( hWndDlg, nMsg, wParam, lParam )
       IF lRet == FALSE
          IF GetDialogITemHandle( hwndDlg, LOWORD(wParam) ) != 0
             Events( hwndDlg, nMsg, wParam, lParam )
-            lRet := TRUE
+            lRet := .T.
          ENDIF
       ENDIF
 
@@ -962,7 +962,7 @@ FUNCTION EraseFolder( hwndDlg, lModal )
       ENDIF
    ENDIF
 
-RETURN TRUE
+RETURN .T.
 
 *-----------------------------------------------------------------------------*
 FUNCTION _ReleaseFolder( hwndFolder )
@@ -986,7 +986,7 @@ STATIC FUNCTION RetValue( lRet, def )
 *-----------------------------------------------------------------------------*
    IF lRet == Nil .OR. ValType( lRet ) != "L"
       IF ValType( lRet ) == "N"
-         lRet := iif( lRet == 0, FALSE, TRUE )
+         lRet := iif( lRet == 0, FALSE, .T. )
       ELSE
          lRet := def
       ENDIF

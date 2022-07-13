@@ -69,7 +69,7 @@ public SEPARATOR := [/], atf := ''
 default db_arc to dbf(), _nrec to 0, _MainArea to ""
 default _prw to .f.
 
-SET( _SET_DELETED , TRUE )
+SET( _SET_DELETED , .T. )
 SET CENTURY ON
 // SET EPOCH TO Year(Date()) - 50
 

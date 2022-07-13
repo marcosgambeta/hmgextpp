@@ -273,7 +273,7 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
    _HMG_aControlRangeMin  [k] :=  h
    _HMG_aControlRangeMax  [k] :=  leftcheck
    _HMG_aControlCaption  [k] :=  Caption
-   _HMG_aControlVisible  [k] :=  iif( invisible, FALSE, TRUE )
+   _HMG_aControlVisible  [k] :=  iif( invisible, FALSE, .T. )
    _HMG_aControlHelpId  [k] :=  HelpId
    _HMG_aControlFontHandle  [k] :=  FontHandle
    _HMG_aControlBrushHandle   [k] :=  0

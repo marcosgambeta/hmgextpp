@@ -774,7 +774,7 @@ RETURN NIL
 *------------------------------------------------------------------------------*
 FUNCTION ButtonPageDlgProc( hwndDlg, Msg, IdDlg, nPage )
 *------------------------------------------------------------------------------*
-   LOCAL i, lRet := TRUE, lChd := .F.
+   LOCAL i, lRet := .T., lChd := .F.
    _HMG_ActiveDialogHandle     := hwndDlg
    _HMG_BeginDialogActive      := .T.
    _HMG_ActiveDlgProcHandle    := hwndDlg
@@ -834,7 +834,7 @@ RETURN IIF( lRet, 1, 0 )
 *------------------------------------------------------------------------------*
 FUNCTION PropSheetProc( hwndPropSheet, nMsg, lParam )
 *------------------------------------------------------------------------------*
-   LOCAL lRet := TRUE, k
+   LOCAL lRet := .T., k
 
    DO CASE
    CASE nMsg == PSCB_INITIALIZED
@@ -884,7 +884,7 @@ FUNCTION PageDlgProc( hwndParent, hwndDlg, nMsg, wParam, lParam )
          ELSE
             ControlHandle := GetDialogITemHandle( hwndDlg, LOWORD(wParam) )
             Events( hwndDlg, nMsg, wParam, ControlHandle )
-            lRet := TRUE
+            lRet := .T.
          ENDIF
       ELSE
          IF ValType( _HMG_PropSheetProcedure ) == 'B'
@@ -897,13 +897,13 @@ FUNCTION PageDlgProc( hwndParent, hwndDlg, nMsg, wParam, lParam )
          ELSE
             ControlHandle := GetDialogITemHandle( hwndDlg, LOWORD(wParam) )
             Events( hwndDlg, nMsg, wParam, ControlHandle )
-            lRet := TRUE
+            lRet := .T.
          ENDIF
       ENDIF
       IF lRet == FALSE
          ControlHandle := GetDialogITemHandle( hwndDlg, LOWORD(wParam) )
          Events( hwndDlg, nMsg, wParam, ControlHandle )
-         lRet := TRUE
+         lRet := .T.
       ENDIF
 
    CASE nMsg == WM_NOTIFY
@@ -955,7 +955,7 @@ FUNCTION PageDlgProc( hwndParent, hwndDlg, nMsg, wParam, lParam )
    OTHERWISE
       ControlHandle := GetDialogITemHandle( hwndDlg, LOWORD(wParam) )
       Events( hwndDlg, nMsg, wParam, ControlHandle )
-      lRet := TRUE                                                         // end
+      lRet := .T.                                                         // end
    ENDCASE
 
    _HMG_ActiveDlgProcHandle    := 0
@@ -981,7 +981,7 @@ FUNCTION RetValue( lRet, def )
 *------------------------------------------------------------------------------*
    IF lRet == NIL .OR. ValType( lRet ) != 'L'
       IF ValType( lRet ) == "N"
-         lRet := iif( lRet == 0, FALSE, TRUE )
+         lRet := iif( lRet == 0, FALSE, .T. )
       ELSE
          lRet := def
       ENDIF
