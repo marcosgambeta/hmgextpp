@@ -90,9 +90,9 @@ FUNCTION MdiEvents ( hWnd, nMsg, wParam, lParam )
    CASE nMsg == WM_KEYDOWN .OR. nMsg == WM_KEYUP
    //**********************************************************************
 
-      IF Type( '_TSB_aControlhWnd' ) == 'A' .AND. Len( _TSB_aControlhWnd ) > 0
+      IF Type( "_TSB_aControlhWnd" ) == "A" .AND. Len( _TSB_aControlhWnd ) > 0
          oGet := GetObjectByClientMDI( hWnd )
-         IF ValType( oGet ) == 'O'
+         IF ValType( oGet ) == "O"
             oGet:HandleEvent ( nMsg, wParam, lParam )
          ENDIF
       ENDIF
@@ -100,11 +100,11 @@ FUNCTION MdiEvents ( hWnd, nMsg, wParam, lParam )
    //**********************************************************************
    CASE nMsg == WM_MOUSEWHEEL 
    //**********************************************************************
-      IF Type( '_TSB_aControlhWnd' ) == 'A' .AND. Len( _TSB_aControlhWnd ) > 0
+      IF Type( "_TSB_aControlhWnd" ) == "A" .AND. Len( _TSB_aControlhWnd ) > 0
          oGet := GetObjectByClientMDI( hWnd )
-         IF ValType( oGet ) == 'O'
+         IF ValType( oGet ) == "O"
             x := oGet:HandleEvent ( nMsg, wParam, lParam )
-            IF ValType( x ) == 'N'
+            IF ValType( x ) == "N"
                IF x != 0
                   RETURN x
                ENDIF
@@ -225,7 +225,7 @@ FUNCTION MdiEvents ( hWnd, nMsg, wParam, lParam )
 
          // Update Form Index Variable
 
-         mVar := '_' + _HMG_aFormNames [i]
+         mVar := "_" + _HMG_aFormNames [i]
 #ifdef _NAMES_LIST_
          _DelNameList ( mVar )
 #else
@@ -252,10 +252,10 @@ FUNCTION MdiEvents ( hWnd, nMsg, wParam, lParam )
          _HMG_aFormBkColor      [i]   := Nil
          _HMG_aFormPaintProcedure   [i]   := ""
          _HMG_aFormNoShow      [i]   := .F.
-         _HMG_aFormNotifyIconName   [i] := ''
-         _HMG_aFormNotifyIconToolTip   [i] := ''
-         _HMG_aFormNotifyIconLeftClick   [i] := ''
-         _HMG_aFormNotifyIconDblClick   [i] := ''
+         _HMG_aFormNotifyIconName   [i] := ""
+         _HMG_aFormNotifyIconToolTip   [i] := ""
+         _HMG_aFormNotifyIconLeftClick   [i] := ""
+         _HMG_aFormNotifyIconDblClick   [i] := ""
          _HMG_aFormReBarHandle      [i] := 0
          _HMG_aFormNotifyMenuHandle   [i] := 0
          _HMG_aFormBrowseList      [i] := {}
@@ -282,7 +282,7 @@ FUNCTION MdiEvents ( hWnd, nMsg, wParam, lParam )
          _HMG_aFormMinMaxInfo [i] := {}
          _HMG_aFormActivateId [i] := 0
          _HMG_aFormMiscData1  [i] := {}
-         _HMG_aFormMiscData2  [i] := ''
+         _HMG_aFormMiscData2  [i] := ""
 
          _HMG_InteractiveCloseStarted := .F.
 
@@ -314,14 +314,14 @@ FUNCTION _DefineChildMDIWindow ( FormName, x, y, w, h, nominimize, nomaximize, ;
    ChildIndex := _HMG_ActiveMDIChildIndex + 1
 
    IF _HMG_ProgrammaticChange
-      FormName += '_' + hb_ntos( ChildIndex )
+      FormName += "_" + hb_ntos( ChildIndex )
    ELSE
       IF AScan( _HMG_aFormNames, FormName ) > 0 // child window FormName already exist
-         FormName += '_' + hb_ntos( ChildIndex )
+         FormName += "_" + hb_ntos( ChildIndex )
       ENDIF
    ENDIF
 
-   i := AScan( _HMG_aFormType , 'A' )
+   i := AScan( _HMG_aFormType , "A" )
 
    IF i <= 0
       MsgMiniGuiError( "Main Window Is Not Defined." )
@@ -348,7 +348,7 @@ FUNCTION _DefineChildMDIWindow ( FormName, x, y, w, h, nominimize, nomaximize, ;
 
    ParentForm := _HMG_MainClientMDIName
 
-   mVar := '_' + FormName
+   mVar := "_" + FormName
 
    _HMG_ActiveFormName := FormName
    _HMG_BeginWindowActive := .T.
@@ -392,7 +392,7 @@ FUNCTION _DefineChildMDIWindow ( FormName, x, y, w, h, nominimize, nomaximize, ;
       _HMG_aFormNames  [k] :=  FormName
       _HMG_aFormHandles  [k] :=  FormHandle
       _HMG_aFormActive  [k] :=  .F.
-      _HMG_aFormType  [k] :=  'Y'
+      _HMG_aFormType  [k] :=  "Y"
       _HMG_aFormParentHandle  [k] :=  GetFormHandle( ParentForm )
       _HMG_aFormReleaseProcedure  [k] :=  ReleaseProcedure
       _HMG_aFormInitProcedure  [k] :=  initprocedure
@@ -438,7 +438,7 @@ FUNCTION _DefineChildMDIWindow ( FormName, x, y, w, h, nominimize, nomaximize, ;
       _HMG_aFormMinMaxInfo [k] := {}
       _HMG_aFormActivateId [k] := 0
       _HMG_aFormMiscData1  [k] := {}
-      _HMG_aFormMiscData2  [k] := ''
+      _HMG_aFormMiscData2  [k] := ""
 #ifdef _HMG_COMPAT_
       _HMG_StopWindowEventProcedure [k] := .F.
 #endif
@@ -456,7 +456,7 @@ FUNCTION _DefineChildMDIWindow ( FormName, x, y, w, h, nominimize, nomaximize, ;
       AAdd( _HMG_aFormNames , FormName )
       AAdd( _HMG_aFormHandles , FormHandle )
       AAdd( _HMG_aFormActive , .F. )
-      AAdd( _HMG_aFormType , 'Y' )
+      AAdd( _HMG_aFormType , "Y" )
       AAdd( _HMG_aFormParentHandle , GetFormHandle( ParentForm ) )
       AAdd( _HMG_aFormReleaseProcedure , ReleaseProcedure  )
       AAdd( _HMG_aFormInitProcedure , initprocedure  )
@@ -502,7 +502,7 @@ FUNCTION _DefineChildMDIWindow ( FormName, x, y, w, h, nominimize, nomaximize, ;
       AAdd( _HMG_aFormMinMaxInfo , {} )
       AAdd( _HMG_aFormActivateId , 0 )
       AAdd( _HMG_aFormMiscData1  , {} )
-      AAdd( _HMG_aFormMiscData2  , '' )
+      AAdd( _HMG_aFormMiscData2  , "" )
 #ifdef _HMG_COMPAT_
       AAdd( _HMG_StopWindowEventProcedure, .F. )
 #endif
@@ -590,8 +590,8 @@ FUNCTION _MdiChildClose ( hWnd )
       // Process Interactive Close Event / Setting
 
       IF ISBLOCK ( _HMG_aFormInteractiveCloseProcedure [i] )
-         xRetVal := _DoWindowEventProcedure ( _HMG_aFormInteractiveCloseProcedure [i] , i , 'WINDOW_ONINTERACTIVECLOSE' )
-         IF ValType( xRetVal ) == 'L'
+         xRetVal := _DoWindowEventProcedure ( _HMG_aFormInteractiveCloseProcedure [i] , i , "WINDOW_ONINTERACTIVECLOSE" )
+         IF ValType( xRetVal ) == "L"
             IF !xRetVal
                RETURN 1
             ENDIF
@@ -609,7 +609,7 @@ FUNCTION _MdiChildClose ( hWnd )
          ENDIF
          EXIT
       CASE 3
-         IF _HMG_aFormType [i] == 'A'
+         IF _HMG_aFormType [i] == "A"
             IF ! MsgYesNo ( _HMG_MESSAGE [1] , _HMG_MESSAGE [2] )
                RETURN 1
             ENDIF
@@ -619,7 +619,7 @@ FUNCTION _MdiChildClose ( hWnd )
 
       IF ISBLOCK ( _HMG_aFormReleaseProcedure [i] )
          _HMG_InteractiveCloseStarted := .T.
-         _DoWindowEventProcedure ( _HMG_aFormReleaseProcedure [i] , i , 'WINDOW_RELEASE' )
+         _DoWindowEventProcedure ( _HMG_aFormReleaseProcedure [i] , i , "WINDOW_RELEASE" )
       ENDIF
 
    ENDIF
@@ -632,7 +632,7 @@ FUNCTION ActivateMdiChildWindow ( ChildName )
    LOCAL n
 
    FOR n := 1 TO Len( _HMG_aFormHandles )
-      IF _HMG_aFormType [n] == 'Y'
+      IF _HMG_aFormType [n] == "Y"
          IF ChildName == _GetWindowProperty( _HMG_aFormHandles [n], "PROP_FORMNAME" )
             _MdiWindowsActivate( _HMG_aFormHandles [n] )
          ENDIF
@@ -658,7 +658,7 @@ FUNCTION _MdiChildCloseAll()
    LOCAL ChildHandle, n
 
    FOR n := 1 TO Len( _HMG_aFormHandles )
-      IF _HMG_aFormType [n] == 'Y'
+      IF _HMG_aFormType [n] == "Y"
          ChildHandle := _HMG_aFormHandles [n]
          IF _MdiChildClose( ChildHandle ) == 0
             DestroyActiveMdi( ChildHandle )
@@ -674,7 +674,7 @@ FUNCTION _MdiChildRestoreAll()
    LOCAL n
 
    FOR n := 1 TO Len( _HMG_aFormHandles )
-      IF _HMG_aFormType [n] == 'Y'
+      IF _HMG_aFormType [n] == "Y"
          _MdiWindowsRestore( _HMG_aFormHandles [n] )
       ENDIF
    NEXT

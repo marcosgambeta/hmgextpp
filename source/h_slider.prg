@@ -95,7 +95,7 @@ FUNCTION _DefineSlider ( ControlName, ParentFormName, x, y, w, h, lo, hi, value,
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " Already defined." )
    ENDIF
 
-   mVar := '_' + ParentFormName + '_' + ControlName
+   mVar := "_" + ParentFormName + "_" + ControlName
    k := _GetControlFree()
 
    IF _HMG_BeginDialogActive
@@ -139,7 +139,7 @@ FUNCTION _DefineSlider ( ControlName, ParentFormName, x, y, w, h, lo, hi, value,
       IF Len( _HMG_aDialogTemplate ) > 0 //Dialog Template
          /* TODO */ /* P.Ch. 16.10. */
 
-         // {{'ID',k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
+         // {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {|x, y, z| InitDialogSlider( x, y, z ) }
          AAdd( _HMG_aDialogItems, { nId, k, "msctls_trackbar32", style, 0, x, y, w, h, "", HelpId, tooltip, "", 0, , , , , blInit, _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage } )
 
@@ -207,20 +207,20 @@ FUNCTION _DefineSlider ( ControlName, ParentFormName, x, y, w, h, lo, hi, value,
    _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
    _HMG_aControlPicture  [k] :=  ""
    _HMG_aControlContainerHandle  [k] :=  0
-   _HMG_aControlFontName  [k] :=  ''
+   _HMG_aControlFontName  [k] :=  ""
    _HMG_aControlFontSize  [k] :=  0
    _HMG_aControlFontAttributes  [k] :=  { .F. , .F. , .F. , .F. }
    _HMG_aControlToolTip  [k] :=  tooltip
    _HMG_aControlRangeMin [k] :=  Lo
    _HMG_aControlRangeMax [k] :=  Hi
-   _HMG_aControlCaption  [k] :=  ''
+   _HMG_aControlCaption  [k] :=  ""
    _HMG_aControlVisible  [k] :=  iif( invisible, FALSE, TRUE )
    _HMG_aControlHelpId   [k] :=  HelpId
-   _HMG_aControlFontHandle  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveTabName , '' )
+   _HMG_aControlFontHandle  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveTabName , "" )
    _HMG_aControlBrushHandle [k] :=  0
    _HMG_aControlEnabled  [k] :=  .T.
-   _HMG_aControlMiscData1 [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameParentFormName [_HMG_FrameLevel] , '' )
-   _HMG_aControlMiscData2 [k] :=  ''
+   _HMG_aControlMiscData1 [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameParentFormName [_HMG_FrameLevel] , "" )
+   _HMG_aControlMiscData2 [k] :=  ""
 
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
@@ -238,7 +238,7 @@ RETURN Nil
 FUNCTION InitDialogSlider( ParentName, ControlHandle, k )
 *-----------------------------------------------------------------------------*
 
-   IF ValType( ParentName ) <> 'U'
+   IF ValType( ParentName ) <> "U"
       SendMessage( ControlHandle , TBM_SETPOS , 1 , _HMG_aControlValue [k] )
    ENDIF
 // JP 62

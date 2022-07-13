@@ -1,4 +1,4 @@
-/* 
+/*
    MINIGUI - Harbour Win32 GUI library source code
 
    Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
@@ -96,7 +96,7 @@ RETURN EnumProps( _GetFormHandle ( xParentForm ) )
 STATIC FUNCTION _GetFormHandle ( xParentForm, cParentFormName )
 *-----------------------------------------------------------------------------*
 
-   IF ValType( xParentForm ) == 'U'
+   IF ValType( xParentForm ) == "U"
 
       IF _HMG_BeginWindowMdiActive
 

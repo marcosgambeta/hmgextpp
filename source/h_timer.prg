@@ -73,7 +73,7 @@ FUNCTION _DefineTimer ( ControlName , ParentForm , Interval , ProcedureName , On
       Interval := Max( Interval, 10 )
    ENDIF
 
-   mVar := '_' + ParentForm + '_' + ControlName
+   mVar := "_" + ParentForm + "_" + ControlName
    ParentFormHandle := GetFormHandle( ParentForm )
 
    Id := _GetId()
@@ -113,20 +113,20 @@ FUNCTION _DefineTimer ( ControlName , ParentForm , Interval , ProcedureName , On
    _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
    _HMG_aControlPicture  [k] :=  hb_defaultValue( Once, .F. )
    _HMG_aControlContainerHandle  [k] :=  0
-   _HMG_aControlFontName  [k] :=  ''
+   _HMG_aControlFontName  [k] :=  ""
    _HMG_aControlFontSize  [k] :=  0
    _HMG_aControlFontAttributes  [k] :=  { .F. , .F. , .F. , .F. }
-   _HMG_aControlToolTip   [k] :=  ''
+   _HMG_aControlToolTip   [k] :=  ""
    _HMG_aControlRangeMin  [k] :=   0
    _HMG_aControlRangeMax  [k] :=   0
-   _HMG_aControlCaption  [k] :=   ''
+   _HMG_aControlCaption  [k] :=   ""
    _HMG_aControlVisible  [k] :=   .T.
    _HMG_aControlHelpId  [k] :=   0
    _HMG_aControlFontHandle  [k] :=  0
    _HMG_aControlBrushHandle [k] :=  0
    _HMG_aControlEnabled  [k] :=  .T.
    _HMG_aControlMiscData1 [k] := 0
-   _HMG_aControlMiscData2 [k] := ''
+   _HMG_aControlMiscData2 [k] := ""
 
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )

@@ -69,7 +69,7 @@ FUNCTION _BeginMessageBar( ControlName, ParentForm, kbd, fontname, fontsize, bol
 
    _HMG_ActiveMessageBarName  := ControlName
 
-   IF ValType( ParentForm ) == 'U'
+   IF ValType( ParentForm ) == "U"
       ParentForm := _HMG_ActiveFormName
    ENDIF
 
@@ -90,7 +90,7 @@ FUNCTION _BeginMessageBar( ControlName, ParentForm, kbd, fontname, fontsize, bol
       __defaultNIL( @FontSize, _HMG_ActiveFontSize )
    ENDIF
 
-   mVar := '_' + ParentForm + '_' + ControlName
+   mVar := "_" + ParentForm + "_" + ControlName
 
    ParentFormHandle := GetFormHandle ( ParentForm )
 
@@ -123,7 +123,7 @@ FUNCTION _BeginMessageBar( ControlName, ParentForm, kbd, fontname, fontsize, bol
    _HMG_aControlHandles  [k] :=  ControlHandle
    _HMG_aControlParenthandles [k] :=  ParentFormHandle
    _HMG_aControlIds  [k] :=  ID_STATUSBAR
-   _HMG_aControlProcedures  [k] :=  ''
+   _HMG_aControlProcedures  [k] :=  ""
    _HMG_aControlPageMap  [k] :=  {}
    _HMG_aControlValue  [k] :=  Nil
    _HMG_aControlInputMask  [k] :=  ""
@@ -147,17 +147,17 @@ FUNCTION _BeginMessageBar( ControlName, ParentForm, kbd, fontname, fontsize, bol
    _HMG_aControlFontName  [k] :=  fontname
    _HMG_aControlFontSize  [k] :=  fontsize
    _HMG_aControlFontAttributes  [k] :=  { bold, italic, underline, strikeout }
-   _HMG_aControlToolTip   [k] :=  ''
+   _HMG_aControlToolTip   [k] :=  ""
    _HMG_aControlRangeMin  [k] :=  0
    _HMG_aControlRangeMax  [k] :=  0
-   _HMG_aControlCaption  [k] :=  ''
+   _HMG_aControlCaption  [k] :=  ""
    _HMG_aControlVisible  [k] :=  .T.
    _HMG_aControlHelpId  [k] :=  0
    _HMG_aControlFontHandle  [k] :=  FontHandle
    _HMG_aControlBrushHandle [k] :=  0
    _HMG_aControlEnabled  [k] :=  .T.
    _HMG_aControlMiscData1 [k] := 0
-   _HMG_aControlMiscData2 [k] := ''
+   _HMG_aControlMiscData2 [k] := ""
 
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
@@ -206,14 +206,14 @@ FUNCTION _DefineItemMessage ( ControlName, ParentControl, x, y, Caption, Procedu
       MsgMiniGuiError( "Window: " + ParentForm + " is not defined." )
    ENDIF
 
-   IF ValType( ParentControl ) == 'U'
+   IF ValType( ParentControl ) == "U"
       ParentControl := _HMG_ActiveMessageBarName
    ENDIF
 
    cParentForm := ParentForm
    ParentFormHandle := GetFormHandle ( ParentForm )
 
-   mVar := '_' + ParentForm + '_' + ControlName
+   mVar := "_" + ParentForm + "_" + ControlName
 
    ParentForm := GetControlHandle ( ParentControl, ParentForm )
 
@@ -225,11 +225,11 @@ FUNCTION _DefineItemMessage ( ControlName, ParentControl, x, y, Caption, Procedu
 
       cCaption := Upper( Caption )
 
-      IF ( i := hb_UAt ( '&', cCaption ) ) > 0
+      IF ( i := hb_UAt ( "&", cCaption ) ) > 0
          _DefineLetterOrDigitHotKey ( cCaption, i, cParentForm, ProcedureName )
       ENDIF
 
-      Caption := StrTran ( Caption, '&', '' )
+      Caption := StrTran ( Caption, "&", "" )
 
    ENDIF
 
@@ -281,7 +281,7 @@ FUNCTION _DefineItemMessage ( ControlName, ParentControl, x, y, Caption, Procedu
    _HMG_aControlContainerCol  [k] :=  -1
    _HMG_aControlPicture  [k] :=  ""
    _HMG_aControlContainerHandle  [k] :=  ParentForm
-   _HMG_aControlFontName  [k] :=  ''
+   _HMG_aControlFontName  [k] :=  ""
    _HMG_aControlFontSize  [k] :=  0
    _HMG_aControlFontAttributes  [k] :=  { .F. , .F. , .F. , .F. }
    _HMG_aControlToolTip  [k] :=   ToolTip
@@ -294,7 +294,7 @@ FUNCTION _DefineItemMessage ( ControlName, ParentControl, x, y, Caption, Procedu
    _HMG_aControlBrushHandle  [k] :=  0
    _HMG_aControlEnabled  [k] :=  .T.
    _HMG_aControlMiscData1 [k] := 0
-   _HMG_aControlMiscData2 [k] := ''
+   _HMG_aControlMiscData2 [k] := ""
 
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
@@ -318,7 +318,7 @@ FUNCTION _SetStatusClock ( BarName , FormName , Width , ToolTip , Action , lAMPM
 
    nrItem := _DefineItemMessage ( "TimerBar", BarName, 0, 0, iif( lAMPM, AMPM( Time() ), Time() ), Action, Width, 0, , "", ToolTip, , backcolor, fontcolor, 1 )
 
-   _DefineTimer ( 'StatusTimer' , FormName , 1000 , {|| _SetItem ( BarName , FormName , nrItem , iif( lAMPM, AMPM( Time() ), Time() ) ) } )
+   _DefineTimer ( "StatusTimer" , FormName , 1000 , {|| _SetItem ( BarName , FormName , nrItem , iif( lAMPM, AMPM( Time() ), Time() ) ) } )
 
 RETURN Nil
 
@@ -343,7 +343,7 @@ FUNCTION _SetStatusKeybrd ( BarName , FormName , Width , ToolTip , action )
       iif( Empty( Action ), {|| iif( _HMG_IsXPorLater, KeyToggleNT( VK_INSERT ), KeyToggle( VK_INSERT ) ) }, Action ), Width, 0, ;
       iif( IsInsertActive(), "zzz_led_on", "zzz_led_off" ), "", ToolTip )
 
-   _DefineTimer ( 'StatusKeyBrd' , FormName , 250 , ;
+   _DefineTimer ( "StatusKeyBrd" , FormName , 250 , ;
       {|| _SetStatusIcon ( BarName , FormName , nrItem1 , iif( IsNumLockActive() , "zzz_led_on" , "zzz_led_off" ) ), ;
       _SetStatusIcon ( BarName , FormName , nrItem2 , iif( IsCapsLockActive() , "zzz_led_on" , "zzz_led_off" ) ), ;
       _SetStatusIcon ( BarName , FormName , nrItem3 , iif( IsInsertActive() , "zzz_led_on" , "zzz_led_off" ) ) } )
@@ -511,7 +511,7 @@ FUNCTION _SetStatusProgressMessage ( BarName , FormName , Width , ToolTip , Acti
    __defaultNIL( @Action, "" )
 
    hwndStatus := GetControlHandle ( BarName, FormName )
-   nrItem := _DefineItemMessage ( PROGRESSNAME, BarName, 0, 0, '', Action, Width, 0, , "", ToolTip )
+   nrItem := _DefineItemMessage ( PROGRESSNAME, BarName, 0, 0, "", Action, Width, 0, , "", ToolTip )
 
    hwndProgress := CreateProgressBarItem ( hwndStatus, nrItem, nValue, nMin, nMax )
    i := GetControlIndex ( PROGRESSNAME, FormName )

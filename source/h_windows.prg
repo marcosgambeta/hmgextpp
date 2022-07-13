@@ -105,7 +105,7 @@ FUNCTION _DefineWindow ( FormName, Caption, x, y, w, h, nominimize, nomaximize, 
 
    IF Main
 
-      IF AScan( _HMG_aFormType, 'A' ) > 0
+      IF AScan( _HMG_aFormType, "A" ) > 0
          MsgMiniGuiError( "Main Window is already defined." )
       ENDIF
 
@@ -120,7 +120,7 @@ FUNCTION _DefineWindow ( FormName, Caption, x, y, w, h, nominimize, nomaximize, 
    ELSE
 
       IF _HMG_MainWindowFirst == .T.
-         IF AScan( _HMG_aFormType, 'A' ) == 0
+         IF AScan( _HMG_aFormType, "A" ) == 0
             MsgMiniGuiError( "Main Window is not defined." )
          ENDIF
       ENDIF
@@ -139,7 +139,7 @@ FUNCTION _DefineWindow ( FormName, Caption, x, y, w, h, nominimize, nomaximize, 
 
    ENDIF
 #ifdef _PANEL_
-   IF ValType( cPanelParent ) == 'C' .AND. panel == .F.
+   IF ValType( cPanelParent ) == "C" .AND. panel == .F.
       MsgMiniGuiError( "Parent can be specified only for Panel windows." )
    ENDIF
 
@@ -170,15 +170,15 @@ FUNCTION _DefineWindow ( FormName, Caption, x, y, w, h, nominimize, nomaximize, 
 
    ENDIF
 
-   mVar := '_' + FormName
+   mVar := "_" + FormName
 
    ParentHandle := iif( child == .T., _HMG_MainHandle, 0 )
 
 #ifdef _PANEL_
    IF panel == .T.
 
-      IF ValType( cPanelParent ) == 'C'
-         IF GetWindowType ( cPanelParent ) == 'X'
+      IF ValType( cPanelParent ) == "C"
+         IF GetWindowType ( cPanelParent ) == "X"
             MsgMiniGuiError( "Panel Windows Can't Have SplitChild Parent." )
          ENDIF
 
@@ -186,7 +186,7 @@ FUNCTION _DefineWindow ( FormName, Caption, x, y, w, h, nominimize, nomaximize, 
          _HMG_ParentWindowActive := .F.
 
       ELSEIF ! Empty( _HMG_ActiveFormName )
-         IF GetWindowType ( _HMG_ActiveFormName ) == 'X'
+         IF GetWindowType ( _HMG_ActiveFormName ) == "X"
             MsgMiniGuiError( "Panel Windows Can't Have SplitChild Parent." )
          ENDIF
 
@@ -248,11 +248,11 @@ FUNCTION _DefineWindow ( FormName, Caption, x, y, w, h, nominimize, nomaximize, 
       ENDIF
    ENDIF
 
-   IF ValType( aRGB ) != 'C' .AND. IsArrayRGB ( aRGB ) == .F.
+   IF ValType( aRGB ) != "C" .AND. IsArrayRGB ( aRGB ) == .F.
       aRGB := { -1, -1, -1 }
    ENDIF
 
-   IF ValType( icon ) == 'U' .AND. ValType( _HMG_DefaultIconName ) != 'U'
+   IF ValType( icon ) == "U" .AND. ValType( _HMG_DefaultIconName ) != "U"
       icon := _HMG_DefaultIconName
    ENDIF
 
@@ -303,7 +303,7 @@ FUNCTION _DefineWindow ( FormName, Caption, x, y, w, h, nominimize, nomaximize, 
       SendMessage ( htooltip, TTM_SETMAXTIPWIDTH, 0, SetToolTipMaxWidth() )
    ENDIF
 
-   cType := iif( Main == .T., 'A', iif( Child == .T., 'C', iif( Panel == .T., 'P', 'S' ) ) )
+   cType := iif( Main == .T., "A", iif( Child == .T., "C", iif( Panel == .T., "P", "S" ) ) )
 
    k := AScan( _HMG_aFormDeleted, .T. )
 
@@ -364,7 +364,7 @@ FUNCTION _DefineWindow ( FormName, Caption, x, y, w, h, nominimize, nomaximize, 
       _HMG_aFormMinMaxInfo [ k ] := InitMinMaxInfo ( FormHandle )
       _HMG_aFormActivateId [ k ] := 0
       _HMG_aFormMiscData1  [ k ] := {hnotifyicon, cursor, 0}
-      _HMG_aFormMiscData2  [ k ] := ''
+      _HMG_aFormMiscData2  [ k ] := ""
 #ifdef _HMG_COMPAT_
       _HMG_StopWindowEventProcedure [ k ] := .F.
 #endif
@@ -428,7 +428,7 @@ FUNCTION _DefineWindow ( FormName, Caption, x, y, w, h, nominimize, nomaximize, 
       AAdd( _HMG_aFormMinMaxInfo, InitMinMaxInfo ( FormHandle ) )
       AAdd( _HMG_aFormActivateId, 0 )
       AAdd( _HMG_aFormMiscData1, {hnotifyicon, cursor, 0} )
-      AAdd( _HMG_aFormMiscData2, '' )
+      AAdd( _HMG_aFormMiscData2, "" )
 #ifdef _HMG_COMPAT_
       AAdd( _HMG_StopWindowEventProcedure, .F. )
 #endif
@@ -489,7 +489,7 @@ FUNCTION _DefineModalWindow ( FormName, Caption, x, y, w, h, Parent, nosize, nos
    ENDIF
 
    IF _HMG_MainWindowFirst == .T.
-      IF AScan( _HMG_aFormType, 'A' ) == 0
+      IF AScan( _HMG_aFormType, "A" ) == 0
          MsgMiniGuiError( "Main Window is not defined." )
       ENDIF
    ENDIF
@@ -515,7 +515,7 @@ FUNCTION _DefineModalWindow ( FormName, Caption, x, y, w, h, Parent, nosize, nos
 
    ENDIF
 
-   mVar := '_' + FormName
+   mVar := "_" + FormName
 
    _HMG_ActiveFontName := hb_defaultValue( FontName, _HMG_DefaultFontName )
 
@@ -566,11 +566,11 @@ FUNCTION _DefineModalWindow ( FormName, Caption, x, y, w, h, Parent, nosize, nos
       ENDIF
    ENDIF
 
-   IF ValType( aRGB ) != 'C' .AND. IsArrayRGB ( aRGB ) == .F.
+   IF ValType( aRGB ) != "C" .AND. IsArrayRGB ( aRGB ) == .F.
       aRGB := { -1, -1, -1 }
    ENDIF
 
-   IF ValType( icon ) == 'U' .AND. ValType( _HMG_DefaultIconName ) != 'U'
+   IF ValType( icon ) == "U" .AND. ValType( _HMG_DefaultIconName ) != "U"
       icon := _HMG_DefaultIconName
    ENDIF
 
@@ -632,10 +632,10 @@ FUNCTION _DefineModalWindow ( FormName, Caption, x, y, w, h, Parent, nosize, nos
       _HMG_aFormBkColor [ k ] :=  aRGB
       _HMG_aFormPaintProcedure [ k ] :=  PaintProcedure
       _HMG_aFormNoShow [ k ] :=  noshow
-      _HMG_aFormNotifyIconName [ k ] :=  ''
-      _HMG_aFormNotifyIconToolTip [ k ] :=  ''
-      _HMG_aFormNotifyIconLeftClick [ k ] :=  ''
-      _HMG_aFormNotifyIconDblClick [ k ] :=  ''
+      _HMG_aFormNotifyIconName [ k ] :=  ""
+      _HMG_aFormNotifyIconToolTip [ k ] :=  ""
+      _HMG_aFormNotifyIconLeftClick [ k ] :=  ""
+      _HMG_aFormNotifyIconDblClick [ k ] :=  ""
       _HMG_aFormGotFocusProcedure [ k ] :=  GotFocus
       _HMG_aFormLostFocusProcedure [ k ] :=  LostFocus
       _HMG_aFormReBarHandle [ k ] :=  0
@@ -662,7 +662,7 @@ FUNCTION _DefineModalWindow ( FormName, Caption, x, y, w, h, Parent, nosize, nos
       _HMG_aFormMinMaxInfo [ k ] := InitMinMaxInfo ( FormHandle )
       _HMG_aFormActivateId [ k ] := 0
       _HMG_aFormMiscData1  [ k ] := {NIL, cursor, 0}
-      _HMG_aFormMiscData2  [ k ] := ''
+      _HMG_aFormMiscData2  [ k ] := ""
 #ifdef _HMG_COMPAT_
       _HMG_StopWindowEventProcedure [ k ] := .F.
 #endif
@@ -696,10 +696,10 @@ FUNCTION _DefineModalWindow ( FormName, Caption, x, y, w, h, Parent, nosize, nos
       AAdd( _HMG_aFormBkColor, aRGB )
       AAdd( _HMG_aFormPaintProcedure, PaintProcedure )
       AAdd( _HMG_aFormNoShow, noshow )
-      AAdd( _HMG_aFormNotifyIconName, '' )
-      AAdd( _HMG_aFormNotifyIconToolTip, '' )
-      AAdd( _HMG_aFormNotifyIconLeftClick, '' )
-      AAdd( _HMG_aFormNotifyIconDblClick, '' )
+      AAdd( _HMG_aFormNotifyIconName, "" )
+      AAdd( _HMG_aFormNotifyIconToolTip, "" )
+      AAdd( _HMG_aFormNotifyIconLeftClick, "" )
+      AAdd( _HMG_aFormNotifyIconDblClick, "" )
       AAdd( _HMG_aFormGotFocusProcedure, GotFocus )
       AAdd( _HMG_aFormLostFocusProcedure, LostFocus )
       AAdd( _HMG_aFormReBarHandle, 0 )
@@ -726,7 +726,7 @@ FUNCTION _DefineModalWindow ( FormName, Caption, x, y, w, h, Parent, nosize, nos
       AAdd( _HMG_aFormMinMaxInfo, InitMinMaxInfo ( FormHandle ) )
       AAdd( _HMG_aFormActivateId, 0 )
       AAdd( _HMG_aFormMiscData1, {NIL, cursor, 0} )
-      AAdd( _HMG_aFormMiscData2, '' )
+      AAdd( _HMG_aFormMiscData2, "" )
 #ifdef _HMG_COMPAT_
       AAdd( _HMG_StopWindowEventProcedure, .F. )
 #endif
@@ -776,7 +776,7 @@ FUNCTION _DefineSplitChildWindow ( FormName, w, h, break, grippertext, nocaption
    ENDIF
 
    IF _HMG_MainWindowFirst == .T.
-      IF AScan( _HMG_aFormType, 'A' ) == 0
+      IF AScan( _HMG_aFormType, "A" ) == 0
          MsgMiniGuiError( "Main Window is not defined." )
       ENDIF
    ENDIF
@@ -817,7 +817,7 @@ FUNCTION _DefineSplitChildWindow ( FormName, w, h, break, grippertext, nocaption
 
    ParentForm := _HMG_ActiveFormName
 
-   mVar := '_' + FormName
+   mVar := "_" + FormName
 
    _HMG_ActiveFormNameBak := _HMG_ActiveFormName
 
@@ -837,7 +837,7 @@ FUNCTION _DefineSplitChildWindow ( FormName, w, h, break, grippertext, nocaption
          SetWindowCursor( FormHandle, cursor )
       ENDIF
 
-      IF _HMG_SplitLastControl == 'TOOLBAR' .AND. _HMG_ActiveSplitBoxInverted == .F.
+      IF _HMG_SplitLastControl == "TOOLBAR" .AND. _HMG_ActiveSplitBoxInverted == .F.
          Break := .T.
       ENDIF
 
@@ -845,7 +845,7 @@ FUNCTION _DefineSplitChildWindow ( FormName, w, h, break, grippertext, nocaption
 
       nBand := GetBandCount ( _HMG_aFormReBarHandle [i] )
 
-      _HMG_SplitLastControl := 'SPLITCHILD'
+      _HMG_SplitLastControl := "SPLITCHILD"
 
    ENDIF
 
@@ -875,7 +875,7 @@ FUNCTION _DefineSplitChildWindow ( FormName, w, h, break, grippertext, nocaption
       _HMG_aFormNames [ k ] := FormName
       _HMG_aFormHandles [ k ] :=  FormHandle
       _HMG_aFormActive [ k ] :=  .F.
-      _HMG_aFormType [ k ] :=  'X'
+      _HMG_aFormType [ k ] :=  "X"
       _HMG_aFormParentHandle [ k ] :=  GetFormHandle( ParentForm )
       _HMG_aFormReleaseProcedure [ k ] :=  ""
       _HMG_aFormInitProcedure [ k ] :=  ""
@@ -921,7 +921,7 @@ FUNCTION _DefineSplitChildWindow ( FormName, w, h, break, grippertext, nocaption
       _HMG_aFormMinMaxInfo [ k ] := InitMinMaxInfo ( FormHandle )
       _HMG_aFormActivateId [ k ] := 0
       _HMG_aFormMiscData1  [ k ] := {NIL, cursor, 0, nBand, grippertext}
-      _HMG_aFormMiscData2  [ k ] := ''
+      _HMG_aFormMiscData2  [ k ] := ""
 #ifdef _HMG_COMPAT_
       _HMG_StopWindowEventProcedure [ k ] := .F.
 #endif
@@ -939,7 +939,7 @@ FUNCTION _DefineSplitChildWindow ( FormName, w, h, break, grippertext, nocaption
       AAdd( _HMG_aFormNames, FormName )
       AAdd( _HMG_aFormHandles, FormHandle )
       AAdd( _HMG_aFormActive, .F. )
-      AAdd( _HMG_aFormType, 'X' )
+      AAdd( _HMG_aFormType, "X" )
       AAdd( _HMG_aFormParentHandle, GetFormHandle( ParentForm ) )
       AAdd( _HMG_aFormReleaseProcedure, "" )
       AAdd( _HMG_aFormInitProcedure, "" )
@@ -985,7 +985,7 @@ FUNCTION _DefineSplitChildWindow ( FormName, w, h, break, grippertext, nocaption
       AAdd( _HMG_aFormMinMaxInfo, {} )
       AAdd( _HMG_aFormActivateId, 0 )
       AAdd( _HMG_aFormMiscData1, {NIL, cursor, 0, nBand, grippertext} )
-      AAdd( _HMG_aFormMiscData2, '' )
+      AAdd( _HMG_aFormMiscData2, "" )
 #ifdef _HMG_COMPAT_
       AAdd( _HMG_StopWindowEventProcedure, .F. )
 #endif
@@ -1028,7 +1028,7 @@ FUNCTION _SetThisFormInfo ( i )
          lDefine := .F.
 #ifdef _OBJECT_
       ELSEIF HB_ISOBJECT( i )
-         i := iif( i:ClassName == 'TSBROWSE', GetFormIndex( i:cParentWnd ), i:Index )
+         i := iif( i:ClassName == "TSBROWSE", GetFormIndex( i:cParentWnd ), i:Index )
          lDefine := .F.
 #endif
       ENDIF
@@ -1039,8 +1039,8 @@ FUNCTION _SetThisFormInfo ( i )
       _PushEventInfo()
 
       _HMG_ThisFormIndex   := i
-      _HMG_ThisEventType   := iif( lDefine, 'DEFINE_WINDOW', '' )
-      _HMG_ThisType        := iif( lDefine, 'W', _HMG_aFormType [ i ] )
+      _HMG_ThisEventType   := iif( lDefine, "DEFINE_WINDOW", "" )
+      _HMG_ThisType        := iif( lDefine, "W", _HMG_aFormType [ i ] )
       _HMG_ThisIndex       := i
       _HMG_ThisFormName    := _HMG_aFormNames [ _HMG_ThisFormIndex ]
       _HMG_ThisControlName :=  ""
@@ -1065,7 +1065,7 @@ FUNCTION _SetWindowSizePos ( FormName, row, col, width, height )
    height := IFNIL( height, actpos [ 4 ] - actpos [ 2 ], height )
 
 #ifdef _PANEL_
-   IF ISCHARACTER( FormName ) .AND. GetWindowType ( FormName ) == 'P'
+   IF ISCHARACTER( FormName ) .AND. GetWindowType ( FormName ) == "P"
       IF lspang
          col += GetBorderWidth()
          row += GetTitleHeight() + GetBorderHeight()
@@ -1083,7 +1083,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION GetFormIndex ( FormName )
 *-----------------------------------------------------------------------------*
-   LOCAL mVar := '_' + FormName
+   LOCAL mVar := "_" + FormName
 
 #ifdef _NAMES_LIST_
 RETURN _GetNameList ( mVar )
@@ -1096,7 +1096,7 @@ FUNCTION _SetNotifyIconName ( FormName, IconName )
 *-----------------------------------------------------------------------------*
    LOCAL i
 
-   IF ( i := GetFormIndex ( FormName ) ) > 0 .AND. _HMG_aFormType [ i ] == 'A'
+   IF ( i := GetFormIndex ( FormName ) ) > 0 .AND. _HMG_aFormType [ i ] == "A"
 
       IF _HMG_aFormMiscData1 [ i ] [ 1 ] != NIL
          DestroyIcon ( _HMG_aFormMiscData1 [ i ] [ 1 ] )
@@ -1117,7 +1117,7 @@ FUNCTION _SetNotifyIconTooltip ( FormName, TooltipText )
 *-----------------------------------------------------------------------------*
    LOCAL i
 
-   IF ( i := GetFormIndex ( FormName ) ) > 0 .AND. _HMG_aFormType [ i ] == 'A'
+   IF ( i := GetFormIndex ( FormName ) ) > 0 .AND. _HMG_aFormType [ i ] == "A"
 
       IF _HMG_aFormMiscData1 [ i ] [ 1 ] == NIL .AND. ! Empty( _HMG_aFormNotifyIconName [ i ] )
          _HMG_aFormMiscData1 [ i ] [ 1 ] := LoadTrayIcon ( GetResources(), _HMG_aFormNotifyIconName [ i ] )
@@ -1173,7 +1173,7 @@ RETURN ControlHandle
 FUNCTION _EndSplitBox ()
 *-----------------------------------------------------------------------------*
 
-   _HMG_SplitLastControl := 'TOOLBAR'
+   _HMG_SplitLastControl := "TOOLBAR"
    _HMG_ActiveSplitBox := .F.
 
 RETURN NIL
@@ -1227,13 +1227,13 @@ FUNCTION InputBox ( cInputPrompt, cDialogCaption, cDefaultValue, nTimeout, cTime
    LOCAL lIsVistaOrLater := IsVistaOrLater()
    LOCAL nBordW  := iif( lIsVistaOrLater, GetBorderWidth() / 2 + 2, 0 )
    LOCAL nTitleH := GetTitleHeight() + iif( lIsVistaOrLater, GetBorderHeight() / 2 + 2, 0 )
-   LOCAL nMLines := iif( ValType( lMultiLine ) == 'L' .AND. lMultiLine, 150, 0 )
-   LOCAL bCancel := {|| _HMG_DialogCancelled := lCanceled := .T., DoMethod( '_InputBox', 'Release' ) }
-   LOCAL RetVal  := '', lOk := .F.
+   LOCAL nMLines := iif( ValType( lMultiLine ) == "L" .AND. lMultiLine, 150, 0 )
+   LOCAL bCancel := {|| _HMG_DialogCancelled := lCanceled := .T., DoMethod( "_InputBox", "Release" ) }
+   LOCAL RetVal  := "", lOk := .F.
 
-   hb_default( @cInputPrompt, '' )
-   hb_default( @cDialogCaption, '' )
-   hb_default( @cDefaultValue, '' )
+   hb_default( @cInputPrompt, "" )
+   hb_default( @cDialogCaption, "" )
+   hb_default( @cDefaultValue, "" )
 
    DEFINE WINDOW _InputBox;
       AT 0, 0;
@@ -1300,7 +1300,7 @@ STATIC PROCEDURE _InputBoxAdjust ( nTitleH, nBordW )
    _InputBox._Cancel.Row     := nHeight - 48 - nTitleH
    _InputBox._Cancel.Col     := nWidth  - 120 - nBordW
 
-   InvalidateRect( GetFormHandle( '_InputBox' ), 0 )  // GF 11/05/2009
+   InvalidateRect( GetFormHandle( "_InputBox" ), 0 )  // GF 11/05/2009
 
 RETURN
 
@@ -1331,7 +1331,7 @@ FUNCTION _ActivateWindow ( aForm, lNoWait, lDebugger, bInit )
    LOCAL MainFound := .F.
    LOCAL nForm := Len( aForm )
    LOCAL VisibleModalCount := 0
-   LOCAL VisibleModalName := ''
+   LOCAL VisibleModalName := ""
    LOCAL FormName
    LOCAL TmpId
    LOCAL i
@@ -1339,7 +1339,7 @@ FUNCTION _ActivateWindow ( aForm, lNoWait, lDebugger, bInit )
    LOCAL x, FormCount := Len( _HMG_aFormNames )
 #endif
 
-   IF _HMG_ThisEventType == 'WINDOW_RELEASE'
+   IF _HMG_ThisEventType == "WINDOW_RELEASE"
       IF !( "_ALERT" $ ProcName( 1 ) .OR. ProcName( 2 ) == "_ALERT" )
          MsgMiniGuiError( "ACTIVATE WINDOW: activate windows within an ON RELEASE window procedure is not allowed." )
       ENDIF
@@ -1349,11 +1349,11 @@ FUNCTION _ActivateWindow ( aForm, lNoWait, lDebugger, bInit )
       MsgMiniGUIError( "ACTIVATE WINDOW: DEFINE WINDOW Structure is not closed." )
    ENDIF
 
-   IF _HMG_ThisEventType == 'WINDOW_GOTFOCUS'
+   IF _HMG_ThisEventType == "WINDOW_GOTFOCUS"
       MsgMiniGUIError( "ACTIVATE WINDOW / Activate(): Not allowed in window's GOTFOCUS event procedure." )
    ENDIF
 
-   IF _HMG_ThisEventType == 'WINDOW_LOSTFOCUS'
+   IF _HMG_ThisEventType == "WINDOW_LOSTFOCUS"
       MsgMiniGUIError( "ACTIVATE WINDOW / Activate(): Not allowed in window's LOSTFOCUS event procedure." )
    ENDIF
 
@@ -1362,9 +1362,9 @@ FUNCTION _ActivateWindow ( aForm, lNoWait, lDebugger, bInit )
 
       i := GetFormIndex ( FormName )
 
-      Do_WindowEventProcedure( bInit, i, 'WINDOW_ACTIVATE' )
+      Do_WindowEventProcedure( bInit, i, "WINDOW_ACTIVATE" )
 
-      IF _HMG_aFormType [ i ] == 'A'
+      IF _HMG_aFormType [ i ] == "A"
          MainFound := .T.
          EXIT
       ENDIF
@@ -1410,7 +1410,7 @@ FUNCTION _ActivateWindow ( aForm, lNoWait, lDebugger, bInit )
          ENDIF
 
 #ifdef _PANEL_
-         IF GetWindowType ( FormName ) == 'P'
+         IF GetWindowType ( FormName ) == "P"
             MsgMiniGUIError( "Panel Windows can't be explicity activated (They are activated via its parent)." )
          ENDIF
 #endif
@@ -1419,7 +1419,7 @@ FUNCTION _ActivateWindow ( aForm, lNoWait, lDebugger, bInit )
 #ifdef _PANEL_
          FOR x := 1 TO FormCount
 
-            IF _HMG_aFormType [ x ] == 'P' .AND. _HMG_aFormParentHandle [ x ] == _HMG_aFormHandles [ i ]
+            IF _HMG_aFormType [ x ] == "P" .AND. _HMG_aFormParentHandle [ x ] == _HMG_aFormHandles [ i ]
 
                * If NOSHOW Clause Is Not Specified, Show The Panel Window
                IF _HMG_aFormNoShow [ x ] == .F.
@@ -1484,7 +1484,7 @@ FUNCTION _ActivateWindow ( aForm, lNoWait, lDebugger, bInit )
       ENDIF
 
 #ifdef _PANEL_
-      IF GetWindowType ( FormName ) == 'P'
+      IF GetWindowType ( FormName ) == "P"
          MsgMiniGUIError( "Panel Windows can't be explicity activated (They are activated via its parent)." )
       ENDIF
 #endif
@@ -1493,7 +1493,7 @@ FUNCTION _ActivateWindow ( aForm, lNoWait, lDebugger, bInit )
 #ifdef _PANEL_
       FOR x := 1 TO FormCount
 
-         IF _HMG_aFormType [ x ] == 'P' .AND. _HMG_aFormParentHandle [ x ] == _HMG_aFormHandles [ i ]
+         IF _HMG_aFormType [ x ] == "P" .AND. _HMG_aFormParentHandle [ x ] == _HMG_aFormHandles [ i ]
 
             * If NOSHOW Clause Is Not Specified, Show The Panel Window
             IF _HMG_aFormNoShow [ x ] == .F.
@@ -1570,7 +1570,7 @@ RETURN NIL
 FUNCTION _ActivateAllWindows ( bInit )
 *-----------------------------------------------------------------------------*
    LOCAL aForm := {}
-   LOCAL MainName := ''
+   LOCAL MainName := ""
    LOCAL FormName
    LOCAL i
 
@@ -1588,9 +1588,9 @@ FUNCTION _ActivateAllWindows ( bInit )
 
       IF _HMG_aFormDeleted [ i ] == .F.
 
-         IF ! _HMG_aFormType [ i ] $ 'XP'
+         IF ! _HMG_aFormType [ i ] $ "XP"
 
-            IF _HMG_aFormType [ i ] == 'A'
+            IF _HMG_aFormType [ i ] == "A"
                _HMG_aFormNoShow [ i ] := .F.
                _HMG_aFormAutoRelease [ i ] := .T.
                MainName := FormName
@@ -1636,7 +1636,7 @@ PROCEDURE _RefreshDataControls ( i )
       v := _HMG_aControlValue [ ControlIndex ]
       _Refresh ( ControlIndex )
 
-      IF _HMG_aControlType [ControlIndex ] $ 'COMBO,BROWSE'
+      IF _HMG_aControlType [ControlIndex ] $ "COMBO,BROWSE"
          _SetValue ( , , v, ControlIndex )
       ENDIF
 
@@ -1651,7 +1651,7 @@ PROCEDURE _RefreshDataControls ( i )
             v := _HMG_aControlValue [ ControlIndex ]
             _Refresh ( ControlIndex )
 
-            IF _HMG_aControlType [ ControlIndex ] $ 'COMBO,BROWSE'
+            IF _HMG_aControlType [ ControlIndex ] $ "COMBO,BROWSE"
                _SetValue ( , , v, ControlIndex )
             ENDIF
 
@@ -1679,7 +1679,7 @@ PROCEDURE _SetActivationFlag ( i )
       DragAcceptFiles ( _HMG_aFormHandles [i], .T. )
    ENDIF
 
-   IF _HMG_aFormType [i] == 'A' .AND. ! _HMG_aFormNoShow [i] .AND. ! IsInsertActive ()
+   IF _HMG_aFormType [i] == "A" .AND. ! _HMG_aFormNoShow [i] .AND. ! IsInsertActive ()
 
       FOR EACH FormName IN _HMG_aFormNames
 
@@ -1687,7 +1687,7 @@ PROCEDURE _SetActivationFlag ( i )
 
          IF _HMG_aFormDeleted [i] == .F.
 
-            IF ! _HMG_aFormType [i] $ 'AXP'
+            IF ! _HMG_aFormType [i] $ "AXP"
 
                IF _HMG_aFormAutoRelease [i] == .F.
                   NoAutoReleaseFound := .T.
@@ -1718,9 +1718,9 @@ PROCEDURE _ProcessInitProcedure ( i )
 
       _PushEventInfo()
 
-      _HMG_ThisEventType := 'WINDOW_INIT'
+      _HMG_ThisEventType := "WINDOW_INIT"
       _HMG_ThisFormIndex := i
-      _HMG_ThisType := 'W'
+      _HMG_ThisType := "W"
       _HMG_ThisIndex := i
       _HMG_ThisFormName := _HMG_aFormNames[ _HMG_ThisFormIndex ]
       _HMG_ThisControlName := ""
@@ -1802,7 +1802,7 @@ PROCEDURE _SetActivationFocus ( i )
             IF ISNUMBER ( hControl )
                IF hControl == Sp ;
                   .OR. ;
-                  _HMG_aControlType [x] == 'BUTTON' .AND. IsWindowHasStyle ( hControl, BS_DEFPUSHBUTTON )
+                  _HMG_aControlType [x] == "BUTTON" .AND. IsWindowHasStyle ( hControl, BS_DEFPUSHBUTTON )
                   _SetFocus ( , , x )
                   FocusDefined := .T.
                   EXIT
@@ -1846,7 +1846,7 @@ STATIC FUNCTION _GenActivateId ( nForm )
    REPEAT
 
       TmpId := Int( Seconds() * 100 )
-      TmpStr := '_HMG_ACTIVATE_' + hb_ntos ( TmpId )
+      TmpStr := "_HMG_ACTIVATE_" + hb_ntos ( TmpId )
 
 #ifdef _NAMES_LIST_
    UNTIL ( _GetNameList ( TmpStr ) > 0 )
@@ -1943,12 +1943,12 @@ FUNCTION _DoControlEventProcedure ( bBlock, i, cEventType, nParam, nParam2 )
    IF ISBLOCK ( bBlock )
       _PushEventInfo()
       _HMG_ThisFormIndex := AScan( _HMG_aFormHandles, _HMG_aControlParentHandles [ i ] )
-      _HMG_ThisType := 'C'
+      _HMG_ThisType := "C"
       _HMG_ThisIndex := i
       _HMG_ThisFormName := _HMG_aFormNames[ _HMG_ThisFormIndex ]
       _HMG_ThisControlName := _HMG_aControlNames[ _HMG_ThisIndex ]
 
-      IF _HMG_BeginWindowActive == .F. .OR. !( hb_defaultValue( cEventType, '' ) == 'CONTROL_ONCHANGE' ) .OR. _HMG_MainClientMDIHandle != 0
+      IF _HMG_BeginWindowActive == .F. .OR. !( hb_defaultValue( cEventType, "" ) == "CONTROL_ONCHANGE" ) .OR. _HMG_MainClientMDIHandle != 0
          lRetVal := Eval( bBlock, hb_defaultValue( nParam, 0 ), nParam2 )
       ENDIF
 
@@ -1976,8 +1976,8 @@ FUNCTION _DoWindowEventProcedure ( bBlock, i, cEventType )
    IF ISBLOCK( bBlock )
       _PushEventInfo()
       _HMG_ThisFormIndex := i
-      _HMG_ThisEventType := hb_defaultValue( cEventType, '' )
-      _HMG_ThisType := 'W'
+      _HMG_ThisEventType := hb_defaultValue( cEventType, "" )
+      _HMG_ThisType := "W"
       _HMG_ThisIndex := i
       _HMG_ThisFormName := _HMG_aFormNames[ _HMG_ThisFormIndex ]
       _HMG_ThisControlName :=  ""
@@ -2201,7 +2201,7 @@ FUNCTION _IsWindowActive ( FormName )
 
    IF ISCHARACTER( FormName )
 
-      mVar := '_' + _NoQuote( FormName )
+      mVar := "_" + _NoQuote( FormName )
 
 #ifdef _NAMES_LIST_
       i := _GetNameList ( mVar )
@@ -2231,7 +2231,7 @@ FUNCTION _IsWindowDefined ( FormName )
 
    IF ISCHARACTER( FormName )
 
-      mVar := '_' + _NoQuote( FormName )
+      mVar := "_" + _NoQuote( FormName )
 
 #ifdef _NAMES_LIST_
       i := _GetNameList ( mVar )
@@ -2259,7 +2259,7 @@ FUNCTION GetWindowType ( FormName )
    LOCAL i
 
    IF ( i := GetFormIndex ( FormName ) ) == 0
-      RETURN ''
+      RETURN ""
    ENDIF
 
 RETURN ( _HMG_aFormType [ i ] )
@@ -2280,7 +2280,7 @@ FUNCTION GetFormName ( FormName )
    ENDIF
 
    IF ( i := GetFormIndex ( FormName ) ) == 0
-      RETURN ''
+      RETURN ""
    ENDIF
 
 RETURN ( _HMG_aFormNames [ i ] )
@@ -2318,7 +2318,7 @@ FUNCTION ReleaseAllWindows ()
    LOCAL ControlType
    LOCAL i
 
-   IF _HMG_ThisEventType == 'WINDOW_RELEASE'
+   IF _HMG_ThisEventType == "WINDOW_RELEASE"
       MsgMiniGuiError ( "Release a window in its own ON RELEASE procedure or release the Main Window in any ON RELEASE procedure is not allowed." )
    ENDIF
 
@@ -2330,7 +2330,7 @@ FUNCTION ReleaseAllWindows ()
 
          IF ErrorLevel() == 0
 
-            _DoWindowEventProcedure ( _HMG_aFormReleaseProcedure [ i ], i, 'WINDOW_RELEASE' )
+            _DoWindowEventProcedure ( _HMG_aFormReleaseProcedure [ i ], i, "WINDOW_RELEASE" )
 
             IF _HMG_lOOPEnabled
                Eval( _HMG_bOnFormDestroy, i )
@@ -2340,7 +2340,7 @@ FUNCTION ReleaseAllWindows ()
 
          IF ! Empty( _HMG_aFormNotifyIconName [ i ] )
 
-            _HMG_aFormNotifyIconName [ i ] := ''
+            _HMG_aFormNotifyIconName [ i ] := ""
             ShowNotifyIcon ( FormHandle, .F., NIL, NIL )
 
          ENDIF
@@ -2372,15 +2372,15 @@ FUNCTION ReleaseAllWindows ()
       IF _HMG_aControlDeleted [ i ] == .F.
 
          DO CASE
-         CASE ControlType == 'HOTKEY'
+         CASE ControlType == "HOTKEY"
 
             ReleaseHotKey ( _HMG_aControlParentHandles [ i ] , _HMG_aControlIds [ i ] )
 
-         CASE ControlType == 'FONT'
+         CASE ControlType == "FONT"
 
             _EraseFontDef ( i )
 
-         CASE ControlType == 'ANIGIF'
+         CASE ControlType == "ANIGIF"
 
             _ReleaseAniGif ( _HMG_aControlNames [ i ], GetParentFormName( i ) )
 
@@ -2441,7 +2441,7 @@ FUNCTION _ReleaseWindow ( FormName )
       MsgMiniGuiError( "Window: " + FormName + " is not active." )
    ENDIF
 
-   IF _HMG_ThisEventType == 'WINDOW_RELEASE'
+   IF _HMG_ThisEventType == "WINDOW_RELEASE"
       IF GetFormIndex ( FormName ) == _HMG_ThisIndex
          MsgMiniGuiError( "Release a window in its own ON RELEASE procedure or release the Main Window in any ON RELEASE procedure is not allowed." )
       ENDIF
@@ -2449,9 +2449,9 @@ FUNCTION _ReleaseWindow ( FormName )
 
    * If the window to release is the main application window, RELEASE ALL WINDOWS command will be executed
 
-   IF GetWindowType ( FormName ) == 'A'
+   IF GetWindowType ( FormName ) == "A"
 
-      IF _HMG_ThisEventType == 'WINDOW_RELEASE'
+      IF _HMG_ThisEventType == "WINDOW_RELEASE"
          MsgMiniGuiError( "Release a window in its own ON RELEASE procedure or release the Main Window in any ON RELEASE procedure is not allowed." )
       ELSE
          ReleaseAllWindows()
@@ -2460,7 +2460,7 @@ FUNCTION _ReleaseWindow ( FormName )
    ENDIF
 
 #ifdef _PANEL_
-   IF GetWindowType ( FormName ) == 'P'
+   IF GetWindowType ( FormName ) == "P"
       MsgMiniGuiError( "Release a PANEL window is not allowed (It wiil be released via its parent)." )
    ENDIF
 #endif
@@ -2471,7 +2471,7 @@ FUNCTION _ReleaseWindow ( FormName )
 
    * Release Window
 
-   IF _HMG_aFormType [ i ] == 'M' .AND. _HMG_ActiveModalHandle <> FormHandle
+   IF _HMG_aFormType [ i ] == "M" .AND. _HMG_ActiveModalHandle <> FormHandle
 
       EnableWindow ( FormHandle )
       PostMessage ( FormHandle, WM_CLOSE, 0, 1 )
@@ -2518,7 +2518,7 @@ FUNCTION _ShowWindow ( FormName, lProcessMessages )
 
       ENDIF
 
-      AEval( _HMG_aFormHandles, { |y, x| iif( x <> i .AND. ! _HMG_aFormType [ x ] $ 'XP' .AND. ;
+      AEval( _HMG_aFormHandles, { |y, x| iif( x <> i .AND. ! _HMG_aFormType [ x ] $ "XP" .AND. ;
          _HMG_aFormParentHandle [ x ] != _HMG_aFormHandles [ i ], DisableWindow ( _HMG_aFormHandles [ x ] ), ), HB_SYMBOL_UNUSED( y ) } )
 
       IF Len( _HMG_aFormSplitChildList [ i ] ) > 0
@@ -2568,7 +2568,7 @@ FUNCTION _HideWindow ( FormName )
 
       IF IsWindowVisible ( FormHandle )
 
-         IF _HMG_aFormType [ i ] == 'M'
+         IF _HMG_aFormType [ i ] == "M"
 
             IF _HMG_ActiveModalHandle <> FormHandle
                MsgMiniGuiError ( "Non top modal windows can't be hide." )
@@ -2717,7 +2717,7 @@ PROCEDURE _ShowSplashWindow ( cImage, nDelay, bOnInit, bOnRelease )
 
    ELSE
 
-      DoMethod ( App.FormName, 'Show' )
+      DoMethod ( App.FormName, "Show" )
 
    ENDIF
 

@@ -11,10 +11,10 @@
 INIT PROCEDURE _InitSPButton
 *------------------------------------------------------------------------------*
 
-   InstallEventHandler  ( 'SPButtonEventHandler' )
-   InstallMethodHandler ( 'SetFocus', 'SPButtonSetFocus' )
-   InstallMethodHandler ( 'Enable', 'SPButtonEnable' )
-   InstallMethodHandler ( 'Disable', 'SPButtonDisable' )
+   InstallEventHandler  ( "SPButtonEventHandler" )
+   InstallMethodHandler ( "SetFocus", "SPButtonSetFocus" )
+   InstallMethodHandler ( "Enable", "SPButtonEnable" )
+   InstallMethodHandler ( "Disable", "SPButtonDisable" )
 
 RETURN
 
@@ -55,7 +55,7 @@ PROCEDURE _DefineSplitButton ( cName, nRow, nCol, cCaption, bAction, cParent, ;
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
-   mVar := '_' + cParent + '_' + cName
+   mVar := "_" + cParent + "_" + cName
 
    k := _GetControlFree()
    nId := _GetId()
@@ -90,7 +90,7 @@ PROCEDURE _DefineSplitButton ( cName, nRow, nCol, cCaption, bAction, cParent, ;
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := 'SPBUTTON'
+   _HMG_aControlType [k] := "SPBUTTON"
    _HMG_aControlNames [k] := cName
    _HMG_aControlHandles [k] := hControlHandle
    _HMG_aControlParenthandles [k] := hParentFormHandle
@@ -129,7 +129,7 @@ PROCEDURE _DefineSplitButton ( cName, nRow, nCol, cCaption, bAction, cParent, ;
    _HMG_aControlBrushHandle [k] :=  0
    _HMG_aControlEnabled [k] :=  .T.
    _HMG_aControlMiscData1 [k] := 0
-   _HMG_aControlMiscData2 [k] := ''
+   _HMG_aControlMiscData2 [k] := ""
 
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
@@ -165,7 +165,7 @@ FUNCTION SPButtonEventHandler ( hWnd, nMsg, wParam, lParam )
 
       i := AScan( _HMG_aControlHandles, lParam )
 
-      IF i > 0 .AND. _HMG_aControlType[ i ] == 'SPBUTTON'
+      IF i > 0 .AND. _HMG_aControlType[ i ] == "SPBUTTON"
 
          IF HiWord ( wParam ) == BN_CLICKED
             xRetVal := 0
@@ -189,7 +189,7 @@ PROCEDURE SPButtonSetFocus ( cWindow, cControl )
    LOCAL ControlCount
    LOCAL x
 
-   IF GetControlType ( cControl, cWindow ) == 'SPBUTTON'
+   IF GetControlType ( cControl, cWindow ) == "SPBUTTON"
 
       _HMG_UserComponentProcess := .T.
 
@@ -198,7 +198,7 @@ PROCEDURE SPButtonSetFocus ( cWindow, cControl )
       ControlCount := Len( _HMG_aControlNames )
       ParentFormHandle := _HMG_aControlParentHandles [ GetControlIndex ( cControl, cWindow ) ]
       FOR x := 1 TO ControlCount
-         IF _HMG_aControlType [x] == 'SPBUTTON'
+         IF _HMG_aControlType [x] == "SPBUTTON"
             IF _HMG_aControlParentHandles [x] == ParentFormHandle
                SendMessage ( _HMG_aControlHandles [x], BM_SETSTYLE, BS_SPLITBUTTON, LOWORD(1) )
             ENDIF
@@ -220,7 +220,7 @@ RETURN
 PROCEDURE SPButtonEnable ( cWindow, cControl )
 *------------------------------------------------------------------------------*
 
-   IF GetControlType ( cControl, cWindow ) == 'SPBUTTON'
+   IF GetControlType ( cControl, cWindow ) == "SPBUTTON"
 
       EnableWindow ( GetControlHandle ( cControl, cWindow ) )
 
@@ -238,7 +238,7 @@ RETURN
 PROCEDURE SPButtonDisable ( cWindow, cControl )
 *------------------------------------------------------------------------------*
 
-   IF GetControlType ( cControl, cWindow ) == 'SPBUTTON'
+   IF GetControlType ( cControl, cWindow ) == "SPBUTTON"
 
       DisableWindow ( GetControlHandle ( cControl, cWindow ) )
 

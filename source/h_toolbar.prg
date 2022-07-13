@@ -75,7 +75,7 @@ FUNCTION _DefineToolBar ( ControlName, ParentForm, x, y, caption, ProcedureName,
 
    _HMG_ActiveToolBarBreak := break
 
-   mVar := '_' + ParentForm + '_' + ControlName
+   mVar := "_" + ParentForm + "_" + ControlName
 
    cParentForm := ParentForm
 
@@ -84,7 +84,7 @@ FUNCTION _DefineToolBar ( ControlName, ParentForm, x, y, caption, ProcedureName,
    Id := _GetId()
 
    IF _HMG_ActiveSplitBox
-      _HMG_SplitLastControl := 'TOOLBAR'
+      _HMG_SplitLastControl := "TOOLBAR"
    ENDIF
 
    _HMG_ActiveToolBarCaption := Caption
@@ -143,10 +143,10 @@ FUNCTION _DefineToolBar ( ControlName, ParentForm, x, y, caption, ProcedureName,
    _HMG_aControlContainerCol  [k] :=  -1
    _HMG_aControlPicture   [k] := ""
    _HMG_aControlContainerHandle  [k] :=  0
-   _HMG_aControlFontName  [k] :=  ''
+   _HMG_aControlFontName  [k] :=  ""
    _HMG_aControlFontSize   [k] := 0
    _HMG_aControlFontAttributes  [k] :=  { .F. , .F. , .F. , .F. }
-   _HMG_aControlToolTip  [k] :=  ''
+   _HMG_aControlToolTip  [k] :=  ""
    _HMG_aControlRangeMin [k] :=  tbsize
    _HMG_aControlRangeMax [k] :=  iif( wrap, 1, 0 )
    _HMG_aControlCaption  [k] :=  Caption
@@ -156,7 +156,7 @@ FUNCTION _DefineToolBar ( ControlName, ParentForm, x, y, caption, ProcedureName,
    _HMG_aControlBrushHandle [k] :=  0
    _HMG_aControlEnabled  [k] :=  .T.
    _HMG_aControlMiscData1 [k] :=  0
-   _HMG_aControlMiscData2 [k] :=  ''
+   _HMG_aControlMiscData2 [k] :=  ""
 
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
@@ -222,11 +222,11 @@ FUNCTION _DefineToolButton ( ControlName, ParentControl, x, y, Caption, Procedur
 
    HB_SYMBOL_UNUSED( Flat )
 
-   IF ValType( ProcedureName ) == 'U' .AND. Dropdown == .T.
+   IF ValType( ProcedureName ) == "U" .AND. Dropdown == .T.
       MsgMiniGuiError ( "ToolBar DropDown buttons must have an associated action (Use WholeDropDown style for no action)." )
    ENDIF
 
-   IF ValType( ProcedureName ) != 'U' .AND. WholeDropDown == .T.
+   IF ValType( ProcedureName ) != "U" .AND. WholeDropDown == .T.
       MsgMiniGuiError ( "ToolBar Action and WholeDropDown clauses can't be used simultaneously." )
    ENDIF
 
@@ -235,7 +235,7 @@ FUNCTION _DefineToolButton ( ControlName, ParentControl, x, y, Caption, Procedur
    cParentForm := ParentForm
    hParentForm := GetFormHandle ( ParentForm )
 
-   mVar := '_' + ParentForm + '_' + ControlName
+   mVar := "_" + ParentForm + "_" + ControlName
 
    ParentForm := GetControlHandle ( ParentControl, ParentForm )
 
@@ -302,7 +302,7 @@ FUNCTION _DefineToolButton ( ControlName, ParentControl, x, y, Caption, Procedur
    _HMG_aControlContainerCol  [k] :=  -1
    _HMG_aControlPicture  [k] := image
    _HMG_aControlContainerHandle  [k] :=  ParentForm
-   _HMG_aControlFontName  [k] :=  ''
+   _HMG_aControlFontName  [k] :=  ""
    _HMG_aControlFontSize   [k] :=  0
    _HMG_aControlFontAttributes  [k] :=  { .F. , .F. , .F. , .F. }
    _HMG_aControlToolTip  [k] :=  tooltip
@@ -315,7 +315,7 @@ FUNCTION _DefineToolButton ( ControlName, ParentControl, x, y, Caption, Procedur
    _HMG_aControlBrushHandle  [k] :=  0
    _HMG_aControlEnabled  [k] :=  .T.
    _HMG_aControlMiscData1 [k] :=  iif( _HMG_ActiveToolBarExtend, 1, 0 )
-   _HMG_aControlMiscData2 [k] :=  ''
+   _HMG_aControlMiscData2 [k] :=  ""
 
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
@@ -323,7 +323,7 @@ FUNCTION _DefineToolButton ( ControlName, ParentControl, x, y, Caption, Procedur
 
    Caption := Upper( Caption )
 
-   IF ( i := hb_UAt ( '&' , Caption ) ) > 0
+   IF ( i := hb_UAt ( "&" , Caption ) ) > 0
 
       IF WholeDropDown == .T.
          nToolBarIndex := AScan( _HMG_aControlHandles , ParentForm )
@@ -385,7 +385,7 @@ FUNCTION _BeginToolBar ( name, parent, row, col, w, h, caption, ProcedureName, f
       __defaultNIL( @FontSize, _HMG_ActiveFontSize )
    ENDIF
 
-   IF ValType( parent ) == 'U'
+   IF ValType( parent ) == "U"
       parent := _HMG_ActiveFormName
    ENDIF
 
@@ -396,7 +396,7 @@ FUNCTION _BeginToolBar ( name, parent, row, col, w, h, caption, ProcedureName, f
    hb_default( @h, 0 )
    hb_default( @wrap, .F. )
 
-   IF ValType( break ) == 'U'
+   IF ValType( break ) == "U"
       break := ! _HMG_ActiveSplitBox
    ENDIF
 
@@ -422,7 +422,7 @@ FUNCTION _BeginToolBarEx( name, parent, row, col, w, h, caption, ProcedureName, 
       __defaultNIL( @FontSize, _HMG_ActiveFontSize )
    ENDIF
 
-   IF ValType( parent ) == 'U'
+   IF ValType( parent ) == "U"
       parent := _HMG_ActiveFormName
    ENDIF
 
@@ -435,19 +435,19 @@ FUNCTION _BeginToolBarEx( name, parent, row, col, w, h, caption, ProcedureName, 
    hb_default( @tbsize, 0 )
    hb_default( @wrap, .F. )
 
-   IF ValType( imagelst ) != 'U'
-      IF ValType( imagelst ) == 'C'
+   IF ValType( imagelst ) != "U"
+      IF ValType( imagelst ) == "C"
          imagelst := GetControlHandle ( imagelst , parent )
       ENDIF
    ENDIF
 
-   IF ValType( hotimagelst ) != 'U'
-      IF ValType( hotimagelst ) == 'C'
+   IF ValType( hotimagelst ) != "U"
+      IF ValType( hotimagelst ) == "C"
          hotimagelst := GetControlHandle ( hotimagelst , parent )
       ENDIF
    ENDIF
 
-   IF ValType( break ) == 'U'
+   IF ValType( break ) == "U"
       break := ! _HMG_ActiveSplitBox
    ENDIF
 
@@ -486,7 +486,7 @@ FUNCTION _CreatePopUpChevron ( hWnd, wParam, lParam )
             ELSEIF ! Empty( _HMG_aControlCaption [k] )
                cMenu := _HMG_aControlCaption [k]
             ELSE
-               cMenu := 'Button ' + hb_ntos( n )
+               cMenu := "Button " + hb_ntos( n )
             ENDIF
 
             AppendMenuString ( hMenu, aBtnInfo [2], cMenu )

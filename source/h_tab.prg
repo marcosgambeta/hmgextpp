@@ -87,11 +87,11 @@ FUNCTION _BeginTab( ControlName, ParentFormName, row, col, w, h, value, f, s, to
       _HMG_bOnInit AS GLOBAL VALUE bInit, ;
       _HMG_ActiveTabImage_NoTransparent AS GLOBAL VALUE NoTrans
 
-   IF ValType( ParentFormName ) == 'U'
+   IF ValType( ParentFormName ) == "U"
       ParentFormName := _HMG_ActiveFormName
    ENDIF
 
-   IF ValType( value ) == 'U' .OR. value < 1
+   IF ValType( value ) == "U" .OR. value < 1
       value := 1
    ENDIF
 
@@ -133,7 +133,7 @@ FUNCTION _BeginTab( ControlName, ParentFormName, row, col, w, h, value, f, s, to
    _HMG_ActiveTabUnderline       := Underline
    _HMG_ActiveTabStrikeout       := Strikeout
 
-   aEval( aMnemonic, { |x, i| HB_SYMBOL_UNUSED( x ), aMnemonic[i] := &( '{|| _SetValue("' + ControlName + '","' + ParentFormName + '",' + hb_ntos(i) + ') }' ) } )
+   aEval( aMnemonic, { |x, i| HB_SYMBOL_UNUSED( x ), aMnemonic[i] := &( "{|| _SetValue(" + Chr(34) + ControlName + Chr(34) + "," + Chr(34) + ParentFormName + Chr(34) + "," + hb_ntos(i) + ") }" ) } )
 
    _HMG_ActiveTabMnemonic := aMnemonic
 
@@ -186,7 +186,7 @@ STATIC FUNCTION _DefineTab( ControlName, ParentFormName, x, y, w, h, aCaptions, 
       vertical := .F.
    ENDIF
 
-   mVar := '_' + ParentFormName + '_' + ControlName
+   mVar := "_" + ParentFormName + "_" + ControlName
    k := _GetControlFree()
 
    IF _HMG_BeginDialogActive
@@ -217,7 +217,7 @@ STATIC FUNCTION _DefineTab( ControlName, ParentFormName, x, y, w, h, aCaptions, 
       nId := _HMG_ActiveTabnId
 
       IF Len( _HMG_aDialogTemplate ) > 0        //Dialog Template
-         //          {{'ID',k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
+         //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {|x, y, z| InitDialogTab( x, y, z ) }
          AAdd( _HMG_aDialogItems, { _HMG_ActiveTabnId, k, "SysTabControl32", style, 0, ;
             _HMG_ActiveTabCol, _HMG_ActiveTabRow, _HMG_ActiveTabWidth, _HMG_ActiveTabHeight, "", ;
@@ -241,7 +241,7 @@ STATIC FUNCTION _DefineTab( ControlName, ParentFormName, x, y, w, h, aCaptions, 
 
       ParentFormHandle := GetFormHandle ( ParentFormName )
 
-      ControlHandle := InitTabControl ( ParentFormHandle, 0, x, y, w, h, aCaptions, value, '', 0, Buttons, Flat, HotTrack, Vertical, Bottom, Multiline, ISARRAY( backcolor[1] ), notabstop )
+      ControlHandle := InitTabControl ( ParentFormHandle, 0, x, y, w, h, aCaptions, value, "", 0, Buttons, Flat, HotTrack, Vertical, Bottom, Multiline, ISARRAY( backcolor[1] ), notabstop )
 
       IF ISARRAY( backcolor[1] )
          hBrush := CreateSolidBrush( backcolor[1][1], backcolor[1][2], backcolor[1][3] )
@@ -309,7 +309,7 @@ STATIC FUNCTION _DefineTab( ControlName, ParentFormName, x, y, w, h, aCaptions, 
    _HMG_aControlBrushHandle  [k] :=  hBrush
    _HMG_aControlEnabled   [k] :=  .T.
    _HMG_aControlMiscData1 [k] :=  { 0, ImageFlag, aMnemonic, Bottom, HotTrack, backcolor [2], backcolor [3], NoTrans }
-   _HMG_aControlMiscData2 [k] :=  ''
+   _HMG_aControlMiscData2 [k] :=  ""
 
    IF Len( _HMG_aDialogTemplate ) == 0   //Dialog Template
       InitDialogTab( ParentFormName, ControlHandle, k )
@@ -358,7 +358,7 @@ FUNCTION InitDialogTab( ParentName, ControlHandle, k )
 
       Caption := Upper( c )
 
-      IF ( i := hb_UAt ( '&' , Caption ) ) > 0
+      IF ( i := hb_UAt ( "&" , Caption ) ) > 0
          _DefineLetterOrDigitHotKey ( Caption, i, ParentName, aMnemonic [ hb_enumindex( c ) ] )
       ENDIF
 
@@ -487,14 +487,14 @@ STATIC FUNCTION _IsControlVisibleFromHandle ( Handle )
 
    FOR EACH hControl IN _HMG_aControlHandles
 
-      IF ValType( hControl ) == 'N'
+      IF ValType( hControl ) == "N"
 
          IF hControl == Handle
             lVisible := _HMG_aControlVisible [ hb_enumindex( hControl ) ]
             EXIT
          ENDIF
 
-      ELSEIF ValType( hControl ) == 'A'
+      ELSEIF ValType( hControl ) == "A"
 
          IF hControl [1] == Handle
             lVisible := _HMG_aControlVisible [ hb_enumindex( hControl ) ]
@@ -518,12 +518,12 @@ FUNCTION _BeginTabPage ( caption , image , tooltip )
    AAdd( _HMG_ActiveTabCaptions , caption )
    AAdd( _HMG_ActiveTabImages , image )
    // JR
-   IF ValType( tooltip ) == 'C'
+   IF ValType( tooltip ) == "C"
 
-      IF ValType( _HMG_ActiveTabTooltip ) <> 'A'
+      IF ValType( _HMG_ActiveTabTooltip ) <> "A"
 
          _HMG_ActiveTabTooltip := Array( _HMG_ActiveTabPage )
-         AFill( _HMG_ActiveTabTooltip, '' )
+         AFill( _HMG_ActiveTabTooltip, "" )
          _HMG_ActiveTabTooltip[ _HMG_ActiveTabPage ] := tooltip  // JP
 
       ELSE
@@ -532,14 +532,14 @@ FUNCTION _BeginTabPage ( caption , image , tooltip )
 
       ENDIF
 
-   ELSEIF ValType( _HMG_ActiveTabTooltip ) == 'A'
+   ELSEIF ValType( _HMG_ActiveTabTooltip ) == "A"
 
-      AAdd( _HMG_ActiveTabTooltip, '' )
+      AAdd( _HMG_ActiveTabTooltip, "" )
 
    ELSE  // GF 11/04/2009
 
       _HMG_ActiveTabTooltip := Array( _HMG_ActiveTabPage )
-      AFill( _HMG_ActiveTabTooltip, '' )
+      AFill( _HMG_ActiveTabTooltip, "" )
 
    ENDIF
 
@@ -573,7 +573,7 @@ FUNCTION _EndTab()
       _HMG_ActiveTabImages, _HMG_ActiveTabMultiline, _HMG_ActiveTabColor, _HMG_ActiveTabnId, ;
       _SetGetGlobal( "_HMG_bOnInit" ), _SetGetGlobal( "_HMG_ActiveTabImage_NoTransparent" ) )
 
-   _DelGlobal( "_HMG_bOnInit" ) ; _DelGlobal( '_HMG_ActiveTabImage_NoTransparent' )
+   _DelGlobal( "_HMG_bOnInit" ) ; _DelGlobal( "_HMG_ActiveTabImage_NoTransparent" )
    _HMG_BeginTabActive := .F.
    _HMG_FrameLevel--
 
@@ -603,11 +603,11 @@ FUNCTION _AddTabPage ( ControlName , ParentForm , Position , Caption , Image , t
       aMnemonic := _HMG_aControlMiscData1 [i,3]
       ASize( aMnemonic , Len( _HMG_aControlCaption [i] ) )
 
-      aEval( aMnemonic, { |x, i| HB_SYMBOL_UNUSED( x ), aMnemonic[i] := &( '{|| _SetValue("' + ControlName + '","' + ParentForm + '",' + hb_ntos(i) + ') }' ) } )
+      aEval( aMnemonic, { |x, i| HB_SYMBOL_UNUSED( x ), aMnemonic[i] := &( "{|| _SetValue(" + Chr(34) + ControlName + Chr(34) + "," + Chr(34) + ParentForm + Chr(34) + "," + hb_ntos(i) + ") }" ) } )
 
       FOR EACH c IN _HMG_aControlCaption [i]
          Caption := Upper( c )
-         IF ( x := hb_UAt ( '&' , Caption ) ) > 0
+         IF ( x := hb_UAt ( "&" , Caption ) ) > 0
             _DefineLetterOrDigitHotKey ( Caption, x, ParentForm, aMnemonic [ hb_enumindex( c ) ] )
          ENDIF
       NEXT
@@ -757,7 +757,7 @@ FUNCTION _DeleteTabPage ( ControlName , ParentForm , Position )
       // Hotkeys cleaning
       FOR EACH NewMap IN _HMG_aControlCaption [i]
          NewValue := Upper( NewMap )
-         IF ( j := hb_UAt ( '&' , NewValue ) ) > 0
+         IF ( j := hb_UAt ( "&" , NewValue ) ) > 0
             c := Asc ( hb_USubStr( NewValue , j + 1 , 1 ) )
             IF c >= 48 .AND. c <= 90
                _ReleaseHotKey ( ParentForm , MOD_ALT , c )
@@ -784,7 +784,7 @@ FUNCTION _DeleteTabPage ( ControlName , ParentForm , Position )
       FOR EACH c IN _HMG_aControlCaption [i]
 
          NewValue := Upper( c )
-         IF ( j := hb_UAt ( '&' , NewValue ) ) > 0
+         IF ( j := hb_UAt ( "&" , NewValue ) ) > 0
             _DefineLetterOrDigitHotKey ( NewValue, j, ParentForm, aMnemonic [ hb_enumindex( c ) ] )
          ENDIF
 

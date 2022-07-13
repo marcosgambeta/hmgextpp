@@ -113,7 +113,7 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
 
    a_Node_Item_Cargo := {}
    
-   mVar := '_' + ParentFormName + '_' + ControlName
+   mVar := "_" + ParentFormName + "_" + ControlName
    k := _GetControlFree()
 
    IF _HMG_BeginDialogActive
@@ -127,7 +127,7 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
 
       IF Len( _HMG_aDialogTemplate ) > 0        // Dialog Template
 
-         // {{'ID',k/hwnd,class,Style,ExStyle,col,row,width,height,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
+         // {{"ID",k/hwnd,class,Style,ExStyle,col,row,width,height,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {| x, y, z| InitDialogTree( x, y, z ) }
          _HMG_aDialogTreeItem := {}
          AAdd( _HMG_aDialogItems, { nId, k, "SysTreeView32", style, 0, col, row, width, height, "", HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage } )
@@ -177,7 +177,7 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
 
       IF ValType( Row ) == "U" .OR. ValType( Col ) == "U"
 
-         IF _HMG_SplitLastControl == 'TOOLBAR'
+         IF _HMG_SplitLastControl == "TOOLBAR"
             Break := .T.
          ENDIF
 
@@ -185,17 +185,17 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
 
          IF i > 0
 
-            ControlHandle := InitTree ( _HMG_aFormReBarHandle [i], col, row, width, height, 0, '', 0, iif( noBot, 1, 0 ) )
+            ControlHandle := InitTree ( _HMG_aFormReBarHandle [i], col, row, width, height, 0, "", 0, iif( noBot, 1, 0 ) )
 
             AddSplitBoxItem ( Controlhandle, _HMG_aFormReBarHandle [i], Width, break, , , , _HMG_ActiveSplitBoxInverted )
 
-            _HMG_SplitLastControl := 'TREE'
+            _HMG_SplitLastControl := "TREE"
 
          ENDIF
 
       ELSE
 
-         ControlHandle := InitTree ( ParentFormHandle, col, row, width, height, 0, '', 0, iif( noBot, 1, 0 ) )
+         ControlHandle := InitTree ( ParentFormHandle, col, row, width, height, 0, "", 0, iif( noBot, 1, 0 ) )
 
       ENDIF
 
@@ -309,14 +309,14 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
    _HMG_aControlToolTip[ k ] :=  tooltip
    _HMG_aControlRangeMin[ k ] :=  0
    _HMG_aControlRangeMax[ k ] :=  0
-   _HMG_aControlCaption[ k ] :=  ''
+   _HMG_aControlCaption[ k ] :=  ""
    _HMG_aControlVisible[ k ] :=   .T.
    _HMG_aControlHelpId[ k ] :=   HelpId
    _HMG_aControlFontHandle[ k ] :=  FontHandle
    _HMG_aControlBrushHandle[ k ] :=  0
    _HMG_aControlEnabled[ k ] :=  .T.
    _HMG_aControlMiscData1[ k ] := { 0, aImgNode, aImgItem, NoTrans }
-   _HMG_aControlMiscData2[ k ] := ''
+   _HMG_aControlMiscData2[ k ] := ""
 
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
@@ -381,7 +381,7 @@ FUNCTION InitDialogTree( ParentName, ControlHandle, k )
       AAdd( a_Node_Item_Cargo, Cargo )
 
       IF ImgDef == 0
-         IF _HMG_aDialogTreeItem[ n, 5 ] == 'NODE'
+         IF _HMG_aDialogTreeItem[ n, 5 ] == "NODE"
             iUnsel := 0   // Pointer to defalut Node Bitmaps, no Bitmap loaded
             iSel   := 1
          ELSE
@@ -393,7 +393,7 @@ FUNCTION InitDialogTree( ParentName, ControlHandle, k )
          iSel := iif( ImgDef == 1, iUnSel, AddTreeViewBitmap( _HMG_ActiveTreeHandle, aImage[ 2 ], NoTrans ) - 1 )
          // If only one bitmap in array iSel = iUnsel, only one Bitmap loaded
       ENDIF
-      IF _HMG_aDialogTreeItem[ n, 5 ] == 'NODE'
+      IF _HMG_aDialogTreeItem[ n, 5 ] == "NODE"
          _HMG_NodeHandle[ NodeIndex ] := AddTreeItem ( _HMG_ActiveTreeHandle, _HMG_NodeHandle[ NodeIndex - 1 ], text, iUnsel, iSel, Id, .T. )
          AAdd( _HMG_aTreeMap, _HMG_NodeHandle[ NodeIndex ] )
          AAdd( _HMG_aTreeIdMap, Id )
@@ -434,7 +434,7 @@ FUNCTION _DefineTreeNode ( text, aImage, Id, Cargo )
    IF _SetGetGlobal( "_HMG_lDialogInMemory" )
 
       _HMG_NodeIndex++
-      AAdd( _HMG_aDialogTreeItem, { text, aImage, Id, _HMG_NodeIndex, 'NODE', Cargo } )
+      AAdd( _HMG_aDialogTreeItem, { text, aImage, Id, _HMG_NodeIndex, "NODE", Cargo } )
 
    ELSE
 
@@ -479,7 +479,7 @@ FUNCTION _DefineTreeItem ( text, aImage, Id, Cargo )
 
    IF _SetGetGlobal( "_HMG_lDialogInMemory" )
 
-      AAdd( _HMG_aDialogTreeItem, { text, aImage, Id, _HMG_NodeIndex, 'ITEM', Cargo } )
+      AAdd( _HMG_aDialogTreeItem, { text, aImage, Id, _HMG_NodeIndex, "ITEM", Cargo } )
 
    ELSE
 

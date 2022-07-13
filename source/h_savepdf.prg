@@ -135,7 +135,7 @@ FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
    DEFAULT lOpen := MsgYesNo( "View " + cPdfFile + " (Y/N) ?", "Please select" )
 
    IF lRet .AND. lOpen
-      wapi_shellExecute( NIL, "open", '"' + cPdfFile + '"' )
+      wapi_shellExecute( NIL, "open", Chr(34) + cPdfFile + Chr(34) )
    ENDIF
 
 RETURN lRet

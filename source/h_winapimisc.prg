@@ -45,7 +45,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
  ---------------------------------------------------------------------------*/
 
-#include 'minigui.ch'
+#include "minigui.ch"
 
 *-----------------------------------------------------------------------------*
 FUNCTION WindowsVersion()
@@ -69,7 +69,7 @@ FUNCTION WindowsVersion()
       aRetVal := WinVersion()
    ENDIF
 
-RETURN { aRetVal [1] + aRetVal [4] , aRetVal [2] , 'Build ' + aRetVal [3] }
+RETURN { aRetVal [1] + aRetVal [4] , aRetVal [2] , "Build " + aRetVal [3] }
 
 *-----------------------------------------------------------------------------*
 FUNCTION _Execute( hWnd , cOperation , cFile , cParameters , cDirectory , nState )

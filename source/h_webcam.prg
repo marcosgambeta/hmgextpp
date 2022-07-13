@@ -57,8 +57,8 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 INIT PROCEDURE _InitWebCam
 *------------------------------------------------------------------------------*
 
-   InstallMethodHandler ( 'Start', '_StartWebCam' )
-   InstallMethodHandler ( 'Release', '_ReleaseWebCam' )
+   InstallMethodHandler ( "Start", "_StartWebCam" )
+   InstallMethodHandler ( "Release", "_ReleaseWebCam" )
 
 RETURN
 
@@ -91,7 +91,7 @@ FUNCTION _DefineWebCam ( ControlName, ParentForm, x, y, w, h, lStart, nRate, TOO
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentForm + " Already defined." )
    ENDIF
 
-   mVar := '_' + ParentForm + '_' + ControlName
+   mVar := "_" + ParentForm + "_" + ControlName
 
 #ifdef _NAMES_LIST_
    _SetNameList( mVar, Len( _HMG_aControlNames ) + 1 )
@@ -139,20 +139,20 @@ FUNCTION _DefineWebCam ( ControlName, ParentForm, x, y, w, h, lStart, nRate, TOO
    AAdd( _HMG_aControlContainerCol, iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[ _HMG_FrameLevel ], -1 ) )
    AAdd( _HMG_aControlPicture, "" )
    AAdd( _HMG_aControlContainerHandle, 0 )
-   AAdd( _HMG_aControlFontName, '' )
+   AAdd( _HMG_aControlFontName, "" )
    AAdd( _HMG_aControlFontSize, 0 )
    AAdd( _HMG_aControlFontAttributes, { FALSE, FALSE, FALSE, FALSE } )
    AAdd( _HMG_aControlToolTip, tooltip )
    AAdd( _HMG_aControlRangeMin, 0 )
    AAdd( _HMG_aControlRangeMax, 0 )
-   AAdd( _HMG_aControlCaption, '' )
+   AAdd( _HMG_aControlCaption, "" )
    AAdd( _HMG_aControlVisible, .F. )
    AAdd( _HMG_aControlHelpId, HelpId )
    AAdd( _HMG_aControlFontHandle, 0 )
    AAdd( _HMG_aControlBrushHandle, 0 )
    AAdd( _HMG_aControlEnabled, .T. )
    AAdd( _HMG_aControlMiscData1, 0 )
-   AAdd( _HMG_aControlMiscData2, '' )
+   AAdd( _HMG_aControlMiscData2, "" )
 
    IF lStart
       IF ! _StartWebCam ( cParentForm, ControlName )
@@ -209,7 +209,7 @@ PROCEDURE _ReleaseWebCam ( cWindow, cControl )
 *------------------------------------------------------------------------------*
    LOCAL hWnd
 
-   IF _IsControlDefined ( cControl, cWindow ) .AND. GetControlType ( cControl, cWindow ) == 'WEBCAM'
+   IF _IsControlDefined ( cControl, cWindow ) .AND. GetControlType ( cControl, cWindow ) == "WEBCAM"
 
       hWnd := GetControlHandle ( cControl, cWindow )
 

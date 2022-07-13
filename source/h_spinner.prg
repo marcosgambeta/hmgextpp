@@ -102,13 +102,13 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentForm + " Already defined." )
    ENDIF
 
-   mVar := '_' + ParentForm + '_' + ControlName
+   mVar := "_" + ParentForm + "_" + ControlName
 
    cParentForm := ParentForm
 
    ParentForm := GetFormHandle ( ParentForm )
 
-   RetArray := InitSpinner( ParentForm, 0, x, y, w, '', 0, rl, rh, h, invisible, notabstop, wrap, readonly, horizontal )
+   RetArray := InitSpinner( ParentForm, 0, x, y, w, "", 0, rl, rh, h, invisible, notabstop, wrap, readonly, horizontal )
 
    ControlHandle := RetArray [1]
 
@@ -170,14 +170,14 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
    _HMG_aControlToolTip  [k] :=   tooltip
    _HMG_aControlRangeMin  [k] :=   Rl
    _HMG_aControlRangeMax  [k] :=   Rh
-   _HMG_aControlCaption  [k] :=   ''
+   _HMG_aControlCaption  [k] :=   ""
    _HMG_aControlVisible  [k] :=   iif( invisible, FALSE, TRUE )
    _HMG_aControlHelpId  [k] :=   HelpId
    _HMG_aControlFontHandle  [k] :=   FontHandle
    _HMG_aControlBrushHandle  [k] :=  0
    _HMG_aControlEnabled  [k] :=  .T.
    _HMG_aControlMiscData1 [k] := { 0, readonly }
-   _HMG_aControlMiscData2 [k] := ''
+   _HMG_aControlMiscData2 [k] := ""
 
    IF ! Empty( cuetext ) .AND. IsVistaOrLater() .AND. IsThemed()
       value := ""
