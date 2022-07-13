@@ -382,7 +382,7 @@ Static Function memosay(arg1,arg2,argm1,argl1,argf1,argsize,abold,aita,aunder,as
 *-----------------------------------------------------------------------------*
 Function RMiniPar(ArryPar,cmdline,section)
 *-----------------------------------------------------------------------------*
-     local _arg1,Aclr,blse := {|x| iif(val(x)> 0,.T.,iif(x=".T.".or. x ="ON",.T.,.F.))}
+     local _arg1,Aclr,blse := {|x| iif(val(x)> 0,.T.,iif(x=".T.".OR. x ="ON",.T.,.F.))}
      local ax := {}
 
      if len(ArryPar) < 1 ;return .F. ;endif
@@ -534,20 +534,20 @@ Function RMiniPar(ArryPar,cmdline,section)
      case ascan(arryPar,"SET")=1
 	     do case
 	        case ascan(arryPar,[EURO])=2
-	             _euro:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.T.,iif(arrypar[3]=".T.".or.arrypar[3]="ON",.T.,.F.))
+	             _euro:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.T.,iif(arrypar[3]=".T.".OR.arrypar[3]="ON",.T.,.F.))
 /*
 	        case ascan(arryPar,[ADDOFFSET])=2
-	             _addoffset:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.T.,iif(arrypar[3]=".T.".or.arrypar[3]="ON",.T.,.F.))
+	             _addoffset:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.T.,iif(arrypar[3]=".T.".OR.arrypar[3]="ON",.T.,.F.))
 */
 
 	        case ascan(arryPar,[MONEY])=2
-	             _money:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.T.,iif(arrypar[3]=".T.".or.arrypar[3]="ON",.T.,.F.))
+	             _money:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.T.,iif(arrypar[3]=".T.".OR.arrypar[3]="ON",.T.,.F.))
 
 	        case ascan(arryPar,[SEPARATOR])=2
-	             _separator:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.T.,iif(arrypar[3]=".T.".or.arrypar[3]="ON",.T.,.F.))
+	             _separator:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.T.,iif(arrypar[3]=".T.".OR.arrypar[3]="ON",.T.,.F.))
 
                 case ascan(arryPar,[PREVIEW])=2
-                     _hmg_printer_preview:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.T.,iif(arrypar[3]=".T.".or.arrypar[3]="ON",.T.,.F.))
+                     _hmg_printer_preview:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.T.,iif(arrypar[3]=".T.".OR.arrypar[3]="ON",.T.,.F.))
 
                 case ascan(arryPar,[JOB])= 2
                      _HMG_SYSDATA [ 358 ]:= eval(chblk,arrypar,[NAME])
@@ -656,7 +656,7 @@ Function RMiniPar(ArryPar,cmdline,section)
                  //    Aclr:= color(eval(chblk,arrypar,[COLOR]))
                 _varexec:=Arrypar[4]
                      //msgbox(ARRYPAR[4]+CRLF+valtype(_varexec),[LEN AP=]+zaps(len(arrypar)))
-                  if "->" $ ArryPar[4] .or. [(] $ ArryPar[4]
+                  if "->" $ ArryPar[4] .OR. [(] $ ArryPar[4]
                      ArryPar[4]:= trans(eval(epar,ArryPar[4]),"@A")
                      // MSGBOX(ARRYPAR[4],[ap4Post])
                   endif
@@ -668,7 +668,7 @@ Function RMiniPar(ArryPar,cmdline,section)
                 , Aclr[1] ;
                 , Aclr[2] ;
                 , Aclr[3] ;
-                , arrypar[4]    ; //if("->" $ ArryPar[4] .or. [(] $ ArryPar[4],&ArryPar[4],ArryPar[4])  ;
+                , arrypar[4]    ; //if("->" $ ArryPar[4] .OR. [(] $ ArryPar[4],&ArryPar[4],ArryPar[4])  ;
                 , iif(ascan(arryPar,[BOLD])#0,.T.,.F.);
                 , iif(ascan(arryPar,[ITALIC])#0,.T.,.F.) ;
                 , iif(ascan(arryPar,[UNDERLINE])#0,.T.,.F.);

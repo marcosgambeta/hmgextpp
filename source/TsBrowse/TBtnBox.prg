@@ -175,10 +175,10 @@ Return DLGC_WANTALLKEYS + DLGC_WANTCHARS
 METHOD KeyChar( nKey, nFlags ) CLASS TBtnBox
 
    If _GetKeyState( VK_CONTROL )
-      nKey := IIf( Upper( Chr( nKey ) ) == "W" .or. nKey == VK_RETURN, VK_TAB, nKey )
+      nKey := IIf( Upper( Chr( nKey ) ) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey )
    EndIf
 
-   If nKey == VK_TAB .or. nKey == VK_ESCAPE
+   If nKey == VK_TAB .OR. nKey == VK_ESCAPE
       Return 0
    EndIf
 
@@ -191,7 +191,7 @@ RETURN ::Super:KeyChar( nKey, nFlags )
 METHOD KeyDown( nKey, nFlags ) CLASS TBtnBox
 
    ::nLastKey := nKey
-   If nKey == VK_TAB .or. nKey == VK_RETURN .or. nKey == VK_ESCAPE
+   If nKey == VK_TAB .OR. nKey == VK_RETURN .OR. nKey == VK_ESCAPE
 
       IF nKey != VK_ESCAPE
          If ::bSetGet != Nil

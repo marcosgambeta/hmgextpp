@@ -87,7 +87,7 @@ else
 endif
 
 *- check for file's existence
-if empty(filename) .or. !file(filename)
+if empty(filename) .OR. !file(filename)
    _object_ := valtype(filename)
    msgstop([Warning...]+CRLF+[Report not found ]+IF(_object_=="C",': "'+Filename+'"','!')+CRLF+[The type of argument is: ]+_object_,'')
    ritorna:=.F.
@@ -167,7 +167,7 @@ if ritorna
          //MSG(CWORD,[CWORD])
          _object_ := eval(oWr:aStat [ 'TrSpace' ], CWORD, .T., lcnt)
          //msg(cWord+crlf+_object_,[linea ]+str(lcnt))
-         if left(CWORD,1) != "#" .or. left(CWORD,1) != "[" .AND. !empty(trim(_object_))
+         if left(CWORD,1) != "#" .OR. left(CWORD,1) != "[" .AND. !empty(trim(_object_))
             if !empty(_object_)
                a1 := at("FONT", upper(_object_))
                if a1 > 0
@@ -195,7 +195,7 @@ if ritorna
     oWr:CountSect(.T.)
    // aeval(oWr:ahead,{|x,y|msg(x,[Ahead ]+zaps(y))})
    vsect  :={|x|{eval(oWr:Valore,oWr:aHead[1]),eval(oWr:Valore,oWr:aBody[1]),eval(oWr:Valore,oWr:aFeet[1]),nline,x}[at(x,"HBFL"+x)]}
-   epar   :={|x|if( "(" $ X .or."->" $ x,&(X),val(eval(vsect,x)))}
+   epar   :={|x|if( "(" $ X .OR."->" $ x,&(X),val(eval(vsect,x)))}
 
    vpar   :={|x,y|if(ascan(x,[y])#0,y[ascan(x,[y])+1],NIL)}
    chblk  :={|x,y|if(ascan(x,y)>0,iif(len(X)>ascan(x,y),x[ascan(x,y)+1],''),'')}
@@ -370,7 +370,7 @@ Function StampeEsegui(_MainArea,_psd,db_arc,_prw)
    START DOC NAME oWr:aStat [ 'JobName' ]
 
    if empty(_MainArea)                // Mono Db List
-      if lastrec() > 0 .or. valtype(oWr:argm[3]) == "A"
+      if lastrec() > 0 .OR. valtype(oWr:argm[3]) == "A"
          Lbody := eval(oWr:Valore,oWr:aBody[1])
          mx_pg := INT(oWr:aStat[ 'end_pr' ]/NOZERODIV(Lbody) )
          if (mx_pg * lbody) # mx_pg
@@ -1287,11 +1287,11 @@ METHOD Transpace(arg1,arg2,arg3) CLASS WREPORT // The core of parser
      arg1 := alltrim(arg1)
      arges := arg1
      // (#*&/) char exclusion
-     if left(arges,1) = chr(35) .or. left(arges,1) = chr(38); arges := '' ;endif
+     if left(arges,1) = chr(35) .OR. left(arges,1) = chr(38); arges := '' ;endif
      if left(arges,2) = chr(47)+chr(47) ;arges := '' ;endif
      if left (arges,2) = chr(47)+chr(42) ; xcl := .T. ;endif
      if right(arges,2) = chr(42)+chr(47) ; xcl := .F. ;endif
-     if left(arges,1) = chr(42) .or. empty(arges) .or. xcl
+     if left(arges,1) = chr(42) .OR. empty(arges) .OR. xcl
         return ''
      endif
      if "SET SPLASH TO" $ arg1
@@ -1304,7 +1304,7 @@ METHOD Transpace(arg1,arg2,arg3) CLASS WREPORT // The core of parser
          if pt <> chr(32)
             tmpstr := pt
             nr += pt
-            if tmpstr == chr(40) //.or. upper(substr(arg1,2,3)) = [VAR]  // (=chr(40)
+            if tmpstr == chr(40) //.OR. upper(substr(arg1,2,3)) = [VAR]  // (=chr(40)
                opp ++
                extFnc := .T.     // Interno a Funzione
             endif
@@ -1312,13 +1312,13 @@ METHOD Transpace(arg1,arg2,arg3) CLASS WREPORT // The core of parser
                opp --
                extFnc := .F.    // Fine Funzione
             endif
-            if tmpstr == '"' .or. tmpstr == '[' .or. tmpstr == ['] .or. tmpstr == [{]
+            if tmpstr == '"' .OR. tmpstr == '[' .OR. tmpstr == ['] .OR. tmpstr == [{]
                al1 := !al1
                if tmpstr == '{'
                   cdc ++
                endif
             endif
-            if tmpstr == "]" .or. n = last_Dapex .or. n = last_sapex .or. n = last_codeb  .or. tmpstr == [}]
+            if tmpstr == "]" .OR. n = last_Dapex .OR. n = last_sapex .OR. n = last_codeb  .OR. tmpstr == [}]
                al1 := .F.
                if tmpstr == [}]
                   cdc --
@@ -1352,16 +1352,16 @@ METHOD Transpace(arg1,arg2,arg3) CLASS WREPORT // The core of parser
      next
      nr := strtran(nr,chr(07)+chr(07),chr(07))
      tmpstr = left(ltrim(nr),1)
-     if tmpstr = chr(60) .or. tmpstr = "@" .or. tmpstr = chr(07) //"<" ex "{"
+     if tmpstr = chr(60) .OR. tmpstr = "@" .OR. tmpstr = chr(07) //"<" ex "{"
         nr := substr(nr,2)
      endif
-     if left(nr,1) = chr(07) .or. left(nr,1) = chr(64)
+     if left(nr,1) = chr(07) .OR. left(nr,1) = chr(64)
         nr := substr(nr,2)
      endif
      if right(nr,1)=chr(62) //">" ex "}"
         nr := substr(nr,1,rat(">",nr)-1)
      endif
-     if ")" == alltrim(nR) .or. "(" == alltrim(nR)
+     if ")" == alltrim(nR) .OR. "(" == alltrim(nR)
         nr := ''
      endif
      nr := STRTRAN(nr,chr(07)+chr(07),chr(07))
@@ -1441,7 +1441,7 @@ elseif upper(left(string,8))="DEBUG_OF"
    ::aStat [ 'Control' ] := .F.
 elseif upper(left(string,9))=="SET"+chr(07)+"DEBUG"
    dbg := right(string,4)
-   ::aStat [ 'Control' ] := iif(val(dbg)> 0,.T.,iif(".T." $ dbg .or. "ON" $ Dbg ,.T.,.F.))
+   ::aStat [ 'Control' ] := iif(val(dbg)> 0,.T.,iif(".T." $ dbg .OR. "ON" $ Dbg ,.T.,.F.))
 endif
 
 tokeninit(string,chr(07))      //set the command separator -> ONLY A BEL
@@ -1464,7 +1464,7 @@ do While .NOT. tokENEND()      //                             ----
           cword:=strtran(cword,chr(4),"/")
           aadd(TransPar,cWord)
    else
-       if "[" $ cWord .or. ["] $ cWord .or. ['] $ cWord
+       if "[" $ cWord .OR. ["] $ cWord .OR. ['] $ cWord
           cword:=strtran(cword,chr(4),"/")
           aadd(TransPar,cWord)
        else
@@ -1558,7 +1558,7 @@ return ritorno
 METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpreter
 *-----------------------------------------------------------------------------*
      local _arg1,_arg2, _arg3,__elex ,aX:={} , _varmem ,;
-     blse := {|x| iif(val(x)> 0,.T.,iif(x=".T.".or. x ="ON",.T.,.F.))}, al, _align
+     blse := {|x| iif(val(x)> 0,.T.,iif(x=".T.".OR. x ="ON",.T.,.F.))}, al, _align
      string1 := ''
      if len(ArryPar) < 1 ;return .F. ;endif
 
@@ -2053,7 +2053,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                             => hbprn:picture(<row>,<col>,<row2>,<col2>,<cpic>,<row3>,<col3>)
                                                  1     2     6      7      4      9      10
                 */
-                if "->" $ ArryPar[4] .or. "(" $ ArryPar[4]
+                if "->" $ ArryPar[4] .OR. "(" $ ArryPar[4]
                    ArryPar[4]:= ::MACROCOMPILE(ArryPar[4],.T.,cmdline,section)
                 Endif
                 do case
@@ -2086,14 +2086,14 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                 al := ::UsaFont(arrypar)
 
                 if ascan(ArryPar,[FONT])=5
-                   if "->" $ ArryPar[4] .or. "(" $ ArryPar[4]
+                   if "->" $ ArryPar[4] .OR. "(" $ ArryPar[4]
                       __elex:=ArryPar[4]
                       hbprn:textout(iif([LINE]$ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])),eval(epar,ArryPar[2]),&(__elex),"FX")
                    else
                       hbprn:textout(iif([LINE]$ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])),eval(epar,ArryPar[2]),ArryPar[4],"Fx")
                    endif
                 elseif LEN(ArryPar)=4
-                   if "->" $ ArryPar[4] .or. "(" $ ArryPar[4]
+                   if "->" $ ArryPar[4] .OR. "(" $ ArryPar[4]
                       __elex:=ArryPar[4]
                       hbprn:textout(iif([LINE]$ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])),eval(epar,ArryPar[2]),&(__elex))
                    else
@@ -2109,7 +2109,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                 al := ::UsaFont(arrypar)
 
                 hbprn:say(iif([LINE] $ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])),eval(epar,ArryPar[2]);
-                         ,iif("->" $ ArryPar[4] .or. [(] $ ArryPar[4],::MACROCOMPILE(ArryPar[4],.T.,cmdline,section),ArryPar[4]);
+                         ,iif("->" $ ArryPar[4] .OR. [(] $ ArryPar[4],::MACROCOMPILE(ArryPar[4],.T.,cmdline,section),ArryPar[4]);
                          ,iif(ascan(hbprn:Fonts[2],eval(chblk,arrypar,[FONT]) )> 0,eval(chblk,arrypar,[FONT]),"FX")  ;
                          ,iif(ascan(arryPar,[COLOR])>0,::UsaColor(eval(chblk,arrypar,[COLOR])),NIL);
                          ,nil )
@@ -2159,7 +2159,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                 hbprn:settextalign( al[1] )
                 hbprn:settexcolor ( al[2] )
 
-          case ascan(ArryPar,[NEWPAGE])=1 .or. ascan(ArryPar,[EJECT])=1
+          case ascan(ArryPar,[NEWPAGE])=1 .OR. ascan(ArryPar,[EJECT])=1
                 hbprn:endpage()
                 hbprn:startpage()
 
@@ -2422,7 +2422,7 @@ local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
       && make an array for counters
       Aeval(gftotal,{|| aadd( counter,0),aadd(Gcounter,0)})
 
-      if !empty(gftotal) .or. !empty(s_total)
+      if !empty(gftotal) .OR. !empty(s_total)
          GFline    :=.T.
          m->gfexec :=.T.
          IF "{||" = LEFT(S_total,3)
@@ -2626,7 +2626,7 @@ local grd, nkol
          START PAGE
          nPgr ++ ; nPag ++ ; nline := 0
          // Top of Form //La Testa
-         if (grdemo .or. gcdemo) .AND. nPgr < 2
+         if (grdemo .OR. gcdemo) .AND. nPgr < 2
             hbprn:modifypen("*",0,0.1,{255,255,255})
             if grdemo
                 for grd= 0 to ::mx_ln_doc -1
@@ -2711,7 +2711,7 @@ Local sstring := "NLINE"+chr(07)+NTrim(t_col)+chr(07)+"SAY"+chr(07)
                   endif
 
                   if ::GrHead() //.AND. ::aStat [ 'GHline' ]    // La testata
-                     if ::aStat ['r_paint'] .AND. (shd .or. sbt) .AND. sgh .AND. !insgh
+                     if ::aStat ['r_paint'] .AND. (shd .OR. sbt) .AND. sgh .AND. !insgh
                         ::traduci(Ghstring)
                         // @nline,0 say "@@"+if(m->insgh =.T.,[.T.],[.F.])  FONT "F1" to print
                         nxtp := .F. ; nline ++
@@ -2719,7 +2719,7 @@ Local sstring := "NLINE"+chr(07)+NTrim(t_col)+chr(07)+"SAY"+chr(07)
                      insgh:=.F.
                   else
                       for N = 2 TO LEN(::aBody)
-                           if grdemo .or. gcdemo
+                           if grdemo .OR. gcdemo
                               if ::aStat ['r_paint']
                                  if ::traduci(::aBody[N,1],,n-1)
                                     noline := .T.
@@ -2821,7 +2821,7 @@ METHOD TheFeet(last) CLASS WREPORT            //Feet // IL Piede
    if !last_pag
       eline := nline // if (eval(::Valore,::aBody[1])+eval(::Valore,::aBody[1]) < nline,nline,eline)
    endif
-   aeval(::aFeet,{|x,y|if(Y>1 ,::traduci(x[1],iif(!(grdemo .or. gcdemo),'',.F.),x[2]),'')})
+   aeval(::aFeet,{|x,y|if(Y>1 ,::traduci(x[1],iif(!(grdemo .OR. gcdemo),'',.F.),x[2]),'')})
    last_pag := last
    Last := .T.
    if ::PrnDrv = "HBPR"
@@ -2973,7 +2973,7 @@ local oErrAntes, oErr, lMyError := .F., n , al ,an
                      insgh:=.F.
                   else
                       for N= 2 TO LEN(oWr:aBody)
-                           if grdemo .or. gcdemo
+                           if grdemo .OR. gcdemo
                               if ::aStat [ 'r_paint' ]
                                  if ::traduci(oWr:aBody[N,1],,n-1)
                                     noline := .T.

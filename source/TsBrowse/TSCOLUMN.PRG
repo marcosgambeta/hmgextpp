@@ -284,7 +284,7 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
 
    If aAlign != Nil
       AEval( aAlign, { |nAli,n| ;
-                       aTmpAlign[ n ] := IIf( ValType( nAli ) == "N" .or. ;
+                       aTmpAlign[ n ] := IIf( ValType( nAli ) == "N" .OR. ;
                        ValType( nAli ) == "B", nAli, ;
                        IIf( ( xVar := AScan( { "LEFT", "CENTER", "RIGHT", "VERT" }, ;
                            Upper( nAli ) ) ) > 0, xVar - 1, xVar ) ) } )
@@ -1057,7 +1057,7 @@ Function ComboWBlock( oBrw, uField, nCol, aList )
 
    Local aItems, aData, bBlock
 
-   If Empty( oBrw ) .or. Empty( uField ) .or. Empty( nCol ) .or. Empty( aList )
+   If Empty( oBrw ) .OR. Empty( uField ) .OR. Empty( nCol ) .OR. Empty( aList )
       Return Nil
    EndIf
 

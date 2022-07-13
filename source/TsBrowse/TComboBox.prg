@@ -167,7 +167,7 @@ METHOD KeyDown( nKey, nFlags ) CLASS TComboBox
    Endif
 
    ::nLastKey := nKey
-   If nKey == VK_TAB .or. nKey == VK_RETURN .or. nKey == VK_ESCAPE
+   If nKey == VK_TAB .OR. nKey == VK_RETURN .OR. nKey == VK_ESCAPE
       ::bLostFocus := Nil
       Eval( ::bKeyDown, nKey, nFlags, .T. )
       Return 0

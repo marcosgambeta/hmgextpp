@@ -140,10 +140,10 @@ Return ::Super:HandleEvent( nMsg, nWParam, nLParam )
 METHOD KeyChar( nKey, nFlags ) CLASS TGetBox
 
    If _GetKeyState( VK_CONTROL )
-      nKey := IIf( Upper( Chr( nKey ) ) == "W" .or. nKey == VK_RETURN, VK_TAB, nKey )
+      nKey := IIf( Upper( Chr( nKey ) ) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey )
    EndIf
 
-   If nKey == VK_TAB .or. nKey == VK_ESCAPE
+   If nKey == VK_TAB .OR. nKey == VK_ESCAPE
       Return 0
    Endif
 
@@ -157,7 +157,7 @@ METHOD KeyDown( nKey, nFlags ) CLASS TGetBox
 
    ::nLastKey := nKey
 
-   If nKey == VK_TAB .or. nKey == VK_RETURN .or. nKey == VK_ESCAPE
+   If nKey == VK_TAB .OR. nKey == VK_RETURN .OR. nKey == VK_ESCAPE
       ::bLostFocus := Nil
       Eval( ::bKeyDown, nKey, nFlags, .T. )
    Endif

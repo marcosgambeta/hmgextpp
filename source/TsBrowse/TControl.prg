@@ -465,8 +465,8 @@ METHOD ForWhen() CLASS TControl
    ::lCaptured := .F.
 
    // keyboard navigation
-   if ::oWnd:nLastKey == VK_UP .or. ::oWnd:nLastKey == VK_DOWN ;
-      .or. ::oWnd:nLastKey == VK_RETURN .or. ::oWnd:nLastKey == VK_TAB
+   if ::oWnd:nLastKey == VK_UP .OR. ::oWnd:nLastKey == VK_DOWN ;
+      .OR. ::oWnd:nLastKey == VK_RETURN .OR. ::oWnd:nLastKey == VK_TAB
       if _GetKeyState( VK_SHIFT )
          ::GoPrevCtrl( ::hWnd )
       else
@@ -495,7 +495,7 @@ return aRect
 METHOD GetDlgCode( nLastKey ) CLASS TControl
 
    if .not. ::oWnd:lValidating
-      if nLastKey == VK_RETURN .or. nLastKey == VK_TAB
+      if nLastKey == VK_RETURN .OR. nLastKey == VK_TAB
          ::oWnd:nLastKey := nLastKey
 
       // don't do a else here with :nLastKey = 0

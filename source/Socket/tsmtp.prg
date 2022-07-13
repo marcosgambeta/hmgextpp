@@ -184,7 +184,7 @@ local cLine
 
 while ( len(cLine := ::oSocket:ReceiveLine())>0 )
    cLines += iif( len(cLine)>0, cLine + CHR(13) + CHR(10), "" ) 
-   if substr(cLine,4,1)==" " .or. len(cLine)<=3 .or. substr(cLine,4,1)==CHR(10)
+   if substr(cLine,4,1)==" " .OR. len(cLine)<=3 .OR. substr(cLine,4,1)==CHR(10)
       exit
    endif
 enddo
@@ -208,7 +208,7 @@ if ::oSocket:SendString( "AUTH LOGIN" +CHR(13)+CHR(10) )
             if ::oSocket:SendString( oDecode:Encode64( cPwd ) +CHR(13)+CHR(10) )
                // Consume banner
                cErr := ::GetLines()
-               if LEFT(cErr,3)=="235" .or. LEFT(cErr,3)=="335"
+               if LEFT(cErr,3)=="235" .OR. LEFT(cErr,3)=="335"
                   bRet := .T.
                endif
             endif
@@ -239,7 +239,7 @@ if ::oSocket:SendString( "AUTH CRAM-MD5" +CHR(13)+CHR(10) )
       if ::oSocket:SendString( hMac +CHR(13)+CHR(10) )
          // Consume banner
          cErr := ::GetLines()
-         if LEFT(cErr,3)=="235" .or. LEFT(cErr,3)=="335"
+         if LEFT(cErr,3)=="235" .OR. LEFT(cErr,3)=="335"
             bRet := .T.
          endif
       endif
@@ -378,7 +378,7 @@ if ::oSocket:SendString( "MAIL FROM: " +::cEmail +CHR(13)+CHR(10) )
    // Banner
    cErr := ::GetLines()
    // Check 250
-   if left(cErr,3)=="250" .or. left(cErr,3)=="550"
+   if left(cErr,3)=="250" .OR. left(cErr,3)=="550"
 
       aEmails := array(0)
       AEVAL( ::aTO,  {|aSub|AADD( aEmails, aSub[2] )} )
@@ -403,7 +403,7 @@ if ::oSocket:SendString( "MAIL FROM: " +::cEmail +CHR(13)+CHR(10) )
             // Banner
             cErr := ::GetLines()
             // Check 354 or 554
-            if LEFT(cErr,3)=="354" .or. LEFT(cErr,3)=="554"
+            if LEFT(cErr,3)=="354" .OR. LEFT(cErr,3)=="554"
                nOldEpoch := Set(_SET_EPOCH, 1980)
                cOldDateFormat := Set( _SET_DATEFORMAT, "mm/dd/yyyy" )
                dDate := Date()
@@ -435,7 +435,7 @@ if ::oSocket:SendString( "MAIL FROM: " +::cEmail +CHR(13)+CHR(10) )
                endif
 
                cHeader += "MIME-Version: 1.0" +CHR(13)+CHR(10)
-               if bMultipart .or. ::bHTML
+               if bMultipart .OR. ::bHTML
                   cHeader += "Content-Type: multipart/mixed;" +CHR(13)+CHR(10)
                   cHeader += [        boundary="] +cMultipart +["] +CHR(13)+CHR(10)
 
@@ -488,7 +488,7 @@ if ::oSocket:SendString( "MAIL FROM: " +::cEmail +CHR(13)+CHR(10) )
 
                if ::oSocket:SendString( cHeader )
                   cErr := ::GetLines()
-                  if !(LEFT(cErr,3)=="250" .or. LEFT(cErr,3)=="550")
+                  if !(LEFT(cErr,3)=="250" .OR. LEFT(cErr,3)=="550")
                      ::cError := cErr
                   else
                      bRet := .T.

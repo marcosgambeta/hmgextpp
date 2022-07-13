@@ -237,11 +237,11 @@ METHOD Read() CLASS TIniData
                  cStr := hb_Utf8ToStr( cStr )
                  cBuf := hb_Utf8ToStr( cBuf )
               ENDIF
-              IF left(cBuf, 2) == "{|" .or. left(cBuf, 3) == "{ |"
+              IF left(cBuf, 2) == "{|" .OR. left(cBuf, 3) == "{ |"
                  cNote := cBuf
               ENDIF
               IF ! Empty( cChr ) .AND. ( nBuf := At( cChr, cBuf ) ) > 0
-                 IF ! ( left(cBuf, 2) == "{|" .or. left(cBuf, 3) == "{ |" )
+                 IF ! ( left(cBuf, 2) == "{|" .OR. left(cBuf, 3) == "{ |" )
                     cNote := subs( cBuf, nBuf )
                  ENDIF
                  cBuf  := Alltrim( Left( cBuf, nBuf - 1 ) )
@@ -271,11 +271,11 @@ METHOD ToValue( cStr ) CLASS TIniData
    IF Empty( cStr ) ; RETURN cStr
    ENDIF
 
-   IF left(cStr, 1) == "{"  .AND. right(cStr, 1) == "}" .or. ;
-      left(cStr, 1) == "'"  .AND. right(cStr, 1) == "'" .or. ;
-      left(cStr, 1) == Chr(34)  .AND. right(cStr, 1) == Chr(34) .or. ;
-      left(cStr, 2) == "e" + Chr(34) .AND. right(cStr, 1) == Chr(34) .or. ;
-      left(cStr, 2) == "t" + Chr(34) .AND. right(cStr, 1) == Chr(34) .or. ;
+   IF left(cStr, 1) == "{"  .AND. right(cStr, 1) == "}" .OR. ;
+      left(cStr, 1) == "'"  .AND. right(cStr, 1) == "'" .OR. ;
+      left(cStr, 1) == Chr(34)  .AND. right(cStr, 1) == Chr(34) .OR. ;
+      left(cStr, 2) == "e" + Chr(34) .AND. right(cStr, 1) == Chr(34) .OR. ;
+      left(cStr, 2) == "t" + Chr(34) .AND. right(cStr, 1) == Chr(34) .OR. ;
       left(cStr, 4) == "0d20" .AND. Len(cStr) == 10
       BEGIN SEQUENCE WITH { |e|break(e) }
          xVal := &(cStr)
@@ -286,11 +286,11 @@ METHOD ToValue( cStr ) CLASS TIniData
       ENDIF
    ELSEIF hb_ntos(Val(cStr)) == cStr
       xVal := Val(cStr)
-   ELSEIF cStr == "T" .or. cStr == ".T." .or. cStr == ".t." .or. ;
-          cStr == "Y" .or. cStr == ::aYesNo[1]  // "Yes"
+   ELSEIF cStr == "T" .OR. cStr == ".T." .OR. cStr == ".t." .OR. ;
+          cStr == "Y" .OR. cStr == ::aYesNo[1]  // "Yes"
       xVal := .T.
-   ELSEIF cStr == "F" .or. cStr == ".F." .or. cStr == ".f." .or. ;
-          cStr == "N" .or. cStr == ::aYesNo[2]  // "No"
+   ELSEIF cStr == "F" .OR. cStr == ".F." .OR. cStr == ".f." .OR. ;
+          cStr == "N" .OR. cStr == ::aYesNo[2]  // "No"
       xVal := .F.
    ELSE
       xVal := cStr
