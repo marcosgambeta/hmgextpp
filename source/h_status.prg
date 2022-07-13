@@ -368,7 +368,7 @@ FUNCTION _IsOwnerDrawStatusBarItem( ParentHandle , ItemID , Value , lSet )
 
       i := hb_enumindex( h )
 
-      IF _HMG_aControlType [i] == ITEMTYPENAME .AND. h == ParentHandle
+      IF _HMG_aControlType[i] == ITEMTYPENAME .AND. h == ParentHandle
 
          IF ++nLocID == ItemID
 
@@ -440,7 +440,7 @@ FUNCTION _GetStatusItemWidth( hWnd, nItem )
 
       i := hb_enumindex( h )
 
-      IF _HMG_aControlType [i] == ITEMTYPENAME .AND. h == hWnd
+      IF _HMG_aControlType[i] == ITEMTYPENAME .AND. h == hWnd
          AAdd( aItemWidth, _HMG_aControlWidth [i] )
       ENDIF
 
@@ -460,7 +460,7 @@ FUNCTION _SetStatusItemProperty( nItem, Value, hWnd, nType )
 
       i := hb_enumindex( h )
 
-      IF _HMG_aControlType [i] == ITEMTYPENAME .AND. h == hWnd
+      IF _HMG_aControlType[i] == ITEMTYPENAME .AND. h == hWnd
 
          IF ++nIndex == nItem
 

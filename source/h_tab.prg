@@ -653,7 +653,7 @@ FUNCTION _AddTabControl ( TabName , ControlName , ParentForm , PageNumber , Row 
 
    IF i * x > 0
 
-      t := _HMG_aControlType [x]
+      t := _HMG_aControlType[x]
 
       // JD 07/20/2007
       IF t == CONTROL_TYPE_BROWSE .AND. _HMG_aControlMiscData1 [x,8] == .F.

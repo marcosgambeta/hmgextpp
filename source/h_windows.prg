@@ -1636,7 +1636,7 @@ PROCEDURE _RefreshDataControls ( i )
       v := _HMG_aControlValue [ ControlIndex ]
       _Refresh ( ControlIndex )
 
-      IF _HMG_aControlType [ControlIndex ] $ "COMBO,BROWSE"
+      IF _HMG_aControlType[ControlIndex] $ "COMBO,BROWSE"
          _SetValue ( , , v, ControlIndex )
       ENDIF
 
@@ -1651,7 +1651,7 @@ PROCEDURE _RefreshDataControls ( i )
             v := _HMG_aControlValue [ ControlIndex ]
             _Refresh ( ControlIndex )
 
-            IF _HMG_aControlType [ ControlIndex ] $ "COMBO,BROWSE"
+            IF _HMG_aControlType[ControlIndex] $ "COMBO,BROWSE"
                _SetValue ( , , v, ControlIndex )
             ENDIF
 
@@ -1779,9 +1779,9 @@ PROCEDURE _SetActivationFocus ( i )
 
       x := hb_enumindex( hControl )
 
-      IF _HMG_aControlParentHandles [x] == hParent .AND. _HMG_aControlType [x] != CONTROL_TYPE_HOTKEY
+      IF _HMG_aControlParentHandles [x] == hParent .AND. _HMG_aControlType[x] != CONTROL_TYPE_HOTKEY
 
-         IF _HMG_aControlType [x] == CONTROL_TYPE_OBUTTON .AND. ISLOGICAL ( _HMG_aControlDblClick [x] ) .AND. _HMG_aControlDblClick [x] == .T.
+         IF _HMG_aControlType[x] == CONTROL_TYPE_OBUTTON .AND. ISLOGICAL ( _HMG_aControlDblClick [x] ) .AND. _HMG_aControlDblClick [x] == .T.
             SetFocus ( hControl )
             FocusDefined := .T.
             EXIT
@@ -1797,12 +1797,12 @@ PROCEDURE _SetActivationFocus ( i )
 
          x := hb_enumindex( hControl )
 
-         IF _HMG_aControlParentHandles [x] == hParent .AND. _HMG_aControlType [x] != CONTROL_TYPE_HOTKEY // BK 25-Apr-2012
+         IF _HMG_aControlParentHandles [x] == hParent .AND. _HMG_aControlType[x] != CONTROL_TYPE_HOTKEY // BK 25-Apr-2012
 
             IF ISNUMBER ( hControl )
                IF hControl == Sp ;
                   .OR. ;
-                  _HMG_aControlType [x] == CONTROL_TYPE_BUTTON .AND. IsWindowHasStyle ( hControl, BS_DEFPUSHBUTTON )
+                  _HMG_aControlType[x] == CONTROL_TYPE_BUTTON .AND. IsWindowHasStyle ( hControl, BS_DEFPUSHBUTTON )
                   _SetFocus ( , , x )
                   FocusDefined := .T.
                   EXIT
@@ -1933,7 +1933,7 @@ FUNCTION _DoControlEventProcedure ( bBlock, i, cEventType, nParam, nParam2 )
    LOCAL lRetVal
 
 #ifdef _HMG_COMPAT_
-   IF _HMG_aControlType [ i ] != CONTROL_TYPE_HOTKEY  // Claudio Soto, November 2016
+   IF _HMG_aControlType[i] != CONTROL_TYPE_HOTKEY  // Claudio Soto, November 2016
       _HMG_LastActiveControlIndex := i
    ENDIF
    IF Len( _HMG_StopControlEventProcedure ) >= i .AND. _HMG_StopControlEventProcedure [ i ] == .T.  // Claudio Soto, April 2013

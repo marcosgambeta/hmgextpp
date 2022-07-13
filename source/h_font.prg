@@ -150,7 +150,7 @@ PROCEDURE _ReleaseFont( FontName )
 
    LOCAL i := AScan( _HMG_aControlNames, FontName )
 
-   IF i > 0 .AND. _HMG_aControlType [i] == CONTROL_TYPE_FONT
+   IF i > 0 .AND. _HMG_aControlType[i] == CONTROL_TYPE_FONT
       _EraseFontDef( i )
    ENDIF
 
@@ -232,7 +232,7 @@ FUNCTION GetFontHandle( FontName )
    IF i > 0
       IF GetFontParamByRef( _HMG_aControlHandles [i] )
          RETURN _HMG_aControlHandles [i]
-      ELSEIF _HMG_aControlType [i] == CONTROL_TYPE_FONT
+      ELSEIF _HMG_aControlType[i] == CONTROL_TYPE_FONT
          _EraseFontDef( i )
       ENDIF
    ENDIF
@@ -247,7 +247,7 @@ FUNCTION GetFontParam( FontHandle )
 
    aFontAttr := { _HMG_DefaultFontName, _HMG_DefaultFontSize, .F., .F., .F., .F., 0, 0, 0, "" }
 
-   IF i > 0 .AND. _HMG_aControlType[ i ] == CONTROL_TYPE_FONT
+   IF i > 0 .AND. _HMG_aControlType[i] == CONTROL_TYPE_FONT
       aFontAttr := { ;
          _HMG_aControlFontName[ i ], ;
          _HMG_aControlFontSize[ i ], ;
@@ -322,7 +322,7 @@ FUNCTION _SetFontAttr( ControlName, ParentForm, Value, nType )
    as := _HMG_aControlFontAttributes[ i ][ FONT_ATTR_STRIKEOUT ]
    aa := iif( Len( _HMG_aControlFontAttributes[ i ] ) == 5, _HMG_aControlFontAttributes[ i ][ FONT_ATTR_ANGLE ], 0 )
 
-   t := _HMG_aControlType[ i ]
+   t := _HMG_aControlType[i]
 
    DO CASE
    CASE t == CONTROL_TYPE_SPINNER
@@ -344,7 +344,7 @@ FUNCTION _SetFontAttr( ControlName, ParentForm, Value, nType )
 
    ENDCASE
 
-   IF "LABEL" $ _HMG_aControlType[ i ] .AND. ISLOGICAL ( _HMG_aControlInputMask[ i ] )
+   IF "LABEL" $ _HMG_aControlType[i] .AND. ISLOGICAL ( _HMG_aControlInputMask[ i ] )
       IF _HMG_aControlInputMask[ i ] == .T.
          _SetValue ( ControlName, ParentForm, _GetValue ( , , i ) )
       ENDIF

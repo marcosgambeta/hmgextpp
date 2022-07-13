@@ -308,7 +308,7 @@ FUNCTION InitDialogTextBox( ParentName, ControlHandle, k )
    nMaxLength  := _HMG_aControlRangeMax [k]
    readonly    := _HMG_aControlMiscData1 [k,2]
    cValue      := _HMG_aControlValue [k]
-   lNumeric    := ( _HMG_aControlType [k] == CONTROL_TYPE_NUMTEXT )
+   lNumeric    := ( _HMG_aControlType[k] == CONTROL_TYPE_NUMTEXT )
 
    IF ValType( readonly ) == "L"
       SendMessage( ControlHandle , EM_SETREADONLY , iif( readonly, 1, 0 ) , 0 )
@@ -1124,7 +1124,7 @@ PROCEDURE _DataTextBoxRefresh ( i )
 *-----------------------------------------------------------------------------*
    LOCAL Field
 
-   IF _HMG_aControlType [i] == CONTROL_TYPE_MASKEDTEXT
+   IF _HMG_aControlType[i] == CONTROL_TYPE_MASKEDTEXT
       Field := _HMG_aControlHeadClick [i]
    ELSE
       Field := _HMG_aControlPageMap [i]
@@ -1146,7 +1146,7 @@ PROCEDURE _DataTextBoxSave ( ControlName, ParentForm )
 
    i := GetControlIndex ( ControlName , ParentForm )
 
-   IF _HMG_aControlType [i] == CONTROL_TYPE_MASKEDTEXT
+   IF _HMG_aControlType[i] == CONTROL_TYPE_MASKEDTEXT
       Field := _HMG_aControlHeadClick [i]
    ELSE
       Field := _HMG_aControlPageMap [i]

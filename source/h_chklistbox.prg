@@ -307,7 +307,7 @@ FUNCTION InitDialogChkListBox( ParentName, ControlHandle, k )
       SetChkLBItemHeight ( ControlHandle , FontHandle )
    ENDIF
 
-   IF _HMG_aControlType [k] == CONTROL_TYPE_MULTICHKLIST
+   IF _HMG_aControlType[k] == CONTROL_TYPE_MULTICHKLIST
       IF ISARRAY( value )
          LISTBOXSETMULTISEL ( ControlHandle , Value )
       ENDIF

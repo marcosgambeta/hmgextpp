@@ -523,7 +523,7 @@ STATIC PROCEDURE _DropDownShortcut ( nToolButtonId , nParentWindowHandle , i , n
    LOCAL aPos, aSize
    LOCAL x
 
-   IF ( x := AScan( _HMG_aControlIds , nToolButtonId ) ) > 0 .AND. _HMG_aControlType [x] == CONTROL_TYPE_TOOLBUTTON
+   IF ( x := AScan( _HMG_aControlIds , nToolButtonId ) ) > 0 .AND. _HMG_aControlType[x] == CONTROL_TYPE_TOOLBUTTON
       aPos := { 0, 0, 0, 0 }
       GetWindowRect ( _HMG_aControlHandles [i] , aPos )
 

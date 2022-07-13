@@ -279,7 +279,7 @@ FUNCTION OBTNEVENTS( hWnd, nMsg, wParam, lParam )
 *-----------------------------------------------------------------------------*
    LOCAL i
 
-   IF ( i := AScan( _HMG_aControlHandles, hWnd ) ) > 0 .AND. _HMG_aControlType [i] == CONTROL_TYPE_OBUTTON
+   IF ( i := AScan( _HMG_aControlHandles, hWnd ) ) > 0 .AND. _HMG_aControlType[i] == CONTROL_TYPE_OBUTTON
 
       wParam := _HMG_aControlRangeMax [i][1]
       lParam := _HMG_aControlRangeMax [i][2]
@@ -368,7 +368,7 @@ FUNCTION OwnButtonPaint( pdis )
 
    i := AScan( _HMG_aControlHandles , hWnd )
 
-   IF ( i <= 0 .OR. _HMG_aControlType[ i ] <> CONTROL_TYPE_OBUTTON )
+   IF ( i <= 0 .OR. _HMG_aControlType[i] <> CONTROL_TYPE_OBUTTON )
       RETURN ( 1 )
    ENDIF
 

@@ -320,7 +320,7 @@ FUNCTION InitDialogListBox( ParentName, ControlHandle, k )
 
    AEval( Rows , { | r | ListboxAddString ( ControlHandle , r ) } )
 
-   IF _HMG_aControlType [k] == CONTROL_TYPE_MULTILIST
+   IF _HMG_aControlType[k] == CONTROL_TYPE_MULTILIST
       IF ISARRAY( value )
          LISTBOXSETMULTISEL ( ControlHandle , Value )
       ENDIF

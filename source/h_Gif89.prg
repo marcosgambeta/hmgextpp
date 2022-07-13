@@ -136,7 +136,7 @@ PROCEDURE _ReleaseAniGif ( GifName, FormName )
 
       FOR i := 1 TO Len( _HMG_aControlHandles )
 
-         IF _HMG_aControlParentHandles[ i ] == hWnd .AND. _HMG_aControlType[ i ] == CONTROL_TYPE_ANIGIF
+         IF _HMG_aControlParentHandles[ i ] == hWnd .AND. _HMG_aControlType[i] == CONTROL_TYPE_ANIGIF
             oGif := _HMG_aControlIds[ i ]
             oGif:End()
             _EraseGifDef ( FormName, i )

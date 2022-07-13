@@ -198,7 +198,7 @@ PROCEDURE SPButtonSetFocus ( cWindow, cControl )
       ControlCount := Len( _HMG_aControlNames )
       ParentFormHandle := _HMG_aControlParentHandles [ GetControlIndex ( cControl, cWindow ) ]
       FOR x := 1 TO ControlCount
-         IF _HMG_aControlType [x] == CONTROL_TYPE_SPBUTTON
+         IF _HMG_aControlType[x] == CONTROL_TYPE_SPBUTTON
             IF _HMG_aControlParentHandles [x] == ParentFormHandle
                SendMessage ( _HMG_aControlHandles [x], BM_SETSTYLE, BS_SPLITBUTTON, LOWORD(1) )
             ENDIF

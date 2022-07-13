@@ -582,7 +582,7 @@ PROCEDURE _EndMenu()
                AEval( h , {|x| AAdd( _HMG_aControlsContextMenu , { x , _HMG_xContextMenuHandle , _HMG_xContextMenuButtonIndex [i] , .T. } ) } )
             ELSE
                AAdd( _HMG_aControlsContextMenu , { h , _HMG_xContextMenuHandle , _HMG_xContextMenuButtonIndex [i] , .T. } )
-               IF _HMG_aControlType [ _HMG_xContextMenuButtonIndex [i] ] $ "IMAGE,LABEL"
+               IF _HMG_aControlType[_HMG_xContextMenuButtonIndex [i]] $ "IMAGE,LABEL"
                   ChangeStyle ( h , SS_NOTIFY )
                ENDIF
             ENDIF
@@ -607,7 +607,7 @@ PROCEDURE _EndMenu()
 
       i := hb_enumindex( h )
 
-      IF _HMG_aControlType [i] == CONTROL_TYPE_POPUP
+      IF _HMG_aControlType[i] == CONTROL_TYPE_POPUP
 
          image := _HMG_aControlPicture [i]
 
@@ -632,11 +632,11 @@ STATIC FUNCTION _GetMenuIds ( ItemName , FormName )
 
       h := _HMG_aControlPageMap [ x ]
 
-      IF _HMG_aControlType [ x ] == CONTROL_TYPE_MENU
+      IF _HMG_aControlType[x] == CONTROL_TYPE_MENU
 
          id := _HMG_aControlIds [ x ]
 
-      ELSEIF _HMG_aControlType [ x ] == CONTROL_TYPE_POPUP
+      ELSEIF _HMG_aControlType[x] == CONTROL_TYPE_POPUP
 
          id := _HMG_aControlSpacing [ x ]
 

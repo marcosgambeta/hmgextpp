@@ -333,7 +333,7 @@ FUNCTION InitDialogBtnTextBox( ParentName, ControlHandle, k )
    Field          := _HMG_aControlPageMap  [k]
    nMaxLength     := _HMG_aControlRangeMax  [k]
    cValue         := _HMG_aControlValue  [k]
-   lNumeric       := ( _HMG_aControlType [k] == CONTROL_TYPE_BTNNUMTEXT )
+   lNumeric       := ( _HMG_aControlType[k] == CONTROL_TYPE_BTNNUMTEXT )
    abitmap        := _HMG_aControlPicture  [k]
    BtnWidth       := _HMG_aControlRangeMin  [k]
    lBtn2          := _HMG_aControlMiscData1  [k,2]

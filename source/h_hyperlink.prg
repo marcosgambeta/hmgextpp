@@ -57,8 +57,8 @@ PROCEDURE _SetAddress ( ControlName , ParentForm , url )
       _SetAddressControlProcedure ( ControlName , url , i )
       _HMG_aControlValue [i] := url
 
-      IF _HMG_aControlType [i] == CONTROL_TYPE_LABEL
-         _HMG_aControlType [i] := CONTROL_TYPE_HYPERLINK
+      IF _HMG_aControlType[i] == CONTROL_TYPE_LABEL
+         _HMG_aControlType[i] := CONTROL_TYPE_HYPERLINK
       ENDIF
 
    ENDIF
