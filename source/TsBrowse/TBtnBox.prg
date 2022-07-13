@@ -82,12 +82,12 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, ;
    ::cParentWnd   := cWnd
    ::hWndParent   := oWnd:hWnd
    ::bSetGet      := bSetGet
-   ::lCaptured    := .f.
+   ::lCaptured    := .F.
    ::hFont        := hFont
    ::lFocused     := .F.
    ::lAppend      := .F.
    ::nLastKey     := 0
-   ::lChanged     := .f.
+   ::lChanged     := .F.
 
    ::cMsg         := cMsg
    ::bChange      := .T.

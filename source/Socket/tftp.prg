@@ -118,7 +118,7 @@ return ::oSocket:Close()
 //
 METHOD Login( cUser, cPwd ) CLASS TFtp
 local cErr := ""
-local lRet := .f.
+local lRet := .F.
 
 DEFAULT cUser TO "anonymous"
 DEFAULT cPwd  TO ""

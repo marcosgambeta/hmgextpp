@@ -388,7 +388,7 @@ Local icb
 	tvHeight := ( _hmg_printer_PageCount * (tHeight + 10) ) + GetHScrollbarHeight() + GetTitleHeight() + ( GetBorderHeight() * 2 ) + 7 
 
 	if tvHeight <= GetDesktopHeight() - 103
-		_hmg_printer_thumbscroll := .f.
+		_hmg_printer_thumbscroll := .F.
 		tvHeight := GetDesktopHeight() - 102
 	else
 		_hmg_printer_thumbscroll := .T.
@@ -413,7 +413,7 @@ Local icb
 
 	END WINDOW
 
-	if _hmg_printer_thumbscroll == .f.
+	if _hmg_printer_thumbscroll == .F.
 		_HMG_PRINTER_PREVIEW_DISABLESCROLLBARS (GetFormHandle('_HMG_PRINTER_SHOWTHUMBNAILS'))
 	endif
 

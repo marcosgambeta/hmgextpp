@@ -73,7 +73,7 @@
  *      [bSave]                 Bloque de codigo con el formato {|aValores, lNuevo| Accion } que
  *                              se ejecutará al pulsar la tecla de guardar registro. Se pasan
  *                              las variables aValores con el contenido del registro a guardar y
- *                              lNuevo que indica si se está añadiendo (.T.) o editando (.f.).
+ *                              lNuevo que indica si se está añadiendo (.T.) o editando (.F.).
  *                              Esta variable ha de devolver .T. para salir del modo de edición.
  *                              Por defecto se graba con el código de la función.
  *

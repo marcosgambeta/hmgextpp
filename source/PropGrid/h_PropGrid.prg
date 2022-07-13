@@ -2226,10 +2226,10 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
             cData := PG_GETITEM( hWndPG, hItem, PGI_DATA )
             aData := PgIdentData( cData, PG_FONT )
             aDataNew := GetFont ( aData[1,3], Val( aData[2,3] ) , ;
-               iif(len(aData)>=3,aData[3,3] == "true",.f.) ,;
-               iif(len(aData)>=4,aData[4,3] == "true",.f.) , ,;
-               iif(len(aData)>=5,aData[5,3] == "true",.f.) , ;
-               iif(len(aData)>=6,aData[6,3] == "true",.f.) )
+               iif(len(aData)>=3,aData[3,3] == "true",.F.) ,;
+               iif(len(aData)>=4,aData[4,3] == "true",.F.) , ,;
+               iif(len(aData)>=5,aData[5,3] == "true",.F.) , ;
+               iif(len(aData)>=6,aData[6,3] == "true",.F.) )
             IF !Empty( aDataNew[1] )
                ADel( aDataNew, 5 )
                ASize( aDataNew, 6 )

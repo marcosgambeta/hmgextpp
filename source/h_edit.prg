@@ -135,13 +135,13 @@
  *                         con todos los valores verdaderos (.T.).
  *              bGuardar   Bloque de codigo al que se le pasa uan matriz con los
  *                         valores a guardar/editar y una variable lógica que indica
- *                         si se esta editando (.T.) o añadiendo (.f.). El bloque de código
+ *                         si se esta editando (.T.) o añadiendo (.F.). El bloque de código
  *                         tendrá la siguiente forma {|p1, p2| MiFuncion( p1, p2 ) }, donde
  *                         p1 será un array con los valores para cada campo y p2 sera el
  *                         valor lógico que indica el estado. Por defecto se guarda usando
  *                         el código interno de la función. Tras la operación se realiza un
  *                         refresco del cuadro de dialogo. La función debe devolver un valor
- *                         .f. si no se quiere salir del modo de edición o cualquier otro
+ *                         .F. si no se quiere salir del modo de edición o cualquier otro
  *                         si se desea salir. Esto es util a la hora de comprobar los valores
  *                         a añadir a la base de datos.
  *              bBuscar    Bloque de código para la función de busqueda. Por defecto se usa
@@ -1352,7 +1352,7 @@ RETURN ( nil )
  *       Autor: Cristóbal Mollá
  * Descripción: Lanza el listado definido a la impresora.
  *  Parámetros: lOrientacion    Lógico que indica si el listado es horizontal (.T.)
- *                              o vertical (.f.)
+ *                              o vertical (.F.)
  *              nPrimero        Valor numerico con el primer registro a imprimir.
  *              nUltimo         Valor numérico con el último registro a imprimir.
  *    Devuelve: NIL

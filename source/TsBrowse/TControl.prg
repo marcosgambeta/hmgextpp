@@ -92,7 +92,7 @@ CLASS TControl
 
    METHOD AddControl( hControl ) INLINE ;
                         IIf( ::aControls == nil, ::aControls := {},),;
-                        AAdd( ::aControls, hControl ), ::lValidating := .f.
+                        AAdd( ::aControls, hControl ), ::lValidating := .F.
 
    METHOD AddVars(hControl)
 
@@ -237,7 +237,7 @@ METHOD Init( hDlg ) CLASS TControl
 
    local oRect
 
-   DEFAULT ::lActive := .T., ::lCaptured := .f.
+   DEFAULT ::lActive := .T., ::lCaptured := .F.
 
    if( ( ::hWnd := GetDialogItemHandle( hDlg, ::nId ) ) != 0 )    //JP
       oRect     := ::GetRect()

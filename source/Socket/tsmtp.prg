@@ -273,7 +273,7 @@ METHOD ClearData() CLASS TSMTP
 ::aCc       := {}
 ::aBcc      := {}
 ::cData     := ""
-::bHTML     := .f.
+::bHTML     := .F.
 ::aAttach   := {}
 ::cError    := ""
 return nil
@@ -332,7 +332,7 @@ return nil
 // Set data
 //
 METHOD SetData( cMail, bHTML ) CLASS TSMTP
-DEFAULT bHTML TO .f.
+DEFAULT bHTML TO .F.
 ::cData := cMail
 ::bHTML := bHTML
 return nil
@@ -361,7 +361,7 @@ return nil
 // Send message
 //
 METHOD Send( bIgnoreTOError, bRequestReturnReceipt ) CLASS TSMTP
-local bRet := .f.
+local bRet := .F.
 local cHeader := ""
 local cErr
 local bMultipart := (LEN(::aAttach)>0)

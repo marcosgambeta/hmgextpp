@@ -10,9 +10,9 @@
 #define NTrim( n ) LTRIM( STR( n,20, IIF( n == INT( n ), 0, set(_SET_DECIMALS) ) ))
 #TRANSLATE ZAPS(<X>) => NTrim(<X>)
 #TRANSLATE Test( <c> ) => MsgInfo( <c>, [<c>] )
-#define MsgInfo( c ) MsgInfo( c, , , .f. )
-#define MsgAlert( c ) MsgEXCLAMATION( c, , , .f. )
-#define MsgStop( c ) MsgStop( c, , , .f. )
+#define MsgInfo( c ) MsgInfo( c, , , .F. )
+#define MsgAlert( c ) MsgEXCLAMATION( c, , , .F. )
+#define MsgStop( c ) MsgStop( c, , , .F. )
 
 memvar endof_file, separator, atf
 memvar An_Vari, aend
@@ -62,12 +62,12 @@ memvar oWr
 Function WinRepInt(filename,db_arc,_NREC,_MainArea,_psd,_prw)
 *------------------------------------------------------------------------------*
 local ritorna:=.T., handle, n, n_var, x_exact := set(1)
-local str1:="", Vcb:='', lcnt:=0, a1:=0, a2:=0, al:=0, L1:=.f., L2:=.f.
+local str1:="", Vcb:='', lcnt:=0, a1:=0, a2:=0, al:=0, L1:=.F., L2:=.F.
 local _object_ := '', Linea, sezione, cWord
 private endof_file
 public SEPARATOR := [/], atf := ''
 default db_arc to dbf(), _nrec to 0, _MainArea to ""
-default _prw to .f.
+default _prw to .F.
 
 SET( _SET_DELETED , .T. )
 SET CENTURY ON
@@ -90,17 +90,17 @@ endif
 if empty(filename) .or. !file(filename)
    _object_ := valtype(filename)
    msgstop([Warning...]+CRLF+[Report not found ]+IF(_object_=="C",': "'+Filename+'"','!')+CRLF+[The type of argument is: ]+_object_,'')
-   ritorna:=.f.
+   ritorna:=.F.
 ElseIf !file(filename)
    MsgT(2,[Warning...]+CRLF+[The file "]+FILENAME+[" not exist!!!],,"STOP")
-   ritorna:=.f.
+   ritorna:=.F.
 Endif
 if ritorna
    *- open the file, check for errors
    handle := FOPEN(filename,64)
    If Ferror() <> 0
      msg("Error opening file : "+filename)
-     ritorna := .f.
+     ritorna := .F.
    Endif
 
    *- not at the end of file
@@ -245,7 +245,7 @@ return ritorna
 Function StampeEsegui(_MainArea,_psd,db_arc,_prw)
 *-----------------------------------------------------------------------------*
    Local oldrec   := recno(), rtv := .F. ,;
-         landscape:=.f., lpreview :=.f., lselect  :=.f. ,;
+         landscape:=.F., lpreview :=.F., lselect  :=.F. ,;
          str1:=[] , StrFlt := [], ;
          ncpl , nfsize, aprinters, ;
          lbody := 0, miocont:= 0, miocnt:= 0 ,;
@@ -328,9 +328,9 @@ Function StampeEsegui(_MainArea,_psd,db_arc,_prw)
    endif
    if !lselect .and. !lpreview
       if ascan(aprinters,_PSD) > 0
-        hbprn:selectprinter(_psd,.f.) // SELECT PRINTER _PSD
+        hbprn:selectprinter(_psd,.F.) // SELECT PRINTER _PSD
       else
-        hbprn:selectprinter(NIL,.f.)   // SELECT default
+        hbprn:selectprinter(NIL,.F.)   // SELECT default
       endif
    endif
    if HBPRNERROR != 0
@@ -426,8 +426,8 @@ Function StampeEsegui(_MainArea,_psd,db_arc,_prw)
                         oWr:TheHead()
                         oWr:TheBody()
                   enddo
-                  oWr:aStat [ 'EndDoc' ]:=.f.
-                  last_pag := .f.
+                  oWr:aStat [ 'EndDoc' ]:=.F.
+                  last_pag := .F.
                   set filter to
                   sele (oWr:aStat [ 'area1' ])
                   dbskip()
@@ -466,7 +466,7 @@ Function R_mem(Last)
    release miocont,counter,Gcounter,grdemo,gcdemo,Align,GField
    release s_head,s_col,gftotal,Gfexec,s_total,t_col,nline,nPag,nPgr,Tpg,last_pag,eLine,wheregt
    release GFline,mx_pg,maxrow,ONEATLEAST,shd,sbt,sgh,insgh,TTS, abort
-return .f.
+return .F.
 /*
 */
 *-----------------------------------------------------------------------------*
@@ -553,7 +553,7 @@ FUNCTION ed_g_pic
 *-----------------------------------------------------------------------------*
 parameter __arg1,__arg2
 local arg1, arg2
-default __arg2 to .f.
+default __arg2 to .F.
 
 if __arg2
    _euro:=.T.
@@ -692,7 +692,7 @@ Function Msgt (nTimeout, Message, Title, Flags)
 *-----------------------------------------------------------------------------*
 * Created at 04/20/2005 By Pierpaolo Martinello Italy                         *
 *-----------------------------------------------------------------------------*
-        local switch:=.f., rtv:=0
+        local switch:=.F., rtv:=0
 
         DEFAULT Message TO ""   ;  DEFAULT Title TO ""
         DEFAULT Flags   TO "MSGBOX"
@@ -1130,7 +1130,7 @@ return nil
 *-----------------------------------------------------------------------------*
 METHOD IsMono(arg1) CLASS WREPORT
 *-----------------------------------------------------------------------------*
-Local en, rtv := .f.
+Local en, rtv := .F.
 for each en in arg1
     if valtype(en)=="A"
        exit
@@ -1275,7 +1275,7 @@ RETURN rt_line
 *-----------------------------------------------------------------------------*
 METHOD Transpace(arg1,arg2,arg3) CLASS WREPORT // The core of parser
 *-----------------------------------------------------------------------------*
-     local al1 := .f., al2 := .F., extFnc := .F. , tmpstr := '' , n
+     local al1 := .F., al2 := .F., extFnc := .F. , tmpstr := '' , n
      local nr  := '', opp := 0 , pt := '', cdbl := .F., cdc := 0
      local last_func  := rat(")",arg1), last_sapex := rat(['],arg1)
      local last_Dapex := rat(["],arg1), last_codeb := rat([}],arg1)
@@ -1425,12 +1425,12 @@ return xResult
 *-----------------------------------------------------------------------------*
 METHOD Traduci(elemento,ctrl,cmdline) CLASS WREPORT  // The interpreter
 *-----------------------------------------------------------------------------*
-local string, ritorno :=.f., ev1th, sSection, dbg:=''
+local string, ritorno :=.F., ev1th, sSection, dbg:=''
 local TransPar:={}, ArryPar :={}, cWord
 LOCAL oErrAntes, oErr, lMyError := .F., ifc:='',IEXE := .F.
 
 sSection := iif(procname(1)="STAMPEESEGUI","DECLARE",substr(procname(1),4))
-default ctrl to .f.
+default ctrl to .F.
 string:=alltrim(elemento)
 
 if empty(string);return ritorno ;endif
@@ -1438,10 +1438,10 @@ if empty(string);return ritorno ;endif
 if upper(left(string,8))="DEBUG_ON"
    ::aStat [ 'Control' ] := .T.
 elseif upper(left(string,8))="DEBUG_OF"
-   ::aStat [ 'Control' ] := .f.
+   ::aStat [ 'Control' ] := .F.
 elseif upper(left(string,9))=="SET"+chr(07)+"DEBUG"
    dbg := right(string,4)
-   ::aStat [ 'Control' ] := iif(val(dbg)> 0,.T.,iif(".T." $ dbg .or. "ON" $ Dbg ,.T.,.f.))
+   ::aStat [ 'Control' ] := iif(val(dbg)> 0,.T.,iif(".T." $ dbg .or. "ON" $ Dbg ,.T.,.F.))
 endif
 
 tokeninit(string,chr(07))      //set the command separator -> ONLY A BEL
@@ -1490,7 +1490,7 @@ if "{" $ left(TransPar[1],2)
 
       if eval(epar,ev1th)
          adel(TransPar,1)
-         ritorno := .f.
+         ritorno := .F.
       else
          if sSEction=="HEAD"
             nline ++
@@ -1520,7 +1520,7 @@ BEGIN SEQUENCE
          ::aStat [ 'EntroIF' ] := .F.
          ::aStat [ 'ElseStat' ] := .T.
       Endif
-       //msgbox(iif( ::aStat [ 'DelMode' ]," ::aStat [ 'DelMode' ] .T.","::aStat [ 'DelMode' ] .f.")+crlf+if( ::aStat [ 'ElseStat' ]," ::aStat [ 'ElseStat' ] .T.","::aStat [ 'ElseStat' ] .f.")," risulta")
+       //msgbox(iif( ::aStat [ 'DelMode' ]," ::aStat [ 'DelMode' ] .T.","::aStat [ 'DelMode' ] .F.")+crlf+if( ::aStat [ 'ElseStat' ]," ::aStat [ 'ElseStat' ] .T.","::aStat [ 'ElseStat' ] .F.")," risulta")
       if !::aStat [ 'EntroIF' ] .and. !::aStat [ 'DelMode' ] // i am on false condition
          if ::aStat [ 'ElseStat' ]
             //msginfo(ifc ,"Cancellato")
@@ -1690,14 +1690,14 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                            ,iif(ascan(arryPar,[SIZE])=6,VAL(ArryPar[7]),NIL);
                            ,iif(ascan(arryPar,[WIDTH])# 0, VAL(eval(chblk,arrypar,[WIDTH])),NIL);
                            ,iif(ascan(arryPar,[ANGLE])# 0,VAL(eval(chblk,arrypar,[ANGLE])),NIL);
-                           ,iif(ascan(arryPar,[BOLD])#0,.T.,.f.);
-                           ,iif(ascan(arryPar,[NOBOLD])#0,.T.,.f.);
-                           ,iif(ascan(arryPar,[ITALIC])#0,.T.,.f.);
-                           ,iif(ascan(arryPar,[NOITALIC])#0,.T.,.f.);
-                           ,iif(ascan(arryPar,[UNDERLINE])#0,.T.,.f.);
-                           ,iif(ascan(arryPar,[NOUNDERLINE])#0,.T.,.f.);
-                           ,iif(ascan(arryPar,[STRIKEOUT])#0,.T.,.f.);
-                           ,iif(ascan(arryPar,[NOSTRIKEOUT])#0,.T.,.f.))
+                           ,iif(ascan(arryPar,[BOLD])#0,.T.,.F.);
+                           ,iif(ascan(arryPar,[NOBOLD])#0,.T.,.F.);
+                           ,iif(ascan(arryPar,[ITALIC])#0,.T.,.F.);
+                           ,iif(ascan(arryPar,[NOITALIC])#0,.T.,.F.);
+                           ,iif(ascan(arryPar,[UNDERLINE])#0,.T.,.F.);
+                           ,iif(ascan(arryPar,[NOUNDERLINE])#0,.T.,.F.);
+                           ,iif(ascan(arryPar,[STRIKEOUT])#0,.T.,.F.);
+                           ,iif(ascan(arryPar,[NOSTRIKEOUT])#0,.T.,.F.))
 
            case ArryPar[1]+arryPar[2]=[COMBINEREGIONS]
                 hbprn:combinergn(eval(chblk,arrypar,[TO]),ArryPar[3],ArryPar[4];
@@ -1764,7 +1764,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                         hbprn:setdevmode(DM_DUPLEX,::what_ele(eval(chblk,arrypar,[DUPLEX]),::aCh,"_aDuplex"))
 
     	               case ascan(ArryPar,[PREVIEW])=2 .and. len(arrypar)= 3
-                        hbprn:PreviewMode := iif(eval(chblk,arrypar,[PREVIEW])=[OFF],.f.,.T.)
+                        hbprn:PreviewMode := iif(eval(chblk,arrypar,[PREVIEW])=[OFF],.F.,.T.)
 
                    case ascan(arryPar,[BIN])=2
                         if val(Arrypar[3])> 0
@@ -2209,8 +2209,8 @@ return rtv
 *-----------------------------------------------------------------------------*
 METHOD MEMOSAY(row,col,argm1,argl1,argf1,argcolor1,argalign,onlyone,arrypar) CLASS WREPORT
 *-----------------------------------------------------------------------------*
- local _Memo1:=argm1, mrow:=max(1,mlcount(_memo1,argl1)), arrymemo:={}, esci:=.f.
- Local units := hbprn:UNITS, k, mcl ,ain, str :='', typa := .f.
+ local _Memo1:=argm1, mrow:=max(1,mlcount(_memo1,argl1)), arrymemo:={}, esci:=.F.
+ Local units := hbprn:UNITS, k, mcl ,ain, str :='', typa := .F.
  default col to 0 ,row to 0, argl1 to 10, onlyone to ''
 
  if valtype(argm1)=="A"
@@ -2330,9 +2330,9 @@ IsMono := ::Ismono(arr)
         _HMG_PRINTER_H_PRINT( iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) ;
          , nline*lstep , arg2, argf1 , argsize , afontscolor[1], afontscolor[2], afontscolor[3] ;
          , xwa, abold, aita, aunder, astrike;
-         , iif(valtype(afontscolor)=="A", .T.,.f.) ;
-         , iif(valtype(argf1)=="C", .T.,.f.) ;
-         , iif(valtype(argsize)=="N", .T.,.f.) ;
+         , iif(valtype(afontscolor)=="A", .T.,.F.) ;
+         , iif(valtype(argf1)=="C", .T.,.F.) ;
+         , iif(valtype(argsize)=="N", .T.,.F.) ;
          , argalign )
       */
       Endif
@@ -2360,7 +2360,7 @@ return ritorno
 METHOD GROUP(GField, s_head, s_col, gftotal, wheregt, s_total, t_col, p_f_e_g) CLASS WREPORT
 *                1        2      3       4        5        6       7       8
 *-----------------------------------------------------------------------------*
-local ritorno := iif( indexord()> 0 ,.T.,.f. )
+local ritorno := iif( indexord()> 0 ,.T.,.F. )
 local posiz   := 0, P1 := 0, P2 := 0, P3 := 0, cnt := 1
 local Aposiz  := {}, k, Rl, Rm, Rr, ghf:=''
 local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
@@ -2391,7 +2391,7 @@ local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
       endif
       if empty(GField)
          msgExclamation('Missing Field Name id Group declaration!')
-         ritorno   := .f.
+         ritorno   := .F.
       else
          m->GField := GField
       endif
@@ -2654,7 +2654,7 @@ return nil
 *-----------------------------------------------------------------------------*
 METHOD TheBody() CLASS WREPORT
 *-----------------------------------------------------------------------------*
-local db_arc:=dbf(), noline:=.f., subcolor, nxtp :=.f., n, an, al
+local db_arc:=dbf(), noline:=.F., subcolor, nxtp :=.F., n, an, al
 Local sstring := "NLINE"+chr(07)+NTrim(t_col)+chr(07)+"SAY"+chr(07)
       sstring += chr(05)+chr(07)+substr(ghstring,at("FONT",ghstring))
       if valtype(::argm[3])=="A"
@@ -2662,7 +2662,7 @@ Local sstring := "NLINE"+chr(07)+NTrim(t_col)+chr(07)+"SAY"+chr(07)
          for an = 1 to al
              ::aCnt := an
              for N = 2 TO LEN(::aBody)
-                 if ::traduci(::aBody[N,1],.f.,::aBody[N,2]) //n-1)
+                 if ::traduci(::aBody[N,1],.F.,::aBody[N,2]) //n-1)
                      noline := .T.
                  endif
                  if "MEMOSAY" $ upper( ::aBody[N,1] )
@@ -2716,7 +2716,7 @@ Local sstring := "NLINE"+chr(07)+NTrim(t_col)+chr(07)+"SAY"+chr(07)
                         // @nline,0 say "@@"+if(m->insgh =.T.,[.T.],[.F.])  FONT "F1" to print
                         nxtp := .F. ; nline ++
                      endif
-                     insgh:=.f.
+                     insgh:=.F.
                   else
                       for N = 2 TO LEN(::aBody)
                            if grdemo .or. gcdemo
@@ -2729,7 +2729,7 @@ Local sstring := "NLINE"+chr(07)+NTrim(t_col)+chr(07)+"SAY"+chr(07)
                                  endif
                               endif
                            else
-                              if ::traduci(::aBody[N,1],.f.,::aBody[N,2]) //n-1)
+                              if ::traduci(::aBody[N,1],.F.,::aBody[N,2]) //n-1)
                                  noline := .T.
                               endif
                               if "MEMOSAY" $ upper( ::aBody[N,1] )
@@ -2817,11 +2817,11 @@ return nil
 METHOD TheFeet(last) CLASS WREPORT            //Feet // IL Piede
 *-----------------------------------------------------------------------------*
 // exclude:= FALSE
-   default last to .f.
+   default last to .F.
    if !last_pag
       eline := nline // if (eval(::Valore,::aBody[1])+eval(::Valore,::aBody[1]) < nline,nline,eline)
    endif
-   aeval(::aFeet,{|x,y|if(Y>1 ,::traduci(x[1],iif(!(grdemo .or. gcdemo),'',.f.),x[2]),'')})
+   aeval(::aFeet,{|x,y|if(Y>1 ,::traduci(x[1],iif(!(grdemo .or. gcdemo),'',.F.),x[2]),'')})
    last_pag := last
    Last := .T.
    if ::PrnDrv = "HBPR"
@@ -2909,7 +2909,7 @@ return nil
 *-----------------------------------------------------------------------------*
 METHOD TheMiniBody() class Wreport
 *-----------------------------------------------------------------------------*
-local db_arc:=dbf(), noline:=.f., nxtp :=.f.
+local db_arc:=dbf(), noline:=.F., nxtp :=.F.
 local oErrAntes, oErr, lMyError := .F., n , al ,an
    BEGIN SEQUENCE
       // buono ma da rivedere Yes_Memo  := .F.
@@ -2918,7 +2918,7 @@ local oErrAntes, oErr, lMyError := .F., n , al ,an
          for an = 1 to al
              ::aCnt := an
              for N = 2 TO LEN(::aBody)
-                 if ::traduci(::aBody[N,1],.f.,::aBody[N,2]) //n-1)
+                 if ::traduci(::aBody[N,1],.F.,::aBody[N,2]) //n-1)
                      noline := .T.
                  endif
                  if "MEMOSAY" $ upper( ::aBody[N,1] )
@@ -2970,7 +2970,7 @@ local oErrAntes, oErr, lMyError := .F., n , al ,an
                         nxtp := .F.
                      endif
                      nline ++
-                     insgh:=.f.
+                     insgh:=.F.
                   else
                       for N= 2 TO LEN(oWr:aBody)
                            if grdemo .or. gcdemo
@@ -2983,7 +2983,7 @@ local oErrAntes, oErr, lMyError := .F., n , al ,an
                                  endif
                               endif
                            else
-                              if ::traduci(oWr:aBody[N,1],.f.,oWr:aBody[N,2]) //n-1)
+                              if ::traduci(oWr:aBody[N,1],.F.,oWr:aBody[N,2]) //n-1)
                                  noline := .T.
                               endif
                               if "MEMOSAY" $ upper( oWr:aBody[N,1] )
