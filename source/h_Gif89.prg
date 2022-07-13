@@ -52,7 +52,7 @@ FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidt
    ENDIF
 
    // Define public variable associated with control
-   mVar := '_' + cParentForm + '_' + cControlName
+   mVar := "_" + cParentForm + "_" + cControlName
 
    nParentFormHandle := GetFormHandle ( cParentForm )
 
@@ -93,7 +93,7 @@ FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidt
    _HMG_aControlFontName[ k ] := NIL
    _HMG_aControlFontSize[ k ] := NIL
    _HMG_aControlFontAttributes[ k ] := {}
-   _HMG_aControlToolTip[ k ] := ''
+   _HMG_aControlToolTip[ k ] := ""
    _HMG_aControlRangeMin[ k ] := 0
    _HMG_aControlRangeMax[ k ] := 0
    _HMG_aControlCaption[ k ] := cFilename
@@ -103,7 +103,7 @@ FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidt
    _HMG_aControlBrushHandle[ k ] := 0
    _HMG_aControlEnabled[ k ] := .T.
    _HMG_aControlMiscData1[ k ] := 0
-   _HMG_aControlMiscData2[ k ] := ''
+   _HMG_aControlMiscData2[ k ] := ""
 
    oGif := TGif():New( cFilename, nRow, nCol, nHeight, nWidth, nDelay, aBKColor, cControlName, cParentForm )
 
@@ -154,7 +154,7 @@ STATIC PROCEDURE _EraseGifDef ( FormName, i )
 *------------------------------------------------------------------------------*
    LOCAL mVar
 
-   mVar := '_' + FormName + '_' + _HMG_aControlNames[ i ]
+   mVar := "_" + FormName + "_" + _HMG_aControlNames[ i ]
 
 #ifdef _NAMES_LIST_
    _DelNameList( mVar )
@@ -197,14 +197,14 @@ STATIC PROCEDURE _EraseGifDef ( FormName, i )
    _HMG_aControlSpacing[ i ] := 0
    _HMG_aControlContainerRow[ i ] := 0
    _HMG_aControlContainerCol[ i ] := 0
-   _HMG_aControlPicture[ i ] := ''
+   _HMG_aControlPicture[ i ] := ""
    _HMG_aControlContainerHandle[ i ] := 0
-   _HMG_aControlFontName[ i ] := ''
+   _HMG_aControlFontName[ i ] := ""
    _HMG_aControlFontSize[ i ] := 0
-   _HMG_aControlToolTip[ i ] := ''
+   _HMG_aControlToolTip[ i ] := ""
    _HMG_aControlRangeMin[ i ] := 0
    _HMG_aControlRangeMax[ i ] := 0
-   _HMG_aControlCaption[ i ] := ''
+   _HMG_aControlCaption[ i ] := ""
    _HMG_aControlVisible[ i ] := .F.
    _HMG_aControlHelpId[ i ] := 0
    _HMG_aControlFontHandle[ i ] := 0
@@ -212,7 +212,7 @@ STATIC PROCEDURE _EraseGifDef ( FormName, i )
    _HMG_aControlBrushHandle[ i ] := 0
    _HMG_aControlEnabled[ i ] := .F.
    _HMG_aControlMiscData1[ i ] := 0
-   _HMG_aControlMiscData2[ i ] := ''
+   _HMG_aControlMiscData2[ i ] := ""
 
 RETURN
 
@@ -367,7 +367,7 @@ METHOD End() CLASS TGif
       AEval( ::aPictData, {| f | FErase( f ) } )
 
       IF ::nTotalFrames > 1
-         DoMethod( ::cParentName, ::cTimer, 'Release' )
+         DoMethod( ::cParentName, ::cTimer, "Release" )
       ENDIF
 
       IF _IsControlDefined ( ::hGif, ::cParentName )
@@ -385,7 +385,7 @@ RETURN NIL
 STATIC FUNCTION GifPlay( oGif )
 
    IF oGif:nTotalFrames > 1
-      SetProperty( oGif:cParentName, oGif:cTimer, 'Enabled', .T. )
+      SetProperty( oGif:cParentName, oGif:cTimer, "Enabled", .T. )
    ENDIF
 
 RETURN NIL
@@ -394,7 +394,7 @@ RETURN NIL
 STATIC FUNCTION GifStop( oGif )
 
    IF oGif:nTotalFrames > 1
-      SetProperty( oGif:cParentName, oGif:cTimer, 'Enabled', .F. )
+      SetProperty( oGif:cParentName, oGif:cTimer, "Enabled", .F. )
    ENDIF
 
 RETURN NIL
@@ -405,7 +405,7 @@ STATIC FUNCTION GifIsRunning( oGif )
    LOCAL lRunning := .F.
 
    IF oGif:nTotalFrames > 1
-      lRunning := GetProperty( oGif:cParentName, oGif:cTimer, 'Enabled' )
+      lRunning := GetProperty( oGif:cParentName, oGif:cTimer, "Enabled" )
    ENDIF
 
 RETURN lRunning

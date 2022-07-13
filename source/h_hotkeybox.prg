@@ -48,7 +48,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 ---------------------------------------------------------------------------*/
 
-#include 'minigui.ch'
+#include "minigui.ch"
 
 *-----------------------------------------------------------------------------*
 FUNCTION _DefineHotKeyBox ( ControlName, ParentForm, x, y, w, h, value, fontname, fontsize, tooltip, ;
@@ -89,13 +89,13 @@ FUNCTION _DefineHotKeyBox ( ControlName, ParentForm, x, y, w, h, value, fontname
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentForm + " Already defined." )
    ENDIF
 
-   mVar := '_' + ParentForm + '_' + ControlName
+   mVar := "_" + ParentForm + "_" + ControlName
 
    cParentForm := ParentForm
 
    ParentForm := GetFormHandle ( ParentForm )
 
-   ControlHandle := InitHotKeyBox ( ParentForm, x, y, w, h , '' , 0, invisible, notabstop )
+   ControlHandle := InitHotKeyBox ( ParentForm, x, y, w, h , "" , 0, invisible, notabstop )
 
    IF FontHandle != 0
       _SetFontHandle( ControlHandle, FontHandle )
@@ -157,14 +157,14 @@ FUNCTION _DefineHotKeyBox ( ControlName, ParentForm, x, y, w, h, value, fontname
    _HMG_aControlToolTip  [k] :=   tooltip
    _HMG_aControlRangeMin  [k] :=   0
    _HMG_aControlRangeMax  [k] :=   0
-   _HMG_aControlCaption  [k] :=   ''
+   _HMG_aControlCaption  [k] :=   ""
    _HMG_aControlVisible  [k] :=  iif( invisible, FALSE, TRUE )
    _HMG_aControlHelpId   [k] :=  HelpId
    _HMG_aControlFontHandle  [k] :=   FontHandle
    _HMG_aControlBrushHandle  [k] :=  0
    _HMG_aControlEnabled  [k] :=  .T.
    _HMG_aControlMiscData1 [k] := 0
-   _HMG_aControlMiscData2 [k] := ''
+   _HMG_aControlMiscData2 [k] := ""
 
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )

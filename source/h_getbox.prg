@@ -108,11 +108,11 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
       MsgMiniGUIError( "GETBOX: Initial Value or Field must be specified." )
    ENDIF
 
-   IF ValType( Field ) != 'U'
-      IF  hb_UAt ( '>', Field ) == 0
+   IF ValType( Field ) != "U"
+      IF  hb_UAt ( ">", Field ) == 0
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name." )
       ELSE
-         WorkArea := hb_ULeft ( Field , hb_UAt ( '>', Field ) - 2 )
+         WorkArea := hb_ULeft ( Field , hb_UAt ( ">", Field ) - 2 )
          IF Select ( WorkArea ) != 0
             Value := &( Field )
          ENDIF
@@ -141,13 +141,13 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
       nMaxLength := hb_ULen( Value )
    ENDCASE
 
-   IF ValType( aBitmap ) != 'A'
+   IF ValType( aBitmap ) != "A"
       cBmp := aBitmap
       aBitmap := Array( 2 )
       aBitmap[1] := cBmp
    ENDIF
 
-   IF ValType( aToolTip ) != 'A'
+   IF ValType( aToolTip ) != "A"
       tmp := aToolTip
       aToolTip := Array( 3 )
       aToolTip[1] := tmp
@@ -191,7 +191,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
       MsgMiniGuiError( "Control: " + ControlName + " of " + ParentFormName + " already defined." )
    ENDIF
 
-   mVar := '_' + ParentFormName + '_' + ControlName
+   mVar := "_" + ParentFormName + "_" + ControlName
    k := _GetControlFree()
 
    IF _HMG_BeginDialogActive
@@ -240,7 +240,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
 
       ParentFormHandle := GetFormHandle( ParentFormName )
 
-      aControlHandle := InitGetBox ( ParentFormHandle, 0, x, y, w, h, '', 0, nMaxLength, ;
+      aControlHandle := InitGetBox ( ParentFormHandle, 0, x, y, w, h, "", 0, nMaxLength, ;
          .F. , .F. , .F. , lPassword , right , readonly , invisible , notabstop, abitmap[1], BtnWidth, lBtns, abitmap[2], lBtn2, noborder )
 
       ControlHandle := aControlHandle[1]
@@ -273,7 +273,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    ENDIF
 
    oget := Get()
-   oget:New( -1, -1, { | x | iif( x == NIL, oget:cargo, oget:cargo := x ) }, '', cPicture )
+   oget:New( -1, -1, { | x | iif( x == NIL, oget:cargo, oget:cargo := x ) }, "", cPicture )
    oget:cargo     := Value
    oget:preblock  := when
    oget:postblock := valid
@@ -285,7 +285,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
 
    aPicData := _GetPictureData( oGet, cPicture )
 
-   IF cPicture == NIL .OR. !( '@K' $ cPicture )
+   IF cPicture == NIL .OR. !( "@K" $ cPicture )
       oget:Clear := .F.
    ENDIF
 
@@ -334,16 +334,16 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    _HMG_aControlToolTip  [k] :=  aToolTip
    _HMG_aControlRangeMin  [k] :=  aControlHandle
    _HMG_aControlRangeMax  [k] :=  nMaxLength
-   _HMG_aControlCaption  [k] :=  ''
+   _HMG_aControlCaption  [k] :=  ""
    _HMG_aControlVisible  [k] :=  .NOT. invisible
    _HMG_aControlHelpId  [k] :=  HelpId
    _HMG_aControlFontHandle  [k] :=  FontHandle
    _HMG_aControlBrushHandle  [k] :=  0
    _HMG_aControlEnabled  [k] :=  .T.
    _HMG_aControlMiscData1  [k] :=  { 0, readonly, 0, ProcedureName, ProcedureName2, BtnWidth, lBtn2, lNoMinus, .T. }
-   _HMG_aControlMiscData2  [k] :=  ''
+   _HMG_aControlMiscData2  [k] :=  ""
 
-   IF ISCHARACTER( cPicture ) .AND. ! Empty( cPicture ) .AND. '@K' $ cPicture
+   IF ISCHARACTER( cPicture ) .AND. ! Empty( cPicture ) .AND. "@K" $ cPicture
       lModifyGotFocus := .T.
    ENDIF
 
@@ -363,7 +363,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
          _DispGetBoxText ( ControlHandle , oGet:buffer )
       ENDIF
 
-      IF ValType( Field ) != 'U'
+      IF ValType( Field ) != "U"
          AAdd( _HMG_aFormBrowseList [ GetFormIndex ( ParentFormName ) ] , k )
       ENDIF
    ENDIF
@@ -391,7 +391,7 @@ STATIC PROCEDURE _GetBoxSetNextFocus( lPrevious )
 
    IF ( i := AScan( _HMG_aControlHandles , NextControlHandle ) ) > 0
 
-      IF _HMG_aControlType [i] == 'BUTTON'
+      IF _HMG_aControlType [i] == "BUTTON"
          SendMessage ( NextControlHandle , BM_SETSTYLE , LOWORD ( BS_DEFPUSHBUTTON ) , 1 )
       ENDIF
 
@@ -404,7 +404,7 @@ PROCEDURE _DataGetBoxRefresh ( i )
 *-----------------------------------------------------------------------------*
    LOCAL Field := _HMG_aControlPageMap [i]
 
-   _SetGetBoxValue( i, _HMG_aControlHandles [i], iif( ValType( Field ) == 'U', _HMG_aControlValue [i], &( Field ) ) )
+   _SetGetBoxValue( i, _HMG_aControlHandles [i], iif( ValType( Field ) == "U", _HMG_aControlValue [i], &( Field ) ) )
 
 RETURN
 
@@ -465,7 +465,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
    _HMG_ThisFormName := _HMG_aFormNames [ ParentHandle ]
    _HMG_ThisControlName := _HMG_aControlNames [i]
 
-   IF ValType( oGet:preblock ) == 'B' .AND. nMsg == WM_SETFOCUS
+   IF ValType( oGet:preblock ) == "B" .AND. nMsg == WM_SETFOCUS
       IF !Eval( oGet:preblock, oGet, .F. )
          IF oGet:VarGet() == oGet:UnTransform( oGet:original )
             lAllowEdit := .F.
@@ -529,7 +529,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
       PostMessage( hWnd, WM_CARET, 0, 0 )
       _HMG_aControlMiscData1 [i][1] := 1
 
-      IF '@K' $ oGet:Picture .OR. oGet:type == "N"
+      IF "@K" $ oGet:Picture .OR. oGet:type == "N"
          oGet:pos := 1
          nStart := oGet:pos - 1
       ELSE
@@ -570,7 +570,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          IF ! lInValid
             lInValid := .T.
 
-            IF ValType( oGet:postblock ) == 'B'
+            IF ValType( oGet:postblock ) == "B"
                coldbuff := oGet:buffer
 
                h := GetFocus()
@@ -881,9 +881,9 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
             IF oGet:type == "N"
                nlen := hb_ULen( oGet:buffer )
-               IF ( ipp := hb_UAt( '.' , oGet:buffer ) ) > 0
+               IF ( ipp := hb_UAt( "." , oGet:buffer ) ) > 0
                   oGet:buffer := hb_UPadL( StrTran( hb_ULeft( oGet:buffer , ipp - 1 ) , " " , "" ) , ipp - 1 ) + ;
-                     '.' + hb_UPadR( StrTran( hb_USubStr( oGet:buffer , ipp + 1 ) , " " , "" ) , nlen - ipp , "0" )
+                     "." + hb_UPadR( StrTran( hb_USubStr( oGet:buffer , ipp + 1 ) , " " , "" ) , nlen - ipp , "0" )
 
                ELSE
                   oGet:buffer := hb_UPadL( StrTran( oGet:buffer , " " , "" ) , nlen )
@@ -1309,7 +1309,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
          aHandle := _HMG_aControlRangeMin [i]
 
-         IF ValType( aHandle ) == 'A' .AND. Len( aHandle ) >= 1 .AND. aHandle [1] == hWnd
+         IF ValType( aHandle ) == "A" .AND. Len( aHandle ) >= 1 .AND. aHandle [1] == hWnd
 
             SWITCH AScan( aHandle , HwndBtn )
             CASE GBB1
@@ -1359,7 +1359,7 @@ PROCEDURE _SetGetBoxValue( nId, hWnd, Value )
 
       aPicData := _GetPictureData( oGet, oGet:Picture )
 
-      IF oGet:Picture == NIL .OR. ! ( '@K' $ oGet:Picture )
+      IF oGet:Picture == NIL .OR. ! ( "@K" $ oGet:Picture )
          oGet:clear := .F.
       ENDIF
 
@@ -1375,7 +1375,7 @@ PROCEDURE _SetGetBoxValue( nId, hWnd, Value )
 
    ELSE
 
-      MsgMiniGuiError( 'GETBOX: Value Type Mismatch.' )
+      MsgMiniGuiError( "GETBOX: Value Type Mismatch." )
 
    ENDIF
 

@@ -45,7 +45,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
  ---------------------------------------------------------------------------*/
 
-#include 'minigui.ch'
+#include "minigui.ch"
 
 *-----------------------------------------------------------------------------*
 FUNCTION _DefineHotKey ( cParentForm , nMod , nKey , bAction )
@@ -66,7 +66,7 @@ FUNCTION _DefineHotKey ( cParentForm , nMod , nKey , bAction )
       cParentForm := _HMG_ActiveFormName
    ENDIF
 
-   IF ValType( cParentForm ) == 'U'
+   IF ValType( cParentForm ) == "U"
       MsgMiniGuiError ( "ON KEY: Parent Window is Not specified." )
    ENDIF
 
@@ -93,7 +93,7 @@ FUNCTION _DefineHotKey ( cParentForm , nMod , nKey , bAction )
    k := _GetControlFree()
 
    _HMG_aControlType [k] :=  "HOTKEY"
-   _HMG_aControlNames  [k] :=  ''
+   _HMG_aControlNames  [k] :=  ""
    _HMG_aControlHandles  [k] :=  0
    _HMG_aControlParentHandles  [k] :=  nParentForm
    _HMG_aControlIds  [k] :=  nId
@@ -118,20 +118,20 @@ FUNCTION _DefineHotKey ( cParentForm , nMod , nKey , bAction )
    _HMG_aControlContainerCol   [k] :=  0
    _HMG_aControlPicture   [k] :=  ""
    _HMG_aControlContainerHandle   [k] :=  0
-   _HMG_aControlFontName   [k] :=  ''
+   _HMG_aControlFontName   [k] :=  ""
    _HMG_aControlFontSize  [k] :=  0
    _HMG_aControlFontAttributes  [k] :=  { .F. , .F. , .F. , .F. }
-   _HMG_aControlToolTip   [k] :=  ''
+   _HMG_aControlToolTip   [k] :=  ""
    _HMG_aControlRangeMin   [k] :=  0
    _HMG_aControlRangeMax   [k] :=  0
-   _HMG_aControlCaption   [k] :=  ''
+   _HMG_aControlCaption   [k] :=  ""
    _HMG_aControlVisible   [k] :=  .T.
    _HMG_aControlHelpId  [k] :=  0
    _HMG_aControlFontHandle  [k] :=  0
    _HMG_aControlBrushHandle  [k] :=  0
    _HMG_aControlEnabled  [k] :=  .T.
    _HMG_aControlMiscData1 [k] := 0
-   _HMG_aControlMiscData2 [k] := ''
+   _HMG_aControlMiscData2 [k] := ""
 
 RETURN lSuccess
 
@@ -144,7 +144,7 @@ PROCEDURE _ReleaseHotKey ( cParentForm, nMod , nKey )
 
    FOR EACH ControlType IN _HMG_aControlType
       i := hb_enumindex( ControlType )
-      IF ControlType == 'HOTKEY' .AND. _HMG_aControlParentHandles [i] == nParentFormHandle .AND. _HMG_aControlPageMap [i] == nMod .AND. _HMG_aControlValue [i] == nKey
+      IF ControlType == "HOTKEY" .AND. _HMG_aControlParentHandles [i] == nParentFormHandle .AND. _HMG_aControlPageMap [i] == nMod .AND. _HMG_aControlValue [i] == nKey
          _EraseControl( i, GetFormIndex ( cParentForm ) )
          EXIT
       ENDIF
@@ -162,7 +162,7 @@ FUNCTION _GetHotKeyBlock ( cParentForm, nMod, nKey )
 
    FOR EACH ControlType IN _HMG_aControlType
       i := hb_enumindex( ControlType )
-      IF ControlType == 'HOTKEY' .AND. _HMG_aControlParentHandles [i] == nParentFormHandle .AND. _HMG_aControlPageMap [i] == nMod .AND. _HMG_aControlValue [i] == nKey
+      IF ControlType == "HOTKEY" .AND. _HMG_aControlParentHandles [i] == nParentFormHandle .AND. _HMG_aControlPageMap [i] == nMod .AND. _HMG_aControlValue [i] == nKey
          bRetVal := _HMG_aControlProcedures [i]
          EXIT
       ENDIF

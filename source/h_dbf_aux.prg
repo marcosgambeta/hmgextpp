@@ -40,10 +40,10 @@ FUNCTION HMG_ArrayToDbf( aData, cFieldList, bProgress )
    LOCAL nCol, nRow
    LOCAL lFldName
 
-   IF ValType( cFieldList ) == 'A'
+   IF ValType( cFieldList ) == "A"
       aFldName := cFieldList
-   ELSEIF ValType( cFieldList ) == 'C'
-      aFldName := hb_ATokens( cFieldList, ',' )
+   ELSEIF ValType( cFieldList ) == "C"
+      aFldName := hb_ATokens( cFieldList, "," )
    ENDIF
 
    lFldName := ( Empty( aFldName ) )
@@ -73,7 +73,7 @@ FUNCTION HMG_ArrayToDbf( aData, cFieldList, bProgress )
 
             IF ! Empty( uVal := aRow[ nCol ] )
 
-               IF ! ( aFieldTyp[ nCol ] $ '+@' )
+               IF ! ( aFieldTyp[ nCol ] $ "+@" )
 
                   IF ValType( uVal ) != aFieldTyp[ nCol ]
                      uVal := ConvertType( uVal, aFieldTyp[ nCol ] )
@@ -108,45 +108,45 @@ STATIC FUNCTION ConvertType( uVal, cTypeDst )
    IF cTypeDst != cTypeSrc
 
       DO CASE
-      CASE cTypeDst $ 'CM'
+      CASE cTypeDst $ "CM"
          uVal := hb_ValToStr( uVal )
 
-      CASE cTypeDst == 'D'
+      CASE cTypeDst == "D"
          DO CASE
-         CASE cTypeSrc == 'T'
+         CASE cTypeSrc == "T"
             uVal := SToD( Left( hb_TToS( uVal ), 8 ) )
-         CASE cTypeSrc == 'C'
+         CASE cTypeSrc == "C"
             uVal := CToD( uVal )
          OTHERWISE
             uVal := BLANK_DATE
          ENDCASE
 
-      CASE cTypeDst == 'L'
+      CASE cTypeDst == "L"
          DO CASE
-         CASE cTypeSrc $ 'LN'
+         CASE cTypeSrc $ "LN"
             uVal := ! Empty( uVal )
-         CASE cTypeSrc == 'C'
+         CASE cTypeSrc == "C"
             uVal := Upper( uVal ) $ "Y,YES,T,.T.,TRUE"
          OTHERWISE
             uVal := .F.
          ENDCASE
 
-      CASE cTypeDst == 'N'
+      CASE cTypeDst == "N"
          DO CASE
-         CASE cTypeSrc == 'C'
+         CASE cTypeSrc == "C"
             uVal := Val( uVal )
          OTHERWISE
             uVal := 0
          ENDCASE
 
-      CASE cTypeDst == 'T'
+      CASE cTypeDst == "T"
          DO CASE
-         CASE cTypeSrc == 'D'
+         CASE cTypeSrc == "D"
             uVal := hb_SToT( DToS( uVal ) + "000000.000" )
-         CASE cTypeSrc == 'C'
+         CASE cTypeSrc == "C"
             uVal := hb_CToT( uVal )
          OTHERWISE
-            uVal := hb_CToT( '' )
+            uVal := hb_CToT( "" )
          ENDCASE
 
       OTHERWISE
@@ -231,7 +231,7 @@ FUNCTION HMG_DbfStruct( cFileName )
             aFieldInfo[ 1 ] := Upper( BeforAtNum( Chr( 0 ), cBuffer, 1 ) )
             aFieldInfo[ 2 ] := SubStr( cBuffer, 12, 1 )
 
-            IF aFieldInfo[ 2 ] == 'C'
+            IF aFieldInfo[ 2 ] == "C"
 
                aFieldInfo[ 3 ] := Bin2I( SubStr( cBuffer, 17, 2 ) )
                aFieldInfo[ 4 ] := 0
@@ -275,9 +275,9 @@ FUNCTION HMG_RecToHash( cFieldList, cNames )
 
    DEFAULT cNames := cFieldList
 
-   aNames := hb_ATokens( cNames, ',' )
+   aNames := hb_ATokens( cNames, "," )
 
-   aVals := &( '{' + cFieldList + '}' )
+   aVals := &( "{" + cFieldList + "}" )
 
    AEval( aVals, {| u, i | hSet( hRec, aNames[ i ], u ) }, , Len( aNames ) )
 
@@ -298,7 +298,7 @@ FUNCTION HMG_HashToRec( hRec, cFieldList )
       IF Empty( cFieldList )
          hb_HEval( hRec, {| k, v | FieldPut( FieldPos( k ), v ) } )
       ELSE
-         aFlds := hb_ATokens( cFieldList, ',' )
+         aFlds := hb_ATokens( cFieldList, "," )
          hb_HEval( hRec, {| k, v, p | HB_SYMBOL_UNUSED( k ), FieldPut( FieldPos( aFlds[ p ] ), v ) }, , Len( aFlds ) )
       ENDIF
 

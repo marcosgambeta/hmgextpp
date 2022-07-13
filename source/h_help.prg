@@ -87,17 +87,17 @@ PROCEDURE DisplayHelpTopic( xTopic , nMet )
 
    __defaultNIL( @nMet, 0 )
 
-   IF Right( AllTrim( Upper( _HMG_ActiveHelpFile ) ) , 4 ) == '.CHM'
+   IF Right( AllTrim( Upper( _HMG_ActiveHelpFile ) ) , 4 ) == ".CHM"
 
       SWITCH ValType( xTopic )
-      CASE 'N'
-         cParam := '-mapid ' + hb_ntos( xTopic ) + ' ' + _HMG_ActiveHelpFile
+      CASE "N"
+         cParam := "-mapid " + hb_ntos( xTopic ) + " " + _HMG_ActiveHelpFile
          EXIT
-      CASE 'C'
-         cParam := '"' + _HMG_ActiveHelpFile + '::/' + AllTrim( xTopic ) + '"'
+      CASE "C"
+         cParam := Chr(34) + _HMG_ActiveHelpFile + "::/" + AllTrim( xTopic ) + Chr(34)
          EXIT
-      CASE 'U'
-         cParam := '"' + _HMG_ActiveHelpFile + '"'
+      CASE "U"
+         cParam := Chr(34) + _HMG_ActiveHelpFile + Chr(34)
       ENDSWITCH
 
       _Execute( _HMG_MainHandle , "open" , "hh.exe" , cParam , , SW_SHOW )

@@ -100,7 +100,7 @@ PROCEDURE _SetAddressControlProcedure ( ControlName , url , i )
 #else
       IF hb_IsFunction( SubStr( url, 1, At( "(", url ) - 1 ) )
 #endif
-         _HMG_aControlProcedures [i] := &( '{||' + url + '}' )
+         _HMG_aControlProcedures [i] := &( "{||" + url + "}" )
       ELSE
          MsgMiniGuiError ( "Control " + ControlName + " Of " + GetParentFormName( i ) + " must have a valid procedure name defined." )
       ENDIF

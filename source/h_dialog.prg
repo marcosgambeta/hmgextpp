@@ -70,7 +70,7 @@ FUNCTION _DefineDialog ( FormName, ParentForm, Id_resource , x , y , w , h , cap
 
    FormName := AllTrim( FormName )
 
-   i := AScan( _HMG_aFormType , 'A' )
+   i := AScan( _HMG_aFormType , "A" )
    IF i <= 0
       MsgMiniGuiError( "Main Window Not Defined." )
    ENDIF
@@ -79,7 +79,7 @@ FUNCTION _DefineDialog ( FormName, ParentForm, Id_resource , x , y , w , h , cap
       MsgMiniGuiError( "Dialog: " + FormName + " already defined." )
    ENDIF
 
-   mVar := '_' + FormName
+   mVar := "_" + FormName
 
    ParentHandle := GetFormHandle ( ParentForm )
 
@@ -173,7 +173,7 @@ FUNCTION _DefineDialog ( FormName, ParentForm, Id_resource , x , y , w , h , cap
       _HMG_aFormNames [k] := FormName
       _HMG_aFormHandles  [k] :=  FormHandle
       _HMG_aFormActive  [k] :=  .T.
-      _HMG_aFormType  [k] := iif( _HMG_DialogInMemory , 'L', 'D' )     // Windows type Dialog
+      _HMG_aFormType  [k] := iif( _HMG_DialogInMemory , "L", "D" )     // Windows type Dialog
       _HMG_aFormParentHandle  [k] :=  ParentHandle
       _HMG_aFormReleaseProcedure  [k] :=  ReleaseProcedure
       _HMG_aFormInitProcedure  [k] :=  InitProcedure
@@ -219,7 +219,7 @@ FUNCTION _DefineDialog ( FormName, ParentForm, Id_resource , x , y , w , h , cap
       _HMG_aFormMinMaxInfo [k] := {}
       _HMG_aFormActivateId [k] := 0
       _HMG_aFormMiscData1  [k] := {}
-      _HMG_aFormMiscData2  [k] := ''
+      _HMG_aFormMiscData2  [k] := ""
 
    ELSE
 
@@ -234,7 +234,7 @@ FUNCTION _DefineDialog ( FormName, ParentForm, Id_resource , x , y , w , h , cap
       AAdd( _HMG_aFormNames , FormName )
       AAdd( _HMG_aFormHandles , FormHandle )
       AAdd( _HMG_aFormActive , .T. )
-      AAdd( _HMG_aFormType , iif( _HMG_DialogInMemory ,'L', 'D' )  )    // Windows type Dialog
+      AAdd( _HMG_aFormType , iif( _HMG_DialogInMemory ,"L", "D" )  )    // Windows type Dialog
       AAdd( _HMG_aFormParentHandle , ParentHandle )
       AAdd( _HMG_aFormReleaseProcedure , ReleaseProcedure )
       AAdd( _HMG_aFormInitProcedure , InitProcedure )
@@ -280,7 +280,7 @@ FUNCTION _DefineDialog ( FormName, ParentForm, Id_resource , x , y , w , h , cap
       AAdd( _HMG_aFormMinMaxInfo , {} )
       AAdd( _HMG_aFormActivateId , 0 )
       AAdd( _HMG_aFormMiscData1, {} )
-      AAdd( _HMG_aFormMiscData2, '' )
+      AAdd( _HMG_aFormMiscData2, "" )
 #ifdef _HMG_COMPAT_
       AAdd( _HMG_StopWindowEventProcedure, .F. )
 #endif
@@ -325,10 +325,10 @@ FUNCTION _BeginDialog( name, parent, Id_resource, x, y, w, h, caption, fontname,
       ENDIF
    ENDIF
 
-   IF ValType( parent ) == 'U'
+   IF ValType( parent ) == "U"
       parent := _HMG_ActiveFormName
    ENDIF
-   IF ValType( Id_resource ) == 'U'
+   IF ValType( Id_resource ) == "U"
       Id_resource := 0
    ENDIF
 
@@ -350,7 +350,7 @@ FUNCTION _EndDialog()
          _HMG_aDialogItems    := {}
       ELSE
          //                                              10             12
-         //   {'ID',k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size,bold,italic,underline,strikeout}  --->_HMG_aDialogItems
+         //   {"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size,bold,italic,underline,strikeout}  --->_HMG_aDialogItems
 
          Formhandle := CreateDlgTemplate ( _HMG_aDialogTemplate[2], _HMG_aDialogTemplate,  _HMG_aDialogItems )
          IF _HMG_aDialogTemplate[1] > 0
@@ -431,7 +431,7 @@ FUNCTION DialogProc( hwndDlg, nMsg, wParam, lParam )
 
    DO CASE
    CASE nMsg == WM_INITDIALOG
-      IF ValType( _HMG_InitDialogProcedure ) == 'B'
+      IF ValType( _HMG_InitDialogProcedure ) == "B"
          Eval( _HMG_InitDialogProcedure, hwndDlg )
          ret := TRUE
       ENDIF
@@ -441,7 +441,7 @@ FUNCTION DialogProc( hwndDlg, nMsg, wParam, lParam )
    CASE nMsg == WM_CLOSE
       i := AScan( _HMG_aFormhandles, hwndDlg )
       IF i > 0
-         IF ValType( _HMG_aFormReleaseProcedure [i] ) == 'B'
+         IF ValType( _HMG_aFormReleaseProcedure [i] ) == "B"
             Eval( _HMG_aFormReleaseProcedure [i] )
          ENDIF
       ENDIF
@@ -450,7 +450,7 @@ FUNCTION DialogProc( hwndDlg, nMsg, wParam, lParam )
    CASE nMsg == WM_COMMAND
       i := AScan( _HMG_aFormhandles, hwndDlg )  // find DialogProcedure
       IF i > 0
-         IF ValType( _HMG_aFormClickProcedure [i] ) == 'B' .AND. _HMG_aFormType [i] == 'D'
+         IF ValType( _HMG_aFormClickProcedure [i] ) == "B" .AND. _HMG_aFormType [i] == "D"
             ret := Eval( _HMG_aFormClickProcedure [i], nMsg, LOWORD(wParam), HIWORD(wParam) )
             IF ValType( ret ) == "N"
                ret := iif( ret = 0, FALSE, TRUE )
@@ -497,7 +497,7 @@ FUNCTION ModalDialogProc( hwndDlg, nMsg, wParam, lParam )
    _HMG_ActiveDlgProcModal     := .T.
    DO CASE
    CASE nMsg == WM_INITDIALOG
-      IF ValType( _HMG_InitDialogProcedure ) == 'B'
+      IF ValType( _HMG_InitDialogProcedure ) == "B"
          Eval( _HMG_InitDialogProcedure )
       ENDIF
       ret := TRUE
@@ -515,7 +515,7 @@ FUNCTION ModalDialogProc( hwndDlg, nMsg, wParam, lParam )
       CASE LOWORD(wParam) == IDIGNORE .AND. HIWORD(wParam) == BN_CLICKED
          ret := TRUE
       OTHERWISE
-         IF ValType( _HMG_ModalDialogProcedure ) == 'B'
+         IF ValType( _HMG_ModalDialogProcedure ) == "B"
             Eval( _HMG_ModalDialogProcedure, hwndDlg, nMsg, LOWORD(wParam), HIWORD(wParam) )
          ENDIF
          ret := TRUE
@@ -561,14 +561,14 @@ FUNCTION EraseDialog( hwndDlg )
       ControlCount := Len( _HMG_aControlHandles )
       FOR x := 1 TO ControlCount
          IF _HMG_aControlParentHandles [x] == hwndDlg
-            mVar := '_' + _HMG_aFormNames [i] + '_' + _HMG_aControlNames [x]
+            mVar := "_" + _HMG_aFormNames [i] + "_" + _HMG_aControlNames [x]
             IF __mvExist ( mVar )
                __mvPut ( mVar , 0 )
             ENDIF
             _EraseControl( x, i )
          ENDIF
       NEXT x
-      mVar := '_' + _HMG_aFormNames [i]
+      mVar := "_" + _HMG_aFormNames [i]
       IF __mvExist ( mVar )
          __mvPut ( mVar , 0 )
       ENDIF
@@ -591,10 +591,10 @@ FUNCTION EraseDialog( hwndDlg )
       _HMG_aFormBkColor      [i]   := Nil
       _HMG_aFormPaintProcedure   [i]   := ""
       _HMG_aFormNoShow      [i]   := .F.
-      _HMG_aFormNotifyIconName   [i]   := ''
-      _HMG_aFormNotifyIconToolTip   [i]   := ''
-      _HMG_aFormNotifyIconLeftClick   [i]   := ''
-      _HMG_aFormNotifyIconDblClick   [i]   := ''
+      _HMG_aFormNotifyIconName   [i]   := ""
+      _HMG_aFormNotifyIconToolTip   [i]   := ""
+      _HMG_aFormNotifyIconLeftClick   [i]   := ""
+      _HMG_aFormNotifyIconDblClick   [i]   := ""
       _HMG_aFormReBarHandle      [i]   := 0
       _HMG_aFormNotifyMenuHandle   [i]   := 0
       _HMG_aFormBrowseList      [i]   := {}
@@ -621,7 +621,7 @@ FUNCTION EraseDialog( hwndDlg )
       _HMG_aFormMinMaxInfo [i]   := {}
       _HMG_aFormActivateId [i]   := 0
       _HMG_aFormMiscData1  [i]   := {}
-      _HMG_aFormMiscData2  [i]   := ''
+      _HMG_aFormMiscData2  [i]   := ""
 
       DestroyWindow( hwndDlg )
    ENDIF

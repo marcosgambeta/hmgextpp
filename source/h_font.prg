@@ -44,11 +44,11 @@
    Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  ---------------------------------------------------------------------------*/
 
-#include 'minigui.ch'
+#include "minigui.ch"
 
 #define WM_SETFONT	0x0030
 
-#define _FORMNAME_	'Main'
+#define _FORMNAME_	"Main"
 
 PROCEDURE _DefineFont( FontName, fName, fSize, bold, italic, underline, strikeout, nAngle, default, charset )
 
@@ -86,7 +86,7 @@ PROCEDURE _DefineFont( FontName, fName, fSize, bold, italic, underline, strikeou
       _HMG_DefaultFontSize := fSize
    ENDIF
 
-   mVar := '_' + _FORMNAME_ + '_' + FontName
+   mVar := "_" + _FORMNAME_ + "_" + FontName
 
    k := _GetControlFree()
 
@@ -127,17 +127,17 @@ PROCEDURE _DefineFont( FontName, fName, fSize, bold, italic, underline, strikeou
    _HMG_aControlFontName [k] := fName
    _HMG_aControlFontSize [k] := fSize
    _HMG_aControlFontAttributes [k] := { bold, italic, underline, strikeout, nAngle, hb_defaultValue( charset, DEFAULT_CHARSET ) }
-   _HMG_aControlToolTip [k] := ''
+   _HMG_aControlToolTip [k] := ""
    _HMG_aControlRangeMin [k] := 0
    _HMG_aControlRangeMax [k] := 0
-   _HMG_aControlCaption [k] := ''
+   _HMG_aControlCaption [k] := ""
    _HMG_aControlVisible [k] := .T.
    _HMG_aControlHelpId [k] := 0
    _HMG_aControlFontHandle [k] := FontHandle
    _HMG_aControlBrushHandle [k] := 0
    _HMG_aControlEnabled [k] := .T.
    _HMG_aControlMiscData1 [k] := 0
-   _HMG_aControlMiscData2 [k] := ''
+   _HMG_aControlMiscData2 [k] := ""
 
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
@@ -167,7 +167,7 @@ PROCEDURE _EraseFontDef( i )
       Eval( _HMG_bOnControlDestroy, i )
    ENDIF
 
-   mVar := '_' + _FORMNAME_ + '_' + _HMG_aControlNames [i]
+   mVar := "_" + _FORMNAME_ + "_" + _HMG_aControlNames [i]
 
 #ifdef _NAMES_LIST_
    _DelNameList( mVar )
@@ -205,14 +205,14 @@ PROCEDURE _EraseFontDef( i )
    _HMG_aControlSpacing [i] := 0
    _HMG_aControlContainerRow [i] := 0
    _HMG_aControlContainerCol [i] := 0
-   _HMG_aControlPicture [i] := ''
+   _HMG_aControlPicture [i] := ""
    _HMG_aControlContainerHandle[ i ] := 0
-   _HMG_aControlFontName [i] := ''
+   _HMG_aControlFontName [i] := ""
    _HMG_aControlFontSize [i] := 0
-   _HMG_aControlToolTip [i] := ''
+   _HMG_aControlToolTip [i] := ""
    _HMG_aControlRangeMin [i] := 0
    _HMG_aControlRangeMax [i] := 0
-   _HMG_aControlCaption [i] := ''
+   _HMG_aControlCaption [i] := ""
    _HMG_aControlVisible [i] := .F.
    _HMG_aControlHelpId [i] := 0
    _HMG_aControlFontHandle [i] := 0
@@ -220,7 +220,7 @@ PROCEDURE _EraseFontDef( i )
    _HMG_aControlBrushHandle [i] := 0
    _HMG_aControlEnabled [i] := .F.
    _HMG_aControlMiscData1 [i] := 0
-   _HMG_aControlMiscData2 [i] := ''
+   _HMG_aControlMiscData2 [i] := ""
 
 RETURN
 

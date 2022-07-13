@@ -96,7 +96,7 @@ FUNCTION _BeginFolder( name , parent , lRes , x , y , w , h, caption , fontname 
       __defaultNIL( @FontSize, _HMG_ActiveFontSize )
    ENDIF
 
-   IF ValType( parent ) == 'U'
+   IF ValType( parent ) == "U"
       parent := _HMG_ActiveFormName
    ENDIF
 
@@ -141,7 +141,7 @@ FUNCTION _DefineFolder ( FormName, ParentForm, lRes , x , y , w , h , caption , 
 
    FormName := AllTrim( FormName )
 
-   i := AScan( _HMG_aFormType , 'A' )
+   i := AScan( _HMG_aFormType , "A" )
    IF i <= 0
       MsgMiniGuiError( "Main Window Not Defined." )
    ENDIF
@@ -168,7 +168,7 @@ FUNCTION _DefineFolder ( FormName, ParentForm, lRes , x , y , w , h , caption , 
       AAdd( _HMG_aFolderInfo[_HMG_FldID,FLD_FIT ], { FLBTN_HELP , 0, "button", style, 0, 0, 0, 70, 25, "Help", 0, "", FontName, FontSize, bold, italic, underline, strikeout, , _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage } )
    ENDIF
 
-   mVar := '_' + FormName
+   mVar := "_" + FormName
    ParentHandle := GetFormHandle ( ParentForm )
    style := DS_SETFONT + WS_POPUP + WS_CAPTION + WS_VISIBLE + WS_SYSMENU + WS_THICKFRAME// +WS_MAXIMIZEBOX +WS_MINIMIZEBOX
    styleEx := 0
@@ -193,7 +193,7 @@ FUNCTION _DefineFolder ( FormName, ParentForm, lRes , x , y , w , h , caption , 
       _HMG_aFormNames [k] := FormName
       _HMG_aFormHandles  [k] :=  0
       _HMG_aFormActive  [k] :=  .T.
-      _HMG_aFormType  [k] :=  'F'     // Windows type Folder
+      _HMG_aFormType  [k] :=  "F"     // Windows type Folder
       _HMG_aFormParentHandle  [k] :=  ParentHandle
       _HMG_aFormReleaseProcedure  [k] :=  HelpProcedure
       _HMG_aFormInitProcedure  [k] :=  InitProcedure
@@ -239,7 +239,7 @@ FUNCTION _DefineFolder ( FormName, ParentForm, lRes , x , y , w , h , caption , 
       _HMG_aFormMinMaxInfo [k] := {}
       _HMG_aFormActivateId [k] := 0
       _HMG_aFormMiscData1  [k] := {}
-      _HMG_aFormMiscData2  [k] := ''
+      _HMG_aFormMiscData2  [k] := ""
 #ifdef _HMG_COMPAT_
       _HMG_StopWindowEventProcedure [k] := .F.
 #endif
@@ -257,7 +257,7 @@ FUNCTION _DefineFolder ( FormName, ParentForm, lRes , x , y , w , h , caption , 
       AAdd( _HMG_aFormNames , FormName )
       AAdd( _HMG_aFormHandles , 0 )
       AAdd( _HMG_aFormActive , .T. )
-      AAdd( _HMG_aFormType , 'F'  )    // Windows type Folder
+      AAdd( _HMG_aFormType , "F"  )    // Windows type Folder
       AAdd( _HMG_aFormParentHandle , ParentHandle )
       AAdd( _HMG_aFormReleaseProcedure , HelpProcedure )
       AAdd( _HMG_aFormInitProcedure , InitProcedure )
@@ -303,7 +303,7 @@ FUNCTION _DefineFolder ( FormName, ParentForm, lRes , x , y , w , h , caption , 
       AAdd( _HMG_aFormMinMaxInfo , {} )
       AAdd( _HMG_aFormActivateId , 0 )
       AAdd( _HMG_aFormMiscData1  , {} )
-      AAdd( _HMG_aFormMiscData2  , '' )
+      AAdd( _HMG_aFormMiscData2  , "" )
 #ifdef _HMG_COMPAT_
       AAdd( _HMG_StopWindowEventProcedure, .F. )
 #endif
@@ -448,7 +448,7 @@ FUNCTION _DefineFolderDialog ( FormName, FormHandle, hWndParent  )
 *-----------------------------------------------------------------------------*
    LOCAL mVar , k
 
-   mVar := '_' + FormName
+   mVar := "_" + FormName
    IF _HMG_DialogInMemory
       _HMG_aDialogItems := {}
    ENDIF
@@ -465,7 +465,7 @@ FUNCTION _DefineFolderDialog ( FormName, FormHandle, hWndParent  )
       _HMG_aFormNames [k] := FormName
       _HMG_aFormHandles  [k] :=  FormHandle
       _HMG_aFormActive  [k] :=  .T.
-      _HMG_aFormType  [k] :=  'D'     // Windows type Dialog
+      _HMG_aFormType  [k] :=  "D"     // Windows type Dialog
       _HMG_aFormParentHandle  [k] :=  hWndParent
       _HMG_aFormReleaseProcedure  [k] :=  ""
       _HMG_aFormInitProcedure  [k] :=  ""
@@ -511,7 +511,7 @@ FUNCTION _DefineFolderDialog ( FormName, FormHandle, hWndParent  )
       _HMG_aFormMinMaxInfo [k] := {}
       _HMG_aFormActivateId [k] := 0
       _HMG_aFormMiscData1  [k] := {}
-      _HMG_aFormMiscData2  [k] := ''
+      _HMG_aFormMiscData2  [k] := ""
 #ifdef _HMG_COMPAT_
       _HMG_StopWindowEventProcedure [k] := .F.
 #endif
@@ -529,7 +529,7 @@ FUNCTION _DefineFolderDialog ( FormName, FormHandle, hWndParent  )
       AAdd( _HMG_aFormNames , FormName )
       AAdd( _HMG_aFormHandles , FormHandle )
       AAdd( _HMG_aFormActive , .T. )
-      AAdd( _HMG_aFormType , 'D' )    // Windows type Dialog
+      AAdd( _HMG_aFormType , "D" )    // Windows type Dialog
       AAdd( _HMG_aFormParentHandle , hWndParent )
       AAdd( _HMG_aFormReleaseProcedure , "" )
       AAdd( _HMG_aFormInitProcedure , "" )
@@ -575,7 +575,7 @@ FUNCTION _DefineFolderDialog ( FormName, FormHandle, hWndParent  )
       AAdd( _HMG_aFormMinMaxInfo , {} )
       AAdd( _HMG_aFormActivateId , 0 )
       AAdd( _HMG_aFormMiscData1   , {} )
-      AAdd( _HMG_aFormMiscData2   , '' )
+      AAdd( _HMG_aFormMiscData2   , "" )
 #ifdef _HMG_COMPAT_
       AAdd( _HMG_StopWindowEventProcedure, .F. )
 #endif
@@ -610,7 +610,7 @@ FUNCTION InitPageFldProc( hWndParent, hwndDlg, idDlg )
    IF AScan( _HMG_aFormHandles , hwndDlg ) == 0
       _DefineFolderDialog ( _HMG_ActiveDialogName, hwndDlg, hWndParent )
    ENDIF
-   IF _HMG_aFolderInfo[_HMG_FldID,FLD_INM] .AND. ValType( aDialogItems ) == 'A'
+   IF _HMG_aFolderInfo[_HMG_FldID,FLD_INM] .AND. ValType( aDialogItems ) == "A"
       k_old := 0
       FOR n := 1 TO Len( aDialogItems )
 
@@ -693,7 +693,7 @@ FUNCTION FolderProc( hwndDlg, nMsg, wParam, lParam )
       ENDIF
       i := AScan( _HMG_aFormhandles, hwndDlg )
       IF i > 0
-         IF ValType( _HMG_aFormInitProcedure[i] ) == 'B' .AND. _HMG_aFormType [i] == 'F'
+         IF ValType( _HMG_aFormInitProcedure[i] ) == "B" .AND. _HMG_aFormType [i] == "F"
             Eval( _HMG_aFormInitProcedure[i], hwndDlg )
             ret := TRUE
          ENDIF
@@ -704,7 +704,7 @@ FUNCTION FolderProc( hwndDlg, nMsg, wParam, lParam )
    CASE nMsg == WM_COMMAND
       i := AScan( _HMG_aFormhandles, hwndDlg )  // find DialogProcedure
       IF i > 0
-         IF ValType( _HMG_aFormClickProcedure [i] ) == 'B' .AND. _HMG_aFormType [i] == 'F'
+         IF ValType( _HMG_aFormClickProcedure [i] ) == "B" .AND. _HMG_aFormType [i] == "F"
             ret :=  RetValue( Eval( _HMG_aFormClickProcedure [i], nMsg, LOWORD(wParam), HIWORD(wParam) ), FALSE )
          ELSE
             ControlHandle := GetDialogITemHandle( hwndDlg, LOWORD(wParam) )
@@ -795,7 +795,7 @@ FUNCTION PageFldProc( hWndDlg, nMsg, wParam, lParam )
 
          i := AScan( _HMG_aFormhandles,  hwndFolder )  // find FolderProcedure
          IF i > 0
-            IF ValType( _HMG_aFormClickProcedure [i] ) == 'B' .AND. _HMG_aFormType [i] == 'F'
+            IF ValType( _HMG_aFormClickProcedure [i] ) == "B" .AND. _HMG_aFormType [i] == "F"
                lRet :=  RetValue( Eval( _HMG_aFormClickProcedure [i], nMsg, LOWORD(wParam ), HIWORD(wParam ) ), FALSE )
             ELSE
                ControlHandle := GetDialogITemHandle( hwndDlg, LOWORD(wParam) )
@@ -817,7 +817,7 @@ FUNCTION PageFldProc( hWndDlg, nMsg, wParam, lParam )
             _HMG_aFolderInfo[nFldID,FLD_HFP, i] := 0
             i := AScan( _HMG_aFormhandles,  hwndFolder )  // find FolderProcedure
             IF i > 0
-               IF ValType( _HMG_aFormInteractiveCloseProcedure [i] ) == 'B' .AND. _HMG_aFormType [i] == 'F'
+               IF ValType( _HMG_aFormInteractiveCloseProcedure [i] ) == "B" .AND. _HMG_aFormType [i] == "F"
                   lRet := RetValue( Eval( _HMG_aFormInteractiveCloseProcedure [i], nMsg, LOWORD(wParam ), HIWORD(wParam ) ), FALSE )
                ENDIF
             ENDIF
@@ -838,7 +838,7 @@ FUNCTION PageFldProc( hWndDlg, nMsg, wParam, lParam )
       CASE FLN_HELP
          i := AScan( _HMG_aFormhandles,  hwndFolder )  // find FolderProcedure
          IF i > 0
-            IF ValType( _HMG_aFormReleaseProcedure [i] ) == 'B' .AND. _HMG_aFormType [i] == 'F'
+            IF ValType( _HMG_aFormReleaseProcedure [i] ) == "B" .AND. _HMG_aFormType [i] == "F"
                lRet :=  RetValue( Eval( _HMG_aFormReleaseProcedure [i], nMsg, LOWORD(wParam ), HIWORD(wParam ) ), FALSE )
             ENDIF
          ENDIF
@@ -893,14 +893,14 @@ FUNCTION EraseFolder( hwndDlg, lModal )
       ControlCount := Len( _HMG_aControlHandles )
       FOR x := 1 TO ControlCount
          IF _HMG_aControlParentHandles [x] == hwndDlg
-            mVar := '_' + _HMG_aFormNames [i] + '_' + _HMG_aControlNames [x]
+            mVar := "_" + _HMG_aFormNames [i] + "_" + _HMG_aControlNames [x]
             IF __mvExist ( mVar )
                __mvPut ( mVar , 0 )
             ENDIF
             _EraseControl( x, i )
          ENDIF
       NEXT x
-      mVar := '_' + _HMG_aFormNames [i]
+      mVar := "_" + _HMG_aFormNames [i]
       IF __mvExist ( mVar )
          __mvPut ( mVar , 0 )
       ENDIF
@@ -923,9 +923,9 @@ FUNCTION EraseFolder( hwndDlg, lModal )
       _HMG_aFormBkColor      [i]   := Nil
       _HMG_aFormPaintProcedure   [i]   := ""
       _HMG_aFormNoShow      [i]   := .F.
-      _HMG_aFormNotifyIconName   [i]   := ''
-      _HMG_aFormNotifyIconToolTip   [i]   := ''
-      _HMG_aFormNotifyIconLeftClick   [i]   := ''
+      _HMG_aFormNotifyIconName   [i]   := ""
+      _HMG_aFormNotifyIconToolTip   [i]   := ""
+      _HMG_aFormNotifyIconLeftClick   [i]   := ""
       _HMG_aFormNotifyIconDblClick  [i] := ""
       _HMG_aFormReBarHandle      [i]   := 0
       _HMG_aFormNotifyMenuHandle   [i]   := 0
@@ -953,7 +953,7 @@ FUNCTION EraseFolder( hwndDlg, lModal )
       _HMG_aFormMinMaxInfo [i] := {}
       _HMG_aFormActivateId [i] := 0
       _HMG_aFormMiscData1  [i] := {}
-      _HMG_aFormMiscData2  [i] := ''
+      _HMG_aFormMiscData2  [i] := ""
 
       IF lModal
          EndDialog( hwndDlg, 0 )
@@ -984,7 +984,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION RetValue( lRet, def )
 *-----------------------------------------------------------------------------*
-   IF lRet == Nil .OR. ValType( lRet ) != 'L'
+   IF lRet == Nil .OR. ValType( lRet ) != "L"
       IF ValType( lRet ) == "N"
          lRet := iif( lRet == 0, FALSE, TRUE )
       ELSE

@@ -76,7 +76,7 @@ STATIC FUNCTION _DefineFrame ( ControlName, ParentFormName, x, y, w, h, ;
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " Already defined." )
    ENDIF
 
-   mVar := '_' + ParentFormName + '_' + ControlName
+   mVar := "_" + ParentFormName + "_" + ControlName
    k := _GetControlFree()
 
    IF _HMG_BeginDialogActive
@@ -91,7 +91,7 @@ STATIC FUNCTION _DefineFrame ( ControlName, ParentFormName, x, y, w, h, ;
 
       IF lDialogInMemory         //Dialog Template
 
-         //          {{'ID',k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
+         //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
 
          AAdd( _HMG_aDialogItems, { nId, k, "button", style, 0, x, y, w, h, caption, , , FontName, FontSize, bold, italic, underline, strikeout, , _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage } )
          IF _HMG_aDialogTemplate[3]   // Modal
@@ -119,7 +119,7 @@ STATIC FUNCTION _DefineFrame ( ControlName, ParentFormName, x, y, w, h, ;
 
       ParentFormHandle := GetFormHandle ( ParentFormName )
 
-      Controlhandle := InitFrame ( ParentFormHandle, 0, x, y, w, h , caption , '' , 0 , opaque )
+      Controlhandle := InitFrame ( ParentFormHandle, 0, x, y, w, h , caption , "" , 0 , opaque )
 
    ENDIF
 
@@ -180,9 +180,9 @@ STATIC FUNCTION _DefineFrame ( ControlName, ParentFormName, x, y, w, h, ;
    _HMG_aControlFontName  [k] :=  fontname
    _HMG_aControlFontSize  [k] :=  fontsize
    _HMG_aControlFontAttributes  [k] :=  { bold, italic, underline, strikeout }
-   _HMG_aControlToolTip   [k] :=  ''
-   _HMG_aControlRangeMin  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveTabName , '' )
-   _HMG_aControlRangeMax  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameParentFormName [_HMG_FrameLevel] , '' )
+   _HMG_aControlToolTip   [k] :=  ""
+   _HMG_aControlRangeMin  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveTabName , "" )
+   _HMG_aControlRangeMax  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameParentFormName [_HMG_FrameLevel] , "" )
    _HMG_aControlCaption  [k] :=   Caption
    _HMG_aControlVisible  [k] :=   .T.
    _HMG_aControlHelpId   [k] :=  0
@@ -190,7 +190,7 @@ STATIC FUNCTION _DefineFrame ( ControlName, ParentFormName, x, y, w, h, ;
    _HMG_aControlBrushHandle  [k] :=  0
    _HMG_aControlEnabled  [k] :=   .T.
    _HMG_aControlMiscData1 [k] :=  0
-   _HMG_aControlMiscData2 [k] :=  ''
+   _HMG_aControlMiscData2 [k] :=  ""
 
    IF invisible
       _HideControl ( ControlName , ParentFormName )
@@ -223,7 +223,7 @@ FUNCTION _BeginFrame( name , parent , row , col , w , h , caption , fontname , f
       Parent := _HMG_ActiveFrameParentFormName [_HMG_FrameLevel]
    ENDIF
 
-   IF ValType( parent ) == 'U'
+   IF ValType( parent ) == "U"
       IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
          Parent := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
       ENDIF

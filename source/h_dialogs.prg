@@ -45,7 +45,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
  ---------------------------------------------------------------------------*/
 
-#include 'minigui.ch'
+#include "minigui.ch"
 
 *-----------------------------------------------------------------------------*
 FUNCTION GetColor( aInitColor, aCustomColors, nFlags )

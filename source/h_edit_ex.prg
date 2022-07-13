@@ -625,7 +625,7 @@ FUNCTION ABM2( cArea, cTitulo, aNombreCampo, ;
       ENDIF
    NEXT
 
-   IF AScan( _HMG_aFormType, 'A' ) == 0
+   IF AScan( _HMG_aFormType, "A" ) == 0
       _HMG_MainWindowFirst := .F.
    ENDIF
 
@@ -646,7 +646,7 @@ FUNCTION ABM2( cArea, cTitulo, aNombreCampo, ;
       DEFINE STATUSBAR FONT _GetSysFont() SIZE 9
          STATUSITEM _HMG_aLangLabel[ 19 ] // 1
          STATUSITEM _HMG_aLangLabel[ 20 ] WIDTH 100 raised // 2
-         STATUSITEM _HMG_aLangLabel[ 2 ] + ': ' WIDTH 200 raised // 3
+         STATUSITEM _HMG_aLangLabel[ 2 ] + ": " WIDTH 200 raised // 3
       END STATUSBAR
 
       // Define la barra de botones de la ventana de visualización.
@@ -821,7 +821,7 @@ STATIC FUNCTION ABM2Redibuja( lTabla )
    // ------- Refresco de la barra de estado.-------------------------------------
    wndABM2Edit.StatusBar.Item( 1 ) := _HMG_aLangLabel[ 19 ] + _cFiltro
    wndABM2Edit.StatusBar.Item( 2 ) := _HMG_aLangLabel[ 20 ] + iif( _lFiltro, _HMG_aLangUser[ 29 ], _HMG_aLangUser[ 30 ] )
-   wndABM2Edit.StatusBar.Item( 3 ) := _HMG_aLangLabel[ 2 ] + ': ' + ;
+   wndABM2Edit.StatusBar.Item( 3 ) := _HMG_aLangLabel[ 2 ] + ": " + ;
       AllTrim( Str( ( _cArea )->( RecNo() ) ) ) + "/" + ;
       AllTrim( Str( ( _cArea )->( RecCount() ) ) )
 
@@ -1631,7 +1631,7 @@ STATIC FUNCTION ABM2ActivarFiltro()
 
    // ------- Comprueba que no hay ningun filtro activo.--------------------------
    IF _cFiltro != ""
-      AlertInfo( _HMG_aLangUser[ 34 ], '' )
+      AlertInfo( _HMG_aLangUser[ 34 ], "" )
    ENDIF
 
    // ------- Inicialización de variables.----------------------------------------
@@ -2386,7 +2386,7 @@ STATIC FUNCTION ABM2Listado( aImpresoras )
    // Nombre de la impresora.
    nImpresora := wndABM2Listado.cbxImpresoras.VALUE
    IF nImpresora == 0
-      AlertExclamation( _HMG_aLangUser[ 32 ], '' )
+      AlertExclamation( _HMG_aLangUser[ 32 ], "" )
    ELSE
       cImpresora := aImpresoras[ nImpresora ]
    ENDIF

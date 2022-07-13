@@ -163,7 +163,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
    // Graph info
    //
    IF !Empty( cTitle )
-      cNameObj := 'Obj_Name_' + hb_ntos( nGraphObj++ )
+      cNameObj := "Obj_Name_" + hb_ntos( nGraphObj++ )
       @ nTop - 36 * nResV, nLeft LABEL (cNameObj) OF (parent) VALUE cTitle;
          WIDTH nRight - nLeft;
          HEIGHT 24;
@@ -921,13 +921,13 @@ RETURN
 FUNCTION _PiePrint( cForm, fromrow, fromcol, torow, tocol, series, aname, colors, ctitle, depth, l3d, lxval, lsleg, cPicture, x, y, cLibrary, placement )
 *-----------------------------------------------------------------------------*
    LOCAL b := _HMG_IsModalActive
-   LOCAL FormName := '_Tmp_' + hb_ntos( _GetId() )
+   LOCAL FormName := "_Tmp_" + hb_ntos( _GetId() )
    _HMG_IsModalActive := .F.
 
    DEFINE WINDOW &FormName ;
-      AT GetProperty( cForm, 'Row' ), GetProperty( cForm, 'Col' ) ;
-      WIDTH GetProperty( cForm, 'Width' ) ;
-      HEIGHT GetProperty( cForm, 'Height' ) ;
+      AT GetProperty( cForm, "Row" ), GetProperty( cForm, "Col" ) ;
+      WIDTH GetProperty( cForm, "Width" ) ;
+      HEIGHT GetProperty( cForm, "Height" ) ;
       CHILD ;
       ON INIT ( drawpiegraph( FormName, fromrow, fromcol, torow, tocol, series, aname, colors, ctitle, depth, l3d, lxval, lsleg, cPicture, .T., placement, .T. ), ;
          _bmpprint( ThisWindow.Name, x, y, iif( "HBPRINT" $ Upper( hb_defaultValue( cLibrary, "" ) ), 2, 1 ) ) ) ;
@@ -946,13 +946,13 @@ FUNCTION _GraphPrint( cForm, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
       l3D, lGrid, lxGrid, lyGrid, lxVal, lyVal, lLegends, aSeries, aColors, nType, lViewVal, cPicture, nLegendsWidth, x, y, cLibrary )
 *-----------------------------------------------------------------------------*
    LOCAL b := _HMG_IsModalActive
-   LOCAL FormName := '_Tmp_' + hb_ntos( _GetId() )
+   LOCAL FormName := "_Tmp_" + hb_ntos( _GetId() )
    _HMG_IsModalActive := .F.
 
    DEFINE WINDOW &FormName ;
-      AT GetProperty( cForm, 'Row' ), GetProperty( cForm, 'Col' ) ;
-      WIDTH GetProperty( cForm, 'Width' ) ;
-      HEIGHT GetProperty( cForm, 'Height' ) ;
+      AT GetProperty( cForm, "Row" ), GetProperty( cForm, "Col" ) ;
+      WIDTH GetProperty( cForm, "Width" ) ;
+      HEIGHT GetProperty( cForm, "Height" ) ;
       CHILD ;
       ON INIT ( GraphShow( FormName, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aData, cTitle, aYVals, nBarD, nWideB, nSep, nXRanges, ;
          l3D, lGrid, lxGrid, lyGrid, lxVal, lyVal, lLegends, aSeries, aColors, nType, lViewVal, cPicture, nLegendsWidth, .T. , .T. ), ;
@@ -970,13 +970,13 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION _bmpprint( cForm, x, y, nLibrary )
 *-----------------------------------------------------------------------------*
-   LOCAL cTempFile := TempFile( GetTempFolder(), 'BMP' )
+   LOCAL cTempFile := TempFile( GetTempFolder(), "BMP" )
    LOCAL aSize, nOrientation, lSuccess
    LOCAL W, H, HO, VO, bw, bh, r, tW := 0, tH
 
    SuppressKeyAndMouseEvents()
 
-   DoMethod( cForm, 'SaveAs', cTempFile )
+   DoMethod( cForm, "SaveAs", cTempFile )
 
    aSize := BmpSize( cTempFile )
 
@@ -994,7 +994,7 @@ STATIC FUNCTION _bmpprint( cForm, x, y, nLibrary )
       SELECT PRINTER DEFAULT PREVIEW
 
       IF HBPRNERROR != 0
-         DoMethod ( cForm, 'Release' )
+         DoMethod ( cForm, "Release" )
          FErase ( cTempFile )
          RETURN .F.
       ENDIF
@@ -1021,7 +1021,7 @@ STATIC FUNCTION _bmpprint( cForm, x, y, nLibrary )
 
       UNTIL ( tw < w - x .OR. th < h - y )
 
-      DoMethod ( cForm, 'Hide' )
+      DoMethod ( cForm, "Hide" )
 
       START DOC
 
@@ -1040,7 +1040,7 @@ STATIC FUNCTION _bmpprint( cForm, x, y, nLibrary )
       SELECT PRINTER DEFAULT TO lSuccess ORIENTATION nOrientation PREVIEW
 
       IF .NOT. lSuccess
-         DoMethod ( cForm, 'Release' )
+         DoMethod ( cForm, "Release" )
          FErase ( cTempFile )
          RETURN .F.
       ENDIF
@@ -1057,9 +1057,9 @@ STATIC FUNCTION _bmpprint( cForm, x, y, nLibrary )
 
       UNTIL ( tw < w - x .OR. th < h - y )
 
-      DoMethod ( cForm, 'Hide' )
+      DoMethod ( cForm, "Hide" )
 
-      START PRINTDOC NAME 'MINIPRINT'
+      START PRINTDOC NAME "MINIPRINT"
 
          START PRINTPAGE
 
@@ -1071,7 +1071,7 @@ STATIC FUNCTION _bmpprint( cForm, x, y, nLibrary )
 
    ENDIF
 
-   DoMethod ( cForm, 'Release' )
+   DoMethod ( cForm, "Release" )
    FErase ( cTempFile )
 
 RETURN .T.
@@ -1084,10 +1084,10 @@ FUNCTION PrintWindow ( cWindowName, lPreview, ldialog, nRow, nCol, nWidth, nHeig
    LOCAL bw, bh, r, tw := 0, th
    LOCAL ntop, nleft, nbottom, nright
 
-   IF ValType( nRow ) == 'U' .OR. ;
-      ValType( nCol ) == 'U' .OR. ;
-      ValType( nWidth ) == 'U' .OR. ;
-      ValType( nHeight ) == 'U'
+   IF ValType( nRow ) == "U" .OR. ;
+      ValType( nCol ) == "U" .OR. ;
+      ValType( nWidth ) == "U" .OR. ;
+      ValType( nHeight ) == "U"
 
       ntop := -1
       nleft := -1
@@ -1103,11 +1103,11 @@ FUNCTION PrintWindow ( cWindowName, lPreview, ldialog, nRow, nCol, nWidth, nHeig
 
    ENDIF
 
-   IF ValType( lDialog ) == 'U'
+   IF ValType( lDialog ) == "U"
       lDialog := .F.
    ENDIF
 
-   IF ValType( lPreview ) == 'U'
+   IF ValType( lPreview ) == "U"
       lPreview := .F.
    ENDIF
 
@@ -1117,8 +1117,8 @@ FUNCTION PrintWindow ( cWindowName, lPreview, ldialog, nRow, nCol, nWidth, nHeig
 
    IF ntop == -1
 
-      bw := GetProperty ( cWindowName, 'Width' )
-      bh := GetProperty ( cWindowName, 'Height' ) - GetTitleHeight ()
+      bw := GetProperty ( cWindowName, "Width" )
+      bh := GetProperty ( cWindowName, "Height" ) - GetTitleHeight ()
 
    ELSE
 
@@ -1155,7 +1155,7 @@ FUNCTION PrintWindow ( cWindowName, lPreview, ldialog, nRow, nCol, nWidth, nHeig
 
    ENDIF
 
-   TempName := TempFile ( GetTempFolder(), 'BMP' )
+   TempName := TempFile ( GetTempFolder(), "BMP" )
 
    SaveWindowByHandle ( GetFormHandle ( cWindowName ), TempName, ntop, nleft, nbottom, nright )
 
