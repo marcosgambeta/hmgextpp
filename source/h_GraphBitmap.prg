@@ -368,7 +368,7 @@ FUNCTION HMG_PieGraph( nWidth, nHeight, series, aname, colors, ctitle, aTitleCol
    DEFAULT cPicture := "999,999.99"
 
    shadowcolor := GetProperty( ThisWindow.Name, "BackColor" )
-   IF shadowcolor[1] # -1 .AND. shadowcolor[2] # -1 .AND. shadowcolor[3] # -1
+   IF shadowcolor[1] <> -1 .AND. shadowcolor[2] <> -1 .AND. shadowcolor[3] <> -1
       aClrBack := shadowcolor
    ENDIF
 

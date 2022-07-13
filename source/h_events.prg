@@ -646,7 +646,7 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
 
                IF _IsControlDefined ( "StatusBar", _HMG_aFormNames [x] )
 
-                  IF _HMG_aControlValue [i] # Nil
+                  IF _HMG_aControlValue [i] <> Nil
 
                      SetProperty ( _HMG_aFormNames [x], "StatusBar", "Item", 1, _HMG_aControlValue [i] )
 
@@ -1204,7 +1204,7 @@ FUNCTION Events ( hWnd, nMsg, wParam, lParam )
    CASE WM_TASKBAR
    ****************************************************************************
 
-      IF wParam == ID_TASKBAR .AND. lParam # WM_MOUSEMOVE
+      IF wParam == ID_TASKBAR .AND. lParam <> WM_MOUSEMOVE
 
          SWITCH lParam
 

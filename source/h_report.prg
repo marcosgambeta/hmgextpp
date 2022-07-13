@@ -588,7 +588,7 @@ STATIC FUNCTION JUSTIFICALINEA( WPR_LINE, WTOPE )
       IF WLARLIN == WTOPE
          EXIT
       ENDIF
-      IF SubStr( WPR_LINE, I, 1 ) = SPACE1 .AND. SubStr( WPR_LINE, I - 1, 1 ) # SPACE1 .AND. SubStr( WPR_LINE, I + 1, 1 ) # SPACE1
+      IF SubStr( WPR_LINE, I, 1 ) = SPACE1 .AND. SubStr( WPR_LINE, I - 1, 1 ) <> SPACE1 .AND. SubStr( WPR_LINE, I + 1, 1 ) <> SPACE1
          WPR_LINE := LTrim( SubStr( WPR_LINE,1,I - 1 ) ) + Space( 2 ) + LTrim( SubStr( WPR_LINE,I + 1,Len(WPR_LINE ) - I ) )
          WLARLIN++
       ENDIF
@@ -785,7 +785,7 @@ STATIC FUNCTION leadatologic( cName, cPropmet, cDefault )
    LOCAL i, sw := 0
 
    FOR i := 1 TO Len( aline )
-      IF At( Upper( cname ) + " ", Upper( aline[i] ) ) # 0
+      IF At( Upper( cname ) + " ", Upper( aline[i] ) ) <> 0
          sw := 1
       ELSE
          IF sw == 1
@@ -814,7 +814,7 @@ STATIC FUNCTION learowi( cname, npar )
    HB_SYMBOL_UNUSED( cname )
 
    FOR i := 1 TO Len( aline )
-      IF At( "IMAGE ", Upper( aline[i] ) ) # 0
+      IF At( "IMAGE ", Upper( aline[i] ) ) <> 0
          npos1 := At( iif( npar == 1,"AT","TO" ), Upper( aline[i] ) )
          nrow := SubStr( aline[i], npos1 + 3, 4 )
          EXIT
@@ -830,7 +830,7 @@ STATIC FUNCTION leacoli( cname, npar )
    HB_SYMBOL_UNUSED( cname )
 
    FOR i := 1 TO Len( aline )
-      IF At( "IMAGE ", Upper( aline[i] ) ) # 0
+      IF At( "IMAGE ", Upper( aline[i] ) ) <> 0
          npos := iif( npar == 1, At( ",",aline[i] ), RAt( ",",aline[i] ) )
          ncol := SubStr( aline[i], npos + 1, 4 )
          EXIT

@@ -85,7 +85,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
    ENDIF
 
    atemp := GetProperty( Parent, "BackColor" )
-   IF atemp[1] # -1 .AND. atemp[2] # -1 .AND. atemp[3] # -1
+   IF atemp[1] <> -1 .AND. atemp[2] <> -1 .AND. atemp[3] <> -1
       aClrBack := atemp
       lRedraw := .T.
    ENDIF

@@ -197,7 +197,7 @@ if ritorna
    vsect  :={|x|{eval(oWr:Valore,oWr:aHead[1]),eval(oWr:Valore,oWr:aBody[1]),eval(oWr:Valore,oWr:aFeet[1]),nline,x}[at(x,"HBFL"+x)]}
    epar   :={|x|if( "(" $ X .OR."->" $ x,&(X),val(eval(vsect,x)))}
 
-   vpar   :={|x,y|if(ascan(x,[y])#0,y[ascan(x,[y])+1],NIL)}
+   vpar   :={|x,y|if(ascan(x,[y])<>0,y[ascan(x,[y])+1],NIL)}
    chblk  :={|x,y|if(ascan(x,y)>0,iif(len(X)>ascan(x,y),x[ascan(x,y)+1],''),'')}
    chkArg :={|x|if(ascan(x,{|aVal,y| aVal[1]== y})> 0 ,x[ascan(x,{|aVal,y| aVal[1]==y})][2],'KKK')}
 
@@ -373,16 +373,16 @@ Function StampeEsegui(_MainArea,_psd,db_arc,_prw)
       if lastrec() > 0 .OR. valtype(oWr:argm[3]) == "A"
          Lbody := eval(oWr:Valore,oWr:aBody[1])
          mx_pg := INT(oWr:aStat[ 'end_pr' ]/NOZERODIV(Lbody) )
-         if (mx_pg * lbody) # mx_pg
+         if (mx_pg * lbody) <> mx_pg
              //  msgmulty({oWr:aStat[ 'end_pr' ],lbody,mx_pg} )
              mx_pg ++
          endif
          mx_pg := ROUND( max(1,mx_pg), 0 )
          tpg   := mx_pg
-         if valtype(oWr:argm[3]) # "A"
+         if valtype(oWr:argm[3]) <> "A"
             Dbgotop()
          Endif
-         if oWr:aStat [ 'end_pr' ] # 0
+         if oWr:aStat [ 'end_pr' ] <> 0
             while !oWr:aStat [ 'EndDoc' ]
                   oWr:TheHead()
                   oWr:TheBody()
@@ -404,7 +404,7 @@ Function StampeEsegui(_MainArea,_psd,db_arc,_prw)
                StrFlt := oWr:aStat [ 'FldRel' ]+" = "+ oWr:aStat [ 'area1' ]+"->"+oWr:aStat [ 'FldRel' ]
                DBEVAL( {|| miocont++},{|| &strFLT} )
                miocnt := int(miocont/NOZERODIV(lbody))
-               if (miocnt * lbody) # miocont
+               if (miocnt * lbody) <> miocont
                   miocnt ++
                endif
                tpg += miocnt
@@ -414,7 +414,7 @@ Function StampeEsegui(_MainArea,_psd,db_arc,_prw)
                dbskip()
          enddo
          go top
-         if amx_pg[1] # 0
+         if amx_pg[1] <> 0
             while !eof()
                   sele (DB_ARC)
                   set filter to &strFLT
@@ -645,13 +645,13 @@ Procedure MsgMulty( xMesaj, cTitle ) // Created By Bicahi Esgici <esgici@gmail.c
 *-----------------------------------------------------------------------------*
    loca cMessage := ""
 
-   IF xMesaj # NIL
+   IF xMesaj <> NIL
 
       IF cTitle == NIL
          cTitle := PROCNAME(1) + "\" +   NTrim( PROCLINE(1) )
       ENDIF
 
-      IF VALTYPE( xMesaj  ) # "A"
+      IF VALTYPE( xMesaj  ) <> "A"
          xMesaj := { xMesaj }
       ENDIF
 
@@ -659,7 +659,7 @@ Procedure MsgMulty( xMesaj, cTitle ) // Created By Bicahi Esgici <esgici@gmail.c
 
       MsgInfo( cMessage, cTitle )
 
-   ENDIF xMesaj # NIL
+   ENDIF xMesaj <> NIL
 
 RETU
 /*
@@ -1534,7 +1534,7 @@ BEGIN SEQUENCE
          endif
       Endif
 
-      aeval(transpar,{|x| iif(x # NIL,aadd(ArryPar,X), nil ) } )
+      aeval(transpar,{|x| iif(x <> NIL,aadd(ArryPar,X), nil ) } )
 
       if ::aStat [ 'Control' ] .AND. (UPPER(LEFT(STRING,5)) <> "DEBUG")
          aeval(Arrypar,{|x,y|x:=nil,MsgBox("Section "+ssection+" Line is n° "+zaps(cmdline)+CRLF+"String =";
@@ -1576,7 +1576,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                    Public &_varmem
                    aadd(nomevar,_varmem)
                 Endif
-                if ArryPar[4] # "A"
+                if ArryPar[4] <> "A"
                    &_varmem := xvalue(ArryPar[3],ArryPar[4])
                 else
                    &_varmem := ::MACROCOMPILE("("+ArryPar[3]+")",.T.,cmdline,section)
@@ -1677,27 +1677,27 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                 hbprn:definefont(iif(ascan(arryPar,[FONT])=2,ArryPar[3],NIL);
                            ,iif(ascan(arryPar,[NAME])=4,ArryPar[5],NIL);
                            ,iif(ascan(arryPar,[SIZE])=6,VAL(ArryPar[7]),NIL);
-                           ,iif(ascan(arryPar,[WIDTH])# 0, VAL(eval(chblk,arrypar,[WIDTH])),NIL);
-                           ,iif(ascan(arryPar,[ANGLE])# 0,VAL(eval(chblk,arrypar,[ANGLE])),NIL);
-                           ,iif(ascan(arryPar,[BOLD])# 0,1,"");
-                           ,iif(ascan(arryPar,[ITALIC])# 0,1,"");
-                           ,iif(ascan(arryPar,[UNDERLINE])# 0,1,"");
-                           ,iif(ascan(arryPar,[STRIKEOUT])# 0,1,""))
+                           ,iif(ascan(arryPar,[WIDTH])<> 0, VAL(eval(chblk,arrypar,[WIDTH])),NIL);
+                           ,iif(ascan(arryPar,[ANGLE])<> 0,VAL(eval(chblk,arrypar,[ANGLE])),NIL);
+                           ,iif(ascan(arryPar,[BOLD])<> 0,1,"");
+                           ,iif(ascan(arryPar,[ITALIC])<> 0,1,"");
+                           ,iif(ascan(arryPar,[UNDERLINE])<> 0,1,"");
+                           ,iif(ascan(arryPar,[STRIKEOUT])<> 0,1,""))
 
            case ArryPar[1]+arryPar[2]=[CHANGEFONT]
                 hbprn:modifyfont(iif(ascan(arryPar,[FONT])=2,ArryPar[3],NIL);
                            ,iif(ascan(arryPar,[NAME])=4,ArryPar[5],NIL);
                            ,iif(ascan(arryPar,[SIZE])=6,VAL(ArryPar[7]),NIL);
-                           ,iif(ascan(arryPar,[WIDTH])# 0, VAL(eval(chblk,arrypar,[WIDTH])),NIL);
-                           ,iif(ascan(arryPar,[ANGLE])# 0,VAL(eval(chblk,arrypar,[ANGLE])),NIL);
-                           ,iif(ascan(arryPar,[BOLD])#0,.T.,.F.);
-                           ,iif(ascan(arryPar,[NOBOLD])#0,.T.,.F.);
-                           ,iif(ascan(arryPar,[ITALIC])#0,.T.,.F.);
-                           ,iif(ascan(arryPar,[NOITALIC])#0,.T.,.F.);
-                           ,iif(ascan(arryPar,[UNDERLINE])#0,.T.,.F.);
-                           ,iif(ascan(arryPar,[NOUNDERLINE])#0,.T.,.F.);
-                           ,iif(ascan(arryPar,[STRIKEOUT])#0,.T.,.F.);
-                           ,iif(ascan(arryPar,[NOSTRIKEOUT])#0,.T.,.F.))
+                           ,iif(ascan(arryPar,[WIDTH])<> 0, VAL(eval(chblk,arrypar,[WIDTH])),NIL);
+                           ,iif(ascan(arryPar,[ANGLE])<> 0,VAL(eval(chblk,arrypar,[ANGLE])),NIL);
+                           ,iif(ascan(arryPar,[BOLD])<>0,.T.,.F.);
+                           ,iif(ascan(arryPar,[NOBOLD])<>0,.T.,.F.);
+                           ,iif(ascan(arryPar,[ITALIC])<>0,.T.,.F.);
+                           ,iif(ascan(arryPar,[NOITALIC])<>0,.T.,.F.);
+                           ,iif(ascan(arryPar,[UNDERLINE])<>0,.T.,.F.);
+                           ,iif(ascan(arryPar,[NOUNDERLINE])<>0,.T.,.F.);
+                           ,iif(ascan(arryPar,[STRIKEOUT])<>0,.T.,.F.);
+                           ,iif(ascan(arryPar,[NOSTRIKEOUT])<>0,.T.,.F.))
 
            case ArryPar[1]+arryPar[2]=[COMBINEREGIONS]
                 hbprn:combinergn(eval(chblk,arrypar,[TO]),ArryPar[3],ArryPar[4];
@@ -1852,16 +1852,16 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                               asize(ax,0)
                               do case
                                  case ascan(arryPar,[DECLARE])= 4
-                                      aeval( ::aDeclare,{|x|if (x # NIL,aadd( ax,strzero( x[2],4 ) +") " + x[1] ),nil)} )
+                                      aeval( ::aDeclare,{|x|if (x <> NIL,aadd( ax,strzero( x[2],4 ) +") " + x[1] ),nil)} )
 
                                  case ascan(arryPar,[HEAD])= 4
-                                      aeval( ::aHead,{|x|if (x # NIL,aadd( ax,strzero( x[2],4 ) +") " + x[1] ),nil)} )
+                                      aeval( ::aHead,{|x|if (x <> NIL,aadd( ax,strzero( x[2],4 ) +") " + x[1] ),nil)} )
 
                                  case ascan(arryPar,[BODY])= 4
-                                      aeval( ::aBody,{|x|if (x # NIL,aadd( ax,strzero( x[2],4 ) +") " + x[1] ),nil)} )
+                                      aeval( ::aBody,{|x|if (x <> NIL,aadd( ax,strzero( x[2],4 ) +") " + x[1] ),nil)} )
 
                                  case ascan(arryPar,[FEET])= 4
-                                      aeval( ::aFeet,{|x|if (x # NIL,aadd( ax,strzero( x[2],4 ) +") " + x[1] ),nil)} )
+                                      aeval( ::aFeet,{|x|if (x <> NIL,aadd( ax,strzero( x[2],4 ) +") " + x[1] ),nil)} )
 
                               endcase
                               msgmulty(ax)
@@ -2449,7 +2449,7 @@ local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
          IIF("{||" = LEFT(S_HEAD,3), Any2Strg(eval({||exv })) ;
           ,"(["+ s_head+"]+"+::Hgconvert(substr(::aBody[posiz,1],P1+1,P2-p1))+")" ) ;
          +substr(::aBody[posiz,1],p2+1)
-         if upper(s_col) # [AUTO]
+         if upper(s_col) <> [AUTO]
             GHstring:=left(::aBody[posiz,1],at(chr(07),::aBody[posiz,1]))+s_col+chr(07)+substr(Ghstring,at("SAY",Ghstring))
          Endif
       else   // NOT DECLARED INTO BODY
@@ -2788,7 +2788,7 @@ Local sstring := "NLINE"+chr(07)+NTrim(t_col)+chr(07)+"SAY"+chr(07)
                             nxtp := .T.
                          endif
                       else
-                          if Gfexec  //len(gcounter) # 0     //display group total
+                          if Gfexec  //len(gcounter) <> 0     //display group total
                              if len(m->tts) > 0
                                 ::traduci(strtran(sstring,chr(05),m->tts))
                                 if ::aStat['InlineTot']= .F.
@@ -2881,7 +2881,7 @@ FOR I=1 TO WLARLIN
    IF WLARLIN = WTOPE
       EXIT
    ENDIF
-   IF SUBSTR(WPR_LINE,I,1)=SPACE1 .AND. SUBSTR(WPR_LINE,I-1,1)#SPACE1 .AND. SUBSTR(WPR_LINE,I+1,1)#SPACE1
+   IF SUBSTR(WPR_LINE,I,1)=SPACE1 .AND. SUBSTR(WPR_LINE,I-1,1)<>SPACE1 .AND. SUBSTR(WPR_LINE,I+1,1)<>SPACE1
       WPR_LINE := LTRIM(SUBSTR(WPR_LINE,1,I-1))+SPACE(2)+LTRIM(SUBSTR(WPR_LINE,I+1,LEN(WPR_LINE)-I))
       WLARLIN++
    ENDIF
@@ -3036,7 +3036,7 @@ local oErrAntes, oErr, lMyError := .F., n , al ,an
                              nxtp := .T.
                           endif
                       else
-                          if Gfexec  //.AND. gcounter # 0     //display total of group
+                          if Gfexec  //.AND. gcounter <> 0     //display total of group
                              if len(m->tts) > 0
                                 @nline,t_col PRINT iif(oWr:aStat [ 'r_paint' ],[Totale],[])
                                 if ::aStat['InlineTot']= .F.

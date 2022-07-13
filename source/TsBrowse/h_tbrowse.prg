@@ -5238,7 +5238,7 @@ METHOD Edit( uVar, nCell, nKey, nKeyFlags, cPicture, bValid, nClrFore, nClrBack 
 
    uValue := uVar
    cType := iif( Empty( oCol:cDataType ), ValType( uValue ), oCol:cDataType )
-   IF ::lIsArr .AND. oCol:cDataType # ValType( uValue ) // GF 15/07/2009
+   IF ::lIsArr .AND. oCol:cDataType <> ValType( uValue ) // GF 15/07/2009
       cType := ValType( uValue )
       oCol:cDataType := cType
    ENDIF
@@ -6082,7 +6082,7 @@ METHOD Excel2( cFile, lActivate, hProgress, cTitle, lSave, bPrintRow ) CLASS TSB
             IF cc == '.' ;   cc := ',' ;   ENDIF
             IF cc == '@' .OR. cc == 'K' .OR. cc == 'Z' ;   LOOP ;   ENDIF
             if ! Empty( cPic ) ; cPic += cc
-            ELSEIF cc # '0' ; cPic += ( '#0' + cc )
+            ELSEIF cc <> '0' ; cPic += ( '#0' + cc )
             ENDIF
          NEXT
          IF Empty( cPic )

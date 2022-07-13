@@ -622,7 +622,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          // Patch By Pier July 2008
          // Add By Pier patch for the smaller negative numbers of zero START
          IF oGet:type == "N" .AND. oGet:minus .AND. Val( hb_USubStr( oget:buffer, 1, hb_UAt( ",", oget:buffer ) - 1 ) ) == 0
-            IF Val( hb_USubStr( oget:buffer, hb_UAt( ",", oget:buffer ) + 1 ) ) # 0
+            IF Val( hb_USubStr( oget:buffer, hb_UAt( ",", oget:buffer ) + 1 ) ) <> 0
                MinDec := StrTran( oget:buffer, iif( hb_UAt( "E", cPicFunc ) > 0, ",", ", " ), "." )
                MinDec := StrTran( MinDec,  " ", "" )
                oget:VarPut( Val( MinDec ) * iif( Val( MinDec ) > 0, -1, 1 ) )
@@ -716,7 +716,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
          oGet:pos := nEnd
 
-         IF nStart # nEnd
+         IF nStart <> nEnd
 
             IF nEnd > hb_ULen( oGet:buffer )
                oGet:Delete()
@@ -772,7 +772,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
          RETURN( 0 )
 
-      CASE ( wParam == VK_BACK .AND. lParam # 0 .AND. !readonly .AND. lAllowEdit .AND. oGet:type != "L" )
+      CASE ( wParam == VK_BACK .AND. lParam <> 0 .AND. !readonly .AND. lAllowEdit .AND. oGet:type != "L" )
 
          IF nEnd > nStart
 
@@ -849,7 +849,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
          oGet:changed := .T.
 
-         IF nStart # nEnd
+         IF nStart <> nEnd
             IF nEnd > hb_ULen( oGet:buffer ) + 1
                oGet:Delete()
             ENDIF
@@ -1148,7 +1148,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          nEnd   := HiWord(SendMessage( hWnd, EM_GETSEL, 0, 0 )) + 1
          oGet:pos := nEnd
 
-         IF nStart # nEnd
+         IF nStart <> nEnd
 
             IF nEnd > hb_ULen( oGet:buffer )
                oGet:Delete()
@@ -1199,7 +1199,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          nEnd   := HiWord(SendMessage( hWnd, EM_GETSEL, 0, 0 )) + 1
          nLen   := hb_ULen( oGet:buffer )
 
-         IF nStart # nEnd
+         IF nStart <> nEnd
             FOR i := nStart TO nEnd  // clear selection by backspacing
                IF oGet:pos > nStart
                   oGet:BackSpace()
@@ -1258,7 +1258,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          nEnd := HiWord(SendMessage( hWnd, EM_GETSEL, 0, 0 )) + 1
          oGet:pos := nEnd
 
-         IF nStart # nEnd
+         IF nStart <> nEnd
             IF nEnd > hb_ULen( oGet:buffer )
                oGet:delete()
             ENDIF
