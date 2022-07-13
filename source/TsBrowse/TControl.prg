@@ -194,11 +194,11 @@ CLASS TControl
    METHOD PostMsg( nMsg, nWParam, nLParam ) INLINE ;
                PostMessage( ::hWnd, nMsg, nWParam, nLParam )
 
-   METHOD lValid() INLINE IIf( ::bValid != nil, Eval( ::bValid ), .t. )
+   METHOD lValid() INLINE IIf( ::bValid != nil, Eval( ::bValid ), .T. )
 
    METHOD SetMsg( cText, lDefault )
 
-   METHOD lWhen() INLINE  IIf( ::bWhen != nil, Eval( ::bWhen ), .t. )
+   METHOD lWhen() INLINE  IIf( ::bWhen != nil, Eval( ::bWhen ), .T. )
 
    METHOD SetColor( nClrFore, nClrBack, hBrush )
 
@@ -237,7 +237,7 @@ METHOD Init( hDlg ) CLASS TControl
 
    local oRect
 
-   DEFAULT ::lActive := .t., ::lCaptured := .f.
+   DEFAULT ::lActive := .T., ::lCaptured := .f.
 
    if( ( ::hWnd := GetDialogItemHandle( hDlg, ::nId ) ) != 0 )    //JP
       oRect     := ::GetRect()

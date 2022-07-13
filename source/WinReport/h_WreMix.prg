@@ -75,7 +75,7 @@ Procedure PrMiniEsegui(_MainArea,_psd,db_arc,_prw)
          local StrFlt:=""
          local lbody := 0, miocont := 0, miocnt := 0
          local Amx_pg :={}
-         Private ONEATLEAST := .F., shd := .t., sbt := .t., sgh := .t., insgh:=.F.
+         Private ONEATLEAST := .F., shd := .T., sbt := .T., sgh := .T., insgh:=.F.
          Private hbprn :=hbprinter():new()
 
          chblk  :={|x,y|if(ascan(x,y)>0,iif(len(X)>ascan(x,y),x[ascan(x,y)+1],''),'')}
@@ -113,10 +113,10 @@ Procedure PrMiniEsegui(_MainArea,_psd,db_arc,_prw)
          ncpl := eval(oWr:Valore,oWr:Adeclare[1])
          str1 := upper(substr(oWr:Adeclare[1,1],at("/",oWr:Adeclare[1,1])+1))
 
-         if "LAND" $ Str1 ;landscape:=.t.; endif
-         if "SELE" $ Str1 ;lselect :=.t. ; endif
+         if "LAND" $ Str1 ;landscape:=.T.; endif
+         if "SELE" $ Str1 ;lselect :=.T. ; endif
          if "PREV" $ Str1
-            lpreview:=.t.
+            lpreview:=.T.
          else
             lpreview := _prw
          endif
@@ -309,7 +309,7 @@ local ritorno:=.f.
          mx_pg ++
          END PRINTPAGE
          START PRINTPAGE
-         ritorno:=.t.
+         ritorno:=.T.
       endif
 return ritorno
 */
@@ -321,7 +321,7 @@ Static Function memosay(arg1,arg2,argm1,argl1,argf1,argsize,abold,aita,aunder,as
  default arg2 to 0 , arg1 to 0 , argl1 to 10, onlyone to "", argalign to "LEFT"
 
  if valtype(argm1)=="A"
-    typa := .t.
+    typa := .T.
     arrymemo := {}
     if oWr:IsMono(argm1)
        arrymemo := aclone(argm1)
@@ -352,11 +352,11 @@ Static Function memosay(arg1,arg2,argm1,argl1,argf1,argsize,abold,aita,aunder,as
    , aita;
    , aunder;
    , astrike;
-   , iif(valtype(argcolor1)=="A", .t.,.f.) ;
-   , iif(valtype(argf1)=="C", .t.,.f.) ;
-   , iif(valtype(argsize)=="N", .t.,.f.) ;
+   , iif(valtype(argcolor1)=="A", .T.,.f.) ;
+   , iif(valtype(argf1)=="C", .T.,.f.) ;
+   , iif(valtype(argsize)=="N", .T.,.f.) ;
    , argalign )
-   oWr:aStat [ 'Yes_Memo' ] :=.t.
+   oWr:aStat [ 'Yes_Memo' ] :=.T.
  else
      for mcl=2 to len(arrymemo)
          nline ++
@@ -367,9 +367,9 @@ Static Function memosay(arg1,arg2,argm1,argl1,argf1,argsize,abold,aita,aunder,as
          _HMG_PRINTER_H_PRINT( iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) ;
          , nline*lstep , arg2, argf1 , argsize , argcolor1[1], argcolor1[2], argcolor1[3] ;
          , arrymemo[mcl], abold, aita, aunder, astrike;
-         , iif(valtype(argcolor1)=="A", .t.,.f.) ;
-         , iif(valtype(argf1)=="C", .t.,.f.) ;
-         , iif(valtype(argsize)=="N", .t.,.f.) ;
+         , iif(valtype(argcolor1)=="A", .T.,.f.) ;
+         , iif(valtype(argf1)=="C", .T.,.f.) ;
+         , iif(valtype(argsize)=="N", .T.,.f.) ;
          , argalign )
      next
      if !Typa
@@ -382,7 +382,7 @@ Static Function memosay(arg1,arg2,argm1,argl1,argf1,argsize,abold,aita,aunder,as
 *-----------------------------------------------------------------------------*
 Function RMiniPar(ArryPar,cmdline,section)
 *-----------------------------------------------------------------------------*
-     local _arg1,Aclr,blse := {|x| iif(val(x)> 0,.t.,iif(x=".T.".or. x ="ON",.T.,.F.))}
+     local _arg1,Aclr,blse := {|x| iif(val(x)> 0,.T.,iif(x=".T.".or. x ="ON",.T.,.F.))}
      local ax := {}
 
      if len(ArryPar) < 1 ;return .F. ;endif
@@ -406,7 +406,7 @@ Function RMiniPar(ArryPar,cmdline,section)
              if ArryPar[4] # "A"
                 &_varmem := xvalue(ArryPar[3],ArryPar[4])
              else
-                &_varmem := oWr:MACROCOMPILE("("+ArryPar[3]+")",.t.,cmdline,section)
+                &_varmem := oWr:MACROCOMPILE("("+ArryPar[3]+")",.T.,cmdline,section)
              Endif
 
         case arryPar[1]==[ADDLINE]
@@ -417,7 +417,7 @@ Function RMiniPar(ArryPar,cmdline,section)
 
         case len(ArryPar)=1
              if "DEBUG_" != left(ArryPar[1],6) .and. "ELSE" != left(ArryPar[1],4)
-                 oWr:MACROCOMPILE(ArryPar[1],.t.,cmdline,section)
+                 oWr:MACROCOMPILE(ArryPar[1],.T.,cmdline,section)
              Endif
 
         case ascan(arryPar,[ONEATLEAST])= 2
@@ -534,20 +534,20 @@ Function RMiniPar(ArryPar,cmdline,section)
      case ascan(arryPar,"SET")=1
 	     do case
 	        case ascan(arryPar,[EURO])=2
-	             _euro:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.t.,iif(arrypar[3]=".T.".or.arrypar[3]="ON",.t.,.f.))
+	             _euro:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.T.,iif(arrypar[3]=".T.".or.arrypar[3]="ON",.T.,.f.))
 /*
 	        case ascan(arryPar,[ADDOFFSET])=2
-	             _addoffset:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.t.,iif(arrypar[3]=".T.".or.arrypar[3]="ON",.t.,.f.))
+	             _addoffset:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.T.,iif(arrypar[3]=".T.".or.arrypar[3]="ON",.T.,.f.))
 */
 
 	        case ascan(arryPar,[MONEY])=2
-	             _money:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.t.,iif(arrypar[3]=".T.".or.arrypar[3]="ON",.t.,.f.))
+	             _money:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.T.,iif(arrypar[3]=".T.".or.arrypar[3]="ON",.T.,.f.))
 
 	        case ascan(arryPar,[SEPARATOR])=2
-	             _separator:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.t.,iif(arrypar[3]=".T.".or.arrypar[3]="ON",.t.,.f.))
+	             _separator:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.T.,iif(arrypar[3]=".T.".or.arrypar[3]="ON",.T.,.f.))
 
                 case ascan(arryPar,[PREVIEW])=2
-                     _hmg_printer_preview:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.t.,iif(arrypar[3]=".T.".or.arrypar[3]="ON",.t.,.f.))
+                     _hmg_printer_preview:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.T.,iif(arrypar[3]=".T.".or.arrypar[3]="ON",.T.,.f.))
 
                 case ascan(arryPar,[JOB])= 2
                      _HMG_SYSDATA [ 358 ]:= eval(chblk,arrypar,[NAME])
@@ -569,7 +569,7 @@ Function RMiniPar(ArryPar,cmdline,section)
                    , eval(epar,ArryPar[2]) ;
                    , val(eval(chblk,arrypar,[HEIGHT]));
                    , val(eval(chblk,arrypar,[WIDTH]));
-                   , iif(ascan(ArryPar,[STRETCH])> 0,.t.,.f.))
+                   , iif(ascan(ArryPar,[STRETCH])> 0,.T.,.f.))
                      // _HMG_PRINTER_IMAGE (iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc),"hmglogo.gif",25,25,20,16 )
 
                 case ASCAN(ArryPar,[LINE]) > 0
@@ -597,8 +597,8 @@ Function RMiniPar(ArryPar,cmdline,section)
                      , Aclr[1] ;
                      , Aclr[2] ;
                      , Aclr[3] ;
-                     , iif(ascan(arryPar,[PENWIDTH])>0, .t.,.f.);
-                     , iif(ascan(arryPar,[COLOR])>0, .t.,.f.) )
+                     , iif(ascan(arryPar,[PENWIDTH])>0, .T.,.f.);
+                     , iif(ascan(arryPar,[COLOR])>0, .T.,.f.) )
 
                 case ASCAN(ArryPar,[RECTANGLE]) > 0
                      // @ 20,20 PRINT RECTANGLE TO 50,190 ==
@@ -616,8 +616,8 @@ Function RMiniPar(ArryPar,cmdline,section)
                         , Aclr[1] ;
                         , Aclr[2] ;
                         , Aclr[3] ;
-                         , iif(ascan(arryPar,[PENWIDTH])>0, .t.,.f.);
-                        , iif(ascan(arryPar,[COLOR])>0, .t.,.f.) )
+                         , iif(ascan(arryPar,[PENWIDTH])>0, .T.,.f.);
+                        , iif(ascan(arryPar,[COLOR])>0, .T.,.f.) )
                      else
                         _HMG_PRINTER_H_RECTANGLE ( iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) ;
                         , iif([LINE]$ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])) ;
@@ -628,8 +628,8 @@ Function RMiniPar(ArryPar,cmdline,section)
                         , Aclr[1] ;
                         , Aclr[2] ;
                         , Aclr[3] ;
-                        , iif(ascan(arryPar,[PENWIDTH])>0, .t.,.f.);
-                        , iif(ascan(arryPar,[COLOR])>0, .t.,.f.) )
+                        , iif(ascan(arryPar,[PENWIDTH])>0, .T.,.f.);
+                        , iif(ascan(arryPar,[COLOR])>0, .T.,.f.) )
 
                     endif
 
@@ -670,26 +670,26 @@ Function RMiniPar(ArryPar,cmdline,section)
                 , Aclr[3] ;
                 , arrypar[4]    ; //if("->" $ ArryPar[4] .or. [(] $ ArryPar[4],&ArryPar[4],ArryPar[4])  ;
                 , iif(ascan(arryPar,[BOLD])#0,.T.,.f.);
-                , iif(ascan(arryPar,[ITALIC])#0,.t.,.f.) ;
-                , iif(ascan(arryPar,[UNDERLINE])#0,.t.,.f.);
-                , iif(ascan(arryPar,[STRIKEOUT])#0,.t.,.f.);
-                , iif(ascan(arryPar,[COLOR])>0, .t.,.f.) ;
-                , iif(ascan(arryPar,[FONT])>0, .t.,.f.) ;
-                , iif(ascan(arryPar,[SIZE])>0, .t.,.f.) ;
+                , iif(ascan(arryPar,[ITALIC])#0,.T.,.f.) ;
+                , iif(ascan(arryPar,[UNDERLINE])#0,.T.,.f.);
+                , iif(ascan(arryPar,[STRIKEOUT])#0,.T.,.f.);
+                , iif(ascan(arryPar,[COLOR])>0, .T.,.f.) ;
+                , iif(ascan(arryPar,[FONT])>0, .T.,.f.) ;
+                , iif(ascan(arryPar,[SIZE])>0, .T.,.f.) ;
                 , eval(chblk,arrypar,[ALIGN]))
              endcase
 
      case ascan(ArryPar,[MEMOSAY])=3
              memosay(iif([LINE]$ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1]) ) ,eval(epar,ArryPar[2]) ,&(ArryPar[4]) ;
           ,iif(ascan(arryPar,[LEN])>0,iif(valtype(oWr:argm[3])=="A", ;
-                                     oWr:MACROCOMPILE(eval(chblk,arrypar,[LEN]),.t.,cmdline,section) , ;
+                                     oWr:MACROCOMPILE(eval(chblk,arrypar,[LEN]),.T.,cmdline,section) , ;
                                      val(eval(chblk,arrypar,[LEN]))),NIL) ;
           ,iif(ascan(arryPar,[FONT])>0,eval(chblk,arrypar,[FONT]),NIL);
           ,iif(ascan(arryPar,[SIZE])>0,val( eval(chblk,arrypar,[SIZE] ) ),NIL );
           ,iif(ascan(arryPar,[BOLD])#0,.T.,.f.);
-          ,iif(ascan(arryPar,[ITALIC])#0,.t.,.f.) ;
-          ,iif(ascan(arryPar,[UNDERLINE])#0,.t.,.f.);
-          ,iif(ascan(arryPar,[STRIKEOUT])#0,.t.,.f.);
+          ,iif(ascan(arryPar,[ITALIC])#0,.T.,.f.) ;
+          ,iif(ascan(arryPar,[UNDERLINE])#0,.T.,.f.);
+          ,iif(ascan(arryPar,[STRIKEOUT])#0,.T.,.f.);
           ,iif(ascan(arryPar,[COLOR])>0,oWr:usacolor(eval(chblk,arrypar,[COLOR])),NIL);
           ,iif(ascan(arryPar,[ALIGN])>0,oWr:what_ele(eval(chblk,arrypar,[ALIGN]),_aAlign,"_aAlign"),NIL);
           ,iif(ascan(arryPar,[.F.])>0,".F.",""))
@@ -700,7 +700,7 @@ Function RMiniPar(ArryPar,cmdline,section)
 
                 oWr:Putarray(iif([LINE] $ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])) ;
                    ,eval(epar,ArryPar[2]) ;
-                   ,oWr:MACROCOMPILE(ArryPar[4],.t.,cmdline,section)    ;            //arr
+                   ,oWr:MACROCOMPILE(ArryPar[4],.T.,cmdline,section)    ;            //arr
                    ,iif(ascan(arryPar,[LEN])>0,oWr:macrocompile(eval(chblk,arrypar,[LEN])),NIL) ; //awidts
                    ,nil                                                           ;      //rowheight
                    ,nil                                                           ;      //vertalign
@@ -713,6 +713,6 @@ Function RMiniPar(ArryPar,cmdline,section)
                    ,nil )                                                                //userfun
 */
      endcase
-return .t.
+return .T.
 /*
 */

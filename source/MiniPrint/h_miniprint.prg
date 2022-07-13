@@ -131,7 +131,7 @@ Local icb
 			width 300
 			height 30
 			value _hmg_printer_usermessages [29] 
-			centeralign .t.
+			centeralign .T.
 		end label
 	end window
 
@@ -391,7 +391,7 @@ Local icb
 		_hmg_printer_thumbscroll := .f.
 		tvHeight := GetDesktopHeight() - 102
 	else
-		_hmg_printer_thumbscroll := .t.
+		_hmg_printer_thumbscroll := .T.
 	EndIf
 
 	DEFINE WINDOW _HMG_PRINTER_SHOWTHUMBNAILS ;
@@ -536,11 +536,11 @@ Local icb
             SetProperty( '_HMG_PRINTER_PPNAV', "Height", GetProperty( '_HMG_PRINTER_PPNAV', "Height" ) + GetBorderHeight() / 2 )
 	ENDIF
 
-	SetScrollRange ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_VERT , 0 , 100 , .t. )
-	SetScrollRange ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_HORZ , 0 , 100 , .t. )
+	SetScrollRange ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_VERT , 0 , 100 , .T. )
+	SetScrollRange ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_HORZ , 0 , 100 , .T. )
 
-	SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_VERT , 50 , .t. )
-	SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_HORZ , 50 , .t. )
+	SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_VERT , 50 , .T. )
+	SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_HORZ , 50 , .T. )
 
 	_HMG_PRINTER_PREVIEW_DISABLESCROLLBARS (GetFormHandle('_HMG_PRINTER_SHOWPREVIEW'))
 
@@ -723,7 +723,7 @@ Procedure _hmg_printer_savepages
 *------------------------------------------------------------------------------*
 Local c , i , f , t , d , x , a
 
-	x := Putfile ( { {'Images','*.emf'} }, , GetCurrentFolder(), .t. )
+	x := Putfile ( { {'Images','*.emf'} }, , GetCurrentFolder(), .T. )
 
 	if empty(x)
 		return
@@ -1970,8 +1970,8 @@ Local DeltaHeight := 35 + GetTitleHeight() + GetBorderHeight() + 10
 		_hmg_printer_Dx := 0
 		_hmg_printer_Dy := 0
 
-		SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_VERT , 50 , .t. )
-		SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_HORZ , 50 , .t. )
+		SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_VERT , 50 , .T. )
+		SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_HORZ , 50 , .T. )
 
 		_HMG_PRINTER_PREVIEW_DISABLESCROLLBARS (GetFormHandle('_HMG_PRINTER_SHOWPREVIEW'))
 
@@ -2015,26 +2015,26 @@ Local DeltaHeight := 35 + GetTitleHeight() + GetBorderHeight() + 10
 				_hmg_printer_Dz := 1000 + _HMG_PRINTER_DELTA_ZOOM
 				_hmg_printer_Dx := 100
 				_hmg_printer_Dy := 400
-				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_VERT , 10 , .t. )
-				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_HORZ , 40 , .t. )
+				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_VERT , 10 , .T. )
+				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_HORZ , 40 , .T. )
 			ElseIf Q == 2
 				_hmg_printer_Dz := 1000 + _HMG_PRINTER_DELTA_ZOOM
 				_hmg_printer_Dx := -100
 				_hmg_printer_Dy := 400
-				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_VERT , 10 , .t. )
-				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_HORZ , 60 , .t. )
+				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_VERT , 10 , .T. )
+				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_HORZ , 60 , .T. )
 			ElseIf Q == 3
 				_hmg_printer_Dz := 1000 + _HMG_PRINTER_DELTA_ZOOM
 				_hmg_printer_Dx := 100
 				_hmg_printer_Dy := -400
-				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_VERT , 90 , .t. )
-				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_HORZ , 40 , .t. )
+				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_VERT , 90 , .T. )
+				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_HORZ , 40 , .T. )
 			ElseIf Q == 4
 				_hmg_printer_Dz := 1000 + _HMG_PRINTER_DELTA_ZOOM
 				_hmg_printer_Dx := -100
 				_hmg_printer_Dy := -400
-				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_VERT , 90 , .t. )
-				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_HORZ , 60 , .t. )
+				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_VERT , 90 , .T. )
+				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_HORZ , 60 , .T. )
 			EndIf				
 
 		Else
@@ -2045,26 +2045,26 @@ Local DeltaHeight := 35 + GetTitleHeight() + GetBorderHeight() + 10
 				_hmg_printer_Dz := 1000 + _HMG_PRINTER_DELTA_ZOOM
 				_hmg_printer_Dx := 500
 				_hmg_printer_Dy := 300
-				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_VERT , 20 , .t. )
-				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_HORZ , 1 , .t. )
+				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_VERT , 20 , .T. )
+				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_HORZ , 1 , .T. )
 			ElseIf Q == 2
 				_hmg_printer_Dz := 1000 + _HMG_PRINTER_DELTA_ZOOM
 				_hmg_printer_Dx := -500
 				_hmg_printer_Dy := 300
-				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_VERT , 20 , .t. )
-				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_HORZ , 99 , .t. )
+				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_VERT , 20 , .T. )
+				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_HORZ , 99 , .T. )
 			ElseIf Q == 3
 				_hmg_printer_Dz := 1000 + _HMG_PRINTER_DELTA_ZOOM
 				_hmg_printer_Dx := 500
 				_hmg_printer_Dy := -300
-				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_VERT , 80 , .t. )
-				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_HORZ , 1 , .t. )
+				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_VERT , 80 , .T. )
+				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_HORZ , 1 , .T. )
 			ElseIf Q == 4
 				_hmg_printer_Dz := 1000 + _HMG_PRINTER_DELTA_ZOOM
 				_hmg_printer_Dx := -500
 				_hmg_printer_Dy := -300
-				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_VERT , 80 , .t. )
-				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_HORZ , 99 , .t. )
+				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_VERT , 80 , .T. )
+				SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_HORZ , 99 , .T. )
 			EndIf				
 
 		EndIf
@@ -2087,8 +2087,8 @@ Procedure _HMG_PRINTER_Zoom
 		_hmg_printer_Dx := 0
 		_hmg_printer_Dy := 0
 
-		SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_VERT , 50 , .t. )
-		SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_HORZ , 50 , .t. )
+		SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_VERT , 50 , .T. )
+		SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_HORZ , 50 , .T. )
 
 		_HMG_PRINTER_PREVIEW_DISABLESCROLLBARS (GetFormHandle('_HMG_PRINTER_SHOWPREVIEW'))
 
@@ -2101,16 +2101,16 @@ Procedure _HMG_PRINTER_Zoom
 			_hmg_printer_Dz := 1000 + _HMG_PRINTER_DELTA_ZOOM
 			_hmg_printer_Dx := 100
 			_hmg_printer_Dy := 400
-			SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_VERT , 10 , .t. )
-			SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_HORZ , 40 , .t. )
+			SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_VERT , 10 , .T. )
+			SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_HORZ , 40 , .T. )
 
 		Else
 
 			_hmg_printer_Dz := 1000 + _HMG_PRINTER_DELTA_ZOOM
 			_hmg_printer_Dx := 500
 			_hmg_printer_Dy := 300
-			SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_VERT , 20 , .t. )
-			SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_HORZ , 1 , .t. )
+			SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_VERT , 20 , .T. )
+			SetScrollPos ( GetFormHandle('_HMG_PRINTER_SHOWPREVIEW') , SB_HORZ , 1 , .T. )
 
 		EndIf
 

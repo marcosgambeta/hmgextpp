@@ -132,10 +132,10 @@
  *                         pasa el bloque de código para el evento de guardar registro.
  *                         Tiene que tener el mismo numero de elementos que campos hay en
  *                         la estructura de la base de datos. Por defecto es una matriz
- *                         con todos los valores verdaderos (.t.).
+ *                         con todos los valores verdaderos (.T.).
  *              bGuardar   Bloque de codigo al que se le pasa uan matriz con los
  *                         valores a guardar/editar y una variable lógica que indica
- *                         si se esta editando (.t.) o añadiendo (.f.). El bloque de código
+ *                         si se esta editando (.T.) o añadiendo (.f.). El bloque de código
  *                         tendrá la siguiente forma {|p1, p2| MiFuncion( p1, p2 ) }, donde
  *                         p1 será un array con los valores para cada campo y p2 sera el
  *                         valor lógico que indica el estado. Por defecto se guarda usando
@@ -1351,7 +1351,7 @@ RETURN ( nil )
  *     Función: ABMListadoImprimir( lOrientacion, nPrimero, nUltimo )
  *       Autor: Cristóbal Mollá
  * Descripción: Lanza el listado definido a la impresora.
- *  Parámetros: lOrientacion    Lógico que indica si el listado es horizontal (.t.)
+ *  Parámetros: lOrientacion    Lógico que indica si el listado es horizontal (.T.)
  *                              o vertical (.f.)
  *              nPrimero        Valor numerico con el primer registro a imprimir.
  *              nUltimo         Valor numérico con el último registro a imprimir.

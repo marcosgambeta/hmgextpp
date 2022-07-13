@@ -87,7 +87,7 @@ ENDCLASS
 //
 METHOD New() CLASS TFtp
 ::oSocket := TSocket():New()
-//::oSocket:bDebug := .t.
+//::oSocket:bDebug := .T.
 return Self
 
 //

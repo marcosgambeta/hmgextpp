@@ -47,12 +47,12 @@
  *      [alFieldEnabled]        Matriz de valores lógicos que indica si el campo referenciado
  *                              por la matriz esta activo durante la edición de registro. Tiene
  *                              que tener el mismo numero de elementos que campos la bdd. Por
- *                              defecto toma todos los valores como verdaderos ( .t. ).
+ *                              defecto toma todos los valores como verdaderos ( .T. ).
  *
  *      [alTableView]           Matriz de valores lógicos que indica si el campo referenciado
  *                              por la matriz es visible en la tabla. Tiene que tener el mismo
  *                              numero de elementos que campos la bdd. Por defecto toma todos
- *                              los valores como verdaderos ( .t. ).
+ *                              los valores como verdaderos ( .T. ).
  *
  *                              Array of logical values that it indicates if the referenced field
  *                              by the array is visible in the table. It must have the same one
@@ -73,8 +73,8 @@
  *      [bSave]                 Bloque de codigo con el formato {|aValores, lNuevo| Accion } que
  *                              se ejecutará al pulsar la tecla de guardar registro. Se pasan
  *                              las variables aValores con el contenido del registro a guardar y
- *                              lNuevo que indica si se está añadiendo (.t.) o editando (.f.).
- *                              Esta variable ha de devolver .t. para salir del modo de edición.
+ *                              lNuevo que indica si se está añadiendo (.T.) o editando (.f.).
+ *                              Esta variable ha de devolver .T. para salir del modo de edición.
  *                              Por defecto se graba con el código de la función.
  *
  *      [bFind]                 Bloque de codigo a ejecutar cuando se pulsa la tecla de busqueda.

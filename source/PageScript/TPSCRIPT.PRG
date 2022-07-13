@@ -162,7 +162,7 @@ CLASS TPageScript
    METHOD GetVersion // Returns the .DLL version number
    METHOD GetXerox // Returns the Xerox flag
 
-   METHOD IsPreviewVisible // Returns .t. is print preview window is visible, otherwise, returns .f.
+   METHOD IsPreviewVisible // Returns .T. is print preview window is visible, otherwise, returns .f.
 
    METHOD Line // Draw a line
    METHOD LineEx // Draw a line
@@ -1178,7 +1178,7 @@ RETURN lValue
 
 /*-----------------------------------------------------------------------------
 Method .....: #IsPreviewVisible() -> lValue
-Description : Returns .t. is print preview window is visible, otherwise, returns .f.
+Description : Returns .T. is print preview window is visible, otherwise, returns .f.
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:IsPreviewVisible()
 
@@ -3510,7 +3510,7 @@ RETURN lValue
 
 /*-----------------------------------------------------------------------------
 Function ...: PSIsPreviewVisible() -> lValue
-Description : Returns .t. if Print Preview Window is shown
+Description : Returns .T. if Print Preview Window is shown
 Author .....: Stephan St-Denis
 Date .......: May 2012
 -----------------------------------------------------------------------------*/

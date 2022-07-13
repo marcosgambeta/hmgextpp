@@ -1459,7 +1459,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
    Col := GCol + ( GWidth - 310 ) / 2
 
    IF ValType( append ) != "U"
-      Title := _HMG_BRWLangButton [ iif( append == .t., 1, 2 ) ]
+      Title := _HMG_BRWLangButton [ iif( append == .T., 1, 2 ) ]
    ELSE
       Title := _HMG_BRWLangButton [2]
    ENDIF

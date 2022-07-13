@@ -491,7 +491,7 @@ if ::oSocket:SendString( "MAIL FROM: " +::cEmail +CHR(13)+CHR(10) )
                   if !(LEFT(cErr,3)=="250" .or. LEFT(cErr,3)=="550")
                      ::cError := cErr
                   else
-                     bRet := .t.
+                     bRet := .T.
                   endif
                endif
             else

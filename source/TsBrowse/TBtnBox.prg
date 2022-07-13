@@ -210,7 +210,7 @@ RETURN 0
 
 METHOD lValid() CLASS TBtnBox
 
-   Local lRet := .t.
+   Local lRet := .T.
 
    If ValType( ::bValid ) == "B"
       lRet := Eval( ::bValid, ::GetVal() )
