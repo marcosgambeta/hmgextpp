@@ -260,68 +260,67 @@ FUNCTION _DefineBrowse ( ControlName, ParentFormName, x, y, w, h, aHeaders, aWid
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := CONTROL_TYPE_BROWSE
-   _HMG_aControlNames [k] :=   ControlName
-   _HMG_aControlHandles [k] :=   ControlHandle
-   _HMG_aControlParenthandles [k] :=   ParentFormHandle
-   _HMG_aControlIds  [k] :=  nId
-   _HMG_aControlProcedures  [k] :=  aWidths
-   _HMG_aControlPageMap   [k] := aHeaders
-   _HMG_aControlValue   [k] := Value
-   _HMG_aControlInputMask   [k] := Lock
-   _HMG_aControllostFocusProcedure  [k] :=  lostfocus
-   _HMG_aControlGotFocusProcedure  [k] :=  gotfocus
-   _HMG_aControlChangeProcedure  [k] :=  change
-   _HMG_aControlDeleted   [k] := .F.
-   _HMG_aControlBkColor  [k] :=  aImage // Browse+
-   _HMG_aControlFontColor   [k] := inplace
-   _HMG_aControlDblClick   [k] := dblclick
-   _HMG_aControlHeadClick   [k] := aHeadClick
-   _HMG_aControlRow   [k] := y
-   _HMG_aControlCol   [k] := x
-   _HMG_aControlWidth   [k] := w
-   _HMG_aControlHeight   [k] := h
-   _HMG_aControlSpacing   [k] := _NoQuote ( WorkArea )
-   _HMG_aControlContainerRow  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
-   _HMG_aControlPicture   [k] :=  aImageHeader // Browse+
-   _HMG_aControlContainerHandle  [k] := 0
-   _HMG_aControlFontName   [k] :=  fontname
-   _HMG_aControlFontSize   [k] :=  fontsize
-   _HMG_aControlFontAttributes   [k] :=  { bold, italic, underline, strikeout }
-   _HMG_aControlToolTip    [k] :=  tooltip
-   _HMG_aControlRangeMin   [k] :=  aFields
-   _HMG_aControlRangeMax   [k] :=  {} // Rows array
-   _HMG_aControlCaption  [k] :=  aHeaders
-   _HMG_aControlVisible  [k] :=  .T.
-   _HMG_aControlHelpId  [k] :=   HelpId
-   _HMG_aControlFontHandle   [k] :=  FontHandle
-   _HMG_aControlBrushHandle  [k] :=  0
-   _HMG_aControlEnabled   [k] :=  .T.
-   _HMG_aControlMiscData1 [k] := { ;
-                                   0 ,;                        // 1
-                                   appendable ,;               // 2
-                                   readonly , ;                // 3
-                                   valid , ;                   // 4
-                                   validmessages , ;           // 5
-                                   edit , ;                    // 6
-                                   nogrid , ;                  // 7
-                                   novscroll , ;               // 8
-                                   dynamicforecolor , ;        // 9
-                                   dynamicbackcolor , ;        // 10
-                                   aWhenFields , ;             // 11
-                                   Delete , ;                  // 12
-                                   inputitems , ;              // 13
-                                   displayitems , ;            // 14
-                                   0 , ;                       // 15
-                                   aJust , ;                   // 16
-                                   NIL , ;                     // 17
-                                   NIL , ;                     // 18
-                                   doublebuffer , ;            // 19
-                                   iif( lsort, Array( Len( aHeaders ) ), 0 ), ;  // 20
-                                   aPict , ;                   // 21 add jsz
-                                   aInputMask }                // 22
-   _HMG_aControlMiscData2 [k] := ""
+   _HMG_aControlType               [k] := CONTROL_TYPE_BROWSE
+   _HMG_aControlNames              [k] := ControlName
+   _HMG_aControlHandles            [k] := ControlHandle
+   _HMG_aControlParenthandles      [k] := ParentFormHandle
+   _HMG_aControlIds                [k] := nId
+   _HMG_aControlProcedures         [k] := aWidths
+   _HMG_aControlPageMap            [k] := aHeaders
+   _HMG_aControlValue              [k] := Value
+   _HMG_aControlInputMask          [k] := Lock
+   _HMG_aControllostFocusProcedure [k] := lostfocus
+   _HMG_aControlGotFocusProcedure  [k] := gotfocus
+   _HMG_aControlChangeProcedure    [k] := change
+   _HMG_aControlDeleted            [k] := .F.
+   _HMG_aControlBkColor            [k] := aImage // Browse+
+   _HMG_aControlFontColor          [k] := inplace
+   _HMG_aControlDblClick           [k] := dblclick
+   _HMG_aControlHeadClick          [k] := aHeadClick
+   _HMG_aControlRow                [k] := y
+   _HMG_aControlCol                [k] := x
+   _HMG_aControlWidth              [k] := w
+   _HMG_aControlHeight             [k] := h
+   _HMG_aControlSpacing            [k] := _NoQuote ( WorkArea )
+   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlPicture            [k] := aImageHeader // Browse+
+   _HMG_aControlContainerHandle    [k] := 0
+   _HMG_aControlFontName           [k] := fontname
+   _HMG_aControlFontSize           [k] := fontsize
+   _HMG_aControlFontAttributes     [k] := { bold, italic, underline, strikeout }
+   _HMG_aControlToolTip            [k] := tooltip
+   _HMG_aControlRangeMin           [k] := aFields
+   _HMG_aControlRangeMax           [k] := {} // Rows array
+   _HMG_aControlCaption            [k] := aHeaders
+   _HMG_aControlVisible            [k] := .T.
+   _HMG_aControlHelpId             [k] := HelpId
+   _HMG_aControlFontHandle         [k] := FontHandle
+   _HMG_aControlBrushHandle        [k] := 0
+   _HMG_aControlEnabled            [k] := .T.
+   _HMG_aControlMiscData1          [k] := { 0, ;                                          // 1
+                                            appendable, ;                                 // 2
+                                            readonly,  ;                                  // 3
+                                            valid, ;                                      // 4
+                                            validmessages, ;                              // 5
+                                            edit, ;                                       // 6
+                                            nogrid, ;                                     // 7
+                                            novscroll, ;                                  // 8
+                                            dynamicforecolor, ;                           // 9
+                                            dynamicbackcolor, ;                           // 10
+                                            aWhenFields, ;                                // 11
+                                            Delete, ;                                     // 12
+                                            inputitems, ;                                 // 13
+                                            displayitems, ;                               // 14
+                                            0, ;                                          // 15
+                                            aJust, ;                                      // 16
+                                            NIL, ;                                        // 17
+                                            NIL, ;                                        // 18
+                                            doublebuffer, ;                               // 19
+                                            iif( lsort, Array( Len( aHeaders ) ), 0 ), ;  // 20
+                                            aPict, ;                                      // 21 add jsz
+                                            aInputMask }                                  // 22
+   _HMG_aControlMiscData2          [k] := ""
 
    IF .NOT. lDialogInMemory
 

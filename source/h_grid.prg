@@ -318,58 +318,58 @@ FUNCTION _DefineGrid ( ControlName, ParentFormName, ;
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := iif( multiselect , CONTROL_TYPE_MULTIGRID , CONTROL_TYPE_GRID )
-   _HMG_aControlNames [k] :=   ControlName
-   _HMG_aControlHandles [k] :=   ControlHandle
-   _HMG_aControlParenthandles [k] :=   ParentFormHandle
-   _HMG_aControlIds [k] :=   nId
-   _HMG_aControlProcedures [k] :=   ondispinfo
-   _HMG_aControlPageMap  [k] :=  aHeaders
-   _HMG_aControlValue  [k] :=  Value
-   _HMG_aControlInputMask  [k] :=  Nil
-   _HMG_aControllostFocusProcedure  [k] :=  lostfocus
-   _HMG_aControlGotFocusProcedure  [k] :=  gotfocus
-   _HMG_aControlChangeProcedure  [k] :=  change
-   _HMG_aControlDeleted  [k] :=  .F.
-   _HMG_aControlBkColor  [k] :=  aImage
-   _HMG_aControlFontColor [k] :=  celled
-   _HMG_aControlDblClick  [k] :=  dblclick
-   _HMG_aControlHeadClick  [k] :=  aHeadClick
-   _HMG_aControlRow   [k] := y
-   _HMG_aControlCol   [k] := x
-   _HMG_aControlWidth  [k] :=  w
-   _HMG_aControlHeight  [k] :=  h
-   _HMG_aControlSpacing  [k] :=  Editable
-   _HMG_aControlContainerRow  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
-   _HMG_aControlPicture  [k] :=  aImageHeader
-   _HMG_aControlContainerHandle  [k] :=  0
-   _HMG_aControlFontName  [k] :=  fontname
-   _HMG_aControlFontSize  [k] :=  fontsize
-   _HMG_aControlFontAttributes  [k] :=  { bold, italic, underline, strikeout }
-   _HMG_aControlToolTip   [k] :=  tooltip
-   _HMG_aControlRangeMin  [k] :=  nHeaderImageListHandle
-   _HMG_aControlRangeMax  [k] :=  iif( lsort, Array( Len( aHeaders ) ), 0 )
-   _HMG_aControlCaption  [k] :=   aHeaders
-   _HMG_aControlVisible   [k] :=  .T.
-   _HMG_aControlHelpId  [k] :=   HelpId
-   _HMG_aControlFontHandle   [k] :=  FontHandle
-   _HMG_aControlBrushHandle   [k] :=  0
-   _HMG_aControlEnabled  [k] :=  .T.
-   _HMG_aControlMiscData1 [k] := { ;
-      0, aWidths, aJust, aRows, ;
-      ownerdata, itemcount, nogrid, ;
-      backcolor, fontcolor, ;
-      multiselect, ;
-      dynamicforecolor, dynamicbackcolor, ;
-      editcontrols, ;
-      columnvalid, columnwhen, validmessages, ;
-      1, lcheckboxes, lockcolumns, ;
-      inplace, NIL, NIL, ;
-      OnCheckBoxClicked, ;
-      doublebuffer, aWidthLimits, ondragitems, ;
-      autosizeH, autosizeW, rclick, OnInplaceEditEvent }
-   _HMG_aControlMiscData2 [k] := ""
+   _HMG_aControlType               [k] := iif( multiselect , CONTROL_TYPE_MULTIGRID , CONTROL_TYPE_GRID )
+   _HMG_aControlNames              [k] := ControlName
+   _HMG_aControlHandles            [k] := ControlHandle
+   _HMG_aControlParenthandles      [k] := ParentFormHandle
+   _HMG_aControlIds                [k] := nId
+   _HMG_aControlProcedures         [k] := ondispinfo
+   _HMG_aControlPageMap            [k] := aHeaders
+   _HMG_aControlValue              [k] := Value
+   _HMG_aControlInputMask          [k] := Nil
+   _HMG_aControllostFocusProcedure [k] := lostfocus
+   _HMG_aControlGotFocusProcedure  [k] := gotfocus
+   _HMG_aControlChangeProcedure    [k] := change
+   _HMG_aControlDeleted            [k] := .F.
+   _HMG_aControlBkColor            [k] := aImage
+   _HMG_aControlFontColor          [k] := celled
+   _HMG_aControlDblClick           [k] := dblclick
+   _HMG_aControlHeadClick          [k] := aHeadClick
+   _HMG_aControlRow                [k] := y
+   _HMG_aControlCol                [k] := x
+   _HMG_aControlWidth              [k] := w
+   _HMG_aControlHeight             [k] := h
+   _HMG_aControlSpacing            [k] := Editable
+   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlPicture            [k] := aImageHeader
+   _HMG_aControlContainerHandle    [k] := 0
+   _HMG_aControlFontName           [k] := fontname
+   _HMG_aControlFontSize           [k] := fontsize
+   _HMG_aControlFontAttributes     [k] := { bold, italic, underline, strikeout }
+   _HMG_aControlToolTip            [k] := tooltip
+   _HMG_aControlRangeMin           [k] := nHeaderImageListHandle
+   _HMG_aControlRangeMax           [k] := iif( lsort, Array( Len( aHeaders ) ), 0 )
+   _HMG_aControlCaption            [k] := aHeaders
+   _HMG_aControlVisible            [k] := .T.
+   _HMG_aControlHelpId             [k] := HelpId
+   _HMG_aControlFontHandle         [k] := FontHandle
+   _HMG_aControlBrushHandle        [k] := 0
+   _HMG_aControlEnabled            [k] := .T.
+   _HMG_aControlMiscData1          [k] := { 0, aWidths, aJust, aRows, ;
+                                            ownerdata, itemcount, nogrid, ;
+                                            backcolor, fontcolor, ;
+                                            multiselect, ;
+                                            dynamicforecolor, dynamicbackcolor, ;
+                                            editcontrols, ;
+                                            columnvalid, columnwhen, validmessages, ;
+                                            1, lcheckboxes, lockcolumns, ;
+                                            inplace, NIL, NIL, ;
+                                            OnCheckBoxClicked, ;
+                                            doublebuffer, aWidthLimits, ondragitems, ;
+                                            autosizeH, autosizeW, rclick, OnInplaceEditEvent ;
+                                          }
+   _HMG_aControlMiscData2          [k] := ""
 
    IF Len( _HMG_aDialogTemplate ) == 0   //Dialog Template
       IF lsort
