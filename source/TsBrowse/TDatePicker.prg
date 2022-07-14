@@ -97,7 +97,7 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
 
    if ! Empty( ::oWnd:hWnd )
 
-      ::hWnd := InitDatePick( ::oWnd:hWnd, 0, nCol, nRow, nWidth, nHeight, '', 0, shownone, updown, rightalign, invisible, notabstop )
+      ::hWnd := InitDatePick( ::oWnd:hWnd, 0, nCol, nRow, nWidth, nHeight, "", 0, shownone, updown, rightalign, invisible, notabstop )
 
       ::AddVars( ::hWnd )
       ::Default()

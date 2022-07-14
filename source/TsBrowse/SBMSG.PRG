@@ -74,8 +74,8 @@ aMsg := { "Yes", ;                   // ::aMsg[ 1 ]
 
 // LANGUAGE IS NOT SUPPORTED BY hb_langSelect() FUNCTION
 
-IF _HMG_LANG_ID == 'FI'      // FINNISH
-   cLang := 'FI'
+IF _HMG_LANG_ID == "FI"      // FINNISH
+   cLang := "FI"
 ENDIF
 
 do case

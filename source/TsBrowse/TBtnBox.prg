@@ -106,7 +106,7 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, ;
          ::hWndChild := InitedSpinner( ::hWndParent, ::hWnd , nCol, nRow, 0, nHeight, nMin, nMax, Eval( ::bSetGet ) )
          SetIncrementSpinner( ::hWndChild, bUp )
       else
-         ::hWnd := InitBtnTextBox( ParentHandle, 0, nCol, nRow, nWidth, nHeight, '', 0, nMaxLenght, ;
+         ::hWnd := InitBtnTextBox( ParentHandle, 0, nCol, nRow, nWidth, nHeight, "", 0, nMaxLenght, ;
            .F., .F., .F., .F.,.F., invisible, notabstop, cResName, nBmpWidth, "", .F. )[1]
       endif
 
@@ -131,7 +131,7 @@ METHOD Default() CLASS TBtnBox
    LOCAL cValue
  
    cValue := Eval( ::bSetGet )
-   If Valtype( cValue ) != 'C'
+   If Valtype( cValue ) != "C"
       cValue := cValToChar( cValue )
    EndIf
 
@@ -270,8 +270,8 @@ METHOD GetVal() CLASS TBtnBox
    cType := ValType( ::VarGet() )
 
    DO CASE
-      CASE cType == 'C' ; retVal := GetWindowText( ::hWnd )
-      CASE cType == 'N' ; retVal := Int( Val( GetWindowText(  ::hWnd ) ) )
+      CASE cType == "C" ; retVal := GetWindowText( ::hWnd )
+      CASE cType == "N" ; retVal := Int( Val( GetWindowText(  ::hWnd ) ) )
    ENDCASE
 
 RETURN retVal

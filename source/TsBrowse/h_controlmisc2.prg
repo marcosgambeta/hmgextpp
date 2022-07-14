@@ -54,7 +54,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
       lSql := .F., ;
       lModal := .F.
 
-   IF ValType( uAlias ) == 'C' .AND. Select( uAlias ) == 0
+   IF ValType( uAlias ) == "C" .AND. Select( uAlias ) == 0
       nSaveSelect := Select()
       IF lSql
          cTable := GetUniqueName( "SqlTable" )
@@ -76,14 +76,14 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
          END
       ENDIF
 
-   ELSEIF ValType( uAlias ) == 'N'
+   ELSEIF ValType( uAlias ) == "N"
       If ! Empty( Alias( uAlias ) )
          uAlias := Alias( uAlias )
       ELSE
          uAlias := { { uAlias } }
       ENDIF
 
-   ELSEIF ValType( uAlias ) $ 'BDLP'
+   ELSEIF ValType( uAlias ) $ "BDLP"
       uAlias := { { uAlias } }
 
    ENDIF

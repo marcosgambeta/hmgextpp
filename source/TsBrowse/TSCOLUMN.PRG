@@ -228,11 +228,11 @@ CLASS TSColumn
    METHOD SaveProperty( aExcept )     INLINE  __objGetValueList( Self, aExcept )
    METHOD RestProperty( aProp )       INLINE  __objSetValueList( Self, aProp )
 
-   METHOD SetProperty ( cName, xVal ) INLINE iif( __objHasData( Self, cName ), __objSendMsg( Self, '_'+cName, xVal ), Nil )
+   METHOD SetProperty ( cName, xVal ) INLINE iif( __objHasData( Self, cName ), __objSendMsg( Self, "_"+cName, xVal ), Nil )
    METHOD GetProperty ( cName )       INLINE iif( __objHasData( Self, cName ), __objSendMsg( Self, cName ), Nil )
 
    METHOD AddProperty ( cName, xVal ) INLINE ( iif(!__objHasData( Self, cName ), __objAddData( Self, cName ), Nil ),  ;
-                                               iif( __objHasData( Self, cName ), __objSendMsg( Self, '_'+cName, xVal ), Nil ) )
+                                               iif( __objHasData( Self, cName ), __objSendMsg( Self, "_"+cName, xVal ), Nil ) )
 
    METHOD Clone()                     INLINE __objClone( Self )
 
@@ -398,11 +398,11 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
    If ValType( Eval( bData ) ) == "O"
       ::uBmpCell := bData
       bData := {||Nil}
-      cData := '{||Nil}'
+      cData := "{||Nil}"
    ElseIf ValType( Eval( bData ) ) == "N" .AND. lBitMap
       ::uBmpCell := bData
       bData := {||Nil}
-      cData := '{||Nil}'
+      cData := "{||Nil}"
    EndIf
 
    If ValType( Eval( bdata ) ) == "A"
@@ -606,7 +606,7 @@ Return "O" + I2Bin( 2 + Len( ::ClassName() ) + 2 + Len( cInfo ) ) + ;
 
 METHOD SaveColor() CLASS TSColumn
 
-   If ::aColorsBack != Nil .AND. ValType( ::aColorsBack ) == 'A'
+   If ::aColorsBack != Nil .AND. ValType( ::aColorsBack ) == "A"
       ::aColorsBack[ 1 ] := ::nClrFore
       ::aColorsBack[ 2 ] := ::nClrBack
       ::aColorsBack[ 3 ] := ::nClrHeadFore
@@ -634,7 +634,7 @@ RETURN Nil
 
 METHOD RestColor() CLASS TSColumn
 
-   If ::aColorsBack != Nil .AND. ValType( ::aColorsBack ) == 'A'
+   If ::aColorsBack != Nil .AND. ValType( ::aColorsBack ) == "A"
       ::nClrFore        := ::aColorsBack[ 1 ]
       ::nClrBack        := ::aColorsBack[ 2 ]
       ::nClrHeadFore    := ::aColorsBack[ 3 ]
@@ -789,7 +789,7 @@ RETURN Nil
 
 METHOD ToWidth( uLen, nKfc, lHeader ) CLASS TSColumn
 
-   LOCAL nWidth, nLen, cTyp, cChr := 'B', hFont := ::hFont
+   LOCAL nWidth, nLen, cTyp, cChr := "B", hFont := ::hFont
 
    DEFAULT nKfc := 1
 
@@ -811,13 +811,13 @@ METHOD ToWidth( uLen, nKfc, lHeader ) CLASS TSColumn
    ElseIf ! Empty( ::cPicture ) .AND. HB_ISCHAR( ::cPicture )
       If Empty( uLen )
          cChr := ::cPicture
-         If Left( cChr, 2 ) == '@K'
+         If Left( cChr, 2 ) == "@K"
             cChr := AllTrim( Substr( cChr, 3 ) )
          EndIf
          nLen := Len( cChr )
       Else
-         If     '9' $ ::cPicture ; cChr := '9'
-         ElseIf 'X' $ ::cPicture ; cChr := 'X'
+         If     "9" $ ::cPicture ; cChr := "9"
+         ElseIf "X" $ ::cPicture ; cChr := "X"
          EndIf
          nLen := uLen
          cChr := Replicate( cChr, nLen )
@@ -826,8 +826,8 @@ METHOD ToWidth( uLen, nKfc, lHeader ) CLASS TSColumn
       cTyp := ::cFieldTyp
       nLen := iif( Empty( uLen ), ::nFieldLen, uLen )
 
-      If     cTyp $ 'CML' ; cChr := 'B'
-      ElseIf cTyp == 'ND' ; cChr := '9'
+      If     cTyp $ "CML" ; cChr := "B"
+      ElseIf cTyp == "ND" ; cChr := "9"
       EndIf
 
       nLen := iif( Empty( nLen ), 7, nLen )

@@ -387,7 +387,7 @@ METHOD Create( cClsName )  CLASS TControl
    endif
 
    if ::hWnd == 0
-        MsgAlert( 'Window Create Error!', 'Alert' )
+        MsgAlert( "Window Create Error!", "Alert" )
    else
       ::AddVars( ::hWnd )
    endif

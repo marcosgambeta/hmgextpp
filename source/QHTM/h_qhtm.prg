@@ -86,7 +86,7 @@ Endif
 
 hb_default( @nId, _GetId() )
 
-mVar := '_' + ParentForm + '_' + ControlName
+mVar := "_" + ParentForm + "_" + ControlName
 
 ParentFormHandle := GetFormHandle( ParentForm )
 
@@ -101,11 +101,11 @@ Else
    FontHandle := _SetFont( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
 Endif
 
-If ( Valtype( Value ) == 'C' )
+If ( Valtype( Value ) == "C" )
    SetWindowText( ControlHandle, Value )   // define from a variable
-ElseIf ( Valtype( fname ) == 'C' )
+ElseIf ( Valtype( fname ) == "C" )
    QHTM_LoadFile( ControlHandle, fname )   // loading from a file
-ElseIf ( Valtype( resname ) == 'C' )
+ElseIf ( Valtype( resname ) == "C" )
    QHTM_LoadRes( ControlHandle, resname )  // loading from a resource
 Endif
 
@@ -115,7 +115,7 @@ k := _GetControlFree()
 
 Public &mVar. := k
 
-_HMG_aControlType [k] :=  CONTROL_TYPE_QHTM 
+_HMG_aControlType [k] :=  CONTROL_TYPE_QHTM
 _HMG_aControlNames [k] :=  ControlName 
 _HMG_aControlHandles [k] :=  ControlHandle
 _HMG_aControlParenthandles [k] :=  ParentFormHandle
@@ -139,22 +139,22 @@ _HMG_aControlHeight  [k] := h
 _HMG_aControlSpacing  [k] :=  0 
 _HMG_aControlContainerRow  [k] :=  iif( _HMG_FrameLevel > 0 ,_HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 ) 
 _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 ,_HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 ) 
-_HMG_aControlPicture  [k] :=  ''
+_HMG_aControlPicture  [k] :=  ""
 _HMG_aControlContainerHandle  [k] :=  0
 _HMG_aControlFontName  [k] :=  fontname
 _HMG_aControlFontSize  [k] :=  fontsize
 _HMG_aControlFontAttributes  [k] :=  {bold,italic,underline,strikeout}
-_HMG_aControlToolTip   [k] :=  ''
+_HMG_aControlToolTip   [k] :=  ""
 _HMG_aControlRangeMin  [k] :=  0
 _HMG_aControlRangeMax  [k] :=  0
-_HMG_aControlCaption  [k] :=  ''
+_HMG_aControlCaption  [k] :=  ""
 _HMG_aControlVisible  [k] :=  .T.
 _HMG_aControlHelpId  [k] :=  0
 _HMG_aControlFontHandle  [k] :=  FontHandle
 _HMG_aControlBrushHandle  [k] :=  0
 _HMG_aControlEnabled  [k] :=  .T.
 _HMG_aControlMiscData1 [k] := 0
-_HMG_aControlMiscData2 [k] := ''
+_HMG_aControlMiscData2 [k] := ""
 
 Return Nil
 

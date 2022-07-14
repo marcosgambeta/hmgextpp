@@ -15,9 +15,9 @@ FUNCTION MyErrorFunc( MyObjError )
     cErrorMsg := MyErrorMessage( MyObjError )
     
     HtmArch := Html_ErrorLog()
-    Html_LineText( HtmArch, '<p class="updated">Date: ' + Dtoc(Date()) + "  " + "Time: " + Time() )
+    Html_LineText( HtmArch, "<p class=" + Chr(34) + "updated" + Chr(34) + ">Date: " + Dtoc(Date()) + "  " + "Time: " + Time() )
     Html_LineText( HtmArch, cErrorMsg + "</p>" )
-    
+
     cErrorMsg += CRLF + CRLF
     
     WHILE ! Empty( ProcName( i ) )
@@ -28,7 +28,7 @@ FUNCTION MyErrorFunc( MyObjError )
     Html_Line( HtmArch )
     Html_End( HtmArch )
 
-    MsgStop( cErrorMsg, 'Program Error...' )
+    MsgStop( cErrorMsg, "Program Error..." )
 
 RETURN .T.
 

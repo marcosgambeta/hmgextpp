@@ -169,7 +169,7 @@ METHOD New() CLASS HBPrinter
    aprnport := rr_getprinters()
    IF aprnport <> ",,"
       aprnport := str2arr( aprnport, ",," )
-      AEval( aprnport, {| x, xi | aprnport[ xi ] := str2arr( x, ',' ) } )
+      AEval( aprnport, {| x, xi | aprnport[ xi ] := str2arr( x, "," ) } )
       AEval( aprnport, {| x | AAdd( ::Printers, x[ 1 ] ), AAdd( ::ports, x[ 2 ] ) } )
       ::PrinterDefault := RR_GETDEFAULTPRINTER()
    ELSE
@@ -217,8 +217,8 @@ METHOD SelectPrinter( cPrinter, lPrev ) CLASS HBPrinter
       rr_devicecapabilities( @txtp, @txtb )
       ::PaperNames := str2arr( txtp, ",," )
       ::BinNames := str2arr( txtb, ",," )
-      AEval( ::BinNames, {| x, xi | ::BinNames[ xi ] := str2arr( x, ',' ) } )
-      AEval( ::PaperNames, {| x, xi | ::PaperNames[ xi ] := str2arr( x, ',' ) } )
+      AEval( ::BinNames, {| x, xi | ::BinNames[ xi ] := str2arr( x, "," ) } )
+      AEval( ::PaperNames, {| x, xi | ::PaperNames[ xi ] := str2arr( x, "," ) } )
 #endif
       AAdd( ::Fonts[ 1 ], rr_getcurrentobject( 1 ) ) ; AAdd( ::Fonts[ 2 ], "*" ) ; AAdd( ::Fonts[ 4 ], {} )
       AAdd( ::Fonts[ 1 ], rr_getcurrentobject( 1 ) ) ; AAdd( ::Fonts[ 2 ], "DEFAULT" ) ; AAdd( ::Fonts[ 4 ], {} )
@@ -290,7 +290,7 @@ RETURN Self
 METHOD Startpage() CLASS HBPrinter
 
    IF ::PreviewMode
-      ::hDC := rr_createmfile( ::BasePageName + StrZero( Len( ::metafiles ) + 1, 4 ) + '.emf' )
+      ::hDC := rr_createmfile( ::BasePageName + StrZero( Len( ::metafiles ) + 1, 4 ) + ".emf" )
    ELSE
       rr_Startpage()
    ENDIF
@@ -312,7 +312,7 @@ METHOD Endpage() CLASS HBPrinter
 
    IF ::PreviewMode
       rr_closemfile()
-      AAdd( ::MetaFiles, { ::BasePageName + StrZero( Len( ::metafiles ) + 1, 4 ) + '.emf', ::DEVCAPS[ 1 ], ::DEVCAPS[ 2 ], ::DEVCAPS[ 3 ], ::DEVCAPS[ 4 ], ::DEVCAPS[ 15 ], ::DEVCAPS[ 17 ] } )
+      AAdd( ::MetaFiles, { ::BasePageName + StrZero( Len( ::metafiles ) + 1, 4 ) + ".emf", ::DEVCAPS[ 1 ], ::DEVCAPS[ 2 ], ::DEVCAPS[ 3 ], ::DEVCAPS[ 4 ], ::DEVCAPS[ 15 ], ::DEVCAPS[ 17 ] } )
    ELSE
       rr_endpage()
    ENDIF
@@ -329,7 +329,7 @@ METHOD SaveMetaFiles( number, filename ) CLASS HBPrinter
       IF number == NIL
          AEval( ::metafiles, {| x | AAdd( aPages, x[ 1 ] ) } )
       ELSE
-         AAdd( aPages, ::BasePageName + StrZero( number, 4 ) + '.emf' )
+         AAdd( aPages, ::BasePageName + StrZero( number, 4 ) + ".emf" )
          filename += iif( At( ".pdf", filename ) > 0, "", "_" + StrZero( number, 4 ) )
       ENDIF
       filename := hb_FNameExtSetDef( filename, ".pdf" )
@@ -357,9 +357,9 @@ METHOD SetTextColor( clr ) CLASS HBPrinter
    LOCAL lret := ::Textcolor
    IF clr <> NIL
       // BEGIN RL 2003-08-03
-      IF ValType( clr ) == 'N'
+      IF ValType( clr ) == "N"
          ::TextColor := rr_settextcolor( clr )
-      ELSEIF ValType( clr ) == 'A'
+      ELSEIF ValType( clr ) == "A"
          ::TextColor := rr_settextcolor( RGB ( clr[ 1 ], clr[ 2 ], clr[ 3 ] ) )
       ENDIF
       // END RL
@@ -380,9 +380,9 @@ METHOD SetBkColor( clr ) CLASS HBPrinter
 
    LOCAL lret := ::BkColor
    // BEGIN RL 2003-08-03
-   IF ValType( clr ) == 'N'
+   IF ValType( clr ) == "N"
       ::BkColor := rr_setbkcolor( clr )
-   ELSEIF ValType( clr ) == 'A'
+   ELSEIF ValType( clr ) == "A"
       ::BkColor := rr_setbkcolor( RGB ( clr[ 1 ], clr[ 2 ], clr[ 3 ] ) )
    ENDIF
    // END RL
@@ -696,9 +696,9 @@ METHOD Say( row, col, txt, defname, lcolor, lalign ) CLASS HBPrinter
    apos := ::convert( { row, col } )
    IF lcolor <> NIL
       // BEGIN RL 2003-08-03
-      IF ValType( lcolor ) == 'N'
+      IF ValType( lcolor ) == "N"
          rr_settextcolor( lcolor )
-      ELSEIF ValType( lcolor ) == 'A'
+      ELSEIF ValType( lcolor ) == "A"
          rr_settextcolor( RGB ( lcolor[ 1 ], lcolor[ 2 ], lcolor[ 3 ] ) )
       ENDIF
       // END RL
@@ -1241,7 +1241,7 @@ METHOD DXCOLORS( par ) CLASS HBPrinter
    aColorNames := _SetGetGlobal( "rgbcolornames" )
    IF ValType( par ) == "C"
       par := Lower( AllTrim( par ) )
-      AEval( aColorNames, {| x | iif( x[ 1 ] == par, ltemp := x[ 2 ], '' ) } )
+      AEval( aColorNames, {| x | iif( x[ 1 ] == par, ltemp := x[ 2 ], "" ) } )
    ELSEIF ValType( par ) == "N"
       ltemp := iif( par <= Len( aColorNames ), aColorNames[ par, 2 ], 0 )
    ENDIF
@@ -1321,7 +1321,7 @@ STATIC FUNCTION str2arr( cList, cDelimiter )
    LOCAL nlencd := 0
    LOCAL asub
    DO CASE
-   CASE ValType( cDelimiter ) == 'C'
+   CASE ValType( cDelimiter ) == "C"
       cDelimiter := iif( cDelimiter == NIL, ",", cDelimiter )
       nlencd := Len( cdelimiter )
       DO WHILE ( nPos := At( cDelimiter, cList ) ) != 0
@@ -1329,12 +1329,12 @@ STATIC FUNCTION str2arr( cList, cDelimiter )
          cList := SubStr( cList, nPos + nlencd )
       ENDDO
       AAdd( aList, cList )
-   CASE ValType( cDelimiter ) == 'N'
+   CASE ValType( cDelimiter ) == "N"
       DO WHILE Len( ( nPos := Left( cList, cDelimiter ) ) ) == cDelimiter
          AAdd( aList, nPos )
          cList := SubStr( cList, cDelimiter + 1 )
       ENDDO
-   CASE ValType( cDelimiter ) == 'A'
+   CASE ValType( cDelimiter ) == "A"
       AEval( cDelimiter, {| x | nlencd += x } )
       DO WHILE Len( ( nPos := Left( cList, nlencd ) ) ) == nlencd
          asub := {}
@@ -1368,7 +1368,7 @@ METHOD PrevThumb( nclick ) CLASS HBPrinter
    IF nclick <> NIL
       page := ngroup * 15 + nclick
       ::prevshow()
-      SetProperty ( 'hbpreview', 'combo_1', 'value', Page )
+      SetProperty ( "hbpreview", "combo_1", "value", Page )
       RETURN self
    ENDIF
    IF Int( ( page - 1 ) / 15 ) <> ngroup
@@ -1504,444 +1504,444 @@ STATIC FUNCTION LangInit
    LOCAL cLang
 
 #endif
-   LOCAL aLang := { 'Preview', ; // 01
-      '&Cancel', ; // 02
-      '&Print', ;  // 03
-      '&Save', ;   // 04
-      '&First', ;  // 05
-      'P&revious', ;  // 06
-      '&Next', ;      // 07
-      '&Last', ; // 08
-      'Zoom &In', ; // 09
-      '&Zoom Out', ;  // 10
-      '&Options', ;   // 11
-      'Go To Page:', ; // 12
-      'Page preview ', ; // 13
-      'Thumbnails preview', ; // 14
-      'Page', ;               // 15
-      'Print only current page', ; // 16
-      'Pages:', ;        // 17
-      'No more zoom', ;  // 18
-      'Print options', ; // 19
-      'Print from', ;    // 20
-      'to', ; // 21
-      'Copies', ;    // 22
-      'Print Range', ; // 23
-      'All from range', ; // 24
-      'Odd only', ;      // 25
-      'Even only', ; // 26
-      'All but odd first', ; // 27
-      'All but even first', ; // 28
-      'Printing ....', ;  // 29
-      'Waiting for paper change...', ; // 30
-      'Sa&ve as...', ; // 31
-      'Save &All', ; // 32
-      'PDF Files', ; // 33
-      'All Files', ; // 34
-      'Ok' ; // 35
+   LOCAL aLang := { "Preview", ; // 01
+      "&Cancel", ; // 02
+      "&Print", ;  // 03
+      "&Save", ;   // 04
+      "&First", ;  // 05
+      "P&revious", ;  // 06
+      "&Next", ;      // 07
+      "&Last", ; // 08
+      "Zoom &In", ; // 09
+      "&Zoom Out", ;  // 10
+      "&Options", ;   // 11
+      "Go To Page:", ; // 12
+      "Page preview ", ; // 13
+      "Thumbnails preview", ; // 14
+      "Page", ;               // 15
+      "Print only current page", ; // 16
+      "Pages:", ;        // 17
+      "No more zoom", ;  // 18
+      "Print options", ; // 19
+      "Print from", ;    // 20
+      "to", ; // 21
+      "Copies", ;    // 22
+      "Print Range", ; // 23
+      "All from range", ; // 24
+      "Odd only", ;      // 25
+      "Even only", ; // 26
+      "All but odd first", ; // 27
+      "All but even first", ; // 28
+      "Printing ....", ;  // 29
+      "Waiting for paper change...", ; // 30
+      "Sa&ve as...", ; // 31
+      "Save &All", ; // 32
+      "PDF Files", ; // 33
+      "All Files", ; // 34
+      "Ok" ; // 35
    }
 
 #ifdef _MULTILINGUAL_
    cLang := Upper( Left( Set ( _SET_LANGUAGE ), 2 ) )
 
    // LANGUAGE IS NOT SUPPORTED BY hb_langSelect() FUNCTION
-   IF ( _HMG_LANG_ID == 'FI' ) // FINNISH
-      cLang := 'FI'
+   IF ( _HMG_LANG_ID == "FI" ) // FINNISH
+      cLang := "FI"
    ENDIF
 
    DO CASE
       // Russian
-   CASE cLang == 'RU'
-      aLang := { 'Ïðîñìîòð', ;
-         'Âûõîä', ;
-         'Ïå÷àòü', ;
-         'Ñîõðàíèòü', ;
-         'Íà÷àëî', ;
-         'Íàçàä', ;
-         'Âïåðåä', ;
-         'Êîíåö', ;
-         'Óâåëè÷èòü', ;
-         'Óìåíüøèòü', ;
-         'Îïöèè', ;
-         'Ñòðàíèöà:', ;
-         'Ïðîñìîòð ñòðàíèöû ', ;
-         'Ìèíèàòþðû', ;
-         'Ñòðàíèöà', ;
-         'Ïå÷àòàòü òåêóùóþ', ;
-         'Ñòðàíèö:', ;
-         'Äîñòèãíóò ïðåäåë ìàñøòàáèðîâàíèÿ!', ;
-         'Ïàðàìåòðû ïå÷àòè', ;
-         'Ñòðàíèöû ñ', ;
-         'ïî', ;
-         'Êîïèé', ;
-         'Íàïå÷àòàòü', ;
-         'Âñå ñòðàíèöû', ;
-         'Íå÷¸òíûå', ;
-         '×¸òíûå', ;
-         'Âñå, íî âíà÷àëå íå÷¸òíûå', ;
-         'Âñå, íî âíà÷àëå ÷¸òíûå', ;
-         'Ïå÷àòü ....', ;
-         'Âñòàâüòå áóìàãó...', ;
-         'Ñîõðàíèòü êàê...', ;
-         'Ñîõðàíèòü âñå', ;
-         'Ôàéëû PDF', ;
-         'Âñå ôàéëû', ;
-         'Ok' ;
+   CASE cLang == "RU"
+      aLang := { "Ïðîñìîòð", ;
+         "Âûõîä", ;
+         "Ïå÷àòü", ;
+         "Ñîõðàíèòü", ;
+         "Íà÷àëî", ;
+         "Íàçàä", ;
+         "Âïåðåä", ;
+         "Êîíåö", ;
+         "Óâåëè÷èòü", ;
+         "Óìåíüøèòü", ;
+         "Îïöèè", ;
+         "Ñòðàíèöà:", ;
+         "Ïðîñìîòð ñòðàíèöû ", ;
+         "Ìèíèàòþðû", ;
+         "Ñòðàíèöà", ;
+         "Ïå÷àòàòü òåêóùóþ", ;
+         "Ñòðàíèö:", ;
+         "Äîñòèãíóò ïðåäåë ìàñøòàáèðîâàíèÿ!", ;
+         "Ïàðàìåòðû ïå÷àòè", ;
+         "Ñòðàíèöû ñ", ;
+         "ïî", ;
+         "Êîïèé", ;
+         "Íàïå÷àòàòü", ;
+         "Âñå ñòðàíèöû", ;
+         "Íå÷¸òíûå", ;
+         "×¸òíûå", ;
+         "Âñå, íî âíà÷àëå íå÷¸òíûå", ;
+         "Âñå, íî âíà÷àëå ÷¸òíûå", ;
+         "Ïå÷àòü ....", ;
+         "Âñòàâüòå áóìàãó...", ;
+         "Ñîõðàíèòü êàê...", ;
+         "Ñîõðàíèòü âñå", ;
+         "Ôàéëû PDF", ;
+         "Âñå ôàéëû", ;
+         "Ok" ;
          }
 
       // Ukrainian
-   CASE cLang == 'UK' .OR. cLang == 'UA'
-      aLang := { 'Ïåðåãëÿä', ;
-         'Âèõiä', ;
-         'Äðóê', ;
-         'Çáåðåãòè', ;
-         'Ïî÷àòîê', ;
-         'Íàçàä', ;
-         'Âïåðåä', ;
-         'Êiíåöü', ;
-         'Çáiëüøèòè', ;
-         'Çìåíøèòè', ;
-         'Îïöi¿', ;
-         'Ñòîðiíêà:', ;
-         'Ïåðåãëÿä ñòîðiíêè ', ;
-         'Ìiíiàòþðè', ;
-         'Ñòîðiíêà', ;
-         'Äðóêóâàòè ïîòî÷íó', ;
-         'Ñòîðiíîê:', ;
-         'Äîñÿãíóòà ìåæà ìàñøòàáóâàííÿ!', ;
-         'Ïàðàìåòðè äðóêó', ;
-         'Ñòîðiíêè ç', ;
-         'ïî', ;
-         'Êîïié', ;
-         'Íàäðóêóâàòè', ;
-         'Óñi ñòðiíêè', ;
-         'Íåïàðíi', ;
-         'Ïàðíi', ;
-         'Óñi, àëå ñïåðøó íåïàðíi', ;
-         'Óñi, àëå ñïåðøó ïàðíi', ;
-         'Äðóê ....', ;
-         'Çàìiíiòü ïàïið...', ;
-         'Çáåðåãòè ÿê...', ;
-         'Çáåðåãòè âñå', ;
-         'Ôàéëè PDF', ;
-         'Óñi ôàéëè', ;
-         'Ok' ;
+   CASE cLang == "UK" .OR. cLang == "UA"
+      aLang := { "Ïåðåãëÿä", ;
+         "Âèõiä", ;
+         "Äðóê", ;
+         "Çáåðåãòè", ;
+         "Ïî÷àòîê", ;
+         "Íàçàä", ;
+         "Âïåðåä", ;
+         "Êiíåöü", ;
+         "Çáiëüøèòè", ;
+         "Çìåíøèòè", ;
+         "Îïöi¿", ;
+         "Ñòîðiíêà:", ;
+         "Ïåðåãëÿä ñòîðiíêè ", ;
+         "Ìiíiàòþðè", ;
+         "Ñòîðiíêà", ;
+         "Äðóêóâàòè ïîòî÷íó", ;
+         "Ñòîðiíîê:", ;
+         "Äîñÿãíóòà ìåæà ìàñøòàáóâàííÿ!", ;
+         "Ïàðàìåòðè äðóêó", ;
+         "Ñòîðiíêè ç", ;
+         "ïî", ;
+         "Êîïié", ;
+         "Íàäðóêóâàòè", ;
+         "Óñi ñòðiíêè", ;
+         "Íåïàðíi", ;
+         "Ïàðíi", ;
+         "Óñi, àëå ñïåðøó íåïàðíi", ;
+         "Óñi, àëå ñïåðøó ïàðíi", ;
+         "Äðóê ....", ;
+         "Çàìiíiòü ïàïið...", ;
+         "Çáåðåãòè ÿê...", ;
+         "Çáåðåãòè âñå", ;
+         "Ôàéëè PDF", ;
+         "Óñi ôàéëè", ;
+         "Ok" ;
          }
 
       // Italian
-   CASE cLang == 'IT'
-      aLang := { 'Anteprima', ;
-         '&Cancella', ;
-         'S&tampa', ;
-         '&Salva', ;
-         '&Primo', ;
-         '&Indietro', ;
-         '&Avanti', ;
-         '&Ultimo', ;
-         'Zoom In', ;
-         'Zoom Out', ;
-         '&Opzioni', ;
-         'Pagina:', ;
-         'Pagina anteprima ', ;
-         'Miniatura Anteprima', ;
-         'Pagina', ;
-         'Stampa solo pagina attuale', ;
-         'Pagine:', ;
-         'Limite zoom !', ;
-         'Opzioni Stampa', ;
-         'Stampa da', ;
-         'a', ;
-         'Copie', ;
-         'Range Stampa', ;
-         'Tutte', ;
-         'Solo dispari', ;
-         'Solo pari', ;
-         'Tutte iniziando dispari', ;
-         'Tutte iniziando pari', ;
-         'Stampa in corso ....', ;
-         'Attendere cambio carta...', ;
-         'Sa&ve as...', ;
-         'Save &All', ;
-         'PDF Files', ;
-         'All Files', ;
-         'Ok' ;
+   CASE cLang == "IT"
+      aLang := { "Anteprima", ;
+         "&Cancella", ;
+         "S&tampa", ;
+         "&Salva", ;
+         "&Primo", ;
+         "&Indietro", ;
+         "&Avanti", ;
+         "&Ultimo", ;
+         "Zoom In", ;
+         "Zoom Out", ;
+         "&Opzioni", ;
+         "Pagina:", ;
+         "Pagina anteprima ", ;
+         "Miniatura Anteprima", ;
+         "Pagina", ;
+         "Stampa solo pagina attuale", ;
+         "Pagine:", ;
+         "Limite zoom !", ;
+         "Opzioni Stampa", ;
+         "Stampa da", ;
+         "a", ;
+         "Copie", ;
+         "Range Stampa", ;
+         "Tutte", ;
+         "Solo dispari", ;
+         "Solo pari", ;
+         "Tutte iniziando dispari", ;
+         "Tutte iniziando pari", ;
+         "Stampa in corso ....", ;
+         "Attendere cambio carta...", ;
+         "Sa&ve as...", ;
+         "Save &All", ;
+         "PDF Files", ;
+         "All Files", ;
+         "Ok" ;
          }
 
       // Spanish
-   CASE cLang == 'ES'
-      aLang := { 'Vista Previa', ;
-         '&Cancelar', ;
-         '&Imprimir', ;
-         '&Guardar', ;
-         '&Primera', ;
-         '&Anterior', ;
-         '&Siguiente', ;
-         '&Ultima', ;
-         'Zoom +', ;
-         'Zoom -', ;
-         '&Opciones', ;
-         'Pag.:', ;
-         'Pagina ', ;
-         'Miniaturas', ;
-         'Pag.', ;
-         'Imprimir solo pag. actual', ;
-         'Paginas:', ;
-         'Zoom Maximo/Minimo', ;
-         'Opciones de Impresion', ;
-         'Imprimir Desde', ;
-         'Hasta', ;
-         'Copias', ;
-         'Imprimir rango', ;
-         'Todo a partir de desde', ;
-         'Solo impares', ;
-         'Solo pares', ;
-         'Todo (impares primero)', ;
-         'Todo (pares primero)', ;
-         'Imprimiendo ....', ;
-         'Esperando cambio de papel...', ;
-         'Sa&ve as...', ;
-         'Save &All', ;
-         'PDF Files', ;
-         'All Files', ;
-         'Ok' ;
+   CASE cLang == "ES"
+      aLang := { "Vista Previa", ;
+         "&Cancelar", ;
+         "&Imprimir", ;
+         "&Guardar", ;
+         "&Primera", ;
+         "&Anterior", ;
+         "&Siguiente", ;
+         "&Ultima", ;
+         "Zoom +", ;
+         "Zoom -", ;
+         "&Opciones", ;
+         "Pag.:", ;
+         "Pagina ", ;
+         "Miniaturas", ;
+         "Pag.", ;
+         "Imprimir solo pag. actual", ;
+         "Paginas:", ;
+         "Zoom Maximo/Minimo", ;
+         "Opciones de Impresion", ;
+         "Imprimir Desde", ;
+         "Hasta", ;
+         "Copias", ;
+         "Imprimir rango", ;
+         "Todo a partir de desde", ;
+         "Solo impares", ;
+         "Solo pares", ;
+         "Todo (impares primero)", ;
+         "Todo (pares primero)", ;
+         "Imprimiendo ....", ;
+         "Esperando cambio de papel...", ;
+         "Sa&ve as...", ;
+         "Save &All", ;
+         "PDF Files", ;
+         "All Files", ;
+         "Ok" ;
          }
 
       // Polish
-   CASE cLang == 'PL'
-      aLang := { 'Podgl¹d', ;
-         '&Rezygnuj', ;
-         '&Drukuj', ;
-         '&Zapisz', ;
-         '&Pierwsza', ;
-         'Poprz&ednia', ;
-         '&Nastêpna', ;
-         '&Ostatnia', ;
-         'Po&wiêksz', ;
-         'Po&mniejsz', ;
-         'Opc&je', ;
-         'IdŸ do strony:', ;
-         'Podgl¹d strony', ;
-         'Podgl¹d miniaturek', ;
-         'Strona', ;
-         'Drukuj aktualn¹ stronê', ;
-         'Stron:', ;
-         'Nie mo¿na wiêcej !', ;
-         'Opcje drukowania', ;
-         'Drukuj od', ;
-         'do', ;
-         'Kopii', ;
-         'Zakres', ;
-         'Wszystkie z zakresu', ;
-         'Tylko nieparzyste', ;
-         'Tylko parzyste', ;
-         'Najpierw nieparzyste', ;
-         'Najpierw parzyste', ;
-         'Drukowanie ....', ;
-         'Czekam na zmiane papieru...', ;
-         'Zapisz jako..', ;
-         'Zapisz wszystko', ;
-         'Pliki PDF', ;
-         'Wszystkie pliki', ;
-         'Ok' ;
+   CASE cLang == "PL"
+      aLang := { "Podgl¹d", ;
+         "&Rezygnuj", ;
+         "&Drukuj", ;
+         "&Zapisz", ;
+         "&Pierwsza", ;
+         "Poprz&ednia", ;
+         "&Nastêpna", ;
+         "&Ostatnia", ;
+         "Po&wiêksz", ;
+         "Po&mniejsz", ;
+         "Opc&je", ;
+         "IdŸ do strony:", ;
+         "Podgl¹d strony", ;
+         "Podgl¹d miniaturek", ;
+         "Strona", ;
+         "Drukuj aktualn¹ stronê", ;
+         "Stron:", ;
+         "Nie mo¿na wiêcej !", ;
+         "Opcje drukowania", ;
+         "Drukuj od", ;
+         "do", ;
+         "Kopii", ;
+         "Zakres", ;
+         "Wszystkie z zakresu", ;
+         "Tylko nieparzyste", ;
+         "Tylko parzyste", ;
+         "Najpierw nieparzyste", ;
+         "Najpierw parzyste", ;
+         "Drukowanie ....", ;
+         "Czekam na zmiane papieru...", ;
+         "Zapisz jako..", ;
+         "Zapisz wszystko", ;
+         "Pliki PDF", ;
+         "Wszystkie pliki", ;
+         "Ok" ;
          }
 
       // Portuguese
-   CASE cLang == 'PT'
-      aLang := { 'Prévisualização', ;
-         '&Cancelar', ;
-         '&Imprimir', ;
-         '&Salvar', ;
-         '&Primeira', ;
-         '&Anterior', ;
-         'Próximo', ;
-         '&Último', ;
-         'Zoom +', ;
-         'Zoom -', ;
-         '&Opções', ;
-         'Pag.:', ;
-         'Página ', ;
-         'Miniaturas', ;
-         'Pag.', ;
-         'Imprimir somente a pag. atual', ;
-         'Páginas:', ;
-         'Zoom Máximo/Minimo', ;
-         'Opções de Impressão', ;
-         'Imprimir de', ;
-         'a', ;
-         'Cópias', ;
-         'Imprimir rango', ;
-         'Tudo a partir desta', ;
-         'Só Ímpares', ;
-         'Só Pares', ;
-         'Todas as Ímpares Primeiro', ;
-         'Todas Pares primeiro', ;
-         'Imprimindo ....', ;
-         'Esperando por papel...', ;
-         'Sa&lvar Como...', ;
-         'Salvar &Tudo', ;
-         'Arquivos PDF', ;
-         'Todos Arquivos', ;
-         'Ok' ;
+   CASE cLang == "PT"
+      aLang := { "Prévisualização", ;
+         "&Cancelar", ;
+         "&Imprimir", ;
+         "&Salvar", ;
+         "&Primeira", ;
+         "&Anterior", ;
+         "Próximo", ;
+         "&Último", ;
+         "Zoom +", ;
+         "Zoom -", ;
+         "&Opções", ;
+         "Pag.:", ;
+         "Página ", ;
+         "Miniaturas", ;
+         "Pag.", ;
+         "Imprimir somente a pag. atual", ;
+         "Páginas:", ;
+         "Zoom Máximo/Minimo", ;
+         "Opções de Impressão", ;
+         "Imprimir de", ;
+         "a", ;
+         "Cópias", ;
+         "Imprimir rango", ;
+         "Tudo a partir desta", ;
+         "Só Ímpares", ;
+         "Só Pares", ;
+         "Todas as Ímpares Primeiro", ;
+         "Todas Pares primeiro", ;
+         "Imprimindo ....", ;
+         "Esperando por papel...", ;
+         "Sa&lvar Como...", ;
+         "Salvar &Tudo", ;
+         "Arquivos PDF", ;
+         "Todos Arquivos", ;
+         "Ok" ;
          }
 
       // German
-   CASE cLang == 'DE'
-      aLang := { 'Vorschau', ;
-         '&Abbruch', ;
-         '&Drucken', ;
-         '&Speichern', ;
-         '&Erste', ;
-         '&Vorige', ;
-         '&Nächste', ;
-         '&Letzte', ;
-         'Ver&größern', ;
-         'Ver&kleinern', ;
-         '&Optionen', ;
-         'Seite:', ;
-         'Seitenvorschau', ;
-         'Überblick', ;
-         'Seite', ;
-         'Aktuelle Seite drucken', ;
-         'Seiten:', ;
-         'Maximum erreicht!', ;
-         'Druckeroptionen', ;
-         'Drucke von', ;
-         'bis', ;
-         'Anzahl', ;
-         'Bereich', ;
-         'Alle Seiten', ;
-         'Ungerade Seiten', ;
-         'Gerade Seiten', ;
-         'Alles, ungerade Seiten zuerst', ;
-         'Alles, gerade Seiten zuerst', ;
-         'Druckt ....', ;
-         'Bitte Papier nachlegen...', ;
-         'Sa&ve as...', ;
-         'Save &All', ;
-         'PDF Files', ;
-         'All Files', ;
-         'Ok' ;
+   CASE cLang == "DE"
+      aLang := { "Vorschau", ;
+         "&Abbruch", ;
+         "&Drucken", ;
+         "&Speichern", ;
+         "&Erste", ;
+         "&Vorige", ;
+         "&Nächste", ;
+         "&Letzte", ;
+         "Ver&größern", ;
+         "Ver&kleinern", ;
+         "&Optionen", ;
+         "Seite:", ;
+         "Seitenvorschau", ;
+         "Überblick", ;
+         "Seite", ;
+         "Aktuelle Seite drucken", ;
+         "Seiten:", ;
+         "Maximum erreicht!", ;
+         "Druckeroptionen", ;
+         "Drucke von", ;
+         "bis", ;
+         "Anzahl", ;
+         "Bereich", ;
+         "Alle Seiten", ;
+         "Ungerade Seiten", ;
+         "Gerade Seiten", ;
+         "Alles, ungerade Seiten zuerst", ;
+         "Alles, gerade Seiten zuerst", ;
+         "Druckt ....", ;
+         "Bitte Papier nachlegen...", ;
+         "Sa&ve as...", ;
+         "Save &All", ;
+         "PDF Files", ;
+         "All Files", ;
+         "Ok" ;
          }
 
       // French
-   CASE cLang == 'FR'
-      aLang := { 'Prévisualisation', ;
-         '&Abandonner', ;
-         '&Imprimer', ;
-         '&Sauver', ;
-         '&Premier', ;
-         'P&récédent', ;
-         '&Suivant', ;
-         '&Dernier', ;
-         'Zoom +', ;
-         'Zoom -', ;
-         '&Options', ;
-         'Aller à la page:', ;
-         'Aperçu de la page', ;
-         'Aperçu affichettes', ;
-         'Page', ;
-         'Imprimer la page en cours', ;
-         'Pages:', ;
-         'Plus de zoom !', ;
-         "Options d'impression", ;
-         'Imprimer de', ;
-         'à', ;
-         'Copies', ;
-         "Intervalle d'impression", ;
-         "Tout dans l'intervalle", ;
-         'Impair seulement', ;
-         'Pair seulement', ;
-         "Tout mais impair d'abord", ;
-         "Tout mais pair d'abord", ;
-         'Impression ....', ;
-         'Attente de changement de papier...', ;
-         'Sa&ve as...', ;
-         'Save &All', ;
-         'PDF Files', ;
-         'All Files', ;
-         'Ok' ;
+   CASE cLang == "FR" /* TODO: ' ou " */
+      aLang := { "Prévisualisation", ;
+         "&Abandonner", ;
+         "&Imprimer", ;
+         "&Sauver", ;
+         "&Premier", ;
+         "P&récédent", ;
+         "&Suivant", ;
+         "&Dernier", ;
+         "Zoom +", ;
+         "Zoom -", ;
+         "&Options", ;
+         "Aller à la page:", ;
+         "Aperçu de la page", ;
+         "Aperçu affichettes", ;
+         "Page", ;
+         "Imprimer la page en cours", ;
+         "Pages:", ;
+         "Plus de zoom !", ;
+         "Options d" + Chr(34) + "impression", ;
+         "Imprimer de", ;
+         "à", ;
+         "Copies", ;
+         "Intervalle d" + Chr(34) + "impression", ;
+         "Tout dans l" + Chr(34) + "intervalle", ;
+         "Impair seulement", ;
+         "Pair seulement", ;
+         "Tout mais impair d" + Chr(34) + "abord", ;
+         "Tout mais pair d" + Chr(34) + "abord", ;
+         "Impression ....", ;
+         "Attente de changement de papier...", ;
+         "Sa&ve as...", ;
+         "Save &All", ;
+         "PDF Files", ;
+         "All Files", ;
+         "Ok" ;
          }
 
       // Finnish
-   CASE cLang == 'FI'
-      aLang := { 'Esikatsele', ;
-         '&Keskeytä', ;
-         '&Tulosta', ;
-         'T&allenna', ;
-         '&Ensimmäinen', ;
-         'E&dellinen', ;
-         '&Seuraava', ;
-         '&Viimeinen', ;
-         'Suurenna', ;
-         'Pienennä', ;
-         '&Optiot', ;
-         'Mene sivulle:', ;
-         'Esikatsele sivu ', ;
-         'Esikatsele miniatyyrit', ;
-         'Sivu', ;
-         'Tulosta tämä sivu', ;
-         'Sivuja:', ;
-         'Ei voi suurentaa !', ;
-         'Tulostus optiot', ;
-         'Alkaen', ;
-         '->', ;
-         'Kopiot', ;
-         'Tulostus alue', ;
-         'Kaikki alueelta', ;
-         'Vain parittomat', ;
-         'Vain parilleset', ;
-         'Kaikki paitsi ensim. pariton', ;
-         'Kaikki paitsi ensim. parillinen', ;
-         'Tulostan ....', ;
-         'Odotan paperin vaihtoa...', ;
-         'Tallenna nimellä...', ;
-         'Tallenna kaikki', ;
-         'PDF Tiedostot', ;
-         'Kaikki Tiedostot', ;
-         'Ok' ;
+   CASE cLang == "FI"
+      aLang := { "Esikatsele", ;
+         "&Keskeytä", ;
+         "&Tulosta", ;
+         "T&allenna", ;
+         "&Ensimmäinen", ;
+         "E&dellinen", ;
+         "&Seuraava", ;
+         "&Viimeinen", ;
+         "Suurenna", ;
+         "Pienennä", ;
+         "&Optiot", ;
+         "Mene sivulle:", ;
+         "Esikatsele sivu ", ;
+         "Esikatsele miniatyyrit", ;
+         "Sivu", ;
+         "Tulosta tämä sivu", ;
+         "Sivuja:", ;
+         "Ei voi suurentaa !", ;
+         "Tulostus optiot", ;
+         "Alkaen", ;
+         "->", ;
+         "Kopiot", ;
+         "Tulostus alue", ;
+         "Kaikki alueelta", ;
+         "Vain parittomat", ;
+         "Vain parilleset", ;
+         "Kaikki paitsi ensim. pariton", ;
+         "Kaikki paitsi ensim. parillinen", ;
+         "Tulostan ....", ;
+         "Odotan paperin vaihtoa...", ;
+         "Tallenna nimellä...", ;
+         "Tallenna kaikki", ;
+         "PDF Tiedostot", ;
+         "Kaikki Tiedostot", ;
+         "Ok" ;
          }
 
       // Dutch
-   CASE cLang == 'NL'
-      aLang := { 'Afdrukvoorbeeld', ;
-         'Annuleer', ;
-         'Print', ;
-         'Opslaan', ;
-         'Eerste', ;
-         'Vorige', ;
-         'Volgende', ;
-         'Laatste', ;
-         'Inzoomen', ;
-         'Uitzoomen', ;
-         'Opties', ;
-         'Ga naar pagina:', ;
-         'Pagina voorbeeld ', ;
-         'Thumbnails voorbeeld', ;
-         'Pagina', ;
-         'Print alleen huidige pagina', ;
+   CASE cLang == "NL"
+      aLang := { "Afdrukvoorbeeld", ;
+         "Annuleer", ;
+         "Print", ;
+         "Opslaan", ;
+         "Eerste", ;
+         "Vorige", ;
+         "Volgende", ;
+         "Laatste", ;
+         "Inzoomen", ;
+         "Uitzoomen", ;
+         "Opties", ;
+         "Ga naar pagina:", ;
+         "Pagina voorbeeld ", ;
+         "Thumbnails voorbeeld", ;
+         "Pagina", ;
+         "Print alleen huidige pagina", ;
          "Pagina's:", ;
-         'Geen zoom meer !', ;
-         'Print opties', ;
-         'Print van', ;
-         'tot', ;
-         'Aantal exemplaren', ;
+         "Geen zoom meer !", ;
+         "Print opties", ;
+         "Print van", ;
+         "tot", ;
+         "Aantal exemplaren", ;
          "Pagina's", ;
          "Alle pagina's", ;
-         'Alleen oneven', ;
-         'Alleen even', ;
-         'Alles maar oneven eerst', ;
-         'Alles maar even eerst', ;
-         'Printen ....', ;
-         'Wacht op papier wissel...', ;
-         'Be&waar als...', ;
-         'Bewaar &Alles', ;
-         'PDF-bestanden', ;
-         'Alle bestanden', ;
-         'Ok' ;
+         "Alleen oneven", ;
+         "Alleen even", ;
+         "Alles maar oneven eerst", ;
+         "Alles maar even eerst", ;
+         "Printen ....", ;
+         "Wacht op papier wissel...", ;
+         "Be&waar als...", ;
+         "Bewaar &Alles", ;
+         "PDF-bestanden", ;
+         "Alle bestanden", ;
+         "Ok" ;
          }
 
       // Czech
-   CASE cLang == 'CS'
+   CASE cLang == "CS"
       aLang := { "Náhled", ;
          "&Storno", ;
          "&Tisk", ;
@@ -1976,11 +1976,11 @@ STATIC FUNCTION LangInit
          "Uložit &všechno", ;
          "PDF soubor", ;
          "Všechny soubory", ;
-         'Ok' ;
+         "Ok" ;
          }
 
       // Slovak
-   CASE cLang == 'SK'
+   CASE cLang == "SK"
       aLang := { "Náh¾ad", ;
          "&Storno", ;
          "&Tlaè", ;
@@ -2015,50 +2015,50 @@ STATIC FUNCTION LangInit
          "Uloži &všetko", ;
          "PDF súbor", ;
          "Všetky súbory", ;
-         'Ok' ;
+         "Ok" ;
          }
 
       // Slovenian
-   CASE cLang == 'SL'
-      aLang := { 'Predgled', ;
-         'Prekini', ;
-         'Natisni', ;
-         'Shrani', ;
-         'Prva', ;
-         'Prejšnja', ;
-         'Naslednja', ;
-         'Zadnja', ;
-         'Poveèaj', ;
-         'Pomanjšaj', ;
-         'Možnosti', ;
-         'Skok na stran:', ;
-         'Predgled', ;
-         'Mini predgled', ;
-         'Stran', ;
-         'Samo trenutna stran', ;
-         'Strani:', ;
-         'Ni veè poveèave!', ;
-         'Možnosti tiskanja', ;
-         'Tiskaj od', ;
-         'do', ;
-         'Kopij', ;
-         'Tiskanje', ;
-         'Vse iz izbora', ;
-         'Samo neparne strani', ;
-         'Samo parne strani', ;
-         'Vse - le brez prve neparne strani', ;
-         'Vse - le brez prve parne strani', ;
-         'Tiskanje ....', ;
-         'Èakanje na zamenjavo papirja...', ;
-         'Shrani kot...', ;
-         'Shrani vse', ;
-         'PDF datoteke', ;
-         'Vse datoteke', ;
-         'Ok' ;
+   CASE cLang == "SL"
+      aLang := { "Predgled", ;
+         "Prekini", ;
+         "Natisni", ;
+         "Shrani", ;
+         "Prva", ;
+         "Prejšnja", ;
+         "Naslednja", ;
+         "Zadnja", ;
+         "Poveèaj", ;
+         "Pomanjšaj", ;
+         "Možnosti", ;
+         "Skok na stran:", ;
+         "Predgled", ;
+         "Mini predgled", ;
+         "Stran", ;
+         "Samo trenutna stran", ;
+         "Strani:", ;
+         "Ni veè poveèave!", ;
+         "Možnosti tiskanja", ;
+         "Tiskaj od", ;
+         "do", ;
+         "Kopij", ;
+         "Tiskanje", ;
+         "Vse iz izbora", ;
+         "Samo neparne strani", ;
+         "Samo parne strani", ;
+         "Vse - le brez prve neparne strani", ;
+         "Vse - le brez prve parne strani", ;
+         "Tiskanje ....", ;
+         "Èakanje na zamenjavo papirja...", ;
+         "Shrani kot...", ;
+         "Shrani vse", ;
+         "PDF datoteke", ;
+         "Vse datoteke", ;
+         "Ok" ;
          }
 
       // Hungarian
-   CASE cLang == 'HU'
+   CASE cLang == "HU"
       aLang := { "Elõnézet", ;
          "&Mégse", ;
          "Nyo&mtatás", ;
@@ -2093,85 +2093,85 @@ STATIC FUNCTION LangInit
          "Mindet mentsd", ;
          "PDF állomány", ;
          "Minden állomány", ;
-         'Ok' ;
+         "Ok" ;
          }
 
       // Greek - Ellinika
-   CASE cLang == 'EL'
-      aLang := { 'ÐñïâïëÞ', ;
-         '¸&îïäïò', ;
-         '&Åêôýðùóç', ;
-         '&ÁðïèÞêåõóç óåëßäáò', ;
-         '&1ç óåëßäá', ;
-         'Ð&ñïçã.Óåë.', ;
-         '&Åðüìåíç', ;
-         '&Ôåëåõôáßá', ;
-         'Zoom +', ;
-         'Zoom -', ;
-         '&ÅðéëïãÝò', ;
-         'ÐñïâïëÞ óåëßäáò:', ;
-         'ÐñïâïëÞ ', ;
-         'Ìéêñïãñáößåò', ;
-         'Óåë.', ;
-         'Ôýðùóå ìüíï ôçí ðáñïýóá', ;
-         'Óåëßäåò:', ;
-         'ÔÝëïò zoom', ;
-         'ÅðéëïãÝò', ;
-         'Ôýðùóå áðü óåëßäá', ;
-         '¸ùò óåëßäá', ;
-         'Áíôßãñáöá', ;
-         'Åýñïò åêôýðùóçò', ;
-         'Ïëåò ôéò óåëßäåò', ;
-         'Ìüíï ôéò ìïíÝò óåëßäåò ', ;
-         'Ìüíï ôéò æõãÝò óåëßäåò', ;
-         'Ïëåò åêôïò áðï ôçí 1ç ìïíÞ', ;
-         'Ïëåò åêôïò áðï ôçí 1ç æõãÞ', ;
-         'Åêôõðþíù ....', ;
-         'ÁíáìïíÞ ãéá áëëáãÞ ÷áñôéïý...', ;
-         'ÁðïèÞêåõóç óåëßäáò ùò..', ;
-         'ÁðïèÞêåõóç üëùí ôùí óåëßäùí', ;
-         'Áñ÷åßá PDF', ;
-         '¼ëá ôá áñ÷åßá', ;
-         'ÅíôÜîåé' ;
+   CASE cLang == "EL"
+      aLang := { "ÐñïâïëÞ", ;
+         "¸&îïäïò", ;
+         "&Åêôýðùóç", ;
+         "&ÁðïèÞêåõóç óåëßäáò", ;
+         "&1ç óåëßäá", ;
+         "Ð&ñïçã.Óåë.", ;
+         "&Åðüìåíç", ;
+         "&Ôåëåõôáßá", ;
+         "Zoom +", ;
+         "Zoom -", ;
+         "&ÅðéëïãÝò", ;
+         "ÐñïâïëÞ óåëßäáò:", ;
+         "ÐñïâïëÞ ", ;
+         "Ìéêñïãñáößåò", ;
+         "Óåë.", ;
+         "Ôýðùóå ìüíï ôçí ðáñïýóá", ;
+         "Óåëßäåò:", ;
+         "ÔÝëïò zoom", ;
+         "ÅðéëïãÝò", ;
+         "Ôýðùóå áðü óåëßäá", ;
+         "¸ùò óåëßäá", ;
+         "Áíôßãñáöá", ;
+         "Åýñïò åêôýðùóçò", ;
+         "Ïëåò ôéò óåëßäåò", ;
+         "Ìüíï ôéò ìïíÝò óåëßäåò ", ;
+         "Ìüíï ôéò æõãÝò óåëßäåò", ;
+         "Ïëåò åêôïò áðï ôçí 1ç ìïíÞ", ;
+         "Ïëåò åêôïò áðï ôçí 1ç æõãÞ", ;
+         "Åêôõðþíù ....", ;
+         "ÁíáìïíÞ ãéá áëëáãÞ ÷áñôéïý...", ;
+         "ÁðïèÞêåõóç óåëßäáò ùò..", ;
+         "ÁðïèÞêåõóç üëùí ôùí óåëßäùí", ;
+         "Áñ÷åßá PDF", ;
+         "¼ëá ôá áñ÷åßá", ;
+         "ÅíôÜîåé" ;
          }
 
       // Bulgarian
-   CASE cLang == 'BG'
-      aLang := { 'Ïðåãëåä', ;
-         'Èçõîä', ;
-         'Ïå÷àò', ;
-         'Ñúõðàíè', ;
-         'Íà÷àëî', ;
-         'Íàçàä', ;
-         'Íàïðåä', ;
-         'Êðàé', ;
-         'Óâåëè÷è', ;
-         'Íàìàëè', ;
-         'Îïöèè', ;
-         'Ñòðàíèöà:', ;
-         'Ïðåãëåä íà ñòðàíèöàòà ', ;
-         'Ìèíèàòþðè', ;
-         'Ñòðàíèöà', ;
-         'Ïå÷àòàíå íà òåêóùà', ;
-         'Ñòðàíèöè:', ;
-         'Äîñòèãíàò e ïðåäåëà íà ìàùàáèðàíå!', ;
-         'Ïàðàìåòðè çà ïå÷àò', ;
-         'Ñòðàíèöè îò', ;
-         'äî', ;
-         'Êîïèÿ', ;
-         'Íàïå÷àòàé', ;
-         'Âñè÷êè ñòðàíèöè', ;
-         'Íå÷åòíèòå', ;
-         '×åòíèòå', ;
-         'Âñè÷êè, íî ïúðâî íå÷åòíèòå', ;
-         'Âñè÷êè, íî ïúðâî ÷åòíèòå', ;
-         'Ïå÷àò ....', ;
-         'Ïîñòàâåòå õàðòèÿ...', ;
-         'Ñúõðàíè êàòî...', ;
-         'Ñúõðàíè âñè÷êî', ;
-         'Ôàéëîâå PDF', ;
-         'Âñè÷êè ôàéëîâå', ;
-         'Ok' ;
+   CASE cLang == "BG"
+      aLang := { "Ïðåãëåä", ;
+         "Èçõîä", ;
+         "Ïå÷àò", ;
+         "Ñúõðàíè", ;
+         "Íà÷àëî", ;
+         "Íàçàä", ;
+         "Íàïðåä", ;
+         "Êðàé", ;
+         "Óâåëè÷è", ;
+         "Íàìàëè", ;
+         "Îïöèè", ;
+         "Ñòðàíèöà:", ;
+         "Ïðåãëåä íà ñòðàíèöàòà ", ;
+         "Ìèíèàòþðè", ;
+         "Ñòðàíèöà", ;
+         "Ïå÷àòàíå íà òåêóùà", ;
+         "Ñòðàíèöè:", ;
+         "Äîñòèãíàò e ïðåäåëà íà ìàùàáèðàíå!", ;
+         "Ïàðàìåòðè çà ïå÷àò", ;
+         "Ñòðàíèöè îò", ;
+         "äî", ;
+         "Êîïèÿ", ;
+         "Íàïå÷àòàé", ;
+         "Âñè÷êè ñòðàíèöè", ;
+         "Íå÷åòíèòå", ;
+         "×åòíèòå", ;
+         "Âñè÷êè, íî ïúðâî íå÷åòíèòå", ;
+         "Âñè÷êè, íî ïúðâî ÷åòíèòå", ;
+         "Ïå÷àò ....", ;
+         "Ïîñòàâåòå õàðòèÿ...", ;
+         "Ñúõðàíè êàòî...", ;
+         "Ñúõðàíè âñè÷êî", ;
+         "Ôàéëîâå PDF", ;
+         "Âñè÷êè ôàéëîâå", ;
+         "Ok" ;
          }
    ENDCASE
 #endif
@@ -2229,9 +2229,9 @@ METHOD Preview() CLASS HBPrinter
    DEFINE WINDOW HBPREVIEW ;
          AT ahs[ 1, 1 ], ahs[ 1, 2 ] ;
          WIDTH ahs[ 1, 6 ] HEIGHT ahs[ 1, 5 ] ;
-         TITLE aopisy[ 1 ] ICON 'zzz_Printicon' ;
+         TITLE aopisy[ 1 ] ICON "zzz_Printicon" ;
          MODAL NOSIZE ;
-         FONT 'Arial' SIZE 9
+         FONT "Arial" SIZE 9
 
       _DefineHotKey( "HBPREVIEW", 0, VK_ESCAPE, {|| ::PrevClose( .T. ) } ) // Escape
       _DefineHotKey( "HBPREVIEW", 0, VK_ADD, {|| scale := scale * 1.25, ::PrevShow() } ) // zoom in
@@ -2242,35 +2242,35 @@ METHOD Preview() CLASS HBPrinter
 
       DEFINE STATUSBAR
       STATUSITEM aopisy[ 15 ] + " " + hb_ntos( page ) WIDTH 100
-      STATUSITEM aopisy[ 16 ] WIDTH 200 ICON 'zzz_Printicon' ACTION ::PREVPRINT( page ) RAISED
+      STATUSITEM aopisy[ 16 ] WIDTH 200 ICON "zzz_Printicon" ACTION ::PREVPRINT( page ) RAISED
       STATUSITEM aopisy[ 17 ] + " " + hb_ntos( iloscstron ) WIDTH 100
    END STATUSBAR
 
    IF iloscstron > 1
-      @ 16, ahs[ 1, 6 ] -  77 COMBOBOX combo_1 ITEMS npages VALUE 1  WIDTH 48  FONT 'Arial' SIZE 8 NOTABSTOP ON CHANGE {|| page := ::CurPage := HBPREVIEW.combo_1.VALUE, ::PrevShow() }
-      @ 20, ahs[ 1, 6 ] - 184 LABEL prl VALUE aopisy[ 12 ] WIDTH 100 HEIGHT 18 FONT 'Arial' SIZE 8 BACKCOLOR iif( IsAppXPThemed(), iif( isseven(), { 211, 218, 237 }, iif( _HMG_IsXP, { 239, 235, 219 }, nRGB2Arr( GetSysColor( 5 ) ) ) ), NIL ) RIGHTALIGN
+      @ 16, ahs[ 1, 6 ] -  77 COMBOBOX combo_1 ITEMS npages VALUE 1  WIDTH 48  FONT "Arial" SIZE 8 NOTABSTOP ON CHANGE {|| page := ::CurPage := HBPREVIEW.combo_1.VALUE, ::PrevShow() }
+      @ 20, ahs[ 1, 6 ] - 184 LABEL prl VALUE aopisy[ 12 ] WIDTH 100 HEIGHT 18 FONT "Arial" SIZE 8 BACKCOLOR iif( IsAppXPThemed(), iif( isseven(), { 211, 218, 237 }, iif( _HMG_IsXP, { 239, 235, 219 }, nRGB2Arr( GetSysColor( 5 ) ) ) ), NIL ) RIGHTALIGN
    ENDIF
 
    DEFINE SPLITBOX
    DEFINE TOOLBAR TB1 BUTTONSIZE 75, 40 FONT _HMG_DefaultFontName SIZE 8 FLAT BREAK
-      BUTTON B2 CAPTION aopisy[ 3 ] PICTURE 'hbprint_print' ACTION {|| ::prevprint(), iif( ::CLSPREVIEW, ::PrevClose( .F. ), nil ) }
+      BUTTON B2 CAPTION aopisy[ 3 ] PICTURE "hbprint_print" ACTION {|| ::prevprint(), iif( ::CLSPREVIEW, ::PrevClose( .F. ), nil ) }
       IF ::SaveButtons
-         BUTTON B3 CAPTION aopisy[ 4 ] PICTURE 'hbprint_save' WHOLEDROPDOWN
+         BUTTON B3 CAPTION aopisy[ 4 ] PICTURE "hbprint_save" WHOLEDROPDOWN
          DEFINE DROPDOWN MENU BUTTON B3
                 ITEM aopisy[ 4 ] ACTION {|| ::savemetafiles( ::CurPage ) }
-                ITEM aopisy[ 31 ] ACTION {|| pi := Putfile ( { { aopisy[ 33 ], '*.pdf' }, { aopisy[ 34 ], '*.*' } }, , GetCurrentFolder(), .T., ::DOCNAME ), iif( Empty( pi ), NIL, ::savemetafiles( NIL, pi ) ) }
+                ITEM aopisy[ 31 ] ACTION {|| pi := Putfile ( { { aopisy[ 33 ], "*.pdf" }, { aopisy[ 34 ], "*.*" } }, , GetCurrentFolder(), .T., ::DOCNAME ), iif( Empty( pi ), NIL, ::savemetafiles( NIL, pi ) ) }
                 ITEM aopisy[ 32 ] ACTION {|| ::savemetafiles() }
          END MENU
       ENDIF
-      BUTTON B1 CAPTION aopisy[ 2 ] PICTURE 'hbprint_close' ACTION {|| ::PrevClose( .T. ) } SEPARATOR
-      BUTTON B10 CAPTION aopisy[ 11 ] PICTURE 'hbprint_option' ACTION {|| ::PrintOption() } SEPARATOR
-      BUTTON B8 CAPTION aopisy[ 9 ] PICTURE 'hbprint_zoomin' ACTION {|| scale := scale * 1.25, ::PrevShow() }
-      BUTTON B9 CAPTION aopisy[ 10 ] PICTURE 'hbprint_zoomout' ACTION {|| scale := scale / 1.25, ::PrevShow() } SEPARATOR
+      BUTTON B1 CAPTION aopisy[ 2 ] PICTURE "hbprint_close" ACTION {|| ::PrevClose( .T. ) } SEPARATOR
+      BUTTON B10 CAPTION aopisy[ 11 ] PICTURE "hbprint_option" ACTION {|| ::PrintOption() } SEPARATOR
+      BUTTON B8 CAPTION aopisy[ 9 ] PICTURE "hbprint_zoomin" ACTION {|| scale := scale * 1.25, ::PrevShow() }
+      BUTTON B9 CAPTION aopisy[ 10 ] PICTURE "hbprint_zoomout" ACTION {|| scale := scale / 1.25, ::PrevShow() } SEPARATOR
    IF iloscstron > 1
-      BUTTON B4 CAPTION aopisy[ 5 ] PICTURE 'hbprint_top' ACTION {|| page := ::CurPage := 1, HBPREVIEW.combo_1.VALUE := page, ::PrevShow() }
-      BUTTON B5 CAPTION aopisy[ 6 ] PICTURE 'hbprint_back' ACTION {|| page := ::CurPage := iif( page == 1, 1, page - 1 ), HBPREVIEW.combo_1.VALUE := page, ::PrevShow() }
-      BUTTON B6 CAPTION aopisy[ 7 ] PICTURE 'hbprint_next' ACTION {|| page := ::CurPage := iif( page == iloscstron, page, page + 1 ), HBPREVIEW.combo_1.VALUE := page, ::PrevShow() }
-      BUTTON B7 CAPTION aopisy[ 8 ] PICTURE 'hbprint_end' ACTION {|| page := ::CurPage := iloscstron, HBPREVIEW.combo_1.VALUE := page, ::PrevShow() } SEPARATOR
+      BUTTON B4 CAPTION aopisy[ 5 ] PICTURE "hbprint_top" ACTION {|| page := ::CurPage := 1, HBPREVIEW.combo_1.VALUE := page, ::PrevShow() }
+      BUTTON B5 CAPTION aopisy[ 6 ] PICTURE "hbprint_back" ACTION {|| page := ::CurPage := iif( page == 1, 1, page - 1 ), HBPREVIEW.combo_1.VALUE := page, ::PrevShow() }
+      BUTTON B6 CAPTION aopisy[ 7 ] PICTURE "hbprint_next" ACTION {|| page := ::CurPage := iif( page == iloscstron, page, page + 1 ), HBPREVIEW.combo_1.VALUE := page, ::PrevShow() }
+      BUTTON B7 CAPTION aopisy[ 8 ] PICTURE "hbprint_end" ACTION {|| page := ::CurPage := iloscstron, HBPREVIEW.combo_1.VALUE := page, ::PrevShow() } SEPARATOR
    ENDIF
 
    END TOOLBAR
@@ -2382,10 +2382,10 @@ METHOD PrintOption() CLASS HBPrinter
       DEFINE WINDOW PrOpt ;
          WIDTH 355 HEIGHT 168 ;
          TITLE aopisy[ 19 ] ;
-         ICON 'zzz_Printicon' ;
+         ICON "zzz_Printicon" ;
          MODAL ;
          NOSIZE NOSYSMENU ;
-         FONT 'Arial' SIZE 9
+         FONT "Arial" SIZE 9
 
          @ 2, 2    FRAME   PrOptFrame WIDTH 345 - Iif( _HMG_IsXP, GetBorderWidth(), 0 ) HEIGHT 136 - iif( _HMG_IsXP, GetBorderHeight(), 0 )
 
@@ -2396,7 +2396,7 @@ METHOD PrintOption() CLASS HBPrinter
 
          @ 40,  10 LABEL     label_12 VALUE aopisy[ 21 ] WIDTH 120 HEIGHT 24 VCENTERALIGN
          @ 40, 135 TEXTBOX   textTo                      WIDTH 30  HEIGHT 24 NUMERIC MAXLENGTH 3 RIGHTALIGN ;
-            ON LOSTFOCUS {|| iif(This.Value >= Getproperty( 'PrOpt', 'textFrom', 'Value' ) .AND. ;
+            ON LOSTFOCUS {|| iif(This.Value >= Getproperty( "PrOpt", "textFrom", "Value" ) .AND. ;
             This.Value <= iif( ::nwhattoprint < 2, iloscstron, ::ntopage ), NIL, This.setfocus)} ;
             ON ENTER PrOpt.TextCopies.setfocus
 
@@ -2441,7 +2441,7 @@ METHOD ReportData( l_x1, l_x2, l_x3, l_x4, l_x5, l_x6 ) CLASS HBPrinter
    SET DEVICE TO PRINT
    SET PRINTER ON
    SET CONSOLE OFF
-   ? '-----------------', Date(), Time()
+   ? "-----------------", Date(), Time()
    ?
    ?? iif( ValType( l_x1 ) <> "U", l_x1, "," )
    ?? iif( ValType( l_x2 ) <> "U", l_x2, "," )
@@ -2449,19 +2449,19 @@ METHOD ReportData( l_x1, l_x2, l_x3, l_x4, l_x5, l_x6 ) CLASS HBPrinter
    ?? iif( ValType( l_x4 ) <> "U", l_x4, "," )
    ?? iif( ValType( l_x5 ) <> "U", l_x5, "," )
    ?? iif( ValType( l_x6 ) <> "U", l_x6, "," )
-   ? 'HDC            :', ::HDC
-   ? 'HDCREF         :', ::HDCREF
-   ? 'PRINTERNAME    :', ::PRINTERNAME
-   ? 'PRINTEDEFAULT  :', ::PRINTERDEFAULT
-   ? 'VERT X HORZ SIZE         :', ::DEVCAPS[ 1 ], "x", ::DEVCAPS[ 2 ]
-   ? 'VERT X HORZ RES          :', ::DEVCAPS[ 3 ], "x", ::DEVCAPS[ 4 ]
-   ? 'VERT X HORZ LOGPIX       :', ::DEVCAPS[ 5 ], "x", ::DEVCAPS[ 6 ]
-   ? 'VERT X HORZ PHYS. SIZE   :', ::DEVCAPS[ 7 ], "x", ::DEVCAPS[ 8 ]
-   ? 'VERT X HORZ PHYS. OFFSET :', ::DEVCAPS[ 9 ], "x", ::DEVCAPS[ 10 ]
-   ? 'VERT X HORZ FONT SIZE    :', ::DEVCAPS[ 11 ], "x", ::DEVCAPS[ 12 ]
-   ? 'VERT X HORZ ROWS COLS    :', ::DEVCAPS[ 13 ], "x", ::DEVCAPS[ 14 ]
-   ? 'ORIENTATION              :', ::DEVCAPS[ 15 ]
-   ? 'PAPER SIZE               :', ::DEVCAPS[ 17 ]
+   ? "HDC            :", ::HDC
+   ? "HDCREF         :", ::HDCREF
+   ? "PRINTERNAME    :", ::PRINTERNAME
+   ? "PRINTEDEFAULT  :", ::PRINTERDEFAULT
+   ? "VERT X HORZ SIZE         :", ::DEVCAPS[ 1 ], "x", ::DEVCAPS[ 2 ]
+   ? "VERT X HORZ RES          :", ::DEVCAPS[ 3 ], "x", ::DEVCAPS[ 4 ]
+   ? "VERT X HORZ LOGPIX       :", ::DEVCAPS[ 5 ], "x", ::DEVCAPS[ 6 ]
+   ? "VERT X HORZ PHYS. SIZE   :", ::DEVCAPS[ 7 ], "x", ::DEVCAPS[ 8 ]
+   ? "VERT X HORZ PHYS. OFFSET :", ::DEVCAPS[ 9 ], "x", ::DEVCAPS[ 10 ]
+   ? "VERT X HORZ FONT SIZE    :", ::DEVCAPS[ 11 ], "x", ::DEVCAPS[ 12 ]
+   ? "VERT X HORZ ROWS COLS    :", ::DEVCAPS[ 13 ], "x", ::DEVCAPS[ 14 ]
+   ? "ORIENTATION              :", ::DEVCAPS[ 15 ]
+   ? "PAPER SIZE               :", ::DEVCAPS[ 17 ]
    SET PRINTER OFF
    SET PRINTER TO
    SET CONSOLE ON

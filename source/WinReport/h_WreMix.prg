@@ -1,6 +1,6 @@
 
-#include 'minigui.ch'
-#include 'miniprint.ch'
+#include "minigui.ch"
+#include "miniprint.ch"
 #include "hbclass.ch"
 
 #TRANSLATE MSG	=> MSGBOX
@@ -78,15 +78,15 @@ Procedure PrMiniEsegui(_MainArea,_psd,db_arc,_prw)
          Private ONEATLEAST := .F., shd := .T., sbt := .T., sgh := .T., insgh:=.F.
          Private hbprn :=hbprinter():new()
 
-         chblk  :={|x,y|if(ascan(x,y)>0,iif(len(X)>ascan(x,y),x[ascan(x,y)+1],''),'')}
+         chblk  :={|x,y|if(ascan(x,y)>0,iif(len(X)>ascan(x,y),x[ascan(x,y)+1],""),"")}
          if !empty(_MainArea)
-             oWr:aStat [ 'area1' ]  :=substr(_MainArea,at('(',_MainArea)+1)
-             oWr:aStat [ 'FldRel' ] :=substr(oWr:aStat [ 'area1' ],at("->",oWr:aStat [ 'area1' ])+2)
-             oWr:aStat [ 'FldRel' ] :=substr(oWr:aStat [ 'FldRel' ],1,iif(at(')',oWr:aStat [ 'FldRel' ])>0,at(')',oWr:aStat [ 'FldRel' ])-1,len(oWr:aStat [ 'FldRel' ]))) //+(at("->",oWr:aStat [ 'area1' ])))
-             oWr:aStat [ 'area1' ]  :=left(oWr:aStat [ 'area1' ],at("->",oWr:aStat [ 'area1' ])-1)
+             oWr:aStat [ "area1" ]  :=substr(_MainArea,at("(",_MainArea)+1)
+             oWr:aStat [ "FldRel" ] :=substr(oWr:aStat [ "area1" ],at("->",oWr:aStat [ "area1" ])+2)
+             oWr:aStat [ "FldRel" ] :=substr(oWr:aStat [ "FldRel" ],1,iif(at(")",oWr:aStat [ "FldRel" ])>0,at(")",oWr:aStat [ "FldRel" ])-1,len(oWr:aStat [ "FldRel" ]))) //+(at("->",oWr:aStat [ "area1" ])))
+             oWr:aStat [ "area1" ]  :=left(oWr:aStat [ "area1" ],at("->",oWr:aStat [ "area1" ])-1)
          else
-             oWr:aStat [ 'area1' ]:=dbf()
-             oWr:aStat [ 'FldRel' ]:=''
+             oWr:aStat [ "area1" ]:=dbf()
+             oWr:aStat [ "FldRel" ]:=""
          endif
 
          aprinters := aprinters()
@@ -164,7 +164,7 @@ Procedure PrMiniEsegui(_MainArea,_psd,db_arc,_prw)
                SELECT PRINTER default
             endif
          endif
-         //msginfo(zaps(GETPRINTABLEAREAHORIZONTALOFFSET())+crlf+zaps(GETPRINTABLEAREAVERTICALOFFSET()),'H_offset')
+         //msginfo(zaps(GETPRINTABLEAREAHORIZONTALOFFSET())+crlf+zaps(GETPRINTABLEAREAVERTICALOFFSET()),"H_offset")
 
          IF iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) == 0
             r_mem()
@@ -205,7 +205,7 @@ Test(mkm)
          maxcol  := int(_HMG_PRINTER_GETPAGEWIDTH(iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc))/1.1811)
 //   msginfo(str(mxH)+" =mxH"+CRLF+str(maxrow)+" =maxrow"+crlf+str(maxcol)+" =maxcol"+crlf+str(maxcol)+" =maxcol","PUTTY")
 
-         aeval(oWr:adeclare,{|x,y|if(Y>1 ,oWr:traduci(x[1],,x[2]),'')})
+         aeval(oWr:adeclare,{|x,y|if(Y>1 ,oWr:traduci(x[1],,x[2]),"")})
          if abort != 0
             r_mem()
             return
@@ -216,17 +216,17 @@ Test(mkm)
                //msg(atf,[atf])
                set filter to &atf
             endif
-            oWr:aStat [ 'end_pr' ] := oWr:quantirec(_mainarea)
+            oWr:aStat [ "end_pr" ] := oWr:quantirec(_mainarea)
          else
-            oWr:aStat [ 'end_pr' ] := oWr:quantirec(_mainarea)
+            oWr:aStat [ "end_pr" ] := oWr:quantirec(_mainarea)
          endif
-         //msg(zaps(mx_pg)+CRLF+[oWr:Valore= ]+zaps(eval(oWr:Valore,oWr:aBody[1]))+CRLF+zaps(oWr:aStat [ 'end_pr' ]),[tutte])
+         //msg(zaps(mx_pg)+CRLF+[oWr:Valore= ]+zaps(eval(oWr:Valore,oWr:aBody[1]))+CRLF+zaps(oWr:aStat [ "end_pr" ]),[tutte])
 
          START PRINTDOC NAME _HMG_SYSDATA [ 358 ]
 
          if empty(_MainArea)
             Lbody := eval(oWr:Valore,oWr:aBody[1])
-            mx_pg := INT(oWr:aStat[ 'end_pr' ]/NOZERODIV(Lbody) )
+            mx_pg := INT(oWr:aStat[ "end_pr" ]/NOZERODIV(Lbody) )
             if (mx_pg * lbody) <> mx_pg
                mx_pg ++
             endif
@@ -235,14 +235,14 @@ Test(mkm)
             if valtype(oWr:argm[3]) <> "A"
                Dbgotop()
             Endif
-            if oWr:aStat [ 'end_pr' ] <> 0
-               while !oWr:aStat [ 'EndDoc' ]
+            if oWr:aStat [ "end_pr" ] <> 0
+               while !oWr:aStat [ "EndDoc" ]
                      oWr:TheMiniHead()
                      oWr:TheMiniBody()
                enddo
             Endif
          else
-            sele (oWr:aStat [ 'area1' ])
+            sele (oWr:aStat [ "area1" ])
             if !empty(atf)
                set filter to &atf
             endif
@@ -250,7 +250,7 @@ Test(mkm)
             lbody:=eval(oWr:Valore,oWr:aBody[1])
             while !eof()
                   sele (DB_ARC)
-                  StrFlt:= oWr:aStat [ 'FldRel' ]+" = "+ oWr:aStat [ 'area1' ]+"->"+oWr:aStat [ 'FldRel' ]
+                  StrFlt:= oWr:aStat [ "FldRel" ]+" = "+ oWr:aStat [ "area1" ]+"->"+oWr:aStat [ "FldRel" ]
                   DBEVAL( {|| miocont++},{|| &strFLT} )
 
                   // Vecchia versione
@@ -263,7 +263,7 @@ Test(mkm)
                   //msg(zaps(tpg)+crlf+zaps(miocnt),[Tpg1])
                   aadd(Amx_pg,miocnt)
                   miocont := 0
-                  sele (oWr:aStat [ 'area1' ])
+                  sele (oWr:aStat [ "area1" ])
                   dbskip()
             enddo
             go top
@@ -278,10 +278,10 @@ Test(mkm)
                        oWr:TheMiniHead()
                        oWr:TheMiniBody()
                  enddo
-                 oWr:aStat [ 'EndDoc' ]:=.F.
+                 oWr:aStat [ "EndDoc" ]:=.F.
                  last_pag:=.F.
                  set filter to
-                 sele (oWr:aStat [ 'area1' ])
+                 sele (oWr:aStat [ "area1" ])
                  dbskip()
             enddo
          endif
@@ -356,7 +356,7 @@ Static Function memosay(arg1,arg2,argm1,argl1,argf1,argsize,abold,aita,aunder,as
    , iif(valtype(argf1)=="C", .T.,.F.) ;
    , iif(valtype(argsize)=="N", .T.,.F.) ;
    , argalign )
-   oWr:aStat [ 'Yes_Memo' ] :=.T.
+   oWr:aStat [ "Yes_Memo" ] :=.T.
  else
      for mcl=2 to len(arrymemo)
          nline ++
@@ -391,7 +391,7 @@ Function RMiniPar(ArryPar,cmdline,section)
      maxcol  := int(_HMG_PRINTER_GETPAGEWIDTH(iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc))/1)
      /*
      msginfo(zaps(GETPRINTABLEAREAHORIZONTALOFFSET())+crlf+zaps(GETPRINTABLEAREAVERTICALOFFSET());
-     +crlf+"Largo = "+zaps(GETPRINTABLEAREAWIDTH())+crlf+"Alto = "+zaps(GETPRINTABLEAREAHEIGHT()),'H_offset')
+     +crlf+"Largo = "+zaps(GETPRINTABLEAREAWIDTH())+crlf+"Alto = "+zaps(GETPRINTABLEAREAHEIGHT()),"H_offset")
      */
 //     msgmulty(arrypar)
      do case
@@ -445,12 +445,12 @@ Function RMiniPar(ArryPar,cmdline,section)
                    asize(ax,0)
                  endif
              Else
-               oWr:aStat [ 'Control' ] := eval(blse,arrypar[3])
+               oWr:aStat [ "Control" ] := eval(blse,arrypar[3])
              Endif
 
         case ascan(arryPar,[MAXROW]) > 0
 
-        case ArryPar[1]+arryPar[2]='SELECTPRINTER'
+        case ArryPar[1]+arryPar[2]="SELECTPRINTER"
 
 	        do case
 
@@ -482,7 +482,7 @@ Function RMiniPar(ArryPar,cmdline,section)
                lCollate:=val(eval(chblk,arrypar,[COLLATE]))
                //msgbox("|"+str(lcollate)+"|","Collate")
                _arg1:= eval(chblk,arrypar,[PRINTER])
-               _arg1:=if(_arg1 ='',GetDefaultPrinter(),_arg1)
+               _arg1:=if(_arg1 ="",GetDefaultPrinter(),_arg1)
                //msgbox(_arg1,"stampante")
                _hmg_printer_aPrinterProperties:=_HMG_PRINTER_SetPrinterProperties ( ;
 		if(ascan(ArryPar,[DEFAULT])=3,GetDefaultPrinter(),_arg1 ), ;
@@ -552,7 +552,7 @@ Function RMiniPar(ArryPar,cmdline,section)
                 case ascan(arryPar,[JOB])= 2
                      _HMG_SYSDATA [ 358 ]:= eval(chblk,arrypar,[NAME])
 
-                case arryPar[2]+arryPar[3] == 'COPIETO'
+                case arryPar[2]+arryPar[3] == "COPIETO"
                      _HMG_SYSDATA [ 376 ]:= val(eval(chblk,arrypar,[TO]))
           endcase
 

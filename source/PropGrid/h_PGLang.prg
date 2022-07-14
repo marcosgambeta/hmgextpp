@@ -75,7 +75,7 @@ _HMG_PGLangError  := { "Property Item type: "                     ,;
                        " double defined."+CRLF+" Not added Item"  ,;
                        "Invalid Entry"                            }
 
-_HMG_PGLangMessage := { 'Are you sure ?' , "No File to save", "Error", "Warning" }
+_HMG_PGLangMessage := { "Are you sure ?" , "No File to save", "Error", "Warning" }
 
 _HMG_PGEncodingXml := "UTF-8"
 
@@ -83,8 +83,8 @@ _HMG_PGEncodingXml := "UTF-8"
 
 // LANGUAGE IS NOT SUPPORTED BY hb_langSelect() FUNCTION
 
-IF _HMG_LANG_ID == 'FI'      // FINNISH
-   cLang := 'FI'
+IF _HMG_LANG_ID == "FI"      // FINNISH
+   cLang := "FI"
 ELSE
    cLang := Upper( Left( Set ( _SET_LANGUAGE ), 2 ) )
 ENDIF
@@ -118,7 +118,7 @@ _HMG_PGLangError  := { "Property Item type: "                     ,;
                        "Invalid Entry"                            }
 
 
-_HMG_PGLangMessage := { 'Are you sure ?' , "No File to save", :"Error", "Warning" }
+_HMG_PGLangMessage := { "Are you sure ?" , "No File to save", :"Error", "Warning" }
 
 _HMG_PGEncodingXml := "UTF-8"
 
@@ -150,7 +150,7 @@ _HMG_PGLangError  := { "Property Item type: "                     ,;
                        "Invalid Entry"                            }
 
 
-_HMG_PGLangMessage := { 'Are you sure ?' , "No File to save", "Error", "Warning" }
+_HMG_PGLangMessage := { "Are you sure ?" , "No File to save", "Error", "Warning" }
 
 _HMG_PGEncodingXml := "UTF-8"
 
@@ -182,7 +182,7 @@ _HMG_PGLangError  := { "Property Item type: "                     ,;
                        "Invalid Entry"                            }
 
 
-_HMG_PGLangMessage := { 'Are you sure ?' , "No File to save", :"Error", "Warning" }
+_HMG_PGLangMessage := { "Are you sure ?" , "No File to save", :"Error", "Warning" }
 
 _HMG_PGEncodingXml := "UTF-8"
 
@@ -215,7 +215,7 @@ _HMG_PGLangError  := { "Property Item type: "                     ,;
                        "Invalid Entry"                            }
 
 
-_HMG_PGLangMessage := { 'Are you sure ?' , "No File to save", "Error", "Warning" }
+_HMG_PGLangMessage := { "Are you sure ?" , "No File to save", "Error", "Warning" }
 
 _HMG_PGEncodingXml := "UTF-8"
 
@@ -248,7 +248,7 @@ _HMG_PGLangError  := { "Property Item type: "                     ,;
                        "Invalid Entry"                            }
 
 
-_HMG_PGLangMessage := { 'Are you sure ?' , "No File to save", "Error", "Warning" }
+_HMG_PGLangMessage := { "Are you sure ?" , "No File to save", "Error", "Warning" }
 
 _HMG_PGEncodingXml := "UTF-8"
 
@@ -281,7 +281,7 @@ _HMG_PGLangError  := { "Property Item type: "                     ,;
                        "Invalid Entry"                            }
 
 
-_HMG_PGLangMessage := { 'Are you sure ?' , "No File to save", "Error", "Warning" }
+_HMG_PGLangMessage := { "Are you sure ?" , "No File to save", "Error", "Warning" }
 
 _HMG_PGEncodingXml := "UTF-8"
 
@@ -314,7 +314,7 @@ _HMG_PGLangError  := { "Property Item typu: "                     ,;
                        "Invalid Entry"                            }
 
 
-_HMG_PGLangMessage := { 'Czy jesteœ pewny ?' , "Nie zdefiniowano zbioru do zapisu", "B³¹d", "Ostrzerzenie" }
+_HMG_PGLangMessage := { "Czy jesteœ pewny ?" , "Nie zdefiniowano zbioru do zapisu", "B³¹d", "Ostrzerzenie" }
 
 _HMG_PGEncodingXml := "ISO-8859-2"
 
@@ -346,7 +346,7 @@ _HMG_PGLangError  := { "Property Item type: "                     ,;
                        "Invalid Entry"                            }
 
 
-_HMG_PGLangMessage := { 'Are you sure ?' , "No File to save", "Error", "Warning" }
+_HMG_PGLangMessage := { "Are you sure ?" , "No File to save", "Error", "Warning" }
 
 _HMG_PGEncodingXml := "UTF-8"
 
@@ -379,7 +379,7 @@ _HMG_PGLangError  := { "Property Item type: "                     ,;
                        "Invalid Entry"                            }
 
 
-_HMG_PGLangMessage := { 'Are you sure ?' , "No File to save", "Error", "Warning" }
+_HMG_PGLangMessage := { "Are you sure ?" , "No File to save", "Error", "Warning" }
 
 _HMG_PGEncodingXml := "UTF-8"
 
@@ -412,7 +412,7 @@ _HMG_PGLangError  := { "Property Item type: "                     ,;
                        "Invalid Entry"                            }
 
 
-_HMG_PGLangMessage := { 'Are you sure ?' , "No File to save", "Error", "Warning" }
+_HMG_PGLangMessage := { "Are you sure ?" , "No File to save", "Error", "Warning" }
 
 _HMG_PGEncodingXml := "UTF-8"
 
@@ -445,7 +445,7 @@ _HMG_PGLangError  := { "Property Item type: "                     ,;
                        "Invalid Entry"                            }
 
 
-_HMG_PGLangMessage := { 'Are you sure ?' , "No File to save", "Error", "Warning" }
+_HMG_PGLangMessage := { "Are you sure ?" , "No File to save", "Error", "Warning" }
 
 _HMG_PGEncodingXml := "UTF-8"
 
@@ -478,7 +478,7 @@ _HMG_PGLangError  := { "Property Item type: "                     ,;
                        "Invalid Entry"                            }
 
 
-_HMG_PGLangMessage := { 'Are you sure ?' , "No File to save", "Error", "Warning" }
+_HMG_PGLangMessage := { "Are you sure ?" , "No File to save", "Error", "Warning" }
 
 _HMG_PGEncodingXml := "UTF-8"
 
@@ -511,7 +511,7 @@ _HMG_PGLangError  := { "Property Item type: "                     ,;
                        "Invalid Entry"                            }
 
 
-_HMG_PGLangMessage := { 'Are you sure ?' , "No File to save", "Error", "Warning" }
+_HMG_PGLangMessage := { "Are you sure ?" , "No File to save", "Error", "Warning" }
 
 _HMG_PGEncodingXml := "UTF-8"
 
@@ -544,7 +544,7 @@ _HMG_PGLangError  := { "Property Item type: "                     ,;
                        "Invalid Entry"                            }
 
 
-_HMG_PGLangMessage := { 'Are you sure ?' , "No File to save", "Error", "Warning" }
+_HMG_PGLangMessage := { "Are you sure ?" , "No File to save", "Error", "Warning" }
 
 _HMG_PGEncodingXml := "UTF-8"
 
@@ -577,7 +577,7 @@ _HMG_PGLangError  := { "Property Item type: "                     ,;
                        "Invalid Entry"                            }
 
 
-_HMG_PGLangMessage := { 'Are you sure ?' , "No File to save", "Error", "Warning" }
+_HMG_PGLangMessage := { "Are you sure ?" , "No File to save", "Error", "Warning" }
 
 _HMG_PGEncodingXml := "UTF-8"
 
@@ -610,7 +610,7 @@ _HMG_PGLangError  := { "Property Item type: "                     ,;
                        "Invalid Entry"                            }
 
 
-_HMG_PGLangMessage := { 'Are you sure ?' , "No File to save", "Error", "Warning" }
+_HMG_PGLangMessage := { "Are you sure ?" , "No File to save", "Error", "Warning" }
 
 _HMG_PGEncodingXml := "UTF-8"
 
@@ -643,7 +643,7 @@ _HMG_PGLangError  := { "Property Item type: "                     ,;
                        "Invalid Entry"                            }
 
 
-_HMG_PGLangMessage := { 'Are you sure ?' , "No File to save", "Error", "Warning" }
+_HMG_PGLangMessage := { "Are you sure ?" , "No File to save", "Error", "Warning" }
 
 _HMG_PGEncodingXml := "UTF-8"
 
@@ -676,7 +676,7 @@ _HMG_PGLangError  := { "Property Item type: "                     ,;
                        "Invalid Entry"                            }
 
 
-_HMG_PGLangMessage := { 'Are you sure ?' , "No File to save", "Error", "Warning" }
+_HMG_PGLangMessage := { "Are you sure ?" , "No File to save", "Error", "Warning" }
 
 _HMG_PGEncodingXml := "UTF-8"
 

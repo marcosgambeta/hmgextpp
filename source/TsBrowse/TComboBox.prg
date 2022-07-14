@@ -95,7 +95,7 @@ METHOD New( nRow, nCol, bSetGet, aGetData, nWidth, nHeight, oWnd, bChanged,;
 
    if ! Empty( ParentHandle )
 
-      ::hWnd := InitComboBox( ParentHandle, 0, nCol, nRow, nWidth , '', 0 , nHeight, invisible, notabstop, sort , displaychange , _HMG_IsXP )
+      ::hWnd := InitComboBox( ParentHandle, 0, nCol, nRow, nWidth , "", 0 , nHeight, invisible, notabstop, sort , displaychange , _HMG_IsXP )
 
       ::AddVars( ::hWnd )
       ::Default()

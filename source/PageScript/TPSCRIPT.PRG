@@ -2340,8 +2340,8 @@ METHOD TPagescript:SignPDF( cFilename, cOutName, cCertFilename, cCertPassword, c
       nTop := iif( nTop == NIL, 0, nTop )
       nBottom := iif( nBottom == NIL, 0, nBottom )
       nRight := iif( nRight == NIL, 0, nRight )
-      cLocation := iif( cLocation == NIL, '', cLocation )
-      cReason := iif( cReason == NIL, '', cReason )
+      cLocation := iif( cLocation == NIL, "", cLocation )
+      cReason := iif( cReason == NIL, "", cReason )
 
       nRet := DllCall( ::hDll, DLL_STDCALL, "PSSignPDF", cFilename, cOutname, cCertFilename, cCertPassword, cLocation, cReason, nPage, PSFtoI( nLeft ), PSFtoI( nTop ), PSFtoI( nRight ), PSFtoI( nBottom ) )
 

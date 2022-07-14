@@ -195,7 +195,7 @@ FUNCTION _BeginPropSheet(  FormName, ParentForm, row, col, width, height, captio
       ENDIF
    ENDIF
 
-   IF ValType( ParentForm ) == 'U'
+   IF ValType( ParentForm ) == "U"
       ParentForm := _HMG_ActiveFormName
    ENDIF
 
@@ -232,15 +232,15 @@ FUNCTION _DefinePropSheet ( FormName, ParentForm,  y, x, w, h,  caption, IdIcon,
    _HMG_ActivePropSheetWizard    := .F.
 
    modeless := ( !modal .AND. !wizard )
-   IF ValType( IdWaterMark ) == 'C'
+   IF ValType( IdWaterMark ) == "C"
       cWaterMark := IdWaterMark
       IdWaterMark := 0
    ENDIF
-   IF ValType( IdHeader ) == 'C'
+   IF ValType( IdHeader ) == "C"
       cHeader := IdHeader
       IdHeader := 0
    ENDIF
-   IF ValType( IdIcon ) == 'C'
+   IF ValType( IdIcon ) == "C"
       cIcon := IdIcon
       IdIcon := 0
       Style += PSP_USEHICON
@@ -256,7 +256,7 @@ FUNCTION _DefinePropSheet ( FormName, ParentForm,  y, x, w, h,  caption, IdIcon,
    _HMG_ActivePropSheetWizard := wizard
    FormName := AllTrim( FormName )
 
-   i := AScan( _HMG_aFormType, 'A' )
+   i := AScan( _HMG_aFormType, "A" )
    IF i <= 0
       MsgMiniGuiError( "Main Window Not Defined." )
    ENDIF
@@ -265,7 +265,7 @@ FUNCTION _DefinePropSheet ( FormName, ParentForm,  y, x, w, h,  caption, IdIcon,
       MsgMiniGuiError( "Property Sheet: " + FormName + " already defined." )
    ENDIF
 
-   mVar := '_' + FormName
+   mVar := "_" + FormName
 
    ParentHandle = GetFormHandle ( ParentForm )
 
@@ -335,7 +335,7 @@ FUNCTION _DefinePropSheet ( FormName, ParentForm,  y, x, w, h,  caption, IdIcon,
       _HMG_aFormNames[ k ]              :=  FormName
       _HMG_aFormHandles[ k ]           :=  FormHandle
       _HMG_aFormActive[ k ]            :=  .T.
-      _HMG_aFormType[ k ]              :=  'S'     // Proposition 'D' Windows type PropSheet
+      _HMG_aFormType[ k ]              :=  "S"     // Proposition "D" Windows type PropSheet
       _HMG_aFormParentHandle[ k ]      :=  ParentHandle
       _HMG_aFormReleaseProcedure[ k ]  :=  ApplyProcedure
       _HMG_aFormInitProcedure[ k ]     :=  InitProcedure
@@ -381,7 +381,7 @@ FUNCTION _DefinePropSheet ( FormName, ParentForm,  y, x, w, h,  caption, IdIcon,
       _HMG_aFormMinMaxInfo[ k ]         := {}
       _HMG_aFormActivateId[ k ]         := 0
       _HMG_aFormMiscData1[ k ]         := {}
-      _HMG_aFormMiscData2[ k ]         := ''
+      _HMG_aFormMiscData2[ k ]         := ""
 
    ELSE
 
@@ -396,7 +396,7 @@ FUNCTION _DefinePropSheet ( FormName, ParentForm,  y, x, w, h,  caption, IdIcon,
       AAdd( _HMG_aFormNames, FormName )
       AAdd( _HMG_aFormHandles, FormHandle )
       AAdd( _HMG_aFormActive, .T. )
-      AAdd( _HMG_aFormType, 'S'  )    // Windows type PropSheet
+      AAdd( _HMG_aFormType, "S"  )    // Windows type PropSheet
       AAdd( _HMG_aFormParentHandle, ParentHandle )
       AAdd( _HMG_aFormReleaseProcedure, ApplyProcedure )
       AAdd( _HMG_aFormInitProcedure, InitProcedure )
@@ -442,7 +442,7 @@ FUNCTION _DefinePropSheet ( FormName, ParentForm,  y, x, w, h,  caption, IdIcon,
       AAdd( _HMG_aFormMinMaxInfo, {} )
       AAdd( _HMG_aFormActivateId, 0 )
       AAdd( _HMG_aFormMiscData1, {} )
-      AAdd( _HMG_aFormMiscData2, '' )
+      AAdd( _HMG_aFormMiscData2, "" )
    ENDIF
 
    IF Len( _HMG_aPropSheetTemplate ) > 0
@@ -566,7 +566,7 @@ FUNCTION _DefineSheetDialog ( FormName, Id_resource, FormHandle, hWndParent  )
 
    HB_SYMBOL_UNUSED( Id_resource )
 
-   mVar := '_' + FormName
+   mVar := "_" + FormName
    IF _HMG_DialogInMemory
       _HMG_aDialogItems := {}
    ENDIF
@@ -584,7 +584,7 @@ FUNCTION _DefineSheetDialog ( FormName, Id_resource, FormHandle, hWndParent  )
       _HMG_aFormNames [k] := FormName
       _HMG_aFormHandles [k] :=  FormHandle
       _HMG_aFormActive [k] :=  .T.
-      _HMG_aFormType [k] :=  'S'     // Proposition 'D' Windows type Dialog
+      _HMG_aFormType [k] :=  "S"     // Proposition "D" Windows type Dialog
       _HMG_aFormParentHandle [k] :=  hWndParent
       _HMG_aFormReleaseProcedure [k] :=  ""
       _HMG_aFormInitProcedure [k] :=  ""
@@ -630,7 +630,7 @@ FUNCTION _DefineSheetDialog ( FormName, Id_resource, FormHandle, hWndParent  )
       _HMG_aFormMinMaxInfo [k] := {}
       _HMG_aFormActivateId [k] := 0
       _HMG_aFormMiscData1 [k] := {}
-      _HMG_aFormMiscData2 [k] := ''
+      _HMG_aFormMiscData2 [k] := ""
 
    ELSE
 
@@ -645,7 +645,7 @@ FUNCTION _DefineSheetDialog ( FormName, Id_resource, FormHandle, hWndParent  )
       AAdd( _HMG_aFormNames, FormName )
       AAdd( _HMG_aFormHandles, FormHandle )
       AAdd( _HMG_aFormActive, .T. )
-      AAdd( _HMG_aFormType, 'S'  )    // Windows type Dialog
+      AAdd( _HMG_aFormType, "S"  )    // Windows type Dialog
       AAdd( _HMG_aFormParentHandle, hWndParent )
       AAdd( _HMG_aFormReleaseProcedure, "" )
       AAdd( _HMG_aFormInitProcedure, "" )
@@ -691,7 +691,7 @@ FUNCTION _DefineSheetDialog ( FormName, Id_resource, FormHandle, hWndParent  )
       AAdd( _HMG_aFormMinMaxInfo, {} )
       AAdd( _HMG_aFormActivateId, 0 )
       AAdd( _HMG_aFormMiscData1, {} )
-      AAdd( _HMG_aFormMiscData2, '' )
+      AAdd( _HMG_aFormMiscData2, "" )
    ENDIF
 
 RETURN NIL
@@ -718,7 +718,7 @@ FUNCTION InitPageDlgProc( hwndDlg, idDlg, hWndParent )
       _HMG_aPropSheetPages[ i, 3 ] :=  hwndDlg
    ENDIF
    _DefineSheetDialog ( _HMG_ActiveDialogName,  IdDlg, hwndDlg, hWndParent  )
-   IF _HMG_DialogInMemory .AND. ValType( aDialogItems ) == 'A'
+   IF _HMG_DialogInMemory .AND. ValType( aDialogItems ) == "A"
       k_old := 0
       FOR n := 1 TO Len( aDialogItems )
          nId     := aDialogItems[ n, 1 ]
@@ -760,7 +760,7 @@ FUNCTION InitPageDlgProc( hwndDlg, idDlg, hWndParent )
       NEXT
    ENDIF
 
-   IF ValType( _HMG_InitPropSheetProcedure ) == 'B'
+   IF ValType( _HMG_InitPropSheetProcedure ) == "B"
       Eval( _HMG_InitPropSheetProcedure,  hwndDlg, idDlg )
    ENDIF
 
@@ -792,14 +792,14 @@ FUNCTION ButtonPageDlgProc( hwndDlg, Msg, IdDlg, nPage )
    DO CASE
    CASE Msg == PSN_APPLY
 
-      IF ValType( _HMG_ApplyPropSheetProcedure ) == 'B' .AND. lChd
+      IF ValType( _HMG_ApplyPropSheetProcedure ) == "B" .AND. lChd
          lRet := RetValue( Eval( _HMG_ApplyPropSheetProcedure, hwndDlg, idDlg, nPage ), lRet )
       ENDIF
 
    CASE Msg == PSN_RESET
 
       IF ! _HMG_ActivePropSheetWizard
-         IF ValType( _HMG_CancelPropSheetProcedure ) == 'B' .AND. lChd
+         IF ValType( _HMG_CancelPropSheetProcedure ) == "B" .AND. lChd
             lRet := RetValue( Eval( _HMG_CancelPropSheetProcedure, hwndDlg, idDlg, nPage ), lRet )
          ELSE
             lRet := .F.
@@ -809,8 +809,8 @@ FUNCTION ButtonPageDlgProc( hwndDlg, Msg, IdDlg, nPage )
    CASE Msg == PSN_QUERYCANCEL
 
       IF _HMG_ActivePropSheetWizard
-         IF ValType( _HMG_CancelPropSheetProcedure ) != 'B'
-            lRet := MsgYesNo ( 'Are you sure you want to Quit?', GetWindowText ( GetActiveWindow() ) )
+         IF ValType( _HMG_CancelPropSheetProcedure ) != "B"
+            lRet := MsgYesNo ( "Are you sure you want to Quit?", GetWindowText ( GetActiveWindow() ) )
          ELSE
             lRet := RetValue( Eval( _HMG_CancelPropSheetProcedure,  hwndDlg, idDlg, nPage ), lRet )
          ENDIF
@@ -818,7 +818,7 @@ FUNCTION ButtonPageDlgProc( hwndDlg, Msg, IdDlg, nPage )
 
    CASE Msg == PSN_KILLACTIVE
 
-      IF ValType( _HMG_ValidPropSheetProcedure ) == 'B'
+      IF ValType( _HMG_ValidPropSheetProcedure ) == "B"
          lRet := RetValue( Eval( _HMG_ValidPropSheetProcedure, hwndDlg, idDlg, nPage ), lRet )
       ENDIF
 
@@ -874,7 +874,7 @@ FUNCTION PageDlgProc( hwndParent, hwndDlg, nMsg, wParam, lParam )
       nPage := PropSheetHwndToIndex( hwndParent, hwndDlg )
       i := AScan( _HMG_aFormhandles, hwndParent )  // find PropSheetProcedure
       IF i > 0
-         IF ValType( _HMG_aFormClickProcedure[ i ] ) == 'B' .AND. _HMG_aFormType[ i ] == 'S'
+         IF ValType( _HMG_aFormClickProcedure[ i ] ) == "B" .AND. _HMG_aFormType[ i ] == "S"
             IF ( lRet := RetValue( Eval( _HMG_aFormClickProcedure[ i ], hwndDlg, nMsg, LOWORD(wParam), HIWORD(wParam) ), lRet ) )
                PropSheet_Changed( hWndParent, hWndDlg )
                IF nPage > -1 .AND. nPage + 1 <= Len( _HMG_aPropSheetPages )
@@ -887,7 +887,7 @@ FUNCTION PageDlgProc( hwndParent, hwndDlg, nMsg, wParam, lParam )
             lRet := .T.
          ENDIF
       ELSE
-         IF ValType( _HMG_PropSheetProcedure ) == 'B'
+         IF ValType( _HMG_PropSheetProcedure ) == "B"
             IF ( lRet := RetValue( Eval(  _HMG_PropSheetProcedure, hwndDlg, nMsg, LOWORD(wParam), HIWORD(wParam) ), lRet ) )
                PropSheet_Changed( hWndParent, hWndDlg )
                IF nPage > -1 .AND. nPage + 1 <= Len( _HMG_aPropSheetPages )
@@ -979,7 +979,7 @@ RETURN NIL
 *------------------------------------------------------------------------------*
 FUNCTION RetValue( lRet, def )
 *------------------------------------------------------------------------------*
-   IF lRet == NIL .OR. ValType( lRet ) != 'L'
+   IF lRet == NIL .OR. ValType( lRet ) != "L"
       IF ValType( lRet ) == "N"
          lRet := iif( lRet == 0, .F., .T. )
       ELSE
@@ -1015,8 +1015,8 @@ STATIC FUNCTION ErasePropSheet( hWnd )
    i := AScan( _HMG_aFormhandles, hWnd )
    IF i > 0
 
-      mVar := '_' + _HMG_aFormNames[ i ]
-      IF Type ( mVar ) != 'U'
+      mVar := "_" + _HMG_aFormNames[ i ]
+      IF Type ( mVar ) != "U"
 #ifdef _ZEROPUBLIC_
          __mvPut ( mVar, 0 )
 #else
@@ -1043,10 +1043,10 @@ STATIC FUNCTION ErasePropSheet( hWnd )
       _HMG_aFormBkColor[ i ]   := Nil
       _HMG_aFormPaintProcedure[ i ]   := ""
       _HMG_aFormNoShow[ i ]   := .F.
-      _HMG_aFormNotifyIconName[ i ]   := ''
-      _HMG_aFormNotifyIconToolTip[ i ]   := ''
-      _HMG_aFormNotifyIconLeftClick[ i ]   := ''
-      _HMG_aFormNotifyIconDblClick[ i ]   := ''
+      _HMG_aFormNotifyIconName[ i ]   := ""
+      _HMG_aFormNotifyIconToolTip[ i ]   := ""
+      _HMG_aFormNotifyIconLeftClick[ i ]   := ""
+      _HMG_aFormNotifyIconDblClick[ i ]   := ""
       _HMG_aFormReBarHandle[ i ]   := 0
       _HMG_aFormNotifyMenuHandle[ i ]   := 0
       _HMG_aFormBrowseList[ i ]   := {}
@@ -1073,7 +1073,7 @@ STATIC FUNCTION ErasePropSheet( hWnd )
       _HMG_aFormMinMaxInfo[ i ]   := {}
       _HMG_aFormActivateId[ i ]   := 0
       _HMG_aFormMiscData1[ i ] := {}
-      _HMG_aFormMiscData2[ i ] := ''
+      _HMG_aFormMiscData2[ i ] := ""
 
       _HMG_InteractiveCloseStarted := .F.
 
