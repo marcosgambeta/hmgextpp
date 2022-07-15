@@ -41,6 +41,10 @@ Siga o blog abaixo para se manter informado:
 
 https://magsoftinfo.com/blog/
 
+### Grupo de usuários no Facebook
+
+https://www.facebook.com/groups/575158780741473
+
 ### Donativos
 
 O desenvolvimento deste projeto é apoiado por donativos. Se desejar contribuir,
