@@ -68,6 +68,7 @@ FUNCTION _DefineWebCam ( ControlName, ParentForm, x, y, w, h, lStart, nRate, TOO
    LOCAL ControlHandle
    LOCAL cParentForm
    LOCAL mVar
+   LOCAL k
 
    hb_default( @w, 320 )
    hb_default( @h, 240 )
@@ -93,10 +94,12 @@ FUNCTION _DefineWebCam ( ControlName, ParentForm, x, y, w, h, lStart, nRate, TOO
 
    mVar := "_" + ParentForm + "_" + ControlName
 
+   k := _GetControlFree()
+
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar, Len( _HMG_aControlNames ) + 1 )
+   _SetNameList( mVar, k )
 #else
-   PUBLIC &mVar. := Len( _HMG_aControlNames ) + 1
+   PUBLIC &mVar. := k
 #endif
 
    cParentForm := ParentForm
@@ -113,46 +116,46 @@ FUNCTION _DefineWebCam ( ControlName, ParentForm, x, y, w, h, lStart, nRate, TOO
       SetToolTip ( ControlHandle, TOOLTIP, GetFormToolTipHandle ( cParentForm ) )
    ENDIF
 
-   AAdd( _HMG_aControlType, CONTROL_TYPE_WEBCAM )
-   AAdd( _HMG_aControlNames, ControlName )
-   AAdd( _HMG_aControlHandles, ControlHandle )
-   AAdd( _HMG_aControlParentHandles, ParentForm )
-   AAdd( _HMG_aControlIds, 0 )
-   AAdd( _HMG_aControlProcedures, "" )
-   AAdd( _HMG_aControlPageMap, {} )
-   AAdd( _HMG_aControlValue, nRate )
-   AAdd( _HMG_aControlInputMask, "" )
-   AAdd( _HMG_aControllostFocusProcedure, "" )
-   AAdd( _HMG_aControlGotFocusProcedure, "" )
-   AAdd( _HMG_aControlChangeProcedure, "" )
-   AAdd( _HMG_aControlDeleted, .F. )
-   AAdd( _HMG_aControlBkColor, {} )
-   AAdd( _HMG_aControlFontColor, {} )
-   AAdd( _HMG_aControlDblClick, "" )
-   AAdd( _HMG_aControlHeadClick, {} )
-   AAdd( _HMG_aControlRow, y )
-   AAdd( _HMG_aControlCol, x )
-   AAdd( _HMG_aControlWidth, w )
-   AAdd( _HMG_aControlHeight, h )
-   AAdd( _HMG_aControlSpacing, 0 )
-   AAdd( _HMG_aControlContainerRow, iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[ _HMG_FrameLevel ], -1 ) )
-   AAdd( _HMG_aControlContainerCol, iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[ _HMG_FrameLevel ], -1 ) )
-   AAdd( _HMG_aControlPicture, "" )
-   AAdd( _HMG_aControlContainerHandle, 0 )
-   AAdd( _HMG_aControlFontName, "" )
-   AAdd( _HMG_aControlFontSize, 0 )
-   AAdd( _HMG_aControlFontAttributes, { .F., .F., .F., .F. } )
-   AAdd( _HMG_aControlToolTip, tooltip )
-   AAdd( _HMG_aControlRangeMin, 0 )
-   AAdd( _HMG_aControlRangeMax, 0 )
-   AAdd( _HMG_aControlCaption, "" )
-   AAdd( _HMG_aControlVisible, .F. )
-   AAdd( _HMG_aControlHelpId, HelpId )
-   AAdd( _HMG_aControlFontHandle, 0 )
-   AAdd( _HMG_aControlBrushHandle, 0 )
-   AAdd( _HMG_aControlEnabled, .T. )
-   AAdd( _HMG_aControlMiscData1, 0 )
-   AAdd( _HMG_aControlMiscData2, "" )
+   _HMG_aControlType               [k] := CONTROL_TYPE_WEBCAM
+   _HMG_aControlNames              [k] := ControlName
+   _HMG_aControlHandles            [k] := ControlHandle
+   _HMG_aControlParentHandles      [k] := ParentForm
+   _HMG_aControlIds                [k] := 0
+   _HMG_aControlProcedures         [k] := ""
+   _HMG_aControlPageMap            [k] := {}
+   _HMG_aControlValue              [k] := nRate
+   _HMG_aControlInputMask          [k] := ""
+   _HMG_aControllostFocusProcedure [k] := ""
+   _HMG_aControlGotFocusProcedure  [k] := ""
+   _HMG_aControlChangeProcedure    [k] := ""
+   _HMG_aControlDeleted            [k] := .F.
+   _HMG_aControlBkColor            [k] := {}
+   _HMG_aControlFontColor          [k] := {}
+   _HMG_aControlDblClick           [k] := ""
+   _HMG_aControlHeadClick          [k] := {}
+   _HMG_aControlRow                [k] := y
+   _HMG_aControlCol                [k] := x
+   _HMG_aControlWidth              [k] := w
+   _HMG_aControlHeight             [k] := h
+   _HMG_aControlSpacing            [k] := 0
+   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[ _HMG_FrameLevel ], -1 )
+   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[ _HMG_FrameLevel ], -1 )
+   _HMG_aControlPicture            [k] := ""
+   _HMG_aControlContainerHandle    [k] := 0
+   _HMG_aControlFontName           [k] := ""
+   _HMG_aControlFontSize           [k] := 0
+   _HMG_aControlFontAttributes     [k] := { .F., .F., .F., .F. }
+   _HMG_aControlToolTip            [k] := tooltip
+   _HMG_aControlRangeMin           [k] := 0
+   _HMG_aControlRangeMax           [k] := 0
+   _HMG_aControlCaption            [k] := ""
+   _HMG_aControlVisible            [k] := .F.
+   _HMG_aControlHelpId             [k] := HelpId
+   _HMG_aControlFontHandle         [k] := 0
+   _HMG_aControlBrushHandle        [k] := 0
+   _HMG_aControlEnabled            [k] := .T.
+   _HMG_aControlMiscData1          [k] := 0
+   _HMG_aControlMiscData2          [k] := ""
 
    IF lStart
       IF ! _StartWebCam ( cParentForm, ControlName )
