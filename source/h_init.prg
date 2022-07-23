@@ -1,49 +1,48 @@
-/*----------------------------------------------------------------------------
- MINIGUI - Harbour Win32 GUI library source code
+/*
+  MINIGUI - Harbour Win32 GUI library source code
 
- Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
- http://harbourminigui.googlepages.com/
+  Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
+  http://harbourminigui.googlepages.com/
 
- This program is free software; you can redistribute it and/or modify it under
- the terms of the GNU General Public License as published by the Free Software
- Foundation; either version 2 of the License, or (at your option) any later
- version.
+  This program is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free Software
+  Foundation; either version 2 of the License, or (at your option) any later
+  version.
 
- This program is distributed in the hope that it will be useful, but WITHOUT
- ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+  This program is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License along with
- this software; see the file COPYING. If not, write to the Free Software
- Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
- visit the web site http://www.gnu.org/).
+  You should have received a copy of the GNU General Public License along with
+  this software; see the file COPYING. If not, write to the Free Software
+  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
+  visit the web site http://www.gnu.org/).
 
- As a special exception, you have permission for additional uses of the text
- contained in this release of Harbour Minigui.
+  As a special exception, you have permission for additional uses of the text
+  contained in this release of Harbour Minigui.
 
- The exception is that, if you link the Harbour Minigui library with other
- files to produce an executable, this does not by itself cause the resulting
- executable to be covered by the GNU General Public License.
- Your use of that executable is in no way restricted on account of linking the
- Harbour-Minigui library code into it.
+  The exception is that, if you link the Harbour Minigui library with other
+  files to produce an executable, this does not by itself cause the resulting
+  executable to be covered by the GNU General Public License.
+  Your use of that executable is in no way restricted on account of linking the
+  Harbour-Minigui library code into it.
 
- Parts of this project are based upon:
+  Parts of this project are based upon:
 
- "Harbour GUI framework for Win32"
+  "Harbour GUI framework for Win32"
   Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
   Copyright 2001 Antonio Linares <alinares@fivetech.com>
- www - https://harbour.github.io/
+  www - https://harbour.github.io/
 
- "Harbour Project"
- Copyright 1999-2022, https://harbour.github.io/
+  "Harbour Project"
+  Copyright 1999-2022, https://harbour.github.io/
 
- "WHAT32"
- Copyright 2002 AJ Wos <andrwos@aust1.net>
+  "WHAT32"
+  Copyright 2002 AJ Wos <andrwos@aust1.net>
 
- "HWGUI"
-   Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
-
----------------------------------------------------------------------------*/
+  "HWGUI"
+  Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
+*/
 
 // Initialize g_hInstance on C-level
 REQUEST GETINSTANCE
@@ -53,31 +52,33 @@ REQUEST GETINSTANCE
 #include "minigui.ch"
 #include "i_winuser.ch"
 
-*------------------------------------------------------------------------------*
-PROCEDURE Init
-*------------------------------------------------------------------------------*
-   LOCAL nCellForeColor := GetSysColor ( COLOR_HIGHLIGHTTEXT )
-   LOCAL nCellBackColor := GetSysColor ( COLOR_HIGHLIGHT )
+/*
+Init()
+*/
+PROCEDURE Init()
 
-   STATIC _HMG_SysInit AS GLOBAL VALUE { Date(), Time() }
+   LOCAL nCellForeColor := GetSysColor(COLOR_HIGHLIGHTTEXT)
+   LOCAL nCellBackColor := GetSysColor(COLOR_HIGHLIGHT)
 
-   PUBLIC _HMG_SYSDATA [ _HMG_SYSDATA_SIZE ]
+   STATIC _HMG_SysInit AS GLOBAL VALUE {Date(), Time()}
+
+   PUBLIC _HMG_SYSDATA[_HMG_SYSDATA_SIZE]
 
 // JP Drag Image
    _HMG_ActiveDragImageHandle := 0
 // JP MDI
    _HMG_MainClientMDIHandle := 0
-   _HMG_MainClientMDIName  := ""
+   _HMG_MainClientMDIName := ""
    _HMG_ActiveMDIChildIndex := 0
    _HMG_BeginWindowMDIActive := .F.
-   _HMG_MdiChildActive  := .F.
-   _HMG_ActiveStatusHandle  := 0
+   _HMG_MdiChildActive := .F.
+   _HMG_ActiveStatusHandle := 0
 // (JK) HMG 1.0 Experimental Build 6
    _HMG_ErrorLogFile := ""
    _HMG_CreateErrorlog := .T.
 
-   _HMG_AutoScroll  := .T.
-   _HMG_AutoAdjust  := .F.
+   _HMG_AutoScroll := .T.
+   _HMG_AutoAdjust := .F.
    _HMG_AutoZooming := .F.
 
    _HMG_GlobalHotkeys := .F.
@@ -92,8 +93,8 @@ PROCEDURE Init
    _HMG_ActiveToolBarFormName := ""
 
    _HMG_IsXP := os_isWinXP()
-   _HMG_IsXPorLater := IsWinXPorLater ()
-   _HMG_IsThemed := IsThemed ()
+   _HMG_IsXPorLater := IsWinXPorLater()
+   _HMG_IsThemed := IsThemed()
 
    _HMG_LANG_ID := ""
 
@@ -106,31 +107,31 @@ PROCEDURE Init
    _HMG_aABMLangButton := {}
    _HMG_aABMLangError  := {}
 
-   _HMG_MESSAGE := Array( 12 )
-   _HMG_RPTDATA := Array( 165 )
+   _HMG_MESSAGE := Array(12)
+   _HMG_RPTDATA := Array(165)
 
    _HMG_SetFocusExecuted := .F.
 
    _HMG_InteractiveCloseStarted := .F.
    _HMG_aEventInfo := {}
 
-   _HMG_aUserBlocks := Array( 7 )
+   _HMG_aUserBlocks := Array(7)
    _HMG_lOOPEnabled := .F.
 
 #ifdef _OBJECT_
-   _HMG_bOnFormInit       := {|nIndex, cVar  | Do_OnWndInit   ( nIndex, cVar ) }
-   _HMG_bOnFormDestroy    := {|nIndex        | Do_OnWndRelease( nIndex ) }
-   _HMG_bOnControlInit    := {|nIndex, cVar  | Do_OnCtlInit   ( nIndex, cVar ) }
-   _HMG_bOnControlDestroy := {|nIndex        | Do_OnCtlRelease( nIndex ) }
-   _HMG_bOnWndLaunch      := {|hWnd, nMsg, wParam, lParam| Do_OnWndLaunch( hWnd, nMsg, wParam, lParam ) }
-   _HMG_bOnCtlLaunch      := {|hWnd, nMsg, wParam, lParam| Do_OnCtlLaunch( hWnd, nMsg, wParam, lParam ) }
+   _HMG_bOnFormInit       := {|nIndex, cVar  | Do_OnWndInit(nIndex, cVar) }
+   _HMG_bOnFormDestroy    := {|nIndex        | Do_OnWndRelease(nIndex) }
+   _HMG_bOnControlInit    := {|nIndex, cVar  | Do_OnCtlInit(nIndex, cVar) }
+   _HMG_bOnControlDestroy := {|nIndex        | Do_OnCtlRelease(nIndex) }
+   _HMG_bOnWndLaunch      := {|hWnd, nMsg, wParam, lParam| Do_OnWndLaunch(hWnd, nMsg, wParam, lParam) }
+   _HMG_bOnCtlLaunch      := {|hWnd, nMsg, wParam, lParam| Do_OnCtlLaunch(hWnd, nMsg, wParam, lParam) }
 #endif
    _HMG_DateTextBoxActive := .F.
 
    _HMG_ThisFormName := Nil
    _HMG_ThisControlName := Nil
 
-   _HMG_aBrowseSyncStatus := Array( 2 )
+   _HMG_aBrowseSyncStatus := Array(2)
    _HMG_BrowseSyncStatus := .F.
    _HMG_BrowseUpdateStatus := .F.
 
@@ -150,7 +151,7 @@ PROCEDURE Init
 
    _HMG_xContextMenuButtonIndex := 0
 
-   _HMG_GridInplaceEdit := Array( 3 )
+   _HMG_GridInplaceEdit := Array(3)
    _HMG_GridInplaceEdit_StageEvent    := 0
    _HMG_GridInplaceEdit_ControlHandle := 0
    _HMG_GridInplaceEdit_GridIndex     := 0
@@ -160,17 +161,17 @@ PROCEDURE Init
    _HMG_IPE_CANCELLED := .F.
    _HMG_GridNavigationMode := .F.
 
-   _HMG_GridSelectedRowForeColor := { 0 , 0 , 0 }
-   _HMG_GridSelectedRowBackColor := { 220 , 220 , 220 }
-   _HMG_GridSelectedCellForeColor := nRGB2Arr ( nCellForeColor )
-   _HMG_GridSelectedCellBackColor := nRGB2Arr ( nCellBackColor )
+   _HMG_GridSelectedRowForeColor := {0, 0, 0}
+   _HMG_GridSelectedRowBackColor := {220, 220, 220}
+   _HMG_GridSelectedCellForeColor := nRGB2Arr(nCellForeColor)
+   _HMG_GridSelectedCellBackColor := nRGB2Arr(nCellBackColor)
 
    _HMG_DialogCancelled := .F.
    _HMG_ActiveSplitBoxInverted := .F.
 
-   _HMG_BRWLangButton	:= {}
-   _HMG_BRWLangError	:= {}
-   _HMG_BRWLangMessage	:= {}
+   _HMG_BRWLangButton   := {}
+   _HMG_BRWLangError   := {}
+   _HMG_BRWLangMessage   := {}
 
    _HMG_ThisItemRowIndex := 0
    _HMG_ThisItemColIndex := 0
@@ -191,8 +192,8 @@ PROCEDURE Init
    _HMG_IsMultiple   := Nil
 
    _HMG_DefaultIconName  := Nil
-   _HMG_DefaultFontName  := _GetSysFont ()
-   _HMG_DefaultFontSize  := Max( 9, GetDefaultFontSize () )
+   _HMG_DefaultFontName  := _GetSysFont()
+   _HMG_DefaultFontSize  := Max(9, GetDefaultFontSize())
 
    _HMG_TempWindowName := ""
 
@@ -212,15 +213,15 @@ PROCEDURE Init
    _HMG_xMainMenuHandle := 0
    _HMG_xMainMenuParentHandle := 0
    _HMG_xMenuPopupLevel := 0
-   _HMG_xMenuPopuphandle := Array( 255 )
-   _HMG_xMenuPopupCaption := Array( 255 )
+   _HMG_xMenuPopuphandle := Array(255)
+   _HMG_xMenuPopupCaption := Array(255)
    _HMG_xMainMenuParentName := ""
 
    _HMG_xContextMenuHandle := 0
    _HMG_xContextMenuParentHandle := 0
    _HMG_xContextPopupLevel := 0
-   _HMG_xContextPopuphandle := Array( 255 )
-   _HMG_xContextPopupCaption := Array( 255 )
+   _HMG_xContextPopuphandle := Array(255)
+   _HMG_xContextPopupCaption := Array(255)
    _HMG_xContextMenuParentName := ""
 
    _HMG_aControlsContextMenu := {}
@@ -232,7 +233,7 @@ PROCEDURE Init
    _HMG_ActiveTreeIndex := 0
 
    _HMG_ActiveTreeHandle := 0
-   _HMG_NodeHandle := Array( 255 )
+   _HMG_NodeHandle := Array(255)
    _HMG_NodeIndex := Nil
    _HMG_aTreeMap := {}
    _HMG_aTreeIdMap := {}
@@ -260,7 +261,7 @@ PROCEDURE Init
 
    _HMG_MainWindowFirst := .T.
    _HMG_MainActive      := .F.
-   _HMG_MainCargo	:= hmg_Version()
+   _HMG_MainCargo   := hmg_Version()
    _HMG_MainHandle      := 0
 
    _HMG_MouseRow        := 0
@@ -274,9 +275,9 @@ PROCEDURE Init
    _HMG_ActiveFontSize  := 0
 
    _HMG_FrameLevel      := 0
-   _HMG_ActiveFrameParentFormName := Array( 128 )
-   _HMG_ActiveFrameRow  := Array( 128 )
-   _HMG_ActiveFrameCol  := Array( 128 )
+   _HMG_ActiveFrameParentFormName := Array(128)
+   _HMG_ActiveFrameRow  := Array(128)
+   _HMG_ActiveFrameCol  := Array(128)
 
    _HMG_ActiveDialogName   := ""
    _HMG_ActiveDialogHandle := 0
@@ -343,101 +344,101 @@ PROCEDURE Init
 
    _HMG_IsModalActive := .F.
 
-   _HMG_aScrollStep := { 0, 20 }
-   _HMG_aFormDeleted  := {}
-   _HMG_aFormNames    := {}
-   _HMG_aFormHandles  := {}
-   _HMG_aFormActive   := {}
-   _HMG_aFormType     := {}
-   _HMG_aFormParentHandle   := {}
-   _HMG_aFormReleaseProcedure := {}
-   _HMG_aFormInitProcedure  := {}
-   _HMG_aFormToolTipHandle  := {}
-   _HMG_aFormContextMenuHandle := {}
-   _HMG_aFormMouseDragProcedure := {}
-   _HMG_aFormSizeProcedure  := {}
-   _HMG_aFormClickProcedure := {}
-   _HMG_aFormMouseMoveProcedure := {}
-   _HMG_aFormMoveProcedure  := {}
-   _HMG_aFormDropProcedure  := {}
-   _HMG_aFormBkColor  := {}
-   _HMG_aFormPaintProcedure := {}
-   _HMG_aFormNoShow  := {}
-   _HMG_aFormNotifyIconName := {}
-   _HMG_aFormNotifyIconToolTip := {}
-   _HMG_aFormNotifyIconLeftClick := {}
-   _HMG_aFormNotifyIconDblClick := {}
-   _HMG_aFormGotFocusProcedure := {}
-   _HMG_aFormLostFocusProcedure := {}
-   _HMG_aFormReBarHandle  := {}
-   _HMG_aFormNotifyMenuHandle := {}
-   _HMG_aFormBrowseList  := {}
-   _HMG_aFormSplitChildList := {}
-   _HMG_aFormVirtualHeight  := {}
-   _HMG_aFormVirtualWidth  := {}
-   _HMG_aFormFocused  := {}
-   _HMG_aFormScrollUp  := {}
-   _HMG_aFormScrollDown  := {}
-   _HMG_aFormScrollLeft  := {}
-   _HMG_aFormScrollRight  := {}
-   _HMG_aFormHScrollBox  := {}
-   _HMG_aFormVScrollBox  := {}
-   _HMG_aFormBrushHandle  := {}
-   _HMG_aFormFocusedControl := {}
-   _HMG_aFormGraphTasks  := {}
-   _HMG_aFormMaximizeProcedure := {}
-   _HMG_aFormMinimizeProcedure := {}
-   _HMG_aFormRestoreProcedure := {}
-   _HMG_aFormAutoRelease  := {}
+   _HMG_aScrollStep                    := {0, 20}
+   _HMG_aFormDeleted                   := {}
+   _HMG_aFormNames                     := {}
+   _HMG_aFormHandles                   := {}
+   _HMG_aFormActive                    := {}
+   _HMG_aFormType                      := {}
+   _HMG_aFormParentHandle              := {}
+   _HMG_aFormReleaseProcedure          := {}
+   _HMG_aFormInitProcedure             := {}
+   _HMG_aFormToolTipHandle             := {}
+   _HMG_aFormContextMenuHandle         := {}
+   _HMG_aFormMouseDragProcedure        := {}
+   _HMG_aFormSizeProcedure             := {}
+   _HMG_aFormClickProcedure            := {}
+   _HMG_aFormMouseMoveProcedure        := {}
+   _HMG_aFormMoveProcedure             := {}
+   _HMG_aFormDropProcedure             := {}
+   _HMG_aFormBkColor                   := {}
+   _HMG_aFormPaintProcedure            := {}
+   _HMG_aFormNoShow                    := {}
+   _HMG_aFormNotifyIconName            := {}
+   _HMG_aFormNotifyIconToolTip         := {}
+   _HMG_aFormNotifyIconLeftClick       := {}
+   _HMG_aFormNotifyIconDblClick        := {}
+   _HMG_aFormGotFocusProcedure         := {}
+   _HMG_aFormLostFocusProcedure        := {}
+   _HMG_aFormReBarHandle               := {}
+   _HMG_aFormNotifyMenuHandle          := {}
+   _HMG_aFormBrowseList                := {}
+   _HMG_aFormSplitChildList            := {}
+   _HMG_aFormVirtualHeight             := {}
+   _HMG_aFormVirtualWidth              := {}
+   _HMG_aFormFocused                   := {}
+   _HMG_aFormScrollUp                  := {}
+   _HMG_aFormScrollDown                := {}
+   _HMG_aFormScrollLeft                := {}
+   _HMG_aFormScrollRight               := {}
+   _HMG_aFormHScrollBox                := {}
+   _HMG_aFormVScrollBox                := {}
+   _HMG_aFormBrushHandle               := {}
+   _HMG_aFormFocusedControl            := {}
+   _HMG_aFormGraphTasks                := {}
+   _HMG_aFormMaximizeProcedure         := {}
+   _HMG_aFormMinimizeProcedure         := {}
+   _HMG_aFormRestoreProcedure          := {}
+   _HMG_aFormAutoRelease               := {}
    _HMG_aFormInteractiveCloseProcedure := {}
-   _HMG_aFormMinMaxInfo  := {}
-   _HMG_aFormActivateId  := {}
-   _HMG_aFormMiscData1   := {}
-   _HMG_aFormMiscData2   := {}
+   _HMG_aFormMinMaxInfo                := {}
+   _HMG_aFormActivateId                := {}
+   _HMG_aFormMiscData1                 := {}
+   _HMG_aFormMiscData2                 := {}
 
-   _HMG_aControlDeleted  := {}
-   _HMG_aControlType  := {}
-   _HMG_aControlNames  := {}
-   _HMG_aControlHandles  := {}
-   _HMG_aControlParenthandles := {}
-   _HMG_aControlIds  := {}
-   _HMG_aControlProcedures  := {}
-   _HMG_aControlPageMap  := {}
-   _HMG_aControlValue  := {}
-   _HMG_aControlInputMask  := {}
+   _HMG_aControlDeleted            := {}
+   _HMG_aControlType               := {}
+   _HMG_aControlNames              := {}
+   _HMG_aControlHandles            := {}
+   _HMG_aControlParenthandles      := {}
+   _HMG_aControlIds                := {}
+   _HMG_aControlProcedures         := {}
+   _HMG_aControlPageMap            := {}
+   _HMG_aControlValue              := {}
+   _HMG_aControlInputMask          := {}
    _HMG_aControllostFocusProcedure := {}
-   _HMG_aControlGotFocusProcedure := {}
-   _HMG_aControlChangeProcedure := {}
-   _HMG_aControlBkColor  := {}
-   _HMG_aControlFontColor  := {}
-   _HMG_aControlDblClick  := {}
-   _HMG_aControlHeadClick  := {}
-   _HMG_aControlRow  := {}
-   _HMG_aControlCol  := {}
-   _HMG_aControlWidth  := {}
-   _HMG_aControlHeight  := {}
-   _HMG_aControlSpacing  := {}
-   _HMG_aControlContainerRow := {}
-   _HMG_aControlContainerCol := {}
-   _HMG_aControlPicture  := {}
-   _HMG_aControlContainerHandle := {}
-   _HMG_aControlFontName  := {}
-   _HMG_aControlFontSize  := {}
-   _HMG_aControlToolTip  := {}
-   _HMG_aControlRangeMin  := {}
-   _HMG_aControlRangeMax  := {}
-   _HMG_aControlCaption  := {}
-   _HMG_aControlVisible  := {}
-   _HMG_aControlHelpId  := {}
-   _HMG_aControlFontHandle  := {}
-   _HMG_aControlFontAttributes := {}
-   _HMG_aControlBrushHandle := {}
-   _HMG_aControlEnabled  := {}
-   _HMG_aControlMiscData1 := {}
-   _HMG_aControlMiscData2 := {}
+   _HMG_aControlGotFocusProcedure  := {}
+   _HMG_aControlChangeProcedure    := {}
+   _HMG_aControlBkColor            := {}
+   _HMG_aControlFontColor          := {}
+   _HMG_aControlDblClick           := {}
+   _HMG_aControlHeadClick          := {}
+   _HMG_aControlRow                := {}
+   _HMG_aControlCol                := {}
+   _HMG_aControlWidth              := {}
+   _HMG_aControlHeight             := {}
+   _HMG_aControlSpacing            := {}
+   _HMG_aControlContainerRow       := {}
+   _HMG_aControlContainerCol       := {}
+   _HMG_aControlPicture            := {}
+   _HMG_aControlContainerHandle    := {}
+   _HMG_aControlFontName           := {}
+   _HMG_aControlFontSize           := {}
+   _HMG_aControlToolTip            := {}
+   _HMG_aControlRangeMin           := {}
+   _HMG_aControlRangeMax           := {}
+   _HMG_aControlCaption            := {}
+   _HMG_aControlVisible            := {}
+   _HMG_aControlHelpId             := {}
+   _HMG_aControlFontHandle         := {}
+   _HMG_aControlFontAttributes     := {}
+   _HMG_aControlBrushHandle        := {}
+   _HMG_aControlEnabled            := {}
+   _HMG_aControlMiscData1          := {}
+   _HMG_aControlMiscData2          := {}
 
    _HMG_ListBoxDragNotification := _GetDDLMessage()
-   _HMG_FindReplaceOptions := Array( 6 )
+   _HMG_FindReplaceOptions := Array(6)
    _HMG_CharRange_Min := 0
    _HMG_CharRange_Max := 0
    _HMG_MsgIDFindDlg := RegisterFindMsgString()
@@ -450,7 +451,7 @@ PROCEDURE Init
 #endif
 
    _HMG_ParentWindowActive  := .F.
-   _HMG_aErrorBlocks := Array( 3 )
+   _HMG_aErrorBlocks := Array(3)
    _HMG_lOnErrorStop := .F.
    _HMG_ProceedEachRadioButtonEvent := .T.
 
@@ -467,10 +468,10 @@ PROCEDURE Init
    _HMG_LastActiveControlIndex := 0
 #endif
 
-#if ( ( __HARBOUR__ - 0 ) > 0x030100 )
+#if ((__HARBOUR__ - 0) > 0x030100)
 
 #ifdef UNICODE
-   Set ( _SET_CODEPAGE, "UTF8" )
+   Set(_SET_CODEPAGE, "UTF8")
 #else
    InitCodePage()
 #endif
@@ -481,71 +482,78 @@ PROCEDURE Init
 
    ResetGlobalListener() // set default Events function
 
-   _HMG_IsMultiple := IsExeRunning ( StrTran( GetExeFileName (), "\", "_" ) )
+   _HMG_IsMultiple := IsExeRunning(StrTran(GetExeFileName(), "\", "_"))
 
-   _SetErrorLogFile( _GetErrorLogFile() ) // set default ErrorLog file
+   _SetErrorLogFile(_GetErrorLogFile()) // set default ErrorLog file
 
-   Set( _SET_DELIMITERS, .T. ) // set standard delimiters
+   Set(_SET_DELIMITERS, .T.) // set standard delimiters
 
 RETURN
 
-*------------------------------------------------------------------------------*
-FUNCTION TimeFromStart
-*------------------------------------------------------------------------------*
+/*
+TimeFromStart() --> cText
+*/
+FUNCTION TimeFromStart()
+
    LOCAL aData
-   LOCAL aStart := _SetGetGlobal( "_HMG_SysInit" )
+   LOCAL aStart := _SetGetGlobal("_HMG_SysInit")
    LOCAL cText := ""
    LOCAL n
 
-   aData := _hmg_Elapsed( aStart [1], Date(), aStart [2], Time() )
+   aData := _hmg_Elapsed(aStart[1], Date(), aStart[2], Time())
    FOR n := 1 TO 4
-      cText += hb_ntos( aData[ n ] ) + " "
-      cText += iif( n == 1, "days ", iif( n == 2, "hours ", iif( n == 3, "mins ", "secs" ) ) )
+      cText += hb_ntos(aData[n]) + " "
+      cText += iif(n == 1, "days ", iif(n == 2, "hours ", iif(n == 3, "mins ", "secs")))
    NEXT
 
 RETURN cText
 
-*------------------------------------------------------------------------------*
-STATIC FUNCTION _hmg_Elapsed( dStart, dEnd, cTimeStart, cTimeEnd )
-*------------------------------------------------------------------------------*
-   LOCAL aRetVal [4]
-   LOCAL nTotalSec, nCtr, nConstant
+/*
+_hmg_Elapsed(dStart, dEnd, cTimeStart, cTimeEnd) --> array
+*/
+STATIC FUNCTION _hmg_Elapsed(dStart, dEnd, cTimeStart, cTimeEnd)
+
+   LOCAL aRetVal[4]
+   LOCAL nTotalSec
+   LOCAL nCtr
+   LOCAL nConstant
    LOCAL nTemp
 
-   nTotalSec := ( dEnd - dStart ) * 86400 + ;
-      Val( cTimeEnd ) *  3600 + ;
-      Val( SubStr( cTimeEnd, At( ":", cTimeEnd ) + 1, 2 ) ) * 60 + ;
-      iif( RAt( ":", cTimeEnd ) == At( ":", cTimeEnd ), 0, ;
-      Val( SubStr( cTimeEnd, RAt( ":", cTimeEnd ) + 1 ) ) ) - ;
-      Val( cTimeStart ) * 3600 - ;
-      Val( SubStr( cTimeStart, At( ":", cTimeStart ) + 1, 2 ) ) * 60 - ;
-      iif( RAt( ":", cTimeStart ) == At( ":", cTimeStart ), 0, ;
-      Val( SubStr( cTimeStart, RAt( ":", cTimeStart ) + 1 ) ) )
+   nTotalSec := (dEnd - dStart) * 86400 + ;
+      Val(cTimeEnd) *  3600 + ;
+      Val(SubStr(cTimeEnd, At(":", cTimeEnd) + 1, 2)) * 60 + ;
+      iif(RAt(":", cTimeEnd) == At(":", cTimeEnd), 0, ;
+      Val(SubStr(cTimeEnd, RAt(":", cTimeEnd) + 1))) - ;
+      Val(cTimeStart) * 3600 - ;
+      Val(SubStr(cTimeStart, At(":", cTimeStart) + 1, 2)) * 60 - ;
+      iif(RAt(":", cTimeStart) == At(":", cTimeStart), 0, ;
+      Val(SubStr(cTimeStart, RAt(":", cTimeStart) + 1)))
 
    nTemp := nTotalSec
 
    FOR nCtr := 1 TO 4
-      nConstant := iif( nCtr == 1, 86400, iif( nCtr == 2, 3600, iif( nCtr == 3, 60, 1 ) ) )
-      aRetVal[ nCtr ] := Int( nTemp / nConstant )
-      nTemp -= aRetVal[ nCtr ] * nConstant
+      nConstant := iif(nCtr == 1, 86400, iif(nCtr == 2, 3600, iif(nCtr == 3, 60, 1)))
+      aRetVal[nCtr] := Int(nTemp / nConstant)
+      nTemp -= aRetVal[nCtr] * nConstant
    NEXT
 
 RETURN aRetVal
 
-
 #ifndef UNICODE
 #include "fileio.ch"
 
-#define _UTF8_BOM       e"\xEF\xBB\xBF"  /* hb_utf8Chr( 0xFEFF ) */
-*------------------------------------------------------------------------------*
-FUNCTION HMG_CreateFile_UTF16LE_BOM( cFile )
-*------------------------------------------------------------------------------*
+#define _UTF8_BOM       e"\xEF\xBB\xBF"  /* hb_utf8Chr(0xFEFF) */
+/*
+HMG_CreateFile_UTF16LE_BOM(cFile) --> hFile
+*/
+FUNCTION HMG_CreateFile_UTF16LE_BOM(cFile)
+
    LOCAL hFile
    LOCAL cPOT := _UTF8_BOM + hb_eol()
 
-   IF ( hFile := FOpen( cFile, FO_CREAT + FO_TRUNC + FO_WRITE + FO_EXCLUSIVE ) ) != NIL
-      IF FWrite( hFile, cPOT ) != hb_BLen( cPOT )
-         FClose( hFile )
+   IF (hFile := FOpen(cFile, FO_CREAT + FO_TRUNC + FO_WRITE + FO_EXCLUSIVE)) != NIL
+      IF FWrite(hFile, cPOT) != hb_BLen(cPOT)
+         FClose(hFile)
          hFile := NIL
       ENDIF
    ENDIF
@@ -558,111 +566,128 @@ RETURN hFile
  * Registry Access Functions
 */
 
-FUNCTION IsRegistryKey( nKey, cRegKey )
+/*
+IsRegistryKey(nKey, cRegKey) -> .T.|.F.
+*/
+FUNCTION IsRegistryKey(nKey, cRegKey)
 
    LOCAL pKeyHandle
    LOCAL lExist
 
-   lExist := win_regOpenKeyEx( nKey, cRegKey, 0, KEY_SET_VALUE, @pKeyHandle )
+   lExist := win_regOpenKeyEx(nKey, cRegKey, 0, KEY_SET_VALUE, @pKeyHandle)
 
-   win_regCloseKey( pKeyHandle )
+   win_regCloseKey(pKeyHandle)
 
 RETURN lExist
 
-
-FUNCTION CreateRegistryKey( nKey, cRegKey )
+/*
+CreateRegistryKey(nKey, cRegKey) --> .T.|.F.
+*/
+FUNCTION CreateRegistryKey(nKey, cRegKey)
 
    LOCAL pKeyHandle
    LOCAL lSuccess
 
-   lSuccess := win_regCreateKeyEx( nKey, cRegKey, 0, 0, 0, KEY_SET_VALUE, 0, @pKeyHandle )
+   lSuccess := win_regCreateKeyEx(nKey, cRegKey, 0, 0, 0, KEY_SET_VALUE, 0, @pKeyHandle)
 
-   win_regCloseKey( pKeyHandle )
+   win_regCloseKey(pKeyHandle)
 
 RETURN lSuccess
 
-
 #define KEY_WOW64_64KEY 0x0100
 
-FUNCTION GetRegistryValue( nKey, cRegKey, cRegVar, cType, nRegSam )
+/*
+GetRegistryValue(nKey, cRegKey, cRegVar, cType, nRegSam) --> xValue
+*/
+FUNCTION GetRegistryValue(nKey, cRegKey, cRegVar, cType, nRegSam)
 
    LOCAL uVal
    LOCAL xKey
 
-   DEFAULT cRegVar TO "", cType TO "C"
+   DEFAULT cRegVar TO ""
+   DEFAULT cType TO "C"
 
-   IF HB_ISNIL( nRegSam ) .AND. IsWin64()
+   IF HB_ISNIL(nRegSam) .AND. IsWin64()
       nRegSam := KEY_WOW64_64KEY
    ENDIF
 
-   xKey := win_regGet( nKey, cRegKey, cRegVar, , nRegSam )
+   xKey := win_regGet(nKey, cRegKey, cRegVar, , nRegSam)
 
    DO CASE
-      CASE cType == "N"
-         uVal := 0
-      CASE cType == "D"
-         uVal := BLANK_DATE
-      CASE cType == "L"
-         uVal := .F.
-      OTHERWISE
-         uVal := ""
+   CASE cType == "N"
+      uVal := 0
+   CASE cType == "D"
+      uVal := BLANK_DATE
+   CASE cType == "L"
+      uVal := .F.
+   OTHERWISE
+      uVal := ""
    ENDCASE
 
-   IF xKey != NIL .AND. cType == ValType( xKey )
+   IF xKey != NIL .AND. cType == ValType(xKey)
 
-      uVal := win_regGet( nKey, cRegKey, cRegVar, uVal, nRegSam )
+      uVal := win_regGet(nKey, cRegKey, cRegVar, uVal, nRegSam)
 
    ENDIF
 
 RETURN uVal
 
-
-FUNCTION SetRegistryValue( nKey, cRegKey, cRegVar, uVal, nRegSam )
+/*
+SetRegistryValue(nKey, cRegKey, cRegVar, uVal, nRegSam) -->
+*/
+FUNCTION SetRegistryValue(nKey, cRegKey, cRegVar, uVal, nRegSam)
 
    DEFAULT cRegVar TO ""
 
-   IF HB_ISNIL( nRegSam ) .AND. IsWin64()
+   IF HB_ISNIL(nRegSam) .AND. IsWin64()
       nRegSam := KEY_WOW64_64KEY
    ENDIF
 
-RETURN( win_regSet( nKey, cRegKey, cRegVar, uVal, , nRegSam ) )
+RETURN (win_regSet(nKey, cRegKey, cRegVar, uVal, , nRegSam))
 
-
-FUNCTION DeleteRegistryVar( nKey, cRegKey, cRegVar, nRegSam )
+/*
+DeleteRegistryVar(nKey, cRegKey, cRegVar, nRegSam) --> .T.|.F.
+*/
+FUNCTION DeleteRegistryVar(nKey, cRegKey, cRegVar, nRegSam)
 
    LOCAL pKeyHandle
    LOCAL lSuccess := .F.
 
    DEFAULT cRegVar TO "", nRegSam TO 0
 
-   IF Empty( nRegSam ) .AND. IsWin64()
+   IF Empty(nRegSam) .AND. IsWin64()
       nRegSam := KEY_WOW64_64KEY
    ENDIF
 
-   nKey := iif( nKey == NIL, HKEY_CURRENT_USER, nKey )
+   nKey := iif(nKey == NIL, HKEY_CURRENT_USER, nKey)
 
-   IF win_regOpenKeyEx( nKey, cRegKey, 0, hb_bitOr( KEY_SET_VALUE, nRegSam ), @pKeyHandle )
-      lSuccess := win_regDeleteValue( pKeyHandle, cRegVar )
-      win_regCloseKey( pKeyHandle )
+   IF win_regOpenKeyEx(nKey, cRegKey, 0, hb_bitOr(KEY_SET_VALUE, nRegSam), @pKeyHandle)
+      lSuccess := win_regDeleteValue(pKeyHandle, cRegVar)
+      win_regCloseKey(pKeyHandle)
    ENDIF
 
 RETURN lSuccess
 
+/*
+DeleteRegistryKey(nKey, cRegKey) -->
+*/
+FUNCTION DeleteRegistryKey(nKey, cRegKey)
 
-FUNCTION DeleteRegistryKey( nKey, cRegKey )
-
-RETURN( win_regDeleteKey( nKey, cRegKey ) )
+RETURN (win_regDeleteKey(nKey, cRegKey))
 
 #endif
 
-#if ( ( __HARBOUR__ - 0 ) > 0x030100 )
+#if ((__HARBOUR__ - 0) > 0x030100)
 #ifndef UNICODE
-*------------------------------------------------------------------------------*
-STATIC PROCEDURE InitCodePage
-*------------------------------------------------------------------------------*
+
+/*
+InitCodePage()
+*/
+STATIC PROCEDURE InitCodePage()
+
    LOCAL cLang
 
-   IF Empty( cLang := hb_UserLang() )
+   IF Empty(cLang := hb_UserLang())
 
       SET CODEPAGE TO ENGLISH
 
@@ -726,9 +751,11 @@ RETURN
 
 #endif
 #endif
-*------------------------------------------------------------------------------*
+
+/*
+_GetSysFont() --> cFont
+*/
 FUNCTION _GetSysFont()
-*------------------------------------------------------------------------------*
 
    IF _HMG_IsXPorLater
       RETURN GetDefaultFontName()
@@ -736,27 +763,29 @@ FUNCTION _GetSysFont()
 
 RETURN "MS Sans Serif"  // Win NT, 9x
 
-*------------------------------------------------------------------------------*
-PROCEDURE InitMessages
-*------------------------------------------------------------------------------*
+/*
+InitMessages()
+*/
+PROCEDURE InitMessages()
+
 #ifdef _MULTILINGUAL_
    LOCAL cLang
 #endif
 
    // MISC MESSAGES (ENGLISH DEFAULT)
 
-   _HMG_MESSAGE [1] := "Are you sure ?"
-   _HMG_MESSAGE [2] := "Close Window"
-   _HMG_MESSAGE [3] := "Close not allowed"
-   _HMG_MESSAGE [4] := "Program Already Running"
-   _HMG_MESSAGE [5] := "Edit"
-   _HMG_MESSAGE [6] := "Ok"
-   _HMG_MESSAGE [7] := "Cancel"
-   _HMG_MESSAGE [8] := "Apply"
-   _HMG_MESSAGE [9] := "Pag."
-   _HMG_MESSAGE [10] := "Attention"
-   _HMG_MESSAGE [11] := "Information"
-   _HMG_MESSAGE [12] := "Stop"
+   _HMG_MESSAGE[ 1] := "Are you sure ?"
+   _HMG_MESSAGE[ 2] := "Close Window"
+   _HMG_MESSAGE[ 3] := "Close not allowed"
+   _HMG_MESSAGE[ 4] := "Program Already Running"
+   _HMG_MESSAGE[ 5] := "Edit"
+   _HMG_MESSAGE[ 6] := "Ok"
+   _HMG_MESSAGE[ 7] := "Cancel"
+   _HMG_MESSAGE[ 8] := "Apply"
+   _HMG_MESSAGE[ 9] := "Pag."
+   _HMG_MESSAGE[10] := "Attention"
+   _HMG_MESSAGE[11] := "Information"
+   _HMG_MESSAGE[12] := "Stop"
 
    // BROWSE MESSAGES (ENGLISH DEFAULT)
 
@@ -782,12 +811,12 @@ PROCEDURE InitMessages
    // EDIT MESSAGES (ENGLISH DEFAULT)
 
    _HMG_aABMLangUser   := { ;
-      Chr( 13 ) + "Delete record" + Chr( 13 ) + "Are you sure ?" + Chr( 13 )            , ;
-      Chr( 13 ) + "Index file missing" + Chr( 13 ) + "Can`t do search" + Chr( 13 )      , ;
-      Chr( 13 ) + "Can`t find index field" + Chr( 13 ) + "Can`t do search" + Chr( 13 )  , ;
-      Chr( 13 ) + "Can't do search by" + Chr( 13 ) + "fields memo or logic" + Chr( 13 ) , ;
-      Chr( 13 ) + "Record not found" + Chr( 13 )                                        , ;
-      Chr( 13 ) + "To many cols" + Chr( 13 ) + "The report can't fit in the sheet" + Chr( 13 ) }
+      Chr(13) + "Delete record" + Chr(13) + "Are you sure ?" + Chr(13)            , ;
+      Chr(13) + "Index file missing" + Chr(13) + "Can`t do search" + Chr(13)      , ;
+      Chr(13) + "Can`t find index field" + Chr(13) + "Can`t do search" + Chr(13)  , ;
+      Chr(13) + "Can't do search by" + Chr(13) + "fields memo or logic" + Chr(13) , ;
+      Chr(13) + "Record not found" + Chr(13)                                        , ;
+      Chr(13) + "To many cols" + Chr(13) + "The report can't fit in the sheet" + Chr(13) }
 
    _HMG_aABMLangLabel := {    ;
       "Record"              , ;
@@ -854,7 +883,7 @@ PROCEDURE InitMessages
       "&Activate Filter",   ; // 10
       "&Deactivate Filter", ; // 11
       "&Restore",           ; // 12
-		"&Retry"            } // 13
+      "&Retry"            } // 13
 
    _HMG_aLangLabel := { ;
       "None",                       ; // 1
@@ -938,7 +967,7 @@ PROCEDURE InitMessages
    IF _HMG_LANG_ID == "FI"  // FINNISH - Language Is Not Supported By hb_langSelect() Function
       cLang := "FI"
    ELSE
-      cLang := Upper( Left( Set ( _SET_LANGUAGE ), 2 ) )
+      cLang := Upper(Left(Set(_SET_LANGUAGE), 2))
    ENDIF
 
    DO CASE
@@ -950,18 +979,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := "Jste si jist(a)?"
-      _HMG_MESSAGE [2] := "Zavшi okno"
-      _HMG_MESSAGE [3] := "Uzavшenн zakбzбno"
-      _HMG_MESSAGE [4] := "Program uћ bмћн"
-      _HMG_MESSAGE [5] := "Ъprava"
-      _HMG_MESSAGE [6] := "Ok"
-      _HMG_MESSAGE [7] := "Storno"
-      _HMG_MESSAGE [8] := "Apply"
-      _HMG_MESSAGE [9] := "Str."
-      _HMG_MESSAGE [10] := "Attention"
-      _HMG_MESSAGE [11] := "Information"
-      _HMG_MESSAGE [12] := "Stop"
+      _HMG_MESSAGE[ 1] := "Jste si jist(a)?"
+      _HMG_MESSAGE[ 2] := "Zavшi okno"
+      _HMG_MESSAGE[ 3] := "Uzavшenн zakбzбno"
+      _HMG_MESSAGE[ 4] := "Program uћ bмћн"
+      _HMG_MESSAGE[ 5] := "Ъprava"
+      _HMG_MESSAGE[ 6] := "Ok"
+      _HMG_MESSAGE[ 7] := "Storno"
+      _HMG_MESSAGE[ 8] := "Apply"
+      _HMG_MESSAGE[ 9] := "Str."
+      _HMG_MESSAGE[10] := "Attention"
+      _HMG_MESSAGE[11] := "Information"
+      _HMG_MESSAGE[12] := "Stop"
 
       // BROWSE MESSAGES
 
@@ -984,12 +1013,12 @@ PROCEDURE InitMessages
 
       // EDIT MESSAGES
 
-      _HMG_aABMLangUser   := { Chr( 13 ) + "Smazat zбznam" + Chr( 13 ) + "Jste si jist(a)?" + Chr( 13 ) , ;
-         Chr( 13 ) + "Chybн indexovэ soubor" + Chr( 13 ) + "Nemohu hledat" + Chr( 13 )            , ;
-         Chr( 13 ) + "Nemohu najнt indexovanй pole" + Chr( 13 ) + "Nemohu hledat" + Chr( 13 )        , ;
-         Chr( 13 ) + "Nemohu hledat podle" + Chr( 13 ) + "pole memo nebo logickй" + Chr( 13 )       , ;
-         Chr( 13 ) + "Zбznam nenalezen" + Chr( 13 )                                        , ;
-         Chr( 13 ) + "Pшнliљ mnoho sloupcщ" + Chr( 13 ) + "Sestava se nevejde na plochu" + Chr( 13 ) }
+      _HMG_aABMLangUser   := { Chr(13) + "Smazat zбznam" + Chr(13) + "Jste si jist(a)?" + Chr(13) , ;
+         Chr(13) + "Chybн indexovэ soubor" + Chr(13) + "Nemohu hledat" + Chr(13)            , ;
+         Chr(13) + "Nemohu najнt indexovanй pole" + Chr(13) + "Nemohu hledat" + Chr(13)        , ;
+         Chr(13) + "Nemohu hledat podle" + Chr(13) + "pole memo nebo logickй" + Chr(13)       , ;
+         Chr(13) + "Zбznam nenalezen" + Chr(13)                                        , ;
+         Chr(13) + "Pшнliљ mnoho sloupcщ" + Chr(13) + "Sestava se nevejde na plochu" + Chr(13) }
 
       _HMG_aABMLangLabel  := { "Zбznam"      , ;
          "Poиet zбznamщ"         , ;
@@ -1053,7 +1082,7 @@ PROCEDURE InitMessages
       "Aktivuj &filtr",    ; // 10
       "&Vypni filtr",      ; // 11
       "&Restore",          ; // 12
-		"Retry"              } // 13
+      "Retry"              } // 13
 
       _HMG_aLangLabel := {            ;
          "Ћбdnэ",                        ; // 1
@@ -1139,18 +1168,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := "Are you sure ?"
-      _HMG_MESSAGE [2] := "Zatvori prozor"
-      _HMG_MESSAGE [3] := "Zatvaranje nije dozvoljeno"
-      _HMG_MESSAGE [4] := "Program je veж pokrenut"
-      _HMG_MESSAGE [5] := "Uredi"
-      _HMG_MESSAGE [6] := "U redu"
-      _HMG_MESSAGE [7] := "Prekid"
-      _HMG_MESSAGE [8] := "Apply"
-      _HMG_MESSAGE [9] := "Pag."
-      _HMG_MESSAGE [10] := "Attention"
-      _HMG_MESSAGE [11] := "Information"
-      _HMG_MESSAGE [12] := "Stop"
+      _HMG_MESSAGE[ 1] := "Are you sure ?"
+      _HMG_MESSAGE[ 2] := "Zatvori prozor"
+      _HMG_MESSAGE[ 3] := "Zatvaranje nije dozvoljeno"
+      _HMG_MESSAGE[ 4] := "Program je veж pokrenut"
+      _HMG_MESSAGE[ 5] := "Uredi"
+      _HMG_MESSAGE[ 6] := "U redu"
+      _HMG_MESSAGE[ 7] := "Prekid"
+      _HMG_MESSAGE[ 8] := "Apply"
+      _HMG_MESSAGE[ 9] := "Pag."
+      _HMG_MESSAGE[10] := "Attention"
+      _HMG_MESSAGE[11] := "Information"
+      _HMG_MESSAGE[12] := "Stop"
 
       // BROWSE MESSAGES
 
@@ -1173,12 +1202,12 @@ PROCEDURE InitMessages
 
       // EDIT MESSAGES
 
-      _HMG_aABMLangUser   := { Chr( 13 ) + "Delete record" + Chr( 13 ) + "Are you sure ?" + Chr( 13 )                  , ;
-         Chr( 13 ) + "Index file missing" + Chr( 13 ) + "Can`t do search" + Chr( 13 )            , ;
-         Chr( 13 ) + "Can`t find index field" + Chr( 13 ) + "Can`t do search" + Chr( 13 )        , ;
-         Chr( 13 ) + "Can't do search by" + Chr( 13 ) + "fields memo or logic" + Chr( 13 )       , ;
-         Chr( 13 ) + "Record not found" + Chr( 13 )                                        , ;
-         Chr( 13 ) + "To many cols" + Chr( 13 ) + "The report can't fit in the sheet" + Chr( 13 ) }
+      _HMG_aABMLangUser   := { Chr(13) + "Delete record" + Chr(13) + "Are you sure ?" + Chr(13)                  , ;
+         Chr(13) + "Index file missing" + Chr(13) + "Can`t do search" + Chr(13)            , ;
+         Chr(13) + "Can`t find index field" + Chr(13) + "Can`t do search" + Chr(13)        , ;
+         Chr(13) + "Can't do search by" + Chr(13) + "fields memo or logic" + Chr(13)       , ;
+         Chr(13) + "Record not found" + Chr(13)                                        , ;
+         Chr(13) + "To many cols" + Chr(13) + "The report can't fit in the sheet" + Chr(13) }
 
       _HMG_aABMLangLabel  := { "Record"              , ;
          "Record count"        , ;
@@ -1242,7 +1271,7 @@ PROCEDURE InitMessages
       "&Activate Filter",   ; // 10
       "&Deactivate Filter", ; // 11
       "&Restore",           ; // 12
-		"Retry"               } // 13
+      "Retry"               } // 13
 
       _HMG_aLangLabel := {            ;
          "None",                         ; // 1
@@ -1328,18 +1357,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := "Are you sure ?"
-      _HMG_MESSAGE [2] := "Close Window"
-      _HMG_MESSAGE [3] := "Close not allowed"
-      _HMG_MESSAGE [4] := "Program Already Running"
-      _HMG_MESSAGE [5] := "Edit"
-      _HMG_MESSAGE [6] := "Ok"
-      _HMG_MESSAGE [7] := "Cancel"
-      _HMG_MESSAGE [8] := "Apply"
-      _HMG_MESSAGE [9] := "Pag."
-      _HMG_MESSAGE [10] := "Attention"
-      _HMG_MESSAGE [11] := "Information"
-      _HMG_MESSAGE [12] := "Stop"
+      _HMG_MESSAGE[ 1] := "Are you sure ?"
+      _HMG_MESSAGE[ 2] := "Close Window"
+      _HMG_MESSAGE[ 3] := "Close not allowed"
+      _HMG_MESSAGE[ 4] := "Program Already Running"
+      _HMG_MESSAGE[ 5] := "Edit"
+      _HMG_MESSAGE[ 6] := "Ok"
+      _HMG_MESSAGE[ 7] := "Cancel"
+      _HMG_MESSAGE[ 8] := "Apply"
+      _HMG_MESSAGE[ 9] := "Pag."
+      _HMG_MESSAGE[10] := "Attention"
+      _HMG_MESSAGE[11] := "Information"
+      _HMG_MESSAGE[12] := "Stop"
 
       // BROWSE MESSAGES
 
@@ -1362,12 +1391,12 @@ PROCEDURE InitMessages
 
       // EDIT MESSAGES
 
-      _HMG_aABMLangUser   := { Chr( 13 ) + "Delete record" + Chr( 13 ) + "Are you sure ?" + Chr( 13 ), ;
-         Chr( 13 ) + "Index file missing" + Chr( 13 ) + "Can`t do search" + Chr( 13 )            , ;
-         Chr( 13 ) + "Can`t find index field" + Chr( 13 ) + "Can`t do search" + Chr( 13 )        , ;
-         Chr( 13 ) + "Can't do search by" + Chr( 13 ) + "fields memo or logic" + Chr( 13 )       , ;
-         Chr( 13 ) + "Record not found" + Chr( 13 )                                        , ;
-         Chr( 13 ) + "To many cols" + Chr( 13 ) + "The report can't fit in the sheet" + Chr( 13 ) }
+      _HMG_aABMLangUser   := { Chr(13) + "Delete record" + Chr(13) + "Are you sure ?" + Chr(13), ;
+         Chr(13) + "Index file missing" + Chr(13) + "Can`t do search" + Chr(13)            , ;
+         Chr(13) + "Can`t find index field" + Chr(13) + "Can`t do search" + Chr(13)        , ;
+         Chr(13) + "Can't do search by" + Chr(13) + "fields memo or logic" + Chr(13)       , ;
+         Chr(13) + "Record not found" + Chr(13)                                        , ;
+         Chr(13) + "To many cols" + Chr(13) + "The report can't fit in the sheet" + Chr(13) }
 
       _HMG_aABMLangLabel  := { "Record"              , ;
          "Record count"        , ;
@@ -1431,7 +1460,7 @@ PROCEDURE InitMessages
          "I&ragazkia Ezarri", ; // 10
          "Ira&gazkia Kendu",  ; // 11
          "&Restore",          ; // 12
-			"Retry"              } // 13
+         "Retry"              } // 13
 
       _HMG_aLangLabel := {                  ;
          "Bat ere ez",                      ; // 1
@@ -1517,18 +1546,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := "Etes-vous sыre ?"
-      _HMG_MESSAGE [2] := "Fermer la fenкtre"
-      _HMG_MESSAGE [3] := "Fermeture interdite"
-      _HMG_MESSAGE [4] := "Programme dйjа activй"
-      _HMG_MESSAGE [5] := "Editer"
-      _HMG_MESSAGE [6] := "Ok"
-      _HMG_MESSAGE [7] := "Abandonner"
-      _HMG_MESSAGE [8] := "Apply"
-      _HMG_MESSAGE [9] := "Pag."
-      _HMG_MESSAGE [10] := "Attention"
-      _HMG_MESSAGE [11] := "Information"
-      _HMG_MESSAGE [12] := "Stop"
+      _HMG_MESSAGE[ 1] := "Etes-vous sыre ?"
+      _HMG_MESSAGE[ 2] := "Fermer la fenкtre"
+      _HMG_MESSAGE[ 3] := "Fermeture interdite"
+      _HMG_MESSAGE[ 4] := "Programme dйjа activй"
+      _HMG_MESSAGE[ 5] := "Editer"
+      _HMG_MESSAGE[ 6] := "Ok"
+      _HMG_MESSAGE[ 7] := "Abandonner"
+      _HMG_MESSAGE[ 8] := "Apply"
+      _HMG_MESSAGE[ 9] := "Pag."
+      _HMG_MESSAGE[10] := "Attention"
+      _HMG_MESSAGE[11] := "Information"
+      _HMG_MESSAGE[12] := "Stop"
 
       // BROWSE
 
@@ -1551,12 +1580,12 @@ PROCEDURE InitMessages
 
       // EDIT
 
-      _HMG_aABMLangUser   := { Chr( 13 ) + "Suppression d'enregistrement" + Chr( 13 ) + "Etes-vous sыre ?" + Chr( 13 )  , ;
-         Chr( 13 ) + "Index manquant" + Chr( 13 ) + "Recherche impossible" + Chr( 13 )            , ;
-         Chr( 13 ) + "Champ Index introuvable" + Chr( 13 ) + "Recherche impossible" + Chr( 13 )   , ;
-         Chr( 13 ) + "Recherche impossible" + Chr( 13 ) + "sur champs memo ou logique" + Chr( 13 ), ;
-         Chr( 13 ) + "Enregistrement non trouvй" + Chr( 13 )                                                     , ;
-         Chr( 13 ) + "Trop de colonnes" + Chr( 13 ) + "L'йtat ne peut кtre imprimй" + Chr( 13 )      }
+      _HMG_aABMLangUser   := { Chr(13) + "Suppression d'enregistrement" + Chr(13) + "Etes-vous sыre ?" + Chr(13)  , ;
+         Chr(13) + "Index manquant" + Chr(13) + "Recherche impossible" + Chr(13)            , ;
+         Chr(13) + "Champ Index introuvable" + Chr(13) + "Recherche impossible" + Chr(13)   , ;
+         Chr(13) + "Recherche impossible" + Chr(13) + "sur champs memo ou logique" + Chr(13), ;
+         Chr(13) + "Enregistrement non trouvй" + Chr(13)                                                     , ;
+         Chr(13) + "Trop de colonnes" + Chr(13) + "L'йtat ne peut кtre imprimй" + Chr(13)      }
       _HMG_aABMLangLabel  := { "Enregistrement"                       , ;
          "Nb. total enr."                       , ;
          "   (Ajouter)"                        , ;
@@ -1618,7 +1647,7 @@ PROCEDURE InitMessages
          "&Activer Filtre",  ; // 10
          "&Dйactiver Filtre",; // 11
          "&Reconstituer",    ; // 12
-			"Retry"             } // 13
+         "Retry"             } // 13
 
       _HMG_aLangLabel := {                       ;
          "Aucun",                                ; // 1
@@ -1704,18 +1733,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := "Sind Sie sicher ?"
-      _HMG_MESSAGE [2] := "Fenster schlieЯen"
-      _HMG_MESSAGE [3] := "SchlieЯen nicht erlaubt"
-      _HMG_MESSAGE [4] := "Programm lдuft bereits"
-      _HMG_MESSAGE [5] := "Bearbeiten"
-      _HMG_MESSAGE [6] := "OK"
-      _HMG_MESSAGE [7] := "Abbruch"
-      _HMG_MESSAGE [8] := "Anwenden"
-      _HMG_MESSAGE [9] := "Seite"
-      _HMG_MESSAGE [10] := "Warnung"
-      _HMG_MESSAGE [11] := "Information"
-      _HMG_MESSAGE [12] := "Stop"
+      _HMG_MESSAGE[ 1] := "Sind Sie sicher ?"
+      _HMG_MESSAGE[ 2] := "Fenster schlieЯen"
+      _HMG_MESSAGE[ 3] := "SchlieЯen nicht erlaubt"
+      _HMG_MESSAGE[ 4] := "Programm lдuft bereits"
+      _HMG_MESSAGE[ 5] := "Bearbeiten"
+      _HMG_MESSAGE[ 6] := "OK"
+      _HMG_MESSAGE[ 7] := "Abbruch"
+      _HMG_MESSAGE[ 8] := "Anwenden"
+      _HMG_MESSAGE[ 9] := "Seite"
+      _HMG_MESSAGE[10] := "Warnung"
+      _HMG_MESSAGE[11] := "Information"
+      _HMG_MESSAGE[12] := "Stop"
 
       // BROWSE
 
@@ -1738,12 +1767,12 @@ PROCEDURE InitMessages
 
       // EDIT
 
-      _HMG_aABMLangUser   := { Chr( 13 ) + "Datensatz lцschen" + Chr( 13 ) + "Sind Sie sicher ?" + Chr( 13 ), ;
-         Chr( 13 ) + "Index Datei fehlt" + Chr( 13 ) + "Suche nicht mцglich" + Chr( 13 ), ;
-         Chr( 13 ) + "Finde Indexdatenfeld nicht" + Chr( 13 ) + "Suche nicht mцglich" + Chr( 13 ), ;
-         Chr( 13 ) + "Suche in Memo oder Logic " + Chr( 13 ) + "Feld nicht mцglich" + Chr( 13 ), ;
-         Chr( 13 ) + "Datensatz nicht gefunden" + Chr( 13 ), ;
-         Chr( 13 ) + "Zu viele Spalten" + Chr( 13 ) + " Report passt nicht auf die Seite" + Chr( 13 ) }
+      _HMG_aABMLangUser   := { Chr(13) + "Datensatz lцschen" + Chr(13) + "Sind Sie sicher ?" + Chr(13), ;
+         Chr(13) + "Index Datei fehlt" + Chr(13) + "Suche nicht mцglich" + Chr(13), ;
+         Chr(13) + "Finde Indexdatenfeld nicht" + Chr(13) + "Suche nicht mцglich" + Chr(13), ;
+         Chr(13) + "Suche in Memo oder Logic " + Chr(13) + "Feld nicht mцglich" + Chr(13), ;
+         Chr(13) + "Datensatz nicht gefunden" + Chr(13), ;
+         Chr(13) + "Zu viele Spalten" + Chr(13) + " Report passt nicht auf die Seite" + Chr(13) }
 
       _HMG_aABMLangLabel  := { "Datensatz"              , ;
          "Datensatz Anzahl"        , ;
@@ -1806,7 +1835,7 @@ PROCEDURE InitMessages
       "&Filter aktivieren",  ; // 10
       "&Filter deaktivieren",; // 11
       "&Wiederherstellen",   ; // 12
-		"Retry"                } // 13
+      "Retry"                } // 13
 
       _HMG_aLangLabel := { ;
       "Keine",                                         ; // 1
@@ -1892,18 +1921,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := "Sei sicuro ?"
-      _HMG_MESSAGE [2] := "Chiudi la finestra"
-      _HMG_MESSAGE [3] := "Chiusura non consentita"
-      _HMG_MESSAGE [4] := "Il programma и giа in esecuzione"
-      _HMG_MESSAGE [5] := "Edita"
-      _HMG_MESSAGE [6] := "Conferma"
-      _HMG_MESSAGE [7] := "Annulla"
-      _HMG_MESSAGE [8] := "Applica"
-      _HMG_MESSAGE [9] := "Pag."
-      _HMG_MESSAGE [10] := "Attention"
-      _HMG_MESSAGE [11] := "Information"
-      _HMG_MESSAGE [12] := "Stop"
+      _HMG_MESSAGE[ 1] := "Sei sicuro ?"
+      _HMG_MESSAGE[ 2] := "Chiudi la finestra"
+      _HMG_MESSAGE[ 3] := "Chiusura non consentita"
+      _HMG_MESSAGE[ 4] := "Il programma и giа in esecuzione"
+      _HMG_MESSAGE[ 5] := "Edita"
+      _HMG_MESSAGE[ 6] := "Conferma"
+      _HMG_MESSAGE[ 7] := "Annulla"
+      _HMG_MESSAGE[ 8] := "Applica"
+      _HMG_MESSAGE[ 9] := "Pag."
+      _HMG_MESSAGE[10] := "Attention"
+      _HMG_MESSAGE[11] := "Information"
+      _HMG_MESSAGE[12] := "Stop"
 
       // BROWSE
 
@@ -1926,12 +1955,12 @@ PROCEDURE InitMessages
 
       // EDIT
 
-      _HMG_aABMLangUser   := { Chr( 13 ) + "Cancellare il record" + Chr( 13 ) + "Sei sicuro ?" + Chr( 13 )      , ;
-         Chr( 13 ) + "File indice mancante" + Chr( 13 ) + "Ricerca impossibile" + Chr( 13 )   , ;
-         Chr( 13 ) + "Campo indice mancante" + Chr( 13 ) + "Ricerca impossibile" + Chr( 13 )  , ;
-         Chr( 13 ) + "Ricerca impossibile per" + Chr( 13 ) + "campi memo o logici" + Chr( 13 ), ;
-         Chr( 13 ) + "Record non trovato" + Chr( 13 )                                   , ;
-         Chr( 13 ) + "Troppe colonne" + Chr( 13 ) + "Il report non puт essere stampato" + Chr( 13 ) }
+      _HMG_aABMLangUser   := { Chr(13) + "Cancellare il record" + Chr(13) + "Sei sicuro ?" + Chr(13)      , ;
+         Chr(13) + "File indice mancante" + Chr(13) + "Ricerca impossibile" + Chr(13)   , ;
+         Chr(13) + "Campo indice mancante" + Chr(13) + "Ricerca impossibile" + Chr(13)  , ;
+         Chr(13) + "Ricerca impossibile per" + Chr(13) + "campi memo o logici" + Chr(13), ;
+         Chr(13) + "Record non trovato" + Chr(13)                                   , ;
+         Chr(13) + "Troppe colonne" + Chr(13) + "Il report non puт essere stampato" + Chr(13) }
       _HMG_aABMLangLabel  := { "Record"              , ;
          "Record totali"       , ;
          "  (Aggiungi)"        , ;
@@ -1993,7 +2022,7 @@ PROCEDURE InitMessages
          "A&ttiva Filtro",   ; // 10
          "&Disattiva Filtro",; // 11
          "&Ripristina",      ; // 12
-			"Retry"             } // 13
+         "Retry"             } // 13
 
       _HMG_aLangLabel := {                ;
          "Nessuno",                       ; // 1
@@ -2079,18 +2108,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := "Czy jesteњ pewny ?"
-      _HMG_MESSAGE [2] := "Zamknij okno"
-      _HMG_MESSAGE [3] := "Zamkniкcie niedozwolone"
-      _HMG_MESSAGE [4] := "Program juї uruchomiony"
-      _HMG_MESSAGE [5] := "Edycja"
-      _HMG_MESSAGE [6] := "Ok"
-      _HMG_MESSAGE [7] := "Porzuж"
-      _HMG_MESSAGE [8] := "Zastosuj"
-      _HMG_MESSAGE [9] := "Str."
-      _HMG_MESSAGE [10] := "Attention"
-      _HMG_MESSAGE [11] := "Information"
-      _HMG_MESSAGE [12] := "Stop"
+      _HMG_MESSAGE[ 1] := "Czy jesteњ pewny ?"
+      _HMG_MESSAGE[ 2] := "Zamknij okno"
+      _HMG_MESSAGE[ 3] := "Zamkniкcie niedozwolone"
+      _HMG_MESSAGE[ 4] := "Program juї uruchomiony"
+      _HMG_MESSAGE[ 5] := "Edycja"
+      _HMG_MESSAGE[ 6] := "Ok"
+      _HMG_MESSAGE[ 7] := "Porzuж"
+      _HMG_MESSAGE[ 8] := "Zastosuj"
+      _HMG_MESSAGE[ 9] := "Str."
+      _HMG_MESSAGE[10] := "Attention"
+      _HMG_MESSAGE[11] := "Information"
+      _HMG_MESSAGE[12] := "Stop"
 
       // BROWSE
 
@@ -2113,12 +2142,12 @@ PROCEDURE InitMessages
 
       // EDIT
 
-      _HMG_aABMLangUser   := { Chr( 13 ) + "Usuniкcie rekordu" + Chr( 13 ) + "Jesteњ pewny ?" + Chr( 13 )                 , ;
-         Chr( 13 ) + "Bікdny zbiуr indeksowy" + Chr( 13 ) + "Nie moїna szukaж" + Chr( 13 )         , ;
-         Chr( 13 ) + "Nie moїna znaleџж pola indeksu" + Chr( 13 ) + "Nie moїna szukaж" + Chr( 13 ) , ;
-         Chr( 13 ) + "Nie moїna szukaж wg" + Chr( 13 ) + "pola memo lub logicznego" + Chr( 13 )         , ;
-         Chr( 13 ) + "Rekordu nie znaleziono" + Chr( 13 )                                                     , ;
-         Chr( 13 ) + "Zbyt wiele kolumn" + Chr( 13 ) + "Raport nie mieњci siк na arkuszu" + Chr( 13 )      }
+      _HMG_aABMLangUser   := { Chr(13) + "Usuniкcie rekordu" + Chr(13) + "Jesteњ pewny ?" + Chr(13)                 , ;
+         Chr(13) + "Bікdny zbiуr indeksowy" + Chr(13) + "Nie moїna szukaж" + Chr(13)         , ;
+         Chr(13) + "Nie moїna znaleџж pola indeksu" + Chr(13) + "Nie moїna szukaж" + Chr(13) , ;
+         Chr(13) + "Nie moїna szukaж wg" + Chr(13) + "pola memo lub logicznego" + Chr(13)         , ;
+         Chr(13) + "Rekordu nie znaleziono" + Chr(13)                                                     , ;
+         Chr(13) + "Zbyt wiele kolumn" + Chr(13) + "Raport nie mieњci siк na arkuszu" + Chr(13)      }
       _HMG_aABMLangLabel  := { "Rekord"              , ;
          "Liczba rekordуw"        , ;
          "      (Nowy)"        , ;
@@ -2180,7 +2209,7 @@ PROCEDURE InitMessages
       "&Aktywuj Filtr",  ; // 10
       "&Deaktywuj Filtr", ; // 11
       "&Przywrуж",        ; // 12
-		"Retry"             } // 13
+      "Retry"             } // 13
 
       _HMG_aLangLabel := {                       ;
          "Brak",                        ; // 1
@@ -2266,18 +2295,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := "Vocк tem Certeza ?"
-      _HMG_MESSAGE [2] := "Fechar Janela"
-      _HMG_MESSAGE [3] := "Fechamento nгo permitido"
-      _HMG_MESSAGE [4] := "Programa jб estб em execuзгo"
-      _HMG_MESSAGE [5] := "Edita"
-      _HMG_MESSAGE [6] := "Ok"
-      _HMG_MESSAGE [7] := "Cancela"
-      _HMG_MESSAGE [8] := "Aplicar"
-      _HMG_MESSAGE [9] := "Pбg."
-      _HMG_MESSAGE [10] := "Atenзгo"
-      _HMG_MESSAGE [11] := "Informaзгo"
-      _HMG_MESSAGE [12] := "Pare"
+      _HMG_MESSAGE[ 1] := "Vocк tem Certeza ?"
+      _HMG_MESSAGE[ 2] := "Fechar Janela"
+      _HMG_MESSAGE[ 3] := "Fechamento nгo permitido"
+      _HMG_MESSAGE[ 4] := "Programa jб estб em execuзгo"
+      _HMG_MESSAGE[ 5] := "Edita"
+      _HMG_MESSAGE[ 6] := "Ok"
+      _HMG_MESSAGE[ 7] := "Cancela"
+      _HMG_MESSAGE[ 8] := "Aplicar"
+      _HMG_MESSAGE[ 9] := "Pбg."
+      _HMG_MESSAGE[10] := "Atenзгo"
+      _HMG_MESSAGE[11] := "Informaзгo"
+      _HMG_MESSAGE[12] := "Pare"
 
       // BROWSE
 
@@ -2300,12 +2329,12 @@ PROCEDURE InitMessages
 
       // EDIT
 
-      _HMG_aABMLangUser   := { Chr( 13 ) + "Serб apagado o registro atual" + Chr( 13 ) + "Tem certeza ?"                          + Chr( 13 ) , ;
-         Chr( 13 ) + "Nгo existe um нndice ativo"    + Chr( 13 ) + "Nгo й possнvel realizar a busca"        + Chr( 13 ) , ;
-         Chr( 13 ) + "Nгo encontrado o campo нndice" + Chr( 13 ) + "Nгo й possнvel realizar a busca"        + Chr( 13 ) , ;
-         Chr( 13 ) + "Nгo й possнvel realizar busca" + Chr( 13 ) + "por campos memo ou lуgicos"             + Chr( 13 ) , ;
-         Chr( 13 ) + "Registro nгo encontrado"       + Chr( 13 )                                                      , ;
-         Chr( 13 ) + "Incluнdas colunas em excesso"  + Chr( 13 ) + "A listagem completa nгo caberб na tela" + Chr( 13 )  }
+      _HMG_aABMLangUser   := { Chr(13) + "Serб apagado o registro atual" + Chr(13) + "Tem certeza ?"                          + Chr(13) , ;
+         Chr(13) + "Nгo existe um нndice ativo"    + Chr(13) + "Nгo й possнvel realizar a busca"        + Chr(13) , ;
+         Chr(13) + "Nгo encontrado o campo нndice" + Chr(13) + "Nгo й possнvel realizar a busca"        + Chr(13) , ;
+         Chr(13) + "Nгo й possнvel realizar busca" + Chr(13) + "por campos memo ou lуgicos"             + Chr(13) , ;
+         Chr(13) + "Registro nгo encontrado"       + Chr(13)                                                      , ;
+         Chr(13) + "Incluнdas colunas em excesso"  + Chr(13) + "A listagem completa nгo caberб na tela" + Chr(13)  }
       _HMG_aABMLangLabel  := { "Registro Atual"                 , ;
          "Total Registros"                , ;
          "(Novo)"                         , ;
@@ -2366,7 +2395,7 @@ PROCEDURE InitMessages
       "&Ativar Filtro",    ; // 10
       "&Desativar Filtro", ; // 11
       "&Restaurar",        ; // 12
-		"Retry"              } // 13
+      "Retry"              } // 13
 
       _HMG_aLangLabel     := { ;
       "Nenhum",                             ; // 1
@@ -2451,15 +2480,15 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := "Вы уверены ?"
-      _HMG_MESSAGE [2] := "Закрыть окно"
-      _HMG_MESSAGE [3] := "Закрытие не допускается"
-      _HMG_MESSAGE [4] := "Программа уже запущена"
-      _HMG_MESSAGE [5] := "Изменить"
-      _HMG_MESSAGE [6] := "Да"
-      _HMG_MESSAGE [7] := "Отмена"
-      _HMG_MESSAGE [8] := "Применить"
-      _HMG_MESSAGE [9] := "Стр."
+      _HMG_MESSAGE[ 1] := "Вы уверены ?"
+      _HMG_MESSAGE[ 2] := "Закрыть окно"
+      _HMG_MESSAGE[ 3] := "Закрытие не допускается"
+      _HMG_MESSAGE[ 4] := "Программа уже запущена"
+      _HMG_MESSAGE[ 5] := "Изменить"
+      _HMG_MESSAGE[ 6] := "Да"
+      _HMG_MESSAGE[ 7] := "Отмена"
+      _HMG_MESSAGE[ 8] := "Применить"
+      _HMG_MESSAGE[ 9] := "Стр."
       _HMG_MESSAGE[10] := "Внимание"
       _HMG_MESSAGE[11] := "Информация"
       _HMG_MESSAGE[12] := "Стоп"
@@ -2488,12 +2517,12 @@ PROCEDURE InitMessages
       // EDIT
 
       _HMG_aABMLangUser := { ;
-         Chr( 13 ) + "Удаление записи." + Chr( 13 ) + "Вы уверены ?" + Chr( 13 )                       , ;
-         Chr( 13 ) + "Отсутствует индексный файл" + Chr( 13 ) + "Поиск невозможен" + Chr( 13 )         , ;
-         Chr( 13 ) + "Отсутствует индексное поле" + Chr( 13 ) + "Поиск невозможен" + Chr( 13 )         , ;
-         Chr( 13 ) + "Поиск невозможен в" + Chr( 13 ) + "примечаниях или логических полях" + Chr( 13 ) , ;
-         Chr( 13 ) + "Запись не найдена" + Chr( 13 )                                                   , ;
-         Chr( 13 ) + "Слишком много колонок" + Chr( 13 ) + "Отчет не поместится на листе" + Chr( 13 ) }
+         Chr(13) + "Удаление записи." + Chr(13) + "Вы уверены ?" + Chr(13)                       , ;
+         Chr(13) + "Отсутствует индексный файл" + Chr(13) + "Поиск невозможен" + Chr(13)         , ;
+         Chr(13) + "Отсутствует индексное поле" + Chr(13) + "Поиск невозможен" + Chr(13)         , ;
+         Chr(13) + "Поиск невозможен в" + Chr(13) + "примечаниях или логических полях" + Chr(13) , ;
+         Chr(13) + "Запись не найдена" + Chr(13)                                                   , ;
+         Chr(13) + "Слишком много колонок" + Chr(13) + "Отчет не поместится на листе" + Chr(13) }
       _HMG_aABMLangLabel := { ;
          "Запись"              , ;
          "Всего записей"       , ;
@@ -2558,7 +2587,7 @@ PROCEDURE InitMessages
          "&Вкл. фильтр",       ; // 10
          "С&нять фильтр",      ; // 11
          "&Восстановить",      ; // 12
-			"&Повторить"       } // 13
+         "&Повторить"       } // 13
 
       _HMG_aLangLabel := { ;
          "Нет",                          ; // 1
@@ -2647,7 +2676,7 @@ PROCEDURE InitMessages
       _HMG_MESSAGE[ 1 ] := "Ви впевненi ?"
       _HMG_MESSAGE[ 2 ] := "Закрити вiкно."
       _HMG_MESSAGE[ 3 ] := "Закриття не дозволяється."
-      _HMG_MESSAGE[ 4 ] := ( "Програма виконується." + CRLF + "Запуск ще однiєї копiї заборонено." )
+      _HMG_MESSAGE[ 4 ] := ("Програма виконується." + CRLF + "Запуск ще однiєї копiї заборонено.")
       _HMG_MESSAGE[ 5 ] := "Змiнити"
       _HMG_MESSAGE[ 6 ] := "Гаразд"
       _HMG_MESSAGE[ 7 ] := "Скасувати"
@@ -2678,12 +2707,12 @@ PROCEDURE InitMessages
 
       // EDIT
 
-      _HMG_aABMLangUser   := { Chr( 13 ) + "Видалення запису." + Chr( 13 ) + "Ви впевненi ?" + Chr( 13 )             , ;
-         Chr( 13 ) + "Вiдсутнiй iндексний файл" + Chr( 13 ) + "Пошук неможливий" + Chr( 13 )       , ;
-         Chr( 13 ) + "Вiдсутнє iндексне поле" + Chr( 13 ) + "Пошук неможливий" + Chr( 13 )         , ;
-         Chr( 13 ) + "Пошук неможливий в" + Chr( 13 ) + "примiтках або логiчних полях" + Chr( 13 ) , ;
-         Chr( 13 ) + "Запис не знайдено" + Chr( 13 )                                         , ;
-         Chr( 13 ) + "Занадто багато колонок" + Chr( 13 ) + "Звiт не розмiститься на аркушi" + Chr( 13 ) }
+      _HMG_aABMLangUser   := { Chr(13) + "Видалення запису." + Chr(13) + "Ви впевненi ?" + Chr(13)             , ;
+         Chr(13) + "Вiдсутнiй iндексний файл" + Chr(13) + "Пошук неможливий" + Chr(13)       , ;
+         Chr(13) + "Вiдсутнє iндексне поле" + Chr(13) + "Пошук неможливий" + Chr(13)         , ;
+         Chr(13) + "Пошук неможливий в" + Chr(13) + "примiтках або логiчних полях" + Chr(13) , ;
+         Chr(13) + "Запис не знайдено" + Chr(13)                                         , ;
+         Chr(13) + "Занадто багато колонок" + Chr(13) + "Звiт не розмiститься на аркушi" + Chr(13) }
       _HMG_aABMLangLabel  := { "Запис"           , ;
          "Всього записiв"      , ;
          "     (Нова)"         , ;
@@ -2744,8 +2773,8 @@ PROCEDURE InitMessages
       "&Копiя",             ; // 9
       "Вст. &фiльтр",       ; // 10
       "Зня&ти фiльтр",      ; // 11
-      "Від&новити",		    ; // 12
-		"&Повторити"        } // 13
+      "Від&новити",          ; // 12
+      "&Повторити"        } // 13
 
       _HMG_aLangLabel := { ;
       "Нi",                              ; // 1
@@ -2831,18 +2860,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := "Estб seguro ?"
-      _HMG_MESSAGE [2] := "Cerrar Ventana"
-      _HMG_MESSAGE [3] := "Operaciуn no permitida"
-      _HMG_MESSAGE [4] := "EL programa ya estб ejecutбndose"
-      _HMG_MESSAGE [5] := "Editar"
-      _HMG_MESSAGE [6] := "Aceptar"
-      _HMG_MESSAGE [7] := "Cancelar"
-      _HMG_MESSAGE [8] := "Apply"
-      _HMG_MESSAGE [9] := "Pag."
-      _HMG_MESSAGE [10] := "Atencion"
-      _HMG_MESSAGE [11] := "Informaciуn"
-      _HMG_MESSAGE [12] := "Detener"
+      _HMG_MESSAGE[ 1] := "Estб seguro ?"
+      _HMG_MESSAGE[ 2] := "Cerrar Ventana"
+      _HMG_MESSAGE[ 3] := "Operaciуn no permitida"
+      _HMG_MESSAGE[ 4] := "EL programa ya estб ejecutбndose"
+      _HMG_MESSAGE[ 5] := "Editar"
+      _HMG_MESSAGE[ 6] := "Aceptar"
+      _HMG_MESSAGE[ 7] := "Cancelar"
+      _HMG_MESSAGE[ 8] := "Apply"
+      _HMG_MESSAGE[ 9] := "Pag."
+      _HMG_MESSAGE[10] := "Atencion"
+      _HMG_MESSAGE[11] := "Informaciуn"
+      _HMG_MESSAGE[12] := "Detener"
 
       // BROWSE
 
@@ -2865,12 +2894,12 @@ PROCEDURE InitMessages
 
       // EDIT
 
-      _HMG_aABMLangUser   := { Chr( 13 ) + "Va a eliminar el registro actual" + Chr( 13 ) + "ї Estб seguro ?" + Chr( 13 )                 , ;
-         Chr( 13 ) + "No hay un indice activo" + Chr( 13 ) + "No se puede realizar la busqueda" + Chr( 13 )         , ;
-         Chr( 13 ) + "No se encuentra el campo indice" + Chr( 13 ) + "No se puede realizar la busqueda" + Chr( 13 ) , ;
-         Chr( 13 ) + "No se pueden realizar busquedas" + Chr( 13 ) + "por campos memo o lуgico" + Chr( 13 )         , ;
-         Chr( 13 ) + "Registro no encontrado" + Chr( 13 )                                                     , ;
-         Chr( 13 ) + "Ha inclido demasiadas columnas" + Chr( 13 ) + "El listado no cabe en la hoja" + Chr( 13 )      }
+      _HMG_aABMLangUser   := { Chr(13) + "Va a eliminar el registro actual" + Chr(13) + "ї Estб seguro ?" + Chr(13)                 , ;
+         Chr(13) + "No hay un indice activo" + Chr(13) + "No se puede realizar la busqueda" + Chr(13)         , ;
+         Chr(13) + "No se encuentra el campo indice" + Chr(13) + "No se puede realizar la busqueda" + Chr(13) , ;
+         Chr(13) + "No se pueden realizar busquedas" + Chr(13) + "por campos memo o lуgico" + Chr(13)         , ;
+         Chr(13) + "Registro no encontrado" + Chr(13)                                                     , ;
+         Chr(13) + "Ha inclido demasiadas columnas" + Chr(13) + "El listado no cabe en la hoja" + Chr(13)      }
       _HMG_aABMLangLabel  := { "Registro Actual"                  , ;
          "Registros Totales"                , ;
          "     (Nuevo)"                     , ;
@@ -2932,7 +2961,7 @@ PROCEDURE InitMessages
       "&Activar Filtro",   ; // 10
       "&Desactivar Filtro", ; // 11
       "&Restaurar",         ; // 12
-		"Retry"               } // 13
+      "Retry"               } // 13
 
       _HMG_aLangLabel := {                                 ;
          "Ninguno",                               ; // 1
@@ -3018,18 +3047,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := "Oletko varma ?"
-      _HMG_MESSAGE [2] := "Sulje ikkuna"
-      _HMG_MESSAGE [3] := "Sulkeminen ei sallittu"
-      _HMG_MESSAGE [4] := "Ohjelma on jo kдynnissд"
-      _HMG_MESSAGE [5] := "Korjaa"
-      _HMG_MESSAGE [6] := "Ok"
-      _HMG_MESSAGE [7] := "Keskeytд"
-      _HMG_MESSAGE [8] := "Apply"
-      _HMG_MESSAGE [9] := "Sivu."
-      _HMG_MESSAGE [10] := "Attention"
-      _HMG_MESSAGE [11] := "Information"
-      _HMG_MESSAGE [12] := "Stop"
+      _HMG_MESSAGE[ 1] := "Oletko varma ?"
+      _HMG_MESSAGE[ 2] := "Sulje ikkuna"
+      _HMG_MESSAGE[ 3] := "Sulkeminen ei sallittu"
+      _HMG_MESSAGE[ 4] := "Ohjelma on jo kдynnissд"
+      _HMG_MESSAGE[ 5] := "Korjaa"
+      _HMG_MESSAGE[ 6] := "Ok"
+      _HMG_MESSAGE[ 7] := "Keskeytд"
+      _HMG_MESSAGE[ 8] := "Apply"
+      _HMG_MESSAGE[ 9] := "Sivu."
+      _HMG_MESSAGE[10] := "Attention"
+      _HMG_MESSAGE[11] := "Information"
+      _HMG_MESSAGE[12] := "Stop"
 
       // BROWSE
 
@@ -3053,12 +3082,12 @@ PROCEDURE InitMessages
       _HMG_BRWLangMessage := { "Oletko varma ?" , "Poista tietue" }
 
       // EDIT
-      _HMG_aABMLangUser   := { Chr( 13 ) + "Poista tietue" + Chr( 13 ) + "Oletko varma?" + Chr( 13 )                  , ;
-         Chr( 13 ) + "Indeksi tiedosto puuttuu" + Chr( 13 ) + "En voihakea" + Chr( 13 )            , ;
-         Chr( 13 ) + "Indeksikenttд ei lцydy" + Chr( 13 ) + "En voihakea" + Chr( 13 )        , ;
-         Chr( 13 ) + "En voi hakea memo" + Chr( 13 ) + "tai loogisen kentдn mukaan" + Chr( 13 )       , ;
-         Chr( 13 ) + "Tietue ei lцydy" + Chr( 13 ), ;
-         Chr( 13 ) + "Liian monta saraketta" + Chr( 13 ) + "raportti ei mahdu sivulle" + Chr( 13 ) }
+      _HMG_aABMLangUser   := { Chr(13) + "Poista tietue" + Chr(13) + "Oletko varma?" + Chr(13)                  , ;
+         Chr(13) + "Indeksi tiedosto puuttuu" + Chr(13) + "En voihakea" + Chr(13)            , ;
+         Chr(13) + "Indeksikenttд ei lцydy" + Chr(13) + "En voihakea" + Chr(13)        , ;
+         Chr(13) + "En voi hakea memo" + Chr(13) + "tai loogisen kentдn mukaan" + Chr(13)       , ;
+         Chr(13) + "Tietue ei lцydy" + Chr(13), ;
+         Chr(13) + "Liian monta saraketta" + Chr(13) + "raportti ei mahdu sivulle" + Chr(13) }
 
       _HMG_aABMLangLabel  := { "Tietue"              , ;
          "Tietue lukumддrд"    , ;
@@ -3122,7 +3151,7 @@ PROCEDURE InitMessages
       " Aktivoi suodin",   ; // 10
       " Deaktivoi suodin", ; // 11
       " Restore",          ; // 12
-		"Retry"              } // 13
+      "Retry"              } // 13
 
       _HMG_aLangLabel := {                        ;
          "Ei mitддn",                         ; // 1
@@ -3209,18 +3238,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := "Weet u het zeker?"
-      _HMG_MESSAGE [2] := "Sluit venster"
-      _HMG_MESSAGE [3] := "Sluiten niet toegestaan"
-      _HMG_MESSAGE [4] := "Programma is al actief"
-      _HMG_MESSAGE [5] := "Bewerken"
-      _HMG_MESSAGE [6] := "Ok"
-      _HMG_MESSAGE [7] := "Annuleren"
-      _HMG_MESSAGE [8] := "Apply"
-      _HMG_MESSAGE [9] := "Pag."
-      _HMG_MESSAGE [10] := "Aandacht"
-      _HMG_MESSAGE [11] := "Informatie"
-      _HMG_MESSAGE [12] := "Hou op"
+      _HMG_MESSAGE[ 1] := "Weet u het zeker?"
+      _HMG_MESSAGE[ 2] := "Sluit venster"
+      _HMG_MESSAGE[ 3] := "Sluiten niet toegestaan"
+      _HMG_MESSAGE[ 4] := "Programma is al actief"
+      _HMG_MESSAGE[ 5] := "Bewerken"
+      _HMG_MESSAGE[ 6] := "Ok"
+      _HMG_MESSAGE[ 7] := "Annuleren"
+      _HMG_MESSAGE[ 8] := "Apply"
+      _HMG_MESSAGE[ 9] := "Pag."
+      _HMG_MESSAGE[10] := "Aandacht"
+      _HMG_MESSAGE[11] := "Informatie"
+      _HMG_MESSAGE[12] := "Hou op"
 
       // BROWSE
 
@@ -3244,12 +3273,12 @@ PROCEDURE InitMessages
 
       // EDIT
 
-      _HMG_aABMLangUser   := { Chr( 13 ) + "Verwijder regel" + Chr( 13 ) + "Weet u het zeker ?" + Chr( 13 )    , ;
-         Chr( 13 ) + "Index bestand is er niet" + Chr( 13 ) + "Kan niet zoeken" + Chr( 13 )          , ;
-         Chr( 13 ) + "Kan index veld niet vinden" + Chr( 13 ) + "Kan niet zoeken" + Chr( 13 )        , ;
-         Chr( 13 ) + "Kan niet zoeken op" + Chr( 13 ) + "Memo of logische velden" + Chr( 13 )        , ;
-         Chr( 13 ) + "Regel niet gevonden" + Chr( 13 ) , ;
-         Chr( 13 ) + "Te veel rijen" + Chr( 13 ) + "Het rapport past niet op het papier" + Chr( 13 ) }
+      _HMG_aABMLangUser   := { Chr(13) + "Verwijder regel" + Chr(13) + "Weet u het zeker ?" + Chr(13)    , ;
+         Chr(13) + "Index bestand is er niet" + Chr(13) + "Kan niet zoeken" + Chr(13)          , ;
+         Chr(13) + "Kan index veld niet vinden" + Chr(13) + "Kan niet zoeken" + Chr(13)        , ;
+         Chr(13) + "Kan niet zoeken op" + Chr(13) + "Memo of logische velden" + Chr(13)        , ;
+         Chr(13) + "Regel niet gevonden" + Chr(13) , ;
+         Chr(13) + "Te veel rijen" + Chr(13) + "Het rapport past niet op het papier" + Chr(13) }
 
       _HMG_aABMLangLabel  := { "Regel"     , ;
          "Regel aantal"          , ;
@@ -3312,7 +3341,7 @@ PROCEDURE InitMessages
       "&Activeer filter",  ; // 10
       "&Deactiveer filter",; // 11
       "&Restore",          ; // 12
-		"Retry"              } // 13
+      "Retry"              } // 13
 
       _HMG_aLangLabel := {                            ;
          "Geen",                             ; // 1
@@ -3398,18 +3427,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := "Ste prepriиani ?"
-      _HMG_MESSAGE [2] := "Zapri okno"
-      _HMG_MESSAGE [3] := "Zapiranje ni dovoljeno"
-      _HMG_MESSAGE [4] := "Program je ћe zagnan"
-      _HMG_MESSAGE [5] := "Popravi"
-      _HMG_MESSAGE [6] := "V redu"
-      _HMG_MESSAGE [7] := "Prekini"
-      _HMG_MESSAGE [8] := "Apply"
-      _HMG_MESSAGE [9] := "Str."
-      _HMG_MESSAGE [10] := "Attention"
-      _HMG_MESSAGE [11] := "Information"
-      _HMG_MESSAGE [12] := "Stop"
+      _HMG_MESSAGE[ 1] := "Ste prepriиani ?"
+      _HMG_MESSAGE[ 2] := "Zapri okno"
+      _HMG_MESSAGE[ 3] := "Zapiranje ni dovoljeno"
+      _HMG_MESSAGE[ 4] := "Program je ћe zagnan"
+      _HMG_MESSAGE[ 5] := "Popravi"
+      _HMG_MESSAGE[ 6] := "V redu"
+      _HMG_MESSAGE[ 7] := "Prekini"
+      _HMG_MESSAGE[ 8] := "Apply"
+      _HMG_MESSAGE[ 9] := "Str."
+      _HMG_MESSAGE[10] := "Attention"
+      _HMG_MESSAGE[11] := "Information"
+      _HMG_MESSAGE[12] := "Stop"
 
       // BROWSE MESSAGES
 
@@ -3434,12 +3463,12 @@ PROCEDURE InitMessages
 
       // EDIT MESSAGES
 
-      _HMG_aABMLangUser   := { Chr( 13 ) + "Briљi vrstico" + Chr( 13 ) + "Ste prepriиani ?" + Chr( 13 ) , ;
-         Chr( 13 ) + "Manjka indeksna datoteka" + Chr( 13 ) + "Ne morem iskati" + Chr( 13 )       , ;
-         Chr( 13 ) + "Ne najdem indeksnega polja" + Chr( 13 ) + "Ne morem iskati" + Chr( 13 )     , ;
-         Chr( 13 ) + "Ne morem iskati po" + Chr( 13 ) + "memo ali logiиnih poljih" + Chr( 13 )    , ;
-         Chr( 13 ) + "Ne najdem vrstice" + Chr( 13 )                                        , ;
-         Chr( 13 ) + "Preveи kolon" + Chr( 13 ) + "Poroиilo ne gre na list" + Chr( 13 ) }
+      _HMG_aABMLangUser   := { Chr(13) + "Briљi vrstico" + Chr(13) + "Ste prepriиani ?" + Chr(13) , ;
+         Chr(13) + "Manjka indeksna datoteka" + Chr(13) + "Ne morem iskati" + Chr(13)       , ;
+         Chr(13) + "Ne najdem indeksnega polja" + Chr(13) + "Ne morem iskati" + Chr(13)     , ;
+         Chr(13) + "Ne morem iskati po" + Chr(13) + "memo ali logiиnih poljih" + Chr(13)    , ;
+         Chr(13) + "Ne najdem vrstice" + Chr(13)                                        , ;
+         Chr(13) + "Preveи kolon" + Chr(13) + "Poroиilo ne gre na list" + Chr(13) }
 
       _HMG_aABMLangLabel  := { "Vrstica", ;
          "Љtevilo vrstic"         , ;
@@ -3503,7 +3532,7 @@ PROCEDURE InitMessages
       "&Aktiviraj Filter",  ; // 10
       "&Deaktiviraj Filter", ; // 11
       "&Obnovi",             ; // 12
-		"Retry"                } // 13
+      "Retry"                } // 13
 
 
       _HMG_aLangLabel := {                 ;
@@ -3590,18 +3619,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := "Ste si istэ(б)?"
-      _HMG_MESSAGE [2] := "Zatvor okno"
-      _HMG_MESSAGE [3] := "Zatvorenie nedovolenй"
-      _HMG_MESSAGE [4] := "Program uћ beћн"
-      _HMG_MESSAGE [5] := "Ъprava"
-      _HMG_MESSAGE [6] := "Ok"
-      _HMG_MESSAGE [7] := "Storno"
-      _HMG_MESSAGE [8] := "Aplikuj"
-      _HMG_MESSAGE [9] := "Str."
-      _HMG_MESSAGE [10] := "Attention"
-      _HMG_MESSAGE [11] := "Information"
-      _HMG_MESSAGE [12] := "Stop"
+      _HMG_MESSAGE[ 1] := "Ste si istэ(б)?"
+      _HMG_MESSAGE[ 2] := "Zatvor okno"
+      _HMG_MESSAGE[ 3] := "Zatvorenie nedovolenй"
+      _HMG_MESSAGE[ 4] := "Program uћ beћн"
+      _HMG_MESSAGE[ 5] := "Ъprava"
+      _HMG_MESSAGE[ 6] := "Ok"
+      _HMG_MESSAGE[ 7] := "Storno"
+      _HMG_MESSAGE[ 8] := "Aplikuj"
+      _HMG_MESSAGE[ 9] := "Str."
+      _HMG_MESSAGE[10] := "Attention"
+      _HMG_MESSAGE[11] := "Information"
+      _HMG_MESSAGE[12] := "Stop"
 
       // BROWSE MESSAGES
 
@@ -3624,12 +3653,12 @@ PROCEDURE InitMessages
 
       // EDIT MESSAGES
 
-      _HMG_aABMLangUser   := { Chr( 13 ) + "Zmazaќ zбznam." + Chr( 13 ) + "Ste si istэ(б)?" + Chr( 13 )                  , ;
-         Chr( 13 ) + "Chэba indexovэ sъbor!" + Chr( 13 ) + "Nemфћem hѕadaќ." + Chr( 13 )            , ;
-         Chr( 13 ) + "Nebol nбjdenэ index!" + Chr( 13 ) + "Nemфћem hѕadaќ." + Chr( 13 )        , ;
-         Chr( 13 ) + "Nemфћem hѕadaќ podѕa" + Chr( 13 ) + "stеpca typu memo alebo logical." + Chr( 13 )       , ;
-         Chr( 13 ) + "Zбznam nebol nбjdenэ!" + Chr( 13 )                                        , ;
-         Chr( 13 ) + "Prнliљ veѕa stеpcov!" + Chr( 13 ) + "Zostava sa nezmestн na plochu" + Chr( 13 ) }
+      _HMG_aABMLangUser   := { Chr(13) + "Zmazaќ zбznam." + Chr(13) + "Ste si istэ(б)?" + Chr(13)                  , ;
+         Chr(13) + "Chэba indexovэ sъbor!" + Chr(13) + "Nemфћem hѕadaќ." + Chr(13)            , ;
+         Chr(13) + "Nebol nбjdenэ index!" + Chr(13) + "Nemфћem hѕadaќ." + Chr(13)        , ;
+         Chr(13) + "Nemфћem hѕadaќ podѕa" + Chr(13) + "stеpca typu memo alebo logical." + Chr(13)       , ;
+         Chr(13) + "Zбznam nebol nбjdenэ!" + Chr(13)                                        , ;
+         Chr(13) + "Prнliљ veѕa stеpcov!" + Chr(13) + "Zostava sa nezmestн na plochu" + Chr(13) }
 
       _HMG_aABMLangLabel  := { "Zбznam"   , ;
          "Poиet zбznamov"     , ;
@@ -3693,7 +3722,7 @@ PROCEDURE InitMessages
       "Zapni &filter",     ; // 10
       "&Vypni filter",     ; // 11
       "O&bnov",            ; // 12
-		"Retry"             } // 13
+      "Retry"             } // 13
 
       _HMG_aLangLabel := {                     ;
          "Ћiadna",                         ; // 1
@@ -3779,18 +3808,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := "Biztos benne?"
-      _HMG_MESSAGE [2] := "Zбrja be az ablakot"
-      _HMG_MESSAGE [3] := "Bezбrбs tiltva"
-      _HMG_MESSAGE [4] := "Program mбr fut"
-      _HMG_MESSAGE [5] := "Szerkesztйs"
-      _HMG_MESSAGE [6] := "Ok"
-      _HMG_MESSAGE [7] := "Mйgse"
-      _HMG_MESSAGE [8] := "Apply"
-      _HMG_MESSAGE [9] := "Old."
-      _HMG_MESSAGE [10] := "Attention"
-      _HMG_MESSAGE [11] := "Information"
-      _HMG_MESSAGE [12] := "Stop"
+      _HMG_MESSAGE[ 1] := "Biztos benne?"
+      _HMG_MESSAGE[ 2] := "Zбrja be az ablakot"
+      _HMG_MESSAGE[ 3] := "Bezбrбs tiltva"
+      _HMG_MESSAGE[ 4] := "Program mбr fut"
+      _HMG_MESSAGE[ 5] := "Szerkesztйs"
+      _HMG_MESSAGE[ 6] := "Ok"
+      _HMG_MESSAGE[ 7] := "Mйgse"
+      _HMG_MESSAGE[ 8] := "Apply"
+      _HMG_MESSAGE[ 9] := "Old."
+      _HMG_MESSAGE[10] := "Attention"
+      _HMG_MESSAGE[11] := "Information"
+      _HMG_MESSAGE[12] := "Stop"
 
       // BROWSE MESSAGES
 
@@ -3813,12 +3842,12 @@ PROCEDURE InitMessages
 
       // EDIT MESSAGES
 
-      _HMG_aABMLangUser   := { Chr( 13 ) + "Rekord tцrlйse" + Chr( 13 ) + "Biztos benne ?" + Chr( 13 )                  , ;
-         Chr( 13 ) + "Hiбnyzу index бllomбny" + Chr( 13 ) + "Lehetetlen a keresйs" + Chr( 13 )            , ;
-         Chr( 13 ) + "Hiбnyzу index mezх" + Chr( 13 ) + "Lehetetlen a keresйs" + Chr( 13 )        , ;
-         Chr( 13 ) + "Lehetetlen a keresйs a kцv.alapjбn" + Chr( 13 ) + "mezх memo vagy logikai" + Chr( 13 )       , ;
-         Chr( 13 ) + "Nincs rekord" + Chr( 13 )                                        , ;
-         Chr( 13 ) + "Tъl sok oszlop" + Chr( 13 ) + "A jelentйs nem fйr el a felьleten" + Chr( 13 ) }
+      _HMG_aABMLangUser   := { Chr(13) + "Rekord tцrlйse" + Chr(13) + "Biztos benne ?" + Chr(13)                  , ;
+         Chr(13) + "Hiбnyzу index бllomбny" + Chr(13) + "Lehetetlen a keresйs" + Chr(13)            , ;
+         Chr(13) + "Hiбnyzу index mezх" + Chr(13) + "Lehetetlen a keresйs" + Chr(13)        , ;
+         Chr(13) + "Lehetetlen a keresйs a kцv.alapjбn" + Chr(13) + "mezх memo vagy logikai" + Chr(13)       , ;
+         Chr(13) + "Nincs rekord" + Chr(13)                                        , ;
+         Chr(13) + "Tъl sok oszlop" + Chr(13) + "A jelentйs nem fйr el a felьleten" + Chr(13) }
 
       _HMG_aABMLangLabel  := { "Rekord"         , ;
          "Rekord szбmlбlу"          , ;
@@ -3882,7 +3911,7 @@ PROCEDURE InitMessages
       "Szыrх &bekapcsolбsa",    ; // 10
       "Szыrх ki&kapcsolбsa",    ; // 11
       "&Visszahнv",             ; // 12
-		"Retry"                   } // 13
+      "Retry"                   } // 13
 
       _HMG_aLangLabel := {                            ;
          "nincs",                                 ; // 1
@@ -3968,18 +3997,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES (GREEK EL)
 
-      _HMG_MESSAGE [1] := "ЕЯуфе вЭвбйпй?"
-      _HMG_MESSAGE [2] := "КлеЯуймп рбсбиэспх"
-      _HMG_MESSAGE [3] := "Ден ерйфсЭрефбй фп клеЯуймп"
-      _HMG_MESSAGE [4] := "Фп рсьгсбммб екфелеЯфбй Юдз"
-      _HMG_MESSAGE [5] := "Ерео."
-      _HMG_MESSAGE [6] := "Ok"
-      _HMG_MESSAGE [7] := "Бкхсп"
-      _HMG_MESSAGE [8] := "ЕцбсмпгЮ"
-      _HMG_MESSAGE [9] := "Уел."
-      _HMG_MESSAGE [10] := "РспупчЮ"
-      _HMG_MESSAGE [11] := "РлзспцпсЯб"
-      _HMG_MESSAGE [12] := "Stop"
+      _HMG_MESSAGE[ 1] := "ЕЯуфе вЭвбйпй?"
+      _HMG_MESSAGE[ 2] := "КлеЯуймп рбсбиэспх"
+      _HMG_MESSAGE[ 3] := "Ден ерйфсЭрефбй фп клеЯуймп"
+      _HMG_MESSAGE[ 4] := "Фп рсьгсбммб екфелеЯфбй Юдз"
+      _HMG_MESSAGE[ 5] := "Ерео."
+      _HMG_MESSAGE[ 6] := "Ok"
+      _HMG_MESSAGE[ 7] := "Бкхсп"
+      _HMG_MESSAGE[ 8] := "ЕцбсмпгЮ"
+      _HMG_MESSAGE[ 9] := "Уел."
+      _HMG_MESSAGE[10] := "РспупчЮ"
+      _HMG_MESSAGE[11] := "РлзспцпсЯб"
+      _HMG_MESSAGE[12] := "Stop"
 
       // BROWSE MESSAGES (GREEK EL)
 
@@ -4004,12 +4033,12 @@ PROCEDURE InitMessages
 
       // EDIT MESSAGES (GREEK - ЕЛЛЗНЙКБ)
 
-      _HMG_aABMLangUser   := { Chr( 13 ) + "ДйбгсбцЮ еггсбцЮт" + Chr( 13 ) + "ЕЯуфе вЭвбйпй?" + Chr( 13 )    , ;
-         Chr( 13 ) + "Фп ехсефЮсйп ден хрЬсчей" + Chr( 13 ) + "БнбжЮфзуз бдэнбфз!" + Chr( 13 )  , ;
-         Chr( 13 ) + "Can`t find index field" + Chr( 13 ) + "БнбжЮфзуз бдэнбфз!" + Chr( 13 )        , ;
-         Chr( 13 ) + "БнбжЮфзуз бдэнбфз уе" + Chr( 13 ) + "редЯб memo Ю лпгйкЬ" + Chr( 13 )       , ;
-         Chr( 13 ) + "З еггсбцЮ ден всЭизке" + Chr( 13 )                                        , ;
-         Chr( 13 ) + "РпллЭт уфЮлет" + Chr( 13 ) + "З бнбцпсЬ ден чщсЬ уфз уелЯдб" + Chr( 13 ) }
+      _HMG_aABMLangUser   := { Chr(13) + "ДйбгсбцЮ еггсбцЮт" + Chr(13) + "ЕЯуфе вЭвбйпй?" + Chr(13)    , ;
+         Chr(13) + "Фп ехсефЮсйп ден хрЬсчей" + Chr(13) + "БнбжЮфзуз бдэнбфз!" + Chr(13)  , ;
+         Chr(13) + "Can`t find index field" + Chr(13) + "БнбжЮфзуз бдэнбфз!" + Chr(13)        , ;
+         Chr(13) + "БнбжЮфзуз бдэнбфз уе" + Chr(13) + "редЯб memo Ю лпгйкЬ" + Chr(13)       , ;
+         Chr(13) + "З еггсбцЮ ден всЭизке" + Chr(13)                                        , ;
+         Chr(13) + "РпллЭт уфЮлет" + Chr(13) + "З бнбцпсЬ ден чщсЬ уфз уелЯдб" + Chr(13) }
 
       _HMG_aABMLangLabel  := { "ЕггсбцЮ"    , ;
          "Бсйи.Еггсбцюн"        , ;
@@ -4074,7 +4103,7 @@ PROCEDURE InitMessages
       "&ЦЯлфсп",         ; // 10
       "&ЧщсЯт цЯлфсп",   ; // 11
       "&ЕрбнбцпсЬ",      ; // 12
-		"ЕрбнЬлзшз"        } // 13
+      "ЕрбнЬлзшз"        } // 13
 
       _HMG_aLangLabel := {            ;
       "КбнЭнб",                       ; // 1
@@ -4162,18 +4191,18 @@ PROCEDURE InitMessages
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE [1] := "Сигурни ли сте ?"
-      _HMG_MESSAGE [2] := "Затваряне на прозореца"
-      _HMG_MESSAGE [3] := "Затварянето не се допуска"
-      _HMG_MESSAGE [4] := "Програмата вече е стартирана"
-      _HMG_MESSAGE [5] := "Измененение"
-      _HMG_MESSAGE [6] := "Да"
-      _HMG_MESSAGE [7] := "Отмяна"
-      _HMG_MESSAGE [8] := "Apply"
-      _HMG_MESSAGE [9] := "Стр."
-      _HMG_MESSAGE [10] := "Attention"
-      _HMG_MESSAGE [11] := "Information"
-      _HMG_MESSAGE [12] := "Stop"
+      _HMG_MESSAGE[ 1] := "Сигурни ли сте ?"
+      _HMG_MESSAGE[ 2] := "Затваряне на прозореца"
+      _HMG_MESSAGE[ 3] := "Затварянето не се допуска"
+      _HMG_MESSAGE[ 4] := "Програмата вече е стартирана"
+      _HMG_MESSAGE[ 5] := "Измененение"
+      _HMG_MESSAGE[ 6] := "Да"
+      _HMG_MESSAGE[ 7] := "Отмяна"
+      _HMG_MESSAGE[ 8] := "Apply"
+      _HMG_MESSAGE[ 9] := "Стр."
+      _HMG_MESSAGE[10] := "Attention"
+      _HMG_MESSAGE[11] := "Information"
+      _HMG_MESSAGE[12] := "Stop"
 
       // BROWSE
 
@@ -4196,12 +4225,12 @@ PROCEDURE InitMessages
 
       // EDIT
 
-      _HMG_aABMLangUser   := { Chr( 13 ) + "Изтриване на запис." + Chr( 13 ) + "Сигурни ли сте ?" + Chr( 13 )                  , ;
-         Chr( 13 ) + "Няма индексен файл" + Chr( 13 ) + "Търсенето е невъзможно" + Chr( 13 )   , ;
-         Chr( 13 ) + "Няма индексно поле" + Chr( 13 ) + "Търсенето е невъзможно" + Chr( 13 )   , ;
-         Chr( 13 ) + "Търсенето е невъзможно в" + Chr( 13 ) + "МЕМО полетата или логическите полета" + Chr( 13 ) , ;
-         Chr( 13 ) + "Записа не е намерен" + Chr( 13 )                                       , ;
-         Chr( 13 ) + "Прекалено много колони" + Chr( 13 ) + "Отчета не се събира на листа" + Chr( 13 ) }
+      _HMG_aABMLangUser   := { Chr(13) + "Изтриване на запис." + Chr(13) + "Сигурни ли сте ?" + Chr(13)                  , ;
+         Chr(13) + "Няма индексен файл" + Chr(13) + "Търсенето е невъзможно" + Chr(13)   , ;
+         Chr(13) + "Няма индексно поле" + Chr(13) + "Търсенето е невъзможно" + Chr(13)   , ;
+         Chr(13) + "Търсенето е невъзможно в" + Chr(13) + "МЕМО полетата или логическите полета" + Chr(13) , ;
+         Chr(13) + "Записа не е намерен" + Chr(13)                                       , ;
+         Chr(13) + "Прекалено много колони" + Chr(13) + "Отчета не се събира на листа" + Chr(13) }
       _HMG_aABMLangLabel  := { "Запис"              , ;
          "Всичко записи"       , ;
          "       (Нов)"        , ;
@@ -4263,7 +4292,7 @@ PROCEDURE InitMessages
       "&Вкл. филтър",       ; // 10
       "Ма&хни филтър",      ; // 11
       "&Възстанови",        ; // 12
-		"Retry"               } // 13
+      "Retry"               } // 13
 
       _HMG_aLangLabel := {            ;
          "Няма",                         ; // 1
