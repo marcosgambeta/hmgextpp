@@ -268,7 +268,7 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
       ENDIF
 
    ENDIF
-   
+
 #ifdef _NAMES_LIST_
    _SetNameList( mVar , k )
 #else
@@ -277,46 +277,46 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
 
    _HMG_ActiveTreeIndex := k
 
-   _HMG_aControlType[ k ] := CONTROL_TYPE_TREE
-   _HMG_aControlNames[ k ] :=   ControlName
-   _HMG_aControlHandles[ k ] :=   ControlHandle
-   _HMG_aControlParentHandles[ k ] :=   ParentFormHandle
-   _HMG_aControlIds[ k ] :=   nId
-   _HMG_aControlProcedures[ k ] :=   ""
-   _HMG_aControlPageMap[ k ] :=  {}
-   _HMG_aControlValue[ k ] :=  Nil
-   _HMG_aControlInputMask[ k ] :=  itemids
-   _HMG_aControllostFocusProcedure[ k ] :=  lostfocus
-   _HMG_aControlGotFocusProcedure[ k ] :=  gotfocus
-   _HMG_aControlChangeProcedure[ k ] :=  change
-   _HMG_aControlDeleted[ k ] :=  .F.
-   _HMG_aControlBkColor[ k ] :=  backcolor
-   _HMG_aControlFontColor[ k ] :=  fontcolor
-   _HMG_aControlDblClick[ k ] := dblclick
-   _HMG_aControlHeadClick[ k ] := {}
-   _HMG_aControlRow[ k ] := Row
-   _HMG_aControlCol[ k ] := Col
-   _HMG_aControlWidth[ k ] := Width
-   _HMG_aControlHeight[ k ] := Height
-   _HMG_aControlSpacing[ k ] := 0
-   _HMG_aControlContainerRow[ k ] :=  iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[ _HMG_FrameLevel ], -1 )
-   _HMG_aControlContainerCol[ k ] :=  iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[ _HMG_FrameLevel ], -1 )
-   _HMG_aControlPicture[ k ] :=  {}
-   _HMG_aControlContainerHandle[ k ] :=  0
-   _HMG_aControlFontName[ k ] :=  fontname
-   _HMG_aControlFontSize[ k ] :=  fontsize
-   _HMG_aControlFontAttributes[ k ] := { bold, italic, underline, strikeout }
-   _HMG_aControlToolTip[ k ] :=  tooltip
-   _HMG_aControlRangeMin[ k ] :=  0
-   _HMG_aControlRangeMax[ k ] :=  0
-   _HMG_aControlCaption[ k ] :=  ""
-   _HMG_aControlVisible[ k ] :=   .T.
-   _HMG_aControlHelpId[ k ] :=   HelpId
-   _HMG_aControlFontHandle[ k ] :=  FontHandle
-   _HMG_aControlBrushHandle[ k ] :=  0
-   _HMG_aControlEnabled[ k ] :=  .T.
-   _HMG_aControlMiscData1[ k ] := { 0, aImgNode, aImgItem, NoTrans }
-   _HMG_aControlMiscData2[ k ] := ""
+   _HMG_aControlType               [k] := CONTROL_TYPE_TREE
+   _HMG_aControlNames              [k] := ControlName
+   _HMG_aControlHandles            [k] := ControlHandle
+   _HMG_aControlParentHandles      [k] := ParentFormHandle
+   _HMG_aControlIds                [k] := nId
+   _HMG_aControlProcedures         [k] := ""
+   _HMG_aControlPageMap            [k] := {}
+   _HMG_aControlValue              [k] := Nil
+   _HMG_aControlInputMask          [k] := itemids
+   _HMG_aControllostFocusProcedure [k] := lostfocus
+   _HMG_aControlGotFocusProcedure  [k] := gotfocus
+   _HMG_aControlChangeProcedure    [k] := change
+   _HMG_aControlDeleted            [k] := .F.
+   _HMG_aControlBkColor            [k] := backcolor
+   _HMG_aControlFontColor          [k] := fontcolor
+   _HMG_aControlDblClick           [k] := dblclick
+   _HMG_aControlHeadClick          [k] := {}
+   _HMG_aControlRow                [k] := Row
+   _HMG_aControlCol                [k] := Col
+   _HMG_aControlWidth              [k] := Width
+   _HMG_aControlHeight             [k] := Height
+   _HMG_aControlSpacing            [k] := 0
+   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[ _HMG_FrameLevel ], -1 )
+   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[ _HMG_FrameLevel ], -1 )
+   _HMG_aControlPicture            [k] := {}
+   _HMG_aControlContainerHandle    [k] := 0
+   _HMG_aControlFontName           [k] := fontname
+   _HMG_aControlFontSize           [k] := fontsize
+   _HMG_aControlFontAttributes     [k] := { bold, italic, underline, strikeout }
+   _HMG_aControlToolTip            [k] := tooltip
+   _HMG_aControlRangeMin           [k] := 0
+   _HMG_aControlRangeMax           [k] := 0
+   _HMG_aControlCaption            [k] := ""
+   _HMG_aControlVisible            [k] := .T.
+   _HMG_aControlHelpId             [k] := HelpId
+   _HMG_aControlFontHandle         [k] := FontHandle
+   _HMG_aControlBrushHandle        [k] := 0
+   _HMG_aControlEnabled            [k] := .T.
+   _HMG_aControlMiscData1          [k] := { 0, aImgNode, aImgItem, NoTrans }
+   _HMG_aControlMiscData2          [k] := ""
 
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )

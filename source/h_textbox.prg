@@ -224,46 +224,46 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := iif( lNumeric, CONTROL_TYPE_NUMTEXT, CONTROL_TYPE_TEXT )
-   _HMG_aControlNames  [k] :=  ControlName
-   _HMG_aControlHandles  [k] :=  ControlHandle
-   _HMG_aControlParenthandles  [k] :=  ParentFormHandle
-   _HMG_aControlIds  [k] :=  nId
-   _HMG_aControlProcedures  [k] :=  ""
-   _HMG_aControlPageMap  [k] :=  Field
-   _HMG_aControlValue  [k] :=  cValue
-   _HMG_aControlInputMask  [k] :=  ""
-   _HMG_aControlLostFocusProcedure [k] :=   uLostFocus
+   _HMG_aControlType               [k] := iif( lNumeric, CONTROL_TYPE_NUMTEXT, CONTROL_TYPE_TEXT )
+   _HMG_aControlNames              [k] := ControlName
+   _HMG_aControlHandles            [k] := ControlHandle
+   _HMG_aControlParenthandles      [k] := ParentFormHandle
+   _HMG_aControlIds                [k] := nId
+   _HMG_aControlProcedures         [k] := ""
+   _HMG_aControlPageMap            [k] := Field
+   _HMG_aControlValue              [k] := cValue
+   _HMG_aControlInputMask          [k] := ""
+   _HMG_aControlLostFocusProcedure [k] := uLostFocus
    _HMG_aControlGotFocusProcedure  [k] := uGotFocus
-   _HMG_aControlChangeProcedure  [k] :=  uChange
-   _HMG_aControlDeleted  [k] :=  .F.
-   _HMG_aControlBkColor  [k] :=  backcolor
-   _HMG_aControlFontColor [k] :=   fontcolor
-   _HMG_aControlDblClick  [k] :=  uEnter
-   _HMG_aControlHeadClick  [k] :=  {}
-   _HMG_aControlRow  [k] :=  y
-   _HMG_aControlCol  [k] :=  x
-   _HMG_aControlWidth   [k] := w
-   _HMG_aControlHeight   [k] := h
-   _HMG_aControlSpacing  [k] :=  0
-   _HMG_aControlContainerRow  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
-   _HMG_aControlPicture  [k] :=  ""
-   _HMG_aControlContainerHandle  [k] :=  0
-   _HMG_aControlFontName  [k] :=  FontName
-   _HMG_aControlFontSize  [k] :=  FontSize
-   _HMG_aControlFontAttributes  [k] :=  { bold, italic, underline, strikeout }
-   _HMG_aControlToolTip  [k] :=   ToolTip
-   _HMG_aControlRangeMin  [k] :=   0
-   _HMG_aControlRangeMax  [k] :=   nMaxLength
-   _HMG_aControlCaption  [k] :=   ""
-   _HMG_aControlVisible  [k] :=  .NOT.  invisible
-   _HMG_aControlHelpId  [k] :=   HelpId
-   _HMG_aControlFontHandle  [k] :=   FontHandle
-   _HMG_aControlBrushHandle  [k] :=  0
-   _HMG_aControlEnabled  [k] :=  .T.
-   _HMG_aControlMiscData1 [k] := { 0, readonly }
-   _HMG_aControlMiscData2 [k] := ""
+   _HMG_aControlChangeProcedure    [k] := uChange
+   _HMG_aControlDeleted            [k] := .F.
+   _HMG_aControlBkColor            [k] := backcolor
+   _HMG_aControlFontColor          [k] := fontcolor
+   _HMG_aControlDblClick           [k] := uEnter
+   _HMG_aControlHeadClick          [k] := {}
+   _HMG_aControlRow                [k] := y
+   _HMG_aControlCol                [k] := x
+   _HMG_aControlWidth              [k] := w
+   _HMG_aControlHeight             [k] := h
+   _HMG_aControlSpacing            [k] := 0
+   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlPicture            [k] := ""
+   _HMG_aControlContainerHandle    [k] := 0
+   _HMG_aControlFontName           [k] := FontName
+   _HMG_aControlFontSize           [k] := FontSize
+   _HMG_aControlFontAttributes     [k] := { bold, italic, underline, strikeout }
+   _HMG_aControlToolTip            [k] := ToolTip
+   _HMG_aControlRangeMin           [k] := 0
+   _HMG_aControlRangeMax           [k] := nMaxLength
+   _HMG_aControlCaption            [k] := ""
+   _HMG_aControlVisible            [k] := .NOT.  invisible
+   _HMG_aControlHelpId             [k] := HelpId
+   _HMG_aControlFontHandle         [k] := FontHandle
+   _HMG_aControlBrushHandle        [k] := 0
+   _HMG_aControlEnabled            [k] := .T.
+   _HMG_aControlMiscData1          [k] := { 0, readonly }
+   _HMG_aControlMiscData2          [k] := ""
 
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
@@ -282,7 +282,7 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
          SetWindowText( ControlHandle , cValue )
       ENDIF
 
-      IF !Empty( cuetext ) .AND. IsVistaOrLater() 
+      IF !Empty( cuetext ) .AND. IsVistaOrLater()
          SendMessageWideString( ControlHandle, EM_SETCUEBANNER, .T. /*show on focus*/, cuetext )
       ENDIF
 
@@ -502,53 +502,53 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := CONTROL_TYPE_MASKEDTEXT
-   _HMG_aControlNames  [k] :=  ControlName
-   _HMG_aControlHandles [k] :=   ControlHandle
-   _HMG_aControlParenthandles [k] :=   ParentFormHandle
-   _HMG_aControlIds  [k] :=  nId
-   _HMG_aControlProcedures  [k] :=  ""
-   _HMG_aControlPageMap [k] :=   InputMask
-   _HMG_aControlValue  [k] :=  Value
-   _HMG_aControlInputMask  [k] :=  GetNumMask ( InputMask )
-   _HMG_aControllostFocusProcedure  [k] :=  lostfocus
-   _HMG_aControlGotFocusProcedure  [k] :=  gotfocus
-   _HMG_aControlChangeProcedure  [k] :=  Change
-   _HMG_aControlDeleted  [k] :=  .F.
-   _HMG_aControlBkColor  [k] :=  backcolor
-   _HMG_aControlFontColor  [k] :=  fontcolor
-   _HMG_aControlDblClick  [k] :=  enter
-   _HMG_aControlHeadClick  [k] :=  Field
-   _HMG_aControlRow  [k] :=  y
-   _HMG_aControlCol  [k] :=  x
-   _HMG_aControlWidth  [k] :=  w
-   _HMG_aControlHeight  [k] :=  h
-   _HMG_aControlSpacing  [k] :=  .F.
-   _HMG_aControlContainerRow  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
-   _HMG_aControlPicture   [k] := ""
-   _HMG_aControlContainerHandle  [k] :=  0
-   _HMG_aControlFontName  [k] :=  fontname
-   _HMG_aControlFontSize  [k] :=  fontsize
-   _HMG_aControlFontAttributes  [k] :=  { bold, italic, underline, strikeout }
-   _HMG_aControlToolTip   [k] :=  tooltip
-   _HMG_aControlRangeMin  [k] :=   0
-   _HMG_aControlRangeMax  [k] :=   0
-   _HMG_aControlCaption  [k] :=   ""
-   _HMG_aControlVisible  [k] :=  .NOT.  invisible
-   _HMG_aControlHelpId  [k] :=   HelpId
-   _HMG_aControlFontHandle  [k] :=   FontHandle
-   _HMG_aControlBrushHandle  [k] :=  0
-   _HMG_aControlEnabled  [k] :=  .T.
-   _HMG_aControlMiscData1 [k] := { 0, readonly }
-   _HMG_aControlMiscData2 [k] := ""
+   _HMG_aControlType               [k] := CONTROL_TYPE_MASKEDTEXT
+   _HMG_aControlNames              [k] := ControlName
+   _HMG_aControlHandles            [k] := ControlHandle
+   _HMG_aControlParenthandles      [k] := ParentFormHandle
+   _HMG_aControlIds                [k] := nId
+   _HMG_aControlProcedures         [k] := ""
+   _HMG_aControlPageMap            [k] := InputMask
+   _HMG_aControlValue              [k] := Value
+   _HMG_aControlInputMask          [k] := GetNumMask ( InputMask )
+   _HMG_aControllostFocusProcedure [k] := lostfocus
+   _HMG_aControlGotFocusProcedure  [k] := gotfocus
+   _HMG_aControlChangeProcedure    [k] := Change
+   _HMG_aControlDeleted            [k] := .F.
+   _HMG_aControlBkColor            [k] := backcolor
+   _HMG_aControlFontColor          [k] := fontcolor
+   _HMG_aControlDblClick           [k] := enter
+   _HMG_aControlHeadClick          [k] := Field
+   _HMG_aControlRow                [k] := y
+   _HMG_aControlCol                [k] := x
+   _HMG_aControlWidth              [k] := w
+   _HMG_aControlHeight             [k] := h
+   _HMG_aControlSpacing            [k] := .F.
+   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlPicture            [k] := ""
+   _HMG_aControlContainerHandle    [k] := 0
+   _HMG_aControlFontName           [k] := fontname
+   _HMG_aControlFontSize           [k] := fontsize
+   _HMG_aControlFontAttributes     [k] := { bold, italic, underline, strikeout }
+   _HMG_aControlToolTip            [k] := tooltip
+   _HMG_aControlRangeMin           [k] := 0
+   _HMG_aControlRangeMax           [k] := 0
+   _HMG_aControlCaption            [k] := ""
+   _HMG_aControlVisible            [k] := .NOT.  invisible
+   _HMG_aControlHelpId             [k] := HelpId
+   _HMG_aControlFontHandle         [k] := FontHandle
+   _HMG_aControlBrushHandle        [k] := 0
+   _HMG_aControlEnabled            [k] := .T.
+   _HMG_aControlMiscData1          [k] := { 0, readonly }
+   _HMG_aControlMiscData2          [k] := ""
 
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
    ENDIF
 
    IF .NOT. lDialogInMemory
-      IF !Empty( cuetext ) .AND. IsVistaOrLater() 
+      IF !Empty( cuetext ) .AND. IsVistaOrLater()
          SendMessageWideString( ControlHandle, EM_SETCUEBANNER, .T. /*show on focus*/, cuetext )
       ENDIF
 
@@ -783,46 +783,46 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType [k] := CONTROL_TYPE_CHARMASKTEXT
-   _HMG_aControlNames [k] := ControlName
-   _HMG_aControlHandles [k] := ControlHandle
-   _HMG_aControlParenthandles [k] := ParentFormHandle
-   _HMG_aControlIds [k] := nId
-   _HMG_aControlProcedures [k] := ""
-   _HMG_aControlPageMap [k] := Field
-   _HMG_aControlValue [k] := Value
-   _HMG_aControlInputMask [k] := InputMask
+   _HMG_aControlType               [k] := CONTROL_TYPE_CHARMASKTEXT
+   _HMG_aControlNames              [k] := ControlName
+   _HMG_aControlHandles            [k] := ControlHandle
+   _HMG_aControlParenthandles      [k] := ParentFormHandle
+   _HMG_aControlIds                [k] := nId
+   _HMG_aControlProcedures         [k] := ""
+   _HMG_aControlPageMap            [k] := Field
+   _HMG_aControlValue              [k] := Value
+   _HMG_aControlInputMask          [k] := InputMask
    _HMG_aControllostFocusProcedure [k] := lostfocus
-   _HMG_aControlGotFocusProcedure [k] := gotfocus
-   _HMG_aControlChangeProcedure [k] := Change
-   _HMG_aControlDeleted [k] := .F.
-   _HMG_aControlBkColor [k] := backcolor
-   _HMG_aControlFontColor [k] := fontcolor
-   _HMG_aControlDblClick [k] := enter
-   _HMG_aControlHeadClick  [k] := date
-   _HMG_aControlRow [k] := y
-   _HMG_aControlCol [k] := x
-   _HMG_aControlWidth [k] := w
-   _HMG_aControlHeight [k] := h
-   _HMG_aControlSpacing [k] := 0
-   _HMG_aControlContainerRow  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
-   _HMG_aControlPicture [k] := ""
-   _HMG_aControlContainerHandle [k] := 0
-   _HMG_aControlFontName [k] := fontname
-   _HMG_aControlFontSize [k] := fontsize
-   _HMG_aControlFontAttributes [k] := { bold, italic, underline, strikeout }
-   _HMG_aControlToolTip  [k] :=  tooltip
-   _HMG_aControlRangeMin [k] :=  0
-   _HMG_aControlRangeMax [k] :=  0
-   _HMG_aControlCaption [k] :=  ""
-   _HMG_aControlVisible [k] :=  .NOT. invisible
-   _HMG_aControlHelpId  [k] :=  HelpId
-   _HMG_aControlFontHandle [k] :=  FontHandle
-   _HMG_aControlBrushHandle  [k] :=  0
-   _HMG_aControlEnabled [k] :=  .T.
-   _HMG_aControlMiscData1 [k] := { 0, readonly }
-   _HMG_aControlMiscData2 [k] := ""
+   _HMG_aControlGotFocusProcedure  [k] := gotfocus
+   _HMG_aControlChangeProcedure    [k] := Change
+   _HMG_aControlDeleted            [k] := .F.
+   _HMG_aControlBkColor            [k] := backcolor
+   _HMG_aControlFontColor          [k] := fontcolor
+   _HMG_aControlDblClick           [k] := enter
+   _HMG_aControlHeadClick          [k] := date
+   _HMG_aControlRow                [k] := y
+   _HMG_aControlCol                [k] := x
+   _HMG_aControlWidth              [k] := w
+   _HMG_aControlHeight             [k] := h
+   _HMG_aControlSpacing            [k] := 0
+   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlPicture            [k] := ""
+   _HMG_aControlContainerHandle    [k] := 0
+   _HMG_aControlFontName           [k] := fontname
+   _HMG_aControlFontSize           [k] := fontsize
+   _HMG_aControlFontAttributes     [k] := { bold, italic, underline, strikeout }
+   _HMG_aControlToolTip            [k] := tooltip
+   _HMG_aControlRangeMin           [k] := 0
+   _HMG_aControlRangeMax           [k] := 0
+   _HMG_aControlCaption            [k] := ""
+   _HMG_aControlVisible            [k] := .NOT. invisible
+   _HMG_aControlHelpId             [k] := HelpId
+   _HMG_aControlFontHandle         [k] := FontHandle
+   _HMG_aControlBrushHandle        [k] := 0
+   _HMG_aControlEnabled            [k] := .T.
+   _HMG_aControlMiscData1          [k] := { 0, readonly }
+   _HMG_aControlMiscData2          [k] := ""
 
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
@@ -830,7 +830,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
 
    IF .NOT. lDialogInMemory
 
-      IF !Empty( cuetext ) .AND. IsVistaOrLater() 
+      IF !Empty( cuetext ) .AND. IsVistaOrLater()
          IF Empty( Value )
             Value := NIL
          ENDIF
