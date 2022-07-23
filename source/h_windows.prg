@@ -1,49 +1,48 @@
-/*----------------------------------------------------------------------------
-MINIGUI - Harbour Win32 GUI library source code
+/*
+  MINIGUI - Harbour Win32 GUI library source code
 
-Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
-http://harbourminigui.googlepages.com/
+  Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
+  http://harbourminigui.googlepages.com/
 
-This program is free software; you can redistribute it and/or modify it under
-the terms of the GNU General Public License as published by the Free Software
-Foundation; either version 2 of the License, or (at your option) any later
-version.
+  This program is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free Software
+  Foundation; either version 2 of the License, or (at your option) any later
+  version.
 
-This program is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+  This program is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
-   You should have received a copy of the GNU General Public License along with
-   this software; see the file COPYING. If not, write to the Free Software
-   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
-   visit the web site http://www.gnu.org/).
+  You should have received a copy of the GNU General Public License along with
+  this software; see the file COPYING. If not, write to the Free Software
+  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
+  visit the web site http://www.gnu.org/).
 
-   As a special exception, you have permission for additional uses of the text
-   contained in this release of Harbour Minigui.
+  As a special exception, you have permission for additional uses of the text
+  contained in this release of Harbour Minigui.
 
-   The exception is that, if you link the Harbour Minigui library with other
-   files to produce an executable, this does not by itself cause the resulting
-   executable to be covered by the GNU General Public License.
-   Your use of that executable is in no way restricted on account of linking the
-   Harbour-Minigui library code into it.
+  The exception is that, if you link the Harbour Minigui library with other
+  files to produce an executable, this does not by itself cause the resulting
+  executable to be covered by the GNU General Public License.
+  Your use of that executable is in no way restricted on account of linking the
+  Harbour-Minigui library code into it.
 
-   Parts of this project are based upon:
+  Parts of this project are based upon:
 
-   "Harbour GUI framework for Win32"
-   Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
-   Copyright 2001 Antonio Linares <alinares@fivetech.com>
-   www - https://harbour.github.io/
+  "Harbour GUI framework for Win32"
+  Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+  Copyright 2001 Antonio Linares <alinares@fivetech.com>
+  www - https://harbour.github.io/
 
-   "Harbour Project"
-   Copyright 1999-2022, https://harbour.github.io/
+  "Harbour Project"
+  Copyright 1999-2022, https://harbour.github.io/
 
-   "WHAT32"
-   Copyright 2002 AJ Wos <andrwos@aust1.net>
+  "WHAT32"
+  Copyright 2002 AJ Wos <andrwos@aust1.net>
 
-   "HWGUI"
-   Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
-
- ---------------------------------------------------------------------------*/
+  "HWGUI"
+  Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
+*/
 
 #include "minigui.ch"
 #include "i_winuser.ch"
@@ -317,7 +316,7 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
 #ifdef _NAMES_LIST_
    _SetNameList(mVar, k)
 #else
-   Public &mVar. := k
+   PUBLIC &mVar. := k
 #endif
 
    _HMG_aFormNames                     [k] := FormName
@@ -551,7 +550,7 @@ FUNCTION _DefineModalWindow(FormName, Caption, x, y, w, h, Parent, nosize, nosys
 #ifdef _NAMES_LIST_
    _SetNameList(mVar, k)
 #else
-   Public &mVar. := k
+   PUBLIC &mVar. := k
 #endif
 
    _HMG_aFormNames                     [k] := FormName
@@ -595,9 +594,9 @@ FUNCTION _DefineModalWindow(FormName, Caption, x, y, w, h, Parent, nosize, nosys
    _HMG_aFormBrushHandle               [k] := BrushHandle
    _HMG_aFormFocusedControl            [k] := 0
    _HMG_aFormGraphTasks                [k] := {}
-   _HMG_aFormMaximizeProcedure         [k] := Nil
-   _HMG_aFormMinimizeProcedure         [k] := Nil
-   _HMG_aFormRestoreProcedure          [k] := Nil
+   _HMG_aFormMaximizeProcedure         [k] := NIL
+   _HMG_aFormMinimizeProcedure         [k] := NIL
+   _HMG_aFormRestoreProcedure          [k] := NIL
    _HMG_aFormAutoRelease               [k] := !NoAutoRelease
    _HMG_aFormInteractiveCloseProcedure [k] := InteractiveCloseProcedure
    _HMG_aFormMinMaxInfo                [k] := InitMinMaxInfo(FormHandle)
@@ -746,7 +745,7 @@ FUNCTION _DefineSplitChildWindow(FormName, w, h, break, grippertext, nocaption, 
 #ifdef _NAMES_LIST_
    _SetNameList(mVar, k)
 #else
-   Public &mVar. := k
+   PUBLIC &mVar. := k
 #endif
 
    _HMG_aFormNames                     [k] := FormName
@@ -790,9 +789,9 @@ FUNCTION _DefineSplitChildWindow(FormName, w, h, break, grippertext, nocaption, 
    _HMG_aFormBrushHandle               [k] := BrushHandle
    _HMG_aFormFocusedControl            [k] := 0
    _HMG_aFormGraphTasks                [k] := {}
-   _HMG_aFormMaximizeProcedure         [k] := Nil
-   _HMG_aFormMinimizeProcedure         [k] := Nil
-   _HMG_aFormRestoreProcedure          [k] := Nil
+   _HMG_aFormMaximizeProcedure         [k] := NIL
+   _HMG_aFormMinimizeProcedure         [k] := NIL
+   _HMG_aFormRestoreProcedure          [k] := NIL
    _HMG_aFormAutoRelease               [k] := .T.
    _HMG_aFormInteractiveCloseProcedure [k] := iif(nocaption, {|| .F.}, "")
    _HMG_aFormMinMaxInfo                [k] := InitMinMaxInfo(FormHandle)
@@ -1083,7 +1082,7 @@ FUNCTION InputBox(cInputPrompt, cDialogCaption, cDefaultValue, nTimeout, cTimeou
       IF nMLines > 0
          @ 30, 10 EDITBOX _TextBox VALUE cDefaultValue HEIGHT 26 + nMLines WIDTH 320
       ELSE
-         @ 30, 10 TEXTBOX _TextBox VALUE cDefaultValue HEIGHT 26 WIDTH 320 ON ENTER IFEMPTY(_InputBox._TextBox.Value, Nil, _InputBox._Ok.OnClick)
+         @ 30, 10 TEXTBOX _TextBox VALUE cDefaultValue HEIGHT 26 WIDTH 320 ON ENTER IFEMPTY(_InputBox._TextBox.Value, NIL, _InputBox._Ok.OnClick)
          _InputBox.MaxHeight := (_InputBox.Height)
       ENDIF
       //
@@ -1093,7 +1092,7 @@ FUNCTION InputBox(cInputPrompt, cDialogCaption, cDefaultValue, nTimeout, cTimeou
       @ 67 + nMLines, 230 BUTTON _Cancel CAPTION _HMG_MESSAGE[7] ACTION Eval(bCancel)
 
       IF ISNUMERIC(nTimeout)
-         DEFINE TIMER _InputBox INTERVAL nTimeout ACTION (IFCHAR(cTimeoutValue, RetVal := cTimeoutValue, Nil), _InputBox.Release)
+         DEFINE TIMER _InputBox INTERVAL nTimeout ACTION (IFCHAR(cTimeoutValue, RetVal := cTimeoutValue, NIL), _InputBox.Release)
       ENDIF
 
    END WINDOW
