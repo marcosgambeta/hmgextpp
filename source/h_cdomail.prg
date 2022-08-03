@@ -84,10 +84,10 @@ METHOD Activate() CLASS TCDOMail
 
       WITH OBJECT oEmailMsg
 
-         cEmailFromName := ::aOrigin[ 1 ]
-         cEmailFrom := ::aOrigin[ 2 ]
+         cEmailFromName := ::aOrigin[1]
+         cEmailFrom := ::aOrigin[2]
 
-         IF Empty( cEmailFrom )
+         IF Empty(cEmailFrom)
             cEmailFrom := cEmailFromName
          ELSE
             cEmailFrom := cEmailFromName + " <" + cEmailFrom + ">"
@@ -98,10 +98,10 @@ METHOD Activate() CLASS TCDOMail
          IF ( nLen := Len( ::aRecipients ) ) > 0
 
             FOR nEl := 1 TO nLen
-               IF Empty( ::aRecipients[ nEl ][ 2 ] )
-                  cTmp := cTmp + ::aRecipients[ nEl ][ 1 ] + iif( nEl = nLen, "", ";" )
+               IF Empty(::aRecipients[ nEl ][2])
+                  cTmp := cTmp + ::aRecipients[ nEl ][1] + iif( nEl = nLen, "", ";" )
                ELSE
-                  cTmp := cTmp + ::aRecipients[ nEl ][ 1 ] + " <" + ::aRecipients[ nEl ][ 2 ] + ">" + iif( nEl = nLen, "", ";" )
+                  cTmp := cTmp + ::aRecipients[ nEl ][1] + " <" + ::aRecipients[ nEl ][2] + ">" + iif( nEl = nLen, "", ";" )
                ENDIF
             NEXT
 
@@ -121,7 +121,7 @@ METHOD Activate() CLASS TCDOMail
 
          IF ( nLen := Len( ::aFiles ) ) > 0
             FOR nEl := 1 TO nLen
-               :AddAttachment( ::aFiles[ nEl ][ 1 ] ) // Full path must be informed
+               :AddAttachment( ::aFiles[ nEl ][1] ) // Full path must be informed
             NEXT
          ENDIF
 

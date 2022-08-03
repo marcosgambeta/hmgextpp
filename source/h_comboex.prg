@@ -124,7 +124,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentForm + " Already defined." )
    ENDIF
 
-   IF ValType( itemsource ) != "U"
+   IF ValType(itemsource) != "U"
       IF  hb_UAt ( ">", ItemSource ) == 0
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentForm + " (ItemSource): You must specify a fully qualified field name." )
       ELSE
@@ -133,11 +133,11 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
       ENDIF
    ENDIF
 
-   IF ( ValType( ImageList ) == "C" .OR. ImageList > 0 ) .AND. Len( aImage ) > 0
+   IF ( ValType(ImageList) == "C" .OR. ImageList > 0 ) .AND. Len( aImage ) > 0
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentForm + " : Image and ImageList clauses can't be used simultaneously." )
    ENDIF
 
-   IF ValType( ImageList ) == "C"
+   IF ValType(ImageList) == "C"
       IF Len( ImageList ) > 0
          ImageList := GetControlHandle ( ImageList, ParentForm )
       ENDIF
@@ -149,15 +149,15 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
 
    ParentForm := GetFormHandle ( ParentForm )
 
-   IF !Empty( aImage )
+   IF !Empty(aImage)
       aImages := {}
       FOR im := 1 TO Len( aImage )
-         IF ValType( aImage[im] ) == "C"
+         IF ValType(aImage[im]) == "C"
             AAdd( aImages, aImage[im] )
             AAdd( aImages, aImage[im] )
             AAdd( aImages, aImage[im] )
 
-         ELSEIF ValType( aImage[im] ) == "A"
+         ELSEIF ValType(aImage[im]) == "A"
             IF Len( aImage[im] ) <> 2
                MsgMiniGuiError ( "Control: " + ControlName + " Of " + cParentForm + " : You must specify 2 elements characters array as image param." )
             ELSE
@@ -169,7 +169,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
       NEXT im
    ENDIF
 
-   IF ValType( x ) == "U" .OR. ValType( y ) == "U"
+   IF ValType(x) == "U" .OR. ValType(y) == "U"
 
       _HMG_SplitLastControl := "COMBOBOX"
 
@@ -215,11 +215,11 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
       AAdd( _HMG_ActiveTabCurrentPageMap , ControlHandle )
    ENDIF
 
-   IF ValType( nItemHeight ) != "U"
-      ComboSetItemHeight ( ControlHandle , nItemHeight )
+   IF ValType(nItemHeight) != "U"
+      ComboSetItemHeight(ControlHandle, nItemHeight)
    ENDIF
 
-   IF ValType( tooltip ) != "U"
+   IF ValType(tooltip) != "U"
       SetToolTip ( ControlHandle , tooltip , GetFormToolTipHandle ( cParentForm ) )
    ENDIF
 
@@ -279,19 +279,19 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
    IF DisplayChange == .T.
       // handle for ComboBoxEx edit window
       _hmg_acontrolrangemin [k] := SendMessage ( Controlhandle, CBEM_GETEDITCONTROL, 0, 0 )
-      IF ValType( tooltip ) != "U"
+      IF ValType(tooltip) != "U"
          SetToolTip ( _hmg_acontrolrangemin [k] , tooltip , GetFormToolTipHandle ( cParentForm ) )
       ENDIF
    ENDIF
    // handle for ComboBoxEx child window
    _hmg_acontrolrangemax [k] := SendMessage ( Controlhandle, CBEM_GETCOMBOCONTROL, 0, 0 )
-   IF ValType( tooltip ) != "U"
+   IF ValType(tooltip) != "U"
       SetToolTip ( _hmg_acontrolrangemax [k] , tooltip , GetFormToolTipHandle ( cParentForm ) )
    ENDIF
 
-   SetDropDownWidth( _hmg_acontrolrangemax [k] , hb_defaultValue( ListWidth, w ) )
+   SetDropDownWidth(_hmg_acontrolrangemax [k] , hb_defaultValue( ListWidth, w ))
 
-   IF ValType( WorkArea ) == "C"
+   IF ValType(WorkArea) == "C"
 
       IF Select( WorkArea ) != 0
 
@@ -326,7 +326,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
 
    ENDIF
 
-   IF ValType( ItemSource ) != "U"
+   IF ValType(ItemSource) != "U"
       AAdd( _HMG_aFormBrowseList [ GetFormIndex ( cParentForm ) ] , k )
    ENDIF
 

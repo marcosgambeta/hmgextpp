@@ -106,9 +106,9 @@ STATIC FUNCTION _DefineFrame ( ControlName, ParentFormName, x, y, w, h, ;
          x := GetWindowCol ( Controlhandle )
          y := GetWindowRow ( Controlhandle )
          w := GetWindowWidth  ( Controlhandle )
-         h := GetWindowHeight ( Controlhandle )
+         h := GetWindowHeight(Controlhandle)
 
-         IF ValType( caption ) != "U"
+         IF ValType(caption) != "U"
             SetWindowText ( ControlHandle , caption )
          ENDIF
 
@@ -223,14 +223,14 @@ FUNCTION _BeginFrame( name , parent , row , col , w , h , caption , fontname , f
       Parent := _HMG_ActiveFrameParentFormName [_HMG_FrameLevel]
    ENDIF
 
-   IF ValType( parent ) == "U"
+   IF ValType(parent) == "U"
       IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
          Parent := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
       ENDIF
    ENDIF
 
    hb_default( @caption, "" )
-   IF Empty( caption )
+   IF Empty(caption)
       fontname := "Arial"
       fontsize := 1
    ENDIF

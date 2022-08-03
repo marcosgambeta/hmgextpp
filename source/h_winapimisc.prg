@@ -57,7 +57,7 @@ FUNCTION WindowsVersion()
       cKey := "SOFTWARE\Microsoft\Windows NT\CurrentVersion"
       aRetVal [1] := GetRegistryValue( HKEY_LOCAL_MACHINE, cKey, "ProductName" )
       IF hb_osisWin11()
-         aRetVal [1] := StrTran( aRetVal [1], "10", "11" )
+         aRetVal [1] := StrTran(aRetVal [1], "10", "11")
          aRetVal [2] := GetRegistryValue( HKEY_LOCAL_MACHINE, cKey, "DisplayVersion" )
       ELSE
          aRetVal [2] := GetRegistryValue( HKEY_LOCAL_MACHINE, cKey, "ReleaseId" )

@@ -86,7 +86,7 @@ _HMG_PGEncodingXml := "UTF-8"
 IF _HMG_LANG_ID == "FI"      // FINNISH
    cLang := "FI"
 ELSE
-   cLang := Upper( Left( Set ( _SET_LANGUAGE ), 2 ) )
+   cLang := Upper(Left(Set(_SET_LANGUAGE), 2))
 ENDIF
 
 do case

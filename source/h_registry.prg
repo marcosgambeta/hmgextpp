@@ -141,11 +141,11 @@ METHOD Get( cRegVar, uVar ) CLASS TReg32
    IF ! ::lError
 
       DEFAULT cRegVar TO ""
-      cType := ValType( uVar )
+      cType := ValType(uVar)
 
       ::nError := RegQueryValueExA( ::nHandle, cRegVar, 0, @nType, @cValue, @nLen )
 
-      IF Empty( ::nError )
+      IF Empty(::nError)
          uVar := cValue
          SWITCH cType
          CASE "N"
@@ -155,7 +155,7 @@ METHOD Get( cRegVar, uVar ) CLASS TReg32
             uVar := CToD( uVar )
             EXIT
          CASE "L"
-            uVar := ( Upper( uVar ) == ".T." )
+            uVar := ( Upper(uVar) == ".T." )
          ENDSWITCH
       ENDIF
 
@@ -172,7 +172,7 @@ METHOD Set( cRegVar, uVar ) CLASS TReg32
    IF ! ::lError
 
       DEFAULT cRegVar TO ""
-      cType := ValType( uVar )
+      cType := ValType(uVar)
 
       IF cType == "N"
          nType := REG_DWORD

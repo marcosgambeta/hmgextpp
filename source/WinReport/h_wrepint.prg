@@ -651,7 +651,7 @@ Procedure MsgMulty( xMesaj, cTitle ) // Created By Bicahi Esgici <esgici@gmail.c
          cTitle := PROCNAME(1) + "\" +   NTrim( PROCLINE(1) )
       ENDIF
 
-      IF VALTYPE( xMesaj  ) <> "A"
+      IF VALTYPE(xMesaj) <> "A"
          xMesaj := { xMesaj }
       ENDIF
 
@@ -679,7 +679,7 @@ FUNC Any2Strg( xAny )
                     { "O", { |  | ":Object:" } },;
                     { "U", { |  | "<NIL>" } } }
 
-   IF (nType := ASCAN( aCases, { | a1 | VALTYPE( xAny ) == a1[ 1 ] } ) ) > 0
+   IF (nType := ASCAN(aCases, { | a1 | VALTYPE(xAny) == a1[1] }) ) > 0
       cRVal := EVAL( aCases[ nType, 2 ], xAny )
    ENDIF
 
@@ -1499,7 +1499,7 @@ if "{" $ left(TransPar[1],2)
       endif
    endcase
 endif
-ifc := alltrim( upper( TransPar[1] ) )
+ifc := alltrim( upper(TransPar[1]) )
 oErrAntes := ERRORBLOCK({ |objErr| BREAK(objErr) } )
 BEGIN SEQUENCE
       if ifc == "IF"     /// Start adaptation if else construct - 03/Feb/2008
@@ -2377,7 +2377,7 @@ local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
 
       Asize(counter,0)
 
-      if valtype( s_col)== "N"; s_col:=zaps(s_col); endif
+      if valtype(s_col)== "N"; s_col:=zaps(s_col); endif
 
       if valtype(P_F_E_G) == "C"
          ::aStat [ "P_F_E_G" ]  :=  (".T." $ upper(P_F_E_G))
@@ -2417,7 +2417,7 @@ local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
 
       if valtype(gftotal)== "C"    // sistemazione per conti su colonne multiple
          && make an array for gftotal
-         gftotal := AscArr(upper( gftotal ) )
+         gftotal := AscArr(upper(gftotal) )
       endif
       && make an array for counters
       Aeval(gftotal,{|| aadd( counter,0),aadd(Gcounter,0)})
@@ -2440,8 +2440,8 @@ local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
       Aeval(::aBody,{|x,y|if(upper(m->gfield) $ upper(x[1]),Posiz :=y,"")})
 
       if posiz > 0  //IS A BODY DECLARED FIELD
-         P1 := max(at("SAY",upper( ::aBody[posiz,1] ))+3,at("PRINT", upper( ::aBody[posiz,1] ) )+5)
-         P2 := at("FONT",upper( ::aBody[posiz,1] ) )-2
+         P1 := max(at("SAY",upper(::aBody[posiz,1]))+3,at("PRINT", upper(::aBody[posiz,1]) )+5)
+         P2 := at("FONT",upper(::aBody[posiz,1]) )-2
          IF "{||" = LEFT(S_HEAD,3)
             EXV := alltrim(substr(S_HEAD,at("||",S_HEAD)+2,at("}",S_HEAD)-4))
          Endif
@@ -2464,8 +2464,8 @@ local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
       m->gftotal := aclone(gftotal)
 
       for each k in ::aBody
-          P1 := at( "SAY", upper( k[1] ) ); P2 := at( "PRINT", upper( k[1] ) )
-          P3 := at( "TEXTOUT", upper( k[1] ) )
+          P1 := at( "SAY", upper(k[1]) ); P2 := at( "PRINT", upper(k[1]) )
+          P3 := at( "TEXTOUT", upper(k[1]) )
           if max(p3,max(p1,p2)) = p3
              P1 := P3 + 8
           elseif p2 > p1
@@ -2497,7 +2497,7 @@ local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
           next
       next
       //Aeval(gfstring,{|x| msgstop( zaps( len( gfstring ) ) +crlf+x,"Gfstring" ) })
-      if valtype( wheregt)== "N"
+      if valtype(wheregt)== "N"
          wheregt:=zaps(wheregt)
       endif
 
@@ -2575,7 +2575,7 @@ METHOD UsaColor(arg1) CLASS WREPORT
 *-----------------------------------------------------------------------------*
    local ritorno:=arg1
    if "X" $ upper(arg1)
-      arg1 := substr( arg1,at("X",arg1)+1)
+      arg1 := substr(arg1, at("X", arg1) + 1)
       IF ::PrnDrv = "HBPR"
          ritorno := Rgb(HEXATODEC(substr(arg1,-2));
                 ,HEXATODEC(substr(arg1,5,2)),HEXATODEC(substr(arg1,3,2)) )
@@ -2665,7 +2665,7 @@ Local sstring := "NLINE"+chr(07)+NTrim(t_col)+chr(07)+"SAY"+chr(07)
                  if ::traduci(::aBody[N,1],.F.,::aBody[N,2]) //n-1)
                      noline := .T.
                  endif
-                 if "MEMOSAY" $ upper( ::aBody[N,1] )
+                 if "MEMOSAY" $ upper(::aBody[N,1])
                     ::aStat [ "ReadMemo" ] := ::aBody[n,1] + chr(07)+".F."
                  endif
              next
@@ -2724,7 +2724,7 @@ Local sstring := "NLINE"+chr(07)+NTrim(t_col)+chr(07)+"SAY"+chr(07)
                                  if ::traduci(::aBody[N,1],,n-1)
                                     noline := .T.
                                  endif
-                                 if "MEMOSAY" $ upper( ::aBody[N,1] )
+                                 if "MEMOSAY" $ upper(::aBody[N,1])
                                     ::aStat [ "ReadMemo" ] := ::aBody[n,1] + chr(07)+".F."
                                  endif
                               endif
@@ -2732,7 +2732,7 @@ Local sstring := "NLINE"+chr(07)+NTrim(t_col)+chr(07)+"SAY"+chr(07)
                               if ::traduci(::aBody[N,1],.F.,::aBody[N,2]) //n-1)
                                  noline := .T.
                               endif
-                              if "MEMOSAY" $ upper( ::aBody[N,1] )
+                              if "MEMOSAY" $ upper(::aBody[N,1])
                                  ::aStat [ "ReadMemo" ] := ::aBody[n,1] + chr(07)+".F."
                               endif
                            endif
@@ -2921,7 +2921,7 @@ local oErrAntes, oErr, lMyError := .F., n , al ,an
                  if ::traduci(::aBody[N,1],.F.,::aBody[N,2]) //n-1)
                      noline := .T.
                  endif
-                 if "MEMOSAY" $ upper( ::aBody[N,1] )
+                 if "MEMOSAY" $ upper(::aBody[N,1])
                     ::aStat [ "ReadMemo" ] := ::aBody[n,1] + chr(07)+".F."
                  endif
              next
@@ -2978,7 +2978,7 @@ local oErrAntes, oErr, lMyError := .F., n , al ,an
                                  if ::traduci(oWr:aBody[N,1],,n-1)
                                     noline := .T.
                                  endif
-                                 if "MEMOSAY" $ upper( oWr:aBody[N,1] )
+                                 if "MEMOSAY" $ upper(oWr:aBody[N,1])
                                     ::aStat [ "ReadMemo" ] := oWr:aBody[n,1] + chr(07)+".F."
                                  endif
                               endif
@@ -2986,7 +2986,7 @@ local oErrAntes, oErr, lMyError := .F., n , al ,an
                               if ::traduci(oWr:aBody[N,1],.F.,oWr:aBody[N,2]) //n-1)
                                  noline := .T.
                               endif
-                              if "MEMOSAY" $ upper( oWr:aBody[N,1] )
+                              if "MEMOSAY" $ upper(oWr:aBody[N,1])
                                  ::aStat [ "ReadMemo" ] := oWr:aBody[n,1] + chr(07)+".F."
                               endif
                            endif

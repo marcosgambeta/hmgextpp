@@ -81,10 +81,10 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
    IF Len( arows ) > 0
       IF ! ISARRAY( arows[1] )
          rows := AClone( arows )
-         AEval( arows, { |x, y| HB_SYMBOL_UNUSED( x ), nPos := y, AAdd( aChkItem, iif( AScan( aCheck, { |z| z == nPos } ) > 0, 2, 1) ) } )
+         AEval( arows, { |x, y| HB_SYMBOL_UNUSED( x ), nPos := y, AAdd( aChkItem, iif( AScan(aCheck, { |z| z == nPos }) > 0, 2, 1) ) } )
       ELSE
          AEval( arows, { |x| AAdd( rows, x[1] ) } )
-         AEval( arows, { |x, y| nPos := y, AAdd( aChkItem, iif( ValType( x[2] ) == "L" .AND. x[2] .OR. AScan( aCheck, { |z| z == nPos } ) > 0, 2, 1) ) } )
+         AEval( arows, { |x, y| nPos := y, AAdd( aChkItem, iif( ValType(x[2]) == "L" .AND. x[2] .OR. AScan(aCheck, { |z| z == nPos }) > 0, 2, 1) ) } )
       ENDIF
    ENDIF
 
@@ -148,7 +148,7 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
          x := GetWindowCol ( Controlhandle )
          y := GetWindowRow ( Controlhandle )
          w := GetWindowWidth  ( Controlhandle )
-         h := GetWindowHeight ( Controlhandle )
+         h := GetWindowHeight(Controlhandle)
 
          SetWindowStyle ( ControlHandle, Style, .T. )
 
@@ -158,7 +158,7 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
 
       ParentFormHandle := GetFormHandle ( ParentFormName )
 
-      IF ValType( x ) == "U" .OR. ValType( y ) == "U"
+      IF ValType(x) == "U" .OR. ValType(y) == "U"
 
          IF _HMG_SplitLastControl == "TOOLBAR"
             Break := .T.
@@ -208,7 +208,7 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
          AAdd( _HMG_ActiveTabCurrentPageMap , ControlHandle )
       ENDIF
 
-      IF ValType( tooltip ) != "U"
+      IF ValType(tooltip) != "U"
          SetToolTip ( ControlHandle , tooltip , GetFormToolTipHandle ( ParentFormName ) )
       ENDIF
 
@@ -271,7 +271,7 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
       ENDIF
 
       IF FontSize != _HMG_DefaultFontSize .AND. Len( Rows ) > 0
-         SetChkLBItemHeight ( ControlHandle , FontHandle )
+         SetChkLBItemHeight(ControlHandle, FontHandle)
       ENDIF
 
       IF multiselect
@@ -304,7 +304,7 @@ FUNCTION InitDialogChkListBox( ParentName, ControlHandle, k )
    ENDIF
 
    IF FontSize != _HMG_DefaultFontSize .AND. Len( Rows ) > 0
-      SetChkLBItemHeight ( ControlHandle , FontHandle )
+      SetChkLBItemHeight(ControlHandle, FontHandle)
    ENDIF
 
    IF _HMG_aControlType[k] == CONTROL_TYPE_MULTICHKLIST

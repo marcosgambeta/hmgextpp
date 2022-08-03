@@ -51,7 +51,7 @@ CLASS TSBScrlBar FROM TControl
    // These two have to be BLOCK
 
    METHOD GoUp()   BLOCK { | Self, nPos | nPos := ::GetPos(),;
-                                          iif( nPos > ::GetRange()[ 1 ],;
+                                          iif( nPos > ::GetRange()[1],;
                                               ::SetPos( --nPos ), ),;
                           IIf( ::bGoUp != Nil, Eval( ::bGoUp ),) }
 
@@ -143,7 +143,7 @@ METHOD New( nRow, nCol, nMin, nMax, nPgStep, lVertical, oWnd, nWidth, nHeight,;
    ::bWhen      := bWhen
    ::bValid     := bValid
 
-   if ! Empty( ::oWnd:hWnd )
+   if ! Empty(::oWnd:hWnd)
       ::Create( "SCROLLBAR" )
       ::SetRange( ::nMin, ::nMax )
       ::SetPos( ::nMin )
@@ -250,7 +250,7 @@ METHOD SetPage( nSize, lReDraw ) CLASS TSBScrlBar
 
    Default lRedraw := .F.
 
-   if ! Empty( ::hWnd )
+   if ! Empty(::hWnd)
       nFlags = SB_CTL
    Else
       if ::lVertical
@@ -262,8 +262,7 @@ METHOD SetPage( nSize, lReDraw ) CLASS TSBScrlBar
 
    ::nPgStep := nSize
 
-   SetScrollInfo( IIf( ! Empty( ::hWnd ), ::oWnd:hWnd, ::hWnd ),;
-                  nFlags, nSize, lReDraw, ::lShowDisabled )
+   SetScrollInfo(IIf(!Empty(::hWnd), ::oWnd:hWnd, ::hWnd), nFlags, nSize, lReDraw, ::lShowDisabled)
 
 Return Nil
 

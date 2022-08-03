@@ -83,7 +83,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
    LOCAL nLenSelectList := Len( aSelectList )
    LOCAL xExprValue, cExprValue, cExprType, nExprLen, aStruct := {}
-   LOCAL lOTM := ( ValType( aOneToMany ) == "A" )
+   LOCAL lOTM := ( ValType(aOneToMany) == "A" )
    LOCAL nExprAlias, nCurrExpr, nSelectFrom, nSelectChild, nSelectTemp, xValueFromMother, axExpr := {}
    LOCAL lCreateIndex := .F.
    LOCAL cIndexName, cIndexKey := ""
@@ -96,11 +96,11 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
    ELSE
 
-      IF ValType( xcnFromArea ) == "N"
+      IF ValType(xcnFromArea) == "N"
 
          nSelectFrom := xcnFromArea
 
-      ELSEIF ValType( xcnFromArea ) == "C"
+      ELSEIF ValType(xcnFromArea) == "C"
 
          nSelectFrom := Select( xcnFromArea )
 
@@ -112,7 +112,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
    IF lOTM
 
-      nSelectChild := Select( aOneToMany[ 1 ] )
+      nSelectChild := Select( aOneToMany[1] )
 
    ENDIF
 
@@ -128,13 +128,13 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
    ELSEIF xcAlias == NIL
 
-      xcAlias := SubStr( xcAlias := SubStr( xcFile, RAt( "\", xcFile ) + 1 ), 1, At( ".", xcAlias + "." ) - 1 )
+      xcAlias := SubStr(xcAlias := SubStr(xcFile, RAt("\", xcFile) + 1), 1, At(".", xcAlias + ".") - 1)
 
    ENDIF
 
    IF cIndexName == NIL
 
-      cIndexName := IIF( ( nExprAlias := RAt( ".", xcFile ) ) > RAt( "\", xcFile ), SubStr( xcFile, 1, nExprAlias - 1 ), xcFile ) + IndexExt()
+      cIndexName := IIF( ( nExprAlias := RAt( ".", xcFile ) ) > RAt( "\", xcFile ), SubStr(xcFile, 1, nExprAlias - 1), xcFile ) + IndexExt()
 
    ENDIF
 
@@ -150,11 +150,11 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
    FOR nCurrExpr := 1 TO nLenSelectList
 
       xExprValue := Eval( aSelectList[ nCurrExpr, 1 ] )
-      cExprType := ValType( xExprValue )
+      cExprType := ValType(xExprValue)
       cExprValue := Transform( xExprValue, "" )
       nExprLen := Len( cExprValue )
       AAdd( aStruct, { iif( ( nExprAlias := At( "->", aSelectList[ nCurrExpr, 2 ] ) ) == 0, aSelectList[ nCurrExpr, 2 ], ;
-         SubStr( aSelectList[ nCurrExpr, 2 ], nExprAlias + 2 ) ), cExprType, ;
+         SubStr(aSelectList[ nCurrExpr, 2 ], nExprAlias + 2) ), cExprType, ;
          iif( aSelectList[ nCurrExpr, 3 ] <> NIL, aSelectList[ nCurrExpr, 3 ], ;
          iif( cExprType == "D", 8, nExprLen ) ), ;
          iif( aSelectList[ nCurrExpr, 4 ] <> NIL, aSelectList[ nCurrExpr, 4 ], ;
@@ -231,7 +231,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
    IF lOTM
 
-      DO WHILE .NOT. Eof() .AND. .NOT. ( nSelectChild )->( dbSeek( xValueFromMother := ( nSelectFrom )->( Eval( aOneToMany[ 2 ] ) ), .F. ) )
+      DO WHILE .NOT. Eof() .AND. .NOT. ( nSelectChild )->( dbSeek( xValueFromMother := ( nSelectFrom )->( Eval( aOneToMany[2] ) ), .F. ) )
 
          dbSkip()
 
@@ -241,7 +241,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
    DO WHILE .NOT. Eof() .AND. ( lWhile == NIL .OR. Eval( lWhile ) )
 
-      IF ValType( xEval ) == "B"
+      IF ValType(xEval) == "B"
 
          Eval( xEval )
 
@@ -253,7 +253,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
          lCreateIndex := .NOT. lCreateIndex
          cSeekExpr := ""
 
-         IF ValType( axExpr ) == "A" .AND. ValType( AEval( axExpr, {| e | cSeekExpr += ToString( Eval( e ) ) } ) ) == "A" .OR. .NOT. ( nSelectTemp )->( dbSeek( cSeekExpr, .F. ) )
+         IF ValType(axExpr) == "A" .AND. ValType(AEval(axExpr, {|e|cSeekExpr += ToString(Eval(e))})) == "A" .OR. .NOT. ( nSelectTemp )->( dbSeek( cSeekExpr, .F. ) )
 
             ( nSelectTemp )->( dbAppend() )
             lAppend := .T.
@@ -306,13 +306,13 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
       ELSE
 
-         IF ( nSelectChild )->( dbSkip() ) .OR. ( nSelectChild )->( Eof() .OR. .NOT. xValueFromMother == Eval( aOneToMany[ 3 ] ) )
+         IF ( nSelectChild )->( dbSkip() ) .OR. ( nSelectChild )->( Eof() .OR. .NOT. xValueFromMother == Eval( aOneToMany[3] ) )
 
             dbSkip()
 
             IF lOTM
 
-               DO WHILE .NOT. Eof() .AND. .NOT. ( nSelectChild )->( dbSeek( xValueFromMother := ( nSelectFrom )->( Eval( aOneToMany[ 2 ] ) ), .F. ) )
+               DO WHILE .NOT. Eof() .AND. .NOT. ( nSelectChild )->( dbSeek( xValueFromMother := ( nSelectFrom )->( Eval( aOneToMany[2] ) ), .F. ) )
 
                   dbSkip()
 
@@ -341,7 +341,7 @@ RETURN
 
 STATIC FUNCTION ToString( cStr )
 
-   LOCAL cType := ValType( cStr )
+   LOCAL cType := ValType(cStr)
 
    IF cType == "N"
 

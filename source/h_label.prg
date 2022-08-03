@@ -163,9 +163,9 @@ FUNCTION _DefineLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
          x := GetWindowCol ( Controlhandle )
          y := GetWindowRow ( Controlhandle )
          w := GetWindowWidth  ( Controlhandle )
-         h := GetWindowHeight ( Controlhandle )
+         h := GetWindowHeight(Controlhandle)
 
-         IF ValType( caption ) != "U"
+         IF ValType(caption) != "U"
             SetWindowText ( ControlHandle , caption )
          ENDIF
 
@@ -197,7 +197,7 @@ FUNCTION _DefineLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
          AAdd( _HMG_ActiveTabCurrentPageMap , Controlhandle )
       ENDIF
 
-      IF ValType( tooltip ) != "U"
+      IF ValType(tooltip) != "U"
          SetToolTip ( ControlHandle , tooltip , GetFormToolTipHandle ( ParentFormName ) )
       ENDIF
 
@@ -256,9 +256,9 @@ FUNCTION _DefineLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
    ENDIF
 
    IF autosize == .T. .AND. .NOT. lDialogInMemory
-      _SetControlWidth ( ControlName , ParentFormName , GetTextWidth( NIL, Caption, FontHandle ) + ;
-         iif( bold == .T. .OR. italic == .T., GetTextWidth( NIL, " ", FontHandle ), 0 ) )
-      _SetControlHeight ( ControlName , ParentFormName , FontSize + iif( FontSize < 14, 12, 16 ) )
+      _SetControlWidth(ControlName, ParentFormName, GetTextWidth(NIL, Caption, FontHandle) + ;
+         iif(bold == .T. .OR. italic == .T., GetTextWidth(NIL, " ", FontHandle), 0))
+      _SetControlHeight(ControlName, ParentFormName, FontSize + iif(FontSize < 14, 12, 16))
    ENDIF
 
    IF _HMG_lOOPEnabled
@@ -284,10 +284,10 @@ FUNCTION InitDialogLabel( ParentFormName, ControlHandle, k )
    ENDIF
 
    IF _HMG_aControlSpacing [k] == 1
-      _SetControlWidth ( ControlName , ParentFormName , GetTextWidth( NIL, _HMG_aControlCaption [k] , _HMG_aControlFontHandle [k] ) + ;
-         iif( _HMG_aControlFontAttributes [k] [1] == .T. .OR. _HMG_aControlFontAttributes [k] [2] == .T., ;
-         GetTextWidth( NIL, " ", _HMG_aControlFontHandle [k] ), 0 ) )
-      _SetControlHeight ( ControlName , ParentFormName , _HMG_aControlFontSize [k] + iif( _HMG_aControlFontSize [k] < 14, 12, 16 ) )
+      _SetControlWidth(ControlName, ParentFormName, GetTextWidth(NIL, _HMG_aControlCaption[k], _HMG_aControlFontHandle[k]) + ;
+         iif(_HMG_aControlFontAttributes[k][1] == .T. .OR. _HMG_aControlFontAttributes[k][2] == .T., ;
+         GetTextWidth(NIL, " ", _HMG_aControlFontHandle[k]), 0))
+      _SetControlHeight(ControlName, ParentFormName, _HMG_aControlFontSize[k] + iif(_HMG_aControlFontSize[k] < 14, 12, 16))
       RedrawWindow ( ControlHandle )
    ENDIF
 // JP 62
@@ -300,7 +300,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION OLABELEVENTS( hWnd, nMsg, wParam, lParam )
 *-----------------------------------------------------------------------------*
-   LOCAL i := AScan( _HMG_aControlHandles, hWnd )
+   LOCAL i := AScan(_HMG_aControlHandles, hWnd)
 
    HB_SYMBOL_UNUSED( wParam )
    HB_SYMBOL_UNUSED( lParam )

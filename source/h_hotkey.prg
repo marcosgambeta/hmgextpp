@@ -55,7 +55,7 @@ FUNCTION _DefineHotKey ( cParentForm , nMod , nKey , bAction )
    LOCAL k
    LOCAL lSuccess
    // BK 22-Apr-2012
-   IF _HMG_BeginWindowMDIActive .AND. Empty( _HMG_ActiveFormName )  //JP MDI HotKey
+   IF _HMG_BeginWindowMDIActive .AND. Empty(_HMG_ActiveFormName)  //JP MDI HotKey
       nParentForm := GetActiveMdiHandle()
       IF nParentForm == 0
          cParentForm := _HMG_MainClientMDIName
@@ -66,7 +66,7 @@ FUNCTION _DefineHotKey ( cParentForm , nMod , nKey , bAction )
       cParentForm := _HMG_ActiveFormName
    ENDIF
 
-   IF ValType( cParentForm ) == "U"
+   IF ValType(cParentForm) == "U"
       MsgMiniGuiError ( "ON KEY: Parent Window is Not specified." )
    ENDIF
 
@@ -77,7 +77,7 @@ FUNCTION _DefineHotKey ( cParentForm , nMod , nKey , bAction )
 
    _ReleaseHotKey ( cParentForm, nMod , nKey )
    // BK 22-Apr-2012
-   IF _HMG_BeginWindowMDIActive .AND. Empty( _HMG_ActiveFormName )  //JP MDI HotKey
+   IF _HMG_BeginWindowMDIActive .AND. Empty(_HMG_ActiveFormName)  //JP MDI HotKey
       nParentForm := GetActiveMdiHandle()
       IF nParentForm == 0
          nParentForm := GetFormHandle ( cParentForm )
@@ -186,16 +186,16 @@ FUNCTION HMG_PressKey( ... )  // by Dr. Claudio Soto, April 2016
    LOCAL i
 
    FOR i := 1 TO PCount()
-      IF ValType( PValue( i ) ) == "N"
+      IF ValType(PValue( i )) == "N"
          AADD( aVK, PValue( i ) )
       ELSE
          LOOP
       ENDIF
-      Keybd_Event( aVK[ i ], .F. )   // KeyDown
+      Keybd_Event( aVK[i], .F. )   // KeyDown
    NEXT
 
    FOR i := Len( aVK ) TO 1 STEP -1
-      Keybd_Event( aVK[ i ], .T. )   // KeyUp
+      Keybd_Event( aVK[i], .T. )   // KeyUp
    NEXT
 
 RETURN aVK
@@ -209,14 +209,14 @@ FUNCTION _SetHotKeyByName ( cParentForm, cKey, bAction )
    IF _HMG_BeginWindowActive
       cParentForm := _HMG_ActiveFormName
    ENDIF
-   IF Empty( cParentForm )
+   IF Empty(cParentForm)
       MsgMiniGuiError ( "ON KEY: Parent Window is Not specified." )
    ENDIF
 
-   IF ! Empty( cKey ) .AND. ISCHARACTER ( cKey )
+   IF ! Empty(cKey) .AND. ISCHARACTER ( cKey )
       aKey := _DetermineKey ( cKey )
       IF aKey [1] != 0
-         IF ValType( _GetHotKeyBlock ( cParentForm, aKey [2], aKey [1] ) ) == "B"
+         IF ValType(_GetHotKeyBlock(cParentForm, aKey [2], aKey [1])) == "B"
             MsgMiniGuiError ( "Hotkey " + cKey + " Already defined." )
          ENDIF
          lSuccess := _DefineHotKey ( cParentForm, aKey [2], aKey [1], bAction )
@@ -233,7 +233,7 @@ FUNCTION _DetermineKey ( cKey )
    LOCAL aKey := { 0, 0 }
    LOCAL nAlt, nCtrl, nShift, nWin
    LOCAL nPos
-   LOCAL cKey2 := Upper( cKey )
+   LOCAL cKey2 := Upper(cKey)
    LOCAL cText
 
    nAlt := nCtrl := nShift := nWin := 0
@@ -259,18 +259,18 @@ FUNCTION _DetermineKey ( cKey )
       "RSHIFT", "LCONTROL", "RCONTROL", "LMENU", "RMENU" } // 165
    ENDIF
 
-   DO WHILE ! Empty( cKey2 )
+   DO WHILE ! Empty(cKey2)
 
       IF ( nPos := At( "+", cKey2 ) ) == 0
          cKey2 := AllTrim( cKey2 )
-         nPos := AScan( _SetGetGlobal( "_HMG_aKeyTables" ), { |c| cKey2 == c } )
+         nPos := AScan(_SetGetGlobal( "_HMG_aKeyTables" ), { |c| cKey2 == c })
          cKey2 := ""
          IF nPos != 0
             aKey := { nPos, nAlt + nCtrl + nShift + nWin }
          ENDIF
       ELSE
          cText := AllTrim( Left( cKey2, nPos - 1 ) )
-         cKey2 := SubStr( cKey2, nPos + 1 )
+         cKey2 := SubStr(cKey2, nPos + 1)
 
          DO CASE
          CASE cText == "ALT"

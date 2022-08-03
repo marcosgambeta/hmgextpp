@@ -113,7 +113,7 @@ FUNCTION _DefineHotKeyBox ( ControlName, ParentForm, x, y, w, h, value, fontname
 
    SetHotKeyValue( ControlHandle, value )
 
-   IF ValType( tooltip ) != "U"
+   IF ValType(tooltip) != "U"
       SetToolTip ( ControlHandle , tooltip , GetFormToolTipHandle ( cParentForm ) )
    ENDIF
 
@@ -177,4 +177,4 @@ FUNCTION _GetHotKeyName( cControlName, cFormName )
 *-----------------------------------------------------------------------------*
    LOCAL cKeyName := C_GETHOTKEYNAME( GetControlHandle( cControlName, cFormName ) )
 
-RETURN SubStr( cKeyName, 1, At( Chr( 0 ), cKeyName ) - 1 )
+RETURN SubStr(cKeyName, 1, At( Chr( 0 ), cKeyName ) - 1)

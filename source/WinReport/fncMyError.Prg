@@ -20,7 +20,7 @@ FUNCTION MyErrorFunc( MyObjError )
 
     cErrorMsg += CRLF + CRLF
     
-    WHILE ! Empty( ProcName( i ) )
+    WHILE ! Empty(ProcName(i))
         cText := "Called from " + ProcName( i ) + "(" + AllTrim( Str( ProcLine( i++ ) ) ) + ")" + CRLF
         cErrorMsg += cText
         Html_LineText( HtmArch, cText )
@@ -61,9 +61,9 @@ STATIC FUNCTION MyErrorMessage( oError )
 
    // add either filename or operation
    DO CASE
-   CASE !Empty( oError:filename )
+   CASE !Empty(oError:filename)
       cMessage += ": " + oError:filename
-   CASE !Empty( oError:operation )
+   CASE !Empty(oError:operation)
       cMessage += ": " + oError:operation
    ENDCASE
 

@@ -79,9 +79,9 @@ PROCEDURE _DefineActivex ( cControlName, cParentForm, nRow, nCol, nWidth, nHeigh
 
    // If defined inside a Tab structure, adjust position and determine cParentForm
    IF _HMG_FrameLevel > 0
-      nCol += _HMG_ActiveFrameCol[ _HMG_FrameLevel ]
-      nRow += _HMG_ActiveFrameRow[ _HMG_FrameLevel ]
-      cParentForm := _HMG_ActiveFrameParentFormName[ _HMG_FrameLevel ]
+      nCol += _HMG_ActiveFrameCol[_HMG_FrameLevel]
+      nRow += _HMG_ActiveFrameRow[_HMG_FrameLevel]
+      cParentForm := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
 
    IF .NOT. _IsWindowDefined ( cParentForm )
@@ -96,7 +96,7 @@ PROCEDURE _DefineActivex ( cControlName, cParentForm, nRow, nCol, nWidth, nHeigh
       MsgMiniGuiError ( "Control: " + cControlName + " Of " + cParentForm + " PROGID Property Invalid Type." )
    ENDIF
 
-   IF Empty( cProgId )
+   IF Empty(cProgId)
       MsgMiniGuiError ( "Control: " + cControlName + " Of " + cParentForm + " PROGID Can't be empty." )
    ENDIF
 
@@ -114,7 +114,7 @@ PROCEDURE _DefineActivex ( cControlName, cParentForm, nRow, nCol, nWidth, nHeigh
    nControlHandle := oActiveX:hWnd
    nAtlDllHandle := oActiveX:hAtl
 
-   IF ! Empty( oActiveX:hSink )
+   IF ! Empty(oActiveX:hSink)
       IF ISARRAY( aEvents ) .AND. Len( aEvents ) > 0 .AND. ISARRAY( aEvents [1] )
          AEval( aEvents, { | x | oActiveX:EventMap( x [1], x [2] ) } )
       ENDIF
@@ -160,8 +160,8 @@ PROCEDURE _DefineActivex ( cControlName, cParentForm, nRow, nCol, nWidth, nHeigh
    _HMG_aControlWidth              [k] := nWidth
    _HMG_aControlHeight             [k] := nHeight
    _HMG_aControlSpacing            [k] := 0
-   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[ _HMG_FrameLevel ], -1 )
-   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[ _HMG_FrameLevel ], -1 )
+   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1 )
+   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1 )
    _HMG_aControlPicture            [k] := ""
    _HMG_aControlContainerHandle    [k] := 0
    _HMG_aControlFontName           [k] := Nil
@@ -188,9 +188,9 @@ PROCEDURE ReleaseActiveX ( cWindow, cControl )
 
    IF _IsControlDefined ( cControl, cWindow ) .AND. GetControlType ( cControl, cWindow ) == "ACTIVEX"
 
-      oActiveX := _HMG_aControlIds[ GetControlIndex ( cControl, cWindow ) ]
+      oActiveX := _HMG_aControlIds[GetControlIndex(cControl, cWindow)]
 
-      IF ValType( oActiveX ) <> "U"
+      IF ValType(oActiveX) <> "U"
          oActiveX:Release()
       ENDIF
 
@@ -250,7 +250,7 @@ FUNCTION _GetControlObject ( ControlName, ParentForm )
       RETURN NIL
    ENDIF
 
-RETURN ( _HMG_aControlMiscData1[ i ] )
+RETURN ( _HMG_aControlMiscData1[i] )
 
 /*
    Marcelo Torres, Noviembre de 2006.
@@ -304,10 +304,10 @@ ENDCLASS
 
 METHOD New( cWindowName, cProgId, nRow, nCol, nWidth, nHeight ) CLASS TActiveX
 
-   iif( Empty( nRow )    , nRow    := 0 , )
-   iif( Empty( nCol )    , nCol    := 0 , )
-   iif( Empty( nWidth )  , nWidth  := GetProperty( cWindowName , "width" ) , )
-   iif( Empty( nHeight ) , nHeight := GetProperty( cWindowName , "Height" ) , )
+   iif( Empty(nRow)    , nRow    := 0 , )
+   iif( Empty(nCol)    , nCol    := 0 , )
+   iif( Empty(nWidth)  , nWidth  := GetProperty( cWindowName , "width" ) , )
+   iif( Empty(nHeight) , nHeight := GetProperty( cWindowName , "Height" ) , )
    ::nRow := nRow
    ::nCol := nCol
    ::nWidth := nWidth
@@ -396,10 +396,10 @@ RETURN .T.
 
 METHOD Release() CLASS TActiveX
 
-   IF ValType( ::hWnd ) <> "U"
+   IF ValType(::hWnd) <> "U"
       DestroyWindow( ::hWnd )
    ENDIF
-   IF !Empty( ::hSink )
+   IF !Empty(::hSink)
       ShutdownConnectionPoint( ::hSink )
    ENDIF
    ReleaseDispatch( ::hAtl )
@@ -418,20 +418,20 @@ METHOD EventMap( nMsg, xExec, oSelf )
 
    LOCAL nAt
 
-   nAt := AScan( ::aAxEv, nMsg )
+   nAt := AScan(::aAxEv, nMsg)
    IF nAt == 0
       AAdd( ::aAxEv, nMsg )
       AAdd( ::aAxExec, { NIL, NIL } )
       nAt := Len( ::aAxEv )
    ENDIF
-   ::aAxExec[ nAt ] := { xExec, oSelf }
+   ::aAxExec[nAt] := { xExec, oSelf }
 
 RETURN NIL
 
 METHOD OnError( ... )
    LOCAL cMethod := __GetMessage() 
 
-   IF cMethod[ 1 ] == "_"
+   IF cMethod[1] == "_"
       cMethod := Right( cMethod, 2 )
    ENDIF
    hb_ExecFromArray( ::oOle, cMethod, hb_aParams() )
@@ -702,7 +702,7 @@ static ULONG STDMETHODCALLTYPE Invoke( IEventHandler * self, DISPID dispid, REFI
 {
    PHB_ITEM   pItem;
    int        iArg, i;
-   PHB_ITEM   pItemArray[ 32 ]; // max 32 parameters?
+   PHB_ITEM   pItemArray[32]; // max 32 parameters?
    PHB_ITEM * pItems;
    HB_SIZE    ulPos;
    PHB_ITEM   Key;
@@ -789,8 +789,8 @@ static ULONG STDMETHODCALLTYPE Invoke( IEventHandler * self, DISPID dispid, REFI
          for( i = 1; i <= iArg; i++ )
          {
             pItem = hb_itemNew( nullptr );
-            hb_oleVariantToItem( pItem, &( params->rgvarg[ iArg - i ] ) );
-            pItemArray[ i - 1 ] = pItem;
+            hb_oleVariantToItem( pItem, &( params->rgvarg[iArg - i] ) );
+            pItemArray[i - 1] = pItem;
             // set bit i
             //ulRefMask |= ( 1L << ( i - 1 ) );
          }
@@ -802,7 +802,7 @@ static ULONG STDMETHODCALLTYPE Invoke( IEventHandler * self, DISPID dispid, REFI
             {
                for( i = 0; i < iArg; i++ )
                {
-                  hb_vmPush( ( pItems )[ i ] );
+                  hb_vmPush( ( pItems )[i] );
                }
             }
          }
@@ -813,35 +813,35 @@ static ULONG STDMETHODCALLTYPE Invoke( IEventHandler * self, DISPID dispid, REFI
          // En caso de que los parametros sean pasados por referencia
          for( i = iArg; i > 0; i-- )
          {
-            if( ( ( &( params->rgvarg[ iArg - i ] ) )->n1.n2.vt & VT_BYREF ) == VT_BYREF )
+            if( ( ( &( params->rgvarg[iArg - i] ) )->n1.n2.vt & VT_BYREF ) == VT_BYREF )
             {
 
-               switch( ( &( params->rgvarg[ iArg - i ] ) )->n1.n2.vt )
+               switch( ( &( params->rgvarg[iArg - i] ) )->n1.n2.vt )
                {
 
                   //case VT_UI1|VT_BYREF:
                   //   *((&(params->rgvarg[iArg-i]))->n1.n2.n3.pbVal) = va_arg(argList,unsigned char*);  //pItemArray[i-1]
                   //   break;
                   case VT_I2 | VT_BYREF:
-                     *( ( &( params->rgvarg[ iArg - i ] ) )->n1.n2.n3.piVal ) = ( short ) hb_itemGetNI( pItemArray[ i - 1 ] );
+                     *( ( &( params->rgvarg[iArg - i] ) )->n1.n2.n3.piVal ) = ( short ) hb_itemGetNI( pItemArray[i - 1] );
                      break;
                   case VT_I4 | VT_BYREF:
-                     *( ( &( params->rgvarg[ iArg - i ] ) )->n1.n2.n3.plVal ) = ( long ) hb_itemGetNL( pItemArray[ i - 1 ] );
+                     *( ( &( params->rgvarg[iArg - i] ) )->n1.n2.n3.plVal ) = ( long ) hb_itemGetNL( pItemArray[i - 1] );
                      break;
                   case VT_R4 | VT_BYREF:
-                     *( ( &( params->rgvarg[ iArg - i ] ) )->n1.n2.n3.pfltVal ) = ( float ) hb_itemGetND( pItemArray[ i - 1 ] );
+                     *( ( &( params->rgvarg[iArg - i] ) )->n1.n2.n3.pfltVal ) = ( float ) hb_itemGetND( pItemArray[i - 1] );
                      break;
                   case VT_R8 | VT_BYREF:
-                     *( ( &( params->rgvarg[ iArg - i ] ) )->n1.n2.n3.pdblVal ) = ( double ) hb_itemGetND( pItemArray[ i - 1 ] );
+                     *( ( &( params->rgvarg[iArg - i] ) )->n1.n2.n3.pdblVal ) = ( double ) hb_itemGetND( pItemArray[i - 1] );
                      break;
                   case VT_BOOL | VT_BYREF:
-                     *( ( &( params->rgvarg[ iArg - i ] ) )->n1.n2.n3.pboolVal ) = ( VARIANT_BOOL ) ( hb_itemGetL( pItemArray[ i - 1 ] ) ? 0xFFFF : 0 );
+                     *( ( &( params->rgvarg[iArg - i] ) )->n1.n2.n3.pboolVal ) = ( VARIANT_BOOL ) ( hb_itemGetL( pItemArray[i - 1] ) ? 0xFFFF : 0 );
                      break;
                   //case VT_ERROR|VT_BYREF:
                   //   *((&(params->rgvarg[iArg-i]))->n1.n2.n3.pscode) = va_arg(argList, SCODE*);
                   //   break;
                   case VT_DATE | VT_BYREF:
-                     *( ( &( params->rgvarg[ iArg - i ] ) )->n1.n2.n3.pdate ) = ( DATE ) ( double ) ( hb_itemGetDL( pItemArray[ i - 1 ] ) - 2415019 );
+                     *( ( &( params->rgvarg[iArg - i] ) )->n1.n2.n3.pdate ) = ( DATE ) ( double ) ( hb_itemGetDL( pItemArray[i - 1] ) - 2415019 );
                      break;
                   //case VT_CY|VT_BYREF:
                   //   *((&(params->rgvarg[iArg-i]))->n1.n2.n3.pcyVal) = va_arg(argList, CY*);

@@ -61,7 +61,7 @@ FUNCTION httpconnect( Connection, Server, Port )
 
       Public &Connection
 
-      IF Empty( oUrl )
+      IF Empty(oUrl)
          &Connection := Nil
       ELSE
          &Connection := TIpClientHttp():New( oUrl )
@@ -73,7 +73,7 @@ FUNCTION httpconnect( Connection, Server, Port )
 
    ELSE
 
-      IF Empty( oUrl )
+      IF Empty(oUrl)
          Connection := Nil
       ELSE
          Connection := TIpClientHttp():New( oUrl )
@@ -98,15 +98,15 @@ FUNCTION httpgeturl( Connection, cPage, uRet )
 
    cUrl := "http://"
 
-   IF ! Empty( Connection:oUrl:cUserid )
+   IF ! Empty(Connection:oUrl:cUserid)
       cUrl += Connection:oUrl:cUserid
-      IF ! Empty( Connection:oUrl:cPassword )
+      IF ! Empty(Connection:oUrl:cPassword)
          cUrl += ":" + Connection:oUrl:cPassword
       ENDIF
       cUrl += "@"
    ENDIF
 
-   IF ! Empty( Connection:oUrl:cServer )
+   IF ! Empty(Connection:oUrl:cServer)
       cUrl += Connection:oUrl:cServer
       IF Connection:oUrl:nPort > 0
          cUrl += ":" + hb_ntos( Connection:oUrl:nPort )

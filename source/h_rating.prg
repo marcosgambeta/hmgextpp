@@ -27,9 +27,9 @@ FUNCTION _DefineRating ( ControlName, ParentForm, x, y, w, h, nValue, aImages, n
    ENDIF
 
    IF _HMG_FrameLevel > 0
-      x := x + _HMG_ActiveFrameCol[ _HMG_FrameLevel ]
-      y := y + _HMG_ActiveFrameRow[ _HMG_FrameLevel ]
-      ParentForm := _HMG_ActiveFrameParentFormName[ _HMG_FrameLevel ]
+      x := x + _HMG_ActiveFrameCol[_HMG_FrameLevel]
+      y := y + _HMG_ActiveFrameRow[_HMG_FrameLevel]
+      ParentForm := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
 
    IF .NOT. _IsWindowDefined ( ParentForm )
@@ -85,8 +85,8 @@ FUNCTION _DefineRating ( ControlName, ParentForm, x, y, w, h, nValue, aImages, n
    _HMG_aControlWidth              [k] := w
    _HMG_aControlHeight             [k] := h
    _HMG_aControlSpacing            [k] := 0
-   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[ _HMG_FrameLevel ], -1 )
-   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[ _HMG_FrameLevel ], -1 )
+   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1 )
+   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1 )
    _HMG_aControlPicture            [k] := ""
    _HMG_aControlContainerHandle    [k] := 0
    _HMG_aControlFontName           [k] := ""
@@ -145,7 +145,7 @@ FUNCTION _InitRating ( ParentForm, ControlName, x, y, w, h, nValue, aImages, nCn
          ONMOUSEHOVER iif( readonly, NIL, OnHoverRate( ParentForm, ControlName ) )
          ONMOUSELEAVE iif( readonly, NIL, OnLeaveRate( ParentForm, ControlName, onchangeprocedure ) )
          ONCLICK iif( readonly, NIL, ( SetProperty( ParentForm, ControlName, "Value", ;
-            Val( SubStr( This.NAME, RAt("_", This.Name ) + 1 ) ) ), ;
+            Val(SubStr(This.NAME, RAt("_", This.Name) + 1)) ), ;
             OnSelectRate( ParentForm, ControlName, onchangeprocedure ) ) )
          INVISIBLE invisible
       END IMAGE
@@ -188,7 +188,7 @@ RETURN _GetId()
 STATIC FUNCTION OnHoverRate( cWindow, cControl )
 
    LOCAL i, img_name
-   LOCAL select := Val( SubStr( This.Name, RAt( "_", This.Name ) + 1 ) )
+   LOCAL select := Val( SubStr(This.Name, RAt("_", This.Name) + 1 ) )
 
    ClearRating( cWindow, cControl )
    FOR i := 1 TO select

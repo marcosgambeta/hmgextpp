@@ -63,7 +63,7 @@ FUNCTION _BeginPager( ControlName, ParentName, nWidth, nHeight, nScroll, cCaptio
       MsgMiniGuiError( "PAGERBOX can't be defined inside Tab control." )
    ENDIF
 
-   IF ValType( ParentName ) == "U" .AND. _HMG_BeginWindowActive
+   IF ValType(ParentName) == "U" .AND. _HMG_BeginWindowActive
       ParentName := _HMG_ActiveFormName
    ENDIF
    IF .NOT. _IsWindowDefined ( ParentName )
@@ -96,7 +96,7 @@ FUNCTION _BeginPager( ControlName, ParentName, nWidth, nHeight, nScroll, cCaptio
    mVar := "_" + ParentName + "_" + ControlName
    Id := _GetId()
 
-   IF ValType( tooltip ) != "U"
+   IF ValType(tooltip) != "U"
       SetToolTip ( ControlHandle, tooltip, GetFormToolTipHandle ( ParentName ) )
    ENDIF
 

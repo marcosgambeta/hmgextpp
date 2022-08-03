@@ -91,7 +91,7 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
-   IF ValType( Field ) != "U"
+   IF ValType(Field) != "U"
       IF hb_UAt ( ">", Field ) == 0
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified Field name." )
       ELSE
@@ -108,9 +108,9 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
       __defaultNIL( @FontSize, _HMG_ActiveFontSize )
    ENDIF
    IF _HMG_FrameLevel > 0 .AND. ! _HMG_ParentWindowActive
-      x := x + _HMG_ActiveFrameCol[ _HMG_FrameLevel ]
-      y := y + _HMG_ActiveFrameRow[ _HMG_FrameLevel ]
-      ParentFormName := _HMG_ActiveFrameParentFormName[ _HMG_FrameLevel ]
+      x := x + _HMG_ActiveFrameCol[_HMG_FrameLevel]
+      y := y + _HMG_ActiveFrameRow[_HMG_FrameLevel]
+      ParentFormName := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory
 
@@ -163,8 +163,8 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
 
          x := GetWindowCol ( Controlhandle )
          y := GetWindowRow ( Controlhandle )
-         w := GetWindowWidth ( Controlhandle )
-         h := GetWindowHeight ( Controlhandle )
+         w := GetWindowWidth(Controlhandle)
+         h := GetWindowHeight(Controlhandle)
 
          SetWindowStyle ( ControlHandle, Style, .T. )
 
@@ -194,17 +194,17 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
          AAdd( _HMG_ActiveTabCurrentPageMap, Controlhandle )
       ENDIF
 
-      IF Empty( Value )
+      IF Empty(Value)
          SetDatePickNull ( ControlHandle )
       ELSE
          SetDatePick( ControlHandle, Year( value ), Month( value ), Day( value ) )
       ENDIF
 
-      IF ValType( tooltip ) != "U"
+      IF ValType(tooltip) != "U"
          SetToolTip ( ControlHandle, tooltip, GetFormToolTipHandle ( ParentFormName ) )
       ENDIF
 
-      IF ValType( Field ) != "U"
+      IF ValType(Field) != "U"
          AAdd( _HMG_aFormBrowseList[ GetFormIndex ( ParentFormName ) ], k )
       ENDIF
 
@@ -238,8 +238,8 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
    _HMG_aControlWidth              [k] := w
    _HMG_aControlHeight             [k] := h
    _HMG_aControlSpacing            [k] := 0
-   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[ _HMG_FrameLevel ], -1 )
-   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[ _HMG_FrameLevel ], -1 )
+   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1 )
+   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1 )
    _HMG_aControlPicture            [k] := ""
    _HMG_aControlContainerHandle    [k] := 0
    _HMG_aControlFontName           [k] := fontname
@@ -258,23 +258,23 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
    _HMG_aControlMiscData2          [k] := ""
 
    IF IsArrayRGB( BackColor )
-      SetDatePickBkColor( ControlHandle, backcolor[ 1 ], backcolor[ 2 ], backcolor[ 3 ] )
+      SetDatePickBkColor( ControlHandle, backcolor[1], backcolor[2], backcolor[3] )
    ENDIF
 
    IF IsArrayRGB( FontColor )
-      SetDatePickFontColor( ControlHandle, fontcolor[ 1 ], fontcolor[ 2 ], fontcolor[ 3 ] )
+      SetDatePickFontColor( ControlHandle, fontcolor[1], fontcolor[2], fontcolor[3] )
    ENDIF
 
    IF ISCHARACTER( cDateFormat )
 
       IF SetDatePickerDateFormat( ControlHandle, cDateFormat )
-         _HMG_aControlSpacing[ k ] := cDateFormat
+         _HMG_aControlSpacing[k] := cDateFormat
       ELSE
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + ": Wrong format string." )
       ENDIF
 
    ELSE
-      _HMG_aControlSpacing[ k ] := ""
+      _HMG_aControlSpacing[k] := ""
    ENDIF
 
    IF ISDATE( dRangeMin ) .OR. ISDATE( dRangeMax )
@@ -325,7 +325,7 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
-   IF ValType( Field ) != "U"
+   IF ValType(Field) != "U"
       IF hb_UAt ( ">", Field ) == 0
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified Field name." )
       ELSE
@@ -342,9 +342,9 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
       __defaultNIL( @FontSize, _HMG_ActiveFontSize )
    ENDIF
    IF _HMG_FrameLevel > 0 .AND. ! _HMG_ParentWindowActive
-      x := x + _HMG_ActiveFrameCol[ _HMG_FrameLevel ]
-      y := y + _HMG_ActiveFrameRow[ _HMG_FrameLevel ]
-      ParentFormName := _HMG_ActiveFrameParentFormName[ _HMG_FrameLevel ]
+      x := x + _HMG_ActiveFrameCol[_HMG_FrameLevel]
+      y := y + _HMG_ActiveFrameRow[_HMG_FrameLevel]
+      ParentFormName := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory
 
@@ -391,8 +391,8 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
 
          x := GetWindowCol ( Controlhandle )
          y := GetWindowRow ( Controlhandle )
-         w := GetWindowWidth ( Controlhandle )
-         h := GetWindowHeight ( Controlhandle )
+         w := GetWindowWidth(Controlhandle)
+         h := GetWindowHeight(Controlhandle)
 
          SetWindowStyle ( ControlHandle, Style, .T. )
 
@@ -420,21 +420,21 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
          AAdd( _HMG_ActiveTabCurrentPageMap, Controlhandle )
       ENDIF
 
-      IF Empty( Value )
+      IF Empty(Value)
          IF shownone
             SetDatePickNull ( ControlHandle )
          ELSE
-            SetTimePick ( ControlHandle, Val( Left( Time(), 2 ) ), Val( SubStr( Time(), 4, 2 ) ), Val( SubStr( Time(), 7, 2 ) ) )
+            SetTimePick ( ControlHandle, Val( Left( Time(), 2 ) ), Val( SubStr(Time(), 4, 2) ), Val( SubStr(Time(), 7, 2) ) )
          ENDIF
       ELSE
-         SetTimePick ( ControlHandle, Val( Left( value, 2 ) ), Val( SubStr( value, 4, 2 ) ), Val( SubStr( value, 7, 2 ) ) )
+         SetTimePick ( ControlHandle, Val( Left( value, 2 ) ), Val( SubStr(value, 4, 2) ), Val( SubStr(value, 7, 2) ) )
       ENDIF
 
-      IF ValType( tooltip ) != "U"
+      IF ValType(tooltip) != "U"
          SetToolTip ( ControlHandle, tooltip, GetFormToolTipHandle ( ParentFormName ) )
       ENDIF
 
-      IF ValType( Field ) != "U"
+      IF ValType(Field) != "U"
          AAdd( _HMG_aFormBrowseList[ GetFormIndex ( ParentFormName ) ], k )
       ENDIF
 
@@ -468,8 +468,8 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
    _HMG_aControlWidth              [k] := w
    _HMG_aControlHeight             [k] := h
    _HMG_aControlSpacing            [k] := 0
-   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[ _HMG_FrameLevel ], -1 )
-   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[ _HMG_FrameLevel ], -1 )
+   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1 )
+   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1 )
    _HMG_aControlPicture            [k] := ""
    _HMG_aControlContainerHandle    [k] := 0
    _HMG_aControlFontName           [k] := fontname
@@ -492,8 +492,8 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
    ENDIF
 
    IF SetDatePickerDateFormat( ControlHandle, cTimeFormat )
-      _HMG_aControlSpacing[ k ] := cTimeFormat
-      IF AScan( _HMG_aControlFontAttributes[ k ], .T. ) > 0 .OR. ;
+      _HMG_aControlSpacing[k] := cTimeFormat
+      IF AScan(_HMG_aControlFontAttributes[k], .T.) > 0 .OR. ;
             fontname != _HMG_DefaultFontName .OR. fontsize != _HMG_DefaultFontSize
          _SetFontName ( ControlName, ParentFormName, fontname )
       ENDIF
@@ -509,10 +509,10 @@ FUNCTION InitDialogDatePicker( ParentFormName, ControlHandle, k )
    ParentFormName := NIL
    ControlHandle := NIL
 
-   _SetValue ( , , _HMG_aControlValue[ k ], k )
+   _SetValue ( , , _HMG_aControlValue[k], k )
    // JP 62
-   IF Len( _HMG_aDialogTemplate ) != 0 .AND. _HMG_aDialogTemplate[ 3 ] // Modal
-      _HMG_aControlDeleted[ k ] := .T.
+   IF Len( _HMG_aDialogTemplate ) != 0 .AND. _HMG_aDialogTemplate[3] // Modal
+      _HMG_aControlDeleted[k] := .T.
    ENDIF
 
 RETURN NIL
@@ -535,7 +535,7 @@ RETURN lOK
 *-----------------------------------------------------------------------------*
 FUNCTION OPICKEVENTS( hWnd, nMsg, wParam, lParam )
 *-----------------------------------------------------------------------------*
-   LOCAL i := AScan( _HMG_aControlHandles, hWnd )
+   LOCAL i := AScan(_HMG_aControlHandles, hWnd)
    LOCAL aRect := { 0, 0, 0, 0 }
    LOCAL hDC, hBrush
 
@@ -548,10 +548,10 @@ FUNCTION OPICKEVENTS( hWnd, nMsg, wParam, lParam )
    CASE WM_ERASEBKGND
 
       IF i > 0
-         IF _HMG_aControlBkColor[ i ] != NIL
-            GetClientRect( _HMG_aControlHandles[ i ], /*@*/aRect )
-            hBrush := CreateSolidBrush( _HMG_aControlBkColor[ i ][ 1 ], _HMG_aControlBkColor[ i ][ 2 ], _HMG_aControlBkColor[ i ][ 3 ] )
-            FillRect( hDC, aRect[ 1 ], aRect[ 2 ], aRect[ 3 ] - GETVSCROLLBARWIDTH(), aRect[ 4 ], hBrush )
+         IF _HMG_aControlBkColor[i] != NIL
+            GetClientRect( _HMG_aControlHandles[i], /*@*/aRect )
+            hBrush := CreateSolidBrush( _HMG_aControlBkColor[i][1], _HMG_aControlBkColor[i][2], _HMG_aControlBkColor[i][3] )
+            FillRect( hDC, aRect[1], aRect[2], aRect[3] - GETVSCROLLBARWIDTH(), aRect[4], hBrush )
             DeleteObject( hBrush )
             RETURN 1
          ENDIF

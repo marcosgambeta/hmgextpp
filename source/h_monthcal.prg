@@ -76,8 +76,8 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
    hb_default( @underline, .F. )
    hb_default( @strikeout, .F. )
 
-   IF ( aControlHandle[ 2 ] := GetFontHandle( FontName ) ) != 0
-      GetFontParamByRef( aControlHandle[ 2 ], @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
+   IF ( aControlHandle[2] := GetFontHandle( FontName ) ) != 0
+      GetFontParamByRef( aControlHandle[2], @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
@@ -86,9 +86,9 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
       __defaultNIL( @FontSize, _HMG_ActiveFontSize )
    ENDIF
    IF _HMG_FrameLevel > 0 .AND. ! _HMG_ParentWindowActive
-      x := x + _HMG_ActiveFrameCol[ _HMG_FrameLevel ]
-      y := y + _HMG_ActiveFrameRow[ _HMG_FrameLevel ]
-      ParentFormName := _HMG_ActiveFrameParentFormName[ _HMG_FrameLevel ]
+      x := x + _HMG_ActiveFrameCol[_HMG_FrameLevel]
+      y := y + _HMG_ActiveFrameRow[_HMG_FrameLevel]
+      ParentFormName := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory
 
@@ -139,22 +139,22 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
 
       ELSE
 
-         aControlHandle[ 1 ] := GetDialogItemHandle( ParentFormHandle, nId )
+         aControlHandle[1] := GetDialogItemHandle( ParentFormHandle, nId )
 
-         SetWindowStyle ( aControlHandle[ 1 ], style, .T. )
+         SetWindowStyle ( aControlHandle[1], style, .T. )
 
-         IF aControlHandle[ 2 ] != 0
-            _SetFontHandle( aControlHandle[ 1 ], aControlHandle[ 2 ] )
+         IF aControlHandle[2] != 0
+            _SetFontHandle( aControlHandle[1], aControlHandle[2] )
          ELSE
             __defaultNIL( @FontName, _HMG_DefaultFontName )
             __defaultNIL( @FontSize, _HMG_DefaultFontSize )
-            IF IsWindowHandle( aControlHandle[ 1 ] )
-               aControlHandle[ 2 ] := _SetFont ( aControlHandle[ 1 ], fontname, fontsize, bold, italic, underline, strikeout )
+            IF IsWindowHandle( aControlHandle[1] )
+               aControlHandle[2] := _SetFont ( aControlHandle[1], fontname, fontsize, bold, italic, underline, strikeout )
             ENDIF
          ENDIF
 
-         x := GetWindowCol ( aControlHandle[ 1 ] )
-         y := GetWindowRow ( aControlHandle[ 1 ] )
+         x := GetWindowCol ( aControlHandle[1] )
+         y := GetWindowRow ( aControlHandle[1] )
 
       ENDIF
 
@@ -171,17 +171,17 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
 
    IF .NOT. lDialogInMemory
 
-      w := GetWindowWidth ( aControlHandle[ 1 ] )
-      h := GetWindowHeight ( aControlHandle[ 1 ] )
+      w := GetWindowWidth(aControlHandle[1])
+      h := GetWindowHeight(aControlHandle[1])
 
       IF _HMG_BeginTabActive
-         AAdd( _HMG_ActiveTabCurrentPageMap, aControlhandle[ 1 ] )
+         AAdd( _HMG_ActiveTabCurrentPageMap, aControlhandle[1] )
       ENDIF
 
-      SetMonthCalValue( aControlHandle[ 1 ], Year( value ), Month( value ), Day( value ) )
+      SetMonthCalValue( aControlHandle[1], Year( value ), Month( value ), Day( value ) )
 
-      IF ValType( tooltip ) != "U"
-         SetToolTip ( aControlHandle[ 1 ], tooltip, GetFormToolTipHandle ( ParentFormName ) )
+      IF ValType(tooltip) != "U"
+         SetToolTip ( aControlHandle[1], tooltip, GetFormToolTipHandle ( ParentFormName ) )
       ENDIF
 
    ENDIF
@@ -194,7 +194,7 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
 
    _HMG_aControlType               [k] := CONTROL_TYPE_MONTHCAL
    _HMG_aControlNames              [k] := ControlName
-   _HMG_aControlHandles            [k] := aControlHandle[ 1 ]
+   _HMG_aControlHandles            [k] := aControlHandle[1]
    _HMG_aControlParentHandles      [k] := ParentFormHandle
    _HMG_aControlIds                [k] := nId
    _HMG_aControlProcedures         [k] := ""
@@ -214,8 +214,8 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
    _HMG_aControlWidth              [k] := w
    _HMG_aControlHeight             [k] := h
    _HMG_aControlSpacing            [k] := 0
-   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[ _HMG_FrameLevel ], -1 )
-   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[ _HMG_FrameLevel ], -1 )
+   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1 )
+   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1 )
    _HMG_aControlPicture            [k] := ""
    _HMG_aControlContainerHandle    [k] := 0
    _HMG_aControlFontName           [k] := fontname
@@ -227,7 +227,7 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
    _HMG_aControlCaption            [k] := ""
    _HMG_aControlVisible            [k] := iif( invisible, .F., .T. )
    _HMG_aControlHelpId             [k] := HelpId
-   _HMG_aControlFontHandle         [k] := aControlHandle[ 2 ]
+   _HMG_aControlFontHandle         [k] := aControlHandle[2]
    _HMG_aControlBrushHandle        [k] := 0
    _HMG_aControlEnabled            [k] := .T.
    _HMG_aControlMiscData1          [k] := 0
@@ -239,45 +239,45 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
 
       IF _HMG_IsThemed .AND. ( IsArrayRGB ( backcolor ) .OR. IsArrayRGB ( fontcolor ) .OR. IsArrayRGB ( TitleBkClr ) .OR. IsArrayRGB ( TitleFrClr ) )
 
-         SetWindowTheme ( aControlHandle[ 1 ], "", "" )
+         SetWindowTheme ( aControlHandle[1], "", "" )
          // set the ideal size of the month calendar control
-         SetPosMonthCal ( aControlHandle[ 1 ], x, y )
-         _HMG_aControlWidth[ k ] := GetWindowWidth ( aControlHandle[ 1 ] )
-         _HMG_aControlHeight[ k ] := GetWindowHeight ( aControlHandle[ 1 ] )
+         SetPosMonthCal ( aControlHandle[1], x, y )
+         _HMG_aControlWidth[k] := GetWindowWidth(aControlHandle[1])
+         _HMG_aControlHeight[k] := GetWindowHeight(aControlHandle[1])
 
       ENDIF
 
    ENDIF
 
    IF IsArrayRGB( BackColor )
-      SetMonthCalMonthBkColor( aControlHandle[ 1 ], backcolor[ 1 ], backcolor[ 2 ], backcolor[ 3 ] )
+      SetMonthCalMonthBkColor( aControlHandle[1], backcolor[1], backcolor[2], backcolor[3] )
    ENDIF
 
    IF IsArrayRGB( FontColor )
-      SetMonthCalFontColor( aControlHandle[ 1 ], fontcolor[ 1 ], fontcolor[ 2 ], fontcolor[ 3 ] )
+      SetMonthCalFontColor( aControlHandle[1], fontcolor[1], fontcolor[2], fontcolor[3] )
    ENDIF
 
    IF IsArrayRGB( TitleBkClr )
-      SetMonthCalTitleBkColor( aControlHandle[ 1 ], TitleBkClr[ 1 ], TitleBkClr[ 2 ], TitleBkClr[ 3 ] )
+      SetMonthCalTitleBkColor( aControlHandle[1], TitleBkClr[1], TitleBkClr[2], TitleBkClr[3] )
    ENDIF
 
    IF IsArrayRGB( TitleFrClr )
-      SetMonthCalTitleFontColor( aControlHandle[ 1 ], TitleFrClr[ 1 ], TitleFrClr[ 2 ], TitleFrClr[ 3 ] )
+      SetMonthCalTitleFontColor( aControlHandle[1], TitleFrClr[1], TitleFrClr[2], TitleFrClr[3] )
    ENDIF
 
    IF IsArrayRGB( BackGround )
-      SetMonthCalBkColor( aControlHandle[ 1 ], BackGround[ 1 ], BackGround[ 2 ], BackGround[ 3 ] )
+      SetMonthCalBkColor( aControlHandle[1], BackGround[1], BackGround[2], BackGround[3] )
    ENDIF
 
    IF IsArrayRGB( TrlFontClr )
-      SetMonthCalTrlFontColor( aControlHandle[ 1 ], TrlFontClr[ 1 ], TrlFontClr[ 2 ], TrlFontClr[ 3 ] )
+      SetMonthCalTrlFontColor( aControlHandle[1], TrlFontClr[1], TrlFontClr[2], TrlFontClr[3] )
    ENDIF
 
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
 #ifdef _OBJECT_
       ow := _WindowObj ( ParentFormHandle )
-      oc := _ControlObj( aControlHandle[ 1 ] )
+      oc := _ControlObj( aControlHandle[1] )
 #endif
    ENDIF
 
@@ -289,12 +289,12 @@ RETURN NIL
 FUNCTION InitDialogMonthCalendar( ParentFormName, ControlHandle, k )
 *-----------------------------------------------------------------------------*
 
-   AddMonthCalBoldDay( _HMG_aControlNames[ k ], ParentFormName, Date() )
+   AddMonthCalBoldDay( _HMG_aControlNames[k], ParentFormName, Date() )
 
-   SetPosMonthCal ( ControlHandle, _HMG_aControlCol[ k ], _HMG_aControlRow[ k ] )
+   SetPosMonthCal ( ControlHandle, _HMG_aControlCol[k], _HMG_aControlRow[k] )
    // JP 62
-   IF Len( _HMG_aDialogTemplate ) != 0 .AND. _HMG_aDialogTemplate[ 3 ] // Modal
-      _HMG_aControlDeleted[ k ] := .T.
+   IF Len( _HMG_aDialogTemplate ) != 0 .AND. _HMG_aDialogTemplate[3] // Modal
+      _HMG_aControlDeleted[k] := .T.
    ENDIF
 
 RETURN NIL
@@ -302,7 +302,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION OMONTHCALEVENTS( hWnd, nMsg, wParam, lParam ) // GF 2016.04.02
 *-----------------------------------------------------------------------------*
-   LOCAL i := AScan( _HMG_aControlHandles, hWnd )
+   LOCAL i := AScan(_HMG_aControlHandles, hWnd)
 
    HB_SYMBOL_UNUSED( wParam )
    HB_SYMBOL_UNUSED( lParam )
@@ -317,14 +317,14 @@ FUNCTION OMONTHCALEVENTS( hWnd, nMsg, wParam, lParam ) // GF 2016.04.02
 
    CASE WM_SETFOCUS
 
-      VirtualChildControlFocusProcess ( _HMG_aControlHandles[ i ], _HMG_aControlParentHandles[ i ] )
-      _DoControlEventProcedure ( _HMG_aControlGotFocusProcedure[ i ], i )
+      VirtualChildControlFocusProcess ( _HMG_aControlHandles[i], _HMG_aControlParentHandles[i] )
+      _DoControlEventProcedure ( _HMG_aControlGotFocusProcedure[i], i )
 
       EXIT
 
    CASE WM_KILLFOCUS
 
-      _DoControlEventProcedure ( _HMG_aControlLostFocusProcedure[ i ], i )
+      _DoControlEventProcedure ( _HMG_aControlLostFocusProcedure[i], i )
 
    ENDSWITCH
 
@@ -339,10 +339,10 @@ FUNCTION AddMonthCalBoldDay( ControlName, ParentFormName, dDay )
 
    aBoldDays := _HMG_aControlPageMap[ ix ]
 
-   IF ( i := AScan( aBoldDays, {| d | d >= dDay } ) ) == 0
+   IF ( i := AScan(aBoldDays, {| d | d >= dDay }) ) == 0
       AAdd( aBoldDays, dDay )
       SetDayState( ControlName, ParentFormName )
-   ELSEIF aBoldDays[ i ] > dDay
+   ELSEIF aBoldDays[i] > dDay
       hb_AIns( aBoldDays, i, dDay, .T. )
       SetDayState( ControlName, ParentFormName )
    ENDIF
@@ -358,7 +358,7 @@ FUNCTION DelMonthCalBoldDay( ControlName, ParentFormName, dDay )
 
    aBoldDays := _HMG_aControlPageMap[ ix ]
 
-   IF ( i := AScan( aBoldDays, dDay ) ) > 0
+   IF ( i := AScan(aBoldDays, dDay) ) > 0
       hb_ADel( aBoldDays, i, .T. )
       SetDayState( ControlName, ParentFormName )
    ENDIF
@@ -371,9 +371,9 @@ FUNCTION IsMonthCalBoldDay( ControlName, ParentFormName, dDay )
    LOCAL i := GetControlIndex ( ControlName, ParentFormName )
    LOCAL aBoldDays
 
-   aBoldDays := _HMG_aControlPageMap[ i ]
+   aBoldDays := _HMG_aControlPageMap[i]
 
-Return( AScan( aBoldDays, dDay ) > 0 )
+Return( AScan(aBoldDays, dDay) > 0 )
 
 *-----------------------------------------------------------------------------*
 FUNCTION SetDayState( ControlName, ParentFormName )
@@ -386,7 +386,7 @@ FUNCTION SetDayState( ControlName, ParentFormName )
    hWnd := GetControlHandle ( ControlName, ParentFormName )
 
    aData := GetMonthRange( hWnd )
-   nCount := aData[ 1 ]
+   nCount := aData[1]
    IF nCount < 1
       RETURN NIL
    ENDIF
@@ -395,13 +395,13 @@ FUNCTION SetDayState( ControlName, ParentFormName )
    AFill( aDays, 0 )
 
    i := GetControlIndex ( ControlName, ParentFormName )
-   aBoldDays := _HMG_aControlPageMap[ i ]
+   aBoldDays := _HMG_aControlPageMap[i]
 
-   dStart := aData[ 2 ]
-   iNextD := AScan( aBoldDays, {| d | d >= dStart } )
+   dStart := aData[2]
+   iNextD := AScan(aBoldDays, {| d | d >= dStart })
 
    IF iNextD > 0
-      dEnd := aData[ 3 ]
+      dEnd := aData[3]
       dEoM := EoM( dStart )
       nMonth := 0
       dDay := aBoldDays[ iNextD ]

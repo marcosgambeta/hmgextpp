@@ -59,7 +59,7 @@ PROCEDURE SetHelpFile( cFile )
 
       _HMG_ActiveHelpFile := iif( FError() == 0, cFile, "" )
 
-      IF Empty( _HMG_ActiveHelpFile )
+      IF Empty(_HMG_ActiveHelpFile)
          MsgAlert( "Error opening of help file. Error: " + Str( FError(), 2, 0 ), "Alert" )
       ENDIF
 
@@ -78,7 +78,7 @@ PROCEDURE DisplayHelpTopic( xTopic , nMet )
 *-----------------------------------------------------------------------------*
    LOCAL cParam := ""
 
-   IF Empty( _HMG_ActiveHelpFile )
+   IF Empty(_HMG_ActiveHelpFile)
       RETURN
    ENDIF
 
@@ -87,9 +87,9 @@ PROCEDURE DisplayHelpTopic( xTopic , nMet )
 
    __defaultNIL( @nMet, 0 )
 
-   IF Right( AllTrim( Upper( _HMG_ActiveHelpFile ) ) , 4 ) == ".CHM"
+   IF Right( AllTrim( Upper(_HMG_ActiveHelpFile) ) , 4 ) == ".CHM"
 
-      SWITCH ValType( xTopic )
+      SWITCH ValType(xTopic)
       CASE "N"
          cParam := "-mapid " + hb_ntos( xTopic ) + " " + _HMG_ActiveHelpFile
          EXIT

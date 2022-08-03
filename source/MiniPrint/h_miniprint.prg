@@ -141,8 +141,8 @@ Local icb
 			AT 0,0 ;
 			WIDTH GetDesktopWidth() - 103 - iif( IsVistaThemed , 25 , 0);
 			HEIGHT GetDesktopHeight() - 103  - iif( IsVistaThemed , 25 , 0);
-			VIRTUAL WIDTH ( GetDesktopWidth() - 103 ) * 2 ;
-			VIRTUAL HEIGHT ( GetDesktopHeight() - 103 ) * 2 ;
+			VIRTUAL WIDTH (GetDesktopWidth() - 103) * 2 ;
+			VIRTUAL HEIGHT (GetDesktopHeight() - 103) * 2 ;
 			TITLE _hmg_printer_usermessages [01] + " [" + alltrim(str(_hmg_printer_CurrentPageNumber)) + "/" + ;
                                                           alltrim(str(_hmg_printer_PageCount)) + "]" ;
 			CHILD ;
@@ -928,7 +928,7 @@ Local EvenOnly := .F.
 
 	_hmg_printer_JobId := _HMG_PRINTER_StartDoc ( _hmg_printer_hdc_bak, _hmg_printer_JobName )
 
-	If ! Empty( _hmg_printer_JobData )
+	If ! Empty(_hmg_printer_JobData)
 		If __mvExist( _hmg_printer_JobData )
 			__mvPut( _hmg_printer_JobData , OpenPrinterGetJobData() )
 		Else
@@ -1134,11 +1134,11 @@ Local lAlignChanged := .F.
 	nRow := Int( nRow * 10000 / 254 )
 	nCol := Int( nCol * 10000 / 254 )
 
-	if valtype( cAlign ) = "C"
-		if upper( cAlign ) = "CENTER"
+	if valtype(cAlign) = "C"
+		if upper(cAlign) = "CENTER"
 			SetTextAlign ( nHdc , TA_CENTER )
 			lAlignChanged := .T.
-		elseif upper( cAlign ) = "RIGHT"
+		elseif upper(cAlign) = "RIGHT"
 			SetTextAlign ( nHdc , TA_RIGHT )
 			lAlignChanged := .T.
 		endif			
@@ -1182,10 +1182,10 @@ Local nAlign := TA_LEFT
 	nToRow := Int( nToRow * 10000 / 254 )
 	nToCol := Int( nToCol * 10000 / 254 )
 
-	If ValType( cAlign ) = "C"
-		If Upper( cAlign ) = "CENTER"
+	If ValType(cAlign) = "C"
+		If Upper(cAlign) = "CENTER"
 			nAlign := TA_CENTER
-		ElseIf Upper( cAlign ) = "RIGHT"
+		ElseIf Upper(cAlign) = "RIGHT"
 			nAlign := TA_RIGHT
 		EndIf			
 	EndIf
@@ -1216,7 +1216,7 @@ Procedure _HMG_PRINTER_H_LINE ( nHdc , nRow , nCol , nToRow , nToCol , nWidth , 
 
 	DEFAULT nstyle TO 0
 
-	If ValType( nWidth ) != "U"
+	If ValType(nWidth) != "U"
 		nWidth	:= Int( nWidth * 10000 / 254 )
 	ElseIf nstyle > 0
 		If nstyle == 1
@@ -1243,7 +1243,7 @@ Procedure _HMG_PRINTER_H_RECTANGLE ( nHdc , nRow , nCol , nToRow , nToCol , nWid
 	nToRow	:= Int( nToRow * 10000 / 254 )
 	nToCol	:= Int( nToCol * 10000 / 254 )
 
-	If ValType( nWidth ) != "U"
+	If ValType(nWidth) != "U"
 		nWidth	:= Int( nWidth * 10000 / 254 )
 	EndIf
 
@@ -1259,7 +1259,7 @@ Procedure _HMG_PRINTER_H_ROUNDRECTANGLE ( nHdc , nRow , nCol , nToRow , nToCol ,
 	nToRow	:= Int( nToRow * 10000 / 254 )
 	nToCol	:= Int( nToCol * 10000 / 254 )
 
-	If ValType( nWidth ) != "U"
+	If ValType(nWidth) != "U"
 		nWidth	:= Int( nWidth * 10000 / 254 )
 	EndIf
 
@@ -1314,7 +1314,7 @@ _hmg_printer_usermessages [29] := "Generating Thumbnails... Please Wait..."
 
 #ifdef _MULTILINGUAL_
 
-cLang := Upper( Left( Set ( _SET_LANGUAGE ), 2 ) )
+cLang := Upper(Left(Set(_SET_LANGUAGE), 2))
 
 // LANGUAGE IS NOT SUPPORTED BY hb_langSelect() FUNCTION
 IF _HMG_LANG_ID == "FI"		// FINNISH
@@ -1928,13 +1928,13 @@ Return
 FUNCTION GETPRINTABLEAREAWIDTH()
 *------------------------------------------------------------------------------*
 
-RETURN _HMG_PRINTER_GETPRINTERWIDTH ( _hmg_printer_hdc )
+RETURN _HMG_PRINTER_GETPRINTERWIDTH(_hmg_printer_hdc)
 
 *------------------------------------------------------------------------------*
 FUNCTION GETPRINTABLEAREAHEIGHT()
 *------------------------------------------------------------------------------*
 
-RETURN _HMG_PRINTER_GETPRINTERHEIGHT ( _hmg_printer_hdc )
+RETURN _HMG_PRINTER_GETPRINTERHEIGHT(_hmg_printer_hdc)
 
 *------------------------------------------------------------------------------*
 FUNCTION GETPRINTABLEAREAHORIZONTALOFFSET()
@@ -2130,7 +2130,7 @@ RETURN hb_defaultValue( cName , "HMGPrintSys" )
 *------------------------------------------------------------------------------*
 FUNCTION HMG_PrintGetJobInfo ( aJobData )   // by Dr. Claudio Soto, August 2015
 *------------------------------------------------------------------------------*
-   IF ValType( aJobData ) == "U"
+   IF ValType(aJobData) == "U"
       aJobData := OpenPrinterGetJobData()
    ENDIF
 
@@ -2139,7 +2139,7 @@ RETURN _HMG_PrintGetJobInfo( aJobData [2], aJobData [1] ) // --> aJobInfo
 *------------------------------------------------------------------------------*
 FUNCTION HMG_PrinterGetStatus ( cPrinterName )
 *------------------------------------------------------------------------------*
-   IF ValType( cPrinterName ) == "U"
+   IF ValType(cPrinterName) == "U"
       cPrinterName := _hmg_printer_name
    ENDIF
 
@@ -2152,7 +2152,7 @@ FUNCTION _DefineEmfFile ( ControlName, ParentFormName, x, y, FileName, w, h, ;
    LOCAL ParentFormHandle , mVar , action := .F. , k
    LOCAL ControlHandle
 
-   IF ValType( ProcedureName ) == "U"
+   IF ValType(ProcedureName) == "U"
       ProcedureName := ""
    ELSE
       action := .T.

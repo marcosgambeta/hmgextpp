@@ -79,9 +79,9 @@ FUNCTION _DefineWebCam ( ControlName, ParentForm, x, y, w, h, lStart, nRate, TOO
    ENDIF
 
    IF _HMG_FrameLevel > 0
-      x := x + _HMG_ActiveFrameCol[ _HMG_FrameLevel ]
-      y := y + _HMG_ActiveFrameRow[ _HMG_FrameLevel ]
-      ParentForm := _HMG_ActiveFrameParentFormName[ _HMG_FrameLevel ]
+      x := x + _HMG_ActiveFrameCol[_HMG_FrameLevel]
+      y := y + _HMG_ActiveFrameRow[_HMG_FrameLevel]
+      ParentForm := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
 
    IF ! _IsWindowDefined ( ParentForm )
@@ -112,7 +112,7 @@ FUNCTION _DefineWebCam ( ControlName, ParentForm, x, y, w, h, lStart, nRate, TOO
       AAdd( _HMG_ActiveTabCurrentPageMap, Controlhandle )
    ENDIF
 
-   IF ValType( tooltip ) != "U"
+   IF ValType(tooltip) != "U"
       SetToolTip ( ControlHandle, TOOLTIP, GetFormToolTipHandle ( cParentForm ) )
    ENDIF
 
@@ -138,8 +138,8 @@ FUNCTION _DefineWebCam ( ControlName, ParentForm, x, y, w, h, lStart, nRate, TOO
    _HMG_aControlWidth              [k] := w
    _HMG_aControlHeight             [k] := h
    _HMG_aControlSpacing            [k] := 0
-   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[ _HMG_FrameLevel ], -1 )
-   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[ _HMG_FrameLevel ], -1 )
+   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1 )
+   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1 )
    _HMG_aControlPicture            [k] := ""
    _HMG_aControlContainerHandle    [k] := 0
    _HMG_aControlFontName           [k] := ""
@@ -188,8 +188,8 @@ FUNCTION _StartWebCam ( cWindow, cControl )
 
    IF lSuccess
 
-      w := _GetControlWidth ( cControl, cWindow )
-      h := _GetControlHeight ( cControl, cWindow )
+      w := _GetControlWidth(cControl, cWindow)
+      h := _GetControlHeight(cControl, cWindow)
 
       cap_SetVideoFormat ( hWnd, Min( w, 320 ), Min( h, 240 ) )
 
@@ -216,7 +216,7 @@ PROCEDURE _ReleaseWebCam ( cWindow, cControl )
 
       hWnd := GetControlHandle ( cControl, cWindow )
 
-      IF ! Empty( hWnd )
+      IF ! Empty(hWnd)
 
          cap_DriverDisconnect ( hWnd )
 

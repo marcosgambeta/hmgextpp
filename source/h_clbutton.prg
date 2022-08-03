@@ -39,9 +39,9 @@ PROCEDURE _DefineCLButton ( cName, nRow, nCol, cCaption, cNotes, bAction, cParen
 
    // If defined inside a Tab structure, adjust position and determine cParent
    IF _HMG_FrameLevel > 0
-      nCol += _HMG_ActiveFrameCol[ _HMG_FrameLevel ]
-      nRow += _HMG_ActiveFrameRow[ _HMG_FrameLevel ]
-      cParent := _HMG_ActiveFrameParentFormName[ _HMG_FrameLevel ]
+      nCol += _HMG_ActiveFrameCol[_HMG_FrameLevel]
+      nRow += _HMG_ActiveFrameRow[_HMG_FrameLevel]
+      cParent := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
 
    IF .NOT. _IsWindowDefined ( cParent )
@@ -106,8 +106,8 @@ PROCEDURE _DefineCLButton ( cName, nRow, nCol, cCaption, cNotes, bAction, cParen
    _HMG_aControlWidth              [k] := w
    _HMG_aControlHeight             [k] := h
    _HMG_aControlSpacing            [k] := 0
-   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[ _HMG_FrameLevel ], -1 )
-   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[ _HMG_FrameLevel ], -1 )
+   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1 )
+   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1 )
    _HMG_aControlPicture            [k] := "Arrow"
    _HMG_aControlContainerHandle    [k] := 0
    _HMG_aControlFontName           [k] := Nil
@@ -129,7 +129,7 @@ PROCEDURE _DefineCLButton ( cName, nRow, nCol, cCaption, cNotes, bAction, cParen
       Eval( _HMG_bOnControlInit, k, mVar )
    ENDIF
 
-   IF ! Empty( cBitmap )
+   IF ! Empty(cBitmap)
       _HMG_aControlPicture[k] := cBitmap
       _HMG_aControlBrushHandle[k] := CLButton_SetImage( hControlHandle, cBitmap )
    ENDIF
@@ -145,8 +145,8 @@ PROCEDURE ReleaseCLButtonImageList ( cWindow, cControl )
 
       i := GetControlIndex ( cControl, cWindow )
 
-      IF ! Empty( _HMG_aControlBrushHandle[ i ] )
-         IMAGELIST_DESTROY ( _HMG_aControlBrushHandle[ i ] )
+      IF ! Empty(_HMG_aControlBrushHandle[i])
+         IMAGELIST_DESTROY ( _HMG_aControlBrushHandle[i] )
       ENDIF
 
       _HMG_UserComponentProcess := .T.
@@ -171,13 +171,13 @@ FUNCTION CLButtonEventhandler ( hWnd, nMsg, wParam, lParam )
 
    IF nMsg == WM_COMMAND
 
-      i := AScan( _HMG_aControlHandles, lParam )
+      i := AScan(_HMG_aControlHandles, lParam)
 
       IF i > 0 .AND. _HMG_aControlType[i] == CONTROL_TYPE_CLBUTTON
 
          IF HiWord ( wParam ) == BN_CLICKED
             RetVal := 0
-            _DoControlEventProcedure ( _HMG_aControlProcedures[ i ], i )
+            _DoControlEventProcedure ( _HMG_aControlProcedures[i], i )
          ENDIF
 
       ENDIF
@@ -196,7 +196,7 @@ PROCEDURE CLButton_SetShield ( cWindow, cControl )
 
       i := GetControlIndex ( cControl, cWindow )
 
-      _HMG_aControlPicture[ i ] := "Shield"
+      _HMG_aControlPicture[i] := "Shield"
 
       SendMessage ( GetControlHandle ( cControl, cWindow ), BCM_SETSHIELD, 0, 0xFFFFFFFF )
 
@@ -399,13 +399,13 @@ PROCEDURE SetCLButtonPicture ( cWindow, cControl, cProperty, cBitmap )
 
       i := GetControlIndex ( cControl, cWindow )
 
-      _HMG_aControlPicture[ i ] := cBitmap
+      _HMG_aControlPicture[i] := cBitmap
 
-      IF ! Empty( _HMG_aControlBrushHandle[ i ] )
-         IMAGELIST_DESTROY ( _HMG_aControlBrushHandle[ i ] )
+      IF ! Empty(_HMG_aControlBrushHandle[i])
+         IMAGELIST_DESTROY ( _HMG_aControlBrushHandle[i] )
       ENDIF
 
-      _HMG_aControlBrushHandle[ i ] := CLButton_SetImage( GetControlHandle ( cControl, cWindow ), cBitmap )
+      _HMG_aControlBrushHandle[i] := CLButton_SetImage( GetControlHandle ( cControl, cWindow ), cBitmap )
 
       _HMG_UserComponentProcess := .T.
 

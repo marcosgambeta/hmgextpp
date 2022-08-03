@@ -121,7 +121,7 @@ STATIC FUNCTION DefError( oError )
    HTML_RawText( HtmArch, "<br/></summary><span class='stacktrace'>" )
 
    n := 1
-   WHILE ! Empty( ProcName( ++n ) )
+   WHILE ! Empty(ProcName(++n))
       HtmText := "Called from " + ProcName( n ) + "(" + hb_ntos( ProcLine( n ) ) + ")" + ;
          iif( ProcLine( n ) > 0, " in module: " + ProcFile( n ), "" ) + CRLF
       cText += HtmText
@@ -174,26 +174,26 @@ STATIC FUNCTION ErrorMessage( oError )
 
    // add either filename or operation
    DO CASE
-   CASE !Empty( oError:filename )
+   CASE !Empty(oError:filename)
       cMessage += ": " + oError:filename
-   CASE !Empty( oError:operation )
+   CASE !Empty(oError:operation)
       cMessage += ": " + oError:operation
    ENDCASE
 
    // add OS error code if available
-   IF !Empty( oError:osCode )
+   IF !Empty(oError:osCode)
       cMessage += " (DOS Error " + hb_ntos( oError:osCode ) + ")"
    ENDIF
 
-   IF ValType( oError:args ) == "A"
+   IF ValType(oError:args) == "A"
       cMessage += CRLF
       cMessage += "   Args:" + CRLF
       FOR n := 1 TO Len( oError:args )
          cMessage += ;
-            "     [" + hb_ntos( n, 2 ) + "] = " + ValType( oError:args[ n ] ) + ;
-            "   " + cValToChar( cValToChar( oError:args[ n ] ) ) + ;
-            iif( ValType( oError:args[ n ] ) == "A", " length: " + ;
-            hb_ntos( Len( oError:args[ n ] ) ), "" ) + iif( n < Len( oError:args ), CRLF, "" )
+            "     [" + hb_ntos( n, 2 ) + "] = " + ValType(oError:args[n]) + ;
+            "   " + cValToChar( cValToChar( oError:args[n] ) ) + ;
+            iif( ValType(oError:args[n]) == "A", " length: " + ;
+            hb_ntos( Len( oError:args[n] ) ), "" ) + iif( n < Len( oError:args ), CRLF, "" )
       NEXT
    ENDIF
 
@@ -222,7 +222,7 @@ STATIC PROCEDURE ShowError( cErrorMessage, oError )
 
       IF ISLOGICAL( _HMG_lOnErrorStop ) .AND. _HMG_lOnErrorStop == .F.
 
-         MsgStop( StrTran( cMsg, ";", CRLF ), "Program Error", NIL, .F. )
+         MsgStop( StrTran(cMsg, ";", CRLF), "Program Error", NIL, .F. )
 
       ELSE
 
@@ -232,7 +232,7 @@ STATIC PROCEDURE ShowError( cErrorMessage, oError )
             SetProperty( "oDlg", "Say_02", "FontColor", YELLOW ), ;
             SetProperty( "oDlg", "Say_02", "Alignment", "CENTER" ) ) ) }
 
-         IF AScan( _HMG_aFormType, "A" ) == 0
+         IF AScan(_HMG_aFormType, "A") == 0
             _HMG_MainWindowFirst := .F.
          ENDIF
 
@@ -421,8 +421,8 @@ STATIC PROCEDURE ErrorLog( nHandle, oErr )
          FOR tmp := 1 TO nCount
 
             xValue := __mvDbgInfo( nScope, tmp, @cName )
-            IF ValType( xValue ) $ "CNDTL" .AND. Left( cName, 1 ) <> "_"
-               Html_LineText( nHandle, "      " + cName + " TYPE " + ValType( xValue ) + " [" + hb_CStr( xValue ) + "]" )
+            IF ValType(xValue) $ "CNDTL" .AND. Left( cName, 1 ) <> "_"
+               Html_LineText( nHandle, "      " + cName + " TYPE " + ValType(xValue) + " [" + hb_CStr( xValue ) + "]" )
             ENDIF
 
          NEXT
@@ -442,7 +442,7 @@ RETURN
 STATIC FUNCTION strvalue( c, l )
 *-----------------------------------------------------------------------------*
 
-   SWITCH ValType( c )
+   SWITCH ValType(c)
    CASE "C"
    CASE "M" ; RETURN c
    CASE "N" ; RETURN hb_ntos( c )
@@ -523,9 +523,9 @@ FUNCTION HTML_INI( ARCH, TITLE )
          MsgStop( "Can`t open errorlog file " + ARCH, "Error" )
       ELSE
          cTemplate := __HTML_BODY_TEMPLATE()
-         cTemplate := StrTran( cTemplate, "{{TITLE}}", TITLE )
+         cTemplate := StrTran(cTemplate, "{{TITLE}}", TITLE)
          IF Set( _SET_CODEPAGE ) == "UTF8"
-            cTemplate := StrTran( cTemplate, ["windows-1251"], ["utf-8"] )
+            cTemplate := StrTran(cTemplate, ["windows-1251"], ["utf-8"])
          ENDIF
 #if ( __HARBOUR__ - 0 < 0x030200 )
          FWrite( HtmArch, cTemplate )
@@ -605,7 +605,7 @@ RETURN
 *-----------------------------------------------------------------------------*
 PROCEDURE _SetErrorLogFile( cFile )
 *-----------------------------------------------------------------------------*
-   _HMG_ErrorLogFile := IFEMPTY( cFile, GetStartUpFolder() + hb_ps() + "ErrorLog.htm", cFile )
+   _HMG_ErrorLogFile := IFEMPTY(cFile, GetStartUpFolder() + hb_ps() + "ErrorLog.htm", cFile)
 
 RETURN
 

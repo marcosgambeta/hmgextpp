@@ -32,16 +32,16 @@ FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
    LOCAL lRet := .T.
    LOCAL cErrMess := ""
 
-   IF Empty( aPages )
+   IF Empty(aPages)
       cErrMess := "- Source folder" + hb_eol()
    ENDIF
-   IF Empty( nPages := Len( aPages ) )
+   IF Empty(nPages := Len(aPages))
       cErrMess += "- Number of total pages" + hb_eol()
    ENDIF
-   IF Empty( cPdfFile )
+   IF Empty(cPdfFile)
       cErrMess += "- Output file" + hb_eol()
    ENDIF
-   IF ! Empty( cErrMess )
+   IF ! Empty(cErrMess)
       MsgExclamation( cErrMess + "cannot be empty!", "Warning" )
       RETURN .F.
    ENDIF
@@ -92,7 +92,7 @@ FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
          BT_BitmapSaveFile( hBitmap, cImageFile, BT_FILEFORMAT_PNG )
 
          aSizes := BmpSize( hBitmap )
-         IF aSizes[ 1 ] - 850 > aSizes[ 2 ]
+         IF aSizes[1] - 850 > aSizes[2]
             page_orient := HPDF_PAGE_LANDSCAPE
          ENDIF
          BT_BitmapRelease( hBitmap )
@@ -100,8 +100,8 @@ FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
          // create new page
          hPage := HPDF_AddPage( hDoc )
          HPDF_Page_SetSize( hPage, page_size, page_orient )
-         nPageHeight := HPDF_Page_GetHeight( hPage )
-         nPageWidth := HPDF_Page_GetWidth( hPage )
+         nPageHeight := HPDF_Page_GetHeight(hPage)
+         nPageWidth := HPDF_Page_GetWidth(hPage)
          // put page picture
          lRet := PutPageImage( hDoc, hPage, cImageFile, nPageHeight, nPageWidth )
 #ifndef __DEBUG__
@@ -145,7 +145,7 @@ STATIC FUNCTION PutPageImage( hDoc, hPage, cLogoFile, nPageHeight, nPageWidth )
 ********************************************************************************
    LOCAL hImage, nResult
 
-   IF Upper( hb_FNameExt( cLogoFile ) ) == ".PNG"
+   IF Upper(hb_FNameExt(cLogoFile)) == ".PNG"
       hImage := HPDF_LoadPngImageFromFile( hDoc, cLogoFile )
    ELSE
       hImage := HPDF_LoadJpegImageFromFile( hDoc, cLogoFile )
@@ -166,8 +166,8 @@ STATIC FUNCTION PdfSetInfo( hDoc, cTitle, cAuthor, cCreator )
 
    HPDF_SetInfoDateAttr( hDoc, HPDF_INFO_CREATION_DATE, ;
       { Year( dDate ), Month( dDate ), Day( dDate ), ;
-      Val( SubStr( cTime, 1, 2 ) ), Val( SubStr( cTime, 4, 2 ) ), ;
-      Val( SubStr( cTime, 7 ) ) ;
+      Val( SubStr(cTime, 1, 2) ), Val( SubStr(cTime, 4, 2) ), ;
+      Val( SubStr(cTime, 7) ) ;
       } )
 
 RETURN NIL

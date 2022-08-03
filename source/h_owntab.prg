@@ -60,9 +60,9 @@ FUNCTION OwnTabPaint( lParam )
 
    hDC := GETOWNBTNDC( lParam )
 
-   i := AScan( _HMG_aControlHandles, GETOWNBTNHANDLE( lParam ) )
+   i := AScan(_HMG_aControlHandles, GETOWNBTNHANDLE( lParam ))
 
-   IF Empty( hDC ) .OR. i == 0
+   IF Empty(hDC) .OR. i == 0
       RETURN( 1 )
    ENDIF
 
@@ -105,7 +105,7 @@ FUNCTION OwnTabPaint( lParam )
       nItemId := Min( nItemId, Len( _HMG_aControlPicture [i] ) )
 
       hImage := LoadBitmap( _HMG_aControlPicture [i] [nItemId] )
-      IF Empty( hImage )
+      IF Empty(hImage)
          hImage := LoadImage( _HMG_aControlPicture [i] [nItemId], , , , , , bkColor )
       ENDIF
 

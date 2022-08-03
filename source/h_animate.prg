@@ -112,7 +112,7 @@ FUNCTION _DefineAnimateRes ( ControlName, ParentForm, x, y, w, h, cFile, nRes, ;
       AAdd( _HMG_ActiveTabCurrentPageMap, Controlhandle )
    ENDIF
 
-   IF ValType( tooltip ) != "U"
+   IF ValType(tooltip) != "U"
       SetToolTip ( ControlHandle, tooltip, GetFormToolTipHandle ( cParentForm ) )
    ENDIF
 
@@ -167,7 +167,7 @@ RETURN NIL
 FUNCTION SetAnimateResFile ( cWindow, cControl, cProperty, cValue )
 *------------------------------------------------------------------------------*
 
-   IF GetControlType ( cControl, cWindow ) == "ANIMATERES" .AND. Upper( cProperty ) == "FILE"
+   IF GetControlType ( cControl, cWindow ) == "ANIMATERES" .AND. Upper(cProperty) == "FILE"
 
       _HMG_UserComponentProcess := .T.
 
@@ -204,7 +204,7 @@ RETURN RetVal
 FUNCTION SetAnimateResId ( cWindow, cControl, cProperty, cValue )
 *------------------------------------------------------------------------------*
 
-   IF GetControlType ( cControl, cWindow ) == "ANIMATERES" .AND. Upper( cProperty ) == "RESID"
+   IF GetControlType ( cControl, cWindow ) == "ANIMATERES" .AND. Upper(cProperty) == "RESID"
 
       _HMG_UserComponentProcess := .T.
 

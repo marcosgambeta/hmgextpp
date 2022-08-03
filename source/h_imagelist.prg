@@ -81,7 +81,7 @@ FUNCTION _DefineImageList ( ControlName , ParentForm , w , h , aImage , aImageMa
 
    k := Len( aImage )
    IF ImageCount == 0
-      ImageCount := IFEMPTY( k, MAX_IMAGE, k )
+      ImageCount := IFEMPTY(k, MAX_IMAGE, k)
    ENDIF
 
    Id := _GetId()
@@ -168,8 +168,8 @@ FUNCTION _AddImageToImageList ( ControlName, ParentControl, Image, MaskImage )
 *-----------------------------------------------------------------------------*
    LOCAL w , h , c
 
-   w := _GetControlWidth ( ControlName, ParentControl )
-   h := _GetControlHeight ( ControlName, ParentControl )
+   w := _GetControlWidth(ControlName, ParentControl)
+   h := _GetControlHeight(ControlName, ParentControl)
    c := GetControlHandle ( ControlName, ParentControl )
 
 RETURN IL_Add( c , image , hb_defaultValue( maskimage, "" ) , w , h )
@@ -179,8 +179,8 @@ FUNCTION _AddImageMaskedToImageList ( ControlName, ParentControl, Image, aColor 
 *-----------------------------------------------------------------------------*
    LOCAL w, h, c, color := 0
 
-   w := _GetControlWidth ( ControlName, ParentControl )
-   h := _GetControlHeight ( ControlName, ParentControl )
+   w := _GetControlWidth(ControlName, ParentControl)
+   h := _GetControlHeight(ControlName, ParentControl)
    c := GetControlHandle ( ControlName, ParentControl )
    IF IsArrayRGB ( aColor )
       color := RGB ( aColor [1], aColor [2], aColor [3] )
@@ -205,8 +205,8 @@ FUNCTION _EraseImage ( ControlName, ParentControl, ix, iy )
 *-----------------------------------------------------------------------------*
    LOCAL w, h
 
-   w := _GetControlWidth ( ControlName, ParentControl )
-   h := _GetControlHeight ( ControlName, ParentControl )
+   w := _GetControlWidth(ControlName, ParentControl)
+   h := _GetControlHeight(ControlName, ParentControl)
    IL_EraseImage( GetFormHandle ( ParentControl ), ix, iy, w, h )
 
 RETURN Nil

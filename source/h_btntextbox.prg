@@ -95,13 +95,13 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    hb_default( @lDefault, .F. )
    hb_default( @keepfocus, .T. )
 
-   IF ValType( aBitmap ) != "A"
+   IF ValType(aBitmap) != "A"
       cBmp := aBitmap
       aBitmap := Array( 2 )
       aBitmap[1] := cBmp
    ENDIF
 
-   IF ValType( Field ) != "U"
+   IF ValType(Field) != "U"
       IF  hb_UAt ( ">", Field ) == 0
          MsgMiniGuiError ( "Control " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name." )
       ELSE
@@ -112,7 +112,7 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
       ENDIF
    ENDIF
 
-   IF ValType( aToolTip ) != "A"
+   IF ValType(aToolTip) != "A"
       tmp := aToolTip
       aToolTip := Array( 3 )
       aToolTip[1] := tmp
@@ -197,12 +197,12 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
       ELSE
 
          aControlHandle := GetDialogItemHandle( ParentFormHandle, nId )
-         SetWindowStyle( aControlHandle, Style, .T. )
+         SetWindowStyle(aControlHandle, Style, .T.)
 
          x := GetWindowCol ( aControlHandle )
          y := GetWindowRow ( aControlHandle )
          w := GetWindowWidth  ( aControlHandle )
-         h := GetWindowHeight ( aControlHandle )
+         h := GetWindowHeight(aControlHandle)
 
          aControlHandle := ReDefBtnTextBox( aControlHandle, abitmap[1], BtnWidth, abitmap[2], lBtn2, w, h )
 
@@ -237,7 +237,7 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
 
       // Add a ToolTip if param has value
       FOR tmp := 1 TO 3
-         IF ValType( aToolTip[tmp] ) != "U"
+         IF ValType(aToolTip[tmp]) != "U"
             SetToolTip ( aControlHandle[tmp], aToolTip[tmp], GetFormToolTipHandle ( ParentFormName ) )
          ENDIF
       NEXT
@@ -294,7 +294,7 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    IF .NOT. lDialogInMemory
       // With NUMERIC clause, transform numeric value into a string.
       IF lNumeric
-         IF ValType( cValue ) != "C"
+         IF ValType(cValue) != "C"
             cValue := hb_ntos( cValue )
          ENDIF
       ENDIF
@@ -304,11 +304,11 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
          SetWindowText( aControlHandle[1], cValue )
       ENDIF
 
-      IF !Empty( cuetext ) .AND. IsVistaOrLater() 
+      IF !Empty(cuetext) .AND. IsVistaOrLater()
          SendMessageWideString( aControlHandle[1], EM_SETCUEBANNER, .T. /*show on focus*/, cuetext )
       ENDIF
 
-      IF ValType( Field ) != "U"
+      IF ValType(Field) != "U"
          AAdd( _HMG_aFormBrowseList [ GetFormIndex ( ParentFormName ) ] , k )
       ENDIF
    ENDIF
@@ -339,13 +339,13 @@ FUNCTION InitDialogBtnTextBox( ParentName, ControlHandle, k )
    lBtn2          := _HMG_aControlMiscData1  [k,2]
    aControlHandle := _HMG_aControlSpacing [k]
 
-   IF ValType( nMaxLength ) != "U"
+   IF ValType(nMaxLength) != "U"
       SendMessage( aControlHandle [1] , EM_LIMITTEXT , nMaxLength , 0 )
    ENDIF
 
 // With NUMERIC clause, transform numeric value into a string.
    IF lNumeric
-      IF ValType( cValue ) != "C"
+      IF ValType(cValue) != "C"
          cValue := hb_ntos( cValue )
       ENDIF
    ENDIF
@@ -355,7 +355,7 @@ FUNCTION InitDialogBtnTextBox( ParentName, ControlHandle, k )
       SetWindowText ( aControlHandle [1] , cValue )
    ENDIF
 
-   IF ValType( Field ) != "U"
+   IF ValType(Field) != "U"
       AAdd( _HMG_aFormBrowseList [ GetFormIndex ( ParentName ) ] , k )
    ENDIF
 
@@ -373,16 +373,16 @@ FUNCTION TBBtnEvents( hwndEdit, HwndBtn, nMsg )
    LOCAL ParentForm
    LOCAL i, aHandle
 
-   i := AScan( _HMG_aControlSpacing, { |x| ValType( x ) == "A" .AND. Len( x ) > 0 .AND. ValType( x [1] ) == "N" .AND. x [1] == hwndEdit } )
+   i := AScan(_HMG_aControlSpacing, { |x| ValType(x) == "A" .AND. Len( x ) > 0 .AND. ValType(x [1]) == "N" .AND. x [1] == hwndEdit })
 
    IF i > 0 .AND. HwndBtn > 0
 
       aHandle := _HMG_aControlSpacing [i]
 
-      SWITCH AScan( aHandle, HwndBtn )
+      SWITCH AScan(aHandle, HwndBtn)
       CASE TBB1
          IF _DoControlEventProcedure ( _HMG_aControlProcedures [i], i )
-            IF ValType( _HMG_aControlMiscData1 [i] ) == "A" .AND. Len( _HMG_aControlMiscData1 [i] ) >= 4 .AND. ! _HMG_aControlMiscData1 [i] [4]
+            IF ValType(_HMG_aControlMiscData1 [i]) == "A" .AND. Len( _HMG_aControlMiscData1 [i] ) >= 4 .AND. ! _HMG_aControlMiscData1 [i] [4]
                SendMessage ( HwndBtn, BM_SETSTYLE, LOWORD ( BS_PUSHBUTTON ), 1 )
             ENDIF
          ENDIF
@@ -390,7 +390,7 @@ FUNCTION TBBtnEvents( hwndEdit, HwndBtn, nMsg )
 
       CASE TBB2
          IF _DoControlEventProcedure ( _HMG_aControlHeadClick [i], i )
-            IF ValType( _HMG_aControlMiscData1 [i] ) == "A" .AND. Len( _HMG_aControlMiscData1 [i] ) >= 4 .AND. ! _HMG_aControlMiscData1 [i] [4]
+            IF ValType(_HMG_aControlMiscData1 [i]) == "A" .AND. Len( _HMG_aControlMiscData1 [i] ) >= 4 .AND. ! _HMG_aControlMiscData1 [i] [4]
                SendMessage ( HwndBtn, BM_SETSTYLE, LOWORD ( BS_PUSHBUTTON ), 1 )
             ENDIF
          ENDIF
@@ -398,7 +398,7 @@ FUNCTION TBBtnEvents( hwndEdit, HwndBtn, nMsg )
 
       IF nMsg == WM_CONTEXTMENU
          ParentForm := _HMG_aControlParentHandles [i]
-         IF ( i := AScan( _HMG_aControlsContextMenu , {|x| x [1] == aHandle [1] } ) ) > 0
+         IF ( i := AScan(_HMG_aControlsContextMenu , {|x| x [1] == aHandle [1] }) ) > 0
             IF _HMG_aControlsContextMenu [i][4] == .T.
                setfocus( aHandle [1] )
                _HMG_xControlsContextMenuID := _HMG_aControlsContextMenu [i][3]
@@ -407,7 +407,7 @@ FUNCTION TBBtnEvents( hwndEdit, HwndBtn, nMsg )
             ENDIF
          ENDIF
       ELSE
-         IF ValType( _HMG_aControlMiscData1 [i] ) == "A" .AND. Len( _HMG_aControlMiscData1 [i] ) > 4 .AND. _HMG_aControlMiscData1 [i] [5]
+         IF ValType(_HMG_aControlMiscData1 [i]) == "A" .AND. Len( _HMG_aControlMiscData1 [i] ) > 4 .AND. _HMG_aControlMiscData1 [i] [5]
             SetFocus( aHandle [1] )
          ENDIF
       ENDIF

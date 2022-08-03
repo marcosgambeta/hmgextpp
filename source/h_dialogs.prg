@@ -110,13 +110,13 @@ FUNCTION GetFile( aFilter, title, cIniFolder, multiselect, lNoChangeCurDir, nFil
 
       IF Len( files ) > 0
 
-         IF ValType( files ) == "A"
+         IF ValType(files) == "A"
 
             FOR n := 1 TO Len( files )
 
                IF At( "\\", files [n] ) > 0 .AND. Left( files [n], 2 ) != "\\"
 
-                  files [n] := StrTran( files [n] , "\\", "\" )
+                  files [n] := StrTran(files [n] , "\\", "\")
 
                ENDIF
 
@@ -170,7 +170,7 @@ FUNCTION GetFont( cInitFontName , nInitFontSize , lBold , lItalic , anInitColor 
       hb_defaultValue( lBold, .F. ) , hb_defaultValue( lItalic, .F. ) , rgbcolor , ;
       hb_defaultValue( lUnderLine, .F. ) , hb_defaultValue( lStrikeOut, .F. ) , hb_defaultValue( nCharSet, 0 ) )
 
-   IF Empty( RetArray [1] )
+   IF Empty(RetArray [1])
       RetArray [5] := { Nil, Nil, Nil }
    ELSE
       rgbcolor := RetArray [5]

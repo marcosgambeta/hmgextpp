@@ -142,9 +142,9 @@ CLASS TControl
 
    METHOD LostFocus(hWndGetFocus)
 
-   METHOD nWidth() INLINE GetWindowWidth( ::hWnd )
+   METHOD nWidth() INLINE GetWindowWidth(::hWnd)
 
-   METHOD nHeight() INLINE GetWindowHeight( ::hWnd )
+   METHOD nHeight() INLINE GetWindowHeight(::hWnd)
 
    METHOD HandleEvent( nMsg, nWParam, nLParam )
 
@@ -156,10 +156,10 @@ CLASS TControl
 
    METHOD KillFocus( hCtlFocus )
 
-   METHOD VarPut( uVal ) INLINE  IIf( ValType( ::bSetGet ) == "B",;
+   METHOD VarPut( uVal ) INLINE  IIf( ValType(::bSetGet) == "B",;
                                  Eval( ::bSetGet, uVal ), )
 
-   METHOD VarGet() INLINE IIf( ValType( ::bSetGet ) == "B", Eval( ::bSetGet ), )
+   METHOD VarGet() INLINE IIf( ValType(::bSetGet) == "B", Eval( ::bSetGet ), )
 
    METHOD LButtonDown( nRow, nCol, nKeyFlags )
 
@@ -223,7 +223,7 @@ CLASS TControl
                                    IIf( lErase == NIL .OR. !lErase, 0, 1 ) )
 
    METHOD nGetChrHeight() INLINE ::hDC := GetDC(::hWnd), ;
-                          ::nChrHeight := _GetTextHeight( ::hWnd, ::hDC ) //Temp
+                          ::nChrHeight := _GetTextHeight(::hWnd, ::hDC) //Temp
 
    METHOD GetText() INLINE GetWindowText( ::hWnd )   //TWindow
 
@@ -279,8 +279,8 @@ Return Nil
 
 METHOD DelVars( hControl ) CLASS TControl
 
-   local nAt := iif( ! Empty( _TSB_aControlhWnd ), ;
-                     AScan( _TSB_aControlhWnd, { | hCtrl | hCtrl == Self:hWnd } ), 0 )
+   local nAt := iif( ! Empty(_TSB_aControlhWnd), ;
+                     AScan(_TSB_aControlhWnd, { | hCtrl | hCtrl == Self:hWnd }), 0 )
 
    HB_SYMBOL_UNUSED( hControl )
 
@@ -333,10 +333,10 @@ METHOD CoorsUpdate() CLASS TControl
 
    GetWindowRect( ::hWnd, aRect )
 /*
-   ::nTop    = aRect[ 2 ]
-   ::nLeft   = aRect[ 1 ]
-   ::nBottom = aRect[ 4 ]
-   ::nRight  = aRect[ 3 ]
+   ::nTop    = aRect[2]
+   ::nLeft   = aRect[1]
+   ::nBottom = aRect[4]
+   ::nRight  = aRect[3]
 */
 return nil
 
@@ -407,8 +407,7 @@ return nil
 METHOD End() CLASS TControl
 
    local ix
-   local nAt := IIf( ! Empty( ::oWnd:aControls ),;
-              AScan( ::oWnd:aControls, { | hCtrl | hCtrl == Self:hWnd } ), 0 )
+   local nAt := IIf( ! Empty(::oWnd:aControls), AScan(::oWnd:aControls, { | hCtrl | hCtrl == Self:hWnd }), 0 )
 
    if nAt != 0
       ADel( ::oWnd:aControls, nAt )
@@ -417,14 +416,14 @@ METHOD End() CLASS TControl
 
    ::DelVars( Self:hWnd )
 
-   if "TGETBOX" $ Upper( Self:ClassName() )
+   if "TGETBOX" $ Upper(Self:ClassName())
       ix := GetControlIndex ( ::cControlName, ::oWnd:cParentWnd )
       if ix > 0
          ReleaseControl( _HMG_aControlHandles[ ix ] )
          _HMG_aControlDeleted[ ix ] := .T.
       endif
    endif
-   if "TBTNBOX" $ Upper( Self:ClassName() )
+   if "TBTNBOX" $ Upper(Self:ClassName())
       if ::hWndChild != nil
         PostMessage( ::hWndChild, WM_CLOSE )
       endif
@@ -448,7 +447,7 @@ METHOD EraseBkGnd( hDC ) CLASS TControl
       return 0
    endif
 
-   if ::hBrush != nil .AND. ! Empty( ::hBrush )   //JP
+   if ::hBrush != nil .AND. ! Empty(::hBrush)   //JP
         aRect := ::GetCliRect( ::hWnd )
         FillRect( hDC, aRect[1], aRect[2], aRect[3], aRect[4], ::hBrush )
       return 1
@@ -473,7 +472,7 @@ METHOD ForWhen() CLASS TControl
          ::GoNextCtrl( ::hWnd )
       endif
    else
-      if Empty( GetFocus() )
+      if Empty(GetFocus())
          SetFocus( ::hWnd )
       endif
    endif
@@ -652,7 +651,7 @@ METHOD LostFocus( hWndGetFocus ) CLASS TControl
 
    ::lFocused := .F.
    ::SetMsg()
-   if ! Empty( ::bLostFocus )
+   if ! Empty(::bLostFocus)
       return Eval( ::bLostFocus, hWndGetFocus )
    endif
 
@@ -761,7 +760,7 @@ METHOD SetMsg( cText, lDefault ) CLASS TControl
             if !(AllTrim(cOldText) == AllTrim(cText))
                SetProperty( cParentWnd, "StatusBar", "Item", ::nStatusItem, cText )
             endif
-         elseif valtype( _HMG_DefaultStatusBarMessage ) == "C"
+         elseif valtype(_HMG_DefaultStatusBarMessage) == "C"
             SetProperty( cParentWnd, "StatusBar", "Item", ::nStatusItem, _HMG_DefaultStatusBarMessage )
          endif
       endif

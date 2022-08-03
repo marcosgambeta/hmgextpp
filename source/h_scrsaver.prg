@@ -59,7 +59,7 @@ FUNCTION _BeginScrSaver( cSSaver, lNoShow, cInit, cRelease, cPaint, nTimer, aBac
 *-----------------------------------------------------------------------------*
    LOCAL a := {}, x := GetDesktopWidth(), y := GetDesktopHeight(), Dummy := ""
 
-   PUBLIC _HMG_SCRSAVERDATA[ 5 ]
+   PUBLIC _HMG_SCRSAVERDATA[5]
 
    _ActiveScrSaverName := cSSaver
    _ScrSaverInstall := .F.
@@ -146,7 +146,7 @@ FUNCTION _ActivateScrSaver( aForm, cParam )
 
       cFileScr := GetExeFileName()
       cFileDes := GetSystemFolder() + hb_ps() + ;
-         iif( ValType( _ScrSaverFileName ) == "C", _ScrSaverFileName, ;
+         iif( ValType(_ScrSaverFileName) == "C", _ScrSaverFileName, ;
          cFileNoExt( cFileScr ) + ".SCR" )
 
       IF File( cFileDes )
@@ -166,7 +166,7 @@ FUNCTION _ActivateScrSaver( aForm, cParam )
          ELSE
 
             BEGIN INI FILE GetWindowsFolder() + hb_ps() + "system.ini"
-               SET SECTION "boot" ENTRY "SCRNSAVE.EXE" TO Upper( _GetShortPathName( cFileDes ) )
+               SET SECTION "boot" ENTRY "SCRNSAVE.EXE" TO Upper(_GetShortPathName(cFileDes))
             END INI
 
          ENDIF

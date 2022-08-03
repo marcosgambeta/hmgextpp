@@ -35,9 +35,9 @@ PROCEDURE _DefineSplitButton ( cName, nRow, nCol, cCaption, bAction, cParent, ;
    // If defined inside a Tab structure, adjust position and determine cParent
 
    IF _HMG_FrameLevel > 0
-      nCol += _HMG_ActiveFrameCol[ _HMG_FrameLevel ]
-      nRow += _HMG_ActiveFrameRow[ _HMG_FrameLevel ]
-      cParent := _HMG_ActiveFrameParentFormName[ _HMG_FrameLevel ]
+      nCol += _HMG_ActiveFrameCol[_HMG_FrameLevel]
+      nRow += _HMG_ActiveFrameRow[_HMG_FrameLevel]
+      cParent := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
 
    IF .NOT. _IsWindowDefined ( cParent )
@@ -112,8 +112,8 @@ PROCEDURE _DefineSplitButton ( cName, nRow, nCol, cCaption, bAction, cParent, ;
    _HMG_aControlWidth              [k] := w
    _HMG_aControlHeight             [k] := h
    _HMG_aControlSpacing            [k] := 0
-   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[ _HMG_FrameLevel ], -1 )
-   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[ _HMG_FrameLevel ], -1 )
+   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1 )
+   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1 )
    _HMG_aControlPicture            [k] := Nil
    _HMG_aControlContainerHandle    [k] := 0
    _HMG_aControlFontName           [k] := fontname
@@ -135,7 +135,7 @@ PROCEDURE _DefineSplitButton ( cName, nRow, nCol, cCaption, bAction, cParent, ;
       Eval( _HMG_bOnControlInit, k, mVar )
    ENDIF
 
-   IF ValType( tooltip ) != "U"
+   IF ValType(tooltip) != "U"
       SetToolTip ( hControlHandle , tooltip , GetFormToolTipHandle ( cParent ) )
    ENDIF
 
@@ -163,13 +163,13 @@ FUNCTION SPButtonEventHandler ( hWnd, nMsg, wParam, lParam )
 
    ELSEIF nMsg == WM_COMMAND
 
-      i := AScan( _HMG_aControlHandles, lParam )
+      i := AScan(_HMG_aControlHandles, lParam)
 
-      IF i > 0 .AND. _HMG_aControlType[ i ] == CONTROL_TYPE_SPBUTTON
+      IF i > 0 .AND. _HMG_aControlType[i] == CONTROL_TYPE_SPBUTTON
 
          IF HiWord ( wParam ) == BN_CLICKED
             xRetVal := 0
-            _DoControlEventProcedure ( _HMG_aControlProcedures[ i ], i )
+            _DoControlEventProcedure ( _HMG_aControlProcedures[i], i )
          ENDIF
 
       ENDIF
@@ -258,14 +258,14 @@ STATIC FUNCTION LaunchDropdownMenu( nHwnd )
    LOCAL aPos := {0, 0, 0, 0}
    LOCAL nIdx
 
-   nIdx := AScan( _HMG_aControlHandles, nHwnd )
+   nIdx := AScan(_HMG_aControlHandles, nHwnd)
 
    IF nIdx > 0
 
       GetWindowRect( nHwnd, aPos )
 
-      TrackPopupMenu( _HMG_aControlRangeMax[ nIdx ], aPos[ 1 ] + 1, ;
-      	aPos[ 2 ] + _HMG_aControlHeight[ nIdx ], _HMG_aControlParentHandles[ nIdx ] )
+      TrackPopupMenu( _HMG_aControlRangeMax[ nIdx ], aPos[1] + 1, ;
+      	aPos[2] + _HMG_aControlHeight[ nIdx ], _HMG_aControlParentHandles[ nIdx ] )
 
    ENDIF
 

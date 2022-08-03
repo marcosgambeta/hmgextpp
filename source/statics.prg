@@ -91,7 +91,7 @@ FUNCTION CheckStatic()
    _LogFile( .F., cInfo )
 
    FOR n = 1 TO nStatics()
-      if ! Empty( Static( n ) )
+      if ! Empty(Static( n ))
          cInfo := CRLF
          cInfo += hb_ntos( n ) + Replicate( "-", 55 ) + "> "
          _LogFile( .F., cInfo )
@@ -113,7 +113,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION Scan( u, cData )
 *-----------------------------------------------------------------------------*
-   LOCAL cType := ValType( u )
+   LOCAL cType := ValType(u)
    LOCAL n
    LOCAL cInfo := ""
 
@@ -145,11 +145,11 @@ STATIC FUNCTION Scan( u, cData )
 
             DoEvents()
 
-            IF ValType( u[ n ] ) == ValType( u ) .AND. u[ n ] == u
+            IF ValType(u[n]) == ValType(u) .AND. u[n] == u
                _LogFile( .T., " Direct reference to its container" )
             ELSE
                nNested++
-               Scan( u[ n ], cData )
+               Scan( u[n], cData )
                nNested--
             ENDIF
 

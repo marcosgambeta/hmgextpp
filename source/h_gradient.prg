@@ -323,7 +323,7 @@ BOOL FillGradient( HDC hDC, RECT * rect, BOOL vertical, COLORREF crFrom, COLORRE
 
    if( ( s_hDLL != nullptr ) && ( f_GradientFill != nullptr ) )
    {
-      TRIVERTEX     rcVertex[ 2 ];
+      TRIVERTEX     rcVertex[2];
       GRADIENT_RECT gRect;
 
       rcVertex[ 0 ].y     = rect->top;
@@ -333,12 +333,12 @@ BOOL FillGradient( HDC hDC, RECT * rect, BOOL vertical, COLORREF crFrom, COLORRE
       rcVertex[ 0 ].Blue  = ( unsigned short ) ( GetBValue( crFrom ) << 8 );
       rcVertex[ 0 ].Alpha = 0;
 
-      rcVertex[ 1 ].y     = rect->bottom;
-      rcVertex[ 1 ].x     = rect->right;
-      rcVertex[ 1 ].Red   = ( unsigned short ) ( GetRValue( crTo ) << 8 );
-      rcVertex[ 1 ].Green = ( unsigned short ) ( GetGValue( crTo ) << 8 );
-      rcVertex[ 1 ].Blue  = ( unsigned short ) ( GetBValue( crTo ) << 8 );
-      rcVertex[ 1 ].Alpha = 0;
+      rcVertex[1].y     = rect->bottom;
+      rcVertex[1].x     = rect->right;
+      rcVertex[1].Red   = ( unsigned short ) ( GetRValue( crTo ) << 8 );
+      rcVertex[1].Green = ( unsigned short ) ( GetGValue( crTo ) << 8 );
+      rcVertex[1].Blue  = ( unsigned short ) ( GetBValue( crTo ) << 8 );
+      rcVertex[1].Alpha = 0;
 
       gRect.UpperLeft  = 0;
       gRect.LowerRight = 1;
@@ -377,7 +377,7 @@ HBRUSH LinearGradientBrush( HDC pDC, long cx, long cy, COLORREF crFrom, COLORREF
 
    if( memDC && memBmp )
    {
-      TRIVERTEX     rcVertex[ 2 ];
+      TRIVERTEX     rcVertex[2];
       GRADIENT_RECT gRect;
 
       rcVertex[ 0 ].x     = 0;
@@ -387,12 +387,12 @@ HBRUSH LinearGradientBrush( HDC pDC, long cx, long cy, COLORREF crFrom, COLORREF
       rcVertex[ 0 ].Blue  = ( unsigned short ) ( GetBValue( crFrom ) << 8 );
       rcVertex[ 0 ].Alpha = 0;
 
-      rcVertex[ 1 ].x     = cx;
-      rcVertex[ 1 ].y     = cy;
-      rcVertex[ 1 ].Red   = ( unsigned short ) ( GetRValue( crTo ) << 8 );
-      rcVertex[ 1 ].Green = ( unsigned short ) ( GetGValue( crTo ) << 8 );
-      rcVertex[ 1 ].Blue  = ( unsigned short ) ( GetBValue( crTo ) << 8 );
-      rcVertex[ 1 ].Alpha = 0;
+      rcVertex[1].x     = cx;
+      rcVertex[1].y     = cy;
+      rcVertex[1].Red   = ( unsigned short ) ( GetRValue( crTo ) << 8 );
+      rcVertex[1].Green = ( unsigned short ) ( GetGValue( crTo ) << 8 );
+      rcVertex[1].Blue  = ( unsigned short ) ( GetBValue( crTo ) << 8 );
+      rcVertex[1].Alpha = 0;
 
       gRect.UpperLeft  = 0;
       gRect.LowerRight = 1;

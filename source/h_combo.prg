@@ -121,15 +121,15 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " Already defined." )
    ENDIF
 
-   IF ValType( ItemSource ) != "U" .AND. Sort == .T.
+   IF ValType(ItemSource) != "U" .AND. Sort == .T.
       MsgMiniGuiError ( "Sort and ItemSource clauses can't be used simultaneously." )
    ENDIF
 
-   IF ValType( ValueSource ) != "U" .AND. Sort == .T.
+   IF ValType(ValueSource) != "U" .AND. Sort == .T.
       MsgMiniGuiError ( "Sort and ValueSource clauses can't be used simultaneously." )
    ENDIF
 
-   IF ValType( itemsource ) != "U"
+   IF ValType(itemsource) != "U"
       IF hb_UAt ( ">" , ItemSource ) == 0
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " (ItemSource): You must specify a fully qualified field name." )
       ELSE
@@ -168,7 +168,7 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
          Style += CBS_DROPDOWN
       ENDIF
 
-      IF ValType( _HMG_IsXP ) == "L"
+      IF ValType(_HMG_IsXP) == "L"
          IF _HMG_IsXP
             Style += CBS_NOINTEGRALHEIGHT
          ENDIF
@@ -195,7 +195,7 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
          x := GetWindowCol ( Controlhandle )
          y := GetWindowRow ( Controlhandle )
          w := GetWindowWidth  ( Controlhandle )
-         h := GetWindowHeight ( Controlhandle )
+         h := GetWindowHeight(Controlhandle)
 
          IF FontHandle != 0
             _SetFontHandle( ControlHandle, FontHandle )
@@ -215,7 +215,7 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
 
       ParentFormHandle := GetFormHandle ( ParentFormName )
 
-      IF ValType( x ) == "U" .OR. ValType( y ) == "U"
+      IF ValType(x) == "U" .OR. ValType(y) == "U"
 
          _HMG_SplitLastControl := "COMBOBOX"
 
@@ -265,7 +265,7 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
          AAdd( _HMG_ActiveTabCurrentPageMap , Controlhandle )
       ENDIF
 
-      IF ValType( tooltip ) != "U"
+      IF ValType(tooltip) != "U"
          SetToolTip ( ControlHandle , tooltip , GetFormToolTipHandle ( ParentFormName ) )
       ENDIF
 
@@ -354,25 +354,25 @@ FUNCTION InitDialogComboBox( ParentName, ControlHandle, k )
 
       _HMG_aControlRangeMin [k] := FindWindowEx( ControlHandle, 0, "Edit", Nil )
       // add tooltip for editable combo window if defined //(JK) HMG Exp. Build 8
-      IF ValType( _HMG_aControlToolTip [k] ) != "U"
+      IF ValType(_HMG_aControlToolTip [k]) != "U"
          SetToolTip ( _HMG_aControlRangeMin [k] , _HMG_aControlToolTip [k] , GetFormToolTipHandle( ParentName ) )
       ENDIF
 
-      IF !Empty( cuetext ) .AND. IsVistaOrLater() 
+      IF !Empty(cuetext) .AND. IsVistaOrLater() 
          value := 0
          SendMessageWideString( _HMG_aControlRangeMin [k], EM_SETCUEBANNER, .T., cuetext )
       ENDIF
 
-   ELSEIF !Empty( cuetext ) .AND. IsVistaOrLater() 
+   ELSEIF !Empty(cuetext) .AND. IsVistaOrLater() 
 
       value := 0
       SendMessageWideString( ControlHandle, CB_SETCUEBANNER, .T., cuetext )
 
    ENDIF
 
-   SetDropDownWidth( ControlHandle , ListWidth )
+   SetDropDownWidth(ControlHandle, ListWidth)
 
-   IF ValType( WorkArea ) == "C"
+   IF ValType(WorkArea) == "C"
 
       IF Select ( WorkArea ) != 0
 
@@ -407,11 +407,11 @@ FUNCTION InitDialogComboBox( ParentName, ControlHandle, k )
 
    ENDIF
 
-   IF ValType( ItemHeight ) != "U"
-      ComboSetItemHeight ( ControlHandle , ItemHeight )
+   IF ValType(ItemHeight) != "U"
+      ComboSetItemHeight(ControlHandle, ItemHeight)
    ENDIF
 
-   IF ValType( ItemSource ) != "U"
+   IF ValType(ItemSource) != "U"
       AAdd( _HMG_aFormBrowseList [ GetFormIndex ( ParentName ) ] , k )
    ENDIF
    // JP 62
@@ -426,7 +426,7 @@ PROCEDURE _DataComboRefresh ( i )  // (JK) Modified for extend COMBO HMG 1.0 Bui
 *-----------------------------------------------------------------------------*
    LOCAL BackValue , BackRec , WorkArea , cField , ControlHandle
 
-   IF Empty( _HMG_aControlCaption [i] )
+   IF Empty(_HMG_aControlCaption [i])
       BackValue := _GetValue ( , , i )
    ELSE
       cField := _HMG_aControlCaption [i]

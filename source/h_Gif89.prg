@@ -37,7 +37,7 @@ FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidt
       MsgMiniGuiError ( "Control: " + cControlName + " Of " + cParentForm + " PICTURE Property Invalid Type." )
    ENDIF
 
-   IF Empty( cFilename )
+   IF Empty(cFilename)
       MsgMiniGuiError ( "Control: " + cControlName + " Of " + cParentForm + " PICTURE Can't Be Empty." )
    ENDIF
 
@@ -109,8 +109,8 @@ FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidt
 
    IF ISOBJECT ( oGif )
       nControlHandle := GetControlHandle ( oGif:hGif, cParentForm )
-      _HMG_aControlHandles[ k ] := nControlHandle
-      _HMG_aControlIds[ k ] := oGif
+      _HMG_aControlHandles[k] := nControlHandle
+      _HMG_aControlIds[k] := oGif
 
       IF _HMG_BeginTabActive
          AAdd( _HMG_ActiveTabCurrentPageMap, nControlHandle )
@@ -130,14 +130,14 @@ PROCEDURE _ReleaseAniGif ( GifName, FormName )
    LOCAL oGif
    LOCAL i
 
-   IF AScan( _HMG_aControlNames, GifName ) > 0
+   IF AScan(_HMG_aControlNames, GifName) > 0
 
       hWnd := GetFormHandle ( FormName )
 
       FOR i := 1 TO Len( _HMG_aControlHandles )
 
-         IF _HMG_aControlParentHandles[ i ] == hWnd .AND. _HMG_aControlType[i] == CONTROL_TYPE_ANIGIF
-            oGif := _HMG_aControlIds[ i ]
+         IF _HMG_aControlParentHandles[i] == hWnd .AND. _HMG_aControlType[i] == CONTROL_TYPE_ANIGIF
+            oGif := _HMG_aControlIds[i]
             oGif:End()
             _EraseGifDef ( FormName, i )
             EXIT
@@ -154,7 +154,7 @@ STATIC PROCEDURE _EraseGifDef ( FormName, i )
 *------------------------------------------------------------------------------*
    LOCAL mVar
 
-   mVar := "_" + FormName + "_" + _HMG_aControlNames[ i ]
+   mVar := "_" + FormName + "_" + _HMG_aControlNames[i]
 
 #ifdef _NAMES_LIST_
    _DelNameList( mVar )
@@ -318,7 +318,7 @@ RETURN NIL
 
 METHOD Update() CLASS TGif
 
-   IF ! Empty( ::hGif ) .AND. _IsControlDefined ( ::hGif, ::cParentName )
+   IF ! Empty(::hGif) .AND. _IsControlDefined ( ::hGif, ::cParentName )
 
       IF GetProperty( ::cParentName, ::hGif, "Row" ) <> GetProperty( ::cParentName, ::cControlName, "Row" ) .OR. ;
             GetProperty( ::cParentName, ::hGif, "Col" ) <> GetProperty( ::cParentName, ::cControlName, "Col" ) .OR. ;
@@ -467,8 +467,8 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
             RETURN .F.
          ENDIF
 
-         cPicBuf := cGifHeader + SubStr( cStream, i - 1, j - i )
-         imgHeader = Left( SubStr( cStream, i - 1, j - i ), 16 )
+         cPicBuf := cGifHeader + SubStr(cStream, i - 1, j - i)
+         imgHeader = Left(SubStr(cStream, i - 1, j - i), 16)
 
          IF FWrite( nFileHandle, cPicBuf ) <> Len( cPicBuf )
             RETURN .F.
@@ -500,8 +500,8 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
          RETURN .F.
       ENDIF
 
-      cPicBuf := cGifHeader + SubStr( cStream, i - 1, Len( cStream ) - i )
-      imgHeader := Left( SubStr( cStream, i - 1, Len( cStream ) - i ), 16 )
+      cPicBuf := cGifHeader + SubStr(cStream, i - 1, Len(cStream) - i)
+      imgHeader := Left(SubStr(cStream, i - 1, Len(cStream) - i), 16)
 
       IF FWrite( nFileHandle, cPicBuf ) <> Len( cPicBuf )
          RETURN .F.
@@ -532,9 +532,9 @@ STATIC FUNCTION ReadFromStream( cFile, cStream )
       FClose( nFileHandle )
    ENDIF
 
-RETURN ( FError() == 0 .AND. .NOT. Empty( cStream ) )
+RETURN ( FError() == 0 .AND. .NOT. Empty(cStream) )
 
 *------------------------------------------------------------------------------*
 FUNCTION GetFrameDelay( cImageInfo, nDelay )
 *------------------------------------------------------------------------------*
-RETURN ( Bin2W( SubStr( cImageInfo, 4, 2 ) ) * hb_defaultValue( nDelay, 10 ) )
+RETURN ( Bin2W( SubStr(cImageInfo, 4, 2) ) * hb_defaultValue( nDelay, 10 ) )

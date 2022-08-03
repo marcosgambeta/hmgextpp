@@ -97,7 +97,7 @@ FUNCTION HMG_Alert( cMsg, aOptions, cTitle, nType, cIcoFile, nIcoSize, aBtnColor
    LOCAL nLineas
    LOCAL aIcon := { SYSICO_WARN, SYSICO_QUES, SYSICO_INFO, SYSICO_ERROR }
    LOCAL lFont := .F.
-   LOCAL lEmpty := ( Empty( aOptions ) .OR. ISNUMERIC( aOptions ) )
+   LOCAL lEmpty := ( Empty(aOptions) .OR. ISNUMERIC(aOptions) )
    LOCAL cDelim, cOldDelim
    LOCAL cForm := "oDlg"
    LOCAL nMaxLen := 0
@@ -155,15 +155,15 @@ FUNCTION HMG_Alert( cMsg, aOptions, cTitle, nType, cIcoFile, nIcoSize, aBtnColor
    IF Set( _SET_DELIMITERS )
       cOldDelim := Set( _SET_DELIMCHARS )
       Set( _SET_DELIMCHARS, ";|" )
-      cDelim := SubStr( Set( _SET_DELIMCHARS ), iif( "el" $ hb_UserLang(), 2, 1 ), 1 )
-      cMsg := StrTran( cMsg, cDelim, CRLF )
+      cDelim := SubStr(Set( _SET_DELIMCHARS ), iif( "el" $ hb_UserLang(), 2, 1 ), 1)
+      cMsg := StrTran(cMsg, cDelim, CRLF)
       Set( _SET_DELIMCHARS, cOldDelim )
    ENDIF
 
    nLineas := MLCount( cMsg )
 
    IF TAB $ cMsg
-      cMsg := StrTran( cMsg, TAB, Space( 3 ) )
+      cMsg := StrTran(cMsg, TAB, Space( 3 ))
    ENDIF
 
    AEval( hb_ATokens( cMsg, CRLF ), {| ct | nMaxLen := Max( nMaxLen, Len( Trim( ct ) ) ) } )
@@ -197,7 +197,7 @@ FUNCTION HMG_Alert_MaxLines( nLines )
    LOCAL cVarName := "_" + ProcName()
    LOCAL nOldLines := _AddNewGlobal( cVarName, 20 )
 
-   IF HB_ISNUMERIC( nLines ) .AND. nLines > 0
+   IF HB_ISNUMERIC(nLines) .AND. nLines > 0
       _SetGetGlobal( cVarName, nLines )
    ENDIF
 
@@ -209,7 +209,7 @@ FUNCTION HMG_Alert_RowStart( nRow )
    LOCAL cVarName := "_" + ProcName()
    LOCAL nOldRow := _AddNewGlobal( cVarName, 0 )
 
-   IF HB_ISNUMERIC( nRow ) .AND. nRow >= 0
+   IF HB_ISNUMERIC(nRow) .AND. nRow >= 0
       _SetGetGlobal( cVarName, nRow )
    ENDIF
 
@@ -257,7 +257,7 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
       cFont AS CHARACTER, ;
       nMaxLen AS NUMERIC
 #endif
-   IF ISNUMERIC( aOptions )
+   IF ISNUMERIC(aOptions)
 
       nSeconds := aOptions
       aOptions := { "&OK" }
@@ -287,23 +287,23 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
 
    // calculate the character height for the dialog font
 
-   nChrHeight := GetTextHeight( hDC, aOptions[ 1 ], hDlgFont ) + nVMARGIN_BUTTON / 2
+   nChrHeight := GetTextHeight(hDC, aOptions[1], hDlgFont) + nVMARGIN_BUTTON / 2
 
    // calculate the maximum width of the lines
 
-   nMaxWidth := GetFontWidth( cFont, nMaxLen )
-   IF GetTextWidth( hDC, Space( 10 ), hDlgFont ) != GetTextWidth( hDC, Replicate( "B", 10 ), hDlgFont )
+   nMaxWidth := GetFontWidth(cFont, nMaxLen)
+   IF GetTextWidth(hDC, Space(10), hDlgFont) != GetTextWidth(hDC, Replicate("B", 10), hDlgFont)
       nMaxWidth *= 0.7
    ENDIF
 
    FOR n := 1 TO nLineas
-      nMaxLin := Max( nMaxLin, GetTextWidth( hDC, AllTrim( MemoLine( cMsg,, n ) ), hDlgFont ) )
+      nMaxLin := Max( nMaxLin, GetTextWidth(hDC, AllTrim(MemoLine(cMsg, , n)), hDlgFont ) )
    NEXT
 
    // calculate the maximum width of the buttons
 
    FOR n := 1 TO nLenaOp
-      nMaxBoton := Max( nMaxBoton, GetTextWidth( hDC, aOptions[ n ], hDlgFont ) )
+      nMaxBoton := Max( nMaxBoton, GetTextWidth(hDC, aOptions[n], hDlgFont) )
    NEXT
 
    ReleaseDC(hWnd, hDC)
@@ -354,7 +354,7 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
 
    This.Height := nHeightDlg
 
-   IF Empty( nRow )
+   IF Empty(nRow)
       nRow := nChrHeight
    ENDIF
 
@@ -418,14 +418,14 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
 
       IF lExt
 
-         @ 0, 0 BUTTONEX ( cBtnName ) OF ( cForm ) CAPTION aOptions[ n ] ;
-            FONTCOLOR aFontColor BACKCOLOR aBtnColors[ n ] NOXPSTYLE HANDCURSOR ;
+         @ 0, 0 BUTTONEX ( cBtnName ) OF ( cForm ) CAPTION aOptions[n] ;
+            FONTCOLOR aFontColor BACKCOLOR aBtnColors[n] NOXPSTYLE HANDCURSOR ;
             FONT cFont WIDTH nMaxBoton HEIGHT nVMARGIN_BUTTON + nChrHeight + nVMARGIN_BUTTON ;
             ACTION ( _HMG_ModalDialogReturn := This.Cargo, _SetGetGlobal( "_HMG_PressButton", .T. ), ThisWindow.Release() )
 
       ELSE
 
-         @ 0, 0 BUTTON ( cBtnName ) OF ( cForm ) CAPTION aOptions[ n ] ;
+         @ 0, 0 BUTTON ( cBtnName ) OF ( cForm ) CAPTION aOptions[n] ;
             FONT cFont WIDTH nMaxBoton HEIGHT nVMARGIN_BUTTON + nChrHeight + nVMARGIN_BUTTON ;
             ACTION ( _HMG_ModalDialogReturn := This.Cargo, _SetGetGlobal( "_HMG_PressButton", .T. ), ThisWindow.Release() )
 
@@ -438,8 +438,8 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
    nOpc := 1
 
    FOR n := nLenaOp TO 1 STEP -1
-      This.( aBut[ n ] ).Row := nHeightCli + SEP_BUTTON + GetBorderHeight() / iif( lIsWin10, 2.5, .9 ) - nChrHeight - nHeightBtn
-      This.( aBut[ n ] ).Col := nWidthCli - nMaxWidth + iif( nLineas > nMaxLines, MARGIN * 1.5, 0 ) + iif( lIsWin10, 0, GetBorderWidth() / 2 ) - ( nMaxBoton + SEP_BUTTON ) * nOpc++
+      This.( aBut[n] ).Row := nHeightCli + SEP_BUTTON + GetBorderHeight() / iif( lIsWin10, 2.5, .9 ) - nChrHeight - nHeightBtn
+      This.( aBut[n] ).Col := nWidthCli - nMaxWidth + iif( nLineas > nMaxLines, MARGIN * 1.5, 0 ) + iif( lIsWin10, 0, GetBorderWidth() / 2 ) - ( nMaxBoton + SEP_BUTTON ) * nOpc++
    NEXT n
 
    This.Closable := lClosable
@@ -507,17 +507,17 @@ PROCEDURE HMG_CheckType( lSoft, ... )
 
    FOR EACH aData IN aParams
 
-      IF Upper( AllTrim( aData[ 1 ] ) ) <> "USUAL"
+      IF Upper(AllTrim(aData[1])) <> "USUAL"
 
-         IF !( lSoft .AND. AllTrim( aData[ 2 ] ) == "U" )
+         IF !( lSoft .AND. AllTrim( aData[2] ) == "U" )
 
-            i := AScan( aType, {| x | x[ 1 ] == Upper( AllTrim( aData[ 1 ] ) ) } )
+            i := AScan(aType, {| x | x[1] == Upper(AllTrim(aData[1])) })
 
-            IF i == 0 .OR. aType[ i ][ 2 ] <> aData[ 2 ]
+            IF i == 0 .OR. aType[i][2] <> aData[2]
 
-               j := AScan( aType, {| x | x[ 2 ] == aData[ 2 ] } )
+               j := AScan(aType, {| x | x[2] == aData[2] })
 
-               MsgMiniGuiError( "CHECK TYPE ( Param # " + hb_ntos( aData:__enumindex() ) + " ) : " + AllTrim( aData[ 3 ] ) + " is declared as " + Upper( AllTrim( aData[ 1 ] ) ) + " but it have type " + aType[ j ][ 1 ] + "." )
+               MsgMiniGuiError( "CHECK TYPE ( Param # " + hb_ntos( aData:__enumindex() ) + " ) : " + AllTrim( aData[3] ) + " is declared as " + Upper(AllTrim(aData[1])) + " but it have type " + aType[ j ][1] + "." )
 
             ENDIF
 

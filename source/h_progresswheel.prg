@@ -174,7 +174,7 @@ FUNCTION _DefineProgressWheel ( cControlName, cParentForm, nCol, nRow, nWidth, ;
    _HMG_aControlMiscData2          [k] := ""
 
    ProgressWheelPaint( cParentForm, cImageName, nWidth, nHeight, nPosition, ;
-      nStartAngle, nInnerSize, nGradientMode, _HMG_aControlCaption[ k ], lShowText, nMin, nMax, ;
+      nStartAngle, nInnerSize, nGradientMode, _HMG_aControlCaption[k], lShowText, nMin, nMax, ;
       nColorDoneMin, nColorDoneMax, nColorRemain, nColorInner )
 
    UpdateAngleGradientBrush( nGradientMode, nWidth, nHeight, nStartAngle, nColorDoneMin, nColorDoneMax )
@@ -183,10 +183,10 @@ FUNCTION _DefineProgressWheel ( cControlName, cParentForm, nCol, nRow, nWidth, ;
 
    AAdd( _HMG_aFormGraphTasks[ nId ], ;
       {|| ProgressWheelPaint( cParentForm, cImageName, nWidth, nHeight, nPosition, ;
-      nStartAngle, nInnerSize, nGradientMode, _HMG_aControlCaption[ k ], lShowText, nMin, nMax, ;
+      nStartAngle, nInnerSize, nGradientMode, _HMG_aControlCaption[k], lShowText, nMin, nMax, ;
       nColorDoneMin, nColorDoneMax, nColorRemain, nColorInner ) } )
 
-   _HMG_aControlMiscData1[ k ] := Len( _HMG_aFormGraphTasks[ nId ] )
+   _HMG_aControlMiscData1[k] := Len( _HMG_aFormGraphTasks[ nId ] )
 
 RETURN NIL
 
@@ -198,7 +198,7 @@ FUNCTION PW_GetColorDoneMin( cControlName, cParentForm )
    LOCAL ColorDoneMin
 
    IF i > 0
-      ColorDoneMin := COLORREF_TO_ArrayRGB( _HMG_aControlFontColor[ i ][ 1 ] )
+      ColorDoneMin := COLORREF_TO_ArrayRGB( _HMG_aControlFontColor[i][1] )
    ENDIF
 
 RETURN ColorDoneMin
@@ -211,7 +211,7 @@ FUNCTION PW_GetColorDoneMax( cControlName, cParentForm )
    LOCAL ColorDoneMax
 
    IF i > 0
-      ColorDoneMax := COLORREF_TO_ArrayRGB( _HMG_aControlFontColor[ i ][ 2 ] )
+      ColorDoneMax := COLORREF_TO_ArrayRGB( _HMG_aControlFontColor[i][2] )
    ENDIF
 
 RETURN ColorDoneMax
@@ -224,7 +224,7 @@ FUNCTION PW_GetColorRemain( cControlName, cParentForm )
    LOCAL ColorRemain
 
    IF i > 0
-      ColorRemain := COLORREF_TO_ArrayRGB( _HMG_aControlBkColor[ i ][ 1 ] )
+      ColorRemain := COLORREF_TO_ArrayRGB( _HMG_aControlBkColor[i][1] )
    ENDIF
 
 RETURN ColorRemain
@@ -237,7 +237,7 @@ FUNCTION PW_GetColorInner( cControlName, cParentForm )
    LOCAL ColorInner
 
    IF i > 0
-      ColorInner := COLORREF_TO_ArrayRGB( _HMG_aControlBkColor[ i ][ 2 ] )
+      ColorInner := COLORREF_TO_ArrayRGB( _HMG_aControlBkColor[i][2] )
    ENDIF
 
 RETURN ColorInner
@@ -250,9 +250,9 @@ PROCEDURE PW_SetShowText( cControlName, cParentForm, Value )
    LOCAL i := GetControlIndex ( cControlName, cParentForm )
 
    IF ISBLOCK( Value )
-      _HMG_aControlCaption[ i ] := Value
-      BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[ i ], _HMG_aControlCol[ i ], ;
-         _HMG_aControlWidth[ i ], _HMG_aControlHeight[ i ], .F. )
+      _HMG_aControlCaption[i] := Value
+      BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], ;
+         _HMG_aControlWidth[i], _HMG_aControlHeight[i], .F. )
    ENDIF
 
 RETURN
@@ -263,35 +263,35 @@ PROCEDURE PW_SetColorDoneMin( cControlName, cParentForm, Value, lErase )
 
    LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
    LOCAL i := GetControlIndex ( cControlName, cParentForm )
-   LOCAL n := _HMG_aControlMiscData1[ i ]
-   LOCAL cImageName := _HMG_aControlProcedures[ i ]
-   LOCAL Width := _HMG_aControlWidth[ i ]
-   LOCAL Height := _HMG_aControlHeight[ i ]
-   LOCAL StartAngle := _HMG_aControlInputMask[ i ]
-   LOCAL InnerSize := _HMG_aControlSpacing[ i ]
-   LOCAL GradientMode := _HMG_aControlPicture[ i ]
-   LOCAL cText := _HMG_aControlCaption[ i ]
-   LOCAL ShowText := _HMG_aControlDblClick[ i ]
-   LOCAL ColorDoneMax := _HMG_aControlFontColor[ i ][ 2 ]
-   LOCAL ColorRemain := _HMG_aControlBkColor[ i ][ 1 ]
-   LOCAL ColorInner := _HMG_aControlBkColor[ i ][ 2 ]
-   LOCAL Min := _HMG_aControlRangeMin[ i ]
-   LOCAL Max := _HMG_aControlRangeMax[ i ]
-   LOCAL Position := _HMG_aControlValue[ i ]
-   LOCAL ColorDoneMin := _HMG_aControlFontColor[ i ][ 1 ]
+   LOCAL n := _HMG_aControlMiscData1[i]
+   LOCAL cImageName := _HMG_aControlProcedures[i]
+   LOCAL Width := _HMG_aControlWidth[i]
+   LOCAL Height := _HMG_aControlHeight[i]
+   LOCAL StartAngle := _HMG_aControlInputMask[i]
+   LOCAL InnerSize := _HMG_aControlSpacing[i]
+   LOCAL GradientMode := _HMG_aControlPicture[i]
+   LOCAL cText := _HMG_aControlCaption[i]
+   LOCAL ShowText := _HMG_aControlDblClick[i]
+   LOCAL ColorDoneMax := _HMG_aControlFontColor[i][2]
+   LOCAL ColorRemain := _HMG_aControlBkColor[i][1]
+   LOCAL ColorInner := _HMG_aControlBkColor[i][2]
+   LOCAL Min := _HMG_aControlRangeMin[i]
+   LOCAL Max := _HMG_aControlRangeMax[i]
+   LOCAL Position := _HMG_aControlValue[i]
+   LOCAL ColorDoneMin := _HMG_aControlFontColor[i][1]
 
    IF IsArrayRGB ( Value )
       Value := HMG_RGB2n( Value )
    ENDIF
    IF ColorDoneMin <> Value
-      _HMG_aControlFontColor[ i ][ 1 ] := Value
+      _HMG_aControlFontColor[i][1] := Value
       UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
-      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][ n ] := ;
+      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][n] := ;
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
          Value, ColorDoneMax, ColorRemain, ColorInner ) }
       IF PCount() == 3 .OR. ISLOGICAL( lErase ) .AND. lErase
-         BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[ i ], _HMG_aControlCol[ i ], Width, Height, hb_defaultValue( lErase, .F. ) )
+         BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue( lErase, .F. ) )
       ENDIF
    ENDIF
 
@@ -303,35 +303,35 @@ PROCEDURE PW_SetColorDoneMax( cControlName, cParentForm, Value, lErase )
 
    LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
    LOCAL i := GetControlIndex ( cControlName, cParentForm )
-   LOCAL n := _HMG_aControlMiscData1[ i ]
-   LOCAL cImageName := _HMG_aControlProcedures[ i ]
-   LOCAL Width := _HMG_aControlWidth[ i ]
-   LOCAL Height := _HMG_aControlHeight[ i ]
-   LOCAL StartAngle := _HMG_aControlInputMask[ i ]
-   LOCAL InnerSize := _HMG_aControlSpacing[ i ]
-   LOCAL GradientMode := _HMG_aControlPicture[ i ]
-   LOCAL cText := _HMG_aControlCaption[ i ]
-   LOCAL ShowText := _HMG_aControlDblClick[ i ]
-   LOCAL ColorDoneMin := _HMG_aControlFontColor[ i ][ 1 ]
-   LOCAL ColorRemain := _HMG_aControlBkColor[ i ][ 1 ]
-   LOCAL ColorInner := _HMG_aControlBkColor[ i ][ 2 ]
-   LOCAL Min := _HMG_aControlRangeMin[ i ]
-   LOCAL Max := _HMG_aControlRangeMax[ i ]
-   LOCAL Position := _HMG_aControlValue[ i ]
-   LOCAL ColorDoneMax := _HMG_aControlFontColor[ i ][ 2 ]
+   LOCAL n := _HMG_aControlMiscData1[i]
+   LOCAL cImageName := _HMG_aControlProcedures[i]
+   LOCAL Width := _HMG_aControlWidth[i]
+   LOCAL Height := _HMG_aControlHeight[i]
+   LOCAL StartAngle := _HMG_aControlInputMask[i]
+   LOCAL InnerSize := _HMG_aControlSpacing[i]
+   LOCAL GradientMode := _HMG_aControlPicture[i]
+   LOCAL cText := _HMG_aControlCaption[i]
+   LOCAL ShowText := _HMG_aControlDblClick[i]
+   LOCAL ColorDoneMin := _HMG_aControlFontColor[i][1]
+   LOCAL ColorRemain := _HMG_aControlBkColor[i][1]
+   LOCAL ColorInner := _HMG_aControlBkColor[i][2]
+   LOCAL Min := _HMG_aControlRangeMin[i]
+   LOCAL Max := _HMG_aControlRangeMax[i]
+   LOCAL Position := _HMG_aControlValue[i]
+   LOCAL ColorDoneMax := _HMG_aControlFontColor[i][2]
 
    IF IsArrayRGB ( Value )
       Value := HMG_RGB2n( Value )
    ENDIF
    IF ColorDoneMax <> Value
-      _HMG_aControlFontColor[ i ][ 2 ] := Value
+      _HMG_aControlFontColor[i][2] := Value
       UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
-      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][ n ] := ;
+      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][n] := ;
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
          ColorDoneMin, Value, ColorRemain, ColorInner ) }
       IF PCount() == 3 .OR. ISLOGICAL( lErase ) .AND. lErase
-         BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[ i ], _HMG_aControlCol[ i ], Width, Height, hb_defaultValue( lErase, .F. ) )
+         BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue( lErase, .F. ) )
       ENDIF
    ENDIF
 
@@ -343,35 +343,35 @@ PROCEDURE PW_SetColorRemain( cControlName, cParentForm, Value, lErase )
 
    LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
    LOCAL i := GetControlIndex ( cControlName, cParentForm )
-   LOCAL n := _HMG_aControlMiscData1[ i ]
-   LOCAL cImageName := _HMG_aControlProcedures[ i ]
-   LOCAL Width := _HMG_aControlWidth[ i ]
-   LOCAL Height := _HMG_aControlHeight[ i ]
-   LOCAL StartAngle := _HMG_aControlInputMask[ i ]
-   LOCAL InnerSize := _HMG_aControlSpacing[ i ]
-   LOCAL GradientMode := _HMG_aControlPicture[ i ]
-   LOCAL cText := _HMG_aControlCaption[ i ]
-   LOCAL ShowText := _HMG_aControlDblClick[ i ]
-   LOCAL ColorDoneMin := _HMG_aControlFontColor[ i ][ 1 ]
-   LOCAL ColorDoneMax := _HMG_aControlFontColor[ i ][ 2 ]
-   LOCAL ColorInner := _HMG_aControlBkColor[ i ][ 2 ]
-   LOCAL Min := _HMG_aControlRangeMin[ i ]
-   LOCAL Max := _HMG_aControlRangeMax[ i ]
-   LOCAL Position := _HMG_aControlValue[ i ]
-   LOCAL ColorRemain := _HMG_aControlBkColor[ i ][ 1 ]
+   LOCAL n := _HMG_aControlMiscData1[i]
+   LOCAL cImageName := _HMG_aControlProcedures[i]
+   LOCAL Width := _HMG_aControlWidth[i]
+   LOCAL Height := _HMG_aControlHeight[i]
+   LOCAL StartAngle := _HMG_aControlInputMask[i]
+   LOCAL InnerSize := _HMG_aControlSpacing[i]
+   LOCAL GradientMode := _HMG_aControlPicture[i]
+   LOCAL cText := _HMG_aControlCaption[i]
+   LOCAL ShowText := _HMG_aControlDblClick[i]
+   LOCAL ColorDoneMin := _HMG_aControlFontColor[i][1]
+   LOCAL ColorDoneMax := _HMG_aControlFontColor[i][2]
+   LOCAL ColorInner := _HMG_aControlBkColor[i][2]
+   LOCAL Min := _HMG_aControlRangeMin[i]
+   LOCAL Max := _HMG_aControlRangeMax[i]
+   LOCAL Position := _HMG_aControlValue[i]
+   LOCAL ColorRemain := _HMG_aControlBkColor[i][1]
 
    IF IsArrayRGB ( Value )
       Value := HMG_RGB2n( Value )
    ENDIF
    IF ColorRemain <> Value
-      _HMG_aControlBkColor[ i ][ 1 ] := Value
+      _HMG_aControlBkColor[i][1] := Value
       UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
-      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][ n ] := ;
+      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][n] := ;
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
          ColorDoneMin, ColorDoneMax, Value, ColorInner ) }
       IF PCount() == 3 .OR. ISLOGICAL( lErase ) .AND. lErase
-         BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[ i ], _HMG_aControlCol[ i ], Width, Height, hb_defaultValue( lErase, .F. ) )
+         BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue( lErase, .F. ) )
       ENDIF
    ENDIF
 
@@ -383,35 +383,35 @@ PROCEDURE PW_SetColorInner( cControlName, cParentForm, Value, lErase )
 
    LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
    LOCAL i := GetControlIndex ( cControlName, cParentForm )
-   LOCAL n := _HMG_aControlMiscData1[ i ]
-   LOCAL cImageName := _HMG_aControlProcedures[ i ]
-   LOCAL Width := _HMG_aControlWidth[ i ]
-   LOCAL Height := _HMG_aControlHeight[ i ]
-   LOCAL StartAngle := _HMG_aControlInputMask[ i ]
-   LOCAL InnerSize := _HMG_aControlSpacing[ i ]
-   LOCAL GradientMode := _HMG_aControlPicture[ i ]
-   LOCAL cText := _HMG_aControlCaption[ i ]
-   LOCAL ShowText := _HMG_aControlDblClick[ i ]
-   LOCAL ColorDoneMin := _HMG_aControlFontColor[ i ][ 1 ]
-   LOCAL ColorDoneMax := _HMG_aControlFontColor[ i ][ 2 ]
-   LOCAL ColorRemain := _HMG_aControlBkColor[ i ][ 1 ]
-   LOCAL Min := _HMG_aControlRangeMin[ i ]
-   LOCAL Max := _HMG_aControlRangeMax[ i ]
-   LOCAL Position := _HMG_aControlValue[ i ]
-   LOCAL ColorInner := _HMG_aControlBkColor[ i ][ 2 ]
+   LOCAL n := _HMG_aControlMiscData1[i]
+   LOCAL cImageName := _HMG_aControlProcedures[i]
+   LOCAL Width := _HMG_aControlWidth[i]
+   LOCAL Height := _HMG_aControlHeight[i]
+   LOCAL StartAngle := _HMG_aControlInputMask[i]
+   LOCAL InnerSize := _HMG_aControlSpacing[i]
+   LOCAL GradientMode := _HMG_aControlPicture[i]
+   LOCAL cText := _HMG_aControlCaption[i]
+   LOCAL ShowText := _HMG_aControlDblClick[i]
+   LOCAL ColorDoneMin := _HMG_aControlFontColor[i][1]
+   LOCAL ColorDoneMax := _HMG_aControlFontColor[i][2]
+   LOCAL ColorRemain := _HMG_aControlBkColor[i][1]
+   LOCAL Min := _HMG_aControlRangeMin[i]
+   LOCAL Max := _HMG_aControlRangeMax[i]
+   LOCAL Position := _HMG_aControlValue[i]
+   LOCAL ColorInner := _HMG_aControlBkColor[i][2]
 
    IF IsArrayRGB ( Value )
       Value := HMG_RGB2n( Value )
    ENDIF
    IF ColorInner <> Value
-      _HMG_aControlBkColor[ i ][ 2 ] := Value
+      _HMG_aControlBkColor[i][2] := Value
       UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
-      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][ n ] := ;
+      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][n] := ;
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
          ColorDoneMin, ColorDoneMax, ColorRemain, Value ) }
       IF PCount() == 3 .OR. ISLOGICAL( lErase ) .AND. lErase
-         BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[ i ], _HMG_aControlCol[ i ], Width, Height, hb_defaultValue( lErase, .F. ) )
+         BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue( lErase, .F. ) )
       ENDIF
    ENDIF
 
@@ -423,22 +423,22 @@ PROCEDURE PW_SetStartAngle( cControlName, cParentForm, Value, lErase )
 
    LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
    LOCAL i := GetControlIndex ( cControlName, cParentForm )
-   LOCAL n := _HMG_aControlMiscData1[ i ]
-   LOCAL cImageName := _HMG_aControlProcedures[ i ]
-   LOCAL Width := _HMG_aControlWidth[ i ]
-   LOCAL Height := _HMG_aControlHeight[ i ]
-   LOCAL InnerSize := _HMG_aControlSpacing[ i ]
-   LOCAL GradientMode := _HMG_aControlPicture[ i ]
-   LOCAL cText := _HMG_aControlCaption[ i ]
-   LOCAL ShowText := _HMG_aControlDblClick[ i ]
-   LOCAL ColorDoneMin := _HMG_aControlFontColor[ i ][ 1 ]
-   LOCAL ColorDoneMax := _HMG_aControlFontColor[ i ][ 2 ]
-   LOCAL ColorRemain := _HMG_aControlBkColor[ i ][ 1 ]
-   LOCAL ColorInner := _HMG_aControlBkColor[ i ][ 2 ]
-   LOCAL Min := _HMG_aControlRangeMin[ i ]
-   LOCAL Max := _HMG_aControlRangeMax[ i ]
-   LOCAL Position := _HMG_aControlValue[ i ]
-   LOCAL StartAngle := _HMG_aControlInputMask[ i ]
+   LOCAL n := _HMG_aControlMiscData1[i]
+   LOCAL cImageName := _HMG_aControlProcedures[i]
+   LOCAL Width := _HMG_aControlWidth[i]
+   LOCAL Height := _HMG_aControlHeight[i]
+   LOCAL InnerSize := _HMG_aControlSpacing[i]
+   LOCAL GradientMode := _HMG_aControlPicture[i]
+   LOCAL cText := _HMG_aControlCaption[i]
+   LOCAL ShowText := _HMG_aControlDblClick[i]
+   LOCAL ColorDoneMin := _HMG_aControlFontColor[i][1]
+   LOCAL ColorDoneMax := _HMG_aControlFontColor[i][2]
+   LOCAL ColorRemain := _HMG_aControlBkColor[i][1]
+   LOCAL ColorInner := _HMG_aControlBkColor[i][2]
+   LOCAL Min := _HMG_aControlRangeMin[i]
+   LOCAL Max := _HMG_aControlRangeMax[i]
+   LOCAL Position := _HMG_aControlValue[i]
+   LOCAL StartAngle := _HMG_aControlInputMask[i]
    LOCAL V := Value
 
    IF V < 0
@@ -447,13 +447,13 @@ PROCEDURE PW_SetStartAngle( cControlName, cParentForm, Value, lErase )
        V := 359
    ENDIF
    IF StartAngle <> V
-      _HMG_aControlInputMask[ i ] := V
+      _HMG_aControlInputMask[i] := V
       UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
-      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][ n ] := ;
+      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][n] := ;
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, Position, ;
          V, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
          ColorDoneMin, ColorDoneMax, ColorRemain, ColorInner ) }
-      BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[ i ], _HMG_aControlCol[ i ], Width, Height, hb_defaultValue( lErase, .F. ) )
+      BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue( lErase, .F. ) )
    ENDIF
 
 RETURN
@@ -464,22 +464,22 @@ PROCEDURE PW_SetMin( cControlName, cParentForm, Value, lErase )
 
    LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
    LOCAL i := GetControlIndex ( cControlName, cParentForm )
-   LOCAL n := _HMG_aControlMiscData1[ i ]
-   LOCAL cImageName := _HMG_aControlProcedures[ i ]
-   LOCAL Width := _HMG_aControlWidth[ i ]
-   LOCAL Height := _HMG_aControlHeight[ i ]
-   LOCAL StartAngle := _HMG_aControlInputMask[ i ]
-   LOCAL InnerSize := _HMG_aControlSpacing[ i ]
-   LOCAL GradientMode := _HMG_aControlPicture[ i ]
-   LOCAL cText := _HMG_aControlCaption[ i ]
-   LOCAL ShowText := _HMG_aControlDblClick[ i ]
-   LOCAL ColorDoneMin := _HMG_aControlFontColor[ i ][ 1 ]
-   LOCAL ColorDoneMax := _HMG_aControlFontColor[ i ][ 2 ]
-   LOCAL ColorRemain := _HMG_aControlBkColor[ i ][ 1 ]
-   LOCAL ColorInner := _HMG_aControlBkColor[ i ][ 2 ]
-   LOCAL Min := _HMG_aControlRangeMin[ i ]
-   LOCAL Max := _HMG_aControlRangeMax[ i ]
-   LOCAL Position := _HMG_aControlValue[ i ]
+   LOCAL n := _HMG_aControlMiscData1[i]
+   LOCAL cImageName := _HMG_aControlProcedures[i]
+   LOCAL Width := _HMG_aControlWidth[i]
+   LOCAL Height := _HMG_aControlHeight[i]
+   LOCAL StartAngle := _HMG_aControlInputMask[i]
+   LOCAL InnerSize := _HMG_aControlSpacing[i]
+   LOCAL GradientMode := _HMG_aControlPicture[i]
+   LOCAL cText := _HMG_aControlCaption[i]
+   LOCAL ShowText := _HMG_aControlDblClick[i]
+   LOCAL ColorDoneMin := _HMG_aControlFontColor[i][1]
+   LOCAL ColorDoneMax := _HMG_aControlFontColor[i][2]
+   LOCAL ColorRemain := _HMG_aControlBkColor[i][1]
+   LOCAL ColorInner := _HMG_aControlBkColor[i][2]
+   LOCAL Min := _HMG_aControlRangeMin[i]
+   LOCAL Max := _HMG_aControlRangeMax[i]
+   LOCAL Position := _HMG_aControlValue[i]
    LOCAL V := Value
 
    IF V >= Max
@@ -487,16 +487,16 @@ PROCEDURE PW_SetMin( cControlName, cParentForm, Value, lErase )
    ENDIF
    IF Min <> V
       Min := V
-      _HMG_aControlRangeMin[ i ] := Min
+      _HMG_aControlRangeMin[i] := Min
       IF Position < Min
-         _HMG_aControlValue[ i ] := Position := Min
+         _HMG_aControlValue[i] := Position := Min
       ENDIF
       UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
-      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][ n ] := ;
+      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][n] := ;
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
          ColorDoneMin, ColorDoneMax, ColorRemain, ColorInner ) }
-      BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[ i ], _HMG_aControlCol[ i ], Width, Height, hb_defaultValue( lErase, .F. ) )
+      BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue( lErase, .F. ) )
    ENDIF
 
 RETURN
@@ -507,22 +507,22 @@ PROCEDURE PW_SetMax( cControlName, cParentForm, Value, lErase )
 
    LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
    LOCAL i := GetControlIndex ( cControlName, cParentForm )
-   LOCAL n := _HMG_aControlMiscData1[ i ]
-   LOCAL cImageName := _HMG_aControlProcedures[ i ]
-   LOCAL Width := _HMG_aControlWidth[ i ]
-   LOCAL Height := _HMG_aControlHeight[ i ]
-   LOCAL StartAngle := _HMG_aControlInputMask[ i ]
-   LOCAL InnerSize := _HMG_aControlSpacing[ i ]
-   LOCAL GradientMode := _HMG_aControlPicture[ i ]
-   LOCAL cText := _HMG_aControlCaption[ i ]
-   LOCAL ShowText := _HMG_aControlDblClick[ i ]
-   LOCAL ColorDoneMin := _HMG_aControlFontColor[ i ][ 1 ]
-   LOCAL ColorDoneMax := _HMG_aControlFontColor[ i ][ 2 ]
-   LOCAL ColorRemain := _HMG_aControlBkColor[ i ][ 1 ]
-   LOCAL ColorInner := _HMG_aControlBkColor[ i ][ 2 ]
-   LOCAL Min := _HMG_aControlRangeMin[ i ]
-   LOCAL Max := _HMG_aControlRangeMax[ i ]
-   LOCAL Position := _HMG_aControlValue[ i ]
+   LOCAL n := _HMG_aControlMiscData1[i]
+   LOCAL cImageName := _HMG_aControlProcedures[i]
+   LOCAL Width := _HMG_aControlWidth[i]
+   LOCAL Height := _HMG_aControlHeight[i]
+   LOCAL StartAngle := _HMG_aControlInputMask[i]
+   LOCAL InnerSize := _HMG_aControlSpacing[i]
+   LOCAL GradientMode := _HMG_aControlPicture[i]
+   LOCAL cText := _HMG_aControlCaption[i]
+   LOCAL ShowText := _HMG_aControlDblClick[i]
+   LOCAL ColorDoneMin := _HMG_aControlFontColor[i][1]
+   LOCAL ColorDoneMax := _HMG_aControlFontColor[i][2]
+   LOCAL ColorRemain := _HMG_aControlBkColor[i][1]
+   LOCAL ColorInner := _HMG_aControlBkColor[i][2]
+   LOCAL Min := _HMG_aControlRangeMin[i]
+   LOCAL Max := _HMG_aControlRangeMax[i]
+   LOCAL Position := _HMG_aControlValue[i]
    LOCAL V := Value
 
    IF V <= Min
@@ -530,16 +530,16 @@ PROCEDURE PW_SetMax( cControlName, cParentForm, Value, lErase )
    ENDIF
    IF Max <> V
       Max := V
-      _HMG_aControlRangeMax[ i ] := Max
+      _HMG_aControlRangeMax[i] := Max
       IF Position > Max
-         _HMG_aControlValue[ i ] := Position := Max
+         _HMG_aControlValue[i] := Position := Max
       ENDIF
       UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
-      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][ n ] := ;
+      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][n] := ;
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
          ColorDoneMin, ColorDoneMax, ColorRemain, ColorInner ) }
-      BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[ i ], _HMG_aControlCol[ i ], Width, Height, hb_defaultValue( lErase, .F. ) )
+      BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue( lErase, .F. ) )
    ENDIF
 
 RETURN
@@ -550,22 +550,22 @@ PROCEDURE PW_SetPosition( cControlName, cParentForm, Value, lErase )
 
    LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
    LOCAL i := GetControlIndex ( cControlName, cParentForm )
-   LOCAL n := _HMG_aControlMiscData1[ i ]
-   LOCAL cImageName := _HMG_aControlProcedures[ i ]
-   LOCAL Width := _HMG_aControlWidth[ i ]
-   LOCAL Height := _HMG_aControlHeight[ i ]
-   LOCAL StartAngle := _HMG_aControlInputMask[ i ]
-   LOCAL InnerSize := _HMG_aControlSpacing[ i ]
-   LOCAL GradientMode := _HMG_aControlPicture[ i ]
-   LOCAL cText := _HMG_aControlCaption[ i ]
-   LOCAL ShowText := _HMG_aControlDblClick[ i ]
-   LOCAL ColorDoneMin := _HMG_aControlFontColor[ i ][ 1 ]
-   LOCAL ColorDoneMax := _HMG_aControlFontColor[ i ][ 2 ]
-   LOCAL ColorRemain := _HMG_aControlBkColor[ i ][ 1 ]
-   LOCAL ColorInner := _HMG_aControlBkColor[ i ][ 2 ]
-   LOCAL Min := _HMG_aControlRangeMin[ i ]
-   LOCAL Max := _HMG_aControlRangeMax[ i ]
-   LOCAL Position := _HMG_aControlValue[ i ]
+   LOCAL n := _HMG_aControlMiscData1[i]
+   LOCAL cImageName := _HMG_aControlProcedures[i]
+   LOCAL Width := _HMG_aControlWidth[i]
+   LOCAL Height := _HMG_aControlHeight[i]
+   LOCAL StartAngle := _HMG_aControlInputMask[i]
+   LOCAL InnerSize := _HMG_aControlSpacing[i]
+   LOCAL GradientMode := _HMG_aControlPicture[i]
+   LOCAL cText := _HMG_aControlCaption[i]
+   LOCAL ShowText := _HMG_aControlDblClick[i]
+   LOCAL ColorDoneMin := _HMG_aControlFontColor[i][1]
+   LOCAL ColorDoneMax := _HMG_aControlFontColor[i][2]
+   LOCAL ColorRemain := _HMG_aControlBkColor[i][1]
+   LOCAL ColorInner := _HMG_aControlBkColor[i][2]
+   LOCAL Min := _HMG_aControlRangeMin[i]
+   LOCAL Max := _HMG_aControlRangeMax[i]
+   LOCAL Position := _HMG_aControlValue[i]
    LOCAL V := Value
 
    IF V < Min
@@ -574,12 +574,12 @@ PROCEDURE PW_SetPosition( cControlName, cParentForm, Value, lErase )
       V := Max
    ENDIF
    IF Position <> V
-      _HMG_aControlValue[ i ] := V
-      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][ n ] := ;
+      _HMG_aControlValue[i] := V
+      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][n] := ;
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, V, ;
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
          ColorDoneMin, ColorDoneMax, ColorRemain, ColorInner ) }
-      BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[ i ], _HMG_aControlCol[ i ], Width, Height, hb_defaultValue( lErase, .F. ) )
+      BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue( lErase, .F. ) )
    ENDIF
 
 RETURN
@@ -590,22 +590,22 @@ PROCEDURE PW_SetInnerSize( cControlName, cParentForm, Value, lErase )
 
    LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
    LOCAL i := GetControlIndex ( cControlName, cParentForm )
-   LOCAL n := _HMG_aControlMiscData1[ i ]
-   LOCAL cImageName := _HMG_aControlProcedures[ i ]
-   LOCAL Width := _HMG_aControlWidth[ i ]
-   LOCAL Height := _HMG_aControlHeight[ i ]
-   LOCAL StartAngle := _HMG_aControlInputMask[ i ]
-   LOCAL GradientMode := _HMG_aControlPicture[ i ]
-   LOCAL cText := _HMG_aControlCaption[ i ]
-   LOCAL ShowText := _HMG_aControlDblClick[ i ]
-   LOCAL ColorDoneMin := _HMG_aControlFontColor[ i ][ 1 ]
-   LOCAL ColorDoneMax := _HMG_aControlFontColor[ i ][ 2 ]
-   LOCAL ColorRemain := _HMG_aControlBkColor[ i ][ 1 ]
-   LOCAL ColorInner := _HMG_aControlBkColor[ i ][ 2 ]
-   LOCAL Min := _HMG_aControlRangeMin[ i ]
-   LOCAL Max := _HMG_aControlRangeMax[ i ]
-   LOCAL Position := _HMG_aControlValue[ i ]
-   LOCAL InnerSize := _HMG_aControlSpacing[ i ]
+   LOCAL n := _HMG_aControlMiscData1[i]
+   LOCAL cImageName := _HMG_aControlProcedures[i]
+   LOCAL Width := _HMG_aControlWidth[i]
+   LOCAL Height := _HMG_aControlHeight[i]
+   LOCAL StartAngle := _HMG_aControlInputMask[i]
+   LOCAL GradientMode := _HMG_aControlPicture[i]
+   LOCAL cText := _HMG_aControlCaption[i]
+   LOCAL ShowText := _HMG_aControlDblClick[i]
+   LOCAL ColorDoneMin := _HMG_aControlFontColor[i][1]
+   LOCAL ColorDoneMax := _HMG_aControlFontColor[i][2]
+   LOCAL ColorRemain := _HMG_aControlBkColor[i][1]
+   LOCAL ColorInner := _HMG_aControlBkColor[i][2]
+   LOCAL Min := _HMG_aControlRangeMin[i]
+   LOCAL Max := _HMG_aControlRangeMax[i]
+   LOCAL Position := _HMG_aControlValue[i]
+   LOCAL InnerSize := _HMG_aControlSpacing[i]
    LOCAL V := Value
 
    IF V < 0
@@ -614,12 +614,12 @@ PROCEDURE PW_SetInnerSize( cControlName, cParentForm, Value, lErase )
       V := 99
    ENDIF
    IF InnerSize <> V
-      _HMG_aControlSpacing[ i ] := V
-      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][ n ] := ;
+      _HMG_aControlSpacing[i] := V
+      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][n] := ;
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, V, GradientMode, cText, ShowText, Min, Max, ;
          ColorDoneMin, ColorDoneMax, ColorRemain, ColorInner ) }
-      BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[ i ], _HMG_aControlCol[ i ], Width, Height, hb_defaultValue( lErase, .F. ) )
+      BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue( lErase, .F. ) )
    ENDIF
 
 RETURN
@@ -630,31 +630,31 @@ PROCEDURE PW_SetGradientMode( cControlName, cParentForm, Value, lErase )
 
    LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
    LOCAL i := GetControlIndex ( cControlName, cParentForm )
-   LOCAL n := _HMG_aControlMiscData1[ i ]
-   LOCAL cImageName := _HMG_aControlProcedures[ i ]
-   LOCAL Width := _HMG_aControlWidth[ i ]
-   LOCAL Height := _HMG_aControlHeight[ i ]
-   LOCAL StartAngle := _HMG_aControlInputMask[ i ]
-   LOCAL InnerSize := _HMG_aControlSpacing[ i ]
-   LOCAL cText := _HMG_aControlCaption[ i ]
-   LOCAL ShowText := _HMG_aControlDblClick[ i ]
-   LOCAL ColorDoneMin := _HMG_aControlFontColor[ i ][ 1 ]
-   LOCAL ColorDoneMax := _HMG_aControlFontColor[ i ][ 2 ]
-   LOCAL ColorRemain := _HMG_aControlBkColor[ i ][ 1 ]
-   LOCAL ColorInner := _HMG_aControlBkColor[ i ][ 2 ]
-   LOCAL Min := _HMG_aControlRangeMin[ i ]
-   LOCAL Max := _HMG_aControlRangeMax[ i ]
-   LOCAL Position := _HMG_aControlValue[ i ]
-   LOCAL GradientMode := _HMG_aControlPicture[ i ]
+   LOCAL n := _HMG_aControlMiscData1[i]
+   LOCAL cImageName := _HMG_aControlProcedures[i]
+   LOCAL Width := _HMG_aControlWidth[i]
+   LOCAL Height := _HMG_aControlHeight[i]
+   LOCAL StartAngle := _HMG_aControlInputMask[i]
+   LOCAL InnerSize := _HMG_aControlSpacing[i]
+   LOCAL cText := _HMG_aControlCaption[i]
+   LOCAL ShowText := _HMG_aControlDblClick[i]
+   LOCAL ColorDoneMin := _HMG_aControlFontColor[i][1]
+   LOCAL ColorDoneMax := _HMG_aControlFontColor[i][2]
+   LOCAL ColorRemain := _HMG_aControlBkColor[i][1]
+   LOCAL ColorInner := _HMG_aControlBkColor[i][2]
+   LOCAL Min := _HMG_aControlRangeMin[i]
+   LOCAL Max := _HMG_aControlRangeMax[i]
+   LOCAL Position := _HMG_aControlValue[i]
+   LOCAL GradientMode := _HMG_aControlPicture[i]
 
    IF GradientMode <> Value
-      _HMG_aControlPicture[ i ] := Value
+      _HMG_aControlPicture[i] := Value
       UpdateAngleGradientBrush( Value, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
-      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][ n ] := ;
+      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][n] := ;
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, InnerSize, Value, cText, ShowText, Min, Max, ;
          ColorDoneMin, ColorDoneMax, ColorRemain, ColorInner ) }
-      BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[ i ], _HMG_aControlCol[ i ], Width, Height, hb_defaultValue( lErase, .F. ) )
+      BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue( lErase, .F. ) )
    ENDIF
 
 RETURN
@@ -685,17 +685,17 @@ PROCEDURE ProgressWheelPaint( cParentForm, cImgName, Width, Height, ;
       R := { 0, 0, Width, Width }
    ENDIF
 
-   Left := R[ 1 ] * BufScale
-   Right := R[ 3 ] * BufScale
-   Top := R[ 2 ] * BufScale
-   Bottom := R[ 4 ] * BufScale
+   Left := R[1] * BufScale
+   Right := R[3] * BufScale
+   Top := R[2] * BufScale
+   Bottom := R[4] * BufScale
 
    BrushColor := COLORREF_TO_ArrayRGB( ColorRemain )
 
    P1 := AnglePosition( StartAngle, R, Min, Max, Min )
    P2 := AnglePosition( StartAngle, R, Min, Max, Max )
 
-   DrawPieInBitmap( hDC, R[ 2 ], R[ 1 ], R[ 3 ], R[ 4 ], P2[ 1 ], P2[ 2 ], P1[ 1 ], P1[ 2 ], BrushColor, , BrushColor )
+   DrawPieInBitmap( hDC, R[2], R[1], R[3], R[4], P2[1], P2[2], P1[1], P1[2], BrushColor, , BrushColor )
 
    IF Position > Min
       P1 := AnglePosition( StartAngle, R, Min, Max, 0 )
@@ -714,7 +714,7 @@ PROCEDURE ProgressWheelPaint( cParentForm, cImgName, Width, Height, ;
          EXIT
       ENDSWITCH
 
-      DrawPieInBitmap( hDC, R[ 2 ], R[ 1 ], R[ 3 ], R[ 4 ], P2[ 1 ], P2[ 2 ], P1[ 1 ], P1[ 2 ], BrushColor, , BrushColor, hBrushBitmap )
+      DrawPieInBitmap( hDC, R[2], R[1], R[3], R[4], P2[1], P2[2], P1[1], P1[2], BrushColor, , BrushColor, hBrushBitmap )
    ENDIF
 
    IF InnerSize > 0
@@ -724,13 +724,13 @@ PROCEDURE ProgressWheelPaint( cParentForm, cImgName, Width, Height, ;
          Right - ( 100 - InnerSize ) * ( Right - Left ) / 200, ;
          Bottom - ( 100 - InnerSize ) * ( Bottom - Top ) / 200 }
 
-      Left := RR[ 1 ]
-      Right := RR[ 3 ]
-      Top := RR[ 2 ]
-      Bottom := RR[ 4 ]
+      Left := RR[1]
+      Right := RR[3]
+      Top := RR[2]
+      Bottom := RR[4]
 
-      Row := RR[ 2 ] + 1
-      Col := RR[ 1 ] + 1
+      Row := RR[2] + 1
+      Col := RR[1] + 1
       Width := Right - Left
       Height := Bottom - Top
 
@@ -749,10 +749,10 @@ PROCEDURE ProgressWheelPaint( cParentForm, cImgName, Width, Height, ;
          cText := hb_ntos( Int( 100 * ( Position - Min ) / ( Max - Min ) ) ) + "%"
       ENDIF
 
-      Row := R[ 4 ] / 2 - InnerSize * Width / 6000 - 6
-      Col := R[ 3 ] / 2 - InnerSize * Height / 6000 + 2
+      Row := R[4] / 2 - InnerSize * Width / 6000 - 6
+      Col := R[3] / 2 - InnerSize * Height / 6000 + 2
 
-      DrawTextInBitmap( hDC, row, col, cText, _HMG_DefaultFontName, _HMG_DefaultFontSize, iif( Empty( ColorInner ), WHITE, BLACK ), 2 )
+      DrawTextInBitmap( hDC, row, col, cText, _HMG_DefaultFontName, _HMG_DefaultFontSize, iif( Empty(ColorInner), WHITE, BLACK ), 2 )
    ENDIF
 
    BT_DeleteDC(BTstruct)
@@ -795,7 +795,7 @@ FUNCTION UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, Colo
 
          BrushColor := COLORREF_TO_ArrayRGB( GradientColor( ColorDoneMin, ColorDoneMax, 0, 100, i ) )
 
-         DrawPieInBitmap( hDC, R[ 2 ], R[ 1 ], R[ 3 ], R[ 4 ], P2[ 1 ], P2[ 2 ], P1[ 1 ], P1[ 2 ], BrushColor, , BrushColor )
+         DrawPieInBitmap( hDC, R[2], R[1], R[3], R[4], P2[1], P2[2], P1[1], P1[2], BrushColor, , BrushColor )
 
       NEXT
 
@@ -821,15 +821,15 @@ STATIC FUNCTION GradientColor( ColorBegin, ColorEnd, AMin, AMax, APosition )
 
    B := COLORREF_TO_ArrayRGB( ColorBegin )
 
-   B1 := B[ 1 ]
-   B2 := B[ 2 ]
-   B3 := B[ 3 ]
+   B1 := B[1]
+   B2 := B[2]
+   B3 := B[3]
 
    E := COLORREF_TO_ArrayRGB( ColorEnd )
 
-   E1 := E[ 1 ]
-   E2 := E[ 2 ]
-   E3 := E[ 3 ]
+   E1 := E[1]
+   E2 := E[2]
+   E3 := E[3]
 
    IF AMax - AMin <> 0
       P := ( APosition - AMin ) / ( AMax - AMin )
@@ -848,10 +848,10 @@ STATIC FUNCTION AnglePosition( StartAngle, Rect, AMin, AMax, APosition )
    a := ( StartAngle - 90 ) + 360 * ( APosition / ( AMax - AMin ) - AMin )
    a := a * PI() / 180
 
-   Left := Rect[ 1 ]
-   Top := Rect[ 2 ]
-   Right := Rect[ 3 ]
-   Bottom := Rect[ 4 ]
+   Left := Rect[1]
+   Top := Rect[2]
+   Right := Rect[3]
+   Bottom := Rect[4]
 
    X := Round( Cos( a ) * ( Right - Left ) / 2 + ( Left + Right ) / 2, 0 )
    Y := Round( Sin( a ) * ( Bottom - Top ) / 2 + ( Bottom + Top ) / 2, 0 )
@@ -866,7 +866,7 @@ RETURN { Y, X }
 STATIC FUNCTION BT_DrawPieEx ( hDC, Row1, Col1, Row2, Col2, RowStartArc, ColStartArc, RowEndArc, ColEndArc, aColorRGBLine, nWidthLine, aColorRGBFill, hBrushBitmap )
 *------------------------------------------------------------------------------*
 
-   nWidthLine := IF ( ValType( nWidthLine ) == "U", 1, nWidthLine )
+   nWidthLine := IF ( ValType(nWidthLine) == "U", 1, nWidthLine )
    BT_DRAW_HDC_ARCX_EX ( hDC, Col1, Row1, Col2, Row2, ColStartArc, RowStartArc, ColEndArc, RowEndArc, ArrayRGB_TO_COLORREF( aColorRGBLine ), nWidthLine, ArrayRGB_TO_COLORREF( aColorRGBFill ), BT_DRAW_PIE, hBrushBitmap )
 
 RETURN NIL
@@ -875,13 +875,13 @@ RETURN NIL
 STATIC PROCEDURE DrawPieInBitmap( hDC, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb, penwidth, fillrgb, hBrush )
 *------------------------------------------------------------------------------*
 
-   IF ValType( penrgb ) == "U"
+   IF ValType(penrgb) == "U"
       penrgb := BLACK
    ENDIF
-   IF ValType( penwidth ) == "U"
+   IF ValType(penwidth) == "U"
       penwidth := 1
    ENDIF
-   IF ValType( fillrgb ) == "U"
+   IF ValType(fillrgb) == "U"
       fillrgb := WHITE
    ENDIF
 
@@ -893,13 +893,13 @@ RETURN
 STATIC PROCEDURE DrawEllipseInBitmap( hDC, row, col, Width, Height, penrgb, penwidth, fillrgb )
 *------------------------------------------------------------------------------*
 
-   IF ValType( penrgb ) == "U"
+   IF ValType(penrgb) == "U"
       penrgb := BLACK
    ENDIF
-   IF ValType( penwidth ) == "U"
+   IF ValType(penwidth) == "U"
       penwidth := 1
    ENDIF
-   IF ValType( fillrgb ) == "U"
+   IF ValType(fillrgb) == "U"
       fillrgb := WHITE
    ENDIF
 

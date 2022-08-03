@@ -87,18 +87,18 @@ PROCEDURE _SetAddressControlProcedure ( ControlName , url , i )
       IF iswinnt()
          _HMG_aControlProcedures [i] := {|| ShellExecute( 0, "open", "explorer.exe", "/e," + url, , 1 ) }
       ELSE
-         url := StrTran( url, "file:\\", "" )
+         url := StrTran(url, "file:\\", "")
          _HMG_aControlProcedures [i] := {|| ShellExecute( 0, "open", "explorer.exe", "/e,/select," + url + hb_ps() + Directory( url + hb_ps() + "*.*" )[1][1], , 1 ) }
       ENDIF
 
    CASE At( "proc:\\", Lower( url ) ) > 0
 
-      url := SubStr( AllTrim( url ), 8 )
+      url := SubStr(AllTrim( url ), 8)
 
 #if ( ( __HARBOUR__ - 0 ) < 0x030200 )
-      IF ( Type( SubStr( url, 1, At( "(", url ) - 1 ) + "()" ) == "UI" ) 
+      IF ( Type( SubStr(url, 1, At( "(", url ) - 1) + "()" ) == "UI" ) 
 #else
-      IF hb_IsFunction( SubStr( url, 1, At( "(", url ) - 1 ) )
+      IF hb_IsFunction( SubStr(url, 1, At( "(", url ) - 1) )
 #endif
          _HMG_aControlProcedures [i] := &( "{||" + url + "}" )
       ELSE

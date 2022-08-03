@@ -126,7 +126,7 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
       AAdd( _HMG_ActiveTabCurrentPageMap , RetArray )
    ENDIF
 
-   IF ValType( tooltip ) != "U"
+   IF ValType(tooltip) != "U"
       AEval( RetArray, { |x| SetToolTip ( x , tooltip , GetFormToolTipHandle ( cParentForm ) ) } )
    ENDIF
 
@@ -179,12 +179,12 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
    _HMG_aControlMiscData1          [k] := { 0, readonly }
    _HMG_aControlMiscData2          [k] := ""
 
-   IF ! Empty( cuetext ) .AND. IsVistaOrLater() .AND. IsThemed()
+   IF ! Empty(cuetext) .AND. IsVistaOrLater() .AND. IsThemed()
       value := ""
       SendMessageWideString ( ControlHandle, EM_SETCUEBANNER, .T., cuetext )
    ENDIF
 
-   IF ISNUMERIC( value )
+   IF ISNUMERIC(value)
       SetSpinnerValue ( RetArray [2], Value )
    ENDIF
 
@@ -231,10 +231,10 @@ FUNCTION OSPINEVENTS( hWnd, nMsg, wParam, lParam )    // 2006.08.13 JD
 
    CASE WM_CONTEXTMENU
 
-      i := AScan( _HMG_aControlHandles, { |x| iif( ValType( x ) == "A", ( AScan( x, hWnd ) > 0 ), x == hWnd ) } )
+      i := AScan(_HMG_aControlHandles, { |x| iif( ValType(x) == "A", ( AScan(x, hWnd) > 0 ), x == hWnd ) })
       ParentForm := _HMG_aControlParentHandles [i]
 
-      i := AScan( _HMG_aControlsContextMenu, { |x| x [1] == hWnd } )
+      i := AScan(_HMG_aControlsContextMenu, { |x| x [1] == hWnd })
 
       IF i > 0
 

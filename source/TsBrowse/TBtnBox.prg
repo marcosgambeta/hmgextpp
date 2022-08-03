@@ -98,11 +98,11 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, ;
 
    ::SetColor( nClrFore, nClrBack )
 
-   if ! Empty( ParentHandle )
+   if ! Empty(ParentHandle)
       if lSpinner
          ::Create( "EDIT" )
-         nMin := IIf( ValType( bMin ) == "B", Eval( bMin ), bMin )
-         nMax := IIf( ValType( bMax ) == "B", Eval( bMax ), bMax )
+         nMin := IIf( ValType(bMin) == "B", Eval( bMin ), bMin )
+         nMax := IIf( ValType(bMax) == "B", Eval( bMax ), bMax )
          ::hWndChild := InitedSpinner( ::hWndParent, ::hWnd , nCol, nRow, 0, nHeight, nMin, nMax, Eval( ::bSetGet ) )
          SetIncrementSpinner( ::hWndChild, bUp )
       else
@@ -131,7 +131,7 @@ METHOD Default() CLASS TBtnBox
    LOCAL cValue
  
    cValue := Eval( ::bSetGet )
-   If Valtype( cValue ) != "C"
+   If Valtype(cValue) != "C"
       cValue := cValToChar( cValue )
    EndIf
 
@@ -175,7 +175,7 @@ Return DLGC_WANTALLKEYS + DLGC_WANTCHARS
 METHOD KeyChar( nKey, nFlags ) CLASS TBtnBox
 
    If _GetKeyState( VK_CONTROL )
-      nKey := IIf( Upper( Chr( nKey ) ) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey )
+      nKey := IIf( Upper(Chr(nKey)) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey )
    EndIf
 
    If nKey == VK_TAB .OR. nKey == VK_ESCAPE
@@ -212,7 +212,7 @@ METHOD lValid() CLASS TBtnBox
 
    Local lRet := .T.
 
-   If ValType( ::bValid ) == "B"
+   If ValType(::bValid) == "B"
       lRet := Eval( ::bValid, ::GetVal() )
    EndIf
 
@@ -267,7 +267,7 @@ METHOD GetVal() CLASS TBtnBox
    LOCAL retVal
    LOCAL cType
 
-   cType := ValType( ::VarGet() )
+   cType := ValType(::VarGet())
 
    DO CASE
       CASE cType == "C" ; retVal := GetWindowText( ::hWnd )

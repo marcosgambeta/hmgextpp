@@ -99,7 +99,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
       nWidth  := nRight - nLeft / 2
    ENDIF
 
-   nTop    := nTop + 1 + iif( Empty( cTitle ), 30, 44 )                        // Top gap
+   nTop    := nTop + 1 + iif( Empty(cTitle), 30, 44 )                        // Top gap
    nLeft   := nLeft + 1 + iif( lxVal, 30 + nLegendsWidth + nBarD, 30 + nBarD ) // Left
    nBottom := nHeight - 2 - iif( lyVal, 40, 30 )                               // Bottom
    nRight  := nWidth - 2 - iif( lLegends, 30 + nLegendsWidth, 30 )             // Right
@@ -162,7 +162,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
 
    // Graph info
    //
-   IF !Empty( cTitle )
+   IF !Empty(cTitle)
       cNameObj := "Obj_Name_" + hb_ntos( nGraphObj++ )
       @ nTop - 36 * nResV, nLeft LABEL (cNameObj) OF (parent) VALUE cTitle;
          WIDTH nRight - nLeft;
@@ -729,7 +729,7 @@ FUNCTION drawpiegraph( windowname, fromrow, fromcol, torow, tocol, series, aname
    ENDIF
 
    IF lsleg
-      toright := ( "RIGHT" $ Upper( hb_defaultValue( placement, "bottom" ) ) )
+      toright := ("RIGHT" $ Upper(hb_defaultValue(placement, "bottom")))
       IF toright
          tocol := 2 / 3 * tocol + 10
       ELSE
@@ -930,7 +930,7 @@ FUNCTION _PiePrint( cForm, fromrow, fromcol, torow, tocol, series, aname, colors
       HEIGHT GetProperty( cForm, "Height" ) ;
       CHILD ;
       ON INIT ( drawpiegraph( FormName, fromrow, fromcol, torow, tocol, series, aname, colors, ctitle, depth, l3d, lxval, lsleg, cPicture, .T., placement, .T. ), ;
-         _bmpprint( ThisWindow.Name, x, y, iif( "HBPRINT" $ Upper( hb_defaultValue( cLibrary, "" ) ), 2, 1 ) ) ) ;
+         _bmpprint( ThisWindow.Name, x, y, iif( "HBPRINT" $ Upper(hb_defaultValue(cLibrary, "")), 2, 1 ) ) ) ;
       BACKCOLOR WHITE
 
    END WINDOW
@@ -956,7 +956,7 @@ FUNCTION _GraphPrint( cForm, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
       CHILD ;
       ON INIT ( GraphShow( FormName, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aData, cTitle, aYVals, nBarD, nWideB, nSep, nXRanges, ;
          l3D, lGrid, lxGrid, lyGrid, lxVal, lyVal, lLegends, aSeries, aColors, nType, lViewVal, cPicture, nLegendsWidth, .T. , .T. ), ;
-         _bmpprint( ThisWindow.Name, x, y, iif( "HBPRINT" $ Upper( hb_defaultValue( cLibrary, "" ) ), 2, 1 ) ) ) ;
+         _bmpprint( ThisWindow.Name, x, y, iif( "HBPRINT" $ Upper(hb_defaultValue(cLibrary, "")), 2, 1 ) ) ) ;
       BACKCOLOR WHITE
 
    END WINDOW
@@ -980,8 +980,8 @@ STATIC FUNCTION _bmpprint( cForm, x, y, nLibrary )
 
    aSize := BmpSize( cTempFile )
 
-   bw := aSize[ 1 ]
-   bh := aSize[ 2 ]
+   bw := aSize[1]
+   bh := aSize[2]
 
    r := bw / bh
 
@@ -1009,8 +1009,8 @@ STATIC FUNCTION _bmpprint( cForm, x, y, nLibrary )
 
       SET UNITS MM
 
-      HO := hbprn:devcaps[ 10 ] / hbprn:devcaps[ 6 ] * 25.4
-      VO := hbprn:devcaps[ 9 ] / hbprn:devcaps[ 5 ] * 25.4
+      HO := hbprn:devcaps[10] / hbprn:devcaps[6] * 25.4
+      VO := hbprn:devcaps[9] / hbprn:devcaps[5] * 25.4
 
       W := HBPRNMAXCOL - x - HO * 2
       H := HBPRNMAXROW - y - VO * 2
@@ -1084,10 +1084,10 @@ FUNCTION PrintWindow ( cWindowName, lPreview, ldialog, nRow, nCol, nWidth, nHeig
    LOCAL bw, bh, r, tw := 0, th
    LOCAL ntop, nleft, nbottom, nright
 
-   IF ValType( nRow ) == "U" .OR. ;
-      ValType( nCol ) == "U" .OR. ;
-      ValType( nWidth ) == "U" .OR. ;
-      ValType( nHeight ) == "U"
+   IF ValType(nRow) == "U" .OR. ;
+      ValType(nCol) == "U" .OR. ;
+      ValType(nWidth) == "U" .OR. ;
+      ValType(nHeight) == "U"
 
       ntop := -1
       nleft := -1
@@ -1103,22 +1103,22 @@ FUNCTION PrintWindow ( cWindowName, lPreview, ldialog, nRow, nCol, nWidth, nHeig
 
    ENDIF
 
-   IF ValType( lDialog ) == "U"
+   IF ValType(lDialog) == "U"
       lDialog := .F.
    ENDIF
 
-   IF ValType( lPreview ) == "U"
+   IF ValType(lPreview) == "U"
       lPreview := .F.
    ENDIF
 
    IF ! _IsWindowDefined ( cWindowName )
-      MsgMiniGuiError ( _HMG_BRWLangError[ 1 ] + cWindowName + _HMG_BRWLangError[ 2 ], .F. )
+      MsgMiniGuiError ( _HMG_BRWLangError[1] + cWindowName + _HMG_BRWLangError[2], .F. )
    ENDIF
 
    IF ntop == -1
 
       bw := GetProperty ( cWindowName, "Width" )
-      bh := GetProperty ( cWindowName, "Height" ) - GetTitleHeight ()
+      bh := GetProperty ( cWindowName, "Height" ) - GetTitleHeight()
 
    ELSE
 

@@ -93,7 +93,7 @@ METHOD New( nRow, nCol, bSetGet, aGetData, nWidth, nHeight, oWnd, bChanged,;
 
    ::SetColor( nClrFore, nClrBack )
 
-   if ! Empty( ParentHandle )
+   if ! Empty(ParentHandle)
 
       ::hWnd := InitComboBox( ParentHandle, 0, nCol, nRow, nWidth , "", 0 , nHeight, invisible, notabstop, sort , displaychange , _HMG_IsXP )
 
@@ -147,7 +147,7 @@ METHOD HandleEvent( nMsg, nWParam, nLParam ) CLASS TComboBox
 
    If HiWord(nWParam) == CBN_CLOSEUP
       if ::bCloseUp <> NIL
-         IIf( ValType( ::bCloseUp ) == "B", Eval( ::bCloseUp, Self ), ::bCloseUp( Self ) )
+         IIf( ValType(::bCloseUp) == "B", Eval( ::bCloseUp, Self ), ::bCloseUp( Self ) )
          Return 0
       endif
    Endif
@@ -195,7 +195,7 @@ METHOD LostFocus() CLASS TComboBox
 
    If nAt != CB_ERR
       ::nAt = nAt + 1
-      If ValType( Eval( ::bSetGet ) ) == "N"
+      If ValType(Eval( ::bSetGet )) == "N"
          Eval( ::bSetGet, nAt + 1 )
       Else
          Eval( ::bSetGet, ::aItems[ nAt + 1 ] )

@@ -77,7 +77,7 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, hFont, ;
 
    ::Atx := 0
 
-   if ! Empty( ::oWnd:hWnd )
+   if ! Empty(::oWnd:hWnd)
 
       ::Create( "EDIT" )
       ::AddVars( ::hWnd )
@@ -99,7 +99,7 @@ METHOD Default() CLASS TSMulti
 
    LOCAL VALUE := Eval( ::bSetGet )
 
-   If ! Empty( Value )
+   If ! Empty(Value)
       SetWindowText( ::hWnd, Value )
    ENDIF
 
@@ -133,7 +133,7 @@ METHOD KeyChar( nKey, nFlags ) CLASS TSMulti
    HB_SYMBOL_UNUSED( nFlags )
 
    IF _GetKeyState( VK_CONTROL )
-      nKey := IIf( Upper( Chr( nKey ) ) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey )
+      nKey := IIf( Upper(Chr(nKey)) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey )
    ENDIF
 
    IF nKey == VK_TAB .OR. nKey == VK_ESCAPE
@@ -153,19 +153,19 @@ METHOD Save() CLASS TSMulti
    IF ::bSetGet != NIL
       cText := ::GetText()
       IF Right( cText, 2 ) == CRLF
-         cText := SubStr( cText, 1, Len( cText ) - 2 )
+         cText := SubStr(cText, 1, Len(cText) - 2)
       ENDIF
 
-      IF ::oCol:lEditBox .AND. ! Empty( cText ) .AND. CRLF $ cText
+      IF ::oCol:lEditBox .AND. ! Empty(cText) .AND. CRLF $ cText
          IF Len( ::oCol:cEditBoxSep ) > 0
-            cText := StrTran( cText, CRLF, ::oCol:cEditBoxSep )
+            cText := StrTran(cText, CRLF, ::oCol:cEditBoxSep)
          ELSEIF ::oCol:nEditBoxWrap > 0
-            cText := StrTran( cText, CRLF, " " )
+            cText := StrTran(cText, CRLF, " ")
          ENDIF
       ENDIF
 
       Eval( ::bSetGet, cText )
-      IF Empty( ::oCol:bEditEnd )
+      IF Empty(::oCol:bEditEnd)
          ::oBrw:PostEdit( cText, ::nCol )
       ENDIF
    ENDIF
@@ -179,7 +179,7 @@ RETURN NIL
 METHOD KeyDown( nKey, nFlags ) CLASS TSMulti
 
    IF _GetKeyState( VK_CONTROL )
-      nKey := IIf( Upper( Chr( nKey ) ) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey )
+      nKey := IIf( Upper(Chr(nKey)) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey )
    ENDIF
 
    ::nLastKey := nKey
@@ -209,7 +209,7 @@ METHOD lValid() CLASS TSMulti
 
    LOCAL lRet := .T.
 
-   IF ValType( ::bValid ) == "B"
+   IF ValType(::bValid) == "B"
       lRet := Eval( ::bValid, ::GetText() )
    ENDIF
 

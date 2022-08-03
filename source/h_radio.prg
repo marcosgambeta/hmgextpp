@@ -103,7 +103,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " Already defined." )
    ENDIF
 
-   IF ValType( aReadOnly ) != "A"
+   IF ValType(aReadOnly) != "A"
       aReadOnly := Array( Len( aOptions ) )
       AFill( aReadOnly, .F. )
    ENDIF
@@ -155,7 +155,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
          x := GetWindowCol ( Controlhandle )
          y := GetWindowRow ( Controlhandle )
          width := GetWindowWidth  ( Controlhandle )
-         spacing := GetWindowHeight ( Controlhandle )
+         spacing := GetWindowHeight(Controlhandle)
 
          FOR i := 1 TO Len( aId )
 
@@ -166,7 +166,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
                SetWindowStyle ( ControlHandle, WS_VISIBLE, .T. )
             ENDIF
 
-            IF ValType( aOptions ) == "A"
+            IF ValType(aOptions) == "A"
                IF i <= Len( aOptions )
                   SetWindowText ( ControlHandle , aOptions[i] )
                ENDIF
@@ -209,8 +209,8 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
 
       IF autosize
          BackWidth := Width
-         Width := GetTextWidth ( NIL, aOptions [1], FontHandle ) + 21
-         MoveWindow ( ControlHandle, x, y, width, GetTextHeight ( NIL, aOptions [1], FontHandle ) + 8, .T. )
+         Width := GetTextWidth(NIL, aOptions [1], FontHandle) + 21
+         MoveWindow ( ControlHandle, x, y, width, GetTextHeight(NIL, aOptions[1], FontHandle) + 8, .T. )
       ENDIF
 
       AAdd( aHandles , ControlHandle )
@@ -234,13 +234,13 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
          ENDIF
 
          IF autosize
-            Width := GetTextWidth ( NIL, aOptions [i], FontHandle ) + 21
-            MoveWindow ( ControlHandle, x, y, width, GetTextHeight ( NIL, aOptions [i], FontHandle ) + 8, .T. )
+            Width := GetTextWidth(NIL, aOptions [i], FontHandle) + 21
+            MoveWindow ( ControlHandle, x, y, width, GetTextHeight(NIL, aOptions[i], FontHandle) + 8, .T. )
          ENDIF
 
          AAdd( aHandles , ControlHandle )
 
-         IF ValType( tooltip ) != "U"
+         IF ValType(tooltip) != "U"
             SetToolTip ( aHandles [i] , tooltip , GetFormToolTipHandle ( ParentFormName ) )
          ENDIF
 
@@ -258,7 +258,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
          AAdd( _HMG_ActiveTabCurrentPageMap , aHandles )
       ENDIF
 
-      IF ValType( tooltip ) != "U"
+      IF ValType(tooltip) != "U"
          SetToolTip ( aHandles [1] , tooltip , GetFormToolTipHandle ( ParentFormName ) )
       ENDIF
 
@@ -277,7 +277,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
    _HMG_aControlIds                [k] := aId
    _HMG_aControlProcedures         [k] := ""
    _HMG_aControlPageMap            [k] := aReadOnly
-   _HMG_aControlValue              [k] := iif( ValType( Value ) == "N", Value, 0 )
+   _HMG_aControlValue              [k] := iif( ValType(Value) == "N", Value, 0 )
    _HMG_aControlInputMask          [k] := transparent
    _HMG_aControllostFocusProcedure [k] := lostfocus
    _HMG_aControlGotFocusProcedure  [k] := gotfocus
@@ -312,7 +312,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
    _HMG_aControlMiscData2          [k] := ""
 
    IF .NOT. lDialogInMemory
-      IF ValType( Value ) == "N" .AND. Value > 0  // EF 93
+      IF ValType(Value) == "N" .AND. Value > 0  // EF 93
          _SetValue ( , , Value , k )
       ENDIF
       SetProperty ( ParentFormName , ControlName , "ReadOnly" , aReadOnly )
@@ -339,11 +339,11 @@ FUNCTION InitDialogRadioGroup( ParentName, ControlHandle, k )
    aHandles := _HMG_aControlHandles [k]
    Value := _HMG_aControlValue [k]
 // EF 93
-   IF ValType( Value ) == "N" .AND. Value > 0 .AND. ControlHandle > 0
+   IF ValType(Value) == "N" .AND. Value > 0 .AND. ControlHandle > 0
       _SetValue ( , , Value , k )
    ENDIF
 //JP V40
-   IF Len( _HMG_aControlIds [k] ) == Len( aHandles ) .AND. ValType( ParentName ) <> "U"
+   IF Len( _HMG_aControlIds [k] ) == Len( aHandles ) .AND. ValType(ParentName) <> "U"
       SetProperty ( ParentName , _HMG_aControlNames [k] , "ReadOnly" , _HMG_aControlPageMap [k] )
    ENDIF
 // JP 62

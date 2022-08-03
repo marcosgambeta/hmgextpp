@@ -13,7 +13,7 @@
 FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, lNumber )
 
    LOCAL cFormName, oBrw, nSaveSelect, cDbf, cAlias, lEdit, cTable
-   LOCAL lbSetUp := ! Empty( bSetUp ), lRec, nY, nX, bAfter, lCellBrw := .F.
+   LOCAL lbSetUp := ! Empty(bSetUp), lRec, nY, nX, bAfter, lCellBrw := .F.
    LOCAL oApp := oDlu4Font( _HMG_DefaultFontSize )
    LOCAL nGw := oApp:GapsWidth
    LOCAL nGh := oApp:GapsHeight
@@ -46,7 +46,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
    ENDIF
 
    DEFAULT uAlias := Alias(), ;
-      cTitle := iif( ValType( uAlias ) == "C", uAlias, "SBrowse" ), ;
+      cTitle := iif( ValType(uAlias) == "C", uAlias, "SBrowse" ), ;
       bSetUp := {|| .F. }, ;
       aCols := {}, ;
       nWidth := GetSysMetrics( 0 ) * .75, ;
@@ -54,7 +54,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
       lSql := .F., ;
       lModal := .F.
 
-   IF ValType( uAlias ) == "C" .AND. Select( uAlias ) == 0
+   IF ValType(uAlias) == "C" .AND. Select( uAlias ) == 0
       nSaveSelect := Select()
       IF lSql
          cTable := GetUniqueName( "SqlTable" )
@@ -76,14 +76,14 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
          END
       ENDIF
 
-   ELSEIF ValType( uAlias ) == "N"
-      If ! Empty( Alias( uAlias ) )
+   ELSEIF ValType(uAlias) == "N"
+      If ! Empty(Alias(uAlias))
          uAlias := Alias( uAlias )
       ELSE
          uAlias := { { uAlias } }
       ENDIF
 
-   ELSEIF ValType( uAlias ) $ "BDLP"
+   ELSEIF ValType(uAlias) $ "BDLP"
       uAlias := { { uAlias } }
 
    ENDIF
@@ -135,7 +135,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
          oBrw:Cargo := uParam
 
          lEdit := Eval( bSetUp, oBrw )
-         lEdit := iif( ValType( lEdit ) == "L", lEdit, .F. )
+         lEdit := iif( ValType(lEdit) == "L", lEdit, .F. )
 
          WITH OBJECT oBrw
             :lEditable := lEdit
@@ -151,7 +151,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
             nClr := :GetColumn( 1 ):nClrHeadBack
             IF lRec
                :lNoHScroll := .T.
-            ELSEIF ! Empty( lNumber )
+            ELSEIF ! Empty(lNumber)
                :lFooting := .T.
                :lDrawFooters := .T.
                :nHeightFoot := :nHeightHead
@@ -219,7 +219,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
                     RETURN .F.
                  ENDIF
                  oc := ob:GetColumn( cn )
-                 IF Empty( oc:cFieldTyp ) .OR. oc:cName == "SELECTOR" .OR. oc:cName == "ORDKEYNO"
+                 IF Empty(oc:cFieldTyp) .OR. oc:cName == "SELECTOR" .OR. oc:cName == "ORDKEYNO"
                     lRet := .F.
                  ELSEIF oc:cFieldTyp $ "T=@+^"
                     lRet := .F.
@@ -274,11 +274,11 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
 
    _HMG_InplaceParentHandle := 0
 
-   IF ! Empty( cAlias )
+   IF ! Empty(cAlias)
       ( cAlias )->( dbCloseArea() )
    ENDIF
 
-   IF ! Empty( nSaveSelect )
+   IF ! Empty(nSaveSelect)
       Select( nSaveSelect )
    ENDIF
 
@@ -296,7 +296,7 @@ FUNCTION SBrowse_Record( oBrw, cTitle, bSetUp, aHead, nWidth, nHeight, lNoCrLf, 
       ENDIF
       cHdr := oCol:cHeading
       IF lNoCrLf .AND. CRLF $ cHdr
-         cHdr := StrTran( cHdr, CRLF, " " )
+         cHdr := StrTran(cHdr, CRLF, " ")
       ENDIF
       AAdd( aArr, { cHdr, oBrw:GetValue( oCol ) } )
    NEXT
@@ -333,18 +333,18 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
       IF Len( oParam:aFont ) < 6
          ASize( oParam:aFont, 5 )
          FOR i := 1 TO Len( oParam:aFont )
-             IF Empty( oParam:aFont ) ; oParam:aFont[ i ] := oParam:aFont[1]
+             IF Empty(oParam:aFont) ; oParam:aFont[i] := oParam:aFont[1]
              ENDIF
          NEXT
       ENDIF
    ELSE
-      IF Empty( GetFontHandle( "Normal" ) )
+      IF Empty(GetFontHandle("Normal"))
          DEFINE FONT Normal  FONTNAME _HMG_DefaultFontName SIZE _HMG_DefaultFontSize
       ENDIF
-      IF Empty( GetFontHandle( "Bold" ) )
+      IF Empty(GetFontHandle("Bold"))
           DEFINE FONT Bold   FONTNAME _HMG_DefaultFontName SIZE _HMG_DefaultFontSize BOLD
       ENDIF
-      IF Empty( GetFontHandle( "Italic" ) )
+      IF Empty(GetFontHandle("Italic"))
           DEFINE FONT Italic FONTNAME _HMG_DefaultFontName SIZE _HMG_DefaultFontSize ITALIC
       ENDIF
       oParam:aFont := { "Normal", "Bold", "Bold", "Italic", "Bold" }
@@ -366,7 +366,7 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
    aFoot    := oParam:aFoot  ; DEFAULT aFoot := oParam:aFooter
 
    DEFAULT aBrush := { 255, 255, 230 }, ;
-           aFoot  := ! Empty( aFoot ) , ;
+           aFoot  := ! Empty(aFoot) , ;
            nY := 0, ;
            nX := 0, ;
            nW := _GetClientRect( hForm )[3] - nX * 2,  ;           // GetClientWidth
@@ -471,8 +471,8 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
       :lEnum := lSpecHd
       :lDrawSpecHd := lSpecHd
 
-      IF lSpecHd .AND. Empty( :nHeightSpecHd )
-         :nHeightSpecHd := GetFontHeight( oParam:aFont[ iif( Len( oParam:aFont ) > 3, 4, 1 ) ] )
+      IF lSpecHd .AND. Empty(:nHeightSpecHd)
+         :nHeightSpecHd := GetFontHeight(oParam:aFont[ iif( Len( oParam:aFont ) > 3, 4, 1 ) ])
       ENDIF
 
       :SetAppendMode( .F. )
@@ -481,7 +481,7 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
       IF HB_ISBLOCK( bInit ) ; EVal( bInit, oBrw, oParam )                 // 1. call your customization functions
       ENDIF
 
-      IF :lDrawSpecHd .AND. ! Empty( oParam:aNumber ) .AND. HB_ISBLOCK( oParam:bSpecHdEnum )  // renumbering SpecHeader
+      IF :lDrawSpecHd .AND. ! Empty(oParam:aNumber) .AND. HB_ISBLOCK( oParam:bSpecHdEnum )  // renumbering SpecHeader
          EVal( oParam:bSpecHdEnum, oBrw, oParam )
       ENDIF
 
@@ -514,7 +514,7 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
          :bKeyDown := oParam:bKeyDown        // :bKeyDown := { |nKey,nFalgs,ob| ... }
       ENDIF
 
-      IF HB_ISNUMERIC( oParam:nFireKey )
+      IF HB_ISNUMERIC(oParam:nFireKey)
          :nFireKey := oParam:nFireKey
       ENDIF
 
@@ -522,7 +522,7 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
          FOR EACH aTmp IN oParam:aUserKeys
            i := iif( Len( aTmp ) > 2, aTmp[3], .F. )             // Ctrl+...
            j := iif( Len( aTmp ) > 3, aTmp[4], .F. )             // Shift+...
-           :UserKeys( aTmp[1], aTmp[2], !Empty( i ), !Empty( j ) )
+           :UserKeys( aTmp[1], aTmp[2], !Empty(i), !Empty(j) )
          NEXT
       ENDIF
 

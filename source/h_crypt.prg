@@ -61,7 +61,7 @@ FUNCTION _ENCRYPT( cStr, cPass )
 
    LOCAL cXorStr := CHARXOR( cStr, "<ORIGINAL>" )
 
-   IF !Empty( cPass )
+   IF !Empty(cPass)
 
       cXorStr := CHARXOR( cXorStr, cPass )
 
@@ -82,14 +82,14 @@ FUNCTION FI_CODE( cInFile, cPass, cOutFile, lDelete )
    LOCAL nHandle, cBuffer, cStr, nRead := 1
    LOCAL nOutHandle
 
-   IF Empty( cInFile ) .OR. .NOT. File( cInFile )
+   IF Empty(cInFile) .OR. .NOT. File( cInFile )
 
       MSGSTOP( "No such file" )
       RETURN NIL
 
    ENDIF
 
-   IF AllTrim( Upper( cInFile ) ) == AllTrim( Upper( cOutFile ) )
+   IF AllTrim( Upper(cInFile) ) == AllTrim( Upper(cOutFile) )
 
       MSGALERT( "New and old filenames must not be the same" )
       RETURN NIL
@@ -110,7 +110,7 @@ FUNCTION FI_CODE( cInFile, cPass, cOutFile, lDelete )
 
    IF Len( cPass ) > 10
 
-      cPass := SubStr( cPass, 1, 10 )
+      cPass := SubStr(cPass, 1, 10)
 
    ELSE
 
@@ -159,7 +159,7 @@ FUNCTION FI_CODE( cInFile, cPass, cOutFile, lDelete )
 
       IF nRead <> 512
 
-         cBuffer := SubStr( cBuffer, 1, nRead )
+         cBuffer := SubStr(cBuffer, 1, nRead)
 
       ENDIF
 
@@ -186,14 +186,14 @@ FUNCTION FI_DECODE( cInFile, cPass, cOutFile, lDelete )
    LOCAL nHandle, cBuffer, cStr, nRead := 1
    LOCAL nOutHandle
 
-   IF Empty( cInFile ) .OR. .NOT. File( cInFile )
+   IF Empty(cInFile) .OR. .NOT. File( cInFile )
 
       MSGSTOP( "No such file" )
       RETURN NIL
 
    ENDIF
 
-   IF AllTrim( Upper( cInFile ) ) == AllTrim( Upper( cOutFile ) )
+   IF AllTrim( Upper(cInFile) ) == AllTrim( Upper(cOutFile) )
 
       MSGALERT( "New and old filenames must not be the same" )
       RETURN NIL
@@ -214,7 +214,7 @@ FUNCTION FI_DECODE( cInFile, cPass, cOutFile, lDelete )
 
    IF Len( cPass ) > 10
 
-      cPass := SubStr( cPass, 1, 10 )
+      cPass := SubStr(cPass, 1, 10)
 
    ELSE
 
@@ -270,7 +270,7 @@ FUNCTION FI_DECODE( cInFile, cPass, cOutFile, lDelete )
 
       IF nRead <> 512
 
-         cBuffer := SubStr( cBuffer, 1, nRead )
+         cBuffer := SubStr(cBuffer, 1, nRead)
 
       ENDIF
 
@@ -310,7 +310,7 @@ FUNCTION DB_ENCRYPT( cFile, cPass )
 
    IF Len( cPass ) > 10
 
-      cPass := SubStr( cPass, 1, 10 )
+      cPass := SubStr(cPass, 1, 10)
 
    ELSE
 
@@ -458,7 +458,7 @@ FUNCTION DB_UNENCRYPT( cFile, cPass )
 
    IF Len( cPass ) > 10
 
-      cPass := SubStr( cPass, 1, 10 )
+      cPass := SubStr(cPass, 1, 10)
 
    ELSE
 

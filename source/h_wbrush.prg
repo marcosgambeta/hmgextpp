@@ -71,11 +71,11 @@ FUNCTION _SetWindowBKBrush( cWindow, lNoDelete, cBrushStyle, nHatch, aColor, xIm
 
       SWITCH Left ( cBrushStyle, 1 )
       CASE "S"
-         hBrush := CreateSolidBrush ( aColor[ 1 ], aColor[ 2 ], aColor[ 3 ] )
+         hBrush := CreateSolidBrush ( aColor[1], aColor[2], aColor[3] )
          EXIT
 
       CASE "H"
-         hBrush := CreateHatchBrush ( nHatch, RGB( aColor[ 1 ], aColor[ 2 ], aColor[ 3 ] ) )
+         hBrush := CreateHatchBrush ( nHatch, RGB( aColor[1], aColor[2], aColor[3] ) )
          EXIT
 
       CASE "P"

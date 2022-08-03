@@ -238,7 +238,7 @@ CLASS TSColumn
 
    METHOD SetKeyEvent( nKey, bKey, lCtrl, lShift, lAlt )
 
-   METHOD ToWidth( uLen, nKfc, lHeader )
+   METHOD ToWidth(uLen, nKfc, lHeader)
 
 ENDCLASS
 
@@ -268,26 +268,26 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
    If aColors != Nil
       If HB_ISARRAY( aColors ) .AND. Len( aColors ) > 0 .AND. HB_ISARRAY( aColors[1] )
          FOR EACH aClr IN aColors
-            If HB_ISARRAY( aClr ) .AND. HB_ISNUMERIC( aClr[1] ) .AND. aClr[1] > 0 .AND. aClr[1] <= Len( aTmpColor )
+            If HB_ISARRAY( aClr ) .AND. HB_ISNUMERIC(aClr[1]) .AND. aClr[1] > 0 .AND. aClr[1] <= Len( aTmpColor )
                aTmpColor[ aClr[1] ] := aClr[2]
             EndIf
          NEXT
       Else
          ASize( aColors, 20 )
-         AEval( aColors, { |bColor,n| aTmpColor[ n ] := bColor } )
+         AEval( aColors, { |bColor,n| aTmpColor[n] := bColor } )
       EndIf
    Endif
 
    If a3DLook != Nil
-      AEval( a3DLook, { |l3D,n| aTmp3D[ n ] := l3D } )
+      AEval( a3DLook, { |l3D,n| aTmp3D[n] := l3D } )
    Endif
 
    If aAlign != Nil
       AEval( aAlign, { |nAli,n| ;
-                       aTmpAlign[ n ] := IIf( ValType( nAli ) == "N" .OR. ;
-                       ValType( nAli ) == "B", nAli, ;
-                       IIf( ( xVar := AScan( { "LEFT", "CENTER", "RIGHT", "VERT" }, ;
-                           Upper( nAli ) ) ) > 0, xVar - 1, xVar ) ) } )
+                       aTmpAlign[n] := IIf( ValType(nAli) == "N" .OR. ;
+                       ValType(nAli) == "B", nAli, ;
+                       IIf( ( xVar := AScan({ "LEFT", "CENTER", "RIGHT", "VERT" }, ;
+                           Upper(nAli)) ) > 0, xVar - 1, xVar ) ) } )
    Endif
 
    Default cHeading  := ""            , ;
@@ -314,28 +314,28 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
 
    ::cAlias := cAlias
 
-   If ValType( cHeading ) == "O"
+   If ValType(cHeading) == "O"
       ::uBmpHead := cHeading
       cHeading := ""
-   ElseIf ValType( cHeading ) == "N"
+   ElseIf ValType(cHeading) == "N"
       ::uBmpHead := cHeading
       cHeading := ""
-   Elseif ValType( cHeading ) == "C" .AND. ";" $ cHeading
-      cHeading := StrTran( cHeading, ";", Chr(13) )
+   Elseif ValType(cHeading) == "C" .AND. ";" $ cHeading
+      cHeading := StrTran(cHeading, ";", Chr(13))
    EndIf
-   If ValType( cFooting ) == "C" .AND. ";" $ cFooting
-      cFooting := StrTran( cFooting, ";", Chr(13) )
+   If ValType(cFooting) == "C" .AND. ";" $ cFooting
+      cFooting := StrTran(cFooting, ";", Chr(13))
    Endif
 
-   If ValType( cSpcHeading ) == "O"
+   If ValType(cSpcHeading) == "O"
       ::uBmpSpcHd := cSpcHeading
       cSpcHeading := ""
-   ElseIf ValType( cSpcHeading ) == "N"
+   ElseIf ValType(cSpcHeading) == "N"
       ::uBmpSpcHd := cSpcHeading
       cSpcHeading := ""
    EndIf
 
-   If ValType( lBitMap ) == "C"
+   If ValType(lBitMap) == "C"
       If lBitMap == "BITMAP"
          lBitMap := .T.
       ElseIf "CHECK" $ lBitMap
@@ -349,7 +349,7 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
       EndIf
    EndIf
 
-   ::lDefineColumn  := ! Empty( DefineCol )
+   ::lDefineColumn  := ! Empty(DefineCol)
 
    If ::lDefineColumn
 
@@ -363,22 +363,20 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
 
    EndIf
 
-   Default aTmp3D[ 1 ]    := IIf( oBrw == Nil, .F., oBrw:l3DLook )
+   Default aTmp3D[1]    := IIf( oBrw == Nil, .F., oBrw:l3DLook )
 
-   Default aTmp3D[ 2 ]    := aTmp3D[ 1 ], ;
-           aTmp3D[ 3 ]    := aTmp3D[ 1 ]
+   Default aTmp3D[2]    := aTmp3D[1], ;
+           aTmp3D[3]    := aTmp3D[1]
 
-   Default aTmpAlign[ 1 ] := DT_LEFT, ;
-           aTmpAlign[ 2 ] := DT_CENTER, ;
-           aTmpAlign[ 3 ] := DT_RIGHT,;
-           aTmpAlign[ 4 ] := DT_CENTER
+   Default aTmpAlign[1] := DT_LEFT, ;
+           aTmpAlign[2] := DT_CENTER, ;
+           aTmpAlign[3] := DT_RIGHT,;
+           aTmpAlign[4] := DT_CENTER
 
    For nEle := 1 TO 4
 
-      If ValType( aTmpAlign[ nEle ] ) == "C"
-         uAlign := AScan( { "LEFT", "CENTER", "RIGHT" }, ;
-                          {| c |  Upper( aTmpAlign[ nEle ] ) $ c } ) - 1
-
+      If ValType(aTmpAlign[ nEle ]) == "C"
+         uAlign := AScan({ "LEFT", "CENTER", "RIGHT" }, {| c |  Upper(aTmpAlign[nEle]) $ c }) - 1
          uAlign := IIf( uAlign < 0, DT_LEFT, uAlign )
          aTmpAlign[ nEle ] := uAlign
       Endif
@@ -387,36 +385,35 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
 
    For nEle := 1 TO 3
 
-      If ValType( aTmp3D[ nEle ] ) == "C"
-         uAlign := AScan( {"T",".T.","SI","YES"}, ;
-                          {| c |  Upper( aTmp3D[ nEle ] ) == c } )
+      If ValType(aTmp3D[ nEle ]) == "C"
+         uAlign := AScan({"T",".T.","SI","YES"}, {| c |  Upper(aTmp3D[nEle]) == c })
          aTmp3D[ nEle ] := IIf( uAlign > 0, .T., .F. )
       Endif
 
    Next
 
-   If ValType( Eval( bData ) ) == "O"
+   If ValType(Eval( bData )) == "O"
       ::uBmpCell := bData
       bData := {||Nil}
       cData := "{||Nil}"
-   ElseIf ValType( Eval( bData ) ) == "N" .AND. lBitMap
+   ElseIf ValType(Eval( bData )) == "N" .AND. lBitMap
       ::uBmpCell := bData
       bData := {||Nil}
       cData := "{||Nil}"
    EndIf
 
-   If ValType( Eval( bdata ) ) == "A"
-      ::bData := Eval( bData )[ 1 ]
-      aList := Eval( bData )[ 2 ]
+   If ValType(Eval( bdata )) == "A"
+      ::bData := Eval( bData )[1]
+      aList := Eval( bData )[2]
    Else
       ::bData := bData
    Endif
 
    If aList != Nil
 
-      If ValType( aList[ 1 ] ) == "A"
-         ::aItems := aList[ 1 ]
-         ::aData  := aList[ 2 ]
+      If ValType(aList[1]) == "A"
+         ::aItems := aList[1]
+         ::aData  := aList[2]
       Else
          ::aItems := aList
       EndIf
@@ -426,33 +423,28 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
    If nWidth == Nil
 
       If oBrw != Nil
-         nWidth := SBGetHeight( oBrw:hWnd, IIf( ::hFont != Nil, ;
-                                               ::hFont, 0 ), 1 )
-         nEle   := Max( IIf( LoWord(aTmpAlign[ 2 ]) == 3, 2, Len( cHeading ) ), ;
-                   Len( IIf( Empty( cPicture ), cValToChar( Eval( ::bData ) ), ;
+         nWidth := SBGetHeight(oBrw:hWnd, IIf(::hFont != Nil, ::hFont, 0), 1)
+         nEle   := Max( IIf( LoWord(aTmpAlign[2]) == 3, 2, Len( cHeading ) ), ;
+                   Len( IIf( Empty(cPicture), cValToChar( Eval( ::bData ) ), ;
                    Transform( cValToChar( Eval( ::bData ) ), cPicture ) ) ) )
          nWidth := Round( nWidth * ( nEle + 1 ) * 1.3, 0 )         //V90
       Else
-         nWidth := Int( IIf( ! lBitMap .AND. ! lCheck, 0.67 * ;
-                   GetTextWidth( 0, Replicate( "B", ;
-                   Max( Len( cHeading ), Len( IIf( Empty( cPicture ), ;
-                   cValToChar( Eval( bData ) ), ;
-                   Transform( cValToChar( Eval( bData ) ), cPicture ) ) ) ) + ;
-                   1 ), 0 ), 16 ) )
+         nWidth := Int(IIf(!lBitMap .AND. !lCheck, 0.67 * GetTextWidth(0, Replicate("B", Max(Len(cHeading), Len(IIf(Empty(cPicture), ;
+                   cValToChar(Eval(bData)), Transform(cValToChar(Eval(bData)), cPicture)))) + 1), 0), 16))
       EndIf
 
     Endif
 
    ::cOrder       = cOrder
-   ::lSeek        = ! Empty( cOrder ) .AND. ! lEdit     //V90
+   ::lSeek        = ! Empty(cOrder) .AND. ! lEdit     //V90
    ::cHeading     = cHeading
    ::cFooting     = cFooting
    ::cSpcHeading  = cSpcHeading
    ::cPicture     = cPicture
-   ::nAlign       = aTmpAlign[ 1 ]
-   ::nHAlign      = aTmpAlign[ 2 ]
-   ::nFAlign      = aTmpAlign[ 3 ]
-   ::nSAlign      = aTmpAlign[ 4 ]
+   ::nAlign       = aTmpAlign[1]
+   ::nHAlign      = aTmpAlign[2]
+   ::nFAlign      = aTmpAlign[3]
+   ::nSAlign      = aTmpAlign[4]
    ::nWidth       = nWidth
    ::lBitMap      = lBitMap
    ::lEdit        = lEdit
@@ -467,9 +459,9 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
    ::bPostEdit    = bPostEdit
    ::nEditMove    = nEditMove
    ::lFixLite     = lFixLite
-   ::l3DLook      = aTmp3D[ 1 ]
-   ::l3DLookHead  = aTmp3D[ 2 ]
-   ::l3DLookFoot  = aTmp3D[ 3 ]
+   ::l3DLook      = aTmp3D[1]
+   ::l3DLookHead  = aTmp3D[2]
+   ::l3DLookFoot  = aTmp3D[3]
    ::bWhen        = bWhen
    ::lSpinner     = lSpinner
    ::bUp          = bUp
@@ -494,7 +486,7 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
    ::cPostEdit    = cPostEdit
    ::lComboBox    = lCombo
    ::lCheckBox    = lCheck
-   ::cDataType    = ValType( Eval( ::bData ) )
+   ::cDataType    = ValType(Eval( ::bData ))
    ::lTotal      := lTotal         //V90
    ::cName       := cName
    ::oCellHead   := TSBcell():New()
@@ -502,7 +494,7 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
    ::oCellFoot   := TSBcell():New()
    ::oCell       := TSBcell():New()
 
-   If ! Empty( oBrw ) .AND. oBrw:lIsArr
+   If ! Empty(oBrw) .AND. oBrw:lIsArr
       ::lIndexCol := .T.
    EndIf
 
@@ -517,18 +509,18 @@ METHOD Load( cInfo ) CLASS TSColumn
    local nPos := 1, nProps, n, nLen
    local cData, cType, cBuffer
 
-   nProps := Bin2I( SubStr( cInfo, nPos, 2 ) )
+   nProps := Bin2I( SubStr(cInfo, nPos, 2) )
    nPos += 2
 
    for n := 1 to nProps
-      nLen  := Bin2I( SubStr( cInfo, nPos, 2 ) )
+      nLen  := Bin2I( SubStr(cInfo, nPos, 2) )
       nPos += 2
-      cData := SubStr( cInfo, nPos, nLen )
+      cData := SubStr(cInfo, nPos, nLen)
       nPos += nLen
-      cType := SubStr( cInfo, nPos++, 1 )
-      nLen  := Bin2I( SubStr( cInfo, nPos, 2 ) )
+      cType := SubStr(cInfo, nPos++, 1)
+      nLen  := Bin2I( SubStr(cInfo, nPos, 2) )
       nPos += 2
-      cBuffer := SubStr( cInfo, nPos, nLen )
+      cBuffer := SubStr(cInfo, nPos, nLen)
       nPos += nLen
       do case
          case cType == "A"
@@ -564,12 +556,12 @@ METHOD Save() CLASS TSColumn
    oWnd:New()
 
    For n := 1 To Len( ::aProperties )
-      If ! ( uData := OSend( Self, ::aProperties[ n ] ) ) == ;
-         OSend( oWnd, ::aProperties[ n ] )
-         cInfo += ( I2Bin( Len( ::aProperties[ n ] ) ) + ;
-                    ::aProperties[ n ] )
+      If ! ( uData := OSend( Self, ::aProperties[n] ) ) == ;
+         OSend( oWnd, ::aProperties[n] )
+         cInfo += ( I2Bin( Len( ::aProperties[n] ) ) + ;
+                    ::aProperties[n] )
          nProps++
-         cType := ValType( uData )
+         cType := ValType(uData)
          Do Case
             Case cType == "A"
                  cInfo += ASave( uData )
@@ -586,9 +578,9 @@ METHOD Save() CLASS TSColumn
 
    If ::aEvents != Nil
       For n := 1 To Len( ::aEvents )
-         If ( cMethod := OSend( Self, ::aEvents[ n ] ) ) != Nil
-            cInfo += ( I2Bin( Len( ::aEvents[ n ] ) ) + ;
-                       ::aEvents[ n ] )
+         If ( cMethod := OSend( Self, ::aEvents[n] ) ) != Nil
+            cInfo += ( I2Bin( Len( ::aEvents[n] ) ) + ;
+                       ::aEvents[n] )
             nProps++
             cInfo += ( "C" + I2Bin( Len( cMethod ) ) + cMethod )
          Endif
@@ -606,24 +598,24 @@ Return "O" + I2Bin( 2 + Len( ::ClassName() ) + 2 + Len( cInfo ) ) + ;
 
 METHOD SaveColor() CLASS TSColumn
 
-   If ::aColorsBack != Nil .AND. ValType( ::aColorsBack ) == "A"
-      ::aColorsBack[ 1 ] := ::nClrFore
-      ::aColorsBack[ 2 ] := ::nClrBack
-      ::aColorsBack[ 3 ] := ::nClrHeadFore
-      ::aColorsBack[ 4 ] := ::nClrHeadBack
-      ::aColorsBack[ 5 ] := ::nClrFocuFore
-      ::aColorsBack[ 6 ] := ::nClrFocuBack
-      ::aColorsBack[ 7 ] := ::nClrEditFore
-      ::aColorsBack[ 8 ] := ::nClrEditBack
-      ::aColorsBack[ 9 ] := ::nClrFootFore
-      ::aColorsBack[ 10 ] := ::nClrFootBack
-      ::aColorsBack[ 11 ] := ::nClrSeleFore
-      ::aColorsBack[ 12 ] := ::nClrSeleBack
-      ::aColorsBack[ 13 ] := ::nClrOrdeFore
-      ::aColorsBack[ 14 ] := ::nClrOrdeBack
-      ::aColorsBack[ 18 ] := ::nClrSpcHdFore
-      ::aColorsBack[ 19 ] := ::nClrSpcHdBack
-      ::aColorsBack[ 20 ] := ::nClrSpcHdActive
+   If ::aColorsBack != Nil .AND. ValType(::aColorsBack) == "A"
+      ::aColorsBack[1] := ::nClrFore
+      ::aColorsBack[2] := ::nClrBack
+      ::aColorsBack[3] := ::nClrHeadFore
+      ::aColorsBack[4] := ::nClrHeadBack
+      ::aColorsBack[5] := ::nClrFocuFore
+      ::aColorsBack[6] := ::nClrFocuBack
+      ::aColorsBack[7] := ::nClrEditFore
+      ::aColorsBack[8] := ::nClrEditBack
+      ::aColorsBack[9] := ::nClrFootFore
+      ::aColorsBack[10] := ::nClrFootBack
+      ::aColorsBack[11] := ::nClrSeleFore
+      ::aColorsBack[12] := ::nClrSeleBack
+      ::aColorsBack[13] := ::nClrOrdeFore
+      ::aColorsBack[14] := ::nClrOrdeBack
+      ::aColorsBack[18] := ::nClrSpcHdFore
+      ::aColorsBack[19] := ::nClrSpcHdBack
+      ::aColorsBack[20] := ::nClrSpcHdActive
    EndIf
 
 RETURN Nil
@@ -634,24 +626,24 @@ RETURN Nil
 
 METHOD RestColor() CLASS TSColumn
 
-   If ::aColorsBack != Nil .AND. ValType( ::aColorsBack ) == "A"
-      ::nClrFore        := ::aColorsBack[ 1 ]
-      ::nClrBack        := ::aColorsBack[ 2 ]
-      ::nClrHeadFore    := ::aColorsBack[ 3 ]
-      ::nClrHeadBack    := ::aColorsBack[ 4 ]
-      ::nClrFocuFore    := ::aColorsBack[ 5 ]
-      ::nClrFocuBack    := ::aColorsBack[ 6 ]
-      ::nClrEditFore    := ::aColorsBack[ 7 ]
-      ::nClrEditBack    := ::aColorsBack[ 8 ]
-      ::nClrFootFore    := ::aColorsBack[ 9 ]
-      ::nClrFootBack    := ::aColorsBack[ 10 ]
-      ::nClrSeleFore    := ::aColorsBack[ 11 ]
-      ::nClrSeleBack    := ::aColorsBack[ 12 ]
-      ::nClrOrdeFore    := ::aColorsBack[ 13 ]
-      ::nClrOrdeBack    := ::aColorsBack[ 14 ]
-      ::nClrSpcHdFore   := ::aColorsBack[ 18 ]
-      ::nClrSpcHdBack   := ::aColorsBack[ 19 ]
-      ::nClrSpcHdActive := ::aColorsBack[ 20 ]
+   If ::aColorsBack != Nil .AND. ValType(::aColorsBack) == "A"
+      ::nClrFore        := ::aColorsBack[1]
+      ::nClrBack        := ::aColorsBack[2]
+      ::nClrHeadFore    := ::aColorsBack[3]
+      ::nClrHeadBack    := ::aColorsBack[4]
+      ::nClrFocuFore    := ::aColorsBack[5]
+      ::nClrFocuBack    := ::aColorsBack[6]
+      ::nClrEditFore    := ::aColorsBack[7]
+      ::nClrEditBack    := ::aColorsBack[8]
+      ::nClrFootFore    := ::aColorsBack[9]
+      ::nClrFootBack    := ::aColorsBack[10]
+      ::nClrSeleFore    := ::aColorsBack[11]
+      ::nClrSeleBack    := ::aColorsBack[12]
+      ::nClrOrdeFore    := ::aColorsBack[13]
+      ::nClrOrdeBack    := ::aColorsBack[14]
+      ::nClrSpcHdFore   := ::aColorsBack[18]
+      ::nClrSpcHdBack   := ::aColorsBack[19]
+      ::nClrSpcHdActive := ::aColorsBack[20]
    EndIf
 
 RETURN Nil
@@ -671,10 +663,10 @@ METHOD DefFont( oBrw ) CLASS TSColumn
    If oBrw != Nil
 
       hFont      := oBrw:hFont
-      hFontHead  := IIf( Empty( oBrw:hFontHead  ), oBrw:hFont, oBrw:hFontHead  )
-      hFontFoot  := IIf( Empty( oBrw:hFontFoot  ), oBrw:hFont, oBrw:hFontFoot  )
-      hFontEdit  := IIf( Empty( oBrw:hFontEdit  ), oBrw:hFont, oBrw:hFontEdit  )
-      hFontSpcHd := IIf( Empty( oBrw:hFontSpcHd ), oBrw:hFont, oBrw:hFontSpcHd )
+      hFontHead  := IIf(Empty(oBrw:hFontHead), oBrw:hFont, oBrw:hFontHead)
+      hFontFoot  := IIf(Empty(oBrw:hFontFoot), oBrw:hFont, oBrw:hFontFoot)
+      hFontEdit  := IIf(Empty(oBrw:hFontEdit), oBrw:hFont, oBrw:hFontEdit)
+      hFontSpcHd := IIf(Empty(oBrw:hFontSpcHd), oBrw:hFont, oBrw:hFontSpcHd)
 
       Default ::hFont      := hFont     , ;
               ::hFontHead  := hFontHead , ;
@@ -696,56 +688,56 @@ METHOD DefColor( oBrw, aTmpColor ) CLASS TSColumn
 
    If oBrw == Nil
 
-      Default aTmpColor[ 1 ]  := GetSysColor( COLOR_WINDOWTEXT ), ; // nClrText
-              aTmpColor[ 2 ]  := GetSysColor( COLOR_WINDOW )    , ; // nClrPane
-              aTmpColor[ 3 ]  := GetSysColor( COLOR_BTNTEXT )   , ; // nClrHeadFore
-              aTmpColor[ 4 ]  := GetSysColor( COLOR_BTNFACE )   , ; // nClrHeadBack
-              aTmpColor[ 5 ]  := GetSysColor( COLOR_HIGHLIGHTTEXT ), ; // nClrFocuFore
-              aTmpColor[ 6 ]  := GetSysColor( COLOR_HIGHLIGHT )     // nClrFocuBack
+      Default aTmpColor[1]  := GetSysColor( COLOR_WINDOWTEXT ), ; // nClrText
+              aTmpColor[2]  := GetSysColor( COLOR_WINDOW )    , ; // nClrPane
+              aTmpColor[3]  := GetSysColor( COLOR_BTNTEXT )   , ; // nClrHeadFore
+              aTmpColor[4]  := GetSysColor( COLOR_BTNFACE )   , ; // nClrHeadBack
+              aTmpColor[5]  := GetSysColor( COLOR_HIGHLIGHTTEXT ), ; // nClrFocuFore
+              aTmpColor[6]  := GetSysColor( COLOR_HIGHLIGHT )     // nClrFocuBack
 
-      Default aTmpColor[ 7 ]  := GetSysColor( COLOR_WINDOWTEXT ), ; // nClrEditFore
-              aTmpColor[ 8 ]  := GetSysColor( COLOR_WINDOW )    , ; // nClrEditBack
-              aTmpColor[ 9 ]  := GetSysColor( COLOR_BTNTEXT )   , ; // nClrFootFore
-              aTmpColor[ 10 ] := GetSysColor( COLOR_BTNFACE )   , ; // nClrFootBack
-              aTmpColor[ 11 ] := CLR_HGRAY                      , ; // nClrSeleFore  NO focused
-              aTmpColor[ 12 ] := CLR_GRAY                       , ; // nClrSeleBack  NO focused
-              aTmpColor[ 13 ] := GetSysColor( COLOR_BTNTEXT )   , ; // nClrOrdeFore
-              aTmpColor[ 14 ] := GetSysColor( COLOR_BTNFACE )   , ; // nClrLine
-              aTmpColor[ 15 ] := CLR_BLACK ,;
-              aTmpColor[ 16 ] := GetSysColor( COLOR_BTNTEXT )   , ; // nClrSupHeadFore
-              aTmpColor[ 17 ] := GetSysColor( COLOR_BTNFACE )   , ; // nClrSupHeadBack
-              aTmpColor[ 18 ] := GetSysColor( COLOR_BTNTEXT )   , ; // nClrSpecHeadFore
-              aTmpColor[ 19 ] := GetSysColor( COLOR_BTNFACE )   , ; // nClrSpecHeadBack
-              aTmpColor[ 20 ] := CLR_HRED                           // nClrSpecHeadActive
+      Default aTmpColor[7]  := GetSysColor( COLOR_WINDOWTEXT ), ; // nClrEditFore
+              aTmpColor[8]  := GetSysColor( COLOR_WINDOW )    , ; // nClrEditBack
+              aTmpColor[9]  := GetSysColor( COLOR_BTNTEXT )   , ; // nClrFootFore
+              aTmpColor[10] := GetSysColor( COLOR_BTNFACE )   , ; // nClrFootBack
+              aTmpColor[11] := CLR_HGRAY                      , ; // nClrSeleFore  NO focused
+              aTmpColor[12] := CLR_GRAY                       , ; // nClrSeleBack  NO focused
+              aTmpColor[13] := GetSysColor( COLOR_BTNTEXT )   , ; // nClrOrdeFore
+              aTmpColor[14] := GetSysColor( COLOR_BTNFACE )   , ; // nClrLine
+              aTmpColor[15] := CLR_BLACK ,;
+              aTmpColor[16] := GetSysColor( COLOR_BTNTEXT )   , ; // nClrSupHeadFore
+              aTmpColor[17] := GetSysColor( COLOR_BTNFACE )   , ; // nClrSupHeadBack
+              aTmpColor[18] := GetSysColor( COLOR_BTNTEXT )   , ; // nClrSpecHeadFore
+              aTmpColor[19] := GetSysColor( COLOR_BTNFACE )   , ; // nClrSpecHeadBack
+              aTmpColor[20] := CLR_HRED                           // nClrSpecHeadActive
 
    Else
 
-      Default aTmpColor[ 1 ]  := oBrw:nClrText, ;
-              aTmpColor[ 2 ]  := oBrw:nClrPane, ;
-              aTmpColor[ 3 ]  := oBrw:nClrHeadFore, ;
-              aTmpColor[ 4 ]  := oBrw:nClrHeadBack, ;
-              aTmpColor[ 5 ]  := oBrw:nClrFocuFore, ;
-              aTmpColor[ 6 ]  := oBrw:nClrFocuBack
+      Default aTmpColor[1]  := oBrw:nClrText, ;
+              aTmpColor[2]  := oBrw:nClrPane, ;
+              aTmpColor[3]  := oBrw:nClrHeadFore, ;
+              aTmpColor[4]  := oBrw:nClrHeadBack, ;
+              aTmpColor[5]  := oBrw:nClrFocuFore, ;
+              aTmpColor[6]  := oBrw:nClrFocuBack
 
-      Default aTmpColor[ 7 ]  := oBrw:nClrEditFore, ;
-              aTmpColor[ 8 ]  := oBrw:nClrEditBack, ;
-              aTmpColor[ 9 ]  := oBrw:nClrFootFore, ;
-              aTmpColor[ 10 ] := oBrw:nClrFootBack, ;
-              aTmpColor[ 11 ] := oBrw:nClrSeleFore, ;
-              aTmpColor[ 12 ] := oBrw:nClrSeleBack, ;
-              aTmpColor[ 13 ] := oBrw:nClrOrdeFore, ;
-              aTmpColor[ 14 ] := oBrw:nClrOrdeBack, ;
-              aTmpColor[ 15 ] := oBrw:nClrLine    , ;
-              aTmpColor[ 16 ] := oBrw:nClrHeadFore, ;
-              aTmpColor[ 17 ] := oBrw:nClrHeadBack, ;
-              aTmpColor[ 20 ] := oBrw:nClrSpcHdActive
+      Default aTmpColor[7]  := oBrw:nClrEditFore, ;
+              aTmpColor[8]  := oBrw:nClrEditBack, ;
+              aTmpColor[9]  := oBrw:nClrFootFore, ;
+              aTmpColor[10] := oBrw:nClrFootBack, ;
+              aTmpColor[11] := oBrw:nClrSeleFore, ;
+              aTmpColor[12] := oBrw:nClrSeleBack, ;
+              aTmpColor[13] := oBrw:nClrOrdeFore, ;
+              aTmpColor[14] := oBrw:nClrOrdeBack, ;
+              aTmpColor[15] := oBrw:nClrLine    , ;
+              aTmpColor[16] := oBrw:nClrHeadFore, ;
+              aTmpColor[17] := oBrw:nClrHeadBack, ;
+              aTmpColor[20] := oBrw:nClrSpcHdActive
 
       If oBrw:lEnum
-         Default aTmpColor[ 18 ] := oBrw:nClrHeadFore, ;
-                 aTmpColor[ 19 ] := oBrw:nClrHeadBack
+         Default aTmpColor[18] := oBrw:nClrHeadFore, ;
+                 aTmpColor[19] := oBrw:nClrHeadBack
       Else
-         Default aTmpColor[ 18 ] := oBrw:nClrEditFore, ;
-                 aTmpColor[ 19 ] := oBrw:nClrEditBack
+         Default aTmpColor[18] := oBrw:nClrEditFore, ;
+                 aTmpColor[19] := oBrw:nClrEditBack
       EndIf
 
    EndIf
@@ -759,14 +751,14 @@ METHOD DefColor( oBrw, aTmpColor ) CLASS TSColumn
    ::nClrEditFore    := aTmpColor[  7 ]
    ::nClrEditBack    := aTmpColor[  8 ]
    ::nClrFootFore    := aTmpColor[  9 ]
-   ::nClrFootBack    := aTmpColor[ 10 ]
-   ::nClrSeleFore    := aTmpColor[ 11 ]
-   ::nClrSeleBack    := aTmpColor[ 12 ]
-   ::nClrOrdeFore    := aTmpColor[ 13 ]
-   ::nClrOrdeBack    := aTmpColor[ 14 ]
-   ::nClrSpcHdFore   := aTmpColor[ 18 ]
-   ::nClrSpcHdBack   := aTmpColor[ 19 ]
-   ::nClrSpcHdActive := aTmpColor[ 20 ]
+   ::nClrFootBack    := aTmpColor[10]
+   ::nClrSeleFore    := aTmpColor[11]
+   ::nClrSeleBack    := aTmpColor[12]
+   ::nClrOrdeFore    := aTmpColor[13]
+   ::nClrOrdeBack    := aTmpColor[14]
+   ::nClrSpcHdFore   := aTmpColor[18]
+   ::nClrSpcHdBack   := aTmpColor[19]
+   ::nClrSpcHdActive := aTmpColor[20]
 
    ::aColors         := aTmpColor
    ::aColorsBack     := aTmpColor
@@ -787,7 +779,7 @@ RETURN Nil
 * METHOD TSColumn:ToWidth() Version 9.0 Adaption
 *=============================================================================
 
-METHOD ToWidth( uLen, nKfc, lHeader ) CLASS TSColumn
+METHOD ToWidth(uLen, nKfc, lHeader) CLASS TSColumn
 
    LOCAL nWidth, nLen, cTyp, cChr := "B", hFont := ::hFont
 
@@ -808,11 +800,11 @@ METHOD ToWidth( uLen, nKfc, lHeader ) CLASS TSColumn
       ELSE
          cChr := uLen
       ENDIF
-   ElseIf ! Empty( ::cPicture ) .AND. HB_ISCHAR( ::cPicture )
-      If Empty( uLen )
+   ElseIf ! Empty(::cPicture) .AND. HB_ISCHAR( ::cPicture )
+      If Empty(uLen)
          cChr := ::cPicture
          If Left( cChr, 2 ) == "@K"
-            cChr := AllTrim( Substr( cChr, 3 ) )
+            cChr := AllTrim( Substr(cChr, 3) )
          EndIf
          nLen := Len( cChr )
       Else
@@ -824,17 +816,17 @@ METHOD ToWidth( uLen, nKfc, lHeader ) CLASS TSColumn
       EndIf
    Else
       cTyp := ::cFieldTyp
-      nLen := iif( Empty( uLen ), ::nFieldLen, uLen )
+      nLen := iif( Empty(uLen), ::nFieldLen, uLen )
 
       If     cTyp $ "CML" ; cChr := "B"
       ElseIf cTyp == "ND" ; cChr := "9"
       EndIf
 
-      nLen := iif( Empty( nLen ), 7, nLen )
+      nLen := iif( Empty(nLen), 7, nLen )
       cChr := Replicate( cChr, nLen )
    EndIf
 
-   nWidth := GetTextWidth( 0, cChr, hFont )
+   nWidth := GetTextWidth(0, cChr, hFont)
    nWidth := Int( nWidth * nKfc )
 
 RETURN nWidth
@@ -869,16 +861,16 @@ Return oCol
 
 Function BiffRec( nOpCode, uData, nRow, nCol, lBorder, nAlign, nPic, nFont )
 
-   Local cHead, cBody, aAttr[ 3 ]
+   Local cHead, cBody, aAttr[3]
 
    Default lBorder := .F., ;
            nAlign  := 1, ;
            nPic    := 0, ;
            nFont   := 0
 
-   aAttr[ 1 ] := Chr( 64 )
-   aAttr[ 2 ] := Chr( ( ( 2 ** 6 ) * nFont ) + nPic )
-   aAttr[ 3 ] := Chr( IIf( lBorder, 120, 0 ) + nAlign )
+   aAttr[1] := Chr( 64 )
+   aAttr[2] := Chr( ( ( 2 ** 6 ) * nFont ) + nPic )
+   aAttr[3] := Chr( IIf( lBorder, 120, 0 ) + nAlign )
 
    Do Case  // in order of apearence
 
@@ -905,14 +897,14 @@ Function BiffRec( nOpCode, uData, nRow, nCol, lBorder, nAlign, nPic, nFont )
 
       Case nOpCode == 49 // 31h FONT record
          cHead := I2Bin( 49 ) + ; // opCode
-                  I2Bin( 5 + Len( uData[ 1 ] ) ) // body length
-         cBody := I2Bin( uData[ 2 ] * 20 ) + ;   // font height in 1/20ths of a point
-                  I2Bin( nOr( IIf( uData[ 3 ], 1, 0 ), ; // lBold    //JP nOr
-                            IIf( uData[ 4 ], 2, 0 ), ;   // lItalic
-                            IIf( uData[ 5 ], 4, 0 ), ;   // lUnderline
-                            IIf( uData[ 6 ], 8, 0 ) ) ) + ;  // lStrikeout
-                  Chr( Len( uData[ 1 ] ) ) + ;          // length of cFaceName
-                  uData[ 1 ]                            // cFaceName
+                  I2Bin( 5 + Len( uData[1] ) ) // body length
+         cBody := I2Bin( uData[2] * 20 ) + ;   // font height in 1/20ths of a point
+                  I2Bin( nOr( IIf( uData[3], 1, 0 ), ; // lBold    //JP nOr
+                            IIf( uData[4], 2, 0 ), ;   // lItalic
+                            IIf( uData[5], 4, 0 ), ;   // lUnderline
+                            IIf( uData[6], 8, 0 ) ) ) + ;  // lStrikeout
+                  Chr( Len( uData[1] ) ) + ;          // length of cFaceName
+                  uData[1]                            // cFaceName
 
       Case nOpCode == 20 // 14h HEADER record
          cHead := I2Bin( 20 ) + ; // opCode
@@ -951,14 +943,14 @@ Function BiffRec( nOpCode, uData, nRow, nCol, lBorder, nAlign, nPic, nFont )
                   uData                     // format string
 
       Case nOpCode == 4 // 04h LABEL record
-         uData := SubStr( uData, 1, Min( 255, Len( uData ) ) )
+         uData := SubStr(uData, 1, Min(255, Len(uData)))
          cHead := I2Bin( 4 ) + ; // opCode
                   I2Bin( 8 + Len( uData ) ) // body length
          cBody := I2Bin( nRow ) + ; // row number 0 based
                   I2Bin( nCol ) + ; // col number 0 based
-                  aAttr[ 1 ]    + ;
-                  aAttr[ 2 ]    + ;
-                  aAttr[ 3 ]    + ;
+                  aAttr[1]    + ;
+                  aAttr[2]    + ;
+                  aAttr[3]    + ;
                   Chr( Len( uData ) ) + ;
                   uData
 
@@ -967,9 +959,9 @@ Function BiffRec( nOpCode, uData, nRow, nCol, lBorder, nAlign, nPic, nFont )
                   I2Bin( 9 )     // body length
          cBody := I2Bin( nRow ) + ;
                   I2Bin( nCol ) + ;
-                  aAttr[ 1 ]    + ;
-                  aAttr[ 2 ]    + ;
-                  aAttr[ 3 ]    + ;
+                  aAttr[1]    + ;
+                  aAttr[2]    + ;
+                  aAttr[3]    + ;
                   I2Bin( Int( uData ) )
 
       Case nOpCode == 3 // NUMBER record
@@ -977,9 +969,9 @@ Function BiffRec( nOpCode, uData, nRow, nCol, lBorder, nAlign, nPic, nFont )
                   I2Bin( 15 )    // body length
          cBody := I2Bin( nRow ) + ;
                   I2Bin( nCol ) + ;
-                  aAttr[ 1 ]    + ;
-                  aAttr[ 2 ]    + ;
-                  aAttr[ 3 ]    + ;
+                  aAttr[1]    + ;
+                  aAttr[2]    + ;
+                  aAttr[3]    + ;
                   FTOC( uData )             //D2Bin( uData )
 
       Case nOpCode == 10 // 0Ah EOF record
@@ -1001,9 +993,9 @@ Function StrCharCount( cStr, cChr )
    Local nAt, ;
          nCount := 0
 
-   While ! Empty( cStr ) .AND. ( nAt := At( cChr, cStr ) ) > 0
+   While ! Empty(cStr) .AND. ( nAt := At( cChr, cStr ) ) > 0
       nCount ++
-      cStr := SubStr( cStr, nAt + 1 )
+      cStr := SubStr(cStr, nAt + 1)
    EndDo
 
 Return nCount
@@ -1057,20 +1049,20 @@ Function ComboWBlock( oBrw, uField, nCol, aList )
 
    Local aItems, aData, bBlock
 
-   If Empty( oBrw ) .OR. Empty( uField ) .OR. Empty( nCol ) .OR. Empty( aList )
+   If Empty(oBrw) .OR. Empty(uField) .OR. Empty(nCol) .OR. Empty(aList)
       Return Nil
    EndIf
 
-   If Valtype( nCol ) == "C"
+   If Valtype(nCol) == "C"
       nCol := oBrw:nColumn( nCol )  // 21.07.2015
    EndIf
 
    If nCol <= Len( oBrw:aColumns )
 
-      If ValType( aList[ 1 ] ) == "A"
-         oBrw:aColumns[ nCol ]:aItems    := aList[ 1 ]
-         oBrw:aColumns[ nCol ]:aData     := aList[ 2 ]
-         oBrw:aColumns[ nCol ]:cDataType := ValType( aList[ 2, 1 ] )
+      If ValType(aList[1]) == "A"
+         oBrw:aColumns[ nCol ]:aItems    := aList[1]
+         oBrw:aColumns[ nCol ]:aData     := aList[2]
+         oBrw:aColumns[ nCol ]:cDataType := ValType(aList[ 2, 1 ])
       Else
          oBrw:aColumns[ nCol ]:aItems    := aList
       EndIf
@@ -1081,16 +1073,16 @@ Function ComboWBlock( oBrw, uField, nCol, aList )
       oBrw:aPostList := aList    // block is created before creating the column
    EndIf
 
-   If ValType( aList[ 1 ] ) == "A"
-      aItems := aList[ 1 ]
-      aData  := aList[ 2 ]
+   If ValType(aList[1]) == "A"
+      aItems := aList[1]
+      aData  := aList[2]
    Else
       aItems := aList
    EndIf
 
    If oBrw:lIsDbf
 
-      If ValType( uField ) == "C"
+      If ValType(uField) == "C"
 
          uField := ( oBrw:cAlias )->( FieldPos( uField ) )
 
@@ -1103,18 +1095,18 @@ Function ComboWBlock( oBrw, uField, nCol, aList )
       If aData == Nil
 
          bBlock := {|x| IIf( PCount() > 0, ( oBrw:cAlias )->( FieldPut( uField, x ) ), ;
-                    aItems[ Max( 1, AScan( aItems, ( oBrw:cAlias )->( FieldGet( uField ) ) ) ) ] ) }
+                    aItems[ Max( 1, AScan(aItems, ( oBrw:cAlias )->( FieldGet( uField ) )) ) ] ) }
       Else
 
          bBlock := {|x| IIf( PCount() > 0, ( oBrw:cAlias )->( FieldPut( uField, x ) ), ;
-                    IIf( nCol <= Len( oBrw:aColumns ) .AND. ! Empty( oBrw:aColumns[ nCol ]:aItems ), ;
-                    oBrw:aColumns[ nCol ]:aItems[ Max( 1, AScan( oBrw:aColumns[ nCol ]:aData, ;
-                    ( oBrw:cAlias )->( FieldGet( uField ) ) ) ) ], Nil ) ) }
+                    IIf( nCol <= Len( oBrw:aColumns ) .AND. ! Empty(oBrw:aColumns[ nCol ]:aItems), ;
+                    oBrw:aColumns[ nCol ]:aItems[ Max( 1, AScan(oBrw:aColumns[ nCol ]:aData, ;
+                    ( oBrw:cAlias )->( FieldGet( uField ) )) ) ], Nil ) ) }
       EndIf
 
    Else  // editing an array uField is the array element number
 
-      If ValType( uField ) == "C"
+      If ValType(uField) == "C"
          uField := oBrw:nColumn( uField )  // 21.07.2015
       EndIf
 
@@ -1122,12 +1114,12 @@ Function ComboWBlock( oBrw, uField, nCol, aList )
 
          bBlock := {|x| IIf( PCount() > 0, ;
                     oBrw:aArray[ oBrw:nAt, uField ] := x, ;
-                    aItems[ Max( 1, AScan( aItems, oBrw:aArray[ oBrw:nAt, uField ] ) ) ] ) }
+                    aItems[ Max(1, AScan(aItems, oBrw:aArray[ oBrw:nAt, uField ])) ] ) }
       Else
 
          bBlock := {|x| IIf( PCount() > 0, ;
                     oBrw:aArray[ oBrw:nAt, uField ] := x, ;
-                    aItems[ Max( 1, AScan( aData, oBrw:aArray[ oBrw:nAt, uField ] ) ) ] ) }
+                    aItems[ Max(1, AScan(aData, oBrw:aArray[ oBrw:nAt, uField ])) ] ) }
       EndIf
 
    EndIf

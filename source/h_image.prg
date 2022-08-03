@@ -87,8 +87,8 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
 
    hb_default( @w, 0 )
    hb_default( @h, 0 )
-   w := IFEMPTY( w, -1, w )
-   h := IFEMPTY( h, -1, h )
+   w := IFEMPTY(w, -1, w)
+   h := IFEMPTY(h, -1, h)
 
    hb_default( @stretch, .F. )
    __defaultNIL( @BackgroundColor, -1 )
@@ -96,7 +96,7 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
    hb_default( @adjustimage, .F. )
    __defaultNIL( @rclick, "" )
 
-   IF ValType( ProcedureName ) == "U"
+   IF ValType(ProcedureName) == "U"
       ProcedureName := ""
    ELSE
       action := .T.
@@ -139,7 +139,7 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
          x := GetWindowCol ( Controlhandle )
          y := GetWindowRow ( Controlhandle )
          w := GetWindowWidth  ( Controlhandle )
-         h := GetWindowHeight ( Controlhandle )
+         h := GetWindowHeight(Controlhandle)
 
          SetWindowStyle ( ControlHandle, Style, .T. )
 
@@ -159,7 +159,7 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
          AAdd( _HMG_ActiveTabCurrentPageMap , ControlHandle )
       ENDIF
 
-      IF ValType( tooltip ) != "U"
+      IF ValType(tooltip) != "U"
          SetToolTip ( ControlHandle , tooltip , GetFormToolTipHandle ( ParentFormName ) )
       ENDIF
 
@@ -232,15 +232,15 @@ RETURN Nil
 FUNCTION InitDialogImage( ParentName, ControlHandle, k )
 *-----------------------------------------------------------------------------*
 
-   IF ValType( ParentName ) <> "U"
+   IF ValType(ParentName) <> "U"
 
       _HMG_aControlBrushHandle [k] := C_SetPicture ( ControlHandle , _HMG_aControlPicture [k] , _HMG_aControlWidth [k] , ;
          _HMG_aControlHeight [k] , _HMG_aControlValue [k] , _HMG_aControlInputMask [k] , _HMG_aControlSpacing [k] , ;
          _HMG_aControlCaption [k] , _HMG_aControlDblClick [k] .AND. HasAlpha( _HMG_aControlPicture [k] ) , _HMG_aControlMiscData1 [k] )
 
-      IF Empty( _HMG_aControlValue [k] )
+      IF Empty(_HMG_aControlValue[k])
          _HMG_aControlWidth [k] := GetWindowWidth  ( ControlHandle )
-         _HMG_aControlHeight [k] := GetWindowHeight ( ControlHandle )
+         _HMG_aControlHeight [k] := GetWindowHeight(ControlHandle)
       ENDIF
 
    ENDIF
@@ -261,13 +261,13 @@ FUNCTION BmpSize( xBitmap )
 
       aRet := GetBitmapSize( xBitmap )
 
-      IF Empty( aRet [1] ) .AND. Empty( aRet [2] )
+      IF Empty(aRet[1]) .AND. Empty(aRet[2])
          xBitmap := C_GetResPicture( xBitmap )
          aRet := GetBitmapSize( xBitmap )
          DeleteObject( xBitmap )
       ENDIF
 
-   CASE ISNUMERIC( xBitmap )
+   CASE ISNUMERIC(xBitmap)
 
       aRet := GetBitmapSize( xBitmap )
 

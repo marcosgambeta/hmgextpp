@@ -97,11 +97,11 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
    uLostFocus      := ::LostFocus()
    uGotFocus       := ::GotFocus()
 
-   if ValType( cPict ) == "B" 
+   if ValType(cPict) == "B" 
       cPict := Eval( cPict ) 
    endif
 
-   if ! Empty( ::oWnd:hWnd )
+   if ! Empty(::oWnd:hWnd)
 
       ::oGet := _DefineGetBox( cControl, ParentFormName, nCol, nRow, nWidth, nHeight, uValue, ;
          FontName, FontSize, ToolTip, lPassword, uLostFocus, uGotFocus, uChange, right, ;
@@ -140,7 +140,7 @@ Return ::Super:HandleEvent( nMsg, nWParam, nLParam )
 METHOD KeyChar( nKey, nFlags ) CLASS TGetBox
 
    If _GetKeyState( VK_CONTROL )
-      nKey := IIf( Upper( Chr( nKey ) ) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey )
+      nKey := IIf( Upper(Chr(nKey)) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey )
    EndIf
 
    If nKey == VK_TAB .OR. nKey == VK_ESCAPE
@@ -172,7 +172,7 @@ METHOD lValid() CLASS TGetBox
 
    Local lRet := .T.
 
-   If ValType( ::bValid ) == "B"
+   If ValType(::bValid) == "B"
       lRet := Eval( ::bValid, ::GetText() )
    EndIf
 

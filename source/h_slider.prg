@@ -146,12 +146,12 @@ FUNCTION _DefineSlider ( ControlName, ParentFormName, x, y, w, h, lo, hi, value,
       ELSE
          ControlHandle := GetDialogItemHandle( ParentFormHandle, nId )
 
-         x := GetWindowCol( Controlhandle )
-         y := GetWindowRow( Controlhandle )
-         w := GetWindowWidth( Controlhandle )
-         h := GetWindowHeight( Controlhandle )
+         x := GetWindowCol(Controlhandle)
+         y := GetWindowRow(Controlhandle)
+         w := GetWindowWidth(Controlhandle)
+         h := GetWindowHeight(Controlhandle)
 
-         SetWindowStyle( ControlHandle, Style, .T. )
+         SetWindowStyle(ControlHandle, Style, .T.)
       ENDIF
 
    ELSE
@@ -169,7 +169,7 @@ FUNCTION _DefineSlider ( ControlName, ParentFormName, x, y, w, h, lo, hi, value,
 
       SendMessage( ControlHandle, TBM_SETPOS, 1, value )
 
-      IF ValType( tooltip ) != "U"
+      IF ValType(tooltip) != "U"
          SetToolTip( ControlHandle, tooltip, GetFormToolTipHandle( ParentFormName ) )
       ENDIF
 
@@ -238,7 +238,7 @@ RETURN Nil
 FUNCTION InitDialogSlider( ParentName, ControlHandle, k )
 *-----------------------------------------------------------------------------*
 
-   IF ValType( ParentName ) <> "U"
+   IF ValType(ParentName) <> "U"
       SendMessage( ControlHandle , TBM_SETPOS , 1 , _HMG_aControlValue [k] )
    ENDIF
 // JP 62

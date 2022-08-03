@@ -86,14 +86,14 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
    IF multitabs
       IF Len( rows ) > 0
          IF Len( aWidth ) == 0
-            IF Valtype( rows[1] ) == "A"
+            IF Valtype(rows[1]) == "A"
                FOR i:=1 TO Len( rows[1] )
                   AAdd( aWidth, Int( w / Len( rows[1] ) ) )
                NEXT
             ENDIF
          ENDIF
          FOR i:=1 TO Len( rows )
-            IF Valtype( rows[i] ) == "A"
+            IF Valtype(rows[i]) == "A"
                rows[i] := LB_Array2String( rows[i] )
             ENDIF
          NEXT
@@ -167,7 +167,7 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
          x := GetWindowCol ( Controlhandle )
          y := GetWindowRow ( Controlhandle )
          w := GetWindowWidth  ( Controlhandle )
-         h := GetWindowHeight ( Controlhandle )
+         h := GetWindowHeight(Controlhandle)
 
          SetWindowStyle ( ControlHandle, Style, .T. )
 
@@ -177,7 +177,7 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
 
       ParentFormHandle := GetFormHandle ( ParentFormName )
 
-      IF ValType( x ) == "U" .OR. ValType( y ) == "U"
+      IF ValType(x) == "U" .OR. ValType(y) == "U"
 
          IF _HMG_SplitLastControl == "TOOLBAR"
             Break := .T.
@@ -227,7 +227,7 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
          AAdd( _HMG_ActiveTabCurrentPageMap , ControlHandle )
       ENDIF
 
-      IF ValType( tooltip ) != "U"
+      IF ValType(tooltip) != "U"
          SetToolTip ( ControlHandle , tooltip , GetFormToolTipHandle ( ParentFormName ) )
       ENDIF
 

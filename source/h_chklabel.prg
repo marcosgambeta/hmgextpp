@@ -86,7 +86,7 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
-   IF ValType( Field ) != "U"
+   IF ValType(Field) != "U"
       IF hb_UAt ( ">", Field ) == 0
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name." )
       ELSE
@@ -124,10 +124,10 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
       Caption := cValToChar ( Caption )
    ENDIF
 
-   IF ValType( aBitmap ) != "A"
+   IF ValType(aBitmap) != "A"
       cBmp := aBitmap
       aBitmap := Array( 2 )
-      aBitmap[ 1 ] := iif( Empty( cBmp ), GetCheckBmp(), cBmp )
+      aBitmap[1] := iif( Empty(cBmp), GetCheckBmp(), cBmp )
    ENDIF
 
    mVar := "_" + ParentFormName + "_" + ControlName
@@ -180,10 +180,10 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
          x := GetWindowCol ( Controlhandle )
          y := GetWindowRow ( Controlhandle )
          w := GetWindowWidth  ( Controlhandle )
-         h := GetWindowHeight ( Controlhandle )
+         h := GetWindowHeight(Controlhandle)
 
 
-         IF ValType( caption ) != "U"
+         IF ValType(caption) != "U"
             SetWindowText ( ControlHandle , caption )
          ENDIF
 
@@ -208,9 +208,9 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
       ParentFormHandle := GetFormHandle ( ParentFormName )
 
       Controlhandle := InitChkLabel ( ParentFormHandle, Caption, 0, x, y, w, h, "", 0, ;
-         ( ValType( mouseover ) == "B" .OR. ValType( mouseleave ) == "B" ) , border , clientedge , ;
+         ( ValType(mouseover) == "B" .OR. ValType(mouseleave) == "B" ) , border , clientedge , ;
          HSCROLL , VSCROLL , TRANSPARENT , invisible , rightalign , centeralign, ;
-         abitmap[ 1 ], abitmap[ 2 ], leftcheck, lChecked , VCenterAlign )
+         abitmap[1], abitmap[2], leftcheck, lChecked , VCenterAlign )
 
    ENDIF
 
@@ -228,7 +228,7 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
          AAdd( _HMG_ActiveTabCurrentPageMap , Controlhandle )
       ENDIF
 
-      IF ValType( tooltip ) != "U"
+      IF ValType(tooltip) != "U"
          SetToolTip ( ControlHandle , tooltip , GetFormToolTipHandle ( ParentFormName ) )
       ENDIF
 
@@ -287,13 +287,13 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
    ENDIF
 
    IF autosize == .T. .AND. .NOT. lDialogInMemory
-      _SetControlWidth ( ControlName , ParentFormName , GetTextWidth( NIL, Caption, FontHandle ) + ;
-         iif( bold == .T. .OR. italic == .T., GetTextWidth( NIL, " ", FontHandle ), 0 ) + h + iif( Len( Caption ) > 0 .AND. leftcheck == .F., GetBorderWidth(), iif( leftcheck, GetBorderWidth() / 2, 0 ) ) )
-      _SetControlHeight ( ControlName , ParentFormName , iif( FontSize < 13, 22, FontSize + 16 ) )
+      _SetControlWidth(ControlName, ParentFormName, GetTextWidth(NIL, Caption, FontHandle) + ;
+         iif(bold == .T. .OR. italic == .T., GetTextWidth(NIL, " ", FontHandle), 0) + h + iif(Len(Caption) > 0 .AND. leftcheck == .F., GetBorderWidth(), iif(leftcheck, GetBorderWidth() / 2, 0)))
+      _SetControlHeight(ControlName, ParentFormName, iif(FontSize < 13, 22, FontSize + 16))
       RedrawWindow ( ControlHandle )
    ENDIF
 
-   IF ValType( Field ) != "U"
+   IF ValType(Field) != "U"
       AAdd( _HMG_aFormBrowseList [ GetFormIndex ( ParentFormName ) ] , k )
    ENDIF
 /*
@@ -332,7 +332,7 @@ STATIC FUNCTION GetCheckBmp()
       "FF FF FF F8 70 8F FF FF FF FF FF FF 88 8F FF FF" + ;
       "FF FF FF FF FF FF"
 
-   uAnsi := StrTran( cStock, " " )
+   uAnsi := StrTran(cStock, " ")
    cBmp := cAnsi2Bmp( uAnsi )
    cBmpFile := TempFile( GetTempFolder(), "BMP" )
 
@@ -368,7 +368,7 @@ STATIC FUNCTION cAnsi2Bmp( cAnsi )
       cAnsi := Stuff( cAnsi, 1, 8, "" )
    ENDDO
 
-   IF ! Empty( cAnsi )
+   IF ! Empty(cAnsi)
       cBmp += cHex2Bin( cAnsi2Hex( PadR( cAnsi, 4, "0" ) ) )
    ENDIF
 
@@ -405,7 +405,7 @@ STATIC FUNCTION cHex2Bin( cHex )
    cHex := AllTrim( cHex )
 
    FOR nPos := Len( cHex ) TO 1 Step - 1
-      nEle := Max( 0, AScan( aHex, SubStr( cHex, nPos, 1 ) ) - 1 )
+      nEle := Max( 0, AScan(aHex, SubStr(cHex, nPos, 1)) - 1 )
       nDec += ( nEle * ( 16 ** nExp ) )
       nExp ++
    NEXT

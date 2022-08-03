@@ -128,11 +128,11 @@ i = 1
 nChars = Len(cString)
 
 While i < (nChars + 1)
-   cChar = substr( cString , i  , 1 )
+   cChar = substr(cString, i, 1)
    if cChar=="+"
       cRet += " "
    elseif cChar=="%"
-      cChar := lower(substr( cString , i + 1 , 2 ))
+      cChar := lower(substr(cString, i + 1, 2))
       nPos1 := AT( Left(cChar,1), ::cCharPos )-1
       nPos2 := AT( Right(cChar,1), ::cCharPos )-1
       nDec := (nPos1*16) +nPos2
@@ -157,7 +157,7 @@ i := 1
 nChars = Len(cString)
 
 While i < (nChars + 1)
-   cChar = substr( cString , i  , 1 )
+   cChar = substr(cString, i, 1)
    if cChar==" "
       cRet += "+"
    Elseif cChar>="a" .And. cChar<="z"
@@ -168,7 +168,7 @@ While i < (nChars + 1)
       cRet += cChar
    Else
       nChar = Asc(cChar)
-      cRet += "%" +substr( ::cCharPos, Int(nChar/16)+1, 1 ) +substr( ::cCharPos, nChar-Int(nChar/16)*16+1, 1 )
+      cRet += "%" + substr(::cCharPos, Int(nChar / 16) + 1, 1) + substr(::cCharPos, nChar - Int(nChar / 16) * 16 + 1, 1)
    EndIf
    i++
 enddo

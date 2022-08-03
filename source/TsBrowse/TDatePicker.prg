@@ -95,7 +95,7 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
        oWnd := GetFormHandle( cWnd )                 //JP
    endif
 
-   if ! Empty( ::oWnd:hWnd )
+   if ! Empty(::oWnd:hWnd)
 
       ::hWnd := InitDatePick( ::oWnd:hWnd, 0, nCol, nRow, nWidth, nHeight, "", 0, shownone, updown, rightalign, invisible, notabstop )
 
@@ -122,7 +122,7 @@ METHOD Default() CLASS TDatePicker
    Local Value
 
    Value := Eval( ::bSetGet )
-   If Empty( Value )
+   If Empty(Value)
       SetDatePickNull( ::hWnd )
    Else
       SetDatePick( ::hWnd, Year( value ), Month( value ), Day( value ) )
@@ -151,7 +151,7 @@ Return ::Super:HandleEvent( nMsg, nWParam, nLParam )
 METHOD KeyChar( nKey, nFlags ) CLASS TDatePicker
 
    If _GetKeyState( VK_CONTROL )
-      nKey := IIf( Upper( Chr( nKey ) ) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey )
+      nKey := IIf( Upper(Chr(nKey)) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey )
    EndIf
 
    If nKey == VK_TAB .OR. nKey == VK_ESCAPE
@@ -183,7 +183,7 @@ METHOD lValid() CLASS TDatePicker
 
    Local lRet := .T.
 
-   If ValType( ::bValid ) == "B"
+   If ValType(::bValid) == "B"
       lRet := Eval( ::bValid, ::GetText() )
    EndIf
 

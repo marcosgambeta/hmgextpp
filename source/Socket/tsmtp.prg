@@ -234,7 +234,7 @@ if ::oSocket:SendString( "AUTH CRAM-MD5" +CHR(13)+CHR(10) )
    // Consume banner
    cErr := ::GetLines()
    if LEFT(cErr,3)=="334"
-      cDigest := substr( cErr, 5 )
+      cDigest := substr(cErr, 5)
       hMac    := oDecode:hmac_md5( cUser, cPwd, cDigest )
       if ::oSocket:SendString( hMac +CHR(13)+CHR(10) )
          // Consume banner

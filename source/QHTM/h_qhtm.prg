@@ -66,11 +66,11 @@ If _HMG_BeginWindowActive
 
    ParentForm := _HMG_ActiveFormName
 
-   If !Empty( ParentForm ) .AND. ValType( FontName ) == "U"
+   If !Empty(ParentForm) .AND. ValType(FontName) == "U"
       FontName := _HMG_ActiveFontName
    EndIf
 
-   If !Empty( ParentForm ) .AND. ValType( FontSize ) == "U"
+   If !Empty(ParentForm) .AND. ValType(FontSize) == "U"
       FontSize := _HMG_ActiveFontSize
    EndIf
 
@@ -101,11 +101,11 @@ Else
    FontHandle := _SetFont( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
 Endif
 
-If ( Valtype( Value ) == "C" )
+If ( Valtype(Value) == "C" )
    SetWindowText( ControlHandle, Value )   // define from a variable
-ElseIf ( Valtype( fname ) == "C" )
+ElseIf ( Valtype(fname) == "C" )
    QHTM_LoadFile( ControlHandle, fname )   // loading from a file
-ElseIf ( Valtype( resname ) == "C" )
+ElseIf ( Valtype(resname) == "C" )
    QHTM_LoadRes( ControlHandle, resname )  // loading from a resource
 Endif
 
@@ -274,13 +274,13 @@ Local nParamCount := PCount(), ;
 
 If IsNumber( nHandle )
 
-   nHeight := GetWindowHeight( nHandle )
+   nHeight := GetWindowHeight(nHandle)
    aSize := QHTM_GetSize( nHandle )
 
    // an amendment on a height of the QHTM
 
-   If ( aSize[ 2 ] > nHeight )
-      aSize[ 2 ] -= nHeight
+   If ( aSize[2] > nHeight )
+      aSize[2] -= nHeight
    Endif
 
 Endif
@@ -293,12 +293,12 @@ Switch nParamCount
 
    Case 1
      nPos  := QHTM_GetScrollPos( nHandle )
-     nPercent := Min( Round( ( ( nPos / aSize[ 2 ] ) * 100 ), 2 ), 100.00 )
+     nPercent := Min( Round( ( ( nPos / aSize[2] ) * 100 ), 2 ), 100.00 )
      Exit
 
    Case 2
      If IsNumber( nPercent )
-        nPos := Round( ( nPercent * aSize[ 2 ] * 0.01 ), 0 )
+        nPos := Round( ( nPercent * aSize[2] * 0.01 ), 0 )
         QHTM_SetScrollPos( nHandle, nPos )
      Else
         nPercent := 0

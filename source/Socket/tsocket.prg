@@ -174,7 +174,7 @@ do while .T.
    if nRet <= 0
       exit
    endif
-   cRet += substr( cBuf, 1, nRet )
+   cRet += substr(cBuf, 1, nRet)
 enddo
 
 ::PrintDebugMessage( "Received " +cRet )
@@ -193,7 +193,7 @@ cBuf := space(nBufLen)
 ::PrintDebugMessage( "Receive " + iif( nBufLen==1, "char", "custom string" ) )
 
 nRet := SocketReceive( ::m_hSocket, @cBuf, ::nReceiveTimeout )
-cRet := substr( cBuf, 1, nRet )
+cRet := substr(cBuf, 1, nRet)
 
 ::PrintDebugMessage( "Received " +cRet )
 
@@ -215,14 +215,14 @@ do while .T.
    if nRet==1 .AND. right(cBuf,1)==CHR(10)
       // If last char is CHR(13) remove it
       if right(cRet,1)==CHR(13)
-         cRet := substr( cRet, 1, len(cRet)-1 )
+         cRet := substr(cRet, 1, len(cRet) - 1)
       endif
       exit
    endif
    if nRet <= 0
       exit
    endif
-   cRet += substr( cBuf, 1, nRet )
+   cRet += substr(cBuf, 1, nRet)
 enddo
 
 ::PrintDebugMessage( "Received " +cRet )

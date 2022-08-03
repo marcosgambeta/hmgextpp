@@ -50,7 +50,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 #if ( __HARBOUR__ - 0 < 0x030200 )
   #xtranslate hb_UAt( <c>, <n> ) => At( <c>, <n> )
-  #xtranslate hb_USubStr( <c>, <n> [, <e>] ) => SubStr( <c>, <n> [, <e>] )
+  #xtranslate hb_USubStr(<c>, <n> [, <e>]) => SubStr(<c>, <n> [, <e>])
 #endif
 
 *-----------------------------------------------------------------------------*
@@ -87,11 +87,11 @@ FUNCTION _BeginTab( ControlName, ParentFormName, row, col, w, h, value, f, s, to
       _HMG_bOnInit AS GLOBAL VALUE bInit, ;
       _HMG_ActiveTabImage_NoTransparent AS GLOBAL VALUE NoTrans
 
-   IF ValType( ParentFormName ) == "U"
+   IF ValType(ParentFormName) == "U"
       ParentFormName := _HMG_ActiveFormName
    ENDIF
 
-   IF ValType( value ) == "U" .OR. value < 1
+   IF ValType(value) == "U" .OR. value < 1
       value := 1
    ENDIF
 
@@ -176,7 +176,7 @@ STATIC FUNCTION _DefineTab( ControlName, ParentFormName, x, y, w, h, aCaptions, 
    ENDIF
 
    FOR EACH mVar IN Images
-      IF ISCHARACTER( mVar ) .AND. !Empty( mVar )  // JD 11/05/2006
+      IF ISCHARACTER( mVar ) .AND. !Empty(mVar)  // JD 11/05/2006
          ImageFlag := .T.
          EXIT
       ENDIF
@@ -233,7 +233,7 @@ STATIC FUNCTION _DefineTab( ControlName, ParentFormName, x, y, w, h, aCaptions, 
          x := GetWindowCol ( Controlhandle )
          y := GetWindowRow ( Controlhandle )
          w := GetWindowWidth  ( Controlhandle )
-         h := GetWindowHeight ( Controlhandle )
+         h := GetWindowHeight(Controlhandle)
 
       ENDIF
 
@@ -356,7 +356,7 @@ FUNCTION InitDialogTab( ParentName, ControlHandle, k )
 
    FOR EACH c IN aCaptions
 
-      Caption := Upper( c )
+      Caption := Upper(c)
 
       IF ( i := hb_UAt ( "&" , Caption ) ) > 0
          _DefineLetterOrDigitHotKey ( Caption, i, ParentName, aMnemonic [ hb_enumindex( c ) ] )
@@ -371,7 +371,7 @@ FUNCTION InitDialogTab( ParentName, ControlHandle, k )
 
          FOR EACH c IN tabpage
 
-            IF ValType( c ) <> "A"
+            IF ValType(c) <> "A"
 
                HideWindow ( c )
 
@@ -407,7 +407,7 @@ FUNCTION UpdateTab ( y )  // Internal Function
 
       FOR EACH w IN tabpage
 
-         IF ValType( w ) <> "A"
+         IF ValType(w) <> "A"
 
             HideWindow ( w )
 
@@ -430,7 +430,7 @@ FUNCTION UpdateTab ( y )  // Internal Function
 
       FOR EACH w IN _HMG_aControlPageMap [y] [s]
 
-         IF ValType( w ) <> "A"
+         IF ValType(w) <> "A"
 
             IF _IsControlVisibleFromHandle ( w )
 
@@ -487,14 +487,14 @@ STATIC FUNCTION _IsControlVisibleFromHandle ( Handle )
 
    FOR EACH hControl IN _HMG_aControlHandles
 
-      IF ValType( hControl ) == "N"
+      IF ValType(hControl) == "N"
 
          IF hControl == Handle
             lVisible := _HMG_aControlVisible [ hb_enumindex( hControl ) ]
             EXIT
          ENDIF
 
-      ELSEIF ValType( hControl ) == "A"
+      ELSEIF ValType(hControl) == "A"
 
          IF hControl [1] == Handle
             lVisible := _HMG_aControlVisible [ hb_enumindex( hControl ) ]
@@ -518,9 +518,9 @@ FUNCTION _BeginTabPage ( caption , image , tooltip )
    AAdd( _HMG_ActiveTabCaptions , caption )
    AAdd( _HMG_ActiveTabImages , image )
    // JR
-   IF ValType( tooltip ) == "C"
+   IF ValType(tooltip) == "C"
 
-      IF ValType( _HMG_ActiveTabTooltip ) <> "A"
+      IF ValType(_HMG_ActiveTabTooltip) <> "A"
 
          _HMG_ActiveTabTooltip := Array( _HMG_ActiveTabPage )
          AFill( _HMG_ActiveTabTooltip, "" )
@@ -532,7 +532,7 @@ FUNCTION _BeginTabPage ( caption , image , tooltip )
 
       ENDIF
 
-   ELSEIF ValType( _HMG_ActiveTabTooltip ) == "A"
+   ELSEIF ValType(_HMG_ActiveTabTooltip) == "A"
 
       AAdd( _HMG_ActiveTabTooltip, "" )
 
@@ -606,14 +606,14 @@ FUNCTION _AddTabPage ( ControlName , ParentForm , Position , Caption , Image , t
       aEval( aMnemonic, { |x, i| HB_SYMBOL_UNUSED( x ), aMnemonic[i] := &( "{|| _SetValue(" + Chr(34) + ControlName + Chr(34) + "," + Chr(34) + ParentForm + Chr(34) + "," + hb_ntos(i) + ") }" ) } )
 
       FOR EACH c IN _HMG_aControlCaption [i]
-         Caption := Upper( c )
+         Caption := Upper(c)
          IF ( x := hb_UAt ( "&" , Caption ) ) > 0
             _DefineLetterOrDigitHotKey ( Caption, x, ParentForm, aMnemonic [ hb_enumindex( c ) ] )
          ENDIF
       NEXT
       // JD 11/05/2006
       FOR EACH Image IN _HMG_aControlPicture [i]
-         IF ValType( Image ) == "C" .AND. !Empty( Image )
+         IF ValType(Image) == "C" .AND. !Empty(Image)
             ImageFlag := .T.
             EXIT
          ENDIF
@@ -622,13 +622,13 @@ FUNCTION _AddTabPage ( ControlName , ParentForm , Position , Caption , Image , t
       _HMG_aControlMiscData1 [i] [2] := ImageFlag  // JD 11/05/2006
       // JD 11/05/2006
       IF ImageFlag == .T.
-         IF !Empty( _HMG_aControlInputMask [i] )
+         IF !Empty(_HMG_aControlInputMask [i])
             IMAGELIST_DESTROY ( _HMG_aControlInputMask [i] )
          ENDIF
          _HMG_aControlInputMask [i] := AddTabBitMap ( _HMG_aControlHandles [i], _HMG_aControlPicture [i], _HMG_aControlMiscData1 [i, 8] )
       ENDIF
       // JR
-      IF ValType( _HMG_aControlTooltip [i] ) <> "A"
+      IF ValType(_HMG_aControlTooltip [i]) <> "A"
          _HMG_aControlTooltip [i] := Array( Len( _HMG_aControlPageMap [i] ) )
          AFill( _HMG_aControlTooltip [i], "" )
          _HMG_aControlTooltip [i] [Position] := tooltip
@@ -713,7 +713,7 @@ FUNCTION _DeleteTabPage ( ControlName , ParentForm , Position )
 
                FOR EACH c IN NewValue
 
-                  IF ValType( c ) <> "A"
+                  IF ValType(c) <> "A"
                      HideWindow ( c )
                   ELSE
                      FOR EACH j IN c
@@ -756,9 +756,9 @@ FUNCTION _DeleteTabPage ( ControlName , ParentForm , Position )
 
       // Hotkeys cleaning
       FOR EACH NewMap IN _HMG_aControlCaption [i]
-         NewValue := Upper( NewMap )
+         NewValue := Upper(NewMap)
          IF ( j := hb_UAt ( "&" , NewValue ) ) > 0
-            c := Asc ( hb_USubStr( NewValue , j + 1 , 1 ) )
+            c := Asc ( hb_USubStr(NewValue, j + 1, 1) )
             IF c >= 48 .AND. c <= 90
                _ReleaseHotKey ( ParentForm , MOD_ALT , c )
             ENDIF
@@ -783,7 +783,7 @@ FUNCTION _DeleteTabPage ( ControlName , ParentForm , Position )
 
       FOR EACH c IN _HMG_aControlCaption [i]
 
-         NewValue := Upper( c )
+         NewValue := Upper(c)
          IF ( j := hb_UAt ( "&" , NewValue ) ) > 0
             _DefineLetterOrDigitHotKey ( NewValue, j, ParentForm, aMnemonic [ hb_enumindex( c ) ] )
          ENDIF
@@ -808,7 +808,7 @@ FUNCTION _DeleteTabPage ( ControlName , ParentForm , Position )
       // JD 11/05/2006
       FOR EACH NewValue IN _HMG_aControlPicture [i]
 
-         IF ValType( NewValue ) == "C" .AND. !Empty( NewValue )
+         IF ValType(NewValue) == "C" .AND. !Empty(NewValue)
             ImageFlag := .T.
             EXIT
          ENDIF
@@ -820,7 +820,7 @@ FUNCTION _DeleteTabPage ( ControlName , ParentForm , Position )
       // JD 11/05/2006
       IF ImageFlag == .T.
 
-         IF !Empty( _HMG_aControlInputMask [i] )
+         IF !Empty(_HMG_aControlInputMask [i])
             IMAGELIST_DESTROY ( _HMG_aControlInputMask [i] )
          ENDIF
 

@@ -113,10 +113,10 @@ STATIC FUNCTION StrB64Decode( cString )
    LOCAL nData
 
    // remove white spaces, If any
-   cString := StrTran( cString, Chr( 10 ), "" )
-   cString := StrTran( cString, Chr( 13 ), "" )
-   cString := StrTran( cString, Chr( 9 ), "" )
-   cString := StrTran( cString, " ", "" )
+   cString := StrTran(cString, Chr( 10 ), "")
+   cString := StrTran(cString, Chr( 13 ), "")
+   cString := StrTran(cString, Chr( 9 ), "")
+   cString := StrTran(cString, " ", "")
 
    // The source must consists from groups with Len of 4 chars
    IF ( nLen := Len( cString ) ) % 4 != 0
@@ -145,7 +145,7 @@ STATIC FUNCTION StrB64Decode( cString )
          // is one fewer data byte.  (There can only be a maximum of 2 '=' In
          // the whole string.)
 
-         nData := At( SubStr( cString, nGroupPos + nCharPos, 1 ), "=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/" ) - 2
+         nData := At( SubStr(cString, nGroupPos + nCharPos, 1), "=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/" ) - 2
 
          DO CASE
          CASE nData >= 0

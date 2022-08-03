@@ -9,13 +9,13 @@ FUNCTION MGAddResource( nHResource, cType )
 *-----------------------------------------------------------------------------*
    LOCAL n := 3, cInfo := ""
 
-   WHILE ! Empty( ProcName( n ) )
+   WHILE ! Empty(ProcName(n))
       cInfo += ProcName( n ) + "(" + hb_ntos( ProcLine( n ) ) + ")->"
       n++
    END
 
-   IF ! Empty( cInfo )
-      cInfo := SubStr( cInfo, 1, Len( cInfo ) - 2 )
+   IF ! Empty(cInfo)
+      cInfo := SubStr(cInfo, 1, Len( cInfo ) - 2)
    ENDIF
 
    AAdd( aResources, { cType, nHResource, cInfo } )
@@ -27,7 +27,7 @@ FUNCTION MGDelResource( nHResource )
 *-----------------------------------------------------------------------------*
    LOCAL nAt
 
-   IF ( nAt := AScan( aResources, {| aRes | aRes[ 2 ] == nHResource } ) ) != 0
+   IF ( nAt := AScan(aResources, {| aRes | aRes[2] == nHResource }) ) != 0
       hb_ADel( aResources, nAt, .T. )
    ENDIF
 
@@ -42,13 +42,13 @@ FUNCTION CheckRes()
    FErase( _SetGetLogFile() )
 
    FOR EACH p IN aResources
-      IF p[ 2 ] != 0
-         cInfo += GetExeFileName() + " -- " + p[ 1 ] + "," + hb_ntos( p[ 2 ] ) + "," + p[ 3 ] + CRLF
+      IF p[2] != 0
+         cInfo += GetExeFileName() + " -- " + p[1] + "," + hb_ntos( p[2] ) + "," + p[3] + CRLF
          _LogFile( .T., cInfo )
       ENDIF
    NEXT
 
-   IF ! Empty( cInfo )
+   IF ! Empty(cInfo)
      _LogFile( .T., GetExeFileName() + " -- " + Replicate( "=", 99 ) )
    ENDIF
 

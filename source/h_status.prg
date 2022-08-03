@@ -69,7 +69,7 @@ FUNCTION _BeginMessageBar( ControlName, ParentForm, kbd, fontname, fontsize, bol
 
    _HMG_ActiveMessageBarName  := ControlName
 
-   IF ValType( ParentForm ) == "U"
+   IF ValType(ParentForm) == "U"
       ParentForm := _HMG_ActiveFormName
    ENDIF
 
@@ -206,7 +206,7 @@ FUNCTION _DefineItemMessage ( ControlName, ParentControl, x, y, Caption, Procedu
       MsgMiniGuiError( "Window: " + ParentForm + " is not defined." )
    ENDIF
 
-   IF ValType( ParentControl ) == "U"
+   IF ValType(ParentControl) == "U"
       ParentControl := _HMG_ActiveMessageBarName
    ENDIF
 
@@ -217,13 +217,13 @@ FUNCTION _DefineItemMessage ( ControlName, ParentControl, x, y, Caption, Procedu
 
    ParentForm := GetControlHandle ( ParentControl, ParentForm )
 
-   IF ValType( w ) == "U"
-      w := Max( 70, GetTextWidth( NIL, Caption, _HMG_aControlFontHandle[ GetControlIndex( ParentControl, cParentForm ) ] ) + 6 )
+   IF ValType(w) == "U"
+      w := Max(70, GetTextWidth(NIL, Caption, _HMG_aControlFontHandle[GetControlIndex(ParentControl, cParentForm)]) + 6)
    ENDIF
 
-   IF ! Empty( ProcedureName )  // P.D. 24/11/2013
+   IF ! Empty(ProcedureName)  // P.D. 24/11/2013
 
-      cCaption := Upper( Caption )
+      cCaption := Upper(Caption)
 
       IF ( i := hb_UAt ( "&", cCaption ) ) > 0
          _DefineLetterOrDigitHotKey ( cCaption, i, cParentForm, ProcedureName )
@@ -245,7 +245,7 @@ FUNCTION _DefineItemMessage ( ControlName, ParentControl, x, y, Caption, Procedu
 
    hb_default( @cStyl, "" )
 
-   ControlHandle := InitItemBar ( ParentForm, Caption, 0, w, h, Icon, ToolTip, iif( Upper( cStyl ) == "RAISED", 1, iif( Upper( cStyl ) == "FLAT", 2, 0 ) ) )
+   ControlHandle := InitItemBar ( ParentForm, Caption, 0, w, h, Icon, ToolTip, iif( Upper(cStyl) == "RAISED", 1, iif( Upper(cStyl) == "FLAT", 2, 0 ) ) )
 
    k := _GetControlFree()
 
@@ -332,15 +332,15 @@ FUNCTION _SetStatusKeybrd ( BarName , FormName , Width , ToolTip , action )
    __defaultNIL( @Action, "" )
 
    nrItem1 := _DefineItemMessage( "TimerNum", BarName, 0, 0, "NumLock", ;
-      iif( Empty( Action ), {|| iif( _HMG_IsXPorLater, KeyToggleNT( VK_NUMLOCK ), KeyToggle( VK_NUMLOCK ) ) }, Action ), Width + 20, 0, ;
+      iif( Empty(Action), {|| iif( _HMG_IsXPorLater, KeyToggleNT( VK_NUMLOCK ), KeyToggle( VK_NUMLOCK ) ) }, Action ), Width + 20, 0, ;
       iif( IsNumLockActive(), "zzz_led_on", "zzz_led_off" ), "", ToolTip )
 
    nrItem2 := _DefineItemMessage( "TimerCaps", BarName, 0, 0, "CapsLock", ;
-      iif( Empty( Action ), {|| iif( _HMG_IsXPorLater, KeyToggleNT( VK_CAPITAL ), KeyToggle( VK_CAPITAL ) ) }, Action ), Width + 25, 0, ;
+      iif( Empty(Action), {|| iif( _HMG_IsXPorLater, KeyToggleNT( VK_CAPITAL ), KeyToggle( VK_CAPITAL ) ) }, Action ), Width + 25, 0, ;
       iif( IsCapsLockActive(), "zzz_led_on", "zzz_led_off" ), "", ToolTip )
 
    nrItem3 := _DefineItemMessage( "TimerInsert", BarName, 0, 0, "Insert", ;
-      iif( Empty( Action ), {|| iif( _HMG_IsXPorLater, KeyToggleNT( VK_INSERT ), KeyToggle( VK_INSERT ) ) }, Action ), Width, 0, ;
+      iif( Empty(Action), {|| iif( _HMG_IsXPorLater, KeyToggleNT( VK_INSERT ), KeyToggle( VK_INSERT ) ) }, Action ), Width, 0, ;
       iif( IsInsertActive(), "zzz_led_on", "zzz_led_off" ), "", ToolTip )
 
    _DefineTimer ( "StatusKeyBrd" , FormName , 250 , ;
@@ -360,7 +360,7 @@ FUNCTION _IsOwnerDrawStatusBarItem( ParentHandle , ItemID , Value , lSet )
 
    hb_default( @lSet, .F. )
 
-   IF Empty( ItemID ) .OR. ItemID == NIL
+   IF Empty(ItemID) .OR. ItemID == NIL
       ItemID := 1
    ENDIF
 
@@ -398,13 +398,13 @@ STATIC FUNCTION AMPM( cTime )
 
    DO CASE
    CASE nHour == 0 .OR. nHour == 24
-      cTime := "12" + SubStr( cTime, 3 ) + " am"
+      cTime := "12" + SubStr(cTime, 3) + " am"
    CASE nHour < 12
       cTime += " am"
    CASE nHour == 12
       cTime += " pm"
    OTHERWISE
-      cTime := StrZero( nHour - 12, 2 ) + SubStr( cTime, 3 ) + " pm"
+      cTime := StrZero( nHour - 12, 2 ) + SubStr(cTime, 3) + " pm"
    ENDCASE
 
 RETURN cTime
@@ -430,7 +430,7 @@ FUNCTION _SetStatusBarKbd ( BarName, FormName )
 RETURN Nil
 
 *-----------------------------------------------------------------------------*
-FUNCTION _GetStatusItemWidth( hWnd, nItem )
+FUNCTION _GetStatusItemWidth(hWnd, nItem)
 *-----------------------------------------------------------------------------*
    LOCAL h
    LOCAL aItemWidth := {}
@@ -446,7 +446,7 @@ FUNCTION _GetStatusItemWidth( hWnd, nItem )
 
    NEXT
 
-RETURN iif( ! Empty( nItem ), aItemWidth [nItem], aItemWidth )
+RETURN iif( ! Empty(nItem), aItemWidth [nItem], aItemWidth )
 
 *-----------------------------------------------------------------------------*
 FUNCTION _SetStatusItemProperty( nItem, Value, hWnd, nType )

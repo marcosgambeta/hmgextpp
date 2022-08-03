@@ -233,7 +233,7 @@ LOCAL nPos
 nPos := AT( "@", cPage )
 IF nPos>0
    ::cLoginRemote := ::SetUser( LEFT( cPage, nPos-1 ) )
-   cPage := SUBSTR( cPage, nPos+1 )
+   cPage := SUBSTR(cPage, nPos + 1)
 ENDIF
 
 cURL := "GET "
@@ -316,7 +316,7 @@ LOCAL nPos
 nPos := AT( "@", cPage )
 IF nPos>0
    ::cLoginRemote := ::SetUser( LEFT( cPage, nPos-1 ) )
-   cPage := SUBSTR( cPage, nPos+1 )
+   cPage := SUBSTR(cPage, nPos + 1)
 ENDIF
 
 cURL := "POST "

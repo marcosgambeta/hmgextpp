@@ -16,10 +16,10 @@ FUNCTION HMG_DbfToArray( cFieldList, bFor, bWhile, nNext, nRec, lRest )
    LOCAL nRecNo := RecNo()
    LOCAL bLine
 
-   IF Empty( cFieldList )
+   IF Empty(cFieldList)
       cFieldList := ""
-      AEval( dbStruct(), {| a | cFieldList += "," + a[ 1 ] } )
-      cFieldList := SubStr( cFieldList, 2 )
+      AEval( dbStruct(), {| a | cFieldList += "," + a[1] } )
+      cFieldList := SubStr(cFieldList, 2)
    ENDIF
 
    bLine := &( "{||{" + cFieldList + "}}" )
@@ -40,13 +40,13 @@ FUNCTION HMG_ArrayToDbf( aData, cFieldList, bProgress )
    LOCAL nCol, nRow
    LOCAL lFldName
 
-   IF ValType( cFieldList ) == "A"
+   IF ValType(cFieldList) == "A"
       aFldName := cFieldList
-   ELSEIF ValType( cFieldList ) == "C"
+   ELSEIF ValType(cFieldList) == "C"
       aFldName := hb_ATokens( cFieldList, "," )
    ENDIF
 
-   lFldName := ( Empty( aFldName ) )
+   lFldName := ( Empty(aFldName) )
    nCols := iif( lFldName, FCount(), Min( FCount(), Len( aFldName ) ) )
    aFieldPos := Array( nCols )
    aFieldTyp := Array( nCols )
@@ -69,17 +69,17 @@ FUNCTION HMG_ArrayToDbf( aData, cFieldList, bProgress )
 
       FOR nCol := 1 TO nCols
 
-         IF ! Empty( aFieldPos[ nCol ] )
+         IF ! Empty(aFieldPos[ nCol ])
 
-            IF ! Empty( uVal := aRow[ nCol ] )
+            IF ! Empty(uVal := aRow[ nCol ])
 
                IF ! ( aFieldTyp[ nCol ] $ "+@" )
 
-                  IF ValType( uVal ) != aFieldTyp[ nCol ]
+                  IF ValType(uVal) != aFieldTyp[ nCol ]
                      uVal := ConvertType( uVal, aFieldTyp[ nCol ] )
                   ENDIF
 
-                  IF ! Empty( uVal )
+                  IF ! Empty(uVal)
                      FieldPut( aFieldPos[ nCol ], uVal )
                   ENDIF
 
@@ -103,7 +103,7 @@ RETURN .T.
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION ConvertType( uVal, cTypeDst )
 *-----------------------------------------------------------------------------*
-   LOCAL cTypeSrc := ValType( uVal )
+   LOCAL cTypeSrc := ValType(uVal)
 
    IF cTypeDst != cTypeSrc
 
@@ -124,9 +124,9 @@ STATIC FUNCTION ConvertType( uVal, cTypeDst )
       CASE cTypeDst == "L"
          DO CASE
          CASE cTypeSrc $ "LN"
-            uVal := ! Empty( uVal )
+            uVal := ! Empty(uVal)
          CASE cTypeSrc == "C"
-            uVal := Upper( uVal ) $ "Y,YES,T,.T.,TRUE"
+            uVal := Upper(uVal) $ "Y,YES,T,.T.,TRUE"
          OTHERWISE
             uVal := .F.
          ENDCASE
@@ -166,10 +166,10 @@ FUNCTION HMG_DbfToExcel( cFieldList, aHeader, bFor, bWhile, nNext, nRec, lRest )
    LOCAL nCols
    LOCAL nRow := 1
 
-   IF Empty( cFieldList )
+   IF Empty(cFieldList)
       cFieldList := ""
-      AEval( dbStruct(), { | x | cFieldList += "," + x[ 1 ] } )
-      cFieldList := SubStr( cFieldList, 2 )
+      AEval( dbStruct(), { | x | cFieldList += "," + x[1] } )
+      cFieldList := SubStr(cFieldList, 2)
    ENDIF
 
    hb_default( @aHeader, hb_ATokens( cFieldList, "," ) )
@@ -193,7 +193,7 @@ FUNCTION HMG_DbfToExcel( cFieldList, aHeader, bFor, bWhile, nNext, nRec, lRest )
    oRange:Rows( nRow ):Font:Bold := .T.
 
    bLine := &( "{||{" + cFieldList + "}}" )
-   IF Empty( bWhile ) .AND. Empty( nNext ) .AND. Empty( nRec ) .AND. Empty( lRest )
+   IF Empty(bWhile) .AND. Empty(nNext) .AND. Empty(nRec) .AND. Empty(lRest)
       dbGoTop()
    ENDIF
 
@@ -228,18 +228,18 @@ FUNCTION HMG_DbfStruct( cFileName )
 
             aFieldInfo := Array( 4 )
 
-            aFieldInfo[ 1 ] := Upper( BeforAtNum( Chr( 0 ), cBuffer, 1 ) )
-            aFieldInfo[ 2 ] := SubStr( cBuffer, 12, 1 )
+            aFieldInfo[1] := Upper(BeforAtNum(Chr(0), cBuffer, 1))
+            aFieldInfo[2] := SubStr(cBuffer, 12, 1)
 
-            IF aFieldInfo[ 2 ] == "C"
+            IF aFieldInfo[2] == "C"
 
-               aFieldInfo[ 3 ] := Bin2I( SubStr( cBuffer, 17, 2 ) )
-               aFieldInfo[ 4 ] := 0
+               aFieldInfo[3] := Bin2I( SubStr(cBuffer, 17, 2) )
+               aFieldInfo[4] := 0
 
             ELSE
 
-               aFieldInfo[ 3 ] := Asc( SubStr( cBuffer, 17, 1 ) )
-               aFieldInfo[ 4 ] := Asc( SubStr( cBuffer, 18, 1 ) )
+               aFieldInfo[3] := Asc( SubStr(cBuffer, 17, 1) )
+               aFieldInfo[4] := Asc( SubStr(cBuffer, 18, 1) )
 
             ENDIF
 
@@ -267,10 +267,10 @@ FUNCTION HMG_RecToHash( cFieldList, cNames )
 
    HSetCaseMatch( hRec, .F. )
 
-   IF Empty( cFieldList )
+   IF Empty(cFieldList)
       cFieldList := ""
-      AEval( dbStruct(), {| a | cFieldList += "," + a[ 1 ] } )
-      cFieldList := SubStr( cFieldList, 2 )
+      AEval( dbStruct(), {| a | cFieldList += "," + a[1] } )
+      cFieldList := SubStr(cFieldList, 2)
    ENDIF
 
    DEFAULT cNames := cFieldList
@@ -279,7 +279,7 @@ FUNCTION HMG_RecToHash( cFieldList, cNames )
 
    aVals := &( "{" + cFieldList + "}" )
 
-   AEval( aVals, {| u, i | hSet( hRec, aNames[ i ], u ) }, , Len( aNames ) )
+   AEval( aVals, {| u, i | hSet( hRec, aNames[i], u ) }, , Len( aNames ) )
 
 RETURN hRec
 
@@ -295,7 +295,7 @@ FUNCTION HMG_HashToRec( hRec, cFieldList )
          ( dbInfo( DBI_ISFLOCK ) .OR. dbRecordInfo( DBRI_LOCKED, RecNo() ) ) .OR. ;
          ( lLocked := dbRLock( RecNo() ) )
 
-      IF Empty( cFieldList )
+      IF Empty(cFieldList)
          hb_HEval( hRec, {| k, v | FieldPut( FieldPos( k ), v ) } )
       ELSE
          aFlds := hb_ATokens( cFieldList, "," )
@@ -321,7 +321,7 @@ PROCEDURE DbfCopyRec( cnTargetArea, lAppend )
    LOCAL nFieldPos
    LOCAL xFieldValue
 
-   IF ValType( lAppend ) == "L" .AND. lAppend
+   IF ValType(lAppend) == "L" .AND. lAppend
 
       ( cnTargetArea )->( dbAppend() )
 
@@ -332,7 +332,7 @@ PROCEDURE DbfCopyRec( cnTargetArea, lAppend )
       cFieldName := FieldName( nCnt )
 
       IF ( nFieldPos := ( cnTargetArea )->( FieldPos( cFieldName ) ) ) > 0 .AND. ;
-         ValType( xFieldValue := FieldGet( nCnt ) ) == ValType( ( cnTargetArea )->( FieldGet( nFieldPos ) ) )
+         ValType(xFieldValue := FieldGet( nCnt )) == ValType(( cnTargetArea )->( FieldGet( nFieldPos ) ))
 
          ( cnTargetArea )->( FieldPut( nFieldPos, xFieldValue ) )
 

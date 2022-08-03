@@ -25,23 +25,23 @@ INIT PROCEDURE _DbgInit
       cIniCont := MemoRead( cIniFile )
       nLines   := MLCount( cIniCont, nLineLen )
       FOR nLine := 1 TO nLines
-         cLine := Upper( AllTrim( MemoLine( cIniCont, nLineLen, nLine ) ) )
+         cLine := Upper(AllTrim(MemoLine(cIniCont, nLineLen, nLine)))
          IF Left( cLine, 7 ) == "SCREEN "
             nPos  := At( " ", cLine )
-            cLine := AllTrim( SubStr( cLine, nPos + 1 ) )
+            cLine := AllTrim( SubStr(cLine, nPos + 1) )
             IF Left( cLine, 5 ) == "SIZE "
                nPos  := At( " ", cLine )
-               cLine := AllTrim( SubStr( cLine, nPos + 1 ) )
+               cLine := AllTrim( SubStr(cLine, nPos + 1) )
                IF " " $ cLine
                   nRows := Max( Val( AllTrim( Left( cLine, nPos - 1 ) ) ), 25 )
-                  nCols := Max( Val( AllTrim( SubStr( cLine, nPos + 1 ) ) ), 80 )
+                  nCols := Max( Val( AllTrim( SubStr(cLine, nPos + 1) ) ), 80 )
                ENDIF
             ENDIF
          ENDIF
       NEXT
    ENDIF
 
-   IF !Empty( nRows ) .AND. !Empty( nCols )
+   IF !Empty(nRows) .AND. !Empty(nCols)
       SetMode( nRows, nCols )
    ENDIF
 

@@ -52,7 +52,7 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
       nWidth  := nRight - nLeft / 2
    ENDIF
 
-   nTop    := nTop + 1 + iif( Empty( cTitle ), 30, 44 )                        // Top gap
+   nTop    := nTop + 1 + iif( Empty(cTitle), 30, 44 )                        // Top gap
    nLeft   := nLeft + 1 + iif( lxVal, 30 + nLegendsWidth + nBarD, 30 + nBarD ) // Left
    nBottom := nHeight - 2 - iif( lyVal, 40, 30 )                               // Bottom
    nRight  := nWidth - 2 - iif( lLegends, 30 + nLegendsWidth, 30 )             // Right
@@ -115,8 +115,8 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
 
    // Graph info
    //
-   IF !Empty( cTitle )
-      DrawTextInBitmap( hDC, nTop - 33 * nResV, ( nWidth - GetTextWidth( hDC, cTitle ) / iif( Len( cTitle ) > 40, 10, 12 ) ) / 2 + 1, cTitle, _HMG_DefaultFontName, _HMG_DefaultFontSize + 3, aTitleColor, 2 )
+   IF !Empty(cTitle)
+      DrawTextInBitmap( hDC, nTop - 33 * nResV, ( nWidth - GetTextWidth(hDC, cTitle) / iif( Len( cTitle ) > 40, 10, 12 ) ) / 2 + 1, cTitle, _HMG_DefaultFontName, _HMG_DefaultFontSize + 3, aTitleColor, 2 )
    ENDIF
 
    // Legends
@@ -386,7 +386,7 @@ FUNCTION HMG_PieGraph( nWidth, nHeight, series, aname, colors, ctitle, aTitleCol
    ENDIF
 
    IF lsleg
-      toright := ( "RIGHT" $ Upper( hb_defaultValue( placement, "bottom" ) ) )
+      toright := ( "RIGHT" $ Upper(hb_defaultValue(placement, "bottom")) )
       IF toright
          tocol := 2 / 3 * tocol + 10
       ELSE
@@ -533,7 +533,7 @@ FUNCTION HMG_PieGraph( nWidth, nHeight, series, aname, colors, ctitle, aTitleCol
       FOR i := 1 TO Len( aname )
          drawrectInBitmap( hDC, fromrow + 1, fromcol + 1, fromrow + 14, fromcol + 14, colors[i] )
          DrawWindowBoxInBitmap( hDC, fromrow, fromcol, fromrow + 14, fromcol + 14 )
-         drawtextinbitmap( hDC, fromrow, fromcol + 20, aname[ i ] + iif( lxval, " - " + LTrim( Transform( series[i], cPicture ) ) + " (" + LTrim( Str( series[i] / ser_sum * 100, 6, 2 ) ) + " %)", "" ), _HMG_DefaultFontName, _HMG_DefaultFontSize - 1, iif( RGB( colors[i][1], colors[i][2], colors[i][3] ) == RGB( 255, 255, 255 ), BLACK, colors[i] ) )
+         drawtextinbitmap( hDC, fromrow, fromcol + 20, aname[i] + iif( lxval, " - " + LTrim( Transform( series[i], cPicture ) ) + " (" + LTrim( Str( series[i] / ser_sum * 100, 6, 2 ) ) + " %)", "" ), _HMG_DefaultFontName, _HMG_DefaultFontSize - 1, iif( RGB( colors[i][1], colors[i][2], colors[i][3] ) == RGB( 255, 255, 255 ), BLACK, colors[i] ) )
          fromrow += 20
       NEXT i
    ENDIF
@@ -608,7 +608,7 @@ STATIC PROCEDURE DrawBarInBitmap( hDC, nY, nX, nHigh, nWidth, l3DView, nDeep, aC
 
    LOCAL nColTop, nShadow, nShadow2, nH := nHigh
 
-   nColTop := ClrShadow( RGB( aColor[ 1 ], aColor[ 2 ], aColor[ 3 ] ), 20 )
+   nColTop := ClrShadow( RGB( aColor[1], aColor[2], aColor[3] ), 20 )
    nShadow := ClrShadow( nColTop, 20 )
    nShadow2 := ClrShadow( nColTop, 40 )
    nColTop := { GetRed( nColTop ), GetGreen( nColTop ), GetBlue( nColTop ) }
@@ -634,10 +634,10 @@ RETURN
 
 STATIC PROCEDURE DrawArcInBitmap( hDC, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb, penwidth )
 
-   IF ValType( penrgb ) == "U"
+   IF ValType(penrgb) == "U"
       penrgb = BLACK
    ENDIF
-   IF ValType( penwidth ) == "U"
+   IF ValType(penwidth) == "U"
       penwidth = 1
    ENDIF
 
@@ -648,13 +648,13 @@ RETURN
 
 STATIC PROCEDURE DrawPieInBitmap( hDC, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb, penwidth, fillrgb )
 
-   IF ValType( penrgb ) == "U"
+   IF ValType(penrgb) == "U"
       penrgb = BLACK
    ENDIF
-   IF ValType( penwidth ) == "U"
+   IF ValType(penwidth) == "U"
       penwidth = 1
    ENDIF
-   IF ValType( fillrgb ) == "U"
+   IF ValType(fillrgb) == "U"
       fillrgb := WHITE
    ENDIF
 
@@ -669,13 +669,13 @@ STATIC PROCEDURE DrawPolygonInBitmap( hDC, apoints, penrgb, penwidth, fillrgb )
    LOCAL yarr := {}
    LOCAL x
 
-   IF ValType( penrgb ) == "U"
+   IF ValType(penrgb) == "U"
       penrgb := BLACK
    ENDIF
-   IF ValType( penwidth ) == "U"
+   IF ValType(penwidth) == "U"
       penwidth := 1
    ENDIF
-   IF ValType( fillrgb ) == "U"
+   IF ValType(fillrgb) == "U"
       fillrgb := WHITE
    ENDIF
    FOR x := 1 TO LEN( apoints )

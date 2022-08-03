@@ -144,7 +144,7 @@ FUNCTION IsLocked( nRecId )
 
    __defaultNIL( @nRecID, RecNo() )
 
-   RETURN AScan( dbRLockList(), {| n | n == nRecID } ) > 0
+   RETURN AScan(dbRLockList(), {| n | n == nRecID }) > 0
 
 
 FUNCTION NetError()

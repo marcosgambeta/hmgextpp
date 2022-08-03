@@ -70,13 +70,13 @@ PROCEDURE _DefineFont( FontName, fName, fSize, bold, italic, underline, strikeou
    hb_default( @strikeout, .F. )
    hb_default( @nAngle, 0 )
 
-   IF ValType( charset ) == "U"
+   IF ValType(charset) == "U"
       GetFontList( NIL, NIL, NIL, NIL, NIL, NIL, @aFontList )
 
       GetFontList( NIL, NIL, SYMBOL_CHARSET, NIL, NIL, NIL, @aFontSymb )
       AEval( aFontSymb, {| cFont | AAdd( aFontList, cFont ) } )
 
-      IF Empty( AScan( aFontList, {| cName | Upper( cName ) == Upper( fName ) } ) )
+      IF Empty(AScan(aFontList, {|cName|Upper(cName) == Upper(fName)}))
          fName := "Arial"
       ENDIF
    ENDIF
@@ -117,8 +117,8 @@ PROCEDURE _DefineFont( FontName, fName, fSize, bold, italic, underline, strikeou
    _HMG_aControlHeadClick          [k] := {}
    _HMG_aControlRow                [k] := 0
    _HMG_aControlCol                [k] := 0
-   _HMG_aControlWidth              [k] := GetTextWidth ( NIL, "B", FontHandle )
-   _HMG_aControlHeight             [k] := GetTextHeight( NIL, "B", FontHandle )
+   _HMG_aControlWidth              [k] := GetTextWidth(NIL, "B", FontHandle)
+   _HMG_aControlHeight             [k] := GetTextHeight(NIL, "B", FontHandle)
    _HMG_aControlSpacing            [k] := 0
    _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel ], -1 )
    _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel ], -1 )
@@ -148,7 +148,7 @@ RETURN
 
 PROCEDURE _ReleaseFont( FontName )
 
-   LOCAL i := AScan( _HMG_aControlNames, FontName )
+   LOCAL i := AScan(_HMG_aControlNames, FontName)
 
    IF i > 0 .AND. _HMG_aControlType[i] == CONTROL_TYPE_FONT
       _EraseFontDef( i )
@@ -227,7 +227,7 @@ RETURN
 
 FUNCTION GetFontHandle( FontName )
 
-   LOCAL i := AScan( _HMG_aControlNames, FontName )
+   LOCAL i := AScan(_HMG_aControlNames, FontName)
 
    IF i > 0
       IF GetFontParamByRef( _HMG_aControlHandles [i] )
@@ -243,20 +243,20 @@ RETURN 0
 FUNCTION GetFontParam( FontHandle )
 
    LOCAL aFontAttr
-   LOCAL i := AScan( _HMG_aControlHandles, FontHandle )
+   LOCAL i := AScan(_HMG_aControlHandles, FontHandle)
 
    aFontAttr := { _HMG_DefaultFontName, _HMG_DefaultFontSize, .F., .F., .F., .F., 0, 0, 0, "" }
 
    IF i > 0 .AND. _HMG_aControlType[i] == CONTROL_TYPE_FONT
       aFontAttr := { ;
-         _HMG_aControlFontName[ i ], ;
-         _HMG_aControlFontSize[ i ], ;
+         _HMG_aControlFontName[i], ;
+         _HMG_aControlFontSize[i], ;
          _HMG_aControlFontAttributes[ i, FONT_ATTR_BOLD ], ;
          _HMG_aControlFontAttributes[ i, FONT_ATTR_ITALIC ], ;
          _HMG_aControlFontAttributes[ i, FONT_ATTR_UNDERLINE ], ;
          _HMG_aControlFontAttributes[ i, FONT_ATTR_STRIKEOUT ], ;
-         iif( Len( _HMG_aControlFontAttributes[ i ] ) == 5, _HMG_aControlFontAttributes[ i, FONT_ATTR_ANGLE ], 0 ), ;
-         _HMG_aControlWidth[ i ], _HMG_aControlHeight[ i ], _HMG_aControlNames[ i ] }
+         iif( Len( _HMG_aControlFontAttributes[i] ) == 5, _HMG_aControlFontAttributes[ i, FONT_ATTR_ANGLE ], 0 ), ;
+         _HMG_aControlWidth[i], _HMG_aControlHeight[i], _HMG_aControlNames[i] }
    ENDIF
 
 RETURN aFontAttr
@@ -270,13 +270,13 @@ FUNCTION _GetFontAttr( ControlName, ParentForm, nType )
 
       DO CASE
       CASE nType == FONT_ATTR_NAME
-         RETURN _HMG_aControlFontName[ i ]
+         RETURN _HMG_aControlFontName[i]
 
       CASE nType == FONT_ATTR_SIZE
-         RETURN _HMG_aControlFontSize[ i ]
+         RETURN _HMG_aControlFontSize[i]
 
       CASE nType >= FONT_ATTR_BOLD .AND. nType <= FONT_ATTR_ANGLE
-         RETURN _HMG_aControlFontAttributes[ i ][ nType ]
+         RETURN _HMG_aControlFontAttributes[i][ nType ]
 
       ENDCASE
 
@@ -299,53 +299,53 @@ FUNCTION _SetFontAttr( ControlName, ParentForm, Value, nType )
       RETURN .F.
    ENDIF
 
-   DeleteObject ( _HMG_aControlFontHandle[ i ] )
+   DeleteObject ( _HMG_aControlFontHandle[i] )
 
    DO CASE
    CASE nType == FONT_ATTR_NAME
-      _HMG_aControlFontName[ i ] := Value
+      _HMG_aControlFontName[i] := Value
 
    CASE nType == FONT_ATTR_SIZE
-      _HMG_aControlFontSize[ i ] := Value
+      _HMG_aControlFontSize[i] := Value
 
    OTHERWISE
-      _HMG_aControlFontAttributes[ i ][ nType ] := Value
+      _HMG_aControlFontAttributes[i][ nType ] := Value
 
    ENDCASE
 
-   h  := _HMG_aControlHandles[ i ]
-   n  := _HMG_aControlFontName[ i ]
-   s  := _HMG_aControlFontSize[ i ]
-   ab := _HMG_aControlFontAttributes[ i ][ FONT_ATTR_BOLD ]
-   ai := _HMG_aControlFontAttributes[ i ][ FONT_ATTR_ITALIC ]
-   au := _HMG_aControlFontAttributes[ i ][ FONT_ATTR_UNDERLINE ]
-   as := _HMG_aControlFontAttributes[ i ][ FONT_ATTR_STRIKEOUT ]
-   aa := iif( Len( _HMG_aControlFontAttributes[ i ] ) == 5, _HMG_aControlFontAttributes[ i ][ FONT_ATTR_ANGLE ], 0 )
+   h  := _HMG_aControlHandles[i]
+   n  := _HMG_aControlFontName[i]
+   s  := _HMG_aControlFontSize[i]
+   ab := _HMG_aControlFontAttributes[i][ FONT_ATTR_BOLD ]
+   ai := _HMG_aControlFontAttributes[i][ FONT_ATTR_ITALIC ]
+   au := _HMG_aControlFontAttributes[i][ FONT_ATTR_UNDERLINE ]
+   as := _HMG_aControlFontAttributes[i][ FONT_ATTR_STRIKEOUT ]
+   aa := iif( Len( _HMG_aControlFontAttributes[i] ) == 5, _HMG_aControlFontAttributes[i][ FONT_ATTR_ANGLE ], 0 )
 
    t := _HMG_aControlType[i]
 
    DO CASE
    CASE t == CONTROL_TYPE_SPINNER
-      _HMG_aControlFontHandle[ i ] := _SetFont( h[ 1 ], n, s, ab, ai, au, as, aa )
+      _HMG_aControlFontHandle[i] := _SetFont( h[1], n, s, ab, ai, au, as, aa )
 
    CASE t == CONTROL_TYPE_RADIOGROUP
-      _HMG_aControlFontHandle[ i ] := _SetFont( h[ 1 ], n, s, ab, ai, au, as, aa )
-      AEval( h, {|x| SendMessage ( x, WM_SETFONT, _HMG_aControlFontHandle[ i ], 1 ) }, 2 )
+      _HMG_aControlFontHandle[i] := _SetFont( h[1], n, s, ab, ai, au, as, aa )
+      AEval( h, {|x| SendMessage ( x, WM_SETFONT, _HMG_aControlFontHandle[i], 1 ) }, 2 )
 
    OTHERWISE
       IF IsWindowHandle( h )
-         _HMG_aControlFontHandle[ i ] := _SetFont( h, n, s, ab, ai, au, as, aa )
+         _HMG_aControlFontHandle[i] := _SetFont( h, n, s, ab, ai, au, as, aa )
          IF t == CONTROL_TYPE_MONTHCAL
-            SetPosMonthCal ( h, _HMG_aControlCol[ i ], _HMG_aControlRow[ i ] )
-            _HMG_aControlWidth[ i ] := GetWindowWidth ( h )
-            _HMG_aControlHeight[ i ] := GetWindowHeight ( h )
+            SetPosMonthCal ( h, _HMG_aControlCol[i], _HMG_aControlRow[i] )
+            _HMG_aControlWidth[i] := GetWindowWidth(h)
+            _HMG_aControlHeight[i] := GetWindowHeight(h)
          ENDIF
       ENDIF
 
    ENDCASE
 
-   IF "LABEL" $ _HMG_aControlType[i] .AND. ISLOGICAL ( _HMG_aControlInputMask[ i ] )
-      IF _HMG_aControlInputMask[ i ] == .T.
+   IF "LABEL" $ _HMG_aControlType[i] .AND. ISLOGICAL ( _HMG_aControlInputMask[i] )
+      IF _HMG_aControlInputMask[i] == .T.
          _SetValue ( ControlName, ParentForm, _GetValue ( , , i ) )
       ENDIF
    ENDIF
@@ -356,15 +356,15 @@ RETURN .T.
 FUNCTION GetFontParamByRef( FontHandle, FontName, FontSize, bold, italic, underline, strikeout, angle )
 
    LOCAL lExpr
-   LOCAL i := iif( HB_ISNUMERIC( FontHandle ), AScan( _HMG_aControlHandles, FontHandle ), 0 )
+   LOCAL i := iif( HB_ISNUMERIC(FontHandle), AScan(_HMG_aControlHandles, FontHandle), 0 )
 
-   lExpr := ( i > 0 .AND. GetObjectType( _HMG_aControlHandles[ i ] ) == OBJ_FONT )
+   lExpr := ( i > 0 .AND. GetObjectType( _HMG_aControlHandles[i] ) == OBJ_FONT )
 
    IF hb_PIsByRef( 2 )
-      FontName := iif( lExpr, _HMG_aControlFontName[ i ], _HMG_DefaultFontName )
+      FontName := iif( lExpr, _HMG_aControlFontName[i], _HMG_DefaultFontName )
    ENDIF
    IF hb_PIsByRef( 3 )
-      FontSize := iif( lExpr, _HMG_aControlFontSize[ i ], _HMG_DefaultFontSize )
+      FontSize := iif( lExpr, _HMG_aControlFontSize[i], _HMG_DefaultFontSize )
    ENDIF
    IF hb_PIsByRef( 4 )
       bold := iif( lExpr, _HMG_aControlFontAttributes[ i, FONT_ATTR_BOLD ], .F. )
@@ -380,7 +380,7 @@ FUNCTION GetFontParamByRef( FontHandle, FontName, FontSize, bold, italic, underl
    ENDIF
    IF hb_PIsByRef( 8 )
       angle := iif( lExpr, ;
-        iif( Len( _HMG_aControlFontAttributes[ i ] ) > 4, _HMG_aControlFontAttributes[ i, FONT_ATTR_ANGLE ], 0 ), ;
+        iif( Len( _HMG_aControlFontAttributes[i] ) > 4, _HMG_aControlFontAttributes[ i, FONT_ATTR_ANGLE ], 0 ), ;
         0 )
    ENDIF
 
@@ -397,7 +397,7 @@ FUNCTION GetFontList( hDC, cFontFamilyName, nCharSet, nPitch, nFontType, lSortCa
    IF hb_defaultValue ( lSortCaseSensitive , .F. ) == .T.
       SortCodeBlock := { |x, y| x[1] < y[1] }
    ELSE
-      SortCodeBlock := { |x, y| Upper( x[1] ) < Upper( y[1] ) }
+      SortCodeBlock := { |x, y| Upper(x[1]) < Upper(y[1]) }
    ENDIF
 
 RETURN EnumFontsEx( hDC, cFontFamilyName, nCharSet, nPitch, nFontType, SortCodeBlock, @aFontName )

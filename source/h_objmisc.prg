@@ -16,8 +16,8 @@ FUNCTION _WindowCargo( FormName, xValue )
    LOCAL i := GetFormIndex( FormName )
 #endif
    IF i > 0
-      IF PCount() > 1;        _HMG_aFormMiscData2[ i ] := xValue
-      ELSE           ; RETURN _HMG_aFormMiscData2[ i ]
+      IF PCount() > 1;        _HMG_aFormMiscData2[i] := xValue
+      ELSE           ; RETURN _HMG_aFormMiscData2[i]
       ENDIF
    ENDIF
 
@@ -33,8 +33,8 @@ FUNCTION _ControlCargo( ControlName, FormName, xValue )
    LOCAL i := GetControlIndex( ControlName, FormName )
 #endif
    IF i > 0
-      IF PCount() > 2;        _HMG_aControlMiscData2[ i ] := xValue
-      ELSE           ; RETURN _HMG_aControlMiscData2[ i ]
+      IF PCount() > 2;        _HMG_aControlMiscData2[i] := xValue
+      ELSE           ; RETURN _HMG_aControlMiscData2[i]
       ENDIF
    ENDIF
 
@@ -49,7 +49,7 @@ FUNCTION Do_ControlEventProcedure( bBlock, i, p1, p2, p3, p4 )
 
       _PushEventInfo()
 
-      _HMG_ThisFormIndex := AScan( _HMG_aFormHandles, _HMG_aControlParentHandles[ i ] )
+      _HMG_ThisFormIndex := AScan(_HMG_aFormHandles, _HMG_aControlParentHandles[i])
       _HMG_ThisType := "C"
       _HMG_ThisIndex := i
       _HMG_ThisFormName := _HMG_aFormNames[ _HMG_ThisFormIndex ]
@@ -92,18 +92,18 @@ RETURN RetVal
 *-----------------------------------------------------------------------------*
 FUNCTION _WindowObj( FormName )
 *-----------------------------------------------------------------------------*
-   LOCAL h := iif( HB_ISNUMERIC( FormName ), FormName, GetFormHandle( FormName ) )
+   LOCAL h := iif( HB_ISNUMERIC(FormName), FormName, GetFormHandle( FormName ) )
 
 RETURN hmg_GetWindowObject( h )
 
 *-----------------------------------------------------------------------------*
 FUNCTION _ControlObj( ControlName, FormName )
 *-----------------------------------------------------------------------------*
-   LOCAL h := iif( HB_ISNUMERIC( ControlName ), ControlName, ;
+   LOCAL h := iif( HB_ISNUMERIC(ControlName), ControlName, ;
       GetControlHandle( ControlName, FormName ) )
 
    IF ISARRAY( h )
-      h := h[ 1 ]
+      h := h[1]
    ENDIF
 
 RETURN hmg_GetWindowObject( h )
@@ -184,10 +184,10 @@ RETURN o
 FUNC Do_OnWndInit( i, cVar )
 *-----------------------------------------------------------------------------*
    LOCAL nIndex  := i
-   LOCAL cName   := _HMG_aFormNames[ i ]
-   LOCAL nHandle := _HMG_aFormHandles[ i ]
-   LOCAL nParent := _HMG_aFormParentHandle[ i ]
-   LOCAL cType   := _HMG_aFormType[ i ]
+   LOCAL cName   := _HMG_aFormNames[i]
+   LOCAL nHandle := _HMG_aFormHandles[i]
+   LOCAL nParent := _HMG_aFormParentHandle[i]
+   LOCAL cType   := _HMG_aFormType[i]
 
 RETURN oWndData( nIndex, cName, nHandle, nParent, cType, cVar )
 
@@ -195,7 +195,7 @@ RETURN oWndData( nIndex, cName, nHandle, nParent, cType, cVar )
 FUNC Do_OnWndRelease( i )
 *-----------------------------------------------------------------------------*
    LOCAL o
-   LOCAL hWnd := _HMG_aFormHandles[ i ]
+   LOCAL hWnd := _HMG_aFormHandles[i]
 
    IF hmg_IsWindowObject( hWnd )
       o := hmg_GetWindowObject( hWnd )
@@ -214,12 +214,12 @@ RETURN .F.
 FUNC Do_OnCtlInit( i, cVar )
 *-----------------------------------------------------------------------------*
    LOCAL nCtlIndex := i
-   LOCAL cCtlName  := _HMG_aControlNames[ i ]
-   LOCAL nHandle   := iif( ISARRAY( _HMG_aControlHandles[ i ] ), ;
-      _HMG_aControlHandles[ i ][ 1 ], _HMG_aControlHandles[ i ] )
-   LOCAL nParent   := _HMG_aControlParentHandles[ i ]
+   LOCAL cCtlName  := _HMG_aControlNames[i]
+   LOCAL nHandle   := iif( ISARRAY( _HMG_aControlHandles[i] ), ;
+      _HMG_aControlHandles[i][1], _HMG_aControlHandles[i] )
+   LOCAL nParent   := _HMG_aControlParentHandles[i]
    LOCAL cFormName := GetParentFormName( i )
-   LOCAL cCtlType  := iif( Empty( cFormName ), _HMG_aControlType[ i ], ;
+   LOCAL cCtlType  := iif( Empty(cFormName), _HMG_aControlType[i], ;
       GetProperty( cFormName, cCtlName, "Type" ) )
 
 RETURN oCnlData( nCtlIndex, cCtlName, nHandle, nParent, cCtlType, cVar )
@@ -228,7 +228,7 @@ RETURN oCnlData( nCtlIndex, cCtlName, nHandle, nParent, cCtlType, cVar )
 FUNC Do_OnCtlRelease( i )
 *-----------------------------------------------------------------------------*
    LOCAL o
-   LOCAL hWnd := _HMG_aControlHandles[ i ]
+   LOCAL hWnd := _HMG_aControlHandles[i]
 
    IF hmg_IsWindowObject( hWnd )
       o := hmg_GetWindowObject( hWnd )
@@ -259,7 +259,7 @@ FUNC Do_OnCtlLaunch( hWnd, nMsg, wParam, lParam )
 *-----------------------------------------------------------------------------*
    HB_SYMBOL_UNUSED( nMsg )
 
-   IF ! Empty( lParam )
+   IF ! Empty(lParam)
       hWnd := lParam
    ENDIF
 

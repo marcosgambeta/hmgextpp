@@ -74,7 +74,7 @@ FUNCTION drawtextout( window, row, col, string, fontcolor, backcolor, fontname, 
       hb_default( @angle, 0 )
       hb_default( @once, .F. )
 
-      torow := row + iif( transparent .OR. !Empty( angle ), 0, fontsize + 4 )
+      torow := row + iif( transparent .OR. !Empty(angle), 0, fontsize + 4 )
       tocol := col + ( Len( string ) - 1 ) * fontsize
       textdraw( FormHandle, row, col, string, torow, tocol, fontcolor, backcolor, fontname, fontsize, bold, italic, underline, strikeout, transparent, angle )
       IF ! once
@@ -269,7 +269,7 @@ FUNCTION HMG_DrawIcon( window, icon, row, col, w, h, rgb, transparent )
       ENDIF
       hb_default( @rgb, GetSysColor( COLOR_BTNFACE ) )
 
-      IF ISNUMERIC( icon )
+      IF ISNUMERIC(icon)
          DrawIconEx( FormHandle, Col, Row, icon, w, h, rgb, .F. )
          AAdd( _HMG_aFormGraphTasks [i] , {|| DrawIconEx( FormHandle, Col, Row, icon, w, h, rgb, .F. ) } )
       ELSEIF ISSTRING( icon )
@@ -305,7 +305,7 @@ FUNCTION HMG_DrawSysIcon( window, cIconDll, icon, row, col, w, h, rgb, transpare
       hb_default( @rgb, GetSysColor( COLOR_BTNFACE ) )
       hb_default( @cIconDll, System.SystemFolder + hb_ps() + "imageres.dll" )
 
-      IF ISNUMERIC( icon )
+      IF ISNUMERIC(icon)
          AAdd( _HMG_aFormGraphTasks [i] , {|| DrawIconEx( FormHandle, Col, Row, ExtractIcon( cIconDll, icon ), w, h, rgb, .T. ) } )
       ENDIF
    ENDIF

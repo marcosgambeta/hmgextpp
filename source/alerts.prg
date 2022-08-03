@@ -38,7 +38,7 @@ RETURN ( -1 )
 *-----------------------------------------------------------------------------*
 FUNCTION AlertRetryCancel ( Message, Title, nDefaultButton, Icon, nSize, aColors, lTopMost, bInit )
 *-----------------------------------------------------------------------------*
-   LOCAL aOptions := { _HMG_aLangButton[ 13 ], _HMG_aLangButton[ 7 ] } // P.D. July 3, 2021
+   LOCAL aOptions := { _HMG_aLangButton[13], _HMG_aLangButton[7] } // P.D. July 3, 2021
 
 RETURN ( _Alert( Message, aOptions, Title, , hb_defaultValue( nDefaultButton, 1 ), Icon, nSize, aColors, lTopMost, bInit, .T. ) == IDOK )
 
@@ -54,11 +54,11 @@ FUNCTION AlertExclamation ( Message, Title, Icon, nSize, aColors, lTopMost, bIni
 *-----------------------------------------------------------------------------*
    LOCAL nWaitSec
 
-   IF ISNUMERIC( Title )
+   IF ISNUMERIC(Title)
       nWaitSec := Title
    ENDIF
 
-   IF Empty( lNoSound )
+   IF Empty(lNoSound)
       PlayExclamation()
    ENDIF                 
 
@@ -69,11 +69,11 @@ FUNCTION AlertInfo ( Message, Title, Icon, nSize, aColors, lTopMost, bInit, lNoS
 *-----------------------------------------------------------------------------*
    LOCAL nWaitSec
 
-   IF ISNUMERIC( Title )
+   IF ISNUMERIC(Title)
       nWaitSec := Title
    ENDIF
 
-   IF Empty( lNoSound )
+   IF Empty(lNoSound)
       PlayAsterisk()
    ENDIF
 
@@ -84,11 +84,11 @@ FUNCTION AlertStop ( Message, Title, Icon, nSize, aColors, lTopMost, bInit, lNoS
 *-----------------------------------------------------------------------------*
    LOCAL nWaitSec
 
-   IF ISNUMERIC( Title )
+   IF ISNUMERIC(Title)
       nWaitSec := Title
    ENDIF
 
-   IF Empty( lNoSound )
+   IF Empty(lNoSound)
       PlayHand()
    ENDIF                 
 
@@ -100,15 +100,15 @@ STATIC FUNCTION _Alert ( cMsg, aOptions, cTitle, nType, nDefault, xIcon, nSize, 
    __defaultNIL( @cMsg, "" )
    hb_default( @nDefault, 0 )
 
-   IF ! Empty( nDefault )
+   IF ! Empty(nDefault)
       _HMG_ModalDialogReturn := nDefault
    ENDIF
 
-   IF hb_defaultValue( lTopMost, .T. ) .AND. Empty( bInit )
+   IF hb_defaultValue( lTopMost, .T. ) .AND. Empty(bInit)
       bInit := {|| This.TopMost := .T. }
    ENDIF
 
-   IF AScan( _HMG_aFormType, "A" ) == 0
+   IF AScan(_HMG_aFormType, "A") == 0
       _HMG_MainWindowFirst := .F.
    ENDIF
 

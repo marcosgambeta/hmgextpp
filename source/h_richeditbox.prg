@@ -84,7 +84,7 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
-   IF !Empty( Field )
+   IF !Empty(Field)
       IF  hb_UAt ( ">", Field ) == 0
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentForm + " : You must specify a fully qualified field name." )
       ELSE
@@ -120,7 +120,7 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
 
    ParentForm := GetFormHandle ( ParentForm )
 
-   IF ValType( x ) == "U" .OR. ValType( y ) == "U"
+   IF ValType(x) == "U" .OR. ValType(y) == "U"
 
       IF _HMG_SplitLastControl == "TOOLBAR"
          Break := .T.
@@ -170,7 +170,7 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
       AAdd( _HMG_ActiveTabCurrentPageMap , Controlhandle )
    ENDIF
 
-   IF ValType( tooltip ) != "U"
+   IF ValType(tooltip) != "U"
       SetToolTip ( ControlHandle , tooltip , GetFormToolTipHandle ( cParentForm ) )
    ENDIF
 
@@ -251,7 +251,7 @@ PROCEDURE _DataBaseRichEditBoxSave ( ControlName, ParentForm, typ )
    LOCAL Field
    LOCAL i
 
-   IF ! Empty( cTempFile )
+   IF ! Empty(cTempFile)
       i := GetControlIndex ( ControlName, ParentForm )
 
       Field := _HMG_aControlPageMap [i]
@@ -274,7 +274,7 @@ FUNCTION _DataRichEditBoxSetValue ( ControlName, ParentForm, cRichValue, typ )
 *-----------------------------------------------------------------------------*
    LOCAL cTempFile := TempFile( GetTempFolder(), "txt" )
 
-   IF ! Empty( cTempFile )
+   IF ! Empty(cTempFile)
       hb_MemoWrit ( cTempFile, cRichValue )
 
       _DataRichEditBoxOpen ( ControlName, ParentForm, cTempFile, typ )
@@ -292,7 +292,7 @@ FUNCTION _DataRichEditBoxGetValue ( ControlName, ParentForm, typ )
    LOCAL cTempFile := TempFile( GetTempFolder(), "txt" )
    LOCAL cRichValue
 
-   IF ! Empty( cTempFile )
+   IF ! Empty(cTempFile)
       _DataRichEditBoxSave ( ControlName, ParentForm, cTempFile, typ )
 
       cRichValue := MemoRead ( cTempFile )
@@ -324,7 +324,7 @@ PROCEDURE _DataRichEditBoxSave ( ControlName, ParentForm, cFile, typ )
 
    IF ( i := GetControlIndex ( ControlName , ParentForm ) ) > 0
 
-      IF ValType( cFile ) == "U"
+      IF ValType(cFile) == "U"
          cFile := _HMG_aControlCaption [i]
       ENDIF
 

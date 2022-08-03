@@ -2673,15 +2673,15 @@ PROCEDURE InitMessages()
 
       // MISC MESSAGES
 
-      _HMG_MESSAGE[ 1 ] := "Ви впевненi ?"
-      _HMG_MESSAGE[ 2 ] := "Закрити вiкно."
-      _HMG_MESSAGE[ 3 ] := "Закриття не дозволяється."
-      _HMG_MESSAGE[ 4 ] := ("Програма виконується." + CRLF + "Запуск ще однiєї копiї заборонено.")
-      _HMG_MESSAGE[ 5 ] := "Змiнити"
-      _HMG_MESSAGE[ 6 ] := "Гаразд"
-      _HMG_MESSAGE[ 7 ] := "Скасувати"
-      _HMG_MESSAGE[ 8 ] := "Застосувати"
-      _HMG_MESSAGE[ 9 ] := "Стор."
+      _HMG_MESSAGE[1] := "Ви впевненi ?"
+      _HMG_MESSAGE[2] := "Закрити вiкно."
+      _HMG_MESSAGE[3] := "Закриття не дозволяється."
+      _HMG_MESSAGE[4] := ("Програма виконується." + CRLF + "Запуск ще однiєї копiї заборонено.")
+      _HMG_MESSAGE[5] := "Змiнити"
+      _HMG_MESSAGE[6] := "Гаразд"
+      _HMG_MESSAGE[7] := "Скасувати"
+      _HMG_MESSAGE[8] := "Застосувати"
+      _HMG_MESSAGE[9] := "Стор."
       _HMG_MESSAGE[10 ] := "Увага!"
       _HMG_MESSAGE[11 ] := "Iнформація"
       _HMG_MESSAGE[12 ] := "Стоп"

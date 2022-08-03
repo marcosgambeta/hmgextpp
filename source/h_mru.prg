@@ -83,11 +83,11 @@ STATIC FUNCTION CheckForDuplicateMRU( NewItem )
    LOCAL DuplicateMRU := NOFOUND
    LOCAL i
     
-   IF !Empty( NewItem )
+   IF !Empty(NewItem)
       // Uppercase newitem for string comparisons
-      NewItem := Upper( NewItem )
+      NewItem := Upper(NewItem)
       // Check all existing MRUs for duplicate
-      IF ( i := AScan( aMRU_File , {|y| Upper( y[2] ) == NewItem } ) ) != 0
+      IF ( i := AScan(aMRU_File , {|y| Upper(y[2]) == NewItem }) ) != 0
          DuplicateMRU := i
       ENDIF
    ENDIF
@@ -102,7 +102,7 @@ FUNCTION AddMenuElement( NewItem , cAction )
    LOCAL cyMRU_Id , cxMRU_Id
    LOCAL x , n , cx
 
-   Caption := iif( Len( NewItem ) < 40, NewItem, SubStr( NewItem, 1, 3 ) + "..." + SubStr( NewItem, Len( NewItem ) - 34 ) )
+   Caption := iif( Len( NewItem ) < 40, NewItem, SubStr(NewItem, 1, 3) + "..." + SubStr(NewItem, Len(NewItem) - 34) )
    action := iif( cAction == NIL, {|| Nil }, &( "{|| " + Left( cAction, At("(",cAction ) ) + " " + Chr(34) + NewItem + Chr(34) + " ) }" ) )
 
    // Check if this is the first item
@@ -114,7 +114,7 @@ FUNCTION AddMenuElement( NewItem , cAction )
    ELSE
       // Add a new element to the menu
       FOR n := 1 TO Len( aMRU_File ) + 1
-         x := AScan( aMRU_File , {|y| y[5] == n } )
+         x := AScan(aMRU_File , {|y| y[5] == n })
          IF x == 0
             x := n
             EXIT
@@ -204,7 +204,7 @@ FUNCTION _DefineMruItem ( caption , cIniFile , cSection , nMaxItems , action , n
 
          GET cValue SECTION cSection ENTRY hb_ntos( n ) DEFAULT ""
 
-         IF ! Empty( cValue )  // Check if a value was returned
+         IF ! Empty(cValue)  // Check if a value was returned
 
             lExist := .T.
             AAdd( aTmp, cValue )
@@ -225,7 +225,7 @@ FUNCTION _DefineMruItem ( caption , cIniFile , cSection , nMaxItems , action , n
 
    IF lExist
 
-      IF Empty( action )
+      IF Empty(action)
          action := Nil
       ENDIF
 
@@ -248,7 +248,7 @@ FUNCTION ClearMRUList()
    LOCAL n
 
    FOR EACH n IN aMRU_File DESCEND
-      cxMRU_Id := n[ 3 ]
+      cxMRU_Id := n[3]
       IF n:__enumIsLast()
          _ModifyMenuItem( cxMRU_Id , MRUParentForm , " (Empty) " , {|| Nil } )
          SetProperty( MRUParentForm , cxMRU_Id , "Enabled" , .F. )
