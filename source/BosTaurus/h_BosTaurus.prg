@@ -1,4 +1,3 @@
-
 /*----------------------------------------------------------------------------
  BOS TAURUS - Graphic Library for HMG
 
@@ -30,10 +29,9 @@
  BOS TAURUS library code into it.
 ----------------------------------------------------------------------------*/
 
-
 *******************************************************************************
 * ARCHIVO:  h_BosTaurus.prg
-* LENGUAJE: HMG 
+* LENGUAJE: HMG
 * FECHA:    Setiembre 2012
 * AUTOR:    Dr. CLAUDIO SOTO
 * PAIS:     URUGUAY
@@ -41,79 +39,68 @@
 * BLOG:     http://srvet.blogspot.com
 *******************************************************************************
 
-
 #include "hmg.ch"
 #include "i_winuser.ch"
-
 
 // **********************************************************************************************************************************
 // INTERNAL Functions PRG
 // **********************************************************************************************************************************
 
+FUNCTION bt_WinHandle(Win)
 
-FUNCTION bt_WinHandle ( Win )
-
-   LOCAL hWnd := IF ( ValType(Win) == "N", Win, GetFormHandle( Win ) )
+   LOCAL hWnd := IIF(ValType(Win) == "N", Win, GetFormHandle(Win))
 
 RETURN hWnd
 
+FUNCTION bt_FillRectIsNIL(Row, Col, Width, Height, Row_value, Col_value, Width_value, Height_value)
 
-FUNCTION bt_FillRectIsNIL ( Row, Col, Width, Height, Row_value, Col_value, Width_value, Height_value )
-
-   Row := IF ( ValType(Row) == "U", Row_value, Row )
-   Col := IF ( ValType(Col) == "U", Col_value, Col )
-   Width := IF ( ValType(Width) == "U", Width_value, Width )
-   Height := IF ( ValType(Height) == "U", Height_value, Height )
-
-RETURN NIL
-
-
-FUNCTION bt_AdjustWidthHeightRect ( Row, Col, Width, Height, Max_Width, Max_Height )
-
-   Width := IF ( ( Col + Width > Max_Width ), ( Max_Width - Col ), Width )
-   Height := IF ( ( Row + Height > Max_Height ), ( Max_Height - Row ), Height )
+   Row := IIF(ValType(Row) == "U", Row_value, Row)
+   Col := IIF(ValType(Col) == "U", Col_value, Col)
+   Width := IIF(ValType(Width) == "U", Width_value, Width)
+   Height := IIF(ValType(Height) == "U", Height_value, Height)
 
 RETURN NIL
 
+FUNCTION bt_AdjustWidthHeightRect(Row, Col, Width, Height, Max_Width, Max_Height)
 
-FUNCTION bt_ListCalledFunctions ( nActivation )
+   Width := IIF((Col + Width > Max_Width), (Max_Width - Col), Width)
+   Height := IIF((Row + Height > Max_Height), (Max_Height - Row), Height)
+
+RETURN NIL
+
+FUNCTION bt_ListCalledFunctions(nActivation)
 
    LOCAL cMsg := ""
 
-   nActivation := IF ( ValType(nActivation) <> "N", 1, nActivation )
-   DO WHILE .NOT. ( ProcName( nActivation ) == "" )
-      cMsg := cMsg + "Called from:" + ProcName( nActivation ) + "(" + LTrim( Str( ProcLine( nActivation ) ) ) + ")" + CRLF
+   nActivation := IIF(ValType(nActivation) <> "N", 1, nActivation)
+   DO WHILE .NOT. (ProcName(nActivation) == "")
+      cMsg := cMsg + "Called from:" + ProcName(nActivation) + "(" + LTrim(Str(ProcLine(nActivation))) + ")" + CRLF
       nActivation++
    ENDDO
 
 RETURN cMsg
 
-
 // **********************************************************************************************************************************
 // * BT INFO
 // **********************************************************************************************************************************
 
-
 FUNCTION BT_InfoName ()
-RETURN ( AllTrim( _BT_INFO_NAME_ ) )
-
+RETURN (AllTrim(_BT_INFO_NAME_))
 
 FUNCTION BT_InfoVersion ()
-RETURN ( AllTrim( Str( _BT_INFO_MAJOR_VERSION_ ) ) + "." + AllTrim( Str( _BT_INFO_MINOR_VERSION_ ) ) + "." + AllTrim( Str( _BT_INFO_PATCHLEVEL_ ) ) )
-
+RETURN (AllTrim(Str(_BT_INFO_MAJOR_VERSION_)) + "." + AllTrim(Str(_BT_INFO_MINOR_VERSION_)) + "." + AllTrim(Str(_BT_INFO_PATCHLEVEL_)))
 
 FUNCTION BT_InfoAuthor ()
-RETURN ( AllTrim( _BT_INFO_AUTHOR_ ) )
-
+RETURN (AllTrim(_BT_INFO_AUTHOR_))
 
 // **********************************************************************************************************************************
 // * Handle DC
 // **********************************************************************************************************************************
 
+FUNCTION BT_CreateDC(Win_or_hBitmap, Type, BTstruct)
 
-FUNCTION BT_CreateDC ( Win_or_hBitmap, Type, BTstruct )
-
-   LOCAL Handle, hDc
+   LOCAL Handle
+   LOCAL hDc
 
    DO CASE
    CASE Type = BT_HDC_DESKTOP
@@ -121,288 +108,269 @@ FUNCTION BT_CreateDC ( Win_or_hBitmap, Type, BTstruct )
    CASE Type = BT_HDC_BITMAP
       Handle := Win_or_hBitmap
    OTHERWISE
-      Handle := bt_WinHandle ( Win_or_hBitmap )
+      Handle := bt_WinHandle(Win_or_hBitmap)
    END CASE
-   BTstruct := BT_DC_CREATE ( Type, Handle )
+   BTstruct := BT_DC_CREATE(Type, Handle)
    hDC := BTstruct[3]
 
 RETURN hDC
 
-
-FUNCTION BT_DeleteDC ( BTstruct )
+FUNCTION BT_DeleteDC(BTstruct)
 
    LOCAL lRet
 
    IF ValType(BTstruct) <> "A"
-      MsgBox ( "Error in call to " + ProcName() + ": The second parameter is not an array" + CRLF + bt_ListCalledFunctions( 2 ), "BT Fatal Error" )
+      MsgBox("Error in call to " + ProcName() + ": The second parameter is not an array" + CRLF + bt_ListCalledFunctions(2), "BT Fatal Error")
       RELEASE WINDOW ALL
-   ELSEIF Len( BTstruct ) <> 50
-      MsgBox ( "Error in call to " + ProcName() + ": The second parameter is an corrupted array " + CRLF + bt_ListCalledFunctions( 2 ), "BT Fatal Error" )
+   ELSEIF Len(BTstruct) <> 50
+      MsgBox("Error in call to " + ProcName() + ": The second parameter is an corrupted array " + CRLF + bt_ListCalledFunctions(2), "BT Fatal Error")
       RELEASE WINDOW ALL
    ENDIF
-   lRet := BT_DC_DELETE ( BTstruct )
+   lRet := BT_DC_DELETE(BTstruct)
 
 RETURN lRet
-
 
 // **********************************************************************************************************************************
 // DRAW Functions
 // **********************************************************************************************************************************
 
-
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-FUNCTION BT_DrawGetPixel ( hDC, Row, Col )
+FUNCTION BT_DrawGetPixel(hDC, Row, Col)
 
    LOCAL aRGBcolor
 
-   aRGBcolor = BT_DRAW_HDC_PIXEL ( hDC, Col, Row, BT_HDC_GETPIXEL, 0 )
+   aRGBcolor = BT_DRAW_HDC_PIXEL(hDC, Col, Row, BT_HDC_GETPIXEL, 0)
 
 RETURN aRGBcolor
 
-
-FUNCTION BT_DrawSetPixel ( hDC, Row, Col, aRGBcolor )
+FUNCTION BT_DrawSetPixel(hDC, Row, Col, aRGBcolor)
 
    LOCAL aRGBcolor_Old
 
-   aRGBcolor_Old = BT_DRAW_HDC_PIXEL ( hDC, Col, Row, BT_HDC_SETPIXEL, ArrayRGB_TO_COLORREF( aRGBcolor ) )
+   aRGBcolor_Old = BT_DRAW_HDC_PIXEL(hDC, Col, Row, BT_HDC_SETPIXEL, ArrayRGB_TO_COLORREF(aRGBcolor))
 
 RETURN aRGBcolor_Old
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-FUNCTION BT_DrawBitmap ( hDC, Row, Col, Width, Height, Mode_Stretch, hBitmap )
+FUNCTION BT_DrawBitmap(hDC, Row, Col, Width, Height, Mode_Stretch, hBitmap)
 
-   LOCAL Width2 := BT_BMP_GETINFO ( hBitmap, BT_BITMAP_INFO_WIDTH )
-   LOCAL Height2 := BT_BMP_GETINFO ( hBitmap, BT_BITMAP_INFO_HEIGHT )
+   LOCAL Width2 := BT_BMP_GETINFO(hBitmap, BT_BITMAP_INFO_WIDTH)
+   LOCAL Height2 := BT_BMP_GETINFO(hBitmap, BT_BITMAP_INFO_HEIGHT)
 
-   bt_FillRectIsNIL ( @Row, @Col, @Width, @Height, 0, 0, Width2, Height2 )
-   BT_DRAW_HDC_BITMAP ( hDC, Col, Row, Width, Height, hBitmap, 0, 0, Width2, Height2, Mode_Stretch, BT_BITMAP_OPAQUE, 0 )
-
-RETURN NIL
-
-
-FUNCTION BT_DrawBitmapTransparent ( hDC, Row, Col, Width, Height, Mode_Stretch, hBitmap, aRGBcolor_transp )
-
-   LOCAL ColorRef_Transp := IF ( ValType(aRGBcolor_transp) == "U", BT_BMP_GETINFO( hBitmap, BT_BITMAP_INFO_GETCOLORPIXEL, 0, 0 ), ArrayRGB_TO_COLORREF( aRGBcolor_transp ) )
-   LOCAL Width2 := BT_BMP_GETINFO ( hBitmap, BT_BITMAP_INFO_WIDTH )
-   LOCAL Height2 := BT_BMP_GETINFO ( hBitmap, BT_BITMAP_INFO_HEIGHT )
-
-   bt_FillRectIsNIL ( @Row, @Col, @Width, @Height, 0, 0, Width2, Height2 )
-   BT_DRAW_HDC_BITMAP ( hDC, Col, Row, Width, Height, hBitmap, 0, 0, Width2, Height2, Mode_Stretch, BT_BITMAP_TRANSPARENT, ColorRef_Transp )
+   bt_FillRectIsNIL(@Row, @Col, @Width, @Height, 0, 0, Width2, Height2)
+   BT_DRAW_HDC_BITMAP(hDC, Col, Row, Width, Height, hBitmap, 0, 0, Width2, Height2, Mode_Stretch, BT_BITMAP_OPAQUE, 0)
 
 RETURN NIL
 
+FUNCTION BT_DrawBitmapTransparent(hDC, Row, Col, Width, Height, Mode_Stretch, hBitmap, aRGBcolor_transp)
 
-FUNCTION BT_DrawBitmapAlphaBlend ( hDC, Row, Col, Width, Height, Alpha, Mode_Stretch, hBitmap )
+   LOCAL ColorRef_Transp := IIF(ValType(aRGBcolor_transp) == "U", BT_BMP_GETINFO(hBitmap, BT_BITMAP_INFO_GETCOLORPIXEL, 0, 0), ArrayRGB_TO_COLORREF(aRGBcolor_transp))
+   LOCAL Width2 := BT_BMP_GETINFO(hBitmap, BT_BITMAP_INFO_WIDTH)
+   LOCAL Height2 := BT_BMP_GETINFO(hBitmap, BT_BITMAP_INFO_HEIGHT)
 
-   LOCAL Width2 := BT_BMP_GETINFO ( hBitmap, BT_BITMAP_INFO_WIDTH )
-   LOCAL Height2 := BT_BMP_GETINFO ( hBitmap, BT_BITMAP_INFO_HEIGHT )
-
-   bt_FillRectIsNIL ( @Row, @Col, @Width, @Height, 0, 0, Width2, Height2 )
-   BT_DRAW_HDC_BITMAPALPHABLEND ( hDC, Col, Row, Width, Height, hBitmap, 0, 0, Width2, Height2, Alpha, Mode_Stretch )
-
-RETURN NIL
-
-// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-FUNCTION BT_DrawDCtoDC ( hDC1, Row1, Col1, Width1, Height1, Mode_Stretch, hDC2, Row2, Col2, Width2, Height2 )
-
-   BT_DRAW_HDC_TO_HDC ( hDC1, Col1, Row1, Width1, Height1, hDC2, Col2, Row2, Width2, Height2, Mode_Stretch, BT_HDC_OPAQUE, 0 )
+   bt_FillRectIsNIL(@Row, @Col, @Width, @Height, 0, 0, Width2, Height2)
+   BT_DRAW_HDC_BITMAP(hDC, Col, Row, Width, Height, hBitmap, 0, 0, Width2, Height2, Mode_Stretch, BT_BITMAP_TRANSPARENT, ColorRef_Transp)
 
 RETURN NIL
 
+FUNCTION BT_DrawBitmapAlphaBlend(hDC, Row, Col, Width, Height, Alpha, Mode_Stretch, hBitmap)
 
-FUNCTION BT_DrawDCtoDCTransparent ( hDC1, Row1, Col1, Width1, Height1, Mode_Stretch, hDC2, Row2, Col2, Width2, Height2, aRGBcolor_transp )
+   LOCAL Width2 := BT_BMP_GETINFO(hBitmap, BT_BITMAP_INFO_WIDTH)
+   LOCAL Height2 := BT_BMP_GETINFO(hBitmap, BT_BITMAP_INFO_HEIGHT)
 
-   LOCAL ColorRef_Transp := IF ( ValType(aRGBcolor_transp) == "U", ArrayRGB_TO_COLORREF( BT_DrawGetPixel( hDC2, 0, 0 ) ), ArrayRGB_TO_COLORREF( aRGBcolor_transp ) )
-
-   BT_DRAW_HDC_TO_HDC ( hDC1, Col1, Row1, Width1, Height1, hDC2, Col2, Row2, Width2, Height2, Mode_Stretch, BT_HDC_TRANSPARENT, ColorRef_Transp )
-
-RETURN NIL
-
-
-FUNCTION BT_DrawDCtoDCAlphaBlend ( hDC1, Row1, Col1, Width1, Height1, Alpha, Mode_Stretch, hDC2, Row2, Col2, Width2, Height2 )
-
-   BT_DRAW_HDC_TO_HDC_ALPHABLEND ( hDC1, Col1, Row1, Width1, Height1, hDC2, Col2, Row2, Width2, Height2, Alpha, Mode_Stretch )
+   bt_FillRectIsNIL(@Row, @Col, @Width, @Height, 0, 0, Width2, Height2)
+   BT_DRAW_HDC_BITMAPALPHABLEND(hDC, Col, Row, Width, Height, hBitmap, 0, 0, Width2, Height2, Alpha, Mode_Stretch)
 
 RETURN NIL
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-FUNCTION BT_DrawGradientFillHorizontal ( hDC, Row, Col, Width, Height, aColorRGBstart, aColorRGBend )
+FUNCTION BT_DrawDCtoDC(hDC1, Row1, Col1, Width1, Height1, Mode_Stretch, hDC2, Row2, Col2, Width2, Height2)
 
-   aColorRGBstart := IF ( ValType(aColorRGBstart) == "U", BLACK, aColorRGBstart )
-   aColorRGBend := IF ( ValType(aColorRGBend) == "U", WHITE, aColorRGBend )
-   BT_DRAW_HDC_GRADIENTFILL ( hDC, Col, Row, Width, Height, ArrayRGB_TO_COLORREF( aColorRGBstart ), ArrayRGB_TO_COLORREF( aColorRGBend ), BT_GRADIENTFILL_HORIZONTAL )
+   BT_DRAW_HDC_TO_HDC(hDC1, Col1, Row1, Width1, Height1, hDC2, Col2, Row2, Width2, Height2, Mode_Stretch, BT_HDC_OPAQUE, 0)
 
 RETURN NIL
 
+FUNCTION BT_DrawDCtoDCTransparent(hDC1, Row1, Col1, Width1, Height1, Mode_Stretch, hDC2, Row2, Col2, Width2, Height2, aRGBcolor_transp)
 
-FUNCTION BT_DrawGradientFillVertical ( hDC, Row, Col, Width, Height, aColorRGBstart, aColorRGBend )
+   LOCAL ColorRef_Transp := IIF(ValType(aRGBcolor_transp) == "U", ArrayRGB_TO_COLORREF(BT_DrawGetPixel(hDC2, 0, 0)), ArrayRGB_TO_COLORREF(aRGBcolor_transp))
 
-   aColorRGBstart := IF ( ValType(aColorRGBstart) == "U", WHITE, aColorRGBstart )
-   aColorRGBend := IF ( ValType(aColorRGBend) == "U", BLACK, aColorRGBend )
-   BT_DRAW_HDC_GRADIENTFILL ( hDC, Col, Row, Width, Height, ArrayRGB_TO_COLORREF( aColorRGBstart ), ArrayRGB_TO_COLORREF( aColorRGBend ), BT_GRADIENTFILL_VERTICAL )
+   BT_DRAW_HDC_TO_HDC(hDC1, Col1, Row1, Width1, Height1, hDC2, Col2, Row2, Width2, Height2, Mode_Stretch, BT_HDC_TRANSPARENT, ColorRef_Transp)
+
+RETURN NIL
+
+FUNCTION BT_DrawDCtoDCAlphaBlend(hDC1, Row1, Col1, Width1, Height1, Alpha, Mode_Stretch, hDC2, Row2, Col2, Width2, Height2)
+
+   BT_DRAW_HDC_TO_HDC_ALPHABLEND(hDC1, Col1, Row1, Width1, Height1, hDC2, Col2, Row2, Width2, Height2, Alpha, Mode_Stretch)
 
 RETURN NIL
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-FUNCTION BT_DrawText ( hDC, Row, Col, cText, cFontName, nFontSize, aFontColor, aBackColor, nTypeText, nAlingText, nOrientation )
+FUNCTION BT_DrawGradientFillHorizontal(hDC, Row, Col, Width, Height, aColorRGBstart, aColorRGBend)
 
-   aFontColor := IF ( ValType(aFontColor) == "U", BLACK, aFontColor )
-   aBackColor := IF ( ValType(aBackColor) == "U", WHITE, aBackColor )
-   nTypeText := IF ( ValType(nTypeText) == "U", BT_TEXT_OPAQUE, nTypeText )
-   nAlingText := IF ( ValType(nAlingText) == "U", ( BT_TEXT_LEFT + BT_TEXT_TOP ), nAlingText )
-   nOrientation := IF ( ValType(nOrientation) == "U", BT_TEXT_NORMAL_ORIENTATION, nOrientation )
-   BT_DRAW_HDC_TEXTOUT ( hDC, Col, Row, cText, cFontName, nFontSize, ArrayRGB_TO_COLORREF( aFontColor ), ArrayRGB_TO_COLORREF( aBackColor ), nTypeText, nAlingText, nOrientation )
+   aColorRGBstart := IIF(ValType(aColorRGBstart) == "U", BLACK, aColorRGBstart)
+   aColorRGBend := IIF(ValType(aColorRGBend) == "U", WHITE, aColorRGBend)
+   BT_DRAW_HDC_GRADIENTFILL(hDC, Col, Row, Width, Height, ArrayRGB_TO_COLORREF(aColorRGBstart), ArrayRGB_TO_COLORREF(aColorRGBend), BT_GRADIENTFILL_HORIZONTAL)
 
 RETURN NIL
 
+FUNCTION BT_DrawGradientFillVertical(hDC, Row, Col, Width, Height, aColorRGBstart, aColorRGBend)
 
-FUNCTION BT_DrawTextEx ( hDC, Row, Col, Width, Height, cText, cFontName, nFontSize, aFontColor, aBackColor, nTypeText, nAlingText, nOrientation )
-
-   aFontColor := IF ( ValType(aFontColor) == "U", BLACK, aFontColor )
-   aBackColor := IF ( ValType(aBackColor) == "U", WHITE, aBackColor )
-   nTypeText := IF ( ValType(nTypeText) == "U", BT_TEXT_OPAQUE, nTypeText )
-   nAlingText := IF ( ValType(nAlingText) == "U", ( BT_TEXT_LEFT + BT_TEXT_TOP + BT_TEXT_WORDBREAK + BT_TEXT_NOCLIP ), nAlingText )
-   nOrientation := IF ( ValType(nOrientation) == "U", BT_TEXT_NORMAL_ORIENTATION, nOrientation )
-   BT_DRAW_HDC_DRAWTEXT ( hDC, Col, Row, Width, Height, cText, cFontName, nFontSize, ArrayRGB_TO_COLORREF( aFontColor ), ArrayRGB_TO_COLORREF( aBackColor ), nTypeText, nAlingText, nOrientation )
+   aColorRGBstart := IIF(ValType(aColorRGBstart) == "U", WHITE, aColorRGBstart)
+   aColorRGBend := IIF(ValType(aColorRGBend) == "U", BLACK, aColorRGBend)
+   BT_DRAW_HDC_GRADIENTFILL(hDC, Col, Row, Width, Height, ArrayRGB_TO_COLORREF(aColorRGBstart), ArrayRGB_TO_COLORREF(aColorRGBend), BT_GRADIENTFILL_VERTICAL)
 
 RETURN NIL
 
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-FUNCTION BT_DrawTextSize ( hDC, cText, cFontName, nFontSize, nTypeText )
+FUNCTION BT_DrawText(hDC, Row, Col, cText, cFontName, nFontSize, aFontColor, aBackColor, nTypeText, nAlingText, nOrientation)
 
-   LOCAL aSize := BT_DRAW_HDC_TEXTSIZE ( hDC, cText, cFontName, nFontSize, nTypeText )
+   aFontColor := IIF(ValType(aFontColor) == "U", BLACK, aFontColor)
+   aBackColor := IIF(ValType(aBackColor) == "U", WHITE, aBackColor)
+   nTypeText := IIF(ValType(nTypeText) == "U", BT_TEXT_OPAQUE, nTypeText)
+   nAlingText := IIF(ValType(nAlingText) == "U", (BT_TEXT_LEFT + BT_TEXT_TOP), nAlingText)
+   nOrientation := IIF(ValType(nOrientation) == "U", BT_TEXT_NORMAL_ORIENTATION, nOrientation)
+   BT_DRAW_HDC_TEXTOUT(hDC, Col, Row, cText, cFontName, nFontSize, ArrayRGB_TO_COLORREF(aFontColor), ArrayRGB_TO_COLORREF(aBackColor), nTypeText, nAlingText, nOrientation)
+
+RETURN NIL
+
+FUNCTION BT_DrawTextEx(hDC, Row, Col, Width, Height, cText, cFontName, nFontSize, aFontColor, aBackColor, nTypeText, nAlingText, nOrientation)
+
+   aFontColor := IIF(ValType(aFontColor) == "U", BLACK, aFontColor)
+   aBackColor := IIF(ValType(aBackColor) == "U", WHITE, aBackColor)
+   nTypeText := IIF(ValType(nTypeText) == "U", BT_TEXT_OPAQUE, nTypeText)
+   nAlingText := IIF(ValType(nAlingText) == "U", (BT_TEXT_LEFT + BT_TEXT_TOP + BT_TEXT_WORDBREAK + BT_TEXT_NOCLIP), nAlingText)
+   nOrientation := IIF(ValType(nOrientation) == "U", BT_TEXT_NORMAL_ORIENTATION, nOrientation)
+   BT_DRAW_HDC_DRAWTEXT(hDC, Col, Row, Width, Height, cText, cFontName, nFontSize, ArrayRGB_TO_COLORREF(aFontColor), ArrayRGB_TO_COLORREF(aBackColor), nTypeText, nAlingText, nOrientation)
+
+RETURN NIL
+
+FUNCTION BT_DrawTextSize(hDC, cText, cFontName, nFontSize, nTypeText)
+
+   LOCAL aSize := BT_DRAW_HDC_TEXTSIZE(hDC, cText, cFontName, nFontSize, nTypeText)
 
 RETURN aSize
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-FUNCTION BT_DrawPolyLine ( hDC, aPointY, aPointX, aColorRGBLine, nWidthLine )
+FUNCTION BT_DrawPolyLine(hDC, aPointY, aPointX, aColorRGBLine, nWidthLine)
 
-   nWidthLine := IF ( ValType(nWidthLine) == "U", 1, nWidthLine )
-   BT_DRAW_HDC_POLY ( hDC, aPointX, aPointY, ArrayRGB_TO_COLORREF( aColorRGBLine ), nWidthLine, 0, BT_DRAW_POLYLINE )
-
-RETURN NIL
-
-
-FUNCTION BT_DrawPolygon ( hDC, aPointY, aPointX, aColorRGBLine, nWidthLine, aColorRGBFill )
-
-   nWidthLine := IF ( ValType(nWidthLine) == "U", 1, nWidthLine )
-   BT_DRAW_HDC_POLY ( hDC, aPointX, aPointY, ArrayRGB_TO_COLORREF( aColorRGBLine ), nWidthLine, ArrayRGB_TO_COLORREF( aColorRGBFill ), BT_DRAW_POLYGON )
+   nWidthLine := IIF(ValType(nWidthLine) == "U", 1, nWidthLine)
+   BT_DRAW_HDC_POLY(hDC, aPointX, aPointY, ArrayRGB_TO_COLORREF(aColorRGBLine), nWidthLine, 0, BT_DRAW_POLYLINE)
 
 RETURN NIL
 
+FUNCTION BT_DrawPolygon(hDC, aPointY, aPointX, aColorRGBLine, nWidthLine, aColorRGBFill)
 
-FUNCTION BT_DrawPolyBezier ( hDC, aPointY, aPointX, aColorRGBLine, nWidthLine )
-
-   nWidthLine := IF ( ValType(nWidthLine) == "U", 1, nWidthLine )
-   BT_DRAW_HDC_POLY ( hDC, aPointX, aPointY, ArrayRGB_TO_COLORREF( aColorRGBLine ), nWidthLine, 0, BT_DRAW_POLYBEZIER )
-
-RETURN NIL
-
-
-FUNCTION BT_DrawArc ( hDC, Row1, Col1, Row2, Col2, RowStartArc, ColStartArc, RowEndArc, ColEndArc, aColorRGBLine, nWidthLine )
-
-   nWidthLine := IF ( ValType(nWidthLine) == "U", 1, nWidthLine )
-   BT_DRAW_HDC_ARCX ( hDC, Col1, Row1, Col2, Row2, ColStartArc, RowStartArc, ColEndArc, RowEndArc, ArrayRGB_TO_COLORREF( aColorRGBLine ), nWidthLine, 0, BT_DRAW_ARC )
+   nWidthLine := IIF(ValType(nWidthLine) == "U", 1, nWidthLine)
+   BT_DRAW_HDC_POLY(hDC, aPointX, aPointY, ArrayRGB_TO_COLORREF(aColorRGBLine), nWidthLine, ArrayRGB_TO_COLORREF(aColorRGBFill), BT_DRAW_POLYGON)
 
 RETURN NIL
 
+FUNCTION BT_DrawPolyBezier(hDC, aPointY, aPointX, aColorRGBLine, nWidthLine)
 
-FUNCTION BT_DrawChord ( hDC, Row1, Col1, Row2, Col2, RowStartArc, ColStartArc, RowEndArc, ColEndArc, aColorRGBLine, nWidthLine, aColorRGBFill )
-
-   nWidthLine := IF ( ValType(nWidthLine) == "U", 1, nWidthLine )
-   BT_DRAW_HDC_ARCX ( hDC, Col1, Row1, Col2, Row2, ColStartArc, RowStartArc, ColEndArc, RowEndArc, ArrayRGB_TO_COLORREF( aColorRGBLine ), nWidthLine, ArrayRGB_TO_COLORREF( aColorRGBFill ), BT_DRAW_CHORD )
-
-RETURN NIL
-
-
-FUNCTION BT_DrawPie ( hDC, Row1, Col1, Row2, Col2, RowStartArc, ColStartArc, RowEndArc, ColEndArc, aColorRGBLine, nWidthLine, aColorRGBFill )
-
-   nWidthLine := IF ( ValType(nWidthLine) == "U", 1, nWidthLine )
-   BT_DRAW_HDC_ARCX ( hDC, Col1, Row1, Col2, Row2, ColStartArc, RowStartArc, ColEndArc, RowEndArc, ArrayRGB_TO_COLORREF( aColorRGBLine ), nWidthLine, ArrayRGB_TO_COLORREF( aColorRGBFill ), BT_DRAW_PIE )
+   nWidthLine := IIF(ValType(nWidthLine) == "U", 1, nWidthLine)
+   BT_DRAW_HDC_POLY(hDC, aPointX, aPointY, ArrayRGB_TO_COLORREF(aColorRGBLine), nWidthLine, 0, BT_DRAW_POLYBEZIER)
 
 RETURN NIL
 
+FUNCTION BT_DrawArc(hDC, Row1, Col1, Row2, Col2, RowStartArc, ColStartArc, RowEndArc, ColEndArc, aColorRGBLine, nWidthLine)
 
-FUNCTION BT_DrawLine ( hDC, Row1, Col1, Row2, Col2, aColorRGBLine, nWidthLine )
+   nWidthLine := IIF(ValType(nWidthLine) == "U", 1, nWidthLine)
+   BT_DRAW_HDC_ARCX(hDC, Col1, Row1, Col2, Row2, ColStartArc, RowStartArc, ColEndArc, RowEndArc, ArrayRGB_TO_COLORREF(aColorRGBLine), nWidthLine, 0, BT_DRAW_ARC)
+
+RETURN NIL
+
+FUNCTION BT_DrawChord(hDC, Row1, Col1, Row2, Col2, RowStartArc, ColStartArc, RowEndArc, ColEndArc, aColorRGBLine, nWidthLine, aColorRGBFill)
+
+   nWidthLine := IIF(ValType(nWidthLine) == "U", 1, nWidthLine)
+   BT_DRAW_HDC_ARCX(hDC, Col1, Row1, Col2, Row2, ColStartArc, RowStartArc, ColEndArc, RowEndArc, ArrayRGB_TO_COLORREF(aColorRGBLine), nWidthLine, ArrayRGB_TO_COLORREF(aColorRGBFill), BT_DRAW_CHORD)
+
+RETURN NIL
+
+FUNCTION BT_DrawPie(hDC, Row1, Col1, Row2, Col2, RowStartArc, ColStartArc, RowEndArc, ColEndArc, aColorRGBLine, nWidthLine, aColorRGBFill)
+
+   nWidthLine := IIF(ValType(nWidthLine) == "U", 1, nWidthLine)
+   BT_DRAW_HDC_ARCX(hDC, Col1, Row1, Col2, Row2, ColStartArc, RowStartArc, ColEndArc, RowEndArc, ArrayRGB_TO_COLORREF(aColorRGBLine), nWidthLine, ArrayRGB_TO_COLORREF(aColorRGBFill), BT_DRAW_PIE)
+
+RETURN NIL
+
+FUNCTION BT_DrawLine(hDC, Row1, Col1, Row2, Col2, aColorRGBLine, nWidthLine)
 
    LOCAL aPointX := { Col1, Col2 }
    LOCAL aPointY := { Row1, Row2 }
 
-   nWidthLine := IF ( ValType(nWidthLine) == "U", 1, nWidthLine )
-   BT_DrawPolyLine ( hDC, aPointY, aPointX, aColorRGBLine, nWidthLine )
+   nWidthLine := IIF(ValType(nWidthLine) == "U", 1, nWidthLine)
+   BT_DrawPolyLine(hDC, aPointY, aPointX, aColorRGBLine, nWidthLine)
 
 RETURN NIL
 
+FUNCTION BT_DrawRectangle(hDC, Row, Col, Width, Height, aColorRGBLine, nWidthLine)
 
-FUNCTION BT_DrawRectangle ( hDC, Row, Col, Width, Height, aColorRGBLine, nWidthLine )
-
-   LOCAL aPointX := Array( 5 )
-   LOCAL aPointY := Array( 5 )
+   LOCAL aPointX := Array(5)
+   LOCAL aPointY := Array(5)
 
    aPointX[1] := Col ;          aPointY[1] := Row
-   aPointX[2] := Col + Width ;    aPointY[2] := Row
-   aPointX[3] := Col + Width ;    aPointY[3] := Row + Height
+   aPointX[2] := Col + Width ;  aPointY[2] := Row
+   aPointX[3] := Col + Width ;  aPointY[3] := Row + Height
    aPointX[4] := Col ;          aPointY[4] := Row + Height
    aPointX[5] := Col ;          aPointY[5] := Row
-   nWidthLine := IF ( ValType(nWidthLine) == "U", 1, nWidthLine )
-   BT_DrawPolyLine ( hDC, aPointY, aPointX, aColorRGBLine, nWidthLine )
+   nWidthLine := IIF(ValType(nWidthLine) == "U", 1, nWidthLine)
+   BT_DrawPolyLine(hDC, aPointY, aPointX, aColorRGBLine, nWidthLine)
 
 RETURN NIL
 
+FUNCTION BT_DrawEllipse(hDC, Row1, Col1, Width, Height, aColorRGBLine, nWidthLine)
 
-FUNCTION BT_DrawEllipse ( hDC, Row1, Col1, Width, Height, aColorRGBLine, nWidthLine )
-
-   LOCAL ColStartArc, ColEndArc
-   LOCAL RowStartArc, RowEndArc
-   LOCAL Col2, Row2
+   LOCAL ColStartArc
+   LOCAL ColEndArc
+   LOCAL RowStartArc
+   LOCAL RowEndArc
+   LOCAL Col2
+   LOCAL Row2
 
    Col2 := Col1 + Width
    Row2 := Row1 + Height
    ColStartArc := ColEndArc := Col1
    RowStartArc := RowEndArc := Row1
-   nWidthLine := IF ( ValType(nWidthLine) == "U", 1, nWidthLine )
-   BT_DrawArc ( hDC, Row1, Col1, Row2, Col2, RowStartArc, ColStartArc, RowEndArc, ColEndArc, aColorRGBLine, nWidthLine )
+   nWidthLine := IIF(ValType(nWidthLine) == "U", 1, nWidthLine)
+   BT_DrawArc(hDC, Row1, Col1, Row2, Col2, RowStartArc, ColStartArc, RowEndArc, ColEndArc, aColorRGBLine, nWidthLine)
 
 RETURN NIL
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-FUNCTION BT_DrawFillRectangle ( hDC, Row, Col, Width, Height, aColorRGBFill, aColorRGBLine, nWidthLine )
+FUNCTION BT_DrawFillRectangle(hDC, Row, Col, Width, Height, aColorRGBFill, aColorRGBLine, nWidthLine)
 
-   aColorRGBLine := IF ( ValType(nWidthLine) == "U", aColorRGBFill, aColorRGBLine )
-   nWidthLine := IF ( ValType(nWidthLine) == "U", 1, nWidthLine )
-   BT_DRAW_HDC_FILLEDOBJECT ( hDC, Col, Row, Width, Height, ArrayRGB_TO_COLORREF( aColorRGBFill ), ArrayRGB_TO_COLORREF( aColorRGBLine ), nWidthLine, BT_FILLRECTANGLE, 0, 0 )
-
-RETURN NIL
-
-
-FUNCTION BT_DrawFillEllipse ( hDC, Row, Col, Width, Height, aColorRGBFill, aColorRGBLine, nWidthLine )
-
-   aColorRGBLine := IF ( ValType(nWidthLine) == "U", aColorRGBFill, aColorRGBLine )
-   nWidthLine := IF ( ValType(nWidthLine) == "U", 1, nWidthLine )
-   BT_DRAW_HDC_FILLEDOBJECT ( hDC, Col, Row, Width, Height, ArrayRGB_TO_COLORREF( aColorRGBFill ), ArrayRGB_TO_COLORREF( aColorRGBLine ), nWidthLine, BT_FILLELLIPSE, 0, 0 )
+   aColorRGBLine := IIF(ValType(nWidthLine) == "U", aColorRGBFill, aColorRGBLine)
+   nWidthLine := IIF(ValType(nWidthLine) == "U", 1, nWidthLine)
+   BT_DRAW_HDC_FILLEDOBJECT(hDC, Col, Row, Width, Height, ArrayRGB_TO_COLORREF(aColorRGBFill), ArrayRGB_TO_COLORREF(aColorRGBLine), nWidthLine, BT_FILLRECTANGLE, 0, 0)
 
 RETURN NIL
 
+FUNCTION BT_DrawFillEllipse(hDC, Row, Col, Width, Height, aColorRGBFill, aColorRGBLine, nWidthLine)
 
-FUNCTION BT_DrawFillRoundRect ( hDC, Row, Col, Width, Height, RoundWidth, RoundHeight, aColorRGBFill, aColorRGBLine, nWidthLine )
-
-   aColorRGBLine := IF ( ValType(nWidthLine) == "U", aColorRGBFill, aColorRGBLine )
-   nWidthLine := IF ( ValType(nWidthLine) == "U", 1, nWidthLine )
-   BT_DRAW_HDC_FILLEDOBJECT ( hDC, Col, Row, Width, Height, ArrayRGB_TO_COLORREF( aColorRGBFill ), ArrayRGB_TO_COLORREF( aColorRGBLine ), nWidthLine, BT_FILLROUNDRECT, RoundWidth, RoundHeight )
+   aColorRGBLine := IIF(ValType(nWidthLine) == "U", aColorRGBFill, aColorRGBLine)
+   nWidthLine := IIF(ValType(nWidthLine) == "U", 1, nWidthLine)
+   BT_DRAW_HDC_FILLEDOBJECT(hDC, Col, Row, Width, Height, ArrayRGB_TO_COLORREF(aColorRGBFill), ArrayRGB_TO_COLORREF(aColorRGBLine), nWidthLine, BT_FILLELLIPSE, 0, 0)
 
 RETURN NIL
 
+FUNCTION BT_DrawFillRoundRect(hDC, Row, Col, Width, Height, RoundWidth, RoundHeight, aColorRGBFill, aColorRGBLine, nWidthLine)
 
-FUNCTION BT_DrawFillFlood ( hDC, Row, Col, aColorRGBFill )
+   aColorRGBLine := IIF(ValType(nWidthLine) == "U", aColorRGBFill, aColorRGBLine)
+   nWidthLine := IIF(ValType(nWidthLine) == "U", 1, nWidthLine)
+   BT_DRAW_HDC_FILLEDOBJECT(hDC, Col, Row, Width, Height, ArrayRGB_TO_COLORREF(aColorRGBFill), ArrayRGB_TO_COLORREF(aColorRGBLine), nWidthLine, BT_FILLROUNDRECT, RoundWidth, RoundHeight)
 
-   BT_DRAW_HDC_FILLEDOBJECT ( hDC, Col, Row, NIL, NIL, ArrayRGB_TO_COLORREF( aColorRGBFill ), NIL, NIL, BT_FILLFLOOD, NIL, NIL )
+RETURN NIL
+
+FUNCTION BT_DrawFillFlood(hDC, Row, Col, aColorRGBFill)
+
+   BT_DRAW_HDC_FILLEDOBJECT(hDC, Col, Row, NIL, NIL, ArrayRGB_TO_COLORREF(aColorRGBFill), NIL, NIL, BT_FILLFLOOD, NIL, NIL)
 
 RETURN NIL
 
@@ -411,56 +379,51 @@ RETURN NIL
 FUNCTION BT_GetDesktopHandle ()
 RETURN BT_SCR_GETDESKTOPHANDLE ()
 
-
 FUNCTION BT_DesktopWidth()
 
-   LOCAL Width := BT_SCR_GETINFO ( 0, BT_SCR_DESKTOP, BT_SCR_INFO_WIDTH )
+   LOCAL Width := BT_SCR_GETINFO(0, BT_SCR_DESKTOP, BT_SCR_INFO_WIDTH)
 
 RETURN Width
-
 
 FUNCTION BT_DesktopHeight()
 
-   LOCAL Height := BT_SCR_GETINFO ( 0, BT_SCR_DESKTOP, BT_SCR_INFO_HEIGHT )
+   LOCAL Height := BT_SCR_GETINFO(0, BT_SCR_DESKTOP, BT_SCR_INFO_HEIGHT)
 
 RETURN Height
-
 
 FUNCTION BT_WindowWidth(Win)
 
-   LOCAL Width := BT_SCR_GETINFO ( bt_WinHandle( Win ), BT_SCR_WINDOW, BT_SCR_INFO_WIDTH )
+   LOCAL Width := BT_SCR_GETINFO(bt_WinHandle(Win), BT_SCR_WINDOW, BT_SCR_INFO_WIDTH)
 
 RETURN Width
-
 
 FUNCTION BT_WindowHeight(Win)
 
-   LOCAL Height := BT_SCR_GETINFO ( bt_WinHandle( Win ), BT_SCR_WINDOW, BT_SCR_INFO_HEIGHT )
+   LOCAL Height := BT_SCR_GETINFO(bt_WinHandle(Win), BT_SCR_WINDOW, BT_SCR_INFO_HEIGHT)
 
 RETURN Height
 
-
 FUNCTION BT_ClientAreaWidth(Win)
 
-   LOCAL Width := BT_SCR_GETINFO ( bt_WinHandle( Win ), BT_SCR_CLIENTAREA, BT_SCR_INFO_WIDTH )
+   LOCAL Width := BT_SCR_GETINFO(bt_WinHandle(Win), BT_SCR_CLIENTAREA, BT_SCR_INFO_WIDTH)
 
 RETURN Width
 
-
 FUNCTION BT_ClientAreaHeight(Win)
 
-   LOCAL Height := BT_SCR_GETINFO ( bt_WinHandle( Win ), BT_SCR_CLIENTAREA, BT_SCR_INFO_HEIGHT )
+   LOCAL Height := BT_SCR_GETINFO(bt_WinHandle(Win), BT_SCR_CLIENTAREA, BT_SCR_INFO_HEIGHT)
 
 RETURN Height
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-FUNCTION bt_StatusBarHandle ( Win )
+FUNCTION bt_StatusBarHandle(Win)
 
-   LOCAL hWnd := bt_WinHandle ( Win )
-   LOCAL k, hWndStatusBar := 0
+   LOCAL hWnd := bt_WinHandle(Win)
+   LOCAL k
+   LOCAL hWndStatusBar := 0
 
-   FOR k := 1 TO Len( _HMG_aControlType )
+   FOR k := 1 TO Len(_HMG_aControlType)
       IF _HMG_aControlType[k] == CONTROL_TYPE_MESSAGEBAR .AND. _HMG_aControlParenthandles[k] == hWnd
          hWndStatusBar := _HMG_aControlHandles[k]
       ENDIF
@@ -468,165 +431,156 @@ FUNCTION bt_StatusBarHandle ( Win )
 
 RETURN hWndStatusBar
 
-
 FUNCTION BT_StatusBarWidth(Win)
 
-   LOCAL hWnd := bt_StatusBarHandle ( Win )
+   LOCAL hWnd := bt_StatusBarHandle(Win)
    LOCAL Width := 0
 
    IF hWnd <> 0
-      Width := BT_SCR_GETINFO ( hWnd, BT_SCR_WINDOW, BT_SCR_INFO_WIDTH )
+      Width := BT_SCR_GETINFO(hWnd, BT_SCR_WINDOW, BT_SCR_INFO_WIDTH)
    ENDIF
 
 RETURN Width
 
-
 FUNCTION BT_StatusBarHeight(Win)
 
-   LOCAL hWnd := bt_StatusBarHandle ( Win )
+   LOCAL hWnd := bt_StatusBarHandle(Win)
    LOCAL Height := 0
 
    IF hWnd > 0
-      Height := BT_SCR_GETINFO ( hWnd, BT_SCR_WINDOW, BT_SCR_INFO_HEIGHT )
+      Height := BT_SCR_GETINFO(hWnd, BT_SCR_WINDOW, BT_SCR_INFO_HEIGHT)
    ENDIF
 
 RETURN Height
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-FUNCTION bt_ToolBarBottomHandle ( Win )
+FUNCTION bt_ToolBarBottomHandle(Win)
 
-   LOCAL hWnd := bt_WinHandle ( Win )
-   LOCAL k, hWndToolBar := 0
+   LOCAL hWnd := bt_WinHandle(Win)
+   LOCAL k
+   LOCAL hWndToolBar := 0
 
-   FOR k := 1 TO Len( _HMG_aControlType )
-      IF _HMG_aControlType[k] == CONTROL_TYPE_TOOLBAR .AND. _HMG_aControlParenthandles[k] == hWnd .AND. And( GetWindowLong( _HMG_aControlHandles[k], GWL_STYLE ), CCS_BOTTOM ) == CCS_BOTTOM
+   FOR k := 1 TO Len(_HMG_aControlType)
+      IF _HMG_aControlType[k] == CONTROL_TYPE_TOOLBAR .AND. _HMG_aControlParenthandles[k] == hWnd .AND. And(GetWindowLong(_HMG_aControlHandles[k], GWL_STYLE), CCS_BOTTOM) == CCS_BOTTOM
          hWndToolBar := _HMG_aControlHandles[k]
       ENDIF
    NEXT
 
 RETURN hWndToolBar
-
 
 FUNCTION BT_ToolBarBottomHeight(Win)
 
-   LOCAL hWnd := bt_ToolBarBottomHandle ( bt_WinHandle ( Win ) )
+   LOCAL hWnd := bt_ToolBarBottomHandle(bt_WinHandle(Win))
    LOCAL nHeight := 0
 
    IF hWnd <> 0
-      nHeight := BT_SCR_GETINFO ( hWnd, BT_SCR_WINDOW, BT_SCR_INFO_HEIGHT )
+      nHeight := BT_SCR_GETINFO(hWnd, BT_SCR_WINDOW, BT_SCR_INFO_HEIGHT)
    ENDIF
 
 RETURN nHeight
 
-
 FUNCTION BT_ToolBarBottomWidth(Win)
 
-   LOCAL hWnd := bt_ToolBarBottomHandle ( bt_WinHandle ( Win ) )
+   LOCAL hWnd := bt_ToolBarBottomHandle(bt_WinHandle(Win))
    LOCAL nWidth := 0
 
    IF hWnd <> 0
-      nWidth := BT_SCR_GETINFO ( hWnd, BT_SCR_WINDOW, BT_SCR_INFO_WIDTH )
+      nWidth := BT_SCR_GETINFO(hWnd, BT_SCR_WINDOW, BT_SCR_INFO_WIDTH)
    ENDIF
 
 RETURN nWidth
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-FUNCTION bt_ToolBarTopHandle ( Win )
+FUNCTION bt_ToolBarTopHandle(Win)
 
-   LOCAL hWnd := bt_WinHandle ( Win )
-   LOCAL k, hWndToolBar := 0
+   LOCAL hWnd := bt_WinHandle(Win)
+   LOCAL k
+   LOCAL hWndToolBar := 0
 
-   FOR k := 1 TO Len( _HMG_aControlType )
-      IF _HMG_aControlType[k] == CONTROL_TYPE_TOOLBAR .AND. _HMG_aControlParenthandles[k] == hWnd .AND. And( GetWindowLong( _HMG_aControlHandles[k], GWL_STYLE ), CCS_BOTTOM ) != CCS_BOTTOM
+   FOR k := 1 TO Len(_HMG_aControlType)
+      IF _HMG_aControlType[k] == CONTROL_TYPE_TOOLBAR .AND. _HMG_aControlParenthandles[k] == hWnd .AND. And(GetWindowLong(_HMG_aControlHandles[k], GWL_STYLE), CCS_BOTTOM) != CCS_BOTTOM
          hWndToolBar := _HMG_aControlHandles[k]
       ENDIF
    NEXT
 
 RETURN hWndToolBar
 
-
 FUNCTION BT_ToolBarTopHeight(Win)
 
-   LOCAL hWnd := bt_ToolBarTopHandle ( bt_WinHandle ( Win ) )
+   LOCAL hWnd := bt_ToolBarTopHandle(bt_WinHandle(Win))
    LOCAL nHeight := 0
 
    IF hWnd <> 0
-      nHeight := BT_SCR_GETINFO ( hWnd, BT_SCR_WINDOW, BT_SCR_INFO_HEIGHT )
+      nHeight := BT_SCR_GETINFO(hWnd, BT_SCR_WINDOW, BT_SCR_INFO_HEIGHT)
    ENDIF
 
 RETURN nHeight
 
-
 FUNCTION BT_ToolBarTopWidth(Win)
 
-   LOCAL hWnd := bt_ToolBarTopHandle ( bt_WinHandle ( Win ) )
+   LOCAL hWnd := bt_ToolBarTopHandle(bt_WinHandle(Win))
    LOCAL nWidth := 0
 
    IF hWnd <> 0
-      nWidth := BT_SCR_GETINFO ( hWnd, BT_SCR_WINDOW, BT_SCR_INFO_WIDTH )
+      nWidth := BT_SCR_GETINFO(hWnd, BT_SCR_WINDOW, BT_SCR_INFO_WIDTH)
    ENDIF
 
 RETURN nWidth
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-FUNCTION BT_ClientAreaInvalidateAll ( Win, lErase )
+FUNCTION BT_ClientAreaInvalidateAll(Win, lErase)
 
-   lErase = IF ( ValType(lErase) == "U", .F., lErase )
-   BT_SCR_INVALIDATERECT ( bt_WinHandle( Win ), NIL, lErase )
-
-RETURN NIL
-
-
-FUNCTION BT_ClientAreaInvalidateRect ( Win, Row, Col, Width, Height, lErase )
-
-   lErase = IF ( ValType(lErase) == "U", .F., lErase )
-   bt_FillRectIsNIL ( @Row, @Col, @Width, @Height, 0, 0, BT_ClientAreaWidth(Win), BT_ClientAreaHeight(Win) )
-   BT_SCR_INVALIDATERECT ( bt_WinHandle( Win ), { Col, Row, Col + Width, Row + Height }, lErase )
+   lErase = IIF(ValType(lErase) == "U", .F., lErase)
+   BT_SCR_INVALIDATERECT(bt_WinHandle(Win), NIL, lErase)
 
 RETURN NIL
 
+FUNCTION BT_ClientAreaInvalidateRect(Win, Row, Col, Width, Height, lErase)
+
+   lErase = IIF(ValType(lErase) == "U", .F., lErase)
+   bt_FillRectIsNIL(@Row, @Col, @Width, @Height, 0, 0, BT_ClientAreaWidth(Win), BT_ClientAreaHeight(Win))
+   BT_SCR_INVALIDATERECT(bt_WinHandle(Win), {Col, Row, Col + Width, Row + Height}, lErase)
+
+RETURN NIL
 
 // **********************************************************************************************************************************
 // BITMAP  Functions
 // **********************************************************************************************************************************
 
-
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-FUNCTION BT_BitmapLoadFile ( cFileName )
+FUNCTION BT_BitmapLoadFile(cFileName)
 
-   LOCAL hBitmap := BT_BMP_LOADFILE ( cFileName )
+   LOCAL hBitmap := BT_BMP_LOADFILE(cFileName)
 
 RETURN hBitmap
 
-
-FUNCTION BT_BitmapSaveFile ( hBitmap, cFileName, nTypePicture )
+FUNCTION BT_BitmapSaveFile(hBitmap, cFileName, nTypePicture)
 
    LOCAL lRet
 
-   nTypePicture := IF ( ValType(nTypePicture) == "U", BT_FILEFORMAT_BMP, nTypePicture )
-   lRet := BT_BMP_SAVEFILE ( hBitmap, cFileName, nTypePicture )
+   nTypePicture := IIF(ValType(nTypePicture) == "U", BT_FILEFORMAT_BMP, nTypePicture)
+   lRet := BT_BMP_SAVEFILE(hBitmap, cFileName, nTypePicture)
 
 RETURN lRet
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-FUNCTION BT_BitmapCreateNew ( Width, Height, aRGBcolor_Fill_Bk )
+FUNCTION BT_BitmapCreateNew(Width, Height, aRGBcolor_Fill_Bk)
 
    LOCAL New_hBitmap
 
-   aRGBcolor_Fill_Bk := IF ( ValType(aRGBColor_Fill_Bk) == "U", BLACK, aRGBcolor_Fill_Bk )
-   New_hBitmap := BT_BMP_CREATE ( Width, Height, ArrayRGB_TO_COLORREF( aRGBColor_Fill_Bk ) )
+   aRGBcolor_Fill_Bk := IIF(ValType(aRGBColor_Fill_Bk) == "U", BLACK, aRGBcolor_Fill_Bk)
+   New_hBitmap := BT_BMP_CREATE(Width, Height, ArrayRGB_TO_COLORREF(aRGBColor_Fill_Bk))
 
 RETURN New_hBitmap
 
+FUNCTION BT_BitmapRelease(hBitmap)
 
-FUNCTION BT_BitmapRelease ( hBitmap )
-
-   BT_BMP_RELEASE ( hBitmap )
+   BT_BMP_RELEASE(hBitmap)
 
 RETURN NIL
 
@@ -634,207 +588,196 @@ RETURN NIL
 
 FUNCTION BT_BitmapWidth(hBitmap)
 
-   LOCAL Width := BT_BMP_GETINFO ( hBitmap, BT_BITMAP_INFO_WIDTH )
+   LOCAL Width := BT_BMP_GETINFO(hBitmap, BT_BITMAP_INFO_WIDTH)
 
 RETURN Width
 
-
 FUNCTION BT_BitmapHeight(hBitmap)
 
-   LOCAL Height := BT_BMP_GETINFO ( hBitmap, BT_BITMAP_INFO_HEIGHT )
+   LOCAL Height := BT_BMP_GETINFO(hBitmap, BT_BITMAP_INFO_HEIGHT)
 
 RETURN Height
 
+FUNCTION BT_BitmapBitsPerPixel(hBitmap)
 
-FUNCTION BT_BitmapBitsPerPixel ( hBitmap )
-
-   LOCAL BitsPixel := BT_BMP_GETINFO ( hBitmap, BT_BITMAP_INFO_BITSPIXEL )
+   LOCAL BitsPixel := BT_BMP_GETINFO(hBitmap, BT_BITMAP_INFO_BITSPIXEL)
 
 RETURN BitsPixel
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-FUNCTION BT_BitmapInvert ( hBitmap )
+FUNCTION BT_BitmapInvert(hBitmap)
 
-   BT_BMP_PROCESS ( hBitmap, BT_BMP_PROCESS_INVERT )
-
-RETURN NIL
-
-FUNCTION BT_BitmapGrayness ( hBitmap, Gray_Level )
-
-   BT_BMP_PROCESS ( hBitmap, BT_BMP_PROCESS_GRAYNESS, Gray_Level )
+   BT_BMP_PROCESS(hBitmap, BT_BMP_PROCESS_INVERT)
 
 RETURN NIL
 
-FUNCTION BT_BitmapBrightness ( hBitmap, Light_Level )
+FUNCTION BT_BitmapGrayness(hBitmap, Gray_Level)
 
-   BT_BMP_PROCESS ( hBitmap, BT_BMP_PROCESS_BRIGHTNESS, Light_Level )
-
-RETURN NIL
-
-FUNCTION BT_BitmapContrast ( hBitmap, ContrastAngle )
-
-   BT_BMP_PROCESS ( hBitmap, BT_BMP_PROCESS_CONTRAST, ContrastAngle )
+   BT_BMP_PROCESS(hBitmap, BT_BMP_PROCESS_GRAYNESS, Gray_Level)
 
 RETURN NIL
 
-FUNCTION BT_BitmapModifyColor ( hBitmap, RedLevel, GreenLevel, BlueLevel )
+FUNCTION BT_BitmapBrightness(hBitmap, Light_Level)
 
-   BT_BMP_PROCESS ( hBitmap, BT_BMP_PROCESS_MODIFYCOLOR, { RedLevel, GreenLevel, BlueLevel } )
-
-RETURN NIL
-
-FUNCTION BT_BitmapGammaCorrect ( hBitmap, RedGamma, GreenGamma, BlueGamma )
-
-   BT_BMP_PROCESS ( hBitmap, BT_BMP_PROCESS_GAMMACORRECT, { RedGamma, GreenGamma, BlueGamma } )
+   BT_BMP_PROCESS(hBitmap, BT_BMP_PROCESS_BRIGHTNESS, Light_Level)
 
 RETURN NIL
 
-FUNCTION BT_BitmapConvolutionFilter3x3 ( hBitmap, aFilter )
+FUNCTION BT_BitmapContrast(hBitmap, ContrastAngle)
 
-   BT_BMP_FILTER3x3 ( hBitmap, aFilter )
+   BT_BMP_PROCESS(hBitmap, BT_BMP_PROCESS_CONTRAST, ContrastAngle)
 
 RETURN NIL
 
-FUNCTION BT_BitmapTransform ( hBitmap, Mode, Angle, aRGBColor_Fill_Bk )
+FUNCTION BT_BitmapModifyColor(hBitmap, RedLevel, GreenLevel, BlueLevel)
+
+   BT_BMP_PROCESS(hBitmap, BT_BMP_PROCESS_MODIFYCOLOR, {RedLevel, GreenLevel, BlueLevel})
+
+RETURN NIL
+
+FUNCTION BT_BitmapGammaCorrect(hBitmap, RedGamma, GreenGamma, BlueGamma)
+
+   BT_BMP_PROCESS(hBitmap, BT_BMP_PROCESS_GAMMACORRECT, {RedGamma, GreenGamma, BlueGamma})
+
+RETURN NIL
+
+FUNCTION BT_BitmapConvolutionFilter3x3(hBitmap, aFilter)
+
+   BT_BMP_FILTER3x3(hBitmap, aFilter)
+
+RETURN NIL
+
+FUNCTION BT_BitmapTransform(hBitmap, Mode, Angle, aRGBColor_Fill_Bk)
 
    LOCAL New_hBitmap
-   LOCAL ColorRef_Fill_Bk := IF ( ValType(aRGBColor_Fill_Bk) == "U", BT_BMP_GETINFO( hBitmap, BT_BITMAP_INFO_GETCOLORPIXEL, 0, 0 ), ArrayRGB_TO_COLORREF( aRGBColor_Fill_Bk ) )
+   LOCAL ColorRef_Fill_Bk := IIF(ValType(aRGBColor_Fill_Bk) == "U", BT_BMP_GETINFO(hBitmap, BT_BITMAP_INFO_GETCOLORPIXEL, 0, 0), ArrayRGB_TO_COLORREF(aRGBColor_Fill_Bk))
 
-   New_hBitmap := BT_BMP_TRANSFORM ( hBitmap, Mode, Angle, ColorRef_Fill_Bk )
+   New_hBitmap := BT_BMP_TRANSFORM(hBitmap, Mode, Angle, ColorRef_Fill_Bk)
 
 RETURN New_hBitmap
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-FUNCTION BT_BitmapClone ( hBitmap, Row, Col, Width, Height )
+FUNCTION BT_BitmapClone(hBitmap, Row, Col, Width, Height)
 
    LOCAL New_hBitmap
    LOCAL Max_Width := BT_BitmapWidth(hBitmap)
    LOCAL Max_Height := BT_BitmapHeight(hBitmap)
 
-   bt_FillRectIsNIL ( @Row, @Col, @Width, @Height, 0, 0, Max_Width, Max_Height )
-   bt_AdjustWidthHeightRect ( Row, Col, @Width, @Height, Max_Width, Max_Height )
-   New_hBitmap := BT_BMP_CLONE ( hBitmap, Col, Row, Width, Height )
+   bt_FillRectIsNIL(@Row, @Col, @Width, @Height, 0, 0, Max_Width, Max_Height)
+   bt_AdjustWidthHeightRect(Row, Col, @Width, @Height, Max_Width, Max_Height)
+   New_hBitmap := BT_BMP_CLONE(hBitmap, Col, Row, Width, Height)
 
 RETURN New_hBitmap
 
-
-FUNCTION BT_BitmapCopyAndResize ( hBitmap, New_Width, New_Height, Mode_Stretch, Algorithm )
+FUNCTION BT_BitmapCopyAndResize(hBitmap, New_Width, New_Height, Mode_Stretch, Algorithm)
 
    LOCAL New_hBitmap
 
-   Mode_Stretch := IF ( ValType(Mode_Stretch) == "U", BT_STRETCH, Mode_Stretch )
-   Algorithm := IF ( ValType(Algorithm) == "U", BT_RESIZE_HALFTONE, Algorithm )
-   New_hBitmap := BT_BMP_COPYANDRESIZE ( hBitmap, New_Width, New_Height, Mode_Stretch, Algorithm )
+   Mode_Stretch := IIF(ValType(Mode_Stretch) == "U", BT_STRETCH, Mode_Stretch)
+   Algorithm := IIF(ValType(Algorithm) == "U", BT_RESIZE_HALFTONE, Algorithm)
+   New_hBitmap := BT_BMP_COPYANDRESIZE(hBitmap, New_Width, New_Height, Mode_Stretch, Algorithm)
 
 RETURN New_hBitmap
 
-
-FUNCTION BT_BitmapPaste ( hBitmap_D, Row_D, Col_D, Width_D, Height_D, Mode_Stretch, hBitmap_O )
+FUNCTION BT_BitmapPaste(hBitmap_D, Row_D, Col_D, Width_D, Height_D, Mode_Stretch, hBitmap_O)
 
    LOCAL Max_Width_D := BT_BitmapWidth(hBitmap_D)
    LOCAL Max_Height_D := BT_BitmapHeight(hBitmap_D)
    LOCAL Width_O := BT_BitmapWidth(hBitmap_O)
    LOCAL Height_O := BT_BitmapHeight(hBitmap_O)
 
-   bt_FillRectIsNIL ( @Row_D, @Col_D, @Width_D, @Height_D, 0, 0, Max_Width_D, Max_Height_D )
-   BT_BMP_PASTE ( hBitmap_D, Col_D, Row_D, Width_D, Height_D, hBitmap_O, 0, 0, Width_O, Height_O, Mode_Stretch, BT_BITMAP_OPAQUE, 0 )
+   bt_FillRectIsNIL(@Row_D, @Col_D, @Width_D, @Height_D, 0, 0, Max_Width_D, Max_Height_D)
+   BT_BMP_PASTE(hBitmap_D, Col_D, Row_D, Width_D, Height_D, hBitmap_O, 0, 0, Width_O, Height_O, Mode_Stretch, BT_BITMAP_OPAQUE, 0)
 
 RETURN NIL
 
-
-FUNCTION BT_BitmapPasteTransparent ( hBitmap_D, Row_D, Col_D, Width_D, Height_D, Mode_Stretch, hBitmap_O, aRGBcolor_transp )
+FUNCTION BT_BitmapPasteTransparent(hBitmap_D, Row_D, Col_D, Width_D, Height_D, Mode_Stretch, hBitmap_O, aRGBcolor_transp)
 
    LOCAL Max_Width_D := BT_BitmapWidth(hBitmap_D)
    LOCAL Max_Height_D := BT_BitmapHeight(hBitmap_D)
    LOCAL Width_O := BT_BitmapWidth(hBitmap_O)
    LOCAL Height_O := BT_BitmapHeight(hBitmap_O)
-   LOCAL ColorRef_Transp := IF ( ValType(aRGBcolor_transp) == "U", BT_BMP_GETINFO( hBitmap_O, BT_BITMAP_INFO_GETCOLORPIXEL, 0, 0 ), ArrayRGB_TO_COLORREF( aRGBcolor_transp ) )
+   LOCAL ColorRef_Transp := IIF(ValType(aRGBcolor_transp) == "U", BT_BMP_GETINFO(hBitmap_O, BT_BITMAP_INFO_GETCOLORPIXEL, 0, 0), ArrayRGB_TO_COLORREF(aRGBcolor_transp))
 
-   bt_FillRectIsNIL ( @Row_D, @Col_D, @Width_D, @Height_D, 0, 0, Max_Width_D, Max_Height_D )
-   BT_BMP_PASTE ( hBitmap_D, Col_D, Row_D, Width_D, Height_D, hBitmap_O, 0, 0, Width_O, Height_O, Mode_Stretch, BT_BITMAP_TRANSPARENT, ColorRef_Transp )
+   bt_FillRectIsNIL(@Row_D, @Col_D, @Width_D, @Height_D, 0, 0, Max_Width_D, Max_Height_D)
+   BT_BMP_PASTE(hBitmap_D, Col_D, Row_D, Width_D, Height_D, hBitmap_O, 0, 0, Width_O, Height_O, Mode_Stretch, BT_BITMAP_TRANSPARENT, ColorRef_Transp)
 
 RETURN NIL
 
-
-FUNCTION BT_BitmapPasteAlphaBlend ( hBitmap_D, Row_D, Col_D, Width_D, Height_D, Alpha, Mode_Stretch, hBitmap_O )
+FUNCTION BT_BitmapPasteAlphaBlend(hBitmap_D, Row_D, Col_D, Width_D, Height_D, Alpha, Mode_Stretch, hBitmap_O)
 
    LOCAL Max_Width_D := BT_BitmapWidth(hBitmap_D)
    LOCAL Max_Height_D := BT_BitmapHeight(hBitmap_D)
    LOCAL Width_O := BT_BitmapWidth(hBitmap_O)
    LOCAL Height_O := BT_BitmapHeight(hBitmap_O)
 
-   bt_FillRectIsNIL ( @Row_D, @Col_D, @Width_D, @Height_D, 0, 0, Max_Width_D, Max_Height_D )
-   BT_BMP_PASTE_ALPHABLEND ( hBitmap_D, Col_D, Row_D, Width_D, Height_D, hBitmap_O, 0, 0, Width_O, Height_O, Alpha, Mode_Stretch )
+   bt_FillRectIsNIL(@Row_D, @Col_D, @Width_D, @Height_D, 0, 0, Max_Width_D, Max_Height_D)
+   BT_BMP_PASTE_ALPHABLEND(hBitmap_D, Col_D, Row_D, Width_D, Height_D, hBitmap_O, 0, 0, Width_O, Height_O, Alpha, Mode_Stretch)
 
 RETURN NIL
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-FUNCTION BT_BitmapCaptureDesktop ( Row, Col, Width, Height )
+FUNCTION BT_BitmapCaptureDesktop(Row, Col, Width, Height)
 
    LOCAL New_hBitmap
    LOCAL Win := BT_GetDesktopHandle()
    LOCAL Max_Width := BT_DesktopWidth()
    LOCAL Max_Height := BT_DesktopHeight()
 
-   bt_FillRectIsNIL ( @Row, @Col, @Width, @Height, 0, 0, Max_Width, Max_Height )
-   bt_AdjustWidthHeightRect ( Row, Col, @Width, @Height, Max_Width, Max_Height )
-   New_hBitmap := BT_BMP_CAPTURESCR ( bt_WinHandle( Win ), Col, Row, Width, Height, BT_BITMAP_CAPTURE_DESKTOP )
+   bt_FillRectIsNIL(@Row, @Col, @Width, @Height, 0, 0, Max_Width, Max_Height)
+   bt_AdjustWidthHeightRect(Row, Col, @Width, @Height, Max_Width, Max_Height)
+   New_hBitmap := BT_BMP_CAPTURESCR(bt_WinHandle( Win ), Col, Row, Width, Height, BT_BITMAP_CAPTURE_DESKTOP)
 
 RETURN New_hBitmap
 
-
-FUNCTION BT_BitmapCaptureWindow ( Win, Row, Col, Width, Height )
+FUNCTION BT_BitmapCaptureWindow(Win, Row, Col, Width, Height)
 
    LOCAL New_hBitmap
    LOCAL Max_Width := BT_WindowWidth(Win)
    LOCAL Max_Height := BT_WindowHeight(Win)
 
-   bt_FillRectIsNIL ( @Row, @Col, @Width, @Height, 0, 0, Max_Width, Max_Height )
-   bt_AdjustWidthHeightRect ( Row, Col, @Width, @Height, Max_Width, Max_Height )
-   New_hBitmap := BT_BMP_CAPTURESCR ( bt_WinHandle( Win ), Col, Row, Width, Height, BT_BITMAP_CAPTURE_WINDOW )
+   bt_FillRectIsNIL(@Row, @Col, @Width, @Height, 0, 0, Max_Width, Max_Height)
+   bt_AdjustWidthHeightRect(Row, Col, @Width, @Height, Max_Width, Max_Height)
+   New_hBitmap := BT_BMP_CAPTURESCR(bt_WinHandle(Win), Col, Row, Width, Height, BT_BITMAP_CAPTURE_WINDOW)
 
 RETURN New_hBitmap
 
-
-FUNCTION BT_BitmapCaptureClientArea ( Win, Row, Col, Width, Height )
+FUNCTION BT_BitmapCaptureClientArea(Win, Row, Col, Width, Height)
 
    LOCAL New_hBitmap
    LOCAL Max_Width := BT_ClientAreaWidth(Win)
    LOCAL Max_Height := BT_ClientAreaHeight(Win)
 
-   bt_FillRectIsNIL ( @Row, @Col, @Width, @Height, 0, 0, Max_Width, Max_Height )
-   bt_AdjustWidthHeightRect ( Row, Col, @Width, @Height, Max_Width, Max_Height )
-   New_hBitmap := BT_BMP_CAPTURESCR ( bt_WinHandle( Win ), Col, Row, Width, Height, BT_BITMAP_CAPTURE_CLIENTAREA )
+   bt_FillRectIsNIL(@Row, @Col, @Width, @Height, 0, 0, Max_Width, Max_Height)
+   bt_AdjustWidthHeightRect(Row, Col, @Width, @Height, Max_Width, Max_Height)
+   New_hBitmap := BT_BMP_CAPTURESCR(bt_WinHandle(Win), Col, Row, Width, Height, BT_BITMAP_CAPTURE_CLIENTAREA)
 
 RETURN New_hBitmap
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-FUNCTION BT_BitmapClipboardGet ( Win )
+FUNCTION BT_BitmapClipboardGet(Win)
 
    LOCAL hBitmap
 
-   hBitmap := BT_BMP_GET_CLIPBOARD( bt_WinHandle( Win ) )
+   hBitmap := BT_BMP_GET_CLIPBOARD(bt_WinHandle(Win))
 
 RETURN hBitmap
 
+FUNCTION BT_BitmapClipboardPut(Win, hBitmap)
 
-FUNCTION BT_BitmapClipboardPut ( Win, hBitmap )
-
-   LOCAL lRet := BT_BMP_PUT_CLIPBOARD( bt_WinHandle( Win ), hBitmap )
-
-RETURN lRet
-
-
-FUNCTION BT_BitmapClipboardClean ( Win )
-
-   LOCAL lRet := BT_BMP_CLEAN_CLIPBOARD( bt_WinHandle( Win ) )
+   LOCAL lRet := BT_BMP_PUT_CLIPBOARD(bt_WinHandle(Win), hBitmap)
 
 RETURN lRet
 
+FUNCTION BT_BitmapClipboardClean(Win)
+
+   LOCAL lRet := BT_BMP_CLEAN_CLIPBOARD(bt_WinHandle(Win))
+
+RETURN lRet
 
 FUNCTION BT_BitmapClipboardIsEmpty()
 
@@ -842,45 +785,42 @@ FUNCTION BT_BitmapClipboardIsEmpty()
 
 RETURN lRet
 
-
 // **********************************************************************************************************************************
 // HMG Functions
 // **********************************************************************************************************************************
 
+FUNCTION BT_HMGGetImage(cFormName, cControlName)
 
-FUNCTION BT_HMGGetImage ( cFormName, cControlName )
-
-   LOCAL k, hBitmap := 0
+   LOCAL k
+   LOCAL hBitmap := 0
 
 #ifndef __HMG__
    MEMVAR _HMG_SYSDATA
 #endif
 
-   k := GetControlIndex ( cControlName, cFormName )
-   IF k > 0 .AND. GetControlType ( cControlName, cFormName ) == "IMAGE"
+   k := GetControlIndex(cControlName, cFormName)
 
-#ifdef __HMG__    // HMG Extended
+   IF k > 0 .AND. GetControlType(cControlName, cFormName) == "IMAGE"
+#ifdef __HMG__ // HMG Extended
       hBitmap := _HMG_aControlContainerHandle[k]
 
-#else             // HMG Official
+#else          // HMG Official
       hBitmap := _HMG_SYSDATA[37, k]
-
 #endif
    ENDIF
 
 RETURN hBitmap
 
+FUNCTION BT_HMGCloneImage(cFormName, cControlName)
 
-FUNCTION BT_HMGCloneImage ( cFormName, cControlName )
+   LOCAL hBitmap := BT_HMGGetImage(cFormName, cControlName)
 
-   LOCAL hBitmap := BT_HMGGetImage ( cFormName, cControlName )
+RETURN BT_BitmapClone(hBitmap)
 
-RETURN BT_BitmapClone ( hBitmap )
+FUNCTION BT_HMGSetImage(cFormName, cControlName, hBitmap, lReleasePreviousBitmap)
 
-
-FUNCTION BT_HMGSetImage ( cFormName, cControlName, hBitmap, lReleasePreviousBitmap )
-
-   LOCAL hWnd, k
+   LOCAL hWnd
+   LOCAL k
 
 #ifndef __HMG__
    MEMVAR _HMG_SYSDATA
@@ -890,31 +830,28 @@ FUNCTION BT_HMGSetImage ( cFormName, cControlName, hBitmap, lReleasePreviousBitm
       lReleasePreviousBitmap := .T.
    ENDIF
 
-   k := GetControlIndex ( cControlName, cFormName )
-   IF k > 0 .AND. GetControlType ( cControlName, cFormName ) == "IMAGE"
+   k := GetControlIndex(cControlName, cFormName)
 
-#ifdef __HMG__    // HMG Extended
+   IF k > 0 .AND. GetControlType(cControlName, cFormName) == "IMAGE"
+#ifdef __HMG__ // HMG Extended
       IF _HMG_aControlContainerHandle[k] <> 0 .AND. lReleasePreviousBitmap == .T.
-         BT_BitmapRelease ( _HMG_aControlContainerHandle[k] )
+         BT_BitmapRelease(_HMG_aControlContainerHandle[k])
       ENDIF
       _HMG_aControlContainerHandle[k] := hBitmap
       _HMG_aControlWidth[k] := BT_BitmapWidth(hBitmap)
       _HMG_aControlHeight[k] := BT_BitmapHeight(hBitmap)
-
-#else             // HMG Official
+#else          // HMG Official
       IF _HMG_SYSDATA[37, k] <> 0 .AND. lReleasePreviousBitmap == .T.
-         BT_BitmapRelease ( _HMG_SYSDATA[37, k] )
+         BT_BitmapRelease(_HMG_SYSDATA[37, k])
       ENDIF
       _HMG_SYSDATA[37, k] := hBitmap
       _HMG_SYSDATA[20, k] := BT_BitmapWidth(hBitmap)
       _HMG_SYSDATA[21, k] := BT_BitmapHeight(hBitmap)
-
 #endif
-
-      hWnd := GetControlHandle ( cControlName, cFormName )
+      hWnd := GetControlHandle(cControlName, cFormName)
       #define _STM_SETIMAGE_ 0x0172
       #define _IMAGE_BITMAP_ 0
-      SendMessage ( hWnd, _STM_SETIMAGE_, _IMAGE_BITMAP_, hBitmap )
+      SendMessage(hWnd, _STM_SETIMAGE_, _IMAGE_BITMAP_, hBitmap)
       #undef _IMAGE_BITMAP_
       #undef _STM_SETIMAGE_
    ENDIF
