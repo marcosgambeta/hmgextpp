@@ -938,13 +938,13 @@ METHOD GetObjByName( defname, what, retpos ) CLASS HBPrinter
    LOCAL lfound, lret := 0, aref, ahref
 
    IF ValType(defname) == "C"
-      DO CASE
-      CASE what == "F" ; aref := ::Fonts[2] ; ahref := ::Fonts[1]
-      CASE what == "B" ; aref := ::Brushes[2] ; ahref := ::Brushes[1]
-      CASE what == "P" ; aref := ::Pens[2] ; ahref := ::Pens[1]
-      CASE what == "R" ; aref := ::Regions[2] ; ahref := ::Regions[1]
-      CASE what == "I" ; aref := ::ImageLists[2] ; ahref := ::ImageLists[1]
-      ENDCASE
+      SWITCH what
+      CASE "F" ; aref := ::Fonts[2] ; ahref := ::Fonts[1]; EXIT
+      CASE "B" ; aref := ::Brushes[2] ; ahref := ::Brushes[1]; EXIT
+      CASE "P" ; aref := ::Pens[2] ; ahref := ::Pens[1]; EXIT
+      CASE "R" ; aref := ::Regions[2] ; ahref := ::Regions[1]; EXIT
+      CASE "I" ; aref := ::ImageLists[2] ; ahref := ::ImageLists[1]
+      ENDSWITCH
       lfound := AScan(aref, Upper(AllTrim(defname)))
       IF lfound > 0
          IF aref[lfound] == Upper(AllTrim(defname))
@@ -1320,8 +1320,9 @@ STATIC FUNCTION str2arr( cList, cDelimiter )
    LOCAL aList := {}
    LOCAL nlencd := 0
    LOCAL asub
-   DO CASE
-   CASE ValType(cDelimiter) == "C"
+
+   SWITCH ValType(cDelimiter)
+   CASE "C"
       cDelimiter := iif( cDelimiter == NIL, ",", cDelimiter )
       nlencd := Len(cdelimiter)
       DO WHILE ( nPos := At( cDelimiter, cList ) ) != 0
@@ -1329,12 +1330,14 @@ STATIC FUNCTION str2arr( cList, cDelimiter )
          cList := SubStr(cList, nPos + nlencd)
       ENDDO
       AAdd(aList, cList)
-   CASE ValType(cDelimiter) == "N"
+      EXIT
+   CASE "N"
       DO WHILE Len(( nPos := Left(cList, cDelimiter) )) == cDelimiter
          AAdd(aList, nPos)
          cList := SubStr(cList, cDelimiter + 1)
       ENDDO
-   CASE ValType(cDelimiter) == "A"
+      EXIT
+   CASE "A"
       AEval( cDelimiter, {| x | nlencd += x } )
       DO WHILE Len(( nPos := Left(cList, nlencd) )) == nlencd
          asub := {}
@@ -1342,7 +1345,7 @@ STATIC FUNCTION str2arr( cList, cDelimiter )
          AAdd(aList, asub)
          cList := SubStr(cList, nlencd + 1)
       ENDDO
-   ENDCASE
+   ENDSWITCH
 
 RETURN ( aList )
 
