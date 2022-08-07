@@ -117,16 +117,16 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
    ENDIF
 
    IF .NOT. _IsWindowDefined ( ParentForm )
-      MsgMiniGuiError( "Window: " + IFNIL( ParentForm, "Parent", ParentForm ) + " is not defined." )
+      MsgMiniGuiError("Window: " + IFNIL(ParentForm, "Parent", ParentForm) + " is not defined.")
    ENDIF
 
    IF _IsControlDefined ( ControlName, ParentForm )
-      MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentForm + " Already defined." )
+      MsgMiniGuiError("Control: " + ControlName + " Of " + ParentForm + " Already defined.")
    ENDIF
 
    IF ValType(itemsource) != "U"
       IF  hb_UAt ( ">", ItemSource ) == 0
-         MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentForm + " (ItemSource): You must specify a fully qualified field name." )
+         MsgMiniGuiError("Control: " + ControlName + " Of " + ParentForm + " (ItemSource): You must specify a fully qualified field name.")
       ELSE
          WorkArea := hb_ULeft(ItemSource, hb_UAt(">", ItemSource) - 2)
          cField   := hb_URight(ItemSource, hb_ULen(ItemSource) - hb_UAt(">", ItemSource))
@@ -134,7 +134,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
    ENDIF
 
    IF ( ValType(ImageList) == "C" .OR. ImageList > 0 ) .AND. Len(aImage) > 0
-      MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentForm + " : Image and ImageList clauses can't be used simultaneously." )
+      MsgMiniGuiError("Control: " + ControlName + " Of " + ParentForm + " : Image and ImageList clauses can't be used simultaneously.")
    ENDIF
 
    IF ValType(ImageList) == "C"
@@ -159,7 +159,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
 
          ELSEIF ValType(aImage[im]) == "A"
             IF Len(aImage[im]) <> 2
-               MsgMiniGuiError ( "Control: " + ControlName + " Of " + cParentForm + " : You must specify 2 elements characters array as image param." )
+               MsgMiniGuiError("Control: " + ControlName + " Of " + cParentForm + " : You must specify 2 elements characters array as image param.")
             ELSE
                AAdd(aImages, aImage[im, 1])
                AAdd(aImages, aImage[im, 2])

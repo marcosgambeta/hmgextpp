@@ -602,7 +602,7 @@ CLASS TDlu2Pix
    METHOD MH( nKfc )     INLINE ::ToVal( nKfc, ::nMargHeight )
 
    ASSIGN Handle( hWnd ) INLINE ( ::hWnd := hWnd, ::lError := Empty(hWnd), ;
-          iif( ::lError, MsgMiniGuiError( "Application events are not created !" ), ) )
+          iif( ::lError, MsgMiniGuiError("Application events are not created !"), ) )
    ACCESS IsError        INLINE ::lError
    ACCESS Wm_nApp        INLINE WM_APP_LAUNCH
    ACCESS IsMsg          INLINE ( ::lAction .AND. ! ::lError )

@@ -208,7 +208,7 @@ FUNCTION SendData ( cDest , Data )
                pData := Data[i]
                cLen := hb_ntos( Len(pData) )
             ELSE
-               MsgMiniGuiError( "SendData: Type Not Supported." )
+               MsgMiniGuiError("SendData: Type Not Supported.")
             ENDIF
 
             cData += "#DataBlock=" + cType + "," + cLen + Chr( 13 ) + Chr( 10 )
@@ -245,7 +245,7 @@ FUNCTION SendData ( cDest , Data )
                   pData := Data[i] [j]
                   cLen := hb_ntos( Len(pData) )
                ELSE
-                  MsgMiniGuiError( "SendData: Type Not Supported." )
+                  MsgMiniGuiError("SendData: Type Not Supported.")
                ENDIF
 
                cData += "#DataBlock=" + cType + "," + cLen + Chr( 13 ) + Chr( 10 )
@@ -275,7 +275,7 @@ FUNCTION SendData ( cDest , Data )
          pData := Data
          cLen := hb_ntos( Len(pData) )
       ELSE
-         MsgMiniGuiError( "SendData: Type Not Supported." )
+         MsgMiniGuiError("SendData: Type Not Supported.")
       ENDIF
 
       cData := "#DataRows=0" + Chr( 13 ) + Chr( 10 )

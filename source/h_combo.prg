@@ -114,24 +114,24 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
    lDialogInMemory := _HMG_DialogInMemory
 
    IF .NOT. _IsWindowDefined ( ParentFormName ) .AND. .NOT. lDialogInMemory
-      MsgMiniGuiError( "Window: " + IFNIL( ParentFormName, "Parent", ParentFormName ) + " is not defined." )
+      MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
    IF _IsControlDefined ( ControlName, ParentFormName ) .AND. .NOT. lDialogInMemory
-      MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " Already defined." )
+      MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
    IF ValType(ItemSource) != "U" .AND. Sort == .T.
-      MsgMiniGuiError ( "Sort and ItemSource clauses can't be used simultaneously." )
+      MsgMiniGuiError("Sort and ItemSource clauses can't be used simultaneously.")
    ENDIF
 
    IF ValType(ValueSource) != "U" .AND. Sort == .T.
-      MsgMiniGuiError ( "Sort and ValueSource clauses can't be used simultaneously." )
+      MsgMiniGuiError("Sort and ValueSource clauses can't be used simultaneously.")
    ENDIF
 
    IF ValType(itemsource) != "U"
       IF hb_UAt ( ">" , ItemSource ) == 0
-         MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " (ItemSource): You must specify a fully qualified field name." )
+         MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " (ItemSource): You must specify a fully qualified field name.")
       ELSE
          WorkArea := hb_ULeft(ItemSource, hb_UAt(">", ItemSource) - 2)
          cField := hb_URight(ItemSource, hb_ULen(ItemSource) - hb_UAt(">", ItemSource))

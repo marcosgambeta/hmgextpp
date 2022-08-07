@@ -340,7 +340,7 @@ FUNCTION _SetValue ( ControlName, ParentForm, Value, index )
       ELSE
          aPos := AScan(_HMG_aControlPicture [ix] , Value)
          IF aPos == 0
-            MsgMiniGuiError ( "Value Property: Invalid TreeItem Reference." )
+            MsgMiniGuiError("Value Property: Invalid TreeItem Reference.")
          ENDIF
          TreeItemHandle := _HMG_aControlPageMap [ix] [aPos]
       ENDIF
@@ -547,7 +547,7 @@ FUNCTION _SetValue ( ControlName, ParentForm, Value, index )
       Assign nValue := value
 
       IF nValue < 1
-         MsgMiniGuiError( "TAB: Wrong Value (only value > 0 is allowed)." )
+         MsgMiniGuiError("TAB: Wrong Value (only value > 0 is allowed).")
       ENDIF
 
       TABCTRL_SETCURSEL ( c , nValue )
@@ -673,7 +673,7 @@ FUNCTION _AddItem ( ControlName , ParentForm , Value , Parent , aImage , Id )
       IF _HMG_aControlInputmask [ix] == .F.
 
          IF Parent > TreeView_GetCount ( c ) .OR. Parent < 0
-            MsgMiniGuiError ( "AddItem Method: Invalid Parent Value." )
+            MsgMiniGuiError("AddItem Method: Invalid Parent Value.")
          ENDIF
 
       ENDIF
@@ -687,7 +687,7 @@ FUNCTION _AddItem ( ControlName , ParentForm , Value , Parent , aImage , Id )
          ELSE
             aPos := AScan(_HMG_aControlPicture [ix] , Parent)
             IF aPos == 0
-               MsgMiniGuiError ( "AddItem Method: Invalid Parent Value." )
+               MsgMiniGuiError("AddItem Method: Invalid Parent Value.")
             ENDIF
 
             TreeItemHandle := _HMG_aControlPageMap [ix] [aPos]
@@ -767,7 +767,7 @@ FUNCTION _AddItem ( ControlName , ParentForm , Value , Parent , aImage , Id )
          ELSE
 
             IF AScan(_HMG_aControlPicture [ix] , Id) != 0
-               MsgMiniGuiError ( "AddItem Method: Item Id " + hb_ntos( Id ) + " Already In Use." )
+               MsgMiniGuiError("AddItem Method: Item Id " + hb_ntos(Id) + " Already In Use.")
             ENDIF
 
             _HMG_aControlPageMap [ix] [aPos + i] := NewHandle
@@ -792,7 +792,7 @@ FUNCTION _AddItem ( ControlName , ParentForm , Value , Parent , aImage , Id )
 
          IF _HMG_aControlInputmask [ix] == .T.
             IF AScan(_HMG_aControlPicture [ix] , Id) != 0
-               MsgMiniGuiError ( "AddItem Method: Item Id Already In Use." )
+               MsgMiniGuiError("AddItem Method: Item Id Already In Use.")
             ENDIF
          ENDIF
 
@@ -863,7 +863,7 @@ FUNCTION _DeleteItem ( ControlName , ParentForm , Value )
       IF _HMG_aControlInputmask [ix] == .F.
 
          IF Value > BeforeCount .OR. Value < 1
-            MsgMiniGuiError ( "DeleteItem Method: Invalid Item Specified." )
+            MsgMiniGuiError("DeleteItem Method: Invalid Item Specified.")
          ENDIF
 
          TreeItemHandle := _HMG_aControlPageMap [ix] [Value]
@@ -874,7 +874,7 @@ FUNCTION _DeleteItem ( ControlName , ParentForm , Value )
          aPos := AScan(_HMG_aControlPicture [ix] , Value)
 
          IF aPos == 0
-            MsgMiniGuiError ( "DeleteItem Method: Invalid Item Id." )
+            MsgMiniGuiError("DeleteItem Method: Invalid Item Id.")
          ENDIF
 
          TreeItemHandle := _HMG_aControlPageMap [ix] [aPos]
@@ -1038,7 +1038,7 @@ FUNCTION GetControlHandle ( ControlName , ParentForm )
    LOCAL i
 
    IF ( i := GetControlIndex(ControlName, ParentForm) ) == 0
-      MsgMiniGuiError ( "Control " + ControlName + " Of " + ParentForm + " Not defined." )
+      MsgMiniGuiError("Control " + ControlName + " Of " + ParentForm + " Not defined.")
    ENDIF
 
 RETURN ( _HMG_aControlHandles[i] )
@@ -1735,7 +1735,7 @@ FUNCTION _SetItem ( ControlName , ParentForm , Item , Value , index )
 
       IF _HMG_aControlInputmask[i] == .F.
          IF Item > TreeView_GetCount ( c ) .OR. Item < 1
-            MsgMiniGuiError ( "Item Property: Invalid Item Reference." )
+            MsgMiniGuiError("Item Property: Invalid Item Reference.")
          ENDIF
       ENDIF
 
@@ -1748,7 +1748,7 @@ FUNCTION _SetItem ( ControlName , ParentForm , Item , Value , index )
          Pos := AScan(_HMG_aControlPicture[i] , Item)
 
          IF Pos == 0
-            MsgMiniGuiError ( "Item Property: Invalid Item Id." )
+            MsgMiniGuiError("Item Property: Invalid Item Id.")
          ENDIF
 
          ItemHandle := _HMG_aControlPageMap[i] [Pos]
@@ -1928,7 +1928,7 @@ FUNCTION _GetItem ( ControlName , ParentForm , Item , index )
 
       IF _HMG_aControlInputmask[i] == .F.
          IF Item > TreeView_GetCount ( c ) .OR. Item < 1
-            MsgMiniGuiError ( "Item Property: Invalid Item Reference." )
+            MsgMiniGuiError("Item Property: Invalid Item Reference.")
          ENDIF
       ENDIF
 
@@ -1941,7 +1941,7 @@ FUNCTION _GetItem ( ControlName , ParentForm , Item , index )
          Pos := AScan(_HMG_aControlPicture[i] , Item)
 
          IF Pos == 0
-            MsgMiniGuiError ( "Item Property: Invalid Item Id." )
+            MsgMiniGuiError("Item Property: Invalid Item Id.")
          ENDIF
 
          ItemHandle := _HMG_aControlPageMap[i] [Pos]
@@ -4035,7 +4035,7 @@ PROCEDURE SetProperty( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 )
    CASE 3 // PCount() == 3 (WINDOW)
 
       IF .NOT. _IsWindowDefined ( Arg1 )
-         MsgMiniGuiError( "Window: " + Arg1 + " is not defined." )
+         MsgMiniGuiError("Window: " + Arg1 + " is not defined.")
       ENDIF
 
       Arg2 := Upper(Arg2)
@@ -4190,7 +4190,7 @@ PROCEDURE SetProperty( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 )
 
       OTHERWISE
 
-         MsgMiniGuiError( "Window: unrecognized property '" + Arg2 + "'." )
+         MsgMiniGuiError("Window: unrecognized property '" + Arg2 + "'.")
 
       END CASE
       EXIT
@@ -4586,7 +4586,7 @@ PROCEDURE SetProperty( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 )
       OTHERWISE
 
          IF !( "GROUP" $ Arg3 )
-            MsgMiniGuiError( "Control: unrecognized property '" + Arg3 + "'." )
+            MsgMiniGuiError("Control: unrecognized property '" + Arg3 + "'.")
          ENDIF
 
       END CASE
@@ -4715,7 +4715,7 @@ PROCEDURE SetProperty( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 )
             IF GetControlType ( Arg2 , Arg1 ) == "TOOLBAR"
 
                IF GetControlHandle ( Arg2 , Arg1 ) != GetControlContainerHandle ( Arg3 , Arg1 )
-                  MsgMiniGuiError( "Control Does Not Belong To Container." )
+                  MsgMiniGuiError("Control Does Not Belong To Container.")
                ENDIF
 
                SetProperty ( Arg1 , Arg3 , Arg4 , Arg5 )
@@ -4723,7 +4723,7 @@ PROCEDURE SetProperty( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 )
             ELSE
 
                IF !( "GROUP" $ Arg3 )
-                  MsgMiniGuiError( "Control: unrecognized property '" + Arg3 + "'." )
+                  MsgMiniGuiError("Control: unrecognized property '" + Arg3 + "'.")
                ENDIF
 
             ENDIF
@@ -4746,7 +4746,7 @@ PROCEDURE SetProperty( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 )
                IsControlInsideSplitBox ( Arg1 , Arg4 )
                SetProperty ( Arg1 , Arg3 , Arg4 , Arg5 , Arg6 )
             ELSE
-               MsgMiniGuiError( "Control Does Not Belong To Container." )
+               MsgMiniGuiError("Control Does Not Belong To Container.")
             ENDIF
 
          ENDIF
@@ -4836,7 +4836,7 @@ PROCEDURE SetProperty( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 )
          GroupCheckBoxAllItems ( Arg2, Arg1, Arg4, Arg5 )
 
       OTHERWISE
-         MsgMiniGuiError( "Grid Group: unrecognized property '" + Arg3 + "'." )
+         MsgMiniGuiError("Grid Group: unrecognized property '" + Arg3 + "'.")
 
       ENDCASE
 
@@ -4876,7 +4876,7 @@ FUNCTION GetProperty ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7, Arg8 )
    CASE 2 // PCount() == 2 (WINDOW)
 
       IF .NOT. _IsWindowDefined ( Arg1 )
-         MsgMiniGuiError( "Window: " + Arg1 + " is not defined." )
+         MsgMiniGuiError("Window: " + Arg1 + " is not defined.")
       ENDIF
 
       Arg2 := Upper(Arg2)
@@ -5064,7 +5064,7 @@ FUNCTION GetProperty ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7, Arg8 )
 #endif
       IF ( Upper(Arg2) == "VSCROLLBAR" .OR. Upper(Arg2) == "HSCROLLBAR" )
          IF .NOT. _IsWindowDefined ( Arg1 )
-            MsgMiniGuiError ( "Window: " + Arg1 + " is not defined." )
+            MsgMiniGuiError("Window: " + Arg1 + " is not defined.")
          ENDIF
       ELSE
          VerifyControlDefined ( Arg1 , Arg2 )
@@ -5531,7 +5531,7 @@ FUNCTION GetProperty ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7, Arg8 )
          CASE Arg3 == "COLUMNWIDTH" //(JK) HMG 1.0 Experimental Build 6
 
             IF Empty(Arg4) .OR. Arg4 < 1
-               MsgMiniGuiError ( "Control: " + Arg2 + " Of " + Arg1 + ". Wrong or empty index param." )
+               MsgMiniGuiError("Control: " + Arg2 + " Of " + Arg1 + ". Wrong or empty index param.")
             ENDIF
 
             RetVal := _GetColumnWidth(Arg2, Arg1, Arg4)
@@ -5600,7 +5600,7 @@ FUNCTION GetProperty ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7, Arg8 )
             IF GetControlType ( Arg2 , Arg1 ) == "TOOLBAR"
 
                IF GetControlHandle ( Arg2 , Arg1 ) != GetControlContainerHandle ( Arg3 , Arg1 )
-                  MsgMiniGuiError ( "Control Does Not Belong To Container." )
+                  MsgMiniGuiError("Control Does Not Belong To Container.")
                ENDIF
 
                RetVal := GetProperty ( Arg1 , Arg3 , Arg4 )
@@ -5626,7 +5626,7 @@ FUNCTION GetProperty ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7, Arg8 )
                IsControlInsideSplitBox ( Arg1 , Arg4 )
                RetVal := GetProperty ( Arg1 , Arg3 , Arg4 , Arg5 )
             ELSE
-               MsgMiniGuiError ( "Control Does Not Belong To Container." )
+               MsgMiniGuiError("Control Does Not Belong To Container.")
             ENDIF
 
          ENDIF
@@ -5734,7 +5734,7 @@ FUNCTION DoMethod ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 , Arg9
 
       IF ValType(Arg1) == "C"
          IF .NOT. _IsWindowDefined ( Arg1 )
-            MsgMiniGuiError( "Window: " + Arg1 + " is not defined." )
+            MsgMiniGuiError("Window: " + Arg1 + " is not defined.")
          ENDIF
       ENDIF
 
@@ -5821,7 +5821,7 @@ FUNCTION DoMethod ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 , Arg9
 
       OTHERWISE
 
-         MsgMiniGuiError( "Window: unrecognized method '" + Arg2 + "'." )
+         MsgMiniGuiError("Window: unrecognized method '" + Arg2 + "'.")
 
       END CASE
 
@@ -6027,7 +6027,7 @@ FUNCTION DoMethod ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 , Arg9
       OTHERWISE
 
          IF !( "GROUP" $ Arg3 )
-            MsgMiniGuiError( "Control: unrecognized method '" + Arg3 + "'." )
+            MsgMiniGuiError("Control: unrecognized method '" + Arg3 + "'.")
          ENDIF
 
       END CASE
@@ -6088,7 +6088,7 @@ FUNCTION DoMethod ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 , Arg9
       OTHERWISE
 
          IF !( "GROUP" $ Arg3 )
-            MsgMiniGuiError( "Control: unrecognized method '" + Arg3 + "'." )
+            MsgMiniGuiError("Control: unrecognized method '" + Arg3 + "'.")
          ENDIF
 
       END CASE
@@ -6188,7 +6188,7 @@ FUNCTION DoMethod ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 , Arg9
       OTHERWISE
 
          IF !( "GROUP" $ Arg3 )
-            MsgMiniGuiError( "Control: unrecognized method '" + Arg3 + "'." )
+            MsgMiniGuiError("Control: unrecognized method '" + Arg3 + "'.")
          ENDIF
 
       END CASE
@@ -6251,7 +6251,7 @@ FUNCTION DoMethod ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 , Arg9
          GroupDeleteAllItems ( Arg2 , Arg1 , Arg4 )
 
       OTHERWISE
-         MsgMiniGuiError( "Grid Group: unrecognized method '" + Arg3 + "'." )
+         MsgMiniGuiError("Grid Group: unrecognized method '" + Arg3 + "'.")
 
       ENDCASE
 
@@ -6494,7 +6494,7 @@ STATIC PROCEDURE VerifyControlDefined ( cParentName , cControlName )
 *-----------------------------------------------------------------------------*
 
    IF !Empty(cControlName) .AND. ! _IsControlDefined ( cControlName , cParentName )
-      MsgMiniGuiError ( "Control: " + cControlName + " Of " + cParentName + " Not defined." )
+      MsgMiniGuiError("Control: " + cControlName + " Of " + cParentName + " Not defined.")
    ENDIF
 
 RETURN
@@ -6504,7 +6504,7 @@ STATIC PROCEDURE IsControlInTabPage ( cParentName , cTabName , nTabPage , cContr
 *-----------------------------------------------------------------------------*
 
    IF GetControlTabPage ( cControlName , cTabName , cParentName ) <> nTabPage
-      MsgMiniGuiError ( "Control Does Not Belong To Container." )
+      MsgMiniGuiError("Control Does Not Belong To Container.")
    ENDIF
 
 RETURN
@@ -6571,7 +6571,7 @@ STATIC PROCEDURE IsControlInsideSplitBox ( cParentName , cControlName )
 *-----------------------------------------------------------------------------*
 
    IF _IsControlSplitBoxed ( cControlName , cParentName ) == .F.
-      MsgMiniGuiError( "Control Does Not Belong To Container." )
+      MsgMiniGuiError("Control Does Not Belong To Container.")
    ENDIF
 
 RETURN
@@ -6646,7 +6646,7 @@ STATIC FUNCTION _SetArrayToControl ( ControlName , ParentForm , aValue )  // GF 
 
    CASE "GRID" $ T
       IF Len(aValue) > 0 .AND. Len(aValue[1]) != Len(_HMG_aControlMiscData1[i][2])
-         MsgMiniGuiError ( "Grid: ITEMS length mismatch." )
+         MsgMiniGuiError("Grid: ITEMS length mismatch.")
       ELSE
          _HMG_aControlMiscData1[i][4] := aValue
 
@@ -7263,7 +7263,7 @@ STATIC FUNCTION _SetGetColumnHeadClick ( ControlName , ParentForm , nColIndex , 
             RetVal := _HMG_aControlHeadClick[i] [nColIndex]
          ENDIF
       ELSE
-         MsgMiniGuiError ( "Grid: Invalid Column Index." )
+         MsgMiniGuiError("Grid: Invalid Column Index.")
       ENDIF
 
    ENDIF
@@ -7405,7 +7405,7 @@ PROCEDURE _Refresh( i )
             _SetValue (  ,  , &Field , i )
          ENDIF
       ELSE
-         MsgMiniGuiError ( "Control: " + _HMG_aControlNames[i] + " Of " + GetParentFormName ( i ) + " : Refresh method can be used only if FIELD clause is set." )
+         MsgMiniGuiError("Control: " + _HMG_aControlNames[i] + " Of " + GetParentFormName(i) + " : Refresh method can be used only if FIELD clause is set.")
       ENDIF
 
    CASE T == CONTROL_TYPE_EDIT
@@ -8098,7 +8098,7 @@ FUNCTION _EnableListViewUpdate ( ControlName, ParentForm, lEnable )
       SendMessage ( _HMG_aControlHandles[i], WM_SETREDRAW, iif( lEnable, 1, 0 ), 0 )
       _HMG_aControlEnabled[i] := lEnable
    ELSE
-      MsgMiniGuiError ( "Method " + iif( lEnable, "En", "Dis" ) + "ableUpdate is not available for control " + ControlName )
+      MsgMiniGuiError("Method " + iif(lEnable, "En", "Dis") + "ableUpdate is not available for control " + ControlName)
    ENDIF
 
 RETURN NIL
@@ -8839,7 +8839,7 @@ FUNCTION _IsTyped ( a, b )    // (c) 1996-1997, Bryan Duchesne
    IF a != NIL
 
       IF !( ValType(a) == ValType(b) )
-         MsgMiniGuiError ( "Strongly Typed Variable Assignment: Data Type Mismatch." )
+         MsgMiniGuiError("Strongly Typed Variable Assignment: Data Type Mismatch.")
       ENDIF
 
    ENDIF

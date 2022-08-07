@@ -105,12 +105,12 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
 #endif
 
    IF Empty(field) .AND. ValType(Value) == "U"
-      MsgMiniGUIError( "GETBOX: Initial Value or Field must be specified." )
+      MsgMiniGUIError("GETBOX: Initial Value or Field must be specified.")
    ENDIF
 
    IF ValType(Field) != "U"
       IF  hb_UAt ( ">", Field ) == 0
-         MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name." )
+         MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name.")
       ELSE
          WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
          IF Select ( WorkArea ) != 0
@@ -184,11 +184,11 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    lDialogInMemory := _HMG_DialogInMemory
 
    IF !_IsWindowDefined( ParentFormName ) .AND. ! lDialogInMemory
-      MsgMiniGuiError( "Window: " + IFNIL( ParentFormName, "Parent", ParentFormName ) + " is not defined." )
+      MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
    IF _IsControlDefined( ControlName, ParentFormName ) .AND. ! lDialogInMemory
-      MsgMiniGuiError( "Control: " + ControlName + " of " + ParentFormName + " already defined." )
+      MsgMiniGuiError("Control: " + ControlName + " of " + ParentFormName + " already defined.")
    ENDIF
 
    mVar := "_" + ParentFormName + "_" + ControlName
@@ -1374,7 +1374,7 @@ PROCEDURE _SetGetBoxValue( nId, hWnd, Value )
 
    ELSE
 
-      MsgMiniGuiError( "GETBOX: Value Type Mismatch." )
+      MsgMiniGuiError("GETBOX: Value Type Mismatch.")
 
    ENDIF
 

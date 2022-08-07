@@ -932,7 +932,7 @@ Local EvenOnly := .F.
 		If __mvExist( _hmg_printer_JobData )
 			__mvPut( _hmg_printer_JobData , OpenPrinterGetJobData() )
 		Else
-			MsgMiniGuiError ( "START PRINTDOC STOREJOBDATA: " + _hmg_printer_JobData + " must be declared as Public or Private." )
+			MsgMiniGuiError("START PRINTDOC STOREJOBDATA: " + _hmg_printer_JobData + " must be declared as Public or Private.")
 		EndIf
 	EndIf
 

@@ -56,22 +56,22 @@ FUNCTION _BeginPager( ControlName, ParentName, nWidth, nHeight, nScroll, cCaptio
    LOCAL Id
 
    IF _HMG_BeginPagerActive
-      MsgMiniGuiError( "DEFINE PAGER Structures can't be nested." )
+      MsgMiniGuiError("DEFINE PAGER Structures can't be nested.")
    ENDIF
 
    IF _HMG_FrameLevel > 0
-      MsgMiniGuiError( "PAGERBOX can't be defined inside Tab control." )
+      MsgMiniGuiError("PAGERBOX can't be defined inside Tab control.")
    ENDIF
 
    IF ValType(ParentName) == "U" .AND. _HMG_BeginWindowActive
       ParentName := _HMG_ActiveFormName
    ENDIF
    IF .NOT. _IsWindowDefined ( ParentName )
-      MsgMiniGuiError( "Window: " + ParentName + " is not defined." )
+      MsgMiniGuiError("Window: " + ParentName + " is not defined.")
    ENDIF
 
    IF _HMG_SplitChildActive
-      MsgMiniGuiError( "PAGERBOX Can't Be Defined inside SplitChild Windows." )
+      MsgMiniGuiError("PAGERBOX Can't Be Defined inside SplitChild Windows.")
    ENDIF
 
    hb_default(@nWidth, 0)

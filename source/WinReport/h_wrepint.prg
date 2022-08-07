@@ -1389,8 +1389,8 @@ if lMesg
     //msgBox(alltrim(cStr),"Error in evaluation of:")
     errorblock (bOld)
     if ::aStat [ "Control" ]
-       MsgMiniGuiError("Program Report Interpreter"+CRLF+"Section "+section+CRLF+"I have found error on line "+;
-       zaps(cmdline)+CRLF+"Error is in: "+alltrim(cStr)+CRLF+"Please revise it!","MiniGUI Error")
+       MsgMiniGuiError("Program Report Interpreter" + CRLF + "Section " + section + CRLF + "I have found error on line " + ;
+          zaps(cmdline) + CRLF + "Error is in: " + alltrim(cStr) + CRLF + "Please revise it!", "MiniGUI Error")
        Break
     else
        do case
@@ -1476,8 +1476,8 @@ ENDDO
 if "{" $ left(TransPar[1],2)
    ev1th := alltrim(substr(TransPar[1],at("||",TransPar[1])+2,at("}",Transpar[1])-4))
    if empty(ev1th)
-      MsgMiniGuiError("Program Report Interpreter"+CRLF+"Section: "+procname(1);
-      +" command n° "+zaps(cmdline)+CRLF+"Program terminated","MiniGUI Error")
+      MsgMiniGuiError("Program Report Interpreter" + CRLF + "Section: " + procname(1) + ;
+         " command n° " + zaps(cmdline) + CRLF + "Program terminated", "MiniGUI Error")
    endif
    do case
       case ev1th = ".T."

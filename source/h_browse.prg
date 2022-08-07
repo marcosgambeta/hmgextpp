@@ -107,11 +107,11 @@ FUNCTION _DefineBrowse ( ControlName, ParentFormName, x, y, w, h, aHeaders, aWid
    lDialogInMemory := _HMG_DialogInMemory
 
    IF .NOT. _IsWindowDefined ( ParentFormName ) .AND. .NOT. lDialogInMemory
-      MsgMiniGuiError ( _HMG_BRWLangError[1] + IFNIL( ParentFormName, "Parent", ParentFormName ) + _HMG_BRWLangError[2], .F. )
+      MsgMiniGuiError(_HMG_BRWLangError[1] + IFNIL(ParentFormName, "Parent", ParentFormName) + _HMG_BRWLangError[2], .F.)
    ENDIF
 
    IF _IsControlDefined ( ControlName, ParentFormName ) .AND. .NOT. lDialogInMemory
-      MsgMiniGuiError ( _HMG_BRWLangError[4] + ControlName + _HMG_BRWLangError[5] + ParentFormName + _HMG_BRWLangError[6], .F. )
+      MsgMiniGuiError(_HMG_BRWLangError[4] + ControlName + _HMG_BRWLangError[5] + ParentFormName + _HMG_BRWLangError[6], .F.)
    ENDIF
 
 #ifndef HMG_LEGACY_ON
@@ -1224,7 +1224,7 @@ PROCEDURE _BrowseSetValue ( ControlName , ParentForm , Value , z , mp )
 
    IF _HMG_ThisEventType == "BROWSE_ONCHANGE"
       IF i == _HMG_THISINDEX
-         MsgMiniGuiError ( "BROWSE: Value property can't be changed inside ONCHANGE event." )
+         MsgMiniGuiError("BROWSE: Value property can't be changed inside ONCHANGE event.")
       ENDIF
    ENDIF
 
@@ -1523,7 +1523,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
       IF ValType(append) != "U"
          IF append == .T.
             IF MixedFields == .T.
-               MsgMiniGuiError( _HMG_BRWLangError[8], .F. )
+               MsgMiniGuiError(_HMG_BRWLangError[8], .F.)
             ENDIF
          ENDIF
       ENDIF
@@ -1942,10 +1942,10 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
    LOCAL aInputMask
 
    IF _HMG_ThisEventType == "BROWSE_WHEN"
-      MsgMiniGuiError( "BROWSE: Editing within WHEN event procedure is not allowed." )
+      MsgMiniGuiError("BROWSE: Editing within WHEN event procedure is not allowed.")
 
    ELSEIF _HMG_ThisEventType == "BROWSE_VALID"
-      MsgMiniGuiError( "BROWSE: Editing within VALID event procedure is not allowed." )
+      MsgMiniGuiError("BROWSE: Editing within VALID event procedure is not allowed.")
    ENDIF
 
    IF append

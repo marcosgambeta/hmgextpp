@@ -33,11 +33,11 @@ FUNCTION _DefineRating ( ControlName, ParentForm, x, y, w, h, nValue, aImages, n
    ENDIF
 
    IF .NOT. _IsWindowDefined ( ParentForm )
-      MsgMiniGuiError( "Window: " + ParentForm + " is not defined." )
+      MsgMiniGuiError("Window: " + ParentForm + " is not defined.")
    ENDIF
 
    IF _IsControlDefined ( ControlName, ParentForm )
-      MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentForm + " Already defined." )
+      MsgMiniGuiError("Control: " + ControlName + " Of " + ParentForm + " Already defined.")
    ENDIF
 
    IF resource

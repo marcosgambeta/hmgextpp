@@ -197,11 +197,11 @@ FUNCTION _DefinePropGrid ( ControlName, ParentFormName, row, col, width, height,
    ENDIF
 
    IF .NOT. _IsWindowDefined ( ParentFormName )
-      MsgMiniGuiError( "Window: " + ParentFormName + " is not defined." )
+      MsgMiniGuiError("Window: " + ParentFormName + " is not defined.")
    ENDIF
 
    IF _IsControlDefined ( ControlName, ParentFormName )
-      MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " Already defined." )
+      MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
    IF aheadname != Nil .AND. ValType(aheadname) == "A"
@@ -470,8 +470,8 @@ FUNCTION _DefinePropertyItem ( cType, cName, cValue, aData, disabled, disableedi
       aData := LTrim(Str(adata))
    ENDIF
    IF typePG == PG_ERROR
-      //      MsgMiniGuiError ("Property Item type: "+cType+" wrong defined." )
-      MsgMiniGuiError ( _HMG_PGLangError[1] + cType + _HMG_PGLangError[2] )
+      //      MsgMiniGuiError("Property Item type: "+cType+" wrong defined.")
+      MsgMiniGuiError(_HMG_PGLangError[1] + cType + _HMG_PGLangError[2])
    ENDIF
    IF ValType(id) == "U"
       IF Len(_HMG_ActivePropGridArray) == 0
@@ -481,8 +481,8 @@ FUNCTION _DefinePropertyItem ( cType, cName, cValue, aData, disabled, disableedi
    ENDIF
    IF id != 0
       IF AScan(_HMG_ActivePropGridArray, {|x| x[8] == Id }) > 0
-         //         MsgMiniGuiError ("Property Item ID double defined." )
-         MsgMiniGuiError ( _HMG_PGLangError[3]  )
+         //         MsgMiniGuiError("Property Item ID double defined.")
+         MsgMiniGuiError(_HMG_PGLangError[3])
       ENDIF
    ENDIF
    PgCheckData( typePG, @cValue, @aData, 0 )
@@ -653,7 +653,7 @@ FUNCTION PgCheckData( typePG, cValue, aData, mod )
    ENDCASE
    IF !ret
       IF Mod == 0
-         MsgMiniGuiError ( cErr )
+         MsgMiniGuiError(cErr)
       ELSE
          MsgExclamation( cErr, _HMG_PGLangMessage[3], , .F. )
       ENDIF
@@ -705,7 +705,7 @@ FUNCTION _AddPropertyItem  ( ControlName , ParentForm, cCategory, cType, cName, 
       IF _HMG_BeginWindowActive
          ParentForm := _HMG_ActiveFormName
       ELSE
-         MsgMiniGuiError( "Parent Window is not defined." )
+         MsgMiniGuiError("Parent Window is not defined.")
       ENDIF
    ENDIF
    hWndPG := GetPGControlHandle ( ControlName, ParentForm )
@@ -752,7 +752,7 @@ FUNCTION _AddPropertyCategory  ( ControlName , ParentForm, cCategory, cName, id 
       IF _HMG_BeginWindowActive
          ParentForm := _HMG_ActiveFormName
       ELSE
-         MsgMiniGuiError( "Parent Window is not defined." )
+         MsgMiniGuiError("Parent Window is not defined.")
       ENDIF
    ENDIF
    hWndPG := GetPGControlHandle ( ControlName, ParentForm )
@@ -1588,7 +1588,7 @@ FUNCTION SaveMemVarible( ParentForm, ControlName )
       IF _HMG_BeginWindowActive
          ParentForm := _HMG_ActiveFormName
       ELSE
-         MsgMiniGuiError( "Parent Window is not defined." )
+         MsgMiniGuiError("Parent Window is not defined.")
       ENDIF
    ENDIF
    hWndPG := GetPGControlHandle ( ControlName, ParentForm )
@@ -1622,7 +1622,7 @@ FUNCTION GetChangedItem( ParentForm, ControlName )
       IF _HMG_BeginWindowActive
          ParentForm := _HMG_ActiveFormName
       ELSE
-         MsgMiniGuiError( "Parent Window is not defined." )
+         MsgMiniGuiError("Parent Window is not defined.")
       ENDIF
    ENDIF
    hWndPG := GetPGControlHandle ( ControlName, ParentForm )
@@ -1822,7 +1822,7 @@ FUNCTION SetPropGridValue ( ParentForm, ControlName, nID, cValue, cData, lExp )
       IF _HMG_BeginWindowActive
          ParentForm := _HMG_ActiveFormName
       ELSE
-         MsgMiniGuiError( "Parent Window is not defined." )
+         MsgMiniGuiError("Parent Window is not defined.")
       ENDIF
    ENDIF
    hWndPG := GetPGControlHandle ( ControlName, ParentForm )
@@ -1871,7 +1871,7 @@ FUNCTION EnablePropGridItem ( ParentForm, ControlName, nID, lEnabled )
       IF _HMG_BeginWindowActive
          ParentForm := _HMG_ActiveFormName
       ELSE
-         MsgMiniGuiError( "Parent Window is not defined." )
+         MsgMiniGuiError("Parent Window is not defined.")
       ENDIF
    ENDIF
    hItemSel := TreeView_GetSelection( hWndPG )
@@ -1904,7 +1904,7 @@ FUNCTION RedrawPropGridItem ( ParentForm, ControlName, nID )
       IF _HMG_BeginWindowActive
          ParentForm := _HMG_ActiveFormName
       ELSE
-         MsgMiniGuiError( "Parent Window is not defined." )
+         MsgMiniGuiError("Parent Window is not defined.")
       ENDIF
    ENDIF
    hWndPG := GetPGControlHandle ( ControlName, ParentForm )
@@ -1931,7 +1931,7 @@ FUNCTION GetPropGridValue ( ParentForm, ControlName, nID, lAllData, nSubItem )
       IF _HMG_BeginWindowActive
          ParentForm := _HMG_ActiveFormName
       ELSE
-         MsgMiniGuiError( "Parent Window is not defined." )
+         MsgMiniGuiError("Parent Window is not defined.")
       ENDIF
    ENDIF
    hWndPG := GetPGControlHandle ( ControlName, ParentForm )

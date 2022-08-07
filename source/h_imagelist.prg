@@ -70,11 +70,11 @@ FUNCTION _DefineImageList ( ControlName , ParentForm , w , h , aImage , aImageMa
    ENDIF
 
    IF .NOT. _IsWindowDefined ( ParentForm )
-      MsgMiniGuiError( "Window: " + ParentForm + " is not defined." )
+      MsgMiniGuiError("Window: " + ParentForm + " is not defined.")
    ENDIF
 
    IF _IsControlDefined ( ControlName, ParentForm )
-      MsgMiniGuiError( "Control: " + ControlName + " Of " + ParentForm + " Already defined." )
+      MsgMiniGuiError("Control: " + ControlName + " Of " + ParentForm + " Already defined.")
    ENDIF
 
    mVar := "_" + ParentForm + "_" + ControlName
@@ -157,7 +157,7 @@ FUNCTION _DefineImageList ( ControlName , ParentForm , w , h , aImage , aImageMa
          PosImage := IL_Add( ControlHandles , aImage[i] , "" , w , h , ImageCount )
       ENDIF
       IF PosImage == -1
-         MsgMiniGuiError( "Image: " + aImage[i] + " is not added. Check image size." )
+         MsgMiniGuiError("Image: " + aImage[i] + " is not added. Check image size.")
       ENDIF
    NEXT
 

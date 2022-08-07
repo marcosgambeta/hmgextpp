@@ -80,23 +80,24 @@ PROCEDURE hb_GTSYS
 
 RETURN
 
-*-----------------------------------------------------------------------------*
-*-Date Created: 01-01-2003
-*-Author: Antonio Novo <antonionovo@gmail.com>
-*-Modified by Grigory Filatov at 24-08-2014
-*-----------------------------------------------------------------------------*
-FUNCTION MsgMiniGuiError( cMessage, lAddText )
-*-----------------------------------------------------------------------------*
+/*
+Date Created: 01-01-2003
+Author: Antonio Novo <antonionovo@gmail.com>
+Modified by Grigory Filatov at 24-08-2014
+*/
+//-----------------------------------------------------------------------------
+FUNCTION MsgMiniGuiError(cMessage, lAddText)
+//-----------------------------------------------------------------------------
 
    IF hb_defaultValue(lAddText, .T.)
       cMessage += " Program terminated."
    ENDIF
 
-RETURN Eval( ErrorBlock(), HMG_GenError( cMessage ) )
+RETURN Eval(ErrorBlock(), HMG_GenError(cMessage))
 
-*-----------------------------------------------------------------------------*
-STATIC FUNCTION HMG_GenError( cMsg )
-*-----------------------------------------------------------------------------*
+//-----------------------------------------------------------------------------
+STATIC FUNCTION HMG_GenError(cMsg)
+//-----------------------------------------------------------------------------
    LOCAL oError := ErrorNew()
 
    oError:SubSystem   := "MGERROR"

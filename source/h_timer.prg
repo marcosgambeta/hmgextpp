@@ -61,11 +61,11 @@ FUNCTION _DefineTimer ( ControlName , ParentForm , Interval , ProcedureName , On
    ENDIF
 
    IF .NOT. _IsWindowDefined ( ParentForm )
-      MsgMiniGuiError( "Window: " + IFNIL( ParentForm, "Parent", ParentForm ) + " is not defined." )
+      MsgMiniGuiError("Window: " + IFNIL(ParentForm, "Parent", ParentForm) + " is not defined.")
    ENDIF
 
    IF _IsControlDefined ( ControlName, ParentForm )
-      MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentForm + " Already defined." )
+      MsgMiniGuiError("Control: " + ControlName + " Of " + ParentForm + " Already defined.")
    ENDIF
 
    hb_default(@Interval, 1000)

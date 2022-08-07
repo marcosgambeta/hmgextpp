@@ -69,7 +69,7 @@ FUNCTION _BeginTab( ControlName, ParentFormName, row, col, w, h, value, f, s, to
    hb_default(@NoTrans, .F.)
 
    IF _HMG_BeginTabActive
-      MsgMiniGuiError( "DEFINE TAB Structures can't be nested." )
+      MsgMiniGuiError("DEFINE TAB Structures can't be nested.")
    ENDIF
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
@@ -164,11 +164,11 @@ STATIC FUNCTION _DefineTab( ControlName, ParentFormName, x, y, w, h, aCaptions, 
    hb_default(@notabstop, .F.)
 
    IF .NOT. _IsWindowDefined ( ParentFormName ) .AND. .NOT. lDialogInMemory
-      MsgMiniGuiError( "Window: " + IFNIL( ParentFormName, "Parent", ParentFormName ) + " is not defined." )
+      MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
    IF _IsControlDefined ( ControlName, ParentFormName ) .AND. .NOT. lDialogInMemory
-      MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " Already defined." )
+      MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
    IF ( FontHandle := GetFontHandle( FontName ) ) != 0

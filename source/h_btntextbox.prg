@@ -103,7 +103,7 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
 
    IF ValType(Field) != "U"
       IF  hb_UAt ( ">", Field ) == 0
-         MsgMiniGuiError ( "Control " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name." )
+         MsgMiniGuiError("Control " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name.")
       ELSE
          WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
          IF Select ( WorkArea ) != 0
@@ -141,12 +141,12 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
 
 // Check if the window/form is defined.
    IF .NOT. _IsWindowDefined( ParentFormName ) .AND. .NOT. lDialogInMemory
-      MsgMiniGuiError( "Window " + IFNIL( ParentFormName, "Parent", ParentFormName ) + " is not defined." )
+      MsgMiniGuiError("Window " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
 // Check if the control is already defined.
    IF _IsControlDefined( ControlName, ParentFormName ) .AND. .NOT. lDialogInMemory
-      MsgMiniGuiError( "Control " + ControlName + " of " + ParentFormName + " already defined." )
+      MsgMiniGuiError("Control " + ControlName + " of " + ParentFormName + " already defined.")
    ENDIF
 
    mVar := "_" + ParentFormName + "_" + ControlName

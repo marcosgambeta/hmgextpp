@@ -95,7 +95,7 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
 
    IF ValType(Field) != "U"
       IF  hb_UAt ( ">", Field ) == 0
-         MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name." )
+         MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name.")
       ELSE
          WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
          IF Select ( WorkArea ) != 0
@@ -123,12 +123,12 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
 
    // Check if the window/form is defined.
    IF .NOT. _IsWindowDefined( ParentFormName ) .AND. .NOT. lDialogInMemory
-      MsgMiniGuiError( "Window: " + IFNIL( ParentFormName, "Parent", ParentFormName ) + " is not defined." )
+      MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
    // Check if the control is already defined.
    IF _IsControlDefined( ControlName, ParentFormName ) .AND. .NOT. lDialogInMemory
-      MsgMiniGuiError( "Control: " + ControlName + " of " + ParentFormName + " already defined." )
+      MsgMiniGuiError("Control: " + ControlName + " of " + ParentFormName + " already defined.")
    ENDIF
 
    mVar := "_" + ParentFormName + "_" + ControlName
@@ -359,7 +359,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
 
    IF ValType(Field) != "U"
       IF  hb_UAt ( ">", Field ) == 0
-         MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name." )
+         MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name.")
       ELSE
          WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
          IF Select ( WorkArea ) != 0
@@ -375,7 +375,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
       c := hb_USubStr(InputMask, i, 1)
 
       IF c != "9" .AND. c != "$" .AND. c != "*" .AND. c != "." .AND. c != "," .AND. c != " " .AND. c != "€"
-         MsgMiniGuiError( "@...TEXTBOX: Wrong InputMask Definition." )
+         MsgMiniGuiError("@...TEXTBOX: Wrong InputMask Definition.")
       ENDIF
 
    NEXT i
@@ -385,7 +385,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
       c := hb_USubStr(Format, i, 1)
 
       IF c != "C" .AND. c != "X" .AND. c != "(" .AND. c != "E"
-         MsgMiniGuiError( "@...TEXTBOX: Wrong Format Definition." )
+         MsgMiniGuiError("@...TEXTBOX: Wrong Format Definition.")
       ENDIF
 
    NEXT i
@@ -423,11 +423,11 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
    lDialogInMemory := _HMG_DialogInMemory
 
    IF .NOT. _IsWindowDefined ( ParentFormName ) .AND. .NOT. lDialogInMemory
-      MsgMiniGuiError( "Window: " + IFNIL( ParentFormName, "Parent", ParentFormName ) + " is not defined." )
+      MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
    IF _IsControlDefined ( ControlName, ParentFormName ) .AND. .NOT. lDialogInMemory
-      MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " Already defined." )
+      MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
    mVar := "_" + ParentFormName + "_" + ControlName
@@ -656,7 +656,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
 
    IF ValType(Field) != "U"
       IF  hb_UAt ( ">", Field ) == 0
-         MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name." )
+         MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name.")
       ELSE
          WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
          IF Select ( WorkArea ) != 0
@@ -701,11 +701,11 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
    lDialogInMemory := _HMG_DialogInMemory
 
    IF .NOT. _IsWindowDefined ( ParentFormName ) .AND. .NOT. lDialogInMemory
-      MsgMiniGuiError( "Window: " + IFNIL( ParentFormName, "Parent", ParentFormName ) + " is not defined." )
+      MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
    IF _IsControlDefined ( ControlName, ParentFormName ) .AND. .NOT. lDialogInMemory
-      MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " Already defined." )
+      MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
    mVar := "_" + ParentFormName + "_" + ControlName

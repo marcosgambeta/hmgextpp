@@ -517,7 +517,7 @@ PROCEDURE HMG_CheckType( lSoft, ... )
 
                j := AScan(aType, {| x | x[2] == aData[2] })
 
-               MsgMiniGuiError( "CHECK TYPE ( Param # " + hb_ntos( aData:__enumindex() ) + " ) : " + AllTrim(aData[3]) + " is declared as " + Upper(AllTrim(aData[1])) + " but it have type " + aType[ j ][1] + "." )
+               MsgMiniGuiError("CHECK TYPE ( Param # " + hb_ntos(aData:__enumindex()) + " ) : " + AllTrim(aData[3]) + " is declared as " + Upper(AllTrim(aData[1])) + " but it have type " + aType[j][1] + ".")
 
             ENDIF
 

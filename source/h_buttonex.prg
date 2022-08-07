@@ -140,15 +140,15 @@ FUNCTION _DefineOwnerButton ( ControlName, ParentForm, x, y, Caption, ;
    ENDIF
 
    IF .NOT. _IsWindowDefined ( ParentForm )
-      MsgMiniGuiError ( "Window: " + IFNIL( ParentForm, "Parent", ParentForm ) + " is not defined." )
+      MsgMiniGuiError("Window: " + IFNIL(ParentForm, "Parent", ParentForm) + " is not defined.")
    ENDIF
 
    IF _IsControlDefined ( ControlName, ParentForm )
-      MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentForm + " Already defined." )
+      MsgMiniGuiError("Control: " + ControlName + " Of " + ParentForm + " Already defined.")
    ENDIF
 
    IF !Empty(image) .AND. ! Empty(icon)
-      MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentForm + ". Either bitmap or icon must be specified." )
+      MsgMiniGuiError("Control: " + ControlName + " Of " + ParentForm + ". Either bitmap or icon must be specified.")
    ENDIF
 
    cPicture := IFEMPTY(icon, image, icon)

@@ -83,11 +83,11 @@ FUNCTION _DefineProgressWheel ( cControlName, cParentForm, nCol, nRow, nWidth, ;
    ENDIF
 
    IF .NOT. _IsWindowDefined ( cParentForm )
-      MsgMiniGuiError ( "Window: " + cParentForm + " is not defined." )
+      MsgMiniGuiError("Window: " + cParentForm + " is not defined.")
    ENDIF
 
    IF _IsControlDefined ( cControlName, cParentForm )
-      MsgMiniGuiError ( "Control: " + cControlName + " Of " + cParentForm + " Already defined." )
+      MsgMiniGuiError("Control: " + cControlName + " Of " + cParentForm + " Already defined.")
    ENDIF
 
    IF _SetGetGlobal( "BufScale" ) == NIL

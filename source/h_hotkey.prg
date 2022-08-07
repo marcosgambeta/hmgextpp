@@ -67,12 +67,12 @@ FUNCTION _DefineHotKey ( cParentForm , nMod , nKey , bAction )
    ENDIF
 
    IF ValType(cParentForm) == "U"
-      MsgMiniGuiError ( "ON KEY: Parent Window is Not specified." )
+      MsgMiniGuiError("ON KEY: Parent Window is Not specified.")
    ENDIF
 
    // Check if the window/form is defined.
    IF .NOT. _IsWindowDefined( cParentForm )
-      MsgMiniGuiError( "Window " + cParentForm + " is not defined." )
+      MsgMiniGuiError("Window " + cParentForm + " is not defined.")
    ENDIF
 
    _ReleaseHotKey ( cParentForm, nMod , nKey )
@@ -210,18 +210,18 @@ FUNCTION _SetHotKeyByName ( cParentForm, cKey, bAction )
       cParentForm := _HMG_ActiveFormName
    ENDIF
    IF Empty(cParentForm)
-      MsgMiniGuiError ( "ON KEY: Parent Window is Not specified." )
+      MsgMiniGuiError("ON KEY: Parent Window is Not specified.")
    ENDIF
 
    IF !Empty(cKey) .AND. ISCHARACTER ( cKey )
       aKey := _DetermineKey ( cKey )
       IF aKey [1] != 0
          IF ValType(_GetHotKeyBlock(cParentForm, aKey [2], aKey [1])) == "B"
-            MsgMiniGuiError ( "Hotkey " + cKey + " Already defined." )
+            MsgMiniGuiError("Hotkey " + cKey + " Already defined.")
          ENDIF
          lSuccess := _DefineHotKey ( cParentForm, aKey [2], aKey [1], bAction )
       ELSE
-         MsgMiniGuiError ( "Hotkey " + cKey + " is not valid." )
+         MsgMiniGuiError("Hotkey " + cKey + " is not valid.")
       ENDIF
    ENDIF
 

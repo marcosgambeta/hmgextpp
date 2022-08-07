@@ -62,11 +62,11 @@ FUNCTION _DefineToolBar ( ControlName, ParentForm, x, y, caption, ProcedureName,
    LOCAL k
 
    IF .NOT. _IsWindowDefined ( ParentForm )
-      MsgMiniGuiError ( "Window: " + ParentForm + " is not defined." )
+      MsgMiniGuiError("Window: " + ParentForm + " is not defined.")
    ENDIF
 
    IF _IsControlDefined ( ControlName, ParentForm )
-      MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentForm + " Already defined." )
+      MsgMiniGuiError("Control: " + ControlName + " Of " + ParentForm + " Already defined.")
    ENDIF
 
    IF ( FontHandle := GetFontHandle( FontName ) ) != 0
@@ -223,11 +223,11 @@ FUNCTION _DefineToolButton ( ControlName, ParentControl, x, y, Caption, Procedur
    HB_SYMBOL_UNUSED( Flat )
 
    IF ValType(ProcedureName) == "U" .AND. Dropdown == .T.
-      MsgMiniGuiError ( "ToolBar DropDown buttons must have an associated action (Use WholeDropDown style for no action)." )
+      MsgMiniGuiError("ToolBar DropDown buttons must have an associated action (Use WholeDropDown style for no action).")
    ENDIF
 
    IF ValType(ProcedureName) != "U" .AND. WholeDropDown == .T.
-      MsgMiniGuiError ( "ToolBar Action and WholeDropDown clauses can't be used simultaneously." )
+      MsgMiniGuiError("ToolBar Action and WholeDropDown clauses can't be used simultaneously.")
    ENDIF
 
    ParentForm := iif( _HMG_BeginWindowActive, _HMG_ActiveFormName, _HMG_ActiveToolBarFormName )
@@ -377,7 +377,7 @@ FUNCTION _BeginToolBar ( name, parent, row, col, w, h, caption, ProcedureName, f
    _HMG_ActiveToolBarExtend := .F.
 
    IF _HMG_SplitChildActive
-      MsgMiniGuiError( "ToolBars Can't Be Defined Inside SplitChild Windows." )
+      MsgMiniGuiError("ToolBars Can't Be Defined Inside SplitChild Windows.")
    ENDIF
 
    IF _HMG_BeginWindowActive
@@ -414,7 +414,7 @@ FUNCTION _BeginToolBarEx( name, parent, row, col, w, h, caption, ProcedureName, 
    _HMG_ActiveToolBarExtend := .T.
 
    IF _HMG_SplitChildActive
-      MsgMiniGuiError( "ToolBars Can't Be Defined Inside SplitChild Windows." )
+      MsgMiniGuiError("ToolBars Can't Be Defined Inside SplitChild Windows.")
    ENDIF
 
    IF _HMG_BeginWindowActive

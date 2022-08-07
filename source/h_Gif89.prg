@@ -26,19 +26,19 @@ FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidt
    ENDIF
 
    IF .NOT. _IsWindowDefined ( cParentForm )
-      MsgMiniGuiError ( "Window: " + cParentForm + " is not defined." )
+      MsgMiniGuiError("Window: " + cParentForm + " is not defined.")
    ENDIF
 
    IF _IsControlDefined ( cControlName, cParentForm )
-      MsgMiniGuiError ( "Control: " + cControlName + " Of " + cParentForm + " Already defined." )
+      MsgMiniGuiError("Control: " + cControlName + " Of " + cParentForm + " Already defined.")
    ENDIF
 
    IF !ISCHARACTER ( cFilename )
-      MsgMiniGuiError ( "Control: " + cControlName + " Of " + cParentForm + " PICTURE Property Invalid Type." )
+      MsgMiniGuiError("Control: " + cControlName + " Of " + cParentForm + " PICTURE Property Invalid Type.")
    ENDIF
 
    IF Empty(cFilename)
-      MsgMiniGuiError ( "Control: " + cControlName + " Of " + cParentForm + " PICTURE Can't Be Empty." )
+      MsgMiniGuiError("Control: " + cControlName + " Of " + cParentForm + " PICTURE Can't Be Empty.")
    ENDIF
 
    IF !hb_FileExists ( cFileName )

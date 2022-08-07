@@ -74,11 +74,11 @@ FUNCTION _BeginMessageBar( ControlName, ParentForm, kbd, fontname, fontsize, bol
    ENDIF
 
    IF .NOT. _IsWindowDefined ( ParentForm )
-      MsgMiniGuiError( "Window: " + ParentForm + " is not defined." )
+      MsgMiniGuiError("Window: " + ParentForm + " is not defined.")
    ENDIF
 
    IF _IsControlDefined ( ControlName, ParentForm )
-      MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentForm + " Already defined." )
+      MsgMiniGuiError("Control: " + ControlName + " Of " + ParentForm + " Already defined.")
    ENDIF
 
    IF ( FontHandle := GetFontHandle( FontName ) ) != 0
@@ -203,7 +203,7 @@ FUNCTION _DefineItemMessage ( ControlName, ParentControl, x, y, Caption, Procedu
    ENDIF
 
    IF .NOT. _IsWindowDefined ( ParentForm )
-      MsgMiniGuiError( "Window: " + ParentForm + " is not defined." )
+      MsgMiniGuiError("Window: " + ParentForm + " is not defined.")
    ENDIF
 
    IF ValType(ParentControl) == "U"

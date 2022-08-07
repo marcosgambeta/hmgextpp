@@ -262,11 +262,11 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
    ENDIF
 
    IF .NOT. _IsWindowDefined( ParentFormName ) .AND. .NOT. _HMG_DialogInMemory
-      MsgMiniGuiError( "Window: " + ParentFormName + " is not defined." )
+      MsgMiniGuiError("Window: " + ParentFormName + " is not defined.")
    ENDIF
 
    IF _IsControlDefined( ControlName, ParentFormName ) .AND. .NOT. _HMG_DialogInMemory
-      MsgMiniGuiError( "Control: " + ControlName + " Of " + ParentFormName + " already defined." )
+      MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " already defined.")
    ENDIF
 
    IF aImages != NIL .AND. ValType(aImages) == "A"
@@ -667,7 +667,7 @@ FUNCTION LoadFields( ControlName, ParentForm, lEdit, aFieldNames )
       ENDIF
       oBrw:LoadFields( lEdit )
    ELSE
-      MsgMiniGuiError( "Can not found the control: " + ControlName + " of " + ParentForm )
+      MsgMiniGuiError("Can not found the control: " + ControlName + " of " + ParentForm)
    ENDIF
 
 RETURN oBrw
@@ -683,7 +683,7 @@ FUNCTION SetArray( ControlName, ParentForm, Arr, lAutoCols, aHead, aSizes )
       oBrw := _HMG_aControlIds[ix]
       oBrw:SetArray( Arr, lAutoCols, aHead, aSizes )
    ELSE
-      MsgMiniGuiError( "Can not found the control: " + ControlName + " of " + ParentForm )
+      MsgMiniGuiError("Can not found the control: " + ControlName + " of " + ParentForm)
    ENDIF
 
 RETURN oBrw
@@ -699,7 +699,7 @@ FUNCTION SetArrayTo( ControlName, ParentForm, Arr, uFontHF, aHead, aSizes, uFoot
       oBrw := _HMG_aControlIds[ix]
       oBrw:SetArrayTo( Arr, uFontHF, aHead, aSizes, uFooter, aPicture, aAlign, aName )
    ELSE
-      MsgMiniGuiError( "Can not found the control: " + ControlName + " of " + ParentForm )
+      MsgMiniGuiError("Can not found the control: " + ControlName + " of " + ParentForm)
    ENDIF
 
 RETURN oBrw

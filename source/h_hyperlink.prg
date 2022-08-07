@@ -102,12 +102,12 @@ PROCEDURE _SetAddressControlProcedure ( ControlName , url , i )
 #endif
          _HMG_aControlProcedures[i] := &( "{||" + url + "}" )
       ELSE
-         MsgMiniGuiError ( "Control " + ControlName + " Of " + GetParentFormName( i ) + " must have a valid procedure name defined." )
+         MsgMiniGuiError("Control " + ControlName + " Of " + GetParentFormName(i) + " must have a valid procedure name defined.")
       ENDIF
 
    OTHERWISE
 
-      MsgMiniGuiError ( "Control " + ControlName + " Of " + GetParentFormName( i ) + " must have a valid email, url or file defined." )
+      MsgMiniGuiError("Control " + ControlName + " Of " + GetParentFormName(i) + " must have a valid email, url or file defined.")
 
    ENDCASE
 

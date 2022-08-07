@@ -173,7 +173,7 @@ FUNCTION _BeginPropSheet(  FormName, ParentForm, row, col, width, height, captio
    LOCAL aFont, FontHandle
 
    IF _HMG_BeginDialogActive = .T.
-      MsgMiniGuiError( "DEFINE PROPERTY SHEET Structures can't be nested." )
+      MsgMiniGuiError("DEFINE PROPERTY SHEET Structures can't be nested.")
    ENDIF
 
    IF ( FontHandle := GetFontHandle( FontName ) ) != 0
@@ -258,11 +258,11 @@ FUNCTION _DefinePropSheet ( FormName, ParentForm,  y, x, w, h,  caption, IdIcon,
 
    i := AScan(_HMG_aFormType, "A")
    IF i <= 0
-      MsgMiniGuiError( "Main Window Not Defined." )
+      MsgMiniGuiError("Main Window Not Defined.")
    ENDIF
 
    IF _IsWindowDefined ( FormName )
-      MsgMiniGuiError( "Property Sheet: " + FormName + " already defined." )
+      MsgMiniGuiError("Property Sheet: " + FormName + " already defined.")
    ENDIF
 
    mVar := "_" + FormName
@@ -457,10 +457,10 @@ FUNCTION _DefineSheetPage ( DialogName, Id, cTitle, HdTitle, SubHdTitle, HideHea
    LOCAL style := PSP_USETITLE
    DEFAULT Id := 0, SubHdTitle := ""
    IF Id == 0
-      MsgMiniGuiError( "PROPERTY SHEET Structures only from Resourses." )
+      MsgMiniGuiError("PROPERTY SHEET Structures only from Resourses.")
    ENDIF
    IF _IsWindowDefined ( DialogName )
-      MsgMiniGuiError( "Dialog: " + DialogName + " already defined." )
+      MsgMiniGuiError("Dialog: " + DialogName + " already defined.")
    ENDIF
 
    _HMG_ActiveDialogHandle    := 0
@@ -505,7 +505,7 @@ FUNCTION _BeginSheetPage ( DialogName, Id, cTitle, HdTitle, SubHdTitle, HideHead
    _HMG_aDialogTemplate       := _HMG_aPropSheetTemplate
 
    IF _IsWindowDefined ( DialogName )
-      MsgMiniGuiError( "Dialog: " + DialogName + " already defined." )
+      MsgMiniGuiError("Dialog: " + DialogName + " already defined.")
    ENDIF
 
    AAdd(_HMG_aPropSheetPages, { DialogName, Id, 0, 0, _HMG_DialogInMemory, .F. })

@@ -85,19 +85,19 @@ PROCEDURE _DefineActivex ( cControlName, cParentForm, nRow, nCol, nWidth, nHeigh
    ENDIF
 
    IF .NOT. _IsWindowDefined ( cParentForm )
-      MsgMiniGuiError ( "Window: " + cParentForm + " is not defined." )
+      MsgMiniGuiError("Window: " + cParentForm + " is not defined.")
    ENDIF
 
    IF _IsControlDefined ( cControlName, cParentForm )
-      MsgMiniGuiError ( "Control: " + cControlName + " Of " + cParentForm + " Already defined." )
+      MsgMiniGuiError("Control: " + cControlName + " Of " + cParentForm + " Already defined.")
    ENDIF
 
    IF !ISCHARACTER ( cProgId )
-      MsgMiniGuiError ( "Control: " + cControlName + " Of " + cParentForm + " PROGID Property Invalid Type." )
+      MsgMiniGuiError("Control: " + cControlName + " Of " + cParentForm + " PROGID Property Invalid Type.")
    ENDIF
 
    IF Empty(cProgId)
-      MsgMiniGuiError ( "Control: " + cControlName + " Of " + cParentForm + " PROGID Can't be empty." )
+      MsgMiniGuiError("Control: " + cControlName + " Of " + cParentForm + " PROGID Can't be empty.")
    ENDIF
 
    // Define public variable associated with control

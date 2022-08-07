@@ -45,11 +45,11 @@ PROCEDURE _DefineCLButton ( cName, nRow, nCol, cCaption, cNotes, bAction, cParen
    ENDIF
 
    IF .NOT. _IsWindowDefined ( cParent )
-      MsgMiniGuiError( "Window: " + cParent + " is not defined." )
+      MsgMiniGuiError("Window: " + cParent + " is not defined.")
    ENDIF
 
    IF _IsControlDefined ( cName, cParent )
-      MsgMiniGuiError ( "Control: " + cName + " Of " + cParent + " Already defined." )
+      MsgMiniGuiError("Control: " + cName + " Of " + cParent + " Already defined.")
    ENDIF
 
    hb_default(@w, 180)
