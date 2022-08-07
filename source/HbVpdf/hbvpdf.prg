@@ -2,8 +2,8 @@
 
 #include "fileio.ch"
 
-#if ( __HARBOUR__ - 0 < 0x030200 )
-# xtranslate __defaultNIL( @<v>, <x> ) => ( <v> := iif( <v> == NIL, <x>, <v> ) )
+#if (__HARBOUR__ - 0 < 0x030200)
+#xtranslate __defaultNIL(@<v>, <x>) => (<v> := iif(<v> == NIL, <x>, <v>))
 #endif
 
 #define CRLF ( Chr(13) + Chr(10) )
@@ -36,10 +36,10 @@ FUNCTION pdfAtSay( cString, nRow, nCol, cUnits, lExact, cId )
    LOCAL lReverse
    LOCAL nAt
 
-   __defaultNIL( @nRow, s_aReport[REPORTLINE] )
-   __defaultNIL( @cUnits, "R" )
-   __defaultNIL( @lExact, .F. )
-   __defaultNIL( @cId, "" )
+   __defaultNIL(@nRow, s_aReport[REPORTLINE])
+   __defaultNIL(@cUnits, "R")
+   __defaultNIL(@lExact, .F.)
+   __defaultNIL(@cId, "")
 
    IF s_aReport[HEADEREDIT]
       RETURN pdfHeader( "PDFATSAY", cId, { cString, nRow, nCol, cUnits, lExact } )
@@ -54,21 +54,21 @@ FUNCTION pdfAtSay( cString, nRow, nCol, cUnits, lExact, cId )
       nRow := pdfM2Y( nRow )
       nCol := pdfM2X( nCol )
    ELSEIF cUnits == "R"
-      IF ! lExact
+      IF !lExact
          pdfCheckLine( nRow )
          nRow := nRow + s_aReport[PDFTOP]
       ENDIF
       nRow := pdfR2D(nRow)
       nCol := pdfM2X(s_aReport[PDFLEFT]) + nCol * 100.00 / s_aReport[REPORTWIDTH] * (s_aReport[PAGEX] - pdfM2X(s_aReport[PDFLEFT]) * 2 - 9.0) / 100.00
    ENDIF
-   IF ! Empty(cString)
+   IF !Empty(cString)
       cString := pdfStringB( cString )
-      IF Right( cString, 1 ) == Chr(255) // reverse
+      IF Right(cString, 1) == Chr(255) // reverse
          cString := Left(cString, Len(cString) - 1)
          pdfBox( s_aReport[PAGEY] - nRow - s_aReport[FONTSIZE] + 2.0, nCol, s_aReport[PAGEY] - nRow + 2.0, nCol + pdfM2X( pdfLen(cString) ) + 1,, 100, "D" )
          s_aReport[PAGEBUFFER] += " 1 g "
          lReverse := .T.
-      ELSEIF Right( cString, 1 ) == Chr(254) // underline
+      ELSEIF Right(cString, 1) == Chr(254) // underline
          cString := Left(cString, Len(cString) - 1)
          pdfBox( s_aReport[PAGEY] - nRow + 0.5,  nCol, s_aReport[PAGEY] - nRow + 1, nCol + pdfM2X( pdfLen(cString) ) + 1,, 100, "D" )
       ENDIF
@@ -86,12 +86,12 @@ FUNCTION pdfAtSay( cString, nRow, nCol, cUnits, lExact, cId )
       _nFont := AScan(s_aReport[FONTS], {| arr | arr[1] == s_aReport[FONTNAME] })
       IF !( s_aReport[FONTNAME] == s_aReport[FONTNAMEPREV] )
          s_aReport[FONTNAMEPREV] := s_aReport[FONTNAME]
-         s_aReport[PAGEBUFFER] += CRLF + "BT /Fo" + hb_ntos(_nFont) + " " + LTrim( Transform( s_aReport[FONTSIZE], "999.99" ) ) + " Tf " + LTrim( Transform( nCol, "9999.99" ) ) + " " + LTrim( Transform( nRow, "9999.99" ) ) + " Td (" + cString + ") Tj ET"
+         s_aReport[PAGEBUFFER] += CRLF + "BT /Fo" + hb_ntos(_nFont) + " " + LTrim(Transform(s_aReport[FONTSIZE], "999.99")) + " Tf " + LTrim(Transform(nCol, "9999.99")) + " " + LTrim(Transform(nRow, "9999.99")) + " Td (" + cString + ") Tj ET"
       ELSEIF s_aReport[FONTSIZE] != s_aReport[FONTSIZEPREV]
          s_aReport[FONTSIZEPREV] := s_aReport[FONTSIZE]
-         s_aReport[PAGEBUFFER] += CRLF + "BT /Fo" + hb_ntos(_nFont) + " " + LTrim( Transform( s_aReport[FONTSIZE], "999.99" ) ) + " Tf " + LTrim( Transform( nCol, "9999.99" ) ) + " " + LTrim( Transform( nRow, "9999.99" ) ) + " Td (" + cString + ") Tj ET"
+         s_aReport[PAGEBUFFER] += CRLF + "BT /Fo" + hb_ntos(_nFont) + " " + LTrim(Transform(s_aReport[FONTSIZE], "999.99")) + " Tf " + LTrim(Transform(nCol, "9999.99")) + " " + LTrim(Transform(nRow, "9999.99")) + " Td (" + cString + ") Tj ET"
       ELSE
-         s_aReport[PAGEBUFFER] += CRLF + "BT " + LTrim( Transform( nCol, "9999.99" ) ) + " " + LTrim( Transform( nRow, "9999.99" ) ) + " Td (" + cString + ") Tj ET"
+         s_aReport[PAGEBUFFER] += CRLF + "BT " + LTrim(Transform(nCol, "9999.99")) + " " + LTrim(Transform(nRow, "9999.99")) + " Td (" + cString + ") Tj ET"
       ENDIF
       IF lReverse
          s_aReport[PAGEBUFFER] += " 0 g "
@@ -280,14 +280,14 @@ FUNCTION pdfBox( x1, y1, x2, y2, nBorder, nShade, cUnits, cColor, cId )
 
    LOCAL cBoxColor
 
-   __defaultNIL( @nBorder, 0 )
-   __defaultNIL( @nShade, 0 )
-   __defaultNIL( @cUnits, "M" )
-   __defaultNIL( @cColor, "" )
+   __defaultNIL(@nBorder, 0)
+   __defaultNIL(@nShade, 0)
+   __defaultNIL(@cUnits, "M")
+   __defaultNIL(@cColor, "")
 
    // version 0.02
    cBoxColor := ""
-   IF ! Empty(cColor)
+   IF !Empty(cColor)
       cBoxColor := " " + Chr_RGB( SubStr(cColor, 2, 1) ) + " " + ;
          Chr_RGB( SubStr(cColor, 3, 1) ) + " " + ;
          Chr_RGB( SubStr(cColor, 4, 1) ) + " rg "
@@ -307,7 +307,7 @@ FUNCTION pdfBox( x1, y1, x2, y2, nBorder, nShade, cUnits, cColor, cId )
 
       IF nShade > 0
          // version 0.02
-         s_aReport[PAGEBUFFER] += CRLF + Transform( 1.00 - nShade / 100.00, "9.99" ) + " g " + cBoxColor + hb_ntos(pdfM2X(y1)) + " " + hb_ntos(pdfM2Y(x1)) + " " + hb_ntos(pdfM2X(y2 - y1)) + " -" + hb_ntos(pdfM2X(x2 - x1)) + " re f 0 g"
+         s_aReport[PAGEBUFFER] += CRLF + Transform(1.00 - nShade / 100.00, "9.99") + " g " + cBoxColor + hb_ntos(pdfM2X(y1)) + " " + hb_ntos(pdfM2Y(x1)) + " " + hb_ntos(pdfM2X(y2 - y1)) + " -" + hb_ntos(pdfM2X(x2 - x1)) + " re f 0 g"
       ENDIF
 
       IF nBorder > 0
@@ -320,7 +320,7 @@ FUNCTION pdfBox( x1, y1, x2, y2, nBorder, nShade, cUnits, cColor, cId )
       // x1, y1, x2, y2 - nTop, nLeft, nBottom, nRight
       IF nShade > 0
          // version 0.02
-         s_aReport[PAGEBUFFER] += CRLF + Transform( 1.00 - nShade / 100.00, "9.99" ) + " g " + cBoxColor + hb_ntos(y1) + " " + hb_ntos(s_aReport[PAGEY] - x1) + " " + hb_ntos(y2 - y1) + " -" + hb_ntos(x2 - x1) + " re f 0 g"
+         s_aReport[PAGEBUFFER] += CRLF + Transform(1.00 - nShade / 100.00, "9.99") + " g " + cBoxColor + hb_ntos(y1) + " " + hb_ntos(s_aReport[PAGEY] - x1) + " " + hb_ntos(y2 - y1) + " -" + hb_ntos(x2 - x1) + " re f 0 g"
       ENDIF
 
       IF nBorder > 0
@@ -344,9 +344,9 @@ RETURN NIL
 *--------------------------------------------------------------
 FUNCTION pdfBox1( nTop, nLeft, nBottom, nRight, nBorderWidth, cBorderColor, cBoxColor )
 
-   __defaultNIL( @nBorderWidth, 0.5 )
-   __defaultNIL( @cBorderColor, Chr(0) + Chr(0) + Chr(0) )
-   __defaultNIL( @cBoxColor, Chr(255) + Chr(255) + Chr(255) )
+   __defaultNIL(@nBorderWidth, 0.5)
+   __defaultNIL(@cBorderColor, Chr(0) + Chr(0) + Chr(0))
+   __defaultNIL(@cBoxColor, Chr(255) + Chr(255) + Chr(255))
 
    s_aReport[PAGEBUFFER] += CRLF + ;
       Chr_RGB( SubStr(cBorderColor, 1, 1) ) + " " + ;
@@ -374,10 +374,10 @@ FUNCTION pdfCenter( cString, nRow, nCol, cUnits, lExact, cId )
    LOCAL nLen
    LOCAL nAt
 
-   __defaultNIL( @nRow, s_aReport[REPORTLINE] )
-   __defaultNIL( @cUnits, "R" )
-   __defaultNIL( @lExact, .F. )
-   __defaultNIL( @nCol, iif( cUnits == "R", s_aReport[REPORTWIDTH] / 2, s_aReport[PAGEX] / 72 * 25.4 / 2 ) )
+   __defaultNIL(@nRow, s_aReport[REPORTLINE])
+   __defaultNIL(@cUnits, "R")
+   __defaultNIL(@lExact, .F.)
+   __defaultNIL(@nCol, iif(cUnits == "R", s_aReport[REPORTWIDTH] / 2, s_aReport[PAGEX] / 72 * 25.4 / 2))
 
    IF s_aReport[HEADEREDIT]
       RETURN pdfHeader( "PDFCENTER", cId, { cString, nRow, nCol, cUnits, lExact } )
@@ -389,7 +389,7 @@ FUNCTION pdfCenter( cString, nRow, nCol, cUnits, lExact, cId )
 
    nLen := pdfLen(cString) / 2
    IF cUnits == "R"
-      IF ! lExact
+      IF !lExact
          pdfCheckLine( nRow )
          nRow := nRow + s_aReport[PDFTOP]
       ENDIF
@@ -456,7 +456,7 @@ FUNCTION pdfClose()
       "/Creator ()" + CRLF + ;
       "/Subject ()" + CRLF + ;
       "/Keywords ()" + CRLF + ;
-      "/CreationDate (D:" + Str( Year( Date() ), 4 ) + PadL( Month( Date() ), 2, "0" ) + PadL( Day( Date() ), 2, "0" ) + SubStr(Time(), 1, 2) + SubStr(Time(), 4, 2) + SubStr(Time(), 7, 2) + ")" + CRLF + ;
+      "/CreationDate (D:" + Str(Year(Date()), 4) + PadL( Month( Date() ), 2, "0" ) + PadL( Day( Date() ), 2, "0" ) + SubStr(Time(), 1, 2) + SubStr(Time(), 4, 2) + SubStr(Time(), 7, 2) + ")" + CRLF + ;
       ">>" + CRLF + ;
       "endobj" + CRLF
    s_aReport[DOCLEN] += Len(cTemp)
@@ -508,7 +508,7 @@ FUNCTION pdfClose()
             "<<" + CRLF + ;
             "/Parent " + hb_ntos(s_aReport[BOOKMARK][nRecno][BOOKPARENT]) + " 0 R" + CRLF + ;
             "/Dest [" + hb_ntos(s_aReport[PAGES][s_aReport[BOOKMARK][nRecno][BOOKPAGE]]) + " 0 R /XYZ 0 " + hb_ntos(s_aReport[BOOKMARK][nRecno][BOOKCOORD]) + " 0]" + CRLF + ;
-            "/Title (" + AllTrim( s_aReport[BOOKMARK][nRecno][BOOKTITLE] ) + ")" + CRLF + ;
+            "/Title (" + AllTrim(s_aReport[BOOKMARK][nRecno][BOOKTITLE]) + ")" + CRLF + ;
             iif( s_aReport[BOOKMARK][nRecno][BOOKPREV] > 0, "/Prev " + hb_ntos(s_aReport[BOOKMARK][nRecno][BOOKPREV]) + " 0 R" + CRLF, "" ) + ;
             iif( s_aReport[BOOKMARK][nRecno][BOOKNEXT] > 0, "/Next " + hb_ntos(s_aReport[BOOKMARK][nRecno][BOOKNEXT]) + " 0 R" + CRLF, "" ) + ;
             iif( s_aReport[BOOKMARK][nRecno][BOOKFIRST] > 0, "/First " + hb_ntos(s_aReport[BOOKMARK][nRecno][BOOKFIRST]) + " 0 R" + CRLF, "" ) + ;
@@ -582,8 +582,8 @@ STATIC FUNCTION pdfClosePage()
       "<<" + CRLF + ;
       "/Type /Page /Parent 1 0 R" + CRLF + ;
       "/Resources " + hb_ntos(++s_aReport[REPORTOBJ]) + " 0 R" + CRLF + ;
-      "/MediaBox [ 0 0 " + LTrim( Transform( s_aReport[PAGEX], "9999.99" ) ) + " " + ;
-      LTrim( Transform( s_aReport[PAGEY], "9999.99" ) ) + " ]" + CRLF + ;
+      "/MediaBox [ 0 0 " + LTrim(Transform(s_aReport[PAGEX], "9999.99") ) + " " + ;
+      LTrim(Transform(s_aReport[PAGEY], "9999.99") ) + " ]" + CRLF + ;
       "/Contents " + hb_ntos(++s_aReport[REPORTOBJ]) + " 0 R" + CRLF + ;
       ">>" + CRLF + ;
       "endobj" + CRLF
@@ -773,12 +773,12 @@ RETURN cRet
 *-------------------------------------------------------------------
 FUNCTION pdfImage( cFile, nRow, nCol, cUnits, nHeight, nWidth, cId )
 
-   __defaultNIL( @nRow, s_aReport[REPORTLINE] )
-   __defaultNIL( @nCol, 0 )
-   __defaultNIL( @nHeight, 0 )
-   __defaultNIL( @nWidth, 0 )
-   __defaultNIL( @cUnits, "R" )
-   __defaultNIL( @cId, "" )
+   __defaultNIL(@nRow, s_aReport[REPORTLINE])
+   __defaultNIL(@nCol, 0)
+   __defaultNIL(@nHeight, 0)
+   __defaultNIL(@nWidth, 0)
+   __defaultNIL(@cUnits, "R")
+   __defaultNIL(@cId, "")
 
    IF s_aReport[HEADEREDIT]
       RETURN pdfHeader( "PDFIMAGE", cId, { cFile, nRow, nCol, cUnits, nHeight, nWidth } )
@@ -832,7 +832,7 @@ FUNCTION pdfLen(cString)
    LOCAL nAdd := ( s_aReport[FONTNAME] - 1 ) % 4
 
    nLen := Len(cString)
-   IF Right( cString, 1 ) == Chr(255) .OR. Right( cString, 1 ) == Chr(254) // reverse or underline
+   IF Right(cString, 1) == Chr(255) .OR. Right(cString, 1) == Chr(254) // reverse or underline
       --nLen
    ENDIF
    IF pdfGetFontInfo( "NAME" ) == "Times"
@@ -843,7 +843,7 @@ FUNCTION pdfLen(cString)
       nArr := 3 // 0.04
    ENDIF
 
-   IF ! Empty(s_aReport[FONTWIDTH])
+   IF !Empty(s_aReport[FONTWIDTH])
       FOR nI := 1 TO nLen
          nWidth += s_aReport[FONTWIDTH][nArr][( Asc( SubStr(cString, nI, 1) ) - 32 ) * 4 + 1 + nAdd] * 25.4 * s_aReport[FONTSIZE] / 720.00 / 100.00
       NEXT
@@ -866,7 +866,7 @@ RETURN s_aReport[PAGEY] -  n * 72 / 25.4
 *-----------------------
 FUNCTION pdfNewLine( n )
 
-   __defaultNIL( @n, 1 )
+   __defaultNIL(@n, 1)
    IF s_aReport[REPORTLINE] + n + s_aReport[PDFTOP] > s_aReport[PDFBOTTOM]
       pdfNewPage()
       s_aReport[REPORTLINE] += 1
@@ -879,14 +879,14 @@ RETURN s_aReport[REPORTLINE]
 *-----------------------------------------------------------------------------------------
 FUNCTION pdfNewPage( _cPageSize, _cPageOrient, _nLpi, _cFontName, _nFontType, _nFontSize )
 
-   __defaultNIL( @_cPageSize, s_aReport[PAGESIZE] )
-   __defaultNIL( @_cPageOrient, s_aReport[PAGEORIENT] )
-   __defaultNIL( @_nLpi, s_aReport[LPI] )
-   __defaultNIL( @_cFontName, pdfGetFontInfo( "NAME" ) )
-   __defaultNIL( @_nFontType, pdfGetFontInfo( "TYPE" ) )
-   __defaultNIL( @_nFontSize, s_aReport[FONTSIZE] )
+   __defaultNIL(@_cPageSize, s_aReport[PAGESIZE])
+   __defaultNIL(@_cPageOrient, s_aReport[PAGEORIENT])
+   __defaultNIL(@_nLpi, s_aReport[LPI])
+   __defaultNIL(@_cFontName, pdfGetFontInfo("NAME"))
+   __defaultNIL(@_nFontType, pdfGetFontInfo("TYPE"))
+   __defaultNIL(@_nFontSize, s_aReport[FONTSIZE])
 
-   IF ! Empty(s_aReport[PAGEBUFFER])
+   IF !Empty(s_aReport[PAGEBUFFER])
       pdfClosePage()
    ENDIF
 
@@ -936,8 +936,8 @@ FUNCTION pdfOpen(cFile, nLen, lOptimize)
    LOCAL n2 := 896
    LOCAL n12
 
-   __defaultNIL( @nLen, 200 )
-   __defaultNIL( @lOptimize, .F. )
+   __defaultNIL(@nLen, 200)
+   __defaultNIL(@lOptimize, .F.)
 
    s_aReport[FONTNAME    ] := 1
    s_aReport[FONTSIZE    ] := 10
@@ -1021,7 +1021,7 @@ FUNCTION pdfPageSize( _cPageSize, _nWidth, _nHeight )
       { "B5",         6.93,  9.84 }, ;
       { "USSTDFOLD", 14.87, 11.00 } }
 
-   __defaultNIL( @_cPageSize, "LETTER" )
+   __defaultNIL(@_cPageSize, "LETTER")
 
    IF Empty(_nWidth) .OR. Empty(_nHeight)
 
@@ -1038,8 +1038,8 @@ FUNCTION pdfPageSize( _cPageSize, _nWidth, _nHeight )
 
    ELSE
 
-      _nWidth := Val( Str( _nWidth ) )
-      _nHeight := Val( Str( _nHeight ) )
+      _nWidth := Val( Str(_nWidth) )
+      _nHeight := Val( Str(_nHeight) )
 
       nSize := AScan(aSize, {| arr | ( arr[2] == _nWidth  ) .AND. ( arr[3] == _nHeight ) })
 
@@ -1071,7 +1071,7 @@ RETURN NIL
 *-------------------------------------
 FUNCTION pdfPageOrient( _cPageOrient )
 
-   __defaultNIL( @_cPageOrient, "P" )
+   __defaultNIL(@_cPageOrient, "P")
 
    s_aReport[PAGEORIENT] := _cPageOrient
    pdfPageSize( s_aReport[PAGESIZE] )
@@ -1090,7 +1090,7 @@ RETURN 25.4 * nRow / s_aReport[LPI]
 *--------------------------
 FUNCTION pdfPageNumber( n )
 
-   __defaultNIL( @n, 0 )
+   __defaultNIL(@n, 0)
    IF n > 0
       s_aReport[REPORTPAGE] := n // NEW !!!
    ENDIF
@@ -1108,9 +1108,9 @@ FUNCTION pdfRJust( cString, nRow, nCol, cUnits, lExact, cId )
    LOCAL nAdj := 1.0
    LOCAL nAt
 
-   __defaultNIL( @nRow, s_aReport[REPORTLINE] )
-   __defaultNIL( @cUnits, "R" )
-   __defaultNIL( @lExact, .F. )
+   __defaultNIL(@nRow, s_aReport[REPORTLINE])
+   __defaultNIL(@cUnits, "R")
+   __defaultNIL(@lExact, .F.)
 
    IF s_aReport[HEADEREDIT]
       RETURN pdfHeader( "PDFRJUST", cId, { cString, nRow, nCol, cUnits, lExact } )
@@ -1123,7 +1123,7 @@ FUNCTION pdfRJust( cString, nRow, nCol, cUnits, lExact, cId )
    nLen := pdfLen(cString)
 
    IF cUnits == "R"
-      IF ! lExact
+      IF !lExact
          pdfCheckLine( nRow )
          nRow := nRow + s_aReport[PDFTOP]
       ENDIF
@@ -1135,9 +1135,9 @@ RETURN NIL
 *-------------------------------------------------
 FUNCTION pdfSetFont( _cFont, _nType, _nSize, cId )
 
-   __defaultNIL( @_cFont, "Times" )
-   __defaultNIL( @_nType, 0 )
-   __defaultNIL( @_nSize, 10 )
+   __defaultNIL(@_cFont, "Times")
+   __defaultNIL(@_nType, 0)
+   __defaultNIL(@_nSize, 10)
 
    IF s_aReport[HEADEREDIT]
       RETURN pdfHeader( "PDFSETFONT", cId, { _cFont, _nType, _nSize } )
@@ -1167,7 +1167,7 @@ FUNCTION pdfSetLPI( _nLpi )
 
    LOCAL cLpi := hb_ntos(_nLpi)
 
-   __defaultNIL( @_nLpi, 6 )
+   __defaultNIL(@_nLpi, 6)
 
    cLpi := iif( cLpi $ "1;2;3;4;6;8;12;16;24;48", cLpi, "6" )
    s_aReport[LPI] := Val( cLpi )
@@ -1209,11 +1209,11 @@ FUNCTION pdfText( cString, nTop, nLeft, nLength, nTab, nJustify, cUnits, cColor,
    LOCAL nTokens
    LOCAL nLen
 
-   __defaultNIL( @nTab, - 1 )
-   __defaultNIL( @cUnits, "R" )
-   __defaultNIL( @nJustify, 4 ) // justify
-   __defaultNIL( @lPrint, .T. )
-   __defaultNIL( @cColor, "" )
+   __defaultNIL(@nTab, -1)
+   __defaultNIL(@cUnits, "R")
+   __defaultNIL(@nJustify, 4) // justify
+   __defaultNIL(@lPrint, .T.)
+   __defaultNIL(@cColor, "")
 
    IF cUnits == "M"
       nTop := pdfM2R( nTop )
@@ -1231,7 +1231,7 @@ FUNCTION pdfText( cString, nTop, nLeft, nLength, nTab, nJustify, cUnits, cColor,
 
    nNew := nTab
 
-   cString := AllTrim( cString )
+   cString := AllTrim(cString)
    nTokens := NumToken( cString, cDelim )
    nStart := 1
 
@@ -1406,7 +1406,7 @@ STATIC FUNCTION TimeAsAMPM( cTime )
    ELSEIF Val( cTime ) == 12
       cTime += " pm"
    ELSE
-      cTime := Str( Val( cTime ) - 12, 2 ) + SubStr(cTime, 3) + " pm"
+      cTime := Str(Val(cTime) - 12, 2) + SubStr(cTime, 3) + " pm"
    ENDIF
    cTime := Left(cTime, 5) + SubStr(cTime, 10)
 
@@ -1416,9 +1416,9 @@ FUNCTION pdfOpenHeader( cFile )
 
    LOCAL nAt // , nErrorCode:=0
 
-   __defaultNIL( @cFile, "" )
-   IF ! Empty(cFile)
-      cFile := AllTrim( cFile )
+   __defaultNIL(@cFile, "")
+   IF !Empty(cFile)
+      cFile := AllTrim(cFile)
       IF Len(cFile) > 12 .OR. ;
             At( " ", cFile ) > 0 .OR. ;
             ( At( " ", cFile ) == 0 .AND. Len(cFile) > 8 ) .OR. ;
@@ -1513,7 +1513,7 @@ FUNCTION pdfHeader( cFunction, cId, arr )
    LOCAL nIdLen
 
    nId := 0
-   IF ! Empty(cId)
+   IF !Empty(cId)
       cId := Upper(cId)
       nId := AScan(s_aReport[HEADER], {| arr | arr[3] == cId })
    ENDIF
@@ -1612,10 +1612,10 @@ FUNCTION pdfMargins( nTop, nLeft, nBottom )
 
    // version 0.07 begin
 
-   __defaultNIL( @nTop, 1 )
-   __defaultNIL( @nLeft, 10 )
+   __defaultNIL(@nTop, 1)
+   __defaultNIL(@nLeft, 10)
    // bottom, default "LETTER", "P", 6
-   __defaultNIL( @nBottom, s_aReport[PAGEY] / 72 * s_aReport[LPI] - 1 )
+   __defaultNIL(@nBottom, s_aReport[PAGEY] / 72 * s_aReport[LPI] - 1)
 
    s_aReport[PDFTOP] := nTop
    s_aReport[PDFLEFT] := nLeft
@@ -1794,10 +1794,10 @@ FUNCTION pdfCreateHeader( _file, _size, _orient, _lpi, _width )
    LOCAL nStyle := 1
    LOCAL nAdd := 0.00
 
-   __defaultNIL( @_size, s_aReport[PAGESIZE] )
-   __defaultNIL( @_orient, s_aReport[PAGEORIENT] )
-   __defaultNIL( @_lpi, s_aReport[LPI] )
-   __defaultNIL( @_width, 200 )
+   __defaultNIL(@_size, s_aReport[PAGESIZE])
+   __defaultNIL(@_orient, s_aReport[PAGEORIENT])
+   __defaultNIL(@_lpi, s_aReport[LPI])
+   __defaultNIL(@_width, 200)
 
    IF _size == "LETTER"
       IF _orient == "P"
@@ -2509,7 +2509,7 @@ STATIC FUNCTION FilePos( nHandle )
 RETURN FSeek( nHandle, 0, FS_RELATIVE )
 
 STATIC FUNCTION Chr_RGB( cChar )
-RETURN Str( Asc( cChar ) / 255, 4, 2 )
+RETURN Str(Asc(cChar) / 255, 4, 2)
 
 STATIC FUNCTION NumToken( cString, cDelimiter )
 RETURN AllToken( cString, cDelimiter )
@@ -2528,15 +2528,15 @@ STATIC FUNCTION AllToken( cString, cDelimiter, nPointer, nAction )
    LOCAL nStart
    LOCAL cRet
 
-   __defaultNIL( @cDelimiter, Chr(0) + Chr(9) + Chr(10) + Chr(13) + Chr(26) + Chr(32) + Chr(138) + Chr(141) )
-   __defaultNIL( @nAction, 0 )
+   __defaultNIL(@cDelimiter, Chr(0) + Chr(9) + Chr(10) + Chr(13) + Chr(26) + Chr(32) + Chr(138) + Chr(141))
+   __defaultNIL(@nAction, 0)
 
    // nAction == 0 - numtoken
    // nAction == 1 - token
    // nAction == 2 - attoken
 
    WHILE nPos <= nLen
-      IF ! SubStr(cString, nPos, 1) $ cDelimiter
+      IF !SubStr(cString, nPos, 1) $ cDelimiter
          nStart := nPos
          WHILE nPos <= nLen .AND. ! SubStr(cString, nPos, 1) $ cDelimiter
             ++nPos

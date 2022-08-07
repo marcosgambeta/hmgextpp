@@ -56,9 +56,9 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 #if ( __HARBOUR__ - 0 < 0x030200 )
   #xtranslate hb_UAt( <c>, <n> ) => At( <c>, <n> )
-  #xtranslate hb_ULeft( <c>, <n> ) => Left( <c>, <n> )
-  #xtranslate hb_URight( <c>, <n> ) => Right( <c>, <n> )
-  #xtranslate hb_ULen( <c> ) => Len( <c> )
+  #xtranslate hb_ULeft(<c>, <n>) => Left(<c>, <n>)
+  #xtranslate hb_URight(<c>, <n>) => Right(<c>, <n>)
+  #xtranslate hb_ULen(<c>) => Len(<c>)
 #endif
 
 *-----------------------------------------------------------------------------*
@@ -82,19 +82,19 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
    ow := oDlu2Pixel()
 #endif
 
-   hb_default( @w, 120 )
-   hb_default( @h, 150 )
-   __defaultNIL( @changeprocedure, "" )
-   __defaultNIL( @gotfocus, "" )
-   __defaultNIL( @lostfocus, "" )
-   __defaultNIL( @rows, {} )
-   hb_default( @invisible, .F. )
-   hb_default( @notabstop, .F. )
-   hb_default( @sort, .F. )
-   hb_default( @GripperText, "" )
-   hb_default( @ListWidth, w )
-   hb_default( @AutoComplete, .F. )
-   hb_default( @lShowDropDown, .F. )
+   hb_default(@w, 120)
+   hb_default(@h, 150)
+   __defaultNIL(@changeprocedure, "")
+   __defaultNIL(@gotfocus, "")
+   __defaultNIL(@lostfocus, "")
+   __defaultNIL(@rows, {})
+   hb_default(@invisible, .F.)
+   hb_default(@notabstop, .F.)
+   hb_default(@sort, .F.)
+   hb_default(@GripperText, "")
+   hb_default(@ListWidth, w)
+   hb_default(@AutoComplete, .F.)
+   hb_default(@lShowDropDown, .F.)
 
    IF ( FontHandle := GetFontHandle( FontName ) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
@@ -102,8 +102,8 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
       ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
-      __defaultNIL( @FontName, _HMG_ActiveFontName )
-      __defaultNIL( @FontSize, _HMG_ActiveFontSize )
+      __defaultNIL(@FontName, _HMG_ActiveFontName)
+      __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
 
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
@@ -133,13 +133,13 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
       IF hb_UAt ( ">" , ItemSource ) == 0
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " (ItemSource): You must specify a fully qualified field name." )
       ELSE
-         WorkArea := hb_ULeft ( ItemSource , hb_UAt ( ">" , ItemSource ) - 2 )
-         cField := hb_URight ( ItemSource , hb_ULen( ItemSource ) - hb_UAt ( ">" , ItemSource ) )
+         WorkArea := hb_ULeft(ItemSource, hb_UAt(">", ItemSource) - 2)
+         cField := hb_URight(ItemSource, hb_ULen(ItemSource) - hb_UAt(">", ItemSource))
       ENDIF
    ENDIF
 
-   hb_default( @value, 0 )
-   __defaultNIL( @uEnter, "" )
+   hb_default(@value, 0)
+   __defaultNIL(@uEnter, "")
 
    mVar := "_" + ParentFormName + "_" + ControlName
    k := _GetControlFree()
@@ -186,7 +186,7 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
 
          //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {|x, y, z| InitDialogComboBox( x, y, z ) }
-         AAdd( _HMG_aDialogItems, { nId, k, "COMBOBOX", style, 0, x, y, w, h, "", HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage } )
+         AAdd(_HMG_aDialogItems, {nId, k, "COMBOBOX", style, 0, x, y, w, h, "", HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
 
@@ -200,8 +200,8 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
          IF FontHandle != 0
             _SetFontHandle( ControlHandle, FontHandle )
          ELSE
-            __defaultNIL( @FontName, _HMG_DefaultFontName )
-            __defaultNIL( @FontSize, _HMG_DefaultFontSize )
+            __defaultNIL(@FontName, _HMG_DefaultFontName)
+            __defaultNIL(@FontSize, _HMG_DefaultFontSize)
             IF IsWindowHandle( ControlHandle )
                FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
             ENDIF
@@ -223,21 +223,21 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
 
          IF i > 0
 
-            ControlHandle := InitComboBox ( _HMG_aFormReBarHandle [i], 0, x, y, w, lUpper, lLower, h, invisible, notabstop, sort, displaychange, _HMG_IsXPorLater )
+            ControlHandle := InitComboBox ( _HMG_aFormReBarHandle[i], 0, x, y, w, lUpper, lLower, h, invisible, notabstop, sort, displaychange, _HMG_IsXPorLater )
 
             IF FontHandle != 0
                _SetFontHandle( ControlHandle, FontHandle )
             ELSE
-               __defaultNIL( @FontName, _HMG_DefaultFontName )
-               __defaultNIL( @FontSize, _HMG_DefaultFontSize )
+               __defaultNIL(@FontName, _HMG_DefaultFontName)
+               __defaultNIL(@FontSize, _HMG_DefaultFontSize)
                IF IsWindowHandle( ControlHandle )
                   FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
                ENDIF
             ENDIF
 
-            AddSplitBoxItem ( Controlhandle , _HMG_aFormReBarHandle [i] , w , break , GripperText , w , , _HMG_ActiveSplitBoxInverted )
+            AddSplitBoxItem ( Controlhandle , _HMG_aFormReBarHandle[i] , w , break , GripperText , w , , _HMG_ActiveSplitBoxInverted )
 
-            Containerhandle := _HMG_aFormReBarHandle [i]
+            Containerhandle := _HMG_aFormReBarHandle[i]
 
          ENDIF
 
@@ -254,15 +254,15 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
       IF FontHandle != 0
          _SetFontHandle( ControlHandle, FontHandle )
       ELSE
-         __defaultNIL( @FontName, _HMG_DefaultFontName )
-         __defaultNIL( @FontSize, _HMG_DefaultFontSize )
+         __defaultNIL(@FontName, _HMG_DefaultFontName)
+         __defaultNIL(@FontSize, _HMG_DefaultFontSize)
          IF IsWindowHandle( ControlHandle )
             FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
          ENDIF
       ENDIF
 
       IF _HMG_BeginTabActive
-         AAdd( _HMG_ActiveTabCurrentPageMap , Controlhandle )
+         AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
       ENDIF
 
       IF ValType(tooltip) != "U"
@@ -318,7 +318,7 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
    _HMG_aControlMiscData1          [k] := { 0, DisplayChange, ItemSource, rows, ListWidth, cuetext, AutoComplete, lShowDropDown, 0, OnCancel, nItemHeight }
    _HMG_aControlMiscData2          [k] := ""
 
-   IF Len( _HMG_aDialogTemplate ) == 0
+   IF Len(_HMG_aDialogTemplate) == 0
       InitDialogComboBox( ParentFormName, ControlHandle, k )
    ENDIF
 
@@ -397,7 +397,7 @@ FUNCTION InitDialogComboBox( ParentName, ControlHandle, k )
 
    ELSE
 
-      IF Len( rows ) > 0
+      IF Len(rows) > 0
          AEval( rows, { |v| ComboAddString ( ControlHandle, v ) } )
       ENDIF
 
@@ -412,10 +412,10 @@ FUNCTION InitDialogComboBox( ParentName, ControlHandle, k )
    ENDIF
 
    IF ValType(ItemSource) != "U"
-      AAdd( _HMG_aFormBrowseList [ GetFormIndex ( ParentName ) ] , k )
+      AAdd(_HMG_aFormBrowseList[GetFormIndex(ParentName)], k)
    ENDIF
    // JP 62
-   IF Len( _HMG_aDialogTemplate ) != 0 .AND. _HMG_aDialogTemplate[3]   // Modal
+   IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]   // Modal
       _HMG_aControlDeleted [k] := .T.
    ENDIF
 
@@ -426,20 +426,20 @@ PROCEDURE _DataComboRefresh ( i )  // (JK) Modified for extend COMBO HMG 1.0 Bui
 *-----------------------------------------------------------------------------*
    LOCAL BackValue , BackRec , WorkArea , cField , ControlHandle
 
-   IF Empty(_HMG_aControlCaption [i])
+   IF Empty(_HMG_aControlCaption[i])
       BackValue := _GetValue ( , , i )
    ELSE
-      cField := _HMG_aControlCaption [i]
-      _HMG_aControlCaption [i] := ""
+      cField := _HMG_aControlCaption[i]
+      _HMG_aControlCaption[i] := ""
       BackValue := _GetValue ( , , i )
-      _HMG_aControlCaption [i] := cField
+      _HMG_aControlCaption[i] := cField
    ENDIF
 
-   cField := _HMG_aControlPageMap [i]
+   cField := _HMG_aControlPageMap[i]
 
-   ControlHandle := _HMG_aControlHandles [i]
+   ControlHandle := _HMG_aControlHandles[i]
 
-   WorkArea := _HMG_aControlSpacing [i]
+   WorkArea := _HMG_aControlSpacing[i]
 
    BackRec := ( WorkArea )->( RecNo() )
 
@@ -448,7 +448,7 @@ PROCEDURE _DataComboRefresh ( i )  // (JK) Modified for extend COMBO HMG 1.0 Bui
    ComboboxReset ( ControlHandle )
 
    DO WHILE ! ( WorkArea )->( EOF() )  // (JK) HMG 1.0 Experimental Build 8
-      IF  _HMG_aControlMiscData1 [i] [1] <> 1  // standard Combo
+      IF  _HMG_aControlMiscData1[i] [1] <> 1  // standard Combo
          ComboAddString ( ControlHandle , cValToChar ( ( WorkArea )->&( cField ) ) )
       ELSE  // extend Combo
          ComboAddDataStringEx ( ControlHandle , cValToChar ( ( WorkArea )->&( cField ) ) )

@@ -60,7 +60,7 @@ PROCEDURE SetHelpFile( cFile )
       _HMG_ActiveHelpFile := iif( FError() == 0, cFile, "" )
 
       IF Empty(_HMG_ActiveHelpFile)
-         MsgAlert( "Error opening of help file. Error: " + Str( FError(), 2, 0 ), "Alert" )
+         MsgAlert( "Error opening of help file. Error: " + Str(FError(), 2, 0), "Alert" )
       ENDIF
 
       FClose( hFile )
@@ -85,16 +85,16 @@ PROCEDURE DisplayHelpTopic( xTopic , nMet )
    _HMG_nTopic := xTopic
    _HMG_nMet   := nMet
 
-   __defaultNIL( @nMet, 0 )
+   __defaultNIL(@nMet, 0)
 
-   IF Right( AllTrim( Upper(_HMG_ActiveHelpFile) ) , 4 ) == ".CHM"
+   IF Right(AllTrim(Upper(_HMG_ActiveHelpFile)), 4) == ".CHM"
 
       SWITCH ValType(xTopic)
       CASE "N"
          cParam := "-mapid " + hb_ntos( xTopic ) + " " + _HMG_ActiveHelpFile
          EXIT
       CASE "C"
-         cParam := Chr(34) + _HMG_ActiveHelpFile + "::/" + AllTrim( xTopic ) + Chr(34)
+         cParam := Chr(34) + _HMG_ActiveHelpFile + "::/" + AllTrim(xTopic) + Chr(34)
          EXIT
       CASE "U"
          cParam := Chr(34) + _HMG_ActiveHelpFile + Chr(34)
@@ -104,7 +104,7 @@ PROCEDURE DisplayHelpTopic( xTopic , nMet )
 
    ELSE
 
-      __defaultNIL( @xTopic, 0 )
+      __defaultNIL(@xTopic, 0)
 
       WinHelp( _HMG_MainHandle , _HMG_ActiveHelpFile , nMet , xTopic )
 

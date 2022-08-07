@@ -102,18 +102,18 @@ FUNCTION AddMenuElement( NewItem , cAction )
    LOCAL cyMRU_Id , cxMRU_Id
    LOCAL x , n , cx
 
-   Caption := iif( Len( NewItem ) < 40, NewItem, SubStr(NewItem, 1, 3) + "..." + SubStr(NewItem, Len(NewItem) - 34) )
-   action := iif( cAction == NIL, {|| Nil }, &( "{|| " + Left( cAction, At("(",cAction ) ) + " " + Chr(34) + NewItem + Chr(34) + " ) }" ) )
+   Caption := iif( Len(NewItem) < 40, NewItem, SubStr(NewItem, 1, 3) + "..." + SubStr(NewItem, Len(NewItem) - 34) )
+   action := iif( cAction == NIL, {|| Nil }, &( "{|| " + Left(cAction, At("(", cAction)) + " " + Chr(34) + NewItem + Chr(34) + " ) }" ) )
 
    // Check if this is the first item
    IF MRUCount == 0
       // Modify a first element the menu
       cxMRU_Id := cMRU_Id
       _ModifyMenuItem ( cxMRU_Id , MRUParentForm , "&1 " + caption , action )
-      AAdd( aMRU_File , { caption, NewItem, cxMRU_Id, action, 1 } )
+      AAdd(aMRU_File, {caption, NewItem, cxMRU_Id, action, 1})
    ELSE
       // Add a new element to the menu
-      FOR n := 1 TO Len( aMRU_File ) + 1
+      FOR n := 1 TO Len(aMRU_File) + 1
          x := AScan(aMRU_File , {|y| y[5] == n })
          IF x == 0
             x := n
@@ -126,13 +126,13 @@ FUNCTION AddMenuElement( NewItem , cAction )
       _InsertMenuItem ( cxMRU_Id , MRUParentForm , "&1 " + caption , action, cyMRU_Id )
       // Insert a first element the menu
       AIns( aMRU_File, 1, { caption, NewItem, cyMRU_Id, action, x }, .T. )
-      FOR n := 1 TO Len( aMRU_File )
+      FOR n := 1 TO Len(aMRU_File)
          cx := hb_ntos( n )
          cxMRU_Id := aMRU_File[n, 3]
          xCaption := "&" + cx + " " + aMRU_File[n, 1]
          _ModifyMenuItem ( cxMRU_Id , MRUParentForm , xCaption , aMRU_File[n, 4] )
       NEXT
-      IF Len( aMRU_File ) > maxMRU_Files
+      IF Len(aMRU_File) > maxMRU_Files
          cxMRU_Id := aMRU_File[ Len(aMRU_File), 3 ]
          ASize( aMRU_File , maxMRU_Files )
          _RemoveMenuItem( cxMRU_Id , MRUParentForm )
@@ -168,7 +168,7 @@ FUNCTION SaveMRUFileList()
       // Loop through all MRU
       FOR i := 1 TO maxMRU_Files
          // Write MRU to INI with key as it's position in list
-         cFile := iif( i <= Len( aMRU_File ), aMru_File[i, 2], "" )
+         cFile := iif( i <= Len(aMRU_File), aMru_File[i, 2], "" )
          SET SECTION cSectionIni ENTRY hb_ntos( i ) TO cFile
       NEXT
 
@@ -204,10 +204,10 @@ FUNCTION _DefineMruItem ( caption , cIniFile , cSection , nMaxItems , action , n
 
          GET cValue SECTION cSection ENTRY hb_ntos( n ) DEFAULT ""
 
-         IF ! Empty(cValue)  // Check if a value was returned
+         IF !Empty(cValue)  // Check if a value was returned
 
             lExist := .T.
-            AAdd( aTmp, cValue )
+            AAdd(aTmp, cValue)
 
             IF n == 1
                MENUITEM caption NAME &name

@@ -28,9 +28,9 @@ FUNCTION _ControlCargo( ControlName, FormName, xValue )
 *-----------------------------------------------------------------------------*
 #ifdef _OBJECT_
    LOCAL o := iif( HB_ISOBJECT( ControlName ), ControlName, _ControlObj( ControlName, FormName ) )
-   LOCAL i := iif( HB_ISOBJECT( o ), o:Index, GetControlIndex( ControlName, FormName ) )
+   LOCAL i := iif( HB_ISOBJECT( o ), o:Index, GetControlIndex(ControlName, FormName) )
 #else
-   LOCAL i := GetControlIndex( ControlName, FormName )
+   LOCAL i := GetControlIndex(ControlName, FormName)
 #endif
    IF i > 0
       IF PCount() > 2;        _HMG_aControlMiscData2[i] := xValue
@@ -116,7 +116,7 @@ FUNCTION _wPost( nEvent, nIndex, xParam )
    IF HB_ISOBJECT( nIndex )
       IF nIndex:ClassName == "TSBROWSE"
          oWnd   := _WindowObj( nIndex:cParentWnd )
-         IF ! HB_ISOBJECT( oWnd )
+         IF !HB_ISOBJECT( oWnd )
             RETURN NIL
          ENDIF
          nIndex := oWnd:GetObj( nIndex:cControlName ):Index
@@ -143,7 +143,7 @@ FUNCTION _wSend( nEvent, nIndex, xParam )
    IF HB_ISOBJECT( nIndex )
       IF nIndex:ClassName == "TSBROWSE"
          oWnd   := _WindowObj( nIndex:cParentWnd )
-         IF ! HB_ISOBJECT( oWnd )
+         IF !HB_ISOBJECT( oWnd )
             RETURN NIL
          ENDIF
          nIndex := oWnd:GetObj( nIndex:cControlName ):Index
@@ -259,7 +259,7 @@ FUNC Do_OnCtlLaunch( hWnd, nMsg, wParam, lParam )
 *-----------------------------------------------------------------------------*
    HB_SYMBOL_UNUSED( nMsg )
 
-   IF ! Empty(lParam)
+   IF !Empty(lParam)
       hWnd := lParam
    ENDIF
 

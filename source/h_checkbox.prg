@@ -50,7 +50,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 #if ( __HARBOUR__ - 0 < 0x030200 )
   #xtranslate hb_UAt( <c>, <n> ) => At( <c>, <n> )
-  #xtranslate hb_ULeft( <c>, <n> ) => Left( <c>, <n> )
+  #xtranslate hb_ULeft(<c>, <n>) => Left(<c>, <n>)
 #endif
 
 *-----------------------------------------------------------------------------*
@@ -71,21 +71,21 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
    ow := oDlu2Pixel()
 #endif
 
-   hb_default( @w, 100 )
-   hb_default( @h, 28 )
-   __defaultNIL( @lostfocus, "" )
-   __defaultNIL( @gotfocus, "" )
-   __defaultNIL( @changeprocedure, "" )
-   hb_default( @invisible, .F. )
-   hb_default( @notabstop, .F. )
-   hb_default( @transparent, .F. )
-   hb_default( @leftjustify, .F. )
-   hb_default( @multiline, .F. )
-   hb_default( @threestate, .F. )
+   hb_default(@w, 100)
+   hb_default(@h, 28)
+   __defaultNIL(@lostfocus, "")
+   __defaultNIL(@gotfocus, "")
+   __defaultNIL(@changeprocedure, "")
+   hb_default(@invisible, .F.)
+   hb_default(@notabstop, .F.)
+   hb_default(@transparent, .F.)
+   hb_default(@leftjustify, .F.)
+   hb_default(@multiline, .F.)
+   hb_default(@threestate, .F.)
    IF .NOT. threestate
-      hb_default( @value, .F. )
+      hb_default(@value, .F.)
    ENDIF
-   hb_default( @autosize, .F. )
+   hb_default(@autosize, .F.)
 
    IF ( FontHandle := GetFontHandle( FontName ) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
@@ -95,7 +95,7 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
       IF hb_UAt ( ">", Field ) == 0
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name." )
       ELSE
-         WorkArea := hb_ULeft ( Field , hb_UAt ( ">", Field ) - 2 )
+         WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
          IF Select ( WorkArea ) != 0
             Value := &( Field )
          ENDIF
@@ -104,8 +104,8 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
       ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
-      __defaultNIL( @FontName, _HMG_ActiveFontName )
-      __defaultNIL( @FontSize, _HMG_ActiveFontSize )
+      __defaultNIL(@FontName, _HMG_ActiveFontName)
+      __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
 
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
@@ -159,7 +159,7 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
 
          //           {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {|x, y, z| InitDialogCheckButton( x, y, z ) }
-         AAdd( _HMG_aDialogItems, { nId, k, "button", style, 0, x, y, w, h, caption, HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage } )
+         AAdd(_HMG_aDialogItems, {nId, k, "button", style, 0, x, y, w, h, caption, HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
 
@@ -171,7 +171,7 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
          h := GetWindowHeight(Controlhandle)
 
          IF ValType(caption) != "U"
-            SetWindowText ( ControlHandle , caption )
+            SetWindowText(ControlHandle, caption)
          ENDIF
 
          SetWindowStyle ( ControlHandle, Style, .T. )
@@ -189,8 +189,8 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
       IF FontHandle != 0
          _SetFontHandle( ControlHandle, FontHandle )
       ELSE
-         __defaultNIL( @FontName, _HMG_DefaultFontName )
-         __defaultNIL( @FontSize, _HMG_DefaultFontSize )
+         __defaultNIL(@FontName, _HMG_DefaultFontName)
+         __defaultNIL(@FontSize, _HMG_DefaultFontSize)
          IF IsWindowHandle( ControlHandle )
             FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
          ENDIF
@@ -201,7 +201,7 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
       ENDIF
 
       IF _HMG_BeginTabActive
-         AAdd( _HMG_ActiveTabCurrentPageMap , Controlhandle )
+         AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
       ENDIF
 
       IF ValType(tooltip) != "U"
@@ -272,7 +272,7 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
    ENDIF
 
    IF ValType(Field) != "U"
-      AAdd( _HMG_aFormBrowseList [ GetFormIndex ( ParentFormName ) ] , k )
+      AAdd(_HMG_aFormBrowseList[GetFormIndex(ParentFormName)], k)
    ENDIF
 
    IF _HMG_lOOPEnabled
@@ -300,14 +300,14 @@ FUNCTION _DefineCheckButton ( ControlName, ParentFormName, x, y, Caption, Value,
    LOCAL blInit
    LOCAL lDialogInMemory
 
-   hb_default( @value, .F. )
-   hb_default( @w, 100 )
-   hb_default( @h, 28 )
-   __defaultNIL( @lostfocus, "" )
-   __defaultNIL( @gotfocus, "" )
-   __defaultNIL( @changeprocedure, "" )
-   hb_default( @invisible, .F. )
-   hb_default( @notabstop, .F. )
+   hb_default(@value, .F.)
+   hb_default(@w, 100)
+   hb_default(@h, 28)
+   __defaultNIL(@lostfocus, "")
+   __defaultNIL(@gotfocus, "")
+   __defaultNIL(@changeprocedure, "")
+   hb_default(@invisible, .F.)
+   hb_default(@notabstop, .F.)
 
    IF ( FontHandle := GetFontHandle( FontName ) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
@@ -315,8 +315,8 @@ FUNCTION _DefineCheckButton ( ControlName, ParentFormName, x, y, Caption, Value,
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
       ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
-      __defaultNIL( @FontName, _HMG_ActiveFontName )
-      __defaultNIL( @FontSize, _HMG_ActiveFontSize )
+      __defaultNIL(@FontName, _HMG_ActiveFontName)
+      __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
       x    := x + _HMG_ActiveFrameCol [_HMG_FrameLevel]
@@ -354,7 +354,7 @@ FUNCTION _DefineCheckButton ( ControlName, ParentFormName, x, y, Caption, Value,
 
          //          {{ID,k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {|x, y, z| InitDialogCheckButton( x, y, z ) }
-         AAdd( _HMG_aDialogItems, { nId, k, "button", style, 0, x, y, w, h, "", HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage } )
+         AAdd(_HMG_aDialogItems, {nId, k, "button", style, 0, x, y, w, h, "", HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
 
@@ -382,15 +382,15 @@ FUNCTION _DefineCheckButton ( ControlName, ParentFormName, x, y, Caption, Value,
       IF FontHandle != 0
          _SetFontHandle( ControlHandle, FontHandle )
       ELSE
-         __defaultNIL( @FontName, _HMG_DefaultFontName )
-         __defaultNIL( @FontSize, _HMG_DefaultFontSize )
+         __defaultNIL(@FontName, _HMG_DefaultFontName)
+         __defaultNIL(@FontSize, _HMG_DefaultFontSize)
          IF IsWindowHandle( ControlHandle )
             FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
          ENDIF
       ENDIF
 
       IF _HMG_BeginTabActive
-         AAdd( _HMG_ActiveTabCurrentPageMap , ControlHandle )
+         AAdd(_HMG_ActiveTabCurrentPageMap, ControlHandle)
       ENDIF
 
       IF ValType(tooltip) != "U"
@@ -473,7 +473,7 @@ FUNCTION InitDialogCheckButton ( ParentName, ControlHandle, k )
       SendMessage( Controlhandle , BM_SETCHECK , BST_INDETERMINATE , 0 )
    ENDIF
 // JP 62
-   IF Len( _HMG_aDialogTemplate ) != 0 .AND. _HMG_aDialogTemplate[3]   // Modal
+   IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]   // Modal
       _HMG_aControlDeleted [k] := .T.
    ENDIF
 
@@ -494,15 +494,15 @@ FUNCTION _DefineImageCheckButton ( ControlName, ParentFormName, x, y, BitMap, ;
    LOCAL blInit
    LOCAL lDialogInMemory
 
-   hb_default( @value, .F. )
-   hb_default( @w, 100 )
-   hb_default( @h, 28 )
-   __defaultNIL( @lostfocus, "" )
-   __defaultNIL( @gotfocus, "" )
-   __defaultNIL( @changeprocedure, "" )
-   hb_default( @invisible, .F. )
-   hb_default( @notabstop, .F. )
-   hb_default( @notrans, .F. )
+   hb_default(@value, .F.)
+   hb_default(@w, 100)
+   hb_default(@h, 28)
+   __defaultNIL(@lostfocus, "")
+   __defaultNIL(@gotfocus, "")
+   __defaultNIL(@changeprocedure, "")
+   hb_default(@invisible, .F.)
+   hb_default(@notabstop, .F.)
+   hb_default(@notrans, .F.)
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
       ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
@@ -540,7 +540,7 @@ FUNCTION _DefineImageCheckButton ( ControlName, ParentFormName, x, y, BitMap, ;
       IF lDialogInMemory         //Dialog Template
          //          {{ID,k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {|x, y, z| InitDialogCheckButton( x, y, z ) }
-         AAdd( _HMG_aDialogItems, { nId, k, "button", style, 0, x, y, w, h, "", HelpId, tooltip, FontName, FontSize, , , , , blInit, _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage } )
+         AAdd(_HMG_aDialogItems, {nId, k, "button", style, 0, x, y, w, h, "", HelpId, tooltip, FontName, FontSize, , , , , blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
       ELSE
          ControlHandle := GetDialogItemHandle( ParentFormHandle, nId )
 
@@ -567,7 +567,7 @@ FUNCTION _DefineImageCheckButton ( ControlName, ParentFormName, x, y, BitMap, ;
 
    IF .NOT. lDialogInMemory
       IF _HMG_BeginTabActive
-         AAdd( _HMG_ActiveTabCurrentPageMap , ControlHandle )
+         AAdd(_HMG_ActiveTabCurrentPageMap, ControlHandle)
       ENDIF
 
       IF ValType(tooltip) != "U"

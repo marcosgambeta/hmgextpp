@@ -68,16 +68,16 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
    ow := oDlu2Pixel()
 #endif
 
-   hb_default( @Width, 120 )
-   __defaultNIL( @change, "" )
-   __defaultNIL( @gotfocus, "" )
-   __defaultNIL( @lostfocus, "" )
-   hb_default( @invisible, .F. )
-   hb_default( @notabstop, .F. )
-   hb_default( @horizontal, .F. )
-   hb_default( @autosize, .F. )
-   hb_default( @Spacing, iif( horizontal, iif( autosize, GetBorderWidth(), 0 ), 25 ) )
-   hb_default( @leftjustify, .F. )
+   hb_default(@Width, 120)
+   __defaultNIL(@change, "")
+   __defaultNIL(@gotfocus, "")
+   __defaultNIL(@lostfocus, "")
+   hb_default(@invisible, .F.)
+   hb_default(@notabstop, .F.)
+   hb_default(@horizontal, .F.)
+   hb_default(@autosize, .F.)
+   hb_default(@Spacing, iif(horizontal, iif(autosize, GetBorderWidth(), 0), 25))
+   hb_default(@leftjustify, .F.)
 
    IF ( FontHandle := GetFontHandle( FontName ) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
@@ -85,8 +85,8 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
       ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
-      __defaultNIL( @FontName, _HMG_ActiveFontName )
-      __defaultNIL( @FontSize, _HMG_ActiveFontSize )
+      __defaultNIL(@FontName, _HMG_ActiveFontName)
+      __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
       x := x + _HMG_ActiveFrameCol [_HMG_FrameLevel]
@@ -104,7 +104,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
    ENDIF
 
    IF ValType(aReadOnly) != "A"
-      aReadOnly := Array( Len( aOptions ) )
+      aReadOnly := Array( Len(aOptions) )
       AFill( aReadOnly, .F. )
    ENDIF
 
@@ -135,10 +135,10 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
          BackCol := x
          BackRow := y
 
-         FOR n := 1 TO Len( aId )
+         FOR n := 1 TO Len(aId)
 
-            blInit := iif( n == Len( aId ), {|x, y, z| InitDialogRadioGroup( x,y,z ) }, {|| Nil } )
-            AAdd( _HMG_aDialogItems, { aId[n], k, "button", style, 0, x, y, width, spacing, aOptions[n], HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage } )
+            blInit := iif( n == Len(aId), {|x, y, z| InitDialogRadioGroup( x,y,z ) }, {|| Nil } )
+            AAdd(_HMG_aDialogItems, {aId[n], k, "button", style, 0, x, y, width, spacing, aOptions[n], HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
             IF horizontal
                x += Width + Spacing
             ELSE
@@ -157,7 +157,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
          width := GetWindowWidth  ( Controlhandle )
          spacing := GetWindowHeight(Controlhandle)
 
-         FOR i := 1 TO Len( aId )
+         FOR i := 1 TO Len(aId)
 
             ControlHandle := GetDialogItemHandle( ParentFormHandle, aId[i] )
             SetWindowStyle ( ControlHandle, BS_NOTIFY + WS_CHILD + BS_AUTORADIOBUTTON, .T. )
@@ -167,22 +167,22 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
             ENDIF
 
             IF ValType(aOptions) == "A"
-               IF i <= Len( aOptions )
-                  SetWindowText ( ControlHandle , aOptions[i] )
+               IF i <= Len(aOptions)
+                  SetWindowText(ControlHandle, aOptions[i])
                ENDIF
             ENDIF
 
             IF FontHandle != 0
                _SetFontHandle( ControlHandle, FontHandle )
             ELSE
-               __defaultNIL( @FontName, _HMG_DefaultFontName )
-               __defaultNIL( @FontSize, _HMG_DefaultFontSize )
+               __defaultNIL(@FontName, _HMG_DefaultFontName)
+               __defaultNIL(@FontSize, _HMG_DefaultFontSize)
                IF IsWindowHandle( ControlHandle )
                   FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
                ENDIF
             ENDIF
 
-            AAdd( aHandles , ControlHandle )
+            AAdd(aHandles, ControlHandle)
 
          NEXT i
 
@@ -200,8 +200,8 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
       IF FontHandle != 0
          _SetFontHandle ( ControlHandle, FontHandle )
       ELSE
-         __defaultNIL( @FontName, _HMG_DefaultFontName )
-         __defaultNIL( @FontSize, _HMG_DefaultFontSize )
+         __defaultNIL(@FontName, _HMG_DefaultFontName)
+         __defaultNIL(@FontSize, _HMG_DefaultFontSize)
          IF IsWindowHandle( ControlHandle )
             FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
          ENDIF
@@ -213,9 +213,9 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
          MoveWindow ( ControlHandle, x, y, width, GetTextHeight(NIL, aOptions[1], FontHandle) + 8, .T. )
       ENDIF
 
-      AAdd( aHandles , ControlHandle )
+      AAdd(aHandles, ControlHandle)
 
-      FOR i := 2 TO Len( aOptions )
+      FOR i := 2 TO Len(aOptions)
 
          IF horizontal
             x += Width + Spacing
@@ -223,7 +223,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
             y += Spacing
          ENDIF
 
-         ControlHandle := InitRadioButton ( ParentFormHandle, aOptions [i], 0, x, y , "" , 0 , width, invisible, leftjustify )
+         ControlHandle := InitRadioButton ( ParentFormHandle, aOptions[i], 0, x, y , "" , 0 , width, invisible, leftjustify )
 
          IF FontHandle != 0
             _SetFontHandle ( ControlHandle, FontHandle )
@@ -234,14 +234,14 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
          ENDIF
 
          IF autosize
-            Width := GetTextWidth(NIL, aOptions [i], FontHandle) + 21
+            Width := GetTextWidth(NIL, aOptions[i], FontHandle) + 21
             MoveWindow ( ControlHandle, x, y, width, GetTextHeight(NIL, aOptions[i], FontHandle) + 8, .T. )
          ENDIF
 
-         AAdd( aHandles , ControlHandle )
+         AAdd(aHandles, ControlHandle)
 
          IF ValType(tooltip) != "U"
-            SetToolTip ( aHandles [i] , tooltip , GetFormToolTipHandle ( ParentFormName ) )
+            SetToolTip ( aHandles[i] , tooltip , GetFormToolTipHandle ( ParentFormName ) )
          ENDIF
 
       NEXT i
@@ -255,7 +255,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
       ENDIF
 
       IF _HMG_BeginTabActive
-         AAdd( _HMG_ActiveTabCurrentPageMap , aHandles )
+         AAdd(_HMG_ActiveTabCurrentPageMap, aHandles)
       ENDIF
 
       IF ValType(tooltip) != "U"
@@ -290,7 +290,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
    _HMG_aControlRow                [k] := BackRow
    _HMG_aControlCol                [k] := BackCol
    _HMG_aControlWidth              [k] := iif( autosize, BackWidth, Width )
-   _HMG_aControlHeight             [k] := iif( horizontal, 28, Spacing * Len( aOptions ) + GetBorderHeight() )
+   _HMG_aControlHeight             [k] := iif( horizontal, 28, Spacing * Len(aOptions) + GetBorderHeight() )
    _HMG_aControlSpacing            [k] := Spacing
    _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
    _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
@@ -343,11 +343,11 @@ FUNCTION InitDialogRadioGroup( ParentName, ControlHandle, k )
       _SetValue ( , , Value , k )
    ENDIF
 //JP V40
-   IF Len( _HMG_aControlIds [k] ) == Len( aHandles ) .AND. ValType(ParentName) <> "U"
+   IF Len(_HMG_aControlIds[k]) == Len(aHandles) .AND. ValType(ParentName) <> "U"
       SetProperty ( ParentName , _HMG_aControlNames [k] , "ReadOnly" , _HMG_aControlPageMap [k] )
    ENDIF
 // JP 62
-   IF Len( _HMG_aDialogTemplate ) != 0 .AND. _HMG_aDialogTemplate[3]  // Modal
+   IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]  // Modal
       _HMG_aControlDeleted [k] := .T.
    ENDIF
 

@@ -85,16 +85,16 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " Already defined." )
    ENDIF
 
-   hb_default( @w, 0 )
-   hb_default( @h, 0 )
+   hb_default(@w, 0)
+   hb_default(@h, 0)
    w := IFEMPTY(w, -1, w)
    h := IFEMPTY(h, -1, h)
 
-   hb_default( @stretch, .F. )
-   __defaultNIL( @BackgroundColor, -1 )
-   hb_default( @transparent, .F. )
-   hb_default( @adjustimage, .F. )
-   __defaultNIL( @rclick, "" )
+   hb_default(@stretch, .F.)
+   __defaultNIL(@BackgroundColor, -1)
+   hb_default(@transparent, .F.)
+   hb_default(@adjustimage, .F.)
+   __defaultNIL(@rclick, "")
 
    IF ValType(ProcedureName) == "U"
       ProcedureName := ""
@@ -130,7 +130,7 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
       IF lDialogInMemory         //Dialog Template
          //      {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {|x, y, z| InitDialogImage( x, y, z ) }
-         AAdd( _HMG_aDialogItems, { nId, k, "static", style, 0, x, y, w, h, "", HelpId, "", "", , , , , , blInit, _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage } )
+         AAdd(_HMG_aDialogItems, {nId, k, "static", style, 0, x, y, w, h, "", HelpId, "", "", , , , , , blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
 
@@ -156,7 +156,7 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
    IF .NOT. lDialogInMemory
 
       IF _HMG_BeginTabActive
-         AAdd( _HMG_ActiveTabCurrentPageMap , ControlHandle )
+         AAdd(_HMG_ActiveTabCurrentPageMap, ControlHandle)
       ENDIF
 
       IF ValType(tooltip) != "U"
@@ -245,7 +245,7 @@ FUNCTION InitDialogImage( ParentName, ControlHandle, k )
 
    ENDIF
 // JP 62
-   IF Len( _HMG_aDialogTemplate ) != 0 .AND. _HMG_aDialogTemplate[3]  // Modal
+   IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]  // Modal
       _HMG_aControlDeleted [k] := .T.
    ENDIF
 
@@ -299,9 +299,9 @@ FUNCTION HMG_SaveImage( FileName, cOutName, cEncoder, nJpgQuality, aOutSize )
    hBitmap := iif( ISSTRING( FileName ), C_GetResPicture( FileName ), FileName )
 
    IF GetObjectType( hBitmap ) == OBJ_BITMAP
-      hb_default( @cEncoder, "BMP" )
-      hb_default( @nJpgQuality, 100 )
-      __defaultNIL( @aOutSize, BmpSize( hBitmap ) )
+      hb_default(@cEncoder, "BMP")
+      hb_default(@nJpgQuality, 100)
+      __defaultNIL(@aOutSize, BmpSize(hBitmap))
 
       lResult := C_SaveHBitmapToFile( hBitmap, cOutName, aOutSize [1], aOutSize [2], "image/" + Lower( cEncoder ), nJpgQuality )
 

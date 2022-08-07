@@ -58,18 +58,18 @@ FUNCTION _SetWindowBKBrush( cWindow, lNoDelete, cBrushStyle, nHatch, aColor, xIm
    LOCAL hBrush := 0
    LOCAL nIndex
 
-   __defaultNIL( @lNoDelete, .F. )
-   __defaultNIL( @cBrushStyle, "SOLID" )
-   __defaultNIL( @nHatch, HS_VERTICAL )
-   __defaultNIL( @aColor, { 255, 0, 255 } )
-   __defaultNIL( @xImage, "MINIGUI_EDIT_DELETE" )
+   __defaultNIL(@lNoDelete, .F.)
+   __defaultNIL(@cBrushStyle, "SOLID")
+   __defaultNIL(@nHatch, HS_VERTICAL)
+   __defaultNIL(@aColor, {255, 0, 255})
+   __defaultNIL(@xImage, "MINIGUI_EDIT_DELETE")
 
    nIndex := GetFormIndex ( cWindow )
 
    IF nIndex > 0
       hWnd := _HMG_aFormHandles[ nIndex ]
 
-      SWITCH Left ( cBrushStyle, 1 )
+      SWITCH Left(cBrushStyle, 1)
       CASE "S"
          hBrush := CreateSolidBrush ( aColor[1], aColor[2], aColor[3] )
          EXIT

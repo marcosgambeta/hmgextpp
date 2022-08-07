@@ -113,15 +113,15 @@ FUNCTION HMG_Alert( cMsg, aOptions, cTitle, nType, cIcoFile, nIcoSize, aBtnColor
       END
    ENDIF
 
-   hb_default( @aBackColor, nRGB2Arr( GetSysColor( COLOR_BTNFACE ) ) )
-   hb_default( @aFontColor, nRGB2Arr( GetSysColor( COLOR_BTNTEXT ) ) )
-   __defaultNIL( @cTitle, "Attention" )
-   __defaultNIL( @aOptions, { "&OK" } )
-   hb_default( @lClosable, .F. )
-   hb_default( @cFontName, "DlgFont" )
+   hb_default(@aBackColor, nRGB2Arr(GetSysColor(COLOR_BTNFACE)))
+   hb_default(@aFontColor, nRGB2Arr(GetSysColor(COLOR_BTNTEXT)))
+   __defaultNIL(@cTitle, "Attention")
+   __defaultNIL(@aOptions, {"&OK"})
+   hb_default(@lClosable, .F.)
+   hb_default(@cFontName, "DlgFont")
 
    IF ISARRAY( aOptions )
-      DEFAULT nType := iif( Len( aOptions ) > 1, 2, 1 )
+      DEFAULT nType := iif( Len(aOptions) > 1, 2, 1 )
    ELSE
       DEFAULT nType := 1
    ENDIF
@@ -142,8 +142,8 @@ FUNCTION HMG_Alert( cMsg, aOptions, cTitle, nType, cIcoFile, nIcoSize, aBtnColor
       nType := 1
    ENDIF
 
-   __defaultNIL( @cIcoFile, aIcon[ nType ] )
-   hb_default( @nIcoSize, 32 )
+   __defaultNIL(@cIcoFile, aIcon[nType])
+   hb_default(@nIcoSize, 32)
 
    IF GetFontHandle( cFontName ) == 0
       lFont := .T.
@@ -166,13 +166,13 @@ FUNCTION HMG_Alert( cMsg, aOptions, cTitle, nType, cIcoFile, nIcoSize, aBtnColor
       cMsg := StrTran(cMsg, TAB, Space( 3 ))
    ENDIF
 
-   AEval( hb_ATokens( cMsg, CRLF ), {| ct | nMaxLen := Max( nMaxLen, Len( Trim( ct ) ) ) } )
+   AEval( hb_ATokens( cMsg, CRLF ), {|ct|nMaxLen := Max(nMaxLen, Len(Trim(ct)))} )
 
    IF lEmpty
       lClosable := .T.
       _HMG_ModalDialogReturn := 0
    ELSE
-      hb_default( @_HMG_ModalDialogReturn, 0 )
+      hb_default(@_HMG_ModalDialogReturn, 0)
    ENDIF
 
    DEFINE WINDOW ( cForm ) WIDTH 0 HEIGHT 0 TITLE cTitle MODAL NOSIZE BACKCOLOR aBackColor ;
@@ -268,9 +268,9 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
 
    ENDIF
 
-   nLenaOp := iif( ISARRAY( aOptions ), Len( aOptions ), 1 )
+   nLenaOp := iif( ISARRAY( aOptions ), Len(aOptions), 1 )
 
-   IF ( lExt := ( ISARRAY( aBtnColors ) .AND. Len( aBtnColors ) == nLenaOp ) )
+   IF ( lExt := ( ISARRAY( aBtnColors ) .AND. Len(aBtnColors) == nLenaOp ) )
       nVMARGIN_BUTTON := 3 * VMARGIN_BUTTON
    ENDIF
 
@@ -364,7 +364,7 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
 
          cLblName := "Say_01"
 
-         @ nRow + GetBorderHeight(), nCol EDITBOX ( cLblName ) VALUE AllTrim( cMsg ) OF ( cForm ) ;
+         @ nRow + GetBorderHeight(), nCol EDITBOX ( cLblName ) VALUE AllTrim(cMsg) OF ( cForm ) ;
             FONT cFont WIDTH nWidthCli - nCol + iif( nLineas < nMaxLines + 5, 0.9, 1 ) * MARGIN - nMaxWidth ;
             HEIGHT nChrHeight * nMaxLines + GetBorderHeight() ;
             FONTCOLOR aFontColor BACKCOLOR aBackColor READONLY NOHSCROLL
@@ -375,7 +375,7 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
             cLblName := "Say_" + StrZero( n, 2 )
 
             @ nRow * ( n + iif( nLineas == 1, .5, 0 ) ) + GetBorderHeight(), nCol ;
-               LABEL ( cLblName ) VALUE AllTrim( MemoLine( cMsg,, n ) ) OF ( cForm ) ;
+               LABEL ( cLblName ) VALUE AllTrim(MemoLine(cMsg, , n) ) OF ( cForm ) ;
                FONT cFont WIDTH nWidthCli - nCol - GetBorderWidth() - MARGIN / 4 - nMaxWidth ;
                HEIGHT nChrHeight ;
                FONTCOLOR aFontColor BACKCOLOR aBackColor VCENTERALIGN
@@ -386,7 +386,7 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
 
    ELSE
 
-      @ nRow + GetBorderHeight(), nCol LABEL Say_01 VALUE AllTrim( cMsg ) OF ( cForm ) ;
+      @ nRow + GetBorderHeight(), nCol LABEL Say_01 VALUE AllTrim(cMsg) OF ( cForm ) ;
          FONT cFont WIDTH nWidthCli - nCol - GetBorderWidth() - MARGIN / 4 HEIGHT Max( nChrHeight, nIcoSize ) ;
          FONTCOLOR aFontColor BACKCOLOR aBackColor VCENTERALIGN
 
@@ -414,7 +414,7 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
 
       cBtnName := "Btn_" + StrZero( n, 2 )
 
-      AAdd( aBut, cBtnName )
+      AAdd(aBut, cBtnName)
 
       IF lExt
 
@@ -509,7 +509,7 @@ PROCEDURE HMG_CheckType( lSoft, ... )
 
       IF Upper(AllTrim(aData[1])) <> "USUAL"
 
-         IF !( lSoft .AND. AllTrim( aData[2] ) == "U" )
+         IF !( lSoft .AND. AllTrim(aData[2]) == "U" )
 
             i := AScan(aType, {| x | x[1] == Upper(AllTrim(aData[1])) })
 
@@ -517,7 +517,7 @@ PROCEDURE HMG_CheckType( lSoft, ... )
 
                j := AScan(aType, {| x | x[2] == aData[2] })
 
-               MsgMiniGuiError( "CHECK TYPE ( Param # " + hb_ntos( aData:__enumindex() ) + " ) : " + AllTrim( aData[3] ) + " is declared as " + Upper(AllTrim(aData[1])) + " but it have type " + aType[ j ][1] + "." )
+               MsgMiniGuiError( "CHECK TYPE ( Param # " + hb_ntos( aData:__enumindex() ) + " ) : " + AllTrim(aData[3]) + " is declared as " + Upper(AllTrim(aData[1])) + " but it have type " + aType[ j ][1] + "." )
 
             ENDIF
 

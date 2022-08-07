@@ -53,9 +53,9 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 #if ( __HARBOUR__ - 0 < 0x030200 )
   #xtranslate hb_UAt( <c>, <n> ) => At( <c>, <n> )
-  #xtranslate hb_ULeft( <c>, <n> ) => Left( <c>, <n> )
-  #xtranslate hb_URight( <c>, <n> ) => Right( <c>, <n> )
-  #xtranslate hb_ULen( <c> ) => Len( <c> )
+  #xtranslate hb_ULeft(<c>, <n>) => Left(<c>, <n>)
+  #xtranslate hb_URight(<c>, <n>) => Right(<c>, <n>)
+  #xtranslate hb_ULen(<c>) => Len(<c>)
 #endif
 
 // (JK) Extend combobox control - COMBOBOXEX
@@ -84,21 +84,21 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
    ow := oDlu2Pixel()
 #endif
 
-   hb_default( @w, 120 )
-   hb_default( @h, 150 )
-   __defaultNIL( @changeprocedure, "" )
-   __defaultNIL( @gotfocus, "" )
-   __defaultNIL( @lostfocus, "" )
-   hb_default( @rows, {} )
-   hb_default( @invisible, .F. )
-   hb_default( @notabstop, .F. )
-   hb_default( @notrans, .F. )
-   hb_default( @sort, .F. )
-   hb_default( @GripperText, "" )
-   hb_default( @aImage, {} )
-   __defaultNIL( @value, 0 )
-   __defaultNIL( @ImageList, 0 )
-   __defaultNIL( @uEnter, "" )
+   hb_default(@w, 120)
+   hb_default(@h, 150)
+   __defaultNIL(@changeprocedure, "")
+   __defaultNIL(@gotfocus, "")
+   __defaultNIL(@lostfocus, "")
+   hb_default(@rows, {})
+   hb_default(@invisible, .F.)
+   hb_default(@notabstop, .F.)
+   hb_default(@notrans, .F.)
+   hb_default(@sort, .F.)
+   hb_default(@GripperText, "")
+   hb_default(@aImage, {})
+   __defaultNIL(@value, 0)
+   __defaultNIL(@ImageList, 0)
+   __defaultNIL(@uEnter, "")
 
    IF ( FontHandle := GetFontHandle( FontName ) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
@@ -106,8 +106,8 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
 
    IF _HMG_BeginWindowActive
       ParentForm := _HMG_ActiveFormName
-      __defaultNIL( @FontName, _HMG_ActiveFontName )
-      __defaultNIL( @FontSize, _HMG_ActiveFontSize )
+      __defaultNIL(@FontName, _HMG_ActiveFontName)
+      __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
 
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
@@ -128,17 +128,17 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
       IF  hb_UAt ( ">", ItemSource ) == 0
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentForm + " (ItemSource): You must specify a fully qualified field name." )
       ELSE
-         WorkArea := hb_ULeft ( ItemSource , hb_UAt ( ">", ItemSource ) - 2 )
-         cField   := hb_URight ( ItemSource , hb_ULen( ItemSource ) - hb_UAt ( ">", ItemSource ) )
+         WorkArea := hb_ULeft(ItemSource, hb_UAt(">", ItemSource) - 2)
+         cField   := hb_URight(ItemSource, hb_ULen(ItemSource) - hb_UAt(">", ItemSource))
       ENDIF
    ENDIF
 
-   IF ( ValType(ImageList) == "C" .OR. ImageList > 0 ) .AND. Len( aImage ) > 0
+   IF ( ValType(ImageList) == "C" .OR. ImageList > 0 ) .AND. Len(aImage) > 0
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentForm + " : Image and ImageList clauses can't be used simultaneously." )
    ENDIF
 
    IF ValType(ImageList) == "C"
-      IF Len( ImageList ) > 0
+      IF Len(ImageList) > 0
          ImageList := GetControlHandle ( ImageList, ParentForm )
       ENDIF
    ENDIF
@@ -151,19 +151,19 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
 
    IF !Empty(aImage)
       aImages := {}
-      FOR im := 1 TO Len( aImage )
+      FOR im := 1 TO Len(aImage)
          IF ValType(aImage[im]) == "C"
-            AAdd( aImages, aImage[im] )
-            AAdd( aImages, aImage[im] )
-            AAdd( aImages, aImage[im] )
+            AAdd(aImages, aImage[im])
+            AAdd(aImages, aImage[im])
+            AAdd(aImages, aImage[im])
 
          ELSEIF ValType(aImage[im]) == "A"
-            IF Len( aImage[im] ) <> 2
+            IF Len(aImage[im]) <> 2
                MsgMiniGuiError ( "Control: " + ControlName + " Of " + cParentForm + " : You must specify 2 elements characters array as image param." )
             ELSE
-               AAdd( aImages, aImage[im,1] )
-               AAdd( aImages, aImage[im,2] )
-               AAdd( aImages, aImage[im,1] )
+               AAdd(aImages, aImage[im, 1])
+               AAdd(aImages, aImage[im, 2])
+               AAdd(aImages, aImage[im, 1])
             ENDIF
          ENDIF
       NEXT im
@@ -177,21 +177,21 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
 
       IF i > 0
 
-         ControlHandle := InitComboBoxEx ( _HMG_aFormReBarHandle [i], 0, x, y, w, "", notrans , h, invisible, notabstop, .F. , displaychange, _HMG_IsXPorLater, aImages, ImageList )
+         ControlHandle := InitComboBoxEx ( _HMG_aFormReBarHandle[i], 0, x, y, w, "", notrans , h, invisible, notabstop, .F. , displaychange, _HMG_IsXPorLater, aImages, ImageList )
 
          IF FontHandle != 0
             _SetFontHandle( ControlHandle, FontHandle )
          ELSE
-            __defaultNIL( @FontName, _HMG_DefaultFontName )
-            __defaultNIL( @FontSize, _HMG_DefaultFontSize )
+            __defaultNIL(@FontName, _HMG_DefaultFontName)
+            __defaultNIL(@FontSize, _HMG_DefaultFontSize)
             IF IsWindowHandle( ControlHandle )
                FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
             ENDIF
          ENDIF
 
-         AddSplitBoxItem ( Controlhandle , _HMG_aFormReBarHandle [i] , w , break , GripperText , w , , _HMG_ActiveSplitBoxInverted )
+         AddSplitBoxItem ( Controlhandle , _HMG_aFormReBarHandle[i] , w , break , GripperText , w , , _HMG_ActiveSplitBoxInverted )
 
-         Containerhandle := _HMG_aFormReBarHandle [i]
+         Containerhandle := _HMG_aFormReBarHandle[i]
 
       ENDIF
 
@@ -202,8 +202,8 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
       IF FontHandle != 0
          _SetFontHandle( ControlHandle, FontHandle )
       ELSE
-         __defaultNIL( @FontName, _HMG_DefaultFontName )
-         __defaultNIL( @FontSize, _HMG_DefaultFontSize )
+         __defaultNIL(@FontName, _HMG_DefaultFontName)
+         __defaultNIL(@FontSize, _HMG_DefaultFontSize)
          IF IsWindowHandle( ControlHandle )
             FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
          ENDIF
@@ -212,7 +212,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
    ENDIF
 
    IF _HMG_BeginTabActive
-      AAdd( _HMG_ActiveTabCurrentPageMap , ControlHandle )
+      AAdd(_HMG_ActiveTabCurrentPageMap, ControlHandle)
    ENDIF
 
    IF ValType(nItemHeight) != "U"
@@ -223,7 +223,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
       SetToolTip ( ControlHandle , tooltip , GetFormToolTipHandle ( cParentForm ) )
    ENDIF
 
-   IF Len( aImages ) > 0
+   IF Len(aImages) > 0
       AddListViewBitmap( ControlHandle, aImages )
    ENDIF
 
@@ -289,7 +289,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
       SetToolTip ( _hmg_acontrolrangemax [k] , tooltip , GetFormToolTipHandle ( cParentForm ) )
    ENDIF
 
-   SetDropDownWidth(_hmg_acontrolrangemax [k] , hb_defaultValue( ListWidth, w ))
+   SetDropDownWidth(_hmg_acontrolrangemax [k] , hb_defaultValue(ListWidth, w))
 
    IF ValType(WorkArea) == "C"
 
@@ -316,7 +316,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
 
    ELSE
 
-      IF Len( rows ) > 0
+      IF Len(rows) > 0
          AEval( rows, { |v, i| ComboAddStringEx ( ControlHandle, v, i ) } )
       ENDIF
 
@@ -327,7 +327,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
    ENDIF
 
    IF ValType(ItemSource) != "U"
-      AAdd( _HMG_aFormBrowseList [ GetFormIndex ( cParentForm ) ] , k )
+      AAdd(_HMG_aFormBrowseList[GetFormIndex(cParentForm)], k)
    ENDIF
 
    IF _HMG_lOOPEnabled

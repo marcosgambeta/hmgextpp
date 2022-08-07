@@ -101,14 +101,14 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
       cPict := Eval( cPict ) 
    endif
 
-   if ! Empty(::oWnd:hWnd)
+   if !Empty(::oWnd:hWnd)
 
       ::oGet := _DefineGetBox( cControl, ParentFormName, nCol, nRow, nWidth, nHeight, uValue, ;
          FontName, FontSize, ToolTip, lPassword, uLostFocus, uGotFocus, uChange, right, ;
          nHelpId, readonly, bold, italic, underline, strikeout, field, aBackColor, aFontColor, ;
          invisible, notabstop, nId, bvalid, cPict, cMsg, cvalidmessage, bWhen ,,,,, lNoMinus )
 
-      ix     := GetControlIndex( cControl, ParentFormName )
+      ix     := GetControlIndex(cControl, ParentFormName)
       ::Atx  := ix
       ::hWnd :=_HMG_aControlHandles[ ix ]
 

@@ -59,12 +59,12 @@ FUNCTION _DefineHotKeyBox ( ControlName, ParentForm, x, y, w, h, value, fontname
    LOCAL mVar
    LOCAL k
 
-   hb_default( @w, 120 )
-   hb_default( @h, 24 )
-   __defaultNIL( @change, "" )
-   hb_default( @value, 0 )
-   hb_default( @invisible, .F. )
-   hb_default( @notabstop, .F. )
+   hb_default(@w, 120)
+   hb_default(@h, 24)
+   __defaultNIL(@change, "")
+   hb_default(@value, 0)
+   hb_default(@invisible, .F.)
+   hb_default(@notabstop, .F.)
 
    IF ( FontHandle := GetFontHandle( FontName ) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
@@ -72,8 +72,8 @@ FUNCTION _DefineHotKeyBox ( ControlName, ParentForm, x, y, w, h, value, fontname
 
    IF _HMG_BeginWindowActive
       ParentForm := _HMG_ActiveFormName
-      __defaultNIL( @FontName, _HMG_ActiveFontName )
-      __defaultNIL( @FontSize, _HMG_ActiveFontSize )
+      __defaultNIL(@FontName, _HMG_ActiveFontName)
+      __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
       x := x + _HMG_ActiveFrameCol [_HMG_FrameLevel]
@@ -100,15 +100,15 @@ FUNCTION _DefineHotKeyBox ( ControlName, ParentForm, x, y, w, h, value, fontname
    IF FontHandle != 0
       _SetFontHandle( ControlHandle, FontHandle )
    ELSE
-      __defaultNIL( @FontName, _HMG_DefaultFontName )
-      __defaultNIL( @FontSize, _HMG_DefaultFontSize )
+      __defaultNIL(@FontName, _HMG_DefaultFontName)
+      __defaultNIL(@FontSize, _HMG_DefaultFontSize)
       IF IsWindowHandle( ControlHandle )
          FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
       ENDIF
    ENDIF
 
    IF _HMG_BeginTabActive
-      AAdd( _HMG_ActiveTabCurrentPageMap , Controlhandle )
+      AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
    ENDIF
 
    SetHotKeyValue( ControlHandle, value )

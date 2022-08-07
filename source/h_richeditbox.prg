@@ -49,7 +49,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 #if ( __HARBOUR__ - 0 < 0x030200 )
   #xtranslate hb_UAt( <c>, <n> ) => At( <c>, <n> )
-  #xtranslate hb_ULeft( <c>, <n> ) => Left( <c>, <n> )
+  #xtranslate hb_ULeft(<c>, <n>) => Left(<c>, <n>)
 #endif
 
 *-----------------------------------------------------------------------------*
@@ -66,19 +66,19 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
    LOCAL WorkArea
    LOCAL i
 
-   hb_default( @w, 120 )
-   hb_default( @h, 240 )
-   hb_default( @file, "" )
-   hb_default( @field, "" )
-   hb_default( @value, "" )
-   __defaultNIL( @change, "" )
-   __defaultNIL( @lostfocus, "" )
-   __defaultNIL( @gotfocus, "" )
-   hb_default( @maxlength, 64738 )
-   hb_default( @invisible, .F. )
-   hb_default( @notabstop, .F. )
-   hb_default( @nohscroll, .F. )
-   hb_default( @plaintext, .F. )
+   hb_default(@w, 120)
+   hb_default(@h, 240)
+   hb_default(@file, "")
+   hb_default(@field, "")
+   hb_default(@value, "")
+   __defaultNIL(@change, "")
+   __defaultNIL(@lostfocus, "")
+   __defaultNIL(@gotfocus, "")
+   hb_default(@maxlength, 64738)
+   hb_default(@invisible, .F.)
+   hb_default(@notabstop, .F.)
+   hb_default(@nohscroll, .F.)
+   hb_default(@plaintext, .F.)
 
    IF ( FontHandle := GetFontHandle( FontName ) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
@@ -88,7 +88,7 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
       IF  hb_UAt ( ">", Field ) == 0
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentForm + " : You must specify a fully qualified field name." )
       ELSE
-         WorkArea := hb_ULeft ( Field , hb_UAt ( ">", Field ) - 2 )
+         WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
          IF Select ( WorkArea ) != 0
             Value := &( Field )
          ENDIF
@@ -97,8 +97,8 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
 
    IF _HMG_BeginWindowActive
       ParentForm := _HMG_ActiveFormName
-      __defaultNIL( @FontName, _HMG_ActiveFontName )
-      __defaultNIL( @FontSize, _HMG_ActiveFontSize )
+      __defaultNIL(@FontName, _HMG_ActiveFontName)
+      __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
       x := x + _HMG_ActiveFrameCol [_HMG_FrameLevel]
@@ -132,19 +132,19 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
 
       IF i > 0
 
-         ControlHandle := InitRichEditBox ( _HMG_aFormReBarHandle [i] , 0, x, y, w, h, "", 0 , maxlength , readonly, invisible, notabstop, nohscroll, novscroll )
+         ControlHandle := InitRichEditBox ( _HMG_aFormReBarHandle[i] , 0, x, y, w, h, "", 0 , maxlength , readonly, invisible, notabstop, nohscroll, novscroll )
          IF FontHandle != 0
             _SetFontHandle( ControlHandle, FontHandle )
          ELSE
-            __defaultNIL( @FontName, _HMG_DefaultFontName )
-            __defaultNIL( @FontSize, _HMG_DefaultFontSize )
+            __defaultNIL(@FontName, _HMG_DefaultFontName)
+            __defaultNIL(@FontSize, _HMG_DefaultFontSize)
             IF IsWindowHandle( ControlHandle )
                FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
             ENDIF
          ENDIF
 
-         AddSplitBoxItem ( Controlhandle , _HMG_aFormReBarHandle [i] , w , break , , , , _HMG_ActiveSplitBoxInverted )
-         Containerhandle := _HMG_aFormReBarHandle [i]
+         AddSplitBoxItem ( Controlhandle , _HMG_aFormReBarHandle[i] , w , break , , , , _HMG_ActiveSplitBoxInverted )
+         Containerhandle := _HMG_aFormReBarHandle[i]
 
       ENDIF
 
@@ -154,8 +154,8 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
       IF FontHandle != 0
          _SetFontHandle( ControlHandle, FontHandle )
       ELSE
-         __defaultNIL( @FontName, _HMG_DefaultFontName )
-         __defaultNIL( @FontSize, _HMG_DefaultFontSize )
+         __defaultNIL(@FontName, _HMG_DefaultFontName)
+         __defaultNIL(@FontSize, _HMG_DefaultFontSize)
          IF IsWindowHandle( ControlHandle )
             FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
          ENDIF
@@ -167,7 +167,7 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
    ENDIF
 
    IF _HMG_BeginTabActive
-      AAdd( _HMG_ActiveTabCurrentPageMap , Controlhandle )
+      AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
    ENDIF
 
    IF ValType(tooltip) != "U"
@@ -237,7 +237,7 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
       Eval( _HMG_bOnControlInit, k, mVar )
    ENDIF
 
-   IF Len( value ) > 0
+   IF Len(value) > 0
       _SetValue ( , , value, k )
    ENDIF
 
@@ -251,10 +251,10 @@ PROCEDURE _DataBaseRichEditBoxSave ( ControlName, ParentForm, typ )
    LOCAL Field
    LOCAL i
 
-   IF ! Empty(cTempFile)
-      i := GetControlIndex ( ControlName, ParentForm )
+   IF !Empty(cTempFile)
+      i := GetControlIndex(ControlName, ParentForm)
 
-      Field := _HMG_aControlPageMap [i]
+      Field := _HMG_aControlPageMap[i]
 
       _DataRichEditBoxSave ( ControlName, ParentForm, cTempFile, typ )
 
@@ -274,7 +274,7 @@ FUNCTION _DataRichEditBoxSetValue ( ControlName, ParentForm, cRichValue, typ )
 *-----------------------------------------------------------------------------*
    LOCAL cTempFile := TempFile( GetTempFolder(), "txt" )
 
-   IF ! Empty(cTempFile)
+   IF !Empty(cTempFile)
       hb_MemoWrit ( cTempFile, cRichValue )
 
       _DataRichEditBoxOpen ( ControlName, ParentForm, cTempFile, typ )
@@ -292,7 +292,7 @@ FUNCTION _DataRichEditBoxGetValue ( ControlName, ParentForm, typ )
    LOCAL cTempFile := TempFile( GetTempFolder(), "txt" )
    LOCAL cRichValue
 
-   IF ! Empty(cTempFile)
+   IF !Empty(cTempFile)
       _DataRichEditBoxSave ( ControlName, ParentForm, cTempFile, typ )
 
       cRichValue := MemoRead ( cTempFile )
@@ -307,11 +307,11 @@ PROCEDURE _DataRichEditBoxOpen ( ControlName, ParentForm, cFile, typ )
 *-----------------------------------------------------------------------------*
    LOCAL i
 
-   IF ( i := GetControlIndex ( ControlName , ParentForm ) ) > 0
+   IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0
 
-      _HMG_aControlCaption [i] := cFile
+      _HMG_aControlCaption[i] := cFile
 
-      StreamIn( GetControlHandle( ControlName , ParentForm ), cFile , hb_defaultValue( typ, 2 ) )
+      StreamIn( GetControlHandle( ControlName , ParentForm ), cFile , hb_defaultValue(typ, 2) )
 
    ENDIF
 
@@ -322,13 +322,13 @@ PROCEDURE _DataRichEditBoxSave ( ControlName, ParentForm, cFile, typ )
 *-----------------------------------------------------------------------------*
    LOCAL i
 
-   IF ( i := GetControlIndex ( ControlName , ParentForm ) ) > 0
+   IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0
 
       IF ValType(cFile) == "U"
-         cFile := _HMG_aControlCaption [i]
+         cFile := _HMG_aControlCaption[i]
       ENDIF
 
-      StreamOut( GetControlHandle( ControlName , ParentForm ), cFile, hb_defaultValue( typ, 2 ) )
+      StreamOut( GetControlHandle( ControlName , ParentForm ), cFile, hb_defaultValue(typ, 2) )
 
    ENDIF
 

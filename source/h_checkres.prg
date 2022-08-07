@@ -14,11 +14,11 @@ FUNCTION MGAddResource( nHResource, cType )
       n++
    END
 
-   IF ! Empty(cInfo)
-      cInfo := SubStr(cInfo, 1, Len( cInfo ) - 2)
+   IF !Empty(cInfo)
+      cInfo := SubStr(cInfo, 1, Len(cInfo) - 2)
    ENDIF
 
-   AAdd( aResources, { cType, nHResource, cInfo } )
+   AAdd(aResources, {cType, nHResource, cInfo})
 
 RETURN NIL
 
@@ -48,7 +48,7 @@ FUNCTION CheckRes()
       ENDIF
    NEXT
 
-   IF ! Empty(cInfo)
+   IF !Empty(cInfo)
      _LogFile( .T., GetExeFileName() + " -- " + Replicate( "=", 99 ) )
    ENDIF
 
@@ -71,7 +71,7 @@ void RegisterResource( HANDLE hRes, LPCSTR szType )
    hb_vmPushSymbol( hb_dynsymGetSymbol( "MGADDRESOURCE" ) );
    hb_vmPushNil();
    hb_vmPushNumInt( ( LONG_PTR ) hRes );
-   hb_vmPushString( szType, strlen( szType ) );
+   hb_vmPushString( szType, strlen(szType) );
    hb_vmFunction( 2 );
 
    hb_itemReturnRelease( pRet );

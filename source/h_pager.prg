@@ -74,12 +74,12 @@ FUNCTION _BeginPager( ControlName, ParentName, nWidth, nHeight, nScroll, cCaptio
       MsgMiniGuiError( "PAGERBOX Can't Be Defined inside SplitChild Windows." )
    ENDIF
 
-   hb_default( @nWidth, 0 )
-   hb_default( @nHeight, 0 )
-   hb_default( @nScroll, 5 )
-   hb_default( @cCaption, "" )
-   hb_default( @vertical, .F. )
-   hb_default( @autoscroll, .F. )
+   hb_default(@nWidth, 0)
+   hb_default(@nHeight, 0)
+   hb_default(@nScroll, 5)
+   hb_default(@cCaption, "")
+   hb_default(@vertical, .F.)
+   hb_default(@autoscroll, .F.)
 
    hRebar := _DefineSplitBox ( ParentName, .F. , vertical )
 

@@ -95,7 +95,7 @@ METHOD Activate() CLASS TCDOMail
 
          :From := cEmailFrom
 
-         IF ( nLen := Len( ::aRecipients ) ) > 0
+         IF ( nLen := Len(::aRecipients) ) > 0
 
             FOR nEl := 1 TO nLen
                IF Empty(::aRecipients[ nEl ][2])
@@ -119,7 +119,7 @@ METHOD Activate() CLASS TCDOMail
          ENDIF
          :BodyPart:Charset := "utf-8"
 
-         IF ( nLen := Len( ::aFiles ) ) > 0
+         IF ( nLen := Len(::aFiles) ) > 0
             FOR nEl := 1 TO nLen
                :AddAttachment( ::aFiles[ nEl ][1] ) // Full path must be informed
             NEXT

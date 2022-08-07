@@ -266,9 +266,9 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
    EndIf
 
    If aColors != Nil
-      If HB_ISARRAY( aColors ) .AND. Len( aColors ) > 0 .AND. HB_ISARRAY( aColors[1] )
+      If HB_ISARRAY( aColors ) .AND. Len(aColors) > 0 .AND. HB_ISARRAY( aColors[1] )
          FOR EACH aClr IN aColors
-            If HB_ISARRAY( aClr ) .AND. HB_ISNUMERIC(aClr[1]) .AND. aClr[1] > 0 .AND. aClr[1] <= Len( aTmpColor )
+            If HB_ISARRAY( aClr ) .AND. HB_ISNUMERIC(aClr[1]) .AND. aClr[1] > 0 .AND. aClr[1] <= Len(aTmpColor)
                aTmpColor[ aClr[1] ] := aClr[2]
             EndIf
          NEXT
@@ -424,9 +424,9 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
 
       If oBrw != Nil
          nWidth := SBGetHeight(oBrw:hWnd, IIf(::hFont != Nil, ::hFont, 0), 1)
-         nEle   := Max( IIf( LoWord(aTmpAlign[2]) == 3, 2, Len( cHeading ) ), ;
-                   Len( IIf( Empty(cPicture), cValToChar( Eval( ::bData ) ), ;
-                   Transform( cValToChar( Eval( ::bData ) ), cPicture ) ) ) )
+         nEle   := Max( IIf( LoWord(aTmpAlign[2]) == 3, 2, Len(cHeading) ), ;
+                   Len(IIf( Empty(cPicture), cValToChar( Eval( ::bData ) ), ;
+                   Transform(cValToChar(Eval(::bData)), cPicture) )) )
          nWidth := Round( nWidth * ( nEle + 1 ) * 1.3, 0 )         //V90
       Else
          nWidth := Int(IIf(!lBitMap .AND. !lCheck, 0.67 * GetTextWidth(0, Replicate("B", Max(Len(cHeading), Len(IIf(Empty(cPicture), ;
@@ -494,7 +494,7 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
    ::oCellFoot   := TSBcell():New()
    ::oCell       := TSBcell():New()
 
-   If ! Empty(oBrw) .AND. oBrw:lIsArr
+   If !Empty(oBrw) .AND. oBrw:lIsArr
       ::lIndexCol := .T.
    EndIf
 
@@ -555,10 +555,10 @@ METHOD Save() CLASS TSColumn
 
    oWnd:New()
 
-   For n := 1 To Len( ::aProperties )
-      If ! ( uData := OSend( Self, ::aProperties[n] ) ) == ;
+   For n := 1 To Len(::aProperties)
+      If !( uData := OSend( Self, ::aProperties[n] ) ) == ;
          OSend( oWnd, ::aProperties[n] )
-         cInfo += ( I2Bin( Len( ::aProperties[n] ) ) + ;
+         cInfo += ( I2Bin( Len(::aProperties[n]) ) + ;
                     ::aProperties[n] )
          nProps++
          cType := ValType(uData)
@@ -570,27 +570,27 @@ METHOD Save() CLASS TSColumn
                  cInfo += uData:Save()
 
             Otherwise
-                 cInfo += ( cType + I2Bin( Len( uData := cValToChar( uData ) ) ) + ;
+                 cInfo += ( cType + I2Bin( Len(uData := cValToChar( uData )) ) + ;
                              uData )
          Endcase
       Endif
    Next
 
    If ::aEvents != Nil
-      For n := 1 To Len( ::aEvents )
+      For n := 1 To Len(::aEvents)
          If ( cMethod := OSend( Self, ::aEvents[n] ) ) != Nil
-            cInfo += ( I2Bin( Len( ::aEvents[n] ) ) + ;
+            cInfo += ( I2Bin( Len(::aEvents[n]) ) + ;
                        ::aEvents[n] )
             nProps++
-            cInfo += ( "C" + I2Bin( Len( cMethod ) ) + cMethod )
+            cInfo += ( "C" + I2Bin( Len(cMethod) ) + cMethod )
          Endif
       Next
    Endif
 
    oWnd:End()
 
-Return "O" + I2Bin( 2 + Len( ::ClassName() ) + 2 + Len( cInfo ) ) + ;
-       I2Bin( Len( ::ClassName() ) ) + ::ClassName() + I2Bin( nProps ) + cInfo
+Return "O" + I2Bin( 2 + Len(::ClassName()) + 2 + Len(cInfo) ) + ;
+       I2Bin( Len(::ClassName()) ) + ::ClassName() + I2Bin( nProps ) + cInfo
 
 *=============================================================================
 * METHOD TSColumn:SaveColor() Version 7.0 Adaption
@@ -771,7 +771,7 @@ RETURN Self
 
 METHOD SetKeyEvent( nKey, bKey, lCtrl, lShift, lAlt ) CLASS TSColumn
 
-   AAdd( ::aKeyEvent, { nKey, bKey, lCtrl, lShift, lAlt } )
+   AAdd(::aKeyEvent, {nKey, bKey, lCtrl, lShift, lAlt})
 
 RETURN Nil
 
@@ -794,19 +794,19 @@ METHOD ToWidth(uLen, nKfc, lHeader) CLASS TSColumn
       IF CRLF $ uLen
          cChr := ""
          FOR EACH uLen IN hb_ATokens( uLen )
-             IF Len( uLen ) > Len( cChr ) ; cChr := uLen
+             IF Len(uLen) > Len(cChr) ; cChr := uLen
              ENDIF
          NEXT
       ELSE
          cChr := uLen
       ENDIF
-   ElseIf ! Empty(::cPicture) .AND. HB_ISCHAR( ::cPicture )
+   ElseIf !Empty(::cPicture) .AND. HB_ISCHAR( ::cPicture )
       If Empty(uLen)
          cChr := ::cPicture
-         If Left( cChr, 2 ) == "@K"
-            cChr := AllTrim( Substr(cChr, 3) )
+         If Left(cChr, 2) == "@K"
+            cChr := AllTrim(Substr(cChr, 3))
          EndIf
-         nLen := Len( cChr )
+         nLen := Len(cChr)
       Else
          If     "9" $ ::cPicture ; cChr := "9"
          ElseIf "X" $ ::cPicture ; cChr := "X"
@@ -897,25 +897,25 @@ Function BiffRec( nOpCode, uData, nRow, nCol, lBorder, nAlign, nPic, nFont )
 
       Case nOpCode == 49 // 31h FONT record
          cHead := I2Bin( 49 ) + ; // opCode
-                  I2Bin( 5 + Len( uData[1] ) ) // body length
+                  I2Bin( 5 + Len(uData[1]) ) // body length
          cBody := I2Bin( uData[2] * 20 ) + ;   // font height in 1/20ths of a point
                   I2Bin( nOr( IIf( uData[3], 1, 0 ), ; // lBold    //JP nOr
                             IIf( uData[4], 2, 0 ), ;   // lItalic
                             IIf( uData[5], 4, 0 ), ;   // lUnderline
                             IIf( uData[6], 8, 0 ) ) ) + ;  // lStrikeout
-                  Chr( Len( uData[1] ) ) + ;          // length of cFaceName
+                  Chr( Len(uData[1]) ) + ;          // length of cFaceName
                   uData[1]                            // cFaceName
 
       Case nOpCode == 20 // 14h HEADER record
          cHead := I2Bin( 20 ) + ; // opCode
-                  I2Bin( 1 + Len( uData ) ) // body length
-         cBody := Chr( Len( uData ) ) + ;
+                  I2Bin( 1 + Len(uData) ) // body length
+         cBody := Chr( Len(uData) ) + ;
                   uData
 
       Case nOpCode == 21 // 15h FOOTER record
          cHead := I2Bin( 21 ) + ; // opCode
-                  I2Bin( 1 + Len( uData ) ) // body length
-         cBody := Chr( Len( uData ) ) + ;
+                  I2Bin( 1 + Len(uData) ) // body length
+         cBody := Chr( Len(uData) ) + ;
                   uData
 
       Case nOpCode == 36 // 24h COLWIDTH record
@@ -938,20 +938,20 @@ Function BiffRec( nOpCode, uData, nRow, nCol, lBorder, nAlign, nPic, nFont )
 
       Case nOpCode == 30 // 1Eh FORMAT record
          cHead := I2Bin( 30 ) + ; // opCode
-                  I2Bin( 1 + Len( uData ) ) // body length
-         cBody := Chr( Len( uData ) ) + ;   // length of format string
+                  I2Bin( 1 + Len(uData) ) // body length
+         cBody := Chr( Len(uData) ) + ;   // length of format string
                   uData                     // format string
 
       Case nOpCode == 4 // 04h LABEL record
          uData := SubStr(uData, 1, Min(255, Len(uData)))
          cHead := I2Bin( 4 ) + ; // opCode
-                  I2Bin( 8 + Len( uData ) ) // body length
+                  I2Bin( 8 + Len(uData) ) // body length
          cBody := I2Bin( nRow ) + ; // row number 0 based
                   I2Bin( nCol ) + ; // col number 0 based
                   aAttr[1]    + ;
                   aAttr[2]    + ;
                   aAttr[3]    + ;
-                  Chr( Len( uData ) ) + ;
+                  Chr( Len(uData) ) + ;
                   uData
 
       Case nOpCode == 2 // 02h INTEGER record
@@ -1008,8 +1008,8 @@ Return nCount
 Function StrWBlock( cField, nLen, nDec )
 
    Local bBlock := &( "{|x|If(Pcount()>0," + cField + ":=x,Str(" + cField + ;
-                      "," + LTrim( Str( nLen ) ) + IIf( nDec == Nil, "", ;
-                      "," + Ltrim( Str( nDec ) ) ) + "))}" )
+                      "," + LTrim(Str(nLen)) + IIf( nDec == Nil, "", ;
+                      "," + Ltrim(Str(nDec)) ) + "))}" )
 
 Return bBlock
 
@@ -1021,7 +1021,7 @@ Return bBlock
 
 Function lIsFile( cFile )
 
-   Local nHandle := FOpen( AllTrim( cFile ), 64 )
+   Local nHandle := FOpen( AllTrim(cFile), 64 )
 
    If nHandle >= 0
       FClose( nHandle )
@@ -1057,7 +1057,7 @@ Function ComboWBlock( oBrw, uField, nCol, aList )
       nCol := oBrw:nColumn( nCol )  // 21.07.2015
    EndIf
 
-   If nCol <= Len( oBrw:aColumns )
+   If nCol <= Len(oBrw:aColumns)
 
       If ValType(aList[1]) == "A"
          oBrw:aColumns[ nCol ]:aItems    := aList[1]
@@ -1099,7 +1099,7 @@ Function ComboWBlock( oBrw, uField, nCol, aList )
       Else
 
          bBlock := {|x| IIf( PCount() > 0, ( oBrw:cAlias )->( FieldPut( uField, x ) ), ;
-                    IIf( nCol <= Len( oBrw:aColumns ) .AND. ! Empty(oBrw:aColumns[ nCol ]:aItems), ;
+                    IIf( nCol <= Len(oBrw:aColumns) .AND. ! Empty(oBrw:aColumns[ nCol ]:aItems), ;
                     oBrw:aColumns[ nCol ]:aItems[ Max( 1, AScan(oBrw:aColumns[ nCol ]:aData, ;
                     ( oBrw:cAlias )->( FieldGet( uField ) )) ) ], Nil ) ) }
       EndIf

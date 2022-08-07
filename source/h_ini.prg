@@ -53,8 +53,8 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 #include "fileio.ch"
 
 #if ( __HARBOUR__ - 0 < 0x030200 )
-  #xtranslate hb_ULeft( <c>, <n> ) => Left( <c>, <n> )
-  #xtranslate hb_ULen( <c> ) => Len( <c> )
+  #xtranslate hb_ULeft(<c>, <n>) => Left(<c>, <n>)
+  #xtranslate hb_ULen(<c>) => Len(<c>)
   #xtranslate hb_USubStr(<c>, <n> [, <e>]) => SubStr(<c>, <n> [, <e>])
 #endif
 
@@ -76,8 +76,8 @@ FUNCTION _LogFile( lCrLf, ... )
 *-----------------------------------------------------------------------------*
    LOCAL hFile, i, xVal, cTp
    LOCAL aParams := hb_AParams()
-   LOCAL nParams := Len( aParams )
-   LOCAL cFile := hb_defaultValue( _SetGetLogFile(), GetStartUpFolder() + hb_ps() + "_MsgLog.txt" )
+   LOCAL nParams := Len(aParams)
+   LOCAL cFile := hb_defaultValue(_SetGetLogFile(), GetStartUpFolder() + hb_ps() + "_MsgLog.txt")
    IF !Empty(cFile)
       hFile := iif( File( cFile ), FOpen( cFile, FO_READWRITE ), FCreate( cFile, FC_NORMAL ) )
       IF hFile == F_ERROR
@@ -85,7 +85,7 @@ FUNCTION _LogFile( lCrLf, ... )
       ENDIF
       FSeek( hFile, 0, FS_END )
       IF nParams > 1
-         IF ( lCrLf := hb_defaultValue( lCrLf, .T. ) )
+         IF ( lCrLf := hb_defaultValue(lCrLf, .T.) )
             FWrite( hFile, CRLF, 2 )
          ENDIF
          IF nParams == 2 .AND. HB_ISNIL( aParams[2] ) .AND. lCrLf
@@ -93,14 +93,14 @@ FUNCTION _LogFile( lCrLf, ... )
             FOR i := 2 TO nParams
                xVal := aParams[i]
                cTp  := ValType(xVal)
-               IF     cTp == "C" ; xVal := iif( Empty(xVal), "'" + "'", Trim( xVal ) )
+               IF     cTp == "C" ; xVal := iif( Empty(xVal), "'" + "'", Trim(xVal) )
                ELSEIF cTp == "N" ; xVal := hb_ntos( xVal )
                ELSEIF cTp == "L" ; xVal := iif( xVal, ".T.", ".F." )
                ELSEIF cTp == "D" ; xVal := hb_DToC( xVal, "DD.MM.YYYY" )
-               ELSEIF cTp == "A" ; xVal := "ARRAY["  + hb_ntos( Len( xVal ) ) + "]"
-               ELSEIF cTp == "H" ; xVal :=  "HASH["  + hb_ntos( Len( xVal ) ) + "]"
+               ELSEIF cTp == "A" ; xVal := "ARRAY["  + hb_ntos( Len(xVal) ) + "]"
+               ELSEIF cTp == "H" ; xVal :=  "HASH["  + hb_ntos( Len(xVal) ) + "]"
                ELSEIF cTp == "B" ; xVal := "'" + "B" + "'"
-               ELSEIF cTp == "T" ; xVal := hb_TSToStr( xVal, .T. )
+               ELSEIF cTp == "T" ; xVal := hb_TSToStr(xVal, .T.)
                ELSEIF cTp == "U" ; xVal := "NIL"
                ELSE              ; xVal := "'" + cTp + "'"
                ENDIF
@@ -164,8 +164,8 @@ FUNCTION _GetIni( cSection, cEntry, cDefault, uVar )
    LOCAL cVar As String
 
    IF !Empty(_HMG_ActiveIniFile)
-      __defaultNIL( @cDefault, cVar )
-      __defaultNIL( @uVar, cDefault )
+      __defaultNIL(@cDefault, cVar)
+      __defaultNIL(@uVar, cDefault)
       cVar  := GetPrivateProfileString( cSection, cEntry, xChar( cDefault ), _HMG_ActiveIniFile )
    ELSE
       IF cDefault != NIL
@@ -222,17 +222,17 @@ FUNCTION GetBeginComment
 *-----------------------------------------------------------------------------*
    LOCAL aLines, nLen, i, lTest := .T., cComment := ""
 
-   IF ! Empty(_HMG_ActiveIniFile)
+   IF !Empty(_HMG_ActiveIniFile)
       aLines := hb_ATokens( StrTran(MemoRead( _HMG_ActiveIniFile ), CRLF, Chr( 10 )), Chr( 10 ) )
 
-      IF ( nLen := Len( aLines ) ) > 0
+      IF ( nLen := Len(aLines) ) > 0
          FOR i := 1 TO nLen
-            aLines[i] := AllTrim( aLines[i] )
+            aLines[i] := AllTrim(aLines[i])
             IF lTest
-               IF hb_ULeft( aLines[i], 1 ) $ "#;"
+               IF hb_ULeft(aLines[i], 1) $ "#;"
                   cComment := aLines[i]
                   lTest := .F.
-               ELSEIF ! Empty(aLines[i])
+               ELSEIF !Empty(aLines[i])
                   lTest := .F.
                ENDIF
             ELSE
@@ -249,17 +249,17 @@ FUNCTION GetEndComment
 *-----------------------------------------------------------------------------*
    LOCAL aLines, nLen, i, lTest := .T., cComment := ""
 
-   IF ! Empty(_HMG_ActiveIniFile)
+   IF !Empty(_HMG_ActiveIniFile)
       aLines := hb_ATokens( StrTran(MemoRead( _HMG_ActiveIniFile ), CRLF, Chr( 10 )), Chr( 10 ) )
 
-      IF ( nLen := Len( aLines ) ) > 0
+      IF ( nLen := Len(aLines) ) > 0
          FOR i := nLen TO 1 STEP -1
-            aLines[i] := AllTrim( aLines[i] )
+            aLines[i] := AllTrim(aLines[i])
             IF lTest
-               IF hb_ULeft( aLines[i], 1 ) $ "#;"
+               IF hb_ULeft(aLines[i], 1) $ "#;"
                   cComment := aLines[i]
                   lTest := .F.
-               ELSEIF ! Empty(aLines[i])
+               ELSEIF !Empty(aLines[i])
                   lTest := .F.
                ENDIF
             ELSE
@@ -276,24 +276,24 @@ FUNCTION SetBeginComment( cComment )
 *-----------------------------------------------------------------------------*
    LOCAL aLines, nLen, i, lTest := .T., cMemo := ""
 
-   hb_default( @cComment, "" )
+   hb_default(@cComment, "")
 
-   IF ! Empty(_HMG_ActiveIniFile)
+   IF !Empty(_HMG_ActiveIniFile)
       aLines := hb_ATokens( StrTran(MemoRead( _HMG_ActiveIniFile ), CRLF, Chr( 10 )), Chr( 10 ) )
 
-      IF ( nLen := Len( aLines ) ) > 0 .AND. Len( ATail( aLines ) ) == 0
+      IF ( nLen := Len(aLines) ) > 0 .AND. Len(ATail( aLines )) == 0
          ASize( aLines, nLen - 1 )
          nLen--
       ENDIF
       IF nLen > 0
          FOR i := 1 TO nLen
-            aLines[i] := AllTrim( aLines[i] )
+            aLines[i] := AllTrim(aLines[i])
             IF lTest
-               IF hb_ULeft( aLines[i], 1 ) $ "#;"
+               IF hb_ULeft(aLines[i], 1) $ "#;"
                   IF Empty(cComment)
                      aLines[i] := ""
                   ELSE
-                     IF ! hb_ULeft( cComment := AllTrim( cComment ), 1 ) $ "#;"
+                     IF !hb_ULeft(cComment := AllTrim(cComment), 1) $ "#;"
                         cComment := "#" + cComment
                      ENDIF
                      aLines[i] := cComment + CRLF
@@ -305,10 +305,10 @@ FUNCTION SetBeginComment( cComment )
                   aLines[i] += CRLF
                   lTest := .F.
                ELSE
-                  AAdd( aLines, NIL )
+                  AAdd(aLines, NIL)
                   nLen++
                   AIns( aLines, i )
-                  IF ! hb_ULeft( cComment := AllTrim( cComment ), 1 ) $ "#;"
+                  IF !hb_ULeft(cComment := AllTrim(cComment), 1) $ "#;"
                      cComment := "#" + cComment
                   ENDIF
                   aLines[i] := cComment + CRLF
@@ -330,28 +330,28 @@ FUNCTION SetEndComment( cComment )
 *-----------------------------------------------------------------------------*
    LOCAL aLines, nLen, i, lTest := .T., cMemo := ""
 
-   hb_default( @cComment, "" )
-   cComment := AllTrim( cComment )
+   hb_default(@cComment, "")
+   cComment := AllTrim(cComment)
 
-   IF ! Empty(_HMG_ActiveIniFile)
+   IF !Empty(_HMG_ActiveIniFile)
       aLines := hb_ATokens( StrTran(MemoRead( _HMG_ActiveIniFile ), CRLF, Chr( 10 )), Chr( 10 ) )
-      nLen := Len( aLines )
-      IF nLen > 0 .AND. hb_ULen( ATail( aLines ) ) == 0
+      nLen := Len(aLines)
+      IF nLen > 0 .AND. hb_ULen(ATail( aLines )) == 0
          ASize( aLines, nLen - 1 )
          nLen--
       ENDIF
       IF nLen > 0
          FOR i := nLen TO 1 STEP -1
-            aLines[i] := AllTrim( aLines[i] )
+            aLines[i] := AllTrim(aLines[i])
             IF lTest
                IF Empty(aLines[i])
                   // Remove empty trailing lines
-               ELSEIF hb_ULeft( aLines[i], 1 ) $ "#;"
+               ELSEIF hb_ULeft(aLines[i], 1) $ "#;"
                   IF Empty(cComment)
                      // Remove previous comment
                   ELSE
                      // Replace previous comment
-                     IF ! hb_ULeft( cComment, 1 ) $ "#;"
+                     IF !hb_ULeft(cComment, 1) $ "#;"
                         cComment := "#" + cComment
                      ENDIF
                      cMemo := cComment + CRLF
@@ -362,7 +362,7 @@ FUNCTION SetEndComment( cComment )
                   lTest := .F.
                ELSE
                   // Add comment as the last line
-                  IF ! hb_ULeft( cComment, 1 ) $ "#;"
+                  IF !hb_ULeft(cComment, 1) $ "#;"
                      cComment := "#" + cComment
                   ENDIF
                   cMemo := CRLF + cComment + CRLF
@@ -375,8 +375,8 @@ FUNCTION SetEndComment( cComment )
                cMemo := aLines[i] + CRLF + cMemo
             ENDIF
          NEXT i
-         IF hb_ULeft( cMemo, Len( CRLF ) ) == CRLF
-            cMemo := SubStr(cMemo, Len( CRLF ) + 1)
+         IF hb_ULeft(cMemo, Len(CRLF)) == CRLF
+            cMemo := SubStr(cMemo, Len(CRLF) + 1)
          ENDIF
          hb_MemoWrit( _HMG_ActiveIniFile, cMemo )
       ENDIF
@@ -392,7 +392,7 @@ FUNCTION xChar( xValue )
 
    DO CASE
    CASE cType $  "CM"; cValue := xValue
-   CASE cType == "N" ; nDecimals := iif( xValue == Int( xValue ), 0, nDecimals ) ; cValue := LTrim( Str( xValue, 20, nDecimals ) )
+   CASE cType == "N" ; nDecimals := iif( xValue == Int( xValue ), 0, nDecimals ) ; cValue := LTrim(Str(xValue, 20, nDecimals))
    CASE cType == "D" ; cValue := DToS( xValue )
    CASE cType == "L" ; cValue := iif( xValue, "T", "F" )
    CASE cType == "A" ; cValue := AToC( xValue )
@@ -429,11 +429,11 @@ FUNCTION AToC( aArray )
       IF ( cType := ValType(elem) ) == "A"
          cArray += cElement
       ELSE
-         cArray += hb_ULeft( cType, 1 ) + Str( hb_ULen( cElement ), 4 ) + cElement
+         cArray += hb_ULeft(cType, 1) + Str(hb_ULen(cElement), 4) + cElement
       ENDIF
    NEXT
 
-RETURN( "A" + Str( hb_ULen( cArray ), 4 ) + cArray )
+RETURN( "A" + Str(hb_ULen(cArray), 4) + cArray )
 
 *-----------------------------------------------------------------------------*
 FUNCTION CToA( cArray )
@@ -441,12 +441,12 @@ FUNCTION CToA( cArray )
    LOCAL cType, nLen, aArray := {}
 
    cArray := hb_USubStr(cArray, 6)    // strip off array and length
-   WHILE hb_ULen( cArray ) > 0
+   WHILE hb_ULen(cArray) > 0
       nLen := Val( hb_USubStr(cArray, 2, 4) )
-      IF ( cType := hb_ULeft( cArray, 1 ) ) == "A"
-         AAdd( aArray, CToA( hb_USubStr(cArray, 1, nLen + 5) ) )
+      IF ( cType := hb_ULeft(cArray, 1) ) == "A"
+         AAdd(aArray, CToA(hb_USubStr(cArray, 1, nLen + 5)))
       ELSE
-         AAdd( aArray, xValue( hb_USubStr(cArray, 6, nLen), cType ) )
+         AAdd(aArray, xValue(hb_USubStr(cArray, 6, nLen), cType))
       ENDIF
       cArray := hb_USubStr(cArray, 6 + nLen)
    END
@@ -463,8 +463,8 @@ FUNCTION _GetSectionNames( cIniFile )
 
    IF File( cIniFile )
       aLista := _GetPrivateProfileSectionNames( cIniFile )
-      IF ! Empty(aLista)
-         AEval( aLista, {|cVal| iif( Empty(cVal), , AAdd( aSectionList, cVal ) ) } )
+      IF !Empty(aLista)
+         AEval( aLista, {|cVal| iif( Empty(cVal), , AAdd(aSectionList, cVal) ) } )
       ENDIF
    ELSE
       MsgStop( "Can`t open " + cIniFile, "Error" )
@@ -480,10 +480,10 @@ FUNCTION _GetSection( cSection, cIniFile )
 
    IF File( cIniFile )
       aLista := _GetPrivateProfileSection( cSection, cIniFile )
-      IF ! Empty(aLista)
-         FOR i := 1 TO Len( aLista )
+      IF !Empty(aLista)
+         FOR i := 1 TO Len(aLista)
             IF ( n := At( "=", aLista[i] ) ) > 0
-               AAdd( aKeyValueList, { Left( aLista[i], n - 1 ), SubStr(aLista[i], n + 1) } )
+               AAdd(aKeyValueList, {Left(aLista[i], n - 1), SubStr(aLista[i], n + 1)})
             ENDIF
          NEXT i
       ENDIF

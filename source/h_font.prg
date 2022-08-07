@@ -62,26 +62,26 @@ PROCEDURE _DefineFont( FontName, fName, fSize, bold, italic, underline, strikeou
       _ReleaseFont( FontName )
    ENDIF
 
-   hb_default( @fName, _HMG_DefaultFontName )
-   hb_default( @fSize, _HMG_DefaultFontSize )
-   hb_default( @bold, .F. )
-   hb_default( @italic, .F. )
-   hb_default( @underline, .F. )
-   hb_default( @strikeout, .F. )
-   hb_default( @nAngle, 0 )
+   hb_default(@fName, _HMG_DefaultFontName)
+   hb_default(@fSize, _HMG_DefaultFontSize)
+   hb_default(@bold, .F.)
+   hb_default(@italic, .F.)
+   hb_default(@underline, .F.)
+   hb_default(@strikeout, .F.)
+   hb_default(@nAngle, 0)
 
    IF ValType(charset) == "U"
       GetFontList( NIL, NIL, NIL, NIL, NIL, NIL, @aFontList )
 
       GetFontList( NIL, NIL, SYMBOL_CHARSET, NIL, NIL, NIL, @aFontSymb )
-      AEval( aFontSymb, {| cFont | AAdd( aFontList, cFont ) } )
+      AEval( aFontSymb, {| cFont | AAdd(aFontList, cFont) } )
 
       IF Empty(AScan(aFontList, {|cName|Upper(cName) == Upper(fName)}))
          fName := "Arial"
       ENDIF
    ENDIF
 
-   IF hb_defaultValue( default, .F. )
+   IF hb_defaultValue(default, .F.)
       _HMG_DefaultFontName := fName
       _HMG_DefaultFontSize := fSize
    ENDIF
@@ -126,7 +126,7 @@ PROCEDURE _DefineFont( FontName, fName, fSize, bold, italic, underline, strikeou
    _HMG_aControlContainerHandle    [k] := 0
    _HMG_aControlFontName           [k] := fName
    _HMG_aControlFontSize           [k] := fSize
-   _HMG_aControlFontAttributes     [k] := { bold, italic, underline, strikeout, nAngle, hb_defaultValue( charset, DEFAULT_CHARSET ) }
+   _HMG_aControlFontAttributes     [k] := { bold, italic, underline, strikeout, nAngle, hb_defaultValue(charset, DEFAULT_CHARSET) }
    _HMG_aControlToolTip            [k] := ""
    _HMG_aControlRangeMin           [k] := 0
    _HMG_aControlRangeMax           [k] := 0
@@ -161,13 +161,13 @@ PROCEDURE _EraseFontDef( i )
 
    LOCAL mVar
 
-   DeleteObject( _HMG_aControlFontHandle [i] )
+   DeleteObject( _HMG_aControlFontHandle[i] )
 
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlDestroy, i )
    ENDIF
 
-   mVar := "_" + _FORMNAME_ + "_" + _HMG_aControlNames [i]
+   mVar := "_" + _FORMNAME_ + "_" + _HMG_aControlNames[i]
 
 #ifdef _NAMES_LIST_
    _DelNameList( mVar )
@@ -181,46 +181,46 @@ PROCEDURE _EraseFontDef( i )
    ENDIF
 #endif
 
-   _HMG_aControlDeleted            [i] := .T.
-   _HMG_aControlType               [i] := ""
-   _HMG_aControlNames              [i] := ""
-   _HMG_aControlHandles            [i] := 0
-   _HMG_aControlParentHandles      [i] := 0
-   _HMG_aControlIds                [i] := 0
-   _HMG_aControlProcedures         [i] := ""
-   _HMG_aControlPageMap            [i] := {}
-   _HMG_aControlValue              [i] := Nil
-   _HMG_aControlInputMask          [i] := ""
-   _HMG_aControllostFocusProcedure [i] := ""
-   _HMG_aControlGotFocusProcedure  [i] := ""
-   _HMG_aControlChangeProcedure    [i] := ""
-   _HMG_aControlBkColor            [i] := Nil
-   _HMG_aControlFontColor          [i] := Nil
-   _HMG_aControlDblClick           [i] := ""
-   _HMG_aControlHeadClick          [i] := {}
-   _HMG_aControlRow                [i] := 0
-   _HMG_aControlCol                [i] := 0
-   _HMG_aControlWidth              [i] := 0
-   _HMG_aControlHeight             [i] := 0
-   _HMG_aControlSpacing            [i] := 0
-   _HMG_aControlContainerRow       [i] := 0
-   _HMG_aControlContainerCol       [i] := 0
-   _HMG_aControlPicture            [i] := ""
-   _HMG_aControlContainerHandle    [i] := 0
-   _HMG_aControlFontName           [i] := ""
-   _HMG_aControlFontSize           [i] := 0
-   _HMG_aControlToolTip            [i] := ""
-   _HMG_aControlRangeMin           [i] := 0
-   _HMG_aControlRangeMax           [i] := 0
-   _HMG_aControlCaption            [i] := ""
-   _HMG_aControlVisible            [i] := .F.
-   _HMG_aControlHelpId             [i] := 0
-   _HMG_aControlFontHandle         [i] := 0
-   _HMG_aControlFontAttributes     [i] := {}
-   _HMG_aControlBrushHandle        [i] := 0
-   _HMG_aControlEnabled            [i] := .F.
-   _HMG_aControlMiscData1          [i] := 0
-   _HMG_aControlMiscData2          [i] := ""
+   _HMG_aControlDeleted           [i] := .T.
+   _HMG_aControlType              [i] := ""
+   _HMG_aControlNames             [i] := ""
+   _HMG_aControlHandles           [i] := 0
+   _HMG_aControlParentHandles     [i] := 0
+   _HMG_aControlIds               [i] := 0
+   _HMG_aControlProcedures        [i] := ""
+   _HMG_aControlPageMap           [i] := {}
+   _HMG_aControlValue             [i] := Nil
+   _HMG_aControlInputMask         [i] := ""
+   _HMG_aControllostFocusProcedure[i] := ""
+   _HMG_aControlGotFocusProcedure [i] := ""
+   _HMG_aControlChangeProcedure   [i] := ""
+   _HMG_aControlBkColor           [i] := Nil
+   _HMG_aControlFontColor         [i] := Nil
+   _HMG_aControlDblClick          [i] := ""
+   _HMG_aControlHeadClick         [i] := {}
+   _HMG_aControlRow               [i] := 0
+   _HMG_aControlCol               [i] := 0
+   _HMG_aControlWidth             [i] := 0
+   _HMG_aControlHeight            [i] := 0
+   _HMG_aControlSpacing           [i] := 0
+   _HMG_aControlContainerRow      [i] := 0
+   _HMG_aControlContainerCol      [i] := 0
+   _HMG_aControlPicture           [i] := ""
+   _HMG_aControlContainerHandle   [i] := 0
+   _HMG_aControlFontName          [i] := ""
+   _HMG_aControlFontSize          [i] := 0
+   _HMG_aControlToolTip           [i] := ""
+   _HMG_aControlRangeMin          [i] := 0
+   _HMG_aControlRangeMax          [i] := 0
+   _HMG_aControlCaption           [i] := ""
+   _HMG_aControlVisible           [i] := .F.
+   _HMG_aControlHelpId            [i] := 0
+   _HMG_aControlFontHandle        [i] := 0
+   _HMG_aControlFontAttributes    [i] := {}
+   _HMG_aControlBrushHandle       [i] := 0
+   _HMG_aControlEnabled           [i] := .F.
+   _HMG_aControlMiscData1         [i] := 0
+   _HMG_aControlMiscData2         [i] := ""
 
 RETURN
 
@@ -230,8 +230,8 @@ FUNCTION GetFontHandle( FontName )
    LOCAL i := AScan(_HMG_aControlNames, FontName)
 
    IF i > 0
-      IF GetFontParamByRef( _HMG_aControlHandles [i] )
-         RETURN _HMG_aControlHandles [i]
+      IF GetFontParamByRef( _HMG_aControlHandles[i] )
+         RETURN _HMG_aControlHandles[i]
       ELSEIF _HMG_aControlType[i] == CONTROL_TYPE_FONT
          _EraseFontDef( i )
       ENDIF
@@ -255,7 +255,7 @@ FUNCTION GetFontParam( FontHandle )
          _HMG_aControlFontAttributes[ i, FONT_ATTR_ITALIC ], ;
          _HMG_aControlFontAttributes[ i, FONT_ATTR_UNDERLINE ], ;
          _HMG_aControlFontAttributes[ i, FONT_ATTR_STRIKEOUT ], ;
-         iif( Len( _HMG_aControlFontAttributes[i] ) == 5, _HMG_aControlFontAttributes[ i, FONT_ATTR_ANGLE ], 0 ), ;
+         iif( Len(_HMG_aControlFontAttributes[i]) == 5, _HMG_aControlFontAttributes[ i, FONT_ATTR_ANGLE ], 0 ), ;
          _HMG_aControlWidth[i], _HMG_aControlHeight[i], _HMG_aControlNames[i] }
    ENDIF
 
@@ -266,7 +266,7 @@ FUNCTION _GetFontAttr( ControlName, ParentForm, nType )
 
    LOCAL i
 
-   IF ( i := GetControlIndex( ControlName, ParentForm ) ) > 0
+   IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0
 
       DO CASE
       CASE nType == FONT_ATTR_NAME
@@ -293,7 +293,7 @@ FUNCTION _SetFontAttr( ControlName, ParentForm, Value, nType )
       RETURN .F.
    ENDIF
 
-   i := GetControlIndex ( ControlName, ParentForm )
+   i := GetControlIndex(ControlName, ParentForm)
 
    IF i == 0
       RETURN .F.
@@ -320,7 +320,7 @@ FUNCTION _SetFontAttr( ControlName, ParentForm, Value, nType )
    ai := _HMG_aControlFontAttributes[i][ FONT_ATTR_ITALIC ]
    au := _HMG_aControlFontAttributes[i][ FONT_ATTR_UNDERLINE ]
    as := _HMG_aControlFontAttributes[i][ FONT_ATTR_STRIKEOUT ]
-   aa := iif( Len( _HMG_aControlFontAttributes[i] ) == 5, _HMG_aControlFontAttributes[i][ FONT_ATTR_ANGLE ], 0 )
+   aa := iif( Len(_HMG_aControlFontAttributes[i]) == 5, _HMG_aControlFontAttributes[i][ FONT_ATTR_ANGLE ], 0 )
 
    t := _HMG_aControlType[i]
 
@@ -380,7 +380,7 @@ FUNCTION GetFontParamByRef( FontHandle, FontName, FontSize, bold, italic, underl
    ENDIF
    IF hb_PIsByRef( 8 )
       angle := iif( lExpr, ;
-        iif( Len( _HMG_aControlFontAttributes[i] ) > 4, _HMG_aControlFontAttributes[ i, FONT_ATTR_ANGLE ], 0 ), ;
+        iif( Len(_HMG_aControlFontAttributes[i]) > 4, _HMG_aControlFontAttributes[ i, FONT_ATTR_ANGLE ], 0 ), ;
         0 )
    ENDIF
 

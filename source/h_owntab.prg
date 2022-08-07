@@ -69,23 +69,23 @@ FUNCTION OwnTabPaint( lParam )
    nItemId    := GETOWNBTNITEMID( lParam ) + 1
    aBtnRc     := GETOWNBTNRECT( lParam )
    lSelected  := ( AND( GETOWNBTNSTATE( lParam ), ODS_SELECTED ) == ODS_SELECTED )
-   lBigFsize  := ( _HMG_aControlFontSize [i] >= 12 )
-   lBigFsize2 := ( _HMG_aControlFontSize [i] >= 18 )
-   lBigFsize3 := ( _HMG_aControlFontSize [i] >= 24 )
+   lBigFsize  := ( _HMG_aControlFontSize[i] >= 12 )
+   lBigFsize2 := ( _HMG_aControlFontSize[i] >= 18 )
+   lBigFsize3 := ( _HMG_aControlFontSize[i] >= 24 )
 
-   _HMG_aControlMiscData1 [i] [1] := aBtnRc [4] - aBtnRc [2]  // store a bookmark height
+   _HMG_aControlMiscData1[i] [1] := aBtnRc [4] - aBtnRc [2]  // store a bookmark height
 
-   hOldFont     := SelectObject( hDC, _HMG_aControlFontHandle [i] )
+   hOldFont     := SelectObject( hDC, _HMG_aControlFontHandle[i] )
    aMetr        := GetTextMetric( hDC )
    oldBkMode    := SetBkMode( hDC, TRANSPARENT )
    nTextColor   := GetSysColor( COLOR_BTNTEXT )
    oldTextColor := SetTextColor( hDC, GetRed( nTextColor ), GetGreen( nTextColor ), GetBlue( nTextColor ) )
 
-   IF ISARRAY( _HMG_aControlMiscData2 [i] ) .AND. nItemId <= Len( _HMG_aControlMiscData2 [i] ) .AND. ;
-      IsArrayRGB( _HMG_aControlMiscData2 [i] [nItemId] )
-      aBkColor := _HMG_aControlMiscData2 [i] [nItemId]
+   IF ISARRAY( _HMG_aControlMiscData2[i] ) .AND. nItemId <= Len(_HMG_aControlMiscData2[i]) .AND. ;
+      IsArrayRGB( _HMG_aControlMiscData2[i] [nItemId] )
+      aBkColor := _HMG_aControlMiscData2[i] [nItemId]
    ELSE
-      aBkColor := _HMG_aControlBkColor [i]
+      aBkColor := _HMG_aControlBkColor[i]
    ENDIF
 
    bkColor := RGB( aBkColor [1], aBkColor [2], aBkColor [3] )
@@ -100,13 +100,13 @@ FUNCTION OwnTabPaint( lParam )
    x2 := aBtnRc [3] - 2
    y2 := y1 + aMetr [1]
 
-   IF _HMG_aControlMiscData1 [i] [2]  // ImageFlag
+   IF _HMG_aControlMiscData1[i] [2]  // ImageFlag
 
-      nItemId := Min( nItemId, Len( _HMG_aControlPicture [i] ) )
+      nItemId := Min( nItemId, Len(_HMG_aControlPicture[i]) )
 
-      hImage := LoadBitmap( _HMG_aControlPicture [i] [nItemId] )
+      hImage := LoadBitmap( _HMG_aControlPicture[i] [nItemId] )
       IF Empty(hImage)
-         hImage := LoadImage( _HMG_aControlPicture [i] [nItemId], , , , , , bkColor )
+         hImage := LoadImage( _HMG_aControlPicture[i] [nItemId], , , , , , bkColor )
       ENDIF
 
       aBmp := GetBitmapSize( hImage )
@@ -117,7 +117,7 @@ FUNCTION OwnTabPaint( lParam )
       yp1 := Round( aBtnRc [4] / 2 - yp2 / 2, 0 )
       x1  += 2 * xp1 + xp2
 
-      IF _HMG_aControlMiscData1 [i] [4]  // Bottom Tab
+      IF _HMG_aControlMiscData1[i] [4]  // Bottom Tab
 
          IF lSelected
             DrawGlyph( hDC, aBtnRc [1] + 2 * xp1, 2 * yp1 - iif( lBigFsize, 8, 5 ), xp2, 2 * yp2 - iif( lBigFsize, 8, 5 ), hImage, bkColor, .F., .F. )
@@ -141,9 +141,9 @@ FUNCTION OwnTabPaint( lParam )
 
    IF lSelected
 
-      IF _HMG_aControlMiscData1 [i] [5]  // HotTrack
+      IF _HMG_aControlMiscData1[i] [5]  // HotTrack
 
-         IF IsArrayRGB ( aForeColor := _HMG_aControlMiscData1 [i] [6] )
+         IF IsArrayRGB ( aForeColor := _HMG_aControlMiscData1[i] [6] )
             SetTextColor( hDC, aForeColor [1], aForeColor [2], aForeColor [3] )
          ELSEIF bkColor == GetSysColor( COLOR_BTNFACE )
             SetTextColor( hDC, 0, 0, 128 )
@@ -155,26 +155,26 @@ FUNCTION OwnTabPaint( lParam )
 
    ELSE
 
-      IF IsArrayRGB ( aInactiveColor := _HMG_aControlMiscData1 [i] [7] )
+      IF IsArrayRGB ( aInactiveColor := _HMG_aControlMiscData1[i] [7] )
          SetTextColor( hDC, aInactiveColor [1], aInactiveColor [2], aInactiveColor [3] )
       ENDIF
 
    ENDIF
 
-   IF _HMG_aControlMiscData1 [i] [4]  // Bottom Tab
+   IF _HMG_aControlMiscData1[i] [4]  // Bottom Tab
 
       IF lSelected
-         DrawText( hDC, _HMG_aControlCaption [i] [nItemId], x1, 2 * y1 - iif( lBigFsize3, -12, iif( lBigFsize2, -3, iif( lBigFsize, 6, 12 ) ) ), x2, 2 * y2 - iif( lBigFsize3, -12, iif( lBigFsize2, -3, iif( lBigFsize, 6, 12 ) ) ), DT_CENTER )
+         DrawText( hDC, _HMG_aControlCaption[i] [nItemId], x1, 2 * y1 - iif( lBigFsize3, -12, iif( lBigFsize2, -3, iif( lBigFsize, 6, 12 ) ) ), x2, 2 * y2 - iif( lBigFsize3, -12, iif( lBigFsize2, -3, iif( lBigFsize, 6, 12 ) ) ), DT_CENTER )
       ELSE
-         DrawText( hDC, _HMG_aControlCaption [i] [nItemId], x1, 2 * y1 - iif( lBigFsize3, -18, iif( lBigFsize2, -8, iif(lBigFsize, 0, 8 ) ) ), x2, 2 * y2 - iif( lBigFsize3, -18, iif( lBigFsize2, -8, iif( lBigFsize, 0, 8 ) ) ), DT_CENTER )
+         DrawText( hDC, _HMG_aControlCaption[i] [nItemId], x1, 2 * y1 - iif( lBigFsize3, -18, iif( lBigFsize2, -8, iif(lBigFsize, 0, 8 ) ) ), x2, 2 * y2 - iif( lBigFsize3, -18, iif( lBigFsize2, -8, iif( lBigFsize, 0, 8 ) ) ), DT_CENTER )
       ENDIF
 
    ELSE
 
       IF lSelected
-         DrawText( hDC, _HMG_aControlCaption [i] [nItemId], x1, y1 - iif( lBigFsize3, -9, iif( lBigFsize2, -5, iif( lBigFsize, 0, 4 ) ) ), x2, y2 - iif( lBigFsize3, -9, iif( lBigFsize2, -5, iif( lBigFsize, 0, 4 ) ) ), DT_CENTER )
+         DrawText( hDC, _HMG_aControlCaption[i] [nItemId], x1, y1 - iif( lBigFsize3, -9, iif( lBigFsize2, -5, iif( lBigFsize, 0, 4 ) ) ), x2, y2 - iif( lBigFsize3, -9, iif( lBigFsize2, -5, iif( lBigFsize, 0, 4 ) ) ), DT_CENTER )
       ELSE
-         DrawText( hDC, _HMG_aControlCaption [i] [nItemId], x1, y1 + iif( lBigFsize3, 14, iif( lBigFsize2, 8, iif( lBigFsize, 4, 0 ) ) ), x2, y2 + iif( lBigFsize3, 14, iif( lBigFsize2, 8, iif( lBigFsize, 4, 0 ) ) ), DT_CENTER )
+         DrawText( hDC, _HMG_aControlCaption[i] [nItemId], x1, y1 + iif( lBigFsize3, 14, iif( lBigFsize2, 8, iif( lBigFsize, 4, 0 ) ) ), x2, y2 + iif( lBigFsize3, 14, iif( lBigFsize2, 8, iif( lBigFsize, 4, 0 ) ) ), DT_CENTER )
       ENDIF
 
    ENDIF

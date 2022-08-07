@@ -51,7 +51,7 @@ FUNCTION httpconnect( Connection, Server, Port )
 *-----------------------------------------------------------------------------*
    LOCAL oUrl
 
-   IF !( Lower( Left( Server, 7 ) ) == "http://" )
+   IF !( Lower( Left(Server, 7) ) == "http://" )
       Server := "http://" + Server
    ENDIF
 
@@ -66,7 +66,7 @@ FUNCTION httpconnect( Connection, Server, Port )
       ELSE
          &Connection := TIpClientHttp():New( oUrl )
 
-         IF ! ( &Connection ):Open()
+         IF !( &Connection ):Open()
             &Connection := Nil
          ENDIF
       ENDIF
@@ -78,7 +78,7 @@ FUNCTION httpconnect( Connection, Server, Port )
       ELSE
          Connection := TIpClientHttp():New( oUrl )
 
-         IF ! Connection:Open()
+         IF !Connection:Open()
             Connection := Nil
          ENDIF
       ENDIF
@@ -98,15 +98,15 @@ FUNCTION httpgeturl( Connection, cPage, uRet )
 
    cUrl := "http://"
 
-   IF ! Empty(Connection:oUrl:cUserid)
+   IF !Empty(Connection:oUrl:cUserid)
       cUrl += Connection:oUrl:cUserid
-      IF ! Empty(Connection:oUrl:cPassword)
+      IF !Empty(Connection:oUrl:cPassword)
          cUrl += ":" + Connection:oUrl:cPassword
       ENDIF
       cUrl += "@"
    ENDIF
 
-   IF ! Empty(Connection:oUrl:cServer)
+   IF !Empty(Connection:oUrl:cServer)
       cUrl += Connection:oUrl:cServer
       IF Connection:oUrl:nPort > 0
          cUrl += ":" + hb_ntos( Connection:oUrl:nPort )
@@ -118,19 +118,19 @@ FUNCTION httpgeturl( Connection, cPage, uRet )
    IF Connection:Open( cUrl )
 
       cResponse := Connection:Read()
-      IF ! HB_ISSTRING( cResponse )
+      IF !HB_ISSTRING( cResponse )
          cResponse := "<No data returned>"
       ENDIF
 
       IF HB_ISLOGICAL( uRet )
 
          cHeader := Connection:cReply
-         IF ! HB_ISSTRING( cHeader )
+         IF !HB_ISSTRING( cHeader )
             cHeader := "<No header returned>"
          ENDIF
          cHeader += hb_osNewLine()
 
-         FOR i := 1 TO Len( Connection:hHeaders )
+         FOR i := 1 TO Len(Connection:hHeaders)
             cHeader += hb_HKeyAt( Connection:hHeaders, i ) + ": " + hb_HValueAt( Connection:hHeaders, i ) + hb_osNewLine()
          NEXT
          cHeader += hb_osNewLine()

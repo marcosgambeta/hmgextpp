@@ -33,7 +33,7 @@ FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidt
       MsgMiniGuiError ( "Control: " + cControlName + " Of " + cParentForm + " Already defined." )
    ENDIF
 
-   IF ! ISCHARACTER ( cFilename )
+   IF !ISCHARACTER ( cFilename )
       MsgMiniGuiError ( "Control: " + cControlName + " Of " + cParentForm + " PICTURE Property Invalid Type." )
    ENDIF
 
@@ -41,7 +41,7 @@ FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidt
       MsgMiniGuiError ( "Control: " + cControlName + " Of " + cParentForm + " PICTURE Can't Be Empty." )
    ENDIF
 
-   IF ! hb_FileExists ( cFileName )
+   IF !hb_FileExists ( cFileName )
       cDiskFile := TempFile ( GetTempFolder(), "gif" )
       IF RCDataToFile ( cFilename, cDiskFile, "GIF" ) > 0
          IF hb_FileExists ( cDiskFile )
@@ -113,7 +113,7 @@ FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidt
       _HMG_aControlIds[k] := oGif
 
       IF _HMG_BeginTabActive
-         AAdd( _HMG_ActiveTabCurrentPageMap, nControlHandle )
+         AAdd(_HMG_ActiveTabCurrentPageMap, nControlHandle)
       ENDIF
    ENDIF
 
@@ -134,7 +134,7 @@ PROCEDURE _ReleaseAniGif ( GifName, FormName )
 
       hWnd := GetFormHandle ( FormName )
 
-      FOR i := 1 TO Len( _HMG_aControlHandles )
+      FOR i := 1 TO Len(_HMG_aControlHandles)
 
          IF _HMG_aControlParentHandles[i] == hWnd .AND. _HMG_aControlType[i] == CONTROL_TYPE_ANIGIF
             oGif := _HMG_aControlIds[i]
@@ -173,46 +173,46 @@ STATIC PROCEDURE _EraseGifDef ( FormName, i )
 
 #endif
 
-   _HMG_aControlDeleted            [i] := .T.
-   _HMG_aControlType               [i] := ""
-   _HMG_aControlNames              [i] := ""
-   _HMG_aControlHandles            [i] := 0
-   _HMG_aControlParentHandles      [i] := 0
-   _HMG_aControlIds                [i] := 0
-   _HMG_aControlProcedures         [i] := ""
-   _HMG_aControlPageMap            [i] := {}
-   _HMG_aControlValue              [i] := NIL
-   _HMG_aControlInputMask          [i] := ""
-   _HMG_aControllostFocusProcedure [i] := ""
-   _HMG_aControlGotFocusProcedure  [i] := ""
-   _HMG_aControlChangeProcedure    [i] := ""
-   _HMG_aControlBkColor            [i] := NIL
-   _HMG_aControlFontColor          [i] := NIL
-   _HMG_aControlDblClick           [i] := ""
-   _HMG_aControlHeadClick          [i] := {}
-   _HMG_aControlRow                [i] := 0
-   _HMG_aControlCol                [i] := 0
-   _HMG_aControlWidth              [i] := 0
-   _HMG_aControlHeight             [i] := 0
-   _HMG_aControlSpacing            [i] := 0
-   _HMG_aControlContainerRow       [i] := 0
-   _HMG_aControlContainerCol       [i] := 0
-   _HMG_aControlPicture            [i] := ""
-   _HMG_aControlContainerHandle    [i] := 0
-   _HMG_aControlFontName           [i] := ""
-   _HMG_aControlFontSize           [i] := 0
-   _HMG_aControlToolTip            [i] := ""
-   _HMG_aControlRangeMin           [i] := 0
-   _HMG_aControlRangeMax           [i] := 0
-   _HMG_aControlCaption            [i] := ""
-   _HMG_aControlVisible            [i] := .F.
-   _HMG_aControlHelpId             [i] := 0
-   _HMG_aControlFontHandle         [i] := 0
-   _HMG_aControlFontAttributes     [i] := {}
-   _HMG_aControlBrushHandle        [i] := 0
-   _HMG_aControlEnabled            [i] := .F.
-   _HMG_aControlMiscData1          [i] := 0
-   _HMG_aControlMiscData2          [i] := ""
+   _HMG_aControlDeleted           [i] := .T.
+   _HMG_aControlType              [i] := ""
+   _HMG_aControlNames             [i] := ""
+   _HMG_aControlHandles           [i] := 0
+   _HMG_aControlParentHandles     [i] := 0
+   _HMG_aControlIds               [i] := 0
+   _HMG_aControlProcedures        [i] := ""
+   _HMG_aControlPageMap           [i] := {}
+   _HMG_aControlValue             [i] := NIL
+   _HMG_aControlInputMask         [i] := ""
+   _HMG_aControllostFocusProcedure[i] := ""
+   _HMG_aControlGotFocusProcedure [i] := ""
+   _HMG_aControlChangeProcedure   [i] := ""
+   _HMG_aControlBkColor           [i] := NIL
+   _HMG_aControlFontColor         [i] := NIL
+   _HMG_aControlDblClick          [i] := ""
+   _HMG_aControlHeadClick         [i] := {}
+   _HMG_aControlRow               [i] := 0
+   _HMG_aControlCol               [i] := 0
+   _HMG_aControlWidth             [i] := 0
+   _HMG_aControlHeight            [i] := 0
+   _HMG_aControlSpacing           [i] := 0
+   _HMG_aControlContainerRow      [i] := 0
+   _HMG_aControlContainerCol      [i] := 0
+   _HMG_aControlPicture           [i] := ""
+   _HMG_aControlContainerHandle   [i] := 0
+   _HMG_aControlFontName          [i] := ""
+   _HMG_aControlFontSize          [i] := 0
+   _HMG_aControlToolTip           [i] := ""
+   _HMG_aControlRangeMin          [i] := 0
+   _HMG_aControlRangeMax          [i] := 0
+   _HMG_aControlCaption           [i] := ""
+   _HMG_aControlVisible           [i] := .F.
+   _HMG_aControlHelpId            [i] := 0
+   _HMG_aControlFontHandle        [i] := 0
+   _HMG_aControlFontAttributes    [i] := {}
+   _HMG_aControlBrushHandle       [i] := 0
+   _HMG_aControlEnabled           [i] := .F.
+   _HMG_aControlMiscData1         [i] := 0
+   _HMG_aControlMiscData2         [i] := ""
 
 RETURN
 
@@ -259,24 +259,24 @@ METHOD New( cFileName, nTop, nLeft, nBottom, nRight, nDelay, aBKColor, cControlN
    LOCAL nId
    LOCAL aPictures := {}, aImageInfo := {}
 
-   hb_default( @cParentName, _HMG_ActiveFormName )
-   hb_default( @nTop, 0 )
-   hb_default( @nLeft, 0 )
-   hb_default( @nBottom, 100 )
-   hb_default( @nRight, 100 )
-   hb_default( @nDelay, 10 )
+   hb_default(@cParentName, _HMG_ActiveFormName)
+   hb_default(@nTop, 0)
+   hb_default(@nLeft, 0)
+   hb_default(@nBottom, 100)
+   hb_default(@nRight, 100)
+   hb_default(@nDelay, 10)
 
    ::cParentName := cParentName
    ::cControlName := cControlName
    ::cFileName := cFileName
    ::nDelay := nDelay
 
-   IF ! LoadGif( cFileName, @aPictures, @aImageInfo, Self )
+   IF !LoadGif( cFileName, @aPictures, @aImageInfo, Self )
       aPictures := { "" }
       aImageInfo := { "" }
    ENDIF
 
-   ::nTotalFrames := Len( aPictures )
+   ::nTotalFrames := Len(aPictures)
    ::nCurrentFrame := 1
 
    ::aPictData := AClone( aPictures )
@@ -318,7 +318,7 @@ RETURN NIL
 
 METHOD Update() CLASS TGif
 
-   IF ! Empty(::hGif) .AND. _IsControlDefined ( ::hGif, ::cParentName )
+   IF !Empty(::hGif) .AND. _IsControlDefined ( ::hGif, ::cParentName )
 
       IF GetProperty( ::cParentName, ::hGif, "Row" ) <> GetProperty( ::cParentName, ::cControlName, "Row" ) .OR. ;
             GetProperty( ::cParentName, ::hGif, "Col" ) <> GetProperty( ::cParentName, ::cControlName, "Col" ) .OR. ;
@@ -346,7 +346,7 @@ METHOD RestartGif() CLASS TGif
 
    IF LoadGif( ::cFileName, @aPictures, @aImageInfo, Self )
 
-      ::nTotalFrames := Len( aPictures )
+      ::nTotalFrames := Len(aPictures)
       ::aPictData := AClone( aPictures )
       ::aImageData := AClone( aImageInfo )
 
@@ -438,17 +438,17 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
    nID++
 
    oGif:aDelay := {}
-   hb_default( @aFrames, {} )
-   hb_default( @aImgInfo, {} )
+   hb_default(@aFrames, {})
+   hb_default(@aImgInfo, {})
 
-   IF ! ReadFromStream( GIF, @cStream )
+   IF !ReadFromStream( GIF, @cStream )
       RETURN .F.
    ENDIF
 
    nImgCount := 0
    i := 1
    j := At( cGifEnd, cStream, i ) + 1
-   cGifHeader = Left( cStream, j )
+   cGifHeader = Left(cStream, j)
 
    i := j + 2
 
@@ -460,7 +460,7 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
 
       j := At( cGifEnd, cStream, i ) + 3
 
-      IF j > Len( cGifEnd )
+      IF j > Len(cGifEnd)
          cFile := cPath + hb_ps() + cFileNoExt( GIF ) + "_frame_" + hb_ntos( nID ) + "_" + StrZero( nImgCount, 4 ) + ".gif"
          nFileHandle := FCreate( cFile, FC_NORMAL )
          IF FError() <> 0
@@ -470,7 +470,7 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
          cPicBuf := cGifHeader + SubStr(cStream, i - 1, j - i)
          imgHeader = Left(SubStr(cStream, i - 1, j - i), 16)
 
-         IF FWrite( nFileHandle, cPicBuf ) <> Len( cPicBuf )
+         IF FWrite( nFileHandle, cPicBuf ) <> Len(cPicBuf)
             RETURN .F.
          ENDIF
 
@@ -478,8 +478,8 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
             RETURN .F.
          ENDIF
 
-         AAdd( aFrames, cFile )
-         AAdd( oGif:aDelay, GetFrameDelay( imgHeader, oGif:nDelay ) )
+         AAdd(aFrames, cFile)
+         AAdd(oGif:aDelay, GetFrameDelay(imgHeader, oGif:nDelay))
       ENDIF
 
       DO EVENTS
@@ -492,7 +492,7 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
 
    ENDDO
 
-   IF i < Len( cStream )
+   IF i < Len(cStream)
 
       cFile := cPath + hb_ps() + cFileNoExt( GIF ) + "_frame_" + hb_ntos( nID ) + "_" + StrZero( ++nImgCount, 4 ) + ".gif"
       nFileHandle := FCreate( cFile, FC_NORMAL )
@@ -503,7 +503,7 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
       cPicBuf := cGifHeader + SubStr(cStream, i - 1, Len(cStream) - i)
       imgHeader := Left(SubStr(cStream, i - 1, Len(cStream) - i), 16)
 
-      IF FWrite( nFileHandle, cPicBuf ) <> Len( cPicBuf )
+      IF FWrite( nFileHandle, cPicBuf ) <> Len(cPicBuf)
          RETURN .F.
       ENDIF
 
@@ -511,8 +511,8 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
          RETURN .F.
       ENDIF
 
-      AAdd( aFrames, cFile )
-      AAdd( oGif:aDelay, GetFrameDelay( imgHeader, oGif:nDelay ) )
+      AAdd(aFrames, cFile)
+      AAdd(oGif:aDelay, GetFrameDelay(imgHeader, oGif:nDelay))
 
    ENDIF
 
@@ -537,4 +537,4 @@ RETURN ( FError() == 0 .AND. .NOT. Empty(cStream) )
 *------------------------------------------------------------------------------*
 FUNCTION GetFrameDelay( cImageInfo, nDelay )
 *------------------------------------------------------------------------------*
-RETURN ( Bin2W( SubStr(cImageInfo, 4, 2) ) * hb_defaultValue( nDelay, 10 ) )
+RETURN ( Bin2W( SubStr(cImageInfo, 4, 2) ) * hb_defaultValue(nDelay, 10) )

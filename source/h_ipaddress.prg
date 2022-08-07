@@ -57,13 +57,13 @@ FUNCTION _DefineIPAddress ( ControlName, ParentForm, x, y, w, h, aValue, ;
    LOCAL mVar
    LOCAL k
 
-   hb_default( @w, 124 )
-   hb_default( @h, 24 )
-   __defaultNIL( @change, "" )
-   __defaultNIL( @lostfocus, "" )
-   __defaultNIL( @gotfocus, "" )
-   hb_default( @invisible, .F. )
-   hb_default( @notabstop, .F. )
+   hb_default(@w, 124)
+   hb_default(@h, 24)
+   __defaultNIL(@change, "")
+   __defaultNIL(@lostfocus, "")
+   __defaultNIL(@gotfocus, "")
+   hb_default(@invisible, .F.)
+   hb_default(@notabstop, .F.)
 
    IF ( FontHandle := GetFontHandle( FontName ) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
@@ -71,8 +71,8 @@ FUNCTION _DefineIPAddress ( ControlName, ParentForm, x, y, w, h, aValue, ;
 
    IF _HMG_BeginWindowActive
       ParentForm := _HMG_ActiveFormName
-      __defaultNIL( @FontName, _HMG_ActiveFontName )
-      __defaultNIL( @FontSize, _HMG_ActiveFontSize )
+      __defaultNIL(@FontName, _HMG_ActiveFontName)
+      __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
       x := x + _HMG_ActiveFrameCol [_HMG_FrameLevel]
@@ -99,15 +99,15 @@ FUNCTION _DefineIPAddress ( ControlName, ParentForm, x, y, w, h, aValue, ;
    IF FontHandle != 0
       _SetFontHandle( ControlHandle, FontHandle )
    ELSE
-      __defaultNIL( @FontName, _HMG_DefaultFontName )
-      __defaultNIL( @FontSize, _HMG_DefaultFontSize )
+      __defaultNIL(@FontName, _HMG_DefaultFontName)
+      __defaultNIL(@FontSize, _HMG_DefaultFontSize)
       IF IsWindowHandle( ControlHandle )
          FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
       ENDIF
    ENDIF
 
    IF _HMG_BeginTabActive
-      AAdd( _HMG_ActiveTabCurrentPageMap , Controlhandle )
+      AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
    ENDIF
 
    IF ISARRAY( aValue )

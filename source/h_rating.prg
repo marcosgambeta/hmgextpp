@@ -60,7 +60,7 @@ FUNCTION _DefineRating ( ControlName, ParentForm, x, y, w, h, nValue, aImages, n
    ControlHandle := _InitRating ( cParentForm, ControlName, x, y, w, h, nValue, aImages, nCnt, nSpace, tooltip, onchangeprocedure, border, readonly, invisible, vertical )
 
    IF _HMG_BeginTabActive
-      AAdd( _HMG_ActiveTabCurrentPageMap, Controlhandle )
+      AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
    ENDIF
 
    _HMG_aControlType               [k] := CONTROL_TYPE_RATING
@@ -149,16 +149,16 @@ FUNCTION _InitRating ( ParentForm, ControlName, x, y, w, h, nValue, aImages, nCn
             OnSelectRate( ParentForm, ControlName, onchangeprocedure ) ) )
          INVISIBLE invisible
       END IMAGE
-      _HMG_aControlIds[ GetControlIndex( img_name, ParentForm ) ] := nCnt
-      _HMG_aControlMiscData2[ GetControlIndex( img_name, ParentForm ) ] := aImages
-      _HMG_aControlChangeProcedure[ GetControlIndex( img_name, ParentForm ) ] := onchangeprocedure
+      _HMG_aControlIds[ GetControlIndex(img_name, ParentForm) ] := nCnt
+      _HMG_aControlMiscData2[ GetControlIndex(img_name, ParentForm) ] := aImages
+      _HMG_aControlChangeProcedure[ GetControlIndex(img_name, ParentForm) ] := onchangeprocedure
       IF vertical
          y += h + nSpace
       ELSE
          col += w + nSpace
       ENDIF
       IF nValue > 0
-         _HMG_aControlValue[ GetControlIndex( img_name, ParentForm ) ] := nValue
+         _HMG_aControlValue[ GetControlIndex(img_name, ParentForm) ] := nValue
       ENDIF
    NEXT
 

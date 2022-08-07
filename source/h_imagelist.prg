@@ -57,13 +57,13 @@ FUNCTION _DefineImageList ( ControlName , ParentForm , w , h , aImage , aImageMa
    LOCAL i , mVar , maskimage , color , k
    LOCAL ControlHandles , id , PosImage
 
-   hb_default( @w, 24 )
-   hb_default( @h, 24 )
-   __defaultNIL( @aImage, {} )
-   __defaultNIL( @aImageMask, {} )
-   __defaultNIL( @aColor, { 0, 0, 0 } )
-   hb_default( @ImageCount, 0 )
-   hb_default( @mask, .F. )
+   hb_default(@w, 24)
+   hb_default(@h, 24)
+   __defaultNIL(@aImage, {})
+   __defaultNIL(@aImageMask, {})
+   __defaultNIL(@aColor, {0, 0, 0})
+   hb_default(@ImageCount, 0)
+   hb_default(@mask, .F.)
 
    IF _HMG_BeginWindowActive
       ParentForm := _HMG_ActiveFormName
@@ -79,7 +79,7 @@ FUNCTION _DefineImageList ( ControlName , ParentForm , w , h , aImage , aImageMa
 
    mVar := "_" + ParentForm + "_" + ControlName
 
-   k := Len( aImage )
+   k := Len(aImage)
    IF ImageCount == 0
       ImageCount := IFEMPTY(k, MAX_IMAGE, k)
    ENDIF
@@ -140,24 +140,24 @@ FUNCTION _DefineImageList ( ControlName , ParentForm , w , h , aImage , aImageMa
       Eval( _HMG_bOnControlInit, k, mVar )
    ENDIF
 
-   FOR i := 1 TO Len( aImage )
+   FOR i := 1 TO Len(aImage)
       IF mask
-         IF Len( aImageMask ) > 0
-            maskimage := iif( i <= Len( aImageMask ), aImageMask [i], "" )
-            PosImage := IL_Add( ControlHandles , aImage [i] , maskimage , w , h , ImageCount )
+         IF Len(aImageMask) > 0
+            maskimage := iif( i <= Len(aImageMask), aImageMask[i], "" )
+            PosImage := IL_Add( ControlHandles , aImage[i] , maskimage , w , h , ImageCount )
          ELSE
             IF IsArrayRGB( aColor )
                color := RGB ( aColor [1] , aColor [2] , aColor [3] )
             ELSE
                color := aColor
             ENDIF
-            PosImage := IL_AddMasked( ControlHandles , aImage [i] , color , w , h , ImageCount )
+            PosImage := IL_AddMasked( ControlHandles , aImage[i] , color , w , h , ImageCount )
          ENDIF
       ELSE
-         PosImage := IL_Add( ControlHandles , aImage [i] , "" , w , h , ImageCount )
+         PosImage := IL_Add( ControlHandles , aImage[i] , "" , w , h , ImageCount )
       ENDIF
       IF PosImage == -1
-         MsgMiniGuiError( "Image: " + aImage [i] + " is not added. Check image size." )
+         MsgMiniGuiError( "Image: " + aImage[i] + " is not added. Check image size." )
       ENDIF
    NEXT
 
@@ -172,7 +172,7 @@ FUNCTION _AddImageToImageList ( ControlName, ParentControl, Image, MaskImage )
    h := _GetControlHeight(ControlName, ParentControl)
    c := GetControlHandle ( ControlName, ParentControl )
 
-RETURN IL_Add( c , image , hb_defaultValue( maskimage, "" ) , w , h )
+RETURN IL_Add( c , image , hb_defaultValue(maskimage, "") , w , h )
 
 *-----------------------------------------------------------------------------*
 FUNCTION _AddImageMaskedToImageList ( ControlName, ParentControl, Image, aColor )

@@ -82,8 +82,8 @@ FUNCTION _hmg_hpdf_startpage()
          RETURN NIL
       ELSE
          // add current page to the pages array
-         AAdd( _HMG_HPDFDATA[1][12], _HMG_HPDFDATA[1][7] )
-         _HMG_HPDFDATA[1][13] := Len( _HMG_HPDFDATA[1][12] )
+         AAdd(_HMG_HPDFDATA[1][12], _HMG_HPDFDATA[1][7])
+         _HMG_HPDFDATA[1][13] := Len(_HMG_HPDFDATA[1][12])
          // set page size
          HPDF_Page_SetWidth(_HMG_HPDFDATA[1][7], _HMG_HPDFDATA[1][4])
          HPDF_Page_SetHeight(_HMG_HPDFDATA[1][7], _HMG_HPDFDATA[1][5])
@@ -99,7 +99,7 @@ FUNCTION _HMG_HPDF_InsertPage( nPage )
    LOCAL oOldPage := nil
    LOCAL aPages := AClone( _HMG_HPDFDATA[1][12] )
 
-   IF nPage > Len( aPages ) .OR. nPage < 1
+   IF nPage > Len(aPages) .OR. nPage < 1
       _HMG_HPDF_Error( 16 )
       RETURN NIL
    ENDIF
@@ -119,7 +119,7 @@ FUNCTION _HMG_HPDF_InsertPage( nPage )
          RETURN NIL
       ELSE
          // insert current page to the pages array
-         ASize( aPages, Len( aPages ) + 1 )
+         ASize( aPages, Len(aPages) + 1 )
          AIns( aPages, nPage )
          aPages[ nPage ] := _HMG_HPDFDATA[1, 7]
          _HMG_HPDFDATA[1][12] := AClone( aPages )
@@ -138,7 +138,7 @@ FUNCTION _HMG_HPDF_GoToPage( nPage )
    LOCAL oPage := nil
    LOCAL aPages := AClone( _HMG_HPDFDATA[1][12] )
 
-   IF nPage > Len( aPages ) .OR. nPage < 1
+   IF nPage > Len(aPages) .OR. nPage < 1
       _HMG_HPDF_Error( 18 )
       RETURN NIL
    ENDIF
@@ -184,7 +184,7 @@ FUNCTION HMG_HPDF_PageCount()
       RETURN NIL
    ENDIF
 
-RETURN Len( _HMG_HPDFDATA[1][12] )
+RETURN Len(_HMG_HPDFDATA[1][12])
 
 FUNCTION HMG_HPDF_PageNo()
 
@@ -266,12 +266,12 @@ FUNCTION _HMG_HPDF_PRINT( nRow, nCol, cFontName, nFontSize, nRColor, nGColor, nB
    ENDIF
 
    // set font
-   cFontName := AllTrim( _HMG_HPDF_SetFont( cFontName, lBold, lItalic ) )
+   cFontName := AllTrim(_HMG_HPDF_SetFont(cFontName, lBold, lItalic))
 
    IF Upper(cFileExt(cFontName)) == ".TTF" // load ttf font
 
       cFont := HPDF_LoadTTFontFromFile( _HMG_HPDFDATA[1][1], cFontName, .T. )
-      IF Len( AllTrim( cFont ) ) == 0
+      IF Len(AllTrim(cFont)) == 0
          _HMG_HPDF_Error( 6, cFontName )
          RETURN NIL
       ENDIF
@@ -376,12 +376,12 @@ FUNCTION _HMG_HPDF_MULTILINE_PRINT( nRow, nCol, nToRow, nToCol, cFontName, nFont
    ENDIF
 
    // set font
-   cFontName := AllTrim( _HMG_HPDF_SetFont( cFontName, lBold, lItalic ) )
+   cFontName := AllTrim(_HMG_HPDF_SetFont(cFontName, lBold, lItalic))
 
    IF Upper(cFileExt(cFontName)) == ".TTF" // load ttf font
 
       cFont := HPDF_LoadTTFontFromFile( _HMG_HPDFDATA[1][1], cFontName, .T. )
-      IF Len( AllTrim( cFont ) ) == 0
+      IF Len(AllTrim(cFont)) == 0
          _HMG_HPDF_Error( 6, cFontName )
          RETURN NIL
       ENDIF
@@ -438,7 +438,7 @@ FUNCTION _HMG_HPDF_MULTILINE_PRINT( nRow, nCol, nToRow, nToCol, cFontName, nFont
                   EXIT
                ENDIF
                nLineCount++
-               cLine := Trim( SubStr(cTextIn, 1, nLineLen) )
+               cLine := Trim(SubStr(cTextIn, 1, nLineLen))
                cTextIn := SubStr(cTextIn, nLineLen + 1)
                cTextOut += cLine + IIF( !Empty(cTextIn), " ", "" )
             ENDDO
@@ -486,7 +486,7 @@ FUNCTION _HMG_HPDF_MULTILINE_PRINT( nRow, nCol, nToRow, nToCol, cFontName, nFont
                IF nLineLen = 0
                   EXIT
                ENDIF
-               cLine := Trim( SubStr(cText, 1, nLineLen) )
+               cLine := Trim(SubStr(cText, 1, nLineLen))
                cText := SubStr(cText, nLineLen + 1)
                nLineLen := HPDF_Page_TextWidth(_HMG_HPDFDATA[1][7], cLine)
                nxLine := 0
@@ -543,12 +543,12 @@ FUNCTION _HMG_HPDF_GetHeight_MULTILINE_PRINT( cText, nLen, cFontName, nFontSize,
       RETURN 0
    ENDIF
 
-   cFontName := AllTrim( _HMG_HPDF_SetFont( cFontName, lBold, lItalic ) )
+   cFontName := AllTrim(_HMG_HPDF_SetFont(cFontName, lBold, lItalic))
 
    IF Upper(cFileExt(cFontName)) == ".TTF" // load ttf font
 
       cFont := HPDF_LOADTTFONTFROMFILE( _HMG_HPDFDATA[1][1], cFontName, .T. )
-      IF Len( AllTrim( cFont ) ) == 0
+      IF Len(AllTrim(cFont)) == 0
          _HMG_HPDF_Error( 6, cFontName )
          RETURN 0
       ENDIF
@@ -1054,32 +1054,32 @@ FUNCTION _HMG_HPDF_RootOutline( cTitle, cName, cParent )
       _HMG_HPDF_Error( 3 )
       RETURN NIL
    ENDIF
-   IF Len( AllTrim( cTitle ) ) == 0
+   IF Len(AllTrim(cTitle)) == 0
       _HMG_HPDF_Error( 11 )
       RETURN NIL
    ENDIF
-   IF Len( AllTrim( cName ) ) == 0
+   IF Len(AllTrim(cName)) == 0
       _HMG_HPDF_Error( 12 )
       RETURN NIL
    ENDIF
-   IF Len( AllTrim( cParent ) ) == 0 // make this a root outline
+   IF Len(AllTrim(cParent)) == 0 // make this a root outline
       oOutline := HPDF_CreateOutline( _HMG_HPDFDATA[1][1], NIL, cTitle, HPDF_GetCurrentEncoder() )
       IF Empty(oOutLine)
          _HMG_HPDF_Error( 10 )
          RETURN NIL
       ELSE
-         AAdd( _HMG_HPDFDATA[1][11], { oOutline, cName } )
+         AAdd(_HMG_HPDFDATA[1][11], {oOutline, cName})
       ENDIF
    ELSE
       aOutLines := AClone( _HMG_HPDFDATA[1][11] )
-      FOR i := 1 TO Len( aOutLines )
+      FOR i := 1 TO Len(aOutLines)
          IF Upper(AllTrim(aOutLines[i, 2])) == Upper(AllTrim(cParent))
             oOutline := HPDF_CreateOutline( _HMG_HPDFDATA[1][1], aOutLines[ i, 1 ], cTitle, HPDF_GetCurrentEncoder() )
             IF Empty(oOutLine)
                _HMG_HPDF_Error( 10 )
                RETURN NIL
             ELSE
-               AAdd( _HMG_HPDFDATA[1][11], { oOutline, cName } )
+               AAdd(_HMG_HPDFDATA[1][11], {oOutline, cName})
             ENDIF
             EXIT
          ENDIF
@@ -1109,7 +1109,7 @@ FUNCTION _HMG_HPDF_PageOutline( cTitle, cParent, cName )
       _HMG_HPDF_Error( 13 )
       RETURN NIL
    ENDIF
-   IF Len( AllTrim( cParent ) ) == 0 // No parent make this page root element
+   IF Len(AllTrim(cParent)) == 0 // No parent make this page root element
       oOutline := HPDF_CreateOutline( _HMG_HPDFDATA[1][1], NIL, cTitle, HPDF_GetCurrentEncoder() )
       IF Empty(oOutline)
          _HMG_HPDF_Error( 13 )
@@ -1117,7 +1117,7 @@ FUNCTION _HMG_HPDF_PageOutline( cTitle, cParent, cName )
       ENDIF
    ELSE
       aOutlines := AClone( _HMG_HPDFDATA[1][11] )
-      FOR i := 1 TO Len( aOutlines )
+      FOR i := 1 TO Len(aOutlines)
          IF Upper(AllTrim(aOutlines[i, 2])) == Upper(AllTrim(cParent))
             oOutline := HPDF_CreateOutline( _HMG_HPDFDATA[1][1], aOutlines[ i, 1 ], cTitle, HPDF_GetCurrentEncoder() )
             EXIT
@@ -1128,8 +1128,8 @@ FUNCTION _HMG_HPDF_PageOutline( cTitle, cParent, cName )
          RETURN NIL
       ENDIF
    ENDIF
-   IF Len( AllTrim( cName ) ) > 0
-      AAdd( _HMG_HPDFDATA[1][11], { oOutline, cName } )
+   IF Len(AllTrim(cName)) > 0
+      AAdd(_HMG_HPDFDATA[1][11], {oOutline, cName})
    ENDIF
    HPDF_Outline_SetDestination( oOutline, oDestination )
 
@@ -1216,7 +1216,7 @@ FUNCTION _HMG_HPDF_SetPageLink( nRow, nCol, cText, nPage, cFontName, nFontSize, 
    ENDIF
 
    aPages := AClone( _HMG_HPDFDATA[1][12] )
-   IF nPage > Len( aPages ) .OR. nPage < 1
+   IF nPage > Len(aPages) .OR. nPage < 1
       _HMG_HPDF_Error( 17 )
       RETURN NIL
    ENDIF
@@ -1240,12 +1240,12 @@ FUNCTION _HMG_HPDF_SetPageLink( nRow, nCol, cText, nPage, cFontName, nFontSize, 
    ENDIF
 
    // set font
-   cFontName := AllTrim( _HMG_HPDF_SetFont( cFontName ) )
+   cFontName := AllTrim(_HMG_HPDF_SetFont(cFontName))
 
    IF Upper(cFileExt(cFontName)) == ".TTF" // load ttf font
 
       cFont := HPDF_LoadTTFontFromFile( _HMG_HPDFDATA[1][1], cFontName, .T. )
-      IF Len( AllTrim( cFont ) ) == 0
+      IF Len(AllTrim(cFont)) == 0
          _HMG_HPDF_Error( 6, cFontName )
          RETURN NIL
       ENDIF
@@ -1326,12 +1326,12 @@ FUNCTION _HMG_HPDF_SetURLLink( nRow, nCol, cText, cLink, cFontName, nFontSize, n
    ENDIF
 
    // set font
-   cFontName := AllTrim( _HMG_HPDF_SetFont( cFontName ) )
+   cFontName := AllTrim(_HMG_HPDF_SetFont(cFontName))
 
    IF Upper(cFileExt(cFontName)) == ".TTF" // load ttf font
 
       cFont := HPDF_LoadTTFontFromFile( _HMG_HPDFDATA[1][1], cFontName, .T. )
-      IF Len( AllTrim( cFont ) ) == 0
+      IF Len(AllTrim(cFont)) == 0
          _HMG_HPDF_Error( 6, cFontName )
          RETURN NIL
       ENDIF
@@ -1409,14 +1409,14 @@ FUNCTION _HMG_HPDF_SetInfo( cAttrib, xValue, cTime )
    CASE Upper(AllTrim(cAttrib)) == "KEYWORDS"
       HPDF_SetInfoAttr( _HMG_HPDFDATA[1][1], HPDF_INFO_KEYWORDS, cValue )
    CASE Upper(AllTrim(cAttrib)) == "DATECREATED"
-      IF Len( AllTrim( cTime ) ) > 0
+      IF Len(AllTrim(cTime)) > 0
          nHours := Val( SubStr(cTime, 1, 2) )
          nMinutes := Val( SubStr(cTime, 4, 2) )
          nSeconds := Val( SubStr(cTime, 7, 2) )
       ENDIF
       HPDF_SetInfoDateAttr( _HMG_HPDFDATA[1][1], HPDF_INFO_CREATION_DATE, { Year( dValue ), Month( dVAlue ), Day( dValue ), nHours, nMinutes, nSeconds } )
    CASE Upper(AllTrim(cAttrib)) == "DATEMODIFIED"
-      IF Len( AllTrim( cTime ) ) > 0
+      IF Len(AllTrim(cTime)) > 0
          nHours := Val( SubStr(cTime, 1, 2) )
          nMinutes := Val( SubStr(cTime, 4, 2) )
          nSeconds := Val( SubStr(cTime, 7, 2) )
@@ -1450,7 +1450,7 @@ FUNCTION _HMG_HPDF_GetInfo( cAttrib )
    CASE Upper(AllTrim(cAttrib)) == "DATEMODIFIED"
       cRetValue := HPDF_GetInfoAttr( _HMG_HPDFDATA[1][1], HPDF_INFO_MOD_DATE )
    ENDCASE
-   IF Left( cRetValue, 2 ) == "D:"
+   IF Left(cRetValue, 2) == "D:"
       bd := Set( _SET_DATEFORMAT )
       bc := __SetCentury( .T. )
       SET DATE GERMAN
@@ -1928,7 +1928,7 @@ FUNCTION _HMG_HPDF_SetFont( cFntName, lBold, lItalic )
 
    DEFAULT lBold := .F., lItalic := .F.
 
-   IF Len( AllTrim( cFntName ) ) == 0
+   IF Len(AllTrim(cFntName)) == 0
       cFntName := _HMG_HPDFDATA[1][8]
    ENDIF
 
@@ -2083,8 +2083,8 @@ FUNCTION _HMG_HPDF_SeekInLocalOptions( FontName, lBold, lItalic )
 
    cFldWindows := GetSpecialFolder( CSIDL_FONTS )
    cFileTTF := cFileNoExt( FontName )
-   aDirFnts := ASort( Directory( cFldWindows + "\" + SubStr(cFileTTF, 1, 4) + "*.ttf" ),,, {| x, y | Len( x[1] ) < Len( y[1] ) } )
-   IF Len( aDirFnts ) > 0
+   aDirFnts := ASort( Directory( cFldWindows + "\" + SubStr(cFileTTF, 1, 4) + "*.ttf" ),,, {| x, y | Len(x[1]) < Len(y[1]) } )
+   IF Len(aDirFnts) > 0
       cRet := cFldWindows + "\" + cFileNoExt( aDirFnts[1, 1] )
       IF lBold .AND. lItalic
          cRet := cRet + "bi.ttf"
@@ -2221,10 +2221,10 @@ FUNCTION HPDF_SkewText( nRow, nCol, cFontName, nFontSize, nRColor, nGColor, nBCo
    ENDIF
 
    // set font
-   cFontName := AllTrim( _HMG_HPDF_SetFont( cFontName, lBold, lItalic ) )
+   cFontName := AllTrim(_HMG_HPDF_SetFont(cFontName, lBold, lItalic))
    IF Upper(cFileExt(cFontName)) == ".TTF" // load ttf font
       cFont := HPDF_LoadTTFontFromFile( hPdf, cFontName, .T. )
-      IF Len( AllTrim( cFont ) ) == 0
+      IF Len(AllTrim(cFont)) == 0
          _HMG_HPDF_Error( 6, cFontName )
          RETURN NIL
       ENDIF
@@ -2311,10 +2311,10 @@ FUNCTION HPDF_ScaleText( nRow, nCol, cFontName, nFontSize, nRColor, nGColor, nBC
    ENDIF
 
    // set font
-   cFontName := AllTrim( _HMG_HPDF_SetFont( cFontName, lBold, lItalic ) )
+   cFontName := AllTrim(_HMG_HPDF_SetFont(cFontName, lBold, lItalic))
    IF Upper(cFileExt(cFontName)) == ".TTF" // load ttf font
       cFont := HPDF_LoadTTFontFromFile( hPdf, cFontName, .T. )
-      IF Len( AllTrim( cFont ) ) == 0
+      IF Len(AllTrim(cFont)) == 0
          _HMG_HPDF_Error( 6, cFontName )
          RETURN NIL
       ENDIF
@@ -2410,10 +2410,10 @@ FUNCTION HPDF_RenderText( nRow, nCol, cFontName, nFontSize, nRColor, nGColor, nB
    ENDIF
 
    // set font
-   cFontName := AllTrim( _HMG_HPDF_SetFont( cFontName, lBold, lItalic ) )
+   cFontName := AllTrim(_HMG_HPDF_SetFont(cFontName, lBold, lItalic))
    IF Upper(cFileExt(cFontName)) == ".TTF" // load ttf font
       cFont := HPDF_LoadTTFontFromFile( hPdf, cFontName, .T. )
-      IF Len( AllTrim( cFont ) ) == 0
+      IF Len(AllTrim(cFont)) == 0
          _HMG_HPDF_Error( 6, cFontName )
          RETURN NIL
       ENDIF
@@ -2540,10 +2540,10 @@ FUNCTION HPDF_CircleText( nRow, nCol, cFontName, nFontSize, nRColor, nGColor, nB
    ENDIF
 
    // set font
-   cFontName := AllTrim( _HMG_HPDF_SetFont( cFontName, lBold, lItalic ) )
+   cFontName := AllTrim(_HMG_HPDF_SetFont(cFontName, lBold, lItalic))
    IF Upper(cFileExt(cFontName)) == ".TTF" // load ttf font
       cFont := HPDF_LoadTTFontFromFile( hPdf, cFontName, .T. )
-      IF Len( AllTrim( cFont ) ) == 0
+      IF Len(AllTrim(cFont)) == 0
          _HMG_HPDF_Error( 6, cFontName )
          RETURN NIL
       ENDIF
@@ -2567,14 +2567,14 @@ FUNCTION HPDF_CircleText( nRow, nCol, cFontName, nFontSize, nRColor, nGColor, nB
    CASE "B"  ; nRange := 180 ; EXIT    // Bottom
    ENDSWITCH
 
-   // nAngle1 := nRange / Len( cText ) // monospaced fonts
+   // nAngle1 := nRange / Len(cText) // monospaced fonts
    nAngle2 := 180
 
    // A better solution for non monospaced fonts.
    nPxAng := nRange / HPDF_Page_TextWidth(hPage, cText)
 
    HPDF_Page_BeginText ( hPage )
-   FOR i = 1 TO Len( cText )
+   FOR i = 1 TO Len(cText)
       nRad1 := ( nAngle2 - Int( ( HPDF_Page_TextWidth(hPage, SubStr(cText, i, 1)) * nPxAng ) / 2 ) - 90 ) / 180 * 3.141592
       nRad2 := nAngle2 / 180 * 3.141592
 
@@ -2627,10 +2627,10 @@ FUNCTION HMG_GetPDFTextWidth(cText, cFontName, nFontSize, lBold, lItalic, lUnder
    ENDIF
 
    // set font
-   cFontName := AllTrim( _HMG_HPDF_SetFont( cFontName, lBold, lItalic ) )
+   cFontName := AllTrim(_HMG_HPDF_SetFont(cFontName, lBold, lItalic))
    IF Upper(cFileExt(cFontName)) == ".TTF" // load ttf font
       cFont := HPDF_LOADTTFONTFROMFILE( _HMG_HPDFDATA[1][1], cFontName, .T. )
-      IF Len( AllTrim( cFont ) ) == 0
+      IF Len(AllTrim(cFont)) == 0
          _HMG_HPDF_Error( 6, cFontName )
          RETURN 0
       ENDIF

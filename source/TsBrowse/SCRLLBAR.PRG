@@ -143,7 +143,7 @@ METHOD New( nRow, nCol, nMin, nMax, nPgStep, lVertical, oWnd, nWidth, nHeight,;
    ::bWhen      := bWhen
    ::bValid     := bValid
 
-   if ! Empty(::oWnd:hWnd)
+   if !Empty(::oWnd:hWnd)
       ::Create( "SCROLLBAR" )
       ::SetRange( ::nMin, ::nMax )
       ::SetPos( ::nMin )
@@ -250,7 +250,7 @@ METHOD SetPage( nSize, lReDraw ) CLASS TSBScrlBar
 
    Default lRedraw := .F.
 
-   if ! Empty(::hWnd)
+   if !Empty(::hWnd)
       nFlags = SB_CTL
    Else
       if ::lVertical

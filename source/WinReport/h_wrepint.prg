@@ -7,7 +7,7 @@
 #include "hbclass.ch"
 
 #TRANSLATE MSG	=> MSGBOX
-#define NTrim( n ) LTRIM( STR( n,20, IIF( n == INT( n ), 0, set(_SET_DECIMALS) ) ))
+#define NTrim(n) LTRIM(STR(n, 20, IIF(n == INT(n), 0, set(_SET_DECIMALS))))
 #TRANSLATE ZAPS(<X>) => NTrim(<X>)
 #TRANSLATE Test( <c> ) => MsgInfo( <c>, [<c>] )
 #define MsgInfo( c ) MsgInfo( c, , , .F. )
@@ -459,7 +459,7 @@ Function R_mem(Last)
 *-----------------------------------------------------------------------------*
    default last to .F.
    hbprn:end()
-   if ! last
+   if !last
       domethod("form_splash","HIDE")
    Endif
    domethod("form_splash","release")
@@ -648,7 +648,7 @@ Procedure MsgMulty( xMesaj, cTitle ) // Created By Bicahi Esgici <esgici@gmail.c
    IF xMesaj <> NIL
 
       IF cTitle == NIL
-         cTitle := PROCNAME(1) + "\" +   NTrim( PROCLINE(1) )
+         cTitle := PROCNAME(1) + "\" +   NTrim(PROCLINE(1))
       ENDIF
 
       IF VALTYPE(xMesaj) <> "A"
@@ -675,7 +675,7 @@ FUNC Any2Strg( xAny )
                     { "M", { | x | x   } },;
                     { "D", { | x | DTOC( x ) } },;
                     { "L", { | x | IIF( x,"On","Off") } },;
-                    { "N", { | x | NTrim( x )  } },;
+                    { "N", { | x | NTrim(x)  } },;
                     { "O", { |  | ":Object:" } },;
                     { "U", { |  | "<NIL>" } } }
 
@@ -808,7 +808,7 @@ DATA aStat            INIT { "Define"     => .F. , ;    // Define Section
                              "Yes_Memo"   => .F. , ;
                              "Yes_Array"  => .F. , ;
                              "JobName"    => "HbPrinter" , ;
-                             "Test"       => "{|X| LTRIM( STR( X,20, IIF( X == INT( X ), 0, 2 ) ))}" , ;
+                             "Test"       => "{|X|LTRIM(STR(X, 20, IIF(X == INT(X), 0, 2)))}" , ;
                              "Control"    => .F. , ;
                              "InlineSbt"  => .T. , ;
                              "InlineTot"  => .T. , ;
@@ -1287,11 +1287,11 @@ METHOD Transpace(arg1,arg2,arg3) CLASS WREPORT // The core of parser
      arg1 := alltrim(arg1)
      arges := arg1
      // (#*&/) char exclusion
-     if left(arges,1) = chr(35) .OR. left(arges,1) = chr(38); arges := "" ;endif
-     if left(arges,2) = chr(47)+chr(47) ;arges := "" ;endif
-     if left (arges,2) = chr(47)+chr(42) ; xcl := .T. ;endif
-     if right(arges,2) = chr(42)+chr(47) ; xcl := .F. ;endif
-     if left(arges,1) = chr(42) .OR. empty(arges) .OR. xcl
+     if left(arges, 1) = chr(35) .OR. left(arges,1) = chr(38); arges := "" ;endif
+     if left(arges, 2) = chr(47)+chr(47) ;arges := "" ;endif
+     if left(arges, 2) = chr(47)+chr(42) ; xcl := .T. ;endif
+     if right(arges, 2) = chr(42)+chr(47) ; xcl := .F. ;endif
+     if left(arges, 1) = chr(42) .OR. empty(arges) .OR. xcl
         return ""
      endif
      if "SET SPLASH TO" $ arg1
@@ -1499,7 +1499,7 @@ if "{" $ left(TransPar[1],2)
       endif
    endcase
 endif
-ifc := alltrim( upper(TransPar[1]) )
+ifc := alltrim(upper(TransPar[1]))
 oErrAntes := ERRORBLOCK({ |objErr| BREAK(objErr) } )
 BEGIN SEQUENCE
       if ifc == "IF"     /// Start adaptation if else construct - 03/Feb/2008
@@ -1571,7 +1571,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
         do case
            case ArryPar[1]=[VAR]
                 _varmem := ArryPar[2]
-                If ! __MVEXIST ( ArryPar[2] )
+                If !__MVEXIST ( ArryPar[2] )
                    _varmem := ArryPar[2]
                    Public &_varmem
                    aadd(nomevar,_varmem)
@@ -1848,24 +1848,24 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
 
                    case ascan(arryPar,[DEBUG])=2
                         if ascan(arryPar,[LIST])= 3
-                           if npag < 2 .AND. len( arrypar ) = 4
+                           if npag < 2 .AND. len(arrypar) = 4
                               asize(ax,0)
                               do case
                                  case ascan(arryPar,[DECLARE])= 4
-                                      aeval( ::aDeclare,{|x|if (x <> NIL,aadd( ax,strzero( x[2],4 ) +") " + x[1] ),nil)} )
+                                      aeval(::aDeclare, {|x|iif(x <> NIL, aadd(ax, strzero(x[2], 4) + ") " + x[1]), nil)})
 
                                  case ascan(arryPar,[HEAD])= 4
-                                      aeval( ::aHead,{|x|if (x <> NIL,aadd( ax,strzero( x[2],4 ) +") " + x[1] ),nil)} )
+                                      aeval(::aHead, {|x|iif(x <> NIL, aadd(ax, strzero(x[2], 4) + ") " + x[1]), nil)})
 
                                  case ascan(arryPar,[BODY])= 4
-                                      aeval( ::aBody,{|x|if (x <> NIL,aadd( ax,strzero( x[2],4 ) +") " + x[1] ),nil)} )
+                                      aeval(::aBody, {|x|iif(x <> NIL, aadd(ax, strzero(x[2], 4) + ") " + x[1]), nil)})
 
                                  case ascan(arryPar,[FEET])= 4
-                                      aeval( ::aFeet,{|x|if (x <> NIL,aadd( ax,strzero( x[2],4 ) +") " + x[1] ),nil)} )
+                                      aeval(::aFeet, {|x|iif(x <> NIL, aadd(ax, strzero(x[2], 4) + ") " + x[1]), nil)})
 
                               endcase
                               msgmulty(ax)
-//                            mchoice( ax,,,,,"["+arrypar[4]+"]"+" section with len = "+ltrim( str( len( ax ) ) ) )
+//                            mchoice( ax,,,,,"["+arrypar[4]+"]"+" section with len = "+ltrim(str(len(ax))))
                               asize(ax,0)
                            endif
                         else
@@ -2179,7 +2179,7 @@ METHOD WHAT_ELE(Arg1,Arg2,Arg3) CLASS WREPORT
      default arg3 to "_APAPER"
      Arg3:=upper(Arg3)
      aeval(aSr,{|x| iif(x[1]== Arg3,ltemp:=x[2],"")})
-     if ! empty(ltemp)
+     if !empty(ltemp)
         default arg1 to ltemp
         if arg3="_ACOLOR" .AND. arg1 = ".F."
            arg1 := "MONO"
@@ -2420,7 +2420,7 @@ local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
          gftotal := AscArr(upper(gftotal) )
       endif
       && make an array for counters
-      Aeval(gftotal,{|| aadd( counter,0),aadd(Gcounter,0)})
+      Aeval(gftotal, {||aadd(counter, 0), aadd(Gcounter, 0)})
 
       if !empty(gftotal) .OR. !empty(s_total)
          GFline    :=.T.
@@ -2496,7 +2496,7 @@ local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
               endif
           next
       next
-      //Aeval(gfstring,{|x| msgstop( zaps( len( gfstring ) ) +crlf+x,"Gfstring" ) })
+      //Aeval(gfstring,{|x| msgstop( zaps( len(gfstring) ) +crlf+x,"Gfstring" ) })
       if valtype(wheregt)== "N"
          wheregt:=zaps(wheregt)
       endif

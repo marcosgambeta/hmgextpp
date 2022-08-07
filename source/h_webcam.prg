@@ -70,9 +70,9 @@ FUNCTION _DefineWebCam ( ControlName, ParentForm, x, y, w, h, lStart, nRate, TOO
    LOCAL mVar
    LOCAL k
 
-   hb_default( @w, 320 )
-   hb_default( @h, 240 )
-   hb_default( @nRate, 30 )
+   hb_default(@w, 320)
+   hb_default(@h, 240)
+   hb_default(@nRate, 30)
 
    IF _HMG_BeginWindowActive
       ParentForm := _HMG_ActiveFormName
@@ -84,7 +84,7 @@ FUNCTION _DefineWebCam ( ControlName, ParentForm, x, y, w, h, lStart, nRate, TOO
       ParentForm := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
 
-   IF ! _IsWindowDefined ( ParentForm )
+   IF !_IsWindowDefined ( ParentForm )
       MsgMiniGuiError( "Window: " + ParentForm + " is not defined." )
    ENDIF
 
@@ -109,7 +109,7 @@ FUNCTION _DefineWebCam ( ControlName, ParentForm, x, y, w, h, lStart, nRate, TOO
    ControlHandle := _CreateWebCam ( ParentForm, x, y, w, h )
 
    IF _HMG_BeginTabActive
-      AAdd( _HMG_ActiveTabCurrentPageMap, Controlhandle )
+      AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
    ENDIF
 
    IF ValType(tooltip) != "U"
@@ -158,7 +158,7 @@ FUNCTION _DefineWebCam ( ControlName, ParentForm, x, y, w, h, lStart, nRate, TOO
    _HMG_aControlMiscData2          [k] := ""
 
    IF lStart
-      IF ! _StartWebCam ( cParentForm, ControlName )
+      IF !_StartWebCam ( cParentForm, ControlName )
          MsgAlert( "Webcam service is unavailable!", "Alert" )
       ENDIF
    ENDIF
@@ -203,7 +203,7 @@ FUNCTION _StartWebCam ( cWindow, cControl )
 
    ENDIF
 
-   _HMG_aControlVisible[ GetControlIndex ( cControl, cWindow ) ] := lSuccess
+   _HMG_aControlVisible[ GetControlIndex(cControl, cWindow) ] := lSuccess
 
 RETURN lSuccess
 
@@ -216,13 +216,13 @@ PROCEDURE _ReleaseWebCam ( cWindow, cControl )
 
       hWnd := GetControlHandle ( cControl, cWindow )
 
-      IF ! Empty(hWnd)
+      IF !Empty(hWnd)
 
          cap_DriverDisconnect ( hWnd )
 
          DestroyWindow ( hWnd )
 
-         _EraseControl ( GetControlIndex ( cControl, cWindow ), GetFormIndex ( cWindow ) )
+         _EraseControl ( GetControlIndex(cControl, cWindow), GetFormIndex ( cWindow ) )
 
       ENDIF
 

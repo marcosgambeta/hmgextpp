@@ -378,7 +378,7 @@ METHOD TPageScript:BeginDoc( nPrinter, cTitle, nOrientation, nCopies, nPageSize,
 
    ::SetTitle( cTitle )
 
-   if ! ::lFromDialog
+   if !::lFromDialog
       ::SetPrinter( nPrinter )
       ::SetPageSize( nPageSize )
       ::SetPaperBin( nPaperBin )
@@ -557,8 +557,8 @@ METHOD TPageScript:FindPrinter( cPrinter )
    LOCAL aPrinters := ::GetPrinters()
 
    // Finds a printer position in the array
-   IF ValType(cPrinter) == "C" .AND. Len( cPrinter ) > 0
-      nPos := AScan(aPrinters, {| x | AllTrim( Upper(x) ) == AllTrim( Upper(cPrinter) ) }, 1, Len( aPrinters ))
+   IF ValType(cPrinter) == "C" .AND. Len(cPrinter) > 0
+      nPos := AScan(aPrinters, {| x | AllTrim(Upper(x)) == AllTrim(Upper(cPrinter)) }, 1, Len(aPrinters))
    ENDIF
 
 RETURN nPos
@@ -719,7 +719,7 @@ METHOD TPageScript:GetFonts()
       FOR nLoop := 0 TO nCount - 1
          cFont := Space( 128 )
          DllCall( ::hDll, DLL_STDCALL, "PSGetFontNames", nLoop, @cFont )
-         AAdd( aFonts, ::Buffer2String( cFont ) )
+         AAdd(aFonts, ::Buffer2String(cFont))
       NEXT
    ENDIF
 
@@ -1022,7 +1022,7 @@ METHOD TPageScript:GetPrinters()
    FOR nLoop := 0 TO nCount - 1
       cPrinter := Space( 256 )
       DllCall( ::hDll, DLL_STDCALL, "PSGetPrinterNames", nLoop, @cPrinter )
-      AAdd( aPrinters, ::Buffer2String( cPrinter ) )
+      AAdd(aPrinters, ::Buffer2String(cPrinter))
    NEXT
 
 RETURN AClone( aPrinters )
@@ -1315,9 +1315,9 @@ METHOD TPageScript:PrintEmuFile( cFileName, lDelete, nPrinter, cTitle, nOrientat
                   nLoop++
                   nCtrl := Asc( SubStr(cBuffer, nLoop, 1) ) // Read the control character
 
-                  IF Len( cPrintLine ) != 0 // If there's still something to print...  // Changed by STD - 2008-02-25 - 1.3.5.0
+                  IF Len(cPrintLine) != 0 // If there's still something to print...  // Changed by STD - 2008-02-25 - 1.3.5.0
                      ::TextOut( nRow, nCol, cPrintLine, , , , , nStyle ) // Print the left part of the string, before the ESCAPE code
-                     nCol += Len( cPrintLine )
+                     nCol += Len(cPrintLine)
                      cPrintLine := ""
                   ENDIF
 
@@ -1389,9 +1389,9 @@ METHOD TPageScript:PrintEmuFile( cFileName, lDelete, nPrinter, cTitle, nOrientat
             CASE nChar == 12 // EJECT code
                nLoop++
 
-               IF Len( cPrintLine ) != 0 // If there's still something to print...  // Changed by STD - 2008-02-25 - 1.3.5.0
+               IF Len(cPrintLine) != 0 // If there's still something to print...  // Changed by STD - 2008-02-25 - 1.3.5.0
                   ::TextOut( nRow, nCol, cPrintLine, , , , , nStyle ) // Print the rest
-                  nCol += Len( cPrintLine )
+                  nCol += Len(cPrintLine)
                   cPrintLine := ""
                ENDIF
 
@@ -1406,7 +1406,7 @@ METHOD TPageScript:PrintEmuFile( cFileName, lDelete, nPrinter, cTitle, nOrientat
                   IF Asc( SubStr(cBuffer, nLoop, 1) ) == 10
                      nLoop++
 
-                     IF Len( cPrintLine ) != 0 // If there's still something to print...  // Changed by STD - 2008-02-25 - 1.3.5.0
+                     IF Len(cPrintLine) != 0 // If there's still something to print...  // Changed by STD - 2008-02-25 - 1.3.5.0
                         ::TextOut( nRow, nCol, cPrintLine, , , , , nStyle )
                         cPrintLine := ""
                      ENDIF
@@ -1432,7 +1432,7 @@ METHOD TPageScript:PrintEmuFile( cFileName, lDelete, nPrinter, cTitle, nOrientat
          ENDDO
       ENDDO
 
-      IF Len( cPrintLine ) != 0 // If there's still something to print...  // Changed by STD - 2008-02-25 - 1.3.5.0
+      IF Len(cPrintLine) != 0 // If there's still something to print...  // Changed by STD - 2008-02-25 - 1.3.5.0
          ::TextOut( nRow, nCol, cPrintLine, , , , , nStyle )
          cPrintLine := ""
       ENDIF
@@ -1635,7 +1635,7 @@ Description : Sets the decimal separator character
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetDecimalSep( cSep )
 
-   IF ValType(cSep) == "C" .AND. Len( cSep ) > 0
+   IF ValType(cSep) == "C" .AND. Len(cSep) > 0
       DllCall( ::hDll, DLL_STDCALL, "PSSetDecimalSep", Asc( cSep ) )
    ENDIF
 
@@ -2117,7 +2117,7 @@ METHOD TPageScript:TextBox( nTop, nLeft, nBottom, nRight, cText, nJustify, cFont
 
    LOCAL Temp
 
-   IF ( ValType(cText) == "C" .AND. Len( cText ) < 65001 ) // Must be a string and Length of less than 65001 bytes
+   IF ( ValType(cText) == "C" .AND. Len(cText) < 65001 ) // Must be a string and Length of less than 65001 bytes
       cFont := iif( cFont == NIL, "", cFont )
       nJustify := iif( nJustify == NIL, APS_DEFAULT, Int( nJustify ) )
       nStyle := iif( nStyle == NIL, APS_DEFAULT, Int( nStyle ) )
@@ -2144,7 +2144,7 @@ Description : Prints a string in a box at position X1,Y1, X2,Y2 using parameters
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:TextBoxEx( nTop, nLeft, nBottom, nRight, cText )
 
-   IF ( ValType(cText) == "C" .AND. Len( cText ) < 65001 .AND. !( cText == "" ) ) // Must be a non empty string and Length of less than 65001 bytes
+   IF ( ValType(cText) == "C" .AND. Len(cText) < 65001 .AND. !( cText == "" ) ) // Must be a non empty string and Length of less than 65001 bytes
       DllCall( ::hDll, DLL_STDCALL, "PSTextBox", PSFtoI( nTop ), PSFtoI( nLeft ), PSFtoI( nBottom ), PSFtoI( nRight ), cText )
    ENDIF
 
@@ -2191,7 +2191,7 @@ METHOD TPageScript:TextOut( nTop, nLeft, xValue, cPicture, nJustify, cFont, nSiz
       ENDCASE
    ENDIF
 
-   xValue := Transform( xValue, cPicture )
+   xValue := Transform(xValue, cPicture)
 
    IF nAngle <> APS_DEFAULT .AND. ( nAngle < 0 .OR. nAngle > 360 )
       nAngle := 0
@@ -2204,7 +2204,7 @@ METHOD TPageScript:TextOut( nTop, nLeft, xValue, cPicture, nJustify, cFont, nSiz
       nStyle := Temp
    ENDIF
 
-   if ! xValue == ""
+   if !xValue == ""
       DllCall( ::hDll, DLL_STDCALL, "PSTextOutEx", PSFtoI( nTop ), PSFtoI( nLeft ), xValue, nJustify, cFont, PSFtoI( nSize ), nStyle, nTFColor, nTBColor, nAngle )
    ENDIF
 
@@ -2239,9 +2239,9 @@ METHOD TPageScript:TextOutEx( nTop, nLeft, xValue, cPicture )
       ENDCASE
    ENDIF
 
-   xValue := Transform( xValue, cPicture )
+   xValue := Transform(xValue, cPicture)
 
-   if ! xValue == ""
+   if !xValue == ""
       DllCall( ::hDll, DLL_STDCALL, "PSTextOut", PSFtoI( nTop ), PSFtoI( nLeft ), xValue )
    ENDIF
 
@@ -2365,9 +2365,9 @@ METHOD TPageScript:Buffer2String( cBuffer )
 
    LOCAL cString
 
-   cString := AllTrim( cBuffer )
+   cString := AllTrim(cBuffer)
 
-RETURN Left( cString, Len( cString ) - 1 )
+RETURN Left(cString, Len(cString) - 1)
 
 /*-----------------------------------------------------------------------------
 Function ...: #PSFtoI(AValue) -> Value
@@ -2402,7 +2402,7 @@ Date .......: March 2005
 FUNCTION PSInit()
 
    // If not Initialized, then do it !!!
-   if ! slInitialized
+   if !slInitialized
       oPScript := TPageScript():New()
       slInitialized := ( oPScript:nError == PSE_NOERROR )
    ENDIF
@@ -3172,7 +3172,7 @@ FUNCTION PSGetPaperBins()
       nBinCount := PSGetPaperBinCount()
 
       FOR nLoop := 1 TO nBinCount
-         AAdd( aBins, { PSGetPaperBinNumbers( nLoop ), PSGetPaperBinNames( nLoop ) } )
+         AAdd(aBins, {PSGetPaperBinNumbers(nLoop), PSGetPaperBinNames(nLoop)})
       NEXT nLoop
    ENDIF
 

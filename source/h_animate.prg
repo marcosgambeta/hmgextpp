@@ -71,9 +71,9 @@ FUNCTION _DefineAnimateRes ( ControlName, ParentForm, x, y, w, h, cFile, nRes, ;
    LOCAL mVar
    LOCAL k
 
-   hb_default( @w, 200 )
-   hb_default( @h, 50 )
-   hb_default( @invisible, .F. )
+   hb_default(@w, 200)
+   hb_default(@h, 50)
+   hb_default(@invisible, .F.)
 
    IF _HMG_BeginWindowActive
       ParentForm := _HMG_ActiveFormName
@@ -109,7 +109,7 @@ FUNCTION _DefineAnimateRes ( ControlName, ParentForm, x, y, w, h, cFile, nRes, ;
    ControlHandle := InitAnimateRes ( ParentForm, @hAvi, x, y, w, h, cFile, nRes, invisible )
 
    IF _HMG_BeginTabActive
-      AAdd( _HMG_ActiveTabCurrentPageMap, Controlhandle )
+      AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
    ENDIF
 
    IF ValType(tooltip) != "U"
@@ -158,7 +158,7 @@ FUNCTION _DefineAnimateRes ( ControlName, ParentForm, x, y, w, h, cFile, nRes, ;
    _HMG_aControlMiscData2          [k] := ""
 
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlInit, Len( _HMG_aControlNames ), mVar )
+      Eval( _HMG_bOnControlInit, Len(_HMG_aControlNames), mVar )
    ENDIF
 
 RETURN NIL
@@ -171,7 +171,7 @@ FUNCTION SetAnimateResFile ( cWindow, cControl, cProperty, cValue )
 
       _HMG_UserComponentProcess := .T.
 
-      _HMG_aControlValue[ GetControlIndex ( cControl, cWindow ) ] :=  cValue
+      _HMG_aControlValue[GetControlIndex(cControl, cWindow)] := cValue
 
    ELSE
 
@@ -190,7 +190,7 @@ FUNCTION GetAnimateResFile ( cWindow, cControl )
 
       _HMG_UserComponentProcess := .T.
 
-      RetVal := _HMG_aControlValue[ GetControlIndex ( cControl, cWindow ) ]
+      RetVal := _HMG_aControlValue[GetControlIndex(cControl, cWindow)]
 
    ELSE
 
@@ -208,7 +208,7 @@ FUNCTION SetAnimateResId ( cWindow, cControl, cProperty, cValue )
 
       _HMG_UserComponentProcess := .T.
 
-      _HMG_aControlIds[ GetControlIndex ( cControl, cWindow ) ] :=  cValue
+      _HMG_aControlIds[GetControlIndex(cControl, cWindow)] := cValue
 
    ELSE
 
@@ -227,7 +227,7 @@ FUNCTION GetAnimateResId ( cWindow, cControl )
 
       _HMG_UserComponentProcess := .T.
 
-      RetVal := _HMG_aControlIds[ GetControlIndex ( cControl, cWindow ) ]
+      RetVal := _HMG_aControlIds[GetControlIndex(cControl, cWindow)]
 
    ELSE
 

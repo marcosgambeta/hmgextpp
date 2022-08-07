@@ -41,17 +41,17 @@ FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
    IF Empty(cPdfFile)
       cErrMess += "- Output file" + hb_eol()
    ENDIF
-   IF ! Empty(cErrMess)
+   IF !Empty(cErrMess)
       MsgExclamation( cErrMess + "cannot be empty!", "Warning" )
       RETURN .F.
    ENDIF
 
-   hb_default( @cTitle, "Untitled" )
+   hb_default(@cTitle, "Untitled")
 
    cPdfFile := hb_FNameExtSet( cPdfFile, "pdf" )
 
    IF hb_FileExists( cPdfFile )
-      IF ! MsgYesNo( "File " + cPdfFile + " already exists!" + hb_eol() + "Overwrite?", "Warning!" )
+      IF !MsgYesNo( "File " + cPdfFile + " already exists!" + hb_eol() + "Overwrite?", "Warning!" )
          RETURN .F.
       ENDIF
    ENDIF
@@ -107,7 +107,7 @@ FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
 #ifndef __DEBUG__
          FErase( cImageFile )
 #endif
-         IF ! lRet
+         IF !lRet
             MsgExclamation( "There was an error with image file:" + hb_eol() + cPage + " !", "Warning" )
             lRet := .F.
             EXIT
@@ -178,7 +178,7 @@ STATIC FUNCTION UPDF_Error( cType, hDoc ) // allways return .F.
    LOCAL nError := HPDF_GetError( hDoc )
    LOCAL cMessage
 
-   hb_default( @cType, "CREATE" )
+   hb_default(@cType, "CREATE")
    DO CASE
    CASE cType == "CREATE"
       cMessage := "PDF file creation operation failed!"

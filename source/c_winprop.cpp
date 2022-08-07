@@ -339,7 +339,7 @@ static BOOL CALLBACK PropsEnumProc(HWND hWnd, LPCTSTR pszPropName, HANDLE handle
 /*
    aProps := {}
         bCodeBlock := {|hWnd,cPropName,hHandle| HB_SYMBOL_UNUSED( hWnd ), ;
-                                           AAdd( aProps, cPropName ),;
+                                           AAdd(aProps, cPropName),;
                                            HB_SYMBOL_UNUSED( hHandle ),;
                                            .T. }
 

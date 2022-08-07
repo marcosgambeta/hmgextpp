@@ -91,7 +91,7 @@ FUNCTION CheckStatic()
    _LogFile( .F., cInfo )
 
    FOR n = 1 TO nStatics()
-      if ! Empty(Static( n ))
+      if !Empty(Static( n ))
          cInfo := CRLF
          cInfo += hb_ntos( n ) + Replicate( "-", 55 ) + "> "
          _LogFile( .F., cInfo )
@@ -136,12 +136,12 @@ STATIC FUNCTION Scan( u, cData )
       ENDIF
 
       IF cType $ "AO"
-         _LogFile( .F., " (Len = " + hb_ntos( Len( u ) ) + ")" )
+         _LogFile( .F., " (Len = " + hb_ntos( Len(u) ) + ")" )
       ENDIF
 
       IF cType == "A"
 
-         FOR n := 1 TO Len( u )
+         FOR n := 1 TO Len(u)
 
             DoEvents()
 

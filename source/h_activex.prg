@@ -92,7 +92,7 @@ PROCEDURE _DefineActivex ( cControlName, cParentForm, nRow, nCol, nWidth, nHeigh
       MsgMiniGuiError ( "Control: " + cControlName + " Of " + cParentForm + " Already defined." )
    ENDIF
 
-   IF ! ISCHARACTER ( cProgId )
+   IF !ISCHARACTER ( cProgId )
       MsgMiniGuiError ( "Control: " + cControlName + " Of " + cParentForm + " PROGID Property Invalid Type." )
    ENDIF
 
@@ -114,17 +114,17 @@ PROCEDURE _DefineActivex ( cControlName, cParentForm, nRow, nCol, nWidth, nHeigh
    nControlHandle := oActiveX:hWnd
    nAtlDllHandle := oActiveX:hAtl
 
-   IF ! Empty(oActiveX:hSink)
-      IF ISARRAY( aEvents ) .AND. Len( aEvents ) > 0 .AND. ISARRAY( aEvents [1] )
+   IF !Empty(oActiveX:hSink)
+      IF ISARRAY( aEvents ) .AND. Len(aEvents) > 0 .AND. ISARRAY( aEvents [1] )
          AEval( aEvents, { | x | oActiveX:EventMap( x [1], x [2] ) } )
       ENDIF
    ENDIF
 
    IF _HMG_BeginTabActive
-      AAdd( _HMG_ActiveTabCurrentPageMap, nControlhandle )
+      AAdd(_HMG_ActiveTabCurrentPageMap, nControlhandle)
    ENDIF
 
-   IF hb_defaultValue( clientedge, .F. )
+   IF hb_defaultValue(clientedge, .F.)
       ChangeStyle ( nControlHandle, WS_EX_CLIENTEDGE, , .T. )
    ENDIF
 
@@ -246,7 +246,7 @@ FUNCTION _GetControlObject ( ControlName, ParentForm )
 *-----------------------------------------------------------------------------*
    LOCAL i
 
-   IF ( i := GetControlIndex ( ControlName , ParentForm ) ) == 0
+   IF ( i := GetControlIndex(ControlName, ParentForm) ) == 0
       RETURN NIL
    ENDIF
 
@@ -420,9 +420,9 @@ METHOD EventMap( nMsg, xExec, oSelf )
 
    nAt := AScan(::aAxEv, nMsg)
    IF nAt == 0
-      AAdd( ::aAxEv, nMsg )
-      AAdd( ::aAxExec, { NIL, NIL } )
-      nAt := Len( ::aAxEv )
+      AAdd(::aAxEv, nMsg)
+      AAdd(::aAxExec, {NIL, NIL})
+      nAt := Len(::aAxEv)
    ENDIF
    ::aAxExec[nAt] := { xExec, oSelf }
 
@@ -432,7 +432,7 @@ METHOD OnError( ... )
    LOCAL cMethod := __GetMessage() 
 
    IF cMethod[1] == "_"
-      cMethod := Right( cMethod, 2 )
+      cMethod := Right(cMethod, 2)
    ENDIF
    hb_ExecFromArray( ::oOle, cMethod, hb_aParams() )
 

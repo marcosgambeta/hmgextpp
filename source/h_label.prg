@@ -66,16 +66,16 @@ FUNCTION _DefineLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
    ow := oDlu2Pixel()
 #endif
 
-   hb_default( @w, 120 )
-   hb_default( @h, 24 )
-   __defaultNIL( @ProcedureName, "" )
-   hb_default( @invisible, .F. )
-   hb_default( @bold, .F. )
-   hb_default( @italic, .F. )
-   hb_default( @underline, .F. )
-   hb_default( @strikeout, .F. )
-   hb_default( @VCenterAlign, .F. )
-   __defaultNIL( @rclick, "" )
+   hb_default(@w, 120)
+   hb_default(@h, 24)
+   __defaultNIL(@ProcedureName, "")
+   hb_default(@invisible, .F.)
+   hb_default(@bold, .F.)
+   hb_default(@italic, .F.)
+   hb_default(@underline, .F.)
+   hb_default(@strikeout, .F.)
+   hb_default(@VCenterAlign, .F.)
+   __defaultNIL(@rclick, "")
 
    IF ( FontHandle := GetFontHandle( FontName ) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
@@ -83,8 +83,8 @@ FUNCTION _DefineLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
       ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
-      __defaultNIL( @FontName, _HMG_ActiveFontName )
-      __defaultNIL( @FontSize, _HMG_ActiveFontSize )
+      __defaultNIL(@FontName, _HMG_ActiveFontName)
+      __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
 
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
@@ -154,7 +154,7 @@ FUNCTION _DefineLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
 
          //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {|x, y, z| InitDialogLabel( x, y, z ) }
-         AAdd( _HMG_aDialogItems, { nId, k, "static", style, 0, x, y, w, h, caption, HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage } )
+         AAdd(_HMG_aDialogItems, {nId, k, "static", style, 0, x, y, w, h, caption, HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
 
@@ -166,7 +166,7 @@ FUNCTION _DefineLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
          h := GetWindowHeight(Controlhandle)
 
          IF ValType(caption) != "U"
-            SetWindowText ( ControlHandle , caption )
+            SetWindowText(ControlHandle, caption)
          ENDIF
 
          SetWindowStyle ( ControlHandle, Style, .T. )
@@ -186,15 +186,15 @@ FUNCTION _DefineLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
       IF FontHandle != 0
          _SetFontHandle( ControlHandle, FontHandle )
       ELSE
-         __defaultNIL( @FontName, _HMG_DefaultFontName )
-         __defaultNIL( @FontSize, _HMG_DefaultFontSize )
+         __defaultNIL(@FontName, _HMG_DefaultFontName)
+         __defaultNIL(@FontSize, _HMG_DefaultFontSize)
          IF IsWindowHandle( ControlHandle )
             FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
          ENDIF
       ENDIF
 
       IF _HMG_BeginTabActive
-         AAdd( _HMG_ActiveTabCurrentPageMap , Controlhandle )
+         AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
       ENDIF
 
       IF ValType(tooltip) != "U"
@@ -291,7 +291,7 @@ FUNCTION InitDialogLabel( ParentFormName, ControlHandle, k )
       RedrawWindow ( ControlHandle )
    ENDIF
 // JP 62
-   IF Len( _HMG_aDialogTemplate ) != 0 .AND. _HMG_aDialogTemplate[3]   // Modal
+   IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]   // Modal
       _HMG_aControlDeleted [k] := .T.
    ENDIF
 
@@ -310,11 +310,11 @@ FUNCTION OLABELEVENTS( hWnd, nMsg, wParam, lParam )
       SWITCH nMsg
 
       CASE WM_MOUSEMOVE
-        _DoControlEventProcedure ( _HMG_aControlGotFocusProcedure [i] , i )
+        _DoControlEventProcedure ( _HMG_aControlGotFocusProcedure[i] , i )
         EXIT
 
       CASE WM_MOUSELEAVE
-        _DoControlEventProcedure ( _HMG_aControlLostFocusProcedure [i] , i )
+        _DoControlEventProcedure ( _HMG_aControlLostFocusProcedure[i] , i )
 
       ENDSWITCH
 

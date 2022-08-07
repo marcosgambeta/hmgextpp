@@ -63,19 +63,19 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
    LOCAL i
    LOCAL lDialogInMemory
 
-   hb_default( @w, 120 )
-   hb_default( @h, 120 )
-   hb_default( @value, 0 )
-   __defaultNIL( @gotfocus, "" )
-   __defaultNIL( @lostfocus, "" )
-   __defaultNIL( @changeprocedure, "" )
-   __defaultNIL( @dblclick, "" )
-   hb_default( @invisible, .F. )
-   hb_default( @notabstop, .F. )
-   hb_default( @sort, .F. )
-   hb_default( @multicolumn, .F. )
-   hb_default( @multitabs, .F. )
-   hb_default( @aWidth, {} )
+   hb_default(@w, 120)
+   hb_default(@h, 120)
+   hb_default(@value, 0)
+   __defaultNIL(@gotfocus, "")
+   __defaultNIL(@lostfocus, "")
+   __defaultNIL(@changeprocedure, "")
+   __defaultNIL(@dblclick, "")
+   hb_default(@invisible, .F.)
+   hb_default(@notabstop, .F.)
+   hb_default(@sort, .F.)
+   hb_default(@multicolumn, .F.)
+   hb_default(@multitabs, .F.)
+   hb_default(@aWidth, {})
 
    IF ( FontHandle := GetFontHandle( FontName ) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
@@ -84,15 +84,15 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
    rows := iif( ISARRAY( arows ), AClone( arows ), {} )
 
    IF multitabs
-      IF Len( rows ) > 0
-         IF Len( aWidth ) == 0
+      IF Len(rows) > 0
+         IF Len(aWidth) == 0
             IF Valtype(rows[1]) == "A"
-               FOR i:=1 TO Len( rows[1] )
-                  AAdd( aWidth, Int( w / Len( rows[1] ) ) )
+               FOR i:=1 TO Len(rows[1])
+                  AAdd(aWidth, Int(w / Len(rows[1])))
                NEXT
             ENDIF
          ENDIF
-         FOR i:=1 TO Len( rows )
+         FOR i:=1 TO Len(rows)
             IF Valtype(rows[i]) == "A"
                rows[i] := LB_Array2String( rows[i] )
             ENDIF
@@ -102,8 +102,8 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
       ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
-      __defaultNIL( @FontName, _HMG_ActiveFontName )
-      __defaultNIL( @FontSize, _HMG_ActiveFontSize )
+      __defaultNIL(@FontName, _HMG_ActiveFontName)
+      __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
 
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
@@ -158,7 +158,7 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
 
          //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {|x, y, z| InitDialogListBox( x, y, z ) }
-         AAdd( _HMG_aDialogItems, { nId, k, "LISTBOX", style, 0, x, y, w, h, "", HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage } )
+         AAdd(_HMG_aDialogItems, {nId, k, "LISTBOX", style, 0, x, y, w, h, "", HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
 
@@ -188,12 +188,12 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
          IF i > 0
 
             IF multiselect
-               ControlHandle := InitMultiListBox ( _HMG_aFormReBarHandle [i], 0, x, y, w, h, fontname, fontsize, invisible, notabstop, sort, dragitems, multitabs, multicolumn )
+               ControlHandle := InitMultiListBox ( _HMG_aFormReBarHandle[i], 0, x, y, w, h, fontname, fontsize, invisible, notabstop, sort, dragitems, multitabs, multicolumn )
             ELSE
-               ControlHandle := InitListBox ( _HMG_aFormReBarHandle [i] , 0 , 0 , 0 , w , h , "" , 0 , invisible , notabstop, sort, dragitems, multitabs, multicolumn )
+               ControlHandle := InitListBox ( _HMG_aFormReBarHandle[i] , 0 , 0 , 0 , w , h , "" , 0 , invisible , notabstop, sort, dragitems, multitabs, multicolumn )
             ENDIF
 
-            AddSplitBoxItem ( Controlhandle , _HMG_aFormReBarHandle [i] , w , break , , , , _HMG_ActiveSplitBoxInverted )
+            AddSplitBoxItem ( Controlhandle , _HMG_aFormReBarHandle[i] , w , break , , , , _HMG_ActiveSplitBoxInverted )
 
             _HMG_SplitLastControl := "LISTBOX"
 
@@ -216,15 +216,15 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
       IF FontHandle != 0
          _SetFontHandle( ControlHandle, FontHandle )
       ELSE
-         __defaultNIL( @FontName, _HMG_DefaultFontName )
-         __defaultNIL( @FontSize, _HMG_DefaultFontSize )
+         __defaultNIL(@FontName, _HMG_DefaultFontName)
+         __defaultNIL(@FontSize, _HMG_DefaultFontSize)
          IF IsWindowHandle( ControlHandle )
             FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
          ENDIF
       ENDIF
 
       IF _HMG_BeginTabActive
-         AAdd( _HMG_ActiveTabCurrentPageMap , ControlHandle )
+         AAdd(_HMG_ActiveTabCurrentPageMap, ControlHandle)
       ENDIF
 
       IF ValType(tooltip) != "U"
@@ -284,7 +284,7 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
       Eval( _HMG_bOnControlInit, k, mVar )
    ENDIF
 
-   IF Len( _HMG_aDialogTemplate ) == 0        //Dialog Template
+   IF Len(_HMG_aDialogTemplate) == 0        //Dialog Template
 
       AEval( Rows , { | r | ListboxAddString ( ControlHandle , r ) } )
       IF multiselect
@@ -333,7 +333,7 @@ FUNCTION InitDialogListBox( ParentName, ControlHandle, k )
       LISTBOXSETMULTITAB ( ControlHandle , aWidth )
    ENDIF
 // JP 62
-   IF Len( _HMG_aDialogTemplate ) != 0 .AND. _HMG_aDialogTemplate[3]  // Modal
+   IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]  // Modal
       _HMG_aControlDeleted [k] := .T.
    ENDIF
 
@@ -345,9 +345,9 @@ FUNCTION LB_Array2String( aData, Sep )
    LOCAL cData := ""
    LOCAL n
 
-   hb_default( @Sep, Chr( 9 ) )
+   hb_default(@Sep, Chr(9))
 
-   FOR n := 1 TO Len( aData )
+   FOR n := 1 TO Len(aData)
       cData += iif( n == 1, "", Sep ) + aData [n]
    NEXT
 

@@ -1,7 +1,7 @@
 /* NetWork Functions */
 
-#if ( __HARBOUR__ - 0 < 0x030200 )
-# xtranslate __defaultNIL( @<v>, <x> ) => ( <v> := iif( <v> == NIL, <x>, <v> ) )
+#if (__HARBOUR__ - 0 < 0x030200)
+#xtranslate __defaultNIL(@<v>, <x>) => (<v> := iif(<v> == NIL, <x>, <v>))
 #endif
 #include "dbinfo.ch"
 #include "error.ch"
@@ -19,8 +19,8 @@ STATIC FUNCTION NetLock( nType, lReleaseLocks, nSeconds )
    LOCAL bOperation
    LOCAL xIdentifier
 
-   __defaultNIL( @lReleaseLocks, .F. )
-   __defaultNIL( @nSeconds, s_nNetDelay )
+   __defaultNIL(@lReleaseLocks, .F.)
+   __defaultNIL(@nSeconds, s_nNetDelay)
 
    SWITCH nType
    CASE NET_RECLOCK                        // 1 = Record Lock...
@@ -63,7 +63,7 @@ FUNCTION NetDelete()
       s_lNetOk := .T.
    ENDIF
 
-   IF ! NetErr()
+   IF !NetErr()
       dbSkip( 0 )
       dbCommit()
    ELSE
@@ -83,7 +83,7 @@ FUNCTION NetRecall()
       s_lNetOk := .T.
    ENDIF
 
-   IF ! NetErr()
+   IF !NetErr()
       dbSkip( 0 )
       dbCommit()
    ELSE
@@ -96,7 +96,7 @@ FUNCTION NetRecall()
 
 FUNCTION NetRecLock( nSeconds )
 
-   __defaultNIL( @nSeconds, s_nNetDelay )
+   __defaultNIL(@nSeconds, s_nNetDelay)
 
    s_lNetOk := .F.
 
@@ -109,7 +109,7 @@ FUNCTION NetRecLock( nSeconds )
 
 FUNCTION NetFileLock( nSeconds )
 
-   __defaultNIL( @nSeconds, s_nNetDelay )
+   __defaultNIL(@nSeconds, s_nNetDelay)
 
    s_lNetOk := .F.
 
@@ -124,8 +124,8 @@ FUNCTION NetAppend( nSeconds, lReleaseLocks )
 
    LOCAL nOrd
 
-   __defaultNIL( @lReleaseLocks, .T. )
-   __defaultNIL( @nSeconds, s_nNetDelay )
+   __defaultNIL(@lReleaseLocks, .T.)
+   __defaultNIL(@nSeconds, s_nNetDelay)
 
    s_lNetOk := .F.
 
@@ -142,7 +142,7 @@ FUNCTION NetAppend( nSeconds, lReleaseLocks )
 
 FUNCTION IsLocked( nRecId )
 
-   __defaultNIL( @nRecID, RecNo() )
+   __defaultNIL(@nRecID, RecNo())
 
    RETURN AScan(dbRLockList(), {| n | n == nRecID }) > 0
 

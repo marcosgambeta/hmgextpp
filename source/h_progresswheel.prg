@@ -94,17 +94,17 @@ FUNCTION _DefineProgressWheel ( cControlName, cParentForm, nCol, nRow, nWidth, ;
       STATIC BufScale AS GLOBAL VALUE 3
    ENDIF
 
-   hb_default( @nPosition, 0 )
-   hb_default( @nStartAngle, 0 )
-   hb_default( @nInnerSize, 75 )
-   hb_default( @nGradientMode, 1 )
-   hb_default( @lShowText, .T. )
-   hb_default( @nMin, 0 )
-   hb_default( @nMax, 100 )
-   __defaultNIL( @nColorDoneMin, MAROON )
-   __defaultNIL( @nColorDoneMax, RED )
-   __defaultNIL( @nColorRemain, SILVER )
-   __defaultNIL( @nColorInner, WHITE )
+   hb_default(@nPosition, 0)
+   hb_default(@nStartAngle, 0)
+   hb_default(@nInnerSize, 75)
+   hb_default(@nGradientMode, 1)
+   hb_default(@lShowText, .T.)
+   hb_default(@nMin, 0)
+   hb_default(@nMax, 100)
+   __defaultNIL(@nColorDoneMin, MAROON)
+   __defaultNIL(@nColorDoneMax, RED)
+   __defaultNIL(@nColorRemain, SILVER)
+   __defaultNIL(@nColorInner, WHITE)
 
    nColorDoneMin := HMG_RGB2n( nColorDoneMin )
    nColorDoneMax := HMG_RGB2n( nColorDoneMax )
@@ -181,12 +181,12 @@ FUNCTION _DefineProgressWheel ( cControlName, cParentForm, nCol, nRow, nWidth, ;
 
    nId := GetFormIndex ( cParentForm )
 
-   AAdd( _HMG_aFormGraphTasks[ nId ], ;
+   AAdd(_HMG_aFormGraphTasks[nId], ;
       {|| ProgressWheelPaint( cParentForm, cImageName, nWidth, nHeight, nPosition, ;
       nStartAngle, nInnerSize, nGradientMode, _HMG_aControlCaption[k], lShowText, nMin, nMax, ;
-      nColorDoneMin, nColorDoneMax, nColorRemain, nColorInner ) } )
+      nColorDoneMin, nColorDoneMax, nColorRemain, nColorInner ) })
 
-   _HMG_aControlMiscData1[k] := Len( _HMG_aFormGraphTasks[ nId ] )
+   _HMG_aControlMiscData1[k] := Len(_HMG_aFormGraphTasks[nId])
 
 RETURN NIL
 
@@ -194,7 +194,7 @@ RETURN NIL
 FUNCTION PW_GetColorDoneMin( cControlName, cParentForm )
 *------------------------------------------------------------------------------*
 
-   LOCAL i := GetControlIndex ( cControlName, cParentForm )
+   LOCAL i := GetControlIndex(cControlName, cParentForm)
    LOCAL ColorDoneMin
 
    IF i > 0
@@ -207,7 +207,7 @@ RETURN ColorDoneMin
 FUNCTION PW_GetColorDoneMax( cControlName, cParentForm )
 *------------------------------------------------------------------------------*
 
-   LOCAL i := GetControlIndex ( cControlName, cParentForm )
+   LOCAL i := GetControlIndex(cControlName, cParentForm)
    LOCAL ColorDoneMax
 
    IF i > 0
@@ -220,7 +220,7 @@ RETURN ColorDoneMax
 FUNCTION PW_GetColorRemain( cControlName, cParentForm )
 *------------------------------------------------------------------------------*
 
-   LOCAL i := GetControlIndex ( cControlName, cParentForm )
+   LOCAL i := GetControlIndex(cControlName, cParentForm)
    LOCAL ColorRemain
 
    IF i > 0
@@ -233,7 +233,7 @@ RETURN ColorRemain
 FUNCTION PW_GetColorInner( cControlName, cParentForm )
 *------------------------------------------------------------------------------*
 
-   LOCAL i := GetControlIndex ( cControlName, cParentForm )
+   LOCAL i := GetControlIndex(cControlName, cParentForm)
    LOCAL ColorInner
 
    IF i > 0
@@ -247,7 +247,7 @@ PROCEDURE PW_SetShowText( cControlName, cParentForm, Value )
 *------------------------------------------------------------------------------*
 
    LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
-   LOCAL i := GetControlIndex ( cControlName, cParentForm )
+   LOCAL i := GetControlIndex(cControlName, cParentForm)
 
    IF ISBLOCK( Value )
       _HMG_aControlCaption[i] := Value
@@ -262,7 +262,7 @@ PROCEDURE PW_SetColorDoneMin( cControlName, cParentForm, Value, lErase )
 *------------------------------------------------------------------------------*
 
    LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
-   LOCAL i := GetControlIndex ( cControlName, cParentForm )
+   LOCAL i := GetControlIndex(cControlName, cParentForm)
    LOCAL n := _HMG_aControlMiscData1[i]
    LOCAL cImageName := _HMG_aControlProcedures[i]
    LOCAL Width := _HMG_aControlWidth[i]
@@ -291,7 +291,7 @@ PROCEDURE PW_SetColorDoneMin( cControlName, cParentForm, Value, lErase )
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
          Value, ColorDoneMax, ColorRemain, ColorInner ) }
       IF PCount() == 3 .OR. ISLOGICAL( lErase ) .AND. lErase
-         BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue( lErase, .F. ) )
+         BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue(lErase, .F.) )
       ENDIF
    ENDIF
 
@@ -302,7 +302,7 @@ PROCEDURE PW_SetColorDoneMax( cControlName, cParentForm, Value, lErase )
 *------------------------------------------------------------------------------*
 
    LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
-   LOCAL i := GetControlIndex ( cControlName, cParentForm )
+   LOCAL i := GetControlIndex(cControlName, cParentForm)
    LOCAL n := _HMG_aControlMiscData1[i]
    LOCAL cImageName := _HMG_aControlProcedures[i]
    LOCAL Width := _HMG_aControlWidth[i]
@@ -331,7 +331,7 @@ PROCEDURE PW_SetColorDoneMax( cControlName, cParentForm, Value, lErase )
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
          ColorDoneMin, Value, ColorRemain, ColorInner ) }
       IF PCount() == 3 .OR. ISLOGICAL( lErase ) .AND. lErase
-         BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue( lErase, .F. ) )
+         BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue(lErase, .F.) )
       ENDIF
    ENDIF
 
@@ -342,7 +342,7 @@ PROCEDURE PW_SetColorRemain( cControlName, cParentForm, Value, lErase )
 *------------------------------------------------------------------------------*
 
    LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
-   LOCAL i := GetControlIndex ( cControlName, cParentForm )
+   LOCAL i := GetControlIndex(cControlName, cParentForm)
    LOCAL n := _HMG_aControlMiscData1[i]
    LOCAL cImageName := _HMG_aControlProcedures[i]
    LOCAL Width := _HMG_aControlWidth[i]
@@ -371,7 +371,7 @@ PROCEDURE PW_SetColorRemain( cControlName, cParentForm, Value, lErase )
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
          ColorDoneMin, ColorDoneMax, Value, ColorInner ) }
       IF PCount() == 3 .OR. ISLOGICAL( lErase ) .AND. lErase
-         BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue( lErase, .F. ) )
+         BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue(lErase, .F.) )
       ENDIF
    ENDIF
 
@@ -382,7 +382,7 @@ PROCEDURE PW_SetColorInner( cControlName, cParentForm, Value, lErase )
 *------------------------------------------------------------------------------*
 
    LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
-   LOCAL i := GetControlIndex ( cControlName, cParentForm )
+   LOCAL i := GetControlIndex(cControlName, cParentForm)
    LOCAL n := _HMG_aControlMiscData1[i]
    LOCAL cImageName := _HMG_aControlProcedures[i]
    LOCAL Width := _HMG_aControlWidth[i]
@@ -411,7 +411,7 @@ PROCEDURE PW_SetColorInner( cControlName, cParentForm, Value, lErase )
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
          ColorDoneMin, ColorDoneMax, ColorRemain, Value ) }
       IF PCount() == 3 .OR. ISLOGICAL( lErase ) .AND. lErase
-         BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue( lErase, .F. ) )
+         BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue(lErase, .F.) )
       ENDIF
    ENDIF
 
@@ -422,7 +422,7 @@ PROCEDURE PW_SetStartAngle( cControlName, cParentForm, Value, lErase )
 *------------------------------------------------------------------------------*
 
    LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
-   LOCAL i := GetControlIndex ( cControlName, cParentForm )
+   LOCAL i := GetControlIndex(cControlName, cParentForm)
    LOCAL n := _HMG_aControlMiscData1[i]
    LOCAL cImageName := _HMG_aControlProcedures[i]
    LOCAL Width := _HMG_aControlWidth[i]
@@ -453,7 +453,7 @@ PROCEDURE PW_SetStartAngle( cControlName, cParentForm, Value, lErase )
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, Position, ;
          V, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
          ColorDoneMin, ColorDoneMax, ColorRemain, ColorInner ) }
-      BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue( lErase, .F. ) )
+      BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue(lErase, .F.) )
    ENDIF
 
 RETURN
@@ -463,7 +463,7 @@ PROCEDURE PW_SetMin( cControlName, cParentForm, Value, lErase )
 *------------------------------------------------------------------------------*
 
    LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
-   LOCAL i := GetControlIndex ( cControlName, cParentForm )
+   LOCAL i := GetControlIndex(cControlName, cParentForm)
    LOCAL n := _HMG_aControlMiscData1[i]
    LOCAL cImageName := _HMG_aControlProcedures[i]
    LOCAL Width := _HMG_aControlWidth[i]
@@ -496,7 +496,7 @@ PROCEDURE PW_SetMin( cControlName, cParentForm, Value, lErase )
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
          ColorDoneMin, ColorDoneMax, ColorRemain, ColorInner ) }
-      BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue( lErase, .F. ) )
+      BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue(lErase, .F.) )
    ENDIF
 
 RETURN
@@ -506,7 +506,7 @@ PROCEDURE PW_SetMax( cControlName, cParentForm, Value, lErase )
 *------------------------------------------------------------------------------*
 
    LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
-   LOCAL i := GetControlIndex ( cControlName, cParentForm )
+   LOCAL i := GetControlIndex(cControlName, cParentForm)
    LOCAL n := _HMG_aControlMiscData1[i]
    LOCAL cImageName := _HMG_aControlProcedures[i]
    LOCAL Width := _HMG_aControlWidth[i]
@@ -539,7 +539,7 @@ PROCEDURE PW_SetMax( cControlName, cParentForm, Value, lErase )
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
          ColorDoneMin, ColorDoneMax, ColorRemain, ColorInner ) }
-      BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue( lErase, .F. ) )
+      BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue(lErase, .F.) )
    ENDIF
 
 RETURN
@@ -549,7 +549,7 @@ PROCEDURE PW_SetPosition( cControlName, cParentForm, Value, lErase )
 *------------------------------------------------------------------------------*
 
    LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
-   LOCAL i := GetControlIndex ( cControlName, cParentForm )
+   LOCAL i := GetControlIndex(cControlName, cParentForm)
    LOCAL n := _HMG_aControlMiscData1[i]
    LOCAL cImageName := _HMG_aControlProcedures[i]
    LOCAL Width := _HMG_aControlWidth[i]
@@ -579,7 +579,7 @@ PROCEDURE PW_SetPosition( cControlName, cParentForm, Value, lErase )
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, V, ;
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
          ColorDoneMin, ColorDoneMax, ColorRemain, ColorInner ) }
-      BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue( lErase, .F. ) )
+      BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue(lErase, .F.) )
    ENDIF
 
 RETURN
@@ -589,7 +589,7 @@ PROCEDURE PW_SetInnerSize( cControlName, cParentForm, Value, lErase )
 *------------------------------------------------------------------------------*
 
    LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
-   LOCAL i := GetControlIndex ( cControlName, cParentForm )
+   LOCAL i := GetControlIndex(cControlName, cParentForm)
    LOCAL n := _HMG_aControlMiscData1[i]
    LOCAL cImageName := _HMG_aControlProcedures[i]
    LOCAL Width := _HMG_aControlWidth[i]
@@ -619,7 +619,7 @@ PROCEDURE PW_SetInnerSize( cControlName, cParentForm, Value, lErase )
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, V, GradientMode, cText, ShowText, Min, Max, ;
          ColorDoneMin, ColorDoneMax, ColorRemain, ColorInner ) }
-      BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue( lErase, .F. ) )
+      BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue(lErase, .F.) )
    ENDIF
 
 RETURN
@@ -629,7 +629,7 @@ PROCEDURE PW_SetGradientMode( cControlName, cParentForm, Value, lErase )
 *------------------------------------------------------------------------------*
 
    LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
-   LOCAL i := GetControlIndex ( cControlName, cParentForm )
+   LOCAL i := GetControlIndex(cControlName, cParentForm)
    LOCAL n := _HMG_aControlMiscData1[i]
    LOCAL cImageName := _HMG_aControlProcedures[i]
    LOCAL Width := _HMG_aControlWidth[i]
@@ -654,7 +654,7 @@ PROCEDURE PW_SetGradientMode( cControlName, cParentForm, Value, lErase )
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, InnerSize, Value, cText, ShowText, Min, Max, ;
          ColorDoneMin, ColorDoneMax, ColorRemain, ColorInner ) }
-      BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue( lErase, .F. ) )
+      BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue(lErase, .F.) )
    ENDIF
 
 RETURN

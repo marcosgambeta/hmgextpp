@@ -133,7 +133,7 @@ return Self
 *       oSock:SetProxy( cProxy, VAL(nProxyPort) )
 *    endif
 *
-*    ? "Connect to " +cServer +":" +alltrim(str( nPort ))
+*    ? "Connect to " +cServer +":" +alltrim(str(nPort))
 *    if oSock:Connect( cServer, nPort )
 *       ? "Connected"
 *
@@ -201,7 +201,7 @@ return ::oSocket:Close()
 *       oSock:SetProxy( cProxy, VAL(nProxyPort) )
 *    endif
 *
-*    ? "Connect to " +cServer +":" +alltrim(str( nPort ))
+*    ? "Connect to " +cServer +":" +alltrim(str(nPort))
 *    if oSock:Connect( cServer, nPort )
 *       ? "Connected"
 *
@@ -232,7 +232,7 @@ LOCAL nPos
 
 nPos := AT( "@", cPage )
 IF nPos>0
-   ::cLoginRemote := ::SetUser( LEFT( cPage, nPos-1 ) )
+   ::cLoginRemote := ::SetUser( LEFT(cPage, nPos - 1) )
    cPage := SUBSTR(cPage, nPos + 1)
 ENDIF
 
@@ -284,7 +284,7 @@ return cRet
 *       oSock:SetProxy( cProxy, VAL(nProxyPort) )
 *    endif
 *
-*    ? "Connect to " +cServer +":" +alltrim(str( nPort ))
+*    ? "Connect to " +cServer +":" +alltrim(str(nPort))
 *    if oSock:Connect( cServer, nPort )
 *       ? "Connected"
 *
@@ -315,7 +315,7 @@ LOCAL nPos
 
 nPos := AT( "@", cPage )
 IF nPos>0
-   ::cLoginRemote := ::SetUser( LEFT( cPage, nPos-1 ) )
+   ::cLoginRemote := ::SetUser( LEFT(cPage, nPos - 1) )
    cPage := SUBSTR(cPage, nPos + 1)
 ENDIF
 
@@ -351,7 +351,7 @@ DEFAULT aPair TO {}
 
 oDecode := TDecode():New()
 
-for nPair := 1 to len( aPair )
+for nPair := 1 to len(aPair)
    if nPair!=1
       cPost += "&"
    endif

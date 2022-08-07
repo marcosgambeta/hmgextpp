@@ -229,7 +229,7 @@ METHOD ShowDialog() CLASS TTaskDialog
    LOCAL nRadioButton := NIL
    LOCAL lVerificationFlagChecked := .F.
 
-   IF ! ::lActive
+   IF !::lActive
       ::lError             := .T.
       ::nButtonResult      := NIL
       ::nRadioButtonResult := NIL
@@ -273,7 +273,7 @@ RETURN ::HWND
  */
 METHOD Showing( lState ) CLASS TTaskDialog
 
-   hb_default( @lState, .F. )
+   hb_default(@lState, .F.)
 
    IF lState .AND. ! ::lActive
       ::ShowDialog()
@@ -336,7 +336,7 @@ METHOD CommonButtons( nCBs ) CLASS TTaskDialog
 
    LOCAL nOldCBS := ::aConfig[ TDC_COMMON_BUTTON_FLAGS ]
 
-   IF ! ::lActive
+   IF !::lActive
       IF HB_ISNUMERIC(nCBs)
          ::aConfig[ TDC_COMMON_BUTTON_FLAGS ] := nCBs
       ENDIF
@@ -420,9 +420,9 @@ METHOD CustomButtons( aCustButton ) CLASS TTaskDialog
 
    LOCAL aOldVal := ::aConfig[ TDC_TASKDIALOG_BUTTON ]
 
-   IF ! ::lActive
-      IF HB_ISARRAY( aCustButton ) .AND. Len( aCustButton ) > 0
-         ::aConfig[ TDC_BUTTON ] := Len( aCustButton )
+   IF !::lActive
+      IF HB_ISARRAY( aCustButton ) .AND. Len(aCustButton) > 0
+         ::aConfig[ TDC_BUTTON ] := Len(aCustButton)
          ::aConfig[ TDC_TASKDIALOG_BUTTON ] := aCustButton
       ENDIF
    ENDIF
@@ -440,7 +440,7 @@ METHOD DefaultButton( nDefaultButton ) CLASS TTaskDialog
 
    LOCAL nOldVal := ::aConfig[ TDC_DEFAULTBUTTON ]
 
-   IF ! ::lActive
+   IF !::lActive
       IF HB_ISNUMERIC(nDefaultButton)
          ::aConfig[ TDC_DEFAULTBUTTON ] := nDefaultButton
       ENDIF
@@ -455,9 +455,9 @@ METHOD CustomRadioButtons( aCustButton ) CLASS TTaskDialog
 
    LOCAL aOldVal := ::aConfig[ TDC_TASKDIALOG_RADIOBUTTON ]
 
-   IF ! ::lActive
-      IF HB_ISARRAY( aCustButton ) .AND. Len( aCustButton ) > 0
-         ::aConfig[ TDC_RADIOBUTTON ] := Len( aCustButton )
+   IF !::lActive
+      IF HB_ISARRAY( aCustButton ) .AND. Len(aCustButton) > 0
+         ::aConfig[ TDC_RADIOBUTTON ] := Len(aCustButton)
          ::aConfig[ TDC_TASKDIALOG_RADIOBUTTON ] := aCustButton
       ENDIF
    ENDIF
@@ -473,7 +473,7 @@ METHOD DefaultRadioButton( nDefaultButton ) CLASS TTaskDialog
 
    LOCAL nOldVal := ::aConfig[ TDC_DEFAULTRADIOBUTTON ]
 
-   IF ! ::lActive
+   IF !::lActive
       IF HB_ISNUMERIC(nDefaultButton)
          ::aConfig[ TDC_DEFAULTRADIOBUTTON ] := nDefaultButton
       ENDIF
@@ -488,7 +488,7 @@ METHOD VerificationText( cText ) CLASS TTaskDialog
 
    LOCAL cOldVal := ::aConfig[ TDC_VERIFICATIONTEXT ]
 
-   IF ! ::lActive
+   IF !::lActive
       IF HB_ISSTRING( cText ) .OR. HB_ISNUMERIC(cText)
          ::aConfig[ TDC_VERIFICATIONTEXT ] := cText
       ENDIF
@@ -535,7 +535,7 @@ METHOD ExpandedControlText( cText ) CLASS TTaskDialog
 
    LOCAL cOldVal := ::aConfig[ TDC_EXPANDEDCONTROLTEXT ]
 
-   IF ! ::lActive
+   IF !::lActive
       IF HB_ISSTRING( cText ) .OR. HB_ISNUMERIC(cText)
          ::aConfig[ TDC_EXPANDEDCONTROLTEXT ] := cText
       ENDIF
@@ -558,7 +558,7 @@ METHOD CollapsedControlText( cText ) CLASS TTaskDialog
 
    LOCAL cOldVal := ::aConfig[ TDC_COLLAPSEDCONTROLTEXT ]
 
-   IF ! ::lActive
+   IF !::lActive
       IF HB_ISSTRING( cText ) .OR. HB_ISNUMERIC(cText)
          ::aConfig[ TDC_COLLAPSEDCONTROLTEXT ] := cText
       ENDIF
@@ -612,7 +612,7 @@ METHOD Width(nWidth) CLASS TTaskDialog
 
    LOCAL nOldVal := ::aConfig[ TDC_WIDTH ]
 
-   IF ! ::lActive .AND. HB_ISNUMERIC(nWidth)
+   IF !::lActive .AND. HB_ISNUMERIC(nWidth)
       ::aConfig[ TDC_WIDTH ] := nWidth
    ENDIF
 
@@ -625,7 +625,7 @@ METHOD ParentHandle( nHandle ) CLASS TTaskDialog
 
    LOCAL nOldVal := ::aConfig[ TDC_HWND ]
 
-   IF ! ::lActive .AND. HB_ISNUMERIC(nHandle) .AND. IsWindowHandle( nHandle )
+   IF !::lActive .AND. HB_ISNUMERIC(nHandle) .AND. IsWindowHandle( nHandle )
       ::aConfig[ TDC_HWND ] := nHandle
    ENDIF
 
@@ -642,7 +642,7 @@ RETURN _HMG_aFormNames[ AScan(_HMG_aFormHandles, ::ParentHandle( GetFormHandle( 
 */
 METHOD CallBackBlock( bCode ) CLASS TTaskDialog
 
-   IF ! ::lActive
+   IF !::lActive
       IF HB_ISEVALITEM( bCode )
          ::aConfig[ TDC_CALLBACK ] := bCode
       ENDIF
@@ -660,7 +660,7 @@ RETURN ::aConfig[ TDC_CALLBACK ]
 METHOD Flags( nFlags ) CLASS TTaskDialog
 
    LOCAL nOldVal := ::aConfig[ TDC_TASKDIALOG_FLAGS ]
-   IF ! ::lActive
+   IF !::lActive
       IF HB_ISNUMERIC(nFlags)
          ::aConfig[ TDC_TASKDIALOG_FLAGS ] := nFlags
       ENDIF
@@ -680,10 +680,10 @@ METHOD AllowDialogCancellation( lNewVal ) CLASS TTaskDialog
    LOCAL nCurFlags := ::Flags(), lOldVal
    LOCAL nNewFlags
 
-   hb_default( @nCurFlags, 0 )
+   hb_default(@nCurFlags, 0)
    lOldVal := ( hb_bitAnd( nCurFlags, TDF_ALLOW_DIALOG_CANCELLATION ) != 0 )
 
-   IF ! ::lActive .AND. HB_ISLOGICAL( lNewVal )
+   IF !::lActive .AND. HB_ISLOGICAL( lNewVal )
       IF ( ( ! lOldVal ) .AND. lNewVal )
          nNewFlags := hb_bitOr( nCurFlags, TDF_ALLOW_DIALOG_CANCELLATION )
       ELSEIF ( lOldVal .AND. ( ! lNewVal ) )
@@ -702,10 +702,10 @@ METHOD CanBeMinimized( lNewVal ) CLASS TTaskDialog
    LOCAL nCurFlags := ::Flags(), lOldVal
    LOCAL nNewFlags
 
-   hb_default( @nCurFlags, 0 )
+   hb_default(@nCurFlags, 0)
    lOldVal := ( hb_bitAnd( nCurFlags, TDF_CAN_BE_MINIMIZED ) != 0 )
 
-   IF ! ::lActive .AND. HB_ISLOGICAL( lNewVal )
+   IF !::lActive .AND. HB_ISLOGICAL( lNewVal )
       IF ( ( ! lOldVal ) .AND. lNewVal )
          nNewFlags := hb_bitOr( nCurFlags, TDF_CAN_BE_MINIMIZED )
       ELSEIF ( lOldVal .AND. ( ! lNewVal ) )
@@ -736,10 +736,10 @@ METHOD EnableHyperlinks( lNewVal ) CLASS TTaskDialog
    LOCAL nCurFlags := ::Flags(), lOldVal
    LOCAL nNewFlags
 
-   hb_default( @nCurFlags, 0 )
+   hb_default(@nCurFlags, 0)
    lOldVal := ( hb_bitAnd( nCurFlags, TDF_ENABLE_HYPERLINKS ) != 0 )
 
-   IF ! ::lActive .AND. HB_ISLOGICAL( lNewVal )
+   IF !::lActive .AND. HB_ISLOGICAL( lNewVal )
       IF ( ( ! lOldVal ) .AND. lNewVal )
          nNewFlags := hb_bitOr( nCurFlags, TDF_ENABLE_HYPERLINKS )
       ELSEIF ( lOldVal .AND. ( ! lNewVal ) )
@@ -761,10 +761,10 @@ METHOD ExpandedByDefault( lNewVal ) CLASS TTaskDialog
    LOCAL nCurFlags := ::Flags(), lOldVal
    LOCAL nNewFlags
 
-   hb_default( @nCurFlags, 0 )
+   hb_default(@nCurFlags, 0)
    lOldVal := ( hb_bitAnd( nCurFlags, TDF_EXPANDED_BY_DEFAULT ) != 0 )
 
-   IF ! ::lActive .AND. HB_ISLOGICAL( lNewVal )
+   IF !::lActive .AND. HB_ISLOGICAL( lNewVal )
       IF ( ( ! lOldVal ) .AND. lNewVal )
          nNewFlags := hb_bitOr( nCurFlags, TDF_EXPANDED_BY_DEFAULT )
       ELSEIF ( lOldVal .AND. ( ! lNewVal ) )
@@ -788,10 +788,10 @@ METHOD ExpandFooterArea( lNewVal ) CLASS TTaskDialog
    LOCAL nCurFlags := ::Flags(), lOldVal
    LOCAL nNewFlags
 
-   hb_default( @nCurFlags, 0 )
+   hb_default(@nCurFlags, 0)
    lOldVal := ( hb_bitAnd( nCurFlags, TDF_EXPAND_FOOTER_AREA ) != 0 )
 
-   IF ! ::lActive .AND. HB_ISLOGICAL( lNewVal )
+   IF !::lActive .AND. HB_ISLOGICAL( lNewVal )
       IF ( ( ! lOldVal ) .AND. lNewVal )
          nNewFlags := hb_bitOr( nCurFlags, TDF_EXPAND_FOOTER_AREA )
       ELSEIF ( lOldVal .AND. ( ! lNewVal ) )
@@ -810,10 +810,10 @@ METHOD NoDefaultRadioButton( lNewVal ) CLASS TTaskDialog
    LOCAL nCurFlags := ::Flags(), lOldVal
    LOCAL nNewFlags
 
-   hb_default( @nCurFlags, 0 )
+   hb_default(@nCurFlags, 0)
    lOldVal := ( hb_bitAnd( nCurFlags, TDF_NO_DEFAULT_RADIO_BUTTON ) != 0 )
 
-   IF ! ::lActive .AND. HB_ISLOGICAL( lNewVal )
+   IF !::lActive .AND. HB_ISLOGICAL( lNewVal )
       IF ( ( ! lOldVal ) .AND. lNewVal )
          nNewFlags := hb_bitOr( nCurFlags, TDF_NO_DEFAULT_RADIO_BUTTON )
       ELSEIF ( lOldVal .AND. ( ! lNewVal ) )
@@ -836,10 +836,10 @@ METHOD PositionRelativeToWindow( lNewVal ) CLASS TTaskDialog
    LOCAL nCurFlags := ::Flags(), lOldVal
    LOCAL nNewFlags
 
-   hb_default( @nCurFlags, 0 )
+   hb_default(@nCurFlags, 0)
    lOldVal := ( hb_bitAnd( nCurFlags, TDF_POSITION_RELATIVE_TO_WINDOW ) != 0 )
 
-   IF ! ::lActive .AND. HB_ISLOGICAL( lNewVal )
+   IF !::lActive .AND. HB_ISLOGICAL( lNewVal )
       IF ( ( ! lOldVal ) .AND. lNewVal )
          nNewFlags := hb_bitOr( nCurFlags, TDF_POSITION_RELATIVE_TO_WINDOW )
       ELSEIF ( lOldVal .AND. ( ! lNewVal ) )
@@ -858,10 +858,10 @@ METHOD RightToLeftLayout( lNewVal ) CLASS TTaskDialog
    LOCAL nCurFlags := ::Flags(), lOldVal
    LOCAL nNewFlags
 
-   hb_default( @nCurFlags, 0 )
+   hb_default(@nCurFlags, 0)
    lOldVal := ( hb_bitAnd( nCurFlags, TDF_RTL_LAYOUT ) != 0 )
 
-   IF ! ::lActive .AND. HB_ISLOGICAL( lNewVal )
+   IF !::lActive .AND. HB_ISLOGICAL( lNewVal )
       IF ( ( ! lOldVal ) .AND. lNewVal )
          nNewFlags := hb_bitOr( nCurFlags, TDF_RTL_LAYOUT )
       ELSEIF ( lOldVal .AND. ( ! lNewVal ) )
@@ -882,10 +882,10 @@ METHOD VerificationEnabled( lNewVal ) CLASS TTaskDialog
    LOCAL nCurFlags := ::Flags(), lOldVal
    LOCAL nNewFlags
 
-   hb_default( @nCurFlags, 0 )
+   hb_default(@nCurFlags, 0)
    lOldVal := ( hb_bitAnd( nCurFlags, TDF_VERIFICATION_FLAG_CHECKED ) != 0 )
 
-   IF ! ::lActive .AND. HB_ISLOGICAL( lNewVal )
+   IF !::lActive .AND. HB_ISLOGICAL( lNewVal )
       IF ( ( ! lOldVal ) .AND. lNewVal )
          nNewFlags := hb_bitOr( nCurFlags, TDF_VERIFICATION_FLAG_CHECKED )
       ELSEIF ( lOldVal .AND. ( ! lNewVal ) )
@@ -906,7 +906,7 @@ METHOD timeoutMS ( nMS ) CLASS TTaskDialog
 
    LOCAL nOldVal := ::nTimeOutMS
 
-   IF ! ::lActive .AND. HB_ISNUMERIC(nMS)
+   IF !::lActive .AND. HB_ISNUMERIC(nMS)
       ::nTimeOutMS := nMS
    ENDIF
 

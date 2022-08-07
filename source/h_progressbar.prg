@@ -69,14 +69,14 @@ FUNCTION _DefineProgressBar ( ControlName, ParentFormName, x, y, w, h, lo, hi, ;
    ow := oDlu2Pixel()
 #endif
 
-   hb_default( @vertical, .F. )
-   hb_default( @h, iif( vertical, 120, 25 ) )
-   hb_default( @w, iif( vertical, 25, 120 ) )
-   hb_default( @lo, 0 )
-   hb_default( @hi, 100 )
-   hb_default( @value, 0 )
-   hb_default( @velocity, 40 )
-   hb_default( @invisible, .F. )
+   hb_default(@vertical, .F.)
+   hb_default(@h, iif(vertical, 120, 25))
+   hb_default(@w, iif(vertical, 25, 120))
+   hb_default(@lo, 0)
+   hb_default(@hi, 100)
+   hb_default(@value, 0)
+   hb_default(@velocity, 40)
+   hb_default(@invisible, .F.)
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
       ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
@@ -118,7 +118,7 @@ FUNCTION _DefineProgressBar ( ControlName, ParentFormName, x, y, w, h, lo, hi, ;
 
          //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {|x, y, z| InitDialogProgressBar( x, y, z ) }
-         AAdd( _HMG_aDialogItems, { nId, k, "msctls_progress32", style, 0, x, y, w, h, "", HelpId, tooltip, "", 0, , , , , blInit, _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage } )
+         AAdd(_HMG_aDialogItems, {nId, k, "msctls_progress32", style, 0, x, y, w, h, "", HelpId, tooltip, "", 0, , , , , blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
 
@@ -157,7 +157,7 @@ FUNCTION _DefineProgressBar ( ControlName, ParentFormName, x, y, w, h, lo, hi, ;
       ENDIF
 
       IF _HMG_BeginTabActive
-         AAdd( _HMG_ActiveTabCurrentPageMap , Controlhandle )
+         AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
       ENDIF
 
       IF ValType(tooltip) != "U"
@@ -260,7 +260,7 @@ FUNCTION InitDialogProgressBar( ParentName, ControlHandle, k )
       SetProgressBarBarColor( ControlHandle, BarColor [1], BarColor [2], BarColor [3] )
    ENDIF
 // JP 62
-   IF Len( _HMG_aDialogTemplate ) != 0 .AND. _HMG_aDialogTemplate[3]  // Modal
+   IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]  // Modal
       _HMG_aControlDeleted [k] := .T.
    ENDIF
 

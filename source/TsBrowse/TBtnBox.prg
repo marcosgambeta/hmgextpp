@@ -98,7 +98,7 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, ;
 
    ::SetColor( nClrFore, nClrBack )
 
-   if ! Empty(ParentHandle)
+   if !Empty(ParentHandle)
       if lSpinner
          ::Create( "EDIT" )
          nMin := IIf( ValType(bMin) == "B", Eval( bMin ), bMin )
@@ -135,8 +135,8 @@ METHOD Default() CLASS TBtnBox
       cValue := cValToChar( cValue )
    EndIf
 
-   if Len( cValue ) > 0
-      SetWindowText( ::hWnd, cValue )
+   if Len(cValue) > 0
+      SetWindowText(::hWnd, cValue)
    endif
 
 Return NIL

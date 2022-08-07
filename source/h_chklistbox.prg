@@ -75,23 +75,23 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
-   IF ! ISARRAY( arows )
+   IF !ISARRAY( arows )
       arows := {}
    ENDIF
-   IF Len( arows ) > 0
-      IF ! ISARRAY( arows[1] )
+   IF Len(arows) > 0
+      IF !ISARRAY( arows[1] )
          rows := AClone( arows )
-         AEval( arows, { |x, y| HB_SYMBOL_UNUSED( x ), nPos := y, AAdd( aChkItem, iif( AScan(aCheck, { |z| z == nPos }) > 0, 2, 1) ) } )
+         AEval(arows, {|x, y|HB_SYMBOL_UNUSED(x), nPos := y, AAdd(aChkItem, iif(AScan(aCheck, {|z|z == nPos}) > 0, 2, 1))})
       ELSE
-         AEval( arows, { |x| AAdd( rows, x[1] ) } )
-         AEval( arows, { |x, y| nPos := y, AAdd( aChkItem, iif( ValType(x[2]) == "L" .AND. x[2] .OR. AScan(aCheck, { |z| z == nPos }) > 0, 2, 1) ) } )
+         AEval( arows, {|x|AAdd(rows, x[1])} )
+         AEval( arows, { |x, y| nPos := y, AAdd(aChkItem, iif(ValType(x[2]) == "L" .AND. x[2] .OR. AScan(aCheck, {|z|z == nPos}) > 0, 2, 1)) } )
       ENDIF
    ENDIF
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
       ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
-      __defaultNIL( @FontName, _HMG_ActiveFontName )
-      __defaultNIL( @FontSize, _HMG_ActiveFontSize )
+      __defaultNIL(@FontName, _HMG_ActiveFontName)
+      __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
 
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
@@ -139,7 +139,7 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
 
          //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {|x, y, z| InitDialogChkListBox( x, y, z ) }
-         AAdd( _HMG_aDialogItems, { nId, k, "LISTBOX", style, 0, x, y, w, h, "", HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage } )
+         AAdd(_HMG_aDialogItems, {nId, k, "LISTBOX", style, 0, x, y, w, h, "", HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
 
@@ -169,12 +169,12 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
          IF i > 0
 
             IF multiselect
-               ControlHandle := InitMultiChkListBox ( _HMG_aFormReBarHandle [i], 0, x, y, w, h, fontname, fontsize, invisible, notabstop, sort, nItemHeight )
+               ControlHandle := InitMultiChkListBox ( _HMG_aFormReBarHandle[i], 0, x, y, w, h, fontname, fontsize, invisible, notabstop, sort, nItemHeight )
             ELSE
-               ControlHandle := InitChkListBox ( _HMG_aFormReBarHandle [i] , 0 , 0 , 0 , w , h , "" , 0 , invisible , notabstop, sort, nItemHeight )
+               ControlHandle := InitChkListBox ( _HMG_aFormReBarHandle[i] , 0 , 0 , 0 , w , h , "" , 0 , invisible , notabstop, sort, nItemHeight )
             ENDIF
 
-            AddSplitBoxItem ( Controlhandle , _HMG_aFormReBarHandle [i] , w , break , , , , _HMG_ActiveSplitBoxInverted )
+            AddSplitBoxItem ( Controlhandle , _HMG_aFormReBarHandle[i] , w , break , , , , _HMG_ActiveSplitBoxInverted )
 
             _HMG_SplitLastControl := "LISTBOX"
 
@@ -197,15 +197,15 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
       IF FontHandle != 0
          _SetFontHandle( ControlHandle, FontHandle )
       ELSE
-         __defaultNIL( @FontName, _HMG_DefaultFontName )
-         __defaultNIL( @FontSize, _HMG_DefaultFontSize )
+         __defaultNIL(@FontName, _HMG_DefaultFontName)
+         __defaultNIL(@FontSize, _HMG_DefaultFontSize)
          IF IsWindowHandle( ControlHandle )
             FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
          ENDIF
       ENDIF
 
       IF _HMG_BeginTabActive
-         AAdd( _HMG_ActiveTabCurrentPageMap , ControlHandle )
+         AAdd(_HMG_ActiveTabCurrentPageMap, ControlHandle)
       ENDIF
 
       IF ValType(tooltip) != "U"
@@ -265,12 +265,12 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
       Eval( _HMG_bOnControlInit, k, mVar )
    ENDIF
 
-   IF Len( _HMG_aDialogTemplate ) == 0     //Dialog Template
-      IF Len( aRows ) > 0
+   IF Len(_HMG_aDialogTemplate) == 0     //Dialog Template
+      IF Len(aRows) > 0
          AEval( Rows, { | r,n | ChkListboxAddItem ( ControlHandle, r, aChkItem[n], nItemHeight ) } )
       ENDIF
 
-      IF FontSize != _HMG_DefaultFontSize .AND. Len( Rows ) > 0
+      IF FontSize != _HMG_DefaultFontSize .AND. Len(Rows) > 0
          SetChkLBItemHeight(ControlHandle, FontHandle)
       ENDIF
 
@@ -299,11 +299,11 @@ FUNCTION InitDialogChkListBox( ParentName, ControlHandle, k )
    FontSize    := _HMG_aControlFontSize  [k]
    FontHandle  := _HMG_aControlFontHandle  [k]
 
-   IF Len( Rows ) > 0
+   IF Len(Rows) > 0
       AEval( Rows , { | r | ListboxAddString ( ControlHandle , r ) } )
    ENDIF
 
-   IF FontSize != _HMG_DefaultFontSize .AND. Len( Rows ) > 0
+   IF FontSize != _HMG_DefaultFontSize .AND. Len(Rows) > 0
       SetChkLBItemHeight(ControlHandle, FontHandle)
    ENDIF
 
@@ -317,7 +317,7 @@ FUNCTION InitDialogChkListBox( ParentName, ControlHandle, k )
       ENDIF
    ENDIF
 // JP 62
-   IF Len( _HMG_aDialogTemplate ) != 0 .AND. _HMG_aDialogTemplate [3]  // Modal
+   IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate [3]  // Modal
       _HMG_aControlDeleted [k] := .T.
    ENDIF
 

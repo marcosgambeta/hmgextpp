@@ -81,7 +81,7 @@
 
 PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest, xcFile, xcAlias, lAdditive, aSummary, xEval )
 
-   LOCAL nLenSelectList := Len( aSelectList )
+   LOCAL nLenSelectList := Len(aSelectList)
    LOCAL xExprValue, cExprValue, cExprType, nExprLen, aStruct := {}
    LOCAL lOTM := ( ValType(aOneToMany) == "A" )
    LOCAL nExprAlias, nCurrExpr, nSelectFrom, nSelectChild, nSelectTemp, xValueFromMother, axExpr := {}
@@ -151,15 +151,15 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
       xExprValue := Eval( aSelectList[ nCurrExpr, 1 ] )
       cExprType := ValType(xExprValue)
-      cExprValue := Transform( xExprValue, "" )
-      nExprLen := Len( cExprValue )
-      AAdd( aStruct, { iif( ( nExprAlias := At( "->", aSelectList[ nCurrExpr, 2 ] ) ) == 0, aSelectList[ nCurrExpr, 2 ], ;
+      cExprValue := Transform(xExprValue, "")
+      nExprLen := Len(cExprValue)
+      AAdd(aStruct, { iif( ( nExprAlias := At( "->", aSelectList[ nCurrExpr, 2 ] ) ) == 0, aSelectList[ nCurrExpr, 2 ], ;
          SubStr(aSelectList[ nCurrExpr, 2 ], nExprAlias + 2) ), cExprType, ;
          iif( aSelectList[ nCurrExpr, 3 ] <> NIL, aSelectList[ nCurrExpr, 3 ], ;
          iif( cExprType == "D", 8, nExprLen ) ), ;
          iif( aSelectList[ nCurrExpr, 4 ] <> NIL, aSelectList[ nCurrExpr, 4 ], ;
          iif( cExprType == "N" .AND. ( nExprAlias := At( ".", cExprValue ) ) > 0, ;
-         nExprLen - nExprAlias, 0 ) ) } )
+         nExprLen - nExprAlias, 0 ) ) })
 
       IF aSelectList[ nCurrExpr, 5 ] == "G"
 
@@ -191,11 +191,11 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
          ENDIF
 
-         AAdd( axExpr, aSelectList[ nCurrExpr, 1 ] )
+         AAdd(axExpr, aSelectList[nCurrExpr, 1])
 
       ELSEIF aSelectList[ nCurrExpr, 6 ] .AND. ( lSummary .AND. .NOT. lAdditive )
 
-         AAdd( aSummary, 0 )
+         AAdd(aSummary, 0)
 
       ENDIF
 
@@ -345,7 +345,7 @@ STATIC FUNCTION ToString( cStr )
 
    IF cType == "N"
 
-      cStr := Str( cStr )
+      cStr := Str(cStr)
 
    ELSEIF cType == "D"
 

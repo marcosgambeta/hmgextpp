@@ -66,18 +66,18 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
    ow := oDlu2Pixel()
 #endif
 
-   hb_default( @w, 120 )
-   hb_default( @h, 24 )
-   __defaultNIL( @value, rl )
-   __defaultNIL( @change, "" )
-   __defaultNIL( @lostfocus, "" )
-   __defaultNIL( @gotfocus, "" )
-   hb_default( @horizontal, .F. )
-   hb_default( @invisible, .F. )
-   hb_default( @notabstop, .F. )
-   hb_default( @wrap, .F. )
-   hb_default( @readonly, .F. )
-   hb_default( @increment, 1 )
+   hb_default(@w, 120)
+   hb_default(@h, 24)
+   __defaultNIL(@value, rl)
+   __defaultNIL(@change, "")
+   __defaultNIL(@lostfocus, "")
+   __defaultNIL(@gotfocus, "")
+   hb_default(@horizontal, .F.)
+   hb_default(@invisible, .F.)
+   hb_default(@notabstop, .F.)
+   hb_default(@wrap, .F.)
+   hb_default(@readonly, .F.)
+   hb_default(@increment, 1)
 
    IF ( FontHandle := GetFontHandle( FontName ) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
@@ -85,8 +85,8 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
 
    IF _HMG_BeginWindowActive
       ParentForm := _HMG_ActiveFormName
-      __defaultNIL( @FontName, _HMG_ActiveFontName )
-      __defaultNIL( @FontSize, _HMG_ActiveFontSize )
+      __defaultNIL(@FontName, _HMG_ActiveFontName)
+      __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
       x := x + _HMG_ActiveFrameCol [_HMG_FrameLevel]
@@ -115,15 +115,15 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
    IF FontHandle != 0
       _SetFontHandle( ControlHandle, FontHandle )
    ELSE
-      __defaultNIL( @FontName, _HMG_DefaultFontName )
-      __defaultNIL( @FontSize, _HMG_DefaultFontSize )
+      __defaultNIL(@FontName, _HMG_DefaultFontName)
+      __defaultNIL(@FontSize, _HMG_DefaultFontSize)
       IF IsWindowHandle( ControlHandle )
          FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
       ENDIF
    ENDIF
 
    IF _HMG_BeginTabActive
-      AAdd( _HMG_ActiveTabCurrentPageMap , RetArray )
+      AAdd(_HMG_ActiveTabCurrentPageMap, RetArray)
    ENDIF
 
    IF ValType(tooltip) != "U"
@@ -179,7 +179,7 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
    _HMG_aControlMiscData1          [k] := { 0, readonly }
    _HMG_aControlMiscData2          [k] := ""
 
-   IF ! Empty(cuetext) .AND. IsVistaOrLater() .AND. IsThemed()
+   IF !Empty(cuetext) .AND. IsVistaOrLater() .AND. IsThemed()
       value := ""
       SendMessageWideString ( ControlHandle, EM_SETCUEBANNER, .T., cuetext )
    ENDIF
@@ -232,18 +232,18 @@ FUNCTION OSPINEVENTS( hWnd, nMsg, wParam, lParam )    // 2006.08.13 JD
    CASE WM_CONTEXTMENU
 
       i := AScan(_HMG_aControlHandles, { |x| iif( ValType(x) == "A", ( AScan(x, hWnd) > 0 ), x == hWnd ) })
-      ParentForm := _HMG_aControlParentHandles [i]
+      ParentForm := _HMG_aControlParentHandles[i]
 
       i := AScan(_HMG_aControlsContextMenu, { |x| x [1] == hWnd })
 
       IF i > 0
 
-         IF _HMG_aControlsContextMenu [i][4] == .T.
+         IF _HMG_aControlsContextMenu[i][4] == .T.
             setfocus( wParam )
 
-            _HMG_xControlsContextMenuID := _HMG_aControlsContextMenu [i][3]
+            _HMG_xControlsContextMenuID := _HMG_aControlsContextMenu[i][3]
 
-            TrackPopupMenu ( _HMG_aControlsContextMenu [i][2], LOWORD(lParam), HIWORD(lParam), ParentForm )
+            TrackPopupMenu ( _HMG_aControlsContextMenu[i][2], LOWORD(lParam), HIWORD(lParam), ParentForm )
 
             RETURN 1
          ENDIF

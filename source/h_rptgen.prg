@@ -462,7 +462,7 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
 
       ENDIF
 
-      IF ! lSuccess
+      IF !lSuccess
          MsgMiniGuiError("Report: Can't Init Printer.")
       ENDIF
 

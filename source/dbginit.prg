@@ -26,15 +26,15 @@ INIT PROCEDURE _DbgInit
       nLines   := MLCount( cIniCont, nLineLen )
       FOR nLine := 1 TO nLines
          cLine := Upper(AllTrim(MemoLine(cIniCont, nLineLen, nLine)))
-         IF Left( cLine, 7 ) == "SCREEN "
+         IF Left(cLine, 7) == "SCREEN "
             nPos  := At( " ", cLine )
-            cLine := AllTrim( SubStr(cLine, nPos + 1) )
-            IF Left( cLine, 5 ) == "SIZE "
+            cLine := AllTrim(SubStr(cLine, nPos + 1))
+            IF Left(cLine, 5) == "SIZE "
                nPos  := At( " ", cLine )
-               cLine := AllTrim( SubStr(cLine, nPos + 1) )
+               cLine := AllTrim(SubStr(cLine, nPos + 1))
                IF " " $ cLine
-                  nRows := Max( Val( AllTrim( Left( cLine, nPos - 1 ) ) ), 25 )
-                  nCols := Max( Val( AllTrim( SubStr(cLine, nPos + 1) ) ), 80 )
+                  nRows := Max(Val(AllTrim(Left(cLine, nPos - 1))), 25)
+                  nCols := Max(Val(AllTrim(SubStr(cLine, nPos + 1))), 80)
                ENDIF
             ENDIF
          ENDIF

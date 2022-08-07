@@ -22,7 +22,7 @@ METHOD New( cResName, cPredef ) CLASS TCursor
 
    local nAt, aTypes
 
-   if ! Empty(cPredef)
+   if !Empty(cPredef)
       cPredef := Upper(cPredef)
       if ( nAt := AScan({ "ARROW", "IBEAM", "WAIT",;
                            "CROSS", "UPARROW", ;

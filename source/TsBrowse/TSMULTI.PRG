@@ -77,7 +77,7 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, hFont, ;
 
    ::Atx := 0
 
-   if ! Empty(::oWnd:hWnd)
+   if !Empty(::oWnd:hWnd)
 
       ::Create( "EDIT" )
       ::AddVars( ::hWnd )
@@ -99,8 +99,8 @@ METHOD Default() CLASS TSMulti
 
    LOCAL VALUE := Eval( ::bSetGet )
 
-   If ! Empty(Value)
-      SetWindowText( ::hWnd, Value )
+   If !Empty(Value)
+      SetWindowText(::hWnd, Value)
    ENDIF
 
 RETURN NIL
@@ -152,12 +152,12 @@ METHOD Save() CLASS TSMulti
 
    IF ::bSetGet != NIL
       cText := ::GetText()
-      IF Right( cText, 2 ) == CRLF
+      IF Right(cText, 2) == CRLF
          cText := SubStr(cText, 1, Len(cText) - 2)
       ENDIF
 
       IF ::oCol:lEditBox .AND. ! Empty(cText) .AND. CRLF $ cText
-         IF Len( ::oCol:cEditBoxSep ) > 0
+         IF Len(::oCol:cEditBoxSep) > 0
             cText := StrTran(cText, CRLF, ::oCol:cEditBoxSep)
          ELSEIF ::oCol:nEditBoxWrap > 0
             cText := StrTran(cText, CRLF, " ")

@@ -59,17 +59,17 @@ FUNCTION ASave( aArray )
    LOCAL uData
    LOCAL cInfo := ""
 
-   FOR n := 1 TO Len( aArray )
+   FOR n := 1 TO Len(aArray)
       cType := ValType(aArray[n])
       DO CASE
          CASE cType == "A" ; cInfo += ASave( aArray[n] )
          CASE cType == "O" ; cInfo += aArray[n]:Save()
       OTHERWISE
-         cInfo += ( cType + I2Bin( Len( uData := cValToChar( aArray[n] ) ) ) + uData )
+         cInfo += ( cType + I2Bin( Len(uData := cValToChar( aArray[n] )) ) + uData )
       ENDCASE
    NEXT
 
-RETURN "A" + I2Bin( 2 + Len( cInfo ) ) + I2Bin( Len( aArray ) ) + cInfo
+RETURN "A" + I2Bin( 2 + Len(cInfo) ) + I2Bin( Len(aArray) ) + cInfo
 
 
 FUNCTION ARead( cInfo )
@@ -85,7 +85,7 @@ FUNCTION ARead( cInfo )
    nPos   += 2
    aArray := Array( nLen )
 
-   FOR n := 1 TO Len( aArray )
+   FOR n := 1 TO Len(aArray)
       cType   := SubStr(cInfo, nPos++, 1)
       nLen    := Bin2I( SubStr(cInfo, nPos, 2) )
       nPos    += 2

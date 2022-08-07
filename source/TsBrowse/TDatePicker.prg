@@ -95,7 +95,7 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
        oWnd := GetFormHandle( cWnd )                 //JP
    endif
 
-   if ! Empty(::oWnd:hWnd)
+   if !Empty(::oWnd:hWnd)
 
       ::hWnd := InitDatePick( ::oWnd:hWnd, 0, nCol, nRow, nWidth, nHeight, "", 0, shownone, updown, rightalign, invisible, notabstop )
 

@@ -80,7 +80,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
 
    DEFAULT lPrint := .F., cTitle := "", nSep := 0, nLegendsWidth := 50, cPicture := "999,999.99"
 
-   IF ( Len( aSeries ) != Len( aData ) ) .OR. ( Len( aSeries ) > Len( aColors ) )
+   IF ( Len(aSeries) != Len(aData) ) .OR. ( Len(aSeries) > Len(aColors) )
       MsgMiniGuiError( "DRAW GRAPH: 'Series' / 'SerieNames' / 'Colors' arrays size mismatch." )
    ENDIF
 
@@ -180,7 +180,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
    //
    IF lLegends
       nPos := nTop + 2
-      FOR nI := 1 TO Len( aSeries )
+      FOR nI := 1 TO Len(aSeries)
          DrawBar( parent, nRight + ( ( _HMG_DefaultFontSize - 1 ) * nResH ), nPos + _HMG_DefaultFontSize * nResV,;
             ( _HMG_DefaultFontSize - 2 ) * nResH, ( _HMG_DefaultFontSize - 3 ) * nResV, l3D, 1, aColors[nI] )
          cNameObj := "Obj_Name_" + hb_ntos( nGraphObj++ )
@@ -196,8 +196,8 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
    // Max, Min values
    //
    nMax := nMin := 0
-   FOR nJ := 1 TO Len( aSeries )
-      FOR nI := 1 TO Len( aData[nJ] )
+   FOR nJ := 1 TO Len(aSeries)
+      FOR nI := 1 TO Len(aData[nJ])
          nMax := Max( aData[nJ][nI], nMax )
          nMin := Min( aData[nJ][nI], nMin )
       NEXT nI
@@ -228,7 +228,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
       DrawLine( parent, nZero - nDeep, nLeft, nZero - nDeep, nRight, GRAY )
    ENDIF
 
-   aPoint := Array( Len( aSeries ), Len( aData[1] ), 2 )
+   aPoint := Array( Len(aSeries), Len(aData[1]), 2 )
    nRange := nMax / nXRanges
 
    // xLabels
@@ -239,7 +239,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
          IF nRange * nI <= nXMax
             cNameObj := "Obj_Name_" + hb_ntos( nGraphObj++ )
             @ nRPos + nDeep - 5, nLeft - nDeep - 75 LABEL (cNameObj) OF (parent);
-               VALUE Transform( nRange * nI, cPicture );
+               VALUE Transform(nRange * nI, cPicture);
                WIDTH 65;
                HEIGHT _HMG_DefaultFontSize + 3;
                FONTCOLOR aClrFore;
@@ -252,7 +252,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
          IF nRange * ( - nI ) >= nXMin * ( -1 )
             cNameObj := "Obj_Name_" + hb_ntos( nGraphObj++ )
             @ nRNeg + nDeep - 5, nLeft - nDeep - 75 LABEL (cNameObj) OF (parent);
-               VALUE Transform( nRange *- nI, cPicture );
+               VALUE Transform(nRange *- nI, cPicture);
                WIDTH 65;
                HEIGHT _HMG_DefaultFontSize + 3;
                FONTCOLOR aClrFore;
@@ -295,8 +295,8 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
       NEXT
    ENDIF
 
-   nRange := Len( aData[1] )
-   nSeries := Len( aSeries )
+   nRange := Len(aData[1])
+   nSeries := Len(aSeries)
    DO WHILE .T.    // Bar adjust
       nPos := nLeft + nWide / 2
       nPos += ( nWide + nSep ) * ( nSeries + 1 ) * nRange
@@ -312,7 +312,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
 
    // yLabels
    //
-   IF lyVal .AND. Len( aYVals ) > 0
+   IF lyVal .AND. Len(aYVals) > 0
       nWideB := ( nRight - nLeft ) / ( nMax( aData ) + 1 )
       nI := nLeft + nWideB
       FOR nJ := 1 TO nMax( aData )
@@ -330,7 +330,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
    //
    IF nType == BARS
       nPos := nLeft + ( nWide + nSep ) / 2
-      lRedraw := ( nSeries == 1 .AND. Len( aColors ) >= nRange )
+      lRedraw := ( nSeries == 1 .AND. Len(aColors) >= nRange )
       FOR nI := 1 TO nRange
          FOR nJ := 1 TO nSeries
             DrawBar( parent, nPos, iif( l3D, nZero, nZero - 1 ), aData[nJ,nI] / nMin + nDeep, nWide, l3D, nDeep, ;
@@ -395,7 +395,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
          FOR nJ := 1 TO nSeries
             DRAW TEXT IN WINDOW &parent ;
                AT nZero - ( aData[nJ, nI] / nMin + iif( l3D, nDeep, 16 ) ), iif( nType == BARS, nPos - iif( l3D, 20, 40 ), nPos + 8 ) ;
-               VALUE Transform( aData[nJ, nI], cPicture ) ;
+               VALUE Transform(aData[nJ, nI], cPicture) ;
                FONT _HMG_DefaultFontName SIZE _HMG_DefaultFontSize - 1 ;
                FONTCOLOR aClrFore TRANSPARENT
             nPos += iif( nType == BARS, nWide + nSep, 0 )
@@ -514,7 +514,7 @@ FUNCTION nMax( aData )
 
    LOCAL nMax := 0
 
-   AEval( aData, { | ele | nMax := Max( nMax, Len( ele ) ) } )
+   AEval( aData, { | ele | nMax := Max( nMax, Len(ele) ) } )
 
 RETURN( nMax )
 
@@ -702,8 +702,8 @@ FUNCTION drawpiegraph( windowname, fromrow, fromcol, torow, tocol, series, aname
       DrawWindowBoxIn( windowname, fromrow, fromcol, torow - 1, tocol - 1 )
    ENDIF
 
-   ctitle := AllTrim( ctitle )
-   IF Len( ctitle ) > 0
+   ctitle := AllTrim(ctitle)
+   IF Len(ctitle) > 0
       backcolor := GetProperty( windowname, "BackColor" )
       IF backcolor[1] == -1 .AND. backcolor[2] == -1 .AND. backcolor[3] == -1
          backcolor := NIL
@@ -712,13 +712,13 @@ FUNCTION drawpiegraph( windowname, fromrow, fromcol, torow, tocol, series, aname
       define label (cname)
         parent (windowname)
         row fromrow + 10
-        col fromcol + iif( Len( ctitle ) * 8 > ( tocol - fromcol ), 0, 5 )
-        width iif( Len( ctitle ) * 8 > ( tocol - fromcol ), Len( ctitle ) * 10, tocol - fromcol - 10 )
+        col fromcol + iif( Len(ctitle) * 8 > ( tocol - fromcol ), 0, 5 )
+        width iif( Len(ctitle) * 8 > ( tocol - fromcol ), Len(ctitle) * 10, tocol - fromcol - 10 )
         height 16 + _HMG_DefaultFontSize
 //        fontbold .T.
         fontname _HMG_DefaultFontName
         fontsize _HMG_DefaultFontSize + 3
-        centeralign ( Len( ctitle ) * 8 < ( tocol - fromcol ) )
+        centeralign ( Len(ctitle) * 8 < ( tocol - fromcol ) )
         vcenteralign .T.
         value ctitle
         fontcolor { 0, 0, 0 }
@@ -733,11 +733,11 @@ FUNCTION drawpiegraph( windowname, fromrow, fromcol, torow, tocol, series, aname
       IF toright
          tocol := 2 / 3 * tocol + 10
       ELSE
-         IF Len( aname ) * 20 > ( torow - fromrow - 60 )
+         IF Len(aname) * 20 > ( torow - fromrow - 60 )
             lsleg := .F.
             MsgAlert( "No space for showing legends", "Pie Graph" )
          ELSE
-            torow -= ( Len( aname ) * 20 )
+            torow -= ( Len(aname) * 20 )
          ENDIF
       ENDIF
    ENDIF
@@ -772,18 +772,18 @@ FUNCTION drawpiegraph( windowname, fromrow, fromcol, torow, tocol, series, aname
    tocol++
 
    AEval( series, {|i| ser_sum += i } )
-   AEval( series, {|i| AAdd( degrees, Round( i / ser_sum * 360, 0 ) ) } )
+   AEval( series, {|i| AAdd(degrees, Round(i / ser_sum * 360, 0)) } )
    sum := 0
    AEval( degrees, {|i| sum += i } )
    IF sum <> 360
       degrees[len(degrees)] += 360 - sum
    ENDIF
    sum := 0
-   AEval( degrees, {|i| sum += i, AAdd( cumulative,sum ) } )
+   AEval( degrees, {|i| sum += i, AAdd(cumulative, sum) } )
 
    fromradialrow := middlerightrow
    fromradialcol := middlerightcol
-   FOR i := 1 TO Len( cumulative )
+   FOR i := 1 TO Len(cumulative)
       shadowcolor := { iif( colors[i,1] > 50, colors[i,1] - 50, 0 ), iif( colors[i,2] > 50, colors[i,2] - 50, 0 ), iif( colors[i,3] > 50, colors[i,3] - 50, 0 ) }
       IF cumulative[i] == previos_cumulative
          LOOP  // fixed by Roberto Lopez
@@ -872,7 +872,7 @@ FUNCTION drawpiegraph( windowname, fromrow, fromcol, torow, tocol, series, aname
       ELSE
          fromrow := torow + 20 + iif( l3d, depth, 0 )
       ENDIF
-      FOR i := 1 TO Len( aname )
+      FOR i := 1 TO Len(aname)
          cname := "pielegend_" + hb_ntos( nPieObj++ )
          drawrect( windowname, fromrow, fromcol, fromrow + 15, fromcol + 15, { 0, 0, 0 }, 1, colors[i] )
          define label (cname)
@@ -885,7 +885,7 @@ FUNCTION drawpiegraph( windowname, fromrow, fromcol, torow, tocol, series, aname
            IF !lPrint .AND. !lNoborder
               height 16
            ENDIF
-           value aname[i] + iif( lxval, " - " + LTrim( Transform( series[i], cPicture ) ) + " (" + LTrim( Str( series[i] / ser_sum * 100, 6, 2 ) ) + " %)", "" )
+           value aname[i] + iif( lxval, " - " + LTrim(Transform(series[i], cPicture)) + " (" + LTrim(Str(series[i] / ser_sum * 100, 6, 2)) + " %)", "" )
            fontcolor iif( RGB( colors[i][1], colors[i][2], colors[i][3] ) == RGB( 255, 255, 255 ), BLACK, colors[i] )
            backcolor iif( lPrint, WHITE, NIL )
            transparent .T.
@@ -987,7 +987,7 @@ STATIC FUNCTION _bmpprint( cForm, x, y, nLibrary )
 
    nOrientation := iif( bw > bh, PRINTER_ORIENT_LANDSCAPE, PRINTER_ORIENT_PORTRAIT )
 
-   IF hb_defaultValue( nLibrary, 1 ) == 2
+   IF hb_defaultValue(nLibrary, 1) == 2
 
       INIT PRINTSYS
 
@@ -1111,7 +1111,7 @@ FUNCTION PrintWindow ( cWindowName, lPreview, ldialog, nRow, nCol, nWidth, nHeig
       lPreview := .F.
    ENDIF
 
-   IF ! _IsWindowDefined ( cWindowName )
+   IF !_IsWindowDefined ( cWindowName )
       MsgMiniGuiError ( _HMG_BRWLangError[1] + cWindowName + _HMG_BRWLangError[2], .F. )
    ENDIF
 
@@ -1135,7 +1135,7 @@ FUNCTION PrintWindow ( cWindowName, lPreview, ldialog, nRow, nCol, nWidth, nHeig
          SELECT PRINTER DIALOG TO lSuccess
       ENDIF
 
-      IF ! lSuccess
+      IF !lSuccess
          RETURN NIL
       ENDIF
 
@@ -1149,7 +1149,7 @@ FUNCTION PrintWindow ( cWindowName, lPreview, ldialog, nRow, nCol, nWidth, nHeig
          SELECT PRINTER DEFAULT TO lSuccess ORIENTATION nOrientation
       ENDIF
 
-      IF ! lSuccess
+      IF !lSuccess
          MsgMiniGuiError ( _HMG_aLangUser[ 25 ] )
       ENDIF
 

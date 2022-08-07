@@ -36,7 +36,7 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
 
    DEFAULT cTitle := "", nSep := 0, nLegendsWidth := 50, cPicture := "999,999.99"
 
-   IF ( Len( aSeries ) != Len( aData ) ) .OR. ( Len( aSeries ) > Len( aColors ) )
+   IF ( Len(aSeries) != Len(aData) ) .OR. ( Len(aSeries) > Len(aColors) )
       MsgMiniGuiError( "DRAW GRAPH: 'Series' / 'SerieNames' / 'Colors' arrays size mismatch." )
    ENDIF
 
@@ -116,14 +116,14 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
    // Graph info
    //
    IF !Empty(cTitle)
-      DrawTextInBitmap( hDC, nTop - 33 * nResV, ( nWidth - GetTextWidth(hDC, cTitle) / iif( Len( cTitle ) > 40, 10, 12 ) ) / 2 + 1, cTitle, _HMG_DefaultFontName, _HMG_DefaultFontSize + 3, aTitleColor, 2 )
+      DrawTextInBitmap( hDC, nTop - 33 * nResV, ( nWidth - GetTextWidth(hDC, cTitle) / iif( Len(cTitle) > 40, 10, 12 ) ) / 2 + 1, cTitle, _HMG_DefaultFontName, _HMG_DefaultFontSize + 3, aTitleColor, 2 )
    ENDIF
 
    // Legends
    //
    IF lLegends
       nPos := nTop
-      FOR nI := 1 TO Len( aSeries )
+      FOR nI := 1 TO Len(aSeries)
          DrawBarInBitmap( hDC, nRight + ( ( _HMG_DefaultFontSize - 1 ) * nResH ), nPos + _HMG_DefaultFontSize * nResV,;
             ( _HMG_DefaultFontSize - 1 ) * nResH, ( _HMG_DefaultFontSize - 2 ) * nResV, l3D, 1, aColors[nI] )
          DrawTextInBitmap( hDC, nPos, nRight + ( 4 + 2 * _HMG_DefaultFontSize ) * nResH, aSeries[ nI ], _HMG_DefaultFontName, _HMG_DefaultFontSize - 1, aClrFore, 0 )
@@ -134,8 +134,8 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
    // Max, Min values
    //
    nMax := nMin := 0
-   FOR nJ := 1 TO Len( aSeries )
-      FOR nI := 1 TO Len( aData[nJ] )
+   FOR nJ := 1 TO Len(aSeries)
+      FOR nI := 1 TO Len(aData[nJ])
          nMax := Max( aData[nJ][nI], nMax )
          nMin := Min( aData[nJ][nI], nMin )
       NEXT nI
@@ -167,7 +167,7 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
       DrawLineInBitmap( hDC, nZero - nDeep, nLeft, nZero - nDeep, nRight, GRAY )
    ENDIF
 
-   aPoint := Array( Len( aSeries ), Len( aData[1] ), 2 )
+   aPoint := Array( Len(aSeries), Len(aData[1]), 2 )
    nRange := nMax / nXRanges
 
    // xLabels
@@ -176,10 +176,10 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
    FOR nI := 0 TO nXRanges
       IF lxVal
          IF nRange * nI <= nXMax
-            DrawTextInBitmap( hDC, nRPos, nLeft - nDeep - 70, Transform( nRange * nI, cPicture ), _HMG_DefaultFontName, _HMG_DefaultFontSize - 1, aClrFore )
+            DrawTextInBitmap( hDC, nRPos, nLeft - nDeep - 70, Transform(nRange * nI, cPicture), _HMG_DefaultFontName, _HMG_DefaultFontSize - 1, aClrFore )
          ENDIF
          IF nRange * ( - nI ) >= nXMin * ( -1 )
-           DrawTextInBitmap( hDC, nRNeg, nLeft - nDeep - 70, Transform( nRange *- nI, cPicture ), _HMG_DefaultFontName, _HMG_DefaultFontSize - 1, aClrFore )
+           DrawTextInBitmap( hDC, nRNeg, nLeft - nDeep - 70, Transform(nRange *- nI, cPicture), _HMG_DefaultFontName, _HMG_DefaultFontSize - 1, aClrFore )
          ENDIF
       ENDIF
       IF lxGrid
@@ -214,8 +214,8 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
       NEXT
    ENDIF
 
-   nRange := Len( aData[1] )
-   nSeries := Len( aSeries )
+   nRange := Len(aData[1])
+   nSeries := Len(aSeries)
    DO WHILE .T.    // Bar adjust
       nPos := nLeft + nWide / 2
       nPos += ( nWide + nSep ) * ( nSeries + 1 ) * nRange
@@ -231,7 +231,7 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
 
    // yLabels
    //
-   IF lyVal .AND. Len( aYVals ) > 0
+   IF lyVal .AND. Len(aYVals) > 0
       nWideB := ( nRight - nLeft ) / ( nMax( aData ) + 1 )
       nI := nLeft + nWideB
       FOR nJ := 1 TO nMax( aData )
@@ -244,7 +244,7 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
    //
    IF nType == BARS
       nPos := nLeft + ( nWide + nSep ) / 2
-      lRedraw := ( nSeries == 1 .AND. Len( aColors ) >= nRange )
+      lRedraw := ( nSeries == 1 .AND. Len(aColors) >= nRange )
       FOR nI := 1 TO nRange
          FOR nJ := 1 TO nSeries
             DrawBarInBitmap( hDC, nPos, iif( l3D, nZero, nZero - 1 ), aData[nJ,nI] / nMin + nDeep, nWide, l3D, nDeep, ;
@@ -307,7 +307,7 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
       ENDIF
       FOR nI := 1 TO nRange
          FOR nJ := 1 TO nSeries
-            DrawTextInBitmap( hDC, nZero - ( aData[nJ,nI] / nMin + 2 * nDeep ), iif( nType == BARS, nPos - iif( l3D, 38, 18 ), nPos + 8 ), Transform( aData[nJ,nI], cPicture ), _HMG_DefaultFontName, _HMG_DefaultFontSize - 1, aClrFore )
+            DrawTextInBitmap( hDC, nZero - ( aData[nJ,nI] / nMin + 2 * nDeep ), iif( nType == BARS, nPos - iif( l3D, 38, 18 ), nPos + 8 ), Transform(aData[nJ, nI], cPicture), _HMG_DefaultFontName, _HMG_DefaultFontSize - 1, aClrFore )
             nPos += iif( nType == BARS, nWide + nSep, 0 )
          NEXT nJ
          IF nType == BARS
@@ -379,8 +379,8 @@ FUNCTION HMG_PieGraph( nWidth, nHeight, series, aname, colors, ctitle, aTitleCol
       DrawWindowBoxInBitmap( hDC, fromrow, fromcol, torow - 1, tocol - 1 )
    ENDIF
 
-   ctitle := AllTrim( ctitle )
-   IF Len( ctitle ) > 0
+   ctitle := AllTrim(ctitle)
+   IF Len(ctitle) > 0
       DrawTextInBitmap( hDC, fromrow + 11, ( tocol - fromcol ) / 2, ctitle, _HMG_DefaultFontName, _HMG_DefaultFontSize + 3, aTitleColor, 2 )
       fromrow += 25 + _HMG_DefaultFontSize
    ENDIF
@@ -390,11 +390,11 @@ FUNCTION HMG_PieGraph( nWidth, nHeight, series, aname, colors, ctitle, aTitleCol
       IF toright
          tocol := 2 / 3 * tocol + 10
       ELSE
-         IF Len( aname ) * 20 > ( torow - fromrow - 60 )
+         IF Len(aname) * 20 > ( torow - fromrow - 60 )
             lsleg := .F.
             MsgAlert( "No space for showing legends", "Pie Graph" )
          ELSE
-            torow -= ( Len( aname ) * 20 )
+            torow -= ( Len(aname) * 20 )
          ENDIF
       ENDIF
    ENDIF
@@ -430,18 +430,18 @@ FUNCTION HMG_PieGraph( nWidth, nHeight, series, aname, colors, ctitle, aTitleCol
    tocol := tocol + 1
 
    AEval( series, {|i| ser_sum += i } )
-   AEval( series, {|i| AAdd( degrees, Round( i / ser_sum * 360, 0 ) ) } )
+   AEval( series, {|i| AAdd(degrees, Round(i / ser_sum * 360, 0)) } )
    sum := 0
    AEval( degrees, {|i| sum += i } )
    IF sum <> 360
       degrees[len(degrees)] += 360 - sum
    ENDIF
    sum := 0
-   AEval( degrees, {|i| sum += i, AAdd( cumulative,sum ) } )
+   AEval( degrees, {|i| sum += i, AAdd(cumulative, sum) } )
 
    fromradialrow := middlerightrow
    fromradialcol := middlerightcol
-   FOR i := 1 TO Len( cumulative )
+   FOR i := 1 TO Len(cumulative)
       shadowcolor := { iif( colors[i,1] > 50, colors[i,1] - 50, 0 ), iif( colors[i,2] > 50, colors[i,2] - 50, 0 ), iif( colors[i,3] > 50, colors[i,3] - 50, 0 ) }
       IF cumulative[i] == previos_cumulative
          LOOP  // fixed by Roberto Lopez
@@ -530,10 +530,10 @@ FUNCTION HMG_PieGraph( nWidth, nHeight, series, aname, colors, ctitle, aTitleCol
       ELSE
          fromrow := torow + 20 + iif( l3d, depth, 0 )
       ENDIF
-      FOR i := 1 TO Len( aname )
+      FOR i := 1 TO Len(aname)
          drawrectInBitmap( hDC, fromrow + 1, fromcol + 1, fromrow + 14, fromcol + 14, colors[i] )
          DrawWindowBoxInBitmap( hDC, fromrow, fromcol, fromrow + 14, fromcol + 14 )
-         drawtextinbitmap( hDC, fromrow, fromcol + 20, aname[i] + iif( lxval, " - " + LTrim( Transform( series[i], cPicture ) ) + " (" + LTrim( Str( series[i] / ser_sum * 100, 6, 2 ) ) + " %)", "" ), _HMG_DefaultFontName, _HMG_DefaultFontSize - 1, iif( RGB( colors[i][1], colors[i][2], colors[i][3] ) == RGB( 255, 255, 255 ), BLACK, colors[i] ) )
+         drawtextinbitmap( hDC, fromrow, fromcol + 20, aname[i] + iif( lxval, " - " + LTrim(Transform(series[i], cPicture)) + " (" + LTrim(Str(series[i] / ser_sum * 100, 6, 2)) + " %)", "" ), _HMG_DefaultFontName, _HMG_DefaultFontSize - 1, iif( RGB( colors[i][1], colors[i][2], colors[i][3] ) == RGB( 255, 255, 255 ), BLACK, colors[i] ) )
          fromrow += 20
       NEXT i
    ENDIF
@@ -678,9 +678,9 @@ STATIC PROCEDURE DrawPolygonInBitmap( hDC, apoints, penrgb, penwidth, fillrgb )
    IF ValType(fillrgb) == "U"
       fillrgb := WHITE
    ENDIF
-   FOR x := 1 TO LEN( apoints )
-      AAdd( xarr, apoints[ x, 2 ] )
-      AAdd( yarr, apoints[ x, 1 ] )
+   FOR x := 1 TO LEN(apoints)
+      AAdd(xarr, apoints[x, 2])
+      AAdd(yarr, apoints[x, 1])
    NEXT x
 
    BT_DrawPolygon ( hDC, yarr, xarr, penrgb, penwidth, fillrgb )

@@ -58,7 +58,7 @@ FUNCTION MsgYesNo ( Message , Title , RevertDefault , nIcon , lSysModal , lTopMo
 
    nStyle += iif( Empty(hb_defaultValue(nIcon, 0)), MB_ICONQUESTION, MB_USERICON )
 
-   IF hb_defaultValue( RevertDefault, .F. )
+   IF hb_defaultValue(RevertDefault, .F.)
       nStyle += MB_DEFBUTTON2
    ENDIF
 
@@ -71,7 +71,7 @@ FUNCTION MsgYesNoCancel ( Message , Title , nIcon , lSysModal , nDefaultButton ,
 
    nStyle += iif( Empty(hb_defaultValue(nIcon, 0)), MB_ICONQUESTION, MB_USERICON )
 
-   SWITCH hb_defaultValue( nDefaultButton, 1 )
+   SWITCH hb_defaultValue(nDefaultButton, 1)
 
    CASE 2
       nStyle += MB_DEFBUTTON2
@@ -99,7 +99,7 @@ FUNCTION MsgRetryCancel ( Message , Title , nIcon , lSysModal , nDefaultButton ,
 
    nStyle += iif( Empty(hb_defaultValue(nIcon, 0)), MB_ICONQUESTION, MB_USERICON )
 
-   IF hb_defaultValue( nDefaultButton, 1 ) == 2
+   IF hb_defaultValue(nDefaultButton, 1) == 2
       nStyle += MB_DEFBUTTON2
    ENDIF
 
@@ -112,7 +112,7 @@ FUNCTION MsgOkCancel ( Message , Title , nIcon , lSysModal , nDefaultButton , lT
 
    nStyle += iif( Empty(hb_defaultValue(nIcon, 0)), MB_ICONQUESTION, MB_USERICON )
 
-   IF hb_defaultValue( nDefaultButton, 1 ) == 2
+   IF hb_defaultValue(nDefaultButton, 1) == 2
       nStyle += MB_DEFBUTTON2
    ENDIF
 
@@ -125,7 +125,7 @@ FUNCTION MsgExclamation ( Message , Title , nIcon , lSysModal , lTopMost )
 
    nStyle += iif( Empty(hb_defaultValue(nIcon, 0)), MB_ICONEXCLAMATION, MB_USERICON )
 
-RETURN _MsgBox( Message, hb_defaultValue( Title, _HMG_MESSAGE [10] ), nStyle, nIcon, lSysModal, lTopMost )
+RETURN _MsgBox( Message, hb_defaultValue(Title, _HMG_MESSAGE[10]), nStyle, nIcon, lSysModal, lTopMost )
 
 *-----------------------------------------------------------------------------*
 FUNCTION MsgInfo ( Message , Title , nIcon , lSysModal , lTopMost )
@@ -134,7 +134,7 @@ FUNCTION MsgInfo ( Message , Title , nIcon , lSysModal , lTopMost )
 
    nStyle += iif( Empty(hb_defaultValue(nIcon, 0)), MB_ICONINFORMATION, MB_USERICON )
 
-RETURN _MsgBox( Message, hb_defaultValue( Title, _HMG_MESSAGE [11] ), nStyle, nIcon, lSysModal, lTopMost )
+RETURN _MsgBox( Message, hb_defaultValue(Title, _HMG_MESSAGE[11]), nStyle, nIcon, lSysModal, lTopMost )
 
 *-----------------------------------------------------------------------------*
 FUNCTION MsgStop ( Message , Title , nIcon , lSysModal , lTopMost )
@@ -143,7 +143,7 @@ FUNCTION MsgStop ( Message , Title , nIcon , lSysModal , lTopMost )
 
    nStyle += iif( Empty(hb_defaultValue(nIcon, 0)), MB_ICONSTOP, MB_USERICON )
 
-RETURN _MsgBox( Message, hb_defaultValue( Title, _HMG_MESSAGE [12] ), nStyle, nIcon, lSysModal, lTopMost )
+RETURN _MsgBox( Message, hb_defaultValue(Title, _HMG_MESSAGE[12]), nStyle, nIcon, lSysModal, lTopMost )
 
 *-----------------------------------------------------------------------------*
 FUNCTION MsgBox ( Message , Title , lSysModal , lTopMost )
@@ -156,22 +156,22 @@ STATIC FUNCTION _MsgBox( cMessage , cTitle , nStyle , nIcon , lSysModal , lTopMo
 *-----------------------------------------------------------------------------*
    LOCAL cText
 
-   __defaultNIL( @cMessage, "" )
-   __defaultNIL( @cTitle, "" )
+   __defaultNIL(@cMessage, "")
+   __defaultNIL(@cTitle, "")
 
-   IF ! ISCHARACTER( cMessage )
+   IF !ISCHARACTER( cMessage )
       IF ISARRAY( cMessage )
          cText := ""
-         AEval( cMessage, { |x| cText += hb_ValToStr( x ) } )
+         AEval( cMessage, { |x| cText += hb_ValToStr(x) } )
          cMessage := cText
       ELSE
-         cMessage := hb_ValToStr( cMessage )
+         cMessage := hb_ValToStr(cMessage)
       ENDIF
    ENDIF
 
-   nStyle += iif( hb_defaultValue( lSysModal, .T. ), MB_SYSTEMMODAL, MB_APPLMODAL )
+   nStyle += iif( hb_defaultValue(lSysModal, .T.), MB_SYSTEMMODAL, MB_APPLMODAL )
 
-   IF hb_defaultValue( lTopMost, .T. )
+   IF hb_defaultValue(lTopMost, .T.)
       nStyle += MB_TOPMOST
    ENDIF
 

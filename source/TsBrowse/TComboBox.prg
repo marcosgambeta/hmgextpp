@@ -93,7 +93,7 @@ METHOD New( nRow, nCol, bSetGet, aGetData, nWidth, nHeight, oWnd, bChanged,;
 
    ::SetColor( nClrFore, nClrBack )
 
-   if ! Empty(ParentHandle)
+   if !Empty(ParentHandle)
 
       ::hWnd := InitComboBox( ParentHandle, 0, nCol, nRow, nWidth , "", 0 , nHeight, invisible, notabstop, sort , displaychange , _HMG_IsXP )
 
@@ -119,7 +119,7 @@ METHOD Default() CLASS TComboBox
 
    LOCAL i
 
-   For i = 1 To Len( ::aItems )
+   For i = 1 To Len(::aItems)
       ComboAddString( ::hWnd, ::aItems[i] )
       If i == Eval( ::bSetGet )
          ComboSetCurSel( ::hWnd, i )

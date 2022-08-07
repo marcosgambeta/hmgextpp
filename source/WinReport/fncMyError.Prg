@@ -21,7 +21,7 @@ FUNCTION MyErrorFunc( MyObjError )
     cErrorMsg += CRLF + CRLF
     
     WHILE ! Empty(ProcName(i))
-        cText := "Called from " + ProcName( i ) + "(" + AllTrim( Str( ProcLine( i++ ) ) ) + ")" + CRLF
+        cText := "Called from " + ProcName( i ) + "(" + AllTrim(Str(ProcLine(i++))) + ")" + CRLF
         cErrorMsg += cText
         Html_LineText( HtmArch, cText )
     ENDDO
@@ -49,7 +49,7 @@ STATIC FUNCTION MyErrorMessage( oError )
 
    // add subsystem's error code if available
    IF ISNUMBER( oError:subCode )
-      cMessage += "/" + LTrim( Str( oError:subCode ) )
+      cMessage += "/" + LTrim(Str(oError:subCode))
    ELSE
       cMessage += "/???"
    ENDIF

@@ -60,7 +60,7 @@
 #define SB_HORZ		0
 #define SB_VERT		1
 
-#xtranslate Alltrim( Str( <i> ) ) => hb_ntos( <i> )
+#xtranslate Alltrim(Str(<i>)) => hb_ntos( <i> )
 
 DECLARE WINDOW _HMG_PRINTER_PPNAV
 
@@ -566,11 +566,11 @@ Local i
 
 	If ModalHandle != 0
 
-		For i := 1 To Len( _HMG_aFormHandles )
-			If _HMG_aFormDeleted [i] == .F.
-				If _HMG_aFormType [i] != "X"
-					If _HMG_aFormHandles [i] != ModalHandle
-						DisableWindow (_HMG_aFormHandles [i] )
+		For i := 1 To Len(_HMG_aFormHandles)
+			If _HMG_aFormDeleted[i] == .F.
+				If _HMG_aFormType[i] != "X"
+					If _HMG_aFormHandles[i] != ModalHandle
+						DisableWindow (_HMG_aFormHandles[i] )
 					EndIf
 				EndIf
 			EndIf
@@ -578,10 +578,10 @@ Local i
 
 		EnableWindow ( ModalHandle )
 
-		For i := 1 To Len( _HMG_aFormHandles )
-			If _HMG_aFormDeleted [i] == .F.
-				If _HMG_aFormType [i] == "P" .And. _HMG_aFormParentHandle [i] == ModalHandle  // Panel window into Modal window
-					EnableWindow (_HMG_aFormHandles [i] )
+		For i := 1 To Len(_HMG_aFormHandles)
+			If _HMG_aFormDeleted[i] == .F.
+				If _HMG_aFormType[i] == "P" .And. _HMG_aFormParentHandle[i] == ModalHandle  // Panel window into Modal window
+					EnableWindow (_HMG_aFormHandles[i] )
 				EndIf
 			EndIf
 		Next i
@@ -740,7 +740,7 @@ Local c , i , f , t , d , x , a
 	adir ( t + _hmg_printer_timestamp  + "_hmg_print_preview_*.Emf" , a )
 
 	For i := 1 To c
-		f := t + a [i]
+		f := t + a[i]
 		d := x + "_" + StrZero ( i , 4 ) + ".emf"
 		COPY FILE (F) TO (D)
 	Next i
@@ -928,7 +928,7 @@ Local EvenOnly := .F.
 
 	_hmg_printer_JobId := _HMG_PRINTER_StartDoc ( _hmg_printer_hdc_bak, _hmg_printer_JobName )
 
-	If ! Empty(_hmg_printer_JobData)
+	If !Empty(_hmg_printer_JobData)
 		If __mvExist( _hmg_printer_JobData )
 			__mvPut( _hmg_printer_JobData , OpenPrinterGetJobData() )
 		Else
@@ -1065,9 +1065,9 @@ Local cDefaultPrinter	:= GetDefaultPrinter()
 Local i
 Local nInitPosition	:= 0
 
-	For i := 1 to Len( Printers )
+	For i := 1 to Len(Printers)
 
-		If Printers [i] == cDefaultPrinter
+		If Printers[i] == cDefaultPrinter
 			nInitPosition := i
 			Exit
 		Endif
@@ -2125,7 +2125,7 @@ Return
 *------------------------------------------------------------------------------*
 FUNCTION _hmg_printer_setjobname( cName )
 *------------------------------------------------------------------------------*
-RETURN hb_defaultValue( cName , "HMGPrintSys" )
+RETURN hb_defaultValue(cName, "HMGPrintSys")
 
 *------------------------------------------------------------------------------*
 FUNCTION HMG_PrintGetJobInfo ( aJobData )   // by Dr. Claudio Soto, August 2015

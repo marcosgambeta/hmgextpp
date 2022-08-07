@@ -5,7 +5,7 @@
 
 #TRANSLATE MSG	=> MSGBOX
 #TRANSLATE ZAPS(<X>) => ALLTRIM(STR(<X>))
-#define NTRIM( n ) LTrim( Str( n ) )
+#define NTRIM(n) LTrim(Str(n))
 #TRANSLATE Test( <c> ) => MsgInfo( <c>, [<c>] )
 #define MsgInfo( c ) MsgInfo( c, , , .F. )
 #define MsgAlert( c ) MsgEXCLAMATION( c, , , .F. )
@@ -398,7 +398,7 @@ Function RMiniPar(ArryPar,cmdline,section)
 
         case ArryPar[1]=[VAR]
              _varmem := ArryPar[2]
-             If ! __MVEXIST ( ArryPar[2] )
+             If !__MVEXIST ( ArryPar[2] )
                  _varmem := ArryPar[2]
                  Public &_varmem
                  aadd(nomevar,_varmem)
@@ -425,20 +425,20 @@ Function RMiniPar(ArryPar,cmdline,section)
 
         case ascan(arryPar,[DEBUG])=2
              if ascan(arryPar,[LIST])= 3
-                if npag < 2 .AND. len( arrypar ) = 4
+                if npag < 2 .AND. len(arrypar) = 4
                    asize(ax,0)
                    do case
                       case ascan(arryPar,[DECLARE])= 4
-                           aeval(oWr:aDeclare,{|x|if (x <> NIL,aadd( ax,strzero( x[2],4 ) +") " + x[1] ),nil)} )
+                           aeval(oWr:aDeclare,{|x|if (x <> NIL,aadd(ax, strzero(x[2], 4) + ") " + x[1] ),nil)} )
 
                       case ascan(arryPar,[HEAD])= 4
-                           aeval( oWr:aHead,{|x|if (x <> NIL,aadd( ax,strzero( x[2],4 ) +") " + x[1] ),nil)} )
+                           aeval( oWr:aHead,{|x|if (x <> NIL,aadd(ax, strzero(x[2], 4) + ") " + x[1] ),nil)} )
 
                       case ascan(arryPar,[BODY])= 4
-                           aeval( oWr:aBody,{|x|if (x <> NIL,aadd( ax,strzero( x[2],4 ) +") " + x[1] ),nil)} )
+                           aeval( oWr:aBody,{|x|if (x <> NIL,aadd(ax, strzero(x[2], 4) + ") " + x[1] ),nil)} )
 
                       case ascan(arryPar,[FEET])= 4
-                           aeval( oWr:aFeet,{|x|if (x <> NIL,aadd( ax,strzero( x[2],4 ) +") " + x[1] ),nil)} )
+                           aeval( oWr:aFeet,{|x|if (x <> NIL,aadd(ax, strzero(x[2], 4) + ") " + x[1] ),nil)} )
 
                    endcase
                    msgmulty(ax)

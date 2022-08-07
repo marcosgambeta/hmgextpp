@@ -62,7 +62,7 @@
 
 #if ( __HARBOUR__ - 0 < 0x030200 )
 # xtranslate hb_UAt( <c>, <n> ) => At( <c>, <n> )
-# xtranslate hb_ULeft( <c>, <n> ) => Left( <c>, <n> )
+# xtranslate hb_ULeft(<c>, <n>) => Left(<c>, <n>)
 #endif
 
 *-----------------------------------------------------------------------------*
@@ -99,14 +99,14 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
    LOCAL WorkArea
    LOCAL aRichEditMenu
 
-   hb_default( @w, 120 )
-   hb_default( @h, 240 )
-   hb_default( @value, "" )
-   hb_default( @maxlength, -1 )
-   hb_default( @invisible, .F. )
-   hb_default( @notabstop, .F. )
-   hb_default( @noHscroll, .F. )
-   hb_default( @noVscroll, .F. )
+   hb_default(@w, 120)
+   hb_default(@h, 240)
+   hb_default(@value, "")
+   hb_default(@maxlength, -1)
+   hb_default(@invisible, .F.)
+   hb_default(@notabstop, .F.)
+   hb_default(@noHscroll, .F.)
+   hb_default(@noVscroll, .F.)
 
    IF maxlength == 0
       maxlength := -1 // for compatibility with TextBox and EditBox
@@ -116,7 +116,7 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
       IF hb_UAt ( ">", Field ) == 0
          MsgHMGError ( "Control: " + ControlName + " Of " + ParentForm + " : You must specify a fully qualified field name." )
       ELSE
-         WorkArea := hb_ULeft ( Field, hb_UAt ( ">", Field ) - 2 )
+         WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
          IF SELECT ( WorkArea ) != 0
             value := &( Field )
          ENDIF
@@ -176,8 +176,8 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
          AddSplitBoxItem ( Controlhandle, _HMG_aFormReBarHandle[i], w, break, , , , _HMG_ActiveSplitBoxInverted )
          Containerhandle := _HMG_aFormReBarHandle[i]
 
-         IF LEN( value ) > 0
-            SetWindowText ( ControlHandle, value )
+         IF LEN(value) > 0
+            SetWindowText(ControlHandle, value)
          ENDIF
 
       ENDIF
@@ -193,14 +193,14 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
          ENDIF
       ENDIF
 
-      IF LEN( value ) > 0
-         SetWindowText ( ControlHandle, value )
+      IF LEN(value) > 0
+         SetWindowText(ControlHandle, value)
       ENDIF
 
    ENDIF
 
    IF _HMG_BeginTabActive = .T.
-      AAdd( _HMG_ActiveTabCurrentPageMap, Controlhandle )
+      AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
    ENDIF
 
    IF ValType(tooltip) != "U"
@@ -260,7 +260,7 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
    _HMG_aControlMiscData2          [k] := ""
 
    IF ValType(Field) != "U"
-      AAdd( _HMG_aFormBrowseList [ GetFormIndex ( cParentForm ) ], k )
+      AAdd(_HMG_aFormBrowseList[GetFormIndex(cParentForm)], k)
    ENDIF
 
    IF IsArrayRGB ( backcolor )
@@ -460,8 +460,8 @@ FUNCTION RichEditBox_LoadFile( hWndControl, cFile, lSelection, nType )
 *-----------------------------------------------------------------------------*
    LOCAL lSuccess
 
-   hb_default( @lSelection, .F. )
-   hb_default( @nType, RICHEDITFILE_RTF )
+   hb_default(@lSelection, .F.)
+   hb_default(@nType, RICHEDITFILE_RTF)
 
    lSuccess := RichEditBox_RTFLoadResourceFile( hWndControl, cFile, lSelection )
 
@@ -474,8 +474,8 @@ RETURN lSuccess
 *-----------------------------------------------------------------------------*
 FUNCTION RichEditBox_SaveFile( hWndControl, cFile, lSelection, nType )
 *-----------------------------------------------------------------------------*
-   hb_default( @lSelection, .F. )
-   hb_default( @nType, RICHEDITFILE_RTF )
+   hb_default(@lSelection, .F.)
+   hb_default(@nType, RICHEDITFILE_RTF)
 
    RichEditBox_StreamOut( hWndControl, cFile, lSelection, nType )
 

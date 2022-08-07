@@ -50,7 +50,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 #if ( __HARBOUR__ - 0 < 0x030200 )
   #xtranslate hb_UAt( <c>, <n> ) => At( <c>, <n> )
-  #xtranslate hb_ULeft( <c>, <n> ) => Left( <c>, <n> )
+  #xtranslate hb_ULeft(<c>, <n>) => Left(<c>, <n>)
 #endif
 
 *-----------------------------------------------------------------------------*
@@ -72,15 +72,15 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
 #ifdef _OBJECT_
    ow := oDlu2Pixel()
 #endif
-   hb_default( @w, 120 )
-   hb_default( @h, 24 )
-   __defaultNIL( @ProcedureName, {|| SetProperty( ParentFormName, ControlName, "Checked", NIL ) } )
-   hb_default( @invisible, .F. )
-   hb_default( @bold, .F. )
-   hb_default( @italic, .F. )
-   hb_default( @underline, .F. )
-   hb_default( @strikeout, .F. )
-   hb_default( @VCenterAlign, .F. )
+   hb_default(@w, 120)
+   hb_default(@h, 24)
+   __defaultNIL(@ProcedureName, {|| SetProperty( ParentFormName, ControlName, "Checked", NIL ) })
+   hb_default(@invisible, .F.)
+   hb_default(@bold, .F.)
+   hb_default(@italic, .F.)
+   hb_default(@underline, .F.)
+   hb_default(@strikeout, .F.)
+   hb_default(@VCenterAlign, .F.)
 
    IF ( FontHandle := GetFontHandle( FontName ) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
@@ -90,7 +90,7 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
       IF hb_UAt ( ">", Field ) == 0
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name." )
       ELSE
-         WorkArea := hb_ULeft ( Field , hb_UAt ( ">", Field ) - 2 )
+         WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
          IF Select ( WorkArea ) != 0
             lChecked := &( Field )
          ENDIF
@@ -99,8 +99,8 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
       ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
-      __defaultNIL( @FontName, _HMG_ActiveFontName )
-      __defaultNIL( @FontSize, _HMG_ActiveFontSize )
+      __defaultNIL(@FontName, _HMG_ActiveFontName)
+      __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
       x    := x + _HMG_ActiveFrameCol [_HMG_FrameLevel]
@@ -171,7 +171,7 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
 
          //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {|x, y, z| InitDialogLabel( x, y, z ) }
-         AAdd( _HMG_aDialogItems, { nId, k, "static", style, 0, x, y, w, h, caption, HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage } )
+         AAdd(_HMG_aDialogItems, {nId, k, "static", style, 0, x, y, w, h, caption, HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
 
@@ -184,7 +184,7 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
 
 
          IF ValType(caption) != "U"
-            SetWindowText ( ControlHandle , caption )
+            SetWindowText(ControlHandle, caption)
          ENDIF
 
          SetWindowStyle ( ControlHandle, Style, .T. )
@@ -219,13 +219,13 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
       IF FontHandle != 0
          _SetFontHandle( ControlHandle, FontHandle )
       ELSE
-         __defaultNIL( @FontName, _HMG_DefaultFontName )
-         __defaultNIL( @FontSize, _HMG_DefaultFontSize )
+         __defaultNIL(@FontName, _HMG_DefaultFontName)
+         __defaultNIL(@FontSize, _HMG_DefaultFontSize)
          FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
       ENDIF
 
       IF _HMG_BeginTabActive
-         AAdd( _HMG_ActiveTabCurrentPageMap , Controlhandle )
+         AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
       ENDIF
 
       IF ValType(tooltip) != "U"
@@ -294,7 +294,7 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
    ENDIF
 
    IF ValType(Field) != "U"
-      AAdd( _HMG_aFormBrowseList [ GetFormIndex ( ParentFormName ) ] , k )
+      AAdd(_HMG_aFormBrowseList[GetFormIndex(ParentFormName)], k)
    ENDIF
 /*
    IF _HMG_lOOPEnabled
@@ -344,7 +344,7 @@ STATIC FUNCTION GetCheckBmp()
       RETURN ""
    ENDIF
 
-   nWrite := Len( cBmp )
+   nWrite := Len(cBmp)
 
    IF FWrite( nHandle, cBmp, nWrite ) < nWrite
       cBmpFile := ""
@@ -362,13 +362,13 @@ STATIC FUNCTION cAnsi2Bmp( cAnsi )
    LOCAL cLong, ;
       cBmp := ""
 
-   WHILE Len( cAnsi ) >= 8
-      cLong := Left( cAnsi, 8 )
+   WHILE Len(cAnsi) >= 8
+      cLong := Left(cAnsi, 8)
       cBmp += cHex2Bin( cAnsi2Hex( cLong ) )
       cAnsi := Stuff( cAnsi, 1, 8, "" )
    ENDDO
 
-   IF ! Empty(cAnsi)
+   IF !Empty(cAnsi)
       cBmp += cHex2Bin( cAnsi2Hex( PadR( cAnsi, 4, "0" ) ) )
    ENDIF
 
@@ -382,10 +382,10 @@ STATIC FUNCTION cAnsi2Hex( cAnsi )
    LOCAL cDig, ;
       cHex := ""
 
-   cAnsi := AllTrim( cAnsi )
+   cAnsi := AllTrim(cAnsi)
 
-   WHILE Len( cAnsi ) >= 2
-      cDig := Left( cAnsi, 2 )
+   WHILE Len(cAnsi) >= 2
+      cDig := Left(cAnsi, 2)
       cHex := cDig + cHex
       cAnsi := Stuff( cAnsi, 1, 2, "" )
    ENDDO
@@ -402,12 +402,12 @@ STATIC FUNCTION cHex2Bin( cHex )
       nDec := 0, ;
       aHex := { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" }
 
-   cHex := AllTrim( cHex )
+   cHex := AllTrim(cHex)
 
-   FOR nPos := Len( cHex ) TO 1 Step - 1
+   FOR nPos := Len(cHex) TO 1 Step - 1
       nEle := Max( 0, AScan(aHex, SubStr(cHex, nPos, 1)) - 1 )
       nDec += ( nEle * ( 16 ** nExp ) )
       nExp ++
    NEXT
 
-RETURN iif( Len( cHex ) > 4, L2Bin( Int( nDec ) ), iif( Len( cHex ) > 2, I2Bin( Int( nDec ) ), Chr( Int( nDec ) ) ) )
+RETURN iif( Len(cHex) > 4, L2Bin( Int( nDec ) ), iif( Len(cHex) > 2, I2Bin( Int( nDec ) ), Chr( Int( nDec ) ) ) )

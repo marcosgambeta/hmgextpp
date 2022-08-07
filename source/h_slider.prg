@@ -64,18 +64,18 @@ FUNCTION _DefineSlider ( ControlName, ParentFormName, x, y, w, h, lo, hi, value,
    ow := oDlu2Pixel()
 #endif
 
-   hb_default( @w, iif( vertical, 35 + iif( both, 5, 0 ), 120 ) )
-   hb_default( @h, iif( vertical, 120, 35 + iif( both, 5, 0 ) ) )
-   hb_default( @value, Int( ( hi - lo ) / 2 ) )
+   hb_default(@w, iif(vertical, 35 + iif(both, 5, 0), 120))
+   hb_default(@h, iif(vertical, 120, 35 + iif(both, 5, 0)))
+   hb_default(@value, Int((hi - lo) / 2))
 
-   hb_default( @enableselrange, .F. ) /* P.Ch. 16.10. */
-   hb_default( @nSelMin, 0 )  
-   hb_default( @nSelMax, 0 )  
+   hb_default(@enableselrange, .F.) /* P.Ch. 16.10. */
+   hb_default(@nSelMin, 0)
+   hb_default(@nSelMax, 0)
 
-   __defaultNIL( @scroll, "" )
-   __defaultNIL( @change, "" )
-   hb_default( @invisible, .F. )
-   hb_default( @notabstop, .F. )
+   __defaultNIL(@scroll, "")
+   __defaultNIL(@change, "")
+   hb_default(@invisible, .F.)
+   hb_default(@notabstop, .F.)
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
       ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
@@ -136,12 +136,12 @@ FUNCTION _DefineSlider ( ControlName, ParentFormName, x, y, w, h, lo, hi, value,
          Style += TBS_ENABLESELRANGE
       ENDIF
 
-      IF Len( _HMG_aDialogTemplate ) > 0 //Dialog Template
+      IF Len(_HMG_aDialogTemplate) > 0 //Dialog Template
          /* TODO */ /* P.Ch. 16.10. */
 
          // {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {|x, y, z| InitDialogSlider( x, y, z ) }
-         AAdd( _HMG_aDialogItems, { nId, k, "msctls_trackbar32", style, 0, x, y, w, h, "", HelpId, tooltip, "", 0, , , , , blInit, _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage } )
+         AAdd(_HMG_aDialogItems, {nId, k, "msctls_trackbar32", style, 0, x, y, w, h, "", HelpId, tooltip, "", 0, , , , , blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
          ControlHandle := GetDialogItemHandle( ParentFormHandle, nId )
@@ -164,7 +164,7 @@ FUNCTION _DefineSlider ( ControlName, ParentFormName, x, y, w, h, lo, hi, value,
 
    IF .NOT. lDialogInMemory
       IF _HMG_BeginTabActive
-         AAdd( _HMG_ActiveTabCurrentPageMap, ControlHandle )
+         AAdd(_HMG_ActiveTabCurrentPageMap, ControlHandle)
       ENDIF
 
       SendMessage( ControlHandle, TBM_SETPOS, 1, value )
@@ -242,7 +242,7 @@ FUNCTION InitDialogSlider( ParentName, ControlHandle, k )
       SendMessage( ControlHandle , TBM_SETPOS , 1 , _HMG_aControlValue [k] )
    ENDIF
 // JP 62
-   IF Len( _HMG_aDialogTemplate ) != 0 .AND. _HMG_aDialogTemplate[3]   // Modal
+   IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]   // Modal
       _HMG_aControlDeleted [k] := .T.
    ENDIF
 

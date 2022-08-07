@@ -88,7 +88,7 @@ RETURN
 FUNCTION MsgMiniGuiError( cMessage, lAddText )
 *-----------------------------------------------------------------------------*
 
-   IF hb_defaultValue( lAddText, .T. )
+   IF hb_defaultValue(lAddText, .T.)
       cMessage += " Program terminated."
    ENDIF
 
@@ -116,9 +116,9 @@ FUNCTION MiniGuiVersion( nVer )
 
    cVer += " " + HMG_CharsetName()
 
-   anOfs := { Len( cVer ), 40, 15 }
+   anOfs := { Len(cVer), 40, 15 }
 
-   hb_default( @nVer, 0 )
+   hb_default(@nVer, 0)
 
    IF nVer > 2
       nVer := 2
@@ -126,4 +126,4 @@ FUNCTION MiniGuiVersion( nVer )
       nVer := 0
    ENDIF
 
-RETURN Left( cVer, anOfs[ nVer + 1 ] )
+RETURN Left(cVer, anOfs[nVer + 1])

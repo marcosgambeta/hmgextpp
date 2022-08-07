@@ -173,11 +173,11 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
       aNames := {}
       aColSel := {}
       ( uAlias )->( AEval( Array( FCount() ), {| cn, nn | cn := FieldName( nn ), ;
-         AAdd( aHeaders, cn ), AAdd( aNames, cn ), AAdd( aColSel, cn ) } ) )
+         AAdd(aHeaders, cn), AAdd(aNames, cn), AAdd(aColSel, cn) } ) )
       IF cell .AND. Empty(aColors)
          aColors := {}
-         AAdd( aColors, { CLR_FOCUSF, {| c, n, b | c := n, iif( b:nCell == n, GetSysColor( COLOR_WINDOWTEXT ), GetSysColor( COLOR_CAPTIONTEXT ) ) } } )
-         AAdd( aColors, { CLR_FOCUSB, {| c, n, b | c := n, iif( b:nCell == n, GetSysColor( COLOR_ACTIVECAPTION ), -GetSysColor( COLOR_ACTIVECAPTION ) ) } } )
+         AAdd(aColors, { CLR_FOCUSF, {| c, n, b | c := n, iif( b:nCell == n, GetSysColor( COLOR_WINDOWTEXT ), GetSysColor( COLOR_CAPTIONTEXT ) ) } })
+         AAdd(aColors, { CLR_FOCUSB, {| c, n, b | c := n, iif( b:nCell == n, GetSysColor( COLOR_ACTIVECAPTION ), -GetSysColor( COLOR_ACTIVECAPTION ) ) } })
       ENDIF
    ENDIF
 
@@ -194,16 +194,16 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
    ENDIF
 
    // BK
-   IF ! Empty(FontName) .AND. HB_ISARRAY( FontName )
-      AEval( FontName, {| cf | AAdd( aFonts, cf ) } )
+   IF !Empty(FontName) .AND. HB_ISARRAY( FontName )
+      AEval( FontName, {| cf | AAdd(aFonts, cf) } )
       aFont := ASize( aFonts, 6 )
       FONTNAME := aFont[1]
       cFontHead := aFont[2]
       cFontFoot := aFont[3]
-      IF ! Empty(cFontHead)
+      IF !Empty(cFontHead)
          hFontHead := GetFontHandle( cFontHead )
       ENDIF
-      IF ! Empty(cFontFoot)
+      IF !Empty(cFontFoot)
          hFontFoot := GetFontHandle( cFontFoot )
       ENDIF
       IF Empty(cFontFoot) .AND. ! Empty(cFontHead)
@@ -285,12 +285,12 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
 
       IF _HMG_DialogInMemory // Dialog Template
          IF GetClassInfo( GetInstance(), ControlName ) == NIL
-            IF ! Register_Class( ControlName, CreateSolidBrush( GetRed( GetSysColor( COLOR_BTNFACE ) ), GetGreen( GetSysColor( COLOR_BTNFACE ) ), GetBlue( GetSysColor( COLOR_BTNFACE ) ) ) )
+            IF !Register_Class( ControlName, CreateSolidBrush( GetRed( GetSysColor( COLOR_BTNFACE ) ), GetGreen( GetSysColor( COLOR_BTNFACE ) ), GetBlue( GetSysColor( COLOR_BTNFACE ) ) ) )
                RETURN NIL
             ENDIF
          ENDIF
          blInit := {| x, y, z | InitDialogBrowse( x, y, z ) }
-         AAdd( _HMG_aDialogItems, { nId, k, ControlName, nStyle, 0, nCol, nRow, nWidth, nHeight, "", HelpId, TOOLTIP, FONTNAME, FONTSIZE, BOLD, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage } )
+         AAdd(_HMG_aDialogItems, { nId, k, ControlName, nStyle, 0, nCol, nRow, nWidth, nHeight, "", HelpId, TOOLTIP, FONTNAME, FONTSIZE, BOLD, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage })
          IF _HMG_aDialogTemplate[3] // Modal
             RETURN NIL
          ENDIF
@@ -344,10 +344,10 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
       IF HB_ISARRAY( aArray )
          oBrw:SetArrayTo( aArray, { hFontHead, hFontFoot }, aHeaders, aWidths, aFooters, aPicture, aJust, aNames )
       ELSE
-         IF ! Empty(hFontHead)
+         IF !Empty(hFontHead)
             oBrw:hFontHead := hFontHead
          ENDIF
-         IF ! Empty(hFontFoot)
+         IF !Empty(hFontFoot)
             oBrw:hFontFoot := hFontFoot
          ENDIF
       ENDIF
@@ -363,13 +363,13 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
       IF ValType(lostfocus) != "U"
          oBrw:bLostFocus := lostfocus
       ENDIF
-      IF ! lRePaint
+      IF !lRePaint
          _HMG_ActiveTBrowseName := ControlName
          _HMG_ActiveTBrowseHandle := ControlHandle
          _HMG_BeginTBrowseActive := .T.
       ENDIF
       // BK
-      IF ! Empty(lLoad) .AND. oBrw:lIsDbf
+      IF !Empty(lLoad) .AND. oBrw:lIsDbf
 
          oBrw:LoadFields( ! Empty(lEditable) )
 
@@ -443,11 +443,11 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
          // BK
          n := nColums
 
-         IF ! HB_ISARRAY( aArray )
+         IF !HB_ISARRAY( aArray )
             IF HB_ISARRAY( aNames )
                j := Min( Len(aNames), n )
                FOR t := 1 TO j
-                  IF ! Empty(aNames[t]) .AND. HB_ISCHAR( aNames[t] )
+                  IF !Empty(aNames[t]) .AND. HB_ISCHAR( aNames[t] )
                      oBrw:aColumns[t]:cName := aNames[t]
                   ENDIF
                NEXT
@@ -485,13 +485,13 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
             NEXT
          ENDIF
 
-         IF ! Empty(lDblCursor)
+         IF !Empty(lDblCursor)
             AEval( oBrw:aColumns, {| oCol | oCol:lFixLite := .T. } )
          ENDIF
-         IF ! Empty(lEmptyValToChar)
+         IF !Empty(lEmptyValToChar)
             AEval( oBrw:aColumns, {| oCol | oCol:lEmptyValToChar := .T. } )
          ENDIF
-         IF ! Empty(lOnGotFocusSelect)
+         IF !Empty(lOnGotFocusSelect)
             AEval( oBrw:aColumns, {| oCol | oCol:lOnGotFocusSelect := .T. } )
          ENDIF
 
@@ -539,7 +539,7 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
    IF .NOT. _HMG_DialogInMemory
 
       IF _HMG_BeginTabActive
-         AAdd( _HMG_ActiveTabCurrentPageMap, Controlhandle )
+         AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
       ENDIF
 
       IF FontHandle != 0
@@ -659,7 +659,7 @@ FUNCTION LoadFields( ControlName, ParentForm, lEdit, aFieldNames )
 
    DEFAULT lEdit := .F.
 
-   ix := GetControlIndex( ControlName, ParentForm )
+   ix := GetControlIndex(ControlName, ParentForm)
    IF ix > 0
       oBrw := _HMG_aControlIds[ix]
       IF ISARRAY( aFieldNames )
@@ -678,7 +678,7 @@ FUNCTION SetArray( ControlName, ParentForm, Arr, lAutoCols, aHead, aSizes )
    LOCAL ix
    LOCAL oBrw
 
-   ix := GetControlIndex( ControlName, ParentForm )
+   ix := GetControlIndex(ControlName, ParentForm)
    IF ix > 0
       oBrw := _HMG_aControlIds[ix]
       oBrw:SetArray( Arr, lAutoCols, aHead, aSizes )
@@ -694,7 +694,7 @@ FUNCTION SetArrayTo( ControlName, ParentForm, Arr, uFontHF, aHead, aSizes, uFoot
    LOCAL ix
    LOCAL oBrw
 
-   ix := GetControlIndex( ControlName, ParentForm )
+   ix := GetControlIndex(ControlName, ParentForm)
    IF ix > 0
       oBrw := _HMG_aControlIds[ix]
       oBrw:SetArrayTo( Arr, uFontHF, aHead, aSizes, uFooter, aPicture, aAlign, aName )
@@ -1387,7 +1387,7 @@ CLASS TSBrowse FROM TControl
 
    METHOD GetCellSize( nRowPos, nCell, lColSpecHd ) // 10/09/2021
 
-   METHOD CellMarginLeftRight( nJ, oColumn, cData, nAlign, lMultiLine, nOut )
+   METHOD CellMarginLeftRight(nJ, oColumn, cData, nAlign, lMultiLine, nOut)
 
    METHOD SetGetValue( xCol, xVal ) INLINE ::bDataEval( xCol, xVal )
 
@@ -1539,7 +1539,7 @@ METHOD New( cControlName, nRow, nCol, nWidth, nHeight, bLine, aHeaders, aColSize
       ::cArray := uAlias
       ::aArray := {}
    ELSEIF ValType(uAlias) == "C" .AND. "." $ uAlias
-      cAlias := "TEXT_" + AllTrim( uAlias )
+      cAlias := "TEXT_" + AllTrim(uAlias)
    ELSEIF ValType(uAlias) == "C"
       cAlias := Upper(uAlias)
    ELSEIF ValType(uAlias) == "O"
@@ -1809,10 +1809,10 @@ METHOD AddColumn( oColumn ) CLASS TSBrowse
       ENDIF
    ENDIF
 
-   AAdd( ::aColumns, oColumn )
+   AAdd(::aColumns, oColumn)
 
    IF Len(::aColSizes) < Len(::aColumns)
-      AAdd( ::aColSizes, oColumn:nWidth )
+      AAdd(::aColSizes, oColumn:nWidth)
    ENDIF
 
    IF ATail( ::aColSizes ) == NIL .AND. Len(::aColSizes) > 0
@@ -1852,7 +1852,7 @@ METHOD FastDrawClear( cCell ) CLASS TSBrowse
    IF ISNUMERIC(cCell) ; cCell := hb_ntos( cCell )
    ENDIF
 
-   IF ! ::lFastDrawCell
+   IF !::lFastDrawCell
 
    ELSEIF ISLOGICAL( cCell ) .AND. cCell
       ::aFastDrawCell := hb_Hash()
@@ -1913,7 +1913,7 @@ METHOD AppendRow(lUnlock) CLASS TSBrowse
 
    CASE ::lIsArr
 
-      bAddRec := iif( ! Empty(::bAddRec), ::bAddRec, {|| AAdd( ::aArray, AClone( ::aDefValue ) ), .T. } )
+      bAddRec := iif( ! Empty(::bAddRec), ::bAddRec, {|| AAdd(::aArray, AClone(::aDefValue)), .T. } )
 
       IF Eval( bAddRec, Self )
          lUps := lAdd := .T.
@@ -1957,7 +1957,7 @@ METHOD bDataEval( oCol, xVal, nCol ) CLASS TSBrowse
    LOCAL cAlias
    LOCAL lNoAls
 
-   IF ! HB_ISOBJECT( oCol )
+   IF !HB_ISOBJECT( oCol )
       nCol := iif( HB_ISCHAR( oCol ), ::nColumn( oCol ), oCol )
       oCol := ::aColumns[nCol]
    ENDIF
@@ -2043,7 +2043,7 @@ METHOD MoreFields( nMsg, nWParam ) CLASS TSBrowse
 
    ELSEIF nMsg == WM_HSCROLL
 
-      IF ! ::lDontchange .AND. ::lEnabled
+      IF !::lDontchange .AND. ::lEnabled
          IF nKey == SB_LINEUP ; ::nCntScroll++
          ELSEIF nKey == SB_LINEDOWN ; ::nCntScroll++
          ELSE ; ::nCntScroll := 0
@@ -2402,7 +2402,7 @@ RETURN nDeltaLen
 
 METHOD nAlignGet( xVal, nCol, xDef ) CLASS TSBrowse
 
-RETURN ::GetValProp( xVal, hb_defaultValue( xDef, DT_LEFT ), nCol )
+RETURN ::GetValProp( xVal, hb_defaultValue(xDef, DT_LEFT), nCol )
 
 // ============================================================================
 // METHOD TSBrowse:nColorGet()  by SergKis
@@ -2508,7 +2508,7 @@ METHOD AddSuperHead( nFromCol, nToCol, uHead, nHeight, aColors, l3dLook, uFont, 
 
    hFont := iif( ! Empty(uFont), iif( ValType(uFont) == "O", uFont:hFont, uFont ), hFont )
 
-   IF ! Empty(::aColumns) .AND. Empty(hFont)
+   IF !Empty(::aColumns) .AND. Empty(hFont)
       hFont := iif( ValType(::aColumns[nFromCol]:hFontHead) == "O", ::aColumns[nFromCol]:hFontHead, ;
          iif( ::aColumns[nFromCol]:hFontHead != NIL, ::aColumns[nFromCol]:hFontHead, hFont ) )
    ENDIF
@@ -2516,7 +2516,7 @@ METHOD AddSuperHead( nFromCol, nToCol, uHead, nHeight, aColors, l3dLook, uFont, 
    IF ValType(aColors) == "A"
       ASize( aColors, 3 )
 
-      IF ! Empty(::aColumns)
+      IF !Empty(::aColumns)
          nClrText := iif( aColors[1] != NIL, aColors[1], ::aColumns[nFromCol]:nClrHeadFore )
          nClrBack := iif( aColors[2] != NIL, aColors[2], ::aColumns[nFromCol]:nClrHeadBack )
          nClrLine := iif( aColors[3] != NIL, aColors[3], ::nClrLine )
@@ -2526,7 +2526,7 @@ METHOD AddSuperHead( nFromCol, nToCol, uHead, nHeight, aColors, l3dLook, uFont, 
          nClrLine := iif( aColors[3] != NIL, aColors[3], ::nClrLine )
       ENDIF
    ELSE
-      IF ! Empty(::aColumns)
+      IF !Empty(::aColumns)
          nClrText := ::aColumns[nFromCol]:nClrHeadFore
          nClrBack := ::aColumns[nFromCol]:nClrHeadBack
          nClrLine := ::nClrLine
@@ -2627,8 +2627,8 @@ METHOD AddSuperHead( nFromCol, nToCol, uHead, nHeight, aColors, l3dLook, uFont, 
 
    nLineStyle := iif( lNoLines, 0, 1 )
                        //   1        2       3       4         5         6       7       8        9        10
-   AAdd( ::aSuperHead, { nFromCol, nToCol, uHead, nClrText, nClrBack, l3dLook, hFont, uBitMap, lAdjust, nLineStyle, ;
-      nClrLine, nHAlign, nVAlign, lTransp, nBmpMask } ) // SergKis 11.11.21
+   AAdd(::aSuperHead, { nFromCol, nToCol, uHead, nClrText, nClrBack, l3dLook, hFont, uBitMap, lAdjust, nLineStyle, ;
+      nClrLine, nHAlign, nVAlign, lTransp, nBmpMask }) // SergKis 11.11.21
       //  11       12       13       14       15
    ::lDrawSuperHd := ( Len(::aSuperHead) > 0 )
 
@@ -2875,8 +2875,8 @@ METHOD Default() CLASS TSBrowse
          cAlias := ::cAlias
       ENDIF
 
-      IF ! EmptyAlias( ::cAlias )
-         IF ! ::lIsArr .AND. ! ::lIsTxt .AND. lAutoCol
+      IF !EmptyAlias( ::cAlias )
+         IF !::lIsArr .AND. ! ::lIsTxt .AND. lAutoCol
             IF ::lIsDbf
                IF Empty(::nLen)
                   ::SetDbf()
@@ -2989,7 +2989,7 @@ METHOD Default() CLASS TSBrowse
 
    ::lIsDbf := ! EmptyAlias( ::cAlias ) .AND. ! ::lIsArr .AND. ! ::lIsTxt .AND. ::cAlias != "ADO_"
 
-   IF ! Empty(::aColumns)
+   IF !Empty(::aColumns)
       ASize( ::aColSizes, Len(::aColumns) ) // make sure they match sizes
    ENDIF
 
@@ -3006,7 +3006,7 @@ METHOD Default() CLASS TSBrowse
 
       nTemp := ( ::aColSizes[nI] := iif( ::aColumns[nI]:lVisible, ::aColumns[nI]:nWidth, 0 ) ) // JP 1.58
 
-      IF ! Empty(nAdj) .AND. ( nWidth + nTemp > nMaxWidth )
+      IF !Empty(nAdj) .AND. ( nWidth + nTemp > nMaxWidth )
 
          IF nAdj < nI
             ::aColumns[nAdj]:nWidth := ::aColSizes[nAdj] += ( nMaxWidth - nWidth )
@@ -3040,7 +3040,7 @@ METHOD Default() CLASS TSBrowse
    NEXT
 
    // now catch the odd-ball where last column doesn't fill box
-   IF ! Empty(nAdj) .AND. nWidth < nMaxWidth .AND. nAdj < nI
+   IF !Empty(nAdj) .AND. nWidth < nMaxWidth .AND. nAdj < nI
       ::aColumns[nAdj]:nWidth := ::aColSizes[nAdj] += ( nMaxWidth - nWidth )
    ENDIF
 
@@ -3048,7 +3048,7 @@ METHOD Default() CLASS TSBrowse
       ::nLen := iif( ::lIsDbf, ( ::cAlias )->( Eval( ::bLogicLen ) ), Eval( ::bLogicLen ) )
    ENDIF
 
-   IF ! ::lNoVScroll
+   IF !::lNoVScroll
       IF ::nLen <= ::nRowCount()
          nMin := nMax := 0
       ELSE
@@ -3059,12 +3059,12 @@ METHOD Default() CLASS TSBrowse
       ::oVScroll := TSBScrlBar():WinNew( nMin, nMax, nPage, .T., Self )
    ENDIF
 
-   IF ! Empty(::cAlias) .AND. ::cAlias != "ADO_" .AND. ::bKeyNo != NIL
+   IF !Empty(::cAlias) .AND. ::cAlias != "ADO_" .AND. ::bKeyNo != NIL
       ::ResetVScroll( .T. )
    ENDIF
 
-   IF ! ::lNoHScroll
-      IF ! Empty(::cAlias) .AND. ::lIsTxt .AND. ::oTxtFile != NIL
+   IF !::lNoHScroll
+      IF !Empty(::cAlias) .AND. ::lIsTxt .AND. ::oTxtFile != NIL
          nTxtWid := Max(1, GetTextWidth(0, "B", hFont))
          nMin := 1
          nMax := ::oTxtFile:nMaxLineLength - Int(nMaxWidth / nTxtWid)
@@ -3102,12 +3102,12 @@ METHOD Default() CLASS TSBrowse
    ::nHeightSpecHd := iif( ::nHeightSpecHd == 0, SBGetHeight(::hWnd, hFont, 0), ::nHeightSpecHd )
    ::nHeightSpecHd := iif( ::lDrawSpecHd, ::nHeightSpecHd, 0 )
 
-   IF ! ::lNoVScroll
+   IF !::lNoVScroll
       nPage := Min( ::nRowCount(), ::nLen )
       ::oVScroll:SetPage( nPage, .T. )
    ENDIF
 
-   IF ! ::lNoHScroll
+   IF !::lNoHScroll
       nPage := 1
       ::oHScroll:SetPage( nPage, .T. )
    ENDIF
@@ -3134,7 +3134,7 @@ METHOD Del( nItem ) CLASS TSBrowse
 
    DEFAULT nItem := ::nAt
 
-   IF ! ::lIsArr
+   IF !::lIsArr
       RETURN Self
    ENDIF
 
@@ -3198,7 +3198,7 @@ METHOD DelColumn( nPos ) CLASS TSBrowse
    ENDIF
 
    IF ::nCell > Len(::aColSizes)
-      IF ! ::IsColVisible( ::nCell - 1 )
+      IF !::IsColVisible( ::nCell - 1 )
          ::GoLeft()
       ELSE
          ::nCell--
@@ -3207,7 +3207,7 @@ METHOD DelColumn( nPos ) CLASS TSBrowse
 
    ::HiliteCell( ::nCell ) // make sure we have a hilited cell
 
-   IF ! ::lNoHScroll
+   IF !::lNoHScroll
       nMin := Min( 1, Len(::aColumns) )
       nMax := Len(::aColumns)
       ::oHScroll := TSBScrlBar():WinNew( nMin, nMax,, .F., Self )
@@ -3221,7 +3221,7 @@ METHOD DelColumn( nPos ) CLASS TSBrowse
       ENDIF
    ENDIF
 
-   IF ! Empty(::aSuperHead)
+   IF !Empty(::aSuperHead)
       FOR nI := 1 TO nLen
          IF nPos >= ::aSuperHead[nI, 1] .AND. nPos <= ::aSuperHead[nI, 2]
 
@@ -3271,7 +3271,7 @@ METHOD DeleteRow(lAll, lUpStable) CLASS TSBrowse
    lRecall := ! Set( _SET_DELETED )
    DEFAULT lAll := .F., lUpStable := ! lRecall
 
-   IF ! ::lIsTxt
+   IF !::lIsTxt
 
       IF ::lConfirm .AND. ! lAll
          cMsg := iif( ::lIsDbf, ::aMsg[37], ::aMsg[38] )
@@ -3280,7 +3280,7 @@ METHOD DeleteRow(lAll, lUpStable) CLASS TSBrowse
                cMsg := ::aMsg[46]
             ENDIF
          ENDIF
-         IF ! MsgYesNo( cMsg, ::aMsg[39] )
+         IF !MsgYesNo( cMsg, ::aMsg[39] )
             RETURN .F.
          ENDIF
       ENDIF
@@ -3471,19 +3471,19 @@ METHOD Destroy() CLASS TSBrowse
          IF ValType(oCol:aBitMaps) == "A"
             AEval( oCol:aBitMaps, {| hBmp | iif( Empty(hBmp), , DeleteObject( hBmp ) ) } )
          ENDIF
-         IF ! ::lDestroyAll
+         IF !::lDestroyAll
             LOOP
          ENDIF
-         IF ! Empty(oCol:uBmpCell) .AND. ! HB_ISBLOCK( oCol:uBmpCell )
+         IF !Empty(oCol:uBmpCell) .AND. ! HB_ISBLOCK( oCol:uBmpCell )
             DeleteObject( oCol:uBmpCell )
          ENDIF
-         IF ! Empty(oCol:uBmpHead) .AND. ! HB_ISBLOCK( oCol:uBmpHead )
+         IF !Empty(oCol:uBmpHead) .AND. ! HB_ISBLOCK( oCol:uBmpHead )
             DeleteObject( oCol:uBmpHead )
          ENDIF
-         IF ! Empty(oCol:uBmpSpcHd) .AND. ! HB_ISBLOCK( oCol:uBmpSpcHd )
+         IF !Empty(oCol:uBmpSpcHd) .AND. ! HB_ISBLOCK( oCol:uBmpSpcHd )
             DeleteObject( oCol:uBmpSpcHd )
          ENDIF
-         IF ! Empty(oCol:uBmpFoot) .AND. ! HB_ISBLOCK( oCol:uBmpFoot )
+         IF !Empty(oCol:uBmpFoot) .AND. ! HB_ISBLOCK( oCol:uBmpFoot )
             DeleteObject( oCol:uBmpFoot )
          ENDIF
       NEXT
@@ -3597,7 +3597,7 @@ METHOD DrawHeaders( lFooters, lDrawCell ) CLASS TSBrowse
    IF ::aColSizes == NIL .OR. Len(::aColSizes) < Len(::aColumns)
       ::aColSizes := {}
       FOR nI := 1 TO Len(::aColumns)
-         AAdd( ::aColSizes, iif( ::aColumns[nI]:lVisible, ::aColumns[nI]:nWidth, 0 ) ) // JP 1.58
+         AAdd(::aColSizes, iif( ::aColumns[nI]:lVisible, ::aColumns[nI]:nWidth, 0 )) // JP 1.58
       NEXT
    ENDIF
 
@@ -3650,7 +3650,7 @@ METHOD DrawHeaders( lFooters, lDrawCell ) CLASS TSBrowse
    ENDIF
 
    nLastCol := Len(::aColumns) + 1
-   AAdd( aColSizes, ::nPhantom )
+   AAdd(aColSizes, ::nPhantom)
 
    nJ := nStartCol := 0
 
@@ -3661,11 +3661,11 @@ METHOD DrawHeaders( lFooters, lDrawCell ) CLASS TSBrowse
       RETURN Self
    ENDIF
 
-   IF ! Empty(::aSuperHead) .AND. ! lFooters
+   IF !Empty(::aSuperHead) .AND. ! lFooters
       ::DrawSuper()
    ENDIF
 
-   IF ! lDrawCell
+   IF !lDrawCell
       nBegin := 1
       nLastCol := ::nColCount()
    ENDIF
@@ -3768,7 +3768,7 @@ METHOD DrawHeaders( lFooters, lDrawCell ) CLASS TSBrowse
          ENDIF
 
          IF nAlign != DT_CENTER .AND. ::nCellMarginLR != NIL
-            cHeading := ::CellMarginLeftRight( nJ, cHeading, oColumn, nAlign, lMultiLine, 0 )
+            cHeading := ::CellMarginLeftRight(nJ, cHeading, oColumn, nAlign, lMultiLine, 0)
          ENDIF
          // SergKis 11.11.21
          nBitmapMask := oColumn:nBmpMaskHead
@@ -3864,7 +3864,7 @@ METHOD DrawHeaders( lFooters, lDrawCell ) CLASS TSBrowse
          uTmp := NIL
          IF ::lEnum
             cHeading := hb_ntos( nJ - iif( ::lSelector, 1, 0 ) )
-            IF ! Empty(oColumn:cSpcHeading)
+            IF !Empty(oColumn:cSpcHeading)
                uTmp := iif( ValType(oColumn:cSpcHeading) == "B", Eval( oColumn:cSpcHeading, nJ, Self ), oColumn:cSpcHeading )
                cHeading := iif( HB_ISNUMERIC(uTmp), hb_ntos( uTmp ), iif( HB_ISCHAR( uTmp ), uTmp, "" ) )
             ENDIF
@@ -3878,7 +3878,7 @@ METHOD DrawHeaders( lFooters, lDrawCell ) CLASS TSBrowse
             IF Empty(oColumn:cPicture)
                cHeading := iif( ValType(cHeading) != "C", cValToChar( cHeading ), cHeading )
             ELSE
-               cHeading := iif( cHeading == NIL, "", Transform( cHeading, oColumn:cPicture ) )
+               cHeading := iif( cHeading == NIL, "", Transform(cHeading, oColumn:cPicture) )
             ENDIF
 
             nAlign := ::nAlignGet( oColumn:nAlign, nJ, DT_CENTER )
@@ -4033,7 +4033,7 @@ METHOD DrawHeaders( lFooters, lDrawCell ) CLASS TSBrowse
          nBitmapMask := oColumn:nBmpMaskFoot
 
          IF nAlign != DT_CENTER .AND. ::nCellMarginLR != NIL
-            cFooting := ::CellMarginLeftRight( nJ, cFooting, oColumn, nAlign, lMultiLine, 0 )
+            cFooting := ::CellMarginLeftRight(nJ, cFooting, oColumn, nAlign, lMultiLine, 0)
          ENDIF
 
          IF Empty(oColumn:oCellFoot)
@@ -4122,7 +4122,7 @@ METHOD DrawIcons() CLASS TSBrowse
       IF ::bIconText != NIL
          cText := cValToChar( Eval( ::bIconText, Self ) )
       ELSE
-         cText := Str( ( ::cAlias )->( RecNo() ) )
+         cText := Str((::cAlias)->(RecNo()))
       ENDIF
 
       DrawText( ::hDC, cText, { nRow + 35, nCol - 5, nRow + 48, nCol + 40 }, 1 )
@@ -4261,7 +4261,7 @@ METHOD DrawLine( xRow, lDrawCell ) CLASS TSBrowse
          ::oPhant:l3DLook := l3DLook
       ENDIF
 
-      AAdd( aColSizes, ::nPhantom )
+      AAdd(aColSizes, ::nPhantom)
 
       nJ := nStartCol := 0
       nLastCol := Len(::aColumns) + 1
@@ -4269,12 +4269,12 @@ METHOD DrawLine( xRow, lDrawCell ) CLASS TSBrowse
          ::nColPos - ::nFreeze ), ::nColPos - ::nFreeze ), nLastCol )
 
       IF ::bOnDrawLine != NIL
-         IF ! Empty(Eval(::bOnDrawLine, Self, xRow))
+         IF !Empty(Eval(::bOnDrawLine, Self, xRow))
             RETURN Self
          ENDIF
       ENDIF
 
-      IF ! lDrawCell
+      IF !lDrawCell
          nBegin := 1
          nLastCol := ::nColCount()
       ENDIF
@@ -4341,12 +4341,12 @@ METHOD DrawLine( xRow, lDrawCell ) CLASS TSBrowse
             nAlign := nMakeLong( LoWord(nAlign), ::nAligBmp )
          ELSEIF oColumn:lBitMap .AND. ValType(uData) == "N"
             aBitMaps := iif( ValType(oColumn:aBitMaps) == "A", oColumn:aBitMaps, ::aBitMaps )
-            IF ! Empty(aBitMaps) .AND. uData > 0 .AND. uData <= Len(aBitMaps)
+            IF !Empty(aBitMaps) .AND. uData > 0 .AND. uData <= Len(aBitMaps)
                uBmpCell := aBitMaps[uData]
             ENDIF
             nAlign := nMakeLong( oColumn:nAlign, oColumn:nAlign )
             uData := ""
-         ElseIF ! lCheck .AND. oColumn:lEmptyValToChar .AND. Empty(uData)
+         ElseIF !lCheck .AND. oColumn:lEmptyValToChar .AND. Empty(uData)
             uData := ""
          ELSEIF lCell
             uData := oCell:cValue
@@ -4359,7 +4359,7 @@ METHOD DrawLine( xRow, lDrawCell ) CLASS TSBrowse
                ENDIF
             ENDIF
          ELSE
-            uData := iif( uData == NIL, "", Transform( uData, cPicture ) )
+            uData := iif( uData == NIL, "", Transform(uData, cPicture) )
          ENDIF
 
          nAlign := ::nAlignGet( oColumn:nAlign, nJ, DT_LEFT )
@@ -4419,9 +4419,9 @@ METHOD DrawLine( xRow, lDrawCell ) CLASS TSBrowse
             l3DText := nClr3dL := nClr3dS := NIL
          ENDIF
 
-         IF ! lCell
+         IF !lCell
             IF nAlign != DT_CENTER .AND. ::nCellMarginLR != NIL
-               uData := ::CellMarginLeftRight( nJ, uData, oColumn, nAlign, lMultiLine, 0 )
+               uData := ::CellMarginLeftRight(nJ, uData, oColumn, nAlign, lMultiLine, 0)
             ENDIF
          ENDIF
          // SergKis 11.11.21
@@ -4549,7 +4549,7 @@ RETURN lDraw
 // METHOD TSBrowse:CellMarginLeftRight()  by SergKis
 // ============================================================================
 
-METHOD CellMarginLeftRight( nJ, cData, oColumn, nAlign, lMultiLine, nOut ) CLASS TSBrowse
+METHOD CellMarginLeftRight(nJ, cData, oColumn, nAlign, lMultiLine, nOut) CLASS TSBrowse
 
    LOCAL nCellMarginLR
    LOCAL aTmp
@@ -4610,7 +4610,7 @@ METHOD DrawPressed( nCell, lPressed ) CLASS TSBrowse
 
    IF Empty(nCell) .OR. nCell > Len(::aColumns) .OR. ! ::lDrawHeaders
       RETURN Self
-   ELSEIF ! lPressed .AND. ! ::aColumns[nCell]:l3DLookHead
+   ELSEIF !lPressed .AND. ! ::aColumns[nCell]:l3DLookHead
       ::DrawHeaders()
       RETURN Self
    ENDIF
@@ -4773,7 +4773,7 @@ METHOD DrawSelect( xRow, lDrawCell ) CLASS TSBrowse
          ::oPhant:l3DLook := l3DLook
       ENDIF
 
-      AAdd( aColSizes, ::nPhantom )
+      AAdd(aColSizes, ::nPhantom)
       nJ := nStartCol := 0
       nLastCol := Len(::aColumns) + 1
       nBegin := Min( iif( ::nColPos <= ::nFreeze, ( ::nColPos := ::nFreeze + 1, ::nColPos - ::nFreeze ), ;
@@ -4791,12 +4791,12 @@ METHOD DrawSelect( xRow, lDrawCell ) CLASS TSBrowse
       ENDIF
 
       IF ::bOnDrawLine != NIL
-         IF ! Empty(Eval(::bOnDrawLine, Self, xRow))
+         IF !Empty(Eval(::bOnDrawLine, Self, xRow))
             RETURN Self
          ENDIF
       ENDIF
 
-      IF ! ::lDrawLine
+      IF !::lDrawLine
          nBegin := 1
          nLastCol := ::nColCount()
       ENDIF
@@ -4880,12 +4880,12 @@ METHOD DrawSelect( xRow, lDrawCell ) CLASS TSBrowse
                nAlign := nMakeLong( LoWord(nAlign), ::nAligBmp )
             ELSEIF oColumn:lBitMap .AND. ValType(uData) == "N"
                aBitMaps := iif( ValType(oColumn:aBitMaps) == "A", oColumn:aBitMaps, ::aBitMaps )
-               IF ! Empty(aBitMaps) .AND. uData > 0 .AND. uData <= Len(aBitMaps)
+               IF !Empty(aBitMaps) .AND. uData > 0 .AND. uData <= Len(aBitMaps)
                   uBmpCell := aBitMaps[uData]
                ENDIF
                nAlign := nMakeLong( LoWord(nAlign), nAlign )
                uData := ""
-            ELSEIF ! lCheck .AND. oColumn:lEmptyValToChar .AND. Empty(uData)
+            ELSEIF !lCheck .AND. oColumn:lEmptyValToChar .AND. Empty(uData)
                uData := ""
             ELSEIF lCell
                uData := oCell:cValue
@@ -4898,7 +4898,7 @@ METHOD DrawSelect( xRow, lDrawCell ) CLASS TSBrowse
                   ENDIF
                ENDIF
             ELSE
-               uData := iif( uData == NIL, "", Transform( uData, cPicture ) )
+               uData := iif( uData == NIL, "", Transform(uData, cPicture) )
             ENDIF
          ENDIF
 
@@ -4908,7 +4908,7 @@ METHOD DrawSelect( xRow, lDrawCell ) CLASS TSBrowse
             IF ::lLiteBar
                nClrFore := ::GetValProp( oColumn:nClrFocuFore, nClrText, nJ, ::nAt )
                nClrBack := ::GetValProp( oColumn:nClrFocuBack, nClrPane, nJ, ::nAt )
-               IF ! Empty(oColumn:cName) .AND. oColumn:cName == "oPhant"
+               IF !Empty(oColumn:cName) .AND. oColumn:cName == "oPhant"
                   nClrBack := nClrPane
                ELSEIF ValType(nClrBack) == "N" .AND. nClrBack < 0
                   nClrBack *= -1
@@ -4988,9 +4988,9 @@ METHOD DrawSelect( xRow, lDrawCell ) CLASS TSBrowse
             oColumn:nEditWidthDraw := aColSizes[nJ] + nDeltaLen
          ENDIF
 
-         IF ! lCell
+         IF !lCell
             IF nAlign != DT_CENTER .AND. ::nCellMarginLR != NIL
-               uData := ::CellMarginLeftRight( nJ, uData, oColumn, nAlign, lMulti, 0 )
+               uData := ::CellMarginLeftRight(nJ, uData, oColumn, nAlign, lMulti, 0)
             ENDIF
          ENDIF
          // SergKis 11.11.21
@@ -5060,7 +5060,7 @@ METHOD DrawSelect( xRow, lDrawCell ) CLASS TSBrowse
          nStartCol += aColSizes[nJ] + nDeltaLen
 
          IF lDraw
-            AAdd( ::aDrawCols, nJ )
+            AAdd(::aDrawCols, nJ)
          ENDIF
 
       NEXT
@@ -5075,7 +5075,7 @@ METHOD DrawSelect( xRow, lDrawCell ) CLASS TSBrowse
       cMsg := iif( ! Empty(::AColumns[::nCell]:cMsg), ::AColumns[::nCell]:cMsg, ::cMsg )
       cMsg := iif( ValType(cMsg) == "B", Eval( cMsg, Self, ::nCell ), cMsg )
 
-      IF ! Empty(cMsg)
+      IF !Empty(cMsg)
          ::SetMsg( cMsg )
       ENDIF
    ENDIF
@@ -5173,8 +5173,7 @@ METHOD DrawSuper( lDrawCell ) CLASS TSBrowse
    nClrLine := aSuperHead[nI, 11]
 
    IF ( nI := ATail( aSuperHead )[2] ) < Len(::aColumns)
-      AAdd( aSuperHead, { nI + 1, Len(::aColumns), "", nClrFore, nClrBack, l3DLook, hFont, .F., .F., nLineStyle, ;
-         nClrLine, 1, 1, .F., nBitmapMask } ) // SergKis 11.11.21
+      AAdd(aSuperHead, { nI + 1, Len(::aColumns), "", nClrFore, nClrBack, l3DLook, hFont, .F., .F., nLineStyle, nClrLine, 1, 1, .F., nBitmapMask }) // SergKis 11.11.21
    ENDIF
 
    nStartCol := nWidth := 0
@@ -5366,7 +5365,7 @@ METHOD DrawSuper( lDrawCell ) CLASS TSBrowse
       oSupHd:nCursor := 0 // 31  Rect cursor
       oSupHd:lInvertColor := .F. // 32  Invert color
 
-      AAdd( aSupHd, oSupHd )
+      AAdd(aSupHd, oSupHd)
 
       IF lDrawCell
          ::TSDrawCell( oSupHd )
@@ -5475,7 +5474,7 @@ METHOD Edit( uVar, nCell, nKey, nKeyFlags, cPicture, bValid, nClrFore, nClrBack 
    ::oGet := ::bValid // JP
    ::bValid := {|| ! ::lEditing }
    // JP 1.58
-   IF ! oCol:lVisible
+   IF !oCol:lVisible
       ::lChanged := .F.
       ::lPostEdit := .F.
       ::oWnd:nLastKey := VK_RIGHT
@@ -5484,7 +5483,7 @@ METHOD Edit( uVar, nCell, nKey, nKeyFlags, cPicture, bValid, nClrFore, nClrBack 
    ENDIF
    // End
    IF oCol:bPassWord != NIL
-      IF ! Eval( oCol:bPassWord, uValue, nCell, ::nAt, Self )
+      IF !Eval( oCol:bPassWord, uValue, nCell, ::nAt, Self )
          RETURN NIL
       ENDIF
    ENDIF
@@ -5605,7 +5604,7 @@ METHOD Edit( uVar, nCell, nKey, nKeyFlags, cPicture, bValid, nClrFore, nClrBack 
 
    IF oCol:nEditWidthDraw > 0
       nWidth := oCol:nEditWidthDraw
-      IF ! ::lNoVScroll
+      IF !::lNoVScroll
          nWidth -= GetVScrollBarWidth()
       ENDIF
    ENDIF
@@ -5655,7 +5654,7 @@ METHOD Edit( uVar, nCell, nKey, nKeyFlags, cPicture, bValid, nClrFore, nClrBack 
             nK := MLCount( cTmp, oCol:nEditBoxWrap, , .T. )
             uValue := ""
             FOR nI := 1 TO nK
-               uValue += Trim( MemoLine( cTmp, oCol:nEditBoxWrap, nI, , .T. ) )
+               uValue += Trim(MemoLine(cTmp, oCol:nEditBoxWrap, nI, , .T.))
                IF nI != nK
                   uValue += CRLF
                ENDIF
@@ -5665,7 +5664,7 @@ METHOD Edit( uVar, nCell, nKey, nKeyFlags, cPicture, bValid, nClrFore, nClrBack 
 
       IF ::nMemoHE == NIL
 
-         IF ! Empty(uValue)
+         IF !Empty(uValue)
             nHeight := Max(5, StrCharCount(uValue, Chr(10)))
          ELSE
             nHeight := 5
@@ -5817,7 +5816,7 @@ METHOD Edit( uVar, nCell, nKey, nKeyFlags, cPicture, bValid, nClrFore, nClrBack 
 
    ELSE
 
-      ix := GetControlIndex ( cWnd, ::cParentWnd )
+      ix := GetControlIndex(cWnd, ::cParentWnd)
       IF _HMG_aControlContainerRow[ix] == -1
          nRow += ::nTop - 1
          nCol += ::nLeft
@@ -5859,7 +5858,7 @@ METHOD Edit( uVar, nCell, nKey, nKeyFlags, cPicture, bValid, nClrFore, nClrBack 
          _SetAlign( ::cChildControl, ::cParentWnd, { "LEFT", "CENTER", "RIGHT" }[oCol:nEditAlign + 1] )
       ENDIF
 
-      IF ! Empty(oCol:aKeyEvent)
+      IF !Empty(oCol:aKeyEvent)
          oGet := oCol:oEdit:oGet
          FOR nK := 1 TO Len(oCol:aKeyEvent)
             aKey := oCol:aKeyEvent[nK]
@@ -5886,7 +5885,7 @@ METHOD Edit( uVar, nCell, nKey, nKeyFlags, cPicture, bValid, nClrFore, nClrBack 
          oCol:oEdit:bLostFocus := NIL
 
       CASE "TGETBOX" $ Upper(oCol:oEdit:ClassName())
-         ix := GetControlIndex ( ::cChildControl, ::cParentWnd )
+         ix := GetControlIndex(::cChildControl, ::cParentWnd)
          _HMG_InteractiveCloseStarted := .T.
          IF ix > 0
             IF oCol:lOnGotFocusSelect
@@ -5907,7 +5906,7 @@ METHOD Edit( uVar, nCell, nKey, nKeyFlags, cPicture, bValid, nClrFore, nClrBack 
 
       IF nKey != NIL .AND. nKey > 31
 
-         IF ! lCombo .AND. ! lMulti
+         IF !lCombo .AND. ! lMulti
             ::KeyChar( nKey, nKeyFlags ) // 1.53
          ENDIF
 
@@ -5953,7 +5952,7 @@ METHOD EditExit( nCol, nKey, uVar, bValid, lLostFocus ) CLASS TSBrowse
    IF ValType(oCol:oEdit) == "O"
       DO CASE
       CASE "TGETBOX" $ Upper(oCol:oEdit:ClassName())
-         ix := GetControlIndex ( ::cChildControl, ::cParentWnd )
+         ix := GetControlIndex(::cChildControl, ::cParentWnd)
          nKey := _HMG_aControlMiscData1[ix][3]
          SetFocus( ::hWnd ) // JP 1.59
 
@@ -5969,7 +5968,7 @@ METHOD EditExit( nCol, nKey, uVar, bValid, lLostFocus ) CLASS TSBrowse
       lLostFocus := .T.
    ENDIF
 
-   IF ! lLostFocus .AND. nKey > 0 .AND. ( nKey != VK_ESCAPE .OR. ::nColSpecHd != 0 ) .AND. ;
+   IF !lLostFocus .AND. nKey > 0 .AND. ( nKey != VK_ESCAPE .OR. ::nColSpecHd != 0 ) .AND. ;
          ValType(oCol:oEdit) == "O"
 
       ::lPostEdit := .T.
@@ -6115,7 +6114,7 @@ METHOD EditExit( nCol, nKey, uVar, bValid, lLostFocus ) CLASS TSBrowse
 
          IF ::nLen <= ::nRowCount()
             ::Refresh( .T. )
-         ELSEIF ! ::lCanAppend
+         ELSEIF !::lCanAppend
             ::GoBottom()
          ENDIF
 
@@ -6142,11 +6141,11 @@ METHOD AutoSpec( nCol )
 
    IF ::lAutoSearch
       IF ::bUserSearch != NIL
-         AEval( ::aColumns, {| x | AAdd( acSpecHdr, x:cSpcHeading ) } )
+         AEval( ::aColumns, {| x | AAdd(acSpecHdr, x:cSpcHeading) } )
          Eval( ::bUserSearch, nCol, acSpecHdr, Self )
       ELSE
          cExp := BuildAutoSeek( Self )
-         IF ! Empty(cExp)
+         IF !Empty(cExp)
             IF ::cAlias != "ADO_"
                BEGIN SEQUENCE
                   uExp := &( cExp )
@@ -6180,15 +6179,15 @@ METHOD AutoSpec( nCol )
 
    ELSEIF ::lAutoFilter
       IF ::bUserFilter != NIL
-         AEval( ::aColumns, {| x | AAdd( acSpecHdr, x:cSpcHeading ) } )
+         AEval( ::aColumns, {| x | AAdd(acSpecHdr, x:cSpcHeading) } )
          cExp := Eval( ::bUserFilter, nCol, acSpecHdr, Self )
       ELSE
          cExp := BuildAutoFilter( Self )
       ENDIF
-      if ! Empty(cExp)
+      if !Empty(cExp)
          IF ::cAlias != "ADO_"
             BEGIN SEQUENCE
-               uExp := &( "{||(" + Trim( cExp ) + ")}" )
+               uExp := &( "{||(" + Trim(cExp) + ")}" )
             Recover
                ErrorBlock( bError )
                RETURN NIL
@@ -6308,10 +6307,10 @@ METHOD Excel2( cFile, lActivate, hProgress, cTitle, lSave, bPrintRow ) CLASS TSB
 
    ::lNoPaint := .F.
    nInstance++
-   cWork := GetStartupFolder() + "\Book" + LTrim( Str( nInstance ) ) + ".xls"
+   cWork := GetStartupFolder() + "\Book" + LTrim(Str(nInstance)) + ".xls"
    ::SetFocus()
    cFile := ::Proper(StrTran(AllTrim(Upper(cFile)), ".XLS") + ".XLS")
-   cTitle := AllTrim( cTitle )
+   cTitle := AllTrim(cTitle)
 
    FOR nCol := 1 TO Len(::aColSizes)
 
@@ -6325,7 +6324,7 @@ METHOD Excel2( cFile, lActivate, hProgress, cTitle, lSave, bPrintRow ) CLASS TSB
             IF cc == "9" ;   cc := "0" ;   ENDIF
             IF cc == "." ;   cc := "," ;   ENDIF
             IF cc == "@" .OR. cc == "K" .OR. cc == "Z" ;   LOOP ;   ENDIF
-            if ! Empty(cPic) ; cPic += cc
+            if !Empty(cPic) ; cPic += cc
             ELSEIF cc <> "0" ; cPic += ( "#0" + cc )
             ENDIF
          NEXT
@@ -6344,10 +6343,11 @@ METHOD Excel2( cFile, lActivate, hProgress, cTitle, lSave, bPrintRow ) CLASS TSB
       ENDIF
       nPic := iif( ! Empty(cPic), AScan(aPic, {| x | x == cPic }), 0 )
       IF nPic == 0
-         AAdd( aPic, cPic ) ;  nPic := Len(aPic)
+         AAdd(aPic, cPic)
+         nPic := Len(aPic)
       ENDIF
 
-      AAdd( anPIC, nPic )
+      AAdd(anPIC, nPic)
 
    NEXT
 
@@ -6363,10 +6363,10 @@ METHOD Excel2( cFile, lActivate, hProgress, cTitle, lSave, bPrintRow ) CLASS TSB
    FWrite( nHandle, BiffRec( 13 ) )
 
    IF ::hFont != NIL
-      AAdd( aFont, GetFontParam( ::hFont ) )
+      AAdd(aFont, GetFontParam( ::hFont ))
    ELSE
       IF ( hFont := GetFontHandle( ::cFont ) ) != 0
-         AAdd( aFont, GetFontParam( hFont ) )
+         AAdd(aFont, GetFontParam( hFont ))
       ENDIF
    ENDIF
 
@@ -6388,7 +6388,7 @@ METHOD Excel2( cFile, lActivate, hProgress, cTitle, lSave, bPrintRow ) CLASS TSB
                e[3] == aFontTmp[3] .AND. e[4] == aFontTmp[4] .AND. ;
                e[5] == aFontTmp[5] .AND. e[6] == aFontTmp[6] }) == 0
 
-            AAdd( aFont, aFontTmp )
+            AAdd(aFont, aFontTmp)
          ENDIF
       ENDIF
 
@@ -6399,7 +6399,7 @@ METHOD Excel2( cFile, lActivate, hProgress, cTitle, lSave, bPrintRow ) CLASS TSB
                e[3] == aFontTmp[3] .AND. e[4] == aFontTmp[4] .AND. ;
                e[5] == aFontTmp[5] .AND. e[6] == aFontTmp[6] }) == 0
 
-            AAdd( aFont, aFontTmp )
+            AAdd(aFont, aFontTmp)
          ENDIF
       ENDIF
 
@@ -6411,7 +6411,7 @@ METHOD Excel2( cFile, lActivate, hProgress, cTitle, lSave, bPrintRow ) CLASS TSB
                e[3] == aFontTmp[3] .AND. e[4] == aFontTmp[4] .AND. ;
                e[5] == aFontTmp[5] .AND. e[6] == aFontTmp[6] }) == 0
 
-            AAdd( aFont, aFontTmp )
+            AAdd(aFont, aFontTmp)
          ENDIF
       ENDIF
 
@@ -6423,7 +6423,7 @@ METHOD Excel2( cFile, lActivate, hProgress, cTitle, lSave, bPrintRow ) CLASS TSB
                e[3] == aFontTmp[3] .AND. e[4] == aFontTmp[4] .AND. ;
                e[5] == aFontTmp[5] .AND. e[6] == aFontTmp[6] }) == 0
 
-            AAdd( aFont, aFontTmp )
+            AAdd(aFont, aFontTmp)
          ENDIF
       ENDIF
 
@@ -6433,7 +6433,7 @@ METHOD Excel2( cFile, lActivate, hProgress, cTitle, lSave, bPrintRow ) CLASS TSB
       ASize( aFont, 4 )
    ENDIF
 
-   IF ! Empty(aFont)
+   IF !Empty(aFont)
       FOR nCol := 1 TO Len(aFont)
          FWrite( nHandle, BiffRec( 49, aFont[nCol] ) )
       NEXT
@@ -6442,7 +6442,7 @@ METHOD Excel2( cFile, lActivate, hProgress, cTitle, lSave, bPrintRow ) CLASS TSB
    FWrite( nHandle, BiffRec( 31, 1 ) )
    FWrite( nHandle, BiffRec( 30, "General" ) )
 
-   IF ! Empty(aPic)
+   IF !Empty(aPic)
       AEval( aPic, {| e | FWrite( nHandle, BiffRec( 30, e ) ) } )
    ENDIF
 
@@ -6462,7 +6462,7 @@ METHOD Excel2( cFile, lActivate, hProgress, cTitle, lSave, bPrintRow ) CLASS TSB
 
       IF nRow == 1
 
-         IF ! Empty(cTitle)
+         IF !Empty(cTitle)
             cTitle := StrTran(cTitle, CRLF, Chr( 10 ))
             nAlign := iif( Chr( 10 ) $ cTitle, 5, 1 )
             hFont := hFntTitle
@@ -6709,7 +6709,7 @@ METHOD ExcelOle( cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, bExtern, 
 
    cLet := aLet[AScan(aCol, {| e | Len(iif( aColSel != NIL, aColSel, ::aColumns )) <= e })]
 
-   IF ! Empty(cLet)
+   IF !Empty(cLet)
       nCol := AScan(aLet, cLet) - 1
       cLet += HeadXls( Len(iif( aColSel != NIL, aColSel, ::aColumns )) - aCol[Max(1, nCol)] )
    ELSE
@@ -6727,7 +6727,7 @@ METHOD ExcelOle( cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, bExtern, 
       nEvery := Max(1, Int(nTotal * .02)) // refresh hProgress every 2 %
    ENDIF
 
-   IF ! Empty(cXlsFile)
+   IF !Empty(cXlsFile)
       IF At( "\", cXlsFile ) > 0
          cXlsFile := cFilePath( cXlsFile ) + "\" + cFileNoExt( cXlsFile )
       ELSE
@@ -6740,7 +6740,7 @@ METHOD ExcelOle( cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, bExtern, 
       cTitle := cTitle[1]
    ENDIF
 
-   cTitle := AllTrim( cTitle )
+   cTitle := AllTrim(cTitle)
 
    TRY
       oExcel := CreateObject( "Excel.Application" )
@@ -6774,8 +6774,8 @@ METHOD ExcelOle( cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, bExtern, 
 
       IF nRow == 1
 
-         IF ! Empty(cTitle)
-            oSheet:Cells( nLine++, 1 ):Value := AllTrim( cTitle )
+         IF !Empty(cTitle)
+            oSheet:Cells( nLine++, 1 ):Value := AllTrim(cTitle)
             oSheet:Range( "A1:" + cLet + "1" ):HorizontalAlignment := xlHAlignCenterAcrossSelection
             IF hFntTitle != NIL
                aFont := GetFontParam( hFntTitle )
@@ -6797,8 +6797,8 @@ METHOD ExcelOle( cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, bExtern, 
                uData := iif( ValType(::aSuperhead[nCol, 3]) == "B", Eval( ::aSuperhead[nCol, 3] ), ;
                   ::aSuperhead[nCol, 3] )
                oSheet:Cells( nLine, ::aSuperHead[nCol, 1] - nVar ):Value := uData
-               cRange := HeadXls( ::aSuperHead[nCol, 1] - nVar ) + LTrim( Str( nLine ) ) + ":" + ;
-                  HeadXls( ::aSuperHead[nCol, 2] - nVar ) + LTrim( Str( nLine ) )
+               cRange := HeadXls( ::aSuperHead[nCol, 1] - nVar ) + LTrim(Str(nLine)) + ":" + ;
+                  HeadXls( ::aSuperHead[nCol, 2] - nVar ) + LTrim(Str(nLine))
                oSheet:Range( cRange ):Borders():LineStyle := xlContinuous
                oSheet:Range( cRange ):HorizontalAlignment := xlHAlignCenterAcrossSelection
                oRange := oSheet:Range( cRange )
@@ -6865,16 +6865,16 @@ METHOD ExcelOle( cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, bExtern, 
                uData := StrTran(uData, CRLF, "&&")
 
                IF AScan(aRepl, nCol) == 0
-                  AAdd( aRepl, nCol )
+                  AAdd(aRepl, nCol)
                ENDIF
             ENDIF
 
             IF ::aColumns[nCol]:cPicture != NIL .AND. uData != NIL
-               uData := Transform( uData, ::aColumns[nCol]:cPicture )
+               uData := Transform(uData, ::aColumns[nCol]:cPicture)
             ENDIF
          ELSEIF ValType(uData) == "N"
             IF ::aColumns[nCol]:cPicture != NIL
-               uData := Transform( uData, ::aColumns[nCol]:cPicture )
+               uData := Transform(uData, ::aColumns[nCol]:cPicture)
             ELSE
                uData := cValToChar( uData )
             ENDIF
@@ -6887,14 +6887,14 @@ METHOD ExcelOle( cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, bExtern, 
             oSheet:Cells( nLine, nCol ):NumberFormat := cTmp
          ELSE
             IF ::aColumns[nCol]:cPicture != NIL .AND. uData != NIL
-               uData := Transform( uData, ::aColumns[nCol]:cPicture )
+               uData := Transform(uData, ::aColumns[nCol]:cPicture)
             ENDIF
 
             uData := iif( ValType(uData) == "D", DToC( uData ), ;
                iif( ValType(uData) == "L", iif( uData, ".T.", ".F." ), cValToChar( uData ) ) )
          ENDIF
 
-         cText += Trim( uData ) + Chr( 9 )
+         cText += Trim(uData) + Chr( 9 )
 
          IF hProgress != NIL
 
@@ -6918,7 +6918,7 @@ METHOD ExcelOle( cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, bExtern, 
 
       IF Len(cText) > 20000
          CopyToClipboard( cText )
-         cCell := "A" + AllTrim( Str( nStart ) )
+         cCell := "A" + AllTrim(Str(nStart))
          oRange := oSheet:Range( cCell )
          oRange:Select()
          oSheet:Paste()
@@ -6946,7 +6946,7 @@ METHOD ExcelOle( cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, bExtern, 
 
    IF Len(cText) > 0
       CopyToClipboard( cText )
-      cCell := "A" + AllTrim( Str( nStart ) )
+      cCell := "A" + AllTrim(Str(nStart))
       oRange := oSheet:Range( cCell )
       oRange:Select()
       oSheet:Paste()
@@ -6955,7 +6955,7 @@ METHOD ExcelOle( cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, bExtern, 
 
    nLine := iif( ! Empty(cTitle), 3, 1 )
    nLIne += iif( ! Empty(::aSuperHead), 1, 0 )
-   cRange := "A" + LTrim( Str( nLine ) ) + ":" + cLet + AllTrim( Str( oSheet:UsedRange:Rows:Count() ) )
+   cRange := "A" + LTrim(Str(nLine)) + ":" + cLet + AllTrim(Str(oSheet:UsedRange:Rows:Count()))
    oRange := oSheet:Range( cRange )
 
    IF hFont != NIL // let the programmer to decide the font he wants, otherwise use Excel's default
@@ -6965,7 +6965,7 @@ METHOD ExcelOle( cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, bExtern, 
       oRange:Font:Bold := aFont[3]
    ENDIF
 
-   IF ! Empty(aRepl)
+   IF !Empty(aRepl)
       FOR nCol := 1 TO Len(aRepl)
          oSheet:Columns( HeadXls( aRepl[nCol] ) ):Replace( "&&", Chr( 10 ) )
       NEXT
@@ -6978,7 +6978,7 @@ METHOD ExcelOle( cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, bExtern, 
    oRange:Borders():LineStyle := xlContinuous
    oRange:Columns:AutoFit()
 
-   IF ! Empty(aRepl)
+   IF !Empty(aRepl)
       FOR nCol := 1 TO Len(aRepl)
          oSheet:Columns( HeadXls( aRepl[nCol] ) ):WrapText := .T.
       NEXT
@@ -7002,11 +7002,11 @@ METHOD ExcelOle( cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, bExtern, 
 
    ::nAt := nAt
 
-   IF ! Empty(cXlsFile) .AND. lSave
+   IF !Empty(cXlsFile) .AND. lSave
 
       oBook:SaveAs( cXlsFile, xlWorkbookNormal )
 
-      IF ! lActivate
+      IF !lActivate
          CursorArrow()
          oExcel:Application:Quit()
          ::Reset()
@@ -7063,7 +7063,7 @@ METHOD ExpLocate( cExp, nCol ) CLASS TSBrowse
 
       ErrorBlock( bError )
 
-      bExp := &( "{||(" + Trim( cExp ) + ")}" )
+      bExp := &( "{||(" + Trim(cExp) + ")}" )
 
       IF Eval( bExp )
          ::Skip( 1 )
@@ -7172,7 +7172,7 @@ METHOD GotoRec( nRec, nRowPos ) CLASS TSBrowse
          ENDIF
       ENDIF
 
-      hb_default( @nRowPos, ::nRowPos )
+      hb_default(@nRowPos, ::nRowPos)
 
       ( cAlias )->( dbGoto( nRec ) )
 
@@ -7343,10 +7343,10 @@ METHOD ExpSeek( cExp, lSoft ) CLASS TSBrowse
    nQuote := At( Chr(34), cExp )
    nQuote := iif( nQuote == 0, At( "'", cExp ), nQuote )
 
-   cExp := iif( cType == "C" .AND. nQuote == 0, Chr(34) + Trim( cExp ) + Chr(34), ;
-      iif( cType == "D" .AND. At( "CTOD", Upper(cExp) ) == 0, "CtoD( " + Chr(34) + AllTrim( cExp ) + Chr(34) + ")", ;
-      iif( cType == "N", AllTrim( cExp ), iif( cType == "L", iif( AllTrim( cExp ) == "T", ".T.", ".F." ), ;
-      AllTrim( cExp ) ) ) ) )
+   cExp := iif( cType == "C" .AND. nQuote == 0, Chr(34) + Trim(cExp) + Chr(34), ;
+      iif( cType == "D" .AND. At( "CTOD", Upper(cExp) ) == 0, "CtoD( " + Chr(34) + AllTrim(cExp) + Chr(34) + ")", ;
+      iif( cType == "N", AllTrim(cExp), iif( cType == "L", iif( AllTrim(cExp) == "T", ".T.", ".F." ), ;
+      AllTrim(cExp) ) ) ) )
 
    BEGIN SEQUENCE
       uExp := &( cExp )
@@ -7502,7 +7502,7 @@ METHOD AdjColumns( aColumns, nDelta ) CLASS TSBrowse
    DEFAULT nDelta := 1
 
    IF HB_ISLOGICAL( aColumns )
-      IF ! aColumns
+      IF !aColumns
          ::lAdjColumn := .T.
          RETURN NIL
       ENDIF
@@ -7515,15 +7515,15 @@ METHOD AdjColumns( aColumns, nDelta ) CLASS TSBrowse
    ENDIF
 
    IF HB_ISNUMERIC(aColumns)
-      AAdd( aCol, aColumns )
+      AAdd(aCol, aColumns)
    ELSEIF HB_ISCHAR( aColumns )
-      AAdd( aCol, ::nColumn( aColumns ) )
+      AAdd(aCol, ::nColumn( aColumns ))
    ELSE
-      AEval( aColumns, {| xv | AAdd( aCol, iif( HB_ISCHAR( xv ), obr:nColumn( xv ), xv ) ) } )
+      AEval( aColumns, {| xv | AAdd(aCol, iif( HB_ISCHAR( xv ), obr:nColumn( xv ), xv )) } )
    ENDIF
 
    AEval( ::aColumns, {| oc | nVisible += iif( oc:lVisible, oc:nWidth, 0 ) } )
-   AEval( aCol, {| nc | iif( obr:aColumns[nc]:lVisible, AAdd( aVisible, nc ), Nil ) } )
+   AEval( aCol, {| nc | iif( obr:aColumns[nc]:lVisible, AAdd(aVisible, nc), Nil ) } )
 
    w := GetWindowWidth(::hWnd) - nVisible - nDelta - iif( ::lNoVScroll, 0, GetVScrollBarWidth() )
 
@@ -7555,7 +7555,7 @@ METHOD GetDlgCode( nLastKey ) CLASS TSBrowse
       Eval( ::bOnEscape, Self )
    ENDIF
 
-   IF ! ::oWnd:lValidating
+   IF !::oWnd:lValidating
       IF nLastKey == VK_UP .OR. nLastKey == VK_DOWN .OR. nLastKey == VK_RETURN .OR. nLastKey == VK_TAB .OR. ;
             nLastKey == VK_ESCAPE
          ::oWnd:nLastKey := nLastKey
@@ -7605,7 +7605,7 @@ METHOD GoBottom() CLASS TSBrowse
    ::lAppendMode := .F.
    ::ResetSeek()
 
-   IF ! ::lHitBottom
+   IF !::lHitBottom
 
       Eval( ::bGoBottom )
 
@@ -7684,13 +7684,13 @@ METHOD GoDown() CLASS TSBrowse
    ::nRowPos := Max(1, ::nRowPos)
    AEval( ::aColumns, {| o | iif( ::lCanAppend .AND. o:lEdit, lEditable := .T., Nil ) } )
 
-   IF ! ::lAppendMode
+   IF !::lAppendMode
       ::nPrevRec := ::nAtPos
    ENDIF
 
-   IF ! ::lHitBottom
+   IF !::lHitBottom
 
-      IF ! ::lAppendMode .AND. ::nRowPos < nLines .AND. ! ::lIsTxt // 14.07.2015
+      IF !::lAppendMode .AND. ::nRowPos < nLines .AND. ! ::lIsTxt // 14.07.2015
          ::DrawLine()
       ENDIF
 
@@ -7715,7 +7715,7 @@ METHOD GoDown() CLASS TSBrowse
                   ::Skip( 1 )
                   IF ::lRowPosAtRec .AND. Len(::aRowPosAtRec) > 0
                      hb_ADel( ::aRowPosAtRec, 1, .T. )
-                     AAdd( ::aRowPosAtRec, ::nAtPos )
+                     AAdd(::aRowPosAtRec, ::nAtPos)
                   ENDIF
                ENDIF
             ENDIF
@@ -7731,7 +7731,7 @@ METHOD GoDown() CLASS TSBrowse
 #endif
       ENDIF
 
-      IF ! ::lAppendMode .AND. ! ::lEditing
+      IF !::lAppendMode .AND. ! ::lEditing
          ::DrawSelect()
       ENDIF
 
@@ -7739,7 +7739,7 @@ METHOD GoDown() CLASS TSBrowse
          ::oVScroll:SetPos( ::RelPos( ::nLogicPos() ) )
       ENDIF
 
-      IF ! ::lHitBottom .AND. ! ::lAppendMode .AND. ::bChange != NIL
+      IF !::lHitBottom .AND. ! ::lAppendMode .AND. ::bChange != NIL
          Eval( ::bChange, Self, ::oWnd:nLastKey )
       ENDIF
 
@@ -7781,7 +7781,7 @@ METHOD GoDown() CLASS TSBrowse
       ::nLastKey := ::oWnd:nLastKey := VK_RETURN
       ::DrawLine()
 
-      IF ! ::lAutoEdit
+      IF !::lAutoEdit
          ::PostMsg( WM_KEYDOWN, VK_RETURN, nMakeLong( 0, 0 ) )
       ENDIF
 
@@ -7958,7 +7958,7 @@ METHOD GoLeft() CLASS TSBrowse
          nCell--
          nSkip++
 
-         IF ! ::aColumns[nCell]:lNoHilite
+         IF !::aColumns[nCell]:lNoHilite
             EXIT
          ENDIF
 
@@ -8045,7 +8045,7 @@ METHOD GoNext() CLASS TSBrowse
          ::nCell := nFirst
          ::HiLiteCell( ::nCell )
 
-         IF ! ::lAutoEdit
+         IF !::lAutoEdit
             ::DrawSelect()
          ELSE
             ::DrawLine()
@@ -8162,7 +8162,7 @@ METHOD GoPos( nNewRow, nNewCol ) CLASS TSBrowse
       ::Skip( nSkip )
       ::nRowPos += nSkip
 
-   ELSEIF ! ::lIsDbf
+   ELSEIF !::lIsDbf
       ::nAt := nNewRow
    ELSEIF Empty(::nLogicPos())
 
@@ -8176,7 +8176,7 @@ METHOD GoPos( nNewRow, nNewCol ) CLASS TSBrowse
 
       ENDDO
 
-   ELSEIF ! Empty(::nLogicPos())
+   ELSEIF !Empty(::nLogicPos())
 
       ( cAlias )->( dbSkip( nSkip ) )
       ::nAt := ::nLogicPos()
@@ -8351,7 +8351,7 @@ METHOD GoRight() CLASS TSBrowse
          nSkip--
       ENDDO
 
-      IF ! ::lFastDrawCell
+      IF !::lFastDrawCell
          lRefresh := ( ::lCanAppend .AND. ::lIsArr )
       ENDIF
 
@@ -8373,7 +8373,7 @@ METHOD GoRight() CLASS TSBrowse
       IF lRefresh
          ::lNoPaint := .F.
          ::Refresh( .F.,, .F. )
-      ELSEIF ! ::lEditing
+      ELSEIF !::lEditing
          ::DrawSelect()
       ENDIF
 
@@ -8498,7 +8498,7 @@ METHOD GoTop() CLASS TSBrowse
    ::lAppendMode := .F.
    ::ResetSeek()
 
-   IF ! ::lHitTop
+   IF !::lHitTop
 
       IF ::lPainted .AND. nAt < nLines
          ::DrawLine()
@@ -8589,9 +8589,9 @@ METHOD GoUp() CLASS TSBrowse
       ( ::cAlias )->( dbGoto( ::nPrevRec ) )
    ENDIF
 
-   IF ! ::lHitTop
+   IF !::lHitTop
 
-      IF ! ::lAppendMode .AND. ::nRowPos > 1 // 14.07.2015
+      IF !::lAppendMode .AND. ::nRowPos > 1 // 14.07.2015
          ::DrawLine()
       ENDIF
 
@@ -8601,7 +8601,7 @@ METHOD GoUp() CLASS TSBrowse
 
          IF ::nRowPos > 1
 
-            IF ! ::lAppendMode .OR. ( ::lAppendMode .AND. ::nLen < nLines )
+            IF !::lAppendMode .OR. ( ::lAppendMode .AND. ::nLen < nLines )
                ::nRowPos--
             ENDIF
 
@@ -8621,7 +8621,7 @@ METHOD GoUp() CLASS TSBrowse
                ::nRowPos := nLines
                ::Refresh( .F. )
             ELSE
-               IF ! lTranspar
+               IF !lTranspar
                   ::lRePaint := .F.
                   ::TSBrwScroll( -1 )
                   ::Skip( 1 )
@@ -8638,7 +8638,7 @@ METHOD GoUp() CLASS TSBrowse
 
          ENDIF
 
-      ELSEIF ! ::lAppendMode
+      ELSEIF !::lAppendMode
          ::lHitTop := .T.
       ENDIF
 
@@ -8750,7 +8750,7 @@ METHOD KeyDown( nKey, nFlags ) CLASS TSBrowse
    LOCAL nFireKey := ::nFireKey
    LOCAL nCol := ::nCell
 
-   IF ! ::lEnabled
+   IF !::lEnabled
       RETURN 0
    ENDIF
 
@@ -8765,7 +8765,7 @@ METHOD KeyDown( nKey, nFlags ) CLASS TSBrowse
       uTemp += iif( _GetKeyState( VK_CONTROL ), "#", "" )
       uTemp += iif( _GetKeyState( VK_SHIFT ), "^", "" )
       uVal := hb_HGetDef( ::aUserKeys, uTemp, NIL )
-      IF ! HB_ISBLOCK( uVal )
+      IF !HB_ISBLOCK( uVal )
          uTemp := "other"
          uVal := hb_HGetDef( ::aUserKeys, uTemp, NIL )
       ENDIF
@@ -8798,7 +8798,7 @@ METHOD KeyDown( nKey, nFlags ) CLASS TSBrowse
 
    lEditable := ( ::nColCount() > 0 .AND. ::IsEditable( nCol ) )
 
-   IF ! lEditable .AND. ::lCanAppend
+   IF !lEditable .AND. ::lCanAppend
       AEval( ::aColumns, {| o, n | iif( ::IsEditable( n ), lEditable := .T., Nil ), HB_SYMBOL_UNUSED( o ) } )
    ENDIF
 
@@ -8929,7 +8929,7 @@ METHOD KeyDown( nKey, nFlags ) CLASS TSBrowse
 
       IF ::lAppendMode .AND. ::lIsArr
 
-         IF ! Empty(::aDefault)
+         IF !Empty(::aDefault)
 
             IF Len(::aDefault) < Len(::aColumns)
                ASize( ::aDefault, Len(::aColumns) )
@@ -9009,7 +9009,7 @@ METHOD UserKeys( nKey, bKey, lCtrl, lShift ) CLASS TSBrowse
    LOCAL uVal
 
    IF HB_ISBLOCK( bKey ) // set a codeblock on key in a hash
-      IF ! Empty(nKey)
+      IF !Empty(nKey)
          IF HB_ISNUMERIC(nKey)
             cKey := hb_ntos( nKey )
             cKey += iif( Empty(lCtrl), "", "#" )
@@ -9052,7 +9052,7 @@ METHOD Selection() CLASS TSBrowse
 
    IF HB_ISBLOCK( ::bPreSelect )
       lCan := Eval( ::bPreSelect, ::nAt )
-      IF ! HB_ISLOGICAL( lCan )
+      IF !HB_ISLOGICAL( lCan )
          lCan := .T.
       ENDIF
    ENDIF
@@ -9071,7 +9071,7 @@ METHOD Selection() CLASS TSBrowse
 
       ELSE
 
-         AAdd( ::aSelected, uVal )
+         AAdd(::aSelected, uVal)
          ::DrawSelect()
 
          IF ::bSelected != NIL
@@ -9092,7 +9092,7 @@ RETURN Self
 
 METHOD KeyUp( nKey, nFlags ) CLASS TSBrowse
 
-   IF ! ::lEnabled
+   IF !::lEnabled
       RETURN 0
    ENDIF
 
@@ -9143,7 +9143,7 @@ METHOD LButtonDown( nRowPix, nColPix, nKeyFlags ) CLASS TSBrowse
 
    DEFAULT ::lDontChange := .F.
 
-   IF ! ::lEnabled .OR. ::lDontChange
+   IF !::lEnabled .OR. ::lDontChange
       RETURN 0
    ENDIF
 
@@ -9195,7 +9195,7 @@ METHOD LButtonDown( nRowPix, nColPix, nKeyFlags ) CLASS TSBrowse
                PostMessage( ::oWnd:hCtlFocus, WM_LBUTTONDOWN, nKeyFlags, nMakeLong( nColPix - nCol, nRowPix ) )
                RETURN 0
             OTHERWISE
-               ix := GetControlIndex( ::cChildControl, ::cParentWnd )
+               ix := GetControlIndex(::cChildControl, ::cParentWnd)
                IF ix > 0
                   nCol := _HMG_aControlCol[ix]
                ENDIF
@@ -9242,7 +9242,7 @@ METHOD LButtonDown( nRowPix, nColPix, nKeyFlags ) CLASS TSBrowse
    SetFocus( ::hWnd )
 
    IF ::nLen < 1 .OR. ::lIsTxt
-      IF ! ::lCanAppend .OR. ::lIsTxt
+      IF !::lCanAppend .OR. ::lIsTxt
          RETURN 0
       ELSEIF nClickRow > 0
          ::PostMsg( WM_KEYDOWN, VK_DOWN, nMakeLong( 0, 0 ) )
@@ -9308,7 +9308,7 @@ METHOD LButtonDown( nRowPix, nColPix, nKeyFlags ) CLASS TSBrowse
          IF ::lEditingHd
             oCol := ::oWnd:aColumns[::oWnd:nCell]
             IF oCol:oEditSpec != NIL
-               ix := GetControlIndex( ::cChildControl, ::cParentWnd )
+               ix := GetControlIndex(::cChildControl, ::cParentWnd)
                IF ix > 0
                   nCol := _HMG_aControlCol[ix]
                ENDIF
@@ -9342,7 +9342,7 @@ METHOD LButtonDown( nRowPix, nColPix, nKeyFlags ) CLASS TSBrowse
          ::nDragCol := ::nAtCol(nColPix)
       ENDIF
 
-      IF ! ::lCaptured
+      IF !::lCaptured
          ::lCaptured := .T.
          ::Capture()
       ENDIF
@@ -9384,7 +9384,7 @@ METHOD LButtonDown( nRowPix, nColPix, nKeyFlags ) CLASS TSBrowse
          Eval( bLClicked, uPar1, uPar2, nKeyFlags, Self )
       ENDIF
 
-      IF ! ::lNoHScroll .AND. ::oHScroll != NIL .AND. lDrawCol
+      IF !::lNoHScroll .AND. ::oHScroll != NIL .AND. lDrawCol
          ::oHScroll:SetPos( ::nCell )
       ENDIF
 
@@ -9427,7 +9427,7 @@ METHOD LButtonUp( nRowPix, nColPix, nFlags ) CLASS TSBrowse
 
    DEFAULT ::lDontChange := .F.
 
-   IF ! ::lEnabled .OR. ::lDontChange
+   IF !::lEnabled .OR. ::lDontChange
       RETURN 0
    ENDIF
 
@@ -9490,7 +9490,7 @@ METHOD LDblClick( nRowPix, nColPix, nKeyFlags ) CLASS TSBrowse
 
    ::oWnd:nLastKey := 0
 
-   IF ! ::lEnabled .OR. ::lDontChange
+   IF !::lEnabled .OR. ::lDontChange
       RETURN Self
    ENDIF
 
@@ -9666,7 +9666,7 @@ METHOD LoadFields( lEditable, aColSel, cAlsSel, aNameSel, aHeadSel ) CLASS TSBro
          hFontH := iif( ::hFontHead != NIL, ::hFontHead, ::hFont )
 
          IF cType == "C"
-            cData := PadR( Trim( cData ), nSize, "B" )
+            cData := PadR( Trim(cData), nSize, "B" )
             nSize := GetTextWidth(0, cData, hFont)
          ELSEIF cType == "N"
             cData := StrZero( cData, nSize, nDec )
@@ -9731,7 +9731,7 @@ METHOD LoadFields( lEditable, aColSel, cAlsSel, aNameSel, aHeadSel ) CLASS TSBro
          ATail( ::aColumns ):lCheckBox := .T.
       ENDIF
 
-      IF ! Empty(cOrder)
+      IF !Empty(cOrder)
          ATail( ::aColumns ):lIndexCol := .T.
       ENDIF
 
@@ -9838,7 +9838,7 @@ METHOD nLogicPos() CLASS TSBrowse
    DEFAULT ::lIsDbf := .F., ;
       ::lIsTxt := .F.
 
-   IF ! ::lIsDbf
+   IF !::lIsDbf
 
       IF ::lIsTxt
          ::nAt := ::oTxtFile:RecNo()
@@ -9878,12 +9878,12 @@ METHOD HandleEvent( nMsg, nWParam, nLParam ) CLASS TSBrowse
       ::lDontChange := .F.
 
    IF ::lMoreFields
-      IF ! Empty(::MoreFields(nMsg, nWParam))
+      IF !Empty(::MoreFields(nMsg, nWParam))
          RETURN 1
       ENDIF
    ENDIF
    IF HB_ISBLOCK( ::bEvents )
-      IF ! Empty(Eval(::bEvents, Self, nMsg, nWParam, nLParam))
+      IF !Empty(Eval(::bEvents, Self, nMsg, nWParam, nLParam))
          RETURN 1
       ENDIF
    ENDIF
@@ -9909,7 +9909,7 @@ METHOD HandleEvent( nMsg, nWParam, nLParam ) CLASS TSBrowse
          RETURN ::VScroll( Loword(nWParam), HiWord(nWParam) )
       ENDIF
    ELSEIF nMsg == WM_HSCROLL
-      IF ! ::lEnabled
+      IF !::lEnabled
          RETURN 0
       ELSEIF ::lDontchange
          RETURN NIL
@@ -9918,7 +9918,7 @@ METHOD HandleEvent( nMsg, nWParam, nLParam ) CLASS TSBrowse
    ELSEIF nMsg == WM_ERASEBKGND .AND. ! ::lEditing
       ::lNoPaint := .F.
    ELSEIF nMsg == WM_DESTROY
-      IF ! Empty(::aColumns) .AND. ::aColumns[::nCell]:oEdit != NIL
+      IF !Empty(::aColumns) .AND. ::aColumns[::nCell]:oEdit != NIL
          ix := ::aColumns[::nCell]:oEdit:Atx
          IF ix > 0
             PostMessage( _HMG_aControlHandles[ix], WM_KEYDOWN, VK_ESCAPE, 0 )
@@ -9961,7 +9961,7 @@ METHOD HiliteCell( nCol, nColPix ) CLASS TSBrowse
 
    DEFAULT nCol := 1
 
-   IF ! ::lCellBrw .AND. nColPix == NIL // if not browsing cell-style AND no nColPix, ignore call.
+   IF !::lCellBrw .AND. nColPix == NIL // if not browsing cell-style AND no nColPix, ignore call.
       RETURN lDraw // nColPix NOT nil means called from ::LButtonDown()
    ENDIF
 
@@ -10027,7 +10027,7 @@ METHOD HiliteCell( nCol, nColPix ) CLASS TSBrowse
             ::nCell := nCol
          ENDIF
 
-         IF ! ::lNoHScroll .AND. ::oHScroll != NIL .AND. lDraw
+         IF !::lNoHScroll .AND. ::oHScroll != NIL .AND. lDraw
 
             ::oHScroll:SetPos( nCol )
 
@@ -10220,7 +10220,7 @@ METHOD InsColumn( nPos, oColumn ) CLASS TSBrowse
       RETURN NIL
    ENDIF
 
-   IF ! Empty(oColumn:cName) .AND. oColumn:cName == "SELECTOR"
+   IF !Empty(oColumn:cName) .AND. oColumn:cName == "SELECTOR"
 //      oColumn:nId := 0
    ELSE
       oColumn:nId := ++::nIdColumn
@@ -10228,7 +10228,7 @@ METHOD InsColumn( nPos, oColumn ) CLASS TSBrowse
 
    iif( nCell != nPos, ::nCell := iif( ::lPainted, nPos, nCell ), Nil )
 
-   IF ! Empty(oColumn:cOrder) // if column has a TAG, we
+   IF !Empty(oColumn:cOrder) // if column has a TAG, we
       ::SetOrder( nPos ) // set it as controling order
    ELSEIF ::nColOrder != 0 .AND. nPos <= ::nColOrder // if left of current order
       ::nColOrder++ // adjust position
@@ -10242,7 +10242,7 @@ METHOD InsColumn( nPos, oColumn ) CLASS TSBrowse
          ::oHScroll:SetPos( ::nCell )
       ENDIF
 
-      IF ! Empty(::aSuperHead)
+      IF !Empty(::aSuperHead)
 
          FOR nI := 1 TO Len(::aSuperHead)
 
@@ -10269,9 +10269,9 @@ METHOD InsColNumber( nWidth, nColumn, cName ) CLASS TSBrowse
 
    LOCAL oCol
 
-   hb_default( @nWidth , 80 )
-   hb_default( @nColumn, 1 )
-   hb_default( @cName, iif( ::lIsDbf, "ORDKEYNO", "ARRAYNO" ) )
+   hb_default(@nWidth, 80)
+   hb_default(@nColumn, 1)
+   hb_default(@cName, iif(::lIsDbf, "ORDKEYNO", "ARRAYNO"))
 
    IF ::lIsDbf
 
@@ -10413,7 +10413,7 @@ METHOD Insert( cItem, nAt ) CLASS TSBrowse
    DEFAULT nAt := ::nAt
    DEFAULT cItem := AClone( ::aDefValue )
 
-   IF ! ::lIsArr
+   IF !::lIsArr
       RETURN NIL
    ENDIF
 
@@ -10434,7 +10434,7 @@ METHOD Insert( cItem, nAt ) CLASS TSBrowse
       ENDIF
    ENDIF
 
-   IF ! ::lNoVScroll
+   IF !::lNoVScroll
       nMin := Min( 1, ::nLen )
       nMax := Min( ::nLen, MAX_POS )
       nPage := Min( ::nRowCount(), ::nLen )
@@ -10457,7 +10457,7 @@ METHOD AddItem( cItem ) CLASS TSBrowse // delete in V90
 
    DEFAULT cItem := AClone( ::aDefValue )
 
-   IF ! ::lIsArr
+   IF !::lIsArr
       RETURN NIL
    ENDIF
 
@@ -10473,7 +10473,7 @@ METHOD AddItem( cItem ) CLASS TSBrowse // delete in V90
    ELSEIF Len(::aArray) == 0
       ::SetArray( { cItem }, .T. )
    ELSE
-      AAdd( ::aArray, cItem )
+      AAdd(::aArray, cItem)
    ENDIF
 
    ::nLen := Eval( ::bLogicLen )
@@ -10484,7 +10484,7 @@ METHOD AddItem( cItem ) CLASS TSBrowse // delete in V90
       ENDIF
    ENDIF
 
-   IF ! ::lNoVScroll
+   IF !::lNoVScroll
       nMin := Min( 1, ::nLen )
       nMax := Min( ::nLen, MAX_POS )
       nPage := Min( ::nRowCount(), ::nLen )
@@ -10512,7 +10512,7 @@ RETURN ::Edit( uVar, nCol,,, cPicture, bValid, nClrFore, nClrBack ) // just for 
 //
 // { { VK_ to ignore(n), alone(l), ctrl(l), shift(l), alt(l), ctrl+shift(l), bBlock }, ... }
 //
-// Example:  AAdd( ::aKeyRemap, { VK_END, .T., .F., .T., .F., .F., { || Tone(600) } } )
+// Example:  AAdd(::aKeyRemap, { VK_END, .T., .F., .T., .F., .F., { || Tone(600) } })
 // will ignore End key alone and with shift+end combinations
 //
 // It's the programmer's (ie you!) responsibility to make sure each subarray
@@ -10575,9 +10575,9 @@ METHOD LoadRecordSet() CLASS TSBrowse
    LOCAL aRName := {}
    LOCAL aNames := ::aColSel
 
-   IF ! Empty(aNames)
+   IF !Empty(aNames)
       FOR n := 1 TO nCols
-         AAdd( aRName, ::oRSet:Fields( n - 1 ):Name )
+         AAdd(aRName, ::oRSet:Fields( n - 1 ):Name)
       NEXT
 
       nCols := Len(aNames)
@@ -10617,7 +10617,7 @@ METHOD LoadRecordSet() CLASS TSBrowse
          hFont := iif( ::oFont != NIL, ::oFont:hFont, 0 )
 
          IF cType == "C" .AND. ValType(cData) == "C"
-            cData := PadR( Trim( cData ), nWidth, "B" )
+            cData := PadR( Trim(cData), nWidth, "B" )
             nWidth := GetTextWidth(0, cData, hFont)
          ELSEIF cType == "N"
             cData := StrZero( Val( Replicate( "4", nWidth ) ), nDec )
@@ -10635,7 +10635,7 @@ METHOD LoadRecordSet() CLASS TSBrowse
       ENDIF
 
       nWidth := Max(nWidth, GetTextWidth(0, cHeading, hFont))
-      cBlock := "AdoGenFldBlk( Self:oRS, " + LTrim( Str( nE ) ) + " )"
+      cBlock := "AdoGenFldBlk( Self:oRS, " + LTrim(Str(nE)) + " )"
       ::AddColumn( TSColumn():New( cHeading, AdoGenFldBlk( ::oRSet, nE ),, { ::nClrText, ::nClrPane }, ;
          { nAlign, DT_CENTER }, nWidth,, ::lEditable,,, ::oRSet:Fields( nE ):Name,,,, ;
          5,,,, Self, cBlock ) )
@@ -10677,7 +10677,7 @@ METHOD LoadRelated( cAlias, lEditable, aNames, aHeaders ) CLASS TSBrowse
       RETURN Self
    ENDIF
 
-   cAlias := AllTrim( cAlias )
+   cAlias := AllTrim(cAlias)
    nArea := Select( cAlias )
    aStru := ( cAlias )->( dbStruct() )
    nFields := iif( aNames == NIL, ( cAlias )->( FCount() ), Len(aNames) )
@@ -10700,7 +10700,7 @@ METHOD LoadRelated( cAlias, lEditable, aNames, aHeaders ) CLASS TSBrowse
       hFont := iif( ::hFont != NIL, ::hFont, 0 )
 
       IF cType == "C"
-         cData := PadR( Trim( cData ), nSize, "B" )
+         cData := PadR( Trim(cData), nSize, "B" )
          nSize := GetTextWidth(0, cData, hFont)
       ELSEIF cType == "N"
          cData := StrZero( cData, nSize, nDec )
@@ -10808,7 +10808,7 @@ METHOD LostFocus( hCtlFocus ) CLASS TSBrowse
    ::lNoPaint := .F.
    ::lFocused := .F.
 
-   IF ! Empty(::bLostFocus)
+   IF !Empty(::bLostFocus)
       Eval( ::bLostFocus, hCtlFocus )
    ENDIF
 
@@ -10938,7 +10938,7 @@ METHOD MouseMove( nRowPix, nColPix, nKeyFlags ) CLASS TSBrowse
       ::nToolTip := nColumn
    ENDIF
 
-   IF ! ::lGrasp .AND. ( lFrozen .OR. ! lHeader .OR. ! ::lMChange )
+   IF !::lGrasp .AND. ( lFrozen .OR. ! lHeader .OR. ! ::lMChange )
       // don't allow MouseMove to drag/resize columns
       // unless in header row and not in frozen zone
       IF ::oCursor != NIL
@@ -10978,7 +10978,7 @@ METHOD MouseMove( nRowPix, nColPix, nKeyFlags ) CLASS TSBrowse
 
    IF ::lMChange .AND. ! ::lNoMoveCols .AND. ! ::lDontChange
       IF lHeader
-         IF ! Empty(::aSuperHead) .AND. ! ::lLineDrag
+         IF !Empty(::aSuperHead) .AND. ! ::lLineDrag
 
             nFirst := 0
             nLast := 0
@@ -11060,7 +11060,7 @@ METHOD MouseWheel( nKeys, nDelta, nXPos, nYPos ) CLASS TSBrowse
 
       IF ( nDelta ) > 0
 
-         IF ! Empty(::nWheelLines)
+         IF !Empty(::nWheelLines)
             nWParam := SB_LINEUP
             nDelta := ::nWheelLines * nDelta
          ELSE
@@ -11069,7 +11069,7 @@ METHOD MouseWheel( nKeys, nDelta, nXPos, nYPos ) CLASS TSBrowse
 
       ELSE
 
-         IF ! Empty(::nWheelLines)
+         IF !Empty(::nWheelLines)
             nWParam := SB_LINEDOWN
             nDelta := ::nWheelLines * Abs( nDelta )
          ELSE
@@ -11104,7 +11104,7 @@ METHOD MoveColumn( nColPos, nNewPos ) CLASS TSBrowse
       nColPos := ::nColumn( nColPos, .T. )
    ENDIF
 
-   IF ! Empty(nColPos) .AND. ! Empty(nNewPos) .AND. ;
+   IF !Empty(nColPos) .AND. ! Empty(nNewPos) .AND. ;
          nColPos > ::nFreeze .AND. nNewPos > ::nFreeze .AND. ;
          nColPos <= nMaxCol .AND. nNewPos <= nMaxCol
 
@@ -11157,7 +11157,7 @@ METHOD PageDown( nLines ) CLASS TSBrowse
       RETURN NIL
    ENDIF
 
-   IF ! ::lHitBottom
+   IF !::lHitBottom
 
       ::nPrevRec := ::nAtPos
 
@@ -11247,7 +11247,7 @@ METHOD PageDown( nLines ) CLASS TSBrowse
       ENDIF
 
       IF ::oVScroll != NIL
-         IF ! ::lHitBottom
+         IF !::lHitBottom
             ::oVScroll:SetPos( ::RelPos( ::nLogicPos() ) )
          ELSE
             ::oVScroll:GoBottom()
@@ -11310,7 +11310,7 @@ METHOD PageUp( nLines ) CLASS TSBrowse
       RETURN NIL
    ENDIF
 
-   IF ! ::lHitTop
+   IF !::lHitTop
 
       IF nSkipped == 0
          ::lHitTop := .T.
@@ -11404,7 +11404,7 @@ METHOD Paint() CLASS TSBrowse
       ::lInitGoTop := .T., ;
       ::nFreeze := 0
 
-   IF ! ::lRepaint
+   IF !::lRepaint
       RETURN 0
    ENDIF
 
@@ -11435,7 +11435,7 @@ METHOD Paint() CLASS TSBrowse
       RETURN NIL
    ENDIF
 
-   IF ! ::lPainted
+   IF !::lPainted
       SetHeights( Self )
 
       IF ::lSelector
@@ -11454,7 +11454,7 @@ METHOD Paint() CLASS TSBrowse
          ::lLockFreeze := .T.
          ::HiliteCell( Max(::nCell, ::nFreeze + 1) )
 
-         IF ! Empty(::nColOrder)
+         IF !Empty(::nColOrder)
             ::nColOrder++
             ::SetOrder( ::nColOrder )
          ENDIF
@@ -11470,7 +11470,7 @@ METHOD Paint() CLASS TSBrowse
          ::GoTop()
       ENDIF
 
-      IF ! ::lNoHScroll .AND. ::oHScroll != NIL
+      IF !::lNoHScroll .AND. ::oHScroll != NIL
          ::oHScroll:SetRange( 1, Len(::aColumns) )
       ENDIF
 
@@ -11550,7 +11550,7 @@ METHOD Paint() CLASS TSBrowse
       ::DrawLine( ++::nRowPos )
    ENDIF
 
-   IF ! ::lPainted
+   IF !::lPainted
       IF ::bChange != NIL .AND. ! ::lPhantArrRow
          Eval( ::bChange, Self, 0 )
       ENDIF
@@ -11604,7 +11604,7 @@ METHOD PanEnd() CLASS TSBrowse
       ::nAt := ::oTxtFile:nMaxLineLength - Int(nWidth / nTxtWid)
       ::Refresh( .F. ,, .F. )
 
-      IF ! ::lNoHScroll .AND. ::oHScroll != NIL
+      IF !::lNoHScroll .AND. ::oHScroll != NIL
          ::oHScroll:setPos( ::nAt )
       ENDIF
 
@@ -11639,7 +11639,7 @@ METHOD PanEnd() CLASS TSBrowse
 
    ::Refresh( .F. )
 
-   IF ! ::lNoHScroll .AND. ::oHScroll != NIL
+   IF !::lNoHScroll .AND. ::oHScroll != NIL
       IF ::oHScroll:nMax != nCols
          ::oHScroll:SetRange( 1, nCols )
       ENDIF
@@ -11674,7 +11674,7 @@ METHOD PanHome() CLASS TSBrowse
    ENDIF
 
    FOR nEle := 1 TO Len(::aColumns)
-      IF ! ::aColumns[nEle]:lNoHilite
+      IF !::aColumns[nEle]:lNoHilite
          nColChk := nEle
          EXIT
       ENDIF
@@ -11696,7 +11696,7 @@ METHOD PanHome() CLASS TSBrowse
       ::nOldCell := ::nCell
    ENDIF
 
-   IF ! ::lEditing
+   IF !::lEditing
       ::Refresh( .F. )
    ELSE
       ::Paint()
@@ -11761,7 +11761,7 @@ METHOD PanLeft() CLASS TSBrowse
       ::nColPos := ::nCell // current column becomes first in offset
    ENDIF
 
-   IF ! ::lCellBrw .AND. ! ::lLockFreeze .AND. ;  // for frozen columns
+   IF !::lCellBrw .AND. ! ::lLockFreeze .AND. ;  // for frozen columns
       ::nFreeze > 0 .AND. ::nCell - 1 == 1
       ::nCell := ::nColPos := ::nFreeze
    ENDIF
@@ -11866,7 +11866,7 @@ METHOD PanRight() CLASS TSBrowse
       ::nColPos := ::nCell // last column becomes first in offset
    ENDIF
 
-   IF ! ::lCellBrw .AND. ;                       // for frozen columns
+   IF !::lCellBrw .AND. ;                       // for frozen columns
          iif( ::nFreeze > 0, ::IsColVis2( nCols ), ::IsColVisible( nCols ) )
 
       ::nCell := nCols
@@ -11911,7 +11911,7 @@ METHOD Proper( cString ) CLASS TSBrowse
    LOCAL cAnt
    LOCAL nLen := Len(cString)
 
-   cString := Lower( Trim( cString ) ) + " "
+   cString := Lower( Trim(cString) ) + " "
 
    nPos := 1
    cAnt := "."
@@ -11969,7 +11969,7 @@ METHOD PostEdit( uTemp, nCol, bValid ) CLASS TSBrowse
          uRet := Eval( uRet, uTemp, Self )
       ENDIF
 
-      IF ! uRet
+      IF !uRet
 
          Tone( 500, 1 )
          ::lEditing := ::lPostEdit := ::lNoPaint := .F.
@@ -12007,7 +12007,7 @@ METHOD PostEdit( uTemp, nCol, bValid ) CLASS TSBrowse
 
          IF lAppend
 
-            IF ! Empty(::aDefault)
+            IF !Empty(::aDefault)
                ASize( ::aDefault, Len(::aColumns) )
                AEval( ::aDefault, {| e, n | iif( e != NIL .AND. n != nCol, iif( ValType(e) == "B", ;
                   ::bDataEval( ::aColumns[n], Eval( e, Self ), n ), ;
@@ -12117,7 +12117,7 @@ METHOD PostEdit( uTemp, nCol, bValid ) CLASS TSBrowse
          ELSEIF ::aColumns[nCol]:nEditMove >= 1 .AND. ::aColumns[nCol]:nEditMove <= 5 // excel-like behavior post-edit movement
             Eval( aMoveCell[::aColumns[nCol]:nEditMove] )
             ::DrawSelect()
-            IF ! ::lAppendMode
+            IF !::lAppendMode
                ::Refresh( .F. )
             ENDIF
          ELSEIF ::aColumns[nCol]:nEditMove == 0 .AND. ! ::lAutoEdit
@@ -12129,7 +12129,7 @@ METHOD PostEdit( uTemp, nCol, bValid ) CLASS TSBrowse
          IF ::lAutoEdit .AND. ! lAppend
             SysRefresh()
 
-            IF ! ::aColumns[::nCell]:lCheckBox
+            IF !::aColumns[::nCell]:lCheckBox
                ::PostMsg( WM_KEYDOWN, VK_RETURN, nMakeLong( 0, 0 ) )
             ENDIF
 
@@ -12137,7 +12137,7 @@ METHOD PostEdit( uTemp, nCol, bValid ) CLASS TSBrowse
          ENDIF
 
       ELSE
-         IF ! lAppend .AND. Empty(::bRecLock)
+         IF !lAppend .AND. Empty(::bRecLock)
             MsgStop( ::aMsg[3], ::aMsg[4] )
          ELSEIF lAppend .AND. Empty(::bAddRec)
             MsgStop( ::aMsg[5], ::aMsg[4] )
@@ -12152,7 +12152,7 @@ METHOD PostEdit( uTemp, nCol, bValid ) CLASS TSBrowse
          // this is why ::aDefValue will have one more element
          // than Len(::aArray)
          ::lAppendMode := .F.
-         AAdd( ::aArray, Array( Len(::aDefValue) - iif( ::aDefValue[1] == NIL, 1, 0 ) ) )
+         AAdd(::aArray, Array( Len(::aDefValue) - iif( ::aDefValue[1] == NIL, 1, 0 ) ))
          ::nAt := ::nLen := Len(::aArray)
 
          IF ::oVScroll != NIL
@@ -12176,7 +12176,7 @@ METHOD PostEdit( uTemp, nCol, bValid ) CLASS TSBrowse
       ::lPostEdit := .F.
 
       IF lAppend
-         IF ! Empty(::aDefault)
+         IF !Empty(::aDefault)
             ASize( ::aDefault, Len(::aColumns) )
             AEval( ::aDefault, {| e, n | iif( e != NIL .AND. n != nCol, iif( ValType(e) == "B", ;
                ::bDataEval( ::aColumns[n], Eval( e, Self ), n ), ::bDataEval( ::aColumns[n], e, n ) ), Nil ) } )
@@ -12220,7 +12220,7 @@ METHOD PostEdit( uTemp, nCol, bValid ) CLASS TSBrowse
 
       IF ::lAutoEdit .AND. ! lAppend
          SysRefresh()
-         IF ! ::aColumns[::nCell]:lCheckBox
+         IF !::aColumns[::nCell]:lCheckBox
             ::PostMsg( WM_KEYDOWN, VK_RETURN, nMakeLong( 0, 0 ) )
          ENDIF
       ENDIF
@@ -12286,11 +12286,11 @@ METHOD RButtonDown( nRowPix, nColPix, nFlags ) CLASS TSBrowse
       ::nRowPos += nSkipped
       ::nCell := nCol
 
-      IF ! ::lNoVScroll
+      IF !::lNoVScroll
          ::oVScroll:SetPos( ::RelPos( ::nLogicPos() ) )
       ENDIF
 
-      IF ! ::lNoHScroll
+      IF !::lNoHScroll
          ::oHScroll:SetPos( ::nCell )
       ENDIF
 
@@ -12364,7 +12364,7 @@ METHOD RButtonDown( nRowPix, nColPix, nFlags ) CLASS TSBrowse
 
    IF ::lPopupUser
       IF ::bUserPopupItem != NIL
-         IF ! ::lPopupActiv
+         IF !::lPopupActiv
             IF AScan(::aPopupCol, nCol) > 0 .OR. ::aPopupCol[1] == 0
                _DefineControlContextMenu( ::cControlName, ::cParentWnd )
 
@@ -12377,9 +12377,9 @@ METHOD RButtonDown( nRowPix, nColPix, nFlags ) CLASS TSBrowse
          ENDIF
       ENDIF
 
-   ELSEIF ! ::lNoMoveCols
+   ELSEIF !::lNoMoveCols
 
-      IF ! ::lPopupActiv
+      IF !::lPopupActiv
          _DefineControlContextMenu( ::cControlName, ::cParentWnd )
          IF ::lUnDo
             MENUITEM ::aMsg[6] + Space( 1 ) + ::aClipBoard[3] ;
@@ -12528,7 +12528,7 @@ METHOD Report( cTitle, aCols, lPreview, lMultiple, lLandscape, lFromPos, aTotal 
       aCols := {}
 
       FOR nI := 1 TO Len(::aColumns)
-         AAdd( aCols, nI )
+         AAdd(aCols, nI)
       NEXT
 
    ENDIF
@@ -12560,14 +12560,14 @@ METHOD Report( cTitle, aCols, lPreview, lMultiple, lLandscape, lFromPos, aTotal 
 
    FOR nI := 1 TO Len(aCols)
 
-      IF ! ::aColumns[aCols[nI]]:lBitMap
+      IF !::aColumns[aCols[nI]]:lBitMap
 
          nSize := Max(1, Round(::aColSizes[aCols[nI]] / GetTextWidth(0, "b", iif(hFont != NIL, hFont, ::hFont)), 0))
-         AAdd( aWidths, nSize )
-         AAdd( aHeader1, "" )
-         AAdd( aHeader2, ::aColumns[aCols[nI]]:cHeading )
-         AAdd( aFields, ::aColumns[aCols[nI]]:cData )
-         AAdd( aFormats, iif( ::aColumns[aCols[nI]]:cPicture != NIL, ::aColumns[aCols[nI]]:cPicture, "" ) ) // Nil or char.
+         AAdd(aWidths, nSize)
+         AAdd(aHeader1, "")
+         AAdd(aHeader2, ::aColumns[aCols[nI]]:cHeading)
+         AAdd(aFields, ::aColumns[aCols[nI]]:cData)
+         AAdd(aFormats, iif( ::aColumns[aCols[nI]]:cPicture != NIL, ::aColumns[aCols[nI]]:cPicture, "" )) // Nil or char.
 
       ENDIF
 
@@ -12633,7 +12633,7 @@ METHOD Reset( lBottom ) CLASS TSBrowse
       ::nLen := Eval( ::bLogicLen )
    ENDIF
 
-   IF ! ::lNoVScroll .AND. ::oVScroll != NIL
+   IF !::lNoVScroll .AND. ::oVScroll != NIL
 
       IF ::nLen <= ::nRowCount()
          ::oVScroll:SetRange( 0, 0 )
@@ -12742,13 +12742,13 @@ METHOD ReSize( nSizeType, nWidth, nHeight ) CLASS TSBrowse
       SendMessage( ::aColumns[::nCell]:oEdit:hWnd, WM_KEYDOWN, VK_ESCAPE, 0 )
    ENDIF
 
-   IF ! Empty(::nAdjColumn)
+   IF !Empty(::nAdjColumn)
       ::nAdjColumn := Min( Len(::aColumns), ::nAdjColumn )
    ENDIF
 
    ::nRowPos := Min( ::nRowPos, Max(::nRowCount(), 1) )
 
-   IF ! Empty(::nAdjColumn) .AND. nTotPix != nWidth
+   IF !Empty(::nAdjColumn) .AND. nTotPix != nWidth
       ::aColumns[::nAdjColumn]:nWidth := ;
          ::aColSizes[::nAdjColumn] += ( nWidth - nTotPix )
    ENDIF
@@ -12789,7 +12789,7 @@ METHOD Seek( nKey ) CLASS TSBrowse
          IF ::cOrderType == "D"
             cSeek := DateSeek( cSeek, nKey )
          ELSE
-            cSeek := Left( cSeek, Len(cSeek) - 1 )
+            cSeek := Left(cSeek, Len(cSeek) - 1)
          ENDIF
       ELSE
          IF ::cOrderType == "D"
@@ -12839,22 +12839,22 @@ METHOD Seek( nKey ) CLASS TSBrowse
             IF ::cOrderType == "D"
                ::cSeek := DateSeek( cSeek, VK_BACK )
             ELSE
-               ::cSeek := Left( cSeek, Len(cSeek) - 1 )
+               ::cSeek := Left(cSeek, Len(cSeek) - 1)
             ENDIF
 
             RETURN Self
 
-         ELSEIF ! lFound
+         ELSEIF !lFound
 
             IF ::cOrderType == "N"
                ( ::cAlias )->( dbSeek( Val( cSeek ) * 10, .T. ) )
                xSeek := ( ::cAlias )->( Eval( &( "{||" + IndexKey() + "}" ) ) )
-               xSeek := Val( Right( LTrim( Str( xSeek ) ), Len(cSeek) + 1 ) )
+               xSeek := Val(Right(LTrim(Str(xSeek)), Len(cSeek) + 1))
 
                IF xSeek > ( ( Val( cSeek ) * 10 ) + 9 )
                   Tone( 500, 1 )
                   ( ::cAlias )->( dbGoto( nRecNo ) )
-                  ::cSeek := Left( cSeek, Len(cSeek) - 1 )
+                  ::cSeek := Left(cSeek, Len(cSeek) - 1)
                   RETURN Self
                ENDIF
 
@@ -12920,7 +12920,7 @@ METHOD Seek( nKey ) CLASS TSBrowse
          IF ::cOrderType == "D"
             cSeek := DateSeek( cSeek, nKey )
          ELSE
-            cSeek := Left( cSeek, Len(cSeek) - 1 )
+            cSeek := Left(cSeek, Len(cSeek) - 1)
          ENDIF
       ELSE
          IF ::cOrderType == "D"
@@ -12958,23 +12958,23 @@ METHOD Seek( nKey ) CLASS TSBrowse
          nRecNo := ::nAt
          lFound := lASeek( xSeek,, Self )
 
-         IF ! lFound
+         IF !lFound
             ::nAt := nRecNo
          ENDIF
 
          IF ::cOrderType == "C" .AND. ! lFound
             Tone( 500, 1 )
-            ::cSeek := Left( cSeek, Len(cSeek) - 1 )
+            ::cSeek := Left(cSeek, Len(cSeek) - 1)
             RETURN Self
-         ELSEIF ! lFound
+         ELSEIF !lFound
             IF ::cOrderType == "N"
                lASeek( Val( cSeek ) * 10, .T., Self )
                xSeek := ::aArray[::nAt, ::nColOrder]
-               xSeek := Val( Right( LTrim( Str( xSeek ) ), Len(cSeek) + 1 ) )
+               xSeek := Val(Right(LTrim(Str(xSeek)), Len(cSeek) + 1))
 
                IF xSeek > ( ( Val( cSeek ) * 10 ) + 9 )
                   Tone( 500, 1 )
-                  ::cSeek := Left( cSeek, Len(cSeek) - 1 )
+                  ::cSeek := Left(cSeek, Len(cSeek) - 1)
                   ::nAt := nRecNo
                   RETURN Self
                ENDIF
@@ -13029,7 +13029,7 @@ METHOD Seek( nKey ) CLASS TSBrowse
       ENDIF
    ENDIF
 
-   IF ! lTrySeek
+   IF !lTrySeek
       ::ResetSeek()
    ENDIF
 
@@ -13063,7 +13063,7 @@ METHOD Set3DText( lOnOff, lRaised, nColumn, nLevel, nClrLight, ;
       RETURN Self
    ENDIF
 
-   IF ! lOnOff
+   IF !lOnOff
       IF Empty(nColumn)
          IF Empty(nLevel)
             FOR nEle := 1 TO Len(::aColumns)
@@ -13215,7 +13215,7 @@ METHOD SetAppendMode( lMode ) CLASS TSBrowse
    DEFAULT lMode := ! ::lCanAppend, ;
       ::lIsTxt := "TEXT_" $ ::cAlias
 
-   IF ! ::lIsTxt
+   IF !::lIsTxt
       ::lCanAppend := lMode
    ENDIF
 
@@ -13244,7 +13244,7 @@ METHOD SetArray( aArray, lAutoCols, aHead, aSizes ) CLASS TSBrowse
       ::aArray := {}
 
       FOR nI := 1 TO Len(aArray)
-         AAdd( ::aArray, { aArray[nI] } )
+         AAdd(::aArray, { aArray[nI] })
       NEXT
    ELSE
       ::aArray := aArray
@@ -13326,7 +13326,7 @@ METHOD SetArray( aArray, lAutoCols, aHead, aSizes ) CLASS TSBrowse
          aSizes := NIL
       ENDIF
 
-      IF ! ::lCellBrw .AND. aSizes == NIL
+      IF !::lCellBrw .AND. aSizes == NIL
          ::lNoHScroll := .T.
       ENDIF
 
@@ -13343,7 +13343,7 @@ METHOD SetArray( aArray, lAutoCols, aHead, aSizes ) CLASS TSBrowse
          ENDIF
 
          ::AddColumn( TSColumn():New( cHead, bData,,,, nMax,, ::lEditable,,,,,,,,,,, Self, ;
-            "ArrayWBlock(::oBrw," + LTrim( Str( nI ) ) + ")" ) )
+            "ArrayWBlock(::oBrw," + LTrim(Str(nI)) + ")" ) )
       NEXT
 
    ENDIF
@@ -13449,7 +13449,7 @@ METHOD SetArrayTo( aArray, uFontHF, aHead, aSizes, uFooter, aPicture, aAlign, aN
 
       IF cType $ "CM"
          ::aDefValue[nI] := Space( Len(::aArray[1, nI]) )
-         aDefMaxVal[nI] := Trim( ::aArray[1, nI] )
+         aDefMaxVal[nI] := Trim(::aArray[1, nI])
          aDefMaxLen[nI] := iif( CRLF $ aDefMaxVal[nI], 0, Len(aDefMaxVal[nI]) )
          aDefAlign[nI] := DT_LEFT
       ELSEIF cType == "N"
@@ -13534,13 +13534,13 @@ METHOD SetArrayTo( aArray, uFontHF, aHead, aSizes, uFooter, aPicture, aAlign, aN
       FOR nN := 1 TO nColumns
          IF HB_ISCHAR( ::aArray[nI, nN] ) .AND. CRLF $ ::aArray[nI, nN]
             cData := ""
-            AEval( hb_aTokens( ::aArray[nI, nN], CRLF), {|x| x := Trim( x ), cData := iif( Len(x) > Len(cData), x, cData ) } )
+            AEval( hb_aTokens( ::aArray[nI, nN], CRLF), {|x| x := Trim(x), cData := iif( Len(x) > Len(cData), x, cData ) } )
          ELSE
             cData := cValToChar( ::aArray[nI, nN] )
          ENDIF
          IF Len(cData) > Len(aDefMaxVal[nN])
             IF aDefType[nN] == "C"
-               aDefMaxVal[nN] := Trim( cData )
+               aDefMaxVal[nN] := Trim(cData)
                aDefMaxLen[nN] := Max(aDefMaxLen[nN], Len(aDefMaxVal[nN]))
             ELSE
                aDefMaxVal[nN] := cData
@@ -13564,7 +13564,7 @@ METHOD SetArrayTo( aArray, uFontHF, aHead, aSizes, uFooter, aPicture, aAlign, aN
 
       IF aDefType[nI] == "C"
          IF ValType(aPicture[nI]) == "C" .AND. Len(aPicture[nI]) > 0
-            cTemp := iif( Left( aPicture[nI], 2 ) == "@K", SubStr(aPicture[nI], 4), aPicture[nI] )
+            cTemp := iif( Left(aPicture[nI], 2) == "@K", SubStr(aPicture[nI], 4), aPicture[nI] )
          ELSE
             cTemp := Replicate( "X", aDefMaxLen[nI] )
          ENDIF
@@ -13579,7 +13579,7 @@ METHOD SetArrayTo( aArray, uFontHF, aHead, aSizes, uFooter, aPicture, aAlign, aN
             cPict := Replicate( "9", aDefMaxLen[nI] )
             IF ( nN := At( ".", aDefMaxVal[nI] ) ) > 0
                cTemp := SubStr(aDefMaxVal[nI], nN)
-               cPict := Left( cPict, Len(cPict) - Len(cTemp) ) + "." + Replicate( "9", Len(cTemp) - 1 )
+               cPict := Left(cPict, Len(cPict) - Len(cTemp)) + "." + Replicate( "9", Len(cTemp) - 1 )
             ENDIF
          ENDIF
       ENDIF
@@ -13617,7 +13617,7 @@ METHOD SetArrayTo( aArray, uFontHF, aHead, aSizes, uFooter, aPicture, aAlign, aN
       nMax := Max(nMax + GetBorderWidth(), 32)
       nMax := Max(nMax, nFooter)
 
-      IF ! Empty(aSizes)
+      IF !Empty(aSizes)
          IF ValType(aSizes[nI]) == "N" .AND. aSizes[nI] > 0
             nMax := aSizes[nI]
          ELSEIF ValType(aSizes[nI]) == "C"
@@ -13631,7 +13631,7 @@ METHOD SetArrayTo( aArray, uFontHF, aHead, aSizes, uFooter, aPicture, aAlign, aN
       ::aJustify[nI] := aAligns
 
       oCol := TSColumn():New( cHead, bData, cPict,, aAligns, nMax,, ::lEditable,,,, cFooter,,,,,,, ;
-         Self, "ArrayWBlock(::oBrw," + LTrim( Str( nI ) ) + ")" )
+         Self, "ArrayWBlock(::oBrw," + LTrim(Str(nI)) + ")" )
       IF lFont
          oCol:hFontHead := hFontHead
          IF lFooter
@@ -13644,7 +13644,7 @@ METHOD SetArrayTo( aArray, uFontHF, aHead, aSizes, uFooter, aPicture, aAlign, aN
          oCol:nEditMove := 0
       ENDIF
 
-      IF ! Empty(aName[nI]) .AND. ValType(aName[nI]) == "C"
+      IF !Empty(aName[nI]) .AND. ValType(aName[nI]) == "C"
          oCol:cName := aName[nI]
       ENDIF
 
@@ -14211,7 +14211,7 @@ METHOD SetDbf( cAlias ) CLASS TSBrowse
    ::aTags := {}
 
    FOR nEle := 1 TO nTags
-      AAdd( ::aTags, { ( cAlias )->( ordName( nEle ) ), ( cAlias )->( ordKey( nEle ) ) } )
+      AAdd(::aTags, { ( cAlias )->( ordName( nEle ) ), ( cAlias )->( ordKey( nEle ) ) })
    NEXT
    IF "SQL" $ ::cDriver
       Eval( ::bGoToPos, 100 )
@@ -14326,7 +14326,7 @@ METHOD FilterData( cFilter, lBottom, lFocus ) CLASS TSBrowse
    LOCAL nLen := 0
    LOCAL cAlias := ::cAlias
 
-   IF ! Empty(cFilter)
+   IF !Empty(cFilter)
       ( cAlias )->( dbSetFilter( &( "{||" + cFilter + "}" ), cFilter ) )
    ELSE
       ( cAlias )->( dbClearFilter() )
@@ -14344,7 +14344,7 @@ METHOD FilterData( cFilter, lBottom, lFocus ) CLASS TSBrowse
    ::lInitGoTop := .T.
    ::Reset( lBottom )
 
-   IF ! Empty(lFocus)
+   IF !Empty(lFocus)
       ::SetFocus()
    ENDIF
 
@@ -14366,7 +14366,7 @@ METHOD FilterFTS( cFind, lUpper, lBottom, lFocus, lAll ) CLASS TSBrowse
       cFind := Upper(cFind)
    ENDIF
 
-   IF ! Empty(cFind)
+   IF !Empty(cFind)
       ( cAlias )->( dbSetFilter( {|| ob:FilterFTS_Line( cFind, lUpper, lAll, ob ) }, ;
          "ob:FilterFTS_Line( cFind, lUpper, lAll, ob)" ) )
    ELSE
@@ -14385,7 +14385,7 @@ METHOD FilterFTS( cFind, lUpper, lBottom, lFocus, lAll ) CLASS TSBrowse
    ::lInitGoTop := .T.
    ::Reset( lBottom )
 
-   IF ! Empty(lFocus)
+   IF !Empty(lFocus)
       ::SetFocus()
    ENDIF
 
@@ -14407,7 +14407,7 @@ METHOD FilterFTS_Line( cFind, lUpper, lAll ) CLASS TSBrowse
    FOR nCol := 1 TO Len(::aColumns)
       oCol := ::aColumns[nCol]
       IF nCol == 1 .AND. ::lSelector ; LOOP
-      ELSEIF ! oCol:lVisible ; LOOP
+      ELSEIF !oCol:lVisible ; LOOP
       ELSEIF oCol:lBitMap ; LOOP
       ENDIF
       xVal := ::bDataEval( oCol, , nCol )
@@ -14461,27 +14461,27 @@ METHOD SetHeaders( nHeight, aCols, aTitles, aAlign, al3DLook, aFonts, aActions )
 
       CASE ValType(aTitles) == "A"
          FOR nI := 1 TO Len(aTitles)
-            AAdd( aCols, nI )
+            AAdd(aCols, nI)
          NEXT
 
       CASE ValType(aActions) == "A"
          FOR nI := 1 TO Len(aActions)
-            AAdd( aCols, nI )
+            AAdd(aCols, nI)
          NEXT
 
       CASE ValType(aAlign) == "A"
          FOR nI := 1 TO Len(aAlign)
-            AAdd( aCols, nI )
+            AAdd(aCols, nI)
          NEXT
 
       CASE ValType(al3DLook) == "A"
          FOR nI := 1 TO Len(al3DLook)
-            AAdd( aCols, nI )
+            AAdd(aCols, nI)
          NEXT
 
       CASE ValType(aFonts) == "A"
          FOR nI := 1 TO Len(aFonts)
-            AAdd( aCols, nI )
+            AAdd(aCols, nI)
          NEXT
 
       OTHERWISE
@@ -14573,7 +14573,7 @@ METHOD OnReSize( nWidth, nHeight, lTop ) CLASS TSBrowse
       aCol := Array( Len(::aColumns) )
       nW := _GetClientRect( ::hWnd )[3]
 
-      IF ! ::lNoVScroll .AND. ::nLen > ::nRowCount()
+      IF !::lNoVScroll .AND. ::nLen > ::nRowCount()
          nW -= GetVScrollBarWidth()
       ENDIF
 
@@ -14602,7 +14602,7 @@ METHOD OnReSize( nWidth, nHeight, lTop ) CLASS TSBrowse
       FOR nCol := 1 TO nCnt
          oCol := ::aColumns[nCol]
          IF nCol == 1 .AND. ::lSelector ; LOOP
-         ELSEIF ! oCol:lVisible ; LOOP
+         ELSEIF !oCol:lVisible ; LOOP
          ELSEIF oCol:lBitMap ; LOOP
          ENDIF
          IF aCol[nCol] > nKfc
@@ -14617,14 +14617,14 @@ METHOD OnReSize( nWidth, nHeight, lTop ) CLASS TSBrowse
       nW := _GetClientRect( ::hWnd )[3]
       nN := nS := 0
 
-      IF ! ::lNoVScroll .AND. ::nLen > ::nRowCount()
+      IF !::lNoVScroll .AND. ::nLen > ::nRowCount()
          nW -= GetVScrollBarWidth()
       ENDIF
 
       FOR nCol := 1 TO nCnt
          oCol := ::aColumns[nCol]
          IF nCol == 1 .AND. ::lSelector ; LOOP
-         ELSEIF ! oCol:lVisible ; LOOP
+         ELSEIF !oCol:lVisible ; LOOP
          ELSEIF oCol:lBitMap ; LOOP
          ENDIF
          nKfc := aCol[nCol]
@@ -14719,7 +14719,7 @@ METHOD SetNoHoles( nDelta, lSet ) CLASS TSBrowse
 
          aRect := _GetClientRect( ::hWnd )
 
-         IF ! ::lNoVScroll .AND. ::nLen > ::nRowCount()
+         IF !::lNoVScroll .AND. ::nLen > ::nRowCount()
             aRect[3] -= GetVScrollBarWidth()
          ENDIF
 
@@ -14738,7 +14738,7 @@ METHOD SetNoHoles( nDelta, lSet ) CLASS TSBrowse
             IF nCol == 1 .AND. ::lSelector ; LOOP
             ELSEIF oCol:lBitMap ; LOOP
             ENDIF
-            IF ! Empty(::aOldParams[6][1])
+            IF !Empty(::aOldParams[6][1])
                ::aOldParams[7][nCol] := oCol:nWidth / ::aOldParams[6][1]
             ENDIF
          NEXT
@@ -15004,11 +15004,11 @@ METHOD ShowSizes() CLASS TSBrowse
    LOCAL aTemp := ::GetColSizes()
 
    AEval( aTemp, {| e, n | nTotal += e, cText += ( iif( ValType(::aColumns[n]:cHeading) == "C", ;
-      ::aColumns[n]:cHeading, ::aMsg[24] + Space( 1 ) + LTrim( Str( n ) ) ) + ": " + ;
-      Str( e, 3 ) + " Pixels" + CRLF ) } )
+      ::aColumns[n]:cHeading, ::aMsg[24] + Space( 1 ) + LTrim(Str(n)) ) + ": " + ;
+      Str(e, 3) + " Pixels" + CRLF ) } )
 
-   cText += CRLF + "Total " + Str( nTotal, 4 ) + " Pixels" + CRLF + ::aMsg[25] + Space( 1 ) + ;
-      Str( ::nWidth(), 4 ) + " Pixels" + CRLF
+   cText += CRLF + "Total " + Str(nTotal, 4) + " Pixels" + CRLF + ::aMsg[25] + Space( 1 ) + ;
+      Str(::nWidth(), 4) + " Pixels" + CRLF
 
    MsgInfo( cText, ::aMsg[26] )
 
@@ -15310,7 +15310,7 @@ METHOD VScroll( nMsg, nPos ) CLASS TSBrowse
       ::GoUp()
 
    CASE nMsg == SB_LINEDOWN
-      IF ! ::lHitBottom
+      IF !::lHitBottom
          ::GoDown()
       ENDIF
 
@@ -15425,18 +15425,18 @@ METHOD Enabled( lEnab ) CLASS TSBrowse
 
    IF ValType(lEnab) == "L"
 
-      IF ! lEnab
+      IF !lEnab
 
          IF ::lEnabled
             ::aOldEnabled := { ::hBrush, {}, ::nClrPane, {}, ::nClrLine }
             FOR nI := 1 TO Len(::aColumns)
-               AAdd( ::aOldEnabled[2], ::aColumns[nI]:Clone() )
+               AAdd(::aOldEnabled[2], ::aColumns[nI]:Clone())
                ::aColumns[nI]:SaveColor()
             NEXT
             IF ::lDrawSuperHd
-               AEval( ::aSuperHead, {| AS | AAdd( ::aOldEnabled[4], { AS[4], AS[5], AS[11] } ) } )
+               AEval( ::aSuperHead, {| AS | AAdd(::aOldEnabled[4], { AS[4], AS[5], AS[11] }) } )
             ENDIF
-            IF ! Empty(::oPhant)
+            IF !Empty(::oPhant)
                ::oPhant:SaveColor()
                ::oPhant:nClrHeadBack := ::nCLR_HGRAY
                ::oPhant:nClrFootBack := ::nCLR_HGRAY
@@ -15455,12 +15455,12 @@ METHOD Enabled( lEnab ) CLASS TSBrowse
 
       ELSE
 
-         IF ! ::lEnabled
+         IF !::lEnabled
             FOR nI := 1 TO Len(::aColumns)
                ::aColumns[nI]:RestColor()
                SetColor( , ::aColumns[nI]:aColors, nI )
             NEXT
-            IF ! Empty(::oPhant)
+            IF !Empty(::oPhant)
                ::oPhant:RestColor()
             ENDIF
             IF HB_ISARRAY( ::aOldEnabled ) .AND. ! Empty(::aOldEnabled[1])
@@ -15582,7 +15582,7 @@ STATIC FUNCTION AClone( aSource )
 
    LOCAL aTarget := {}
 
-   AEval( aSource, {| e | AAdd( aTarget, e ) } )
+   AEval( aSource, {| e | AAdd(aTarget, e) } )
 
 RETURN aTarget
 
@@ -15602,7 +15602,7 @@ STATIC FUNCTION AutoHeaders( nCols )
    LOCAL aBCD := {}
 
    FOR nEle := 65 TO 90
-      AAdd( aBCD, Chr( nEle ) )
+      AAdd(aBCD, Chr(nEle))
    NEXT
 
    IF nCols <= 26
@@ -15618,7 +15618,7 @@ STATIC FUNCTION AutoHeaders( nCols )
    WHILE nCols > 0
 
       FOR nEle := 1 TO Min( 26, nCols )
-         AAdd( aHead, cHead + aBCD[nEle] )
+         AAdd(aHead, cHead + aBCD[nEle])
       NEXT
 
       nCols -= 26
@@ -15659,7 +15659,7 @@ STATIC FUNCTION lASeek( uSeek, lSoft, oBrw )
       uData := aArray[nEle, nCol]
       uData := iif( oBrw:lUpperSeek, Upper(cValToChar(uData)), cValToChar( uData ) )
 
-      IF ! lSoft
+      IF !lSoft
          IF uData = cValToChar( uSeek )
             lFound := .T.
             EXIT
@@ -15741,7 +15741,7 @@ STATIC FUNCTION BuildSkip( cAlias, cField, uValue1, uValue2, oTb )
 
    DO CASE
    CASE cType == "C"
-      IF ! lDescend
+      IF !lDescend
          bSkipBlock := &( "{|| " + cField + ">= '" + uValue1 + "' .AND. " + ;
             cField + "<= '" + uValue2 + "' }" )
       ELSE
@@ -15749,7 +15749,7 @@ STATIC FUNCTION BuildSkip( cAlias, cField, uValue1, uValue2, oTb )
             cField + ">= '" + uValue2 + "' }" )
       ENDIF
    CASE cType == "D"
-      IF ! lDescend
+      IF !lDescend
          bSkipBlock := &( "{|| " + cField + ">= CToD( '" + DToC( uValue1 ) + "') .AND. " + ;
             cField + "<= CToD( '" + DToC( uValue2 ) + "') }" )
       ELSE
@@ -15758,7 +15758,7 @@ STATIC FUNCTION BuildSkip( cAlias, cField, uValue1, uValue2, oTb )
       ENDIF
 
    CASE cType == "N"
-      IF ! lDescend
+      IF !lDescend
          bSkipBlock := &( "{|| " + cField + ">= " + cValToChar( uValue1 ) + " .AND. " + ;
             cField + "<= " + cValToChar( uValue2 ) + " }" )
       ELSE
@@ -15767,7 +15767,7 @@ STATIC FUNCTION BuildSkip( cAlias, cField, uValue1, uValue2, oTb )
       ENDIF
 
    CASE cType == "L"
-      IF ! lDescend
+      IF !lDescend
          bSkipBlock := &( "{|| " + cField + ">= " + cValToChar( uValue1 ) + " .AND. " + ;
             cField + "<= " + cValToChar( uValue2 ) + " }" )
       ELSE
@@ -15791,7 +15791,7 @@ STATIC FUNCTION BuildFiltr( cField, uValue1, uValue2, oTb )
 
    DO CASE
    CASE cType == "C"
-      IF ! lDescend
+      IF !lDescend
          cFiltrBlock := "{||" + cField + ">= '" + uValue1 + "' .AND." + ;
             cField + "<= '" + uValue2 + "' }"
       ELSE
@@ -15799,7 +15799,7 @@ STATIC FUNCTION BuildFiltr( cField, uValue1, uValue2, oTb )
             cField + ">= '" + uValue2 + "' }"
       ENDIF
    CASE cType == "D"
-      IF ! lDescend
+      IF !lDescend
          cFiltrBlock := "{||" + cField + ">= CToD( '" + DToC( uValue1 ) + "') .AND." + ;
             cField + "<= CToD( '" + DToC( uValue2 ) + "') }"
       ELSE
@@ -15808,7 +15808,7 @@ STATIC FUNCTION BuildFiltr( cField, uValue1, uValue2, oTb )
       ENDIF
 
    CASE cType == "N"
-      IF ! lDescend
+      IF !lDescend
          cFiltrBlock := "{||" + cField + ">= " + cValToChar( uValue1 ) + " .AND." + ;
             cField + "<= " + cValToChar( uValue2 ) + " }"
       ELSE
@@ -15817,7 +15817,7 @@ STATIC FUNCTION BuildFiltr( cField, uValue1, uValue2, oTb )
       ENDIF
 
    CASE cType == "L"
-      IF ! lDescend
+      IF !lDescend
          cFiltrBlock := "{||" + cField + ">= " + cValToChar( uValue1 ) + " .AND." + ;
             cField + "<= " + cValToChar( uValue2 ) + " }"
       ELSE
@@ -15851,33 +15851,33 @@ STATIC FUNCTION BuildAutoSeek( oTb )
       FOR nCol := 1 TO Len(oTb:aColumns)
          uValue := oTb:aColumns[nCol]:cSpcHeading
          cType := ValType(uValue)
-         IF ! Empty(uValue)
+         IF !Empty(uValue)
             IF Empty(cLocateBlock)
                DO CASE
                CASE cType == "C"
-                  uValue := RTrim( uValue )
+                  uValue := RTrim(uValue)
                   nLen := Len(uValue)
-                  cLocateBlock := "{|oTb|Ascan(oTb:aArray, {|x,y| substr(x[" + LTrim( Str( nCol ) ) + "],1," + ;
-                     LTrim( Str( nLen ) ) + ") == '" + uValue + "'"
+                  cLocateBlock := "{|oTb|Ascan(oTb:aArray, {|x,y| substr(x[" + LTrim(Str(nCol)) + "],1," + ;
+                     LTrim(Str(nLen)) + ") == '" + uValue + "'"
                CASE cType == "N" .OR. cType == "L"
-                  cLocateBlock := "{|oTb|Ascan(oTb:aArray, {|x,y| x[" + LTrim( Str( nCol ) ) + "] == " + ;
+                  cLocateBlock := "{|oTb|Ascan(oTb:aArray, {|x,y| x[" + LTrim(Str(nCol)) + "] == " + ;
                      cValToChar( uValue )
                CASE cType == "D"
-                  cLocateBlock := "{|oTb|Ascan(oTb:aArray, {|x,y| x[" + LTrim( Str( nCol ) ) + "] == " + ;
+                  cLocateBlock := "{|oTb|Ascan(oTb:aArray, {|x,y| x[" + LTrim(Str(nCol)) + "] == " + ;
                      "CToD('" + DToC( uValue ) + "')"
                ENDCASE
             ELSE
                DO CASE
                CASE cType == "C"
-                  uValue := RTrim( uValue )
+                  uValue := RTrim(uValue)
                   nLen := Len(uValue)
-                  cLocateBlock += " .AND. substr(x[" + LTrim( Str( nCol ) ) + "],1," + ;
-                     LTrim( Str( nLen ) ) + " ) == '" + uValue + "'"
+                  cLocateBlock += " .AND. substr(x[" + LTrim(Str(nCol)) + "],1," + ;
+                     LTrim(Str(nLen)) + " ) == '" + uValue + "'"
                CASE cType == "N" .OR. cType == "L"
-                  cLocateBlock = " .AND. x[" + LTrim( Str( nCol ) ) + "] == " + ;
+                  cLocateBlock = " .AND. x[" + LTrim(Str(nCol)) + "] == " + ;
                      cValToChar( uValue )
                CASE cType == "D"
-                  cLocateBlock += " .AND. x[" + LTrim( Str( nCol ) ) + "] == " + ;
+                  cLocateBlock += " .AND. x[" + LTrim(Str(nCol)) + "] == " + ;
                      "CToD( '" + DToC( uValue ) + "' )"
                ENDCASE
             ENDIF
@@ -15894,14 +15894,14 @@ STATIC FUNCTION BuildAutoSeek( oTb )
          uValue := oTb:aColumns[nCol]:cSpcHeading
          cField := oTb:aColumns[nCol]:cData
          cType := ValType(uValue)
-         IF ! Empty(uValue)
+         IF !Empty(uValue)
             cAnd := iif( Empty(cLocateBlock), "", " .AND. " )
             DO CASE
             CASE cType == "C"
-               uValue := RTrim( uValue )
+               uValue := RTrim(uValue)
                nLen := Len(uValue)
                cLocateBlock += cAnd + " substr(" + cField + ",1," + ;
-                  LTrim( Str( nLen ) ) + " ) == '" + uValue + "'"
+                  LTrim(Str(nLen)) + " ) == '" + uValue + "'"
             CASE cType == "N" .OR. cType == "L"
                cLocateBlock += cAnd + cField + " == " + cValToChar( uValue )
             CASE cType == "D"
@@ -15912,21 +15912,21 @@ STATIC FUNCTION BuildAutoSeek( oTb )
 
    ENDIF
 
-   IF ! oTb:lIsArr .AND. ! oTb:lIsTxt .AND. oTb:cAlias == "ADO_"
+   IF !oTb:lIsArr .AND. ! oTb:lIsTxt .AND. oTb:cAlias == "ADO_"
 
       FOR nCol := 1 TO Len(oTb:aColumns)
          uValue := oTb:aColumns[nCol]:cSpcHeading
          cField := oTb:aColumns[nCol]:cOrder
          cType := ValType(uValue)
-         IF ! Empty(uValue)
-            if ! Empty(cLocateBlock) // Only a single-column name may be specified in cLocateBlock.
+         IF !Empty(uValue)
+            if !Empty(cLocateBlock) // Only a single-column name may be specified in cLocateBlock.
                Tone( 500, 1 )
                RETURN cLocateBlock
             ENDIF
             DO CASE
             CASE cType == "C"
                cComp := iif( At( "*", uValue ) != 0, " LIKE '", " = '" )
-               uValue := RTrim( uValue )
+               uValue := RTrim(uValue)
                cLocateBlock := cField + cComp + uValue + "'"
             CASE cType == "N" .OR. cType == "L"
                cLocateBlock := cField + " = " + cValToChar( uValue )
@@ -15962,14 +15962,14 @@ STATIC FUNCTION BuildAutoFilter( oTb )
          uValue := oTb:aColumns[nCol]:cSpcHeading
          cField := oTb:aColumns[nCol]:cData
          cType := ValType(uValue)
-         IF ! Empty(uValue)
+         IF !Empty(uValue)
             cAnd := iif( Empty(cFilterBlock), "", " .AND. " )
             DO CASE
             CASE cType == "C"
-               uValue := RTrim( uValue )
+               uValue := RTrim(uValue)
                nLen := Len(uValue)
                cFilterBlock += cAnd + " substr(" + cField + ",1," + ;
-                  LTrim( Str( nLen ) ) + " ) == '" + uValue + "'"
+                  LTrim(Str(nLen)) + " ) == '" + uValue + "'"
             CASE cType == "N" .OR. cType == "L"
                cFilterBlock += cAnd + cField + " == " + cValToChar( uValue )
             CASE cType == "D"
@@ -15980,18 +15980,18 @@ STATIC FUNCTION BuildAutoFilter( oTb )
 
    ENDIF
 
-   IF ! oTb:lIsArr .AND. ! oTb:lIsTxt .AND. oTb:cAlias == "ADO_"
+   IF !oTb:lIsArr .AND. ! oTb:lIsTxt .AND. oTb:cAlias == "ADO_"
 
       FOR nCol := 1 TO Len(oTb:aColumns)
          uValue := oTb:aColumns[nCol]:cSpcHeading
          cField := oTb:aColumns[nCol]:cOrder
          cType := ValType(uValue)
-         IF ! Empty(uValue)
+         IF !Empty(uValue)
             cAnd := iif( Empty(cFilterBlock), "", " AND " )
             DO CASE
             CASE cType == "C"
                cComp := iif( At( "*", uValue ) != 0, " LIKE '", " = '" )
-               uValue := RTrim( uValue )
+               uValue := RTrim(uValue)
                cFilterBlock += cAnd + cField + cComp + uValue + "'"
 
             CASE cType == "N" .OR. cType == "L"
@@ -16037,7 +16037,7 @@ STATIC FUNCTION BrwGoTo( n, bWhile, oTb )
          ( oTb:cAlias )->( dbSkip( -1 ) )
       ENDDO
 
-      IF ! oTb:lAppendMode
+      IF !oTb:lAppendMode
          nSkipped += -nDirection
       ELSE
          IF oTb:nPrevRec == NIL
@@ -16090,7 +16090,7 @@ STATIC FUNCTION DateSeek( cSeek, nKey )
    /* only  0..9 */
    IF nKey >= 48 .AND. nKey <= 57
       IF nSpace <> 0
-         cTemp := Left( cSeek, nSpace - 1 )
+         cTemp := Left(cSeek, nSpace - 1)
          cTemp += cChar
          cTemp += SubStr(cSeek, nSpace + 1, Len(cSeek))
          cSeek := cTemp
@@ -16100,15 +16100,15 @@ STATIC FUNCTION DateSeek( cSeek, nKey )
       ENDIF
    ELSEIF nKey == VK_BACK
       IF nSpace == 4 .OR. nSpace == 7
-         cTemp := Left( cSeek, nSpace - 3 )
+         cTemp := Left(cSeek, nSpace - 3)
          cTemp += " "
          cTemp += SubStr(cSeek, nSpace - 1, Len(cSeek))
       ELSEIF nSpace == 0
-         cTemp := Left( cSeek, Len(cSeek) - 1 )
+         cTemp := Left(cSeek, Len(cSeek) - 1)
       ELSEIF nSpace == 1
          cTemp := cSeek
       ELSE
-         cTemp := Left( cSeek, nSpace - 2 )
+         cTemp := Left(cSeek, nSpace - 2)
          cTemp += " "
          cTemp += SubStr(cSeek, nSpace, Len(cSeek))
       ENDIF
@@ -16130,7 +16130,7 @@ STATIC FUNCTION EmptyAlias( cAlias )
    LOCAL bErrorBlock
    LOCAL lEmpty := .T.
 
-   IF ! Empty(cAlias)
+   IF !Empty(cAlias)
 
       IF cAlias == "ARRAY" .OR. "TEXT_" $ cAlias .OR. "ADO_" $ cAlias .OR. "SQL" $ cAlias
          lEmpty := .F.
@@ -16253,7 +16253,7 @@ STATIC FUNCTION RSetLocate( oTb, cFindCriteria, lDescend, lContinue )
    DEFAULT lDescend := .F., lContinue := .T.
 
    nRecNo := oRSet:AbsolutePosition
-   IF ! lContinue
+   IF !lContinue
       oRSet:MoveFirst()
    ENDIF
    IF lDescend
@@ -16280,7 +16280,7 @@ STATIC FUNCTION RSetFilter( oTb, cFilterCriteria )
    LOCAL nRecNo
    LOCAL oRSet := oTb:oRSet
 
-   IF ! Empty(cFilterCriteria)
+   IF !Empty(cFilterCriteria)
       oRSet:Filter := cFilterCriteria
       IF oRSet:Eof()
          Tone( 500, 1 )
@@ -16447,20 +16447,20 @@ STATIC FUNCTION FileRename( oBrw, cOldName, cNewName, lErase )
 
    DEFAULT lErase := .T.
 
-   IF ! File( cOldName )
-      MsgStop( oBrw:aMsg[29] + CRLF + AllTrim( cOldName ) + oBrw:aMsg[30], oBrw:aMsg[28] )
+   IF !File( cOldName )
+      MsgStop( oBrw:aMsg[29] + CRLF + AllTrim(cOldName) + oBrw:aMsg[30], oBrw:aMsg[28] )
       Return( -1 )
    ENDIF
 
    IF lErase .AND. lNew
 
       IF FErase( cNewName ) < 0
-         MsgStop( oBrw:aMsg[11] + Space( 1 ) + AllTrim( cNewName ), ;
-            oBrw:aMsg[28] + Space( 1 ) + LTrim( Str( FError() ) ) )
+         MsgStop( oBrw:aMsg[11] + Space( 1 ) + AllTrim(cNewName), ;
+            oBrw:aMsg[28] + Space( 1 ) + LTrim(Str(FError())) )
          Return( -1 )
       ENDIF
 
-   ELSEIF ! lErase .AND. lNew
+   ELSEIF !lErase .AND. lNew
       Return( -1 )
    ENDIF
 
@@ -16531,11 +16531,11 @@ STATIC FUNCTION IdentSuper( aHeaders, oBrw )
       ENDIF
       IF !( cOldSuper == cSuper )
          nToCol := nI - 1
-         AAdd( aSuperHeaders, { cOldSuper, nFromCol + nSel, nToCol + nSel } )
+         AAdd(aSuperHeaders, { cOldSuper, nFromCol + nSel, nToCol + nSel })
          cOldSuper := cSuper
          nFromCol := nI
       ELSEIF nI == Len(aHeaders)
-         AAdd( aSuperHeaders, { cOldSuper, nFromCol + nSel, nI + nSel } )
+         AAdd(aSuperHeaders, { cOldSuper, nFromCol + nSel, nI + nSel })
       ENDIF
       nI++
    ENDDO
@@ -16676,7 +16676,7 @@ METHOD lRSeek( uData, nFld, lSoft ) CLASS TSBrowse
       ENDIF
    ENDDO
 
-   IF ! lFound
+   IF !lFound
       Eval( ::bGoToPos, nRecNo )
    ENDIF
 
@@ -16895,7 +16895,7 @@ METHOD GetCellInfo( nRowPos, nCell, lColSpecHd ) CLASS TSBrowse
 
    IF oCol:nEditWidthDraw > 0
       nWidth := oCol:nEditWidthDraw
-      IF ! ::lNoVScroll
+      IF !::lNoVScroll
          nWidth -= GetVScrollBarWidth()
       ENDIF
    ENDIF
@@ -16908,7 +16908,7 @@ METHOD GetCellInfo( nRowPos, nCell, lColSpecHd ) CLASS TSBrowse
       nHeight := ::nHeightFoot
    ENDIF
 
-   ix := GetControlIndex( cBrw, cForm )
+   ix := GetControlIndex(cBrw, cForm)
    IF _HMG_aControlContainerRow[ix] == -1
       nRow += ::nTop - 1
       nCol += ::nLeft
@@ -16998,7 +16998,7 @@ METHOD GetCellSize( nRowPos, nCell, lColSpecHd ) CLASS TSBrowse
 
    IF oCol:nEditWidthDraw > 0
       nWidth := oCol:nEditWidthDraw
-      IF ! ::lNoVScroll
+      IF !::lNoVScroll
          nWidth -= GetVScrollBarWidth()
       ENDIF
    ENDIF
@@ -17061,7 +17061,7 @@ FUNCTION StockBmp( uAnsi, oWnd, cPath, lNew )
    LOCAL hBmp
    LOCAL cBmpFile
    LOCAL cName
-   LOCAL cTmp := AllTrim( GetEnv( "TMP" ) )
+   LOCAL cTmp := AllTrim(GetEnv("TMP"))
 
    LOCAL aStock := { "42 4D F6 00 00 00 00 00 00 00 76 00 00 00 28 00" + ; // calendar
       "00 00 10 00 00 00 10 00 00 00 01 00 04 00 00 00" + ;
@@ -17209,10 +17209,10 @@ FUNCTION StockBmp( uAnsi, oWnd, cPath, lNew )
       ENDIF
    ENDIF
 
-   cBmpFile := iif( ! Empty(cPath), cPath + iif( Right( cPath ) != "\", "\", "" ), cTmp + "\" ) + cName
+   cBmpFile := iif( ! Empty(cPath), cPath + iif(Right(cPath) != "\", "\", ""), cTmp + "\" ) + cName
    cBmpFile := StrTran(cBmpFile, "\\", "\")
 
-   IF ! File( cBmpFile )
+   IF !File( cBmpFile )
 
       IF ( nHandle := FCreate( cBmpFile ) ) < 0
          RETURN NIL
@@ -17244,12 +17244,12 @@ STATIC FUNCTION cAnsi2Bmp( cAnsi )
    LOCAL cBmp := ""
 
    WHILE Len(cAnsi) >= 8
-      cLong := Left( cAnsi, 8 )
+      cLong := Left(cAnsi, 8)
       cBmp += cHex2Bin( cAnsi2Hex( cLong ) )
       cAnsi := Stuff( cAnsi, 1, 8, "" )
    ENDDO
 
-   IF ! Empty(cAnsi)
+   IF !Empty(cAnsi)
       cBmp += cHex2Bin( cAnsi2Hex( PadR( cAnsi, 4, "0" ) ) )
    ENDIF
 
@@ -17264,10 +17264,10 @@ STATIC FUNCTION cAnsi2Hex( cAnsi )
    LOCAL cDig
    LOCAL cHex := ""
 
-   cAnsi := AllTrim( cAnsi )
+   cAnsi := AllTrim(cAnsi)
 
    WHILE Len(cAnsi) >= 2
-      cDig := Left( cAnsi, 2 )
+      cDig := Left(cAnsi, 2)
       cHex := cDig + cHex
       cAnsi := Stuff( cAnsi, 1, 2, "" )
    ENDDO
@@ -17286,7 +17286,7 @@ STATIC FUNCTION cHex2Bin( cHex )
    LOCAL nDec := 0
    LOCAL aHex := { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" }
 
-   cHex := AllTrim( cHex )
+   cHex := AllTrim(cHex)
 
    FOR nPos := Len(cHex) TO 1 STEP -1
       nEle := Max(0, AScan(aHex, SubStr(cHex, nPos, 1)) - 1)

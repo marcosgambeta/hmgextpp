@@ -52,10 +52,10 @@ PROCEDURE _SetAddress ( ControlName , ParentForm , url )
 *-----------------------------------------------------------------------------*
    LOCAL i
 
-   IF ( i := GetControlIndex ( ControlName , ParentForm ) ) > 0
+   IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0
 
       _SetAddressControlProcedure ( ControlName , url , i )
-      _HMG_aControlValue [i] := url
+      _HMG_aControlValue[i] := url
 
       IF _HMG_aControlType[i] == CONTROL_TYPE_LABEL
          _HMG_aControlType[i] := CONTROL_TYPE_HYPERLINK
@@ -72,35 +72,35 @@ PROCEDURE _SetAddressControlProcedure ( ControlName , url , i )
    DO CASE
    CASE ISBLOCK( url )
 
-      _HMG_aControlProcedures [i] := url
+      _HMG_aControlProcedures[i] := url
 
    CASE At( "@", url ) > 0
 
-      _HMG_aControlProcedures [i] := {|| ShellExecute( 0, "open", "rundll32.exe", "url.dll,FileProtocolHandler mailto:" + url, , 1 ) }
+      _HMG_aControlProcedures[i] := {|| ShellExecute( 0, "open", "rundll32.exe", "url.dll,FileProtocolHandler mailto:" + url, , 1 ) }
 
    CASE At( "http", Lower( url ) ) > 0 .OR. File( url )
 
-      _HMG_aControlProcedures [i] := {|| ShellExecute( 0, "open", url, , , 1 ) }
+      _HMG_aControlProcedures[i] := {|| ShellExecute( 0, "open", url, , , 1 ) }
 
    CASE At( "file:\\", Lower( url ) ) > 0
 
       IF iswinnt()
-         _HMG_aControlProcedures [i] := {|| ShellExecute( 0, "open", "explorer.exe", "/e," + url, , 1 ) }
+         _HMG_aControlProcedures[i] := {|| ShellExecute( 0, "open", "explorer.exe", "/e," + url, , 1 ) }
       ELSE
          url := StrTran(url, "file:\\", "")
-         _HMG_aControlProcedures [i] := {|| ShellExecute( 0, "open", "explorer.exe", "/e,/select," + url + hb_ps() + Directory( url + hb_ps() + "*.*" )[1][1], , 1 ) }
+         _HMG_aControlProcedures[i] := {|| ShellExecute( 0, "open", "explorer.exe", "/e,/select," + url + hb_ps() + Directory( url + hb_ps() + "*.*" )[1][1], , 1 ) }
       ENDIF
 
    CASE At( "proc:\\", Lower( url ) ) > 0
 
-      url := SubStr(AllTrim( url ), 8)
+      url := SubStr(AllTrim(url), 8)
 
 #if ( ( __HARBOUR__ - 0 ) < 0x030200 )
       IF ( Type( SubStr(url, 1, At( "(", url ) - 1) + "()" ) == "UI" ) 
 #else
       IF hb_IsFunction( SubStr(url, 1, At( "(", url ) - 1) )
 #endif
-         _HMG_aControlProcedures [i] := &( "{||" + url + "}" )
+         _HMG_aControlProcedures[i] := &( "{||" + url + "}" )
       ELSE
          MsgMiniGuiError ( "Control " + ControlName + " Of " + GetParentFormName( i ) + " must have a valid procedure name defined." )
       ENDIF

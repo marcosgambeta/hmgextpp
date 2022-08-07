@@ -93,7 +93,7 @@ STATIC FUNCTION _DefineFrame ( ControlName, ParentFormName, x, y, w, h, ;
 
          //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
 
-         AAdd( _HMG_aDialogItems, { nId, k, "button", style, 0, x, y, w, h, caption, , , FontName, FontSize, bold, italic, underline, strikeout, , _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage } )
+         AAdd(_HMG_aDialogItems, {nId, k, "button", style, 0, x, y, w, h, caption, , , FontName, FontSize, bold, italic, underline, strikeout, , _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
          IF _HMG_aDialogTemplate[3]   // Modal
             _HMG_aControlDeleted [k] := .T.
             RETURN Nil
@@ -109,7 +109,7 @@ STATIC FUNCTION _DefineFrame ( ControlName, ParentFormName, x, y, w, h, ;
          h := GetWindowHeight(Controlhandle)
 
          IF ValType(caption) != "U"
-            SetWindowText ( ControlHandle , caption )
+            SetWindowText(ControlHandle, caption)
          ENDIF
 
          SetWindowStyle ( ControlHandle, style, .T. )
@@ -128,8 +128,8 @@ STATIC FUNCTION _DefineFrame ( ControlName, ParentFormName, x, y, w, h, ;
       IF FontHandle != 0
          _SetFontHandle( ControlHandle, FontHandle )
       ELSE
-         __defaultNIL( @FontName, _HMG_DefaultFontName )
-         __defaultNIL( @FontSize, _HMG_DefaultFontSize )
+         __defaultNIL(@FontName, _HMG_DefaultFontName)
+         __defaultNIL(@FontSize, _HMG_DefaultFontSize)
          IF IsWindowHandle( ControlHandle )
             FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
          ENDIF
@@ -140,7 +140,7 @@ STATIC FUNCTION _DefineFrame ( ControlName, ParentFormName, x, y, w, h, ;
       ENDIF
 
       IF _HMG_BeginTabActive
-         AAdd( _HMG_ActiveTabCurrentPageMap , Controlhandle )
+         AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
       ENDIF
 
    ENDIF
@@ -213,8 +213,8 @@ FUNCTION _BeginFrame( name , parent , row , col , w , h , caption , fontname , f
 *-----------------------------------------------------------------------------*
 
    IF _HMG_BeginWindowActive
-      __defaultNIL( @FontName, _HMG_ActiveFontName )
-      __defaultNIL( @FontSize, _HMG_ActiveFontSize )
+      __defaultNIL(@FontName, _HMG_ActiveFontName)
+      __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
 
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
@@ -229,14 +229,14 @@ FUNCTION _BeginFrame( name , parent , row , col , w , h , caption , fontname , f
       ENDIF
    ENDIF
 
-   hb_default( @caption, "" )
+   hb_default(@caption, "")
    IF Empty(caption)
       fontname := "Arial"
       fontsize := 1
    ENDIF
 
-   hb_default( @w, 140 )
-   hb_default( @h, 140 )
+   hb_default(@w, 140)
+   hb_default(@h, 140)
 
    _DefineFrame ( name , parent , col , row , w , h , caption , fontname , fontsize , opaque , bold, italic, underline, strikeout , backcolor , fontcolor , transparent , invisible , nId, bInit )
 

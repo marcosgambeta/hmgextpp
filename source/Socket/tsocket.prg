@@ -126,7 +126,7 @@ return Self
 // Connect to remore site
 //
 METHOD Connect( cAddress, nPort ) CLASS TSocket
-local cSok := space( len( ::m_hSocket ) )
+local cSok := space( len(::m_hSocket) )
 local bRet
 
 ::PrintDebugMessage( "Connect to " +cAddress +" port " +str(nPort) )
@@ -141,7 +141,7 @@ return bRet
 // Close socket
 //
 METHOD Close() CLASS TSocket
-local cSok := space( len( ::m_hSocket ) )
+local cSok := space( len(::m_hSocket) )
 local bRet
 
 ::PrintDebugMessage( "Close socket" )
@@ -233,7 +233,7 @@ return cRet
 // Bind all address
 //
 METHOD Bind( cAddress, nPort ) CLASS TSocket
-local cSok := space( len( ::m_hSocket ) )
+local cSok := space( len(::m_hSocket) )
 local bRet
 
 ::PrintDebugMessage( "Bind " +cAddress +" port " +str(nPort) )
@@ -248,7 +248,7 @@ return bRet
 // Listen for client
 //
 METHOD Listen( nClient ) CLASS TSocket
-local cSok := space( len( ::m_hSocket ) )
+local cSok := space( len(::m_hSocket) )
 local bRet
 local oRet
 

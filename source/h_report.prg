@@ -99,12 +99,12 @@ FUNCTION easyreport()
    
    InitReportMessages()
    
-   hb_Default( @cFontName, "Courier New" )
+   hb_Default(@cFontName, "Courier New")
 
    ldatetimestamp := !ldatetimestamp
 
-   nlen := Len( afields )
-   IF Len( awidths ) > nlen
+   nlen := Len(afields)
+   IF Len(awidths) > nlen
       ASize( awidths, nlen )
    ENDIF
    nlmargin := iif( nllmargin == NIL, 0, nllmargin )
@@ -206,7 +206,7 @@ FUNCTION easyreport()
             EXIT
          ELSE
             IF i == MINORFONT
-               IF ! llandscape
+               IF !llandscape
                   MsgStop( aMessages[1] + CRLF + CRLF + ;
                            aMessages[2] + CRLF + ;
                            aMessages[3] + CRLF + CRLF + ;
@@ -220,7 +220,7 @@ FUNCTION easyreport()
       SELECT FONT "f0"
       IF ncpl > HBPRNMAXCOL .OR. nlpp > HBPRNMAXROW
          cpagina := ""
-         IF npapersize <= Len( apapeles )
+         IF npapersize <= Len(apapeles)
             cpagina := apapeles[npapersize]
          ENDIF
          IF nlpp <= HBPRNMAXROW
@@ -229,10 +229,10 @@ FUNCTION easyreport()
          
          msgstop( aMessages[6]  + cpagina + " (" + hb_ntos( npapersize ) + ")" + CRLF + ;
                   aMessages[7]  + hb_ntos( nfsize ) + CRLF + ;
-                  aMessages[8]  + Str( HBPRNMAXROW, 3 ) + CRLF + ;
-                  aMessages[9]  + Str( nlpp, 3 ) + CRLF + ;
-                  aMessages[10] + Str( HBPRNMAXCOL, 3 ) + CRLF + ;
-                  aMessages[11] + Str( ncpl, 3 ), aMessages[19] )
+                  aMessages[8]  + Str(HBPRNMAXROW, 3) + CRLF + ;
+                  aMessages[9]  + Str(nlpp, 3) + CRLF + ;
+                  aMessages[10] + Str(HBPRNMAXCOL, 3) + CRLF + ;
+                  aMessages[11] + Str(ncpl, 3), aMessages[19] )
       ENDIF
     
       START DOC
@@ -292,7 +292,7 @@ FUNCTION easyreport()
                ENDIF
                @ nlin, ncol SAY SubStr(wfield, 1, awidths[i]) font "f0" TO PRINT
             CASE cType == "N"
-               @ nlin, ncol SAY  iif( .NOT. ( aformats[i] == "" ), Transform( wfield, aformats[i] ), Str( wfield, awidths[i] ) ) font "f0" TO PRINT
+               @ nlin, ncol SAY  iif( .NOT. ( aformats[i] == "" ), Transform(wfield, aformats[i]), Str(wfield, awidths[i]) ) font "f0" TO PRINT
             CASE cType == "D"
                @ nlin, ncol SAY SubStr(DToC(wfield), 1, awidths[i]) font "f0" TO PRINT
             CASE cType == "L"
@@ -312,7 +312,7 @@ FUNCTION easyreport()
             CASE cType == "C"
                @ nlin, ncol SAY SubStr(wfield, 1, awidths[i])
             CASE cType == "N"
-               @ nlin, ncol SAY iif( .NOT. ( aformats[i] == "" ), Transform( wfield, aformats[i] ), Str( wfield, awidths[i] ) )
+               @ nlin, ncol SAY iif( .NOT. ( aformats[i] == "" ), Transform(wfield, aformats[i]), Str(wfield, awidths[i]) )
             CASE cType == "D"
                @ nlin, ncol SAY SubStr(DToC(wfield), 1, awidths[i])
             CASE cType == "L"
@@ -367,9 +367,9 @@ FUNCTION easyreport()
       FOR i := 1 TO nlen STEP 1
          IF atotals[i]
             IF lmode
-               @nlin, ncol SAY iif( .NOT. ( aformats[i] == "" ), Transform( aresul[i], aformats[i] ), Str( aresul[i], awidths[i] ) ) font "f1" TO PRINT
+               @nlin, ncol SAY iif( .NOT. ( aformats[i] == "" ), Transform(aresul[i], aformats[i]), Str(aresul[i], awidths[i]) ) font "f1" TO PRINT
             ELSE
-               @nlin, ncol SAY iif( .NOT. ( aformats[i] == "" ), Transform( aresul[i], aformats[i] ), Str( aresul[i], awidths[i] ) )
+               @nlin, ncol SAY iif( .NOT. ( aformats[i] == "" ), Transform(aresul[i], aformats[i]), Str(aresul[i], awidths[i]) )
             ENDIF
          ENDIF
          ncol += awidths[i] + 1
@@ -410,14 +410,14 @@ STATIC FUNCTION headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grp
    npostitle := At( "|", ctitle )
    ctitle2 := ""
    IF npostitle > 0
-      ctitle1 := Left( ctitle, npostitle - 1 )
+      ctitle1 := Left(ctitle, npostitle - 1)
       ctitle2 := SubStr(ctitle, npostitle + 1, Len(ctitle))
    ELSE
       ctitle1 := ctitle
    ENDIF
-   ncenter := ( nsum - Len( ctitle1 ) )/2
-   IF Len( ctitle2 ) > 0
-      ncenter2 := ( nsum - Len( ctitle2 ) )/2
+   ncenter := ( nsum - Len(ctitle1) )/2
+   IF Len(ctitle2) > 0
+      ncenter2 := ( nsum - Len(ctitle2) )/2
    ENDIF
    _npage++
    IF lmode
@@ -428,46 +428,46 @@ STATIC FUNCTION headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grp
       @ nlin, 6 + nlmargin SAY hb_ntos( _npage ) font "f0" TO PRINT
       @ nlin, ncenter + nlmargin SAY ctitle1 font "f2" TO PRINT
       IF ldatetimestamp
-         @ nlin, nsum - 10 + Len( afields ) + nlmargin SAY Date() font "f0" TO PRINT
+         @ nlin, nsum - 10 + Len(afields) + nlmargin SAY Date() font "f0" TO PRINT
       ENDIF
    ELSE
       @ nlin, 1 + nlmargin SAY _HMG_MESSAGE [9]
       @ nlin, 6 + nlmargin SAY hb_ntos( _npage )
       @ nlin, ncenter + nlmargin SAY ctitle1
       IF ldatetimestamp
-         @ nlin, nsum - 10 + Len( afields ) + nlmargin SAY Date()
+         @ nlin, nsum - 10 + Len(afields) + nlmargin SAY Date()
       ENDIF
    ENDIF
    nlin++
 
-   IF Len( ctitle2 ) > 0
+   IF Len(ctitle2) > 0
       IF lmode
          IF IsOemText( ctitle2 )
             ctitle2 := hb_OEMToANSI( ctitle2 )
          ENDIF
          @ nlin, ncenter2 + nlmargin SAY ctitle2 font "f2" TO PRINT
          IF ldatetimestamp
-            @ nlin, nsum - 10 + Len( afields ) + nlmargin SAY Time() font "f0" TO PRINT
+            @ nlin, nsum - 10 + Len(afields) + nlmargin SAY Time() font "f0" TO PRINT
          ENDIF
       ELSE
          @ nlin, ncenter2 + nlmargin SAY ctitle2
          IF ldatetimestamp
-            @ nlin, nsum - 10 + Len( afields ) + nlmargin SAY Time()
+            @ nlin, nsum - 10 + Len(afields) + nlmargin SAY Time()
          ENDIF
       ENDIF
       nlin++
    ELSEIF ldatetimestamp
       IF lmode
-         @ nlin, nsum - 10 + Len( afields ) + nlmargin SAY Time() font "f0" TO PRINT
+         @ nlin, nsum - 10 + Len(afields) + nlmargin SAY Time() font "f0" TO PRINT
       ELSE
-         @ nlin, nsum - 10 + Len( afields ) + nlmargin SAY Time()
+         @ nlin, nsum - 10 + Len(afields) + nlmargin SAY Time()
       ENDIF
       nlin++
    ENDIF
 
    nlin++
    ncol := nlmargin + 1
-   FOR i := 1 TO Len( awidths )
+   FOR i := 1 TO Len(awidths)
       IF lmode
          @ nlin, ncol SAY Replicate( "-", awidths[i] ) font "f0" TO PRINT
       ELSE
@@ -476,10 +476,10 @@ STATIC FUNCTION headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grp
       ncol += awidths[i] + 1
    NEXT i
 
-   IF Len( aheaders1 ) > 0
+   IF Len(aheaders1) > 0
       nlin++
       ncol := nlmargin + 1
-      FOR i := 1 TO Len( awidths )
+      FOR i := 1 TO Len(awidths)
          IF lmode
             IF IsOemText( aheaders1[i] )
                aheaders1[i] := hb_OEMToANSI( aheaders1[i] )
@@ -492,10 +492,10 @@ STATIC FUNCTION headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grp
       NEXT i
    ENDIF
 
-   IF Len( aheaders2 ) > 0
+   IF Len(aheaders2) > 0
       nlin++
       ncol := nlmargin + 1
-      FOR i := 1 TO Len( awidths )
+      FOR i := 1 TO Len(awidths)
          IF lmode
             IF IsOemText( aheaders2[i] )
                aheaders2[i] := hb_OEMToANSI( aheaders2[i] )
@@ -510,7 +510,7 @@ STATIC FUNCTION headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grp
 
    nlin++
    ncol := nlmargin + 1
-   FOR i := 1 TO  Len( awidths )
+   FOR i := 1 TO  Len(awidths)
       IF lmode
          @ nlin, ncol SAY Replicate( "-", awidths[i] ) font "f0" TO PRINT
       ELSE
@@ -529,9 +529,9 @@ STATIC FUNCTION headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grp
             IF IsOemText( cgrpby )
                cgrpby := hb_OEMToANSI( cgrpby )
             ENDIF
-            @ nlin, 1 + nlmargin SAY "** " + chdrgrp + " ** " + hb_ValToStr( cgrpby ) font "f1" TO PRINT
+            @ nlin, 1 + nlmargin SAY "** " + chdrgrp + " ** " + hb_ValToStr(cgrpby) font "f1" TO PRINT
          ELSE
-            @ nlin, 1 + nlmargin SAY "** " + chdrgrp + " ** " + hb_ValToStr( &grpby )
+            @ nlin, 1 + nlmargin SAY "** " + chdrgrp + " ** " + hb_ValToStr(&grpby)
          ENDIF
          nlin++
       ENDIF
@@ -582,14 +582,14 @@ RETURN nil
 STATIC FUNCTION JUSTIFICALINEA( WPR_LINE, WTOPE )
 
    LOCAL I, SPACE1 := Space( 1 )
-   LOCAL WLARLIN := Len( Trim( WPR_LINE ) )
+   LOCAL WLARLIN := Len(Trim(WPR_LINE))
 
    FOR I := 1 TO WLARLIN
       IF WLARLIN == WTOPE
          EXIT
       ENDIF
       IF SubStr(WPR_LINE, I, 1) = SPACE1 .AND. SubStr(WPR_LINE, I - 1, 1) <> SPACE1 .AND. SubStr(WPR_LINE, I + 1, 1) <> SPACE1
-         WPR_LINE := LTrim( SubStr(WPR_LINE, 1, I - 1) ) + Space( 2 ) + LTrim( SubStr(WPR_LINE, I + 1, Len(WPR_LINE) - I) )
+         WPR_LINE := LTrim(SubStr(WPR_LINE, 1, I - 1)) + Space(2) + LTrim(SubStr(WPR_LINE, I + 1, Len(WPR_LINE) - I))
          WLARLIN++
       ENDIF
    NEXT I
@@ -614,10 +614,10 @@ FUNCTION extreport( cfilerep )
 
    nContlin := MLCount( cReport )
    FOR i := 1 TO nContlin
-      AAdd( Aline, MemoLine( cReport,500,i,, .T. ) )
+      AAdd(Aline, MemoLine(cReport, 500, i, , .T.))
    NEXT i
    ctitle := leadato( "REPORT", "TITLE", "" )
-   IF Len( ctitle ) > 0
+   IF Len(ctitle) > 0
       ctitle := &ctitle
    ENDIF
    aheaders1 := leadatoh( "REPORT", "HEADERS", "{}", 1 )
@@ -625,14 +625,14 @@ FUNCTION extreport( cfilerep )
    aheaders2 := leadatoh( "REPORT", "HEADERS", "{}", 2 )
    aheaders2 := &aheaders2
    afields := leadato( "REPORT", "FIELDS", "{}" )
-   IF Len( afields ) == 0
+   IF Len(afields) == 0
       msginfo( aMessages[17], aMessages[13] )
       RELEASE aline
       RETURN Nil
    ENDIF
    afields := &afields
    awidths := leadato( "REPORT", "WIDTHS", "{}" )
-   IF Len( awidths ) == 0
+   IF Len(awidths) == 0
       msginfo( aMessages[18], aMessages[13] )
       RELEASE aline
       RETURN Nil
@@ -654,7 +654,7 @@ FUNCTION extreport( cfilerep )
    IF npapersize = "DMPAPER_USER"
       npapersize := 255
    ENDIF
-   IF Len( npapersize ) == 0
+   IF Len(npapersize) == 0
       npapersize := NIL
    ELSE
       ipaper := AScan(apapeles , npapersize)
@@ -670,7 +670,7 @@ FUNCTION extreport( cfilerep )
    lmul := leadatologic( "REPORT", "MULTIPLE", .F. )
 
    cgraphic := clean( leaimage( "REPORT","IMAGE","" ) )
-   IF Len( cgraphic ) == 0
+   IF Len(cgraphic) == 0
       cgraphic := NIL
    ENDIF
    nfi := Val( ( learowi("IMAGE",1 ) ) )
@@ -678,7 +678,7 @@ FUNCTION extreport( cfilerep )
    nff := Val( ( learowi("IMAGE",2 ) ) )
    ncf := Val( ( leacoli("IMAGE",2 ) ) )
    cgraphicalt := ( leadato( "DEFINE REPORT","IMAGE","" ) )
-   IF Len( cgraphicalt ) > 0  // para sintaxis DEFINE REPORT
+   IF Len(cgraphicalt) > 0  // para sintaxis DEFINE REPORT
       cgraphicalt := &cgraphicalt
       cgraphic := cgraphicalt[1]
       nfi := cgraphicalt[2]
@@ -687,7 +687,7 @@ FUNCTION extreport( cfilerep )
       ncf := cgraphicalt[5]
    ENDIF
    cgrpby := clean( leadato( "REPORT","GROUPED BY","" ) )
-   IF Len( cgrpby ) == 0
+   IF Len(cgrpby) == 0
       cgrpby := NIL
    ENDIF
    chdrgrp := clean( leadato( "REPORT","HEADRGRP","" ) )
@@ -704,22 +704,22 @@ STATIC FUNCTION leadato( cName, cPropmet, cDefault )
 
    LOCAL i, sw := 0, npos, cfvalue
 
-   FOR i := 1 TO Len( aline )
+   FOR i := 1 TO Len(aline)
       IF !( At( Upper(cname ) + " ", Upper(aline[i]) ) == 0 )
          sw := 1
       ELSE
          IF sw == 1
             npos := At( Upper(cPropmet) + " ", Upper(aline[i]) )
-            IF Len( Trim( aline[i] ) ) == 0
+            IF Len(Trim(aline[i])) == 0
                EXIT
             ENDIF
             IF npos > 0
                cfvalue := SubStr(aline[i], npos + Len(cPropmet), Len(aline[i]))
-               cfvalue := Trim( cfvalue )
-               IF Right( cfvalue, 1 ) = ";"
+               cfvalue := Trim(cfvalue)
+               IF Right(cfvalue, 1) = ";"
                   cfvalue := SubStr(cfvalue, 1, Len(cfvalue) - 1)
                ENDIF
-               RETURN AllTrim( cfvalue )
+               RETURN AllTrim(cfvalue)
             ENDIF
          ENDIF
       ENDIF
@@ -736,7 +736,7 @@ STATIC FUNCTION leaimage( cName, cPropmet, cDefault )
    HB_SYMBOL_UNUSED( cname )
    HB_SYMBOL_UNUSED( cpropmet )
 
-   FOR i := 1 TO Len( aline )
+   FOR i := 1 TO Len(aline)
       IF At( "IMAGE", aline[i] ) > 0
          npos1 := At( "IMAGE", Upper(aline[i]) ) + 6
          npos2 := At( "AT", Upper(aline[i]) ) - 1
@@ -760,7 +760,7 @@ STATIC FUNCTION leadatoh( cName, cPropmet, cDefault, npar )
    HB_SYMBOL_UNUSED( cname )
    HB_SYMBOL_UNUSED( cpropmet )
 
-   FOR i := 1 TO Len( aline )
+   FOR i := 1 TO Len(aline)
       IF At( "HEADERS", aline[i] ) > 0
          IF npar = 1
             npos1 := At( Upper("{"), Upper(aline[i]) )
@@ -784,7 +784,7 @@ STATIC FUNCTION leadatologic( cName, cPropmet, cDefault )
 
    LOCAL i, sw := 0
 
-   FOR i := 1 TO Len( aline )
+   FOR i := 1 TO Len(aline)
       IF At( Upper(cname) + " ", Upper(aline[i]) ) <> 0
          sw := 1
       ELSE
@@ -792,7 +792,7 @@ STATIC FUNCTION leadatologic( cName, cPropmet, cDefault )
             IF At( Upper(cPropmet) + " ", Upper(aline[i]) ) > 0
                RETURN .T.
             ENDIF
-            IF Len( Trim( aline[i] ) ) == 0
+            IF Len(Trim(aline[i])) == 0
                RETURN cDefault
             ENDIF
          ENDIF
@@ -813,7 +813,7 @@ STATIC FUNCTION learowi( cname, npar )
    // Unused Parameter
    HB_SYMBOL_UNUSED( cname )
 
-   FOR i := 1 TO Len( aline )
+   FOR i := 1 TO Len(aline)
       IF At( "IMAGE ", Upper(aline[i]) ) <> 0
          npos1 := At( iif( npar == 1,"AT","TO" ), Upper(aline[i]) )
          nrow := SubStr(aline[i], npos1 + 3, 4)
@@ -829,7 +829,7 @@ STATIC FUNCTION leacoli( cname, npar )
    // Unused Parameter
    HB_SYMBOL_UNUSED( cname )
 
-   FOR i := 1 TO Len( aline )
+   FOR i := 1 TO Len(aline)
       IF At( "IMAGE ", Upper(aline[i]) ) <> 0
          npos := iif( npar == 1, At( ",",aline[i] ), RAt( ",",aline[i] ) )
          ncol := SubStr(aline[i], npos + 1, 4)
@@ -845,16 +845,16 @@ STATIC PROCEDURE imp_SUBTOTALES ( nlin, ncol, lmode, swt, grpby )
 
    ncol := nlmargin + 1
    IF grpby <> NIL
-      crompe := iif( ISEVERYPAGE, Str( nlin ), crompe )
+      crompe := iif( ISEVERYPAGE, Str(nlin), crompe )
       wfield1 := iif( !ISEVERYPAGE, afieldsg[nposgrp], wfield1 )
       IF .NOT. ( &wfield1 == crompe ) .AND. ! ISEVERYPAGE .OR. ( ISEVERYPAGE .AND. nlin >= nlpp )
          IF lmode
             IF lHayTotals
                @ nlin, 1 + nlmargin SAY cSubgrp font "f1" TO PRINT
                nlin++
-               FOR i := 1 TO Len( afields )
+               FOR i := 1 TO Len(afields)
                   IF atotals[i]
-                     @ nlin, ncol SAY iif( .NOT. ( aformats[i] == "" ), Transform( angrpby[i], aformats[i] ), Str( angrpby[i], awidths[i] ) ) font "f1" TO PRINT
+                     @ nlin, ncol SAY iif( .NOT. ( aformats[i] == "" ), Transform(angrpby[i], aformats[i]), Str(angrpby[i], awidths[i]) ) font "f1" TO PRINT
                   ENDIF
                   ncol += awidths[i] + 1
                NEXT i
@@ -864,9 +864,9 @@ STATIC PROCEDURE imp_SUBTOTALES ( nlin, ncol, lmode, swt, grpby )
             IF lHayTotals
                @ nlin, 1 + nlmargin SAY cSubgrp //'** Subtotal **'
                nlin++
-               FOR i := 1 TO Len( afields )
+               FOR i := 1 TO Len(afields)
                   IF atotals[i]
-                     @ nlin, ncol SAY iif( .NOT. ( aformats[i] == "" ), Transform( angrpby[i], aformats[i] ), Str( angrpby[i], awidths[i] ) )
+                     @ nlin, ncol SAY iif( .NOT. ( aformats[i] == "" ), Transform(angrpby[i], aformats[i]), Str(angrpby[i], awidths[i]) )
                   ENDIF
                   ncol += awidths[i] + 1
                NEXT i
@@ -875,7 +875,7 @@ STATIC PROCEDURE imp_SUBTOTALES ( nlin, ncol, lmode, swt, grpby )
          ENDIF
 
          AFill( angrpby, 0 )
-         crompe := iif( !ISEVERYPAGE, &wfield1, Str( nlin ) )
+         crompe := iif( !ISEVERYPAGE, &wfield1, Str(nlin) )
 
          IF swt == 0 .AND. ! ISEVERYPAGE
             IF lmode
@@ -886,9 +886,9 @@ STATIC PROCEDURE imp_SUBTOTALES ( nlin, ncol, lmode, swt, grpby )
                IF IsOemText( cgrpby )
                   cgrpby := hb_OEMToANSI( cgrpby )
                ENDIF
-               @ nlin, 1 + nlmargin SAY "** " + chdrgrp + " ** " + iif( !ISEVERYPAGE, hb_ValToStr( cgrpby ), "" ) font "f1" TO PRINT
+               @ nlin, 1 + nlmargin SAY "** " + chdrgrp + " ** " + iif( !ISEVERYPAGE, hb_ValToStr(cgrpby), "" ) font "f1" TO PRINT
             ELSE
-               @ nlin, 1 + nlmargin SAY "** " + chdrgrp + " ** " + iif( !ISEVERYPAGE, hb_ValToStr( &grpby ), "" )
+               @ nlin, 1 + nlmargin SAY "** " + chdrgrp + " ** " + iif( !ISEVERYPAGE, hb_ValToStr(&grpby), "" )
             ENDIF
             nlin++
          ENDIF
@@ -939,33 +939,33 @@ STATIC PROCEDURE InitReportMessages()
 #endif
    aMessages := {}
 
-   AAdd( aMessages, "Please, decrease any of these (or both):" )  // 1
-   AAdd( aMessages, "- the Number of Columns" )                   // 2
-   AAdd( aMessages, "- the Left Margin" )                         // 3
-   AAdd( aMessages, "or change orientation to LANDSCAPE." )       // 4
-   AAdd( aMessages, "Problem: The line exceeds page width!" )     // 5
+   AAdd(aMessages, "Please, decrease any of these (or both):") // 1
+   AAdd(aMessages, "- the Number of Columns"                 ) // 2
+   AAdd(aMessages, "- the Left Margin"                       ) // 3
+   AAdd(aMessages, "or change orientation to LANDSCAPE."     ) // 4
+   AAdd(aMessages, "Problem: The line exceeds page width!"   ) // 5
 
-   AAdd( aMessages, "Page Size:" )             // 6
-   AAdd( aMessages, "Font size = " )           // 7
-   AAdd( aMessages, "Max. number of rows =" )  // 8
-   AAdd( aMessages, "Number of rows set  =" )  // 9
-   AAdd( aMessages, "Max. number of cols =" )  // 10
-   AAdd( aMessages, "Number of cols set  =" )  // 11
+   AAdd(aMessages, "Page Size:"                              ) // 6
+   AAdd(aMessages, "Font size = "                            ) // 7
+   AAdd(aMessages, "Max. number of rows ="                   ) // 8
+   AAdd(aMessages, "Number of rows set  ="                   ) // 9
+   AAdd(aMessages, "Max. number of cols ="                   ) // 10
+   AAdd(aMessages, "Number of cols set  ="                   ) // 11
 
-   AAdd( aMessages, "The image file not found!" ) // 12
-   AAdd( aMessages, "Warning!" )                  // 13
+   AAdd(aMessages, "The image file not found!"               ) // 12
+   AAdd(aMessages, "Warning!"                                ) // 13
 
-   AAdd( aMessages, "Print ?" )  // 14
-   AAdd( aMessages, "Question" ) // 15
+   AAdd(aMessages, "Print ?"                                 ) // 14
+   AAdd(aMessages, "Question"                                ) // 15
 
-   AAdd( aMessages, "cannot be found" )     // 16
+   AAdd(aMessages, "cannot be found"                         ) // 16
 
-   AAdd( aMessages, "Fields not defined" )  // 17
-   AAdd( aMessages, "Widths not defined" )  // 18
+   AAdd(aMessages, "Fields not defined"                      ) // 17
+   AAdd(aMessages, "Widths not defined"                      ) // 18
 
-   AAdd( aMessages, "Error!" )         // 19
-   AAdd( aMessages, "*** Total ***" )  // 20
-   AAdd( aMessages, "** Subtotal **" ) // 21
+   AAdd(aMessages, "Error!"                                  ) // 19
+   AAdd(aMessages, "*** Total ***"                           ) // 20
+   AAdd(aMessages, "** Subtotal **"                          ) // 21
 
 #ifdef _MULTILINGUAL_
 
@@ -976,49 +976,49 @@ STATIC PROCEDURE InitReportMessages()
       /////////////////////////////////////////////////////////////
       // GREEK - ΕΛΛΗΝΙΚΑ
       /////////////////////////////////////////////////////////////
-      aMessages[1] := "Ελαττώστε κάτι από τα παρακάτω (ή όλα):"    // 1
-      aMessages[2] := "- τον αριθμό Στηλών"                        // 2
-      aMessages[3] := "- το αριστερό περιθώριο"                    // 3
-      aMessages[4] := "ή επιλέξτε LANDSCAPE προσανατολισμό σελίδας."       // 4
-      aMessages[5] := "Πρόβλημα: Η γραμμή ξεπερνάει το πλάτος σελίδας!"    // 5
+      aMessages[01] := "Ελαττώστε κάτι από τα παρακάτω (ή όλα):"         // 1
+      aMessages[02] := "- τον αριθμό Στηλών"                             // 2
+      aMessages[03] := "- το αριστερό περιθώριο"                         // 3
+      aMessages[04] := "ή επιλέξτε LANDSCAPE προσανατολισμό σελίδας."    // 4
+      aMessages[05] := "Πρόβλημα: Η γραμμή ξεπερνάει το πλάτος σελίδας!" // 5
 
-      aMessages[6] := "Μέγεθος Σελίδας:"                           // 6
-      aMessages[7] := "Μέγεθος γραμμ/σειράς = "                    // 7
-      aMessages[8] := "Μέγιστος αριθμός γραμμών ="                 // 8
-      aMessages[9] := "Αριθμός γραμμών που ζητήθηκαν ="            // 9
-      aMessages[10] := "Μέγιστος αριθμός Στηλών ="                 // 10
-      aMessages[11] := "Αριθμός Στηλών που ζητήθηκαν ="            // 11
+      aMessages[06] := "Μέγεθος Σελίδας:"                                // 6
+      aMessages[07] := "Μέγεθος γραμμ/σειράς = "                         // 7
+      aMessages[08] := "Μέγιστος αριθμός γραμμών ="                      // 8
+      aMessages[09] := "Αριθμός γραμμών που ζητήθηκαν ="                 // 9
+      aMessages[10] := "Μέγιστος αριθμός Στηλών ="                       // 10
+      aMessages[11] := "Αριθμός Στηλών που ζητήθηκαν ="                  // 11
 
-      aMessages[12] := "Το αρχείο Εικόνας δεν βρέθηκε!"            // 12
-      aMessages[13] := "Προσοχή!"                                  // 13
+      aMessages[12] := "Το αρχείο Εικόνας δεν βρέθηκε!"                  // 12
+      aMessages[13] := "Προσοχή!"                                        // 13
 
-      aMessages[14] := "Εκτύπωση;"                                 // 14
-      aMessages[15] := "Επιβεβαίωση"                               // 15
+      aMessages[14] := "Εκτύπωση;"                                       // 14
+      aMessages[15] := "Επιβεβαίωση"                                     // 15
 
-      aMessages[16] := "δεν μπορεί να βρεθεί"                      // 16
+      aMessages[16] := "δεν μπορεί να βρεθεί"                            // 16
 
-      aMessages[17] := "Δεν ορίστηκαν πεδία"                       // 17
-      aMessages[18] := "Δεν ορίστηκε πλάτος πειδίων"               // 18
+      aMessages[17] := "Δεν ορίστηκαν πεδία"                             // 17
+      aMessages[18] := "Δεν ορίστηκε πλάτος πειδίων"                     // 18
 
-      aMessages[19] := "Σφάλμα!"                                   // 19
+      aMessages[19] := "Σφάλμα!"                                         // 19
 
-      aMessages[20] := "*** Σύνολο ***"                            // 20
-      aMessages[ 21 ] := "** Υποσύνολο **"                           // 21
-      
+      aMessages[20] := "*** Σύνολο ***"                                  // 20
+      aMessages[21] := "** Υποσύνολο **"                                 // 21
+
    CASE  cLang == "PT"   // Portuguese
       /////////////////////////////////////////////////////////////
       // PORTUGUESE
       /////////////////////////////////////////////////////////////
-      aMessages[ 01 ] := "Por favor, diminua qualquer um destes (ou ambos)"  // 1
-      aMessages[ 02 ] := "- nϊmero de colunas"                               // 2
-      aMessages[ 03 ] := "- margem esquerda"                                 // 3
-      aMessages[ 04 ] := "ou mude a orientaηγo para PAISAGEM."               // 4
-      aMessages[ 05 ] := "Problema: a linha excede a largura da pαgina !"    // 5
+      aMessages[01] := "Por favor, diminua qualquer um destes (ou ambos)"  // 1
+      aMessages[02] := "- nϊmero de colunas"                               // 2
+      aMessages[03] := "- margem esquerda"                                 // 3
+      aMessages[04] := "ou mude a orientaηγo para PAISAGEM."               // 4
+      aMessages[05] := "Problema: a linha excede a largura da pαgina !"    // 5
 
-      aMessages[ 06 ] := "Tamanho da pαgina:"                                // 6
-      aMessages[ 07 ] := "Tamanho da fonte = "                               // 7
-      aMessages[ 08 ] := "Mαx. nϊmero de linhas ="                           // 8
-      aMessages[ 09 ] := "Nϊmero de linhas definidas ="                      // 9
+      aMessages[06] := "Tamanho da pαgina:"                                // 6
+      aMessages[07] := "Tamanho da fonte = "                               // 7
+      aMessages[08] := "Mαx. nϊmero de linhas ="                           // 8
+      aMessages[09] := "Nϊmero de linhas definidas ="                      // 9
       aMessages[10] := "Mαx. nϊmero de colunas ="                          // 10
       aMessages[11] := "Nϊmero de colunas definidas ="                     // 11
 
@@ -1035,71 +1035,71 @@ STATIC PROCEDURE InitReportMessages()
 
       aMessages[19] := "Erro !"                                            // 19
       aMessages[20] := "*** Total ***"                                     // 20
-      aMessages[ 21 ] := "** Subtotal **"                                    // 21
+      aMessages[21] := "** Subtotal **"                                    // 21
 
-   CASE cLang == "IT"
+   CASE cLang == "IT" // TODO: aadd ou [nIndex]
       /////////////////////////////////////////////////////////////
       // ITALIAN
       ////////////////////////////////////////////////////////////
-      AAdd( aMessages, "Si prega di diminuire qualsiasi di questi (o entrambi):" )  // 1
-      AAdd( aMessages, "- il numero di colonne" )                   // 2
-      AAdd( aMessages, "- il margine sinistro" )                         // 3
-      AAdd( aMessages, "o cambiare orientamento in ORIZZONTALE." )       // 4
-      AAdd( aMessages, "Problema: la riga supera la larghezza della pagina!" )     // 5
+      AAdd(aMessages, "Si prega di diminuire qualsiasi di questi (o entrambi):") // 1
+      AAdd(aMessages, "- il numero di colonne"                                 ) // 2
+      AAdd(aMessages, "- il margine sinistro"                                  ) // 3
+      AAdd(aMessages, "o cambiare orientamento in ORIZZONTALE."                ) // 4
+      AAdd(aMessages, "Problema: la riga supera la larghezza della pagina!"    ) // 5
 
-      AAdd( aMessages, "Dimensioni della pagina:" )             // 6
-      AAdd( aMessages, "Dimensione del font = " )           // 7
-      AAdd( aMessages, "Max. numero di righe =" )  // 8
-      AAdd( aMessages, "Numero di righe impostate  =" )  // 9
-      AAdd( aMessages, "Max. Numero di colonne =" )  // 10
-      AAdd( aMessages, "Numero di colonne impostate =" )  // 11
+      AAdd(aMessages, "Dimensioni della pagina:"                               ) // 6
+      AAdd(aMessages, "Dimensione del font = "                                 ) // 7
+      AAdd(aMessages, "Max. numero di righe ="                                 ) // 8
+      AAdd(aMessages, "Numero di righe impostate  ="                           ) // 9
+      AAdd(aMessages, "Max. Numero di colonne ="                               ) // 10
+      AAdd(aMessages, "Numero di colonne impostate ="                          ) // 11
 
-      AAdd( aMessages, "Non trovo il file immagine!" ) // 12
-      AAdd( aMessages, "Attenzione!" )                  // 13
+      AAdd(aMessages, "Non trovo il file immagine!"                            ) // 12
+      AAdd(aMessages, "Attenzione!"                                            ) // 13
 
-      AAdd( aMessages, "Stampo ?" )  // 14
-      AAdd( aMessages, "Domanda" ) // 15
+      AAdd(aMessages, "Stampo ?"                                               ) // 14
+      AAdd(aMessages, "Domanda"                                                ) // 15
 
-      AAdd( aMessages, "non puς essere trovato" )     // 16
+      AAdd(aMessages, "non puς essere trovato"                                 ) // 16
 
-      AAdd( aMessages, "Campi non definiti" )  // 17
-      AAdd( aMessages, "Larghezze non definite" )  // 18
+      AAdd(aMessages, "Campi non definiti"                                     ) // 17
+      AAdd(aMessages, "Larghezze non definite"                                 ) // 18
 
-      AAdd( aMessages, "Errore!" )         // 19
-      AAdd( aMessages, "*** Totale ***" )  // 20
-      AAdd( aMessages, "** Subtotale **" ) // 21
+      AAdd(aMessages, "Errore!"                                                ) // 19
+      AAdd(aMessages, "*** Totale ***"                                         ) // 20
+      AAdd(aMessages, "** Subtotale **"                                        ) // 21
 
-   CASE cLang == "FR"
+   CASE cLang == "FR" // TODO: aadd ou [nIndex]
       /////////////////////////////////////////////////////////////
       // FRENCH
       ////////////////////////////////////////////////////////////
-      AAdd( aMessages, "Veuillez diminuer l'un de ces ιlιments (ou les deux):" )  // 1
-      AAdd( aMessages, "- Le nombre de colonnes" )                   // 2
-      AAdd( aMessages, "- La marge gauche" )                         // 3
-      AAdd( aMessages, "o cambiare L'orientamento in ORIZZONTALE." )       // 4
-      AAdd( aMessages, "Problθme: la ligne dιpasse la largeur de la page!" )     // 5
+      AAdd(aMessages, "Veuillez diminuer l'un de ces ιlιments (ou les deux):") // 1
+      AAdd(aMessages, "- Le nombre de colonnes"                              ) // 2
+      AAdd(aMessages, "- La marge gauche"                                    ) // 3
+      AAdd(aMessages, "o cambiare L'orientamento in ORIZZONTALE."            ) // 4
+      AAdd(aMessages, "Problθme: la ligne dιpasse la largeur de la page!"    ) // 5
 
-      AAdd( aMessages, "Taille de la page:" )             // 6
-      AAdd( aMessages, "Taille de police = " )           // 7
-      AAdd( aMessages, "Max. Nombre de lignes =" )  // 8
-      AAdd( aMessages, "Nombre de lignes dιfinies =" )  // 9
-      AAdd( aMessages, "Max. Nombre de colonnes =" )  // 10
-      AAdd( aMessages, "Nombre de colonnes dιfinies =" )  // 11
+      AAdd(aMessages, "Taille de la page:"                                   ) // 6
+      AAdd(aMessages, "Taille de police = "                                  ) // 7
+      AAdd(aMessages, "Max. Nombre de lignes ="                              ) // 8
+      AAdd(aMessages, "Nombre de lignes dιfinies ="                          ) // 9
+      AAdd(aMessages, "Max. Nombre de colonnes ="                            ) // 10
+      AAdd(aMessages, "Nombre de colonnes dιfinies ="                        ) // 11
 
-      AAdd( aMessages, "Je ne trouve pas le fichier image!" ) // 12
-      AAdd( aMessages, "Attention!" )                  // 13
+      AAdd(aMessages, "Je ne trouve pas le fichier image!"                   ) // 12
+      AAdd(aMessages, "Attention!"                                           ) // 13
 
-      AAdd( aMessages, "Imprimer ?" )  // 14
-      AAdd( aMessages, "Demande" ) // 15
+      AAdd(aMessages, "Imprimer ?"                                           ) // 14
+      AAdd(aMessages, "Demande"                                              ) // 15
 
-      AAdd( aMessages, "ne peut κtre trouvι" )     // 16
+      AAdd(aMessages, "ne peut κtre trouvι"                                  ) // 16
 
-      AAdd( aMessages, "Champs non dιfinis" )  // 17
-      AAdd( aMessages, "Largeurs non dιfinies" )  // 18
+      AAdd(aMessages, "Champs non dιfinis"                                   ) // 17
+      AAdd(aMessages, "Largeurs non dιfinies"                                ) // 18
 
-      AAdd( aMessages, "Erreur!" )         // 19
-      AAdd( aMessages, "*** Le total ***" )  // 20
-      AAdd( aMessages, "** Sous-total **" ) // 21
+      AAdd(aMessages, "Erreur!"                                              ) // 19
+      AAdd(aMessages, "*** Le total ***"                                     ) // 20
+      AAdd(aMessages, "** Sous-total **"                                     ) // 21
 
    ENDCASE
 

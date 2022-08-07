@@ -66,7 +66,7 @@ RETURN
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION DefError( oError )
 *-----------------------------------------------------------------------------*
-   LOCAL lOldSetState := ( Len( DToC( Date() ) ) == 10 )
+   LOCAL lOldSetState := ( Len(DToC(Date())) == 10 )
    LOCAL cText
    LOCAL HtmArch
    LOCAL HtmText
@@ -99,7 +99,7 @@ STATIC FUNCTION DefError( oError )
       RETURN .F.
    ENDIF
 
-   IF ! lOldSetState
+   IF !lOldSetState
       SET CENTURY ON
    ENDIF
 
@@ -188,12 +188,12 @@ STATIC FUNCTION ErrorMessage( oError )
    IF ValType(oError:args) == "A"
       cMessage += CRLF
       cMessage += "   Args:" + CRLF
-      FOR n := 1 TO Len( oError:args )
+      FOR n := 1 TO Len(oError:args)
          cMessage += ;
             "     [" + hb_ntos( n, 2 ) + "] = " + ValType(oError:args[n]) + ;
             "   " + cValToChar( cValToChar( oError:args[n] ) ) + ;
             iif( ValType(oError:args[n]) == "A", " length: " + ;
-            hb_ntos( Len( oError:args[n] ) ), "" ) + iif( n < Len( oError:args ), CRLF, "" )
+            hb_ntos( Len(oError:args[n]) ), "" ) + iif( n < Len(oError:args), CRLF, "" )
       NEXT
    ENDIF
 
@@ -421,8 +421,8 @@ STATIC PROCEDURE ErrorLog( nHandle, oErr )
          FOR tmp := 1 TO nCount
 
             xValue := __mvDbgInfo( nScope, tmp, @cName )
-            IF ValType(xValue) $ "CNDTL" .AND. Left( cName, 1 ) <> "_"
-               Html_LineText( nHandle, "      " + cName + " TYPE " + ValType(xValue) + " [" + hb_CStr( xValue ) + "]" )
+            IF ValType(xValue) $ "CNDTL" .AND. Left(cName, 1) <> "_"
+               Html_LineText( nHandle, "      " + cName + " TYPE " + ValType(xValue) + " [" + hb_CStr(xValue) + "]" )
             ENDIF
 
          NEXT
@@ -447,7 +447,7 @@ STATIC FUNCTION strvalue( c, l )
    CASE "M" ; RETURN c
    CASE "N" ; RETURN hb_ntos( c )
    CASE "D" ; RETURN DToC( c )
-   CASE "L" ; RETURN iif( hb_defaultValue( l, .F. ), iif( c, "ON", "OFF" ), iif( c, ".T.", ".F." ) )
+   CASE "L" ; RETURN iif( hb_defaultValue(l, .F.), iif( c, "ON", "OFF" ), iif( c, ".T.", ".F." ) )
    ENDSWITCH
 
 RETURN ""
@@ -542,10 +542,10 @@ PROCEDURE HTML_RAWTEXT( HTMARCH, LINEA )
 *-----------------------------------------------------------------------------*
 #if ( __HARBOUR__ - 0 < 0x030200 )
    IF HTMARCH > 0 .AND. IsErrorLogActive()
-      FWrite( HTMARCH, RTrim( LINEA ) + Chr( 13 ) + Chr( 10 ) )
+      FWrite( HTMARCH, RTrim(LINEA) + Chr( 13 ) + Chr( 10 ) )
 #else
    IF HTMARCH != NIL .AND. IsErrorLogActive()
-      hb_vfWrite( HTMARCH, RTrim( LINEA ) + CRLF )
+      hb_vfWrite( HTMARCH, RTrim(LINEA) + CRLF )
 #endif
    ENDIF
 
@@ -559,10 +559,10 @@ PROCEDURE HTML_LINETEXT( HTMARCH, LINEA )
 *-----------------------------------------------------------------------------*
 #if ( __HARBOUR__ - 0 < 0x030200 )
    IF HTMARCH > 0 .AND. IsErrorLogActive()
-      FWrite( HTMARCH, RTrim( LINEA ) + "<BR>" + Chr( 13 ) + Chr( 10 ) )
+      FWrite( HTMARCH, RTrim(LINEA) + "<BR>" + Chr( 13 ) + Chr( 10 ) )
 #else
    IF HTMARCH != NIL .AND. IsErrorLogActive()
-      hb_vfWrite( HTMARCH, RTrim( LINEA ) + "<BR>" + CRLF )
+      hb_vfWrite( HTMARCH, RTrim(LINEA) + "<BR>" + CRLF )
 #endif
    ENDIF
 
@@ -614,7 +614,7 @@ RETURN
 STATIC FUNCTION __HTML_INSERT_OFFSET()
 *-----------------------------------------------------------------------------*
 
-RETURN ( -1 * Len( "</BODY></HTML>" ) )
+RETURN ( -1 * Len("</BODY></HTML>") )
 
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION __HTML_BODY_TEMPLATE()

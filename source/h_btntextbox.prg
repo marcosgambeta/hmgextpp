@@ -58,7 +58,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 #if ( __HARBOUR__ - 0 < 0x030200 )
   #xtranslate hb_UAt( <c>, <n> ) => At( <c>, <n> )
-  #xtranslate hb_ULeft( <c>, <n> ) => Left( <c>, <n> )
+  #xtranslate hb_ULeft(<c>, <n>) => Left(<c>, <n>)
 #endif
 
 *-----------------------------------------------------------------------------*
@@ -80,20 +80,20 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
 #endif
 
    // Assign STANDARD values to optional params.
-   hb_default( @w, 120 )
-   hb_default( @h, 24 )
-   __defaultNIL( @cValue, "" )
-   __defaultNIL( @uChange, "" )
-   __defaultNIL( @uGotFocus, "" )
-   __defaultNIL( @uLostFocus, "" )
-   __defaultNIL( @uEnter, "" )
-   __defaultNIL( @nMaxLength, 255 )
-   hb_default( @lUpper, .F. )
-   hb_default( @lLower, .F. )
-   hb_default( @lNumeric, .F. )
-   hb_default( @lPassword, .F. )
-   hb_default( @lDefault, .F. )
-   hb_default( @keepfocus, .T. )
+   hb_default(@w, 120)
+   hb_default(@h, 24)
+   __defaultNIL(@cValue, "")
+   __defaultNIL(@uChange, "")
+   __defaultNIL(@uGotFocus, "")
+   __defaultNIL(@uLostFocus, "")
+   __defaultNIL(@uEnter, "")
+   __defaultNIL(@nMaxLength, 255)
+   hb_default(@lUpper, .F.)
+   hb_default(@lLower, .F.)
+   hb_default(@lNumeric, .F.)
+   hb_default(@lPassword, .F.)
+   hb_default(@lDefault, .F.)
+   hb_default(@keepfocus, .T.)
 
    IF ValType(aBitmap) != "A"
       cBmp := aBitmap
@@ -105,7 +105,7 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
       IF  hb_UAt ( ">", Field ) == 0
          MsgMiniGuiError ( "Control " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name." )
       ELSE
-         WorkArea := hb_ULeft ( Field , hb_UAt ( ">", Field ) - 2 )
+         WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
          IF Select ( WorkArea ) != 0
             cValue := &( Field )
          ENDIF
@@ -117,7 +117,7 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
       aToolTip := Array( 3 )
       aToolTip[1] := tmp
    ELSE
-      IF Len( aToolTip ) < 3
+      IF Len(aToolTip) < 3
          aToolTip := ASize( aToolTip, 3 )
       ENDIF
    ENDIF
@@ -128,8 +128,8 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
       ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
-      __defaultNIL( @FontName, _HMG_ActiveFontName )
-      __defaultNIL( @FontSize, _HMG_ActiveFontSize )
+      __defaultNIL(@FontName, _HMG_ActiveFontName)
+      __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
 
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
@@ -188,11 +188,11 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
          Style += WS_TABSTOP
       ENDIF
 
-      IF Len( _HMG_aDialogTemplate ) > 0        //Dialog Template
+      IF Len(_HMG_aDialogTemplate) > 0        //Dialog Template
 
          //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,aToolTip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {|x, y, z| InitDialogTextBox( x, y, z ) }
-         AAdd( _HMG_aDialogItems, { nId, k, "EDIT", style, 0, x, y, w, h, cValue, HelpId, aToolTip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage } )
+         AAdd(_HMG_aDialogItems, {nId, k, "EDIT", style, 0, x, y, w, h, cValue, HelpId, aToolTip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage})
 
       ELSE
 
@@ -223,8 +223,8 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
       IF FontHandle != 0
          _SetFontHandle( aControlHandle[1], FontHandle )
       ELSE
-         __defaultNIL( @FontName, _HMG_DefaultFontName )
-         __defaultNIL( @FontSize, _HMG_DefaultFontSize )
+         __defaultNIL(@FontName, _HMG_DefaultFontName)
+         __defaultNIL(@FontSize, _HMG_DefaultFontSize)
          IF IsWindowHandle( aControlHandle[1] )
             FontHandle := _SetFont ( aControlHandle[1], FontName, FontSize, bold, italic, underline, strikeout )
          ENDIF
@@ -232,7 +232,7 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
       ENDIF
 
       IF _HMG_BeginTabActive
-         AAdd( _HMG_ActiveTabCurrentPageMap , aControlHandle )
+         AAdd(_HMG_ActiveTabCurrentPageMap , aControlHandle)
       ENDIF
 
       // Add a ToolTip if param has value
@@ -300,8 +300,8 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
       ENDIF
 
       // Fill the TEXTBOX with the text given.
-      IF Len( cValue ) > 0
-         SetWindowText( aControlHandle[1], cValue )
+      IF Len(cValue) > 0
+         SetWindowText(aControlHandle[1], cValue)
       ENDIF
 
       IF !Empty(cuetext) .AND. IsVistaOrLater()
@@ -309,7 +309,7 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
       ENDIF
 
       IF ValType(Field) != "U"
-         AAdd( _HMG_aFormBrowseList [ GetFormIndex ( ParentFormName ) ] , k )
+         AAdd(_HMG_aFormBrowseList[GetFormIndex(ParentFormName)], k)
       ENDIF
    ENDIF
 
@@ -351,17 +351,17 @@ FUNCTION InitDialogBtnTextBox( ParentName, ControlHandle, k )
    ENDIF
 
 // Fill the TEXTBOX with the text given.
-   IF Len( cValue ) > 0
-      SetWindowText ( aControlHandle [1] , cValue )
+   IF Len(cValue) > 0
+      SetWindowText(aControlHandle[1], cValue)
    ENDIF
 
    IF ValType(Field) != "U"
-      AAdd( _HMG_aFormBrowseList [ GetFormIndex ( ParentName ) ] , k )
+      AAdd(_HMG_aFormBrowseList[GetFormIndex(ParentName)], k)
    ENDIF
 
    ReDefBtnTextBox( ControlHandle, abitmap [1], BtnWidth, abitmap [2], lBtn2 )
 // JP 62
-   IF Len( _HMG_aDialogTemplate ) != 0 .AND. _HMG_aDialogTemplate[3]   // Modal
+   IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]   // Modal
       _HMG_aControlDeleted [k] := .T.
    ENDIF
 
@@ -373,41 +373,41 @@ FUNCTION TBBtnEvents( hwndEdit, HwndBtn, nMsg )
    LOCAL ParentForm
    LOCAL i, aHandle
 
-   i := AScan(_HMG_aControlSpacing, { |x| ValType(x) == "A" .AND. Len( x ) > 0 .AND. ValType(x [1]) == "N" .AND. x [1] == hwndEdit })
+   i := AScan(_HMG_aControlSpacing, { |x| ValType(x) == "A" .AND. Len(x) > 0 .AND. ValType(x [1]) == "N" .AND. x [1] == hwndEdit })
 
    IF i > 0 .AND. HwndBtn > 0
 
-      aHandle := _HMG_aControlSpacing [i]
+      aHandle := _HMG_aControlSpacing[i]
 
       SWITCH AScan(aHandle, HwndBtn)
       CASE TBB1
-         IF _DoControlEventProcedure ( _HMG_aControlProcedures [i], i )
-            IF ValType(_HMG_aControlMiscData1 [i]) == "A" .AND. Len( _HMG_aControlMiscData1 [i] ) >= 4 .AND. ! _HMG_aControlMiscData1 [i] [4]
+         IF _DoControlEventProcedure ( _HMG_aControlProcedures[i], i )
+            IF ValType(_HMG_aControlMiscData1[i]) == "A" .AND. Len(_HMG_aControlMiscData1[i]) >= 4 .AND. ! _HMG_aControlMiscData1[i] [4]
                SendMessage ( HwndBtn, BM_SETSTYLE, LOWORD ( BS_PUSHBUTTON ), 1 )
             ENDIF
          ENDIF
          EXIT
 
       CASE TBB2
-         IF _DoControlEventProcedure ( _HMG_aControlHeadClick [i], i )
-            IF ValType(_HMG_aControlMiscData1 [i]) == "A" .AND. Len( _HMG_aControlMiscData1 [i] ) >= 4 .AND. ! _HMG_aControlMiscData1 [i] [4]
+         IF _DoControlEventProcedure ( _HMG_aControlHeadClick[i], i )
+            IF ValType(_HMG_aControlMiscData1[i]) == "A" .AND. Len(_HMG_aControlMiscData1[i]) >= 4 .AND. ! _HMG_aControlMiscData1[i] [4]
                SendMessage ( HwndBtn, BM_SETSTYLE, LOWORD ( BS_PUSHBUTTON ), 1 )
             ENDIF
          ENDIF
       END SWITCH
 
       IF nMsg == WM_CONTEXTMENU
-         ParentForm := _HMG_aControlParentHandles [i]
+         ParentForm := _HMG_aControlParentHandles[i]
          IF ( i := AScan(_HMG_aControlsContextMenu , {|x| x [1] == aHandle [1] }) ) > 0
-            IF _HMG_aControlsContextMenu [i][4] == .T.
+            IF _HMG_aControlsContextMenu[i][4] == .T.
                setfocus( aHandle [1] )
-               _HMG_xControlsContextMenuID := _HMG_aControlsContextMenu [i][3]
-               TrackPopupMenu ( _HMG_aControlsContextMenu [i][2] , LOWORD(HwndBtn) , HIWORD(HwndBtn) , ParentForm )
+               _HMG_xControlsContextMenuID := _HMG_aControlsContextMenu[i][3]
+               TrackPopupMenu ( _HMG_aControlsContextMenu[i][2] , LOWORD(HwndBtn) , HIWORD(HwndBtn) , ParentForm )
                RETURN 1
             ENDIF
          ENDIF
       ELSE
-         IF ValType(_HMG_aControlMiscData1 [i]) == "A" .AND. Len( _HMG_aControlMiscData1 [i] ) > 4 .AND. _HMG_aControlMiscData1 [i] [5]
+         IF ValType(_HMG_aControlMiscData1[i]) == "A" .AND. Len(_HMG_aControlMiscData1[i]) > 4 .AND. _HMG_aControlMiscData1[i] [5]
             SetFocus( aHandle [1] )
          ENDIF
       ENDIF

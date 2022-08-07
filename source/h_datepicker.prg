@@ -54,7 +54,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 #if ( __HARBOUR__ - 0 < 0x030200 )
   #xtranslate hb_UAt( <c>, <n> ) => At( <c>, <n> )
-  #xtranslate hb_ULeft( <c>, <n> ) => Left( <c>, <n> )
+  #xtranslate hb_ULeft(<c>, <n>) => Left(<c>, <n>)
 #endif
 
 *-----------------------------------------------------------------------------*
@@ -78,14 +78,14 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
    ow := oDlu2Pixel()
 #endif
 
-   hb_default( @w, 120 )
-   hb_default( @h, 24 )
-   __defaultNIL( @value, BLANK_DATE )
-   __defaultNIL( @change, "" )
-   __defaultNIL( @lostfocus, "" )
-   __defaultNIL( @gotfocus, "" )
-   hb_default( @invisible, .F. )
-   hb_default( @notabstop, .F. )
+   hb_default(@w, 120)
+   hb_default(@h, 24)
+   __defaultNIL(@value, BLANK_DATE)
+   __defaultNIL(@change, "")
+   __defaultNIL(@lostfocus, "")
+   __defaultNIL(@gotfocus, "")
+   hb_default(@invisible, .F.)
+   hb_default(@notabstop, .F.)
 
    IF ( FontHandle := GetFontHandle( FontName ) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
@@ -95,7 +95,7 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
       IF hb_UAt ( ">", Field ) == 0
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified Field name." )
       ELSE
-         WorkArea := hb_ULeft ( Field, hb_UAt ( ">", Field ) - 2 )
+         WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
          IF Select ( WorkArea ) != 0
             value := &( Field )
          ENDIF
@@ -104,8 +104,8 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
       ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
-      __defaultNIL( @FontName, _HMG_ActiveFontName )
-      __defaultNIL( @FontSize, _HMG_ActiveFontSize )
+      __defaultNIL(@FontName, _HMG_ActiveFontName)
+      __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
    IF _HMG_FrameLevel > 0 .AND. ! _HMG_ParentWindowActive
       x := x + _HMG_ActiveFrameCol[_HMG_FrameLevel]
@@ -143,11 +143,11 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
          Style += DTS_RIGHTALIGN
       ENDIF
 
-      IF ! invisible
+      IF !invisible
          Style += WS_VISIBLE
       ENDIF
 
-      IF ! notabstop
+      IF !notabstop
          Style += WS_TABSTOP
       ENDIF
 
@@ -156,7 +156,7 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
 
          // {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {| x, y, z | InitDialogDatePicker( x, y, z ) }
-         AAdd( _HMG_aDialogItems, { nId, k, "SysDateTimePick32", style, 0, x, y, w, h, "", HelpId, tooltip, fontname, fontsize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage } )
+         AAdd(_HMG_aDialogItems, {nId, k, "SysDateTimePick32", style, 0, x, y, w, h, "", HelpId, tooltip, fontname, fontsize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
          ControlHandle := GetDialogItemHandle( ParentFormHandle, nId )
@@ -183,15 +183,15 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
       IF FontHandle != 0
          _SetFontHandle( ControlHandle, FontHandle )
       ELSE
-         __defaultNIL( @FontName, _HMG_DefaultFontName )
-         __defaultNIL( @FontSize, _HMG_DefaultFontSize )
+         __defaultNIL(@FontName, _HMG_DefaultFontName)
+         __defaultNIL(@FontSize, _HMG_DefaultFontSize)
          IF IsWindowHandle( ControlHandle )
             FontHandle := _SetFont ( ControlHandle, fontname, fontsize, bold, italic, underline, strikeout )
          ENDIF
       ENDIF
 
       IF _HMG_BeginTabActive
-         AAdd( _HMG_ActiveTabCurrentPageMap, Controlhandle )
+         AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
       ENDIF
 
       IF Empty(Value)
@@ -205,7 +205,7 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
       ENDIF
 
       IF ValType(Field) != "U"
-         AAdd( _HMG_aFormBrowseList[ GetFormIndex ( ParentFormName ) ], k )
+         AAdd(_HMG_aFormBrowseList[GetFormIndex(ParentFormName)], k)
       ENDIF
 
    ENDIF
@@ -278,7 +278,7 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
    ENDIF
 
    IF ISDATE( dRangeMin ) .OR. ISDATE( dRangeMax )
-      IF ! _SetDatePickerRange( ControlHandle, dRangeMin, dRangeMax, k )
+      IF !_SetDatePickerRange( ControlHandle, dRangeMin, dRangeMax, k )
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + ": Wrong date range." )
       ENDIF
    ENDIF
@@ -311,15 +311,15 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
    LOCAL WorkArea
    LOCAL lDialogInMemory
 
-   hb_default( @w, 120 )
-   hb_default( @h, 24 )
-   __defaultNIL( @value, iif( shownone, "", Time() ) )
-   __defaultNIL( @change, "" )
-   __defaultNIL( @lostfocus, "" )
-   __defaultNIL( @gotfocus, "" )
-   hb_default( @invisible, .F. )
-   hb_default( @notabstop, .F. )
-   hb_default( @cTimeFormat, "HH:mm:ss" )
+   hb_default(@w, 120)
+   hb_default(@h, 24)
+   __defaultNIL(@value, iif(shownone, "", Time()))
+   __defaultNIL(@change, "")
+   __defaultNIL(@lostfocus, "")
+   __defaultNIL(@gotfocus, "")
+   hb_default(@invisible, .F.)
+   hb_default(@notabstop, .F.)
+   hb_default(@cTimeFormat, "HH:mm:ss")
 
    IF ( FontHandle := GetFontHandle( FontName ) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
@@ -329,7 +329,7 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
       IF hb_UAt ( ">", Field ) == 0
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified Field name." )
       ELSE
-         WorkArea := hb_ULeft ( Field, hb_UAt ( ">", Field ) - 2 )
+         WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
          IF Select ( WorkArea ) != 0
             value := &( Field )
          ENDIF
@@ -338,8 +338,8 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
       ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
-      __defaultNIL( @FontName, _HMG_ActiveFontName )
-      __defaultNIL( @FontSize, _HMG_ActiveFontSize )
+      __defaultNIL(@FontName, _HMG_ActiveFontName)
+      __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
    IF _HMG_FrameLevel > 0 .AND. ! _HMG_ParentWindowActive
       x := x + _HMG_ActiveFrameCol[_HMG_FrameLevel]
@@ -371,11 +371,11 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
 
       Style += DTS_UPDOWN
 
-      IF ! invisible
+      IF !invisible
          Style += WS_VISIBLE
       ENDIF
 
-      IF ! notabstop
+      IF !notabstop
          Style += WS_TABSTOP
       ENDIF
 
@@ -384,7 +384,7 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
 
          // {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {| x, y, z | InitDialogDatePicker( x, y, z ) }
-         AAdd( _HMG_aDialogItems, { nId, k, "SysDateTimePick32", style, 0, x, y, w, h, "", HelpId, tooltip, fontname, fontsize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage } )
+         AAdd(_HMG_aDialogItems, {nId, k, "SysDateTimePick32", style, 0, x, y, w, h, "", HelpId, tooltip, fontname, fontsize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
          ControlHandle := GetDialogItemHandle( ParentFormHandle, nId )
@@ -411,23 +411,23 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
       IF FontHandle != 0
          _SetFontHandle ( ControlHandle, FontHandle )
       ELSE
-         __defaultNIL( @FontName, _HMG_DefaultFontName )
-         __defaultNIL( @FontSize, _HMG_DefaultFontSize )
+         __defaultNIL(@FontName, _HMG_DefaultFontName)
+         __defaultNIL(@FontSize, _HMG_DefaultFontSize)
          FontHandle := _SetFont ( ControlHandle, fontname, fontsize, bold, italic, underline, strikeout )
       ENDIF
 
       IF _HMG_BeginTabActive
-         AAdd( _HMG_ActiveTabCurrentPageMap, Controlhandle )
+         AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
       ENDIF
 
       IF Empty(Value)
          IF shownone
             SetDatePickNull ( ControlHandle )
          ELSE
-            SetTimePick ( ControlHandle, Val( Left( Time(), 2 ) ), Val( SubStr(Time(), 4, 2) ), Val( SubStr(Time(), 7, 2) ) )
+            SetTimePick ( ControlHandle, Val( Left(Time(), 2) ), Val( SubStr(Time(), 4, 2) ), Val( SubStr(Time(), 7, 2) ) )
          ENDIF
       ELSE
-         SetTimePick ( ControlHandle, Val( Left( value, 2 ) ), Val( SubStr(value, 4, 2) ), Val( SubStr(value, 7, 2) ) )
+         SetTimePick ( ControlHandle, Val( Left(value, 2) ), Val( SubStr(value, 4, 2) ), Val( SubStr(value, 7, 2) ) )
       ENDIF
 
       IF ValType(tooltip) != "U"
@@ -435,7 +435,7 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
       ENDIF
 
       IF ValType(Field) != "U"
-         AAdd( _HMG_aFormBrowseList[ GetFormIndex ( ParentFormName ) ], k )
+         AAdd(_HMG_aFormBrowseList[GetFormIndex(ParentFormName)], k)
       ENDIF
 
    ENDIF
@@ -511,7 +511,7 @@ FUNCTION InitDialogDatePicker( ParentFormName, ControlHandle, k )
 
    _SetValue ( , , _HMG_aControlValue[k], k )
    // JP 62
-   IF Len( _HMG_aDialogTemplate ) != 0 .AND. _HMG_aDialogTemplate[3] // Modal
+   IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3] // Modal
       _HMG_aControlDeleted[k] := .T.
    ENDIF
 
@@ -522,8 +522,8 @@ FUNCTION _SetDatePickerRange( ControlHandle, dRangeMin, dRangeMax, Index )
 *-----------------------------------------------------------------------------*
    LOCAL lOK
 
-   hb_default( @dRangeMin, BLANK_DATE )
-   hb_default( @dRangeMax, BLANK_DATE )
+   hb_default(@dRangeMin, BLANK_DATE)
+   hb_default(@dRangeMax, BLANK_DATE)
 
    IF ( lOK := SetDatePickRange( ControlHandle, dRangeMin, dRangeMax ) )
       _HMG_aControlRangeMin[ Index ] := dRangeMin

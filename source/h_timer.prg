@@ -68,7 +68,7 @@ FUNCTION _DefineTimer ( ControlName , ParentForm , Interval , ProcedureName , On
       MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentForm + " Already defined." )
    ENDIF
 
-   hb_default( @Interval, 1000 )
+   hb_default(@Interval, 1000)
    IF _HMG_ProgrammaticChange
       Interval := Max( Interval, 10 )
    ENDIF
@@ -111,7 +111,7 @@ FUNCTION _DefineTimer ( ControlName , ParentForm , Interval , ProcedureName , On
    _HMG_aControlSpacing            [k] := 0
    _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
    _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
-   _HMG_aControlPicture            [k] := hb_defaultValue( Once, .F. )
+   _HMG_aControlPicture            [k] := hb_defaultValue(Once, .F.)
    _HMG_aControlContainerHandle    [k] := 0
    _HMG_aControlFontName           [k] := ""
    _HMG_aControlFontSize           [k] := 0

@@ -50,7 +50,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 #if ( __HARBOUR__ - 0 < 0x030200 )
   #xtranslate hb_UAt( <c>, <n> ) => At( <c>, <n> )
-  #xtranslate hb_ULeft( <c>, <n> ) => Left( <c>, <n> )
+  #xtranslate hb_ULeft(<c>, <n>) => Left(<c>, <n>)
 #endif
 
 *-----------------------------------------------------------------------------*
@@ -73,15 +73,15 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
    ow := oDlu2Pixel()
 #endif
 
-   hb_default( @w, 120 )
-   hb_default( @h, 240 )
-   hb_default( @value, "" )
-   __defaultNIL( @change, "" )
-   __defaultNIL( @lostfocus, "" )
-   __defaultNIL( @gotfocus, "" )
-   hb_default( @maxlength, 64738 )
-   hb_default( @invisible, .F. )
-   hb_default( @notabstop, .F. )
+   hb_default(@w, 120)
+   hb_default(@h, 240)
+   hb_default(@value, "")
+   __defaultNIL(@change, "")
+   __defaultNIL(@lostfocus, "")
+   __defaultNIL(@gotfocus, "")
+   hb_default(@maxlength, 64738)
+   hb_default(@invisible, .F.)
+   hb_default(@notabstop, .F.)
 
    IF ( FontHandle := GetFontHandle( FontName ) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
@@ -91,7 +91,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
       IF  hb_UAt ( ">", Field ) == 0
          MsgMiniGuiError ( "Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name." )
       ELSE
-         WorkArea := hb_ULeft ( Field , hb_UAt ( ">", Field ) - 2 )
+         WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
          IF Select ( WorkArea ) != 0
             Value := &( Field )
          ENDIF
@@ -100,8 +100,8 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
       ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
-      __defaultNIL( @FontName, _HMG_ActiveFontName )
-      __defaultNIL( @FontSize, _HMG_ActiveFontSize )
+      __defaultNIL(@FontName, _HMG_ActiveFontName)
+      __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
       x    := x + _HMG_ActiveFrameCol [_HMG_FrameLevel]
@@ -150,7 +150,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
          blInit := {|x, y, z| InitDialogEdit( x, y, z ) }
 
          //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
-         AAdd( _HMG_aDialogItems, { nId, k, "edit", style, 0, x, y, w, h, value, HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage } )
+         AAdd(_HMG_aDialogItems, {nId, k, "edit", style, 0, x, y, w, h, value, HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
 
@@ -164,7 +164,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
 
          IF ValType(Value) == "C" .OR. ValType(Value) == "M"
             IF .NOT. Empty(Value)
-               SetWindowText ( ControlHandle , value )
+               SetWindowText(ControlHandle, value)
             ENDIF
          ENDIF
          SetWindowStyle ( ControlHandle, Style, .T. )
@@ -191,21 +191,21 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
             IF FontHandle != 0
                _SetFontHandle( ControlHandle, FontHandle )
             ELSE
-               __defaultNIL( @FontName, _HMG_DefaultFontName )
-               __defaultNIL( @FontSize, _HMG_DefaultFontSize )
+               __defaultNIL(@FontName, _HMG_DefaultFontName)
+               __defaultNIL(@FontSize, _HMG_DefaultFontSize)
                IF IsWindowHandle( ControlHandle )
                   FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
                ENDIF
             ENDIF
-            AddSplitBoxItem ( Controlhandle , _HMG_aFormReBarHandle [i] , w , break , , , , _HMG_ActiveSplitBoxInverted )
-            Containerhandle := _HMG_aFormReBarHandle [i]
+            AddSplitBoxItem ( Controlhandle , _HMG_aFormReBarHandle[i] , w , break , , , , _HMG_ActiveSplitBoxInverted )
+            Containerhandle := _HMG_aFormReBarHandle[i]
 
             IF ValType(Value) == "C";
                   .OR. ;
                   ValType(Value) == "M"
 
                IF .NOT. Empty(Value)
-                  SetWindowText ( ControlHandle , value )
+                  SetWindowText(ControlHandle, value)
                ENDIF
 
             ENDIF
@@ -221,7 +221,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
                ValType(Value) == "M"
 
             IF .NOT. Empty(Value)
-               SetWindowText ( ControlHandle , value )
+               SetWindowText(ControlHandle, value)
             ENDIF
 
          ENDIF
@@ -232,14 +232,14 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
    IF .NOT. lDialogInMemory
 
       IF _HMG_BeginTabActive
-         AAdd( _HMG_ActiveTabCurrentPageMap , Controlhandle )
+         AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
       ENDIF
 
       IF FontHandle != 0
          _SetFontHandle( ControlHandle, FontHandle )
       ELSE
-         __defaultNIL( @FontName, _HMG_DefaultFontName )
-         __defaultNIL( @FontSize, _HMG_DefaultFontSize )
+         __defaultNIL(@FontName, _HMG_DefaultFontName)
+         __defaultNIL(@FontSize, _HMG_DefaultFontSize)
          IF IsWindowHandle( ControlHandle )
             FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
          ENDIF
@@ -297,12 +297,12 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
    _HMG_aControlMiscData1          [k] := { 0 , maxlength , readonly }
    _HMG_aControlMiscData2          [k] := ""
 
-   IF Len( _HMG_aDialogTemplate ) == 0        //Dialog Template
+   IF Len(_HMG_aDialogTemplate) == 0        //Dialog Template
       InitDialogEdit( ParentFormName, ControlHandle, k )
    ENDIF
 
    IF ValType(Field) != "U"
-      AAdd( _HMG_aFormBrowseList [ GetFormIndex ( ParentFormName ) ] , k )
+      AAdd(_HMG_aFormBrowseList[GetFormIndex(ParentFormName)], k)
    ENDIF
 
    IF _HMG_lOOPEnabled
@@ -320,18 +320,18 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 PROCEDURE _DataEditBoxRefresh ( i )
 *-----------------------------------------------------------------------------*
-   LOCAL Field := _HMG_aControlPageMap [i], icp
+   LOCAL Field := _HMG_aControlPageMap[i], icp
 
    IF ValType(Field) != "U"
       _SetValue ( ,  , &Field , i )
    ELSE
       // Store Initial CaretPos
-      icp := HiWord ( SendMessage( _HMG_aControlhandles [i] , EM_GETSEL , 0 , 0 ) )
+      icp := HiWord ( SendMessage( _HMG_aControlhandles[i] , EM_GETSEL , 0 , 0 ) )
 
       _SetValue ( ,  , _GetValue ( ,  , i ) , i )
 
       // Restore Initial CaretPos
-      SendMessage( _HMG_aControlhandles [i] , EM_SETSEL , icp , icp )
+      SendMessage( _HMG_aControlhandles[i] , EM_SETSEL , icp , icp )
    ENDIF
 
 RETURN
@@ -354,7 +354,7 @@ FUNCTION InitDialogEdit( ParentName, ControlHandle, k )
       SendMessage( ControlHandle , EM_LIMITTEXT , maxlength , 0 )
    ENDIF
 // JP 62
-   IF Len( _HMG_aDialogTemplate ) != 0 .AND. _HMG_aDialogTemplate [3]  // Modal
+   IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate [3]  // Modal
       _HMG_aControlDeleted [k] := .T.
    ENDIF
 

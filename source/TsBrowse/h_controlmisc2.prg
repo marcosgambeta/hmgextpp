@@ -35,7 +35,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
    ENDIF
 
    IF HB_ISARRAY( bSetUp )
-      bRecord := iif( Len( bSetUp ) > 2, bSetUp[3], NIL )
+      bRecord := iif( Len(bSetUp) > 2, bSetUp[3], NIL )
       bAfter := bSetUp[2]
       bSetUp := bSetUp[1]
    ENDIF
@@ -77,7 +77,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
       ENDIF
 
    ELSEIF ValType(uAlias) == "N"
-      If ! Empty(Alias(uAlias))
+      If !Empty(Alias(uAlias))
          uAlias := Alias( uAlias )
       ELSE
          uAlias := { { uAlias } }
@@ -91,7 +91,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
    cFormName := GetUniqueName( "SBrowse" )
 
    lRec  := HB_ISARRAY( uAlias ) .AND. ;
-            Len( uAlias[1] ) == 2 .AND. Len( aCols ) == 2 .AND. ;
+            Len(uAlias[1]) == 2 .AND. Len(aCols) == 2 .AND. ;
             aCols[1] == "Key" .AND. aCols[2] == "Value"
 
    IF lRec .OR. lModal
@@ -151,7 +151,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
             nClr := :GetColumn( 1 ):nClrHeadBack
             IF lRec
                :lNoHScroll := .T.
-            ELSEIF ! Empty(lNumber)
+            ELSEIF !Empty(lNumber)
                :lFooting := .T.
                :lDrawFooters := .T.
                :nHeightFoot := :nHeightHead
@@ -190,7 +190,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
       ON KEY ESCAPE ACTION {|| iif( oBrw:IsEdit, oBrw:SetFocus(), ThisWindow.RELEASE ) }
 
       IF lRec
-         nY := Len( oBrw:aColumns )
+         nY := Len(oBrw:aColumns)
          oBrw:aColumns[ nY - 1 ]:nWidth += 50
          oBrw:aColumns[ nY - 1 ]:cName := "KEY"
          oBrw:aColumns[ nY - 1 ]:lEdit := .F.
@@ -215,7 +215,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
                  xv := obr:GetValue( "VALUE" )
                  obr:GetColumn( "VALUE" ):Cargo := NIL
                  ob := obr:Cargo
-                 IF ! HB_ISOBJECT( ob ) .OR. ! ob:lIsDbf
+                 IF !HB_ISOBJECT( ob ) .OR. ! ob:lIsDbf
                     RETURN .F.
                  ENDIF
                  oc := ob:GetColumn( cn )
@@ -242,7 +242,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
                     RETURN Nil
                  ENDIF
                  ob := obr:Cargo
-                 IF ! HB_ISOBJECT( ob ) .OR. ! ob:lIsDbf
+                 IF !HB_ISOBJECT( ob ) .OR. ! ob:lIsDbf
                     RETURN Nil
                  ENDIF
                  oc := ob:GetColumn( cn )
@@ -255,7 +255,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
          ENDIF
       ENDIF
 
-      IF ! lbSetUp .OR. lRec
+      IF !lbSetUp .OR. lRec
          oBrw:SetNoHoles()
          oBrw:SetFocus()
          IF lRec
@@ -274,11 +274,11 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
 
    _HMG_InplaceParentHandle := 0
 
-   IF ! Empty(cAlias)
+   IF !Empty(cAlias)
       ( cAlias )->( dbCloseArea() )
    ENDIF
 
-   IF ! Empty(nSaveSelect)
+   IF !Empty(nSaveSelect)
       Select( nSaveSelect )
    ENDIF
 
@@ -298,7 +298,7 @@ FUNCTION SBrowse_Record( oBrw, cTitle, bSetUp, aHead, nWidth, nHeight, lNoCrLf, 
       IF lNoCrLf .AND. CRLF $ cHdr
          cHdr := StrTran(cHdr, CRLF, " ")
       ENDIF
-      AAdd( aArr, { cHdr, oBrw:GetValue( oCol ) } )
+      AAdd(aArr, {cHdr, oBrw:GetValue(oCol)})
    NEXT
 
    SBrowse( aArr, { cTitle, oBrw }, bSetUp, aHead, nWidth, nHeight, , lModal )
@@ -330,9 +330,9 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
    ENDIF
 
    IF HB_ISARRAY( oParam:aFont )
-      IF Len( oParam:aFont ) < 6
+      IF Len(oParam:aFont) < 6
          ASize( oParam:aFont, 5 )
-         FOR i := 1 TO Len( oParam:aFont )
+         FOR i := 1 TO Len(oParam:aFont)
              IF Empty(oParam:aFont) ; oParam:aFont[i] := oParam:aFont[1]
              ENDIF
          NEXT
@@ -403,9 +403,9 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
                       nK := Max( ob:nColumn( "SELECTOR", .T. ), ob:nColumn( "ORDKEYNO", .T. ) )
                       IF nK > 0
                          aCol := {}
-                         FOR nI := nK TO Len( ob:aColumns )
+                         FOR nI := nK TO Len(ob:aColumns)
                              IF ob:aColumns[ nI ]:lVisible
-                                AAdd( aCol, nI )
+                                AAdd(aCol, nI)
                              ENDIF
                          NEXT
                       ENDIF
@@ -472,7 +472,7 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
       :lDrawSpecHd := lSpecHd
 
       IF lSpecHd .AND. Empty(:nHeightSpecHd)
-         :nHeightSpecHd := GetFontHeight(oParam:aFont[ iif( Len( oParam:aFont ) > 3, 4, 1 ) ])
+         :nHeightSpecHd := GetFontHeight(oParam:aFont[ iif( Len(oParam:aFont) > 3, 4, 1 ) ])
       ENDIF
 
       :SetAppendMode( .F. )
@@ -520,8 +520,8 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
 
       IF HB_ISARRAY( oParam:aUserKeys )
          FOR EACH aTmp IN oParam:aUserKeys
-           i := iif( Len( aTmp ) > 2, aTmp[3], .F. )             // Ctrl+...
-           j := iif( Len( aTmp ) > 3, aTmp[4], .F. )             // Shift+...
+           i := iif( Len(aTmp) > 2, aTmp[3], .F. )             // Ctrl+...
+           j := iif( Len(aTmp) > 3, aTmp[4], .F. )             // Shift+...
            :UserKeys( aTmp[1], aTmp[2], !Empty(i), !Empty(j) )
          NEXT
       ENDIF

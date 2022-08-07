@@ -311,21 +311,21 @@ return nil
 // Add to
 //
 METHOD AddTo( cUser, cEmail ) CLASS TSMTP
-aadd( ::aTo, {cUser,cEmail} )
+aadd(::aTo, {cUser, cEmail})
 return nil
 
 //
 // Add cc
 //
 METHOD AddCc( cUser, cEmail ) CLASS TSMTP
-aadd( ::aCc, {cUser,cEmail} )
+aadd(::aCc, {cUser, cEmail})
 return nil
 
 //
 // Add Bcc
 //
 METHOD AddBcc( cUser, cEmail ) CLASS TSMTP
-aadd( ::aBcc, {cUser,cEmail} )
+aadd(::aBcc, {cUser, cEmail})
 return nil
 
 //
@@ -341,7 +341,7 @@ return nil
 // Add attach
 //
 METHOD AddAttach( cAttach ) CLASS TSMTP
-aadd( ::aAttach, cAttach )
+aadd(::aAttach, cAttach)
 return nil
 
 //
@@ -381,9 +381,9 @@ if ::oSocket:SendString( "MAIL FROM: " +::cEmail +CHR(13)+CHR(10) )
    if left(cErr,3)=="250" .OR. left(cErr,3)=="550"
 
       aEmails := array(0)
-      AEVAL( ::aTO,  {|aSub|AADD( aEmails, aSub[2] )} )
-      AEVAL( ::aCC,  {|aSub|AADD( aEmails, aSub[2] )} )
-      AEVAL( ::aBCC, {|aSub|AADD( aEmails, aSub[2] )} )
+      AEVAL( ::aTO,  {|aSub|AADD(aEmails, aSub[2])} )
+      AEVAL( ::aCC,  {|aSub|AADD(aEmails, aSub[2])} )
+      AEVAL( ::aBCC, {|aSub|AADD(aEmails, aSub[2])} )
 
       bMail := .T.
       for nPos := 1 to len(aEmails)
@@ -512,7 +512,7 @@ STATIC FUNCTION addAddress( aEmail, cTok )
 * ±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
 local cRet := ""
 
-if len( aEmail ) > 0
+if len(aEmail) > 0
    cRet += cTok
    AEVAL( aEmail, {|aSub, nPos| cRet += iif( nPos==1, "", ","+CHR(13)+CHR(10)+"   " ) + aSub[2]} )
    cRet += CHR(13)+CHR(10)
@@ -550,10 +550,10 @@ LOCAL n1 := RAt( "\", cPathMask ), n2 := RAt( "/", cPathMask ), n
 
 	n := max( n1, n2 )
 
-Return IIf( n > 0 .AND. n < Len( cPathMask ), ;
-   Right( cPathMask, Len( cPathMask ) - n ), ;
+Return IIf( n > 0 .AND. n < Len(cPathMask), ;
+   Right(cPathMask, Len(cPathMask) - n), ;
    IIf( ( n := At( ":", cPathMask ) ) > 0, ;
-   Right( cPathMask, Len( cPathMask ) - n ), cPathMask ) )
+   Right(cPathMask, Len(cPathMask) - n), cPathMask ) )
 
 
 #pragma BEGINDUMP

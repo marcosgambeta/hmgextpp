@@ -119,7 +119,7 @@ STATIC FUNCTION StrB64Decode( cString )
    cString := StrTran(cString, " ", "")
 
    // The source must consists from groups with Len of 4 chars
-   IF ( nLen := Len( cString ) ) % 4 != 0
+   IF ( nLen := Len(cString) ) % 4 != 0
       RETURN "" // Bad Base64 string.
    ENDIF
 
@@ -162,9 +162,9 @@ STATIC FUNCTION StrB64Decode( cString )
 
       // Convert the 24 bits to 3 characters
       // and add nDataLen characters To out string
-      cResult += Left( Chr( nGroup / 65536 ) + ;          // bitwise AND 255, which is done by Chr() automatically
-                       Chr( nGroup /   256 ) + ;          // bitwise AND 255, which is done by Chr() automatically
-                       Chr( nGroup         ), nDataLen )  // bitwise AND 255, which is done by Chr() automatically
+      cResult += Left(Chr(nGroup / 65536) + ; // bitwise AND 255, which is done by Chr() automatically
+                      Chr(nGroup / 256) + ;   // bitwise AND 255, which is done by Chr() automatically
+                      Chr(nGroup), nDataLen)  // bitwise AND 255, which is done by Chr() automatically
    NEXT
 
 RETURN cResult

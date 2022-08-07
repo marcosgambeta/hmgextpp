@@ -83,8 +83,8 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
       ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
-      __defaultNIL( @FontName, _HMG_ActiveFontName )
-      __defaultNIL( @FontSize, _HMG_ActiveFontSize )
+      __defaultNIL(@FontName, _HMG_ActiveFontName)
+      __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
       col := col + _HMG_ActiveFrameCol[_HMG_FrameLevel]
@@ -103,13 +103,13 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
 
    _HMG_ActiveTreeValue := IFNUMERIC( Value, Value, 0 )
 
-   hb_default( @Width, 120 )
-   hb_default( @Height, 120 )
-   __defaultNIL( @change, "" )
-   __defaultNIL( @gotfocus, "" )
-   __defaultNIL( @lostfocus, "" )
-   __defaultNIL( @dblclick, "" )
-   hb_default( @NoTrans, .F. )
+   hb_default(@Width, 120)
+   hb_default(@Height, 120)
+   __defaultNIL(@change, "")
+   __defaultNIL(@gotfocus, "")
+   __defaultNIL(@lostfocus, "")
+   __defaultNIL(@dblclick, "")
+   hb_default(@NoTrans, .F.)
 
    a_Node_Item_Cargo := {}
    
@@ -125,12 +125,12 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
       ENDIF
       Style := WS_BORDER + WS_VISIBLE + WS_TABSTOP + WS_CHILD + TVS_HASLINES + TVS_HASBUTTONS + mask + TVS_SHOWSELALWAYS
 
-      IF Len( _HMG_aDialogTemplate ) > 0        // Dialog Template
+      IF Len(_HMG_aDialogTemplate) > 0        // Dialog Template
 
          // {{"ID",k/hwnd,class,Style,ExStyle,col,row,width,height,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {| x, y, z| InitDialogTree( x, y, z ) }
          _HMG_aDialogTreeItem := {}
-         AAdd( _HMG_aDialogItems, { nId, k, "SysTreeView32", style, 0, col, row, width, height, "", HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage } )
+         AAdd(_HMG_aDialogItems, {nId, k, "SysTreeView32", style, 0, col, row, width, height, "", HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
 
@@ -143,8 +143,8 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
          Width := GetWindowWidth  ( Controlhandle )
          Height := GetWindowHeight(Controlhandle)
 
-         ImgDefNode := iif( ValType(aImgNode) == "A", Len( aImgNode ), 0 )  // Tree+
-         ImgDefItem := iif( ValType(aImgItem) == "A", Len( aImgItem ), 0 )  // Tree+
+         ImgDefNode := iif( ValType(aImgNode) == "A", Len(aImgNode), 0 )  // Tree+
+         ImgDefItem := iif( ValType(aImgItem) == "A", Len(aImgItem), 0 )  // Tree+
 
          IF ImgDefNode > 0
 
@@ -185,9 +185,9 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
 
          IF i > 0
 
-            ControlHandle := InitTree ( _HMG_aFormReBarHandle [i], col, row, width, height, 0, "", 0, iif( noBot, 1, 0 ) )
+            ControlHandle := InitTree ( _HMG_aFormReBarHandle[i], col, row, width, height, 0, "", 0, iif( noBot, 1, 0 ) )
 
-            AddSplitBoxItem ( Controlhandle, _HMG_aFormReBarHandle [i], Width, break, , , , _HMG_ActiveSplitBoxInverted )
+            AddSplitBoxItem ( Controlhandle, _HMG_aFormReBarHandle[i], Width, break, , , , _HMG_ActiveSplitBoxInverted )
 
             _HMG_SplitLastControl := "TREE"
 
@@ -199,8 +199,8 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
 
       ENDIF
 
-      ImgDefNode := iif( ValType(aImgNode) == "A", Len( aImgNode ), 0 )  // Tree+
-      ImgDefItem := iif( ValType(aImgItem) == "A", Len( aImgItem ), 0 )  // Tree+
+      ImgDefNode := iif( ValType(aImgNode) == "A", Len(aImgNode), 0 )  // Tree+
+      ImgDefItem := iif( ValType(aImgItem) == "A", Len(aImgItem), 0 )  // Tree+
 
       IF ImgDefNode > 0
 
@@ -232,15 +232,15 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
       IF FontHandle != 0
          _SetFontHandle( ControlHandle, FontHandle )
       ELSE
-         __defaultNIL( @FontName, _HMG_DefaultFontName )
-         __defaultNIL( @FontSize, _HMG_DefaultFontSize )
+         __defaultNIL(@FontName, _HMG_DefaultFontName)
+         __defaultNIL(@FontSize, _HMG_DefaultFontSize)
          IF IsWindowHandle( ControlHandle )
             FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
          ENDIF
       ENDIF
 
       IF _HMG_BeginTabActive
-         AAdd( _HMG_ActiveTabCurrentPageMap, ControlHandle )
+         AAdd(_HMG_ActiveTabCurrentPageMap, ControlHandle)
       ENDIF
 
       IF ValType(tooltip) != "U"
@@ -351,8 +351,8 @@ FUNCTION InitDialogTree( ParentName, ControlHandle, k )
    aImgItem := _HMG_aControlMiscData1[ k, 3 ]
    NoTrans  := _HMG_aControlMiscData1[ k, 4 ]
 
-   ImgDefNode := iif( ValType(aImgNode) == "A", Len( aImgNode ), 0 )  // Tree+
-   ImgDefItem := iif( ValType(aImgItem) == "A", Len( aImgItem ), 0 )  // Tree+
+   ImgDefNode := iif( ValType(aImgNode) == "A", Len(aImgNode), 0 )  // Tree+
+   ImgDefItem := iif( ValType(aImgItem) == "A", Len(aImgItem), 0 )  // Tree+
 
    IF ImgDefNode > 0
       aBitmaps[1] := aImgNode[1]              // Node default
@@ -369,16 +369,16 @@ FUNCTION InitDialogTree( ParentName, ControlHandle, k )
 
    _HMG_ActiveTreeHandle := ControlHandle
 
-   FOR n := 1 TO Len( _HMG_aDialogTreeItem )
+   FOR n := 1 TO Len(_HMG_aDialogTreeItem)
       aImage     := _HMG_aDialogTreeItem[ n, 2 ]
       text       := _HMG_aDialogTreeItem[ n, 1 ]
       id         := _HMG_aDialogTreeItem[ n, 3 ]
       NodeIndex  := _HMG_aDialogTreeItem[ n, 4 ]
       Cargo      := _HMG_aDialogTreeItem[ n, 6 ]
-      ImgDef     := iif( ValType(aImage) == "A", Len( aImage ), 0 )  // Tree+
+      ImgDef     := iif( ValType(aImage) == "A", Len(aImage), 0 )  // Tree+
       NodeHandle := _HMG_NodeHandle[ NodeIndex ]
 
-      AAdd( a_Node_Item_Cargo, Cargo )
+      AAdd(a_Node_Item_Cargo, Cargo)
 
       IF ImgDef == 0
          IF _HMG_aDialogTreeItem[ n, 5 ] == "NODE"
@@ -395,12 +395,12 @@ FUNCTION InitDialogTree( ParentName, ControlHandle, k )
       ENDIF
       IF _HMG_aDialogTreeItem[ n, 5 ] == "NODE"
          _HMG_NodeHandle[ NodeIndex ] := AddTreeItem ( _HMG_ActiveTreeHandle, _HMG_NodeHandle[ NodeIndex - 1 ], text, iUnsel, iSel, Id, .T. )
-         AAdd( _HMG_aTreeMap, _HMG_NodeHandle[ NodeIndex ] )
-         AAdd( _HMG_aTreeIdMap, Id )
+         AAdd(_HMG_aTreeMap, _HMG_NodeHandle[NodeIndex])
+         AAdd(_HMG_aTreeIdMap, Id)
       ELSE
          handle := AddTreeItem ( _HMG_ActiveTreeHandle, NodeHandle, text, iUnSel, iSel, Id, .F. )
-         AAdd( _HMG_aTreeMap, Handle )
-         AAdd( _HMG_aTreeIdMap, Id )
+         AAdd(_HMG_aTreeMap, Handle)
+         AAdd(_HMG_aTreeIdMap, Id)
       ENDIF
    NEXT
 
@@ -417,7 +417,7 @@ FUNCTION InitDialogTree( ParentName, ControlHandle, k )
       ENDIF
    ENDIF
    // JP 62
-   IF Len( _HMG_aDialogTemplate ) != 0 .AND. _HMG_aDialogTemplate[3]   // Modal
+   IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]   // Modal
       _HMG_aControlDeleted[k] := .T.
    ENDIF
 
@@ -429,16 +429,16 @@ FUNCTION _DefineTreeNode ( text, aImage, Id, Cargo )
    LOCAL ImgDef, k
    LOCAL iUnSel, iSel
 
-   hb_default( @Id, 0 )
+   hb_default(@Id, 0)
 
    IF _SetGetGlobal( "_HMG_lDialogInMemory" )
 
       _HMG_NodeIndex++
-      AAdd( _HMG_aDialogTreeItem, { text, aImage, Id, _HMG_NodeIndex, "NODE", Cargo } )
+      AAdd(_HMG_aDialogTreeItem, {text, aImage, Id, _HMG_NodeIndex, "NODE", Cargo})
 
    ELSE
 
-      ImgDef := iif( ValType(aImage) == "A", Len( aImage ), 0 )  // Tree+
+      ImgDef := iif( ValType(aImage) == "A", Len(aImage), 0 )  // Tree+
 
       IF ImgDef == 0
          iUnsel := 0   // Pointer to defalut Node Bitmaps, no Bitmap loaded
@@ -452,9 +452,9 @@ FUNCTION _DefineTreeNode ( text, aImage, Id, Cargo )
 
       _HMG_NodeIndex++
       _HMG_NodeHandle[ _HMG_NodeIndex ] := AddTreeItem ( _HMG_ActiveTreeHandle, _HMG_NodeHandle[ _HMG_NodeIndex - 1 ], text, iUnsel, iSel, Id, .T. )
-      AAdd( _HMG_aTreeMap, _HMG_NodeHandle[ _HMG_NodeIndex ] )
-      AAdd( _HMG_aTreeIdMap, Id )
-      AAdd( a_Node_Item_Cargo, Cargo )
+      AAdd(_HMG_aTreeMap, _HMG_NodeHandle[_HMG_NodeIndex])
+      AAdd(_HMG_aTreeIdMap, Id)
+      AAdd(a_Node_Item_Cargo, Cargo)
 
    ENDIF
 
@@ -475,15 +475,15 @@ FUNCTION _DefineTreeItem ( text, aImage, Id, Cargo )
    LOCAL ImgDef, k
    LOCAL iUnSel, iSel
 
-   hb_default( @Id, 0 )
+   hb_default(@Id, 0)
 
    IF _SetGetGlobal( "_HMG_lDialogInMemory" )
 
-      AAdd( _HMG_aDialogTreeItem, { text, aImage, Id, _HMG_NodeIndex, "ITEM", Cargo } )
+      AAdd(_HMG_aDialogTreeItem, {text, aImage, Id, _HMG_NodeIndex, "ITEM", Cargo})
 
    ELSE
 
-      ImgDef := iif( ValType(aImage) == "A", Len( aImage ), 0 )  // Tree+
+      ImgDef := iif( ValType(aImage) == "A", Len(aImage), 0 )  // Tree+
 
       IF ImgDef == 0
          iUnsel := 2   // Pointer to defalut Item Bitmaps, no Bitmap loaded
@@ -496,9 +496,9 @@ FUNCTION _DefineTreeItem ( text, aImage, Id, Cargo )
       ENDIF
 
       handle := AddTreeItem ( _HMG_ActiveTreeHandle, _HMG_NodeHandle[ _HMG_NodeIndex ], text, iUnSel, iSel, Id, .F. )
-      AAdd( _HMG_aTreeMap, Handle )
-      AAdd( _HMG_aTreeIdMap, Id )
-      AAdd( a_Node_Item_Cargo, Cargo )
+      AAdd(_HMG_aTreeMap, Handle)
+      AAdd(_HMG_aTreeIdMap, Id)
+      AAdd(a_Node_Item_Cargo, Cargo)
 
    ENDIF
 
@@ -535,10 +535,10 @@ PROCEDURE _Collapse ( ControlName, ParentForm, nItem, lRecurse )   // Dr. Claudi
 *-----------------------------------------------------------------------------*
    LOCAL i, ItemHandle
 
-   IF ( i := GetControlIndex( ControlName, ParentForm ) ) > 0
+   IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0
       ItemHandle := TreeItemGetHandle ( ControlName, ParentForm, nItem )
       IF ItemHandle <> 0
-         TreeView_ExpandChildrenRecursive ( _HMG_aControlHandles [i], ItemHandle, TVE_COLLAPSE, hb_defaultValue( lRecurse, .F. ) )
+         TreeView_ExpandChildrenRecursive ( _HMG_aControlHandles[i], ItemHandle, TVE_COLLAPSE, hb_defaultValue(lRecurse, .F.) )
       ENDIF
    ENDIF
 
@@ -549,10 +549,10 @@ PROCEDURE _Expand ( ControlName, ParentForm, nItem, lRecurse )   // Dr. Claudio 
 *-----------------------------------------------------------------------------*
    LOCAL i, ItemHandle
 
-   IF ( i := GetControlIndex( ControlName, ParentForm ) ) > 0
+   IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0
       ItemHandle := TreeItemGetHandle ( ControlName, ParentForm, nItem )
       IF ItemHandle <> 0
-         TreeView_ExpandChildrenRecursive ( _HMG_aControlHandles [i], ItemHandle, TVE_EXPAND, hb_defaultValue( lRecurse, .F. ) )
+         TreeView_ExpandChildrenRecursive ( _HMG_aControlHandles[i], ItemHandle, TVE_EXPAND, hb_defaultValue(lRecurse, .F.) )
       ENDIF
    ENDIF
 
@@ -565,10 +565,10 @@ STATIC FUNCTION TreeItemGetHandle ( ControlName, ParentForm, Item )
    LOCAL Pos
    LOCAL i
 
-   IF ( i := GetControlIndex( ControlName, ParentForm ) ) > 0
+   IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0
 
-      IF _HMG_aControlInputMask [i] == .F.
-         IF Item <= Len( _HMG_aControlPageMap[i] )
+      IF _HMG_aControlInputMask[i] == .F.
+         IF Item <= Len(_HMG_aControlPageMap[i])
             ItemHandle := _HMG_aControlPageMap[i][ Item ]
          ENDIF
       ELSE
@@ -590,8 +590,8 @@ PROCEDURE TreeItemChangeImage ( ControlName, ParentForm, nItem, aImage )
    LOCAL ImgDef, k
    LOCAL iUnSel, iSel
 
-   IF ItemHandle > 0 .AND. ISARRAY( aImage ) .AND. ( ImgDef := Len( aImage ) ) > 0
-      k := GetControlIndex( ControlName, ParentForm )
+   IF ItemHandle > 0 .AND. ISARRAY( aImage ) .AND. ( ImgDef := Len(aImage) ) > 0
+      k := GetControlIndex(ControlName, ParentForm)
       iUnSel := AddTreeViewBitmap( TreeHandle, aImage[1], _HMG_aControlMiscData1[ k, 4 ] ) - 1
       iSel := iif( ImgDef == 1, iUnSel, AddTreeViewBitmap( TreeHandle, aImage[2], _HMG_aControlMiscData1[ k, 4 ] ) - 1 )
 
@@ -608,9 +608,9 @@ FUNCTION TreeItemGetRootValue ( ControlName, ParentForm )
    LOCAL nPos, nID
    LOCAL i
 
-   IF ( i := GetControlIndex ( ControlName, ParentForm ) ) > 0 .AND. ItemHandle <> 0
-      IF _HMG_aControlInputMask [i] == .F.
-         nPos := AScan(_HMG_aControlPageMap [i], ItemHandle)
+   IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0 .AND. ItemHandle <> 0
+      IF _HMG_aControlInputMask[i] == .F.
+         nPos := AScan(_HMG_aControlPageMap[i], ItemHandle)
          RETURN nPos
       ELSE
          nID := TREEITEM_GETID ( nControlHandle, ItemHandle )
@@ -628,9 +628,9 @@ FUNCTION TreeItemGetParentValue ( ControlName , ParentForm , nItem )
    LOCAL nPos, nID
    LOCAL i
 
-   IF ( i := GetControlIndex ( ControlName, ParentForm ) ) > 0 .AND. ItemHandle <> 0
-      IF _HMG_aControlInputMask [i] == .F.
-         nPos := AScan(_HMG_aControlPageMap [i], ItemHandle)
+   IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0 .AND. ItemHandle <> 0
+      IF _HMG_aControlInputMask[i] == .F.
+         nPos := AScan(_HMG_aControlPageMap[i], ItemHandle)
          RETURN nPos
       ELSE
          nID := TREEITEM_GETID ( nControlHandle, ItemHandle )
@@ -643,7 +643,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION TreeItemGetFirstItemValue ( ControlName, ParentForm )
 *-----------------------------------------------------------------------------*
-   LOCAL nIndex := GetControlIndex ( ControlName, ParentForm )
+   LOCAL nIndex := GetControlIndex(ControlName, ParentForm)
    LOCAL nID, nPos := 1
 
    IF GetProperty ( ParentForm, ControlName, "ItemCount" ) > 0
@@ -671,10 +671,10 @@ PROCEDURE TreeItemSort ( cTreeName, cFormName, nItem, lRecurse, lCaseSensitive, 
       nItemHandle := TreeItemGetHandle( cTreeName, cFormName, nItem )
    ENDIF
 
-   hb_default( @lRecurse, .T. )
-   hb_default( @lCaseSensitive, .F. )
-   hb_default( @lAscendingOrder, .T. )
-   hb_default( @nNodePosition, TREESORTNODE_MIX )
+   hb_default(@lRecurse, .T.)
+   hb_default(@lCaseSensitive, .F.)
+   hb_default(@lAscendingOrder, .T.)
+   hb_default(@nNodePosition, TREESORTNODE_MIX)
 
    TreeView_SortChildrenRecursiveCB ( nControlHandle, nItemHandle, lRecurse, lCaseSensitive, lAscendingOrder, nNodePosition )
 
@@ -718,11 +718,11 @@ FUNCTION TreeNodeItemCargo( ControlName, ParentForm, Item, Value )
 *-----------------------------------------------------------------------------*
    LOCAL i, xData, Pos
 
-   IF ( i := GetControlIndex( ControlName, ParentForm ) ) > 0
+   IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0
 
-      IF _HMG_aControlInputMask [i] == .F.
+      IF _HMG_aControlInputMask[i] == .F.
 
-         IF Item > 0 .AND. Item <= Len( _HMG_aControlHeadClick[i] )
+         IF Item > 0 .AND. Item <= Len(_HMG_aControlHeadClick[i])
             xData := _HMG_aControlHeadClick[i][ Item ]
             IF PCount() > 3
                _HMG_aControlHeadClick[i][ Item ] := Value
@@ -732,7 +732,7 @@ FUNCTION TreeNodeItemCargo( ControlName, ParentForm, Item, Value )
       ELSE
 
          Pos := AScan(_HMG_aControlPicture[i], Item)
-         IF Pos > 0 .AND. Pos <= Len( _HMG_aControlHeadClick[i] )
+         IF Pos > 0 .AND. Pos <= Len(_HMG_aControlHeadClick[i])
             xData := _HMG_aControlHeadClick[i][ Pos ]
             IF PCount() > 3
                _HMG_aControlHeadClick[i][ Pos ] := Value

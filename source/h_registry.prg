@@ -138,7 +138,7 @@ METHOD Get( cRegVar, uVar ) CLASS TReg32
    LOCAL nLen := 0
    LOCAL cType
 
-   IF ! ::lError
+   IF !::lError
 
       DEFAULT cRegVar TO ""
       cType := ValType(uVar)
@@ -169,7 +169,7 @@ METHOD Set( cRegVar, uVar ) CLASS TReg32
    LOCAL cType
    LOCAL nType
 
-   IF ! ::lError
+   IF !::lError
 
       DEFAULT cRegVar TO ""
       cType := ValType(uVar)
@@ -196,7 +196,7 @@ RETURN NIL
 
 METHOD Delete( cRegVar ) CLASS TReg32
 
-   IF ! ::lError
+   IF !::lError
       ::nError := RegDeleteValueA( ::nHandle, cRegVar )
    ENDIF
 
@@ -248,7 +248,7 @@ FUNCTION GetRegistryValue( nKey, cRegKey, cRegVar, cType )
 
    oReg := TReg32():New( nKey, cRegKey, .F. )
 
-   IF ! oReg:lError
+   IF !oReg:lError
 
       DO CASE
       CASE cType == "N"
@@ -282,7 +282,7 @@ FUNCTION SetRegistryValue( nKey, cRegKey, cRegVar, uVal )
 
    oReg := TReg32():New( nKey, cRegKey, .F. )
 
-   IF ! oReg:lError
+   IF !oReg:lError
       oReg:Set( cRegVar, uVal )
       lSuccess := ( oReg:nError == ERROR_SUCCESS )
    ENDIF
@@ -301,7 +301,7 @@ FUNCTION DeleteRegistryVar( nKey, cRegKey, cRegVar )
 
    oReg := TReg32():New( nKey, cRegKey, .F. )
 
-   IF ! oReg:lError
+   IF !oReg:lError
       oReg:Delete( cRegVar )
       lSuccess := ( oReg:nError == ERROR_SUCCESS )
    ENDIF

@@ -186,11 +186,11 @@ if ::oSocket:SendString( "LIST" +CHR(13)+CHR(10) )
       nSpace := at( " ", cMsg )
       cMsgID := alltrim(substr(cMsg, 1, nSpace))
       cSize  := alltrim(substr(cMsg, nSpace))
-      aadd( aRet, { cMsgID, val(cSize) } )
+      aadd(aRet, {cMsgID, val(cSize)})
    enddo
 
    if lFullInfo
-      for nPos := 1 to len( aRet )
+      for nPos := 1 to len(aRet)
          cInfo    := ::GetMessageHeader( aRet[nPos][1] )
 
          cSubject := ""
@@ -198,7 +198,7 @@ if ::oSocket:SendString( "LIST" +CHR(13)+CHR(10) )
             cDmm := substr(cInfo, at("Subject:", cInfo) + 8)
             cSubject := substr(cDmm, 0, at(CHR(13) + CHR(10), cDmm) - 1)
          endif
-         aadd( aRet[nPos], cSubject )
+         aadd(aRet[nPos], cSubject)
       next
    endif
 endif

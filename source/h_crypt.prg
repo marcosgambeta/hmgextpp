@@ -89,7 +89,7 @@ FUNCTION FI_CODE( cInFile, cPass, cOutFile, lDelete )
 
    ENDIF
 
-   IF AllTrim( Upper(cInFile) ) == AllTrim( Upper(cOutFile) )
+   IF AllTrim(Upper(cInFile)) == AllTrim(Upper(cOutFile))
 
       MSGALERT( "New and old filenames must not be the same" )
       RETURN NIL
@@ -108,7 +108,7 @@ FUNCTION FI_CODE( cInFile, cPass, cOutFile, lDelete )
 
    ENDIF
 
-   IF Len( cPass ) > 10
+   IF Len(cPass) > 10
 
       cPass := SubStr(cPass, 1, 10)
 
@@ -193,7 +193,7 @@ FUNCTION FI_DECODE( cInFile, cPass, cOutFile, lDelete )
 
    ENDIF
 
-   IF AllTrim( Upper(cInFile) ) == AllTrim( Upper(cOutFile) )
+   IF AllTrim(Upper(cInFile)) == AllTrim(Upper(cOutFile))
 
       MSGALERT( "New and old filenames must not be the same" )
       RETURN NIL
@@ -212,7 +212,7 @@ FUNCTION FI_DECODE( cInFile, cPass, cOutFile, lDelete )
 
    ENDIF
 
-   IF Len( cPass ) > 10
+   IF Len(cPass) > 10
 
       cPass := SubStr(cPass, 1, 10)
 
@@ -308,7 +308,7 @@ FUNCTION DB_ENCRYPT( cFile, cPass )
 
    ENDIF
 
-   IF Len( cPass ) > 10
+   IF Len(cPass) > 10
 
       cPass := SubStr(cPass, 1, 10)
 
@@ -410,7 +410,7 @@ FUNCTION DB_ENCRYPT( cFile, cPass )
 
       cBuffer := _ENCRYPT( cPass )
 
-      IF FWrite( nHandle, cBuffer ) <> Len( cPass )
+      IF FWrite( nHandle, cBuffer ) <> Len(cPass)
 
          FClose( nHandle )
          MSGSTOP( "File I/O error, cannot encrypt file" )
@@ -456,7 +456,7 @@ FUNCTION DB_UNENCRYPT( cFile, cPass )
 
    ENDIF
 
-   IF Len( cPass ) > 10
+   IF Len(cPass) > 10
 
       cPass := SubStr(cPass, 1, 10)
 
@@ -521,7 +521,7 @@ FUNCTION DB_UNENCRYPT( cFile, cPass )
 
       cBuffer := _ENCRYPT( cPass )
 
-      IF FRead( nHandle, @cSavePass, 10 ) <> Len( cPass )
+      IF FRead( nHandle, @cSavePass, 10 ) <> Len(cPass)
 
          FClose( nHandle )
          MSGSTOP( "File I/O error, cannot unencrypt file" )
@@ -599,10 +599,10 @@ RETURN NIL
 */
 STATIC FUNCTION cFileName( cMask )
 
-   LOCAL cName := AllTrim( cMask )
+   LOCAL cName := AllTrim(cMask)
    LOCAL n     := At( ".", cName )
 
-RETURN AllTrim( iif( n > 0, Left( cName, n - 1 ), cName ) )
+RETURN AllTrim(iif(n > 0, Left(cName, n - 1), cName))
 
 /*
 */
@@ -655,7 +655,7 @@ FUNCTION DB_CODE( cData, cKey, aFields, cPass, cFor, cWhile )
             LOOP
          ENDIF
 
-         FOR i := 1 TO Len( aString )      // Crypt values
+         FOR i := 1 TO Len(aString)      // Crypt values
             aString[i] := _ENCRYPT( FieldGet( FieldPos( aFields[i] ) ), cPass )
          NEXT
 
@@ -664,7 +664,7 @@ FUNCTION DB_CODE( cData, cKey, aFields, cPass, cFor, cWhile )
       ENDDO
 
       SELECT &cTmpAlias
-      FOR i := 1 TO Len( aString )         // Place Crypts in target file
+      FOR i := 1 TO Len(aString)         // Place Crypts in target file
          FieldPut( FieldPos( aFields[i] ), aString[i] )
       NEXT
 

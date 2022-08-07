@@ -48,8 +48,8 @@ PROCEDURE _DefineSplitButton ( cName, nRow, nCol, cCaption, bAction, cParent, ;
       MsgMiniGuiError ( "Control: " + cName + " Of " + cParent + " Already defined." )
    ENDIF
 
-   hb_default( @w, 148 )
-   hb_default( @h, 38 )
+   hb_default(@w, 148)
+   hb_default(@h, 38)
 
    IF ( FontHandle := GetFontHandle( FontName ) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
@@ -60,27 +60,19 @@ PROCEDURE _DefineSplitButton ( cName, nRow, nCol, cCaption, bAction, cParent, ;
    k := _GetControlFree()
    nId := _GetId()
 
-   hParentFormHandle := GetFormHandle ( cParent )
+   hParentFormHandle := GetFormHandle(cParent)
 
-   hControlHandle := InitSplitButton ( ;
-      hParentFormHandle, ;
-      nRow, ;
-      nCol, ;
-      cCaption, ;
-      lDefault, ;
-      w, h, ;
-      nId ;
-      )
+   hControlHandle := InitSplitButton(hParentFormHandle, nRow, nCol, cCaption, lDefault, w, h, nId)
 
    IF _HMG_BeginTabActive
-      AAdd( _HMG_ActiveTabCurrentPageMap, hControlHandle )
+      AAdd(_HMG_ActiveTabCurrentPageMap, hControlHandle)
    ENDIF
 
    IF FontHandle != 0
       _SetFontHandle( hControlHandle, FontHandle )
    ELSE
-      __defaultNIL( @FontName, _HMG_DefaultFontName )
-      __defaultNIL( @FontSize, _HMG_DefaultFontSize )
+      __defaultNIL(@FontName, _HMG_DefaultFontName)
+      __defaultNIL(@FontSize, _HMG_DefaultFontSize)
       FontHandle := _SetFont ( hControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
    ENDIF
 
@@ -195,8 +187,8 @@ PROCEDURE SPButtonSetFocus ( cWindow, cControl )
 
       hWnd := GetControlHandle ( cControl, cWindow )
 
-      ControlCount := Len( _HMG_aControlNames )
-      ParentFormHandle := _HMG_aControlParentHandles [ GetControlIndex ( cControl, cWindow ) ]
+      ControlCount := Len(_HMG_aControlNames)
+      ParentFormHandle := _HMG_aControlParentHandles [ GetControlIndex(cControl, cWindow) ]
       FOR x := 1 TO ControlCount
          IF _HMG_aControlType[x] == CONTROL_TYPE_SPBUTTON
             IF _HMG_aControlParentHandles [x] == ParentFormHandle

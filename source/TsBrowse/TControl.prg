@@ -92,7 +92,7 @@ CLASS TControl
 
    METHOD AddControl( hControl ) INLINE ;
                         IIf( ::aControls == nil, ::aControls := {},),;
-                        AAdd( ::aControls, hControl ), ::lValidating := .F.
+                        AAdd(::aControls, hControl), ::lValidating := .F.
 
    METHOD AddVars(hControl)
 
@@ -269,9 +269,9 @@ return nil
 
 METHOD AddVars( hControl ) CLASS TControl
 
-   AAdd( _TSB_aControlhWnd,    hControl )
-   AAdd( _TSB_aControlObjects, Self )
-   AAdd( _TSB_aClientMDIhWnd, iif( _HMG_BeginWindowMDIActive, GetActiveMdiHandle(), 0 ) )
+   AAdd(_TSB_aControlhWnd, hControl)
+   AAdd(_TSB_aControlObjects, Self)
+   AAdd(_TSB_aClientMDIhWnd, iif(_HMG_BeginWindowMDIActive, GetActiveMdiHandle(), 0))
 
 Return Nil
 
@@ -279,18 +279,17 @@ Return Nil
 
 METHOD DelVars( hControl ) CLASS TControl
 
-   local nAt := iif( ! Empty(_TSB_aControlhWnd), ;
-                     AScan(_TSB_aControlhWnd, { | hCtrl | hCtrl == Self:hWnd }), 0 )
+   local nAt := iif( ! Empty(_TSB_aControlhWnd), AScan(_TSB_aControlhWnd, { | hCtrl | hCtrl == Self:hWnd }), 0 )
 
    HB_SYMBOL_UNUSED( hControl )
 
    if nAt != 0
       ADel(  _TSB_aControlhWnd   , nAt )
-      ASize( _TSB_aControlhWnd   , Len( _TSB_aControlhWnd    ) - 1 )
+      ASize( _TSB_aControlhWnd   , Len(_TSB_aControlhWnd) - 1 )
       ADel(  _TSB_aControlObjects, nAt )
-      ASize( _TSB_aControlObjects, Len( _TSB_aControlObjects ) - 1 )
+      ASize( _TSB_aControlObjects, Len(_TSB_aControlObjects) - 1 )
       ADel(  _TSB_aClientMDIhWnd , nAt )
-      ASize( _TSB_aClientMDIhWnd , Len( _TSB_aClientMDIhWnd  ) - 1 )
+      ASize( _TSB_aClientMDIhWnd , Len(_TSB_aClientMDIhWnd) - 1 )
    endif
 
 Return Nil
@@ -411,13 +410,13 @@ METHOD End() CLASS TControl
 
    if nAt != 0
       ADel( ::oWnd:aControls, nAt )
-      ASize( ::oWnd:aControls, Len( ::oWnd:aControls ) - 1 )
+      ASize( ::oWnd:aControls, Len(::oWnd:aControls) - 1 )
    endif
 
    ::DelVars( Self:hWnd )
 
    if "TGETBOX" $ Upper(Self:ClassName())
-      ix := GetControlIndex ( ::cControlName, ::oWnd:cParentWnd )
+      ix := GetControlIndex(::cControlName, ::oWnd:cParentWnd)
       if ix > 0
          ReleaseControl( _HMG_aControlHandles[ ix ] )
          _HMG_aControlDeleted[ ix ] := .T.
@@ -651,7 +650,7 @@ METHOD LostFocus( hWndGetFocus ) CLASS TControl
 
    ::lFocused := .F.
    ::SetMsg()
-   if ! Empty(::bLostFocus)
+   if !Empty(::bLostFocus)
       return Eval( ::bLostFocus, hWndGetFocus )
    endif
 

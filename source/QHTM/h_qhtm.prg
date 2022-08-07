@@ -84,7 +84,7 @@ If _IsControlDefined( ControlName, ParentForm )
    MsgMiniGuiError( "Control: " + ControlName + " Of " + ParentForm + " Already defined." )
 Endif
 
-hb_default( @nId, _GetId() )
+hb_default(@nId, _GetId())
 
 mVar := "_" + ParentForm + "_" + ControlName
 
@@ -95,14 +95,14 @@ ControlHandle := CreateQHTM( ParentFormHandle, nId, Iif( lBorder, WS_BORDER, 0 )
 If ( FontHandle <> 0 )
    _SetFontHandle( ControlHandle, FontHandle )
 Else
-   __defaultNIL( @FontName, _HMG_DefaultFontName )
-   __defaultNIL( @FontSize, _HMG_DefaultFontSize )
+   __defaultNIL(@FontName, _HMG_DefaultFontName)
+   __defaultNIL(@FontSize, _HMG_DefaultFontSize)
 
    FontHandle := _SetFont( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
 Endif
 
 If ( Valtype(Value) == "C" )
-   SetWindowText( ControlHandle, Value )   // define from a variable
+   SetWindowText(ControlHandle, Value)   // define from a variable
 ElseIf ( Valtype(fname) == "C" )
    QHTM_LoadFile( ControlHandle, fname )   // loading from a file
 ElseIf ( Valtype(resname) == "C" )
@@ -169,7 +169,7 @@ Procedure QHTM_LoadFromVal( ControlName, ParentForm, cValue )
 Local nHandle := GetControlHandle( ControlName, ParentForm )
 
 If ( nHandle > 0 )
-   SetWindowText( nHandle, cValue )
+   SetWindowText(nHandle, cValue)
 Endif
 
 Return
@@ -321,7 +321,7 @@ If ( PCount() < 2 )
    Return
 Endif
  
-hb_default( @lEnable, .T. )
+hb_default(@lEnable, .T.)
 
 SendMessage( GetControlHandle( ControlName, ParentForm ), WM_SETREDRAW, iif( lEnable, 1, 0 ), 0 )
 

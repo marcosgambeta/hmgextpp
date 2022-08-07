@@ -79,7 +79,7 @@ FUNCTION _DefinePlayer ( ControlName, ParentFormName, file, x, y, w, h, noasw, n
       file ,  x ,  y , w , h , noasw, noasm, noed, nom, noo, nop, sha, shm, shn, shp )
 
    IF _HMG_BeginTabActive
-      AAdd( _HMG_ActiveTabCurrentPageMap , ControlHandle )
+      AAdd(_HMG_ActiveTabCurrentPageMap, ControlHandle)
    ENDIF
 
    k := _GetControlFree()
@@ -209,7 +209,7 @@ FUNCTION _DefineAnimateBox( ControlName, ParentFormName, x, y, w, h, autoplay, c
    LOCAL Style
    LOCAL lDialogInMemory
 
-   hb_default( @invisible, .F. )
+   hb_default(@invisible, .F.)
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
       ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
@@ -251,7 +251,7 @@ FUNCTION _DefineAnimateBox( ControlName, ParentFormName, x, y, w, h, autoplay, c
 
          //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout,blInit,.f.}}  --->_HMG_aDialogItems
          blInit := {|x, y, z| InitDialogAnimateBox( x, y, z ) }
-         AAdd( _HMG_aDialogItems, { nId, k, "SysAnimate32", style, 0, x, y, w, h, "", HelpId, tooltip, "", 0, , , , , blInit, _HMG_BeginTabActive, .F. , _HMG_ActiveTabPage } )
+         AAdd(_HMG_aDialogItems, {nId, k, "SysAnimate32", style, 0, x, y, w, h, "", HelpId, tooltip, "", 0, , , , , blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
 
@@ -275,7 +275,7 @@ FUNCTION _DefineAnimateBox( ControlName, ParentFormName, x, y, w, h, autoplay, c
    IF .NOT. lDialogInMemory
 
       IF _HMG_BeginTabActive
-         AAdd( _HMG_ActiveTabCurrentPageMap , ControlHandle )
+         AAdd(_HMG_ActiveTabCurrentPageMap, ControlHandle)
       ENDIF
    ENDIF
 
@@ -348,7 +348,7 @@ FUNCTION InitDialogAnimateBox( ParentName, ControlHandle, k )
       _OpenAnimateBox ( _HMG_aControlNames [k] , ParentName , File )
    ENDIF
 // JP 62
-   IF Len( _HMG_aDialogTemplate ) != 0 .AND. _HMG_aDialogTemplate [3]  // Modal
+   IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate [3]  // Modal
       _HMG_aControlDeleted [k] := .T.
    ENDIF
 

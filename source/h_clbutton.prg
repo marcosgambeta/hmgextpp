@@ -52,30 +52,22 @@ PROCEDURE _DefineCLButton ( cName, nRow, nCol, cCaption, cNotes, bAction, cParen
       MsgMiniGuiError ( "Control: " + cName + " Of " + cParent + " Already defined." )
    ENDIF
 
-   hb_default( @w, 180 )
-   hb_default( @h, 60 )
+   hb_default(@w, 180)
+   hb_default(@h, 60)
 
    mVar := "_" + cParent + "_" + cName
 
    k := _GetControlFree()
    nId := _GetId()
 
-   hParentFormHandle := GetFormHandle ( cParent )
+   hParentFormHandle := GetFormHandle(cParent)
 
-   hControlHandle := InitCLButton ( ;
-      hParentFormHandle, ;
-      nRow, ;
-      nCol, ;
-      cCaption, ;
-      lDefault, ;
-      w, h, ;
-      nId ;
-      )
+   hControlHandle := InitCLButton(hParentFormHandle, nRow, nCol, cCaption, lDefault, w, h, nId)
 
    CLButton_SetNote( hControlHandle, cNotes )
 
    IF _HMG_BeginTabActive
-      AAdd( _HMG_ActiveTabCurrentPageMap, hControlHandle )
+      AAdd(_HMG_ActiveTabCurrentPageMap, hControlHandle)
    ENDIF
 
 #ifdef _NAMES_LIST_
@@ -129,7 +121,7 @@ PROCEDURE _DefineCLButton ( cName, nRow, nCol, cCaption, cNotes, bAction, cParen
       Eval( _HMG_bOnControlInit, k, mVar )
    ENDIF
 
-   IF ! Empty(cBitmap)
+   IF !Empty(cBitmap)
       _HMG_aControlPicture[k] := cBitmap
       _HMG_aControlBrushHandle[k] := CLButton_SetImage( hControlHandle, cBitmap )
    ENDIF
@@ -143,9 +135,9 @@ PROCEDURE ReleaseCLButtonImageList ( cWindow, cControl )
 
    IF _IsControlDefined ( cControl, cWindow ) .AND. GetControlType ( cControl, cWindow ) == "CLBUTTON"
 
-      i := GetControlIndex ( cControl, cWindow )
+      i := GetControlIndex(cControl, cWindow)
 
-      IF ! Empty(_HMG_aControlBrushHandle[i])
+      IF !Empty(_HMG_aControlBrushHandle[i])
          IMAGELIST_DESTROY ( _HMG_aControlBrushHandle[i] )
       ENDIF
 
@@ -194,7 +186,7 @@ PROCEDURE CLButton_SetShield ( cWindow, cControl )
 
    IF GetControlType ( cControl, cWindow ) == "CLBUTTON"
 
-      i := GetControlIndex ( cControl, cWindow )
+      i := GetControlIndex(cControl, cWindow)
 
       _HMG_aControlPicture[i] := "Shield"
 
@@ -225,8 +217,8 @@ PROCEDURE CLButtonSetFocus ( cWindow, cControl )
       _HMG_UserComponentProcess := .T.
 
       hWnd := GetControlHandle ( cControl, cWindow )
-      ControlCount := Len( _HMG_aControlNames )
-      ParentFormHandle := _HMG_aControlParentHandles [ GetControlIndex ( cControl, cWindow ) ]
+      ControlCount := Len(_HMG_aControlNames)
+      ParentFormHandle := _HMG_aControlParentHandles [ GetControlIndex(cControl, cWindow) ]
       FOR x := 1 TO ControlCount
          IF _HMG_aControlType[x] == CONTROL_TYPE_CLBUTTON
             IF _HMG_aControlParentHandles [x] == ParentFormHandle
@@ -327,7 +319,7 @@ FUNCTION SetCLButtonCaption ( cWindow, cControl, cProperty, cValue )
 
       _HMG_UserComponentProcess := .T.
 
-      SetWindowText ( GetControlHandle ( cControl, cWindow ), cValue )
+      SetWindowText(GetControlHandle(cControl, cWindow), cValue)
 
    ELSE
 
@@ -397,11 +389,11 @@ PROCEDURE SetCLButtonPicture ( cWindow, cControl, cProperty, cBitmap )
 
    IF GetControlType ( cControl, cWindow ) == "CLBUTTON"
 
-      i := GetControlIndex ( cControl, cWindow )
+      i := GetControlIndex(cControl, cWindow)
 
       _HMG_aControlPicture[i] := cBitmap
 
-      IF ! Empty(_HMG_aControlBrushHandle[i])
+      IF !Empty(_HMG_aControlBrushHandle[i])
          IMAGELIST_DESTROY ( _HMG_aControlBrushHandle[i] )
       ENDIF
 
