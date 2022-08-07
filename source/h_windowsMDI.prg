@@ -446,7 +446,7 @@ FUNCTION _ActivateMdiWindow(FormName)
 
    LOCAL i
 
-   IF .NOT. _IsWindowDefined(Formname)
+   IF !_IsWindowDefined(Formname)
       MsgMiniGUIError("Window " + FormName + " is not defined.")
    ENDIF
 

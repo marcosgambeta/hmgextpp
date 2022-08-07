@@ -25,7 +25,7 @@ FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidt
       cParentForm := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
    ENDIF
 
-   IF .NOT. _IsWindowDefined ( cParentForm )
+   IF !_IsWindowDefined ( cParentForm )
       MsgMiniGuiError("Window: " + cParentForm + " is not defined.")
    ENDIF
 
@@ -474,7 +474,7 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
             RETURN .F.
          ENDIF
 
-         IF .NOT. FClose( nFileHandle )
+         IF !FClose( nFileHandle )
             RETURN .F.
          ENDIF
 
@@ -507,7 +507,7 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
          RETURN .F.
       ENDIF
 
-      IF .NOT. FClose( nFileHandle )
+      IF !FClose( nFileHandle )
          RETURN .F.
       ENDIF
 
@@ -532,7 +532,7 @@ STATIC FUNCTION ReadFromStream( cFile, cStream )
       FClose( nFileHandle )
    ENDIF
 
-RETURN ( FError() == 0 .AND. .NOT. Empty(cStream) )
+RETURN ( FError() == 0 .AND. !Empty(cStream) )
 
 *------------------------------------------------------------------------------*
 FUNCTION GetFrameDelay( cImageInfo, nDelay )

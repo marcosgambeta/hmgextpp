@@ -82,7 +82,7 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
    hb_default(@leftjustify, .F.)
    hb_default(@multiline, .F.)
    hb_default(@threestate, .F.)
-   IF .NOT. threestate
+   IF !threestate
       hb_default(@value, .F.)
    ENDIF
    hb_default(@autosize, .F.)
@@ -115,11 +115,11 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory
 
-   IF .NOT. _IsWindowDefined ( ParentFormName ) .AND. .NOT. lDialogInMemory
+   IF !_IsWindowDefined ( ParentFormName ) .AND. !lDialogInMemory
       MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined ( ControlName, ParentFormName ) .AND. .NOT. lDialogInMemory
+   IF _IsControlDefined ( ControlName, ParentFormName ) .AND. !lDialogInMemory
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
@@ -184,7 +184,7 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
 
    ENDIF
 
-   IF .NOT. lDialogInMemory
+   IF !lDialogInMemory
 
       IF FontHandle != 0
          _SetFontHandle( ControlHandle, FontHandle )
@@ -257,7 +257,7 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
    _HMG_aControlMiscData1          [k] := 0
    _HMG_aControlMiscData2          [k] := ""
 
-   IF .NOT. lDialogInMemory
+   IF !lDialogInMemory
       IF threestate .AND. value == NIL
          SendMessage( Controlhandle , BM_SETCHECK , BST_INDETERMINATE , 0 )
       ELSEIF value == .T.
@@ -325,11 +325,11 @@ FUNCTION _DefineCheckButton ( ControlName, ParentFormName, x, y, Caption, Value,
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory
 
-   IF .NOT. _IsWindowDefined ( ParentFormName ) .AND. .NOT. lDialogInMemory
+   IF !_IsWindowDefined ( ParentFormName ) .AND. !lDialogInMemory
       MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined ( ControlName, ParentFormName ) .AND. .NOT. lDialogInMemory
+   IF _IsControlDefined ( ControlName, ParentFormName ) .AND. !lDialogInMemory
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
@@ -377,7 +377,7 @@ FUNCTION _DefineCheckButton ( ControlName, ParentFormName, x, y, Caption, Value,
 
    ENDIF
 
-   IF .NOT. lDialogInMemory
+   IF !lDialogInMemory
 
       IF FontHandle != 0
          _SetFontHandle( ControlHandle, FontHandle )
@@ -450,7 +450,7 @@ FUNCTION _DefineCheckButton ( ControlName, ParentFormName, x, y, Caption, Value,
       Eval( _HMG_bOnControlInit, k, mVar )
    ENDIF
 
-   IF value == .T. .AND. .NOT. lDialogInMemory
+   IF value == .T. .AND. !lDialogInMemory
       SendMessage( Controlhandle , BM_SETCHECK , BST_CHECKED , 0 )
    ENDIF
 
@@ -514,11 +514,11 @@ FUNCTION _DefineImageCheckButton ( ControlName, ParentFormName, x, y, BitMap, ;
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory
 
-   IF .NOT. _IsWindowDefined ( ParentFormName ) .AND. .NOT. lDialogInMemory
+   IF !_IsWindowDefined ( ParentFormName ) .AND. !lDialogInMemory
       MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined ( ControlName, ParentFormName ) .AND. .NOT. lDialogInMemory
+   IF _IsControlDefined ( ControlName, ParentFormName ) .AND. !lDialogInMemory
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
@@ -565,7 +565,7 @@ FUNCTION _DefineImageCheckButton ( ControlName, ParentFormName, x, y, BitMap, ;
 
    ENDIF
 
-   IF .NOT. lDialogInMemory
+   IF !lDialogInMemory
       IF _HMG_BeginTabActive
          AAdd(_HMG_ActiveTabCurrentPageMap, ControlHandle)
       ENDIF
@@ -627,7 +627,7 @@ FUNCTION _DefineImageCheckButton ( ControlName, ParentFormName, x, y, BitMap, ;
       Eval( _HMG_bOnControlInit, k, mVar )
    ENDIF
 
-   IF value == .T. .AND. .NOT. lDialogInMemory
+   IF value == .T. .AND. !lDialogInMemory
       SendMessage( Controlhandle , BM_SETCHECK , BST_CHECKED , 0 )
    ENDIF
 

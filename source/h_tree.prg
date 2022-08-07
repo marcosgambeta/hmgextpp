@@ -93,11 +93,11 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
    ENDIF
    STATIC _HMG_lDialogInMemory AS GLOBAL VALUE _HMG_DialogInMemory
 
-   IF .NOT. _IsWindowDefined ( ParentFormName ) .AND. .NOT. _HMG_DialogInMemory
+   IF !_IsWindowDefined ( ParentFormName ) .AND. !_HMG_DialogInMemory
       MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined ( ControlName, ParentFormName ) .AND. .NOT. _HMG_DialogInMemory
+   IF _IsControlDefined ( ControlName, ParentFormName ) .AND. !_HMG_DialogInMemory
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
@@ -227,7 +227,7 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
 
    ENDIF
 
-   IF .NOT. _HMG_DialogInMemory
+   IF !_HMG_DialogInMemory
 
       IF FontHandle != 0
          _SetFontHandle( ControlHandle, FontHandle )
@@ -508,7 +508,7 @@ RETURN NIL
 FUNCTION _EndTree()
 *-----------------------------------------------------------------------------*
 
-   IF .NOT. _SetGetGlobal( "_HMG_lDialogInMemory" )
+   IF !_SetGetGlobal( "_HMG_lDialogInMemory" )
 
       _HMG_aControlPageMap  [ _HMG_ActiveTreeIndex ] := _HMG_aTreeMap
       _HMG_aControlPicture  [ _HMG_ActiveTreeIndex ] := _HMG_aTreeIdMap

@@ -114,11 +114,11 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory
 
-   IF .NOT. _IsWindowDefined ( ParentFormName ) .AND. .NOT. lDialogInMemory
+   IF !_IsWindowDefined ( ParentFormName ) .AND. !lDialogInMemory
       MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined ( ControlName, ParentFormName ) .AND. .NOT. lDialogInMemory
+   IF _IsControlDefined ( ControlName, ParentFormName ) .AND. !lDialogInMemory
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
@@ -178,7 +178,7 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
 
    ENDIF
 
-   IF .NOT. lDialogInMemory
+   IF !lDialogInMemory
 
       IF FontHandle != 0
          _SetFontHandle( ControlHandle, FontHandle )
@@ -348,11 +348,11 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory
 
-   IF .NOT. _IsWindowDefined ( ParentFormName ) .AND. .NOT. lDialogInMemory
+   IF !_IsWindowDefined ( ParentFormName ) .AND. !lDialogInMemory
       MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined ( ControlName, ParentFormName ) .AND. .NOT. lDialogInMemory
+   IF _IsControlDefined ( ControlName, ParentFormName ) .AND. !lDialogInMemory
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
@@ -406,7 +406,7 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
 
    ENDIF
 
-   IF .NOT. lDialogInMemory
+   IF !lDialogInMemory
 
       IF FontHandle != 0
          _SetFontHandle ( ControlHandle, FontHandle )

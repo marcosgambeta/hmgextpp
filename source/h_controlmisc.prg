@@ -4034,7 +4034,7 @@ PROCEDURE SetProperty( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 )
 
    CASE 3 // PCount() == 3 (WINDOW)
 
-      IF .NOT. _IsWindowDefined ( Arg1 )
+      IF !_IsWindowDefined ( Arg1 )
          MsgMiniGuiError("Window: " + Arg1 + " is not defined.")
       ENDIF
 
@@ -4875,7 +4875,7 @@ FUNCTION GetProperty ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7, Arg8 )
 
    CASE 2 // PCount() == 2 (WINDOW)
 
-      IF .NOT. _IsWindowDefined ( Arg1 )
+      IF !_IsWindowDefined ( Arg1 )
          MsgMiniGuiError("Window: " + Arg1 + " is not defined.")
       ENDIF
 
@@ -5063,7 +5063,7 @@ FUNCTION GetProperty ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7, Arg8 )
       NEXT
 #endif
       IF ( Upper(Arg2) == "VSCROLLBAR" .OR. Upper(Arg2) == "HSCROLLBAR" )
-         IF .NOT. _IsWindowDefined ( Arg1 )
+         IF !_IsWindowDefined ( Arg1 )
             MsgMiniGuiError("Window: " + Arg1 + " is not defined.")
          ENDIF
       ELSE
@@ -5733,7 +5733,7 @@ FUNCTION DoMethod ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 , Arg9
    IF PCount() == 2 // Window
 
       IF ValType(Arg1) == "C"
-         IF .NOT. _IsWindowDefined ( Arg1 )
+         IF !_IsWindowDefined ( Arg1 )
             MsgMiniGuiError("Window: " + Arg1 + " is not defined.")
          ENDIF
       ENDIF
@@ -7829,7 +7829,7 @@ STATIC PROCEDURE _SetGridColumnWidthLimits ( ControlName , ParentForm , aLimits 
 
    ENDIF
 
-   IF .NOT. lError
+   IF !lError
       _HMG_aControlMiscData1[i] [25] := aLimits
       // Force Column Width modification
       FOR z := 1 TO Len(aLimits)
@@ -7936,7 +7936,7 @@ STATIC PROCEDURE _SetRadioGroupReadOnly ( ControlName , ParentForm , aReadOnly )
 
    ENDIF
 
-   IF .NOT. lError
+   IF !lError
 
       _HMG_aControlPageMap[i] := aReadOnly
 
@@ -8473,7 +8473,7 @@ FUNCTION _IsControlDefined ( ControlName, FormName )
       RETURN .F.
    ENDIF
 
-RETURN ( .NOT. _HMG_aControlDeleted[i] )
+RETURN ( !_HMG_aControlDeleted[i] )
 
 *-----------------------------------------------------------------------------*
 FUNCTION _NoQuote ( cStr )

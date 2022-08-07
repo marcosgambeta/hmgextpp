@@ -245,7 +245,7 @@ FUNCTION easyreport()
 
    nlin := ntoprow
    IF cgraphic <> NIL .AND. !ldos
-      IF .NOT. File( cgraphic )
+      IF !File( cgraphic )
          msgstop( aMessages[12], aMessages[13] )
        ELSE
          @nfi, nci + nlmargin PICTURE cgraphic SIZE nff - nfi - 4, ncf - nci - 3
@@ -264,7 +264,7 @@ FUNCTION easyreport()
       crompe := &wfield1
    ENDIF
    nRecNo := ( cfile )->( RecNo() )  //JP 18
-   DO WHILE .NOT. ( cfile )->( Eof() )
+   DO WHILE !( cfile )->( Eof() )
       swt := 0
       imp_SUBTOTALES( @nlin, @ncol, @lmode, @swt, @grpby )
 
@@ -292,7 +292,7 @@ FUNCTION easyreport()
                ENDIF
                @ nlin, ncol SAY SubStr(wfield, 1, awidths[i]) font "f0" TO PRINT
             CASE cType == "N"
-               @ nlin, ncol SAY  iif( .NOT. ( aformats[i] == "" ), Transform(wfield, aformats[i]), Str(wfield, awidths[i]) ) font "f0" TO PRINT
+               @ nlin, ncol SAY  iif( !( aformats[i] == "" ), Transform(wfield, aformats[i]), Str(wfield, awidths[i]) ) font "f0" TO PRINT
             CASE cType == "D"
                @ nlin, ncol SAY SubStr(DToC(wfield), 1, awidths[i]) font "f0" TO PRINT
             CASE cType == "L"
@@ -312,7 +312,7 @@ FUNCTION easyreport()
             CASE cType == "C"
                @ nlin, ncol SAY SubStr(wfield, 1, awidths[i])
             CASE cType == "N"
-               @ nlin, ncol SAY iif( .NOT. ( aformats[i] == "" ), Transform(wfield, aformats[i]), Str(wfield, awidths[i]) )
+               @ nlin, ncol SAY iif( !( aformats[i] == "" ), Transform(wfield, aformats[i]), Str(wfield, awidths[i]) )
             CASE cType == "D"
                @ nlin, ncol SAY SubStr(DToC(wfield), 1, awidths[i])
             CASE cType == "L"
@@ -367,9 +367,9 @@ FUNCTION easyreport()
       FOR i := 1 TO nlen STEP 1
          IF atotals[i]
             IF lmode
-               @nlin, ncol SAY iif( .NOT. ( aformats[i] == "" ), Transform(aresul[i], aformats[i]), Str(aresul[i], awidths[i]) ) font "f1" TO PRINT
+               @nlin, ncol SAY iif( !( aformats[i] == "" ), Transform(aresul[i], aformats[i]), Str(aresul[i], awidths[i]) ) font "f1" TO PRINT
             ELSE
-               @nlin, ncol SAY iif( .NOT. ( aformats[i] == "" ), Transform(aresul[i], aformats[i]), Str(aresul[i], awidths[i]) )
+               @nlin, ncol SAY iif( !( aformats[i] == "" ), Transform(aresul[i], aformats[i]), Str(aresul[i], awidths[i]) )
             ENDIF
          ENDIF
          ncol += awidths[i] + 1
@@ -603,7 +603,7 @@ FUNCTION extreport( cfilerep )
    LOCAL nff, ncf, cgrpby, chdrgrp, llandscape, lnodatetimestamp, cfont
    LOCAL creport, ipaper
 
-   IF .NOT. File( cfilerep + ".rpt" )
+   IF !File( cfilerep + ".rpt" )
       msginfo( "(" + cfilerep + ".rpt) " + aMessages[16] )
       RETURN Nil
    ENDIF
@@ -847,14 +847,14 @@ STATIC PROCEDURE imp_SUBTOTALES ( nlin, ncol, lmode, swt, grpby )
    IF grpby <> NIL
       crompe := iif( ISEVERYPAGE, Str(nlin), crompe )
       wfield1 := iif( !ISEVERYPAGE, afieldsg[nposgrp], wfield1 )
-      IF .NOT. ( &wfield1 == crompe ) .AND. ! ISEVERYPAGE .OR. ( ISEVERYPAGE .AND. nlin >= nlpp )
+      IF !( &wfield1 == crompe ) .AND. ! ISEVERYPAGE .OR. ( ISEVERYPAGE .AND. nlin >= nlpp )
          IF lmode
             IF lHayTotals
                @ nlin, 1 + nlmargin SAY cSubgrp font "f1" TO PRINT
                nlin++
                FOR i := 1 TO Len(afields)
                   IF atotals[i]
-                     @ nlin, ncol SAY iif( .NOT. ( aformats[i] == "" ), Transform(angrpby[i], aformats[i]), Str(angrpby[i], awidths[i]) ) font "f1" TO PRINT
+                     @ nlin, ncol SAY iif( !( aformats[i] == "" ), Transform(angrpby[i], aformats[i]), Str(angrpby[i], awidths[i]) ) font "f1" TO PRINT
                   ENDIF
                   ncol += awidths[i] + 1
                NEXT i
@@ -866,7 +866,7 @@ STATIC PROCEDURE imp_SUBTOTALES ( nlin, ncol, lmode, swt, grpby )
                nlin++
                FOR i := 1 TO Len(afields)
                   IF atotals[i]
-                     @ nlin, ncol SAY iif( .NOT. ( aformats[i] == "" ), Transform(angrpby[i], aformats[i]), Str(angrpby[i], awidths[i]) )
+                     @ nlin, ncol SAY iif( !( aformats[i] == "" ), Transform(angrpby[i], aformats[i]), Str(angrpby[i], awidths[i]) )
                   ENDIF
                   ncol += awidths[i] + 1
                NEXT i
@@ -898,7 +898,7 @@ STATIC PROCEDURE imp_SUBTOTALES ( nlin, ncol, lmode, swt, grpby )
    ncol := nlmargin + 1
    IF nlin > nlpp
       nlin := ntoprow
-      IF .NOT. ldos
+      IF !ldos
          END PAGE
          START PAGE
       ENDIF
@@ -911,11 +911,11 @@ STATIC PROCEDURE imp_pagina( nlin, lmode, grpby, chdrgrp )
 
    IF nlin > nlpp
       nlin := ntoprow
-      IF .NOT. ldos
+      IF !ldos
          END PAGE
          START PAGE
          IF cgraphic <> NIL .AND. lmul .AND. !ldos
-            IF .NOT. File( cgraphic )
+            IF !File( cgraphic )
                msgstop( aMessages[12], aMessages[13] )
             ELSE
                @nfi, nci + nlmargin PICTURE cgraphic SIZE nff - nfi - 4, ncf - nci - 3

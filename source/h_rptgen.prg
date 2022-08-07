@@ -583,7 +583,7 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
       lTempEof := Eval(xEof)
    ENDIF
 
-   DO WHILE .NOT. lTempEof
+   DO WHILE !lTempEof
 
       IF _HMG_RPTDATA[163] == .F.
 

@@ -247,7 +247,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
 
    ENDIF
 
-   IF .NOT. lDialogInMemory
+   IF !lDialogInMemory
 
       IF FontHandle != 0
          _SetFontHandle( ControlHandle, FontHandle )
@@ -335,7 +335,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    _HMG_aControlRangeMin           [k] := aControlHandle
    _HMG_aControlRangeMax           [k] := nMaxLength
    _HMG_aControlCaption            [k] := ""
-   _HMG_aControlVisible            [k] := .NOT. invisible
+   _HMG_aControlVisible            [k] := !invisible
    _HMG_aControlHelpId             [k] := HelpId
    _HMG_aControlFontHandle         [k] := FontHandle
    _HMG_aControlBrushHandle        [k] := 0
@@ -355,7 +355,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
       ENDIF
    ENDIF
 
-   IF .NOT. lDialogInMemory
+   IF !lDialogInMemory
       IF !Empty(Value)
          IF oGet:type == "N" .AND. hb_UAt( "B", aPicData[1] ) > 0
             oGet:buffer := LTrim(oGet:buffer)

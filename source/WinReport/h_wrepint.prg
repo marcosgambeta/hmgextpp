@@ -162,7 +162,7 @@ if ritorna
       endif
       lcnt ++
       tokeninit(LINEA,";")       //set the command separator -> ONLY A COMMA /
-      do While .NOT. tokenend()  //                             _____
+      do While !tokenend()  //                             _____
          cWord := alltrim(tokennext(LINEA))
          //MSG(CWORD,[CWORD])
          _object_ := eval(oWr:aStat [ "TrSpace" ], CWORD, .T., lcnt)
@@ -541,7 +541,7 @@ default string to ""
       string := atrepl( "{",string,"")
       string := atrepl( "}",string,"")
       Tokeninit(string,",")
-      do While .NOT. Tokenend()
+      do While !Tokenend()
          cWord  :=  Tokennext(String)
          aadd(aka,cword)
       enddo
@@ -1445,7 +1445,7 @@ elseif upper(left(string,9))=="SET"+chr(07)+"DEBUG"
 endif
 
 tokeninit(string,chr(07))      //set the command separator -> ONLY A BEL
-do While .NOT. tokENEND()      //                             ----
+do While !tokENEND()      //                             ----
    cWord  :=  tokENNEXT(String)
    if left(cword,1)="[" .AND. right(cword,1) <> "]"
       cword :=substr(cword,2)+" "+tokENNEXT(String)

@@ -2102,14 +2102,14 @@ FUNCTION _IsWindowDefined(FormName)
       IF i == 0
          RETURN .F.
       ENDIF
-      RETURN (.NOT. (_HMG_aFormDeleted[i]))
+      RETURN (!(_HMG_aFormDeleted[i]))
 #else
       IF __mvExist(mVar)
          i := __mvGet(mVar)
          IF i == 0
             RETURN .F.
          ENDIF
-         RETURN (.NOT. (_HMG_aFormDeleted[i]))
+         RETURN (!(_HMG_aFormDeleted[i]))
       ENDIF
 #endif
 

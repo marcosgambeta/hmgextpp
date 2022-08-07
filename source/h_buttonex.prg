@@ -139,7 +139,7 @@ FUNCTION _DefineOwnerButton ( ControlName, ParentForm, x, y, Caption, ;
       ParentForm := _HMG_ActiveFrameParentFormName [_HMG_FrameLevel]
    ENDIF
 
-   IF .NOT. _IsWindowDefined ( ParentForm )
+   IF !_IsWindowDefined ( ParentForm )
       MsgMiniGuiError("Window: " + IFNIL(ParentForm, "Parent", ParentForm) + " is not defined.")
    ENDIF
 

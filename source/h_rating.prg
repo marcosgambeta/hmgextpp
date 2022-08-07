@@ -32,7 +32,7 @@ FUNCTION _DefineRating ( ControlName, ParentForm, x, y, w, h, nValue, aImages, n
       ParentForm := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
 
-   IF .NOT. _IsWindowDefined ( ParentForm )
+   IF !_IsWindowDefined ( ParentForm )
       MsgMiniGuiError("Window: " + ParentForm + " is not defined.")
    ENDIF
 

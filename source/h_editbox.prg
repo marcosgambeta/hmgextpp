@@ -110,11 +110,11 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory
 
-   IF .NOT. _IsWindowDefined ( ParentFormName ) .AND. .NOT. lDialogInMemory
+   IF !_IsWindowDefined ( ParentFormName ) .AND. !lDialogInMemory
       MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined ( ControlName, ParentFormName ) .AND. .NOT. lDialogInMemory
+   IF _IsControlDefined ( ControlName, ParentFormName ) .AND. !lDialogInMemory
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
@@ -163,7 +163,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
          h := GetWindowHeight(Controlhandle)
 
          IF ValType(Value) == "C" .OR. ValType(Value) == "M"
-            IF .NOT. Empty(Value)
+            IF !Empty(Value)
                SetWindowText(ControlHandle, value)
             ENDIF
          ENDIF
@@ -204,7 +204,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
                   .OR. ;
                   ValType(Value) == "M"
 
-               IF .NOT. Empty(Value)
+               IF !Empty(Value)
                   SetWindowText(ControlHandle, value)
                ENDIF
 
@@ -220,7 +220,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
                .OR. ;
                ValType(Value) == "M"
 
-            IF .NOT. Empty(Value)
+            IF !Empty(Value)
                SetWindowText(ControlHandle, value)
             ENDIF
 
@@ -229,7 +229,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
       ENDIF
    ENDIF
 
-   IF .NOT. lDialogInMemory
+   IF !lDialogInMemory
 
       IF _HMG_BeginTabActive
          AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)

@@ -95,11 +95,11 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory
 
-   IF .NOT. _IsWindowDefined ( ParentFormName ) .AND. .NOT. lDialogInMemory
+   IF !_IsWindowDefined ( ParentFormName ) .AND. !lDialogInMemory
       MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined ( ControlName, ParentFormName ) .AND. .NOT. lDialogInMemory
+   IF _IsControlDefined ( ControlName, ParentFormName ) .AND. !lDialogInMemory
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
@@ -248,7 +248,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
 
    ENDIF
 
-   IF .NOT. lDialogInMemory
+   IF !lDialogInMemory
 
       IF _HMG_IsThemed .AND. ( IsArrayRGB ( backcolor ) .OR. IsArrayRGB ( fontcolor ) )
          AEval( aHandles, { | h | SetWindowTheme ( h, "", "" ) } )
@@ -294,7 +294,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
    _HMG_aControlSpacing            [k] := Spacing
    _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
    _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
-   _HMG_aControlPicture            [k] := .NOT. NoTabStop
+   _HMG_aControlPicture            [k] := !NoTabStop
    _HMG_aControlContainerHandle    [k] := 0
    _HMG_aControlFontName           [k] := fontname
    _HMG_aControlFontSize           [k] := fontsize
@@ -311,7 +311,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
    _HMG_aControlMiscData1          [k] := horizontal
    _HMG_aControlMiscData2          [k] := ""
 
-   IF .NOT. lDialogInMemory
+   IF !lDialogInMemory
       IF ValType(Value) == "N" .AND. Value > 0  // EF 93
          _SetValue ( , , Value , k )
       ENDIF

@@ -60,7 +60,7 @@ FUNCTION _DefineTimer ( ControlName , ParentForm , Interval , ProcedureName , On
       ParentForm := _HMG_ActiveFormName
    ENDIF
 
-   IF .NOT. _IsWindowDefined ( ParentForm )
+   IF !_IsWindowDefined ( ParentForm )
       MsgMiniGuiError("Window: " + IFNIL(ParentForm, "Parent", ParentForm) + " is not defined.")
    ENDIF
 

@@ -71,7 +71,7 @@ FUNCTION _DefineHotKey ( cParentForm , nMod , nKey , bAction )
    ENDIF
 
    // Check if the window/form is defined.
-   IF .NOT. _IsWindowDefined( cParentForm )
+   IF !_IsWindowDefined( cParentForm )
       MsgMiniGuiError("Window " + cParentForm + " is not defined.")
    ENDIF
 

@@ -1039,7 +1039,7 @@ STATIC FUNCTION _bmpprint( cForm, x, y, nLibrary )
 
       SELECT PRINTER DEFAULT TO lSuccess ORIENTATION nOrientation PREVIEW
 
-      IF .NOT. lSuccess
+      IF !lSuccess
          DoMethod ( cForm, "Release" )
          FErase ( cTempFile )
          RETURN .F.

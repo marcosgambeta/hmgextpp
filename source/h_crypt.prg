@@ -82,7 +82,7 @@ FUNCTION FI_CODE( cInFile, cPass, cOutFile, lDelete )
    LOCAL nHandle, cBuffer, cStr, nRead := 1
    LOCAL nOutHandle
 
-   IF Empty(cInFile) .OR. .NOT. File( cInFile )
+   IF Empty(cInFile) .OR. !File( cInFile )
 
       MSGSTOP( "No such file" )
       RETURN NIL
@@ -186,7 +186,7 @@ FUNCTION FI_DECODE( cInFile, cPass, cOutFile, lDelete )
    LOCAL nHandle, cBuffer, cStr, nRead := 1
    LOCAL nOutHandle
 
-   IF Empty(cInFile) .OR. .NOT. File( cInFile )
+   IF Empty(cInFile) .OR. !File( cInFile )
 
       MSGSTOP( "No such file" )
       RETURN NIL
@@ -631,7 +631,7 @@ FUNCTION DB_CODE( cData, cKey, aFields, cPass, cFor, cWhile )
    cTmpAlias := Alias()
 
    Select &cAlias
-   DO WHILE .NOT. EOF() .AND. &( cWhile )
+   DO WHILE !EOF() .AND. &( cWhile )
       IF !&( cFor )                          // Select records that meet for condition
          SKIP
          LOOP
@@ -673,7 +673,7 @@ FUNCTION DB_CODE( cData, cKey, aFields, cPass, cFor, cWhile )
 
    SELECT &cTmpAlias
    GO TOP
-   DO WHILE .NOT. EOF()
+   DO WHILE !EOF()
       cVal := &cSeek
       SELECT &cAlias
       SEEK cVal

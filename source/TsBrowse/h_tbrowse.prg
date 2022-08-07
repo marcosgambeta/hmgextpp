@@ -247,10 +247,10 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
       ELSE
          ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
       ENDIF
-      IF .NOT. Empty(_HMG_ActiveFontName) .AND. ValType(FontName) == "U"
+      IF !Empty(_HMG_ActiveFontName) .AND. ValType(FontName) == "U"
          FONTNAME := _HMG_ActiveFontName
       ENDIF
-      IF .NOT. Empty(_HMG_ActiveFontSize) .AND. ValType(FontSize) == "U"
+      IF !Empty(_HMG_ActiveFontSize) .AND. ValType(FontSize) == "U"
          FONTSIZE := _HMG_ActiveFontSize
       ENDIF
    ENDIF
@@ -261,11 +261,11 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
       ParentFormName := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
 
-   IF .NOT. _IsWindowDefined( ParentFormName ) .AND. .NOT. _HMG_DialogInMemory
+   IF !_IsWindowDefined( ParentFormName ) .AND. !_HMG_DialogInMemory
       MsgMiniGuiError("Window: " + ParentFormName + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined( ControlName, ParentFormName ) .AND. .NOT. _HMG_DialogInMemory
+   IF _IsControlDefined( ControlName, ParentFormName ) .AND. !_HMG_DialogInMemory
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " already defined.")
    ENDIF
 
@@ -536,7 +536,7 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
 
    ENDIF
 
-   IF .NOT. _HMG_DialogInMemory
+   IF !_HMG_DialogInMemory
 
       IF _HMG_BeginTabActive
          AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)

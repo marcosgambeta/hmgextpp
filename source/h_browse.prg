@@ -106,11 +106,11 @@ FUNCTION _DefineBrowse ( ControlName, ParentFormName, x, y, w, h, aHeaders, aWid
 
    lDialogInMemory := _HMG_DialogInMemory
 
-   IF .NOT. _IsWindowDefined ( ParentFormName ) .AND. .NOT. lDialogInMemory
+   IF !_IsWindowDefined ( ParentFormName ) .AND. !lDialogInMemory
       MsgMiniGuiError(_HMG_BRWLangError[1] + IFNIL(ParentFormName, "Parent", ParentFormName) + _HMG_BRWLangError[2], .F.)
    ENDIF
 
-   IF _IsControlDefined ( ControlName, ParentFormName ) .AND. .NOT. lDialogInMemory
+   IF _IsControlDefined ( ControlName, ParentFormName ) .AND. !lDialogInMemory
       MsgMiniGuiError(_HMG_BRWLangError[4] + ControlName + _HMG_BRWLangError[5] + ParentFormName + _HMG_BRWLangError[6], .F.)
    ENDIF
 
@@ -222,7 +222,7 @@ FUNCTION _DefineBrowse ( ControlName, ParentFormName, x, y, w, h, aHeaders, aWid
 
    ENDIF
 
-   IF .NOT. lDialogInMemory
+   IF !lDialogInMemory
 
       IF IsArrayRGB ( backcolor )
          ListView_SetBkColor ( ControlHandle , backcolor[1] , backcolor[2] , backcolor[3] )
@@ -322,7 +322,7 @@ FUNCTION _DefineBrowse ( ControlName, ParentFormName, x, y, w, h, aHeaders, aWid
                                             aInputMask }                                  // 22
    _HMG_aControlMiscData2          [k] := ""
 
-   IF .NOT. lDialogInMemory
+   IF !lDialogInMemory
 
       IF lsort
 
@@ -1361,7 +1361,7 @@ FUNCTION  _BrowseDelete (  ControlName , ParentForm , z  )
 
    GO Value
 
-   IF .NOT. Deleted()
+   IF !Deleted()
 
       IF lock
 
@@ -1371,7 +1371,7 @@ FUNCTION  _BrowseDelete (  ControlName , ParentForm , z  )
 
             IF EOF()
                GO BOTTOM
-            ELSEIF .NOT. SET ( _SET_DELETED )
+            ELSEIF !SET ( _SET_DELETED )
                SKIP -1
             ENDIF
          ELSE
@@ -1385,7 +1385,7 @@ FUNCTION  _BrowseDelete (  ControlName , ParentForm , z  )
 
          IF EOF()
             GO BOTTOM
-         ELSEIF .NOT. SET ( _SET_DELETED )
+         ELSEIF !SET ( _SET_DELETED )
             SKIP -1
          ENDIF
 
@@ -2684,7 +2684,7 @@ PROCEDURE _BrowseVscrollFastUpdate ( i , d )
 
       RecordCount := _HMG_aControlBrushHandle[i]
 
-      IF .NOT. ISNUMBER( RecordCount ) .OR. RecordCount == 0
+      IF !ISNUMBER( RecordCount ) .OR. RecordCount == 0
          RETURN
       ENDIF
 

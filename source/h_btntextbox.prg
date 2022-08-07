@@ -140,12 +140,12 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    lDialogInMemory := _HMG_DialogInMemory
 
 // Check if the window/form is defined.
-   IF .NOT. _IsWindowDefined( ParentFormName ) .AND. .NOT. lDialogInMemory
+   IF !_IsWindowDefined( ParentFormName ) .AND. !lDialogInMemory
       MsgMiniGuiError("Window " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
 // Check if the control is already defined.
-   IF _IsControlDefined( ControlName, ParentFormName ) .AND. .NOT. lDialogInMemory
+   IF _IsControlDefined( ControlName, ParentFormName ) .AND. !lDialogInMemory
       MsgMiniGuiError("Control " + ControlName + " of " + ParentFormName + " already defined.")
    ENDIF
 
@@ -218,7 +218,7 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
 
    ENDIF
 
-   IF .NOT. lDialogInMemory
+   IF !lDialogInMemory
 
       IF FontHandle != 0
          _SetFontHandle( aControlHandle[1], FontHandle )
@@ -283,7 +283,7 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    _HMG_aControlRangeMin           [k] := BtnWidth
    _HMG_aControlRangeMax           [k] := nMaxLength
    _HMG_aControlCaption            [k] := ""
-   _HMG_aControlVisible            [k] := .NOT. invisible
+   _HMG_aControlVisible            [k] := !invisible
    _HMG_aControlHelpId             [k] := HelpId
    _HMG_aControlFontHandle         [k] := FontHandle
    _HMG_aControlBrushHandle        [k] := 0
@@ -291,7 +291,7 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    _HMG_aControlMiscData1          [k] := { 0, lBtn2, disableedit, lDefault, keepfocus }
    _HMG_aControlMiscData2          [k] := ""
 
-   IF .NOT. lDialogInMemory
+   IF !lDialogInMemory
       // With NUMERIC clause, transform numeric value into a string.
       IF lNumeric
          IF ValType(cValue) != "C"

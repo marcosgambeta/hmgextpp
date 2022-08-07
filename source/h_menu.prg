@@ -756,7 +756,7 @@ PROCEDURE _ShowContextMenu(Parent, nRow, nCol)
 
    hb_default(@Parent, "")
 
-   IF .Not. _IsWindowDefined(Parent)
+   IF !_IsWindowDefined(Parent)
       xContextMenuParentHandle := _HMG_xContextMenuParentHandle
    ELSE
       xContextMenuParentHandle := GetFormHandle(Parent)

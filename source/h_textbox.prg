@@ -122,12 +122,12 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    lDialogInMemory := _HMG_DialogInMemory
 
    // Check if the window/form is defined.
-   IF .NOT. _IsWindowDefined( ParentFormName ) .AND. .NOT. lDialogInMemory
+   IF !_IsWindowDefined( ParentFormName ) .AND. !lDialogInMemory
       MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
    // Check if the control is already defined.
-   IF _IsControlDefined( ControlName, ParentFormName ) .AND. .NOT. lDialogInMemory
+   IF _IsControlDefined( ControlName, ParentFormName ) .AND. !lDialogInMemory
       MsgMiniGuiError("Control: " + ControlName + " of " + ParentFormName + " already defined.")
    ENDIF
 
@@ -196,7 +196,7 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
 
    ENDIF
 
-   IF .NOT. lDialogInMemory
+   IF !lDialogInMemory
 
       IF FontHandle != 0
          _SetFontHandle( ControlHandle, FontHandle )
@@ -257,7 +257,7 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    _HMG_aControlRangeMin           [k] := 0
    _HMG_aControlRangeMax           [k] := nMaxLength
    _HMG_aControlCaption            [k] := ""
-   _HMG_aControlVisible            [k] := .NOT.  invisible
+   _HMG_aControlVisible            [k] := !invisible
    _HMG_aControlHelpId             [k] := HelpId
    _HMG_aControlFontHandle         [k] := FontHandle
    _HMG_aControlBrushHandle        [k] := 0
@@ -269,7 +269,7 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
       Eval( _HMG_bOnControlInit, k, mVar )
    ENDIF
 
-   IF .NOT. lDialogInMemory
+   IF !lDialogInMemory
       // With NUMERIC clause, transform numeric value into a string.
       IF lNumeric
          IF ValType(cValue) != "C"
@@ -398,7 +398,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
    __defaultNIL(@lostfocus, "")
    __defaultNIL(@enter, "")
 
-   IF .NOT. Empty(Format)
+   IF !Empty(Format)
       Format := "@" + AllTrim(Format)
    ENDIF
 
@@ -422,11 +422,11 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory
 
-   IF .NOT. _IsWindowDefined ( ParentFormName ) .AND. .NOT. lDialogInMemory
+   IF !_IsWindowDefined ( ParentFormName ) .AND. !lDialogInMemory
       MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined ( ControlName, ParentFormName ) .AND. .NOT. lDialogInMemory
+   IF _IsControlDefined ( ControlName, ParentFormName ) .AND. !lDialogInMemory
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
@@ -475,7 +475,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
 
    ENDIF
 
-   IF .NOT. lDialogInMemory
+   IF !lDialogInMemory
 
       IF FontHandle != 0
          _SetFontHandle( ControlHandle, FontHandle )
@@ -535,7 +535,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
    _HMG_aControlRangeMin           [k] := 0
    _HMG_aControlRangeMax           [k] := 0
    _HMG_aControlCaption            [k] := ""
-   _HMG_aControlVisible            [k] := .NOT.  invisible
+   _HMG_aControlVisible            [k] := !invisible
    _HMG_aControlHelpId             [k] := HelpId
    _HMG_aControlFontHandle         [k] := FontHandle
    _HMG_aControlBrushHandle        [k] := 0
@@ -547,7 +547,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
       Eval( _HMG_bOnControlInit, k, mVar )
    ENDIF
 
-   IF .NOT. lDialogInMemory
+   IF !lDialogInMemory
       IF !Empty(cuetext) .AND. IsVistaOrLater()
          SendMessageWideString( ControlHandle, EM_SETCUEBANNER, .T. /*show on focus*/, cuetext )
       ENDIF
@@ -700,11 +700,11 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory
 
-   IF .NOT. _IsWindowDefined ( ParentFormName ) .AND. .NOT. lDialogInMemory
+   IF !_IsWindowDefined ( ParentFormName ) .AND. !lDialogInMemory
       MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined ( ControlName, ParentFormName ) .AND. .NOT. lDialogInMemory
+   IF _IsControlDefined ( ControlName, ParentFormName ) .AND. !lDialogInMemory
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
@@ -755,7 +755,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
 
    ENDIF
 
-   IF .NOT. lDialogInMemory
+   IF !lDialogInMemory
 
       IF FontHandle != 0
          _SetFontHandle ( ControlHandle, FontHandle )
@@ -816,7 +816,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
    _HMG_aControlRangeMin           [k] := 0
    _HMG_aControlRangeMax           [k] := 0
    _HMG_aControlCaption            [k] := ""
-   _HMG_aControlVisible            [k] := .NOT. invisible
+   _HMG_aControlVisible            [k] := !invisible
    _HMG_aControlHelpId             [k] := HelpId
    _HMG_aControlFontHandle         [k] := FontHandle
    _HMG_aControlBrushHandle        [k] := 0
@@ -828,7 +828,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
       Eval( _HMG_bOnControlInit, k, mVar )
    ENDIF
 
-   IF .NOT. lDialogInMemory
+   IF !lDialogInMemory
 
       IF !Empty(cuetext) .AND. IsVistaOrLater()
          IF Empty(Value)

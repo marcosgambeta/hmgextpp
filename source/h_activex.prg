@@ -84,7 +84,7 @@ PROCEDURE _DefineActivex ( cControlName, cParentForm, nRow, nCol, nWidth, nHeigh
       cParentForm := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
 
-   IF .NOT. _IsWindowDefined ( cParentForm )
+   IF !_IsWindowDefined ( cParentForm )
       MsgMiniGuiError("Window: " + cParentForm + " is not defined.")
    ENDIF
 

@@ -131,7 +131,7 @@ STATIC FUNCTION Scan( u, cData )
    ELSE
       // We write the data and its containts
       _LogFile( .F., CRLF + Space( nNested ) + cType + " " + cData )
-      IF .NOT. cType $ "UAO"
+      IF !cType $ "UAO"
          _LogFile( .F., " " + cValToChar( u ) )
       ENDIF
 

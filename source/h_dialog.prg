@@ -260,10 +260,10 @@ FUNCTION _BeginDialog(name, parent, Id_resource, x, y, w, h, caption, fontname, 
    ENDIF
 
    IF _HMG_BeginWindowActive
-      IF .NOT. Empty(_HMG_ActiveFontName) .AND. ValType(fontname) == "U"
+      IF !Empty(_HMG_ActiveFontName) .AND. ValType(fontname) == "U"
          fontname := _HMG_ActiveFontName
       ENDIF
-      IF .NOT. Empty(_HMG_ActiveFontSize) .AND. ValType(fontsize) == "U"
+      IF !Empty(_HMG_ActiveFontSize) .AND. ValType(fontsize) == "U"
          fontsize := _HMG_ActiveFontSize
       ENDIF
    ENDIF

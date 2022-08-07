@@ -69,7 +69,7 @@ FUNCTION _DefineImageList ( ControlName , ParentForm , w , h , aImage , aImageMa
       ParentForm := _HMG_ActiveFormName
    ENDIF
 
-   IF .NOT. _IsWindowDefined ( ParentForm )
+   IF !_IsWindowDefined ( ParentForm )
       MsgMiniGuiError("Window: " + ParentForm + " is not defined.")
    ENDIF
 

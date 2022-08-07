@@ -66,7 +66,7 @@ FUNCTION _BeginPager( ControlName, ParentName, nWidth, nHeight, nScroll, cCaptio
    IF ValType(ParentName) == "U" .AND. _HMG_BeginWindowActive
       ParentName := _HMG_ActiveFormName
    ENDIF
-   IF .NOT. _IsWindowDefined ( ParentName )
+   IF !_IsWindowDefined ( ParentName )
       MsgMiniGuiError("Window: " + ParentName + " is not defined.")
    ENDIF
 

@@ -125,10 +125,10 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
 
    IF _HMG_BeginWindowActive = .T.
       ParentForm := _HMG_ActiveFormName
-      IF .NOT. Empty(_HMG_DefaultFontName) .AND. ValType(FontName) == "U"
+      IF !Empty(_HMG_DefaultFontName) .AND. ValType(FontName) == "U"
          fontname := _HMG_DefaultFontName
       ENDIF
-      IF .NOT. Empty(_HMG_DefaultFontSize) .AND. ValType(FontSize) == "U"
+      IF !Empty(_HMG_DefaultFontSize) .AND. ValType(FontSize) == "U"
          fontsize := _HMG_DefaultFontSize
       ENDIF
    ENDIF
@@ -140,7 +140,7 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
       ENDIF
    ENDIF
 
-   IF .NOT. _IsWindowDefined ( ParentForm )
+   IF !_IsWindowDefined ( ParentForm )
       MsgHMGError( "Window: " + ParentForm + " is not defined." )
    ENDIF
 

@@ -478,11 +478,11 @@ FUNCTION HTML_ERRORLOG
 
    IF IsErrorLogActive()
 #if ( __HARBOUR__ - 0 < 0x030200 )
-      IF .NOT. File( cErrorLogFile )
+      IF !File( cErrorLogFile )
          HtmArch := Html_Ini( cErrorLogFile, "Harbour MiniGUI Errorlog File" )
          IF HtmArch > 0
 #else
-      IF .NOT. hb_vfExists( cErrorLogFile )
+      IF !hb_vfExists( cErrorLogFile )
          HtmArch := Html_Ini( cErrorLogFile, "Harbour MiniGUI Errorlog File" )
          IF HtmArch != NIL
 #endif

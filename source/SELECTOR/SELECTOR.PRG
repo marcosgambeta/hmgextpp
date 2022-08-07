@@ -87,7 +87,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
    LOCAL nExprAlias, nCurrExpr, nSelectFrom, nSelectChild, nSelectTemp, xValueFromMother, axExpr := {}
    LOCAL lCreateIndex := .F.
    LOCAL cIndexName, cIndexKey := ""
-   LOCAL lAppend, lSummary := .NOT. ( aSummary == NIL )
+   LOCAL lAppend, lSummary := !( aSummary == NIL )
    LOCAL nCurrent, cSeekExpr, nStartRec
 
    IF xcnFromArea == NIL
@@ -163,7 +163,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
       IF aSelectList[ nCurrExpr, 5 ] == "G"
 
-         IF .NOT. lCreateIndex
+         IF !lCreateIndex
 
             lCreateIndex := .T.
 
@@ -193,7 +193,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
          AAdd(axExpr, aSelectList[nCurrExpr, 1])
 
-      ELSEIF aSelectList[ nCurrExpr, 6 ] .AND. ( lSummary .AND. .NOT. lAdditive )
+      ELSEIF aSelectList[ nCurrExpr, 6 ] .AND. ( lSummary .AND. !lAdditive )
 
          AAdd(aSummary, 0)
 
@@ -223,7 +223,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
    ENDIF
 
-   IF .NOT. lRest
+   IF !lRest
 
       dbGoTop()
 
@@ -231,7 +231,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
    IF lOTM
 
-      DO WHILE .NOT. Eof() .AND. .NOT. ( nSelectChild )->( dbSeek( xValueFromMother := ( nSelectFrom )->( Eval( aOneToMany[2] ) ), .F. ) )
+      DO WHILE !Eof() .AND. !( nSelectChild )->( dbSeek( xValueFromMother := ( nSelectFrom )->( Eval( aOneToMany[2] ) ), .F. ) )
 
          dbSkip()
 
@@ -239,7 +239,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
    ENDIF
 
-   DO WHILE .NOT. Eof() .AND. ( lWhile == NIL .OR. Eval( lWhile ) )
+   DO WHILE !Eof() .AND. ( lWhile == NIL .OR. Eval( lWhile ) )
 
       IF ValType(xEval) == "B"
 
@@ -250,10 +250,10 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
       IF lSelect == NIL .OR. Eval( lSelect )
 
          lAppend := .F.
-         lCreateIndex := .NOT. lCreateIndex
+         lCreateIndex := !lCreateIndex
          cSeekExpr := ""
 
-         IF ValType(axExpr) == "A" .AND. ValType(AEval(axExpr, {|e|cSeekExpr += ToString(Eval(e))})) == "A" .OR. .NOT. ( nSelectTemp )->( dbSeek( cSeekExpr, .F. ) )
+         IF ValType(axExpr) == "A" .AND. ValType(AEval(axExpr, {|e|cSeekExpr += ToString(Eval(e))})) == "A" .OR. !( nSelectTemp )->( dbSeek( cSeekExpr, .F. ) )
 
             ( nSelectTemp )->( dbAppend() )
             lAppend := .T.
@@ -270,7 +270,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
             ENDIF
 
-            IF .NOT. lCreateIndex .OR. lAppend .OR. aSelectList[ nCurrExpr, 5 ] $ "TA"
+            IF !lCreateIndex .OR. lAppend .OR. aSelectList[ nCurrExpr, 5 ] $ "TA"
 
                xExprValue := Eval( aSelectList[ nCurrExpr, 1 ] )
 
@@ -278,7 +278,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
                   ( nSelectTemp )->( FieldPut( nCurrExpr, FieldGet( nCurrExpr ) + xExprValue ) )
 
-               ELSEIF aSelectList[ nCurrExpr, 5 ] == "A" .AND. .NOT. lAppend
+               ELSEIF aSelectList[ nCurrExpr, 5 ] == "A" .AND. !lAppend
 
                   ( nSelectTemp )->( FieldPut( nCurrExpr, ( FieldGet( nCurrExpr ) + xExprValue ) / 2 ) )
 
@@ -300,19 +300,19 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
       ENDIF
 
-      IF .NOT. lOTM
+      IF !lOTM
 
          ( nSelectFrom )->( dbSkip() )
 
       ELSE
 
-         IF ( nSelectChild )->( dbSkip() ) .OR. ( nSelectChild )->( Eof() .OR. .NOT. xValueFromMother == Eval( aOneToMany[3] ) )
+         IF ( nSelectChild )->( dbSkip() ) .OR. ( nSelectChild )->( Eof() .OR. !xValueFromMother == Eval( aOneToMany[3] ) )
 
             dbSkip()
 
             IF lOTM
 
-               DO WHILE .NOT. Eof() .AND. .NOT. ( nSelectChild )->( dbSeek( xValueFromMother := ( nSelectFrom )->( Eval( aOneToMany[2] ) ), .F. ) )
+               DO WHILE !Eof() .AND. !( nSelectChild )->( dbSeek( xValueFromMother := ( nSelectFrom )->( Eval( aOneToMany[2] ) ), .F. ) )
 
                   dbSkip()
 

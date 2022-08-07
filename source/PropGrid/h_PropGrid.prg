@@ -183,10 +183,10 @@ FUNCTION _DefinePropGrid ( ControlName, ParentFormName, row, col, width, height,
 
    IF _HMG_BeginWindowActive
       ParentFormName := _HMG_ActiveFormName
-      IF .NOT. Empty(_HMG_ActiveFontName) .AND. ValType(FontName) == "U"
+      IF !Empty(_HMG_ActiveFontName) .AND. ValType(FontName) == "U"
          FontName := _HMG_ActiveFontName
       ENDIF
-      IF .NOT. Empty(_HMG_ActiveFontSize) .AND. ValType(FontSize) == "U"
+      IF !Empty(_HMG_ActiveFontSize) .AND. ValType(FontSize) == "U"
          FontSize := _HMG_ActiveFontSize
       ENDIF
    ENDIF
@@ -196,7 +196,7 @@ FUNCTION _DefinePropGrid ( ControlName, ParentFormName, row, col, width, height,
       ParentFormName := _HMG_ActiveFrameParentFormName [_HMG_FrameLevel]
    ENDIF
 
-   IF .NOT. _IsWindowDefined ( ParentFormName )
+   IF !_IsWindowDefined ( ParentFormName )
       MsgMiniGuiError("Window: " + ParentFormName + " is not defined.")
    ENDIF
 

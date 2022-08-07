@@ -918,7 +918,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
             //JP MDI HotKey
             IF _HMG_aControlType[x] == CONTROL_TYPE_HOTKEY
 
-               IF .NOT. _HMG_BeginWindowMDIActive
+               IF !_HMG_BeginWindowMDIActive
                   ReleaseHotKey(_HMG_aControlParentHandles[x], _HMG_aControlIds[x])
                ELSEIF _HMG_aControlParentHandles[x] != GetFormHandle(_HMG_MainClientMDIName) .OR. _HMG_InplaceParentHandle <> 0
                   ReleaseHotKey(_HMG_aControlParentHandles[x], _HMG_aControlIds[x])
@@ -1640,7 +1640,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             // Select All: disable if everything's already selected, enable otherwise.
             TxtLen := SendMessage(hEdit, WM_GETTEXTLENGTH, 0, 0)
-            SetProperty(cParent, "mnuEditSelAll", "Enabled", .NOT. (nStart == 0 .AND. nEnd == TxtLen))
+            SetProperty(cParent, "mnuEditSelAll", "Enabled", !(nStart == 0 .AND. nEnd == TxtLen))
 
          ENDIF
 
@@ -4713,7 +4713,7 @@ PROCEDURE _AutoAdjust(hWnd, aInitSize)
    IF IsWindowVisible(hWnd) .AND. !IsAppXPThemed()
       HideWindow(hWnd)
    ELSE
-      lInvisible := .NOT. LockWindowUpdate(hWnd)
+      lInvisible := !LockWindowUpdate(hWnd)
    ENDIF
 
    i := AScan(_HMG_aFormHandles, hWnd)

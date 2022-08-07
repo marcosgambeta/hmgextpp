@@ -163,11 +163,11 @@ STATIC FUNCTION _DefineTab( ControlName, ParentFormName, x, y, w, h, aCaptions, 
    hb_default(@bottom, .F.)
    hb_default(@notabstop, .F.)
 
-   IF .NOT. _IsWindowDefined ( ParentFormName ) .AND. .NOT. lDialogInMemory
+   IF !_IsWindowDefined ( ParentFormName ) .AND. !lDialogInMemory
       MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined ( ControlName, ParentFormName ) .AND. .NOT. lDialogInMemory
+   IF _IsControlDefined ( ControlName, ParentFormName ) .AND. !lDialogInMemory
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
@@ -250,7 +250,7 @@ STATIC FUNCTION _DefineTab( ControlName, ParentFormName, x, y, w, h, aCaptions, 
 
    ENDIF
 
-   IF .NOT. lDialogInMemory
+   IF !lDialogInMemory
 
       IF FontHandle != 0
          _SetFontHandle( ControlHandle, FontHandle )
@@ -470,7 +470,7 @@ STATIC FUNCTION _IsWindowVisibleFromHandle ( Handle )
    FOR EACH hForm IN _HMG_aFormHandles
 
       IF hForm == Handle
-         lVisible := .NOT. _HMG_aFormNoShow [ hb_enumindex( hForm ) ]
+         lVisible := !_HMG_aFormNoShow [ hb_enumindex( hForm ) ]
          EXIT
       ENDIF
 

@@ -187,10 +187,10 @@ FUNCTION _BeginPropSheet(  FormName, ParentForm, row, col, width, height, captio
    ENDIF
 
    IF _HMG_BeginWindowActive = .T.
-      IF .NOT. Empty(_HMG_ActiveFontName) .AND. ValType(fontname) == "U"
+      IF !Empty(_HMG_ActiveFontName) .AND. ValType(fontname) == "U"
          fontname := _HMG_ActiveFontName
       ENDIF
-      IF .NOT. Empty(_HMG_ActiveFontSize) .AND. ValType(fontsize) == "U"
+      IF !Empty(_HMG_ActiveFontSize) .AND. ValType(fontsize) == "U"
          fontsize := _HMG_ActiveFontSize
       ENDIF
    ENDIF

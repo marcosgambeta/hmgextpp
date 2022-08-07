@@ -44,7 +44,7 @@ PROCEDURE _DefineCLButton ( cName, nRow, nCol, cCaption, cNotes, bAction, cParen
       cParent := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
 
-   IF .NOT. _IsWindowDefined ( cParent )
+   IF !_IsWindowDefined ( cParent )
       MsgMiniGuiError("Window: " + cParent + " is not defined.")
    ENDIF
 

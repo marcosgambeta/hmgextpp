@@ -85,7 +85,7 @@ FUNCTION _DefineAnimateRes ( ControlName, ParentForm, x, y, w, h, cFile, nRes, ;
       ParentForm := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel ]
    ENDIF
 
-   IF .NOT. _IsWindowDefined ( ParentForm )
+   IF !_IsWindowDefined ( ParentForm )
       MsgMiniGuiError("Window: " + ParentForm + " is not defined.")
    ENDIF
 
