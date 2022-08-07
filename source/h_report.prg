@@ -283,41 +283,50 @@ FUNCTION easyreport()
             wfield := &wfield       // value
          ENDIF
          cType := ValType(wfield)
- 
+
          IF lmode
-            DO CASE
-            CASE cType == "C"
+            SWITCH cType
+            CASE "C"
                IF IsOemText( wfield )
                   wfield := hb_OEMToANSI( wfield )
                ENDIF
                @ nlin, ncol SAY SubStr(wfield, 1, awidths[i]) font "f0" TO PRINT
-            CASE cType == "N"
+               EXIT
+            CASE "N"
                @ nlin, ncol SAY  iif( !( aformats[i] == "" ), Transform(wfield, aformats[i]), Str(wfield, awidths[i]) ) font "f0" TO PRINT
-            CASE cType == "D"
+               EXIT
+            CASE "D"
                @ nlin, ncol SAY SubStr(DToC(wfield), 1, awidths[i]) font "f0" TO PRINT
-            CASE cType == "L"
+               EXIT
+            CASE "L"
                @ nlin, ncol SAY iif( wfield, ".T.", ".F." ) font "f0" TO PRINT
-            CASE cType == "M"
+               EXIT
+            CASE "M"
                FOR k := 1 TO MLCount( wfield, awidths[i] ) STEP 1
                   @ nlin, ncol SAY justificalinea( MemoLine( wfield, awidths[i], k ), awidths[i] ) font "f0" TO PRINT
                   nlin := nlin + 1
                   // Imprimir otra página?
                   imp_pagina( @nlin, @lmode, @grpby, @chdrgrp )
                NEXT k
+               EXIT
             OTHERWISE
                @ nlin, ncol SAY Replicate( "_", awidths[i] ) font "f0" TO PRINT
-            ENDCASE
+            ENDSWITCH
          ELSE
-            DO CASE
-            CASE cType == "C"
+            SWITCH cType
+            CASE "C"
                @ nlin, ncol SAY SubStr(wfield, 1, awidths[i])
-            CASE cType == "N"
+               EXIT
+            CASE "N"
                @ nlin, ncol SAY iif( !( aformats[i] == "" ), Transform(wfield, aformats[i]), Str(wfield, awidths[i]) )
-            CASE cType == "D"
+               EXIT
+            CASE "D"
                @ nlin, ncol SAY SubStr(DToC(wfield), 1, awidths[i])
-            CASE cType == "L"
+               EXIT
+            CASE "L"
                @ nlin, ncol SAY iif( wfield, ".T.", ".F." )
-            CASE cType == "M"
+               EXIT
+            CASE "M"
                FOR k := 1 TO MLCount( wfield, awidths[i] )
                   @ nlin, ncol SAY justificalinea( MemoLine( wfield, awidths[i], k ), awidths[i] )
                   nlin := nlin + 1
@@ -326,9 +335,10 @@ FUNCTION easyreport()
                      nlin := headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grpby, chdrgrp )
                   ENDIF
                NEXT k
+               EXIT
             OTHERWISE
                @ nlin, ncol SAY Replicate( "_", awidths[i] )
-            ENDCASE
+            ENDSWITCH
          ENDIF
 
          ncol += awidths[i] + 1
