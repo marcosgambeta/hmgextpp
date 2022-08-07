@@ -8846,59 +8846,25 @@ FUNCTION _IsTyped ( a, b )    // (c) 1996-1997, Bryan Duchesne
 
 RETURN b
 
-*-----------------------------------------------------------------------------*
-FUNCTION cValToChar( uVal )
-*-----------------------------------------------------------------------------*
-   LOCAL cType := ValType(uVal)
+//-----------------------------------------------------------------------------
+FUNCTION cValToChar(uVal)
+//-----------------------------------------------------------------------------
 
-   DO CASE
-   CASE cType == "C" .OR. cType == "M"
+   SWITCH ValType(uVal)
+   CASE "C"
+   CASE "M" ; RETURN uVal
+   CASE "D" ; RETURN DToC(uVal)
+   CASE "T" ; RETURN iif(Year(uVal) == 0, hb_TToC(uVal, "", Set(_SET_TIMEFORMAT)), hb_TToC(uVal))
+   CASE "L" ; RETURN iif(uVal, "T", "F")
+   CASE "N" ; RETURN hb_ntos(uVal)
+   CASE "B" ; RETURN "{|| ... }"
+   CASE "A" ; RETURN "{ ... }"
+   CASE "O" ; RETURN uVal:ClassName()
+   CASE "H" ; RETURN "{=>}"
+   CASE "P" ; RETURN "0x" + hb_NumToHex( uVal )
+   ENDSWITCH
 
-      RETURN uVal
-
-   CASE cType == "D"
-
-      RETURN DToC( uVal )
-
-   CASE cType == "T"
-
-      RETURN iif( Year( uVal ) == 0, hb_TToC( uVal, "", Set( _SET_TIMEFORMAT ) ), hb_TToC( uVal ) )
-
-   CASE cType == "L"
-
-      RETURN iif( uVal, "T", "F" )
-
-   CASE cType == "N"
-
-      RETURN hb_ntos( uVal )
-
-   CASE cType == "B"
-
-      RETURN "{|| ... }"
-
-   CASE cType == "A"
-
-      RETURN "{ ... }"
-
-   CASE cType == "O"
-
-      RETURN uVal:ClassName()
-
-   CASE cType == "H"
-
-      RETURN "{=>}"
-
-   CASE cType == "P"
-
-      RETURN "0x" + hb_NumToHex( uVal )
-
-   OTHERWISE
-
-      RETURN ""
-
-   ENDCASE
-
-RETURN NIL
+RETURN ""
 
 *-----------------------------------------------------------------------------*
 FUNCTION cNumToChar( nVal )
