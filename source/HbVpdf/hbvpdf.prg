@@ -2678,17 +2678,22 @@ STATIC FUNCTION File2Array( cFile, nLen, hFile )
       ENDIF
       nDepth++
       AAdd(aRay, NIL)
-      IF cType == "C"
+      SWITCH cType
+      CASE "C"
          aRay[nDepth] := cData
-      ELSEIF cType == "N"
+         EXIT
+      CASE "N"
          aRay[nDepth] := Val( cData )
-      ELSEIF cType == "D"
+         EXIT
+      CASE "D"
          aRay[nDepth] := hb_SToD( cData )
-      ELSEIF cType == "L"
+         EXIT
+      CASE "L"
          aRay[nDepth] := ( cData == "T" )
-      ELSEIF cType == "A"
+         EXIT
+      CASE "A"
          aRay[nDepth] := File2Array(, nDataLen, hFile )
-      ENDIF
+      ENDSWITCH
    ENDDO
    IF cFile != NIL
       FClose(hFile)
