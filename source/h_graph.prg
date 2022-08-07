@@ -425,7 +425,7 @@ PROCEDURE EraseBarGraph ( Parent )
 
    DO WHILE i < nGraphObj
       cName := "Obj_Name_" + hb_ntos( i++ )
-      IF _IsControlDefined ( cName, Parent )
+      IF _IsControlDefined(cName, Parent)
          _ReleaseControl ( cName, Parent )
       ENDIF
    ENDDO
@@ -904,12 +904,12 @@ PROCEDURE ErasePieGraph( windowname )
    DO WHILE i < nPieObj
 
       cname := "title_of_pie" + hb_ntos( i )
-      IF _IsControlDefined ( cname, windowname )
+      IF _IsControlDefined(cname, windowname)
          _ReleaseControl( cname, windowname )
       ENDIF
 
       cname := "pielegend_" + hb_ntos( i++ )
-      IF _IsControlDefined ( cname, windowname )
+      IF _IsControlDefined(cname, windowname)
          _ReleaseControl( cname, windowname )
       ENDIF
 
@@ -976,7 +976,7 @@ STATIC FUNCTION _bmpprint( cForm, x, y, nLibrary )
 
    SuppressKeyAndMouseEvents()
 
-   DoMethod( cForm, "SaveAs", cTempFile )
+   DoMethod(cForm, "SaveAs", cTempFile)
 
    aSize := BmpSize( cTempFile )
 
@@ -994,7 +994,7 @@ STATIC FUNCTION _bmpprint( cForm, x, y, nLibrary )
       SELECT PRINTER DEFAULT PREVIEW
 
       IF HBPRNERROR != 0
-         DoMethod ( cForm, "Release" )
+         DoMethod(cForm, "Release")
          FErase ( cTempFile )
          RETURN .F.
       ENDIF
@@ -1021,7 +1021,7 @@ STATIC FUNCTION _bmpprint( cForm, x, y, nLibrary )
 
       UNTIL ( tw < w - x .OR. th < h - y )
 
-      DoMethod ( cForm, "Hide" )
+      DoMethod(cForm, "Hide")
 
       START DOC
 
@@ -1040,7 +1040,7 @@ STATIC FUNCTION _bmpprint( cForm, x, y, nLibrary )
       SELECT PRINTER DEFAULT TO lSuccess ORIENTATION nOrientation PREVIEW
 
       IF !lSuccess
-         DoMethod ( cForm, "Release" )
+         DoMethod(cForm, "Release")
          FErase ( cTempFile )
          RETURN .F.
       ENDIF
@@ -1057,7 +1057,7 @@ STATIC FUNCTION _bmpprint( cForm, x, y, nLibrary )
 
       UNTIL ( tw < w - x .OR. th < h - y )
 
-      DoMethod ( cForm, "Hide" )
+      DoMethod(cForm, "Hide")
 
       START PRINTDOC NAME "MINIPRINT"
 
@@ -1071,7 +1071,7 @@ STATIC FUNCTION _bmpprint( cForm, x, y, nLibrary )
 
    ENDIF
 
-   DoMethod ( cForm, "Release" )
+   DoMethod(cForm, "Release")
    FErase ( cTempFile )
 
 RETURN .T.
@@ -1111,7 +1111,7 @@ FUNCTION PrintWindow ( cWindowName, lPreview, ldialog, nRow, nCol, nWidth, nHeig
       lPreview := .F.
    ENDIF
 
-   IF !_IsWindowDefined ( cWindowName )
+   IF !_IsWindowDefined(cWindowName)
       MsgMiniGuiError(_HMG_BRWLangError[1] + cWindowName + _HMG_BRWLangError[2], .F.)
    ENDIF
 

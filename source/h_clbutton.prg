@@ -44,11 +44,11 @@ PROCEDURE _DefineCLButton ( cName, nRow, nCol, cCaption, cNotes, bAction, cParen
       cParent := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
 
-   IF !_IsWindowDefined ( cParent )
+   IF !_IsWindowDefined(cParent)
       MsgMiniGuiError("Window: " + cParent + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined ( cName, cParent )
+   IF _IsControlDefined(cName, cParent)
       MsgMiniGuiError("Control: " + cName + " Of " + cParent + " Already defined.")
    ENDIF
 
@@ -133,7 +133,7 @@ PROCEDURE ReleaseCLButtonImageList ( cWindow, cControl )
 *------------------------------------------------------------------------------*
    LOCAL i
 
-   IF _IsControlDefined ( cControl, cWindow ) .AND. GetControlType ( cControl, cWindow ) == "CLBUTTON"
+   IF _IsControlDefined(cControl, cWindow) .AND. GetControlType ( cControl, cWindow ) == "CLBUTTON"
 
       i := GetControlIndex(cControl, cWindow)
 

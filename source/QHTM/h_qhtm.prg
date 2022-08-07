@@ -76,11 +76,11 @@ If _HMG_BeginWindowActive
 
 Endif
 
-If !_IsWindowDefined( ParentForm )
+If !_IsWindowDefined(ParentForm)
    MsgMiniGuiError("Window: " + ParentForm + " is not defined.")
 Endif
 
-If _IsControlDefined( ControlName, ParentForm )
+If _IsControlDefined(ControlName, ParentForm)
    MsgMiniGuiError("Control: " + ControlName + " Of " + ParentForm + " Already defined.")
 Endif
 

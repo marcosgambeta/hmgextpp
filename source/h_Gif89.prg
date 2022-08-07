@@ -25,11 +25,11 @@ FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidt
       cParentForm := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
    ENDIF
 
-   IF !_IsWindowDefined ( cParentForm )
+   IF !_IsWindowDefined(cParentForm)
       MsgMiniGuiError("Window: " + cParentForm + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined ( cControlName, cParentForm )
+   IF _IsControlDefined(cControlName, cParentForm)
       MsgMiniGuiError("Control: " + cControlName + " Of " + cParentForm + " Already defined.")
    ENDIF
 
@@ -318,7 +318,7 @@ RETURN NIL
 
 METHOD Update() CLASS TGif
 
-   IF !Empty(::hGif) .AND. _IsControlDefined ( ::hGif, ::cParentName )
+   IF !Empty(::hGif) .AND. _IsControlDefined(::hGif, ::cParentName)
 
       IF GetProperty( ::cParentName, ::hGif, "Row" ) <> GetProperty( ::cParentName, ::cControlName, "Row" ) .OR. ;
             GetProperty( ::cParentName, ::hGif, "Col" ) <> GetProperty( ::cParentName, ::cControlName, "Col" ) .OR. ;
@@ -362,15 +362,15 @@ RETURN NIL
 
 METHOD End() CLASS TGif
 
-   IF _IsControlDefined ( ::cControlName, ::cParentName )
+   IF _IsControlDefined(::cControlName, ::cParentName)
 
       AEval( ::aPictData, {| f | FErase( f ) } )
 
       IF ::nTotalFrames > 1
-         DoMethod( ::cParentName, ::cTimer, "Release" )
+         DoMethod(::cParentName, ::cTimer, "Release")
       ENDIF
 
-      IF _IsControlDefined ( ::hGif, ::cParentName )
+      IF _IsControlDefined(::hGif, ::cParentName)
          _ReleaseControl ( ::hGif, ::cParentName )
       ENDIF
 

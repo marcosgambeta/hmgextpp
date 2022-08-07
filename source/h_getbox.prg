@@ -183,11 +183,11 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory
 
-   IF !_IsWindowDefined( ParentFormName ) .AND. ! lDialogInMemory
+   IF !_IsWindowDefined(ParentFormName) .AND. ! lDialogInMemory
       MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined( ControlName, ParentFormName ) .AND. ! lDialogInMemory
+   IF _IsControlDefined(ControlName, ParentFormName) .AND. ! lDialogInMemory
       MsgMiniGuiError("Control: " + ControlName + " of " + ParentFormName + " already defined.")
    ENDIF
 
@@ -553,7 +553,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
       // show message if any
       IF ParentHandle > 0
-         IF _IsControlDefined( "StatusBar", _HMG_aFormNames [ParentHandle] )
+         IF _IsControlDefined("StatusBar", _HMG_aFormNames[ParentHandle])
             IF !Empty(oGet:message)
                SetProperty( _HMG_aFormNames [ParentHandle], "StatusBar", "Item", 1, oGet:message )
             ENDIF
@@ -658,7 +658,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
       // message
       IF ParentHandle > 0
 
-         IF _IsControlDefined ( "StatusBar" , _HMG_aFormNames [ParentHandle] )
+         IF _IsControlDefined("StatusBar", _HMG_aFormNames[ParentHandle])
 
             IF ValType(_HMG_DefaultStatusBarMessage) == "C" .AND. _IsOwnerDrawStatusBarItem( _HMG_aControlContainerHandle[i], 1 )
                SetProperty( _HMG_aFormNames [ParentHandle], "StatusBar", "Item", 1, _HMG_DefaultStatusBarMessage )

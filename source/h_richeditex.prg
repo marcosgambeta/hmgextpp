@@ -140,11 +140,11 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
       ENDIF
    ENDIF
 
-   IF !_IsWindowDefined ( ParentForm )
+   IF !_IsWindowDefined(ParentForm)
       MsgHMGError( "Window: " + ParentForm + " is not defined." )
    ENDIF
 
-   IF _IsControlDefined ( ControlName, ParentForm )
+   IF _IsControlDefined(ControlName, ParentForm)
       MsgHMGError ( "Control: " + ControlName + " Of " + ParentForm + " Already defined." )
    ENDIF
 

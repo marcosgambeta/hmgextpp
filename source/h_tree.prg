@@ -93,11 +93,11 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
    ENDIF
    STATIC _HMG_lDialogInMemory AS GLOBAL VALUE _HMG_DialogInMemory
 
-   IF !_IsWindowDefined ( ParentFormName ) .AND. !_HMG_DialogInMemory
+   IF !_IsWindowDefined(ParentFormName) .AND. !_HMG_DialogInMemory
       MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined ( ControlName, ParentFormName ) .AND. !_HMG_DialogInMemory
+   IF _IsControlDefined(ControlName, ParentFormName) .AND. !_HMG_DialogInMemory
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 

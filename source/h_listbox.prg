@@ -113,11 +113,11 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory
 
-   IF !_IsWindowDefined ( ParentFormName ) .AND. !lDialogInMemory
+   IF !_IsWindowDefined(ParentFormName) .AND. !lDialogInMemory
       MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined ( ControlName, ParentFormName ) .AND. !lDialogInMemory
+   IF _IsControlDefined(ControlName, ParentFormName) .AND. !lDialogInMemory
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 

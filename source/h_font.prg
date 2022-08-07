@@ -58,7 +58,7 @@ PROCEDURE _DefineFont( FontName, fName, fSize, bold, italic, underline, strikeou
    LOCAL mVar
    LOCAL k
 
-   IF _IsControlDefined( FontName, _FORMNAME_ )
+   IF _IsControlDefined(FontName, _FORMNAME_)
       _ReleaseFont( FontName )
    ENDIF
 

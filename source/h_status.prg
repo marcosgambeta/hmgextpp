@@ -73,11 +73,11 @@ FUNCTION _BeginMessageBar( ControlName, ParentForm, kbd, fontname, fontsize, bol
       ParentForm := _HMG_ActiveFormName
    ENDIF
 
-   IF !_IsWindowDefined ( ParentForm )
+   IF !_IsWindowDefined(ParentForm)
       MsgMiniGuiError("Window: " + ParentForm + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined ( ControlName, ParentForm )
+   IF _IsControlDefined(ControlName, ParentForm)
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentForm + " Already defined.")
    ENDIF
 
@@ -202,7 +202,7 @@ FUNCTION _DefineItemMessage ( ControlName, ParentControl, x, y, Caption, Procedu
       ParentForm := _HMG_ActiveFormName
    ENDIF
 
-   IF !_IsWindowDefined ( ParentForm )
+   IF !_IsWindowDefined(ParentForm)
       MsgMiniGuiError("Window: " + ParentForm + " is not defined.")
    ENDIF
 

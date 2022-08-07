@@ -82,11 +82,11 @@ FUNCTION _DefineProgressWheel ( cControlName, cParentForm, nCol, nRow, nWidth, ;
       cParentForm := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
    ENDIF
 
-   IF !_IsWindowDefined ( cParentForm )
+   IF !_IsWindowDefined(cParentForm)
       MsgMiniGuiError("Window: " + cParentForm + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined ( cControlName, cParentForm )
+   IF _IsControlDefined(cControlName, cParentForm)
       MsgMiniGuiError("Control: " + cControlName + " Of " + cParentForm + " Already defined.")
    ENDIF
 

@@ -196,11 +196,11 @@ FUNCTION _DefinePropGrid ( ControlName, ParentFormName, row, col, width, height,
       ParentFormName := _HMG_ActiveFrameParentFormName [_HMG_FrameLevel]
    ENDIF
 
-   IF !_IsWindowDefined ( ParentFormName )
+   IF !_IsWindowDefined(ParentFormName)
       MsgMiniGuiError("Window: " + ParentFormName + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined ( ControlName, ParentFormName )
+   IF _IsControlDefined(ControlName, ParentFormName)
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
@@ -421,7 +421,7 @@ FUNCTION PgBtnEvents( hwndPG, HwndBtn )
             _ChangeBtnState(  aHandle, .F. , i )
          ENDIF
          IF  nBtn == PGB_OK
-            DoMethod( GetParentFormName( i ) , "Release" )
+            DoMethod(GetParentFormName(i), "Release")
          ENDIF
       CASE nBtn == PGB_CANCEL
          IF ValType(_HMG_aControlValue[i]) == "B"
@@ -2573,7 +2573,7 @@ FUNCTION ArrayDlg( cArr, FormName )
       cData := "", ;
       cNewArr := "", ;
       lOk     := .F.
-   IF _IsWIndowDefined ( FormName )
+   IF _IsWIndowDefined(FormName)
       aPos := GetCursorPos()
       nRow := DialogUnitsY( aPos[1] )
       nCol := DialogUnitsX( aPos[2] )

@@ -3654,17 +3654,17 @@ FUNCTION _ReleaseControl ( ControlName, ParentForm )
       AEval( _HMG_aControlHandles[i], { |y| ReleaseControl ( y ) } )
 
    CASE t == CONTROL_TYPE_MESSAGEBAR
-      IF _IsControlDefined ( "StatusBarKbd" , ParentForm )
+      IF _IsControlDefined("StatusBarKbd", ParentForm)
          ReleaseControl ( _HMG_aControlHandles [GetControlIndex("StatusBarKbd", ParentForm)] )
          _EraseControl ( GetControlIndex("StatusBarKbd", ParentForm) , k )
       ENDIF
 
-      IF _IsControlDefined ( "StatusTimer" , ParentForm )
+      IF _IsControlDefined("StatusTimer", ParentForm)
          ReleaseControl ( _HMG_aControlHandles [GetControlIndex("StatusTimer", ParentForm)] )
          _EraseControl ( GetControlIndex("StatusTimer", ParentForm) , k )
       ENDIF
 
-      IF _IsControlDefined ( "StatusKeyBrd" , ParentForm )
+      IF _IsControlDefined("StatusKeyBrd", ParentForm)
          ReleaseControl ( _HMG_aControlHandles [GetControlIndex("StatusKeyBrd", ParentForm)] )
          _EraseControl ( GetControlIndex("StatusKeyBrd", ParentForm) , k )
       ENDIF
@@ -4034,7 +4034,7 @@ PROCEDURE SetProperty( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 )
 
    CASE 3 // PCount() == 3 (WINDOW)
 
-      IF !_IsWindowDefined ( Arg1 )
+      IF !_IsWindowDefined(Arg1)
          MsgMiniGuiError("Window: " + Arg1 + " is not defined.")
       ENDIF
 
@@ -4742,7 +4742,7 @@ PROCEDURE SetProperty( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 )
 
          ELSE
 
-            IF _IsControlDefined ( Arg4 , Arg1 )
+            IF _IsControlDefined(Arg4, Arg1)
                IsControlInsideSplitBox ( Arg1 , Arg4 )
                SetProperty ( Arg1 , Arg3 , Arg4 , Arg5 , Arg6 )
             ELSE
@@ -4875,7 +4875,7 @@ FUNCTION GetProperty ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7, Arg8 )
 
    CASE 2 // PCount() == 2 (WINDOW)
 
-      IF !_IsWindowDefined ( Arg1 )
+      IF !_IsWindowDefined(Arg1)
          MsgMiniGuiError("Window: " + Arg1 + " is not defined.")
       ENDIF
 
@@ -5063,7 +5063,7 @@ FUNCTION GetProperty ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7, Arg8 )
       NEXT
 #endif
       IF ( Upper(Arg2) == "VSCROLLBAR" .OR. Upper(Arg2) == "HSCROLLBAR" )
-         IF !_IsWindowDefined ( Arg1 )
+         IF !_IsWindowDefined(Arg1)
             MsgMiniGuiError("Window: " + Arg1 + " is not defined.")
          ENDIF
       ELSE
@@ -5622,7 +5622,7 @@ FUNCTION GetProperty ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7, Arg8 )
 
          ELSE
 
-            IF _IsControlDefined ( Arg4 , Arg1 )
+            IF _IsControlDefined(Arg4, Arg1)
                IsControlInsideSplitBox ( Arg1 , Arg4 )
                RetVal := GetProperty ( Arg1 , Arg3 , Arg4 , Arg5 )
             ELSE
@@ -5717,7 +5717,7 @@ FUNCTION GetProperty ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7, Arg8 )
 RETURN RetVal
 
 *-----------------------------------------------------------------------------*
-FUNCTION DoMethod ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 , Arg9 )
+FUNCTION DoMethod(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9)
 *-----------------------------------------------------------------------------*
    LOCAL i
 #ifdef _USERINIT_
@@ -5725,7 +5725,7 @@ FUNCTION DoMethod ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 , Arg9
 #endif
 
 #ifdef _HMG_COMPAT_
-   IF _RichEditBox_DoMethod ( Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9 ) == .T.
+   IF _RichEditBox_DoMethod(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9) == .T.
       RETURN NIL
    ENDIF
 #endif
@@ -5733,7 +5733,7 @@ FUNCTION DoMethod ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 , Arg9
    IF PCount() == 2 // Window
 
       IF ValType(Arg1) == "C"
-         IF !_IsWindowDefined ( Arg1 )
+         IF !_IsWindowDefined(Arg1)
             MsgMiniGuiError("Window: " + Arg1 + " is not defined.")
          ENDIF
       ENDIF
@@ -5959,7 +5959,7 @@ FUNCTION DoMethod ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 , Arg9
 #endif
       IF Upper(Arg2) == "SPLITBOX"
          IsControlInsideSplitBox ( Arg1 , Arg3 )
-         DoMethod( Arg1 , Arg3 , Arg4 )
+         DoMethod(Arg1, Arg3, Arg4)
          RETURN Nil
       ELSE
          VerifyControlDefined ( Arg1 , Arg2 )
@@ -6053,7 +6053,7 @@ FUNCTION DoMethod ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 , Arg9
 #endif
       IF Upper(Arg2) == "SPLITBOX"
          IsControlInsideSplitBox ( Arg1 , Arg3 )
-         DoMethod( Arg1 , Arg3 , Arg4 , Arg5 )
+         DoMethod(Arg1, Arg3, Arg4, Arg5)
          RETURN Nil
       ELSE
          VerifyControlDefined ( Arg1 , Arg2 )
@@ -6096,7 +6096,7 @@ FUNCTION DoMethod ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 , Arg9
    ELSEIF PCount() == 5  .AND. ValType(Arg3) == "N" // TAB CHILD WITHOUT ARGUMENTS
 
       IsControlInTabPage ( Arg1 , Arg2 , Arg3 , Arg4 )
-      DoMethod ( Arg1 , Arg4 , Arg5 )
+      DoMethod(Arg1, Arg4, Arg5)
 
    ELSEIF PCount() == 6 .AND. ValType(Arg3) == "C" // CONTROL WITH 3 ARGUMENTS OR SPLITBOX CHILD WITH 2 ARGUMENTS
 
@@ -6119,7 +6119,7 @@ FUNCTION DoMethod ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 , Arg9
 #endif
       IF Upper(Arg2) == "SPLITBOX"
          IsControlInsideSplitBox ( Arg1 , Arg3 )
-         DoMethod( Arg1 , Arg3 , Arg4 , Arg5 , Arg6 )
+         DoMethod(Arg1, Arg3, Arg4, Arg5, Arg6)
          RETURN Nil
       ELSE
          VerifyControlDefined ( Arg1 , Arg2 )
@@ -6138,7 +6138,7 @@ FUNCTION DoMethod ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 , Arg9
    ELSEIF PCount() == 6 .AND. ValType(Arg3) == "N" // TAB CHILD WITH 1 ARGUMENT
 
       IsControlInTabPage ( Arg1 , Arg2 , Arg3 , Arg4 )
-      DoMethod ( Arg1 , Arg4 , Arg5 , Arg6 )
+      DoMethod(Arg1, Arg4, Arg5, Arg6)
 
    ELSEIF PCount() == 7 .AND. ValType(Arg3) == "C" // CONTROL WITH 4 ARGUMENTS OR SPLITBOX CHILD WITH 3 ARGUMENTS
 
@@ -6161,7 +6161,7 @@ FUNCTION DoMethod ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 , Arg9
 #endif
       IF Upper(Arg2) == "SPLITBOX"
          IsControlInsideSplitBox ( Arg1 , Arg3 )
-         DoMethod( Arg1 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 )
+         DoMethod(Arg1, Arg3, Arg4, Arg5, Arg6, Arg7)
          RETURN Nil
       ELSE
          VerifyControlDefined ( Arg1 , Arg2 )
@@ -6196,32 +6196,32 @@ FUNCTION DoMethod ( Arg1 , Arg2 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 , Arg9
    ELSEIF PCount() == 7 .AND. ValType(Arg3) == "N" // TAB CHILD WITH 2 ARGUMENTS
 
       IsControlInTabPage ( Arg1 , Arg2 , Arg3 , Arg4 )
-      DoMethod ( Arg1 , Arg4 , Arg5 , Arg6 , Arg7 )
+      DoMethod(Arg1, Arg4, Arg5, Arg6, Arg7)
 
    ELSEIF PCount() == 8 // TAB CHILD WITH 3 ARGUMENTS OR SPLITBOX CHILD WITH 4 ARGUMENTS
 
       IF Upper(Arg2) == "SPLITBOX"
          IsControlInsideSplitBox ( Arg1 , Arg3 )
-         DoMethod( Arg1 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 )
+         DoMethod(Arg1, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          RETURN Nil
       ENDIF
 
       IF ValType(Arg3) == "N"
          IsControlInTabPage ( Arg1 , Arg2 , Arg3 , Arg4 )
-         DoMethod ( Arg1 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 )
+         DoMethod(Arg1, Arg4, Arg5, Arg6, Arg7, Arg8)
       ENDIF
 
    ELSEIF PCount() == 9 // TAB CHILD WITH 4 ARGUMENTS OR SPLITBOX CHILD WITH 5 ARGUMENTS
 
       IF Upper(Arg2) == "SPLITBOX"
          IsControlInsideSplitBox ( Arg1 , Arg3 )
-         DoMethod( Arg1 , Arg3 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 , Arg9 )
+         DoMethod(Arg1, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9)
          RETURN Nil
       ENDIF
 
       IF ValType(Arg3) == "N"
          IsControlInTabPage ( Arg1 , Arg2 , Arg3 , Arg4 )
-         DoMethod ( Arg1 , Arg4 , Arg5 , Arg6 , Arg7 , Arg8 , Arg9 )
+         DoMethod(Arg1, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9)
       ENDIF
 
    ENDIF
@@ -6314,7 +6314,7 @@ STATIC PROCEDURE GroupDeleteAllItems ( cControlName, cParentName, nGroupID )
       FOR i := 1 TO nItemCount
 
          IF GetProperty ( cParentName, cControlName, "GroupItemID", i ) == nGroupID
-            DoMethod ( cParentName, cControlName, "DeleteItem", i )
+            DoMethod(cParentName, cControlName, "DeleteItem", i)
          ENDIF
 
       NEXT i
@@ -6372,7 +6372,7 @@ STATIC FUNCTION _ProgressWheel_GetProperty ( xData, Arg1, Arg2, Arg3 )
    LOCAL RetVal := .F.
 
    IF ( ValType(Arg1) <> "C" ) .OR. ( ValType(Arg2) <> "C" ) .OR. ( ValType(Arg3) <> "C" ) .OR. ;
-      ( _IsControlDefined ( Arg2, Arg1 ) == .F. ) .OR. ( GetControlType ( Arg2, Arg1 ) <> "PROGRESSWHEEL" )
+      ( _IsControlDefined(Arg2, Arg1) == .F. ) .OR. ( GetControlType ( Arg2, Arg1 ) <> "PROGRESSWHEEL" )
       RETURN .F.
    ENDIF
 
@@ -6433,7 +6433,7 @@ STATIC FUNCTION _ProgressWheel_SetProperty ( Arg1, Arg2, Arg3, Arg4 )
    LOCAL RetVal := .F.
 
    IF ( ValType(Arg1) <> "C" ) .OR. ( ValType(Arg2) <> "C" ) .OR. ( ValType(Arg3) <> "C" ) .OR. ;
-      ( _IsControlDefined( Arg2, Arg1 ) == .F. ) .OR. ( GetControlType( Arg2, Arg1 ) <> "PROGRESSWHEEL" )
+      ( _IsControlDefined(Arg2, Arg1) == .F. ) .OR. ( GetControlType( Arg2, Arg1 ) <> "PROGRESSWHEEL" )
       RETURN .F.
    ENDIF
 
@@ -6493,7 +6493,7 @@ RETURN RetVal
 STATIC PROCEDURE VerifyControlDefined ( cParentName , cControlName )
 *-----------------------------------------------------------------------------*
 
-   IF !Empty(cControlName) .AND. ! _IsControlDefined ( cControlName , cParentName )
+   IF !Empty(cControlName) .AND. ! _IsControlDefined(cControlName, cParentName)
       MsgMiniGuiError("Control: " + cControlName + " Of " + cParentName + " Not defined.")
    ENDIF
 
@@ -6634,7 +6634,7 @@ STATIC FUNCTION _SetArrayToControl ( ControlName , ParentForm , aValue )  // GF 
 
       BackValue := _GetValue ( , , i )
       _DeleteAllItems ( ControlName, ParentForm )
-      aEval( aValue, { | row | DoMethod ( ParentForm, ControlName, "AddItem", row ) } )
+      aEval( aValue, { | row | DoMethod(ParentForm, ControlName, "AddItem", row) } )
 
       _SetValue ( , , BackValue , i )
 
@@ -6652,7 +6652,7 @@ STATIC FUNCTION _SetArrayToControl ( ControlName , ParentForm , aValue )  // GF 
 
          BackValue := _GetValue ( , , i )
          _DeleteAllItems ( ControlName, ParentForm )
-         aEval( aValue, { | row | DoMethod ( ParentForm, ControlName, "AddItem", row ) } )
+         aEval( aValue, { | row | DoMethod(ParentForm, ControlName, "AddItem", row) } )
 
          _SetValue ( , , BackValue , i )
       ENDIF
@@ -6743,7 +6743,7 @@ STATIC FUNCTION _RichEditBox_GetProperty ( xData, Arg1, Arg2, Arg3, Arg4, Arg5, 
    LOCAL RetVal := .F.
 
    IF ( ValType(Arg1) <> "C" ) .OR. ( ValType(Arg2) <> "C" ) .OR. ( ValType(Arg3) <> "C" ) .OR. ;
-      ( _IsControlDefined( Arg2, Arg1 ) == .F. ) .OR. ( GetControlType( Arg2, Arg1 ) <> "RICHEDIT" ) .OR. (  _HMG_aControlMiscData1 [GetControlIndex(Arg2, Arg1)] <> 1 )
+      ( _IsControlDefined(Arg2, Arg1) == .F. ) .OR. ( GetControlType( Arg2, Arg1 ) <> "RICHEDIT" ) .OR. (  _HMG_aControlMiscData1 [GetControlIndex(Arg2, Arg1)] <> 1 )
       RETURN .F.
    ENDIF
 
@@ -6915,7 +6915,7 @@ STATIC FUNCTION _RichEditBox_SetProperty ( Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, A
    LOCAL RetVal := .F.
 
    IF ( ValType(Arg1) <> "C" ) .OR. ( ValType(Arg2) <> "C" ) .OR. ( ValType(Arg3) <> "C" ) .OR. ;
-      ( _IsControlDefined( Arg2, Arg1 ) == .F. ) .OR. ( GetControlType( Arg2, Arg1 ) <> "RICHEDIT" ) .OR. ( _HMG_aControlMiscData1 [GetControlIndex(Arg2, Arg1)] <> 1 )
+      ( _IsControlDefined(Arg2, Arg1) == .F. ) .OR. ( GetControlType( Arg2, Arg1 ) <> "RICHEDIT" ) .OR. ( _HMG_aControlMiscData1 [GetControlIndex(Arg2, Arg1)] <> 1 )
       RETURN .F.
    ENDIF
 
@@ -7054,13 +7054,13 @@ STATIC FUNCTION _RichEditBox_SetProperty ( Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, A
 RETURN RetVal
 
 *-----------------------------------------------------------------------------*
-STATIC FUNCTION _RichEditBox_DoMethod ( Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9 )
+STATIC FUNCTION _RichEditBox_DoMethod(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9)
 *-----------------------------------------------------------------------------*
    LOCAL RetVal := .F.
    LOCAL hWndControl
 
    IF ( ValType(Arg1) <> "C" ) .OR. ( ValType(Arg2) <> "C" ) .OR. ( ValType(Arg3) <> "C" ) .OR. ;
-      ( _IsControlDefined( Arg2, Arg1 ) == .F. ) .OR. ( GetControlType( Arg2, Arg1 ) <> "RICHEDIT" ) .OR. ( _HMG_aControlMiscData1 [GetControlIndex(Arg2, Arg1)] <> 1 )
+      ( _IsControlDefined(Arg2, Arg1) == .F. ) .OR. ( GetControlType( Arg2, Arg1 ) <> "RICHEDIT" ) .OR. ( _HMG_aControlMiscData1 [GetControlIndex(Arg2, Arg1)] <> 1 )
       RETURN .F.
    ENDIF
 
@@ -7344,7 +7344,7 @@ STATIC FUNCTION _SetGetGridProperty ( ControlName, ParentForm, nControl, nColInd
                SetGridColumnJustify ( _HMG_aControlHandles[i], z, Value )
             ENDIF
 
-            DoMethod ( ParentForm, ControlName, "Refresh" )
+            DoMethod(ParentForm, ControlName, "Refresh")
 
          ELSE
 
@@ -8457,7 +8457,7 @@ FUNCTION _IsControlEnabled ( ControlName, ParentForm, Position )
 RETURN RetVal
 
 *-----------------------------------------------------------------------------*
-FUNCTION _IsControlDefined ( ControlName, FormName )
+FUNCTION _IsControlDefined(ControlName, FormName)
 *-----------------------------------------------------------------------------*
    LOCAL mVar
    LOCAL i

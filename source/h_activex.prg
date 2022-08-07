@@ -84,11 +84,11 @@ PROCEDURE _DefineActivex ( cControlName, cParentForm, nRow, nCol, nWidth, nHeigh
       cParentForm := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
 
-   IF !_IsWindowDefined ( cParentForm )
+   IF !_IsWindowDefined(cParentForm)
       MsgMiniGuiError("Window: " + cParentForm + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined ( cControlName, cParentForm )
+   IF _IsControlDefined(cControlName, cParentForm)
       MsgMiniGuiError("Control: " + cControlName + " Of " + cParentForm + " Already defined.")
    ENDIF
 
@@ -186,7 +186,7 @@ PROCEDURE ReleaseActiveX ( cWindow, cControl )
 *-----------------------------------------------------------------------------*
    LOCAL oActiveX
 
-   IF _IsControlDefined ( cControl, cWindow ) .AND. GetControlType ( cControl, cWindow ) == "ACTIVEX"
+   IF _IsControlDefined(cControl, cWindow) .AND. GetControlType ( cControl, cWindow ) == "ACTIVEX"
 
       oActiveX := _HMG_aControlIds[GetControlIndex(cControl, cWindow)]
 

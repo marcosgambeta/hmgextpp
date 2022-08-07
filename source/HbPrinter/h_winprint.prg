@@ -2380,7 +2380,7 @@ RETURN self
 METHOD PrintOption() CLASS HBPrinter
 
    LOCAL OKprint := .F.
-   IF IsWindowDefined( PrOpt ) == .F.
+   IF IsWindowDefined(PrOpt) == .F.
 
       DEFINE WINDOW PrOpt ;
          WIDTH 355 HEIGHT 168 ;

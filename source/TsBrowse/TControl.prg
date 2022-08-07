@@ -753,7 +753,7 @@ METHOD SetMsg( cText, lDefault ) CLASS TControl
     cParentWnd := iif( _HMG_MainClientMDIHandle == 0, ::cParentWnd, _HMG_MainClientMDIName )
 
     if _IsWindowActive ( cParentWnd )
-      if _IsControlDefined ( "StatusBar" , cParentWnd )
+      if _IsControlDefined("StatusBar", cParentWnd)
          if !lDefault
             cOldText := GetItemBar( _HMG_ActiveStatusHandle, ::nStatusItem )
             if !(AllTrim(cOldText) == AllTrim(cText))

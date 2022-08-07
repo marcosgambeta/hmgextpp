@@ -140,12 +140,12 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    lDialogInMemory := _HMG_DialogInMemory
 
 // Check if the window/form is defined.
-   IF !_IsWindowDefined( ParentFormName ) .AND. !lDialogInMemory
+   IF !_IsWindowDefined(ParentFormName) .AND. !lDialogInMemory
       MsgMiniGuiError("Window " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
 // Check if the control is already defined.
-   IF _IsControlDefined( ControlName, ParentFormName ) .AND. !lDialogInMemory
+   IF _IsControlDefined(ControlName, ParentFormName) .AND. !lDialogInMemory
       MsgMiniGuiError("Control " + ControlName + " of " + ParentFormName + " already defined.")
    ENDIF
 

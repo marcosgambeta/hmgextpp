@@ -81,11 +81,11 @@ FUNCTION _DefineHotKeyBox ( ControlName, ParentForm, x, y, w, h, value, fontname
       ParentForm := _HMG_ActiveFrameParentFormName [_HMG_FrameLevel]
    ENDIF
 
-   IF !_IsWindowDefined ( ParentForm )
+   IF !_IsWindowDefined(ParentForm)
       MsgMiniGuiError("Window: " + ParentForm + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined ( ControlName, ParentForm )
+   IF _IsControlDefined(ControlName, ParentForm)
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentForm + " Already defined.")
    ENDIF
 

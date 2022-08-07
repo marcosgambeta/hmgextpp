@@ -80,9 +80,9 @@ FUNCTION _BeginScrSaver( cSSaver, lNoShow, cInit, cRelease, cPaint, nTimer, aBac
          ON INIT ( ShowCursor( .F. ), ;
             SystemParametersInfo( SPI_SCREENSAVERRUNNING, 1, @Dummy, 0 ) );
          ON RELEASE _ReleaseScrSaver( cRelease, cSSaver, cPaint );
-         ON MOUSECLICK iif( _lValidScrSaver(), DoMethod ( cSSaver, "Release" ), );
+         ON MOUSECLICK iif( _lValidScrSaver(), DoMethod(cSSaver, "Release"), );
          ON MOUSEMOVE ( a := GetCursorPos(), iif( a[1] <> y / 2 .AND. a[2] <> x / 2,;
-            iif( _lValidScrSaver(), DoMethod( cSSaver, "Release" ) , ), ) );
+            iif( _lValidScrSaver(), DoMethod(cSSaver, "Release") , ), ) );
          BACKCOLOR aBackClr
    ELSE
 
@@ -94,9 +94,9 @@ FUNCTION _BeginScrSaver( cSSaver, lNoShow, cInit, cRelease, cPaint, nTimer, aBac
          ON INIT ( ShowCursor( .F. ), ;
             SystemParametersInfo( SPI_SCREENSAVERRUNNING, 1, @Dummy, 0 ) );
          ON RELEASE _ReleaseScrSaver( cRelease, cSSaver, cPaint );
-         ON MOUSECLICK iif( _lValidScrSaver(), DoMethod ( cSSaver, "Release" ), );
+         ON MOUSECLICK iif( _lValidScrSaver(), DoMethod(cSSaver, "Release"), );
          ON MOUSEMOVE ( a := GetCursorPos(), iif( a[1] <> y / 2 .AND. a[2] <> x / 2,;
-            iif( _lValidScrSaver(), DoMethod( cSSaver, "Release" ) , ), ) );
+            iif( _lValidScrSaver(), DoMethod(cSSaver, "Release") , ), ) );
          BACKCOLOR aBackClr
    ENDIF
 

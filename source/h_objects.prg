@@ -1016,7 +1016,7 @@ CLASS TWndData
    METHOD Show() INLINE _ShowWindow( ::cName )
    METHOD Hide() INLINE _HideWindow( ::cName )
    METHOD SetFocus( xName ) INLINE iif( Empty(xName), SetFocus( ::nHandle ), ;
-      iif( HB_ISOBJECT( ::GetObj( xName ) ), ::GetObj( xName ):SetFocus(), DoMethod( ::cName, xName, "SetFocus" ) ) )
+      iif( HB_ISOBJECT( ::GetObj( xName ) ), ::GetObj( xName ):SetFocus(), DoMethod(::cName, xName, "SetFocus") ) )
    METHOD SetSize( y, x, w, h ) INLINE _SetWindowSizePos( ::cName, y, x, w, h )
 
    _METHOD DoEvent( Key, nHandle )
@@ -1100,7 +1100,7 @@ METHOD GetObj4Type( cType, lEque ) CLASS TWndData
          ::oName:Eval( {| oc | iif( lEque, iif( cType == oc:cType, AAdd(aObj, oc), ), iif( cType $ oc:cType, AAdd(aObj, oc), ) ) } )
       NEXT
       FOR EACH o IN aObj
-         IF _IsControlDefined( o:Name, o:Window:Name )
+         IF _IsControlDefined(o:Name, o:Window:Name)
             aAdd(aRet, o)
          ENDIF
       NEXT
@@ -1114,7 +1114,7 @@ METHOD GetObj4Name( cName ) CLASS TWndData
 
    IF !Empty(cName)
       FOR EACH cName IN hb_ATokens( Upper(cName), ::cChr )
-         ::oName:Eval( {| oc | iif( _IsControlDefined( oc:Name, oc:Window:Name ), ;
+         ::oName:Eval( {| oc | iif( _IsControlDefined(oc:Name, oc:Window:Name), ;
             iif( cName $ Upper(oc:cName), AAdd(aObj, oc), Nil ), Nil ) } )
       NEXT
    ENDIF

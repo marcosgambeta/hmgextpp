@@ -84,11 +84,11 @@ FUNCTION _DefineWebCam ( ControlName, ParentForm, x, y, w, h, lStart, nRate, TOO
       ParentForm := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
 
-   IF !_IsWindowDefined ( ParentForm )
+   IF !_IsWindowDefined(ParentForm)
       MsgMiniGuiError("Window: " + ParentForm + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined ( ControlName, ParentForm )
+   IF _IsControlDefined(ControlName, ParentForm)
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentForm + " Already defined.")
    ENDIF
 
@@ -212,7 +212,7 @@ PROCEDURE _ReleaseWebCam ( cWindow, cControl )
 *------------------------------------------------------------------------------*
    LOCAL hWnd
 
-   IF _IsControlDefined ( cControl, cWindow ) .AND. GetControlType ( cControl, cWindow ) == "WEBCAM"
+   IF _IsControlDefined(cControl, cWindow) .AND. GetControlType ( cControl, cWindow ) == "WEBCAM"
 
       hWnd := GetControlHandle ( cControl, cWindow )
 

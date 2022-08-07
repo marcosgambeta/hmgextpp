@@ -65,11 +65,11 @@ FUNCTION _DefinePlayer ( ControlName, ParentFormName, file, x, y, w, h, noasw, n
       ParentFormName := _HMG_ActiveFrameParentFormName [_HMG_FrameLevel]
    ENDIF
 
-   IF !_IsWindowDefined ( ParentFormName )
+   IF !_IsWindowDefined(ParentFormName)
       MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined ( ControlName, ParentFormName )
+   IF _IsControlDefined(ControlName, ParentFormName)
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
@@ -222,11 +222,11 @@ FUNCTION _DefineAnimateBox( ControlName, ParentFormName, x, y, w, h, autoplay, c
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory
 
-   IF !_IsWindowDefined ( ParentFormName ) .AND. !lDialogInMemory
+   IF !_IsWindowDefined(ParentFormName) .AND. !lDialogInMemory
       MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined ( ControlName, ParentFormName ) .AND. !lDialogInMemory
+   IF _IsControlDefined(ControlName, ParentFormName) .AND. !lDialogInMemory
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 

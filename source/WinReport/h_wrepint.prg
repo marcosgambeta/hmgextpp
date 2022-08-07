@@ -460,9 +460,9 @@ Function R_mem(Last)
    default last to .F.
    hbprn:end()
    if !last
-      domethod("form_splash","HIDE")
+      domethod("form_splash", "HIDE")
    Endif
-   domethod("form_splash","release")
+   domethod("form_splash", "release")
    release miocont,counter,Gcounter,grdemo,gcdemo,Align,GField
    release s_head,s_col,gftotal,Gfexec,s_total,t_col,nline,nPag,nPgr,Tpg,last_pag,eLine,wheregt
    release GFline,mx_pg,maxrow,ONEATLEAST,shd,sbt,sgh,insgh,TTS, abort
@@ -1161,11 +1161,11 @@ METHOD Splash(etichetta,prc_init,sezione,rit) CLASS WREPORT
    default prc_init to "_dummy_("+sezione+")"
    default rit to .F.
    ritspl := rit
-   if _IsWIndowDefined ( "Form_splash" )
+   if _IsWIndowDefined("Form_splash")
       Setproperty ("FORM_SPLASH","Label_1","VALUE", ::aStat [ "lblsplash" ] )
-      domethod("FORM_SPLASH","SHOW")
+      domethod("FORM_SPLASH", "SHOW")
       if ("doPr" $ prc_init,::doPr(),::doMiniPr())
-      DOMETHOD("FORM_SPLASH","RELEASE")
+      DOMETHOD("FORM_SPLASH", "RELEASE")
       return nil
    Endif
    if empty(etichetta)

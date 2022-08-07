@@ -32,11 +32,11 @@ FUNCTION _DefineRating ( ControlName, ParentForm, x, y, w, h, nValue, aImages, n
       ParentForm := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
 
-   IF !_IsWindowDefined ( ParentForm )
+   IF !_IsWindowDefined(ParentForm)
       MsgMiniGuiError("Window: " + ParentForm + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined ( ControlName, ParentForm )
+   IF _IsControlDefined(ControlName, ParentForm)
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentForm + " Already defined.")
    ENDIF
 
@@ -111,11 +111,11 @@ PROCEDURE _ReleaseRating ( cWindow, cControl )
 *-----------------------------------------------------------------------------*
    LOCAL i, img_name
 
-   IF _IsControlDefined ( cControl, cWindow )
+   IF _IsControlDefined(cControl, cWindow)
 
       FOR i := 1 TO GetControlId ( cControl, cWindow )
          img_name := cWindow + "_" + cControl + "_" + hb_ntos( i )
-         DoMethod( cWindow, img_name, "Release" )
+         DoMethod(cWindow, img_name, "Release")
       NEXT
 
       EraseWindow( cWindow )

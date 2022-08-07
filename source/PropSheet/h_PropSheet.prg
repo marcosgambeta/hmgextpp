@@ -261,7 +261,7 @@ FUNCTION _DefinePropSheet ( FormName, ParentForm,  y, x, w, h,  caption, IdIcon,
       MsgMiniGuiError("Main Window Not Defined.")
    ENDIF
 
-   IF _IsWindowDefined ( FormName )
+   IF _IsWindowDefined(FormName)
       MsgMiniGuiError("Property Sheet: " + FormName + " already defined.")
    ENDIF
 
@@ -459,7 +459,7 @@ FUNCTION _DefineSheetPage ( DialogName, Id, cTitle, HdTitle, SubHdTitle, HideHea
    IF Id == 0
       MsgMiniGuiError("PROPERTY SHEET Structures only from Resourses.")
    ENDIF
-   IF _IsWindowDefined ( DialogName )
+   IF _IsWindowDefined(DialogName)
       MsgMiniGuiError("Dialog: " + DialogName + " already defined.")
    ENDIF
 
@@ -504,7 +504,7 @@ FUNCTION _BeginSheetPage ( DialogName, Id, cTitle, HdTitle, SubHdTitle, HideHead
    _HMG_aDialogItems          := {}
    _HMG_aDialogTemplate       := _HMG_aPropSheetTemplate
 
-   IF _IsWindowDefined ( DialogName )
+   IF _IsWindowDefined(DialogName)
       MsgMiniGuiError("Dialog: " + DialogName + " already defined.")
    ENDIF
 

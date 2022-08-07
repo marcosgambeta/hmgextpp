@@ -1165,7 +1165,7 @@ STATIC FUNCTION ABM2AlEntrar()
       ENDIF
    ENDDO
 
-   DoMethod( "wndABM2EditNuevoSplit", _aControl[_nControlActivo, ABM_CON_NAME], "SetFocus" )
+   DoMethod("wndABM2EditNuevoSplit", _aControl[_nControlActivo, ABM_CON_NAME], "SetFocus")
 
 RETURN NIL
 

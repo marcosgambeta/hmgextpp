@@ -40,11 +40,11 @@ PROCEDURE _DefineSplitButton ( cName, nRow, nCol, cCaption, bAction, cParent, ;
       cParent := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
 
-   IF !_IsWindowDefined ( cParent )
+   IF !_IsWindowDefined(cParent)
       MsgMiniGuiError("Window: " + cParent + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined ( cName, cParent )
+   IF _IsControlDefined(cName, cParent)
       MsgMiniGuiError("Control: " + cName + " Of " + cParent + " Already defined.")
    ENDIF
 

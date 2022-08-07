@@ -85,11 +85,11 @@ FUNCTION _DefineAnimateRes ( ControlName, ParentForm, x, y, w, h, cFile, nRes, ;
       ParentForm := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel ]
    ENDIF
 
-   IF !_IsWindowDefined ( ParentForm )
+   IF !_IsWindowDefined(ParentForm)
       MsgMiniGuiError("Window: " + ParentForm + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined ( ControlName, ParentForm )
+   IF _IsControlDefined(ControlName, ParentForm)
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentForm + " Already defined.")
    ENDIF
 
@@ -241,7 +241,7 @@ RETURN RetVal
 PROCEDURE ReleaseAnimateRes ( cWindow, cControl )
 *------------------------------------------------------------------------------*
 
-   IF _IsControlDefined ( cControl, cWindow ) .AND. GetControlType ( cControl, cWindow ) == "ANIMATERES"
+   IF _IsControlDefined(cControl, cWindow) .AND. GetControlType ( cControl, cWindow ) == "ANIMATERES"
 
       UnloadAnimateLib( _GetControlObject ( cControl, cWindow ) )
 

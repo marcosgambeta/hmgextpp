@@ -107,9 +107,9 @@ FUNCTION HMG_Alert( cMsg, aOptions, cTitle, nType, cIcoFile, nIcoSize, aBtnColor
    ENDIF
    STATIC _HMG_PressButton AS GLOBAL VALUE .F.
 
-   IF _IsWindowDefined( cForm )
+   IF _IsWindowDefined(cForm)
       nLineas := 0
-      WHILE _IsWindowDefined( cForm := "oDlg" + hb_ntos( ++nLineas ) )
+      WHILE _IsWindowDefined(cForm := "oDlg" + hb_ntos( ++nLineas ))
       END
    ENDIF
 
@@ -456,7 +456,7 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
       Do_WindowEventProcedure( bBlock, This.Index, "WINDOW_INIT" )
    ENDIF
 
-   IF _IsControlDefined( "oTimer", cForm )
+   IF _IsControlDefined("oTimer", cForm)
       This.oTimer.Enabled := .T.
    ENDIF
 

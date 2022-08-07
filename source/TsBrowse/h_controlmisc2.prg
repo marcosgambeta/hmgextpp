@@ -350,9 +350,9 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
       oParam:aFont := { "Normal", "Bold", "Bold", "Italic", "Bold" }
    ENDIF
 
-   IF _IsControlDefined( cBrw, cForm )
+   IF _IsControlDefined(cBrw, cForm)
       i := 0
-      WHILE _IsControlDefined( j := cBrw + "_" + hb_ntos( ++i ), cForm )
+      WHILE _IsControlDefined(j := cBrw + "_" + hb_ntos( ++i ), cForm)
       END
       cBrw := j
    ENDIF
@@ -371,7 +371,7 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
            nX := 0, ;
            nW := _GetClientRect( hForm )[3] - nX * 2,  ;           // GetClientWidth
            nH := _GetClientRect( hForm )[4] - nY - 1 - ;           // GetClientHeight
-                 iif( _IsControlDefined( "StatusBar", cForm ), GetProperty( cForm, "StatusBar", "Height" ), 0 )
+                 iif( _IsControlDefined("StatusBar", cForm), GetProperty( cForm, "StatusBar", "Height" ), 0 )
 
    DEFAULT aColor := { ;
           { CLR_FOCUSF, GetSysColor( COLOR_WINDOWTEXT ) }, ;

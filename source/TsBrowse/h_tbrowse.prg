@@ -261,11 +261,11 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
       ParentFormName := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
 
-   IF !_IsWindowDefined( ParentFormName ) .AND. !_HMG_DialogInMemory
+   IF !_IsWindowDefined(ParentFormName) .AND. !_HMG_DialogInMemory
       MsgMiniGuiError("Window: " + ParentFormName + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined( ControlName, ParentFormName ) .AND. !_HMG_DialogInMemory
+   IF _IsControlDefined(ControlName, ParentFormName) .AND. !_HMG_DialogInMemory
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " already defined.")
    ENDIF
 
@@ -10797,7 +10797,7 @@ METHOD LostFocus( hCtlFocus ) CLASS TSBrowse
    IF ::lEditing
 
       IF ::aColumns[::nCell]:oEdit != NIL
-         IF IsControlDefined( ::cChildControl, ::cParentWnd )
+         IF IsControlDefined(::cChildControl, ::cParentWnd)
             ::aColumns[::nCell]:oEdit:End()
             ::aColumns[::nCell]:oEdit := NIL
          ENDIF

@@ -108,7 +108,7 @@ Local icb
 		Return
 	EndIf
 
-	if _IsWindowDefined ( "_HMG_PRINTER_SHOWPREVIEW" )
+	if _IsWindowDefined("_HMG_PRINTER_SHOWPREVIEW")
 		Return
 	endif
 
@@ -300,7 +300,7 @@ Local icb
 			Value _hmg_printer_copies
 			RangeMin 1
 			RangeMax 999
-			OnChange iif( IsControlDefined (CheckBox_1,_HMG_PRINTER_PRINTPAGES) , iif( This.Value > 1 , SetProperty( "_HMG_PRINTER_PRINTPAGES" , "CheckBox_1","Enabled",.T.) , SetProperty( "_HMG_PRINTER_PRINTPAGES","CheckBox_1","Enabled", .F. ) ) , Nil )
+			OnChange iif( IsControlDefined(CheckBox_1, _HMG_PRINTER_PRINTPAGES) , iif( This.Value > 1 , SetProperty( "_HMG_PRINTER_PRINTPAGES" , "CheckBox_1","Enabled",.T.) , SetProperty( "_HMG_PRINTER_PRINTPAGES","CheckBox_1","Enabled", .F. ) ) , Nil )
 		End Spinner
 
 		Define CheckBox CheckBox_1
@@ -625,7 +625,7 @@ Local i
 Local cMacroTemp
 Local cAction
 
-	If _IsControlDefined ( "Image1" , "_HMG_PRINTER_SHOWTHUMBNAILS" )
+	If _IsControlDefined("Image1", "_HMG_PRINTER_SHOWTHUMBNAILS")
 		Return
 	EndIf
 
@@ -813,7 +813,7 @@ Local hwnd
 Local nRow
 Local nScrollMax
 
-	If _IsControlDefined ( "Image" + AllTrim(Str(_hmg_printer_CurrentPageNumber)) , "_HMG_PRINTER_SHOWTHUMBNAILS" ) .And. _HMG_PRINTER_THUMBUPDATE == .T. .And. _hmg_printer_thumbscroll == .T.
+	If _IsControlDefined("Image" + AllTrim(Str(_hmg_printer_CurrentPageNumber)), "_HMG_PRINTER_SHOWTHUMBNAILS") .And. _HMG_PRINTER_THUMBUPDATE == .T. .And. _hmg_printer_thumbscroll == .T.
 
 		if _hmg_printer_PrevPageNumber != _hmg_printer_CurrentPageNumber
 
@@ -1090,9 +1090,9 @@ Local nInitPosition	:= 0
 			ON ENTER _HMG_PRINTER_GETPRINTER.Ok.OnClick () ;
 			ON CANCEL If ( _GetKeyState ( VK_ESCAPE ) , _HMG_PRINTER_GETPRINTER.Cancel.OnClick () , )
 
-		@ 53 , 65  BUTTON Ok CAPTION _hmg_printer_usermessages [11] ACTION ( RetVal := Printers [ GetProperty ( "_HMG_PRINTER_GETPRINTER","Combo_1","Value" ) ] , DoMethod( "_HMG_PRINTER_GETPRINTER","Release" ) )
+		@ 53 , 65  BUTTON Ok CAPTION _hmg_printer_usermessages [11] ACTION ( RetVal := Printers [ GetProperty ( "_HMG_PRINTER_GETPRINTER","Combo_1","Value" ) ] , DoMethod("_HMG_PRINTER_GETPRINTER", "Release") )
 
-		@ 53 , 175 BUTTON Cancel CAPTION _hmg_printer_usermessages [12] ACTION ( RetVal := "" , DoMethod( "_HMG_PRINTER_GETPRINTER","Release" ) )
+		@ 53 , 175 BUTTON Cancel CAPTION _hmg_printer_usermessages [12] ACTION ( RetVal := "" , DoMethod("_HMG_PRINTER_GETPRINTER", "Release") )
 
 		ON KEY ESCAPE ACTION _HMG_PRINTER_GETPRINTER.Cancel.OnClick ()
 	END WINDOW
