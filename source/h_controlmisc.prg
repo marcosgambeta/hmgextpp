@@ -69,231 +69,270 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 MEMVAR aResult
 
-*-----------------------------------------------------------------------------*
-FUNCTION _GetValue ( ControlName, ParentForm, Index )
-*-----------------------------------------------------------------------------*
-   LOCAL retval As Numeric , rcount As Numeric
+//-----------------------------------------------------------------------------
+FUNCTION _GetValue(ControlName, ParentForm, Index)
+//-----------------------------------------------------------------------------
+   LOCAL retval AS NUMERIC
+   LOCAL rcount AS NUMERIC
    LOCAL oGet
    LOCAL auxval
-   LOCAL WorkArea , BackRec
-   LOCAL Tmp , Ts
-   LOCAL t , x , c , ix
+   LOCAL WorkArea
+   LOCAL BackRec
+   LOCAL Tmp
+   LOCAL Ts
+   LOCAL t
+   LOCAL x
+   LOCAL c
+   LOCAL ix
 
    IF PCount() == 2
 
       IF Upper(ControlName) == "VSCROLLBAR"
-         RETURN GetScrollPos ( GetFormHandle ( ParentForm ) , SB_VERT )
+         RETURN GetScrollPos(GetFormHandle(ParentForm), SB_VERT)
       ELSEIF Upper(ControlName) == "HSCROLLBAR"
-         RETURN GetScrollPos ( GetFormHandle ( ParentForm ) , SB_HORZ )
+         RETURN GetScrollPos(GetFormHandle(ParentForm), SB_HORZ)
       ENDIF
-      T := GetControlType ( ControlName, ParentForm )
-      c := GetControlHandle ( ControlName, ParentForm )
+      T := GetControlType(ControlName, ParentForm)
+      c := GetControlHandle(ControlName, ParentForm)
       ix := GetControlIndex(ControlName, ParentForm)
 
    ELSE
 
       T := _HMG_aControlType[Index]
-      c := _HMG_aControlHandles [Index]
+      c := _HMG_aControlHandles[Index]
       ix := Index
 
    ENDIF
 
-   DO CASE
+   SWITCH T
+
 #ifdef _DBFBROWSE_
-   CASE T == CONTROL_TYPE_BROWSE
-      retval := _BrowseGetValue ( "" , "" , ix )
+   CASE CONTROL_TYPE_BROWSE
+      retval := _BrowseGetValue("", "", ix)
+      EXIT
 #endif
-   CASE T == CONTROL_TYPE_PROGRESSBAR
-      retval := SendMessage ( c, PBM_GETPOS, 0, 0 )
 
-   CASE T == CONTROL_TYPE_IPADDRESS
-      retval := GetIPAddress ( c )
+   CASE CONTROL_TYPE_PROGRESSBAR
+      retval := SendMessage(c, PBM_GETPOS, 0, 0)
+      EXIT
 
-   CASE T == CONTROL_TYPE_MONTHCAL
-      retval := GetMonthCalDate( c )
+   CASE CONTROL_TYPE_IPADDRESS
+      retval := GetIPAddress(c)
+      EXIT
 
-   CASE T == CONTROL_TYPE_TREE
-      retval := iif( _HMG_aControlInputMask [ix] == .F. , ;
-         AScan(_HMG_aControlPageMap [ix] , TreeView_GetSelection ( c )) , ;
-         TreeView_GetSelectionId ( c ) )
+   CASE CONTROL_TYPE_MONTHCAL
+      retval := GetMonthCalDate(c)
+      EXIT
 
-   CASE T == CONTROL_TYPE_MASKEDTEXT
-      IF "E" $ _HMG_aControlPageMap [ix]
-         Ts := GetWindowText ( c )
+   CASE CONTROL_TYPE_TREE
+      retval := iif(_HMG_aControlInputMask[ix] == .F., AScan(_HMG_aControlPageMap[ix], TreeView_GetSelection(c)), TreeView_GetSelectionId(c))
+      EXIT
 
-         IF "." $ _HMG_aControlPageMap [ix]
+   CASE CONTROL_TYPE_MASKEDTEXT
+      IF "E" $ _HMG_aControlPageMap[ix]
+         Ts := GetWindowText(c)
+         IF "." $ _HMG_aControlPageMap[ix]
             DO CASE
-            CASE hb_UAt ( "." , Ts ) >  hb_UAt ( "," , Ts )
-               retval := GetNumFromText ( GetWindowText ( c ) , ix )
-            CASE hb_UAt ( "," , Ts ) > hb_UAt ( "." , Ts )
-               retval := GetNumFromTextSp ( GetWindowText ( c ) , ix )
+            CASE hb_UAt(".", Ts) >  hb_UAt(",", Ts)
+               retval := GetNumFromText(GetWindowText(c), ix)
+            CASE hb_UAt(",", Ts) > hb_UAt(".", Ts)
+               retval := GetNumFromTextSp(GetWindowText(c), ix)
             ENDCASE
          ELSE
             DO CASE
-            CASE hb_UAt ( "." , Ts ) != 0
-               retval := GetNumFromTextSp ( GetWindowText ( c ) , ix )
-            CASE hb_UAt ( "," , Ts ) != 0
-               retval := GetNumFromText ( GetWindowText ( c ) , ix )
+            CASE hb_UAt(".", Ts) != 0
+               retval := GetNumFromTextSp(GetWindowText(c), ix)
+            CASE hb_UAt(",", Ts) != 0
+               retval := GetNumFromText(GetWindowText(c), ix)
             OTHERWISE
-               retval := GetNumFromText ( GetWindowText ( c ) , ix )
+               retval := GetNumFromText(GetWindowText(c), ix)
             ENDCASE
          ENDIF
       ELSE
-         retval := GetNumFromText ( GetWindowText ( c ) , ix )
+         retval := GetNumFromText(GetWindowText(c), ix)
       ENDIF
+      EXIT
 
-   CASE T == CONTROL_TYPE_TEXT .OR. T == CONTROL_TYPE_BTNTEXT .OR. T == CONTROL_TYPE_EDIT .OR. CONTROL_TYPE_LABEL $ T .OR. T == CONTROL_TYPE_HYPERLINK .OR. T == CONTROL_TYPE_CHARMASKTEXT .OR. T == CONTROL_TYPE_RICHEDIT
-      IF t == CONTROL_TYPE_CHARMASKTEXT
-         IF ISLOGICAL ( _HMG_aControlHeadCLick [ix] )
-            IF _HMG_aControlHeadCLick [ix] == .T.
-               retval := CToD(AllTrim(GetWindowText(c)))
-            ELSE
-               retval := GetWindowText ( c )
-            ENDIF
+   CASE CONTROL_TYPE_TEXT
+   CASE CONTROL_TYPE_BTNTEXT
+   CASE CONTROL_TYPE_EDIT
+   CASE CONTROL_TYPE_LABEL
+   CASE CONTROL_TYPE_CHECKLABEL
+   CASE CONTROL_TYPE_HYPERLINK
+   CASE CONTROL_TYPE_RICHEDIT
+      retval := GetWindowText(c)
+      EXIT
+
+   CASE CONTROL_TYPE_CHARMASKTEXT
+      IF ISLOGICAL(_HMG_aControlHeadCLick[ix])
+         IF _HMG_aControlHeadCLick[ix] == .T.
+            retval := CToD(AllTrim(GetWindowText(c)))
          ELSE
-            retval := GetWindowText ( c )
+            retval := GetWindowText(c)
          ENDIF
       ELSE
-         retval := GetWindowText ( c )
+         retval := GetWindowText(c)
       ENDIF
+      EXIT
 
-   CASE "NUMTEXT" $ T /* TODO: usar constante */
-      retval := Int( Val( GetWindowText( c ) ) )
+   CASE CONTROL_TYPE_BTNNUMTEXT
+   CASE CONTROL_TYPE_NUMTEXT
+      retval := Int(Val(GetWindowText(c)))
+      EXIT
 
-   CASE T == CONTROL_TYPE_SPINNER
-      retval := GetSpinnerValue ( c [2] )
+   CASE CONTROL_TYPE_SPINNER
+      retval := GetSpinnerValue(c[2])
+      EXIT
 
-   CASE T == CONTROL_TYPE_CHECKBOX
-      auxval := SendMessage ( c , BM_GETCHECK , 0 , 0 )
-
+   CASE CONTROL_TYPE_CHECKBOX
+      auxval := SendMessage(c, BM_GETCHECK, 0, 0)
       SWITCH auxval
-      CASE BST_CHECKED
-         retval := .T.
-         EXIT
-      CASE BST_UNCHECKED
-         retval := .F.
-         EXIT
-      CASE BST_INDETERMINATE
-         retval := Nil
+      CASE BST_CHECKED       ; retval := .T. ; EXIT
+      CASE BST_UNCHECKED     ; retval := .F. ; EXIT
+      CASE BST_INDETERMINATE ; retval := Nil
       ENDSWITCH
+      EXIT
 
-   CASE T == CONTROL_TYPE_RADIOGROUP
+   CASE CONTROL_TYPE_RADIOGROUP
       FOR EACH x IN c
          IF x > 0
-            auxval := SendMessage ( x , BM_GETCHECK , 0 , 0 )
+            auxval := SendMessage(x, BM_GETCHECK, 0, 0)
             IF auxval == BST_CHECKED
-               retval := hb_enumindex( x )
+               retval := hb_enumindex(x)
                EXIT
             ENDIF
          ENDIF
       NEXT
+      EXIT
 
-   CASE T == CONTROL_TYPE_COMBO
-      IF ISCHARACTER ( _HMG_aControlSpacing [ix] )
-         auxval := ComboGetCursel ( c )
-         WorkArea := _HMG_aControlSpacing [ix]
-         BackRec := ( WorkArea )->( RecNo() )
-         ( WorkArea )->( dbGoTop() )
-         DO WHILE ! ( WorkArea )->( EOF() )
+   CASE CONTROL_TYPE_COMBO
+      IF ISCHARACTER(_HMG_aControlSpacing[ix])
+         auxval := ComboGetCursel(c)
+         WorkArea := _HMG_aControlSpacing[ix]
+         BackRec := (WorkArea)->(RecNo())
+         (WorkArea)->(dbGoTop())
+         DO WHILE !(WorkArea)->(EOF())
             IF ++rcount == auxval
-               IF Empty(_HMG_aControlCaption [ix])
-                  RetVal := ( WorkArea )->( RecNo() )
+               IF Empty(_HMG_aControlCaption[ix])
+                  RetVal := (WorkArea)->(RecNo())
                ELSE
-                  Tmp := _HMG_aControlCaption [ix]
+                  Tmp := _HMG_aControlCaption[ix]
                   RetVal := &Tmp
                ENDIF
             ENDIF
-            ( WorkArea )->( dbSkip() )
+            (WorkArea)->(dbSkip())
          ENDDO
-         ( WorkArea )->( dbGoto ( BackRec ) )
+         (WorkArea)->(dbGoto(BackRec))
       ELSE
-         retval := ComboGetCursel ( c )
+         retval := ComboGetCursel(c)
       ENDIF
+      EXIT
 
-   CASE T == CONTROL_TYPE_LIST .OR. T == CONTROL_TYPE_CHKLIST
-      retval := ListBoxGetCursel ( c )
+   CASE CONTROL_TYPE_LIST
+   CASE CONTROL_TYPE_CHKLIST
+      retval := ListBoxGetCursel(c)
+      EXIT
 
-   CASE T == CONTROL_TYPE_GRID
-      retval := iif( _HMG_aControlFontColor [ix] == .T. , { _HMG_aControlMiscData1 [ix] [1], _HMG_aControlMiscData1 [ix] [17] }, ;
-         LISTVIEW_GETFIRSTITEM ( c ) )
+   CASE CONTROL_TYPE_GRID
+      retval := iif(_HMG_aControlFontColor[ix] == .T., {_HMG_aControlMiscData1[ix][1], _HMG_aControlMiscData1[ix][17]}, LISTVIEW_GETFIRSTITEM(c))
+      EXIT
 
-   CASE T == CONTROL_TYPE_TAB
-      retval := TABCTRL_GETCURSEL ( c )
+   CASE CONTROL_TYPE_TAB
+      retval := TABCTRL_GETCURSEL(c)
+      EXIT
 
-   CASE T == CONTROL_TYPE_DATEPICK
+   CASE CONTROL_TYPE_DATEPICK
       IF Empty(Ts := _SetGetDatePickerDateFormat(_HMG_aControlNames[ix], GetParentFormName(ix))) .OR. !("HH:" $ Upper(Ts)) .OR. !("mm:" $ Lower(Ts))
-         retval := GetDatePickDate ( c )
+         retval := GetDatePickDate(c)
       ELSE
-         retval := dtp_GetDateTime ( c )
+         retval := dtp_GetDateTime(c)
       ENDIF
+      EXIT
 
-   CASE T == CONTROL_TYPE_TIMEPICK
-      retval := iif( GetDatePickHour ( c ) >= 0, ;
-         StrZero( GetDatePickHour ( c ), 2 ) + ":" + StrZero( GetDatePickMinute ( c ), 2 ) + ":" + StrZero( GetDatePickSecond ( c ), 2 ), "" )
+   CASE CONTROL_TYPE_TIMEPICK
+      retval := iif(GetDatePickHour(c) >= 0, StrZero(GetDatePickHour(c), 2) + ":" + StrZero(GetDatePickMinute(c), 2) + ":" + StrZero(GetDatePickSecond(c), 2), "")
+      EXIT
 
-   CASE T == CONTROL_TYPE_SLIDER
-      retval := SendMessage( c, TBM_GETPOS, 0, 0 )
+   CASE CONTROL_TYPE_SLIDER
+      retval := SendMessage(c, TBM_GETPOS, 0, 0)
+      EXIT
 
-   CASE T == CONTROL_TYPE_MULTILIST .OR. T == CONTROL_TYPE_MULTICHKLIST
-      retval := ListBoxGetMultiSel ( c )
+   CASE CONTROL_TYPE_MULTILIST
+   CASE CONTROL_TYPE_MULTICHKLIST
+      retval := ListBoxGetMultiSel(c)
+      EXIT
 
-   CASE T == CONTROL_TYPE_MULTIGRID
-      retval := ListViewGetMultiSel ( c )
+   CASE CONTROL_TYPE_MULTIGRID
+      retval := ListViewGetMultiSel(c)
+      EXIT
 
-   CASE T == CONTROL_TYPE_TOOLBUTTON
-      retval := IsButtonBarChecked( _HMG_aControlContainerHandle [ix] , _HMG_aControlValue [ix] - 1 )
+   CASE CONTROL_TYPE_TOOLBUTTON
+      retval := IsButtonBarChecked(_HMG_aControlContainerHandle[ix], _HMG_aControlValue[ix] - 1)
+      EXIT
 
-   CASE T == CONTROL_TYPE_GETBOX
-      oGet := _HMG_aControlHeadClick [ix]
+   CASE CONTROL_TYPE_GETBOX
+      oGet := _HMG_aControlHeadClick[ix]
       retval := oGet:VarGet()
+      EXIT
+
 #ifdef _TSBROWSE_
-   CASE T == CONTROL_TYPE_TBROWSE
-      oGet := _HMG_aControlIds [ix]
-      retval := oGet:GetValue( oGet:nCell )
+   CASE CONTROL_TYPE_TBROWSE
+      oGet := _HMG_aControlIds[ix]
+      retval := oGet:GetValue(oGet:nCell)
+      EXIT
 #endif
-   CASE T == CONTROL_TYPE_HOTKEYBOX
-      retval := C_GetHotKey ( c )
+
+   CASE CONTROL_TYPE_HOTKEYBOX
+      retval := C_GetHotKey(c)
+      EXIT
 
    OTHERWISE
-      retval := _HMG_aControlValue [ix]
+      retval := _HMG_aControlValue[ix]
 
-   ENDCASE
+   ENDSWITCH
 
-RETURN ( retval )
+RETURN retval
 
-*-----------------------------------------------------------------------------*
-FUNCTION _SetValue ( ControlName, ParentForm, Value, index )
-*-----------------------------------------------------------------------------*
-   LOCAL nValue As Numeric, rcount As Numeric
+//-----------------------------------------------------------------------------
+FUNCTION _SetValue(ControlName, ParentForm, Value, index)
+//-----------------------------------------------------------------------------
+   LOCAL nValue AS NUMERIC
+   LOCAL rcount AS NUMERIC
    LOCAL TreeItemHandle
    LOCAL oGet
-   LOCAL aPos , aTemp
+   LOCAL aPos
+   LOCAL aTemp
    LOCAL xPreviousValue
-   LOCAL backrec , workarea
-   LOCAL t , h , c , x , ix
+   LOCAL backrec
+   LOCAL workarea
+   LOCAL t
+   LOCAL h
+   LOCAL c
+   LOCAL x
+   LOCAL ix
 
-   ix := iif( PCount() == 3, GetControlIndex(ControlName, ParentForm), index )
+   ix := iif(PCount() == 3, GetControlIndex(ControlName, ParentForm), index)
 
    t := _HMG_aControlType[ix]
-   h := _HMG_aControlParentHandles [ix]
-   c := _HMG_aControlHandles [ix]
+   h := _HMG_aControlParentHandles[ix]
+   c := _HMG_aControlHandles[ix]
 
-   IF ISARRAY( Value )
+   IF ISARRAY(Value)
 
-      aTemp := _GetValue ( , , ix )
+      aTemp := _GetValue(, , ix)
 
-      IF ISARRAY( aTemp ) .AND. T != CONTROL_TYPE_OBUTTON
-         IF HMG_IsEqualArr ( aTemp, Value ) == .T.
+      IF ISARRAY(aTemp) .AND. T != CONTROL_TYPE_OBUTTON
+         IF HMG_IsEqualArr(aTemp, Value) == .T.
             RETURN Nil
          ENDIF
       ENDIF
 
-   ELSEIF !( "LABEL" $ T ) .AND. T != CONTROL_TYPE_RICHEDIT .AND. T != CONTROL_TYPE_TREE /* TODO: usar constante */
+   ELSEIF T != CONTROL_TYPE_LABEL .AND. T != CONTROL_TYPE_CHECKLABEL .AND. T != CONTROL_TYPE_RICHEDIT .AND. T != CONTROL_TYPE_TREE
 
-      xPreviousValue := _GetValue ( , , ix )
+      xPreviousValue := _GetValue(, , ix)
 
-      IF T == CONTROL_TYPE_GRID .AND. ISARRAY( xPreviousValue )
-         xPreviousValue := xPreviousValue [1]
+      IF T == CONTROL_TYPE_GRID .AND. ISARRAY(xPreviousValue)
+         xPreviousValue := xPreviousValue[1]
       ENDIF
 
       IF ValType(xPreviousValue) == ValType(Value)
@@ -304,342 +343,344 @@ FUNCTION _SetValue ( ControlName, ParentForm, Value, index )
 
    ENDIF
 
-   DO CASE
+   SWITCH T
+
 #ifdef _DBFBROWSE_
-   CASE T == CONTROL_TYPE_BROWSE
-      _BrowseSetValue ( "" , "" , Value , ix )
+   CASE CONTROL_TYPE_BROWSE
+      _BrowseSetValue("", "", Value, ix)
+      EXIT
 #endif
-   CASE T == CONTROL_TYPE_IPADDRESS
+
+   CASE CONTROL_TYPE_IPADDRESS
       Value := IFEMPTY(Value, {}, Value)
-
       IF Len(Value) == 0
-         ClearIpAddress ( c )
+         ClearIpAddress(c)
       ELSE
-         SetIPAddress ( c , Value [1] , Value [2] , Value [3] , Value [4] )
+         SetIPAddress(c, Value[1], Value[2], Value[3], Value[4])
       ENDIF
+      EXIT
 
-   CASE T == CONTROL_TYPE_MONTHCAL
+   CASE CONTROL_TYPE_MONTHCAL
       Value := IFEMPTY(Value, BLANK_DATE, Value)
-      SetMonthCalValue ( c, Year ( value ), Month ( value ), Day ( value ) )
-
-      _DoControlEventProcedure ( _HMG_aControlChangeProcedure [ix] , ix , "CONTROL_ONCHANGE" )
-      IF hb_Version( HB_VERSION_BITWIDTH ) >= 64
-         SetDayState( _HMG_aControlNames [ix] , GetParentFormName( ix ) )
+      SetMonthCalValue(c, Year(value), Month(value), Day(value))
+      _DoControlEventProcedure(_HMG_aControlChangeProcedure[ix], ix, "CONTROL_ONCHANGE")
+      IF hb_Version(HB_VERSION_BITWIDTH) >= 64
+         SetDayState(_HMG_aControlNames[ix], GetParentFormName(ix))
       ENDIF
+      EXIT
 
-   CASE T == CONTROL_TYPE_TREE
+   CASE CONTROL_TYPE_TREE
       IF Empty(Value)
          RETURN Nil
       ENDIF
-
-      IF _HMG_aControlInputMask [ix] == .F.
-         IF Value > TreeView_GetCount ( c )
+      IF _HMG_aControlInputMask[ix] == .F.
+         IF Value > TreeView_GetCount(c)
             RETURN Nil
          ENDIF
-         TreeItemHandle := _HMG_aControlPageMap [ix] [Value]
+         TreeItemHandle := _HMG_aControlPageMap[ix][Value]
       ELSE
-         aPos := AScan(_HMG_aControlPicture [ix] , Value)
+         aPos := AScan(_HMG_aControlPicture[ix], Value)
          IF aPos == 0
             MsgMiniGuiError("Value Property: Invalid TreeItem Reference.")
          ENDIF
-         TreeItemHandle := _HMG_aControlPageMap [ix] [aPos]
+         TreeItemHandle := _HMG_aControlPageMap[ix][aPos]
       ENDIF
+      TreeView_SelectItem(c, TreeItemHandle)
+      EXIT
 
-      TreeView_SelectItem ( c , TreeItemHandle )
-
-   CASE T == CONTROL_TYPE_MASKEDTEXT
+   CASE CONTROL_TYPE_MASKEDTEXT
       Value := IFEMPTY(Value, 0, Value)
-
       IF GetFocus() == c
          SetWindowText(_HMG_aControlhandles[ix], Transform(Value, _HMG_aControlInputMask[ix]))
       ELSE
          SetWindowText(_HMG_aControlhandles[ix], Transform(value, _HMG_aControlPageMap[ix]))
       ENDIF
+      EXIT
 
-   CASE T == CONTROL_TYPE_TIMER
-      x := _HMG_aControlIds [ix]
-      IF _HMG_aControlEnabled [ix] == .T.
-         KillTimer ( _HMG_aControlParentHandles [ix] , x )
+   CASE CONTROL_TYPE_TIMER
+      x := _HMG_aControlIds[ix]
+      IF _HMG_aControlEnabled[ix] == .T.
+         KillTimer(_HMG_aControlParentHandles[ix], x)
       ENDIF
-
       FOR EACH h IN _HMG_aControlIds
-         IF ISNUMERIC ( h ) .AND. h == x
-            IF _HMG_aControlEnabled [ix] == .T.
-               InitTimer ( GetFormHandle( ParentForm ) , h , Value )
+         IF ISNUMERIC(h) .AND. h == x
+            IF _HMG_aControlEnabled[ix] == .T.
+               InitTimer(GetFormHandle(ParentForm), h, Value)
             ENDIF
-            _HMG_aControlValue [ix] := value
+            _HMG_aControlValue[ix] := value
             EXIT
          ENDIF
       NEXT
+      EXIT
 
-   CASE "LABEL" $ T .OR. T == CONTROL_TYPE_HYPERLINK /* TODO: usar constante */
+   CASE CONTROL_TYPE_LABEL
+   CASE CONTROL_TYPE_CHECKLABEL
+   CASE CONTROL_TYPE_HYPERLINK
       IF Empty(Value)
-         value := iif( "LABEL" $ T, iif( ISCHARACTER ( Value ), Value, "" ), "@" )
+         value := iif(T == CONTROL_TYPE_LABEL .OR. T == CONTROL_TYPE_CHECKLABEL, iif(ISCHARACTER(Value), Value, ""), "@")
       ENDIF
-
-      IF ISARRAY( Value )
+      IF ISARRAY(Value)
          x := ""
-         AEval( Value, {|v| x += cValToChar( v ) } )
+         AEval(Value, {|v|x += cValToChar(v)})
          Value := x
-      ELSEIF ISBLOCK ( Value )
-         Value := cValToChar ( Eval( Value ) )
+      ELSEIF ISBLOCK(Value)
+         Value := cValToChar(Eval(Value))
       ELSE
-         Value := cValToChar ( Value )
+         Value := cValToChar(Value)
       ENDIF
-
-      IF _HMG_aControlSpacing [ix] == 1
+      IF _HMG_aControlSpacing[ix] == 1
          _SetControlWidth(ControlName, ParentForm, GetTextWidth(NIL, Value, _HMG_aControlFontHandle[ix]) + ;
-            iif( _HMG_aControlFontAttributes [ix] [1] == .T. .OR. _HMG_aControlFontAttributes [ix] [2] == .T., ;
-            GetTextWidth(NIL, " ", _HMG_aControlFontHandle[ix]), 0 ) + iif( "CHECK" $ T, _HMG_aControlRangeMin [ix] + ;
-            iif( Len(Value) > 0 .AND. _HMG_aControlRangeMax [ix] == .F., GetBorderWidth(), iif( _HMG_aControlRangeMax [ix], GetBorderWidth() / 2, 0 ) ), 0 ))
-         _SetControlHeight(ControlName, ParentForm, iif("CHECK" $ T .AND. _HMG_aControlFontSize[ix] < 13, 22, _HMG_aControlFontSize[ix] + ;
+            iif(_HMG_aControlFontAttributes[ix][1] == .T. .OR. _HMG_aControlFontAttributes[ix][2] == .T., ;
+            GetTextWidth(NIL, " ", _HMG_aControlFontHandle[ix]), 0) + iif(T == CONTROL_TYPE_CHECKLABEL, _HMG_aControlRangeMin[ix] + ;
+            iif(Len(Value) > 0 .AND. _HMG_aControlRangeMax[ix] == .F., GetBorderWidth(), iif(_HMG_aControlRangeMax[ix], GetBorderWidth() / 2, 0)), 0))
+         _SetControlHeight(ControlName, ParentForm, iif(T == CONTROL_TYPE_CHECKLABEL .AND. _HMG_aControlFontSize[ix] < 13, 22, _HMG_aControlFontSize[ix] + ;
             iif(_HMG_aControlFontSize[ix] < 14, 12, 16)))
       ENDIF
-
       SetWindowText(c, value)
-
-      IF ISLOGICAL ( _HMG_aControlInputMask [ix] )
-         IF _HMG_aControlInputMask [ix] == .T.
-            RedrawWindowControlRect ( h , _HMG_aControlRow[ix] , _HMG_aControlCol[ix] , _HMG_aControlRow[ix] + _HMG_aControlHeight[ix] , _HMG_aControlCol[ix] + _HMG_aControlWidth [ix] )
+      IF ISLOGICAL(_HMG_aControlInputMask[ix])
+         IF _HMG_aControlInputMask[ix] == .T.
+            RedrawWindowControlRect(h, _HMG_aControlRow[ix], _HMG_aControlCol[ix], _HMG_aControlRow[ix] + _HMG_aControlHeight[ix], _HMG_aControlCol[ix] + _HMG_aControlWidth[ix])
          ENDIF
       ENDIF
+      EXIT
 
-   CASE T == CONTROL_TYPE_TEXT .OR. T == CONTROL_TYPE_BTNTEXT .OR. T == CONTROL_TYPE_EDIT .OR. T == CONTROL_TYPE_CHARMASKTEXT .OR. T == CONTROL_TYPE_RICHEDIT
+   CASE CONTROL_TYPE_TEXT
+   CASE CONTROL_TYPE_BTNTEXT
       Value := IFEMPTY(Value, "", Value)
+      SetWindowText(c, RTrim(value))
+      EXIT
 
-      IF T == CONTROL_TYPE_CHARMASKTEXT
-         IF ISLOGICAL ( _HMG_aControlHeadCLick [ix] )
-            IF _HMG_aControlHeadCLick [ix] == .T.
-               SetWindowText(c, RTrim(DToC(hb_defaultValue(value, BLANK_DATE))))
-            ELSE
-               SetWindowText(c, RTrim(value))
-            ENDIF
-         ELSE
-            SetWindowText(c, RTrim(value))
-         ENDIF
+   CASE CONTROL_TYPE_EDIT
+      Value := IFEMPTY(Value, "", Value)
+      SetWindowText(c, value)
+      _DoControlEventProcedure(_HMG_aControlChangeProcedure[ix], ix, "CONTROL_ONCHANGE")
+      EXIT
 
-      ELSEIF T == CONTROL_TYPE_EDIT
-         SetWindowText(c, value)
-         _DoControlEventProcedure ( _HMG_aControlChangeProcedure [ix] , ix , "CONTROL_ONCHANGE" )
-
-      ELSEIF T == CONTROL_TYPE_RICHEDIT .AND. _HMG_IsXPorLater
-         IF Empty(value) .OR. !( Left(value, 7) == "{\rtf1\" )
+   CASE CONTROL_TYPE_RICHEDIT
+      Value := IFEMPTY(Value, "", Value)
+      IF _HMG_IsXPorLater
+         IF Empty(value) .OR. !(Left(value, 7) == "{\rtf1\")
             SetWindowText(c, value)
          ELSE
             SetWindowTextW(c, value)
          ENDIF
-
       ELSE
          SetWindowText(c, RTrim(value))
       ENDIF
+      EXIT
 
-   CASE "NUMTEXT" $ T
+   CASE CONTROL_TYPE_CHARMASKTEXT
+      Value := IFEMPTY(Value, "", Value)
+      IF ISLOGICAL(_HMG_aControlHeadCLick[ix])
+         IF _HMG_aControlHeadCLick[ix] == .T.
+            SetWindowText(c, RTrim(DToC(hb_defaultValue(value, BLANK_DATE))))
+         ELSE
+            SetWindowText(c, RTrim(value))
+         ENDIF
+      ELSE
+         SetWindowText(c, RTrim(value))
+      ENDIF
+      EXIT
+
+   CASE CONTROL_TYPE_BTNNUMTEXT
       Value := IFEMPTY(Value, 0, Value)
       SetWindowText(c, hb_ntos(Int(value)))
+      EXIT
 
-   CASE T == CONTROL_TYPE_SPINNER
+   CASE CONTROL_TYPE_SPINNER
       Value := IFEMPTY(Value, 0, Value)
-      SetSpinnerValue ( c [2] , Value )
+      SetSpinnerValue(c[2], Value)
+      EXIT
 
-   CASE T == CONTROL_TYPE_CHECKBOX
-      Value := iif( ISLOGICAL ( Value ), Value, NIL )
-
+   CASE CONTROL_TYPE_CHECKBOX
+      Value := iif(ISLOGICAL(Value), Value, NIL)
       DO CASE
-      CASE _HMG_aControlSpacing [ix] .AND. value == NIL
-         SendMessage ( c , BM_SETCHECK , BST_INDETERMINATE , 0 )
-
+      CASE _HMG_aControlSpacing[ix] .AND. value == NIL
+         SendMessage(c, BM_SETCHECK, BST_INDETERMINATE, 0)
       CASE value == .T.
-         SendMessage ( c , BM_SETCHECK , BST_CHECKED , 0 )
-
+         SendMessage(c, BM_SETCHECK, BST_CHECKED, 0)
       CASE value == .F.
-         SendMessage ( c , BM_SETCHECK , BST_UNCHECKED , 0 )
-
+         SendMessage(c, BM_SETCHECK, BST_UNCHECKED, 0)
       ENDCASE
-
       IF Empty(_HMG_aControlMiscData1[ix])
-         _DoControlEventProcedure ( _HMG_aControlChangeProcedure [ix] , ix , "CONTROL_ONCHANGE" )
+         _DoControlEventProcedure(_HMG_aControlChangeProcedure[ix], ix, "CONTROL_ONCHANGE")
       ENDIF
+      EXIT
 
-   CASE T == CONTROL_TYPE_RADIOGROUP
+   CASE CONTROL_TYPE_RADIOGROUP
       IF ISNUMERIC(Value) .AND. Value <= Len(c)  // EF 93
-         AEval( c, { |x| iif( x > 0, SendMessage( x , BM_SETCHECK , BST_UNCHECKED , 0 ), ) } )
-
-         _HMG_aControlValue [ix] := value
-
+         AEval(c, {|x|iif(x > 0, SendMessage(x, BM_SETCHECK, BST_UNCHECKED, 0),)})
+         _HMG_aControlValue[ix] := value
          IF value > 0
-            h := c [value]
+            h := c[value]
             IF h > 0
-               SendMessage( h , BM_SETCHECK , BST_CHECKED , 0 )
-               IF _HMG_aControlPicture [ix] == .F. .AND. IsTabStop( h )
-                  SetTabStop( h , .F. )
+               SendMessage(h, BM_SETCHECK, BST_CHECKED, 0)
+               IF _HMG_aControlPicture[ix] == .F. .AND. IsTabStop(h)
+                  SetTabStop(h, .F.)
                ENDIF
             ENDIF
          ENDIF
-
          IF value > 0
-            setfocus ( h )
+            setfocus(h)
          ENDIF
-         _DoControlEventProcedure ( _HMG_aControlChangeProcedure [ix] , ix , "CONTROL_ONCHANGE" )
+         _DoControlEventProcedure(_HMG_aControlChangeProcedure[ix], ix, "CONTROL_ONCHANGE")
       ENDIF
+      EXIT
 
-   CASE T == CONTROL_TYPE_COMBO
-      Value := IFNUMERIC( Value, Value, 0 )
-
-      IF ISCHARACTER ( _HMG_aControlSpacing [ix] )
-         _HMG_aControlValue [ix] := value
-         WorkArea := _HMG_aControlSpacing [ix]
-         BackRec := ( WorkArea )->( RecNo() )
-         ( WorkArea )->( dbGoTop() )
-         DO WHILE ! ( WorkArea )->( EOF() )
+   CASE CONTROL_TYPE_COMBO
+      Value := IFNUMERIC(Value, Value, 0)
+      IF ISCHARACTER(_HMG_aControlSpacing[ix])
+         _HMG_aControlValue[ix] := value
+         WorkArea := _HMG_aControlSpacing[ix]
+         BackRec := (WorkArea)->(RecNo())
+         (WorkArea)->(dbGoTop())
+         DO WHILE !(WorkArea)->(EOF())
             rcount++
-            IF value == ( WorkArea )->( RecNo() )
+            IF value == (WorkArea)->(RecNo())
                value := rcount
                EXIT
             ENDIF
-            ( WorkArea )->( dbSkip() )
+            (WorkArea)->(dbSkip())
          ENDDO
-         ( WorkArea )->( dbGoto( BackRec ) )
+         (WorkArea)->(dbGoto(BackRec))
       ENDIF
-
-      ComboSetCursel ( c , value )
-
+      ComboSetCursel(c, value)
       IF _HMG_ProgrammaticChange
-         _DoControlEventProcedure ( _HMG_aControlChangeProcedure [ix] , ix , "CONTROL_ONCHANGE" )
+         _DoControlEventProcedure(_HMG_aControlChangeProcedure[ix], ix, "CONTROL_ONCHANGE")
       ENDIF
+      EXIT
 
-   CASE T == CONTROL_TYPE_LIST .OR. T == CONTROL_TYPE_CHKLIST
-      Value := IFNUMERIC( Value, Value, 0 )
+   CASE CONTROL_TYPE_LIST
+   CASE CONTROL_TYPE_CHKLIST
+      Value := IFNUMERIC(Value, Value, 0)
+      ListBoxSetCursel(c, value)
+      _DoControlEventProcedure(_HMG_aControlChangeProcedure[ix], ix, "CONTROL_ONCHANGE")
+      EXIT
 
-      ListBoxSetCursel ( c , value )
-
-      _DoControlEventProcedure ( _HMG_aControlChangeProcedure [ix] , ix , "CONTROL_ONCHANGE" )
-
-   CASE T == CONTROL_TYPE_GRID
-      IF _HMG_aControlFontColor [ix] == .F.
-
-         ListView_SetCursel ( c, iif( ISARRAY( Value ), value [1], value ) )
-         ListView_EnsureVisible( c , iif( ISARRAY( Value ), value [1], value ) )
-
+   CASE CONTROL_TYPE_GRID
+      IF _HMG_aControlFontColor[ix] == .F.
+         ListView_SetCursel(c, iif(ISARRAY(Value), value[1], value))
+         ListView_EnsureVisible(c, iif(ISARRAY(Value), value[1], value))
       ELSE
-
-         x := ( ISARRAY( Value ) .AND. ( _HMG_aControlMiscData1 [ix] [1] <> value [1] .OR. ;
-            _HMG_aControlMiscData1 [ix] [17] <> value [2] ) )
-         _HMG_aControlMiscData1 [ix] [1]  := iif( ISARRAY( Value ), value [1], value )
-         _HMG_aControlMiscData1 [ix] [17] := iif( ISARRAY( Value ), value [2], 1 )
-
-         IF ISARRAY( Value ) .AND. value[1] * value[2] == 0
-            _HMG_aControlMiscData1 [ix] [1]  := 0
-            _HMG_aControlMiscData1 [ix] [17] := 0
-            RedrawWindow ( c )
-            _DoControlEventProcedure ( _HMG_aControlChangeProcedure [ix] , ix , "CONTROL_ONCHANGE" )
-
-         ELSEIF x == .T. .OR. !ISARRAY( Value )
-            ListView_SetCursel ( c, iif( ISARRAY( Value ), value [1], value ) )
-            ListView_EnsureVisible( c , iif( ISARRAY( Value ), value [1], value ) )
-            RedrawWindow ( c )
-            _DoControlEventProcedure ( _HMG_aControlChangeProcedure [ix] , ix , "CONTROL_ONCHANGE" )
-
+         x := (ISARRAY(Value) .AND. (_HMG_aControlMiscData1[ix][1] <> value[1] .OR. _HMG_aControlMiscData1[ix][17] <> value[2]))
+         _HMG_aControlMiscData1[ix][1] := iif(ISARRAY(Value), value[1], value)
+         _HMG_aControlMiscData1[ix][17] := iif(ISARRAY(Value), value[2], 1)
+         IF ISARRAY(Value) .AND. value[1] * value[2] == 0
+            _HMG_aControlMiscData1[ix][1] := 0
+            _HMG_aControlMiscData1[ix][17] := 0
+            RedrawWindow(c)
+            _DoControlEventProcedure(_HMG_aControlChangeProcedure[ix], ix, "CONTROL_ONCHANGE")
+         ELSEIF x == .T. .OR. !ISARRAY(Value)
+            ListView_SetCursel(c, iif(ISARRAY(Value), value[1], value))
+            ListView_EnsureVisible(c, iif(ISARRAY(Value), value[1], value))
+            RedrawWindow(c)
+            _DoControlEventProcedure(_HMG_aControlChangeProcedure[ix], ix, "CONTROL_ONCHANGE")
          ENDIF
-
       ENDIF
+      EXIT
 
-   CASE T == CONTROL_TYPE_TAB
+   CASE CONTROL_TYPE_TAB
       Assign nValue := value
-
       IF nValue < 1
          MsgMiniGuiError("TAB: Wrong Value (only value > 0 is allowed).")
       ENDIF
-
-      TABCTRL_SETCURSEL ( c , nValue )
-
+      TABCTRL_SETCURSEL(c, nValue)
       IF Len(_HMG_aControlPageMap[ix]) > 0
-         UpdateTab ( ix )
-         _DoControlEventProcedure ( _HMG_aControlChangeProcedure [ix] , ix , "CONTROL_ONCHANGE" )
+         UpdateTab(ix)
+         _DoControlEventProcedure(_HMG_aControlChangeProcedure[ix], ix, "CONTROL_ONCHANGE")
       ENDIF
+      EXIT
 
-   CASE T == CONTROL_TYPE_DATEPICK
+   CASE CONTROL_TYPE_DATEPICK
       IF Empty(Value)
-         SetDatePickNull ( c )
+         SetDatePickNull(c)
       ELSE
-         IF HB_ISDATETIME ( value ) .OR. ISARRAY( value )
-            IF ISARRAY( value )
+         IF HB_ISDATETIME(value) .OR. ISARRAY(value)
+            IF ISARRAY(value)
                IF Len(value) >= 7
-                  dtp_SetDateTime ( c, value [1], value [2], value [3], value [4], value [5], value [6], value [7] )
+                  dtp_SetDateTime(c, value[1], value[2], value[3], value[4], value[5], value[6], value[7])
                ELSE
-                  dtp_SetDateTime ( c, value [1], value [2], value [3], value [4], value [5], value [6] )
+                  dtp_SetDateTime(c, value[1], value[2], value[3], value[4], value[5], value[6])
                ENDIF
             ELSE
-               dtp_SetDateTime ( c, value )
+               dtp_SetDateTime(c, value)
             ENDIF
          ELSE
-            SetDatePick ( c, Year( value ), Month( value ), Day( value ) )
+            SetDatePick(c, Year(value), Month(value), Day(value))
          ENDIF
       ENDIF
+      _DoControlEventProcedure(_HMG_aControlChangeProcedure[ix], ix, "CONTROL_ONCHANGE")
+      EXIT
 
-      _DoControlEventProcedure ( _HMG_aControlChangeProcedure [ix] , ix , "CONTROL_ONCHANGE" )
-
-   CASE T == CONTROL_TYPE_TIMEPICK
+   CASE CONTROL_TYPE_TIMEPICK
       IF Empty(Value)
-         SetDatePickNull( c )
-      ELSEIF ISCHARACTER( Value )
-         SetTimePick( c, Val( Left(value, 2) ), Val( SubStr(value, 4, 2) ), Val( SubStr(value, 7, 2) ) )
+         SetDatePickNull(c)
+      ELSEIF ISCHARACTER(Value)
+         SetTimePick(c, Val(Left(value, 2)), Val(SubStr(value, 4, 2)), Val(SubStr(value, 7, 2)))
       ENDIF
+      _DoControlEventProcedure(_HMG_aControlChangeProcedure[ix], ix, "CONTROL_ONCHANGE")
+      EXIT
 
-      _DoControlEventProcedure ( _HMG_aControlChangeProcedure [ix] , ix , "CONTROL_ONCHANGE" )
-
-   CASE T == CONTROL_TYPE_PROGRESSBAR
+   CASE CONTROL_TYPE_PROGRESSBAR
       Value := IFEMPTY(Value, 0, Value)
-      SendMessage( c, PBM_SETPOS , value , 0 )
+      SendMessage(c, PBM_SETPOS, value, 0)
+      EXIT
 
-   CASE T == CONTROL_TYPE_SLIDER
+   CASE CONTROL_TYPE_SLIDER
       Value := IFEMPTY(Value, 0, Value)
-      SendMessage( c , TBM_SETPOS , 1 , value )
+      SendMessage(c, TBM_SETPOS, 1, value)
+      _DoControlEventProcedure(_HMG_aControlChangeProcedure[ix], ix, "CONTROL_ONCHANGE")
+      EXIT
 
-      _DoControlEventProcedure ( _HMG_aControlChangeProcedure [ix] , ix , "CONTROL_ONCHANGE" )
+   CASE CONTROL_TYPE_MULTILIST
+   CASE CONTROL_TYPE_MULTICHKLIST
+      LISTBOXSETMULTISEL(c, value)
+      EXIT
 
-   CASE T == CONTROL_TYPE_MULTILIST .OR. T == CONTROL_TYPE_MULTICHKLIST
-      LISTBOXSETMULTISEL ( c , value )
-
-   CASE T == CONTROL_TYPE_MULTIGRID
-      IF ISNUMBER ( value )  // GF 09/02/2013
-         Value := { Value }
+   CASE CONTROL_TYPE_MULTIGRID
+      IF ISNUMBER(value)  // GF 09/02/2013
+         Value := {Value}
       ENDIF
-      LISTVIEWSETMULTISEL ( c , value )
-
+      LISTVIEWSETMULTISEL(c, value)
       IF Len(value) > 0
-         ListView_EnsureVisible ( c , value [1] )
+         ListView_EnsureVisible(c, value[1])
       ENDIF
+      EXIT
 
-   CASE T == CONTROL_TYPE_TOOLBUTTON
-      CheckButtonBar ( _HMG_aControlContainerHandle [ix] , _HMG_aControlValue [ix] - 1 , value )
+   CASE CONTROL_TYPE_TOOLBUTTON
+      CheckButtonBar(_HMG_aControlContainerHandle[ix], _HMG_aControlValue[ix] - 1, value)
+      EXIT
 
-   CASE T == CONTROL_TYPE_GETBOX
-      _SetGetBoxValue( ix , c , Value )
-
-      oGet := _HMG_aControlHeadClick [ix]
+   CASE CONTROL_TYPE_GETBOX
+      _SetGetBoxValue(ix, c, Value)
+      oGet := _HMG_aControlHeadClick[ix]
       IF oGet:Changed
-         _DoControlEventProcedure ( _HMG_aControlChangeProcedure [ix] , ix , "CONTROL_ONCHANGE" )
+         _DoControlEventProcedure(_HMG_aControlChangeProcedure[ix], ix, "CONTROL_ONCHANGE")
       ENDIF
+      EXIT
+
 #ifdef _TSBROWSE_
-   CASE T == CONTROL_TYPE_TBROWSE
-      oGet := _HMG_aControlIds [ix]
+   CASE CONTROL_TYPE_TBROWSE
+      oGet := _HMG_aControlIds[ix]
       IF oGet:lInitGoTop
-         IF ISNUMBER( Value ) .AND. Value > 0
-            oGet:GoPos( Value )
-            Eval( oGet:bGoToPos, Value )
-            oGet:Refresh( .T. )
+         IF ISNUMBER(Value) .AND. Value > 0
+            oGet:GoPos(Value)
+            Eval(oGet:bGoToPos, Value)
+            oGet:Refresh(.T.)
          ENDIF
       ELSE
-         oGet:SetValue( oGet:nCell, Value )
+         oGet:SetValue(oGet:nCell, Value)
       ENDIF
 #endif
-   CASE T == CONTROL_TYPE_HOTKEYBOX
-      SetHotKeyValue ( c , value )
+
+   CASE CONTROL_TYPE_HOTKEYBOX
+      SetHotKeyValue(c, value)
+      EXIT
 
    OTHERWISE
-      _HMG_aControlValue [ix] := value
+      _HMG_aControlValue[ix] := value
 
-   ENDCASE
+   ENDSWITCH
 
 RETURN Nil
 
