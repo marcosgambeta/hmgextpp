@@ -1150,88 +1150,90 @@ FUNCTION GetControlPageMap ( ControlName , ParentForm )
 
 RETURN ( _HMG_aControlPageMap[i] )
 
-*-----------------------------------------------------------------------------*
-FUNCTION _SetFocus ( ControlName , ParentForm , Index )
-*-----------------------------------------------------------------------------*
-   LOCAL MaskStart As Numeric
+//-----------------------------------------------------------------------------
+FUNCTION _SetFocus(ControlName, ParentForm, Index)
+//-----------------------------------------------------------------------------
+   LOCAL MaskStart AS NUMERIC
    LOCAL ParentFormHandle
    LOCAL hControl
-   LOCAL H , T , x , i
+   LOCAL H
+   LOCAL T
+   LOCAL x
+   LOCAL i
 
-   i := iif( PCount() == 2 , GetControlIndex(ControlName, ParentForm) , Index )
+   i := iif(PCount() == 2, GetControlIndex(ControlName, ParentForm), Index)
 
    H := _HMG_aControlHandles[i]
    T := _HMG_aControlType[i]
 
-   DO CASE
+   SWITCH T
 
-   CASE T == CONTROL_TYPE_TEXT .OR. T == CONTROL_TYPE_NUMTEXT .OR. T == CONTROL_TYPE_MASKEDTEXT .OR. T == CONTROL_TYPE_BTNTEXT .OR. T == CONTROL_TYPE_BTNNUMTEXT
-      setfocus ( H )
-      SendMessage ( H , EM_SETSEL , 0 , -1 )
+   CASE CONTROL_TYPE_TEXT
+   CASE CONTROL_TYPE_NUMTEXT
+   CASE CONTROL_TYPE_MASKEDTEXT
+   CASE CONTROL_TYPE_BTNTEXT
+   CASE CONTROL_TYPE_BTNNUMTEXT
+      setfocus(H)
+      SendMessage(H, EM_SETSEL, 0, -1)
+      EXIT
 
-   CASE "GRID" $ T
-      setfocus ( H )
-      _UpdateGridColors ( i )
+   // CASE "GRID" $ T
+   CASE CONTROL_TYPE_GRID
+   CASE CONTROL_TYPE_MULTIGRID
+   CASE CONTROL_TYPE_PROPGRID
+      setfocus(H)
+      _UpdateGridColors(i)
+      EXIT
 
-   CASE T == CONTROL_TYPE_CHARMASKTEXT
-      setfocus ( H )
-
+   CASE CONTROL_TYPE_CHARMASKTEXT
+      setfocus(H)
       FOR x := 1 TO hb_ULen(_HMG_aControlInputMask[i])
-
-         t := hb_USubStr(_HMG_aControlInputMask[i] , x , 1)
-
-         IF hmg_IsDigit( t ) .OR. hmg_IsAlpha( t ) .OR. t == "!"
+         t := hb_USubStr(_HMG_aControlInputMask[i], x, 1) // TODO: usar outro nome de variavel
+         IF hmg_IsDigit(t) .OR. hmg_IsAlpha(t) .OR. t == "!"
             MaskStart := x
             EXIT
          ENDIF
-
       NEXT x
-
       IF MaskStart > 0
-         SendMessage ( H , EM_SETSEL , MaskStart - 1 , -1 )
+         SendMessage(H, EM_SETSEL, MaskStart - 1, -1)
       ENDIF
+      EXIT
 
-   CASE T == CONTROL_TYPE_BUTTON
+   CASE CONTROL_TYPE_BUTTON
       IF _HMG_aControlEnabled[i] == .T.
-
          ParentFormHandle := _HMG_aControlParentHandles[i]
          FOR EACH hControl IN _HMG_aControlHandles
-
-            x := hb_enumindex( hControl )
-
-            IF _HMG_aControlType[x] == "BUTTON"
-
-               IF _HMG_aControlParentHandles [x] == ParentFormHandle
-                  SendMessage ( hControl , BM_SETSTYLE , LOWORD ( BS_PUSHBUTTON ) , 1 )
+            x := hb_enumindex(hControl)
+            IF _HMG_aControlType[x] == CONTROL_TYPE_BUTTON
+               IF _HMG_aControlParentHandles[x] == ParentFormHandle
+                  SendMessage(hControl, BM_SETSTYLE, LOWORD(BS_PUSHBUTTON), 1)
                   IF Empty(_HMG_aControlBrushHandle[x])
                      LOOP
                   ENDIF
-                  RedrawWindow ( hControl )
+                  RedrawWindow(hControl)
                ENDIF
-
             ENDIF
-
          NEXT
-
-         setfocus ( H )
-         SendMessage ( H , BM_SETSTYLE , LOWORD ( BS_DEFPUSHBUTTON ) , 1 )
-
+         setfocus(H)
+         SendMessage(H, BM_SETSTYLE, LOWORD(BS_DEFPUSHBUTTON), 1)
       ENDIF
+      EXIT
 
-   CASE T == CONTROL_TYPE_SPINNER
-      setfocus ( H [1] )
-      SendMessage ( H [1] , EM_SETSEL , 0 , -1 )
+   CASE CONTROL_TYPE_SPINNER
+      setfocus(H[1])
+      SendMessage(H[1], EM_SETSEL, 0, -1)
+      EXIT
 
-   CASE T == CONTROL_TYPE_RADIOGROUP
-      x := _GetValue ( , , i )
+   CASE CONTROL_TYPE_RADIOGROUP
+      x := _GetValue(, , i)
       _HMG_aControlValue[i] := x
-
-      setfocus ( H [iif( x > 0 , x , 1 )] )
+      setfocus(H[iif(x > 0, x, 1)])
+      EXIT
 
    OTHERWISE
-      setfocus ( H )
+      setfocus(H)
 
-   ENDCASE
+   ENDSWITCH
 
    _HMG_SetFocusExecuted := .T.
 
