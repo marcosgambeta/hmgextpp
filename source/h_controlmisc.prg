@@ -684,69 +684,73 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
 
 RETURN Nil
 
-*-----------------------------------------------------------------------------*
-FUNCTION _AddItem ( ControlName , ParentForm , Value , Parent , aImage , Id )
-*-----------------------------------------------------------------------------*
-   LOCAL NewHandle , TempHandle
-   LOCAL ChildHandle , BackHandle , ParentHandle
+//-----------------------------------------------------------------------------
+FUNCTION _AddItem(ControlName, ParentForm, Value, Parent, aImage, Id)
+//-----------------------------------------------------------------------------
+   LOCAL NewHandle
+   LOCAL TempHandle
+   LOCAL ChildHandle
+   LOCAL BackHandle
+   LOCAL ParentHandle
    LOCAL TreeItemHandle
    LOCAL aPos
    LOCAL ImgDef
-   LOCAL iUnSel , iSel
-   LOCAL t , c , i , ix
+   LOCAL iUnSel
+   LOCAL iSel
+   LOCAL t
+   LOCAL c
+   LOCAL i
+   LOCAL ix
 #ifdef _TSBROWSE_
    LOCAL oGet
 #endif
 
    ix := GetControlIndex(ControlName, ParentForm)
    T := _HMG_aControltype[ix]
-   c := _HMG_aControlhandles [ix]
+   c := _HMG_aControlhandles[ix]
 
    __defaultNIL(@Id, 0)
 
-   IF ISNUMERIC ( aImage )
+   IF ISNUMERIC(aImage)
       Id := aImage
    ENDIF
 
-   DO CASE
+   SWITCH T
 
-   CASE T == CONTROL_TYPE_TREE
-      IF _HMG_aControlInputmask [ix] == .F.
-
-         IF Parent > TreeView_GetCount ( c ) .OR. Parent < 0
+   CASE CONTROL_TYPE_TREE
+      IF _HMG_aControlInputmask[ix] == .F.
+         IF Parent > TreeView_GetCount(c) .OR. Parent < 0
             MsgMiniGuiError("AddItem Method: Invalid Parent Value.")
          ENDIF
-
       ENDIF
 
-      ImgDef := iif( ValType(aImage) == "A" , Len(aImage), 0 )  //Tree+
+      ImgDef := iif(ValType(aImage) == "A", Len(aImage), 0) //Tree+
 
       IF Parent != 0
 
-         IF _HMG_aControlInputmask [ix] == .F.
-            TreeItemHandle := _HMG_aControlPageMap [ix] [Parent]
+         IF _HMG_aControlInputmask[ix] == .F.
+            TreeItemHandle := _HMG_aControlPageMap[ix][Parent]
          ELSE
-            aPos := AScan(_HMG_aControlPicture [ix] , Parent)
+            aPos := AScan(_HMG_aControlPicture[ix], Parent)
             IF aPos == 0
                MsgMiniGuiError("AddItem Method: Invalid Parent Value.")
             ENDIF
-
-            TreeItemHandle := _HMG_aControlPageMap [ix] [aPos]
+            TreeItemHandle := _HMG_aControlPageMap[ix][aPos]
          ENDIF
 
          IF ImgDef == 0
             iUnsel := 2  // Pointer to defalut Node Bitmaps, no Bitmap loaded
             iSel   := 3
          ELSE
-            iUnSel := AddTreeViewBitmap ( c, aImage [1], _HMG_aControlMiscData1[ix, 4] ) - 1
-            iSel   := iif( ImgDef == 1, iUnSel, AddTreeViewBitmap ( c, aImage [2], _HMG_aControlMiscData1[ix, 4] ) - 1 )
+            iUnSel := AddTreeViewBitmap(c, aImage[1], _HMG_aControlMiscData1[ix, 4]) - 1
+            iSel   := iif(ImgDef == 1, iUnSel, AddTreeViewBitmap(c, aImage[2], _HMG_aControlMiscData1[ix, 4]) - 1)
             // If only one bitmap in array iSel = iUnsel, only one Bitmap loaded
          ENDIF
 
-         NewHandle := AddTreeItem ( c , TreeItemHandle , Value , iUnsel , iSel , Id )
+         NewHandle := AddTreeItem(c, TreeItemHandle, Value, iUnsel, iSel, Id)
 
          // Determine Position of New Item
-         TempHandle := TreeView_GetChild ( c , TreeItemHandle )
+         TempHandle := TreeView_GetChild(c, TreeItemHandle)
 
          i := 0
 
@@ -758,22 +762,22 @@ FUNCTION _AddItem ( ControlName , ParentForm , Value , Parent , aImage , Id )
                EXIT
             ENDIF
 
-            ChildHandle := TreeView_GetChild ( c , TempHandle )
+            ChildHandle := TreeView_GetChild(c, TempHandle)
 
             IF ChildHandle == 0
                BackHandle := TempHandle
-               TempHandle := TreeView_GetNextSibling ( c , TempHandle )
+               TempHandle := TreeView_GetNextSibling(c, TempHandle)
             ELSE
                i++
                BackHandle := Childhandle
-               TempHandle := TreeView_GetNextSibling ( c , ChildHandle )
+               TempHandle := TreeView_GetNextSibling(c, ChildHandle)
             ENDIF
 
             DO WHILE TempHandle == 0
 
-               ParentHandle := TreeView_GetParent ( c , BackHandle )
+               ParentHandle := TreeView_GetParent(c, BackHandle)
 
-               TempHandle := TreeView_GetNextSibling ( c , ParentHandle )
+               TempHandle := TreeView_GetNextSibling(c, ParentHandle)
 
                IF TempHandle == 0
                   BackHandle := ParentHandle
@@ -784,35 +788,35 @@ FUNCTION _AddItem ( ControlName , ParentForm , Value , Parent , aImage , Id )
          ENDDO
 
          // Resize Array
-         ASize( _HMG_aControlPageMap [ix] , TreeView_GetCount ( c ) )
-         ASize( _HMG_aControlPicture [ix] , TreeView_GetCount ( c ) )
-         ASize( _HMG_aControlHeadClick [ix] , TreeView_GetCount ( c ) )
+         ASize(_HMG_aControlPageMap[ix], TreeView_GetCount(c))
+         ASize(_HMG_aControlPicture[ix], TreeView_GetCount(c))
+         ASize(_HMG_aControlHeadClick[ix], TreeView_GetCount(c))
 
          // Insert New Element
-         IF _HMG_aControlInputmask [ix] == .F.
-            AIns( _HMG_aControlPageMap [ix] , Parent + i )
-            AIns( _HMG_aControlPicture [ix] , Parent + i )
-            AIns( _HMG_aControlHeadClick [ix] , Parent + i )
+         IF _HMG_aControlInputmask[ix] == .F.
+            AIns(_HMG_aControlPageMap[ix], Parent + i)
+            AIns(_HMG_aControlPicture[ix], Parent + i)
+            AIns(_HMG_aControlHeadClick[ix], Parent + i)
          ELSE
-            AIns( _HMG_aControlPageMap [ix] , aPos + i )
-            AIns( _HMG_aControlPicture [ix] , aPos + i )
-            AIns( _HMG_aControlHeadClick [ix] , aPos + i )
+            AIns(_HMG_aControlPageMap[ix], aPos + i)
+            AIns(_HMG_aControlPicture[ix], aPos + i)
+            AIns(_HMG_aControlHeadClick[ix], aPos + i)
          ENDIF
 
          // Assign Handle
-         IF _HMG_aControlInputmask [ix] == .F.
+         IF _HMG_aControlInputmask[ix] == .F.
 
-            _HMG_aControlPageMap [ix] [Parent + i] := NewHandle
-            _HMG_aControlPicture [ix] [Parent + i] := Id
+            _HMG_aControlPageMap[ix][Parent + i] := NewHandle
+            _HMG_aControlPicture[ix][Parent + i] := Id
 
          ELSE
 
-            IF AScan(_HMG_aControlPicture [ix] , Id) != 0
+            IF AScan(_HMG_aControlPicture[ix], Id) != 0
                MsgMiniGuiError("AddItem Method: Item Id " + hb_ntos(Id) + " Already In Use.")
             ENDIF
 
-            _HMG_aControlPageMap [ix] [aPos + i] := NewHandle
-            _HMG_aControlPicture [ix] [aPos + i] := Id
+            _HMG_aControlPageMap[ix][aPos + i] := NewHandle
+            _HMG_aControlPicture[ix][aPos + i] := Id
 
          ENDIF
 
@@ -822,17 +826,17 @@ FUNCTION _AddItem ( ControlName , ParentForm , Value , Parent , aImage , Id )
             iUnsel := 0  // Pointer to defalut Node Bitmaps, no Bitmap loaded
             iSel   := 1
          ELSE
-            iUnSel := AddTreeViewBitmap ( c, aImage [1], _HMG_aControlMiscData1[ix, 4] ) - 1
-            iSel   := iif( ImgDef == 1, iUnSel, AddTreeViewBitmap ( c, aImage [2], _HMG_aControlMiscData1[ix, 4] ) - 1 )
+            iUnSel := AddTreeViewBitmap(c, aImage[1], _HMG_aControlMiscData1[ix, 4]) - 1
+            iSel   := iif(ImgDef == 1, iUnSel, AddTreeViewBitmap(c, aImage[2], _HMG_aControlMiscData1[ix, 4]) - 1)
             // If only one bitmap in array iSel = iUnsel, only one Bitmap loaded
          ENDIF
 
-         NewHandle := AddTreeItem ( c , 0 , Value , iUnsel , iSel , Id )
+         NewHandle := AddTreeItem(c, 0, Value, iUnsel, iSel, Id)
 
          AAdd(_HMG_aControlPageMap[ix], NewHandle)
 
-         IF _HMG_aControlInputmask [ix] == .T.
-            IF AScan(_HMG_aControlPicture [ix] , Id) != 0
+         IF _HMG_aControlInputmask[ix] == .T.
+            IF AScan(_HMG_aControlPicture[ix], Id) != 0
                MsgMiniGuiError("AddItem Method: Item Id Already In Use.")
             ENDIF
          ENDIF
@@ -842,51 +846,68 @@ FUNCTION _AddItem ( ControlName , ParentForm , Value , Parent , aImage , Id )
 
       ENDIF
 
-   CASE T == CONTROL_TYPE_COMBO
+      EXIT
+
+   CASE CONTROL_TYPE_COMBO
       // (JK) HMG 1.0 Experimental Build 8
-      IF _HMG_aControlMiscData1 [ix][1] == 0      // standard combo
-         ComboAddString ( c , value )
-      ELSEIF _HMG_aControlMiscData1 [ix][1] == 1  // extend combo - "parent" is a picture Id. ;-)
-         ComboAddStringEx ( c , value , Parent )
+      IF _HMG_aControlMiscData1[ix][1] == 0      // standard combo
+         ComboAddString(c, value)
+      ELSEIF _HMG_aControlMiscData1[ix][1] == 1  // extend combo - "parent" is a picture Id. ;-)
+         ComboAddStringEx(c, value, Parent)
       ENDIF
+      EXIT
 
-   CASE "LIST" $ T
-      IF "CHKLIST" $ T
-         ChkListboxAddItem ( c , value, 1 )
-      ELSE
-         IF _HMG_aControlMiscData1 [ix] [2] .AND. ValType(value) == "A"
-            value := LB_Array2String( value )
+   // CASE "LIST" $ T
+   CASE CONTROL_TYPE_IMAGELIST
+   CASE CONTROL_TYPE_LIST
+   CASE CONTROL_TYPE_MULTILIST
+      IF _HMG_aControlMiscData1[ix][2] .AND. ValType(value) == "A"
+         value := LB_Array2String(value)
+      ENDIF
+      ListBoxAddstring(c, value)
+      EXIT
+
+   CASE CONTROL_TYPE_CHKLIST
+   CASE CONTROL_TYPE_MULTICHKLIST
+      ChkListboxAddItem(c, value, 1)
+      EXIT
+
+   // CASE "GRID" $ T
+   CASE CONTROL_TYPE_GRID
+   CASE CONTROL_TYPE_MULTIGRID
+   CASE CONTROL_TYPE_PROPGRID
+      IF _HMG_aControlMiscData1[ix][5] == .F.
+         _AddGridRow(ControlName, ParentForm, value)
+         IF _HMG_aControlEnabled[ix] == .T.
+            _UpdateGridColors(ix)
          ENDIF
-
-         ListBoxAddstring ( c , value )
       ENDIF
+      EXIT
 
-   CASE "GRID" $ T
-      IF _HMG_aControlMiscData1 [ix][5] == .F.
-         _AddGridRow ( ControlName, ParentForm, value )
-         IF _HMG_aControlEnabled [ix] == .T.
-            _UpdateGridColors ( ix )
-         ENDIF
-      ENDIF
 #ifdef _TSBROWSE_
-   CASE T == CONTROL_TYPE_TBROWSE
-      oGet := GetObjectByHandle( c )
-      IF ISOBJECT( oGet )
-         oGet:AddItem( value )
+   CASE CONTROL_TYPE_TBROWSE
+      oGet := GetObjectByHandle(c)
+      IF ISOBJECT(oGet)
+         oGet:AddItem(value)
       ENDIF
 #endif
-   ENDCASE
+
+   ENDSWITCH
 
 RETURN Nil
 
-*-----------------------------------------------------------------------------*
-FUNCTION _DeleteItem ( ControlName , ParentForm , Value )
-*-----------------------------------------------------------------------------*
+//-----------------------------------------------------------------------------
+FUNCTION _DeleteItem(ControlName, ParentForm, Value)
+//-----------------------------------------------------------------------------
    LOCAL TreeItemHandle
-   LOCAL BeforeCount , AfterCount
+   LOCAL BeforeCount
+   LOCAL AfterCount
    LOCAL DeletedCount
    LOCAL aPos
-   LOCAL t , c , i , ix
+   LOCAL t
+   LOCAL c
+   LOCAL i
+   LOCAL ix
 #ifdef _TSBROWSE_
    LOCAL oGet
 #endif
@@ -894,118 +915,126 @@ FUNCTION _DeleteItem ( ControlName , ParentForm , Value )
    ix := GetControlIndex(ControlName, ParentForm)
 
    T := _HMG_aControlType[ix]
-   c := _HMG_aControlHandles [ix]
+   c := _HMG_aControlHandles[ix]
 
-   DO CASE
+   SWITCH T
 
-   CASE T == CONTROL_TYPE_TREE
-      BeforeCount := TreeView_GetCount ( c )
+   CASE CONTROL_TYPE_TREE
+      BeforeCount := TreeView_GetCount(c)
 
-      IF _HMG_aControlInputmask [ix] == .F.
+      IF _HMG_aControlInputmask[ix] == .F.
 
          IF Value > BeforeCount .OR. Value < 1
             MsgMiniGuiError("DeleteItem Method: Invalid Item Specified.")
          ENDIF
 
-         TreeItemHandle := _HMG_aControlPageMap [ix] [Value]
-         TreeView_DeleteItem ( c , TreeItemHandle )
+         TreeItemHandle := _HMG_aControlPageMap[ix][Value]
+         TreeView_DeleteItem(c, TreeItemHandle)
 
       ELSE
 
-         aPos := AScan(_HMG_aControlPicture [ix] , Value)
+         aPos := AScan(_HMG_aControlPicture[ix], Value)
 
          IF aPos == 0
             MsgMiniGuiError("DeleteItem Method: Invalid Item Id.")
          ENDIF
 
-         TreeItemHandle := _HMG_aControlPageMap [ix] [aPos]
-         TreeView_DeleteItem ( c , TreeItemHandle )
+         TreeItemHandle := _HMG_aControlPageMap[ix][aPos]
+         TreeView_DeleteItem(c, TreeItemHandle)
 
       ENDIF
 
-      AfterCount := TreeView_GetCount ( c )
+      AfterCount := TreeView_GetCount(c)
       DeletedCount := BeforeCount - AfterCount
 
-      IF _HMG_aControlInputmask [ix] == .F.
+      IF _HMG_aControlInputmask[ix] == .F.
 
          IF DeletedCount == 1
-            ADel( _HMG_aControlPageMap [ix] , Value )
-            ADel( _HMG_aControlHeadClick [ix] , Value )
+            ADel(_HMG_aControlPageMap[ix], Value)
+            ADel(_HMG_aControlHeadClick[ix], Value)
          ELSE
             FOR i := 1 TO DeletedCount
-               ADel( _HMG_aControlPageMap [ix] , Value )
-               ADel( _HMG_aControlHeadClick [ix] , Value )
+               ADel(_HMG_aControlPageMap[ix], Value)
+               ADel(_HMG_aControlHeadClick[ix] , Value)
             NEXT i
          ENDIF
 
       ELSE
 
          IF DeletedCount == 1
-            ADel( _HMG_aControlPageMap [ix] , aPos )
-            ADel( _HMG_aControlPicture [ix] , aPos )
-            ADel( _HMG_aControlHeadClick [ix] , aPos )
+            ADel(_HMG_aControlPageMap[ix], aPos)
+            ADel(_HMG_aControlPicture[ix], aPos)
+            ADel(_HMG_aControlHeadClick[ix], aPos)
          ELSE
             FOR i := 1 TO DeletedCount
-               ADel( _HMG_aControlPageMap [ix] , aPos )
-               ADel( _HMG_aControlPicture [ix] , aPos )
-               ADel( _HMG_aControlHeadClick [ix] , aPos )
+               ADel(_HMG_aControlPageMap[ix], aPos)
+               ADel(_HMG_aControlPicture[ix], aPos)
+               ADel(_HMG_aControlHeadClick[ix], aPos)
             NEXT i
          ENDIF
 
       ENDIF
 
-      ASize( _HMG_aControlPageMap [ix] , AfterCount )
-      ASize( _HMG_aControlPicture [ix] , AfterCount )
-      ASize( _HMG_aControlHeadClick [ix] , AfterCount )
+      ASize(_HMG_aControlPageMap[ix], AfterCount)
+      ASize(_HMG_aControlPicture[ix], AfterCount)
+      ASize(_HMG_aControlHeadClick[ix], AfterCount)
 
-   CASE "LIST" $ T
-      ListBoxDeleteString ( c , value )
+   // CASE "LIST" $ T
+   CASE CONTROL_TYPE_IMAGELIST
+   CASE CONTROL_TYPE_LIST
+   CASE CONTROL_TYPE_MULTILIST
+   CASE CONTROL_TYPE_CHKLIST
+   CASE CONTROL_TYPE_MULTICHKLIST
+      ListBoxDeleteString(c, value)
+      EXIT
 
-   CASE T == CONTROL_TYPE_COMBO
-      ComboBoxDeleteString ( c , value )
-      ComboSetCursel ( c , value )
+   CASE CONTROL_TYPE_COMBO
+      ComboBoxDeleteString(c, value)
+      ComboSetCursel(c, value)
+      EXIT
 
-   CASE "GRID" $ T
-      IF _HMG_aControlMiscData1 [ix] [5] == .F.
-
-         ListViewDeleteString ( c , value )
-
-         IF _HMG_aControlFontColor [ix] == .T. .AND. T == "GRID"
-
-            IF _HMG_aControlMiscData1 [ix] [1] == value
-               _HMG_aControlMiscData1 [ix] [1]  := 0
-               _HMG_aControlMiscData1 [ix] [17] := 0
-
-            ELSEIF _HMG_aControlMiscData1 [ix] [1] > value
-               _HMG_aControlMiscData1 [ix] [1] --
-               _DoControlEventProcedure ( _HMG_aControlChangeProcedure [ix] , ix , "CONTROL_ONCHANGE" )
+   // CASE "GRID" $ T
+   CASE CONTROL_TYPE_GRID
+   CASE CONTROL_TYPE_MULTIGRID
+   CASE CONTROL_TYPE_PROPGRID
+      IF _HMG_aControlMiscData1[ix][5] == .F.
+         ListViewDeleteString(c, value)
+         IF _HMG_aControlFontColor[ix] == .T. .AND. T == CONTROL_TYPE_GRID
+            IF _HMG_aControlMiscData1[ix][1] == value
+               _HMG_aControlMiscData1[ix][1] := 0
+               _HMG_aControlMiscData1[ix][17] := 0
+            ELSEIF _HMG_aControlMiscData1[ix][1] > value
+               _HMG_aControlMiscData1[ix][1]--
+               _DoControlEventProcedure(_HMG_aControlChangeProcedure[ix], ix, "CONTROL_ONCHANGE")
             ENDIF
-
-            AfterCount := ListViewGetItemCount ( c )
+            AfterCount := ListViewGetItemCount(c)
             IF value > AfterCount .AND. AfterCount > 0
-               _HMG_aControlMiscData1 [ix] [1] := AfterCount
+               _HMG_aControlMiscData1[ix][1] := AfterCount
             ENDIF
-
          ENDIF
-
-         _UpdateGridColors ( ix )
-
+         _UpdateGridColors(ix)
       ENDIF
+      EXIT
+
 #ifdef _TSBROWSE_
-   CASE T == CONTROL_TYPE_TBROWSE
-      oGet := GetObjectByHandle( c )
-      IF ISOBJECT( oGet )
+   CASE CONTROL_TYPE_TBROWSE
+      oGet := GetObjectByHandle(c)
+      IF ISOBJECT(oGet)
          oGet:DeleteRow()
       ENDIF
+      EXIT
 #endif
-   ENDCASE
+
+   ENDSWITCH
 
 RETURN Nil
 
-*-----------------------------------------------------------------------------*
-FUNCTION _DeleteAllItems ( ControlName , ParentForm )
-*-----------------------------------------------------------------------------*
-   LOCAL t , c , i
+//-----------------------------------------------------------------------------
+FUNCTION _DeleteAllItems(ControlName, ParentForm)
+//-----------------------------------------------------------------------------
+   LOCAL t
+   LOCAL c
+   LOCAL i
 #ifdef _TSBROWSE_
    LOCAL oGet
 #endif
@@ -1015,39 +1044,50 @@ FUNCTION _DeleteAllItems ( ControlName , ParentForm )
    t := _HMG_aControlType[i]
    c := _HMG_aControlhandles[i]
 
-   DO CASE
+   SWITCH t
 
-   CASE t == CONTROL_TYPE_TREE
-      TreeView_DeleteAllItems ( c , _HMG_aControlPageMap[i] )  // Tree+
-      ASize( _HMG_aControlPageMap[i] , 0 )
-      ASize( _HMG_aControlPicture[i] , 0 )
-      ASize( _HMG_aControlHeadClick[i] , 0 )
+   CASE CONTROL_TYPE_TREE
+      TreeView_DeleteAllItems(c, _HMG_aControlPageMap[i]) // Tree+
+      ASize(_HMG_aControlPageMap[i], 0)
+      ASize(_HMG_aControlPicture[i], 0)
+      ASize(_HMG_aControlHeadClick[i], 0)
 
-   CASE "LIST" $ t
-      ListBoxReset ( c )
+   // CASE "LIST" $ t
+   CASE CONTROL_TYPE_IMAGELIST
+   CASE CONTROL_TYPE_LIST
+   CASE CONTROL_TYPE_MULTILIST
+   CASE CONTROL_TYPE_CHKLIST
+   CASE CONTROL_TYPE_MULTICHKLIST
+      ListBoxReset(c)
+      EXIT
 
-   CASE t == CONTROL_TYPE_COMBO
-      ComboBoxReset ( c )
+   CASE CONTROL_TYPE_COMBO
+      ComboBoxReset(c)
+      EXIT
 
-   CASE "GRID" $ t
-      IF _HMG_aControlMiscData1[i] [5] == .F.
-
-         ListViewReset ( c )
-
-         IF _HMG_aControlFontColor[i] == .T. .AND. T == "GRID"
-            _HMG_aControlMiscData1[i] [1]  := 0
-            _HMG_aControlMiscData1[i] [17] := 0
+   // CASE "GRID" $ t
+   CASE CONTROL_TYPE_GRID
+   CASE CONTROL_TYPE_MULTIGRID
+   CASE CONTROL_TYPE_PROPGRID
+      IF _HMG_aControlMiscData1[i][5] == .F.
+         ListViewReset(c)
+         IF _HMG_aControlFontColor[i] == .T. .AND. T == CONTROL_TYPE_GRID
+            _HMG_aControlMiscData1[i][1] := 0
+            _HMG_aControlMiscData1[i][17] := 0
          ENDIF
-
       ENDIF
+      EXIT
+
 #ifdef _TSBROWSE_
-   CASE t == CONTROL_TYPE_TBROWSE
-      oGet := GetObjectByHandle( c )
-      IF ISOBJECT( oGet ) .AND. oGet:lIsArr
+   CASE CONTROL_TYPE_TBROWSE
+      oGet := GetObjectByHandle(c)
+      IF ISOBJECT(oGet) .AND. oGet:lIsArr
          oGet:DeleteRow(.T.)
       ENDIF
+      EXIT
 #endif
-   ENDCASE
+
+   ENDSWITCH
 
 RETURN Nil
 
