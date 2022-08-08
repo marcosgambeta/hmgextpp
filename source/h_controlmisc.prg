@@ -3040,133 +3040,73 @@ FUNCTION _GetComboItemValue ( ControlName , ParentForm , nItemIndex )
 
 RETURN Nil
 
-*-----------------------------------------------------------------------------*
-FUNCTION _GetFormAction ( ParentForm , cEvent )
-*-----------------------------------------------------------------------------*
-   LOCAL bAction As Block
+//-----------------------------------------------------------------------------
+FUNCTION _GetFormAction(ParentForm, cEvent)
+//-----------------------------------------------------------------------------
+   LOCAL bAction AS BLOCK
    LOCAL i
 
-   IF ( i := GetFormIndex ( ParentForm ) ) > 0
+   IF (i := GetFormIndex(ParentForm)) > 0
 
-      DO CASE
-      CASE cEvent == "ONINIT"
-         bAction := _HMG_aFormInitProcedure[i]
-
-      CASE cEvent == "ONRELEASE"
-         bAction := _HMG_aFormReleaseProcedure[i]
-
-      CASE cEvent == "ONINTERACTIVECLOSE"
-         bAction := _HMG_aFormInteractiveCloseProcedure[i]
-
-      CASE cEvent == "ONGOTFOCUS"
-         bAction := _HMG_aFormGotFocusProcedure[i]
-
-      CASE cEvent == "ONLOSTFOCUS"
-         bAction := _HMG_aFormLostFocusProcedure[i]
-
-      CASE cEvent == "ONNOTIFYCLICK"
-         IF GetWindowType ( ParentForm ) == "A"
+      SWITCH cEvent
+      CASE "ONINIT"             ; bAction := _HMG_aFormInitProcedure             [i] ; EXIT
+      CASE "ONRELEASE"          ; bAction := _HMG_aFormReleaseProcedure          [i] ; EXIT
+      CASE "ONINTERACTIVECLOSE" ; bAction := _HMG_aFormInteractiveCloseProcedure [i] ; EXIT
+      CASE "ONGOTFOCUS"         ; bAction := _HMG_aFormGotFocusProcedure         [i] ; EXIT
+      CASE "ONLOSTFOCUS"        ; bAction := _HMG_aFormLostFocusProcedure        [i] ; EXIT
+      CASE "ONNOTIFYCLICK"
+         IF GetWindowType(ParentForm) == "A"
             bAction := _HMG_aFormNotifyIconLeftClick[i]
          ENDIF
-
-      CASE cEvent == "ONMOUSECLICK"
-         bAction := _HMG_aFormClickProcedure[i]
-
-      CASE cEvent == "ONMOUSEDRAG"
-         bAction := _HMG_aFormMouseDragProcedure[i]
-
-      CASE cEvent == "ONMOUSEMOVE"
-         bAction := _HMG_aFormMouseMoveProcedure[i]
-
-      CASE cEvent == "ONMOVE"
-         bAction := _HMG_aFormMoveProcedure[i]
-
-      CASE cEvent == "ONSIZE"
-         bAction := _HMG_aFormSizeProcedure[i]
-
-      CASE cEvent == "ONMAXIMIZE"
-         bAction := _HMG_aFormMaximizeProcedure[i]
-
-      CASE cEvent == "ONMINIMIZE"
-         bAction := _HMG_aFormMinimizeProcedure[i]
-
-      CASE cEvent == "ONPAINT"
-         bAction := _HMG_aFormPaintProcedure[i]
-
-      CASE cEvent == "ONRESTORE"
-         bAction := _HMG_aFormRestoreProcedure[i]
-
-      CASE cEvent == "ONDROPFILES"
-         bAction := _HMG_aFormDropProcedure[i]
-
-      END CASE
+         EXIT
+      CASE "ONMOUSECLICK"       ; bAction := _HMG_aFormClickProcedure            [i] ; EXIT
+      CASE "ONMOUSEDRAG"        ; bAction := _HMG_aFormMouseDragProcedure        [i] ; EXIT
+      CASE "ONMOUSEMOVE"        ; bAction := _HMG_aFormMouseMoveProcedure        [i] ; EXIT
+      CASE "ONMOVE"             ; bAction := _HMG_aFormMoveProcedure             [i] ; EXIT
+      CASE "ONSIZE"             ; bAction := _HMG_aFormSizeProcedure             [i] ; EXIT
+      CASE "ONMAXIMIZE"         ; bAction := _HMG_aFormMaximizeProcedure         [i] ; EXIT
+      CASE "ONMINIMIZE"         ; bAction := _HMG_aFormMinimizeProcedure         [i] ; EXIT
+      CASE "ONPAINT"            ; bAction := _HMG_aFormPaintProcedure            [i] ; EXIT
+      CASE "ONRESTORE"          ; bAction := _HMG_aFormRestoreProcedure          [i] ; EXIT
+      CASE "ONDROPFILES"        ; bAction := _HMG_aFormDropProcedure             [i]
+      ENDSWITCH
 
    ENDIF
 
 RETURN bAction
 
-*-----------------------------------------------------------------------------*
-STATIC FUNCTION _SetFormAction ( ParentForm , Value , cEvent )
-*-----------------------------------------------------------------------------*
-   LOCAL bBlock As Block
+//-----------------------------------------------------------------------------
+STATIC FUNCTION _SetFormAction(ParentForm, Value, cEvent)
+//-----------------------------------------------------------------------------
+   LOCAL bBlock AS BLOCK
    LOCAL i
 
-   IF ( i := GetFormIndex ( ParentForm ) ) > 0
+   IF (i := GetFormIndex(ParentForm)) > 0
 
       Assign bBlock := Value
 
-      DO CASE
-      CASE cEvent == "ONINIT"
-         _HMG_aFormInitProcedure[i] := bBlock
-
-      CASE cEvent == "ONRELEASE"
-         _HMG_aFormReleaseProcedure[i] := bBlock
-
-      CASE cEvent == "ONINTERACTIVECLOSE"
-         _HMG_aFormInteractiveCloseProcedure[i] := bBlock
-
-      CASE cEvent == "ONGOTFOCUS"
-         _HMG_aFormGotFocusProcedure[i] := bBlock
-
-      CASE cEvent == "ONLOSTFOCUS"
-         _HMG_aFormLostFocusProcedure[i] := bBlock
-
-      CASE cEvent == "ONNOTIFYCLICK"
-         IF GetWindowType ( ParentForm ) == "A"
+      SWITCH cEvent
+      CASE "ONINIT"             ; _HMG_aFormInitProcedure             [i] := bBlock ; EXIT
+      CASE "ONRELEASE"          ; _HMG_aFormReleaseProcedure          [i] := bBlock ; EXIT
+      CASE "ONINTERACTIVECLOSE" ; _HMG_aFormInteractiveCloseProcedure [i] := bBlock ; EXIT
+      CASE "ONGOTFOCUS"         ; _HMG_aFormGotFocusProcedure         [i] := bBlock ; EXIT
+      CASE "ONLOSTFOCUS"        ; _HMG_aFormLostFocusProcedure        [i] := bBlock ; EXIT
+      CASE "ONNOTIFYCLICK"
+         IF GetWindowType(ParentForm) == "A"
             _HMG_aFormNotifyIconLeftClick[i] := bBlock
          ENDIF
-
-      CASE cEvent == "ONMOUSECLICK"
-         _HMG_aFormClickProcedure[i] := bBlock
-
-      CASE cEvent == "ONMOUSEDRAG"
-         _HMG_aFormMouseDragProcedure[i] := bBlock
-
-      CASE cEvent == "ONMOUSEMOVE"
-         _HMG_aFormMouseMoveProcedure[i] := bBlock
-
-      CASE cEvent == "ONMOVE"
-         _HMG_aFormMoveProcedure[i] := bBlock
-
-      CASE cEvent == "ONSIZE"
-         _HMG_aFormSizeProcedure[i] := bBlock
-
-      CASE cEvent == "ONMAXIMIZE"
-         _HMG_aFormMaximizeProcedure[i] := bBlock
-
-      CASE cEvent == "ONMINIMIZE"
-         _HMG_aFormMinimizeProcedure[i] := bBlock
-
-      CASE cEvent == "ONPAINT"
-         _HMG_aFormPaintProcedure[i] := bBlock
-
-      CASE cEvent == "ONRESTORE"
-         _HMG_aFormRestoreProcedure[i] := bBlock
-
-      CASE cEvent == "ONDROPFILES"
-         _HMG_aFormDropProcedure[i] := bBlock
-
-      END CASE
+         EXIT
+      CASE "ONMOUSECLICK"       ; _HMG_aFormClickProcedure            [i] := bBlock ; EXIT
+      CASE "ONMOUSEDRAG"        ; _HMG_aFormMouseDragProcedure        [i] := bBlock ; EXIT
+      CASE "ONMOUSEMOVE"        ; _HMG_aFormMouseMoveProcedure        [i] := bBlock ; EXIT
+      CASE "ONMOVE"             ; _HMG_aFormMoveProcedure             [i] := bBlock ; EXIT
+      CASE "ONSIZE"             ; _HMG_aFormSizeProcedure             [i] := bBlock ; EXIT
+      CASE "ONMAXIMIZE"         ; _HMG_aFormMaximizeProcedure         [i] := bBlock ; EXIT
+      CASE "ONMINIMIZE"         ; _HMG_aFormMinimizeProcedure         [i] := bBlock ; EXIT
+      CASE "ONPAINT"            ; _HMG_aFormPaintProcedure            [i] := bBlock ; EXIT
+      CASE "ONRESTORE"          ; _HMG_aFormRestoreProcedure          [i] := bBlock ; EXIT
+      CASE "ONDROPFILES"        ; _HMG_aFormDropProcedure             [i] := bBlock
+      ENDSWITCH
 
    ENDIF
 
