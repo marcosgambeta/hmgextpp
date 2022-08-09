@@ -3112,88 +3112,86 @@ STATIC FUNCTION _SetFormAction(ParentForm, Value, cEvent)
 
 RETURN Nil
 
-*-----------------------------------------------------------------------------*
-FUNCTION _GetControlAction ( ControlName , ParentForm , cEvent )
-*-----------------------------------------------------------------------------*
+//-----------------------------------------------------------------------------
+FUNCTION _GetControlAction(ControlName, ParentForm, cEvent)
+//-----------------------------------------------------------------------------
    LOCAL bAction As Block
    LOCAL i
 
-   IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0
+   IF (i := GetControlIndex(ControlName, ParentForm)) > 0
 
-      DO CASE
-      CASE cEvent == "ONCHANGE"
+      SWITCH cEvent
+      CASE "ONCHANGE"
          bAction := _HMG_aControlChangeProcedure[i]
-
-      CASE cEvent == "ONGOTFOCUS"
+         EXIT
+      CASE "ONGOTFOCUS"
          bAction := _HMG_aControlGotFocusProcedure[i]
-
-      CASE cEvent == "ONLOSTFOCUS"
+         EXIT
+      CASE "ONLOSTFOCUS"
          bAction := _HMG_aControlLostFocusProcedure[i]
-
-      CASE cEvent == "ONDBLCLICK"
+         EXIT
+      CASE "ONDBLCLICK"
          IF _HMG_aControlType[i] $ "BROWSE,GRID,LISTBOX,TREE"
             bAction := _HMG_aControlDblClick[i]
          ELSEIF _HMG_aControlType[i] $ "LABEL,IMAGE"
             bAction := _HMG_aControlHeadClick[i]
          ENDIF
-
-      CASE cEvent == "ONENTER"
+         EXIT
+      CASE "ONENTER"
          IF "TEXT" $ _HMG_aControlType[i] .OR. _HMG_aControlType[i] == CONTROL_TYPE_COMBO
             bAction := _HMG_aControlDblClick[i]
          ELSE
             bAction := _HMG_aControlProcedures[i]
          ENDIF
-
+         EXIT
       OTHERWISE
          bAction := _HMG_aControlProcedures[i]
-
-      END CASE
+      ENDSWITCH
 
    ENDIF
 
 RETURN bAction
 
-*-----------------------------------------------------------------------------*
-STATIC FUNCTION _SetControlAction ( ControlName , ParentForm , Value , cEvent )
-*-----------------------------------------------------------------------------*
+//-----------------------------------------------------------------------------
+STATIC FUNCTION _SetControlAction(ControlName, ParentForm, Value, cEvent)
+//-----------------------------------------------------------------------------
    LOCAL bBlock As Block
    LOCAL i
 
-   IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0
+   IF (i := GetControlIndex(ControlName, ParentForm)) > 0
 
       Assign bBlock := Value
 
-      DO CASE
-      CASE cEvent == "ONCHANGE"
+      SWITCH cEvent
+      CASE "ONCHANGE"
          _HMG_aControlChangeProcedure[i] := bBlock
-
-      CASE cEvent == "ONGOTFOCUS"
+         EXIT
+      CASE "ONGOTFOCUS"
          _HMG_aControlGotFocusProcedure[i] := bBlock
-
-      CASE cEvent == "ONLOSTFOCUS"
+         EXIT
+      CASE "ONLOSTFOCUS"
          _HMG_aControlLostFocusProcedure[i] := bBlock
-
-      CASE cEvent == "ONDBLCLICK"
+         EXIT
+      CASE "ONDBLCLICK"
          IF _HMG_aControlType[i] $ "BROWSE,GRID,LISTBOX,TREE"
             _HMG_aControlDblClick[i] := bBlock
          ELSEIF _HMG_aControlType[i] $ "LABEL,IMAGE"
             _HMG_aControlHeadClick[i] := bBlock
          ENDIF
-
-      CASE cEvent == "ONENTER"
+         EXIT
+      CASE "ONENTER"
          IF "TEXT" $ _HMG_aControlType[i] .OR. _HMG_aControlType[i] == CONTROL_TYPE_COMBO
             _HMG_aControlDblClick[i] := bBlock
          ELSE
             _HMG_aControlProcedures[i] := bBlock
          ENDIF
-
+         EXIT
       OTHERWISE
          _HMG_aControlProcedures[i] := bBlock
-
-      END CASE
+      ENDSWITCH
 
       IF _HMG_aControlType[i] $ "IMAGE,LABEL"
-         ChangeStyle ( _HMG_aControlHandles[i] , SS_NOTIFY )
+         ChangeStyle(_HMG_aControlHandles[i], SS_NOTIFY)
       ENDIF
 
    ENDIF
