@@ -3643,304 +3643,285 @@ FUNCTION _InputWindowCancel
 
 RETURN Nil
 
-*-----------------------------------------------------------------------------*
-FUNCTION _ReleaseControl ( ControlName, ParentForm )
-*-----------------------------------------------------------------------------*
-   LOCAL i , t , r , w , z , x , y , k
+//-----------------------------------------------------------------------------
+FUNCTION _ReleaseControl(ControlName, ParentForm)
+//-----------------------------------------------------------------------------
+   LOCAL i
+   LOCAL t
+   LOCAL r
+   LOCAL w
+   LOCAL z
+   LOCAL x
+   LOCAL y
+   LOCAL k
 
    i := GetControlIndex(ControlName, ParentForm)
-   t := GetControlType ( ControlName, ParentForm )
-   k := GetFormIndex ( ParentForm )
+   t := GetControlType(ControlName, ParentForm)
+   k := GetFormIndex(ParentForm)
 
-   DO CASE
+   SWITCH t
 
-   CASE t == CONTROL_TYPE_ANIGIF
+   CASE CONTROL_TYPE_ANIGIF
       _HMG_aControlIds[i]:End()
+      EXIT
 
-   CASE t == CONTROL_TYPE_ANIMATEBOX
-      _DestroyAnimateBox ( ControlName, ParentForm )
+   CASE CONTROL_TYPE_ANIMATEBOX
+      _DestroyAnimateBox(ControlName, ParentForm)
+      EXIT
 
-   CASE t == CONTROL_TYPE_PLAYER
-      _DestroyPlayer ( ControlName, ParentForm )
+   CASE CONTROL_TYPE_PLAYER
+      _DestroyPlayer(ControlName, ParentForm)
+      EXIT
 
-   CASE t == CONTROL_TYPE_PROGRESSWHEEL
-      IF GetProperty ( ParentForm, ControlName, "GradientMode" ) == 3
-         SetProperty ( ParentForm, ControlName, "GradientMode", 1 )
+   CASE CONTROL_TYPE_PROGRESSWHEEL
+      IF GetProperty(ParentForm, ControlName, "GradientMode") == 3
+         SetProperty(ParentForm, ControlName, "GradientMode", 1)
       ENDIF
+      hb_ADel(_HMG_aFormGraphTasks[GetFormIndex(ParentForm)], _HMG_aControlMiscData1[i], .T.)
+      ReleaseControl(_HMG_aControlHandles[i])
+      EXIT
 
-      hb_ADel( _HMG_aFormGraphTasks[GetFormIndex ( ParentForm )] , _HMG_aControlMiscData1[i] , .T. )
-      ReleaseControl ( _HMG_aControlHandles[i] )
+   CASE CONTROL_TYPE_SPINNER
+   CASE CONTROL_TYPE_RADIOGROUP
+      AEval(_HMG_aControlHandles[i], {|y|ReleaseControl(y)})
+      EXIT
 
-   CASE t == CONTROL_TYPE_SPINNER .OR. t == CONTROL_TYPE_RADIOGROUP
-      AEval( _HMG_aControlHandles[i], { |y| ReleaseControl ( y ) } )
-
-   CASE t == CONTROL_TYPE_MESSAGEBAR
+   CASE CONTROL_TYPE_MESSAGEBAR
       IF _IsControlDefined("StatusBarKbd", ParentForm)
-         ReleaseControl ( _HMG_aControlHandles [GetControlIndex("StatusBarKbd", ParentForm)] )
-         _EraseControl ( GetControlIndex("StatusBarKbd", ParentForm) , k )
+         ReleaseControl(_HMG_aControlHandles[GetControlIndex("StatusBarKbd", ParentForm)])
+         _EraseControl(GetControlIndex("StatusBarKbd", ParentForm), k)
       ENDIF
-
       IF _IsControlDefined("StatusTimer", ParentForm)
-         ReleaseControl ( _HMG_aControlHandles [GetControlIndex("StatusTimer", ParentForm)] )
-         _EraseControl ( GetControlIndex("StatusTimer", ParentForm) , k )
+         ReleaseControl(_HMG_aControlHandles[GetControlIndex("StatusTimer", ParentForm)])
+         _EraseControl(GetControlIndex("StatusTimer", ParentForm), k)
       ENDIF
-
       IF _IsControlDefined("StatusKeyBrd", ParentForm)
-         ReleaseControl ( _HMG_aControlHandles [GetControlIndex("StatusKeyBrd", ParentForm)] )
-         _EraseControl ( GetControlIndex("StatusKeyBrd", ParentForm) , k )
+         ReleaseControl(_HMG_aControlHandles[GetControlIndex("StatusKeyBrd", ParentForm)])
+         _EraseControl(GetControlIndex("StatusKeyBrd", ParentForm), k)
       ENDIF
-
-      IF ( z := SendMessage( _HMG_aControlHandles[i], SB_GETPARTS, 0, 0 ) ) > 0
+      IF (z := SendMessage(_HMG_aControlHandles[i], SB_GETPARTS, 0, 0)) > 0
          FOR x := 1 TO z
-            SetStatusItemIcon ( _HMG_aControlHandles[i] , x , Nil )
+            SetStatusItemIcon(_HMG_aControlHandles[i], x, Nil)
          NEXT x
       ENDIF
-
-      ReleaseControl ( _HMG_aControlHandles[i] )
+      ReleaseControl(_HMG_aControlHandles[i])
+      EXIT
 
 #ifdef _DBFBROWSE_
-   CASE t == CONTROL_TYPE_BROWSE
-      ReleaseControl ( _HMG_aControlHandles[i] )
-
+   CASE CONTROL_TYPE_BROWSE
+      ReleaseControl(_HMG_aControlHandles[i])
       IF _HMG_aControlIds[i] != 0
-
-         ReleaseControl ( _HMG_aControlIds[i] )
-         ReleaseControl ( _HMG_aControlMiscData1[i] [1] )
-
+         ReleaseControl(_HMG_aControlIds[i])
+         ReleaseControl(_HMG_aControlMiscData1[i][1])
       ENDIF
+      EXIT
 #endif
 
-   CASE t == CONTROL_TYPE_TAB
+   CASE CONTROL_TYPE_TAB
       FOR r := 1 TO Len(_HMG_aControlPageMap[i])
-
          FOR w := 1 TO Len(_HMG_aControlPageMap[i][r])
-
-            IF ValType(_HMG_aControlPageMap[i] [r] [w]) <> "A"
-
-               ReleaseControl ( _HMG_aControlPageMap[i] [r] [w] )
-               x := AScan(_HMG_aControlHandles , _HMG_aControlPageMap[i] [r] [w])
+            IF ValType(_HMG_aControlPageMap[i][r][w]) <> "A"
+               ReleaseControl(_HMG_aControlPageMap[i][r][w])
+               x := AScan(_HMG_aControlHandles, _HMG_aControlPageMap[i][r][w])
                IF x > 0
-                  _EraseControl( x, k )
+                  _EraseControl(x, k)
                ENDIF
-
             ELSE
-
                FOR z := 1 TO Len(_HMG_aControlPageMap[i][r][w])
-                  ReleaseControl ( _HMG_aControlPageMap[i] [r] [w] [z] )
+                  ReleaseControl(_HMG_aControlPageMap[i][r][w][z])
                NEXT z
-
                FOR x := 1 TO Len(_HMG_aControlHandles)
-                  IF ValType(_HMG_aControlHandles [x]) == "A"
-                     IF _HMG_aControlHandles [x] [1] == _HMG_aControlPageMap[i] [r] [w] [1]
-                        _EraseControl( x, k )
+                  IF ValType(_HMG_aControlHandles[x]) == "A"
+                     IF _HMG_aControlHandles[x][1] == _HMG_aControlPageMap[i][r][w][1]
+                        _EraseControl(x, k)
                         EXIT
                      ENDIF
                   ENDIF
                NEXT x
-
             ENDIF
-
          NEXT w
-
       NEXT r
-
-      ReleaseControl ( _HMG_aControlHandles[i] )
+      ReleaseControl(_HMG_aControlHandles[i])
+      EXIT
 
    OTHERWISE
-
       IF i > 0
-         ReleaseControl ( _HMG_aControlHandles[i] )
+         ReleaseControl(_HMG_aControlHandles[i])
       ENDIF
 
-   ENDCASE
+   ENDSWITCH
 
    // If the control is inside a TAB, PageMap must be updated
 
    FOR y := 1 TO Len(_HMG_aControlPageMap)
-
       IF _HMG_aControlType[y] == CONTROL_TYPE_TAB
-
          FOR r := 1 TO Len(_HMG_aControlPageMap[y])
-
             FOR w := 1 TO Len(_HMG_aControlPageMap[y][r])
-
                IF t == CONTROL_TYPE_RADIOGROUP
-
-                  IF ValType(_HMG_aControlPageMap [y] [r] [w]) == "A"
-
-                     IF _HMG_aControlPageMap [y] [r] [w] [1] == _HMG_aControlHandles[i] [1]
-
-                        ADel( _HMG_aControlPageMap [y] [r] , w )
-                        ASize( _HMG_aControlPageMap [y] [r] , Len(_HMG_aControlPageMap[y][r]) - 1 )
+                  IF ValType(_HMG_aControlPageMap[y][r][w]) == "A"
+                     IF _HMG_aControlPageMap[y][r][w][1] == _HMG_aControlHandles[i][1]
+                        ADel(_HMG_aControlPageMap[y][r], w)
+                        ASize(_HMG_aControlPageMap[y][r], Len(_HMG_aControlPageMap[y][r]) - 1)
                         EXIT
-
                      ENDIF
-
                   ENDIF
-
                ELSEIF t == CONTROL_TYPE_SPINNER
-
-                  IF ValType(_HMG_aControlPageMap [y] [r] [w]) == "A"
-
-                     IF _HMG_aControlPageMap [y] [r] [w] [1] == _HMG_aControlHandles[i] [1]
-
-                        ADel( _HMG_aControlPageMap [y] [r] , w )
-                        ASize( _HMG_aControlPageMap [y] [r] , Len(_HMG_aControlPageMap[y][r]) - 1 )
+                  IF ValType(_HMG_aControlPageMap[y][r][w]) == "A"
+                     IF _HMG_aControlPageMap[y][r][w][1] == _HMG_aControlHandles[i][1]
+                        ADel( _HMG_aControlPageMap[y][r], w)
+                        ASize( _HMG_aControlPageMap[y][r], Len(_HMG_aControlPageMap[y][r]) - 1)
                         EXIT
-
                      ENDIF
-
                   ENDIF
 #ifdef _DBFBROWSE_
                ELSEIF t == CONTROL_TYPE_BROWSE
-
-                  IF ValType(_HMG_aControlPageMap [y] [r] [w]) == "A"
-
-                     IF _HMG_aControlPageMap [y] [r] [w] [1] == _HMG_aControlHandles[i]
-
-                        ADel( _HMG_aControlPageMap [y] [r] , w )
-                        ASize( _HMG_aControlPageMap [y] [r] , Len(_HMG_aControlPageMap[y][r]) - 1 )
+                  IF ValType(_HMG_aControlPageMap[y][r][w]) == "A"
+                     IF _HMG_aControlPageMap[y][r][w][1] == _HMG_aControlHandles[i]
+                        ADel(_HMG_aControlPageMap[y][r], w)
+                        ASize(_HMG_aControlPageMap[y][r], Len(_HMG_aControlPageMap[y][r]) - 1)
                         EXIT
-
                      ENDIF
-
-                  ELSEIF ValType(_HMG_aControlPageMap [y] [r] [w]) == "N"
-
-                     IF _HMG_aControlPageMap [y] [r] [w] == _HMG_aControlHandles[i]
-
-                        ADel( _HMG_aControlPageMap [y] [r] , w )
-                        ASize( _HMG_aControlPageMap [y] [r] , Len(_HMG_aControlPageMap[y][r]) - 1 )
+                  ELSEIF ValType(_HMG_aControlPageMap[y][r][w]) == "N"
+                     IF _HMG_aControlPageMap[y][r][w] == _HMG_aControlHandles[i]
+                        ADel(_HMG_aControlPageMap[y][r], w)
+                        ASize(_HMG_aControlPageMap[y][r], Len(_HMG_aControlPageMap[y][r]) - 1)
                         EXIT
-
                      ENDIF
-
                   ENDIF
 #endif
                ELSE
-
-                  IF ValType(_HMG_aControlPageMap [y] [r] [w]) == "N"
-
-                     IF _HMG_aControlPageMap [y] [r] [w] == _HMG_aControlHandles[i]
-
-                        ADel( _HMG_aControlPageMap [y] [r] , w )
-                        ASize( _HMG_aControlPageMap [y] [r] , Len(_HMG_aControlPageMap[y][r]) - 1 )
+                  IF ValType(_HMG_aControlPageMap[y][r][w]) == "N"
+                     IF _HMG_aControlPageMap[y][r][w] == _HMG_aControlHandles[i]
+                        ADel(_HMG_aControlPageMap[y][r], w)
+                        ASize(_HMG_aControlPageMap[y][r], Len(_HMG_aControlPageMap[y][r]) - 1)
                         EXIT
-
                      ENDIF
-
                   ENDIF
-
                ENDIF
-
             NEXT w
-
          NEXT r
-
       ENDIF
-
    NEXT y
 
-   _EraseControl( i, k )
+   _EraseControl(i, k)
 
 RETURN Nil
 
-*-----------------------------------------------------------------------------*
-FUNCTION _EraseControl ( i, p )
-*-----------------------------------------------------------------------------*
+//-----------------------------------------------------------------------------
+FUNCTION _EraseControl(i, p)
+//-----------------------------------------------------------------------------
    LOCAL hWnd
    LOCAL mVar
-   LOCAL t, x
+   LOCAL t
+   LOCAL x
 
    x := _HMG_aControlFontHandle[i]
 
-   IF ISNUMERIC ( x ) .AND. ! Empty(x) .AND. ;
-      !( ( t := AScan(_HMG_aControlHandles, x) ) > 0 .AND. _HMG_aControlType[t] == CONTROL_TYPE_FONT )
-      DeleteObject ( x )
+   IF ISNUMERIC(x) .AND. !Empty(x) .AND. !((t := AScan(_HMG_aControlHandles, x)) > 0 .AND. _HMG_aControlType[t] == CONTROL_TYPE_FONT)
+      DeleteObject(x)
    ENDIF
 
    IF _HMG_aControlType[i] $ "OBUTTON" .AND. !Empty(_HMG_aControlMiscData1[i])
-      DestroyIcon ( _HMG_aControlBrushHandle[i] )
+      DestroyIcon(_HMG_aControlBrushHandle[i])
    ELSE
-      DeleteObject ( _HMG_aControlBrushHandle[i] )
+      DeleteObject(_HMG_aControlBrushHandle[i])
    ENDIF
 
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlDestroy, i )
+      Eval(_HMG_bOnControlDestroy, i)
    ENDIF
 
    t := _HMG_aControlType[i]
 
-   DO CASE
+   SWITCH t
 
-   CASE t == CONTROL_TYPE_HOTKEY
-      ReleaseHotKey ( _HMG_aControlParentHandles[i] , _HMG_aControlIds[i] )
+   CASE CONTROL_TYPE_HOTKEY
+      ReleaseHotKey(_HMG_aControlParentHandles[i], _HMG_aControlIds[i])
+      EXIT
 
-   CASE "LABEL" $ t
-      IF _HMG_aControlMiscData1[i] [2] == .T.
-         _ReleaseControl ( "BlinkTimer" + hb_ntos( i ), _HMG_aFormNames [p] )
+   // CASE "LABEL" $ t
+   CASE CONTROL_TYPE_CHECKLABEL
+   CASE CONTROL_TYPE_LABEL
+      IF _HMG_aControlMiscData1[i][2] == .T.
+         _ReleaseControl("BlinkTimer" + hb_ntos(i), _HMG_aFormNames[p])
       ENDIF
-      IF ISARRAY( _HMG_aControlPicture[i] )  // erase CheckLabel bitmap
-         x := _HMG_aControlPicture[i] [1]
-         IF File( x ) .AND. cFilePath ( x ) == GetTempFolder()
-            FErase( x )
+      IF ISARRAY(_HMG_aControlPicture[i])  // erase CheckLabel bitmap
+         x := _HMG_aControlPicture[i][1]
+         IF File(x) .AND. cFilePath(x) == GetTempFolder()
+            FErase(x)
          ENDIF
       ENDIF
+      EXIT
 
-   CASE t == CONTROL_TYPE_BUTTON
-      IF !Empty(_HMG_aControlBrushHandle[i]) .AND. _HMG_IsThemed .AND. ISLOGICAL ( _HMG_aControlDblClick[i] ) .AND. _HMG_aControlDblClick[i] == .F.
-         ImageList_Destroy ( _HMG_aControlBrushHandle[i] )
+   CASE CONTROL_TYPE_BUTTON
+      IF !Empty(_HMG_aControlBrushHandle[i]) .AND. _HMG_IsThemed .AND. ISLOGICAL(_HMG_aControlDblClick[i]) .AND. _HMG_aControlDblClick[i] == .F.
+         ImageList_Destroy(_HMG_aControlBrushHandle[i])
       ENDIF
+      EXIT
 
-   CASE t == CONTROL_TYPE_CHECKBOX
+   CASE CONTROL_TYPE_CHECKBOX
       IF !Empty(_HMG_aControlBrushHandle[i]) .AND. _HMG_IsThemed
-         ImageList_Destroy ( _HMG_aControlBrushHandle[i] )
+         ImageList_Destroy(_HMG_aControlBrushHandle[i])
       ENDIF
+      EXIT
 
-   CASE t == CONTROL_TYPE_GETBOX
-      AEval( _HMG_aControlRangeMin[i], { |x| DeleteObject ( x ) } )
+   CASE CONTROL_TYPE_GETBOX
+      AEval(_HMG_aControlRangeMin[i], {|x|DeleteObject(x)})
+      EXIT
 
-   CASE t == CONTROL_TYPE_BTNTEXT .OR. t == CONTROL_TYPE_BTNNUMTEXT
-      AEval( _HMG_aControlSpacing[i], { |x| DeleteObject ( x ) } )
+   CASE CONTROL_TYPE_BTNTEXT
+   CASE CONTROL_TYPE_BTNNUMTEXT
+      AEval(_HMG_aControlSpacing[i], {|x|DeleteObject(x)})
+      EXIT
 
-   CASE t == CONTROL_TYPE_TAB
+   CASE CONTROL_TYPE_TAB
       IF !Empty(_HMG_aControlInputMask[i])
-         IMAGELIST_DESTROY ( _HMG_aControlInputMask[i] )
+         IMAGELIST_DESTROY(_HMG_aControlInputMask[i])
       ENDIF
+      EXIT
+
 #ifdef _DBFBROWSE_
-   CASE t == CONTROL_TYPE_BROWSE
+   CASE CONTROL_TYPE_BROWSE
       IF !Empty(_HMG_aControlMiscData1[i][15])
-         IMAGELIST_DESTROY ( _HMG_aControlMiscData1[i] [15] )
+         IMAGELIST_DESTROY(_HMG_aControlMiscData1[i][15])
       ENDIF
+      EXIT
 #endif
-   CASE "GRID" $ t
+
+   // CASE "GRID" $ t
+   CASE CONTROL_TYPE_GRID
+   CASE CONTROL_TYPE_MULTIGRID
+   CASE CONTROL_TYPE_PROPGRID
       IF !Empty(_HMG_aControlRangeMin[i])
-         IMAGELIST_DESTROY ( _HMG_aControlRangeMin[i] )
+         IMAGELIST_DESTROY(_HMG_aControlRangeMin[i])
       ENDIF
+      EXIT
 
-   CASE t == CONTROL_TYPE_TOOLBUTTON
-      DeleteObject ( _HMG_aControlHandles[i] )
+   CASE CONTROL_TYPE_TOOLBUTTON
+      DeleteObject(_HMG_aControlHandles[i])
+      EXIT
 
-   CASE t == CONTROL_TYPE_PAGER
+   CASE CONTROL_TYPE_PAGER
       // Remove Pager Child Controls
       hWnd := _HMG_aControlHandles[i]
       FOR x := 1 TO Len(_HMG_aControlHandles)
-         IF _HMG_aControlParentHandles [x] == hWnd
-            _EraseControl( x, p )
+         IF _HMG_aControlParentHandles[x] == hWnd
+            _EraseControl(x, p)
          ENDIF
       NEXT x
 
-   ENDCASE
+   ENDSWITCH
 
-   mVar := "_" + _HMG_aFormNames [p] + "_" + _HMG_aControlNames[i]
+   mVar := "_" + _HMG_aFormNames[p] + "_" + _HMG_aControlNames[i]
 
 #ifdef _NAMES_LIST_
-      _DelNameList ( mVar )
+   _DelNameList(mVar)
 #else
-   IF __mvExist ( mVar )
+   IF __mvExist(mVar)
 #ifndef _PUBLIC_RELEASE_
-      __mvPut ( mVar , 0 )
+      __mvPut(mVar, 0)
 #else
-      __mvXRelease ( mVar )
+      __mvXRelease(mVar)
 #endif
    ENDIF
 #endif
@@ -3986,7 +3967,7 @@ FUNCTION _EraseControl ( i, p )
    _HMG_aControlMiscData1         [i] := 0
    _HMG_aControlMiscData2         [i] := ""
 #ifdef _HMG_COMPAT_
-   IF __mvExist ( "_HMG_SYSDATA[443][i]" )
+   IF __mvExist("_HMG_SYSDATA[443][i]")
       _HMG_StopControlEventProcedure[i] := .F.
    ENDIF
 #endif
