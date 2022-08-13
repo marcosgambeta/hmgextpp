@@ -68,6 +68,7 @@ source\c_timer.cpp
 source\c_toolbar.cpp
 source\c_tooltip.cpp
 source\c_tree.cpp
+source\c_webcam.cpp
 source\c_winapimisc.cpp
 source\c_windows.cpp
 source\c_windowsAPI.cpp
