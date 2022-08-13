@@ -1,70 +1,66 @@
-/*----------------------------------------------------------------------------
-MINIGUI - Harbour Win32 GUI library source code
+/*
+  MINIGUI - Harbour Win32 GUI library source code
 
-Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
-http://harbourminigui.googlepages.com/
+  Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
+  http://harbourminigui.googlepages.com/
 
-WEBCAM Control Source Code
-Copyright 2012 Grigory Filatov <gfilatov@gmail.com>
+  WEBCAM Control Source Code
+  Copyright 2012 Grigory Filatov <gfilatov@gmail.com>
 
-This program is free software; you can redistribute it and/or modify it under
-the terms of the GNU General Public License as published by the Free Software
-Foundation; either version 2 of the License, or (at your option) any later
-version.
+  This program is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free Software
+  Foundation; either version 2 of the License, or (at your option) any later
+  version.
 
-This program is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+  This program is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
-   You should have received a copy of the GNU General Public License along with
-   this software; see the file COPYING. If not, write to the Free Software
-   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
-   visit the web site http://www.gnu.org/).
+  You should have received a copy of the GNU General Public License along with
+  this software; see the file COPYING. If not, write to the Free Software
+  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
+  visit the web site http://www.gnu.org/).
 
-   As a special exception, you have permission for additional uses of the text
-   contained in this release of Harbour Minigui.
+  As a special exception, you have permission for additional uses of the text
+  contained in this release of Harbour Minigui.
 
-   The exception is that, if you link the Harbour Minigui library with other
-   files to produce an executable, this does not by itself cause the resulting
-   executable to be covered by the GNU General Public License.
-   Your use of that executable is in no way restricted on account of linking the
-   Harbour-Minigui library code into it.
+  The exception is that, if you link the Harbour Minigui library with other
+  files to produce an executable, this does not by itself cause the resulting
+  executable to be covered by the GNU General Public License.
+  Your use of that executable is in no way restricted on account of linking the
+  Harbour-Minigui library code into it.
 
-   Parts of this project are based upon:
+  Parts of this project are based upon:
 
-   "Harbour GUI framework for Win32"
-   Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
-   Copyright 2001 Antonio Linares <alinares@fivetech.com>
-   www - https://harbour.github.io/
+  "Harbour GUI framework for Win32"
+  Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+  Copyright 2001 Antonio Linares <alinares@fivetech.com>
+  www - https://harbour.github.io/
 
-   "Harbour Project"
-   Copyright 1999-2022, https://harbour.github.io/
+  "Harbour Project"
+  Copyright 1999-2022, https://harbour.github.io/
 
-   "WHAT32"
-   Copyright 2002 AJ Wos <andrwos@aust1.net>
+  "WHAT32"
+  Copyright 2002 AJ Wos <andrwos@aust1.net>
 
-   "HWGUI"
-   Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
-
----------------------------------------------------------------------------*/
+  "HWGUI"
+  Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
+*/
 
 #include "minigui.ch"
 
 #ifdef _USERINIT_
 #include "i_winuser.ch"
 
-*------------------------------------------------------------------------------*
 INIT PROCEDURE _InitWebCam
-*------------------------------------------------------------------------------*
 
-   InstallMethodHandler ( "Start", "_StartWebCam" )
-   InstallMethodHandler ( "Release", "_ReleaseWebCam" )
+   InstallMethodHandler("Start", "_StartWebCam")
+   InstallMethodHandler("Release", "_ReleaseWebCam")
 
 RETURN
 
-*------------------------------------------------------------------------------*
-FUNCTION _DefineWebCam ( ControlName, ParentForm, x, y, w, h, lStart, nRate, TOOLTIP, HelpId )
-*------------------------------------------------------------------------------*
+FUNCTION _DefineWebCam(ControlName, ParentForm, x, y, w, h, lStart, nRate, TOOLTIP, HelpId)
+
    LOCAL ControlHandle
    LOCAL cParentForm
    LOCAL mVar
@@ -97,23 +93,23 @@ FUNCTION _DefineWebCam ( ControlName, ParentForm, x, y, w, h, lStart, nRate, TOO
    k := _GetControlFree()
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar, k )
+   _SetNameList(mVar, k)
 #else
    PUBLIC &mVar. := k
 #endif
 
    cParentForm := ParentForm
 
-   ParentForm := GetFormHandle ( ParentForm )
+   ParentForm := GetFormHandle(ParentForm)
 
-   ControlHandle := _CreateWebCam ( ParentForm, x, y, w, h )
+   ControlHandle := _CreateWebCam(ParentForm, x, y, w, h)
 
    IF _HMG_BeginTabActive
       AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
    ENDIF
 
    IF ValType(tooltip) != "U"
-      SetToolTip ( ControlHandle, TOOLTIP, GetFormToolTipHandle ( cParentForm ) )
+      SetToolTip(ControlHandle, TOOLTIP, GetFormToolTipHandle(cParentForm))
    ENDIF
 
    _HMG_aControlType               [k] := CONTROL_TYPE_WEBCAM
@@ -138,13 +134,13 @@ FUNCTION _DefineWebCam ( ControlName, ParentForm, x, y, w, h, lStart, nRate, TOO
    _HMG_aControlWidth              [k] := w
    _HMG_aControlHeight             [k] := h
    _HMG_aControlSpacing            [k] := 0
-   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1 )
-   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1 )
+   _HMG_aControlContainerRow       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1)
+   _HMG_aControlContainerCol       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1)
    _HMG_aControlPicture            [k] := ""
    _HMG_aControlContainerHandle    [k] := 0
    _HMG_aControlFontName           [k] := ""
    _HMG_aControlFontSize           [k] := 0
-   _HMG_aControlFontAttributes     [k] := { .F., .F., .F., .F. }
+   _HMG_aControlFontAttributes     [k] := {.F., .F., .F., .F.}
    _HMG_aControlToolTip            [k] := tooltip
    _HMG_aControlRangeMin           [k] := 0
    _HMG_aControlRangeMax           [k] := 0
@@ -158,72 +154,57 @@ FUNCTION _DefineWebCam ( ControlName, ParentForm, x, y, w, h, lStart, nRate, TOO
    _HMG_aControlMiscData2          [k] := ""
 
    IF lStart
-      IF !_StartWebCam ( cParentForm, ControlName )
-         MsgAlert( "Webcam service is unavailable!", "Alert" )
+      IF !_StartWebCam(cParentForm, ControlName)
+         MsgAlert("Webcam service is unavailable!", "Alert")
       ENDIF
    ENDIF
 
 RETURN NIL
 
-*------------------------------------------------------------------------------*
-FUNCTION _CreateWebCam ( ParentForm, x, y, w, h )
-*------------------------------------------------------------------------------*
+FUNCTION _CreateWebCam(ParentForm, x, y, w, h)
+RETURN cap_CreateCaptureWindow("WebCam", hb_bitOr(WS_CHILD, WS_VISIBLE), y, x, w, h, ParentForm, 0)
 
-RETURN cap_CreateCaptureWindow ( "WebCam", hb_bitOr( WS_CHILD, WS_VISIBLE ), y, x, w, h, ParentForm, 0 )
+FUNCTION _StartWebCam(cWindow, cControl)
 
-*------------------------------------------------------------------------------*
-FUNCTION _StartWebCam ( cWindow, cControl )
-*------------------------------------------------------------------------------*
    LOCAL hWnd
-   LOCAL w, h
+   LOCAL w
+   LOCAL h
    LOCAL nTry := 1
    LOCAL lSuccess
 
-   hWnd := GetControlHandle ( cControl, cWindow )
+   hWnd := GetControlHandle(cControl, cWindow)
 
    REPEAT
-   lSuccess := cap_DriverConnect ( hWnd, 0 )
-   DO EVENTS
-   UNTIL ( lSuccess != .T. .AND. nTry++ < 3 )
+      lSuccess := cap_DriverConnect(hWnd, 0)
+      DO EVENTS
+   UNTIL (lSuccess != .T. .AND. nTry++ < 3)
 
    IF lSuccess
-
       w := _GetControlWidth(cControl, cWindow)
       h := _GetControlHeight(cControl, cWindow)
-
-      cap_SetVideoFormat ( hWnd, Min( w, 320 ), Min( h, 240 ) )
-
-      lSuccess := ( cap_PreviewScale( hWnd, .T. ) .AND. ;
-         cap_PreviewRate( hWnd, GetControlValue ( cControl, cWindow ) ) .AND. ;
-         cap_Preview( hWnd, .T. ) )
-
+      cap_SetVideoFormat(hWnd, Min(w, 320), Min(h, 240))
+      lSuccess := (cap_PreviewScale(hWnd, .T.) .AND. cap_PreviewRate(hWnd, GetControlValue(cControl, cWindow)) .AND. cap_Preview(hWnd, .T.))
    ELSE
       // error connecting to video source
-      DestroyWindow ( hWnd )
-
+      DestroyWindow(hWnd)
    ENDIF
 
    _HMG_aControlVisible[ GetControlIndex(cControl, cWindow) ] := lSuccess
 
 RETURN lSuccess
 
-*------------------------------------------------------------------------------*
-PROCEDURE _ReleaseWebCam ( cWindow, cControl )
-*------------------------------------------------------------------------------*
+PROCEDURE _ReleaseWebCam(cWindow, cControl)
+
    LOCAL hWnd
 
-   IF _IsControlDefined(cControl, cWindow) .AND. GetControlType ( cControl, cWindow ) == "WEBCAM"
+   IF _IsControlDefined(cControl, cWindow) .AND. GetControlType(cControl, cWindow) == CONTROL_TYPE_WEBCAM
 
-      hWnd := GetControlHandle ( cControl, cWindow )
+      hWnd := GetControlHandle(cControl, cWindow)
 
       IF !Empty(hWnd)
-
-         cap_DriverDisconnect ( hWnd )
-
-         DestroyWindow ( hWnd )
-
-         _EraseControl ( GetControlIndex(cControl, cWindow), GetFormIndex ( cWindow ) )
-
+         cap_DriverDisconnect(hWnd)
+         DestroyWindow(hWnd)
+         _EraseControl(GetControlIndex(cControl, cWindow), GetFormIndex(cWindow))
       ENDIF
 
       _HMG_UserComponentProcess := .T.
@@ -241,79 +222,94 @@ RETURN
 #include <mgdefs.h>
 #include <vfw.h>
 
-#if defined( __BORLANDC__ )
+#if defined(__BORLANDC__)
 #  pragma warn -use /* unused var */
 #  pragma warn -eff /* no effect */
 #endif
 
 #ifdef UNICODE
-   LPWSTR AnsiToWide( LPCSTR );
+   LPWSTR AnsiToWide(LPCSTR);
 #endif
 
+/*
+CAP_CREATECAPTUREWINDOW(cWindowName, nStyle, nX, nY, nWidth, nHeight, nWndParent, nID) --> handle
+*/
 HB_FUNC( CAP_CREATECAPTUREWINDOW )
 {
-
 #ifndef UNICODE
-   LPCSTR lpszWindowName = hb_parc( 1 );
+   LPCSTR lpszWindowName = hb_parc(1);
 #else
-   LPWSTR lpszWindowName = AnsiToWide( ( char * ) hb_parc( 1 ) );
+   LPWSTR lpszWindowName = AnsiToWide(( char * ) hb_parc(1));
 #endif
 
-   HB_RETNL( ( LONG_PTR ) capCreateCaptureWindow( lpszWindowName,
-                    ( DWORD ) hb_parnl( 2 ),
-                    hb_parni( 3 ), hb_parni( 4 ),
-                    hb_parni( 5 ), hb_parni( 6 ),
-                    ( HWND ) HB_PARNL( 7 ),
-                    hb_parni( 8 ) ) );
+   HB_RETNL(reinterpret_cast<LONG_PTR>(capCreateCaptureWindow(lpszWindowName, hmg_par_DWORD(2), hmg_par_int(3), hmg_par_int(4), hmg_par_int(5), hmg_par_int(6), hmg_par_HWND(7), hmg_par_int(8))));
 }
 
+/*
+CAP_DRIVERCONNECT(nWnd, nIndex) --> .T.|.F.
+*/
 HB_FUNC( CAP_DRIVERCONNECT )
 {
-   hb_retl( capDriverConnect( ( HWND ) HB_PARNL( 1 ), hb_parni( 2 ) ) );
+   hb_retl(capDriverConnect(hmg_par_HWND(1), hmg_par_WPARAM(2)));
 }
 
+/*
+CAP_DRIVERDISCONNECT(nWnd) --> .T.|.F.
+*/
 HB_FUNC( CAP_DRIVERDISCONNECT )
 {
-   hb_retl( capDriverDisconnect( ( HWND ) HB_PARNL( 1 ) ) );
+   hb_retl(capDriverDisconnect(hmg_par_HWND(1)));
 }
 
+/*
+CAP_SETVIDEOFORMAT(nWnd, nWidth, nHeight) --> .T.|.F.
+*/
 HB_FUNC( CAP_SETVIDEOFORMAT )
 {
    BITMAPINFO binf;
-   HWND hCapWnd = ( HWND ) HB_PARNL( 1 );
-
-   capGetVideoFormat( hCapWnd, &binf, sizeof(BITMAPINFO) );
-
-   binf.bmiHeader.biWidth        = hb_parni( 2 );
-   binf.bmiHeader.biHeight       = hb_parni( 3 );
+   HWND hCapWnd = hmg_par_HWND(1);
+   capGetVideoFormat(hCapWnd, &binf, sizeof(BITMAPINFO));
+   binf.bmiHeader.biWidth        = hb_parni(2);
+   binf.bmiHeader.biHeight       = hb_parni(3);
    binf.bmiHeader.biPlanes       = 1;
    binf.bmiHeader.biBitCount     = 24;
    binf.bmiHeader.biCompression  = BI_RGB;
    binf.bmiHeader.biSizeImage    = 0;
    binf.bmiHeader.biClrUsed      = 0;
    binf.bmiHeader.biClrImportant = 0;
-
-   hb_retl( capSetVideoFormat( hCapWnd, &binf, sizeof(BITMAPINFO) ) );
+   hb_retl(capSetVideoFormat(hCapWnd, &binf, sizeof(BITMAPINFO)));
 }
 
+/*
+CAP_PREVIEWRATE(nWnd, nRate) --> .T.|.F.
+*/
 HB_FUNC( CAP_PREVIEWRATE )
 {
-   hb_retl( capPreviewRate( ( HWND ) HB_PARNL( 1 ), ( WORD ) hb_parnl( 2 ) ) );
+   hb_retl(capPreviewRate(hmg_par_HWND(1), hmg_par_WPARAM(2)));
 }
 
+/*
+CAP_PREVIEWSCALE(nWnd, lPreviewScale) --> .T.|.F.
+*/
 HB_FUNC( CAP_PREVIEWSCALE )
 {
-   hb_retl( capPreviewScale( ( HWND ) HB_PARNL( 1 ), hb_parl( 2 ) ) );
+   hb_retl(capPreviewScale(hmg_par_HWND(1), hmg_par_BOOL(2)));
 }
 
+/*
+CAP_PREVIEW(nWnd, lPreviewMode) --> .T.|.F.
+*/
 HB_FUNC( CAP_PREVIEW )
 {
-   hb_retl( capPreview( ( HWND ) HB_PARNL( 1 ), hb_parl( 2 ) ) );
+   hb_retl(capPreview(hmg_par_HWND(1), hmg_par_BOOL(2)));
 }
 
+/*
+CAP_EDITCOPY(nWnd) --> .T.|.F.
+*/
 HB_FUNC( CAP_EDITCOPY )
 {
-   hb_retl( capEditCopy( ( HWND ) HB_PARNL( 1 ) ) );
+   hb_retl(capEditCopy(hmg_par_HWND(1)));
 }
 
 #pragma ENDDUMP
