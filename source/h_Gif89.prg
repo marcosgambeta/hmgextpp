@@ -42,8 +42,8 @@ FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidt
    ENDIF
 
    IF !hb_FileExists ( cFileName )
-      cDiskFile := TempFile ( GetTempFolder(), "gif" )
-      IF RCDataToFile ( cFilename, cDiskFile, "GIF" ) > 0
+      cDiskFile := TempFile(GetTempFolder(), "gif")
+      IF RCDataToFile(cFilename, cDiskFile, "GIF") > 0
          IF hb_FileExists ( cDiskFile )
             cResName := cFileName
             cFilename := cDiskFile
@@ -54,7 +54,7 @@ FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidt
    // Define public variable associated with control
    mVar := "_" + cParentForm + "_" + cControlName
 
-   nParentFormHandle := GetFormHandle ( cParentForm )
+   nParentFormHandle := GetFormHandle(cParentForm)
 
    k := _GetControlFree()
 
@@ -108,7 +108,7 @@ FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidt
    oGif := TGif():New( cFilename, nRow, nCol, nHeight, nWidth, nDelay, aBKColor, cControlName, cParentForm )
 
    IF ISOBJECT ( oGif )
-      nControlHandle := GetControlHandle ( oGif:hGif, cParentForm )
+      nControlHandle := GetControlHandle(oGif:hGif, cParentForm)
       _HMG_aControlHandles[k] := nControlHandle
       _HMG_aControlIds[k] := oGif
 
@@ -118,7 +118,7 @@ FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidt
    ENDIF
 
    IF hb_FileExists ( cDiskFile )
-      FErase ( cDiskFile )
+      FErase(cDiskFile)
    ENDIF
 
 RETURN oGif
@@ -132,7 +132,7 @@ PROCEDURE _ReleaseAniGif ( GifName, FormName )
 
    IF AScan(_HMG_aControlNames, GifName) > 0
 
-      hWnd := GetFormHandle ( FormName )
+      hWnd := GetFormHandle(FormName)
 
       FOR i := 1 TO Len(_HMG_aControlHandles)
 
@@ -286,17 +286,12 @@ METHOD New( cFileName, nTop, nLeft, nBottom, nRight, nDelay, aBKColor, cControlN
 
    ::hGif := cControlName + hb_ntos( nId )
 
-   @ nTop, nLeft IMAGE ( ::hGif ) PARENT ( cParentName ) PICTURE cFileName ;
-      WIDTH nRight HEIGHT nBottom STRETCH BACKGROUNDCOLOR aBKColor TRANSPARENT
+   @ nTop, nLeft IMAGE (::hGif) PARENT (cParentName) PICTURE cFileName WIDTH nRight HEIGHT nBottom STRETCH BACKGROUNDCOLOR aBKColor TRANSPARENT
 
    IF ::nTotalFrames > 1
-      ::cTimer := "tgif_tmr_" + hb_ntos( nId )
-      DEFINE TIMER ( ::cTimer ) ;
-         OF ( cParentName ) ;
-         INTERVAL ::aDelay[ ::nCurrentFrame ] ;
-         ACTION ::PlayGif()
-
-      SetProperty( cParentName, ::hGif, "Picture", ::aPictData[ ::nCurrentFrame ] )
+      ::cTimer := "tgif_tmr_" + hb_ntos(nId)
+      DEFINE TIMER (::cTimer) OF (cParentName) INTERVAL ::aDelay[::nCurrentFrame] ACTION ::PlayGif()
+      SetProperty(cParentName, ::hGif, "Picture", ::aPictData[::nCurrentFrame])
    ENDIF
 
 RETURN Self

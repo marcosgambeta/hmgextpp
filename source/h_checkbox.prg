@@ -87,7 +87,7 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
    ENDIF
    hb_default(@autosize, .F.)
 
-   IF ( FontHandle := GetFontHandle( FontName ) ) != 0
+   IF ( FontHandle := GetFontHandle(FontName) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
@@ -163,23 +163,23 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
 
       ELSE
 
-         ControlHandle := GetDialogItemHandle( ParentFormHandle, nId )
+         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
 
-         x := GetWindowCol ( Controlhandle )
-         y := GetWindowRow ( Controlhandle )
-         w := GetWindowWidth  ( Controlhandle )
+         x := GetWindowCol(Controlhandle)
+         y := GetWindowRow(Controlhandle)
+         w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
          IF ValType(caption) != "U"
             SetWindowText(ControlHandle, caption)
          ENDIF
 
-         SetWindowStyle ( ControlHandle, Style, .T. )
+         SetWindowStyle(ControlHandle, Style, .T.)
       ENDIF
 
    ELSE
 
-      ParentFormHandle := GetFormHandle ( ParentFormName )
+      ParentFormHandle := GetFormHandle(ParentFormName)
       Controlhandle := InitCheckBox ( ParentFormHandle, Caption, 0, x, y, multiline, threestate, w, h, invisible, notabstop, leftjustify, transparent )
 
    ENDIF
@@ -187,17 +187,17 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
    IF !lDialogInMemory
 
       IF FontHandle != 0
-         _SetFontHandle( ControlHandle, FontHandle )
+         _SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle( ControlHandle )
-            FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
+         IF IsWindowHandle(ControlHandle)
+            FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
 
-      IF _HMG_IsThemed .AND. IsArrayRGB ( fontcolor )
-         SetWindowTheme ( ControlHandle, "", "" )
+      IF _HMG_IsThemed .AND. IsArrayRGB(fontcolor)
+         SetWindowTheme(ControlHandle, "", "")
       ENDIF
 
       IF _HMG_BeginTabActive
@@ -205,7 +205,7 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
       ENDIF
 
       IF ValType(tooltip) != "U"
-         SetToolTip ( ControlHandle , tooltip , GetFormToolTipHandle ( ParentFormName ) )
+         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
    ENDIF
@@ -259,15 +259,15 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
 
    IF !lDialogInMemory
       IF threestate .AND. value == NIL
-         SendMessage( Controlhandle , BM_SETCHECK , BST_INDETERMINATE , 0 )
+         SendMessage(Controlhandle, BM_SETCHECK, BST_INDETERMINATE, 0)
       ELSEIF value == .T.
-         SendMessage( Controlhandle , BM_SETCHECK , BST_CHECKED , 0 )
+         SendMessage(Controlhandle, BM_SETCHECK, BST_CHECKED, 0)
       ENDIF
       IF autosize == .T.
          _SetControlWidth(ControlName , ParentFormName , GetTextWidth(NIL, Caption, FontHandle) + ;
             iif( bold == .T. .OR. italic == .T., GetTextWidth(NIL, " ", FontHandle), 0 ) + 20)
          _SetControlHeight(ControlName, ParentFormName, FontSize + iif(FontSize < 14, 12, 16))
-         RedrawWindow ( ControlHandle )
+         RedrawWindow(ControlHandle)
       ENDIF
    ENDIF
 
@@ -278,12 +278,12 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
 #ifdef _OBJECT_
-      ow := _WindowObj ( ParentFormHandle )
-      oc := _ControlObj( ControlHandle )
+      ow := _WindowObj(ParentFormHandle)
+      oc := _ControlObj(ControlHandle)
 #endif
    ENDIF
 
-   Do_ControlEventProcedure ( bInit, k, ow, oc )
+   Do_ControlEventProcedure(bInit, k, ow, oc)
 
 RETURN Nil
 
@@ -309,7 +309,7 @@ FUNCTION _DefineCheckButton ( ControlName, ParentFormName, x, y, Caption, Value,
    hb_default(@invisible, .F.)
    hb_default(@notabstop, .F.)
 
-   IF ( FontHandle := GetFontHandle( FontName ) ) != 0
+   IF ( FontHandle := GetFontHandle(FontName) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
@@ -358,20 +358,20 @@ FUNCTION _DefineCheckButton ( ControlName, ParentFormName, x, y, Caption, Value,
 
       ELSE
 
-         ControlHandle := GetDialogItemHandle( ParentFormHandle, nId )
+         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
 
-         x := GetWindowCol ( Controlhandle )
-         y := GetWindowRow ( Controlhandle )
-         w := GetWindowWidth  ( Controlhandle )
+         x := GetWindowCol(Controlhandle)
+         y := GetWindowRow(Controlhandle)
+         w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
-         SetWindowStyle ( ControlHandle, Style, .T. )
+         SetWindowStyle(ControlHandle, Style, .T.)
 
       ENDIF
 
    ELSE
 
-      ParentFormHandle := GetFormHandle ( ParentFormName )
+      ParentFormHandle := GetFormHandle(ParentFormName)
 
       Controlhandle := InitCheckButton ( ParentFormHandle, Caption, 0, x, y, "", 0, w, h, invisible, notabstop )
 
@@ -380,12 +380,12 @@ FUNCTION _DefineCheckButton ( ControlName, ParentFormName, x, y, Caption, Value,
    IF !lDialogInMemory
 
       IF FontHandle != 0
-         _SetFontHandle( ControlHandle, FontHandle )
+         _SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle( ControlHandle )
-            FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
+         IF IsWindowHandle(ControlHandle)
+            FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
 
@@ -394,7 +394,7 @@ FUNCTION _DefineCheckButton ( ControlName, ParentFormName, x, y, Caption, Value,
       ENDIF
 
       IF ValType(tooltip) != "U"
-         SetToolTip ( ControlHandle , tooltip , GetFormToolTipHandle ( ParentFormName ) )
+         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
    ENDIF
@@ -451,7 +451,7 @@ FUNCTION _DefineCheckButton ( ControlName, ParentFormName, x, y, Caption, Value,
    ENDIF
 
    IF value == .T. .AND. !lDialogInMemory
-      SendMessage( Controlhandle , BM_SETCHECK , BST_CHECKED , 0 )
+      SendMessage(Controlhandle, BM_SETCHECK, BST_CHECKED, 0)
    ENDIF
 
 RETURN Nil
@@ -465,12 +465,12 @@ FUNCTION InitDialogCheckButton ( ParentName, ControlHandle, k )
    Value := _HMG_aControlValue [k]
    threestate := _HMG_aControlSpacing [k]
    IF !Empty(BitMap) .AND. ValType(ParentName) <> "U"
-      _SetBtnPicture( ControlHandle, BitMap )
+      _SetBtnPicture(ControlHandle, BitMap)
    ENDIF
    IF value == .T.
-      SendMessage( Controlhandle , BM_SETCHECK , BST_CHECKED , 0 )
+      SendMessage(Controlhandle, BM_SETCHECK, BST_CHECKED, 0)
    ELSEIF threestate .AND. value == NIL
-      SendMessage( Controlhandle , BM_SETCHECK , BST_INDETERMINATE , 0 )
+      SendMessage(Controlhandle, BM_SETCHECK, BST_INDETERMINATE, 0)
    ENDIF
 // JP 62
    IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]   // Modal
@@ -542,21 +542,21 @@ FUNCTION _DefineImageCheckButton ( ControlName, ParentFormName, x, y, BitMap, ;
          blInit := {|x, y, z| InitDialogCheckButton( x, y, z ) }
          AAdd(_HMG_aDialogItems, {nId, k, "button", style, 0, x, y, w, h, "", HelpId, tooltip, FontName, FontSize, , , , , blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
       ELSE
-         ControlHandle := GetDialogItemHandle( ParentFormHandle, nId )
+         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
 
-         x := GetWindowCol ( Controlhandle )
-         y := GetWindowRow ( Controlhandle )
-         w := GetWindowWidth  ( Controlhandle )
+         x := GetWindowCol(Controlhandle)
+         y := GetWindowRow(Controlhandle)
+         w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
-         SetWindowStyle ( ControlHandle, Style, .T. )
+         SetWindowStyle(ControlHandle, Style, .T.)
 
-         _SetBtnPicture( ControlHandle, bitmap )
+         _SetBtnPicture(ControlHandle, bitmap)
       ENDIF
 
    ELSE
 
-      ParentFormHandle := GetFormHandle ( ParentFormName )
+      ParentFormHandle := GetFormHandle(ParentFormName)
 
       aRet := InitImageCheckButton ( ParentFormHandle, "", 0, x, y, "", notrans, bitmap, w, h, invisible, notabstop, _HMG_IsThemed )
 
@@ -571,7 +571,7 @@ FUNCTION _DefineImageCheckButton ( ControlName, ParentFormName, x, y, BitMap, ;
       ENDIF
 
       IF ValType(tooltip) != "U"
-         SetToolTip ( ControlHandle , tooltip , GetFormToolTipHandle ( ParentFormName ) )
+         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
    ENDIF
@@ -628,7 +628,7 @@ FUNCTION _DefineImageCheckButton ( ControlName, ParentFormName, x, y, BitMap, ;
    ENDIF
 
    IF value == .T. .AND. !lDialogInMemory
-      SendMessage( Controlhandle , BM_SETCHECK , BST_CHECKED , 0 )
+      SendMessage(Controlhandle, BM_SETCHECK, BST_CHECKED, 0)
    ENDIF
 
 RETURN Nil

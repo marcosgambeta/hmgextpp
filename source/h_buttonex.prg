@@ -123,7 +123,7 @@ FUNCTION _DefineOwnerButton ( ControlName, ParentForm, x, y, Caption, ;
       RETURN Nil
    ENDIF
 
-   IF ( FontHandle := GetFontHandle( FontName ) ) != 0
+   IF ( FontHandle := GetFontHandle(FontName) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
@@ -156,11 +156,11 @@ FUNCTION _DefineOwnerButton ( ControlName, ParentForm, x, y, Caption, ;
       image := cPicture [1]
    ENDIF
 
-   IF aRGB_bk !=NIL .AND. ! IsArrayRGB ( aRGB_bk )
+   IF aRGB_bk !=NIL .AND. ! IsArrayRGB(aRGB_bk)
       aRGB_bk := nRGB2Arr( aRGB_bk )
    ENDIF
 
-   IF aRGB_font !=NIL .AND. ! IsArrayRGB ( aRGB_font )
+   IF aRGB_font !=NIL .AND. ! IsArrayRGB(aRGB_font)
       aRGB_font := nRGB2Arr( aRGB_font )
    ENDIF
 
@@ -168,24 +168,24 @@ FUNCTION _DefineOwnerButton ( ControlName, ParentForm, x, y, Caption, ;
 
    cParentForm := ParentForm
 
-   ParentForm := GetFormHandle ( ParentForm )
+   ParentForm := GetFormHandle(ParentForm)
 
    aRet := InitOwnerButton ( ParentForm, Caption, 0, x, y, w, h, image, flat, notrans, invisible, notabstop, default, icon, imagewidth, imageheight )
 
    ControlHandle := aRet [1]
 
    IF !Empty(image) .AND. Empty(aRet [2])
-      aRet [2] := iif( _HMG_IsThemed .AND. hb_UAt ( ".", image ) == 0 .AND. imagewidth < 0 .AND. imageheight < 0, ;
-         C_GetResPicture ( image ), _SetBtnPicture ( ControlHandle, image, imagewidth, imageheight ) )
+      aRet [2] := iif(_HMG_IsThemed .AND. hb_UAt(".", image) == 0 .AND. imagewidth < 0 .AND. imageheight < 0, ;
+         C_GetResPicture(image), _SetBtnPicture(ControlHandle, image, imagewidth, imageheight))
    ENDIF
 
    IF FontHandle != 0
-      _SetFontHandle( ControlHandle, FontHandle )
+      _SetFontHandle(ControlHandle, FontHandle)
    ELSE
       __defaultNIL(@FontName, _HMG_DefaultFontName)
       __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-      IF IsWindowHandle( ControlHandle )
-         FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
+      IF IsWindowHandle(ControlHandle)
+         FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
       ENDIF
    ENDIF
 
@@ -194,7 +194,7 @@ FUNCTION _DefineOwnerButton ( ControlName, ParentForm, x, y, Caption, ;
    ENDIF
 
    IF ValType(tooltip) != "U"
-      SetToolTip ( ControlHandle , tooltip , GetFormToolTipHandle ( cParentForm ) )
+      SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(cParentForm))
    ENDIF
 
    k := _GetControlFree()
@@ -250,10 +250,10 @@ FUNCTION _DefineOwnerButton ( ControlName, ParentForm, x, y, Caption, ;
 
       SWITCH _HMG_aControlMiscData1 [k]
       CASE 0
-         aBmp := GetBitmapSize ( _HMG_aControlBrushHandle [k] )
+         aBmp := GetBitmapSize(_HMG_aControlBrushHandle[k])
          EXIT
       CASE 1
-         aBmp := GetIconSize ( _HMG_aControlBrushHandle [k] )
+         aBmp := GetIconSize(_HMG_aControlBrushHandle[k])
       ENDSWITCH
 
       _HMG_aControlHeadClick [k] := { aBmp[1], aBmp[2] }
@@ -263,14 +263,14 @@ FUNCTION _DefineOwnerButton ( ControlName, ParentForm, x, y, Caption, ;
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
 #ifdef _OBJECT_
-      ow := _WindowObj ( ParentForm )
-      oc := _ControlObj( ControlHandle )
+      ow := _WindowObj(ParentForm)
+      oc := _ControlObj(ControlHandle)
 #endif
    ENDIF
 
-   Do_ControlEventProcedure ( bInit, k, ow, oc )
+   Do_ControlEventProcedure(bInit, k, ow, oc)
 
-   _SetHotKeyByName ( cParentForm, ckey, ProcedureName )
+   _SetHotKeyByName(cParentForm, ckey, ProcedureName)
 
 RETURN Nil
 
@@ -298,7 +298,7 @@ FUNCTION OBTNEVENTS( hWnd, nMsg, wParam, lParam )
 
             IF AND( _HMG_aControlSpacing[i], OBT_HOTLIGHT ) == OBT_HOTLIGHT .OR. _HMG_IsThemed
 
-               _DoControlEventProcedure ( _HMG_aControlGotFocusProcedure[i] , i )
+               _DoControlEventProcedure(_HMG_aControlGotFocusProcedure[i], i)
 
                IF wParam == 0
                   InvalidateRect( hWnd, 0 )
@@ -316,7 +316,7 @@ FUNCTION OBTNEVENTS( hWnd, nMsg, wParam, lParam )
 
             _HMG_aControlRangeMax[i][2] := .F.
 
-            _DoControlEventProcedure ( _HMG_aControlLostFocusProcedure[i] , i )
+            _DoControlEventProcedure(_HMG_aControlLostFocusProcedure[i], i)
 
             IF AND( _HMG_aControlSpacing[i], OBT_HOTLIGHT ) == OBT_HOTLIGHT .OR. lXPThemeActive
 
@@ -362,7 +362,7 @@ FUNCTION OwnButtonPaint( pdis )
       RETURN ( 1 )
    ENDIF
 
-   hWnd := GETOWNBTNHANDLE( pdis )
+   hWnd := GETOWNBTNHANDLE(pdis)
    aBtnRc := GETOWNBTNRECT( pdis )
    itemState := GETOWNBTNSTATE( pdis )
 
@@ -438,12 +438,12 @@ FUNCTION OwnButtonPaint( pdis )
    hOldFont := SelectObject( hDC, _HMG_aControlFontHandle[i] )
    aMetr := GetTextMetric( hDC )
    oldBkMode := SetBkMode( hDC, TRANSPARENT )
-   oldTextColor := SetTextColor( hDC, GetRed ( GetSysColor ( COLOR_BTNTEXT ) ), GetGreen ( GetSysColor ( COLOR_BTNTEXT ) ), GetBlue ( GetSysColor ( COLOR_BTNTEXT ) ) )
+   oldTextColor := SetTextColor(hDC, GetRed(GetSysColor(COLOR_BTNTEXT)), GetGreen(GetSysColor(COLOR_BTNTEXT)), GetBlue(GetSysColor(COLOR_BTNTEXT)))
 
    IF !lDisabled
 
       IF Empty(_HMG_aControlFontColor[i]) .OR. ! IsArrayRGB( _HMG_aControlFontColor[i] )
-         SetTextColor( hDC, GetRed ( GetSysColor ( COLOR_BTNTEXT ) ), GetGreen ( GetSysColor ( COLOR_BTNTEXT ) ), GetBlue ( GetSysColor ( COLOR_BTNTEXT ) ) )
+         SetTextColor(hDC, GetRed(GetSysColor(COLOR_BTNTEXT)), GetGreen(GetSysColor(COLOR_BTNTEXT)), GetBlue(GetSysColor(COLOR_BTNTEXT)))
       ELSE
          SetTextColor( hDC, _HMG_aControlFontColor [ i, 1 ], _HMG_aControlFontColor [ i, 2 ], _HMG_aControlFontColor [ i, 3 ] )
       ENDIF
@@ -625,9 +625,9 @@ FUNCTION OwnButtonPaint( pdis )
 
          IF lnoadjust
             DrawGlyph( hDC, xp1, pozYpic, xp2, yp2 , _HMG_aControlBrushHandle[i] , , .T. , .F. )
-            SetTextColor( hDC, GetRed ( GetSysColor ( COLOR_3DHILIGHT ) ) , GetGreen ( GetSysColor ( COLOR_3DHILIGHT ) ) , GetBlue ( GetSysColor ( COLOR_3DHILIGHT ) ) )
+            SetTextColor(hDC, GetRed(GetSysColor(COLOR_3DHILIGHT)), GetGreen(GetSysColor(COLOR_3DHILIGHT)), GetBlue(GetSysColor(COLOR_3DHILIGHT)))
             DrawText( hDC, _HMG_aControlCaption[i], 2, pozYtext + 1 , x2, aBtnRc[4] + 1, DT_CENTER )
-            SetTextColor( hDC, GetRed ( GetSysColor ( COLOR_3DSHADOW ) ) , GetGreen ( GetSysColor ( COLOR_3DSHADOW ) ) , GetBlue ( GetSysColor ( COLOR_3DSHADOW ) ) )
+            SetTextColor(hDC, GetRed(GetSysColor(COLOR_3DSHADOW)), GetGreen(GetSysColor(COLOR_3DSHADOW)), GetBlue(GetSysColor(COLOR_3DSHADOW)))
             DrawText( hDC, _HMG_aControlCaption[i], 0, pozYtext, x2, aBtnRc[4], DT_CENTER )
          ELSE
             DrawGlyph( hDC, aBtnRc[1] + 4, aBtnRc[2] + 4 , aBtnRc[3] - 6, aBtnRc[4] - 6 , _HMG_aControlBrushHandle[i] , , .T. , .T. )
@@ -720,9 +720,9 @@ FUNCTION OwnButtonPaint( pdis )
 
          IF lnoadjust
             DrawGlyph( hDC, xp1, yp1, xp2, yp2 , _HMG_aControlBrushHandle[i] , , .T. , .F. )
-            SetTextColor( hDC, GetRed ( GetSysColor ( COLOR_3DHILIGHT ) ) , GetGreen ( GetSysColor ( COLOR_3DHILIGHT ) ) , GetBlue ( GetSysColor ( COLOR_3DHILIGHT ) ) )
+            SetTextColor(hDC, GetRed(GetSysColor(COLOR_3DHILIGHT)), GetGreen(GetSysColor(COLOR_3DHILIGHT)), GetBlue(GetSysColor(COLOR_3DHILIGHT)))
             DrawText( hDC, _HMG_aControlCaption[i], x1 + 1, y1 + 1, x2 + 1, y1 + y2 + 1, DT_CENTER )
-            SetTextColor( hDC, GetRed ( GetSysColor ( COLOR_3DSHADOW ) ) , GetGreen ( GetSysColor ( COLOR_3DSHADOW ) ) , GetBlue ( GetSysColor ( COLOR_3DSHADOW ) ) )
+            SetTextColor(hDC, GetRed(GetSysColor(COLOR_3DSHADOW)), GetGreen(GetSysColor(COLOR_3DSHADOW)), GetBlue(GetSysColor(COLOR_3DSHADOW)))
             DrawText( hDC, _HMG_aControlCaption[i], x1, y1, x2, y1 + y2, DT_CENTER )
          ELSE
             DrawGlyph( hDC, aBtnRc[1] + 3, aBtnRc[2] + 3 , aBtnRc[3] - 6, aBtnRc[4] - 6 , _HMG_aControlBrushHandle[i] , , .T. , .T. )
@@ -733,7 +733,7 @@ FUNCTION OwnButtonPaint( pdis )
    ENDIF
 
    IF ( lSelected .OR. lFocus ) .AND. ! lDisabled .AND. ! lXPThemeActive
-      SetTextColor( hDC, GetRed ( GetSysColor ( COLOR_BTNTEXT ) ) , GetGreen ( GetSysColor ( COLOR_BTNTEXT ) ) , GetBlue ( GetSysColor ( COLOR_BTNTEXT ) ) )
+      SetTextColor(hDC, GetRed(GetSysColor(COLOR_BTNTEXT)), GetGreen(GetSysColor(COLOR_BTNTEXT)), GetBlue(GetSysColor(COLOR_BTNTEXT)))
       DrawFocusRect( pdis )
    ENDIF
 
@@ -786,7 +786,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION _DestroyBtnPictureMask( hWnd, ControlIndex )
 *-----------------------------------------------------------------------------*
-   LOCAL MaskHwnd := _GetBtnPictureHandle( hWnd )
+   LOCAL MaskHwnd := _GetBtnPictureHandle(hWnd)
 
    IF !Empty(MaskHwnd) .AND. MaskHwnd <> _HMG_aControlBrushHandle [ ControlIndex ]
       DeleteObject( MaskHwnd )
@@ -797,7 +797,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION _DestroyBtnPicture( hWnd, ControlIndex )
 *-----------------------------------------------------------------------------*
-   LOCAL BtnPicHwnd := _GetBtnPictureHandle( hWnd )
+   LOCAL BtnPicHwnd := _GetBtnPictureHandle(hWnd)
 
    IF !Empty(BtnPicHwnd) .AND. BtnPicHwnd == _HMG_aControlBrushHandle [ ControlIndex ]
       DeleteObject( BtnPicHwnd )

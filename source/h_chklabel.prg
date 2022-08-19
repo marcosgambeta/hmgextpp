@@ -82,7 +82,7 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
    hb_default(@strikeout, .F.)
    hb_default(@VCenterAlign, .F.)
 
-   IF ( FontHandle := GetFontHandle( FontName ) ) != 0
+   IF ( FontHandle := GetFontHandle(FontName) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
@@ -175,11 +175,11 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
 
       ELSE
 
-         ControlHandle := GetDialogItemHandle( ParentFormHandle, nId )
+         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
 
-         x := GetWindowCol ( Controlhandle )
-         y := GetWindowRow ( Controlhandle )
-         w := GetWindowWidth  ( Controlhandle )
+         x := GetWindowCol(Controlhandle)
+         y := GetWindowRow(Controlhandle)
+         w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
 
@@ -187,7 +187,7 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
             SetWindowText(ControlHandle, caption)
          ENDIF
 
-         SetWindowStyle ( ControlHandle, Style, .T. )
+         SetWindowStyle(ControlHandle, Style, .T.)
 
 /*          TODO
 
@@ -205,7 +205,7 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
 
    ELSE
 
-      ParentFormHandle := GetFormHandle ( ParentFormName )
+      ParentFormHandle := GetFormHandle(ParentFormName)
 
       Controlhandle := InitChkLabel ( ParentFormHandle, Caption, 0, x, y, w, h, "", 0, ;
          ( ValType(mouseover) == "B" .OR. ValType(mouseleave) == "B" ) , border , clientedge , ;
@@ -217,11 +217,11 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
    IF !lDialogInMemory
 
       IF FontHandle != 0
-         _SetFontHandle( ControlHandle, FontHandle )
+         _SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
+         FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
       ENDIF
 
       IF _HMG_BeginTabActive
@@ -229,7 +229,7 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
       ENDIF
 
       IF ValType(tooltip) != "U"
-         SetToolTip ( ControlHandle , tooltip , GetFormToolTipHandle ( ParentFormName ) )
+         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
    ENDIF
@@ -290,7 +290,7 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
       _SetControlWidth(ControlName, ParentFormName, GetTextWidth(NIL, Caption, FontHandle) + ;
          iif(bold == .T. .OR. italic == .T., GetTextWidth(NIL, " ", FontHandle), 0) + h + iif(Len(Caption) > 0 .AND. leftcheck == .F., GetBorderWidth(), iif(leftcheck, GetBorderWidth() / 2, 0)))
       _SetControlHeight(ControlName, ParentFormName, iif(FontSize < 13, 22, FontSize + 16))
-      RedrawWindow ( ControlHandle )
+      RedrawWindow(ControlHandle)
    ENDIF
 
    IF ValType(Field) != "U"
@@ -300,12 +300,12 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
 #ifdef _OBJECT_
-      ow := _WindowObj ( ParentFormHandle )
-      oc := _ControlObj( ControlHandle )
+      ow := _WindowObj(ParentFormHandle)
+      oc := _ControlObj(ControlHandle)
 #endif
    ENDIF
 */
-   Do_ControlEventProcedure ( bInit, k, ow, oc )
+   Do_ControlEventProcedure(bInit, k, ow, oc)
 
 RETURN Nil
 

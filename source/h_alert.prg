@@ -145,7 +145,7 @@ FUNCTION HMG_Alert( cMsg, aOptions, cTitle, nType, cIcoFile, nIcoSize, aBtnColor
    __defaultNIL(@cIcoFile, aIcon[nType])
    hb_default(@nIcoSize, 32)
 
-   IF GetFontHandle( cFontName ) == 0
+   IF GetFontHandle(cFontName) == 0
       lFont := .T.
       DEFINE FONT ( cFontName ) FONTNAME GetDefaultFontName() SIZE GetDefaultFontSize() - iif( _SetGetGlobal( "_HMG_IsWin10" ), 1, 0 )
    ENDIF
@@ -175,15 +175,15 @@ FUNCTION HMG_Alert( cMsg, aOptions, cTitle, nType, cIcoFile, nIcoSize, aBtnColor
       hb_default(@_HMG_ModalDialogReturn, 0)
    ENDIF
 
-   DEFINE WINDOW ( cForm ) WIDTH 0 HEIGHT 0 TITLE cTitle MODAL NOSIZE BACKCOLOR aBackColor ;
-      ON INTERACTIVECLOSE ( _SetGetGlobal( "_HMG_PressButton" ) .OR. lClosable ) ;
+   DEFINE WINDOW (cForm) WIDTH 0 HEIGHT 0 TITLE cTitle MODAL NOSIZE BACKCOLOR aBackColor ;
+      ON INTERACTIVECLOSE (_SetGetGlobal("_HMG_PressButton") .OR. lClosable) ;
       ON RELEASE iif( ! _SetGetGlobal( "_HMG_PressButton" ) .AND. lClosable, _HMG_ModalDialogReturn := 0, NIL )
 
       FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors, bInit, lClosable, cFontName, nMaxLen )
 
    END WINDOW
 
-   ACTIVATE WINDOW ( cForm )
+   ACTIVATE WINDOW (cForm)
 
    IF lFont
       RELEASE FONT ( cFontName )
@@ -274,7 +274,7 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
       nVMARGIN_BUTTON := 3 * VMARGIN_BUTTON
    ENDIF
 
-   hDlgFont := GetFontHandle( cFont )
+   hDlgFont := GetFontHandle(cFont)
 
    // calculate the column of the text output
 
@@ -342,7 +342,7 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
 
    IF nHeightDlg > GetDesktopRealHeight()
       n := 0
-      WHILE ( nHeightDlg - ( nChrHeight * ( ++n ) ) ) > GetDesktopRealHeight()
+      WHILE (nHeightDlg - (nChrHeight * (++n))) > GetDesktopRealHeight()
       END
       nMaxHeight := nChrHeight * n
       nMaxLines  -= n
@@ -396,13 +396,13 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
 
       IF ISNUMBER( cIcoFile )
 
-         DRAW SYSICON IN WINDOW ( cForm ) ;
+         DRAW SYSICON IN WINDOW (cForm) ;
             AT nRow + GetBorderHeight(), MARGIN / 1.4 ;
             ICON cIcoFile WIDTH nIcoSize HEIGHT nIcoSize TRANSPARENT
 
       ELSE
 
-         DRAW ICON IN WINDOW ( cForm ) ;
+         DRAW ICON IN WINDOW (cForm) ;
             AT nRow + GetBorderHeight(), MARGIN / iif( nIcoSize == 32, 1.4, iif( nIcoSize == 48, 1.7, 2 ) ) ;
             PICTURE cIcoFile WIDTH nIcoSize HEIGHT nIcoSize TRANSPARENT
 

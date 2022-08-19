@@ -104,7 +104,7 @@ FUNCTION _DefineAnimateRes ( ControlName, ParentForm, x, y, w, h, cFile, nRes, ;
 
    cParentForm := ParentForm
 
-   ParentForm := GetFormHandle ( ParentForm )
+   ParentForm := GetFormHandle(ParentForm)
 
    ControlHandle := InitAnimateRes ( ParentForm, @hAvi, x, y, w, h, cFile, nRes, invisible )
 
@@ -113,7 +113,7 @@ FUNCTION _DefineAnimateRes ( ControlName, ParentForm, x, y, w, h, cFile, nRes, ;
    ENDIF
 
    IF ValType(tooltip) != "U"
-      SetToolTip ( ControlHandle, tooltip, GetFormToolTipHandle ( cParentForm ) )
+      SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(cParentForm))
    ENDIF
 
    _HMG_aControlType               [k] := CONTROL_TYPE_ANIMATERES
@@ -164,10 +164,10 @@ FUNCTION _DefineAnimateRes ( ControlName, ParentForm, x, y, w, h, cFile, nRes, ;
 RETURN NIL
 
 *------------------------------------------------------------------------------*
-FUNCTION SetAnimateResFile ( cWindow, cControl, cProperty, cValue )
+FUNCTION SetAnimateResFile(cWindow, cControl, cProperty, cValue)
 *------------------------------------------------------------------------------*
 
-   IF GetControlType ( cControl, cWindow ) == "ANIMATERES" .AND. Upper(cProperty) == "FILE"
+   IF GetControlType(cControl, cWindow) == "ANIMATERES" .AND. Upper(cProperty) == "FILE"
 
       _HMG_UserComponentProcess := .T.
 
@@ -182,11 +182,11 @@ FUNCTION SetAnimateResFile ( cWindow, cControl, cProperty, cValue )
 RETURN NIL
 
 *------------------------------------------------------------------------------*
-FUNCTION GetAnimateResFile ( cWindow, cControl )
+FUNCTION GetAnimateResFile(cWindow, cControl)
 *------------------------------------------------------------------------------*
    LOCAL RetVal := Nil
 
-   IF GetControlType ( cControl, cWindow ) == "ANIMATERES"
+   IF GetControlType(cControl, cWindow) == "ANIMATERES"
 
       _HMG_UserComponentProcess := .T.
 
@@ -201,10 +201,10 @@ FUNCTION GetAnimateResFile ( cWindow, cControl )
 RETURN RetVal
 
 *------------------------------------------------------------------------------*
-FUNCTION SetAnimateResId ( cWindow, cControl, cProperty, cValue )
+FUNCTION SetAnimateResId(cWindow, cControl, cProperty, cValue)
 *------------------------------------------------------------------------------*
 
-   IF GetControlType ( cControl, cWindow ) == "ANIMATERES" .AND. Upper(cProperty) == "RESID"
+   IF GetControlType(cControl, cWindow) == "ANIMATERES" .AND. Upper(cProperty) == "RESID"
 
       _HMG_UserComponentProcess := .T.
 
@@ -219,11 +219,11 @@ FUNCTION SetAnimateResId ( cWindow, cControl, cProperty, cValue )
 RETURN NIL
 
 *------------------------------------------------------------------------------*
-FUNCTION GetAnimateResId ( cWindow, cControl )
+FUNCTION GetAnimateResId(cWindow, cControl)
 *------------------------------------------------------------------------------*
    LOCAL RetVal := Nil
 
-   IF GetControlType ( cControl, cWindow ) == "ANIMATERES"
+   IF GetControlType(cControl, cWindow) == "ANIMATERES"
 
       _HMG_UserComponentProcess := .T.
 
@@ -241,7 +241,7 @@ RETURN RetVal
 PROCEDURE ReleaseAnimateRes ( cWindow, cControl )
 *------------------------------------------------------------------------------*
 
-   IF _IsControlDefined(cControl, cWindow) .AND. GetControlType ( cControl, cWindow ) == "ANIMATERES"
+   IF _IsControlDefined(cControl, cWindow) .AND. GetControlType(cControl, cWindow) == "ANIMATERES"
 
       UnloadAnimateLib( _GetControlObject ( cControl, cWindow ) )
 

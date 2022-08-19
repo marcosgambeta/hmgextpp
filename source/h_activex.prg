@@ -125,10 +125,10 @@ PROCEDURE _DefineActivex ( cControlName, cParentForm, nRow, nCol, nWidth, nHeigh
    ENDIF
 
    IF hb_defaultValue(clientedge, .F.)
-      ChangeStyle ( nControlHandle, WS_EX_CLIENTEDGE, , .T. )
+      ChangeStyle(nControlHandle, WS_EX_CLIENTEDGE, , .T.)
    ENDIF
 
-   nParentFormHandle := GetFormHandle ( cParentForm )
+   nParentFormHandle := GetFormHandle(cParentForm)
 
    k := _GetControlFree()
 
@@ -186,7 +186,7 @@ PROCEDURE ReleaseActiveX ( cWindow, cControl )
 *-----------------------------------------------------------------------------*
    LOCAL oActiveX
 
-   IF _IsControlDefined(cControl, cWindow) .AND. GetControlType ( cControl, cWindow ) == "ACTIVEX"
+   IF _IsControlDefined(cControl, cWindow) .AND. GetControlType(cControl, cWindow) == "ACTIVEX"
 
       oActiveX := _HMG_aControlIds[GetControlIndex(cControl, cWindow)]
 
@@ -208,7 +208,7 @@ RETURN
 FUNCTION SetActiveXObject ( cWindow, cControl )
 *-----------------------------------------------------------------------------*
 
-   IF GetControlType ( cControl, cWindow ) == "ACTIVEX"
+   IF GetControlType(cControl, cWindow) == "ACTIVEX"
 
       MsgExclamation ( "This Property is Read Only!", "Warning" )
 
@@ -227,7 +227,7 @@ FUNCTION GetActiveXObject ( cWindow, cControl )
 *-----------------------------------------------------------------------------*
    LOCAL RetVal
 
-   IF GetControlType ( cControl, cWindow ) == "ACTIVEX"
+   IF GetControlType(cControl, cWindow) == "ACTIVEX"
 
       _HMG_UserComponentProcess := .T.
 
@@ -323,11 +323,11 @@ METHOD Load() CLASS TActiveX
 
    LOCAL oError
    LOCAL xObjeto, hSink
-   LOCAL nHandle := GetFormHandle( ::cWindowName )
+   LOCAL nHandle := GetFormHandle(::cWindowName)
 
    AtlAxWinInit()
    ::hWnd := CreateWindowEx( nHandle, ::cProgId )
-   MoveWindow( ::hWnd, ::nCol, ::nRow, ::nWidth, ::nHeight, .T. )
+   MoveWindow(::hWnd, ::nCol, ::nRow, ::nWidth, ::nHeight, .T.)
    xObjeto := AtlAxGetDisp( ::hWnd )
    ::hAtl := xObjeto
    TRY
@@ -344,7 +344,7 @@ RETURN ::oOle
 METHOD ReSize( nRow, nCol, nWidth, nHeight ) CLASS TActiveX
 
    IF !::bHide
-      MoveWindow( ::hWnd, nCol, nRow, nWidth, nHeight, .T. )
+      MoveWindow(::hWnd, nCol, nRow, nWidth, nHeight, .T.)
    ENDIF
    ::nRow := nRow
    ::nCol := nCol
@@ -361,7 +361,7 @@ METHOD Adjust() CLASS TActiveX
 
    nAuxRight := ( ::nOldWinWidth - ( ::nWidth + ::nCol ) )
    nAuxBottom := ( ::nOldWinHeight - ( ::nHeight + ::nRow ) )
-   MoveWindow( ::hWnd, ::nCol, ::nRow, GetProperty( ::cWindowName, "width" ) - ::nCol - nAuxRight, GetProperty( ::cWindowName, "height" ) - ::nRow - nAuxBottom, .T. )
+   MoveWindow(::hWnd, ::nCol, ::nRow, GetProperty(::cWindowName, "width") - ::nCol - nAuxRight, GetProperty(::cWindowName, "height") - ::nRow - nAuxBottom, .T.)
    ::nWidth := GetProperty( ::cWindowName, "width" ) - ::nCol - nAuxRight
    ::nHeight := GetProperty( ::cWindowName, "height" ) - ::nRow - nAuxBottom
    ::nOldWinWidth := GetProperty( ::cWindowName, "width" )
@@ -382,14 +382,14 @@ METHOD GetHeight() CLASS TActiveX
 RETURN ::nHeight
 
 METHOD Hide() CLASS TActiveX
-   MoveWindow( ::hWnd, 0, 0, 0, 0, .T. )
+   MoveWindow(::hWnd, 0, 0, 0, 0, .T.)
    ::bHide := .T.
 
 RETURN .T.
 
 METHOD Show() CLASS TActiveX
 
-   MoveWindow( ::hWnd, ::nCol, ::nRow, ::nWidth, ::nHeight, .T. )
+   MoveWindow(::hWnd, ::nCol, ::nRow, ::nWidth, ::nHeight, .T.)
    ::bHide := .F.
 
 RETURN .T.
@@ -397,7 +397,7 @@ RETURN .T.
 METHOD Release() CLASS TActiveX
 
    IF ValType(::hWnd) <> "U"
-      DestroyWindow( ::hWnd )
+      DestroyWindow(::hWnd)
    ENDIF
    IF !Empty(::hSink)
       ShutdownConnectionPoint( ::hSink )

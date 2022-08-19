@@ -100,7 +100,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
    __defaultNIL(@ImageList, 0)
    __defaultNIL(@uEnter, "")
 
-   IF ( FontHandle := GetFontHandle( FontName ) ) != 0
+   IF ( FontHandle := GetFontHandle(FontName) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
@@ -139,7 +139,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
 
    IF ValType(ImageList) == "C"
       IF Len(ImageList) > 0
-         ImageList := GetControlHandle ( ImageList, ParentForm )
+         ImageList := GetControlHandle(ImageList, ParentForm)
       ENDIF
    ENDIF
 
@@ -147,7 +147,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
 
    cParentForm := ParentForm
 
-   ParentForm := GetFormHandle ( ParentForm )
+   ParentForm := GetFormHandle(ParentForm)
 
    IF !Empty(aImage)
       aImages := {}
@@ -180,16 +180,16 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
          ControlHandle := InitComboBoxEx ( _HMG_aFormReBarHandle[i], 0, x, y, w, "", notrans , h, invisible, notabstop, .F. , displaychange, _HMG_IsXPorLater, aImages, ImageList )
 
          IF FontHandle != 0
-            _SetFontHandle( ControlHandle, FontHandle )
+            _SetFontHandle(ControlHandle, FontHandle)
          ELSE
             __defaultNIL(@FontName, _HMG_DefaultFontName)
             __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-            IF IsWindowHandle( ControlHandle )
-               FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
+            IF IsWindowHandle(ControlHandle)
+               FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
             ENDIF
          ENDIF
 
-         AddSplitBoxItem ( Controlhandle , _HMG_aFormReBarHandle[i] , w , break , GripperText , w , , _HMG_ActiveSplitBoxInverted )
+         AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], w, break, GripperText, w, , _HMG_ActiveSplitBoxInverted)
 
          Containerhandle := _HMG_aFormReBarHandle[i]
 
@@ -200,12 +200,12 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
       ControlHandle := InitComboBoxEx ( ParentForm, 0, x, y, w, "", notrans , h, invisible, notabstop, .F. , displaychange, _HMG_IsXPorLater, aImages, ImageList )
 
       IF FontHandle != 0
-         _SetFontHandle( ControlHandle, FontHandle )
+         _SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle( ControlHandle )
-            FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
+         IF IsWindowHandle(ControlHandle)
+            FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
 
@@ -220,11 +220,11 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
    ENDIF
 
    IF ValType(tooltip) != "U"
-      SetToolTip ( ControlHandle , tooltip , GetFormToolTipHandle ( cParentForm ) )
+      SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(cParentForm))
    ENDIF
 
    IF Len(aImages) > 0
-      AddListViewBitmap( ControlHandle, aImages )
+      AddListViewBitmap(ControlHandle, aImages)
    ENDIF
 
    k := _GetControlFree()
@@ -278,15 +278,15 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
 
    IF DisplayChange == .T.
       // handle for ComboBoxEx edit window
-      _hmg_acontrolrangemin [k] := SendMessage ( Controlhandle, CBEM_GETEDITCONTROL, 0, 0 )
+      _hmg_acontrolrangemin [k] := SendMessage(Controlhandle, CBEM_GETEDITCONTROL, 0, 0)
       IF ValType(tooltip) != "U"
-         SetToolTip ( _hmg_acontrolrangemin [k] , tooltip , GetFormToolTipHandle ( cParentForm ) )
+         SetToolTip ( _hmg_acontrolrangemin [k] , tooltip , GetFormToolTipHandle(cParentForm) )
       ENDIF
    ENDIF
    // handle for ComboBoxEx child window
-   _hmg_acontrolrangemax [k] := SendMessage ( Controlhandle, CBEM_GETCOMBOCONTROL, 0, 0 )
+   _hmg_acontrolrangemax [k] := SendMessage(Controlhandle, CBEM_GETCOMBOCONTROL, 0, 0)
    IF ValType(tooltip) != "U"
-      SetToolTip ( _hmg_acontrolrangemax [k] , tooltip , GetFormToolTipHandle ( cParentForm ) )
+      SetToolTip ( _hmg_acontrolrangemax [k] , tooltip , GetFormToolTipHandle(cParentForm) )
    ENDIF
 
    SetDropDownWidth(_hmg_acontrolrangemax [k] , hb_defaultValue(ListWidth, w))
@@ -304,24 +304,24 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
             IF value == ( WorkArea )->( RecNo() )
                cset := rcount
             ENDIF
-            ComboAddStringEx ( ControlHandle, cValToChar ( ( WorkArea )->&( cField ), 1 ) )
+            ComboAddStringEx(ControlHandle, cValToChar((WorkArea)->&(cField), 1))
             ( WorkArea )->( dbSkip() )
          ENDDO
 
          ( WorkArea )->( dbGoto( BackRec ) )
 
-         ComboSetCurSel ( ControlHandle, cset )
+         ComboSetCurSel(ControlHandle, cset)
 
       ENDIF
 
    ELSE
 
       IF Len(rows) > 0
-         AEval( rows, { |v, i| ComboAddStringEx ( ControlHandle, v, i ) } )
+         AEval(rows, {|v, i|ComboAddStringEx(ControlHandle, v, i)})
       ENDIF
 
       IF ISNUMBER( value ) .AND. value <> 0
-         ComboSetCurSel ( ControlHandle, Value )
+         ComboSetCurSel(ControlHandle, Value)
       ENDIF
 
    ENDIF
@@ -333,11 +333,11 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
 #ifdef _OBJECT_
-      ow := _WindowObj ( ParentForm )
-      oc := _ControlObj( ControlHandle )
+      ow := _WindowObj(ParentForm)
+      oc := _ControlObj(ControlHandle)
 #endif
    ENDIF
 
-   Do_ControlEventProcedure ( bInit, k, ow, oc )
+   Do_ControlEventProcedure(bInit, k, ow, oc)
 
 RETURN Nil

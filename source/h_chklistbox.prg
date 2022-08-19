@@ -71,7 +71,7 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
    DEFAULT aCheck          TO {}
    DEFAULT nItemHeight     TO 16
 
-   IF ( FontHandle := GetFontHandle( FontName ) ) != 0
+   IF ( FontHandle := GetFontHandle(FontName) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
@@ -143,20 +143,20 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
 
       ELSE
 
-         ControlHandle := GetDialogItemHandle( ParentFormHandle, nId )
+         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
 
-         x := GetWindowCol ( Controlhandle )
-         y := GetWindowRow ( Controlhandle )
-         w := GetWindowWidth  ( Controlhandle )
+         x := GetWindowCol(Controlhandle)
+         y := GetWindowRow(Controlhandle)
+         w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
-         SetWindowStyle ( ControlHandle, Style, .T. )
+         SetWindowStyle(ControlHandle, Style, .T.)
 
       ENDIF
 
    ELSE
 
-      ParentFormHandle := GetFormHandle ( ParentFormName )
+      ParentFormHandle := GetFormHandle(ParentFormName)
 
       IF ValType(x) == "U" .OR. ValType(y) == "U"
 
@@ -174,7 +174,7 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
                ControlHandle := InitChkListBox ( _HMG_aFormReBarHandle[i] , 0 , 0 , 0 , w , h , "" , 0 , invisible , notabstop, sort, nItemHeight )
             ENDIF
 
-            AddSplitBoxItem ( Controlhandle , _HMG_aFormReBarHandle[i] , w , break , , , , _HMG_ActiveSplitBoxInverted )
+            AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], w, break, , , , _HMG_ActiveSplitBoxInverted)
 
             _HMG_SplitLastControl := "LISTBOX"
 
@@ -195,12 +195,12 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
    IF !lDialogInMemory
 
       IF FontHandle != 0
-         _SetFontHandle( ControlHandle, FontHandle )
+         _SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle( ControlHandle )
-            FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
+         IF IsWindowHandle(ControlHandle)
+            FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
 
@@ -209,7 +209,7 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
       ENDIF
 
       IF ValType(tooltip) != "U"
-         SetToolTip ( ControlHandle , tooltip , GetFormToolTipHandle ( ParentFormName ) )
+         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
    ENDIF
@@ -267,7 +267,7 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
 
    IF Len(_HMG_aDialogTemplate) == 0     //Dialog Template
       IF Len(aRows) > 0
-         AEval( Rows, { | r,n | ChkListboxAddItem ( ControlHandle, r, aChkItem[n], nItemHeight ) } )
+         AEval(Rows, {|r, n|ChkListboxAddItem(ControlHandle, r, aChkItem[n], nItemHeight)})
       ENDIF
 
       IF FontSize != _HMG_DefaultFontSize .AND. Len(Rows) > 0
@@ -276,11 +276,11 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
 
       IF multiselect
          IF ISARRAY( value )
-            LISTBOXSETMULTISEL ( ControlHandle , Value )
+            LISTBOXSETMULTISEL(ControlHandle, Value)
          ENDIF
       ELSE
          IF ISNUMBER ( value ) .AND. value <> 0
-            ListboxSetCurSel ( ControlHandle , Value )
+            ListboxSetCurSel(ControlHandle, Value)
          ENDIF
       ENDIF
    ENDIF
@@ -300,7 +300,7 @@ FUNCTION InitDialogChkListBox( ParentName, ControlHandle, k )
    FontHandle  := _HMG_aControlFontHandle  [k]
 
    IF Len(Rows) > 0
-      AEval( Rows , { | r | ListboxAddString ( ControlHandle , r ) } )
+      AEval( Rows , { | r | ListboxAddString(ControlHandle, r) } )
    ENDIF
 
    IF FontSize != _HMG_DefaultFontSize .AND. Len(Rows) > 0
@@ -309,11 +309,11 @@ FUNCTION InitDialogChkListBox( ParentName, ControlHandle, k )
 
    IF _HMG_aControlType[k] == CONTROL_TYPE_MULTICHKLIST
       IF ISARRAY( value )
-         LISTBOXSETMULTISEL ( ControlHandle , Value )
+         LISTBOXSETMULTISEL(ControlHandle, Value)
       ENDIF
    ELSE
       IF ISNUMBER ( value ) .AND. value <> 0
-         ListboxSetCurSel ( ControlHandle , Value )
+         ListboxSetCurSel(ControlHandle, Value)
       ENDIF
    ENDIF
 // JP 62

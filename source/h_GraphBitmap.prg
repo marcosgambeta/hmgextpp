@@ -549,21 +549,21 @@ RETURN hBitmap
 
 STATIC PROCEDURE DrawWindowBoxInBitmap( hDC, row, col, rowr, colr, nPenWidth )
 
-   BT_DrawRectangle ( hDC, Row, Col, Colr - col, rowr - row, BLACK, nPenWidth )
+   BT_DrawRectangle(hDC, Row, Col, Colr - col, rowr - row, BLACK, nPenWidth)
 
 RETURN
 
 
 STATIC PROCEDURE DrawRectInBitmap( hDC, row, col, row1, col1, aColor, nPenWidth )
 
-   BT_DrawFillRectangle ( hDC, Row, Col, col1 - col, row1 - row, aColor, aColor, nPenWidth )
+   BT_DrawFillRectangle(hDC, Row, Col, col1 - col, row1 - row, aColor, aColor, nPenWidth)
 
 RETURN
 
 
 STATIC PROCEDURE DrawLineInBitmap( hDC, Row1, Col1, Row2, Col2, aColor, nPenWidth )
 
-   BT_DrawLine ( hDC, Row1, Col1, Row2, Col2, aColor, nPenWidth )
+   BT_DrawLine(hDC, Row1, Col1, Row2, Col2, aColor, nPenWidth)
 
 RETURN
 
@@ -641,7 +641,7 @@ STATIC PROCEDURE DrawArcInBitmap( hDC, row, col, row1, col1, rowr, colr, rowr1, 
       penwidth = 1
    ENDIF
 
-   BT_DrawArc ( hDC, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb, penwidth )
+   BT_DrawArc(hDC, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb, penwidth)
 
 RETURN
 
@@ -658,7 +658,7 @@ STATIC PROCEDURE DrawPieInBitmap( hDC, row, col, row1, col1, rowr, colr, rowr1, 
       fillrgb := WHITE
    ENDIF
 
-   BT_DrawPie ( hDC, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb, penwidth, fillrgb )
+   BT_DrawPie(hDC, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb, penwidth, fillrgb)
 
 RETURN
 

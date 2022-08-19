@@ -239,7 +239,7 @@ STATIC PROCEDURE ShowError( cErrorMessage, oError )
          SET MSGALERT BACKCOLOR TO MAROON
          SET MSGALERT FONTCOLOR TO WHITE
 
-         IF GetFontHandle( "DlgFont" ) == 0
+         IF GetFontHandle("DlgFont") == 0
             DEFINE FONT DlgFont FONTNAME "Verdana" SIZE 14
          ENDIF
 

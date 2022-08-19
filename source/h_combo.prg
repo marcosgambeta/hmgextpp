@@ -96,7 +96,7 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
    hb_default(@AutoComplete, .F.)
    hb_default(@lShowDropDown, .F.)
 
-   IF ( FontHandle := GetFontHandle( FontName ) ) != 0
+   IF ( FontHandle := GetFontHandle(FontName) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
@@ -190,30 +190,30 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
 
       ELSE
 
-         ControlHandle := GetDialogItemHandle( ParentFormHandle, nId )
+         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
 
-         x := GetWindowCol ( Controlhandle )
-         y := GetWindowRow ( Controlhandle )
-         w := GetWindowWidth  ( Controlhandle )
+         x := GetWindowCol(Controlhandle)
+         y := GetWindowRow(Controlhandle)
+         w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
          IF FontHandle != 0
-            _SetFontHandle( ControlHandle, FontHandle )
+            _SetFontHandle(ControlHandle, FontHandle)
          ELSE
             __defaultNIL(@FontName, _HMG_DefaultFontName)
             __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-            IF IsWindowHandle( ControlHandle )
-               FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
+            IF IsWindowHandle(ControlHandle)
+               FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
             ENDIF
          ENDIF
 
-         SetWindowStyle ( ControlHandle, Style, .T. )
+         SetWindowStyle(ControlHandle, Style, .T.)
 
       ENDIF
 
    ELSE
 
-      ParentFormHandle := GetFormHandle ( ParentFormName )
+      ParentFormHandle := GetFormHandle(ParentFormName)
 
       IF ValType(x) == "U" .OR. ValType(y) == "U"
 
@@ -226,16 +226,16 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
             ControlHandle := InitComboBox ( _HMG_aFormReBarHandle[i], 0, x, y, w, lUpper, lLower, h, invisible, notabstop, sort, displaychange, _HMG_IsXPorLater )
 
             IF FontHandle != 0
-               _SetFontHandle( ControlHandle, FontHandle )
+               _SetFontHandle(ControlHandle, FontHandle)
             ELSE
                __defaultNIL(@FontName, _HMG_DefaultFontName)
                __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-               IF IsWindowHandle( ControlHandle )
-                  FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
+               IF IsWindowHandle(ControlHandle)
+                  FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
                ENDIF
             ENDIF
 
-            AddSplitBoxItem ( Controlhandle , _HMG_aFormReBarHandle[i] , w , break , GripperText , w , , _HMG_ActiveSplitBoxInverted )
+            AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], w, break, GripperText, w, , _HMG_ActiveSplitBoxInverted)
 
             Containerhandle := _HMG_aFormReBarHandle[i]
 
@@ -252,12 +252,12 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
    IF !lDialogInMemory
 
       IF FontHandle != 0
-         _SetFontHandle( ControlHandle, FontHandle )
+         _SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle( ControlHandle )
-            FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
+         IF IsWindowHandle(ControlHandle)
+            FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
 
@@ -266,7 +266,7 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
       ENDIF
 
       IF ValType(tooltip) != "U"
-         SetToolTip ( ControlHandle , tooltip , GetFormToolTipHandle ( ParentFormName ) )
+         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
    ENDIF
@@ -325,12 +325,12 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
 #ifdef _OBJECT_
-      ow := _WindowObj ( ParentFormHandle )
-      oc := _ControlObj( ControlHandle )
+      ow := _WindowObj(ParentFormHandle)
+      oc := _ControlObj(ControlHandle)
 #endif
    ENDIF
 
-   Do_ControlEventProcedure ( bInit, k, ow, oc )
+   Do_ControlEventProcedure(bInit, k, ow, oc)
 
 RETURN Nil
 
@@ -352,10 +352,10 @@ FUNCTION InitDialogComboBox( ParentName, ControlHandle, k )
 
    IF DisplayChange == .T.
 
-      _HMG_aControlRangeMin [k] := FindWindowEx( ControlHandle, 0, "Edit", Nil )
+      _HMG_aControlRangeMin [k] := FindWindowEx(ControlHandle, 0, "Edit", Nil)
       // add tooltip for editable combo window if defined //(JK) HMG Exp. Build 8
       IF ValType(_HMG_aControlToolTip [k]) != "U"
-         SetToolTip ( _HMG_aControlRangeMin [k] , _HMG_aControlToolTip [k] , GetFormToolTipHandle( ParentName ) )
+         SetToolTip ( _HMG_aControlRangeMin [k] , _HMG_aControlToolTip [k] , GetFormToolTipHandle(ParentName) )
       ENDIF
 
       IF !Empty(cuetext) .AND. IsVistaOrLater() 
@@ -366,7 +366,7 @@ FUNCTION InitDialogComboBox( ParentName, ControlHandle, k )
    ELSEIF !Empty(cuetext) .AND. IsVistaOrLater() 
 
       value := 0
-      SendMessageWideString( ControlHandle, CB_SETCUEBANNER, .T., cuetext )
+      SendMessageWideString(ControlHandle, CB_SETCUEBANNER, .T., cuetext)
 
    ENDIF
 
@@ -385,24 +385,24 @@ FUNCTION InitDialogComboBox( ParentName, ControlHandle, k )
             IF value == ( WorkArea )->( RecNo() )
                cset := rcount
             ENDIF
-            ComboAddString ( ControlHandle, cValToChar ( ( WorkArea )->&( cField ) ) )
+            ComboAddString(ControlHandle, cValToChar((WorkArea)->&(cField)))
             ( WorkArea )->( dbSkip() )
          ENDDO
 
          ( WorkArea )->( dbGoto( BackRec ) )
 
-         ComboSetCurSel ( ControlHandle, cset )
+         ComboSetCurSel(ControlHandle, cset)
 
       ENDIF
 
    ELSE
 
       IF Len(rows) > 0
-         AEval( rows, { |v| ComboAddString ( ControlHandle, v ) } )
+         AEval(rows, {|v|ComboAddString(ControlHandle, v)})
       ENDIF
 
       IF ISNUMBER( value ) .AND. value <> 0
-         ComboSetCurSel ( ControlHandle, Value )
+         ComboSetCurSel(ControlHandle, Value)
       ENDIF
 
    ENDIF
@@ -427,11 +427,11 @@ PROCEDURE _DataComboRefresh ( i )  // (JK) Modified for extend COMBO HMG 1.0 Bui
    LOCAL BackValue , BackRec , WorkArea , cField , ControlHandle
 
    IF Empty(_HMG_aControlCaption[i])
-      BackValue := _GetValue ( , , i )
+      BackValue := _GetValue(, , i)
    ELSE
       cField := _HMG_aControlCaption[i]
       _HMG_aControlCaption[i] := ""
-      BackValue := _GetValue ( , , i )
+      BackValue := _GetValue(, , i)
       _HMG_aControlCaption[i] := cField
    ENDIF
 
@@ -445,13 +445,13 @@ PROCEDURE _DataComboRefresh ( i )  // (JK) Modified for extend COMBO HMG 1.0 Bui
 
    ( WorkArea )->( dbGoTop() )
 
-   ComboboxReset ( ControlHandle )
+   ComboboxReset(ControlHandle)
 
    DO WHILE ! ( WorkArea )->( EOF() )  // (JK) HMG 1.0 Experimental Build 8
       IF  _HMG_aControlMiscData1[i] [1] <> 1  // standard Combo
-         ComboAddString ( ControlHandle , cValToChar ( ( WorkArea )->&( cField ) ) )
+         ComboAddString(ControlHandle, cValToChar((WorkArea)->&(cField)))
       ELSE  // extend Combo
-         ComboAddDataStringEx ( ControlHandle , cValToChar ( ( WorkArea )->&( cField ) ) )
+         ComboAddDataStringEx(ControlHandle, cValToChar((WorkArea)->&(cField)))
       ENDIF
       ( WorkArea )->( dbSkip() )
    ENDDO
@@ -459,7 +459,7 @@ PROCEDURE _DataComboRefresh ( i )  // (JK) Modified for extend COMBO HMG 1.0 Bui
    ( WorkArea )->( dbGoto( BackRec ) )
 
    IF BackValue > 0 .AND. BackValue <= ( WorkArea )->( LastRec() )
-      _SetValue ( , , BackValue , i )
+      _SetValue(, , BackValue, i)
    ENDIF
 
 RETURN

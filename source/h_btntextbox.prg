@@ -122,7 +122,7 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
       ENDIF
    ENDIF
 
-   IF ( FontHandle := GetFontHandle( FontName ) ) != 0
+   IF ( FontHandle := GetFontHandle(FontName) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
@@ -196,12 +196,12 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
 
       ELSE
 
-         aControlHandle := GetDialogItemHandle( ParentFormHandle, nId )
+         aControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
          SetWindowStyle(aControlHandle, Style, .T.)
 
-         x := GetWindowCol ( aControlHandle )
-         y := GetWindowRow ( aControlHandle )
-         w := GetWindowWidth  ( aControlHandle )
+         x := GetWindowCol(aControlHandle)
+         y := GetWindowRow(aControlHandle)
+         w := GetWindowWidth(aControlHandle)
          h := GetWindowHeight(aControlHandle)
 
          aControlHandle := ReDefBtnTextBox( aControlHandle, abitmap[1], BtnWidth, abitmap[2], lBtn2, w, h )
@@ -210,7 +210,7 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
 
    ELSE
 
-      ParentFormHandle := GetFormHandle( ParentFormName )
+      ParentFormHandle := GetFormHandle(ParentFormName)
       // Creates the control window
       aControlHandle := InitBtnTextBox( ParentFormHandle, 0, x, y, w, h, "", 0, nMaxLength, ;
          lUpper, lLower, .F. , lPassword, right, invisible, notabstop, ;
@@ -221,11 +221,11 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    IF !lDialogInMemory
 
       IF FontHandle != 0
-         _SetFontHandle( aControlHandle[1], FontHandle )
+         _SetFontHandle(aControlHandle[1], FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle( aControlHandle[1] )
+         IF IsWindowHandle(aControlHandle[1])
             FontHandle := _SetFont ( aControlHandle[1], FontName, FontSize, bold, italic, underline, strikeout )
          ENDIF
          SetTbBtnMargin ( aControlHandle[1], BtnWidth, .T., lBtn2 )
@@ -238,7 +238,7 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
       // Add a ToolTip if param has value
       FOR tmp := 1 TO 3
          IF ValType(aToolTip[tmp]) != "U"
-            SetToolTip ( aControlHandle[tmp], aToolTip[tmp], GetFormToolTipHandle ( ParentFormName ) )
+            SetToolTip ( aControlHandle[tmp], aToolTip[tmp], GetFormToolTipHandle(ParentFormName) )
          ENDIF
       NEXT
 
@@ -316,12 +316,12 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
 #ifdef _OBJECT_
-      ow := _WindowObj ( ParentFormHandle )
-      oc := _ControlObj( aControlHandle[1] )
+      ow := _WindowObj(ParentFormHandle)
+      oc := _ControlObj(aControlHandle[1])
 #endif
    ENDIF
 
-   Do_ControlEventProcedure ( bInit, k, ow, oc )
+   Do_ControlEventProcedure(bInit, k, ow, oc)
 
 RETURN nil
 
@@ -359,7 +359,7 @@ FUNCTION InitDialogBtnTextBox( ParentName, ControlHandle, k )
       AAdd(_HMG_aFormBrowseList[GetFormIndex(ParentName)], k)
    ENDIF
 
-   ReDefBtnTextBox( ControlHandle, abitmap [1], BtnWidth, abitmap [2], lBtn2 )
+   ReDefBtnTextBox(ControlHandle, abitmap[1], BtnWidth, abitmap[2], lBtn2)
 // JP 62
    IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]   // Modal
       _HMG_aControlDeleted [k] := .T.
@@ -381,17 +381,17 @@ FUNCTION TBBtnEvents( hwndEdit, HwndBtn, nMsg )
 
       SWITCH AScan(aHandle, HwndBtn)
       CASE TBB1
-         IF _DoControlEventProcedure ( _HMG_aControlProcedures[i], i )
+         IF _DoControlEventProcedure(_HMG_aControlProcedures[i], i)
             IF ValType(_HMG_aControlMiscData1[i]) == "A" .AND. Len(_HMG_aControlMiscData1[i]) >= 4 .AND. ! _HMG_aControlMiscData1[i] [4]
-               SendMessage ( HwndBtn, BM_SETSTYLE, LOWORD ( BS_PUSHBUTTON ), 1 )
+               SendMessage(HwndBtn, BM_SETSTYLE, LOWORD(BS_PUSHBUTTON), 1)
             ENDIF
          ENDIF
          EXIT
 
       CASE TBB2
-         IF _DoControlEventProcedure ( _HMG_aControlHeadClick[i], i )
+         IF _DoControlEventProcedure(_HMG_aControlHeadClick[i], i)
             IF ValType(_HMG_aControlMiscData1[i]) == "A" .AND. Len(_HMG_aControlMiscData1[i]) >= 4 .AND. ! _HMG_aControlMiscData1[i] [4]
-               SendMessage ( HwndBtn, BM_SETSTYLE, LOWORD ( BS_PUSHBUTTON ), 1 )
+               SendMessage(HwndBtn, BM_SETSTYLE, LOWORD(BS_PUSHBUTTON), 1)
             ENDIF
          ENDIF
       END SWITCH

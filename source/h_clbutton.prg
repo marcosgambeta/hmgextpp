@@ -133,7 +133,7 @@ PROCEDURE ReleaseCLButtonImageList ( cWindow, cControl )
 *------------------------------------------------------------------------------*
    LOCAL i
 
-   IF _IsControlDefined(cControl, cWindow) .AND. GetControlType ( cControl, cWindow ) == "CLBUTTON"
+   IF _IsControlDefined(cControl, cWindow) .AND. GetControlType(cControl, cWindow) == "CLBUTTON"
 
       i := GetControlIndex(cControl, cWindow)
 
@@ -167,9 +167,9 @@ FUNCTION CLButtonEventhandler ( hWnd, nMsg, wParam, lParam )
 
       IF i > 0 .AND. _HMG_aControlType[i] == CONTROL_TYPE_CLBUTTON
 
-         IF HiWord ( wParam ) == BN_CLICKED
+         IF HiWord(wParam) == BN_CLICKED
             RetVal := 0
-            _DoControlEventProcedure ( _HMG_aControlProcedures[i], i )
+            _DoControlEventProcedure(_HMG_aControlProcedures[i], i)
          ENDIF
 
       ENDIF
@@ -180,17 +180,17 @@ RETURN RetVal
 
 #define BCM_SETSHIELD      0x0000160C
 *------------------------------------------------------------------------------*
-PROCEDURE CLButton_SetShield ( cWindow, cControl )
+PROCEDURE CLButton_SetShield(cWindow, cControl)
 *------------------------------------------------------------------------------*
    LOCAL i
 
-   IF GetControlType ( cControl, cWindow ) == "CLBUTTON"
+   IF GetControlType(cControl, cWindow) == "CLBUTTON"
 
       i := GetControlIndex(cControl, cWindow)
 
       _HMG_aControlPicture[i] := "Shield"
 
-      SendMessage ( GetControlHandle ( cControl, cWindow ), BCM_SETSHIELD, 0, 0xFFFFFFFF )
+      SendMessage(GetControlHandle(cControl, cWindow), BCM_SETSHIELD, 0, 0xFFFFFFFF)
 
       _HMG_UserComponentProcess := .T.
 
@@ -212,22 +212,22 @@ PROCEDURE CLButtonSetFocus ( cWindow, cControl )
    LOCAL ControlCount
    LOCAL x
 
-   IF GetControlType ( cControl, cWindow ) == "CLBUTTON"
+   IF GetControlType(cControl, cWindow) == "CLBUTTON"
 
       _HMG_UserComponentProcess := .T.
 
-      hWnd := GetControlHandle ( cControl, cWindow )
+      hWnd := GetControlHandle(cControl, cWindow)
       ControlCount := Len(_HMG_aControlNames)
       ParentFormHandle := _HMG_aControlParentHandles [ GetControlIndex(cControl, cWindow) ]
       FOR x := 1 TO ControlCount
          IF _HMG_aControlType[x] == CONTROL_TYPE_CLBUTTON
             IF _HMG_aControlParentHandles [x] == ParentFormHandle
-               SendMessage ( _HMG_aControlHandles [x], BM_SETSTYLE, LOWORD ( BS_COMMANDLINK ), 1 )
+               SendMessage(_HMG_aControlHandles[x], BM_SETSTYLE, LOWORD(BS_COMMANDLINK), 1)
             ENDIF
          ENDIF
       NEXT
       SetFocus( hWnd )
-      SendMessage ( hWnd, BM_SETSTYLE, LOWORD ( BS_DEFCOMMANDLINK ), 1 )
+      SendMessage(hWnd, BM_SETSTYLE, LOWORD(BS_DEFCOMMANDLINK), 1)
 
    ELSE
 
@@ -238,12 +238,12 @@ PROCEDURE CLButtonSetFocus ( cWindow, cControl )
 RETURN
 
 *------------------------------------------------------------------------------*
-PROCEDURE CLButtonEnable ( cWindow, cControl )
+PROCEDURE CLButtonEnable(cWindow, cControl)
 *------------------------------------------------------------------------------*
 
-   IF GetControlType ( cControl, cWindow ) == "CLBUTTON"
+   IF GetControlType(cControl, cWindow) == "CLBUTTON"
 
-      EnableWindow ( GetControlHandle ( cControl, cWindow ) )
+      EnableWindow(GetControlHandle(cControl, cWindow))
 
       _HMG_UserComponentProcess := .T.
 
@@ -256,12 +256,12 @@ PROCEDURE CLButtonEnable ( cWindow, cControl )
 RETURN
 
 *------------------------------------------------------------------------------*
-PROCEDURE CLButtonDisable ( cWindow, cControl )
+PROCEDURE CLButtonDisable(cWindow, cControl)
 *------------------------------------------------------------------------------*
 
-   IF GetControlType ( cControl, cWindow ) == "CLBUTTON"
+   IF GetControlType(cControl, cWindow) == "CLBUTTON"
 
-      DisableWindow ( GetControlHandle ( cControl, cWindow ) )
+      DisableWindow(GetControlHandle(cControl, cWindow))
 
       _HMG_UserComponentProcess := .T.
 
@@ -274,10 +274,10 @@ PROCEDURE CLButtonDisable ( cWindow, cControl )
 RETURN
 
 *------------------------------------------------------------------------------*
-FUNCTION SetCLButtonHandle ( cWindow, cControl )
+FUNCTION SetCLButtonHandle(cWindow, cControl)
 *------------------------------------------------------------------------------*
 
-   IF GetControlType ( cControl, cWindow ) == "CLBUTTON"
+   IF GetControlType(cControl, cWindow) == "CLBUTTON"
 
       MsgExclamation ( "This Property is Read Only!", "Warning" )
 
@@ -292,15 +292,15 @@ FUNCTION SetCLButtonHandle ( cWindow, cControl )
 RETURN NIL
 
 *------------------------------------------------------------------------------*
-FUNCTION GetCLButtonHandle ( cWindow, cControl )
+FUNCTION GetCLButtonHandle(cWindow, cControl)
 *------------------------------------------------------------------------------*
    LOCAL RetVal := Nil
 
-   IF GetControlType ( cControl, cWindow ) == "CLBUTTON"
+   IF GetControlType(cControl, cWindow) == "CLBUTTON"
 
       _HMG_UserComponentProcess := .T.
 
-      RetVal := GetControlHandle ( cControl, cWindow )
+      RetVal := GetControlHandle(cControl, cWindow)
 
    ELSE
 
@@ -315,7 +315,7 @@ FUNCTION SetCLButtonCaption ( cWindow, cControl, cProperty, cValue )
 *------------------------------------------------------------------------------*
    cProperty := NIL // Unused variable
 
-   IF GetControlType ( cControl, cWindow ) == "CLBUTTON"
+   IF GetControlType(cControl, cWindow) == "CLBUTTON"
 
       _HMG_UserComponentProcess := .T.
 
@@ -334,11 +334,11 @@ FUNCTION GetCLButtonCaption ( cWindow, cControl )
 *------------------------------------------------------------------------------*
    LOCAL RetVal := Nil
 
-   IF GetControlType ( cControl, cWindow ) == "CLBUTTON"
+   IF GetControlType(cControl, cWindow) == "CLBUTTON"
 
       _HMG_UserComponentProcess := .T.
 
-      RetVal := GetWindowText ( GetControlHandle ( cControl, cWindow ) )
+      RetVal := GetWindowText(GetControlHandle(cControl, cWindow))
 
    ELSE
 
@@ -353,9 +353,9 @@ PROCEDURE SetCLButtonNoteText ( cWindow, cControl, cProperty, cValue )
 *------------------------------------------------------------------------------*
    cProperty := NIL // Unused variable
 
-   IF GetControlType ( cControl, cWindow ) == "CLBUTTON"
+   IF GetControlType(cControl, cWindow) == "CLBUTTON"
 
-      CLButton_SetNote( GetControlHandle ( cControl, cWindow ), cValue )
+      CLButton_SetNote(GetControlHandle(cControl, cWindow), cValue)
 
       _HMG_UserComponentProcess := .T.
 
@@ -371,7 +371,7 @@ RETURN
 FUNCTION GetCLButtonNoteText ( cWindow, cControl )
 *------------------------------------------------------------------------------*
 
-   IF GetControlType ( cControl, cWindow ) == "CLBUTTON"
+   IF GetControlType(cControl, cWindow) == "CLBUTTON"
 
       MsgExclamation ( "This Property is Write Only!", "Warning" )
 
@@ -382,12 +382,12 @@ FUNCTION GetCLButtonNoteText ( cWindow, cControl )
 RETURN NIL
 
 *------------------------------------------------------------------------------*
-PROCEDURE SetCLButtonPicture ( cWindow, cControl, cProperty, cBitmap )
+PROCEDURE SetCLButtonPicture(cWindow, cControl, cProperty, cBitmap)
 *------------------------------------------------------------------------------*
    LOCAL i
    cProperty := NIL // Unused variable
 
-   IF GetControlType ( cControl, cWindow ) == "CLBUTTON"
+   IF GetControlType(cControl, cWindow) == "CLBUTTON"
 
       i := GetControlIndex(cControl, cWindow)
 
@@ -397,7 +397,7 @@ PROCEDURE SetCLButtonPicture ( cWindow, cControl, cProperty, cBitmap )
          IMAGELIST_DESTROY ( _HMG_aControlBrushHandle[i] )
       ENDIF
 
-      _HMG_aControlBrushHandle[i] := CLButton_SetImage( GetControlHandle ( cControl, cWindow ), cBitmap )
+      _HMG_aControlBrushHandle[i] := CLButton_SetImage(GetControlHandle(cControl, cWindow), cBitmap)
 
       _HMG_UserComponentProcess := .T.
 
@@ -410,15 +410,15 @@ PROCEDURE SetCLButtonPicture ( cWindow, cControl, cProperty, cBitmap )
 RETURN
 
 *------------------------------------------------------------------------------*
-FUNCTION GetCLButtonPicture ( cWindow, cControl )
+FUNCTION GetCLButtonPicture(cWindow, cControl)
 *------------------------------------------------------------------------------*
    LOCAL RetVal
 
-   IF GetControlType ( cControl, cWindow ) == "CLBUTTON"
+   IF GetControlType(cControl, cWindow) == "CLBUTTON"
 
       _HMG_UserComponentProcess := .T.
 
-      RetVal := _GetPicture ( cControl, cWindow )
+      RetVal := _GetPicture(cControl, cWindow)
 
    ELSE
 
@@ -462,17 +462,17 @@ HB_FUNC( INITCLBUTTON )
       Style = BS_DEFCOMMANDLINK;
    }
 
-   hbutton = CreateWindow( TEXT( "button" ),
-                           lpWindowName,
-                           Style | WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | BS_PUSHBUTTON | WS_VISIBLE,
-                           hb_parni( 3 ),
-                           hb_parni( 2 ),
-                           hb_parni( 6 ),
-                           hb_parni( 7 ),
-                           hwnd,
-                           ( HMENU ) HB_PARNL( 8 ),
-                           GetModuleHandle( nullptr ),
-                           nullptr );
+   hbutton = CreateWindow(TEXT("button"),
+                          lpWindowName,
+                          Style | WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | BS_PUSHBUTTON | WS_VISIBLE,
+                          hb_parni(3),
+                          hb_parni(2),
+                          hb_parni(6),
+                          hb_parni(7),
+                          hwnd,
+                          ( HMENU ) HB_PARNL(8),
+                          GetModuleHandle(nullptr),
+                          nullptr);
 
    HB_RETNL( ( LONG_PTR ) hbutton );
 }
@@ -501,7 +501,7 @@ HB_FUNC( CLBUTTON_SETNOTE )
 #define BCM_SETIMAGELIST  ( BCM_FIRST + 0x0002 )
 #endif
 
-#if ( defined( __BORLANDC__ ) && __BORLANDC__ < 1410 ) || ( defined ( __MINGW32__ ) && defined ( __MINGW32_VERSION ) )
+#if ( defined( __BORLANDC__ ) && __BORLANDC__ < 1410 ) || ( defined(__MINGW32__) && defined(__MINGW32_VERSION) )
 typedef struct
 {
    HIMAGELIST himl;
@@ -522,7 +522,7 @@ HB_FUNC( CLBUTTON_SETIMAGE )
 
    himl = ImageList_LoadImage
           (
-      GetModuleHandle( nullptr ),
+      GetModuleHandle(nullptr),
       lpImageName,
       0,
       6,
@@ -535,7 +535,7 @@ HB_FUNC( CLBUTTON_SETIMAGE )
    {
       himl = ImageList_LoadImage
              (
-         GetModuleHandle( nullptr ),
+         GetModuleHandle(nullptr),
          lpImageName,
          0,
          6,
