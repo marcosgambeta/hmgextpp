@@ -590,7 +590,7 @@ CLASS TDlu2Pix
    METHOD TextWidth(cText, nSize, cFont, lBold, cChar)
    METHOD Breadth( nW, k )
 
-  _METHOD D ( nKfc )
+  _METHOD D(nKfc)
    METHOD W ( nKfc ) INLINE ::ToVal( nKfc, ::nPixWidth )
    METHOD H ( nKfc ) INLINE ::ToVal( nKfc, ::nPixHeight )
    METHOD H_( nKfc ) INLINE ::ToVal( nKfc, ::nPixHeight2 )
@@ -601,8 +601,7 @@ CLASS TDlu2Pix
    METHOD MW( nKfc )     INLINE ::ToVal( nKfc, ::nMargWidth )
    METHOD MH( nKfc )     INLINE ::ToVal( nKfc, ::nMargHeight )
 
-   ASSIGN Handle( hWnd ) INLINE ( ::hWnd := hWnd, ::lError := Empty(hWnd), ;
-          iif( ::lError, MsgMiniGuiError("Application events are not created !"), ) )
+   ASSIGN Handle(hWnd) INLINE (::hWnd := hWnd, ::lError := Empty(hWnd), iif(::lError, MsgMiniGuiError("Application events are not created !"),))
    ACCESS IsError        INLINE ::lError
    ACCESS Wm_nApp        INLINE WM_APP_LAUNCH
    ACCESS IsMsg          INLINE ( ::lAction .AND. ! ::lError )
@@ -648,9 +647,9 @@ CLASS TDlu2Pix
    ACCESS H4     INLINE ::H2 + ::H2
    ACCESS H5     INLINE ::H1 + ::H4
 
-   ACCESS D1     INLINE ::D ( 1 )
-   ACCESS D2     INLINE ::D ( 2 )
-   ACCESS D3     INLINE ::D ( 3 )
+   ACCESS D1     INLINE ::D(1)
+   ACCESS D2     INLINE ::D(2)
+   ACCESS D3     INLINE ::D(3)
 
    METHOD Create() INLINE _App_Dlu2Pix_Events_( Self )
 
@@ -663,7 +662,7 @@ CLASS TDlu2Pix
    METHOD PostMsg( nKey, nPar, xPar ) INLINE ( nPar := hb_defaultValue(nPar, 0), ;
       iif( ::IsMsg, ( ::oParam:Set( nKey, xPar ), ;
       PostMessage( ::hWnd, ::Wm_nApp, nKey, nPar ) ), Nil ) )
-   METHOD Send ( nKey, nPar, xPar ) INLINE ::SendMsg( nKey, nPar, xPar )
+   METHOD Send(nKey, nPar, xPar) INLINE ::SendMsg( nKey, nPar, xPar )
    METHOD SendMsg( nKey, nPar, xPar ) INLINE ( nPar := hb_defaultValue(nPar, 0), ;
       iif( ::IsMsg, ( ::oParam:Set( nKey, xPar ), ;
       SendMessage( ::hWnd, ::Wm_nApp, nKey, nPar ) ), Nil ) )
@@ -725,7 +724,7 @@ METHOD GetGaps( aGaps, oWnd ) CLASS TDlu2Pix
 
    LOCAL oApp, nGapW, nGapH, n
 
-   If HB_ISCHAR( oWnd ); oWnd := _WindowObj( oWnd )
+   If HB_ISCHAR( oWnd ); oWnd := _WindowObj(oWnd)
    EndIf
 
    oApp  := iif( Empty(oWnd), Self           , oWnd:App )
@@ -937,7 +936,7 @@ CLASS TWndData
    ACCESS H4         INLINE ::oApp:H4
    ACCESS H5         INLINE ::oApp:H5
 
-   METHOD D ( nKfc ) INLINE ::oApp:D ( nKfc )
+   METHOD D(nKfc) INLINE ::oApp:D(nKfc)
    ACCESS D1         INLINE ::oApp:D1
    ACCESS D2         INLINE ::oApp:D2
    ACCESS D3         INLINE ::oApp:D3
@@ -955,10 +954,10 @@ CLASS TWndData
    ACCESS Type            INLINE ::cType
    ACCESS VarName         INLINE ::cVar
    ACCESS FocusedControl  INLINE _GetFocusedControl ( ::cName )
-   ACCESS Row             INLINE GetWindowRow ( ::nHandle )
-   ASSIGN Row ( nVal )    INLINE _SetWindowSizePos( ::cName, nVal, , , )
-   ACCESS Col             INLINE GetWindowCol ( ::nHandle )
-   ASSIGN Col ( nVal )    INLINE _SetWindowSizePos( ::cName, , nVal, , )
+   ACCESS Row             INLINE GetWindowRow(::nHandle)
+   ASSIGN Row(nVal)    INLINE _SetWindowSizePos( ::cName, nVal, , , )
+   ACCESS Col             INLINE GetWindowCol(::nHandle)
+   ASSIGN Col(nVal)    INLINE _SetWindowSizePos( ::cName, , nVal, , )
    ACCESS Width           INLINE GetWindowWidth(::nHandle)
    ASSIGN Width(nVal)  INLINE _SetWindowSizePos( ::cName, , , nVal, )
    ACCESS Height          INLINE GetWindowHeight(::nHandle)
@@ -967,8 +966,8 @@ CLASS TWndData
    ACCESS ClientHeight    INLINE _GetClientRect ( ::nHandle )[4]
    ACCESS Title           INLINE GetWindowText ( ::nHandle )
    ASSIGN Title( cVal )   INLINE SetWindowText(::nHandle, cVal)
-   ACCESS Enabled         INLINE IsWindowEnabled ( ::nHandle )
-   ASSIGN Enabled( xVal ) INLINE iif( Empty(xVal), DisableWindow ( ::nHandle ), EnableWindow ( ::nHandle ) )
+   ACCESS Enabled         INLINE IsWindowEnabled(::nHandle)
+   ASSIGN Enabled(xVal) INLINE iif(Empty(xVal), DisableWindow(::nHandle), EnableWindow(::nHandle))
 
    ACCESS BackColor                       INLINE  GetProperty( ::cName, "BACKCOLOR"      )
    ASSIGN BackColor( Val )                INLINE  SetProperty( ::cName, "BACKCOLOR", Val )
@@ -1005,18 +1004,18 @@ CLASS TWndData
    METHOD Post ( nKey, nHandle, xPar ) INLINE ::PostMsg( nKey, nHandle, xPar )
    METHOD PostMsg( nKey, nHandle, xPar ) INLINE iif( ::lAction, ( ::oParam:Set( nKey, xPar ), ;
       PostMessage( ::nHandle, ::WM_nMsgW, nKey, hb_defaultValue(nHandle, 0) ) ), Nil )
-   METHOD Send ( nKey, nHandle, xPar ) INLINE ::SendMsg( nKey, nHandle, xPar )
+   METHOD Send(nKey, nHandle, xPar) INLINE ::SendMsg( nKey, nHandle, xPar )
    METHOD SendMsg( nKey, nHandle, xPar ) INLINE iif( ::lAction, ( ::oParam:Set( nKey, xPar ), ;
       SendMessage( ::nHandle, ::WM_nMsgW, nKey, hb_defaultValue(nHandle, 0) ) ), Nil )
 
    METHOD Release() INLINE iif( ::IsWindow, ;
       iif( ::lAction, PostMessage( ::nHandle, WM_CLOSE, 0, 0 ), Nil ), Nil )
 
-   METHOD Restore() INLINE ShowWindow( ::nHandle, SW_RESTORE )
-   METHOD Show() INLINE _ShowWindow( ::cName )
-   METHOD Hide() INLINE _HideWindow( ::cName )
+   METHOD Restore() INLINE ShowWindow(::nHandle, SW_RESTORE)
+   METHOD Show() INLINE _ShowWindow(::cName)
+   METHOD Hide() INLINE _HideWindow(::cName)
    METHOD SetFocus( xName ) INLINE iif( Empty(xName), SetFocus( ::nHandle ), ;
-      iif( HB_ISOBJECT( ::GetObj( xName ) ), ::GetObj( xName ):SetFocus(), DoMethod(::cName, xName, "SetFocus") ) )
+      iif( HB_ISOBJECT( ::GetObj(xName) ), ::GetObj(xName):SetFocus(), DoMethod(::cName, xName, "SetFocus") ) )
    METHOD SetSize( y, x, w, h ) INLINE _SetWindowSizePos( ::cName, y, x, w, h )
 
    _METHOD DoEvent( Key, nHandle )
@@ -1024,7 +1023,7 @@ CLASS TWndData
    _METHOD GetObj4Type( cType, lEque )
    _METHOD GetObj4Name( cName )
 
-   METHOD GetObj( xName ) INLINE iif( HB_ISCHAR( xName ), ::oName:Get( Upper(xName) ), ;
+   METHOD GetObj(xName) INLINE iif( HB_ISCHAR( xName ), ::oName:Get( Upper(xName) ), ;
       ::oHand:Get( xName ) )
    // Destructor
    METHOD Destroy() INLINE ( ;
@@ -1055,13 +1054,13 @@ METHOD ControlAssign( xValue ) CLASS TWndData
    lError := .T.
 
    IF PCount() == 0
-      o := ::GetObj( cMessage )
+      o := ::GetObj(cMessage)
       IF HB_ISOBJECT( o )
          uRet := _GetValue( , , o:nIndex )
          lError := .F.
       ENDIF
    ELSEIF PCount() == 1
-      o := ::GetObj( SubStr(cMessage, 2) )
+      o := ::GetObj(SubStr(cMessage, 2))
       IF HB_ISOBJECT( o )
          _SetValue( , , xValue, o:nIndex )
          uRet := _GetValue( , , o:nIndex )
@@ -1172,10 +1171,10 @@ CLASS TCnlData INHERIT TWndData
       ::Set(), hmg_SetWindowObject( ::nHandle, Self ), ;
       Self )
 
-   ACCESS Row INLINE _GetControlRow ( ::cName, ::oWin:Name )
-   ASSIGN Row ( nVal ) INLINE _SetControlRow ( ::cName, ::oWin:Name, nVal )
-   ACCESS Col INLINE _GetControlCol ( ::cName, ::oWin:Name )
-   ASSIGN Col ( nVal ) INLINE _SetControlCol ( ::cName, ::oWin:Name, nVal )
+   ACCESS Row INLINE _GetControlRow(::cName, ::oWin:Name)
+   ASSIGN Row(nVal) INLINE _SetControlRow(::cName, ::oWin:Name, nVal)
+   ACCESS Col INLINE _GetControlCol(::cName, ::oWin:Name)
+   ASSIGN Col(nVal) INLINE _SetControlCol(::cName, ::oWin:Name, nVal)
    ACCESS Width INLINE _GetControlWidth(::cName, ::oWin:Name)
    ASSIGN Width(nVal) INLINE _SetControlWidth(::cName, ::oWin:Name, nVal)
    ACCESS Height INLINE _GetControlHeight(::cName, ::oWin:Name)
@@ -1206,7 +1205,7 @@ CLASS TCnlData INHERIT TWndData
    METHOD Post ( nKey, xPar ) INLINE ::PostMsg( nKey, xPar )
    METHOD SendMsg( nKey, xPar ) INLINE iif( ::oWin:Action, ( ::oParam:Set( nKey, xPar ), ;
       SendMessage( ::oWin:nHandle, ::WM_nMsgC, nKey, ::nHandle ) ), Nil )
-   METHOD Send ( nKey, xPar ) INLINE ::SendMsg( nKey, xPar )
+   METHOD Send(nKey, xPar) INLINE ::SendMsg( nKey, xPar )
 
    METHOD Set() INLINE ( iif( HB_ISOBJECT( ::oWin:oName ), ::oWin:oName:Set( Upper(::cName), Self ), ), ;
       iif( HB_ISOBJECT( ::oWin:oHand ), ::oWin:oHand:Set( ::nHandle, Self ), ) )
@@ -1235,7 +1234,7 @@ CLASS TCnlData INHERIT TWndData
 
    METHOD Disable( nPos ) INLINE _DisableControl( ::cName, ::oWin:cName, nPos )
    METHOD Enable ( nPos ) INLINE _EnableControl ( ::cName, ::oWin:cName, nPos )
-   METHOD Enabled( nPos ) INLINE _IsControlEnabled ( ::cName, ::oWin:cName, nPos )
+   METHOD Enabled( nPos ) INLINE _IsControlEnabled(::cName, ::oWin:cName, nPos)
 
    METHOD Restore() INLINE ::Show()
    METHOD Show() INLINE _ShowControl ( ::cName, ::oWin:cName )
@@ -1346,7 +1345,7 @@ CLASS TTsbData INHERIT TCnlData
 
    METHOD Enable () INLINE ::oTBrowse:lEnabled := .T.
    METHOD Disable() INLINE ::oTBrowse:lEnabled := .F.
-   METHOD Enabled ( lEnab ) INLINE ::oTBrowse:Enabled( lEnab )
+   METHOD Enabled(lEnab) INLINE ::oTBrowse:Enabled( lEnab )
    METHOD Refresh( lPaint ) INLINE ::oTBrowse:Refresh( lPaint )
    METHOD Restore() INLINE ::oTBrowse:Show()
    METHOD Show() INLINE ::oTBrowse:Show()
@@ -1438,7 +1437,7 @@ CLASS TKeyData
       iif( HB_ISBLOCK( b ), Eval( b, ::oObj, Key, p1, p2, p3 ), Nil ) }
 
    ACCESS Obj INLINE ::oObj
-   ASSIGN Obj( o ) INLINE ::oObj := iif( HB_ISOBJECT( o ), o, Self )
+   ASSIGN Obj(o) INLINE ::oObj := iif( HB_ISOBJECT( o ), o, Self )
    ACCESS Len INLINE Len(::aKey)
    ACCESS IsEvent INLINE ::lKey
    ASSIGN KeyUpper(lUpper) INLINE hb_HCaseMatch( ::aKey, ! Empty(lUpper) )
@@ -1593,7 +1592,7 @@ CLASS TThrData
    ACCESS MT INLINE ::lMT
    ASSIGN MT( lVmMt ) INLINE ::lMT := iif( HB_ISLOGICAL( lVmMt ), lVmMt, .F. )
    ACCESS Obj INLINE ::oObj
-   ASSIGN Obj( o ) INLINE ::oObj := iif( HB_ISOBJECT( o ), o, Self )
+   ASSIGN Obj(o) INLINE ::oObj := iif( HB_ISOBJECT( o ), o, Self )
    ACCESS Len INLINE Len(::aKey)
    METHOD ISBLOCK( Key ) INLINE HB_ISBLOCK( ::Get( Key ) )
 

@@ -60,7 +60,7 @@ FUNCTION OwnTabPaint( lParam )
 
    hDC := GETOWNBTNDC( lParam )
 
-   i := AScan(_HMG_aControlHandles, GETOWNBTNHANDLE( lParam ))
+   i := AScan(_HMG_aControlHandles, GETOWNBTNHANDLE(lParam))
 
    IF Empty(hDC) .OR. i == 0
       RETURN( 1 )
@@ -143,7 +143,7 @@ FUNCTION OwnTabPaint( lParam )
 
       IF _HMG_aControlMiscData1[i] [5]  // HotTrack
 
-         IF IsArrayRGB ( aForeColor := _HMG_aControlMiscData1[i] [6] )
+         IF IsArrayRGB(aForeColor := _HMG_aControlMiscData1[i][6])
             SetTextColor( hDC, aForeColor [1], aForeColor [2], aForeColor [3] )
          ELSEIF bkColor == GetSysColor( COLOR_BTNFACE )
             SetTextColor( hDC, 0, 0, 128 )
@@ -155,7 +155,7 @@ FUNCTION OwnTabPaint( lParam )
 
    ELSE
 
-      IF IsArrayRGB ( aInactiveColor := _HMG_aControlMiscData1[i] [7] )
+      IF IsArrayRGB(aInactiveColor := _HMG_aControlMiscData1[i][7])
          SetTextColor( hDC, aInactiveColor [1], aInactiveColor [2], aInactiveColor [3] )
       ENDIF
 

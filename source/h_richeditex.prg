@@ -152,7 +152,7 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
 
    cParentForm := ParentForm
 
-   ParentForm = GetFormHandle ( ParentForm )
+   ParentForm = GetFormHandle(ParentForm)
 
    IF ValType(x) == "U" .OR. ValType(y) == "U"
 
@@ -168,12 +168,12 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
 
          ControlHandle := InitRichEditBoxEx ( _HMG_aFormReBarHandle[i], 0, x, y, w, h, "", 0, maxlength, readonly, invisible, notabstop, noHscroll, noVscroll )
          IF ValType(fontname) != "U" .AND. ValType(fontsize) != "U"
-            FontHandle := _SetFont ( ControlHandle, fontname, fontsize, bold, italic, underline, strikeout )
+            FontHandle := _SetFont(ControlHandle, fontname, fontsize, bold, italic, underline, strikeout)
          ELSE
-            FontHandle := _SetFont ( ControlHandle, _HMG_DefaultFontName, _HMG_DefaultFontSize, bold, italic, underline, strikeout )
+            FontHandle := _SetFont(ControlHandle, _HMG_DefaultFontName, _HMG_DefaultFontSize, bold, italic, underline, strikeout)
          ENDIF
 
-         AddSplitBoxItem ( Controlhandle, _HMG_aFormReBarHandle[i], w, break, , , , _HMG_ActiveSplitBoxInverted )
+         AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], w, break, , , , _HMG_ActiveSplitBoxInverted)
          Containerhandle := _HMG_aFormReBarHandle[i]
 
          IF LEN(value) > 0
@@ -185,11 +185,11 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
    ELSE
 
       ControlHandle := InitRichEditBoxEx ( ParentForm, 0, x, y, w, h, "", 0, maxlength, readonly, invisible, notabstop, noHscroll, noVscroll )
-      IF IsWindowHandle( ControlHandle )
+      IF IsWindowHandle(ControlHandle)
          IF ValType(fontname) != "U" .AND. ValType(fontsize) != "U"
-            FontHandle := _SetFont ( ControlHandle, fontname, fontsize, bold, italic, underline, strikeout )
+            FontHandle := _SetFont(ControlHandle, fontname, fontsize, bold, italic, underline, strikeout)
          ELSE
-            FontHandle := _SetFont ( ControlHandle, _HMG_DefaultFontName, _HMG_DefaultFontSize, bold, italic, underline, strikeout )
+            FontHandle := _SetFont(ControlHandle, _HMG_DefaultFontName, _HMG_DefaultFontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
 
@@ -204,11 +204,11 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
    ENDIF
 
    IF ValType(tooltip) != "U"
-      SetToolTip ( ControlHandle, TOOLTIP, GetFormToolTipHandle ( cParentForm ) )
+      SetToolTip(ControlHandle, TOOLTIP, GetFormToolTipHandle(cParentForm))
    ENDIF
 
-   RichEditBox_SetRTFTextMode ( ControlHandle, .T. )
-   RichEditBox_SetAutoURLDetect ( ControlHandle, .T. )
+   RichEditBox_SetRTFTextMode(ControlHandle, .T.)
+   RichEditBox_SetAutoURLDetect(ControlHandle, .T.)
 
    k := _GetControlFree()
 
@@ -263,8 +263,8 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
       AAdd(_HMG_aFormBrowseList[GetFormIndex(cParentForm)], k)
    ENDIF
 
-   IF IsArrayRGB ( backcolor )
-      SendMessage ( _HMG_aControlHandles[k], EM_SETBKGNDCOLOR, 0, RGB ( backcolor[1], backcolor[2], backcolor[3] ) )
+   IF IsArrayRGB(backcolor)
+      SendMessage ( _HMG_aControlHandles[k], EM_SETBKGNDCOLOR, 0, RGB(backcolor[1], backcolor[2], backcolor[3]) )
    ENDIF
 
    IF _SetGetGlobal( "_HMG_aRichEditMenu" ) == NIL
@@ -291,7 +291,7 @@ FUNCTION RichEditBox_mnuEdit_Click( cAction )
 *-----------------------------------------------------------------------------*
    LOCAL hEdit
 
-   hEdit := GetControlHandleByIndex( _HMG_xControlsContextMenuID )
+   hEdit := GetControlHandleByIndex(_HMG_xControlsContextMenuID)
 
    DO CASE
    CASE cAction == "UNDO"

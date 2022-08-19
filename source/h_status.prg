@@ -81,7 +81,7 @@ FUNCTION _BeginMessageBar( ControlName, ParentForm, kbd, fontname, fontsize, bol
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentForm + " Already defined.")
    ENDIF
 
-   IF ( FontHandle := GetFontHandle( FontName ) ) != 0
+   IF ( FontHandle := GetFontHandle(FontName) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
@@ -92,23 +92,23 @@ FUNCTION _BeginMessageBar( ControlName, ParentForm, kbd, fontname, fontsize, bol
 
    mVar := "_" + ParentForm + "_" + ControlName
 
-   ParentFormHandle := GetFormHandle ( ParentForm )
+   ParentFormHandle := GetFormHandle(ParentForm)
 
    ControlHandle := InitMessageBar ( ParentFormHandle, ID_STATUSBAR )
 
    _HMG_ActiveStatusHandle := ControlHandle // New Public Value JP MDI
 
    IF FontHandle != 0
-      _SetFontHandle( ControlHandle, FontHandle )
+      _SetFontHandle(ControlHandle, FontHandle)
    ELSE
       __defaultNIL(@FontName, _HMG_DefaultFontName)
       __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-      IF IsWindowHandle( ControlHandle )
-         FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
+      IF IsWindowHandle(ControlHandle)
+         FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
       ENDIF
    ENDIF
 
-   GetClientRect ( ControlHandle, /*@*/aRect )
+   GetClientRect(ControlHandle, /*@*/aRect)
 
    k := _GetControlFree()
 
@@ -166,7 +166,7 @@ FUNCTION _BeginMessageBar( ControlName, ParentForm, kbd, fontname, fontsize, bol
    _HMG_StatusItemCount := 0
 
    IF kbd
-      _SetStatusBarKbd ( ControlName, ParentForm )
+      _SetStatusBarKbd(ControlName, ParentForm)
    ENDIF
 
 RETURN Nil
@@ -211,11 +211,11 @@ FUNCTION _DefineItemMessage ( ControlName, ParentControl, x, y, Caption, Procedu
    ENDIF
 
    cParentForm := ParentForm
-   ParentFormHandle := GetFormHandle ( ParentForm )
+   ParentFormHandle := GetFormHandle(ParentForm)
 
    mVar := "_" + ParentForm + "_" + ControlName
 
-   ParentForm := GetControlHandle ( ParentControl, ParentForm )
+   ParentForm := GetControlHandle(ParentControl, ParentForm)
 
    IF ValType(w) == "U"
       w := Max(70, GetTextWidth(NIL, Caption, _HMG_aControlFontHandle[GetControlIndex(ParentControl, cParentForm)]) + 6)
@@ -323,7 +323,7 @@ FUNCTION _SetStatusClock ( BarName , FormName , Width , ToolTip , Action , lAMPM
 RETURN Nil
 
 *-----------------------------------------------------------------------------*
-FUNCTION _SetStatusKeybrd ( BarName , FormName , Width , ToolTip , action )
+FUNCTION _SetStatusKeybrd(BarName, FormName, Width, ToolTip, action)
 *-----------------------------------------------------------------------------*
    LOCAL nrItem1 , nrItem2 , nrItem3
 
@@ -411,7 +411,7 @@ RETURN cTime
 
 // (GF) HMG 1.2 Extended Build 30
 *-----------------------------------------------------------------------------*
-FUNCTION _SetStatusBarKbd ( BarName, FormName )
+FUNCTION _SetStatusBarKbd(BarName, FormName)
 *-----------------------------------------------------------------------------*
 
    _DefineItemMessage ( ITEMNAME, BarName, 0, 0, GetProperty ( FormName, "Title" ), , , 0, , "RAISED" )
@@ -423,9 +423,9 @@ FUNCTION _SetStatusBarKbd ( BarName, FormName )
    _DefineItemMessage ( ITEMNAME, BarName, 0, 0, "SCRL", , 44, 0, , , , , , SILVER )
 
    _DefineTimer ( "StatusBarKbd" , FormName , 250 , ;
-      {|| _SetStatusItemProperty( 2, iif( IsCapsLockActive(), BLACK, SILVER ), GetFormHandle( FormName ), STATUS_ITEM_FONTCOLOR ), ;
-      _SetStatusItemProperty( 3, iif( IsNumLockActive(), BLACK, SILVER ), GetFormHandle( FormName ), STATUS_ITEM_FONTCOLOR ), ;
-      _SetStatusItemProperty( 4, iif( IsScrollLockActive(), BLACK, SILVER ), GetFormHandle( FormName ), STATUS_ITEM_FONTCOLOR ) } )
+      {|| _SetStatusItemProperty( 2, iif( IsCapsLockActive(), BLACK, SILVER ), GetFormHandle(FormName), STATUS_ITEM_FONTCOLOR ), ;
+      _SetStatusItemProperty( 3, iif( IsNumLockActive(), BLACK, SILVER ), GetFormHandle(FormName), STATUS_ITEM_FONTCOLOR ), ;
+      _SetStatusItemProperty( 4, iif( IsScrollLockActive(), BLACK, SILVER ), GetFormHandle(FormName), STATUS_ITEM_FONTCOLOR ) } )
 
 RETURN Nil
 
@@ -510,7 +510,7 @@ FUNCTION _SetStatusProgressMessage ( BarName , FormName , Width , ToolTip , Acti
    __defaultNIL(@ToolTip, "")
    __defaultNIL(@Action, "")
 
-   hwndStatus := GetControlHandle ( BarName, FormName )
+   hwndStatus := GetControlHandle(BarName, FormName)
    nrItem := _DefineItemMessage ( PROGRESSNAME, BarName, 0, 0, "", Action, Width, 0, , "", ToolTip )
 
    hwndProgress := CreateProgressBarItem ( hwndStatus, nrItem, nValue, nMin, nMax )

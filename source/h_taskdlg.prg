@@ -621,11 +621,11 @@ RETURN nOldVal
 /*
    Parent window handle (read/write).
  */
-METHOD ParentHandle( nHandle ) CLASS TTaskDialog
+METHOD ParentHandle(nHandle) CLASS TTaskDialog
 
    LOCAL nOldVal := ::aConfig[ TDC_HWND ]
 
-   IF !::lActive .AND. HB_ISNUMERIC(nHandle) .AND. IsWindowHandle( nHandle )
+   IF !::lActive .AND. HB_ISNUMERIC(nHandle) .AND. IsWindowHandle(nHandle)
       ::aConfig[ TDC_HWND ] := nHandle
    ENDIF
 
@@ -635,7 +635,7 @@ RETURN nOldVal
    Parent window name (read/write).
  */
 METHOD Parent( cFormName ) CLASS TTaskDialog
-RETURN _HMG_aFormNames[ AScan(_HMG_aFormHandles, ::ParentHandle( GetFormHandle( cFormName ) )) ]
+RETURN _HMG_aFormNames[ AScan(_HMG_aFormHandles, ::ParentHandle(GetFormHandle(cFormName))) ]
 
 /*
    NOTE: Method CallBackBlock will be deleted in future (not near)
@@ -831,7 +831,7 @@ RETURN lOldVal
    NOTE:  If  the flag is not supplied (or no parent member is specified), the
    task dialog is positioned (centered) relative to the monitor.
  */
-METHOD PositionRelativeToWindow( lNewVal ) CLASS TTaskDialog
+METHOD PositionRelativeToWindow(lNewVal) CLASS TTaskDialog
 
    LOCAL nCurFlags := ::Flags(), lOldVal
    LOCAL nNewFlags

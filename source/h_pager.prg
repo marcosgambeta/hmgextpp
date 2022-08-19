@@ -87,7 +87,7 @@ FUNCTION _BeginPager( ControlName, ParentName, nWidth, nHeight, nScroll, cCaptio
 
    _HMG_BeginPagerActive := .T.
 
-   ParentForm := GetFormHandle ( ParentName )
+   ParentForm := GetFormHandle(ParentName)
 
    ControlHandle := InitPager ( hRebar, nWidth, nHeight, vertical, autoscroll, cCaption )
 
@@ -97,11 +97,11 @@ FUNCTION _BeginPager( ControlName, ParentName, nWidth, nHeight, nScroll, cCaptio
    Id := _GetId()
 
    IF ValType(tooltip) != "U"
-      SetToolTip ( ControlHandle, tooltip, GetFormToolTipHandle ( ParentName ) )
+      SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentName))
    ENDIF
 
-   IF IsArrayRGB ( backcolor )
-      SetBkColorPager ( ControlHandle, backcolor[1], backcolor[2], backcolor[3] )
+   IF IsArrayRGB(backcolor)
+      SetBkColorPager(ControlHandle, backcolor[1], backcolor[2], backcolor[3])
    ENDIF
 
    k := _GetControlFree()

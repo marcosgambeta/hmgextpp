@@ -337,7 +337,7 @@ HB_FUNC_STATIC( ISWOW64 )
 
    LPFN_ISWOW64PROCESS fnIsWow64Process;
 
-   fnIsWow64Process = ( LPFN_ISWOW64PROCESS ) wapi_GetProcAddress( GetModuleHandle( "kernel32" ), "IsWow64Process" );
+   fnIsWow64Process = ( LPFN_ISWOW64PROCESS ) wapi_GetProcAddress( GetModuleHandle("kernel32"), "IsWow64Process" );
    if( nullptr != fnIsWow64Process )
    {
       fnIsWow64Process( GetCurrentProcess(), &bIsWow64 );

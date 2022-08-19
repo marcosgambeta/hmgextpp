@@ -76,7 +76,7 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
    hb_default(@underline, .F.)
    hb_default(@strikeout, .F.)
 
-   IF ( aControlHandle[2] := GetFontHandle( FontName ) ) != 0
+   IF ( aControlHandle[2] := GetFontHandle(FontName) ) != 0
       GetFontParamByRef( aControlHandle[2], @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
@@ -139,28 +139,28 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
 
       ELSE
 
-         aControlHandle[1] := GetDialogItemHandle( ParentFormHandle, nId )
+         aControlHandle[1] := GetDialogItemHandle(ParentFormHandle, nId)
 
-         SetWindowStyle ( aControlHandle[1], style, .T. )
+         SetWindowStyle(aControlHandle[1], style, .T.)
 
          IF aControlHandle[2] != 0
-            _SetFontHandle( aControlHandle[1], aControlHandle[2] )
+            _SetFontHandle(aControlHandle[1], aControlHandle[2])
          ELSE
             __defaultNIL(@FontName, _HMG_DefaultFontName)
             __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-            IF IsWindowHandle( aControlHandle[1] )
+            IF IsWindowHandle(aControlHandle[1])
                aControlHandle[2] := _SetFont ( aControlHandle[1], fontname, fontsize, bold, italic, underline, strikeout )
             ENDIF
          ENDIF
 
-         x := GetWindowCol ( aControlHandle[1] )
-         y := GetWindowRow ( aControlHandle[1] )
+         x := GetWindowCol(aControlHandle[1])
+         y := GetWindowRow(aControlHandle[1])
 
       ENDIF
 
    ELSE
 
-      ParentFormHandle := GetFormHandle ( ParentFormName )
+      ParentFormHandle := GetFormHandle(ParentFormName)
 
       __defaultNIL(@FontName, _HMG_DefaultFontName)
       __defaultNIL(@FontSize, _HMG_DefaultFontSize)
@@ -181,7 +181,7 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
       SetMonthCalValue( aControlHandle[1], Year( value ), Month( value ), Day( value ) )
 
       IF ValType(tooltip) != "U"
-         SetToolTip ( aControlHandle[1], tooltip, GetFormToolTipHandle ( ParentFormName ) )
+         SetToolTip ( aControlHandle[1], tooltip, GetFormToolTipHandle(ParentFormName) )
       ENDIF
 
    ENDIF
@@ -237,7 +237,7 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
 
       AddMonthCalBoldDay( ControlName, ParentFormName, Date() )
 
-      IF _HMG_IsThemed .AND. ( IsArrayRGB ( backcolor ) .OR. IsArrayRGB ( fontcolor ) .OR. IsArrayRGB ( TitleBkClr ) .OR. IsArrayRGB ( TitleFrClr ) )
+      IF _HMG_IsThemed .AND. ( IsArrayRGB(backcolor) .OR. IsArrayRGB(fontcolor) .OR. IsArrayRGB(TitleBkClr) .OR. IsArrayRGB(TitleFrClr) )
 
          SetWindowTheme ( aControlHandle[1], "", "" )
          // set the ideal size of the month calendar control
@@ -276,8 +276,8 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
 #ifdef _OBJECT_
-      ow := _WindowObj ( ParentFormHandle )
-      oc := _ControlObj( aControlHandle[1] )
+      ow := _WindowObj(ParentFormHandle)
+      oc := _ControlObj(aControlHandle[1])
 #endif
    ENDIF
 
@@ -291,7 +291,7 @@ FUNCTION InitDialogMonthCalendar( ParentFormName, ControlHandle, k )
 
    AddMonthCalBoldDay( _HMG_aControlNames[k], ParentFormName, Date() )
 
-   SetPosMonthCal ( ControlHandle, _HMG_aControlCol[k], _HMG_aControlRow[k] )
+   SetPosMonthCal(ControlHandle, _HMG_aControlCol[k], _HMG_aControlRow[k])
    // JP 62
    IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3] // Modal
       _HMG_aControlDeleted[k] := .T.
@@ -383,7 +383,7 @@ FUNCTION SetDayState( ControlName, ParentFormName )
    LOCAL dStart, dEnd, dEoM, dDay
    LOCAL i, nCount, iNextD, nMonth, nLen
 
-   hWnd := GetControlHandle ( ControlName, ParentFormName )
+   hWnd := GetControlHandle(ControlName, ParentFormName)
 
    aData := GetMonthRange( hWnd )
    nCount := aData[1]

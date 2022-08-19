@@ -79,7 +79,7 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
    hb_default(@readonly, .F.)
    hb_default(@increment, 1)
 
-   IF ( FontHandle := GetFontHandle( FontName ) ) != 0
+   IF ( FontHandle := GetFontHandle(FontName) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
@@ -106,19 +106,19 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
 
    cParentForm := ParentForm
 
-   ParentForm := GetFormHandle ( ParentForm )
+   ParentForm := GetFormHandle(ParentForm)
 
    RetArray := InitSpinner( ParentForm, 0, x, y, w, "", 0, rl, rh, h, invisible, notabstop, wrap, readonly, horizontal )
 
    ControlHandle := RetArray [1]
 
    IF FontHandle != 0
-      _SetFontHandle( ControlHandle, FontHandle )
+      _SetFontHandle(ControlHandle, FontHandle)
    ELSE
       __defaultNIL(@FontName, _HMG_DefaultFontName)
       __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-      IF IsWindowHandle( ControlHandle )
-         FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
+      IF IsWindowHandle(ControlHandle)
+         FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
       ENDIF
    ENDIF
 
@@ -127,7 +127,7 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
    ENDIF
 
    IF ValType(tooltip) != "U"
-      AEval( RetArray, { |x| SetToolTip ( x , tooltip , GetFormToolTipHandle ( cParentForm ) ) } )
+      AEval( RetArray, { |x| SetToolTip ( x , tooltip , GetFormToolTipHandle(cParentForm) ) } )
    ENDIF
 
    k := _GetControlFree()
@@ -181,7 +181,7 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
 
    IF !Empty(cuetext) .AND. IsVistaOrLater() .AND. IsThemed()
       value := ""
-      SendMessageWideString ( ControlHandle, EM_SETCUEBANNER, .T., cuetext )
+      SendMessageWideString(ControlHandle, EM_SETCUEBANNER, .T., cuetext)
    ENDIF
 
    IF ISNUMERIC(value)
@@ -195,8 +195,8 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
 #ifdef _OBJECT_
-      ow := _WindowObj ( ParentForm )
-      oc := _ControlObj( ControlHandle )
+      ow := _WindowObj(ParentForm)
+      oc := _ControlObj(ControlHandle)
 #endif
    ENDIF
 

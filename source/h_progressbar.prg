@@ -122,20 +122,20 @@ FUNCTION _DefineProgressBar ( ControlName, ParentFormName, x, y, w, h, lo, hi, ;
 
       ELSE
 
-         ControlHandle := GetDialogItemHandle( ParentFormHandle, nId )
+         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
 
-         x := GetWindowCol ( Controlhandle )
-         y := GetWindowRow ( Controlhandle )
-         w := GetWindowWidth  ( Controlhandle )
+         x := GetWindowCol(Controlhandle)
+         y := GetWindowRow(Controlhandle)
+         w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
-         SetWindowStyle ( ControlHandle, Style, .T. )
+         SetWindowStyle(ControlHandle, Style, .T.)
 
       ENDIF
 
    ELSE
 
-      ParentFormHandle := GetFormHandle ( ParentFormName )
+      ParentFormHandle := GetFormHandle(ParentFormName)
 
       ControlHandle := InitProgressBar ( ParentFormHandle, 0, x, y, w, h , lo , hi, vertical, smooth, invisible, value )
 
@@ -143,17 +143,17 @@ FUNCTION _DefineProgressBar ( ControlName, ParentFormName, x, y, w, h, lo, hi, ;
 
    IF !lDialogInMemory
 
-      SendMessage( ControlHandle , PBM_SETPOS , value , 0 )
+      SendMessage(ControlHandle, PBM_SETPOS, value, 0)
 
       IF marquee
          IF _HMG_IsXPorLater .AND. _HMG_IsThemed
-            ChangeStyle ( ControlHandle , PBS_MARQUEE )
-            SendMessage ( ControlHandle , PBM_SETMARQUEE , iif( velocity > 0, 1, 0 ) , velocity )
+            ChangeStyle(ControlHandle, PBS_MARQUEE)
+            SendMessage(ControlHandle, PBM_SETMARQUEE, iif(velocity > 0, 1, 0), velocity)
          ENDIF
       ENDIF
 
-      IF _HMG_IsThemed .AND. ( IsArrayRGB ( BarColor ) .OR. IsArrayRGB ( BackColor ) )
-         SetWindowTheme ( ControlHandle, "", "" )
+      IF _HMG_IsThemed .AND. ( IsArrayRGB(BarColor) .OR. IsArrayRGB(BackColor) )
+         SetWindowTheme(ControlHandle, "", "")
       ENDIF
 
       IF _HMG_BeginTabActive
@@ -161,7 +161,7 @@ FUNCTION _DefineProgressBar ( ControlName, ParentFormName, x, y, w, h, lo, hi, ;
       ENDIF
 
       IF ValType(tooltip) != "U"
-         SetToolTip ( ControlHandle , tooltip , GetFormToolTipHandle ( ParentFormName ) )
+         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
    ENDIF
@@ -215,19 +215,19 @@ FUNCTION _DefineProgressBar ( ControlName, ParentFormName, x, y, w, h, lo, hi, ;
 
    IF !lDialogInMemory
       IF IsArrayRGB( BackColor )
-         SetProgressBarBkColor( ControlHandle, BackColor [1], BackColor [2], BackColor [3] )
+         SetProgressBarBkColor(ControlHandle, BackColor[1], BackColor[2], BackColor[3])
       ENDIF
 
       IF IsArrayRGB( BarColor )
-         SetProgressBarBarColor( ControlHandle, BarColor [1], BarColor [2], BarColor [3] )
+         SetProgressBarBarColor(ControlHandle, BarColor[1], BarColor[2], BarColor[3])
       ENDIF
    ENDIF
 
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
 #ifdef _OBJECT_
-      ow := _WindowObj ( ParentFormHandle )
-      oc := _ControlObj( ControlHandle )
+      ow := _WindowObj(ParentFormHandle)
+      oc := _ControlObj(ControlHandle)
 #endif
    ENDIF
 
@@ -244,20 +244,20 @@ FUNCTION InitDialogProgressBar( ParentName, ControlHandle, k )
    BackColor := _HMG_aControlBkColor [k]
    BarColor  := _HMG_aControlFontColor [k]
 
-   IF _HMG_IsThemed .AND. ( IsArrayRGB ( BarColor ) .OR. IsArrayRGB ( BackColor ) )
-      SetWindowTheme ( ControlHandle, "", "" )
+   IF _HMG_IsThemed .AND. ( IsArrayRGB(BarColor) .OR. IsArrayRGB(BackColor) )
+      SetWindowTheme(ControlHandle, "", "")
    ENDIF
 
    IF ValType(ParentName) <> "U"
-      SendMessage( ControlHandle , PBM_SETPOS , _HMG_aControlValue [k] , 0 )
+      SendMessage(ControlHandle, PBM_SETPOS, _HMG_aControlValue[k], 0)
    ENDIF
 
    IF IsArrayRGB( BackColor )
-      SetProgressBarBkColor( ControlHandle, BackColor [1], BackColor [2], BackColor [3] )
+      SetProgressBarBkColor(ControlHandle, BackColor[1], BackColor[2], BackColor[3])
    ENDIF
 
    IF IsArrayRGB( BarColor )
-      SetProgressBarBarColor( ControlHandle, BarColor [1], BarColor [2], BarColor [3] )
+      SetProgressBarBarColor(ControlHandle, BarColor[1], BarColor[2], BarColor[3])
    ENDIF
 // JP 62
    IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]  // Modal

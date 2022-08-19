@@ -67,7 +67,7 @@ FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
    cCodePage := "UTF-8"
    cAuthor := GetUserName()
 
-   WaitWindow( "Creating PDF file", .T. )
+   WaitWindow("Creating PDF file", .T.)
 
    BEGIN SEQUENCE
 

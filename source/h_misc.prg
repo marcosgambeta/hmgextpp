@@ -63,7 +63,7 @@ FUNCTION GetData()
 
    IF Len(PacketNames) > 0
 
-      Packet := MemoRead ( _HMG_CommPath + PacketNames [1] )
+      Packet := MemoRead(_HMG_CommPath + PacketNames[1])
 
       Rows := Val( SubStr(MemoLine( Packet , , 1 ) , 11 , 99) )
       Cols := Val( SubStr(MemoLine( Packet , , 2 ) , 11 , 99) )
@@ -84,7 +84,7 @@ FUNCTION GetData()
          CASE DataType == "N"
             RetVal := Val( DataValue )
          CASE DataType == "D"
-            RetVal := CToD ( DataValue )
+            RetVal := CToD(DataValue)
          CASE DataType == "L"
             RetVal := ( AllTrim(DataValue) == "T" )
          END CASE
@@ -109,7 +109,7 @@ FUNCTION GetData()
             CASE DataType == "N"
                aItem := Val( DataValue )
             CASE DataType == "D"
-               aItem := CToD ( DataValue )
+               aItem := CToD(DataValue)
             CASE DataType == "L"
                aItem := ( AllTrim(DataValue) == "T" )
             END CASE
@@ -147,7 +147,7 @@ FUNCTION GetData()
             CASE DataType == "N"
                aItem := Val( DataValue )
             CASE DataType == "D"
-               aItem := CToD ( DataValue )
+               aItem := CToD(DataValue)
             CASE DataType == "L"
                aItem := ( AllTrim(DataValue) == "T" )
             END CASE

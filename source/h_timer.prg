@@ -74,7 +74,7 @@ FUNCTION _DefineTimer ( ControlName , ParentForm , Interval , ProcedureName , On
    ENDIF
 
    mVar := "_" + ParentForm + "_" + ControlName
-   ParentFormHandle := GetFormHandle( ParentForm )
+   ParentFormHandle := GetFormHandle(ParentForm)
 
    Id := _GetId()
    lSuccess := InitTimer ( ParentFormHandle , id , Interval )

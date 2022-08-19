@@ -75,8 +75,7 @@ FUNCTION _DefinePlayer ( ControlName, ParentFormName, file, x, y, w, h, noasw, n
 
    mVar := "_" + ParentFormName + "_" + ControlName
 
-   ControlHandle := InitPlayer ( GetFormHandle( ParentFormName ) , ;
-      file ,  x ,  y , w , h , noasw, noasm, noed, nom, noo, nop, sha, shm, shn, shp )
+   ControlHandle := InitPlayer(GetFormHandle(ParentFormName), file, x, y, w, h, noasw, noasm, noed, nom, noo, nop, sha, shm, shn, shp)
 
    IF _HMG_BeginTabActive
       AAdd(_HMG_ActiveTabCurrentPageMap, ControlHandle)
@@ -90,46 +89,46 @@ FUNCTION _DefinePlayer ( ControlName, ParentFormName, file, x, y, w, h, noasw, n
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType  [k] := CONTROL_TYPE_PLAYER
-   _HMG_aControlNames  [k] :=  ControlName
-   _HMG_aControlHandles  [k] :=  ControlHandle
-   _HMG_aControlParentHandles  [k] :=  GetFormHandle( ParentFormName )
-   _HMG_aControlIds  [k] :=  0
-   _HMG_aControlProcedures  [k] :=  ""
-   _HMG_aControlPageMap  [k] :=  {}
-   _HMG_aControlValue  [k] :=  Nil
-   _HMG_aControlInputMask  [k] :=  ""
-   _HMG_aControllostFocusProcedure  [k] :=  ""
-   _HMG_aControlGotFocusProcedure  [k] :=  ""
-   _HMG_aControlChangeProcedure  [k] :=  ""
-   _HMG_aControlDeleted  [k] :=  .F.
-   _HMG_aControlBkColor  [k] :=  Nil
-   _HMG_aControlFontColor  [k] :=  Nil
-   _HMG_aControlDblClick   [k] := ""
-   _HMG_aControlHeadClick  [k] :=  {}
-   _HMG_aControlRow  [k] :=  y
-   _HMG_aControlCol  [k] :=  x
-   _HMG_aControlWidth   [k] := w
-   _HMG_aControlHeight  [k] :=  h
-   _HMG_aControlSpacing   [k] := 0
-   _HMG_aControlContainerRow  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
-   _HMG_aControlPicture  [k] :=  ""
-   _HMG_aControlContainerHandle  [k] :=  0
-   _HMG_aControlFontName  [k] :=  ""
-   _HMG_aControlFontSize  [k] :=  0
-   _HMG_aControlFontAttributes  [k] :=  { .F. , .F. , .F. , .F. }
-   _HMG_aControlToolTip   [k] :=  ""
-   _HMG_aControlRangeMin  [k] :=   0
-   _HMG_aControlRangeMax  [k] :=   0
-   _HMG_aControlCaption  [k] :=   ""
-   _HMG_aControlVisible  [k] :=   .T.
-   _HMG_aControlHelpId  [k] :=   HelpId
-   _HMG_aControlFontHandle  [k] :=   0
-   _HMG_aControlBrushHandle  [k] :=  0
-   _HMG_aControlEnabled  [k] :=  .T.
-   _HMG_aControlMiscData1 [k] := 0
-   _HMG_aControlMiscData2 [k] := ""
+   _HMG_aControlType               [k] := CONTROL_TYPE_PLAYER
+   _HMG_aControlNames              [k] := ControlName
+   _HMG_aControlHandles            [k] := ControlHandle
+   _HMG_aControlParentHandles      [k] := GetFormHandle(ParentFormName)
+   _HMG_aControlIds                [k] := 0
+   _HMG_aControlProcedures         [k] := ""
+   _HMG_aControlPageMap            [k] := {}
+   _HMG_aControlValue              [k] := Nil
+   _HMG_aControlInputMask          [k] := ""
+   _HMG_aControllostFocusProcedure [k] := ""
+   _HMG_aControlGotFocusProcedure  [k] := ""
+   _HMG_aControlChangeProcedure    [k] := ""
+   _HMG_aControlDeleted            [k] := .F.
+   _HMG_aControlBkColor            [k] := Nil
+   _HMG_aControlFontColor          [k] := Nil
+   _HMG_aControlDblClick           [k] := ""
+   _HMG_aControlHeadClick          [k] := {}
+   _HMG_aControlRow                [k] := y
+   _HMG_aControlCol                [k] := x
+   _HMG_aControlWidth              [k] := w
+   _HMG_aControlHeight             [k] := h
+   _HMG_aControlSpacing            [k] := 0
+   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlPicture            [k] := ""
+   _HMG_aControlContainerHandle    [k] := 0
+   _HMG_aControlFontName           [k] := ""
+   _HMG_aControlFontSize           [k] := 0
+   _HMG_aControlFontAttributes     [k] := { .F. , .F. , .F. , .F. }
+   _HMG_aControlToolTip            [k] := ""
+   _HMG_aControlRangeMin           [k] := 0
+   _HMG_aControlRangeMax           [k] := 0
+   _HMG_aControlCaption            [k] := ""
+   _HMG_aControlVisible            [k] := .T.
+   _HMG_aControlHelpId             [k] := HelpId
+   _HMG_aControlFontHandle         [k] := 0
+   _HMG_aControlBrushHandle        [k] := 0
+   _HMG_aControlEnabled            [k] := .T.
+   _HMG_aControlMiscData1          [k] := 0
+   _HMG_aControlMiscData2          [k] := ""
 
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
@@ -255,19 +254,19 @@ FUNCTION _DefineAnimateBox( ControlName, ParentFormName, x, y, w, h, autoplay, c
 
       ELSE
 
-         ControlHandle := GetDialogItemHandle( ParentFormHandle, nId )
-         SetWindowStyle ( ControlHandle, Style, .T. )
+         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
+         SetWindowStyle(ControlHandle, Style, .T.)
 
-         x := GetWindowCol ( Controlhandle )
-         y := GetWindowRow ( Controlhandle )
-         w := GetWindowWidth  ( Controlhandle )
+         x := GetWindowCol(Controlhandle)
+         y := GetWindowRow(Controlhandle)
+         w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
       ENDIF
 
    ELSE
 
-      ParentFormHandle := GetFormHandle ( ParentFormName )
+      ParentFormHandle := GetFormHandle(ParentFormName)
       ControlHandle := InitAnimate( ParentFormHandle, x, y, w, h, autoplay, center, transparent, border, invisible )
 
    ENDIF

@@ -69,7 +69,7 @@ FUNCTION _DefineToolBar ( ControlName, ParentForm, x, y, caption, ProcedureName,
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentForm + " Already defined.")
    ENDIF
 
-   IF ( FontHandle := GetFontHandle( FontName ) ) != 0
+   IF ( FontHandle := GetFontHandle(FontName) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
@@ -79,7 +79,7 @@ FUNCTION _DefineToolBar ( ControlName, ParentForm, x, y, caption, ProcedureName,
 
    cParentForm := ParentForm
 
-   ParentForm := iif( _HMG_BeginPagerActive, _HMG_ActivePagerForm, GetFormHandle ( ParentForm ) )
+   ParentForm := iif( _HMG_BeginPagerActive, _HMG_ActivePagerForm, GetFormHandle(ParentForm) )
 
    Id := _GetId()
 
@@ -96,17 +96,17 @@ FUNCTION _DefineToolBar ( ControlName, ParentForm, x, y, caption, ProcedureName,
    ENDIF
 
    IF FontHandle != 0
-      _SetFontHandle( ControlHandle, FontHandle )
+      _SetFontHandle(ControlHandle, FontHandle)
    ELSE
       __defaultNIL(@FontName, _HMG_DefaultFontName)
       __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-      IF IsWindowHandle( ControlHandle )
-         FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
+      IF IsWindowHandle(ControlHandle)
+         FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
       ENDIF
    ENDIF
 
    IF ValType(tooltip) != "U"
-      SetToolTip ( ControlHandle , tooltip , GetFormToolTipHandle ( cParentForm ) )
+      SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(cParentForm))
    ENDIF
 
    k := _GetControlFree()
@@ -173,7 +173,7 @@ FUNCTION _EndToolBar()
    LOCAL ix, i
 
    ParentForm := iif( _HMG_BeginWindowActive, _HMG_ActiveFormName, _HMG_ActiveToolBarFormName )
-   h := GetControlHandle ( _HMG_ActiveToolBarName , ParentForm )
+   h := GetControlHandle(_HMG_ActiveToolBarName, ParentForm)
 
    IF _HMG_BeginPagerActive
 #ifdef _PAGER_
@@ -233,11 +233,11 @@ FUNCTION _DefineToolButton ( ControlName, ParentControl, x, y, Caption, Procedur
    ParentForm := iif( _HMG_BeginWindowActive, _HMG_ActiveFormName, _HMG_ActiveToolBarFormName )
 
    cParentForm := ParentForm
-   hParentForm := GetFormHandle ( ParentForm )
+   hParentForm := GetFormHandle(ParentForm)
 
    mVar := "_" + ParentForm + "_" + ControlName
 
-   ParentForm := GetControlHandle ( ParentControl, ParentForm )
+   ParentForm := GetControlHandle(ParentControl, ParentForm)
 
    id := _GetId()
 
@@ -343,7 +343,7 @@ STATIC FUNCTION _AddToolBarToSplitBox ( ControlName , break , Caption , ParentFo
    LOCAL i, c, w, ix
 
    i := GetFormIndex ( _HMG_ActiveSplitBoxParentFormName )
-   c := GetControlHandle ( ControlName, _HMG_ActiveSplitBoxParentFormName )
+   c := GetControlHandle(ControlName, _HMG_ActiveSplitBoxParentFormName)
 
    IF !_HMG_ActiveToolBarExtend
       MaxTextBtnToolBar ( c, _GetControlWidth(ControlName, ParentForm), _GetControlHeight(ControlName, ParentForm) )
@@ -351,8 +351,8 @@ STATIC FUNCTION _AddToolBarToSplitBox ( ControlName , break , Caption , ParentFo
 
    w := GetSizeToolBar ( c )
 
-   MinWidth  := HiWord ( w )
-   MinHeight := LoWord ( w )
+   MinWidth  := HiWord(w)
+   MinHeight := LoWord(w)
 
    w := GetWindowWidth(c)
 
@@ -361,7 +361,7 @@ STATIC FUNCTION _AddToolBarToSplitBox ( ControlName , break , Caption , ParentFo
    IF ( _HMG_aControlRangeMax [ix] == 1 ) .AND. ;
       ( And( GetWindowLong ( _HMG_aFormReBarHandle[i] , GWL_STYLE ) , CCS_VERT ) == CCS_VERT )
       MinWidth  := _HMG_aControlWidth [ix]
-      MinHeight := HiWord ( w )
+      MinHeight := HiWord(w)
    ENDIF
    IF i > 0
       AddSplitBoxItem ( c , _HMG_aFormReBarHandle[i] , w , break , Caption , MinWidth , MinHeight , _HMG_ActiveSplitBoxInverted , _HMG_aControlRangeMin [ix] )
@@ -437,13 +437,13 @@ FUNCTION _BeginToolBarEx( name, parent, row, col, w, h, caption, ProcedureName, 
 
    IF ValType(imagelst) != "U"
       IF ValType(imagelst) == "C"
-         imagelst := GetControlHandle ( imagelst , parent )
+         imagelst := GetControlHandle(imagelst, parent)
       ENDIF
    ENDIF
 
    IF ValType(hotimagelst) != "U"
       IF ValType(hotimagelst) == "C"
-         hotimagelst := GetControlHandle ( hotimagelst , parent )
+         hotimagelst := GetControlHandle(hotimagelst, parent)
       ENDIF
    ENDIF
 

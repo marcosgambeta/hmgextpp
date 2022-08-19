@@ -10,7 +10,7 @@
 FUNCTION _WindowCargo( FormName, xValue )
 *-----------------------------------------------------------------------------*
 #ifdef _OBJECT_
-   LOCAL o := iif( HB_ISOBJECT( FormName ), FormName, _WindowObj( FormName ) )
+   LOCAL o := iif( HB_ISOBJECT( FormName ), FormName, _WindowObj(FormName) )
    LOCAL i := iif( HB_ISOBJECT( o ), o:Index, GetFormIndex( FormName ) )
 #else
    LOCAL i := GetFormIndex( FormName )
@@ -27,7 +27,7 @@ RETURN NIL
 FUNCTION _ControlCargo( ControlName, FormName, xValue )
 *-----------------------------------------------------------------------------*
 #ifdef _OBJECT_
-   LOCAL o := iif( HB_ISOBJECT( ControlName ), ControlName, _ControlObj( ControlName, FormName ) )
+   LOCAL o := iif( HB_ISOBJECT( ControlName ), ControlName, _ControlObj(ControlName, FormName) )
    LOCAL i := iif( HB_ISOBJECT( o ), o:Index, GetControlIndex(ControlName, FormName) )
 #else
    LOCAL i := GetControlIndex(ControlName, FormName)
@@ -90,17 +90,17 @@ RETURN RetVal
 #ifdef _OBJECT_
 
 *-----------------------------------------------------------------------------*
-FUNCTION _WindowObj( FormName )
+FUNCTION _WindowObj(FormName)
 *-----------------------------------------------------------------------------*
-   LOCAL h := iif( HB_ISNUMERIC(FormName), FormName, GetFormHandle( FormName ) )
+   LOCAL h := iif( HB_ISNUMERIC(FormName), FormName, GetFormHandle(FormName) )
 
 RETURN hmg_GetWindowObject( h )
 
 *-----------------------------------------------------------------------------*
-FUNCTION _ControlObj( ControlName, FormName )
+FUNCTION _ControlObj(ControlName, FormName)
 *-----------------------------------------------------------------------------*
    LOCAL h := iif( HB_ISNUMERIC(ControlName), ControlName, ;
-      GetControlHandle( ControlName, FormName ) )
+      GetControlHandle(ControlName, FormName) )
 
    IF ISARRAY( h )
       h := h[1]
@@ -115,20 +115,20 @@ FUNCTION _wPost( nEvent, nIndex, xParam )
 
    IF HB_ISOBJECT( nIndex )
       IF nIndex:ClassName == "TSBROWSE"
-         oWnd   := _WindowObj( nIndex:cParentWnd )
+         oWnd   := _WindowObj(nIndex:cParentWnd)
          IF !HB_ISOBJECT( oWnd )
             RETURN NIL
          ENDIF
-         nIndex := oWnd:GetObj( nIndex:cControlName ):Index
+         nIndex := oWnd:GetObj(nIndex:cControlName):Index
       ELSE
          oWnd   := nIndex
          nIndex := NIL
       ENDIF
    ELSEIF HB_ISCHAR( nIndex )
-      oWnd   := _WindowObj( nIndex )
+      oWnd   := _WindowObj(nIndex)
       nIndex := NIL
    ELSE
-      oWnd := _WindowObj( _HMG_THISFORMNAME )
+      oWnd := _WindowObj(_HMG_THISFORMNAME)
    ENDIF
 
    oWnd:PostMsg( nEvent, nIndex, xParam )
@@ -142,20 +142,20 @@ FUNCTION _wSend( nEvent, nIndex, xParam )
 
    IF HB_ISOBJECT( nIndex )
       IF nIndex:ClassName == "TSBROWSE"
-         oWnd   := _WindowObj( nIndex:cParentWnd )
+         oWnd   := _WindowObj(nIndex:cParentWnd)
          IF !HB_ISOBJECT( oWnd )
             RETURN NIL
          ENDIF
-         nIndex := oWnd:GetObj( nIndex:cControlName ):Index
+         nIndex := oWnd:GetObj(nIndex:cControlName):Index
       ELSE
          oWnd   := nIndex
          nIndex := NIL
       ENDIF
    ELSEIF HB_ISCHAR( nIndex )
-      oWnd   := _WindowObj( nIndex )
+      oWnd   := _WindowObj(nIndex)
       nIndex := NIL
    ELSE
-      oWnd := _WindowObj( _HMG_THISFORMNAME )
+      oWnd := _WindowObj(_HMG_THISFORMNAME)
    ENDIF
 
    oWnd:SendMsg( nEvent, nIndex, xParam )
@@ -163,7 +163,7 @@ FUNCTION _wSend( nEvent, nIndex, xParam )
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION Do_Obj( nHandle, bBlock, p1, p2, p3 )
+FUNCTION Do_Obj(nHandle, bBlock, p1, p2, p3)
 *-----------------------------------------------------------------------------*
    LOCAL o
 
@@ -280,7 +280,7 @@ HB_FUNC( HMG_SETWINDOWOBJECT )
    PHB_ITEM pObject;
    HWND hWnd = ( HWND ) HB_PARNL( 1 );
 
-   if( IsWindow( hWnd ) )
+   if( IsWindow(hWnd) )
    {
       pObject = ( PHB_ITEM ) hb_param( 2, HB_IT_OBJECT );
 
@@ -310,7 +310,7 @@ HB_FUNC( HMG_DELWINDOWOBJECT )
    PHB_ITEM pObject;
    HWND hWnd = ( HWND ) HB_PARNL( 1 );
 
-   if( IsWindow( hWnd ) )
+   if( IsWindow(hWnd) )
    {
       pObject = ( PHB_ITEM ) GetWindowLongPtr( hWnd, GWLP_USERDATA );
 
@@ -328,7 +328,7 @@ HB_FUNC( HMG_GETWINDOWOBJECT )
 {
    HWND hWnd = ( HWND ) HB_PARNL( 1 );
 
-   if( IsWindow( hWnd ) )
+   if( IsWindow(hWnd) )
    {
       hb_itemReturn( ( PHB_ITEM ) GetWindowLongPtr( hWnd, GWLP_USERDATA ) );
    }
@@ -344,7 +344,7 @@ HB_FUNC( HMG_ISWINDOWOBJECT )
 
    HWND hWnd = ( HWND ) HB_PARNL( 1 );
 
-   if( IsWindow( hWnd ) )
+   if( IsWindow(hWnd) )
    {
       pObject = ( PHB_ITEM ) GetWindowLongPtr( hWnd, GWLP_USERDATA );
 

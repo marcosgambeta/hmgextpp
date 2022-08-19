@@ -128,7 +128,7 @@ FUNCTION _ActivateScrSaver( aForm, cParam )
    DO CASE
    CASE cParam == "/s" .OR. cParam == "-s"
 
-      _ActivateWindow( aForm )
+      _ActivateWindow(aForm)
 
    CASE cParam == "/c" .OR. cParam == "-c"
 
@@ -174,7 +174,7 @@ FUNCTION _ActivateScrSaver( aForm, cParam )
          MsgInfo( cFileNoPath( cFileDes ) + " installation successfully.", "Information" )
 
          IF _ScrSaverShow
-            SendMessage( GetFormHandle( _ActiveScrSaverName ), WM_SYSCOMMAND, SC_SCREENSAVE )
+            SendMessage( GetFormHandle(_ActiveScrSaverName), WM_SYSCOMMAND, SC_SCREENSAVE )
          ENDIF
 
       ELSE

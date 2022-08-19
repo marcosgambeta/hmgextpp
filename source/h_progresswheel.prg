@@ -118,12 +118,12 @@ FUNCTION _DefineProgressWheel ( cControlName, cParentForm, nCol, nRow, nWidth, ;
    @ nROW, nCol IMAGE ( cImageName ) PARENT ( cParentForm ) PICTURE NIL ;
       WIDTH nWidth HEIGHT nHeight
 
-   nControlHandle := GetControlHandle ( cImageName, cParentForm )
+   nControlHandle := GetControlHandle(cImageName, cParentForm)
 
    // Define public variable associated with control
    mVar := "_" + cParentForm + "_" + cControlName
 
-   nParentFormHandle := GetFormHandle ( cParentForm )
+   nParentFormHandle := GetFormHandle(cParentForm)
 
    k := _GetControlFree()
 
@@ -246,7 +246,7 @@ RETURN ColorInner
 PROCEDURE PW_SetShowText( cControlName, cParentForm, Value )
 *------------------------------------------------------------------------------*
 
-   LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
+   LOCAL nParentFormHandle := GetFormHandle(cParentForm)
    LOCAL i := GetControlIndex(cControlName, cParentForm)
 
    IF ISBLOCK( Value )
@@ -261,7 +261,7 @@ RETURN
 PROCEDURE PW_SetColorDoneMin( cControlName, cParentForm, Value, lErase )
 *------------------------------------------------------------------------------*
 
-   LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
+   LOCAL nParentFormHandle := GetFormHandle(cParentForm)
    LOCAL i := GetControlIndex(cControlName, cParentForm)
    LOCAL n := _HMG_aControlMiscData1[i]
    LOCAL cImageName := _HMG_aControlProcedures[i]
@@ -280,7 +280,7 @@ PROCEDURE PW_SetColorDoneMin( cControlName, cParentForm, Value, lErase )
    LOCAL Position := _HMG_aControlValue[i]
    LOCAL ColorDoneMin := _HMG_aControlFontColor[i][1]
 
-   IF IsArrayRGB ( Value )
+   IF IsArrayRGB(Value)
       Value := HMG_RGB2n( Value )
    ENDIF
    IF ColorDoneMin <> Value
@@ -301,7 +301,7 @@ RETURN
 PROCEDURE PW_SetColorDoneMax( cControlName, cParentForm, Value, lErase )
 *------------------------------------------------------------------------------*
 
-   LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
+   LOCAL nParentFormHandle := GetFormHandle(cParentForm)
    LOCAL i := GetControlIndex(cControlName, cParentForm)
    LOCAL n := _HMG_aControlMiscData1[i]
    LOCAL cImageName := _HMG_aControlProcedures[i]
@@ -320,7 +320,7 @@ PROCEDURE PW_SetColorDoneMax( cControlName, cParentForm, Value, lErase )
    LOCAL Position := _HMG_aControlValue[i]
    LOCAL ColorDoneMax := _HMG_aControlFontColor[i][2]
 
-   IF IsArrayRGB ( Value )
+   IF IsArrayRGB(Value)
       Value := HMG_RGB2n( Value )
    ENDIF
    IF ColorDoneMax <> Value
@@ -341,7 +341,7 @@ RETURN
 PROCEDURE PW_SetColorRemain( cControlName, cParentForm, Value, lErase )
 *------------------------------------------------------------------------------*
 
-   LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
+   LOCAL nParentFormHandle := GetFormHandle(cParentForm)
    LOCAL i := GetControlIndex(cControlName, cParentForm)
    LOCAL n := _HMG_aControlMiscData1[i]
    LOCAL cImageName := _HMG_aControlProcedures[i]
@@ -360,7 +360,7 @@ PROCEDURE PW_SetColorRemain( cControlName, cParentForm, Value, lErase )
    LOCAL Position := _HMG_aControlValue[i]
    LOCAL ColorRemain := _HMG_aControlBkColor[i][1]
 
-   IF IsArrayRGB ( Value )
+   IF IsArrayRGB(Value)
       Value := HMG_RGB2n( Value )
    ENDIF
    IF ColorRemain <> Value
@@ -381,7 +381,7 @@ RETURN
 PROCEDURE PW_SetColorInner( cControlName, cParentForm, Value, lErase )
 *------------------------------------------------------------------------------*
 
-   LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
+   LOCAL nParentFormHandle := GetFormHandle(cParentForm)
    LOCAL i := GetControlIndex(cControlName, cParentForm)
    LOCAL n := _HMG_aControlMiscData1[i]
    LOCAL cImageName := _HMG_aControlProcedures[i]
@@ -400,7 +400,7 @@ PROCEDURE PW_SetColorInner( cControlName, cParentForm, Value, lErase )
    LOCAL Position := _HMG_aControlValue[i]
    LOCAL ColorInner := _HMG_aControlBkColor[i][2]
 
-   IF IsArrayRGB ( Value )
+   IF IsArrayRGB(Value)
       Value := HMG_RGB2n( Value )
    ENDIF
    IF ColorInner <> Value
@@ -421,7 +421,7 @@ RETURN
 PROCEDURE PW_SetStartAngle( cControlName, cParentForm, Value, lErase )
 *------------------------------------------------------------------------------*
 
-   LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
+   LOCAL nParentFormHandle := GetFormHandle(cParentForm)
    LOCAL i := GetControlIndex(cControlName, cParentForm)
    LOCAL n := _HMG_aControlMiscData1[i]
    LOCAL cImageName := _HMG_aControlProcedures[i]
@@ -462,7 +462,7 @@ RETURN
 PROCEDURE PW_SetMin( cControlName, cParentForm, Value, lErase )
 *------------------------------------------------------------------------------*
 
-   LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
+   LOCAL nParentFormHandle := GetFormHandle(cParentForm)
    LOCAL i := GetControlIndex(cControlName, cParentForm)
    LOCAL n := _HMG_aControlMiscData1[i]
    LOCAL cImageName := _HMG_aControlProcedures[i]
@@ -505,7 +505,7 @@ RETURN
 PROCEDURE PW_SetMax( cControlName, cParentForm, Value, lErase )
 *------------------------------------------------------------------------------*
 
-   LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
+   LOCAL nParentFormHandle := GetFormHandle(cParentForm)
    LOCAL i := GetControlIndex(cControlName, cParentForm)
    LOCAL n := _HMG_aControlMiscData1[i]
    LOCAL cImageName := _HMG_aControlProcedures[i]
@@ -548,7 +548,7 @@ RETURN
 PROCEDURE PW_SetPosition( cControlName, cParentForm, Value, lErase )
 *------------------------------------------------------------------------------*
 
-   LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
+   LOCAL nParentFormHandle := GetFormHandle(cParentForm)
    LOCAL i := GetControlIndex(cControlName, cParentForm)
    LOCAL n := _HMG_aControlMiscData1[i]
    LOCAL cImageName := _HMG_aControlProcedures[i]
@@ -588,7 +588,7 @@ RETURN
 PROCEDURE PW_SetInnerSize( cControlName, cParentForm, Value, lErase )
 *------------------------------------------------------------------------------*
 
-   LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
+   LOCAL nParentFormHandle := GetFormHandle(cParentForm)
    LOCAL i := GetControlIndex(cControlName, cParentForm)
    LOCAL n := _HMG_aControlMiscData1[i]
    LOCAL cImageName := _HMG_aControlProcedures[i]
@@ -628,7 +628,7 @@ RETURN
 PROCEDURE PW_SetGradientMode( cControlName, cParentForm, Value, lErase )
 *------------------------------------------------------------------------------*
 
-   LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
+   LOCAL nParentFormHandle := GetFormHandle(cParentForm)
    LOCAL i := GetControlIndex(cControlName, cParentForm)
    LOCAL n := _HMG_aControlMiscData1[i]
    LOCAL cImageName := _HMG_aControlProcedures[i]
@@ -935,7 +935,7 @@ RETURN
 
 #include <commctrl.h>
 
-HB_FUNC ( SETBRUSHORG )
+HB_FUNC( SETBRUSHORG )
 {
     HDC hDC  = ( HDC ) HB_PARNL( 1 );
 

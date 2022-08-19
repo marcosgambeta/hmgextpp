@@ -55,7 +55,7 @@ FUNCTION _DefineRating ( ControlName, ParentForm, x, y, w, h, nValue, aImages, n
 #endif
    cParentForm := ParentForm
 
-   ParentForm := GetFormHandle ( ParentForm )
+   ParentForm := GetFormHandle(ParentForm)
 
    ControlHandle := _InitRating ( cParentForm, ControlName, x, y, w, h, nValue, aImages, nCnt, nSpace, tooltip, onchangeprocedure, border, readonly, invisible, vertical )
 
@@ -113,12 +113,12 @@ PROCEDURE _ReleaseRating ( cWindow, cControl )
 
    IF _IsControlDefined(cControl, cWindow)
 
-      FOR i := 1 TO GetControlId ( cControl, cWindow )
+      FOR i := 1 TO GetControlId(cControl, cWindow)
          img_name := cWindow + "_" + cControl + "_" + hb_ntos( i )
          DoMethod(cWindow, img_name, "Release")
       NEXT
 
-      EraseWindow( cWindow )
+      EraseWindow(cWindow)
 
    ENDIF
 
@@ -237,7 +237,7 @@ RETURN NIL
 FUNCTION ClearRating( cWindow, cControl )
 
    LOCAL i, img_name
-   LOCAL nCount := GetControlId ( cControl, cWindow )
+   LOCAL nCount := GetControlId(cControl, cWindow)
 
    FOR i := 1 TO nCount
       img_name := cWindow + "_" + cControl + "_" + hb_ntos( i )

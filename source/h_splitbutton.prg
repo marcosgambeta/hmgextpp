@@ -51,7 +51,7 @@ PROCEDURE _DefineSplitButton ( cName, nRow, nCol, cCaption, bAction, cParent, ;
    hb_default(@w, 148)
    hb_default(@h, 38)
 
-   IF ( FontHandle := GetFontHandle( FontName ) ) != 0
+   IF ( FontHandle := GetFontHandle(FontName) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
@@ -69,7 +69,7 @@ PROCEDURE _DefineSplitButton ( cName, nRow, nCol, cCaption, bAction, cParent, ;
    ENDIF
 
    IF FontHandle != 0
-      _SetFontHandle( hControlHandle, FontHandle )
+      _SetFontHandle(hControlHandle, FontHandle)
    ELSE
       __defaultNIL(@FontName, _HMG_DefaultFontName)
       __defaultNIL(@FontSize, _HMG_DefaultFontSize)
@@ -128,7 +128,7 @@ PROCEDURE _DefineSplitButton ( cName, nRow, nCol, cCaption, bAction, cParent, ;
    ENDIF
 
    IF ValType(tooltip) != "U"
-      SetToolTip ( hControlHandle , tooltip , GetFormToolTipHandle ( cParent ) )
+      SetToolTip ( hControlHandle , tooltip , GetFormToolTipHandle(cParent) )
    ENDIF
 
 RETURN
@@ -159,7 +159,7 @@ FUNCTION SPButtonEventHandler ( hWnd, nMsg, wParam, lParam )
 
       IF i > 0 .AND. _HMG_aControlType[i] == CONTROL_TYPE_SPBUTTON
 
-         IF HiWord ( wParam ) == BN_CLICKED
+         IF HiWord(wParam) == BN_CLICKED
             xRetVal := 0
             _DoControlEventProcedure ( _HMG_aControlProcedures[i], i )
          ENDIF
@@ -185,7 +185,7 @@ PROCEDURE SPButtonSetFocus ( cWindow, cControl )
 
       _HMG_UserComponentProcess := .T.
 
-      hWnd := GetControlHandle ( cControl, cWindow )
+      hWnd := GetControlHandle(cControl, cWindow)
 
       ControlCount := Len(_HMG_aControlNames)
       ParentFormHandle := _HMG_aControlParentHandles [ GetControlIndex(cControl, cWindow) ]
@@ -214,7 +214,7 @@ PROCEDURE SPButtonEnable ( cWindow, cControl )
 
    IF GetControlType ( cControl, cWindow ) == "SPBUTTON"
 
-      EnableWindow ( GetControlHandle ( cControl, cWindow ) )
+      EnableWindow(GetControlHandle(cControl, cWindow))
 
       _HMG_UserComponentProcess := .T.
 
@@ -232,7 +232,7 @@ PROCEDURE SPButtonDisable ( cWindow, cControl )
 
    IF GetControlType ( cControl, cWindow ) == "SPBUTTON"
 
-      DisableWindow ( GetControlHandle ( cControl, cWindow ) )
+      DisableWindow(GetControlHandle(cControl, cWindow))
 
       _HMG_UserComponentProcess := .T.
 
@@ -296,17 +296,17 @@ HB_FUNC( INITSPLITBUTTON )
       Style = BS_DEFSPLITBUTTON;
    }
 
-   hbutton = CreateWindow( TEXT( "button" ),
-                           lpWindowName,
-                           Style | WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | BS_PUSHBUTTON | WS_VISIBLE | WS_TABSTOP,
-                           hb_parni( 3 ),
-                           hb_parni( 2 ),
-                           hb_parni( 6 ),
-                           hb_parni( 7 ),
-                           hwnd,
-                           ( HMENU ) HB_PARNL( 8 ),
-                           GetModuleHandle( nullptr ),
-                           nullptr );
+   hbutton = CreateWindow(TEXT("button"),
+                          lpWindowName,
+                          Style | WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | BS_PUSHBUTTON | WS_VISIBLE | WS_TABSTOP,
+                          hb_parni(3),
+                          hb_parni(2),
+                          hb_parni(6),
+                          hb_parni(7),
+                          hwnd,
+                          ( HMENU ) HB_PARNL(8),
+                          GetModuleHandle(nullptr),
+                          nullptr);
 
    HB_RETNL( ( LONG_PTR ) hbutton );
 }

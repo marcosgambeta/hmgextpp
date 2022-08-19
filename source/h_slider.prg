@@ -144,7 +144,7 @@ FUNCTION _DefineSlider ( ControlName, ParentFormName, x, y, w, h, lo, hi, value,
          AAdd(_HMG_aDialogItems, {nId, k, "msctls_trackbar32", style, 0, x, y, w, h, "", HelpId, tooltip, "", 0, , , , , blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
-         ControlHandle := GetDialogItemHandle( ParentFormHandle, nId )
+         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
 
          x := GetWindowCol(Controlhandle)
          y := GetWindowRow(Controlhandle)
@@ -156,7 +156,7 @@ FUNCTION _DefineSlider ( ControlName, ParentFormName, x, y, w, h, lo, hi, value,
 
    ELSE
 
-      ParentFormHandle := GetFormHandle ( ParentFormName )
+      ParentFormHandle := GetFormHandle(ParentFormName)
       /* P.Ch. 16.10. */
       ControlHandle := InitSlider( ParentFormHandle, 0, x, y, w, h, lo, hi, vertical, noticks, both, top, left, invisible, notabstop, enableselrange, nSelMin, nSelMax )
 
@@ -167,10 +167,10 @@ FUNCTION _DefineSlider ( ControlName, ParentFormName, x, y, w, h, lo, hi, value,
          AAdd(_HMG_ActiveTabCurrentPageMap, ControlHandle)
       ENDIF
 
-      SendMessage( ControlHandle, TBM_SETPOS, 1, value )
+      SendMessage(ControlHandle, TBM_SETPOS, 1, value)
 
       IF ValType(tooltip) != "U"
-         SetToolTip( ControlHandle, tooltip, GetFormToolTipHandle( ParentFormName ) )
+         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
    ENDIF
@@ -225,8 +225,8 @@ FUNCTION _DefineSlider ( ControlName, ParentFormName, x, y, w, h, lo, hi, value,
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
 #ifdef _OBJECT_
-      ow := _WindowObj ( ParentFormHandle )
-      oc := _ControlObj( ControlHandle )
+      ow := _WindowObj(ParentFormHandle)
+      oc := _ControlObj(ControlHandle)
 #endif
    ENDIF
 
@@ -239,7 +239,7 @@ FUNCTION InitDialogSlider( ParentName, ControlHandle, k )
 *-----------------------------------------------------------------------------*
 
    IF ValType(ParentName) <> "U"
-      SendMessage( ControlHandle , TBM_SETPOS , 1 , _HMG_aControlValue [k] )
+      SendMessage(ControlHandle, TBM_SETPOS, 1, _HMG_aControlValue[k])
    ENDIF
 // JP 62
    IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]   // Modal

@@ -171,7 +171,7 @@ STATIC FUNCTION _DefineTab( ControlName, ParentFormName, x, y, w, h, aCaptions, 
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
-   IF ( FontHandle := GetFontHandle( FontName ) ) != 0
+   IF ( FontHandle := GetFontHandle(FontName) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
@@ -226,26 +226,26 @@ STATIC FUNCTION _DefineTab( ControlName, ParentFormName, x, y, w, h, aCaptions, 
 
       ELSE
 
-         ControlHandle := GetDialogItemHandle( ParentFormHandle, nId )
+         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
 
-         SetWindowStyle ( ControlHandle, Style, .T. )
+         SetWindowStyle(ControlHandle, Style, .T.)
 
-         x := GetWindowCol ( Controlhandle )
-         y := GetWindowRow ( Controlhandle )
-         w := GetWindowWidth  ( Controlhandle )
+         x := GetWindowCol(Controlhandle)
+         y := GetWindowRow(Controlhandle)
+         w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
       ENDIF
 
    ELSE
 
-      ParentFormHandle := GetFormHandle ( ParentFormName )
+      ParentFormHandle := GetFormHandle(ParentFormName)
 
       ControlHandle := InitTabControl ( ParentFormHandle, 0, x, y, w, h, aCaptions, value, "", 0, Buttons, Flat, HotTrack, Vertical, Bottom, Multiline, ISARRAY( backcolor[1] ), notabstop )
 
       IF ISARRAY( backcolor[1] )
          hBrush := CreateSolidBrush( backcolor[1][1], backcolor[1][2], backcolor[1][3] )
-         SetWindowBrush( ControlHandle, hBrush )
+         SetWindowBrush(ControlHandle, hBrush)
       ENDIF
 
    ENDIF
@@ -253,12 +253,12 @@ STATIC FUNCTION _DefineTab( ControlName, ParentFormName, x, y, w, h, aCaptions, 
    IF !lDialogInMemory
 
       IF FontHandle != 0
-         _SetFontHandle( ControlHandle, FontHandle )
+         _SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle( ControlHandle )
-            FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
+         IF IsWindowHandle(ControlHandle)
+            FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
 
@@ -318,8 +318,8 @@ STATIC FUNCTION _DefineTab( ControlName, ParentFormName, x, y, w, h, aCaptions, 
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
 #ifdef _OBJECT_
-      ow := _WindowObj ( ParentFormHandle )
-      oc := _ControlObj( ControlHandle )
+      ow := _WindowObj(ParentFormHandle)
+      oc := _ControlObj(ControlHandle)
 #endif
    ENDIF
 
@@ -346,12 +346,12 @@ FUNCTION InitDialogTab( ParentName, ControlHandle, k )
 
       _HMG_aControlPageMap [k] := _HMG_ActiveTabFullPageMap
 
-      AddDialogPages( ControlHandle, aCaptions, _HMG_aControlValue [k] )
+      AddDialogPages(ControlHandle, aCaptions, _HMG_aControlValue[k])
 
    ENDIF
 
    IF _HMG_aControlMiscData1 [k,2]  // ImageFlag
-      _HMG_aControlInputMask [k] := AddTabBitMap ( ControlHandle, _HMG_aControlPicture [k], _HMG_aControlMiscData1 [k,8] )
+      _HMG_aControlInputMask [k] := AddTabBitMap(ControlHandle, _HMG_aControlPicture[k], _HMG_aControlMiscData1[k, 8])
    ENDIF
 
    FOR EACH c IN aCaptions
@@ -373,12 +373,12 @@ FUNCTION InitDialogTab( ParentName, ControlHandle, k )
 
             IF ValType(c) <> "A"
 
-               HideWindow ( c )
+               HideWindow(c)
 
             ELSE
 
                FOR EACH z IN c
-                  HideWindow ( z )
+                  HideWindow(z)
                NEXT
 
             ENDIF
@@ -397,7 +397,7 @@ FUNCTION InitDialogTab( ParentName, ControlHandle, k )
 RETURN Nil
 
 *-----------------------------------------------------------------------------*
-FUNCTION UpdateTab ( y )  // Internal Function
+FUNCTION UpdateTab(y)  // Internal Function
 *-----------------------------------------------------------------------------*
    LOCAL tabpage
    LOCAL w, s, z
@@ -409,12 +409,12 @@ FUNCTION UpdateTab ( y )  // Internal Function
 
          IF ValType(w) <> "A"
 
-            HideWindow ( w )
+            HideWindow(w)
 
          ELSE
 
             FOR EACH z IN w
-               HideWindow ( z )
+               HideWindow(z)
             NEXT
 
          ENDIF
@@ -432,11 +432,11 @@ FUNCTION UpdateTab ( y )  // Internal Function
 
          IF ValType(w) <> "A"
 
-            IF _IsControlVisibleFromHandle ( w )
+            IF _IsControlVisibleFromHandle(w)
 
                CShowControl ( w )
 #ifdef _PANEL_
-            ELSEIF _IsWindowVisibleFromHandle ( w )
+            ELSEIF _IsWindowVisibleFromHandle(w)
 		
                CShowControl ( w )
 #endif
@@ -444,7 +444,7 @@ FUNCTION UpdateTab ( y )  // Internal Function
 
          ELSE
 
-            IF _IsControlVisibleFromHandle ( w [1] )
+            IF _IsControlVisibleFromHandle(w[1])
 
                FOR EACH z IN w
                   CShowControl ( z )
@@ -462,7 +462,7 @@ RETURN Nil
 
 #ifdef _PANEL_
 *-----------------------------------------------------------------------------*
-STATIC FUNCTION _IsWindowVisibleFromHandle ( Handle )
+STATIC FUNCTION _IsWindowVisibleFromHandle(Handle)
 *-----------------------------------------------------------------------------*
    LOCAL lVisible As Logical
    LOCAL hForm
@@ -480,7 +480,7 @@ RETURN lVisible
 #endif
 
 *-----------------------------------------------------------------------------*
-STATIC FUNCTION _IsControlVisibleFromHandle ( Handle )
+STATIC FUNCTION _IsControlVisibleFromHandle(Handle)
 *-----------------------------------------------------------------------------*
    LOCAL lVisible As Logical
    LOCAL hControl
@@ -562,7 +562,7 @@ RETURN Nil
 FUNCTION _EndTab()
 *-----------------------------------------------------------------------------*
 
-   _DefineTab ( _HMG_ActiveTabName, _HMG_ActiveTabParentFormName, _HMG_ActiveTabCol, ;
+   _DefineTab(_HMG_ActiveTabName, _HMG_ActiveTabParentFormName, _HMG_ActiveTabCol, ;
       _HMG_ActiveTabRow, _HMG_ActiveTabWidth, _HMG_ActiveTabHeight, ;
       _HMG_ActiveTabCaptions, _HMG_ActiveTabFullPageMap, _HMG_ActiveTabValue, ;
       _HMG_ActiveTabFontName, _HMG_ActiveTabFontSize, _HMG_ActiveTabToolTip, ;
@@ -571,7 +571,7 @@ FUNCTION _EndTab()
       _HMG_ActiveTabNoTabStop, _HMG_ActiveTabMnemonic, _HMG_ActiveTabBold, ;
       _HMG_ActiveTabItalic, _HMG_ActiveTabUnderline, _HMG_ActiveTabStrikeout, ;
       _HMG_ActiveTabImages, _HMG_ActiveTabMultiline, _HMG_ActiveTabColor, _HMG_ActiveTabnId, ;
-      _SetGetGlobal( "_HMG_bOnInit" ), _SetGetGlobal( "_HMG_ActiveTabImage_NoTransparent" ) )
+      _SetGetGlobal("_HMG_bOnInit"), _SetGetGlobal("_HMG_ActiveTabImage_NoTransparent"))
 
    _DelGlobal( "_HMG_bOnInit" ) ; _DelGlobal( "_HMG_ActiveTabImage_NoTransparent" )
    _HMG_BeginTabActive := .F.
@@ -636,7 +636,7 @@ FUNCTION _AddTabPage ( ControlName , ParentForm , Position , Caption , Image , t
          AIns( _HMG_aControlTooltip[i], Position, tooltip, .T. )
       ENDIF
 
-      UpdateTab ( i )
+      UpdateTab(i)
 
    ENDIF
 
@@ -677,10 +677,10 @@ FUNCTION _AddTabControl ( TabName , ControlName , ParentForm , PageNumber , Row 
       _HMG_aControlContainerRow [x] := _HMG_aControlRow[i]
       _HMG_aControlContainerCol [x] := _HMG_aControlCol[i]
 
-      _SetControlRow ( ControlName , ParentForm , Row )
-      _SetControlCol ( ControlName , ParentForm , Col )
+      _SetControlRow(ControlName, ParentForm, Row)
+      _SetControlCol(ControlName, ParentForm, Col)
 
-      UpdateTab ( i )
+      UpdateTab(i)
 
 #ifdef _USERINIT_
       IF t == CONTROL_TYPE_SPBUTTON .AND. _HMG_aControlVisible [x]
@@ -714,10 +714,10 @@ FUNCTION _DeleteTabPage ( ControlName , ParentForm , Position )
                FOR EACH c IN NewValue
 
                   IF ValType(c) <> "A"
-                     HideWindow ( c )
+                     HideWindow(c)
                   ELSE
                      FOR EACH j IN c
-                        HideWindow ( j )
+                        HideWindow(j)
                      NEXT
                   ENDIF
 
@@ -758,7 +758,7 @@ FUNCTION _DeleteTabPage ( ControlName , ParentForm , Position )
       FOR EACH NewMap IN _HMG_aControlCaption[i]
          NewValue := Upper(NewMap)
          IF ( j := hb_UAt ( "&" , NewValue ) ) > 0
-            c := Asc ( hb_USubStr(NewValue, j + 1, 1) )
+            c := Asc(hb_USubStr(NewValue, j + 1, 1))
             IF c >= 48 .AND. c <= 90
                _ReleaseHotKey ( ParentForm , MOD_ALT , c )
             ENDIF
@@ -832,7 +832,7 @@ FUNCTION _DeleteTabPage ( ControlName , ParentForm , Position )
 
       TABCTRL_SETCURSEL ( _HMG_aControlhandles[i], NewValue )
 
-      UpdateTab ( i )
+      UpdateTab(i)
 
    ENDIF
 

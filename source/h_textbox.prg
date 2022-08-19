@@ -104,7 +104,7 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
       ENDIF
    ENDIF
 
-   IF ( FontHandle := GetFontHandle( FontName ) ) != 0
+   IF ( FontHandle := GetFontHandle(FontName) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
@@ -178,19 +178,19 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
 
       ELSE
 
-         ControlHandle := GetDialogItemHandle( ParentFormHandle, nId )
+         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
 
-         x := GetWindowCol ( Controlhandle )
-         y := GetWindowRow ( Controlhandle )
-         w := GetWindowWidth  ( Controlhandle )
+         x := GetWindowCol(Controlhandle)
+         y := GetWindowRow(Controlhandle)
+         w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
-         SetWindowStyle ( ControlHandle, Style, .T. )
+         SetWindowStyle(ControlHandle, Style, .T.)
       ENDIF
 
    ELSE
 
-      ParentFormHandle := GetFormHandle( ParentFormName )
+      ParentFormHandle := GetFormHandle(ParentFormName)
       // Creates the control window
       ControlHandle := InitTextBox( ParentFormHandle, 0, x, y, w, h, "", 0, nMaxLength, lUpper, lLower, .F. , lPassword, right, readonly, invisible, notabstop, noborder )
 
@@ -199,12 +199,12 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    IF !lDialogInMemory
 
       IF FontHandle != 0
-         _SetFontHandle( ControlHandle, FontHandle )
+         _SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle( ControlHandle )
-            FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
+         IF IsWindowHandle(ControlHandle)
+            FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
 
@@ -214,7 +214,7 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
 
       // Add a tooltip if param has value
       IF ( ValType(ToolTip) != "U" )
-         SetToolTip( ControlHandle, ToolTip, GetFormToolTipHandle( ParentFormName ) )
+         SetToolTip(ControlHandle, ToolTip, GetFormToolTipHandle(ParentFormName))
       ENDIF
    ENDIF
 
@@ -283,7 +283,7 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
       ENDIF
 
       IF !Empty(cuetext) .AND. IsVistaOrLater()
-         SendMessageWideString( ControlHandle, EM_SETCUEBANNER, .T. /*show on focus*/, cuetext )
+         SendMessageWideString(ControlHandle, EM_SETCUEBANNER, .T. /*show on focus*/, cuetext)
       ENDIF
 
       IF ValType(Field) != "U"
@@ -311,10 +311,10 @@ FUNCTION InitDialogTextBox( ParentName, ControlHandle, k )
    lNumeric    := ( _HMG_aControlType[k] == CONTROL_TYPE_NUMTEXT )
 
    IF ValType(readonly) == "L"
-      SendMessage( ControlHandle , EM_SETREADONLY , iif( readonly, 1, 0 ) , 0 )
+      SendMessage(ControlHandle, EM_SETREADONLY, iif(readonly, 1, 0), 0)
    ENDIF
    IF ValType(nMaxLength) != "U"
-      SendMessage( ControlHandle , EM_LIMITTEXT , nMaxLength , 0 )
+      SendMessage(ControlHandle, EM_LIMITTEXT, nMaxLength, 0)
    ENDIF
 
    // With NUMERIC clause, transform numeric value into a string.
@@ -406,7 +406,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
 
    Value := Transform(value, InputMask)
 
-   IF ( FontHandle := GetFontHandle( FontName ) ) != 0
+   IF ( FontHandle := GetFontHandle(FontName) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
@@ -458,19 +458,19 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
 
       ELSE
 
-         ControlHandle := GetDialogItemHandle( ParentFormHandle, nId )
+         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
 
-         x := GetWindowCol ( Controlhandle )
-         y := GetWindowRow ( Controlhandle )
-         w := GetWindowWidth  ( Controlhandle )
+         x := GetWindowCol(Controlhandle)
+         y := GetWindowRow(Controlhandle)
+         w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
-         SetWindowStyle ( ControlHandle, Style, .T. )
+         SetWindowStyle(ControlHandle, Style, .T.)
       ENDIF
 
    ELSE
 
-      ParentFormHandle := GetFormHandle ( ParentFormName )
+      ParentFormHandle := GetFormHandle(ParentFormName)
       ControlHandle := InitMaskedTextBox ( ParentFormHandle, 0, x, y, w , "" , 0 , 255 , .F. , .F. , h , .T. , readonly , invisible , notabstop , noborder )
 
    ENDIF
@@ -478,12 +478,12 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
    IF !lDialogInMemory
 
       IF FontHandle != 0
-         _SetFontHandle( ControlHandle, FontHandle )
+         _SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle( ControlHandle )
-            FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
+         IF IsWindowHandle(ControlHandle)
+            FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
 
@@ -492,7 +492,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
       ENDIF
 
       IF ValType(tooltip) != "U"
-         SetToolTip ( ControlHandle , tooltip , GetFormToolTipHandle ( ParentFormName ) )
+         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
    ENDIF
 
@@ -549,7 +549,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
 
    IF !lDialogInMemory
       IF !Empty(cuetext) .AND. IsVistaOrLater()
-         SendMessageWideString( ControlHandle, EM_SETCUEBANNER, .T. /*show on focus*/, cuetext )
+         SendMessageWideString(ControlHandle, EM_SETCUEBANNER, .T. /*show on focus*/, cuetext)
       ENDIF
 
       SetWindowText(ControlHandle, value)
@@ -674,7 +674,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
    __defaultNIL(@enter, "")
 
    IF ValType(Value) == "U"
-      Value := iif( date, CToD ( "  /  /  " ), "" )
+      Value := iif( date, CToD("  /  /  "), "" )
    ENDIF
 
    IF date == .T.
@@ -684,7 +684,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
       NEXT 
    ENDIF
 
-   IF ( FontHandle := GetFontHandle( FontName ) ) != 0
+   IF ( FontHandle := GetFontHandle(FontName) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
@@ -736,21 +736,21 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
 
       ELSE
 
-         ControlHandle := GetDialogItemHandle( ParentFormHandle, nId )
+         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
 
-         x := GetWindowCol ( Controlhandle )
-         y := GetWindowRow ( Controlhandle )
-         w := GetWindowWidth  ( Controlhandle )
+         x := GetWindowCol(Controlhandle)
+         y := GetWindowRow(Controlhandle)
+         w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
 
-         SetWindowStyle ( ControlHandle, Style, .T. )
+         SetWindowStyle(ControlHandle, Style, .T.)
 
       ENDIF
 
    ELSE
 
-      ParentFormHandle := GetFormHandle ( ParentFormName )
+      ParentFormHandle := GetFormHandle(ParentFormName)
       ControlHandle := InitCharMaskTextBox ( ParentFormHandle, 0, x, y, w , "" , 0 , 255 , .F. , .F. , h , rightalign , readonly , invisible , notabstop , noborder )
 
    ENDIF
@@ -758,12 +758,12 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
    IF !lDialogInMemory
 
       IF FontHandle != 0
-         _SetFontHandle ( ControlHandle, FontHandle )
+         _SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle( ControlHandle )
-            FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
+         IF IsWindowHandle(ControlHandle)
+            FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
 
@@ -772,7 +772,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
       ENDIF
 
       IF ValType(tooltip) != "U"
-         SetToolTip ( ControlHandle , tooltip , GetFormToolTipHandle ( ParentFormName ) )
+         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
    ENDIF
@@ -834,7 +834,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
          IF Empty(Value)
             Value := NIL
          ENDIF
-         SendMessageWideString ( ControlHandle, EM_SETCUEBANNER, .T. /*show on focus*/, cuetext )
+         SendMessageWideString(ControlHandle, EM_SETCUEBANNER, .T. /*show on focus*/, cuetext)
       ENDIF
 
       IF ValType(Value) != "U"
@@ -878,7 +878,7 @@ PROCEDURE ProcessCharMask ( i , d )
    Mask := _HMG_aControlInputMask[i]
 
    // Store Initial CaretPos
-   icp := HiWord ( SendMessage ( _HMG_aControlHandles[i] , EM_GETSEL , 0 , 0 ) )
+   icp := HiWord(SendMessage(_HMG_aControlHandles[i], EM_GETSEL, 0, 0))
 
    // Get Current Content
    InBuffer := GetWindowText ( _HMG_aControlHandles[i] )
@@ -1133,7 +1133,7 @@ PROCEDURE _DataTextBoxRefresh ( i )
    IF ValType(Field) != "U"
       _SetValue ( , , iif( Type ( Field ) == "C" , RTrim(&Field) , &Field ) , i )
    ELSE
-      RedrawWindow ( _HMG_aControlHandles[i] )
+      RedrawWindow(_HMG_aControlHandles[i])
    ENDIF
 
 RETURN
@@ -1170,7 +1170,7 @@ PROCEDURE ProcessNumText ( i )
    LOCAL fnb
 
    // Store Initial CaretPos
-   icp := HiWord ( SendMessage( _HMG_aControlhandles[i] , EM_GETSEL , 0 , 0 ) )
+   icp := HiWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0))
 
    // Get Current Content
    InBuffer := GetWindowText ( _HMG_aControlHandles[i] )
@@ -1271,8 +1271,8 @@ FUNCTION OEDITEVENTS( hWnd, nMsg, wParam, lParam )
    CASE WM_CHAR
 
       hTextBox := _HMG_aControlHandles[i]
-      icp  := HiWord ( SendMessage( hTextBox , EM_GETSEL , 0 , 0 ) )
-      icpe := LoWord ( SendMessage( hTextBox , EM_GETSEL , 0 , 0 ) )
+      icp  := HiWord(SendMessage(hTextBox, EM_GETSEL, 0, 0))
+      icpe := LoWord(SendMessage(hTextBox, EM_GETSEL, 0, 0))
       InBuffer := GetWindowText ( hTextBox )
 
       // simulate overwrite mode
