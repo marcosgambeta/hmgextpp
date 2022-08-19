@@ -88,7 +88,7 @@ RETURN iif( GetCompactPath( @cShort, cFile, IFNUMERIC( nMax, nMax, 63 ), NIL ) >
 // Jacek Kubica <kubica@wssk.wroc.pl> HMG 1.1 Experimental Build 11a
 // _GetShortPathName("C:\Program Files\Adobe") -> "C:\Program~1\Adobe"
 *-----------------------------------------------------------------------------*
-FUNCTION _GetShortPathName ( cPath )
+FUNCTION _GetShortPathName(cPath)
 *-----------------------------------------------------------------------------*
    LOCAL cShortPathName
 

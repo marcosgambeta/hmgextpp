@@ -80,10 +80,10 @@ FUNCTION _DefineHotKey ( cParentForm , nMod , nKey , bAction )
    IF _HMG_BeginWindowMDIActive .AND. Empty(_HMG_ActiveFormName)  //JP MDI HotKey
       nParentForm := GetActiveMdiHandle()
       IF nParentForm == 0
-         nParentForm := GetFormHandle ( cParentForm )
+         nParentForm := GetFormHandle(cParentForm)
       ENDIF                                                         //End JP
    ELSE
-      nParentForm := GetFormHandle ( cParentForm )
+      nParentForm := GetFormHandle(cParentForm)
    ENDIF
 
    nId := _GetId( 49151 )
@@ -138,7 +138,7 @@ RETURN lSuccess
 *-----------------------------------------------------------------------------*
 PROCEDURE _ReleaseHotKey ( cParentForm, nMod , nKey )
 *-----------------------------------------------------------------------------*
-   LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
+   LOCAL nParentFormHandle := GetFormHandle(cParentForm)
    LOCAL ControlType
    LOCAL i
 
@@ -155,7 +155,7 @@ RETURN
 *-----------------------------------------------------------------------------*
 FUNCTION _GetHotKeyBlock ( cParentForm, nMod, nKey )
 *-----------------------------------------------------------------------------*
-   LOCAL nParentFormHandle := GetFormHandle ( cParentForm )
+   LOCAL nParentFormHandle := GetFormHandle(cParentForm)
    LOCAL bRetVal := Nil
    LOCAL ControlType
    LOCAL i
@@ -201,7 +201,7 @@ FUNCTION HMG_PressKey( ... )  // by Dr. Claudio Soto, April 2016
 RETURN aVK
 
 *-----------------------------------------------------------------------------*
-FUNCTION _SetHotKeyByName ( cParentForm, cKey, bAction )
+FUNCTION _SetHotKeyByName(cParentForm, cKey, bAction)
 *-----------------------------------------------------------------------------*
    LOCAL aKey
    LOCAL lSuccess := .F.

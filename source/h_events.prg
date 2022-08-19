@@ -1496,7 +1496,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             IF _HMG_aControlParentHandles[z] == hWnd
 
-               IF _HMG_aControlType[z] == CONTROL_TYPE_TOOLBAR .AND. And (GetWindowLong(r, GWL_STYLE), CCS_BOTTOM) == CCS_BOTTOM
+               IF _HMG_aControlType[z] == CONTROL_TYPE_TOOLBAR .AND. And(GetWindowLong(r, GWL_STYLE), CCS_BOTTOM) == CCS_BOTTOM
                   k := r
                   EXIT
                ENDIF

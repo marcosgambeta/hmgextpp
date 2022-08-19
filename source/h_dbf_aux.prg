@@ -224,7 +224,7 @@ FUNCTION HMG_DbfStruct( cFileName )
 
       IF FRead( hFile, @cBuffer, BUFFER_SIZE ) == FIELD_ENTRY_SIZE
 
-         DO WHILE ( FRead( hFile, @cBuffer, BUFFER_SIZE ) == FIELD_ENTRY_SIZE .AND. !( cBuffer = Chr( 13 ) ) )
+         DO WHILE (FRead(hFile, @cBuffer, BUFFER_SIZE) == FIELD_ENTRY_SIZE .AND. !(cBuffer = Chr(13)))
 
             aFieldInfo := Array( 4 )
 

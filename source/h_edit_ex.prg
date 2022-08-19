@@ -715,7 +715,7 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
       WIDTHS _aAnchoTabla ;
       WORKAREA &_cArea ;
       FIELDS _aCampoTabla ;
-      VALUE ( _cArea )->( RecNo() ) ;
+      VALUE (_cArea)->(RecNo()) ;
       FONT _GetSysFont() SIZE 9 ;
       ON CHANGE {|| ( _cArea )->( dbGoto( wndABM2Edit.brwABM2Edit.Value ) ), ;
       ABM2Redibuja( .F. ) } ;
@@ -1296,7 +1296,7 @@ STATIC FUNCTION ABM2Seleccionar()
          WIDTHS _aAnchoTabla ;
          WORKAREA &_cArea ;
          FIELDS _aCampoTabla ;
-         VALUE ( _cArea )->( RecNo() ) ;
+         VALUE (_cArea)->(RecNo()) ;
          FONT "Arial" SIZE 9 ;
          ON DBLCLICK {|| lSalida := .T., ;
          nReg := wndSeleccionar.brwSeleccionar.VALUE, ;

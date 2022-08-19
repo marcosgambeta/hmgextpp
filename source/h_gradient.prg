@@ -89,8 +89,8 @@ FUNCTION DrawGradient( window, row, col, rowr, colr, aColor1, aColor2, vertical,
       hb_default(@vertical, .F.)
       hb_default(@border, 0)  // 0 - none, 1 - ?, 2 - box, 3 - panel
 
-      color1 := RGB ( aColor1[1], aColor1[2], aColor1[3] )
-      color2 := RGB ( aColor2[1], aColor2[2], aColor2[3] )
+      color1 := RGB(aColor1[1], aColor1[2], aColor1[3])
+      color2 := RGB(aColor2[1], aColor2[2], aColor2[3])
 
       SWITCH border
 
@@ -153,7 +153,7 @@ RETURN NIL
 
 #include <mgdefs.h>
 
-#if defined ( __MINGW32__ ) && ( _WIN32_WINNT < 0x0500 )
+#if defined(__MINGW32__) && ( _WIN32_WINNT < 0x0500 )
 #define GRADIENT_FILL_RECT_H    0x00000000
 #define GRADIENT_FILL_RECT_V    0x00000001
 #define GRADIENT_FILL_TRIANGLE  0x00000002
@@ -355,7 +355,7 @@ HB_FUNC( CREATEGRADIENTBRUSH )
    HWND hwnd = ( HWND ) ( LONG_PTR ) HB_PARNL( 1 );
    HDC  hdc;
 
-   if( ! IsWindow( hwnd ) )
+   if( ! IsWindow(hwnd) )
       hwnd = GetDesktopWindow();
 
    hdc = GetDC(hwnd);

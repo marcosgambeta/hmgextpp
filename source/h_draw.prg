@@ -62,8 +62,8 @@ FUNCTION drawtextout( window, row, col, string, fontcolor, backcolor, fontname, 
       FormHandle := window
    ENDIF
 
-   IF IsWindowHandle( FormHandle ) .OR. ( GetObjectType( FormHandle ) == OBJ_DC )
-      IF ( FontHandle := GetFontHandle( FontName ) ) != 0
+   IF IsWindowHandle(FormHandle) .OR. ( GetObjectType( FormHandle ) == OBJ_DC )
+      IF ( FontHandle := GetFontHandle(FontName) ) != 0
          GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout, @angle )
       ENDIF
 
@@ -313,7 +313,7 @@ FUNCTION HMG_DrawSysIcon( window, cIconDll, icon, row, col, w, h, rgb, transpare
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION EraseWindow( window )
+FUNCTION EraseWindow(window)
 *-----------------------------------------------------------------------------*
    LOCAL i
 
@@ -321,7 +321,7 @@ FUNCTION EraseWindow( window )
       IF _HMG_aFormDeleted[i] == .F.
          IF ISARRAY( _HMG_aFormGraphTasks[i] )
             ASize( _HMG_aFormGraphTasks[i], 0 )
-            RedrawWindow ( _HMG_aFormHandles[i] )
+            RedrawWindow(_HMG_aFormHandles[i])
          ENDIF
       ENDIF
    ENDIF
@@ -337,9 +337,9 @@ FUNCTION DrawWindowBoxIn( window, row, col, rowr, colr )
 
    IF ( i := GetFormIndex ( Window ) ) > 0
       FormHandle := _HMG_aFormHandles[i]
-      hDC := GetDC ( FormHandle )
+      hDC := GetDC(FormHandle)
       WndBoxIn ( hDC, row, col, rowr, colr )
-      ReleaseDC ( FormHandle, hDC )
+      ReleaseDC(FormHandle, hDC)
       AAdd(_HMG_aFormGraphTasks[i], {||WndBoxIn((hDC := GetDC(FormHandle)), row, col, rowr, colr), ReleaseDC(FormHandle, hDC)})
    ENDIF
 
@@ -354,9 +354,9 @@ FUNCTION DrawWindowBoxRaised( window, row, col, rowr, colr )
 
    IF ( i := GetFormIndex ( Window ) ) > 0
       FormHandle := _HMG_aFormHandles[i]
-      hDC := GetDC ( FormHandle )
-      WndBoxRaised ( hDC, row, col, rowr, colr )
-      ReleaseDC ( FormHandle, hDC )
+      hDC := GetDC(FormHandle)
+      WndBoxRaised(hDC, row, col, rowr, colr)
+      ReleaseDC(FormHandle, hDC)
       AAdd(_HMG_aFormGraphTasks[i], {||WndBoxRaised((hDC := GetDC(FormHandle)), row, col, rowr, colr), ReleaseDC(FormHandle, hDC)})
    ENDIF
 

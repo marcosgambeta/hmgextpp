@@ -103,10 +103,10 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
    ENDIF
 
    IF IsArrayRGB( aBKColor )
-      BackgroundColor := RGB ( aBKColor [1], aBKColor [2], aBKColor [3] )
+      BackgroundColor := RGB(aBKColor[1], aBKColor[2], aBKColor[3])
    ENDIF
 
-   IF ISNUMERIC ( nAlphaLevel ) .AND. ( nAlphaLevel < 0 .OR. nAlphaLevel > 255 )
+   IF ISNUMERIC(nAlphaLevel) .AND. (nAlphaLevel < 0 .OR. nAlphaLevel > 255)
       nAlphaLevel := 255
    ENDIF
 
@@ -134,20 +134,20 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
 
       ELSE
 
-         ControlHandle := GetDialogItemHandle( ParentFormHandle, nId )
+         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
 
-         x := GetWindowCol ( Controlhandle )
-         y := GetWindowRow ( Controlhandle )
-         w := GetWindowWidth  ( Controlhandle )
+         x := GetWindowCol(Controlhandle)
+         y := GetWindowRow(Controlhandle)
+         w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
-         SetWindowStyle ( ControlHandle, Style, .T. )
+         SetWindowStyle(ControlHandle, Style, .T.)
 
       ENDIF
 
    ELSE
 
-      ParentFormHandle := GetFormHandle ( ParentFormName )
+      ParentFormHandle := GetFormHandle(ParentFormName)
 
       ControlHandle := InitImage ( ParentFormHandle, 0, x, y, invisible, ( action .OR. ISBLOCK( dblclick ) .OR. ISBLOCK( rclick ) .OR. ISSTRING( tooltip ) ), ( ISBLOCK( mouseover ) .OR. ISBLOCK( mouseleave ) ) )
 
@@ -160,7 +160,7 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
       ENDIF
 
       IF ValType(tooltip) != "U"
-         SetToolTip ( ControlHandle , tooltip , GetFormToolTipHandle ( ParentFormName ) )
+         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
    ENDIF
@@ -219,8 +219,8 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
 #ifdef _OBJECT_
-      ow := _WindowObj ( ParentFormHandle )
-      oc := _ControlObj( ControlHandle )
+      ow := _WindowObj(ParentFormHandle)
+      oc := _ControlObj(ControlHandle)
 #endif
    ENDIF
 
@@ -234,12 +234,12 @@ FUNCTION InitDialogImage( ParentName, ControlHandle, k )
 
    IF ValType(ParentName) <> "U"
 
-      _HMG_aControlBrushHandle [k] := C_SetPicture ( ControlHandle , _HMG_aControlPicture [k] , _HMG_aControlWidth [k] , ;
-         _HMG_aControlHeight [k] , _HMG_aControlValue [k] , _HMG_aControlInputMask [k] , _HMG_aControlSpacing [k] , ;
-         _HMG_aControlCaption [k] , _HMG_aControlDblClick [k] .AND. HasAlpha( _HMG_aControlPicture [k] ) , _HMG_aControlMiscData1 [k] )
+      _HMG_aControlBrushHandle[k] := C_SetPicture(ControlHandle, _HMG_aControlPicture[k], _HMG_aControlWidth[k], ;
+         _HMG_aControlHeight[k], _HMG_aControlValue[k], _HMG_aControlInputMask[k], _HMG_aControlSpacing[k], ;
+         _HMG_aControlCaption[k], _HMG_aControlDblClick[k] .AND. HasAlpha(_HMG_aControlPicture[k]), _HMG_aControlMiscData1[k])
 
       IF Empty(_HMG_aControlValue[k])
-         _HMG_aControlWidth [k] := GetWindowWidth  ( ControlHandle )
+         _HMG_aControlWidth [k] := GetWindowWidth(ControlHandle)
          _HMG_aControlHeight [k] := GetWindowHeight(ControlHandle)
       ENDIF
 

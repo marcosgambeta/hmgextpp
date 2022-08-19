@@ -98,7 +98,7 @@ FUNCTION _DefineImageList ( ControlName , ParentForm , w , h , aImage , aImageMa
    _HMG_aControlType               [k] := CONTROL_TYPE_IMAGELIST
    _HMG_aControlNames              [k] := ControlName
    _HMG_aControlHandles            [k] := ControlHandles
-   _HMG_aControlParenthandles      [k] := GetFormHandle( ParentForm )
+   _HMG_aControlParenthandles      [k] := GetFormHandle(ParentForm)
    _HMG_aControlIds                [k] := id
    _HMG_aControlProcedures         [k] := ""
    _HMG_aControlPageMap            [k] := {}
@@ -144,17 +144,17 @@ FUNCTION _DefineImageList ( ControlName , ParentForm , w , h , aImage , aImageMa
       IF mask
          IF Len(aImageMask) > 0
             maskimage := iif( i <= Len(aImageMask), aImageMask[i], "" )
-            PosImage := IL_Add( ControlHandles , aImage[i] , maskimage , w , h , ImageCount )
+            PosImage := IL_Add(ControlHandles, aImage[i], maskimage, w, h, ImageCount)
          ELSE
             IF IsArrayRGB( aColor )
-               color := RGB ( aColor [1] , aColor [2] , aColor [3] )
+               color := RGB(aColor[1], aColor[2], aColor[3])
             ELSE
                color := aColor
             ENDIF
-            PosImage := IL_AddMasked( ControlHandles , aImage[i] , color , w , h , ImageCount )
+            PosImage := IL_AddMasked(ControlHandles, aImage[i], color, w, h, ImageCount)
          ENDIF
       ELSE
-         PosImage := IL_Add( ControlHandles , aImage[i] , "" , w , h , ImageCount )
+         PosImage := IL_Add(ControlHandles, aImage[i], "", w, h, ImageCount)
       ENDIF
       IF PosImage == -1
          MsgMiniGuiError("Image: " + aImage[i] + " is not added. Check image size.")
@@ -170,7 +170,7 @@ FUNCTION _AddImageToImageList ( ControlName, ParentControl, Image, MaskImage )
 
    w := _GetControlWidth(ControlName, ParentControl)
    h := _GetControlHeight(ControlName, ParentControl)
-   c := GetControlHandle ( ControlName, ParentControl )
+   c := GetControlHandle(ControlName, ParentControl)
 
 RETURN IL_Add( c , image , hb_defaultValue(maskimage, "") , w , h )
 
@@ -181,9 +181,9 @@ FUNCTION _AddImageMaskedToImageList ( ControlName, ParentControl, Image, aColor 
 
    w := _GetControlWidth(ControlName, ParentControl)
    h := _GetControlHeight(ControlName, ParentControl)
-   c := GetControlHandle ( ControlName, ParentControl )
-   IF IsArrayRGB ( aColor )
-      color := RGB ( aColor [1], aColor [2], aColor [3] )
+   c := GetControlHandle(ControlName, ParentControl)
+   IF IsArrayRGB(aColor)
+      color := RGB(aColor[1], aColor[2], aColor[3])
    ENDIF
 
 RETURN IL_AddMasked( c , image , color , w , h )
@@ -193,9 +193,9 @@ FUNCTION _ImageListSetBkColor ( ControlName, ParentControl, aColor )
 *-----------------------------------------------------------------------------*
    LOCAL c, color := 0
 
-   c := GetControlHandle ( ControlName, ParentControl )
-   IF IsArrayRGB ( aColor )
-      color := RGB ( aColor [1], aColor [2], aColor [3] )
+   c := GetControlHandle(ControlName, ParentControl)
+   IF IsArrayRGB(aColor)
+      color := RGB(aColor[1], aColor[2], aColor[3])
    ENDIF
 
 RETURN IL_SetBkColor( c, color )
@@ -207,7 +207,7 @@ FUNCTION _EraseImage ( ControlName, ParentControl, ix, iy )
 
    w := _GetControlWidth(ControlName, ParentControl)
    h := _GetControlHeight(ControlName, ParentControl)
-   IL_EraseImage( GetFormHandle ( ParentControl ), ix, iy, w, h )
+   IL_EraseImage( GetFormHandle(ParentControl), ix, iy, w, h )
 
 RETURN Nil
 
@@ -216,8 +216,8 @@ FUNCTION _BeginDragImage ( ControlName, ParentControl, imageindex, ix, iy )
 *-----------------------------------------------------------------------------*
    LOCAL c, h
 
-   c := GetControlHandle ( ControlName, ParentControl )
-   h := GetFormHandle ( ParentControl )
+   c := GetControlHandle(ControlName, ParentControl)
+   h := GetFormHandle(ParentControl)
    _HMG_ActiveDragImageHandle := h
    IL_BeginDrag( h, c, ImageIndex, ix, iy )
 

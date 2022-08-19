@@ -1142,8 +1142,7 @@ FUNCTION _GridInplaceEdit(idx)
         FONTSIZE _hmg_aControlFontSize[idx]
         CAPTION   ALABELS[iif(V == .T., 1, 2)]
         BACKCOLOR WHITE
-        ON CHANGE (v := This.Value, This.Caption := ALABELS[iif(V == .T., 1, 2)], ;
-                   _HMG_GridInplaceEdit_StageEvent := 2, _HMG_OnInplaceEditEvent(idx))
+        ON CHANGE (v := This.Value, This.Caption := ALABELS[iif(V == .T., 1, 2)], _HMG_GridInplaceEdit_StageEvent := 2, _HMG_OnInplaceEditEvent(idx))
       END CHECKBOX
 
    ENDIF

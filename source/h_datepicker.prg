@@ -87,7 +87,7 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
    hb_default(@invisible, .F.)
    hb_default(@notabstop, .F.)
 
-   IF ( FontHandle := GetFontHandle( FontName ) ) != 0
+   IF ( FontHandle := GetFontHandle(FontName) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
@@ -159,20 +159,20 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
          AAdd(_HMG_aDialogItems, {nId, k, "SysDateTimePick32", style, 0, x, y, w, h, "", HelpId, tooltip, fontname, fontsize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
-         ControlHandle := GetDialogItemHandle( ParentFormHandle, nId )
+         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
 
-         x := GetWindowCol ( Controlhandle )
-         y := GetWindowRow ( Controlhandle )
+         x := GetWindowCol(Controlhandle)
+         y := GetWindowRow(Controlhandle)
          w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
-         SetWindowStyle ( ControlHandle, Style, .T. )
+         SetWindowStyle(ControlHandle, Style, .T.)
 
       ENDIF
 
    ELSE
 
-      ParentFormHandle := GetFormHandle ( ParentFormName )
+      ParentFormHandle := GetFormHandle(ParentFormName)
 
       ControlHandle := InitDatePick ( ParentFormHandle, 0, x, y, w, h, "", 0, shownone, updown, rightalign, invisible, notabstop )
 
@@ -181,12 +181,12 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
    IF !lDialogInMemory
 
       IF FontHandle != 0
-         _SetFontHandle( ControlHandle, FontHandle )
+         _SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle( ControlHandle )
-            FontHandle := _SetFont ( ControlHandle, fontname, fontsize, bold, italic, underline, strikeout )
+         IF IsWindowHandle(ControlHandle)
+            FontHandle := _SetFont(ControlHandle, fontname, fontsize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
 
@@ -195,13 +195,13 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
       ENDIF
 
       IF Empty(Value)
-         SetDatePickNull ( ControlHandle )
+         SetDatePickNull(ControlHandle)
       ELSE
-         SetDatePick( ControlHandle, Year( value ), Month( value ), Day( value ) )
+         SetDatePick(ControlHandle, Year(value), Month(value), Day(value))
       ENDIF
 
       IF ValType(tooltip) != "U"
-         SetToolTip ( ControlHandle, tooltip, GetFormToolTipHandle ( ParentFormName ) )
+         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
       IF ValType(Field) != "U"
@@ -258,16 +258,16 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
    _HMG_aControlMiscData2          [k] := ""
 
    IF IsArrayRGB( BackColor )
-      SetDatePickBkColor( ControlHandle, backcolor[1], backcolor[2], backcolor[3] )
+      SetDatePickBkColor(ControlHandle, backcolor[1], backcolor[2], backcolor[3])
    ENDIF
 
    IF IsArrayRGB( FontColor )
-      SetDatePickFontColor( ControlHandle, fontcolor[1], fontcolor[2], fontcolor[3] )
+      SetDatePickFontColor(ControlHandle, fontcolor[1], fontcolor[2], fontcolor[3])
    ENDIF
 
    IF ISCHARACTER( cDateFormat )
 
-      IF SetDatePickerDateFormat( ControlHandle, cDateFormat )
+      IF SetDatePickerDateFormat(ControlHandle, cDateFormat)
          _HMG_aControlSpacing[k] := cDateFormat
       ELSE
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + ": Wrong format string.")
@@ -278,7 +278,7 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
    ENDIF
 
    IF ISDATE( dRangeMin ) .OR. ISDATE( dRangeMax )
-      IF !_SetDatePickerRange( ControlHandle, dRangeMin, dRangeMax, k )
+      IF !_SetDatePickerRange(ControlHandle, dRangeMin, dRangeMax, k)
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + ": Wrong date range.")
       ENDIF
    ENDIF
@@ -287,12 +287,12 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
       Eval( _HMG_bOnControlInit, k, mVar )
 
 #ifdef _OBJECT_
-      ow := _WindowObj ( ParentFormHandle )
-      oc := _ControlObj( ControlHandle )
+      ow := _WindowObj(ParentFormHandle)
+      oc := _ControlObj(ControlHandle)
 #endif
    ENDIF
 
-   Do_ControlEventProcedure ( bInit, k, ow, oc )
+   Do_ControlEventProcedure(bInit, k, ow, oc)
 
 RETURN NIL
 
@@ -321,7 +321,7 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
    hb_default(@notabstop, .F.)
    hb_default(@cTimeFormat, "HH:mm:ss")
 
-   IF ( FontHandle := GetFontHandle( FontName ) ) != 0
+   IF ( FontHandle := GetFontHandle(FontName) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
@@ -387,20 +387,20 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
          AAdd(_HMG_aDialogItems, {nId, k, "SysDateTimePick32", style, 0, x, y, w, h, "", HelpId, tooltip, fontname, fontsize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
-         ControlHandle := GetDialogItemHandle( ParentFormHandle, nId )
+         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
 
-         x := GetWindowCol ( Controlhandle )
-         y := GetWindowRow ( Controlhandle )
+         x := GetWindowCol(Controlhandle)
+         y := GetWindowRow(Controlhandle)
          w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
-         SetWindowStyle ( ControlHandle, Style, .T. )
+         SetWindowStyle(ControlHandle, Style, .T.)
 
       ENDIF
 
    ELSE
 
-      ParentFormHandle := GetFormHandle ( ParentFormName )
+      ParentFormHandle := GetFormHandle(ParentFormName)
 
       ControlHandle := InitTimePick ( ParentFormHandle, 0, x, y, w, h, "", 0, shownone, invisible, notabstop )
 
@@ -409,11 +409,11 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
    IF !lDialogInMemory
 
       IF FontHandle != 0
-         _SetFontHandle ( ControlHandle, FontHandle )
+         _SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         FontHandle := _SetFont ( ControlHandle, fontname, fontsize, bold, italic, underline, strikeout )
+         FontHandle := _SetFont(ControlHandle, fontname, fontsize, bold, italic, underline, strikeout)
       ENDIF
 
       IF _HMG_BeginTabActive
@@ -422,16 +422,16 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
 
       IF Empty(Value)
          IF shownone
-            SetDatePickNull ( ControlHandle )
+            SetDatePickNull(ControlHandle)
          ELSE
-            SetTimePick ( ControlHandle, Val( Left(Time(), 2) ), Val( SubStr(Time(), 4, 2) ), Val( SubStr(Time(), 7, 2) ) )
+            SetTimePick(ControlHandle, Val(Left(Time(), 2)), Val(SubStr(Time(), 4, 2)), Val(SubStr(Time(), 7, 2)))
          ENDIF
       ELSE
-         SetTimePick ( ControlHandle, Val( Left(value, 2) ), Val( SubStr(value, 4, 2) ), Val( SubStr(value, 7, 2) ) )
+         SetTimePick(ControlHandle, Val(Left(value, 2)), Val(SubStr(value, 4, 2)), Val(SubStr(value, 7, 2)))
       ENDIF
 
       IF ValType(tooltip) != "U"
-         SetToolTip ( ControlHandle, tooltip, GetFormToolTipHandle ( ParentFormName ) )
+         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
       IF ValType(Field) != "U"
@@ -491,11 +491,11 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
       Eval( _HMG_bOnControlInit, k, mVar )
    ENDIF
 
-   IF SetDatePickerDateFormat( ControlHandle, cTimeFormat )
+   IF SetDatePickerDateFormat(ControlHandle, cTimeFormat)
       _HMG_aControlSpacing[k] := cTimeFormat
       IF AScan(_HMG_aControlFontAttributes[k], .T.) > 0 .OR. ;
             fontname != _HMG_DefaultFontName .OR. fontsize != _HMG_DefaultFontSize
-         _SetFontName ( ControlName, ParentFormName, fontname )
+         _SetFontName(ControlName, ParentFormName, fontname)
       ENDIF
    ELSE
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + ": Wrong format string.")
@@ -509,7 +509,7 @@ FUNCTION InitDialogDatePicker( ParentFormName, ControlHandle, k )
    ParentFormName := NIL
    ControlHandle := NIL
 
-   _SetValue ( , , _HMG_aControlValue[k], k )
+   _SetValue(, , _HMG_aControlValue[k], k)
    // JP 62
    IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3] // Modal
       _HMG_aControlDeleted[k] := .T.
@@ -518,14 +518,14 @@ FUNCTION InitDialogDatePicker( ParentFormName, ControlHandle, k )
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION _SetDatePickerRange( ControlHandle, dRangeMin, dRangeMax, Index )
+FUNCTION _SetDatePickerRange(ControlHandle, dRangeMin, dRangeMax, Index)
 *-----------------------------------------------------------------------------*
    LOCAL lOK
 
    hb_default(@dRangeMin, BLANK_DATE)
    hb_default(@dRangeMax, BLANK_DATE)
 
-   IF ( lOK := SetDatePickRange( ControlHandle, dRangeMin, dRangeMax ) )
+   IF (lOK := SetDatePickRange(ControlHandle, dRangeMin, dRangeMax))
       _HMG_aControlRangeMin[ Index ] := dRangeMin
       _HMG_aControlRangeMax[ Index ] := dRangeMax
    ENDIF

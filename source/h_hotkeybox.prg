@@ -66,7 +66,7 @@ FUNCTION _DefineHotKeyBox ( ControlName, ParentForm, x, y, w, h, value, fontname
    hb_default(@invisible, .F.)
    hb_default(@notabstop, .F.)
 
-   IF ( FontHandle := GetFontHandle( FontName ) ) != 0
+   IF ( FontHandle := GetFontHandle(FontName) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
@@ -93,17 +93,17 @@ FUNCTION _DefineHotKeyBox ( ControlName, ParentForm, x, y, w, h, value, fontname
 
    cParentForm := ParentForm
 
-   ParentForm := GetFormHandle ( ParentForm )
+   ParentForm := GetFormHandle(ParentForm)
 
    ControlHandle := InitHotKeyBox ( ParentForm, x, y, w, h , "" , 0, invisible, notabstop )
 
    IF FontHandle != 0
-      _SetFontHandle( ControlHandle, FontHandle )
+      _SetFontHandle(ControlHandle, FontHandle)
    ELSE
       __defaultNIL(@FontName, _HMG_DefaultFontName)
       __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-      IF IsWindowHandle( ControlHandle )
-         FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
+      IF IsWindowHandle(ControlHandle)
+         FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
       ENDIF
    ENDIF
 
@@ -111,10 +111,10 @@ FUNCTION _DefineHotKeyBox ( ControlName, ParentForm, x, y, w, h, value, fontname
       AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
    ENDIF
 
-   SetHotKeyValue( ControlHandle, value )
+   SetHotKeyValue(ControlHandle, value)
 
    IF ValType(tooltip) != "U"
-      SetToolTip ( ControlHandle , tooltip , GetFormToolTipHandle ( cParentForm ) )
+      SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(cParentForm))
    ENDIF
 
    k := _GetControlFree()
@@ -175,6 +175,6 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION _GetHotKeyName( cControlName, cFormName )
 *-----------------------------------------------------------------------------*
-   LOCAL cKeyName := C_GETHOTKEYNAME( GetControlHandle( cControlName, cFormName ) )
+   LOCAL cKeyName := C_GETHOTKEYNAME( GetControlHandle(cControlName, cFormName) )
 
 RETURN SubStr(cKeyName, 1, At( Chr( 0 ), cKeyName ) - 1)

@@ -49,9 +49,9 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 #include "i_winuser.ch"
 
 *-----------------------------------------------------------------------------*
-STATIC FUNCTION _DefineFrame ( ControlName, ParentFormName, x, y, w, h, ;
-      caption , fontname , fontsize , opaque , bold, italic, underline, strikeout , ;
-      backcolor , fontcolor , transparent , invisible , nId , bInit )
+STATIC FUNCTION _DefineFrame(ControlName, ParentFormName, x, y, w, h, ;
+      caption, fontname, fontsize, opaque, bold, italic, underline, strikeout, ;
+      backcolor, fontcolor, transparent, invisible, nId, bInit)
 *-----------------------------------------------------------------------------*
    LOCAL ParentFormHandle , ControlHandle , FontHandle
    LOCAL mVar
@@ -63,7 +63,7 @@ STATIC FUNCTION _DefineFrame ( ControlName, ParentFormName, x, y, w, h, ;
    ow := oDlu2Pixel()
 #endif
 
-   IF ( FontHandle := GetFontHandle( FontName ) ) != 0
+   IF ( FontHandle := GetFontHandle(FontName) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory
@@ -101,42 +101,42 @@ STATIC FUNCTION _DefineFrame ( ControlName, ParentFormName, x, y, w, h, ;
 
       ELSE
 
-         ControlHandle := GetDialogItemHandle( ParentFormHandle, nId )
+         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
 
-         x := GetWindowCol ( Controlhandle )
-         y := GetWindowRow ( Controlhandle )
-         w := GetWindowWidth  ( Controlhandle )
+         x := GetWindowCol(Controlhandle)
+         y := GetWindowRow(Controlhandle)
+         w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
          IF ValType(caption) != "U"
             SetWindowText(ControlHandle, caption)
          ENDIF
 
-         SetWindowStyle ( ControlHandle, style, .T. )
+         SetWindowStyle(ControlHandle, style, .T.)
       ENDIF
 
    ELSE
 
-      ParentFormHandle := GetFormHandle ( ParentFormName )
+      ParentFormHandle := GetFormHandle(ParentFormName)
 
-      Controlhandle := InitFrame ( ParentFormHandle, 0, x, y, w, h , caption , "" , 0 , opaque )
+      Controlhandle := InitFrame(ParentFormHandle, 0, x, y, w, h, caption, "", 0, opaque)
 
    ENDIF
 
    IF !lDialogInMemory
 
       IF FontHandle != 0
-         _SetFontHandle( ControlHandle, FontHandle )
+         _SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle( ControlHandle )
-            FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
+         IF IsWindowHandle(ControlHandle)
+            FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
 
-      IF _HMG_IsThemed .AND. ( IsArrayRGB ( backcolor ) .OR. IsArrayRGB ( fontcolor ) )
-         SetWindowTheme ( ControlHandle, "", "" )
+      IF _HMG_IsThemed .AND. ( IsArrayRGB(backcolor) .OR. IsArrayRGB(fontcolor) )
+         SetWindowTheme(ControlHandle, "", "")
       ENDIF
 
       IF _HMG_BeginTabActive
@@ -199,12 +199,12 @@ STATIC FUNCTION _DefineFrame ( ControlName, ParentFormName, x, y, w, h, ;
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
 #ifdef _OBJECT_
-      ow := _WindowObj ( ParentFormHandle )
-      oc := _ControlObj( ControlHandle )
+      ow := _WindowObj(ParentFormHandle)
+      oc := _ControlObj(ControlHandle)
 #endif
    ENDIF
 
-   Do_ControlEventProcedure ( bInit, k, ow, oc )
+   Do_ControlEventProcedure(bInit, k, ow, oc)
 
 RETURN Nil
 
@@ -238,6 +238,6 @@ FUNCTION _BeginFrame( name , parent , row , col , w , h , caption , fontname , f
    hb_default(@w, 140)
    hb_default(@h, 140)
 
-   _DefineFrame ( name , parent , col , row , w , h , caption , fontname , fontsize , opaque , bold, italic, underline, strikeout , backcolor , fontcolor , transparent , invisible , nId, bInit )
+   _DefineFrame(name, parent, col, row, w, h, caption, fontname, fontsize, opaque, bold, italic, underline, strikeout, backcolor, fontcolor, transparent, invisible, nId, bInit)
 
 RETURN Nil

@@ -77,7 +77,7 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
    hb_default(@multitabs, .F.)
    hb_default(@aWidth, {})
 
-   IF ( FontHandle := GetFontHandle( FontName ) ) != 0
+   IF ( FontHandle := GetFontHandle(FontName) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
@@ -162,20 +162,20 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
 
       ELSE
 
-         ControlHandle := GetDialogItemHandle( ParentFormHandle, nId )
+         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
 
-         x := GetWindowCol ( Controlhandle )
-         y := GetWindowRow ( Controlhandle )
-         w := GetWindowWidth  ( Controlhandle )
+         x := GetWindowCol(Controlhandle)
+         y := GetWindowRow(Controlhandle)
+         w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
-         SetWindowStyle ( ControlHandle, Style, .T. )
+         SetWindowStyle(ControlHandle, Style, .T.)
 
       ENDIF
 
    ELSE
 
-      ParentFormHandle := GetFormHandle ( ParentFormName )
+      ParentFormHandle := GetFormHandle(ParentFormName)
 
       IF ValType(x) == "U" .OR. ValType(y) == "U"
 
@@ -193,7 +193,7 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
                ControlHandle := InitListBox ( _HMG_aFormReBarHandle[i] , 0 , 0 , 0 , w , h , "" , 0 , invisible , notabstop, sort, dragitems, multitabs, multicolumn )
             ENDIF
 
-            AddSplitBoxItem ( Controlhandle , _HMG_aFormReBarHandle[i] , w , break , , , , _HMG_ActiveSplitBoxInverted )
+            AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], w, break, , , , _HMG_ActiveSplitBoxInverted)
 
             _HMG_SplitLastControl := "LISTBOX"
 
@@ -214,12 +214,12 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
    IF !lDialogInMemory
 
       IF FontHandle != 0
-         _SetFontHandle( ControlHandle, FontHandle )
+         _SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle( ControlHandle )
-            FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
+         IF IsWindowHandle(ControlHandle)
+            FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
       ENDIF
 
@@ -228,7 +228,7 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
       ENDIF
 
       IF ValType(tooltip) != "U"
-         SetToolTip ( ControlHandle , tooltip , GetFormToolTipHandle ( ParentFormName ) )
+         SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
    ENDIF
@@ -286,18 +286,18 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
 
    IF Len(_HMG_aDialogTemplate) == 0        //Dialog Template
 
-      AEval( Rows , { | r | ListboxAddString ( ControlHandle , r ) } )
+      AEval(Rows, {|r|ListboxAddString(ControlHandle, r)})
       IF multiselect
          IF ISARRAY( value )
-            LISTBOXSETMULTISEL ( ControlHandle , Value )
+            LISTBOXSETMULTISEL(ControlHandle, Value)
          ENDIF
       ELSE
          IF ISNUMBER ( value ) .AND. value <> 0
-            ListboxSetCurSel ( ControlHandle , Value )
+            ListboxSetCurSel(ControlHandle, Value)
          ENDIF
       ENDIF
       IF multitabs
-         LISTBOXSETMULTITAB ( ControlHandle , aWidth )
+         LISTBOXSETMULTITAB(ControlHandle, aWidth)
       ENDIF
    ENDIF
 
@@ -318,19 +318,19 @@ FUNCTION InitDialogListBox( ParentName, ControlHandle, k )
    aWidth := _HMG_aControlRangeMax [k]
    multitabs := _HMG_aControlMiscData1 [k] [2]
 
-   AEval( Rows , { | r | ListboxAddString ( ControlHandle , r ) } )
+   AEval(Rows, {|r|ListboxAddString(ControlHandle, r)})
 
    IF _HMG_aControlType[k] == CONTROL_TYPE_MULTILIST
       IF ISARRAY( value )
-         LISTBOXSETMULTISEL ( ControlHandle , Value )
+         LISTBOXSETMULTISEL(ControlHandle, Value)
       ENDIF
    ELSE
       IF ISNUMBER ( value ) .AND. value <> 0
-         ListboxSetCurSel ( ControlHandle , Value )
+         ListboxSetCurSel(ControlHandle, Value)
       ENDIF
    ENDIF
    IF multitabs
-      LISTBOXSETMULTITAB ( ControlHandle , aWidth )
+      LISTBOXSETMULTITAB(ControlHandle, aWidth)
    ENDIF
 // JP 62
    IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]  // Modal

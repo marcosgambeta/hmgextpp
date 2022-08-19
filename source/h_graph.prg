@@ -172,7 +172,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
          FONT _HMG_DefaultFontName SIZE _HMG_DefaultFontSize + 3;
          BOLD CENTERALIGN VCENTERALIGN
       IF lPrint .OR. lRedraw
-         RedrawWindow( GetControlHandle( cNameObj, parent ) )
+         RedrawWindow(GetControlHandle(cNameObj, parent))
       ENDIF
    ENDIF
 
@@ -246,7 +246,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
                BACKCOLOR iif( lPrint, WHITE, aClrBack );
                FONT _HMG_DefaultFontName SIZE _HMG_DefaultFontSize - 1 RIGHTALIGN
             IF lPrint .OR. lRedraw
-               RedrawWindow( GetControlHandle( cNameObj, parent ) )
+               RedrawWindow(GetControlHandle(cNameObj, parent))
             ENDIF
          ENDIF
          IF nRange * ( - nI ) >= nXMin * ( -1 )
@@ -259,7 +259,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
                BACKCOLOR iif( lPrint, WHITE, aClrBack );
                FONT _HMG_DefaultFontName SIZE _HMG_DefaultFontSize - 1 RIGHTALIGN
             IF lPrint .OR. lRedraw
-               RedrawWindow( GetControlHandle( cNameObj, parent ) )
+               RedrawWindow(GetControlHandle(cNameObj, parent))
             ENDIF
          ENDIF
       ENDIF
@@ -724,7 +724,7 @@ FUNCTION drawpiegraph( windowname, fromrow, fromcol, torow, tocol, series, aname
         fontcolor { 0, 0, 0 }
         backcolor iif( lPrint, WHITE, backcolor )
       end label
-      RedrawWindow( GetControlHandle( cname, windowname ) )
+      RedrawWindow(GetControlHandle(cname, windowname))
       fromrow += 25 + _HMG_DefaultFontSize
    ENDIF
 
@@ -995,7 +995,7 @@ STATIC FUNCTION _bmpprint( cForm, x, y, nLibrary )
 
       IF HBPRNERROR != 0
          DoMethod(cForm, "Release")
-         FErase ( cTempFile )
+         FErase(cTempFile)
          RETURN .F.
       ENDIF
 
@@ -1041,7 +1041,7 @@ STATIC FUNCTION _bmpprint( cForm, x, y, nLibrary )
 
       IF !lSuccess
          DoMethod(cForm, "Release")
-         FErase ( cTempFile )
+         FErase(cTempFile)
          RETURN .F.
       ENDIF
 
@@ -1072,12 +1072,12 @@ STATIC FUNCTION _bmpprint( cForm, x, y, nLibrary )
    ENDIF
 
    DoMethod(cForm, "Release")
-   FErase ( cTempFile )
+   FErase(cTempFile)
 
 RETURN .T.
 
 *-----------------------------------------------------------------------------*
-FUNCTION PrintWindow ( cWindowName, lPreview, ldialog, nRow, nCol, nWidth, nHeight )
+FUNCTION PrintWindow(cWindowName, lPreview, ldialog, nRow, nCol, nWidth, nHeight)
 *-----------------------------------------------------------------------------*
    LOCAL lSuccess, nOrientation
    LOCAL TempName, W, H, HO, VO
@@ -1155,9 +1155,9 @@ FUNCTION PrintWindow ( cWindowName, lPreview, ldialog, nRow, nCol, nWidth, nHeig
 
    ENDIF
 
-   TempName := TempFile ( GetTempFolder(), "BMP" )
+   TempName := TempFile(GetTempFolder(), "BMP")
 
-   SaveWindowByHandle ( GetFormHandle ( cWindowName ), TempName, ntop, nleft, nbottom, nright )
+   SaveWindowByHandle(GetFormHandle(cWindowName), TempName, ntop, nleft, nbottom, nright)
 
    HO := GetPrintableAreaHorizontalOffset()
    VO := GetPrintableAreaVerticalOffset()
@@ -1184,6 +1184,6 @@ FUNCTION PrintWindow ( cWindowName, lPreview, ldialog, nRow, nCol, nWidth, nHeig
    END PRINTDOC
 
    DO EVENTS
-   FErase ( TempName )
+   FErase(TempName)
 
 RETURN NIL

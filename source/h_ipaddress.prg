@@ -65,7 +65,7 @@ FUNCTION _DefineIPAddress ( ControlName, ParentForm, x, y, w, h, aValue, ;
    hb_default(@invisible, .F.)
    hb_default(@notabstop, .F.)
 
-   IF ( FontHandle := GetFontHandle( FontName ) ) != 0
+   IF ( FontHandle := GetFontHandle(FontName) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
@@ -92,17 +92,17 @@ FUNCTION _DefineIPAddress ( ControlName, ParentForm, x, y, w, h, aValue, ;
 
    cParentForm := ParentForm
 
-   ParentForm := GetFormHandle ( ParentForm )
+   ParentForm := GetFormHandle(ParentForm)
 
    ControlHandle := InitIPAddress ( ParentForm, 0, x, y, w, h, invisible, notabstop )
 
    IF FontHandle != 0
-      _SetFontHandle( ControlHandle, FontHandle )
+      _SetFontHandle(ControlHandle, FontHandle)
    ELSE
       __defaultNIL(@FontName, _HMG_DefaultFontName)
       __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-      IF IsWindowHandle( ControlHandle )
-         FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
+      IF IsWindowHandle(ControlHandle)
+         FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
       ENDIF
    ENDIF
 
@@ -111,11 +111,11 @@ FUNCTION _DefineIPAddress ( ControlName, ParentForm, x, y, w, h, aValue, ;
    ENDIF
 
    IF ISARRAY( aValue )
-      SetIPAddress( ControlHandle , aValue[1], aValue[2], aValue[3], aValue[4] )
+      SetIPAddress(ControlHandle, aValue[1], aValue[2], aValue[3], aValue[4])
    ENDIF
 
    IF ValType(tooltip) != "U"
-      SetToolTip ( ControlHandle , tooltip , GetFormToolTipHandle ( cParentForm ) )
+      SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(cParentForm))
    ENDIF
 
    k := _GetControlFree()

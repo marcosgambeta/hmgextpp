@@ -279,7 +279,7 @@ FUNCTION _DefineFolderPage(FolderName, Id, cTitle, cImageName)
       MsgMiniGuiError("FOLDER Page Structures only from Resourses.")
    ENDIF
    IF _IsWindowDefined(FolderName)
-      IF _HMG_aFolderInfo[_HMG_FldID,FLD_AFH] == GetFormHandle (FolderName)
+      IF _HMG_aFolderInfo[_HMG_FldID,FLD_AFH] == GetFormHandle(FolderName)
          MsgMiniGuiError("Folder Page: " + FolderName + " already defined.")
       ENDIF
    ENDIF

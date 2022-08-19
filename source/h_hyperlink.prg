@@ -54,7 +54,7 @@ PROCEDURE _SetAddress ( ControlName , ParentForm , url )
 
    IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0
 
-      _SetAddressControlProcedure ( ControlName , url , i )
+      _SetAddressControlProcedure(ControlName, url, i)
       _HMG_aControlValue[i] := url
 
       IF _HMG_aControlType[i] == CONTROL_TYPE_LABEL
@@ -66,7 +66,7 @@ PROCEDURE _SetAddress ( ControlName , ParentForm , url )
 RETURN
 
 *-----------------------------------------------------------------------------*
-PROCEDURE _SetAddressControlProcedure ( ControlName , url , i )
+PROCEDURE _SetAddressControlProcedure(ControlName, url, i)
 *-----------------------------------------------------------------------------*
 
    DO CASE

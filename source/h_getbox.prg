@@ -157,7 +157,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
       ENDIF
    ENDIF
 
-   IF ( FontHandle := GetFontHandle( FontName ) ) != 0
+   IF ( FontHandle := GetFontHandle(FontName) ) != 0
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
@@ -226,19 +226,19 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
 
       ELSE
 
-         ControlHandle := GetDialogItemHandle( ParentFormHandle, nId )
+         ControlHandle := GetDialogItemHandle(ParentFormHandle, nId)
 
-         x := GetWindowCol    ( ControlHandle )
-         y := GetWindowRow    ( ControlHandle )
-         w := GetWindowWidth  ( ControlHandle )
+         x := GetWindowCol(ControlHandle)
+         y := GetWindowRow(ControlHandle)
+         w := GetWindowWidth(ControlHandle)
          h := GetWindowHeight(ControlHandle)
 
-         SetWindowStyle ( ControlHandle, Style, .T. )
+         SetWindowStyle(ControlHandle, Style, .T.)
       ENDIF
 
    ELSE
 
-      ParentFormHandle := GetFormHandle( ParentFormName )
+      ParentFormHandle := GetFormHandle(ParentFormName)
 
       aControlHandle := InitGetBox ( ParentFormHandle, 0, x, y, w, h, "", 0, nMaxLength, ;
          .F. , .F. , .F. , lPassword , right , readonly , invisible , notabstop, abitmap[1], BtnWidth, lBtns, abitmap[2], lBtn2, noborder )
@@ -250,14 +250,14 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    IF !lDialogInMemory
 
       IF FontHandle != 0
-         _SetFontHandle( ControlHandle, FontHandle )
+         _SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
          __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-         IF IsWindowHandle( ControlHandle )
-            FontHandle := _SetFont ( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
+         IF IsWindowHandle(ControlHandle)
+            FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
          ENDIF
-         SetTbBtnMargin ( ControlHandle, BtnWidth, lBtns, lBtn2 )
+         SetTbBtnMargin(ControlHandle, BtnWidth, lBtns, lBtn2)
       ENDIF
 
       IF _HMG_BeginTabActive
@@ -266,7 +266,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
 
       FOR tmp := 1 TO 3
          IF ValType(aToolTip[tmp]) != "U"
-            SetToolTip ( aControlHandle[tmp], aToolTip[tmp], GetFormToolTipHandle ( ParentFormName ) )
+            SetToolTip ( aControlHandle[tmp], aToolTip[tmp], GetFormToolTipHandle(ParentFormName) )
          ENDIF
       NEXT
 
@@ -360,7 +360,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
          IF oGet:type == "N" .AND. hb_UAt( "B", aPicData[1] ) > 0
             oGet:buffer := LTrim(oGet:buffer)
          ENDIF
-         _DispGetBoxText ( ControlHandle , oGet:buffer )
+         _DispGetBoxText(ControlHandle, oGet:buffer)
       ENDIF
 
       IF ValType(Field) != "U"
@@ -371,12 +371,12 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    IF _HMG_lOOPEnabled
       Eval( _HMG_bOnControlInit, k, mVar )
 #ifdef _OBJECT_
-      ow := _WindowObj ( ParentFormHandle )
-      oc := _ControlObj( ControlHandle )
+      ow := _WindowObj(ParentFormHandle)
+      oc := _ControlObj(ControlHandle)
 #endif
    ENDIF
 
-   Do_ControlEventProcedure ( bInit, k, oGet, ow, oc )
+   Do_ControlEventProcedure(bInit, k, oGet, ow, oc)
 
 RETURN oGet
 
@@ -392,7 +392,7 @@ STATIC PROCEDURE _GetBoxSetNextFocus( lPrevious )
    IF ( i := AScan(_HMG_aControlHandles , NextControlHandle) ) > 0
 
       IF _HMG_aControlType[i] == CONTROL_TYPE_BUTTON
-         SendMessage ( NextControlHandle , BM_SETSTYLE , LOWORD ( BS_DEFPUSHBUTTON ) , 1 )
+         SendMessage(NextControlHandle, BM_SETSTYLE, LOWORD(BS_DEFPUSHBUTTON), 1)
       ENDIF
 
    ENDIF
@@ -409,7 +409,7 @@ PROCEDURE _DataGetBoxRefresh ( i )
 RETURN
 
 *-----------------------------------------------------------------------------*
-PROCEDURE _DataGetBoxSave ( ControlName, ParentForm )
+PROCEDURE _DataGetBoxSave(ControlName, ParentForm)
 *-----------------------------------------------------------------------------*
    LOCAL Field , i
    LOCAL oGet
@@ -419,7 +419,7 @@ PROCEDURE _DataGetBoxSave ( ControlName, ParentForm )
 
    oGet:SetFocus()
    Field := _HMG_aControlPageMap[i]
-   &( Field ) := _GetValue ( ControlName , ParentForm )
+   &( Field ) := _GetValue(ControlName, ParentForm)
 
    oGet:VarPut( &( Field ) )
    oGet:cargo := &( Field )
@@ -681,8 +681,8 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
    CASE nMsg == WM_CHAR
 
-      nStart := LoWord ( SendMessage( _HMG_aControlhandles[i] , EM_GETSEL , 0 , 0 ) ) + 1
-      nEnd   := HiWord ( SendMessage( _HMG_aControlhandles[i] , EM_GETSEL , 0 , 0 ) ) + 1
+      nStart := LoWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0)) + 1
+      nEnd   := HiWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0)) + 1
       oGet:pos := nEnd
       _HMG_aControlMiscData1 [i,3] := wParam  //JP
 
@@ -771,7 +771,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
          RETURN( 0 )
 
-      CASE ( wParam == VK_BACK .AND. lParam <> 0 .AND. !readonly .AND. lAllowEdit .AND. oGet:type != "L" )
+      CASE (wParam == VK_BACK .AND. lParam <> 0 .AND. !readonly .AND. lAllowEdit .AND. oGet:type != "L")
 
          IF nEnd > nStart
 
@@ -963,8 +963,8 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          RETURN( 0 )
       ENDIF
 
-      nStart := LoWord ( SendMessage( _HMG_aControlhandles[i] , EM_GETSEL , 0 , 0 ) )
-      nEnd   := HiWord ( SendMessage( _HMG_aControlhandles[i] , EM_GETSEL , 0 , 0 ) )
+      nStart := LoWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0))
+      nEnd   := HiWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0))
       oGet:pos := nEnd + 1
       _HMG_aControlMiscData1 [i,3] := wParam  //JP
 
@@ -1312,13 +1312,13 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
             SWITCH AScan(aHandle , HwndBtn)
             CASE GBB1
-               _DoControlEventProcedure ( _HMG_aControlProcedures[i] , i )
+               _DoControlEventProcedure(_HMG_aControlProcedures[i], i)
                EXIT
             CASE GBB2
-               _DoControlEventProcedure ( _HMG_aControlDblClick[i] , i )
+               _DoControlEventProcedure(_HMG_aControlDblClick[i], i)
             ENDSWITCH
 
-            SendMessage ( HwndBtn , BM_SETSTYLE , LOWORD ( BS_PUSHBUTTON ) , 1 )
+            SendMessage(HwndBtn, BM_SETSTYLE, LOWORD(BS_PUSHBUTTON), 1)
             setfocus ( aHandle [1] )
 
          ENDIF
@@ -1418,9 +1418,9 @@ PROCEDURE _DispGetBoxText( hWnd, cText )
 
       ControlHandle := _HMG_aControlHandles[i]
 
-      IF IsWindowHandle( ControlHandle )
+      IF IsWindowHandle(ControlHandle)
 
-         IF And ( GetWindowLong( ControlHandle, GWL_STYLE ), ES_PASSWORD ) == ES_PASSWORD
+         IF And(GetWindowLong(ControlHandle, GWL_STYLE), ES_PASSWORD) == ES_PASSWORD
             SetWindowText(ControlHandle, Replicate("*", Len(Trim(cText))))
          ELSE
             SetWindowText(ControlHandle, cText)
@@ -1438,9 +1438,9 @@ STATIC PROCEDURE _SetGetBoxCaret( hWnd )
    HideCaret( hWnd )
    DestroyCaret()
 
-   IF !IsWindowHasStyle ( hWnd, ES_READONLY )
-      CreateCaret( hWnd, 0, iif( lInsert, 2, 4 ), GetWindowHeight(hWnd) )
-      ShowCaret( hWnd )
+   IF !IsWindowHasStyle(hWnd, ES_READONLY)
+      CreateCaret(hWnd, 0, iif(lInsert, 2, 4), GetWindowHeight(hWnd))
+      ShowCaret(hWnd)
    ENDIF
 
 RETURN
@@ -1727,7 +1727,7 @@ RETURN ( _HMG_aControlCaption[i] )
 
 // (JK) HMG Experimental 1.1. Build 14
 *-----------------------------------------------------------------------------*
-STATIC FUNCTION _IsChildOfActiveWindow ( hWnd )
+STATIC FUNCTION _IsChildOfActiveWindow(hWnd)
 *-----------------------------------------------------------------------------*
    LOCAL hActiveWnd := GetActiveWindow()
    LOCAL lRet := ( _GetParent( hWnd ) == hActiveWnd )

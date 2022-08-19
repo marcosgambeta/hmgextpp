@@ -225,7 +225,7 @@ PROCEDURE _EraseFontDef( i )
 RETURN
 
 
-FUNCTION GetFontHandle( FontName )
+FUNCTION GetFontHandle(FontName)
 
    LOCAL i := AScan(_HMG_aControlNames, FontName)
 
@@ -330,10 +330,10 @@ FUNCTION _SetFontAttr( ControlName, ParentForm, Value, nType )
 
    CASE t == CONTROL_TYPE_RADIOGROUP
       _HMG_aControlFontHandle[i] := _SetFont( h[1], n, s, ab, ai, au, as, aa )
-      AEval( h, {|x| SendMessage ( x, WM_SETFONT, _HMG_aControlFontHandle[i], 1 ) }, 2 )
+      AEval( h, {|x| SendMessage(x, WM_SETFONT, _HMG_aControlFontHandle[i], 1) }, 2 )
 
    OTHERWISE
-      IF IsWindowHandle( h )
+      IF IsWindowHandle(h)
          _HMG_aControlFontHandle[i] := _SetFont( h, n, s, ab, ai, au, as, aa )
          IF t == CONTROL_TYPE_MONTHCAL
             SetPosMonthCal ( h, _HMG_aControlCol[i], _HMG_aControlRow[i] )
@@ -346,7 +346,7 @@ FUNCTION _SetFontAttr( ControlName, ParentForm, Value, nType )
 
    IF "LABEL" $ _HMG_aControlType[i] .AND. ISLOGICAL ( _HMG_aControlInputMask[i] )
       IF _HMG_aControlInputMask[i] == .T.
-         _SetValue ( ControlName, ParentForm, _GetValue ( , , i ) )
+         _SetValue(ControlName, ParentForm, _GetValue(, , i))
       ENDIF
    ENDIF
 
@@ -394,7 +394,7 @@ FUNCTION GetFontList( hDC, cFontFamilyName, nCharSet, nPitch, nFontType, lSortCa
    // return is array { { cFontName, nCharSet, nPitchAndFamily, nFontType } , ... }
    LOCAL SortCodeBlock
 
-   IF hb_defaultValue ( lSortCaseSensitive , .F. ) == .T.
+   IF hb_defaultValue(lSortCaseSensitive, .F.) == .T.
       SortCodeBlock := { |x, y| x[1] < y[1] }
    ELSE
       SortCodeBlock := { |x, y| Upper(x[1]) < Upper(y[1]) }

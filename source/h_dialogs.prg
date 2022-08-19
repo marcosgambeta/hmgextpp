@@ -53,8 +53,8 @@ FUNCTION GetColor( aInitColor, aCustomColors, nFlags )
    LOCAL aRetVal [3]
    LOCAL nColor, nInitColor
 
-   IF IsArrayRGB ( aInitColor )
-      nInitColor := RGB ( aInitColor [1], aInitColor [2], aInitColor [3] )
+   IF IsArrayRGB(aInitColor)
+      nInitColor := RGB(aInitColor[1], aInitColor[2], aInitColor[3])
    ENDIF
 
    /* aCustomColors parameter must be the array with 16 RGB-colors elements if it is defined */
@@ -104,7 +104,7 @@ FUNCTION GetFile( aFilter, title, cIniFolder, multiselect, lNoChangeCurDir, nFil
       cFilter += Chr( 0 )
    ENDIF
 
-   files := C_GetFile ( cFilter, title, cIniFolder, multiselect, lNoChangeCurDir, hb_defaultValue(nFilterIndex, 1) )
+   files := C_GetFile(cFilter, title, cIniFolder, multiselect, lNoChangeCurDir, hb_defaultValue(nFilterIndex, 1))
 
    IF multiselect
 
@@ -153,8 +153,8 @@ FUNCTION Putfile( aFilter, title, cIniFolder, lNoChangeCurDir, cDefFileName, ;
       cFilter += Chr( 0 )
    ENDIF
 
-RETURN C_PutFile ( cFilter, title, cIniFolder, lNoChangeCurDir, hb_defaultValue(cDefFileName, ""), ;
-   @nFilterIndex, hb_defaultValue(lPromptOverwrite, .F.) )
+RETURN C_PutFile(cFilter, title, cIniFolder, lNoChangeCurDir, hb_defaultValue(cDefFileName, ""), ;
+   @nFilterIndex, hb_defaultValue(lPromptOverwrite, .F.))
 
 *-----------------------------------------------------------------------------*
 FUNCTION GetFont( cInitFontName , nInitFontSize , lBold , lItalic , anInitColor , lUnderLine , lStrikeOut , nCharset )
