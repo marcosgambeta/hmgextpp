@@ -282,7 +282,7 @@ HB_FUNC( HMG_SETWINDOWOBJECT )
 
    if( IsWindow(hWnd) )
    {
-      pObject = ( PHB_ITEM ) hb_param( 2, HB_IT_OBJECT );
+      pObject = ( PHB_ITEM ) hb_param( 2, Harbour::Item::OBJECT );
 
       if( pObject && HB_IS_OBJECT( pObject ) )
       {

@@ -752,14 +752,14 @@ static ULONG STDMETHODCALLTYPE Invoke( IEventHandler * self, DISPID dispid, REFI
          switch( hb_itemType( pExec ) )
          {
 
-            case HB_IT_BLOCK:
+            case Harbour::Item::BLOCK:
             {
                hb_vmPushEvalSym();
                hb_vmPush( pExec );
                break;
             }
 
-            case HB_IT_STRING:
+            case Harbour::Item::STRING:
             {
                PHB_ITEM pObject = hb_arrayGetItemPtr( pArray, 2 );
                hb_vmPushSymbol( hb_dynsymSymbol( hb_dynsymFindName( hb_itemGetCPtr( pExec ) ) ) );
@@ -776,7 +776,7 @@ static ULONG STDMETHODCALLTYPE Invoke( IEventHandler * self, DISPID dispid, REFI
 
             }
 
-            case HB_IT_POINTER:
+            case Harbour::Item::POINTER:
             {
                hb_vmPushSymbol( hb_dynsymSymbol( ( ( PHB_SYMB ) pExec )->pDynSym ) );
                hb_vmPushNil();
@@ -997,10 +997,10 @@ HB_FUNC( SETUPCONNECTIONPOINT )
       pThis = ( MyRealIEventHandler * ) selfobj;
 
 #ifndef __USEHASHEVENTS
-      pThis->pEventsExec = hb_itemNew( hb_param( 4, HB_IT_ANY ) );
+      pThis->pEventsExec = hb_itemNew( hb_param( 4, Harbour::Item::ANY ) );
 #endif
 
-      pThis->pEvents = hb_itemNew( hb_param( 3, HB_IT_ANY ) );
+      pThis->pEvents = hb_itemNew( hb_param( 3, Harbour::Item::ANY ) );
       HB_STORNL( ( LONG_PTR ) pThis, 2 );
 
    }

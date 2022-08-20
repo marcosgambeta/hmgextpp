@@ -581,7 +581,7 @@ HB_FUNC( GETTIMEZONEBIAS )
 
 HB_FUNC_STATIC( MEMOREAD )
 {
-   PHB_ITEM pFileName = hb_param( 1, HB_IT_STRING );
+   PHB_ITEM pFileName = hb_param( 1, Harbour::Item::STRING );
 
    if( pFileName )
    {
