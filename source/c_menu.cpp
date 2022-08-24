@@ -82,7 +82,7 @@ HBITMAP HMG_LoadPicture(const char * FileName, int New_Width, int New_Height, HW
 HB_FUNC( SETACCELERATORTABLE )
 {
    HWND   hWndMain = ( HWND ) ( LONG_PTR ) HB_PARNL(1);
-   HACCEL hAccel   = ( HACCEL ) ( LONG_PTR ) HB_PARNL(2);
+   HACCEL hAccel   = hmg_par_HACCEL(2);
 
    if( hWndMain && hAccel )
    {
@@ -92,7 +92,7 @@ HB_FUNC( SETACCELERATORTABLE )
 
 HB_FUNC( ACCELERATORTABLE2ARRAY )
 {
-   HACCEL   hAccel  = ( HACCEL ) ( LONG_PTR ) HB_PARNL(1);
+   HACCEL   hAccel  = hmg_par_HACCEL(1);
    PHB_ITEM aAccels = hb_itemArrayNew(0);
 
    if( hAccel )
@@ -168,7 +168,7 @@ HB_FUNC( ARRAY2ACCELERATORTABLE )
 // int WINAPI CopyAcceleratorTable(HACCEL hAccelSrc, LPACCEL lpAccelDst, int cAccelEntries)
 HB_FUNC( COPYACCELERATORTABLE )
 {
-   HACCEL hAccelSrc = ( HACCEL ) ( LONG_PTR ) HB_PARNL(1);
+   HACCEL hAccelSrc = hmg_par_HACCEL(1);
 
    hb_retni(0);
 
@@ -210,7 +210,7 @@ HB_FUNC( CREATEACCELERATORTABLE )
 // BOOL WINAPI DestroyAcceleratorTable(HACCEL hAccel)
 HB_FUNC( DESTROYACCELERATORTABLE )
 {
-   HACCEL hAccel = ( HACCEL ) ( LONG_PTR ) HB_PARNL(1);
+   HACCEL hAccel = hmg_par_HACCEL(1);
 
    hb_retl( DestroyAcceleratorTable(hAccel) ? HB_TRUE : HB_FALSE );
 }
