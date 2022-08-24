@@ -144,7 +144,7 @@ HB_FUNC( SETPROP )
 #else
       pW = AnsiToWide(( char * ) hb_parc(2));
 #endif
-      hb_retl( SetProp(hwnd, pW, ( HANDLE ) ( LONG_PTR ) HB_PARNL(3)) ? HB_TRUE : HB_FALSE );
+      hb_retl( SetProp(hwnd, pW, hmg_par_HANDLE(3)) ? HB_TRUE : HB_FALSE );
    #ifdef UNICODE
       hb_xfree(pW);
    #endif

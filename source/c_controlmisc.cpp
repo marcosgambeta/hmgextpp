@@ -75,7 +75,7 @@ HB_FUNC( _ENABLESCROLLBARS )
 
 HB_FUNC( DELETEOBJECT )
 {
-   HANDLE hRes = ( HANDLE ) HB_PARNL(1);
+   HANDLE hRes = hmg_par_HANDLE(1);
 
    if( hRes )
    {
