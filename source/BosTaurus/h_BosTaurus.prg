@@ -48,7 +48,7 @@
 
 FUNCTION bt_WinHandle(Win)
 
-   LOCAL hWnd := IIF(ValType(Win) == "N", Win, GetFormHandle(Win))
+   LOCAL hWnd := IIF(HB_ISNUMERIC(Win), Win, GetFormHandle(Win))
 
 RETURN hWnd
 

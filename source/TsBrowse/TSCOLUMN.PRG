@@ -284,7 +284,7 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
 
    If aAlign != Nil
       AEval( aAlign, { |nAli,n| ;
-                       aTmpAlign[n] := IIf( ValType(nAli) == "N" .OR. ;
+                       aTmpAlign[n] := IIf( HB_ISNUMERIC(nAli) .OR. ;
                        ValType(nAli) == "B", nAli, ;
                        IIf( ( xVar := AScan({ "LEFT", "CENTER", "RIGHT", "VERT" }, ;
                            Upper(nAli)) ) > 0, xVar - 1, xVar ) ) } )
@@ -396,7 +396,7 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
       ::uBmpCell := bData
       bData := {||Nil}
       cData := "{||Nil}"
-   ElseIf ValType(Eval( bData )) == "N" .AND. lBitMap
+   ElseIf HB_ISNUMERIC(Eval(bData)) .AND. lBitMap
       ::uBmpCell := bData
       bData := {||Nil}
       cData := "{||Nil}"

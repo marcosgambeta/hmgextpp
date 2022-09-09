@@ -54,7 +54,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
       lSql := .F., ;
       lModal := .F.
 
-   IF ValType(uAlias) == "C" .AND. Select( uAlias ) == 0
+   IF ValType(uAlias) == "C" .AND. Select( uAlias ) == 0 // TODO: SWITCH
       nSaveSelect := Select()
       IF lSql
          cTable := GetUniqueName( "SqlTable" )

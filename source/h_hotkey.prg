@@ -186,7 +186,7 @@ FUNCTION HMG_PressKey( ... )  // by Dr. Claudio Soto, April 2016
    LOCAL i
 
    FOR i := 1 TO PCount()
-      IF ValType(PValue( i )) == "N"
+      IF HB_ISNUMERIC(PValue(i))
          AADD(aVK, PValue(i))
       ELSE
          LOOP

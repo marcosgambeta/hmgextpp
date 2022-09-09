@@ -357,7 +357,7 @@ METHOD SetTextColor( clr ) CLASS HBPrinter
    LOCAL lret := ::Textcolor
    IF clr <> NIL
       // BEGIN RL 2003-08-03
-      IF ValType(clr) == "N"
+      IF HB_ISNUMERIC(clr)
          ::TextColor := rr_settextcolor( clr )
       ELSEIF ValType(clr) == "A"
          ::TextColor := rr_settextcolor( RGB ( clr[1], clr[2], clr[3] ) )
@@ -380,7 +380,7 @@ METHOD SetBkColor( clr ) CLASS HBPrinter
 
    LOCAL lret := ::BkColor
    // BEGIN RL 2003-08-03
-   IF ValType(clr) == "N"
+   IF HB_ISNUMERIC(clr)
       ::BkColor := rr_setbkcolor( clr )
    ELSEIF ValType(clr) == "A"
       ::BkColor := rr_setbkcolor( RGB ( clr[1], clr[2], clr[3] ) )
@@ -601,7 +601,7 @@ METHOD SetUnits( newvalue, r, c ) CLASS HBPrinter
 
    LOCAL oldvalue := ::Units
 
-   newvalue := iif( ValType(newvalue) == "N", newvalue, 0 )
+   newvalue := iif( HB_ISNUMERIC(newvalue), newvalue, 0 )
    ::Units := iif( newvalue < 0 .OR. newvalue > 4, 0, newvalue )
    SWITCH ::Units
    CASE 0 // ROWCOL
@@ -621,8 +621,8 @@ METHOD SetUnits( newvalue, r, c ) CLASS HBPrinter
       ::MaxCol := ::DevCaps[4]
       EXIT
    CASE 4 // ROWS   COLS
-      iif( ValType(r) == "N", ::MaxRow := r - 1, NIL )
-      iif( ValType(c) == "N", ::MaxCol := c - 1, NIL )
+      iif( HB_ISNUMERIC(r), ::MaxRow := r - 1, NIL )
+      iif( HB_ISNUMERIC(c), ::MaxCol := c - 1, NIL )
    ENDSWITCH
 
 RETURN oldvalue
@@ -684,7 +684,7 @@ METHOD Say( row, col, txt, defname, lcolor, lalign ) CLASS HBPrinter
    LOCAL atxt := {}, i, lhf := ::getobjbyname( defname, "F" ), oldalign
    LOCAL apos
 
-   DO CASE
+   DO CASE // TODO: SWITCH
    CASE ValType(txt) == "N" ;  AAdd(atxt, Str(txt))
    CASE ValType(txt) == "D" ;  AAdd(atxt, DToC(txt))
    CASE ValType(txt) == "L" ;  AAdd(atxt, iif(txt, ".T.", ".F."))
@@ -696,7 +696,7 @@ METHOD Say( row, col, txt, defname, lcolor, lalign ) CLASS HBPrinter
    apos := ::convert( { row, col } )
    IF lcolor <> NIL
       // BEGIN RL 2003-08-03
-      IF ValType(lcolor) == "N"
+      IF HB_ISNUMERIC(lcolor)
          rr_settextcolor( lcolor )
       ELSEIF ValType(lcolor) == "A"
          rr_settextcolor( RGB ( lcolor[1], lcolor[2], lcolor[3] ) )
@@ -1242,7 +1242,7 @@ METHOD DXCOLORS( par ) CLASS HBPrinter
    IF ValType(par) == "C"
       par := Lower( AllTrim(par) )
       AEval( aColorNames, {| x | iif( x[1] == par, ltemp := x[2], "" ) } )
-   ELSEIF ValType(par) == "N"
+   ELSEIF HB_ISNUMERIC(par)
       ltemp := iif( par <= Len(aColorNames), aColorNames[par, 2], 0 )
    ENDIF
 
@@ -1304,7 +1304,7 @@ RETURN self
 
 STATIC FUNCTION sayconvert( ltxt )
 
-   DO CASE
+   DO CASE // TODO: SWITCH
    CASE ValType(ltxt) $ "MC" ;  RETURN ltxt
    CASE ValType(ltxt) == "N" ;  RETURN Str(ltxt)
    CASE ValType(ltxt) == "D" ;  RETURN DToC( ltxt )

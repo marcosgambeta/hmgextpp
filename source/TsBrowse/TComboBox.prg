@@ -195,7 +195,7 @@ METHOD LostFocus() CLASS TComboBox
 
    If nAt != CB_ERR
       ::nAt = nAt + 1
-      If ValType(Eval( ::bSetGet )) == "N"
+      If HB_ISNUMERIC(Eval(::bSetGet))
          Eval( ::bSetGet, nAt + 1 )
       Else
          Eval( ::bSetGet, ::aItems[ nAt + 1 ] )

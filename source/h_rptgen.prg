@@ -887,7 +887,7 @@ STATIC PROCEDURE _PrintText(aObject, nOffset)
 
    ELSEIF _HMG_RPTDATA[163] == .T.
 
-      IF ValType(cValue) == "N"
+      IF HB_ISNUMERIC(cValue)
          cValue := AllTrim(Str(cValue))
       ELSEIF ValType(cValue) == "D"
          cValue := DToC(cValue)
@@ -907,7 +907,7 @@ STATIC PROCEDURE _PrintText(aObject, nOffset)
 
    ELSEIF _HMG_RPTDATA[150] == .T.
 
-      IF ValType(cValue) == "N"
+      IF HB_ISNUMERIC(cValue)
          cValue := AllTrim(Str(cValue))
       ELSEIF ValType(cValue) == "D"
          cValue := DToC(cValue)

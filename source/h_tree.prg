@@ -259,11 +259,11 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
          TreeView_SetLineColor(ControlHandle, linecolor)
       ENDIF
 
-      IF ValType(indent) == "N"
+      IF HB_ISNUMERIC(indent)
          TreeView_SetIndent(ControlHandle, indent)
       ENDIF
 
-      IF ValType(itemheight) == "N"
+      IF HB_ISNUMERIC(itemheight)
          TreeView_SetItemHeight(ControlHandle, itemheight)
       ENDIF
 

@@ -487,7 +487,7 @@ STATIC FUNCTION _IsControlVisibleFromHandle(Handle)
 
    FOR EACH hControl IN _HMG_aControlHandles
 
-      IF ValType(hControl) == "N"
+      IF HB_ISNUMERIC(hControl)
 
          IF hControl == Handle
             lVisible := _HMG_aControlVisible [ hb_enumindex( hControl ) ]

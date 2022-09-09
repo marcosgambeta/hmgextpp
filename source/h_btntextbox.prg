@@ -373,7 +373,7 @@ FUNCTION TBBtnEvents( hwndEdit, HwndBtn, nMsg )
    LOCAL ParentForm
    LOCAL i, aHandle
 
-   i := AScan(_HMG_aControlSpacing, { |x| ValType(x) == "A" .AND. Len(x) > 0 .AND. ValType(x [1]) == "N" .AND. x [1] == hwndEdit })
+   i := AScan(_HMG_aControlSpacing, { |x| ValType(x) == "A" .AND. Len(x) > 0 .AND. HB_ISNUMERIC(x[1]) .AND. x [1] == hwndEdit })
 
    IF i > 0 .AND. HwndBtn > 0
 

@@ -93,6 +93,7 @@ FUNCTION _LogFile( lCrLf, ... )
             FOR i := 2 TO nParams
                xVal := aParams[i]
                cTp  := ValType(xVal)
+               // TODO: SWITCH
                IF     cTp == "C" ; xVal := iif( Empty(xVal), "'" + "'", Trim(xVal) )
                ELSEIF cTp == "N" ; xVal := hb_ntos( xVal )
                ELSEIF cTp == "L" ; xVal := iif( xVal, ".T.", ".F." )
@@ -390,7 +391,7 @@ FUNCTION xChar( xValue )
    LOCAL cType := ValType(xValue)
    LOCAL cValue := "", nDecimals := Set( _SET_DECIMALS )
 
-   DO CASE
+   DO CASE // TODO: SWITCH
    CASE cType $  "CM"; cValue := xValue
    CASE cType == "N" ; nDecimals := iif( xValue == Int( xValue ), 0, nDecimals ) ; cValue := LTrim(Str(xValue, 20, nDecimals))
    CASE cType == "D" ; cValue := DToS( xValue )
@@ -408,7 +409,7 @@ FUNCTION xValue( cValue, cType )
 *-----------------------------------------------------------------------------*
    LOCAL xValue
 
-   DO CASE
+   DO CASE // TODO: SWITCH
    CASE cType $  "CM"; xValue := cValue
    CASE cType == "D" ; xValue := SToD( cValue )
    CASE cType == "N" ; xValue := Val( cValue )

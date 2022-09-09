@@ -912,7 +912,7 @@ RetValue(lRet, def) --> .T.|.F.
 STATIC FUNCTION RetValue(lRet, def)
 
    IF lRet == NIL .OR. ValType(lRet) != "L"
-      IF ValType(lRet) == "N"
+      IF HB_ISNUMERIC(lRet)
          lRet := iif(lRet == 0, .F., .T.)
       ELSE
          lRet := def

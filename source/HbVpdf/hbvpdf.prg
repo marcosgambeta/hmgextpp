@@ -2625,7 +2625,7 @@ STATIC FUNCTION WriteData( hFile, xData )
 
    LOCAL cData := ValType(xData)
 
-   IF HB_ISSTRING( xData )
+   IF HB_ISSTRING( xData ) // TODO: SWITCH
       cData += I2Bin(Len(xData)) + xData
    ELSEIF HB_ISNUMERIC(xData)
       cData += I2Bin(Len(hb_ntos(xData))) + hb_ntos(xData)

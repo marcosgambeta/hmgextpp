@@ -383,7 +383,7 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
          AFill(_HMG_aControlRangeMax[k], 1)
          IF Len(columnsort) > 0
             FOR i := 1 TO Min(Len(columnsort), Len(_HMG_aControlRangeMax[k]))
-               IF ValType(columnsort[i]) == "N"
+               IF HB_ISNUMERIC(columnsort[i])
                   _HMG_aControlRangeMax[k][i] := columnsort[i]
                ENDIF
             NEXT i

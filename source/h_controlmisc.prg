@@ -1589,7 +1589,7 @@ FUNCTION _ShowControl(ControlName, ParentForm)
                         ENDIF
                         EXIT
                      ENDIF
-                  ELSEIF ValType(_HMG_aControlPageMap[i][r][w]) == "N"
+                  ELSEIF HB_ISNUMERIC(_HMG_aControlPageMap[i][r][w])
                      IF _HMG_aControlPageMap[i][r][w] == _HMG_aControlHandles[y]
                         IF r != s
                            TabHide := .T.
@@ -1599,7 +1599,7 @@ FUNCTION _ShowControl(ControlName, ParentForm)
                   ENDIF
 #endif
                ELSE
-                  IF ValType(_HMG_aControlPageMap[i][r][w]) == "N"
+                  IF HB_ISNUMERIC(_HMG_aControlPageMap[i][r][w])
                      IF _HMG_aControlPageMap[i][r][w] == _HMG_aControlHandles[y]
                         IF r != s
                            TabHide := .T.
@@ -3472,7 +3472,7 @@ FUNCTION InputWindow(cTitle, aLabels, aValues, aFormats, nRow, nCol, lCenterWind
    FOR i := 1 TO l
 
       IF ValType(aValues[i]) == "C"
-         IF ValType(aFormats[i]) == "N"
+         IF HB_ISNUMERIC(aFormats[i])
             IF aFormats[i] > 32
                e++
             ENDIF
@@ -3539,7 +3539,7 @@ FUNCTION InputWindow(cTitle, aLabels, aValues, aFormats, nRow, nCol, lCenterWind
          ENDIF
          EXIT
       CASE "C"
-         IF ValType(aFormats[i]) == "N"
+         IF HB_ISNUMERIC(aFormats[i])
             IF aFormats[i] <= 32
                @ ControlRow, ControlCol TEXTBOX (CN) VALUE aValues[i] WIDTH nControlWidth MAXLENGTH aFormats[i]
             ELSE
@@ -3733,7 +3733,7 @@ FUNCTION _ReleaseControl(ControlName, ParentForm)
                         ASize(_HMG_aControlPageMap[y][r], Len(_HMG_aControlPageMap[y][r]) - 1)
                         EXIT
                      ENDIF
-                  ELSEIF ValType(_HMG_aControlPageMap[y][r][w]) == "N"
+                  ELSEIF HB_ISNUMERIC(_HMG_aControlPageMap[y][r][w])
                      IF _HMG_aControlPageMap[y][r][w] == _HMG_aControlHandles[i]
                         ADel(_HMG_aControlPageMap[y][r], w)
                         ASize(_HMG_aControlPageMap[y][r], Len(_HMG_aControlPageMap[y][r]) - 1)
@@ -3743,7 +3743,7 @@ FUNCTION _ReleaseControl(ControlName, ParentForm)
                   EXIT
 #endif
                OTHERWISE
-                  IF ValType(_HMG_aControlPageMap[y][r][w]) == "N"
+                  IF HB_ISNUMERIC(_HMG_aControlPageMap[y][r][w])
                      IF _HMG_aControlPageMap[y][r][w] == _HMG_aControlHandles[i]
                         ADel(_HMG_aControlPageMap[y][r], w)
                         ASize(_HMG_aControlPageMap[y][r], Len(_HMG_aControlPageMap[y][r]) - 1)
@@ -5623,7 +5623,7 @@ FUNCTION DoMethod(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9)
             ENDIF
          ENDSWITCH
 
-      ELSEIF ValType(Arg3) == "N" // TAB CHILD WITHOUT ARGUMENTS
+      ELSEIF HB_ISNUMERIC(Arg3) // TAB CHILD WITHOUT ARGUMENTS
 
          IsControlInTabPage(Arg1, Arg2, Arg3, Arg4)
          DoMethod(Arg1, Arg4, Arg5)
@@ -5662,7 +5662,7 @@ FUNCTION DoMethod(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9)
          CASE "ADDPAGE" ; _AddTabPage(Arg2, Arg1, Arg4, Arg5, Arg6)
          ENDSWITCH
 
-      ELSEIF ValType(Arg3) == "N" // TAB CHILD WITH 1 ARGUMENT
+      ELSEIF HB_ISNUMERIC(Arg3) // TAB CHILD WITH 1 ARGUMENT
 
          IsControlInTabPage(Arg1, Arg2, Arg3, Arg4)
          DoMethod(Arg1, Arg4, Arg5, Arg6)
@@ -5707,7 +5707,7 @@ FUNCTION DoMethod(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9)
             ENDIF
          ENDSWITCH
 
-      ELSEIF ValType(Arg3) == "N" // TAB CHILD WITH 2 ARGUMENTS
+      ELSEIF HB_ISNUMERIC(Arg3) // TAB CHILD WITH 2 ARGUMENTS
 
          IsControlInTabPage(Arg1, Arg2, Arg3, Arg4)
          DoMethod(Arg1, Arg4, Arg5, Arg6, Arg7)
@@ -5724,7 +5724,7 @@ FUNCTION DoMethod(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9)
          RETURN NIL
       ENDIF
 
-      IF ValType(Arg3) == "N"
+      IF HB_ISNUMERIC(Arg3)
          IsControlInTabPage(Arg1, Arg2, Arg3, Arg4)
          DoMethod(Arg1, Arg4, Arg5, Arg6, Arg7, Arg8)
       ENDIF
@@ -5739,7 +5739,7 @@ FUNCTION DoMethod(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9)
          RETURN NIL
       ENDIF
 
-      IF ValType(Arg3) == "N"
+      IF HB_ISNUMERIC(Arg3)
          IsControlInTabPage(Arg1, Arg2, Arg3, Arg4)
          DoMethod(Arg1, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9)
       ENDIF
@@ -5942,7 +5942,7 @@ FUNCTION GetControlTabPage(cControlName, cTabName, cParentWindowName)
 
          FOR EACH c IN tabpage
 
-            IF ValType(c) == "N" .AND. ValType(xControlHandle) == "N"
+            IF HB_ISNUMERIC(c) .AND. HB_ISNUMERIC(xControlHandle)
                IF c == xControlHandle
                   nRetVal := k
                   EXIT
@@ -5959,7 +5959,7 @@ FUNCTION GetControlTabPage(cControlName, cTabName, cParentWindowName)
                   EXIT
                ENDIF
 
-            ELSEIF ValType(c) == "A" .AND. ValType(xControlHandle) == "N"
+            ELSEIF ValType(c) == "A" .AND. HB_ISNUMERIC(xControlHandle)
                IF AScan(c, xControlHandle) <> 0
                   nRetVal := k
                   EXIT
@@ -6423,12 +6423,12 @@ STATIC FUNCTION HMG_CompareHandle(Handle1, Handle2, /*@*/nSubIndex1, /*@*/nSubIn
 
    nSubIndex1 := nSubIndex2 := 0
 
-   IF ValType(Handle1) == "N" .AND. ValType(Handle2) == "N"
+   IF HB_ISNUMERIC(Handle1) .AND. HB_ISNUMERIC(Handle2)
       IF Handle1 == Handle2
          RETURN .T.
       ENDIF
 
-   ELSEIF ValType(Handle1) == "A" .AND. ValType(Handle2) == "N"
+   ELSEIF ValType(Handle1) == "A" .AND. HB_ISNUMERIC(Handle2)
       FOR i = 1 TO Len(Handle1)
          IF Handle1[i] == Handle2
             nSubIndex1 := i
@@ -6436,7 +6436,7 @@ STATIC FUNCTION HMG_CompareHandle(Handle1, Handle2, /*@*/nSubIndex1, /*@*/nSubIn
          ENDIF
       NEXT
 
-   ELSEIF ValType(Handle1) == "N" .AND. ValType(Handle2) == "A"
+   ELSEIF HB_ISNUMERIC(Handle1) .AND. ValType(Handle2) == "A"
       FOR k = 1 TO Len(Handle2)
          IF Handle1 == Handle2[k]
             nSubIndex2 := k
@@ -6797,13 +6797,13 @@ FUNCTION _GetFocusedControl(cFormName)
 
          IF _HMG_aControlParentHandles[i] == hFormHandle
 
-            IF ValType(hControl) == "N"
+            IF HB_ISNUMERIC(hControl)
 
                IF hControl == hFocusedControlHandle .OR. ;
-                  (!Empty(_HMG_aControlType[i]) .AND. (ValType(_HMG_aControlRangeMin[i]) == "N" .AND. _HMG_aControlRangeMin[i] == hFocusedControlHandle) .OR. ;
-                  (ValType(_HMG_aControlRangeMax[i]) == "N" .AND. _HMG_aControlRangeMax[i] == hFocusedControlHandle)) .OR. ;
-                  (ISARRAY(_HMG_aControlSpacing[i]) .AND. ValType(_HMG_aControlSpacing[i][1]) == "N" .AND. AScan(_HMG_aControlSpacing[i], hFocusedControlHandle) > 0) .OR. ;
-                  (ISARRAY(_HMG_aControlRangeMin[i]) .AND. ValType(_HMG_aControlRangeMin[i][1]) == "N" .AND. AScan(_HMG_aControlRangeMin[i], hFocusedControlHandle) > 0)
+                  (!Empty(_HMG_aControlType[i]) .AND. (HB_ISNUMERIC(_HMG_aControlRangeMin[i]) .AND. _HMG_aControlRangeMin[i] == hFocusedControlHandle) .OR. ;
+                  (HB_ISNUMERIC(_HMG_aControlRangeMax[i]) .AND. _HMG_aControlRangeMax[i] == hFocusedControlHandle)) .OR. ;
+                  (ISARRAY(_HMG_aControlSpacing[i]) .AND. HB_ISNUMERIC(_HMG_aControlSpacing[i][1]) .AND. AScan(_HMG_aControlSpacing[i], hFocusedControlHandle) > 0) .OR. ;
+                  (ISARRAY(_HMG_aControlRangeMin[i]) .AND. HB_ISNUMERIC(_HMG_aControlRangeMin[i][1]) .AND. AScan(_HMG_aControlRangeMin[i], hFocusedControlHandle) > 0)
 
                   cRetVal := _HMG_aControlNames[i]
 
@@ -7765,7 +7765,7 @@ FUNCTION HMG_GetFormControls(cFormName, cUserType)
 
       IF h == hWnd .AND. iif(cUserType == "ALL", .T., GetUserControlType(_HMG_aControlNames[i], GetParentFormName(i)) == cUserType)
 
-         IF ValType(_HMG_aControlHandles[i]) == "N"
+         IF HB_ISNUMERIC(_HMG_aControlHandles[i])
 
             IF !Empty(_HMG_aControlNames[i])
 

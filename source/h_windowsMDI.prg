@@ -106,7 +106,7 @@ FUNCTION MdiEvents(hWnd, nMsg, wParam, lParam)
          oGet := GetObjectByClientMDI(hWnd)
          IF ValType(oGet) == "O"
             x := oGet:HandleEvent(nMsg, wParam, lParam)
-            IF ValType(x) == "N"
+            IF HB_ISNUMERIC(x)
                IF x != 0
                   RETURN x
                ENDIF

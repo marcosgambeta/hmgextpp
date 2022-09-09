@@ -793,7 +793,7 @@ METHOD TextWidth(cText, nSize, cFont, lBold, cChar) CLASS TDlu2Pix
    lBold := hb_defaultValue(lBold, .F.)
    cFont := hb_defaultValue(cFont, _HMG_DefaultFontName)
    nSize := hb_defaultValue(nSize, iif(Empty(::nSize), _HMG_DefaultFontSize, ::nSize))
-   IF ValType(cText) == "N" ; cText := Replicate( cChar, cText )
+   IF HB_ISNUMERIC(cText) ; cText := Replicate( cChar, cText )
    ENDIF
    hFont := InitFont( cFont, nSize, lBold )
    nWidth := GetTextWidth(Nil, cText, hFont)

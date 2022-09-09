@@ -1557,7 +1557,7 @@ METHOD New( cControlName, nRow, nCol, nWidth, nHeight, bLine, aHeaders, aColSize
       ParentHandle := GetFormHandle( cParentWnd )
    ENDIF
 
-   DO CASE
+   DO CASE // TODO: SWITCH
    CASE ValType(uSelector) == "C"
       ::lSelector := .T.
       ::hBmpCursor := LoadImage( uSelector )
@@ -2566,7 +2566,7 @@ METHOD AddSuperHead( nFromCol, nToCol, uHead, nHeight, aColors, l3dLook, uFont, 
 
    cHeading := iif( ValType(uHead) == "B", Eval( uHead ), uHead )
 
-   DO CASE
+   DO CASE // TODO: SWITCH
 
    CASE ValType(cHeading) == "C" .AND. ( nAt := At( Chr( 13 ), cHeading ) ) > 0
 
@@ -2950,11 +2950,11 @@ METHOD Default() CLASS TSBrowse
 
       FOR nI := 1 TO nElements
 
-         IF ValType(aFields[nI]) == "N" .OR. ValType(aFields[nI]) == "D"
+         IF HB_ISNUMERIC(aFields[nI]) .OR. ValType(aFields[nI]) == "D"
             aJustify[nI] := 2
          ELSEIF ValType(aFields[nI]) == "B"
 
-            IF ValType(Eval( aFields[nI] )) == "N" .OR. ValType(Eval( aFields[nI] )) == "D"
+            IF HB_ISNUMERIC(Eval(aFields[nI])) .OR. ValType(Eval( aFields[nI] )) == "D"
 
                aJustify[nI] := 2
             ELSE
@@ -4339,7 +4339,7 @@ METHOD DrawLine( xRow, lDrawCell ) CLASS TSBrowse
          IF nJ == ::nColSel .AND. ::uBmpSel != NIL .AND. lSelected
             uBmpCell := ::uBmpSel
             nAlign := nMakeLong( LoWord(nAlign), ::nAligBmp )
-         ELSEIF oColumn:lBitMap .AND. ValType(uData) == "N"
+         ELSEIF oColumn:lBitMap .AND. HB_ISNUMERIC(uData)
             aBitMaps := iif( ValType(oColumn:aBitMaps) == "A", oColumn:aBitMaps, ::aBitMaps )
             IF !Empty(aBitMaps) .AND. uData > 0 .AND. uData <= Len(aBitMaps)
                uBmpCell := aBitMaps[uData]
@@ -4878,7 +4878,7 @@ METHOD DrawSelect( xRow, lDrawCell ) CLASS TSBrowse
             IF nJ == ::nColSel .AND. ::uBmpSel != NIL .AND. lSelected
                uBmpCell := ::uBmpSel
                nAlign := nMakeLong( LoWord(nAlign), ::nAligBmp )
-            ELSEIF oColumn:lBitMap .AND. ValType(uData) == "N"
+            ELSEIF oColumn:lBitMap .AND. HB_ISNUMERIC(uData)
                aBitMaps := iif( ValType(oColumn:aBitMaps) == "A", oColumn:aBitMaps, ::aBitMaps )
                IF !Empty(aBitMaps) .AND. uData > 0 .AND. uData <= Len(aBitMaps)
                   uBmpCell := aBitMaps[uData]
@@ -4910,7 +4910,7 @@ METHOD DrawSelect( xRow, lDrawCell ) CLASS TSBrowse
                nClrBack := ::GetValProp( oColumn:nClrFocuBack, nClrPane, nJ, ::nAt )
                IF !Empty(oColumn:cName) .AND. oColumn:cName == "oPhant"
                   nClrBack := nClrPane
-               ELSEIF ValType(nClrBack) == "N" .AND. nClrBack < 0
+               ELSEIF HB_ISNUMERIC(nClrBack) .AND. nClrBack < 0
                   nClrBack *= -1
                ENDIF
             ELSE
@@ -4932,7 +4932,7 @@ METHOD DrawSelect( xRow, lDrawCell ) CLASS TSBrowse
 
             nClrBack := ::GetValProp( nClrBack, nClrBack, nJ, ::nAt )
 
-            IF ValType(nClrBack) == "N" .AND. nClrBack < 0
+            IF HB_ISNUMERIC(nClrBack) .AND. nClrBack < 0
                nCursor := Abs( nClrBack )
                nClrBack := ::GetValProp( oColumn:nClrBack, nClrPane, nJ, ::nAt )
             ELSE
@@ -5734,7 +5734,7 @@ METHOD Edit( uVar, nCell, nKey, nKeyFlags, cPicture, bValid, nClrFore, nClrBack 
             uValue := Max(1, AScan(aGet, Upper(Chr(nKey))))
          ENDIF
 
-         IF ValType(::bDataEval( oCol )) == "N"
+         IF HB_ISNUMERIC(::bDataEval(oCol))
             nWidth := 0
             AEval( aGet, {| x | nWidth := Max(Len(x), nWidth) } )
             nWidth := Max(GetTextWidth(0, Replicate("B", nWidth), hFont), oCol:nWidth)
@@ -5981,10 +5981,10 @@ METHOD EditExit( nCol, nKey, uVar, bValid, lLostFocus ) CLASS TSBrowse
          IF cType == "L"
             uValue := ( oCol:oEdit:nAt == 1 )
             uVar := iif( ValType(uVar) == "C", ( AScan(oCol:aItems, uVar) == 1 ), ;
-               iif( ValType(uVar) == "N", ( uVar == 1 ), uVar ) )
+               iif( HB_ISNUMERIC(uVar), ( uVar == 1 ), uVar ) )
          ELSE
             IF oCol:aData != NIL
-               IF ValType(uValue) == "N" .AND. ValType(uVar) == "C"
+               IF HB_ISNUMERIC(uValue) .AND. ValType(uVar) == "C"
                   uVar := AScan(oCol:aData, uVar)
                ENDIF
                ::lChanged := ( oCol:oEdit:nAt != uVar ) // JP 69
@@ -6546,7 +6546,7 @@ METHOD Excel2( cFile, lActivate, hProgress, cTitle, lSave, bPrintRow ) CLASS TSB
 
          nPic := iif( ! Empty(::aColumns[nCol]:cPicture), anPIC[nCol], Nil )
 
-         IF ValType(uData) == "N"
+         IF HB_ISNUMERIC(uData)
             FWrite( nHandle, BiffRec( 3, uData, nLine - 1, nCol - 1, .T., nAlign + 1, nPic, Max(0, nFont - 1) ) )
          ELSE
             uData := Trim(StrTran(cValToChar(uData), CRLF, Chr( 10 )))
@@ -6858,7 +6858,7 @@ METHOD ExcelOle( cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, bExtern, 
 
          uData := ::bDataEval( ::aColumns[nCol] )
 
-         IF ValType(uData) == "C"
+         IF ValType(uData) == "C" // TODO: SWITCH
             oSheet:Cells( nLine, nCol ):NumberFormat := "@"
 
             IF At( CRLF, uData ) > 0
@@ -7122,7 +7122,7 @@ METHOD ExpLocate( cExp, nCol ) CLASS TSBrowse
    ENDIF
 
    IF ::lIsArr .AND. ::bSetGet != NIL
-      IF ValType(Eval( ::bSetGet )) == "N"
+      IF HB_ISNUMERIC(Eval(::bSetGet))
          Eval( ::bSetGet, ::nAt )
       ELSEIF ::nLen > 0
          Eval( ::bSetGet, ::aArray[::nAt, 1] )
@@ -7410,7 +7410,7 @@ METHOD ExpSeek( cExp, lSoft ) CLASS TSBrowse
    ENDIF
 
    IF ::lIsArr .AND. ::bSetGet != NIL
-      IF ValType(Eval( ::bSetGet )) == "N"
+      IF HB_ISNUMERIC(Eval(::bSetGet))
          Eval( ::bSetGet, ::nAt )
       ELSEIF ::nLen > 0
          Eval( ::bSetGet, ::aArray[::nAt, 1] )
@@ -7636,7 +7636,7 @@ METHOD GoBottom() CLASS TSBrowse
       ::Refresh( ::nLen < nLines )
 
       IF ::lIsArr .AND. ::bSetGet != NIL
-         IF ValType(Eval( ::bSetGet )) == "N"
+         IF HB_ISNUMERIC(Eval(::bSetGet))
             Eval( ::bSetGet, ::nAt )
          ELSEIF ::nLen > 0
             Eval( ::bSetGet, ::aArray[::nAt, 1] )
@@ -8284,7 +8284,7 @@ METHOD GoPos( nNewRow, nNewCol ) CLASS TSBrowse
    ::lHitTop := ::nAt == 1
 
    IF ::lIsArr .AND. ::bSetGet != NIL
-      IF ValType(Eval( ::bSetGet )) == "N"
+      IF HB_ISNUMERIC(Eval(::bSetGet))
          Eval( ::bSetGet, ::nAt )
       ELSEIF ::nLen > 0
          Eval( ::bSetGet, ::aArray[::nAt, 1] )
@@ -8538,7 +8538,7 @@ METHOD GoTop() CLASS TSBrowse
       ENDIF
 
       IF ::lIsArr .AND. ::bSetGet != NIL
-         IF ValType(Eval( ::bSetGet )) == "N"
+         IF HB_ISNUMERIC(Eval(::bSetGet))
             Eval( ::bSetGet, ::nAt )
          ELSEIF ::nLen > 0
             Eval( ::bSetGet, ::aArray[::nAt, 1] )
@@ -8788,7 +8788,7 @@ METHOD KeyDown( nKey, nFlags ) CLASS TSBrowse
 
       uReturn := Eval( ::bUserKeys, nKey, nFlags, Self )
 
-      IF uReturn != NIL .AND. ValType(uReturn) == "N" .AND. uReturn < 200 // interpreted as a virtual key code to
+      IF uReturn != NIL .AND. HB_ISNUMERIC(uReturn) .AND. uReturn < 200 // interpreted as a virtual key code to
          nKey := uReturn // change the original key pressed
       ELSEIF uReturn != NIL .AND. ValType(uReturn) == "L" .AND. ! uReturn
          ::nUserKey := 255 // want to inhibit the KeyDown and KeyChar Methods for key pressed
@@ -9250,7 +9250,7 @@ METHOD LButtonDown( nRowPix, nColPix, nKeyFlags ) CLASS TSBrowse
       ENDIF
    ENDIF
 
-   IF lHeader .AND. ValType(nKeyFlags) == "N"
+   IF lHeader .AND. HB_ISNUMERIC(nKeyFlags)
       lMChange := ::lMChange
       ::lMChange := .F.
 
@@ -9643,7 +9643,7 @@ METHOD LoadFields( lEditable, aColSel, cAlsSel, aNameSel, aHeadSel ) CLASS TSBro
       IF ( nType := AScan(aAdsType, {| e | e[1] == cType }) ) > 0
          cType := aAdsType[nType, 2]
       ENDIF
-      IF cType == "C"
+      IF cType == "C" // TODO: SWITCH
          cPicture := "@K " + Replicate( "X", aStru[nE, 3] )
       ELSEIF cType == "N"
          cPicture := Replicate( "9", aStru[nE, 3] )
@@ -9665,7 +9665,7 @@ METHOD LoadFields( lEditable, aColSel, cAlsSel, aNameSel, aHeadSel ) CLASS TSBro
          hFont := iif( ::hFont != NIL, ::hFont, 0 )
          hFontH := iif( ::hFontHead != NIL, ::hFontHead, ::hFont )
 
-         IF cType == "C"
+         IF cType == "C" // TODO: SWITCH
             cData := PadR( Trim(cData), nSize, "B" )
             nSize := GetTextWidth(0, cData, hFont)
          ELSEIF cType == "N"
@@ -10594,7 +10594,7 @@ METHOD LoadRecordSet() CLASS TSBrowse
          ::Proper( ::oRSet:Fields( nE ):Name ) )
 
       nAlign := iif( ::aJustify != NIL .AND. Len(::aJustify) >= n, ::aJustify[n], ;
-         iif( ValType(::oRSet:Fields( nE ):Value) == "N", 2, ;
+         iif( HB_ISNUMERIC(::oRSet:Fields(nE):Value), 2, ;
          iif( ValType(::oRSet:Fields( nE ):Value) == "L", 1, 0 ) ) )
 
       nAlign := iif( ValType(nAlign) == "L", iif( nAlign, 2, 0 ), ;
@@ -13398,14 +13398,14 @@ METHOD SetArrayTo( aArray, uFontHF, aHead, aSizes, uFooter, aPicture, aAlign, aN
       aAlign := iif( ISARRAY( ::aJustify ), AClone( ::aJustify ), {} ), ;
       aName := {}
 
-   IF ValType(uFontHF) == "N" .AND. uFontHF != 0
+   IF HB_ISNUMERIC(uFontHF) .AND. uFontHF != 0
       hFontHead := uFontHF
       hFontFoot := uFontHF
    ELSEIF ValType(uFontHF) == "A" .AND. Len(uFontHF) >= 2
-      IF ValType(uFontHF[1]) == "N" .AND. uFontHF[1] != 0
+      IF HB_ISNUMERIC(uFontHF[1]) .AND. uFontHF[1] != 0
          hFontHead := uFontHF[1]
       ENDIF
-      IF ValType(uFontHF[2]) == "N" .AND. uFontHF[2] != 0
+      IF HB_ISNUMERIC(uFontHF[2]) .AND. uFontHF[2] != 0
          hFontFoot := uFontHF[2]
       ENDIF
    ENDIF
@@ -13584,7 +13584,7 @@ METHOD SetArrayTo( aArray, uFontHF, aHead, aSizes, uFooter, aPicture, aAlign, aN
          ENDIF
       ENDIF
 
-      IF ValType(aAlign[nI]) == "N" .AND. ( aAlign[nI] == DT_LEFT .OR. ;
+      IF HB_ISNUMERIC(aAlign[nI]) .AND. ( aAlign[nI] == DT_LEFT .OR. ;
             aAlign[nI] == DT_CENTER .OR. ;
             aAlign[nI] == DT_RIGHT )
          nAlign := aAlign[nI]
@@ -13618,7 +13618,7 @@ METHOD SetArrayTo( aArray, uFontHF, aHead, aSizes, uFooter, aPicture, aAlign, aN
       nMax := Max(nMax, nFooter)
 
       IF !Empty(aSizes)
-         IF ValType(aSizes[nI]) == "N" .AND. aSizes[nI] > 0
+         IF HB_ISNUMERIC(aSizes[nI]) .AND. aSizes[nI] > 0
             nMax := aSizes[nI]
          ELSEIF ValType(aSizes[nI]) == "C"
             nMax := GetTextWidth(0, aSizes[nI], hFont)
@@ -13729,7 +13729,7 @@ METHOD SetColor( xColor1, xColor2, nColumn ) CLASS TSBrowse
       RETURN NIL
    ENDIF
 
-   IF ValType(xColor1) == "N" .AND. ValType(xColor2) == "N" .AND. nColumn == 0
+   IF HB_ISNUMERIC(xColor1) .AND. HB_ISNUMERIC(xColor2) .AND. nColumn == 0
       RETURN ::SetColor( xColor1, xColor2 ) // FW SetColor Method only nClrText and nClrPane
    ENDIF
 
@@ -13738,14 +13738,14 @@ METHOD SetColor( xColor1, xColor2, nColumn ) CLASS TSBrowse
       ::hBrush := CreateSolidBrush( GetRed( nColor ), GetGreen( nColor ), GetBlue( nColor ) )
    ENDIF
 
-   IF nColumn == 0 .AND. ValType(xColor2[1]) == "N" .AND. ValType(xColor1) == "A" .AND. xColor1[1] == 1 .AND. ;
-         Len(xColor1) > 1 .AND. ValType(xColor2) == "A" .AND. ValType(xColor2[2]) == "N" .AND. xColor1[2] == 2
+   IF nColumn == 0 .AND. HB_ISNUMERIC(xColor2[1]) .AND. ValType(xColor1) == "A" .AND. xColor1[1] == 1 .AND. ;
+         Len(xColor1) > 1 .AND. ValType(xColor2) == "A" .AND. HB_ISNUMERIC(xColor2[2]) .AND. xColor1[2] == 2
 
       nColor := iif( ValType(xColor2[2]) == "B", Eval( xColor2[2], 1, 1, Self ), xColor2[2] )
       ::Super:SetColor( xColor2[1], nColor )
    ENDIF
 
-   IF ValType(xColor1) == "N"
+   IF HB_ISNUMERIC(xColor1)
       xColor1 := { xColor1 }
       xColor2 := { xcolor2 }
    ENDIF
@@ -14880,7 +14880,7 @@ METHOD SetOrder( nColumn, cPrefix, lDescend ) CLASS TSBrowse
       ENDIF
 
       IF ::bSetGet != NIL
-         IF ValType(Eval( ::bSetGet )) == "N"
+         IF HB_ISNUMERIC(Eval(::bSetGet))
             Eval( ::bSetGet, ::nAt )
          ELSEIF ::nLen > 0
             Eval( ::bSetGet, ::aArray[::nAt, 1] )
@@ -15039,7 +15039,7 @@ METHOD Skip( n ) CLASS TSBrowse
    ::nLastnAt := ::nAt
 
    IF ::lIsArr .AND. ::bSetGet != NIL
-      IF ValType(Eval( ::bSetGet )) == "N"
+      IF HB_ISNUMERIC(Eval(::bSetGet))
          Eval( ::bSetGet, ::nAt )
       ELSEIF ::nLen > 0
          Eval( ::bSetGet, ::aArray[::nAt, 1] )
@@ -15508,7 +15508,7 @@ METHOD HideColumns( nColumn, lHide ) CLASS TSBrowse
       RETURN NIL
    ENDIF
 
-   aColumn := iif( ValType(nColumn) == "N", { nColumn }, nColumn )
+   aColumn := iif( HB_ISNUMERIC(nColumn), { nColumn }, nColumn )
 
    FOR nI := 1 TO Len(aColumn)
 
@@ -15537,7 +15537,7 @@ RETURN NIL
 METHOD UserPopup( bUserPopupItem, aColumn ) CLASS TSBrowse
 
    IF ValType(aColumn) != "A"
-      aColumn := iif( ValType(aColumn) == "N", { aColumn }, { 0 } )
+      aColumn := iif( HB_ISNUMERIC(aColumn), { aColumn }, { 0 } )
    ENDIF
 
    ::bUserPopupItem := iif( ValType(bUserPopupItem) == "B", bUserPopupItem, ;
@@ -16190,7 +16190,7 @@ RETURN {|| Eval( ::bLine )[nI] }
 // Converts any type variables value into numeric
 // ============================================================================
 
-FUNCTION nValToNum( uVar )
+FUNCTION nValToNum( uVar ) // TODO: SWITCH
 
    LOCAL nVar := iif( ValType(uVar) == "N", uVar, ;
       iif( ValType(uVar) == "C", Val( StrTran(AllTrim(uVar), ",") ), ;
@@ -17190,10 +17190,10 @@ FUNCTION StockBmp( uAnsi, oWnd, cPath, lNew )
 
    HB_SYMBOL_UNUSED( oWnd )
 
-   IF ValType(uAnsi) == "N" .AND. uAnsi <= Len(aStkName)
+   IF HB_ISNUMERIC(uAnsi) .AND. uAnsi <= Len(aStkName)
       cName := aStkName[uAnsi]
       uAnsi := StrTran(aStock[uAnsi], " ")
-   ELSEIF ValType(uAnsi) == "N"
+   ELSEIF HB_ISNUMERIC(uAnsi)
       uAnsi := StrTran(aStock[1], " ") // calendar
       cName := aStkName[1]
    ELSE

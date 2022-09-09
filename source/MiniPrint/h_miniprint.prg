@@ -1115,7 +1115,7 @@ Local lAlignChanged := .F.
 	DEFAULT lAngle TO .F., ;
 		nAngle TO 0
 
-	if ValType(cText) == "N"
+	if ValType(cText) == "N" // TODO: SWITCH
 		cText := AllTrim(Str(cText))
 	Elseif ValType(cText) == "D"
 		cText := dtoc (cText)
@@ -1161,7 +1161,7 @@ Procedure _HMG_PRINTER_H_MULTILINE_PRINT( nHdc , nRow , nCol , nToRow , nToCol ,
 *------------------------------------------------------------------------------*
 Local nAlign := TA_LEFT
 
-	If ValType(cText) == "N"
+	If ValType(cText) == "N" // TODO: SWITCH
 		cText := AllTrim(Str(cText))
 	Elseif ValType(cText) == "D"
 		cText := dtoc (cText)

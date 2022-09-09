@@ -131,7 +131,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    cPicture := hb_asciiUpper(cPicture)
 
    DO CASE
-   CASE ValType(Value) == "N" .AND. !( "B" $ cPicture )
+   CASE HB_ISNUMERIC(Value) .AND. !( "B" $ cPicture )
       right := .T.
    CASE ValType(Value) == "D"
       nMaxLength := hb_ULen(DToC(Date()))
@@ -499,7 +499,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          IF _HMG_aControlBkColor[i] == NIL
             _HMG_aControlBkColor[i] := nRGB2Arr ( GetSysColor ( COLOR_WINDOW ) )
          ENDIF
-         IF ValType(_HMG_aControlBkColor [i, 1]) == "N"
+         IF HB_ISNUMERIC(_HMG_aControlBkColor[i, 1])
             _HMG_aControlBkColor[i] := iif( ISBLOCK ( aClrFocus ), Eval( aClrFocus ), aClrFocus )
          ELSEIF ValType(_HMG_aControlBkColor [i, 1]) == "A" .AND. Len(_HMG_aControlBkColor[i]) == 3
             _HMG_aControlBkColor[i][3] := iif( ISBLOCK ( aClrFocus ), Eval( aClrFocus ), aClrFocus )
@@ -509,7 +509,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
             _HMG_aControlFontColor[i] := nRGB2Arr ( GetSysColor ( COLOR_WINDOWTEXT ) )
          ENDIF
          IF aFntFocus != NIL
-            IF ValType(_HMG_aControlFontColor [i, 1]) == "N"
+            IF HB_ISNUMERIC(_HMG_aControlFontColor[i, 1])
                _HMG_aControlFontColor[i] := iif( ISBLOCK ( aFntFocus ), Eval( aFntFocus ), aFntFocus )
             ELSEIF ValType(_HMG_aControlFontColor [i, 1]) == "A" .AND. Len(_HMG_aControlFontColor[i]) == 3
                _HMG_aControlFontColor[i][3] := iif( ISBLOCK ( aFntFocus ), Eval( aFntFocus ), aFntFocus )

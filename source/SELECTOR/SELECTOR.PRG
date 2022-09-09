@@ -96,7 +96,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
    ELSE
 
-      IF ValType(xcnFromArea) == "N"
+      IF HB_ISNUMERIC(xcnFromArea)
 
          nSelectFrom := xcnFromArea
 
@@ -343,7 +343,7 @@ STATIC FUNCTION ToString( cStr )
 
    LOCAL cType := ValType(cStr)
 
-   IF cType == "N"
+   IF cType == "N" // TODO: SWITCH
 
       cStr := Str(cStr)
 

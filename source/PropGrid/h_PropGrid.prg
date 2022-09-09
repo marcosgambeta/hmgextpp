@@ -298,7 +298,7 @@ FUNCTION _DefinePropGrid ( ControlName, ParentFormName, row, col, width, height,
 
    indent := TreeView_GetIndent( aControlHandle[1] )
 
-   IF ValType(itemheight) == "N"
+   IF HB_ISNUMERIC(itemheight)
       TreeView_SetItemHeight(aControlHandle[1], itemheight)
    ELSE
       itemheight := TreeView_GetItemHeight(aControlHandle[1])
@@ -466,7 +466,7 @@ FUNCTION _DefinePropertyItem ( cType, cName, cValue, aData, disabled, disableedi
 *------------------------------------------------------------------------------*
    LOCAL typePg := PgIdentType( cType )
    DEFAULT cValue := "", aData := "", disabled := .F. , cInfo := "", cValNameDef := "", cValName := cValNameDef
-   IF ValType(aData) == "N"
+   IF HB_ISNUMERIC(aData)
       aData := LTrim(Str(adata))
    ENDIF
    IF typePG == PG_ERROR
@@ -502,7 +502,7 @@ FUNCTION PgCheckData( typePG, cValue, aData, mod )
       ENDIF
    CASE typePG == PG_INTEGER
       cErr := _HMG_PGLangError[4] + " INTEGER " + _HMG_PGLangError[2]
-      IF ValType(cValue) == "N"
+      IF HB_ISNUMERIC(cValue)
          cValue := LTrim(Str(Int(cValue)))
       ELSEIF ValType(cValue) == "C"
          IF IsDigit( cValue )
@@ -515,7 +515,7 @@ FUNCTION PgCheckData( typePG, cValue, aData, mod )
       ENDIF
    CASE typePG == PG_DOUBLE
       cErr := _HMG_PGLangError[4] + " DOUBLE " + _HMG_PGLangError[2]
-      IF ValType(cValue) == "N"
+      IF HB_ISNUMERIC(cValue)
          cValue := LTrim(REMRIGHT(Str(cValue, 16, 8), "0"))
       ELSEIF ValType(cValue) == "C"
          IF IsDigit( cValue ) .OR. Left(cValue, 1) == "-"
@@ -527,7 +527,7 @@ FUNCTION PgCheckData( typePG, cValue, aData, mod )
          ret := .F.
       ENDIF
       IF !Empty(aData) .AND. ret
-         IF ValType(aData) == "N"
+         IF HB_ISNUMERIC(aData)
             aData := LTrim(REMRIGHT(Str(aData, 16, 8), "0"))
          ELSEIF ValType(cValue) == "C"
             ret := .T.
@@ -1488,14 +1488,14 @@ FUNCTION AttrTran( xData, type )
          RETURN xData
       ENDIF
    CASE Type == "N"
-      IF ValType(xData) == "N"
+      IF HB_ISNUMERIC(xData)
          RETURN AllTrim(Str(xData))
       ENDIF
    CASE Type == "A"
       IF ValType(xData) == "A"
          cData := ""
          FOR n := 1 TO Len(xData)
-            IF ValType(xdata[n]) == "N"
+            IF HB_ISNUMERIC(xdata[n])
                cData += AllTrim(Str(xData[n])) + IIF( n < Len(xData), ";", "" )
             ENDIF
             IF ValType(xdata[n]) == "C"
@@ -1798,7 +1798,7 @@ FUNCTION aVal2Str(aData, sep)
    DEFAULT sep := ";"
    IF ValType(aData) == "A"
       FOR n := 1 TO Len(aData)
-         IF ValType(adata[n]) == "N"
+         IF HB_ISNUMERIC(adata[n])
             cData += AllTrim(Str(aData[n])) + IIF( n < Len(aData), sep, "" )
          ENDIF
          IF ValType(adata[n]) == "C"
@@ -2499,7 +2499,7 @@ FUNCTION _PGInitData( hWnd, hEdit, hWndItem, ItemType )
          _ChangeBtnState(  _HMG_aControlHandles[i], .T. , i )
       ENDIF
       _HMG_aControlMiscData2[i] := hEdit
-      DO CASE
+      DO CASE // TODO: SWITCH
       CASE ItemType == PG_DEFAULT .OR. ItemType == PG_CATEG .OR. ItemType == PG_ARRAY .OR. ;
             ItemType == PG_INTEGER .OR. ItemType == PG_SYSINFO .OR. ItemType == PG_USERFUN
          SetWindowText(hEdit, PG_GETITEM(hWnd, hWndItem, PGI_VALUE))

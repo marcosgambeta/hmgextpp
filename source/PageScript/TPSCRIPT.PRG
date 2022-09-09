@@ -1519,11 +1519,11 @@ Description : Sets the attributes used to draw lines and borders
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetBorder( nThickness, nBorderColor )
 
-   IF ValType(nThickness) == "N"
+   IF HB_ISNUMERIC(nThickness)
       DllCall( ::hDll, DLL_STDCALL, "PSSetBorderThickness", PSFtoI( nThickness ) )
    ENDIF
 
-   IF ValType(nBorderColor) == "N"
+   IF HB_ISNUMERIC(nBorderColor)
       DllCall( ::hDll, DLL_STDCALL, "PSSetBorderColor", nBorderColor )
    ENDIF
 
@@ -1535,7 +1535,7 @@ Description : Sets the border color
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetBorderColor( nBorderColor )
 
-   IF ValType(nBorderColor) == "N"
+   IF HB_ISNUMERIC(nBorderColor)
       DllCall( ::hDll, DLL_STDCALL, "PSSetBorderColor", nBorderColor )
    ENDIF
 
@@ -1547,7 +1547,7 @@ Description : Sets the border thickness used to draw lines and borders
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetBorderThickness( nThickness )
 
-   IF ValType(nThickness) == "N"
+   IF HB_ISNUMERIC(nThickness)
       DllCall( ::hDll, DLL_STDCALL, "PSSetBorderThickness", PSFtoI( nThickness ) )
    ENDIF
 
@@ -1571,7 +1571,7 @@ Description : Sets the coordinate system
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetCoorSystem( nCoor )
 
-   IF ValType(nCoor) == "N"
+   IF HB_ISNUMERIC(nCoor)
       DllCall( ::hDll, DLL_STDCALL, "PSSetCoorSystem", nCoor )
    ENDIF
 
@@ -1583,7 +1583,7 @@ Description : Sets the number of copies
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetCopies( nCopies )
 
-   IF ValType(nCopies) == "N"
+   IF HB_ISNUMERIC(nCopies)
       DllCall( ::hDll, DLL_STDCALL, "PSSetCopies", nCopies )
    ENDIF
 
@@ -1595,7 +1595,7 @@ Description : Sets the number of characters per inch (Text mode only)
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetCPI( nCPI )
 
-   IF ValType(nCPI) == "N"
+   IF HB_ISNUMERIC(nCPI)
       DllCall( ::hDll, DLL_STDCALL, "PSSetCPI", nCPI )
    ENDIF
 
@@ -1611,7 +1611,7 @@ Choices ....: DEV_PRINTER - The output will be sent to a printer
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetDevice( nDevice )
 
-   IF ValType(nDevice) == "N"
+   IF HB_ISNUMERIC(nDevice)
       DllCall( ::hDll, DLL_STDCALL, "PSSetDevice", nDevice )
    ENDIF
 
@@ -1647,7 +1647,7 @@ Description : Sets the duplex mode
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetDuplex( nDuplex )
 
-   IF ValType(nDuplex) == "N"
+   IF HB_ISNUMERIC(nDuplex)
       DllCall( ::hDll, DLL_STDCALL, "PSSetDuplex", nDuplex )
    ENDIF
 
@@ -1671,11 +1671,11 @@ Description : Sets the color used to fill shapes, like boxes and ellipes
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetFill( nFillColor, nFillPattern )
 
-   IF ValType(nFillColor) == "N"
+   IF HB_ISNUMERIC(nFillColor)
       DllCall( ::hDll, DLL_STDCALL, "PSSetFillColor", nFillColor )
    ENDIF
 
-   IF ValType(nFillPattern) == "N"
+   IF HB_ISNUMERIC(nFillPattern)
       DllCall( ::hDll, DLL_STDCALL, "PSSetFillPattern", nFillPattern )
    ENDIF
 
@@ -1687,7 +1687,7 @@ Description : Sets the color used to fill shapes, like boxes and ellipes
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetFillColor( nFillColor )
 
-   IF ValType(nFillColor) == "N"
+   IF HB_ISNUMERIC(nFillColor)
       DllCall( ::hDll, DLL_STDCALL, "PSSetFillColor", nFillColor )
    ENDIF
 
@@ -1699,7 +1699,7 @@ Description : Sets the pattern used to fill shapes, like boxes and ellipes
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetFillPattern( nFillPattern )
 
-   IF ValType(nFillPattern) == "N"
+   IF HB_ISNUMERIC(nFillPattern)
       DllCall( ::hDll, DLL_STDCALL, "PSSetFillPattern", nFillPattern )
    ENDIF
 
@@ -1715,23 +1715,23 @@ METHOD TPageScript:SetFontAttributes( cFont, nStyle, nSize, nTFColor, nTBColor, 
       DllCall( ::hDll, DLL_STDCALL, "PSSetFontName", cFont )
    ENDIF
 
-   IF ValType(nStyle) == "N"
+   IF HB_ISNUMERIC(nStyle)
       DllCall( ::hDll, DLL_STDCALL, "PSSetFontStyle", nStyle )
    ENDIF
 
-   IF ValType(nSize) == "N"
+   IF HB_ISNUMERIC(nSize)
       DllCall( ::hDll, DLL_STDCALL, "PSSetFontSize", PSFtoI( nSize ) )
    ENDIF
 
-   IF ValType(nTFColor) == "N"
+   IF HB_ISNUMERIC(nTFColor)
       DllCall( ::hDll, DLL_STDCALL, "PSSetFontFColor", nTFColor )
    ENDIF
 
-   IF ValType(nTBColor) == "N"
+   IF HB_ISNUMERIC(nTBColor)
       DllCall( ::hDll, DLL_STDCALL, "PSSetFontBColor", nTBColor )
    ENDIF
 
-   IF ValType(nAngle) == "N"
+   IF HB_ISNUMERIC(nAngle)
       DllCall( ::hDll, DLL_STDCALL, "PSSetFontAngle", nAngle )
    ENDIF
 
@@ -1743,7 +1743,7 @@ Description : Sets the font
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetFontAngle( nAngle )
 
-   IF ValType(nAngle) == "N"
+   IF HB_ISNUMERIC(nAngle)
       DllCall( ::hDll, DLL_STDCALL, "PSSetFontAngle", nAngle )
    ENDIF
 
@@ -1755,7 +1755,7 @@ Description : Sets the font
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetFontBColor( nTBColor )
 
-   IF ValType(nTBColor) == "N"
+   IF HB_ISNUMERIC(nTBColor)
       DllCall( ::hDll, DLL_STDCALL, "PSSetFontBColor", nTBColor )
    ENDIF
 
@@ -1767,7 +1767,7 @@ Description : Sets the font
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetFontFColor( nTFColor )
 
-   IF ValType(nTFColor) == "N"
+   IF HB_ISNUMERIC(nTFColor)
       DllCall( ::hDll, DLL_STDCALL, "PSSetFontFColor", nTFColor )
    ENDIF
 
@@ -1791,7 +1791,7 @@ Description : Sets the font
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetFontSize( nSize )
 
-   IF ValType(nSize) == "N"
+   IF HB_ISNUMERIC(nSize)
       DllCall( ::hDll, DLL_STDCALL, "PSSetFontSize", PSFtoI( nSize ) )
    ENDIF
 
@@ -1803,7 +1803,7 @@ Description : Sets the font
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetFontStyle(nStyle)
 
-   IF ValType(nStyle) == "N"
+   IF HB_ISNUMERIC(nStyle)
       DllCall( ::hDll, DLL_STDCALL, "PSSetFontStyle", nStyle )
    ENDIF
 
@@ -1815,7 +1815,7 @@ Description : Sets justification for TextOut
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetJustify( nJustify )
 
-   IF ValType(nJustify) == "N"
+   IF HB_ISNUMERIC(nJustify)
       DllCall( ::hDll, DLL_STDCALL, "PSSetJustify", nJustify )
    ENDIF
 
@@ -1827,7 +1827,7 @@ Description : Sets the number of lines per inch (Text mode only)
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetLPI( nLPI )
 
-   IF ValType(nLPI) == "N"
+   IF HB_ISNUMERIC(nLPI)
       DllCall( ::hDll, DLL_STDCALL, "PSSetLPI", nLPI )
    ENDIF
 
@@ -1839,7 +1839,7 @@ Description : Sets the paper orientation
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetOrientation( nOrientation )
 
-   IF ValType(nOrientation) == "N" .AND. ( nOrientation == APS_PORTRAIT .OR. nOrientation == APS_LANDSCAPE )
+   IF HB_ISNUMERIC(nOrientation) .AND. ( nOrientation == APS_PORTRAIT .OR. nOrientation == APS_LANDSCAPE )
       DllCall( ::hDll, DLL_STDCALL, "PSSetOrientation", nOrientation )
    ENDIF
 
@@ -1851,7 +1851,7 @@ Description : Sets the paper bin
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetPaperBin( nPaperBin )
 
-   IF ValType(nPaperBin) == "N"
+   IF HB_ISNUMERIC(nPaperBin)
       DllCall( ::hDll, DLL_STDCALL, "PSSetPaperBin", nPaperBin )
    ENDIF
 
@@ -1863,7 +1863,7 @@ Description : Set the PDF charset to be use
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetPDFCharSet( nCharSet )
 
-   IF ValType(nCharSet) == "N"
+   IF HB_ISNUMERIC(nCharSet)
       DllCall( ::hDll, DLL_STDCALL, "PSSetPDFCharSet", nCharSet )
    ENDIF
 
@@ -1894,7 +1894,7 @@ Description : Set the internal encoding for PDF documents, default = 0;
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetPDFEncoding( nEncoding )
 
-   IF ValType(nEncoding) == "N"
+   IF HB_ISNUMERIC(nEncoding)
       DllCall( ::hDll, DLL_STDCALL, "PSSetPDFEncoding", nEncoding )
    ENDIF
 
@@ -1910,7 +1910,7 @@ Description : Sets the PDF version to be used for creation of PDF
 -----------------------------------------------------------------------------*/
 METHOD TPagescript:SetPDFVersion( nVersion )
 
-   IF ValType(nVersion) == "N"
+   IF HB_ISNUMERIC(nVersion)
       DllCall( ::hDll, DLL_STDCALL, "PSSetPDFVersion", nVersion )
    ENDIF
 
@@ -1937,7 +1937,7 @@ Description : Set usage of embedded fonts
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetPDFEmbeddedFonts( nEmbedded )
 
-   IF ValType(nEmbedded) == "N"
+   IF HB_ISNUMERIC(nEmbedded)
       DllCall( ::hDll, DLL_STDCALL, "PSSetPDFEmbeddedFonts", nEmbedded )
    ENDIF
 
@@ -1949,7 +1949,7 @@ Description : Sets the page size to a predifined paper size
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetPageSize( nPageSize )
 
-   IF ValType(nPageSize) == "N" // .AND. (nPageSize >= DMPAPER_FIRST .AND. nPageSize <= DMPAPER_LAST)
+   IF HB_ISNUMERIC(nPageSize) // .AND. (nPageSize >= DMPAPER_FIRST .AND. nPageSize <= DMPAPER_LAST)
       DllCall( ::hDll, DLL_STDCALL, "PSSetPageSize", nPageSize )
    ENDIF
 
@@ -1961,7 +1961,7 @@ Description : Sets the printer number to which we want to print
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetPrinter( nPrinter )
 
-   IF ValType(nPrinter) == "N"
+   IF HB_ISNUMERIC(nPrinter)
       DllCall( ::hDll, DLL_STDCALL, "PSSetPrinter", nPrinter - 1 )
    ENDIF
 
@@ -1974,7 +1974,7 @@ Version ....: 2.1.0.0
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetPWState( nState )
 
-   IF ( ValType(nState) == "N" ) .AND. ( nState >= PWS_MINIMIZED ) .AND. ( nState <= PWS_AUTO )
+   IF ( HB_ISNUMERIC(nState) ) .AND. ( nState >= PWS_MINIMIZED ) .AND. ( nState <= PWS_AUTO )
       DllCall( ::hDll, DLL_STDCALL, "PSSetPWState", nState )
    ENDIF
 
@@ -1987,7 +1987,7 @@ Version ....: 2.1.0.0
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetPWPosition( nLeft, nTop )
 
-   IF ( ValType(nLeft) == "N" ) .AND. ( ValType(nTop) == "N" )
+   IF ( HB_ISNUMERIC(nLeft) ) .AND. ( HB_ISNUMERIC(nTop) )
       DllCall( ::hDll, DLL_STDCALL, "PSSetPWPosition", nLeft, nTop )
    ENDIF
 
@@ -2000,7 +2000,7 @@ Version ....: 2.1.0.0
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetPWSize( nWidth, nHeight )
 
-   IF ( ValType(nWidth) == "N" ) .AND. ( ValType(nHeight) == "N" )
+   IF ( HB_ISNUMERIC(nWidth) ) .AND. ( HB_ISNUMERIC(nHeight) )
       DllCall( ::hDll, DLL_STDCALL, "PSSetPWSize", nWidth, nHeight )
    ENDIF
 
@@ -2013,7 +2013,7 @@ Version ....: 2.1.0.0
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetPWBounds( nLeft, nTop, nWidth, nHeight )
 
-   IF ( ValType(nLeft) == "N" ) .AND. ( ValType(nTop) == "N" ) .AND. ( ValType(nWidth) == "N" ) .AND. ( ValType(nHeight) == "N" )
+   IF ( HB_ISNUMERIC(nLeft) ) .AND. ( HB_ISNUMERIC(nTop) ) .AND. ( HB_ISNUMERIC(nWidth) ) .AND. ( HB_ISNUMERIC(nHeight) )
       DllCall( ::hDll, DLL_STDCALL, "PSSetPWBounds", nLeft, nTop, nWidth, nHeight )
    ENDIF
 
@@ -2026,7 +2026,7 @@ Version ....: 3.0.0.0
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetPWColors( nBackground, nPaper, nShadow, nToolbar )
 
-   IF ( ValType(nBackground) == "N" ) .AND. ( ValType(nPaper) == "N" ) .AND. ( ValType(nShadow) == "N" ) .AND. ( ValType(nToolbar) == "N" )
+   IF ( HB_ISNUMERIC(nBackground) ) .AND. ( HB_ISNUMERIC(nPaper) ) .AND. ( HB_ISNUMERIC(nShadow) ) .AND. ( HB_ISNUMERIC(nToolbar) )
       DllCall( ::hDll, DLL_STDCALL, "PSSetPWColors", nBackground, nPaper, nShadow, nToolbar )
    ENDIF
 
@@ -2039,7 +2039,7 @@ Version ....: 2.1.0.0
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetPWZoomLevel( nZoomLevel )
 
-   IF ( ValType(nZoomLevel) == "N" )
+   IF ( HB_ISNUMERIC(nZoomLevel) )
       DllCall( ::hDll, DLL_STDCALL, "PSSetPWZoomLevel", nZoomLevel )
    ENDIF
 
@@ -2051,7 +2051,7 @@ Description : Sets the number of rows and columns in the way PageScript for Clip
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetRowCol(nRow, nCol)
 
-   IF ValType(nRow) == "N" .AND. ValType(nCol) == "N"
+   IF HB_ISNUMERIC(nRow) .AND. HB_ISNUMERIC(nCol)
       DllCall( ::hDll, DLL_STDCALL, "PSSetRowCol", nRow, nCol )
    ENDIF
 
@@ -2075,7 +2075,7 @@ Description : Sets the unit used to calculate dimensions and placement
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetUnit( nUnit )
 
-   IF ValType(nUnit) == "N"
+   IF HB_ISNUMERIC(nUnit)
       ::nUnit := nUnit
       DllCall( ::hDll, DLL_STDCALL, "PSSetUnit", nUnit )
    ENDIF
