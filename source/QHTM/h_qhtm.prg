@@ -66,11 +66,11 @@ If _HMG_BeginWindowActive
 
    ParentForm := _HMG_ActiveFormName
 
-   If !Empty(ParentForm) .AND. ValType(FontName) == "U"
+   If !Empty(ParentForm) .AND. FontName == NIL
       FontName := _HMG_ActiveFontName
    EndIf
 
-   If !Empty(ParentForm) .AND. ValType(FontSize) == "U"
+   If !Empty(ParentForm) .AND. FontSize == NIL
       FontSize := _HMG_ActiveFontSize
    EndIf
 

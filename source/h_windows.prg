@@ -79,7 +79,7 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
 
    hb_default(@panel, .F.)
 
-   IF ValType(FormName) == "U"
+   IF FormName == NIL
       FormName := _HMG_TempWindowName
 #ifdef _PANEL_
       IF _HMG_LoadWindowRow <> -1
@@ -103,7 +103,7 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
       y := y + _HMG_ActiveFrameRow[_HMG_FrameLevel]
    ENDIF
 #endif
-   IF ValType(mdi) == "U"
+   IF mdi == NIL
       Mdi := .F.
    ENDIF
 
@@ -227,7 +227,7 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
    __defaultNIL(@hscrollbox, "")
    __defaultNIL(@vscrollbox, "")
 
-   IF ValType(VirtualHeight) == "U"
+   IF VirtualHeight == NIL
       VirtualHeight := 0
       vscroll := .F.
    ELSE
@@ -237,7 +237,7 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
       vscroll := .T.
    ENDIF
 
-   IF ValType(VirtualWidth) == "U"
+   IF VirtualWidth == NIL
       VirtualWidth := 0
       hscroll := .F.
    ELSE
@@ -258,7 +258,7 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
       aRGB := {-1, -1, -1}
    ENDIF
 
-   IF ValType(icon) == "U" .AND. ValType(_HMG_DefaultIconName) != "U"
+   IF icon == NIL .AND. ValType(_HMG_DefaultIconName) != "U"
       icon := _HMG_DefaultIconName
    ENDIF
 
@@ -296,7 +296,7 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
       ENDIF
    ENDIF
 
-   IF ValType(NotifyIconName) == "U"
+   IF NotifyIconName == NIL
       NotifyIconName := ""
    ELSE
       hnotifyicon := LoadTrayIcon(GetResources(), NotifyIconName)
@@ -426,7 +426,7 @@ FUNCTION _DefineModalWindow(FormName, Caption, x, y, w, h, Parent, nosize, nosys
    LOCAL hscroll
    LOCAL k
 
-   IF ValType(FormName) == "U"
+   IF FormName == NIL
       FormName := _HMG_TempWindowName
    ENDIF
 
@@ -481,7 +481,7 @@ FUNCTION _DefineModalWindow(FormName, Caption, x, y, w, h, Parent, nosize, nosys
    __defaultNIL(@hscrollbox, "")
    __defaultNIL(@vscrollbox, "")
 
-   IF ValType(VirtualHeight) == "U"
+   IF VirtualHeight == NIL
       VirtualHeight := 0
       vscroll := .F.
    ELSE
@@ -491,7 +491,7 @@ FUNCTION _DefineModalWindow(FormName, Caption, x, y, w, h, Parent, nosize, nosys
       vscroll := .T.
    ENDIF
 
-   IF ValType(VirtualWidth) == "U"
+   IF VirtualWidth == NIL
       VirtualWidth := 0
       hscroll := .F.
    ELSE
@@ -512,7 +512,7 @@ FUNCTION _DefineModalWindow(FormName, Caption, x, y, w, h, Parent, nosize, nosys
       aRGB := {-1, -1, -1}
    ENDIF
 
-   IF ValType(icon) == "U" .AND. ValType(_HMG_DefaultIconName) != "U"
+   IF icon == NIL .AND. ValType(_HMG_DefaultIconName) != "U"
       icon := _HMG_DefaultIconName
    ENDIF
 
@@ -649,7 +649,7 @@ FUNCTION _DefineSplitChildWindow(FormName, w, h, break, grippertext, nocaption, 
    LOCAL k
    LOCAL i
 
-   IF ValType(FormName) == "U"
+   IF FormName == NIL
       FormName := _HMG_TempWindowName
    ENDIF
 
@@ -671,7 +671,7 @@ FUNCTION _DefineSplitChildWindow(FormName, w, h, break, grippertext, nocaption, 
 
    _HMG_ActiveFontSize := hb_defaultValue(FontSize, _HMG_DefaultFontSize)
 
-   IF ValType(VirtualHeight) == "U"
+   IF VirtualHeight == NIL
       VirtualHeight := 0
       vscroll := .F.
    ELSE
@@ -681,7 +681,7 @@ FUNCTION _DefineSplitChildWindow(FormName, w, h, break, grippertext, nocaption, 
       vscroll := .T.
    ENDIF
 
-   IF ValType(VirtualWidth) == "U"
+   IF VirtualWidth == NIL
       VirtualWidth := 0
       hscroll := .F.
    ELSE

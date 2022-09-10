@@ -286,7 +286,7 @@ FUNCTION _DefineChildMDIWindow(FormName, x, y, w, h, nominimize, nomaximize, ;
    LOCAL FormHandle
    LOCAL ChildIndex
 
-   IF ValType(FormName) == "U"
+   IF FormName == NIL
       FormName := _HMG_TempWindowName
    ENDIF
 

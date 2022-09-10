@@ -125,10 +125,10 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
 
    IF _HMG_BeginWindowActive = .T.
       ParentForm := _HMG_ActiveFormName
-      IF !Empty(_HMG_DefaultFontName) .AND. ValType(FontName) == "U"
+      IF !Empty(_HMG_DefaultFontName) .AND. FontName == NIL
          fontname := _HMG_DefaultFontName
       ENDIF
-      IF !Empty(_HMG_DefaultFontSize) .AND. ValType(FontSize) == "U"
+      IF !Empty(_HMG_DefaultFontSize) .AND. FontSize == NIL
          fontsize := _HMG_DefaultFontSize
       ENDIF
    ENDIF
@@ -154,7 +154,7 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
 
    ParentForm = GetFormHandle(ParentForm)
 
-   IF ValType(x) == "U" .OR. ValType(y) == "U"
+   IF x == NIL .OR. y == NIL
 
       IF _HMG_SplitLastControl == "TOOLBAR"
          Break := .T.

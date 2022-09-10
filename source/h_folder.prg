@@ -96,7 +96,7 @@ FUNCTION _BeginFolder(name, parent, lRes, x, y, w, h, caption, fontname, fontsiz
       __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
 
-   IF ValType(parent) == "U"
+   IF parent == NIL
       parent := _HMG_ActiveFormName
    ENDIF
 
@@ -144,7 +144,7 @@ FUNCTION _DefineFolder(FormName, ParentForm, lRes, x, y, w, h, caption, fontname
       GetFontParamByRef(FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout)
    ENDIF
 
-   IF ValType(FormName) == "U"
+   IF FormName == NIL
       FormName := _HMG_TempWindowName
    ENDIF
 

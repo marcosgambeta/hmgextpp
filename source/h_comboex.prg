@@ -169,7 +169,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
       NEXT im
    ENDIF
 
-   IF ValType(x) == "U" .OR. ValType(y) == "U"
+   IF x == NIL .OR. y == NIL
 
       _HMG_SplitLastControl := "COMBOBOX"
 

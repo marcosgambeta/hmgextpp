@@ -866,7 +866,7 @@ RETURN { Y, X }
 STATIC FUNCTION BT_DrawPieEx ( hDC, Row1, Col1, Row2, Col2, RowStartArc, ColStartArc, RowEndArc, ColEndArc, aColorRGBLine, nWidthLine, aColorRGBFill, hBrushBitmap )
 *------------------------------------------------------------------------------*
 
-   nWidthLine := IF ( ValType(nWidthLine) == "U", 1, nWidthLine )
+   nWidthLine := IF ( nWidthLine == NIL, 1, nWidthLine )
    BT_DRAW_HDC_ARCX_EX ( hDC, Col1, Row1, Col2, Row2, ColStartArc, RowStartArc, ColEndArc, RowEndArc, ArrayRGB_TO_COLORREF( aColorRGBLine ), nWidthLine, ArrayRGB_TO_COLORREF( aColorRGBFill ), BT_DRAW_PIE, hBrushBitmap )
 
 RETURN NIL
@@ -875,13 +875,13 @@ RETURN NIL
 STATIC PROCEDURE DrawPieInBitmap( hDC, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb, penwidth, fillrgb, hBrush )
 *------------------------------------------------------------------------------*
 
-   IF ValType(penrgb) == "U"
+   IF penrgb == NIL
       penrgb := BLACK
    ENDIF
-   IF ValType(penwidth) == "U"
+   IF penwidth == NIL
       penwidth := 1
    ENDIF
-   IF ValType(fillrgb) == "U"
+   IF fillrgb == NIL
       fillrgb := WHITE
    ENDIF
 
@@ -893,13 +893,13 @@ RETURN
 STATIC PROCEDURE DrawEllipseInBitmap( hDC, row, col, Width, Height, penrgb, penwidth, fillrgb )
 *------------------------------------------------------------------------------*
 
-   IF ValType(penrgb) == "U"
+   IF penrgb == NIL
       penrgb := BLACK
    ENDIF
-   IF ValType(penwidth) == "U"
+   IF penwidth == NIL
       penwidth := 1
    ENDIF
-   IF ValType(fillrgb) == "U"
+   IF fillrgb == NIL
       fillrgb := WHITE
    ENDIF
 

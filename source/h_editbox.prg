@@ -174,7 +174,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      IF ValType(x) == "U" .OR. ValType(y) == "U"
+      IF x == NIL .OR. y == NIL
 
          IF _HMG_SplitLastControl == "TOOLBAR"
             Break := .T.

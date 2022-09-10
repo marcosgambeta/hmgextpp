@@ -1084,10 +1084,10 @@ FUNCTION PrintWindow(cWindowName, lPreview, ldialog, nRow, nCol, nWidth, nHeight
    LOCAL bw, bh, r, tw := 0, th
    LOCAL ntop, nleft, nbottom, nright
 
-   IF ValType(nRow) == "U" .OR. ;
-      ValType(nCol) == "U" .OR. ;
-      ValType(nWidth) == "U" .OR. ;
-      ValType(nHeight) == "U"
+   IF nRow == NIL .OR. ;
+      nCol == NIL .OR. ;
+      nWidth == NIL .OR. ;
+      nHeight == NIL
 
       ntop := -1
       nleft := -1
@@ -1103,11 +1103,11 @@ FUNCTION PrintWindow(cWindowName, lPreview, ldialog, nRow, nCol, nWidth, nHeight
 
    ENDIF
 
-   IF ValType(lDialog) == "U"
+   IF lDialog == NIL
       lDialog := .F.
    ENDIF
 
-   IF ValType(lPreview) == "U"
+   IF lPreview == NIL
       lPreview := .F.
    ENDIF
 

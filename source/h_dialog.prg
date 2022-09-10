@@ -73,7 +73,7 @@ FUNCTION _DefineDialog(FormName, ParentForm, Id_resource, x, y, w, h, caption, f
    _HMG_aDialogTemplate := {}
    _HMG_DialogInMemory  := .F.
 
-   IF ValType(FormName) == "U"
+   IF FormName == NIL
       FormName := _HMG_TempWindowName
    ENDIF
 
@@ -147,13 +147,13 @@ FUNCTION _DefineDialog(FormName, ParentForm, Id_resource, x, y, w, h, caption, f
       ENDIF
    ENDIF
 
-   IF ValType(FontName) == "U"
+   IF FontName == NIL
       _HMG_ActiveFontName := ""
    ELSE
       _HMG_ActiveFontName := FontName
    ENDIF
 
-   IF ValType(FontSize) == "U"
+   IF FontSize == NIL
       _HMG_ActiveFontSize := 0
    ELSE
       _HMG_ActiveFontSize := FontSize
@@ -260,18 +260,18 @@ FUNCTION _BeginDialog(name, parent, Id_resource, x, y, w, h, caption, fontname, 
    ENDIF
 
    IF _HMG_BeginWindowActive
-      IF !Empty(_HMG_ActiveFontName) .AND. ValType(fontname) == "U"
+      IF !Empty(_HMG_ActiveFontName) .AND. fontname == NIL
          fontname := _HMG_ActiveFontName
       ENDIF
-      IF !Empty(_HMG_ActiveFontSize) .AND. ValType(fontsize) == "U"
+      IF !Empty(_HMG_ActiveFontSize) .AND. fontsize == NIL
          fontsize := _HMG_ActiveFontSize
       ENDIF
    ENDIF
 
-   IF ValType(parent) == "U"
+   IF parent == NIL
       parent := _HMG_ActiveFormName
    ENDIF
-   IF ValType(Id_resource) == "U"
+   IF Id_resource == NIL
       Id_resource := 0
    ENDIF
 

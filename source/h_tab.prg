@@ -87,11 +87,11 @@ FUNCTION _BeginTab( ControlName, ParentFormName, row, col, w, h, value, f, s, to
       _HMG_bOnInit AS GLOBAL VALUE bInit, ;
       _HMG_ActiveTabImage_NoTransparent AS GLOBAL VALUE NoTrans
 
-   IF ValType(ParentFormName) == "U"
+   IF ParentFormName == NIL
       ParentFormName := _HMG_ActiveFormName
    ENDIF
 
-   IF ValType(value) == "U" .OR. value < 1
+   IF value == NIL .OR. value < 1
       value := 1
    ENDIF
 

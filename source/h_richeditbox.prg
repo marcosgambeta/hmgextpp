@@ -120,7 +120,7 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
 
    ParentForm := GetFormHandle(ParentForm)
 
-   IF ValType(x) == "U" .OR. ValType(y) == "U"
+   IF x == NIL .OR. y == NIL
 
       IF _HMG_SplitLastControl == "TOOLBAR"
          Break := .T.
@@ -324,7 +324,7 @@ PROCEDURE _DataRichEditBoxSave ( ControlName, ParentForm, cFile, typ )
 
    IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0
 
-      IF ValType(cFile) == "U"
+      IF cFile == NIL
          cFile := _HMG_aControlCaption[i]
       ENDIF
 

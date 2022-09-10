@@ -153,32 +153,32 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
    #define DEFAULT_COLUMNHEADER  "Column "
    #define DEFAULT_COLUMNWIDTH   150
    IF ValType(aRows) == "A" .AND. Len(aRows) > 0
-      IF ValType(aHeaders) == "U" .AND. ValType(aWidths) == "U"
+      IF aHeaders == NIL .AND. aWidths == NIL
          aHeaders := Array(Len(aRows[1]))
          aWidths  := Array(Len(aRows[1]))
          AEval(aHeaders, {|xValue, nIndex| xValue := NIL, aHeaders[nIndex] := DEFAULT_COLUMNHEADER + hb_ntos(nIndex)})
          AFill(aWidths,  DEFAULT_COLUMNWIDTH)
-      ELSEIF ValType(aHeaders) == "A" .AND. ValType(aWidths) == "U"
+      ELSEIF ValType(aHeaders) == "A" .AND. aWidths == NIL
          aWidths  := Array(Len(aHeaders))
          AFill(aWidths,  DEFAULT_COLUMNWIDTH)
          IF Len(aImage) > 0
             aWidths[1] := 0
          ENDIF
-      ELSEIF ValType(aHeaders) == "U" .AND. ValType(aWidths) == "A"
+      ELSEIF aHeaders == NIL .AND. ValType(aWidths) == "A"
          aHeaders := Array(Len(aWidths))
          AEval(aHeaders, {| xValue, nIndex | xValue := NIL, aHeaders[nIndex] := DEFAULT_COLUMNHEADER + hb_ntos(nIndex)})
       ENDIF
    ELSE
-      IF ValType(aHeaders) == "U" .AND. ValType(aWidths) == "U"
+      IF aHeaders == NIL .AND. aWidths == NIL
          aHeaders := {""}
          aWidths  := {0}
-      ELSEIF ValType(aHeaders) == "A" .AND. ValType(aWidths) == "U"
+      ELSEIF ValType(aHeaders) == "A" .AND. aWidths == NIL
          aWidths  := Array(Len(aHeaders))
          AFill(aWidths,  DEFAULT_COLUMNWIDTH)
          IF Len(aImage) > 0
             aWidths[1] := 0
          ENDIF
-      ELSEIF ValType(aHeaders) == "U" .AND. ValType(aWidths) == "A"
+      ELSEIF aHeaders == NIL .AND. ValType(aWidths) == "A"
          aHeaders := Array(Len(aWidths))
          AEval(aHeaders, {| xValue, nIndex | xValue := NIL, aHeaders[nIndex] := DEFAULT_COLUMNHEADER + hb_ntos(nIndex)})
       ENDIF
@@ -189,7 +189,7 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
    IF showheaders == .F.
       aHeaders := AFill(Array(Len(aWidths)), "")
    ENDIF
-   IF ValType(value) == "U" .AND. !MultiSelect
+   IF value == NIL .AND. !MultiSelect
       value := 0
    ENDIF
    /* code borrowed from ooHG project */
@@ -262,7 +262,7 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      IF ValType(x) == "U" .OR. ValType(y) == "U"
+      IF x == NIL .OR. y == NIL
 
          IF _HMG_SplitLastControl == "TOOLBAR"
             Break := .T.

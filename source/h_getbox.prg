@@ -104,7 +104,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    ow := oDlu2Pixel()
 #endif
 
-   IF Empty(field) .AND. ValType(Value) == "U"
+   IF Empty(field) .AND. Value == NIL
       MsgMiniGUIError("GETBOX: Initial Value or Field must be specified.")
    ENDIF
 
@@ -404,7 +404,7 @@ PROCEDURE _DataGetBoxRefresh ( i )
 *-----------------------------------------------------------------------------*
    LOCAL Field := _HMG_aControlPageMap[i]
 
-   _SetGetBoxValue( i, _HMG_aControlHandles[i], iif( ValType(Field) == "U", _HMG_aControlValue[i], &( Field ) ) )
+   _SetGetBoxValue( i, _HMG_aControlHandles[i], iif( Field == NIL, _HMG_aControlValue[i], &( Field ) ) )
 
 RETURN
 

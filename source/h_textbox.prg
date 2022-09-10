@@ -673,7 +673,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
    __defaultNIL(@lostfocus, "")
    __defaultNIL(@enter, "")
 
-   IF ValType(Value) == "U"
+   IF Value == NIL
       Value := iif( date, CToD("  /  /  "), "" )
    ENDIF
 

@@ -183,10 +183,10 @@ FUNCTION _DefinePropGrid ( ControlName, ParentFormName, row, col, width, height,
 
    IF _HMG_BeginWindowActive
       ParentFormName := _HMG_ActiveFormName
-      IF !Empty(_HMG_ActiveFontName) .AND. ValType(FontName) == "U"
+      IF !Empty(_HMG_ActiveFontName) .AND. FontName == NIL
          FontName := _HMG_ActiveFontName
       ENDIF
-      IF !Empty(_HMG_ActiveFontSize) .AND. ValType(FontSize) == "U"
+      IF !Empty(_HMG_ActiveFontSize) .AND. FontSize == NIL
          FontSize := _HMG_ActiveFontSize
       ENDIF
    ENDIF
@@ -224,7 +224,7 @@ FUNCTION _DefinePropGrid ( ControlName, ParentFormName, row, col, width, height,
 
    ParentFormHandle = GetFormHandle ( ParentFormName )
 
-   IF ValType(Row) == "U" .OR. ValType(Col) == "U"
+   IF Row == NIL .OR. Col == NIL
 
       IF _HMG_SplitLastControl == "TOOLBAR"
          Break := .T.
@@ -239,10 +239,10 @@ FUNCTION _DefinePropGrid ( ControlName, ParentFormName, row, col, width, height,
          IF FontHandle != 0
             _SetFontHandle( aControlHandle[1], FontHandle )
          ELSE
-            IF ValType(fontname) == "U"
+            IF fontname == NIL
                FontName := _HMG_DefaultFontName
             ENDIF
-            IF ValType(fontsize) == "U"
+            IF fontsize == NIL
                FontSize := _HMG_DefaultFontSize
             ENDIF
             FontHandle := _SetFont ( aControlHandle[1], FontName, FontSize )
@@ -266,10 +266,10 @@ FUNCTION _DefinePropGrid ( ControlName, ParentFormName, row, col, width, height,
       _SetFontHandle( aControlHandle[1], FontHandle )
       _SetFontHandle( aControlHandle[2], FontHandle )
    ELSE
-      IF ValType(fontname) == "U"
+      IF fontname == NIL
          fontname := _HMG_DefaultFontName
       ENDIF
-      IF ValType(fontsize) == "U"
+      IF fontsize == NIL
          fontsize := _HMG_DefaultFontSize
       ENDIF
       _SetFont ( aControlHandle[2], fontname, _HMG_DefaultFontSize, .T. , italic, underline, strikeout )
@@ -473,7 +473,7 @@ FUNCTION _DefinePropertyItem ( cType, cName, cValue, aData, disabled, disableedi
       //      MsgMiniGuiError("Property Item type: "+cType+" wrong defined.")
       MsgMiniGuiError(_HMG_PGLangError[1] + cType + _HMG_PGLangError[2])
    ENDIF
-   IF ValType(id) == "U"
+   IF id == NIL
       IF Len(_HMG_ActivePropGridArray) == 0
          nItemId := 100
       ENDIF
@@ -701,7 +701,7 @@ FUNCTION _AddPropertyItem  ( ControlName , ParentForm, cCategory, cType, cName, 
    LOCAL typePg := PgIdentType( cType )
    DEFAULT cCategory := "", cValue := "", aData := "", disabled := .F. , disableedit := .F. , Id := 0, Info := "", cValNameDef := "", cValName := cValNameDef, Mod := 0
 
-   IF ValType(ParentForm) == "U"
+   IF ParentForm == NIL
       IF _HMG_BeginWindowActive
          ParentForm := _HMG_ActiveFormName
       ELSE
@@ -748,7 +748,7 @@ FUNCTION _AddPropertyCategory  ( ControlName , ParentForm, cCategory, cName, id 
    LOCAL aRowItem, hWndPG, nIndex, hItem, nLev, aNodeHandle := {}
    DEFAULT cCategory := "", Id := 0, Info := ""
 
-   IF ValType(ParentForm) == "U"
+   IF ParentForm == NIL
       IF _HMG_BeginWindowActive
          ParentForm := _HMG_ActiveFormName
       ELSE
@@ -1481,7 +1481,7 @@ FUNCTION AttrTran( xData, type )
 *------------------------------------------------------------------------------*
    LOCAL n, cData
    DO CASE
-   CASE ValType(xData) == "U"
+   CASE xData == NIL
       RETURN IIF( Type == "L", "false", "" )
    CASE Type == "C"
       IF ValType(xData) == "C"
@@ -1584,7 +1584,7 @@ RETURN lret
 FUNCTION SaveMemVarible( ParentForm, ControlName )
 *------------------------------------------------------------------------------*
    LOCAL aItemRt, hItem, cVar, lRet := .F. , hWndPG
-   IF ValType(ParentForm) == "U"
+   IF ParentForm == NIL
       IF _HMG_BeginWindowActive
          ParentForm := _HMG_ActiveFormName
       ELSE
@@ -1618,7 +1618,7 @@ FUNCTION GetChangedItem( ParentForm, ControlName )
 *------------------------------------------------------------------------------*
    LOCAL cSection := "", hItem, hWndPG
    LOCAL aRetItem := {}
-   IF ValType(ParentForm) == "U"
+   IF ParentForm == NIL
       IF _HMG_BeginWindowActive
          ParentForm := _HMG_ActiveFormName
       ELSE
@@ -1818,7 +1818,7 @@ FUNCTION SetPropGridValue ( ParentForm, ControlName, nID, cValue, cData, lExp )
    LOCAL hItem, RetVal := "", ItemType, i, lData := .T.
    LOCAL hWndPG, hEdit := 0
    DEFAULT nID := 0, lExp := .F.
-   IF ValType(ParentForm) == "U"
+   IF ParentForm == NIL
       IF _HMG_BeginWindowActive
          ParentForm := _HMG_ActiveFormName
       ELSE
@@ -1830,7 +1830,7 @@ FUNCTION SetPropGridValue ( ParentForm, ControlName, nID, cValue, cData, lExp )
    IF i > 0
       hEdit := _HMG_aControlMiscData2[i]
    ENDIF
-   IF ValType(cData) == "U"
+   IF cData == NIL
       lData := .F.
    ENDIF
    IF hWndPG > 0
@@ -1867,7 +1867,7 @@ FUNCTION EnablePropGridItem ( ParentForm, ControlName, nID, lEnabled )
    LOCAL hItem, RetVal := ""
    LOCAL hWndPG , hItemSel
    DEFAULT nID := 0
-   IF ValType(ParentForm) == "U"
+   IF ParentForm == NIL
       IF _HMG_BeginWindowActive
          ParentForm := _HMG_ActiveFormName
       ELSE
@@ -1900,7 +1900,7 @@ FUNCTION RedrawPropGridItem ( ParentForm, ControlName, nID )
 *------------------------------------------------------------------------------*
    LOCAL hItem, hWndPG
    DEFAULT nID := 0
-   IF ValType(ParentForm) == "U"
+   IF ParentForm == NIL
       IF _HMG_BeginWindowActive
          ParentForm := _HMG_ActiveFormName
       ELSE
@@ -1927,7 +1927,7 @@ FUNCTION GetPropGridValue ( ParentForm, ControlName, nID, lAllData, nSubItem )
    LOCAL hItem, RetVal, ItemType, aData
    LOCAL hWndPG
    DEFAULT nID := 0
-   IF ValType(ParentForm) == "U"
+   IF ParentForm == NIL
       IF _HMG_BeginWindowActive
          ParentForm := _HMG_ActiveFormName
       ELSE

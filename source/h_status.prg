@@ -69,7 +69,7 @@ FUNCTION _BeginMessageBar( ControlName, ParentForm, kbd, fontname, fontsize, bol
 
    _HMG_ActiveMessageBarName  := ControlName
 
-   IF ValType(ParentForm) == "U"
+   IF ParentForm == NIL
       ParentForm := _HMG_ActiveFormName
    ENDIF
 
@@ -206,7 +206,7 @@ FUNCTION _DefineItemMessage ( ControlName, ParentControl, x, y, Caption, Procedu
       MsgMiniGuiError("Window: " + ParentForm + " is not defined.")
    ENDIF
 
-   IF ValType(ParentControl) == "U"
+   IF ParentControl == NIL
       ParentControl := _HMG_ActiveMessageBarName
    ENDIF
 
@@ -217,7 +217,7 @@ FUNCTION _DefineItemMessage ( ControlName, ParentControl, x, y, Caption, Procedu
 
    ParentForm := GetControlHandle(ParentControl, ParentForm)
 
-   IF ValType(w) == "U"
+   IF w == NIL
       w := Max(70, GetTextWidth(NIL, Caption, _HMG_aControlFontHandle[GetControlIndex(ParentControl, cParentForm)]) + 6)
    ENDIF
 

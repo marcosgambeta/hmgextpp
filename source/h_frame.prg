@@ -223,7 +223,7 @@ FUNCTION _BeginFrame( name , parent , row , col , w , h , caption , fontname , f
       Parent := _HMG_ActiveFrameParentFormName [_HMG_FrameLevel]
    ENDIF
 
-   IF ValType(parent) == "U"
+   IF parent == NIL
       IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
          Parent := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
       ENDIF

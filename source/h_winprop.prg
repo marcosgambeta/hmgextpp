@@ -101,7 +101,7 @@ _GetFormHandle(xParentForm, cParentFormName) --> xParentForm
 */
 STATIC FUNCTION _GetFormHandle(xParentForm, cParentFormName)
 
-   IF ValType(xParentForm) == "U"
+   IF xParentForm == NIL
 
       IF _HMG_BeginWindowMdiActive
 

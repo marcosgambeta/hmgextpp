@@ -190,7 +190,7 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
       hb_default(@w, 240)
       hb_default(@h, 120)
 
-      IF ValType(x) == "U" .OR. ValType(y) == "U"
+      IF x == NIL .OR. y == NIL
 
          // If splitboxed force no vertical scrollbar
          novscroll := .T.
@@ -1220,7 +1220,7 @@ PROCEDURE _BrowseSetValue(ControlName, ParentForm, Value, z, mp)
       RETURN
    ENDIF
 
-   i := iif( ValType(z) == "U" , GetControlIndex(ControlName, ParentForm) , z )
+   i := iif( z == NIL, GetControlIndex(ControlName, ParentForm) , z )
 
    IF _HMG_ThisEventType == "BROWSE_ONCHANGE"
       IF i == _HMG_THISINDEX
@@ -1248,7 +1248,7 @@ PROCEDURE _BrowseSetValue(ControlName, ParentForm, Value, z, mp)
       RETURN
    ENDIF
 
-   IF ValType(mp) == "U"
+   IF mp == NIL
       m := Int( ListViewGetCountPerPage(_BrowseHandle) / 2 )
    ELSE
       m := mp
@@ -1559,7 +1559,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
 
       IF !q  // field not found, but maybe an expression (readonly hopefully!)
          // force to readonly
-         IF ValType(aReadOnly) == "U"
+         IF aReadOnly == NIL
             aReadonly := Array( Len(_HMG_aControlRangeMin[i]) )
             AFill( aReadonly, .F. )
             aReadonly [z] := .T.
@@ -1610,7 +1610,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
 
       FOR z := 1 TO Len(aResults)
 
-         IF ValType(aReadOnly) == "U" .OR. aReadOnly [z] == .F.
+         IF aReadOnly == NIL .OR. aReadOnly [z] == .F.
 
             tvar := _HMG_aControlRangeMin[i] [z]
             Replace &tvar WITH aResults [z]

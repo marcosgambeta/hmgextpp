@@ -175,7 +175,7 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      IF ValType(Row) == "U" .OR. ValType(Col) == "U"
+      IF Row == NIL .OR. Col == NIL
 
          IF _HMG_SplitLastControl == "TOOLBAR"
             Break := .T.
@@ -665,7 +665,7 @@ PROCEDURE TreeItemSort ( cTreeName, cFormName, nItem, lRecurse, lCaseSensitive, 
 
    nControlHandle := GetControlHandle(cTreeName, cFormName)
 
-   IF ValType(nItem) == "U"
+   IF nItem == NIL
       nItemHandle := TreeView_GetRoot ( nControlHandle )
    ELSE
       nItemHandle := TreeItemGetHandle(cTreeName, cFormName, nItem)

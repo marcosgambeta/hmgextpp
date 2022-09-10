@@ -634,10 +634,10 @@ RETURN
 
 STATIC PROCEDURE DrawArcInBitmap( hDC, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb, penwidth )
 
-   IF ValType(penrgb) == "U"
+   IF penrgb == NIL
       penrgb = BLACK
    ENDIF
-   IF ValType(penwidth) == "U"
+   IF penwidth == NIL
       penwidth = 1
    ENDIF
 
@@ -648,13 +648,13 @@ RETURN
 
 STATIC PROCEDURE DrawPieInBitmap( hDC, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb, penwidth, fillrgb )
 
-   IF ValType(penrgb) == "U"
+   IF penrgb == NIL
       penrgb = BLACK
    ENDIF
-   IF ValType(penwidth) == "U"
+   IF penwidth == NIL
       penwidth = 1
    ENDIF
-   IF ValType(fillrgb) == "U"
+   IF fillrgb == NIL
       fillrgb := WHITE
    ENDIF
 
@@ -669,13 +669,13 @@ STATIC PROCEDURE DrawPolygonInBitmap( hDC, apoints, penrgb, penwidth, fillrgb )
    LOCAL yarr := {}
    LOCAL x
 
-   IF ValType(penrgb) == "U"
+   IF penrgb == NIL
       penrgb := BLACK
    ENDIF
-   IF ValType(penwidth) == "U"
+   IF penwidth == NIL
       penwidth := 1
    ENDIF
-   IF ValType(fillrgb) == "U"
+   IF fillrgb == NIL
       fillrgb := WHITE
    ENDIF
    FOR x := 1 TO LEN(apoints)

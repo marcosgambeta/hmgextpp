@@ -373,7 +373,7 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
       pdfOpen(cOutputFileName, 200, .T.)
    ENDIF
 
-   IF ValType(xSkipProcedure) == "U"
+   IF xSkipProcedure == NIL
 
       // If not workarea open, cancel report execution
 
@@ -570,14 +570,14 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
       START PRINTDOC
    ENDIF
 
-   IF ValType(xSkipProcedure) == "U"
+   IF xSkipProcedure == NIL
       GO TOP
    ENDIF
 
    xPreviousGroupExpression := ""
    lGroupStarted := .F.
 
-   IF ValType(xSkipProcedure) == "U"
+   IF xSkipProcedure == NIL
       lTempEof := Eof()
    ELSE
       lTempEof := Eval(xEof)
@@ -627,7 +627,7 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
 
             nCurrentOffset += nDetailHeight
 
-            IF ValType(xSkipProcedure) == "U"
+            IF xSkipProcedure == NIL
                SKIP
                lTempEof := Eof()
             ELSE
@@ -762,7 +762,7 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
 
             nCurrentOffset += nDetailHeight
 
-            IF ValType(xSkipProcedure) == "U"
+            IF xSkipProcedure == NIL
                SKIP
                lTempEof := Eof()
             ELSE
@@ -814,7 +814,7 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
       FClose(nOutfile)
    ENDIF
 
-   IF ValType(xSkipProcedure) == "U"
+   IF xSkipProcedure == NIL
       GO nPreviousRecNo
    ENDIF
 

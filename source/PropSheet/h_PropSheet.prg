@@ -187,15 +187,15 @@ FUNCTION _BeginPropSheet(  FormName, ParentForm, row, col, width, height, captio
    ENDIF
 
    IF _HMG_BeginWindowActive = .T.
-      IF !Empty(_HMG_ActiveFontName) .AND. ValType(fontname) == "U"
+      IF !Empty(_HMG_ActiveFontName) .AND. fontname == NIL
          fontname := _HMG_ActiveFontName
       ENDIF
-      IF !Empty(_HMG_ActiveFontSize) .AND. ValType(fontsize) == "U"
+      IF !Empty(_HMG_ActiveFontSize) .AND. fontsize == NIL
          fontsize := _HMG_ActiveFontSize
       ENDIF
    ENDIF
 
-   IF ValType(ParentForm) == "U"
+   IF ParentForm == NIL
       ParentForm := _HMG_ActiveFormName
    ENDIF
 
@@ -248,7 +248,7 @@ FUNCTION _DefinePropSheet ( FormName, ParentForm,  y, x, w, h,  caption, IdIcon,
       Style += PSH_USEICONID
    ENDIF
 
-   IF ValType(FormName) == "U"
+   IF FormName == NIL
       FormName := _HMG_TempWindowName
    ENDIF
 
@@ -310,13 +310,13 @@ FUNCTION _DefinePropSheet ( FormName, ParentForm,  y, x, w, h,  caption, IdIcon,
       RETURN NIL
    ENDIF
 
-   IF ValType(FontName) == "U"
+   IF FontName == NIL
       _HMG_ActiveFontName := ""
    ELSE
       _HMG_ActiveFontName := FontName
    ENDIF
 
-   IF ValType(FontSize) == "U"
+   IF FontSize == NIL
       _HMG_ActiveFontSize := 0
    ELSE
       _HMG_ActiveFontSize := FontSize

@@ -66,7 +66,7 @@ FUNCTION _DefineHotKey ( cParentForm , nMod , nKey , bAction )
       cParentForm := _HMG_ActiveFormName
    ENDIF
 
-   IF ValType(cParentForm) == "U"
+   IF cParentForm == NIL
       MsgMiniGuiError("ON KEY: Parent Window is Not specified.")
    ENDIF
 

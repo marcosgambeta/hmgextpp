@@ -70,7 +70,7 @@ PROCEDURE _DefineFont( FontName, fName, fSize, bold, italic, underline, strikeou
    hb_default(@strikeout, .F.)
    hb_default(@nAngle, 0)
 
-   IF ValType(charset) == "U"
+   IF charset == NIL
       GetFontList( NIL, NIL, NIL, NIL, NIL, NIL, @aFontList )
 
       GetFontList( NIL, NIL, SYMBOL_CHARSET, NIL, NIL, NIL, @aFontSymb )

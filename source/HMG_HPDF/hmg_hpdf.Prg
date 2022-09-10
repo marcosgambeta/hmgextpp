@@ -14,7 +14,7 @@ FUNCTION _HMG_HPDF_INIT ( cPDFFile, nOrientation, nPaperSize, nPaperLength, nPap
 
    PUBLIC _HMG_HPDFDATA := Array( 1 )
 
-   IF ValType(_HMG_HPDFDATA[1]) == "U"
+   IF _HMG_HPDFDATA[1] == NIL
       _HMG_HPDFDATA[1] := { ;
          NIL, ;                  // 1 PDF Object
          cPDFFile, ;             // 2 PDF File to Save

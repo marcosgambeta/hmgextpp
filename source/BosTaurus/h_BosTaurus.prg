@@ -54,10 +54,10 @@ RETURN hWnd
 
 FUNCTION bt_FillRectIsNIL(Row, Col, Width, Height, Row_value, Col_value, Width_value, Height_value)
 
-   Row := IIF(ValType(Row) == "U", Row_value, Row)
-   Col := IIF(ValType(Col) == "U", Col_value, Col)
-   Width := IIF(ValType(Width) == "U", Width_value, Width)
-   Height := IIF(ValType(Height) == "U", Height_value, Height)
+   Row := IIF(Row == NIL, Row_value, Row)
+   Col := IIF(Col == NIL, Col_value, Col)
+   Width := IIF(Width == NIL, Width_value, Width)
+   Height := IIF(Height == NIL, Height_value, Height)
 
 RETURN NIL
 
@@ -166,7 +166,7 @@ RETURN NIL
 
 FUNCTION BT_DrawBitmapTransparent(hDC, Row, Col, Width, Height, Mode_Stretch, hBitmap, aRGBcolor_transp)
 
-   LOCAL ColorRef_Transp := IIF(ValType(aRGBcolor_transp) == "U", BT_BMP_GETINFO(hBitmap, BT_BITMAP_INFO_GETCOLORPIXEL, 0, 0), ArrayRGB_TO_COLORREF(aRGBcolor_transp))
+   LOCAL ColorRef_Transp := IIF(aRGBcolor_transp == NIL, BT_BMP_GETINFO(hBitmap, BT_BITMAP_INFO_GETCOLORPIXEL, 0, 0), ArrayRGB_TO_COLORREF(aRGBcolor_transp))
    LOCAL Width2 := BT_BMP_GETINFO(hBitmap, BT_BITMAP_INFO_WIDTH)
    LOCAL Height2 := BT_BMP_GETINFO(hBitmap, BT_BITMAP_INFO_HEIGHT)
 
@@ -195,7 +195,7 @@ RETURN NIL
 
 FUNCTION BT_DrawDCtoDCTransparent(hDC1, Row1, Col1, Width1, Height1, Mode_Stretch, hDC2, Row2, Col2, Width2, Height2, aRGBcolor_transp)
 
-   LOCAL ColorRef_Transp := IIF(ValType(aRGBcolor_transp) == "U", ArrayRGB_TO_COLORREF(BT_DrawGetPixel(hDC2, 0, 0)), ArrayRGB_TO_COLORREF(aRGBcolor_transp))
+   LOCAL ColorRef_Transp := IIF(aRGBcolor_transp == NIL, ArrayRGB_TO_COLORREF(BT_DrawGetPixel(hDC2, 0, 0)), ArrayRGB_TO_COLORREF(aRGBcolor_transp))
 
    BT_DRAW_HDC_TO_HDC(hDC1, Col1, Row1, Width1, Height1, hDC2, Col2, Row2, Width2, Height2, Mode_Stretch, BT_HDC_TRANSPARENT, ColorRef_Transp)
 
@@ -211,16 +211,16 @@ RETURN NIL
 
 FUNCTION BT_DrawGradientFillHorizontal(hDC, Row, Col, Width, Height, aColorRGBstart, aColorRGBend)
 
-   aColorRGBstart := IIF(ValType(aColorRGBstart) == "U", BLACK, aColorRGBstart)
-   aColorRGBend := IIF(ValType(aColorRGBend) == "U", WHITE, aColorRGBend)
+   aColorRGBstart := IIF(aColorRGBstart == NIL, BLACK, aColorRGBstart)
+   aColorRGBend := IIF(aColorRGBend == NIL, WHITE, aColorRGBend)
    BT_DRAW_HDC_GRADIENTFILL(hDC, Col, Row, Width, Height, ArrayRGB_TO_COLORREF(aColorRGBstart), ArrayRGB_TO_COLORREF(aColorRGBend), BT_GRADIENTFILL_HORIZONTAL)
 
 RETURN NIL
 
 FUNCTION BT_DrawGradientFillVertical(hDC, Row, Col, Width, Height, aColorRGBstart, aColorRGBend)
 
-   aColorRGBstart := IIF(ValType(aColorRGBstart) == "U", WHITE, aColorRGBstart)
-   aColorRGBend := IIF(ValType(aColorRGBend) == "U", BLACK, aColorRGBend)
+   aColorRGBstart := IIF(aColorRGBstart == NIL, WHITE, aColorRGBstart)
+   aColorRGBend := IIF(aColorRGBend == NIL, BLACK, aColorRGBend)
    BT_DRAW_HDC_GRADIENTFILL(hDC, Col, Row, Width, Height, ArrayRGB_TO_COLORREF(aColorRGBstart), ArrayRGB_TO_COLORREF(aColorRGBend), BT_GRADIENTFILL_VERTICAL)
 
 RETURN NIL
@@ -229,22 +229,22 @@ RETURN NIL
 
 FUNCTION BT_DrawText(hDC, Row, Col, cText, cFontName, nFontSize, aFontColor, aBackColor, nTypeText, nAlingText, nOrientation)
 
-   aFontColor := IIF(ValType(aFontColor) == "U", BLACK, aFontColor)
-   aBackColor := IIF(ValType(aBackColor) == "U", WHITE, aBackColor)
-   nTypeText := IIF(ValType(nTypeText) == "U", BT_TEXT_OPAQUE, nTypeText)
-   nAlingText := IIF(ValType(nAlingText) == "U", (BT_TEXT_LEFT + BT_TEXT_TOP), nAlingText)
-   nOrientation := IIF(ValType(nOrientation) == "U", BT_TEXT_NORMAL_ORIENTATION, nOrientation)
+   aFontColor := IIF(aFontColor == NIL, BLACK, aFontColor)
+   aBackColor := IIF(aBackColor == NIL, WHITE, aBackColor)
+   nTypeText := IIF(nTypeText == NIL, BT_TEXT_OPAQUE, nTypeText)
+   nAlingText := IIF(nAlingText == NIL, (BT_TEXT_LEFT + BT_TEXT_TOP), nAlingText)
+   nOrientation := IIF(nOrientation == NIL, BT_TEXT_NORMAL_ORIENTATION, nOrientation)
    BT_DRAW_HDC_TEXTOUT(hDC, Col, Row, cText, cFontName, nFontSize, ArrayRGB_TO_COLORREF(aFontColor), ArrayRGB_TO_COLORREF(aBackColor), nTypeText, nAlingText, nOrientation)
 
 RETURN NIL
 
 FUNCTION BT_DrawTextEx(hDC, Row, Col, Width, Height, cText, cFontName, nFontSize, aFontColor, aBackColor, nTypeText, nAlingText, nOrientation)
 
-   aFontColor := IIF(ValType(aFontColor) == "U", BLACK, aFontColor)
-   aBackColor := IIF(ValType(aBackColor) == "U", WHITE, aBackColor)
-   nTypeText := IIF(ValType(nTypeText) == "U", BT_TEXT_OPAQUE, nTypeText)
-   nAlingText := IIF(ValType(nAlingText) == "U", (BT_TEXT_LEFT + BT_TEXT_TOP + BT_TEXT_WORDBREAK + BT_TEXT_NOCLIP), nAlingText)
-   nOrientation := IIF(ValType(nOrientation) == "U", BT_TEXT_NORMAL_ORIENTATION, nOrientation)
+   aFontColor := IIF(aFontColor == NIL, BLACK, aFontColor)
+   aBackColor := IIF(aBackColor == NIL, WHITE, aBackColor)
+   nTypeText := IIF(nTypeText == NIL, BT_TEXT_OPAQUE, nTypeText)
+   nAlingText := IIF(nAlingText == NIL, (BT_TEXT_LEFT + BT_TEXT_TOP + BT_TEXT_WORDBREAK + BT_TEXT_NOCLIP), nAlingText)
+   nOrientation := IIF(nOrientation == NIL, BT_TEXT_NORMAL_ORIENTATION, nOrientation)
    BT_DRAW_HDC_DRAWTEXT(hDC, Col, Row, Width, Height, cText, cFontName, nFontSize, ArrayRGB_TO_COLORREF(aFontColor), ArrayRGB_TO_COLORREF(aBackColor), nTypeText, nAlingText, nOrientation)
 
 RETURN NIL
@@ -259,42 +259,42 @@ RETURN aSize
 
 FUNCTION BT_DrawPolyLine(hDC, aPointY, aPointX, aColorRGBLine, nWidthLine)
 
-   nWidthLine := IIF(ValType(nWidthLine) == "U", 1, nWidthLine)
+   nWidthLine := IIF(nWidthLine == NIL, 1, nWidthLine)
    BT_DRAW_HDC_POLY(hDC, aPointX, aPointY, ArrayRGB_TO_COLORREF(aColorRGBLine), nWidthLine, 0, BT_DRAW_POLYLINE)
 
 RETURN NIL
 
 FUNCTION BT_DrawPolygon(hDC, aPointY, aPointX, aColorRGBLine, nWidthLine, aColorRGBFill)
 
-   nWidthLine := IIF(ValType(nWidthLine) == "U", 1, nWidthLine)
+   nWidthLine := IIF(nWidthLine == NIL, 1, nWidthLine)
    BT_DRAW_HDC_POLY(hDC, aPointX, aPointY, ArrayRGB_TO_COLORREF(aColorRGBLine), nWidthLine, ArrayRGB_TO_COLORREF(aColorRGBFill), BT_DRAW_POLYGON)
 
 RETURN NIL
 
 FUNCTION BT_DrawPolyBezier(hDC, aPointY, aPointX, aColorRGBLine, nWidthLine)
 
-   nWidthLine := IIF(ValType(nWidthLine) == "U", 1, nWidthLine)
+   nWidthLine := IIF(nWidthLine == NIL, 1, nWidthLine)
    BT_DRAW_HDC_POLY(hDC, aPointX, aPointY, ArrayRGB_TO_COLORREF(aColorRGBLine), nWidthLine, 0, BT_DRAW_POLYBEZIER)
 
 RETURN NIL
 
 FUNCTION BT_DrawArc(hDC, Row1, Col1, Row2, Col2, RowStartArc, ColStartArc, RowEndArc, ColEndArc, aColorRGBLine, nWidthLine)
 
-   nWidthLine := IIF(ValType(nWidthLine) == "U", 1, nWidthLine)
+   nWidthLine := IIF(nWidthLine == NIL, 1, nWidthLine)
    BT_DRAW_HDC_ARCX(hDC, Col1, Row1, Col2, Row2, ColStartArc, RowStartArc, ColEndArc, RowEndArc, ArrayRGB_TO_COLORREF(aColorRGBLine), nWidthLine, 0, BT_DRAW_ARC)
 
 RETURN NIL
 
 FUNCTION BT_DrawChord(hDC, Row1, Col1, Row2, Col2, RowStartArc, ColStartArc, RowEndArc, ColEndArc, aColorRGBLine, nWidthLine, aColorRGBFill)
 
-   nWidthLine := IIF(ValType(nWidthLine) == "U", 1, nWidthLine)
+   nWidthLine := IIF(nWidthLine == NIL, 1, nWidthLine)
    BT_DRAW_HDC_ARCX(hDC, Col1, Row1, Col2, Row2, ColStartArc, RowStartArc, ColEndArc, RowEndArc, ArrayRGB_TO_COLORREF(aColorRGBLine), nWidthLine, ArrayRGB_TO_COLORREF(aColorRGBFill), BT_DRAW_CHORD)
 
 RETURN NIL
 
 FUNCTION BT_DrawPie(hDC, Row1, Col1, Row2, Col2, RowStartArc, ColStartArc, RowEndArc, ColEndArc, aColorRGBLine, nWidthLine, aColorRGBFill)
 
-   nWidthLine := IIF(ValType(nWidthLine) == "U", 1, nWidthLine)
+   nWidthLine := IIF(nWidthLine == NIL, 1, nWidthLine)
    BT_DRAW_HDC_ARCX(hDC, Col1, Row1, Col2, Row2, ColStartArc, RowStartArc, ColEndArc, RowEndArc, ArrayRGB_TO_COLORREF(aColorRGBLine), nWidthLine, ArrayRGB_TO_COLORREF(aColorRGBFill), BT_DRAW_PIE)
 
 RETURN NIL
@@ -304,7 +304,7 @@ FUNCTION BT_DrawLine(hDC, Row1, Col1, Row2, Col2, aColorRGBLine, nWidthLine)
    LOCAL aPointX := { Col1, Col2 }
    LOCAL aPointY := { Row1, Row2 }
 
-   nWidthLine := IIF(ValType(nWidthLine) == "U", 1, nWidthLine)
+   nWidthLine := IIF(nWidthLine == NIL, 1, nWidthLine)
    BT_DrawPolyLine(hDC, aPointY, aPointX, aColorRGBLine, nWidthLine)
 
 RETURN NIL
@@ -319,7 +319,7 @@ FUNCTION BT_DrawRectangle(hDC, Row, Col, Width, Height, aColorRGBLine, nWidthLin
    aPointX[3] := Col + Width ;  aPointY[3] := Row + Height
    aPointX[4] := Col ;          aPointY[4] := Row + Height
    aPointX[5] := Col ;          aPointY[5] := Row
-   nWidthLine := IIF(ValType(nWidthLine) == "U", 1, nWidthLine)
+   nWidthLine := IIF(nWidthLine == NIL, 1, nWidthLine)
    BT_DrawPolyLine(hDC, aPointY, aPointX, aColorRGBLine, nWidthLine)
 
 RETURN NIL
@@ -337,7 +337,7 @@ FUNCTION BT_DrawEllipse(hDC, Row1, Col1, Width, Height, aColorRGBLine, nWidthLin
    Row2 := Row1 + Height
    ColStartArc := ColEndArc := Col1
    RowStartArc := RowEndArc := Row1
-   nWidthLine := IIF(ValType(nWidthLine) == "U", 1, nWidthLine)
+   nWidthLine := IIF(nWidthLine == NIL, 1, nWidthLine)
    BT_DrawArc(hDC, Row1, Col1, Row2, Col2, RowStartArc, ColStartArc, RowEndArc, ColEndArc, aColorRGBLine, nWidthLine)
 
 RETURN NIL
@@ -346,24 +346,24 @@ RETURN NIL
 
 FUNCTION BT_DrawFillRectangle(hDC, Row, Col, Width, Height, aColorRGBFill, aColorRGBLine, nWidthLine)
 
-   aColorRGBLine := IIF(ValType(nWidthLine) == "U", aColorRGBFill, aColorRGBLine)
-   nWidthLine := IIF(ValType(nWidthLine) == "U", 1, nWidthLine)
+   aColorRGBLine := IIF(nWidthLine == NIL, aColorRGBFill, aColorRGBLine)
+   nWidthLine := IIF(nWidthLine == NIL, 1, nWidthLine)
    BT_DRAW_HDC_FILLEDOBJECT(hDC, Col, Row, Width, Height, ArrayRGB_TO_COLORREF(aColorRGBFill), ArrayRGB_TO_COLORREF(aColorRGBLine), nWidthLine, BT_FILLRECTANGLE, 0, 0)
 
 RETURN NIL
 
 FUNCTION BT_DrawFillEllipse(hDC, Row, Col, Width, Height, aColorRGBFill, aColorRGBLine, nWidthLine)
 
-   aColorRGBLine := IIF(ValType(nWidthLine) == "U", aColorRGBFill, aColorRGBLine)
-   nWidthLine := IIF(ValType(nWidthLine) == "U", 1, nWidthLine)
+   aColorRGBLine := IIF(nWidthLine == NIL, aColorRGBFill, aColorRGBLine)
+   nWidthLine := IIF(nWidthLine == NIL, 1, nWidthLine)
    BT_DRAW_HDC_FILLEDOBJECT(hDC, Col, Row, Width, Height, ArrayRGB_TO_COLORREF(aColorRGBFill), ArrayRGB_TO_COLORREF(aColorRGBLine), nWidthLine, BT_FILLELLIPSE, 0, 0)
 
 RETURN NIL
 
 FUNCTION BT_DrawFillRoundRect(hDC, Row, Col, Width, Height, RoundWidth, RoundHeight, aColorRGBFill, aColorRGBLine, nWidthLine)
 
-   aColorRGBLine := IIF(ValType(nWidthLine) == "U", aColorRGBFill, aColorRGBLine)
-   nWidthLine := IIF(ValType(nWidthLine) == "U", 1, nWidthLine)
+   aColorRGBLine := IIF(nWidthLine == NIL, aColorRGBFill, aColorRGBLine)
+   nWidthLine := IIF(nWidthLine == NIL, 1, nWidthLine)
    BT_DRAW_HDC_FILLEDOBJECT(hDC, Col, Row, Width, Height, ArrayRGB_TO_COLORREF(aColorRGBFill), ArrayRGB_TO_COLORREF(aColorRGBLine), nWidthLine, BT_FILLROUNDRECT, RoundWidth, RoundHeight)
 
 RETURN NIL
@@ -533,14 +533,14 @@ RETURN nWidth
 
 FUNCTION BT_ClientAreaInvalidateAll(Win, lErase)
 
-   lErase = IIF(ValType(lErase) == "U", .F., lErase)
+   lErase = IIF(lErase == NIL, .F., lErase)
    BT_SCR_INVALIDATERECT(bt_WinHandle(Win), NIL, lErase)
 
 RETURN NIL
 
 FUNCTION BT_ClientAreaInvalidateRect(Win, Row, Col, Width, Height, lErase)
 
-   lErase = IIF(ValType(lErase) == "U", .F., lErase)
+   lErase = IIF(lErase == NIL, .F., lErase)
    bt_FillRectIsNIL(@Row, @Col, @Width, @Height, 0, 0, BT_ClientAreaWidth(Win), BT_ClientAreaHeight(Win))
    BT_SCR_INVALIDATERECT(bt_WinHandle(Win), {Col, Row, Col + Width, Row + Height}, lErase)
 
@@ -562,7 +562,7 @@ FUNCTION BT_BitmapSaveFile(hBitmap, cFileName, nTypePicture)
 
    LOCAL lRet
 
-   nTypePicture := IIF(ValType(nTypePicture) == "U", BT_FILEFORMAT_BMP, nTypePicture)
+   nTypePicture := IIF(nTypePicture == NIL, BT_FILEFORMAT_BMP, nTypePicture)
    lRet := BT_BMP_SAVEFILE(hBitmap, cFileName, nTypePicture)
 
 RETURN lRet
@@ -573,7 +573,7 @@ FUNCTION BT_BitmapCreateNew(Width, Height, aRGBcolor_Fill_Bk)
 
    LOCAL New_hBitmap
 
-   aRGBcolor_Fill_Bk := IIF(ValType(aRGBColor_Fill_Bk) == "U", BLACK, aRGBcolor_Fill_Bk)
+   aRGBcolor_Fill_Bk := IIF(aRGBColor_Fill_Bk == NIL, BLACK, aRGBcolor_Fill_Bk)
    New_hBitmap := BT_BMP_CREATE(Width, Height, ArrayRGB_TO_COLORREF(aRGBColor_Fill_Bk))
 
 RETURN New_hBitmap
@@ -651,7 +651,7 @@ RETURN NIL
 FUNCTION BT_BitmapTransform(hBitmap, Mode, Angle, aRGBColor_Fill_Bk)
 
    LOCAL New_hBitmap
-   LOCAL ColorRef_Fill_Bk := IIF(ValType(aRGBColor_Fill_Bk) == "U", BT_BMP_GETINFO(hBitmap, BT_BITMAP_INFO_GETCOLORPIXEL, 0, 0), ArrayRGB_TO_COLORREF(aRGBColor_Fill_Bk))
+   LOCAL ColorRef_Fill_Bk := IIF(aRGBColor_Fill_Bk == NIL, BT_BMP_GETINFO(hBitmap, BT_BITMAP_INFO_GETCOLORPIXEL, 0, 0), ArrayRGB_TO_COLORREF(aRGBColor_Fill_Bk))
 
    New_hBitmap := BT_BMP_TRANSFORM(hBitmap, Mode, Angle, ColorRef_Fill_Bk)
 
@@ -675,8 +675,8 @@ FUNCTION BT_BitmapCopyAndResize(hBitmap, New_Width, New_Height, Mode_Stretch, Al
 
    LOCAL New_hBitmap
 
-   Mode_Stretch := IIF(ValType(Mode_Stretch) == "U", BT_STRETCH, Mode_Stretch)
-   Algorithm := IIF(ValType(Algorithm) == "U", BT_RESIZE_HALFTONE, Algorithm)
+   Mode_Stretch := IIF(Mode_Stretch == NIL, BT_STRETCH, Mode_Stretch)
+   Algorithm := IIF(Algorithm == NIL, BT_RESIZE_HALFTONE, Algorithm)
    New_hBitmap := BT_BMP_COPYANDRESIZE(hBitmap, New_Width, New_Height, Mode_Stretch, Algorithm)
 
 RETURN New_hBitmap
@@ -699,7 +699,7 @@ FUNCTION BT_BitmapPasteTransparent(hBitmap_D, Row_D, Col_D, Width_D, Height_D, M
    LOCAL Max_Height_D := BT_BitmapHeight(hBitmap_D)
    LOCAL Width_O := BT_BitmapWidth(hBitmap_O)
    LOCAL Height_O := BT_BitmapHeight(hBitmap_O)
-   LOCAL ColorRef_Transp := IIF(ValType(aRGBcolor_transp) == "U", BT_BMP_GETINFO(hBitmap_O, BT_BITMAP_INFO_GETCOLORPIXEL, 0, 0), ArrayRGB_TO_COLORREF(aRGBcolor_transp))
+   LOCAL ColorRef_Transp := IIF(aRGBcolor_transp == NIL, BT_BMP_GETINFO(hBitmap_O, BT_BITMAP_INFO_GETCOLORPIXEL, 0, 0), ArrayRGB_TO_COLORREF(aRGBcolor_transp))
 
    bt_FillRectIsNIL(@Row_D, @Col_D, @Width_D, @Height_D, 0, 0, Max_Width_D, Max_Height_D)
    BT_BMP_PASTE(hBitmap_D, Col_D, Row_D, Width_D, Height_D, hBitmap_O, 0, 0, Width_O, Height_O, Mode_Stretch, BT_BITMAP_TRANSPARENT, ColorRef_Transp)

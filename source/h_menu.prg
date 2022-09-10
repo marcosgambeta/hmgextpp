@@ -55,7 +55,7 @@ _DefineMainMenu(Parent)
 */
 PROCEDURE _DefineMainMenu(Parent)
 
-   IF ValType(Parent) == "U"
+   IF Parent == NIL
       Parent := _HMG_ActiveFormName
    ENDIF
 
@@ -89,7 +89,7 @@ PROCEDURE _DefineMenuPopup(Caption, Name, Image, Font)
 
          IF _HMG_xMenuPopupLevel == 0
 
-            IF ValType(Font) != "U" .AND. ValType(_HMG_xPopupMenuFont) == "U"
+            IF ValType(Font) != "U" .AND. _HMG_xPopupMenuFont == NIL
                _HMG_xPopupMenuFont := Font
             ENDIF
 
@@ -132,7 +132,7 @@ PROCEDURE _DefineMenuPopup(Caption, Name, Image, Font)
 
          IF _HMG_xContextPopupLevel == 0
 
-            IF ValType(Font) != "U" .AND. ValType(_HMG_xContextPopupMenuFont) == "U"
+            IF ValType(Font) != "U" .AND. _HMG_xContextPopupMenuFont == NIL
                _HMG_xContextPopupMenuFont := Font
             ENDIF
 
@@ -156,7 +156,7 @@ PROCEDURE _DefineMenuPopup(Caption, Name, Image, Font)
       FormName := iif(_HMG_xMenuType == "MAIN", _HMG_xMainMenuParentName, _HMG_xContextMenuParentName)
       k := _GetControlFree()
 
-      IF ValType(name) == "U"
+      IF name == NIL
 #ifndef _EMPTY_MENU_
          Name := "DummyPopupName" + hb_ntos(k)
 #else
@@ -337,7 +337,7 @@ PROCEDURE _DefineMenuItem(caption, action, name, Image, checked, disabled, cMess
 
       k := _GetControlFree()
 
-      IF ValType(name) == "U"
+      IF name == NIL
 #ifndef _EMPTY_MENU_
          Name := "DummyMenuName" + hb_ntos(k)
 #else
@@ -438,7 +438,7 @@ PROCEDURE _DefineMenuItem(caption, action, name, Image, checked, disabled, cMess
 
       k := _GetControlFree()
 
-      IF ValType(name) == "U"
+      IF name == NIL
 #ifndef _EMPTY_MENU_
          Name := "DummyMenuName" + hb_ntos(k)
 #else
@@ -736,7 +736,7 @@ PROCEDURE _DefineContextMenu(Parent)
    _HMG_xMenuType := "CONTEXT"
    _HMG_xMenuPopupLevel := 0
 
-   IF ValType(Parent) == "U"
+   IF Parent == NIL
       Parent := _HMG_ActiveFormName
    ENDIF
 
@@ -789,7 +789,7 @@ PROCEDURE _DefineNotifyMenu(Parent)
    _HMG_xMenuType := "NOTIFY"
    _HMG_xMenuPopupLevel := 0
 
-   IF ValType(Parent) == "U"
+   IF Parent == NIL
       Parent := _HMG_ActiveFormName
    ENDIF
 
@@ -811,7 +811,7 @@ PROCEDURE _DefineDropDownMenu(Button, Parent)
    _HMG_xMenuType := "DROPDOWN"
    _HMG_xMenuPopupLevel := 0
 
-   IF ValType(Parent) == "U"
+   IF Parent == NIL
       Parent := _HMG_ActiveFormName
    ENDIF
 
@@ -836,7 +836,7 @@ PROCEDURE _DefineControlContextMenu(Control, Parent)
    _HMG_xMenuType := "OWNCONTEXT"
    _HMG_xMenuPopupLevel := 0
 
-   IF ValType(Parent) == "U"
+   IF Parent == NIL
       Parent := _HMG_ActiveFormName
    ENDIF
 

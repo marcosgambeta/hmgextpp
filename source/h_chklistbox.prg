@@ -158,7 +158,7 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      IF ValType(x) == "U" .OR. ValType(y) == "U"
+      IF x == NIL .OR. y == NIL
 
          IF _HMG_SplitLastControl == "TOOLBAR"
             Break := .T.

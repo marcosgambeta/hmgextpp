@@ -96,7 +96,7 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
    hb_default(@adjustimage, .F.)
    __defaultNIL(@rclick, "")
 
-   IF ValType(ProcedureName) == "U"
+   IF ProcedureName == NIL
       ProcedureName := ""
    ELSE
       action := .T.

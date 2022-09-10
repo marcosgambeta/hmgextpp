@@ -2130,7 +2130,7 @@ RETURN hb_defaultValue(cName, "HMGPrintSys")
 *------------------------------------------------------------------------------*
 FUNCTION HMG_PrintGetJobInfo ( aJobData )   // by Dr. Claudio Soto, August 2015
 *------------------------------------------------------------------------------*
-   IF ValType(aJobData) == "U"
+   IF aJobData == NIL
       aJobData := OpenPrinterGetJobData()
    ENDIF
 
@@ -2139,7 +2139,7 @@ RETURN _HMG_PrintGetJobInfo( aJobData [2], aJobData [1] ) // --> aJobInfo
 *------------------------------------------------------------------------------*
 FUNCTION HMG_PrinterGetStatus ( cPrinterName )
 *------------------------------------------------------------------------------*
-   IF ValType(cPrinterName) == "U"
+   IF cPrinterName == NIL
       cPrinterName := _hmg_printer_name
    ENDIF
 
@@ -2152,7 +2152,7 @@ FUNCTION _DefineEmfFile ( ControlName, ParentFormName, x, y, FileName, w, h, ;
    LOCAL ParentFormHandle , mVar , action := .F. , k
    LOCAL ControlHandle
 
-   IF ValType(ProcedureName) == "U"
+   IF ProcedureName == NIL
       ProcedureName := ""
    ELSE
       action := .T.

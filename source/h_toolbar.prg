@@ -222,7 +222,7 @@ FUNCTION _DefineToolButton ( ControlName, ParentControl, x, y, Caption, Procedur
 
    HB_SYMBOL_UNUSED( Flat )
 
-   IF ValType(ProcedureName) == "U" .AND. Dropdown == .T.
+   IF ProcedureName == NIL .AND. Dropdown == .T.
       MsgMiniGuiError("ToolBar DropDown buttons must have an associated action (Use WholeDropDown style for no action).")
    ENDIF
 
@@ -385,7 +385,7 @@ FUNCTION _BeginToolBar ( name, parent, row, col, w, h, caption, ProcedureName, f
       __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
 
-   IF ValType(parent) == "U"
+   IF parent == NIL
       parent := _HMG_ActiveFormName
    ENDIF
 
@@ -396,7 +396,7 @@ FUNCTION _BeginToolBar ( name, parent, row, col, w, h, caption, ProcedureName, f
    hb_default(@h, 0)
    hb_default(@wrap, .F.)
 
-   IF ValType(break) == "U"
+   IF break == NIL
       break := ! _HMG_ActiveSplitBox
    ENDIF
 
@@ -422,7 +422,7 @@ FUNCTION _BeginToolBarEx( name, parent, row, col, w, h, caption, ProcedureName, 
       __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
 
-   IF ValType(parent) == "U"
+   IF parent == NIL
       parent := _HMG_ActiveFormName
    ENDIF
 
@@ -447,7 +447,7 @@ FUNCTION _BeginToolBarEx( name, parent, row, col, w, h, caption, ProcedureName, 
       ENDIF
    ENDIF
 
-   IF ValType(break) == "U"
+   IF break == NIL
       break := ! _HMG_ActiveSplitBox
    ENDIF
 

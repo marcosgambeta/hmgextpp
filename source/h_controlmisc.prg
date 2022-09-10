@@ -2606,7 +2606,7 @@ FUNCTION _GetControlRow(ControlName, ParentForm)
    i := __mvGet(mVar)
 #endif
 
-   IF i == 0 .OR. (ValType(_HMG_aControlRow[i]) == "U" .AND. ValType(_HMG_aControlCol[i]) == "U")
+   IF i == 0 .OR. (_HMG_aControlRow[i] == NIL .AND. _HMG_aControlCol[i] == NIL)
       RETURN 0
    ENDIF
 
@@ -2624,7 +2624,7 @@ FUNCTION _GetControlCol(ControlName, ParentForm)
    i := __mvGet(mVar)
 #endif
 
-   IF i == 0 .OR. (ValType(_HMG_aControlRow[i]) == "U" .AND. ValType(_HMG_aControlCol[i]) == "U")
+   IF i == 0 .OR. (_HMG_aControlRow[i] == NIL .AND. _HMG_aControlCol[i] == NIL)
       RETURN 0
    ENDIF
 
@@ -5992,7 +5992,7 @@ STATIC FUNCTION _IsControlSplitBoxed(cControlName, cWindowName)
    LOCAL i
 
    IF (i := GetControlIndex(cControlName, cWindowName)) > 0
-      IF !Empty(_HMG_SplitLastControl) .AND. ValType(_HMG_aControlRow[i]) == "U" .AND. ValType(_HMG_aControlCol[i]) == "U" .OR. ;
+      IF !Empty(_HMG_SplitLastControl) .AND. _HMG_aControlRow[i] == NIL .AND. _HMG_aControlCol[i] == NIL .OR. ;
          "GRID" $ _HMG_aControlType[i] .AND. Empty(_HMG_aControlRow[i]) .AND. Empty(_HMG_aControlCol[i])
          lSplitBoxed := .T.
       ENDIF
