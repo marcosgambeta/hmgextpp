@@ -105,27 +105,27 @@ FUNCTION _DefineDialog(FormName, ParentForm, Id_resource, x, y, w, h, caption, f
          _HMG_ActiveDialogHandle := 0
          _HMG_ActiveDialogName   := FormName
          _HMG_BeginDialogActive  := .T.
-         IF ValType(InitProcedure) == "B"
+         IF HB_ISBLOCK(InitProcedure)
             _HMG_InitDialogProcedure := InitProcedure
          ENDIF
-         IF ValType(DialogProcedure) == "B"
+         IF HB_ISBLOCK(DialogProcedure)
             _HMG_ModalDialogProcedure := DialogProcedure
          ENDIF
          RETURN NIL
       ELSE
-         IF ValType(InitProcedure) == "B"
+         IF HB_ISBLOCK(InitProcedure)
             _HMG_InitDialogProcedure := InitProcedure
          ENDIF
-         IF ValType(DialogProcedure) == "B"
+         IF HB_ISBLOCK(DialogProcedure)
             _HMG_DialogProcedure := DialogProcedure
          ENDIF
       ENDIF
    ELSE
       IF modal
-         IF ValType(InitProcedure) == "B"
+         IF HB_ISBLOCK(InitProcedure)
             _HMG_InitDialogProcedure := InitProcedure
          ENDIF
-         IF ValType(DialogProcedure) == "B"
+         IF HB_ISBLOCK(DialogProcedure)
             _HMG_ModalDialogProcedure := DialogProcedure
          ENDIF
          _HMG_ModalDialogReturn := InitModalDialog(ParentHandle,  Id_resource)
@@ -133,10 +133,10 @@ FUNCTION _DefineDialog(FormName, ParentForm, Id_resource, x, y, w, h, caption, f
          _HMG_ModalDialogProcedure := ""
          RETURN NIL
       ELSE
-         IF ValType(InitProcedure) == "B"
+         IF HB_ISBLOCK(InitProcedure)
             _HMG_InitDialogProcedure := InitProcedure
          ENDIF
-         IF ValType(DialogProcedure) == "B"
+         IF HB_ISBLOCK(DialogProcedure)
             _HMG_DialogProcedure := DialogProcedure
          ENDIF
          Formhandle := InitDialog(ParentHandle,  Id_resource)
@@ -356,7 +356,7 @@ FUNCTION _EndDialog()
                _HMG_aControlFontHandle[k] := FontHandle
                k_old := k
             ENDIF
-            IF ValType(blInit) == "B"
+            IF HB_ISBLOCK(blInit)
                Eval(blInit, _HMG_ActiveDialogName, ControlHandle, k)
             ENDIF
          NEXT
@@ -389,7 +389,7 @@ FUNCTION DialogProc(hwndDlg, nMsg, wParam, lParam)
 
    SWITCH nMsg
    CASE WM_INITDIALOG
-      IF ValType(_HMG_InitDialogProcedure) == "B"
+      IF HB_ISBLOCK(_HMG_InitDialogProcedure)
          Eval(_HMG_InitDialogProcedure, hwndDlg)
          ret := .T.
       ENDIF
@@ -401,7 +401,7 @@ FUNCTION DialogProc(hwndDlg, nMsg, wParam, lParam)
    CASE WM_CLOSE
       i := AScan(_HMG_aFormhandles, hwndDlg)
       IF i > 0
-         IF ValType(_HMG_aFormReleaseProcedure[i]) == "B"
+         IF HB_ISBLOCK(_HMG_aFormReleaseProcedure[i])
             Eval(_HMG_aFormReleaseProcedure[i])
          ENDIF
       ENDIF
@@ -411,7 +411,7 @@ FUNCTION DialogProc(hwndDlg, nMsg, wParam, lParam)
    CASE WM_COMMAND
       i := AScan(_HMG_aFormhandles, hwndDlg)  // find DialogProcedure
       IF i > 0
-         IF ValType(_HMG_aFormClickProcedure[i]) == "B" .AND. _HMG_aFormType[i] == "D"
+         IF HB_ISBLOCK(_HMG_aFormClickProcedure[i]) .AND. _HMG_aFormType[i] == "D"
             ret := Eval(_HMG_aFormClickProcedure[i], nMsg, LOWORD(wParam), HIWORD(wParam))
             IF HB_ISNUMERIC(ret)
                ret := iif(ret = 0, .F., .T.)
@@ -462,7 +462,7 @@ FUNCTION ModalDialogProc(hwndDlg, nMsg, wParam, lParam)
 
    SWITCH nMsg
    CASE WM_INITDIALOG
-      IF ValType(_HMG_InitDialogProcedure) == "B"
+      IF HB_ISBLOCK(_HMG_InitDialogProcedure)
          Eval(_HMG_InitDialogProcedure)
       ENDIF
       ret := .T.
@@ -482,7 +482,7 @@ FUNCTION ModalDialogProc(hwndDlg, nMsg, wParam, lParam)
       CASE LOWORD(wParam) == IDIGNORE .AND. HIWORD(wParam) == BN_CLICKED
          ret := .T.
       OTHERWISE
-         IF ValType(_HMG_ModalDialogProcedure) == "B"
+         IF HB_ISBLOCK(_HMG_ModalDialogProcedure)
             Eval(_HMG_ModalDialogProcedure, hwndDlg, nMsg, LOWORD(wParam), HIWORD(wParam))
          ENDIF
          ret := .T.

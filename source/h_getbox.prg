@@ -465,7 +465,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
    _HMG_ThisFormName := _HMG_aFormNames [ ParentHandle ]
    _HMG_ThisControlName := _HMG_aControlNames[i]
 
-   IF ValType(oGet:preblock) == "B" .AND. nMsg == WM_SETFOCUS
+   IF HB_ISBLOCK(oGet:preblock) .AND. nMsg == WM_SETFOCUS
       IF !Eval( oGet:preblock, oGet, .F. )
          IF oGet:VarGet() == oGet:UnTransform(oGet:original)
             lAllowEdit := .F.
@@ -569,7 +569,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          IF !lInValid
             lInValid := .T.
 
-            IF ValType(oGet:postblock) == "B"
+            IF HB_ISBLOCK(oGet:postblock)
                coldbuff := oGet:buffer
 
                h := GetFocus()

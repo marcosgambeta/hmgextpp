@@ -209,7 +209,7 @@ METHOD lValid() CLASS TSMulti
 
    LOCAL lRet := .T.
 
-   IF ValType(::bValid) == "B"
+   IF HB_ISBLOCK(::bValid)
       lRet := Eval( ::bValid, ::GetText() )
    ENDIF
 

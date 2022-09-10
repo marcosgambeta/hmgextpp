@@ -449,21 +449,21 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
    ENDIF
 
    // Acción al guardar.
-   IF ValType(bGuardar) == "B"
+   IF HB_ISBLOCK(bGuardar)
       _bGuardar := bGuardar
    ELSE
       _bGuardar := NIL
    ENDIF
 
    // Acción al buscar.
-   IF ValType(bBuscar) == "B"
+   IF HB_ISBLOCK(bBuscar)
       _bBuscar := bBuscar
    ELSE
       _bBuscar := NIL
    ENDIF
 
    // Acción al buscar.
-   IF ValType(bImprimir) == "B"
+   IF HB_ISBLOCK(bImprimir)
       _bImprimir := bImprimir
    ELSE
       _bImprimir := NIL

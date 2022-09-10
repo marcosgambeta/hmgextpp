@@ -156,10 +156,10 @@ CLASS TControl
 
    METHOD KillFocus( hCtlFocus )
 
-   METHOD VarPut( uVal ) INLINE  IIf( ValType(::bSetGet) == "B",;
+   METHOD VarPut( uVal ) INLINE  IIf( HB_ISBLOCK(::bSetGet),;
                                  Eval( ::bSetGet, uVal ), )
 
-   METHOD VarGet() INLINE IIf( ValType(::bSetGet) == "B", Eval( ::bSetGet ), )
+   METHOD VarGet() INLINE IIf( HB_ISBLOCK(::bSetGet), Eval( ::bSetGet ), )
 
    METHOD LButtonDown( nRow, nCol, nKeyFlags )
 

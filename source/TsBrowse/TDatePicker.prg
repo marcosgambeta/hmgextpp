@@ -183,7 +183,7 @@ METHOD lValid() CLASS TDatePicker
 
    Local lRet := .T.
 
-   If ValType(::bValid) == "B"
+   If HB_ISBLOCK(::bValid)
       lRet := Eval( ::bValid, ::GetText() )
    EndIf
 

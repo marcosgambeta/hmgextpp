@@ -208,7 +208,7 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
       ParentFormHandle := GetFormHandle(ParentFormName)
 
       Controlhandle := InitChkLabel ( ParentFormHandle, Caption, 0, x, y, w, h, "", 0, ;
-         ( ValType(mouseover) == "B" .OR. ValType(mouseleave) == "B" ) , border , clientedge , ;
+         ( HB_ISBLOCK(mouseover) .OR. HB_ISBLOCK(mouseleave) ) , border , clientedge , ;
          HSCROLL , VSCROLL , TRANSPARENT , invisible , rightalign , centeralign, ;
          abitmap[1], abitmap[2], leftcheck, lChecked , VCenterAlign )
 

@@ -215,7 +215,7 @@ FUNCTION _DefinePropGrid ( ControlName, ParentFormName, row, col, width, height,
    IF !lCancelBtn
       UserCancelProc := ""
    ENDIF
-   IF ValType(UserHelpProc) == "B"
+   IF HB_ISBLOCK(UserHelpProc)
       lHelpBtn := .T.
    ENDIF
 
@@ -410,10 +410,10 @@ FUNCTION PgBtnEvents( hwndPG, HwndBtn )
       aHandle  := _HMG_aControlHandles[i]
 
       nBtn := AScan(aHandle, HwndBtn)
-      DO CASE
+      DO CASE // TODO: SWITCH
       CASE nBtn == PGB_OK .OR. nBtn == PGB_APPLY
          IF _HMG_aControlMiscData1 [i,7] .OR. nBtn == PGB_APPLY
-            IF ValType(_HMG_aControlProcedures[i]) == "B"
+            IF HB_ISBLOCK(_HMG_aControlProcedures[i])
                _DoControlEventProcedure ( _HMG_aControlProcedures[i] , i )
             ELSE
                PgSaveFile( GetParentFormName( i ), _HMG_aControlNames[i], cFile )
@@ -424,14 +424,14 @@ FUNCTION PgBtnEvents( hwndPG, HwndBtn )
             DoMethod(GetParentFormName(i), "Release")
          ENDIF
       CASE nBtn == PGB_CANCEL
-         IF ValType(_HMG_aControlValue[i]) == "B"
+         IF HB_ISBLOCK(_HMG_aControlValue[i])
             _DoControlEventProcedure ( _HMG_aControlValue[i] , i )
          ELSE
             _InitPgArray( aRowItem, cFile, lXml, i )
             _ChangeBtnState(  aHandle, .F. , i )
          ENDIF
       CASE nBtn == PGB_HELP
-         IF ValType(_HMG_aControlMiscData1 [i,6]) == "B"
+         IF HB_ISBLOCK(_HMG_aControlMiscData1[i, 6])
             _DoControlEventProcedure ( _HMG_aControlMiscData1 [i,6] , i )
          ENDIF
       ENDCASE
@@ -549,7 +549,7 @@ FUNCTION PgCheckData( typePG, cValue, aData, mod )
          ret := .F.
       ENDIF
    CASE typePG == PG_COLOR
-      aData := IIf( ValType(aData) == "B", ;
+      aData := IIf( HB_ISBLOCK(aData), ;
          Eval( aData ), aData )
       aCol := PgIdentData( aData, PG_COLOR )
       TOKENINIT ( cValue, " ,()" )
@@ -1058,7 +1058,7 @@ FUNCTION PgGetSysInfo( aRowIt )
 *------------------------------------------------------------------------------*
    LOCAL aDan, cDan := aRowIt[APG_VALUE]
    LOCAL typ
-   IF  ValType(aRowIt[APG_DATA]) == "B"
+   IF HB_ISBLOCK(aRowIt[APG_DATA])
       cDan := Eval( aRowIt[APG_DATA] )
       IF ValType(cDan) != "C"
          cDan := aRowIt[APG_VALUE]

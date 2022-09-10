@@ -147,7 +147,7 @@ METHOD HandleEvent( nMsg, nWParam, nLParam ) CLASS TComboBox
 
    If HiWord(nWParam) == CBN_CLOSEUP
       if ::bCloseUp != NIL
-         IIf( ValType(::bCloseUp) == "B", Eval( ::bCloseUp, Self ), ::bCloseUp( Self ) )
+         IIf( HB_ISBLOCK(::bCloseUp), Eval( ::bCloseUp, Self ), ::bCloseUp( Self ) )
          Return 0
       endif
    Endif

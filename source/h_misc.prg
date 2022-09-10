@@ -307,7 +307,7 @@ FUNCTION HMG_FILECOPY( cSourceFile, cTargetFile, nBuffer, bEval )
    LOCAL hSourceFile, hTargetFile
    LOCAL cBuffer
    LOCAL nTotalBytes, nCurrentlBytes, nReadBytes
-   LOCAL lShowProgress := ( ValType(bEval) == "B" )
+   LOCAL lShowProgress := ( HB_ISBLOCK(bEval) )
    LOCAL lSuccess := .F.
 
    DEFAULT nBuffer TO F_BLOCK

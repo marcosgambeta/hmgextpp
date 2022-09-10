@@ -1837,7 +1837,7 @@ STATIC PROCEDURE _WHENEVAL()
 
          FOR i := 1 TO l
 
-            IF ValType(aWhen[i]) == "B"
+            IF HB_ISBLOCK(aWhen[i])
 
                ControlName := "Control_" + AllTrim(Str(i))
 
@@ -1883,7 +1883,7 @@ STATIC FUNCTION _EditRecordOk ( aValid , TmpNames , aValidMessages )
 
       FOR i := 1 TO l
 
-         IF ValType(aValid[i]) == "B"
+         IF HB_ISBLOCK(aValid[i])
 
             IF !Eval( aValid[i] )
 
@@ -2067,7 +2067,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
 
       IF Len(aTemp) >= Len(_GridFields)
 
-         IF ValType(aTemp [CellColIndex]) == "B"
+         IF HB_ISBLOCK(aTemp[CellColIndex])
             _HMG_ThisEventType := "BROWSE_WHEN"
             E := Eval( aTemp [CellColIndex] )
             _HMG_ThisEventType := ""
@@ -2368,7 +2368,7 @@ STATIC PROCEDURE _InPlaceEditOk ( i , r , aValid , CellColIndex , sFieldName , A
 
                            MsgAlert ( aValidMessages [CellColIndex], _HMG_BRWLangError[10] )
 
-                        ELSEIF ValType(aValidMessages [CellColIndex]) == "B"
+                        ELSEIF HB_ISBLOCK(aValidMessages[CellColIndex])
 
                            Eval( aValidMessages [ CellColIndex ], Result )
 

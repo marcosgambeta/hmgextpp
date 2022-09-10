@@ -101,8 +101,8 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, ;
    if !Empty(ParentHandle)
       if lSpinner
          ::Create( "EDIT" )
-         nMin := IIf( ValType(bMin) == "B", Eval( bMin ), bMin )
-         nMax := IIf( ValType(bMax) == "B", Eval( bMax ), bMax )
+         nMin := IIf( HB_ISBLOCK(bMin), Eval( bMin ), bMin )
+         nMax := IIf( HB_ISBLOCK(bMax), Eval( bMax ), bMax )
          ::hWndChild := InitedSpinner( ::hWndParent, ::hWnd , nCol, nRow, 0, nHeight, nMin, nMax, Eval( ::bSetGet ) )
          SetIncrementSpinner( ::hWndChild, bUp )
       else
@@ -212,7 +212,7 @@ METHOD lValid() CLASS TBtnBox
 
    Local lRet := .T.
 
-   If ValType(::bValid) == "B"
+   If HB_ISBLOCK(::bValid)
       lRet := Eval( ::bValid, ::GetVal() )
    EndIf
 

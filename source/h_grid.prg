@@ -1186,7 +1186,7 @@ FUNCTION _HMG_OnInplaceEditEvent(nIndex)
 
    hb_default(@nIndex, _HMG_GridInplaceEdit_GridIndex)
 
-   IF _HMG_GridInplaceEdit_ControlHandle != 0 .AND. ValType(_HMG_aControlMiscData1[nIndex][30]) == "B"
+   IF _HMG_GridInplaceEdit_ControlHandle != 0 .AND. HB_ISBLOCK(_HMG_aControlMiscData1[nIndex][30])
       Ret := Eval(_HMG_aControlMiscData1[nIndex][30])
    ENDIF
 
