@@ -152,19 +152,19 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
    /* Dr. Claudio Soto, April 2016 */
    #define DEFAULT_COLUMNHEADER  "Column "
    #define DEFAULT_COLUMNWIDTH   150
-   IF ValType(aRows) == "A" .AND. Len(aRows) > 0
+   IF HB_ISARRAY(aRows) .AND. Len(aRows) > 0
       IF aHeaders == NIL .AND. aWidths == NIL
          aHeaders := Array(Len(aRows[1]))
          aWidths  := Array(Len(aRows[1]))
          AEval(aHeaders, {|xValue, nIndex| xValue := NIL, aHeaders[nIndex] := DEFAULT_COLUMNHEADER + hb_ntos(nIndex)})
          AFill(aWidths,  DEFAULT_COLUMNWIDTH)
-      ELSEIF ValType(aHeaders) == "A" .AND. aWidths == NIL
+      ELSEIF HB_ISARRAY(aHeaders) .AND. aWidths == NIL
          aWidths  := Array(Len(aHeaders))
          AFill(aWidths,  DEFAULT_COLUMNWIDTH)
          IF Len(aImage) > 0
             aWidths[1] := 0
          ENDIF
-      ELSEIF aHeaders == NIL .AND. ValType(aWidths) == "A"
+      ELSEIF aHeaders == NIL .AND. HB_ISARRAY(aWidths)
          aHeaders := Array(Len(aWidths))
          AEval(aHeaders, {| xValue, nIndex | xValue := NIL, aHeaders[nIndex] := DEFAULT_COLUMNHEADER + hb_ntos(nIndex)})
       ENDIF
@@ -172,13 +172,13 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
       IF aHeaders == NIL .AND. aWidths == NIL
          aHeaders := {""}
          aWidths  := {0}
-      ELSEIF ValType(aHeaders) == "A" .AND. aWidths == NIL
+      ELSEIF HB_ISARRAY(aHeaders) .AND. aWidths == NIL
          aWidths  := Array(Len(aHeaders))
          AFill(aWidths,  DEFAULT_COLUMNWIDTH)
          IF Len(aImage) > 0
             aWidths[1] := 0
          ENDIF
-      ELSEIF aHeaders == NIL .AND. ValType(aWidths) == "A"
+      ELSEIF aHeaders == NIL .AND. HB_ISARRAY(aWidths)
          aHeaders := Array(Len(aWidths))
          AEval(aHeaders, {| xValue, nIndex | xValue := NIL, aHeaders[nIndex] := DEFAULT_COLUMNHEADER + hb_ntos(nIndex)})
       ENDIF
@@ -1151,7 +1151,7 @@ FUNCTION _GridInplaceEdit(idx)
 
    _HMG_GridInplaceEdit_ControlHandle := GetControlHandle(ControlName, FormName)
 
-   IF ValType(_HMG_GridInplaceEdit_ControlHandle) == "A"
+   IF HB_ISARRAY(_HMG_GridInplaceEdit_ControlHandle)
       _HMG_GridInplaceEdit_ControlHandle := _HMG_GridInplaceEdit_ControlHandle[1]
    ENDIF
 

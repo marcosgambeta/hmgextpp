@@ -575,13 +575,13 @@ PROCEDURE _EndMenu()
       EXIT
 
    CASE "O" // OWNCONTEXT
-      IF ValType(_HMG_xContextMenuButtonIndex) == "A"
+      IF HB_ISARRAY(_HMG_xContextMenuButtonIndex)
 
          FOR i := 1 TO Len(_HMG_xContextMenuButtonIndex)
 
             h := _HMG_aControlHandles[_HMG_xContextMenuButtonIndex[i]]
 
-            IF ValType(h) == "A"
+            IF HB_ISARRAY(h)
                AEval(h, {|x|AAdd(_HMG_aControlsContextMenu, {x, _HMG_xContextMenuHandle, _HMG_xContextMenuButtonIndex[i], .T.})})
             ELSE
                AAdd(_HMG_aControlsContextMenu, {h, _HMG_xContextMenuHandle, _HMG_xContextMenuButtonIndex[i], .T.})
@@ -596,7 +596,7 @@ PROCEDURE _EndMenu()
 
          h := _HMG_aControlHandles[_HMG_xContextMenuButtonIndex]
 
-         IF ValType(h) == "A"
+         IF HB_ISARRAY(h)
             AEval(h, {|x|AAdd(_HMG_aControlsContextMenu, {x, _HMG_xContextMenuHandle, _HMG_xContextMenuButtonIndex, .T.})})
          ELSE
             AAdd(_HMG_aControlsContextMenu, {h, _HMG_xContextMenuHandle, _HMG_xContextMenuButtonIndex, .T.})
@@ -840,7 +840,7 @@ PROCEDURE _DefineControlContextMenu(Control, Parent)
       Parent := _HMG_ActiveFormName
    ENDIF
 
-   IF ValType(Control) == "A"
+   IF HB_ISARRAY(Control)
       _HMG_xContextMenuButtonIndex := {}
       AEval(Control, {|x|AAdd(_HMG_xContextMenuButtonIndex, GetControlIndex(x, Parent))})
    ELSE

@@ -289,7 +289,7 @@ FUNCTION _DefineImageButton(ControlName, ParentFormName, x, y, Caption, ;
    k := _GetControlFree()
 
    cPicture := IFEMPTY(icon, image, icon)
-   IF ValType(cPicture) == "A"
+   IF HB_ISARRAY(cPicture)
       image := cPicture[1]
    ENDIF
 

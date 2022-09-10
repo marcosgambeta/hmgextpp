@@ -720,7 +720,7 @@ FUNCTION _AddItem(ControlName, ParentForm, Value, Parent, aImage, Id)
          ENDIF
       ENDIF
 
-      ImgDef := iif(ValType(aImage) == "A", Len(aImage), 0) //Tree+
+      ImgDef := iif(HB_ISARRAY(aImage), Len(aImage), 0) //Tree+
 
       IF Parent != 0
 
@@ -857,7 +857,7 @@ FUNCTION _AddItem(ControlName, ParentForm, Value, Parent, aImage, Id)
    CASE CONTROL_TYPE_IMAGELIST
    CASE CONTROL_TYPE_LIST
    CASE CONTROL_TYPE_MULTILIST
-      IF _HMG_aControlMiscData1[ix][2] .AND. ValType(value) == "A"
+      IF _HMG_aControlMiscData1[ix][2] .AND. HB_ISARRAY(value)
          value := LB_Array2String(value)
       ENDIF
       ListBoxAddstring(c, value)
@@ -1288,7 +1288,7 @@ FUNCTION _DisableControl(ControlName, ParentForm, nPosition)
    DO CASE
 
       // HMG 1.0 Experimental build 9 (JK)
-   CASE T == "BUTTON" .AND. !Empty(_HMG_aControlBrushHandle[y]) .AND. ValType(_HMG_aControlPicture[y]) == "A" .AND. _HMG_aControlMiscData1[y] == 0
+   CASE T == "BUTTON" .AND. !Empty(_HMG_aControlBrushHandle[y]) .AND. HB_ISARRAY(_HMG_aControlPicture[y]) .AND. _HMG_aControlMiscData1[y] == 0
       IF _HMG_aControlEnabled[y] == .T.
          IF _HMG_aControlDblClick[y] == .F. .AND. _HMG_IsThemed
             ImageList_Destroy(_HMG_aControlBrushHandle[y])
@@ -1421,7 +1421,7 @@ FUNCTION _EnableControl(ControlName, ParentForm, nPosition)
 
    DO CASE
    // HMG 1.0 Experimental build 9 (JK)
-   CASE T == "BUTTON" .AND. !Empty(_HMG_aControlBrushHandle[y]) .AND. ValType(_HMG_aControlPicture[y]) == "A" .AND. _HMG_aControlMiscData1[y] == 0
+   CASE T == "BUTTON" .AND. !Empty(_HMG_aControlBrushHandle[y]) .AND. HB_ISARRAY(_HMG_aControlPicture[y]) .AND. _HMG_aControlMiscData1[y] == 0
       IF _HMG_aControlEnabled[y] == .F.
          IF _HMG_aControlDblClick[y] == .F. .AND. _HMG_IsThemed
             ImageList_Destroy(_HMG_aControlBrushHandle[y])
@@ -1563,7 +1563,7 @@ FUNCTION _ShowControl(ControlName, ParentForm)
          FOR r := 1 TO Len(_HMG_aControlPageMap[i])
             FOR w := 1 TO Len(_HMG_aControlPageMap[i][r])
                IF t == CONTROL_TYPE_RADIOGROUP
-                  IF ValType(_HMG_aControlPageMap[i][r][w]) == "A"
+                  IF HB_ISARRAY(_HMG_aControlPageMap[i][r][w])
                      IF _HMG_aControlPageMap[i][r][w][1] == _HMG_aControlHandles[y][1]
                         IF r != s
                            TabHide := .T.
@@ -1572,7 +1572,7 @@ FUNCTION _ShowControl(ControlName, ParentForm)
                      ENDIF
                   ENDIF
                ELSEIF t == CONTROL_TYPE_SPINNER
-                  IF ValType(_HMG_aControlPageMap[i][r][w]) == "A"
+                  IF HB_ISARRAY(_HMG_aControlPageMap[i][r][w])
                      IF _HMG_aControlPageMap[i][r][w][1] == _HMG_aControlHandles[y][1]
                         IF r != s
                            TabHide := .T.
@@ -1582,7 +1582,7 @@ FUNCTION _ShowControl(ControlName, ParentForm)
                   ENDIF
 #ifdef _DBFBROWSE_
                ELSEIF t == CONTROL_TYPE_BROWSE
-                  IF ValType(_HMG_aControlPageMap[i][r][w]) == "A"
+                  IF HB_ISARRAY(_HMG_aControlPageMap[i][r][w])
                      IF _HMG_aControlPageMap[i][r][w][1] == _HMG_aControlHandles[y]
                         IF r != s
                            TabHide := .T.
@@ -2261,7 +2261,7 @@ FUNCTION _SetControlSizePos(ControlName, ParentForm, row, col, width, height)
 
                      FOR xx := 1 TO Len(_HMG_aControlType)
 
-                        IF ValType(_HMG_aControlhandles[xx]) == "A"
+                        IF HB_ISARRAY(_HMG_aControlhandles[xx])
 
                            IF _HMG_aControlPageMap[x][r][w] == _HMG_aControlhandles[xx]
 
@@ -3528,7 +3528,7 @@ FUNCTION InputWindow(cTitle, aLabels, aValues, aFormats, nRow, nCol, lCenterWind
          @ ControlRow, ControlCol DATEPICKER (CN) VALUE aValues[i] WIDTH nControlWidth
          EXIT
       CASE "N"
-         IF ValType(aFormats[i]) == "A"
+         IF HB_ISARRAY(aFormats[i])
             @ ControlRow, ControlCol COMBOBOX (CN) ITEMS aFormats[i] VALUE aValues[i] WIDTH nControlWidth
          ELSEIF  ValType(aFormats[i]) == "C"
             IF hb_UAt( ".", aFormats[i]) > 0
@@ -3680,7 +3680,7 @@ FUNCTION _ReleaseControl(ControlName, ParentForm)
                   ReleaseControl(_HMG_aControlPageMap[i][r][w][z])
                NEXT z
                FOR x := 1 TO Len(_HMG_aControlHandles)
-                  IF ValType(_HMG_aControlHandles[x]) == "A"
+                  IF HB_ISARRAY(_HMG_aControlHandles[x])
                      IF _HMG_aControlHandles[x][1] == _HMG_aControlPageMap[i][r][w][1]
                         _EraseControl(x, k)
                         EXIT
@@ -3708,7 +3708,7 @@ FUNCTION _ReleaseControl(ControlName, ParentForm)
             FOR w := 1 TO Len(_HMG_aControlPageMap[y][r])
                SWITCH t
                CASE CONTROL_TYPE_RADIOGROUP
-                  IF ValType(_HMG_aControlPageMap[y][r][w]) == "A"
+                  IF HB_ISARRAY(_HMG_aControlPageMap[y][r][w])
                      IF _HMG_aControlPageMap[y][r][w][1] == _HMG_aControlHandles[i][1]
                         ADel(_HMG_aControlPageMap[y][r], w)
                         ASize(_HMG_aControlPageMap[y][r], Len(_HMG_aControlPageMap[y][r]) - 1)
@@ -3717,7 +3717,7 @@ FUNCTION _ReleaseControl(ControlName, ParentForm)
                   ENDIF
                   EXIT
                CASE CONTROL_TYPE_SPINNER
-                  IF ValType(_HMG_aControlPageMap[y][r][w]) == "A"
+                  IF HB_ISARRAY(_HMG_aControlPageMap[y][r][w])
                      IF _HMG_aControlPageMap[y][r][w][1] == _HMG_aControlHandles[i][1]
                         ADel(_HMG_aControlPageMap[y][r], w)
                         ASize(_HMG_aControlPageMap[y][r], Len(_HMG_aControlPageMap[y][r]) - 1)
@@ -3727,7 +3727,7 @@ FUNCTION _ReleaseControl(ControlName, ParentForm)
                   EXIT
 #ifdef _DBFBROWSE_
                CASE CONTROL_TYPE_BROWSE
-                  IF ValType(_HMG_aControlPageMap[y][r][w]) == "A"
+                  IF HB_ISARRAY(_HMG_aControlPageMap[y][r][w])
                      IF _HMG_aControlPageMap[y][r][w][1] == _HMG_aControlHandles[i]
                         ADel(_HMG_aControlPageMap[y][r], w)
                         ASize(_HMG_aControlPageMap[y][r], Len(_HMG_aControlPageMap[y][r]) - 1)
@@ -5948,7 +5948,7 @@ FUNCTION GetControlTabPage(cControlName, cTabName, cParentWindowName)
                   EXIT
                ENDIF
 
-            ELSEIF ValType(c) == "A" .AND. ValType(xControlHandle) == "A"
+            ELSEIF HB_ISARRAY(c) .AND. HB_ISARRAY(xControlHandle)
                FOR EACH r IN xControlHandle
                   IF AScan(c, r) <> 0
                      nRetVal := k
@@ -5959,7 +5959,7 @@ FUNCTION GetControlTabPage(cControlName, cTabName, cParentWindowName)
                   EXIT
                ENDIF
 
-            ELSEIF ValType(c) == "A" .AND. HB_ISNUMERIC(xControlHandle)
+            ELSEIF HB_ISARRAY(c) .AND. HB_ISNUMERIC(xControlHandle)
                IF AScan(c, xControlHandle) <> 0
                   nRetVal := k
                   EXIT
@@ -6428,7 +6428,7 @@ STATIC FUNCTION HMG_CompareHandle(Handle1, Handle2, /*@*/nSubIndex1, /*@*/nSubIn
          RETURN .T.
       ENDIF
 
-   ELSEIF ValType(Handle1) == "A" .AND. HB_ISNUMERIC(Handle2)
+   ELSEIF HB_ISARRAY(Handle1) .AND. HB_ISNUMERIC(Handle2)
       FOR i = 1 TO Len(Handle1)
          IF Handle1[i] == Handle2
             nSubIndex1 := i
@@ -6436,7 +6436,7 @@ STATIC FUNCTION HMG_CompareHandle(Handle1, Handle2, /*@*/nSubIndex1, /*@*/nSubIn
          ENDIF
       NEXT
 
-   ELSEIF HB_ISNUMERIC(Handle1) .AND. ValType(Handle2) == "A"
+   ELSEIF HB_ISNUMERIC(Handle1) .AND. HB_ISARRAY(Handle2)
       FOR k = 1 TO Len(Handle2)
          IF Handle1 == Handle2[k]
             nSubIndex2 := k
@@ -6444,7 +6444,7 @@ STATIC FUNCTION HMG_CompareHandle(Handle1, Handle2, /*@*/nSubIndex1, /*@*/nSubIn
          ENDIF
       NEXT
 
-   ELSEIF ValType(Handle1) == "A" .AND. ValType(Handle2) == "A"
+   ELSEIF HB_ISARRAY(Handle1) .AND. HB_ISARRAY(Handle2)
       FOR i = 1 TO Len(Handle1)
          FOR k = 1 TO Len(Handle2)
             IF Handle1[i] == Handle2[k]
@@ -6561,7 +6561,7 @@ STATIC FUNCTION _SetGetGridProperty(ControlName, ParentForm, nControl, nColIndex
 
          ELSE
 
-            IF Valtype(_HMG_aControlMiscData1[i][nControl]) == "A"
+            IF HB_ISARRAY(_HMG_aControlMiscData1[i][nControl])
                RetVal := _HMG_aControlMiscData1[i][nControl][z]
             ENDIF
 
@@ -6809,7 +6809,7 @@ FUNCTION _GetFocusedControl(cFormName)
 
                ENDIF
 
-            ELSEIF ValType(hControl) == "A"
+            ELSEIF HB_ISARRAY(hControl)
 
                FOR EACH hCtrl IN hControl
 
@@ -7078,7 +7078,7 @@ STATIC PROCEDURE _SetGridColumnWidthLimits(ControlName, ParentForm, aLimits)
    LOCAL w
 
    IF (i := GetControlIndex(ControlName, ParentForm)) > 0
-      IF ValType(aLimits) == "A"
+      IF HB_ISARRAY(aLimits)
          IF Len(aLimits) == ListView_GetColumnCount(_HMG_aControlHandles[i])
             FOR z := 1 TO Len(aLimits)
                IF ValType(aLimits[z]) != "A" .OR. ValType(aLimits[z][1]) != "N" .OR. ValType(aLimits[z][2]) != "N"
@@ -7158,7 +7158,7 @@ STATIC PROCEDURE _SetRadioGroupReadOnly(ControlName, ParentForm, aReadOnly)
    IF (i := GetControlIndex(ControlName, ParentForm)) > 0
       aHandles := _HMG_aControlHandles[i]
       aOptions := _HMG_aControlCaption[i]
-      IF ValType(aReadOnly) == "A"
+      IF HB_ISARRAY(aReadOnly)
          IF Len(aReadOnly) == Len(aOptions)
             FOR z := 1 TO Len(aReadOnly)
                IF ValType(aReadOnly[z]) == "L"
@@ -7775,7 +7775,7 @@ FUNCTION HMG_GetFormControls(cFormName, cUserType)
 
             ENDIF
 
-         ELSEIF ValType(_HMG_aControlHandles[i]) == "A"
+         ELSEIF HB_ISARRAY(_HMG_aControlHandles[i])
 
             FOR x := 1 TO Len(_HMG_aControlHandles[i])
 
@@ -7808,7 +7808,7 @@ STATIC FUNCTION GetUserControlType(ControlName, ParentForm)
 
    cRetName := _HMG_aControlType[i] /* TODO: usar constantes */
 
-   IF cRetName == "CHECKBOX" .AND. ValType(_HMG_aControlPageMap[i]) == "A"
+   IF cRetName == "CHECKBOX" .AND. HB_ISARRAY(_HMG_aControlPageMap[i])
       cRetName := "CHECKBUTTON"
 
    ELSEIF cRetName == "COMBO"
@@ -7959,7 +7959,7 @@ STATIC FUNCTION _RedrawControl(i)
 
       ControlHandle := _HMG_aControlHandles[i]
 
-      IF ValType(ControlHandle) == "A"
+      IF HB_ISARRAY(ControlHandle)
          AEval(ControlHandle, {|x|RedrawWindow(x, .T.)})
       ELSEIF _HMG_aControlType[i] == CONTROL_TYPE_OBUTTON
          InvalidateRect(ControlHandle, 0)

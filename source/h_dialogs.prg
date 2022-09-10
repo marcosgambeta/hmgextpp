@@ -110,7 +110,7 @@ FUNCTION GetFile( aFilter, title, cIniFolder, multiselect, lNoChangeCurDir, nFil
 
       IF Len(files) > 0
 
-         IF ValType(files) == "A"
+         IF HB_ISARRAY(files)
 
             FOR n := 1 TO Len(files)
 

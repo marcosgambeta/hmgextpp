@@ -152,7 +152,7 @@ FUNCTION _DefineOwnerButton ( ControlName, ParentForm, x, y, Caption, ;
    ENDIF
 
    cPicture := IFEMPTY(icon, image, icon)
-   IF ValType(cPicture) == "A"
+   IF HB_ISARRAY(cPicture)
       image := cPicture [1]
    ENDIF
 
@@ -838,7 +838,7 @@ STATIC FUNCTION InvertGradInfo( aGradInfo )
 *-----------------------------------------------------------------------------*
    LOCAL aGradInvert := {}
 
-   IF !Empty(aGradInfo) .AND. ValType(aGradInfo) == "A"
+   IF !Empty(aGradInfo) .AND. HB_ISARRAY(aGradInfo)
 
       AEval( aGradInfo, { | x | AAdd(aGradInvert, {x[1], x[3], x[2]}) } )
 
@@ -852,7 +852,7 @@ STATIC FUNCTION ModifGradInfo( aGradInfo )
    LOCAL aReturn := {}
    LOCAL nClr
 
-   IF !Empty(aGradInfo) .AND. ValType(aGradInfo) == "A"
+   IF !Empty(aGradInfo) .AND. HB_ISARRAY(aGradInfo)
 
       FOR nClr := 1 TO Len(aGradInfo)
          ReplaceGradInfo( aGradInfo, nClr, 2 )
@@ -882,7 +882,7 @@ STATIC FUNCTION _GradientFill( hDC, nTop, nLeft, nBottom, nRight, aGradInfo, lVe
 *-----------------------------------------------------------------------------*
    LOCAL nClr, nClrs, nSize, nSlice
 
-   IF !Empty(aGradInfo) .AND. ValType(aGradInfo) == "A"
+   IF !Empty(aGradInfo) .AND. HB_ISARRAY(aGradInfo)
 
       nClrs := Len(aGradInfo)
 

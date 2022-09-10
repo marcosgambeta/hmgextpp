@@ -359,7 +359,7 @@ METHOD SetTextColor( clr ) CLASS HBPrinter
       // BEGIN RL 2003-08-03
       IF HB_ISNUMERIC(clr)
          ::TextColor := rr_settextcolor( clr )
-      ELSEIF ValType(clr) == "A"
+      ELSEIF HB_ISARRAY(clr)
          ::TextColor := rr_settextcolor( RGB ( clr[1], clr[2], clr[3] ) )
       ENDIF
       // END RL
@@ -382,7 +382,7 @@ METHOD SetBkColor( clr ) CLASS HBPrinter
    // BEGIN RL 2003-08-03
    IF HB_ISNUMERIC(clr)
       ::BkColor := rr_setbkcolor( clr )
-   ELSEIF ValType(clr) == "A"
+   ELSEIF HB_ISARRAY(clr)
       ::BkColor := rr_setbkcolor( RGB ( clr[1], clr[2], clr[3] ) )
    ENDIF
    // END RL
@@ -698,7 +698,7 @@ METHOD Say( row, col, txt, defname, lcolor, lalign ) CLASS HBPrinter
       // BEGIN RL 2003-08-03
       IF HB_ISNUMERIC(lcolor)
          rr_settextcolor( lcolor )
-      ELSEIF ValType(lcolor) == "A"
+      ELSEIF HB_ISARRAY(lcolor)
          rr_settextcolor( RGB ( lcolor[1], lcolor[2], lcolor[3] ) )
       ENDIF
       // END RL

@@ -509,7 +509,7 @@ FUNCTION InitPageFldProc(hWndParent, hwndDlg, idDlg)
    IF AScan(_HMG_aFormHandles, hwndDlg) == 0
       _DefineFolderDialog(_HMG_ActiveDialogName, hwndDlg, hWndParent)
    ENDIF
-   IF _HMG_aFolderInfo[_HMG_FldID,FLD_INM] .AND. ValType(aDialogItems) == "A"
+   IF _HMG_aFolderInfo[_HMG_FldID,FLD_INM] .AND. HB_ISARRAY(aDialogItems)
       k_old := 0
       FOR n := 1 TO Len(aDialogItems)
 
@@ -671,7 +671,7 @@ FUNCTION PageFldProc(hWndDlg, nMsg, wParam, lParam)
             IF _HMG_aFolderInfo[nFldID,FLD_INM]
                IF HIWORD(wParam) == BN_CLICKED
                   FOR i := 1 TO Len(_HMG_aControlHandles)
-                     IF ValType(_HMG_aControlHandles[i]) == "A" .AND. _HMG_aControlParentHandles[i] == hwndDlg
+                     IF HB_ISARRAY(_HMG_aControlHandles[i]) .AND. _HMG_aControlParentHandles[i] == hwndDlg
                         FOR x := 1 TO Len(_HMG_aControlHandles[i])
                            IF _HMG_aControlHandles[i][x] == lParam
                               Folder_Changed(hwndFolder, hWndDlg)

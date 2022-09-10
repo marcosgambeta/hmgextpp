@@ -494,7 +494,7 @@ STATIC FUNCTION _IsControlVisibleFromHandle(Handle)
             EXIT
          ENDIF
 
-      ELSEIF ValType(hControl) == "A"
+      ELSEIF HB_ISARRAY(hControl)
 
          IF hControl [1] == Handle
             lVisible := _HMG_aControlVisible [ hb_enumindex( hControl ) ]
@@ -532,7 +532,7 @@ FUNCTION _BeginTabPage ( caption , image , tooltip )
 
       ENDIF
 
-   ELSEIF ValType(_HMG_ActiveTabTooltip) == "A"
+   ELSEIF HB_ISARRAY(_HMG_ActiveTabTooltip)
 
       AAdd(_HMG_ActiveTabTooltip, "")
 

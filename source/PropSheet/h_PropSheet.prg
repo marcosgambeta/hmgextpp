@@ -718,7 +718,7 @@ FUNCTION InitPageDlgProc( hwndDlg, idDlg, hWndParent )
       _HMG_aPropSheetPages[ i, 3 ] :=  hwndDlg
    ENDIF
    _DefineSheetDialog ( _HMG_ActiveDialogName,  IdDlg, hwndDlg, hWndParent  )
-   IF _HMG_DialogInMemory .AND. ValType(aDialogItems) == "A"
+   IF _HMG_DialogInMemory .AND. HB_ISARRAY(aDialogItems)
       k_old := 0
       FOR n := 1 TO Len(aDialogItems)
          nId     := aDialogItems[ n, 1 ]

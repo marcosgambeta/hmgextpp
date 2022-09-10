@@ -1726,7 +1726,7 @@ FUNCTION _EditRecord(Title, aLabels, aValues, aFormats, row, col, aValid, TmpNam
             EXIT
          CASE "N"
 
-            IF ValType(aFormats[i]) == "A"
+            IF HB_ISARRAY(aFormats[i])
                @ ControlRow , 120 COMBOBOX &CN  OF _Split_1 ITEMS aFormats[i] VALUE aValues[i] WIDTH 140  FONT "Arial" SIZE 10;
                   ON GOTFOCUS ( LN := _Split_1.FocusedControl, ;
                   SendMessage(GetControlHandle(LN, "_Split_1"), EM_SETSEL, 0, -1) );
@@ -1816,7 +1816,7 @@ STATIC PROCEDURE _WHENEVAL()
    LOCAL Result
    LOCAL i, x
 
-   IF ValType(aWhen) == "A"
+   IF HB_ISARRAY(aWhen)
 
       IF Len(aWhen) >= l
 
@@ -1879,7 +1879,7 @@ STATIC FUNCTION _EditRecordOk ( aValid , TmpNames , aValidMessages )
 
    NEXT i
 
-   IF ValType(aValid) == "A"
+   IF HB_ISARRAY(aValid)
 
       FOR i := 1 TO l
 
@@ -1887,7 +1887,7 @@ STATIC FUNCTION _EditRecordOk ( aValid , TmpNames , aValidMessages )
 
             IF !Eval( aValid[i] )
 
-               IF ValType(aValidMessages) == "A"
+               IF HB_ISARRAY(aValidMessages)
 
                   IF ValType(aValidMessages[i]) != "U"
 
@@ -1977,11 +1977,11 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
 
    aInputMask := _HMG_aControlMiscData1[i] [ 22 ]
 
-   IF ValType(aInputItems) == "A"
+   IF HB_ISARRAY(aInputItems)
 
       IF Len(aInputItems) >= CellColIndex
 
-         IF ValType(aInputItems [ CellColIndex ]) == "A"
+         IF HB_ISARRAY(aInputItems[CellColIndex])
             lInputItems := .T.
          ENDIF
 
@@ -1989,7 +1989,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
 
    ENDIF
 
-   IF ValType(aReadOnly) == "A"
+   IF HB_ISARRAY(aReadOnly)
 
       IF Len(aReadOnly) >= CellColIndex
 
@@ -2063,7 +2063,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
 
    aTemp := _HMG_aControlMiscData1[i] [11]
 
-   IF ValType(aTemp) == "A"
+   IF HB_ISARRAY(aTemp)
 
       IF Len(aTemp) >= Len(_GridFields)
 
@@ -2200,7 +2200,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
            HEIGHT This.CellHeight + 6
            VALUE CellData
            MAXLENGTH Width
-           IF VALTYPE(AINPUTMASK) == "A"
+           IF HB_ISARRAY(AINPUTMASK)
               IF LEN(AINPUTMASK) >= CellColIndex
                  IF VALTYPE(AINPUTMASK [CellColIndex]) == "C" .AND. ! EMPTY(AINPUTMASK[CellColIndex])
                     INPUTMASK AINPUTMASK [CellColIndex]
@@ -2246,7 +2246,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
            WIDTH This.CellWidth
            HEIGHT This.CellHeight + 6
            VALUE CellData
-           IF VALTYPE(AINPUTMASK) == "A"
+           IF HB_ISARRAY(AINPUTMASK)
               IF LEN(AINPUTMASK) >= CellColIndex
                  IF VALTYPE(AINPUTMASK [CellColIndex]) == "C" .AND. ! EMPTY(AINPUTMASK[CellColIndex])
                     INPUTMASK AINPUTMASK [CellColIndex]
@@ -2269,7 +2269,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
            ROW 0
            COL 0
            NUMERIC   .T.
-           IF VALTYPE(AINPUTMASK) == "A"
+           IF HB_ISARRAY(AINPUTMASK)
               IF LEN(AINPUTMASK) >= CellColIndex
                  IF VALTYPE(AINPUTMASK [CellColIndex]) == "C" .AND. ! EMPTY(AINPUTMASK[CellColIndex])
                     INPUTMASK AINPUTMASK [CellColIndex]
@@ -2332,7 +2332,7 @@ STATIC PROCEDURE _InPlaceEditOk ( i , r , aValid , CellColIndex , sFieldName , A
 
    ENDIF
 
-   IF ValType(aValid) == "A"
+   IF HB_ISARRAY(aValid)
 
       IF Len(aValid) >= CellColIndex
 
@@ -2358,7 +2358,7 @@ STATIC PROCEDURE _InPlaceEditOk ( i , r , aValid , CellColIndex , sFieldName , A
 
             IF ISLOGICAL( b ) .AND. b == .F.
 
-               IF ValType(aValidMessages) == "A"
+               IF HB_ISARRAY(aValidMessages)
 
                   IF Len(aValidMessages) >= CellColIndex
 

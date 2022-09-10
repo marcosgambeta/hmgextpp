@@ -402,7 +402,7 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
       cData := "{||Nil}"
    EndIf
 
-   If ValType(Eval( bdata )) == "A"
+   If HB_ISARRAY(Eval(bdata))
       ::bData := Eval( bData )[1]
       aList := Eval( bData )[2]
    Else
@@ -411,7 +411,7 @@ METHOD New( cHeading, bData, cPicture, aColors, aAlign, nWidth, ;
 
    If aList != Nil
 
-      If ValType(aList[1]) == "A"
+      If HB_ISARRAY(aList[1])
          ::aItems := aList[1]
          ::aData  := aList[2]
       Else
@@ -598,7 +598,7 @@ Return "O" + I2Bin( 2 + Len(::ClassName()) + 2 + Len(cInfo) ) + ;
 
 METHOD SaveColor() CLASS TSColumn
 
-   If ::aColorsBack != Nil .AND. ValType(::aColorsBack) == "A"
+   If ::aColorsBack != Nil .AND. HB_ISARRAY(::aColorsBack)
       ::aColorsBack[1] := ::nClrFore
       ::aColorsBack[2] := ::nClrBack
       ::aColorsBack[3] := ::nClrHeadFore
@@ -626,7 +626,7 @@ RETURN Nil
 
 METHOD RestColor() CLASS TSColumn
 
-   If ::aColorsBack != Nil .AND. ValType(::aColorsBack) == "A"
+   If ::aColorsBack != Nil .AND. HB_ISARRAY(::aColorsBack)
       ::nClrFore        := ::aColorsBack[1]
       ::nClrBack        := ::aColorsBack[2]
       ::nClrHeadFore    := ::aColorsBack[3]
@@ -1059,7 +1059,7 @@ Function ComboWBlock( oBrw, uField, nCol, aList )
 
    If nCol <= Len(oBrw:aColumns)
 
-      If ValType(aList[1]) == "A"
+      If HB_ISARRAY(aList[1])
          oBrw:aColumns[ nCol ]:aItems    := aList[1]
          oBrw:aColumns[ nCol ]:aData     := aList[2]
          oBrw:aColumns[ nCol ]:cDataType := ValType(aList[ 2, 1 ])
@@ -1073,7 +1073,7 @@ Function ComboWBlock( oBrw, uField, nCol, aList )
       oBrw:aPostList := aList    // block is created before creating the column
    EndIf
 
-   If ValType(aList[1]) == "A"
+   If HB_ISARRAY(aList[1])
       aItems := aList[1]
       aData  := aList[2]
    Else

@@ -142,29 +142,29 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
       nLineStyle := 0
    ENDIF
 
-   IF Len(aHeaders) > 0 .AND. ValType(aHeaders[1]) == "A"
+   IF Len(aHeaders) > 0 .AND. HB_ISARRAY(aHeaders[1])
       aHeaders := aHeaders[1]
    ENDIF
 
-   IF Len(aWidths) > 0 .AND. ValType(aWidths[1]) == "A"
+   IF Len(aWidths) > 0 .AND. HB_ISARRAY(aWidths[1])
       aWidths := aWidths[1]
    ENDIF
 
-   IF Len(aPicture) > 0 .AND. ValType(aPicture[1]) == "A"
+   IF Len(aPicture) > 0 .AND. HB_ISARRAY(aPicture[1])
       aPicture := aPicture[1]
    ENDIF
 
-   IF Len(aFlds) > 0 .AND. ValType(aFlds[1]) == "A"
+   IF Len(aFlds) > 0 .AND. HB_ISARRAY(aFlds[1])
       aFlds := aFlds[1]
    ENDIF
 
-   IF ValType(aColSel) != "U" .AND. ValType(aColSel) == "A"
-      IF ValType(aColSel[1]) == "A"
+   IF ValType(aColSel) != "U" .AND. HB_ISARRAY(aColSel)
+      IF HB_ISARRAY(aColSel[1])
          aColSel := aColSel[1]
       ENDIF
    ENDIF
 
-   IF HB_ISARRAY( aColors ) .AND. Len(aColors) > 0 .AND. ValType(aColors[1]) == "A"
+   IF HB_ISARRAY( aColors ) .AND. Len(aColors) > 0 .AND. HB_ISARRAY(aColors[1])
       aColors := aColors[1]
    ENDIF
 
@@ -220,7 +220,7 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
       PUBLIC _TSB_aControlhWnd := {}, _TSB_aControlObjects := {}, _TSB_aClientMDIhWnd := {}
    ENDIF
 
-   IF aColors != NIL .AND. ValType(aColors) == "A"
+   IF aColors != NIL .AND. HB_ISARRAY(aColors)
       IF HB_ISARRAY( aColors ) .AND. Len(aColors) > 0 .AND. HB_ISARRAY( aColors[1] )
          FOR EACH aClr IN aColors
             IF HB_ISNUMERIC(aClr[1]) .AND. aClr[1] > 0 .AND. aClr[1] <= Len(aTmpColor)
@@ -269,7 +269,7 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " already defined.")
    ENDIF
 
-   IF aImages != NIL .AND. ValType(aImages) == "A"
+   IF aImages != NIL .AND. HB_ISARRAY(aImages)
       aBmp := Array( Len(aImages) )
       AEval( aImages, {| cImage, nEle | aBmp[nEle] := LoadImage( cImage ) } )
    ENDIF
@@ -308,7 +308,7 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
 
    ELSE
       // BK
-      IF HB_ISARRAY( uAlias ) .AND. Len(uAlias) > 0 .AND. ValType(uAlias[1]) == "A"
+      IF HB_ISARRAY( uAlias ) .AND. Len(uAlias) > 0 .AND. HB_ISARRAY(uAlias[1])
          aArray := uAlias
          uAlias := NIL
       ENDIF
@@ -417,7 +417,7 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
       ENDIF
 
       IF ( nColums := Len(oBrw:aColumns) ) > 0 /* BK  18.05.2015 */
-         IF ValType(readonly) == "A" // sets oCol:bWhen
+         IF HB_ISARRAY(readonly) // sets oCol:bWhen
             nLen := Min( Len(readonly), nColums )
             FOR i := 1 TO nLen
                IF ValType(READONLY[i]) == "B"
@@ -432,7 +432,7 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
             NEXT
          ENDIF
 
-         IF ValType(valid) == "A" // sets oCol:bValid
+         IF HB_ISARRAY(valid) // sets oCol:bValid
             nLen := Min( Len(valid), nColums )
             FOR i := 1 TO nLen
                IF ValType(VALID[i]) == "B"
@@ -1132,7 +1132,7 @@ CLASS TSBrowse FROM TControl
 
    METHOD GetAllColsWidth()
 
-   METHOD GetColSizes() INLINE iif( ValType(::aColSizes) == "A", ::aColSizes, Eval( ::aColSizes ) )
+   METHOD GetColSizes() INLINE iif( HB_ISARRAY(::aColSizes), ::aColSizes, Eval( ::aColSizes ) )
 
    METHOD GetColumn( nCol )
 
@@ -1534,7 +1534,7 @@ METHOD New( cControlName, nRow, nCol, nWidth, nHeight, bLine, aHeaders, aColSize
    ELSEIF lAutoSearch
       aTmpColor[19] := GetSysColor( COLOR_INFOBK )
    ENDIF
-   IF ValType(uAlias) == "A"
+   IF HB_ISARRAY(uAlias)
       cAlias := "ARRAY"
       ::cArray := uAlias
       ::aArray := {}
@@ -1694,7 +1694,7 @@ METHOD New( cControlName, nRow, nCol, nWidth, nHeight, bLine, aHeaders, aColSize
          ::lFirstPaint := .T.
       ENDIF
 
-      IF aHeaders != NIL .AND. ValType(aHeaders) == "A"
+      IF aHeaders != NIL .AND. HB_ISARRAY(aHeaders)
          AEval( aHeaders, {| cHeader | lSuperHeader := ( At( "~", cHeader ) != 0 ) .OR. lSuperHeader } )
          IF lSuperHeader
             aSuperHeaders := IdentSuper( aHeaders, Self )
@@ -1703,7 +1703,7 @@ METHOD New( cControlName, nRow, nCol, nWidth, nHeight, bLine, aHeaders, aColSize
 
       ::Default()
 
-      IF aSuperHeaders != NIL .AND. ValType(aSuperHeaders) == "A"
+      IF aSuperHeaders != NIL .AND. HB_ISARRAY(aSuperHeaders)
          AEval( aSuperHeaders, {| aHead | ::AddSuperHead( aHead[2], aHead[3], aHead[1], ;
             ::nHeightSuper, { aTmpColor[16], aTmpColor[17], aTmpColor[15] }, ;
             .F., iif( ::hFont != NIL, ::hFont, 0 ) ) } )
@@ -1823,7 +1823,7 @@ METHOD AddColumn( oColumn ) CLASS TSBrowse
 
       IF ATail( ::aColumns ):lComboBox
 
-         IF ValType(::aPostList[1]) == "A"
+         IF HB_ISARRAY(::aPostList[1])
             ATail( ::aColumns ):aItems := ::aPostList[1]
             ATail( ::aColumns ):aData := ::aPostList[2]
             ATail( ::aColumns ):cDataType := ValType(::aPostList[2, 1])
@@ -2419,7 +2419,7 @@ METHOD nColorGet( xVal, nCol, nAt, lPos ) CLASS TSBrowse
 
    xVal := ::GetValProp( xVal, xDef, nCol, nAt )
 
-   IF ValType(xVal) == "A"
+   IF HB_ISARRAY(xVal)
       xVal := ::nClrBackArr( xVal, nCol, nAt )
       IF nPos > 0
          xVal := xVal[nPos]
@@ -2513,7 +2513,7 @@ METHOD AddSuperHead( nFromCol, nToCol, uHead, nHeight, aColors, l3dLook, uFont, 
          iif( ::aColumns[nFromCol]:hFontHead != NIL, ::aColumns[nFromCol]:hFontHead, hFont ) )
    ENDIF
 
-   IF ValType(aColors) == "A"
+   IF HB_ISARRAY(aColors)
       ASize( aColors, 3 )
 
       IF !Empty(::aColumns)
@@ -2890,7 +2890,7 @@ METHOD Default() CLASS TSBrowse
             ENDIF
          ENDIF
          IF ::lIsArr
-            IF Len(::cArray) == 0 .AND. ValType(::aHeaders) == "A"
+            IF Len(::cArray) == 0 .AND. HB_ISARRAY(::aHeaders)
                ::cArray := Array( 1, Len(::aHeaders) )
                AEval( ::aHeaders, {| cHead, nEle | ::cArray[1, nEle] := "???", HB_SYMBOL_UNUSED( cHead ) } )
                ::lPhantArrRow := .T.
@@ -3455,20 +3455,20 @@ METHOD Destroy() CLASS TSBrowse
       DeleteObject( ::hBmpCursor )
    ENDIF
 
-   IF ValType(::aSortBmp) == "A" .AND. ! Empty(::aSortBmp)
+   IF HB_ISARRAY(::aSortBmp) .AND. ! Empty(::aSortBmp)
       AEval( ::aSortBmp, {| hBmp | iif( Empty(hBmp), , DeleteObject( hBmp ) ) } )
    ENDIF
 
-   IF ValType(::aCheck) == "A" .AND. ! Empty(::aCheck)
+   IF HB_ISARRAY(::aCheck) .AND. ! Empty(::aCheck)
       AEval( ::aCheck, {| hBmp | iif( Empty(hBmp), , DeleteObject( hBmp ) ) } )
    ENDIF
 
    IF Len(::aColumns) > 0
       FOR EACH oCol IN ::aColumns
-         IF ValType(oCol:aCheck) == "A"
+         IF HB_ISARRAY(oCol:aCheck)
             AEval( oCol:aCheck, {| hBmp | iif( Empty(hBmp), , DeleteObject( hBmp ) ) } )
          ENDIF
-         IF ValType(oCol:aBitMaps) == "A"
+         IF HB_ISARRAY(oCol:aBitMaps)
             AEval( oCol:aBitMaps, {| hBmp | iif( Empty(hBmp), , DeleteObject( hBmp ) ) } )
          ENDIF
          IF !::lDestroyAll
@@ -3490,12 +3490,12 @@ METHOD Destroy() CLASS TSBrowse
    ENDIF
 
    IF ::lDestroyAll
-      IF ValType(::aSuperHead) == "A" .AND. ! Empty(::aSuperHead)
+      IF HB_ISARRAY(::aSuperHead) .AND. ! Empty(::aSuperHead)
          AEval( ::aSuperHead, {| a | iif( Empty(a[8]) .OR. HB_ISBLOCK( a[8] ), , DeleteObject( a[8] ) ) } )
       ENDIF
    ENDIF
 
-   IF ValType(::aBitMaps) == "A" .AND. ! Empty(::aBitMaps)
+   IF HB_ISARRAY(::aBitMaps) .AND. ! Empty(::aBitMaps)
       AEval( ::aBitMaps, {| hBmp | iif( Empty(hBmp), , DeleteObject( hBmp ) ) } )
    ENDIF
 
@@ -3724,7 +3724,7 @@ METHOD DrawHeaders( lFooters, lDrawCell ) CLASS TSBrowse
 
          lBrush := ValType(nClrBack) == "O"
 
-         IF ValType(nClrBack) == "A"
+         IF HB_ISARRAY(nClrBack)
             nClrBack := ::nClrBackArr( nClrBack, nJ )
             nClrTo := nClrBack[2]
             nClrBack := nClrBack[1]
@@ -3854,7 +3854,7 @@ METHOD DrawHeaders( lFooters, lDrawCell ) CLASS TSBrowse
 
          lBrush := ValType(nClrBackS) == "O"
 
-         IF ValType(nClrBackS) == "A"
+         IF HB_ISARRAY(nClrBackS)
             nClrBackS := ::nClrBackArr( nClrBackS, nJ )
             nClrToS := nClrBackS[2]
             nClrBackS := nClrBackS[1]
@@ -3987,7 +3987,7 @@ METHOD DrawHeaders( lFooters, lDrawCell ) CLASS TSBrowse
 
          lBrush := ValType(nClrBack) == "O"
 
-         IF ValType(nClrBack) == "A"
+         IF HB_ISARRAY(nClrBack)
             nClrBack := ::nClrBackArr( nClrBack, nJ )
             nClrTo := nClrBack[2]
             nClrBack := nClrBack[1]
@@ -4340,7 +4340,7 @@ METHOD DrawLine( xRow, lDrawCell ) CLASS TSBrowse
             uBmpCell := ::uBmpSel
             nAlign := nMakeLong( LoWord(nAlign), ::nAligBmp )
          ELSEIF oColumn:lBitMap .AND. HB_ISNUMERIC(uData)
-            aBitMaps := iif( ValType(oColumn:aBitMaps) == "A", oColumn:aBitMaps, ::aBitMaps )
+            aBitMaps := iif( HB_ISARRAY(oColumn:aBitMaps), oColumn:aBitMaps, ::aBitMaps )
             IF !Empty(aBitMaps) .AND. uData > 0 .AND. uData <= Len(aBitMaps)
                uBmpCell := aBitMaps[uData]
             ENDIF
@@ -4379,7 +4379,7 @@ METHOD DrawLine( xRow, lDrawCell ) CLASS TSBrowse
 
          lBrush := ValType(nClrBack) == "O"
 
-         IF ValType(nClrBack) == "A"
+         IF HB_ISARRAY(nClrBack)
             nClrBack := ::nClrBackArr( nClrBack, nJ, ::nAt )
             nClrTo := nClrBack[2]
             nClrBack := nClrBack[1]
@@ -4399,7 +4399,7 @@ METHOD DrawLine( xRow, lDrawCell ) CLASS TSBrowse
                nAlign := oCell:nAlign
             ELSE
                DEFAULT ::aCheck := { StockBmp( 6 ), StockBmp( 7 ) }
-               IF ValType(oColumn:aCheck) == "A"
+               IF HB_ISARRAY(oColumn:aCheck)
                   hBitMap := oColumn:aCheck[iif( lCheckVal, 1, 2 )]
                ELSE
                   hBitMap := ::aCheck[iif( lCheckVal, 1, 2 )]
@@ -4879,7 +4879,7 @@ METHOD DrawSelect( xRow, lDrawCell ) CLASS TSBrowse
                uBmpCell := ::uBmpSel
                nAlign := nMakeLong( LoWord(nAlign), ::nAligBmp )
             ELSEIF oColumn:lBitMap .AND. HB_ISNUMERIC(uData)
-               aBitMaps := iif( ValType(oColumn:aBitMaps) == "A", oColumn:aBitMaps, ::aBitMaps )
+               aBitMaps := iif( HB_ISARRAY(oColumn:aBitMaps), oColumn:aBitMaps, ::aBitMaps )
                IF !Empty(aBitMaps) .AND. uData > 0 .AND. uData <= Len(aBitMaps)
                   uBmpCell := aBitMaps[uData]
                ENDIF
@@ -4940,7 +4940,7 @@ METHOD DrawSelect( xRow, lDrawCell ) CLASS TSBrowse
             ENDIF
          ENDIF
 
-         IF ValType(nClrBack) == "A"
+         IF HB_ISARRAY(nClrBack)
             nClrBack := ::nClrBackArr( nClrBack, nJ, ::nAt )
             nClrTo := nClrBack[2]
             nClrBack := nClrBack[1]
@@ -4962,7 +4962,7 @@ METHOD DrawSelect( xRow, lDrawCell ) CLASS TSBrowse
                nAlign := oCell:nAlign
             ELSE
                DEFAULT ::aCheck := { StockBmp( 6 ), StockBmp( 7 ) }
-               IF ValType(oColumn:aCheck) == "A"
+               IF HB_ISARRAY(oColumn:aCheck)
                   hBitMap := oColumn:aCheck[iif( lCheckVal, 1, 2 )]
                ELSE
                   hBitMap := ::aCheck[iif( lCheckVal, 1, 2 )]
@@ -5258,7 +5258,7 @@ METHOD DrawSuper( lDrawCell ) CLASS TSBrowse
          nClrBack := ::nBackSupHdGet( nI, aSuperHead )
          lBrush := ValType(nClrBack) == "O"
 
-         IF ValType(nClrBack) == "A"
+         IF HB_ISARRAY(nClrBack)
             nClrBack := ::nClrBackArr( nClrBack, nI )
             nClrTo := nClrBack[2]
             nClrBack := nClrBack[1]
@@ -5293,7 +5293,7 @@ METHOD DrawSuper( lDrawCell ) CLASS TSBrowse
          lOpaque := .F.
          nClrBack := iif( ::nPhantom == -2, nClrPane, ATail( aSuperHead )[5] )
          nClrBack := ::GetValProp( nClrBack, nClrBack, nI )
-         IF ValType(nClrBack) == "A"
+         IF HB_ISARRAY(nClrBack)
             nClrBack := ::nClrBackArr( nClrBack, nI )
             nClrTo := nClrBack[2]
             nClrBack := nClrBack[1]
@@ -5505,7 +5505,7 @@ METHOD Edit( uVar, nCell, nKey, nKeyFlags, cPicture, bValid, nClrFore, nClrBack 
       IF ::lIsArr .AND. ( ::lAppendMode .OR. ::nAt > Len(::aArray) ) // append mode for arrays
       ELSEIF nKey != VK_RETURN // GF 15-10-2015
          uVar := Eval( oCol:bPrevEdit, uValue, Self, nCell, oCol )
-         IF ValType(uVar) == "A"
+         IF HB_ISARRAY(uVar)
             uVar := uVar[1]
             uValue := uVar[2]
          ENDIF
@@ -8916,7 +8916,7 @@ METHOD KeyDown( nKey, nFlags ) CLASS TSBrowse
          ELSE // GF 16-05-2008
             uVal := ::bDataEval( ::aColumns[nCol] )
             uVal := Eval( ::aColumns[nCol]:bPrevEdit, uVal, Self, nCol, ::aColumns[nCol] )
-            IF ValType(uVal) == "A"
+            IF HB_ISARRAY(uVal)
                uVal := uVal[1]
                uValue := uVal[2]
             ENDIF
@@ -9596,7 +9596,7 @@ METHOD LoadFields( lEditable, aColSel, cAlsSel, aNameSel, aHeadSel ) CLASS TSBro
 
       nE := iif( aNames == NIL, n, ( cAlias )->( FieldPos( aNames[n] ) ) )
 
-      IF ValType(::aHeaders) == "A" .AND. ! Empty(::aHeaders) .AND. n <= Len(::aHeaders)
+      IF HB_ISARRAY(::aHeaders) .AND. ! Empty(::aHeaders) .AND. n <= Len(::aHeaders)
          cHeading := ::aHeaders[n]
          cHead := cHeading
       ELSE
@@ -9689,15 +9689,15 @@ METHOD LoadFields( lEditable, aColSel, cAlsSel, aNameSel, aHeadSel ) CLASS TSBro
          nSize := Max(GetTextWidth(0, Replicate("B", Len(cHeading) + 1), hFontH), nSize)
          nSize += iif( ! Empty(cOrder), 14, 0 )
 
-      ELSEIF ValType(::aColSizes) == "A" .AND. ! Empty(::aColSizes) .AND. n <= Len(::aColSizes)
+      ELSEIF HB_ISARRAY(::aColSizes) .AND. ! Empty(::aColSizes) .AND. n <= Len(::aColSizes)
          nSize := ::aColSizes[n]
       ENDIF
 
-      IF ValType(::aColSizes) == "A" .AND. n <= Len(::aColSizes) .AND. Empty(::aColSizes[n])
+      IF HB_ISARRAY(::aColSizes) .AND. n <= Len(::aColSizes) .AND. Empty(::aColSizes[n])
          ::aColSizes[n] := nSize
       ENDIF
 
-      IF ValType(::aFormatPic) == "A" .AND. ! Empty(::aFormatPic) .AND. n <= Len(::aFormatPic) .AND. !( cType $ "=@T" )
+      IF HB_ISARRAY(::aFormatPic) .AND. ! Empty(::aFormatPic) .AND. n <= Len(::aFormatPic) .AND. !( cType $ "=@T" )
          cPicture := ::aFormatPic[n]
       ENDIF
 
@@ -10417,14 +10417,14 @@ METHOD Insert( cItem, nAt ) CLASS TSBrowse
       RETURN NIL
    ENDIF
 
-   IF ValType(cItem) == "A" .AND. cItem[1] == NIL
+   IF HB_ISARRAY(cItem) .AND. cItem[1] == NIL
       hb_ADel( cItem, 1, .T. )
    ENDIF
 
    ASize( ::aArray, Len(::aArray) + 1 )
    nAt := Max(1, nAt)
    AIns( ::aArray, nAt )
-   ::aArray[nAt] := iif( ValType(cItem) == "A", cItem, { cItem } )
+   ::aArray[nAt] := iif( HB_ISARRAY(cItem), cItem, { cItem } )
 
    ::nLen := Eval( ::bLogicLen )
 
@@ -10461,11 +10461,11 @@ METHOD AddItem( cItem ) CLASS TSBrowse // delete in V90
       RETURN NIL
    ENDIF
 
-   IF ValType(cItem) == "A" .AND. cItem[1] == NIL
+   IF HB_ISARRAY(cItem) .AND. cItem[1] == NIL
       hb_ADel( cItem, 1, .T. )
    ENDIF
 
-   cItem := iif( ValType(cItem) == "A", cItem, { cItem } )
+   cItem := iif( HB_ISARRAY(cItem), cItem, { cItem } )
 
    IF ::lPhantArrRow .AND. Len(::aArray) == 1
       ::SetArray( { cItem }, .T. )
@@ -13309,14 +13309,14 @@ METHOD SetArray( aArray, lAutoCols, aHead, aSizes ) CLASS TSBrowse
       ::AddColumn( TSColumn():New( NIL, ArrayWBlock( Self, 1 ),,,, nMax,, ::lEditable,,,,,,,,,,, Self, ;
          "ArrayWBlock(::oBrw,1)" ) )
 
-   ELSEIF lAutoCols .AND. Empty(::aColumns) .AND. ValType(::aArray[1]) == "A"
+   ELSEIF lAutoCols .AND. Empty(::aColumns) .AND. HB_ISARRAY(::aArray[1])
       IF Empty(aHead)
          aHead := AutoHeaders( Len(::aArray[1]) )
       ENDIF
 
       IF aSizes != NIL .AND. ValType(aSizes) != "A"
          aSizes := AFill( Array( Len(::aArray[1]) ), nValToNum( aSizes ) )
-      ELSEIF ValType(aSizes) == "A" .AND. ! Empty(aSizes)
+      ELSEIF HB_ISARRAY(aSizes) .AND. ! Empty(aSizes)
          IF Len(aSizes) < nColumns
             nI := Len(aSizes) + 1
             ASize( aSizes, nColumns )
@@ -13401,7 +13401,7 @@ METHOD SetArrayTo( aArray, uFontHF, aHead, aSizes, uFooter, aPicture, aAlign, aN
    IF HB_ISNUMERIC(uFontHF) .AND. uFontHF != 0
       hFontHead := uFontHF
       hFontFoot := uFontHF
-   ELSEIF ValType(uFontHF) == "A" .AND. Len(uFontHF) >= 2
+   ELSEIF HB_ISARRAY(uFontHF) .AND. Len(uFontHF) >= 2
       IF HB_ISNUMERIC(uFontHF[1]) .AND. uFontHF[1] != 0
          hFontHead := uFontHF[1]
       ENDIF
@@ -13507,7 +13507,7 @@ METHOD SetArrayTo( aArray, uFontHF, aHead, aSizes, uFooter, aPicture, aAlign, aN
 
    IF ValType(uFooter) == "L"
       lFooter := uFooter
-   ELSEIF ValType(uFooter) == "A"
+   ELSEIF HB_ISARRAY(uFooter)
       lFooter := .T.
       FOR nI := 1 TO Min( nColumns, Len(uFooter) )
          aDefFooter[nI] := cValToChar( uFooter[nI] )
@@ -13520,7 +13520,7 @@ METHOD SetArrayTo( aArray, uFontHF, aHead, aSizes, uFooter, aPicture, aAlign, aN
 
    IF aSizes != NIL .AND. ValType(aSizes) != "A"
       aSizes := AFill( Array( Len(::aArray[1]) ), nValToNum( aSizes ) )
-   ELSEIF ValType(aSizes) == "A" .AND. ! Empty(aSizes)
+   ELSEIF HB_ISARRAY(aSizes) .AND. ! Empty(aSizes)
       IF Len(aSizes) < nColumns
          nI := Len(aSizes) + 1
          ASize( aSizes, nColumns )
@@ -13725,7 +13725,7 @@ METHOD SetColor( xColor1, xColor2, nColumn ) CLASS TSBrowse
       RETURN NIL
    ENDIF
 
-   IF ValType(xColor1) == "A" .AND. ValType(xColor2) == "A" .AND. Len(xColor1) > Len(xColor2)
+   IF HB_ISARRAY(xColor1) .AND. HB_ISARRAY(xColor2) .AND. Len(xColor1) > Len(xColor2)
       RETURN NIL
    ENDIF
 
@@ -13738,8 +13738,8 @@ METHOD SetColor( xColor1, xColor2, nColumn ) CLASS TSBrowse
       ::hBrush := CreateSolidBrush( GetRed( nColor ), GetGreen( nColor ), GetBlue( nColor ) )
    ENDIF
 
-   IF nColumn == 0 .AND. HB_ISNUMERIC(xColor2[1]) .AND. ValType(xColor1) == "A" .AND. xColor1[1] == 1 .AND. ;
-         Len(xColor1) > 1 .AND. ValType(xColor2) == "A" .AND. HB_ISNUMERIC(xColor2[2]) .AND. xColor1[2] == 2
+   IF nColumn == 0 .AND. HB_ISNUMERIC(xColor2[1]) .AND. HB_ISARRAY(xColor1) .AND. xColor1[1] == 1 .AND. ;
+         Len(xColor1) > 1 .AND. HB_ISARRAY(xColor2) .AND. HB_ISNUMERIC(xColor2[2]) .AND. xColor1[2] == 2
 
       nColor := iif( ValType(xColor2[2]) == "B", Eval( xColor2[2], 1, 1, Self ), xColor2[2] )
       ::Super:SetColor( xColor2[1], nColor )
@@ -14100,9 +14100,9 @@ METHOD SetColSize( nCol, nWidth ) CLASS TSBrowse
    LOCAL nI
    LOCAL nSize
 
-   IF ValType(nCol) == "A"
+   IF HB_ISARRAY(nCol)
       FOR nI := 1 TO Len(nCol)
-         nSize := iif( ValType(nWidth) == "A", nWidth[nI], nWidth )
+         nSize := iif( HB_ISARRAY(nWidth), nWidth[nI], nWidth )
          ::aColumns[nCol[nI]]:nWidth := nSize
          ::aColSizes[nCol[nI]] := iif( ::aColumns[nCol[nI]]:lVisible, ::aColumns[nCol[nI]]:nWidth, 0 )
       NEXT
@@ -14136,7 +14136,7 @@ METHOD SetData( nColumn, bData, aList ) CLASS TSBrowse
 
    IF aList != NIL
 
-      IF ValType(aList[1]) == "A"
+      IF HB_ISARRAY(aList[1])
          ::aColumns[nColumn]:aItems := aList[1]
          ::aColumns[nColumn]:aData := aList[2]
          ::aColumns[nColumn]:cDataType := ValType(aList[2, 1])
@@ -14252,7 +14252,7 @@ METHOD SetFilter( cField, uVal1, uVal2 ) CLASS TSBrowse
 
    DEFAULT uVal2 := uVal1
 
-   IF ValType(uVal2) == "A"
+   IF HB_ISARRAY(uVal2)
       ::bFilter := uVal2[2]
       uVal2 := uVal2[1]
    ENDIF
@@ -14459,27 +14459,27 @@ METHOD SetHeaders( nHeight, aCols, aTitles, aAlign, al3DLook, aFonts, aActions )
 
       DO CASE
 
-      CASE ValType(aTitles) == "A"
+      CASE HB_ISARRAY(aTitles)
          FOR nI := 1 TO Len(aTitles)
             AAdd(aCols, nI)
          NEXT
 
-      CASE ValType(aActions) == "A"
+      CASE HB_ISARRAY(aActions)
          FOR nI := 1 TO Len(aActions)
             AAdd(aCols, nI)
          NEXT
 
-      CASE ValType(aAlign) == "A"
+      CASE HB_ISARRAY(aAlign)
          FOR nI := 1 TO Len(aAlign)
             AAdd(aCols, nI)
          NEXT
 
-      CASE ValType(al3DLook) == "A"
+      CASE HB_ISARRAY(al3DLook)
          FOR nI := 1 TO Len(al3DLook)
             AAdd(aCols, nI)
          NEXT
 
-      CASE ValType(aFonts) == "A"
+      CASE HB_ISARRAY(aFonts)
          FOR nI := 1 TO Len(aFonts)
             AAdd(aCols, nI)
          NEXT
@@ -14497,15 +14497,15 @@ METHOD SetHeaders( nHeight, aCols, aTitles, aAlign, al3DLook, aFonts, aActions )
       ENDIF
 
       IF aAlign != NIL
-         ::aColumns[aCols[nI]]:nHAlign := iif( ValType(aAlign) == "A", aAlign[nI], aAlign )
+         ::aColumns[aCols[nI]]:nHAlign := iif( HB_ISARRAY(aAlign), aAlign[nI], aAlign )
       ENDIF
 
       IF al3DLook != NIL
-         ::aColumns[aCols[nI]]:l3DLookHead := iif( ValType(al3DLook) == "A", al3DLook[nI], al3DLook )
+         ::aColumns[aCols[nI]]:l3DLookHead := iif( HB_ISARRAY(al3DLook), al3DLook[nI], al3DLook )
       ENDIF
 
       IF aFonts != NIL
-         ::aColumns[aCols[nI]]:hFontHead := iif( ValType(aFonts) == "A", aFonts[nI], aFonts )
+         ::aColumns[aCols[nI]]:hFontHead := iif( HB_ISARRAY(aFonts), aFonts[nI], aFonts )
       ENDIF
 
       IF aActions != NIL
@@ -14531,7 +14531,7 @@ METHOD SetIndexCols( nCol1, nCol2, nCol3, nCol4, nCol5 ) CLASS TSBrowse
       nCol4 := 0, ;
       nCol5 := 0
 
-   IF ValType(nCol1) == "A"
+   IF HB_ISARRAY(nCol1)
       AEval( nCol1, {| nCol | ::aColumns[nCol]:lIndexCol := .T. } )
    ELSE
       aCol := { nCol1, nCol2, nCol3, nCol4, nCol5 }
@@ -17038,7 +17038,7 @@ FUNCTION lAEqual( aArr1, aArr2 )
 
    FOR nEle := 1 TO Len(aArr1)
 
-      IF ValType(aArr1[nEle]) == "A" .AND. ! lAEqual( aArr1[nEle], aArr2[nEle] )
+      IF HB_ISARRAY(aArr1[nEle]) .AND. ! lAEqual( aArr1[nEle], aArr2[nEle] )
          RETURN .F.
       ELSEIF ValType(aArr1[nEle]) != ValType(aArr2[nEle])
          RETURN .F.

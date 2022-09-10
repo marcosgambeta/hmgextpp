@@ -166,7 +166,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
                SetWindowStyle(ControlHandle, WS_VISIBLE, .T.)
             ENDIF
 
-            IF ValType(aOptions) == "A"
+            IF HB_ISARRAY(aOptions)
                IF i <= Len(aOptions)
                   SetWindowText(ControlHandle, aOptions[i])
                ENDIF

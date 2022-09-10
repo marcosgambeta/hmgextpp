@@ -86,14 +86,14 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
    IF multitabs
       IF Len(rows) > 0
          IF Len(aWidth) == 0
-            IF Valtype(rows[1]) == "A"
+            IF HB_ISARRAY(rows[1])
                FOR i:=1 TO Len(rows[1])
                   AAdd(aWidth, Int(w / Len(rows[1])))
                NEXT
             ENDIF
          ENDIF
          FOR i:=1 TO Len(rows)
-            IF Valtype(rows[i]) == "A"
+            IF HB_ISARRAY(rows[i])
                rows[i] := LB_Array2String( rows[i] )
             ENDIF
          NEXT

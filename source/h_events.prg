@@ -228,7 +228,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                   IF _HMG_aControlFontColor[i] != NIL
 
-                     IF ValType(_HMG_aControlFontColor[i, 2]) == "A" .AND. Len(_HMG_aControlFontColor[i, 2]) == 3
+                     IF HB_ISARRAY(_HMG_aControlFontColor[i, 2]) .AND. Len(_HMG_aControlFontColor[i, 2]) == 3
                         SetTextColor(wParam, _HMG_aControlFontColor[i, 2, 1], _HMG_aControlFontColor[i, 2, 2], _HMG_aControlFontColor[i, 2, 3])
                      ELSEIF HB_ISNUMERIC(_HMG_aControlFontColor[i, 2]) .AND. Len(_HMG_aControlFontColor[i]) == 3
                         SetTextColor(wParam, _HMG_aControlFontColor[i, 1], _HMG_aControlFontColor[i, 2], _HMG_aControlFontColor[i, 3])
@@ -238,7 +238,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                   IF _HMG_aControlBkColor[i] != NIL
 
-                     IF ValType(_HMG_aControlBkColor[i, 2]) == "A" .AND. Len(_HMG_aControlBkColor[i, 2]) == 3
+                     IF HB_ISARRAY(_HMG_aControlBkColor[i, 2]) .AND. Len(_HMG_aControlBkColor[i, 2]) == 3
 
                         SetBkColor(wParam, _HMG_aControlBkColor[i, 2, 1], _HMG_aControlBkColor[i, 2, 2], _HMG_aControlBkColor[i, 2, 3])
                         DeleteObject(_HMG_aControlBrushHandle[i])
@@ -525,7 +525,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                   SetTextColor(wParam, _HMG_aControlFontColor[i][1], _HMG_aControlFontColor[i][2], _HMG_aControlFontColor[i][3])
 
-               ELSEIF ValType(_HMG_aControlFontColor[i, 1]) == "A"
+               ELSEIF HB_ISARRAY(_HMG_aControlFontColor[i, 1])
 
                   IF Len(_HMG_aControlFontColor[i]) > 2 .AND. GetFocus() == _HMG_aControlHandles[i]
                      SetTextColor(wParam, _HMG_aControlFontColor[i, 3, 1], _HMG_aControlFontColor[i, 3, 2], _HMG_aControlFontColor[i, 3, 3])
@@ -558,7 +558,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                ELSE
 
-                  IF ValType(_HMG_aControlBkColor[i, 1]) == "A"
+                  IF HB_ISARRAY(_HMG_aControlBkColor[i, 1])
 
                      IF Len(_HMG_aControlBkColor[i]) == 3 .AND. GetFocus() == _HMG_aControlHandles[i]
 
@@ -590,7 +590,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
          FOR i := 1 TO ControlCount
 
-            IF ValType(_HMG_aControlHandles[i]) == "A"
+            IF HB_ISARRAY(_HMG_aControlHandles[i])
 
                IF _HMG_aControlType[i] == CONTROL_TYPE_SPINNER
 
@@ -2677,7 +2677,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             IF x > 0 .AND. _HMG_aControlType[x] == CONTROL_TYPE_TAB
 
-               IF ValType(_HMG_aControlTooltip[x]) == "A"
+               IF HB_ISARRAY(_HMG_aControlTooltip[x])
                   i := GetNotifyId(lParam)  // page number
                   SetButtonTip(lParam, _HMG_aControlTooltip[x, i + 1])
                ELSE
@@ -2783,7 +2783,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
             dBc := _HMG_aControlMiscData1[i][10]
             dFc := _HMG_aControlMiscData1[i][9]
 
-            IF GetNotifyCode(lParam) == NM_CUSTOMDRAW .AND. (ValType(dBc) == "A" .OR. ValType(dFc) == "A")
+            IF GetNotifyCode(lParam) == NM_CUSTOMDRAW .AND. (HB_ISARRAY(dBc) .OR. HB_ISARRAY(dFc))
 
                IF (r := GetDs(lParam)) <> -1
 
@@ -2799,7 +2799,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                      aTemp  := _HMG_aControlMiscData1[i][18]
                      aTemp2 := _HMG_aControlMiscData1[i][17]
 
-                     IF ValType(aTemp) == "A" .AND. ValType(aTemp2) <> "A"
+                     IF HB_ISARRAY(aTemp) .AND. ValType(aTemp2) <> "A"
                         IF Len(aTemp) >= a[1]
 
                            IF aTemp[a[1]][a[2]] <> -1
@@ -2810,7 +2810,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                         ENDIF
 
-                     ELSEIF ValType(aTemp) <> "A" .AND. ValType(aTemp2) == "A"
+                     ELSEIF ValType(aTemp) <> "A" .AND. HB_ISARRAY(aTemp2)
                         IF Len(aTemp2) >= a[1]
 
                            IF aTemp2[a[1]][a[2]] <> -1
@@ -2821,7 +2821,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                         ENDIF
 
-                     ELSEIF ValType(aTemp) == "A" .AND. ValType(aTemp2) == "A"
+                     ELSEIF HB_ISARRAY(aTemp) .AND. HB_ISARRAY(aTemp2)
                         IF Len(aTemp) >= a[1] .AND. Len(aTemp2) >= a[1]
 
                            IF aTemp[a[1]][a[2]] <> -1
@@ -3000,7 +3000,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
             // Browse Header Click .........................
 
             IF GetNotifyCode(lParam) == LVN_COLUMNCLICK
-               IF ValType(_HMG_aControlHeadClick[i]) == "A"
+               IF HB_ISARRAY(_HMG_aControlHeadClick[i])
                   lvc := GetGridColumn(lParam) + 1
                   IF Len(_HMG_aControlHeadClick[i]) >= lvc
                      _DoControlEventProcedure(_HMG_aControlHeadClick[i][lvc], i, , lvc)
@@ -3397,7 +3397,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             IF GetNotifyCode(lParam) == LVN_COLUMNCLICK
 
-               IF ValType(_HMG_aControlHeadClick[i]) == "A"
+               IF HB_ISARRAY(_HMG_aControlHeadClick[i])
                   lvc := GetGridColumn(lParam) + 1
                   IF Len(_HMG_aControlHeadClick[i]) >= lvc
                      _DoControlEventProcedure(_HMG_aControlHeadClick[i][lvc], i, , lvc)
@@ -4257,7 +4257,7 @@ STATIC FUNCTION _DoGridCustomDraw(i, a, lParam)
       aTemp  := _HMG_aControlMiscData1[i, 22]
       aTemp2 := _HMG_aControlMiscData1[i, 21]
 
-      IF ValType(aTemp) == "A" .AND. ValType(aTemp2) <> "A"
+      IF HB_ISARRAY(aTemp) .AND. ValType(aTemp2) <> "A"
 
          IF Len(aTemp) >= a[1]
             IF aTemp[a[1]][a[2]] <> -1
@@ -4267,7 +4267,7 @@ STATIC FUNCTION _DoGridCustomDraw(i, a, lParam)
             ENDIF
          ENDIF
 
-      ELSEIF ValType(aTemp) <> "A" .AND. ValType(aTemp2) == "A"
+      ELSEIF ValType(aTemp) <> "A" .AND. HB_ISARRAY(aTemp2)
 
          IF Len(aTemp2) >= a[1]
             IF aTemp2[a[1]][a[2]] <> -1
@@ -4277,7 +4277,7 @@ STATIC FUNCTION _DoGridCustomDraw(i, a, lParam)
             ENDIF
          ENDIF
 
-      ELSEIF ValType(aTemp) == "A" .AND. ValType(aTemp2) == "A"
+      ELSEIF HB_ISARRAY(aTemp) .AND. HB_ISARRAY(aTemp2)
 
          IF Len(aTemp) >= a[1] .AND. Len(aTemp2) >= a[1]
             IF aTemp[a[1]][a[2]] <> -1

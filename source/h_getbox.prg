@@ -501,7 +501,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          ENDIF
          IF HB_ISNUMERIC(_HMG_aControlBkColor[i, 1])
             _HMG_aControlBkColor[i] := iif( ISBLOCK ( aClrFocus ), Eval( aClrFocus ), aClrFocus )
-         ELSEIF ValType(_HMG_aControlBkColor [i, 1]) == "A" .AND. Len(_HMG_aControlBkColor[i]) == 3
+         ELSEIF HB_ISARRAY(_HMG_aControlBkColor[i, 1]) .AND. Len(_HMG_aControlBkColor[i]) == 3
             _HMG_aControlBkColor[i][3] := iif( ISBLOCK ( aClrFocus ), Eval( aClrFocus ), aClrFocus )
          ENDIF
          aOldFontClr := _HMG_aControlFontColor[i]
@@ -511,7 +511,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          IF aFntFocus != NIL
             IF HB_ISNUMERIC(_HMG_aControlFontColor[i, 1])
                _HMG_aControlFontColor[i] := iif( ISBLOCK ( aFntFocus ), Eval( aFntFocus ), aFntFocus )
-            ELSEIF ValType(_HMG_aControlFontColor [i, 1]) == "A" .AND. Len(_HMG_aControlFontColor[i]) == 3
+            ELSEIF HB_ISARRAY(_HMG_aControlFontColor[i, 1]) .AND. Len(_HMG_aControlFontColor[i]) == 3
                _HMG_aControlFontColor[i][3] := iif( ISBLOCK ( aFntFocus ), Eval( aFntFocus ), aFntFocus )
             ENDIF
          ENDIF
@@ -1308,7 +1308,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
          aHandle := _HMG_aControlRangeMin[i]
 
-         IF ValType(aHandle) == "A" .AND. Len(aHandle) >= 1 .AND. aHandle [1] == hWnd
+         IF HB_ISARRAY(aHandle) .AND. Len(aHandle) >= 1 .AND. aHandle [1] == hWnd
 
             SWITCH AScan(aHandle , HwndBtn)
             CASE GBB1

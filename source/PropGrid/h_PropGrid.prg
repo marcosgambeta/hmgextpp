@@ -204,8 +204,8 @@ FUNCTION _DefinePropGrid ( ControlName, ParentFormName, row, col, width, height,
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
-   IF aheadname != Nil .AND. ValType(aheadname) == "A"
-      IF Len(aheadname) > 0 .AND. ValType(aheadname[1]) == "A"
+   IF aheadname != Nil .AND. HB_ISARRAY(aheadname)
+      IF Len(aheadname) > 0 .AND. HB_ISARRAY(aheadname[1])
          aheadname := aheadname[1]
       ENDIF
    ENDIF
@@ -288,11 +288,11 @@ FUNCTION _DefinePropGrid ( ControlName, ParentFormName, row, col, width, height,
       SetToolTip ( aControlHandle[1], tooltip, GetFormToolTipHandle ( ParentFormName ) )
    ENDIF
 
-   IF ValType(backcolor) == "A"
+   IF HB_ISARRAY(backcolor)
       TreeView_SetBkColor( aControlHandle[1], backcolor )
    ENDIF
 
-   IF ValType(fontcolor) == "A"
+   IF HB_ISARRAY(fontcolor)
       TreeView_SetTextColor( aControlHandle[1], fontcolor )
    ENDIF
 
@@ -402,7 +402,7 @@ RETURN nil
 FUNCTION PgBtnEvents( hwndPG, HwndBtn )
 *------------------------------------------------------------------------------*
    LOCAL i, aHandle, nBtn, aRowItem, cFile, lXml
-   i := AScan(_HMG_aControlHandles , {|x| ValType(x) == "A" .AND. x[1] == hwndPG })
+   i := AScan(_HMG_aControlHandles , {|x| HB_ISARRAY(x) .AND. x[1] == hwndPG })
    IF i > 0 .AND. HwndBtn > 0
       aRowItem := _HMG_aControlPageMap[i]
       cFile    := _HMG_aControlCaption[i]
@@ -1492,7 +1492,7 @@ FUNCTION AttrTran( xData, type )
          RETURN AllTrim(Str(xData))
       ENDIF
    CASE Type == "A"
-      IF ValType(xData) == "A"
+      IF HB_ISARRAY(xData)
          cData := ""
          FOR n := 1 TO Len(xData)
             IF HB_ISNUMERIC(xdata[n])
@@ -1689,7 +1689,7 @@ FUNCTION OPROPGRIDEVENTS( hWnd, nMsg, wParam, lParam, hItem, hEdit )
       RETURN 0
    CASE nMsg == WM_COMMAND
       IF  HIWORD(wParam) == EN_CHANGE .AND. lParam == hItem
-         i := AScan(_HMG_aControlHandles , {|x| ValType(x) == "A" .AND. x[1] == hWnd })
+         i := AScan(_HMG_aControlHandles , {|x| HB_ISARRAY(x) .AND. x[1] == hWnd })
          IF i > 0
             _ChangeBtnState(  _HMG_aControlHandles[i], .T. , i )
             _DoControlEventProcedure ( _HMG_aControlHeadClick[i] , i )
@@ -1742,7 +1742,7 @@ FUNCTION OPROPGRIDEVENTS( hWnd, nMsg, wParam, lParam, hItem, hEdit )
          ENDIF
       ENDIF
    CASE nMsg == WM_NOTIFY
-      i := AScan(_HMG_aControlHandles , {|x| ValType(x) == "A" .AND. x[1] ==  GetHwndFrom ( lParam ) })
+      i := AScan(_HMG_aControlHandles , {|x| HB_ISARRAY(x) .AND. x[1] ==  GetHwndFrom ( lParam ) })
       IF i > 0
          IF GetNotifyCode ( lParam ) = TVN_SELCHANGED   //Tree
             _DoControlEventProcedure ( _HMG_aControlChangeProcedure[i] , i )
@@ -1796,7 +1796,7 @@ FUNCTION aVal2Str(aData, sep)
 *------------------------------------------------------------------------------*
    LOCAL n, cData := ""
    DEFAULT sep := ";"
-   IF ValType(aData) == "A"
+   IF HB_ISARRAY(aData)
       FOR n := 1 TO Len(aData)
          IF HB_ISNUMERIC(adata[n])
             cData += AllTrim(Str(aData[n])) + IIF( n < Len(aData), sep, "" )
@@ -1826,7 +1826,7 @@ FUNCTION SetPropGridValue ( ParentForm, ControlName, nID, cValue, cData, lExp )
       ENDIF
    ENDIF
    hWndPG := GetPGControlHandle ( ControlName, ParentForm )
-   i := AScan(_HMG_aControlHandles , {|x| ValType(x) == "A" .AND. x[1] == hwndPG })
+   i := AScan(_HMG_aControlHandles , {|x| HB_ISARRAY(x) .AND. x[1] == hwndPG })
    IF i > 0
       hEdit := _HMG_aControlMiscData2[i]
    ENDIF
@@ -2147,7 +2147,7 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
    LOCAL aData, aDataNew, cData, cDataNew, cValue, cVal, cFltr, lAll, cFold, bData, lChg
    lParam := Nil //unused parameter
 
-   IF ( i := AScan(_HMG_aControlHandles ,{|x| ValType(x ) == "A" .AND. x[1] == hwndPG }) ) == 0
+   IF ( i := AScan(_HMG_aControlHandles ,{|x| HB_ISARRAY(x) .AND. x[1] == hwndPG }) ) == 0
       RETURN 0
    ENDIF
    IF ( x := AScan(_HMG_aFormHandles ,_HMG_aControlParentHandles[i]) ) > 0
@@ -2492,7 +2492,7 @@ RETURN 0
 FUNCTION _PGInitData( hWnd, hEdit, hWndItem, ItemType )
 *------------------------------------------------------------------------------*
    LOCAL i, n, aSysColor, nColor, hImage, ItHeight, aData, hParentItem
-   i := AScan(_HMG_aControlHandles , {|x| ValType(x) == "A" .AND. x[1] == hWnd })
+   i := AScan(_HMG_aControlHandles , {|x| HB_ISARRAY(x) .AND. x[1] == hWnd })
    IF i > 0
       ItHeight := _HMG_aControlRangeMin[i] - 4
       IF PG_GETITEM( hWnd, hWndItem, PGI_CHG )
