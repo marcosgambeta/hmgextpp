@@ -152,7 +152,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
       r := &cProc(hWnd, nMsg, wParam, lParam)
 
-      IF ValType(r) <> "U"
+      IF ValType(r) != "U"
          RETURN r
       ENDIF
 
@@ -276,7 +276,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                   IsXPThemed := _HMG_IsThemed
                ENDIF
 
-               Tmp := _HMG_aControlContainerRow[i] <> -1 .AND. _HMG_aControlContainerCol[i] <> -1 .AND. _HMG_aControlBkColor[i] == NIL
+               Tmp := _HMG_aControlContainerRow[i] != -1 .AND. _HMG_aControlContainerCol[i] != -1 .AND. _HMG_aControlBkColor[i] == NIL
 
                IF IsXPThemed .AND. TmpStr == "SLIDER" .AND. Tmp
 
@@ -432,7 +432,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                         lvc := (ISLOGICAL(_HMG_aControlInputMask[i]) .AND. _HMG_aControlInputMask[i] == .T.)
 
-                        IF IsXPThemed .AND. _HMG_aControlContainerRow[i] <> -1 .AND. _HMG_aControlContainerCol[i] <> -1
+                        IF IsXPThemed .AND. _HMG_aControlContainerRow[i] != -1 .AND. _HMG_aControlContainerCol[i] != -1
 
                            IF (a := _GetBackColor(_HMG_aControlRangeMin[i], _HMG_aControlRangeMax[i])) != NIL
 
@@ -666,7 +666,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
    CASE WM_MENUSELECT
    //**************************************************************************
 
-      IF AND(HiWord(wParam), MF_HILITE) <> 0
+      IF AND(HiWord(wParam), MF_HILITE) != 0
 
          i := AScan(_HMG_aControlIds, LoWord(wParam))  // LoWord(wParam) => menu id
 
@@ -676,7 +676,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                IF _IsControlDefined("StatusBar", _HMG_aFormNames[x])
 
-                  IF _HMG_aControlValue[i] <> NIL
+                  IF _HMG_aControlValue[i] != NIL
 
                      SetProperty(_HMG_aFormNames[x], "StatusBar", "Item", 1, _HMG_aControlValue[i])
 
@@ -748,7 +748,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
             //JP MDI HotKey
             IF _HMG_BeginWindowMDIActive
 
-               IF _HMG_aControlParentHandles[i] == GetActiveMdiHandle() .OR. _HMG_InplaceParentHandle <> 0
+               IF _HMG_aControlParentHandles[i] == GetActiveMdiHandle() .OR. _HMG_InplaceParentHandle != 0
 
                   IF _DoControlEventProcedure(_HMG_aControlProcedures[i], i)
                      RETURN 0
@@ -920,7 +920,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                IF !_HMG_BeginWindowMDIActive
                   ReleaseHotKey(_HMG_aControlParentHandles[x], _HMG_aControlIds[x])
-               ELSEIF _HMG_aControlParentHandles[x] != GetFormHandle(_HMG_MainClientMDIName) .OR. _HMG_InplaceParentHandle <> 0
+               ELSEIF _HMG_aControlParentHandles[x] != GetFormHandle(_HMG_MainClientMDIName) .OR. _HMG_InplaceParentHandle != 0
                   ReleaseHotKey(_HMG_aControlParentHandles[x], _HMG_aControlIds[x])
                ENDIF
 
@@ -1234,7 +1234,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
    CASE WM_TASKBAR
    //**************************************************************************
 
-      IF wParam == ID_TASKBAR .AND. lParam <> WM_MOUSEMOVE
+      IF wParam == ID_TASKBAR .AND. lParam != WM_MOUSEMOVE
 
          SWITCH lParam
 
@@ -2011,7 +2011,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                      ProcessNumText(i)
                   ENDIF
 
-                  IF _HMG_aControlType[i] <> CONTROL_TYPE_GETBOX
+                  IF _HMG_aControlType[i] != CONTROL_TYPE_GETBOX
                      _DoControlEventProcedure(_HMG_aControlChangeProcedure[i], i, "CONTROL_ONCHANGE")
                   ENDIF
 
@@ -2252,7 +2252,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             // ComboBox OnCancel ...........................
 
-            IF HiWord(wParam) == CBN_SELENDCANCEL .AND. _HMG_aControlMiscData1[i][1] <> 1
+            IF HiWord(wParam) == CBN_SELENDCANCEL .AND. _HMG_aControlMiscData1[i][1] != 1
                _DoControlEventProcedure(_HMG_aControlMiscData1[i][10], i)
                RETURN 0
             ENDIF
@@ -2317,7 +2317,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
       // RadioGrop Processing ..............................
 
-      i := AScan(_HMG_aControlHandles, {|x|iif(hb_isArray(x), AScan(x, lParam, , , .T.) <> 0, .F.)})
+      i := AScan(_HMG_aControlHandles, {|x|iif(hb_isArray(x), AScan(x, lParam, , , .T.) != 0, .F.)})
 
       IF i > 0 .AND. _HMG_aControlType[i] == CONTROL_TYPE_RADIOGROUP
 
@@ -2354,9 +2354,9 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                _DoControlEventProcedure(_HMG_aControlGotFocusProcedure[i], i)
 
-            ELSEIF nLastRadioGroupFocusedIndex <> i // Other radiogroup get focus
+            ELSEIF nLastRadioGroupFocusedIndex != i // Other radiogroup get focus
 
-               IF nLastRadioGroupFocusedIndex <> 0  // call last radiogroup onLostFocus action
+               IF nLastRadioGroupFocusedIndex != 0  // call last radiogroup onLostFocus action
                   _DoControlEventProcedure(_HMG_aControlLostFocusProcedure[nLastRadioGroupFocusedIndex], nLastRadioGroupFocusedIndex)
                ENDIF
 
@@ -2785,7 +2785,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             IF GetNotifyCode(lParam) == NM_CUSTOMDRAW .AND. (HB_ISARRAY(dBc) .OR. HB_ISARRAY(dFc))
 
-               IF (r := GetDs(lParam)) <> -1
+               IF (r := GetDs(lParam)) != -1
 
                   RETURN r
 
@@ -2799,10 +2799,10 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                      aTemp  := _HMG_aControlMiscData1[i][18]
                      aTemp2 := _HMG_aControlMiscData1[i][17]
 
-                     IF HB_ISARRAY(aTemp) .AND. ValType(aTemp2) <> "A"
+                     IF HB_ISARRAY(aTemp) .AND. ValType(aTemp2) != "A"
                         IF Len(aTemp) >= a[1]
 
-                           IF aTemp[a[1]][a[2]] <> -1
+                           IF aTemp[a[1]][a[2]] != -1
                               RETURN SetBcFc(lParam, aTemp[a[1]][a[2]], RGB(0, 0, 0))
                            ELSE
                               RETURN SETBRCCD(lParam)
@@ -2810,10 +2810,10 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                         ENDIF
 
-                     ELSEIF ValType(aTemp) <> "A" .AND. HB_ISARRAY(aTemp2)
+                     ELSEIF ValType(aTemp) != "A" .AND. HB_ISARRAY(aTemp2)
                         IF Len(aTemp2) >= a[1]
 
-                           IF aTemp2[a[1]][a[2]] <> -1
+                           IF aTemp2[a[1]][a[2]] != -1
                               RETURN SetBcFc(lParam, RGB(255, 255, 255), aTemp2[a[1]][a[2]])
                            ELSE
                               RETURN SETBRCCD(lParam)
@@ -2824,7 +2824,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                      ELSEIF HB_ISARRAY(aTemp) .AND. HB_ISARRAY(aTemp2)
                         IF Len(aTemp) >= a[1] .AND. Len(aTemp2) >= a[1]
 
-                           IF aTemp[a[1]][a[2]] <> -1
+                           IF aTemp[a[1]][a[2]] != -1
                               RETURN SetBcFc(lParam, aTemp[a[1]][a[2]], aTemp2[a[1]][a[2]])
                            ELSE
                               RETURN SETBRCCD(lParam)
@@ -3209,7 +3209,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                         _HMG_aControlMiscData1[i][1] := 1
                      ENDIF
 
-                     IF nGridRowValue <> _HMG_aControlMiscData1[i][1]
+                     IF nGridRowValue != _HMG_aControlMiscData1[i][1]
                         _DoControlEventProcedure(_HMG_aControlChangeProcedure[i], i)
                      ENDIF
                      EXIT
@@ -3226,7 +3226,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                         _HMG_aControlMiscData1[i][1] := SendMessage(_HMG_aControlHandles[i], LVM_GETITEMCOUNT, 0, 0)
                      ENDIF
 
-                     IF nGridRowValue <> _HMG_aControlMiscData1[i][1]
+                     IF nGridRowValue != _HMG_aControlMiscData1[i][1]
                         _DoControlEventProcedure(_HMG_aControlChangeProcedure[i], i)
                      ENDIF
                      EXIT
@@ -3235,7 +3235,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                      _HMG_aControlMiscData1[i][1] := SendMessage(_HMG_aControlHandles[i], LVM_GETITEMCOUNT, 0, 0)
 
-                     IF nGridRowValue <> _HMG_aControlMiscData1[i][1]
+                     IF nGridRowValue != _HMG_aControlMiscData1[i][1]
                         _DoControlEventProcedure(_HMG_aControlChangeProcedure[i], i)
                      ENDIF
                      EXIT
@@ -3244,7 +3244,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                      _HMG_aControlMiscData1[i][1] := 1
 
-                     IF nGridRowValue <> _HMG_aControlMiscData1[i][1]
+                     IF nGridRowValue != _HMG_aControlMiscData1[i][1]
                         _DoControlEventProcedure(_HMG_aControlChangeProcedure[i], i)
                      ENDIF
                      EXIT
@@ -3259,7 +3259,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             IF GetNotifyCode(lParam) == NM_CUSTOMDRAW
 
-               IF (r := iif(_HMG_aControlFontColor[i] == .T., GetDs(lParam, _HMG_aControlHandles[i], _HMG_aControlMiscData1[i][1] - 1), GetDs(lParam))) <> -1
+               IF (r := iif(_HMG_aControlFontColor[i] == .T., GetDs(lParam, _HMG_aControlHandles[i], _HMG_aControlMiscData1[i][1] - 1), GetDs(lParam))) != -1
 
                   RETURN r
 
@@ -3272,7 +3272,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                         RETURN SetBcFc(lParam, RGB(_HMG_GridSelectedCellBackColor[1], _HMG_GridSelectedCellBackColor[2], _HMG_GridSelectedCellBackColor[3] ), RGB(_HMG_GridSelectedCellForeColor[1], _HMG_GridSelectedCellForeColor[2], _HMG_GridSelectedCellForeColor[3]))
 
-                     ELSEIF a[1] == _HMG_aControlMiscData1[i][1] .AND. a[2] <> _HMG_aControlMiscData1[i][17]
+                     ELSEIF a[1] == _HMG_aControlMiscData1[i][1] .AND. a[2] != _HMG_aControlMiscData1[i][17]
 
                         RETURN SetBcFc(lParam, RGB(_HMG_GridSelectedRowBackColor[1], _HMG_GridSelectedRowBackColor[2], _HMG_GridSelectedRowBackColor[3] ), RGB(_HMG_GridSelectedRowForeColor[1], _HMG_GridSelectedRowForeColor[2], _HMG_GridSelectedRowForeColor[3]))
 
@@ -3778,7 +3778,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
       IF _HMG_IsXPorLater .AND. wParam == 0 .AND. lParam == 0
 
-         IF _HMG_InplaceParentHandle <> 0
+         IF _HMG_InplaceParentHandle != 0
             InsertReturn()
          ENDIF
 
@@ -3824,7 +3824,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
          ENDIF
 
-         IF lParam <> 1
+         IF lParam != 1
 
             SWITCH _HMG_InteractiveClose
 
@@ -4064,7 +4064,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                DRAG_LIST_DRAWINSERT(hWnd, lParam, _HMG_ListBoxDragListId)
             ENDIF
 
-            IF _HMG_ListBoxDragListId <> -1
+            IF _HMG_ListBoxDragListId != -1
 
                IF _HMG_ListBoxDragListId > _HMG_ListBoxDragItem
                   SetResCursor(LoadCursor(GetInstance(), "MINIGUI_DRAGDOWN"))
@@ -4085,7 +4085,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
          CASE DL_DROPPED
             _HMG_ListBoxDragListId := GET_DRAG_LIST_DRAGITEM(lParam)
 
-            IF _HMG_ListBoxDragListId <> -1
+            IF _HMG_ListBoxDragListId != -1
                DRAG_LIST_MOVE_ITEMS(lParam, _HMG_ListBoxDragItem, _HMG_ListBoxDragListId)
             ENDIF
 
@@ -4257,20 +4257,20 @@ STATIC FUNCTION _DoGridCustomDraw(i, a, lParam)
       aTemp  := _HMG_aControlMiscData1[i, 22]
       aTemp2 := _HMG_aControlMiscData1[i, 21]
 
-      IF HB_ISARRAY(aTemp) .AND. ValType(aTemp2) <> "A"
+      IF HB_ISARRAY(aTemp) .AND. ValType(aTemp2) != "A"
 
          IF Len(aTemp) >= a[1]
-            IF aTemp[a[1]][a[2]] <> -1
+            IF aTemp[a[1]][a[2]] != -1
                RETURN SetBcFc(lParam, aTemp[a[1]][a[2]], RGB(0, 0, 0))
             ELSE
                RETURN SETBRCCD(lParam)
             ENDIF
          ENDIF
 
-      ELSEIF ValType(aTemp) <> "A" .AND. HB_ISARRAY(aTemp2)
+      ELSEIF ValType(aTemp) != "A" .AND. HB_ISARRAY(aTemp2)
 
          IF Len(aTemp2) >= a[1]
-            IF aTemp2[a[1]][a[2]] <> -1
+            IF aTemp2[a[1]][a[2]] != -1
                RETURN SetBcFc(lParam, RGB(255, 255, 255), aTemp2[a[1]][a[2]])
             ELSE
                RETURN SETBRCCD(lParam)
@@ -4280,7 +4280,7 @@ STATIC FUNCTION _DoGridCustomDraw(i, a, lParam)
       ELSEIF HB_ISARRAY(aTemp) .AND. HB_ISARRAY(aTemp2)
 
          IF Len(aTemp) >= a[1] .AND. Len(aTemp2) >= a[1]
-            IF aTemp[a[1]][a[2]] <> -1
+            IF aTemp[a[1]][a[2]] != -1
                RETURN SetBcFc(lParam, aTemp[a[1]][a[2]], aTemp2[a[1]][a[2]])
             ELSE
                RETURN SETBRCCD(lParam)
@@ -4782,9 +4782,9 @@ PROCEDURE _AutoAdjust(hWnd, aInitSize)
                   oBrw:Refresh(.T.)
                   oBrw:DrawSelect()
                ENDIF
-            ELSEIF lAutoZooming .AND. ControlType <> CONTROL_TYPE_SLIDER
+            ELSEIF lAutoZooming .AND. ControlType != CONTROL_TYPE_SLIDER
 #else
-               IF lAutoZooming .AND. ControlType <> CONTROL_TYPE_SLIDER
+               IF lAutoZooming .AND. ControlType != CONTROL_TYPE_SLIDER
 #endif
                   _SetFontSize(ControlName, ParentForm, _HMG_aControlFontSize[k] * nDivh)
                ENDIF

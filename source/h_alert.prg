@@ -507,13 +507,13 @@ PROCEDURE HMG_CheckType( lSoft, ... )
 
    FOR EACH aData IN aParams
 
-      IF Upper(AllTrim(aData[1])) <> "USUAL"
+      IF Upper(AllTrim(aData[1])) != "USUAL"
 
          IF !( lSoft .AND. AllTrim(aData[2]) == "U" )
 
             i := AScan(aType, {| x | x[1] == Upper(AllTrim(aData[1])) })
 
-            IF i == 0 .OR. aType[i][2] <> aData[2]
+            IF i == 0 .OR. aType[i][2] != aData[2]
 
                j := AScan(aType, {| x | x[2] == aData[2] })
 

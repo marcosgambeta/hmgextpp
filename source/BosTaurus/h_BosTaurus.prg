@@ -72,7 +72,7 @@ FUNCTION bt_ListCalledFunctions(nActivation)
 
    LOCAL cMsg := ""
 
-   nActivation := IIF(ValType(nActivation) <> "N", 1, nActivation)
+   nActivation := IIF(ValType(nActivation) != "N", 1, nActivation)
    DO WHILE !(ProcName(nActivation) == "")
       cMsg := cMsg + "Called from:" + ProcName(nActivation) + "(" + LTrim(Str(ProcLine(nActivation))) + ")" + CRLF
       nActivation++
@@ -119,10 +119,10 @@ FUNCTION BT_DeleteDC(BTstruct)
 
    LOCAL lRet
 
-   IF ValType(BTstruct) <> "A"
+   IF ValType(BTstruct) != "A"
       MsgBox("Error in call to " + ProcName() + ": The second parameter is not an array" + CRLF + bt_ListCalledFunctions(2), "BT Fatal Error")
       RELEASE WINDOW ALL
-   ELSEIF Len(BTstruct) <> 50
+   ELSEIF Len(BTstruct) != 50
       MsgBox("Error in call to " + ProcName() + ": The second parameter is an corrupted array " + CRLF + bt_ListCalledFunctions(2), "BT Fatal Error")
       RELEASE WINDOW ALL
    ENDIF
@@ -436,7 +436,7 @@ FUNCTION BT_StatusBarWidth(Win)
    LOCAL hWnd := bt_StatusBarHandle(Win)
    LOCAL Width := 0
 
-   IF hWnd <> 0
+   IF hWnd != 0
       Width := BT_SCR_GETINFO(hWnd, BT_SCR_WINDOW, BT_SCR_INFO_WIDTH)
    ENDIF
 
@@ -474,7 +474,7 @@ FUNCTION BT_ToolBarBottomHeight(Win)
    LOCAL hWnd := bt_ToolBarBottomHandle(bt_WinHandle(Win))
    LOCAL nHeight := 0
 
-   IF hWnd <> 0
+   IF hWnd != 0
       nHeight := BT_SCR_GETINFO(hWnd, BT_SCR_WINDOW, BT_SCR_INFO_HEIGHT)
    ENDIF
 
@@ -485,7 +485,7 @@ FUNCTION BT_ToolBarBottomWidth(Win)
    LOCAL hWnd := bt_ToolBarBottomHandle(bt_WinHandle(Win))
    LOCAL nWidth := 0
 
-   IF hWnd <> 0
+   IF hWnd != 0
       nWidth := BT_SCR_GETINFO(hWnd, BT_SCR_WINDOW, BT_SCR_INFO_WIDTH)
    ENDIF
 
@@ -512,7 +512,7 @@ FUNCTION BT_ToolBarTopHeight(Win)
    LOCAL hWnd := bt_ToolBarTopHandle(bt_WinHandle(Win))
    LOCAL nHeight := 0
 
-   IF hWnd <> 0
+   IF hWnd != 0
       nHeight := BT_SCR_GETINFO(hWnd, BT_SCR_WINDOW, BT_SCR_INFO_HEIGHT)
    ENDIF
 
@@ -523,7 +523,7 @@ FUNCTION BT_ToolBarTopWidth(Win)
    LOCAL hWnd := bt_ToolBarTopHandle(bt_WinHandle(Win))
    LOCAL nWidth := 0
 
-   IF hWnd <> 0
+   IF hWnd != 0
       nWidth := BT_SCR_GETINFO(hWnd, BT_SCR_WINDOW, BT_SCR_INFO_WIDTH)
    ENDIF
 
@@ -826,7 +826,7 @@ FUNCTION BT_HMGSetImage(cFormName, cControlName, hBitmap, lReleasePreviousBitmap
    MEMVAR _HMG_SYSDATA
 #endif
 
-   IF ValType(lReleasePreviousBitmap) <> "L"
+   IF ValType(lReleasePreviousBitmap) != "L"
       lReleasePreviousBitmap := .T.
    ENDIF
 
@@ -834,14 +834,14 @@ FUNCTION BT_HMGSetImage(cFormName, cControlName, hBitmap, lReleasePreviousBitmap
 
    IF k > 0 .AND. GetControlType(cControlName, cFormName) == "IMAGE"
 #ifdef __HMG__ // HMG Extended
-      IF _HMG_aControlContainerHandle[k] <> 0 .AND. lReleasePreviousBitmap == .T.
+      IF _HMG_aControlContainerHandle[k] != 0 .AND. lReleasePreviousBitmap == .T.
          BT_BitmapRelease(_HMG_aControlContainerHandle[k])
       ENDIF
       _HMG_aControlContainerHandle[k] := hBitmap
       _HMG_aControlWidth[k] := BT_BitmapWidth(hBitmap)
       _HMG_aControlHeight[k] := BT_BitmapHeight(hBitmap)
 #else          // HMG Official
-      IF _HMG_SYSDATA[37, k] <> 0 .AND. lReleasePreviousBitmap == .T.
+      IF _HMG_SYSDATA[37, k] != 0 .AND. lReleasePreviousBitmap == .T.
          BT_BitmapRelease(_HMG_SYSDATA[37, k])
       ENDIF
       _HMG_SYSDATA[37, k] := hBitmap

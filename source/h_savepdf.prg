@@ -71,7 +71,7 @@ FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
 
    BEGIN SEQUENCE
 
-      IF HPDF_SetCompressionMode( hDoc, HPDF_COMP_ALL ) <> HPDF_OK
+      IF HPDF_SetCompressionMode( hDoc, HPDF_COMP_ALL ) != HPDF_OK
          lRet := UPDF_Error( "COMPRESS", hDoc )
          BREAK
       ENDIF

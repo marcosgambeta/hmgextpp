@@ -283,7 +283,7 @@ PROCEDURE PW_SetColorDoneMin( cControlName, cParentForm, Value, lErase )
    IF IsArrayRGB(Value)
       Value := HMG_RGB2n( Value )
    ENDIF
-   IF ColorDoneMin <> Value
+   IF ColorDoneMin != Value
       _HMG_aControlFontColor[i][1] := Value
       UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
       _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][n] := ;
@@ -323,7 +323,7 @@ PROCEDURE PW_SetColorDoneMax( cControlName, cParentForm, Value, lErase )
    IF IsArrayRGB(Value)
       Value := HMG_RGB2n( Value )
    ENDIF
-   IF ColorDoneMax <> Value
+   IF ColorDoneMax != Value
       _HMG_aControlFontColor[i][2] := Value
       UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
       _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][n] := ;
@@ -363,7 +363,7 @@ PROCEDURE PW_SetColorRemain( cControlName, cParentForm, Value, lErase )
    IF IsArrayRGB(Value)
       Value := HMG_RGB2n( Value )
    ENDIF
-   IF ColorRemain <> Value
+   IF ColorRemain != Value
       _HMG_aControlBkColor[i][1] := Value
       UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
       _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][n] := ;
@@ -403,7 +403,7 @@ PROCEDURE PW_SetColorInner( cControlName, cParentForm, Value, lErase )
    IF IsArrayRGB(Value)
       Value := HMG_RGB2n( Value )
    ENDIF
-   IF ColorInner <> Value
+   IF ColorInner != Value
       _HMG_aControlBkColor[i][2] := Value
       UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
       _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][n] := ;
@@ -446,7 +446,7 @@ PROCEDURE PW_SetStartAngle( cControlName, cParentForm, Value, lErase )
    ELSEIF V > 359
        V := 359
    ENDIF
-   IF StartAngle <> V
+   IF StartAngle != V
       _HMG_aControlInputMask[i] := V
       UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
       _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][n] := ;
@@ -485,7 +485,7 @@ PROCEDURE PW_SetMin( cControlName, cParentForm, Value, lErase )
    IF V >= Max
       V := Max - 1
    ENDIF
-   IF Min <> V
+   IF Min != V
       Min := V
       _HMG_aControlRangeMin[i] := Min
       IF Position < Min
@@ -528,7 +528,7 @@ PROCEDURE PW_SetMax( cControlName, cParentForm, Value, lErase )
    IF V <= Min
       V := Min + 1
    ENDIF
-   IF Max <> V
+   IF Max != V
       Max := V
       _HMG_aControlRangeMax[i] := Max
       IF Position > Max
@@ -573,7 +573,7 @@ PROCEDURE PW_SetPosition( cControlName, cParentForm, Value, lErase )
    ELSEIF V > Max
       V := Max
    ENDIF
-   IF Position <> V
+   IF Position != V
       _HMG_aControlValue[i] := V
       _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][n] := ;
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, V, ;
@@ -613,7 +613,7 @@ PROCEDURE PW_SetInnerSize( cControlName, cParentForm, Value, lErase )
    ELSEIF V > 99
       V := 99
    ENDIF
-   IF InnerSize <> V
+   IF InnerSize != V
       _HMG_aControlSpacing[i] := V
       _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][n] := ;
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, Position, ;
@@ -647,7 +647,7 @@ PROCEDURE PW_SetGradientMode( cControlName, cParentForm, Value, lErase )
    LOCAL Position := _HMG_aControlValue[i]
    LOCAL GradientMode := _HMG_aControlPicture[i]
 
-   IF GradientMode <> Value
+   IF GradientMode != Value
       _HMG_aControlPicture[i] := Value
       UpdateAngleGradientBrush( Value, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
       _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][n] := ;
@@ -774,7 +774,7 @@ FUNCTION UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, Colo
    LOCAL P1
    LOCAL P2
 
-   IF GradientMode <> 3
+   IF GradientMode != 3
       IF hGradient != NIL
          DeleteObject( hGradient )
          hGradient := NIL
@@ -831,7 +831,7 @@ STATIC FUNCTION GradientColor( ColorBegin, ColorEnd, AMin, AMax, APosition )
    E2 := E[2]
    E3 := E[3]
 
-   IF AMax - AMin <> 0
+   IF AMax - AMin != 0
       P := ( APosition - AMin ) / ( AMax - AMin )
    ELSE
       P := 0

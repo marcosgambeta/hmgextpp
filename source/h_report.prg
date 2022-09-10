@@ -119,7 +119,7 @@ FUNCTION easyreport()
    ENDIF
    _npage := 0
    grpby := cgrpby
-   IF grpby <> NIL
+   IF grpby != NIL
       grpby := Upper(grpby)
    ENDIF
    aresul := Array( nlen )
@@ -244,7 +244,7 @@ FUNCTION easyreport()
    ENDIF
 
    nlin := ntoprow
-   IF cgraphic <> NIL .AND. !ldos
+   IF cgraphic != NIL .AND. !ldos
       IF !File( cgraphic )
          msgstop( aMessages[12], aMessages[13] )
        ELSE
@@ -254,7 +254,7 @@ FUNCTION easyreport()
    nlin := headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grpby, chdrgrp )
    AFill( aresul, 0 )
    AFill( angrpby, 0 )
-   IF grpby <> NIL
+   IF grpby != NIL
       nposgrp := AScan(afieldsg, grpby)
       IF nposgrp > 0
          wfield1 := afieldsg[nposgrp]
@@ -345,7 +345,7 @@ FUNCTION easyreport()
          IF atotals[i]
             aresul[i] := aresul[i] + wfield
             swt := 1
-            IF grpby <> NIL
+            IF grpby != NIL
                angrpby[i] := angrpby[i] + wfield
             ENDIF
          ENDIF
@@ -529,7 +529,7 @@ STATIC FUNCTION headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grp
       ncol += awidths[i] + 1
    NEXT i
    nlin += 2
-   IF grpby <> NIL
+   IF grpby != NIL
       IF !ISEVERYPAGE
          IF lmode
             IF IsOemText( chdrgrp )
@@ -598,7 +598,7 @@ STATIC FUNCTION JUSTIFICALINEA( WPR_LINE, WTOPE )
       IF WLARLIN == WTOPE
          EXIT
       ENDIF
-      IF SubStr(WPR_LINE, I, 1) = SPACE1 .AND. SubStr(WPR_LINE, I - 1, 1) <> SPACE1 .AND. SubStr(WPR_LINE, I + 1, 1) <> SPACE1
+      IF SubStr(WPR_LINE, I, 1) = SPACE1 .AND. SubStr(WPR_LINE, I - 1, 1) != SPACE1 .AND. SubStr(WPR_LINE, I + 1, 1) != SPACE1
          WPR_LINE := LTrim(SubStr(WPR_LINE, 1, I - 1)) + Space(2) + LTrim(SubStr(WPR_LINE, I + 1, Len(WPR_LINE) - I))
          WLARLIN++
       ENDIF
@@ -649,11 +649,11 @@ FUNCTION extreport( cfilerep )
    ENDIF
    awidths := &awidths
    atotals := leadato( "REPORT", "TOTALS", NIL )
-   IF atotals <> NIL
+   IF atotals != NIL
       atotals := &atotals
    ENDIF
    aformats := leadato( "REPORT", "NFORMATS", NIL )
-   IF aformats <> NIL
+   IF aformats != NIL
       aformats := &aformats
    ENDIF
    nlpp := Val( leadato( "REPORT","LPP","" ) )
@@ -795,7 +795,7 @@ STATIC FUNCTION leadatologic( cName, cPropmet, cDefault )
    LOCAL i, sw := 0
 
    FOR i := 1 TO Len(aline)
-      IF At( Upper(cname) + " ", Upper(aline[i]) ) <> 0
+      IF At( Upper(cname) + " ", Upper(aline[i]) ) != 0
          sw := 1
       ELSE
          IF sw == 1
@@ -824,7 +824,7 @@ STATIC FUNCTION learowi( cname, npar )
    HB_SYMBOL_UNUSED( cname )
 
    FOR i := 1 TO Len(aline)
-      IF At( "IMAGE ", Upper(aline[i]) ) <> 0
+      IF At( "IMAGE ", Upper(aline[i]) ) != 0
          npos1 := At( iif( npar == 1,"AT","TO" ), Upper(aline[i]) )
          nrow := SubStr(aline[i], npos1 + 3, 4)
          EXIT
@@ -840,7 +840,7 @@ STATIC FUNCTION leacoli( cname, npar )
    HB_SYMBOL_UNUSED( cname )
 
    FOR i := 1 TO Len(aline)
-      IF At( "IMAGE ", Upper(aline[i]) ) <> 0
+      IF At( "IMAGE ", Upper(aline[i]) ) != 0
          npos := iif( npar == 1, At( ",",aline[i] ), RAt( ",",aline[i] ) )
          ncol := SubStr(aline[i], npos + 1, 4)
          EXIT
@@ -854,7 +854,7 @@ STATIC PROCEDURE imp_SUBTOTALES ( nlin, ncol, lmode, swt, grpby )
    LOCAL i, lHayTotals := ( AScan(atotals, .T.) > 0 ), cSubgrp := iif( !ISEVERYPAGE, aMessages[ 21 ], chdrgrp )
 
    ncol := nlmargin + 1
-   IF grpby <> NIL
+   IF grpby != NIL
       crompe := iif( ISEVERYPAGE, Str(nlin), crompe )
       wfield1 := iif( !ISEVERYPAGE, afieldsg[nposgrp], wfield1 )
       IF !( &wfield1 == crompe ) .AND. ! ISEVERYPAGE .OR. ( ISEVERYPAGE .AND. nlin >= nlpp )
@@ -924,7 +924,7 @@ STATIC PROCEDURE imp_pagina( nlin, lmode, grpby, chdrgrp )
       IF !ldos
          END PAGE
          START PAGE
-         IF cgraphic <> NIL .AND. lmul .AND. !ldos
+         IF cgraphic != NIL .AND. lmul .AND. !ldos
             IF !File( cgraphic )
                msgstop( aMessages[12], aMessages[13] )
             ELSE

@@ -68,7 +68,7 @@ FUNCTION AddMRUItem( NewItem , action )
    LOCAL result
 
    result := CheckForDuplicateMRU( NewItem )
-   IF result <> NOFOUND
+   IF result != NOFOUND
       ReorderMRUList( result )
    ENDIF
    IF result != 1 .OR. MRUCount == 0

@@ -357,7 +357,7 @@ FUNCTION RichEditBox_ReplaceText ( hWndControl, cFind, cReplace, lMatchCase, lWh
    aPos := RichEditBox_GetSelRange ( hWndControl )
    RichEditBox_SetSelRange ( hWndControl, { aPos[1], aPos[1] } )
    aPos := RichEditBox_FindText ( hWndControl, cFind, lDown, lMatchCase, lWholeWord, lSelectFindText )
-   IF aPos[1] <> -1
+   IF aPos[1] != -1
       RichEditBox_SetSelRange ( hWndControl, aPos )
       RichEditBox_SetText ( hWndControl, .T., cReplace )
       aPos := RichEditBox_FindText ( hWndControl, cFind, lDown, lMatchCase, lWholeWord, lSelectFindText )
@@ -370,7 +370,7 @@ FUNCTION RichEditBox_ReplaceAllText ( hWndControl, cFind, cReplace, lMatchCase, 
 *-----------------------------------------------------------------------------*
    LOCAL aPos := { 0, 0 }
 
-   WHILE aPos[1] <> -1
+   WHILE aPos[1] != -1
       aPos := RichEditBox_ReplaceText ( hWndControl, cFind, cReplace, lMatchCase, lWholeWord, lSelectFindText )
       DO EVENTS
    ENDDO

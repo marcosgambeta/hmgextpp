@@ -371,7 +371,7 @@ FUNCTION InitDialogTab( ParentName, ControlHandle, k )
 
          FOR EACH c IN tabpage
 
-            IF ValType(c) <> "A"
+            IF ValType(c) != "A"
 
                HideWindow(c)
 
@@ -407,7 +407,7 @@ FUNCTION UpdateTab(y)  // Internal Function
 
       FOR EACH w IN tabpage
 
-         IF ValType(w) <> "A"
+         IF ValType(w) != "A"
 
             HideWindow(w)
 
@@ -430,7 +430,7 @@ FUNCTION UpdateTab(y)  // Internal Function
 
       FOR EACH w IN _HMG_aControlPageMap [y] [s]
 
-         IF ValType(w) <> "A"
+         IF ValType(w) != "A"
 
             IF _IsControlVisibleFromHandle(w)
 
@@ -520,7 +520,7 @@ FUNCTION _BeginTabPage ( caption , image , tooltip )
    // JR
    IF ValType(tooltip) == "C"
 
-      IF ValType(_HMG_ActiveTabTooltip) <> "A"
+      IF ValType(_HMG_ActiveTabTooltip) != "A"
 
          _HMG_ActiveTabTooltip := Array( _HMG_ActiveTabPage )
          AFill( _HMG_ActiveTabTooltip, "" )
@@ -628,7 +628,7 @@ FUNCTION _AddTabPage ( ControlName , ParentForm , Position , Caption , Image , t
          _HMG_aControlInputMask[i] := AddTabBitMap ( _HMG_aControlHandles[i], _HMG_aControlPicture[i], _HMG_aControlMiscData1 [i, 8] )
       ENDIF
       // JR
-      IF ValType(_HMG_aControlTooltip[i]) <> "A"
+      IF ValType(_HMG_aControlTooltip[i]) != "A"
          _HMG_aControlTooltip[i] := Array( Len(_HMG_aControlPageMap[i]) )
          AFill( _HMG_aControlTooltip[i], "" )
          _HMG_aControlTooltip[i] [Position] := tooltip
@@ -713,7 +713,7 @@ FUNCTION _DeleteTabPage ( ControlName , ParentForm , Position )
 
                FOR EACH c IN NewValue
 
-                  IF ValType(c) <> "A"
+                  IF ValType(c) != "A"
                      HideWindow(c)
                   ELSE
                      FOR EACH j IN c
@@ -733,7 +733,7 @@ FUNCTION _DeleteTabPage ( ControlName , ParentForm , Position )
       // Control Map
       FOR j := 1 TO Len(_HMG_aControlPageMap[i])
 
-         IF j <> position
+         IF j != position
             AAdd(NewMap, _HMG_aControlPageMap[i][j])
          ENDIF
 
@@ -746,7 +746,7 @@ FUNCTION _DeleteTabPage ( ControlName , ParentForm , Position )
 
       FOR j := 1 TO Len(_HMG_aControlPicture[i])
 
-         IF j <> position
+         IF j != position
             AAdd(NewMap, _HMG_aControlPicture[i][j])
          ENDIF
 
@@ -770,7 +770,7 @@ FUNCTION _DeleteTabPage ( ControlName , ParentForm , Position )
 
       FOR j := 1 TO Len(_HMG_aControlCaption[i])
 
-         IF j <> position
+         IF j != position
             AAdd(NewMap, _HMG_aControlCaption[i][j])
          ENDIF
 
@@ -795,7 +795,7 @@ FUNCTION _DeleteTabPage ( ControlName , ParentForm , Position )
 
       FOR j := 1 TO Len(_HMG_aControlTooltip[i])
 
-         IF j <> position
+         IF j != position
             AAdd(NewMap, _HMG_aControlTooltip[i][j])
          ENDIF
 

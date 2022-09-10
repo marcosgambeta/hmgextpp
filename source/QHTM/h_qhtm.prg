@@ -58,7 +58,7 @@ Function _DefineQhtm( ControlName, ParentForm, x, y, w, h, Value, fname, resname
 Local mVar, k := 0, ControlHandle, ParentFormHandle
 Local FontHandle, bold, italic, underline, strikeout
 
-If ( FontHandle := GetFontHandle( FontName ) ) <> 0
+If ( FontHandle := GetFontHandle( FontName ) ) != 0
   GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
 Endif
 
@@ -92,7 +92,7 @@ ParentFormHandle := GetFormHandle( ParentForm )
 
 ControlHandle := CreateQHTM( ParentFormHandle, nId, Iif( lBorder, WS_BORDER, 0 ), y, x, w, h )
 
-If ( FontHandle <> 0 )
+If ( FontHandle != 0 )
    _SetFontHandle( ControlHandle, FontHandle )
 Else
    __defaultNIL(@FontName, _HMG_DefaultFontName)

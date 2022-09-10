@@ -79,7 +79,7 @@ PROCEDURE _DefineReport(cName)
    _HMG_RPTDATA[164] := Nil
    _HMG_RPTDATA[165] := Nil
 
-   IF cName <> "_TEMPLATE_"
+   IF cName != "_TEMPLATE_"
 
       _HMG_RPTDATA[162] := cName
 
@@ -416,11 +416,11 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
    nPaperWidth  := aLayout[3]
    nPaperHeight := aLayout[4]
 
-   IF ValType(lPreview) <> "L"
+   IF ValType(lPreview) != "L"
       lPreview := .F.
    ENDIF
 
-   IF ValType(lSelect) <> "L"
+   IF ValType(lSelect) != "L"
       lSelect := .F.
    ENDIF
 
@@ -603,7 +603,7 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
 
             IF nGroupCount > 0
 
-               IF (ValType(xPreviousGroupExpression) != ValType(xGroupExpression)) .OR. (xPreviousGroupExpression <> xGroupExpression)
+               IF (ValType(xPreviousGroupExpression) != ValType(xGroupExpression)) .OR. (xPreviousGroupExpression != xGroupExpression)
 
                   IF lGroupStarted
 
@@ -738,7 +738,7 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
 
             IF nGroupCount > 0
 
-               IF xPreviousGroupExpression <> xGroupExpression
+               IF xPreviousGroupExpression != xGroupExpression
 
                   IF lGroupStarted
 
@@ -1008,7 +1008,7 @@ STATIC PROCEDURE _PrintLine(aObject, nOffset)
 
    ELSEIF _HMG_RPTDATA[150] == .T.
 
-      IF nFromRow <> nToRow .AND. nFromCol <> nToCol
+      IF nFromRow != nToRow .AND. nFromCol != nToCol
          MsgMiniGUIError("Report: Only horizontal and vertical lines are supported with PDF output.")
       ENDIF
 

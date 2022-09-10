@@ -464,7 +464,7 @@ FUNCTION InitDialogCheckButton ( ParentName, ControlHandle, k )
    BitMap := _HMG_aControlPicture [k]
    Value := _HMG_aControlValue [k]
    threestate := _HMG_aControlSpacing [k]
-   IF !Empty(BitMap) .AND. ValType(ParentName) <> "U"
+   IF !Empty(BitMap) .AND. ValType(ParentName) != "U"
       _SetBtnPicture(ControlHandle, BitMap)
    ENDIF
    IF value == .T.

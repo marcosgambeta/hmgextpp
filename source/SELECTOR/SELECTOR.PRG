@@ -155,9 +155,9 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
       nExprLen := Len(cExprValue)
       AAdd(aStruct, { iif( ( nExprAlias := At( "->", aSelectList[ nCurrExpr, 2 ] ) ) == 0, aSelectList[ nCurrExpr, 2 ], ;
          SubStr(aSelectList[ nCurrExpr, 2 ], nExprAlias + 2) ), cExprType, ;
-         iif( aSelectList[ nCurrExpr, 3 ] <> NIL, aSelectList[ nCurrExpr, 3 ], ;
+         iif( aSelectList[ nCurrExpr, 3 ] != NIL, aSelectList[ nCurrExpr, 3 ], ;
          iif( cExprType == "D", 8, nExprLen ) ), ;
-         iif( aSelectList[ nCurrExpr, 4 ] <> NIL, aSelectList[ nCurrExpr, 4 ], ;
+         iif( aSelectList[ nCurrExpr, 4 ] != NIL, aSelectList[ nCurrExpr, 4 ], ;
          iif( cExprType == "N" .AND. ( nExprAlias := At( ".", cExprValue ) ) > 0, ;
          nExprLen - nExprAlias, 0 ) ) })
 

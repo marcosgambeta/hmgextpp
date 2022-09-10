@@ -401,7 +401,7 @@ FUNCTION InitDialogComboBox( ParentName, ControlHandle, k )
          AEval(rows, {|v|ComboAddString(ControlHandle, v)})
       ENDIF
 
-      IF ISNUMBER( value ) .AND. value <> 0
+      IF ISNUMBER( value ) .AND. value != 0
          ComboSetCurSel(ControlHandle, Value)
       ENDIF
 
@@ -448,7 +448,7 @@ PROCEDURE _DataComboRefresh ( i )  // (JK) Modified for extend COMBO HMG 1.0 Bui
    ComboboxReset(ControlHandle)
 
    DO WHILE ! ( WorkArea )->( EOF() )  // (JK) HMG 1.0 Experimental Build 8
-      IF  _HMG_aControlMiscData1[i] [1] <> 1  // standard Combo
+      IF  _HMG_aControlMiscData1[i] [1] != 1  // standard Combo
          ComboAddString(ControlHandle, cValToChar((WorkArea)->&(cField)))
       ELSE  // extend Combo
          ComboAddDataStringEx(ControlHandle, cValToChar((WorkArea)->&(cField)))

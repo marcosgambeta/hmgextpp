@@ -81,7 +81,7 @@ FUNCTION _BeginScrSaver( cSSaver, lNoShow, cInit, cRelease, cPaint, nTimer, aBac
             SystemParametersInfo( SPI_SCREENSAVERRUNNING, 1, @Dummy, 0 ) );
          ON RELEASE _ReleaseScrSaver( cRelease, cSSaver, cPaint );
          ON MOUSECLICK iif( _lValidScrSaver(), DoMethod(cSSaver, "Release"), );
-         ON MOUSEMOVE ( a := GetCursorPos(), iif( a[1] <> y / 2 .AND. a[2] <> x / 2,;
+         ON MOUSEMOVE ( a := GetCursorPos(), iif( a[1] != y / 2 .AND. a[2] != x / 2,;
             iif( _lValidScrSaver(), DoMethod(cSSaver, "Release") , ), ) );
          BACKCOLOR aBackClr
    ELSE
@@ -95,12 +95,12 @@ FUNCTION _BeginScrSaver( cSSaver, lNoShow, cInit, cRelease, cPaint, nTimer, aBac
             SystemParametersInfo( SPI_SCREENSAVERRUNNING, 1, @Dummy, 0 ) );
          ON RELEASE _ReleaseScrSaver( cRelease, cSSaver, cPaint );
          ON MOUSECLICK iif( _lValidScrSaver(), DoMethod(cSSaver, "Release"), );
-         ON MOUSEMOVE ( a := GetCursorPos(), iif( a[1] <> y / 2 .AND. a[2] <> x / 2,;
+         ON MOUSEMOVE ( a := GetCursorPos(), iif( a[1] != y / 2 .AND. a[2] != x / 2,;
             iif( _lValidScrSaver(), DoMethod(cSSaver, "Release") , ), ) );
          BACKCOLOR aBackClr
    ENDIF
 
-   IF cPaint <> NIL
+   IF cPaint != NIL
       DEFINE TIMER Timer_SSaver;
          INTERVAL nTimer * 1000;
          ACTION Eval( cPaint )
@@ -108,7 +108,7 @@ FUNCTION _BeginScrSaver( cSSaver, lNoShow, cInit, cRelease, cPaint, nTimer, aBac
 
    END WINDOW
 
-   IF cInit <> NIL
+   IF cInit != NIL
 
       Eval( cInit )
 
@@ -132,7 +132,7 @@ FUNCTION _ActivateScrSaver( aForm, cParam )
 
    CASE cParam == "/c" .OR. cParam == "-c"
 
-      IF _ScrSaverConfig <> NIL
+      IF _ScrSaverConfig != NIL
          Eval( _ScrSaverConfig )
       ELSE
          MsgInfo( "This screen saver has no options that you configure.", "Information" )
@@ -192,13 +192,13 @@ FUNCTION _ReleaseScrSaver( cRelease, cSSaver, cPaint )
 *-----------------------------------------------------------------------------*
    LOCAL Dummy := ""
 
-   IF cRelease <> NIL
+   IF cRelease != NIL
       Eval( cRelease )
    ENDIF
 
    ShowCursor( .T. )
 
-   IF cPaint <> NIL
+   IF cPaint != NIL
       SetProperty( cSSaver, "Timer_SSaver", "Enabled", .F. )
    ENDIF
 

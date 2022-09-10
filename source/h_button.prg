@@ -415,7 +415,7 @@ FUNCTION InitDialogButtonImage(ParentFormName, ControlHandle, k)
    LOCAL image
 
    image := _HMG_aControlPicture[k]
-   IF !Empty(image) .AND. ValType(ParentFormName) <> "U"
+   IF !Empty(image) .AND. ValType(ParentFormName) != "U"
       _SetBtnPicture(ControlHandle, image)
    ENDIF
 // JP 62

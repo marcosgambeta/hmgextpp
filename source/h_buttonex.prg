@@ -349,7 +349,7 @@ FUNCTION OwnButtonPaint( pdis )
 
    hDC := GETOWNBTNDC( pdis )
 
-   IF Empty(hDC) .OR. GETOWNBTNCTLTYPE( pdis ) <> ODT_BUTTON
+   IF Empty(hDC) .OR. GETOWNBTNCTLTYPE( pdis ) != ODT_BUTTON
       RETURN ( 1 )
    ENDIF
 
@@ -368,7 +368,7 @@ FUNCTION OwnButtonPaint( pdis )
 
    i := AScan(_HMG_aControlHandles , hWnd)
 
-   IF ( i <= 0 .OR. _HMG_aControlType[i] <> CONTROL_TYPE_OBUTTON )
+   IF ( i <= 0 .OR. _HMG_aControlType[i] != CONTROL_TYPE_OBUTTON )
       RETURN ( 1 )
    ENDIF
 
@@ -788,7 +788,7 @@ FUNCTION _DestroyBtnPictureMask( hWnd, ControlIndex )
 *-----------------------------------------------------------------------------*
    LOCAL MaskHwnd := _GetBtnPictureHandle(hWnd)
 
-   IF !Empty(MaskHwnd) .AND. MaskHwnd <> _HMG_aControlBrushHandle [ ControlIndex ]
+   IF !Empty(MaskHwnd) .AND. MaskHwnd != _HMG_aControlBrushHandle [ ControlIndex ]
       DeleteObject( MaskHwnd )
    ENDIF
 

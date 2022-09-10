@@ -5458,7 +5458,7 @@ METHOD Edit( uVar, nCell, nKey, nKeyFlags, cPicture, bValid, nClrFore, nClrBack 
 
    uValue := uVar
    cType := iif( Empty(oCol:cDataType), ValType(uValue), oCol:cDataType )
-   IF ::lIsArr .AND. oCol:cDataType <> ValType(uValue) // GF 15/07/2009
+   IF ::lIsArr .AND. oCol:cDataType != ValType(uValue) // GF 15/07/2009
       cType := ValType(uValue)
       oCol:cDataType := cType
    ENDIF
@@ -5722,7 +5722,7 @@ METHOD Edit( uVar, nCell, nKey, nKeyFlags, cPicture, bValid, nClrFore, nClrBack 
 
          IF nKey == VK_RETURN
             IF oCol:cDataType != NIL .AND. oCol:cDataType == "N"
-               IF oCol:aData <> NIL
+               IF oCol:aData != NIL
                   uValue := Max(1, AScan(aGet, uValue))
                ELSE
                   uValue := iif( uValue < 1 .OR. uValue > Len(aGet), 1, uValue )
@@ -6325,7 +6325,7 @@ METHOD Excel2( cFile, lActivate, hProgress, cTitle, lSave, bPrintRow ) CLASS TSB
             IF cc == "." ;   cc := "," ;   ENDIF
             IF cc == "@" .OR. cc == "K" .OR. cc == "Z" ;   LOOP ;   ENDIF
             if !Empty(cPic) ; cPic += cc
-            ELSEIF cc <> "0" ; cPic += ( "#0" + cc )
+            ELSEIF cc != "0" ; cPic += ( "#0" + cc )
             ENDIF
          NEXT
          IF Empty(cPic)
@@ -12536,7 +12536,7 @@ METHOD Report( cTitle, aCols, lPreview, lMultiple, lLandscape, lFromPos, aTotal 
    IF aTotal == NIL
       aTotal := AFill( Array( Len(aCols) ), .F. )
    ELSE
-      IF Len(aTotal) <> Len(aCols)
+      IF Len(aTotal) != Len(aCols)
          ASize( aTotal, Len(aCols) )
       ENDIF
       FOR nI := 1 TO Len(aCols)
@@ -16089,7 +16089,7 @@ STATIC FUNCTION DateSeek( cSeek, nKey )
 
    /* only  0..9 */
    IF nKey >= 48 .AND. nKey <= 57
-      IF nSpace <> 0
+      IF nSpace != 0
          cTemp := Left(cSeek, nSpace - 1)
          cTemp += cChar
          cTemp += SubStr(cSeek, nSpace + 1, Len(cSeek))

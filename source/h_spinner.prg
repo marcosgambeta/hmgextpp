@@ -188,7 +188,7 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
       SetSpinnerValue ( RetArray [2], Value )
    ENDIF
 
-   IF increment <> 1
+   IF increment != 1
       SetSpinnerIncrement ( RetArray [2], increment )
    ENDIF
 

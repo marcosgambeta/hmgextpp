@@ -1279,7 +1279,7 @@ METHOD TPageScript:PrintEmuFile( cFileName, lDelete, nPrinter, cTitle, nOrientat
    nOrientation := iif( nOrientation == NIL, APS_PORTRAIT, nOrientation )
    nPrinter := iif( nPrinter == NIL, 0, nPrinter )
    cFont := iif( cFont == NIL, APS_COURIER, cFont )
-   lSuccess := ( nHandle := FOpen( cFileName ) ) <> -1
+   lSuccess := ( nHandle := FOpen( cFileName ) ) != -1
 
    IF lSuccess
       ::BeginDoc( nPrinter, cTitle, nOrientation, nCopies ) // Start document
@@ -1471,7 +1471,7 @@ METHOD TPageScript:PrintRawFile( cFileName, lDelete, nPrinter, cTitle )
    cTitle := iif( cTitle == NIL, "Untitled", cTitle )
    lSuccess := File( cFileName )
 
-   lSuccess := ( nHandle := FOpen( cFileName ) ) <> -1
+   lSuccess := ( nHandle := FOpen( cFileName ) ) != -1
 
    IF lSuccess
       ::SetPrinter( nPrinter )
@@ -2193,7 +2193,7 @@ METHOD TPageScript:TextOut( nTop, nLeft, xValue, cPicture, nJustify, cFont, nSiz
 
    xValue := Transform(xValue, cPicture)
 
-   IF nAngle <> APS_DEFAULT .AND. ( nAngle < 0 .OR. nAngle > 360 )
+   IF nAngle != APS_DEFAULT .AND. ( nAngle < 0 .OR. nAngle > 360 )
       nAngle := 0
    ENDIF
 
@@ -2268,7 +2268,7 @@ METHOD TPageScript:UnicodeCharEx( nTop, nLeft, nUnicodeHex, nJustify, cFont, nSi
    nTBColor := iif( nTBColor == NIL, APS_DEFAULT, Int( nTBColor ) )
    nAngle := iif( nAngle == NIL, APS_DEFAULT, Int( nAngle ) )
 
-   IF nAngle <> APS_DEFAULT .AND. ( nAngle < 0 .OR. nAngle > 360 )
+   IF nAngle != APS_DEFAULT .AND. ( nAngle < 0 .OR. nAngle > 360 )
       nAngle := 0
    ENDIF
 

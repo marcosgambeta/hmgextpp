@@ -343,7 +343,7 @@ FUNCTION InitDialogRadioGroup( ParentName, ControlHandle, k )
       _SetValue ( , , Value , k )
    ENDIF
 //JP V40
-   IF Len(_HMG_aControlIds[k]) == Len(aHandles) .AND. ValType(ParentName) <> "U"
+   IF Len(_HMG_aControlIds[k]) == Len(aHandles) .AND. ValType(ParentName) != "U"
       SetProperty ( ParentName , _HMG_aControlNames [k] , "ReadOnly" , _HMG_aControlPageMap [k] )
    ENDIF
 // JP 62

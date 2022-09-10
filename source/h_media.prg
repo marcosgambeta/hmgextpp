@@ -330,7 +330,7 @@ FUNCTION _DefineAnimateBox( ControlName, ParentFormName, x, y, w, h, autoplay, c
    ENDIF
 
    IF !lDialogInMemory
-      IF ValType(file) <> "U"
+      IF ValType(file) != "U"
          _OpenAnimateBox ( ControlName , ParentFormName , File )
       ENDIF
    ENDIF
@@ -343,7 +343,7 @@ FUNCTION InitDialogAnimateBox( ParentName, ControlHandle, k )
    LOCAL File
 
    File := _HMG_aControlCaption [k]
-   IF ValType(File) <> "U" .AND. ValType(ControlHandle) <> "U"
+   IF ValType(File) != "U" .AND. ValType(ControlHandle) != "U"
       _OpenAnimateBox ( _HMG_aControlNames [k] , ParentName , File )
    ENDIF
 // JP 62

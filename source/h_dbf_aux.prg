@@ -359,11 +359,11 @@ FUNCTION DbfModStru( cDbfName, aModStru )
 
    IF nErrorCode == 0
 
-      IF FRead( hDbfHandle, @cBuffer, BUFFER_SIZE ) <> FIELD_ENTRY_SIZE
+      IF FRead( hDbfHandle, @cBuffer, BUFFER_SIZE ) != FIELD_ENTRY_SIZE
 
          nErrorCode := FError()
 
-      ELSEIF FRead( hDbfHandle, @cBuffSize, nSize ) <> nSize
+      ELSEIF FRead( hDbfHandle, @cBuffSize, nSize ) != nSize
 
          nErrorCode := FError()
 
@@ -378,7 +378,7 @@ FUNCTION DbfModStru( cDbfName, aModStru )
 
          FSeek( hDbfHandle, BUFFER_SIZE, FS_SET )
 
-         IF FWrite( hDbfHandle, cBuffSize, nSize ) <> nSize
+         IF FWrite( hDbfHandle, cBuffSize, nSize ) != nSize
 
             nErrorCode := FError()
 

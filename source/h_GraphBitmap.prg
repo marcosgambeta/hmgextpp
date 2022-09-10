@@ -47,7 +47,7 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
       lxGrid := lyGrid := .T.
    ENDIF
 
-   IF nBottom <> NIL .AND. nRight <> NIL
+   IF nBottom != NIL .AND. nRight != NIL
       nHeight := nBottom - nTop / 2
       nWidth  := nRight - nLeft / 2
    ENDIF
@@ -321,7 +321,7 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
    IF l3D
       DrawLineInBitmap( hDC, nZero, nLeft - nDeep, nZero, nRight - nDeep, BLACK )
    ELSE
-      IF nXMax <> 0 .AND. nXMin <> 0
+      IF nXMax != 0 .AND. nXMin != 0
          DrawLineInBitmap( hDC, nZero - 1, nLeft + 1, nZero - 1, nRight - 1, RED )
       ENDIF
    ENDIF
@@ -368,7 +368,7 @@ FUNCTION HMG_PieGraph( nWidth, nHeight, series, aname, colors, ctitle, aTitleCol
    DEFAULT cPicture := "999,999.99"
 
    shadowcolor := GetProperty( ThisWindow.Name, "BackColor" )
-   IF shadowcolor[1] <> -1 .AND. shadowcolor[2] <> -1 .AND. shadowcolor[3] <> -1
+   IF shadowcolor[1] != -1 .AND. shadowcolor[2] != -1 .AND. shadowcolor[3] != -1
       aClrBack := shadowcolor
    ENDIF
 
@@ -433,7 +433,7 @@ FUNCTION HMG_PieGraph( nWidth, nHeight, series, aname, colors, ctitle, aTitleCol
    AEval( series, {|i| AAdd(degrees, Round(i / ser_sum * 360, 0)) } )
    sum := 0
    AEval( degrees, {|i| sum += i } )
-   IF sum <> 360
+   IF sum != 360
       degrees[len(degrees)] += 360 - sum
    ENDIF
    sum := 0

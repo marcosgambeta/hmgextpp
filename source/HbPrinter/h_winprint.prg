@@ -167,7 +167,7 @@ METHOD New() CLASS HBPrinter
    LOCAL aprnport
 
    aprnport := rr_getprinters()
-   IF aprnport <> ",,"
+   IF aprnport != ",,"
       aprnport := str2arr( aprnport, ",," )
       AEval( aprnport, {| x, xi | aprnport[xi] := str2arr( x, "," ) } )
       AEval( aprnport, {| x | AAdd(::Printers, x[1]), AAdd(::ports, x[2]) } )
@@ -257,7 +257,7 @@ RETURN Self
 METHOD StartDoc( ldocname ) CLASS HBPrinter
 
    ::Printing := .T.
-   IF ldocname <> NIL
+   IF ldocname != NIL
       ldocname := iif( HB_ISSTRING( ldocname ), StrTran(StrTran(ldocname, "\", "_"), "/", "_"), "" )
       ::DOCNAME := ldocname
    ENDIF
@@ -272,13 +272,13 @@ METHOD SetPage( orient, size, fontname ) CLASS HBPrinter
 
    LOCAL lhand := ::getobjbyname( fontname, "F" )
 
-   IF size <> NIL
+   IF size != NIL
       ::SetDevMode( DM_PAPERSIZE, size )
    ENDIF
-   IF orient <> NIL
+   IF orient != NIL
       ::SetDevMode( DM_ORIENTATION, orient )
    ENDIF
-   IF lhand <> 0
+   IF lhand != 0
       ::Fonts[3] := lhand
    ENDIF
    rr_getdevicecaps( ::DEVCAPS, ::Fonts[3] )
@@ -355,7 +355,7 @@ RETURN self
 METHOD SetTextColor( clr ) CLASS HBPrinter
 
    LOCAL lret := ::Textcolor
-   IF clr <> NIL
+   IF clr != NIL
       // BEGIN RL 2003-08-03
       IF HB_ISNUMERIC(clr)
          ::TextColor := rr_settextcolor( clr )
@@ -402,7 +402,7 @@ RETURN lret
 METHOD DefineBrush( defname, lstyle, lcolor, lhatch ) CLASS HBPrinter
 
    LOCAL lhand := ::getobjbyname( defname, "B" )
-   IF lhand <> 0
+   IF lhand != 0
       RETURN self
    ENDIF
    // BEGIN RL 2003-08-03
@@ -422,7 +422,7 @@ RETURN self
 METHOD SelectBrush( defname ) CLASS HBPrinter
 
    LOCAL lhand := ::getobjbyname( defname, "B" )
-   IF lhand <> 0
+   IF lhand != 0
       rr_selectbrush( lhand )
       ::Brushes[1, 1] := lhand
    ENDIF
@@ -465,7 +465,7 @@ RETURN self
 METHOD DefinePen( defname, lstyle, lwidth, lcolor ) CLASS HBPrinter
 
    LOCAL lhand := ::getobjbyname( defname, "P" )
-   IF lhand <> 0
+   IF lhand != 0
       RETURN self
    ENDIF
    // BEGIN RL 2003-08-03
@@ -517,7 +517,7 @@ RETURN self
 METHOD SelectPen( defname ) CLASS HBPrinter
 
    LOCAL lhand := ::getobjbyname( defname, "P" )
-   IF lhand <> 0
+   IF lhand != 0
       rr_selectpen( lhand )
       ::Pens[1, 1] := lhand
    ENDIF
@@ -528,7 +528,7 @@ RETURN self
 METHOD DefineFont( defname, lfontname, lfontsize, lfontwidth, langle, lweight, litalic, lunderline, lstrikeout ) CLASS HBPrinter
 
    LOCAL lhand := ::getobjbyname( lfontname, "F" )
-   IF lhand <> 0
+   IF lhand != 0
       RETURN self
    ENDIF
    lfontname := iif(lfontname == NIL, "", Upper(AllTrim(lfontname)))
@@ -563,10 +563,10 @@ METHOD ModifyFont( defname, lfontname, lfontsize, lfontwidth, langle, lweight, l
       RETURN self
    ENDIF
 
-   iif( lfontname <> NIL, ::Fonts[4, lpos, 1] := Upper(AllTrim(lfontname)), NIL )
-   iif( lfontsize <> NIL, ::Fonts[4, lpos, 2] := lfontsize, NIL )
-   iif( lfontwidth <> NIL, ::Fonts[4, lpos, 3] := lfontwidth, NIL )
-   iif( langle <> NIL, ::Fonts[4, lpos, 4] := langle, NIL )
+   iif( lfontname != NIL, ::Fonts[4, lpos, 1] := Upper(AllTrim(lfontname)), NIL )
+   iif( lfontsize != NIL, ::Fonts[4, lpos, 2] := lfontsize, NIL )
+   iif( lfontwidth != NIL, ::Fonts[4, lpos, 3] := lfontwidth, NIL )
+   iif( langle != NIL, ::Fonts[4, lpos, 4] := langle, NIL )
    iif( lweight, ::Fonts[4, lpos, 5] := 1, NIL )
    iif( lnweight, ::Fonts[4, lpos, 5] := 0, NIL )
    iif( litalic, ::Fonts[4, lpos, 6] := 1, NIL )
@@ -589,7 +589,7 @@ RETURN self
 METHOD SelectFont( defname ) CLASS HBPrinter
 
    LOCAL lhand := ::getobjbyname( defname, "F" )
-   IF lhand <> 0
+   IF lhand != 0
       rr_selectfont( lhand )
       ::Fonts[1, 1] := lhand
    ENDIF
@@ -694,7 +694,7 @@ METHOD Say( row, col, txt, defname, lcolor, lalign ) CLASS HBPrinter
    CASE ValType(txt) $ "MC" ;  atxt := str2arr( txt, hb_osNewLine() )
    ENDCASE
    apos := ::convert( { row, col } )
-   IF lcolor <> NIL
+   IF lcolor != NIL
       // BEGIN RL 2003-08-03
       IF HB_ISNUMERIC(lcolor)
          rr_settextcolor( lcolor )
@@ -703,7 +703,7 @@ METHOD Say( row, col, txt, defname, lcolor, lalign ) CLASS HBPrinter
       ENDIF
       // END RL
    ENDIF
-   IF lalign <> NIL
+   IF lalign != NIL
       oldalign := rr_gettextalign()
       rr_settextalign( lalign )
    ENDIF
@@ -711,10 +711,10 @@ METHOD Say( row, col, txt, defname, lcolor, lalign ) CLASS HBPrinter
       rr_textout( atxt[i], apos, lhf, numat( " ", atxt[i] ) )
       apos[1] += ::DEVCAPS[11]
    NEXT
-   IF lalign <> NIL
+   IF lalign != NIL
       rr_settextalign( oldalign )
    ENDIF
-   IF lcolor <> NIL
+   IF lcolor != NIL
       rr_settextcolor( ::textcolor )
    ENDIF
 
@@ -725,11 +725,11 @@ METHOD DefineImageList( defname, cpicture, nicons ) CLASS HBPrinter
 
    LOCAL lhi := ::getobjbyname( defname, "I" ), w := 0, h := 0, hand
 
-   IF lhi <> 0
+   IF lhi != 0
       RETURN self
    ENDIF
    hand := rr_createimagelist( cpicture, nicons, @w, @h )
-   IF hand <> 0 .AND. w > 0 .AND. h > 0
+   IF hand != 0 .AND. w > 0 .AND. h > 0
       AAdd(::imagelists[1], {hand, nicons, w, h})
       AAdd(::imagelists[2], Upper(AllTrim(defname)))
    ENDIF
@@ -948,7 +948,7 @@ METHOD GetObjByName( defname, what, retpos ) CLASS HBPrinter
       lfound := AScan(aref, Upper(AllTrim(defname)))
       IF lfound > 0
          IF aref[lfound] == Upper(AllTrim(defname))
-            IF retpos <> NIL
+            IF retpos != NIL
                lret := lfound
             ELSE
                lret := ahref[lfound]
@@ -964,7 +964,7 @@ METHOD DefineRectRgn( defname, row, col, torow, tocol ) CLASS HBPrinter
 
    LOCAL lhand := ::getobjbyname( defname, "R" )
 
-   IF lhand <> 0
+   IF lhand != 0
       RETURN self
    ENDIF
    hb_default(@torow, ::maxrow)
@@ -979,7 +979,7 @@ METHOD DefineEllipticRgn( defname, row, col, torow, tocol ) CLASS HBPrinter
 
    LOCAL lhand := ::getobjbyname( defname, "R" )
 
-   IF lhand <> 0
+   IF lhand != 0
       RETURN self
    ENDIF
    hb_default(@torow, ::maxrow)
@@ -994,7 +994,7 @@ METHOD DefineRoundRectRgn( defname, row, col, torow, tocol, widthellipse, height
 
    LOCAL lhand := ::getobjbyname( defname, "R" )
 
-   IF lhand <> 0
+   IF lhand != 0
       RETURN self
    ENDIF
    hb_default(@torow, ::maxrow)
@@ -1010,7 +1010,7 @@ METHOD DefinePolygonRgn( defname, apoints, style ) CLASS HBPrinter
    LOCAL apx := {}, apy := {}, temp
    LOCAL lhand := ::getobjbyname( defname, "R" )
 
-   IF lhand <> 0
+   IF lhand != 0
       RETURN self
    ENDIF
    AEval( apoints, {| x | temp := ::convert( x ), AAdd(apx, temp[2]), AAdd(apy, temp[1]) } )
@@ -1025,7 +1025,7 @@ METHOD CombineRgn( defname, reg1, reg2, style ) CLASS HBPrinter
    LOCAL lr1 := ::getobjbyname( reg1, "R" ), lr2 := ::getobjbyname( reg2, "R" )
    LOCAL lhand := ::getobjbyname( defname, "R" )
 
-   IF lhand <> 0 .OR. lr1 == 0 .OR. lr2 == 0
+   IF lhand != 0 .OR. lr1 == 0 .OR. lr2 == 0
       RETURN self
    ENDIF
    AAdd(::Regions[1], rr_combinergn(lr1, lr2, style))
@@ -1038,7 +1038,7 @@ METHOD SelectClipRgn( defname ) CLASS HBPrinter
 
    LOCAL lhand := ::getobjbyname( defname, "R" )
 
-   IF lhand <> 0
+   IF lhand != 0
       rr_selectcliprgn( lhand )
       ::Regions[1, 1] := lhand
    ENDIF
@@ -1056,8 +1056,8 @@ RETURN self
 
 METHOD SetViewPortOrg( row, col ) CLASS HBPrinter
 
-   row := iif( row <> NIL, row, 0 )
-   col := iif( col <> NIL, col, 0 )
+   row := iif( row != NIL, row, 0 )
+   col := iif( col != NIL, col, 0 )
    ::ViewPortOrg := ::convert( { row, col } )
    rr_setviewportorg( ::ViewPortOrg )
 
@@ -1368,13 +1368,13 @@ METHOD PrevThumb( nclick ) CLASS HBPrinter
    IF iloscstron == 1
       RETURN self
    ENDIF
-   IF nclick <> NIL
+   IF nclick != NIL
       page := ngroup * 15 + nclick
       ::prevshow()
       SetProperty ( "hbpreview", "combo_1", "value", Page )
       RETURN self
    ENDIF
-   IF Int( ( page - 1 ) / 15 ) <> ngroup
+   IF Int( ( page - 1 ) / 15 ) != ngroup
       ngroup := Int( ( page - 1 ) / 15 )
    ELSE
       RETURN self
@@ -1447,7 +1447,7 @@ METHOD PrevPrint( n1 ) CLASS HBPrinter
    ::Previewmode := .F.
    ::Printingemf := .T.
    rr_lalabye( 1 )
-   IF n1 <> NIL
+   IF n1 != NIL
       ::startdoc()
       ::setpage( ::MetaFiles[n1, 6], ::MetaFiles[n1, 7] )
       ::startpage()
@@ -2444,12 +2444,12 @@ METHOD ReportData( l_x1, l_x2, l_x3, l_x4, l_x5, l_x6 ) CLASS HBPrinter
    SET CONSOLE OFF
    ? "-----------------", Date(), Time()
    ?
-   ?? iif( ValType(l_x1) <> "U", l_x1, "," )
-   ?? iif( ValType(l_x2) <> "U", l_x2, "," )
-   ?? iif( ValType(l_x3) <> "U", l_x3, "," )
-   ?? iif( ValType(l_x4) <> "U", l_x4, "," )
-   ?? iif( ValType(l_x5) <> "U", l_x5, "," )
-   ?? iif( ValType(l_x6) <> "U", l_x6, "," )
+   ?? iif( ValType(l_x1) != "U", l_x1, "," )
+   ?? iif( ValType(l_x2) != "U", l_x2, "," )
+   ?? iif( ValType(l_x3) != "U", l_x3, "," )
+   ?? iif( ValType(l_x4) != "U", l_x4, "," )
+   ?? iif( ValType(l_x5) != "U", l_x5, "," )
+   ?? iif( ValType(l_x6) != "U", l_x6, "," )
    ? "HDC            :", ::HDC
    ? "HDCREF         :", ::HDCREF
    ? "PRINTERNAME    :", ::PRINTERNAME

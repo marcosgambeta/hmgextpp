@@ -279,7 +279,7 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
             LISTBOXSETMULTISEL(ControlHandle, Value)
          ENDIF
       ELSE
-         IF ISNUMBER ( value ) .AND. value <> 0
+         IF ISNUMBER ( value ) .AND. value != 0
             ListboxSetCurSel(ControlHandle, Value)
          ENDIF
       ENDIF
@@ -312,7 +312,7 @@ FUNCTION InitDialogChkListBox( ParentName, ControlHandle, k )
          LISTBOXSETMULTISEL(ControlHandle, Value)
       ENDIF
    ELSE
-      IF ISNUMBER ( value ) .AND. value <> 0
+      IF ISNUMBER ( value ) .AND. value != 0
          ListboxSetCurSel(ControlHandle, Value)
       ENDIF
    ENDIF

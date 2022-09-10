@@ -227,15 +227,15 @@ Test(mkm)
          if empty(_MainArea)
             Lbody := eval(oWr:Valore,oWr:aBody[1])
             mx_pg := INT(oWr:aStat[ "end_pr" ]/NOZERODIV(Lbody) )
-            if (mx_pg * lbody) <> mx_pg
+            if (mx_pg * lbody) != mx_pg
                mx_pg ++
             endif
             mx_pg :=ROUND( max(1,mx_pg), 0 )
             tpg := mx_pg
-            if valtype(oWr:argm[3]) <> "A"
+            if valtype(oWr:argm[3]) != "A"
                Dbgotop()
             Endif
-            if oWr:aStat [ "end_pr" ] <> 0
+            if oWr:aStat [ "end_pr" ] != 0
                while !oWr:aStat [ "EndDoc" ]
                      oWr:TheMiniHead()
                      oWr:TheMiniBody()
@@ -256,7 +256,7 @@ Test(mkm)
                   // Vecchia versione
                   // miocnt:=miocont/NOZERODIV(eval(oWr:Valore,oWr:aBody[1]))*10
                   miocnt:= int(miocont/NOZERODIV(lbody))
-                  if (miocnt * lbody) <> miocont
+                  if (miocnt * lbody) != miocont
                      miocnt ++
                   endif
                   tpg += miocnt
@@ -403,7 +403,7 @@ Function RMiniPar(ArryPar,cmdline,section)
                  Public &_varmem
                  aadd(nomevar,_varmem)
              Endif
-             if ArryPar[4] <> "A"
+             if ArryPar[4] != "A"
                 &_varmem := xvalue(ArryPar[3],ArryPar[4])
              else
                 &_varmem := oWr:MACROCOMPILE("("+ArryPar[3]+")",.T.,cmdline,section)
@@ -429,16 +429,16 @@ Function RMiniPar(ArryPar,cmdline,section)
                    asize(ax,0)
                    do case
                       case ascan(arryPar,[DECLARE])= 4
-                           aeval(oWr:aDeclare,{|x|if (x <> NIL,aadd(ax, strzero(x[2], 4) + ") " + x[1] ),nil)} )
+                           aeval(oWr:aDeclare,{|x|if (x != NIL,aadd(ax, strzero(x[2], 4) + ") " + x[1] ),nil)} )
 
                       case ascan(arryPar,[HEAD])= 4
-                           aeval( oWr:aHead,{|x|if (x <> NIL,aadd(ax, strzero(x[2], 4) + ") " + x[1] ),nil)} )
+                           aeval( oWr:aHead,{|x|if (x != NIL,aadd(ax, strzero(x[2], 4) + ") " + x[1] ),nil)} )
 
                       case ascan(arryPar,[BODY])= 4
-                           aeval( oWr:aBody,{|x|if (x <> NIL,aadd(ax, strzero(x[2], 4) + ") " + x[1] ),nil)} )
+                           aeval( oWr:aBody,{|x|if (x != NIL,aadd(ax, strzero(x[2], 4) + ") " + x[1] ),nil)} )
 
                       case ascan(arryPar,[FEET])= 4
-                           aeval( oWr:aFeet,{|x|if (x <> NIL,aadd(ax, strzero(x[2], 4) + ") " + x[1] ),nil)} )
+                           aeval( oWr:aFeet,{|x|if (x != NIL,aadd(ax, strzero(x[2], 4) + ") " + x[1] ),nil)} )
 
                    endcase
                    msgmulty(ax)
@@ -486,13 +486,13 @@ Function RMiniPar(ArryPar,cmdline,section)
                //msgbox(_arg1,"stampante")
                _hmg_printer_aPrinterProperties:=_HMG_PRINTER_SetPrinterProperties ( ;
 		if(ascan(ArryPar,[DEFAULT])=3,GetDefaultPrinter(),_arg1 ), ;
-		if(ascan(arryPar,[ORIENTATION])<> 0,iif(val(_arg1) > 0,val(_arg1),iif([PORT]$ _arg1,1,2)) ,-999),;
+		if(ascan(arryPar,[ORIENTATION])!= 0,iif(val(_arg1) > 0,val(_arg1),iif([PORT]$ _arg1,1,2)) ,-999),;
 		if ( lPaperSize     > 0 , lPaperSize      , -999 ) , ;
 		if ( lPaperLength   > 0 , LPaperLength    , -999 ) , ;
 		if ( lPaperWidth    > 0 , LPaperWidth     , -999 ) , ;
 		if ( lCopies        > 0 , lCopies         , -999 ) , ;
 		if ( lDefaultSource > 0 , LDefaultSource  , -999 ) , ;
-		if ( lQuality      <> 0 , lQuality        , -999 ) , ;
+		if ( lQuality      != 0 , lQuality        , -999 ) , ;
 		if ( lColor         > 0 , lColor          , -999 ) , ;
 		if ( lDuplex        > 0 , lDuplex         , -999 ) , ;
 		if ( lCollate       > 0 , nCollate        , -999 ) )
@@ -523,10 +523,10 @@ Function RMiniPar(ArryPar,cmdline,section)
              _varmem:=ArryPar[5]
              if __mvexist(ArryPar[5])
                  //msginfo("Private BHX")
-                &_varmem := if ( iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) <> 0 , .T. , .F. )
+                &_varmem := if ( iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) != 0 , .T. , .F. )
              else
                 Public &_varmem
-                &_varmem := if ( iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) <> 0 , .T. , .F. )
+                &_varmem := if ( iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) != 0 , .T. , .F. )
              endif
           endif
           //msgbox(_hmg_printer_timestamp,"timestamp")
@@ -669,10 +669,10 @@ Function RMiniPar(ArryPar,cmdline,section)
                 , Aclr[2] ;
                 , Aclr[3] ;
                 , arrypar[4]    ; //if("->" $ ArryPar[4] .OR. [(] $ ArryPar[4],&ArryPar[4],ArryPar[4])  ;
-                , iif(ascan(arryPar,[BOLD])<>0,.T.,.F.);
-                , iif(ascan(arryPar,[ITALIC])<>0,.T.,.F.) ;
-                , iif(ascan(arryPar,[UNDERLINE])<>0,.T.,.F.);
-                , iif(ascan(arryPar,[STRIKEOUT])<>0,.T.,.F.);
+                , iif(ascan(arryPar,[BOLD])!=0,.T.,.F.);
+                , iif(ascan(arryPar,[ITALIC])!=0,.T.,.F.) ;
+                , iif(ascan(arryPar,[UNDERLINE])!=0,.T.,.F.);
+                , iif(ascan(arryPar,[STRIKEOUT])!=0,.T.,.F.);
                 , iif(ascan(arryPar,[COLOR])>0, .T.,.F.) ;
                 , iif(ascan(arryPar,[FONT])>0, .T.,.F.) ;
                 , iif(ascan(arryPar,[SIZE])>0, .T.,.F.) ;
@@ -686,10 +686,10 @@ Function RMiniPar(ArryPar,cmdline,section)
                                      val(eval(chblk,arrypar,[LEN]))),NIL) ;
           ,iif(ascan(arryPar,[FONT])>0,eval(chblk,arrypar,[FONT]),NIL);
           ,iif(ascan(arryPar,[SIZE])>0,val( eval(chblk,arrypar,[SIZE] ) ),NIL );
-          ,iif(ascan(arryPar,[BOLD])<>0,.T.,.F.);
-          ,iif(ascan(arryPar,[ITALIC])<>0,.T.,.F.) ;
-          ,iif(ascan(arryPar,[UNDERLINE])<>0,.T.,.F.);
-          ,iif(ascan(arryPar,[STRIKEOUT])<>0,.T.,.F.);
+          ,iif(ascan(arryPar,[BOLD])!=0,.T.,.F.);
+          ,iif(ascan(arryPar,[ITALIC])!=0,.T.,.F.) ;
+          ,iif(ascan(arryPar,[UNDERLINE])!=0,.T.,.F.);
+          ,iif(ascan(arryPar,[STRIKEOUT])!=0,.T.,.F.);
           ,iif(ascan(arryPar,[COLOR])>0,oWr:usacolor(eval(chblk,arrypar,[COLOR])),NIL);
           ,iif(ascan(arryPar,[ALIGN])>0,oWr:what_ele(eval(chblk,arrypar,[ALIGN]),_aAlign,"_aAlign"),NIL);
           ,iif(ascan(arryPar,[.F.])>0,".F.",""))

@@ -292,7 +292,7 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
             LISTBOXSETMULTISEL(ControlHandle, Value)
          ENDIF
       ELSE
-         IF ISNUMBER ( value ) .AND. value <> 0
+         IF ISNUMBER ( value ) .AND. value != 0
             ListboxSetCurSel(ControlHandle, Value)
          ENDIF
       ENDIF
@@ -325,7 +325,7 @@ FUNCTION InitDialogListBox( ParentName, ControlHandle, k )
          LISTBOXSETMULTISEL(ControlHandle, Value)
       ENDIF
    ELSE
-      IF ISNUMBER ( value ) .AND. value <> 0
+      IF ISNUMBER ( value ) .AND. value != 0
          ListboxSetCurSel(ControlHandle, Value)
       ENDIF
    ENDIF

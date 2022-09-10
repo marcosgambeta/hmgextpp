@@ -238,7 +238,7 @@ RETURN Nil
 FUNCTION InitDialogSlider( ParentName, ControlHandle, k )
 *-----------------------------------------------------------------------------*
 
-   IF ValType(ParentName) <> "U"
+   IF ValType(ParentName) != "U"
       SendMessage(ControlHandle, TBM_SETPOS, 1, _HMG_aControlValue[k])
    ENDIF
 // JP 62

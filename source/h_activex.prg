@@ -190,7 +190,7 @@ PROCEDURE ReleaseActiveX ( cWindow, cControl )
 
       oActiveX := _HMG_aControlIds[GetControlIndex(cControl, cWindow)]
 
-      IF ValType(oActiveX) <> "U"
+      IF ValType(oActiveX) != "U"
          oActiveX:Release()
       ENDIF
 
@@ -396,7 +396,7 @@ RETURN .T.
 
 METHOD Release() CLASS TActiveX
 
-   IF ValType(::hWnd) <> "U"
+   IF ValType(::hWnd) != "U"
       DestroyWindow(::hWnd)
    ENDIF
    IF !Empty(::hSink)

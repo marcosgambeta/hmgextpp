@@ -315,10 +315,10 @@ METHOD Update() CLASS TGif
 
    IF !Empty(::hGif) .AND. _IsControlDefined(::hGif, ::cParentName)
 
-      IF GetProperty( ::cParentName, ::hGif, "Row" ) <> GetProperty( ::cParentName, ::cControlName, "Row" ) .OR. ;
-            GetProperty( ::cParentName, ::hGif, "Col" ) <> GetProperty( ::cParentName, ::cControlName, "Col" ) .OR. ;
-            GetProperty( ::cParentName, ::hGif, "Width" ) <> GetProperty( ::cParentName, ::cControlName, "Width" ) .OR. ;
-            GetProperty( ::cParentName, ::hGif, "Height" ) <> GetProperty( ::cParentName, ::cControlName, "Height" )
+      IF GetProperty( ::cParentName, ::hGif, "Row" ) != GetProperty( ::cParentName, ::cControlName, "Row" ) .OR. ;
+            GetProperty( ::cParentName, ::hGif, "Col" ) != GetProperty( ::cParentName, ::cControlName, "Col" ) .OR. ;
+            GetProperty( ::cParentName, ::hGif, "Width" ) != GetProperty( ::cParentName, ::cControlName, "Width" ) .OR. ;
+            GetProperty( ::cParentName, ::hGif, "Height" ) != GetProperty( ::cParentName, ::cControlName, "Height" )
 
          SetProperty( ::cParentName, ::hGif, "Row", GetProperty( ::cParentName, ::cControlName, "Row" ) )
          SetProperty( ::cParentName, ::hGif, "Col", GetProperty( ::cParentName, ::cControlName, "Col" ) )
@@ -458,14 +458,14 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
       IF j > Len(cGifEnd)
          cFile := cPath + hb_ps() + cFileNoExt( GIF ) + "_frame_" + hb_ntos( nID ) + "_" + StrZero( nImgCount, 4 ) + ".gif"
          nFileHandle := FCreate( cFile, FC_NORMAL )
-         IF FError() <> 0
+         IF FError() != 0
             RETURN .F.
          ENDIF
 
          cPicBuf := cGifHeader + SubStr(cStream, i - 1, j - i)
          imgHeader = Left(SubStr(cStream, i - 1, j - i), 16)
 
-         IF FWrite( nFileHandle, cPicBuf ) <> Len(cPicBuf)
+         IF FWrite( nFileHandle, cPicBuf ) != Len(cPicBuf)
             RETURN .F.
          ENDIF
 
@@ -491,14 +491,14 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
 
       cFile := cPath + hb_ps() + cFileNoExt( GIF ) + "_frame_" + hb_ntos( nID ) + "_" + StrZero( ++nImgCount, 4 ) + ".gif"
       nFileHandle := FCreate( cFile, FC_NORMAL )
-      IF FError() <> 0
+      IF FError() != 0
          RETURN .F.
       ENDIF
 
       cPicBuf := cGifHeader + SubStr(cStream, i - 1, Len(cStream) - i)
       imgHeader := Left(SubStr(cStream, i - 1, Len(cStream) - i), 16)
 
-      IF FWrite( nFileHandle, cPicBuf ) <> Len(cPicBuf)
+      IF FWrite( nFileHandle, cPicBuf ) != Len(cPicBuf)
          RETURN .F.
       ENDIF
 

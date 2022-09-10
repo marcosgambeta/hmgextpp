@@ -1276,14 +1276,14 @@ FUNCTION OEDITEVENTS( hWnd, nMsg, wParam, lParam )
       InBuffer := GetWindowText ( hTextBox )
 
       // simulate overwrite mode
-      IF !IsInsertActive() .AND. wParam <> 13 .AND. wParam <> 8 .AND. hb_USubStr(inBuffer, icp + 1, 1) <> Chr( 13 )
+      IF !IsInsertActive() .AND. wParam != 13 .AND. wParam != 8 .AND. hb_USubStr(inBuffer, icp + 1, 1) != Chr( 13 )
 
 #ifdef UNICODE
          IF hmg_IsAlpha( hb_UChar( wParam ) ) .OR. hmg_IsDigit( hb_UChar( wParam ) )
 #else
          IF hmg_IsAlpha( Chr( wParam ) ) .OR. hmg_IsDigit( Chr( wParam ) )
 #endif
-            IF icp <> icpe
+            IF icp != icpe
                SendMessage( hTextBox , WM_CLEAR , 0 , 0 )
                SendMessage( hTextBox , EM_SETSEL , icpe , icpe )
             ELSE

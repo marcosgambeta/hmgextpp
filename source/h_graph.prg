@@ -85,7 +85,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
    ENDIF
 
    atemp := GetProperty( Parent, "BackColor" )
-   IF atemp[1] <> -1 .AND. atemp[2] <> -1 .AND. atemp[3] <> -1
+   IF atemp[1] != -1 .AND. atemp[2] != -1 .AND. atemp[3] != -1
       aClrBack := atemp
       lRedraw := .T.
    ENDIF
@@ -94,7 +94,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
       lxGrid := lyGrid := .T.
    ENDIF
 
-   IF nBottom <> NIL .AND. nRight <> NIL
+   IF nBottom != NIL .AND. nRight != NIL
       nHeight := nBottom - nTop / 2
       nWidth  := nRight - nLeft / 2
    ENDIF
@@ -411,7 +411,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
    IF l3D
       DrawLine( parent, nZero, nLeft - nDeep, nZero, nRight - nDeep, BLACK )
    ELSE
-      IF nXMax <> 0 .AND. nXMin <> 0
+      IF nXMax != 0 .AND. nXMin != 0
          DrawLine( parent, nZero - 1, nLeft + 1, nZero - 1, nRight - 1, RED )
       ENDIF
    ENDIF
@@ -775,7 +775,7 @@ FUNCTION drawpiegraph( windowname, fromrow, fromcol, torow, tocol, series, aname
    AEval( series, {|i| AAdd(degrees, Round(i / ser_sum * 360, 0)) } )
    sum := 0
    AEval( degrees, {|i| sum += i } )
-   IF sum <> 360
+   IF sum != 360
       degrees[len(degrees)] += 360 - sum
    ENDIF
    sum := 0

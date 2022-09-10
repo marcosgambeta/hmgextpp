@@ -537,7 +537,7 @@ PROCEDURE _Collapse ( ControlName, ParentForm, nItem, lRecurse )   // Dr. Claudi
 
    IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0
       ItemHandle := TreeItemGetHandle(ControlName, ParentForm, nItem)
-      IF ItemHandle <> 0
+      IF ItemHandle != 0
          TreeView_ExpandChildrenRecursive ( _HMG_aControlHandles[i], ItemHandle, TVE_COLLAPSE, hb_defaultValue(lRecurse, .F.) )
       ENDIF
    ENDIF
@@ -551,7 +551,7 @@ PROCEDURE _Expand(ControlName, ParentForm, nItem, lRecurse)   // Dr. Claudio Sot
 
    IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0
       ItemHandle := TreeItemGetHandle(ControlName, ParentForm, nItem)
-      IF ItemHandle <> 0
+      IF ItemHandle != 0
          TreeView_ExpandChildrenRecursive ( _HMG_aControlHandles[i], ItemHandle, TVE_EXPAND, hb_defaultValue(lRecurse, .F.) )
       ENDIF
    ENDIF
@@ -608,7 +608,7 @@ FUNCTION TreeItemGetRootValue ( ControlName, ParentForm )
    LOCAL nPos, nID
    LOCAL i
 
-   IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0 .AND. ItemHandle <> 0
+   IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0 .AND. ItemHandle != 0
       IF _HMG_aControlInputMask[i] == .F.
          nPos := AScan(_HMG_aControlPageMap[i], ItemHandle)
          RETURN nPos
@@ -628,7 +628,7 @@ FUNCTION TreeItemGetParentValue ( ControlName , ParentForm , nItem )
    LOCAL nPos, nID
    LOCAL i
 
-   IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0 .AND. ItemHandle <> 0
+   IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0 .AND. ItemHandle != 0
       IF _HMG_aControlInputMask[i] == .F.
          nPos := AScan(_HMG_aControlPageMap[i], ItemHandle)
          RETURN nPos

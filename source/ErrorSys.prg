@@ -421,7 +421,7 @@ STATIC PROCEDURE ErrorLog( nHandle, oErr )
          FOR tmp := 1 TO nCount
 
             xValue := __mvDbgInfo( nScope, tmp, @cName )
-            IF ValType(xValue) $ "CNDTL" .AND. Left(cName, 1) <> "_"
+            IF ValType(xValue) $ "CNDTL" .AND. Left(cName, 1) != "_"
                Html_LineText( nHandle, "      " + cName + " TYPE " + ValType(xValue) + " [" + hb_CStr(xValue) + "]" )
             ENDIF
 

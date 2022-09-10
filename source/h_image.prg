@@ -232,7 +232,7 @@ RETURN Nil
 FUNCTION InitDialogImage( ParentName, ControlHandle, k )
 *-----------------------------------------------------------------------------*
 
-   IF ValType(ParentName) <> "U"
+   IF ValType(ParentName) != "U"
 
       _HMG_aControlBrushHandle[k] := C_SetPicture(ControlHandle, _HMG_aControlPicture[k], _HMG_aControlWidth[k], ;
          _HMG_aControlHeight[k], _HMG_aControlValue[k], _HMG_aControlInputMask[k], _HMG_aControlSpacing[k], ;

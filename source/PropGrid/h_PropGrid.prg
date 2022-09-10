@@ -586,7 +586,7 @@ FUNCTION PgCheckData( typePG, cValue, aData, mod )
    CASE typePG == PG_FONT
    CASE typePG == PG_ARRAY
    CASE typePG == PG_ENUM
-      IF !( At( cValue, aData ) <> 0 .OR. CharOnly( cValue, aData ) == cValue )
+      IF !( At( cValue, aData ) != 0 .OR. CharOnly( cValue, aData ) == cValue )
          cErr := _HMG_PGLangError[4] + " ENUM " + _HMG_PGLangError[2]
          ret := .F.
       ENDIF
@@ -2167,10 +2167,10 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
          _ChangeBtnState(  _HMG_aControlHandles[i], .T. , i )
       ENDIF
       // simulate overwrite mode
-      IF !IsInsertActive() .AND. wParam <> 13 .AND. wParam <> 8 .AND. SubStr(cValue, icp + 1, 1) <> Chr( 13 )
+      IF !IsInsertActive() .AND. wParam != 13 .AND. wParam != 8 .AND. SubStr(cValue, icp + 1, 1) != Chr( 13 )
 
          IF IsAlpha( Chr( wParam ) ) .OR. IsDigit( Chr( wParam ) )
-            IF icp <> icpe
+            IF icp != icpe
                SendMessage( hWnd , WM_CLEAR , 0 , 0 )
                SendMessage( hWnd , EM_SETSEL , icpe , icpe )
             ELSE

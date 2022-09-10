@@ -158,7 +158,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
             AAdd(aImages, aImage[im])
 
          ELSEIF HB_ISARRAY(aImage[im])
-            IF Len(aImage[im]) <> 2
+            IF Len(aImage[im]) != 2
                MsgMiniGuiError("Control: " + ControlName + " Of " + cParentForm + " : You must specify 2 elements characters array as image param.")
             ELSE
                AAdd(aImages, aImage[im, 1])
@@ -320,7 +320,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
          AEval(rows, {|v, i|ComboAddStringEx(ControlHandle, v, i)})
       ENDIF
 
-      IF ISNUMBER( value ) .AND. value <> 0
+      IF ISNUMBER( value ) .AND. value != 0
          ComboSetCurSel(ControlHandle, Value)
       ENDIF
 

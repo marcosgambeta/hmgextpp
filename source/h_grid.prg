@@ -502,7 +502,7 @@ FUNCTION InitDialogGrid(ParentName, ControlHandle, k)
    ELSE
 
       row := iif(ISARRAY(value), value[1], value)
-      IF row <> 0
+      IF row != 0
          _SetValue(, , Value, k)
       ENDIF
 
@@ -983,13 +983,13 @@ FUNCTION _GridInplaceEdit(idx)
 
    r := This.CellRow + GetWindowRow(h) - This.Row - 1
 
-   IF _HMG_aControlContainerRow [idx] <> -1
+   IF _HMG_aControlContainerRow [idx] != -1
       r -= _HMG_aControlContainerRow[idx]
    ENDIF
 
    c := This.CellCol + GetWindowCol(h) - This.Col + 2
 
-   IF _HMG_aControlContainerCol[idx] <> -1
+   IF _HMG_aControlContainerCol[idx] != -1
       c -= _HMG_aControlContainerCol[idx]
    ENDIF
 
@@ -1013,7 +1013,7 @@ FUNCTION _GridInplaceEdit(idx)
       IF _HMG_aControlMiscData1[idx][5] == .F.
          _SetItem(, , ri, aTemp, idx)
       ENDIF
-      IF Save <> hb_ValToStr(v)
+      IF Save != hb_ValToStr(v)
          Eval(bChange, v)
       ENDIF
       RETURN .T.
@@ -1171,7 +1171,7 @@ FUNCTION _GridInplaceEdit(idx)
 
    SetFocus(_HMG_aControlHandles[idx])
 
-   IF Save <> V
+   IF Save != V
       Eval(bChange, v)
    ENDIF
 
@@ -1186,7 +1186,7 @@ FUNCTION _HMG_OnInplaceEditEvent(nIndex)
 
    hb_default(@nIndex, _HMG_GridInplaceEdit_GridIndex)
 
-   IF _HMG_GridInplaceEdit_ControlHandle <> 0 .AND. ValType(_HMG_aControlMiscData1[nIndex][30]) == "B"
+   IF _HMG_GridInplaceEdit_ControlHandle != 0 .AND. ValType(_HMG_aControlMiscData1[nIndex][30]) == "B"
       Ret := Eval(_HMG_aControlMiscData1[nIndex][30])
    ENDIF
 

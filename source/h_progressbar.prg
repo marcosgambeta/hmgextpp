@@ -248,7 +248,7 @@ FUNCTION InitDialogProgressBar( ParentName, ControlHandle, k )
       SetWindowTheme(ControlHandle, "", "")
    ENDIF
 
-   IF ValType(ParentName) <> "U"
+   IF ValType(ParentName) != "U"
       SendMessage(ControlHandle, PBM_SETPOS, _HMG_aControlValue[k], 0)
    ENDIF
 

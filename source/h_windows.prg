@@ -82,7 +82,7 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
    IF FormName == NIL
       FormName := _HMG_TempWindowName
 #ifdef _PANEL_
-      IF _HMG_LoadWindowRow <> -1
+      IF _HMG_LoadWindowRow != -1
 
          y := _HMG_LoadWindowRow
          x := _HMG_LoadWindowCol
@@ -305,7 +305,7 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
 
    htooltip := InitToolTip(FormHandle, SetToolTipBalloon())
 
-   IF SetToolTipMaxWidth() <> -1
+   IF SetToolTipMaxWidth() != -1
       SendMessage(htooltip, TTM_SETMAXTIPWIDTH, 0, SetToolTipMaxWidth())
    ENDIF
 
@@ -516,7 +516,7 @@ FUNCTION _DefineModalWindow(FormName, Caption, x, y, w, h, Parent, nosize, nosys
       icon := _HMG_DefaultIconName
    ENDIF
 
-   IF _HMG_InplaceParentHandle <> 0
+   IF _HMG_InplaceParentHandle != 0
       Parent := _hmg_InplaceParentHandle
    ELSEIF !_HMG_BeginWindowMDIActive
       Parent := _hmg_MainHandle
@@ -541,7 +541,7 @@ FUNCTION _DefineModalWindow(FormName, Caption, x, y, w, h, Parent, nosize, nosys
 
    htooltip := InitToolTip(NIL, SetToolTipBalloon())
 
-   IF SetToolTipMaxWidth() <> -1
+   IF SetToolTipMaxWidth() != -1
       SendMessage(htooltip, TTM_SETMAXTIPWIDTH, 0, SetToolTipMaxWidth())
    ENDIF
 
@@ -736,7 +736,7 @@ FUNCTION _DefineSplitChildWindow(FormName, w, h, break, grippertext, nocaption, 
 
    htooltip := InitToolTip(FormHandle, SetToolTipBalloon())
 
-   IF SetToolTipMaxWidth() <> -1
+   IF SetToolTipMaxWidth() != -1
       SendMessage(htooltip, TTM_SETMAXTIPWIDTH, 0, SetToolTipMaxWidth())
    ENDIF
 
@@ -2348,7 +2348,7 @@ FUNCTION _ReleaseWindow(FormName)
 
    // Release Window
 
-   IF _HMG_aFormType[i] == "M" .AND. _HMG_ActiveModalHandle <> FormHandle
+   IF _HMG_aFormType[i] == "M" .AND. _HMG_ActiveModalHandle != FormHandle
 
       EnableWindow(FormHandle)
       PostMessage(FormHandle, WM_CLOSE, 0, 1)
@@ -2397,7 +2397,7 @@ FUNCTION _ShowWindow(FormName, lProcessMessages)
 
       ENDIF
 
-      AEval(_HMG_aFormHandles, {|y, x|iif(x <> i .AND. !_HMG_aFormType[x] $ "XP" .AND. ;
+      AEval(_HMG_aFormHandles, {|y, x|iif(x != i .AND. !_HMG_aFormType[x] $ "XP" .AND. ;
          _HMG_aFormParentHandle[x] != _HMG_aFormHandles[i], DisableWindow(_HMG_aFormHandles[x]),), HB_SYMBOL_UNUSED(y)})
 
       IF Len(_HMG_aFormSplitChildList[i]) > 0
@@ -2451,7 +2451,7 @@ FUNCTION _HideWindow(FormName)
 
          IF _HMG_aFormType[i] == "M"
 
-            IF _HMG_ActiveModalHandle <> FormHandle
+            IF _HMG_ActiveModalHandle != FormHandle
                MsgMiniGuiError("Non top modal windows can't be hide.")
             ENDIF
 
@@ -2507,7 +2507,7 @@ FUNCTION SuppressKeyAndMouseEvents(nWait)
          HMG_MouseClearBuffer()
          DO EVENTS
 
-      UNTIL (InkeyGUI(hb_defaultValue(nWait, 20)) <> 0)
+      UNTIL (InkeyGUI(hb_defaultValue(nWait, 20)) != 0)
 
 RETURN NIL
 
@@ -2880,7 +2880,7 @@ FUNCTION _HMG_DialogBoxProcedure()
 
       _HMG_DialogBoxProperty(@nRow, @nCol, @lCenter, @hWndParent, .F.)
 
-      IF nRow <> NIL .OR. nCol <> NIL .OR. lCenter <> NIL .OR. hWndParent <> NIL
+      IF nRow != NIL .OR. nCol != NIL .OR. lCenter != NIL .OR. hWndParent != NIL
 
          hb_default(@nCol, GetWindowCol(hWnd))
          hb_default(@nRow, GetWindowRow(hWnd))

@@ -2080,13 +2080,13 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
                _HMG_IPE_CANCELLED := .F.
                RETURN Nil
             ENDIF
-            IF Alias() <> _GridWorkArea
+            IF Alias() != _GridWorkArea
                Select &_GridWorkArea
             ENDIF
-            IF ISNUMBER ( nRec ) .AND. RecNo() <> nRec
+            IF ISNUMBER ( nRec ) .AND. RecNo() != nRec
                GO nRec
             ENDIF
-            IF GetControlHandle(_GetFocusedControl((r := GetParentFormName(i))), r) <> GridHandle
+            IF GetControlHandle(_GetFocusedControl((r := GetParentFormName(i))), r) != GridHandle
                SetFocus ( GridHandle )
             ENDIF
          ENDIF
