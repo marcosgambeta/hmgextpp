@@ -759,7 +759,7 @@ METHOD SetMsg( cText, lDefault ) CLASS TControl
             if !(AllTrim(cOldText) == AllTrim(cText))
                SetProperty( cParentWnd, "StatusBar", "Item", ::nStatusItem, cText )
             endif
-         elseif valtype(_HMG_DefaultStatusBarMessage) == "C"
+         elseif HB_ISCHAR(_HMG_DefaultStatusBarMessage)
             SetProperty( cParentWnd, "StatusBar", "Item", ::nStatusItem, _HMG_DefaultStatusBarMessage )
          endif
       endif

@@ -436,13 +436,13 @@ FUNCTION _BeginToolBarEx( name, parent, row, col, w, h, caption, ProcedureName, 
    hb_default(@wrap, .F.)
 
    IF ValType(imagelst) != "U"
-      IF ValType(imagelst) == "C"
+      IF HB_ISCHAR(imagelst)
          imagelst := GetControlHandle(imagelst, parent)
       ENDIF
    ENDIF
 
    IF ValType(hotimagelst) != "U"
-      IF ValType(hotimagelst) == "C"
+      IF HB_ISCHAR(hotimagelst)
          hotimagelst := GetControlHandle(hotimagelst, parent)
       ENDIF
    ENDIF

@@ -145,7 +145,7 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
 
    ENDIF
 #ifdef _PANEL_
-   IF ValType(cPanelParent) == "C" .AND. panel == .F.
+   IF HB_ISCHAR(cPanelParent) .AND. panel == .F.
       MsgMiniGuiError("Parent can be specified only for Panel windows.")
    ENDIF
 
@@ -183,7 +183,7 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
 #ifdef _PANEL_
    IF panel == .T.
 
-      IF ValType(cPanelParent) == "C"
+      IF HB_ISCHAR(cPanelParent)
          IF GetWindowType(cPanelParent) == "X"
             MsgMiniGuiError("Panel Windows Can't Have SplitChild Parent.")
          ENDIF

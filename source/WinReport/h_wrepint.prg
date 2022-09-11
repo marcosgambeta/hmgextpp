@@ -79,7 +79,7 @@ oWr:New()
 oWr:argm     := {_MainArea,_psd,db_arc,_prw}
 oWr:filename := filename
 
-if valtype(_nrec)== "C"
+if HB_ISCHAR(_nrec)
    atf :=_nrec
    oWr:nrec := 1
 else
@@ -2379,7 +2379,7 @@ local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
 
       if HB_ISNUMERIC(s_col); s_col:=zaps(s_col); endif
 
-      if valtype(P_F_E_G) == "C"
+      if HB_ISCHAR(P_F_E_G)
          ::aStat [ "P_F_E_G" ]  :=  (".T." $ upper(P_F_E_G))
       elseif valtype(P_F_E_G) == "L"
          ::aStat [ "P_F_E_G" ]  := P_F_E_G
@@ -2415,7 +2415,7 @@ local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
          m->t_col   := Val( t_col )
       endif
 
-      if valtype(gftotal)== "C"    // sistemazione per conti su colonne multiple
+      if HB_ISCHAR(gftotal)    // sistemazione per conti su colonne multiple
          && make an array for gftotal
          gftotal := AscArr(upper(gftotal) )
       endif

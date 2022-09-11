@@ -76,7 +76,7 @@ PROCEDURE _DefineMenuPopup(Caption, Name, Image, Font)
    LOCAL k
    LOCAL FormName
 
-   IF ValType(Font) == "C"
+   IF HB_ISCHAR(Font)
       Font := GetFontHandle(Font)
    ENDIF
 
@@ -296,7 +296,7 @@ PROCEDURE _DefineMenuItem(caption, action, name, Image, checked, disabled, cMess
    LOCAL id
    LOCAL nBreakCode := 6
 
-   IF ValType(font) == "C"
+   IF HB_ISCHAR(font)
       font := GetFontHandle(font)
    ENDIF
 

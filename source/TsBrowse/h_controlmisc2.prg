@@ -46,7 +46,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
    ENDIF
 
    DEFAULT uAlias := Alias(), ;
-      cTitle := iif( ValType(uAlias) == "C", uAlias, "SBrowse" ), ;
+      cTitle := iif( HB_ISCHAR(uAlias), uAlias, "SBrowse" ), ;
       bSetUp := {|| .F. }, ;
       aCols := {}, ;
       nWidth := GetSysMetrics( 0 ) * .75, ;
@@ -54,7 +54,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
       lSql := .F., ;
       lModal := .F.
 
-   IF ValType(uAlias) == "C" .AND. Select( uAlias ) == 0 // TODO: SWITCH
+   IF HB_ISCHAR(uAlias) .AND. Select( uAlias ) == 0 // TODO: SWITCH
       nSaveSelect := Select()
       IF lSql
          cTable := GetUniqueName( "SqlTable" )

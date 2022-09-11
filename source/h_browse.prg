@@ -1483,7 +1483,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
 
    FOR EACH tvar IN _HMG_aControlRangeMin[i]
 
-      IF ValType(&tvar) == "C"
+      IF HB_ISCHAR(&tvar)
          AAdd(aInitValues, AllTrim(&tvar))
       ELSE
          AAdd(aInitValues, &tvar)
@@ -1567,7 +1567,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
             aReadonly [z] := .T.
          ENDIF
          // add a length to aFormats
-         IF ValType(aInitValues [z]) == "C"
+         IF HB_ISCHAR(aInitValues[z])
             AAdd(aFormats, Max(1, Len(aInitValues[z])))
          ELSEIF HB_ISNUMERIC(aInitValues[z])
             aInitValues [z] := Str(aInitValues[z]) // type conversion doesn't matter, field should be readonly
@@ -1655,7 +1655,7 @@ FUNCTION _EditRecord(Title, aLabels, aValues, aFormats, row, col, aValid, TmpNam
 
    FOR i := 1 TO l
 
-      IF ValType(aValues[i]) == "C"
+      IF HB_ISCHAR(aValues[i])
 
          IF HB_ISNUMERIC(aFormats[i])
 
@@ -1732,7 +1732,7 @@ FUNCTION _EditRecord(Title, aLabels, aValues, aFormats, row, col, aValid, TmpNam
                   SendMessage(GetControlHandle(LN, "_Split_1"), EM_SETSEL, 0, -1) );
                   ON LOSTFOCUS _WHENEVAL()
 
-            ELSEIF ValType(aFormats[i]) == "C"
+            ELSEIF HB_ISCHAR(aFormats[i])
 
                @ ControlRow , 120 GETBOX &CN  OF _Split_1 VALUE aValues[i] WIDTH 140 FONT "Arial" SIZE 10 PICTURE aFormats[i];
                   ON GOTFOCUS ( LN := _Split_1.FocusedControl, ;
@@ -2202,7 +2202,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
            MAXLENGTH Width
            IF HB_ISARRAY(AINPUTMASK)
               IF LEN(AINPUTMASK) >= CellColIndex
-                 IF VALTYPE(AINPUTMASK [CellColIndex]) == "C" .AND. ! EMPTY(AINPUTMASK[CellColIndex])
+                 IF HB_ISCHAR(AINPUTMASK[CellColIndex]) .AND. ! EMPTY(AINPUTMASK[CellColIndex])
                     INPUTMASK AINPUTMASK [CellColIndex]
                  ENDIF
               ENDIF
@@ -2248,7 +2248,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
            VALUE CellData
            IF HB_ISARRAY(AINPUTMASK)
               IF LEN(AINPUTMASK) >= CellColIndex
-                 IF VALTYPE(AINPUTMASK [CellColIndex]) == "C" .AND. ! EMPTY(AINPUTMASK[CellColIndex])
+                 IF HB_ISCHAR(AINPUTMASK[CellColIndex]) .AND. ! EMPTY(AINPUTMASK[CellColIndex])
                     INPUTMASK AINPUTMASK [CellColIndex]
                  ELSE
                     MAXLENGTH Width
@@ -2271,7 +2271,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
            NUMERIC   .T.
            IF HB_ISARRAY(AINPUTMASK)
               IF LEN(AINPUTMASK) >= CellColIndex
-                 IF VALTYPE(AINPUTMASK [CellColIndex]) == "C" .AND. ! EMPTY(AINPUTMASK[CellColIndex])
+                 IF HB_ISCHAR(AINPUTMASK[CellColIndex]) .AND. ! EMPTY(AINPUTMASK[CellColIndex])
                     INPUTMASK AINPUTMASK [CellColIndex]
                  ELSE
                     INPUTMASK Replicate("9", Width - Decimals - 1) + "." + Replicate("9", Decimals)
@@ -2364,7 +2364,7 @@ STATIC PROCEDURE _InPlaceEditOk ( i , r , aValid , CellColIndex , sFieldName , A
 
                      IF aValidMessages [CellColIndex] != Nil
 
-                        IF ValType(aValidMessages [CellColIndex]) == "C"
+                        IF HB_ISCHAR(aValidMessages[CellColIndex])
 
                            MsgAlert ( aValidMessages [CellColIndex], _HMG_BRWLangError[10] )
 

@@ -146,7 +146,7 @@ FUNCTION _ActivateScrSaver( aForm, cParam )
 
       cFileScr := GetExeFileName()
       cFileDes := GetSystemFolder() + hb_ps() + ;
-         iif( ValType(_ScrSaverFileName) == "C", _ScrSaverFileName, ;
+         iif( HB_ISCHAR(_ScrSaverFileName), _ScrSaverFileName, ;
          cFileNoExt( cFileScr ) + ".SCR" )
 
       IF File( cFileDes )

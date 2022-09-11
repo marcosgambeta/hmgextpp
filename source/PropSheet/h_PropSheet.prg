@@ -232,15 +232,15 @@ FUNCTION _DefinePropSheet ( FormName, ParentForm,  y, x, w, h,  caption, IdIcon,
    _HMG_ActivePropSheetWizard    := .F.
 
    modeless := ( !modal .AND. !wizard )
-   IF ValType(IdWaterMark) == "C"
+   IF HB_ISCHAR(IdWaterMark)
       cWaterMark := IdWaterMark
       IdWaterMark := 0
    ENDIF
-   IF ValType(IdHeader) == "C"
+   IF HB_ISCHAR(IdHeader)
       cHeader := IdHeader
       IdHeader := 0
    ENDIF
-   IF ValType(IdIcon) == "C"
+   IF HB_ISCHAR(IdIcon)
       cIcon := IdIcon
       IdIcon := 0
       Style += PSP_USEHICON

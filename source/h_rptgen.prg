@@ -345,7 +345,7 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
    _HMG_RPTDATA[150] := .F.
    _HMG_RPTDATA[163] := .F.
 
-   IF ValType(cOutputFileName) == "C"
+   IF HB_ISCHAR(cOutputFileName)
 
       IF AllTrim(Upper(Right(cOutputFileName, 4))) == ".PDF"
          _HMG_RPTDATA[150] := .T.

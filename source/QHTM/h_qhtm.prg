@@ -101,11 +101,11 @@ Else
    FontHandle := _SetFont( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
 Endif
 
-If ( Valtype(Value) == "C" )
+If ( HB_ISCHAR(Value) )
    SetWindowText(ControlHandle, Value)   // define from a variable
-ElseIf ( Valtype(fname) == "C" )
+ElseIf ( HB_ISCHAR(fname) )
    QHTM_LoadFile( ControlHandle, fname )   // loading from a file
-ElseIf ( Valtype(resname) == "C" )
+ElseIf ( HB_ISCHAR(resname) )
    QHTM_LoadRes( ControlHandle, resname )  // loading from a resource
 Endif
 

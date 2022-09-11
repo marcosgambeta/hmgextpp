@@ -133,11 +133,11 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
       ENDIF
    ENDIF
 
-   IF ( ValType(ImageList) == "C" .OR. ImageList > 0 ) .AND. Len(aImage) > 0
+   IF ( HB_ISCHAR(ImageList) .OR. ImageList > 0 ) .AND. Len(aImage) > 0
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentForm + " : Image and ImageList clauses can't be used simultaneously.")
    ENDIF
 
-   IF ValType(ImageList) == "C"
+   IF HB_ISCHAR(ImageList)
       IF Len(ImageList) > 0
          ImageList := GetControlHandle(ImageList, ParentForm)
       ENDIF
@@ -152,7 +152,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
    IF !Empty(aImage)
       aImages := {}
       FOR im := 1 TO Len(aImage)
-         IF ValType(aImage[im]) == "C"
+         IF HB_ISCHAR(aImage[im])
             AAdd(aImages, aImage[im])
             AAdd(aImages, aImage[im])
             AAdd(aImages, aImage[im])
@@ -291,7 +291,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
 
    SetDropDownWidth(_hmg_acontrolrangemax [k] , hb_defaultValue(ListWidth, w))
 
-   IF ValType(WorkArea) == "C"
+   IF HB_ISCHAR(WorkArea)
 
       IF Select( WorkArea ) != 0
 
