@@ -1057,7 +1057,7 @@ FUNCTION InputBox(cInputPrompt, cDialogCaption, cDefaultValue, nTimeout, cTimeou
    LOCAL lIsVistaOrLater := IsVistaOrLater()
    LOCAL nBordW  := iif(lIsVistaOrLater, GetBorderWidth() / 2 + 2, 0)
    LOCAL nTitleH := GetTitleHeight() + iif(lIsVistaOrLater, GetBorderHeight() / 2 + 2, 0)
-   LOCAL nMLines := iif(ValType(lMultiLine) == "L" .AND. lMultiLine, 150, 0)
+   LOCAL nMLines := iif(HB_ISLOGICAL(lMultiLine) .AND. lMultiLine, 150, 0)
    LOCAL bCancel := {||_HMG_DialogCancelled := lCanceled := .T., DoMethod("_InputBox", "Release")}
    LOCAL RetVal  := ""
    LOCAL lOk := .F.
@@ -2611,7 +2611,7 @@ FUNCTION StopWindowEventProcedure(cFormName, lStop)
    LOCAL i
 
    IF (i := GetFormIndex(cFormName)) > 0
-      _HMG_StopWindowEventProcedure[i] := iif(ValType(lStop) == "L", lStop, .F.)
+      _HMG_StopWindowEventProcedure[i] := iif(HB_ISLOGICAL(lStop), lStop, .F.)
    ENDIF
 
 RETURN NIL
@@ -2624,7 +2624,7 @@ FUNCTION StopControlEventProcedure(cControlName, cFormName, lStop)
    LOCAL i
 
    IF (i := GetControlIndex(cControlName, cFormName)) > 0
-      _HMG_StopControlEventProcedure[i] := iif(ValType(lStop) == "L", lStop, .F.)
+      _HMG_StopControlEventProcedure[i] := iif(HB_ISLOGICAL(lStop), lStop, .F.)
    ENDIF
 
 RETURN NIL

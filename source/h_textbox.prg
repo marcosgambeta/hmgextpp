@@ -310,7 +310,7 @@ FUNCTION InitDialogTextBox( ParentName, ControlHandle, k )
    cValue      := _HMG_aControlValue [k]
    lNumeric    := ( _HMG_aControlType[k] == CONTROL_TYPE_NUMTEXT )
 
-   IF ValType(readonly) == "L"
+   IF HB_ISLOGICAL(readonly)
       SendMessage(ControlHandle, EM_SETREADONLY, iif(readonly, 1, 0), 0)
    ENDIF
    IF ValType(nMaxLength) != "U"
@@ -869,7 +869,7 @@ PROCEDURE ProcessCharMask ( i , d )
    LOCAL ncp
    LOCAL x
 
-   IF ValType(_HMG_aControlSpacing[i]) == "L"
+   IF HB_ISLOGICAL(_HMG_aControlSpacing[i])
       IF _HMG_aControlSpacing[i] == .F.
          RETURN
       ENDIF

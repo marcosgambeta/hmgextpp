@@ -135,7 +135,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
          oBrw:Cargo := uParam
 
          lEdit := Eval( bSetUp, oBrw )
-         lEdit := iif( ValType(lEdit) == "L", lEdit, .F. )
+         lEdit := iif( HB_ISLOGICAL(lEdit), lEdit, .F. )
 
          WITH OBJECT oBrw
             :lEditable := lEdit

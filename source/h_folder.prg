@@ -532,7 +532,7 @@ FUNCTION InitPageFldProc(hWndParent, hwndDlg, idDlg)
          ENDIF
 
          IF Len(aDialogItems[n]) >= 20
-            IF ValType(aDialogItems[n, 20]) == "L" .AND. aDialogItems[n, 20] == .T.
+            IF HB_ISLOGICAL(aDialogItems[n, 20]) .AND. aDialogItems[n, 20] == .T.
                AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
                IF aDialogItems[n, 21]
                   WHILE Len(_HMG_ActiveTabFullPageMap) + 1 < aDialogItems[n, 22]

@@ -168,7 +168,7 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
          Style += CBS_DROPDOWN
       ENDIF
 
-      IF ValType(_HMG_IsXP) == "L"
+      IF HB_ISLOGICAL(_HMG_IsXP)
          IF _HMG_IsXP
             Style += CBS_NOINTEGRALHEIGHT
          ENDIF

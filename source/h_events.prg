@@ -2075,7 +2075,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             IF _HMG_aControlType[i] == CONTROL_TYPE_CHARMASKTEXT
 
-               IF ValType(_HMG_aControlHeadCLick[i]) == "L"
+               IF HB_ISLOGICAL(_HMG_aControlHeadCLick[i])
 
                   IF _HMG_aControlHeadCLick[i] == .T.
                      _HMG_DateTextBoxActive := .T.
@@ -3818,7 +3818,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
          IF ISBLOCK(_HMG_aFormInteractiveCloseProcedure[i])
 
             r := _DoWindowEventProcedure(_HMG_aFormInteractiveCloseProcedure[i], i, "WINDOW_ONINTERACTIVECLOSE")
-            IF ValType(r) == "L" .AND. r == .F.
+            IF HB_ISLOGICAL(r) .AND. r == .F.
                RETURN (1)
             ENDIF
 

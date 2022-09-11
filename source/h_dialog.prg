@@ -328,7 +328,7 @@ FUNCTION _EndDialog()
                   FontHandle := _SetFont(ControlHandle, _HMG_DefaultFontName, _HMG_DefaultFontSize, _HMG_aDialogItems[n, 15], _HMG_aDialogItems[n, 16], _HMG_aDialogItems[n, 17], _HMG_aDialogItems[n, 18])
                ENDIF
             ENDIF
-            IF ValType(_HMG_aDialogItems[n,20]) == "L" .AND. _HMG_aDialogItems[n,20] == .T.  //_HMG_BeginTabActive
+            IF HB_ISLOGICAL(_HMG_aDialogItems[n,20]) .AND. _HMG_aDialogItems[n,20] == .T.  //_HMG_BeginTabActive
                AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
                IF _HMG_aDialogItems[n,21]
                   WHILE Len(_HMG_ActiveTabFullPageMap) + 1 < _HMG_aDialogItems[n,22]

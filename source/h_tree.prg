@@ -120,7 +120,7 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
 
       ParentFormHandle := _HMG_ActiveDialogHandle
 
-      IF ValType(nobot) == "L"
+      IF HB_ISLOGICAL(nobot)
          mask := iif( nobot, 0, TVS_LINESATROOT )
       ENDIF
       Style := WS_BORDER + WS_VISIBLE + WS_TABSTOP + WS_CHILD + TVS_HASLINES + TVS_HASBUTTONS + mask + TVS_SHOWSELALWAYS

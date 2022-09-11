@@ -7161,7 +7161,7 @@ STATIC PROCEDURE _SetRadioGroupReadOnly(ControlName, ParentForm, aReadOnly)
       IF HB_ISARRAY(aReadOnly)
          IF Len(aReadOnly) == Len(aOptions)
             FOR z := 1 TO Len(aReadOnly)
-               IF ValType(aReadOnly[z]) == "L"
+               IF HB_ISLOGICAL(aReadOnly[z])
                   IF aReadOnly[z]
                      DisableWindow(aHandles[z])
                   ELSE

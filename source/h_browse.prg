@@ -332,7 +332,7 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
 
             FOR i := 1 TO Min( Len(columnsort), Len(_HMG_aControlMiscData1[k][20]) )
 
-               IF ValType(columnsort[i]) == "L"
+               IF HB_ISLOGICAL(columnsort[i])
                   _HMG_aControlMiscData1 [k][20][i] := columnsort[i]
                ENDIF
 
@@ -640,7 +640,7 @@ PROCEDURE _BrowseUpdate( ControlName, ParentName, z )
             image := iif( &cTemp, 1, 0 )
             EXIT
          CASE "U"
-            image := iif( HB_ISNUMERIC(&cTemp), &cTemp, iif( ValType(&cTemp) == "L", iif( &cTemp, 1, 0 ), 0 ) )
+            image := iif( HB_ISNUMERIC(&cTemp), &cTemp, iif( HB_ISLOGICAL(&cTemp), iif( &cTemp, 1, 0 ), 0 ) )
             EXIT
          DEFAULT
             image := 0

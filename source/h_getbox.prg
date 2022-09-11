@@ -135,7 +135,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
       right := .T.
    CASE ValType(Value) == "D"
       nMaxLength := hb_ULen(DToC(Date()))
-   CASE ValType(Value) == "L"
+   CASE HB_ISLOGICAL(Value)
       nMaxLength := 1
    CASE HB_ISCHAR(Value)
       nMaxLength := hb_ULen(Value)

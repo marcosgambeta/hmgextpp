@@ -321,7 +321,7 @@ PROCEDURE DbfCopyRec( cnTargetArea, lAppend )
    LOCAL nFieldPos
    LOCAL xFieldValue
 
-   IF ValType(lAppend) == "L" .AND. lAppend
+   IF HB_ISLOGICAL(lAppend) .AND. lAppend
 
       ( cnTargetArea )->( dbAppend() )
 

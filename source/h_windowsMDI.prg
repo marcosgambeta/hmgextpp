@@ -509,7 +509,7 @@ FUNCTION _MdiChildClose(hWnd)
 
       IF ISBLOCK(_HMG_aFormInteractiveCloseProcedure[i])
          xRetVal := _DoWindowEventProcedure(_HMG_aFormInteractiveCloseProcedure[i], i, "WINDOW_ONINTERACTIVECLOSE")
-         IF ValType(xRetVal) == "L"
+         IF HB_ISLOGICAL(xRetVal)
             IF !xRetVal
                RETURN 1
             ENDIF
