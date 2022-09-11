@@ -173,3 +173,6 @@ source\netfuncs.prg
 source\statics.prg
 
 hbwin.hbc
+
+source\BosTaurus\c_BosTaurus.cpp
+source\BosTaurus\h_BosTaurus.prg

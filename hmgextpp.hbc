@@ -1,7 +1,7 @@
 incpaths=include
 libpaths=lib/${hb_plat}/${hb_comp}
 libs=minigui
-libs=bostaurus
+#libs=bostaurus
 libs=hbprinter
 libs=hbvpdf
 libs=miniprint
