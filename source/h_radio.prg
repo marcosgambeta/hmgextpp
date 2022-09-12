@@ -240,7 +240,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
 
          AAdd(aHandles, ControlHandle)
 
-         IF ValType(tooltip) != "U"
+         IF tooltip != NIL
             SetToolTip ( aHandles[i] , tooltip , GetFormToolTipHandle(ParentFormName) )
          ENDIF
 
@@ -258,7 +258,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
          AAdd(_HMG_ActiveTabCurrentPageMap, aHandles)
       ENDIF
 
-      IF ValType(tooltip) != "U"
+      IF tooltip != NIL
          SetToolTip ( aHandles [1] , tooltip , GetFormToolTipHandle(ParentFormName) )
       ENDIF
 
@@ -343,7 +343,7 @@ FUNCTION InitDialogRadioGroup( ParentName, ControlHandle, k )
       _SetValue ( , , Value , k )
    ENDIF
 //JP V40
-   IF Len(_HMG_aControlIds[k]) == Len(aHandles) .AND. ValType(ParentName) != "U"
+   IF Len(_HMG_aControlIds[k]) == Len(aHandles) .AND. ParentName != NIL
       SetProperty ( ParentName , _HMG_aControlNames [k] , "ReadOnly" , _HMG_aControlPageMap [k] )
    ENDIF
 // JP 62

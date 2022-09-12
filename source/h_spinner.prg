@@ -126,7 +126,7 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
       AAdd(_HMG_ActiveTabCurrentPageMap, RetArray)
    ENDIF
 
-   IF ValType(tooltip) != "U"
+   IF tooltip != NIL
       AEval( RetArray, { |x| SetToolTip ( x , tooltip , GetFormToolTipHandle(cParentForm) ) } )
    ENDIF
 

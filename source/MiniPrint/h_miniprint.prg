@@ -1216,7 +1216,7 @@ Procedure _HMG_PRINTER_H_LINE ( nHdc , nRow , nCol , nToRow , nToCol , nWidth , 
 
 	DEFAULT nstyle TO 0
 
-	If ValType(nWidth) != "U"
+	If nWidth != NIL
 		nWidth	:= Int( nWidth * 10000 / 254 )
 	ElseIf nstyle > 0
 		If nstyle == 1
@@ -1243,7 +1243,7 @@ Procedure _HMG_PRINTER_H_RECTANGLE ( nHdc , nRow , nCol , nToRow , nToCol , nWid
 	nToRow	:= Int( nToRow * 10000 / 254 )
 	nToCol	:= Int( nToCol * 10000 / 254 )
 
-	If ValType(nWidth) != "U"
+	If nWidth != NIL
 		nWidth	:= Int( nWidth * 10000 / 254 )
 	EndIf
 
@@ -1259,7 +1259,7 @@ Procedure _HMG_PRINTER_H_ROUNDRECTANGLE ( nHdc , nRow , nCol , nToRow , nToCol ,
 	nToRow	:= Int( nToRow * 10000 / 254 )
 	nToCol	:= Int( nToCol * 10000 / 254 )
 
-	If ValType(nWidth) != "U"
+	If nWidth != NIL
 		nWidth	:= Int( nWidth * 10000 / 254 )
 	EndIf
 

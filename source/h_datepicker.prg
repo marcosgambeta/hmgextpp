@@ -91,7 +91,7 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
-   IF ValType(Field) != "U"
+   IF Field != NIL
       IF hb_UAt ( ">", Field ) == 0
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified Field name.")
       ELSE
@@ -200,11 +200,11 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
          SetDatePick(ControlHandle, Year(value), Month(value), Day(value))
       ENDIF
 
-      IF ValType(tooltip) != "U"
+      IF tooltip != NIL
          SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
-      IF ValType(Field) != "U"
+      IF Field != NIL
          AAdd(_HMG_aFormBrowseList[GetFormIndex(ParentFormName)], k)
       ENDIF
 
@@ -325,7 +325,7 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
-   IF ValType(Field) != "U"
+   IF Field != NIL
       IF hb_UAt ( ">", Field ) == 0
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified Field name.")
       ELSE
@@ -430,11 +430,11 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
          SetTimePick(ControlHandle, Val(Left(value, 2)), Val(SubStr(value, 4, 2)), Val(SubStr(value, 7, 2)))
       ENDIF
 
-      IF ValType(tooltip) != "U"
+      IF tooltip != NIL
          SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
-      IF ValType(Field) != "U"
+      IF Field != NIL
          AAdd(_HMG_aFormBrowseList[GetFormIndex(ParentFormName)], k)
       ENDIF
 

@@ -165,7 +165,7 @@ FUNCTION _DefineLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
          w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
-         IF ValType(caption) != "U"
+         IF caption != NIL
             SetWindowText(ControlHandle, caption)
          ENDIF
 
@@ -197,7 +197,7 @@ FUNCTION _DefineLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
          AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
       ENDIF
 
-      IF ValType(tooltip) != "U"
+      IF tooltip != NIL
          SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 

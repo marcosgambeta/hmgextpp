@@ -243,7 +243,7 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
          AAdd(_HMG_ActiveTabCurrentPageMap, ControlHandle)
       ENDIF
 
-      IF ValType(tooltip) != "U"
+      IF tooltip != NIL
          SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 

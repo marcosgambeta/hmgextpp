@@ -248,7 +248,7 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
          ENDIF
       ENDIF
 
-      IF ValType(tooltip) != "U"
+      IF tooltip != NIL
          SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
@@ -1413,7 +1413,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
    hb_default(@inplace, .T.)
 #endif
    IF LISTVIEW_GETFIRSTITEM ( GridHandle ) == 0
-      IF ValType(append) != "U"
+      IF append != NIL
          IF append == .F.
             RETURN Nil
          ENDIF
@@ -1457,7 +1457,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
 
    Col := GCol + ( GWidth - 310 ) / 2
 
-   IF ValType(append) != "U"
+   IF append != NIL
       Title := _HMG_BRWLangButton [ iif( append == .T., 1, 2 ) ]
    ELSE
       Title := _HMG_BRWLangButton [2]
@@ -1470,7 +1470,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
 
    BackRec := RecNo()
 
-   IF ValType(append) != "U"
+   IF append != NIL
       IF append == .T.
          GO BOTTOM
          SKIP
@@ -1520,7 +1520,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
 
       ENDIF
 
-      IF ValType(append) != "U"
+      IF append != NIL
          IF append == .T.
             IF MixedFields == .T.
                MsgMiniGuiError(_HMG_BRWLangError[8], .F.)
@@ -1595,9 +1595,9 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
    aResults := _EditRecord(Title, aLabels, aInitValues, aFormats, GRow, Col, aValid, TmpNames, aValidMessages, aReadOnly, actpos[4] - actpos[2])
 
    tvar := aResults [1]
-   IF ValType(tvar) != "U"
+   IF tvar != NIL
 
-      IF ValType(append) != "U"
+      IF append != NIL
          IF append == .T.
             APPEND BLANK
             NewRec := RecNo()
@@ -1632,7 +1632,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
 
    _SetFocus( ControlName , FormName )
 
-   IF ValType(append) != "U"
+   IF append != NIL
       IF append == .T.
          IF NewRec != 0
             _SetValue(ControlName, FormName, NewRec)
@@ -1770,7 +1770,7 @@ FUNCTION _EditRecord(Title, aLabels, aValues, aFormats, row, col, aValid, TmpNam
 
          ENDSWITCH
 
-         IF ValType(aReadOnly) != "U"
+         IF aReadOnly != NIL
             IF aReadOnly[i] == .T.
                _DisableControl ( CN , "_Split_1" )
             ELSEIF lFirstEnabledControl == .T.
@@ -1822,7 +1822,7 @@ STATIC PROCEDURE _WHENEVAL()
 
          FOR x := 1 TO l
 
-            IF ValType(aWhen [x]) != "U"
+            IF aWhen[x] != NIL
 
                ControlName := "Control_" + AllTrim(Str(x))
                Result := _GetValue(ControlName, "_Split_1")
@@ -1870,7 +1870,7 @@ STATIC FUNCTION _EditRecordOk ( aValid , TmpNames , aValidMessages )
       ControlName := "Control_" + AllTrim(Str(i))
       aResult[i] := _GetValue(ControlName, "_Split_1")
 
-      IF ValType(aValid) != "U"
+      IF aValid != NIL
 
          mVar := TmpNames[i]
          &mVar := aResult[i]
@@ -1889,7 +1889,7 @@ STATIC FUNCTION _EditRecordOk ( aValid , TmpNames , aValidMessages )
 
                IF HB_ISARRAY(aValidMessages)
 
-                  IF ValType(aValidMessages[i]) != "U"
+                  IF aValidMessages[i] != NIL
 
                      MsgAlert ( aValidMessages[i], _HMG_BRWLangError[10] )
 

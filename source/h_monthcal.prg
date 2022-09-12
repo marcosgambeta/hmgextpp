@@ -180,7 +180,7 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
 
       SetMonthCalValue( aControlHandle[1], Year( value ), Month( value ), Day( value ) )
 
-      IF ValType(tooltip) != "U"
+      IF tooltip != NIL
          SetToolTip ( aControlHandle[1], tooltip, GetFormToolTipHandle(ParentFormName) )
       ENDIF
 

@@ -121,15 +121,15 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
-   IF ValType(ItemSource) != "U" .AND. Sort == .T.
+   IF ItemSource != NIL .AND. Sort == .T.
       MsgMiniGuiError("Sort and ItemSource clauses can't be used simultaneously.")
    ENDIF
 
-   IF ValType(ValueSource) != "U" .AND. Sort == .T.
+   IF ValueSource != NIL .AND. Sort == .T.
       MsgMiniGuiError("Sort and ValueSource clauses can't be used simultaneously.")
    ENDIF
 
-   IF ValType(itemsource) != "U"
+   IF itemsource != NIL
       IF hb_UAt ( ">" , ItemSource ) == 0
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " (ItemSource): You must specify a fully qualified field name.")
       ELSE
@@ -265,7 +265,7 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
          AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
       ENDIF
 
-      IF ValType(tooltip) != "U"
+      IF tooltip != NIL
          SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
@@ -354,7 +354,7 @@ FUNCTION InitDialogComboBox( ParentName, ControlHandle, k )
 
       _HMG_aControlRangeMin [k] := FindWindowEx(ControlHandle, 0, "Edit", Nil)
       // add tooltip for editable combo window if defined //(JK) HMG Exp. Build 8
-      IF ValType(_HMG_aControlToolTip [k]) != "U"
+      IF _HMG_aControlToolTip[k] != NIL
          SetToolTip ( _HMG_aControlRangeMin [k] , _HMG_aControlToolTip [k] , GetFormToolTipHandle(ParentName) )
       ENDIF
 
@@ -407,11 +407,11 @@ FUNCTION InitDialogComboBox( ParentName, ControlHandle, k )
 
    ENDIF
 
-   IF ValType(ItemHeight) != "U"
+   IF ItemHeight != NIL
       ComboSetItemHeight(ControlHandle, ItemHeight)
    ENDIF
 
-   IF ValType(ItemSource) != "U"
+   IF ItemSource != NIL
       AAdd(_HMG_aFormBrowseList[GetFormIndex(ParentName)], k)
    ENDIF
    // JP 62

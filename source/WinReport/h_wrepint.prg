@@ -697,7 +697,7 @@ Function Msgt (nTimeout, Message, Title, Flags)
         DEFAULT Message TO ""   ;  DEFAULT Title TO ""
         DEFAULT Flags   TO "MSGBOX"
 
-        If ValType(nTimeout) != "U" .AND. ValType(nTimeout) = "C"
+        If nTimeout != NIL .AND. ValType(nTimeout) = "C"
               Flags    :=  Title
               Title    :=  Message
               Message  :=  nTimeout

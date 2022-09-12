@@ -159,7 +159,7 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
          AAdd(_HMG_ActiveTabCurrentPageMap, ControlHandle)
       ENDIF
 
-      IF ValType(tooltip) != "U"
+      IF tooltip != NIL
          SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
@@ -232,7 +232,7 @@ RETURN Nil
 FUNCTION InitDialogImage( ParentName, ControlHandle, k )
 *-----------------------------------------------------------------------------*
 
-   IF ValType(ParentName) != "U"
+   IF ParentName != NIL
 
       _HMG_aControlBrushHandle[k] := C_SetPicture(ControlHandle, _HMG_aControlPicture[k], _HMG_aControlWidth[k], ;
          _HMG_aControlHeight[k], _HMG_aControlValue[k], _HMG_aControlInputMask[k], _HMG_aControlSpacing[k], ;

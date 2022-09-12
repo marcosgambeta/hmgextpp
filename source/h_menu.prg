@@ -89,7 +89,7 @@ PROCEDURE _DefineMenuPopup(Caption, Name, Image, Font)
 
          IF _HMG_xMenuPopupLevel == 0
 
-            IF ValType(Font) != "U" .AND. _HMG_xPopupMenuFont == NIL
+            IF Font != NIL .AND. _HMG_xPopupMenuFont == NIL
                _HMG_xPopupMenuFont := Font
             ENDIF
 
@@ -132,7 +132,7 @@ PROCEDURE _DefineMenuPopup(Caption, Name, Image, Font)
 
          IF _HMG_xContextPopupLevel == 0
 
-            IF ValType(Font) != "U" .AND. _HMG_xContextPopupMenuFont == NIL
+            IF Font != NIL .AND. _HMG_xContextPopupMenuFont == NIL
                _HMG_xContextPopupMenuFont := Font
             ENDIF
 
@@ -321,17 +321,17 @@ PROCEDURE _DefineMenuItem(caption, action, name, Image, checked, disabled, cMess
          AppendMenuString(ControlHandle, id, caption, nBreakCode)
       ENDIF
 
-      IF ValType(image) != "U"
+      IF image != NIL
          hBitmap := MenuItem_SetBitMaps(_HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel ], id, image, "")
-      ELSEIF ValType(icon) != "U"
+      ELSEIF icon != NIL
          hBitmap := MenuItem_SetIcon(_HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel ], id, icon)
       ENDIF
 
-      IF ValType(check_image) != "U"
+      IF check_image != NIL
          MenuItem_SetCheckMarks(_HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel ], id, check_image, "")
       ENDIF
 
-      IF ValType(font) != "U"
+      IF font != NIL
          MenuItem_SetFont(_HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel ], id, font)
       ENDIF
 
@@ -424,15 +424,15 @@ PROCEDURE _DefineMenuItem(caption, action, name, Image, checked, disabled, cMess
          ControlHandle := ContextMenuHandle
       ENDIF
 
-      IF ValType(image) != "U"
+      IF image != NIL
          hBitmap := MenuItem_SetBitMaps(ContextMenuHandle, id, image, "")
       ENDIF
 
-      IF ValType(check_image) != "U"
+      IF check_image != NIL
          MenuItem_SetCheckMarks(ContextMenuHandle, id, check_image, "")
       ENDIF
 
-      IF ValType(font) != "U"
+      IF font != NIL
          MenuItem_SetFont(ContextMenuHandle, id, font)
       ENDIF
 
@@ -614,7 +614,7 @@ PROCEDURE _EndMenu()
 
          image := _HMG_aControlPicture[i]
 
-         IF ValType(image) != "U"
+         IF image != NIL
             _HMG_aControlBrushHandle[i] := MenuItem_SetBitMaps(_HMG_aControlPageMap[i], _HMG_aControlSpacing[i], image, "")
          ENDIF
 
@@ -944,7 +944,7 @@ FUNCTION _InsertMenuItem(ItemName, FormName, caption, action, name, Image)
 
    Id := _GetId()
 
-   IF ValType(name) != "U"
+   IF name != NIL
       mVar := "_" + _HMG_xMainMenuParentName + "_" + Name
 #ifdef _NAMES_LIST_
       _SetNameList(mVar, Len(_HMG_aControlNames) + 1)
@@ -962,7 +962,7 @@ FUNCTION _InsertMenuItem(ItemName, FormName, caption, action, name, Image)
 
    InsertMenuItem(Controlhandle, a[2], Id, caption)
 
-   IF ValType(image) != "U"
+   IF image != NIL
       hBitmap := MenuItem_SetBitMaps(Controlhandle, Id, image, "")
    ENDIF
 
@@ -1025,7 +1025,7 @@ FUNCTION _ModifyMenuItem(ItemName, FormName, Caption, action, name, Image)
 
    Id := _HMG_aControlIds[x]
 
-   IF ValType(name) != "U"
+   IF name != NIL
       mVar := "_" + _HMG_xMainMenuParentName + "_" + Name
 #ifdef _NAMES_LIST_
       _SetNameList(mVar, x)
@@ -1043,7 +1043,7 @@ FUNCTION _ModifyMenuItem(ItemName, FormName, Caption, action, name, Image)
 
    ModifyMenuItem(a[1], a[2], Id, Caption)
 
-   IF ValType(image) != "U"
+   IF image != NIL
       DeleteObject(_HMG_aControlBrushHandle[x])
       _HMG_aControlBrushHandle[x] := MenuItem_SetBitMaps(a[1], Id, image, "")
    ENDIF

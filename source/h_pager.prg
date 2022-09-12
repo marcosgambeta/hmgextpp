@@ -96,7 +96,7 @@ FUNCTION _BeginPager( ControlName, ParentName, nWidth, nHeight, nScroll, cCaptio
    mVar := "_" + ParentName + "_" + ControlName
    Id := _GetId()
 
-   IF ValType(tooltip) != "U"
+   IF tooltip != NIL
       SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentName))
    ENDIF
 

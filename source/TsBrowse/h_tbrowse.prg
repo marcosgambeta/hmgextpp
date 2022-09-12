@@ -158,7 +158,7 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
       aFlds := aFlds[1]
    ENDIF
 
-   IF ValType(aColSel) != "U" .AND. HB_ISARRAY(aColSel)
+   IF aColSel != NIL .AND. HB_ISARRAY(aColSel)
       IF HB_ISARRAY(aColSel[1])
          aColSel := aColSel[1]
       ENDIF
@@ -232,11 +232,11 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
       ENDIF
    ENDIF
 
-   IF ValType(fontcolor) != "U"
+   IF fontcolor != NIL
       aTmpColor[1] := RGB( fontcolor[1], fontcolor[2], fontcolor[3] )
    ENDIF
 
-   IF ValType(backcolor) != "U"
+   IF backcolor != NIL
       aTmpColor[2] := RGB( backcolor[1], backcolor[2], backcolor[3] )
    ENDIF
 
@@ -357,10 +357,10 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
       ENDIF
       /* BK end */
       ControlHandle := oBrw:hWnd
-      IF ValType(gotfocus) != "U"
+      IF gotfocus != NIL
          oBrw:bGotFocus := gotfocus
       ENDIF
-      IF ValType(lostfocus) != "U"
+      IF lostfocus != NIL
          oBrw:bLostFocus := lostfocus
       ENDIF
       IF !lRePaint
@@ -1674,7 +1674,7 @@ METHOD New( cControlName, nRow, nCol, nWidth, nHeight, bLine, aHeaders, aColSize
 
    ::aMsg := LoadMsg()
 
-   IF ValType(::oWnd:hWnd) != "U"
+   IF ::oWnd:hWnd != NIL
       ::Create( ::cControlName )
 
       IF ::hFont != NIL

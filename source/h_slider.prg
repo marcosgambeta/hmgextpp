@@ -169,7 +169,7 @@ FUNCTION _DefineSlider ( ControlName, ParentFormName, x, y, w, h, lo, hi, value,
 
       SendMessage(ControlHandle, TBM_SETPOS, 1, value)
 
-      IF ValType(tooltip) != "U"
+      IF tooltip != NIL
          SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
@@ -238,7 +238,7 @@ RETURN Nil
 FUNCTION InitDialogSlider( ParentName, ControlHandle, k )
 *-----------------------------------------------------------------------------*
 
-   IF ValType(ParentName) != "U"
+   IF ParentName != NIL
       SendMessage(ControlHandle, TBM_SETPOS, 1, _HMG_aControlValue[k])
    ENDIF
 // JP 62

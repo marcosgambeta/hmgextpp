@@ -108,7 +108,7 @@ STATIC FUNCTION _DefineFrame(ControlName, ParentFormName, x, y, w, h, ;
          w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
-         IF ValType(caption) != "U"
+         IF caption != NIL
             SetWindowText(ControlHandle, caption)
          ENDIF
 

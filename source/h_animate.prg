@@ -112,7 +112,7 @@ FUNCTION _DefineAnimateRes ( ControlName, ParentForm, x, y, w, h, cFile, nRes, ;
       AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
    ENDIF
 
-   IF ValType(tooltip) != "U"
+   IF tooltip != NIL
       SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(cParentForm))
    ENDIF
 

@@ -113,7 +113,7 @@ FUNCTION _DefineHotKeyBox ( ControlName, ParentForm, x, y, w, h, value, fontname
 
    SetHotKeyValue(ControlHandle, value)
 
-   IF ValType(tooltip) != "U"
+   IF tooltip != NIL
       SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(cParentForm))
    ENDIF
 

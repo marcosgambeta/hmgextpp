@@ -108,7 +108,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
       MsgMiniGUIError("GETBOX: Initial Value or Field must be specified.")
    ENDIF
 
-   IF ValType(Field) != "U"
+   IF Field != NIL
       IF  hb_UAt ( ">", Field ) == 0
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name.")
       ELSE
@@ -265,7 +265,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
       ENDIF
 
       FOR tmp := 1 TO 3
-         IF ValType(aToolTip[tmp]) != "U"
+         IF aToolTip[tmp] != NIL
             SetToolTip ( aControlHandle[tmp], aToolTip[tmp], GetFormToolTipHandle(ParentFormName) )
          ENDIF
       NEXT
@@ -363,7 +363,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
          _DispGetBoxText(ControlHandle, oGet:buffer)
       ENDIF
 
-      IF ValType(Field) != "U"
+      IF Field != NIL
          AAdd(_HMG_aFormBrowseList[GetFormIndex(ParentFormName)], k)
       ENDIF
    ENDIF

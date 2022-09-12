@@ -2444,12 +2444,12 @@ METHOD ReportData( l_x1, l_x2, l_x3, l_x4, l_x5, l_x6 ) CLASS HBPrinter
    SET CONSOLE OFF
    ? "-----------------", Date(), Time()
    ?
-   ?? iif( ValType(l_x1) != "U", l_x1, "," )
-   ?? iif( ValType(l_x2) != "U", l_x2, "," )
-   ?? iif( ValType(l_x3) != "U", l_x3, "," )
-   ?? iif( ValType(l_x4) != "U", l_x4, "," )
-   ?? iif( ValType(l_x5) != "U", l_x5, "," )
-   ?? iif( ValType(l_x6) != "U", l_x6, "," )
+   ?? iif( l_x1 != NIL, l_x1, "," )
+   ?? iif( l_x2 != NIL, l_x2, "," )
+   ?? iif( l_x3 != NIL, l_x3, "," )
+   ?? iif( l_x4 != NIL, l_x4, "," )
+   ?? iif( l_x5 != NIL, l_x5, "," )
+   ?? iif( l_x6 != NIL, l_x6, "," )
    ? "HDC            :", ::HDC
    ? "HDCREF         :", ::HDCREF
    ? "PRINTERNAME    :", ::PRINTERNAME

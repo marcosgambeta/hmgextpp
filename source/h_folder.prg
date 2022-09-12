@@ -521,7 +521,7 @@ FUNCTION InitPageFldProc(hWndParent, hwndDlg, idDlg)
          IF FontHandle != 0
             _SetFontHandle(ControlHandle, FontHandle)
          ELSE
-            IF ValType(aDialogItems[n, 13]) != "U" .AND. ValType(aDialogItems[n, 14]) != "U"
+            IF aDialogItems[n, 13] != NIL .AND. aDialogItems[n, 14] != NIL
                FontHandle := _SetFont(ControlHandle, aDialogItems[n, 13], aDialogItems[n, 14], aDialogItems[n, 15], aDialogItems[n, 16], aDialogItems[n, 17], aDialogItems[n, 18])
             ELSE
                FontHandle := _SetFont(ControlHandle, _HMG_DefaultFontName, _HMG_DefaultFontSize, aDialogItems[n, 15], aDialogItems[n, 16], aDialogItems[n, 17], aDialogItems[n, 18])
@@ -543,7 +543,7 @@ FUNCTION InitPageFldProc(hWndParent, hwndDlg, idDlg)
                ENDIF
             ENDIF
          ENDIF
-         IF ValType(aDialogItems[n, 12]) != "U" .AND. IsWindowHandle(GetFormToolTipHandle(_HMG_ActiveDialogName))
+         IF aDialogItems[n, 12] != NIL .AND. IsWindowHandle(GetFormToolTipHandle(_HMG_ActiveDialogName))
             SetToolTip(ControlHandle, aDialogItems[n, 12], GetFormToolTipHandle(_HMG_ActiveDialogName))
          ENDIF
          IF k > 0

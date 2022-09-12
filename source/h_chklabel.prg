@@ -86,7 +86,7 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
-   IF ValType(Field) != "U"
+   IF Field != NIL
       IF hb_UAt ( ">", Field ) == 0
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name.")
       ELSE
@@ -183,7 +183,7 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
          h := GetWindowHeight(Controlhandle)
 
 
-         IF ValType(caption) != "U"
+         IF caption != NIL
             SetWindowText(ControlHandle, caption)
          ENDIF
 
@@ -228,7 +228,7 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
          AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
       ENDIF
 
-      IF ValType(tooltip) != "U"
+      IF tooltip != NIL
          SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
@@ -293,7 +293,7 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
       RedrawWindow(ControlHandle)
    ENDIF
 
-   IF ValType(Field) != "U"
+   IF Field != NIL
       AAdd(_HMG_aFormBrowseList[GetFormIndex(ParentFormName)], k)
    ENDIF
 /*

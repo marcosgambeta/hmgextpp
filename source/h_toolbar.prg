@@ -105,7 +105,7 @@ FUNCTION _DefineToolBar ( ControlName, ParentForm, x, y, caption, ProcedureName,
       ENDIF
    ENDIF
 
-   IF ValType(tooltip) != "U"
+   IF tooltip != NIL
       SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(cParentForm))
    ENDIF
 
@@ -226,7 +226,7 @@ FUNCTION _DefineToolButton ( ControlName, ParentControl, x, y, Caption, Procedur
       MsgMiniGuiError("ToolBar DropDown buttons must have an associated action (Use WholeDropDown style for no action).")
    ENDIF
 
-   IF ValType(ProcedureName) != "U" .AND. WholeDropDown == .T.
+   IF ProcedureName != NIL .AND. WholeDropDown == .T.
       MsgMiniGuiError("ToolBar Action and WholeDropDown clauses can't be used simultaneously.")
    ENDIF
 
@@ -252,7 +252,7 @@ FUNCTION _DefineToolButton ( ControlName, ParentControl, x, y, Caption, Procedur
    __defaultNIL(@tooltip, "")
    hb_default(@notrans, .F.)
 
-   IF ValType(imageindex) != "U"
+   IF imageindex != NIL
       aImage      := GetControlValue ( _HMG_ActiveToolBarName, cParentForm )
       imagelst    := aImage [1]
       hotimagelst := aImage [2]
@@ -435,13 +435,13 @@ FUNCTION _BeginToolBarEx( name, parent, row, col, w, h, caption, ProcedureName, 
    hb_default(@tbsize, 0)
    hb_default(@wrap, .F.)
 
-   IF ValType(imagelst) != "U"
+   IF imagelst != NIL
       IF HB_ISCHAR(imagelst)
          imagelst := GetControlHandle(imagelst, parent)
       ENDIF
    ENDIF
 
-   IF ValType(hotimagelst) != "U"
+   IF hotimagelst != NIL
       IF HB_ISCHAR(hotimagelst)
          hotimagelst := GetControlHandle(hotimagelst, parent)
       ENDIF

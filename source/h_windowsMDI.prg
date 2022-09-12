@@ -344,7 +344,7 @@ FUNCTION _DefineChildMDIWindow(FormName, x, y, w, h, nominimize, nomaximize, ;
       // JP MDI Background
       aRGB := _HMG_aFormBkColor[i]
       // End
-      IF ValType(cursor) != "U"
+      IF cursor != NIL
          SetWindowCursor(Formhandle, cursor)
       ENDIF
 

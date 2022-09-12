@@ -170,7 +170,7 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
       AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
    ENDIF
 
-   IF ValType(tooltip) != "U"
+   IF tooltip != NIL
       SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(cParentForm))
    ENDIF
 

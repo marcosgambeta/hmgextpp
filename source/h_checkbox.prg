@@ -91,7 +91,7 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
-   IF ValType(Field) != "U"
+   IF Field != NIL
       IF hb_UAt ( ">", Field ) == 0
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name.")
       ELSE
@@ -170,7 +170,7 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
          w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
-         IF ValType(caption) != "U"
+         IF caption != NIL
             SetWindowText(ControlHandle, caption)
          ENDIF
 
@@ -204,7 +204,7 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
          AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
       ENDIF
 
-      IF ValType(tooltip) != "U"
+      IF tooltip != NIL
          SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
@@ -271,7 +271,7 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
       ENDIF
    ENDIF
 
-   IF ValType(Field) != "U"
+   IF Field != NIL
       AAdd(_HMG_aFormBrowseList[GetFormIndex(ParentFormName)], k)
    ENDIF
 
@@ -393,7 +393,7 @@ FUNCTION _DefineCheckButton ( ControlName, ParentFormName, x, y, Caption, Value,
          AAdd(_HMG_ActiveTabCurrentPageMap, ControlHandle)
       ENDIF
 
-      IF ValType(tooltip) != "U"
+      IF tooltip != NIL
          SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
@@ -464,7 +464,7 @@ FUNCTION InitDialogCheckButton ( ParentName, ControlHandle, k )
    BitMap := _HMG_aControlPicture [k]
    Value := _HMG_aControlValue [k]
    threestate := _HMG_aControlSpacing [k]
-   IF !Empty(BitMap) .AND. ValType(ParentName) != "U"
+   IF !Empty(BitMap) .AND. ParentName != NIL
       _SetBtnPicture(ControlHandle, BitMap)
    ENDIF
    IF value == .T.
@@ -570,7 +570,7 @@ FUNCTION _DefineImageCheckButton ( ControlName, ParentFormName, x, y, BitMap, ;
          AAdd(_HMG_ActiveTabCurrentPageMap, ControlHandle)
       ENDIF
 
-      IF ValType(tooltip) != "U"
+      IF tooltip != NIL
          SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 

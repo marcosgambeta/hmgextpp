@@ -138,7 +138,7 @@ FUNCTION _DefineButton(ControlName, ParentFormName, x, y, Caption, ;
                FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
             ENDIF
          ENDIF
-         IF ValType(caption) != "U"
+         IF caption != NIL
             SetWindowText(ControlHandle, caption)
          ENDIF
 
@@ -225,7 +225,7 @@ FUNCTION _DefineButton(ControlName, ParentFormName, x, y, Caption, ;
          AAdd(_HMG_ActiveTabCurrentPageMap, ControlHandle)
       ENDIF
 
-      IF ValType(tooltip) != "U"
+      IF tooltip != NIL
          SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
@@ -397,7 +397,7 @@ FUNCTION _DefineImageButton(ControlName, ParentFormName, x, y, Caption, ;
          AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
       ENDIF
 
-      IF ValType(tooltip) != "U"
+      IF tooltip != NIL
          SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
@@ -415,7 +415,7 @@ FUNCTION InitDialogButtonImage(ParentFormName, ControlHandle, k)
    LOCAL image
 
    image := _HMG_aControlPicture[k]
-   IF !Empty(image) .AND. ValType(ParentFormName) != "U"
+   IF !Empty(image) .AND. ParentFormName != NIL
       _SetBtnPicture(ControlHandle, image)
    ENDIF
 // JP 62

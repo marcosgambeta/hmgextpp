@@ -114,7 +114,7 @@ FUNCTION _DefineIPAddress ( ControlName, ParentForm, x, y, w, h, aValue, ;
       SetIPAddress(ControlHandle, aValue[1], aValue[2], aValue[3], aValue[4])
    ENDIF
 
-   IF ValType(tooltip) != "U"
+   IF tooltip != NIL
       SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(cParentForm))
    ENDIF
 

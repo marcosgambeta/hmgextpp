@@ -659,7 +659,7 @@ FUNCTION _HMG_HPDF_LINE ( nRow, nCol, nToRow, nToCol, nLineWidth, nRColor, nGCol
    ELSE
       HPDF_Page_SetLineWidth(_HMG_HPDFDATA[1][7], 1)
    ENDIF
-   IF ValType(style) != "U"
+   IF style != NIL
       DO CASE
       CASE Upper(style) == "HPDFDOTTED"
          _HMG_HPDF_SetDash( 1 )
@@ -672,7 +672,7 @@ FUNCTION _HMG_HPDF_LINE ( nRow, nCol, nToRow, nToCol, nLineWidth, nRColor, nGCol
    HPDF_Page_MoveTo( _HMG_HPDFDATA[1][7], nxPos, nyPos )
    HPDF_Page_LineTo( _HMG_HPDFDATA[1][7], nToxPos, nToyPos )
    HPDF_Page_Stroke( _HMG_HPDFDATA[1][7] )
-   IF ValType(style) != "U"
+   IF style != NIL
       _HMG_HPDF_SetDash( 0 )
    ENDIF
 

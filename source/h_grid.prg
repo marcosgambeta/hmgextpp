@@ -314,7 +314,7 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
          ENDIF
       ENDIF
 
-      IF ValType(tooltip) != "U"
+      IF tooltip != NIL
          SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
    ENDIF

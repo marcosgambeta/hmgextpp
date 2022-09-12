@@ -160,7 +160,7 @@ FUNCTION _DefineProgressBar ( ControlName, ParentFormName, x, y, w, h, lo, hi, ;
          AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
       ENDIF
 
-      IF ValType(tooltip) != "U"
+      IF tooltip != NIL
          SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
@@ -248,7 +248,7 @@ FUNCTION InitDialogProgressBar( ParentName, ControlHandle, k )
       SetWindowTheme(ControlHandle, "", "")
    ENDIF
 
-   IF ValType(ParentName) != "U"
+   IF ParentName != NIL
       SendMessage(ControlHandle, PBM_SETPOS, _HMG_aControlValue[k], 0)
    ENDIF
 

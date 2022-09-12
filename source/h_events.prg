@@ -152,7 +152,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
       r := &cProc(hWnd, nMsg, wParam, lParam)
 
-      IF ValType(r) != "U"
+      IF r != NIL
          RETURN r
       ENDIF
 

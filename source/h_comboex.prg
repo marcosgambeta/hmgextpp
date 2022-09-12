@@ -124,7 +124,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentForm + " Already defined.")
    ENDIF
 
-   IF ValType(itemsource) != "U"
+   IF itemsource != NIL
       IF  hb_UAt ( ">", ItemSource ) == 0
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentForm + " (ItemSource): You must specify a fully qualified field name.")
       ELSE
@@ -215,11 +215,11 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
       AAdd(_HMG_ActiveTabCurrentPageMap, ControlHandle)
    ENDIF
 
-   IF ValType(nItemHeight) != "U"
+   IF nItemHeight != NIL
       ComboSetItemHeight(ControlHandle, nItemHeight)
    ENDIF
 
-   IF ValType(tooltip) != "U"
+   IF tooltip != NIL
       SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(cParentForm))
    ENDIF
 
@@ -279,13 +279,13 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
    IF DisplayChange == .T.
       // handle for ComboBoxEx edit window
       _hmg_acontrolrangemin [k] := SendMessage(Controlhandle, CBEM_GETEDITCONTROL, 0, 0)
-      IF ValType(tooltip) != "U"
+      IF tooltip != NIL
          SetToolTip ( _hmg_acontrolrangemin [k] , tooltip , GetFormToolTipHandle(cParentForm) )
       ENDIF
    ENDIF
    // handle for ComboBoxEx child window
    _hmg_acontrolrangemax [k] := SendMessage(Controlhandle, CBEM_GETCOMBOCONTROL, 0, 0)
-   IF ValType(tooltip) != "U"
+   IF tooltip != NIL
       SetToolTip ( _hmg_acontrolrangemax [k] , tooltip , GetFormToolTipHandle(cParentForm) )
    ENDIF
 
@@ -326,7 +326,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
 
    ENDIF
 
-   IF ValType(ItemSource) != "U"
+   IF ItemSource != NIL
       AAdd(_HMG_aFormBrowseList[GetFormIndex(cParentForm)], k)
    ENDIF
 

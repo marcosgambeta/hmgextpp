@@ -112,7 +112,7 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
       maxlength := -1 // for compatibility with TextBox and EditBox
    ENDIF
 
-   IF ValType(Field) != "U"
+   IF Field != NIL
       IF hb_UAt ( ">", Field ) == 0
          MsgHMGError ( "Control: " + ControlName + " Of " + ParentForm + " : You must specify a fully qualified field name." )
       ELSE
@@ -167,7 +167,7 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
       IF i > 0
 
          ControlHandle := InitRichEditBoxEx ( _HMG_aFormReBarHandle[i], 0, x, y, w, h, "", 0, maxlength, readonly, invisible, notabstop, noHscroll, noVscroll )
-         IF ValType(fontname) != "U" .AND. ValType(fontsize) != "U"
+         IF fontname != NIL .AND. fontsize != NIL
             FontHandle := _SetFont(ControlHandle, fontname, fontsize, bold, italic, underline, strikeout)
          ELSE
             FontHandle := _SetFont(ControlHandle, _HMG_DefaultFontName, _HMG_DefaultFontSize, bold, italic, underline, strikeout)
@@ -186,7 +186,7 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
 
       ControlHandle := InitRichEditBoxEx ( ParentForm, 0, x, y, w, h, "", 0, maxlength, readonly, invisible, notabstop, noHscroll, noVscroll )
       IF IsWindowHandle(ControlHandle)
-         IF ValType(fontname) != "U" .AND. ValType(fontsize) != "U"
+         IF fontname != NIL .AND. fontsize != NIL
             FontHandle := _SetFont(ControlHandle, fontname, fontsize, bold, italic, underline, strikeout)
          ELSE
             FontHandle := _SetFont(ControlHandle, _HMG_DefaultFontName, _HMG_DefaultFontSize, bold, italic, underline, strikeout)
@@ -203,7 +203,7 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
       AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
    ENDIF
 
-   IF ValType(tooltip) != "U"
+   IF tooltip != NIL
       SetToolTip(ControlHandle, TOOLTIP, GetFormToolTipHandle(cParentForm))
    ENDIF
 
@@ -259,7 +259,7 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
    _HMG_aControlMiscData1          [k] := 1
    _HMG_aControlMiscData2          [k] := ""
 
-   IF ValType(Field) != "U"
+   IF Field != NIL
       AAdd(_HMG_aFormBrowseList[GetFormIndex(cParentForm)], k)
    ENDIF
 

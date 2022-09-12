@@ -101,7 +101,7 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
       aBitmap[1] := cBmp
    ENDIF
 
-   IF ValType(Field) != "U"
+   IF Field != NIL
       IF  hb_UAt ( ">", Field ) == 0
          MsgMiniGuiError("Control " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name.")
       ELSE
@@ -237,7 +237,7 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
 
       // Add a ToolTip if param has value
       FOR tmp := 1 TO 3
-         IF ValType(aToolTip[tmp]) != "U"
+         IF aToolTip[tmp] != NIL
             SetToolTip ( aControlHandle[tmp], aToolTip[tmp], GetFormToolTipHandle(ParentFormName) )
          ENDIF
       NEXT
@@ -308,7 +308,7 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
          SendMessageWideString( aControlHandle[1], EM_SETCUEBANNER, .T. /*show on focus*/, cuetext )
       ENDIF
 
-      IF ValType(Field) != "U"
+      IF Field != NIL
          AAdd(_HMG_aFormBrowseList[GetFormIndex(ParentFormName)], k)
       ENDIF
    ENDIF
@@ -339,7 +339,7 @@ FUNCTION InitDialogBtnTextBox( ParentName, ControlHandle, k )
    lBtn2          := _HMG_aControlMiscData1  [k,2]
    aControlHandle := _HMG_aControlSpacing [k]
 
-   IF ValType(nMaxLength) != "U"
+   IF nMaxLength != NIL
       SendMessage( aControlHandle [1] , EM_LIMITTEXT , nMaxLength , 0 )
    ENDIF
 
@@ -355,7 +355,7 @@ FUNCTION InitDialogBtnTextBox( ParentName, ControlHandle, k )
       SetWindowText(aControlHandle[1], cValue)
    ENDIF
 
-   IF ValType(Field) != "U"
+   IF Field != NIL
       AAdd(_HMG_aFormBrowseList[GetFormIndex(ParentName)], k)
    ENDIF
 

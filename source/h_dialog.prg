@@ -163,7 +163,7 @@ FUNCTION _DefineDialog(FormName, ParentForm, Id_resource, x, y, w, h, caption, f
    _HMG_ActiveDialogName   := FormName
    _HMG_BeginDialogActive  := .T.
 
-   IF ValType(caption) != "U"
+   IF caption != NIL
       SetWindowText(FormHandle, caption)
    ENDIF
 
@@ -322,7 +322,7 @@ FUNCTION _EndDialog()
             IF FontHandle != 0
                _SetFontHandle(ControlHandle, FontHandle)
             ELSE
-               IF ValType(_HMG_aDialogItems[n, 13]) != "U" .AND. ValType(_HMG_aDialogItems[n, 14]) != "U"
+               IF _HMG_aDialogItems[n, 13] != NIL .AND. _HMG_aDialogItems[n, 14] != NIL
                   FontHandle := _SetFont(ControlHandle, _HMG_aDialogItems[n, 13], _HMG_aDialogItems[n, 14], _HMG_aDialogItems[n, 15], _HMG_aDialogItems[n, 16], _HMG_aDialogItems[n, 17], _HMG_aDialogItems[n, 18])
                ELSE
                   FontHandle := _SetFont(ControlHandle, _HMG_DefaultFontName, _HMG_DefaultFontSize, _HMG_aDialogItems[n, 15], _HMG_aDialogItems[n, 16], _HMG_aDialogItems[n, 17], _HMG_aDialogItems[n, 18])
@@ -339,7 +339,7 @@ FUNCTION _EndDialog()
                ENDIF
             ENDIF
 
-            IF ValType(_HMG_aDialogItems[n, 12]) != "U"
+            IF _HMG_aDialogItems[n, 12] != NIL
                SetToolTip(ControlHandle, _HMG_aDialogItems[n, 12], GetFormToolTipHandle(_HMG_ActiveDialogName))
             ENDIF
             IF k > 0

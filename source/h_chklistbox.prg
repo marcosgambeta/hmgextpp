@@ -208,7 +208,7 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
          AAdd(_HMG_ActiveTabCurrentPageMap, ControlHandle)
       ENDIF
 
-      IF ValType(tooltip) != "U"
+      IF tooltip != NIL
          SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 

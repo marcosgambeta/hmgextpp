@@ -87,7 +87,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
-   IF ValType(Field) != "U"
+   IF Field != NIL
       IF  hb_UAt ( ">", Field ) == 0
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name.")
       ELSE
@@ -245,7 +245,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
          ENDIF
       ENDIF
 
-      IF ValType(tooltip) != "U"
+      IF tooltip != NIL
          SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
    ENDIF
@@ -301,7 +301,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
       InitDialogEdit( ParentFormName, ControlHandle, k )
    ENDIF
 
-   IF ValType(Field) != "U"
+   IF Field != NIL
       AAdd(_HMG_aFormBrowseList[GetFormIndex(ParentFormName)], k)
    ENDIF
 
@@ -322,7 +322,7 @@ PROCEDURE _DataEditBoxRefresh ( i )
 *-----------------------------------------------------------------------------*
    LOCAL Field := _HMG_aControlPageMap[i], icp
 
-   IF ValType(Field) != "U"
+   IF Field != NIL
       _SetValue(, , &Field, i)
    ELSE
       // Store Initial CaretPos
@@ -350,7 +350,7 @@ FUNCTION InitDialogEdit( ParentName, ControlHandle, k )
    IF HB_ISLOGICAL(readonly)
       SendMessage(ControlHandle, EM_SETREADONLY, iif(readonly, 1, 0), 0)
    ENDIF
-   IF ValType(maxlength) != "U"
+   IF maxlength != NIL
       SendMessage(ControlHandle, EM_LIMITTEXT, maxlength, 0)
    ENDIF
 // JP 62

@@ -3212,13 +3212,13 @@ FUNCTION _SetToolTip(ControlName, ParentForm, Value, Page)
          ELSEIF ISARRAY(Value)  // GF 25/07/2019
             IF ISARRAY(_HMG_aControlSpacing[i])  // BTNTEXTBOX
                FOR c := 1 TO Len(Value)
-                  IF ValType(Value[c]) != "U"
+                  IF Value[c] != NIL
                      SetToolTip(_HMG_aControlSpacing[i][c], Value[c], h)
                   ENDIF
                NEXT
             ELSEIF ISARRAY(_HMG_aControlRangeMin[i])  // GETBOX
                FOR c := 1 TO Len(Value)
-                  IF ValType(Value[c]) != "U"
+                  IF Value[c] != NIL
                      SetToolTip(_HMG_aControlRangeMin[i][c], Value[c], h)
                   ENDIF
                NEXT
@@ -6618,7 +6618,7 @@ PROCEDURE _Refresh(i)
    CASE CONTROL_TYPE_RICHEDIT
    CASE CONTROL_TYPE_CHECKLABEL
       Field := _HMG_aControlPageMap[i]
-      IF ValType(Field) != "U"
+      IF Field != NIL
          IF T == CONTROL_TYPE_CHECKLABEL
             SetProperty(GetParentFormName(i), _HMG_aControlNames[i], "Checked", &Field)
          ELSE

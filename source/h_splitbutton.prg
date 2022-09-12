@@ -127,7 +127,7 @@ PROCEDURE _DefineSplitButton ( cName, nRow, nCol, cCaption, bAction, cParent, ;
       Eval( _HMG_bOnControlInit, k, mVar )
    ENDIF
 
-   IF ValType(tooltip) != "U"
+   IF tooltip != NIL
       SetToolTip ( hControlHandle , tooltip , GetFormToolTipHandle(cParent) )
    ENDIF
 

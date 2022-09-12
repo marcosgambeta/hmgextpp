@@ -193,7 +193,7 @@ FUNCTION _DefineOwnerButton ( ControlName, ParentForm, x, y, Caption, ;
       AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
    ENDIF
 
-   IF ValType(tooltip) != "U"
+   IF tooltip != NIL
       SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(cParentForm))
    ENDIF
 

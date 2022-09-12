@@ -258,7 +258,7 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
       aRGB := {-1, -1, -1}
    ENDIF
 
-   IF icon == NIL .AND. ValType(_HMG_DefaultIconName) != "U"
+   IF icon == NIL .AND. _HMG_DefaultIconName != NIL
       icon := _HMG_DefaultIconName
    ENDIF
 
@@ -285,7 +285,7 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
       xDisableCloseButton(FormHandle, .F.)
    ENDIF
 
-   IF mdi .AND. ValType(cursor) != "U"  /* P.Ch. 16.10. */
+   IF mdi .AND. cursor != NIL  /* P.Ch. 16.10. */
       SetWindowCursor(FormHandle, cursor)
    ENDIF
 
@@ -512,7 +512,7 @@ FUNCTION _DefineModalWindow(FormName, Caption, x, y, w, h, Parent, nosize, nosys
       aRGB := {-1, -1, -1}
    ENDIF
 
-   IF icon == NIL .AND. ValType(_HMG_DefaultIconName) != "U"
+   IF icon == NIL .AND. _HMG_DefaultIconName != NIL
       icon := _HMG_DefaultIconName
    ENDIF
 
@@ -535,7 +535,7 @@ FUNCTION _DefineModalWindow(FormName, Caption, x, y, w, h, Parent, nosize, nosys
       xDisableCloseButton(FormHandle, .F.)
    ENDIF
 
-   IF ValType(cursor) != "U"
+   IF cursor != NIL
       SetWindowCursor(FormHandle, cursor)
    ENDIF
 
@@ -711,7 +711,7 @@ FUNCTION _DefineSplitChildWindow(FormName, w, h, break, grippertext, nocaption, 
 
       Formhandle := InitSplitChildWindow(w, h, FormName, nocaption, title, 0, vscroll, hscroll)
 
-      IF ValType(cursor) != "U"
+      IF cursor != NIL
          SetWindowCursor(FormHandle, cursor)
       ENDIF
 
