@@ -93,7 +93,7 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    hb_default(@lNumeric, .F.)
    hb_default(@lPassword, .F.)
 
-   IF ValType(Field) != "U"
+   IF Field != NIL
       IF  hb_UAt ( ">", Field ) == 0
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name.")
       ELSE
@@ -213,7 +213,7 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
       ENDIF
 
       // Add a tooltip if param has value
-      IF ( ValType(ToolTip) != "U" )
+      IF ( ToolTip != NIL )
          SetToolTip(ControlHandle, ToolTip, GetFormToolTipHandle(ParentFormName))
       ENDIF
    ENDIF
@@ -286,7 +286,7 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
          SendMessageWideString(ControlHandle, EM_SETCUEBANNER, .T. /*show on focus*/, cuetext)
       ENDIF
 
-      IF ValType(Field) != "U"
+      IF Field != NIL
          AAdd(_HMG_aFormBrowseList[GetFormIndex(ParentFormName)], k)
       ENDIF
    ENDIF
@@ -313,7 +313,7 @@ FUNCTION InitDialogTextBox( ParentName, ControlHandle, k )
    IF HB_ISLOGICAL(readonly)
       SendMessage(ControlHandle, EM_SETREADONLY, iif(readonly, 1, 0), 0)
    ENDIF
-   IF ValType(nMaxLength) != "U"
+   IF nMaxLength != NIL
       SendMessage(ControlHandle, EM_LIMITTEXT, nMaxLength, 0)
    ENDIF
 
@@ -329,7 +329,7 @@ FUNCTION InitDialogTextBox( ParentName, ControlHandle, k )
       SetWindowText(ControlHandle, cValue)
    ENDIF
 
-   IF ValType(Field) != "U"
+   IF Field != NIL
       AAdd(_HMG_aFormBrowseList[GetFormIndex(ParentName)], k)
    ENDIF
 // JP 62
@@ -357,7 +357,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
 
    HB_SYMBOL_UNUSED( RightAlign )
 
-   IF ValType(Field) != "U"
+   IF Field != NIL
       IF  hb_UAt ( ">", Field ) == 0
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name.")
       ELSE
@@ -491,7 +491,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
          AAdd(_HMG_ActiveTabCurrentPageMap, ControlHandle)
       ENDIF
 
-      IF ValType(tooltip) != "U"
+      IF tooltip != NIL
          SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
    ENDIF
@@ -554,7 +554,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
 
       SetWindowText(ControlHandle, value)
 
-      IF ValType(Field) != "U"
+      IF Field != NIL
          AAdd(_HMG_aFormBrowseList[GetFormIndex(ParentFormName)], k)
       ENDIF
    ENDIF
@@ -580,7 +580,7 @@ FUNCTION InitDialogMaskedTextBox( ParentName, ControlHandle, k )
       SetWindowText(ControlHandle, DToC(cValue))
    ENDIF
 
-   IF ValType(Field) != "U"
+   IF Field != NIL
       AAdd(_HMG_aFormBrowseList[GetFormIndex(ParentName)], k)
    ENDIF
 
@@ -654,7 +654,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
    LOCAL blInit
    LOCAL lDialogInMemory
 
-   IF ValType(Field) != "U"
+   IF Field != NIL
       IF  hb_UAt ( ">", Field ) == 0
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name.")
       ELSE
@@ -771,7 +771,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
          AAdd(_HMG_ActiveTabCurrentPageMap, ControlHandle)
       ENDIF
 
-      IF ValType(tooltip) != "U"
+      IF tooltip != NIL
          SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
@@ -837,7 +837,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
          SendMessageWideString(ControlHandle, EM_SETCUEBANNER, .T. /*show on focus*/, cuetext)
       ENDIF
 
-      IF ValType(Value) != "U"
+      IF Value != NIL
          IF date == .F.
             SetWindowText(ControlHandle, Value)
          ELSE
@@ -845,7 +845,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
          ENDIF
       ENDIF
 
-      IF ValType(Field) != "U"
+      IF Field != NIL
          AAdd(_HMG_aFormBrowseList[GetFormIndex(ParentFormName)], k)
       ENDIF
    ENDIF
@@ -1130,7 +1130,7 @@ PROCEDURE _DataTextBoxRefresh ( i )
       Field := _HMG_aControlPageMap[i]
    ENDIF
 
-   IF ValType(Field) != "U"
+   IF Field != NIL
       _SetValue ( , , iif( Type ( Field ) == "C" , RTrim(&Field) , &Field ) , i )
    ELSE
       RedrawWindow(_HMG_aControlHandles[i])
