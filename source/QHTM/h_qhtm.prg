@@ -323,6 +323,6 @@ Endif
  
 hb_default(@lEnable, .T.)
 
-SendMessage( GetControlHandle( ControlName, ParentForm ), WM_SETREDRAW, iif( lEnable, 1, 0 ), 0 )
+SendMessage(GetControlHandle(ControlName, ParentForm), WM_SETREDRAW, iif(lEnable, 1, 0), 0)
 
 Return

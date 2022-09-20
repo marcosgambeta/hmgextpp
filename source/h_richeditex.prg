@@ -264,7 +264,7 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
    ENDIF
 
    IF IsArrayRGB(backcolor)
-      SendMessage ( _HMG_aControlHandles[k], EM_SETBKGNDCOLOR, 0, RGB(backcolor[1], backcolor[2], backcolor[3]) )
+      SendMessage(_HMG_aControlHandles[k], EM_SETBKGNDCOLOR, 0, RGB(backcolor[1], backcolor[2], backcolor[3]))
    ENDIF
 
    IF _SetGetGlobal( "_HMG_aRichEditMenu" ) == NIL
@@ -305,7 +305,7 @@ FUNCTION RichEditBox_mnuEdit_Click( cAction )
    CASE cAction == "DEL"
       RichEditBox_SelClear( hEdit )   // Del
    CASE cAction == "SELALL"
-      SendMessage( hEdit, EM_SETSEL, 0, -1 )  // Ctrl+A
+      SendMessage(hEdit, EM_SETSEL, 0, -1)  // Ctrl+A
    END CASE
 
 RETURN NIL

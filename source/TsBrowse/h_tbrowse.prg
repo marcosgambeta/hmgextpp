@@ -5892,7 +5892,7 @@ METHOD Edit( uVar, nCell, nKey, nKeyFlags, cPicture, bValid, nClrFore, nClrBack 
                IF HB_ISCHAR(uValue)
                   _HMG_aControlGotFocusProcedure[ix] := {|| SendMessage(_HMG_aControlHandles[ix], EM_SETSEL, 0, iif(Empty(uValue), -1, Len(Trim(uValue)))) }
                ELSEIF ValType(uValue) $ "ND"
-                  _HMG_aControlGotFocusProcedure[ix] := {|| SendMessage( _HMG_aControlHandles[ix], EM_SETSEL, 0, -1 ) }
+                  _HMG_aControlGotFocusProcedure[ix] := {|| SendMessage(_HMG_aControlHandles[ix], EM_SETSEL, 0, -1) }
                ENDIF
             ENDIF
             _HMG_aControlLostFocusProcedure[ix] := {| nKey | ::EditExit( nCell, nKey, uValue, bValid, .F. ) }
@@ -6450,7 +6450,7 @@ METHOD Excel2( cFile, lActivate, hProgress, cTitle, lSave, bPrintRow ) CLASS TSB
    IF hProgress != NIL
       nTotal := ( ::nLen + 1 ) * Len(::aColumns)
       SetProgressBarRange( hProgress, 1, nTotal )
-      SendMessage( hProgress, PBM_SETPOS, 0, 0 )
+      SendMessage(hProgress, PBM_SETPOS, 0, 0)
       nEvery := Max(1, Int(nTotal * .02)) // refresh hProgress every 2 %
    ENDIF
 
@@ -6507,7 +6507,7 @@ METHOD Excel2( cFile, lActivate, hProgress, cTitle, lSave, bPrintRow ) CLASS TSB
             IF hProgress != NIL
 
                IF nCount % nEvery == 0
-                  SendMessage( hProgress, PBM_SETPOS, nCount, 0 )
+                  SendMessage(hProgress, PBM_SETPOS, nCount, 0)
                ENDIF
 
                nCount++
@@ -6557,7 +6557,7 @@ METHOD Excel2( cFile, lActivate, hProgress, cTitle, lSave, bPrintRow ) CLASS TSB
          IF hProgress != NIL
 
             IF nCount % nEvery == 0
-               SendMessage( hProgress, PBM_SETPOS, nCount, 0 )
+               SendMessage(hProgress, PBM_SETPOS, nCount, 0)
             ENDIF
 
             nCount++
@@ -6602,7 +6602,7 @@ METHOD Excel2( cFile, lActivate, hProgress, cTitle, lSave, bPrintRow ) CLASS TSB
          IF hProgress != NIL
 
             IF nCount % nEvery == 0
-               SendMessage( hProgress, PBM_SETPOS, nCount, 0 )
+               SendMessage(hProgress, PBM_SETPOS, nCount, 0)
             ENDIF
 
             nCount++
@@ -6626,7 +6626,7 @@ METHOD Excel2( cFile, lActivate, hProgress, cTitle, lSave, bPrintRow ) CLASS TSB
    NEXT
 
    IF hProgress != NIL
-      SendMessage( hProgress, PBM_SETPOS, nTotal, 0 )
+      SendMessage(hProgress, PBM_SETPOS, nTotal, 0)
    ENDIF
 
    IF lSave
@@ -6649,7 +6649,7 @@ METHOD Excel2( cFile, lActivate, hProgress, cTitle, lSave, bPrintRow ) CLASS TSB
    ::Display()
 
    IF hProgress != NIL
-      SendMessage( hProgress, PBM_SETPOS, 0, 0 )
+      SendMessage(hProgress, PBM_SETPOS, 0, 0)
    ENDIF
 
 RETURN NIL
@@ -6723,7 +6723,7 @@ METHOD ExcelOle( cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, bExtern, 
    IF hProgress != NIL
       nTotal := ( ::nLen + 1 ) * Len(::aColumns) + 30
       SetProgressBarRange( hProgress, 1, nTotal )
-      SendMessage( hProgress, PBM_SETPOS, 0, 0 )
+      SendMessage(hProgress, PBM_SETPOS, 0, 0)
       nEvery := Max(1, Int(nTotal * .02)) // refresh hProgress every 2 %
    ENDIF
 
@@ -6751,7 +6751,7 @@ METHOD ExcelOle( cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, bExtern, 
 
    IF hProgress != NIL
       nCount -= 15
-      SendMessage( hProgress, PBM_SETPOS, nCount, 0 )
+      SendMessage(hProgress, PBM_SETPOS, nCount, 0)
    ENDIF
 
    oExcel:WorkBooks:Add()
@@ -6763,7 +6763,7 @@ METHOD ExcelOle( cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, bExtern, 
 
    IF hProgress != NIL
       nCount -= 15
-      SendMessage( hProgress, PBM_SETPOS, nCount, 0 )
+      SendMessage(hProgress, PBM_SETPOS, nCount, 0)
    ENDIF
 
    ( ::cAlias )->( Eval( ::bGoTop ) )
@@ -6835,7 +6835,7 @@ METHOD ExcelOle( cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, bExtern, 
             IF hProgress != NIL
 
                IF nCount % nEvery == 0
-                  SendMessage( hProgress, PBM_SETPOS, nCount, 0 )
+                  SendMessage(hProgress, PBM_SETPOS, nCount, 0)
                ENDIF
 
                nCount++
@@ -6899,7 +6899,7 @@ METHOD ExcelOle( cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, bExtern, 
          IF hProgress != NIL
 
             IF nCount % nEvery == 0
-               SendMessage( hProgress, PBM_SETPOS, nCount, 0 )
+               SendMessage(hProgress, PBM_SETPOS, nCount, 0)
             ENDIF
 
             nCount++
@@ -6992,7 +6992,7 @@ METHOD ExcelOle( cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, bExtern, 
    oSheet:Range( "A1" ):Select()
 
    IF hProgress != NIL
-      SendMessage( hProgress, PBM_SETPOS, nTotal, 0 )
+      SendMessage(hProgress, PBM_SETPOS, nTotal, 0)
    ENDIF
 
    IF ::lIsDbf
@@ -7033,7 +7033,7 @@ METHOD ExcelOle( cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, bExtern, 
    ::Reset()
 
    IF hProgress != NIL
-      SendMessage( hProgress, PBM_SETPOS, 0, 0 )
+      SendMessage(hProgress, PBM_SETPOS, 0, 0)
    ENDIF
 
 RETURN NIL
@@ -12739,7 +12739,7 @@ METHOD ReSize( nSizeType, nWidth, nHeight ) CLASS TSBrowse
    AEval( ::aColumns, {| oCol | iif( oCol:lVisible, nTotPix += oCol:nWidth, Nil ) } ) // 14.07.2015
 
    IF ::lEditing .AND. ::aColumns[::nCell]:oEdit != NIL .AND. IsWindowHandle( ::aColumns[::nCell]:oEdit:hWnd )
-      SendMessage( ::aColumns[::nCell]:oEdit:hWnd, WM_KEYDOWN, VK_ESCAPE, 0 )
+      SendMessage(::aColumns[::nCell]:oEdit:hWnd, WM_KEYDOWN, VK_ESCAPE, 0)
    ENDIF
 
    IF !Empty(::nAdjColumn)
@@ -14436,7 +14436,7 @@ METHOD SetFont( hFont ) CLASS TSBrowse
 
    IF hFont != NIL
       ::hFont := hFont
-      SendMessage( ::hWnd, WM_SETFONT, hFont )
+      SendMessage(::hWnd, WM_SETFONT, hFont)
    ENDIF
 
 RETURN 0

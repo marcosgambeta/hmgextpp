@@ -665,7 +665,7 @@ CLASS TDlu2Pix
    METHOD Send(nKey, nPar, xPar) INLINE ::SendMsg( nKey, nPar, xPar )
    METHOD SendMsg( nKey, nPar, xPar ) INLINE ( nPar := hb_defaultValue(nPar, 0), ;
       iif( ::IsMsg, ( ::oParam:Set( nKey, xPar ), ;
-      SendMessage( ::hWnd, ::Wm_nApp, nKey, nPar ) ), Nil ) )
+      SendMessage(::hWnd, ::Wm_nApp, nKey, nPar) ), Nil ) )
 
 ENDCLASS
 
@@ -1006,7 +1006,7 @@ CLASS TWndData
       PostMessage( ::nHandle, ::WM_nMsgW, nKey, hb_defaultValue(nHandle, 0) ) ), Nil )
    METHOD Send(nKey, nHandle, xPar) INLINE ::SendMsg( nKey, nHandle, xPar )
    METHOD SendMsg( nKey, nHandle, xPar ) INLINE iif( ::lAction, ( ::oParam:Set( nKey, xPar ), ;
-      SendMessage( ::nHandle, ::WM_nMsgW, nKey, hb_defaultValue(nHandle, 0) ) ), Nil )
+      SendMessage(::nHandle, ::WM_nMsgW, nKey, hb_defaultValue(nHandle, 0)) ), Nil )
 
    METHOD Release() INLINE iif( ::IsWindow, ;
       iif( ::lAction, PostMessage( ::nHandle, WM_CLOSE, 0, 0 ), Nil ), Nil )
@@ -1204,7 +1204,7 @@ CLASS TCnlData INHERIT TWndData
       PostMessage( ::oWin:nHandle, ::WM_nMsgC, nKey, ::nHandle ) ), Nil )
    METHOD Post ( nKey, xPar ) INLINE ::PostMsg( nKey, xPar )
    METHOD SendMsg( nKey, xPar ) INLINE iif( ::oWin:Action, ( ::oParam:Set( nKey, xPar ), ;
-      SendMessage( ::oWin:nHandle, ::WM_nMsgC, nKey, ::nHandle ) ), Nil )
+      SendMessage(::oWin:nHandle, ::WM_nMsgC, nKey, ::nHandle) ), Nil )
    METHOD Send(nKey, xPar) INLINE ::SendMsg( nKey, xPar )
 
    METHOD Set() INLINE ( iif( HB_ISOBJECT( ::oWin:oName ), ::oWin:oName:Set( Upper(::cName), Self ), ), ;

@@ -340,7 +340,7 @@ FUNCTION InitDialogBtnTextBox( ParentName, ControlHandle, k )
    aControlHandle := _HMG_aControlSpacing [k]
 
    IF nMaxLength != NIL
-      SendMessage( aControlHandle [1] , EM_LIMITTEXT , nMaxLength , 0 )
+      SendMessage(aControlHandle[1], EM_LIMITTEXT, nMaxLength, 0)
    ENDIF
 
 // With NUMERIC clause, transform numeric value into a string.

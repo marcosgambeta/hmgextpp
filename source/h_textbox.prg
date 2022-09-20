@@ -1038,12 +1038,12 @@ PROCEDURE ProcessCharMask ( i , d )
 
          // Replace Text
          SetWindowText(_HMG_aControlhandles[i], Output)
-         SendMessage ( _HMG_aControlhandles[i] , EM_SETSEL , pc + dc , pc + dc )
+         SendMessage(_HMG_aControlhandles[i], EM_SETSEL, pc + dc, pc + dc)
 
       ELSE
 
          SetWindowText(_HMG_aControlhandles[i], Transform(GetNumFromText(GetWindowText(_HMG_aControlhandles[i]), i), Mask))
-         SendMessage ( _HMG_aControlhandles[i] , EM_SETSEL , pc + dc , pc + dc )
+         SendMessage(_HMG_aControlhandles[i], EM_SETSEL, pc + dc, pc + dc)
 
       ENDIF
 
@@ -1052,7 +1052,7 @@ PROCEDURE ProcessCharMask ( i , d )
       IF pFlag == .T.
 
          ncp := hb_UAt ( "." , GetWindowText ( _HMG_aControlHandles[i] ) )
-         SendMessage ( _HMG_aControlhandles[i] , EM_SETSEL , ncp , ncp )
+         SendMessage(_HMG_aControlhandles[i], EM_SETSEL, ncp, ncp)
 
       ELSE
 
@@ -1061,7 +1061,7 @@ PROCEDURE ProcessCharMask ( i , d )
             icp--
          ENDIF
 
-         SendMessage ( _HMG_aControlhandles[i] , EM_SETSEL , icp , icp )
+         SendMessage(_HMG_aControlhandles[i], EM_SETSEL, icp, icp)
 
          pc := hb_ULen(OutBuffer)
 
@@ -1076,7 +1076,7 @@ PROCEDURE ProcessCharMask ( i , d )
             ENDIF
             IF !hmg_IsDigit( CB ) .AND. ! hmg_IsAlpha( CB ) .AND. ;
                ( !( CB == " " ) .OR. ( CB == " " .AND. CM == " " ) )
-               SendMessage ( _HMG_aControlhandles[i] , EM_SETSEL , icp + x , icp + x )
+               SendMessage(_HMG_aControlhandles[i], EM_SETSEL, icp + x, icp + x)
             ELSE
                EXIT
             ENDIF
@@ -1217,7 +1217,7 @@ PROCEDURE ProcessNumText ( i )
    ENDIF
 
    // Restore Initial CaretPos
-   SendMessage ( _HMG_aControlhandles[i] , EM_SETSEL , icp , icp )
+   SendMessage(_HMG_aControlhandles[i], EM_SETSEL, icp, icp)
 
 RETURN
 
@@ -1284,18 +1284,18 @@ FUNCTION OEDITEVENTS( hWnd, nMsg, wParam, lParam )
          IF hmg_IsAlpha( Chr( wParam ) ) .OR. hmg_IsDigit( Chr( wParam ) )
 #endif
             IF icp != icpe
-               SendMessage( hTextBox , WM_CLEAR , 0 , 0 )
-               SendMessage( hTextBox , EM_SETSEL , icpe , icpe )
+               SendMessage(hTextBox, WM_CLEAR, 0, 0)
+               SendMessage(hTextBox, EM_SETSEL, icpe, icpe)
             ELSE
-               SendMessage( hTextBox , EM_SETSEL , icp , icp + 1 )
-               SendMessage( hTextBox , WM_CLEAR , 0 , 0 )
-               SendMessage( hTextBox , EM_SETSEL , icp , icp )
+               SendMessage(hTextBox, EM_SETSEL, icp, icp + 1)
+               SendMessage(hTextBox, WM_CLEAR, 0, 0)
+               SendMessage(hTextBox, EM_SETSEL, icp, icp)
             ENDIF
 
          ELSE
 
             IF wParam == 1
-               SendMessage( hTextBox , EM_SETSEL , 0 , -1 )
+               SendMessage(hTextBox, EM_SETSEL, 0, -1)
             ENDIF
 
          ENDIF
@@ -1303,7 +1303,7 @@ FUNCTION OEDITEVENTS( hWnd, nMsg, wParam, lParam )
       ELSE
 
          IF wParam == 1
-            SendMessage( hTextBox , EM_SETSEL , 0 , -1 )
+            SendMessage(hTextBox, EM_SETSEL, 0, -1)
          ENDIF
 
       ENDIF

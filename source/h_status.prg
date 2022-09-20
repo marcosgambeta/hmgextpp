@@ -301,7 +301,7 @@ FUNCTION _DefineItemMessage ( ControlName, ParentControl, x, y, Caption, Procedu
    ENDIF
 
    IF IsArrayRGB( backcolor ) .OR. IsArrayRGB( fontcolor )
-      SendMessage( ParentForm, SB_SETTEXT, hb_BitOr( _HMG_StatusItemCount - 1, SBT_OWNERDRAW ), 0 )
+      SendMessage(ParentForm, SB_SETTEXT, hb_BitOr(_HMG_StatusItemCount - 1, SBT_OWNERDRAW), 0)
    ENDIF
 
 RETURN ControlHandle

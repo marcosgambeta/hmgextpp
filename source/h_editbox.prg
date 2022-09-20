@@ -331,7 +331,7 @@ PROCEDURE _DataEditBoxRefresh ( i )
       _SetValue(, , _GetValue(, , i), i)
 
       // Restore Initial CaretPos
-      SendMessage( _HMG_aControlhandles[i] , EM_SETSEL , icp , icp )
+      SendMessage(_HMG_aControlhandles[i], EM_SETSEL, icp, icp)
    ENDIF
 
 RETURN

@@ -351,7 +351,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
       IF HB_ISCHAR(Value)
          _HMG_aControlGotFocusProcedure[k] := {||SendMessage(_HMG_aControlHandles[k], EM_SETSEL, 0, iif(Empty(Value), -1, Len(Trim((_HMG_aControlHeadClick[k]):Cargo))))}
       ELSEIF ValType(Value) $ "ND"
-         _HMG_aControlGotFocusProcedure [k] := {|| SendMessage( _HMG_aControlHandles [k], EM_SETSEL, 0, -1 ) }
+         _HMG_aControlGotFocusProcedure [k] := {|| SendMessage(_HMG_aControlHandles[k], EM_SETSEL, 0, -1) }
       ENDIF
    ENDIF
 
@@ -480,10 +480,10 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
    CASE nMsg == WM_SETFOCUS
 
-      nStart := LoWord(SendMessage( hWnd, EM_GETSEL, 0, 0 ))
+      nStart := LoWord(SendMessage(hWnd, EM_GETSEL, 0, 0))
       nStart := Min(nStart, hb_ULen(Trim(oGet:buffer)))
 
-      nEnd := HiWord(SendMessage( hWnd, EM_GETSEL, 0, 0 ))
+      nEnd := HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0))
       nEnd := Min(nEnd, hb_ULen(Trim(oGet:buffer)))
 
       coldbuff := oGet:buffer
@@ -547,9 +547,9 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          ENDIF
       ENDIF
 
-      SendMessage( hWnd, EM_SETSEL, nStart, nStart )
+      SendMessage(hWnd, EM_SETSEL, nStart, nStart)
       _SetGetBoxCaret( hWnd )
-      SendMessage( hWnd, EM_SETSEL, nStart, nStart )
+      SendMessage(hWnd, EM_SETSEL, nStart, nStart)
 
       // show message if any
       IF ParentHandle > 0
@@ -653,7 +653,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          _HMG_aControlFontColor[i] := aOldFontClr
       ENDIF
       _DispGetBoxText( hWnd, oGet:buffer )
-      SendMessage( hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1 )
+      SendMessage(hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1)
 
       // message
       IF ParentHandle > 0
@@ -690,12 +690,12 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
       CASE wParam == 1  // CTRL+A SelectAll
 
-         SendMessage( _HMG_aControlhandles[i] , EM_SETSEL , 0 , -1 )
+         SendMessage(_HMG_aControlhandles[i], EM_SETSEL, 0, -1)
          RETURN( 0 )
 
       CASE wParam == 22 // CTRL+V Paste
 
-         SendMessage( _HMG_aControlhandles[i] , WM_PASTE , 0 , 0 )
+         SendMessage(_HMG_aControlhandles[i], WM_PASTE, 0, 0)
          RETURN( 0 )
 
       CASE wParam == 3  // CTRL+C Copy
@@ -710,8 +710,8 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          ENDIF
 
          System.Clipboard := hb_USubStr(oGet:buffer, nStart, nEnd - nStart)
-         nStart := LoWord(SendMessage( hWnd, EM_GETSEL, 0, 0 )) + 1
-         nEnd   := HiWord(SendMessage( hWnd, EM_GETSEL, 0, 0 )) + 1
+         nStart := LoWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
+         nEnd   := HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
 
          oGet:pos := nEnd
 
@@ -741,7 +741,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
          oGet:Assign()
          _DispGetBoxText( hWnd, oGet:buffer )
-         SendMessage( hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1 )
+         SendMessage(hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1)
 
          RETURN( 0 )
 
@@ -755,14 +755,14 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
          oGet:Assign()
          _DispGetBoxText( hWnd, oGet:buffer )
-         SendMessage( hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1 )
+         SendMessage(hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1)
 
          RETURN( 0 )
 
       CASE wParam == 0x0D .OR. wParam == 0x09   // Return key or TAB key pressed
 
          IF ValType(oGet:cargo) == "D" .AND. oGet:BadDate .AND. !readonly .AND. lAllowEdit
-            SendMessage( hWnd, EM_SETSEL, 0, 0 )
+            SendMessage(hWnd, EM_SETSEL, 0, 0)
             oGet:Pos := 1
          ELSE
             lShift := _GetKeyState( VK_SHIFT )  // Shift key pressed (or not)
@@ -812,7 +812,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          oGet:Assign()
          _HMG_aControlValue[i] := oGet:VarGet()
          _DispGetBoxText( hWnd, oGet:buffer )
-         SendMessage( hWnd, EM_SETSEL, ( oGet:pos - 1 ), ( oGet:pos - 1 ) )
+         SendMessage(hWnd, EM_SETSEL, (oGet:pos - 1), (oGet:pos - 1))
 
          RETURN( 0 )
 
@@ -826,7 +826,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          IF oGet:type == "L"
             nStart := 0
             nEnd := 0
-            SendMessage( hWnd, EM_SETSEL, nStart, nEnd )
+            SendMessage(hWnd, EM_SETSEL, nStart, nEnd)
             oGet:Pos := 1
          ENDIF
 
@@ -938,7 +938,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          ENDIF
 
          _DispGetBoxText( hWnd, oGet:buffer )
-         SendMessage( hWnd, EM_SETSEL , oGet:pos - 1 , oGet:pos - 1 )
+         SendMessage(hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1)
 
          RETURN( 0 )
 
@@ -954,7 +954,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
                ENDIF
             NEXT
          ENDIF
-         SendMessage( _HMG_aControlhandles[i] , EM_SETSEL , 0 , -1 )
+         SendMessage(_HMG_aControlhandles[i], EM_SETSEL, 0, -1)
       ENDIF
 
    CASE nMsg == WM_KEYDOWN
@@ -996,7 +996,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          ENDIF
 
          _DispGetBoxText( hWnd, oGet:buffer )
-         SendMessage( hWnd , EM_SETSEL , 0 , 0 )
+         SendMessage(hWnd, EM_SETSEL, 0, 0)
 
          oGet:BadDate := .F.
          lInValid := .F.
@@ -1027,13 +1027,13 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          RETURN( 0 )
 
       ELSEIF lShift .AND. wParam == VK_INSERT
-         SendMessage( hWnd , WM_PASTE , 0 , 0 )
+         SendMessage(hWnd, WM_PASTE, 0, 0)
          RETURN( 0 )
 
       ELSEIF wParam == VK_DOWN
 
          IF !lCtrl .AND. !lShift
-            SendMessage( hWnd , EM_SETSEL , nEnd , nEnd )
+            SendMessage(hWnd, EM_SETSEL, nEnd, nEnd)
             IF ValType(oGet:cargo) == "D" .AND. oGet:BadDate
                RETURN( 0 )
             ELSE
@@ -1062,7 +1062,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
       ELSEIF wParam == VK_UP
 
          IF !lCtrl .AND. !lShift
-            SendMessage( hWnd , EM_SETSEL , nEnd , nEnd )
+            SendMessage(hWnd, EM_SETSEL, nEnd, nEnd)
             IF ValType(oGet:cargo) == "D" .AND. oGet:BadDate
                RETURN( 0 )
             ELSE
@@ -1094,23 +1094,23 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
             IF nEnd > nStart
                nEnd --
             ENDIF
-            SendMessage( hWnd , EM_SETSEL , nStart , nEnd )
+            SendMessage(hWnd, EM_SETSEL, nStart, nEnd)
          ELSE
-            SendMessage( hWnd , EM_SETSEL , nEnd - 1 , nEnd - 1 )
+            SendMessage(hWnd, EM_SETSEL, nEnd - 1, nEnd - 1)
             _HMG_aControlMiscData1[i][1] := 0
          ENDIF
-         oGet:pos := HiWord(SendMessage( hWnd, EM_GETSEL, 0, 0 )) + 1
+         oGet:pos := HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
 
       ELSEIF wParam == VK_RIGHT
 
          IF lShift
             nEnd := oGet:Pos
-            SendMessage( hWnd , EM_SETSEL , nStart , nEnd )
+            SendMessage(hWnd, EM_SETSEL, nStart, nEnd)
          ELSE
-            SendMessage( hWnd , EM_SETSEL , nStart + 1 , nStart + 1 )
+            SendMessage(hWnd, EM_SETSEL, nStart + 1, nStart + 1)
             _HMG_aControlMiscData1[i][1] := 0
          ENDIF
-         oGet:pos := HiWord(SendMessage( hWnd, EM_GETSEL, 0, 0 )) + 1
+         oGet:pos := HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
 
       ELSEIF wParam == VK_HOME
 
@@ -1118,7 +1118,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          IF !lShift
             nEnd := 0
          ENDIF
-         SendMessage( hWnd , EM_SETSEL , nStart , nEnd )
+         SendMessage(hWnd, EM_SETSEL, nStart, nEnd)
 
          RETURN( 1 )
 
@@ -1128,7 +1128,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          IF !lShift
             nStart := nEnd
          ENDIF
-         SendMessage( hWnd , EM_SETSEL , nStart , nEnd )
+         SendMessage(hWnd, EM_SETSEL, nStart, nEnd)
 
          RETURN( 1 )
 
@@ -1143,8 +1143,8 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
             RETURN( 0 )
          ENDIF
 
-         nStart := LoWord(SendMessage( hWnd, EM_GETSEL, 0, 0 )) + 1
-         nEnd   := HiWord(SendMessage( hWnd, EM_GETSEL, 0, 0 )) + 1
+         nStart := LoWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
+         nEnd   := HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
          oGet:pos := nEnd
 
          IF nStart != nEnd
@@ -1180,7 +1180,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          oGet:Assign()
 
          _DispGetBoxText( hWnd, oGet:buffer )
-         SendMessage( hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1 )
+         SendMessage(hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1)
 
          RETURN( 0 )
 
@@ -1194,8 +1194,8 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
       IF ( cText := System.Clipboard ) != NIL
 
-         nStart := LoWord(SendMessage( hWnd, EM_GETSEL, 0, 0 )) + 1
-         nEnd   := HiWord(SendMessage( hWnd, EM_GETSEL, 0, 0 )) + 1
+         nStart := LoWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
+         nEnd   := HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
          nLen   := hb_ULen(oGet:buffer)
 
          IF nStart != nEnd
@@ -1243,7 +1243,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          oGet:VarPut( oGet:unTransform() )
 
          _DispGetBoxText( hWnd, oGet:buffer )
-         SendMessage( hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1 )
+         SendMessage(hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1)
 
       ENDIF
 
@@ -1253,8 +1253,8 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
       IF IsWindowEnabled( hWnd ) .AND. !readonly .AND. lAllowEdit
 
-         nStart := LoWord(SendMessage( hWnd, EM_GETSEL, 0, 0 )) + 1
-         nEnd := HiWord(SendMessage( hWnd, EM_GETSEL, 0, 0 )) + 1
+         nStart := LoWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
+         nEnd := HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
          oGet:pos := nEnd
 
          IF nStart != nEnd
@@ -1274,7 +1274,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          ENDIF
 
          _DispGetBoxText( hWnd, oGet:buffer )
-         SendMessage( hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1 )
+         SendMessage(hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1)
 
       ENDIF
 
@@ -1400,7 +1400,7 @@ FUNCTION _SetGetBoxColorFocus( aBackColor, aFontColor )
    
    IF aBackColor != NIL
       aClrFocus := aBackColor
-   ENDIF   
+   ENDIF
 
    IF aFontColor != NIL
       aFntFocus := aFontColor
