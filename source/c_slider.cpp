@@ -56,7 +56,7 @@ HINSTANCE GetInstance(void);
 HB_FUNC( INITSLIDER )
 {
    HWND hTrackBar;
-   int  Style = WS_CHILD, iSelMin = 0, iSelMax = 0;
+   int style = WS_CHILD, iSelMin = 0, iSelMax = 0;
 
    INITCOMMONCONTROLSEX i;
 
@@ -66,39 +66,39 @@ HB_FUNC( INITSLIDER )
 
    if( hb_parl(9) )
    {
-      Style |= TBS_VERT;
+      style |= TBS_VERT;
    }
 
-   Style |= ( hb_parl(10) ? TBS_NOTICKS : TBS_AUTOTICKS );
+   style |= hb_parl(10) ? TBS_NOTICKS : TBS_AUTOTICKS;
 
    if( hb_parl(11) )
    {
-      Style |= TBS_BOTH;
+      style |= TBS_BOTH;
    }
 
    if( hb_parl(12) )
    {
-      Style |= TBS_TOP;
+      style |= TBS_TOP;
    }
 
    if( hb_parl(13) )
    {
-      Style |= TBS_LEFT;
+      style |= TBS_LEFT;
    }
 
    if( !hb_parl(14) )
    {
-      Style |= WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( !hb_parl(15) )
    {
-      Style |= WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
    if( hb_parl(16) )  /* P.Ch. 16.10 */
    {
-      Style  |= TBS_ENABLESELRANGE;
+      style  |= TBS_ENABLESELRANGE;
       iSelMin = HB_MIN(hb_parnidef(17, 0), hb_parnidef(18, 0));
       iSelMax = HB_MAX(hb_parnidef(17, 0), hb_parnidef(18, 0));
    }
@@ -107,7 +107,7 @@ HB_FUNC( INITSLIDER )
                (
       TRACKBAR_CLASS,
       0,
-      Style,
+      style,
       hb_parni(3),
       hb_parni(4),
       hb_parni(5),

@@ -68,49 +68,49 @@ HB_FUNC( INITCOMBOBOX )
 {
    HWND hwnd;
    HWND hbutton;
-   int  Style;
+   int style;
 
    hwnd = hmg_par_HWND(1);
 
-   Style = WS_CHILD | WS_VSCROLL;
+   style = WS_CHILD | WS_VSCROLL;
 
    if( !hb_parl(9) )
    {
-      Style = Style | WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( !hb_parl(10) )
    {
-      Style = Style | WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
    if( hb_parl(11) )
    {
-      Style = Style | CBS_SORT;
+      style |= CBS_SORT;
    }
 
-   Style = ( hb_parl(12) ) ? ( Style | CBS_DROPDOWN ) : ( Style | CBS_DROPDOWNLIST );
+   style |= hb_parl(12) ? CBS_DROPDOWN : CBS_DROPDOWNLIST;
 
    if( hb_parl(13) )
    {
-      Style = Style | CBS_NOINTEGRALHEIGHT;
+      style |= CBS_NOINTEGRALHEIGHT;
    }
 
    if( hb_parl(6) )
    {
-      Style = Style | CBS_UPPERCASE;
+      style |= CBS_UPPERCASE;
    }
 
    if( hb_parl(7) )
    {
-      Style = Style | CBS_LOWERCASE;
+      style |= CBS_LOWERCASE;
    }
 
    hbutton = CreateWindow
              (
       WC_COMBOBOX,
       TEXT(""),
-      Style,
+      style,
       hb_parni(3),
       hb_parni(4),
       hb_parni(5),
@@ -133,7 +133,7 @@ HB_FUNC( INITCOMBOBOXEX )
    char *     FileName;
 
    int nCount;
-   int Style;
+   int style;
 
    INITCOMMONCONTROLSEX icex;
 
@@ -141,23 +141,23 @@ HB_FUNC( INITCOMBOBOXEX )
    icex.dwICC  = ICC_USEREX_CLASSES;
    InitCommonControlsEx(&icex);
 
-   Style = WS_CHILD | WS_VSCROLL;
+   style = WS_CHILD | WS_VSCROLL;
 
    if( !hb_parl(9) )
    {
-      Style = Style | WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( !hb_parl(10) )
    {
-      Style = Style | WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
-   Style = ( hb_parl(12) ) ? ( Style | CBS_DROPDOWN ) : ( Style | CBS_DROPDOWNLIST );
+   style |= hb_parl(12) ? CBS_DROPDOWN : CBS_DROPDOWNLIST;
 
    if( hb_parl(13) )
    {
-      Style = Style | CBS_NOINTEGRALHEIGHT;
+      style |= CBS_NOINTEGRALHEIGHT;
    }
 
    hCombo = CreateWindowEx
@@ -165,7 +165,7 @@ HB_FUNC( INITCOMBOBOXEX )
       0,
       WC_COMBOBOXEX,
       TEXT(""),
-      Style,
+      style,
       hb_parni(3),
       hb_parni(4),
       hb_parni(5),

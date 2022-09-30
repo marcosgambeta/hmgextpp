@@ -58,7 +58,7 @@ HB_FUNC( INITPROGRESSBAR )
    HWND hwnd;
    HWND hbutton;
 
-   int Style = WS_CHILD;
+   int style = WS_CHILD;
 
    INITCOMMONCONTROLSEX i;
 
@@ -70,17 +70,17 @@ HB_FUNC( INITPROGRESSBAR )
 
    if( hb_parl(9) )
    {
-      Style = Style | PBS_VERTICAL;
+      style |= PBS_VERTICAL;
    }
 
    if( hb_parl(10) )
    {
-      Style = Style | PBS_SMOOTH;
+      style |= PBS_SMOOTH;
    }
 
    if( !hb_parl(11) )
    {
-      Style = Style | WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    hbutton = CreateWindowEx
@@ -88,7 +88,7 @@ HB_FUNC( INITPROGRESSBAR )
       WS_EX_CLIENTEDGE,
       PROGRESS_CLASS,
       0,
-      Style,
+      style,
       hb_parni(3),
       hb_parni(4),
       hb_parni(5),

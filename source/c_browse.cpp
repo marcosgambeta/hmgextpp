@@ -76,7 +76,7 @@ HB_FUNC( INITBROWSE )
 
    if( !hb_parl(7) )
    {
-      style = style | WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
    hwnd = hmg_par_HWND(1);
@@ -186,13 +186,13 @@ HB_FUNC( INITVSCROLLBARBUTTON )
 {
    HWND hwnd;
    HWND hbutton;
-   int  Style;
+   int  style;
 
    hwnd = hmg_par_HWND(1);
 
-   Style = WS_CHILD | WS_VISIBLE | SS_SUNKEN;
+   style = WS_CHILD | WS_VISIBLE | SS_SUNKEN;
 
-   hbutton = CreateWindow(WC_STATIC, TEXT(""), Style, hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), hwnd, ( HMENU ) nullptr, GetInstance(), nullptr);
+   hbutton = CreateWindow(WC_STATIC, TEXT(""), style, hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), hwnd, ( HMENU ) nullptr, GetInstance(), nullptr);
 
    HB_RETNL( ( LONG_PTR ) hbutton );
 }

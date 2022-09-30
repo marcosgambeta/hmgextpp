@@ -66,30 +66,30 @@ HB_FUNC( INITRADIOGROUP )
 #else
    LPWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(2));
 #endif
-   int Style = BS_NOTIFY | WS_CHILD | BS_AUTORADIOBUTTON | WS_GROUP;
+   int style = BS_NOTIFY | WS_CHILD | BS_AUTORADIOBUTTON | WS_GROUP;
 
    hwnd = hmg_par_HWND(1);
 
    if( !hb_parl(9) )
    {
-      Style = Style | WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( !hb_parl(10) )
    {
-      Style = Style | WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
    if( hb_parl(11) )
    {
-      Style = Style | BS_LEFTTEXT;
+      style |= BS_LEFTTEXT;
    }
 
    hbutton = CreateWindow
              (
       WC_BUTTON,
       lpWindowName,
-      Style,
+      style,
       hb_parni(4),
       hb_parni(5),
       hb_parni(8),
@@ -117,25 +117,25 @@ HB_FUNC( INITRADIOBUTTON )
 #else
    LPWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(2));
 #endif
-   int Style = BS_NOTIFY | WS_CHILD | BS_AUTORADIOBUTTON;
+   int style = BS_NOTIFY | WS_CHILD | BS_AUTORADIOBUTTON;
 
    hwnd = hmg_par_HWND(1);
 
    if( !hb_parl(9) )
    {
-      Style = Style | WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( hb_parl(10) )
    {
-      Style = Style | BS_LEFTTEXT;
+      style |= BS_LEFTTEXT;
    }
 
    hbutton = CreateWindow
              (
       WC_BUTTON,
       lpWindowName,
-      Style,
+      style,
       hb_parni(4),
       hb_parni(5),
       hb_parni(8),

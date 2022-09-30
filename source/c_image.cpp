@@ -315,19 +315,19 @@ HB_FUNC( INITIMAGE )
 {
    HWND hWnd;
    HWND hWndParent = hmg_par_HWND(1);
-   int  Style      = WS_CHILD | SS_BITMAP;
+   int  style = WS_CHILD | SS_BITMAP;
 
    if( !hb_parl(5) )
    {
-      Style |= WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( hb_parl(6) || hb_parl(7) )
    {
-      Style |= SS_NOTIFY;
+      style |= SS_NOTIFY;
    }
 
-   hWnd = CreateWindowEx(0, WC_STATIC, nullptr, Style, hb_parni(3), hb_parni(4), 0, 0, hWndParent, hmg_par_HMENU(2), GetResources(), nullptr);
+   hWnd = CreateWindowEx(0, WC_STATIC, nullptr, style, hb_parni(3), hb_parni(4), 0, 0, hWndParent, hmg_par_HMENU(2), GetResources(), nullptr);
 
    if( hb_parl(7) )
    {

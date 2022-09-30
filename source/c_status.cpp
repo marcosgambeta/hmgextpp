@@ -84,7 +84,7 @@ HB_FUNC( INITITEMBAR )
    HDC   hDC;
    WORD  displayFlags;
    HICON hIcon;
-   int   Style;
+   int   style;
    int   cx;
    int   cy;
 
@@ -99,7 +99,7 @@ HB_FUNC( INITITEMBAR )
 #endif
 
    hWndSB = hmg_par_HWND(1);
-   Style  = GetWindowLong(( HWND ) GetParent(hWndSB), GWL_STYLE);
+   style  = GetWindowLong(( HWND ) GetParent(hWndSB), GWL_STYLE);
 
    switch( hb_parni(8) )
    {
@@ -131,7 +131,7 @@ HB_FUNC( INITITEMBAR )
          ptArray[n] -= hb_parni(4) - cSpaceInBetween;
       }
 
-      if( Style & WS_SIZEBOX )
+      if( style & WS_SIZEBOX )
       {
          if( nrOfParts == 2 )
          {
@@ -393,19 +393,19 @@ HB_FUNC( CREATEPROGRESSBARITEM )     // CreateProgressBarItem(HwndStatus, NrItem
    HWND hwndStatus = hmg_par_HWND(1);
    HWND hwndProgressBar;
    RECT rc;
-   int  Style = WS_CHILD | PBS_SMOOTH;
+   int  style = WS_CHILD | PBS_SMOOTH;
 
    SendMessage(hwndStatus, SB_GETRECT, hmg_par_WPARAM(2) - 1, ( LPARAM ) &rc);
    if( hb_parni(3) )
    {
-      Style = Style | WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( ( hwndProgressBar = CreateWindowEx(
             0,
             PROGRESS_CLASS,
             ( LPCTSTR ) nullptr,
-            Style,
+            style,
             rc.top,
             rc.left,
             rc.right - rc.left,

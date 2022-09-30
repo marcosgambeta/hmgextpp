@@ -95,7 +95,7 @@ HB_FUNC( MESSAGEBEEP )
 
 HB_FUNC( C_PLAYWAVE )
 {
-   int     Style = SND_ASYNC;
+   int style = SND_ASYNC;
    HMODULE hmod  = nullptr;
 
 #ifndef UNICODE
@@ -106,35 +106,35 @@ HB_FUNC( C_PLAYWAVE )
 
    if( hb_parl(2) )
    {
-      Style = Style | SND_RESOURCE;
+      style |= SND_RESOURCE;
       hmod  = GetResources();
    }
    else
    {
-      Style = Style | SND_FILENAME;
+      style |= SND_FILENAME;
    }
 
    if( hb_parl(3) )
    {
-      Style = Style | SND_SYNC;
+      style |= SND_SYNC;
    }
 
    if( hb_parl(4) )
    {
-      Style = Style | SND_NOSTOP;
+      style |= SND_NOSTOP;
    }
 
    if( hb_parl(5) )
    {
-      Style = Style | SND_LOOP;
+      style |= SND_LOOP;
    }
 
    if( hb_parl(6) )
    {
-      Style = Style | SND_NODEFAULT;
+      style |= SND_NODEFAULT;
    }
 
-   hb_retl( PlaySound( pszSound, hmod, Style ) );
+   hb_retl( PlaySound( pszSound, hmod, style ) );
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) pszSound);
@@ -155,59 +155,59 @@ HB_FUNC( INITPLAYER )
 #else
    LPCWSTR szFile = AnsiToWide(( char * ) hb_parc(2));
 #endif
-   int Style = WS_VISIBLE | WS_CHILD | WS_BORDER;
+   int style = WS_VISIBLE | WS_CHILD | WS_BORDER;
 
    if( hb_parl(7) )
    {
-      Style = Style | MCIWNDF_NOAUTOSIZEWINDOW;
+      style |= MCIWNDF_NOAUTOSIZEWINDOW;
    }
 
    if( hb_parl(8) )
    {
-      Style = Style | MCIWNDF_NOAUTOSIZEMOVIE;
+      style |= MCIWNDF_NOAUTOSIZEMOVIE;
    }
 
    if( hb_parl(9) )
    {
-      Style = Style | MCIWNDF_NOERRORDLG;
+      style |= MCIWNDF_NOERRORDLG;
    }
 
    if( hb_parl(10) )
    {
-      Style = Style | MCIWNDF_NOMENU;
+      style |= MCIWNDF_NOMENU;
    }
 
    if( hb_parl(11) )
    {
-      Style = Style | MCIWNDF_NOOPEN;
+      style |= MCIWNDF_NOOPEN;
    }
 
    if( hb_parl(12) )
    {
-      Style = Style | MCIWNDF_NOPLAYBAR;
+      style |= MCIWNDF_NOPLAYBAR;
    }
 
    if( hb_parl(13) )
    {
-      Style = Style | MCIWNDF_SHOWALL;
+      style |= MCIWNDF_SHOWALL;
    }
 
    if( hb_parl(14) )
    {
-      Style = Style | MCIWNDF_SHOWMODE;
+      style |= MCIWNDF_SHOWMODE;
    }
 
    if( hb_parl(15) )
    {
-      Style = Style | MCIWNDF_SHOWNAME;
+      style |= MCIWNDF_SHOWNAME;
    }
 
    if( hb_parl(16) )
    {
-      Style = Style | MCIWNDF_SHOWPOS;
+      style |= MCIWNDF_SHOWPOS;
    }
 
-   hwnd = MCIWndCreate(hmg_par_HWND(1), nullptr, Style, szFile);
+   hwnd = MCIWndCreate(hmg_par_HWND(1), nullptr, style, szFile);
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) szFile);
@@ -256,34 +256,34 @@ HB_FUNC( MCIFUNC )
 HB_FUNC( INITANIMATE )
 {
    HWND hwnd;
-   int  Style = WS_CHILD;
+   int style = WS_CHILD;
 
    if( hb_parl(9) )
    {
-      Style = Style | WS_BORDER;
+      style |= WS_BORDER;
    }
 
    if( !hb_parl(10) )
    {
-      Style = Style | WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( hb_parl(6) )
    {
-      Style = Style | ACS_AUTOPLAY;
+      style |= ACS_AUTOPLAY;
    }
 
    if( hb_parl(7) )
    {
-      Style = Style | ACS_CENTER;
+      style |= ACS_CENTER;
    }
 
    if( hb_parl(8) )
    {
-      Style = Style | ACS_TRANSPARENT;
+      style |= ACS_TRANSPARENT;
    }
 
-   hwnd = Animate_Create(hmg_par_HWND(1), nullptr, Style, GetResources());
+   hwnd = Animate_Create(hmg_par_HWND(1), nullptr, style, GetResources());
 
    if( hwnd == nullptr )
    {

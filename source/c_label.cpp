@@ -69,7 +69,7 @@ HB_FUNC( INITLABEL )
    HWND hWnd;
    HWND hWndParent = hmg_par_HWND(1);
 
-   int Style   = WS_CHILD;
+   int style = WS_CHILD;
    int ExStyle = 0;
 
 #ifndef UNICODE
@@ -80,47 +80,47 @@ HB_FUNC( INITLABEL )
 
    if( hb_parl(9) || hb_parl(10) )
    {
-      Style |= SS_NOTIFY;
+      style |= SS_NOTIFY;
    }
 
    if( hb_parl(11) )
    {
-      Style |= WS_BORDER;
+      style |= WS_BORDER;
    }
 
    if( hb_parl(13) )
    {
-      Style |= WS_HSCROLL;
+      style |= WS_HSCROLL;
    }
 
    if( hb_parl(14) )
    {
-      Style |= WS_VSCROLL;
+      style |= WS_VSCROLL;
    }
 
    if( !hb_parl(16) )
    {
-      Style |= WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( hb_parl(17) )
    {
-      Style |= ES_RIGHT;
+      style |= ES_RIGHT;
    }
 
    if( hb_parl(18) )
    {
-      Style |= ES_CENTER;
+      style |= ES_CENTER;
    }
 
    if( hb_parl(19) )
    {
-      Style |= SS_CENTERIMAGE;
+      style |= SS_CENTERIMAGE;
    }
 
    if( hb_parl(20) )
    {
-      Style |= SS_NOPREFIX;
+      style |= SS_NOPREFIX;
    }
 
    if( hb_parl(12) )
@@ -136,7 +136,7 @@ HB_FUNC( INITLABEL )
    hWnd = CreateWindowEx(ExStyle,
                          WC_STATIC,
                          lpWindowName,
-                         Style,
+                         style,
                          hb_parni(4),
                          hb_parni(5),
                          hb_parni(6),

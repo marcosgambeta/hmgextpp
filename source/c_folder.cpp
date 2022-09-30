@@ -478,7 +478,7 @@ HB_FUNC( CREATEDLGFOLDER )
    BOOL    modal;
    LRESULT lResult;
    long    lTemplateSize;
-   int     nPages, Style, nIdFld;
+   int     nPages, style, nIdFld;
    int     x, y, cx, cy;
 
    nIdFld  = hmg_par_int(1);
@@ -497,35 +497,35 @@ HB_FUNC( CREATEDLGFOLDER )
    y      = hb_arrayGetNI( pArray, 7 );      //y
    cx     = hb_arrayGetNI( pArray, 8 );      //w
    cy     = hb_arrayGetNI( pArray, 9 );      //h
-   Style  = WS_CHILD | WS_VISIBLE;
+   style  = WS_CHILD | WS_VISIBLE;
    if( hb_arrayGetL( pArray, 19 ) )
    {
-      Style = Style | TCS_BUTTONS;
+      style |= TCS_BUTTONS;
    }
 
    if( hb_arrayGetL( pArray, 20 ) )
    {
-      Style = Style | TCS_FLATBUTTONS;
+      style |= TCS_FLATBUTTONS;
    }
 
    if( hb_arrayGetL( pArray, 21 ) )
    {
-      Style = Style | TCS_HOTTRACK;
+      style |= TCS_HOTTRACK;
    }
 
    if( hb_arrayGetL( pArray, 22 ) )
    {
-      Style = Style | TCS_VERTICAL;
+      style |= TCS_VERTICAL;
    }
 
    if( hb_arrayGetL( pArray, 23 ) )
    {
-      Style = Style | TCS_BOTTOM;
+      style |= TCS_BOTTOM;
    }
 
    if( hb_arrayGetL( pArray, 24 ) )
    {
-      Style = Style | TCS_MULTILINE;
+      style |= TCS_MULTILINE;
    }
 
    hfpi = ( HFLDPAGEINFO * ) malloc(sizeof(HFLDPAGEINFO) * nPages);
@@ -553,7 +553,7 @@ HB_FUNC( CREATEDLGFOLDER )
    pFhi->active_page = -1;
    pFhi->isInDirect  = hmg_par_BOOL(6); //InMemory;
    pFhi->nIdFld      = nIdFld;
-   pFhi->FolderStyle = Style;
+   pFhi->FolderStyle = style;
 
    lTemplateSize = GetSizeDlgTemp(pArray, cArray);
    pdlgtemplate  = ( LPDLGTEMPLATE ) CreateDlgTemplate(lTemplateSize, pArray, cArray);
@@ -740,7 +740,7 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
    RECT   rcTab;
    HWND   hwndButton;
    RECT   rcButton;
-   int    nPages, Style;
+   int    nPages, style;
 
    INITCOMMONCONTROLSEX icc;
 
@@ -756,10 +756,10 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
 
    nPages = pFhi->nPages;
    hfpi   = pFhi->fhpage;
-   Style  = pFhi->FolderStyle;
+   style  = pFhi->FolderStyle;
 
    // Create the tab control.
-   pFhi->hwndTab = CreateWindow(WC_TABCONTROL, TEXT(""), Style, 0, 0, 100, 100, hWndDlg, nullptr, GetInstance(), nullptr);
+   pFhi->hwndTab = CreateWindow(WC_TABCONTROL, TEXT(""), style, 0, 0, 100, 100, hWndDlg, nullptr, GetInstance(), nullptr);
 
    if( pFhi->hwndTab == nullptr )
    {

@@ -74,7 +74,7 @@ HB_FUNC( INITBTNTEXTBOX )
 {
    HWND hwnd;                    // Handle of the parent window/form.
    HWND hedit;                   // Handle of the child window/control.
-   int  iStyle;                  // TEXTBOX window base style.
+   int  style;                   // TEXTBOX window base style.
    int  ibtnStyle1, ibtnStyle2;  // BUTTON window base style.
    HWND himage, himage2;
    HWND hBtn1, hBtn2;
@@ -88,48 +88,48 @@ HB_FUNC( INITBTNTEXTBOX )
    BtnWidth  = ( BtnWidth >= GetSystemMetrics(SM_CYSIZE) ? BtnWidth : GetSystemMetrics(SM_CYSIZE) - 1 );
    BtnWidth2 = ( fBtn2 ? BtnWidth : 0 );
 
-   iStyle = WS_CHILD | ES_AUTOHSCROLL | WS_CLIPCHILDREN;
+   style = WS_CHILD | ES_AUTOHSCROLL | WS_CLIPCHILDREN;
 
    if( hb_parl(12) )  // if <lNumeric> is TRUE, then ES_NUMBER style is added.
    {
-      iStyle = iStyle | ES_NUMBER;
+      style |= ES_NUMBER;
    }
    else
    {
       if( hb_parl(10) ) // if <lUpper> is TRUE, then ES_UPPERCASE style is added.
       {
-         iStyle = iStyle | ES_UPPERCASE;
+         style |= ES_UPPERCASE;
       }
 
       if( hb_parl(11) ) // if <lLower> is TRUE, then ES_LOWERCASE style is added.
       {
-         iStyle = iStyle | ES_LOWERCASE;
+         style |= ES_LOWERCASE;
       }
    }
 
    if( hb_parl(13) )  // if <lPassword> is TRUE, then ES_PASSWORD style is added.
    {
-      iStyle = iStyle | ES_PASSWORD;
+      style |= ES_PASSWORD;
    }
 
    if( hb_parl(14) )
    {
-      iStyle = iStyle | ES_RIGHT;
+      style |= ES_RIGHT;
    }
 
    if( !hb_parl(15) )
    {
-      iStyle = iStyle | WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( !hb_parl(16) )
    {
-      iStyle = iStyle | WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
    if( hb_parl(21) )
    {
-      iStyle = iStyle | ES_READONLY;
+      style |= ES_READONLY;
    }
 
    // Creates the child Frame control.
@@ -138,7 +138,7 @@ HB_FUNC( INITBTNTEXTBOX )
       WS_EX_CLIENTEDGE,
       WC_EDIT,
       TEXT(""),
-      iStyle,
+      style,
       hb_parni(3),
       hb_parni(4),
       hb_parni(5),
@@ -239,14 +239,14 @@ HB_FUNC( INITBTNTEXTBOX )
 
    if( himage != nullptr )
    {
-      ibtnStyle1 = ibtnStyle1 | BS_BITMAP;
+      ibtnStyle1 |= BS_BITMAP;
    }
 
    ibtnStyle2 = BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE;
 
    if( himage2 != nullptr )
    {
-      ibtnStyle2 = ibtnStyle2 | BS_BITMAP;
+      ibtnStyle2 |= BS_BITMAP;
    }
 
    hBtn1 = CreateWindow

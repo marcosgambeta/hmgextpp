@@ -64,41 +64,41 @@ HB_FUNC( INITMASKEDTEXTBOX )
    HWND hwnd;
    HWND hbutton;
 
-   int Style;
+   int style;
    int ExStyle;
 
    hwnd = hmg_par_HWND(1);
 
-   Style = WS_CHILD | ES_AUTOHSCROLL;
+   style = WS_CHILD | ES_AUTOHSCROLL;
 
    if( hb_parl(9) )
    {
-      Style = Style | ES_UPPERCASE;
+      style |= ES_UPPERCASE;
    }
 
    if( hb_parl(10) )
    {
-      Style = Style | ES_LOWERCASE;
+      style |= ES_LOWERCASE;
    }
 
    if( hb_parl(12) )
    {
-      Style = Style | ES_RIGHT;
+      style |= ES_RIGHT;
    }
 
    if( hb_parl(13) )
    {
-      Style = Style | ES_READONLY;
+      style |= ES_READONLY;
    }
 
    if( !hb_parl(14) )
    {
-      Style = Style | WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( !hb_parl(15) )
    {
-      Style = Style | WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
    ExStyle = hb_parl(16) ? 0 : WS_EX_CLIENTEDGE;
@@ -108,7 +108,7 @@ HB_FUNC( INITMASKEDTEXTBOX )
       ExStyle,
       WC_EDIT,
       TEXT(""),
-      Style,
+      style,
       hb_parni(3),
       hb_parni(4),
       hb_parni(5),
@@ -127,54 +127,54 @@ HB_FUNC( INITTEXTBOX )
    HWND hwnd;           // Handle of the parent window/form.
    HWND hedit;          // Handle of the child window/control.
 
-   int iStyle;          // TEXTBOX window base style.
+   int style;          // TEXTBOX window base style.
    int iExStyle;        // TEXTBOX window extended style.
 
    // Get the handle of the parent window/form.
    hwnd = hmg_par_HWND(1);
 
-   iStyle = WS_CHILD | ES_AUTOHSCROLL | BS_FLAT;
+   style = WS_CHILD | ES_AUTOHSCROLL | BS_FLAT;
 
    if( hb_parl(12) )              // if <lNumeric> is TRUE, then ES_NUMBER style is added.
    {
-      iStyle = iStyle | ES_NUMBER;  // Set to a numeric TEXTBOX, so don't worry about other "textual" styles.
+      style |= ES_NUMBER;  // Set to a numeric TEXTBOX, so don't worry about other "textual" styles.
    }
    else
    {
       if( hb_parl(10) ) // if <lUpper> is TRUE, then ES_UPPERCASE style is added.
       {
-         iStyle = iStyle | ES_UPPERCASE;
+         style |= ES_UPPERCASE;
       }
 
       if( hb_parl(11) ) // if <lLower> is TRUE, then ES_LOWERCASE style is added.
       {
-         iStyle = iStyle | ES_LOWERCASE;
+         style |= ES_LOWERCASE;
       }
    }
 
    if( hb_parl(13) )  // if <lPassword> is TRUE, then ES_PASSWORD style is added.
    {
-      iStyle = iStyle | ES_PASSWORD;
+      style |= ES_PASSWORD;
    }
 
    if( hb_parl(14) )
    {
-      iStyle = iStyle | ES_RIGHT;
+      style |= ES_RIGHT;
    }
 
    if( hb_parl(15) )
    {
-      iStyle = iStyle | ES_READONLY;
+      style |= ES_READONLY;
    }
 
    if( !hb_parl(16) )
    {
-      iStyle = iStyle | WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( !hb_parl(17) )
    {
-      iStyle = iStyle | WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
    iExStyle = hb_parl(18) ? 0 : WS_EX_CLIENTEDGE;
@@ -185,7 +185,7 @@ HB_FUNC( INITTEXTBOX )
       iExStyle,
       WC_EDIT,
       TEXT(""),
-      iStyle,
+      style,
       hb_parni(3),
       hb_parni(4),
       hb_parni(5),
@@ -209,41 +209,41 @@ HB_FUNC( INITCHARMASKTEXTBOX )
    HWND hwnd;
    HWND hbutton;
 
-   int Style;
+   int style;
    int ExStyle;
 
    hwnd = hmg_par_HWND(1);
 
-   Style = WS_CHILD | ES_AUTOHSCROLL;
+   style = WS_CHILD | ES_AUTOHSCROLL;
 
    if( hb_parl(9) )
    {
-      Style = Style | ES_UPPERCASE;
+      style |= ES_UPPERCASE;
    }
 
    if( hb_parl(10) )
    {
-      Style = Style | ES_LOWERCASE;
+      style |= ES_LOWERCASE;
    }
 
    if( hb_parl(12) )
    {
-      Style = Style | ES_RIGHT;
+      style |= ES_RIGHT;
    }
 
    if( hb_parl(13) )
    {
-      Style = Style | ES_READONLY;
+      style |= ES_READONLY;
    }
 
    if( !hb_parl(14) )
    {
-      Style = Style | WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( !hb_parl(15) )
    {
-      Style = Style | WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
    ExStyle = hb_parl(16) ? 0 : WS_EX_CLIENTEDGE;
@@ -253,7 +253,7 @@ HB_FUNC( INITCHARMASKTEXTBOX )
       ExStyle,
       WC_EDIT,
       TEXT(""),
-      Style,
+      style,
       hb_parni(3),
       hb_parni(4),
       hb_parni(5),

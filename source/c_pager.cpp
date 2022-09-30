@@ -129,8 +129,8 @@ HB_FUNC( PAGERSCROLL )     // PagerScroll(lParam , nScroll)
 HB_FUNC( INITPAGER )       // InitPager ( ParentForm, hRebar, nWidth, nHeight, vertical, autoscroll )
 {
    HWND hPager;
-   int  Style = WS_CHILD | WS_VISIBLE;
-   int  nWidth, nHeight;
+   int style = WS_CHILD | WS_VISIBLE;
+   int nWidth, nHeight;
    HWND hRebar;
    REBARBANDINFO rbBand;
 
@@ -152,16 +152,16 @@ HB_FUNC( INITPAGER )       // InitPager ( ParentForm, hRebar, nWidth, nHeight, v
 
    if( hb_parl(4) )
    {
-      Style = Style | PGS_VERT;
+      style |= PGS_VERT;
    }
    else
    {
-      Style = Style | PGS_HORZ;
+      style |= PGS_HORZ;
    }
 
    if( hb_parl(5) )
    {
-      Style = Style | PGS_AUTOSCROLL;
+      style |= PGS_AUTOSCROLL;
    }
 
    ZeroMemory(&rbBand, sizeof(REBARBANDINFO));
@@ -171,7 +171,7 @@ HB_FUNC( INITPAGER )       // InitPager ( ParentForm, hRebar, nWidth, nHeight, v
    rbBand.cxMinChild = 0;
    rbBand.cyMinChild = 0;
 
-   hPager = CreateWindowEx(0, WC_PAGESCROLLER, nullptr, Style, 0, 0, 0, 0, hRebar, nullptr, GetInstance(), nullptr);
+   hPager = CreateWindowEx(0, WC_PAGESCROLLER, nullptr, style, 0, 0, 0, 0, hRebar, nullptr, GetInstance(), nullptr);
 
    if( hb_parclen(6) > 0 )
    {

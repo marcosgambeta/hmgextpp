@@ -49,7 +49,7 @@
 
 HB_FUNC( WINHELP )
 {
-   UINT  style;
+   UINT style;
    DWORD context;
 
    switch( hb_parni(3) )

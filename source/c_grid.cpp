@@ -199,7 +199,7 @@ HB_FUNC( INITLISTVIEW )
 {
    HWND hwnd;
    HWND hbutton;
-   int  style;
+   int style;
 
    INITCOMMONCONTROLSEX i;
 
@@ -213,26 +213,26 @@ HB_FUNC( INITLISTVIEW )
 
    if( !hb_parl(9) )
    {
-      style = style | LVS_SINGLESEL;
+      style |= LVS_SINGLESEL;
    }
 
    if( !hb_parl(12) )
    {
-      style = style | WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
    if( !hb_parl(10) )
    {
-      style = style | LVS_NOCOLUMNHEADER;
+      style |= LVS_NOCOLUMNHEADER;
    }
    else if( hb_parl(11) )
    {
-      style = style | LVS_NOSORTHEADER;
+      style |= LVS_NOSORTHEADER;
    }
 
    if( hb_parl(7) )
    {
-      style = style | LVS_OWNERDATA;
+      style |= LVS_OWNERDATA;
    }
 
    hbutton = CreateWindowEx
@@ -1044,13 +1044,13 @@ HB_FUNC( LISTVIEW_CHANGEEXTENDEDSTYLE )  // Dr. Claudio Soto
    HWND  hWnd = hmg_par_HWND(1);
    DWORD Add = hmg_par_DWORD(2);
    DWORD Remove = hmg_par_DWORD(3);
-   DWORD OldStyle, NewStyle, Style;
+   DWORD OldStyle, NewStyle, style;
 
    OldStyle = ListView_GetExtendedListViewStyle(hWnd);
    NewStyle = ( OldStyle | Add ) & ( ~Remove );
-   Style    = ListView_SetExtendedListViewStyle(hWnd, NewStyle);
+   style    = ListView_SetExtendedListViewStyle(hWnd, NewStyle);
 
-   hb_retnl( ( LONG ) Style );
+   hb_retnl( ( LONG ) style );
 }
 
 //       ListView_GetExtendedStyle ( hWnd, [nExStyle] )

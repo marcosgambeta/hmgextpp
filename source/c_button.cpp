@@ -90,7 +90,7 @@ HB_FUNC( INITBUTTON )
 {
    HWND hwnd;
    HWND hbutton;
-   int  Style;
+   int style;
 
 #ifndef UNICODE
    LPCSTR lpWindowName = hb_parc(2);
@@ -100,26 +100,26 @@ HB_FUNC( INITBUTTON )
 
    hwnd = hmg_par_HWND(1);
 
-   Style = BS_NOTIFY | WS_CHILD | ( hb_parl(14) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON ); //JK
+   style = BS_NOTIFY | WS_CHILD | ( hb_parl(14) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON ); //JK
 
    if( hb_parl(10) )
    {
-      Style = Style | BS_FLAT;
+      style |= BS_FLAT;
    }
 
    if( !hb_parl(11) )
    {
-      Style = Style | WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
    if( !hb_parl(12) )
    {
-      Style = Style | WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( hb_parl(13) )
    {
-      Style = Style | BS_MULTILINE;
+      style |= BS_MULTILINE;
    }
 
    hbutton = CreateWindowEx
@@ -127,7 +127,7 @@ HB_FUNC( INITBUTTON )
       0,
       WC_BUTTON,
       lpWindowName,
-      Style,
+      style,
       hb_parni(4),
       hb_parni(5),
       hb_parni(6),
@@ -151,7 +151,7 @@ HB_FUNC( INITIMAGEBUTTON )
    HWND  hbutton;
    HWND  himage;
    HICON hIcon;
-   int   Style;
+   int   style;
    int   Transparent = hb_parl(10) ? 0 : 1;
 
 #ifndef UNICODE
@@ -167,23 +167,23 @@ HB_FUNC( INITIMAGEBUTTON )
 
    hwnd = hmg_par_HWND(1);
 
-   Style = BS_NOTIFY | WS_CHILD | ( hb_parl(13) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON ); //JK
+   style = BS_NOTIFY | WS_CHILD | ( hb_parl(13) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON ); //JK
 
-   Style |= ( ( hb_parc(14) == nullptr ) ? BS_BITMAP : BS_ICON );                        //JK
+   style |= ( ( hb_parc(14) == nullptr ) ? BS_BITMAP : BS_ICON );                        //JK
 
    if( hb_parl(9) )
    {
-      Style = Style | BS_FLAT;
+      style |= BS_FLAT;
    }
 
    if( !hb_parl(11) )
    {
-      Style = Style | WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( !hb_parl(12) )
    {
-      Style = Style | WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
    hbutton = CreateWindowEx
@@ -191,7 +191,7 @@ HB_FUNC( INITIMAGEBUTTON )
       0,
       WC_BUTTON,
       lpWindowName,
-      Style,
+      style,
       hb_parni(4),
       hb_parni(5),
       hb_parni(6),
@@ -296,7 +296,7 @@ HB_FUNC( INITOWNERBUTTON )
    HWND  hbutton;
    HWND  himage;
    HICON hIcon;
-   int   Style;
+   int   style;
    int   ImgStyle;
 
 #ifndef UNICODE
@@ -311,33 +311,33 @@ HB_FUNC( INITOWNERBUTTON )
 
    hwnd = hmg_par_HWND(1);
 
-   Style = BS_NOTIFY | WS_CHILD | BS_OWNERDRAW;
+   style = BS_NOTIFY | WS_CHILD | BS_OWNERDRAW;
 
-   Style |= ( HB_ISNIL(14) ? BS_BITMAP : BS_ICON );
+   style |= ( HB_ISNIL(14) ? BS_BITMAP : BS_ICON );
 
    if( hb_parl(9) )
    {
-      Style = Style | BS_FLAT;
+      style |= BS_FLAT;
    }
 
    if( !hb_parl(11) )
    {
-      Style = Style | WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( !hb_parl(12) )
    {
-      Style = Style | WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
-   Style |= ( hb_parl(13) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON );
+   style |= ( hb_parl(13) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON );
 
    hbutton = CreateWindowEx
              (
       0,
       WC_BUTTON,
       lpWindowName,
-      Style,
+      style,
       hb_parni(4),
       hb_parni(5),
       hb_parni(6),

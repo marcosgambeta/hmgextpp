@@ -66,33 +66,33 @@ HB_FUNC( INITLISTBOX )
 {
    HWND hwnd;
    HWND hbutton;
-   int  Style = WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_NOINTEGRALHEIGHT;
+   int style = WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_NOINTEGRALHEIGHT;
 
    hwnd = hmg_par_HWND(1);
 
    if( !hb_parl(9) )
    {
-      Style = Style | WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( !hb_parl(10) )
    {
-      Style = Style | WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
    if( hb_parl(11) )
    {
-      Style = Style | LBS_SORT;
+      style |= LBS_SORT;
    }
 
    if( hb_parl(13) )
    {
-      Style = Style | LBS_USETABSTOPS;
+      style |= LBS_USETABSTOPS;
    }
 
    if( hb_parl(14) )
    {
-      Style = Style | LBS_MULTICOLUMN | WS_HSCROLL;
+      style |= LBS_MULTICOLUMN | WS_HSCROLL;
    }
 
    hbutton = CreateWindowEx
@@ -100,7 +100,7 @@ HB_FUNC( INITLISTBOX )
       WS_EX_CLIENTEDGE,
       WC_LISTBOX,
       TEXT(""),
-      Style,
+      style,
       hb_parni(3),
       hb_parni(4),
       hb_parni(5),
@@ -180,33 +180,33 @@ HB_FUNC( INITMULTILISTBOX )
 {
    HWND hwnd;
    HWND hbutton;
-   int  Style = LBS_EXTENDEDSEL | WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_MULTIPLESEL | LBS_NOINTEGRALHEIGHT;
+   int style = LBS_EXTENDEDSEL | WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_MULTIPLESEL | LBS_NOINTEGRALHEIGHT;
 
    hwnd = hmg_par_HWND(1);
 
    if( !hb_parl(9) )
    {
-      Style = Style | WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( !hb_parl(10) )
    {
-      Style = Style | WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
    if( hb_parl(11) )
    {
-      Style = Style | LBS_SORT;
+      style |= LBS_SORT;
    }
 
    if( hb_parl(13) )
    {
-      Style = Style | LBS_USETABSTOPS;
+      style |= LBS_USETABSTOPS;
    }
 
    if( hb_parl(14) )
    {
-      Style = Style | LBS_MULTICOLUMN;
+      style |= LBS_MULTICOLUMN;
    }
 
    hbutton = CreateWindowEx
@@ -214,7 +214,7 @@ HB_FUNC( INITMULTILISTBOX )
       WS_EX_CLIENTEDGE,
       WC_LISTBOX,
       TEXT(""),
-      Style,
+      style,
       hb_parni(3),
       hb_parni(4),
       hb_parni(5),

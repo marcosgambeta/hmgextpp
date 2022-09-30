@@ -57,7 +57,7 @@ HB_FUNC( INITIPADDRESS )
 {
    HWND hWnd;
    HWND hIpAddress;
-   int  Style = WS_CHILD;
+   int style = WS_CHILD;
 
    INITCOMMONCONTROLSEX icex;
 
@@ -69,12 +69,12 @@ HB_FUNC( INITIPADDRESS )
 
    if( !hb_parl(7) )
    {
-      Style = Style | WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( !hb_parl(8) )
    {
-      Style = Style | WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
    hIpAddress = CreateWindowEx
@@ -82,7 +82,7 @@ HB_FUNC( INITIPADDRESS )
       WS_EX_CLIENTEDGE,
       WC_IPADDRESS,
       TEXT(""),
-      Style,
+      style,
       hb_parni(3),
       hb_parni(4),
       hb_parni(5),

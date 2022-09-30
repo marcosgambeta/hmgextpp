@@ -75,46 +75,46 @@ HB_FUNC( INITTABCONTROL )
    LPWSTR lpText;
 #endif
 
-   int Style = WS_CHILD | WS_VISIBLE | TCS_TOOLTIPS;
+   int style = WS_CHILD | WS_VISIBLE | TCS_TOOLTIPS;
 
    if( hb_parl(11) )
    {
-      Style = Style | TCS_BUTTONS;
+      style |= TCS_BUTTONS;
    }
 
    if( hb_parl(12) )
    {
-      Style = Style | TCS_FLATBUTTONS;
+      style |= TCS_FLATBUTTONS;
    }
 
    if( hb_parl(13) )
    {
-      Style = Style | TCS_HOTTRACK;
+      style |= TCS_HOTTRACK;
    }
 
    if( hb_parl(14) )
    {
-      Style = Style | TCS_VERTICAL;
+      style |= TCS_VERTICAL;
    }
 
    if( hb_parl(15) )
    {
-      Style = Style | TCS_BOTTOM;
+      style |= TCS_BOTTOM;
    }
 
    if( hb_parl(16) )
    {
-      Style = Style | TCS_MULTILINE;
+      style |= TCS_MULTILINE;
    }
 
    if( hb_parl(17) )
    {
-      Style = Style | TCS_OWNERDRAWFIXED;
+      style |= TCS_OWNERDRAWFIXED;
    }
 
    if( !hb_parl(18) )
    {
-      Style = Style | WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
    l      = ( int ) hb_parinfa(7, 0) - 1;
@@ -126,7 +126,7 @@ HB_FUNC( INITTABCONTROL )
              (
       WC_TABCONTROL,
       nullptr,
-      Style,
+      style,
       hb_parni(3),
       hb_parni(4),
       hb_parni(5),

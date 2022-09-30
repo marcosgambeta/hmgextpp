@@ -87,29 +87,29 @@ HB_FUNC( INITRICHEDITBOXEX )
    HMENU hMenu       = hmg_par_HMENU(2);
    HWND  hWndControl = nullptr;
 
-   int Style = ES_MULTILINE | ES_WANTRETURN | WS_CHILD | ES_NOHIDESEL;
+   int style = ES_MULTILINE | ES_WANTRETURN | WS_CHILD | ES_NOHIDESEL;
 
    if( hb_parl(10) )
    {
-      Style = Style | ES_READONLY;
+      style |= ES_READONLY;
    }
 
    if( !hb_parl(11) )
    {
-      Style = Style | WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( !hb_parl(12) )
    {
-      Style = Style | WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
    if( !hb_parl(13) )
    {
-      Style = Style | WS_HSCROLL;
+      style |= WS_HSCROLL;
    }
 
-   Style = Style | ( ( !hb_parl(14) ) ? WS_VSCROLL : ES_AUTOVSCROLL );
+   style |= !hb_parl(14) ? WS_VSCROLL : ES_AUTOVSCROLL;
 
    if( !hRELib )
    {
@@ -120,7 +120,7 @@ HB_FUNC( INITRICHEDITBOXEX )
    {
       hWndControl = CreateWindowEx(WS_EX_CLIENTEDGE, ( LPCTSTR ) RICHEDIT_CLASS,
                                    TEXT(""),
-                                   Style,
+                                   style,
                                    hb_parni(3),
                                    hb_parni(4),
                                    hb_parni(5),

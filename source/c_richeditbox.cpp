@@ -75,32 +75,32 @@ static HINSTANCE hRELib = nullptr;
 HB_FUNC( INITRICHEDITBOX )
 {
    HWND    hRE = nullptr;
-   int     Style;
+   int style;
    TCHAR * lpClassName;
 
-   Style = ES_MULTILINE | ES_WANTRETURN | WS_CHILD | ES_NOHIDESEL;
+   style = ES_MULTILINE | ES_WANTRETURN | WS_CHILD | ES_NOHIDESEL;
 
    if( hb_parl(10) )
    {
-      Style = Style | ES_READONLY;
+      style |= ES_READONLY;
    }
 
    if( !hb_parl(11) )
    {
-      Style = Style | WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( !hb_parl(12) )
    {
-      Style = Style | WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
    if( !hb_parl(13) )
    {
-      Style = Style | WS_HSCROLL;
+      style |= WS_HSCROLL;
    }
 
-   Style = ( hb_parl(14) ) ? ( Style | ES_AUTOVSCROLL ) : ( Style | WS_VSCROLL );
+   style |= hb_parl(14) ? ES_AUTOVSCROLL : WS_VSCROLL;
 
    if( IsWinxpSp1Min() )
    {
@@ -128,7 +128,7 @@ HB_FUNC( INITRICHEDITBOX )
          WS_EX_CLIENTEDGE,
          lpClassName,
          TEXT(""),
-         Style,
+         style,
          hb_parni(3),
          hb_parni(4),
          hb_parni(5),

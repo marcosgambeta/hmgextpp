@@ -71,7 +71,7 @@ HB_FUNC( INITDATEPICK )
 {
    HWND hwnd;
    HWND hbutton;
-   int  Style = WS_CHILD;
+   int style = WS_CHILD;
 
    INITCOMMONCONTROLSEX i;
 
@@ -83,27 +83,27 @@ HB_FUNC( INITDATEPICK )
 
    if( hb_parl(9) )
    {
-      Style |= DTS_SHOWNONE;
+      style |= DTS_SHOWNONE;
    }
 
    if( hb_parl(10) )
    {
-      Style |= DTS_UPDOWN;
+      style |= DTS_UPDOWN;
    }
 
    if( hb_parl(11) )
    {
-      Style |= DTS_RIGHTALIGN;
+      style |= DTS_RIGHTALIGN;
    }
 
    if( !hb_parl(12) )
    {
-      Style |= WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( !hb_parl(13) )
    {
-      Style |= WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
    hbutton = CreateWindowEx
@@ -111,7 +111,7 @@ HB_FUNC( INITDATEPICK )
       WS_EX_CLIENTEDGE,
       DATETIMEPICK_CLASS,
       TEXT("DateTime"),
-      Style,
+      style,
       hb_parni(3),
       hb_parni(4),
       hb_parni(5),
@@ -132,7 +132,7 @@ HB_FUNC( INITTIMEPICK )
 {
    HWND hwnd;
    HWND hbutton;
-   int  Style = WS_CHILD | DTS_TIMEFORMAT;
+   int style = WS_CHILD | DTS_TIMEFORMAT;
 
    INITCOMMONCONTROLSEX i;
 
@@ -144,17 +144,17 @@ HB_FUNC( INITTIMEPICK )
 
    if( hb_parl(9) )
    {
-      Style |= DTS_SHOWNONE;
+      style |= DTS_SHOWNONE;
    }
 
    if( !hb_parl(10) )
    {
-      Style |= WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( !hb_parl(11) )
    {
-      Style |= WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
    hbutton = CreateWindowEx
@@ -162,7 +162,7 @@ HB_FUNC( INITTIMEPICK )
       WS_EX_CLIENTEDGE,
       DATETIMEPICK_CLASS,
       TEXT("DateTime"),
-      Style,
+      style,
       hb_parni(3),
       hb_parni(4),
       hb_parni(5),

@@ -242,54 +242,54 @@ HB_FUNC( INITCHKLABEL )
 
    int BtnWidth = hb_parni(7);
 
-   int Style   = WS_CHILD | SS_NOTIFY;
+   int style = WS_CHILD | SS_NOTIFY;
    int ExStyle = 0;
 
    hwnd = hmg_par_HWND(1);
 
    if( hb_parl(12) )
    {
-      ExStyle = ExStyle | WS_EX_CLIENTEDGE;
+      ExStyle |= WS_EX_CLIENTEDGE;
    }
 
    if( hb_parl(11) )
    {
-      Style |= WS_BORDER;
+      style |= WS_BORDER;
    }
 
    if( hb_parl(13) )
    {
-      Style |= WS_HSCROLL;
+      style |= WS_HSCROLL;
    }
 
    if( hb_parl(14) )
    {
-      Style |= WS_VSCROLL;
+      style |= WS_VSCROLL;
    }
 
    if( hb_parl(15) )
    {
-      ExStyle = ExStyle | WS_EX_TRANSPARENT;
+      ExStyle |= WS_EX_TRANSPARENT;
    }
 
    if( !hb_parl(16) )
    {
-      Style |= WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( hb_parl(17) )
    {
-      Style |= ES_RIGHT;
+      style |= ES_RIGHT;
    }
 
    if( hb_parl(18) )
    {
-      Style |= ES_CENTER;
+      style |= ES_CENTER;
    }
 
    if( hb_parl(23) )
    {
-      Style |= SS_CENTERIMAGE;
+      style |= SS_CENTERIMAGE;
    }
 
    hbutton = CreateWindowEx
@@ -297,7 +297,7 @@ HB_FUNC( INITCHKLABEL )
       ExStyle,
       WC_STATIC,
       lpWindowName,
-      Style,
+      style,
       hb_parni(4),
       hb_parni(5),
       hb_parni(6),

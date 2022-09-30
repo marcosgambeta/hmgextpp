@@ -783,7 +783,7 @@ HB_FUNC( ADDSPLITBOXITEM )
 {
    REBARBANDINFO rbBand;
    RECT          rc;
-   int Style = RBBS_CHILDEDGE | RBBS_GRIPPERALWAYS | RBBS_USECHEVRON;
+   int style = RBBS_CHILDEDGE | RBBS_GRIPPERALWAYS | RBBS_USECHEVRON;
 
 #ifndef UNICODE
    LPSTR lpText = ( LPSTR ) hb_parc(5);
@@ -793,14 +793,14 @@ HB_FUNC( ADDSPLITBOXITEM )
 
    if( hb_parl(4) )
    {
-      Style = Style | RBBS_BREAK;
+      style |= RBBS_BREAK;
    }
 
    GetWindowRect(hmg_par_HWND(1), &rc);
 
    rbBand.cbSize  = sizeof(REBARBANDINFO);
    rbBand.fMask   = RBBIM_TEXT | RBBIM_STYLE | RBBIM_CHILD | RBBIM_CHILDSIZE | RBBIM_SIZE;
-   rbBand.fStyle  = Style;
+   rbBand.fStyle  = style;
    rbBand.hbmBack = 0;
 
    rbBand.lpText    = lpText;

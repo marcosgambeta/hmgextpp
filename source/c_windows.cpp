@@ -1079,7 +1079,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 HB_FUNC( INITWINDOW )
 {
    HWND hwnd;
-   int Style = WS_POPUP, ExStyle;
+   int style = WS_POPUP, ExStyle;
 
 #ifndef UNICODE
    LPCSTR lpWindowName = hb_parc(1);
@@ -1098,54 +1098,54 @@ HB_FUNC( INITWINDOW )
       ExStyle = 0;
       if( !hb_parl(6) )
       {
-         Style = Style | WS_MINIMIZEBOX;
+         style |= WS_MINIMIZEBOX;
       }
 
       if( !hb_parl(7) )
       {
-         Style = Style | WS_MAXIMIZEBOX;
+         style |= WS_MAXIMIZEBOX;
       }
    }
 
    if( !hb_parl(8) )
    {
-      Style = Style | WS_SIZEBOX;
+      style |= WS_SIZEBOX;
    }
 
    if( !hb_parl(9) )
    {
-      Style = Style | WS_SYSMENU;
+      style |= WS_SYSMENU;
    }
 
    if( !hb_parl(10) )
    {
-      Style = Style | WS_CAPTION;
+      style |= WS_CAPTION;
    }
 
    if( hb_parl(11) )
    {
-      ExStyle = ExStyle | WS_EX_TOPMOST;
+      ExStyle |= WS_EX_TOPMOST;
    }
 
    if( hb_parl(14) )
    {
-      Style = Style | WS_VSCROLL;
+      style |= WS_VSCROLL;
    }
 
    if( hb_parl(15) )
    {
-      Style = Style | WS_HSCROLL;
+      style |= WS_HSCROLL;
    }
 
    if( hb_parl(17) )
    {
-      ExStyle = ExStyle | WS_EX_PALETTEWINDOW;
+      ExStyle |= WS_EX_PALETTEWINDOW;
    }
 
    if( hb_parl(18) ) // Panel
    {
-      Style = WS_CHILD;
-      ExStyle = ExStyle | WS_EX_CONTROLPARENT | WS_EX_STATICEDGE;
+      style = WS_CHILD;
+      ExStyle |= WS_EX_CONTROLPARENT | WS_EX_STATICEDGE;
    }
 
    hwnd = CreateWindowEx
@@ -1153,7 +1153,7 @@ HB_FUNC( INITWINDOW )
       ExStyle,
       lpClassName,
       lpWindowName,
-      Style,
+      style,
       hb_parni(2),
       hb_parni(3),
       hb_parni(4),
@@ -1183,7 +1183,7 @@ HB_FUNC( INITMODALWINDOW )
 {
    HWND parent;
    HWND hwnd;
-   int Style;
+   int style;
    int ExStyle = 0;
 
 #ifndef UNICODE
@@ -1201,31 +1201,31 @@ HB_FUNC( INITMODALWINDOW )
 
    parent = ( HWND ) ( LONG_PTR ) HB_PARNL(6);
 
-   Style = WS_POPUP;
+   style = WS_POPUP;
 
    if( !hb_parl(7) )
    {
-      Style = Style | WS_SIZEBOX;
+      style |= WS_SIZEBOX;
    }
 
    if( !hb_parl(8) )
    {
-      Style = Style | WS_SYSMENU;
+      style |= WS_SYSMENU;
    }
 
    if( !hb_parl(9) )
    {
-      Style = Style | WS_CAPTION;
+      style |= WS_CAPTION;
    }
 
    if( hb_parl(11) )
    {
-      Style = Style | WS_VSCROLL;
+      style |= WS_VSCROLL;
    }
 
    if( hb_parl(12) )
    {
-      Style = Style | WS_HSCROLL;
+      style |= WS_HSCROLL;
    }
 
    hwnd = CreateWindowEx
@@ -1233,7 +1233,7 @@ HB_FUNC( INITMODALWINDOW )
       ExStyle,
       lpClassName,
       lpWindowName,
-      Style,
+      style,
       hb_parni(2),
       hb_parni(3),
       hb_parni(4),
@@ -1262,7 +1262,7 @@ HB_FUNC( INITMODALWINDOW )
 HB_FUNC( INITSPLITCHILDWINDOW )
 {
    HWND hwnd;
-   int Style;
+   int style;
 
 #ifndef UNICODE
    LPCSTR lpWindowName = hb_parc(5);
@@ -1272,21 +1272,21 @@ HB_FUNC( INITSPLITCHILDWINDOW )
    LPWSTR lpClassName = AnsiToWide(( char * ) hb_parc(3));
 #endif
 
-   Style = WS_POPUP;
+   style = WS_POPUP;
 
    if( !hb_parl(4) )
    {
-      Style = Style | WS_CAPTION;
+      style |= WS_CAPTION;
    }
 
    if( hb_parl(7) )
    {
-      Style = Style | WS_VSCROLL;
+      style |= WS_VSCROLL;
    }
 
    if( hb_parl(8) )
    {
-      Style = Style | WS_HSCROLL;
+      style |= WS_HSCROLL;
    }
 
    hwnd = CreateWindowEx
@@ -1294,7 +1294,7 @@ HB_FUNC( INITSPLITCHILDWINDOW )
       WS_EX_STATICEDGE | WS_EX_TOOLWINDOW,
       lpClassName,
       lpWindowName,
-      Style,
+      style,
       0,
       0,
       hb_parni(1),
@@ -1327,16 +1327,16 @@ HB_FUNC( INITSPLITBOX )
    HWND hwndRB;
    INITCOMMONCONTROLSEX icex;
 
-   int Style = WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | RBS_BANDBORDERS | RBS_VARHEIGHT | RBS_FIXEDORDER;
+   int style = WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | RBS_BANDBORDERS | RBS_VARHEIGHT | RBS_FIXEDORDER;
 
    if( hb_parl(2) )
    {
-      Style = Style | CCS_BOTTOM;
+      style |= CCS_BOTTOM;
    }
 
    if( hb_parl(3) )
    {
-      Style = Style | CCS_VERT;
+      style |= CCS_VERT;
    }
 
    icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
@@ -1348,7 +1348,7 @@ HB_FUNC( INITSPLITBOX )
       WS_EX_TOOLWINDOW | WS_EX_DLGMODALFRAME,
       REBARCLASSNAME,
       nullptr,
-      Style,
+      style,
       0,
       0,
       0,

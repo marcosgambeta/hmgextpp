@@ -246,7 +246,7 @@ HB_FUNC( INITMDIWINDOW )
    LPWSTR lpClassName  = AnsiToWide(( char * ) hb_parc(12));
 #endif
    HWND  hwnd;
-   DWORD Style = WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_BORDER | WS_SYSMENU | WS_THICKFRAME;
+   DWORD style = WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_BORDER | WS_SYSMENU | WS_THICKFRAME;
    DWORD ExStyle;
 
    if( hb_parl(16) )
@@ -258,43 +258,43 @@ HB_FUNC( INITMDIWINDOW )
       ExStyle = 0;
       if( !hb_parl(6) )
       {
-         Style = Style | WS_MINIMIZEBOX;
+         style |= WS_MINIMIZEBOX;
       }
 
       if( !hb_parl(7) )
       {
-         Style = Style | WS_MAXIMIZEBOX;
+         style |= WS_MAXIMIZEBOX;
       }
    }
 
    if( !hb_parl(8) )
    {
-      Style = Style | WS_SIZEBOX;
+      style |= WS_SIZEBOX;
    }
 
    if( !hb_parl(9) )
    {
-      Style = Style | WS_SYSMENU;
+      style |= WS_SYSMENU;
    }
 
    if( !hb_parl(10) )
    {
-      Style = Style | WS_CAPTION;
+      style |= WS_CAPTION;
    }
 
    if( hb_parl(11) )
    {
-      ExStyle = ExStyle | WS_EX_TOPMOST;
+      ExStyle |= WS_EX_TOPMOST;
    }
 
    if( hb_parl(14) )
    {
-      Style = Style | WS_VSCROLL;
+      style |= WS_VSCROLL;
    }
 
    if( hb_parl(15) )
    {
-      Style = Style | WS_HSCROLL;
+      style |= WS_HSCROLL;
    }
 
    hwnd = CreateWindowEx
@@ -302,7 +302,7 @@ HB_FUNC( INITMDIWINDOW )
       ExStyle,
       lpClassName,
       lpWindowName,
-      Style,
+      style,
       hb_parni(2),
       hb_parni(3),
       hb_parni(4),
@@ -373,7 +373,7 @@ HB_FUNC( INITMDICHILDWINDOW )
    MDICREATESTRUCT mcs;
    TCHAR      rgch[150];
    static int cUntitled;
-   DWORD      Style = 0;
+   DWORD      style = 0;
 
    if( hb_parl(9) )
    {
@@ -402,12 +402,12 @@ HB_FUNC( INITMDICHILDWINDOW )
 
    if( hb_parl(10) )
    {
-      Style = Style | WS_VSCROLL;
+      style |= WS_VSCROLL;
    }
 
    if( hb_parl(11) )
    {
-      Style = Style | WS_HSCROLL;
+      style |= WS_HSCROLL;
    }
 
    // Create the MDI child window
@@ -419,30 +419,30 @@ HB_FUNC( INITMDICHILDWINDOW )
    mcs.y       = hb_parni(4);              // y position
    mcs.cx      = hb_parni(5);              // width
    mcs.cy      = hb_parni(6);              // height
-   mcs.style   = Style;                      // window style
+   mcs.style   = style;                      // window style
    mcs.lParam  = 0;                          // lparam
    hwndChild   = ( HWND ) SendMessage(hmg_par_HWND(1), WM_MDICREATE, 0, ( LPARAM ) ( LPMDICREATESTRUCT ) &mcs);
 
    if( hwndChild != nullptr )
    {
-      Style = GetWindowLong(hwndChild, GWL_STYLE);
+      style = GetWindowLong(hwndChild, GWL_STYLE);
 
       if( hb_parl(7) )
       {
-         Style = Style & ( ~WS_MINIMIZEBOX );
+         style &= ~WS_MINIMIZEBOX;
       }
 
       if( hb_parl(8) )
       {
-         Style = Style & ( ~WS_MAXIMIZEBOX );
+         style &= ~WS_MAXIMIZEBOX;
       }
 
       if( hb_parl(9) )
       {
-         Style = Style & ( ~WS_CAPTION );
+         style &= ~WS_CAPTION;
       }
 
-      SetWindowLongPtr(hwndChild, GWL_STYLE, Style);
+      SetWindowLongPtr(hwndChild, GWL_STYLE, style);
 
       ShowWindow(hwndChild, SW_SHOW);
    }

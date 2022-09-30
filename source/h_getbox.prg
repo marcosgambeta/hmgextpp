@@ -476,9 +476,9 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
       ENDIF
    ENDIF
 
-   DO CASE
+   SWITCH nMsg
 
-   CASE nMsg == WM_SETFOCUS
+   CASE WM_SETFOCUS
 
       nStart := LoWord(SendMessage(hWnd, EM_GETSEL, 0, 0))
       nStart := Min(nStart, hb_ULen(Trim(oGet:buffer)))
@@ -562,7 +562,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
       RETURN( 0 )
 
-   CASE nMsg == WM_INVALID
+   CASE WM_INVALID
 
       IF (_IsChildOfActiveWindow(hWnd) .OR. IsWindowHasExStyle(_HMG_aControlParenthandles[i], WS_EX_CONTROLPARENT)) .AND. !readonly .AND. lAllowEdit
 
@@ -613,8 +613,10 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          ENDIF
 
       ENDIF
+      
+      EXIT
 
-   CASE nMsg == WM_KILLFOCUS
+   CASE WM_KILLFOCUS
 
       IF oGet:Changed
          oGet:assign()
@@ -679,7 +681,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
       RETURN( 0 )
 
-   CASE nMsg == WM_CHAR
+   CASE WM_CHAR
 
       nStart := LoWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0)) + 1
       nEnd   := HiWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0)) + 1
@@ -943,8 +945,10 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          RETURN( 0 )
 
       ENDCASE
+      
+      EXIT
 
-   CASE nMsg == WM_LBUTTONDBLCLK
+   CASE WM_LBUTTONDBLCLK
 
       IF wParam == MK_LBUTTON
          IF Len(oGet:aKeyEvent) > 0
@@ -957,7 +961,9 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          SendMessage(_HMG_aControlhandles[i], EM_SETSEL, 0, -1)
       ENDIF
 
-   CASE nMsg == WM_KEYDOWN
+      EXIT
+
+   CASE WM_KEYDOWN
 
       IF wParam == 110 .OR. wParam == 190
          RETURN( 0 )
@@ -975,62 +981,74 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
             ENDIF
          NEXT
       ENDIF
-      IF wParam == VK_ESCAPE .AND. !readonly
-
-         IF oGet:Type == "N" .AND. oGet:minus == .T. .AND. hb_UAt( "-", oGet:original ) <= 0
-            oGet:buffer := oGet:original
-            oGet:VarPut( ( oGet:unTransform() ) * ( -1 ), .T. )
-            oGet:minus := .F.
-            IF oGet:Changed
-               oGet:Assign()
-               oGet:UpdateBuffer()
-            ENDIF
-            _HMG_aControlValue[i] := oGet:VarGet()
-         ELSE
-            IF oGet:Changed
-               oGet:buffer := oGet:original
-               oGet:Assign()
-               oGet:UpdateBuffer()
-            ENDIF
-            _HMG_aControlValue[i] := oGet:VarGet()
-         ENDIF
-
-         _DispGetBoxText( hWnd, oGet:buffer )
-         SendMessage(hWnd, EM_SETSEL, 0, 0)
-
-         oGet:BadDate := .F.
-         lInValid := .F.
-         oGet:Pos := 1
-
-         IF !oGet:changed
-            oGet:buffer := oGet:original
-            IF oGet:Type == "N" .AND. oGet:minus == .T. .AND. hb_UAt( "-", oGet:original ) <= 0
-               oGet:VarPut( ( oGet:unTransform() ) * ( -1 ), .T. )
-               oGet:minus := .F.
-            ENDIF
-            oGet:Assign()
-            oGet:UpdateBuffer()
-            _HMG_aControlValue[i] := oGet:VarGet()
-            _GetBoxSetNextFocus( .F. )
-         ENDIF
-
-         oGet:Changed := .F.
-         RETURN( 0 )
-
-      ENDIF
 
       lShift := _GetKeyState( VK_SHIFT )
       lCtrl  := _GetKeyState( VK_CONTROL )
 
-      IF lCtrl .AND. wParam == VK_INSERT
-         CopyToClipboard( hb_USubStr(oGet:buffer, nStart, nEnd - nStart) )
-         RETURN( 0 )
+      SWITCH wParam
 
-      ELSEIF lShift .AND. wParam == VK_INSERT
-         SendMessage(hWnd, WM_PASTE, 0, 0)
-         RETURN( 0 )
+      CASE VK_ESCAPE
 
-      ELSEIF wParam == VK_DOWN
+         IF !readonly
+
+            IF oGet:Type == "N" .AND. oGet:minus == .T. .AND. hb_UAt( "-", oGet:original ) <= 0
+               oGet:buffer := oGet:original
+               oGet:VarPut( ( oGet:unTransform() ) * ( -1 ), .T. )
+               oGet:minus := .F.
+               IF oGet:Changed
+                  oGet:Assign()
+                  oGet:UpdateBuffer()
+               ENDIF
+               _HMG_aControlValue[i] := oGet:VarGet()
+            ELSE
+               IF oGet:Changed
+                  oGet:buffer := oGet:original
+                  oGet:Assign()
+                  oGet:UpdateBuffer()
+               ENDIF
+               _HMG_aControlValue[i] := oGet:VarGet()
+            ENDIF
+
+            _DispGetBoxText( hWnd, oGet:buffer )
+            SendMessage(hWnd, EM_SETSEL, 0, 0)
+
+            oGet:BadDate := .F.
+            lInValid := .F.
+            oGet:Pos := 1
+
+            IF !oGet:changed
+               oGet:buffer := oGet:original
+               IF oGet:Type == "N" .AND. oGet:minus == .T. .AND. hb_UAt( "-", oGet:original ) <= 0
+                  oGet:VarPut( ( oGet:unTransform() ) * ( -1 ), .T. )
+                  oGet:minus := .F.
+               ENDIF
+               oGet:Assign()
+               oGet:UpdateBuffer()
+               _HMG_aControlValue[i] := oGet:VarGet()
+               _GetBoxSetNextFocus( .F. )
+            ENDIF
+
+            oGet:Changed := .F.
+            RETURN( 0 )
+
+         ENDIF
+
+         EXIT
+
+      CASE VK_INSERT
+
+         IF lCtrl
+            CopyToClipboard( hb_USubStr(oGet:buffer, nStart, nEnd - nStart) )
+            RETURN( 0 )
+         ELSEIF lShift
+            SendMessage(hWnd, WM_PASTE, 0, 0)
+            RETURN( 0 )
+         ENDIF
+         lInsert := ! lInsert
+         _SetGetBoxCaret( hWnd )
+         EXIT
+
+      CASE VK_DOWN
 
          IF !lCtrl .AND. !lShift
             SendMessage(hWnd, EM_SETSEL, nEnd, nEnd)
@@ -1059,7 +1077,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
          RETURN( 0 )
 
-      ELSEIF wParam == VK_UP
+      CASE VK_UP
 
          IF !lCtrl .AND. !lShift
             SendMessage(hWnd, EM_SETSEL, nEnd, nEnd)
@@ -1088,7 +1106,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
          RETURN( 0 )
 
-      ELSEIF wParam == VK_LEFT
+      CASE VK_LEFT
 
          IF lShift
             IF nEnd > nStart
@@ -1100,8 +1118,9 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
             _HMG_aControlMiscData1[i][1] := 0
          ENDIF
          oGet:pos := HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
+         EXIT
 
-      ELSEIF wParam == VK_RIGHT
+      CASE VK_RIGHT
 
          IF lShift
             nEnd := oGet:Pos
@@ -1111,8 +1130,9 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
             _HMG_aControlMiscData1[i][1] := 0
          ENDIF
          oGet:pos := HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
+         EXIT
 
-      ELSEIF wParam == VK_HOME
+      CASE VK_HOME
 
          nStart := 0
          IF !lShift
@@ -1122,7 +1142,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
          RETURN( 1 )
 
-      ELSEIF wParam == VK_END
+      CASE VK_END
 
          nEnd := hb_ULen(Trim(oGet:buffer))
          IF !lShift
@@ -1132,12 +1152,15 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
          RETURN( 1 )
 
-      ELSEIF wParam == VK_INSERT
+#if 0
+      CASE VK_INSERT
 
          lInsert := ! lInsert
          _SetGetBoxCaret( hWnd )
+         EXIT
+#endif
 
-      ELSEIF wParam == VK_DELETE
+      CASE VK_DELETE
 
          IF readonly .OR. ! lAllowEdit .OR. oGet:type == "L"
             RETURN( 0 )
@@ -1184,9 +1207,11 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
          RETURN( 0 )
 
-      ENDIF
+      ENDSWITCH
 
-   CASE nMsg == WM_PASTE
+      EXIT
+
+   CASE WM_PASTE
 
       IF readonly .OR. ! lAllowEdit
          RETURN( 0 )
@@ -1249,7 +1274,8 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
       RETURN( 0 )
 
-   CASE nMsg == WM_CUT .OR. nMsg == WM_CLEAR
+   CASE WM_CUT
+   CASE WM_CLEAR
 
       IF IsWindowEnabled( hWnd ) .AND. !readonly .AND. lAllowEdit
 
@@ -1280,11 +1306,13 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
       RETURN( 0 )
 
-   CASE nMsg == WM_CARET
+   CASE WM_CARET
 
       _SetGetBoxCaret( hWnd )
+      
+      EXIT
 
-   CASE nMsg == WM_CONTEXTMENU
+   CASE WM_CONTEXTMENU
 
       ParentHandle := _HMG_aControlParentHandles[i]
 
@@ -1301,8 +1329,10 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          ENDIF
 
       ENDIF
+      
+      EXIT
 
-   CASE nMsg == WM_COMMAND
+   CASE WM_COMMAND
 
       IF ( HwndBtn := lParam ) > 0
 
@@ -1325,7 +1355,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
       ENDIF
 
-   ENDCASE
+   ENDSWITCH
 
 RETURN( 0 )
 

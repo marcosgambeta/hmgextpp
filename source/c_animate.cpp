@@ -79,11 +79,11 @@ HB_FUNC( INITANIMATERES )
    i.dwICC  = ICC_ANIMATE_CLASS;
    InitCommonControlsEx(&i);
 
-   int Style = WS_CHILD | WS_VISIBLE | ACS_TRANSPARENT | ACS_CENTER | ACS_AUTOPLAY;
+   int style = WS_CHILD | WS_VISIBLE | ACS_TRANSPARENT | ACS_CENTER | ACS_AUTOPLAY;
 
    if( !hb_parl(9) )
    {
-      Style = Style | WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    HINSTANCE avi = LoadLibrary(lpszDllName);
@@ -91,7 +91,7 @@ HB_FUNC( INITANIMATERES )
    HWND AnimationCtrl = CreateWindowEx(0,                       // Style
                                        ANIMATE_CLASS,           // Class Name
                                        nullptr,                 // Window name
-                                       Style,                   // Window Style
+                                       style,                   // Window Style
                                        hmg_par_int(3),          // Left
                                        hmg_par_int(4),          // Top
                                        hmg_par_int(5),          // Right

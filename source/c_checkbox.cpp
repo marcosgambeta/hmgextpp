@@ -89,34 +89,34 @@ HB_FUNC( INITCHECKBOX )
    LPWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(2));
 #endif
 
-   int Style;
+   int style;
    int ExStyle = 0;
 
    hwnd = hmg_par_HWND(1);
 
-   Style = BS_NOTIFY | WS_CHILD;
+   style = BS_NOTIFY | WS_CHILD;
 
    if( !hb_parl(10) )
    {
-      Style = Style | WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( !hb_parl(11) )
    {
-      Style = Style | WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
    if( hb_parl(12) )
    {
-      Style = Style | BS_LEFTTEXT;
+      style |= BS_LEFTTEXT;
    }
 
    if( hb_parl(6) )
    {
-      Style = Style | BS_MULTILINE;
+      style |= BS_MULTILINE;
    }
 
-   Style |= ( hb_parl(7) ? BS_AUTO3STATE : BS_AUTOCHECKBOX );
+   style |= ( hb_parl(7) ? BS_AUTO3STATE : BS_AUTOCHECKBOX );
 
    if( hb_parl(13) )
    {
@@ -128,7 +128,7 @@ HB_FUNC( INITCHECKBOX )
       ExStyle,
       WC_BUTTON,
       lpWindowName,
-      Style,
+      style,
       hb_parni(4),
       hb_parni(5),
       hb_parni(8),
@@ -150,7 +150,7 @@ HB_FUNC( INITCHECKBUTTON )
 {
    HWND hwnd;
    HWND hbutton;
-   int  Style;
+   int  style;
 
 #ifndef UNICODE
    LPCSTR lpWindowName = hb_parc(2);
@@ -160,23 +160,23 @@ HB_FUNC( INITCHECKBUTTON )
 
    hwnd = hmg_par_HWND(1);
 
-   Style = BS_NOTIFY | WS_CHILD | BS_AUTOCHECKBOX | BS_PUSHLIKE;
+   style = BS_NOTIFY | WS_CHILD | BS_AUTOCHECKBOX | BS_PUSHLIKE;
 
    if( !hb_parl(10) )
    {
-      Style = Style | WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( !hb_parl(11) )
    {
-      Style = Style | WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
    hbutton = CreateWindow
              (
       WC_BUTTON,
       lpWindowName,
-      Style,
+      style,
       hb_parni(4),
       hb_parni(5),
       hb_parni(8),
@@ -199,7 +199,7 @@ HB_FUNC( INITIMAGECHECKBUTTON )
    HWND       hwnd;
    HWND       hbutton;
    HWND       himage;
-   int        Style;
+   int        style;
    HIMAGELIST himl;
 
 #ifndef UNICODE
@@ -211,23 +211,23 @@ HB_FUNC( INITIMAGECHECKBUTTON )
 
    hwnd = hmg_par_HWND(1);
 
-   Style = BS_NOTIFY | BS_BITMAP | WS_CHILD | BS_AUTOCHECKBOX | BS_PUSHLIKE;
+   style = BS_NOTIFY | BS_BITMAP | WS_CHILD | BS_AUTOCHECKBOX | BS_PUSHLIKE;
 
    if( !hb_parl(11) )
    {
-      Style = Style | WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( !hb_parl(12) )
    {
-      Style = Style | WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
    hbutton = CreateWindow
              (
       WC_BUTTON,
       lpWindowName,
-      Style,
+      style,
       hb_parni(4),
       hb_parni(5),
       hb_parni(9),

@@ -282,23 +282,23 @@ HB_FUNC( INITSPLITBUTTON )
 {
    HWND hwnd = ( HWND ) HB_PARNL( 1 );
    HWND hbutton;
-   int  Style;
+   int style;
 #ifndef UNICODE
    LPCSTR lpWindowName = hb_parc( 4 );
 #else
    LPWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc( 4 ) );
 #endif
 
-   Style = BS_SPLITBUTTON;
+   style = BS_SPLITBUTTON;
 
    if( hb_parl( 5 ) )
    {
-      Style = BS_DEFSPLITBUTTON;
+      style = BS_DEFSPLITBUTTON;
    }
 
    hbutton = CreateWindow(TEXT("button"),
                           lpWindowName,
-                          Style | WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | BS_PUSHBUTTON | WS_VISIBLE | WS_TABSTOP,
+                          style | WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | BS_PUSHBUTTON | WS_VISIBLE | WS_TABSTOP,
                           hb_parni(3),
                           hb_parni(2),
                           hb_parni(6),

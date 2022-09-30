@@ -72,24 +72,24 @@ HB_FUNC( INITCHKLISTBOX )
 {
    HWND hwnd;
    HWND hbutton;
-   int  Style = WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_NOINTEGRALHEIGHT | LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_WANTKEYBOARDINPUT;
+   int style = WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_NOINTEGRALHEIGHT | LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_WANTKEYBOARDINPUT;
 
    hwnd = hmg_par_HWND(1);
    m_nHeightItem = 16;
 
    if( !hb_parl(9) )
    {
-      Style = Style | WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( !hb_parl(10) )
    {
-      Style = Style | WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
    if( hb_parl(11) )
    {
-      Style = Style | LBS_SORT;
+      style |= LBS_SORT;
    }
 
    if( hb_parni(12) )
@@ -102,7 +102,7 @@ HB_FUNC( INITCHKLISTBOX )
       WS_EX_CLIENTEDGE,
       WC_LISTBOX,
       TEXT(""),
-      Style,
+      style,
       hb_parni(3),
       hb_parni(4),
       hb_parni(5),
@@ -120,24 +120,24 @@ HB_FUNC( INITMULTICHKLISTBOX )
 {
    HWND hwnd;
    HWND hbutton;
-   int  Style = LBS_EXTENDEDSEL | WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_MULTIPLESEL | LBS_NOINTEGRALHEIGHT | LBS_OWNERDRAWFIXED | LBS_HASSTRINGS;
+   int style = LBS_EXTENDEDSEL | WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_MULTIPLESEL | LBS_NOINTEGRALHEIGHT | LBS_OWNERDRAWFIXED | LBS_HASSTRINGS;
 
    hwnd = hmg_par_HWND(1);
    m_nHeightItem = 16;
 
    if( !hb_parl(9) )
    {
-      Style = Style | WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( !hb_parl(10) )
    {
-      Style = Style | WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
    if( hb_parl(11) )
    {
-      Style = Style | LBS_SORT;
+      style |= LBS_SORT;
    }
 
    if( hb_parni(12) )
@@ -150,7 +150,7 @@ HB_FUNC( INITMULTICHKLISTBOX )
       WS_EX_CLIENTEDGE,
       WC_LISTBOX,
       TEXT(""),
-      Style,
+      style,
       hb_parni(3),
       hb_parni(4),
       hb_parni(5),

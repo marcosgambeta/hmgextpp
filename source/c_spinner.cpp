@@ -68,8 +68,8 @@ HINSTANCE GetInstance(void);
 HB_FUNC( INITSPINNER )
 {
    HWND hwnd, hedit, hupdown;
-   int  Style1 = ES_NUMBER | WS_CHILD | ES_AUTOHSCROLL;
-   int  Style2 = WS_CHILD | WS_BORDER | UDS_ARROWKEYS | UDS_ALIGNRIGHT | UDS_SETBUDDYINT | UDS_NOTHOUSANDS;
+   int style1 = ES_NUMBER | WS_CHILD | ES_AUTOHSCROLL;
+   int style2 = WS_CHILD | WS_BORDER | UDS_ARROWKEYS | UDS_ALIGNRIGHT | UDS_SETBUDDYINT | UDS_NOTHOUSANDS;
 
    INITCOMMONCONTROLSEX i;
 
@@ -81,28 +81,28 @@ HB_FUNC( INITSPINNER )
 
    if( !hb_parl(11) )
    {
-      Style1 = Style1 | WS_VISIBLE;
-      Style2 = Style2 | WS_VISIBLE;
+      style1 |= WS_VISIBLE;
+      style2 |= WS_VISIBLE;
    }
 
    if( !hb_parl(12) )
    {
-      Style1 = Style1 | WS_TABSTOP;
+      style1 |= WS_TABSTOP;
    }
 
    if( hb_parl(13) )
    {
-      Style2 = Style2 | UDS_WRAP;
+      style2 |= UDS_WRAP;
    }
 
    if( hb_parl(14) )
    {
-      Style1 = Style1 | ES_READONLY;
+      style1 |= ES_READONLY;
    }
 
    if( hb_parl(15) )
    {
-      Style2 = Style2 | UDS_HORZ | UDS_ALIGNRIGHT;  /* P.Ch. 10.16. */
+      style2 |= UDS_HORZ | UDS_ALIGNRIGHT;  /* P.Ch. 10.16. */
    }
 
    hedit = CreateWindowEx
@@ -110,7 +110,7 @@ HB_FUNC( INITSPINNER )
       WS_EX_CLIENTEDGE,
       WC_EDIT,
       TEXT(""),
-      Style1,
+      style1,
       hb_parni(3),
       hb_parni(4),
       hb_parni(5),
@@ -129,7 +129,7 @@ HB_FUNC( INITSPINNER )
       WS_EX_CLIENTEDGE,
       UPDOWN_CLASS,
       TEXT(""),
-      Style2,
+      style2,
       hb_parni(3) + hb_parni(5),
       hb_parni(4),
       15,

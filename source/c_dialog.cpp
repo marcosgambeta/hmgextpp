@@ -364,9 +364,9 @@ PWORD CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
    PHB_ITEM iArray;
 
    #ifndef _WIN64
-   ULONG Style, ExStyle, HelpId;
+   ULONG style, ExStyle, HelpId;
    #else
-   HB_LONGLONG Style, ExStyle, HelpId;
+   HB_LONGLONG style, ExStyle, HelpId;
    #endif
    ULONG  Id;
    char * strtemp;
@@ -378,7 +378,7 @@ PWORD CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
    pw = pdlgtemplate;
 
    ExStyle = HB_arrayGetNL( dArray, 5 );  //ExStyle
-   Style   = HB_arrayGetNL( dArray, 4 );  //style
+   style   = HB_arrayGetNL( dArray, 4 );  //style
    x       = hb_arrayGetNI( dArray, 6 );  //x
    y       = hb_arrayGetNI( dArray, 7 );  //y
    w       = hb_arrayGetNI( dArray, 8 );  //w
@@ -391,8 +391,8 @@ PWORD CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
    *pw++   = 0;            // HIWORD HelpID
    *pw++   = LOWORD(ExStyle);
    *pw++   = HIWORD(ExStyle);
-   *pw++   = LOWORD(Style);
-   *pw++   = HIWORD(Style);
+   *pw++   = LOWORD(style);
+   *pw++   = HIWORD(style);
    *pw++   = ( WORD ) nItem;                              // NumberOfItems
    *pw++   = ( WORD ) MulDiv(x, 4, baseunitX);          // x
    *pw++   = ( WORD ) MulDiv(y, 8, baseunitY);          // y
@@ -421,15 +421,15 @@ PWORD CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
 
       HelpId  = HB_arrayGetNL( iArray, 11 ); //HelpId
       ExStyle = HB_arrayGetNL( iArray, 5 );  //exstyle
-      Style   = HB_arrayGetNL( iArray, 4 );  //style  item
+      style   = HB_arrayGetNL( iArray, 4 );  //style  item
       Id      = hb_arrayGetNI( iArray, 1 );
 
       *pw++ = LOWORD(HelpId);
       *pw++ = HIWORD(HelpId);
       *pw++ = LOWORD(ExStyle);
       *pw++ = HIWORD(ExStyle);
-      *pw++ = LOWORD(Style);
-      *pw++ = HIWORD(Style);
+      *pw++ = LOWORD(style);
+      *pw++ = HIWORD(style);
       *pw++ = ( WORD ) MulDiv(hb_arrayGetNI(iArray, 6), 4, baseunitX); // x
       *pw++ = ( WORD ) MulDiv(hb_arrayGetNI(iArray, 7), 8, baseunitY); // y
       *pw++ = ( WORD ) MulDiv(hb_arrayGetNI(iArray, 8), 4, baseunitX); // cx

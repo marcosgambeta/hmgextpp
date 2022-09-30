@@ -77,7 +77,7 @@ HB_FUNC( INITMONTHCAL )
    HWND hmonthcal;
    RECT rc;
    INITCOMMONCONTROLSEX icex;
-   int   Style;
+   int   style;
    HFONT hfont;
    int   bold      = FW_NORMAL;
    int   italic    = 0;
@@ -95,34 +95,34 @@ HB_FUNC( INITMONTHCAL )
 
    hwnd = hmg_par_HWND(1);
 
-   Style = WS_BORDER | WS_CHILD | MCS_DAYSTATE;
+   style = WS_BORDER | WS_CHILD | MCS_DAYSTATE;
 
    if( hb_parl(9) )
    {
-      Style = Style | MCS_NOTODAY;
+      style |= MCS_NOTODAY;
    }
 
    if( hb_parl(10) )
    {
-      Style = Style | MCS_NOTODAYCIRCLE;
+      style |= MCS_NOTODAYCIRCLE;
    }
 
    if( hb_parl(11) )
    {
-      Style = Style | MCS_WEEKNUMBERS;
+      style |= MCS_WEEKNUMBERS;
    }
 
    if( !hb_parl(12) )
    {
-      Style = Style | WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( !hb_parl(13) )
    {
-      Style = Style | WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
-   hmonthcal = CreateWindowEx(0, MONTHCAL_CLASS, TEXT(""), Style, 0, 0, 0, 0, hwnd, hmg_par_HMENU(2), GetInstance(), nullptr);
+   hmonthcal = CreateWindowEx(0, MONTHCAL_CLASS, TEXT(""), style, 0, 0, 0, 0, hwnd, hmg_par_HMENU(2), GetInstance(), nullptr);
 
    SetProp(( HWND ) hmonthcal, TEXT("oldmcproc"), ( HWND ) GetWindowLongPtr(( HWND ) hmonthcal, GWLP_WNDPROC));
    SetWindowLongPtr(hmonthcal, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnMCProc);

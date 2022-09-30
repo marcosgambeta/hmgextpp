@@ -256,9 +256,9 @@ HB_FUNC( ISWINDOWHASSTYLE )
 
    if( IsWindow(hwnd) )
    {
-      LONG_PTR Style = GetWindowLongPtr(hwnd, GWL_STYLE);
+      LONG_PTR style = GetWindowLongPtr(hwnd, GWL_STYLE);
 
-      hb_retl( ( Style & ( LONG_PTR ) HB_PARNL(2) ) ? HB_TRUE : HB_FALSE );
+      hb_retl( ( style & ( LONG_PTR ) HB_PARNL(2) ) ? HB_TRUE : HB_FALSE );
    }
    else
    {

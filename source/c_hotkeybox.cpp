@@ -133,18 +133,18 @@ HB_FUNC( INITHOTKEYBOX )
 {
    HWND hWnd;
    HWND hwndHotKey;
-   int  Style = WS_CHILD;
+   int style = WS_CHILD;
 
    hWnd = hmg_par_HWND(1);
 
    if( !hb_parl(8) )
    {
-      Style = Style | WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( !hb_parl(9) )
    {
-      Style = Style | WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
    hwndHotKey = CreateWindowEx
@@ -152,7 +152,7 @@ HB_FUNC( INITHOTKEYBOX )
       0,
       HOTKEY_CLASS,
       TEXT(""),
-      Style,
+      style,
       hb_parni(2),
       hb_parni(3),
       hb_parni(4),

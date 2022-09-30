@@ -79,49 +79,49 @@ HB_FUNC( INITTOOLBAR )
 {
    HWND hwnd;
    HWND hwndTB;
-   int  Style = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS;
+   int style = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS;
 
-   int ExStyle   = 0;
+   int ExStyle = 0;
    int TbExStyle = TBSTYLE_EX_DRAWDDARROWS;
 
    hwnd = hmg_par_HWND(1);
 
    if( hb_parl(14) )
    {
-      ExStyle = ExStyle | WS_EX_CLIENTEDGE;
+      ExStyle |= WS_EX_CLIENTEDGE;
    }
 
    if( hb_parl(10) )
    {
-      Style = Style | TBSTYLE_FLAT;
+      style |= TBSTYLE_FLAT;
    }
 
    if( hb_parl(11) )
    {
-      Style = Style | CCS_BOTTOM;
+      style |= CCS_BOTTOM;
    }
 
    if( hb_parl(12) )
    {
-      Style = Style | TBSTYLE_LIST;
+      style |= TBSTYLE_LIST;
    }
 
    if( hb_parl(13) )
    {
-      Style = Style | CCS_NOPARENTALIGN | CCS_NODIVIDER | CCS_NORESIZE;
+      style |= CCS_NOPARENTALIGN | CCS_NODIVIDER | CCS_NORESIZE;
    }
 
    if( hb_parl(15) )
    {
-      Style = Style | TBSTYLE_WRAPABLE;
+      style |= TBSTYLE_WRAPABLE;
    }
 
    if( hb_parl(16) )
    {
-      Style = Style | CCS_ADJUSTABLE;
+      style |= CCS_ADJUSTABLE;
    }
 
-   hwndTB = CreateWindowEx(ExStyle, TOOLBARCLASSNAME, nullptr, Style, 0, 0, 0, 0, hwnd, hmg_par_HMENU(3), GetInstance(), nullptr);
+   hwndTB = CreateWindowEx(ExStyle, TOOLBARCLASSNAME, nullptr, style, 0, 0, 0, 0, hwnd, hmg_par_HMENU(3), GetInstance(), nullptr);
 
    if( hb_parni(6) && hb_parni(7) )
    {
@@ -145,7 +145,7 @@ HB_FUNC( INITTOOLBUTTON )
    int         index;
    int         nPoz;
    int         nBtn;
-   int         Style = TBSTYLE_BUTTON;
+   int         style = TBSTYLE_BUTTON;
    int         Transparent = hb_parl(9) ? 0 : 1;
 
 #ifndef UNICODE
@@ -180,7 +180,7 @@ HB_FUNC( INITTOOLBUTTON )
 
    if( hb_parl(11) )
    {
-      Style |= TBSTYLE_AUTOSIZE;
+      style |= TBSTYLE_AUTOSIZE;
    }
 
    nBtn       = 0;
@@ -206,22 +206,22 @@ HB_FUNC( INITTOOLBUTTON )
 
    if( hb_parl(12) )
    {
-      Style |= BTNS_CHECK;
+      style |= BTNS_CHECK;
    }
 
    if( hb_parl(13) )
    {
-      Style |= BTNS_GROUP;
+      style |= BTNS_GROUP;
    }
 
    if( hb_parl(14) )
    {
-      Style |= BTNS_DROPDOWN;
+      style |= BTNS_DROPDOWN;
    }
 
    if( hb_parl(15) )
    {
-      Style |= BTNS_WHOLEDROPDOWN;
+      style |= BTNS_WHOLEDROPDOWN;
    }
 
    SendMessage(hwndTB, TB_AUTOSIZE, 0, 0);
@@ -231,7 +231,7 @@ HB_FUNC( INITTOOLBUTTON )
    tbb[nBtn].iBitmap   = nPoz;
    tbb[nBtn].idCommand = hb_parni(3);
    tbb[nBtn].fsState   = TBSTATE_ENABLED;
-   tbb[nBtn].fsStyle   = ( BYTE ) Style;
+   tbb[nBtn].fsStyle   = ( BYTE ) style;
    nBtn++;
 
    if( hb_parl(10) )
@@ -285,7 +285,7 @@ HB_FUNC( INITTOOLBAREX )
 {
    HWND hwnd;
    HWND hwndTB;
-   int  Style = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS;
+   int style = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS;
 
    int   ExStyle   = 0;
    int   TbExStyle = TBSTYLE_EX_DRAWDDARROWS;
@@ -301,49 +301,49 @@ HB_FUNC( INITTOOLBAREX )
 
    if( hb_parl(14) )
    {
-      ExStyle = ExStyle | WS_EX_CLIENTEDGE;
+      ExStyle |= WS_EX_CLIENTEDGE;
    }
    else
    {
-      TbExStyle = TbExStyle | TBSTYLE_EX_HIDECLIPPEDBUTTONS;
+      TbExStyle |= TBSTYLE_EX_HIDECLIPPEDBUTTONS;
    }
 
    if( hb_parl(10) )
    {
-      Style = Style | TBSTYLE_FLAT;
+      style |= TBSTYLE_FLAT;
    }
 
    if( hb_parl(11) )
    {
-      Style = Style | CCS_BOTTOM;
+      style |= CCS_BOTTOM;
    }
 
    if( hb_parl(12) )
    {
-      Style = Style | TBSTYLE_LIST;
+      style |= TBSTYLE_LIST;
    }
 
    if( hb_parl(13) )
    {
-      Style = Style | CCS_NOPARENTALIGN | CCS_NODIVIDER | CCS_NORESIZE;
+      style |= CCS_NOPARENTALIGN | CCS_NODIVIDER | CCS_NORESIZE;
    }
 
    if( hb_parl(15) )
    {
-      TbExStyle = TbExStyle | TBSTYLE_EX_MIXEDBUTTONS;
+      TbExStyle |= TBSTYLE_EX_MIXEDBUTTONS;
    }
 
    if( hb_parl(16) )
    {
-      Style = Style | TBSTYLE_WRAPABLE;
+      style |= TBSTYLE_WRAPABLE;
    }
 
    if( hb_parl(17) )
    {
-      Style = Style | CCS_ADJUSTABLE;
+      style |= CCS_ADJUSTABLE;
    }
 
-   hwndTB = CreateWindowEx(ExStyle, TOOLBARCLASSNAME, nullptr, Style, 0, 0, 0, 0, hwnd, hmg_par_HMENU(3), GetInstance(), nullptr);
+   hwndTB = CreateWindowEx(ExStyle, TOOLBARCLASSNAME, nullptr, style, 0, 0, 0, 0, hwnd, hmg_par_HMENU(3), GetInstance(), nullptr);
 
    if( hb_parni(6) && hb_parni(7) )
    {
@@ -372,7 +372,7 @@ HB_FUNC( INITTOOLBUTTONEX )
    int           index;
    int           nPoz, xBtn;
    int           nBtn, tmax;
-   int           Style;
+   int           style;
    DWORD         TbStyle;
    int           ix;
    int           iy;
@@ -397,7 +397,7 @@ HB_FUNC( INITTOOLBUTTONEX )
    iy      = 0;
    xBtn    = ( int ) SendMessage(hwndTB, TB_BUTTONCOUNT, 0, 0);
    TbStyle = ( DWORD ) SendMessage(hwndTB, TB_GETSTYLE, 0, 0);
-   Style   = TBSTYLE_BUTTON;
+   style   = TBSTYLE_BUTTON;
 
    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
    GetVersionEx(&osvi);
@@ -413,7 +413,7 @@ HB_FUNC( INITTOOLBUTTONEX )
 #endif
       index = ( int ) SendMessage(hwndTB, TB_ADDSTRING, 0, ( LPARAM ) lpText);
       tbb[nBtn].iString = index;
-      Style = Style | BTNS_SHOWTEXT;
+      style |= BTNS_SHOWTEXT;
 #ifdef UNICODE
       hb_xfree(lpText);
 #endif
@@ -502,7 +502,7 @@ HB_FUNC( INITTOOLBUTTONEX )
                SendMessage(hwndTB, TB_SETPADDING, 0, MAKELPARAM(px, py));
             }
          }
-         else if( !( Style & BTNS_SHOWTEXT ) )
+         else if( !( style & BTNS_SHOWTEXT ) )
          {
             SendMessage(hwndTB, TB_SETPADDING, 0, MAKELPARAM(px, py));
          }
@@ -515,7 +515,7 @@ HB_FUNC( INITTOOLBUTTONEX )
 
    if( hb_parl(11) )
    {
-      Style = Style | TBSTYLE_AUTOSIZE;
+      style |= TBSTYLE_AUTOSIZE;
    }
 
    nBtn = 0;
@@ -552,22 +552,22 @@ HB_FUNC( INITTOOLBUTTONEX )
 
    if( hb_parl(12) )
    {
-      Style = Style | BTNS_CHECK;
+      style |= BTNS_CHECK;
    }
 
    if( hb_parl(13) )
    {
-      Style = Style | BTNS_GROUP;
+      style |= BTNS_GROUP;
    }
 
    if( hb_parl(14) )
    {
-      Style = Style | BTNS_DROPDOWN;
+      style |= BTNS_DROPDOWN;
    }
 
    if( hb_parl(15) )
    {
-      Style = Style | BTNS_WHOLEDROPDOWN;
+      style |= BTNS_WHOLEDROPDOWN;
    }
 
    SendMessage(hwndTB, TB_AUTOSIZE, 0, 0);
@@ -577,7 +577,7 @@ HB_FUNC( INITTOOLBUTTONEX )
    tbb[nBtn].iBitmap   = nPoz;
    tbb[nBtn].idCommand = hb_parni(3);
    tbb[nBtn].fsState   = TBSTATE_ENABLED;
-   tbb[nBtn].fsStyle   = ( BYTE ) Style;
+   tbb[nBtn].fsStyle   = ( BYTE ) style;
    nBtn++;
 
    if( hb_parl(10) )
@@ -640,7 +640,7 @@ HB_FUNC( MAXTEXTBTNTOOLBAR )
    int      tmax = 0;
    int      ty   = 0;
    DWORD    tSize;
-   DWORD    Style;
+   DWORD    style;
    TBBUTTON lpBtn;
 
    hwndTB = hmg_par_HWND(1);
@@ -666,8 +666,8 @@ HB_FUNC( MAXTEXTBTNTOOLBAR )
    }
    else
    {
-      Style = ( DWORD ) SendMessage(hwndTB, TB_GETSTYLE, 0, 0);
-      if( Style & TBSTYLE_LIST )
+      style = ( DWORD ) SendMessage(hwndTB, TB_GETSTYLE, 0, 0);
+      if( style & TBSTYLE_LIST )
       {
          SendMessage(hwndTB, TB_SETBUTTONSIZE, hb_parni(2), hb_parni(3) + 2);
          SendMessage(hwndTB, TB_SETBITMAPSIZE, 0, ( LPARAM ) MAKELONG(hb_parni(3), hb_parni(3)));
@@ -1058,7 +1058,7 @@ int ResizeToolbar( HWND hwndTB, int widthTb )
    SendMessage(hwndTB, TB_AUTOSIZE, 0, 0);
 
    hwndParent = GetParent(hwndTB);
-   style      = GetWindowLong(hwndParent, GWL_STYLE);
+   style = GetWindowLong(hwndParent, GWL_STYLE);
    AdjustWindowRect(&rcb, style, 0);
    MapWindowPoints(hwndParent, HWND_DESKTOP, ( LPPOINT ) &rcb, 2);
 

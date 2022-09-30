@@ -61,39 +61,39 @@ HB_FUNC( INITEDITBOX )
 {
    HWND hwnd;
    HWND hbutton;
-   int  Style;
+   int style;
 
    hwnd = hmg_par_HWND(1);
 
-   Style = ES_MULTILINE | ES_WANTRETURN | WS_CHILD;
+   style = ES_MULTILINE | ES_WANTRETURN | WS_CHILD;
 
    if( hb_parl(10) )
    {
-      Style = Style | ES_READONLY;
+      style |= ES_READONLY;
    }
 
    if( !hb_parl(11) )
    {
-      Style = Style | WS_VISIBLE;
+      style |= WS_VISIBLE;
    }
 
    if( !hb_parl(12) )
    {
-      Style = Style | WS_TABSTOP;
+      style |= WS_TABSTOP;
    }
 
    if( !hb_parl(13) )
    {
-      Style = Style | WS_VSCROLL;
+      style |= WS_VSCROLL;
    }
    else
    {
-      Style = Style | ES_AUTOVSCROLL;
+      style |= ES_AUTOVSCROLL;
    }
 
    if( !hb_parl(14) )
    {
-      Style = Style | WS_HSCROLL;
+      style |= WS_HSCROLL;
    }
 
    hbutton = CreateWindowEx
@@ -101,7 +101,7 @@ HB_FUNC( INITEDITBOX )
       WS_EX_CLIENTEDGE,
       WC_EDIT,
       TEXT(""),
-      Style,
+      style,
       hb_parni(3),
       hb_parni(4),
       hb_parni(5),

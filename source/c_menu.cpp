@@ -355,7 +355,7 @@ HB_FUNC( APPENDMENUSTRING )
 #else
    LPWSTR lpNewItem = AnsiToWide(( char * ) hb_parc(3));
 #endif
-   UINT Style;
+   UINT style;
 
    if( s_bCustomDraw )
    {
@@ -377,30 +377,30 @@ HB_FUNC( APPENDMENUSTRING )
       switch( hb_parni(4) )
       {
          case 1:
-            Style = MF_OWNERDRAW | MF_MENUBREAK;
+            style = MF_OWNERDRAW | MF_MENUBREAK;
             break;
          case 2:
-            Style = MF_OWNERDRAW | MF_MENUBARBREAK;
+            style = MF_OWNERDRAW | MF_MENUBARBREAK;
             break;
          default:
-            Style = MF_OWNERDRAW;
+            style = MF_OWNERDRAW;
       }
 
-      hb_retl( AppendMenu(hmg_par_HMENU(1), Style, hb_parni(2), ( LPTSTR ) lpMenuItem) );
+      hb_retl( AppendMenu(hmg_par_HMENU(1), style, hb_parni(2), ( LPTSTR ) lpMenuItem) );
    }
    else
    {
       switch( hb_parni(4) )
       {
          case 1:
-            Style = MF_STRING | MF_MENUBREAK; break;
+            style = MF_STRING | MF_MENUBREAK; break;
          case 2:
-            Style = MF_STRING | MF_MENUBARBREAK; break;
+            style = MF_STRING | MF_MENUBARBREAK; break;
          default:
-            Style = MF_STRING;
+            style = MF_STRING;
       }
 
-      hb_retl( AppendMenu(hmg_par_HMENU(1), Style, hb_parni(2), lpNewItem) );
+      hb_retl( AppendMenu(hmg_par_HMENU(1), style, hb_parni(2), lpNewItem) );
    }
 
 #ifdef UNICODE
