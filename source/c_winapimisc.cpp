@@ -414,7 +414,7 @@ HB_FUNC( INKEYGUI )
 
 HB_FUNC( GETDC )
 {
-   HB_RETNL( ( LONG_PTR ) GetDC(hmg_par_HWND(1)) );
+   hmg_ret_HANDLE(GetDC(hmg_par_HWND(1)));
 }
 
 HB_FUNC( RELEASEDC )
@@ -605,7 +605,7 @@ HB_FUNC( PAINTBKGND )
    ReleaseDC(hwnd, hdc);
 
    RegisterResource(hBrush, "BRUSH");
-   HB_RETNL( ( LONG_PTR ) hBrush );
+   hmg_ret_HANDLE(hBrush);
 }
 
 /* Functions Contributed  By Luiz Rafael Culik Guimaraes(culikr@uol.com.br) */
@@ -678,12 +678,12 @@ HB_FUNC( DEFWINDOWPROC )
 
 HB_FUNC( GETSTOCKOBJECT )
 {
-   HB_RETNL( ( LONG_PTR ) GetStockObject(hb_parni(1)) );
+   hmg_ret_HANDLE(GetStockObject(hb_parni(1)));
 }
 
 HB_FUNC( GETNEXTDLGTABITEM )
 {
-   HB_RETNL( ( LONG_PTR ) GetNextDlgTabItem(hmg_par_HWND(1), hmg_par_HWND(2), hb_parl(3)) );
+   hmg_ret_HANDLE(GetNextDlgTabItem(hmg_par_HWND(1), hmg_par_HWND(2), hb_parl(3)));
 }
 
 typedef BOOL ( WINAPI * LPFN_ISWOW64PROCESS )( HANDLE, PBOOL );
@@ -790,11 +790,11 @@ HB_FUNC( SHELLEXECUTEEX )
 
    if( ShellExecuteEx(&SHExecInfo) )
    {
-      HB_RETNL( ( LONG_PTR ) SHExecInfo.hProcess );
+      hmg_ret_HANDLE(SHExecInfo.hProcess);
    }
    else
    {
-      HB_RETNL( ( LONG_PTR ) nullptr );
+      hmg_ret_HANDLE(nullptr);
    }
 
 #ifdef UNICODE
@@ -1028,7 +1028,7 @@ HB_FUNC( CREATESOLIDBRUSH )
    HBRUSH hBrush = CreateSolidBrush(( COLORREF ) RGB(hb_parni(1), hb_parni(2), hb_parni(3)));
 
    RegisterResource(hBrush, "BRUSH");
-   HB_RETNL( ( LONG_PTR ) hBrush );
+   hmg_ret_HANDLE(hBrush);
 }
 
 HB_FUNC( SETTEXTCOLOR )
@@ -1430,9 +1430,9 @@ HB_FUNC( GETDLLVERSION )
 // Jacek Kubica <kubica@wssk.wroc.pl> HMG 1.0 Experimental Build 9a
 HB_FUNC( SELECTOBJECT )
 {
-   HB_RETNL( ( LONG_PTR ) SelectObject(hmg_par_HDC(1),    // handle of device context
+   hmg_ret_HANDLE(SelectObject(hmg_par_HDC(1),    // handle of device context
                                         hmg_par_HGDIOBJ(2) // handle of object
-                                        ) );
+                                        ));
 }
 
 HB_FUNC( FILLRECT )
