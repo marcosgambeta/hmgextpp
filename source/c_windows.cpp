@@ -1023,13 +1023,13 @@ HB_FUNC( INITMESSAGEONLYWINDOW )
    }
 
    hb_strfree(hClassName);
-   HB_RETNL( ( LONG_PTR ) hwnd );
+   hmg_ret_HANDLE(hwnd);
 }
 
 /* Modified by P.Ch. 17.06. */
 HB_FUNC( INITDUMMY )
 {
-   HB_RETNL( ( LONG_PTR ) CreateWindowEx(0, WC_STATIC, TEXT(""), WS_CHILD, 0, 0, 0, 0, ( HWND ) ( LONG_PTR ) HB_PARNL(1), ( HMENU ) 0, GetInstance(), nullptr) );
+   hmg_ret_HANDLE(CreateWindowEx(0, WC_STATIC, TEXT(""), WS_CHILD, 0, 0, 0, 0, ( HWND ) ( LONG_PTR ) HB_PARNL(1), ( HMENU ) 0, GetInstance(), nullptr));
 }
 
 /* Modified by P.Ch. 17.06. */
@@ -1166,7 +1166,7 @@ HB_FUNC( INITWINDOW )
 
    if( nullptr != hwnd )
    {
-      HB_RETNL( ( LONG_PTR ) hwnd );
+      hmg_ret_HANDLE(hwnd);
    }
    else
    {
@@ -1246,7 +1246,7 @@ HB_FUNC( INITMODALWINDOW )
 
    if( nullptr != hwnd )
    {
-      HB_RETNL( ( LONG_PTR ) hwnd );
+      hmg_ret_HANDLE(hwnd);
    }
    else
    {
@@ -1307,7 +1307,7 @@ HB_FUNC( INITSPLITCHILDWINDOW )
 
    if( nullptr != hwnd )
    {
-      HB_RETNL( ( LONG_PTR ) hwnd );
+      hmg_ret_HANDLE(hwnd);
    }
    else
    {
@@ -1365,7 +1365,7 @@ HB_FUNC( INITSPLITBOX )
    rbi.himl = ( HIMAGELIST ) nullptr;
    SendMessage(hwndRB, RB_SETBARINFO, 0, ( LPARAM ) &rbi);
 
-   HB_RETNL( ( LONG_PTR ) hwndRB );
+   hmg_ret_HANDLE(hwndRB);
 }
 
 /* Modified by P.Ch. 16.10.-16.12.,17.06. */
@@ -1475,7 +1475,7 @@ HB_FUNC( REGISTERWINDOW )
       hb_xfree(( TCHAR * ) lpCursorName);
    }
 #endif
-   HB_RETNL( ( LONG_PTR ) hBrush );
+   hmg_ret_HANDLE(hBrush);
 }
 
 /* Modified by P.Ch. 17.06. */
@@ -1533,7 +1533,7 @@ HB_FUNC( REGISTERSPLITCHILDWINDOW )
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpIcon);
 #endif
-   HB_RETNL( ( LONG_PTR ) hbrush );
+   hmg_ret_HANDLE(hbrush);
 }
 
 /* Modified by P.Ch. 17.06. */
