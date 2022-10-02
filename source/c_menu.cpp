@@ -161,7 +161,7 @@ HB_FUNC( ARRAY2ACCELERATORTABLE )
       }
    }
 
-   HB_RETNL( ( LONG_PTR ) hAccel );
+   hmg_ret_HANDLE(hAccel);
 }
 
 
@@ -204,7 +204,7 @@ HB_FUNC( CREATEACCELERATORTABLE )
       hb_xfree(lpAccels);
    }
 
-   HB_RETNL( ( LONG_PTR ) hAccel );
+   hmg_ret_HANDLE(hAccel);
 }
 
 // BOOL WINAPI DestroyAcceleratorTable(HACCEL hAccel)
@@ -236,7 +236,7 @@ HB_FUNC( LOADACCELERATORS )
       hb_strfree(hTableName);
    }
 
-   HB_RETNL( ( LONG_PTR ) hAccel );
+   hmg_ret_HANDLE(hAccel);
 }
 
 // HMENU WINAPI LoadMenu(HINSTANCE hInstance, LPCTSTR lpMenuName)
@@ -260,7 +260,7 @@ HB_FUNC( LOADMENU )
       hb_strfree(hMenuName);
    }
 
-   HB_RETNL( ( LONG_PTR ) hMenu );
+   hmg_ret_HANDLE(hMenu);
 }
 
 HB_FUNC( _NEWMENUSTYLE )
@@ -338,14 +338,14 @@ HB_FUNC( CREATEMENU )
    }
    #endif
 
-   HB_RETNL( ( LONG_PTR ) hMenu );
+   hmg_ret_HANDLE(hMenu);
 }
 
 HB_FUNC( CREATEPOPUPMENU )
 {
    HMENU menu = CreatePopupMenu();
 
-   HB_RETNL( ( LONG_PTR ) menu );
+   hmg_ret_HANDLE(menu);
 }
 
 HB_FUNC( APPENDMENUSTRING )
@@ -526,7 +526,7 @@ HB_FUNC( MENUITEM_SETBITMAPS )
       SetMenuItemBitmaps(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND, himage1, himage2);
    }
 
-   HB_RETNL( ( LONG_PTR ) himage1 );
+   hmg_ret_HANDLE(himage1);
 }
 
 HB_FUNC( MENUITEM_SETCHECKMARKS )
@@ -610,7 +610,7 @@ HB_FUNC( MENUITEM_SETICON )
 
    DestroyIcon(hIcon);
 
-   HB_RETNL( ( LONG_PTR ) himage1 );
+   hmg_ret_HANDLE(himage1);
 
 #ifdef UNICODE
    hb_xfree(lpIconName);
@@ -763,12 +763,12 @@ HB_FUNC( ISMENU )
 
 HB_FUNC( GETMENU )
 {
-   HB_RETNL( ( LONG_PTR ) GetMenu(hmg_par_HWND(1)) );
+   hmg_ret_HANDLE(GetMenu(hmg_par_HWND(1)));
 }
 
 HB_FUNC( GETSYSTEMMENU )
 {
-   HB_RETNL( ( LONG_PTR ) GetSystemMenu(hmg_par_HWND(1), FALSE) );
+   hmg_ret_HANDLE(GetSystemMenu(hmg_par_HWND(1), FALSE));
 }
 
 HB_FUNC( GETMENUITEMCOUNT )
