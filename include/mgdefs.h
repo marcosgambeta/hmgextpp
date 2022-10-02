@@ -166,3 +166,6 @@ void pascal DelResource(HANDLE hResource);
 #define hmg_par_int(n) static_cast<int>(hb_parni(n))
 #define hmg_par_HACCEL(n) reinterpret_cast<HACCEL>(HB_PARNL(n))
 #define hmg_par_HANDLE(n) reinterpret_cast<HANDLE>(HB_PARNL(n))
+
+// macros for returns
+#define hmg_ret_HANDLE(x) HB_RETNL(reinterpret_cast<LONG_PTR>(x)) // TODO: change to pointer
