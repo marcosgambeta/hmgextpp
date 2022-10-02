@@ -138,7 +138,7 @@ HB_FUNC( INITBUTTON )
       nullptr
              );
 
-   HB_RETNL( ( LONG_PTR ) hbutton );
+   hmg_ret_HANDLE(hbutton);
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpWindowName);
@@ -427,7 +427,7 @@ HB_FUNC( _SETBTNPICTURE )
    SendMessage(hwnd, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage);
 
    RegisterResource(himage, "BMP");
-   HB_RETNL( ( LONG_PTR ) himage );
+   hmg_ret_HANDLE(himage);
 
 #ifdef UNICODE
    hb_xfree(lpImageName);
@@ -443,7 +443,7 @@ HB_FUNC( _GETBTNPICTUREHANDLE )
 
    himage = ( HWND ) SendMessage(hwnd, ( UINT ) BM_GETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage);
 
-   HB_RETNL( ( LONG_PTR ) himage );
+   hmg_ret_HANDLE(himage);
 }
 
 HB_FUNC( _SETMIXEDBTNPICTURE )
@@ -454,7 +454,7 @@ HB_FUNC( _SETMIXEDBTNPICTURE )
    himl = HMG_SetButtonImageList(hmg_par_HWND(1), hb_parc(2), Transparent, BUTTON_IMAGELIST_ALIGN_CENTER);
 
    RegisterResource(himl, "IMAGELIST");
-   HB_RETNL( ( LONG_PTR ) himl );
+   hmg_ret_HANDLE(himl);
 }
 
 // HMG 1.0 Experimental Build 8e
@@ -481,7 +481,7 @@ HB_FUNC( _SETBTNICON )
    SendMessage(hwnd, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_ICON, ( LPARAM ) hIcon);
 
    RegisterResource(hIcon, "ICON");
-   HB_RETNL( ( LONG_PTR ) hIcon );
+   hmg_ret_HANDLE(hIcon);
 
 #ifdef UNICODE
    hb_xfree(lpIconName);
@@ -534,7 +534,7 @@ HB_FUNC( _SETMIXEDBTNICON )
    DestroyIcon(hIcon);
 
    RegisterResource(himl, "IMAGELIST");
-   HB_RETNL( ( LONG_PTR ) himl );
+   hmg_ret_HANDLE(himl);
 
 #ifdef UNICODE
    hb_xfree(lpIconName);
@@ -579,7 +579,7 @@ HB_FUNC( GETOWNBTNHANDLE )
 
    if( pps )
    {
-      HB_RETNL( ( LONG_PTR ) pps->hwndItem );
+      hmg_ret_HANDLE(pps->hwndItem);
    }
 }
 
@@ -605,7 +605,7 @@ HB_FUNC( GETOWNBTNDC )
 
    if( pps )
    {
-      HB_RETNL( ( LONG_PTR ) pps->hDC );
+      hmg_ret_HANDLE(pps->hDC);
    }
 }
 
@@ -739,8 +739,7 @@ LRESULT CALLBACK OwnButtonProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPa
  */
 HB_FUNC( CREATEBUTTONBRUSH )
 {
-   HB_RETNL( ( LONG_PTR ) CreateGradientBrush(hmg_par_HDC(1), hb_parni(2), hb_parni(3),
-                                               hmg_par_COLORREF(4), hmg_par_COLORREF(5)) );
+   hmg_ret_HANDLE(CreateGradientBrush(hmg_par_HDC(1), hb_parni(2), hb_parni(3), hmg_par_COLORREF(4), hmg_par_COLORREF(5)));
 }
 
 static HBRUSH CreateGradientBrush(HDC hDC, INT nWidth, INT nHeight, COLORREF Color1, COLORREF Color2)
