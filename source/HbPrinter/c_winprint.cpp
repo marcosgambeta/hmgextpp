@@ -169,7 +169,7 @@ HB_FUNC( RR_PRINTDIALOG )
 
    hDCRef = hDC;
 
-   HB_RETNL( ( LONG_PTR ) hDC );
+   hmg_ret_HANDLE(hDC);
 }
 
 HB_FUNC( RR_GETDC )
@@ -199,7 +199,7 @@ HB_FUNC( RR_GETDC )
    }
 
    hDCRef = hDC;
-   HB_RETNL( ( LONG_PTR ) hDC );
+   hmg_ret_HANDLE(hDC);
 
 #ifdef UNICODE
    hb_xfree(pwszDevice);
@@ -330,7 +330,7 @@ HB_FUNC( RR_SETDEVMODE )
    DocumentProperties(nullptr, hPrinter, PrinterName, pi2->pDevMode, pi2->pDevMode, DM_IN_BUFFER | DM_OUT_BUFFER);
    SetPrinter( hPrinter, 2, ( LPBYTE ) pi2, 0 );
    ResetDC( hDCRef, pi2->pDevMode );
-   HB_RETNL( ( LONG_PTR ) hDCRef );
+   hmg_ret_HANDLE(hDCRef);
 }
 
 HB_FUNC( RR_SETUSERMODE )
@@ -348,7 +348,7 @@ HB_FUNC( RR_SETUSERMODE )
    DocumentProperties(nullptr, hPrinter, PrinterName, pi2->pDevMode, pi2->pDevMode, DM_IN_BUFFER | DM_OUT_BUFFER);
    SetPrinter( hPrinter, 2, ( LPBYTE ) pi2, 0 );
    ResetDC( hDCRef, pi2->pDevMode );
-   HB_RETNL( ( LONG_PTR ) hDCRef );
+   hmg_ret_HANDLE(hDCRef);
 }
 
 #ifdef UNICODE
@@ -748,17 +748,17 @@ HB_FUNC( RR_GETCURRENTOBJECT )
    else
       hand = GetCurrentObject(hDC, OBJ_PEN);
 
-   HB_RETNL( ( LONG_PTR ) hand );
+   hmg_ret_HANDLE(hand);
 }
 
 HB_FUNC( RR_GETSTOCKOBJECT )
 {
-   HB_RETNL( ( LONG_PTR ) GetStockObject(hb_parni(1)) );
+   hmg_ret_HANDLE(GetStockObject(hb_parni(1)));
 }
 
 HB_FUNC( RR_CREATEPEN )
 {
-   HB_RETNL( ( LONG_PTR ) CreatePen(hb_parni(1), hb_parni(2), hmg_par_COLORREF(3)) );
+   hmg_ret_HANDLE(CreatePen(hb_parni(1), hb_parni(2), hmg_par_COLORREF(3)));
 }
 
 HB_FUNC( RR_MODIFYPEN )
@@ -784,7 +784,7 @@ HB_FUNC( RR_MODIFYPEN )
       if( hp != nullptr )
       {
          DeleteObject(( HPEN ) HB_PARNL(1));
-         HB_RETNL( ( LONG_PTR ) hp );
+         hmg_ret_HANDLE(hp);
       }
       else
          hb_retnl( hmg_par_LONG(1) );
@@ -806,7 +806,7 @@ HB_FUNC( RR_CREATEBRUSH )
    pbr.lbStyle = hb_parni(1);
    pbr.lbColor = hmg_par_COLORREF(2);
    pbr.lbHatch = hmg_par_LONG(3);
-   HB_RETNL( ( LONG_PTR ) CreateBrushIndirect(&pbr) );
+   hmg_ret_HANDLE(CreateBrushIndirect(&pbr));
 }
 
 HB_FUNC( RR_MODIFYBRUSH )
@@ -832,7 +832,7 @@ HB_FUNC( RR_MODIFYBRUSH )
       if( hb != nullptr )
       {
          DeleteObject(( HBRUSH ) HB_PARNL(1));
-         HB_RETNL( ( LONG_PTR ) hb );
+         hmg_ret_HANDLE(hb);
       }
       else
          hb_retnl( hmg_par_LONG(1) );
@@ -940,7 +940,7 @@ HB_FUNC( RR_CREATEFONT )
                  );
    }
 
-   HB_RETNL( ( LONG_PTR ) hxfont );
+   hmg_ret_HANDLE(hxfont);
 
 #ifdef UNICODE
    hb_xfree(FontName);
@@ -997,7 +997,7 @@ HB_FUNC( RR_MODIFYFONT )
       if( hf != nullptr )
       {
          DeleteObject(hmg_par_HFONT(1));
-         HB_RETNL( ( LONG_PTR ) hf );
+         hmg_ret_HANDLE(hf);
       }
       else
          hb_retnl( hmg_par_LONG(1) );
@@ -1139,7 +1139,7 @@ HB_FUNC( RR_CREATEMFILE )
    hDC = CreateEnhMetaFile(hDCRef, FileName, &emfrect, TEXT("hbprinter\0emf file\0\0"));
    SetTextAlign(hDC, TA_BASELINE);
    preview = 1;
-   HB_RETNL( ( LONG_PTR ) hDC );
+   hmg_ret_HANDLE(hDC);
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) FileName);
@@ -1157,22 +1157,17 @@ HB_FUNC( RR_CREATERGN )
 
    GetViewportOrgEx(hDC, &lpp);
    if( hb_parni(3) == 2 )
-      HB_RETNL( ( LONG_PTR ) CreateEllipticRgn(HB_PARNI(1, 2) + lpp.x, HB_PARNI(1, 1) + lpp.y, HB_PARNI(2, 2) + lpp.x, HB_PARNI(2, 1) + lpp.y) );
+      hmg_ret_HANDLE(CreateEllipticRgn(HB_PARNI(1, 2) + lpp.x, HB_PARNI(1, 1) + lpp.y, HB_PARNI(2, 2) + lpp.x, HB_PARNI(2, 1) + lpp.y));
    else if( hb_parni(3) == 3 )
-      HB_RETNL
-      (
-         ( LONG_PTR ) CreateRoundRectRgn
-         (
-            HB_PARNI(1, 2) + lpp.x,
-            HB_PARNI(1, 1) + lpp.y,
-            HB_PARNI(2, 2) + lpp.x,
-            HB_PARNI(2, 1) + lpp.y,
-            HB_PARNI(4, 2) + lpp.x,
-            HB_PARNI(4, 1) + lpp.y
-         )
-      );
+      hmg_ret_HANDLE(CreateRoundRectRgn(
+         HB_PARNI(1, 2) + lpp.x,
+         HB_PARNI(1, 1) + lpp.y,
+         HB_PARNI(2, 2) + lpp.x,
+         HB_PARNI(2, 1) + lpp.y,
+         HB_PARNI(4, 2) + lpp.x,
+         HB_PARNI(4, 1) + lpp.y));
    else
-      HB_RETNL( ( LONG_PTR ) CreateRectRgn(HB_PARNI(1, 2) + lpp.x, HB_PARNI(1, 1) + lpp.y, HB_PARNI(2, 2) + lpp.x, HB_PARNI(2, 1) + lpp.y) );
+      hmg_ret_HANDLE(CreateRectRgn(HB_PARNI(1, 2) + lpp.x, HB_PARNI(1, 1) + lpp.y, HB_PARNI(2, 2) + lpp.x, HB_PARNI(2, 1) + lpp.y));
 }
 
 HB_FUNC( RR_CREATEPOLYGONRGN )
@@ -1187,7 +1182,7 @@ HB_FUNC( RR_CREATEPOLYGONRGN )
       apoints[i].y = HB_PARNI(2, i + 1);
    }
 
-   HB_RETNL( ( LONG_PTR ) CreatePolygonRgn(apoints, number, hb_parni(3)) );
+   hmg_ret_HANDLE(CreatePolygonRgn(apoints, number, hb_parni(3)));
 }
 
 HB_FUNC( RR_COMBINERGN )
@@ -1195,7 +1190,7 @@ HB_FUNC( RR_COMBINERGN )
    HRGN rgnnew = CreateRectRgn(0, 0, 1, 1);
 
    CombineRgn(rgnnew, ( HRGN ) HB_PARNL(1), ( HRGN ) HB_PARNL(2), hb_parni(3));
-   HB_RETNL( ( LONG_PTR ) rgnnew );
+   hmg_ret_HANDLE(rgnnew);
 }
 
 HB_FUNC( RR_SELECTCLIPRGN )
@@ -1577,7 +1572,7 @@ HB_FUNC( RR_CREATEIMAGELIST )
    hb_storni( dx, 3 );
    hb_storni( bm.bmHeight, 4 );
    DeleteObject(hbmpx);
-   HB_RETNL( ( LONG_PTR ) himl );
+   hmg_ret_HANDLE(himl);
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) cFileName);
