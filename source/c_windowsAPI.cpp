@@ -157,7 +157,7 @@ HB_FUNC( GETACTIVEWINDOW )
 {
    HWND hwnd = GetActiveWindow();
 
-   HB_RETNL( ( LONG_PTR ) hwnd );
+   hmg_ret_HANDLE(hwnd);
 }
 
 HB_FUNC( SETACTIVEWINDOW )
@@ -210,7 +210,7 @@ HB_FUNC( GETFOREGROUNDWINDOW )
    HWND hwnd;
 
    hwnd = GetForegroundWindow();
-   HB_RETNL( ( LONG_PTR ) hwnd );
+   hmg_ret_HANDLE(hwnd);
 }
 
 HB_FUNC( SETWINDOWTEXT )
@@ -436,7 +436,7 @@ HB_FUNC( GETNOTIFYID )
    LPARAM  lParam = ( LPARAM ) HB_PARNL(1);
    NMHDR * nmhdr  = ( NMHDR * ) lParam;
 
-   HB_RETNL( ( LONG_PTR ) nmhdr->idFrom );
+   HB_RETNL( ( LONG_PTR ) nmhdr->idFrom ); // TODO: hmg_ret_HANDLE ?
 }
 
 HB_FUNC( GETHWNDFROM )
@@ -444,17 +444,17 @@ HB_FUNC( GETHWNDFROM )
    LPARAM  lParam = ( LPARAM ) HB_PARNL(1);
    NMHDR * nmhdr  = ( NMHDR * ) lParam;
 
-   HB_RETNL( ( LONG_PTR ) nmhdr->hwndFrom );
+   hmg_ret_HANDLE(nmhdr->hwndFrom);
 }
 
 HB_FUNC( GETDRAWITEMHANDLE )
 {
-   HB_RETNL( ( LONG_PTR ) ( ( ( DRAWITEMSTRUCT FAR * ) HB_PARNL(1) )->hwndItem ) );
+   hmg_ret_HANDLE(( ( DRAWITEMSTRUCT FAR * ) HB_PARNL(1) )->hwndItem);
 }
 
 HB_FUNC( GETFOCUS )
 {
-   HB_RETNL( ( LONG_PTR ) GetFocus() );
+   hmg_ret_HANDLE(GetFocus());
 }
 
 HB_FUNC( GETGRIDCOLUMN )
@@ -646,7 +646,7 @@ HB_FUNC( LOADTRAYICON )
    }
 
    RegisterResource(hIcon, "ICON");
-   HB_RETNL( ( LONG_PTR ) hIcon );
+   hmg_ret_HANDLE(hIcon);
 
 #ifdef UNICODE
    if( HB_ISCHAR(2) )
@@ -688,7 +688,7 @@ HB_FUNC( CHANGENOTIFYICON )
 
 HB_FUNC( GETITEMPOS )
 {
-   HB_RETNL( ( LONG_PTR ) ( ( ( NMMOUSE FAR * ) HB_PARNL(1) )->dwItemSpec ) );
+   HB_RETNL( ( LONG_PTR ) ( ( ( NMMOUSE FAR * ) HB_PARNL(1) )->dwItemSpec ) ); // TODO: hmg_ret_HANDLE ?
 }
 
 HB_FUNC( SETSCROLLRANGE )
@@ -714,12 +714,12 @@ HB_FUNC( GETWINDOWSTATE )
 
 HB_FUNC( GETPARENT )
 {
-   HB_RETNL( ( LONG_PTR ) GetParent(hmg_par_HWND(1)) );
+   hmg_ret_HANDLE(GetParent(hmg_par_HWND(1)));
 }
 
 HB_FUNC( GETDESKTOPWINDOW )
 {
-   HB_RETNL( ( LONG_PTR ) GetDesktopWindow() );
+   hmg_ret_HANDLE(GetDesktopWindow());
 }
 
 static BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM pArray)
@@ -904,7 +904,7 @@ HB_FUNC( C_SETWINDOWRGN )
       SetWindowRgn(hmg_par_HWND(1), hRgn, TRUE);
 
       RegisterResource(hRgn, "REGION");
-      HB_RETNL( ( LONG_PTR ) hRgn );
+      hmg_ret_HANDLE(hRgn);
    }
 }
 
@@ -935,32 +935,32 @@ HB_FUNC( C_SETPOLYWINDOWRGN )
    SetWindowRgn(GetActiveWindow(), hRgn, TRUE);
 
    RegisterResource(hRgn, "REGION");
-   HB_RETNL( ( LONG_PTR ) hRgn );
+   hmg_ret_HANDLE(hRgn);
 }
 
 HB_FUNC( GETHELPDATA )
 {
-   HB_RETNL( ( LONG_PTR ) ( ( ( HELPINFO FAR * ) HB_PARNL(1) )->hItemHandle ) );
+   hmg_ret_HANDLE(( ( HELPINFO FAR * ) HB_PARNL(1) )->hItemHandle);
 }
 
 HB_FUNC( GETMSKTEXTMESSAGE )
 {
-   HB_RETNL( ( LONG_PTR ) ( ( ( MSGFILTER FAR * ) HB_PARNL(1) )->msg ) );
+   HB_RETNL( ( LONG_PTR ) ( ( ( MSGFILTER FAR * ) HB_PARNL(1) )->msg ) ); // TODO: hmg_ret_HANDLE ?
 }
 
 HB_FUNC( GETMSKTEXTWPARAM )
 {
-   HB_RETNL( ( LONG_PTR ) ( ( ( MSGFILTER FAR * ) HB_PARNL(1) )->wParam ) );
+   HB_RETNL( ( LONG_PTR ) ( ( ( MSGFILTER FAR * ) HB_PARNL(1) )->wParam ) ); // TODO: hmg_ret_HANDLE ?
 }
 
 HB_FUNC( GETMSKTEXTLPARAM )
 {
-   HB_RETNL( ( LONG_PTR ) ( ( ( MSGFILTER FAR * ) HB_PARNL(1) )->lParam ) );
+   HB_RETNL( ( LONG_PTR ) ( ( ( MSGFILTER FAR * ) HB_PARNL(1) )->lParam ) ); // TODO: hmg_ret_HANDLE ?
 }
 
 HB_FUNC( GETWINDOW )
 {
-   HB_RETNL( ( LONG_PTR ) GetWindow(hmg_par_HWND(1), hb_parni(2)) );
+   hmg_ret_HANDLE(GetWindow(hmg_par_HWND(1), hb_parni(2)));
 }
 
 HB_FUNC( GETGRIDOLDSTATE )
@@ -1025,7 +1025,7 @@ HB_FUNC( FINDWINDOWEX )
    LPWSTR lpszClass  = ( hb_parc(3) != nullptr ) ? hb_osStrU16Encode(hb_parc(3)) : nullptr;
    LPWSTR lpszWindow = ( hb_parc(4) != nullptr ) ? hb_osStrU16Encode(hb_parc(4)) : nullptr;
 #endif
-   HB_RETNL( ( LONG_PTR ) FindWindowEx(hmg_par_HWND(1), hmg_par_HWND(2), lpszClass, lpszWindow) );
+   hmg_ret_HANDLE(FindWindowEx(hmg_par_HWND(1), hmg_par_HWND(2), lpszClass, lpszWindow));
 
 #ifdef UNICODE
    if( lpszClass != nullptr )
@@ -1112,7 +1112,7 @@ HB_FUNC( GETTABBEDCONTROLBRUSH )
    SetBrushOrgEx(hDC, -rc.left, -rc.top, nullptr);
    hBrush = ( HBRUSH ) HB_PARNL(4);
 
-   HB_RETNL( ( LONG_PTR ) hBrush );
+   hmg_ret_HANDLE(hBrush);
 }
 
 HB_FUNC( GETTABBRUSH )
@@ -1137,7 +1137,7 @@ HB_FUNC( GETTABBRUSH )
 
    hBrush = CreatePatternBrush(hBmp);
 
-   HB_RETNL( ( LONG_PTR ) hBrush );
+   hmg_ret_HANDLE(hBrush);
 
    SelectObject(hDCMem, hOldBmp);
 
@@ -1223,7 +1223,7 @@ HB_FUNC( SETWINDOWBRUSH )
 
 HB_FUNC( CREATEHATCHBRUSH )
 {
-   HB_RETNL( ( LONG_PTR ) CreateHatchBrush(hb_parni(1), hmg_par_COLORREF(2)) );
+   hmg_ret_HANDLE(CreateHatchBrush(hb_parni(1), hmg_par_COLORREF(2)));
 }
 
 /* Modified by P.Ch. 16.10. */
@@ -1248,7 +1248,7 @@ HB_FUNC( CREATEPATTERNBRUSH )
       hImage = ( HBITMAP ) HMG_LoadImage(hb_parc(1), nullptr);
    }
 
-   HB_RETNL( ( hImage != nullptr ) ? ( LONG_PTR ) CreatePatternBrush(hImage) : ( LONG_PTR ) 0 );
+   hmg_ret_HANDLE(( hImage != nullptr ) ? CreatePatternBrush(hImage) : nullptr);
 
 #ifdef UNICODE
    if( HB_ISCHAR(1) )
