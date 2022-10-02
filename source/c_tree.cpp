@@ -92,7 +92,7 @@ HB_FUNC( INITTREE )
       nullptr
             );
 
-   HB_RETNL( ( LONG_PTR ) hWndTV );
+   hmg_ret_HANDLE(hWndTV);
 }
 
 HB_FUNC( INITTREEVIEWBITMAP ) //Tree+
@@ -231,7 +231,7 @@ HB_FUNC( ADDTREEITEM )
 
    AddTreeItemLPARAM(hWndTV, hRet, nID, IsNodeFlag);
 
-   HB_RETNL( ( LONG_PTR ) hRet );
+   hmg_ret_HANDLE(hRet);
 
 #ifdef UNICODE
    hb_xfree(lpText);
@@ -249,7 +249,7 @@ HB_FUNC( TREEVIEW_GETSELECTION )
 
    if( ItemHandle != nullptr )
    {
-      HB_RETNL( ( LONG_PTR ) ItemHandle );
+      hmg_ret_HANDLE(ItemHandle);
    }
 }
 
@@ -351,7 +351,7 @@ HB_FUNC( TREEVIEW_GETPREVSIBLING )
 
    PrevItemHandle = TreeView_GetPrevSibling(TreeHandle, ItemHandle);
 
-   HB_RETNL( ( LONG_PTR ) PrevItemHandle );
+   hmg_ret_HANDLE(PrevItemHandle);
 }
 
 HB_FUNC( TREEVIEW_GETITEM )
@@ -471,7 +471,7 @@ HB_FUNC( TREEVIEW_GETNEXTSIBLING )
 
    NextItemHandle = TreeView_GetNextSibling(TreeHandle, ItemHandle);
 
-   HB_RETNL( ( LONG_PTR ) NextItemHandle );
+   hmg_ret_HANDLE(NextItemHandle);
 }
 
 HB_FUNC( TREEVIEW_GETCHILD )
@@ -485,7 +485,7 @@ HB_FUNC( TREEVIEW_GETCHILD )
 
    ChildItemHandle = TreeView_GetChild( TreeHandle, ItemHandle );
 
-   HB_RETNL( ( LONG_PTR ) ChildItemHandle );
+   hmg_ret_HANDLE(ChildItemHandle);
 }
 
 HB_FUNC( TREEVIEW_GETPARENT )
@@ -499,7 +499,7 @@ HB_FUNC( TREEVIEW_GETPARENT )
 
    ParentItemHandle = TreeView_GetParent(TreeHandle, ItemHandle);
 
-   HB_RETNL( ( LONG_PTR ) ParentItemHandle );
+   hmg_ret_HANDLE(ParentItemHandle);
 }
 
 //**************************************************
@@ -737,7 +737,7 @@ HB_FUNC( TREEVIEW_GETROOT )
    HWND      hWndTV         = hmg_par_HWND(1);
    HTREEITEM RootItemHandle = TreeView_GetRoot(hWndTV);
 
-   HB_RETNL( ( LONG_PTR ) RootItemHandle );
+   hmg_ret_HANDLE(RootItemHandle);
 }
 
 HB_FUNC( TREEITEM_GETID )
