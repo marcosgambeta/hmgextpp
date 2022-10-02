@@ -69,12 +69,12 @@ HB_FUNC( LOADCURSOR )
 #ifndef UNICODE
    LPCSTR lpCursorName = ( hb_parinfo(2) & Harbour::Item::STRING ) ? hb_parc(2) : ( LPCSTR ) MAKEINTRESOURCE(hb_parni(2));
 
-   HB_RETNL( ( LONG_PTR ) LoadCursor(hInstance, lpCursorName) );
+   hmg_ret_HANDLE(LoadCursor(hInstance, lpCursorName));
 #else
    LPWSTR  pW = AnsiToWide(( char * ) hb_parc(2));
    LPCWSTR lpCursorName = HB_ISCHAR(2) ? pW : ( LPCWSTR ) MAKEINTRESOURCE(hb_parni(2));
 
-   HB_RETNL( ( LONG_PTR ) LoadCursor(hInstance, lpCursorName) );
+   hmg_ret_HANDLE(LoadCursor(hInstance, lpCursorName));
    hb_xfree(pW);
 #endif
 }
@@ -82,26 +82,26 @@ HB_FUNC( LOADCURSOR )
 HB_FUNC( LOADCURSORFROMFILE )
 {
 #ifndef UNICODE
-   HB_RETNL( ( LONG_PTR ) LoadCursorFromFile(( LPCSTR ) hb_parc(1)) );
+   hmg_ret_HANDLE(LoadCursorFromFile(( LPCSTR ) hb_parc(1)));
 #else
    LPCWSTR lpFileName = AnsiToWide(( char * ) hb_parc(1));
-   HB_RETNL( ( LONG_PTR ) LoadCursorFromFile(lpFileName) );
+   hmg_ret_HANDLE(LoadCursorFromFile(lpFileName));
    hb_xfree(( TCHAR * ) lpFileName);
 #endif
 }
 
 HB_FUNC( SETRESCURSOR )
 {
-   HB_RETNL( ( LONG_PTR ) SetCursor(( HCURSOR ) HB_PARNL(1)) );
+   hmg_ret_HANDLE(SetCursor(( HCURSOR ) HB_PARNL(1)));
 }
 
 HB_FUNC( FILECURSOR )
 {
 #ifndef UNICODE
-   HB_RETNL( ( LONG_PTR ) SetCursor(LoadCursorFromFile(( LPCSTR ) hb_parc(1))) );
+   hmg_ret_HANDLE(SetCursor(LoadCursorFromFile(( LPCSTR ) hb_parc(1))));
 #else
    LPCWSTR lpFileName = AnsiToWide(( char * ) hb_parc(1));
-   HB_RETNL( ( LONG_PTR ) SetCursor(LoadCursorFromFile(lpFileName)) );
+   hmg_ret_HANDLE(SetCursor(LoadCursorFromFile(lpFileName)));
    hb_xfree(( TCHAR * ) lpFileName);
 #endif
 }
@@ -109,9 +109,9 @@ HB_FUNC( FILECURSOR )
 HB_FUNC( CURSORHAND )
 {
 #if ( WINVER >= 0x0500 )
-   HB_RETNL( ( LONG_PTR ) SetCursor(LoadCursor(nullptr, IDC_HAND)) );
+   hmg_ret_HANDLE(SetCursor(LoadCursor(nullptr, IDC_HAND)));
 #else
-   HB_RETNL( ( LONG_PTR ) SetCursor(LoadCursor(GetInstance(), TEXT("MINIGUI_FINGER"))) );
+   hmg_ret_HANDLE(SetCursor(LoadCursor(GetInstance(), TEXT("MINIGUI_FINGER"))));
 #endif
 }
 
