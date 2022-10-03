@@ -91,7 +91,7 @@ HINSTANCE GetResources(void)
 
 HB_FUNC( GETRESOURCES )
 {
-   HB_RETNL( ( LONG_PTR ) GetResources() );
+   hmg_ret_HANDLE(GetResources());
 }
 
 HB_FUNC( SETRESOURCES )
@@ -105,7 +105,7 @@ HB_FUNC( SETRESOURCES )
       hResources = hmg_par_HINSTANCE(1);
    }
 
-   HB_RETNL( ( LONG_PTR ) hResources );
+   hmg_ret_HANDLE(hResources);
 }
 
 HB_FUNC( FREERESOURCES )

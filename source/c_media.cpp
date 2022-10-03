@@ -219,7 +219,7 @@ HB_FUNC( INITPLAYER )
    }
 
    MoveWindow(hwnd, hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6), TRUE);
-   HB_RETNL( ( LONG_PTR ) hwnd );
+   hmg_ret_HANDLE(hwnd);
 }
 
 HB_FUNC( MCIFUNC )
@@ -292,7 +292,7 @@ HB_FUNC( INITANIMATE )
    }
 
    MoveWindow(hwnd, hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), TRUE);
-   HB_RETNL( ( LONG_PTR ) hwnd );
+   hmg_ret_HANDLE(hwnd);
 }
 
 HB_FUNC( OPENANIMATE )

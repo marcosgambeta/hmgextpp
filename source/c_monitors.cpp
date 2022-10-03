@@ -142,7 +142,7 @@ HB_FUNC( MONITORFROMPOINT )
       }
       else
       {
-         HB_RETNL( ( LONG_PTR ) MonitorFromPoint(pt, hb_parnldef(2, MONITOR_DEFAULTTONULL)) );
+         hmg_ret_HANDLE(MonitorFromPoint(pt, hb_parnldef(2, MONITOR_DEFAULTTONULL)));
       }
    }
    else if( HB_ISNUM(1) && HB_ISNUM(2) )
@@ -150,7 +150,7 @@ HB_FUNC( MONITORFROMPOINT )
       pt.x = hb_parnl(1);
       pt.y = hb_parnl(2);
 
-      HB_RETNL( ( LONG_PTR ) MonitorFromPoint(pt, hb_parnldef(3, MONITOR_DEFAULTTONULL)) );
+      hmg_ret_HANDLE(MonitorFromPoint(pt, hb_parnldef(3, MONITOR_DEFAULTTONULL)));
    }
    else
    {
@@ -165,7 +165,7 @@ HB_FUNC( MONITORFROMWINDOW )
 
    if( IsWindow(hwnd) )
    {
-      HB_RETNL( ( LONG_PTR ) MonitorFromWindow(hwnd, hb_parnldef(2, MONITOR_DEFAULTTONULL)) );
+      hmg_ret_HANDLE(MonitorFromWindow(hwnd, hb_parnldef(2, MONITOR_DEFAULTTONULL)));
    }
    else
    {

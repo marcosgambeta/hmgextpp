@@ -334,7 +334,7 @@ HB_FUNC( INITIMAGE )
       s_Image_WNDPROC = ( WNDPROC ) SetWindowLongPtr(hWnd, GWLP_WNDPROC, ( LONG_PTR ) ImageSubClassFunc);
    }
 
-   HB_RETNL( ( LONG_PTR ) hWnd );
+   hmg_ret_HANDLE(hWnd);
 }
 
 HB_FUNC( C_SETPICTURE )
@@ -370,7 +370,7 @@ HB_FUNC( C_SETPICTURE )
       }
    }
 
-   HB_RETNL( ( LONG_PTR ) hBitmap );
+   hmg_ret_HANDLE(hBitmap);
 }
 
 HB_FUNC( LOADIMAGE )
@@ -400,7 +400,7 @@ HB_FUNC( LOADIMAGE )
       }
    }
 
-   HB_RETNL( ( LONG_PTR ) hBitmap );
+   hmg_ret_HANDLE(hBitmap);
 }
 
 HB_FUNC( C_GETRESPICTURE )
@@ -414,7 +414,7 @@ HB_FUNC( C_GETRESPICTURE )
       RegisterResource(hBitmap, "BMP");
    }
 
-   HB_RETNL( ( LONG_PTR ) hBitmap );
+   hmg_ret_HANDLE(hBitmap);
 }
 
 //****************************************************************************************************************

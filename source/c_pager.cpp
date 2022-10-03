@@ -85,7 +85,7 @@ HB_FUNC( GETHANDLEREBAR )  // GetHandleRebar(hPager)
 {
    HWND hRebar = ( HWND ) GetWindowLongPtr(hmg_par_HWND(1), GWLP_USERDATA);
 
-   HB_RETNL( ( LONG_PTR ) hRebar );
+   hmg_ret_HANDLE(hRebar);
 }
 
 HB_FUNC( ADDTOPAGER )      // AdToPager (hwndPG , hToolBar)
@@ -197,7 +197,7 @@ HB_FUNC( INITPAGER )       // InitPager ( ParentForm, hRebar, nWidth, nHeight, v
 
    SetWindowLongPtr(hPager, GWLP_USERDATA, ( LONG_PTR ) hRebar);
 
-   HB_RETNL( ( LONG_PTR ) hPager );
+   hmg_ret_HANDLE(hPager);
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpText);

@@ -163,7 +163,7 @@ HB_FUNC( INITHOTKEYBOX )
       nullptr
                 );
 
-   HB_RETNL( ( LONG_PTR ) hwndHotKey );
+   hmg_ret_HANDLE(hwndHotKey);
 }
 
 HB_FUNC( SETHOTKEYVALUE )

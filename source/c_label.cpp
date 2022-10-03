@@ -151,7 +151,7 @@ HB_FUNC( INITLABEL )
       LabelOldWndProc = ( WNDPROC ) SetWindowLongPtr(( HWND ) hWnd, GWLP_WNDPROC, ( LONG_PTR ) LabelSubClassFunc);
    }
 
-   HB_RETNL( ( LONG_PTR ) hWnd );
+   hmg_ret_HANDLE(hWnd);
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpWindowName);

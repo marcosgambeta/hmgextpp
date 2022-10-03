@@ -160,7 +160,7 @@ static DWORD DllGetVersion(LPCTSTR lpszDllName)
 
 HB_FUNC( GETINSTANCE )
 {
-   HB_RETNL( ( LONG_PTR ) g_hInstance );
+   hmg_ret_HANDLE(g_hInstance);
 }
 
 HB_FUNC( GETCOMCTL32DLLVER )
