@@ -113,7 +113,7 @@ HB_FUNC( INITCHKLISTBOX )
       nullptr
              );
 
-   HB_RETNL( ( LONG_PTR ) hbutton );
+   hmg_ret_HANDLE(hbutton);
 }
 
 HB_FUNC( INITMULTICHKLISTBOX )
@@ -161,7 +161,7 @@ HB_FUNC( INITMULTICHKLISTBOX )
       nullptr
              );
 
-   HB_RETNL( ( LONG_PTR ) hbutton );
+   hmg_ret_HANDLE(hbutton);
 }
 
 HB_FUNC( CHKLISTBOXINSERTITEM )

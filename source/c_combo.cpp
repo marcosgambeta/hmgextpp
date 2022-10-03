@@ -121,7 +121,7 @@ HB_FUNC( INITCOMBOBOX )
       nullptr
              );
 
-   HB_RETNL( ( LONG_PTR ) hbutton );
+   hmg_ret_HANDLE(hbutton);
 }
 
 HB_FUNC( INITCOMBOBOXEX )
@@ -221,7 +221,7 @@ HB_FUNC( INITCOMBOBOXEX )
          ( LPARAM ) CBES_EX_NOEDITIMAGE   // = (LPARAM) (DWORD) dwExStyle;
          );
 
-   HB_RETNL( ( LONG_PTR ) hCombo );
+   hmg_ret_HANDLE(hCombo);
 }
 
 HB_FUNC( COMBOSETITEMHEIGHT )

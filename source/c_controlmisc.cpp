@@ -98,7 +98,7 @@ HB_FUNC( IMAGELIST_DESTROY )
 
 HB_FUNC( SETFOCUS )
 {
-   HB_RETNL( ( LONG_PTR ) SetFocus(hmg_par_HWND(1)) );
+   hmg_ret_HANDLE(SetFocus(hmg_par_HWND(1)));
 }
 
 HB_FUNC( INSERTSHIFTTAB )

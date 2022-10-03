@@ -127,7 +127,7 @@ HB_FUNC( INITDIALOG )
 
    hwndDlg = CreateDialog(GetResources(), MAKEINTRESOURCE(hb_parni(2)), hmg_par_HWND(1), ( DLGPROC ) HMG_DlgProc);
 
-   HB_RETNL( ( LONG_PTR ) hwndDlg );
+   hmg_ret_HANDLE(hwndDlg);
 }
 
 HB_FUNC( GETDIALOGITEMHANDLE )
@@ -136,7 +136,7 @@ HB_FUNC( GETDIALOGITEMHANDLE )
 
    CtrlItem = GetDlgItem(hmg_par_HWND(1), hb_parni(2));
 
-   HB_RETNL( ( LONG_PTR ) CtrlItem );
+   hmg_ret_HANDLE(CtrlItem);
 }
 
 HB_FUNC( CHECKDLGBUTTON )
@@ -484,7 +484,7 @@ HB_FUNC( CREATEDLGTEMPLATE )
    {
       hwndDlg = CreateDialogIndirect(GetResources(), ( LPDLGTEMPLATE ) pdlgtemplate, hwnd, ( DLGPROC ) HMG_DlgProc);
       LocalFree(pdlgtemplate);
-      HB_RETNL( ( LONG_PTR ) hwndDlg );
+      hmg_ret_HANDLE(hwndDlg);
    }
 }
 

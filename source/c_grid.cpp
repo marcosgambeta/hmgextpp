@@ -256,7 +256,7 @@ HB_FUNC( INITLISTVIEW )
       ListView_SetItemCount(hbutton, hb_parni(8));
    }
 
-   HB_RETNL( ( LONG_PTR ) hbutton );
+   hmg_ret_HANDLE(hbutton);
 }
 
 HB_FUNC( LISTVIEW_SETITEMCOUNT )
@@ -342,7 +342,7 @@ HB_FUNC( ADDLISTVIEWBITMAPHEADER )  // Grid+
       }
    }
 
-   HB_RETNL( ( LONG_PTR ) himl );
+   hmg_ret_HANDLE(himl);
 }
 
 HB_FUNC( LISTVIEW_GETFOCUSEDITEM )
@@ -857,7 +857,7 @@ HB_FUNC( LISTVIEW_GETHEADER )
 {
    HWND hGrid = hmg_par_HWND(1);
 
-   HB_RETNL( ( LONG_PTR ) ListView_GetHeader(hGrid) );
+   hmg_ret_HANDLE(ListView_GetHeader(hGrid));
 }
 
 HB_FUNC( GETHEADERLISTVIEWITEM )

@@ -99,7 +99,7 @@ HB_FUNC( INITBROWSE )
 
    lpfnOldWndProc = ( WNDPROC ) SetWindowLongPtr(( HWND ) hbutton, GWLP_WNDPROC, ( LONG_PTR ) SubClassFunc);
 
-   HB_RETNL( ( LONG_PTR ) hbutton );
+   hmg_ret_HANDLE(hbutton);
 }
 
 LRESULT APIENTRY SubClassFunc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
@@ -170,7 +170,7 @@ HB_FUNC( INITVSCROLLBAR )
       1              // redraw flag
    );
 
-   HB_RETNL( ( LONG_PTR ) hscrollbar );
+   hmg_ret_HANDLE(hscrollbar);
 }
 
 HB_FUNC( GETSCROLLRANGEMAX )
@@ -194,7 +194,7 @@ HB_FUNC( INITVSCROLLBARBUTTON )
 
    hbutton = CreateWindow(WC_STATIC, TEXT(""), style, hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), hwnd, ( HMENU ) nullptr, GetInstance(), nullptr);
 
-   HB_RETNL( ( LONG_PTR ) hbutton );
+   hmg_ret_HANDLE(hbutton);
 }
 
 HB_FUNC( SETSCROLLINFO )

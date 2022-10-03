@@ -570,7 +570,7 @@ HB_FUNC( CREATEDLGFOLDER )
       LocalFree(pdlgtemplate);
    }
 
-   HB_RETNL( ( LONG_PTR ) hWndDlg );
+   hmg_ret_HANDLE(hWndDlg);
 }
 
 /****************************************************************************
@@ -602,7 +602,7 @@ HB_FUNC( FOLDERGETCURRENTPAGEHWND )
 
    fpi = ( FLDPAGEINFO * ) hfpi[iSel];
 
-   HB_RETNL( ( LONG_PTR ) fpi->hwndPage );
+   hmg_ret_HANDLE(fpi->hwndPage);
 }
 
 /****************************************************************************
@@ -711,7 +711,7 @@ HB_FUNC( FOLDER_GETTABHANDLE )
    }
    else
    {
-      HB_RETNL( ( LONG_PTR ) pFhi->hwndTab );
+      hmg_ret_HANDLE(pFhi->hwndTab);
    }
 }
 

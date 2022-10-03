@@ -750,7 +750,7 @@ HB_FUNC( LOADBITMAP )
    }
    
    RegisterResource(hBitmap, "BMP");
-   HB_RETNL( ( LONG_PTR ) hBitmap );
+   hmg_ret_HANDLE(hBitmap);
 
 #ifdef UNICODE
    hb_xfree(lpImageName);

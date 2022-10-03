@@ -98,7 +98,7 @@ HB_FUNC( INITFONT )
 #endif
 
    RegisterResource(hFont, "FONT");
-   HB_RETNL( ( LONG_PTR ) hFont );
+   hmg_ret_HANDLE(hFont);
 }
 
 HB_FUNC( _SETFONT )
@@ -129,7 +129,7 @@ HB_FUNC( _SETFONT )
       SendMessage(( HWND ) hwnd, ( UINT ) WM_SETFONT, ( WPARAM ) hFont, ( LPARAM ) 1);
 
       RegisterResource(hFont, "FONT");
-      HB_RETNL( ( LONG_PTR ) hFont );
+      hmg_ret_HANDLE(hFont);
    }
    else
    {

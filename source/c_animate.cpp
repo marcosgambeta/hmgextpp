@@ -104,7 +104,7 @@ HB_FUNC( INITANIMATERES )
    Animate_OpenEx(AnimationCtrl, avi, MAKEINTRESOURCE(hb_parni(8)));
 
    HB_STORNL(reinterpret_cast<LONG_PTR>(avi), 2);
-   HB_RETNL(reinterpret_cast<LONG_PTR>(AnimationCtrl));
+   hmg_ret_HANDLE(AnimationCtrl);
 }
 
 HB_FUNC( UNLOADANIMATELIB )
