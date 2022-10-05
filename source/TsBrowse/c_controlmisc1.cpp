@@ -107,14 +107,14 @@ static far HCURSOR hDrag  = nullptr;
 HB_FUNC( NOR )
 {
    int p = hb_pcount();
-   int n, ret = 0;
+   int ret = 0;
 
-   for( n = 1; n <= p; n++ )
+   for( int n = 1; n <= p; n++ )
    {
-      ret = ret | hb_parni( n );
+      ret = ret | hb_parni(n);
    }
 
-   hb_retni( ret );
+   hb_retni(ret);
 }
 
 HB_FUNC( CREATEPEN )
@@ -126,7 +126,7 @@ HB_FUNC( CREATEPEN )
 
    hpen = CreatePen(fnPenStyle, nWidth, crColor);
 
-   HB_RETNL( ( LONG_PTR ) hpen );
+   hmg_ret_HANDLE(hpen);
 }
 
 HB_FUNC( MOVETO )
@@ -143,22 +143,22 @@ HB_FUNC( LINETO )
 
 HB_FUNC( DRAWICON )
 {
-   hb_retl( DrawIcon(hmg_par_HDC(1), hb_parni(2), hb_parni(3), hmg_par_HICON(4)) );
+   hb_retl(DrawIcon(hmg_par_HDC(1), hb_parni(2), hb_parni(3), hmg_par_HICON(4)));
 }
 
 HB_FUNC( CURSORWE )
 {
-   HB_RETNL( ( LONG_PTR ) SetCursor(LoadCursor(0, IDC_SIZEWE)) );
+   hmg_ret_HANDLE(SetCursor(LoadCursor(0, IDC_SIZEWE)));
 }
 
 HB_FUNC( CURSORSIZE )
 {
-   HB_RETNL( ( LONG_PTR ) SetCursor(LoadCursor(0, IDC_SIZEALL)) );
+   hmg_ret_HANDLE(SetCursor(LoadCursor(0, IDC_SIZEALL)));
 }
 
 HB_FUNC( RELEASECAPTURE )
 {
-   hb_retl( ReleaseCapture() );
+   hb_retl(ReleaseCapture());
 }
 
 HB_FUNC( INVERTRECT )
@@ -187,7 +187,7 @@ HB_FUNC( GETCLASSINFO )
    #ifdef UNICODE
       hb_reta(1);
       pStr = WideToAnsi(( LPWSTR ) WndClass.lpszClassName);
-      HB_STORC( pStr, -1, 1 );
+      HB_STORC(pStr, -1, 1);
       hb_xfree(pStr);
    #else
       hb_retclen(( char * ) &WndClass, sizeof(WNDCLASS));
@@ -201,17 +201,17 @@ HB_FUNC( GETCLASSINFO )
 
 HB_FUNC( SETCAPTURE )
 {
-   HB_RETNL( ( LONG_PTR ) SetCapture(hmg_par_HWND(1)) );
+   hmg_ret_HANDLE(SetCapture(hmg_par_HWND(1)));
 }
 
 HB_FUNC( GETTEXTCOLOR )
 {
-   hb_retnl( ( ULONG ) GetTextColor(hmg_par_HDC(1)) );
+   hb_retnl(( ULONG ) GetTextColor(hmg_par_HDC(1)));
 }
 
 HB_FUNC( GETBKCOLOR )
 {
-   hb_retnl( ( ULONG ) GetBkColor(hmg_par_HDC(1)) );
+   hb_retnl(( ULONG ) GetBkColor(hmg_par_HDC(1)));
 }
 
 HB_FUNC( MOVEFILE )
@@ -224,7 +224,7 @@ HB_FUNC( MOVEFILE )
    LPWSTR lpNewFileName = AnsiToWide(( char * ) hb_parc(2));
 #endif
 
-   hb_retl( ( BOOL ) MoveFile(lpExistingFileName, lpNewFileName) );
+   hb_retl(( BOOL ) MoveFile(lpExistingFileName, lpNewFileName));
 
 #ifdef UNICODE
    hb_xfree(lpExistingFileName);
@@ -234,7 +234,7 @@ HB_FUNC( MOVEFILE )
 
 HB_FUNC( GETACP )
 {
-   hb_retni( ( UINT ) GetACP() );
+   hb_retni(( UINT ) GetACP());
 }
 
 HB_FUNC( GETCURSORHAND )
@@ -245,7 +245,7 @@ HB_FUNC( GETCURSORHAND )
       RegisterResource(hHand, "CUR");
    }
 
-   HB_RETNL( ( LONG_PTR ) hHand );
+   hmg_ret_HANDLE(hHand);
 }
 
 HB_FUNC( GETCURSORDRAG )
@@ -256,7 +256,7 @@ HB_FUNC( GETCURSORDRAG )
       RegisterResource(hDrag, "CUR");
    }
 
-   HB_RETNL( ( LONG_PTR ) hDrag );
+   hmg_ret_HANDLE(hDrag);
 }
 
 HB_FUNC( GETCURSORCATCH )
@@ -267,7 +267,7 @@ HB_FUNC( GETCURSORCATCH )
       RegisterResource(hCatch, "CUR");
    }
 
-   HB_RETNL( ( LONG_PTR ) hCatch );
+   hmg_ret_HANDLE(hCatch);
 }
 
 HB_FUNC( GETCURSORSTOP )
@@ -278,7 +278,7 @@ HB_FUNC( GETCURSORSTOP )
       RegisterResource(hStop, "CUR");
    }
 
-   HB_RETNL( ( LONG_PTR ) hStop );
+   hmg_ret_HANDLE(hStop);
 }
 
 HB_FUNC( CURSORSTOP )
@@ -293,26 +293,32 @@ HB_FUNC( CURSORSTOP )
 
 HB_FUNC( DESTROYCURSOR )
 {
-   HCURSOR hCur = ( HCURSOR ) HB_PARNL(1);
+   HCURSOR hCur = hmg_par_HCURSOR(1);
 
    if( hCur == hDrag )
+   {
       hDrag  = nullptr;
+   }
    else if( hCur == hCatch )
+   {
       hCatch = nullptr;
+   }
    else if( hCur == hStop )
+   {
       hStop  = nullptr;
+   }
    else if( hCur == hHand )
+   {
       hHand  = nullptr;
+   }
 
    DelResource(hCur);
-   hb_retl( ( BOOL ) DestroyCursor(hCur) );
+   hb_retl(( BOOL ) DestroyCursor(hCur));
 }
 
 HB_FUNC( GETWHEELSCROLLLINES )
 {
    UINT pulScrollLines;
-
    SystemParametersInfo(SPI_GETWHEELSCROLLLINES, 0, &pulScrollLines, 0);
-
-   hb_retni( pulScrollLines );
+   hb_retni(pulScrollLines);
 }
