@@ -158,7 +158,7 @@ HB_FUNC( INITTABCONTROL )
 
    TabCtrl_SetCurSel( hbutton, hb_parni(8) - 1 );
 
-   HB_RETNL( ( LONG_PTR ) hbutton );
+   hmg_ret_HANDLE(hbutton);
 }
 
 HB_FUNC( TABCTRL_SETCURSEL )
@@ -281,7 +281,7 @@ HB_FUNC( ADDTABBITMAP )
    }
 
    RegisterResource(himl, "IMAGELIST");
-   HB_RETNL( ( LONG_PTR ) himl );
+   hmg_ret_HANDLE(himl);
 }
 
 HB_FUNC( WINDOWFROMPOINT )
@@ -289,7 +289,7 @@ HB_FUNC( WINDOWFROMPOINT )
    POINT Point;
 
    Array2Point(hb_param(1, Harbour::Item::ARRAY), &Point);
-   HB_RETNL( ( LONG_PTR ) WindowFromPoint(Point) );
+   hmg_ret_HANDLE(WindowFromPoint(Point));
 }
 
 HB_FUNC( GETMESSAGEPOS )

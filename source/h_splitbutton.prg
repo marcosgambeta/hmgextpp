@@ -308,7 +308,7 @@ HB_FUNC( INITSPLITBUTTON )
                           GetModuleHandle(nullptr),
                           nullptr);
 
-   HB_RETNL( ( LONG_PTR ) hbutton );
+   hmg_ret_HANDLE(hbutton);
 }
 
 #pragma ENDDUMP

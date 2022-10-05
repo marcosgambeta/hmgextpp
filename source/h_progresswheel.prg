@@ -1024,7 +1024,7 @@ HB_FUNC( CREATEPATTERNHBRUSH ) // ( hBitmap ) --> hBrush
 
    RegisterResource(hBrush, "BRUSH");
 
-   HB_RETNL( ( LONG_PTR ) hBrush );
+   hmg_ret_HANDLE(hBrush);
 }
 
 #pragma ENDDUMP

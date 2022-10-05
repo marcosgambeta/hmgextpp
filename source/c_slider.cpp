@@ -125,5 +125,5 @@ HB_FUNC( INITSLIDER )
       SendMessage(hTrackBar, TBM_SETSEL, ( WPARAM ) TRUE, MAKELONG(iSelMin, iSelMax) );  /* P.Ch. 16.10 */
    }
 
-   HB_RETNL( ( LONG_PTR ) hTrackBar );
+   hmg_ret_HANDLE(hTrackBar);
 }

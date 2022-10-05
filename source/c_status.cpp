@@ -71,7 +71,7 @@ HB_FUNC( INITMESSAGEBAR )
       SendMessage(hWndSB, SB_SETPARTS, ( WPARAM ) nrOfParts, ( LPARAM ) ( LPINT ) ptArray);
    }
 
-   HB_RETNL( ( LONG_PTR ) hWndSB );
+   hmg_ret_HANDLE(hWndSB);
 }
 
 HB_FUNC( INITITEMBAR )
@@ -418,11 +418,11 @@ HB_FUNC( CREATEPROGRESSBARITEM )     // CreateProgressBarItem(HwndStatus, NrItem
       SendMessage(hwndProgressBar, PBM_SETRANGE, 0, MAKELONG(hb_parni(4), hb_parni(5)));
       SendMessage(hwndProgressBar, PBM_SETPOS, hmg_par_WPARAM(3), 0);
 
-      HB_RETNL( ( LONG_PTR ) hwndProgressBar );
+      hmg_ret_HANDLE(hwndProgressBar);
    }
    else // No application-defined data.
    {
-      HB_RETNL( ( LONG_PTR ) nullptr );
+      hmg_ret_HANDLE(nullptr);
    }
 }
 

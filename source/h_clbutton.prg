@@ -474,7 +474,7 @@ HB_FUNC( INITCLBUTTON )
                           GetModuleHandle(nullptr),
                           nullptr);
 
-   HB_RETNL( ( LONG_PTR ) hbutton );
+   hmg_ret_HANDLE(hbutton);
 }
 
 #ifndef BCM_SETNOTE
@@ -554,7 +554,7 @@ HB_FUNC( CLBUTTON_SETIMAGE )
 
    SendMessage( ( HWND ) HB_PARNL( 1 ), ( UINT ) BCM_SETIMAGELIST, ( WPARAM ) 0, ( LPARAM ) &bi );
 
-   HB_RETNL( ( LONG_PTR ) himl );
+   hmg_ret_HANDLE(himl);
 }
 
 #pragma ENDDUMP

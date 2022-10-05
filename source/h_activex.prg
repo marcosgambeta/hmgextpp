@@ -508,7 +508,7 @@ HB_FUNC( ATLAXGETDISP ) // hWnd -> pDisp
    pUnk->lpVtbl->QueryInterface( pUnk, IID_IDispatch, ( void ** ) &pDisp );
 //#endif
    pUnk->lpVtbl->Release( pUnk );
-   HB_RETNL( ( LONG_PTR ) pDisp );
+   hmg_ret_HANDLE(pDisp);
 }
 
 HB_FUNC_STATIC( CREATEWINDOWEX ) // ( hWnd, cProgId ) -> hActiveXWnd
@@ -522,7 +522,7 @@ HB_FUNC_STATIC( CREATEWINDOWEX ) // ( hWnd, cProgId ) -> hActiveXWnd
                           AnsiToWide( ( char * ) hb_parc( 2 ) ),
 #endif
                           WS_VISIBLE | WS_CHILD, 0, 0, 0, 0, ( HWND ) HB_PARNL( 1 ), 0, 0, nullptr );
-   HB_RETNL( ( LONG_PTR ) hControl );
+   hmg_ret_HANDLE(hControl);
 }
 
 #ifdef __USEHASHEVENTS

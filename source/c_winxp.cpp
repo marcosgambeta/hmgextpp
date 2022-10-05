@@ -300,7 +300,7 @@ void EndUxTheme(void)
 
 HB_FUNC( INITUXTHEME )
 {
-   HB_RETNL( ( LONG_PTR ) InitUxTheme() );
+   hmg_ret_HANDLE(InitUxTheme());
 }
 
 HB_FUNC( ENDUXTHEME )
@@ -373,7 +373,7 @@ HB_FUNC( OPENTHEMEDATA )
 
    if( nRet != nullptr )
    {
-      HB_RETNL( ( LONG_PTR ) nRet );
+      hmg_ret_HANDLE(nRet);
    }
 }
 

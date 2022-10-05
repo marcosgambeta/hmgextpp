@@ -132,7 +132,7 @@ HB_FUNC( INITTOOLBAR )
    SendMessage(hwndTB, TB_SETEXTENDEDSTYLE, 0, ( LPARAM ) TbExStyle);
 
    ShowWindow(hwndTB, SW_SHOW);
-   HB_RETNL( ( LONG_PTR ) hwndTB );
+   hmg_ret_HANDLE(hwndTB);
 }
 
 HB_FUNC( INITTOOLBUTTON )
@@ -247,7 +247,7 @@ HB_FUNC( INITTOOLBUTTON )
 
    ShowWindow(hwndTB, SW_SHOW);
 
-   HB_RETNL( ( LONG_PTR ) himage );
+   hmg_ret_HANDLE(himage);
 }
 
 LONG WidestBtn(LPCTSTR pszStr, HWND hwnd)
@@ -356,7 +356,7 @@ HB_FUNC( INITTOOLBAREX )
    SendMessage(hwndTB, TB_SETEXTENDEDSTYLE, 0, ( LPARAM ) TbExStyle);
 
    ShowWindow(hwndTB, SW_SHOW);
-   HB_RETNL( ( LONG_PTR ) hwndTB );
+   hmg_ret_HANDLE(hwndTB);
 }
 
 HB_FUNC( INITTOOLBUTTONEX )
@@ -593,7 +593,7 @@ HB_FUNC( INITTOOLBUTTONEX )
 
    ShowWindow(hwndTB, SW_SHOW);
 
-   HB_RETNL( ( LONG_PTR ) himage );
+   hmg_ret_HANDLE(himage);
 }
 
 HB_FUNC( GETSIZETOOLBAR )
@@ -812,7 +812,7 @@ HB_FUNC( REPLACETOOLBUTTONIMAGE )
       SendMessage(hwndTB, TB_SETBUTTONINFO, ( WPARAM ) nButtonID, ( LPARAM ) &tbinfo);
    }
 
-   HB_RETNL( ( LONG_PTR ) hBitmapNew );
+   hmg_ret_HANDLE(hBitmapNew);
 }
 
 HB_FUNC( SETROWSBUTTON )
@@ -977,7 +977,7 @@ HB_FUNC( GETIMAGELIST )
 
    himage = ImageInfo.hbmImage;
 
-   HB_RETNL( ( LONG_PTR ) himage );
+   hmg_ret_HANDLE(himage);
 }
 
 HB_FUNC( SETCHEVRONIMAGE )

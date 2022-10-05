@@ -288,7 +288,7 @@ HB_FUNC( REMOVEPROP )
    // !!!
    if( nullptr != hMem )
    {
-      HB_RETNL( ( LONG_PTR ) hMem );      // ( ( ULONG_PTR ) hMem )
+      hmg_ret_HANDLE(hMem);      // ( ( ULONG_PTR ) hMem )
    }
 }
 

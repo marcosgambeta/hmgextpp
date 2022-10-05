@@ -167,7 +167,7 @@ HB_FUNC( REGISTERMDIWINDOW )
       hb_xfree(( TCHAR * ) lpIconName);
    }
 #endif
-   HB_RETNL( ( LONG_PTR ) hbrush );
+   hmg_ret_HANDLE(hbrush);
 }
 
 LRESULT CALLBACK MdiWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -319,7 +319,7 @@ HB_FUNC( INITMDIWINDOW )
       return;
    }
 
-   HB_RETNL( ( LONG_PTR ) hwnd );
+   hmg_ret_HANDLE(hwnd);
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpWindowName);
@@ -364,7 +364,7 @@ HB_FUNC( INITMDICLIENTWINDOW )
 
    ShowWindow(hwndMDIClient, SW_SHOW);
 
-   HB_RETNL( ( LONG_PTR ) hwndMDIClient );
+   hmg_ret_HANDLE(hwndMDIClient);
 }
 
 HB_FUNC( INITMDICHILDWINDOW )
@@ -447,7 +447,7 @@ HB_FUNC( INITMDICHILDWINDOW )
       ShowWindow(hwndChild, SW_SHOW);
    }
 
-   HB_RETNL( ( LONG_PTR ) hwndChild );
+   hmg_ret_HANDLE(hwndChild);
 }
 
 HB_FUNC( ARRANGEICONICWINDOWS )
