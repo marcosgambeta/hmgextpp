@@ -142,6 +142,8 @@ extern HB_PTRUINT wapi_GetProcAddress( HMODULE hmodule, LPCSTR lpProcName );
 void RegisterResource(HANDLE hResource, LPCSTR szType);
 void pascal DelResource(HANDLE hResource);
 
+// TODO: handles -> pointers
+
 // macros for parameters
 #define hmg_par_HWND(n) reinterpret_cast<HWND>(HB_PARNL(n))
 #define hmg_par_HDC(n) reinterpret_cast<HDC>(HB_PARNL(n))
@@ -169,4 +171,5 @@ void pascal DelResource(HANDLE hResource);
 #define hmg_par_HCURSOR(n) reinterpret_cast<HCURSOR>(HB_PARNL(n))
 
 // macros for returns
-#define hmg_ret_HANDLE(x) HB_RETNL(reinterpret_cast<LONG_PTR>(x)) // TODO: change to pointer
+#define hmg_ret_HANDLE(x) HB_RETNL(reinterpret_cast<LONG_PTR>(x))
+#define hmg_ret_HWND(x)   HB_RETNL(reinterpret_cast<LONG_PTR>(x))
