@@ -57,7 +57,7 @@
 
 // #pragma BEGINDUMP
 
-#include <mgdefs.h>
+#include "mgdefs.h"
 #include <mmsystem.h>
 #include <commctrl.h>
 
