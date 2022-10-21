@@ -55,13 +55,18 @@ FUNCTION _DefineLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
       italic, underline, strikeout, autosize, rightalign, centeralign, ;
       blink, mouseover, mouseleave, VCenterAlign, NoPrefix, nId, bInit, dblclick, rclick )
 *-----------------------------------------------------------------------------*
-   LOCAL ParentFormHandle, ControlHandle, FontHandle
+   
+   LOCAL ParentFormHandle
+   LOCAL ControlHandle
+   LOCAL FontHandle
    LOCAL mVar
    LOCAL k := 0
    LOCAL Style
    LOCAL blInit
    LOCAL lDialogInMemory
-   LOCAL oc := NIL, ow := NIL
+   LOCAL oc // := NIL
+   LOCAL ow // := NIL
+
 #ifdef _OBJECT_
    ow := oDlu2Pixel()
 #endif
@@ -276,6 +281,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION InitDialogLabel( ParentFormName, ControlHandle, k )
 *-----------------------------------------------------------------------------*
+   
    LOCAL ControlName := _HMG_aControlNames [k]
 
    IF _HMG_aControlMiscData1 [k] [2] == .T.
@@ -300,6 +306,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION OLABELEVENTS( hWnd, nMsg, wParam, lParam )
 *-----------------------------------------------------------------------------*
+   
    LOCAL i := AScan(_HMG_aControlHandles, hWnd)
 
    HB_SYMBOL_UNUSED( wParam )

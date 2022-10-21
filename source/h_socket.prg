@@ -49,6 +49,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 *-----------------------------------------------------------------------------*
 FUNCTION httpconnect( Connection, Server, Port )
 *-----------------------------------------------------------------------------*
+   
    LOCAL oUrl
 
    IF !( Lower( Left(Server, 7) ) == "http://" )
@@ -90,6 +91,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION httpgeturl( Connection, cPage, uRet )
 *-----------------------------------------------------------------------------*
+   
    LOCAL cUrl
    LOCAL cResponse
    LOCAL cHeader

@@ -93,7 +93,12 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
       backcolor, ;
       noHscroll, noVscroll, selectionchange, OnLink, OnVScroll )
 *-----------------------------------------------------------------------------*
-   LOCAL i, cParentForm, mVar, ContainerHandle := 0, k
+   
+   LOCAL i
+   LOCAL cParentForm
+   LOCAL mVar
+   LOCAL ContainerHandle := 0
+   LOCAL k
    LOCAL ControlHandle
    LOCAL FontHandle
    LOCAL WorkArea
@@ -289,6 +294,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION RichEditBox_mnuEdit_Click( cAction )
 *-----------------------------------------------------------------------------*
+   
    LOCAL hEdit
 
    hEdit := GetControlHandleByIndex(_HMG_xControlsContextMenuID)
@@ -317,6 +323,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION RichEditBox_SetCaretPos ( hWndControl, nPos )
 *-----------------------------------------------------------------------------*
+   
    LOCAL aSelRange := { nPos, nPos }
 
    RichEditBox_SetSelRange ( hWndControl, aSelRange )
@@ -326,6 +333,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION RichEditBox_GetCaretPos ( hWndControl )
 *-----------------------------------------------------------------------------*
+   
    LOCAL aSelRange := RichEditBox_GetSelRange ( hWndControl )
 
 RETURN aSelRange[2]
@@ -333,6 +341,7 @@ RETURN aSelRange[2]
 *-----------------------------------------------------------------------------*
 FUNCTION RichEditBox_SelectAll ( hWndControl )
 *-----------------------------------------------------------------------------*
+   
    LOCAL aSelRange := { 0, -1 }
 
    RichEditBox_SetSelRange ( hWndControl, aSelRange )
@@ -342,6 +351,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION RichEditBox_UnSelectAll ( hWndControl )
 *-----------------------------------------------------------------------------*
+   
    LOCAL nPos := RichEditBox_GetCaretPos ( hWndControl )
 
    RichEditBox_SetCaretPos ( hWndControl, nPos )
@@ -351,6 +361,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION RichEditBox_ReplaceText ( hWndControl, cFind, cReplace, lMatchCase, lWholeWord, lSelectFindText )
 *-----------------------------------------------------------------------------*
+   
    LOCAL lDown := .T.
    LOCAL aPos
 
@@ -368,6 +379,7 @@ RETURN aPos
 *-----------------------------------------------------------------------------*
 FUNCTION RichEditBox_ReplaceAllText ( hWndControl, cFind, cReplace, lMatchCase, lWholeWord, lSelectFindText )
 *-----------------------------------------------------------------------------*
+   
    LOCAL aPos := { 0, 0 }
 
    WHILE aPos[1] != -1
@@ -380,7 +392,10 @@ RETURN aPos
 *-----------------------------------------------------------------------------*
 FUNCTION RichEditBox_AddTextAndSelect ( hWndControl, nPos, cText )
 *-----------------------------------------------------------------------------*
-   LOCAL StartCaretPos, EndCaretPos, DeltaCaretPos
+   
+   LOCAL StartCaretPos
+   LOCAL EndCaretPos
+   LOCAL DeltaCaretPos
 
    RichEditBox_SetCaretPos ( hWndControl, -1 )
    StartCaretPos := RichEditBox_GetCaretPos ( hWndControl )
@@ -409,7 +424,9 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION RichEditBox_RTFPrint( hWndControl, aSelRange, nLeft, nTop, nRight, nBottom, PrintPageCodeBlock )
 *-----------------------------------------------------------------------------*
-   LOCAL nPageWidth, nPageHeight
+   
+   LOCAL nPageWidth
+   LOCAL nPageHeight
    LOCAL nNextChar := 0
    LOCAL nTextLength := RichEditBox_GetTextLength ( hWndControl )
 
@@ -458,6 +475,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION RichEditBox_LoadFile( hWndControl, cFile, lSelection, nType )
 *-----------------------------------------------------------------------------*
+   
    LOCAL lSuccess
 
    hb_default(@lSelection, .F.)

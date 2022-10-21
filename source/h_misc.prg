@@ -52,9 +52,20 @@ SET PROCEDURE TO h_cdomail.prg
 *-----------------------------------------------------------------------------*
 FUNCTION GetData()
 *-----------------------------------------------------------------------------*
+
    LOCAL PacketNames [ aDir ( _HMG_CommPath + _HMG_StationName + ".*" ) ]
-   LOCAL i, Rows, Cols, RetVal := Nil, aItem, aTemp := {}, r, c
-   LOCAL DataValue, DataType, DataLength, Packet
+   LOCAL i
+   LOCAL Rows
+   LOCAL Cols
+   LOCAL RetVal := Nil
+   LOCAL aItem
+   LOCAL aTemp := {}
+   LOCAL r
+   LOCAL c
+   LOCAL DataValue
+   LOCAL DataType
+   LOCAL DataLength
+   LOCAL Packet
    LOCAL bd := Set ( _SET_DATEFORMAT )
 
    SET DATE TO ANSI
@@ -179,8 +190,16 @@ RETURN ( RetVal )
 *-----------------------------------------------------------------------------*
 FUNCTION SendData ( cDest , Data )
 *-----------------------------------------------------------------------------*
-   LOCAL cData, i, j
-   LOCAL pData, cLen, cType, FileName, Rows, Cols
+   
+   LOCAL cData
+   LOCAL i
+   LOCAL j
+   LOCAL pData
+   LOCAL cLen
+   LOCAL cType
+   LOCAL FileName
+   LOCAL Rows
+   LOCAL Cols
 
    FileName := _HMG_CommPath + cDest + "." + _HMG_StationName + "." + hb_ntos ( ++_HMG_SendDataCount )
 
@@ -293,6 +312,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION HMG_ClrToHTML( nClr )
 *-----------------------------------------------------------------------------*
+   
    LOCAL cHex := Lower( hb_NumToHex( nClr, 6 ) )
 
 RETURN "#" + Right(cHex, 2) + SubStr(cHex, 3, 2) + Left(cHex, 2)
@@ -304,9 +324,13 @@ RETURN "#" + Right(cHex, 2) + SubStr(cHex, 3, 2) + Left(cHex, 2)
 *-----------------------------------------------------------------------------*
 FUNCTION HMG_FILECOPY( cSourceFile, cTargetFile, nBuffer, bEval )
 *-----------------------------------------------------------------------------*
-   LOCAL hSourceFile, hTargetFile
+   
+   LOCAL hSourceFile
+   LOCAL hTargetFile
    LOCAL cBuffer
-   LOCAL nTotalBytes, nCurrentlBytes, nReadBytes
+   LOCAL nTotalBytes
+   LOCAL nCurrentlBytes
+   LOCAL nReadBytes
    LOCAL lShowProgress := ( HB_ISBLOCK(bEval) )
    LOCAL lSuccess := .F.
 
@@ -348,6 +372,7 @@ RETURN lSuccess
 *-----------------------------------------------------------------------------*
 FUNCTION uCharToVal( cText, cType )
 *-----------------------------------------------------------------------------*
+   
    LOCAL uVal
    LOCAL cTrue := "|.T.|T|TRUE|YES|SI|"
    LOCAL cFalse := "|.F.|F|FALSE|NO|"
@@ -437,10 +462,12 @@ RETURN uVal
 *-----------------------------------------------------------------------------*
 FUNCTION nStrToNum( cNum, lEuropean, lForceNumeric )
 *-----------------------------------------------------------------------------*
-   LOCAL nVal := NIL
+   
+   LOCAL nVal // := NIL
    LOCAL cMinus := ""
    LOCAL lPercent := .F.
-   LOCAL nCommaAt, nDotAt
+   LOCAL nCommaAt
+   LOCAL nDotAt
 
    cNum := AllTrim(cNum)
    IF Left(cNum, 1) == "+"
@@ -524,6 +551,7 @@ RETURN nVal
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION IfNil( ... )
 *-----------------------------------------------------------------------------*
+   
    LOCAL aParams := hb_AParams()
    LOCAL u
 
@@ -544,7 +572,9 @@ RETURN u
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION dCharToDate( cDate )
 *-----------------------------------------------------------------------------*
-   LOCAL cFormat, cc
+   
+   LOCAL cFormat
+   LOCAL cc
    LOCAL dDate
 
    IF ( cc := Upper(cDate) ) != Lower( cDate )
@@ -582,8 +612,11 @@ RETURN dDate
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION dAlphaToDate( cDate )
 *-----------------------------------------------------------------------------*
+   
    LOCAL dDate := BLANK_DATE
-   LOCAL m, n, nEpoch
+   LOCAL m
+   LOCAL n
+   LOCAL nEpoch
    LOCAL aMonths := Array( 12 )
    LOCAL aNum
 
@@ -632,6 +665,7 @@ RETURN dDate
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION ParseNumsFromDateStr(cStr)
 *-----------------------------------------------------------------------------*
+   
    LOCAL aNum := {}
    LOCAL cNum := ""
    LOCAL c

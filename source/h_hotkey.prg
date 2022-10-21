@@ -50,10 +50,12 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 *-----------------------------------------------------------------------------*
 FUNCTION _DefineHotKey ( cParentForm , nMod , nKey , bAction )
 *-----------------------------------------------------------------------------*
+   
    LOCAL nParentForm
    LOCAL nId
    LOCAL k
    LOCAL lSuccess
+   
    // BK 22-Apr-2012
    IF _HMG_BeginWindowMDIActive .AND. Empty(_HMG_ActiveFormName)  //JP MDI HotKey
       nParentForm := GetActiveMdiHandle()
@@ -138,6 +140,7 @@ RETURN lSuccess
 *-----------------------------------------------------------------------------*
 PROCEDURE _ReleaseHotKey ( cParentForm, nMod , nKey )
 *-----------------------------------------------------------------------------*
+   
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
    LOCAL ControlType
    LOCAL i
@@ -155,8 +158,9 @@ RETURN
 *-----------------------------------------------------------------------------*
 FUNCTION _GetHotKeyBlock ( cParentForm, nMod, nKey )
 *-----------------------------------------------------------------------------*
+   
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
-   LOCAL bRetVal := Nil
+   LOCAL bRetVal // := Nil
    LOCAL ControlType
    LOCAL i
 
@@ -182,6 +186,7 @@ RETURN
 *-----------------------------------------------------------------------------*
 FUNCTION HMG_PressKey( ... )  // by Dr. Claudio Soto, April 2016
 *-----------------------------------------------------------------------------*
+   
    LOCAL aVK := {}
    LOCAL i
 
@@ -203,6 +208,7 @@ RETURN aVK
 *-----------------------------------------------------------------------------*
 FUNCTION _SetHotKeyByName(cParentForm, cKey, bAction)
 *-----------------------------------------------------------------------------*
+   
    LOCAL aKey
    LOCAL lSuccess := .F.
 
@@ -230,8 +236,12 @@ RETURN lSuccess
 *-----------------------------------------------------------------------------*
 FUNCTION _DetermineKey ( cKey )
 *-----------------------------------------------------------------------------*
+   
    LOCAL aKey := { 0, 0 }
-   LOCAL nAlt, nCtrl, nShift, nWin
+   LOCAL nAlt
+   LOCAL nCtrl
+   LOCAL nShift
+   LOCAL nWin
    LOCAL nPos
    LOCAL cKey2 := Upper(cKey)
    LOCAL cText

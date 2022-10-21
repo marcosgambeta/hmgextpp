@@ -260,7 +260,6 @@ STATIC _cFiltro /*as character*/ // Condición de filtro.
 ****************************************************************************************/
 FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTabla, aOpciones, bGuardar, bBuscar, bImprimir)
 
-   // ------- Declaración de variables locales.-----------------------------------
    LOCAL i /*as numeric*/ // Indice de iteración.
    LOCAL k /*as numeric*/ // Indice de iteración.
    LOCAL nArea AS NUMERIC // Numero del area de la bdd.
@@ -772,7 +771,6 @@ RETURN NIL
 ****************************************************************************************/
 STATIC FUNCTION ABM2Redibuja( lTabla )
 
-   // ------- Declaración de variables locales.-----------------------------------
    LOCAL lDeleted /*as logical*/
 
    // ------- Control de parámetros.----------------------------------------------
@@ -824,7 +822,6 @@ RETURN NIL
 ****************************************************************************************/
 STATIC FUNCTION ABM2CambiarOrden()
 
-   // ------- Declaración de variables locales.-----------------------------------
    LOCAL nIndice /*as numeric*/ // Número del indice.
 
    // ------- Inicializa las variables.-------------------------------------------
@@ -849,7 +846,6 @@ RETURN NIL
 ****************************************************************************************/
 STATIC FUNCTION ABM2EjecutaOpcion()
 
-   // ------- Declaración de variables locales.-----------------------------------
    LOCAL nItem /*as numeric*/ // Numero del item seleccionado.
    LOCAL bBloque AS codebloc // Bloque de codigo a ejecutar.
 
@@ -877,7 +873,6 @@ RETURN NIL
 ****************************************************************************************/
 STATIC FUNCTION ABM2Editar( lNuevo )
 
-   // ------- Declaración de variables locales.-----------------------------------
    LOCAL i AS NUMERIC // Indice de iteración.
    LOCAL nAnchoEtiqueta /*as numeric*/ // Ancho máximo de las etiquetas.
    LOCAL nAltoControl /*as numeric*/ // Alto total de los controles de edición.
@@ -1088,7 +1083,6 @@ RETURN NIL
 ****************************************************************************************/
 STATIC FUNCTION ABM2ConFoco()
 
-   // ------- Declaración de variables locales.-----------------------------------
    LOCAL i /*as numeric*/ // Indice de iteración.
    LOCAL cControl AS character // Nombre del control activo.
    LOCAL acControl /*as array*/ // Matriz con los nombre de los controles.
@@ -1141,7 +1135,6 @@ RETURN NIL
 ****************************************************************************************/
 STATIC FUNCTION ABM2AlEntrar()
 
-   // ------- Declaración de variables locales.-----------------------------------
    LOCAL lSalida /*as logical*/ // Tipo de salida.
    LOCAL nTipo /*as numeric*/ // Tipo del control.
 
@@ -1181,7 +1174,6 @@ RETURN NIL
 ****************************************************************************************/
 STATIC FUNCTION ABM2EditarGuardar( lNuevo )
 
-   // ------- Declaración de variables locales.-----------------------------------
    LOCAL i /*as numeric*/ // Indice de iteración.
    LOCAL xValor // Valor a guardar.
    LOCAL lResultado /*as logical*/ // Resultado del bloque del usuario.
@@ -1245,7 +1237,6 @@ RETURN NIL
 ****************************************************************************************/
 STATIC FUNCTION ABM2Seleccionar()
 
-   // ------- Declaración de variables locales.-----------------------------------
    LOCAL lSalida AS logical // Control de bucle.
    LOCAL nReg AS NUMERIC // Valores del registro
    LOCAL nRegistro /*as numeric*/ // Número de registro.
@@ -1326,7 +1317,6 @@ RETURN ( nReg )
 ****************************************************************************************/
 STATIC FUNCTION ABM2EditarCopiar()
 
-   // ------- Declaración de variables locales.-----------------------------------
    LOCAL i /*as numeric*/ // Indice de iteración.
    LOCAL nRegistro /*as numeric*/ // Puntero de registro.
    LOCAL nReg /*as numeric*/ // Numero de registro.
@@ -1415,7 +1405,6 @@ RETURN NIL
 ****************************************************************************************/
 STATIC FUNCTION ABM2Buscar()
 
-   // ------- Declaración de variables locales.-----------------------------------
    LOCAL nControl /*as numeric*/ // Numero del control.
    LOCAL lSalida AS logical // Tipo de salida de la ventana.
    LOCAL xValor // Valor de busqueda.
@@ -1584,7 +1573,6 @@ RETURN NIL
 ****************************************************************************************/
 STATIC FUNCTION ABM2ActivarFiltro()
 
-   // ------- Declaración de variables locales.-----------------------------------
    LOCAL aCompara /*as array*/ // Comparaciones.
    LOCAL aCampos /*as array*/ // Nombre de los campos.
 
@@ -1696,7 +1684,6 @@ RETURN NIL
 ****************************************************************************************/
 STATIC FUNCTION ABM2ControlFiltro()
 
-   // ------- Declaración de variables locales.-----------------------------------
    LOCAL nControl /*as numeric*/
    LOCAL cMascara AS character
    LOCAL cMensaje AS character
@@ -1814,7 +1801,6 @@ RETURN NIL
 ****************************************************************************************/
 STATIC FUNCTION ABM2EstableceFiltro()
 
-   // ------- Declaración de variables locales.-----------------------------------
    LOCAL aOperador /*as array*/
    LOCAL nCampo /*as numeric*/
    LOCAL nCompara /*as numeric*/
@@ -1907,7 +1893,6 @@ RETURN NIL
 ****************************************************************************************/
 STATIC FUNCTION ABM2Imprimir()
 
-   // ------- Declaración de variables locales.-----------------------------------
    LOCAL aCampoBase /*as array*/ // Campos de la bdd.
    LOCAL aCampoListado /*as array*/ // Campos del listado.
    LOCAL nRegistro /*as numeric*/ // Numero de registro actual.
@@ -2125,7 +2110,6 @@ RETURN NIL
 ****************************************************************************************/
 STATIC FUNCTION ABM2DefinirRegistro( nAccion )
 
-   // ------- Declaración de variables locales.-----------------------------------
    LOCAL nRegistro AS character // Puntero de registros.
    LOCAL nReg AS character // Registro seleccionado.
    LOCAL cValor AS character // Valor del registro seleccionado.
@@ -2170,7 +2154,6 @@ RETURN NIL
 ****************************************************************************************/
 STATIC FUNCTION ABM2DefinirColumnas( nAccion )
 
-   // ------- Declaración de variables locales.-----------------------------------
    LOCAL aCampoBase /*as array*/ // Campos de la bbd.
    LOCAL aCampoListado /*as array*/ // Campos del listado.
    LOCAL i /*as numeric*/ // Indice de iteración.
@@ -2270,7 +2253,6 @@ RETURN NIL
 ****************************************************************************************/
 STATIC FUNCTION ABM2Listado( aImpresoras )
 
-   // ------- Declaración de variables locales.-----------------------------------
    LOCAL i /*as numeric*/ // Indice de iteración.
    LOCAL cCampo /*as character*/ // Nombre del campo indice.
    LOCAL aCampo /*as array*/ // Nombres de los campos.
@@ -2302,8 +2284,8 @@ STATIC FUNCTION ABM2Listado( aImpresoras )
 
    // ------- Inicialización de variables.----------------------------------------
    // Previsualizar.
-   lPrevio := wndABM2Listado .chkPrevio.VALUE
-   lVistas := wndABM2Listado .chkVistas.VALUE
+   lPrevio := wndABM2Listado.chkPrevio.VALUE
+   lVistas := wndABM2Listado.chkVistas.VALUE
 
    // Nombre de la impresora.
    nImpresora := wndABM2Listado.cbxImpresoras.VALUE

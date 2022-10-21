@@ -50,6 +50,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 *-----------------------------------------------------------------------------*
 FUNCTION _DefineTimer ( ControlName , ParentForm , Interval , ProcedureName , Once )
 *-----------------------------------------------------------------------------*
+   
    LOCAL ParentFormHandle
    LOCAL mVar
    LOCAL id

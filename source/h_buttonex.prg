@@ -88,13 +88,18 @@ FUNCTION _DefineOwnerButton ( ControlName, ParentForm, x, y, Caption, ;
    strikeout, lvertical, lefttext, uptext, aRGB_bk, aRGB_font, lnohotlight, lnoxpstyle, ;
    ladjust, handcursor, imagewidth, imageheight, aGradInfo, lhorizontal, bInit, cKey )
 *-----------------------------------------------------------------------------*
-   LOCAL ControlHandle , FontHandle
-   LOCAL aRet, aBmp
+   
+   LOCAL ControlHandle
+   LOCAL FontHandle
+   LOCAL aRet
+   LOCAL aBmp
    LOCAL cParentForm
    LOCAL cPicture
    LOCAL mVar
    LOCAL k
-   LOCAL oc := NIL, ow := NIL
+   LOCAL oc // := NIL
+   LOCAL ow // := NIL
+
 #ifdef _OBJECT_
    ow := oDlu2Pixel()
 #endif
@@ -277,6 +282,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION OBTNEVENTS( hWnd, nMsg, wParam, lParam )
 *-----------------------------------------------------------------------------*
+   
    LOCAL i
 
    IF ( i := AScan(_HMG_aControlHandles, hWnd) ) > 0 .AND. _HMG_aControlType[i] == CONTROL_TYPE_OBUTTON
@@ -338,14 +344,51 @@ RETURN 0
 *-----------------------------------------------------------------------------*
 FUNCTION OwnButtonPaint( pdis )
 *-----------------------------------------------------------------------------*
-   LOCAL hDC, itemState, itemAction, i, rgbTrans, hWnd, lFlat, lNotrans
-   LOCAL oldBkMode, oldTextColor, hOldFont, hBrush, nFreeSpace
-   LOCAL x1, y1, x2, y2, xp1, yp1, xp2, yp2
-   LOCAL aBmp := {}, aMetr, aBtnRc, aBtnClipRc, aDarkColor
-   LOCAL lDisabled, lSelected, lFocus, lDrawEntire, loFocus, loSelect
-   LOCAL hTheme, nStyle, lnoxpstyle, lnoadjust, lXPThemeActive := .F.
-   LOCAL pozYpic, pozYtext := 0, xPoz, nCRLF
-   LOCAL lGradient, aGradient, lvertical
+
+   LOCAL hDC
+   LOCAL itemState
+   LOCAL itemAction
+   LOCAL i
+   LOCAL rgbTrans
+   LOCAL hWnd
+   LOCAL lFlat
+   LOCAL lNotrans
+   LOCAL oldBkMode
+   LOCAL oldTextColor
+   LOCAL hOldFont
+   LOCAL hBrush
+   LOCAL nFreeSpace
+   LOCAL x1
+   LOCAL y1
+   LOCAL x2
+   LOCAL y2
+   LOCAL xp1
+   LOCAL yp1
+   LOCAL xp2
+   LOCAL yp2
+   LOCAL aBmp := {}
+   LOCAL aMetr
+   LOCAL aBtnRc
+   LOCAL aBtnClipRc
+   LOCAL aDarkColor
+   LOCAL lDisabled
+   LOCAL lSelected
+   LOCAL lFocus
+   LOCAL lDrawEntire
+   LOCAL loFocus
+   LOCAL loSelect
+   LOCAL hTheme
+   LOCAL nStyle
+   LOCAL lnoxpstyle
+   LOCAL lnoadjust
+   LOCAL lXPThemeActive := .F.
+   LOCAL pozYpic
+   LOCAL pozYtext := 0
+   LOCAL xPoz
+   LOCAL nCRLF
+   LOCAL lGradient
+   LOCAL aGradient
+   LOCAL lvertical
 
    hDC := GETOWNBTNDC( pdis )
 
@@ -746,6 +789,7 @@ RETURN ( 1 )
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION ToUnicode( cString )
 *-----------------------------------------------------------------------------*
+   
    LOCAL cTemp As String
    LOCAL i
 
@@ -759,10 +803,12 @@ RETURN cTemp
 *-----------------------------------------------------------------------------*
 FUNCTION _SetBtnPictureMask( hWnd, i /*ControlIndex*/ )
 *-----------------------------------------------------------------------------*
+   
    LOCAL hDC := GetDC(hWnd)
    LOCAL aBtnRc := Array( 4 )
    LOCAL aBMP
-   LOCAL x, y
+   LOCAL x
+   LOCAL y
 
    IF Empty(hDC) .OR. Empty(_HMG_aControlBrushHandle[i])
       RETURN NIL
@@ -786,6 +832,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION _DestroyBtnPictureMask( hWnd, ControlIndex )
 *-----------------------------------------------------------------------------*
+   
    LOCAL MaskHwnd := _GetBtnPictureHandle(hWnd)
 
    IF !Empty(MaskHwnd) .AND. MaskHwnd != _HMG_aControlBrushHandle [ ControlIndex ]
@@ -797,6 +844,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION _DestroyBtnPicture( hWnd, ControlIndex )
 *-----------------------------------------------------------------------------*
+   
    LOCAL BtnPicHwnd := _GetBtnPictureHandle(hWnd)
 
    IF !Empty(BtnPicHwnd) .AND. BtnPicHwnd == _HMG_aControlBrushHandle [ ControlIndex ]
@@ -808,6 +856,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION Darker( aColor, Percent )
 *-----------------------------------------------------------------------------*
+   
    LOCAL aDark := Array( 3 )
 
    Percent := Percent / 100
@@ -821,6 +870,7 @@ RETURN aDark
 *-----------------------------------------------------------------------------*
 FUNCTION Lighter( aColor, Percent )
 *-----------------------------------------------------------------------------*
+   
    LOCAL aLight := Array( 3 )
    LOCAL Light
 
@@ -836,6 +886,7 @@ RETURN aLight
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION InvertGradInfo( aGradInfo )
 *-----------------------------------------------------------------------------*
+   
    LOCAL aGradInvert := {}
 
    IF !Empty(aGradInfo) .AND. HB_ISARRAY(aGradInfo)
@@ -849,6 +900,7 @@ RETURN aGradInvert
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION ModifGradInfo( aGradInfo )
 *-----------------------------------------------------------------------------*
+   
    LOCAL aReturn := {}
    LOCAL nClr
 
@@ -868,6 +920,7 @@ RETURN aReturn
 *-----------------------------------------------------------------------------*
 STATIC PROCEDURE ReplaceGradInfo( aGradInfo, nClr, nItem )
 *-----------------------------------------------------------------------------*
+   
    LOCAL aColor
 
    aColor := aGradInfo[ nClr ][ nItem ]
@@ -880,7 +933,11 @@ RETURN
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION _GradientFill( hDC, nTop, nLeft, nBottom, nRight, aGradInfo, lVertical )
 *-----------------------------------------------------------------------------*
-   LOCAL nClr, nClrs, nSize, nSlice
+   
+   LOCAL nClr
+   LOCAL nClrs
+   LOCAL nSize
+   LOCAL nSlice
 
    IF !Empty(aGradInfo) .AND. HB_ISARRAY(aGradInfo)
 

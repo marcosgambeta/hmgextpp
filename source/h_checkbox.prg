@@ -59,14 +59,19 @@ FUNCTION _DefineCheckBox ( ControlName, ParentFormName, x, y, Caption, Value, ;
       HelpId, invisible, notabstop, bold, italic, underline, strikeout, field, ;
       backcolor, fontcolor, transparent, leftjustify, threestate, Enter, autosize, multiline, nId, bInit )
 *-----------------------------------------------------------------------------*
-   LOCAL ParentFormHandle , ControlHandle , FontHandle
+   
+   LOCAL ParentFormHandle
+   LOCAL ControlHandle
+   LOCAL FontHandle
    LOCAL WorkArea
    LOCAL mVar
    LOCAL k
    LOCAL Style
    LOCAL blInit
    LOCAL lDialogInMemory
-   LOCAL oc := NIL, ow := NIL
+   LOCAL oc // := NIL
+   LOCAL ow // := NIL
+
 #ifdef _OBJECT_
    ow := oDlu2Pixel()
 #endif
@@ -293,7 +298,10 @@ FUNCTION _DefineCheckButton ( ControlName, ParentFormName, x, y, Caption, Value,
       w, h, lostfocus, gotfocus, HelpId, invisible, ;
       notabstop , bold, italic, underline, strikeout, nId )
 *-----------------------------------------------------------------------------*
-   LOCAL ParentFormHandle , ControlHandle , FontHandle
+   
+   LOCAL ParentFormHandle
+   LOCAL ControlHandle
+   LOCAL FontHandle
    LOCAL mVar
    LOCAL k
    LOCAL Style
@@ -459,7 +467,10 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION InitDialogCheckButton ( ParentName, ControlHandle, k )
 *-----------------------------------------------------------------------------*
-   LOCAL Value , BitMap , threestate
+   
+   LOCAL Value
+   LOCAL BitMap
+   LOCAL threestate
 
    BitMap := _HMG_aControlPicture [k]
    Value := _HMG_aControlValue [k]
@@ -485,7 +496,9 @@ FUNCTION _DefineImageCheckButton ( ControlName, ParentFormName, x, y, BitMap, ;
       changeprocedure, w, h, lostfocus, gotfocus, ;
       HelpId, invisible, notabstop, nId, notrans )
 *-----------------------------------------------------------------------------*
-   LOCAL ParentFormHandle , ControlHandle
+   
+   LOCAL ParentFormHandle
+   LOCAL ControlHandle
    LOCAL aRet
    LOCAL nhImage
    LOCAL mVar

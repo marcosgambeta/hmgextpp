@@ -678,7 +678,7 @@ GetObjectByClientMDI(hWnd) --> object
 */
 FUNCTION GetObjectByClientMDI(hWnd)
 
-   LOCAL oWnd := NIL
+   LOCAL oWnd // := NIL
    LOCAL nPos
 
    IF (nPos := AScan(_TSB_aClientMDIhWnd, hWnd)) > 0

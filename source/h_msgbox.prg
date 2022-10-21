@@ -54,6 +54,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 *-----------------------------------------------------------------------------*
 FUNCTION MsgYesNo ( Message , Title , RevertDefault , nIcon , lSysModal , lTopMost )
 *-----------------------------------------------------------------------------*
+   
    LOCAL nStyle := MB_YESNO
 
    nStyle += iif( Empty(hb_defaultValue(nIcon, 0)), MB_ICONQUESTION, MB_USERICON )
@@ -67,6 +68,7 @@ RETURN ( _MsgBox( Message, Title, nStyle, nIcon, lSysModal, lTopMost ) == IDYES 
 *-----------------------------------------------------------------------------*
 FUNCTION MsgYesNoCancel ( Message , Title , nIcon , lSysModal , nDefaultButton , lTopMost )
 *-----------------------------------------------------------------------------*
+   
    LOCAL nStyle := MB_YESNOCANCEL
 
    nStyle += iif( Empty(hb_defaultValue(nIcon, 0)), MB_ICONQUESTION, MB_USERICON )
@@ -95,6 +97,7 @@ RETURN ( -1 )
 *-----------------------------------------------------------------------------*
 FUNCTION MsgRetryCancel ( Message , Title , nIcon , lSysModal , nDefaultButton , lTopMost )
 *-----------------------------------------------------------------------------*
+   
    LOCAL nStyle := MB_RETRYCANCEL
 
    nStyle += iif( Empty(hb_defaultValue(nIcon, 0)), MB_ICONQUESTION, MB_USERICON )
@@ -108,6 +111,7 @@ RETURN ( _MsgBox( Message, Title, nStyle, nIcon, lSysModal, lTopMost ) == IDRETR
 *-----------------------------------------------------------------------------*
 FUNCTION MsgOkCancel ( Message , Title , nIcon , lSysModal , nDefaultButton , lTopMost )
 *-----------------------------------------------------------------------------*
+   
    LOCAL nStyle := MB_OKCANCEL
 
    nStyle += iif( Empty(hb_defaultValue(nIcon, 0)), MB_ICONQUESTION, MB_USERICON )
@@ -121,6 +125,7 @@ RETURN ( _MsgBox( Message, Title, nStyle, nIcon, lSysModal, lTopMost ) == IDOK )
 *-----------------------------------------------------------------------------*
 FUNCTION MsgExclamation ( Message , Title , nIcon , lSysModal , lTopMost )
 *-----------------------------------------------------------------------------*
+   
    LOCAL nStyle := MB_OK
 
    nStyle += iif( Empty(hb_defaultValue(nIcon, 0)), MB_ICONEXCLAMATION, MB_USERICON )
@@ -130,6 +135,7 @@ RETURN _MsgBox( Message, hb_defaultValue(Title, _HMG_MESSAGE[10]), nStyle, nIcon
 *-----------------------------------------------------------------------------*
 FUNCTION MsgInfo ( Message , Title , nIcon , lSysModal , lTopMost )
 *-----------------------------------------------------------------------------*
+   
    LOCAL nStyle := MB_OK
 
    nStyle += iif( Empty(hb_defaultValue(nIcon, 0)), MB_ICONINFORMATION, MB_USERICON )
@@ -139,6 +145,7 @@ RETURN _MsgBox( Message, hb_defaultValue(Title, _HMG_MESSAGE[11]), nStyle, nIcon
 *-----------------------------------------------------------------------------*
 FUNCTION MsgStop ( Message , Title , nIcon , lSysModal , lTopMost )
 *-----------------------------------------------------------------------------*
+   
    LOCAL nStyle := MB_OK
 
    nStyle += iif( Empty(hb_defaultValue(nIcon, 0)), MB_ICONSTOP, MB_USERICON )
@@ -154,6 +161,7 @@ RETURN _MsgBox( Message, Title, MB_OK, NIL, lSysModal, lTopMost )
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION _MsgBox( cMessage , cTitle , nStyle , nIcon , lSysModal , lTopMost )
 *-----------------------------------------------------------------------------*
+   
    LOCAL cText
 
    __defaultNIL(@cMessage, "")

@@ -53,13 +53,17 @@ FUNCTION _DefineSlider ( ControlName, ParentFormName, x, y, w, h, lo, hi, value,
    tooltip, scroll, change, vertical, noticks, both, top, left, HelpId, invisible, ;
    notabstop, backcolor, nId, enableselrange, nSelMin, nSelMax, bInit )
 *-----------------------------------------------------------------------------*
-   LOCAL ParentFormHandle, ControlHandle
+   
+   LOCAL ParentFormHandle
+   LOCAL ControlHandle
    LOCAL blInit
    LOCAL mVar
    LOCAL k
    LOCAL Style
    LOCAL lDialogInMemory
-   LOCAL oc := NIL, ow := NIL
+   LOCAL oc // := NIL
+   LOCAL ow // := NIL
+
 #ifdef _OBJECT_
    ow := oDlu2Pixel()
 #endif

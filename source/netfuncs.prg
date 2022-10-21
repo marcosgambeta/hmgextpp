@@ -15,7 +15,7 @@ STATIC s_lNetOk      := .F.
 
 STATIC FUNCTION NetLock( nType, lReleaseLocks, nSeconds )
 
-   LOCAL lSuccess    := .F.
+   LOCAL lSuccess := .F.
    LOCAL bOperation
    LOCAL xIdentifier
 

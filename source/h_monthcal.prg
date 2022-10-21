@@ -55,6 +55,7 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
       backcolor, fontcolor, titlebkclr, titlefrclr, background, trlfontclr, ;
       select, gotfocus, lostfocus, nId, bInit )
 *-----------------------------------------------------------------------------*
+   
    LOCAL ParentFormHandle
    LOCAL aControlHandle := { 0, 0 }
    LOCAL mVar
@@ -62,7 +63,8 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
    LOCAL blInit
    LOCAL Style
    LOCAL lDialogInMemory
-   LOCAL oc := NIL, ow := NIL
+   LOCAL oc // := NIL
+   LOCAL ow // := NIL
 
 #ifdef _OBJECT_
    ow := oDlu2Pixel()
@@ -302,6 +304,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION OMONTHCALEVENTS( hWnd, nMsg, wParam, lParam ) // GF 2016.04.02
 *-----------------------------------------------------------------------------*
+   
    LOCAL i := AScan(_HMG_aControlHandles, hWnd)
 
    HB_SYMBOL_UNUSED( wParam )
@@ -333,6 +336,7 @@ RETURN 0
 *-----------------------------------------------------------------------------*
 FUNCTION AddMonthCalBoldDay( ControlName, ParentFormName, dDay )
 *-----------------------------------------------------------------------------*
+   
    LOCAL i
    LOCAL ix := GetControlIndex(ControlName, ParentFormName)
    LOCAL aBoldDays
@@ -352,6 +356,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION DelMonthCalBoldDay( ControlName, ParentFormName, dDay )
 *-----------------------------------------------------------------------------*
+   
    LOCAL i
    LOCAL ix := GetControlIndex(ControlName, ParentFormName)
    LOCAL aBoldDays
@@ -368,6 +373,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION IsMonthCalBoldDay( ControlName, ParentFormName, dDay )
 *-----------------------------------------------------------------------------*
+   
    LOCAL i := GetControlIndex(ControlName, ParentFormName)
    LOCAL aBoldDays
 
@@ -378,10 +384,20 @@ Return( AScan(aBoldDays, dDay) > 0 )
 *-----------------------------------------------------------------------------*
 FUNCTION SetDayState( ControlName, ParentFormName )
 *-----------------------------------------------------------------------------*
+   
    LOCAL hWnd
-   LOCAL aData, aDays, aBoldDays
-   LOCAL dStart, dEnd, dEoM, dDay
-   LOCAL i, nCount, iNextD, nMonth, nLen
+   LOCAL aData
+   LOCAL aDays
+   LOCAL aBoldDays
+   LOCAL dStart
+   LOCAL dEnd
+   LOCAL dEoM
+   LOCAL dDay
+   LOCAL i
+   LOCAL nCount
+   LOCAL iNextD
+   LOCAL nMonth
+   LOCAL nLen
 
    hWnd := GetControlHandle(ControlName, ParentFormName)
 

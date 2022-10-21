@@ -58,13 +58,17 @@ FUNCTION _DefineProgressBar ( ControlName, ParentFormName, x, y, w, h, lo, hi, ;
       tooltip, vertical, smooth, HelpId, invisible, value, BackColor, BarColor, ;
       marquee, velocity, nId, bInit )
 *-----------------------------------------------------------------------------*
-   LOCAL ParentFormHandle, ControlHandle
+   
+   LOCAL ParentFormHandle
+   LOCAL ControlHandle
    LOCAL blInit
    LOCAL mVar
    LOCAL k
    LOCAL Style
    LOCAL lDialogInMemory
-   LOCAL oc := NIL, ow := NIL
+   LOCAL oc // := NIL
+   LOCAL ow // := NIL
+
 #ifdef _OBJECT_
    ow := oDlu2Pixel()
 #endif
@@ -238,6 +242,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION InitDialogProgressBar( ParentName, ControlHandle, k )
 *-----------------------------------------------------------------------------*
+   
    LOCAL BackColor
    LOCAL BarColor
 

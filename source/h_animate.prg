@@ -65,6 +65,7 @@ RETURN
 FUNCTION _DefineAnimateRes ( ControlName, ParentForm, x, y, w, h, cFile, nRes, ;
       tooltip, HelpId, invisible )
 *------------------------------------------------------------------------------*
+   
    LOCAL ControlHandle
    LOCAL hAvi
    LOCAL cParentForm
@@ -184,7 +185,8 @@ RETURN NIL
 *------------------------------------------------------------------------------*
 FUNCTION GetAnimateResFile(cWindow, cControl)
 *------------------------------------------------------------------------------*
-   LOCAL RetVal := Nil
+   
+   LOCAL RetVal // := NIL
 
    IF GetControlType(cControl, cWindow) == "ANIMATERES"
 
@@ -221,7 +223,8 @@ RETURN NIL
 *------------------------------------------------------------------------------*
 FUNCTION GetAnimateResId(cWindow, cControl)
 *------------------------------------------------------------------------------*
-   LOCAL RetVal := Nil
+   
+   LOCAL RetVal // := NIL
 
    IF GetControlType(cControl, cWindow) == "ANIMATERES"
 

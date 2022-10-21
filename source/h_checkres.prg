@@ -7,7 +7,9 @@ STATIC aResources := {}
 *-----------------------------------------------------------------------------*
 FUNCTION MGAddResource( nHResource, cType )
 *-----------------------------------------------------------------------------*
-   LOCAL n := 3, cInfo := ""
+   
+   LOCAL n := 3
+   LOCAL cInfo := ""
 
    WHILE ! Empty(ProcName(n))
       cInfo += ProcName( n ) + "(" + hb_ntos( ProcLine( n ) ) + ")->"
@@ -25,6 +27,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION MGDelResource( nHResource )
 *-----------------------------------------------------------------------------*
+   
    LOCAL nAt
 
    IF ( nAt := AScan(aResources, {| aRes | aRes[2] == nHResource }) ) != 0
@@ -36,7 +39,9 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION CheckRes()
 *-----------------------------------------------------------------------------*
-   LOCAL cInfo := "", p
+   
+   LOCAL cInfo := ""
+   LOCAL p
 
    _SetGetLogFile( GetStartUpFolder() + hb_ps() + "checkres.txt" )
    FErase( _SetGetLogFile() )

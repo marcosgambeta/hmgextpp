@@ -54,7 +54,10 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
       invisible, notabstop, sort, bold, italic, underline, strikeout, backcolor, fontcolor, ;
       multiselect, dragitems, multicolumn, multitabs, aWidth, nId )
 *-----------------------------------------------------------------------------*
-   LOCAL ParentFormHandle , ControlHandle , FontHandle
+   
+   LOCAL ParentFormHandle
+   LOCAL ControlHandle
+   LOCAL FontHandle
    LOCAL mVar
    LOCAL k
    LOCAL Style
@@ -306,6 +309,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION InitDialogListBox( ParentName, ControlHandle, k )
 *-----------------------------------------------------------------------------*
+   
    LOCAL Rows
    LOCAL Value
    LOCAL aWidth
@@ -342,6 +346,7 @@ FUNCTION InitDialogListBox( ParentName, ControlHandle, k )
 *-----------------------------------------------------------------------------*
 FUNCTION LB_Array2String( aData, Sep )
 *-----------------------------------------------------------------------------*
+   
    LOCAL cData := ""
    LOCAL n
 

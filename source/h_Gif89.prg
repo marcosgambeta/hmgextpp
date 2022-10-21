@@ -13,7 +13,9 @@ ANNOUNCE CLASS_TGIF
 *------------------------------------------------------------------------------*
 FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidth, nHeight, nDelay, aBKColor )
 *------------------------------------------------------------------------------*
-   LOCAL nControlHandle, nParentFormHandle
+   
+   LOCAL nControlHandle
+   LOCAL nParentFormHandle
    LOCAL mVar
    LOCAL k
    LOCAL oGif
@@ -126,6 +128,7 @@ RETURN oGif
 *------------------------------------------------------------------------------*
 PROCEDURE _ReleaseAniGif ( GifName, FormName )
 *------------------------------------------------------------------------------*
+   
    LOCAL hWnd
    LOCAL oGif
    LOCAL i
@@ -152,6 +155,7 @@ RETURN
 *------------------------------------------------------------------------------*
 STATIC PROCEDURE _EraseGifDef ( FormName, i )
 *------------------------------------------------------------------------------*
+   
    LOCAL mVar
 
    mVar := "_" + FormName + "_" + _HMG_aControlNames[i]
@@ -257,7 +261,8 @@ ENDCLASS
 METHOD New( cFileName, nTop, nLeft, nBottom, nRight, nDelay, aBKColor, cControlName, cParentName ) CLASS TGif
 
    LOCAL nId
-   LOCAL aPictures := {}, aImageInfo := {}
+   LOCAL aPictures := {}
+   LOCAL aImageInfo := {}
 
    hb_default(@cParentName, _HMG_ActiveFormName)
    hb_default(@nTop, 0)
@@ -333,7 +338,8 @@ RETURN NIL
 
 METHOD RestartGif() CLASS TGif
 
-   LOCAL aPictures := {}, aImageInfo := {}
+   LOCAL aPictures := {}
+   LOCAL aImageInfo := {}
 
    GifStop( Self )
 
@@ -417,6 +423,7 @@ RETURN lRunning
 *------------------------------------------------------------------------------*
 FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
 *------------------------------------------------------------------------------*
+   
    LOCAL cPath := GetTempFolder()
    LOCAL cGifHeader
    LOCAL cGifEnd := Chr( 0 ) + Chr( 33 ) + Chr( 249 )
@@ -426,7 +433,8 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
    LOCAL imgHeader
    LOCAL nImgCount
    LOCAL nFileHandle
-   LOCAL i, j
+   LOCAL i
+   LOCAL j
 
    STATIC nID := 0
 
@@ -516,6 +524,7 @@ RETURN .T.
 *------------------------------------------------------------------------------*
 STATIC FUNCTION ReadFromStream( cFile, cStream )
 *------------------------------------------------------------------------------*
+   
    LOCAL nFileSize
    LOCAL nFileHandle := FOpen( cFile )
 

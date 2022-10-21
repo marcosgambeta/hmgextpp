@@ -60,7 +60,10 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
       italic, underline, strikeout, field, autosize, rightalign, centeralign, ;
       blink, mouseover, mouseleave, abitmap, leftcheck, lChecked, VCenterAlign, nId, bInit )
 *-----------------------------------------------------------------------------*
-   LOCAL ParentFormHandle , ControlHandle , FontHandle
+   
+   LOCAL ParentFormHandle
+   LOCAL ControlHandle
+   LOCAL FontHandle
    LOCAL WorkArea
    LOCAL cBmp
    LOCAL mVar
@@ -68,7 +71,9 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
    LOCAL Style
    LOCAL blInit
    LOCAL lDialogInMemory
-   LOCAL oc := NIL, ow := NIL
+   LOCAL oc := NIL
+   LOCAL ow // := NIL
+
 #ifdef _OBJECT_
    ow := oDlu2Pixel()
 #endif
@@ -312,8 +317,12 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION GetCheckBmp()
 *-----------------------------------------------------------------------------*
-   LOCAL uAnsi, cBmp, nHandle, nWrite, cBmpFile
 
+   LOCAL uAnsi
+   LOCAL cBmp
+   LOCAL nHandle
+   LOCAL nWrite
+   LOCAL cBmpFile
    LOCAL cStock := ; // check bmp
       "42 4D F6 00 00 00 00 00 00 00 76 00 00 00 28 00" + ;
       "00 00 10 00 00 00 10 00 00 00 01 00 04 00 00 00" + ;
@@ -359,8 +368,8 @@ RETURN cBmpFile
 // ============================================================================
 STATIC FUNCTION cAnsi2Bmp( cAnsi )
 
-   LOCAL cLong, ;
-      cBmp := ""
+   LOCAL cLong
+   LOCAL cBmp := ""
 
    WHILE Len(cAnsi) >= 8
       cLong := Left(cAnsi, 8)
@@ -379,8 +388,8 @@ RETURN cBmp
 // ============================================================================
 STATIC FUNCTION cAnsi2Hex( cAnsi )
 
-   LOCAL cDig, ;
-      cHex := ""
+   LOCAL cDig
+   LOCAL cHex := ""
 
    cAnsi := AllTrim(cAnsi)
 
@@ -397,10 +406,11 @@ RETURN cHex
 // ============================================================================
 STATIC FUNCTION cHex2Bin( cHex )
 
-   LOCAL nPos, nEle, ;
-      nExp := 0, ;
-      nDec := 0, ;
-      aHex := { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" }
+   LOCAL nPos
+   LOCAL nEle
+   LOCAL nExp := 0
+   LOCAL nDec := 0
+   LOCAL aHex := { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" }
 
    cHex := AllTrim(cHex)
 

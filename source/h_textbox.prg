@@ -71,7 +71,10 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
       HelpId, readonly, bold, italic, underline, strikeout, field, ;
       backcolor, fontcolor, invisible, notabstop, noborder, cuetext, nId, bInit )
 *-----------------------------------------------------------------------------*
-   LOCAL ParentFormHandle, ControlHandle := 0, FontHandle
+   
+   LOCAL ParentFormHandle
+   LOCAL ControlHandle := 0
+   LOCAL FontHandle
    LOCAL mVar
    LOCAL k
    LOCAL WorkArea
@@ -298,6 +301,7 @@ RETURN nil
 *-----------------------------------------------------------------------------*
 FUNCTION InitDialogTextBox( ParentName, ControlHandle, k )
 *-----------------------------------------------------------------------------*
+   
    LOCAL Field
    LOCAL cValue
    LOCAL nMaxLength
@@ -345,7 +349,10 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
       rightalign, HelpId, Format, bold, italic, underline, strikeout, field, ;
       backcolor, fontcolor, readonly, invisible, notabstop, noborder, cuetext, nId, bInit )
 *-----------------------------------------------------------------------------*
-   LOCAL ParentFormHandle , ControlHandle , FontHandle
+   
+   LOCAL ParentFormHandle
+   LOCAL ControlHandle
+   LOCAL FontHandle
    LOCAL mVar
    LOCAL k
    LOCAL WorkArea
@@ -566,6 +573,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION InitDialogMaskedTextBox( ParentName, ControlHandle, k )
 *-----------------------------------------------------------------------------*
+   
    LOCAL Field
    LOCAL cValue
    LOCAL date
@@ -594,6 +602,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION GetNumFromText ( Text , i )
 *-----------------------------------------------------------------------------*
+   
    LOCAL s As String
    LOCAL c
    LOCAL x
@@ -619,6 +628,7 @@ RETURN Val( s )
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION GetNumMask ( Text )
 *-----------------------------------------------------------------------------*
+   
    LOCAL s As String
    LOCAL c
    LOCAL i
@@ -645,7 +655,10 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
       h , enter , rightalign , HelpId , bold, italic, underline, strikeout, field, ;
       backcolor, fontcolor, date, readonly, invisible, notabstop, noborder, cuetext, nId, bInit )
 *-----------------------------------------------------------------------------*
-   LOCAL ParentFormHandle , ControlHandle , FontHandle
+   
+   LOCAL ParentFormHandle
+   LOCAL ControlHandle
+   LOCAL FontHandle
    LOCAL mVar
    LOCAL k
    LOCAL WorkArea
@@ -857,12 +870,22 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 PROCEDURE ProcessCharMask ( i , d )
 *-----------------------------------------------------------------------------*
+   
    LOCAL OutBuffer As String
-   LOCAL pc As Numeric , fnb As Numeric , dc As Numeric , ol As Numeric
-   LOCAL BadEntry As Logical , pFlag As Logical , NegativeZero As Logical
-   LOCAL InBuffer , BackInbuffer , InBufferLeft , InBufferRight
+   LOCAL pc As Numeric
+   LOCAL fnb As Numeric
+   LOCAL dc As Numeric
+   LOCAL ol As Numeric
+   LOCAL BadEntry As Logical
+   LOCAL pFlag As Logical
+   LOCAL NegativeZero As Logical
+   LOCAL InBuffer
+   LOCAL BackInbuffer
+   LOCAL InBufferLeft
+   LOCAL InBufferRight
    LOCAL icp
-   LOCAL CB , CM
+   LOCAL CB
+   LOCAL CM
    LOCAL Mask
    LOCAL OldChar
    LOCAL Output
@@ -1092,9 +1115,11 @@ RETURN
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION CharMaskTekstOK( cString, cMask )
 *-----------------------------------------------------------------------------*
+   
    LOCAL nCount := Min( hb_ULen(cString), hb_ULen(cMask) )
    LOCAL lPassed := .F.
-   LOCAL CB, CM
+   LOCAL CB
+   LOCAL CM
    LOCAL x
 
    FOR x := 1 TO nCount
@@ -1122,6 +1147,7 @@ RETURN lPassed
 *-----------------------------------------------------------------------------*
 PROCEDURE _DataTextBoxRefresh ( i )
 *-----------------------------------------------------------------------------*
+   
    LOCAL Field
 
    IF _HMG_aControlType[i] == CONTROL_TYPE_MASKEDTEXT
@@ -1141,6 +1167,7 @@ RETURN
 *-----------------------------------------------------------------------------*
 PROCEDURE _DataTextBoxSave ( ControlName, ParentForm )
 *-----------------------------------------------------------------------------*
+   
    LOCAL Field
    LOCAL i
 
@@ -1161,7 +1188,9 @@ RETURN
 *-----------------------------------------------------------------------------*
 PROCEDURE ProcessNumText ( i )
 *-----------------------------------------------------------------------------*
-   LOCAL BadEntry As Logical , OutBuffer As String
+   
+   LOCAL BadEntry As Logical
+   LOCAL OutBuffer As String
    LOCAL InBuffer
    LOCAL BackInBuffer
    LOCAL icp
@@ -1224,8 +1253,10 @@ RETURN
 *-----------------------------------------------------------------------------*
 FUNCTION GETNumFromTextSP( Text, i )
 *-----------------------------------------------------------------------------*
+   
    LOCAL s As String
-   LOCAL x , c
+   LOCAL x
+   LOCAL c
 
    FOR x := 1 TO hb_ULen(Text)
 
@@ -1258,10 +1289,12 @@ RETURN Val( s )
 *-----------------------------------------------------------------------------*
 FUNCTION OEDITEVENTS( hWnd, nMsg, wParam, lParam )
 *-----------------------------------------------------------------------------*
+   
    LOCAL hTextBox
    LOCAL ParentForm
    LOCAL inbuffer
-   LOCAL icp, icpe
+   LOCAL icp
+   LOCAL icpe
    LOCAL i
 
    i := AScan(_HMG_aControlHandles , hWnd)

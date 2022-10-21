@@ -10,6 +10,7 @@
 *-----------------------------------------------------------------------------*
 FUNCTION AlertYesNo ( Message, Title, RevertDefault, Icon, nSize, aColors, lTopMost, bInit )
 *-----------------------------------------------------------------------------*
+   
    LOCAL aOptions := { "&" + _HMG_aABMLangLabel [20], "&" + _HMG_aABMLangLabel [21] }
    LOCAL nDefaultButton := 1
 
@@ -22,6 +23,7 @@ RETURN ( _Alert( Message, aOptions, Title, , nDefaultButton, Icon, nSize, aColor
 *-----------------------------------------------------------------------------*
 FUNCTION AlertYesNoCancel ( Message, Title, nDefaultButton, Icon, nSize, aColors, lTopMost, bInit )
 *-----------------------------------------------------------------------------*
+
    LOCAL aOptions := { "&" + _HMG_aABMLangLabel [20], "&" + _HMG_aABMLangLabel [21], "&" + _HMG_aABMLangButton [13] }
 
    SWITCH _Alert( Message, aOptions, Title, , hb_defaultValue(nDefaultButton, 1), Icon, nSize, aColors, lTopMost, bInit, .T. )
@@ -38,6 +40,7 @@ RETURN ( -1 )
 *-----------------------------------------------------------------------------*
 FUNCTION AlertRetryCancel ( Message, Title, nDefaultButton, Icon, nSize, aColors, lTopMost, bInit )
 *-----------------------------------------------------------------------------*
+   
    LOCAL aOptions := { _HMG_aLangButton[13], _HMG_aLangButton[7] } // P.D. July 3, 2021
 
 RETURN ( _Alert( Message, aOptions, Title, , hb_defaultValue(nDefaultButton, 1), Icon, nSize, aColors, lTopMost, bInit, .T. ) == IDOK )
@@ -45,6 +48,7 @@ RETURN ( _Alert( Message, aOptions, Title, , hb_defaultValue(nDefaultButton, 1),
 *-----------------------------------------------------------------------------*
 FUNCTION AlertOkCancel ( Message, Title, nDefaultButton, Icon, nSize, aColors, lTopMost, bInit )
 *-----------------------------------------------------------------------------*
+   
    LOCAL aOptions := { _HMG_BRWLangButton [4], _HMG_BRWLangButton [3] }
 
 RETURN ( _Alert( Message, aOptions, Title, , hb_defaultValue(nDefaultButton, 1), Icon, nSize, aColors, lTopMost, bInit, .T. ) == IDOK )
@@ -52,6 +56,7 @@ RETURN ( _Alert( Message, aOptions, Title, , hb_defaultValue(nDefaultButton, 1),
 *-----------------------------------------------------------------------------*
 FUNCTION AlertExclamation ( Message, Title, Icon, nSize, aColors, lTopMost, bInit, lNoSound )
 *-----------------------------------------------------------------------------*
+   
    LOCAL nWaitSec
 
    IF ISNUMERIC(Title)
@@ -67,6 +72,7 @@ RETURN _Alert( Message, nWaitSec, hb_defaultValue(Title, _HMG_MESSAGE[10]), , , 
 *-----------------------------------------------------------------------------*
 FUNCTION AlertInfo ( Message, Title, Icon, nSize, aColors, lTopMost, bInit, lNoSound )
 *-----------------------------------------------------------------------------*
+   
    LOCAL nWaitSec
 
    IF ISNUMERIC(Title)
@@ -82,6 +88,7 @@ RETURN _Alert( Message, nWaitSec, hb_defaultValue(Title, _HMG_MESSAGE[11]), ICON
 *-----------------------------------------------------------------------------*
 FUNCTION AlertStop ( Message, Title, Icon, nSize, aColors, lTopMost, bInit, lNoSound )
 *-----------------------------------------------------------------------------*
+   
    LOCAL nWaitSec
 
    IF ISNUMERIC(Title)

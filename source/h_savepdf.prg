@@ -17,17 +17,22 @@ REQUEST HB_CODEPAGE_UTF8
 ********************************************************************************
 FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
 ********************************************************************************
-   LOCAL hDoc, hPage, nPage
-   LOCAL cPage, cImageFile
-   LOCAL cCodePage, cOldCodePage
-   LOCAL nPageHeight, nPageWidth
-   LOCAL nPages, hBitmap
-
+   
+   LOCAL hDoc
+   LOCAL hPage
+   LOCAL nPage
+   LOCAL cPage
+   LOCAL cImageFile
+   LOCAL cCodePage
+   LOCAL cOldCodePage
+   LOCAL nPageHeight
+   LOCAL nPageWidth
+   LOCAL nPages
+   LOCAL hBitmap
    LOCAL cAuthor
    LOCAL cCreator := "Simple PDF Creator"
    LOCAL page_size := HPDF_PAGE_SIZE_A4
    LOCAL page_orient := HPDF_PAGE_PORTRAIT
-
    LOCAL aSizes
    LOCAL lRet := .T.
    LOCAL cErrMess := ""
@@ -143,7 +148,9 @@ RETURN lRet
 ********************************************************************************
 STATIC FUNCTION PutPageImage( hDoc, hPage, cLogoFile, nPageHeight, nPageWidth )
 ********************************************************************************
-   LOCAL hImage, nResult
+   
+   LOCAL hImage
+   LOCAL nResult
 
    IF Upper(hb_FNameExt(cLogoFile)) == ".PNG"
       hImage := HPDF_LoadPngImageFromFile( hDoc, cLogoFile )
@@ -157,6 +164,7 @@ RETURN ( nResult == HPDF_OK )
 ********************************************************************************
 STATIC FUNCTION PdfSetInfo( hDoc, cTitle, cAuthor, cCreator )
 ********************************************************************************
+   
    LOCAL dDate := Date()
    LOCAL cTime := Time()
 
@@ -175,6 +183,7 @@ RETURN NIL
 ********************************************************************************
 STATIC FUNCTION UPDF_Error( cType, hDoc ) // allways return .F.
 ********************************************************************************
+   
    LOCAL nError := HPDF_GetError( hDoc )
    LOCAL cMessage
 

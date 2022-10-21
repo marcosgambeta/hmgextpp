@@ -94,11 +94,13 @@ STATIC aBackColor, aFontColor
 *-----------------------------------------------------------------------------*
 FUNCTION HMG_Alert( cMsg, aOptions, cTitle, nType, cIcoFile, nIcoSize, aBtnColors, bInit, lClosable, cFontName )
 *-----------------------------------------------------------------------------*
+   
    LOCAL nLineas
    LOCAL aIcon := { SYSICO_WARN, SYSICO_QUES, SYSICO_INFO, SYSICO_ERROR }
    LOCAL lFont := .F.
    LOCAL lEmpty := ( Empty(aOptions) .OR. ISNUMERIC(aOptions) )
-   LOCAL cDelim, cOldDelim
+   LOCAL cDelim
+   LOCAL cOldDelim
    LOCAL cForm := "oDlg"
    LOCAL nMaxLen := 0
 
@@ -194,6 +196,7 @@ RETURN _HMG_ModalDialogReturn
 *-----------------------------------------------------------------------------*
 FUNCTION HMG_Alert_MaxLines( nLines )
 *-----------------------------------------------------------------------------*
+   
    LOCAL cVarName := "_" + ProcName()
    LOCAL nOldLines := _AddNewGlobal( cVarName, 20 )
 
@@ -206,6 +209,7 @@ RETURN nOldLines
 *-----------------------------------------------------------------------------*
 FUNCTION HMG_Alert_RowStart( nRow )
 *-----------------------------------------------------------------------------*
+   
    LOCAL cVarName := "_" + ProcName()
    LOCAL nOldRow := _AddNewGlobal( cVarName, 0 )
 
@@ -218,6 +222,7 @@ RETURN nOldRow
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors, bBlock, lClosable, cFont, nMaxLen )
 *-----------------------------------------------------------------------------*
+   
    LOCAL hWnd
    LOCAL hDC
    LOCAL hDlgFont
@@ -235,8 +240,10 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
    LOCAL nMaxWidth
    LOCAL nLenBotones
    LOCAL nLenaOp
-   LOCAL nWidthCli, nHeightCli
-   LOCAL nWidthDlg, nHeightDlg
+   LOCAL nWidthCli
+   LOCAL nHeightCli
+   LOCAL nWidthDlg
+   LOCAL nHeightDlg
    LOCAL nChrHeight
    LOCAL nHeightBtn
    LOCAL nVMARGIN_BUTTON := VMARGIN_BUTTON
@@ -465,6 +472,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION _SetMsgAlertColors( aBackClr, aFontClr )
 *-----------------------------------------------------------------------------*
+   
    LOCAL aOldClrs := { aBackColor, aFontColor }
 
    IF aBackClr != NIL
@@ -482,7 +490,9 @@ RETURN aOldClrs
 *-----------------------------------------------------------------------------*
 PROCEDURE HMG_CheckType( lSoft, ... )
 *-----------------------------------------------------------------------------*
-   LOCAL i, j
+   
+   LOCAL i
+   LOCAL j
    // aData := { cTypeDef, cValType, cVarName }
    LOCAL aData
    // aType := { cTypeDef, cValType }

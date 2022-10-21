@@ -54,16 +54,24 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
       notabstop, bold, italic, underline, strikeout, backcolor, fontcolor, ;
       transparent, horizontal, leftjustify, aReadOnly, autosize, gotfocus, lostfocus, aId, bInit )
 *-----------------------------------------------------------------------------*
-   LOCAL ParentFormHandle, ControlHandle, FontHandle
+   
+   LOCAL ParentFormHandle
+   LOCAL ControlHandle
+   LOCAL FontHandle
    LOCAL aHandles[ 0 ]
    LOCAL blInit
    LOCAL mVar
    LOCAL k
-   LOCAL BackCol, BackRow, BackWidth
+   LOCAL BackCol
+   LOCAL BackRow
+   LOCAL BackWidth
    LOCAL Style
-   LOCAL i, n
+   LOCAL i
+   LOCAL n
    LOCAL lDialogInMemory
-   LOCAL oc := NIL, ow := NIL
+   LOCAL oc // := NIL
+   LOCAL ow // := NIL
+
 #ifdef _OBJECT_
    ow := oDlu2Pixel()
 #endif
@@ -333,6 +341,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION InitDialogRadioGroup( ParentName, ControlHandle, k )
 *-----------------------------------------------------------------------------*
+   
    LOCAL aHandles
    LOCAL Value
 

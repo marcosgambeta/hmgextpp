@@ -50,8 +50,10 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 *-----------------------------------------------------------------------------*
 FUNCTION GetColor( aInitColor, aCustomColors, nFlags )
 *-----------------------------------------------------------------------------*
+   
    LOCAL aRetVal [3]
-   LOCAL nColor, nInitColor
+   LOCAL nColor
+   LOCAL nInitColor
 
    IF IsArrayRGB(aInitColor)
       nInitColor := RGB(aInitColor[1], aInitColor[2], aInitColor[3])
@@ -93,9 +95,11 @@ RETURN C_BrowseForFolder(NIL, cTitle, ;
 *-----------------------------------------------------------------------------*
 FUNCTION GetFile( aFilter, title, cIniFolder, multiselect, lNoChangeCurDir, nFilterIndex )
 *-----------------------------------------------------------------------------*
+   
    LOCAL fileslist As Array
    LOCAL cFilter As String
-   LOCAL n, files
+   LOCAL n
+   LOCAL files
 
    hb_default(@multiselect, .F.)
 
@@ -144,6 +148,7 @@ RETURN ( fileslist )
 FUNCTION Putfile( aFilter, title, cIniFolder, lNoChangeCurDir, cDefFileName, ;
    /*@*/nFilterIndex, lPromptOverwrite ) //  p.d. 12/05/2016 added lPromptOverwrite
 *-----------------------------------------------------------------------------*
+   
    LOCAL cFilter As String
 
    hb_default(@nFilterIndex, 1)
@@ -159,6 +164,7 @@ RETURN C_PutFile(cFilter, title, cIniFolder, lNoChangeCurDir, hb_defaultValue(cD
 *-----------------------------------------------------------------------------*
 FUNCTION GetFont( cInitFontName , nInitFontSize , lBold , lItalic , anInitColor , lUnderLine , lStrikeOut , nCharset )
 *-----------------------------------------------------------------------------*
+   
    LOCAL RetArray
    LOCAL rgbcolor As Numeric
 

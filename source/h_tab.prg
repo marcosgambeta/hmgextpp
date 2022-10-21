@@ -56,6 +56,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 *-----------------------------------------------------------------------------*
 FUNCTION _BeginTab( ControlName, ParentFormName, row, col, w, h, value, f, s, tooltip, change, buttons, flat, hottrack, vertical, bottom, notabstop, bold, italic, underline, strikeout, multiline, backcolor, nId, bInit, NoTrans )
 *-----------------------------------------------------------------------------*
+   
    LOCAL aMnemonic := Array( 16 )
 
    __defaultNIL(@change, "")
@@ -142,7 +143,10 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION _DefineTab( ControlName, ParentFormName, x, y, w, h, aCaptions, aPageMap, value, fontname, fontsize, tooltip, change, Buttons, Flat, HotTrack, Vertical, Bottom, notabstop, aMnemonic, bold, italic, underline, strikeout, Images, multiline, backcolor, nId, bInit, NoTrans )
 *-----------------------------------------------------------------------------*
-   LOCAL ParentFormHandle, ControlHandle, FontHandle
+   
+   LOCAL ParentFormHandle
+   LOCAL ControlHandle
+   LOCAL FontHandle
    LOCAL hBrush := 0
    LOCAL mVar
    LOCAL k
@@ -150,7 +154,9 @@ STATIC FUNCTION _DefineTab( ControlName, ParentFormName, x, y, w, h, aCaptions, 
    LOCAL blInit
    LOCAL ImageFlag := .F.
    LOCAL lDialogInMemory := _SetGetGlobal( "_HMG_lDialogInMemory" )
-   LOCAL oc := NIL, ow := NIL
+   LOCAL oc // := NIL
+   LOCAL ow // := NIL
+
 #ifdef _OBJECT_
    ow := oDlu2Pixel()
 #endif
@@ -330,10 +336,14 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION InitDialogTab( ParentName, ControlHandle, k )
 *-----------------------------------------------------------------------------*
-   LOCAL aCaptions, aMnemonic
+   
+   LOCAL aCaptions
+   LOCAL aMnemonic
    LOCAL Caption
    LOCAL tabpage
-   LOCAL c, z, i
+   LOCAL c
+   LOCAL z
+   LOCAL i
 
    aMnemonic := _HMG_aControlMiscData1 [k,3]
    aCaptions := _HMG_aControlCaption [k]
@@ -399,8 +409,11 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION UpdateTab(y)  // Internal Function
 *-----------------------------------------------------------------------------*
+   
    LOCAL tabpage
-   LOCAL w, s, z
+   LOCAL w
+   LOCAL s
+   LOCAL z
 
    // Hide All Pages
    FOR EACH tabpage IN _HMG_aControlPageMap [y]
@@ -464,6 +477,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION _IsWindowVisibleFromHandle(Handle)
 *-----------------------------------------------------------------------------*
+   
    LOCAL lVisible As Logical
    LOCAL hForm
 
@@ -482,6 +496,7 @@ RETURN lVisible
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION _IsControlVisibleFromHandle(Handle)
 *-----------------------------------------------------------------------------*
+   
    LOCAL lVisible As Logical
    LOCAL hControl
 
@@ -582,9 +597,12 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION _AddTabPage ( ControlName , ParentForm , Position , Caption , Image , tooltip )
 *-----------------------------------------------------------------------------*
+   
    LOCAL aMnemonic
    LOCAL ImageFlag := .F.  // JD 11/05/2006
-   LOCAL i , x , c
+   LOCAL i
+   LOCAL x
+   LOCAL c
 
    hb_default(@Caption, "")
    hb_default(@Image, "")
@@ -645,7 +663,10 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION _AddTabControl ( TabName , ControlName , ParentForm , PageNumber , Row , Col )
 *-----------------------------------------------------------------------------*
-   LOCAL i , x , t
+   
+   LOCAL i
+   LOCAL x
+   LOCAL t
 
    i := GetControlIndex(TabName, ParentForm)
 
@@ -694,11 +715,14 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION _DeleteTabPage ( ControlName , ParentForm , Position )
 *-----------------------------------------------------------------------------*
+   
    LOCAL NewValue
    LOCAL NewMap := {}
    LOCAL aMnemonic
    LOCAL ImageFlag := .F.
-   LOCAL i , j , c
+   LOCAL i
+   LOCAL j
+   LOCAL c
 
    i := GetControlIndex(ControlName, ParentForm)
 

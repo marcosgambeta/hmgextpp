@@ -54,8 +54,18 @@ FUNCTION _DefineChkListbox ( ControlName, ParentFormName, x, y, w, h, arows, val
       invisible, notabstop, sort, bold, italic, underline, strikeout, backcolor, fontcolor, ;
       multiselect, aCheck, nItemHeight, nId )
 *-----------------------------------------------------------------------------*
-   LOCAL ParentFormHandle , blInit , mVar , ControlHandle , Style
-   LOCAL FontHandle , rows := {} , i , k ,  aChkItem := {} , nPos
+   
+   LOCAL ParentFormHandle
+   LOCAL blInit
+   LOCAL mVar
+   LOCAL ControlHandle
+   LOCAL Style
+   LOCAL FontHandle
+   LOCAL rows := {}
+   LOCAL i
+   LOCAL k
+   LOCAL aChkItem := {}
+   LOCAL nPos
    LOCAL lDialogInMemory
 
    DEFAULT w               TO 120
@@ -290,7 +300,11 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION InitDialogChkListBox( ParentName, ControlHandle, k )
 *-----------------------------------------------------------------------------*
-   LOCAL Rows, Value, FontSize, FontHandle
+   
+   LOCAL Rows
+   LOCAL Value
+   LOCAL FontSize
+   LOCAL FontHandle
 
    HB_SYMBOL_UNUSED( ParentName )
 

@@ -50,6 +50,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 *-----------------------------------------------------------------------------*
 FUNCTION WindowsVersion()
 *-----------------------------------------------------------------------------*
+   
    LOCAL cKey
    LOCAL aRetVal := Array( 4 )
 
@@ -81,6 +82,7 @@ RETURN ShellExecute( hb_defaultValue(hWnd, GetActiveWindow()) , ;
 *-----------------------------------------------------------------------------*
 PROCEDURE ShellAbout( cTitle , cMsg , hIcon )
 *-----------------------------------------------------------------------------*
+   
    LOCAL nCount
 
    IF _SetGetGlobal( "_HMG_ShellAbout" ) == NIL

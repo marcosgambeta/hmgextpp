@@ -21,15 +21,35 @@
 FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep, aTitleColor, nXRanges, ;
       l3D, lGrid, lxGrid, lyGrid, lxVal, lyVal, lLegends, aSeries, aColors, nType, lViewVal, cPicture, nLegendsWidth, lNoborder )
                  
-   LOCAL hBitmap, hDC, BTStruct
+   LOCAL hBitmap
+   LOCAL hDC
+   LOCAL BTStruct
    LOCAL nTop := 0
    LOCAL nLeft := 0
    LOCAL nBottom := nHeight
    LOCAL nRight := nWidth
-   LOCAL nI, nJ, nPos, nMax, nMin, nMaxBar, nDeep
-   LOCAL nRange, nSeries, nResH, nResV, nWide, aPoint
-   LOCAL nXMax, nXMin, nHigh, nRel, nZero, nRPos, nRNeg
-   LOCAL nClrFore  := GetSysColor( COLOR_WINDOWTEXT ), lRedraw
+   LOCAL nI
+   LOCAL nJ
+   LOCAL nPos
+   LOCAL nMax
+   LOCAL nMin
+   LOCAL nMaxBar
+   LOCAL nDeep
+   LOCAL nRange
+   LOCAL nSeries
+   LOCAL nResH
+   LOCAL nResV
+   LOCAL nWide
+   LOCAL aPoint
+   LOCAL nXMax
+   LOCAL nXMin
+   LOCAL nHigh
+   LOCAL nRel
+   LOCAL nZero
+   LOCAL nRPos
+   LOCAL nRNeg
+   LOCAL nClrFore  := GetSysColor( COLOR_WINDOWTEXT )
+   LOCAL lRedraw
    LOCAL aClrFore := nRGB2Arr( nClrFore )
    LOCAL nClrBack := GetSysColor( COLOR_BTNFACE )
    LOCAL aClrBack := nRGB2Arr( nClrBack )
@@ -357,11 +377,16 @@ FUNCTION HMG_PieGraph( nWidth, nHeight, series, aname, colors, ctitle, aTitleCol
    LOCAL toradialcol
    LOCAL degrees := {}
    LOCAL cumulative := {}
-   LOCAL j, i, sum, ser_sum := 0
+   LOCAL j
+   LOCAL i
+   LOCAL sum
+   LOCAL ser_sum := 0
    LOCAL shadowcolor
    LOCAL previos_cumulative := -1
    LOCAL toright := .F.  // default is bottom legend
-   LOCAL hDC, hBitmap, BTStruct
+   LOCAL hDC
+   LOCAL hBitmap
+   LOCAL BTStruct
    LOCAL nClrBack := GetSysColor( COLOR_BTNFACE )
    LOCAL aClrBack := nRGB2Arr( nClrBack )
 
@@ -606,7 +631,10 @@ RETURN
 
 STATIC PROCEDURE DrawBarInBitmap( hDC, nY, nX, nHigh, nWidth, l3DView, nDeep, aColor )
 
-   LOCAL nColTop, nShadow, nShadow2, nH := nHigh
+   LOCAL nColTop
+   LOCAL nShadow
+   LOCAL nShadow2
+   LOCAL nH := nHigh
 
    nColTop := ClrShadow( RGB( aColor[1], aColor[2], aColor[3] ), 20 )
    nShadow := ClrShadow( nColTop, 20 )

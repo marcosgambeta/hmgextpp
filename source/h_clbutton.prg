@@ -28,7 +28,9 @@ RETURN
 *------------------------------------------------------------------------------*
 PROCEDURE _DefineCLButton ( cName, nRow, nCol, cCaption, cNotes, bAction, cParent, lDefault, w, h, cBitmap )
 *------------------------------------------------------------------------------*
-   LOCAL hControlHandle, hParentFormHandle
+   
+   LOCAL hControlHandle
+   LOCAL hParentFormHandle
    LOCAL mVar
    LOCAL k
    LOCAL nId
@@ -131,6 +133,7 @@ RETURN
 *------------------------------------------------------------------------------*
 PROCEDURE ReleaseCLButtonImageList ( cWindow, cControl )
 *------------------------------------------------------------------------------*
+   
    LOCAL i
 
    IF _IsControlDefined(cControl, cWindow) .AND. GetControlType(cControl, cWindow) == "CLBUTTON"
@@ -156,7 +159,8 @@ RETURN
 *------------------------------------------------------------------------------*
 FUNCTION CLButtonEventhandler ( hWnd, nMsg, wParam, lParam )
 *------------------------------------------------------------------------------*
-   LOCAL RetVal := Nil
+   
+   LOCAL RetVal // := Nil
    LOCAL i
 
    HB_SYMBOL_UNUSED( hWnd )
@@ -182,6 +186,7 @@ RETURN RetVal
 *------------------------------------------------------------------------------*
 PROCEDURE CLButton_SetShield(cWindow, cControl)
 *------------------------------------------------------------------------------*
+   
    LOCAL i
 
    IF GetControlType(cControl, cWindow) == "CLBUTTON"
@@ -208,7 +213,9 @@ RETURN
 *------------------------------------------------------------------------------*
 PROCEDURE CLButtonSetFocus ( cWindow, cControl )
 *------------------------------------------------------------------------------*
-   LOCAL hWnd, ParentFormHandle
+   
+   LOCAL hWnd
+   LOCAL ParentFormHandle
    LOCAL ControlCount
    LOCAL x
 
@@ -294,7 +301,8 @@ RETURN NIL
 *------------------------------------------------------------------------------*
 FUNCTION GetCLButtonHandle(cWindow, cControl)
 *------------------------------------------------------------------------------*
-   LOCAL RetVal := Nil
+
+   LOCAL RetVal // := Nil
 
    IF GetControlType(cControl, cWindow) == "CLBUTTON"
 
@@ -332,7 +340,8 @@ RETURN NIL
 *------------------------------------------------------------------------------*
 FUNCTION GetCLButtonCaption ( cWindow, cControl )
 *------------------------------------------------------------------------------*
-   LOCAL RetVal := Nil
+   
+   LOCAL RetVal // := Nil
 
    IF GetControlType(cControl, cWindow) == "CLBUTTON"
 
@@ -384,7 +393,9 @@ RETURN NIL
 *------------------------------------------------------------------------------*
 PROCEDURE SetCLButtonPicture(cWindow, cControl, cProperty, cBitmap)
 *------------------------------------------------------------------------------*
+   
    LOCAL i
+   
    cProperty := NIL // Unused variable
 
    IF GetControlType(cControl, cWindow) == "CLBUTTON"
@@ -412,6 +423,7 @@ RETURN
 *------------------------------------------------------------------------------*
 FUNCTION GetCLButtonPicture(cWindow, cControl)
 *------------------------------------------------------------------------------*
+   
    LOCAL RetVal
 
    IF GetControlType(cControl, cWindow) == "CLBUTTON"

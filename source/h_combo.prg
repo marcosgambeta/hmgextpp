@@ -69,15 +69,22 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
    GripperText , ListWidth , nId, OnListDisplayProcedure, OnListCloseProcedure, ;
    backcolor, fontcolor, lUpper, lLower, cuetext, OnCancel, AutoComplete, lShowDropDown, nItemHeight, bInit )
 *-----------------------------------------------------------------------------*
-   LOCAL ParentFormHandle , ControlHandle , FontHandle
+   
+   LOCAL ParentFormHandle
+   LOCAL ControlHandle
+   LOCAL FontHandle
    LOCAL mVar
-   LOCAL WorkArea , cField
+   LOCAL WorkArea
+   LOCAL cField
    LOCAL ContainerHandle := 0
-   LOCAL i , k
+   LOCAL i
+   LOCAL k
    LOCAL blInit
    LOCAL Style
    LOCAL lDialogInMemory
-   LOCAL oc := NIL, ow := NIL
+   LOCAL oc // := NIL
+   LOCAL ow // := NIL
+
 #ifdef _OBJECT_
    ow := oDlu2Pixel()
 #endif
@@ -337,8 +344,19 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION InitDialogComboBox( ParentName, ControlHandle, k )
 *-----------------------------------------------------------------------------*
-   LOCAL WorkArea , BackRec , rcount := 0 , cset := 0 , ItemHeight , ;
-      Value , rows , DisplayChange , ItemSource , cField , ListWidth , cuetext
+   
+   LOCAL WorkArea
+   LOCAL BackRec
+   LOCAL rcount := 0
+   LOCAL cset := 0
+   LOCAL ItemHeight
+   LOCAL Value
+   LOCAL rows
+   LOCAL DisplayChange
+   LOCAL ItemSource
+   LOCAL cField
+   LOCAL ListWidth
+   LOCAL cuetext
 
    WorkArea      := _HMG_aControlSpacing [k]
    cField        := _HMG_aControlPageMap [k]
@@ -424,7 +442,12 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 PROCEDURE _DataComboRefresh ( i )  // (JK) Modified for extend COMBO HMG 1.0 Build 8
 *-----------------------------------------------------------------------------*
-   LOCAL BackValue , BackRec , WorkArea , cField , ControlHandle
+   
+   LOCAL BackValue
+   LOCAL BackRec
+   LOCAL WorkArea
+   LOCAL cField
+   LOCAL ControlHandle
 
    IF Empty(_HMG_aControlCaption[i])
       BackValue := _GetValue(, , i)

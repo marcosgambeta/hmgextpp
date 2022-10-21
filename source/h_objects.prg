@@ -63,7 +63,8 @@ RETURN aRet
 
 METHOD Eval( Block ) CLASS THmgData
 
-   LOCAL i, b := HB_ISBLOCK( Block )
+   LOCAL i
+   LOCAL b := HB_ISBLOCK( Block )
    LOCAL l := HB_ISLOGICAL( Block ) .AND. Block
    LOCAL a := iif( b, NIL, Array( 0 ) )
 
@@ -82,7 +83,9 @@ RETURN a
 #if 0
 METHOD Destroy() CLASS THmgData
 
-   LOCAL i, k, o
+   LOCAL i
+   LOCAL k
+   LOCAL o
 
    IF HB_ISHASH( ::aKey )
       FOR i := 1 TO Len(::aKey)
@@ -109,7 +112,9 @@ RETURN NIL
 
 METHOD ControlAssign( xValue ) CLASS THmgData
 
-   LOCAL cMessage, uRet, lError
+   LOCAL cMessage
+   LOCAL uRet
+   LOCAL lError
 
    cMessage := __GetMessage()
    lError := .T.
@@ -183,8 +188,20 @@ RETURN Self
 
 METHOD Read() CLASS TIniData
 
-   LOCAL hIni, cStr, cBuf, aBuf, nBuf, cSec, hSec, oSec, nLen := 1024
-   LOCAL cChr := ::cCommentChar, xVal, hKey, nKey, cNote
+   LOCAL hIni
+   LOCAL cStr
+   LOCAL cBuf
+   LOCAL aBuf
+   LOCAL nBuf
+   LOCAL cSec
+   LOCAL hSec
+   LOCAL oSec
+   LOCAL nLen := 1024
+   LOCAL cChr := ::cCommentChar
+   LOCAL xVal
+   LOCAL hKey
+   LOCAL nKey
+   LOCAL cNote
 
    IF ::lIni .AND. ( hIni := FOpen( ::cIni, 2 ) ) > 0
       cStr := space( Len(::cBOM) )
@@ -303,7 +320,8 @@ RETURN xVal
 
 METHOD ToString( xVal ) CLASS TIniData
 
-   LOCAL cStr, lE := .F.
+   LOCAL cStr
+   LOCAL lE := .F.
 
    IF HB_ISCHAR( xVal )
       cStr := Alltrim(xVal)
@@ -334,10 +352,22 @@ RETURN cStr
 
 METHOD Write( cFile, lUtf8 ) CLASS TIniData
 
-   LOCAL lRet, aSec, cSec, oSec, hSec, hKey, nLen
-   LOCAL hIni := { => }, cKey, cVal, xVal, cStr, lBlk
+   LOCAL lRet
+   LOCAL aSec
+   LOCAL cSec
+   LOCAL oSec
+   LOCAL hSec
+   LOCAL hKey
+   LOCAL nLen
+   LOCAL hIni := { => }
+   LOCAL cKey
+   LOCAL cVal
+   LOCAL xVal
+   LOCAL cStr
+   LOCAL lBlk
    LOCAL cIni := "_" + DtoS( Date() ) + "_" + StrTran(hb_ntos( Seconds() ), ".", "") + "_" + ".ini"
-   LOCAL cBegin := "", cEnd := ""
+   LOCAL cBegin := ""
+   LOCAL cEnd := ""
 
    DEFAULT cFile := ::cIni, lUtf8 := ::lUtf8
 
@@ -411,7 +441,9 @@ RETURN lRet
 *-----------------------------------------------------------------------------*
 FUNCTION oDlu4Font( nFontSize, lDlu2Pix )
 *-----------------------------------------------------------------------------*
-   LOCAL nPrcW, nPrcH, aDim
+   LOCAL nPrcW
+   LOCAL nPrcH
+   LOCAL aDim
    LOCAL aScale := { {  8,  85,  75}, ;
                      {  9,  90,  85}, ;
                      { 10,  95,  85}, ;
@@ -511,7 +543,9 @@ RETURN o_AppDlu2Pixel
 FUNCTION _App_Dlu2Pix_Events_( hWnd, nMsg, wParam, lParam )
 *-----------------------------------------------------------------------------*
 
-   LOCAL h, nRet := 0
+   LOCAL h
+   LOCAL nRet := 0
+
    STATIC o_app
 
    IF HB_ISOBJECT( hWnd )
@@ -722,7 +756,10 @@ RETURN nVal
 
 METHOD GetGaps( aGaps, oWnd ) CLASS TDlu2Pix
 
-   LOCAL oApp, nGapW, nGapH, n
+   LOCAL oApp
+   LOCAL nGapW
+   LOCAL nGapH
+   LOCAL n
 
    If HB_ISCHAR( oWnd ); oWnd := _WindowObj(oWnd)
    EndIf
@@ -786,7 +823,8 @@ RETURN ( ::LTRB )
 
 METHOD TextWidth(cText, nSize, cFont, lBold, cChar) CLASS TDlu2Pix
 
-   LOCAL hFont, nWidth
+   LOCAL hFont
+   LOCAL nWidth
 
    cChar := hb_defaultValue(cChar, "A")
    cText := hb_defaultValue(cText, Replicate(cChar, 2))
@@ -1048,7 +1086,10 @@ ENDCLASS
 
 METHOD ControlAssign( xValue ) CLASS TWndData
 
-   LOCAL cMessage, uRet, lError, o
+   LOCAL cMessage
+   LOCAL uRet
+   LOCAL lError
+   LOCAL o
 
    cMessage := __GetMessage()
    lError := .T.
@@ -1089,7 +1130,9 @@ RETURN aType
 
 METHOD GetObj4Type( cType, lEque ) CLASS TWndData
 
-   LOCAL aObj := {}, aRet := {}, o
+   LOCAL aObj := {}
+   LOCAL aRet := {}
+   LOCAL o
 
    IF !Empty(cType)
       hb_default(@lEque, .T.)
@@ -1382,7 +1425,9 @@ ENDCLASS
 
 METHOD Do( nMsg, wParam, lParam ) CLASS TWmEData
 
-   LOCAL o, r, b := ::Get( nMsg )
+   LOCAL o
+   LOCAL r
+   LOCAL b := ::Get( nMsg )
 
    IF HB_ISBLOCK( b )
       o := ::oObj
@@ -1397,7 +1442,8 @@ RETURN iif( Empty(r), 0, 1 )
 
 METHOD Destroy() CLASS TWmEData
 
-   LOCAL i, k
+   LOCAL i
+   LOCAL k
 
    IF HB_ISHASH( ::aMsg )
       FOR i := 1 TO Len(::aMsg)
@@ -1477,7 +1523,8 @@ RETURN aRet
 
 METHOD Eval( Block ) CLASS TKeyData
 
-   LOCAL i, b := HB_ISBLOCK( Block )
+   LOCAL i
+   LOCAL b := HB_ISBLOCK( Block )
    LOCAL l := HB_ISLOGICAL( Block ) .AND. Block
    LOCAL a := iif( b, NIL, Array( 0 ) )
 
@@ -1515,7 +1562,9 @@ RETURN NIL
 
 METHOD Destroy() CLASS TKeyData
 
-   LOCAL i, k, o
+   LOCAL i
+   LOCAL k
+   LOCAL o
 
    IF HB_ISHASH( ::aKey )
       FOR i := 1 TO Len(::aKey)
@@ -1542,7 +1591,9 @@ RETURN NIL
 
 METHOD ControlAssign( xValue ) CLASS TKeyData
 
-   LOCAL cMessage, uRet, lError
+   LOCAL cMessage
+   LOCAL uRet
+   LOCAL lError
 
    cMessage := __GetMessage()
    lError := .T.
@@ -1639,7 +1690,9 @@ RETURN aRet
 
 METHOD Eval( Block ) CLASS TThrData
 
-   LOCAL m, i, b := HB_ISBLOCK( Block )
+   LOCAL m
+   LOCAL i
+   LOCAL b := HB_ISBLOCK( Block )
    LOCAL l := HB_ISLOGICAL( Block ) .AND. Block
    LOCAL a := iif( b, NIL, Array( 0 ) )
 
@@ -1688,7 +1741,9 @@ RETURN NIL
 
 METHOD Destroy() CLASS TThrData
 
-   LOCAL i, k, o
+   LOCAL i
+   LOCAL k
+   LOCAL o
 
    IF HB_ISHASH( ::aKey )
       FOR i := 1 TO Len(::aKey)
@@ -1717,6 +1772,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION oWndData( nIndex, cName, nHandle, nParent, cType, cVar )
 *-----------------------------------------------------------------------------*
+   
    LOCAL o
 
    DEFAULT nIndex := 0, ;
@@ -1737,7 +1793,9 @@ RETURN o
 *-----------------------------------------------------------------------------*
 FUNCTION oCnlData( nIndex, cName, nHandle, nParent, cType, cVar, oWin )
 *-----------------------------------------------------------------------------*
-   LOCAL o, ob
+   
+   LOCAL o
+   LOCAL ob
 
    DEFAULT nIndex := 0, ;
       cName := "", ;
@@ -1772,6 +1830,7 @@ RETURN o
 *-----------------------------------------------------------------------------*
 FUNCTION oKeyData( Obj, Event )
 *-----------------------------------------------------------------------------*
+   
    LOCAL o
 
    IF HB_ISNIL ( Event ) ; o := TKeyData():New():Def( Obj )

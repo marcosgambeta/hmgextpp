@@ -53,7 +53,9 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
       ProcedureName, tooltip, HelpId, invisible, stretch, aBKColor, transparent, ;
       adjustimage, mouseover, mouseleave, nAlphaLevel, nId, bInit, dblclick, rclick )
 *-----------------------------------------------------------------------------*
-   LOCAL ParentFormHandle , ControlHandle
+   
+   LOCAL ParentFormHandle
+   LOCAL ControlHandle
    LOCAL blInit
    LOCAL mVar
    LOCAL k
@@ -62,7 +64,9 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
    LOCAL action := .F.
    LOCAL lDialogInMemory
    LOCAL lCheckAlpha := ISNUMBER( nAlphaLevel )
-   LOCAL oc := NIL, ow := NIL
+   LOCAL oc // := NIL
+   LOCAL ow // := NIL
+
 #ifdef _OBJECT_
    ow := oDlu2Pixel()
 #endif
@@ -254,6 +258,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION BmpSize( xBitmap )
 *-----------------------------------------------------------------------------*
+   
    LOCAL aRet := { 0, 0, 4 }
 
    DO CASE
@@ -278,6 +283,7 @@ RETURN aRet
 *-----------------------------------------------------------------------------*
 FUNCTION HasAlpha( FileName )
 *-----------------------------------------------------------------------------*
+   
    LOCAL hBitmap
    LOCAL lResult := .F.
 
@@ -293,6 +299,7 @@ RETURN lResult
 *-----------------------------------------------------------------------------*
 FUNCTION HMG_SaveImage( FileName, cOutName, cEncoder, nJpgQuality, aOutSize )
 *-----------------------------------------------------------------------------*
+   
    LOCAL hBitmap
    LOCAL lResult := .F.
 

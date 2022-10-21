@@ -51,6 +51,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 *-----------------------------------------------------------------------------*
 PROCEDURE SetHelpFile( cFile )
 *-----------------------------------------------------------------------------*
+   
    LOCAL hFile
 
    IF File( cFile )
@@ -76,6 +77,7 @@ RETURN
 *-----------------------------------------------------------------------------*
 PROCEDURE DisplayHelpTopic( xTopic , nMet )
 *-----------------------------------------------------------------------------*
+   
    LOCAL cParam := ""
 
    IF Empty(_HMG_ActiveHelpFile)

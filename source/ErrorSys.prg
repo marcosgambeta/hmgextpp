@@ -66,6 +66,7 @@ RETURN
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION DefError( oError )
 *-----------------------------------------------------------------------------*
+   
    LOCAL lOldSetState := ( Len(DToC(Date())) == 10 )
    LOCAL cText
    LOCAL HtmArch
@@ -149,6 +150,7 @@ RETURN .F.
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION ErrorMessage( oError )
 *-----------------------------------------------------------------------------*
+   
    // start error message
    LOCAL cMessage := iif( oError:severity > ES_WARNING, "Error", "Warning" ) + " "
    LOCAL n
@@ -202,7 +204,9 @@ RETURN cMessage
 *-----------------------------------------------------------------------------*
 STATIC PROCEDURE ShowError( cErrorMessage, oError )
 *-----------------------------------------------------------------------------*
-   LOCAL cMsg := "", bInit
+   
+   LOCAL cMsg := ""
+   LOCAL bInit
 
    IF _SetGetGlobal( "_HMG_ShowError" ) == NIL
       STATIC _HMG_ShowError AS GLOBAL VALUE .T.
@@ -266,8 +270,14 @@ RETURN
 *-----------------------------------------------------------------------------*
 STATIC PROCEDURE ErrorLog( nHandle, oErr )
 *-----------------------------------------------------------------------------*
+   
    STATIC _lAddError := .T.
-   LOCAL nScope, nCount, tmp, cName, xValue
+   
+   LOCAL nScope
+   LOCAL nCount
+   LOCAL tmp
+   LOCAL cName
+   LOCAL xValue
 
    IF _lAddError
 
@@ -458,6 +468,7 @@ RETURN ""
 *-----------------------------------------------------------------------------*
 FUNCTION _lShowDetailError( lNewValue )
 *-----------------------------------------------------------------------------*
+   
    LOCAL cVarName := "_HMG" + ProcName()
    LOCAL lOldValue := _AddNewGlobal( cVarName, .T. )
 
@@ -473,6 +484,7 @@ RETURN lOldValue
 *-----------------------------------------------------------------------------*
 FUNCTION HTML_ERRORLOG
 *-----------------------------------------------------------------------------*
+   
    LOCAL HtmArch
    LOCAL cErrorLogFile := _GetErrorlogFile()
 
@@ -510,7 +522,9 @@ RETURN ( HtmArch )
 *-----------------------------------------------------------------------------*
 FUNCTION HTML_INI( ARCH, TITLE )
 *-----------------------------------------------------------------------------*
-   LOCAL HtmArch := -1, cTemplate
+   
+   LOCAL HtmArch := -1
+   LOCAL cTemplate
 
    IF IsErrorLogActive()
 #if ( __HARBOUR__ - 0 < 0x030200 )

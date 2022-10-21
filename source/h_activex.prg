@@ -65,7 +65,9 @@ RETURN
 *-----------------------------------------------------------------------------*
 PROCEDURE _DefineActivex ( cControlName, cParentForm, nRow, nCol, nWidth, nHeight, cProgId, aEvents, clientedge )
 *-----------------------------------------------------------------------------*
-   LOCAL nControlHandle, nParentFormHandle
+   
+   LOCAL nControlHandle
+   LOCAL nParentFormHandle
    LOCAL mVar
    LOCAL k
    LOCAL oActiveX
@@ -184,6 +186,7 @@ RETURN
 *-----------------------------------------------------------------------------*
 PROCEDURE ReleaseActiveX ( cWindow, cControl )
 *-----------------------------------------------------------------------------*
+   
    LOCAL oActiveX
 
    IF _IsControlDefined(cControl, cWindow) .AND. GetControlType(cControl, cWindow) == "ACTIVEX"
@@ -225,6 +228,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION GetActiveXObject ( cWindow, cControl )
 *-----------------------------------------------------------------------------*
+   
    LOCAL RetVal
 
    IF GetControlType(cControl, cWindow) == "ACTIVEX"
@@ -244,6 +248,7 @@ RETURN RetVal
 *-----------------------------------------------------------------------------*
 FUNCTION _GetControlObject ( ControlName, ParentForm )
 *-----------------------------------------------------------------------------*
+   
    LOCAL i
 
    IF ( i := GetControlIndex(ControlName, ParentForm) ) == 0
@@ -322,7 +327,8 @@ RETURN Self
 METHOD Load() CLASS TActiveX
 
    LOCAL oError
-   LOCAL xObjeto, hSink
+   LOCAL xObjeto
+   LOCAL hSink
    LOCAL nHandle := GetFormHandle(::cWindowName)
 
    AtlAxWinInit()
@@ -357,7 +363,8 @@ RETURN .T.
 
 METHOD Adjust() CLASS TActiveX
 
-   LOCAL nAuxRight, nAuxBottom
+   LOCAL nAuxRight
+   LOCAL nAuxBottom
 
    nAuxRight := ( ::nOldWinWidth - ( ::nWidth + ::nCol ) )
    nAuxBottom := ( ::nOldWinHeight - ( ::nHeight + ::nRow ) )
@@ -429,6 +436,7 @@ METHOD EventMap( nMsg, xExec, oSelf )
 RETURN NIL
 
 METHOD OnError( ... )
+   
    LOCAL cMethod := __GetMessage() 
 
    IF cMethod[1] == "_"

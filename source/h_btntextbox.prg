@@ -69,12 +69,22 @@ FUNCTION _DefineBtnTextBox ( ControlName, ParentFormName, x, y, w, h, ;
       bold, italic, underline, strikeout, field, backcolor, fontcolor , ;
       invisible, notabstop, nId, disableedit, lDefault, cuetext, keepfocus, bInit )
 *-----------------------------------------------------------------------------*
-   LOCAL ParentFormHandle, aControlHandle := 0
-   LOCAL mVar, k, Style, lBtn2 := ISBLOCK( ProcedureName2 )
-   LOCAL FontHandle, cBmp, tmp
-   LOCAL WorkArea, blInit
+   
+   LOCAL ParentFormHandle
+   LOCAL aControlHandle := 0
+   LOCAL mVar
+   LOCAL k
+   LOCAL Style
+   LOCAL lBtn2 := ISBLOCK( ProcedureName2 )
+   LOCAL FontHandle
+   LOCAL cBmp
+   LOCAL tmp
+   LOCAL WorkArea
+   LOCAL blInit
    LOCAL lDialogInMemory
-   LOCAL oc := NIL, ow := NIL
+   LOCAL oc // := NIL
+   LOCAL ow // := NIL
+
 #ifdef _OBJECT_
    ow := oDlu2Pixel()
 #endif
@@ -328,7 +338,15 @@ RETURN nil
 *-----------------------------------------------------------------------------*
 FUNCTION InitDialogBtnTextBox( ParentName, ControlHandle, k )
 *-----------------------------------------------------------------------------*
-   LOCAL nMaxLength, Field, cValue, lNumeric, abitmap, BtnWidth, lBtn2, aControlHandle
+   
+   LOCAL nMaxLength
+   LOCAL Field
+   LOCAL cValue
+   LOCAL lNumeric
+   LOCAL abitmap
+   LOCAL BtnWidth
+   LOCAL lBtn2
+   LOCAL aControlHandle
 
    Field          := _HMG_aControlPageMap  [k]
    nMaxLength     := _HMG_aControlRangeMax  [k]
@@ -370,8 +388,10 @@ RETURN Nil
 *------------------------------------------------------------------------------*
 FUNCTION TBBtnEvents( hwndEdit, HwndBtn, nMsg )
 *------------------------------------------------------------------------------*
+   
    LOCAL ParentForm
-   LOCAL i, aHandle
+   LOCAL i
+   LOCAL aHandle
 
    i := AScan(_HMG_aControlSpacing, { |x| HB_ISARRAY(x) .AND. Len(x) > 0 .AND. HB_ISNUMERIC(x[1]) .AND. x [1] == hwndEdit })
 

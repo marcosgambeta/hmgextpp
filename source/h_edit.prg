@@ -181,7 +181,6 @@ STATIC _aNumeroCampo := {} // Numero de campo del listado.
  ****************************************************************************************/
 FUNCTION ABM(cArea, cTitulo, aCampos, aEditables, bGuardar, bBuscar)
 
-   // Declaración de variables locales.-------------------------------------------
    LOCAL nArea // Area anterior.
    LOCAL nRegistro // Numero de registro anterior.
    LOCAL nCampos := 0 // Numero de campos de la base.
@@ -477,7 +476,6 @@ RETURN NIL
  ***************************************************************************************/
 STATIC FUNCTION ABMRefresh(nEstado)
 
-   // Declaración de variables locales.-------------------------------------------
    LOCAL nItem // Indice de iteración.
 
    // Refresco del cuadro de dialogo.
@@ -569,7 +567,6 @@ RETURN NIL
  ****************************************************************************************/
 STATIC FUNCTION ABMEventos(nEvento)
 
-   // Declaración de variables locales.-------------------------------------------
    LOCAL nItem // Indice de iteración.
    LOCAL aValores := {} // Valores de los campos de edición.
    LOCAL nRegistro // Numero de registro.
@@ -759,7 +756,6 @@ RETURN NIL
  ***************************************************************************************/
 STATIC FUNCTION ABMBuscar()
 
-   // Declaración de variables locales.-------------------------------------------
    LOCAL nItem // Indice de iteración.
    LOCAL aCampo := {} // Nombre de los campos.
    LOCAL aTipoCampo := {} // Matriz con los tipos de campo.
@@ -841,7 +837,6 @@ RETURN NIL
  ***************************************************************************************/
 STATIC FUNCTION ABMBusqueda()
 
-   // Declaración de variables locales.-------------------------------------------
    LOCAL nRegistro := (_cArea)->(RecNo()) // Registro anterior.
 
    // Busca el registro.----------------------------------------------------------
@@ -868,7 +863,6 @@ RETURN NIL
  ***************************************************************************************/
 FUNCTION ABMListado()
 
-   // Declaración de variables locales.-------------------------------------------
    LOCAL nItem // Indice de iteración.
    LOCAL aCamposListado := {} // Matriz con los campos del listado.
    LOCAL aCamposTotales := {} // Matriz con los campos totales.
@@ -944,7 +938,6 @@ RETURN NIL
  ***************************************************************************************/
 FUNCTION ABMListadoEvento(nEvento)
 
-   // Declaración de variables locales.-------------------------------------------
    LOCAL cItem // Nombre del item.
    LOCAL nItem // Numero del item.
    LOCAL aCampo := {} // Nombres de los campos.
@@ -952,8 +945,8 @@ FUNCTION ABMListadoEvento(nEvento)
    LOCAL nAnchoCampo // Ancho del campo.
    LOCAL nAnchoTitulo // Ancho del título.
    LOCAL nTotal := 0 // Ancho total.
-   LOCAL nPrimero := wndABMListado .spnPrimero. VALUE // Registro inicial.
-   LOCAL nUltimo := wndABMListado .spnUltimo. VALUE // Registro final.
+   LOCAL nPrimero := wndABMListado.spnPrimero.VALUE // Registro inicial.
+   LOCAL nUltimo := wndABMListado.spnUltimo.VALUE // Registro final.
 
    // Control de eventos.
    SWITCH nEvento
@@ -1048,7 +1041,6 @@ RETURN NIL
  ***************************************************************************************/
 FUNCTION ABMListadoImprimir(lOrientacion, nPrimero, nUltimo)
 
-   // Declaración de variables locales.-------------------------------------------
    LOCAL nLineas := 1 // Numero de linea.
    LOCAL nPaginas // Numero de páginas.
    LOCAL nFila := 12 // Numero de fila.

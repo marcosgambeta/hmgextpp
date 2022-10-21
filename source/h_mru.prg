@@ -65,6 +65,7 @@ STATIC aMRU_File
 *-----------------------------------------------------------------------------*
 FUNCTION AddMRUItem( NewItem , action )
 *-----------------------------------------------------------------------------*
+   
    LOCAL result
 
    result := CheckForDuplicateMRU( NewItem )
@@ -80,6 +81,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION CheckForDuplicateMRU( NewItem )
 *-----------------------------------------------------------------------------*
+   
    LOCAL DuplicateMRU := NOFOUND
    LOCAL i
     
@@ -97,10 +99,15 @@ RETURN DuplicateMRU
 *-----------------------------------------------------------------------------*
 FUNCTION AddMenuElement( NewItem , cAction )
 *-----------------------------------------------------------------------------*
+   
    LOCAL action
-   LOCAL Caption , xCaption
-   LOCAL cyMRU_Id , cxMRU_Id
-   LOCAL x , n , cx
+   LOCAL Caption
+   LOCAL xCaption
+   LOCAL cyMRU_Id
+   LOCAL cxMRU_Id
+   LOCAL x
+   LOCAL n
+   LOCAL cx
 
    Caption := iif( Len(NewItem) < 40, NewItem, SubStr(NewItem, 1, 3) + "..." + SubStr(NewItem, Len(NewItem) - 34) )
    action := iif( cAction == NIL, {|| Nil }, &( "{|| " + Left(cAction, At("(", cAction)) + " " + Chr(34) + NewItem + Chr(34) + " ) }" ) )
@@ -146,6 +153,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION ReorderMRUList( DuplicateLocation )
 *-----------------------------------------------------------------------------*
+   
    LOCAL cxMRU_Id
 
    // Move entries previously "more recent" than the
@@ -161,6 +169,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION SaveMRUFileList()
 *-----------------------------------------------------------------------------*
+   
    LOCAL cFile
    LOCAL i
    
@@ -179,6 +188,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION _DefineMruItem ( caption , cIniFile , cSection , nMaxItems , action , name )
 *-----------------------------------------------------------------------------*
+   
    LOCAL aTmp := {}
    LOCAL cValue := ""
    LOCAL lExist := .F.
@@ -244,6 +254,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION ClearMRUList()
 *-----------------------------------------------------------------------------*
+   
    LOCAL cxMRU_Id
    LOCAL n
 

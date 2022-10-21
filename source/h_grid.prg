@@ -98,8 +98,8 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
    LOCAL inplace
    LOCAL lsort
    LOCAL lDialogInMemory
-   LOCAL oc := NIL
-   LOCAL ow := NIL
+   LOCAL oc // := NIL
+   LOCAL ow // := NIL
 
 #ifdef _OBJECT_
    ow := oDlu2Pixel()

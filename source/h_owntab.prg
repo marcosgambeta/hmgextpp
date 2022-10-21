@@ -52,11 +52,35 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 *------------------------------------------------------------------------------*
 FUNCTION OwnTabPaint( lParam )
 *------------------------------------------------------------------------------*
-   LOCAL hDC, hBrush, hOldFont, hImage
-   LOCAL aBkColor, aForeColor, aInactiveColor, aBmp, aMetr, aBtnRc
-   LOCAL oldTextColor, oldBkMode, nTextColor, bkColor
-   LOCAL i, nItemId, x1, y1, x2, y2, xp1, yp1, xp2, yp2
-   LOCAL lSelected, lBigFsize, lBigFsize2, lBigFsize3
+   
+   LOCAL hDC
+   LOCAL hBrush
+   LOCAL hOldFont
+   LOCAL hImage
+   LOCAL aBkColor
+   LOCAL aForeColor
+   LOCAL aInactiveColor
+   LOCAL aBmp
+   LOCAL aMetr
+   LOCAL aBtnRc
+   LOCAL oldTextColor
+   LOCAL oldBkMode
+   LOCAL nTextColor
+   LOCAL bkColor
+   LOCAL i
+   LOCAL nItemId
+   LOCAL x1
+   LOCAL y1
+   LOCAL x2
+   LOCAL y2
+   LOCAL xp1
+   LOCAL yp1
+   LOCAL xp2
+   LOCAL yp2
+   LOCAL lSelected
+   LOCAL lBigFsize
+   LOCAL lBigFsize2
+   LOCAL lBigFsize3
 
    hDC := GETOWNBTNDC( lParam )
 

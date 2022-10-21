@@ -61,6 +61,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 *-----------------------------------------------------------------------------*
 FUNCTION _SetGetLogFile( cFile )
 *-----------------------------------------------------------------------------*
+   
    LOCAL cVarName := "_HMG_" + SubStr(ProcName(), 8)
    LOCAL cOld := _AddNewGlobal( cVarName, NIL )
 
@@ -74,10 +75,15 @@ RETURN cOld
 *-----------------------------------------------------------------------------*
 FUNCTION _LogFile( lCrLf, ... )
 *-----------------------------------------------------------------------------*
-   LOCAL hFile, i, xVal, cTp
+   
+   LOCAL hFile
+   LOCAL i
+   LOCAL xVal
+   LOCAL cTp
    LOCAL aParams := hb_AParams()
    LOCAL nParams := Len(aParams)
    LOCAL cFile := hb_defaultValue(_SetGetLogFile(), GetStartUpFolder() + hb_ps() + "_MsgLog.txt")
+
    IF !Empty(cFile)
       hFile := iif( File( cFile ), FOpen( cFile, FO_READWRITE ), FCreate( cFile, FC_NORMAL ) )
       IF hFile == F_ERROR
@@ -119,6 +125,7 @@ RETURN .T.
 *-----------------------------------------------------------------------------*
 FUNCTION _BeginIni( cIniFile )
 *-----------------------------------------------------------------------------*
+   
    LOCAL hFile
 
    IF At( "\", cIniFile ) == 0
@@ -162,6 +169,7 @@ RETURN( 0 )
 *-----------------------------------------------------------------------------*
 FUNCTION _GetIni( cSection, cEntry, cDefault, uVar )
 *-----------------------------------------------------------------------------*
+   
    LOCAL cVar As String
 
    IF !Empty(_HMG_ActiveIniFile)
@@ -181,6 +189,7 @@ RETURN uVar
 *-----------------------------------------------------------------------------*
 FUNCTION _SetIni( cSection, cEntry, cValue )
 *-----------------------------------------------------------------------------*
+   
    LOCAL ret As Logical
 
    IF !Empty(_HMG_ActiveIniFile)
@@ -192,6 +201,7 @@ RETURN ret
 *-----------------------------------------------------------------------------*
 FUNCTION _DelIniEntry( cSection, cEntry )
 *-----------------------------------------------------------------------------*
+   
    LOCAL ret As Logical
 
    IF !Empty(_HMG_ActiveIniFile)
@@ -203,6 +213,7 @@ RETURN ret
 *-----------------------------------------------------------------------------*
 FUNCTION _DelIniSection( cSection )
 *-----------------------------------------------------------------------------*
+   
    LOCAL ret As Logical
 
    IF !Empty(_HMG_ActiveIniFile)
@@ -221,7 +232,12 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION GetBeginComment
 *-----------------------------------------------------------------------------*
-   LOCAL aLines, nLen, i, lTest := .T., cComment := ""
+   
+   LOCAL aLines
+   LOCAL nLen
+   LOCAL i
+   LOCAL lTest := .T.
+   LOCAL cComment := ""
 
    IF !Empty(_HMG_ActiveIniFile)
       aLines := hb_ATokens( StrTran(MemoRead( _HMG_ActiveIniFile ), CRLF, Chr( 10 )), Chr( 10 ) )
@@ -248,7 +264,12 @@ RETURN SubStr(cComment, 2)
 *-----------------------------------------------------------------------------*
 FUNCTION GetEndComment
 *-----------------------------------------------------------------------------*
-   LOCAL aLines, nLen, i, lTest := .T., cComment := ""
+   
+   LOCAL aLines
+   LOCAL nLen
+   LOCAL i
+   LOCAL lTest := .T.
+   LOCAL cComment := ""
 
    IF !Empty(_HMG_ActiveIniFile)
       aLines := hb_ATokens( StrTran(MemoRead( _HMG_ActiveIniFile ), CRLF, Chr( 10 )), Chr( 10 ) )
@@ -275,7 +296,12 @@ RETURN SubStr(cComment, 2)
 *-----------------------------------------------------------------------------*
 FUNCTION SetBeginComment( cComment )
 *-----------------------------------------------------------------------------*
-   LOCAL aLines, nLen, i, lTest := .T., cMemo := ""
+   
+   LOCAL aLines
+   LOCAL nLen
+   LOCAL i
+   LOCAL lTest := .T.
+   LOCAL cMemo := ""
 
    hb_default(@cComment, "")
 
@@ -329,7 +355,12 @@ RETURN cComment
 *-----------------------------------------------------------------------------*
 FUNCTION SetEndComment( cComment )
 *-----------------------------------------------------------------------------*
-   LOCAL aLines, nLen, i, lTest := .T., cMemo := ""
+   
+   LOCAL aLines
+   LOCAL nLen
+   LOCAL i
+   LOCAL lTest := .T.
+   LOCAL cMemo := ""
 
    hb_default(@cComment, "")
    cComment := AllTrim(cComment)
@@ -388,8 +419,10 @@ RETURN cComment
 *-----------------------------------------------------------------------------*
 FUNCTION xChar( xValue )
 *-----------------------------------------------------------------------------*
+   
    LOCAL cType := ValType(xValue)
-   LOCAL cValue := "", nDecimals := Set( _SET_DECIMALS )
+   LOCAL cValue := ""
+   LOCAL nDecimals := Set( _SET_DECIMALS )
 
    DO CASE // TODO: SWITCH
    CASE cType $  "CM"; cValue := xValue
@@ -407,6 +440,7 @@ RETURN cValue
 *-----------------------------------------------------------------------------*
 FUNCTION xValue( cValue, cType )
 *-----------------------------------------------------------------------------*
+   
    LOCAL xValue
 
    DO CASE // TODO: SWITCH
@@ -423,7 +457,11 @@ RETURN xValue
 *-----------------------------------------------------------------------------*
 FUNCTION AToC( aArray )
 *-----------------------------------------------------------------------------*
-   LOCAL elem, cElement, cType, cArray := ""
+   
+   LOCAL elem
+   LOCAL cElement
+   LOCAL cType
+   LOCAL cArray := ""
 
    FOR EACH elem IN aArray
       cElement := xChar( elem )
@@ -439,7 +477,10 @@ RETURN( "A" + Str(hb_ULen(cArray), 4) + cArray )
 *-----------------------------------------------------------------------------*
 FUNCTION CToA( cArray )
 *-----------------------------------------------------------------------------*
-   LOCAL cType, nLen, aArray := {}
+   
+   LOCAL cType
+   LOCAL nLen
+   LOCAL aArray := {}
 
    cArray := hb_USubStr(cArray, 6)    // strip off array and length
    WHILE hb_ULen(cArray) > 0
@@ -460,7 +501,9 @@ FUNCTION _GetSectionNames( cIniFile )
 *-----------------------------------------------------------------------------*
    // return 1-dimensional array with section list in cIniFile
    // or empty array if no sections are present
-   LOCAL aSectionList := {}, aLista
+   
+   LOCAL aSectionList := {}
+   LOCAL aLista
 
    IF File( cIniFile )
       aLista := _GetPrivateProfileSectionNames( cIniFile )
@@ -477,7 +520,11 @@ RETURN aSectionList
 FUNCTION _GetSection( cSection, cIniFile )
 *-----------------------------------------------------------------------------*
    // return 2-dimensional array with {key,value} pairs from section cSection in cIniFile
-   LOCAL aKeyValueList := {}, aLista, i, n
+   
+   LOCAL aKeyValueList := {}
+   LOCAL aLista
+   LOCAL i
+   LOCAL n
 
    IF File( cIniFile )
       aLista := _GetPrivateProfileSection( cSection, cIniFile )

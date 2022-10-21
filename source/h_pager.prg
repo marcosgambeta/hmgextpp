@@ -50,7 +50,10 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 *-----------------------------------------------------------------------------*
 FUNCTION _BeginPager( ControlName, ParentName, nWidth, nHeight, nScroll, cCaption, tooltip, vertical, autoscroll, backcolor )
 *-----------------------------------------------------------------------------*
-   LOCAL hRebar, ParentForm, ControlHandle
+   
+   LOCAL hRebar
+   LOCAL ParentForm
+   LOCAL ControlHandle
    LOCAL mVar
    LOCAL k
    LOCAL Id

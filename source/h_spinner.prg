@@ -56,12 +56,16 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
       horizontal, invisible, notabstop, bold, italic, underline, strikeout, ;
       wrap, readonly, increment, backcolor, fontcolor, cuetext, bInit )
 *-----------------------------------------------------------------------------*
-   LOCAL ControlHandle , FontHandle
+   
+   LOCAL ControlHandle
+   LOCAL FontHandle
    LOCAL cParentForm
    LOCAL RetArray
    LOCAL mVar
    LOCAL k
-   LOCAL oc := NIL, ow := NIL
+   LOCAL oc // := NIL
+   LOCAL ow // := NIL
+
 #ifdef _OBJECT_
    ow := oDlu2Pixel()
 #endif
@@ -207,6 +211,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION OSPINEVENTS( hWnd, nMsg, wParam, lParam )    // 2006.08.13 JD
 *-----------------------------------------------------------------------------*
+   
    LOCAL ParentForm
    LOCAL i
 

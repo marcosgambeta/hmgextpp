@@ -58,7 +58,9 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
       break, HelpId, invisible, notabstop, bold, italic, underline, strikeout, file, ;
       field, backcolor, fontcolor, plaintext, nohscroll, novscroll, select, vscroll )
 *-----------------------------------------------------------------------------*
-   LOCAL ControlHandle , FontHandle
+   
+   LOCAL ControlHandle
+   LOCAL FontHandle
    LOCAL cParentForm
    LOCAL mVar
    LOCAL k
@@ -247,6 +249,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 PROCEDURE _DataBaseRichEditBoxSave ( ControlName, ParentForm, typ )
 *-----------------------------------------------------------------------------*
+   
    LOCAL cTempFile := TempFile( GetTempFolder(), "txt" )
    LOCAL Field
    LOCAL i
@@ -272,6 +275,7 @@ RETURN
 *-----------------------------------------------------------------------------*
 FUNCTION _DataRichEditBoxSetValue ( ControlName, ParentForm, cRichValue, typ )
 *-----------------------------------------------------------------------------*
+   
    LOCAL cTempFile := TempFile( GetTempFolder(), "txt" )
 
    IF !Empty(cTempFile)
@@ -289,6 +293,7 @@ RETURN cRichValue
 *-----------------------------------------------------------------------------*
 FUNCTION _DataRichEditBoxGetValue ( ControlName, ParentForm, typ )
 *-----------------------------------------------------------------------------*
+   
    LOCAL cTempFile := TempFile( GetTempFolder(), "txt" )
    LOCAL cRichValue
 
@@ -305,6 +310,7 @@ RETURN cRichValue
 *-----------------------------------------------------------------------------*
 PROCEDURE _DataRichEditBoxOpen ( ControlName, ParentForm, cFile, typ )
 *-----------------------------------------------------------------------------*
+   
    LOCAL i
 
    IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0
@@ -320,6 +326,7 @@ RETURN
 *-----------------------------------------------------------------------------*
 PROCEDURE _DataRichEditBoxSave ( ControlName, ParentForm, cFile, typ )
 *-----------------------------------------------------------------------------*
+   
    LOCAL i
 
    IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0

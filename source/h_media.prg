@@ -51,6 +51,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 *-----------------------------------------------------------------------------*
 FUNCTION _DefinePlayer ( ControlName, ParentFormName, file, x, y, w, h, noasw, noasm, noed, nom, noo, nop, sha, shm, shn, shp, HelpId )
 *-----------------------------------------------------------------------------*
+   
    LOCAL ControlHandle
    LOCAL mVar
    LOCAL k
@@ -148,8 +149,11 @@ RETURN C_PlayWave( wave, r, s, ns, l, nd )
 *-----------------------------------------------------------------------------*
 FUNCTION GetAviFileSize( cFile )
 *-----------------------------------------------------------------------------*
-   LOCAL cStr1, cStr2
-   LOCAL nWidth, nHeight
+   
+   LOCAL cStr1
+   LOCAL cStr2
+   LOCAL nWidth
+   LOCAL nHeight
    LOCAL nFileHandle
 
    cStr1 := cStr2 := Space( 4 )
@@ -180,6 +184,7 @@ RETURN { nWidth, nHeight }
 *-----------------------------------------------------------------------------*
 FUNCTION GetAviResSize( cResName )
 *-----------------------------------------------------------------------------*
+   
    LOCAL aAviSize
    LOCAL cDiskFile
 
@@ -200,7 +205,9 @@ RETURN { aAviSize[1], aAviSize[2] }
 *-----------------------------------------------------------------------------*
 FUNCTION _DefineAnimateBox( ControlName, ParentFormName, x, y, w, h, autoplay, center, transparent, file, HelpId, border, backcolor, invisible, nId )
 *-----------------------------------------------------------------------------*
-   LOCAL ParentFormHandle , ControlHandle
+   
+   LOCAL ParentFormHandle
+   LOCAL ControlHandle
    LOCAL blInit
    LOCAL mVar
    LOCAL k
@@ -340,6 +347,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION InitDialogAnimateBox( ParentName, ControlHandle, k )
 *-----------------------------------------------------------------------------*
+   
    LOCAL File
 
    File := _HMG_aControlCaption [k]

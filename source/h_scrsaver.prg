@@ -57,7 +57,11 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 *-----------------------------------------------------------------------------*
 FUNCTION _BeginScrSaver( cSSaver, lNoShow, cInit, cRelease, cPaint, nTimer, aBackClr )
 *-----------------------------------------------------------------------------*
-   LOCAL a := {}, x := GetDesktopWidth(), y := GetDesktopHeight(), Dummy := ""
+   
+   LOCAL a := {}
+   LOCAL x := GetDesktopWidth()
+   LOCAL y := GetDesktopHeight()
+   LOCAL Dummy := ""
 
    PUBLIC _HMG_SCRSAVERDATA[5]
 
@@ -119,7 +123,9 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION _ActivateScrSaver( aForm, cParam )
 *-----------------------------------------------------------------------------*
-   LOCAL cFileScr, cFileDes
+   
+   LOCAL cFileScr
+   LOCAL cFileDes
 
    DEFAULT cParam TO iif( _ScrSaverInstall, "-i", "-s" )
 
@@ -190,6 +196,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION _ReleaseScrSaver( cRelease, cSSaver, cPaint )
 *-----------------------------------------------------------------------------*
+   
    LOCAL Dummy := ""
 
    IF cRelease != NIL
@@ -209,8 +216,11 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION _lValidScrSaver()
 *-----------------------------------------------------------------------------*
-   LOCAL oReg, nValue := 1, lRet, ;
-      cKey := "ScreenSave" + iif( _HMG_IsXPorLater, "rIsSecure", "UsePassword" )
+   
+   LOCAL oReg
+   LOCAL nValue := 1
+   LOCAL lRet
+   LOCAL cKey := "ScreenSave" + iif( _HMG_IsXPorLater, "rIsSecure", "UsePassword" )
 
    OPEN REGISTRY oReg KEY HKEY_CURRENT_USER SECTION "Control Panel\Desktop"
 

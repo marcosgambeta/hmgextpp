@@ -71,10 +71,31 @@ STATIC nGraphObj := 1, nPieObj := 1
 PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aData, cTitle, aYVals, nBarD, nWideB, nSep, nXRanges, ;
       l3D, lGrid, lxGrid, lyGrid, lxVal, lyVal, lLegends, aSeries, aColors, nType, lViewVal, cPicture, nLegendsWidth, lNoborder, lPrint )
 
-   LOCAL nI, nJ, nPos, nMax, nMin, nMaxBar, nDeep
-   LOCAL nRange, nSeries, nResH, nResV, nWide, aPoint, cNameObj
-   LOCAL nXMax, nXMin, nHigh, nRel, nZero, nRPos, nRNeg
-   LOCAL nClrFore  := GetSysColor( COLOR_WINDOWTEXT ), nClrBack := GetSysColor( COLOR_BTNFACE ), atemp, lRedraw := .F.
+   LOCAL nI
+   LOCAL nJ
+   LOCAL nPos
+   LOCAL nMax
+   LOCAL nMin
+   LOCAL nMaxBar
+   LOCAL nDeep
+   LOCAL nRange
+   LOCAL nSeries
+   LOCAL nResH
+   LOCAL nResV
+   LOCAL nWide
+   LOCAL aPoint
+   LOCAL cNameObj
+   LOCAL nXMax
+   LOCAL nXMin
+   LOCAL nHigh
+   LOCAL nRel
+   LOCAL nZero
+   LOCAL nRPos
+   LOCAL nRNeg
+   LOCAL nClrFore  := GetSysColor( COLOR_WINDOWTEXT )
+   LOCAL nClrBack := GetSysColor( COLOR_BTNFACE )
+   LOCAL atemp
+   LOCAL lRedraw := .F.
    LOCAL aClrFore := nRGB2Arr( nClrFore )
    LOCAL aClrBack := nRGB2Arr( nClrBack )
 
@@ -421,7 +442,8 @@ RETURN
 
 PROCEDURE EraseBarGraph ( Parent )
 
-   LOCAL cName, i := 1
+   LOCAL cName
+   LOCAL i := 1
 
    DO WHILE i < nGraphObj
       cName := "Obj_Name_" + hb_ntos( i++ )
@@ -435,7 +457,10 @@ RETURN
 
 STATIC PROCEDURE DrawBar( parent, nY, nX, nHigh, nWidth, l3D, nDeep, aColor )
 
-   LOCAL nI, nColTop, nShadow, nH := nHigh
+   LOCAL nI
+   LOCAL nColTop
+   LOCAL nShadow
+   LOCAL nH := nHigh
 
    nColTop := ClrShadow( RGB( aColor[1], aColor[2], aColor[3] ), 15 )
    nShadow := ClrShadow( nColTop, 15 )
@@ -521,7 +546,11 @@ RETURN( nMax )
 
 FUNCTION DetMaxVal( nNum )
 
-   LOCAL nE, nMax, nMan, nVal, nOffset
+   LOCAL nE
+   LOCAL nMax
+   LOCAL nMan
+   LOCAL nVal
+   LOCAL nOffset
 
    nE   := 9
    nNum := Abs( nNum )
@@ -552,7 +581,8 @@ RETURN ( nVal )
 
 FUNCTION ClrShadow( nColor, nFactor )
 
-   LOCAL aHSL, aRGB
+   LOCAL aHSL
+   LOCAL aRGB
 
    aHSL := RGB2HSL( GetRed( nColor ), GetGreen( nColor ), GetBlue( nColor ) )
    aHSL[3] -= nFactor
@@ -563,8 +593,11 @@ RETURN RGB( aRGB[1], aRGB[2], aRGB[3] )
 
 FUNCTION RGB2HSL( nR, nG, nB )
 
-   LOCAL nMax, nMin
-   LOCAL nH, nS, nL
+   LOCAL nMax
+   LOCAL nMin
+   LOCAL nH
+   LOCAL nS
+   LOCAL nL
 
    IF nR < 0
       nR := Abs( nR )
@@ -612,8 +645,11 @@ RETURN { nH, nS, nL }
 FUNCTION HSL2RGB( nH, nS, nL )
 
    LOCAL nFor
-   LOCAL nR, nG, nB
-   LOCAL nTmp1, nTmp2
+   LOCAL nR
+   LOCAL nG
+   LOCAL nB
+   LOCAL nTmp1
+   LOCAL nTmp2
    LOCAL aTmp3 := { 0, 0, 0 }
 
    nH /= 239
@@ -689,7 +725,10 @@ FUNCTION drawpiegraph( windowname, fromrow, fromcol, torow, tocol, series, aname
    LOCAL toradialcol
    LOCAL degrees := {}
    LOCAL cumulative := {}
-   LOCAL j, i, sum, ser_sum := 0
+   LOCAL j
+   LOCAL i
+   LOCAL sum
+   LOCAL ser_sum := 0
    LOCAL cname
    LOCAL backcolor
    LOCAL shadowcolor
@@ -899,7 +938,9 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 PROCEDURE ErasePieGraph( windowname )
 *-----------------------------------------------------------------------------*
-   LOCAL cname, i := 1
+   
+   LOCAL cname
+   LOCAL i := 1
 
    DO WHILE i < nPieObj
 
@@ -920,8 +961,10 @@ RETURN
 *-----------------------------------------------------------------------------*
 FUNCTION _PiePrint( cForm, fromrow, fromcol, torow, tocol, series, aname, colors, ctitle, depth, l3d, lxval, lsleg, cPicture, x, y, cLibrary, placement )
 *-----------------------------------------------------------------------------*
+   
    LOCAL b := _HMG_IsModalActive
    LOCAL FormName := "_Tmp_" + hb_ntos( _GetId() )
+
    _HMG_IsModalActive := .F.
 
    DEFINE WINDOW &FormName ;
@@ -945,8 +988,10 @@ RETURN NIL
 FUNCTION _GraphPrint( cForm, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aData, cTitle, aYVals, nBarD, nWideB, nSep, nXRanges, ;
       l3D, lGrid, lxGrid, lyGrid, lxVal, lyVal, lLegends, aSeries, aColors, nType, lViewVal, cPicture, nLegendsWidth, x, y, cLibrary )
 *-----------------------------------------------------------------------------*
+   
    LOCAL b := _HMG_IsModalActive
    LOCAL FormName := "_Tmp_" + hb_ntos( _GetId() )
+
    _HMG_IsModalActive := .F.
 
    DEFINE WINDOW &FormName ;
@@ -970,9 +1015,20 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION _bmpprint( cForm, x, y, nLibrary )
 *-----------------------------------------------------------------------------*
+   
    LOCAL cTempFile := TempFile( GetTempFolder(), "BMP" )
-   LOCAL aSize, nOrientation, lSuccess
-   LOCAL W, H, HO, VO, bw, bh, r, tW := 0, tH
+   LOCAL aSize
+   LOCAL nOrientation
+   LOCAL lSuccess
+   LOCAL W
+   LOCAL H
+   LOCAL HO
+   LOCAL VO
+   LOCAL bw
+   LOCAL bh
+   LOCAL r
+   LOCAL tW := 0
+   LOCAL tH
 
    SuppressKeyAndMouseEvents()
 
@@ -1079,10 +1135,23 @@ RETURN .T.
 *-----------------------------------------------------------------------------*
 FUNCTION PrintWindow(cWindowName, lPreview, ldialog, nRow, nCol, nWidth, nHeight)
 *-----------------------------------------------------------------------------*
-   LOCAL lSuccess, nOrientation
-   LOCAL TempName, W, H, HO, VO
-   LOCAL bw, bh, r, tw := 0, th
-   LOCAL ntop, nleft, nbottom, nright
+
+   LOCAL lSuccess
+   LOCAL nOrientation
+   LOCAL TempName
+   LOCAL W
+   LOCAL H
+   LOCAL HO
+   LOCAL VO
+   LOCAL bw
+   LOCAL bh
+   LOCAL r
+   LOCAL tw := 0
+   LOCAL th
+   LOCAL ntop
+   LOCAL nleft
+   LOCAL nbottom
+   LOCAL nright
 
    IF nRow == NIL .OR. ;
       nCol == NIL .OR. ;

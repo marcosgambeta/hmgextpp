@@ -10,7 +10,11 @@
 FUNCTION _DefineRating ( ControlName, ParentForm, x, y, w, h, nValue, aImages, nCnt, ;
       nSpace, tooltip, onchangeprocedure, border, resource, readonly, invisible, vertical )
 *-----------------------------------------------------------------------------*
-   LOCAL cParentForm, mVar, ControlHandle, k
+   
+   LOCAL cParentForm
+   LOCAL mVar
+   LOCAL ControlHandle
+   LOCAL k
 
    DEFAULT h TO 20
    DEFAULT w TO 100
@@ -109,7 +113,9 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 PROCEDURE _ReleaseRating ( cWindow, cControl )
 *-----------------------------------------------------------------------------*
-   LOCAL i, img_name
+   
+   LOCAL i
+   LOCAL img_name
 
    IF _IsControlDefined(cControl, cWindow)
 
@@ -128,7 +134,11 @@ RETURN
 FUNCTION _InitRating ( ParentForm, ControlName, x, y, w, h, nValue, aImages, nCnt, ;
       nSpace, tooltip, onchangeprocedure, border, readonly, invisible, vertical )
 *-----------------------------------------------------------------------------*
-   LOCAL i, img_name, col := x, row := y
+   
+   LOCAL i
+   LOCAL img_name
+   LOCAL col := x
+   LOCAL row := y
 
    DEFAULT nSpace := 0
 
@@ -187,7 +197,8 @@ RETURN _GetId()
 
 STATIC FUNCTION OnHoverRate( cWindow, cControl )
 
-   LOCAL i, img_name
+   LOCAL i
+   LOCAL img_name
    LOCAL select := Val( SubStr(This.Name, RAt("_", This.Name) + 1 ) )
 
    ClearRating( cWindow, cControl )
@@ -217,7 +228,8 @@ RETURN NIL
 
 STATIC FUNCTION OnSelectRate( cWindow, cControl, onchange )
 
-   LOCAL i, img_name
+   LOCAL i
+   LOCAL img_name
    LOCAL pressed := GetProperty( cWindow, cControl, "Value" )
 
    IF pressed > 0
@@ -236,7 +248,8 @@ RETURN NIL
 
 FUNCTION ClearRating( cWindow, cControl )
 
-   LOCAL i, img_name
+   LOCAL i
+   LOCAL img_name
    LOCAL nCount := GetControlId(cControl, cWindow)
 
    FOR i := 1 TO nCount

@@ -74,7 +74,10 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
       edit, dynamicforecolor, dynamicbackcolor, aWhenFields, nId, aImageHeader, NoTabStop, ;
       inputitems, displayitems, doublebuffer, columnsort, bInit, aPict, aInputMask)
 *-----------------------------------------------------------------------------*
-   LOCAL ParentFormHandle , ControlHandle , FontHandle
+
+   LOCAL ParentFormHandle
+   LOCAL ControlHandle
+   LOCAL FontHandle
    LOCAL blInit
    LOCAL mVar
    LOCAL k
@@ -83,7 +86,9 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
    LOCAL i
    LOCAL lsort
    LOCAL lDialogInMemory
-   LOCAL oc := NIL, ow := NIL
+   LOCAL oc // := NIL
+   LOCAL ow // := NIL
+
 #ifdef _OBJECT_
    ow := oDlu2Pixel()
 #endif
@@ -363,12 +368,21 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION InitDialogBrowse( ParentName, ControlHandle, i )
 *-----------------------------------------------------------------------------*
-   LOCAL ParentFormHandle , ScrollBarHandle , ScrollBarButtonHandle
-   LOCAL aJust , aImageHeader
+   
+   LOCAL ParentFormHandle
+   LOCAL ScrollBarHandle
+   LOCAL ScrollBarButtonHandle
+   LOCAL aJust
+   LOCAL aImageHeader
    LOCAL wBitmap
    LOCAL hsum := 0
-   LOCAL nogrid , doublebuffer
-   LOCAL x , w , y , h , z
+   LOCAL nogrid
+   LOCAL doublebuffer
+   LOCAL x
+   LOCAL w
+   LOCAL y
+   LOCAL h
+   LOCAL z
 
    x := _HMG_aControlCol[i]
    w := _HMG_aControlWidth[i]
@@ -446,6 +460,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 STATIC PROCEDURE HMG_OrdCreate( i )
 *-----------------------------------------------------------------------------*
+   
    LOCAL _Alias
    LOCAL _BrowseArea
    LOCAL nColumn
@@ -501,6 +516,7 @@ RETURN
 *-----------------------------------------------------------------------------*
 PROCEDURE HMG_SetOrder( nColumn, lDescend )
 *-----------------------------------------------------------------------------*
+   
    LOCAL cFormName := ThisWindow.Name
    LOCAL cControlName := This.Name
    LOCAL _Alias
@@ -556,17 +572,31 @@ RETURN
 *-----------------------------------------------------------------------------*
 PROCEDURE _BrowseUpdate( ControlName, ParentName, z )
 *-----------------------------------------------------------------------------*
-   LOCAL aDisplayItems, aDisplayItemsLengths, aProcessDisplayItems
-   LOCAL aTemp , _BrowseRecMap := {}
-   LOCAL cTemp , Fields
-   LOCAL First , Image , _Rec
-   LOCAL dBc , dFc
-   LOCAL processdbc , processdfc
-   LOCAL ColorMap , ColorRow
-   LOCAL fcolormap , fcolorrow
+   
+   LOCAL aDisplayItems
+   LOCAL aDisplayItemsLengths
+   LOCAL aProcessDisplayItems
+   LOCAL aTemp
+   LOCAL _BrowseRecMap := {}
+   LOCAL cTemp
+   LOCAL Fields
+   LOCAL First
+   LOCAL Image
+   LOCAL _Rec
+   LOCAL dBc
+   LOCAL dFc
+   LOCAL processdbc
+   LOCAL processdfc
+   LOCAL ColorMap
+   LOCAL ColorRow
+   LOCAL fcolormap
+   LOCAL fcolorrow
    LOCAL lFound
    LOCAL PageLength
-   LOCAL i , x , j , k
+   LOCAL i
+   LOCAL x
+   LOCAL j
+   LOCAL k
    LOCAl aPict
 
    i := iif( PCount() == 2 , GetControlIndex(ControlName, ParentName) , z )
@@ -578,7 +608,7 @@ PROCEDURE _BrowseUpdate( ControlName, ParentName, z )
    Fields := _HMG_aControlRangeMin[i]
 
    aDisplayItems := _HMG_aControlMiscData1[i] [14]
-  
+
    aPict := _HMG_aControlMiscData1[i] [ 21 ]  // add jsz
 
    aProcessDisplayItems := Array( Len(Fields) )
@@ -751,6 +781,7 @@ RETURN
 *-----------------------------------------------------------------------------*
 FUNCTION _GetBrowseFieldValue(cTemp, cPict)  // add jsz   param
 *-----------------------------------------------------------------------------*
+   
    LOCAL cRet := "Nil"
    LOCAL cType := _TypeEx ( cTemp )
 
@@ -800,6 +831,7 @@ RETURN cRet
 *-----------------------------------------------------------------------------*
 FUNCTION _GetBrowseFnValue(cTemp, cPict)  // add jsz   param
 *-----------------------------------------------------------------------------*
+   
    LOCAL cRet := "Nil"
 
    SWITCH ValType(cTemp)
@@ -826,6 +858,7 @@ RETURN cRet
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION _TypeEx ( cTemp )
 *-----------------------------------------------------------------------------*
+   
    LOCAL aStruct
    LOCAL nFieldPos
 
@@ -837,9 +870,16 @@ RETURN iif( nFieldPos > 0, aStruct [nFieldPos] [DBS_TYPE], Type(cTemp) )
 *-----------------------------------------------------------------------------*
 PROCEDURE _BrowseNext ( ControlName , ParentForm , z )
 *-----------------------------------------------------------------------------*
-   LOCAL _Alias , _RecNo , _BrowseHandle , _BrowseArea , _BrowseRecMap , _DeltaScroll
+   
+   LOCAL _Alias
+   LOCAL _RecNo
+   LOCAL _BrowseHandle
+   LOCAL _BrowseArea
+   LOCAL _BrowseRecMap
+   LOCAL _DeltaScroll
    LOCAL PageLength
-   LOCAL i , s
+   LOCAL i
+   LOCAL s
 
    i := iif( PCount() == 2 , GetControlIndex(ControlName, ParentForm) , z )
 
@@ -891,7 +931,13 @@ RETURN
 *-----------------------------------------------------------------------------*
 PROCEDURE _BrowsePrior ( ControlName , ParentForm , z )
 *-----------------------------------------------------------------------------*
-   LOCAL _Alias , _RecNo , _BrowseHandle , _BrowseArea , _BrowseRecMap , _DeltaScroll
+   
+   LOCAL _Alias
+   LOCAL _RecNo
+   LOCAL _BrowseHandle
+   LOCAL _BrowseArea
+   LOCAL _BrowseRecMap
+   LOCAL _DeltaScroll
    LOCAL i
 
    i := iif( PCount() == 2 , GetControlIndex(ControlName, ParentForm) , z )
@@ -937,7 +983,12 @@ RETURN
 *-----------------------------------------------------------------------------*
 PROCEDURE _BrowseHome(ControlName, ParentForm, z)
 *-----------------------------------------------------------------------------*
-   LOCAL _Alias , _RecNo , _BrowseHandle , _BrowseArea , _DeltaScroll
+   
+   LOCAL _Alias
+   LOCAL _RecNo
+   LOCAL _BrowseHandle
+   LOCAL _BrowseArea
+   LOCAL _DeltaScroll
    LOCAL i
 
    i := iif( PCount() == 2 , GetControlIndex(ControlName, ParentForm) , z )
@@ -974,7 +1025,13 @@ RETURN
 *-----------------------------------------------------------------------------*
 PROCEDURE _BrowseEnd(ControlName, ParentForm, z)
 *-----------------------------------------------------------------------------*
-   LOCAL _Alias , _RecNo , _BrowseHandle , _BrowseArea , _DeltaScroll , _BottomRec
+   
+   LOCAL _Alias
+   LOCAL _RecNo
+   LOCAL _BrowseHandle
+   LOCAL _BrowseArea
+   LOCAL _DeltaScroll
+   LOCAL _BottomRec
    LOCAL i
 
    i := iif( PCount() == 2 , GetControlIndex(ControlName, ParentForm) , z )
@@ -1013,8 +1070,15 @@ RETURN
 *-----------------------------------------------------------------------------*
 PROCEDURE _BrowseUp ( ControlName , ParentForm , z )
 *-----------------------------------------------------------------------------*
-   LOCAL _Alias , _RecNo , _BrowseHandle , _BrowseArea , _BrowseRecMap , _DeltaScroll
-   LOCAL i , s
+   
+   LOCAL _Alias
+   LOCAL _RecNo
+   LOCAL _BrowseHandle
+   LOCAL _BrowseArea
+   LOCAL _BrowseRecMap
+   LOCAL _DeltaScroll
+   LOCAL i
+   LOCAL s
 
    i := iif( PCount() == 2 , GetControlIndex(ControlName, ParentForm) , z )
 
@@ -1070,9 +1134,16 @@ RETURN
 *-----------------------------------------------------------------------------*
 PROCEDURE _BrowseDown ( ControlName , ParentForm , z )
 *-----------------------------------------------------------------------------*
-   LOCAL _Alias , _RecNo , _BrowseHandle , _BrowseArea , _BrowseRecMap , _DeltaScroll
+   
+   LOCAL _Alias
+   LOCAL _RecNo
+   LOCAL _BrowseHandle
+   LOCAL _BrowseArea
+   LOCAL _BrowseRecMap
+   LOCAL _DeltaScroll
    LOCAL PageLength
-   LOCAL i , s
+   LOCAL i
+   LOCAL s
 
    i := iif( PCount() == 2 , GetControlIndex(ControlName, ParentForm) , z )
 
@@ -1134,8 +1205,15 @@ RETURN
 *-----------------------------------------------------------------------------*
 PROCEDURE _BrowseRefresh ( ControlName , ParentForm , z )
 *-----------------------------------------------------------------------------*
-   LOCAL _Alias , _RecNo , _BrowseHandle , _BrowseArea , _DeltaScroll
-   LOCAL i , s , v
+   
+   LOCAL _Alias
+   LOCAL _RecNo
+   LOCAL _BrowseHandle
+   LOCAL _BrowseArea
+   LOCAL _DeltaScroll
+   LOCAL i
+   LOCAL s
+   LOCAL v
 
    i := iif( PCount() == 2 , GetControlIndex(ControlName, ParentForm) , z )
 
@@ -1213,8 +1291,14 @@ RETURN
 *-----------------------------------------------------------------------------*
 PROCEDURE _BrowseSetValue(ControlName, ParentForm, Value, z, mp)
 *-----------------------------------------------------------------------------*
-   LOCAL _Alias , _RecNo , _BrowseHandle , _BrowseArea , _DeltaScroll
-   LOCAL i , m
+   
+   LOCAL _Alias
+   LOCAL _RecNo
+   LOCAL _BrowseHandle
+   LOCAL _BrowseArea
+   LOCAL _DeltaScroll
+   LOCAL i
+   LOCAL m
 
    IF Value <= 0
       RETURN
@@ -1304,7 +1388,9 @@ RETURN
 *-----------------------------------------------------------------------------*
 FUNCTION _BrowseGetValue(ControlName, ParentForm, z)
 *-----------------------------------------------------------------------------*
-   LOCAL _BrowseRecMap , _BrowseArea
+   
+   LOCAL _BrowseRecMap
+   LOCAL _BrowseArea
    LOCAL i
 
    i := iif( PCount() == 2 , GetControlIndex(ControlName, ParentForm) , z )
@@ -1326,7 +1412,12 @@ RETURN 0
 *-----------------------------------------------------------------------------*
 FUNCTION _BrowseDelete(ControlName, ParentForm, z)
 *-----------------------------------------------------------------------------*
-   LOCAL _BrowseRecMap , _Alias , _RecNo , _BrowseArea , lock
+   
+   LOCAL _BrowseRecMap
+   LOCAL _Alias
+   LOCAL _RecNo
+   LOCAL _BrowseArea
+   LOCAL lock
    LOCAL Value
    LOCAL i
 
@@ -1403,15 +1494,42 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock , append , inplace , InputItems )
 *-----------------------------------------------------------------------------*
-   LOCAL BrowseArea , i
+
+   LOCAL BrowseArea
+   LOCAL i
 #ifdef HMG_LEGACY_ON
-   LOCAL actpos := { 0, 0, 0, 0 } , h , GRow , GCol , GWidth , Col , ControlName , j , FormName , item
-   LOCAL Title , aLabels , aInitValues := {} , aFormats := {} , aResults , z , tvar , BackRec , aStru
-   LOCAL svar , q , BackArea , TmpNames := {} , NewRec := 0 , MixedFields := .F.
-   PRIVATE aWhen , aWhenVarNames
+   LOCAL actpos := { 0, 0, 0, 0 }
+   LOCAL h
+   LOCAL GRow
+   LOCAL GCol
+   LOCAL GWidth
+   LOCAL Col
+   LOCAL ControlName
+   LOCAL j
+   LOCAL FormName
+   LOCAL item
+   LOCAL Title
+   LOCAL aLabels
+   LOCAL aInitValues := {}
+   LOCAL aFormats := {}
+   LOCAL aResults
+   LOCAL z
+   LOCAL tvar
+   LOCAL BackRec
+   LOCAL aStru
+   LOCAL svar
+   LOCAL q
+   LOCAL BackArea
+   LOCAL TmpNames := {}
+   LOCAL NewRec := 0
+   LOCAL MixedFields := .F.
+
+   PRIVATE aWhen
+   PRIVATE aWhenVarNames
 #else
    hb_default(@inplace, .T.)
 #endif
+
    IF LISTVIEW_GETFIRSTITEM ( GridHandle ) == 0
       IF append != NIL
          IF append == .F.
@@ -1424,7 +1542,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
    BrowseArea := _HMG_aControlSpacing[i]
 
    IF ( BrowseArea )->( dbInfo( DBI_ISDBF ) ) .AND. ( BrowseArea )->( dbInfo( DBI_ISREADONLY ) )
-      RETURN Nil            
+      RETURN Nil
    ENDIF
 
    IF InPlace .OR. _HMG_MainClientMDIHandle != 0  // GF HMG 64
@@ -1648,7 +1766,15 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION _EditRecord(Title, aLabels, aValues, aFormats, row, col, aValid, TmpNames, aValidMessages, aReadOnly, h)
 *-----------------------------------------------------------------------------*
-   LOCAL i, ControlRow, e := 0, LN, CN, ControlFocused := "Control_1", th, lFirstEnabledControl := .T.
+   
+   LOCAL i
+   LOCAL ControlRow
+   LOCAL e := 0
+   LOCAL LN
+   LOCAL CN
+   LOCAL ControlFocused := "Control_1"
+   LOCAL th
+   LOCAL lFirstEnabledControl := .T.
 
    PRIVATE l := Len(aLabels)
    PRIVATE aResult [l]
@@ -1811,10 +1937,12 @@ RETURN ( aResult )
 *-----------------------------------------------------------------------------*
 STATIC PROCEDURE _WHENEVAL()
 *-----------------------------------------------------------------------------*
+   
    LOCAL ControlName
    LOCAL mVar
    LOCAL Result
-   LOCAL i, x
+   LOCAL i
+   LOCAL x
 
    IF HB_ISARRAY(aWhen)
 
@@ -1859,9 +1987,11 @@ RETURN
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION _EditRecordOk ( aValid , TmpNames , aValidMessages )
 *-----------------------------------------------------------------------------*
+   
    LOCAL ControlName
    LOCAL mVar
-   LOCAL i , l
+   LOCAL i
+   LOCAL l
 
    l := Len(aResult)
 
@@ -1934,10 +2064,31 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock , append , aInputItems )
 *-----------------------------------------------------------------------------*
-   LOCAL GridCol , GridRow , i , nrec , _GridWorkArea , BackArea , BackRec
-   LOCAL _GridFields , FieldName , CellData := "" , CellColIndex
-   LOCAL aStruct , Width , Decimals , sFieldname , ControlType
-   LOCAL Ldelta := 0 , aTemp , E , r , p , lInputItems := .F. , aItems := {} , aValues := {}
+   
+   LOCAL GridCol
+   LOCAL GridRow
+   LOCAL i
+   LOCAL nrec
+   LOCAL _GridWorkArea
+   LOCAL BackArea
+   LOCAL BackRec
+   LOCAL _GridFields
+   LOCAL FieldName
+   LOCAL CellData := ""
+   LOCAL CellColIndex
+   LOCAL aStruct
+   LOCAL Width
+   LOCAL Decimals
+   LOCAL sFieldname
+   LOCAL ControlType
+   LOCAL Ldelta := 0
+   LOCAL aTemp
+   LOCAL E
+   LOCAL r
+   LOCAL p
+   LOCAL lInputItems := .F.
+   LOCAL aItems := {}
+   LOCAL aValues := {}
    LOCAL aEnabledTypes := { "N", "C", "D", "L", "M" }
    LOCAL aInputMask
 
@@ -2315,6 +2466,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 STATIC PROCEDURE _InPlaceEditOk ( i , r , aValid , CellColIndex , sFieldName , AreaName , aValidMessages , lock , ControlType , aInputItems )
 *-----------------------------------------------------------------------------*
+   
    LOCAL mVar
    LOCAL TmpName
    LOCAL b
@@ -2455,9 +2607,12 @@ RETURN
 *-----------------------------------------------------------------------------*
 PROCEDURE ProcessInPlaceKbdEdit( i )
 *-----------------------------------------------------------------------------*
+   
    LOCAL IPE_MAXCOL
    LOCAL TmpRow
-   LOCAL r, xs, xd
+   LOCAL r
+   LOCAL xs
+   LOCAL xd
 
    IF LISTVIEW_GETFIRSTITEM ( _HMG_aControlHandles[i] ) == 0
       RETURN
@@ -2557,7 +2712,11 @@ RETURN
 *-----------------------------------------------------------------------------*
 STATIC PROCEDURE _BrowseSync(i)
 *-----------------------------------------------------------------------------*
-   LOCAL _Alias , _BrowseArea , _RecNo , _CurrentValue
+   
+   LOCAL _Alias
+   LOCAL _BrowseArea
+   LOCAL _RecNo
+   LOCAL _CurrentValue
 
    _Alias := Alias()
    _BrowseArea := _HMG_aControlSpacing[i]
@@ -2592,7 +2751,11 @@ RETURN
 *-----------------------------------------------------------------------------*
 STATIC PROCEDURE _BrowseInPlaceAppend(ControlName, ParentForm, z)
 *-----------------------------------------------------------------------------*
-   LOCAL _Alias , _BrowseArea , _RecNo , _NewRec
+   
+   LOCAL _Alias
+   LOCAL _BrowseArea
+   LOCAL _RecNo
+   LOCAL _NewRec
    LOCAL aTemp
    LOCAL i
 
@@ -2643,6 +2806,7 @@ RETURN
 *-----------------------------------------------------------------------------*
 STATIC PROCEDURE _BrowseVscrollUpdate(i)
 *-----------------------------------------------------------------------------*
+   
    LOCAL ActualRecord
    LOCAL RecordCount
    LOCAL KeyCount
@@ -2676,6 +2840,7 @@ RETURN
 *-----------------------------------------------------------------------------*
 PROCEDURE _BrowseVscrollFastUpdate(i, d)
 *-----------------------------------------------------------------------------*
+   
    LOCAL ActualRecord
    LOCAL RecordCount
 
@@ -2702,6 +2867,7 @@ RETURN
 *-----------------------------------------------------------------------------*
 FUNCTION _SetGetBrowseProperty ( ControlName, ParentForm, nId, Value )
 *-----------------------------------------------------------------------------*
+   
    LOCAL i := GetControlIndex(ControlName, ParentForm)
    LOCAL RetVal := .T.
 

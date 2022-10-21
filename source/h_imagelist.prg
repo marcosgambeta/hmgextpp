@@ -54,8 +54,15 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 *-----------------------------------------------------------------------------*
 FUNCTION _DefineImageList ( ControlName , ParentForm , w , h , aImage , aImageMask , aColor , ImageCount , mask )
 *-----------------------------------------------------------------------------*
-   LOCAL i , mVar , maskimage , color , k
-   LOCAL ControlHandles , id , PosImage
+   
+   LOCAL i
+   LOCAL mVar
+   LOCAL maskimage
+   LOCAL color
+   LOCAL k
+   LOCAL ControlHandles
+   LOCAL id
+   LOCAL PosImage
 
    hb_default(@w, 24)
    hb_default(@h, 24)
@@ -166,7 +173,10 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION _AddImageToImageList ( ControlName, ParentControl, Image, MaskImage )
 *-----------------------------------------------------------------------------*
-   LOCAL w , h , c
+   
+   LOCAL w
+   LOCAL h
+   LOCAL c
 
    w := _GetControlWidth(ControlName, ParentControl)
    h := _GetControlHeight(ControlName, ParentControl)
@@ -177,7 +187,11 @@ RETURN IL_Add( c , image , hb_defaultValue(maskimage, "") , w , h )
 *-----------------------------------------------------------------------------*
 FUNCTION _AddImageMaskedToImageList ( ControlName, ParentControl, Image, aColor )
 *-----------------------------------------------------------------------------*
-   LOCAL w, h, c, color := 0
+   
+   LOCAL w
+   LOCAL h
+   LOCAL c
+   LOCAL color := 0
 
    w := _GetControlWidth(ControlName, ParentControl)
    h := _GetControlHeight(ControlName, ParentControl)
@@ -191,7 +205,9 @@ RETURN IL_AddMasked( c , image , color , w , h )
 *-----------------------------------------------------------------------------*
 FUNCTION _ImageListSetBkColor ( ControlName, ParentControl, aColor )
 *-----------------------------------------------------------------------------*
-   LOCAL c, color := 0
+   
+   LOCAL c
+   LOCAL color := 0
 
    c := GetControlHandle(ControlName, ParentControl)
    IF IsArrayRGB(aColor)
@@ -203,7 +219,9 @@ RETURN IL_SetBkColor( c, color )
 *-----------------------------------------------------------------------------*
 FUNCTION _EraseImage ( ControlName, ParentControl, ix, iy )
 *-----------------------------------------------------------------------------*
-   LOCAL w, h
+   
+   LOCAL w
+   LOCAL h
 
    w := _GetControlWidth(ControlName, ParentControl)
    h := _GetControlHeight(ControlName, ParentControl)
@@ -214,7 +232,9 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION _BeginDragImage ( ControlName, ParentControl, imageindex, ix, iy )
 *-----------------------------------------------------------------------------*
-   LOCAL c, h
+   
+   LOCAL c
+   LOCAL h
 
    c := GetControlHandle(ControlName, ParentControl)
    h := GetFormHandle(ParentControl)

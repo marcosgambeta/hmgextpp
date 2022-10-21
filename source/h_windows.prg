@@ -871,6 +871,7 @@ FUNCTION _SetWindowSizePos(FormName, row, col, width, height)
 #ifdef _PANEL_
    LOCAL lspang := (ISNUMBER(row) .AND. ISNUMBER(col) .AND. ISNUMBER(width) .AND. ISNUMBER(height))
 #endif
+
    GetWindowRect(hWnd, /*@*/actpos)
 
    col := IFNIL(col, actpos[1], col)
@@ -1715,8 +1716,7 @@ _hmg_OnHideFocusManagement(i)
 */
 PROCEDURE _hmg_OnHideFocusManagement(i)
 
-   LOCAL bEnableWindow := {|y, z|iif(_HMG_aFormDeleted[z] == .F., ;
-      EnableWindow(_HMG_aFormhandles[z]),), HB_SYMBOL_UNUSED(y)}
+   LOCAL bEnableWindow := {|y, z|iif(_HMG_aFormDeleted[z] == .F., EnableWindow(_HMG_aFormhandles[z]),), HB_SYMBOL_UNUSED(y)}
    LOCAL x
 
    IF _HMG_aFormParentHandle[i] == 0

@@ -59,7 +59,10 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
       readonly, break, HelpId, invisible, notabstop, bold, italic, underline, ;
       strikeout, field, backcolor, fontcolor, novscroll, nohscroll, nId, bInit )
 *-----------------------------------------------------------------------------*
-   LOCAL ParentFormHandle , ControlHandle , FontHandle
+   
+   LOCAL ParentFormHandle
+   LOCAL ControlHandle
+   LOCAL FontHandle
    LOCAL ContainerHandle := 0
    LOCAL WorkArea
    LOCAL mVar
@@ -68,7 +71,9 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
    LOCAL blInit
    LOCAL i
    LOCAL lDialogInMemory
-   LOCAL oc := NIL, ow := NIL
+   LOCAL oc // := NIL
+   LOCAL ow // := NIL
+
 #ifdef _OBJECT_
    ow := oDlu2Pixel()
 #endif
@@ -320,7 +325,9 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 PROCEDURE _DataEditBoxRefresh ( i )
 *-----------------------------------------------------------------------------*
-   LOCAL Field := _HMG_aControlPageMap[i], icp
+   
+   LOCAL Field := _HMG_aControlPageMap[i]
+   LOCAL icp
 
    IF Field != NIL
       _SetValue(, , &Field, i)
@@ -339,6 +346,7 @@ RETURN
 *-----------------------------------------------------------------------------*
 FUNCTION InitDialogEdit( ParentName, ControlHandle, k )
 *-----------------------------------------------------------------------------*
+   
    LOCAL maxlength
    LOCAL readonly
 

@@ -58,7 +58,7 @@ RETURN Self
 METHOD Execute() CLASS TSimpleTaskDialog
 
    LOCAL nResult
-   LOCAL nButton := NIL
+   LOCAL nButton // := NIL
 
    ::lError        := .T.
    ::nButtonResult := NIL
@@ -660,6 +660,7 @@ RETURN ::aConfig[ TDC_CALLBACK ]
 METHOD Flags( nFlags ) CLASS TTaskDialog
 
    LOCAL nOldVal := ::aConfig[ TDC_TASKDIALOG_FLAGS ]
+   
    IF !::lActive
       IF HB_ISNUMERIC(nFlags)
          ::aConfig[ TDC_TASKDIALOG_FLAGS ] := nFlags
@@ -677,7 +678,8 @@ RETURN nOldVal
  */
 METHOD AllowDialogCancellation( lNewVal ) CLASS TTaskDialog
 
-   LOCAL nCurFlags := ::Flags(), lOldVal
+   LOCAL nCurFlags := ::Flags()
+   LOCAL lOldVal
    LOCAL nNewFlags
 
    hb_default(@nCurFlags, 0)
@@ -699,7 +701,8 @@ RETURN lOldVal
  */
 METHOD CanBeMinimized( lNewVal ) CLASS TTaskDialog
 
-   LOCAL nCurFlags := ::Flags(), lOldVal
+   LOCAL nCurFlags := ::Flags()
+   LOCAL lOldVal
    LOCAL nNewFlags
 
    hb_default(@nCurFlags, 0)
@@ -733,7 +736,8 @@ RETURN lOldVal
  */
 METHOD EnableHyperlinks( lNewVal ) CLASS TTaskDialog
 
-   LOCAL nCurFlags := ::Flags(), lOldVal
+   LOCAL nCurFlags := ::Flags()
+   LOCAL lOldVal
    LOCAL nNewFlags
 
    hb_default(@nCurFlags, 0)
@@ -758,7 +762,8 @@ RETURN lOldVal
  */
 METHOD ExpandedByDefault( lNewVal ) CLASS TTaskDialog
 
-   LOCAL nCurFlags := ::Flags(), lOldVal
+   LOCAL nCurFlags := ::Flags()
+   LOCAL lOldVal
    LOCAL nNewFlags
 
    hb_default(@nCurFlags, 0)
@@ -785,7 +790,8 @@ RETURN lOldVal
  */
 METHOD ExpandFooterArea( lNewVal ) CLASS TTaskDialog
 
-   LOCAL nCurFlags := ::Flags(), lOldVal
+   LOCAL nCurFlags := ::Flags()
+   LOCAL lOldVal
    LOCAL nNewFlags
 
    hb_default(@nCurFlags, 0)
@@ -807,7 +813,8 @@ RETURN lOldVal
  */
 METHOD NoDefaultRadioButton( lNewVal ) CLASS TTaskDialog
 
-   LOCAL nCurFlags := ::Flags(), lOldVal
+   LOCAL nCurFlags := ::Flags()
+   LOCAL lOldVal
    LOCAL nNewFlags
 
    hb_default(@nCurFlags, 0)
@@ -833,7 +840,8 @@ RETURN lOldVal
  */
 METHOD PositionRelativeToWindow(lNewVal) CLASS TTaskDialog
 
-   LOCAL nCurFlags := ::Flags(), lOldVal
+   LOCAL nCurFlags := ::Flags()
+   LOCAL lOldVal
    LOCAL nNewFlags
 
    hb_default(@nCurFlags, 0)
@@ -855,7 +863,8 @@ RETURN lOldVal
  */
 METHOD RightToLeftLayout( lNewVal ) CLASS TTaskDialog
 
-   LOCAL nCurFlags := ::Flags(), lOldVal
+   LOCAL nCurFlags := ::Flags()
+   LOCAL lOldVal
    LOCAL nNewFlags
 
    hb_default(@nCurFlags, 0)
@@ -879,7 +888,8 @@ RETURN lOldVal
  */
 METHOD VerificationEnabled( lNewVal ) CLASS TTaskDialog
 
-   LOCAL nCurFlags := ::Flags(), lOldVal
+   LOCAL nCurFlags := ::Flags()
+   LOCAL lOldVal
    LOCAL nNewFlags
 
    hb_default(@nCurFlags, 0)

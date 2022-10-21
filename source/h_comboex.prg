@@ -70,16 +70,24 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
       aImage, ListWidth, OnListDisplayProcedure, OnListCloseProcedure, ;
       backcolor, fontcolor, ImageList, nItemHeight, bInit, notrans )
 *-----------------------------------------------------------------------------*
-   LOCAL ControlHandle , FontHandle
-   LOCAL cParentForm , mVar
-   LOCAL i , k
+   
+   LOCAL ControlHandle
+   LOCAL FontHandle
+   LOCAL cParentForm
+   LOCAL mVar
+   LOCAL i
+   LOCAL k
    LOCAL rcount := 0
    LOCAL cset := 0
    LOCAL ContainerHandle := 0
-   LOCAL BackRec , WorkArea , cField
+   LOCAL BackRec
+   LOCAL WorkArea
+   LOCAL cField
    LOCAL aImages := {}
    LOCAL im
-   LOCAL oc := NIL, ow := NIL
+   LOCAL oc // := NIL
+   LOCAL ow // := NIL
+
 #ifdef _OBJECT_
    ow := oDlu2Pixel()
 #endif

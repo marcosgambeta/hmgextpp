@@ -22,7 +22,9 @@ RETURN
 PROCEDURE _DefineSplitButton ( cName, nRow, nCol, cCaption, bAction, cParent, ;
    lDefault, w, h, tooltip, fontname, fontsize, bold, italic, underline, strikeout )
 *------------------------------------------------------------------------------*
-   LOCAL hControlHandle, hParentFormHandle
+   
+   LOCAL hControlHandle
+   LOCAL hParentFormHandle
    LOCAL FontHandle
    LOCAL mVar
    LOCAL nId
@@ -141,7 +143,8 @@ RETURN
 *------------------------------------------------------------------------------*
 FUNCTION SPButtonEventHandler ( hWnd, nMsg, wParam, lParam )
 *------------------------------------------------------------------------------*
-   LOCAL xRetVal := Nil
+   
+   LOCAL xRetVal // := Nil
    LOCAL i
 
    HB_SYMBOL_UNUSED( hWnd )
@@ -176,6 +179,7 @@ RETURN xRetVal
 *------------------------------------------------------------------------------*
 PROCEDURE SPButtonSetFocus ( cWindow, cControl )
 *------------------------------------------------------------------------------*
+   
    LOCAL hWnd
    LOCAL ParentFormHandle
    LOCAL ControlCount
@@ -247,6 +251,7 @@ RETURN
 *------------------------------------------------------------------------------*
 STATIC FUNCTION LaunchDropdownMenu( nHwnd )
 *------------------------------------------------------------------------------*
+   
    LOCAL aPos := {0, 0, 0, 0}
    LOCAL nIdx
 

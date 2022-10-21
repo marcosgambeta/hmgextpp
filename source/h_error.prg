@@ -98,6 +98,7 @@ RETURN Eval(ErrorBlock(), HMG_GenError(cMessage))
 //-----------------------------------------------------------------------------
 STATIC FUNCTION HMG_GenError(cMsg)
 //-----------------------------------------------------------------------------
+   
    LOCAL oError := ErrorNew()
 
    oError:SubSystem   := "MGERROR"
@@ -112,6 +113,7 @@ RETURN oError
 *-----------------------------------------------------------------------------*
 FUNCTION MiniGuiVersion( nVer )
 *-----------------------------------------------------------------------------*
+   
    LOCAL cVer := MG_VERSION + hb_ntos( hb_Version( HB_VERSION_BITWIDTH ) ) + "-bit)"
    LOCAL anOfs
 

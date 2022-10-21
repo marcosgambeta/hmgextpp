@@ -69,9 +69,14 @@ RETURN Self
 
 METHOD Activate() CLASS TCDOMail
 
-   LOCAL oEmailMsg, oError
+   LOCAL oEmailMsg
+   LOCAL oError
    LOCAL cSchema := "http://schemas.microsoft.com/cdo/configuration/"
-   LOCAL cEmailFromName, cEmailFrom, nEl, nLen, cTmp := ""
+   LOCAL cEmailFromName
+   LOCAL cEmailFrom
+   LOCAL nEl
+   LOCAL nLen
+   LOCAL cTmp := ""
 
    IF ::bEmail != NIL
       Eval( ::bEmail, Self )

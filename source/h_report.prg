@@ -90,8 +90,25 @@ FUNCTION easyreport()
               ldatetimestamp, ;
               cFontName  // P.D. 2021/07/01
 
-   LOCAL nlen, nlin, i, ncol, aresul, lmode, swt := 0, nran, grpby, cfile, k, cpagina, ntotalchar, norient, nRecNo, cType
-   LOCAL aT, aW, aD
+   LOCAL nlen
+   LOCAL nlin
+   LOCAL i
+   LOCAL ncol
+   LOCAL aresul
+   LOCAL lmode
+   LOCAL swt := 0
+   LOCAL nran
+   LOCAL grpby
+   LOCAL cfile
+   LOCAL k
+   LOCAL cpagina
+   LOCAL ntotalchar
+   LOCAL norient
+   LOCAL nRecNo
+   LOCAL cType
+   LOCAL aT
+   LOCAL aW
+   LOCAL aD
 
    MEMVAR cfilerepo
 
@@ -413,7 +430,14 @@ RETURN Nil
 
 STATIC FUNCTION headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grpby, chdrgrp )
 
-   LOCAL i, ncol, nsum, ncenter, ncenter2, npostitle, ctitle1, ctitle2
+   LOCAL i
+   LOCAL ncol
+   LOCAL nsum
+   LOCAL ncenter
+   LOCAL ncenter2
+   LOCAL npostitle
+   LOCAL ctitle1
+   LOCAL ctitle2
 
    nsum := 0
    AEval( awidths, {|w|nsum += w } )
@@ -591,7 +615,8 @@ RETURN nil
 
 STATIC FUNCTION JUSTIFICALINEA( WPR_LINE, WTOPE )
 
-   LOCAL I, SPACE1 := Space( 1 )
+   LOCAL I
+   LOCAL SPACE1 := Space( 1 )
    LOCAL WLARLIN := Len(Trim(WPR_LINE))
 
    FOR I := 1 TO WLARLIN
@@ -608,10 +633,35 @@ RETURN WPR_LINE
 
 FUNCTION extreport( cfilerep )
 
-   LOCAL nContlin, i, ctitle, aheaders1, aheaders2, afields, awidths, atotals, aformats
-   LOCAL nlpp, ncpl, nllmargin, calias, ldos, lpreview, lselect, cgraphic, lmul, nfi, nci
-   LOCAL nff, ncf, cgrpby, chdrgrp, llandscape, lnodatetimestamp, cfont
-   LOCAL creport, ipaper
+   LOCAL nContlin
+   LOCAL i
+   LOCAL ctitle
+   LOCAL aheaders1
+   LOCAL aheaders2
+   LOCAL afields
+   LOCAL awidths
+   LOCAL atotals
+   LOCAL aformats
+   LOCAL nlpp
+   LOCAL ncpl
+   LOCAL nllmargin
+   LOCAL calias
+   LOCAL ldos
+   LOCAL lpreview
+   LOCAL lselect
+   LOCAL cgraphic
+   LOCAL lmul
+   LOCAL nfi
+   LOCAL nci
+   LOCAL nff
+   LOCAL ncf
+   LOCAL cgrpby
+   LOCAL chdrgrp
+   LOCAL llandscape
+   LOCAL lnodatetimestamp
+   LOCAL cfont
+   LOCAL creport
+   LOCAL ipaper
 
    IF !File( cfilerep + ".rpt" )
       msginfo( "(" + cfilerep + ".rpt) " + aMessages[16] )
@@ -712,7 +762,10 @@ RETURN Nil
 
 STATIC FUNCTION leadato( cName, cPropmet, cDefault )
 
-   LOCAL i, sw := 0, npos, cfvalue
+   LOCAL i
+   LOCAL sw := 0
+   LOCAL npos
+   LOCAL cfvalue
 
    FOR i := 1 TO Len(aline)
       IF !( At( Upper(cname ) + " ", Upper(aline[i]) ) == 0 )
@@ -739,8 +792,11 @@ RETURN cDefault
 
 STATIC FUNCTION leaimage( cName, cPropmet, cDefault )
 
-   LOCAL i, sw1 := 0, lin := 0
-   LOCAL npos1, npos2
+   LOCAL i
+   LOCAL sw1 := 0
+   LOCAL lin := 0
+   LOCAL npos1
+   LOCAL npos2
 
    // Unused Parameters
    HB_SYMBOL_UNUSED( cname )
@@ -763,8 +819,11 @@ RETURN cDefault
 
 STATIC FUNCTION leadatoh( cName, cPropmet, cDefault, npar )
 
-   LOCAL i, sw1 := 0, lin := 0
-   LOCAL npos1, npos2
+   LOCAL i
+   LOCAL sw1 := 0
+   LOCAL lin := 0
+   LOCAL npos1
+   LOCAL npos2
 
    // Unused Parameters
    HB_SYMBOL_UNUSED( cname )
@@ -792,7 +851,8 @@ RETURN cDefault
 
 STATIC FUNCTION leadatologic( cName, cPropmet, cDefault )
 
-   LOCAL i, sw := 0
+   LOCAL i
+   LOCAL sw := 0
 
    FOR i := 1 TO Len(aline)
       IF At( Upper(cname) + " ", Upper(aline[i]) ) != 0
@@ -819,7 +879,10 @@ RETURN cfvalue
 
 STATIC FUNCTION learowi( cname, npar )
 
-   LOCAL i, npos1, nrow := "0"
+   LOCAL i
+   LOCAL npos1
+   LOCAL nrow := "0"
+
    // Unused Parameter
    HB_SYMBOL_UNUSED( cname )
 
@@ -835,7 +898,10 @@ RETURN nrow
 
 STATIC FUNCTION leacoli( cname, npar )
 
-   LOCAL i, npos, ncol := "0"
+   LOCAL i
+   LOCAL npos
+   LOCAL ncol := "0"
+
    // Unused Parameter
    HB_SYMBOL_UNUSED( cname )
 
@@ -851,7 +917,9 @@ RETURN ncol
 
 STATIC PROCEDURE imp_SUBTOTALES ( nlin, ncol, lmode, swt, grpby )
 
-   LOCAL i, lHayTotals := ( AScan(atotals, .T.) > 0 ), cSubgrp := iif( !ISEVERYPAGE, aMessages[ 21 ], chdrgrp )
+   LOCAL i
+   LOCAL lHayTotals := ( AScan(atotals, .T.) > 0 )
+   LOCAL cSubgrp := iif( !ISEVERYPAGE, aMessages[ 21 ], chdrgrp )
 
    ncol := nlmargin + 1
    IF grpby != NIL
@@ -944,9 +1012,11 @@ RETURN
 ********************************************************************************/
 STATIC PROCEDURE InitReportMessages()
 ********************************************************************************
+
 #ifdef _MULTILINGUAL_
    LOCAL cLang
 #endif
+
    aMessages := {}
 
    AAdd(aMessages, "Please, decrease any of these (or both):") // 1

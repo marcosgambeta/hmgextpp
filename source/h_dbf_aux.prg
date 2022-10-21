@@ -12,6 +12,7 @@
 *-----------------------------------------------------------------------------*
 FUNCTION HMG_DbfToArray( cFieldList, bFor, bWhile, nNext, nRec, lRest )
 *-----------------------------------------------------------------------------*
+   
    LOCAL aRet := {}
    LOCAL nRecNo := RecNo()
    LOCAL bLine
@@ -33,11 +34,16 @@ RETURN aRet
 *-----------------------------------------------------------------------------*
 FUNCTION HMG_ArrayToDbf( aData, cFieldList, bProgress )
 *-----------------------------------------------------------------------------*
-   LOCAL aFldName, aFieldPos, aFieldTyp
+   
+   LOCAL aFldName
+   LOCAL aFieldPos
+   LOCAL aFieldTyp
    LOCAL aRow
    LOCAL uVal
-   LOCAL nCols, nRows
-   LOCAL nCol, nRow
+   LOCAL nCols
+   LOCAL nRows
+   LOCAL nCol
+   LOCAL nRow
    LOCAL lFldName
 
    IF HB_ISARRAY(cFieldList)
@@ -103,6 +109,7 @@ RETURN .T.
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION ConvertType( uVal, cTypeDst )
 *-----------------------------------------------------------------------------*
+   
    LOCAL cTypeSrc := ValType(uVal)
 
    IF cTypeDst != cTypeSrc
@@ -160,9 +167,13 @@ RETURN uVal
 *-----------------------------------------------------------------------------*
 FUNCTION HMG_DbfToExcel( cFieldList, aHeader, bFor, bWhile, nNext, nRec, lRest )
 *-----------------------------------------------------------------------------*
+   
    LOCAL nRecNo := RecNo()
    LOCAL bLine
-   LOCAL oExcel, oBook, oSheet, oRange
+   LOCAL oExcel
+   LOCAL oBook
+   LOCAL oSheet
+   LOCAL oRange
    LOCAL nCols
    LOCAL nRow := 1
 
@@ -212,8 +223,10 @@ RETURN .T.
 *-----------------------------------------------------------------------------*
 FUNCTION HMG_DbfStruct( cFileName )
 *-----------------------------------------------------------------------------*
+   
    LOCAL aStruct := {}
-   LOCAL hFile, aFieldInfo
+   LOCAL hFile
+   LOCAL aFieldInfo
    LOCAL cBuffer := Space( BUFFER_SIZE )
 
    IF Set( _SET_DEFEXTENSIONS )
@@ -262,8 +275,10 @@ RETURN aStruct
 *-----------------------------------------------------------------------------*
 FUNCTION HMG_RecToHash( cFieldList, cNames )
 *-----------------------------------------------------------------------------*
+   
    LOCAL hRec := { => }
-   LOCAL aVals, aNames
+   LOCAL aVals
+   LOCAL aNames
 
    HSetCaseMatch( hRec, .F. )
 
@@ -286,6 +301,7 @@ RETURN hRec
 *-----------------------------------------------------------------------------*
 FUNCTION HMG_HashToRec( hRec, cFieldList )
 *-----------------------------------------------------------------------------*
+   
    LOCAL lShared := dbInfo( DBI_SHARED )
    LOCAL lLocked := .F.
    LOCAL lSaved := .F.
@@ -315,6 +331,7 @@ RETURN lSaved
 *-----------------------------------------------------------------------------*
 PROCEDURE DbfCopyRec( cnTargetArea, lAppend )
 *-----------------------------------------------------------------------------*
+   
    LOCAL nFieldsCnt := FCount()
    LOCAL nCnt
    LOCAL cFieldName
@@ -345,6 +362,7 @@ RETURN
 *-----------------------------------------------------------------------------*
 FUNCTION DbfModStru( cDbfName, aModStru )
 *-----------------------------------------------------------------------------*
+   
    LOCAL nSize
    LOCAL cBuffer := Space( BUFFER_SIZE )
    LOCAL cBuffSize

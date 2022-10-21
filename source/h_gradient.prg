@@ -76,7 +76,8 @@ FUNCTION DrawGradient( window, row, col, rowr, colr, aColor1, aColor2, vertical,
 
    LOCAL FormHandle
    LOCAL hDC
-   LOCAL color1, color2
+   LOCAL color1
+   LOCAL color2
    LOCAL i
 
    IF IsEnabledGradient() .AND. ( i := GetFormIndex( window ) ) > 0

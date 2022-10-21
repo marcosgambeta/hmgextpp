@@ -91,15 +91,28 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    fontcolor, invisible, notabstop, nId, valid, cPicture, cmessage, cvalidmessage, ;
    when, ProcedureName, ProcedureName2, abitmap, BtnWidth, lNoMinus, noborder, bInit )
 *-----------------------------------------------------------------------------*
-   LOCAL ParentFormHandle, ControlHandle
+   
+   LOCAL ParentFormHandle
+   LOCAL ControlHandle
    LOCAL aControlHandle := {}
-   LOCAL mVar, lDialogInMemory
-   LOCAL FontHandle, nMaxLength
-   LOCAL WorkArea, blInit, cBmp, tmp
-   LOCAL lBtns := ISBLOCK( ProcedureName ), lBtn2 := ISBLOCK( ProcedureName2 )
+   LOCAL mVar
+   LOCAL lDialogInMemory
+   LOCAL FontHandle
+   LOCAL nMaxLength
+   LOCAL WorkArea
+   LOCAL blInit
+   LOCAL cBmp
+   LOCAL tmp
+   LOCAL lBtns := ISBLOCK( ProcedureName )
+   LOCAL lBtn2 := ISBLOCK( ProcedureName2 )
    LOCAL lModifyGotFocus := .F.
-   LOCAL k, Style, aPicData, oGet
-   LOCAL oc := NIL, ow := NIL
+   LOCAL k
+   LOCAL Style
+   LOCAL aPicData
+   LOCAL oGet
+   LOCAL oc // := NIL
+   LOCAL ow // := NIL
+
 #ifdef _OBJECT_
    ow := oDlu2Pixel()
 #endif
@@ -383,6 +396,7 @@ RETURN oGet
 *-----------------------------------------------------------------------------*
 STATIC PROCEDURE _GetBoxSetNextFocus( lPrevious )
 *-----------------------------------------------------------------------------*
+   
    LOCAL NextControlHandle
    LOCAL i
 
@@ -402,6 +416,7 @@ RETURN
 *-----------------------------------------------------------------------------*
 PROCEDURE _DataGetBoxRefresh ( i )
 *-----------------------------------------------------------------------------*
+   
    LOCAL Field := _HMG_aControlPageMap[i]
 
    _SetGetBoxValue( i, _HMG_aControlHandles[i], iif( Field == NIL, _HMG_aControlValue[i], &( Field ) ) )
@@ -411,7 +426,9 @@ RETURN
 *-----------------------------------------------------------------------------*
 PROCEDURE _DataGetBoxSave(ControlName, ParentForm)
 *-----------------------------------------------------------------------------*
-   LOCAL Field , i
+   
+   LOCAL Field
+   LOCAL i
    LOCAL oGet
 
    i := GetControlIndex(ControlName, ParentForm)
@@ -433,10 +450,24 @@ RETURN
 *-----------------------------------------------------------------------------*
 FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 *-----------------------------------------------------------------------------*
-   LOCAL ParentHandle, lshift, lCtrl
-   LOCAL nStart, nEnd, coldbuff, h, oGet, ipp, nlen
-   LOCAL cText, cPicMask, cPicFunc, lCleanZero, MinDec
-   LOCAL aHandle, HwndBtn
+   
+   LOCAL ParentHandle
+   LOCAL lshift
+   LOCAL lCtrl
+   LOCAL nStart
+   LOCAL nEnd
+   LOCAL coldbuff
+   LOCAL h
+   LOCAL oGet
+   LOCAL ipp
+   LOCAL nlen
+   LOCAL cText
+   LOCAL cPicMask
+   LOCAL cPicFunc
+   LOCAL lCleanZero
+   LOCAL MinDec
+   LOCAL aHandle
+   LOCAL HwndBtn
    LOCAL readonly
    LOCAL lAllowEdit
    LOCAL aKey
@@ -1362,6 +1393,7 @@ RETURN( 0 )
 *-----------------------------------------------------------------------------*
 PROCEDURE _SetGetBoxValue( nId, hWnd, Value )
 *-----------------------------------------------------------------------------*
+   
    LOCAL aPicData
    LOCAL oGet       := _HMG_aControlHeadClick [nId]
    LOCAL cPicFunc   := _HMG_aControlInputMask [nId, 1]
@@ -1413,6 +1445,7 @@ RETURN
 *-----------------------------------------------------------------------------*
 FUNCTION _RangeCheck( oGet, lo, hi )
 *-----------------------------------------------------------------------------*
+   
    LOCAL value := oGet:VarGet()
 
    IF !oGet:changed
@@ -1424,6 +1457,7 @@ RETURN ( value >= lo .AND. value <= hi )
 *-----------------------------------------------------------------------------*
 FUNCTION _SetGetBoxColorFocus( aBackColor, aFontColor )
 *-----------------------------------------------------------------------------*
+   
    LOCAL aOldClrFocus := { aClrFocus, aFntFocus }
 
    lClrFocus := .T.
@@ -1441,6 +1475,7 @@ RETURN aOldClrFocus
 *-----------------------------------------------------------------------------*
 PROCEDURE _DispGetBoxText( hWnd, cText )
 *-----------------------------------------------------------------------------*
+   
    LOCAL ControlHandle
    LOCAL i
 
@@ -1478,6 +1513,7 @@ RETURN
 *-----------------------------------------------------------------------------*
 FUNCTION _GetPictureData( oGet, cPicture )
 *-----------------------------------------------------------------------------*
+   
    LOCAL nAt
    LOCAL nFor
    LOCAL cNum
@@ -1572,6 +1608,7 @@ RETURN { cPicFunc, cPicMask, lCleanZero }
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION _FirstEditable( nId )
 *-----------------------------------------------------------------------------*
+   
    LOCAL nFor
    LOCAL oGet := _HMG_aControlHeadClick [nId]
    LOCAL nMaxLen := hb_ULen(oGet:buffer)
@@ -1597,6 +1634,7 @@ RETURN 0
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION _IsEditable( nPos, nId )
 *-----------------------------------------------------------------------------*
+   
    LOCAL cChar
    LOCAL oGet
    LOCAL nMaxLen
@@ -1632,6 +1670,7 @@ RETURN .F.
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION _Input( cChar , nID )
 *-----------------------------------------------------------------------------*
+   
    LOCAL oGet     := _HMG_aControlHeadClick [nId]
    LOCAL cPicFunc := _HMG_aControlInputMask [nId, 1]
    LOCAL cPicMask := _HMG_aControlInputMask [nId, 2]
@@ -1733,6 +1772,7 @@ RETURN cChar
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION _GetDefinedStatusBarItemValue( ParentHandle, ItemID )
 *-----------------------------------------------------------------------------*
+   
    LOCAL h
    LOCAL nLocID := 0
    LOCAL i
@@ -1759,6 +1799,7 @@ RETURN ( _HMG_aControlCaption[i] )
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION _IsChildOfActiveWindow(hWnd)
 *-----------------------------------------------------------------------------*
+   
    LOCAL hActiveWnd := GetActiveWindow()
    LOCAL lRet := ( _GetParent( hWnd ) == hActiveWnd )
    LOCAL hParent
@@ -1788,6 +1829,7 @@ RETURN lRet
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION _GetParent ( hWnd )
 *-----------------------------------------------------------------------------*
+   
    LOCAL i := AScan(_HMG_aControlHandles, hWnd)
 
 RETURN iif( i > 0, _HMG_aControlParentHandles[i], 0 )

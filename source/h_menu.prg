@@ -711,6 +711,7 @@ _IsMenuItemChecked(ItemName, FormName) -->
 */
 FUNCTION _IsMenuItemChecked(ItemName, FormName)
 *-----------------------------------------------------------------------------*
+   
    LOCAL a := _GetMenuIds(ItemName, FormName)
 
 RETURN xGetMenuCheckState(a[1], a[2])

@@ -79,7 +79,10 @@ RETURN CHARXOR( cXorStr, "<ORIGINAL>" )
 */
 FUNCTION FI_CODE( cInFile, cPass, cOutFile, lDelete )
 
-   LOCAL nHandle, cBuffer, cStr, nRead := 1
+   LOCAL nHandle
+   LOCAL cBuffer
+   LOCAL cStr
+   LOCAL nRead := 1
    LOCAL nOutHandle
 
    IF Empty(cInFile) .OR. !File( cInFile )
@@ -183,7 +186,10 @@ RETURN NIL
 */
 FUNCTION FI_DECODE( cInFile, cPass, cOutFile, lDelete )
 
-   LOCAL nHandle, cBuffer, cStr, nRead := 1
+   LOCAL nHandle
+   LOCAL cBuffer
+   LOCAL cStr
+   LOCAL nRead := 1
    LOCAL nOutHandle
 
    IF Empty(cInFile) .OR. !File( cInFile )
@@ -294,7 +300,9 @@ RETURN NIL
 */
 FUNCTION DB_ENCRYPT( cFile, cPass )
 
-   LOCAL nHandle, cBuffer := Space( 4 ), cFlag := Space( 3 )
+   LOCAL nHandle
+   LOCAL cBuffer := Space( 4 )
+   LOCAL cFlag := Space( 3 )
 
    IF cPass == NIL
 
@@ -442,7 +450,10 @@ RETURN NIL
 */
 FUNCTION DB_UNENCRYPT( cFile, cPass )
 
-   LOCAL nHandle, cBuffer := Space( 4 ), cSavePass := Space( 10 ), cFlag := Space( 3 )
+   LOCAL nHandle
+   LOCAL cBuffer := Space( 4 )
+   LOCAL cSavePass := Space( 10 )
+   LOCAL cFlag := Space( 3 )
 
    IF cPass == NIL
 
@@ -600,7 +611,7 @@ RETURN NIL
 STATIC FUNCTION cFileName( cMask )
 
    LOCAL cName := AllTrim(cMask)
-   LOCAL n     := At( ".", cName )
+   LOCAL n := At( ".", cName )
 
 RETURN AllTrim(iif(n > 0, Left(cName, n - 1), cName))
 
@@ -608,8 +619,16 @@ RETURN AllTrim(iif(n > 0, Left(cName, n - 1), cName))
 */
 FUNCTION DB_CODE( cData, cKey, aFields, cPass, cFor, cWhile )
 
-   LOCAL cTmpFile := "__temp__.dbf", nRecno := RecNo(), cVal, cBuf
-   LOCAL aString[ Len(aFields) ] , nFields , cSeek , i , cAlias , cTmpAlias // RL
+   LOCAL cTmpFile := "__temp__.dbf"
+   LOCAL nRecno := RecNo()
+   LOCAL cVal
+   LOCAL cBuf
+   LOCAL aString[ Len(aFields) ]
+   LOCAL nFields
+   LOCAL cSeek
+   LOCAL i
+   LOCAL cAlias
+   LOCAL cTmpAlias // RL
 
    cData := iif( cData == NIL, Alias() + ".DBF", cData )
    cData := iif( At( ".",cData ) == 0, cData + ".DBF", cData )

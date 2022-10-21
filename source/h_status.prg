@@ -62,7 +62,10 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 *-----------------------------------------------------------------------------*
 FUNCTION _BeginMessageBar( ControlName, ParentForm, kbd, fontname, fontsize, bold, italic, underline, strikeout )
 *-----------------------------------------------------------------------------*
-   LOCAL ParentFormHandle , ControlHandle , FontHandle
+   
+   LOCAL ParentFormHandle
+   LOCAL ControlHandle
+   LOCAL FontHandle
    LOCAL aRect := { 0, 0, 0, 0 }
    LOCAL mVar
    LOCAL k
@@ -173,6 +176,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION _EndMessageBar()
 *-----------------------------------------------------------------------------*
+   
    LOCAL i
 
    // Must have at least one StatusItem to prevent crash when function Events(...) receives WM_SIZE message
@@ -191,8 +195,11 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION _DefineItemMessage ( ControlName, ParentControl, x, y, Caption, ProcedureName, w, h, icon, cstyl, tooltip, default, backcolor, fontcolor, align )
 *-----------------------------------------------------------------------------*
-   LOCAL ControlHandle, ParentFormHandle
-   LOCAL cParentForm, ParentForm
+   
+   LOCAL ControlHandle
+   LOCAL ParentFormHandle
+   LOCAL cParentForm
+   LOCAL ParentForm
    LOCAL cCaption
    LOCAL mVar
    LOCAL k
@@ -309,6 +316,7 @@ RETURN ControlHandle
 *-----------------------------------------------------------------------------*
 FUNCTION _SetStatusClock ( BarName , FormName , Width , ToolTip , Action , lAMPM , backcolor , fontcolor )
 *-----------------------------------------------------------------------------*
+   
    LOCAL nrItem
 
    hb_default(@lAMPM, .F.)
@@ -325,7 +333,10 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION _SetStatusKeybrd(BarName, FormName, Width, ToolTip, action)
 *-----------------------------------------------------------------------------*
-   LOCAL nrItem1 , nrItem2 , nrItem3
+   
+   LOCAL nrItem1
+   LOCAL nrItem2
+   LOCAL nrItem3
 
    __defaultNIL(@Width, 75)
    __defaultNIL(@ToolTip, "")
@@ -353,6 +364,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION _IsOwnerDrawStatusBarItem( ParentHandle , ItemID , Value , lSet )
 *-----------------------------------------------------------------------------*
+   
    LOCAL h
    LOCAL nLocID := 0
    LOCAL lOwnerDraw := .F.
@@ -394,6 +406,7 @@ RETURN lOwnerDraw
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION AMPM( cTime )
 *-----------------------------------------------------------------------------*
+   
    LOCAL nHour := Val( cTime )
 
    DO CASE
@@ -432,6 +445,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION _GetStatusItemWidth(hWnd, nItem)
 *-----------------------------------------------------------------------------*
+   
    LOCAL h
    LOCAL aItemWidth := {}
    LOCAL i
@@ -451,6 +465,7 @@ RETURN iif( ! Empty(nItem), aItemWidth [nItem], aItemWidth )
 *-----------------------------------------------------------------------------*
 FUNCTION _SetStatusItemProperty( nItem, Value, hWnd, nType )
 *-----------------------------------------------------------------------------*
+   
    LOCAL h
    LOCAL FormName
    LOCAL nIndex := 0
@@ -499,7 +514,9 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION _SetStatusProgressMessage ( BarName , FormName , Width , ToolTip , Action , nValue , nMin , nMax )
 *-----------------------------------------------------------------------------*
-   LOCAL hwndStatus, hwndProgress
+   
+   LOCAL hwndStatus
+   LOCAL hwndProgress
    LOCAL nrItem
    LOCAL i
 
@@ -526,6 +543,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION _SetStatusProgressPos ( FormName, nValue )
 *-----------------------------------------------------------------------------*
+   
    LOCAL i
 
    IF ( i := GetControlIndex(PROGRESSNAME, FormName) ) > 0
@@ -537,6 +555,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION _SetStatusProgressRange ( FormName, nMin, nMax )
 *-----------------------------------------------------------------------------*
+   
    LOCAL i
 
    IF ( i := GetControlIndex(PROGRESSNAME, FormName) ) > 0

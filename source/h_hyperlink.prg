@@ -50,6 +50,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 *-----------------------------------------------------------------------------*
 PROCEDURE _SetAddress ( ControlName , ParentForm , url )
 *-----------------------------------------------------------------------------*
+   
    LOCAL i
 
    IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0

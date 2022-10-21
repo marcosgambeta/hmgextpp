@@ -55,7 +55,9 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 *-----------------------------------------------------------------------------*
 FUNCTION _DefineToolBar ( ControlName, ParentForm, x, y, caption, ProcedureName, w, h, fontname, fontsize, tooltip, flat, bottom, righttext, break, bold, italic, underline, strikeout, border, mixedbuttons, rows, tbsize, imagelst, hotimagelst, wrap, custom )
 *-----------------------------------------------------------------------------*
-   LOCAL FontHandle , ControlHandle
+   
+   LOCAL FontHandle
+   LOCAL ControlHandle
    LOCAL cParentForm
    LOCAL mVar
    LOCAL id
@@ -167,10 +169,14 @@ RETURN ControlHandle
 *-----------------------------------------------------------------------------*
 FUNCTION _EndToolBar()
 *-----------------------------------------------------------------------------*
-   LOCAL ParentForm, h
+   
+   LOCAL ParentForm
+   LOCAL h
    LOCAL aSize
-   LOCAL nRow, nBand
-   LOCAL ix, i
+   LOCAL nRow
+   LOCAL nBand
+   LOCAL ix
+   LOCAL i
 
    ParentForm := iif( _HMG_BeginWindowActive, _HMG_ActiveFormName, _HMG_ActiveToolBarFormName )
    h := GetControlHandle(_HMG_ActiveToolBarName, ParentForm)
@@ -209,16 +215,20 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION _DefineToolButton ( ControlName, ParentControl, x, y, Caption, ProcedureName, w, h, image , tooltip , gotfocus , lostfocus , flat , separator , autosize , check , group , dropdown , WholeDropDown, adjust , imageindex, notrans )
 *-----------------------------------------------------------------------------*
+   
    LOCAL ParentForm
    LOCAL hParentForm
    LOCAL cParentForm
    LOCAL mVar
    LOCAL ControlHandle
    LOCAL aImage
-   LOCAL imagelst, hotimagelst
+   LOCAL imagelst
+   LOCAL hotimagelst
    LOCAL id
-   LOCAL npos, nToolBarIndex
-   LOCAL i , k
+   LOCAL npos
+   LOCAL nToolBarIndex
+   LOCAL i
+   LOCAL k
 
    HB_SYMBOL_UNUSED( Flat )
 
@@ -339,8 +349,13 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION _AddToolBarToSplitBox ( ControlName , break , Caption , ParentForm )
 *-----------------------------------------------------------------------------*
-   LOCAL MinWidth, MinHeight
-   LOCAL i, c, w, ix
+   
+   LOCAL MinWidth
+   LOCAL MinHeight
+   LOCAL i
+   LOCAL c
+   LOCAL w
+   LOCAL ix
 
    i := GetFormIndex ( _HMG_ActiveSplitBoxParentFormName )
    c := GetControlHandle(ControlName, _HMG_ActiveSplitBoxParentFormName)
@@ -460,12 +475,19 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION _CreatePopUpChevron ( hWnd, wParam, lParam )
 *-----------------------------------------------------------------------------*
-   LOCAL hMenu, hImage, TbHwnd
-   LOCAL aChevronInfo, aBtnInfo, aPos
+   
+   LOCAL hMenu
+   LOCAL hImage
+   LOCAL TbHwnd
+   LOCAL aChevronInfo
+   LOCAL aBtnInfo
+   LOCAL aPos
    LOCAL cMenu
    LOCAL image
    LOCAL lEnable
-   LOCAL i, k, n
+   LOCAL i
+   LOCAL k
+   LOCAL n
 
    IF ( i := AScan(_HMG_aFormhandles, hWnd) ) > 0
       aChevronInfo := CreatePopUpChevron( _HMG_aFormReBarHandle[i], lParam )
@@ -520,7 +542,9 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 STATIC PROCEDURE _DropDownShortcut ( nToolButtonId , nParentWindowHandle , i , nButtonPos )
 *-----------------------------------------------------------------------------*
-   LOCAL aPos, aSize
+   
+   LOCAL aPos
+   LOCAL aSize
    LOCAL x
 
    IF ( x := AScan(_HMG_aControlIds , nToolButtonId) ) > 0 .AND. _HMG_aControlType[x] == CONTROL_TYPE_TOOLBUTTON

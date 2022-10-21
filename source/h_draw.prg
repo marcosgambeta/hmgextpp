@@ -50,8 +50,11 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 *-----------------------------------------------------------------------------*
 FUNCTION drawtextout( window, row, col, string, fontcolor, backcolor, fontname, fontsize, bold, italic, underline, strikeout, transparent, angle, once )
 *-----------------------------------------------------------------------------*
-   LOCAL FormHandle, FontHandle
-   LOCAL torow, tocol
+   
+   LOCAL FormHandle
+   LOCAL FontHandle
+   LOCAL torow
+   LOCAL tocol
    LOCAL i
 
    IF hb_IsString( window )
@@ -87,6 +90,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION drawline( window, row, col, row1, col1, penrgb, penwidth )
 *-----------------------------------------------------------------------------*
+   
    LOCAL FormHandle
    LOCAL i
 
@@ -104,6 +108,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION drawrect( window, row, col, row1, col1, penrgb, penwidth, fillrgb )
 *-----------------------------------------------------------------------------*
+   
    LOCAL FormHandle
    LOCAL i
    LOCAL fill
@@ -125,6 +130,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION drawroundrect( window, row, col, row1, col1, width, height, penrgb, penwidth, fillrgb )
 *-----------------------------------------------------------------------------*
+   
    LOCAL FormHandle
    LOCAL i
    LOCAL fill
@@ -146,6 +152,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION drawellipse( window, row, col, row1, col1, penrgb, penwidth, fillrgb )
 *-----------------------------------------------------------------------------*
+   
    LOCAL FormHandle
    LOCAL i
    LOCAL fill
@@ -167,6 +174,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION drawarc( window, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb, penwidth )
 *-----------------------------------------------------------------------------*
+   
    LOCAL FormHandle
    LOCAL i
 
@@ -184,6 +192,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION drawpie( window, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb, penwidth, fillrgb )
 *-----------------------------------------------------------------------------*
+   
    LOCAL FormHandle
    LOCAL i
    LOCAL fill
@@ -205,10 +214,12 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION drawpolygon( window, apoints, penrgb, penwidth, fillrgb )
 *-----------------------------------------------------------------------------*
+   
    LOCAL FormHandle
    LOCAL i
    LOCAL fill
-   LOCAL xarr := {}, yarr := {}
+   LOCAL xarr := {}
+   LOCAL yarr := {}
 
    IF ( i := GetFormIndex ( Window ) ) > 0
       FormHandle := _HMG_aFormHandles[i]
@@ -228,8 +239,10 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION drawpolybezier( window, apoints, penrgb, penwidth )
 *-----------------------------------------------------------------------------*
+   
    LOCAL FormHandle
-   LOCAL xarr := {}, yarr := {}
+   LOCAL xarr := {}
+   LOCAL yarr := {}
    LOCAL i
 
    IF ( i := GetFormIndex ( Window ) ) > 0
@@ -248,6 +261,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION HMG_DrawIcon( window, icon, row, col, w, h, rgb, transparent )
 *-----------------------------------------------------------------------------*
+   
    LOCAL FormHandle
    LOCAL backcolor
    LOCAL i
@@ -283,6 +297,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION HMG_DrawSysIcon( window, cIconDll, icon, row, col, w, h, rgb, transparent )
 *-----------------------------------------------------------------------------*
+   
    LOCAL FormHandle
    LOCAL backcolor
    LOCAL i
@@ -315,6 +330,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION EraseWindow(window)
 *-----------------------------------------------------------------------------*
+   
    LOCAL i
 
    IF ( i := GetFormIndex ( Window ) ) > 0
@@ -331,6 +347,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION DrawWindowBoxIn( window, row, col, rowr, colr )
 *-----------------------------------------------------------------------------*
+   
    LOCAL FormHandle
    LOCAL hDC
    LOCAL i
@@ -348,6 +365,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION DrawWindowBoxRaised( window, row, col, rowr, colr )
 *-----------------------------------------------------------------------------*
+   
    LOCAL FormHandle
    LOCAL hDC
    LOCAL i

@@ -50,6 +50,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 *-----------------------------------------------------------------------------*
 FUNCTION cFilePath ( cPathMask )
 *-----------------------------------------------------------------------------*
+   
    LOCAL cPath
 
    hb_FNameSplit ( cPathMask, @cPath )
@@ -59,7 +60,9 @@ RETURN hb_StrShrink( cPath )
 *-----------------------------------------------------------------------------*
 FUNCTION cFileNoPath ( cPathMask )
 *-----------------------------------------------------------------------------*
-   LOCAL cName, cExt
+   
+   LOCAL cName
+   LOCAL cExt
 
    hb_FNameSplit ( cPathMask, , @cName, @cExt )
 
@@ -68,6 +71,7 @@ RETURN ( cName + cExt )
 *-----------------------------------------------------------------------------*
 FUNCTION cFileNoExt ( cPathMask )
 *-----------------------------------------------------------------------------*
+   
    LOCAL cName
 
    hb_FNameSplit ( cPathMask, , @cName )
@@ -81,6 +85,7 @@ RETURN cName
 *-----------------------------------------------------------------------------*
 FUNCTION _GetCompactPath ( cFile, nMax )
 *-----------------------------------------------------------------------------*
+   
    LOCAL cShort := Space( IFNUMERIC( nMax, nMax + 1, 64 ) )
 
 RETURN iif( GetCompactPath( @cShort, cFile, IFNUMERIC( nMax, nMax, 63 ), NIL ) > 0, cShort, cFile )
@@ -90,6 +95,7 @@ RETURN iif( GetCompactPath( @cShort, cFile, IFNUMERIC( nMax, nMax, 63 ), NIL ) >
 *-----------------------------------------------------------------------------*
 FUNCTION _GetShortPathName(cPath)
 *-----------------------------------------------------------------------------*
+   
    LOCAL cShortPathName
 
 RETURN iif( GetShortPathName( cPath, @cShortPathName ) > 0, cShortPathName, cPath )

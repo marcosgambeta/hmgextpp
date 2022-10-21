@@ -287,7 +287,16 @@ RETURN NIL
 
 FUNCTION _SetFontAttr( ControlName, ParentForm, Value, nType )
 
-   LOCAL i, h, n, s, ab, ai, au, as, aa, t
+   LOCAL i
+   LOCAL h
+   LOCAL n
+   LOCAL s
+   LOCAL ab
+   LOCAL ai
+   LOCAL au
+   LOCAL as
+   LOCAL aa
+   LOCAL t
 
    IF nType < FONT_ATTR_BOLD .OR. nType > FONT_ATTR_NAME
       RETURN .F.
@@ -392,6 +401,7 @@ RETURN lExpr
 
 FUNCTION GetFontList( hDC, cFontFamilyName, nCharSet, nPitch, nFontType, lSortCaseSensitive, aFontName )
    // return is array { { cFontName, nCharSet, nPitchAndFamily, nFontType } , ... }
+   
    LOCAL SortCodeBlock
 
    IF hb_defaultValue(lSortCaseSensitive, .F.) == .T.

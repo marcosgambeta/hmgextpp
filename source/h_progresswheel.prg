@@ -70,6 +70,7 @@ FUNCTION _DefineProgressWheel ( cControlName, cParentForm, nCol, nRow, nWidth, ;
       nHeight, nPosition, nStartAngle, nInnerSize, nGradientMode, lShowText, ;
       nMin, nMax, nColorDoneMin, nColorDoneMax, nColorRemain, nColorInner )
 *------------------------------------------------------------------------------*
+   
    LOCAL nParentFormHandle
    LOCAL nControlHandle
    LOCAL nId
@@ -665,14 +666,17 @@ PROCEDURE ProgressWheelPaint( cParentForm, cImgName, Width, Height, ;
       Position, StartAngle, InnerSize, GradientMode, cText, ShowText, ;
       Min, Max, ColorDoneMin, ColorDoneMax, ColorRemain, ColorInner )
 *------------------------------------------------------------------------------*
+   
    LOCAL BufScale := _SetGetGlobal( "BufScale" )
    LOCAL hBitmap
    LOCAL hDC
    LOCAL BTStruct
-   LOCAL R, RR
+   LOCAL R
+   LOCAL RR
    LOCAL BrushColor
    LOCAL hBrushBitmap
-   LOCAL row, col
+   LOCAL row
+   LOCAL col
    LOCAL P1
    LOCAL P2
 
@@ -764,6 +768,7 @@ RETURN
 *------------------------------------------------------------------------------*
 FUNCTION UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
 *------------------------------------------------------------------------------*
+   
    LOCAL BufScale := _SetGetGlobal( "BufScale" )
    LOCAL hBitmap
    LOCAL hDC
@@ -813,10 +818,15 @@ RETURN NIL
 *------------------------------------------------------------------------------*
 STATIC FUNCTION GradientColor( ColorBegin, ColorEnd, AMin, AMax, APosition )
 *------------------------------------------------------------------------------*
+   
    LOCAL B
-   LOCAL B1, B2, B3
+   LOCAL B1
+   LOCAL B2
+   LOCAL B3
    LOCAL E
-   LOCAL E1, E2, E3
+   LOCAL E1
+   LOCAL E2
+   LOCAL E3
    LOCAL P
 
    B := COLORREF_TO_ArrayRGB( ColorBegin )
@@ -842,8 +852,10 @@ RETURN B1 + Round( ( E1 - B1 ) * P, 0 ) + hb_bitShift( B2 + Round( ( E2 - B2 ) *
 *------------------------------------------------------------------------------*
 STATIC FUNCTION AnglePosition( StartAngle, Rect, AMin, AMax, APosition )
 *------------------------------------------------------------------------------*
+   
    LOCAL a
-   LOCAL X, Y
+   LOCAL X
+   LOCAL Y
 
    a := ( StartAngle - 90 ) + 360 * ( APosition / ( AMax - AMin ) - AMin )
    a := a * PI() / 180

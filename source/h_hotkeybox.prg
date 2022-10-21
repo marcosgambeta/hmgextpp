@@ -54,7 +54,9 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 FUNCTION _DefineHotKeyBox ( ControlName, ParentForm, x, y, w, h, value, fontname, fontsize, tooltip, ;
       change, HelpId, invisible, notabstop , bold, italic, underline, strikeout )
 *-----------------------------------------------------------------------------*
-   LOCAL ControlHandle, FontHandle
+   
+   LOCAL ControlHandle
+   LOCAL FontHandle
    LOCAL cParentForm
    LOCAL mVar
    LOCAL k
@@ -175,6 +177,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION _GetHotKeyName( cControlName, cFormName )
 *-----------------------------------------------------------------------------*
+   
    LOCAL cKeyName := C_GETHOTKEYNAME( GetControlHandle(cControlName, cFormName) )
 
 RETURN SubStr(cKeyName, 1, At( Chr( 0 ), cKeyName ) - 1)

@@ -65,14 +65,18 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
       Field, Enter, backcolor, fontcolor, titlebkclr, titlefrclr, trlfontclr, ;
       cDateFormat, dRangeMin, dRangeMax, nId, bInit )
 *-----------------------------------------------------------------------------*
-   LOCAL ParentFormHandle, ControlHandle, FontHandle
+   
+   LOCAL ParentFormHandle
+   LOCAL ControlHandle
+   LOCAL FontHandle
    LOCAL mVar
    LOCAL k
    LOCAL Style
    LOCAL blInit
    LOCAL WorkArea
    LOCAL lDialogInMemory
-   LOCAL oc := NIL, ow := NIL
+   LOCAL oc // := NIL
+   LOCAL ow // := NIL
 
 #ifdef _OBJECT_
    ow := oDlu2Pixel()
@@ -303,7 +307,10 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
       invisible, notabstop, bold, italic, underline, strikeout, ;
       Field, Enter, cTimeFormat, nId )
 *-----------------------------------------------------------------------------*
-   LOCAL ParentFormHandle, ControlHandle, FontHandle
+   
+   LOCAL ParentFormHandle
+   LOCAL ControlHandle
+   LOCAL FontHandle
    LOCAL mVar
    LOCAL k
    LOCAL Style
@@ -520,6 +527,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION _SetDatePickerRange(ControlHandle, dRangeMin, dRangeMax, Index)
 *-----------------------------------------------------------------------------*
+   
    LOCAL lOK
 
    hb_default(@dRangeMin, BLANK_DATE)
@@ -535,9 +543,11 @@ RETURN lOK
 *-----------------------------------------------------------------------------*
 FUNCTION OPICKEVENTS( hWnd, nMsg, wParam, lParam )
 *-----------------------------------------------------------------------------*
+   
    LOCAL i := AScan(_HMG_aControlHandles, hWnd)
    LOCAL aRect := { 0, 0, 0, 0 }
-   LOCAL hDC, hBrush
+   LOCAL hDC
+   LOCAL hBrush
 
    HB_SYMBOL_UNUSED( lParam )
 
