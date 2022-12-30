@@ -42,6 +42,9 @@
  *
  * "HWGUI"
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
+ *
+ * Parts of this code is contributed and used here under permission of his author:
+ * Copyright 2005 (C) Jacek Kubica <kubica@wssk.wroc.pl>
  */
 
 #include "i_winuser.ch"
@@ -424,3 +427,195 @@ FUNCTION InitDialogButtonImage(ParentFormName, ControlHandle, k)
    ENDIF
 
 RETURN NIL
+
+#pragma BEGINDUMP
+
+#include "mgdefs.h"
+#include <shellapi.h>
+#include <commctrl.h>
+#include <math.h>
+#include <hbapiitm.h>
+#include <hbvm.h>
+#include <hbwinuni.h>
+
+#ifndef BCM_FIRST
+#define BCM_FIRST         0x1600
+#define BCM_SETIMAGELIST  (BCM_FIRST + 0x0002)
+#endif
+
+HBITMAP HMG_LoadPicture(const char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage, HB_BOOL bAlphaFormat, int iAlpfaConstant);
+HIMAGELIST HMG_SetButtonImageList(HWND hButton, const char * FileName, int Transparent, UINT uAlign);
+
+HINSTANCE GetInstance(void);
+HINSTANCE GetResources(void);
+
+#if (defined(__BORLANDC__) && __BORLANDC__ < 1410) || (defined(__MINGW32__) && defined(__MINGW32_VERSION))
+struct BUTTON_IMAGELIST
+{
+   HIMAGELIST himl;
+   RECT       margin;
+   UINT       uAlign;
+};
+using PBUTTON_IMAGELIST = BUTTON_IMAGELIST *;
+#endif
+
+/*
+INITBUTTON(p1, p2, p3, nX, nY, nWidth, nHeight, p8, p9, p10, p11, p12, p13, p14) --> HWND
+*/
+HB_FUNC_STATIC( INITBUTTON )
+{
+   void * WindowName;
+
+   DWORD style = BS_NOTIFY | WS_CHILD | (hb_parl(14) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON); // JK
+
+   if( hb_parl(10) )
+   {
+      style |= BS_FLAT;
+   }
+
+   if( !hb_parl(11) )
+   {
+      style |= WS_TABSTOP;
+   }
+
+   if( !hb_parl(12) )
+   {
+      style |= WS_VISIBLE;
+   }
+
+   if( hb_parl(13) )
+   {
+      style |= BS_MULTILINE;
+   }
+
+   hmg_ret_HWND(CreateWindowEx(0, WC_BUTTON, HB_PARSTR(2, &WindowName, nullptr), style,
+      hmg_par_int(4), hmg_par_int(5), hmg_par_int(6), hmg_par_int(7),
+      hmg_par_HWND(1), hmg_par_HMENU(3), GetInstance(), nullptr));
+
+   hb_strfree(WindowName);
+}
+
+/*
+INITIMAGEBUTTON(p1, p2, p3, nX, nY, nWidth, nHeight, p8, p9, p10, p11, p12, p13, p14) --> array
+*/
+HB_FUNC_STATIC( INITIMAGEBUTTON )
+{
+   HWND himage;
+   HICON hIcon;
+   int Transparent = hb_parl(10) ? 0 : 1;
+   HIMAGELIST himl;
+   BUTTON_IMAGELIST bi;
+
+   void * WindowName;
+   void * IconName;
+
+   LPCTSTR lpIconName = HB_PARSTR(14, &IconName, nullptr);
+
+   HWND hwnd = hmg_par_HWND(1);
+
+   DWORD style = BS_NOTIFY | WS_CHILD | (hb_parl(13) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON) | (hb_parc(14) == nullptr ? BS_BITMAP : BS_ICON); // JK
+
+   if( hb_parl(9) )
+   {
+      style |= BS_FLAT;
+   }
+
+   if( !hb_parl(11) )
+   {
+      style |= WS_VISIBLE;
+   }
+
+   if( !hb_parl(12) )
+   {
+      style |= WS_TABSTOP;
+   }
+
+   HWND hbutton = CreateWindowEx(0, WC_BUTTON, HB_PARSTR(2, &WindowName, nullptr), style,
+      hmg_par_int(4), hmg_par_int(5), hmg_par_int(6), hmg_par_int(7),
+      hwnd, hmg_par_HMENU(3), GetInstance(), nullptr);
+
+   if( HB_ISNIL(14) )
+   {
+      if( !hb_parl(17) )
+      {
+         himage = reinterpret_cast<HWND>(HMG_LoadPicture(hb_parc(8), -1, -1, hwnd, 0, Transparent, -1, 0, HB_FALSE, 255));
+
+         SendMessage(hbutton, BM_SETIMAGE, static_cast<WPARAM>(IMAGE_BITMAP), reinterpret_cast<LPARAM>(himage));
+
+         hb_reta(2);
+         HB_STORVNL(reinterpret_cast<LONG_PTR>(hbutton), -1, 1);
+         HB_STORVNL(reinterpret_cast<LONG_PTR>(himage), -1, 2);
+      }
+      else
+      {
+         himl = HMG_SetButtonImageList(hbutton, hb_parc(8), Transparent, BUTTON_IMAGELIST_ALIGN_CENTER);
+
+         hb_reta(2);
+         HB_STORVNL(reinterpret_cast<LONG_PTR>(hbutton), -1, 1);
+         HB_STORVNL(reinterpret_cast<LONG_PTR>(himl), -1, 2);
+      }
+   }
+   else
+   {
+      if( !hb_parl(15) )
+      {
+         hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR));
+
+         if( hIcon == nullptr )
+         {
+            hIcon = static_cast<HICON>(LoadImage(0, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
+         }
+      }
+      else
+      {
+         hIcon = static_cast<HICON>(ExtractIcon(GetInstance(), lpIconName, hb_parni(16)));
+
+         if( hIcon == nullptr )
+         {
+            hIcon = static_cast<HICON>(ExtractIcon(GetInstance(), TEXT("user.exe"), 0));
+         }
+      }
+
+      if( hb_parl(17) )
+      {
+         ICONINFO sIconInfo;
+         GetIconInfo(hIcon, &sIconInfo);
+         BITMAP bm;
+         GetObject(sIconInfo.hbmColor, sizeof(BITMAP), static_cast<LPVOID>(&bm));
+
+         himl = ImageList_Create(bm.bmWidth, bm.bmHeight, ILC_COLOR32 | ILC_MASK, 1, 0);
+
+         bi.himl          = himl;
+         bi.margin.left   = 10;
+         bi.margin.top    = 10;
+         bi.margin.bottom = 10;
+         bi.margin.right  = 10;
+         bi.uAlign        = 4;
+
+         ImageList_AddIcon(bi.himl, hIcon);
+
+         SendMessage(hbutton, BCM_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(&bi));
+
+         DeleteObject(sIconInfo.hbmMask);
+         DeleteObject(sIconInfo.hbmColor);
+         DestroyIcon(hIcon);
+
+         hb_reta(2);
+         HB_STORVNL(reinterpret_cast<LONG_PTR>(hbutton), -1, 1);
+         HB_STORVNL(reinterpret_cast<LONG_PTR>(himl), -1, 2);
+      }
+      else
+      {
+         SendMessage(hbutton, BM_SETIMAGE, static_cast<WPARAM>(IMAGE_ICON), reinterpret_cast<LPARAM>(hIcon));
+
+         hb_reta(2);
+         HB_STORVNL(reinterpret_cast<LONG_PTR>(hbutton), -1, 1);
+         HB_STORVNL(reinterpret_cast<LONG_PTR>(hIcon), -1, 2);
+      }
+   }
+
+   hb_strfree(WindowName);
+   hb_strfree(IconName);
+}
+
+#pragma ENDDUMP
