@@ -53,6 +53,7 @@
 #include <math.h>
 #include <hbapiitm.h>
 #include <hbvm.h>
+#include <hbwinuni.h>
 
 #ifndef BCM_FIRST
 #define BCM_FIRST         0x1600
@@ -65,9 +66,6 @@ HIMAGELIST HMG_SetButtonImageList(HWND hButton, const char * FileName, int Trans
 BOOL bmp_SaveFile(HBITMAP hBitmap, TCHAR * FileName);
 LRESULT CALLBACK  OwnButtonProc(HWND hbutton, UINT msg, WPARAM wParam, LPARAM lParam);
 
-#ifdef UNICODE
-LPWSTR AnsiToWide(LPCSTR);
-#endif
 HINSTANCE GetInstance(void);
 HINSTANCE GetResources(void);
 
@@ -82,15 +80,11 @@ using PBUTTON_IMAGELIST = BUTTON_IMAGELIST *;
 #endif
 
 /*
-INITBUTTON(par1, par2, par3, par4, par5, par6, par7, par8, par9, par10, par11, par12, par13, par14) --> HWND
+INITBUTTON(p1, p2, p3, nX, nY, nWidth, nHeight, p8, p9, p10, p11, p12, p13, p14) --> HWND
 */
 HB_FUNC( INITBUTTON )
 {
-#ifndef UNICODE
-   LPCSTR lpWindowName = hb_parc(2);
-#else
-   LPCWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(2));
-#endif
+   void * WindowName;
 
    DWORD style = BS_NOTIFY | WS_CHILD | (hb_parl(14) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON);
 
@@ -114,17 +108,15 @@ HB_FUNC( INITBUTTON )
       style |= BS_MULTILINE;
    }
 
-   hmg_ret_HWND(CreateWindowEx(0, WC_BUTTON, lpWindowName, style,
+   hmg_ret_HWND(CreateWindowEx(0, WC_BUTTON, HB_PARSTR(2, &WindowName, nullptr), style,
       hmg_par_int(4), hmg_par_int(5), hmg_par_int(6), hmg_par_int(7),
       hmg_par_HWND(1), hmg_par_HMENU(3), GetInstance(), nullptr));
 
-#ifdef UNICODE
-   hb_xfree(( TCHAR * ) lpWindowName);
-#endif
+   hb_strfree(WindowName);
 }
 
 /*
-INITIMAGEBUTTON(par1, par2, par3, par4, par5, par6, par7, par8, par9, par10, par11, par12, par13, par14) --> array
+INITIMAGEBUTTON(p1, p2, p3, nX, nY, nWidth, nHeight, p8, p9, p10, p11, p12, p13, p14) --> array
 */
 HB_FUNC( INITIMAGEBUTTON )
 {
@@ -134,13 +126,10 @@ HB_FUNC( INITIMAGEBUTTON )
    HIMAGELIST himl;
    BUTTON_IMAGELIST bi;
 
-#ifndef UNICODE
-   LPCSTR lpWindowName = hb_parc(2);
-   LPCSTR lpIconName   = hb_parc(14);
-#else
-   LPWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(2));
-   LPWSTR lpIconName   = AnsiToWide(( char * ) hb_parc(14));
-#endif
+   void * WindowName;
+   void * IconName;
+
+   LPCTSTR lpIconName = HB_PARSTR(14, &IconName, nullptr);
 
    HWND hwnd = hmg_par_HWND(1);
 
@@ -161,13 +150,9 @@ HB_FUNC( INITIMAGEBUTTON )
       style |= WS_TABSTOP;
    }
 
-   HWND hbutton = CreateWindowEx(0, WC_BUTTON, lpWindowName, style,
+   HWND hbutton = CreateWindowEx(0, WC_BUTTON, HB_PARSTR(2, &WindowName, nullptr), style,
       hmg_par_int(4), hmg_par_int(5), hmg_par_int(6), hmg_par_int(7),
       hwnd, hmg_par_HMENU(3), GetInstance(), nullptr);
-
-#ifdef UNICODE
-   hb_xfree(lpWindowName);
-#endif
 
    if( HB_ISNIL(14) )
    {
@@ -211,10 +196,6 @@ HB_FUNC( INITIMAGEBUTTON )
          }
       }
 
-#ifdef UNICODE
-      hb_xfree(lpIconName);
-#endif
-
       if( hb_parl(17) )
       {
          ICONINFO sIconInfo;
@@ -252,25 +233,26 @@ HB_FUNC( INITIMAGEBUTTON )
          HB_STORVNL(reinterpret_cast<LONG_PTR>(hIcon), -1, 2);
       }
    }
+
+   hb_strfree(WindowName);
+   hb_strfree(IconName);
 }
 
 /*
-INITOWNERBUTTON(par1, par2, par3, par4, par5, par6, par7, par8, par9, par10, par11, par12, par13, par14) --> array
+INITOWNERBUTTON(p1, p2, p3, nX, nY, nWidth, nHeight, p8, p9, p10, p11, p12, p13, p14) --> array
 */
 HB_FUNC( INITOWNERBUTTON )
 {
    HWND  himage;
    HICON hIcon;
 
-#ifndef UNICODE
-   LPCSTR lpWindowName = hb_parc(2);
-   LPCSTR lpImageName  = hb_parc(8);
-   LPCSTR lpIconName   = hb_parc(14);
-#else
-   LPCWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(2));
-   LPCWSTR lpImageName  = AnsiToWide(( char * ) hb_parc(8));
-   LPCWSTR lpIconName   = AnsiToWide(( char * ) hb_parc(14));
-#endif
+   void * WindowName;
+   void * ImageName;
+   void * IconName;
+
+   LPCTSTR lpWindowName = HB_PARSTR(2, &WindowName, nullptr);
+   LPCTSTR lpImageName  = HB_PARSTR(8, &ImageName, nullptr);
+   LPCTSTR lpIconName   = HB_PARSTR(14, &IconName, nullptr);
 
    HWND hwnd = hmg_par_HWND(1);
 
@@ -332,23 +314,18 @@ HB_FUNC( INITOWNERBUTTON )
       HB_STORVNL(reinterpret_cast<LONG_PTR>(hIcon), -1, 2);
    }
 
-#ifdef UNICODE
-   hb_xfree(( TCHAR * ) lpWindowName);
-   hb_xfree(( TCHAR * ) lpImageName);
-   hb_xfree(( TCHAR * ) lpIconName);
-#endif
+   hb_strfree(WindowName);
+   hb_strfree(ImageName);
+   hb_strfree(IconName);
 }
 
 /*
-_SETBTNPICTURE(par1, par2, par3, par4) --> HWND
+_SETBTNPICTURE(p1, p2, p3, p4) --> HWND
 */
 HB_FUNC( _SETBTNPICTURE )
 {
-#ifndef UNICODE
-   LPCSTR lpImageName = hb_parc(2);
-#else
-   LPWSTR lpImageName = AnsiToWide(( char * ) hb_parc(2));
-#endif
+   void * ImageName;
+   LPCTSTR lpImageName = HB_PARSTR(2, &ImageName, nullptr);
 
    HWND hwnd = hmg_par_HWND(1);
 
@@ -361,7 +338,7 @@ HB_FUNC( _SETBTNPICTURE )
 
    if( himage == nullptr )
    {
-      himage = reinterpret_cast<HWND>(HMG_LoadPicture(hb_parc(2), hb_parni(3), hb_parni(4), hwnd, 0, 1, -1, 0, HB_FALSE, 255));
+      himage = reinterpret_cast<HWND>(HMG_LoadPicture(hb_parc(2), hb_parni(3), hb_parni(4), hwnd, 0, 1, -1, 0, HB_FALSE, 255)); // TODO: hb_parc(2) -> lpImageName
    }
 
    SendMessage(hwnd, BM_SETIMAGE, static_cast<WPARAM>(IMAGE_BITMAP), reinterpret_cast<LPARAM>(himage));
@@ -369,9 +346,7 @@ HB_FUNC( _SETBTNPICTURE )
    RegisterResource(himage, "BMP");
    hmg_ret_HWND(himage);
 
-#ifdef UNICODE
-   hb_xfree(lpImageName);
-#endif
+   hb_strfree(ImageName);
 }
 
 /*
@@ -383,7 +358,7 @@ HB_FUNC( _GETBTNPICTUREHANDLE )
 }
 
 /*
-_SETMIXEDBTNPICTURE(par1, par2, par3) --> HANDLE
+_SETMIXEDBTNPICTURE(p1, p2, p3) --> HANDLE
 */
 HB_FUNC( _SETMIXEDBTNPICTURE )
 {
@@ -396,15 +371,12 @@ HB_FUNC( _SETMIXEDBTNPICTURE )
 // HMG 1.0 Experimental Build 8e
 
 /*
-_SETBTNICON(par1, par2) --> HANDLE
+_SETBTNICON(p1, p2) --> HANDLE
 */
 HB_FUNC( _SETBTNICON )
 {
-#ifndef UNICODE
-   LPCSTR lpIconName = hb_parc(2);
-#else
-   LPWSTR lpIconName = AnsiToWide(( char * ) hb_parc(2));
-#endif
+   void * IconName;
+   LPCTSTR lpIconName = HB_PARSTR(2, &IconName, nullptr);
 
    HICON hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR));
 
@@ -418,21 +390,16 @@ HB_FUNC( _SETBTNICON )
    RegisterResource(hIcon, "ICON");
    hmg_ret_HANDLE(hIcon);
 
-#ifdef UNICODE
-   hb_xfree(lpIconName);
-#endif
+   hb_strfree(IconName);
 }
 
 /*
-_SETMIXEDBTNICON(par1, par2) --> HANDLE
+_SETMIXEDBTNICON(p1, p2) --> HANDLE
 */
 HB_FUNC( _SETMIXEDBTNICON )
 {
-#ifndef UNICODE
-   LPCSTR lpIconName = hb_parc(2);
-#else
-   LPWSTR lpIconName = AnsiToWide(( char * ) hb_parc(2));
-#endif
+   void * IconName;
+   LPCTSTR lpIconName = HB_PARSTR(2, &IconName, nullptr);
 
    HICON hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR));
 
@@ -467,9 +434,7 @@ HB_FUNC( _SETMIXEDBTNICON )
    RegisterResource(himl, "IMAGELIST");
    hmg_ret_HANDLE(himl);
 
-#ifdef UNICODE
-   hb_xfree(lpIconName);
-#endif
+   hb_strfree(IconName);
 }
 
 /*
