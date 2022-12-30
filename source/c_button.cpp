@@ -86,7 +86,7 @@ HB_FUNC( INITBUTTON )
 {
    void * WindowName;
 
-   DWORD style = BS_NOTIFY | WS_CHILD | (hb_parl(14) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON);
+   DWORD style = BS_NOTIFY | WS_CHILD | (hb_parl(14) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON); // JK
 
    if( hb_parl(10) )
    {
@@ -133,7 +133,7 @@ HB_FUNC( INITIMAGEBUTTON )
 
    HWND hwnd = hmg_par_HWND(1);
 
-   DWORD style = BS_NOTIFY | WS_CHILD | (hb_parl(13) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON) | (hb_parc(14) == nullptr ? BS_BITMAP : BS_ICON);
+   DWORD style = BS_NOTIFY | WS_CHILD | (hb_parl(13) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON) | (hb_parc(14) == nullptr ? BS_BITMAP : BS_ICON); // JK
 
    if( hb_parl(9) )
    {
