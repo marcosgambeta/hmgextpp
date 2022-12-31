@@ -64,7 +64,6 @@ static HBRUSH CreateGradientBrush(HDC hDC, INT nWidth, INT nHeight, COLORREF Col
 HBITMAP HMG_LoadPicture(const char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage, HB_BOOL bAlphaFormat, int iAlpfaConstant);
 HIMAGELIST HMG_SetButtonImageList(HWND hButton, const char * FileName, int Transparent, UINT uAlign);
 BOOL bmp_SaveFile(HBITMAP hBitmap, TCHAR * FileName);
-LRESULT CALLBACK  OwnButtonProc(HWND hbutton, UINT msg, WPARAM wParam, LPARAM lParam);
 
 HINSTANCE GetInstance(void);
 HINSTANCE GetResources(void);
@@ -78,87 +77,6 @@ struct BUTTON_IMAGELIST
 };
 using PBUTTON_IMAGELIST = BUTTON_IMAGELIST *;
 #endif
-
-/*
-INITOWNERBUTTON(p1, p2, p3, nX, nY, nWidth, nHeight, p8, p9, p10, p11, p12, p13, p14) --> array
-*/
-HB_FUNC( INITOWNERBUTTON )
-{
-   HWND  himage;
-   HICON hIcon;
-
-   void * WindowName;
-   void * ImageName;
-   void * IconName;
-
-   LPCTSTR lpWindowName = HB_PARSTR(2, &WindowName, nullptr);
-   LPCTSTR lpImageName  = HB_PARSTR(8, &ImageName, nullptr);
-   LPCTSTR lpIconName   = HB_PARSTR(14, &IconName, nullptr);
-
-   HWND hwnd = hmg_par_HWND(1);
-
-   DWORD style = BS_NOTIFY | WS_CHILD | BS_OWNERDRAW | (HB_ISNIL(14) ? BS_BITMAP : BS_ICON) | (hb_parl(13) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON);
-
-   if( hb_parl(9) )
-   {
-      style |= BS_FLAT;
-   }
-
-   if( !hb_parl(11) )
-   {
-      style |= WS_VISIBLE;
-   }
-
-   if( !hb_parl(12) )
-   {
-      style |= WS_TABSTOP;
-   }
-
-   HWND hbutton = CreateWindowEx(0, WC_BUTTON, lpWindowName, style,
-      hmg_par_int(4), hmg_par_int(5), hmg_par_int(6), hmg_par_int(7),
-      hwnd, hmg_par_HMENU(3), GetInstance(), nullptr);
-
-   SetProp(hbutton, TEXT("oldbtnproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hbutton, GWLP_WNDPROC)));
-   SetWindowLongPtr(hbutton, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(OwnButtonProc));
-
-   int ImgStyle = hb_parl(10) ? 0 : LR_LOADTRANSPARENT;
-
-   if( HB_ISNIL(14) )
-   {
-      himage = static_cast<HWND>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef(15, 0), 0), HB_MAX(hb_parnidef(16, 0), 0), LR_LOADMAP3DCOLORS | ImgStyle));
-
-      if( himage == nullptr )
-      {
-         himage = static_cast<HWND>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef(15, 0), 0), HB_MAX(hb_parnidef(16, 0), 0), LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | ImgStyle));
-      }
-
-      hb_reta(2);
-      HB_STORVNL(reinterpret_cast<LONG_PTR>(hbutton), -1, 1);
-      HB_STORVNL(reinterpret_cast<LONG_PTR>(himage), -1, 2);
-   }
-   else
-   {
-      hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR));
-
-      if( hIcon == nullptr )
-      {
-         hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
-      }
-
-      if( hIcon == nullptr )
-      {
-         hIcon = ExtractIcon(GetInstance(), lpIconName, 0);
-      }
-
-      hb_reta(2);
-      HB_STORVNL(reinterpret_cast<LONG_PTR>(hbutton), -1, 1);
-      HB_STORVNL(reinterpret_cast<LONG_PTR>(hIcon), -1, 2);
-   }
-
-   hb_strfree(WindowName);
-   hb_strfree(ImageName);
-   hb_strfree(IconName);
-}
 
 /*
 _SETBTNPICTURE(p1, p2, p3, p4) --> HWND
@@ -429,74 +347,6 @@ HB_FUNC( GETOWNBTNRECT )
    HB_arraySetNL(aMetr, 3, rc.right);
    HB_arraySetNL(aMetr, 4, rc.bottom);
    hb_itemReturnRelease(aMetr);
-}
-
-LRESULT CALLBACK OwnButtonProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lParam)
-{
-   static PHB_SYMB pSymbol = nullptr;
-
-   WNDPROC OldWndProc = reinterpret_cast<WNDPROC>(GetProp(hButton, TEXT("oldbtnproc")));
-
-   switch( Msg )
-   {
-      case WM_LBUTTONDBLCLK:
-         SendMessage(hButton, WM_LBUTTONDOWN, wParam, lParam);
-         break;
-
-      case WM_MOUSEMOVE:
-      {
-         TRACKMOUSEEVENT tme;
-         tme.cbSize      = sizeof(TRACKMOUSEEVENT);
-         tme.dwFlags     = TME_LEAVE;
-         tme.hwndTrack   = hButton;
-         tme.dwHoverTime = 0;
-         _TrackMouseEvent(&tme);
-
-         if( !pSymbol )
-         {
-            pSymbol = hb_dynsymSymbol(hb_dynsymGet("OBTNEVENTS"));
-         }
-
-         if( pSymbol )
-         {
-            hb_vmPushSymbol(pSymbol);
-            hb_vmPushNil();
-            hb_vmPushNumInt(reinterpret_cast<LONG_PTR>(hButton));
-            hb_vmPushLong(Msg);
-            hb_vmPushNumInt(wParam);
-            hb_vmPushNumInt(lParam);
-            hb_vmDo(4);
-         }
-
-         long int r = hb_parnl(-1);
-
-         return (r != 0) ? r : DefWindowProc(hButton, Msg, wParam, lParam);
-      }
-      case WM_MOUSELEAVE:
-      {
-         if( !pSymbol )
-         {
-            pSymbol = hb_dynsymSymbol(hb_dynsymGet("OBTNEVENTS"));
-         }
-
-         if( pSymbol )
-         {
-            hb_vmPushSymbol(pSymbol);
-            hb_vmPushNil();
-            hb_vmPushNumInt(reinterpret_cast<LONG_PTR>(hButton));
-            hb_vmPushLong(Msg);
-            hb_vmPushNumInt(wParam);
-            hb_vmPushNumInt(lParam);
-            hb_vmDo(4);
-         }
-
-         long int r = hb_parnl(-1);
-
-         return (r != 0) ? r : DefWindowProc(hButton, Msg, wParam, lParam);
-      }
-   }
-
-   return CallWindowProc(OldWndProc, hButton, Msg, wParam, lParam);
 }
 
 /*
