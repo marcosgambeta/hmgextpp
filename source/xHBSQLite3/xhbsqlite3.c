@@ -383,11 +383,11 @@ static void * hb_sqlite3_itemGet(PHB_ITEM pItem, int iType, BOOL fError)
 
    HB_SYMBOL_UNUSED( iError );
 
-   if( ! pStructHolder )
+   if( !pStructHolder )
       iError = HB_ERR_MEMSTRU_NOT_MEM_BLOCK;
    else if( pStructHolder->type != iType )
       iError = HB_ERR_MEMSTRU_WRONG_MEMSTRU_BLOCK;
-   else if( ! pStructHolder->hbsqlite3 )
+   else if( !pStructHolder->hbsqlite3 )
       iError = HB_ERR_MEMSTRU_DESTROYED;
    else
       return pStructHolder->hbsqlite3;

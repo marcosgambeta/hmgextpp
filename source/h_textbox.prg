@@ -979,7 +979,7 @@ PROCEDURE ProcessCharMask ( i , d )
 
          IF hmg_IsAlpha( CB ) .OR. CB == " " .OR. ( ( CM == "N" .OR. CM == "!" ) .AND. hmg_IsDigit( CB ) )
 
-            IF CM == "!" .AND. ! hmg_IsDigit( CB )
+            IF CM == "!" .AND. !hmg_IsDigit( CB )
                OutBuffer += hmg_Upper(CB)
             ELSE
                OutBuffer += CB
@@ -1097,7 +1097,7 @@ PROCEDURE ProcessCharMask ( i , d )
             IF CM == "X"
                EXIT
             ENDIF
-            IF !hmg_IsDigit( CB ) .AND. ! hmg_IsAlpha( CB ) .AND. ;
+            IF !hmg_IsDigit( CB ) .AND. !hmg_IsAlpha( CB ) .AND. ;
                ( !( CB == " " ) .OR. ( CB == " " .AND. CM == " " ) )
                SendMessage(_HMG_aControlhandles[i], EM_SETSEL, icp + x, icp + x)
             ELSE

@@ -131,7 +131,7 @@ STATIC FUNCTION ConvertType( uVal, cTypeDst )
       CASE cTypeDst == "L"
          DO CASE
          CASE cTypeSrc $ "LN"
-            uVal := ! Empty(uVal)
+            uVal := !Empty(uVal)
          CASE cTypeSrc == "C"
             uVal := Upper(uVal) $ "Y,YES,T,.T.,TRUE"
          OTHERWISE

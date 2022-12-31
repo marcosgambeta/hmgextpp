@@ -123,7 +123,7 @@ HB_EXPORT char * hb_parcstruct(int iParam, ...)
          pItem = hb_itemUnRef(pItem);
       }
 
-      if( HB_IS_ARRAY(pItem) && ! HB_IS_OBJECT(pItem) )
+      if( HB_IS_ARRAY(pItem) && !HB_IS_OBJECT(pItem) )
       {
          va_list va;
          ULONG ulArrayIndex;

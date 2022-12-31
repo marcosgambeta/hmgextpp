@@ -125,7 +125,7 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
-   IF autosize .AND. ! ISCHARACTER ( Caption )
+   IF autosize .AND. !ISCHARACTER ( Caption )
       Caption := cValToChar ( Caption )
    ENDIF
 
@@ -287,7 +287,7 @@ FUNCTION _DefineChkLabel ( ControlName, ParentFormName, x, y, Caption, w, h, ;
    _HMG_aControlMiscData2          [k] := ""
 
    IF blink == .T. .AND. !lDialogInMemory
-      _DefineTimer ( "BlinkTimer" + hb_ntos( k ) , ParentFormName , 500 , {|| _HMG_aControlMiscData1 [k] [3] := ! _HMG_aControlMiscData1 [k] [3], ;
+      _DefineTimer ( "BlinkTimer" + hb_ntos( k ) , ParentFormName , 500 , {|| _HMG_aControlMiscData1 [k] [3] := !_HMG_aControlMiscData1 [k] [3], ;
          iif( _HMG_aControlMiscData1 [k] [3] == .T. , _ShowControl ( ControlName , ParentFormName ), _HideControl ( ControlName , ParentFormName ) ) } )
    ENDIF
 

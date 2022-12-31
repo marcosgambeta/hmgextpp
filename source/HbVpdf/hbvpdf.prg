@@ -2538,7 +2538,7 @@ STATIC FUNCTION AllToken( cString, cDelimiter, nPointer, nAction )
    WHILE nPos <= nLen
       IF !SubStr(cString, nPos, 1) $ cDelimiter
          nStart := nPos
-         WHILE nPos <= nLen .AND. ! SubStr(cString, nPos, 1) $ cDelimiter
+         WHILE nPos <= nLen .AND. !SubStr(cString, nPos, 1) $ cDelimiter
             ++nPos
          ENDDO
          ++nTokens

@@ -398,7 +398,7 @@ FUNCTION InitDialogComboBox( ParentName, ControlHandle, k )
 
          ( WorkArea )->( dbGoTop() )
 
-         DO WHILE ! ( WorkArea )->( EOF() )
+         DO WHILE !( WorkArea )->( EOF() )
             rcount++
             IF value == ( WorkArea )->( RecNo() )
                cset := rcount
@@ -470,7 +470,7 @@ PROCEDURE _DataComboRefresh ( i )  // (JK) Modified for extend COMBO HMG 1.0 Bui
 
    ComboboxReset(ControlHandle)
 
-   DO WHILE ! ( WorkArea )->( EOF() )  // (JK) HMG 1.0 Experimental Build 8
+   DO WHILE !( WorkArea )->( EOF() )  // (JK) HMG 1.0 Experimental Build 8
       IF  _HMG_aControlMiscData1[i] [1] != 1  // standard Combo
          ComboAddString(ControlHandle, cValToChar((WorkArea)->&(cField)))
       ELSE  // extend Combo

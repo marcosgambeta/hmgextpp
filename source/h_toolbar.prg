@@ -412,7 +412,7 @@ FUNCTION _BeginToolBar ( name, parent, row, col, w, h, caption, ProcedureName, f
    hb_default(@wrap, .F.)
 
    IF break == NIL
-      break := ! _HMG_ActiveSplitBox
+      break := !_HMG_ActiveSplitBox
    ENDIF
 
    _HMG_ActiveToolBarName := name
@@ -463,7 +463,7 @@ FUNCTION _BeginToolBarEx( name, parent, row, col, w, h, caption, ProcedureName, 
    ENDIF
 
    IF break == NIL
-      break := ! _HMG_ActiveSplitBox
+      break := !_HMG_ActiveSplitBox
    ENDIF
 
    _HMG_ActiveToolBarName := name
@@ -501,7 +501,7 @@ FUNCTION _CreatePopUpChevron ( hWnd, wParam, lParam )
          lEnable  := IsButtonEnabled( TbHwnd, n )
          hImage := GetImageList( tbhwnd, aBtnInfo [1] )
 
-         IF ( k := AScan(_HMG_aControlIds, aBtnInfo [2]) ) > 0 .AND. ! aBtnInfo [3]
+         IF ( k := AScan(_HMG_aControlIds, aBtnInfo [2]) ) > 0 .AND. !aBtnInfo [3]
 
             IF !Empty(_HMG_aControlToolTip [k])
                cMenu := _HMG_aControlToolTip [k]

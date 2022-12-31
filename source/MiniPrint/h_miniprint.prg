@@ -154,7 +154,7 @@ Local icb
 			ON PAINT _HMG_PRINTER_PREVIEWRefresh() ;
 			ON RELEASE _HMG_PRINTER_OnRelease( ModalHandle, icb ) ;
 			BACKCOLOR GRAY ;
-			ON MOUSECLICK	( _HMG_PRINTER_PPNAV.b5.value := ! _HMG_PRINTER_PPNAV.b5.value , _HMG_PRINTER_MouseZoom() ) ;
+			ON MOUSECLICK	( _HMG_PRINTER_PPNAV.b5.value := !_HMG_PRINTER_PPNAV.b5.value , _HMG_PRINTER_MouseZoom() ) ;
 			ON SCROLLUP	_HMG_PRINTER_ScrolluP() ;
 			ON SCROLLDOWN	_HMG_PRINTER_ScrollDown() ;
 			ON SCROLLLEFT	_HMG_PRINTER_ScrollLeft() ;
@@ -420,7 +420,7 @@ Local icb
 	DEFINE WINDOW _HMG_PRINTER_PPNAV ;
 			AT 1 + iif( IsVistaThemed , 3 , 0 ) , GetDesktopWidth() - 320 - iif( IsVistaThemed , 5 , 0 ) ;
 			WIDTH 312 + GetBorderWidth() ;
-			HEIGHT 35 + GetTitleHeight() - iif( IsVistaThemed .Or. ! _HMG_IsXP , 0 , GetBorderHeight() ) ;
+			HEIGHT 35 + GetTitleHeight() - iif( IsVistaThemed .Or. !_HMG_IsXP , 0 , GetBorderHeight() ) ;
 			TITLE " " + _hmg_printer_usermessages [02] ;
 			PALETTE ;
 			NOMAXIMIZE ;
@@ -607,7 +607,7 @@ Static Procedure _HMG_PRINTER_SetKeys( parent )
 	ON KEY CONTROL+P	OF &parent ACTION _HMG_PRINTER_Printpages()
 	ON KEY CONTROL+G	OF &parent ACTION _HMG_PRINTER_GO_TO_PAGE()
 	ON KEY ESCAPE		OF &parent ACTION _HMG_PRINTER_PreviewClose()
-	ON KEY MULTIPLY 	OF &parent ACTION ( _HMG_PRINTER_PPNAV.b5.value := ! _HMG_PRINTER_PPNAV.b5.value , _HMG_PRINTER_MouseZoom() )
+	ON KEY MULTIPLY 	OF &parent ACTION ( _HMG_PRINTER_PPNAV.b5.value := !_HMG_PRINTER_PPNAV.b5.value , _HMG_PRINTER_MouseZoom() )
 	ON KEY CONTROL+C	OF &parent ACTION _HMG_PRINTER_PreviewClose()
 	ON KEY ALT+F4		OF &parent ACTION _HMG_PRINTER_PreviewClose()
 	ON KEY CONTROL+S	OF &parent ACTION _hmg_printer_savepages()
@@ -676,7 +676,7 @@ Return
 Static Procedure _hmg_printer_ThumbnailToggle()
 *------------------------------------------------------------------------------*
 
-	_HMG_PRINTER_PPNAV.thumbswitch.Value := ! _HMG_PRINTER_PPNAV.thumbswitch.Value
+	_HMG_PRINTER_PPNAV.thumbswitch.Value := !_HMG_PRINTER_PPNAV.thumbswitch.Value
 
 	_HMG_PRINTER_ProcessTHUMBNAILS()
 

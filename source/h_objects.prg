@@ -25,7 +25,7 @@ CLASS THmgData
    EXPORTED:
    VAR Cargo
 
-   METHOD New( lUpper ) INLINE ( ::lUpp := ! Empty(lUpper), Self ) CONSTRUCTOR
+   METHOD New( lUpper ) INLINE ( ::lUpp := !Empty(lUpper), Self ) CONSTRUCTOR
 
    METHOD Set( Key, Block ) INLINE iif( HB_ISHASH( Key ), ::aKey := Key, hb_HSet( ::aKey, ::Upp( Key ), Block ) )
    METHOD Get( Key, Def ) INLINE hb_HGetDef( ::aKey, ::Upp( Key ), Def )
@@ -173,7 +173,7 @@ METHOD Def( cIni, lMacro, lUtf8, cChar ) CLASS TIniData
 
    ::cIni   := hb_defaultValue(cIni, ::cIni)
    ::lMacro := hb_defaultValue(lMacro, ::lMacro)
-   ::lUtf8  := ! Empty(lUtf8)
+   ::lUtf8  := !Empty(lUtf8)
    ::lUtf   := ( Set( _SET_CODEPAGE ) == "UTF8" )
    ::cCommentChar := hb_defaultValue(cChar, ::cCommentChar)
 
@@ -268,7 +268,7 @@ METHOD Read() CLASS TIniData
               ENDIF
               nKey := Max( nKey, Len(cStr) )
               hb_HSet( hKey, upper(cStr), { cStr, cNote } )
-              IF ::lMacro .AND. ! HB_ISNIL( xVal := ::ToValue( cBuf ) )
+              IF ::lMacro .AND. !HB_ISNIL( xVal := ::ToValue( cBuf ) )
                  oSec:Set( cStr, xVal )
               ELSE
                  oSec:Set( cStr, cBuf )
@@ -390,9 +390,9 @@ METHOD Write( cFile, lUtf8 ) CLASS TIniData
               cKey := cStr[1]
               IF !Empty(cStr[2])
                  IF lBlk
-                    cVal := iif( ! ::lUtf .AND. lUtf8, hb_StrToUtf8( cStr[2] ), cStr[2] )
+                    cVal := iif( !::lUtf .AND. lUtf8, hb_StrToUtf8( cStr[2] ), cStr[2] )
                  ELSE
-                    cVal += space(3) + iif( ! ::lUtf .AND. lUtf8, hb_StrToUtf8( cStr[2] ), cStr[2] )
+                    cVal += space(3) + iif( !::lUtf .AND. lUtf8, hb_StrToUtf8( cStr[2] ), cStr[2] )
                  ENDIF
               ENDIF
            ENDIF
@@ -638,7 +638,7 @@ CLASS TDlu2Pix
    ASSIGN Handle(hWnd) INLINE (::hWnd := hWnd, ::lError := Empty(hWnd), iif(::lError, MsgMiniGuiError("Application events are not created !"),))
    ACCESS IsError        INLINE ::lError
    ACCESS Wm_nApp        INLINE WM_APP_LAUNCH
-   ACCESS IsMsg          INLINE ( ::lAction .AND. ! ::lError )
+   ACCESS IsMsg          INLINE ( ::lAction .AND. !::lError )
 
    ACCESS Action            INLINE ::lAction
    ASSIGN Action( lAction ) INLINE ::lAction := !( Empty(lAction) )
@@ -1022,7 +1022,7 @@ CLASS TWndData
    ASSIGN Action( lAction ) INLINE ::lAction := !( Empty(lAction) )
 
    ACCESS StatusBar INLINE ::oStatusBar
-   ACCESS HasStatusBar INLINE ! Empty(::oStatusBar)
+   ACCESS HasStatusBar INLINE !Empty(::oStatusBar)
    ACCESS bOnEvent INLINE ::oOnEventBlock
 
    ACCESS WM_nMsgW INLINE WM_WND_LAUNCH
@@ -1486,7 +1486,7 @@ CLASS TKeyData
    ASSIGN Obj(o) INLINE ::oObj := iif( HB_ISOBJECT( o ), o, Self )
    ACCESS Len INLINE Len(::aKey)
    ACCESS IsEvent INLINE ::lKey
-   ASSIGN KeyUpper(lUpper) INLINE hb_HCaseMatch( ::aKey, ! Empty(lUpper) )
+   ASSIGN KeyUpper(lUpper) INLINE hb_HCaseMatch( ::aKey, !mpty(lUpper) )
    METHOD ISBLOCK( Key ) INLINE HB_ISBLOCK( ::Get( Key ) )
    METHOD Json( cJson )  INLINE iif( HB_ISCHAR( cJson ), ( cJson := SubStr(cJson, At("{", cJson) ), ;
                                                            cJson := Left(cJson, RAt("}", cJson) ), ;

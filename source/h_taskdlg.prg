@@ -41,9 +41,9 @@ ENDCLASS
 
 METHOD New( cTitle, cInstruction, cContent, nCommonButtons, nMainIcon ) CLASS TSimpleTaskDialog
 
-   ::cTitle       := iif( HB_ISNUMERIC(cTitle), cTitle, iif( ! HB_ISSTRING( cTitle ), NIL, iif( HB_ISNULL( cTitle ), NIL, cTitle ) ) )
-   ::cInstruction := iif( HB_ISNUMERIC(cInstruction), cInstruction, iif( ! HB_ISSTRING( cInstruction ), NIL, iif( HB_ISNULL( cInstruction ), NIL, cInstruction ) ) )
-   ::cContent     := iif( HB_ISNUMERIC(cContent), cContent, iif( ! HB_ISSTRING( cContent ), NIL, iif( HB_ISNULL( cContent ), NIL, cContent ) ) )
+   ::cTitle       := iif( HB_ISNUMERIC(cTitle), cTitle, iif( !HB_ISSTRING( cTitle ), NIL, iif( HB_ISNULL( cTitle ), NIL, cTitle ) ) )
+   ::cInstruction := iif( HB_ISNUMERIC(cInstruction), cInstruction, iif( !HB_ISSTRING( cInstruction ), NIL, iif( HB_ISNULL( cInstruction ), NIL, cInstruction ) ) )
+   ::cContent     := iif( HB_ISNUMERIC(cContent), cContent, iif( !HB_ISSTRING( cContent ), NIL, iif( HB_ISNULL( cContent ), NIL, cContent ) ) )
 
    IF HB_ISNUMERIC(nCommonButtons)
       ::nCommonButtons := nCommonButtons
@@ -74,7 +74,7 @@ METHOD Execute() CLASS TSimpleTaskDialog
    ::nButtonResult := nButton
    ::nResult       := nResult
 
-RETURN ( ! ::lError )
+RETURN ( !::lError )
 
 METHOD Title( cTitle ) CLASS TSimpleTaskDialog
 
@@ -201,10 +201,10 @@ ENDCLASS
 
 METHOD New( cTitle, cInstruction, cContent, cFooter, nCommonButtons, nMainIcon ) CLASS TTaskDialog
 
-   ::aConfig[ TDC_WINDOWTITLE ]     := iif( HB_ISNUMERIC(cTitle), cTitle, iif( ! HB_ISSTRING( cTitle ), NIL, iif( HB_ISNULL( cTitle ), NIL, cTitle ) ) )
-   ::aConfig[ TDC_MAININSTRUCTION ] := iif( HB_ISNUMERIC(cInstruction), cInstruction, iif( ! HB_ISSTRING( cInstruction ), NIL, iif( HB_ISNULL( cInstruction ), NIL, cInstruction ) ) )
-   ::aConfig[ TDC_CONTENT ] := iif( HB_ISNUMERIC(cContent), cContent, iif( ! HB_ISSTRING( cContent ), NIL, iif( HB_ISNULL( cContent ), NIL, cContent ) ) )
-   ::aConfig[ TDC_FOOTER ]  := iif( HB_ISNUMERIC(cFooter), cFooter, iif( ! HB_ISSTRING( cFooter ), NIL, iif( HB_ISNULL( cFooter ), NIL, cFooter ) ) )
+   ::aConfig[ TDC_WINDOWTITLE ]     := iif( HB_ISNUMERIC(cTitle), cTitle, iif( !HB_ISSTRING( cTitle ), NIL, iif( HB_ISNULL( cTitle ), NIL, cTitle ) ) )
+   ::aConfig[ TDC_MAININSTRUCTION ] := iif( HB_ISNUMERIC(cInstruction), cInstruction, iif( !HB_ISSTRING( cInstruction ), NIL, iif( HB_ISNULL( cInstruction ), NIL, cInstruction ) ) )
+   ::aConfig[ TDC_CONTENT ] := iif( HB_ISNUMERIC(cContent), cContent, iif( !HB_ISSTRING( cContent ), NIL, iif( HB_ISNULL( cContent ), NIL, cContent ) ) )
+   ::aConfig[ TDC_FOOTER ]  := iif( HB_ISNUMERIC(cFooter), cFooter, iif( !HB_ISSTRING( cFooter ), NIL, iif( HB_ISNULL( cFooter ), NIL, cFooter ) ) )
 
    IF HB_ISNUMERIC(nCommonButtons)
       ::aConfig[ TDC_COMMON_BUTTON_FLAGS ] := nCommonButtons
@@ -258,7 +258,7 @@ METHOD ShowDialog() CLASS TTaskDialog
       ::nResult            := nResult
    ENDIF
 
-RETURN ( ! ::lError )
+RETURN ( !::lError )
 
 /*
    The handle of the dialog.
@@ -275,7 +275,7 @@ METHOD Showing( lState ) CLASS TTaskDialog
 
    hb_default(@lState, .F.)
 
-   IF lState .AND. ! ::lActive
+   IF lState .AND. !::lActive
       ::ShowDialog()
    ENDIF
 
@@ -686,9 +686,9 @@ METHOD AllowDialogCancellation( lNewVal ) CLASS TTaskDialog
    lOldVal := ( hb_bitAnd( nCurFlags, TDF_ALLOW_DIALOG_CANCELLATION ) != 0 )
 
    IF !::lActive .AND. HB_ISLOGICAL( lNewVal )
-      IF ( ( ! lOldVal ) .AND. lNewVal )
+      IF ( ( !lOldVal ) .AND. lNewVal )
          nNewFlags := hb_bitOr( nCurFlags, TDF_ALLOW_DIALOG_CANCELLATION )
-      ELSEIF ( lOldVal .AND. ( ! lNewVal ) )
+      ELSEIF ( lOldVal .AND. ( !lNewVal ) )
          nNewFlags := hb_bitAnd( nCurFlags, hb_bitNot( TDF_ALLOW_DIALOG_CANCELLATION ) )
       ENDIF
       ::Flags( nNewFlags )
@@ -709,9 +709,9 @@ METHOD CanBeMinimized( lNewVal ) CLASS TTaskDialog
    lOldVal := ( hb_bitAnd( nCurFlags, TDF_CAN_BE_MINIMIZED ) != 0 )
 
    IF !::lActive .AND. HB_ISLOGICAL( lNewVal )
-      IF ( ( ! lOldVal ) .AND. lNewVal )
+      IF ( ( !lOldVal ) .AND. lNewVal )
          nNewFlags := hb_bitOr( nCurFlags, TDF_CAN_BE_MINIMIZED )
-      ELSEIF ( lOldVal .AND. ( ! lNewVal ) )
+      ELSEIF ( lOldVal .AND. ( !lNewVal ) )
          nNewFlags := hb_bitAnd( nCurFlags, hb_bitNot( TDF_CAN_BE_MINIMIZED ) )
       ENDIF
       ::Flags( nNewFlags )
@@ -744,9 +744,9 @@ METHOD EnableHyperlinks( lNewVal ) CLASS TTaskDialog
    lOldVal := ( hb_bitAnd( nCurFlags, TDF_ENABLE_HYPERLINKS ) != 0 )
 
    IF !::lActive .AND. HB_ISLOGICAL( lNewVal )
-      IF ( ( ! lOldVal ) .AND. lNewVal )
+      IF ( ( !lOldVal ) .AND. lNewVal )
          nNewFlags := hb_bitOr( nCurFlags, TDF_ENABLE_HYPERLINKS )
-      ELSEIF ( lOldVal .AND. ( ! lNewVal ) )
+      ELSEIF ( lOldVal .AND. ( !lNewVal ) )
          nNewFlags := hb_bitAnd( nCurFlags, hb_bitNot( TDF_ENABLE_HYPERLINKS ) )
       ENDIF
       ::Flags( nNewFlags )
@@ -770,9 +770,9 @@ METHOD ExpandedByDefault( lNewVal ) CLASS TTaskDialog
    lOldVal := ( hb_bitAnd( nCurFlags, TDF_EXPANDED_BY_DEFAULT ) != 0 )
 
    IF !::lActive .AND. HB_ISLOGICAL( lNewVal )
-      IF ( ( ! lOldVal ) .AND. lNewVal )
+      IF ( ( !lOldVal ) .AND. lNewVal )
          nNewFlags := hb_bitOr( nCurFlags, TDF_EXPANDED_BY_DEFAULT )
-      ELSEIF ( lOldVal .AND. ( ! lNewVal ) )
+      ELSEIF ( lOldVal .AND. ( !lNewVal ) )
          nNewFlags := hb_bitAnd( nCurFlags, hb_bitNot( TDF_EXPANDED_BY_DEFAULT ) )
       ENDIF
       ::Flags( nNewFlags )
@@ -798,9 +798,9 @@ METHOD ExpandFooterArea( lNewVal ) CLASS TTaskDialog
    lOldVal := ( hb_bitAnd( nCurFlags, TDF_EXPAND_FOOTER_AREA ) != 0 )
 
    IF !::lActive .AND. HB_ISLOGICAL( lNewVal )
-      IF ( ( ! lOldVal ) .AND. lNewVal )
+      IF ( ( !lOldVal ) .AND. lNewVal )
          nNewFlags := hb_bitOr( nCurFlags, TDF_EXPAND_FOOTER_AREA )
-      ELSEIF ( lOldVal .AND. ( ! lNewVal ) )
+      ELSEIF ( lOldVal .AND. ( !lNewVal ) )
          nNewFlags := hb_bitAnd( nCurFlags, hb_bitNot( TDF_EXPAND_FOOTER_AREA ) )
       ENDIF
       ::Flags( nNewFlags )
@@ -821,9 +821,9 @@ METHOD NoDefaultRadioButton( lNewVal ) CLASS TTaskDialog
    lOldVal := ( hb_bitAnd( nCurFlags, TDF_NO_DEFAULT_RADIO_BUTTON ) != 0 )
 
    IF !::lActive .AND. HB_ISLOGICAL( lNewVal )
-      IF ( ( ! lOldVal ) .AND. lNewVal )
+      IF ( ( !lOldVal ) .AND. lNewVal )
          nNewFlags := hb_bitOr( nCurFlags, TDF_NO_DEFAULT_RADIO_BUTTON )
-      ELSEIF ( lOldVal .AND. ( ! lNewVal ) )
+      ELSEIF ( lOldVal .AND. ( !lNewVal ) )
          nNewFlags := hb_bitAnd( nCurFlags, hb_bitNot( TDF_NO_DEFAULT_RADIO_BUTTON ) )
       ENDIF
       ::Flags( nNewFlags )
@@ -848,9 +848,9 @@ METHOD PositionRelativeToWindow(lNewVal) CLASS TTaskDialog
    lOldVal := ( hb_bitAnd( nCurFlags, TDF_POSITION_RELATIVE_TO_WINDOW ) != 0 )
 
    IF !::lActive .AND. HB_ISLOGICAL( lNewVal )
-      IF ( ( ! lOldVal ) .AND. lNewVal )
+      IF ( ( !lOldVal ) .AND. lNewVal )
          nNewFlags := hb_bitOr( nCurFlags, TDF_POSITION_RELATIVE_TO_WINDOW )
-      ELSEIF ( lOldVal .AND. ( ! lNewVal ) )
+      ELSEIF ( lOldVal .AND. ( !lNewVal ) )
          nNewFlags := hb_bitAnd( nCurFlags, hb_bitNot( TDF_POSITION_RELATIVE_TO_WINDOW ) )
       ENDIF
       ::Flags( nNewFlags )
@@ -871,9 +871,9 @@ METHOD RightToLeftLayout( lNewVal ) CLASS TTaskDialog
    lOldVal := ( hb_bitAnd( nCurFlags, TDF_RTL_LAYOUT ) != 0 )
 
    IF !::lActive .AND. HB_ISLOGICAL( lNewVal )
-      IF ( ( ! lOldVal ) .AND. lNewVal )
+      IF ( ( !lOldVal ) .AND. lNewVal )
          nNewFlags := hb_bitOr( nCurFlags, TDF_RTL_LAYOUT )
-      ELSEIF ( lOldVal .AND. ( ! lNewVal ) )
+      ELSEIF ( lOldVal .AND. ( !NewVal ) )
          nNewFlags := hb_bitAnd( nCurFlags, hb_bitNot( TDF_RTL_LAYOUT ) )
       ENDIF
       ::Flags( nNewFlags )
@@ -896,9 +896,9 @@ METHOD VerificationEnabled( lNewVal ) CLASS TTaskDialog
    lOldVal := ( hb_bitAnd( nCurFlags, TDF_VERIFICATION_FLAG_CHECKED ) != 0 )
 
    IF !::lActive .AND. HB_ISLOGICAL( lNewVal )
-      IF ( ( ! lOldVal ) .AND. lNewVal )
+      IF ( ( !lOldVal ) .AND. lNewVal )
          nNewFlags := hb_bitOr( nCurFlags, TDF_VERIFICATION_FLAG_CHECKED )
-      ELSEIF ( lOldVal .AND. ( ! lNewVal ) )
+      ELSEIF ( lOldVal .AND. ( !lNewVal ) )
          nNewFlags := hb_bitAnd( nCurFlags, hb_bitNot( TDF_VERIFICATION_FLAG_CHECKED ) )
       ENDIF
       ::Flags( nNewFlags )

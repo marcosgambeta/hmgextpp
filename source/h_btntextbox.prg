@@ -402,7 +402,7 @@ FUNCTION TBBtnEvents( hwndEdit, HwndBtn, nMsg )
       SWITCH AScan(aHandle, HwndBtn)
       CASE TBB1
          IF _DoControlEventProcedure(_HMG_aControlProcedures[i], i)
-            IF HB_ISARRAY(_HMG_aControlMiscData1[i]) .AND. Len(_HMG_aControlMiscData1[i]) >= 4 .AND. ! _HMG_aControlMiscData1[i] [4]
+            IF HB_ISARRAY(_HMG_aControlMiscData1[i]) .AND. Len(_HMG_aControlMiscData1[i]) >= 4 .AND. !_HMG_aControlMiscData1[i] [4]
                SendMessage(HwndBtn, BM_SETSTYLE, LOWORD(BS_PUSHBUTTON), 1)
             ENDIF
          ENDIF
@@ -410,7 +410,7 @@ FUNCTION TBBtnEvents( hwndEdit, HwndBtn, nMsg )
 
       CASE TBB2
          IF _DoControlEventProcedure(_HMG_aControlHeadClick[i], i)
-            IF HB_ISARRAY(_HMG_aControlMiscData1[i]) .AND. Len(_HMG_aControlMiscData1[i]) >= 4 .AND. ! _HMG_aControlMiscData1[i] [4]
+            IF HB_ISARRAY(_HMG_aControlMiscData1[i]) .AND. Len(_HMG_aControlMiscData1[i]) >= 4 .AND. !_HMG_aControlMiscData1[i] [4]
                SendMessage(HwndBtn, BM_SETSTYLE, LOWORD(BS_PUSHBUTTON), 1)
             ENDIF
          ENDIF

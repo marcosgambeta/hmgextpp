@@ -196,11 +196,11 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory
 
-   IF !_IsWindowDefined(ParentFormName) .AND. ! lDialogInMemory
+   IF !_IsWindowDefined(ParentFormName) .AND. !lDialogInMemory
       MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
-   IF _IsControlDefined(ControlName, ParentFormName) .AND. ! lDialogInMemory
+   IF _IsControlDefined(ControlName, ParentFormName) .AND. !lDialogInMemory
       MsgMiniGuiError("Control: " + ControlName + " of " + ParentFormName + " already defined.")
    ENDIF
 
@@ -356,7 +356,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    _HMG_aControlMiscData1          [k] := { 0, readonly, 0, ProcedureName, ProcedureName2, BtnWidth, lBtn2, lNoMinus, .T. }
    _HMG_aControlMiscData2          [k] := ""
 
-   IF ISCHARACTER( cPicture ) .AND. ! Empty(cPicture) .AND. "@K" $ cPicture
+   IF ISCHARACTER( cPicture ) .AND. !Empty(cPicture) .AND. "@K" $ cPicture
       lModifyGotFocus := .T.
    ENDIF
 
@@ -1075,7 +1075,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
             SendMessage(hWnd, WM_PASTE, 0, 0)
             RETURN( 0 )
          ENDIF
-         lInsert := ! lInsert
+         lInsert := !lInsert
          _SetGetBoxCaret( hWnd )
          EXIT
 
@@ -1098,7 +1098,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
                   oGet:changed := .T.
                ENDIF
                IF oGet:type == "L"
-                  oGet:VarPut( ! oGet:VarGet() )
+                  oGet:VarPut( !oGet:VarGet() )
                   oGet:UpdateBuffer()
                   _DispGetBoxText( hWnd, oGet:buffer )
                   oGet:changed := .T.
@@ -1127,7 +1127,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
                   oGet:changed := .T.
                ENDIF
                IF oGet:type == "L"
-                  oGet:VarPut( ! oGet:VarGet() )
+                  oGet:VarPut( !oGet:VarGet() )
                   oGet:UpdateBuffer()
                   _DispGetBoxText( hWnd, oGet:buffer )
                   oGet:changed := .T.
@@ -1186,14 +1186,14 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 #if 0
       CASE VK_INSERT
 
-         lInsert := ! lInsert
+         lInsert := !lInsert
          _SetGetBoxCaret( hWnd )
          EXIT
 #endif
 
       CASE VK_DELETE
 
-         IF readonly .OR. ! lAllowEdit .OR. oGet:type == "L"
+         IF readonly .OR. !lAllowEdit .OR. oGet:type == "L"
             RETURN( 0 )
          ENDIF
 
@@ -1244,7 +1244,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
    CASE WM_PASTE
 
-      IF readonly .OR. ! lAllowEdit
+      IF readonly .OR. !lAllowEdit
          RETURN( 0 )
       ENDIF
 
@@ -1420,7 +1420,7 @@ PROCEDURE _SetGetBoxValue( nId, hWnd, Value )
 
       aPicData := _GetPictureData( oGet, oGet:Picture )
 
-      IF oGet:Picture == NIL .OR. ! ( "@K" $ oGet:Picture )
+      IF oGet:Picture == NIL .OR. !( "@K" $ oGet:Picture )
          oGet:clear := .F.
       ENDIF
 
@@ -1681,7 +1681,7 @@ STATIC FUNCTION _Input( cChar , nID )
    SWITCH oGet:type
    CASE "N"
       DO CASE
-      CASE cChar == "-" .AND. ! _HMG_aControlMiscData1 [nId, 8]
+      CASE cChar == "-" .AND. !_HMG_aControlMiscData1 [nId, 8]
          oGet:minus := .T.  /* The minus symbol can be write in any place */
       CASE cChar == "."
       CASE cChar == ","
@@ -1726,7 +1726,7 @@ STATIC FUNCTION _Input( cChar , nID )
         ENDIF
         EXIT
       CASE "N"
-        IF !hmg_IsAlpha( cChar ) .AND. ! hmg_IsDigit( cChar )
+        IF !hmg_IsAlpha( cChar ) .AND. !hmg_IsDigit( cChar )
           cChar := ""
         ENDIF
         EXIT

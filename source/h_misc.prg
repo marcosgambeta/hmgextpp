@@ -581,7 +581,7 @@ STATIC FUNCTION dCharToDate( cDate )
       RETURN dAlphaToDate( cc )
    ENDIF
 
-   IF Len(cDate) >= 8 .AND. ! Empty(dDate := SToD(Left(cDate, 8)))
+   IF Len(cDate) >= 8 .AND. !Empty(dDate := SToD(Left(cDate, 8)))
       RETURN dDate
    ENDIF
 

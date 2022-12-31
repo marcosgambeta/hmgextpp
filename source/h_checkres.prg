@@ -11,7 +11,7 @@ FUNCTION MGAddResource( nHResource, cType )
    LOCAL n := 3
    LOCAL cInfo := ""
 
-   WHILE ! Empty(ProcName(n))
+   WHILE !Empty(ProcName(n))
       cInfo += ProcName( n ) + "(" + hb_ntos( ProcLine( n ) ) + ")->"
       n++
    END

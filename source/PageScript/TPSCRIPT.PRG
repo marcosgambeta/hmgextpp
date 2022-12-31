@@ -1322,7 +1322,7 @@ METHOD TPageScript:PrintEmuFile( cFileName, lDelete, nPrinter, cTitle, nOrientat
                   ENDIF
 
                   DO CASE
-                  CASE nCtrl == 66 .AND. ! lBold // B - Set   Bold
+                  CASE nCtrl == 66 .AND. !lBold // B - Set   Bold
                      lBold := .T.
                      nStyle += APS_BOLD
 
@@ -1330,7 +1330,7 @@ METHOD TPageScript:PrintEmuFile( cFileName, lDelete, nPrinter, cTitle, nOrientat
                      lBold := .F.
                      nStyle -= APS_BOLD
 
-                  CASE nCtrl == 73 .AND. ! lItalic // I - Set   Italic
+                  CASE nCtrl == 73 .AND. !lItalic // I - Set   Italic
                      lItalic := .T.
                      nStyle += APS_ITALIC
 
@@ -1338,7 +1338,7 @@ METHOD TPageScript:PrintEmuFile( cFileName, lDelete, nPrinter, cTitle, nOrientat
                      lItalic := .F.
                      nStyle -= APS_ITALIC
 
-                  CASE nCtrl == 85 .AND. ! lUnder // U - Set   Underline
+                  CASE nCtrl == 85 .AND. !lUnder // U - Set   Underline
                      lUnder := .T.
                      nStyle += APS_UNDERLINE
 
@@ -1346,7 +1346,7 @@ METHOD TPageScript:PrintEmuFile( cFileName, lDelete, nPrinter, cTitle, nOrientat
                      lUnder := .F.
                      nStyle -= APS_UNDERLINE
 
-                  CASE nCtrl == 83 .AND. ! lStrike // S - Set   Strikeout
+                  CASE nCtrl == 83 .AND. !lStrike // S - Set   Strikeout
                      lStrike := .T.
                      nStyle += APS_STRIKEOUT
 
@@ -1659,7 +1659,7 @@ Description : Sets the file name of a PDF file
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetFileName( cFileName )
 
-   IF HB_ISCHAR(cFileName) .AND. ! Empty(cFileName)
+   IF HB_ISCHAR(cFileName) .AND. !Empty(cFileName)
       DllCall( ::hDll, DLL_STDCALL, "PSSetFileName", cFileName )
    ENDIF
 
@@ -1875,7 +1875,7 @@ Description : Set the encryption password for PDF documents
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetPDFOwnerPassword( cPassword )
 
-   IF HB_ISCHAR(cPassword) .AND. ! Empty(cPassword)
+   IF HB_ISCHAR(cPassword) .AND. !Empty(cPassword)
       DllCall( ::hDll, DLL_STDCALL, "PSSetPDFOwnerPassword", cPassword )
    ENDIF
 
@@ -2063,7 +2063,7 @@ Description : Sets the title of the document
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetTitle( cTitle )
 
-   IF HB_ISCHAR(cTitle) .AND. ! Empty(cTitle)
+   IF HB_ISCHAR(cTitle) .AND. !Empty(cTitle)
       DllCall( ::hDll, DLL_STDCALL, "PSSetTitle", cTitle )
    ENDIF
 

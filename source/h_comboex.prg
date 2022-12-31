@@ -307,7 +307,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
 
          ( WorkArea )->( dbGoTop() )
 
-         DO WHILE ! ( WorkArea )->( EOF() )
+         DO WHILE !( WorkArea )->( EOF() )
             rcount++
             IF value == ( WorkArea )->( RecNo() )
                cset := rcount

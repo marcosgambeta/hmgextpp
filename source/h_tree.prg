@@ -722,7 +722,7 @@ FUNCTION TreeItemIsTrueNode ( ControlName , ParentForm , nItem )
    LOCAL nControlHandle := GetControlHandle(ControlName, ParentForm)
    LOCAL ItemHandle := TreeItemGetHandle(ControlName, ParentForm, nItem)
 
-RETURN ! Empty(TreeView_GetChild(nControlHandle, ItemHandle))
+RETURN !Empty(TreeView_GetChild(nControlHandle, ItemHandle))
 
 *-----------------------------------------------------------------------------*
 FUNCTION TreeItemSetNodeFlag ( ControlName , ParentForm , nItem , lNodeFlag )

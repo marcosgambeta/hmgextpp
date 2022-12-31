@@ -2701,7 +2701,7 @@ Local sstring := "NLINE"+chr(07)+NTrim(t_col)+chr(07)+"SAY"+chr(07)
              endif
           next
       Else
-         do While iif(used(),! (dbf())->(Eof()),nPgr < ::aStat [ "end_pr" ] )
+         do While iif(used(),!(dbf())->(Eof()),nPgr < ::aStat [ "end_pr" ] )
                   ::aStat [ "GHline" ] := if (sbt =.F.,sbt ,::aStat [ "GHline" ] )
 
                   if nxtp .AND. ::aStat [ "GHline" ] .AND. ::aStat ["r_paint"] .AND. sgh // La seconda pagina
@@ -2958,7 +2958,7 @@ local oErrAntes, oErr, lMyError := .F., n , al ,an
           next
       Else
 
-         do While iif(used(),! (dbf())->(Eof()),nPgr<oWr:aStat [ "end_pr" ])
+         do While iif(used(),!(dbf())->(Eof()),nPgr<oWr:aStat [ "end_pr" ])
                   if nxtp .AND. ::aStat [ "GHline" ] .AND. ::aStat [ "r_paint" ]
                      ::traduci(Ghstring)
                      nxtp := .F.

@@ -269,7 +269,7 @@ FUNCTION _DetermineKey ( cKey )
       "RSHIFT", "LCONTROL", "RCONTROL", "LMENU", "RMENU" } // 165
    ENDIF
 
-   DO WHILE ! Empty(cKey2)
+   DO WHILE !Empty(cKey2)
 
       IF ( nPos := At( "+", cKey2 ) ) == 0
          cKey2 := AllTrim(cKey2)

@@ -925,7 +925,7 @@ STATIC PROCEDURE imp_SUBTOTALES ( nlin, ncol, lmode, swt, grpby )
    IF grpby != NIL
       crompe := iif( ISEVERYPAGE, Str(nlin), crompe )
       wfield1 := iif( !ISEVERYPAGE, afieldsg[nposgrp], wfield1 )
-      IF !( &wfield1 == crompe ) .AND. ! ISEVERYPAGE .OR. ( ISEVERYPAGE .AND. nlin >= nlpp )
+      IF !( &wfield1 == crompe ) .AND. !ISEVERYPAGE .OR. ( ISEVERYPAGE .AND. nlin >= nlpp )
          IF lmode
             IF lHayTotals
                @ nlin, 1 + nlmargin SAY cSubgrp font "f1" TO PRINT
@@ -955,7 +955,7 @@ STATIC PROCEDURE imp_SUBTOTALES ( nlin, ncol, lmode, swt, grpby )
          AFill( angrpby, 0 )
          crompe := iif( !ISEVERYPAGE, &wfield1, Str(nlin) )
 
-         IF swt == 0 .AND. ! ISEVERYPAGE
+         IF swt == 0 .AND. !ISEVERYPAGE
             IF lmode
                IF IsOemText( chdrgrp )
                   chdrgrp := hb_OEMToANSI( chdrgrp )

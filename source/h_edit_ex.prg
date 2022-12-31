@@ -786,8 +786,8 @@ STATIC FUNCTION ABM2Redibuja( lTabla )
       wndABM2Edit.tbbListado.Enabled := .F.
    ELSE
       lDeleted := Deleted()
-      wndABM2Edit.tbbEditar.Enabled := ! lDeleted
-      wndABM2Edit.tbbBorrar.Enabled := ! lDeleted
+      wndABM2Edit.tbbEditar.Enabled := !lDeleted
+      wndABM2Edit.tbbBorrar.Enabled := !lDeleted
       wndABM2Edit.tbbBuscar.Enabled := .T.
       wndABM2Edit.tbbRecover.Enabled := lDeleted
       wndABM2Edit.tbbListado.Enabled := .T.
@@ -2369,7 +2369,7 @@ STATIC FUNCTION ABM2Listado( aImpresoras )
 
    // ------- Obtiene el número de páginas.---------------------------------------
    nTotales := 1
-   ( _cArea )->( dbEval( {|| nTotales++ },, {|| !( RecNo() == nUltimo ) .AND. ! Eof() },,, .T. ) )
+   ( _cArea )->( dbEval( {|| nTotales++ },, {|| !( RecNo() == nUltimo ) .AND. !Eof() },,, .T. ) )
    ( _cArea )->( dbGoto( nPrimero ) )
    IF lOrientacion
       IF Mod( nTotales, 33 ) == 0

@@ -122,7 +122,7 @@ STATIC FUNCTION DefError( oError )
    HTML_RawText( HtmArch, "<br/></summary><span class='stacktrace'>" )
 
    n := 1
-   WHILE ! Empty(ProcName(++n))
+   WHILE !Empty(ProcName(++n))
       HtmText := "Called from " + ProcName( n ) + "(" + hb_ntos( ProcLine( n ) ) + ")" + ;
          iif( ProcLine( n ) > 0, " in module: " + ProcFile( n ), "" ) + CRLF
       cText += HtmText

@@ -356,7 +356,7 @@ HB_FUNC( CREATEGRADIENTBRUSH )
    HWND hwnd = ( HWND ) ( LONG_PTR ) HB_PARNL( 1 );
    HDC  hdc;
 
-   if( ! IsWindow(hwnd) )
+   if( !IsWindow(hwnd) )
       hwnd = GetDesktopWindow();
 
    hdc = GetDC(hwnd);

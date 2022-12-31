@@ -111,7 +111,7 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
       __defaultNIL(@FontName, _HMG_ActiveFontName)
       __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
-   IF _HMG_FrameLevel > 0 .AND. ! _HMG_ParentWindowActive
+   IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
       x += _HMG_ActiveFrameCol[_HMG_FrameLevel]
       y += _HMG_ActiveFrameRow[_HMG_FrameLevel]
       ParentFormName := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
@@ -348,7 +348,7 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
       __defaultNIL(@FontName, _HMG_ActiveFontName)
       __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
-   IF _HMG_FrameLevel > 0 .AND. ! _HMG_ParentWindowActive
+   IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
       x += _HMG_ActiveFrameCol[_HMG_FrameLevel]
       y += _HMG_ActiveFrameRow[_HMG_FrameLevel]
       ParentFormName := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]

@@ -1406,7 +1406,7 @@ METHOD PrevShow() CLASS HBPrinter
    IF ::Thumbnails
       ::Prevthumb()
    ENDIF
-   IF !Empty(azoom[3]) .AND. ! Empty(azoom[4])
+   IF !Empty(azoom[3]) .AND. !Empty(azoom[4])
       spos[1] := GetScrollpos( ahs[5, 7], SB_HORZ ) / azoom[4]
       spos[2] := GetScrollpos( ahs[5, 7], SB_VERT ) / ( azoom[3] )
    ENDIF

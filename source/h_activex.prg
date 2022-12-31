@@ -480,7 +480,7 @@ LPAtlAxGetControl AtlAxGetControl;
 
 static void _Ax_Init( void )
 {
-   if( ! hAtl )
+   if( !hAtl )
    {
       hAtl            = LoadLibrary( TEXT( "Atl.Dll" ) );
       AtlAxWinInit    = ( LPAtlAxWinInit ) wapi_GetProcAddress( hAtl, "AtlAxWinInit" );
@@ -718,7 +718,7 @@ static ULONG STDMETHODCALLTYPE Invoke( IEventHandler * self, DISPID dispid, REFI
    Key = hb_itemNew( nullptr );
 
    // We implement only a "default" interface
-   if( ! IsEqualIID( riid, IID_NULL ) )
+   if( !IsEqualIID( riid, IID_NULL ) )
    {
       return ( ULONG ) DISP_E_UNKNOWNINTERFACE;
    }
@@ -928,7 +928,7 @@ HB_FUNC( SETUPCONNECTIONPOINT )
 
    selfobj = ( IEventHandler * ) GlobalAlloc( GMEM_FIXED, sizeof(MyRealIEventHandler) );
 
-   if( ! selfobj )
+   if( !selfobj )
    {
       hr = E_OUTOFMEMORY;
    }

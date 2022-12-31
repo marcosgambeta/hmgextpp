@@ -549,7 +549,7 @@ PROCEDURE HMG_SetOrder( nColumn, lDescend )
       ListView_SetSortHeader( _BrowseHandle, nOrder, 0, _HMG_IsThemed )
 
       IF ValType(lDescend) != "L"
-         lDescend := iif( nOrder == nColumn, ! ordDescend( nOrder ), .F. )
+         lDescend := iif( nOrder == nColumn, !ordDescend( nOrder ), .F. )
       ENDIF
 
       nOrder := nColumn
@@ -2353,7 +2353,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
            MAXLENGTH Width
            IF HB_ISARRAY(AINPUTMASK)
               IF LEN(AINPUTMASK) >= CellColIndex
-                 IF HB_ISCHAR(AINPUTMASK[CellColIndex]) .AND. ! EMPTY(AINPUTMASK[CellColIndex])
+                 IF HB_ISCHAR(AINPUTMASK[CellColIndex]) .AND. !EMPTY(AINPUTMASK[CellColIndex])
                     INPUTMASK AINPUTMASK [CellColIndex]
                  ENDIF
               ENDIF
@@ -2399,7 +2399,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
            VALUE CellData
            IF HB_ISARRAY(AINPUTMASK)
               IF LEN(AINPUTMASK) >= CellColIndex
-                 IF HB_ISCHAR(AINPUTMASK[CellColIndex]) .AND. ! EMPTY(AINPUTMASK[CellColIndex])
+                 IF HB_ISCHAR(AINPUTMASK[CellColIndex]) .AND. !EMPTY(AINPUTMASK[CellColIndex])
                     INPUTMASK AINPUTMASK [CellColIndex]
                  ELSE
                     MAXLENGTH Width
@@ -2422,7 +2422,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
            NUMERIC   .T.
            IF HB_ISARRAY(AINPUTMASK)
               IF LEN(AINPUTMASK) >= CellColIndex
-                 IF HB_ISCHAR(AINPUTMASK[CellColIndex]) .AND. ! EMPTY(AINPUTMASK[CellColIndex])
+                 IF HB_ISCHAR(AINPUTMASK[CellColIndex]) .AND. !EMPTY(AINPUTMASK[CellColIndex])
                     INPUTMASK AINPUTMASK [CellColIndex]
                  ELSE
                     INPUTMASK Replicate("9", Width - Decimals - 1) + "." + Replicate("9", Decimals)

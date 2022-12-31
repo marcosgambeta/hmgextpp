@@ -20,7 +20,7 @@ FUNCTION MyErrorFunc( MyObjError )
 
     cErrorMsg += CRLF + CRLF
     
-    WHILE ! Empty(ProcName(i))
+    WHILE !Empty(ProcName(i))
         cText := "Called from " + ProcName( i ) + "(" + AllTrim(Str(ProcLine(i++))) + ")" + CRLF
         cErrorMsg += cText
         Html_LineText( HtmArch, cText )

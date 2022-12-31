@@ -156,7 +156,7 @@ METHOD Save() CLASS TSMulti
          cText := SubStr(cText, 1, Len(cText) - 2)
       ENDIF
 
-      IF ::oCol:lEditBox .AND. ! Empty(cText) .AND. CRLF $ cText
+      IF ::oCol:lEditBox .AND. !Empty(cText) .AND. CRLF $ cText
          IF Len(::oCol:cEditBoxSep) > 0
             cText := StrTran(cText, CRLF, ::oCol:cEditBoxSep)
          ELSEIF ::oCol:nEditBoxWrap > 0

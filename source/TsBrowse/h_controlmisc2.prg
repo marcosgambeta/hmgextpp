@@ -13,7 +13,7 @@
 FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, lNumber )
 
    LOCAL cFormName, oBrw, nSaveSelect, cDbf, cAlias, lEdit, cTable
-   LOCAL lbSetUp := ! Empty(bSetUp), lRec, nY, nX, bAfter, lCellBrw := .F.
+   LOCAL lbSetUp := !Empty(bSetUp), lRec, nY, nX, bAfter, lCellBrw := .F.
    LOCAL oApp := oDlu4Font( _HMG_DefaultFontSize )
    LOCAL nGw := oApp:GapsWidth
    LOCAL nGh := oApp:GapsHeight
@@ -215,7 +215,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
                  xv := obr:GetValue( "VALUE" )
                  obr:GetColumn( "VALUE" ):Cargo := NIL
                  ob := obr:Cargo
-                 IF !HB_ISOBJECT( ob ) .OR. ! ob:lIsDbf
+                 IF !HB_ISOBJECT( ob ) .OR. !ob:lIsDbf
                     RETURN .F.
                  ENDIF
                  oc := ob:GetColumn( cn )
@@ -242,7 +242,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
                     RETURN Nil
                  ENDIF
                  ob := obr:Cargo
-                 IF !HB_ISOBJECT( ob ) .OR. ! ob:lIsDbf
+                 IF !HB_ISOBJECT( ob ) .OR. !ob:lIsDbf
                     RETURN Nil
                  ENDIF
                  oc := ob:GetColumn( cn )
@@ -366,7 +366,7 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
    aFoot    := oParam:aFoot  ; DEFAULT aFoot := oParam:aFooter
 
    DEFAULT aBrush := { 255, 255, 230 }, ;
-           aFoot  := ! Empty(aFoot) , ;
+           aFoot  := !Empty(aFoot) , ;
            nY := 0, ;
            nX := 0, ;
            nW := _GetClientRect( hForm )[3] - nX * 2,  ;           // GetClientWidth
@@ -481,7 +481,7 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
       IF HB_ISBLOCK( bInit ) ; EVal( bInit, oBrw, oParam )                 // 1. call your customization functions
       ENDIF
 
-      IF :lDrawSpecHd .AND. ! Empty(oParam:aNumber) .AND. HB_ISBLOCK( oParam:bSpecHdEnum )  // renumbering SpecHeader
+      IF :lDrawSpecHd .AND. !Empty(oParam:aNumber) .AND. HB_ISBLOCK( oParam:bSpecHdEnum )  // renumbering SpecHeader
          EVal( oParam:bSpecHdEnum, oBrw, oParam )
       ENDIF
 
