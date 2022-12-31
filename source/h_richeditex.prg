@@ -139,8 +139,8 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
    ENDIF
    IF _HMG_FrameLevel > 0
       IF _HMG_ParentWindowActive == .F.
-         x := x + _HMG_ActiveFrameCol[_HMG_FrameLevel]
-         y := y + _HMG_ActiveFrameRow[_HMG_FrameLevel]
+         x += _HMG_ActiveFrameCol[_HMG_FrameLevel]
+         y += _HMG_ActiveFrameRow[_HMG_FrameLevel]
          ParentForm := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
       ENDIF
    ENDIF

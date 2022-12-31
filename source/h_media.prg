@@ -61,8 +61,8 @@ FUNCTION _DefinePlayer ( ControlName, ParentFormName, file, x, y, w, h, noasw, n
    ENDIF
 
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
-      x := x + _HMG_ActiveFrameCol [_HMG_FrameLevel]
-      y := y + _HMG_ActiveFrameRow [_HMG_FrameLevel]
+      x += _HMG_ActiveFrameCol [_HMG_FrameLevel]
+      y += _HMG_ActiveFrameRow [_HMG_FrameLevel]
       ParentFormName := _HMG_ActiveFrameParentFormName [_HMG_FrameLevel]
    ENDIF
 
@@ -222,8 +222,8 @@ FUNCTION _DefineAnimateBox( ControlName, ParentFormName, x, y, w, h, autoplay, c
    ENDIF
 
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
-      x := x + _HMG_ActiveFrameCol [_HMG_FrameLevel]
-      y := y + _HMG_ActiveFrameRow [_HMG_FrameLevel]
+      x += _HMG_ActiveFrameCol [_HMG_FrameLevel]
+      y += _HMG_ActiveFrameRow [_HMG_FrameLevel]
       ParentFormName := _HMG_ActiveFrameParentFormName [_HMG_FrameLevel]
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory

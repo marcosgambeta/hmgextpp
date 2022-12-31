@@ -85,8 +85,8 @@ FUNCTION _DefineSlider ( ControlName, ParentFormName, x, y, w, h, lo, hi, value,
       ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
    ENDIF
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
-      x := x + _HMG_ActiveFrameCol [_HMG_FrameLevel]
-      y := y + _HMG_ActiveFrameRow [_HMG_FrameLevel]
+      x += _HMG_ActiveFrameCol [_HMG_FrameLevel]
+      y += _HMG_ActiveFrameRow [_HMG_FrameLevel]
       ParentFormName := _HMG_ActiveFrameParentFormName [_HMG_FrameLevel]
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory
