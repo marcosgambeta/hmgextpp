@@ -321,3 +321,191 @@ FUNCTION OLABELEVENTS(hWnd, nMsg, wParam, lParam)
    ENDIF
 
 RETURN 0
+
+#pragma BEGINDUMP
+
+#include "mgdefs.h"
+#include <commctrl.h>
+#include <hbapiitm.h>
+#include <hbvm.h>
+#include <hbwinuni.h>
+
+#ifndef WC_STATIC
+#define WC_STATIC  "Static"
+#endif
+
+LRESULT APIENTRY LabelSubClassFunc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam);
+static WNDPROC LabelOldWndProc;
+HINSTANCE GetInstance(void);
+
+HB_FUNC_STATIC( INITLABEL )
+{
+   HWND hWnd;
+   HWND hWndParent = hmg_par_HWND(1);
+
+   int style = WS_CHILD;
+   int ExStyle = 0;
+
+   void * WindowName;
+   LPCTSTR lpWindowName = HB_PARSTR(2, &WindowName, nullptr);
+
+   if( hb_parl(9) || hb_parl(10) )
+   {
+      style |= SS_NOTIFY;
+   }
+
+   if( hb_parl(11) )
+   {
+      style |= WS_BORDER;
+   }
+
+   if( hb_parl(13) )
+   {
+      style |= WS_HSCROLL;
+   }
+
+   if( hb_parl(14) )
+   {
+      style |= WS_VSCROLL;
+   }
+
+   if( !hb_parl(16) )
+   {
+      style |= WS_VISIBLE;
+   }
+
+   if( hb_parl(17) )
+   {
+      style |= ES_RIGHT;
+   }
+
+   if( hb_parl(18) )
+   {
+      style |= ES_CENTER;
+   }
+
+   if( hb_parl(19) )
+   {
+      style |= SS_CENTERIMAGE;
+   }
+
+   if( hb_parl(20) )
+   {
+      style |= SS_NOPREFIX;
+   }
+
+   if( hb_parl(12) )
+   {
+      ExStyle |= WS_EX_CLIENTEDGE;
+   }
+
+   if( hb_parl(15) )
+   {
+      ExStyle |= WS_EX_TRANSPARENT;
+   }
+
+   hWnd = CreateWindowEx(ExStyle,
+                         WC_STATIC,
+                         lpWindowName,
+                         style,
+                         hmg_par_int(4),
+                         hmg_par_int(5),
+                         hmg_par_int(6),
+                         hmg_par_int(7),
+                         hWndParent,
+                         hmg_par_HMENU(3),
+                         GetInstance(),
+                         nullptr);
+
+   if( hb_parl(10) )
+   {
+      LabelOldWndProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(hWnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(LabelSubClassFunc)));
+   }
+
+   hmg_ret_HANDLE(hWnd);
+
+   hb_strfree(WindowName);
+}
+
+#define _OLD_STYLE 0
+
+LRESULT APIENTRY LabelSubClassFunc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
+{
+   TRACKMOUSEEVENT tme;
+   static PHB_SYMB pSymbol = nullptr;
+   static bool bMouseTracking = false;
+   long r = 0;
+
+#if _OLD_STYLE
+   bool bCallUDF = false;
+#endif
+
+   if( Msg == WM_MOUSEMOVE || Msg == WM_MOUSELEAVE )
+   {
+      if( Msg == WM_MOUSEMOVE )
+      {
+         if( bMouseTracking == false )
+         {
+            tme.cbSize      = sizeof(TRACKMOUSEEVENT);
+            tme.dwFlags     = TME_LEAVE;
+            tme.hwndTrack   = hWnd;
+            tme.dwHoverTime = HOVER_DEFAULT;
+
+            if( _TrackMouseEvent(&tme) == TRUE )
+            {
+#if _OLD_STYLE
+               bCallUDF = true;
+#endif
+               bMouseTracking = true;
+            }
+#if _OLD_STYLE
+         }
+         else
+         {
+            bCallUDF = false;
+#endif
+         }
+      }
+      else
+      {
+#if _OLD_STYLE
+         bCallUDF = true;
+#endif
+         bMouseTracking = false;
+      }
+#if _OLD_STYLE
+      if( bCallUDF == true )
+      {
+#endif
+      if( !pSymbol )
+      {
+         pSymbol = hb_dynsymSymbol(hb_dynsymGet("OLABELEVENTS"));
+      }
+
+      if( pSymbol && hb_vmRequestReenter() )
+      {
+         hb_vmPushSymbol(pSymbol);
+         hb_vmPushNil();
+         hb_vmPushNumInt(reinterpret_cast<LONG_PTR>(hWnd));
+         hb_vmPushLong(Msg);
+         hb_vmPushNumInt(wParam);
+         hb_vmPushNumInt(lParam);
+         hb_vmDo(4);
+
+         r = hb_parnl(-1);
+
+         hb_vmRequestRestore();
+      }
+#if _OLD_STYLE
+   }
+#endif
+      return (r != 0) ? r : CallWindowProc(LabelOldWndProc, hWnd, 0, 0, 0);
+   }
+
+   bMouseTracking = false;
+
+   return CallWindowProc(LabelOldWndProc, hWnd, Msg, wParam, lParam);
+}
+#undef _OLD_STYLE
+
+#pragma ENDDUMP

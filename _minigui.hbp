@@ -42,7 +42,7 @@ source\c_image.cpp
 source\c_imagelist.cpp
 source\c_ini.cpp
 source\c_ipaddress.cpp
-source\c_label.cpp
+#source\c_label.cpp
 source\c_listbox.cpp
 source\c_media.cpp
 source\c_menu.cpp
