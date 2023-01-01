@@ -46,6 +46,7 @@
 
 #include "mgdefs.h"
 #include <commctrl.h>
+#include <hbwinuni.h>
 
 #ifndef WC_BUTTON
 #define WC_BUTTON         "Button"
@@ -59,9 +60,6 @@
 HBITMAP HMG_LoadPicture(const char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage, HB_BOOL bAlphaFormat, int iAlpfaConstant);
 HIMAGELIST HMG_SetButtonImageList(HWND hButton, const char * FileName, int Transparent, UINT uAlign);
 
-#ifdef UNICODE
-LPWSTR AnsiToWide(LPCSTR);
-#endif
 HINSTANCE GetInstance(void);
 HINSTANCE GetResources(void);
 
@@ -80,11 +78,8 @@ INITCHECKBOX(par1, par2, par3, par4, par5, par6, par7, par8, par9, par10, par11,
 */
 HB_FUNC( INITCHECKBOX )
 {
-#ifndef UNICODE
-   LPCSTR lpWindowName = hb_parc(2);
-#else
-   LPWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(2));
-#endif
+   void * WindowName;
+   LPCTSTR lpWindowName = HB_PARSTR(2, &WindowName, nullptr);
 
    DWORD style = BS_NOTIFY | WS_CHILD;
 
@@ -121,9 +116,7 @@ HB_FUNC( INITCHECKBOX )
       hmg_par_int(4), hmg_par_int(5), hmg_par_int(8), hmg_par_int(9),
       hmg_par_HWND(1), hmg_par_HMENU(3), GetInstance(), nullptr));
 
-#ifdef UNICODE
-   hb_xfree(( TCHAR * ) lpWindowName);
-#endif
+   hb_strfree(WindowName);
 }
 
 /*
@@ -131,11 +124,8 @@ INITCHECKBUTTON(par1, par2, par3, par4, par5, par6, par7, par8, par9, par10, par
 */
 HB_FUNC( INITCHECKBUTTON )
 {
-#ifndef UNICODE
-   LPCSTR lpWindowName = hb_parc(2);
-#else
-   LPWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(2));
-#endif
+   void * WindowName;
+   LPCTSTR lpWindowName = HB_PARSTR(2, &WindowName, nullptr);
 
    DWORD style = BS_NOTIFY | WS_CHILD | BS_AUTOCHECKBOX | BS_PUSHLIKE;
 
@@ -153,9 +143,7 @@ HB_FUNC( INITCHECKBUTTON )
       hmg_par_int(4), hmg_par_int(5), hmg_par_int(8), hmg_par_int(9),
       hmg_par_HWND(1), hmg_par_HMENU(3), GetInstance(), nullptr));
 
-#ifdef UNICODE
-   hb_xfree(( TCHAR * ) lpWindowName);
-#endif
+   hb_strfree(WindowName);
 }
 
 /*
@@ -166,11 +154,9 @@ HB_FUNC( INITIMAGECHECKBUTTON )
    HWND       himage;
    HIMAGELIST himl;
 
-#ifndef UNICODE
-   LPCSTR lpWindowName = hb_parc(2);
-#else
-   LPWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(2));
-#endif
+   void * WindowName;
+   LPCTSTR lpWindowName = HB_PARSTR(2, &WindowName, nullptr);
+
    int Transparent = hb_parl(7) ? 0 : 1;
 
    HWND hwnd = hmg_par_HWND(1);
@@ -210,7 +196,5 @@ HB_FUNC( INITIMAGECHECKBUTTON )
       HB_STORVNL(reinterpret_cast<LONG_PTR>(himl), -1, 2);
    }
 
-#ifdef UNICODE
-   hb_xfree(( TCHAR * ) lpWindowName);
-#endif
+   hb_strfree(WindowName);
 }
