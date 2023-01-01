@@ -1486,7 +1486,7 @@ CLASS TKeyData
    ASSIGN Obj(o) INLINE ::oObj := iif( HB_ISOBJECT( o ), o, Self )
    ACCESS Len INLINE Len(::aKey)
    ACCESS IsEvent INLINE ::lKey
-   ASSIGN KeyUpper(lUpper) INLINE hb_HCaseMatch( ::aKey, !mpty(lUpper) )
+   ASSIGN KeyUpper(lUpper) INLINE hb_HCaseMatch( ::aKey, !Empty(lUpper) )
    METHOD ISBLOCK( Key ) INLINE HB_ISBLOCK( ::Get( Key ) )
    METHOD Json( cJson )  INLINE iif( HB_ISCHAR( cJson ), ( cJson := SubStr(cJson, At("{", cJson) ), ;
                                                            cJson := Left(cJson, RAt("}", cJson) ), ;
