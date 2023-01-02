@@ -14,7 +14,7 @@ source\c_browse.cpp
 source\c_btntextbox.cpp
 source\c_button.cpp
 #source\c_checkbox.cpp
-source\c_chklabel.cpp
+#source\c_chklabel.cpp
 source\c_chklistbox.cpp
 source\c_combo.cpp
 source\c_controlmisc.cpp
