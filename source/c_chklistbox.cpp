@@ -1,69 +1,59 @@
-/*----------------------------------------------------------------------------
-   MINIGUI - Harbour Win32 GUI library source code
+/*
+ * MINIGUI - Harbour Win32 GUI library source code
+ *
+ * Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
+ * http://harbourminigui.googlepages.com/
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this software; see the file COPYING. If not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
+ * visit the web site http://www.gnu.org/).
+ *
+ * As a special exception, you have permission for additional uses of the text
+ * contained in this release of Harbour Minigui.
+ *
+ * The exception is that, if you link the Harbour Minigui library with other
+ * files to produce an executable, this does not by itself cause the resulting
+ * executable to be covered by the GNU General Public License.
+ * Your use of that executable is in no way restricted on account of linking the
+ * Harbour-Minigui library code into it.
+ *
+ * Parts of this project are based upon:
+ *
+ * "Harbour GUI framework for Win32"
+ * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+ * Copyright 2001 Antonio Linares <alinares@fivetech.com>
+ * www - https://harbour.github.io/
+ *
+ * "Harbour Project"
+ * Copyright 1999-2022, https://harbour.github.io/
+ *
+ * "WHAT32"
+ * Copyright 2002 AJ Wos <andrwos@aust1.net>
+ *
+ * "HWGUI"
+ * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
+ */
 
-   Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
-   http://harbourminigui.googlepages.com/
-
-   This program is free software; you can redistribute it and/or modify it under
-   the terms of the GNU General Public License as published by the Free Software
-   Foundation; either version 2 of the License, or (at your option) any later
-   version.
-
-   This program is distributed in the hope that it will be useful, but WITHOUT
-   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-   FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License along with
-   this software; see the file COPYING. If not, write to the Free Software
-   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
-   visit the web site http://www.gnu.org/).
-
-   As a special exception, you have permission for additional uses of the text
-   contained in this release of Harbour Minigui.
-
-   The exception is that, if you link the Harbour Minigui library with other
-   files to produce an executable, this does not by itself cause the resulting
-   executable to be covered by the GNU General Public License.
-   Your use of that executable is in no way restricted on account of linking the
-   Harbour-Minigui library code into it.
-
-   Parts of this project are based upon:
-
-    "Harbour GUI framework for Win32"
-    Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
-    Copyright 2001 Antonio Linares <alinares@fivetech.com>
-    www - https://harbour.github.io/
-
-    "Harbour Project"
-    Copyright 1999-2022, https://harbour.github.io/
-
-    "WHAT32"
-    Copyright 2002 AJ Wos <andrwos@aust1.net>
-
-    "HWGUI"
-    Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
-
-   ---------------------------------------------------------------------------*/
-
-#include <mgdefs.h>
-
+#include "mgdefs.h"
 #include <commctrl.h>
-
-#if ( __HARBOUR__ - 0 > 0x030000 )
-#include "hbwinuni.h"
-#else
-#define HB_STRLEN   strlen
-#endif
+#include <hbwinuni.h>
 
 #ifndef WC_LISTBOX
-#define WC_LISTBOX  "ListBox"
+#define WC_LISTBOX "ListBox"
 #endif
 
-#define BUFFER      MAX_PATH
+#define BUFFER MAX_PATH
 
-#ifdef UNICODE
-LPWSTR AnsiToWide(LPCSTR);
-#endif
 HINSTANCE GetInstance(void);
 
 static int m_nHeightItem = 16;
@@ -97,21 +87,18 @@ HB_FUNC( INITCHKLISTBOX )
       m_nHeightItem = hb_parni(12);
    }
 
-   hbutton = CreateWindowEx
-             (
-      WS_EX_CLIENTEDGE,
-      WC_LISTBOX,
-      TEXT(""),
-      style,
-      hb_parni(3),
-      hb_parni(4),
-      hb_parni(5),
-      hb_parni(6),
-      hwnd,
-      hmg_par_HMENU(2),
-      GetInstance(),
-      nullptr
-             );
+   hbutton = CreateWindowEx(WS_EX_CLIENTEDGE,
+                            WC_LISTBOX,
+                            TEXT(""),
+                            style,
+                            hmg_par_int(3),
+                            hmg_par_int(4),
+                            hmg_par_int(5),
+                            hmg_par_int(6),
+                            hwnd,
+                            hmg_par_HMENU(2),
+                            GetInstance(),
+                            nullptr);
 
    hmg_ret_HANDLE(hbutton);
 }
@@ -145,21 +132,18 @@ HB_FUNC( INITMULTICHKLISTBOX )
       m_nHeightItem = hb_parni(12);
    }
 
-   hbutton = CreateWindowEx
-             (
-      WS_EX_CLIENTEDGE,
-      WC_LISTBOX,
-      TEXT(""),
-      style,
-      hb_parni(3),
-      hb_parni(4),
-      hb_parni(5),
-      hb_parni(6),
-      hwnd,
-      hmg_par_HMENU(2),
-      GetInstance(),
-      nullptr
-             );
+   hbutton = CreateWindowEx(WS_EX_CLIENTEDGE,
+                            WC_LISTBOX,
+                            TEXT(""),
+                            style,
+                            hmg_par_int(3),
+                            hmg_par_int(4),
+                            hmg_par_int(5),
+                            hmg_par_int(6),
+                            hwnd,
+                            hmg_par_HMENU(2),
+                            GetInstance(),
+                            nullptr);
 
    hmg_ret_HANDLE(hbutton);
 }
@@ -167,66 +151,54 @@ HB_FUNC( INITMULTICHKLISTBOX )
 HB_FUNC( CHKLISTBOXINSERTITEM )
 {
    HWND hwnd = hmg_par_HWND(1);
-
-#ifndef UNICODE
-   LPTSTR lpString = ( LPTSTR ) hb_parc(2);
-#else
-   LPWSTR lpString = AnsiToWide(( char * ) hb_parc(2));
-#endif
-   int lbItem   = hb_parni(3) - 1;
+   void * String;
+   LPCTSTR lpString = HB_PARSTR(2, &String, nullptr);
+   int lbItem = hb_parni(3) - 1;
    int bChecked = hb_parni(4);
 
-   SendMessage(hwnd, LB_INSERTSTRING, ( WPARAM ) lbItem, ( LPARAM ) lpString);
-   SendMessage(hwnd, LB_SETITEMDATA, ( WPARAM ) ( int ) lbItem, ( LPARAM ) bChecked);
+   SendMessage(hwnd, LB_INSERTSTRING, static_cast<WPARAM>(lbItem), reinterpret_cast<LPARAM>(lpString));
+   SendMessage(hwnd, LB_SETITEMDATA, static_cast<WPARAM>(static_cast<int>(lbItem)), static_cast<LPARAM>(bChecked));
 
-#ifdef UNICODE
-   hb_xfree(lpString);
-#endif
+   hb_strfree(String);
 }
 
 HB_FUNC( CHKLISTBOXADDITEM )
 {
    HWND hwnd = hmg_par_HWND(1);
-
-#ifndef UNICODE
-   LPTSTR lpString = ( LPTSTR ) hb_parc(2);
-#else
-   LPWSTR lpString = AnsiToWide(( char * ) hb_parc(2));
-#endif
+   void * String;
+   LPCTSTR lpString = HB_PARSTR(2, &String, nullptr);
    int bChecked = hb_parni(3);
    int lbItem;
 
    m_nHeightItem = hb_parni(4);
-   lbItem        = ( int ) SendMessage(hwnd, LB_ADDSTRING, 0, ( LPARAM ) lpString);
-   SendMessage(hwnd, LB_SETITEMDATA, ( WPARAM ) ( int ) lbItem, ( LPARAM ) bChecked);
+   lbItem = static_cast<int>(SendMessage(hwnd, LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(lpString)));
+   SendMessage(hwnd, LB_SETITEMDATA, static_cast<WPARAM>(static_cast<int>(lbItem)), static_cast<LPARAM>(bChecked));
 
-#ifdef UNICODE
-   hb_xfree(lpString);
-#endif
+   hb_strfree(String);
 }
 
 HB_FUNC( SETCHKLBITEMHEIGHT ) // set the height of a string in pixels
 {
    TCHAR achBuffer[BUFFER];
-   HWND  hwnd     = hmg_par_HWND(1);
-   HDC   hdc      = GetDC(hwnd);
-   HFONT hFont    = hmg_par_HFONT(2);
-   HFONT hOldFont = ( HFONT ) nullptr;
-   SIZE  sz;
+   HWND hwnd = hmg_par_HWND(1);
+   HDC hdc = GetDC(hwnd);
+   HFONT hFont = hmg_par_HFONT(2);
+   HFONT hOldFont = nullptr;
+   SIZE sz;
 
    if( !hdc )
    {
       hwnd = GetActiveWindow();
-      hdc  = GetDC(hwnd);
+      hdc = GetDC(hwnd);
    }
-   SendMessage(hwnd, LB_GETTEXT, 0, ( LPARAM ) achBuffer);
+   SendMessage(hwnd, LB_GETTEXT, 0, reinterpret_cast<LPARAM>(achBuffer));
 
    if( hFont )
    {
-      hOldFont = ( HFONT ) SelectObject(hdc, hFont);
+      hOldFont = static_cast<HFONT>(SelectObject(hdc, hFont));
    }
 
-   GetTextExtentPoint32(hdc, achBuffer, ( int ) HB_STRLEN(achBuffer), &sz);
+   GetTextExtentPoint32(hdc, achBuffer, static_cast<int>(HB_STRLEN(achBuffer)), &sz);
 
    if( sz.cy > m_nHeightItem )
    {
@@ -245,31 +217,31 @@ HB_FUNC( SETCHKLBITEMHEIGHT ) // set the height of a string in pixels
 
 HB_FUNC( CHKLIST_SETCHECKBOX )
 {
-   HWND  hwnd            = hmg_par_HWND(1);
-   int   lbItem          = hb_parni(2) - 1;
-   int   bChecked        = hb_parni(3);
-   TCHAR cString[1024] = { TEXT("") };
+   HWND hwnd = hmg_par_HWND(1);
+   int lbItem = hb_parni(2) - 1;
+   int bChecked = hb_parni(3);
+   TCHAR cString[1024] = {TEXT("")};
 
-   SendMessage(hwnd, LB_GETTEXT, ( WPARAM ) lbItem, ( LPARAM ) cString);
-   SendMessage(hwnd, LB_DELETESTRING, ( WPARAM ) lbItem, 0);
-   SendMessage(hwnd, LB_INSERTSTRING, ( WPARAM ) lbItem, ( LPARAM ) cString);
-   SendMessage(hwnd, LB_SETITEMDATA, ( WPARAM ) lbItem, ( LPARAM ) bChecked);
+   SendMessage(hwnd, LB_GETTEXT, static_cast<WPARAM>(lbItem), reinterpret_cast<LPARAM>(cString));
+   SendMessage(hwnd, LB_DELETESTRING, static_cast<WPARAM>(lbItem), 0);
+   SendMessage(hwnd, LB_INSERTSTRING, static_cast<WPARAM>(lbItem), reinterpret_cast<LPARAM>(cString));
+   SendMessage(hwnd, LB_SETITEMDATA, static_cast<WPARAM>(lbItem), static_cast<LPARAM>(bChecked));
 }
 
 HB_FUNC( CHKLIST_GETCHECKBOX )
 {
-   HWND hwnd   = hmg_par_HWND(1);
-   int  lbItem = hb_parni(2);
-   int  iCheck = ( int ) SendMessage(hwnd, LB_GETITEMDATA, ( WPARAM ) lbItem - 1, 0);
+   HWND hwnd = hmg_par_HWND(1);
+   int lbItem = hb_parni(2);
+   int iCheck = static_cast<int>(SendMessage(hwnd, LB_GETITEMDATA, static_cast<WPARAM>(lbItem) - 1, 0));
 
-   hb_retl( ( BOOL ) iCheck - 1 );
+   hb_retl(iCheck - 1);
 }
 
 HB_FUNC( _ONMEASURELISTBOXITEM )
 {
    LPMEASUREITEMSTRUCT lpmis;
 
-   lpmis = ( LPMEASUREITEMSTRUCT ) HB_PARNL(1);
+   lpmis = reinterpret_cast<LPMEASUREITEMSTRUCT>(HB_PARNL(1));
 
    // Set the height of the list box items.
    lpmis->itemHeight = m_nHeightItem;
@@ -278,17 +250,17 @@ HB_FUNC( _ONMEASURELISTBOXITEM )
 HB_FUNC( _ONDRAWLISTBOXITEM )
 {
    PDRAWITEMSTRUCT pdis;
-   TCHAR      achBuffer[BUFFER];
-   int        cch;
-   int        yPos, iCheck, style = 0;
+   TCHAR achBuffer[BUFFER];
+   int cch;
+   int yPos, iCheck, style = 0;
    TEXTMETRIC tm;
-   RECT       rcCheck;
-   HBRUSH     hBackBrush;
+   RECT rcCheck;
+   HBRUSH hBackBrush;
 
-   pdis = ( PDRAWITEMSTRUCT ) HB_PARNL(1);
+   pdis = reinterpret_cast<PDRAWITEMSTRUCT>(HB_PARNL(1));
 
    // If there are no list box items, skip this message.
-   if( ( int ) pdis->itemID > -1 )
+   if( static_cast<int>(pdis->itemID) > -1 )
    {
       // Draw the bitmap and text for the list box item. Draw a
       // rectangle around the bitmap if it is selected.
@@ -298,7 +270,7 @@ HB_FUNC( _ONDRAWLISTBOXITEM )
          case ODA_SELECT:
          case ODA_DRAWENTIRE:
 
-            iCheck = ( int ) SendMessage(pdis->hwndItem, LB_GETITEMDATA, pdis->itemID, 0);
+            iCheck = static_cast<int>(SendMessage(pdis->hwndItem, LB_GETITEMDATA, pdis->itemID, 0));
 
             if( pdis->itemState & ODS_SELECTED )
             {
@@ -318,9 +290,9 @@ HB_FUNC( _ONDRAWLISTBOXITEM )
             rcCheck = pdis->rcItem;
             if( iCheck )
             {
-               rcCheck.left   += 4;
-               rcCheck.top    += 2;
-               rcCheck.right   = rcCheck.left + ( pdis->rcItem.bottom - pdis->rcItem.top );
+               rcCheck.left += 4;
+               rcCheck.top += 2;
+               rcCheck.right = rcCheck.left + (pdis->rcItem.bottom - pdis->rcItem.top);
                rcCheck.bottom -= 2;
 
                if( iCheck == 1 )
@@ -331,15 +303,14 @@ HB_FUNC( _ONDRAWLISTBOXITEM )
                {
                   style = DFCS_BUTTONCHECK | DFCS_CHECKED;
                }
-               DrawFrameControl( pdis->hDC, &rcCheck, DFC_BUTTON, style );
+               DrawFrameControl(pdis->hDC, &rcCheck, DFC_BUTTON, style);
 
             }
 
             // Draw the string associated with the item.
             //
             // Get the item string from the list box.
-            SendMessage(pdis->hwndItem, LB_GETTEXT,
-                        pdis->itemID, ( LPARAM ) achBuffer);
+            SendMessage(pdis->hwndItem, LB_GETTEXT, pdis->itemID, reinterpret_cast<LPARAM>(achBuffer));
 
             // Get the metrics for the current font.
             GetTextMetrics(pdis->hDC, &tm);
@@ -347,10 +318,9 @@ HB_FUNC( _ONDRAWLISTBOXITEM )
             // Calculate the vertical position for the item string
             // so that the string will be vertically centered in the
             // item rectangle.
-            yPos = ( pdis->rcItem.bottom + pdis->rcItem.top -
-                     tm.tmHeight ) / 2;
+            yPos = (pdis->rcItem.bottom + pdis->rcItem.top - tm.tmHeight) / 2;
             // Get the character length of the item string.
-            cch = ( int ) HB_STRLEN(achBuffer);
+            cch = static_cast<int>(HB_STRLEN(achBuffer));
             // Draw the string in the item rectangle, leaving a six
             // pixel gap between the item bitmap and the string.
             TextOut(pdis->hDC, rcCheck.right + 6, yPos, achBuffer, cch);
@@ -369,10 +339,10 @@ HB_FUNC( _ONDRAWLISTBOXITEM )
  */
 HB_FUNC( GETMISCTLTYPE )
 {
-   LPMEASUREITEMSTRUCT pmis = ( LPMEASUREITEMSTRUCT ) HB_PARNL(1);
+   LPMEASUREITEMSTRUCT pmis = reinterpret_cast<LPMEASUREITEMSTRUCT>(HB_PARNL(1));
 
    if( pmis )
    {
-      hb_retni( ( UINT ) pmis->CtlType );
+      hb_retni(static_cast<UINT>(pmis->CtlType));
    }
 }
