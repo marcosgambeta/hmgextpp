@@ -1,72 +1,68 @@
-/*----------------------------------------------------------------------------
-   MINIGUI - Harbour Win32 GUI library source code
+/*
+ * MINIGUI - Harbour Win32 GUI library source code
+ *
+ * Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
+ * http://harbourminigui.googlepages.com/
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this software; see the file COPYING. If not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
+ * visit the web site http://www.gnu.org/).
+ *
+ * As a special exception, you have permission for additional uses of the text
+ * contained in this release of Harbour Minigui.
+ *
+ * The exception is that, if you link the Harbour Minigui library with other
+ * files to produce an executable, this does not by itself cause the resulting
+ * executable to be covered by the GNU General Public License.
+ * Your use of that executable is in no way restricted on account of linking the
+ * Harbour-Minigui library code into it.
+ *
+ * Parts of this project are based upon:
+ *
+ * "Harbour GUI framework for Win32"
+ * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+ * Copyright 2001 Antonio Linares <alinares@fivetech.com>
+ * www - https://harbour.github.io/
+ *
+ * "Harbour Project"
+ * Copyright 1999-2022, https://harbour.github.io/
+ *
+ * "WHAT32"
+ * Copyright 2002 AJ Wos <andrwos@aust1.net>
+ *
+ * "HWGUI"
+ * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
+ */
 
-   Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
-   http://harbourminigui.googlepages.com/
-
-   This program is free software; you can redistribute it and/or modify it under
-   the terms of the GNU General Public License as published by the Free Software
-   Foundation; either version 2 of the License, or (at your option) any later
-   version.
-
-   This program is distributed in the hope that it will be useful, but WITHOUT
-   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-   FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License along with
-   this software; see the file COPYING. If not, write to the Free Software
-   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
-   visit the web site http://www.gnu.org/).
-
-   As a special exception, you have permission for additional uses of the text
-   contained in this release of Harbour Minigui.
-
-   The exception is that, if you link the Harbour Minigui library with other
-   files to produce an executable, this does not by itself cause the resulting
-   executable to be covered by the GNU General Public License.
-   Your use of that executable is in no way restricted on account of linking the
-   Harbour-Minigui library code into it.
-
-   Parts of this project are based upon:
-
-    "Harbour GUI framework for Win32"
-    Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
-    Copyright 2001 Antonio Linares <alinares@fivetech.com>
-    www - https://harbour.github.io/
-
-    "Harbour Project"
-    Copyright 1999-2022, https://harbour.github.io/
-
-    "WHAT32"
-    Copyright 2002 AJ Wos <andrwos@aust1.net>
-
-    "HWGUI"
-    Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
-
-   ---------------------------------------------------------------------------*/
-
-#include <mgdefs.h>
-
+#include "mgdefs.h"
 #include <commctrl.h>
-#include "hbapiitm.h"
-#include "hbvm.h"
+#include <hbapiitm.h>
+#include <hbvm.h>
+#include <hbwinuni.h>
 
 #ifndef WC_STATIC
 #define WC_STATIC  "Static"
 #endif
 
-LRESULT APIENTRY ChkLabelFunc( HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam );
+LRESULT APIENTRY ChkLabelFunc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam);
 static WNDPROC LabelOldWndProc;
 
 extern HBITMAP HMG_LoadPicture(const char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage,
                                HB_BOOL bAlphaFormat, int iAlpfaConstant);
-#ifdef UNICODE
-LPWSTR AnsiToWide(LPCSTR);
-#endif
 HINSTANCE GetInstance(void);
 HINSTANCE GetResources(void);
 
-typedef struct
+struct INSCHK
 {
    BOOL    lCheck;                        // is checked ?
    WNDPROC oldproc;                       // need to remember the old window procedure
@@ -78,19 +74,21 @@ typedef struct
    HBITMAP himagemask;
    HBITMAP himage2;
    HBITMAP himagemask2;
-} INSCHK, * PINSCHK;
+};
 
+using PINSCHK = INSCHK *;
 
 HBITMAP CreateBitmapMask(HBITMAP hbmColour, COLORREF crTransparent)
 {
-   HDC     hdcMem, hdcMem2;
+   HDC hdcMem;
+   HDC hdcMem2;
    HBITMAP hbmMask;
-   BITMAP  bm;
+   BITMAP bm;
 
    GetObject(hbmColour, sizeof(BITMAP), &bm);
    hbmMask = CreateBitmap(bm.bmWidth, bm.bmHeight, 1, 1, nullptr);
 
-   hdcMem  = CreateCompatibleDC(0);
+   hdcMem = CreateCompatibleDC(0);
    hdcMem2 = CreateCompatibleDC(0);
 
    SelectObject(hdcMem, hbmColour);
@@ -110,8 +108,7 @@ HBITMAP CreateBitmapMask(HBITMAP hbmColour, COLORREF crTransparent)
 
 void GetCheck(INSCHK * pbtn, RECT * rect)
 {
-
-   if( !( pbtn->lLeftCheck ) )
+   if( !(pbtn->lLeftCheck) )
    {
       rect->left = rect->right - pbtn->cxButton;
    }
@@ -124,14 +121,13 @@ void GetCheck(INSCHK * pbtn, RECT * rect)
    {
       OffsetRect(rect, pbtn->cxRightEdge - pbtn->cxLeftEdge, 0);
    }
-
 }
 
 BOOL InsertCheck(HWND hWnd, HBITMAP himage, HBITMAP himage2, int BtnWidth, BOOL lCheck, BOOL lLeftCheck)
 {
    INSCHK * pbtn;
 
-   pbtn = ( INSCHK * ) HeapAlloc(GetProcessHeap(), 0, sizeof(INSCHK));
+   pbtn = static_cast<INSCHK*>(HeapAlloc(GetProcessHeap(), 0, sizeof(INSCHK)));
 
    if( !pbtn )
    {
@@ -165,7 +161,7 @@ BOOL InsertCheck(HWND hWnd, HBITMAP himage, HBITMAP himage2, int BtnWidth, BOOL 
 
    // associate our button state structure with the window
 
-   SetWindowLongPtr(hWnd, GWLP_USERDATA, ( LONG_PTR ) pbtn);
+   SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pbtn));
 
    // force the edit control to update its non-client area
 
@@ -183,7 +179,7 @@ static void DrawCheck(HWND hWnd, INSCHK * pbtn, RECT * prect)
    HBITMAP hBitmapMask2 = pbtn->himagemask2;
    BITMAP  bm;
 
-   hdc = GetWindowDC( hWnd );
+   hdc = GetWindowDC(hWnd);
 
    if( hBitmap == nullptr )
    {
@@ -200,7 +196,7 @@ static void DrawCheck(HWND hWnd, INSCHK * pbtn, RECT * prect)
 
       if( pbtn->lCheck )
       {
-         HBITMAP hbmOld = ( HBITMAP ) SelectObject(hdcMem, hBitmapMask);
+         HBITMAP hbmOld = static_cast<HBITMAP>(SelectObject(hdcMem, hBitmapMask));
          GetObject(hBitmap, sizeof(bm), &bm);
 
          BitBlt(hdc, wCol, wRow, bm.bmWidth, bm.bmHeight, hdcMem, 0, 0, SRCAND);
@@ -211,7 +207,7 @@ static void DrawCheck(HWND hWnd, INSCHK * pbtn, RECT * prect)
       }
       else if( hBitmap2 != nullptr )
       {
-         HBITMAP hbmOld = ( HBITMAP ) SelectObject(hdcMem, hBitmapMask2);
+         HBITMAP hbmOld = static_cast<HBITMAP>(SelectObject(hdcMem, hBitmapMask2));
          GetObject(hBitmap2, sizeof(bm), &bm);
 
          BitBlt(hdc, wCol, wRow, bm.bmWidth, bm.bmHeight, hdcMem, 0, 0, SRCAND);
@@ -229,19 +225,13 @@ static void DrawCheck(HWND hWnd, INSCHK * pbtn, RECT * prect)
 
 HB_FUNC( INITCHKLABEL )
 {
-   HWND    hwnd;
-   HWND    hbutton;
+   HWND hwnd;
+   HWND hbutton;
    HBITMAP himage;
    HBITMAP himage2;
-
-#ifndef UNICODE
-   LPCSTR lpWindowName = hb_parc(2);
-#else
-   LPWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(2));
-#endif
-
+   void * WindowName;
+   LPCTSTR lpWindowName = HB_PARSTR(2, &WindowName, nullptr);
    int BtnWidth = hb_parni(7);
-
    int style = WS_CHILD | SS_NOTIFY;
    int ExStyle = 0;
 
@@ -292,21 +282,18 @@ HB_FUNC( INITCHKLABEL )
       style |= SS_CENTERIMAGE;
    }
 
-   hbutton = CreateWindowEx
-             (
-      ExStyle,
-      WC_STATIC,
-      lpWindowName,
-      style,
-      hb_parni(4),
-      hb_parni(5),
-      hb_parni(6),
-      hb_parni(7),
-      hwnd,
-      hmg_par_HMENU(3),
-      GetInstance(),
-      nullptr
-             );
+   hbutton = CreateWindowEx(ExStyle,
+                            WC_STATIC,
+                            lpWindowName,
+                            style,
+                            hmg_par_int(4),
+                            hmg_par_int(5),
+                            hmg_par_int(6),
+                            hmg_par_int(7),
+                            hwnd,
+                            hmg_par_HMENU(3),
+                            GetInstance(),
+                            nullptr);
 
    if( hb_parc(19) != nullptr )
    {
@@ -328,21 +315,19 @@ HB_FUNC( INITCHKLABEL )
 
    InsertCheck(hbutton, himage, himage2, BtnWidth, hb_parl(22), hb_parl(21));
 
-   LabelOldWndProc = ( WNDPROC ) SetWindowLongPtr(( HWND ) hbutton, GWLP_WNDPROC, ( LONG_PTR ) ChkLabelFunc);
+   LabelOldWndProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(hbutton, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(ChkLabelFunc)));
    SetWindowPos(hbutton, 0, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_NOZORDER);
 
    hmg_ret_HANDLE(hbutton);
 
-#ifdef UNICODE
-   hb_xfree(( TCHAR * ) lpWindowName);
-#endif
+   hb_strfree(WindowName);
 }
 
 HB_FUNC( SETCHKLABEL )
 {
-   HWND     hWnd = hmg_par_HWND(1);
-   INSCHK * pbtn = ( INSCHK * ) GetWindowLongPtr(hWnd, GWLP_USERDATA);
-   RECT     rect;
+   HWND hWnd = hmg_par_HWND(1);
+   INSCHK * pbtn = reinterpret_cast<INSCHK*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
+   RECT rect;
 
    pbtn->lCheck = hb_parl(2);
 
@@ -358,27 +343,27 @@ HB_FUNC( SETCHKLABEL )
 
 HB_FUNC( GETCHKLABEL )
 {
-   HWND     hWnd = hmg_par_HWND(1);
-   INSCHK * pbtn = ( INSCHK * ) GetWindowLongPtr(hWnd, GWLP_USERDATA);
+   HWND hWnd = hmg_par_HWND(1);
+   INSCHK * pbtn = reinterpret_cast<INSCHK*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
-   hb_retl( ( BOOL ) pbtn->lCheck );
+   hb_retl(pbtn->lCheck);
 }
 
-LRESULT APIENTRY ChkLabelFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam )
+LRESULT APIENTRY ChkLabelFunc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
    static PHB_SYMB pSymbol = nullptr;
-   long int        r;
-   RECT *          prect;
+   long int r;
+   RECT * prect;
    RECT oldrect;
    RECT rect;
    TRACKMOUSEEVENT tme;
 
-   INSCHK * pbtn = ( INSCHK * ) GetWindowLongPtr(hWnd, GWLP_USERDATA);
+   INSCHK * pbtn = reinterpret_cast<INSCHK*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
    switch( Msg )
    {
       case WM_NCCALCSIZE:
-         prect   = ( RECT * ) lParam;
+         prect = reinterpret_cast<RECT*>(lParam);
          oldrect = *prect;
 
          CallWindowProc(LabelOldWndProc, hWnd, Msg, wParam, lParam);
@@ -390,15 +375,15 @@ LRESULT APIENTRY ChkLabelFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam
 
          if( pbtn->lLeftCheck )
          {
-            pbtn->cxLeftEdge  = prect->left - oldrect.left;
+            pbtn->cxLeftEdge = prect->left - oldrect.left;
             pbtn->cxRightEdge = oldrect.right - prect->right;
-            prect->left      += pbtn->cxButton + pbtn->cxSpace;
+            prect->left += pbtn->cxButton + pbtn->cxSpace;
          }
          else
          {
-            pbtn->cxLeftEdge  = prect->left - oldrect.left;
+            pbtn->cxLeftEdge = prect->left - oldrect.left;
             pbtn->cxRightEdge = oldrect.right - prect->right;
-            prect->right     -= pbtn->cxButton + pbtn->cxSpace;
+            prect->right -= pbtn->cxButton + pbtn->cxSpace;
          }
 
          return 0;
@@ -437,16 +422,16 @@ LRESULT APIENTRY ChkLabelFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam
          {
             hb_vmPushSymbol(pSymbol);
             hb_vmPushNil();
-            hb_vmPushNumInt(( LONG_PTR ) hWnd);
+            hb_vmPushNumInt(reinterpret_cast<LONG_PTR>(hWnd));
             hb_vmPushLong(Msg);
             hb_vmPushNumInt(wParam);
             hb_vmPushNumInt(lParam);
             hb_vmDo(4);
          }
 
-         r = hb_parnl( -1 );
+         r = hb_parnl(-1);
 
-         return ( r != 0 ) ? r : CallWindowProc(LabelOldWndProc, hWnd, 0, 0, 0);
+         return (r != 0) ? r : CallWindowProc(LabelOldWndProc, hWnd, 0, 0, 0);
 
       case WM_MOUSELEAVE:
          if( !pSymbol )
@@ -458,16 +443,16 @@ LRESULT APIENTRY ChkLabelFunc( HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam
          {
             hb_vmPushSymbol(pSymbol);
             hb_vmPushNil();
-            hb_vmPushNumInt(( LONG_PTR ) hWnd);
+            hb_vmPushNumInt(reinterpret_cast<LONG_PTR>(hWnd));
             hb_vmPushLong(Msg);
             hb_vmPushNumInt(wParam);
             hb_vmPushNumInt(lParam);
             hb_vmDo(4);
          }
 
-         r = hb_parnl( -1 );
+         r = hb_parnl(-1);
 
-         return ( r != 0 ) ? r : CallWindowProc(LabelOldWndProc, hWnd, 0, 0, 0);
+         return (r != 0) ? r : CallWindowProc(LabelOldWndProc, hWnd, 0, 0, 0);
    }
 
    return CallWindowProc(LabelOldWndProc, hWnd, Msg, wParam, lParam);
