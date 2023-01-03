@@ -80,18 +80,18 @@ void hmg_ErrorExit(LPCTSTR lpszMessage, DWORD dwError, BOOL bExit)
 
 #ifdef UNICODE
 #if ( ( defined( __BORLANDC__ ) && __BORLANDC__ <= 1410 ) )
-   swprintf( ( LPTSTR ) lpDisplayBuf, TEXT("'%s' failed with error %lu : %s"),
+   swprintf( ( LPTSTR ) lpDisplayBuf, "'%s' failed with error %lu : %s",
              lpszMessage, nError, ( LPTSTR ) lpMsgBuf );
 #else
-   swprintf_s(( LPTSTR ) lpDisplayBuf, LocalSize(lpDisplayBuf) / sizeof(TCHAR), TEXT("'%s' failed with error %lu : %s"),
+   swprintf_s(( LPTSTR ) lpDisplayBuf, LocalSize(lpDisplayBuf) / sizeof(TCHAR), "'%s' failed with error %lu : %s",
                lpszMessage, nError, ( LPTSTR ) lpMsgBuf);
 #endif
 #else
-   hb_snprintf( ( LPTSTR ) lpDisplayBuf, LocalSize(lpDisplayBuf) / sizeof(TCHAR), TEXT("'%s' failed with error %lu : %s"),
+   hb_snprintf( ( LPTSTR ) lpDisplayBuf, LocalSize(lpDisplayBuf) / sizeof(TCHAR), "'%s' failed with error %lu : %s",
                 lpszMessage, nError, ( LPTSTR ) lpMsgBuf );
 #endif
 
-   MessageBox(nullptr, ( LPCTSTR ) lpDisplayBuf, TEXT("MiniGUI Error"), MB_OK);
+   MessageBox(nullptr, ( LPCTSTR ) lpDisplayBuf, "MiniGUI Error", MB_OK);
 
    LocalFree(lpMsgBuf);
    LocalFree(lpDisplayBuf);

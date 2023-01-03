@@ -42,7 +42,7 @@
 
 HRESULT TaskDialog(HWND hwndParent, HINSTANCE hInstance, PCWSTR pszWindowTitle, PCWSTR pszMainInstruction, PCWSTR pszContent, TASKDIALOG_COMMON_BUTTON_FLAGS dwCommonButtons, PCWSTR pszIcon, int * pnButton)
 {
-   HMODULE hCommCtl = LoadLibraryEx(TEXT("comctl32.dll"), nullptr, 0);
+   HMODULE hCommCtl = LoadLibraryEx("comctl32.dll", nullptr, 0);
 
    if( hCommCtl )
    {
@@ -62,7 +62,7 @@ HRESULT TaskDialog(HWND hwndParent, HINSTANCE hInstance, PCWSTR pszWindowTitle, 
 
 HRESULT TaskDialogIndirect(const TASKDIALOGCONFIG * pTaskConfig, int * pnButton, int * pnRadioButton, BOOL * pfVerificationFlagChecked)
 {
-   HMODULE hCommCtl = LoadLibraryEx(TEXT("comctl32.dll"), nullptr, 0);
+   HMODULE hCommCtl = LoadLibraryEx("comctl32.dll", nullptr, 0);
 
    if( hCommCtl )
    {

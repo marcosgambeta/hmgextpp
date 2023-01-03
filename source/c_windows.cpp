@@ -305,7 +305,7 @@ static LRESULT AppEventOn(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
    if( IsWindow(hWnd) )
    {
-      EVENTSHOLDER * events = ( EVENTSHOLDER * ) GetProp(hWnd, TEXT("ONCE"));
+      EVENTSHOLDER * events = ( EVENTSHOLDER * ) GetProp(hWnd, "ONCE");
 
       if( nullptr != events )
       {
@@ -315,7 +315,7 @@ static LRESULT AppEventOn(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
          }
       }
 
-      events = ( EVENTSHOLDER * ) GetProp(hWnd, TEXT("ON"));
+      events = ( EVENTSHOLDER * ) GetProp(hWnd, "ON");
 
       if( nullptr != events )
       {
@@ -661,7 +661,7 @@ static LRESULT WinEventOn(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
    if( IsWindow(hWnd) )
    {
-      WINEVENTSHOLDER * events = ( WINEVENTSHOLDER * ) GetProp(hWnd, TEXT("ONCE"));
+      WINEVENTSHOLDER * events = ( WINEVENTSHOLDER * ) GetProp(hWnd, "ONCE");
 
       if( nullptr != events )
       {
@@ -671,7 +671,7 @@ static LRESULT WinEventOn(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
          }
       }
 
-      events = ( WINEVENTSHOLDER * ) GetProp(hWnd, TEXT("ON"));
+      events = ( WINEVENTSHOLDER * ) GetProp(hWnd, "ON");
 
       if( nullptr != events )
       {
@@ -1018,7 +1018,7 @@ HB_FUNC( INITMESSAGEONLYWINDOW )
       }
       else
       {
-         hmg_ErrorExit(TEXT("Window Registration Failed!"), 0, TRUE);
+         hmg_ErrorExit("Window Registration Failed!", 0, TRUE);
       }
    }
 
@@ -1029,7 +1029,7 @@ HB_FUNC( INITMESSAGEONLYWINDOW )
 /* Modified by P.Ch. 17.06. */
 HB_FUNC( INITDUMMY )
 {
-   hmg_ret_HANDLE(CreateWindowEx(0, WC_STATIC, TEXT(""), WS_CHILD, 0, 0, 0, 0, ( HWND ) ( LONG_PTR ) HB_PARNL(1), ( HMENU ) 0, GetInstance(), nullptr));
+   hmg_ret_HANDLE(CreateWindowEx(0, WC_STATIC, "", WS_CHILD, 0, 0, 0, 0, ( HWND ) ( LONG_PTR ) HB_PARNL(1), ( HMENU ) 0, GetInstance(), nullptr));
 }
 
 /* Modified by P.Ch. 17.06. */
@@ -1170,7 +1170,7 @@ HB_FUNC( INITWINDOW )
    }
    else
    {
-      MessageBox(0, TEXT("Window Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+      MessageBox(0, "Window Creation Failed!", "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
    }
 
 #ifdef UNICODE
@@ -1250,7 +1250,7 @@ HB_FUNC( INITMODALWINDOW )
    }
    else
    {
-      MessageBox(0, TEXT("Window Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+      MessageBox(0, "Window Creation Failed!", "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
    }
 
 #ifdef UNICODE
@@ -1311,7 +1311,7 @@ HB_FUNC( INITSPLITCHILDWINDOW )
    }
    else
    {
-      MessageBox(0, TEXT("Window Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+      MessageBox(0, "Window Creation Failed!", "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
    }
 
 #ifdef UNICODE
@@ -1461,7 +1461,7 @@ HB_FUNC( REGISTERWINDOW )
 
    if( !RegisterClass(&WndClass) )
    {
-      hmg_ErrorExit(TEXT("Window Registration Failed!"), 0, TRUE);
+      hmg_ErrorExit("Window Registration Failed!", 0, TRUE);
    }
 
    hb_strfree(hClassName);
@@ -1526,7 +1526,7 @@ HB_FUNC( REGISTERSPLITCHILDWINDOW )
 
    if( !RegisterClass(&WndClass) )
    {
-      hmg_ErrorExit(TEXT("Window Registration Failed!"), 0, TRUE);
+      hmg_ErrorExit("Window Registration Failed!", 0, TRUE);
    }
 
    hb_strfree(hClassName);

@@ -78,7 +78,7 @@ HB_FUNC( VERIFYPASSWORD )
       hb_retl( TRUE );
    }
 
-   hpwdcpl = LoadLibrary(TEXT("PASSWORD.CPL"));
+   hpwdcpl = LoadLibrary("PASSWORD.CPL");
 
    if( hpwdcpl == nullptr )
    {
@@ -106,7 +106,7 @@ HB_FUNC( CHANGEPASSWORD )
 
    HWND hwnd;
 
-   HINSTANCE hmpr = LoadLibrary(TEXT("MPR.DLL"));
+   HINSTANCE hmpr = LoadLibrary("MPR.DLL");
    PWDCHANGEPASSWORD PwdChangePassword;
 
    if( hmpr == nullptr )

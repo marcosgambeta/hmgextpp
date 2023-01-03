@@ -80,7 +80,7 @@ HB_FUNC( INITTREE )
             (
       WS_EX_CLIENTEDGE,
       WC_TREEVIEW,
-      TEXT(""),
+      "",
       WS_VISIBLE | WS_TABSTOP | WS_CHILD | TVS_HASLINES | TVS_HASBUTTONS | mask | TVS_SHOWSELALWAYS,
       hb_parni(2),
       hb_parni(3),

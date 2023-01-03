@@ -192,7 +192,7 @@ static BOOL FLD_isAppThemed(void)
 
    if( hUxTheme == nullptr )
    {
-      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
+      hUxTheme = LoadLibraryEx("uxtheme.dll", nullptr, 0);
    }
 
    if( hUxTheme )
@@ -759,15 +759,15 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
    style  = pFhi->FolderStyle;
 
    // Create the tab control.
-   pFhi->hwndTab = CreateWindow(WC_TABCONTROL, TEXT(""), style, 0, 0, 100, 100, hWndDlg, nullptr, GetInstance(), nullptr);
+   pFhi->hwndTab = CreateWindow(WC_TABCONTROL, "", style, 0, 0, 100, 100, hWndDlg, nullptr, GetInstance(), nullptr);
 
    if( pFhi->hwndTab == nullptr )
    {
       MessageBox
       (
          nullptr,
-         TEXT("Tab Control for Folder could not be created"),
-         TEXT("Error"),
+         "Tab Control for Folder could not be created",
+         "Error",
          MB_OK | MB_ICONERROR | MB_DEFBUTTON1 | MB_APPLMODAL | MB_SETFOREGROUND
       );
    }

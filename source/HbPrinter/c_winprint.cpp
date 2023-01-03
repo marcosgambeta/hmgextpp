@@ -132,7 +132,7 @@ HB_FUNC( RR_PRINTDIALOG )
 
       if( hDC == nullptr )
       {
-         lstrcpy(PrinterName, TEXT(""));
+         lstrcpy(PrinterName, "");
       }
       else
       {
@@ -178,7 +178,7 @@ HB_FUNC( RR_GETDC )
    LPWSTR pwszDevice = AnsiToWide(( char * ) hb_parc(1));
 
    if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT )
-      hDC = CreateDC( TEXT("WINSPOOL"), pwszDevice, nullptr, nullptr );
+      hDC = CreateDC( "WINSPOOL", pwszDevice, nullptr, nullptr );
    else
       hDC = CreateDC( nullptr, pwszDevice, nullptr, nullptr );
 #else
@@ -385,7 +385,7 @@ HB_FUNC( RR_GETDEFAULTPRINTER )
          TCHAR lpPrinterName[MAX_BUFFER_SIZE];
          _GETDEFAULTPRINTER fnGetDefaultPrinter;
 
-         HMODULE hWinSpool = LoadLibrary(TEXT("winspool.drv"));
+         HMODULE hWinSpool = LoadLibrary("winspool.drv");
          if( !hWinSpool )
          {
             hb_retc( "" );
@@ -410,8 +410,8 @@ HB_FUNC( RR_GETDEFAULTPRINTER )
       }
       else  /* Windows NT 4.0 or earlier */
       {
-         GetProfileString(TEXT("windows"), TEXT("device"), TEXT(""), PrinterDefault, BuffSize);
-         _tcstok(PrinterDefault, TEXT(","));
+         GetProfileString("windows", "device", "", PrinterDefault, BuffSize);
+         _tcstok(PrinterDefault, ",");
       }
    }
 
@@ -485,24 +485,24 @@ HB_FUNC( RR_GETPRINTERS )
       if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT )
       {
          lstrcat(reinterpret_cast<LPSTR>(cBuffer), pInfo4->pPrinterName);
-         lstrcat(reinterpret_cast<LPSTR>(cBuffer), TEXT(","));
+         lstrcat(reinterpret_cast<LPSTR>(cBuffer), ",");
          if( pInfo4->Attributes == PRINTER_ATTRIBUTE_LOCAL )
-            lstrcat(reinterpret_cast<LPSTR>(cBuffer), TEXT("local printer"));
+            lstrcat(reinterpret_cast<LPSTR>(cBuffer), "local printer");
          else
-            lstrcat(reinterpret_cast<LPSTR>(cBuffer), TEXT("network printer"));
+            lstrcat(reinterpret_cast<LPSTR>(cBuffer), "network printer");
 
          pInfo4++;
       }
       else
       {
          lstrcat(reinterpret_cast<LPSTR>(cBuffer), pInfo5->pPrinterName);
-         lstrcat(reinterpret_cast<LPSTR>(cBuffer), TEXT(","));
+         lstrcat(reinterpret_cast<LPSTR>(cBuffer), ",");
          lstrcat(reinterpret_cast<LPSTR>(cBuffer), pInfo5->pPortName);
          pInfo5++;
       }
 
       if( i < dwPrinters - 1 )
-         lstrcat(reinterpret_cast<LPSTR>(cBuffer), TEXT(",,"));
+         lstrcat(reinterpret_cast<LPSTR>(cBuffer), ",,");
    }
 
 #ifndef UNICODE
@@ -594,16 +594,16 @@ HB_FUNC( RR_DEVICECAPABILITIES )
       for( i = 0; i < numpapers; i++ )
       {
          lstrcat(cBuffer, pBuffer);
-         lstrcat(cBuffer, TEXT(","));
+         lstrcat(cBuffer, ",");
          lstrcat(cBuffer, _itot(*nBuffer, buffer, 10));
-         lstrcat(cBuffer, TEXT(","));
+         lstrcat(cBuffer, ",");
 
          lp = ( LPPOINT ) sBuffer;
          lstrcat(cBuffer, _ltot(lp->x, buffer, 10));
-         lstrcat(cBuffer, TEXT(","));
+         lstrcat(cBuffer, ",");
          lstrcat(cBuffer, _ltot(lp->y, buffer, 10));
          if( i < numpapers - 1 )
-            lstrcat(cBuffer, TEXT(",,"));
+            lstrcat(cBuffer, ",,");
          pBuffer += 64;
          nBuffer += sizeof(WORD);
          sBuffer += sizeof(POINT);
@@ -649,11 +649,11 @@ HB_FUNC( RR_DEVICECAPABILITIES )
       for( i = 0; i < numbins; i++ )
       {
          lstrcat(bcBuffer, bnBuffer);
-         lstrcat(bcBuffer, TEXT(","));
+         lstrcat(bcBuffer, ",");
          lstrcat(bcBuffer, _itot(*bwBuffer, buffer, 10));
 
          if( i < numbins - 1 )
-            lstrcat(bcBuffer, TEXT(",,"));
+            lstrcat(bcBuffer, ",,");
          bnBuffer += 24;
          bwBuffer += sizeof(WORD);
       }
@@ -1136,7 +1136,7 @@ HB_FUNC( RR_CREATEMFILE )
    RECT    emfrect;
 
    SetRect(&emfrect, 0, 0, GetDeviceCaps(hDCRef, HORZSIZE) * 100, GetDeviceCaps(hDCRef, VERTSIZE) * 100);
-   hDC = CreateEnhMetaFile(hDCRef, FileName, &emfrect, TEXT("hbprinter\0emf file\0\0"));
+   hDC = CreateEnhMetaFile(hDCRef, FileName, &emfrect, "hbprinter\0emf file\0\0");
    SetTextAlign(hDC, TA_BASELINE);
    preview = 1;
    hmg_ret_HANDLE(hDC);
@@ -1359,7 +1359,7 @@ LPVOID rr_loadpicturefromresource(TCHAR * resname, LONG * lwidth, LONG * lheight
    }
    else
    {
-      hSource = FindResource(GetResources(), resname, TEXT("HMGPICTURE"));
+      hSource = FindResource(GetResources(), resname, "HMGPICTURE");
       if( hSource == nullptr )
          return nullptr;
 

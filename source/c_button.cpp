@@ -416,7 +416,7 @@ HIMAGELIST HMG_SetButtonImageList(HWND hButton, const char * FileName, int Trans
 
    TCHAR TempPathFileName[MAX_PATH];
    GetTempPath(MAX_PATH, TempPathFileName);
-   lstrcat(TempPathFileName, TEXT("_MG_temp.BMP"));
+   lstrcat(TempPathFileName, "_MG_temp.BMP");
    bmp_SaveFile(hBitmap, TempPathFileName);
    DeleteObject(hBitmap);
 

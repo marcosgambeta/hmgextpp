@@ -113,13 +113,13 @@ HB_FUNC( INITRICHEDITBOXEX )
 
    if( !hRELib )
    {
-      hRELib = LoadLibrary(TEXT("RichEd20.dll"));
+      hRELib = LoadLibrary("RichEd20.dll");
    }
 
    if( hRELib )
    {
       hWndControl = CreateWindowEx(WS_EX_CLIENTEDGE, ( LPCTSTR ) RICHEDIT_CLASS,
-                                   TEXT(""),
+                                   "",
                                    style,
                                    hb_parni(3),
                                    hb_parni(4),
@@ -317,7 +317,7 @@ HB_FUNC( RICHEDITBOX_RTFLOADRESOURCEFILE )
    HGLOBAL hGlobalResource;
    TCHAR * lpGlobalResource = nullptr;
 
-   hResourceData = FindResource(nullptr, cFileName, TEXT("RTF"));
+   hResourceData = FindResource(nullptr, cFileName, "RTF");
    if( hResourceData != nullptr )
    {
       hGlobalResource = LoadResource(nullptr, hResourceData);
@@ -1434,7 +1434,7 @@ HB_FUNC( FINDREPLACEDLGGETTITLE )
 #ifndef UNICODE
       hb_retc( "" );
 #else
-      pStr = WideToAnsi(TEXT(""));
+      pStr = WideToAnsi("");
       hb_retc( pStr );
       hb_xfree(pStr);
 #endif

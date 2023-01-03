@@ -218,7 +218,7 @@ HB_FUNC( ENUMFONTSEX )
    }
    else
    {
-      lf.lfFaceName[0] = TEXT('\0');
+      lf.lfFaceName[0] = '\0';
    }
 
    lf.lfCharSet        = ( BYTE ) ( HB_ISNUM(3) ? ( hb_parni(3) == DEFAULT_CHARSET ? GetTextCharset ( hdc ) : hb_parni(3) ) : -1 );

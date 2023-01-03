@@ -110,7 +110,7 @@ HB_FUNC( INITDATEPICK )
              (
       WS_EX_CLIENTEDGE,
       DATETIMEPICK_CLASS,
-      TEXT("DateTime"),
+      "DateTime",
       style,
       hb_parni(3),
       hb_parni(4),
@@ -122,7 +122,7 @@ HB_FUNC( INITDATEPICK )
       nullptr
              );
 
-   SetProp(( HWND ) hbutton, TEXT("oldpickproc"), ( HWND ) GetWindowLongPtr(( HWND ) hbutton, GWLP_WNDPROC));
+   SetProp(( HWND ) hbutton, "oldpickproc", ( HWND ) GetWindowLongPtr(( HWND ) hbutton, GWLP_WNDPROC));
    SetWindowLongPtr(hbutton, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnPickProc);
 
    hmg_ret_HANDLE(hbutton);
@@ -161,7 +161,7 @@ HB_FUNC( INITTIMEPICK )
              (
       WS_EX_CLIENTEDGE,
       DATETIMEPICK_CLASS,
-      TEXT("DateTime"),
+      "DateTime",
       style,
       hb_parni(3),
       hb_parni(4),
@@ -173,7 +173,7 @@ HB_FUNC( INITTIMEPICK )
       nullptr
              );
 
-   SetProp(( HWND ) hbutton, TEXT("oldpickproc"), ( HWND ) GetWindowLongPtr(( HWND ) hbutton, GWLP_WNDPROC));
+   SetProp(( HWND ) hbutton, "oldpickproc", ( HWND ) GetWindowLongPtr(( HWND ) hbutton, GWLP_WNDPROC));
    SetWindowLongPtr(hbutton, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnPickProc);
 
    hmg_ret_HANDLE(hbutton);
@@ -185,7 +185,7 @@ LRESULT CALLBACK OwnPickProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
    long int        r;
    WNDPROC         OldWndProc;
 
-   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp(hButton, TEXT("oldpickproc"));
+   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp(hButton, "oldpickproc");
 
    switch( Msg )
    {

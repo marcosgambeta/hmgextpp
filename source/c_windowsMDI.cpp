@@ -118,7 +118,7 @@ HB_FUNC( REGISTERMDIWINDOW )
 
    if( !RegisterClass(&WndClass) )
    {
-      MessageBox(0, TEXT("Window MDI Registration Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+      MessageBox(0, "Window MDI Registration Failed!", "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
       ExitProcess(0);
    }
 
@@ -153,10 +153,10 @@ HB_FUNC( REGISTERMDIWINDOW )
    }
 
    WndClass.lpszMenuName  = nullptr;
-   WndClass.lpszClassName = TEXT("MdiChildWndClass");
+   WndClass.lpszClassName = "MdiChildWndClass";
    if( !RegisterClass(( LPWNDCLASS ) &WndClass) )
    {
-      MessageBox(0, TEXT("Window MdiChild Registration Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+      MessageBox(0, "Window MdiChild Registration Failed!", "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
       ExitProcess(0);
    }
 
@@ -315,7 +315,7 @@ HB_FUNC( INITMDIWINDOW )
 
    if( hwnd == nullptr )
    {
-      MessageBox(0, TEXT("MDI Window Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+      MessageBox(0, "MDI Window Creation Failed!", "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
       return;
    }
 
@@ -349,7 +349,7 @@ HB_FUNC( INITMDICLIENTWINDOW )
 
    hwndMDIClient = CreateWindow
                    (
-      TEXT("mdiclient"),
+      "mdiclient",
       nullptr,
       WS_CHILD | WS_CLIPCHILDREN | WS_VSCROLL | WS_HSCROLL | WS_VISIBLE,
       0,
@@ -383,7 +383,7 @@ HB_FUNC( INITMDICHILDWINDOW )
    {
       if( hb_parc(2) == nullptr )
       {
-         wsprintf( rgch, TEXT("Untitled%d"), cUntitled++ );
+         wsprintf( rgch, "Untitled%d", cUntitled++ );
       }
       else
       {
@@ -412,7 +412,7 @@ HB_FUNC( INITMDICHILDWINDOW )
 
    // Create the MDI child window
 
-   mcs.szClass = TEXT("MdiChildWndClass"); // window class name
+   mcs.szClass = "MdiChildWndClass"; // window class name
    mcs.szTitle = rgch;                       // window title
    mcs.hOwner  = GetInstance();              // owner
    mcs.x       = hb_parni(3);              // x position

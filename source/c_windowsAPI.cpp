@@ -103,7 +103,7 @@ HB_FUNC( DOMESSAGELOOP )
          // handle the error and possibly exit
          if( hb_parldef(1, HB_TRUE) )
          {
-            hmg_ErrorExit(TEXT("DOMESSAGELOOP"), 0, TRUE);
+            hmg_ErrorExit("DOMESSAGELOOP", 0, TRUE);
          }
       }
       else
@@ -265,7 +265,7 @@ HB_FUNC( SETLAYEREDWINDOWATTRIBUTES )
 
    if( IsWindow(hWnd) )
    {
-      HMODULE hDll = GetModuleHandle(TEXT("user32.dll"));
+      HMODULE hDll = GetModuleHandle("user32.dll");
 
       hb_retl( HB_FALSE );
 
@@ -530,7 +530,7 @@ HB_FUNC( GETTASKBARHEIGHT )
 {
    RECT rect;
 
-   GetWindowRect(FindWindow(TEXT("Shell_TrayWnd"), nullptr), &rect);
+   GetWindowRect(FindWindow("Shell_TrayWnd", nullptr), &rect);
    hb_retni( ( INT ) rect.bottom - rect.top );
 }
 

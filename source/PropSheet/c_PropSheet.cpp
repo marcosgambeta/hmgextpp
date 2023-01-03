@@ -355,7 +355,7 @@ HB_FUNC( CREATEPROPERTYSHEET )
    else {
       if (PropertySheet(&psh) < 0)
       {
-         MessageBox(nullptr, TEXT("Property Sheet could not be created"), TEXT("Error"),
+         MessageBox(nullptr, "Property Sheet could not be created", "Error",
              MB_OK | MB_ICONERROR | MB_DEFBUTTON1 | MB_APPLMODAL | MB_SETFOREGROUND);
          hb_retni( -1 );
       }

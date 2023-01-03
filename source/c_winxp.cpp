@@ -283,7 +283,7 @@ HINSTANCE InitUxTheme(void)
 {
    if( hUxTheme == nullptr )
    {
-      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
+      hUxTheme = LoadLibraryEx("uxtheme.dll", nullptr, 0);
    }
 
    return hUxTheme;
@@ -314,7 +314,7 @@ HB_FUNC( ISTHEMEACTIVE )
 
    if( hUxTheme == nullptr )
    {
-      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
+      hUxTheme = LoadLibraryEx("uxtheme.dll", nullptr, 0);
    }
 
    if( hUxTheme )
@@ -335,7 +335,7 @@ HB_FUNC( ISAPPTHEMED )
 
    if( hUxTheme == nullptr )
    {
-      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
+      hUxTheme = LoadLibraryEx("uxtheme.dll", nullptr, 0);
    }
 
    if( hUxTheme )
@@ -359,7 +359,7 @@ HB_FUNC( OPENTHEMEDATA )
 
    if( hUxTheme == nullptr )
    {
-      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
+      hUxTheme = LoadLibraryEx("uxtheme.dll", nullptr, 0);
    }
 
    if( hUxTheme )
@@ -385,7 +385,7 @@ HB_FUNC( CLOSETHEMEDATA )
 
    if( hUxTheme == nullptr )
    {
-      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
+      hUxTheme = LoadLibraryEx("uxtheme.dll", nullptr, 0);
    }
 
    if( hUxTheme )
@@ -420,7 +420,7 @@ HB_FUNC( DRAWTHEMEBACKGROUND )
 
    if( hUxTheme == nullptr )
    {
-      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
+      hUxTheme = LoadLibraryEx("uxtheme.dll", nullptr, 0);
    }
 
    if( hUxTheme )
@@ -450,7 +450,7 @@ HB_FUNC( DRAWTHEMEPARENTBACKGROUND )
 
    if( hUxTheme == nullptr )
    {
-      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
+      hUxTheme = LoadLibraryEx("uxtheme.dll", nullptr, 0);
    }
 
    if( hUxTheme )
@@ -475,7 +475,7 @@ HB_FUNC( SETWINDOWTHEME )
 
    if( hUxTheme == nullptr )
    {
-      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
+      hUxTheme = LoadLibraryEx("uxtheme.dll", nullptr, 0);
    }
 
    if( hUxTheme )
@@ -499,7 +499,7 @@ HB_FUNC( ENABLETHEMEDIALOGTEXTURE )
 
    if( hUxTheme == nullptr )
    {
-      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
+      hUxTheme = LoadLibraryEx("uxtheme.dll", nullptr, 0);
    }
 
    if( hUxTheme )

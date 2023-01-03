@@ -77,8 +77,8 @@
    do \
    { \
       MessageBox(nullptr, \
-                 TEXT(text), \
-                 TEXT("GPlus error"), \
+                 text, \
+                 "GPlus error", \
                  MB_OK | MB_ICONERROR); \
    } while( 0 )
 
@@ -154,7 +154,7 @@ HB_EXPORT IStream * HMG_CreateMemStreamFromResource(HINSTANCE hinstance, const c
 
 HB_EXPORT IStream * HMG_CreateMemStream(const BYTE * pInit, UINT cbInitSize)
 {
-   HMODULE   hShlDll = LoadLibrary(TEXT("shlwapi.dll"));
+   HMODULE   hShlDll = LoadLibrary("shlwapi.dll");
    IStream * stream  = nullptr;
 
    if( nullptr != hShlDll )
@@ -1406,7 +1406,7 @@ HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transpar
    }
 
    GetTempPath(MAX_PATH, TempPathFileName);
-   lstrcat(TempPathFileName, TEXT("_MG_temp.BMP"));
+   lstrcat(TempPathFileName, "_MG_temp.BMP");
    bmp_SaveFile(hBitmap, TempPathFileName);
    DeleteObject(hBitmap);
 

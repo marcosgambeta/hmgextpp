@@ -48,7 +48,7 @@
 #include <mgdefs.h>
 
 #ifndef WC_BUTTON
-#define WC_BUTTON  TEXT("Button")
+#define WC_BUTTON  "Button"
 #endif
 
 #ifdef UNICODE

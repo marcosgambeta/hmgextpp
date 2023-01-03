@@ -111,7 +111,7 @@ HB_FUNC( CURSORHAND )
 #if ( WINVER >= 0x0500 )
    hmg_ret_HANDLE(SetCursor(LoadCursor(nullptr, IDC_HAND)));
 #else
-   hmg_ret_HANDLE(SetCursor(LoadCursor(GetInstance(), TEXT("MINIGUI_FINGER"))));
+   hmg_ret_HANDLE(SetCursor(LoadCursor(GetInstance(), "MINIGUI_FINGER")));
 #endif
 }
 
@@ -151,6 +151,6 @@ HB_FUNC( SETHANDCURSOR )
                    ( LONG_PTR ) LoadCursor(nullptr, IDC_HAND));
 #else
    SetClassLongPtr(hmg_par_HWND(1), GCLP_HCURSOR,
-                   ( LONG_PTR ) LoadCursor(GetInstance(), TEXT("MINIGUI_FINGER")));
+                   ( LONG_PTR ) LoadCursor(GetInstance(), "MINIGUI_FINGER"));
 #endif
 }

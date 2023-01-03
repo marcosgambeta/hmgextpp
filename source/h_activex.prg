@@ -482,7 +482,7 @@ static void _Ax_Init( void )
 {
    if( !hAtl )
    {
-      hAtl            = LoadLibrary( TEXT( "Atl.Dll" ) );
+      hAtl            = LoadLibrary( "Atl.Dll" );
       AtlAxWinInit    = ( LPAtlAxWinInit ) wapi_GetProcAddress( hAtl, "AtlAxWinInit" );
       AtlAxGetControl = ( LPAtlAxGetControl ) wapi_GetProcAddress( hAtl, "AtlAxGetControl" );
       ( AtlAxWinInit ) ( );
@@ -523,7 +523,7 @@ HB_FUNC_STATIC( CREATEWINDOWEX ) // ( hWnd, cProgId ) -> hActiveXWnd
 {
    HWND hControl;
 
-   hControl = CreateWindowEx( 0, TEXT( "AtlAxWin" ),
+   hControl = CreateWindowEx( 0, "AtlAxWin",
 #ifndef UNICODE
                           hb_parc( 2 ),
 #else

@@ -239,7 +239,7 @@ HB_FUNC( INITLISTVIEW )
              (
       WS_EX_CLIENTEDGE,
       WC_LISTVIEW,
-      TEXT(""),
+      "",
       style,
       hb_parni(3),
       hb_parni(4),
@@ -572,7 +572,7 @@ static TCHAR * GetLVItemText(HWND hListView, int i, int iSubItem_)
 #ifndef UNICODE
    LPSTR lpText = reinterpret_cast<LPSTR>(hb_xgrab(1)); lpText[0] = '\0'; // '\0';
 #else
-   LPWSTR lpText = TEXT('\0');
+   LPWSTR lpText = '\0';
 #endif
    int     nLen = 64;
    int     nRes;
@@ -1140,11 +1140,11 @@ HB_FUNC( LISTVIEW_SETSORTHEADER )
       {
          if( nType > 0 )
          {
-            hdItem.hbm = ( HBITMAP ) LoadImage(GetInstance(), TEXT("MINIGUI_GRID_ASC"), IMAGE_BITMAP, 0, 0, LR_LOADTRANSPARENT | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS);
+            hdItem.hbm = ( HBITMAP ) LoadImage(GetInstance(), "MINIGUI_GRID_ASC", IMAGE_BITMAP, 0, 0, LR_LOADTRANSPARENT | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS);
          }
          else
          {
-            hdItem.hbm = ( HBITMAP ) LoadImage(GetInstance(), TEXT("MINIGUI_GRID_DSC"), IMAGE_BITMAP, 0, 0, LR_LOADTRANSPARENT | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS);
+            hdItem.hbm = ( HBITMAP ) LoadImage(GetInstance(), "MINIGUI_GRID_DSC", IMAGE_BITMAP, 0, 0, LR_LOADTRANSPARENT | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS);
          }
 
          hdItem.fmt |= HDF_BITMAP;

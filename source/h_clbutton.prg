@@ -474,7 +474,7 @@ HB_FUNC( INITCLBUTTON )
       style = BS_DEFCOMMANDLINK;
    }
 
-   hbutton = CreateWindow(TEXT("button"),
+   hbutton = CreateWindow("button",
                           lpWindowName,
                           style | WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | BS_PUSHBUTTON | WS_VISIBLE,
                           hb_parni(3),

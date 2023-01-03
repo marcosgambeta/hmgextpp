@@ -572,7 +572,7 @@ HB_FUNC_STATIC( INITIMAGEBUTTON )
 
          if( hIcon == nullptr )
          {
-            hIcon = static_cast<HICON>(ExtractIcon(GetInstance(), TEXT("user.exe"), 0));
+            hIcon = static_cast<HICON>(ExtractIcon(GetInstance(), "user.exe", 0));
          }
       }
 

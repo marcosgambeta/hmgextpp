@@ -481,7 +481,7 @@ BOOL bt_Release_GDIplus(void);
 //  Load Library GDI Plus
 BOOL bt_Load_GDIplus(void)
 {
-   GdiPlusHandle = LoadLibrary(TEXT("GdiPlus.dll"));
+   GdiPlusHandle = LoadLibrary("GdiPlus.dll");
    if( GdiPlusHandle == nullptr )
       return FALSE;
 
@@ -1898,19 +1898,19 @@ HB_FUNC( BT_BMP_LOADFILE )
 
    // If fail: find JPG Image in resourses
    if( hBitmap == nullptr )
-      hBitmap = bt_LoadOLEPicture(FileName, TEXT(const_cast<TCHAR*>("JPG")));
+      hBitmap = bt_LoadOLEPicture(FileName, const_cast<TCHAR*>("JPG"));
 
    // If fail: find GIF Image in resourses
    if( hBitmap == nullptr )
-      hBitmap = bt_LoadOLEPicture(FileName, TEXT(const_cast<TCHAR*>("GIF")));
+      hBitmap = bt_LoadOLEPicture(FileName, const_cast<TCHAR*>("GIF"));
 
    // If fail: find PNG Image in resourses
    if( hBitmap == nullptr )
-      hBitmap = bt_LoadGDIPlusPicture(FileName, TEXT(const_cast<TCHAR*>("PNG")));
+      hBitmap = bt_LoadGDIPlusPicture(FileName, const_cast<TCHAR*>("PNG"));
 
    // If fail: find TIF Image in resourses
    if( hBitmap == nullptr )
-      hBitmap = bt_LoadGDIPlusPicture(FileName, TEXT(const_cast<TCHAR*>("TIF")));
+      hBitmap = bt_LoadGDIPlusPicture(FileName, const_cast<TCHAR*>("TIF"));
 
    // If fail: find JPG and GIF Image in disk
    if( hBitmap == nullptr )
@@ -1962,7 +1962,7 @@ HB_FUNC( BT_BITMAPLOADEMF )
    HBRUSH        hBrush, OldBrush;
 
    // Load MetaFile from Resource
-   hResourceData = FindResource(nullptr, FileName, TEXT("EMF"));
+   hResourceData = FindResource(nullptr, FileName, "EMF");
    if( hResourceData )
    {
       hGlobalResource = LoadResource(nullptr, hResourceData);

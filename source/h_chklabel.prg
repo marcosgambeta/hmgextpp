@@ -557,7 +557,7 @@ static void DrawCheck(HWND hWnd, INSCHK * pbtn, RECT * prect)
    {
       FillRect(hdc, prect, GetSysColorBrush(COLOR_WINDOW));
       SetBkMode(hdc, TRANSPARENT);
-      DrawText(hdc, TEXT("V"), 1, prect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+      DrawText(hdc, "V", 1, prect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
    }
    else
    {

@@ -108,7 +108,7 @@ HB_FUNC( REGISTER_CLASS )
 
    if( !RegisterClass(&WndClass) )
    {
-      MessageBox(0, TEXT("Window Registration Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+      MessageBox(0, "Window Registration Failed!", "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
       ExitProcess(0);
    }
 
@@ -377,7 +377,7 @@ HB_FUNC( TSDRAWCELL )
          rct.right  += 1;
 
          if( !bBrush )
-            ExtTextOut(hDC, rct.left, rct.top, ETO_OPAQUE | ETO_CLIPPED, &rct, TEXT(""), 0, 0);
+            ExtTextOut(hDC, rct.left, rct.top, ETO_OPAQUE | ETO_CLIPPED, &rct, "", 0, 0);
 //       else
 //          FillRect(hDC, &rct, wBrush);
 

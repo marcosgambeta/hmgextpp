@@ -109,7 +109,7 @@ HB_FUNC( INITCOMBOBOX )
    hbutton = CreateWindow
              (
       WC_COMBOBOX,
-      TEXT(""),
+      "",
       style,
       hb_parni(3),
       hb_parni(4),
@@ -164,7 +164,7 @@ HB_FUNC( INITCOMBOBOXEX )
             (
       0,
       WC_COMBOBOXEX,
-      TEXT(""),
+      "",
       style,
       hb_parni(3),
       hb_parni(4),

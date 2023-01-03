@@ -60,7 +60,7 @@
 #if defined( MSFTEDIT_CLASS )
 # undef MSFTEDIT_CLASS
 #endif
-#define MSFTEDIT_CLASS     TEXT(const_cast<TCHAR*>("RICHEDIT50W"))
+#define MSFTEDIT_CLASS     const_cast<TCHAR*>("RICHEDIT50W")
 
 static BOOL IsWinxpSp1Min(void);
 
@@ -106,7 +106,7 @@ HB_FUNC( INITRICHEDITBOX )
    {
       if( !hRELib )
       {
-         hRELib = LoadLibrary(TEXT("Msftedit.dll"));
+         hRELib = LoadLibrary("Msftedit.dll");
       }
 
       lpClassName = MSFTEDIT_CLASS;
@@ -115,7 +115,7 @@ HB_FUNC( INITRICHEDITBOX )
    {
       if( !hRELib )
       {
-         hRELib = LoadLibrary(TEXT("RichEd20.dll"));
+         hRELib = LoadLibrary("RichEd20.dll");
       }
 
       lpClassName = RICHEDIT_CLASS;
@@ -127,7 +127,7 @@ HB_FUNC( INITRICHEDITBOX )
             (
          WS_EX_CLIENTEDGE,
          lpClassName,
-         TEXT(""),
+         "",
          style,
          hb_parni(3),
          hb_parni(4),
@@ -517,9 +517,9 @@ static BOOL IsWinxpSp1Min(void)
 #ifndef UNICODE
          pch = strstr( osvi.szCSDVersion, "Service Pack" );
 #else
-         pch = _tcsstr( osvi.szCSDVersion, TEXT("Service Pack") );
+         pch = _tcsstr( osvi.szCSDVersion, "Service Pack" );
 #endif
-         if( lstrcmpi( pch, TEXT("Service Pack 1") ) >= 0 )
+         if( lstrcmpi( pch, "Service Pack 1" ) >= 0 )
          {
             return TRUE;
          }

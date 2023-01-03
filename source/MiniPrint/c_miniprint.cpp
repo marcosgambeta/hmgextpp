@@ -67,7 +67,7 @@
 #include <olectl.h>
 
 #ifndef WC_STATIC
-#define WC_STATIC  TEXT("Static")
+#define WC_STATIC  "Static"
 #endif
 
 static DWORD charset = DEFAULT_CHARSET;
@@ -234,7 +234,7 @@ HB_FUNC( _HMG_PRINTER_C_PRINT )
 #endif
       }
       else
-         lstrcpy(FontName, TEXT("Arial"));
+         lstrcpy(FontName, "Arial");
 
       // FontSize
 
@@ -414,7 +414,7 @@ HB_FUNC( _HMG_PRINTER_C_MULTILINE_PRINT )
 #endif
       }
       else
-         lstrcpy(FontName, TEXT("Arial"));
+         lstrcpy(FontName, "Arial");
 
       // FontSize
 
@@ -570,7 +570,7 @@ HB_FUNC( _HMG_PRINTER_PRINTDIALOG )
 #ifndef UNICODE
       HB_STORC( "", -1, 2 );
 #else
-      pStr = WideToAnsi(TEXT(""));
+      pStr = WideToAnsi("");
       HB_STORC( pStr, -1, 2 );
       hb_xfree(pStr);
 #endif
@@ -990,7 +990,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
    if( !bFlag || ( hPrinter == nullptr ) )
    {
 #ifdef _ERRORMSG_
-      MessageBox(0, TEXT("Printer Configuration Failed! (001)"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+      MessageBox(0, "Printer Configuration Failed! (001)", "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
       hb_reta(4);
       HB_STORVNL( 0, -1, 1 );
@@ -1009,7 +1009,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
    {
       ClosePrinter( hPrinter );
 #ifdef _ERRORMSG_
-      MessageBox(0, TEXT("Printer Configuration Failed! (002)"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+      MessageBox(0, "Printer Configuration Failed! (002)", "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
       hb_reta(4);
       HB_STORVNL( 0, -1, 1 );
@@ -1026,7 +1026,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
    {
       ClosePrinter( hPrinter );
 #ifdef _ERRORMSG_
-      MessageBox(0, TEXT("Printer Configuration Failed! (003)"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+      MessageBox(0, "Printer Configuration Failed! (003)", "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
       hb_reta(4);
       HB_STORVNL( 0, -1, 1 );
@@ -1044,7 +1044,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
       GlobalFree(pi2);
       ClosePrinter( hPrinter );
 #ifdef _ERRORMSG_
-      MessageBox(0, TEXT("Printer Configuration Failed! (004)"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+      MessageBox(0, "Printer Configuration Failed! (004)", "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
       hb_reta(4);
       HB_STORVNL( 0, -1, 1 );
@@ -1071,7 +1071,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
          GlobalFree(pi2);
          ClosePrinter( hPrinter );
 #ifdef _ERRORMSG_
-         MessageBox(0, TEXT("Printer Configuration Failed! (005)"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+         MessageBox(0, "Printer Configuration Failed! (005)", "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
          hb_reta(4);
          HB_STORVNL( 0, -1, 1 );
@@ -1087,7 +1087,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
          GlobalFree(pi2);
          ClosePrinter( hPrinter );
 #ifdef _ERRORMSG_
-         MessageBox(0, TEXT("Printer Configuration Failed! (006)"), TEXT("Error! (006)"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+         MessageBox(0, "Printer Configuration Failed! (006)", "Error! (006)", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
          hb_reta(4);
          HB_STORVNL( 0, -1, 1 );
@@ -1111,7 +1111,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
          GlobalFree(pi2);
          ClosePrinter( hPrinter );
 #ifdef _ERRORMSG_
-         MessageBox(0, TEXT("Printer Configuration Failed! (007)"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+         MessageBox(0, "Printer Configuration Failed! (007)", "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
          hb_reta(4);
          HB_STORVNL( 0, -1, 1 );
@@ -1179,7 +1179,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
       if( !( pi2->pDevMode->dmFields & DM_ORIENTATION ) )
       {
 #ifdef _ERRORMSG_
-         MessageBox(0, TEXT("Printer Configuration Failed: ORIENTATION Property Not Supported By Selected Printer"), TEXT("Error!"),
+         MessageBox(0, "Printer Configuration Failed: ORIENTATION Property Not Supported By Selected Printer", "Error!",
                      MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
          hb_reta(4);
@@ -1200,7 +1200,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
       if( !( pi2->pDevMode->dmFields & DM_PAPERSIZE ) )
       {
 #ifdef _ERRORMSG_
-         MessageBox(0, TEXT("Printer Configuration Failed: PAPERSIZE Property Not Supported By Selected Printer"), TEXT("Error!"),
+         MessageBox(0, "Printer Configuration Failed: PAPERSIZE Property Not Supported By Selected Printer", "Error!",
                     MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
          hb_reta(4);
@@ -1221,7 +1221,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
       if( !( pi2->pDevMode->dmFields & DM_PAPERLENGTH ) )
       {
 #ifdef _ERRORMSG_
-         MessageBox(0, TEXT("Printer Configuration Failed: PAPERLENGTH Property Not Supported By Selected Printer"), TEXT("Error!"),
+         MessageBox(0, "Printer Configuration Failed: PAPERLENGTH Property Not Supported By Selected Printer", "Error!",
                     MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
          hb_reta(4);
@@ -1242,7 +1242,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
       if( !( pi2->pDevMode->dmFields & DM_PAPERWIDTH ) )
       {
 #ifdef _ERRORMSG_
-         MessageBox(0, TEXT("Printer Configuration Failed: PAPERWIDTH Property Not Supported By Selected Printer"), TEXT("Error!"),
+         MessageBox(0, "Printer Configuration Failed: PAPERWIDTH Property Not Supported By Selected Printer", "Error!",
                     MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
          hb_reta(4);
@@ -1263,7 +1263,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
       if( !( pi2->pDevMode->dmFields & DM_COPIES ) )
       {
 #ifdef _ERRORMSG_
-         MessageBox(0, TEXT("Printer Configuration Failed: COPIES Property Not Supported By Selected Printer"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+         MessageBox(0, "Printer Configuration Failed: COPIES Property Not Supported By Selected Printer", "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
          hb_reta(4);
          HB_STORVNL( 0, -1, 1 );
@@ -1283,7 +1283,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
       if( !( pi2->pDevMode->dmFields & DM_DEFAULTSOURCE ) )
       {
 #ifdef _ERRORMSG_
-         MessageBox(0, TEXT("Printer Configuration Failed: DEFAULTSOURCE Property Not Supported By Selected Printer"), TEXT("Error!"),
+         MessageBox(0, "Printer Configuration Failed: DEFAULTSOURCE Property Not Supported By Selected Printer", "Error!",
                     MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
          hb_reta(4);
@@ -1304,7 +1304,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
       if( !( pi2->pDevMode->dmFields & DM_PRINTQUALITY ) )
       {
 #ifdef _ERRORMSG_
-         MessageBox(0, TEXT("Printer Configuration Failed: QUALITY Property Not Supported By Selected Printer"), TEXT("Error!"),
+         MessageBox(0, "Printer Configuration Failed: QUALITY Property Not Supported By Selected Printer", "Error!",
                     MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
          hb_reta(4);
@@ -1325,7 +1325,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
       if( !( pi2->pDevMode->dmFields & DM_COLOR ) )
       {
 #ifdef _ERRORMSG_
-         MessageBox(0, TEXT("Printer Configuration Failed: COLOR Property Not Supported By Selected Printer"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+         MessageBox(0, "Printer Configuration Failed: COLOR Property Not Supported By Selected Printer", "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
          hb_reta(4);
          HB_STORVNL( 0, -1, 1 );
@@ -1345,7 +1345,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
       if( !( pi2->pDevMode->dmFields & DM_DUPLEX ) )
       {
 #ifdef _ERRORMSG_
-         MessageBox(0, TEXT("Printer Configuration Failed: DUPLEX Property Not Supported By Selected Printer"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+         MessageBox(0, "Printer Configuration Failed: DUPLEX Property Not Supported By Selected Printer", "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
          hb_reta(4);
          HB_STORVNL( 0, -1, 1 );
@@ -1365,7 +1365,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
       if( !( pi2->pDevMode->dmFields & DM_COLLATE ) )
       {
 #ifdef _ERRORMSG_
-         MessageBox(0, TEXT("Printer Configuration Failed: COLLATE Property Not Supported By Selected Printer"), TEXT("Error!"),
+         MessageBox(0, "Printer Configuration Failed: COLLATE Property Not Supported By Selected Printer", "Error!",
                     MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
          hb_reta(4);
@@ -1398,7 +1398,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
       if( pDevMode )
          GlobalFree(pDevMode);
 #ifdef _ERRORMSG_
-      MessageBox(0, TEXT("Printer Configuration Failed! (008)"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+      MessageBox(0, "Printer Configuration Failed! (008)", "Error!", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #endif
       hb_reta(4);
       HB_STORVNL( 0, -1, 1 );
@@ -1487,8 +1487,8 @@ HB_FUNC( GETDEFAULTPRINTER )
    else if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT )
    {
 
-      GetProfileString(TEXT("windows"), TEXT("device"), TEXT(""), DefaultPrinter, BufferSize);
-      _tcstok(DefaultPrinter, TEXT(","));
+      GetProfileString("windows", "device", "", DefaultPrinter, BufferSize);
+      _tcstok(DefaultPrinter, ",");
 
    }
 
@@ -1517,7 +1517,7 @@ HB_FUNC( _HMG_PRINTER_STARTPAGE_PREVIEW )
 
    SetRect(&emfrect, 0, 0, GetDeviceCaps(hmg_par_HDC(1), HORZSIZE) * 100, GetDeviceCaps(hmg_par_HDC(1), VERTSIZE) * 100);
 
-   tmpDC = CreateEnhMetaFile(hmg_par_HDC(1), FileName, &emfrect, TEXT(""));
+   tmpDC = CreateEnhMetaFile(hmg_par_HDC(1), FileName, &emfrect, "");
 
    HB_RETNL( ( LONG_PTR ) tmpDC );
 
@@ -1887,7 +1887,7 @@ HB_FUNC( _HMG_PRINTGETJOBINFO )
 
             SystemTimeToTzSpecificLocalTime(nullptr, &Job_Info_1->Submitted, &LocalSystemTime);
 
-            wsprintf( cDateTime, TEXT("%02d/%02d/%02d"), LocalSystemTime.wYear, LocalSystemTime.wMonth, LocalSystemTime.wDay );
+            wsprintf( cDateTime, "%02d/%02d/%02d", LocalSystemTime.wYear, LocalSystemTime.wMonth, LocalSystemTime.wDay );
 #ifndef UNICODE
             HB_STORC( cDateTime, -1, 13 );
 #else
@@ -1896,7 +1896,7 @@ HB_FUNC( _HMG_PRINTGETJOBINFO )
             hb_xfree(pStr);
 #endif
 
-            wsprintf( cDateTime, TEXT("%02d:%02d:%02d"), LocalSystemTime.wHour, LocalSystemTime.wMinute, LocalSystemTime.wSecond );
+            wsprintf( cDateTime, "%02d:%02d:%02d", LocalSystemTime.wHour, LocalSystemTime.wMinute, LocalSystemTime.wSecond );
 #ifndef UNICODE
             HB_STORC( cDateTime, -1, 14 );
 #else

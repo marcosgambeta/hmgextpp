@@ -268,15 +268,15 @@ HB_FUNC( C_GETFILE )
       }
       else
       {
-         wsprintf( cCurDir, TEXT("%s"), &buffer[iPosition] );
+         wsprintf( cCurDir, "%s", &buffer[iPosition] );
          iPosition = iPosition + ( int ) lstrlen(cCurDir) + 1;
 
          do
          {
             iNumSelected++;
-            wsprintf( cFileName, TEXT("%s"), &buffer[iPosition] );
+            wsprintf( cFileName, "%s", &buffer[iPosition] );
             iPosition = iPosition + ( int ) lstrlen(cFileName) + 1;
-            wsprintf( cFullName[iNumSelected], TEXT("%s\\%s"), cCurDir, cFileName );
+            wsprintf( cFullName[iNumSelected], "%s\\%s", cCurDir, cFileName );
          }
          while( ( lstrlen(cFileName) != 0 ) && ( iNumSelected <= 255 ) );
 
@@ -312,7 +312,7 @@ HB_FUNC( C_GETFILE )
 #ifndef UNICODE
       hb_retc( "" );
 #else
-      hb_retc( WideToAnsi(TEXT("")) );
+      hb_retc( WideToAnsi("") );
 #endif
    }
 
@@ -379,7 +379,7 @@ HB_FUNC( C_PUTFILE ) // JK JP
    hb_xfree(pW);
 #endif
 
-   lstrcpy(cExt, TEXT(""));
+   lstrcpy(cExt, "");
 
    if( hb_parni(6) )
    {
@@ -411,7 +411,7 @@ HB_FUNC( C_PUTFILE ) // JK JP
    {
       if( ofn.nFileExtension == 0 )
       {
-         ofn.lpstrFile = lstrcat(ofn.lpstrFile, TEXT("."));
+         ofn.lpstrFile = lstrcat(ofn.lpstrFile, ".");
          ofn.lpstrFile = lstrcat(ofn.lpstrFile, ofn.lpstrDefExt);
       }
       if( HB_ISBYREF(6) )
@@ -432,7 +432,7 @@ HB_FUNC( C_PUTFILE ) // JK JP
 #ifndef UNICODE
       hb_retc( "" );
 #else
-      hb_retc( WideToAnsi(TEXT("")) );
+      hb_retc( WideToAnsi("") );
 #endif
    }
 
@@ -508,7 +508,7 @@ HB_FUNC( C_BROWSEFORFOLDER )  // Syntax: C_BROWSEFORFOLDER([<hWnd>],[<cTitle>],[
    BrowseInfo.lpszTitle = HB_ISNIL(2) ? "Select a Folder" : hb_parc(2);
 #else
    pW = AnsiToWide(hb_parc(2));
-   BrowseInfo.lpszTitle = HB_ISNIL(2) ? TEXT("Select a Folder") : pW;
+   BrowseInfo.lpszTitle = HB_ISNIL(2) ? "Select a Folder" : pW;
 #endif
    BrowseInfo.ulFlags = hb_parni(3) | ( HB_ISCHAR(5) ? BIF_STATUSTEXT | BIF_RETURNONLYFSDIRS : 0 );
    BrowseInfo.lpfn    = BrowseCallbackProc;

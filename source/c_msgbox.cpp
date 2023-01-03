@@ -70,7 +70,7 @@ HB_FUNC( MESSAGEBOXINDIRECT )
    mbp.lpszIcon    = HB_ISCHAR(5) ? hb_parc(5) : ( HB_ISNUM(5) ? MAKEINTRESOURCE(hb_parni(5)) : nullptr );
 #else
    mbp.lpszText    = ( LPCWSTR ) ( HB_ISCHAR(2) ? hb_osStrU16Encode(hb_parc(2)) : ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : nullptr ) );
-   mbp.lpszCaption = ( LPCWSTR ) ( HB_ISCHAR(3) ? hb_osStrU16Encode(hb_parc(3)) : ( HB_ISNUM(3) ? MAKEINTRESOURCE(hb_parni(3)) : TEXT("") ) );
+   mbp.lpszCaption = ( LPCWSTR ) ( HB_ISCHAR(3) ? hb_osStrU16Encode(hb_parc(3)) : ( HB_ISNUM(3) ? MAKEINTRESOURCE(hb_parni(3)) : "" ) );
    mbp.lpszIcon    = ( LPCWSTR ) ( HB_ISCHAR(5) ? hb_osStrU16Encode(hb_parc(5)) : ( HB_ISNUM(5) ? MAKEINTRESOURCE(hb_parni(5)) : nullptr ) );
 #endif
    mbp.dwStyle            = ( DWORD ) hb_parni(4);
@@ -107,7 +107,7 @@ int WINAPI MessageBoxTimeout(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT 
 
    if( pMessageBoxTimeout == nullptr )
    {
-      HMODULE hLib = LoadLibrary(TEXT("User32.dll"));
+      HMODULE hLib = LoadLibrary("User32.dll");
 
    #ifdef UNICODE
       pMessageBoxTimeout = ( PMessageBoxTimeout ) wapi_GetProcAddress(hLib, "MessageBoxTimeoutW");

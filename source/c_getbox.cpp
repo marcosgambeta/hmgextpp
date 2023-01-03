@@ -154,7 +154,7 @@ HB_FUNC( INITGETBOX )
            (
       hb_parl(23) ? 0 : WS_EX_CLIENTEDGE,
       WC_EDIT,
-      TEXT(""),
+      "",
       style,
       hb_parni(3),
       hb_parni(4),
@@ -166,7 +166,7 @@ HB_FUNC( INITGETBOX )
       nullptr
            );
 
-   SetProp(( HWND ) hedit, TEXT("OldWndProc"), ( HWND ) GetWindowLongPtr(( HWND ) hedit, GWLP_WNDPROC));
+   SetProp(( HWND ) hedit, "OldWndProc", ( HWND ) GetWindowLongPtr(( HWND ) hedit, GWLP_WNDPROC));
    SetWindowLongPtr(hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnGetProc);
 
    SendMessage(hedit, ( UINT ) EM_LIMITTEXT, hmg_par_WPARAM(9), ( LPARAM ) 0);
@@ -268,7 +268,7 @@ HB_FUNC( INITGETBOX )
    {
       hBtn1 = CreateWindow
                  ( WC_BUTTON,
-                 TEXT("..."),
+                 "...",
                  ibtnStyle1,
                  hb_parni(5) - BtnWidth - 3,
                  -1,
@@ -289,7 +289,7 @@ HB_FUNC( INITGETBOX )
    {
       hBtn2 = CreateWindow
                  ( WC_BUTTON,
-                 TEXT("..."),
+                 "...",
                  ibtnStyle2,
                  hb_parni(5) - BtnWidth - BtnWidth2 - 3,
                  -1,
@@ -383,7 +383,7 @@ LRESULT CALLBACK OwnGetProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
    long int        r;
    WNDPROC         OldWndProc;
 
-   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp(hwnd, TEXT("OldWndProc"));
+   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp(hwnd, "OldWndProc");
    switch( Msg )
    {
       case WM_NCDESTROY:

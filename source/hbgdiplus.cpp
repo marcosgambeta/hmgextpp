@@ -30,7 +30,7 @@ static ULONG_PTR g_GpToken = 0;
  */
 GpStatus GdiplusInit(void)
 {
-   LPCTSTR lpFileName = TEXT("Gdiplus.dll");
+   LPCTSTR lpFileName = "Gdiplus.dll";
    GDIPLUS_STARTUP_INPUT GdiplusStartupInput = { 1, nullptr, FALSE, FALSE };
 
    if( nullptr == g_GpModule )
