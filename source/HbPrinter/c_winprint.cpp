@@ -132,7 +132,7 @@ HB_FUNC( RR_PRINTDIALOG )
 
       if( hDC == nullptr )
       {
-         lstrcpy(PrinterName, "");
+         lstrcpy(PrinterName, TEXT(""));
       }
       else
       {
@@ -178,7 +178,7 @@ HB_FUNC( RR_GETDC )
    LPWSTR pwszDevice = AnsiToWide(( char * ) hb_parc(1));
 
    if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT )
-      hDC = CreateDC( "WINSPOOL", pwszDevice, nullptr, nullptr );
+      hDC = CreateDC( TEXT("WINSPOOL"), pwszDevice, nullptr, nullptr );
    else
       hDC = CreateDC( nullptr, pwszDevice, nullptr, nullptr );
 #else
@@ -385,7 +385,7 @@ HB_FUNC( RR_GETDEFAULTPRINTER )
          TCHAR lpPrinterName[MAX_BUFFER_SIZE];
          _GETDEFAULTPRINTER fnGetDefaultPrinter;
 
-         HMODULE hWinSpool = LoadLibrary("winspool.drv");
+         HMODULE hWinSpool = LoadLibrary(TEXT("winspool.drv"));
          if( !hWinSpool )
          {
             hb_retc( "" );
@@ -410,8 +410,8 @@ HB_FUNC( RR_GETDEFAULTPRINTER )
       }
       else  /* Windows NT 4.0 or earlier */
       {
-         GetProfileString("windows", "device", "", PrinterDefault, BuffSize);
-         _tcstok(PrinterDefault, ",");
+         GetProfileString(TEXT("windows"), TEXT("device"), TEXT(""), PrinterDefault, BuffSize);
+         _tcstok(PrinterDefault, TEXT(","));
       }
    }
 
@@ -484,31 +484,49 @@ HB_FUNC( RR_GETPRINTERS )
    {
       if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT )
       {
+#ifdef UNICODE
+         lstrcat(reinterpret_cast<LPWSTR>(cBuffer), pInfo4->pPrinterName);
+         lstrcat(reinterpret_cast<LPWSTR>(cBuffer), TEXT(","));
+         if( pInfo4->Attributes == PRINTER_ATTRIBUTE_LOCAL )
+            lstrcat(reinterpret_cast<LPWSTR>(cBuffer), TEXT("local printer"));
+         else
+            lstrcat(reinterpret_cast<LPWSTR>(cBuffer), TEXT("network printer"));
+#else
          lstrcat(reinterpret_cast<LPSTR>(cBuffer), pInfo4->pPrinterName);
          lstrcat(reinterpret_cast<LPSTR>(cBuffer), ",");
          if( pInfo4->Attributes == PRINTER_ATTRIBUTE_LOCAL )
             lstrcat(reinterpret_cast<LPSTR>(cBuffer), "local printer");
          else
             lstrcat(reinterpret_cast<LPSTR>(cBuffer), "network printer");
-
+#endif
          pInfo4++;
       }
       else
       {
+#ifdef UNICODE
+         lstrcat(reinterpret_cast<LPWSTR>(cBuffer), pInfo5->pPrinterName);
+         lstrcat(reinterpret_cast<LPWSTR>(cBuffer), TEXT(","));
+         lstrcat(reinterpret_cast<LPWSTR>(cBuffer), pInfo5->pPortName);
+#else
          lstrcat(reinterpret_cast<LPSTR>(cBuffer), pInfo5->pPrinterName);
          lstrcat(reinterpret_cast<LPSTR>(cBuffer), ",");
          lstrcat(reinterpret_cast<LPSTR>(cBuffer), pInfo5->pPortName);
+#endif
          pInfo5++;
       }
 
       if( i < dwPrinters - 1 )
+#ifdef UNICODE
+         lstrcat(reinterpret_cast<LPWSTR>(cBuffer), TEXT(",,"));
+#else
          lstrcat(reinterpret_cast<LPSTR>(cBuffer), ",,");
+#endif
    }
 
 #ifndef UNICODE
    hb_retc( ( const char * ) cBuffer );
 #else
-   pStr = WideToAnsi(cBuffer);
+   pStr = WideToAnsi(reinterpret_cast<LPWSTR>(cBuffer));
    hb_retc( pStr );
    hb_xfree(pStr);
 #endif
@@ -594,16 +612,16 @@ HB_FUNC( RR_DEVICECAPABILITIES )
       for( i = 0; i < numpapers; i++ )
       {
          lstrcat(cBuffer, pBuffer);
-         lstrcat(cBuffer, ",");
+         lstrcat(cBuffer, TEXT(","));
          lstrcat(cBuffer, _itot(*nBuffer, buffer, 10));
-         lstrcat(cBuffer, ",");
+         lstrcat(cBuffer, TEXT(","));
 
          lp = ( LPPOINT ) sBuffer;
          lstrcat(cBuffer, _ltot(lp->x, buffer, 10));
-         lstrcat(cBuffer, ",");
+         lstrcat(cBuffer, TEXT(","));
          lstrcat(cBuffer, _ltot(lp->y, buffer, 10));
          if( i < numpapers - 1 )
-            lstrcat(cBuffer, ",,");
+            lstrcat(cBuffer, TEXT(",,"));
          pBuffer += 64;
          nBuffer += sizeof(WORD);
          sBuffer += sizeof(POINT);
@@ -649,11 +667,11 @@ HB_FUNC( RR_DEVICECAPABILITIES )
       for( i = 0; i < numbins; i++ )
       {
          lstrcat(bcBuffer, bnBuffer);
-         lstrcat(bcBuffer, ",");
+         lstrcat(bcBuffer, TEXT(","));
          lstrcat(bcBuffer, _itot(*bwBuffer, buffer, 10));
 
          if( i < numbins - 1 )
-            lstrcat(bcBuffer, ",,");
+            lstrcat(bcBuffer, TEXT(",,"));
          bnBuffer += 24;
          bwBuffer += sizeof(WORD);
       }
@@ -1136,7 +1154,7 @@ HB_FUNC( RR_CREATEMFILE )
    RECT    emfrect;
 
    SetRect(&emfrect, 0, 0, GetDeviceCaps(hDCRef, HORZSIZE) * 100, GetDeviceCaps(hDCRef, VERTSIZE) * 100);
-   hDC = CreateEnhMetaFile(hDCRef, FileName, &emfrect, "hbprinter\0emf file\0\0");
+   hDC = CreateEnhMetaFile(hDCRef, FileName, &emfrect, TEXT("hbprinter\0emf file\0\0"));
    SetTextAlign(hDC, TA_BASELINE);
    preview = 1;
    hmg_ret_HANDLE(hDC);
@@ -1359,7 +1377,7 @@ LPVOID rr_loadpicturefromresource(TCHAR * resname, LONG * lwidth, LONG * lheight
    }
    else
    {
-      hSource = FindResource(GetResources(), resname, "HMGPICTURE");
+      hSource = FindResource(GetResources(), resname, TEXT("HMGPICTURE"));
       if( hSource == nullptr )
          return nullptr;
 
