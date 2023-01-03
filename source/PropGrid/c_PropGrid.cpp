@@ -85,6 +85,7 @@
 #include "hbstack.h"
 #include "hbapiitm.h"
 #include "mgdefs.h"
+#include <string>
 
 // TODO: revisar e corrigir as redefinições abaixo
 #ifdef HB_STORC
@@ -1637,7 +1638,7 @@ HB_FUNC( ADDPGITEM )
    hb_retnl( (LONG) hRet );
 }
 
-void Pg_SetData(HWND hWnd, HTREEITEM hItem, LPTSTR cValue, LPTSTR cData, BOOL lData)
+void Pg_SetData(HWND hWnd, HTREEITEM hItem, LPCTSTR cValue, LPCTSTR cData, BOOL lData)
 {
    HWND        TreeHandle;
    HTREEITEM   TreeItemHandle;
@@ -2281,13 +2282,12 @@ HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd , B
 {
    static PHB_SYMB   pSymbol = nullptr;
    HWND              hEdit;
-   char              *cClass, *cName;
-
+   std::string       cClass;
+   std::string       cName = "";
    int               Style = WS_CHILD | WS_VISIBLE;
    int               nBtn = 0;
    int               height = rc.bottom - rc.top - 1;
 
-   cName = "";
    switch( ItemType )
    {
       case PG_DEFAULT:
@@ -2355,21 +2355,18 @@ HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd , B
          cClass = "EDIT";
    }
 
-   hEdit = CreateWindowEx
-      (
-         0,
-         cClass,
-         cName,
-         Style,
-         rc.left + 1,
-         rc.top - 1,
-         rc.right - rc.left - 1,
-         height,
-         hWnd,
-         (HMENU) hb_parni(2),
-         GetModuleHandle(nullptr),
-         nullptr
-      );
+   hEdit = CreateWindowEx(0,
+                          cClass.c_str(),
+                          cName.c_str(),
+                          Style,
+                          rc.left + 1,
+                          rc.top - 1,
+                          rc.right - rc.left - 1,
+                          height,
+                          hWnd,
+                          (HMENU) hb_parni(2),
+                          GetModuleHandle(nullptr),
+                          nullptr);
 
    switch( ItemType )
    {
