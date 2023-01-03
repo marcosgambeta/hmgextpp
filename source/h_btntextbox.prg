@@ -433,8 +433,8 @@ RETURN 0
 #include <hbwinuni.h>
 
 #ifndef WC_EDIT
-#define WC_EDIT    TEXT("Edit")
-#define WC_BUTTON  TEXT("Button")
+#define WC_EDIT    "Edit"
+#define WC_BUTTON  "Button"
 #endif
 
 #define TBB1       2
@@ -506,11 +506,11 @@ HB_FUNC_STATIC( INITBTNTEXTBOX )
    }
 
    // Creates the child Frame control.
-   HWND hedit = CreateWindowEx(WS_EX_CLIENTEDGE, WC_EDIT, TEXT(""), style,
+   HWND hedit = CreateWindowEx(WS_EX_CLIENTEDGE, WC_EDIT, "", style,
       hmg_par_int(3), hmg_par_int(4), hmg_par_int(5), hmg_par_int(6),
       hwnd, nullptr, GetInstance(), nullptr);
 
-   SetProp(hedit, TEXT("OldWndProc"), reinterpret_cast<HWND>(GetWindowLongPtr(hedit, GWLP_WNDPROC)));
+   SetProp(hedit, "OldWndProc", reinterpret_cast<HWND>(GetWindowLongPtr(hedit, GWLP_WNDPROC)));
    SetWindowLongPtr(hedit, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(OwnBtnTextProc));
 
    SendMessage(hedit, EM_LIMITTEXT, hmg_par_WPARAM(9), 0);
@@ -598,11 +598,11 @@ HB_FUNC_STATIC( INITBTNTEXTBOX )
       ibtnStyle2 |= BS_BITMAP;
    }
 
-   HWND hBtn1 = CreateWindowEx(0, WC_BUTTON, TEXT("..."), ibtnStyle1,
+   HWND hBtn1 = CreateWindowEx(0, WC_BUTTON, "...", ibtnStyle1,
       hmg_par_int(5) - BtnWidth - 3, -1, BtnWidth, hmg_par_int(6) - 2,
       hedit, reinterpret_cast<HMENU>(TBB1), GetInstance(), nullptr);
 
-   HWND hBtn2 = fBtn2 ? CreateWindowEx(0, WC_BUTTON, TEXT("..."), ibtnStyle2,
+   HWND hBtn2 = fBtn2 ? CreateWindowEx(0, WC_BUTTON, "...", ibtnStyle2,
       hmg_par_int(5) - BtnWidth - BtnWidth2 - 3, -1, BtnWidth, hmg_par_int(6) - 2,
       hedit, reinterpret_cast<HMENU>(TBB2), GetInstance(), nullptr) : nullptr;
 
@@ -640,7 +640,7 @@ HB_FUNC_STATIC( REDEFBTNTEXTBOX )
    width     = hb_parni(6);
    height    = hb_parni(7);
 
-   SetProp(hedit, TEXT("OldWndProc"), reinterpret_cast<HWND>(GetWindowLongPtr(hedit, GWLP_WNDPROC)));
+   SetProp(hedit, "OldWndProc", reinterpret_cast<HWND>(GetWindowLongPtr(hedit, GWLP_WNDPROC)));
    SetWindowLongPtr(hedit, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(OwnBtnTextProc));
 
    if( hb_parc(2) != nullptr )
@@ -712,11 +712,11 @@ HB_FUNC_STATIC( REDEFBTNTEXTBOX )
       himage2 = nullptr;
    }
 
-   HWND hBtn1 = CreateWindowEx(0, WC_BUTTON, TEXT("..."), BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE | BS_BITMAP,
+   HWND hBtn1 = CreateWindowEx(0, WC_BUTTON, "...", BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE | BS_BITMAP,
       width - BtnWidth - 4, -1, BtnWidth, height - 2,
       hedit, reinterpret_cast<HMENU>(TBB1), GetInstance(), nullptr);
 
-   HWND hBtn2 = fBtn2 ? CreateWindowEx(0, WC_BUTTON, TEXT("..."), BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE | BS_BITMAP,
+   HWND hBtn2 = fBtn2 ? CreateWindowEx(0, WC_BUTTON, "...", BS_NOTIFY | WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE | BS_BITMAP,
       width - BtnWidth - BtnWidth2 - 4, -1, BtnWidth, height - 2,
       hedit, reinterpret_cast<HMENU>(TBB2), GetInstance(), nullptr) : nullptr;
 
@@ -762,7 +762,7 @@ LRESULT CALLBACK OwnBtnTextProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lPara
    static PHB_SYMB pSymbol = nullptr;
    long int r;
 
-   WNDPROC OldWndProc = reinterpret_cast<WNDPROC>(GetProp(hwnd, TEXT("OldWndProc")));
+   WNDPROC OldWndProc = reinterpret_cast<WNDPROC>(GetProp(hwnd, "OldWndProc"));
 
    switch( Msg )
    {
