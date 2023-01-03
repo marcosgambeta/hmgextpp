@@ -51,6 +51,7 @@
 #include <hbapiitm.h>
 #include <hbstack.h>
 #include <hbvm.h>
+#include <hbwinuni.h>
 
 #ifndef WC_EDIT
 #define WC_EDIT    TEXT("Edit")
@@ -62,14 +63,11 @@
 
 LRESULT CALLBACK OwnBtnTextProc(HWND hbutton, UINT msg, WPARAM wParam, LPARAM lParam);
 
-#ifdef UNICODE
-LPWSTR AnsiToWide(LPCSTR);
-#endif
 HINSTANCE GetInstance(void);
 HINSTANCE GetResources(void);
 
 /*
-INITBTNTEXTBOX(par1, par2, par3, par4, par5, par6, par7, par8, par9, par10, par11, par12, par13, par14, par15, par16, par17, par18, par19, par20) --> array
+INITBTNTEXTBOX(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20) --> array
 */
 HB_FUNC( INITBTNTEXTBOX )
 {
@@ -140,11 +138,9 @@ HB_FUNC( INITBTNTEXTBOX )
 
    if( hb_parc(17) != nullptr )
    {
-#ifndef UNICODE
-      LPCSTR lpImageName = hb_parc(17);
-#else
-      LPWSTR lpImageName = AnsiToWide(( char * ) hb_parc(17));
-#endif
+      void * ImageName;
+      LPCTSTR lpImageName = HB_PARSTR(17, &ImageName, nullptr);
+
       himage = static_cast<HWND>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
 
       if( himage == nullptr )
@@ -166,9 +162,8 @@ HB_FUNC( INITBTNTEXTBOX )
             }
          }
       }
-#ifdef UNICODE
-      hb_xfree(lpImageName);
-#endif
+
+      hb_strfree(ImageName);
    }
    else
    {
@@ -177,11 +172,9 @@ HB_FUNC( INITBTNTEXTBOX )
 
    if( hb_parc(19) != nullptr )
    {
-#ifndef UNICODE
-      LPCSTR lpImageName2 = hb_parc(19);
-#else
-      LPWSTR lpImageName2 = AnsiToWide(( char * ) hb_parc(19));
-#endif
+      void * ImageName2;
+      LPCTSTR lpImageName2 = HB_PARSTR(19, &ImageName2, nullptr);
+
       himage2 = static_cast<HWND>(LoadImage(GetResources(), lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
 
       if( himage2 == nullptr )
@@ -204,9 +197,8 @@ HB_FUNC( INITBTNTEXTBOX )
             }
          }
       }
-#ifdef UNICODE
-      hb_xfree(lpImageName2);
-#endif
+
+      hb_strfree(ImageName2);
    }
    else
    {
@@ -254,7 +246,7 @@ HB_FUNC( INITBTNTEXTBOX )
 }
 
 /*
-REDEFBTNTEXTBOX(par1, par2, par3, par4, par5, par6, par7) --> array
+REDEFBTNTEXTBOX(p1, p2, p3, p4, p5, p6, p7) --> array
 */
 HB_FUNC( REDEFBTNTEXTBOX )
 {
@@ -274,11 +266,9 @@ HB_FUNC( REDEFBTNTEXTBOX )
 
    if( hb_parc(2) != nullptr )
    {
-#ifndef UNICODE
-      LPCSTR lpImageName = hb_parc(2);
-#else
-      LPWSTR lpImageName = AnsiToWide(( char * ) hb_parc(2));
-#endif
+      void * ImageName;
+      LPCTSTR lpImageName = HB_PARSTR(2, &ImageName, nullptr);
+
       himage = static_cast<HWND>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
 
       if( himage == nullptr )
@@ -300,9 +290,8 @@ HB_FUNC( REDEFBTNTEXTBOX )
             }
          }
       }
-#ifdef UNICODE
-      hb_xfree(lpImageName);
-#endif
+
+      hb_strfree(ImageName);
    }
    else
    {
@@ -311,11 +300,9 @@ HB_FUNC( REDEFBTNTEXTBOX )
 
    if( hb_parc(4) != nullptr )
    {
-#ifndef UNICODE
-      LPCSTR lpImageName2 = hb_parc(4);
-#else
-      LPWSTR lpImageName2 = AnsiToWide(( char * ) hb_parc(4));
-#endif
+      void * ImageName2;
+      LPCTSTR lpImageName2 = HB_PARSTR(4, &ImageName2, nullptr);
+
       himage2 = static_cast<HWND>(LoadImage(GetResources(), lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
 
       if( himage2 == nullptr )
@@ -338,9 +325,8 @@ HB_FUNC( REDEFBTNTEXTBOX )
             }
          }
       }
-#ifdef UNICODE
-      hb_xfree(lpImageName2);
-#endif
+
+      hb_strfree(ImageName2);
    }
    else
    {
