@@ -200,7 +200,7 @@ HBITMAP bt_bmp_convert_to_24bpp(HBITMAP hBitmap_Original, BOOL IsDelete_hBitmap_
 //*************************************************************************************************
 // bt_LoadFileFromResources (FileName, TypeResource) ---> Return hGlobalAlloc
 //*************************************************************************************************
-HGLOBAL bt_LoadFileFromResources(TCHAR * FileName, TCHAR * TypeResource)
+HGLOBAL bt_LoadFileFromResources(const TCHAR * FileName, const TCHAR * TypeResource)
 {
    HRSRC   hResourceData;
    HGLOBAL hGlobalAlloc, hGlobalResource;
@@ -241,7 +241,7 @@ HGLOBAL bt_LoadFileFromResources(TCHAR * FileName, TCHAR * TypeResource)
 //*************************************************************************************************
 //  bt_LoadFileFromDisk (FileName) ---> Return hGlobalAlloc
 //*************************************************************************************************
-HGLOBAL bt_LoadFileFromDisk(TCHAR * FileName)
+HGLOBAL bt_LoadFileFromDisk(const TCHAR * FileName)
 {
    HGLOBAL hGlobalAlloc;
    LPVOID  lpGlobalAlloc;
@@ -280,7 +280,7 @@ BOOL _bt_OleInitialize_Flag_ = FALSE;
 //*************************************************************************************************
 //  bt_LoadOLEPicture (FileName, TypePicture) ---> Return hBitmap  (Load GIF and JPG image)
 //*************************************************************************************************
-HBITMAP bt_LoadOLEPicture(TCHAR * FileName, TCHAR * TypePictureResource)
+HBITMAP bt_LoadOLEPicture(const TCHAR * FileName, const TCHAR * TypePictureResource)
 {
    IStream *  iStream;
    IPicture * iPicture;
@@ -544,7 +544,7 @@ BOOL bt_Release_GDIplus(void)
 //  bt_LoadGDIPlusPicture (FileName, TypePicture) ---> Return hBitmap  (Load BMP, GIF, JPG, TIF and PNG image)
 //*************************************************************************************************************
 
-HBITMAP bt_LoadGDIPlusPicture(TCHAR * FileName, TCHAR * TypePictureResource)
+HBITMAP bt_LoadGDIPlusPicture(const TCHAR * FileName, const TCHAR * TypePictureResource)
 {
    IStream *  iStream;
    HBITMAP    hBitmap;
@@ -678,7 +678,7 @@ BOOL bt_GetEncoderCLSID(WCHAR * format, CLSID * pClsid)
 #define BT_FILEFORMAT_TIF  3
 #define BT_FILEFORMAT_PNG  4
 
-BOOL bt_SaveGDIPlusPicture(HBITMAP hBitmap, TCHAR * FileName, INT TypePicture)
+BOOL bt_SaveGDIPlusPicture(HBITMAP hBitmap, const TCHAR * FileName, INT TypePicture)
 {
    CLSID     encoderClsid;
    BOOL      result;
@@ -1898,19 +1898,19 @@ HB_FUNC( BT_BMP_LOADFILE )
 
    // If fail: find JPG Image in resourses
    if( hBitmap == nullptr )
-      hBitmap = bt_LoadOLEPicture(FileName, const_cast<TCHAR*>("JPG"));
+      hBitmap = bt_LoadOLEPicture(FileName, "JPG");
 
    // If fail: find GIF Image in resourses
    if( hBitmap == nullptr )
-      hBitmap = bt_LoadOLEPicture(FileName, const_cast<TCHAR*>("GIF"));
+      hBitmap = bt_LoadOLEPicture(FileName, "GIF");
 
    // If fail: find PNG Image in resourses
    if( hBitmap == nullptr )
-      hBitmap = bt_LoadGDIPlusPicture(FileName, const_cast<TCHAR*>("PNG"));
+      hBitmap = bt_LoadGDIPlusPicture(FileName, "PNG");
 
    // If fail: find TIF Image in resourses
    if( hBitmap == nullptr )
-      hBitmap = bt_LoadGDIPlusPicture(FileName, const_cast<TCHAR*>("TIF"));
+      hBitmap = bt_LoadGDIPlusPicture(FileName, "TIF");
 
    // If fail: find JPG and GIF Image in disk
    if( hBitmap == nullptr )
@@ -2045,7 +2045,7 @@ HB_FUNC( BT_BITMAPLOADEMF )
 #define BT_FILEFORMAT_PNG  4
 
 
-BOOL bt_bmp_SaveFile(HBITMAP hBitmap, TCHAR * FileName, INT nTypePicture)
+BOOL bt_bmp_SaveFile(HBITMAP hBitmap, const TCHAR * FileName, INT nTypePicture)
 {
    HGLOBAL hBits;
    LPBYTE  lp_hBits;
