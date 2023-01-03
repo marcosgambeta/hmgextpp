@@ -11,7 +11,7 @@
 #source\c_animate.cpp
 source\c_bitmap.cpp
 source\c_browse.cpp
-source\c_btntextbox.cpp
+#source\c_btntextbox.cpp
 source\c_button.cpp
 #source\c_checkbox.cpp
 #source\c_chklabel.cpp
