@@ -1,59 +1,57 @@
 /*
-   MINIGUI - Harbour Win32 GUI library source code
-
-   Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
-   http://harbourminigui.googlepages.com/
-
-   This    program  is  free  software;  you can redistribute it and/or modify
-   it under  the  terms  of the GNU General Public License as published by the
-   Free  Software   Foundation;  either  version 2 of the License, or (at your
-   option) any later version.
-
-   This   program   is   distributed  in  the hope that it will be useful, but
-   WITHOUT    ANY    WARRANTY;    without   even   the   implied  warranty  of
-   MERCHANTABILITY  or  FITNESS  FOR A PARTICULAR PURPOSE. See the GNU General
-   Public License for more details.
-
-   You   should  have  received a copy of the GNU General Public License along
-   with   this   software;   see  the  file COPYING. If not, write to the Free
-   Software   Foundation,   Inc.,   59  Temple  Place,  Suite  330, Boston, MA
-   02111-1307 USA (or visit the web site http://www.gnu.org/).
-
-   As   a   special  exception, you have permission for additional uses of the
-   text  contained  in  this  release  of  Harbour Minigui.
-
-   The   exception   is that,   if   you  link  the  Harbour  Minigui  library
-   with  other    files   to  produce   an   executable,   this  does  not  by
-   itself   cause  the   resulting   executable    to   be  covered by the GNU
-   General  Public  License.  Your    use  of that   executable   is   in   no
-   way  restricted on account of linking the Harbour-Minigui library code into
-   it.
-
-   Parts of this project are based upon:
-
-    "Harbour GUI framework for Win32"
-    Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
-    Copyright 2001 Antonio Linares <alinares@fivetech.com>
-    www - https://harbour.github.io/
-
-    "Harbour Project"
-    Copyright 1999-2022, https://harbour.github.io/
-
-    "WHAT32"
-    Copyright 2002 AJ Wos <andrwos@aust1.net>
-
-    "HWGUI"
-    Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
-
-   Parts  of  this  code  is contributed and used here under permission of his
-   author: Copyright 2016 (C) P.Chornyj <myorg63@mail.ru>
+ * MINIGUI - Harbour Win32 GUI library source code
+ *
+ * Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
+ * http://harbourminigui.googlepages.com/
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this software; see the file COPYING. If not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
+ * visit the web site http://www.gnu.org/).
+ *
+ * As a special exception, you have permission for additional uses of the text
+ * contained in this release of Harbour Minigui.
+ *
+ * The exception is that, if you link the Harbour Minigui library with other
+ * files to produce an executable, this does not by itself cause the resulting
+ * executable to be covered by the GNU General Public License.
+ * Your use of that executable is in no way restricted on account of linking the
+ * Harbour-Minigui library code into it.
+ *
+ * Parts of this project are based upon:
+ *
+ * "Harbour GUI framework for Win32"
+ * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+ * Copyright 2001 Antonio Linares <alinares@fivetech.com>
+ * www - https://harbour.github.io/
+ *
+ * "Harbour Project"
+ * Copyright 1999-2022, https://harbour.github.io/
+ *
+ * "WHAT32"
+ * Copyright 2002 AJ Wos <andrwos@aust1.net>
+ *
+ * "HWGUI"
+ * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
+ *
+ * Parts of this code is contributed and used here under permission of his
+ * author: Copyright 2016 (C) P.Chornyj <myorg63@mail.ru>
  */
 
 #ifndef CINTERFACE
 #define CINTERFACE
 #endif
 
-#include <mgdefs.h>
+#include "mgdefs.h"
 #include <commctrl.h>
 
 #if defined( _MSC_VER )
@@ -70,7 +68,7 @@
 #include "hbvm.h"
 
 #ifndef WC_STATIC
-#define WC_STATIC  "Static"
+#define WC_STATIC TEXT("Static")
 #endif
 
 #define HB_GPLUS_MSG_ERROR( text ) \
@@ -78,7 +76,7 @@
    { \
       MessageBox(nullptr, \
                  text, \
-                 "GPlus error", \
+                 TEXT("GPlus error"), \
                  MB_OK | MB_ICONERROR); \
    } while( 0 )
 
@@ -86,14 +84,11 @@
 #define PIXEL_TO_LOGHIMETRIC( px, ppli )  MulDiv((px), 2540, (ppli)) // ppli = Point per Logic Inch
 
 LRESULT APIENTRY ImageSubClassFunc( HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam );
-
 HB_EXPORT IStream * HMG_CreateMemStreamFromResource(HINSTANCE instance, const char * res_type, const char * res_name);
 HB_EXPORT IStream * HMG_CreateMemStream(const BYTE * pInit, UINT cbInitSize);
 HB_EXPORT HBITMAP   HMG_GdiCreateHBITMAP(HDC hDC_mem, int width, int height, WORD iBitCount);
-
 HB_EXPORT HBITMAP   HMG_LoadImage(const char * pszImageName, const char * pszTypeOfRes);
-HB_EXPORT HBITMAP   HMG_LoadPicture(const char * pszName, int width, int height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage,
-                                    HB_BOOL bAlphaFormat, int iAlpfaConstant);
+HB_EXPORT HBITMAP   HMG_LoadPicture(const char * pszName, int width, int height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage, HB_BOOL bAlphaFormat, int iAlpfaConstant);
 HB_EXPORT HBITMAP   HMG_OleLoadPicturePath(const char * pszURLorPath);
 
 #ifdef UNICODE
@@ -102,7 +97,7 @@ LPWSTR AnsiToWide(LPCSTR);
 HINSTANCE GetResources(void);
 
 static WNDPROC s_Image_WNDPROC;
-static char *  MimeTypeOld;
+static char * MimeTypeOld;
 
 HB_EXPORT IStream * HMG_CreateMemStreamFromResource(HINSTANCE hinstance, const char * res_name, const char * res_type)
 {
@@ -118,7 +113,7 @@ HB_EXPORT IStream * HMG_CreateMemStreamFromResource(HINSTANCE hinstance, const c
    {
       return nullptr;
    }
-   
+
    res_nameW = hb_mbtowc( res_name );
    res_typeW = hb_mbtowc( res_type );
 
@@ -131,7 +126,7 @@ HB_EXPORT IStream * HMG_CreateMemStreamFromResource(HINSTANCE hinstance, const c
    {
       return nullptr;
    }
-   
+
    res_size   = SizeofResource(hinstance, resource);
    res_global = LoadResource(hinstance, resource);
 
@@ -146,7 +141,7 @@ HB_EXPORT IStream * HMG_CreateMemStreamFromResource(HINSTANCE hinstance, const c
    {
       return nullptr;
    }
-   
+
    stream = HMG_CreateMemStream(( const BYTE * ) res_data, ( UINT ) res_size);
 
    return stream;
@@ -154,7 +149,7 @@ HB_EXPORT IStream * HMG_CreateMemStreamFromResource(HINSTANCE hinstance, const c
 
 HB_EXPORT IStream * HMG_CreateMemStream(const BYTE * pInit, UINT cbInitSize)
 {
-   HMODULE   hShlDll = LoadLibrary("shlwapi.dll");
+   HMODULE   hShlDll = LoadLibrary(TEXT("shlwapi.dll"));
    IStream * stream  = nullptr;
 
    if( nullptr != hShlDll )
@@ -198,7 +193,7 @@ HB_EXPORT HBITMAP HMG_GdiCreateHBITMAP(HDC hDC_mem, int width, int height, WORD 
 
 static HBITMAP HMG_GdipLoadBitmap(const char * res_name, const char * res_type)
 {
-   HBITMAP    hBitmap  = ( HBITMAP ) nullptr;
+   HBITMAP    hBitmap  = nullptr;
    GpStatus   status   = GenericError;
    GpBitmap * gpBitmap = nullptr;
    wchar_t *  res_nameW;
@@ -214,7 +209,7 @@ static HBITMAP HMG_GdipLoadBitmap(const char * res_name, const char * res_type)
    {
       status = fn_GdipCreateBitmapFromResource(GetResources(), res_nameW, &gpBitmap);
    }
-   
+
    if( Ok != status && nullptr != res_type )
    {
       IStream * stream;
@@ -486,15 +481,11 @@ HB_EXPORT HBITMAP HMG_LoadPicture(const char * pszName, int width, int height, H
 #else
       LPWSTR lpImageName = AnsiToWide(( char * ) pszName);
 #endif
-      hBitmap_new = ( HBITMAP ) LoadImage(GetResources(),
-                                          lpImageName,
-                                          IMAGE_BITMAP, 0, 0, fuLoad);
+      hBitmap_new = ( HBITMAP ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, fuLoad);
       // If fail: find BMP in disk
       if( hBitmap_new == nullptr )
       {
-         hBitmap_new = ( HBITMAP ) LoadImage(nullptr,
-                                             lpImageName,
-                                             IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | fuLoad);
+         hBitmap_new = ( HBITMAP ) LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | fuLoad);
       }
 #ifdef UNICODE
       hb_xfree(lpImageName);
@@ -1406,7 +1397,7 @@ HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transpar
    }
 
    GetTempPath(MAX_PATH, TempPathFileName);
-   lstrcat(TempPathFileName, "_MG_temp.BMP");
+   lstrcat(TempPathFileName, TEXT("_MG_temp.BMP"));
    bmp_SaveFile(hBitmap, TempPathFileName);
    DeleteObject(hBitmap);
 
@@ -1424,7 +1415,34 @@ HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transpar
    return hImageList;
 }
 
-void HMG_ImageListAdd( HIMAGELIST hImageList, char * FileName, int Transparent )
+void HMG_ImageListAdd(HIMAGELIST hImageList, const char * FileName, int Transparent)
+{
+   HBITMAP hBitmap;
+
+   if( hImageList == nullptr )
+   {
+      return;
+   }
+
+   hBitmap = HMG_LoadPicture(FileName, -1, -1, nullptr, 0, 0, -1, 0, HB_FALSE, 255);
+   if( hBitmap == nullptr )
+   {
+      return;
+   }
+
+   if( Transparent == 1 )
+   {
+      ImageList_AddMasked(hImageList, hBitmap, CLR_DEFAULT);
+   }
+   else
+   {
+      ImageList_AddMasked(hImageList, hBitmap, CLR_NONE);
+   }
+
+   DeleteObject(hBitmap);
+}
+
+void HMG_ImageListAdd(HIMAGELIST hImageList, char * FileName, int Transparent) // TODO: remover quando não for mais necessária
 {
    HBITMAP hBitmap;
 
