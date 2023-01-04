@@ -1,61 +1,61 @@
-/*----------------------------------------------------------------------------
-   MINIGUI - Harbour Win32 GUI library source code
+/*
+ * MINIGUI - Harbour Win32 GUI library source code
+ *
+ * Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
+ * http://harbourminigui.googlepages.com/
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this software; see the file COPYING. If not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
+ * visit the web site http://www.gnu.org/).
+ *
+ * As a special exception, you have permission for additional uses of the text
+ * contained in this release of Harbour Minigui.
+ *
+ * The exception is that, if you link the Harbour Minigui library with other
+ * files to produce an executable, this does not by itself cause the resulting
+ * executable to be covered by the GNU General Public License.
+ * Your use of that executable is in no way restricted on account of linking the
+ * Harbour-Minigui library code into it.
+ *
+ * Parts of this project are based upon:
+ *
+ * "Harbour GUI framework for Win32"
+ * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+ * Copyright 2001 Antonio Linares <alinares@fivetech.com>
+ * www - https://harbour.github.io/
+ *
+ * "Harbour Project"
+ * Copyright 1999-2022, https://harbour.github.io/
+ *
+ * "WHAT32"
+ * Copyright 2002 AJ Wos <andrwos@aust1.net>
+ *
+ * "HWGUI"
+ * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
+ */
 
-   Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
-   http://harbourminigui.googlepages.com/
+#define _WIN32_IE 0x0501
 
-   This program is free software; you can redistribute it and/or modify it under
-   the terms of the GNU General Public License as published by the Free Software
-   Foundation; either version 2 of the License, or (at your option) any later
-   version.
-
-   This program is distributed in the hope that it will be useful, but WITHOUT
-   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-   FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License along with
-   this software; see the file COPYING. If not, write to the Free Software
-   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
-   visit the web site http://www.gnu.org/).
-
-   As a special exception, you have permission for additional uses of the text
-   contained in this release of Harbour Minigui.
-
-   The exception is that, if you link the Harbour Minigui library with other
-   files to produce an executable, this does not by itself cause the resulting
-   executable to be covered by the GNU General Public License.
-   Your use of that executable is in no way restricted on account of linking the
-   Harbour-Minigui library code into it.
-
-   Parts of this project are based upon:
-
-    "Harbour GUI framework for Win32"
-    Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
-    Copyright 2001 Antonio Linares <alinares@fivetech.com>
-    www - https://harbour.github.io/
-
-    "Harbour Project"
-    Copyright 1999-2022, https://harbour.github.io/
-
-    "WHAT32"
-    Copyright 2002 AJ Wos <andrwos@aust1.net>
-
-    "HWGUI"
-    Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
-
-   ---------------------------------------------------------------------------*/
-
-#define _WIN32_IE    0x0501
-
-#include <mgdefs.h>
+#include "mgdefs.h"
 #include <commctrl.h>
+#include <hbwinuni.h>
 
 #ifndef WC_COMBOBOX
-#define WC_COMBOBOX  "ComboBox"
+#define WC_COMBOBOX TEXT("ComboBox")
 #endif
 
 HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transparent, int * nWidth, int * nHeight);
-void HMG_ImageListAdd( HIMAGELIST himl, char * FileName, int Transparent );
+void HMG_ImageListAdd(HIMAGELIST himl, const char * FileName, int Transparent);
 
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);
@@ -64,15 +64,12 @@ LPSTR  WideToAnsi(LPWSTR);
 HINSTANCE GetInstance(void);
 HINSTANCE GetResources(void);
 
+/*
+INITCOMBOBOX(p1, p2, nX, nY, nWidth, p6, p7, nHeight, p9, p10, p11, p12, p13) --> HWND
+*/
 HB_FUNC( INITCOMBOBOX )
 {
-   HWND hwnd;
-   HWND hbutton;
-   int style;
-
-   hwnd = hmg_par_HWND(1);
-
-   style = WS_CHILD | WS_VSCROLL;
+   DWORD style = WS_CHILD | WS_VSCROLL;
 
    if( !hb_parl(9) )
    {
@@ -106,42 +103,33 @@ HB_FUNC( INITCOMBOBOX )
       style |= CBS_LOWERCASE;
    }
 
-   hbutton = CreateWindow
-             (
-      WC_COMBOBOX,
-      "",
-      style,
-      hb_parni(3),
-      hb_parni(4),
-      hb_parni(5),
-      hb_parni(8),
-      hwnd,
-      hmg_par_HMENU(2),
-      GetInstance(),
-      nullptr
-             );
+   HWND hbutton = CreateWindowEx(0,
+                                 WC_COMBOBOX,
+                                 TEXT(""),
+                                 style,
+                                 hmg_par_int(3),
+                                 hmg_par_int(4),
+                                 hmg_par_int(5),
+                                 hmg_par_int(8),
+                                 hmg_par_HWND(1),
+                                 hmg_par_HMENU(2),
+                                 GetInstance(),
+                                 nullptr);
 
    hmg_ret_HANDLE(hbutton);
 }
 
+/*
+INITCOMBOBOXEX(p1, p2, nX, nY, nWidth, p6, p7, nHeight, p9, p10, p11, p12, p13, p14, p15) --> HWND
+*/
 HB_FUNC( INITCOMBOBOXEX )
 {
-   HWND       hwnd = hmg_par_HWND(1);
-   HWND       hCombo;
-   PHB_ITEM   hArray;
-   HIMAGELIST himl = ( HIMAGELIST ) nullptr;
-   char *     FileName;
-
-   int nCount;
-   int style;
-
    INITCOMMONCONTROLSEX icex;
-
    icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
-   icex.dwICC  = ICC_USEREX_CLASSES;
+   icex.dwICC = ICC_USEREX_CLASSES;
    InitCommonControlsEx(&icex);
 
-   style = WS_CHILD | WS_VSCROLL;
+   DWORD style = WS_CHILD | WS_VSCROLL;
 
    if( !hb_parl(9) )
    {
@@ -160,25 +148,25 @@ HB_FUNC( INITCOMBOBOXEX )
       style |= CBS_NOINTEGRALHEIGHT;
    }
 
-   hCombo = CreateWindowEx
-            (
-      0,
-      WC_COMBOBOXEX,
-      "",
-      style,
-      hb_parni(3),
-      hb_parni(4),
-      hb_parni(5),
-      hb_parni(8),
-      hwnd,
-      hmg_par_HMENU(2),
-      GetInstance(),
-      nullptr
-            );
+   HWND hCombo = CreateWindowEx(0,
+                                WC_COMBOBOXEX,
+                                TEXT(""),
+                                style,
+                                hmg_par_int(3),
+                                hmg_par_int(4),
+                                hmg_par_int(5),
+                                hmg_par_int(8),
+                                hmg_par_HWND(1),
+                                hmg_par_HMENU(2),
+                                GetInstance(),
+                                nullptr);
 
    // create ImageList from aImage array
 
-   nCount = ( int ) hb_parinfa(14, 0);
+   PHB_ITEM hArray;
+   HIMAGELIST himl = nullptr;
+
+   int nCount = ( int ) hb_parinfa(14, 0);
 
    if( nCount > 0 )
    {
@@ -187,7 +175,7 @@ HB_FUNC( INITCOMBOBOXEX )
 
       for( int s = 1; s <= nCount; s++ )
       {
-         FileName = ( char * ) hb_arrayGetCPtr(hArray, s);
+         const char * FileName = hb_arrayGetCPtr(hArray, s);
 
          if( himl == nullptr )
          {
@@ -195,7 +183,7 @@ HB_FUNC( INITCOMBOBOXEX )
          }
          else
          {
-            HMG_ImageListAdd( himl, FileName, Transparent );
+            HMG_ImageListAdd(himl, FileName, Transparent);
          }
       }
    }
@@ -209,136 +197,135 @@ HB_FUNC( INITCOMBOBOXEX )
 
    if( himl != nullptr )
    {
-      SendMessage(( HWND ) hCombo, CBEM_SETIMAGELIST, 0, ( LPARAM ) himl);
+      SendMessage(hCombo, CBEM_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(himl));
    }
    else
+   {
       // extend combo without images
-      SendMessage
-         (                                // returns LRESULT in lResult
-         ( HWND ) hCombo,                 // handle to destination control
-         ( UINT ) CBEM_SETEXTENDEDSTYLE,  // message ID
-         ( WPARAM ) 0,                    // = (WPARAM) (DWORD) dwExMask;
-         ( LPARAM ) CBES_EX_NOEDITIMAGE   // = (LPARAM) (DWORD) dwExStyle;
-         );
+      SendMessage(hCombo, CBEM_SETEXTENDEDSTYLE, 0, CBES_EX_NOEDITIMAGE);
+   }
 
    hmg_ret_HANDLE(hCombo);
 }
 
+/*
+COMBOSETITEMHEIGHT(HWND, nHeight) --> NIL
+*/
 HB_FUNC( COMBOSETITEMHEIGHT )
 {
-   HWND hWnd = hmg_par_HWND(1);
-   int  iDesiredHeight = hb_parni(2);
-
-   SendMessage(hWnd, CB_SETITEMHEIGHT, ( WPARAM ) -1, ( LPARAM ) iDesiredHeight);
+   SendMessage(hmg_par_HWND(1), CB_SETITEMHEIGHT, -1, hb_parni(2));
 }
 
+/*
+COMBOSHOWDROPDOWN(HWND) --> NIL
+*/
 HB_FUNC( COMBOSHOWDROPDOWN )
 {
-   SendMessage(hmg_par_HWND(1), CB_SHOWDROPDOWN, ( WPARAM ) 1, ( LPARAM ) 0);
+   SendMessage(hmg_par_HWND(1), CB_SHOWDROPDOWN, 1, 0);
 }
 
+/*
+COMBOEDITSETSEL(HWND, p2, p3) --> numeric
+*/
 HB_FUNC( COMBOEDITSETSEL )
 {
-   hb_retni( ( int ) SendMessage(hmg_par_HWND(1), CB_SETEDITSEL, ( WPARAM ) 0, ( LPARAM ) MAKELPARAM(hb_parni(2), hb_parni(3))) );
+   hb_retni(SendMessage(hmg_par_HWND(1), CB_SETEDITSEL, 0, MAKELPARAM(hb_parni(2), hb_parni(3))));
 }
 
+/*
+COMBOGETEDITSEL(HWND) --> array
+*/
 HB_FUNC( COMBOGETEDITSEL )
 {
-   DWORD pos;
-
-   pos = ( DWORD ) SendMessage(hmg_par_HWND(1), CB_GETEDITSEL, ( WPARAM ) nullptr, ( LPARAM ) nullptr);
-
+   DWORD pos = SendMessage(hmg_par_HWND(1), CB_GETEDITSEL, reinterpret_cast<WPARAM>(nullptr), reinterpret_cast<LPARAM>(nullptr));
    hb_reta(2);
-
-   HB_STORNI( LOWORD(pos), -1, 1 );
-   HB_STORNI( HIWORD(pos), -1, 2 );
+   HB_STORNI(LOWORD(pos), -1, 1);
+   HB_STORNI(HIWORD(pos), -1, 2);
 }
 
+/*
+COMBOSELECTSTRING(HWND, p2) --> numeric
+*/
 HB_FUNC( COMBOSELECTSTRING )
 {
-   hb_retni( ( int ) SendMessage(hmg_par_HWND(1), CB_SELECTSTRING, ( WPARAM ) -1, ( LPARAM ) hb_parc(2)) );
+   hb_retni(SendMessage(hmg_par_HWND(1), CB_SELECTSTRING, -1, reinterpret_cast<LPARAM>(hb_parc(2))));
 }
 
 /* Added by P.Ch. 16.10. */
+
+/*
+COMBOFINDSTRING(HWND, cString) --> numeric
+*/
 HB_FUNC( COMBOFINDSTRING )
 {
-#ifndef UNICODE
-   LPTSTR lpText = ( LPTSTR ) hb_parc(2);
-#else
-   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(2));
-#endif
-   hb_retnl( ( LONG ) SendMessage(hmg_par_HWND(1), ( UINT ) CB_FINDSTRING, ( WPARAM ) -1, ( LPARAM ) lpText) + 1 );
-#ifdef UNICODE
-   hb_xfree(lpText);
-#endif
+   void * Text;
+   hb_retnl(SendMessage(hmg_par_HWND(1), CB_FINDSTRING, -1, reinterpret_cast<LPARAM>(HB_PARSTR(2, &Text, nullptr))) + 1);
+   hb_strfree(Text);
 }
 
+/*
+COMBOFINDSTRINGEXACT(HWND, cString) --> numeric
+*/
 HB_FUNC( COMBOFINDSTRINGEXACT )
 {
-#ifndef UNICODE
-   LPTSTR lpText = ( LPTSTR ) hb_parc(2);
-#else
-   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(2));
-#endif
-   hb_retnl( ( LONG ) SendMessage(hmg_par_HWND(1), ( UINT ) CB_FINDSTRINGEXACT, ( WPARAM ) -1, ( LPARAM ) lpText) + 1 );
-#ifdef UNICODE
-   hb_xfree(lpText);
-#endif
+   void * Text;
+   hb_retnl(SendMessage(hmg_par_HWND(1), CB_FINDSTRINGEXACT, -1, reinterpret_cast<LPARAM>(HB_PARSTR(2, &Text, nullptr))) + 1);
+   hb_strfree(Text);
 }
 
 /* Modified by P.Ch. 16.10. */
+
+/*
+COMBOGETSTRING(HWND, p2) --> cString
+*/
 HB_FUNC( COMBOGETSTRING )
 {
 #ifdef UNICODE
    LPSTR lpString;
 #endif
-   int     iLen = ( int ) SendMessage(hmg_par_HWND(1), CB_GETLBTEXTLEN, hmg_par_WPARAM(2) - 1, ( LPARAM ) 0);
+   int iLen = SendMessage(hmg_par_HWND(1), CB_GETLBTEXTLEN, hmg_par_WPARAM(2) - 1, 0);
    TCHAR * cString;
 
-   if( iLen > 0 && nullptr != ( cString = ( TCHAR * ) hb_xgrab((iLen + 1) * sizeof(TCHAR)) ) )
+   if( iLen > 0 && (cString = static_cast<TCHAR*>(hb_xgrab((iLen + 1) * sizeof(TCHAR)))) != nullptr )
    {
-      SendMessage(hmg_par_HWND(1), CB_GETLBTEXT, hmg_par_WPARAM(2) - 1, ( LPARAM ) cString);
-   #ifdef UNICODE
+      SendMessage(hmg_par_HWND(1), CB_GETLBTEXT, hmg_par_WPARAM(2) - 1, reinterpret_cast<LPARAM>(cString));
+#ifdef UNICODE
       lpString = WideToAnsi(cString);
       hb_retc( lpString );
       hb_xfree(lpString);
-   #else
+#else
       hb_retclen_buffer(cString, iLen);
-   #endif
+#endif
    }
-   else
-   {
-      hb_retc_null();
-   }
+
+   hb_retc_null();
 }
 
+/*
+COMBOADDSTRING(HWND, cString) --> NIL
+*/
 HB_FUNC( COMBOADDSTRING )
 {
-#ifndef UNICODE
-   LPTSTR lpString = ( LPTSTR ) hb_parc(2);
-#else
-   LPWSTR lpString = AnsiToWide(( char * ) hb_parc(2));
-#endif
-   SendMessage(hmg_par_HWND(1), CB_ADDSTRING, 0, ( LPARAM ) lpString);
-#ifdef UNICODE
-   hb_xfree(lpString);
-#endif
+   void * String;
+   SendMessage(hmg_par_HWND(1), CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(HB_PARSTR(2, &String, nullptr)));
+   hb_strfree(String);
 }
 
+/*
+COMBOINSERTSTRING(HWND, cString, p3) --> NIL
+*/
 HB_FUNC( COMBOINSERTSTRING )
 {
-#ifndef UNICODE
-   LPTSTR lpString = ( LPTSTR ) hb_parc(2);
-#else
-   LPWSTR lpString = AnsiToWide(( char * ) hb_parc(2));
-#endif
-   SendMessage(hmg_par_HWND(1), CB_INSERTSTRING, hb_parni(3) - 1, ( LPARAM ) lpString);
-#ifdef UNICODE
-   hb_xfree(lpString);
-#endif
+   void * String;
+   SendMessage(hmg_par_HWND(1), CB_INSERTSTRING, hmg_par_WPARAM(3) - 1, reinterpret_cast<LPARAM>(HB_PARSTR(2, &String, nullptr)));
+   hb_strfree(String);
 }
 
 // extend combo functions  (JK)  HMG 1.0 Exp. Build 8
+
+/*
+COMBOADDSTRINGEX(HWND, cString, p3) --> NIL
+*/
 HB_FUNC( COMBOADDSTRINGEX )
 {
 #ifndef UNICODE
@@ -348,22 +335,23 @@ HB_FUNC( COMBOADDSTRINGEX )
 #endif
    int nImage = hb_parni(3);
    COMBOBOXEXITEM cbei;
-
    cbei.mask           = CBEIF_TEXT | CBEIF_INDENT | CBEIF_IMAGE | CBEIF_SELECTEDIMAGE | CBEIF_OVERLAY;
    cbei.iItem          = -1;
    cbei.pszText        = lpText;
-   cbei.cchTextMax     = ( int ) hb_parclen(2);
-   cbei.iImage         = ( nImage - 1 ) * 3;
-   cbei.iSelectedImage = ( nImage - 1 ) * 3 + 1;
-   cbei.iOverlay       = ( nImage - 1 ) * 3 + 2;
+   cbei.cchTextMax     = hb_parclen(2);
+   cbei.iImage         = (nImage - 1) * 3;
+   cbei.iSelectedImage = (nImage - 1) * 3 + 1;
+   cbei.iOverlay       = (nImage - 1) * 3 + 2;
    cbei.iIndent        = 0;
-
-   SendMessage(hmg_par_HWND(1), CBEM_INSERTITEM, 0, ( LPARAM ) &cbei);
+   SendMessage(hmg_par_HWND(1), CBEM_INSERTITEM, 0, reinterpret_cast<LPARAM>(&cbei));
 #ifdef UNICODE
    hb_xfree(lpText);
 #endif
 }
 
+/*
+COMBOINSERTSTRINGEX(HWND, cString, p3, p4) --> NIL
+*/
 HB_FUNC( COMBOINSERTSTRINGEX )
 {
 #ifndef UNICODE
@@ -373,22 +361,23 @@ HB_FUNC( COMBOINSERTSTRINGEX )
 #endif
    int nImage = hb_parni(3);
    COMBOBOXEXITEM cbei;
-
    cbei.mask           = CBEIF_TEXT | CBEIF_INDENT | CBEIF_IMAGE | CBEIF_SELECTEDIMAGE | CBEIF_OVERLAY;
    cbei.iItem          = hb_parni(4) - 1;
    cbei.pszText        = lpText;
-   cbei.cchTextMax     = ( int ) hb_parclen(2);
-   cbei.iImage         = ( nImage - 1 ) * 3;
-   cbei.iSelectedImage = ( nImage - 1 ) * 3 + 1;
-   cbei.iOverlay       = ( nImage - 1 ) * 3 + 2;
+   cbei.cchTextMax     = hb_parclen(2);
+   cbei.iImage         = (nImage - 1) * 3;
+   cbei.iSelectedImage = (nImage - 1) * 3 + 1;
+   cbei.iOverlay       = (nImage - 1) * 3 + 2;
    cbei.iIndent        = 0;
-
-   SendMessage(hmg_par_HWND(1), CBEM_INSERTITEM, 0, ( LPARAM ) &cbei);
+   SendMessage(hmg_par_HWND(1), CBEM_INSERTITEM, 0, reinterpret_cast<LPARAM>(&cbei));
 #ifdef UNICODE
    hb_xfree(lpText);
 #endif
 }
 
+/*
+COMBOADDDATASTRINGEX(HWND, cString) --> NIL
+*/
 HB_FUNC( COMBOADDDATASTRINGEX )
 {
 #ifndef UNICODE
@@ -397,17 +386,15 @@ HB_FUNC( COMBOADDDATASTRINGEX )
    LPWSTR lpText = AnsiToWide(( char * ) hb_parc(2));
 #endif
    COMBOBOXEXITEM cbei;
-
    cbei.mask           = CBEIF_TEXT | CBEIF_INDENT | CBEIF_IMAGE | CBEIF_SELECTEDIMAGE | CBEIF_OVERLAY;
    cbei.iItem          = -1;
    cbei.pszText        = lpText;
-   cbei.cchTextMax     = ( int ) hb_parclen(2);
+   cbei.cchTextMax     = hb_parclen(2);
    cbei.iImage         = 0;
    cbei.iSelectedImage = 1;
    cbei.iOverlay       = 2;
    cbei.iIndent        = 0;
-
-   SendMessage(hmg_par_HWND(1), CBEM_INSERTITEM, 0, ( LPARAM ) &cbei);
+   SendMessage(hmg_par_HWND(1), CBEM_INSERTITEM, 0, reinterpret_cast<LPARAM>(&cbei));
 #ifdef UNICODE
    hb_xfree(lpText);
 #endif
