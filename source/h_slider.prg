@@ -246,3 +246,91 @@ FUNCTION InitDialogSlider(ParentName, ControlHandle, k)
    ENDIF
 
 RETURN Nil
+
+#pragma BEGINDUMP
+
+#define _WIN32_IE 0x0501
+
+#include "mgdefs.h"
+#include <commctrl.h>
+
+HINSTANCE GetInstance(void);
+
+/*
+INITSLIDER(p1, p2, nX, nY, nWidth, nHeight, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18) --> HWND
+*/
+HB_FUNC_STATIC( INITSLIDER )
+{
+   int iSelMin = 0;
+   int iSelMax = 0;
+
+   INITCOMMONCONTROLSEX i;
+   i.dwSize = sizeof(INITCOMMONCONTROLSEX);
+   i.dwICC = ICC_BAR_CLASSES;
+   InitCommonControlsEx(&i);
+
+   DWORD style = WS_CHILD;
+
+   if( hb_parl(9) )
+   {
+      style |= TBS_VERT;
+   }
+
+   style |= hb_parl(10) ? TBS_NOTICKS : TBS_AUTOTICKS;
+
+   if( hb_parl(11) )
+   {
+      style |= TBS_BOTH;
+   }
+
+   if( hb_parl(12) )
+   {
+      style |= TBS_TOP;
+   }
+
+   if( hb_parl(13) )
+   {
+      style |= TBS_LEFT;
+   }
+
+   if( !hb_parl(14) )
+   {
+      style |= WS_VISIBLE;
+   }
+
+   if( !hb_parl(15) )
+   {
+      style |= WS_TABSTOP;
+   }
+
+   if( hb_parl(16) )  /* P.Ch. 16.10 */
+   {
+      style |= TBS_ENABLESELRANGE;
+      iSelMin = HB_MIN(hb_parnidef(17, 0), hb_parnidef(18, 0));
+      iSelMax = HB_MAX(hb_parnidef(17, 0), hb_parnidef(18, 0));
+   }
+
+   HWND hTrackBar = CreateWindowEx(0,
+                                   TRACKBAR_CLASS,
+                                   nullptr,
+                                   style,
+                                   hmg_par_int(3),
+                                   hmg_par_int(4),
+                                   hmg_par_int(5),
+                                   hmg_par_int(6),
+                                   hmg_par_HWND(1),
+                                   hmg_par_HMENU(2),
+                                   GetInstance(),
+                                   nullptr);
+
+   SendMessage(hTrackBar, TBM_SETRANGE, static_cast<WPARAM>(TRUE), MAKELONG(hb_parni(7), hb_parni(8)));
+
+   if( hb_parl(16) && (iSelMin != iSelMax) )
+   {
+      SendMessage(hTrackBar, TBM_SETSEL, static_cast<WPARAM>(TRUE), MAKELONG(iSelMin, iSelMax));  /* P.Ch. 16.10 */
+   }
+
+   hmg_ret_HANDLE(hTrackBar);
+}
+
+#pragma ENDDUMP

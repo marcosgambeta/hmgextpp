@@ -58,7 +58,7 @@ source\c_resource.cpp
 source\c_richeditbox.cpp
 source\c_richeditex.cpp
 source\c_scrsaver.cpp
-source\c_slider.cpp
+#source\c_slider.cpp
 source\c_spinner.cpp
 source\c_status.cpp
 source\c_tab.cpp
