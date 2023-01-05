@@ -472,3 +472,82 @@ PROCEDURE _DataComboRefresh(i)  // (JK) Modified for extend COMBO HMG 1.0 Build 
    ENDIF
 
 RETURN
+
+#pragma BEGINDUMP
+
+#define _WIN32_IE 0x0501
+
+#include "mgdefs.h"
+#include <commctrl.h>
+#include <hbwinuni.h>
+
+#ifndef WC_COMBOBOX
+#define WC_COMBOBOX TEXT("ComboBox")
+#endif
+
+HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transparent, int * nWidth, int * nHeight);
+void HMG_ImageListAdd(HIMAGELIST himl, const char * FileName, int Transparent);
+
+#ifdef UNICODE
+LPWSTR AnsiToWide(LPCSTR);
+LPSTR  WideToAnsi(LPWSTR);
+#endif
+HINSTANCE GetInstance(void);
+HINSTANCE GetResources(void);
+
+/*
+INITCOMBOBOX(p1, p2, nX, nY, nWidth, p6, p7, nHeight, p9, p10, p11, p12, p13) --> HWND
+*/
+HB_FUNC_STATIC( INITCOMBOBOX )
+{
+   DWORD style = WS_CHILD | WS_VSCROLL;
+
+   if( !hb_parl(9) )
+   {
+      style |= WS_VISIBLE;
+   }
+
+   if( !hb_parl(10) )
+   {
+      style |= WS_TABSTOP;
+   }
+
+   if( hb_parl(11) )
+   {
+      style |= CBS_SORT;
+   }
+
+   style |= hb_parl(12) ? CBS_DROPDOWN : CBS_DROPDOWNLIST;
+
+   if( hb_parl(13) )
+   {
+      style |= CBS_NOINTEGRALHEIGHT;
+   }
+
+   if( hb_parl(6) )
+   {
+      style |= CBS_UPPERCASE;
+   }
+
+   if( hb_parl(7) )
+   {
+      style |= CBS_LOWERCASE;
+   }
+
+   HWND hbutton = CreateWindowEx(0,
+                                 WC_COMBOBOX,
+                                 TEXT(""),
+                                 style,
+                                 hmg_par_int(3),
+                                 hmg_par_int(4),
+                                 hmg_par_int(5),
+                                 hmg_par_int(8),
+                                 hmg_par_HWND(1),
+                                 hmg_par_HMENU(2),
+                                 GetInstance(),
+                                 nullptr);
+
+   hmg_ret_HANDLE(hbutton);
+}
+
+#pragma ENDDUMP
