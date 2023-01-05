@@ -1,49 +1,48 @@
-/*----------------------------------------------------------------------------
-MINIGUI - Harbour Win32 GUI library source code
-
-Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
-http://harbourminigui.googlepages.com/
-
-This program is free software; you can redistribute it and/or modify it under
-the terms of the GNU General Public License as published by the Free Software
-Foundation; either version 2 of the License, or (at your option) any later
-version.
-
-This program is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License along with
-   this software; see the file COPYING. If not, write to the Free Software
-   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
-   visit the web site http://www.gnu.org/).
-
-   As a special exception, you have permission for additional uses of the text
-   contained in this release of Harbour Minigui.
-
-   The exception is that, if you link the Harbour Minigui library with other
-   files to produce an executable, this does not by itself cause the resulting
-   executable to be covered by the GNU General Public License.
-   Your use of that executable is in no way restricted on account of linking the
-   Harbour-Minigui library code into it.
-
-   Parts of this project are based upon:
-
-   "Harbour GUI framework for Win32"
-   Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
-   Copyright 2001 Antonio Linares <alinares@fivetech.com>
-   www - https://harbour.github.io/
-
-   "Harbour Project"
-   Copyright 1999-2022, https://harbour.github.io/
-
-   "WHAT32"
-   Copyright 2002 AJ Wos <andrwos@aust1.net>
-
-   "HWGUI"
-   Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
-
----------------------------------------------------------------------------*/
+/*
+ * MINIGUI - Harbour Win32 GUI library source code
+ *
+ * Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
+ * http://harbourminigui.googlepages.com/
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this software; see the file COPYING. If not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
+ * visit the web site http://www.gnu.org/).
+ *
+ * As a special exception, you have permission for additional uses of the text
+ * contained in this release of Harbour Minigui.
+ *
+ * The exception is that, if you link the Harbour Minigui library with other
+ * files to produce an executable, this does not by itself cause the resulting
+ * executable to be covered by the GNU General Public License.
+ * Your use of that executable is in no way restricted on account of linking the
+ * Harbour-Minigui library code into it.
+ *
+ * Parts of this project are based upon:
+ *
+ * "Harbour GUI framework for Win32"
+ * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+ * Copyright 2001 Antonio Linares <alinares@fivetech.com>
+ * www - https://harbour.github.io/
+ *
+ * "Harbour Project"
+ * Copyright 1999-2022, https://harbour.github.io/
+ *
+ * "WHAT32"
+ * Copyright 2002 AJ Wos <andrwos@aust1.net>
+ *
+ * "HWGUI"
+ * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
+ */
 
 #include "minigui.ch"
 #include "i_winuser.ch"
@@ -54,22 +53,13 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 #define EM_SETCUEBANNER       0x1501
 #define CB_SETCUEBANNER       0x1703
 
-#if ( __HARBOUR__ - 0 < 0x030200 )
-  #xtranslate hb_UAt( <c>, <n> ) => At( <c>, <n> )
-  #xtranslate hb_ULeft(<c>, <n>) => Left(<c>, <n>)
-  #xtranslate hb_URight(<c>, <n>) => Right(<c>, <n>)
-  #xtranslate hb_ULen(<c>) => Len(<c>)
-#endif
-
-*-----------------------------------------------------------------------------*
-FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
+FUNCTION _DefineCombo(ControlName, ParentFormName, x, y, w, rows, value, ;
    fontname, fontsize, tooltip, changeprocedure, h, gotfocus, lostfocus, uEnter, ;
-   HelpId, invisible, notabstop, sort, bold, italic, underline, strikeout , ;
-   itemsource , valuesource , displaychange , ondisplaychangeprocedure , break , ;
-   GripperText , ListWidth , nId, OnListDisplayProcedure, OnListCloseProcedure, ;
-   backcolor, fontcolor, lUpper, lLower, cuetext, OnCancel, AutoComplete, lShowDropDown, nItemHeight, bInit )
-*-----------------------------------------------------------------------------*
-   
+   HelpId, invisible, notabstop, sort, bold, italic, underline, strikeout, ;
+   itemsource, valuesource, displaychange, ondisplaychangeprocedure, break, ;
+   GripperText, ListWidth, nId, OnListDisplayProcedure, OnListCloseProcedure, ;
+   backcolor, fontcolor, lUpper, lLower, cuetext, OnCancel, AutoComplete, lShowDropDown, nItemHeight, bInit)
+
    LOCAL ParentFormHandle
    LOCAL ControlHandle
    LOCAL FontHandle
@@ -82,8 +72,8 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
    LOCAL blInit
    LOCAL Style
    LOCAL lDialogInMemory
-   LOCAL oc // := NIL
-   LOCAL ow // := NIL
+   LOCAL oc
+   LOCAL ow
 
 #ifdef _OBJECT_
    ow := oDlu2Pixel()
@@ -103,20 +93,20 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
    hb_default(@AutoComplete, .F.)
    hb_default(@lShowDropDown, .F.)
 
-   IF ( FontHandle := GetFontHandle(FontName) ) != 0
-      GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
+   IF (FontHandle := GetFontHandle(FontName)) != 0
+      GetFontParamByRef(FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout)
    ENDIF
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
-      ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
+      ParentFormName := iif(_HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName)
       __defaultNIL(@FontName, _HMG_ActiveFontName)
       __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
 
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
-      x += _HMG_ActiveFrameCol [_HMG_FrameLevel]
-      y += _HMG_ActiveFrameRow [_HMG_FrameLevel]
-      ParentFormName := _HMG_ActiveFrameParentFormName [_HMG_FrameLevel]
+      x += _HMG_ActiveFrameCol[_HMG_FrameLevel]
+      y += _HMG_ActiveFrameRow[_HMG_FrameLevel]
+      ParentFormName := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory
 
@@ -137,7 +127,7 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
    ENDIF
 
    IF itemsource != NIL
-      IF hb_UAt ( ">" , ItemSource ) == 0
+      IF hb_UAt(">", ItemSource) == 0
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " (ItemSource): You must specify a fully qualified field name.")
       ELSE
          WorkArea := hb_ULeft(ItemSource, hb_UAt(">", ItemSource) - 2)
@@ -192,7 +182,7 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
       IF lDialogInMemory         //Dialog Template
 
          //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
-         blInit := {|x, y, z| InitDialogComboBox( x, y, z ) }
+         blInit := {|x, y, z|InitDialogComboBox(x, y, z)}
          AAdd(_HMG_aDialogItems, {nId, k, "COMBOBOX", style, 0, x, y, w, h, "", HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
@@ -226,11 +216,11 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
 
          _HMG_SplitLastControl := "COMBOBOX"
 
-         i := GetFormIndex ( ParentFormName )
+         i := GetFormIndex(ParentFormName)
 
          IF i > 0
 
-            ControlHandle := InitComboBox ( _HMG_aFormReBarHandle[i], 0, x, y, w, lUpper, lLower, h, invisible, notabstop, sort, displaychange, _HMG_IsXPorLater )
+            ControlHandle := InitComboBox(_HMG_aFormReBarHandle[i], 0, x, y, w, lUpper, lLower, h, invisible, notabstop, sort, displaychange, _HMG_IsXPorLater)
 
             IF FontHandle != 0
                _SetFontHandle(ControlHandle, FontHandle)
@@ -250,7 +240,7 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
 
       ELSE
 
-         ControlHandle := InitComboBox ( ParentFormHandle, 0, x, y, w, lUpper, lLower, h, invisible, notabstop, sort, displaychange, _HMG_IsXPorLater )
+         ControlHandle := InitComboBox(ParentFormHandle, 0, x, y, w, lUpper, lLower, h, invisible, notabstop, sort, displaychange, _HMG_IsXPorLater)
 
       ENDIF
 
@@ -279,7 +269,7 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
    ENDIF
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif
@@ -306,31 +296,31 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
    _HMG_aControlWidth              [k] := w
    _HMG_aControlHeight             [k] := h
    _HMG_aControlSpacing            [k] := WorkArea
-   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerRow       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1)
+   _HMG_aControlContainerCol       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1)
    _HMG_aControlPicture            [k] := OnListCloseProcedure
    _HMG_aControlContainerHandle    [k] := ContainerHandle
    _HMG_aControlFontName           [k] := fontname
    _HMG_aControlFontSize           [k] := fontsize
-   _HMG_aControlFontAttributes     [k] := { bold, italic, underline, strikeout }
+   _HMG_aControlFontAttributes     [k] := {bold, italic, underline, strikeout}
    _HMG_aControlToolTip            [k] := tooltip
    _HMG_aControlRangeMin           [k] := 0
    _HMG_aControlRangeMax           [k] := 0
    _HMG_aControlCaption            [k] := valuesource
-   _HMG_aControlVisible            [k] := iif( invisible, .F., .T. )
+   _HMG_aControlVisible            [k] := iif(invisible, .F., .T.)
    _HMG_aControlHelpId             [k] := HelpId
    _HMG_aControlFontHandle         [k] := FontHandle
    _HMG_aControlBrushHandle        [k] := 0
    _HMG_aControlEnabled            [k] := .T.
-   _HMG_aControlMiscData1          [k] := { 0, DisplayChange, ItemSource, rows, ListWidth, cuetext, AutoComplete, lShowDropDown, 0, OnCancel, nItemHeight }
+   _HMG_aControlMiscData1          [k] := {0, DisplayChange, ItemSource, rows, ListWidth, cuetext, AutoComplete, lShowDropDown, 0, OnCancel, nItemHeight}
    _HMG_aControlMiscData2          [k] := ""
 
    IF Len(_HMG_aDialogTemplate) == 0
-      InitDialogComboBox( ParentFormName, ControlHandle, k )
+      InitDialogComboBox(ParentFormName, ControlHandle, k)
    ENDIF
 
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlInit, k, mVar )
+      Eval(_HMG_bOnControlInit, k, mVar)
 #ifdef _OBJECT_
       ow := _WindowObj(ParentFormHandle)
       oc := _ControlObj(ControlHandle)
@@ -339,12 +329,10 @@ FUNCTION _DefineCombo ( ControlName, ParentFormName, x, y, w, rows, value, ;
 
    Do_ControlEventProcedure(bInit, k, ow, oc)
 
-RETURN Nil
+RETURN NIL
 
-*-----------------------------------------------------------------------------*
-FUNCTION InitDialogComboBox( ParentName, ControlHandle, k )
-*-----------------------------------------------------------------------------*
-   
+FUNCTION InitDialogComboBox(ParentName, ControlHandle, k)
+
    LOCAL WorkArea
    LOCAL BackRec
    LOCAL rcount := 0
@@ -358,30 +346,30 @@ FUNCTION InitDialogComboBox( ParentName, ControlHandle, k )
    LOCAL ListWidth
    LOCAL cuetext
 
-   WorkArea      := _HMG_aControlSpacing [k]
-   cField        := _HMG_aControlPageMap [k]
-   Value         := _HMG_aControlValue [k]
-   rows          := _HMG_aControlMiscData1 [k,4]
-   DisplayChange := _HMG_aControlMiscData1 [k,2]
-   ItemSource    := _HMG_aControlMiscData1 [k,3]
-   ListWidth     := _HMG_aControlMiscData1 [k,5]
-   cuetext       := _HMG_aControlMiscData1 [k,6]
-   ItemHeight    := _HMG_aControlMiscData1 [k,11]
+   WorkArea      := _HMG_aControlSpacing[k]
+   cField        := _HMG_aControlPageMap[k]
+   Value         := _HMG_aControlValue[k]
+   rows          := _HMG_aControlMiscData1[k, 4]
+   DisplayChange := _HMG_aControlMiscData1[k, 2]
+   ItemSource    := _HMG_aControlMiscData1[k, 3]
+   ListWidth     := _HMG_aControlMiscData1[k, 5]
+   cuetext       := _HMG_aControlMiscData1[k, 6]
+   ItemHeight    := _HMG_aControlMiscData1[k, 11]
 
    IF DisplayChange == .T.
 
-      _HMG_aControlRangeMin [k] := FindWindowEx(ControlHandle, 0, "Edit", Nil)
+      _HMG_aControlRangeMin[k] := FindWindowEx(ControlHandle, 0, "Edit", NIL)
       // add tooltip for editable combo window if defined //(JK) HMG Exp. Build 8
       IF _HMG_aControlToolTip[k] != NIL
-         SetToolTip ( _HMG_aControlRangeMin [k] , _HMG_aControlToolTip [k] , GetFormToolTipHandle(ParentName) )
+         SetToolTip(_HMG_aControlRangeMin[k], _HMG_aControlToolTip[k], GetFormToolTipHandle(ParentName))
       ENDIF
 
-      IF !Empty(cuetext) .AND. IsVistaOrLater() 
+      IF !Empty(cuetext) .AND. IsVistaOrLater()
          value := 0
-         SendMessageWideString( _HMG_aControlRangeMin [k], EM_SETCUEBANNER, .T., cuetext )
+         SendMessageWideString(_HMG_aControlRangeMin[k], EM_SETCUEBANNER, .T., cuetext)
       ENDIF
 
-   ELSEIF !Empty(cuetext) .AND. IsVistaOrLater() 
+   ELSEIF !Empty(cuetext) .AND. IsVistaOrLater()
 
       value := 0
       SendMessageWideString(ControlHandle, CB_SETCUEBANNER, .T., cuetext)
@@ -392,22 +380,22 @@ FUNCTION InitDialogComboBox( ParentName, ControlHandle, k )
 
    IF HB_ISCHAR(WorkArea)
 
-      IF Select ( WorkArea ) != 0
+      IF Select (WorkArea) != 0
 
-         BackRec := ( WorkArea )->( RecNo() )
+         BackRec := (WorkArea)->(RecNo())
 
-         ( WorkArea )->( dbGoTop() )
+         (WorkArea)->(dbGoTop())
 
-         DO WHILE !( WorkArea )->( EOF() )
+         DO WHILE !(WorkArea)->(EOF())
             rcount++
-            IF value == ( WorkArea )->( RecNo() )
+            IF value == (WorkArea)->(RecNo())
                cset := rcount
             ENDIF
             ComboAddString(ControlHandle, cValToChar((WorkArea)->&(cField)))
-            ( WorkArea )->( dbSkip() )
+            (WorkArea)->(dbSkip())
          ENDDO
 
-         ( WorkArea )->( dbGoto( BackRec ) )
+         (WorkArea)->(dbGoto(BackRec))
 
          ComboSetCurSel(ControlHandle, cset)
 
@@ -419,7 +407,7 @@ FUNCTION InitDialogComboBox( ParentName, ControlHandle, k )
          AEval(rows, {|v|ComboAddString(ControlHandle, v)})
       ENDIF
 
-      IF ISNUMBER( value ) .AND. value != 0
+      IF ISNUMBER(value) .AND. value != 0
          ComboSetCurSel(ControlHandle, Value)
       ENDIF
 
@@ -434,15 +422,13 @@ FUNCTION InitDialogComboBox( ParentName, ControlHandle, k )
    ENDIF
    // JP 62
    IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]   // Modal
-      _HMG_aControlDeleted [k] := .T.
+      _HMG_aControlDeleted[k] := .T.
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
-*-----------------------------------------------------------------------------*
-PROCEDURE _DataComboRefresh ( i )  // (JK) Modified for extend COMBO HMG 1.0 Build 8
-*-----------------------------------------------------------------------------*
-   
+PROCEDURE _DataComboRefresh(i)  // (JK) Modified for extend COMBO HMG 1.0 Build 8
+
    LOCAL BackValue
    LOCAL BackRec
    LOCAL WorkArea
@@ -464,24 +450,24 @@ PROCEDURE _DataComboRefresh ( i )  // (JK) Modified for extend COMBO HMG 1.0 Bui
 
    WorkArea := _HMG_aControlSpacing[i]
 
-   BackRec := ( WorkArea )->( RecNo() )
+   BackRec := (WorkArea)->(RecNo())
 
-   ( WorkArea )->( dbGoTop() )
+   (WorkArea)->(dbGoTop())
 
    ComboboxReset(ControlHandle)
 
-   DO WHILE !( WorkArea )->( EOF() )  // (JK) HMG 1.0 Experimental Build 8
-      IF  _HMG_aControlMiscData1[i] [1] != 1  // standard Combo
+   DO WHILE !(WorkArea)->(EOF())  // (JK) HMG 1.0 Experimental Build 8
+      IF _HMG_aControlMiscData1[i][1] != 1  // standard Combo
          ComboAddString(ControlHandle, cValToChar((WorkArea)->&(cField)))
       ELSE  // extend Combo
          ComboAddDataStringEx(ControlHandle, cValToChar((WorkArea)->&(cField)))
       ENDIF
-      ( WorkArea )->( dbSkip() )
+      (WorkArea)->(dbSkip())
    ENDDO
 
-   ( WorkArea )->( dbGoto( BackRec ) )
+   (WorkArea)->(dbGoto(BackRec))
 
-   IF BackValue > 0 .AND. BackValue <= ( WorkArea )->( LastRec() )
+   IF BackValue > 0 .AND. BackValue <= (WorkArea)->(LastRec())
       _SetValue(, , BackValue, i)
    ENDIF
 
