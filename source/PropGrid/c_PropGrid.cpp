@@ -80,7 +80,7 @@
 #include <shlobj.h>
 #include <windows.h>
 #include <commctrl.h>
-#include "hbapi.h"
+#include <hbapi.hpp>
 #include "hbvm.h"
 #include "hbstack.h"
 #include "hbapiitm.h"

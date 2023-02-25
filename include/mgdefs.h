@@ -47,7 +47,7 @@
   #define _UNICODE
 #endif /* UNICODE && !_UNICODE */
 
-#include "hbapi.h"
+#include <hbapi.hpp>
 
 #ifndef NO_LEAN_AND_MEAN
   #define WIN32_LEAN_AND_MEAN

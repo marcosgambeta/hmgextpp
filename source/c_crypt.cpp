@@ -55,7 +55,7 @@
 
 #if !defined( __MINGW32__ )
 
-#include "hbapi.h"
+#include <hbapi.hpp>
 
 HB_FUNC( CHARXOR )
 {

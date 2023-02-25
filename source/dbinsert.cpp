@@ -45,7 +45,7 @@
  */
 
 #include <windows.h>
-#include "hbapi.h"
+#include <hbapi.hpp>
 #include "hbapirdd.h"
 #include "hbrdddbf.h"
 #include "hbset.h"

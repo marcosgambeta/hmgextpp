@@ -560,7 +560,7 @@ Return IIf( n > 0 .AND. n < Len(cPathMask), ;
 
 #include <windows.h>
 
-#include "hbapi.h"
+#include <hbapi.hpp>
 #include "hbapiitm.h"
 #include "hbapifs.h"
 

@@ -59,7 +59,7 @@
 #ifndef HB_APISTR_H_
 #define HB_APISTR_H_
 
-#include "hbapi.h"
+#include <hbapi.hpp>
 #include "hbapicdp.h"
 
 HB_EXTERN_BEGIN

@@ -89,7 +89,7 @@ typedef struct tag_ExecStruct
 
 static PHB_DYNS pHB_CSTRUCTURE = NULL, pPOINTER, pVALUE, pBUFFER, pDEVALUE;
 
-#include "hbapi.h"
+#include <hbapi.hpp>
 #include "hbstack.h"
 #include "hbvm.h"
 

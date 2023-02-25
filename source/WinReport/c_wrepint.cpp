@@ -4,7 +4,7 @@
 
 #include <windows.h>
 #include <commctrl.h>
-#include "hbapi.h"
+#include <hbapi.hpp>
 
 // #pragma argsused    // We need a lowercase!!!
 

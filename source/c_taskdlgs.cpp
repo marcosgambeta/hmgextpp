@@ -4,7 +4,7 @@
  * Copyright 2016 P.Chornyj <myorg63@mail.ru>
  */
 
-#include "hbapi.h"
+#include <hbapi.hpp>
 
 #if ( __HARBOUR__ - 0 > 0x030000 )
 

@@ -54,7 +54,7 @@
 #include "base64.h"
 #include "hmac_md5.h"
 
-#include "hbapi.h"
+#include <hbapi.hpp>
 #include "hbapiitm.h"
 #include "hbapierr.h"
 

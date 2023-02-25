@@ -57,7 +57,7 @@
 #include <windowsx.h>
 #include <commctrl.h>
 #include <prsht.h>
-#include "hbapi.h"
+#include <hbapi.hpp>
 #include "hbvm.h"
 #include "hbstack.h"
 #include "hbapiitm.h"
