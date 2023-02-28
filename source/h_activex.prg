@@ -456,7 +456,7 @@ RETURN NIL
    #define NONAMELESSUNION
 #endif
 
-#include <mgdefs.h>
+#include "mgdefs.hpp"
 #include <commctrl.h>
 #include <ocidl.h>
 

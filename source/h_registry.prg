@@ -324,7 +324,7 @@ RETURN lSuccess
  */
 #pragma BEGINDUMP
 
-#include <mgdefs.h>
+#include "mgdefs.hpp"
 
 extern HB_PTRUINT wapi_GetProcAddress( HMODULE hModule, LPCSTR lpProcName );
 

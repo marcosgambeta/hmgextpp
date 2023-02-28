@@ -56,7 +56,7 @@
  + EnumPropsEx()
    ---------------------------------------------------------------------------*/
 
-#include <mgdefs.h>
+#include "mgdefs.hpp"
 
 #include "hbapiitm.h"
 

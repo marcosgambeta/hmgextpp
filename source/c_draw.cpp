@@ -47,7 +47,7 @@
  author: Copyright 2017 (C) P.Chornyj <myorg63@mail.ru>
 */
 
-#include "mgdefs.h"
+#include "mgdefs.hpp"
 #include <hbapiitm.h>
 
 #if defined(__BORLANDC__)

@@ -152,7 +152,7 @@ RETURN NIL
  */
 #pragma BEGINDUMP
 
-#include <mgdefs.h>
+#include "mgdefs.hpp"
 
 #if defined(__MINGW32__) && ( _WIN32_WINNT < 0x0500 )
 #define GRADIENT_FILL_RECT_H    0x00000000

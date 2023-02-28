@@ -84,7 +84,7 @@
 #include "hbvm.h"
 #include "hbstack.h"
 #include "hbapiitm.h"
-#include "mgdefs.h"
+#include "mgdefs.hpp"
 #include <string>
 
 // TODO: revisar e corrigir as redefinições abaixo

@@ -54,7 +54,7 @@
  + GetImageSize()
    ---------------------------------------------------------------------------*/
 
-#include <mgdefs.h>
+#include <mgdefs.hpp>
 #include "hbapiitm.h"
 #include "hbapifs.h"
 

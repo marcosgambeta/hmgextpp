@@ -334,7 +334,7 @@ RETURN NIL
 
 #pragma BEGINDUMP
 
-#include "mgdefs.h"
+#include "mgdefs.hpp"
 #include <commctrl.h>
 #include <hbwinuni.h>
 

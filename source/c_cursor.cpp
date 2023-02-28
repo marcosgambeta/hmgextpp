@@ -53,7 +53,7 @@
    Status:         Public Domain
  */
 
-#include <mgdefs.h>
+#include "mgdefs.hpp"
 
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);

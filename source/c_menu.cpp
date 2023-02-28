@@ -53,7 +53,7 @@
 # define __WINNT__
 #endif
 
-#include <mgdefs.h>
+#include "mgdefs.hpp"
 #include "hbapierr.h"
 #include "hbapiitm.h"
 

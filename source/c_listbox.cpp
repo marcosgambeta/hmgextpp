@@ -45,7 +45,7 @@
 
    ---------------------------------------------------------------------------*/
 
-#include <mgdefs.h>
+#include "mgdefs.hpp"
 
 #include <commctrl.h>
 #include <windowsx.h>

@@ -449,7 +449,7 @@ RETURN RetVal
 #define BS_COMMANDLINK     0x0000000E
 #define BS_DEFCOMMANDLINK  0x0000000F
 
-#include <mgdefs.h>
+#include "mgdefs.hpp"
 #include <commctrl.h>
 
 #ifdef UNICODE

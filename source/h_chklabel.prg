@@ -416,7 +416,7 @@ RETURN iif(Len(cHex) > 4, L2Bin(Int(nDec)), iif(Len(cHex) > 2, I2Bin(Int(nDec)),
 
 #pragma BEGINDUMP
 
-#include "mgdefs.h"
+#include "mgdefs.hpp"
 #include <commctrl.h>
 #include <hbapiitm.h>
 #include <hbvm.h>

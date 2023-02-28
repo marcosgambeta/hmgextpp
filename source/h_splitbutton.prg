@@ -277,7 +277,7 @@ RETURN Nil
 #define BS_SPLITBUTTON     0x0000000C
 #define BS_DEFSPLITBUTTON  0x0000000D
 
-#include <mgdefs.h>
+#include "mgdefs.hpp"
 
 #ifdef UNICODE
    LPWSTR AnsiToWide( LPCSTR );

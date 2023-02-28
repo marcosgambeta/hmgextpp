@@ -49,7 +49,7 @@
 
 // #ifdef _USERINIT_
 
-#include <mgdefs.h>
+#include "mgdefs.hpp"
 #include <vfw.h>
 
 #if defined(__BORLANDC__)

@@ -48,7 +48,7 @@
 
 /* P.Ch. 16.10. */
 
-#include <mgdefs.h>
+#include <mgdefs.hpp>
 
 #include "hbapierr.h"
 

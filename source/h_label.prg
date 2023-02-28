@@ -324,7 +324,7 @@ RETURN 0
 
 #pragma BEGINDUMP
 
-#include "mgdefs.h"
+#include "mgdefs.hpp"
 #include <commctrl.h>
 #include <hbapiitm.h>
 #include <hbvm.h>

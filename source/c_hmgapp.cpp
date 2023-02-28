@@ -51,7 +51,7 @@
 
 #define WINVER  0x0410
 
-#include <mgdefs.h>
+#include "mgdefs.hpp"
 
 #include "shlwapi.h"
 

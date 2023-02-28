@@ -964,7 +964,7 @@ RETURN NIL
 
 #pragma BEGINDUMP
 
-#include "mgdefs.h"
+#include "mgdefs.hpp"
 #include <shellapi.h>
 #include <commctrl.h>
 #include <math.h>

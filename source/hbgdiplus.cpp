@@ -3,7 +3,7 @@
    author: Copyright 2007-2017 (C) P.Chornyj <myorg63@mail.ru>
  */
 
-#include <mgdefs.h>
+#include "mgdefs.hpp"
 
 #define _HMG_STUB_
 #include "hbgdiplus.h"

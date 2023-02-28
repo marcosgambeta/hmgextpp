@@ -46,7 +46,7 @@
     Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#include <mgdefs.h>
+#include "mgdefs.hpp"
 
 #include "hbapiitm.h"
 #include "hbapierr.h"

@@ -47,7 +47,7 @@
  * Copyright 2005 (C) Jacek Kubica <kubica@wssk.wroc.pl>
  */
 
-#include "mgdefs.h"
+#include "mgdefs.hpp"
 #include <shellapi.h>
 #include <commctrl.h>
 #include <math.h>

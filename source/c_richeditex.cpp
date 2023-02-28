@@ -53,7 +53,7 @@
 
    ---------------------------------------------------------------------------*/
 
-#include <mgdefs.h>
+#include "mgdefs.hpp"
 #include <commdlg.h>
 #include <commctrl.h>
 

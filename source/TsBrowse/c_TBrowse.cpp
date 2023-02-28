@@ -6,7 +6,7 @@
 #define _WIN32_IE     0x0500
 #define _WIN32_WINNT  0x0400
 
-#include <mgdefs.h>
+#include "mgdefs.hpp"
 #include <commctrl.h>
 
 #include "hbvm.h"

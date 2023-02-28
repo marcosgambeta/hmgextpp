@@ -47,7 +47,7 @@
 
 #define _WIN32_IE  0x0501
 
-#include <mgdefs.h>
+#include "mgdefs.hpp"
 #include <commctrl.h>
 
 extern BOOL Array2Point(PHB_ITEM aPoint, POINT * pt);

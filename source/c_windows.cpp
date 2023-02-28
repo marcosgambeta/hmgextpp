@@ -55,7 +55,7 @@
 #define _WIN32_WINNT  0x0500
 #endif /* MINGW | XCC */
 
-#include <mgdefs.h>
+#include "mgdefs.hpp"
 
 #include <commctrl.h>
 #include "hbapiitm.h"

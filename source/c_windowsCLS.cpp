@@ -49,7 +49,7 @@
    author: Copyright 2016 (C) P.Chornyj <myorg63@mail.ru>
  */
 
-#include <mgdefs.h>
+#include "mgdefs.hpp"
 
 #include "hbapierr.h"
 #include "hbapistr.h"

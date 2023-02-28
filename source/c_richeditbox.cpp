@@ -45,7 +45,7 @@
 
    ---------------------------------------------------------------------------*/
 
-#include <mgdefs.h>
+#include "mgdefs.hpp"
 
 #include <commctrl.h>
 #if defined( _MSC_VER )

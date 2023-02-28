@@ -6,7 +6,7 @@
 
 #define NO_LEAN_AND_MEAN
 
-#include <mgdefs.h>
+#include "mgdefs.hpp"
 
 #if defined( _MSC_VER )
 # pragma warning ( disable:4996 )

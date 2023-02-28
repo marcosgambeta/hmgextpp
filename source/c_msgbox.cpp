@@ -45,7 +45,7 @@
 
    ---------------------------------------------------------------------------*/
 
-#include <mgdefs.h>
+#include "mgdefs.hpp"
 
 /* undocumented Windows API */
 int WINAPI MessageBoxTimeout(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT uType, WORD wLanguageId, DWORD dwMilliseconds);

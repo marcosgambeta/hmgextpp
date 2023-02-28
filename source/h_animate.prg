@@ -247,7 +247,7 @@ RETURN
 
 #pragma BEGINDUMP
 
-#include "mgdefs.h"
+#include "mgdefs.hpp"
 #include <hbwinuni.h>
 #include <mmsystem.h>
 #include <commctrl.h>

@@ -47,7 +47,7 @@
 
 #define _WIN32_IE  0x0501
 
-#include <mgdefs.h>
+#include "mgdefs.hpp"
 #include <commctrl.h>
 
 HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transparent, int * nWidth, int * nHeight);

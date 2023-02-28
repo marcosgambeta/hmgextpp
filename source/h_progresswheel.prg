@@ -943,7 +943,7 @@ RETURN
 #pragma BEGINDUMP
 
 #define WINVER 0x0501  // minimum requirements: Windows XP
-#include <mgdefs.h>
+#include "mgdefs.hpp"
 
 #include <commctrl.h>
 

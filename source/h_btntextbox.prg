@@ -426,7 +426,7 @@ RETURN 0
 
 #pragma BEGINDUMP
 
-#include "mgdefs.h"
+#include "mgdefs.hpp"
 #include <hbapiitm.h>
 #include <hbstack.h>
 #include <hbvm.h>

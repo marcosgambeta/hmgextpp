@@ -283,7 +283,7 @@ RETURN NIL
 
 #pragma BEGINDUMP
 
-#include <mgdefs.h>
+#include "mgdefs.hpp"
 #include "hbapiitm.h"
 #include <commctrl.h>
 

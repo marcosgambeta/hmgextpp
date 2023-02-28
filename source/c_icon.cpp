@@ -48,7 +48,7 @@
    author: Copyright 2016 (C) P.Chornyj <myorg63@mail.ru>
  */
 
-#include <mgdefs.h>
+#include "mgdefs.hpp"
 
 #include <shellapi.h>
 

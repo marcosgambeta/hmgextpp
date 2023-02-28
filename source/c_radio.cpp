@@ -45,7 +45,7 @@
 
    ---------------------------------------------------------------------------*/
 
-#include <mgdefs.h>
+#include "mgdefs.hpp"
 
 #ifndef WC_BUTTON
 #define WC_BUTTON  "Button"

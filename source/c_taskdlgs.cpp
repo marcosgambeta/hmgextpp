@@ -28,7 +28,7 @@
 
 #include <hbwinuni.h>
 
-#include <mgdefs.h>
+#include "mgdefs.hpp"
 #include <commctrl.h>
 
 #include "hbapicls.h"
