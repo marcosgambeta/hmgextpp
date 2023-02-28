@@ -55,8 +55,8 @@
 #include "hmac_md5.h"
 
 #include <hbapi.hpp>
-#include "hbapiitm.h"
-#include "hbapierr.h"
+#include <hbapiitm.hpp>
+#include <hbapierr.hpp>
 
 #define HB_STORC( n, x, y ) hb_storvc( n, x, y )
 

@@ -57,8 +57,8 @@
 #endif
 #include <commctrl.h>
 
-#include "hbapiitm.h"
-#include "hbvm.h"
+#include <hbapiitm.hpp>
+#include <hbvm.hpp>
 
 #define FLBTN_OK         1
 #define FLBTN_APPLY      2

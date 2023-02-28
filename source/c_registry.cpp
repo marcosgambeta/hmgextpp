@@ -47,7 +47,7 @@
 
 #include "mgdefs.hpp"
 #include <commctrl.h>
-#include "hbapiitm.h"
+#include <hbapiitm.hpp>
 
 #if ( defined( __BORLANDC__ ) && defined( _WIN64 ) )
 #define PtrToLong(p)  ( ( LONG ) ( p ) )

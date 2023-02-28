@@ -64,8 +64,8 @@
 #endif
 
 #include "hbgdiplus.h"
-#include "hbapiitm.h"
-#include "hbvm.h"
+#include <hbapiitm.hpp>
+#include <hbvm.hpp>
 
 #ifndef WC_STATIC
 #define WC_STATIC TEXT("Static")

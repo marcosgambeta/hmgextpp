@@ -561,8 +561,8 @@ Return IIf( n > 0 .AND. n < Len(cPathMask), ;
 #include <windows.h>
 
 #include <hbapi.hpp>
-#include "hbapiitm.h"
-#include "hbapifs.h"
+#include <hbapiitm.hpp>
+#include <hbapifs.hpp>
 
 #ifndef HB_LEGACY_LEVEL
 #define FHANDLE HB_FHANDLE

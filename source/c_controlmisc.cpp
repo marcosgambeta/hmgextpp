@@ -47,7 +47,7 @@
 
 #define _WIN32_IE  0x0501
 
-#include <mgdefs.hpp>
+#include "mgdefs.hpp"
 
 #include <commctrl.h>
 
@@ -286,9 +286,9 @@ HB_FUNC( MOVEBTNTEXTBOX )   //MoveBtnTextBox(hEdit, hBtn1, hBtn2, fBtn2, BtnWidt
 
 #if ( __HARBOUR__ - 0 < 0x030200 )
 
-#include "hbapiitm.h"
-#include "hbapicdp.h"
-#include "hbapierr.h"
+#include <hbapiitm.hpp>
+#include <hbapicdp.hpp>
+#include <hbapierr.hpp>
 
 HB_FUNC( HB_DATE )
 {

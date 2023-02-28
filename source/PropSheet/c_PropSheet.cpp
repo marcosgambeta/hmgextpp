@@ -58,9 +58,9 @@
 #include <commctrl.h>
 #include <prsht.h>
 #include <hbapi.hpp>
-#include "hbvm.h"
-#include "hbstack.h"
-#include "hbapiitm.h"
+#include <hbvm.hpp>
+#include <hbstack.hpp>
+#include <hbapiitm.hpp>
 
 
 extern PWORD   CreateDlgTemplate(long lTemplateSize,  PHB_ITEM dArray,PHB_ITEM cArray);

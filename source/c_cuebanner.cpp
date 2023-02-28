@@ -48,11 +48,11 @@
 
 /* P.Ch. 16.10. */
 
-#include <mgdefs.hpp>
+#include "mgdefs.hpp"
 
-#include "hbapierr.h"
+#include <hbapierr.hpp>
 
-#include "hbwinuni.h"
+#include <hbwinuni.hpp>
 
 #if ( !defined( EM_GETCUEBANNER ) )
 # if ( !defined( ECM_FIRST ) )

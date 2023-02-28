@@ -50,10 +50,10 @@
 #include "mgdefs.hpp"
 #include <commctrl.h>
 
-#include "hbapiitm.h"
-#include "hbapierr.h"
+#include <hbapiitm.hpp>
+#include <hbapierr.hpp>
 
-#include "hbapicdp.h"
+#include <hbapicdp.hpp>
 
 extern BOOL _isValidCtrlClass(HWND, LPCTSTR);
 

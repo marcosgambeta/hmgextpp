@@ -50,7 +50,7 @@
 
 #include "mgdefs.hpp"
 
-#include "hbapifs.h"
+#include <hbapifs.hpp>
 
 HINSTANCE GetInstance(void);
 

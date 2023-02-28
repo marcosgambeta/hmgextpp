@@ -81,9 +81,9 @@
 #include <windows.h>
 #include <commctrl.h>
 #include <hbapi.hpp>
-#include "hbvm.h"
-#include "hbstack.h"
-#include "hbapiitm.h"
+#include <hbvm.hpp>
+#include <hbstack.hpp>
+#include <hbapiitm.hpp>
 #include "mgdefs.hpp"
 #include <string>
 

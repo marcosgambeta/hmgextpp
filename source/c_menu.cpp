@@ -54,10 +54,10 @@
 #endif
 
 #include "mgdefs.hpp"
-#include "hbapierr.h"
-#include "hbapiitm.h"
+#include <hbapierr.hpp>
+#include <hbapiitm.hpp>
 
-#include "hbwinuni.h"
+#include <hbwinuni.hpp>
 #if ( __HARBOUR__ - 0 < 0x030200 )
 # define HB_STRNLEN    hb_strnlen
 # define HB_STRNDUP    hb_strndup

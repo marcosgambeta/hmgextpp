@@ -54,9 +54,9 @@
  + GetImageSize()
    ---------------------------------------------------------------------------*/
 
-#include <mgdefs.hpp>
-#include "hbapiitm.h"
-#include "hbapifs.h"
+#include "mgdefs.hpp"
+#include <hbapiitm.hpp>
+#include <hbapifs.hpp>
 
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);

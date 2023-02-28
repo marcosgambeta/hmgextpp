@@ -58,13 +58,13 @@
 #include "mgdefs.hpp"
 
 #include <commctrl.h>
-#include "hbapiitm.h"
-#include "hbvm.h"
+#include <hbapiitm.hpp>
+#include <hbvm.hpp>
 
-#include "hbwinuni.h"
-#include "hbthread.h"
+#include <hbwinuni.hpp>
+#include <hbthread.hpp>
 
-#include "hbatomic.h"
+#include <hbatomic.hpp>
 
 #ifndef WC_STATIC
 #define WC_STATIC         "Static"

@@ -51,7 +51,7 @@
 
 #include <commctrl.h>
 
-#include "hbvm.h"
+#include <hbvm.hpp>
 
 #ifndef WC_EDIT
 #define WC_EDIT               "Edit"

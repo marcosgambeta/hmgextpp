@@ -46,9 +46,9 @@
 
 #include <windows.h>
 #include <hbapi.hpp>
-#include "hbapirdd.h"
-#include "hbrdddbf.h"
-#include "hbset.h"
+#include <hbapirdd.hpp>
+#include <hbrdddbf.hpp>
+#include <hbset.hpp>
 
 HB_FUNC( DBINSERT )
 {

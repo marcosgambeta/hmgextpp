@@ -57,10 +57,10 @@
 */
 
 
-#include "hbvmopt.h"
-#include "hbapistr.h"
-#include "hbapiitm.h"
-#include "hbstack.h"
+#include <hbvmopt.hpp>
+#include <hbapistr.hpp>
+#include <hbapiitm.hpp>
+#include <hbstack.hpp>
 
 /*----------------------------------------------------------------------------------
  String functions 

@@ -51,8 +51,8 @@
 
 #include "mgdefs.hpp"
 
-#include "hbapierr.h"
-#include "hbapistr.h"
+#include <hbapierr.hpp>
+#include <hbapistr.hpp>
 
 #ifdef UNICODE
 BOOL _isValidCtrlClassW(HWND hwndTip, LPWSTR ClassName);

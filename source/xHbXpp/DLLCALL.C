@@ -65,7 +65,7 @@
 #define _WIN32_WINNT   0x0400
 #define  WIN32_LEAN_AND_MEAN
 
-#include "hbapiitm.h"
+#include <hbapiitm.hpp>
 
 //#if defined( HB_OS_WIN_32 )
 
@@ -90,8 +90,8 @@ typedef struct tag_ExecStruct
 static PHB_DYNS pHB_CSTRUCTURE = NULL, pPOINTER, pVALUE, pBUFFER, pDEVALUE;
 
 #include <hbapi.hpp>
-#include "hbstack.h"
-#include "hbvm.h"
+#include <hbstack.hpp>
+#include <hbvm.hpp>
 
 HB_EXTERN_BEGIN
    HB_EXPORT char * hb_parcstruct(int iParam, ...);

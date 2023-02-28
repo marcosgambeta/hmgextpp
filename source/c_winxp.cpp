@@ -52,7 +52,7 @@
 
 #include "mgdefs.hpp"
 
-#include "hbapiitm.h"
+#include <hbapiitm.hpp>
 
 #ifndef __WINE_UXTHEME_H
 #define __WINE_UXTHEME_H

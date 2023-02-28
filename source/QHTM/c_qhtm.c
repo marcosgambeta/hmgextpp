@@ -14,8 +14,8 @@
   #define HB_NO_DEFAULT_STACK_MACROS
 #endif
 #include <hbapi.hpp>
-#include "hbapiitm.h"
-#include "hbvm.h"
+#include <hbapiitm.hpp>
+#include <hbvm.hpp>
 
 #include "qhtm.h"
 

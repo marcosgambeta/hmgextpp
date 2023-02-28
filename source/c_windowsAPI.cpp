@@ -59,9 +59,9 @@
 #include <richedit.h>
 #include <shellapi.h>
 
-#include "hbapiitm.h"
-#include "hbapierr.h"
-#include "hbvm.h"
+#include <hbapiitm.hpp>
+#include <hbapierr.hpp>
+#include <hbvm.hpp>
 
 #define WM_TASKBAR  WM_USER + 1043
 

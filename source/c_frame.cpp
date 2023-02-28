@@ -48,7 +48,7 @@
 
 #include "mgdefs.hpp"
 
-#include "hbapierr.h"
+#include <hbapierr.hpp>
 
 #ifndef WC_BUTTON
 #define WC_BUTTON  "Button"

@@ -57,9 +57,9 @@
 #endif
 #include "richedit.h"
 
-#include "hbapiitm.h"
-#include "hbstack.h"
-#include "hbvm.h"
+#include <hbapiitm.hpp>
+#include <hbstack.hpp>
+#include <hbvm.hpp>
 
 #ifndef WC_EDIT
 #define WC_EDIT    "Edit"

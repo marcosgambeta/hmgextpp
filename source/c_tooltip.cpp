@@ -53,9 +53,9 @@
 
 #include "mgdefs.hpp"
 
-#include "hbapierr.h"
-#include "hbapiitm.h"
-#include "hbapicdp.h"
+#include <hbapierr.hpp>
+#include <hbapiitm.hpp>
+#include <hbapicdp.hpp>
 
 #include <commctrl.h>
 

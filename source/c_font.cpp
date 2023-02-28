@@ -48,11 +48,11 @@
 
 #include "mgdefs.hpp"
 
-#include "hbapiitm.h"
-#include "hbapierr.h"
+#include <hbapiitm.hpp>
+#include <hbapierr.hpp>
 
 #if ( __HARBOUR__ - 0 > 0x030000 )
-#include "hbwinuni.h"
+#include <hbwinuni.hpp>
 #else
 #define HB_STRNCPY  hb_strncpy
 #endif

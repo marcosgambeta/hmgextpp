@@ -56,13 +56,13 @@
 #include <shlobj.h>
 #include <shlwapi.h>
 
-#include "hbapierr.h"
-#include "hbapiitm.h"
+#include <hbapierr.hpp>
+#include <hbapiitm.hpp>
 
 /* this has to be declared before hbapifs.h is included */
 #define _HB_FILE_INTERNAL_
 
-#include "hbapifs.h"
+#include <hbapifs.hpp>
 #include "inkey.ch"
 
 #if defined( _MSC_VER )

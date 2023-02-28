@@ -31,10 +31,10 @@
 #include "mgdefs.hpp"
 #include <commctrl.h>
 
-#include "hbapicls.h"
-#include "hbapierr.h"
-#include "hbapiitm.h"
-#include "hbvm.h"
+#include <hbapicls.hpp>
+#include <hbapierr.hpp>
+#include <hbapiitm.hpp>
+#include <hbvm.hpp>
 
 #include "TaskDlgs.h"
 

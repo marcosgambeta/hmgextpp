@@ -53,8 +53,8 @@
 
 #include <commctrl.h>
 
-#include "hbvm.h"
-#include "hbdate.h"
+#include <hbvm.hpp>
+#include <hbdate.hpp>
 
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);

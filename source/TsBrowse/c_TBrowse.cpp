@@ -9,10 +9,10 @@
 #include "mgdefs.hpp"
 #include <commctrl.h>
 
-#include "hbvm.h"
+#include <hbvm.hpp>
 
 #ifdef UNICODE
-   #include "hbwinuni.h"
+   #include <hbwinuni.hpp>
    LPWSTR AnsiToWide(LPCSTR);
 #endif
 

@@ -54,7 +54,7 @@
 
 #include <commctrl.h>
 
-#include "hbvm.h"
+#include <hbvm.hpp>
 
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);

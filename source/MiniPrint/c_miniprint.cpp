@@ -62,7 +62,7 @@
 #define NO_LEAN_AND_MEAN
 
 #include "mgdefs.hpp"
-#include "hbapiitm.h"
+#include <hbapiitm.hpp>
 
 #include <olectl.h>
 

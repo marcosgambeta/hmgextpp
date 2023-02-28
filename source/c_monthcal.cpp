@@ -51,9 +51,9 @@
 
 #include "mgdefs.hpp"
 #include <commctrl.h>
-#include "hbapiitm.h"
-#include "hbvm.h"
-#include "hbdate.h"
+#include <hbapiitm.hpp>
+#include <hbvm.hpp>
+#include <hbdate.hpp>
 
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);

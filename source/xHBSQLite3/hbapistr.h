@@ -60,7 +60,7 @@
 #define HB_APISTR_H_
 
 #include <hbapi.hpp>
-#include "hbapicdp.h"
+#include <hbapicdp.hpp>
 
 HB_EXTERN_BEGIN
 

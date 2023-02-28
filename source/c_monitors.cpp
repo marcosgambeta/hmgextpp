@@ -50,8 +50,8 @@
  */
 
 #include "mgdefs.hpp"
-#include "hbapierr.h"
-#include "hbapiitm.h"
+#include <hbapierr.hpp>
+#include <hbapiitm.hpp>
 
 extern HB_EXPORT BOOL Array2Point(PHB_ITEM aPoint, POINT * pt);
 HB_EXPORT PHB_ITEM Rect2Hash(RECT * rc);

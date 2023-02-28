@@ -284,7 +284,7 @@ RETURN NIL
 #pragma BEGINDUMP
 
 #include "mgdefs.hpp"
-#include "hbapiitm.h"
+#include <hbapiitm.hpp>
 #include <commctrl.h>
 
 HB_FUNC( HMG_SETWINDOWOBJECT )

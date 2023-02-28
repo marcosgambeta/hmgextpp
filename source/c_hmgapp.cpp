@@ -55,8 +55,8 @@
 
 #include "shlwapi.h"
 
-#include "hbinit.h"
-#include "hbvm.h"
+#include <hbinit.hpp>
+#include <hbvm.hpp>
 
 #define _HMG_STUB_
 #include "hbgdiplus.h"
@@ -112,7 +112,7 @@ HB_CALL_ON_STARTUP_END(_hmg_init_)
    #pragma startup _hmg_init_
 #elif defined( HB_DATASEG_STARTUP )
    #define HB_DATASEG_BODY  HB_DATASEG_FUNC( _hmg_init_ )
-   #include "hbiniseg.h"
+   #include <hbiniseg.hpp>
 #endif
 
 HINSTANCE GetInstance(void)

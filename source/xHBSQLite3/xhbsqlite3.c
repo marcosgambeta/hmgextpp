@@ -57,12 +57,12 @@
  November 18, 2011 by R.Visscher <richard@irvis.com>
 -----------------------------------------------------------------------------------------*/
  
-#include "hbvm.h"
+#include <hbvm.hpp>
 #include <hbapi.hpp>
-#include "hbapiitm.h"
-#include "hbapierr.h"
-#include "hbapifs.h"
-#include "hbstack.h"
+#include <hbapiitm.hpp>
+#include <hbapierr.hpp>
+#include <hbapifs.hpp>
+#include <hbstack.hpp>
 
 #include "hbapistr.h"   // ported from Harbour
 
