@@ -57,10 +57,6 @@
 HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transparent, int * nWidth, int * nHeight);
 void HMG_ImageListAdd(HIMAGELIST himl, const char * FileName, int Transparent);
 
-#ifdef UNICODE
-LPWSTR AnsiToWide(LPCSTR);
-LPSTR  WideToAnsi(LPWSTR);
-#endif
 HINSTANCE GetInstance(void);
 HINSTANCE GetResources(void);
 
@@ -170,7 +166,7 @@ HB_FUNC( COMBOSHOWDROPDOWN )
 }
 
 /*
-COMBOEDITSETSEL(HWND, p2, p3) --> numeric
+COMBOEDITSETSEL(HWND, np2, np3) --> numeric
 */
 HB_FUNC( COMBOEDITSETSEL )
 {
@@ -189,7 +185,7 @@ HB_FUNC( COMBOGETEDITSEL )
 }
 
 /*
-COMBOSELECTSTRING(HWND, p2) --> numeric
+COMBOSELECTSTRING(HWND, cp2) --> numeric
 */
 HB_FUNC( COMBOSELECTSTRING )
 {
@@ -221,29 +217,23 @@ HB_FUNC( COMBOFINDSTRINGEXACT )
 /* Modified by P.Ch. 16.10. */
 
 /*
-COMBOGETSTRING(HWND, p2) --> cString
+COMBOGETSTRING(HWND, np2) --> cString
 */
 HB_FUNC( COMBOGETSTRING )
 {
-#ifdef UNICODE
-   LPSTR lpString;
-#endif
-   int iLen = SendMessage(hmg_par_HWND(1), CB_GETLBTEXTLEN, hmg_par_WPARAM(2) - 1, 0);
-   TCHAR * cString;
+   int strlen = SendMessage(hmg_par_HWND(1), CB_GETLBTEXTLEN, hmg_par_WPARAM(2) - 1, 0);
 
-   if( iLen > 0 && (cString = static_cast<TCHAR*>(hb_xgrab((iLen + 1) * sizeof(TCHAR)))) != nullptr )
+   if( strlen > 0 )
    {
-      SendMessage(hmg_par_HWND(1), CB_GETLBTEXT, hmg_par_WPARAM(2) - 1, reinterpret_cast<LPARAM>(cString));
-#ifdef UNICODE
-      lpString = WideToAnsi(cString);
-      hb_retc( lpString );
-      hb_xfree(lpString);
-#else
-      hb_retclen_buffer(cString, iLen);
-#endif
+      TCHAR * str = new TCHAR[strlen + 1];
+      SendMessage(hmg_par_HWND(1), CB_GETLBTEXT, hmg_par_WPARAM(2) - 1, reinterpret_cast<LPARAM>(str));
+      HB_RETSTR(str);
+      delete[] str;
    }
-
-   hb_retc_null();
+   else
+   {
+     hb_retc_null();
+   }
 }
 
 /*
@@ -257,7 +247,7 @@ HB_FUNC( COMBOADDSTRING )
 }
 
 /*
-COMBOINSERTSTRING(HWND, cString, p3) --> NIL
+COMBOINSERTSTRING(HWND, cString, np3) --> NIL
 */
 HB_FUNC( COMBOINSERTSTRING )
 {
@@ -269,55 +259,43 @@ HB_FUNC( COMBOINSERTSTRING )
 // extend combo functions  (JK)  HMG 1.0 Exp. Build 8
 
 /*
-COMBOADDSTRINGEX(HWND, cString, p3) --> NIL
+COMBOADDSTRINGEX(HWND, cString, np3) --> NIL
 */
 HB_FUNC( COMBOADDSTRINGEX )
 {
-#ifndef UNICODE
-   LPTSTR lpText = ( LPTSTR ) hb_parc(2);
-#else
-   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(2));
-#endif
+   void * Text;
    int nImage = hb_parni(3);
    COMBOBOXEXITEM cbei;
    cbei.mask           = CBEIF_TEXT | CBEIF_INDENT | CBEIF_IMAGE | CBEIF_SELECTEDIMAGE | CBEIF_OVERLAY;
    cbei.iItem          = -1;
-   cbei.pszText        = lpText;
+   cbei.pszText        = const_cast<char*>(HB_PARSTR(2, &Text, nullptr));
    cbei.cchTextMax     = hb_parclen(2);
    cbei.iImage         = (nImage - 1) * 3;
    cbei.iSelectedImage = (nImage - 1) * 3 + 1;
    cbei.iOverlay       = (nImage - 1) * 3 + 2;
    cbei.iIndent        = 0;
    SendMessage(hmg_par_HWND(1), CBEM_INSERTITEM, 0, reinterpret_cast<LPARAM>(&cbei));
-#ifdef UNICODE
-   hb_xfree(lpText);
-#endif
+   hb_strfree(Text);
 }
 
 /*
-COMBOINSERTSTRINGEX(HWND, cString, p3, p4) --> NIL
+COMBOINSERTSTRINGEX(HWND, cString, np3, np4) --> NIL
 */
 HB_FUNC( COMBOINSERTSTRINGEX )
 {
-#ifndef UNICODE
-   LPTSTR lpText = ( LPTSTR ) hb_parc(2);
-#else
-   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(2));
-#endif
+   void * Text;
    int nImage = hb_parni(3);
    COMBOBOXEXITEM cbei;
    cbei.mask           = CBEIF_TEXT | CBEIF_INDENT | CBEIF_IMAGE | CBEIF_SELECTEDIMAGE | CBEIF_OVERLAY;
    cbei.iItem          = hb_parni(4) - 1;
-   cbei.pszText        = lpText;
+   cbei.pszText        = const_cast<char*>(HB_PARSTR(2, &Text, nullptr));
    cbei.cchTextMax     = hb_parclen(2);
    cbei.iImage         = (nImage - 1) * 3;
    cbei.iSelectedImage = (nImage - 1) * 3 + 1;
    cbei.iOverlay       = (nImage - 1) * 3 + 2;
    cbei.iIndent        = 0;
    SendMessage(hmg_par_HWND(1), CBEM_INSERTITEM, 0, reinterpret_cast<LPARAM>(&cbei));
-#ifdef UNICODE
-   hb_xfree(lpText);
-#endif
+   hb_strfree(Text);
 }
 
 /*
@@ -325,22 +303,16 @@ COMBOADDDATASTRINGEX(HWND, cString) --> NIL
 */
 HB_FUNC( COMBOADDDATASTRINGEX )
 {
-#ifndef UNICODE
-   LPTSTR lpText = ( LPTSTR ) hb_parc(2);
-#else
-   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(2));
-#endif
+   void * Text;
    COMBOBOXEXITEM cbei;
    cbei.mask           = CBEIF_TEXT | CBEIF_INDENT | CBEIF_IMAGE | CBEIF_SELECTEDIMAGE | CBEIF_OVERLAY;
    cbei.iItem          = -1;
-   cbei.pszText        = lpText;
+   cbei.pszText        = const_cast<char*>(HB_PARSTR(2, &Text, nullptr));
    cbei.cchTextMax     = hb_parclen(2);
    cbei.iImage         = 0;
    cbei.iSelectedImage = 1;
    cbei.iOverlay       = 2;
    cbei.iIndent        = 0;
    SendMessage(hmg_par_HWND(1), CBEM_INSERTITEM, 0, reinterpret_cast<LPARAM>(&cbei));
-#ifdef UNICODE
-   hb_xfree(lpText);
-#endif
+   hb_strfree(Text);
 }
