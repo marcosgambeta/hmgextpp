@@ -4,7 +4,7 @@
 
 -iinclude
 
--prgflag=-n -w3 -es2
+-prgflag=-n -w3 -es2 -gc3
 -cflag=-DCINTERFACE
 
 # C++

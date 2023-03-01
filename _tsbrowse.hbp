@@ -4,7 +4,7 @@
 
 -iinclude
 
--prgflag=-n -w2 -es2
+-prgflag=-n -w2 -es2 -gc3
 
 source\TsBrowse\c_controlmisc1.cpp
 source\TsBrowse\c_TBrowse.cpp

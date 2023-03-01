@@ -4,7 +4,7 @@
 
 -iinclude
 
--prgflag=-n -w2 -es2
+-prgflag=-n -w2 -es2 -gc3
 
 source\WinReport\fncMyError.Prg
 source\WinReport\h_WreMix.prg

@@ -4,7 +4,7 @@
 
 -iinclude
 
--prgflag=-n -w2 -es2
+-prgflag=-n -w2 -es2 -gc3
 
 source\PropGrid\c_PropGrid.cpp
 source\PropGrid\h_PGLang.prg
