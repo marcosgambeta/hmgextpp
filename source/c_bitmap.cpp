@@ -1,66 +1,63 @@
-/*----------------------------------------------------------------------------
-   MINIGUI - Harbour Win32 GUI library source code
-
-   Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
-   http://harbourminigui.googlepages.com/
-
-   This program is free software; you can redistribute it and/or modify it under
-   the terms of the GNU General Public License as published by the Free Software
-   Foundation; either version 2 of the License, or (at your option) any later
-   version.
-
-   This program is distributed in the hope that it will be useful, but WITHOUT
-   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-   FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License along with
-   this software; see the file COPYING. If not, write to the Free Software
-   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
-   visit the web site http://www.gnu.org/).
-
-   As a special exception, you have permission for additional uses of the text
-   contained in this release of Harbour Minigui.
-
-   The exception is that, if you link the Harbour Minigui library with other
-   files to produce an executable, this does not by itself cause the resulting
-   executable to be covered by the GNU General Public License.
-   Your use of that executable is in no way restricted on account of linking the
-   Harbour-Minigui library code into it.
-
-   Parts of this project are based upon:
-
-    "Harbour GUI framework for Win32"
-    Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
-    Copyright 2001 Antonio Linares <alinares@fivetech.com>
-    www - https://harbour.github.io/
-
-    "Harbour Project"
-    Copyright 1999-2022, https://harbour.github.io/
-
-    "WHAT32"
-    Copyright 2002 AJ Wos <andrwos@aust1.net>
-
-    "HWGUI"
-    Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
-
-   Parts of this code are contributed for MiniGUI Project
-   used here under permission of authors :
-
-   Copyright 2005 (C) Andy Wos <andywos@unwired.com.au>
- + DrawGlyph()
-   Copyright 2005 (C) Jacek Kubica <kubica@wssk.wroc.pl>
- + GetBitmapSize(),GetIconSize(),DrawGlyphMask()
-   Copyright 2009 (C) Andi Jahja <harbour@cbn.net.id>
- + GetImageSize()
-   ---------------------------------------------------------------------------*/
+/*
+ * MINIGUI - Harbour Win32 GUI library source code
+ *
+ * Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
+ * http://harbourminigui.googlepages.com/
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this software; see the file COPYING. If not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
+ * visit the web site http://www.gnu.org/).
+ *
+ * As a special exception, you have permission for additional uses of the text
+ * contained in this release of Harbour Minigui.
+ *
+ * The exception is that, if you link the Harbour Minigui library with other
+ * files to produce an executable, this does not by itself cause the resulting
+ * executable to be covered by the GNU General Public License.
+ * Your use of that executable is in no way restricted on account of linking the
+ * Harbour-Minigui library code into it.
+ *
+ * Parts of this project are based upon:
+ *
+ * "Harbour GUI framework for Win32"
+ * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+ * Copyright 2001 Antonio Linares <alinares@fivetech.com>
+ * www - https://harbour.github.io/
+ *
+ * "Harbour Project"
+ * Copyright 1999-2022, https://harbour.github.io/
+ *
+ * "WHAT32"
+ * Copyright 2002 AJ Wos <andrwos@aust1.net>
+ *
+ * "HWGUI"
+ * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
+ *
+ * Parts of this code are contributed for MiniGUI Project
+ * used here under permission of authors:
+ *
+ * Copyright 2005 (C) Andy Wos <andywos@unwired.com.au>
+ * + DrawGlyph()
+ * Copyright 2005 (C) Jacek Kubica <kubica@wssk.wroc.pl>
+ * + GetBitmapSize(),GetIconSize(),DrawGlyphMask()
+ * Copyright 2009 (C) Andi Jahja <harbour@cbn.net.id>
+ * + GetImageSize()
+ */
 
 #include "mgdefs.hpp"
 #include <hbapiitm.hpp>
 #include <hbapifs.hpp>
-
-#ifdef UNICODE
-LPWSTR AnsiToWide(LPCSTR);
-#endif
+#include <hbwinuni.hpp>
 
 HANDLE   DibFromBitmap(HBITMAP, HPALETTE);
 WORD     GetDIBColors(LPSTR);
@@ -77,12 +74,7 @@ HB_FUNC( SAVEWINDOWBYHANDLE )
    HBITMAP  hOldBmp;
    HPALETTE hPal = 0;
    HANDLE   hDIB;
-
-#ifndef UNICODE
-   LPCSTR lpFileName = ( char * ) hb_parc(2);
-#else
-   LPCWSTR lpFileName = AnsiToWide(( char * ) hb_parc(2));
-#endif
+   void * FileName;
    int top    = hb_parni(3);
    int left   = hb_parni(4);
    int bottom = hb_parni(5);
@@ -113,7 +105,7 @@ HB_FUNC( SAVEWINDOWBYHANDLE )
    SelectObject(hMemDC, hOldBmp);
    hDIB = DibFromBitmap(hBitmap, hPal);
 
-   filehandle = CreateFile(lpFileName, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
+   filehandle = CreateFile(HB_PARSTR(2, &FileName, nullptr), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
 
    lpBI = ( LPBITMAPINFOHEADER ) GlobalLock(hDIB);
    if( lpBI && lpBI->biSize == sizeof(BITMAPINFOHEADER) )
@@ -137,9 +129,8 @@ HB_FUNC( SAVEWINDOWBYHANDLE )
       WriteFile(filehandle, ( LPSTR ) lpBI, dwDIBSize, &dwWritten, nullptr);
    }
 
-#ifdef UNICODE
-   hb_xfree(( TCHAR * ) lpFileName);
-#endif
+   hb_strfree(FileName);
+
    GlobalUnlock(hDIB);
    CloseHandle(filehandle);
 
@@ -159,12 +150,7 @@ HB_FUNC( WNDCOPY )
    HBITMAP  hOldBmp;
    HPALETTE hPal  = 0;
    BOOL     bRect = hb_parl(2);
-
-#ifndef UNICODE
-   LPCSTR lpFileName = ( char * ) hb_parc(3);
-#else
-   LPCWSTR lpFileName = AnsiToWide(( char * ) hb_parc(3));
-#endif
+   void * FileName;
    HANDLE hDIB;
    BITMAPFILEHEADER   bmfHdr;
    LPBITMAPINFOHEADER lpBI;
@@ -181,7 +167,7 @@ HB_FUNC( WNDCOPY )
    {
       GetClientRect(hWnd, &rc);
    }
-   
+
    hMemDC  = CreateCompatibleDC(hDC);
    hBitmap = CreateCompatibleBitmap(hDC, rc.right - rc.left, rc.bottom - rc.top);
    hOldBmp = ( HBITMAP ) SelectObject(hMemDC, hBitmap);
@@ -189,7 +175,7 @@ HB_FUNC( WNDCOPY )
    SelectObject(hMemDC, hOldBmp);
    hDIB = DibFromBitmap(hBitmap, hPal);
 
-   filehandle = CreateFile(lpFileName, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
+   filehandle = CreateFile(HB_PARSTR(3, &FileName, nullptr), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
 
    lpBI = ( LPBITMAPINFOHEADER ) GlobalLock(hDIB);
    if( lpBI && lpBI->biSize == sizeof(BITMAPINFOHEADER) )
@@ -213,9 +199,8 @@ HB_FUNC( WNDCOPY )
       WriteFile(filehandle, ( LPSTR ) lpBI, dwDIBSize, &dwWritten, nullptr);
    }
 
-#ifdef UNICODE
-   hb_xfree(( TCHAR * ) lpFileName);
-#endif
+   hb_strfree(FileName);
+
    GlobalUnlock(hDIB);
    CloseHandle(filehandle);
 
@@ -735,11 +720,9 @@ HB_FUNC( DRAWGLYPHMASK )
  */
 HB_FUNC( LOADBITMAP )
 {
-#ifndef UNICODE
-   LPCSTR lpImageName = hb_parc(1);
-#else
-   LPWSTR lpImageName = AnsiToWide(( char * ) hb_parc(1));
-#endif
+   void * ImageName;
+   LPCTSTR lpImageName = HB_PARSTR(1, &ImageName, nullptr);
+
    HBITMAP hBitmap;
 
    hBitmap = ( HBITMAP ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR);
@@ -748,13 +731,11 @@ HB_FUNC( LOADBITMAP )
    {
       hBitmap = ( HBITMAP ) LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR);
    }
-   
+
    RegisterResource(hBitmap, "BMP");
    hmg_ret_HANDLE(hBitmap);
 
-#ifdef UNICODE
-   hb_xfree(lpImageName);
-#endif
+   hb_strfree(ImageName);
 }
 
 /*
@@ -781,7 +762,7 @@ VOID DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgb
       {
          return;
       }
-      
+
       DeleteObject(icon.hbmMask);
       DeleteObject(icon.hbmColor);
 
@@ -789,7 +770,7 @@ VOID DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgb
       {
          return;
       }
-      
+
       if( !disabled && !stretched )
       {
          DrawIconEx(hDC, x, y, ( HICON ) hBmp, dx, dy, 0, nullptr, DI_NORMAL);
@@ -807,7 +788,7 @@ VOID DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgb
             // convert icon to bitmap.
             hBmp = Icon2Bmp(( HICON ) hBmp);
          }
-         
+
          hBmpIcon = hBmp;
 
          // ignore colour given by the user, if any
@@ -855,7 +836,7 @@ VOID DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgb
    {
       rgbTransparent = GetPixel(hDCMem, 0, 0);
    }
-   
+
    // build mask based on transparent color.
    hDCMask       = CreateCompatibleDC(hDCNoBlink);
    hBmpTransMask = CreateBitmap(dx, dy, 1, 1, nullptr);
@@ -1063,11 +1044,8 @@ HB_FUNC( GETBITMAPSIZE )
 
    if( hb_parclen(1) > 0 )
    {
-#ifndef UNICODE
-      LPCSTR lpImageName = hb_parc(1);
-#else
-      LPWSTR lpImageName = AnsiToWide(( char * ) hb_parc(1));
-#endif
+      void * ImageName;
+      LPCTSTR lpImageName = HB_PARSTR(1, &ImageName, nullptr);
 
       hBitmap = ( HBITMAP ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION);
 
@@ -1075,10 +1053,8 @@ HB_FUNC( GETBITMAPSIZE )
       {
          hBitmap = ( HBITMAP ) LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
       }
-      
-#ifdef UNICODE
-      hb_xfree(lpImageName);
-#endif
+
+      hb_strfree(ImageName);
    }
    else
    {
@@ -1103,7 +1079,7 @@ HB_FUNC( GETBITMAPSIZE )
       if( bDelete )
       {
          DeleteObject(hBitmap);
-      }   
+      }
    }
 
    hb_itemReturnRelease(pResult);
@@ -1128,7 +1104,7 @@ HB_FUNC( GETICONSIZE )
          {
             _arraySet(pResult, bm.bmWidth, bm.bmHeight, bm.bmBitsPixel);
          }
-         
+
          DeleteObject(sIconInfo.hbmMask);
          DeleteObject(sIconInfo.hbmColor);
       }
