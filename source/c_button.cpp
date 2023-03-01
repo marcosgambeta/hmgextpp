@@ -51,9 +51,9 @@
 #include <shellapi.h>
 #include <commctrl.h>
 #include <math.h>
-#include <hbapiitm.h>
-#include <hbvm.h>
-#include <hbwinuni.h>
+#include <hbapiitm.hpp>
+#include <hbvm.hpp>
+#include <hbwinuni.hpp>
 
 #ifndef BCM_FIRST
 #define BCM_FIRST         0x1600
