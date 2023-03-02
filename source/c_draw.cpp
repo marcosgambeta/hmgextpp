@@ -1,63 +1,68 @@
 /*
- MINIGUI - Harbour Win32 GUI library source code
-
- Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
- http://harbourminigui.googlepages.com/
-
- This program is free software; you can redistribute it and/or modify it under
- the terms of the GNU General Public License as published by the Free Software
- Foundation; either version 2 of the License, or (at your option) any later
- version.
-
- This program is distributed in the hope that it will be useful, but WITHOUT
- ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License along with
- this software; see the file COPYING. If not, write to the Free Software
- Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
- visit the web site http://www.gnu.org/).
-
- As a special exception, you have permission for additional uses of the text
- contained in this release of Harbour Minigui.
-
- The exception is that, if you link the Harbour Minigui library with other
- files to produce an executable, this does not by itself cause the resulting
- executable to be covered by the GNU General Public License.
- Your use of that executable is in no way restricted on account of linking the
- Harbour-Minigui library code into it.
-
- Parts of this project are based upon:
-
- "Harbour GUI framework for Win32"
- Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
- Copyright 2001 Antonio Linares <alinares@fivetech.com>
- www - https://harbour.github.io/
-
- "Harbour Project"
- Copyright 1999-2022, https://harbour.github.io/
-
- "WHAT32"
- Copyright 2002 AJ Wos <andrwos@aust1.net>
-
- "HWGUI"
- Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
-
- Parts  of  this  code  is contributed and used here under permission of his
- author: Copyright 2017 (C) P.Chornyj <myorg63@mail.ru>
-*/
+ * MINIGUI - Harbour Win32 GUI library source code
+ *
+ * Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
+ * http://harbourminigui.googlepages.com/
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this software; see the file COPYING. If not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
+ * visit the web site http://www.gnu.org/).
+ *
+ * As a special exception, you have permission for additional uses of the text
+ * contained in this release of Harbour Minigui.
+ *
+ * The exception is that, if you link the Harbour Minigui library with other
+ * files to produce an executable, this does not by itself cause the resulting
+ * executable to be covered by the GNU General Public License.
+ * Your use of that executable is in no way restricted on account of linking the
+ * Harbour-Minigui library code into it.
+ *
+ * Parts of this project are based upon:
+ *
+ * "Harbour GUI framework for Win32"
+ * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+ * Copyright 2001 Antonio Linares <alinares@fivetech.com>
+ * www - https://harbour.github.io/
+ *
+ * "Harbour Project"
+ * Copyright 1999-2022, https://harbour.github.io/
+ *
+ * "WHAT32"
+ * Copyright 2002 AJ Wos <andrwos@aust1.net>
+ *
+ * "HWGUI"
+ * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
+ *
+ * Parts  of  this  code  is contributed and used here under permission of his
+ * author: Copyright 2017 (C) P.Chornyj <myorg63@mail.ru>
+ */
 
 #include "mgdefs.hpp"
 #include <hbapiitm.h>
 
+#if 0
 #if defined(__BORLANDC__)
 WINGDIAPI BOOL WINAPI GdiFlush(void);
+#endif
 #endif
 
 extern HB_EXPORT BOOL Array2ColorRef(PHB_ITEM aCRef, COLORREF * cr);
 extern HB_EXPORT BOOL Array2Rect(PHB_ITEM aRect, RECT * rc);
 extern HB_EXPORT PHB_ITEM Rect2Array(RECT * rc);
 
+/*
+BEGINPAINT(HWND, cp2) --> HANDLE
+*/
 HB_FUNC( BEGINPAINT )
 {
    HWND hWnd = hmg_par_HWND(1);
@@ -74,6 +79,9 @@ HB_FUNC( BEGINPAINT )
    }
 }
 
+/*
+ENDPAINT(HWND, cp2) --> .T.|.F.
+*/
 HB_FUNC( ENDPAINT )
 {
    HWND hWnd = hmg_par_HWND(1);
@@ -89,6 +97,9 @@ HB_FUNC( ENDPAINT )
    }
 }
 
+/*
+DRAWFOCUSRECT(p1) --> NIL
+*/
 HB_FUNC( DRAWFOCUSRECT )
 {
    DRAWITEMSTRUCT * pps = reinterpret_cast<DRAWITEMSTRUCT*>(HB_PARNL(1));
@@ -101,16 +112,19 @@ HB_FUNC( DRAWFOCUSRECT )
    }
 }
 
+/*
+DRAWSTATE(HWND|HDC, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11) --> .T.|.F.
+*/
 HB_FUNC( DRAWSTATE )
 {
    HWND hWnd = hmg_par_HWND(1);
    HDC hDC;
-   BOOL bDC = FALSE;
+   bool bDC = false;
 
    if( IsWindow(hWnd) )
    {
       hDC = GetDC(hWnd);
-      bDC = TRUE;
+      bDC = true;
    }
    else
    {
@@ -164,6 +178,9 @@ HB_FUNC( DRAWSTATE )
    }
 }
 
+/*
+GETUPDATERECT(HWND, p2, p3) --> .T.|.F.
+*/
 HB_FUNC( GETUPDATERECT )
 {
    HWND hWnd = hmg_par_HWND(1);
@@ -187,11 +204,17 @@ HB_FUNC( GETUPDATERECT )
    }
 }
 
+/*
+GDIFLUSH() --> .T.|.F.
+*/
 HB_FUNC( GDIFLUSH )
 {
    hb_retl(GdiFlush() ? true : false);
 }
 
+/*
+GRAYSTRING(HWND|HDC, p2, p3, p4, p5, p6, p7, p8, p9) --> .T.|.F.
+*/
 HB_FUNC( GRAYSTRING )
 {
    int nCount = hb_parni(5);
@@ -210,12 +233,12 @@ HB_FUNC( GRAYSTRING )
    {
       HWND hWnd = hmg_par_HWND(1);
       HDC hDC;
-      BOOL bDC = FALSE;
+      bool bDC = false;
 
       if( IsWindow(hWnd) )
       {
          hDC = GetDC(hWnd);
-         bDC = TRUE;
+         bDC = true;
       }
       else
       {
@@ -251,13 +274,16 @@ HB_FUNC( GRAYSTRING )
    }
 }
 
+/*
+INVALIDATERECT(HWND, p2, p3, p4, p5, p6) --> .T.|.F.
+*/
 HB_FUNC( INVALIDATERECT )
 {
    HWND hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) )
    {
-      BOOL bRect = FALSE;
+      bool bRect = false;
       RECT rc;
 
       if( (hb_pcount() > 2) && (!HB_ISNIL(3)) )
@@ -271,7 +297,7 @@ HB_FUNC( INVALIDATERECT )
             rc.right  = hmg_par_LONG(5);
             rc.bottom = hmg_par_LONG(6);
 
-            bRect = TRUE;
+            bRect = true;
          }
       }
 
@@ -283,6 +309,9 @@ HB_FUNC( INVALIDATERECT )
    }
 }
 
+/*
+REDRAWWINDOW(HWND, p2) --> .T.|.F.
+*/
 HB_FUNC( REDRAWWINDOW )
 {
    HWND hWnd = hmg_par_HWND(1);
@@ -304,16 +333,19 @@ HB_FUNC( REDRAWWINDOW )
    }
 }
 
+/*
+C_SETBACKCOLOR(HWND|HDC, p2, p3, p4) --> ns
+*/
 HB_FUNC( C_SETBACKCOLOR )
 {
    HWND hWnd = hmg_par_HWND(1);
    HDC hDC;
-   BOOL bDC = FALSE;
+   bool bDC = false;
 
    if( IsWindow(hWnd) )
    {
       hDC = GetDC(hWnd);
-      bDC = TRUE;
+      bDC = true;
    }
    else
    {
@@ -342,16 +374,19 @@ HB_FUNC( C_SETBACKCOLOR )
    }
 }
 
+/*
+SETBKMODE(HWND|HDC, p2) --> numeric
+*/
 HB_FUNC( SETBKMODE )
 {
    HWND hWnd = hmg_par_HWND(1);
    HDC hDC;
-   BOOL bDC = FALSE;
+   bool bDC = false;
 
    if( IsWindow(hWnd) )
    {
       hDC = GetDC(hWnd);
-      bDC = TRUE;
+      bDC = true;
    }
    else
    {
@@ -373,6 +408,9 @@ HB_FUNC( SETBKMODE )
    }
 }
 
+/*
+UPDATEWINDOW(HWND) --> .T.|.F.
+*/
 HB_FUNC( UPDATEWINDOW )
 {
    HWND hWnd = hmg_par_HWND(1);
@@ -387,13 +425,16 @@ HB_FUNC( UPDATEWINDOW )
    }
 }
 
+/*
+VALIDATERECT(HWND, p2, p3, p4, p5) --> .T.|.F.
+*/
 HB_FUNC( VALIDATERECT )
 {
    HWND hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) )
    {
-      BOOL bRect = FALSE;
+      bool bRect = false;
       RECT rc;
 
       if( (hb_pcount() > 1) && (!HB_ISNIL(2)) )
@@ -407,7 +448,7 @@ HB_FUNC( VALIDATERECT )
             rc.right  = hmg_par_LONG(4);
             rc.bottom = hmg_par_LONG(5);
 
-            bRect = TRUE;
+            bRect = true;
          }
       }
 
@@ -419,6 +460,9 @@ HB_FUNC( VALIDATERECT )
    }
 }
 
+/*
+WINDOWFROMDC(HDC) --> numeric
+*/
 HB_FUNC( WINDOWFROMDC )
 {
    HB_RETNL(reinterpret_cast<LONG_PTR>(WindowFromDC(hmg_par_HDC(1))));
