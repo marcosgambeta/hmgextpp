@@ -212,7 +212,7 @@ HB_FUNC( DESTROYACCELERATORTABLE )
 {
    HACCEL hAccel = hmg_par_HACCEL(1);
 
-   hb_retl( DestroyAcceleratorTable(hAccel) ? HB_TRUE : HB_FALSE );
+   hb_retl(DestroyAcceleratorTable(hAccel) ? HB_TRUE : HB_FALSE);
 }
 
 // HACCEL WINAPI LoadAccelerators(HINSTANCE hInstance, LPCTSTR lpTableName)
@@ -270,12 +270,12 @@ HB_FUNC( _NEWMENUSTYLE )
       s_bCustomDraw = hb_parl(1);
    }
 
-   hb_retl( s_bCustomDraw );
+   hb_retl(s_bCustomDraw);
 }
 
 HB_FUNC( _CLOSEMENU )
 {
-   hb_retl( ( BOOL ) EndMenu() );
+   hb_retl(( BOOL ) EndMenu());
 }
 
 HB_FUNC( TRACKPOPUPMENU )
@@ -386,7 +386,7 @@ HB_FUNC( APPENDMENUSTRING )
             style = MF_OWNERDRAW;
       }
 
-      hb_retl( AppendMenu(hmg_par_HMENU(1), style, hb_parni(2), ( LPTSTR ) lpMenuItem) );
+      hb_retl(AppendMenu(hmg_par_HMENU(1), style, hb_parni(2), ( LPTSTR ) lpMenuItem));
    }
    else
    {
@@ -400,7 +400,7 @@ HB_FUNC( APPENDMENUSTRING )
             style = MF_STRING;
       }
 
-      hb_retl( AppendMenu(hmg_par_HMENU(1), style, hb_parni(2), lpNewItem) );
+      hb_retl(AppendMenu(hmg_par_HMENU(1), style, hb_parni(2), lpNewItem));
    }
 
 #ifdef UNICODE
@@ -430,11 +430,11 @@ HB_FUNC( APPENDMENUPOPUP )
       lpMenuItem->hFont      = hmg_par_HFONT(5);
       lpMenuItem->uiItemType = hb_parni(4);
 
-      hb_retl( AppendMenu(hmg_par_HMENU(1), MF_POPUP | MF_OWNERDRAW, hb_parni(2), ( LPTSTR ) lpMenuItem) );
+      hb_retl(AppendMenu(hmg_par_HMENU(1), MF_POPUP | MF_OWNERDRAW, hb_parni(2), ( LPTSTR ) lpMenuItem));
    }
    else
    {
-      hb_retl( AppendMenu(hmg_par_HMENU(1), MF_POPUP | MF_STRING, hb_parni(2), lpNewItem) );
+      hb_retl(AppendMenu(hmg_par_HMENU(1), MF_POPUP | MF_STRING, hb_parni(2), lpNewItem));
    }
 
 #ifdef UNICODE
@@ -450,11 +450,11 @@ HB_FUNC( APPENDMENUSEPARATOR )
 
       lpMenuItem->uiItemType = 1000;
 
-      hb_retl( AppendMenu(hmg_par_HMENU(1), MF_SEPARATOR | MF_OWNERDRAW, 0, ( LPTSTR ) lpMenuItem) );
+      hb_retl(AppendMenu(hmg_par_HMENU(1), MF_SEPARATOR | MF_OWNERDRAW, 0, ( LPTSTR ) lpMenuItem));
    }
    else
    {
-      hb_retl( AppendMenu(hmg_par_HMENU(1), MF_SEPARATOR, 0, nullptr) );
+      hb_retl(AppendMenu(hmg_par_HMENU(1), MF_SEPARATOR, 0, nullptr));
    }
 }
 
@@ -465,7 +465,7 @@ HB_FUNC( MODIFYMENUITEM )
 #else
    LPWSTR lpNewItem = AnsiToWide(( char * ) hb_parc(4));
 #endif
-   hb_retl( ModifyMenu(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND | MF_STRING, hb_parni(3), lpNewItem) );
+   hb_retl(ModifyMenu(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND | MF_STRING, hb_parni(3), lpNewItem));
 
 #ifdef UNICODE
    hb_xfree(lpNewItem);
@@ -479,7 +479,7 @@ HB_FUNC( INSERTMENUITEM )
 #else
    LPWSTR lpNewItem = AnsiToWide(( char * ) hb_parc(4));
 #endif
-   hb_retl( InsertMenu(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND | MF_STRING, hb_parni(3), lpNewItem) );
+   hb_retl(InsertMenu(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND | MF_STRING, hb_parni(3), lpNewItem));
 
 #ifdef UNICODE
    hb_xfree(lpNewItem);
@@ -488,7 +488,7 @@ HB_FUNC( INSERTMENUITEM )
 
 HB_FUNC( REMOVEMENUITEM )
 {
-   hb_retl( RemoveMenu(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND) );
+   hb_retl(RemoveMenu(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND));
 }
 
 HB_FUNC( MENUITEM_SETBITMAPS )
@@ -732,11 +732,11 @@ HB_FUNC( XGETMENUCHECKSTATE )
 
    if( state != 0xFFFFFFFF )
    {
-      hb_retl( ( state & MF_CHECKED ) ? TRUE : FALSE );
+      hb_retl(( state & MF_CHECKED ) ? TRUE : FALSE);
    }
    else
    {
-      hb_retl( FALSE );
+      hb_retl(FALSE);
    }
 }
 
@@ -748,17 +748,17 @@ HB_FUNC( XGETMENUENABLEDSTATE )
 
    if( state != 0xFFFFFFFF )
    {
-      hb_retl( ( ( state & MF_GRAYED ) || ( state & MF_DISABLED ) ) ? FALSE : TRUE );
+      hb_retl(( ( state & MF_GRAYED ) || ( state & MF_DISABLED ) ) ? FALSE : TRUE);
    }
    else
    {
-      hb_retl( FALSE );
+      hb_retl(FALSE);
    }
 }
 
 HB_FUNC( ISMENU )
 {
-   hb_retl( IsMenu(hmg_par_HMENU(1)) );
+   hb_retl(IsMenu(hmg_par_HMENU(1)));
 }
 
 HB_FUNC( GETMENU )
@@ -1419,7 +1419,7 @@ HB_FUNC( _ONDESTROYMENU )
          bResult = bResult && DestroyMenu(menu);
       }
 
-      hb_retl( bResult );
+      hb_retl(bResult);
    }
    else
    {

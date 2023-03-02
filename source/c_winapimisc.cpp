@@ -303,11 +303,11 @@ HB_FUNC( CLEARCLIPBOARD )
    {
       EmptyClipboard();
       CloseClipboard();
-      hb_retl( TRUE );
+      hb_retl(TRUE);
    }
    else
    {
-      hb_retl( FALSE );
+      hb_retl(FALSE);
    }
 }
 
@@ -419,7 +419,7 @@ HB_FUNC( GETDC )
 
 HB_FUNC( RELEASEDC )
 {
-   hb_retl( ReleaseDC(hmg_par_HWND(1), hmg_par_HDC(2)) );
+   hb_retl(ReleaseDC(hmg_par_HWND(1), hmg_par_HDC(2)));
 }
 
 HB_FUNC( HIWORD )
@@ -572,7 +572,7 @@ HB_FUNC( C_SHELLABOUT )
    LPCWSTR szApp        = AnsiToWide(( char * ) hb_parc(2));
    LPCWSTR szOtherStuff = AnsiToWide(( char * ) hb_parc(3));
 #endif
-   hb_retl( ShellAbout(hmg_par_HWND(1), szApp, szOtherStuff, hmg_par_HICON(4)) );
+   hb_retl(ShellAbout(hmg_par_HWND(1), szApp, szOtherStuff, hmg_par_HICON(4)));
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) szApp);
    hb_xfree(( TCHAR * ) szOtherStuff);
@@ -949,7 +949,7 @@ HB_FUNC( ISEXERUNNING ) // ( cExeNameCaseSensitive ) --> lResult
 {
    HANDLE hMutex = CreateMutex(nullptr, FALSE, ( LPTSTR ) hb_parc(1));
 
-   hb_retl( GetLastError() == ERROR_ALREADY_EXISTS );
+   hb_retl(GetLastError() == ERROR_ALREADY_EXISTS);
 
    if( hMutex != nullptr )
    {
@@ -974,7 +974,7 @@ HB_FUNC( CREATEFOLDER )
 #else
    LPCWSTR lpPathName = AnsiToWide(hb_parc(1));
 #endif
-   hb_retl( CreateDirectory(lpPathName, nullptr) );
+   hb_retl(CreateDirectory(lpPathName, nullptr));
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpPathName);
 #endif
@@ -987,7 +987,7 @@ HB_FUNC( SETCURRENTFOLDER )
 #else
    LPCWSTR lpPathName = AnsiToWide(hb_parc(1));
 #endif
-   hb_retl( SetCurrentDirectory(lpPathName) );
+   hb_retl(SetCurrentDirectory(lpPathName));
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpPathName);
 #endif
@@ -1000,7 +1000,7 @@ HB_FUNC( REMOVEFOLDER )
 #else
    LPCWSTR lpPathName = AnsiToWide(hb_parc(1));
 #endif
-   hb_retl( RemoveDirectory(lpPathName) );
+   hb_retl(RemoveDirectory(lpPathName));
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpPathName);
 #endif
@@ -1550,7 +1550,7 @@ HB_FUNC( ISAPPHUNG )
 
    if( IsAppHung(hmg_par_HWND(1), &bIsHung) )
    {
-      hb_retl( bIsHung );
+      hb_retl(bIsHung);
    }
    else
    {
@@ -1558,7 +1558,7 @@ HB_FUNC( ISAPPHUNG )
       {
          MessageBox(nullptr, "Process not found", "Warning", MB_OK | MB_ICONWARNING);
       }
-      hb_retl( HB_FALSE );
+      hb_retl(HB_FALSE);
    }
 }
 
@@ -1596,25 +1596,25 @@ HB_FUNC( EMPTYWORKINGSET )
       hProcess = OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION | PROCESS_SET_QUOTA, FALSE, ProcessID);
       if( hProcess != nullptr )
       {
-         hb_retl( ( BOOL ) pEmptyWorkingSet(hProcess) );
+         hb_retl(( BOOL ) pEmptyWorkingSet(hProcess));
 
          CloseHandle(hProcess);
       }
       else
       {
-         hb_retl( FALSE );
+         hb_retl(FALSE);
       }
    }
    else
    {
-      hb_retl( FALSE );
+      hb_retl(FALSE);
    }
 }
 
 // Grigory Filatov <gfilatov@gmail.com> HMG 1.1 Experimental Build 10d
 HB_FUNC( CLEANPROGRAMMEMORY )
 {
-   hb_retl( SetProcessWorkingSetSize(GetCurrentProcess(), ( SIZE_T ) -1, ( SIZE_T ) -1) );
+   hb_retl(SetProcessWorkingSetSize(GetCurrentProcess(), ( SIZE_T ) -1, ( SIZE_T ) -1));
 }
 
 // Grigory Filatov <gfilatov@gmail.com> HMG 1.1 Experimental Build 11a
@@ -1773,7 +1773,7 @@ HB_FUNC( ISOEMTEXT )
       w++;
    }
 
-   hb_retl( bOem );
+   hb_retl(bOem);
 }
 
 /*

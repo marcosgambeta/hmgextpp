@@ -76,7 +76,7 @@ HB_FUNC( DESTROYICON )
    HICON hIcon = ( HICON ) ( LONG_PTR ) HB_PARNL(1);
 
    DelResource(hIcon);
-   hb_retl( DestroyIcon(hIcon) );
+   hb_retl(DestroyIcon(hIcon));
 }
 
 // HICON WINAPI DuplicateIcon(HINSTANCE hInst, HICON hIcon)
@@ -209,7 +209,7 @@ HB_FUNC( DRAWICONEX )
       HDC    hdc   = GetDC(hwnd);
       HBRUSH hbrFlickerFreeDraw = CreateSolidBrush(hb_parni(7));
 
-      hb_retl( DrawIconEx(hdc, hb_parni(2), hb_parni(3), hIcon, hb_parni(5), hb_parni(6), 0, hbrFlickerFreeDraw, DI_NORMAL) );
+      hb_retl(DrawIconEx(hdc, hb_parni(2), hb_parni(3), hIcon, hb_parni(5), hb_parni(6), 0, hbrFlickerFreeDraw, DI_NORMAL));
 
       DeleteObject(hbrFlickerFreeDraw);
 

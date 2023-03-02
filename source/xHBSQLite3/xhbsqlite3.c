@@ -851,7 +851,7 @@ HB_FUNC( SQLITE3_ROLLBACK_HOOK )
 
 HB_FUNC( SQLITE3_COMPILEOPTION_USED )
 {
-	hb_retl( ( BOOL ) sqlite3_compileoption_used( hb_parc(1) ) );
+	hb_retl(( BOOL ) sqlite3_compileoption_used( hb_parc(1) ));
 }
 
 HB_FUNC( SQLITE3_COMPILEOPTION_GET )
@@ -1053,7 +1053,7 @@ HB_FUNC( SQLITE3_COMPLETE )
 {
 	void * hSQLText;
 
-	hb_retl( sqlite3_complete(hb_parstr_utf8(1, &hSQLText, NULL)) );
+	hb_retl(sqlite3_complete(hb_parstr_utf8(1, &hSQLText, NULL)));
 
 	hb_strfree(hSQLText);
 }
@@ -1165,7 +1165,7 @@ HB_FUNC( SQLITE3_GET_AUTOCOMMIT )
 	HB_SQLITE3 * pHbSqlite3 = ( HB_SQLITE3 * ) hb_sqlite3_param(1, HB_SQLITE3_DB, TRUE);
 
 	if( pHbSqlite3 && pHbSqlite3->db )
-		hb_retl( sqlite3_get_autocommit(pHbSqlite3->db) );
+		hb_retl(sqlite3_get_autocommit(pHbSqlite3->db));
 	else
 		hb_errRT_BASE_SubstR( EG_ARG, 0, NULL, HB_ERR_FUNCNAME, 1, hb_paramError(1) );
 }
@@ -1506,7 +1506,7 @@ HB_FUNC( SQLITE3_STMT_READONLY )
 	psqlite3_stmt pStmt = ( psqlite3_stmt ) hb_parptr(1);
 
 	if( pStmt )
-		hb_retl( ( BOOL ) sqlite3_stmt_readonly(pStmt) );
+		hb_retl(( BOOL ) sqlite3_stmt_readonly(pStmt));
 	else
 		hb_errRT_BASE_SubstR( EG_ARG, 0, NULL, HB_ERR_FUNCNAME, 1, hb_paramError(1) );
 }
@@ -1560,7 +1560,7 @@ HB_FUNC( SQLITE3_TEMP_DIRECTORY )
 		if( pszFree )
 			hb_xfree(pszFree);
 	}
-	hb_retl( bResult );
+	hb_retl(bResult);
 }
 
 

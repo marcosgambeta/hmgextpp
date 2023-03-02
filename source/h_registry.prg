@@ -343,7 +343,7 @@ HB_FUNC_STATIC( ISWOW64 )
       fnIsWow64Process( GetCurrentProcess(), &bIsWow64 );
    }
 
-   hb_retl( bIsWow64 );
+   hb_retl(bIsWow64);
 }
 
 #pragma ENDDUMP

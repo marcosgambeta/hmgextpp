@@ -552,7 +552,7 @@ HB_FUNC( TSDRAWCELL )
    DeleteObject(hGrayPen);
    DeleteObject(hWhitePen);
 
-   hb_retl( bDraw );
+   hb_retl(bDraw);
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) cData);

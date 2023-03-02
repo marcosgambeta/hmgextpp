@@ -370,5 +370,5 @@ HB_FUNC( DRAG_LIST_MOVE_ITEMS )
       result = ListBox_SetCurSel( lpdli->hWnd, hb_parni(3) );
    }
 
-   hb_retl( result != LB_ERR ? TRUE : FALSE );
+   hb_retl(result != LB_ERR ? TRUE : FALSE);
 }

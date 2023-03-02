@@ -177,12 +177,12 @@ HB_FUNC( DESTROYWINDOW )
 
 HB_FUNC( ISWINDOWVISIBLE )
 {
-   hb_retl( IsWindowVisible(hmg_par_HWND(1)) );
+   hb_retl(IsWindowVisible(hmg_par_HWND(1)));
 }
 
 HB_FUNC( ISWINDOWENABLED )
 {
-   hb_retl( IsWindowEnabled( hmg_par_HWND(1) ) );
+   hb_retl(IsWindowEnabled( hmg_par_HWND(1) ));
 }
 
 HB_FUNC( ENABLEWINDOW )
@@ -234,7 +234,7 @@ HB_FUNC( SETWINDOWTEXTW )
 
 HB_FUNC( SETWINDOWPOS )
 {
-   hb_retl( ( BOOL ) SetWindowPos(hmg_par_HWND(1), hmg_par_HWND(2), hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7)) );
+   hb_retl(( BOOL ) SetWindowPos(hmg_par_HWND(1), hmg_par_HWND(2), hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7)));
 }
 
 HB_FUNC( ANIMATEWINDOW )
@@ -243,7 +243,7 @@ HB_FUNC( ANIMATEWINDOW )
    DWORD dwTime  = hmg_par_DWORD(2);
    DWORD dwFlags = hmg_par_DWORD(3);
 
-   hb_retl( ( BOOL ) AnimateWindow(hWnd, dwTime, dwFlags) );
+   hb_retl(( BOOL ) AnimateWindow(hWnd, dwTime, dwFlags));
 }
 
 HB_FUNC( FLASHWINDOWEX )
@@ -256,7 +256,7 @@ HB_FUNC( FLASHWINDOWEX )
    FlashWinInfo.uCount    = hmg_par_UINT(3);
    FlashWinInfo.dwTimeout = hmg_par_DWORD(4);
 
-   hb_retl( ( BOOL ) FlashWindowEx(&FlashWinInfo) );
+   hb_retl(( BOOL ) FlashWindowEx(&FlashWinInfo));
 }
 
 HB_FUNC( SETLAYEREDWINDOWATTRIBUTES )
@@ -267,7 +267,7 @@ HB_FUNC( SETLAYEREDWINDOWATTRIBUTES )
    {
       HMODULE hDll = GetModuleHandle("user32.dll");
 
-      hb_retl( HB_FALSE );
+      hb_retl(HB_FALSE);
 
       if( nullptr != hDll )
       {
@@ -287,7 +287,7 @@ HB_FUNC( SETLAYEREDWINDOWATTRIBUTES )
                SetWindowLongPtr(hWnd, GWL_EXSTYLE, GetWindowLongPtr( hWnd, GWL_EXSTYLE ) | WS_EX_LAYERED);
             }
 
-            hb_retl( fn_SetLayeredWindowAttributes(hWnd, crKey, bAlpha, dwFlags) ? HB_TRUE : HB_FALSE );
+            hb_retl(fn_SetLayeredWindowAttributes(hWnd, crKey, bAlpha, dwFlags) ? HB_TRUE : HB_FALSE);
          }
       }
    }
@@ -469,7 +469,7 @@ HB_FUNC( GETGRIDVKEY )
 
 HB_FUNC( MOVEWINDOW )
 {
-   hb_retl( MoveWindow(hmg_par_HWND(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), ( HB_ISNIL(6) ? TRUE : hb_parl(6) )) );
+   hb_retl(MoveWindow(hmg_par_HWND(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), ( HB_ISNIL(6) ? TRUE : hb_parl(6) )));
 }
 
 HB_FUNC( GETSYSTEMMETRICS )
@@ -506,7 +506,7 @@ HB_FUNC( GETCLIENTRECT )
 {
    RECT rect;
 
-   hb_retl( GetClientRect(hmg_par_HWND(1), &rect) );
+   hb_retl(GetClientRect(hmg_par_HWND(1), &rect));
    HB_STORVNL( rect.left, 2, 1 );
    HB_STORVNL( rect.top, 2, 2 );
    HB_STORVNL( rect.right, 2, 3 );
@@ -558,7 +558,7 @@ HB_FUNC( SHOWNOTIFYICON )
 #else
    TCHAR * szText = ( TCHAR * ) AnsiToWide(( char * ) hb_parc(4));
 #endif
-   hb_retl( ( BOOL ) ShowNotifyIcon(hmg_par_HWND(1), hmg_par_BOOL(2), hmg_par_HICON(3), ( TCHAR * ) szText) );
+   hb_retl(( BOOL ) ShowNotifyIcon(hmg_par_HWND(1), hmg_par_BOOL(2), hmg_par_HICON(3), ( TCHAR * ) szText));
 
 #ifdef UNICODE
    hb_xfree(szText);
@@ -613,7 +613,7 @@ HB_FUNC( CLIENTTOSCREEN )
    pt.x = x;
    pt.y = y;
 
-   hb_retl( ClientToScreen(hmg_par_HWND(1), &pt) );
+   hb_retl(ClientToScreen(hmg_par_HWND(1), &pt));
 
    if( HB_ISBYREF(2) )
    {
@@ -679,7 +679,7 @@ HB_FUNC( CHANGENOTIFYICON )
 #else
    TCHAR * szText = ( TCHAR * ) AnsiToWide(( char * ) hb_parc(3));
 #endif
-   hb_retl( ( BOOL ) ChangeNotifyIcon(hmg_par_HWND(1), hmg_par_HICON(2), ( TCHAR * ) szText) );
+   hb_retl(( BOOL ) ChangeNotifyIcon(hmg_par_HWND(1), hmg_par_HICON(2), ( TCHAR * ) szText));
 
 #ifdef UNICODE
    hb_xfree(szText);
@@ -693,7 +693,7 @@ HB_FUNC( GETITEMPOS )
 
 HB_FUNC( SETSCROLLRANGE )
 {
-   hb_retl( SetScrollRange(hmg_par_HWND(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parl(5)) );
+   hb_retl(SetScrollRange(hmg_par_HWND(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parl(5)));
 }
 
 HB_FUNC( GETSCROLLPOS )
@@ -763,7 +763,7 @@ HB_FUNC( C_ENUMCHILDWINDOWS )
 
    if( IsWindow(hWnd) && pCodeBlock )
    {
-      hb_retl( EnumChildWindows(hWnd, EnumChildProc, ( LPARAM ) pCodeBlock) ? HB_TRUE : HB_FALSE );
+      hb_retl(EnumChildWindows(hWnd, EnumChildProc, ( LPARAM ) pCodeBlock) ? HB_TRUE : HB_FALSE);
    }
 }
 
@@ -1193,22 +1193,22 @@ HB_FUNC( SETMINMAXINFO )   // ( pMinMaxInfo, aMinMaxInfo ) --> 0
 
 HB_FUNC( LOCKWINDOWUPDATE )
 {
-   hb_retl( LockWindowUpdate(hmg_par_HWND(1)) ? HB_TRUE : HB_FALSE );
+   hb_retl(LockWindowUpdate(hmg_par_HWND(1)) ? HB_TRUE : HB_FALSE);
 }
 
 HB_FUNC( ISWINDOWHANDLE )
 {
-   hb_retl( IsWindow(hmg_par_HWND(1)) ? HB_TRUE : HB_FALSE );
+   hb_retl(IsWindow(hmg_par_HWND(1)) ? HB_TRUE : HB_FALSE);
 }
 
 HB_FUNC( ISICONIC )
 {
-   hb_retl( IsIconic( hmg_par_HWND(1) ) );
+   hb_retl(IsIconic( hmg_par_HWND(1) ));
 }
 
 HB_FUNC( ISZOOMED )
 {
-   hb_retl( IsZoomed( hmg_par_HWND(1) ) );
+   hb_retl(IsZoomed( hmg_par_HWND(1) ));
 }
 
 HB_FUNC( GETWINDOWBRUSH )

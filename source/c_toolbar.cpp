@@ -689,7 +689,7 @@ HB_FUNC( ISBUTTONBARCHECKED )
    TBBUTTON lpBtn;
 
    SendMessage(hmg_par_HWND(1), TB_GETBUTTON, hmg_par_WPARAM(2), ( LPARAM ) &lpBtn);
-   hb_retl( ( int ) SendMessage(hmg_par_HWND(1), TB_ISBUTTONCHECKED, lpBtn.idCommand, 0) );
+   hb_retl(( int ) SendMessage(hmg_par_HWND(1), TB_ISBUTTONCHECKED, lpBtn.idCommand, 0));
 }
 
 HB_FUNC( CHECKBUTTONBAR )
@@ -705,7 +705,7 @@ HB_FUNC( ISBUTTONENABLED )
    TBBUTTON lpBtn;
 
    SendMessage(hmg_par_HWND(1), TB_GETBUTTON, hmg_par_WPARAM(2), ( LPARAM ) &lpBtn);
-   hb_retl( ( int ) SendMessage(hmg_par_HWND(1), TB_ISBUTTONENABLED, lpBtn.idCommand, 0) );
+   hb_retl(( int ) SendMessage(hmg_par_HWND(1), TB_ISBUTTONENABLED, lpBtn.idCommand, 0));
 }
 
 HB_FUNC( GETBUTTONBARRECT )
@@ -856,7 +856,7 @@ HB_FUNC( SETCHEVRONSTYLESPLITBOXITEM )
    rbBand.fStyle  = rbBand.fStyle | RBBS_USECHEVRON;
    rbBand.cxIdeal = hb_parni(3) + 50;
 
-   hb_retl( ( int ) SendMessage(hmg_par_HWND(1), RB_SETBANDINFO, hmg_par_WPARAM(2), ( LPARAM ) &rbBand) );
+   hb_retl(( int ) SendMessage(hmg_par_HWND(1), RB_SETBANDINFO, hmg_par_WPARAM(2), ( LPARAM ) &rbBand));
 }
 
 HB_FUNC( SETCAPTIONSPLITBOXITEM )
@@ -1087,7 +1087,7 @@ HB_FUNC( RESIZEFLOATTOOLBAR )
 
    if( isInSizeMsg )
    {
-      hb_retl( FALSE );
+      hb_retl(FALSE);
    }
 
    isInSizeMsg = 1;
@@ -1099,7 +1099,7 @@ HB_FUNC( RESIZEFLOATTOOLBAR )
 
    isInSizeMsg = 0;
 
-   hb_retl( TRUE );
+   hb_retl(TRUE);
 }
 
 HB_FUNC( TOOLBAREXCUSTFUNC )
@@ -1125,7 +1125,7 @@ HB_FUNC( TOOLBAREXCUSTFUNC )
                   SendMessage(lpTB->hdr.hwndFrom, TB_GETBUTTON, i, ( LPARAM ) (lpSaveButtons + i));
                }
 
-               hb_retl( TRUE );
+               hb_retl(TRUE);
                break;
 
             case TBN_GETBUTTONINFO:
@@ -1134,14 +1134,14 @@ HB_FUNC( TOOLBAREXCUSTFUNC )
 
                if( lpTbNotify->iItem >= buttonCount || lpTbNotify->iItem < 0 )
                {
-                  hb_retl( FALSE );
+                  hb_retl(FALSE);
                }
                else
                {
                   SendMessage(lpTB->hdr.hwndFrom, TB_GETBUTTON, lpTbNotify->iItem, ( LPARAM ) &lpBtn);
                   lpTbNotify->tbButton = lpSaveButtons[lpTbNotify->iItem];
 
-                  hb_retl( TRUE );
+                  hb_retl(TRUE);
                }
             }
             break;
@@ -1159,18 +1159,18 @@ HB_FUNC( TOOLBAREXCUSTFUNC )
                SendMessage(lpTB->hdr.hwndFrom, TB_ADDBUTTONS,
                             ( WPARAM ) nResetCount, ( LPARAM ) lpSaveButtons);
 
-               hb_retl( TRUE );
+               hb_retl(TRUE);
             }
             break;
 
             case TBN_ENDADJUST:
 
                GlobalFree(( HGLOBAL ) lpSaveButtons);
-               hb_retl( TRUE );
+               hb_retl(TRUE);
                break;
 
             default:
-               hb_retl( FALSE );
+               hb_retl(FALSE);
                break;
          }
    }

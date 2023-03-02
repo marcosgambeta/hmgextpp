@@ -1058,7 +1058,7 @@ HB_FUNC( RR_TEXTOUT )
             SetTextJustification(hDC, ( int ) textjust - szMetric.cx, lspace);
    }
 
-   hb_retl( TextOut(hDC, HB_PARNI(2, 2), HB_PARNI(2, 1) + devcaps[16], lpText, ( int ) lstrlen(lpText)) );
+   hb_retl(TextOut(hDC, HB_PARNI(2, 2), HB_PARNI(2, 1) + devcaps[16], lpText, ( int ) lstrlen(lpText)));
    if( xfont != 0 )
       SelectObject(hDC, prevfont);
 
@@ -1219,14 +1219,14 @@ HB_FUNC( RR_SELECTCLIPRGN )
 
 HB_FUNC( RR_SETVIEWPORTORG )
 {
-   hb_retl( SetViewportOrgEx(hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), nullptr) );
+   hb_retl(SetViewportOrgEx(hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), nullptr));
 }
 
 HB_FUNC( RR_GETVIEWPORTORG )
 {
    POINT lpp;
 
-   hb_retl( GetViewportOrgEx(hDC, &lpp) );
+   hb_retl(GetViewportOrgEx(hDC, &lpp));
    HB_STORVNL( lpp.x, 1, 2 );
    HB_STORVNL( lpp.y, 1, 1 );
 }
@@ -1622,7 +1622,7 @@ HB_FUNC( RR_DRAWIMAGELIST )
    if( hb_parnl(8) >= 0 )
       ImageList_SetBkColor(himl, CLR_NONE);
 
-   hb_retl( StretchBlt(hDC, rect.left, rect.top, rect.right, rect.bottom, tempdc, 0, 0, hb_parni(5), hb_parni(6), SRCCOPY) );
+   hb_retl(StretchBlt(hDC, rect.left, rect.top, rect.right, rect.bottom, tempdc, 0, 0, hb_parni(5), hb_parni(6), SRCCOPY));
    DeleteDC(tempdc);
    DeleteObject(hbmpx);
 }

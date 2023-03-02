@@ -326,7 +326,7 @@ HB_FUNC( ISTHEMEACTIVE )
       }
    }
 
-   hb_retl( bRet );
+   hb_retl(bRet);
 }
 
 HB_FUNC( ISAPPTHEMED )
@@ -347,7 +347,7 @@ HB_FUNC( ISAPPTHEMED )
       }
    }
 
-   hb_retl( bRet );
+   hb_retl(bRet);
 }
 
 HB_FUNC( OPENTHEMEDATA )
@@ -432,7 +432,7 @@ HB_FUNC( DRAWTHEMEBACKGROUND )
       }
    }
 
-   hb_retl( ( nRet == S_OK ) );
+   hb_retl(( nRet == S_OK ));
 }
 
 HB_FUNC( DRAWTHEMEPARENTBACKGROUND )
@@ -462,7 +462,7 @@ HB_FUNC( DRAWTHEMEPARENTBACKGROUND )
       }
    }
 
-   hb_retl( ( nRet == S_OK ) );
+   hb_retl(( nRet == S_OK ));
 }
 
 HB_FUNC( SETWINDOWTHEME )
@@ -487,7 +487,7 @@ HB_FUNC( SETWINDOWTHEME )
       }
    }
 
-   hb_retl( ( nRet == S_OK ) );
+   hb_retl(( nRet == S_OK ));
 }
 
 HB_FUNC( ENABLETHEMEDIALOGTEXTURE )
@@ -511,7 +511,7 @@ HB_FUNC( ENABLETHEMEDIALOGTEXTURE )
       }
    }
 
-   hb_retl( ( nRet == S_OK ) );
+   hb_retl(( nRet == S_OK ));
 }
 
 HB_FUNC( PTINRECT )
@@ -525,7 +525,7 @@ HB_FUNC( PTINRECT )
       bIn = PtInRect(&rect, point) ? HB_TRUE : HB_FALSE;
    }
 
-   hb_retl( bIn );
+   hb_retl(bIn);
 }
 
 BOOL Array2Rect(PHB_ITEM aRect, RECT * rc)

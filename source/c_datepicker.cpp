@@ -261,11 +261,11 @@ HB_FUNC( SETDATEPICK )
 
    if( SendMessage(hwnd, DTM_SETSYSTEMTIME, GDT_VALID, ( LPARAM ) &sysTime) == GDT_VALID )
    {
-      hb_retl( HB_TRUE );
+      hb_retl(HB_TRUE);
    }
    else
    {
-      hb_retl( HB_FALSE );
+      hb_retl(HB_FALSE);
    }
 }
 
@@ -288,11 +288,11 @@ HB_FUNC( SETTIMEPICK )
 
    if( SendMessage(hwnd, DTM_SETSYSTEMTIME, GDT_VALID, ( LPARAM ) &sysTime) == GDT_VALID )
    {
-      hb_retl( HB_TRUE );
+      hb_retl(HB_TRUE);
    }
    else
    {
-      hb_retl( HB_FALSE );
+      hb_retl(HB_FALSE);
    }
 }
 
@@ -459,11 +459,11 @@ HB_FUNC( DTP_SETDATETIME )
 
    if( SendMessage(hwnd, DTM_SETSYSTEMTIME, GDT_VALID, ( LPARAM ) &sysTime) == GDT_VALID )
    {
-      hb_retl( HB_TRUE );
+      hb_retl(HB_TRUE);
    }
    else
    {
-      hb_retl( HB_FALSE );
+      hb_retl(HB_FALSE);
    }
 }
 
@@ -520,7 +520,7 @@ HB_FUNC( SETDATEPICKRANGE )
          wLimit |= GDTR_MAX;
       }
 
-      hb_retl( ( int ) SendMessage(hmg_par_HWND(1), DTM_SETRANGE, wLimit, ( LPARAM ) &sysTime) );
+      hb_retl(( int ) SendMessage(hmg_par_HWND(1), DTM_SETRANGE, wLimit, ( LPARAM ) &sysTime));
    }
 }
 
@@ -532,7 +532,7 @@ HB_FUNC( SETDATEPICKERDATEFORMAT )
    LPCWSTR lpFormat = AnsiToWide(( char * ) hb_parc(2));
 #endif
 
-   hb_retl( ( int ) SendMessage(hmg_par_HWND(1), DTM_SETFORMAT, 0, ( LPARAM ) lpFormat) );
+   hb_retl(( int ) SendMessage(hmg_par_HWND(1), DTM_SETFORMAT, 0, ( LPARAM ) lpFormat));
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpFormat);
@@ -545,10 +545,10 @@ HB_FUNC( DTP_ISCHECKED )
 
    if( SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st) == GDT_VALID )
    {
-      hb_retl( HB_TRUE );
+      hb_retl(HB_TRUE);
    }
    else
    {
-      hb_retl( HB_FALSE );
+      hb_retl(HB_FALSE);
    }
 }

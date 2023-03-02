@@ -198,7 +198,7 @@ HB_FUNC( RICHEDITBOX_STREAMIN )
 
    if( ( hFile = CreateFile(cFileName, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, nullptr) ) == INVALID_HANDLE_VALUE )
    {
-      hb_retl( FALSE );
+      hb_retl(FALSE);
       return;
    }
 #ifdef UNICODE
@@ -218,11 +218,11 @@ HB_FUNC( RICHEDITBOX_STREAMIN )
 
    if( es.dwError )
    {
-      hb_retl( FALSE );
+      hb_retl(FALSE);
    }
    else
    {
-      hb_retl( TRUE );
+      hb_retl(TRUE);
    }
 }
 
@@ -273,7 +273,7 @@ HB_FUNC( RICHEDITBOX_STREAMOUT )
 
    if( ( hFile = CreateFile(cFileName, GENERIC_WRITE, FILE_SHARE_WRITE, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr) ) == INVALID_HANDLE_VALUE )
    {
-      hb_retl( FALSE );
+      hb_retl(FALSE);
       return;
    }
 #ifdef UNICODE
@@ -293,11 +293,11 @@ HB_FUNC( RICHEDITBOX_STREAMOUT )
 
    if( es.dwError )
    {
-      hb_retl( FALSE );
+      hb_retl(FALSE);
    }
    else
    {
-      hb_retl( TRUE );
+      hb_retl(TRUE);
    }
 }
 
@@ -341,11 +341,11 @@ HB_FUNC( RICHEDITBOX_RTFLOADRESOURCEFILE )
 
    if( lpGlobalResource == nullptr )
    {
-      hb_retl( ( BOOL ) FALSE );
+      hb_retl(( BOOL ) FALSE);
    }
    else
    {
-      hb_retl( ( BOOL ) TRUE );
+      hb_retl(( BOOL ) TRUE);
    }
 
 #ifdef UNICODE
@@ -369,7 +369,7 @@ HB_FUNC( RICHEDITBOX_ISRTFTEXTMODE )
    HWND    hWndControl = hmg_par_HWND(1);
    LRESULT lResult     = SendMessage(hWndControl, EM_GETTEXTMODE, 0, 0);
 
-   hb_retl( ( BOOL ) ( lResult & TM_RICHTEXT ) );
+   hb_retl(( BOOL ) ( lResult & TM_RICHTEXT ));
 }
 
 //        RichEditBox_SetAutoURLDetect ( hWndControl, lLink )
@@ -387,7 +387,7 @@ HB_FUNC( RICHEDITBOX_GETAUTOURLDETECT )
    HWND hWndControl = hmg_par_HWND(1);
    BOOL lLink       = ( BOOL ) SendMessage(hWndControl, EM_GETAUTOURLDETECT, 0, 0);
 
-   hb_retl( ( BOOL ) lLink );
+   hb_retl(( BOOL ) lLink);
 }
 
 //        RichEditBox_SetBkgndColor ( hWndControl, [aBkgndColor] )
@@ -545,11 +545,11 @@ HB_FUNC( RICHEDITBOX_SETFONT )
 
    if( SendMessage(hWndControl, EM_SETCHARFORMAT, SCF_SELECTION, ( LPARAM ) &CharFormat2 ))
    {
-      hb_retl( TRUE );
+      hb_retl(TRUE);
    }
    else
    {
-      hb_retl( FALSE );
+      hb_retl(FALSE);
    }
 }
 
@@ -1185,21 +1185,21 @@ HB_FUNC( RICHEDITBOX_CANPASTE )
 {
    HWND hWndControl = hmg_par_HWND(1);
 
-   hb_retl( ( BOOL ) SendMessage(hWndControl, EM_CANPASTE, 0, 0) );
+   hb_retl(( BOOL ) SendMessage(hWndControl, EM_CANPASTE, 0, 0));
 }
 
 HB_FUNC( RICHEDITBOX_CANUNDO )
 {
    HWND hWndControl = hmg_par_HWND(1);
 
-   hb_retl( ( BOOL ) SendMessage(hWndControl, EM_CANUNDO, 0, 0) );
+   hb_retl(( BOOL ) SendMessage(hWndControl, EM_CANUNDO, 0, 0));
 }
 
 HB_FUNC( RICHEDITBOX_CANREDO )
 {
    HWND hWndControl = hmg_par_HWND(1);
 
-   hb_retl( ( BOOL ) SendMessage(hWndControl, EM_CANREDO, 0, 0) );
+   hb_retl(( BOOL ) SendMessage(hWndControl, EM_CANREDO, 0, 0));
 }
 
 //        RichEditBox_GetRect ( hWndControl ) --> { nLeft, nTop, nRight, nBottom }
@@ -1465,7 +1465,7 @@ HB_FUNC( FINDREPLACEDLGGETHANDLE )
 
 HB_FUNC( FINDREPLACEDLGISRELEASE )
 {
-   hb_retl( ( BOOL ) ( hDlgFindReplace == nullptr ) );
+   hb_retl(( BOOL ) ( hDlgFindReplace == nullptr ));
 }
 
 HB_FUNC( FINDREPLACEDLGRELEASE )

@@ -156,7 +156,7 @@ HB_FUNC( SETDIALOGITEMTEXT )
 #else
    LPCWSTR lpString = AnsiToWide(( char * ) hb_parc(3));
 #endif
-   hb_retl( SetDlgItemText(hmg_par_HWND(1), hb_parni(2), lpString) );
+   hb_retl(SetDlgItemText(hmg_par_HWND(1), hb_parni(2), lpString));
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpString);
 #endif
@@ -280,11 +280,11 @@ HB_FUNC( ISDLGBUTTONCHECKED )
 
    if( nRes == BST_CHECKED )
    {
-      hb_retl( TRUE );
+      hb_retl(TRUE);
    }
    else
    {
-      hb_retl( FALSE );
+      hb_retl(FALSE);
    }
 }
 

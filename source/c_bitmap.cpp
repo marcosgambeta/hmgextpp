@@ -398,7 +398,7 @@ HB_FUNC( C_HASALPHA ) // hBitmap --> lYesNo
    if( GetDeviceCaps(hDC, BITSPIXEL) < 32 )
    {
       ReleaseDC(GetDesktopWindow(), hDC);
-      hb_retl( FALSE );
+      hb_retl(FALSE);
       return;
    }
 
@@ -423,7 +423,7 @@ HB_FUNC( C_HASALPHA ) // hBitmap --> lYesNo
       GlobalFree(hDib);
    }
 
-   hb_retl( bAlphaChannel );
+   hb_retl(bAlphaChannel);
 }
 
 HBITMAP Icon2Bmp(HICON hIcon)
@@ -1131,5 +1131,5 @@ HB_FUNC( GETPIXELCOLOR )
       HB_STORNI( C3, 4, 3 );
    }
 
-   hb_retl( result );
+   hb_retl(result);
 }

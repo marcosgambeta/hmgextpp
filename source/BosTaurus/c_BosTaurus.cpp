@@ -890,10 +890,10 @@ HB_FUNC( BT_DC_DELETE )
          break;
 
       default:
-         hb_retl( FALSE );
+         hb_retl(FALSE);
          return;
    }
-   hb_retl( TRUE );
+   hb_retl(TRUE);
 }
 
 
@@ -987,7 +987,7 @@ HB_FUNC( BT_SCR_INVALIDATERECT )
    PHB_ITEM pArrayRect;
 
    if( !HB_ISARRAY(2) )
-      hb_retl( InvalidateRect(hmg_par_HWND(1), nullptr, hb_parl(3)) );  // Invalidate all client area
+      hb_retl(InvalidateRect(hmg_par_HWND(1), nullptr, hb_parl(3)));  // Invalidate all client area
    else
    {
       pArrayRect = hb_param(2, Harbour::Item::ARRAY);
@@ -998,10 +998,10 @@ HB_FUNC( BT_SCR_INVALIDATERECT )
          rect.top    = hb_arrayGetNL( pArrayRect, 2 );
          rect.right  = hb_arrayGetNL( pArrayRect, 3 );
          rect.bottom = hb_arrayGetNL( pArrayRect, 4 );
-         hb_retl( InvalidateRect(hmg_par_HWND(1), &rect, hb_parl(3)) ); // Invalidate specific rectangle of client area
+         hb_retl(InvalidateRect(hmg_par_HWND(1), &rect, hb_parl(3))); // Invalidate specific rectangle of client area
       }
       else
-         hb_retl( FALSE );
+         hb_retl(FALSE);
    }
 }
 
@@ -1101,10 +1101,10 @@ HB_FUNC( BT_DRAW_HDC_POLY )
       SelectObject(hDC, OldPen);
       DeleteObject(hPen);
 
-      hb_retl( TRUE );
+      hb_retl(TRUE);
    }
    else
-      hb_retl( FALSE );
+      hb_retl(FALSE);
 }
 
 
@@ -1286,12 +1286,12 @@ HB_FUNC( BT_DRAW_HDC_BITMAP )
          TransparentBlt(hDC, x1, y1, Width1, Height1, memDC, x2, y2, Width2, Height2, color_transp);
          break;
       default:
-         hb_retl( FALSE );
+         hb_retl(FALSE);
          return;
    }
 
    DeleteDC(memDC);
-   hb_retl( TRUE );
+   hb_retl(TRUE);
 }
 
 
@@ -1762,11 +1762,11 @@ HB_FUNC( BT_DRAW_HDC_TO_HDC )
          TransparentBlt(hDC1, x1, y1, Width1, Height1, hDC2, x2, y2, Width2, Height2, color_transp);
          break;
       default:
-         hb_retl( FALSE );
+         hb_retl(FALSE);
          return;
    }
 
-   hb_retl( TRUE );
+   hb_retl(TRUE);
 }
 
 
@@ -1870,7 +1870,7 @@ HB_FUNC( BT_BMP_RELEASE )
 {
    HBITMAP hBitmap = hmg_par_HBITMAP(1);
 
-   hb_retl( DeleteObject(hBitmap) );
+   hb_retl(DeleteObject(hBitmap));
 }
 
 
@@ -2127,7 +2127,7 @@ HB_FUNC( BT_BMP_SAVEFILE )
 #endif
    INT     nTypePicture = ( INT ) hb_parnl(3);
 
-   hb_retl( ( BOOL ) bt_bmp_SaveFile(hBitmap, FileName, nTypePicture) );
+   hb_retl(( BOOL ) bt_bmp_SaveFile(hBitmap, FileName, nTypePicture));
 }
 
 
@@ -2496,13 +2496,13 @@ HB_FUNC( BT_BMP_PASTE )
          TransparentBlt(memDC_D, x1, y1, Width1, Height1, memDC_O, x2, y2, Width2, Height2, color_transp);
          break;
       default:
-         hb_retl( FALSE );
+         hb_retl(FALSE);
          return;
    }
 
    DeleteDC(memDC_D);
    DeleteDC(memDC_O);
-   hb_retl( TRUE );
+   hb_retl(TRUE);
 }
 
 
@@ -2693,7 +2693,7 @@ HB_FUNC( BT_BMP_PROCESS )
          GrayLevel = ( DOUBLE ) hb_parnd(3) / 100.0;
          if( GrayLevel <= 0.0 || GrayLevel > 1.0 )
          {
-            hb_retl( FALSE );
+            hb_retl(FALSE);
             return;
          }
          break;
@@ -2702,7 +2702,7 @@ HB_FUNC( BT_BMP_PROCESS )
          LightLevel = hmg_par_INT(3);
          if( ( LightLevel < -255 ) || ( LightLevel == 0 ) || ( LightLevel > 255 ) )
          {
-            hb_retl( FALSE );
+            hb_retl(FALSE);
             return;
          }
          break;
@@ -2711,7 +2711,7 @@ HB_FUNC( BT_BMP_PROCESS )
          ContrastAngle = ( DOUBLE ) hb_parnd(3);
          if( ContrastAngle <= 0.0 )
          {
-            hb_retl( FALSE );
+            hb_retl(FALSE);
             return;
          }
          ContrastConstant = tan(ContrastAngle * M_PI / 180.0);
@@ -2720,7 +2720,7 @@ HB_FUNC( BT_BMP_PROCESS )
       case BT_BMP_PROCESS_MODIFYCOLOR:
          if( !HB_ISARRAY(3) || hb_parinfa(3, 0) != 3 )
          {
-            hb_retl( FALSE );
+            hb_retl(FALSE);
             return;
          }
          RLevel = ( INT ) hb_parvni(3, 1);
@@ -2728,7 +2728,7 @@ HB_FUNC( BT_BMP_PROCESS )
          BLevel = ( INT ) hb_parvni(3, 3);
          if( ( HB_MIN(HB_MIN(RLevel, GLevel), BLevel) < -255 ) || ( HB_MAX(HB_MAX(RLevel, GLevel), BLevel) > 255 ) )
          {
-            hb_retl( FALSE );
+            hb_retl(FALSE);
             return;
          }
          break;
@@ -2736,7 +2736,7 @@ HB_FUNC( BT_BMP_PROCESS )
       case BT_BMP_PROCESS_GAMMACORRECT:
          if( !HB_ISARRAY(3) || hb_parinfa(3, 0) != 3 )
          {
-            hb_retl( FALSE );
+            hb_retl(FALSE);
             return;
          }
          RedGamma   = ( DOUBLE ) hb_parvnd(3, 1);
@@ -2751,7 +2751,7 @@ HB_FUNC( BT_BMP_PROCESS )
          break;
 
       default:
-         hb_retl( FALSE );
+         hb_retl(FALSE);
          return;
    }
 
@@ -2776,7 +2776,7 @@ HB_FUNC( BT_BMP_PROCESS )
    hBits = GlobalAlloc(GHND, ( DWORD ) nBytes_Bits);
    if( hBits == nullptr )
    {
-      hb_retl( FALSE );
+      hb_retl(FALSE);
       return;
    }
    else
@@ -2846,7 +2846,7 @@ HB_FUNC( BT_BMP_PROCESS )
 
    GlobalUnlock(hBits);
    GlobalFree(hBits);
-   hb_retl( TRUE );
+   hb_retl(TRUE);
 }
 
 
@@ -2925,7 +2925,7 @@ HB_FUNC( BT_BMP_FILTER3X3 )
    hBitmap = hmg_par_HBITMAP(1);
    if( !HB_ISARRAY(2) || hb_parinfa(2, 0) != nMATFILTER )
    {
-      hb_retl( FALSE );
+      hb_retl(FALSE);
       return;
    }
    for( INT i = 0; i < nMATFILTER; i++ )
@@ -2954,7 +2954,7 @@ HB_FUNC( BT_BMP_FILTER3X3 )
    hBits_O = GlobalAlloc(GHND, ( DWORD ) nBytes_Bits);
    if( hBits_O == nullptr )
    {
-      hb_retl( FALSE );
+      hb_retl(FALSE);
       return;
    }
 
@@ -2962,7 +2962,7 @@ HB_FUNC( BT_BMP_FILTER3X3 )
    if( hBits_D == nullptr )
    {
       GlobalFree(hBits_O);
-      hb_retl( FALSE );
+      hb_retl(FALSE);
       return;
    }
 
@@ -3018,7 +3018,7 @@ HB_FUNC( BT_BMP_FILTER3X3 )
    GlobalFree(hBits_O);
    GlobalFree(hBits_D);
 
-   hb_retl( TRUE );
+   hb_retl(TRUE);
 }
 
 
@@ -3215,9 +3215,9 @@ HB_FUNC( BT_BMP_TRANSFORM )
 HB_FUNC( BT_BMP_CLIPBOARD_ISEMPTY )
 {
    if( IsClipboardFormatAvailable(CF_DIB) )
-      hb_retl( FALSE );  // Not empty clipboard
+      hb_retl(FALSE);  // Not empty clipboard
    else
-      hb_retl( TRUE );   // Empty clipboard
+      hb_retl(TRUE);   // Empty clipboard
 }
 
 
@@ -3231,21 +3231,21 @@ HB_FUNC( BT_BMP_CLEAN_CLIPBOARD )
 
    if( !IsClipboardFormatAvailable(CF_DIB) )
    {
-      hb_retl( FALSE );
+      hb_retl(FALSE);
       return;
    }
 
    hWnd = hmg_par_HWND(1);
    if( !OpenClipboard(hWnd) )
    {
-      hb_retl( FALSE );
+      hb_retl(FALSE);
       return;
    }
 
    EmptyClipboard();
    CloseClipboard();
 
-   hb_retl( TRUE );
+   hb_retl(TRUE);
 }
 
 
@@ -3366,7 +3366,7 @@ HB_FUNC( BT_BMP_PUT_CLIPBOARD )
 
    if( !OpenClipboard(hWnd) )
    {
-      hb_retl( FALSE );
+      hb_retl(FALSE);
       return;
    }
 
@@ -3375,7 +3375,7 @@ HB_FUNC( BT_BMP_PUT_CLIPBOARD )
    if( hClipboard == nullptr )
    {
       CloseClipboard();
-      hb_retl( FALSE );
+      hb_retl(FALSE);
       return;
    }
 
@@ -3394,7 +3394,7 @@ HB_FUNC( BT_BMP_PUT_CLIPBOARD )
 
    DeleteDC(memDC);
 
-   hb_retl( TRUE );
+   hb_retl(TRUE);
 }
 
 
@@ -3469,10 +3469,10 @@ HB_FUNC( BT_STRETCH_RECT )
       hb_storni( Height1, 2 );
       hb_storni( Width2, 3 );
       hb_storni( Height2, 4 );
-      hb_retl( TRUE );
+      hb_retl(TRUE);
    }
    else
-      hb_retl( FALSE );
+      hb_retl(FALSE);
 }
 
 

@@ -49,20 +49,20 @@
 
 HB_FUNC( INITHOTKEY )
 {
-   hb_retl( RegisterHotKey
+   hb_retl(RegisterHotKey
             (
                hmg_par_HWND(1), // window to receive hot-key notification
                hb_parni(4),          // identifier of hot key
                hb_parni(2),          // key-modifier flags
                hb_parni(3)           // virtual-key code
-            ) );
+            ));
 }
 
 HB_FUNC( RELEASEHOTKEY )
 {
-   hb_retl( UnregisterHotKey
+   hb_retl(UnregisterHotKey
             (
                hmg_par_HWND(1), // window associated with hot key
                hb_parni(2)           // identifier of hot key
-            ) );
+            ));
 }

@@ -1777,11 +1777,11 @@ HB_FUNC( PG_GETITEM )
    }
    else if( nType == 4 )
    {
-      hb_retl( pData->ItemDisabled );
+      hb_retl(pData->ItemDisabled);
    }
    else if( nType == 5 )
    {
-      hb_retl( pData->ItemChanged );
+      hb_retl(pData->ItemChanged);
    }
    else if( nType == 6 )
    {
@@ -1865,7 +1865,7 @@ HB_FUNC( PG_ENSUREVISIBLE )
 
    lVisible = TreeView_EnsureVisible(TreeHandle, ItemHandle);
 
-   hb_retl( (BOOL) lVisible );
+   hb_retl((BOOL) lVisible);
 
 }
 
@@ -1889,7 +1889,7 @@ HB_FUNC( PG_ISVISIBLE )
       }
       ItemHdl = TreeView_GetNextVisible(TreeHandle, ItemHdl);
    }
-   hb_retl( (BOOL) lVisible );
+   hb_retl((BOOL) lVisible);
 }
 
 HB_FUNC( PG_SEARCHID )        //PG_SearchID(hWndPG,nID)
@@ -2061,7 +2061,7 @@ HB_FUNC( RESETPROPGRIDIMAGELIST )
 
 HB_FUNC( PG_REDRAWITEM )
 {
-   hb_retl( TreeView_SelectItem((HWND) hb_parnl(1), (HTREEITEM) hb_parnl(2)) );
+   hb_retl(TreeView_SelectItem((HWND) hb_parnl(1), (HTREEITEM) hb_parnl(2)));
 }
 
 HB_FUNC( TREEVIEW_SETBOLDITEM )

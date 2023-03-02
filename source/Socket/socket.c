@@ -115,18 +115,18 @@ HB_FUNC( SOCKETCONNECT )
                sockDestinationAddr.sin_addr.s_addr = ( ( LPIN_ADDR ) lphost->h_addr )->s_addr;
             else
             {
-               hb_retl( FALSE );
+               hb_retl(FALSE);
                return;
             }
          }
 
-         hb_retl( connect(m_hSocket, ( SOCKADDR * ) &sockDestinationAddr, sizeof(sockDestinationAddr) ) != SOCKET_ERROR );
+         hb_retl(connect(m_hSocket, ( SOCKADDR * ) &sockDestinationAddr, sizeof(sockDestinationAddr) ) != SOCKET_ERROR);
       }
       else
-         hb_retl( FALSE );
+         hb_retl(FALSE);
    }
    else
-      hb_retl( FALSE );
+      hb_retl(FALSE);
 
    /* Copy m_hSocket to caller method */
    strncpy(( char * ) hb_parc(1), ( char * ) &m_hSocket, sizeof(m_hSocket));
@@ -163,18 +163,18 @@ HB_FUNC( SOCKETBIND )
                sockDestinationAddr.sin_addr.s_addr = ( ( LPIN_ADDR ) lphost->h_addr )->s_addr;
             else
             {
-               hb_retl( FALSE );
+               hb_retl(FALSE);
                return;
             }
          }
 
-         hb_retl( bind(m_hSocket, ( SOCKADDR * ) &sockDestinationAddr, sizeof(sockDestinationAddr) ) != SOCKET_ERROR );
+         hb_retl(bind(m_hSocket, ( SOCKADDR * ) &sockDestinationAddr, sizeof(sockDestinationAddr) ) != SOCKET_ERROR);
       }
       else
-         hb_retl( FALSE );
+         hb_retl(FALSE);
    }
    else
-      hb_retl( FALSE );
+      hb_retl(FALSE);
 
    /* Copy m_hSocket to caller method */
    strncpy(( char * ) hb_parc(1), ( char * ) &m_hSocket, sizeof(m_hSocket));
@@ -201,18 +201,18 @@ HB_FUNC( SOCKETLISTEN )
 
             // Error?
             if( ( long int ) sClient != SOCKET_ERROR )
-               hb_retl( TRUE );
+               hb_retl(TRUE);
             else
-               hb_retl( FALSE );
+               hb_retl(FALSE);
          }
          else
-            hb_retl( FALSE );
+            hb_retl(FALSE);
       }
       else
-         hb_retl( FALSE );
+         hb_retl(FALSE);
    }
    else
-      hb_retl( FALSE );
+      hb_retl(FALSE);
 
    /* Copy m_hSocket to caller method */
    strncpy(( char * ) hb_parc(3), ( char * ) &sClient, sizeof(sClient));
@@ -238,13 +238,13 @@ HB_FUNC( SOCKETSEND )
                setsockopt(m_hSocket, SOL_SOCKET, SO_SNDTIMEO, ( char * ) &sendtimeout, sizeof(sendtimeout));
          }
 
-         hb_retl( send(m_hSocket, pszBuf, nBuf, 0) != SOCKET_ERROR );
+         hb_retl(send(m_hSocket, pszBuf, nBuf, 0) != SOCKET_ERROR);
       }
       else
-         hb_retl( FALSE );
+         hb_retl(FALSE);
    }
    else
-      hb_retl( FALSE );
+      hb_retl(FALSE);
 }
 
 HB_FUNC( SOCKETRECEIVE )
@@ -293,9 +293,9 @@ HB_FUNC( SOCKETCLOSE )
    strncpy(( char * ) &m_hSocket, hb_parc(1), sizeof(m_hSocket));
 
    if( bInit && m_hSocket != INVALID_SOCKET )
-      hb_retl( SOCKET_ERROR != closesocket(m_hSocket) );
+      hb_retl(SOCKET_ERROR != closesocket(m_hSocket));
    else
-      hb_retl( FALSE );
+      hb_retl(FALSE);
 
    m_hSocket = INVALID_SOCKET;
 

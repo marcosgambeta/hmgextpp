@@ -90,7 +90,7 @@ HB_FUNC( SETPROP )
    LPWSTR pW;
 #endif
 
-   hb_retl( HB_FALSE );
+   hb_retl(HB_FALSE);
    // check params
    if( !IsWindow(hwnd) || hb_parclen(2) == 0 )
    {
@@ -144,7 +144,7 @@ HB_FUNC( SETPROP )
 #else
       pW = AnsiToWide(( char * ) hb_parc(2));
 #endif
-      hb_retl( SetProp(hwnd, pW, hmg_par_HANDLE(3)) ? HB_TRUE : HB_FALSE );
+      hb_retl(SetProp(hwnd, pW, hmg_par_HANDLE(3)) ? HB_TRUE : HB_FALSE);
    #ifdef UNICODE
       hb_xfree(pW);
    #endif
@@ -186,7 +186,7 @@ HB_FUNC( SETPROP )
    pW = AnsiToWide(( char * ) hb_parc(2));
 #endif
 
-   hb_retl( SetProp(hwnd, pW, hMem) ? HB_TRUE : HB_FALSE  );
+   hb_retl(SetProp(hwnd, pW, hMem) ? HB_TRUE : HB_FALSE);
 
 #ifdef UNICODE
    hb_xfree(pW);
@@ -247,7 +247,7 @@ HB_FUNC( GETPROP )
    switch( lpMem[0] )
    {
       case 'C':   hb_retclen(lpMem + sizeof(int) + 1, nLen); break;
-      case 'L':   hb_retl( ( BOOL ) *( BOOL * ) ( lpMem + sizeof(int) + 1 ) ); break;
+      case 'L':   hb_retl(( BOOL ) *( BOOL * ) ( lpMem + sizeof(int) + 1 )); break;
       case 'D':   hb_retds(lpMem + sizeof(int) + 1); break;
       case 'I':   hb_retni( ( INT ) *( INT * ) ( lpMem + sizeof(int) + 1 ) ); break;
       case 'F':   hb_retnd( ( double ) *( double * ) ( lpMem + sizeof(int) + 1 ) ); break;

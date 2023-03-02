@@ -49,7 +49,7 @@
 
 HB_FUNC( INITTIMER )
 {
-   hb_retl( ( int ) SetTimer( hmg_par_HWND(1), hmg_par_UINT(2), hmg_par_UINT(3), ( TIMERPROC ) nullptr ) );
+   hb_retl(( int ) SetTimer( hmg_par_HWND(1), hmg_par_UINT(2), hmg_par_UINT(3), ( TIMERPROC ) nullptr ));
 }
 
 HB_FUNC( KILLTIMER )

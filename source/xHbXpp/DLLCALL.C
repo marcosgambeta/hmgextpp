@@ -282,7 +282,7 @@ HB_FUNC( LOADLIBRARY )
 
 HB_FUNC( FREELIBRARY )
 {
-   hb_retl( FreeLibrary((HMODULE) hb_parnl(1)) );
+   hb_retl(FreeLibrary((HMODULE) hb_parnl(1)));
 }
 
 // compatibility
@@ -590,7 +590,7 @@ static void DllExec(int iFlags, LPVOID lpFunction, int iParams, int iFirst, int 
    switch ( iRtype )
    {
       case CTYPE_BOOL :
-         hb_retl( (BOOL) rc.Long );
+         hb_retl((BOOL) rc.Long);
          break;
 
       case CTYPE_VOID :

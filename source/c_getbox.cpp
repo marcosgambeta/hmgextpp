@@ -328,7 +328,7 @@ HB_FUNC( INITGETBOX )
 
 HB_FUNC( CHECKBIT )
 {
-   hb_retl( hb_parnl(1) & ( 1 << ( hb_parni(2) - 1 ) ) );
+   hb_retl(hb_parnl(1) & ( 1 << ( hb_parni(2) - 1 ) ));
 }
 
 HB_FUNC( GETTEXTHEIGHT )               // returns the height of a string in pixels

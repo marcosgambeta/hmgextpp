@@ -111,7 +111,7 @@ HB_FUNC( SETTOOLTIPACTIVATE )
       g_bIsToolTipActive = hb_parl(1);
    }
 
-   hb_retl( g_bOldToolTipActive );
+   hb_retl(g_bOldToolTipActive);
 }
 
 HB_FUNC( SETTOOLTIPBALLOON )
@@ -123,7 +123,7 @@ HB_FUNC( SETTOOLTIPBALLOON )
       g_bIsToolTipBalloon = hb_parl(1);
    }
 
-   hb_retl( g_bOldToolTipBalloon );
+   hb_retl(g_bOldToolTipBalloon);
 }
 
 HB_FUNC( SETTOOLTIPMAXWIDTH )
@@ -220,8 +220,8 @@ HB_FUNC( SETTOOLTIP )
             ti.lpszText = lpText;
          }
 
-         hb_retl( SendMessage(hwndToolTip, TTM_ADDTOOL, ( WPARAM ) 0, ( LPARAM ) ( LPTOOLINFO ) &ti)
-                  ? HB_TRUE : HB_FALSE );
+         hb_retl(SendMessage(hwndToolTip, TTM_ADDTOOL, ( WPARAM ) 0, ( LPARAM ) ( LPTOOLINFO ) &ti)
+                 ? HB_TRUE : HB_FALSE);
 
          SendMessage(hwndToolTip, TTM_ACTIVATE, ( WPARAM ) ( BOOL ) g_bIsToolTipActive, 0);
 

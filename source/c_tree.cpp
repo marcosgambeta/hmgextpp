@@ -793,5 +793,5 @@ HB_FUNC( TREEITEM_GETNODEFLAG )
    TreeView_GetItem(hWndTV, &TreeItem);
 
    TreeItemLPARAM = ( HMG_StructTreeItemLPARAM * ) TreeItem.lParam;
-   hb_retl( ( BOOL ) TreeItemLPARAM->IsNodeFlag );
+   hb_retl(( BOOL ) TreeItemLPARAM->IsNodeFlag);
 }

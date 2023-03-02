@@ -131,8 +131,8 @@ HB_FUNC( TEXTDRAW )
 
       SetRect(&rect, hb_parni(3), hb_parni(2), hb_parni(6), hb_parni(5));
 
-      hb_retl( ExtTextOut(hDC, hb_parni(3), hb_parni(2), ETO_OPAQUE, &rect, lpString, ( int ) lstrlen(lpString), nullptr)
-               ? HB_TRUE : HB_FALSE );
+      hb_retl(ExtTextOut(hDC, hb_parni(3), hb_parni(2), ETO_OPAQUE, &rect, lpString, ( int ) lstrlen(lpString), nullptr)
+               ? HB_TRUE : HB_FALSE);
 
 #ifdef UNICODE
       hb_xfree(( TCHAR * ) lpString);
@@ -163,7 +163,7 @@ HB_FUNC( TEXTDRAW )
    }
    else
    {
-      hb_retl( HB_FALSE );
+      hb_retl(HB_FALSE);
    }
 }
 

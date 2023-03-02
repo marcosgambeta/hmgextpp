@@ -75,21 +75,21 @@ HB_FUNC( VERIFYPASSWORD )
 
    if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT )
    {
-      hb_retl( TRUE );
+      hb_retl(TRUE);
    }
 
    hpwdcpl = LoadLibrary("PASSWORD.CPL");
 
    if( hpwdcpl == nullptr )
    {
-      hb_retl( FALSE );
+      hb_retl(FALSE);
    }
 
    VerifyScreenSavePwd = ( VERIFYSCREENSAVEPWD ) wapi_GetProcAddress(hpwdcpl, "VerifyScreenSavePwd");
    if( VerifyScreenSavePwd == nullptr )
    {
       FreeLibrary(hpwdcpl);
-      hb_retl( FALSE );
+      hb_retl(FALSE);
    }
 
    hwnd = hmg_par_HWND(1);
@@ -97,7 +97,7 @@ HB_FUNC( VERIFYPASSWORD )
    bres = VerifyScreenSavePwd( hwnd );
    FreeLibrary(hpwdcpl);
 
-   hb_retl( bres );
+   hb_retl(bres);
 }
 
 HB_FUNC( CHANGEPASSWORD )
@@ -111,7 +111,7 @@ HB_FUNC( CHANGEPASSWORD )
 
    if( hmpr == nullptr )
    {
-      hb_retl( FALSE );
+      hb_retl(FALSE);
    }
 
    PwdChangePassword = ( PWDCHANGEPASSWORD ) wapi_GetProcAddress(hmpr, "PwdChangePasswordA");
@@ -119,14 +119,14 @@ HB_FUNC( CHANGEPASSWORD )
    if( PwdChangePassword == nullptr )
    {
       FreeLibrary(hmpr);
-      hb_retl( FALSE );
+      hb_retl(FALSE);
    }
 
    hwnd = hmg_par_HWND(1);
    PwdChangePassword( "SCRSAVE", hwnd, 0, 0 );
    FreeLibrary(hmpr);
 
-   hb_retl( TRUE );
+   hb_retl(TRUE);
 }
 
 /*

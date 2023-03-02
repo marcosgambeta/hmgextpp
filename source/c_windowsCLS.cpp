@@ -258,7 +258,7 @@ HB_FUNC( ISWINDOWHASSTYLE )
    {
       LONG_PTR style = GetWindowLongPtr(hwnd, GWL_STYLE);
 
-      hb_retl( ( style & ( LONG_PTR ) HB_PARNL(2) ) ? HB_TRUE : HB_FALSE );
+      hb_retl(( style & ( LONG_PTR ) HB_PARNL(2) ) ? HB_TRUE : HB_FALSE);
    }
    else
    {
@@ -274,7 +274,7 @@ HB_FUNC( ISWINDOWHASEXSTYLE )
    {
       LONG_PTR nExStyle = GetWindowLongPtr(hwnd, GWL_EXSTYLE);
 
-      hb_retl( ( nExStyle & ( LONG_PTR ) HB_PARNL(2) ) ? HB_TRUE : HB_FALSE );
+      hb_retl(( nExStyle & ( LONG_PTR ) HB_PARNL(2) ) ? HB_TRUE : HB_FALSE);
    }
    else
    {

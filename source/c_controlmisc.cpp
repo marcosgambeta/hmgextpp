@@ -75,11 +75,11 @@ HB_FUNC( DELETEOBJECT )
    if( hRes )
    {
       DelResource(hRes);
-      hb_retl( DeleteObject(( HGDIOBJ ) hRes) );
+      hb_retl(DeleteObject(( HGDIOBJ ) hRes));
    }
    else
    {
-      hb_retl( HB_FALSE );
+      hb_retl(HB_FALSE);
    }
 }
 
@@ -88,7 +88,7 @@ HB_FUNC( IMAGELIST_DESTROY )
    HIMAGELIST himl = hmg_par_HIMAGELIST(1);
 
    DelResource(himl);
-   hb_retl( ImageList_Destroy(himl) );
+   hb_retl(ImageList_Destroy(himl));
 }
 
 HB_FUNC( SETFOCUS )
@@ -125,7 +125,7 @@ HB_FUNC( INSERTSHIFTTAB )
 
 HB_FUNC( SYSTEMPARAMETERSINFO )
 {
-   hb_retl( SystemParametersInfoA(hmg_par_UINT(1), hmg_par_UINT(2), ( VOID * ) hb_parc(3), hmg_par_UINT(4)) );
+   hb_retl(SystemParametersInfoA(hmg_par_UINT(1), hmg_par_UINT(2), ( VOID * ) hb_parc(3), hmg_par_UINT(4)));
 }
 
 /*
@@ -205,22 +205,22 @@ HB_FUNC( _HMG_SETHSCROLLVALUE )
 
 HB_FUNC( SHOWCARET )
 {
-   hb_retl( ShowCaret(hmg_par_HWND(1)) );
+   hb_retl(ShowCaret(hmg_par_HWND(1)));
 }
 
 HB_FUNC( HIDECARET )
 {
-   hb_retl( HideCaret(hmg_par_HWND(1)) );
+   hb_retl(HideCaret(hmg_par_HWND(1)));
 }
 
 HB_FUNC( DESTROYCARET )
 {
-   hb_retl( DestroyCaret() );
+   hb_retl(DestroyCaret());
 }
 
 HB_FUNC( CREATECARET )
 {
-   hb_retl( CreateCaret(hmg_par_HWND(1), hmg_par_HBITMAP(2), hmg_par_int(3), hmg_par_int(4)) );
+   hb_retl(CreateCaret(hmg_par_HWND(1), hmg_par_HBITMAP(2), hmg_par_int(3), hmg_par_int(4)));
 }
 
 /*

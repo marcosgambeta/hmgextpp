@@ -120,7 +120,7 @@ HB_FUNC( WRITEPRIVATEPROFILESTRING )
    LPCWSTR lpFileName = AnsiToWide(( char * ) hb_parc(4));
 #endif
 
-   hb_retl( WritePrivateProfileString(lpSection, lpEntry, lpData, lpFileName) );
+   hb_retl(WritePrivateProfileString(lpSection, lpEntry, lpData, lpFileName));
 }
 
 HB_FUNC( DELINIENTRY )
@@ -134,10 +134,10 @@ HB_FUNC( DELINIENTRY )
    LPCWSTR lpEntry    = AnsiToWide(( char * ) hb_parc(2));
    LPCWSTR lpFileName = AnsiToWide(( char * ) hb_parc(3));
 #endif
-   hb_retl( WritePrivateProfileString(lpSection,      // Section
-                                      lpEntry,        // Entry
-                                      nullptr,           // String
-                                      lpFileName) ); // INI File
+   hb_retl(WritePrivateProfileString(lpSection,      // Section
+                                     lpEntry,        // Entry
+                                     nullptr,           // String
+                                     lpFileName)); // INI File
 }
 
 HB_FUNC( DELINISECTION )
@@ -149,10 +149,10 @@ HB_FUNC( DELINISECTION )
    LPCWSTR lpSection  = AnsiToWide(( char * ) hb_parc(1));
    LPCWSTR lpFileName = AnsiToWide(( char * ) hb_parc(2));
 #endif
-   hb_retl( WritePrivateProfileString(lpSection,      // Section
-                                      nullptr,           // Entry
-                                      "",     // String
-                                      lpFileName) ); // INI File
+   hb_retl(WritePrivateProfileString(lpSection,      // Section
+                                     nullptr,           // Entry
+                                     "",     // String
+                                     lpFileName)); // INI File
 }
 
 static TCHAR * FindFirstSubString(TCHAR * Strings)

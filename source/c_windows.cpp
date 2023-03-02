@@ -176,12 +176,12 @@ HB_FUNC( SETGLOBALLISTENER )
    if( pszNewName && hb_dynsymIsFunction(hb_dynsymGet(pszNewName)) )
    {
       HMG_LISTENER_LOCK;
-      g_ListenerDyns = hb_dynsymGet(pszNewName); hb_retl( HB_TRUE );
+      g_ListenerDyns = hb_dynsymGet(pszNewName); hb_retl(HB_TRUE);
       HMG_LISTENER_UNLOCK;
    }
    else
    {
-      hb_retl( HB_FALSE );
+      hb_retl(HB_FALSE);
    }
 }
 
@@ -397,7 +397,7 @@ HB_FUNC( APPEVENTS )
    #endif
    }
 
-   hb_retl( bRes ? HB_TRUE : HB_FALSE );
+   hb_retl(bRes ? HB_TRUE : HB_FALSE);
 }
 
 HB_FUNC( APPEVENTSREMOVE )
@@ -413,7 +413,7 @@ HB_FUNC( APPEVENTSREMOVE )
       bDel = AppEventRemove(hWnd, pszProp, message);
    }
 
-   hb_retl( bDel );
+   hb_retl(bDel);
 }
 
 HB_FUNC( APPEVENTSUPDATE )
@@ -463,7 +463,7 @@ HB_FUNC( APPEVENTSUPDATE )
    #endif
    }
 
-   hb_retl( bUpd );
+   hb_retl(bUpd);
 }
 
 HB_FUNC( ENUMAPPEVENTS )
@@ -753,7 +753,7 @@ HB_FUNC( WINEVENTS )
    #endif
    }
 
-   hb_retl( bRes ? HB_TRUE : HB_FALSE );
+   hb_retl(bRes ? HB_TRUE : HB_FALSE);
 }
 
 HB_FUNC( WINEVENTSREMOVE )
@@ -769,7 +769,7 @@ HB_FUNC( WINEVENTSREMOVE )
       bDel = WinEventRemove(hWnd, pszProp, message);
    }
 
-   hb_retl( bDel );
+   hb_retl(bDel);
 }
 
 HB_FUNC( WINEVENTSUPDATE )
@@ -819,7 +819,7 @@ HB_FUNC( WINEVENTSUPDATE )
    #endif
    }
 
-   hb_retl( bUpd );
+   hb_retl(bUpd);
 }
 
 HB_FUNC( ENUMWINEVENTS )
@@ -1648,7 +1648,7 @@ HB_FUNC( HMG_ISALPHA )
    LPWSTR ch = AnsiToWide(( char * ) hb_parc(1));
 #endif
 
-   hb_retl( ( BOOL ) IsCharAlpha(ch[0]) );
+   hb_retl(( BOOL ) IsCharAlpha(ch[0]));
 }
 
 HB_FUNC( HMG_ISDIGIT )
@@ -1659,7 +1659,7 @@ HB_FUNC( HMG_ISDIGIT )
    LPWSTR ch = AnsiToWide(( char * ) hb_parc(1));
 #endif
 
-   hb_retl( ( BOOL ) ( IsCharAlphaNumeric( ch[0] ) && !IsCharAlpha(ch[0]) ) );
+   hb_retl(( BOOL ) ( IsCharAlphaNumeric( ch[0] ) && !IsCharAlpha(ch[0]) ));
 }
 
 #ifdef UNICODE
@@ -1736,7 +1736,7 @@ HB_FUNC( HMG_ISLOWER )
 #else
    LPWSTR Text = AnsiToWide(( char * ) hb_parc(1));
 #endif
-   hb_retl( ( BOOL ) IsCharLower(Text[0]) );
+   hb_retl(( BOOL ) IsCharLower(Text[0]));
 
 #ifdef UNICODE
    hb_xfree(Text);
@@ -1750,7 +1750,7 @@ HB_FUNC( HMG_ISUPPER )
 #else
    LPWSTR Text = AnsiToWide(( char * ) hb_parc(1));
 #endif
-   hb_retl( ( BOOL ) IsCharUpper(Text[0]) );
+   hb_retl(( BOOL ) IsCharUpper(Text[0]));
 
 #ifdef UNICODE
    hb_xfree(Text);

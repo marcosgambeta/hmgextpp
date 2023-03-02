@@ -951,8 +951,8 @@ HB_FUNC( C_SAVEHBITMAPTOFILE )
 {
    HBITMAP hbmp = hmg_par_HBITMAP(1);
 
-   hb_retl( SaveHBitmapToFile(( void * ) hbmp, hb_parc(2),
-                               hmg_par_UINT(3), hmg_par_UINT(4), hb_parc(5), ( ULONG ) hb_parnl(6)) );
+   hb_retl(SaveHBitmapToFile(( void * ) hbmp, hb_parc(2),
+                               hmg_par_UINT(3), hmg_par_UINT(4), hb_parc(5), ( ULONG ) hb_parnl(6)));
 }
 
 //*************************************************************************************************
@@ -1278,7 +1278,7 @@ HB_FUNC( C_SAVEHICONTOFILE )
 
       if( SaveIconToFile(szIconFile, hIcon, hb_parnidef(3, nLen)) )
       {
-         hb_retl( TRUE );
+         hb_retl(TRUE);
 
          // clean up
          for( int i = 0; i < nLen; i++ )
@@ -1288,12 +1288,12 @@ HB_FUNC( C_SAVEHICONTOFILE )
       }
       else
       {
-         hb_retl( FALSE );
+         hb_retl(FALSE);
       }
    }
    else
    {
-      hb_retl( FALSE );
+      hb_retl(FALSE);
    }
 
 #ifdef UNICODE

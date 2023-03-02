@@ -941,7 +941,7 @@ HB_FUNC( LISTVIEW_GETCOLUMNWIDTH )
 
 HB_FUNC( LISTVIEW_SETCOLUMNWIDTH )  // (JK) HMG Experimental Build 6
 {
-   hb_retl( ListView_SetColumnWidth(hmg_par_HWND(1), hb_parni(2), hb_parni(3)) );
+   hb_retl(ListView_SetColumnWidth(hmg_par_HWND(1), hb_parni(2), hb_parni(3)));
 }
 
 HB_FUNC( LISTVIEW_GETCHECKSTATE )
@@ -950,7 +950,7 @@ HB_FUNC( LISTVIEW_GETCHECKSTATE )
 
    if( _isValidCtrlClass(hwndLV, WC_LISTVIEW) )
    {
-      hb_retl( ListView_GetCheckState(hwndLV, hb_parni(2) - 1) );
+      hb_retl(ListView_GetCheckState(hwndLV, hb_parni(2) - 1));
    }
    else
    {
@@ -966,7 +966,7 @@ HB_FUNC( LISTVIEW_SETCHECKSTATE )
    {
       ListView_SetCheckState(hwndLV, hb_parni(2) - 1, hb_parl(3));
 
-      hb_retl( HB_TRUE );
+      hb_retl(HB_TRUE);
    }
    else
    {
@@ -1062,7 +1062,7 @@ HB_FUNC( LISTVIEW_GETEXTENDEDSTYLE )  // Dr. Claudio Soto
 
    if( HB_ISNUM(2) )
    {
-      hb_retl( ( BOOL ) ( ( OldStyle & ExStyle ) == ExStyle ) );
+      hb_retl(( BOOL ) ( ( OldStyle & ExStyle ) == ExStyle ));
    }
    else
    {
@@ -1181,7 +1181,7 @@ HB_FUNC( LISTVIEW_GROUPITEMSETID )
    LVI.iSubItem = 0;
    LVI.iGroupId = GroupID;
 
-   hb_retl( ( BOOL ) ListView_SetItem(hWnd, &LVI) );
+   hb_retl(( BOOL ) ListView_SetItem(hWnd, &LVI));
 }
 
 //        ListView_GroupItemGetID ( hWnd, nRow )
@@ -1208,7 +1208,7 @@ HB_FUNC( LISTVIEW_ISGROUPVIEWENABLED )
 {
    HWND hWnd = hmg_par_HWND(1);
 
-   hb_retl( ( BOOL ) ListView_IsGroupViewEnabled( hWnd ) );
+   hb_retl(( BOOL ) ListView_IsGroupViewEnabled( hWnd ));
 }
 
 //        ListView_EnableGroupView ( hWnd, lEnable )
@@ -1339,5 +1339,5 @@ HB_FUNC( LISTVIEW_HASGROUP )
    HWND hWnd    = hmg_par_HWND(1);
    INT  GroupID = hmg_par_INT(2);
 
-   hb_retl( ( BOOL ) ListView_HasGroup(hWnd, GroupID) );
+   hb_retl(( BOOL ) ListView_HasGroup(hWnd, GroupID));
 }

@@ -132,5 +132,5 @@ HB_FUNC( DBINSERT )
       }
    }
 
-   hb_retl( bOk );
+   hb_retl(bOk);
 }

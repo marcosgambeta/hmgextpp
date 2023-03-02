@@ -654,7 +654,7 @@ HB_FUNC( FOLDER_ISDIRTY )
       }
    }
 
-   hb_retl( ( BOOL ) lPageDirty );
+   hb_retl(( BOOL ) lPageDirty);
 }
 
 /******************************************************************************
@@ -676,7 +676,7 @@ HB_FUNC( FOLDER_ISFINISH )
       lFooderFinish = pFhi->ended;
    }
 
-   hb_retl( ( BOOL ) lFooderFinish );
+   hb_retl(( BOOL ) lFooderFinish);
 }
 
 /******************************************************************************
