@@ -94,7 +94,6 @@ HB_EXPORT HBITMAP   HMG_OleLoadPicturePath(const char * pszURLorPath);
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);
 #endif
-HINSTANCE GetResources(void);
 
 static WNDPROC s_Image_WNDPROC;
 static char * MimeTypeOld;

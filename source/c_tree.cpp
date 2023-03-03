@@ -54,7 +54,6 @@ HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transpar
 void HMG_ImageListAdd( HIMAGELIST himl, char * FileName, int Transparent );
 
 HINSTANCE GetInstance(void);
-HINSTANCE GetResources(void);
 
 HB_FUNC( INITTREE )
 {

@@ -493,7 +493,6 @@ LPWSTR AnsiToWide(LPCSTR);
 LPSTR  WideToAnsi(LPWSTR);
 #endif
 HINSTANCE GetInstance(void);
-HINSTANCE GetResources(void);
 
 /*
 INITCOMBOBOX(p1, p2, nX, nY, nWidth, p6, p7, nHeight, p9, p10, p11, p12, p13) --> HWND

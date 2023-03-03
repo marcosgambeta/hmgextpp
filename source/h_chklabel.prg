@@ -432,7 +432,6 @@ static WNDPROC LabelOldWndProc;
 extern HBITMAP HMG_LoadPicture(const char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage,
                                HB_BOOL bAlphaFormat, int iAlpfaConstant);
 HINSTANCE GetInstance(void);
-HINSTANCE GetResources(void);
 
 struct INSCHK
 {

@@ -69,7 +69,6 @@ LRESULT APIENTRY ToolBarExFunc( HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lPara
 LPWSTR AnsiToWide(LPCSTR);
 #endif
 HINSTANCE GetInstance(void);
-HINSTANCE GetResources(void);
 
 static LPTBBUTTON lpSaveButtons;
 static int        nResetCount, buttonCount;

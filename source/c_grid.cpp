@@ -65,7 +65,6 @@ LPWSTR AnsiToWide(LPCSTR);
 LPSTR  WideToAnsi(LPWSTR);
 #endif
 HINSTANCE GetInstance(void);
-HINSTANCE GetResources(void);
 
 #if ( ( defined( __BORLANDC__ ) && __BORLANDC__ < 1410 ) )
 

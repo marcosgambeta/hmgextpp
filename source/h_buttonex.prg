@@ -975,7 +975,6 @@ RETURN NIL
 LRESULT CALLBACK OwnButtonProc(HWND hbutton, UINT msg, WPARAM wParam, LPARAM lParam);
 
 HINSTANCE GetInstance(void);
-HINSTANCE GetResources(void);
 
 /*
 INITOWNERBUTTON(p1, p2, p3, nX, nY, nWidth, nHeight, p8, p9, p10, p11, p12, p13, p14) --> array

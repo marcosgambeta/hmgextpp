@@ -54,8 +54,6 @@
 #include <hbvm.hpp>
 #include <hbwinuni.hpp>
 
-HINSTANCE GetResources(void);
-
 LRESULT CALLBACK HMG_DlgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
    static PHB_SYMB pSymbol = nullptr;

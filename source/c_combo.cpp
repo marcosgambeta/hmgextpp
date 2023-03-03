@@ -58,7 +58,6 @@ HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transpar
 void HMG_ImageListAdd(HIMAGELIST himl, const char * FileName, int Transparent);
 
 HINSTANCE GetInstance(void);
-HINSTANCE GetResources(void);
 
 /*
 INITCOMBOBOXEX(p1, p2, nX, nY, nWidth, p6, p7, nHeight, p9, p10, p11, p12, p13, p14, p15) --> HWND

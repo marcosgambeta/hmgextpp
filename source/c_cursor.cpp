@@ -56,7 +56,6 @@
 #include <hbwinuni.hpp>
 
 HINSTANCE GetInstance(void);
-HINSTANCE GetResources(void);
 
 /*
 LOADCURSOR(HINSTANCE, cCursor|nCursor) --> HANDLE|NIL

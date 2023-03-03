@@ -86,7 +86,6 @@ HWND MCIWndCreateW(
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);
 #endif
-HINSTANCE GetResources(void);
 
 HB_FUNC( MESSAGEBEEP )
 {

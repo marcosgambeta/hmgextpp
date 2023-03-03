@@ -62,8 +62,6 @@
 HANDLE   DibFromBitmap(HBITMAP, HPALETTE);
 WORD     GetDIBColors(LPSTR);
 
-HINSTANCE GetResources(void);
-
 HB_FUNC( SAVEWINDOWBYHANDLE )
 {
    HWND     hWnd = hmg_par_HWND(1);

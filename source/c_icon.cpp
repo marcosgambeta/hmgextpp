@@ -57,7 +57,6 @@ LPWSTR AnsiToWide(LPCSTR);
 #endif
 
 HINSTANCE GetInstance(void);
-HINSTANCE GetResources(void);
 
 // HICON WINAPI CopyIcon(HICON hIcon)
 HB_FUNC( COPYICON )

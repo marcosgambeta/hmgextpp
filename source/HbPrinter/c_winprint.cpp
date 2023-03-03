@@ -69,7 +69,6 @@ static OSVERSIONINFO osvi;
   LPWSTR AnsiToWide(LPCSTR);
   LPSTR  WideToAnsi(LPWSTR);
 #endif
-HINSTANCE GetResources(void);
 void      rr_getdevmode(void);
 
 HB_FUNC( RR_FINISH )
