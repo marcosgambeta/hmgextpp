@@ -74,7 +74,6 @@ LRESULT CALLBACK  OwnGetProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);
 #endif
-HINSTANCE GetInstance(void);
 
 HB_FUNC( INITGETBOX )
 {

@@ -67,7 +67,6 @@
 extern void hmg_ErrorExit(LPCTSTR lpMessage, DWORD dwError, BOOL bExit);
 extern GpStatus GdiplusInit(void);
 
-HINSTANCE GetInstance(void);
 HMODULE   hmg_LoadLibrarySystem(LPCTSTR pFileName);
 
 // auxiliary functions

@@ -143,6 +143,7 @@ extern HB_PTRUINT wapi_GetProcAddress( HMODULE hmodule, LPCSTR lpProcName );
 void RegisterResource(HANDLE hResource, LPCSTR szType);
 void pascal DelResource(HANDLE hResource);
 
+HINSTANCE GetInstance(void);
 HINSTANCE GetResources(void);
 
 // TODO: handles -> pointers

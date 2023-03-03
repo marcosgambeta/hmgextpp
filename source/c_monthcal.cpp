@@ -69,8 +69,6 @@ extern HFONT PrepareFont(TCHAR *, int, int, DWORD, DWORD, DWORD, DWORD, DWORD);
 // #endif
 LRESULT CALLBACK  OwnMCProc(HWND hmonthcal, UINT Msg, WPARAM wParam, LPARAM lParam);
 
-HINSTANCE GetInstance(void);
-
 HB_FUNC( INITMONTHCAL )
 {
    HWND hwnd;

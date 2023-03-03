@@ -56,7 +56,6 @@
 
 LRESULT APIENTRY SubClassFunc( HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam );
 static WNDPROC lpfnOldWndProc;
-HINSTANCE GetInstance(void);
 
 /*
 INITBROWSE(nParent, nMenu, nLeft, nTop, nRight, nBottom) --> HWND

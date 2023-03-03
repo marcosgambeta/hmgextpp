@@ -58,7 +58,6 @@ void HMG_ImageListAdd( HIMAGELIST himl, char * FileName, int Transparent );
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);
 #endif
-HINSTANCE GetInstance(void);
 
 HB_FUNC( INITTABCONTROL )
 {

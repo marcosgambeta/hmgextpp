@@ -63,7 +63,6 @@ extern HBITMAP HMG_LoadPicture(const char * FileName, int New_Width, int New_Hei
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);
 #endif
-HINSTANCE GetInstance(void);
 
 HB_FUNC( INITIMAGELIST )   //InitImageList ( cx , cy, mask , nCount )
 {

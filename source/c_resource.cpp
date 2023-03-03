@@ -52,8 +52,6 @@
 
 #include <hbapifs.hpp>
 
-HINSTANCE GetInstance(void);
-
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);
 #endif

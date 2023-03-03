@@ -344,8 +344,6 @@ RETURN NIL
 
 #define BUFFER MAX_PATH
 
-HINSTANCE GetInstance(void);
-
 static int m_nHeightItem = 16;
 
 HB_FUNC_STATIC( INITCHKLISTBOX )

@@ -50,7 +50,6 @@
 /* undocumented Windows API */
 int WINAPI MessageBoxTimeout(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT uType, WORD wLanguageId, DWORD dwMilliseconds);
 
-HINSTANCE GetInstance(void);
 extern HB_PTRUINT wapi_GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
 
 // JK HMG 1.2 Experimental Build 16g

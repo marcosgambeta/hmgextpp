@@ -63,8 +63,6 @@
 
 LRESULT CALLBACK  OwnSpinProc(HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam);
 
-HINSTANCE GetInstance(void);
-
 HB_FUNC( INITSPINNER )
 {
    HWND hwnd, hedit, hupdown;

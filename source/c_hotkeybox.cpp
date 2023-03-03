@@ -56,7 +56,6 @@
 LPWSTR AnsiToWide(LPCSTR);
 LPSTR  WideToAnsi(LPWSTR);
 #endif
-HINSTANCE GetInstance(void);
 
 void InterpretHotKey(UINT setting, TCHAR * szKeyName)
 {

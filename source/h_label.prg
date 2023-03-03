@@ -336,7 +336,6 @@ RETURN 0
 
 LRESULT APIENTRY LabelSubClassFunc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam);
 static WNDPROC LabelOldWndProc;
-HINSTANCE GetInstance(void);
 
 HB_FUNC_STATIC( INITLABEL )
 {

@@ -254,8 +254,6 @@ RETURN Nil
 #include "mgdefs.hpp"
 #include <commctrl.h>
 
-HINSTANCE GetInstance(void);
-
 /*
 INITSLIDER(p1, p2, nX, nY, nWidth, nHeight, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18) --> HWND
 */

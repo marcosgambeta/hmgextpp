@@ -68,7 +68,6 @@ static BOOL IsWinxpSp1Min(void);
 LPWSTR AnsiToWide(LPCSTR);
 LPSTR  WideToAnsi(LPWSTR);
 #endif
-HINSTANCE GetInstance(void);
 
 static HINSTANCE hRELib = nullptr;
 

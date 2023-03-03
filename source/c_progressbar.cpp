@@ -51,8 +51,6 @@
 
 #include <commctrl.h>
 
-HINSTANCE GetInstance(void);
-
 HB_FUNC( INITPROGRESSBAR )
 {
    HWND hwnd;

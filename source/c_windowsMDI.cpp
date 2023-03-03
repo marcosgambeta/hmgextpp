@@ -65,7 +65,6 @@ LRESULT CALLBACK  MdiChildWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPa
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);
 #endif
-HINSTANCE GetInstance(void);
 
 static HWND hwndMDIClient;
 

@@ -79,7 +79,6 @@
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);
 #endif
-HINSTANCE GetInstance(void);
 
 HB_FUNC( GETHANDLEREBAR )  // GetHandleRebar(hPager)
 {

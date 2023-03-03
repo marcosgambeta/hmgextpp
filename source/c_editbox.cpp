@@ -55,8 +55,6 @@
 
 extern LRESULT CALLBACK OwnEditProc(HWND hbutton, UINT msg, WPARAM wParam, LPARAM lParam);
 
-HINSTANCE GetInstance(void);
-
 HB_FUNC( INITEDITBOX )
 {
    HWND hwnd;

@@ -60,7 +60,6 @@
 LPWSTR AnsiToWide(LPCSTR);
 LPSTR  WideToAnsi(LPWSTR);
 #endif
-HINSTANCE GetInstance(void);
 
 HB_FUNC( INITLISTBOX )
 {

@@ -84,7 +84,6 @@ typedef BOOL ( WINAPI * fnIsAppThemed )(void);
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);
 #endif
-HINSTANCE GetInstance(void);
 
 static HINSTANCE hUxTheme;
 

@@ -76,7 +76,6 @@ static DWORD charset = DEFAULT_CHARSET;
   LPWSTR AnsiToWide(LPCSTR);
   LPSTR  WideToAnsi(LPWSTR);
 #endif
-HINSTANCE GetInstance(void);
 
 extern HBITMAP HMG_LoadImage(const char * FileName, const char * s);
 

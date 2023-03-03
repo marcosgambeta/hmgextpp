@@ -57,7 +57,6 @@
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);
 #endif
-HINSTANCE GetInstance(void);
 
 /* Modified by P.Ch. 16.12. */
 

@@ -53,8 +53,6 @@
 HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transparent, int * nWidth, int * nHeight);
 void HMG_ImageListAdd( HIMAGELIST himl, char * FileName, int Transparent );
 
-HINSTANCE GetInstance(void);
-
 HB_FUNC( INITTREE )
 {
    INITCOMMONCONTROLSEX icex;

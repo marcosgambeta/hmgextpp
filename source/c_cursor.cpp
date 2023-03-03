@@ -55,8 +55,6 @@
 #include "mgdefs.hpp"
 #include <hbwinuni.hpp>
 
-HINSTANCE GetInstance(void);
-
 /*
 LOADCURSOR(HINSTANCE, cCursor|nCursor) --> HANDLE|NIL
 */

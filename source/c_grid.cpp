@@ -64,7 +64,6 @@ void HMG_ImageListAdd( HIMAGELIST himl, char * FileName, int Transparent );
 LPWSTR AnsiToWide(LPCSTR);
 LPSTR  WideToAnsi(LPWSTR);
 #endif
-HINSTANCE GetInstance(void);
 
 #if ( ( defined( __BORLANDC__ ) && __BORLANDC__ < 1410 ) )
 

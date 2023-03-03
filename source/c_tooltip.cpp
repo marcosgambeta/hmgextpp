@@ -95,7 +95,6 @@ extern HB_EXPORT PHB_ITEM Rect2Array(RECT * rc);
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);
 #endif
-HINSTANCE GetInstance(void);
 
 static HB_BOOL g_bIsToolTipActive  = TRUE;
 static HB_BOOL g_bIsToolTipBalloon = FALSE;
