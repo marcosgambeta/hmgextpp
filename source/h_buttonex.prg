@@ -1013,7 +1013,7 @@ HB_FUNC_STATIC( INITOWNERBUTTON )
       hmg_par_int(4), hmg_par_int(5), hmg_par_int(6), hmg_par_int(7),
       hwnd, hmg_par_HMENU(3), GetInstance(), nullptr);
 
-   SetProp(hbutton, "oldbtnproc", reinterpret_cast<HWND>(GetWindowLongPtr(hbutton, GWLP_WNDPROC)));
+   SetProp(hbutton, TEXT("oldbtnproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hbutton, GWLP_WNDPROC)));
    SetWindowLongPtr(hbutton, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(OwnButtonProc));
 
    int ImgStyle = hb_parl(10) ? 0 : LR_LOADTRANSPARENT;
@@ -1059,7 +1059,7 @@ LRESULT CALLBACK OwnButtonProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPa
 {
    static PHB_SYMB pSymbol = nullptr;
 
-   WNDPROC OldWndProc = reinterpret_cast<WNDPROC>(GetProp(hButton, "oldbtnproc"));
+   WNDPROC OldWndProc = reinterpret_cast<WNDPROC>(GetProp(hButton, TEXT("oldbtnproc")));
 
    switch( Msg )
    {

@@ -189,7 +189,7 @@ HB_FUNC( ISENABLEDGRADIENT )
 
 HB_FUNC( _INITGRADIENTFUNC )
 {
-   s_hDLL = LoadLibrary( "gdi32.dll" );
+   s_hDLL = LoadLibrary(TEXT("gdi32.dll"));
 
    if( s_hDLL != nullptr )
    {
@@ -207,7 +207,7 @@ HB_FUNC( _INITGRADIENTFUNC )
 
    if( s_hDLL == nullptr )
    {
-      s_hDLL = LoadLibrary( "msimg32.dll" );
+      s_hDLL = LoadLibrary(TEXT("msimg32.dll"));
 
       if( s_hDLL != nullptr )
       {

@@ -377,7 +377,7 @@ HB_FUNC_STATIC( INITCHKLISTBOX )
 
    hbutton = CreateWindowEx(WS_EX_CLIENTEDGE,
                             WC_LISTBOX,
-                            "",
+                            TEXT(""),
                             style,
                             hmg_par_int(3),
                             hmg_par_int(4),
@@ -422,7 +422,7 @@ HB_FUNC_STATIC( INITMULTICHKLISTBOX )
 
    hbutton = CreateWindowEx(WS_EX_CLIENTEDGE,
                             WC_LISTBOX,
-                            "",
+                            TEXT(""),
                             style,
                             hmg_par_int(3),
                             hmg_par_int(4),
@@ -508,7 +508,7 @@ HB_FUNC( CHKLIST_SETCHECKBOX )
    HWND hwnd = hmg_par_HWND(1);
    int lbItem = hb_parni(2) - 1;
    int bChecked = hb_parni(3);
-   TCHAR cString[1024] = {""};
+   TCHAR cString[1024] = {TEXT("")};
 
    SendMessage(hwnd, LB_GETTEXT, static_cast<WPARAM>(lbItem), reinterpret_cast<LPARAM>(cString));
    SendMessage(hwnd, LB_DELETESTRING, static_cast<WPARAM>(lbItem), 0);
