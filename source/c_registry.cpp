@@ -1,109 +1,124 @@
-/*----------------------------------------------------------------------------
-   MINIGUI - Harbour Win32 GUI library source code
-
-   Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
-   http://harbourminigui.googlepages.com/
-
-   This program is free software; you can redistribute it and/or modify it under
-   the terms of the GNU General Public License as published by the Free Software
-   Foundation; either version 2 of the License, or (at your option) any later
-   version.
-
-   This program is distributed in the hope that it will be useful, but WITHOUT
-   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-   FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License along with
-   this software; see the file COPYING. If not, write to the Free Software
-   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
-   visit the web site http://www.gnu.org/).
-
-   As a special exception, you have permission for additional uses of the text
-   contained in this release of Harbour Minigui.
-
-   The exception is that, if you link the Harbour Minigui library with other
-   files to produce an executable, this does not by itself cause the resulting
-   executable to be covered by the GNU General Public License.
-   Your use of that executable is in no way restricted on account of linking the
-   Harbour-Minigui library code into it.
-
-   Parts of this project are based upon:
-
-    "Harbour GUI framework for Win32"
-    Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
-    Copyright 2001 Antonio Linares <alinares@fivetech.com>
-    www - https://harbour.github.io/
-
-    "Harbour Project"
-    Copyright 1999-2022, https://harbour.github.io/
-
-    "WHAT32"
-    Copyright 2002 AJ Wos <andrwos@aust1.net>
-
-    "HWGUI"
-    Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
-
-   ---------------------------------------------------------------------------*/
+/*
+ * MINIGUI - Harbour Win32 GUI library source code
+ *
+ * Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
+ * http://harbourminigui.googlepages.com/
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this software; see the file COPYING. If not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
+ * visit the web site http://www.gnu.org/).
+ *
+ * As a special exception, you have permission for additional uses of the text
+ * contained in this release of Harbour Minigui.
+ *
+ * The exception is that, if you link the Harbour Minigui library with other
+ * files to produce an executable, this does not by itself cause the resulting
+ * executable to be covered by the GNU General Public License.
+ * Your use of that executable is in no way restricted on account of linking the
+ * Harbour-Minigui library code into it.
+ *
+ * Parts of this project are based upon:
+ *
+ * "Harbour GUI framework for Win32"
+ * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+ * Copyright 2001 Antonio Linares <alinares@fivetech.com>
+ * www - https://harbour.github.io/
+ *
+ * "Harbour Project"
+ * Copyright 1999-2022, https://harbour.github.io/
+ *
+ * "WHAT32"
+ * Copyright 2002 AJ Wos <andrwos@aust1.net>
+ *
+ * "HWGUI"
+ * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
+ */
 
 #include "mgdefs.hpp"
 #include <commctrl.h>
 #include <hbapiitm.hpp>
+#include <hbwinuni.hpp>
 
 #if ( defined( __BORLANDC__ ) && defined( _WIN64 ) )
 #define PtrToLong(p)  ( ( LONG ) ( p ) )
 #endif
 
+/*
+REGCLOSEKEY(HKEY) --> numeric
+*/
 HB_FUNC( REGCLOSEKEY )
 {
-   HKEY hwHandle = ( HKEY ) HB_PARNL(1);
-
-   hb_retnl( ( RegCloseKey(hwHandle) == ERROR_SUCCESS ) ? ERROR_SUCCESS : -1 );
+   hb_retnl((RegCloseKey(hmg_par_HKEY(1)) == ERROR_SUCCESS) ? ERROR_SUCCESS : -1);
 }
 
-HB_FUNC( REGOPENKEYEXA )
+/*
+REGOPENKEYEX(HKEY, cKey, p3, p4, p5) --> numeric
+*/
+HB_FUNC( REGOPENKEYEX )
 {
-   HKEY    hwKey   = ( HKEY ) HB_PARNL(1);
-   LPCTSTR lpValue = hb_parc(2);
-   long    lError;
-   HKEY    phwHandle;
+   HKEY phwHandle;
 
-   lError = RegOpenKeyExA(( HKEY ) hwKey, lpValue, 0, ( REGSAM ) hb_parnl(4), &phwHandle);
+   void * str;
+   long lError = RegOpenKeyEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), 0, ( REGSAM ) hb_parnl(4), &phwHandle);
+   hb_strfree(str);
 
    if( lError != ERROR_SUCCESS )
    {
-      hb_retnl( -1 );
+      hb_retnl(-1);
    }
    else
    {
-      HB_STORNL( PtrToLong(phwHandle), 5 );
+      HB_STORNL(PtrToLong(phwHandle), 5);
       hb_retnl(0);
    }
+
 }
 
-HB_FUNC( REGQUERYVALUEEXA )
+HB_FUNC( REGOPENKEYEXA ) // INFO: deprecated
 {
-   long  lError;
-   DWORD lpType   = hb_parnl(4);
+   HB_FUNC_EXEC( REGOPENKEYEX );
+}
+
+/*
+REGQUERYVALUEEX(HKEY, cKey, p3, p4, p5, p6) --> numeric
+*/
+HB_FUNC( REGQUERYVALUEEX )
+{
+   DWORD lpType = hb_parnl(4);
    DWORD lpcbData = 0;
 
-   lError = RegQueryValueExA(( HKEY ) HB_PARNL(1), ( LPTSTR ) hb_parc(2), nullptr, &lpType, nullptr, &lpcbData);
+   void * str;
+   long lError = RegQueryValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), nullptr, &lpType, nullptr, &lpcbData);
+   hb_strfree(str);
 
    if( lError == ERROR_SUCCESS )
    {
       BYTE * lpData;
 
       lpData = ( BYTE * ) hb_xgrab(lpcbData + 1);
-      lError = RegQueryValueExA(( HKEY ) HB_PARNL(1), ( LPTSTR ) hb_parc(2), nullptr, &lpType, ( BYTE * ) lpData, &lpcbData);
+      void * str;
+      lError = RegQueryValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), nullptr, &lpType, ( BYTE * ) lpData, &lpcbData);
+      hb_strfree(str);
 
       if( lError != ERROR_SUCCESS )
       {
-         hb_retnl( -1 );
+         hb_retnl(-1);
       }
       else
       {
-         HB_STORNL( ( long ) lpType, 4 );
-         hb_storc( ( char * ) lpData, 5 );
-         HB_STORNL( ( long ) lpcbData, 6 );
+         HB_STORNL(( long ) lpType, 4);
+         hb_storc(( char * ) lpData, 5);
+         HB_STORNL(( long ) lpcbData, 6);
 
          hb_retnl(0);
       }
@@ -112,138 +127,170 @@ HB_FUNC( REGQUERYVALUEEXA )
    }
    else
    {
-      hb_retnl( -1 );
+      hb_retnl(-1);
    }
 }
 
-HB_FUNC( REGENUMKEYEXA )
+HB_FUNC( REGQUERYVALUEEXA ) // INFO: deprecated
+{
+  HB_FUNC_EXEC( REGQUERYVALUEEX );
+}
+
+/*
+REGENUMKEYEX(HKEY, cKey, p3, p4, p5, p6, p7) --> numeric
+*/
+HB_FUNC( REGENUMKEYEX )
 {
    FILETIME ft;
-   long     bErr;
    TCHAR    Buffer[255];
    DWORD    dwBuffSize = 255;
    TCHAR    Class[255];
    DWORD    dwClass = 255;
 
-   bErr = RegEnumKeyEx(( HKEY ) HB_PARNL(1), hb_parnl(2), Buffer, &dwBuffSize, nullptr, Class, &dwClass, &ft);
+   long bErr = RegEnumKeyEx(hmg_par_HKEY(1), hb_parnl(2), Buffer, &dwBuffSize, nullptr, Class, &dwClass, &ft);
 
    if( bErr != ERROR_SUCCESS )
    {
-      hb_retnl( -1 );
+      hb_retnl(-1);
    }
    else
    {
-      hb_storc( Buffer, 3 );
-      HB_STORNL( ( long ) dwBuffSize, 4 );
-      hb_storc( Class, 6 );
-      HB_STORNL( ( long ) dwClass, 7 );
-
+      hb_storc(( const char * ) Buffer, 3);
+      HB_STORNL(( long ) dwBuffSize, 4);
+      hb_storc(( const char * ) Class, 6);
+      HB_STORNL(( long ) dwClass, 7);
       hb_retnl(0);
    }
 }
 
-HB_FUNC( REGSETVALUEEXA )
+HB_FUNC( REGENUMKEYEXA ) // INFO: deprecated
+{
+  HB_FUNC_EXEC( REGENUMKEYEX );
+}
+
+/*
+REGSETVALUEEX(HKEY, cKey, p3, p4, p5) --> numeric
+*/
+HB_FUNC( REGSETVALUEEX )
 {
    DWORD nType = hb_parnl(4);
 
    if( nType != REG_DWORD )
    {
-      if( RegSetValueExA(( HKEY ) HB_PARNL(1), hb_parc(2), ( DWORD ) 0, hb_parnl(4), ( BYTE * ) hb_parc(5), ( DWORD ) hb_parclen(5) + 1) == ERROR_SUCCESS )
-      {
-         hb_retnl(0);
-      }
-      else
-      {
-         hb_retnl( -1 );
-      }
+      void * str;
+      hb_retnl((RegSetValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), 0, hb_parnl(4), ( BYTE * ) hb_parc(5), ( DWORD ) hb_parclen(5) + 1) == ERROR_SUCCESS) ? 0 : -1);
+      hb_strfree(str);
    }
    else
    {
+      void * str;
       DWORD nSpace = hb_parnl(5);
-      if( RegSetValueExA(( HKEY ) HB_PARNL(1), hb_parc(2), ( DWORD ) 0, hb_parnl(4), ( BYTE * ) &nSpace, sizeof(REG_DWORD)) == ERROR_SUCCESS )
-      {
-         hb_retnl(0);
-      }
-      else
-      {
-         hb_retnl( -1 );
-      }
+      hb_retnl((RegSetValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), 0, hb_parnl(4), ( BYTE * ) &nSpace, sizeof(REG_DWORD)) == ERROR_SUCCESS) ? 0 : -1);
+      hb_strfree(str);
    }
 }
 
+HB_FUNC( REGSETVALUEEXA ) // INFO: deprecated
+{
+  HB_FUNC_EXEC( REGSETVALUEEX );
+}
+
+/*
+REGCREATEKEY(HKEY, cKey, np3) --> numeric
+*/
 HB_FUNC( REGCREATEKEY )
 {
+   void * str;
    HKEY hKey;
 
-   if( RegCreateKey(( HKEY ) HB_PARNL(1), hb_parc(2), &hKey) == ERROR_SUCCESS )
+   if( RegCreateKey(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), &hKey) == ERROR_SUCCESS )
    {
-      HB_STORNL( PtrToLong(hKey), 3 );
+      HB_STORNL(PtrToLong(hKey), 3);
       hb_retnl(0);
    }
    else
    {
-      hb_retnl( -1 );
+      hb_retnl(-1);
    }
+
+   hb_strfree(str);
 }
 
-HB_FUNC( REGENUMVALUEA )
+/*
+REGENUMVALUE(HKEY, p2, p3, p4, p5, p6, p7, p8) --> numeric
+*/
+HB_FUNC( REGENUMVALUE )
 {
    DWORD lpType = 1;
    TCHAR Buffer[255];
    DWORD dwBuffSize = 255;
-   DWORD dwClass    = 255;
-   long  lError;
+   DWORD dwClass = 255;
 
-   lError = RegEnumValueA(( HKEY ) HB_PARNL(1), hb_parnl(2), Buffer, &dwBuffSize, nullptr, &lpType, nullptr, &dwClass);
+   long lError = RegEnumValue(hmg_par_HKEY(1), hb_parnl(2), Buffer, &dwBuffSize, nullptr, &lpType, nullptr, &dwClass);
 
    if( lError != ERROR_SUCCESS )
    {
-      hb_retnl( -1 );
+      hb_retnl(-1);
    }
    else
    {
-      hb_storc( Buffer, 3 );
-      HB_STORNL( ( long ) dwBuffSize, 4 );
-      HB_STORNL( ( long ) lpType, 6 );
-      HB_STORNL( ( long ) dwClass, 8 );
-
-      hb_retnl( lError );
+      hb_storc(( const char * ) Buffer, 3);
+      HB_STORNL(( long ) dwBuffSize, 4);
+      HB_STORNL(( long ) lpType, 6);
+      HB_STORNL(( long ) dwClass, 8);
+      hb_retnl(lError);
    }
 }
 
+HB_FUNC( REGENUMVALUEA ) // INFO: deprecated
+{
+  HB_FUNC_EXEC( REGENUMVALUE );
+}
+
+/*
+REGDELETEKEY(HKEY, cKey) --> numeric
+*/
 HB_FUNC( REGDELETEKEY )
 {
-   hb_retnl( RegDeleteKey(( HKEY ) HB_PARNL(1), hb_parc(2)) );
+   void * str;
+   hb_retnl(RegDeleteKey(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr)));
+   hb_strfree(str);
 }
 
-HB_FUNC( REGDELETEVALUEA )
+/*
+REGDELETEVALUE(HKEY, cKey) --> numeric
+*/
+HB_FUNC( REGDELETEVALUE )
 {
-   if( RegDeleteValueA(( HKEY ) HB_PARNL(1), hb_parc(2)) == ERROR_SUCCESS )
-   {
-      hb_retnl(0);
-   }
-   else
-   {
-      hb_retnl( -1 );
-   }
+   void * str;
+   hb_retnl((RegDeleteValue(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr)) == ERROR_SUCCESS) ? 0 : -1);
+   hb_strfree(str);
 }
 
+HB_FUNC( REGDELETEVALUEA ) // INFO: deprecated
+{
+  HB_FUNC_EXEC( REGDELETEVALUE );
+}
+
+/*
+REGCONNECTREGISTRY(cp1, HKEY) --> numeric
+*/
 HB_FUNC( REGCONNECTREGISTRY )
 {
-   LPCTSTR lpValue = hb_parc(1);
-   HKEY    hwKey   = ( ( HKEY ) HB_PARNL(2) );
-   long    lError;
-   HKEY    phwHandle;
+   void * str;
+   HKEY phwHandle;
 
-   lError = RegConnectRegistry(lpValue, ( HKEY ) hwKey, &phwHandle);
+   long lError = RegConnectRegistry(HB_PARSTR(1, &str, nullptr), hmg_par_HKEY(2), &phwHandle);
 
    if( lError != ERROR_SUCCESS )
    {
-      hb_retnl( -1 );
+      hb_retnl(-1);
    }
    else
    {
-      HB_STORNL( PtrToLong(phwHandle), 3 );
-      hb_retnl( lError );
+      HB_STORNL(PtrToLong(phwHandle), 3);
+      hb_retnl(lError);
    }
+
+   hb_strfree(str);
 }
