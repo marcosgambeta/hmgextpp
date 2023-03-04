@@ -76,9 +76,9 @@ void InterpretHotKey(UINT setting, TCHAR * szKeyName)
    Alt   = uCode & HOTKEYF_ALT;
    Shift = uCode & HOTKEYF_SHIFT;
 
-   lstrcat(szKeyName, Ctrl ? "Ctrl + " : "");
-   lstrcat(szKeyName, Shift ? "Shift + " : "");
-   lstrcat(szKeyName, Alt ? "Alt + " : "");
+   lstrcat(szKeyName, Ctrl ? TEXT("Ctrl + ") : TEXT(""));
+   lstrcat(szKeyName, Shift ? TEXT("Shift + ") : TEXT(""));
+   lstrcat(szKeyName, Alt ? TEXT("Alt + ") : TEXT(""));
 
 #ifndef UNICODE
    lpString = szKeyName;
@@ -150,7 +150,7 @@ HB_FUNC( INITHOTKEYBOX )
                 (
       0,
       HOTKEY_CLASS,
-      "",
+      TEXT(""),
       style,
       hb_parni(2),
       hb_parni(3),

@@ -49,7 +49,7 @@
 #include <hbwinuni.hpp>
 
 #ifndef WC_BUTTON
-#define WC_BUTTON  "Button"
+#define WC_BUTTON  TEXT("Button")
 #endif
 
 /* Modified by P.Ch. 16.12. */

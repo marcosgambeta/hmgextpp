@@ -84,13 +84,13 @@ static DWORD     g_dwComCtl32Ver = 0;
 
 static void hmg_init(void * cargo)
 {
-   LPCTSTR lpszDllName = "ComCtl32.dll";
+   LPCTSTR lpszDllName = TEXT("ComCtl32.dll");
 
    HB_SYMBOL_UNUSED( cargo );
 
    if( S_FALSE == CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE | COINIT_SPEED_OVER_MEMORY) )
    {
-      hmg_ErrorExit("hmg_init(void)", S_FALSE, TRUE);
+      hmg_ErrorExit(TEXT("hmg_init(void)"), S_FALSE, TRUE);
    }
 
    g_dwComCtl32Ver = DllGetVersion(lpszDllName);
@@ -99,7 +99,7 @@ static void hmg_init(void * cargo)
 
    if( Ok != GdiplusInit() )
    {
-      hmg_ErrorExit("GdiplusInit(void)", 0, TRUE);
+      hmg_ErrorExit(TEXT("GdiplusInit(void)"), 0, TRUE);
    }
 }
 
@@ -179,7 +179,7 @@ HB_FUNC( OLEDATARELEASE )
 
 static HB_BOOL win_has_search_system32(void)
 {
-   HMODULE hKernel32 = GetModuleHandle("kernel32.dll");
+   HMODULE hKernel32 = GetModuleHandle(TEXT("kernel32.dll"));
 
    if( hKernel32 )
    {
@@ -219,7 +219,7 @@ static TCHAR * hmg_FileNameAtSystemDir( const TCHAR * pFileName )
 
       if( pFileName )
       {
-         hmg_tstrncat(buffer, "\\", nLen - 1);
+         hmg_tstrncat(buffer, TEXT("\\"), nLen - 1);
          hmg_tstrncat(buffer, pFileName, nLen - 1);
       }
 

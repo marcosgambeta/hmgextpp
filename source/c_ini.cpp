@@ -151,7 +151,7 @@ HB_FUNC( DELINISECTION )
 #endif
    hb_retl(WritePrivateProfileString(lpSection,      // Section
                                      nullptr,           // Entry
-                                     "",     // String
+                                     TEXT(""),     // String
                                      lpFileName)); // INI File
 }
 

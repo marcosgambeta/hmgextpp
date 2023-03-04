@@ -265,7 +265,7 @@ HB_FUNC( COMBOADDSTRINGEX )
    COMBOBOXEXITEM cbei;
    cbei.mask           = CBEIF_TEXT | CBEIF_INDENT | CBEIF_IMAGE | CBEIF_SELECTEDIMAGE | CBEIF_OVERLAY;
    cbei.iItem          = -1;
-   cbei.pszText        = const_cast<char*>(HB_PARSTR(2, &Text, nullptr));
+   cbei.pszText        = const_cast<TCHAR*>(HB_PARSTR(2, &Text, nullptr));
    cbei.cchTextMax     = hb_parclen(2);
    cbei.iImage         = (nImage - 1) * 3;
    cbei.iSelectedImage = (nImage - 1) * 3 + 1;
@@ -285,7 +285,7 @@ HB_FUNC( COMBOINSERTSTRINGEX )
    COMBOBOXEXITEM cbei;
    cbei.mask           = CBEIF_TEXT | CBEIF_INDENT | CBEIF_IMAGE | CBEIF_SELECTEDIMAGE | CBEIF_OVERLAY;
    cbei.iItem          = hb_parni(4) - 1;
-   cbei.pszText        = const_cast<char*>(HB_PARSTR(2, &Text, nullptr));
+   cbei.pszText        = const_cast<TCHAR*>(HB_PARSTR(2, &Text, nullptr));
    cbei.cchTextMax     = hb_parclen(2);
    cbei.iImage         = (nImage - 1) * 3;
    cbei.iSelectedImage = (nImage - 1) * 3 + 1;
@@ -304,7 +304,7 @@ HB_FUNC( COMBOADDDATASTRINGEX )
    COMBOBOXEXITEM cbei;
    cbei.mask           = CBEIF_TEXT | CBEIF_INDENT | CBEIF_IMAGE | CBEIF_SELECTEDIMAGE | CBEIF_OVERLAY;
    cbei.iItem          = -1;
-   cbei.pszText        = const_cast<char*>(HB_PARSTR(2, &Text, nullptr));
+   cbei.pszText        = const_cast<TCHAR*>(HB_PARSTR(2, &Text, nullptr));
    cbei.cchTextMax     = hb_parclen(2);
    cbei.iImage         = 0;
    cbei.iSelectedImage = 1;

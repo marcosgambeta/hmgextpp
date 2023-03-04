@@ -91,7 +91,7 @@ HB_FUNC( INITEDITBOX )
 
    HWND hbutton = CreateWindowEx(WS_EX_CLIENTEDGE,
                                  WC_EDIT,
-                                 "",
+                                 TEXT(""),
                                  style,
                                  hmg_par_int(3),
                                  hmg_par_int(4),
@@ -103,7 +103,7 @@ HB_FUNC( INITEDITBOX )
                                  nullptr);
 
    SendMessage(hbutton, EM_LIMITTEXT, hmg_par_WPARAM(9), 0);
-   SetProp(hbutton, "oldeditproc", ( HWND ) GetWindowLongPtr(hbutton, GWLP_WNDPROC));
+   SetProp(hbutton, TEXT("oldeditproc"), ( HWND ) GetWindowLongPtr(hbutton, GWLP_WNDPROC));
    SetWindowLongPtr(hbutton, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnEditProc);
 
    hmg_ret_HANDLE(hbutton);

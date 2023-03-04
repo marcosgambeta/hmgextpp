@@ -836,7 +836,7 @@ BOOL SaveHBitmapToFile(void * HBitmap, const char * FileName, unsigned int Width
 
    if( ( HBitmap == nullptr ) || ( FileName == nullptr ) || ( MimeType == nullptr ) || ( g_GpModule == nullptr ) )
    {
-      HB_GPLUS_MSG_ERROR( "Wrong Param" );
+      HB_GPLUS_MSG_ERROR( TEXT("Wrong Param") );
       return FALSE;
    }
 
@@ -844,7 +844,7 @@ BOOL SaveHBitmapToFile(void * HBitmap, const char * FileName, unsigned int Width
    {
       if( !GetEnCodecClsid( MimeType, &Clsid ) )
       {
-         HB_GPLUS_MSG_ERROR( "Wrong MimeType" );
+         HB_GPLUS_MSG_ERROR( TEXT("Wrong MimeType") );
          return FALSE;
       }
 
@@ -852,7 +852,7 @@ BOOL SaveHBitmapToFile(void * HBitmap, const char * FileName, unsigned int Width
 
       if( MimeTypeOld == nullptr )
       {
-         HB_GPLUS_MSG_ERROR( "LocalAlloc Error" );
+         HB_GPLUS_MSG_ERROR( TEXT("LocalAlloc Error") );
          return FALSE;
       }
 
@@ -866,7 +866,7 @@ BOOL SaveHBitmapToFile(void * HBitmap, const char * FileName, unsigned int Width
 
          if( !GetEnCodecClsid( MimeType, &Clsid ) )
          {
-            HB_GPLUS_MSG_ERROR( "Wrong MimeType" );
+            HB_GPLUS_MSG_ERROR( TEXT("Wrong MimeType") );
             return FALSE;
          }
 
@@ -874,7 +874,7 @@ BOOL SaveHBitmapToFile(void * HBitmap, const char * FileName, unsigned int Width
 
          if( MimeTypeOld == nullptr )
          {
-            HB_GPLUS_MSG_ERROR( "LocalAlloc Error" );
+            HB_GPLUS_MSG_ERROR( TEXT("LocalAlloc Error") );
             return FALSE;
          }
          strcpy(MimeTypeOld, MimeType);
@@ -902,7 +902,7 @@ BOOL SaveHBitmapToFile(void * HBitmap, const char * FileName, unsigned int Width
 
    if( fn_GdipCreateBitmapFromHBITMAP(reinterpret_cast<HBITMAP>(HBitmap), nullptr, &GBitmap) )
    {
-      HB_GPLUS_MSG_ERROR( "CreateBitmap Operation Error" );
+      HB_GPLUS_MSG_ERROR( TEXT("CreateBitmap Operation Error") );
       return FALSE;
    }
 
@@ -910,7 +910,7 @@ BOOL SaveHBitmapToFile(void * HBitmap, const char * FileName, unsigned int Width
 
    if( WFileName == nullptr )
    {
-      HB_GPLUS_MSG_ERROR( "WFile LocalAlloc Error" );
+      HB_GPLUS_MSG_ERROR( TEXT("WFile LocalAlloc Error") );
       return FALSE;
    }
 
@@ -924,7 +924,7 @@ BOOL SaveHBitmapToFile(void * HBitmap, const char * FileName, unsigned int Width
       {
          fn_GdipDisposeImage(GBitmap);
          LocalFree(WFileName);
-         HB_GPLUS_MSG_ERROR( "Thumbnail Operation Error" );
+         HB_GPLUS_MSG_ERROR( TEXT("Thumbnail Operation Error") );
          return FALSE;
       }
 
@@ -936,7 +936,7 @@ BOOL SaveHBitmapToFile(void * HBitmap, const char * FileName, unsigned int Width
    {
       fn_GdipDisposeImage(GBitmap);
       LocalFree(WFileName);
-      HB_GPLUS_MSG_ERROR( "Save Operation Error" );
+      HB_GPLUS_MSG_ERROR( TEXT("Save Operation Error") );
       return FALSE;
    }
 

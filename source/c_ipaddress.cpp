@@ -79,7 +79,7 @@ HB_FUNC( INITIPADDRESS )
                 (
       WS_EX_CLIENTEDGE,
       WC_IPADDRESS,
-      "",
+      TEXT(""),
       style,
       hb_parni(3),
       hb_parni(4),
