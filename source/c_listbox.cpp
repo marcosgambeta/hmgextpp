@@ -98,7 +98,7 @@ HB_FUNC( INITLISTBOX )
              (
       WS_EX_CLIENTEDGE,
       WC_LISTBOX,
-      "",
+      TEXT(""),
       style,
       hb_parni(3),
       hb_parni(4),
@@ -212,7 +212,7 @@ HB_FUNC( INITMULTILISTBOX )
              (
       WS_EX_CLIENTEDGE,
       WC_LISTBOX,
-      "",
+      TEXT(""),
       style,
       hb_parni(3),
       hb_parni(4),

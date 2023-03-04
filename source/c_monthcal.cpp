@@ -120,9 +120,9 @@ HB_FUNC( INITMONTHCAL )
       style |= WS_TABSTOP;
    }
 
-   hmonthcal = CreateWindowEx(0, MONTHCAL_CLASS, "", style, 0, 0, 0, 0, hwnd, hmg_par_HMENU(2), GetInstance(), nullptr);
+   hmonthcal = CreateWindowEx(0, MONTHCAL_CLASS, TEXT(""), style, 0, 0, 0, 0, hwnd, hmg_par_HMENU(2), GetInstance(), nullptr);
 
-   SetProp(( HWND ) hmonthcal, "oldmcproc", ( HWND ) GetWindowLongPtr(( HWND ) hmonthcal, GWLP_WNDPROC));
+   SetProp(( HWND ) hmonthcal, TEXT("oldmcproc"), ( HWND ) GetWindowLongPtr(( HWND ) hmonthcal, GWLP_WNDPROC));
    SetWindowLongPtr(hmonthcal, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnMCProc);
 
    if( hb_parl(14) )
@@ -320,13 +320,13 @@ LRESULT CALLBACK OwnMCProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
    long int        r;
    WNDPROC         OldWndProc;
 
-   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp(hwnd, "oldmcproc");
+   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp(hwnd, TEXT("oldmcproc"));
 
    switch( Msg )
    {
       case WM_DESTROY:
          SetWindowLongPtr(hwnd, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OldWndProc);
-         RemoveProp(hwnd, "oldmcproc");
+         RemoveProp(hwnd, TEXT("oldmcproc"));
          break;
 
       case WM_MOUSEACTIVATE:

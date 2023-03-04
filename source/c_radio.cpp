@@ -48,7 +48,7 @@
 #include "mgdefs.hpp"
 
 #ifndef WC_BUTTON
-#define WC_BUTTON  "Button"
+#define WC_BUTTON  TEXT("Button")
 #endif
 
 #ifdef UNICODE

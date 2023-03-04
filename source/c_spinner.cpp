@@ -107,7 +107,7 @@ HB_FUNC( INITSPINNER )
            (
       WS_EX_CLIENTEDGE,
       WC_EDIT,
-      "",
+      TEXT(""),
       style1,
       hb_parni(3),
       hb_parni(4),
@@ -126,7 +126,7 @@ HB_FUNC( INITSPINNER )
              (
       WS_EX_CLIENTEDGE,
       UPDOWN_CLASS,
-      "",
+      TEXT(""),
       style2,
       hb_parni(3) + hb_parni(5),
       hb_parni(4),
@@ -142,7 +142,7 @@ HB_FUNC( INITSPINNER )
    SendMessage(hupdown, UDM_SETRANGE32, hmg_par_WPARAM(8), ( LPARAM ) hb_parni(9));
 
    // 2006.08.13 JD
-   SetProp(( HWND ) hedit, "oldspinproc", ( HWND ) GetWindowLongPtr(( HWND ) hedit, GWLP_WNDPROC));
+   SetProp(( HWND ) hedit, TEXT("oldspinproc"), ( HWND ) GetWindowLongPtr(( HWND ) hedit, GWLP_WNDPROC));
    SetWindowLongPtr(hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnSpinProc);
 
    hb_reta(2);
@@ -167,13 +167,13 @@ LRESULT CALLBACK OwnSpinProc(HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam)
    long int        r;
    WNDPROC         OldWndProc;
 
-   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp(hedit, "oldspinproc");
+   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp(hedit, TEXT("oldspinproc"));
 
    switch( Msg )
    {
       case WM_DESTROY:
          SetWindowLongPtr(hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OldWndProc);
-         RemoveProp(hedit, "oldspinproc");
+         RemoveProp(hedit, TEXT("oldspinproc"));
          break;
 
       case WM_CONTEXTMENU:

@@ -105,7 +105,7 @@ HB_FUNC( INITMASKEDTEXTBOX )
              (
       ExStyle,
       WC_EDIT,
-      "",
+      TEXT(""),
       style,
       hb_parni(3),
       hb_parni(4),
@@ -182,7 +182,7 @@ HB_FUNC( INITTEXTBOX )
            (
       iExStyle,
       WC_EDIT,
-      "",
+      TEXT(""),
       style,
       hb_parni(3),
       hb_parni(4),
@@ -196,7 +196,7 @@ HB_FUNC( INITTEXTBOX )
 
    SendMessage(hedit, ( UINT ) EM_LIMITTEXT, hmg_par_WPARAM(9), ( LPARAM ) 0);
 
-   SetProp(( HWND ) hedit, "oldeditproc", ( HWND ) GetWindowLongPtr(( HWND ) hedit, GWLP_WNDPROC));
+   SetProp(( HWND ) hedit, TEXT("oldeditproc"), ( HWND ) GetWindowLongPtr(( HWND ) hedit, GWLP_WNDPROC));
    SetWindowLongPtr(hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnEditProc);
 
    hmg_ret_HANDLE(hedit);
@@ -250,7 +250,7 @@ HB_FUNC( INITCHARMASKTEXTBOX )
              (
       ExStyle,
       WC_EDIT,
-      "",
+      TEXT(""),
       style,
       hb_parni(3),
       hb_parni(4),
@@ -271,13 +271,13 @@ LRESULT CALLBACK OwnEditProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
    long int        r;
    WNDPROC         OldWndProc;
 
-   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp(hButton, "oldeditproc");
+   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp(hButton, TEXT("oldeditproc"));
 
    switch( Msg )
    {
       case WM_DESTROY:
          SetWindowLongPtr(hButton, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OldWndProc);
-         RemoveProp(hButton, "oldeditproc");
+         RemoveProp(hButton, TEXT("oldeditproc"));
          break;
 
       case WM_CONTEXTMENU:
