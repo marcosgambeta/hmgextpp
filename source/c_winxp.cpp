@@ -1,58 +1,57 @@
-/*----------------------------------------------------------------------------
-   MINIGUI - Harbour Win32 GUI library source code
-
-   Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
-   http://harbourminigui.googlepages.com/
-
-   Copyright 2005 Andy Wos <andywos@unwired.com.au>
-
-   Added to MiniGUI project (1.0 Experimental Build 9a)
-   by Jacek Kubica <kubica@wssk.wroc.pl>
-
-   This program is free software; you can redistribute it and/or modify it under
-   the terms of the GNU General Public License as published by the Free Software
-   Foundation; either version 2 of the License, or (at your option) any later
-   version.
-
-   This program is distributed in the hope that it will be useful, but WITHOUT
-   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-   FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License along with
-   this software; see the file COPYING. If not, write to the Free Software
-   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
-   visit the web site http://www.gnu.org/).
-
-   As a special exception, you have permission for additional uses of the text
-   contained in this release of Harbour Minigui.
-
-   The exception is that, if you link the Harbour Minigui library with other
-   files to produce an executable, this does not by itself cause the resulting
-   executable to be covered by the GNU General Public License.
-   Your use of that executable is in no way restricted on account of linking the
-   Harbour-Minigui library code into it.
-
-   Parts of this project are based upon:
-
-    "Harbour GUI framework for Win32"
-    Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
-    Copyright 2001 Antonio Linares <alinares@fivetech.com>
-    www - https://harbour.github.io/
-
-    "Harbour Project"
-    Copyright 1999-2022, https://harbour.github.io/
-
-    "WHAT32"
-    Copyright 2002 AJ Wos <andrwos@aust1.net>
-
-    "HWGUI"
-    Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
-
-   ---------------------------------------------------------------------------*/
+/*
+ * MINIGUI - Harbour Win32 GUI library source code
+ *
+ * Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
+ * http://harbourminigui.googlepages.com/
+ *
+ * Copyright 2005 Andy Wos <andywos@unwired.com.au>
+ *
+ * Added to MiniGUI project (1.0 Experimental Build 9a)
+ * by Jacek Kubica <kubica@wssk.wroc.pl>
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this software; see the file COPYING. If not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
+ * visit the web site http://www.gnu.org/).
+ *
+ * As a special exception, you have permission for additional uses of the text
+ * contained in this release of Harbour Minigui.
+ *
+ * The exception is that, if you link the Harbour Minigui library with other
+ * files to produce an executable, this does not by itself cause the resulting
+ * executable to be covered by the GNU General Public License.
+ * Your use of that executable is in no way restricted on account of linking the
+ * Harbour-Minigui library code into it.
+ *
+ * Parts of this project are based upon:
+ *
+ * "Harbour GUI framework for Win32"
+ * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+ * Copyright 2001 Antonio Linares <alinares@fivetech.com>
+ * www - https://harbour.github.io/
+ *
+ * "Harbour Project"
+ * Copyright 1999-2022, https://harbour.github.io/
+ *
+ * "WHAT32"
+ * Copyright 2002 AJ Wos <andrwos@aust1.net>
+ *
+ * "HWGUI"
+ * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
+ */
 
 #include "mgdefs.hpp"
-
 #include <hbapiitm.hpp>
+#include <hbwinuni.hpp>
 
 #ifndef __WINE_UXTHEME_H
 #define __WINE_UXTHEME_H
@@ -61,7 +60,7 @@
 
 extern HB_PTRUINT wapi_GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
 
-typedef HANDLE HTHEME;
+using HTHEME = HANDLE;
 
 HRESULT WINAPI CloseThemeData(HTHEME hTheme);
 HRESULT WINAPI DrawThemeBackground(HTHEME, HDC, int, int, const RECT *, const RECT *);
@@ -73,12 +72,15 @@ HRESULT WINAPI DrawThemeBackground(HTHEME, HDC, int, int, const RECT *, const RE
 #define DTBG_COMPUTINGREGION  0x00000010
 #define DTBG_MIRRORDC         0x00000020
 
-typedef struct _DTBGOPTS
+struct _DTBGOPTS
 {
    DWORD dwSize;
    DWORD dwFlags;
    RECT  rcClip;
-} DTBGOPTS, * PDTBGOPTS;
+};
+
+using DTBGOPTS = _DTBGOPTS;
+using PDTBGOPTS = _DTBGOPTS *;
 
 HRESULT WINAPI DrawThemeBackgroundEx(HTHEME, HDC, int, int, const RECT *, const DTBGOPTS *);
 HRESULT WINAPI DrawThemeEdge(HTHEME, HDC, int, int, const RECT *, UINT, UINT, RECT *);
@@ -116,43 +118,50 @@ HRESULT WINAPI GetThemeFont(HTHEME, HDC, int, int, int, LOGFONTW *);
 HRESULT WINAPI GetThemeInt(HTHEME, int, int, int, int *);
 
 #define MAX_INTLIST_COUNT  10
-typedef struct _INTLIST
+
+struct _INTLIST
 {
    int iValueCount;
    int iValues[MAX_INTLIST_COUNT];
-} INTLIST, * PINTLIST;
+};
+
+using INTLIST = _INTLIST;
+using PINTLIST = _INTLIST *;
 
 HRESULT WINAPI GetThemeIntList(HTHEME, int, int, int, INTLIST *);
 
-typedef struct _MARGINS
+struct _MARGINS
 {
    int cxLeftWidth;
    int cxRightWidth;
    int cyTopHeight;
    int cyBottomHeight;
-} MARGINS, * PMARGINS;
+};
+
+using MARGINS = _MARGINS;
+using PMARGINS = _MARGINS *;
 
 HRESULT WINAPI GetThemeMargins(HTHEME, HDC, int, int, int, RECT *, MARGINS *);
 HRESULT WINAPI GetThemeMetric(HTHEME, HDC, int, int, int, int *);
 
-typedef enum
+enum THEMESIZE
 {
    TS_MIN,
    TS_TRUE,
    TS_DRAW
-} THEMESIZE;
+};
 
 HRESULT WINAPI GetThemePartSize(HTHEME, HDC, int, int, RECT *, THEMESIZE, SIZE *);
 HRESULT WINAPI GetThemePosition(HTHEME, int, int, int, POINT *);
 
-typedef enum
+enum PROPERTYORIGIN
 {
    PO_STATE,
    PO_PART,
    PO_CLASS,
    PO_GLOBAL,
    PO_NOTFOUND
-} PROPERTYORIGIN;
+};
 
 HRESULT WINAPI GetThemePropertyOrigin(HTHEME, int, int, int, PROPERTYORIGIN *);
 HRESULT WINAPI GetThemeRect(HTHEME, int, int, int, RECT *);
@@ -188,6 +197,7 @@ BOOL WINAPI IsThemePartDefined(HTHEME, int, int);
 HTHEME WINAPI OpenThemeData(HWND, LPCWSTR);
 void WINAPI SetThemeAppProperties(DWORD);
 HRESULT WINAPI SetWindowTheme(HWND, LPCWSTR, LPCWSTR);
+
 #endif /* __WINE_UXTHEME_H */
 
 BOOL Array2Rect(PHB_ITEM aRect, RECT * rc);
@@ -197,76 +207,16 @@ BOOL Array2ColorRef(PHB_ITEM aCRef, COLORREF * cr);
 typedef HTHEME ( WINAPI * fnOpenThemeData )( HWND hwnd, LPCWSTR pszClassList );
 typedef HRESULT ( WINAPI * fnCloseThemeData )(HTHEME hTheme);
 typedef HRESULT ( WINAPI * fnDrawThemeBackground )(HTHEME hTheme, HDC hdc, int iPartId, int iStateId, const RECT * pRect, const RECT * pClipRect);
-typedef HRESULT ( WINAPI * fnGetThemeBackgroundContentRect )
-(
-   HTHEME hTheme,
-   HDC hdc,
-   int iPartId,
-   int iStateId,
-   const RECT * pBoundingRect,
-   RECT * pContentRect
-);
-typedef HRESULT ( WINAPI * fnDrawThemeText )
-(
-   HTHEME hTheme,
-   HDC hdc,
-   int iPartId,
-   int iStateId,
-   LPCWSTR pszText,
-   int iCharCount,
-   DWORD dwTextFlags,
-   DWORD dwTextFlags2,
-   const RECT * pRect
-);
-typedef HRESULT ( WINAPI * fnHitTestThemeBackground )
-(
-   HTHEME hTheme,
-   OPTIONAL HDC hdc,
-   int iPartId,
-   int iStateId,
-   DWORD dwOptions,
-   const RECT * pRect,
-   OPTIONAL HRGN hrgn,
-   POINT ptTest,
-   OUT WORD * pwHitTestCode
-);
+typedef HRESULT ( WINAPI * fnGetThemeBackgroundContentRect )(HTHEME hTheme, HDC hdc, int iPartId, int iStateId, const RECT * pBoundingRect, RECT * pContentRect);
+typedef HRESULT ( WINAPI * fnDrawThemeText )(HTHEME hTheme, HDC hdc, int iPartId, int iStateId, LPCWSTR pszText, int iCharCount, DWORD dwTextFlags, DWORD dwTextFlags2, const RECT * pRect);
+typedef HRESULT ( WINAPI * fnHitTestThemeBackground )(HTHEME hTheme, OPTIONAL HDC hdc, int iPartId, int iStateId, DWORD dwOptions, const RECT * pRect, OPTIONAL HRGN hrgn, POINT ptTest, OUT WORD * pwHitTestCode);
 typedef BOOL ( WINAPI * fnIsAppThemed )(void);
 typedef COLORREF ( WINAPI * fnGetThemeSysColor )(HTHEME hTheme, int iColorId);
 typedef HRESULT ( WINAPI * fnGetThemeSysFont )(HTHEME hTheme, int iFontId, OUT LOGFONT * plf);
-typedef HRESULT ( WINAPI * fnDrawThemeIcon )
-(
-   HTHEME hTheme,
-   HDC hdc,
-   int iPartId,
-   int iStateId,
-   const RECT * pRect,
-   HIMAGELIST himl,
-   int iImageIndex
-);
-typedef HRESULT ( WINAPI * fnGetThemeTextExtent )
-(
-   HTHEME hTheme,
-   HDC hdc,
-   int iPartId,
-   int iStateId,
-   LPCWSTR pszText,
-   int iCharCount,
-   DWORD dwTextFlags,
-   const RECT * pRect,
-   OUT RECT * pExtent
-);
+typedef HRESULT ( WINAPI * fnDrawThemeIcon )(HTHEME hTheme, HDC hdc, int iPartId, int iStateId, const RECT * pRect, HIMAGELIST himl, int iImageIndex);
+typedef HRESULT ( WINAPI * fnGetThemeTextExtent )(HTHEME hTheme, HDC hdc, int iPartId, int iStateId, LPCWSTR pszText, int iCharCount, DWORD dwTextFlags, const RECT * pRect, OUT RECT * pExtent);
 typedef HRESULT ( WINAPI * fnDrawThemeParentBackground )( HWND hwnd, HDC hdc, OPTIONAL RECT * prc );
-typedef HRESULT ( WINAPI * fnDrawThemeEdge )
-(
-   HTHEME hTheme,
-   HDC hdc,
-   int iPartId,
-   int iStateId,
-   const RECT * pDestRect,
-   UINT uEdge,
-   UINT uFlags,
-   OPTIONAL OUT RECT * pContentRect
-);
+typedef HRESULT ( WINAPI * fnDrawThemeEdge )(HTHEME hTheme, HDC hdc, int iPartId, int iStateId, const RECT * pDestRect, UINT uEdge, UINT uFlags, OPTIONAL OUT RECT * pContentRect);
 typedef HRESULT ( WINAPI * fnGetThemeRect )(HTHEME hTheme, int iPartId, int iStateId, int iPropId, RECT * pPoint);
 typedef HRESULT ( WINAPI * fnGetThemePartSize )(HTHEME hTheme, HDC hdc, int iPartId, int iStateId, RECT * prc, THEMESIZE eSize, SIZE * psz);
 typedef void ( WINAPI * fnSetThemeAppProperties )( DWORD dwFlags );
@@ -283,7 +233,7 @@ HINSTANCE InitUxTheme(void)
 {
    if( hUxTheme == nullptr )
    {
-      hUxTheme = LoadLibraryEx("uxtheme.dll", nullptr, 0);
+      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
    }
 
    return hUxTheme;
@@ -298,23 +248,32 @@ void EndUxTheme(void)
    }
 }
 
+/*
+INITUXTHEME() --> HANDLE
+*/
 HB_FUNC( INITUXTHEME )
 {
    hmg_ret_HANDLE(InitUxTheme());
 }
 
+/*
+ENDUXTHEME() --> NIL
+*/
 HB_FUNC( ENDUXTHEME )
 {
    EndUxTheme();
 }
 
+/*
+ISTHEMEACTIVE() --> .T.|.F.
+*/
 HB_FUNC( ISTHEMEACTIVE )
 {
    BOOL bRet = FALSE;
 
    if( hUxTheme == nullptr )
    {
-      hUxTheme = LoadLibraryEx("uxtheme.dll", nullptr, 0);
+      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
    }
 
    if( hUxTheme )
@@ -329,13 +288,16 @@ HB_FUNC( ISTHEMEACTIVE )
    hb_retl(bRet);
 }
 
+/*
+ISAPPTHEMED() --> .T.|.F.
+*/
 HB_FUNC( ISAPPTHEMED )
 {
    BOOL bRet = FALSE;
 
    if( hUxTheme == nullptr )
    {
-      hUxTheme = LoadLibraryEx("uxtheme.dll", nullptr, 0);
+      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
    }
 
    if( hUxTheme )
@@ -350,16 +312,18 @@ HB_FUNC( ISAPPTHEMED )
    hb_retl(bRet);
 }
 
+/*
+OPENTHEMEDATA(HWND, cp2) --> HANDLE
+*/
 HB_FUNC( OPENTHEMEDATA )
 {
-   HTHEME nRet = ( HTHEME ) nullptr;
-   HWND   hWnd = hmg_par_HWND(1);
-
-   LPCWSTR pszClassList = ( LPCWSTR ) hb_parc(2);
+   HTHEME nRet = nullptr;
+   HWND hWnd = hmg_par_HWND(1);
+   void * str;
 
    if( hUxTheme == nullptr )
    {
-      hUxTheme = LoadLibraryEx("uxtheme.dll", nullptr, 0);
+      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
    }
 
    if( hUxTheme )
@@ -367,7 +331,7 @@ HB_FUNC( OPENTHEMEDATA )
       fnOpenThemeData pfn = ( fnOpenThemeData ) wapi_GetProcAddress(hUxTheme, "OpenThemeData");
       if( pfn )
       {
-         nRet = ( HTHEME ) pfn(hWnd, pszClassList);
+         nRet = ( HTHEME ) pfn(hWnd, (LPCWSTR) HB_PARSTR(2, &str, nullptr));
       }
    }
 
@@ -375,8 +339,13 @@ HB_FUNC( OPENTHEMEDATA )
    {
       hmg_ret_HANDLE(nRet);
    }
+
+   hb_strfree(str);
 }
 
+/*
+CLOSETHEMEDATA(HTHEME) --> HRESULT
+*/
 HB_FUNC( CLOSETHEMEDATA )
 {
    HRESULT nRet = S_FALSE;
@@ -385,7 +354,7 @@ HB_FUNC( CLOSETHEMEDATA )
 
    if( hUxTheme == nullptr )
    {
-      hUxTheme = LoadLibraryEx("uxtheme.dll", nullptr, 0);
+      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
    }
 
    if( hUxTheme )
@@ -403,6 +372,9 @@ HB_FUNC( CLOSETHEMEDATA )
    }
 }
 
+/*
+DRAWTHEMEBACKGROUND(HTHEME, HDC, np3, np4, aRect, aClipRect) --> .T.|.F.
+*/
 HB_FUNC( DRAWTHEMEBACKGROUND )
 {
    HRESULT nRet = S_FALSE;
@@ -420,7 +392,7 @@ HB_FUNC( DRAWTHEMEBACKGROUND )
 
    if( hUxTheme == nullptr )
    {
-      hUxTheme = LoadLibraryEx("uxtheme.dll", nullptr, 0);
+      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
    }
 
    if( hUxTheme )
@@ -435,6 +407,9 @@ HB_FUNC( DRAWTHEMEBACKGROUND )
    hb_retl(( nRet == S_OK ));
 }
 
+/*
+DRAWTHEMEPARENTBACKGROUND(HWND, HDC, aRect) --> .T.|.F.
+*/
 HB_FUNC( DRAWTHEMEPARENTBACKGROUND )
 {
    HRESULT nRet = S_FALSE;
@@ -450,7 +425,7 @@ HB_FUNC( DRAWTHEMEPARENTBACKGROUND )
 
    if( hUxTheme == nullptr )
    {
-      hUxTheme = LoadLibraryEx("uxtheme.dll", nullptr, 0);
+      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
    }
 
    if( hUxTheme )
@@ -465,17 +440,20 @@ HB_FUNC( DRAWTHEMEPARENTBACKGROUND )
    hb_retl(( nRet == S_OK ));
 }
 
+/*
+SETWINDOWTHEME(HWND, cp2, cp3) --> .T.|.F.
+*/
 HB_FUNC( SETWINDOWTHEME )
 {
    HRESULT nRet = S_FALSE;
 
-   HWND    hWnd = hmg_par_HWND(1);
-   LPCWSTR pszSubAppName = ( LPCWSTR ) hb_parc(2);
-   LPCWSTR pszSubIdList  = ( LPCWSTR ) hb_parc(3);
+   HWND hWnd = hmg_par_HWND(1);
+   void * str1;
+   void * str2;
 
    if( hUxTheme == nullptr )
    {
-      hUxTheme = LoadLibraryEx("uxtheme.dll", nullptr, 0);
+      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
    }
 
    if( hUxTheme )
@@ -483,13 +461,19 @@ HB_FUNC( SETWINDOWTHEME )
       fnSetWindowTheme pfn = ( fnSetWindowTheme ) wapi_GetProcAddress(hUxTheme, "SetWindowTheme");
       if( pfn )
       {
-         nRet = ( HRESULT ) pfn(hWnd, pszSubAppName, pszSubIdList);
+         nRet = ( HRESULT ) pfn(hWnd, (LPCWSTR) HB_PARSTR(2, &str1, nullptr), (LPCWSTR) HB_PARSTR(3, &str2, nullptr));
       }
    }
 
    hb_retl(( nRet == S_OK ));
+
+   hb_strfree(str1);
+   hb_strfree(str2);
 }
 
+/*
+ENABLETHEMEDIALOGTEXTURE(HWND, nFlags) --> .T.|.F.
+*/
 HB_FUNC( ENABLETHEMEDIALOGTEXTURE )
 {
    HRESULT nRet = S_FALSE;
@@ -499,7 +483,7 @@ HB_FUNC( ENABLETHEMEDIALOGTEXTURE )
 
    if( hUxTheme == nullptr )
    {
-      hUxTheme = LoadLibraryEx("uxtheme.dll", nullptr, 0);
+      hUxTheme = LoadLibraryEx(TEXT("uxtheme.dll"), nullptr, 0);
    }
 
    if( hUxTheme )
@@ -514,18 +498,22 @@ HB_FUNC( ENABLETHEMEDIALOGTEXTURE )
    hb_retl(( nRet == S_OK ));
 }
 
+/*
+PTINRECT(aPoint, aRect) --> .T.|.F.
+*/
 HB_FUNC( PTINRECT )
 {
-   POINT   point;
-   RECT    rect;
-   HB_BOOL bIn = HB_FALSE;
+   POINT point;
+   RECT rect;
 
    if( ( Array2Point(hb_param(1, Harbour::Item::ANY), &point) && Array2Rect(hb_param(2, Harbour::Item::ANY), &rect) ) )
    {
-      bIn = PtInRect(&rect, point) ? HB_TRUE : HB_FALSE;
+      hb_retl(PtInRect(&rect, point) ? true : false);
    }
-
-   hb_retl(bIn);
+   else
+   {
+     hb_retl(false);
+   }
 }
 
 BOOL Array2Rect(PHB_ITEM aRect, RECT * rc)
