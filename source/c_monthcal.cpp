@@ -1,51 +1,51 @@
-/*----------------------------------------------------------------------------
-   MINIGUI - Harbour Win32 GUI library source code
-
-   Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
-   http://harbourminigui.googlepages.com/
-
-   This program is free software; you can redistribute it and/or modify it under
-   the terms of the GNU General Public License as published by the Free Software
-   Foundation; either version 2 of the License, or (at your option) any later
-   version.
-
-   This program is distributed in the hope that it will be useful, but WITHOUT
-   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-   FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License along with
-   this software; see the file COPYING. If not, write to the Free Software
-   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
-   visit the web site http://www.gnu.org/).
-
-   As a special exception, you have permission for additional uses of the text
-   contained in this release of Harbour Minigui.
-
-   The exception is that, if you link the Harbour Minigui library with other
-   files to produce an executable, this does not by itself cause the resulting
-   executable to be covered by the GNU General Public License.
-   Your use of that executable is in no way restricted on account of linking the
-   Harbour-Minigui library code into it.
-
-   Parts of this project are based upon:
-
-    "Harbour GUI framework for Win32"
-    Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
-    Copyright 2001 Antonio Linares <alinares@fivetech.com>
-    www - https://harbour.github.io/
-
-    "Harbour Project"
-    Copyright 1999-2022, https://harbour.github.io/
-
-    "WHAT32"
-    Copyright 2002 AJ Wos <andrwos@aust1.net>
-
-    "HWGUI"
-    Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
-
-   Parts of this code is contributed and used here under permission of his author:
-       Copyright 2006 (C) Grigory Filatov <gfilatov@gmail.com>
-   ---------------------------------------------------------------------------*/
+/*
+ * MINIGUI - Harbour Win32 GUI library source code
+ *
+ * Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
+ * http://harbourminigui.googlepages.com/
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this software; see the file COPYING. If not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
+ * visit the web site http://www.gnu.org/).
+ *
+ * As a special exception, you have permission for additional uses of the text
+ * contained in this release of Harbour Minigui.
+ *
+ * The exception is that, if you link the Harbour Minigui library with other
+ * files to produce an executable, this does not by itself cause the resulting
+ * executable to be covered by the GNU General Public License.
+ * Your use of that executable is in no way restricted on account of linking the
+ * Harbour-Minigui library code into it.
+ *
+ * Parts of this project are based upon:
+ *
+ * "Harbour GUI framework for Win32"
+ * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+ * Copyright 2001 Antonio Linares <alinares@fivetech.com>
+ * www - https://harbour.github.io/
+ *
+ * "Harbour Project"
+ * Copyright 1999-2022, https://harbour.github.io/
+ *
+ * "WHAT32"
+ * Copyright 2002 AJ Wos <andrwos@aust1.net>
+ *
+ * "HWGUI"
+ * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
+ *
+ * Parts of this code is contributed and used here under permission of his author:
+ * Copyright 2006 (C) Grigory Filatov <gfilatov@gmail.com>
+ */
 
 #define _WIN32_IE  0x0501
 
@@ -54,46 +54,28 @@
 #include <hbapiitm.hpp>
 #include <hbvm.hpp>
 #include <hbdate.hpp>
+#include <hbwinuni.hpp>
 
-#ifdef UNICODE
-LPWSTR AnsiToWide(LPCSTR);
-#endif
-
-// #ifdef __cplusplus
-// extern "C" {
-// #endif
-//extern HFONT PrepareFont(TCHAR *, int, int, int, int, int, int, int);
-extern HFONT PrepareFont(TCHAR *, int, int, DWORD, DWORD, DWORD, DWORD, DWORD);
-// #ifdef __cplusplus
-// }
-// #endif
+extern HFONT PrepareFont(const TCHAR * FontName, int FontSize, int Weight, DWORD Italic, DWORD Underline, DWORD StrikeOut, DWORD Angle, DWORD charset);
 LRESULT CALLBACK  OwnMCProc(HWND hmonthcal, UINT Msg, WPARAM wParam, LPARAM lParam);
 
+/*
+INITMONTHCAL(HWND, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17) --> HANDLE
+*/
 HB_FUNC( INITMONTHCAL )
 {
-   HWND hwnd;
-   HWND hmonthcal;
-   RECT rc;
-   INITCOMMONCONTROLSEX icex;
-   int   style;
-   HFONT hfont;
    int   bold      = FW_NORMAL;
    int   italic    = 0;
    int   underline = 0;
    int   strikeout = 0;
    int   angle     = 0;
 
-#ifdef UNICODE
-   LPWSTR pStr;
-#endif
-
+   INITCOMMONCONTROLSEX icex;
    icex.dwSize = sizeof(icex);
-   icex.dwICC  = ICC_DATE_CLASSES;
+   icex.dwICC = ICC_DATE_CLASSES;
    InitCommonControlsEx(&icex);
 
-   hwnd = hmg_par_HWND(1);
-
-   style = WS_BORDER | WS_CHILD | MCS_DAYSTATE;
+   DWORD style = WS_BORDER | WS_CHILD | MCS_DAYSTATE;
 
    if( hb_parl(9) )
    {
@@ -120,9 +102,20 @@ HB_FUNC( INITMONTHCAL )
       style |= WS_TABSTOP;
    }
 
-   hmonthcal = CreateWindowEx(0, MONTHCAL_CLASS, TEXT(""), style, 0, 0, 0, 0, hwnd, hmg_par_HMENU(2), GetInstance(), nullptr);
+   HWND hmonthcal = CreateWindowEx(0,
+                                   MONTHCAL_CLASS,
+                                   TEXT(""),
+                                   style,
+                                   0,
+                                   0,
+                                   0,
+                                   0,
+                                   hmg_par_HWND(1),
+                                   hmg_par_HMENU(2),
+                                   GetInstance(),
+                                   nullptr);
 
-   SetProp(( HWND ) hmonthcal, TEXT("oldmcproc"), ( HWND ) GetWindowLongPtr(( HWND ) hmonthcal, GWLP_WNDPROC));
+   SetProp(hmonthcal, TEXT("oldmcproc"), ( HWND ) GetWindowLongPtr(hmonthcal, GWLP_WNDPROC));
    SetWindowLongPtr(hmonthcal, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnMCProc);
 
    if( hb_parl(14) )
@@ -145,18 +138,14 @@ HB_FUNC( INITMONTHCAL )
       strikeout = 1;
    }
 
-#ifdef UNICODE
-   pStr  = AnsiToWide(hb_parc(7));
-   hfont = PrepareFont(( TCHAR * ) pStr, ( LPARAM ) hb_parni(8), bold, italic, underline, strikeout, angle, DEFAULT_CHARSET);
-   hb_xfree(pStr);
-#else
-   hfont = PrepareFont(( TCHAR * ) hb_parc(7), ( LPARAM ) hb_parni(8), bold, italic, underline, strikeout, angle, DEFAULT_CHARSET);
-#endif
+   void * str;
+   HFONT hfont = PrepareFont(HB_PARSTR(7, &str, nullptr), hb_parni(8), bold, italic, underline, strikeout, angle, DEFAULT_CHARSET);
+   hb_strfree(str);
 
-   SendMessage(hmonthcal, ( UINT ) WM_SETFONT, ( WPARAM ) hfont, ( LPARAM ) 1);
+   SendMessage(hmonthcal, WM_SETFONT, ( WPARAM ) hfont, 1);
 
+   RECT rc;
    MonthCal_GetMinReqRect(hmonthcal, &rc);
-
    SetWindowPos(hmonthcal, nullptr, hb_parni(3), hb_parni(4), rc.right, rc.bottom, SWP_NOZORDER);
 
    hb_reta(2);
@@ -164,18 +153,18 @@ HB_FUNC( INITMONTHCAL )
    HB_STORVNL( ( LONG_PTR ) hfont, -1, 2 );
 }
 
+/*
+SETMONTHCALVALUE(HWND, nYear, nMonth, nDay) --> NIL
+*/
 HB_FUNC( SETMONTHCALVALUE )
 {
-   HWND       hwnd;
+   HWND hwnd = hmg_par_HWND(1);
+
    SYSTEMTIME sysTime;
-
-   hwnd = hmg_par_HWND(1);
-
-   sysTime.wYear      = hmg_par_WORD(2);
-   sysTime.wMonth     = hmg_par_WORD(3);
-   sysTime.wDay       = hmg_par_WORD(4);
-   sysTime.wDayOfWeek = LOWORD(SendMessage(hwnd, MCM_GETFIRSTDAYOFWEEK, 0, 0));
-
+   sysTime.wYear         = hmg_par_WORD(2);
+   sysTime.wMonth        = hmg_par_WORD(3);
+   sysTime.wDay          = hmg_par_WORD(4);
+   sysTime.wDayOfWeek    = LOWORD(SendMessage(hwnd, MCM_GETFIRSTDAYOFWEEK, 0, 0));
    sysTime.wHour         = 0;
    sysTime.wMinute       = 0;
    sysTime.wSecond       = 0;
@@ -184,6 +173,9 @@ HB_FUNC( SETMONTHCALVALUE )
    MonthCal_SetCurSel( hwnd, &sysTime );
 }
 
+/*
+GETMONTHCALVALUE(HWND, np2) --> numeric
+*/
 HB_FUNC( GETMONTHCALVALUE )
 {
    SYSTEMTIME st;
@@ -198,28 +190,29 @@ HB_FUNC( GETMONTHCALVALUE )
    }
 }
 
+/*
+GETMONTHCALDATE(HWND) --> data
+*/
 HB_FUNC( GETMONTHCALDATE )
 {
    SYSTEMTIME st;
-   long       lJulian;
-
    SendMessage(hmg_par_HWND(1), MCM_GETCURSEL, 0, ( LPARAM ) &st);
-   lJulian = hb_dateEncode(st.wYear, st.wMonth, st.wDay);
-
-   hb_retdl( lJulian );
+   long lJulian = hb_dateEncode(st.wYear, st.wMonth, st.wDay);
+   hb_retdl(lJulian);
 }
 
+/*
+SETPOSMONTHCAL(HWND, p2, p3, p4) --> NIL
+*/
 HB_FUNC( SETPOSMONTHCAL )
 {
-   HWND  hWndMonthCal;
-   RECT  rc;
-   DWORD dwWidth;
+   HWND hWndMonthCal = hmg_par_HWND(1);
 
-   hWndMonthCal = hmg_par_HWND(1);
-
+   RECT rc;
    MonthCal_GetMinReqRect(hWndMonthCal, &rc);
 
-   dwWidth = MonthCal_GetMaxTodayWidth(hWndMonthCal);
+   DWORD dwWidth = MonthCal_GetMaxTodayWidth(hWndMonthCal);
+
    if( dwWidth > ( DWORD ) rc.right )
    {
       rc.right = dwWidth;
@@ -233,68 +226,68 @@ HB_FUNC( SETPOSMONTHCAL )
    SetWindowPos(hWndMonthCal, nullptr, hb_parni(2), hb_parni(3), rc.right, rc.bottom, SWP_NOZORDER);
 }
 
+/*
+GETMONTHRANGE(HWND) --> array
+*/
 HB_FUNC( GETMONTHRANGE )
 {
    SYSTEMTIME sysTime[2];
-   int        iCount;
-
    memset(&sysTime, 0, sizeof(sysTime));
-   iCount = ( int ) SendMessage(hmg_par_HWND(1), MCM_GETMONTHRANGE, ( WPARAM ) GMR_DAYSTATE, ( LPARAM ) &sysTime);
+   int iCount = ( int ) SendMessage(hmg_par_HWND(1), MCM_GETMONTHRANGE, GMR_DAYSTATE, ( LPARAM ) &sysTime);
 
    hb_reta(3);
-   HB_STORNI( iCount, -1, 1 );
-   HB_STORDL( hb_dateEncode(sysTime[0].wYear, sysTime[0].wMonth, sysTime[0].wDay), -1, 2 );
-   HB_STORDL( hb_dateEncode(sysTime[1].wYear, sysTime[1].wMonth, sysTime[1].wDay), -1, 3 );
+   HB_STORNI(iCount, -1, 1);
+   HB_STORDL(hb_dateEncode(sysTime[0].wYear, sysTime[0].wMonth, sysTime[0].wDay), -1, 2);
+   HB_STORDL(hb_dateEncode(sysTime[1].wYear, sysTime[1].wMonth, sysTime[1].wDay), -1, 3);
 }
 
 #ifndef BOLDDAY
 # define BOLDDAY(ds, iDay)  if( iDay > 0 && iDay < 32 )( ds ) |= ( 0x00000001 << ( iDay - 1 ) )
 #endif
 
+/*
+C_SETDAYSTATE(HWND, np2, ap3) --> NIL
+*/
 HB_FUNC( C_SETDAYSTATE )
 {
-   HWND            hWnd   = hmg_par_HWND(1);
-   int             iCount = hb_parni(2);
-   PHB_ITEM        hArray = hb_param(3, Harbour::Item::ARRAY);
-   LPMONTHDAYSTATE rgMonths;
-   int             iSize;
-
-   iSize    = sizeof(MONTHDAYSTATE) * iCount;
-   rgMonths = ( LPMONTHDAYSTATE ) hb_xgrab(iSize);
+   int iCount = hb_parni(2);
+   PHB_ITEM hArray = hb_param(3, Harbour::Item::ARRAY);
+   int iSize = sizeof(MONTHDAYSTATE) * iCount;
+   LPMONTHDAYSTATE rgMonths = ( LPMONTHDAYSTATE ) hb_xgrab(iSize);
    memset(rgMonths, 0, iSize);
 
    for( int i = 0; i < iCount; i++ )
    {
       for( int j = 1; j <= 32; j++ )
       {
-         if( hb_arrayGetNI( hArray, i * 32 + j ) == 1 )
+         if( hb_arrayGetNI(hArray, i * 32 + j) == 1 )
          {
             BOLDDAY(rgMonths[i], j);
          }
       }
    }
 
-   SendMessage(hWnd, MCM_SETDAYSTATE, ( WPARAM ) iCount, ( LPARAM ) rgMonths);
+   SendMessage(hmg_par_HWND(1), MCM_SETDAYSTATE, iCount, ( LPARAM ) rgMonths);
    hb_xfree(rgMonths);
 }
 
+/*
+C_RETDAYSTATE(p1, p2, p3) --> NIL
+*/
 HB_FUNC( C_RETDAYSTATE )
 {
-   LPNMDAYSTATE    pData  = ( NMDAYSTATE * ) HB_PARNL(1);
-   int             iCount = hb_parni(2);
-   PHB_ITEM        hArray = hb_param(3, Harbour::Item::ARRAY);
-   LPMONTHDAYSTATE rgMonths;
-   int             iSize;
-
-   iSize    = sizeof(MONTHDAYSTATE) * iCount;
-   rgMonths = ( LPMONTHDAYSTATE ) hb_xgrab(iSize);
+   LPNMDAYSTATE pData  = ( NMDAYSTATE * ) HB_PARNL(1);
+   int iCount = hb_parni(2);
+   PHB_ITEM hArray = hb_param(3, Harbour::Item::ARRAY);
+   int iSize = sizeof(MONTHDAYSTATE) * iCount;
+   LPMONTHDAYSTATE rgMonths = ( LPMONTHDAYSTATE ) hb_xgrab(iSize);
    memset(rgMonths, 0, iSize);
 
    for( int i = 0; i < iCount; i++ )
    {
       for( int j = 1; j <= 32; j++ )
       {
-         if( hb_arrayGetNI( hArray, i * 32 + j ) == 1 )
+         if( hb_arrayGetNI(hArray, i * 32 + j) == 1 )
          {
             BOLDDAY(rgMonths[i], j);
          }
@@ -305,10 +298,12 @@ HB_FUNC( C_RETDAYSTATE )
    hb_xfree(rgMonths);
 }
 
+/*
+GETDAYSTATEDATA(p1) --> array
+*/
 HB_FUNC( GETDAYSTATEDATA )
 {
    LPNMDAYSTATE pData = ( NMDAYSTATE * ) HB_PARNL(1);
-
    hb_reta(2);
    HB_STORNI( ( int ) pData->cDayState, -1, 1 );
    HB_STORDL( hb_dateEncode(pData->stStart.wYear, pData->stStart.wMonth, pData->stStart.wDay), -1, 2 );
@@ -317,10 +312,8 @@ HB_FUNC( GETDAYSTATEDATA )
 LRESULT CALLBACK OwnMCProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
    static PHB_SYMB pSymbol = nullptr;
-   long int        r;
-   WNDPROC         OldWndProc;
 
-   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp(hwnd, TEXT("oldmcproc"));
+   WNDPROC OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp(hwnd, TEXT("oldmcproc"));
 
    switch( Msg )
    {
@@ -333,7 +326,9 @@ LRESULT CALLBACK OwnMCProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
       case WM_SETFOCUS:
       case WM_KILLFOCUS:
          if( !pSymbol )
+         {
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OMONTHCALEVENTS"));
+         }
 
          if( pSymbol )
          {
@@ -346,15 +341,11 @@ LRESULT CALLBACK OwnMCProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
             hb_vmDo(4);
          }
 
-         r = hb_parnl( -1 );
+         long int r = hb_parnl(-1);
 
          if( r != 0 )
          {
             return r;
-         }
-         else
-         {
-            return CallWindowProc(OldWndProc, hwnd, Msg, wParam, lParam);
          }
    }
 
