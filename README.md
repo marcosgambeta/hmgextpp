@@ -40,7 +40,3 @@ Questões sobre o projeto serão respondidas **somente por email**.
 Siga o blog abaixo para se manter informado:
 
 https://magsoftinfo.com/blog/
-
-### Grupo de usuários no Facebook
-
-https://www.facebook.com/groups/575158780741473
