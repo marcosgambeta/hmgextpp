@@ -706,10 +706,10 @@ SHELLEXECUTE(HWND, p2, p3, p4, p5) --> numeric
 */
 HB_FUNC( SHELLEXECUTE )
 {
-   void * str1;
-   void * str2;
-   void * str3;
-   void * str4;
+   void * str1 = nullptr;
+   void * str2 = nullptr;
+   void * str3 = nullptr;
+   void * str4 = nullptr;
    BOOL bIsWow64 = FALSE;
    LPFN_WOW64DISABLEWOW64FSREDIRECTION fnDisable;
    PVOID OldValue = nullptr;
@@ -763,10 +763,10 @@ SHELLEXECUTEEX(HWND, cOperation, cFile, cParameters, cDirectory, np6) --> HANDLE
 */
 HB_FUNC( SHELLEXECUTEEX )
 {
-   void * str1;
-   void * str2;
-   void * str3;
-   void * str4;
+   void * str1 = nullptr;
+   void * str2 = nullptr;
+   void * str3 = nullptr;
+   void * str4 = nullptr;
 
    SHELLEXECUTEINFO SHExecInfo;
    ZeroMemory(&SHExecInfo, sizeof(SHExecInfo));
@@ -837,8 +837,8 @@ HB_FUNC( WAITRUNTERM )
    stInfo.dwFlags = STARTF_USESHOWWINDOW;
    stInfo.wShowWindow = ( WORD ) (HB_ISNIL(3) ? 5 : hb_parni(3));
 
-   void * str1;
-   void * str2;
+   void * str1 = nullptr;
+   void * str2 = nullptr;
    BOOL bResult = CreateProcess(nullptr,
                                 (LPTSTR) HB_PARSTR(1, &str1, nullptr),
                                 nullptr,
