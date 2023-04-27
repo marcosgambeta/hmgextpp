@@ -2253,7 +2253,7 @@ HB_FUNC( IL_ADDMASKEDINDIRECT )  //IL_AddMaskedIndirect(hwnd , himage , color , 
 
    if( GetObject(himage, sizeof(BITMAP), &bm) != 0 )
    {
-      if( ( hb_parni(4) * ic == bm.bmWidth ) & ( hb_parni(5) == bm.bmHeight ) )
+      if( ( hb_parni(4) * ic == bm.bmWidth ) && ( hb_parni(5) == bm.bmHeight ) )
          lResult = ImageList_AddMasked(( HIMAGELIST ) hb_parnl(1), himage, clrBk);
 
       DeleteObject(himage);
@@ -2346,7 +2346,7 @@ HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd , B
          break;
 
       case PG_DATE:
-         Style = Style;             //|  DTS_UPDOWN;
+         // Style = Style; // | DTS_UPDOWN;
          cClass = DATETIMEPICK_CLASS;
          cName = "DateTime";
          break;
