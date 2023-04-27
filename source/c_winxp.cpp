@@ -319,7 +319,7 @@ HB_FUNC( OPENTHEMEDATA )
 {
    HTHEME nRet = nullptr;
    HWND hWnd = hmg_par_HWND(1);
-   void * str;
+   void * str = nullptr;
 
    if( hUxTheme == nullptr )
    {
@@ -448,8 +448,8 @@ HB_FUNC( SETWINDOWTHEME )
    HRESULT nRet = S_FALSE;
 
    HWND hWnd = hmg_par_HWND(1);
-   void * str1;
-   void * str2;
+   void * str1 = nullptr;
+   void * str2 = nullptr;
 
    if( hUxTheme == nullptr )
    {
