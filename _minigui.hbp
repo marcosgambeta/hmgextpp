@@ -176,3 +176,5 @@ hbwin.hbc
 
 source\BosTaurus\c_BosTaurus.cpp
 source\BosTaurus\h_BosTaurus.prg
+
+-inc

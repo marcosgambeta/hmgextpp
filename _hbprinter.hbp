@@ -9,3 +9,5 @@
 
 source\HbPrinter\c_winprint.cpp
 source\HbPrinter\h_winprint.prg
+
+-inc

@@ -9,3 +9,5 @@
 
 source\MiniPrint\c_miniprint.cpp
 source\MiniPrint\h_miniprint.prg
+
+-inc

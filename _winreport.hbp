@@ -10,3 +10,5 @@ source\WinReport\fncMyError.Prg
 source\WinReport\h_WreMix.prg
 source\WinReport\c_wrepint.cpp
 source\WinReport\h_wrepint.prg
+
+-inc

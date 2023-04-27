@@ -8,3 +8,5 @@
 
 source\PropSheet\c_PropSheet.cpp
 source\PropSheet\h_PropSheet.prg
+
+-inc

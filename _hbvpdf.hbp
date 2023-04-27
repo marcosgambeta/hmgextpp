@@ -9,3 +9,5 @@
 
 source\HbVpdf\hbvpdf.prg
 source\HbVpdf\hbvpsup.prg
+
+-inc

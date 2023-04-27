@@ -9,3 +9,5 @@
 source\PropGrid\c_PropGrid.cpp
 source\PropGrid\h_PGLang.prg
 source\PropGrid\h_PropGrid.prg
+
+-inc
