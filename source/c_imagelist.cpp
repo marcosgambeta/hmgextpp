@@ -134,7 +134,7 @@ HB_FUNC( IL_ADD )          //IL_Add( himl , image , maskimage , ix , iy , imagec
 #endif
    if( GetObject(himage1, sizeof(BITMAP), &bm) != 0 )
    {
-      if( ( hb_parni(4) * ic == bm.bmWidth ) & ( hb_parni(5) == bm.bmHeight ) )
+      if( ( hb_parni(4) * ic == bm.bmWidth ) && ( hb_parni(5) == bm.bmHeight ) )
       {
          lResult = ImageList_Add( hmg_par_HIMAGELIST(1), himage1, himage2 );
       }
@@ -188,7 +188,7 @@ HB_FUNC( IL_ADDMASKED )    //IL_AddMasked(himl , image , color , ix , iy , image
 #endif
    if( GetObject(himage1, sizeof(BITMAP), &bm) != 0 )
    {
-      if( ( hb_parni(4) * ic == bm.bmWidth ) & ( hb_parni(5) == bm.bmHeight ) )
+      if( ( hb_parni(4) * ic == bm.bmWidth ) && ( hb_parni(5) == bm.bmHeight ) )
       {
          lResult = ImageList_AddMasked(hmg_par_HIMAGELIST(1), himage1, clrBk);
       }
