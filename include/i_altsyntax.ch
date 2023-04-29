@@ -1,49 +1,48 @@
-/*----------------------------------------------------------------------------
- MINIGUI - Harbour Win32 GUI library source code
-
- Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
- http://harbourminigui.googlepages.com/
-
- This program is free software; you can redistribute it and/or modify it under 
- the terms of the GNU General Public License as published by the Free Software 
- Foundation; either version 2 of the License, or (at your option) any later 
- version. 
-
- This program is distributed in the hope that it will be useful, but WITHOUT 
- ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
- FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License along with 
- this software; see the file COPYING. If not, write to the Free Software 
- Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or 
- visit the web site http://www.gnu.org/).
-
- As a special exception, you have permission for additional uses of the text 
- contained in this release of Harbour Minigui.
-
- The exception is that, if you link the Harbour Minigui library with other 
- files to produce an executable, this does not by itself cause the resulting 
- executable to be covered by the GNU General Public License.
- Your use of that executable is in no way restricted on account of linking the 
- Harbour-Minigui library code into it.
-
- Parts of this project are based upon:
-
-	"Harbour GUI framework for Win32"
- 	Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
- 	Copyright 2001 Antonio Linares <alinares@fivetech.com>
-	www - https://harbour.github.io/
-
-	"Harbour Project"
-	Copyright 1999-2022, https://harbour.github.io/
-
-	"WHAT32"
-	Copyright 2002 AJ Wos <andrwos@aust1.net> 
-
-	"HWGUI"
-  	Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
-
----------------------------------------------------------------------------*/
+/*
+ * MINIGUI - Harbour Win32 GUI library source code
+ *
+ * Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
+ * http://harbourminigui.googlepages.com/
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this software; see the file COPYING. If not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
+ * visit the web site http://www.gnu.org/).
+ *
+ * As a special exception, you have permission for additional uses of the text
+ * contained in this release of Harbour Minigui.
+ *
+ * The exception is that, if you link the Harbour Minigui library with other
+ * files to produce an executable, this does not by itself cause the resulting
+ * executable to be covered by the GNU General Public License.
+ * Your use of that executable is in no way restricted on account of linking the
+ * Harbour-Minigui library code into it.
+ *
+ * Parts of this project are based upon:
+ *
+ * "Harbour GUI framework for Win32"
+ * Copyright 2001 Alexander S.Kresin <alex@kresin.ru>
+ * Copyright 2001 Antonio Linares <alinares@fivetech.com>
+ * www - https://harbour.github.io/
+ *
+ * "Harbour Project"
+ * Copyright 1999-2022, https://harbour.github.io/
+ *
+ * "WHAT32"
+ * Copyright 2002 AJ Wos <andrwos@aust1.net>
+ *
+ * "HWGUI"
+ * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
+ */
 
 #xcommand ITEMSOURCE <itemsource>;
    =>;
@@ -93,13 +92,13 @@
    =>;
    _HMG_ActiveControlInPlaceEdit := <inplaceedit>
 
-#xcommand DISPLAYITEMS	<displayitems>;
+#xcommand DISPLAYITEMS   <displayitems>;
    =>;
-   _HMG_ActiveControlBorder	 := <displayitems>
+   _HMG_ActiveControlBorder    := <displayitems>
 
-#xcommand INPUTITEMS	<inputitems>;
+#xcommand INPUTITEMS   <inputitems>;
    =>;
-   _HMG_ActiveControlHandCursor	 := <inputitems>
+   _HMG_ActiveControlHandCursor    := <inputitems>
 
 #xcommand DATE <datetype : .T., .F.>;
    =>;
@@ -107,11 +106,11 @@
 
 #xcommand DATATYPE DATE;
    =>;
-   _HMG_ActiveControlDateType	 := .T.
+   _HMG_ActiveControlDateType    := .T.
 
 #xcommand DATATYPE NUMERIC;
    =>;
-   _HMG_ActiveControlNumeric	 := .T.
+   _HMG_ActiveControlNumeric    := .T.
 
 #xcommand DATATYPE CHARACTER;
    =>;
@@ -883,9 +882,9 @@ Slider
    =>;
    _HMG_ActiveControlNoTicks   := <noticks>
 
-#xcommand TICKMARKS	<tickmarks>;
+#xcommand TICKMARKS   <tickmarks>;
    =>;
-   _HMG_ActiveControlNoTicks	:= .Not. <tickmarks>
+   _HMG_ActiveControlNoTicks   := .Not. <tickmarks>
 
 #xcommand BOTH      <both>;
    =>;
@@ -1481,11 +1480,11 @@ Button
         _HMG_ActiveControlFontItalic        := .f.      ;;
         _HMG_ActiveControlFontStrikeOut     := .f.      ;;
         _HMG_ActiveControlFontUnderLine     := .f.      ;;
-	_HMG_ActiveControlBorder            := .f.      ;;
+   _HMG_ActiveControlBorder            := .f.      ;;
         _HMG_ActiveControlShowAll           := Nil      ;;
         _HMG_ActiveControlBackColor         := Nil      ;;
         _HMG_ActiveControlFontColor         := Nil      ;;
-	_HMG_ActiveControlFormat            := Nil      ;;
+   _HMG_ActiveControlFormat            := Nil      ;;
         _HMG_ActiveControlDefault           := .f.
 
 #xcommand ROW <row> ;
@@ -1601,12 +1600,12 @@ Button
         _HMG_ActiveControlTransparent := <transparent>
 
 #xcommand MULTILINE <multiline> ;
-	=>;
-	_HMG_ActiveControlBorder  := <multiline>
+   =>;
+   _HMG_ActiveControlBorder  := <multiline>
 
 #xcommand HOTKEY <key> ;
-	=>;
-	_HMG_ActiveControlFormat  := <"key">
+   =>;
+   _HMG_ActiveControlFormat  := <"key">
 
 #xcommand DEFAULT <default> ;
         =>;
@@ -1711,7 +1710,7 @@ Button Extended
         _HMG_ActiveControlOptions        := Nil      ;;
         _HMG_ActiveControlHorizontal     := .f.      ;;
         _HMG_ActiveControlShowAll        := Nil      ;;
-	_HMG_ActiveControlFormat         := Nil      ;;
+   _HMG_ActiveControlFormat         := Nil      ;;
         _HMG_ActiveControlStringFormat   := -1
 
 #xcommand NOXPSTYLE <noxpstyle> ;
@@ -1813,7 +1812,7 @@ Command Link Button
         _HMG_ActiveControlWidth             := Nil      ;;
         _HMG_ActiveControlHeight            := Nil      ;;
         _HMG_ActiveControlPicture           := Nil      ;;
-	_HMG_ActiveControlFormat            := Nil      ;;
+   _HMG_ActiveControlFormat            := Nil      ;;
         _HMG_ActiveControlDefault           := .f.
 
 #xcommand NOTETEXT <text> ;
@@ -2884,15 +2883,15 @@ Label
 
 #xcommand ALIGNMENT RIGHT ;
    => ;
-   _HMG_ActiveControlRightAlign	:= .T. ; _HMG_ActiveControlCenterAlign := .F.
+   _HMG_ActiveControlRightAlign   := .T. ; _HMG_ActiveControlCenterAlign := .F.
 
 #xcommand ALIGNMENT CENTER ;
    => ;
-   _HMG_ActiveControlRightAlign	:= .F. ; _HMG_ActiveControlCenterAlign := .T.
+   _HMG_ActiveControlRightAlign   := .F. ; _HMG_ActiveControlCenterAlign := .T.
 
 #xcommand ALIGNMENT LEFT ;
    => ;
-   _HMG_ActiveControlRightAlign	:= .F. ; _HMG_ActiveControlCenterAlign := .F.
+   _HMG_ActiveControlRightAlign   := .F. ; _HMG_ActiveControlCenterAlign := .F.
 
 #xcommand ALIGNMENT VCENTER ;
    => ;
@@ -3350,11 +3349,11 @@ Grid
 
 #xcommand CELLED <cell> ;
    =>;
-   _HMG_ActiveControlBorder	:= <cell>
+   _HMG_ActiveControlBorder   := <cell>
 
 #xcommand CELLNAVIGATION <cellnavigation> ;
    =>;
-   _HMG_ActiveControlBorder	:= <cellnavigation>
+   _HMG_ActiveControlBorder   := <cellnavigation>
 
 #xcommand CHECKBOXES <cb>;
    =>;
@@ -3630,19 +3629,19 @@ Hyper Link
         _HMG_ActiveControlVScroll,;
         _HMG_ActiveControlTransparent,;
         _HMG_ActiveControlBackColor,;
-	iif(hb_IsArray(_HMG_ActiveControlFontColor), _HMG_ActiveControlFontColor, {0,0,255}), , ;
+   iif(hb_IsArray(_HMG_ActiveControlFontColor), _HMG_ActiveControlFontColor, {0,0,255}), , ;
         _HMG_ActiveControlTooltip,;
         _HMG_ActiveControlHelpId,;
         _HMG_ActiveControlInvisible,;
         _HMG_ActiveControlFontItalic,;
-	.t., ;
-	.f., ;
+   .t., ;
+   .f., ;
         _HMG_ActiveControlAutosize,;
         _HMG_ActiveControlRightAlign,;
         _HMG_ActiveControlCenterAlign,;
-	.f. ,       ;
-	iif(_HMG_ActiveControlHandCursor, {|| RC_CURSOR("MINIGUI_FINGER")}, Nil),, );;
-	_setaddress(_HMG_ActiveControlName, iif(hb_IsString(_HMG_ActiveControlOf), _HMG_ActiveControlOf, _HMG_ActiveFormName), _HMG_ActiveControlAddress)
+   .f. ,       ;
+   iif(_HMG_ActiveControlHandCursor, {|| RC_CURSOR("MINIGUI_FINGER")}, Nil),, );;
+   _setaddress(_HMG_ActiveControlName, iif(hb_IsString(_HMG_ActiveControlOf), _HMG_ActiveControlOf, _HMG_ActiveFormName), _HMG_ActiveControlAddress)
 
 /*----------------------------------------------------------------------------
 HotKey Box
