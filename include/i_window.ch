@@ -301,31 +301,31 @@
 
 
    #xcommand DEFINE WINDOW <w> ;
-	[ AT <row>,<col> ] ;
-	[ ROW <row> ] ;
-	[ COL <col> ] ;
-	[ WIDTH <width>] ;
-	[ HEIGHT <height>] ;
-	[ TITLE <title> ] ;
-	MDICHILD ;
-	[ <nocaption: NOCAPTION> ] ;
-	[ CURSOR <cursor> ] ;
-	[ FONT <FontName> SIZE <FontSize> ] ;
-	[ <focused: FOCUSED> ] ;
-	[ <nominimize: NOMINIMIZE> ] ;
-	[ <nomaximize: NOMAXIMIZE> ] ;
-	[ <novscroll: NOVSCROLL> ] 	;
-	[ <nohscroll: NOHSCROLL> ] 	;
-	[ ON INIT <InitProcedure> ] ;
-	[ ON RELEASE <ReleaseProcedure> ] ;
-	[ ON INTERACTIVECLOSE <interactivecloseprocedure> ] ;
-	[ ON MOUSECLICK <ClickProcedure> ] ;
-	[ ON MOUSEMOVE <MouseMoveProcedure> ] ;
-	[ ON GOTFOCUS <GotFocusProcedure> ] ;
-	[ ON LOSTFOCUS <LostFocusProcedure> ] ;
-	[ ON SIZE <SizeProcedure> ] ;
-	[ ON MAXIMIZE <MaximizeProcedure> ] ;
-	[ ON MINIMIZE <MinimizeProcedure> ] ;
+        [ AT <row>,<col> ] ;
+        [ ROW <row> ] ;
+        [ COL <col> ] ;
+        [ WIDTH <width>] ;
+        [ HEIGHT <height>] ;
+        [ TITLE <title> ] ;
+        MDICHILD ;
+        [ <nocaption: NOCAPTION> ] ;
+        [ CURSOR <cursor> ] ;
+        [ FONT <FontName> SIZE <FontSize> ] ;
+        [ <focused: FOCUSED> ] ;
+        [ <nominimize: NOMINIMIZE> ] ;
+        [ <nomaximize: NOMAXIMIZE> ] ;
+        [ <novscroll: NOVSCROLL> ]         ;
+        [ <nohscroll: NOHSCROLL> ]         ;
+        [ ON INIT <InitProcedure> ] ;
+        [ ON RELEASE <ReleaseProcedure> ] ;
+        [ ON INTERACTIVECLOSE <interactivecloseprocedure> ] ;
+        [ ON MOUSECLICK <ClickProcedure> ] ;
+        [ ON MOUSEMOVE <MouseMoveProcedure> ] ;
+        [ ON GOTFOCUS <GotFocusProcedure> ] ;
+        [ ON LOSTFOCUS <LostFocusProcedure> ] ;
+        [ ON SIZE <SizeProcedure> ] ;
+        [ ON MAXIMIZE <MaximizeProcedure> ] ;
+        [ ON MINIMIZE <MinimizeProcedure> ] ;
    => ;
    DECLARE WINDOW <w>  ;;
    _DefineChildMdiWindow ( <(w)>, <row>, <col>, <width>, <height>, <.nominimize.>, <.nomaximize.>, <.nocaption.>, <.novscroll.>, <.nohscroll.>, <title>, <FontName>, <FontSize>, <{InitProcedure}>, <{ReleaseProcedure}>, <{ClickProcedure}>, <{GotFocusProcedure}>, <{LostFocusProcedure}>, <{SizeProcedure}>, <{MaximizeProcedure}>, <{MinimizeProcedure}>, <.focused.>, <cursor>, <{interactivecloseprocedure}>, <{MouseMoveProcedure}> )
@@ -593,31 +593,31 @@
 ////////////////////////////////////////////////////////////
 
 #xcommand  DEFINE WINDOW TEMPLATE ;
-	[ AT <row>,<col> ] ;
-	[ ROW <row> ] ;
-	[ COL <col> ] ;
-	[ WIDTH <width>] ;
-	[ HEIGHT <height>] ;
-	[ TITLE <title> ] ;
-	MDICHILD ;
-	[ <nocaption: NOCAPTION> ] ;
-	[ CURSOR <cursor> ] ;
-	[ FONT <FontName> SIZE <FontSize> ] ;
-	[ <focused: FOCUSED> ] ;
-	[ <nominimize: NOMINIMIZE> ] ;
-	[ <nomaximize: NOMAXIMIZE> ] ;
-	[ <novscroll: NOVSCROLL> ] 	;
-	[ <nohscroll: NOHSCROLL> ] 	;
-	[ ON INIT <InitProcedure> ] ;
-	[ ON RELEASE <ReleaseProcedure> ] ;
-	[ ON INTERACTIVECLOSE <interactivecloseprocedure> ] ;
-	[ ON MOUSECLICK <ClickProcedure> ] ;
-	[ ON MOUSEMOVE <MouseMoveProcedure> ] ;
-	[ ON GOTFOCUS <GotFocusProcedure> ] ;
-	[ ON LOSTFOCUS <LostFocusProcedure> ] ;
-	[ ON SIZE <SizeProcedure> ] ;
-	[ ON MAXIMIZE <MaximizeProcedure> ] ;
-	[ ON MINIMIZE <MinimizeProcedure> ] ;
+        [ AT <row>,<col> ] ;
+        [ ROW <row> ] ;
+        [ COL <col> ] ;
+        [ WIDTH <width>] ;
+        [ HEIGHT <height>] ;
+        [ TITLE <title> ] ;
+        MDICHILD ;
+        [ <nocaption: NOCAPTION> ] ;
+        [ CURSOR <cursor> ] ;
+        [ FONT <FontName> SIZE <FontSize> ] ;
+        [ <focused: FOCUSED> ] ;
+        [ <nominimize: NOMINIMIZE> ] ;
+        [ <nomaximize: NOMAXIMIZE> ] ;
+        [ <novscroll: NOVSCROLL> ]         ;
+        [ <nohscroll: NOHSCROLL> ]         ;
+        [ ON INIT <InitProcedure> ] ;
+        [ ON RELEASE <ReleaseProcedure> ] ;
+        [ ON INTERACTIVECLOSE <interactivecloseprocedure> ] ;
+        [ ON MOUSECLICK <ClickProcedure> ] ;
+        [ ON MOUSEMOVE <MouseMoveProcedure> ] ;
+        [ ON GOTFOCUS <GotFocusProcedure> ] ;
+        [ ON LOSTFOCUS <LostFocusProcedure> ] ;
+        [ ON SIZE <SizeProcedure> ] ;
+        [ ON MAXIMIZE <MaximizeProcedure> ] ;
+        [ ON MINIMIZE <MinimizeProcedure> ] ;
     => ;
     _DefineChildMdiWindow ( , <row>, <col>, <width>, <height>, <.nominimize.>, <.nomaximize.>, <.nocaption.>, <.novscroll.>, <.nohscroll.>, <title>, <FontName>, <FontSize>, <{InitProcedure}>, <{ReleaseProcedure}>, <{ClickProcedure}>, <{GotFocusProcedure}>, <{LostFocusProcedure}>, <{SizeProcedure}>, <{MaximizeProcedure}>, <{MinimizeProcedure}>, <.focused.>, <cursor>, <{interactivecloseprocedure}>, <{MouseMoveProcedure}> )
 
@@ -680,12 +680,12 @@ _HMG_AutoAdjust := .F. ; _HMG_AutoZooming := .F.
 ////////////////////////////////////////////////////////////
 
 #xcommand WAIT WINDOW <Message> ;
-	[ <nowait: NOWAIT> ] ;
-	[ WIDTH <nWidth> ] ;
-	[ FONTSIZE <FontSize> ] ;
-	[ FONTNAME <FontName> ] ;
-	[ FONTCOLOR <fontcolor> ] ;
-	[ BACKCOLOR <backcolor> ] ;
+        [ <nowait: NOWAIT> ] ;
+        [ WIDTH <nWidth> ] ;
+        [ FONTSIZE <FontSize> ] ;
+        [ FONTNAME <FontName> ] ;
+        [ FONTCOLOR <fontcolor> ] ;
+        [ BACKCOLOR <backcolor> ] ;
 => ;
 WaitWindow ( <Message> , <.nowait.> , <nWidth> , <FontSize> , <FontName> , <fontcolor> , <backcolor> )
 
@@ -701,11 +701,11 @@ WaitWindow ( <Message> , <.nowait.> , <nWidth> , <FontSize> , <FontName> , <font
     _InitSplashWindow ()
 
 #xtranslate SHOW SPLASH WINDOW PICTURE <image> ;
-	[ DELAY <delay> ] ;
-	[ ON INIT <InitProcedure> ] ;
-	[ ON RELEASE <ReleaseProcedure> ] ;
+        [ DELAY <delay> ] ;
+        [ ON INIT <InitProcedure> ] ;
+        [ ON RELEASE <ReleaseProcedure> ] ;
 => ;
-	_ShowSplashWindow ( <image> , <delay> , <{InitProcedure}> , <{ReleaseProcedure}> )
+        _ShowSplashWindow ( <image> , <delay> , <{InitProcedure}> , <{ReleaseProcedure}> )
 
 
 #include "i_app.ch"

@@ -47,28 +47,28 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#command @ <row>,<col> PROGRESSWHEEL <name>	;
-	[ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
-	[ RANGE <lo> , <hi> ] 		;
-	[ VALUE <v> ]			;
-	[ WIDTH <w> ] 			;
-	[ HEIGHT <h> ] 			;
-	[ <ShowText : SHOWTEXT> ]	;
-	[ STARTANGLE <StartAngle> ] 	;
-	[ INNERSIZE <InnerSize> ]	;
-	[ GRADIENTMODE <GradientMode> ]	;
-	[ COLORDONEMIN <ColorDoneMin> ]	;
-	[ COLORDONEMAX <ColorDoneMax> ]	;
-	[ COLORREMAIN <ColorRemain> ]	;
-	[ COLORINNER <ColorInner> ]	;
+#command @ <row>,<col> PROGRESSWHEEL <name>        ;
+        [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
+        [ RANGE <lo> , <hi> ]                 ;
+        [ VALUE <v> ]                        ;
+        [ WIDTH <w> ]                         ;
+        [ HEIGHT <h> ]                         ;
+        [ <ShowText : SHOWTEXT> ]        ;
+        [ STARTANGLE <StartAngle> ]         ;
+        [ INNERSIZE <InnerSize> ]        ;
+        [ GRADIENTMODE <GradientMode> ]        ;
+        [ COLORDONEMIN <ColorDoneMin> ]        ;
+        [ COLORDONEMAX <ColorDoneMax> ]        ;
+        [ COLORREMAIN <ColorRemain> ]        ;
+        [ COLORINNER <ColorInner> ]        ;
    =>;
-	_DefineProgressWheel ( <(name)>, <(parent)>, <col>, <row>, <w>, <h>, ;
-		<v>, <StartAngle>, <InnerSize>, <GradientMode>, <ShowText>, <lo>, <hi>, ;
-		<ColorDoneMin>, <ColorDoneMax>, <ColorRemain>, <ColorInner> )
+        _DefineProgressWheel ( <(name)>, <(parent)>, <col>, <row>, <w>, <h>, ;
+                <v>, <StartAngle>, <InnerSize>, <GradientMode>, <ShowText>, <lo>, <hi>, ;
+                <ColorDoneMin>, <ColorDoneMax>, <ColorRemain>, <ColorInner> )
 
 
 /* for using with GradientMode property */
-#define GM_NONE		1
-#define GM_POSITION	2
-#define GM_ANGLE	3
+#define GM_NONE                1
+#define GM_POSITION        2
+#define GM_ANGLE        3
 

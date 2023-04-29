@@ -45,24 +45,24 @@
  */
 
 #command COMPRESS [ FILES ] <afiles> ;
-		TO <zipfile>  ;
-		BLOCK <block> ;
-		[ RESULT [ TO ] <lSuccess> ] ;
-		[ LEVEL <level> ] ;
-		[ <ovr: OVERWRITE> ] ;
-		[ PASSWORD <password> ] ;
-		[ <srp: STOREPATH> ] ;
-		[ FILEPROGRESS <fileblock> ] ;
-	=> ;
-	[ <lSuccess> := ] hb_ZipFile( <zipfile> , <afiles> , <level> , <block> , <.ovr.> , <password> , <.srp.> , , <fileblock> )
+                TO <zipfile>  ;
+                BLOCK <block> ;
+                [ RESULT [ TO ] <lSuccess> ] ;
+                [ LEVEL <level> ] ;
+                [ <ovr: OVERWRITE> ] ;
+                [ PASSWORD <password> ] ;
+                [ <srp: STOREPATH> ] ;
+                [ FILEPROGRESS <fileblock> ] ;
+        => ;
+        [ <lSuccess> := ] hb_ZipFile( <zipfile> , <afiles> , <level> , <block> , <.ovr.> , <password> , <.srp.> , , <fileblock> )
 
 #command UNCOMPRESS [ FILE ] <zipfile> ;
-		[ EXTRACTPATH <extractpath> ] ;
-		[ RESULT [ TO ] <lSuccess> ] ;
-		[ BLOCK <block> ] ;
-		[ <createdir: CREATEDIR> ] ;
-		[ PASSWORD <password> ] ;
-		[ <dummy1: FILEMASK, FILEARRAY> <mask> ] ;
-		[ FILEPROGRESS <fileblock> ] ;
-	=> ;
-	[ <lSuccess> := ] hb_UnZipFile( <zipfile> , <block> , <.createdir.> , <password> , <extractpath> , <mask> , <fileblock> )
+                [ EXTRACTPATH <extractpath> ] ;
+                [ RESULT [ TO ] <lSuccess> ] ;
+                [ BLOCK <block> ] ;
+                [ <createdir: CREATEDIR> ] ;
+                [ PASSWORD <password> ] ;
+                [ <dummy1: FILEMASK, FILEARRAY> <mask> ] ;
+                [ FILEPROGRESS <fileblock> ] ;
+        => ;
+        [ <lSuccess> := ] hb_UnZipFile( <zipfile> , <block> , <.createdir.> , <password> , <extractpath> , <mask> , <fileblock> )

@@ -45,30 +45,30 @@
  */
 
 #xcommand SET WINDOWPROPERTY <name> ;
-	[ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
-	VALUE <value> ;
-	[ <direct: DIRECT> ] ;
+        [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
+        VALUE <value> ;
+        [ <direct: DIRECT> ] ;
    =>;
-	_SetWindowProp( <"parent">, <name>, <value>, <.direct.> )
+        _SetWindowProp( <"parent">, <name>, <value>, <.direct.> )
 
 #xcommand GET WINDOWPROPERTY <name> ;
-	[ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
-	VALUE <value> ;
-	[ <direct: DIRECT> ] ;
+        [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
+        VALUE <value> ;
+        [ <direct: DIRECT> ] ;
    =>;
-	<value> := _GetWindowProp( <"parent">, <name>, <.direct.> )
+        <value> := _GetWindowProp( <"parent">, <name>, <.direct.> )
 
 #xcommand RELEASE WINDOWPROPERTY <name> ;
-	[ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
+        [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
    =>;
-	_RemoveProperty( <"parent">, <name>, .F. )
+        _RemoveProperty( <"parent">, <name>, .F. )
 
 #xcommand RELEASE WINDOWPROPERTY <name> ;
-	[ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
-	VALUE <value> ;
-	[ <nofree: NOFREE> ] ;
+        [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
+        VALUE <value> ;
+        [ <nofree: NOFREE> ] ;
    =>;
-	<value> := _RemoveProperty( <"parent">, <name>, <.nofree.> )
+        <value> := _RemoveProperty( <"parent">, <name>, <.nofree.> )
 
 #xtranslate _SetWindowProperty => _SetWindowProp
 #xtranslate _GetWindowProperty => _GetWindowProp
@@ -77,4 +77,4 @@
 
 #xcommand RESET MINMAXINFO <dummy1: OF, WINDOW> <name> TO DEFAULT ;
    =>;
-	_HMG_aFormMinMaxInfo \[ GetFormIndex ( <"name"> ) \] := InitMinMaxInfo ( GetFormHandle( <"name"> ) )
+        _HMG_aFormMinMaxInfo \[ GetFormIndex ( <"name"> ) \] := InitMinMaxInfo ( GetFormHandle( <"name"> ) )

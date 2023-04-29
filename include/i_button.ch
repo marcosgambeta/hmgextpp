@@ -69,9 +69,9 @@
       [ <default: DEFAULT> ] ;
    =>;
    _DefineButton ( <(name)>, <(parent)> , <col>, <row>, <caption>, <{action}>, ;
-		<w>, <h>, <font>, <size>, <tooltip>, <{gotfocus}>, <{lostfocus}>, ;
-		<.flat.>, <.notabstop.>, <helpid>, <.invisible.> , <.bold.>, <.italic.>, ;
-		<.underline.>, <.strikeout.>, <.multiline.>, <.default.>, <"key">, <nId> )
+                <w>, <h>, <font>, <size>, <tooltip>, <{gotfocus}>, <{lostfocus}>, ;
+                <.flat.>, <.notabstop.>, <helpid>, <.invisible.> , <.bold.>, <.italic.>, ;
+                <.underline.>, <.strikeout.>, <.multiline.>, <.default.>, <"key">, <nId> )
 
 #xcommand REDEFINE BUTTON <name> ;
       ID <nId> ;
@@ -95,9 +95,9 @@
       [ <default: DEFAULT> ] ;
    =>;
     _DefineButton ( <(name)>, <(parent)>, 0, 0, <caption>, <{action}>, ;
-		0, 0, <font>, <size>, <tooltip>, <{gotfocus}>, ;
-		<{lostfocus}>, <.flat.>, <.notabstop.>, <helpid>, <.invisible.>, ;
-		<.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <.multiline.>, <.default.>, , <nId> )
+                0, 0, <font>, <size>, <tooltip>, <{gotfocus}>, ;
+                <{lostfocus}>, <.flat.>, <.notabstop.>, <helpid>, <.invisible.>, ;
+                <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <.multiline.>, <.default.>, , <nId> )
 
 
 #xcommand @ <row>,<col> BUTTON <name> ;
@@ -121,9 +121,9 @@
       [ <default: DEFAULT> ] ;
    =>;
    _DefineImageButton ( <(name)>, <(parent)>, <col>, <row>, "", <{action}>, ;
-		<w>, <h>, <bitmap>, <tooltip>, <{gotfocus}>, <{lostfocus}>, ;
-		<.flat.>, <.notrans.>, <helpid>, <.invisible.>, <.notabstop.>, ;
-		<.default.>, <icon>, <.extract.>, <idx>, <.noxpstyle.>, <"key">, <nId> )
+                <w>, <h>, <bitmap>, <tooltip>, <{gotfocus}>, <{lostfocus}>, ;
+                <.flat.>, <.notrans.>, <helpid>, <.invisible.>, <.notabstop.>, ;
+                <.default.>, <icon>, <.extract.>, <idx>, <.noxpstyle.>, <"key">, <nId> )
 
 #xcommand @ <row>,<col> BUTTON <name> ;
       [ ID <nId> ] ;
@@ -146,9 +146,9 @@
       [ <default: DEFAULT> ] ;
    =>;
    _DefineImageButton ( <(name)>, <(parent)>, <col>, <row>, "", <{action}>, ;
-		<w>, <h>, <bitmap>, <tooltip>, <{gotfocus}>, <{lostfocus}>, ;
-		<.flat.>, <.notrans.>, <helpid>, <.invisible.>, <.notabstop.>, ;
-		<.default.>, <icon>, <.extract.>, <idx>, <.noxpstyle.>, <"key">, <nId> )
+                <w>, <h>, <bitmap>, <tooltip>, <{gotfocus}>, <{lostfocus}>, ;
+                <.flat.>, <.notrans.>, <helpid>, <.invisible.>, <.notabstop.>, ;
+                <.default.>, <icon>, <.extract.>, <idx>, <.noxpstyle.>, <"key">, <nId> )
 
 #xcommand REDEFINE BUTTON <name> ;
       ID <nId> ;
@@ -168,9 +168,9 @@
       [ <default: DEFAULT> ] ;
     =>;
     _DefineImageButton ( <(name)>, <(parent)>, 0, 0, "",<{action}>, ;
-		0, 0, <bitmap>, <tooltip>, <{gotfocus}>, <{lostfocus}>, ;
-		<.flat.>, <.notrans.>, <helpid>, <.invisible.>, <.notabstop.>, ;
-		<.default.>, <icon>, <.extract.>, <idx>, <.noxpstyle.>, , <nId> )
+                0, 0, <bitmap>, <tooltip>, <{gotfocus}>, <{lostfocus}>, ;
+                <.flat.>, <.notrans.>, <helpid>, <.invisible.>, <.notabstop.>, ;
+                <.default.>, <icon>, <.extract.>, <idx>, <.noxpstyle.>, , <nId> )
 
 
 #xcommand @ <row>,<col> BUTTONEX <name> ;
@@ -211,9 +211,9 @@
       [ ON INIT <bInit> ] ;
    =>;
    _DefineOwnerButton ( <(name)>, <(parent)>, <col>, <row>, <caption>, <{action}>, ;
-		<w>, <h>, <bitmap>, <tooltip>, <{gotfocus}>, <{lostfocus}>, <.flat.>, ;
-		<.notrans.>, <helpid>, <.invisible.>, <.notabstop.>, <.default.>, <icon>, ;
-		<font>, <size>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, ;
-		<.vertical.>, <.lefttext.>, <.uptext.>, [ <backcolor> ], [ <fontcolor> ], ;
-		<.nohotlight.>, <.noxpstyle.>, <.adjust.>, <.handcursor.>, ;
-		<imagewidth>, <imageheight>, <aGradInfo>, <.horizontal.>, <bInit>, <"key"> )
+                <w>, <h>, <bitmap>, <tooltip>, <{gotfocus}>, <{lostfocus}>, <.flat.>, ;
+                <.notrans.>, <helpid>, <.invisible.>, <.notabstop.>, <.default.>, <icon>, ;
+                <font>, <size>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, ;
+                <.vertical.>, <.lefttext.>, <.uptext.>, [ <backcolor> ], [ <fontcolor> ], ;
+                <.nohotlight.>, <.noxpstyle.>, <.adjust.>, <.handcursor.>, ;
+                <imagewidth>, <imageheight>, <aGradInfo>, <.horizontal.>, <bInit>, <"key"> )

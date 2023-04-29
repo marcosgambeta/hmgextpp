@@ -152,11 +152,11 @@
 
 * Method with 2 arguments
 
-#xtranslate This . <p:AddItem,AddPage> ( <arg1> , <arg2> )	=> DoMethod ( _HMG_THISFORMNAME , _HMG_THISCONTROLNAME , <"p"> , <arg1> , <arg2> )
+#xtranslate This . <p:AddItem,AddPage> ( <arg1> , <arg2> )        => DoMethod ( _HMG_THISFORMNAME , _HMG_THISCONTROLNAME , <"p"> , <arg1> , <arg2> )
 
 * Method with 3 arguments
 
-#xtranslate This . <p:AddItem,AddPage> ( <arg1>,<arg2>,<arg3> )	=> DoMethod ( _HMG_THISFORMNAME , _HMG_THISCONTROLNAME , <"p"> , <arg1> , <arg2> , <arg3> )
+#xtranslate This . <p:AddItem,AddPage> ( <arg1>,<arg2>,<arg3> )        => DoMethod ( _HMG_THISFORMNAME , _HMG_THISCONTROLNAME , <"p"> , <arg1> , <arg2> , <arg3> )
 
 * Method with 4 arguments
 

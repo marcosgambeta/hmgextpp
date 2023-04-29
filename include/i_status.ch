@@ -151,22 +151,22 @@
          OF <Form> ;
          FONTCOLOR [ TO ] <acolor> ;
       => ;
-	_SetStatusItemProperty( <n>, <acolor>, GetFormHandle(<(Form)>), STATUS_ITEM_FONTCOLOR )
+        _SetStatusItemProperty( <n>, <acolor>, GetFormHandle(<(Form)>), STATUS_ITEM_FONTCOLOR )
 
 #command SET STATUSITEM <n> ;
          OF <Form> ;
          BACKCOLOR [ TO ] <acolor> ;
       => ;
-	_SetStatusItemProperty( <n>, <acolor>, GetFormHandle(<(Form)>), STATUS_ITEM_BACKCOLOR )
+        _SetStatusItemProperty( <n>, <acolor>, GetFormHandle(<(Form)>), STATUS_ITEM_BACKCOLOR )
 
 #command SET STATUSITEM <n> ;
          OF <Form> ;
          ALIGN [ TO ] [ <c: CENTER> ] [ <r: RIGHT> ] [ LEFT ];
       => ;
-	_SetStatusItemProperty( <n>, iif( <.r.> == .T., 2, iif( <.c.> == .T., 1, 0 ) ), GetFormHandle(<(Form)>), STATUS_ITEM_ALIGN )
+        _SetStatusItemProperty( <n>, iif( <.r.> == .T., 2, iif( <.c.> == .T., 1, 0 ) ), GetFormHandle(<(Form)>), STATUS_ITEM_ALIGN )
 
 #command SET STATUSITEM <n> ;
          OF <Form> ;
          ACTION [ TO ] <action> ;
       => ;
-	_SetStatusItemAction( <n>, <{action}>, GetFormHandle(<(Form)>) )
+        _SetStatusItemAction( <n>, <{action}>, GetFormHandle(<(Form)>) )

@@ -309,19 +309,19 @@ _UnCheckMenuItem ( <(control)> , <(form)> )
 _DefaultMenuItem ( <(control)> , <(form)> )
 
 #xcommand MRU [ <caption> ] ;
-	[ <Ini: INI, FILENAME, FILE, DISK> <cIniFile> ] ;
-	[ SECTION <cSection> ] ;
-	[ <size: SIZE, ITEMS> <nItems> ] ;
-	[ ACTION <Action> ] ;
-	[ NAME <name> ] ;
+        [ <Ini: INI, FILENAME, FILE, DISK> <cIniFile> ] ;
+        [ SECTION <cSection> ] ;
+        [ <size: SIZE, ITEMS> <nItems> ] ;
+        [ ACTION <Action> ] ;
+        [ NAME <name> ] ;
 => ;
 _DefineMruItem ( <caption>, <cIniFile>, <cSection>, <nItems>, <"Action">, <(name)> )
 
 #xcommand MRUITEM [ <caption> ] ;
-	[ <Ini: INI, FILENAME, FILE, DISK> <cIniFile> ] ;
-	[ SECTION <cSection> ] ;
-	[ <size: SIZE, ITEMS> <nItems> ] ;
-	[ ACTION <Action> ] ;
-	[ NAME <name> ] ;
+        [ <Ini: INI, FILENAME, FILE, DISK> <cIniFile> ] ;
+        [ SECTION <cSection> ] ;
+        [ <size: SIZE, ITEMS> <nItems> ] ;
+        [ ACTION <Action> ] ;
+        [ NAME <name> ] ;
 => ;
 _DefineMruItem ( <caption>, <cIniFile>, <cSection>, <nItems>, <"Action">, <(name)> )

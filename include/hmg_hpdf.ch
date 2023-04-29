@@ -231,67 +231,67 @@ _hmg_hpdf_abortdoc()
 
 
 #xcommand @ <Row> , <Col> HPDFPRINT SKEW <cText> ;
-	[ <lfont : FONT> <cFontName> ] ;
-	[ <lsize : SIZE> <nFontSize> ] ;
-	[ <bold : BOLD> [ IF <lBold> ] ] ;
-	[ <italic : ITALIC> [ IF <lItalic> ] ] ;
-	[ <lcolor : COLOR> <aColor> ] ;
-	[ <align : CENTER,RIGHT> ] ;
-	[ <langle : ANGLE> <nAngle> ] ;
-	[ <langle2: SKEW> <nAngle2> ] ;
-	=> ;
-	HPDF_SkewText ( <Row> , <Col> , <cFontName> , <nFontSize> , <aColor>\[1\] , <aColor>\[2\] , <aColor>\[3\] , <cText> ,;
-		<.bold.> .AND. iif( HB_IsLogical(<lBold>), <lBold>, HB_IsNil(<lBold>) ) ,; 
-		<.italic.> .AND. iif( HB_IsLogical(<lItalic>), <lItalic>, HB_IsNil(<lItalic>) ) ,;
-		<.lcolor.> , <.lfont.> , <.lsize.> , <"align"> , <nAngle> , <nAngle2> ) 
+        [ <lfont : FONT> <cFontName> ] ;
+        [ <lsize : SIZE> <nFontSize> ] ;
+        [ <bold : BOLD> [ IF <lBold> ] ] ;
+        [ <italic : ITALIC> [ IF <lItalic> ] ] ;
+        [ <lcolor : COLOR> <aColor> ] ;
+        [ <align : CENTER,RIGHT> ] ;
+        [ <langle : ANGLE> <nAngle> ] ;
+        [ <langle2: SKEW> <nAngle2> ] ;
+        => ;
+        HPDF_SkewText ( <Row> , <Col> , <cFontName> , <nFontSize> , <aColor>\[1\] , <aColor>\[2\] , <aColor>\[3\] , <cText> ,;
+                <.bold.> .AND. iif( HB_IsLogical(<lBold>), <lBold>, HB_IsNil(<lBold>) ) ,; 
+                <.italic.> .AND. iif( HB_IsLogical(<lItalic>), <lItalic>, HB_IsNil(<lItalic>) ) ,;
+                <.lcolor.> , <.lfont.> , <.lsize.> , <"align"> , <nAngle> , <nAngle2> ) 
 
-		
+                
 #xcommand @ <Row> , <Col> HPDFPRINT SCALE <cText> ;
-	[ <lfont : FONT> <cFontName> ] ;
-	[ <lsize : SIZE> <nFontSize> ] ;
-	[ <bold : BOLD> [ IF <lBold> ] ] ;
-	[ <italic : ITALIC> [ IF <lItalic> ] ] ;
-	[ <lcolor : COLOR> <aColor> ] ;
-	[ <align : CENTER,RIGHT> ] ;
-	[ <lxscale : XSCALE> <nxscale> ] ;
-	[ <lyscale : YSCALE> <nyscale> ] ;
-	=> ;
-	HPDF_ScaleText ( <Row> , <Col> , <cFontName> , <nFontSize> , <aColor>\[1\] , <aColor>\[2\] , <aColor>\[3\] , <cText> ,;
-		<.bold.> .AND. iif( HB_IsLogical(<lBold>), <lBold>, HB_IsNil(<lBold>) ) ,; 
-		<.italic.> .AND. iif( HB_IsLogical(<lItalic>), <lItalic>, HB_IsNil(<lItalic>) ) ,;
-		<.lcolor.> , <.lfont.> , <.lsize.> , <"align"> , <nxscale> , <nyscale> ) 
+        [ <lfont : FONT> <cFontName> ] ;
+        [ <lsize : SIZE> <nFontSize> ] ;
+        [ <bold : BOLD> [ IF <lBold> ] ] ;
+        [ <italic : ITALIC> [ IF <lItalic> ] ] ;
+        [ <lcolor : COLOR> <aColor> ] ;
+        [ <align : CENTER,RIGHT> ] ;
+        [ <lxscale : XSCALE> <nxscale> ] ;
+        [ <lyscale : YSCALE> <nyscale> ] ;
+        => ;
+        HPDF_ScaleText ( <Row> , <Col> , <cFontName> , <nFontSize> , <aColor>\[1\] , <aColor>\[2\] , <aColor>\[3\] , <cText> ,;
+                <.bold.> .AND. iif( HB_IsLogical(<lBold>), <lBold>, HB_IsNil(<lBold>) ) ,; 
+                <.italic.> .AND. iif( HB_IsLogical(<lItalic>), <lItalic>, HB_IsNil(<lItalic>) ) ,;
+                <.lcolor.> , <.lfont.> , <.lsize.> , <"align"> , <nxscale> , <nyscale> ) 
 
 
 #xcommand @ <Row> , <Col> HPDFPRINT RENDER <cText> ;
-	[ <lfont : FONT> <cFontName> ] ;
-	[ <lsize : SIZE> <nFontSize> ] ;
-	[ <bold : BOLD> [ IF <lBold> ] ] ;
-	[ <italic : ITALIC> [ IF <lItalic> ] ] ;
-	[ <lcolor : COLOR> <aColor> ] ;
-	[ <align : CENTER,RIGHT> ] ;
-	[ <mode : FILL, STROKE, FILL_THEN_STROKE, FILL_CLIPPING, STROKE_CLIPPING, FILL_STROKE_CLIPPING> ] ; 
-	[ <lrim: RIM> <nrim> ] ;
-	=> ;
-	HPDF_RenderText ( <Row> , <Col> , <cFontName> , <nFontSize> , <aColor>\[1\] , <aColor>\[2\] , <aColor>\[3\] , <cText> ,;
-		<.bold.> .AND. iif( HB_IsLogical(<lBold>), <lBold>, HB_IsNil(<lBold>) ) ,; 
-		<.italic.> .AND. iif( HB_IsLogical(<lItalic>), <lItalic>, HB_IsNil(<lItalic>) ) ,;
-		<.lcolor.> , <.lfont.> , <.lsize.> , <"align"> , HPDF_<mode> , <nrim> ) 
+        [ <lfont : FONT> <cFontName> ] ;
+        [ <lsize : SIZE> <nFontSize> ] ;
+        [ <bold : BOLD> [ IF <lBold> ] ] ;
+        [ <italic : ITALIC> [ IF <lItalic> ] ] ;
+        [ <lcolor : COLOR> <aColor> ] ;
+        [ <align : CENTER,RIGHT> ] ;
+        [ <mode : FILL, STROKE, FILL_THEN_STROKE, FILL_CLIPPING, STROKE_CLIPPING, FILL_STROKE_CLIPPING> ] ; 
+        [ <lrim: RIM> <nrim> ] ;
+        => ;
+        HPDF_RenderText ( <Row> , <Col> , <cFontName> , <nFontSize> , <aColor>\[1\] , <aColor>\[2\] , <aColor>\[3\] , <cText> ,;
+                <.bold.> .AND. iif( HB_IsLogical(<lBold>), <lBold>, HB_IsNil(<lBold>) ) ,; 
+                <.italic.> .AND. iif( HB_IsLogical(<lItalic>), <lItalic>, HB_IsNil(<lItalic>) ) ,;
+                <.lcolor.> , <.lfont.> , <.lsize.> , <"align"> , HPDF_<mode> , <nrim> ) 
 
 
 #xcommand @ <Row> , <Col> HPDFPRINT CIRCLED TEXT <cText> ;
-	[ <lfont : FONT> <cFontName> ] ;
-	[ <lsize : SIZE> <nFontSize> ] ;
-	[ <bold : BOLD> [ IF <lBold> ] ] ;
-	[ <italic : ITALIC> [ IF <lItalic> ] ] ;
-	[ <lcolor : COLOR> <aColor> ] ;
- 	[ <lrad : RADIUS> <nRad> ] ;
-	[ <lrims: RIMS> ] ;
-	[ <align : TOP, BOTTOM> ] ;
-	=> ;
-	HPDF_CircleText ( <Row> , <Col> , <cFontName> , <nFontSize> , <aColor>\[1\] , <aColor>\[2\] , <aColor>\[3\] , <cText> ,;
-		<.bold.> .AND. iif( HB_IsLogical(<lBold>), <lBold>, HB_IsNil(<lBold>) ) ,;
-		<.italic.> .AND. iif( HB_IsLogical(<lItalic>), <lItalic>, HB_IsNil(<lItalic>) ) ,;
-		<.lcolor.> , <.lfont.> , <.lsize.> , <nRad> , <.lrims.> , <"align"> )
+        [ <lfont : FONT> <cFontName> ] ;
+        [ <lsize : SIZE> <nFontSize> ] ;
+        [ <bold : BOLD> [ IF <lBold> ] ] ;
+        [ <italic : ITALIC> [ IF <lItalic> ] ] ;
+        [ <lcolor : COLOR> <aColor> ] ;
+         [ <lrad : RADIUS> <nRad> ] ;
+        [ <lrims: RIMS> ] ;
+        [ <align : TOP, BOTTOM> ] ;
+        => ;
+        HPDF_CircleText ( <Row> , <Col> , <cFontName> , <nFontSize> , <aColor>\[1\] , <aColor>\[2\] , <aColor>\[3\] , <cText> ,;
+                <.bold.> .AND. iif( HB_IsLogical(<lBold>), <lBold>, HB_IsNil(<lBold>) ) ,;
+                <.italic.> .AND. iif( HB_IsLogical(<lItalic>), <lItalic>, HB_IsNil(<lItalic>) ) ,;
+                <.lcolor.> , <.lfont.> , <.lsize.> , <nRad> , <.lrims.> , <"align"> )
 
 
 #xcommand SET HPDFINFO <attrib:AUTHOR,CREATOR,TITLE,SUBJECT,KEYWORDS,DATECREATED,DATEMODIFIED> TO <xValue> [ TIME <cTime> ] => _HMG_HPDF_SetInfo( <"attrib">, <xValue>, <cTime> )

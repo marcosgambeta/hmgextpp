@@ -45,45 +45,45 @@
  */
 
 #command @ <row>, <col> IPADDRESS <name>  ;
-	[ <dummy1: OF, PARENT> <parent> ] ;
-	[ HEIGHT <height> ]               ;
-	[ WIDTH <width> ]                 ;
-	[ VALUE <value> ]                 ;
-	[ FONT <fontname> ]               ;
-	[ SIZE <fontsize> ]               ;
-	[ <bold : BOLD> ]                 ;
-	[ <italic : ITALIC> ]             ;
-	[ <underline : UNDERLINE> ]       ;
-	[ <strikeout : STRIKEOUT> ]       ;
-	[ TOOLTIP <tooltip> ]             ;
-	[ ON CHANGE <change> ]            ;
-	[ ON GOTFOCUS <gotfocus> ]        ;
-	[ ON LOSTFOCUS <lostfocus> ]      ;
-	[ HELPID <helpid> ] 		  ;
-	[ <invisible : INVISIBLE> ]       ;
-	[ <notabstop : NOTABSTOP> ]       ;
+        [ <dummy1: OF, PARENT> <parent> ] ;
+        [ HEIGHT <height> ]               ;
+        [ WIDTH <width> ]                 ;
+        [ VALUE <value> ]                 ;
+        [ FONT <fontname> ]               ;
+        [ SIZE <fontsize> ]               ;
+        [ <bold : BOLD> ]                 ;
+        [ <italic : ITALIC> ]             ;
+        [ <underline : UNDERLINE> ]       ;
+        [ <strikeout : STRIKEOUT> ]       ;
+        [ TOOLTIP <tooltip> ]             ;
+        [ ON CHANGE <change> ]            ;
+        [ ON GOTFOCUS <gotfocus> ]        ;
+        [ ON LOSTFOCUS <lostfocus> ]      ;
+        [ HELPID <helpid> ]                   ;
+        [ <invisible : INVISIBLE> ]       ;
+        [ <notabstop : NOTABSTOP> ]       ;
 =>;
    _DefineIPAddress( ;
-	<(name)> , ;
-	<(parent)> , ;
-	<col> , ;
-	<row> , ;
-	<width> , ;
-	<height> , ;
-	[ <value> ] , ;
-	<fontname> , ;
-	<fontsize> , ;
-	<tooltip>, ;
-	<{lostfocus}> , ;
-	<{gotfocus}> , ;
-	<{change}> , ;
-	<helpid>, ;
-	<.invisible.>, ;
-	<.notabstop.> ,;
-	<.bold.>, ;
-	<.italic.>, ;
-	<.underline.>, ;
-	<.strikeout.> )
+        <(name)> , ;
+        <(parent)> , ;
+        <col> , ;
+        <row> , ;
+        <width> , ;
+        <height> , ;
+        [ <value> ] , ;
+        <fontname> , ;
+        <fontsize> , ;
+        <tooltip>, ;
+        <{lostfocus}> , ;
+        <{gotfocus}> , ;
+        <{change}> , ;
+        <helpid>, ;
+        <.invisible.>, ;
+        <.notabstop.> ,;
+        <.bold.>, ;
+        <.italic.>, ;
+        <.underline.>, ;
+        <.strikeout.> )
 
 
 #define IPM_CLEARADDRESS (WM_USER+100)

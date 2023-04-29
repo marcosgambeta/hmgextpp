@@ -48,11 +48,11 @@
   MEMVAR _HMG_SCRSAVERDATA
 #endif
 
-#xtranslate _ActiveScrSaverName			=> _HMG_SCRSAVERDATA\[1\]
-#xtranslate _ScrSaverInstall			=> _HMG_SCRSAVERDATA\[2\]
-#xtranslate _ScrSaverFileName			=> _HMG_SCRSAVERDATA\[3\]
-#xtranslate _ScrSaverShow			=> _HMG_SCRSAVERDATA\[4\]
-#xtranslate _ScrSaverConfig 			=> _HMG_SCRSAVERDATA\[5\]
+#xtranslate _ActiveScrSaverName                        => _HMG_SCRSAVERDATA\[1\]
+#xtranslate _ScrSaverInstall                        => _HMG_SCRSAVERDATA\[2\]
+#xtranslate _ScrSaverFileName                        => _HMG_SCRSAVERDATA\[3\]
+#xtranslate _ScrSaverShow                        => _HMG_SCRSAVERDATA\[4\]
+#xtranslate _ScrSaverConfig                         => _HMG_SCRSAVERDATA\[5\]
 
 #xcommand DEFINE SCREENSAVER ;
              WINDOW <Scr> ;
@@ -63,25 +63,25 @@
              [ ON PAINT <PaintProcedure> [ INTERVAL <nInterval> ] ] ;
              [ BACKCOLOR <backcolor> ] ;
        => ;
-		DECLARE WINDOW <Scr> ;;
-		_BeginScrSaver( <"Scr">, <.noshow.>, ;
-				<{InitProcedure}>, <{ReleaseProcedure}>, ;
-				<{PaintProcedure}>, <nInterval>, [<backcolor>] )
+                DECLARE WINDOW <Scr> ;;
+                _BeginScrSaver( <"Scr">, <.noshow.>, ;
+                                <{InitProcedure}>, <{ReleaseProcedure}>, ;
+                                <{PaintProcedure}>, <nInterval>, [<backcolor>] )
 
 #xcommand INSTALL SCREENSAVER ;
              <file: TO FILE, FILENAME> <cFileName> ;
              [ <lShow: SHOW> ] ;
        => ;
-		_ScrSaverInstall := .T. ;;
-		_ScrSaverFileName := <"cFileName"> ;;
-		_ScrSaverShow := <.lShow.>
+                _ScrSaverInstall := .T. ;;
+                _ScrSaverFileName := <"cFileName"> ;;
+                _ScrSaverShow := <.lShow.>
 
 #xcommand CONFIGURE SCREENSAVER <ConfigProcedure> ;
        => ;
-		_ScrSaverConfig := <{ConfigProcedure}>
+                _ScrSaverConfig := <{ConfigProcedure}>
 
 #xcommand ACTIVATE SCREENSAVER ;
              WINDOW <name, ...> ;
              PARAMETERS <cParameters> ;
        => ;
-		_ActivateScrSaver( \{<"name">\}, <cParameters> )
+                _ActivateScrSaver( \{<"name">\}, <cParameters> )

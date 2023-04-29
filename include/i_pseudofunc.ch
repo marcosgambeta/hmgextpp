@@ -48,14 +48,14 @@
 // MiniGUI pseudo-functions
 ////////////////////////////
 
-#xtranslate MsgInfo ( <c>, <t> )	=> MsgInfo ( <c>, <t>, , .F. )
-#xtranslate MsgStop ( <c>, <t> )	=> MsgStop ( <c>, <t>, , .F. )
-#xtranslate MsgYesNo( <c>, <t> )	=> MsgYesNo(<c>, <t>, , , .F.)
-#xtranslate MsgAlert( <c>, <t> )	=> MsgExclamation( <c>, <t>, , .F. )
-#xtranslate MsgExclamation( <c>, <t> )	=> MsgExclamation( <c>, <t>, , .F. )
-#xtranslate MsgYesNoCancel( <c>, <t> )	=> MsgYesNoCancel( <c>, <t>, , .F.)
-#xtranslate MsgRetryCancel( <c>, <t> )	=> MsgRetryCancel( <c>, <t>, , .F. )
-#xtranslate MsgOkCancel ( <c>, <t> )	=> MsgOkCancel( <c>, <t>, , .F. )
+#xtranslate MsgInfo ( <c>, <t> )        => MsgInfo ( <c>, <t>, , .F. )
+#xtranslate MsgStop ( <c>, <t> )        => MsgStop ( <c>, <t>, , .F. )
+#xtranslate MsgYesNo( <c>, <t> )        => MsgYesNo(<c>, <t>, , , .F.)
+#xtranslate MsgAlert( <c>, <t> )        => MsgExclamation( <c>, <t>, , .F. )
+#xtranslate MsgExclamation( <c>, <t> )        => MsgExclamation( <c>, <t>, , .F. )
+#xtranslate MsgYesNoCancel( <c>, <t> )        => MsgYesNoCancel( <c>, <t>, , .F.)
+#xtranslate MsgRetryCancel( <c>, <t> )        => MsgRetryCancel( <c>, <t>, , .F. )
+#xtranslate MsgOkCancel ( <c>, <t> )        => MsgOkCancel( <c>, <t>, , .F. )
 
 // ============================================================================
 
@@ -755,19 +755,19 @@ GetFontParam( <hFont> )\[ 10 ]
 
 #ifndef HB_COMMON_CH_
    /* Friendly logical aliases */
-#  define TRUE	.T.
-#  define FALSE	.F.
-#  define YES	.T.
-#  define NO	.F.
+#  define TRUE        .T.
+#  define FALSE        .F.
+#  define YES        .T.
+#  define NO        .F.
 
    /* DEFAULT and UPDATE commands */
 #  xcommand DEFAULT <v1> TO <x1> [, <vn> TO <xn> ] => ;
-				IF <v1> == NIL ; <v1> := <x1> ; END ;
-				[; IF <vn> == NIL ; <vn> := <xn> ; END ]
+                                IF <v1> == NIL ; <v1> := <x1> ; END ;
+                                [; IF <vn> == NIL ; <vn> := <xn> ; END ]
 
 #  command UPDATE <v1> IF <exp> TO <v2> ;
-	=>				;
-	IF <exp> ; <v1> := <v2> ; END
+        =>                                ;
+        IF <exp> ; <v1> := <v2> ; END
 #endif
 
 // ============================================================================
@@ -869,7 +869,7 @@ cFilePath( <cFile> ) + "\" + cFileNoExt( <cFile> ) + <cExt>
 #xtranslate At( <a>, <b>, [<x,...>] )   => hb_At( <a>, <b>, <x> )
 
 // ============================================================================
-// Strongly Typed Variables			  (c) 1996-1997, Bryan Duchesne
+// Strongly Typed Variables                          (c) 1996-1997, Bryan Duchesne
 // ============================================================================
 /*
  * Adapted for MiniGUI Extended Edition by Grigory Filatov - 2010

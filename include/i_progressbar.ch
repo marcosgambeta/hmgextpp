@@ -44,44 +44,44 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#command @ <row>,<col> PROGRESSBAR <name>	;
+#command @ <row>,<col> PROGRESSBAR <name>        ;
         [ID <nId>];
-		[ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
-		[ RANGE <lo> , <hi> ] 		;
-		[ VALUE <v> ]			;
-		[ WIDTH <w> ] 			;
-		[ HEIGHT <h> ] 			;
-		[ TOOLTIP <tooltip> ] 		;
-		[ <vertical : VERTICAL> ]	;
-		[ <smooth : SMOOTH> ]		;
-		[ HELPID <helpid> ] 		;
-		[ <invisible : INVISIBLE> ]	;
-		[ BACKCOLOR <backcolor> ]	;
-		[ FORECOLOR <barcolor> ]	;
-		[ STYLE ] [ <style : MARQUEE>	;
-		[ VELOCITY <velocity> ] ]	;
-		[ ON INIT <bInit> ]		;
-	=>;
-	_DefineProgressBar ( <(name)>, <(parent)>, <col>, <row>, <w>, <h>, ;
+                [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
+                [ RANGE <lo> , <hi> ]                 ;
+                [ VALUE <v> ]                        ;
+                [ WIDTH <w> ]                         ;
+                [ HEIGHT <h> ]                         ;
+                [ TOOLTIP <tooltip> ]                 ;
+                [ <vertical : VERTICAL> ]        ;
+                [ <smooth : SMOOTH> ]                ;
+                [ HELPID <helpid> ]                 ;
+                [ <invisible : INVISIBLE> ]        ;
+                [ BACKCOLOR <backcolor> ]        ;
+                [ FORECOLOR <barcolor> ]        ;
+                [ STYLE ] [ <style : MARQUEE>        ;
+                [ VELOCITY <velocity> ] ]        ;
+                [ ON INIT <bInit> ]                ;
+        =>;
+        _DefineProgressBar ( <(name)>, <(parent)>, <col>, <row>, <w>, <h>, ;
                         <lo>, <hi>, <tooltip>, <.vertical.>, <.smooth.>, ;
                         <helpid>, <.invisible.>, <v>, [ <backcolor> ], [ <barcolor> ], <.style.>, <velocity>, <nId>, <bInit> )
 
 
-#command REDEFINE PROGRESSBAR <name>	;
+#command REDEFINE PROGRESSBAR <name>        ;
         ID <nId>;
-		[ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
-		[ RANGE <lo> , <hi> ] 		;
-		[ VALUE <v> ]			;
-		[ TOOLTIP <tooltip> ] 		;
-		[ <vertical : VERTICAL> ]	;
-		[ <smooth : SMOOTH> ]		;
-		[ HELPID <helpid> ] 		;
-		[ <invisible : INVISIBLE> ]	;
-		[ BACKCOLOR <backcolor> ]	;
-		[ FORECOLOR <barcolor> ]	;
-		[ ON INIT <bInit> ]		;
-	=>;
-	_DefineProgressBar ( <(name)>, <(parent)>, 0, 0, 0, 0, ;
+                [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
+                [ RANGE <lo> , <hi> ]                 ;
+                [ VALUE <v> ]                        ;
+                [ TOOLTIP <tooltip> ]                 ;
+                [ <vertical : VERTICAL> ]        ;
+                [ <smooth : SMOOTH> ]                ;
+                [ HELPID <helpid> ]                 ;
+                [ <invisible : INVISIBLE> ]        ;
+                [ BACKCOLOR <backcolor> ]        ;
+                [ FORECOLOR <barcolor> ]        ;
+                [ ON INIT <bInit> ]                ;
+        =>;
+        _DefineProgressBar ( <(name)>, <(parent)>, 0, 0, 0, 0, ;
                         <lo>, <hi>, <tooltip>, <.vertical.>, <.smooth.>, ;
                         <helpid>, <.invisible.>, <v>, [ <backcolor> ], [ <barcolor> ], .F. , , <nId> , <bInit> )
 

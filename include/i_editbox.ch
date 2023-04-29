@@ -47,34 +47,34 @@
 #command @ <row>,<col> EDITBOX <name> ;
         [ID <nId>] ;
         [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
-		[ WIDTH <w> ] ;
-		[ HEIGHT <h> ] ;
-		[ FIELD <field> ]		;
-		[ VALUE <value> ] ;
-		[ <readonly: READONLY> ] ;
-		[ FONT <f> ] ;
-		[ SIZE <s> ] ;
-		[ <bold : BOLD> ] ;
-		[ <italic : ITALIC> ] ;
-		[ <underline : UNDERLINE> ] ;
-		[ <strikeout : STRIKEOUT> ] ;
-		[ TOOLTIP <tooltip> ] ;
-		[ BACKCOLOR <backcolor> ] ;
-		[ FONTCOLOR <fontcolor> ] ;
-		[ MAXLENGTH <maxlength> ] ;
+                [ WIDTH <w> ] ;
+                [ HEIGHT <h> ] ;
+                [ FIELD <field> ]                ;
+                [ VALUE <value> ] ;
+                [ <readonly: READONLY> ] ;
+                [ FONT <f> ] ;
+                [ SIZE <s> ] ;
+                [ <bold : BOLD> ] ;
+                [ <italic : ITALIC> ] ;
+                [ <underline : UNDERLINE> ] ;
+                [ <strikeout : STRIKEOUT> ] ;
+                [ TOOLTIP <tooltip> ] ;
+                [ BACKCOLOR <backcolor> ] ;
+                [ FONTCOLOR <fontcolor> ] ;
+                [ MAXLENGTH <maxlength> ] ;
                 [ ON GOTFOCUS <gotfocus> ] ;
                 [ ON CHANGE <change> ] ;
                 [ ON LOSTFOCUS <lostfocus> ] ;
-		[ HELPID <helpid> ] 		;
-		[ <invisible: INVISIBLE> ] ;
-		[ <notabstop: NOTABSTOP> ] ;
-		[ <novscroll: NOVSCROLL> ] 	;                             
-		[ <nohscroll: NOHSCROLL> ] 	;                             
-		[ ON INIT <bInit> ] ;
-	=>;
-	_DefineEditBox ( <(name)>, <(parent)>, <col>, <row>, <w>, <h>, <value>, <f>, <s>, <tooltip>, <maxlength>, ;
-		<{gotfocus}>, <{change}>, <{lostfocus}>, <.readonly.>, .F., <helpid>, <.invisible.>, <.notabstop.>, ;
-		<.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <(field)>, <backcolor>, <fontcolor>, <.novscroll.>, <.nohscroll.>, <nId>, <bInit> )
+                [ HELPID <helpid> ]                 ;
+                [ <invisible: INVISIBLE> ] ;
+                [ <notabstop: NOTABSTOP> ] ;
+                [ <novscroll: NOVSCROLL> ]         ;                             
+                [ <nohscroll: NOHSCROLL> ]         ;                             
+                [ ON INIT <bInit> ] ;
+        =>;
+        _DefineEditBox ( <(name)>, <(parent)>, <col>, <row>, <w>, <h>, <value>, <f>, <s>, <tooltip>, <maxlength>, ;
+                <{gotfocus}>, <{change}>, <{lostfocus}>, <.readonly.>, .F., <helpid>, <.invisible.>, <.notabstop.>, ;
+                <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <(field)>, <backcolor>, <fontcolor>, <.novscroll.>, <.nohscroll.>, <nId>, <bInit> )
 
 
 #command REDEFINE EDITBOX <name> ;
@@ -100,44 +100,44 @@
     [ <break: BREAK> ] ;
     [ <invisible: INVISIBLE> ] ;
     [ <notabstop: NOTABSTOP> ] ;
-    [ <novscroll: NOVSCROLL> ] 	;                             
-    [ <nohscroll: NOHSCROLL> ] 	;                             
+    [ <novscroll: NOVSCROLL> ]         ;                             
+    [ <nohscroll: NOHSCROLL> ]         ;                             
     [ ON INIT <bInit> ] ;
     =>;
-	_DefineEditBox ( <(name)>, <(parent)>, 0, 0, 0, 0, <value> ,<f>,<s> , <tooltip>  , <maxlength>  , <{gotfocus}>  , <{change}>  , <{lostfocus}>  , <.readonly.> , .F. , <helpid>, <.invisible.>, <.notabstop.> ,<.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <(field)> , <backcolor> , <fontcolor> , <.novscroll.> , <.nohscroll.> , <nId>, <bInit> )
+        _DefineEditBox ( <(name)>, <(parent)>, 0, 0, 0, 0, <value> ,<f>,<s> , <tooltip>  , <maxlength>  , <{gotfocus}>  , <{change}>  , <{lostfocus}>  , <.readonly.> , .F. , <helpid>, <.invisible.>, <.notabstop.> ,<.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <(field)> , <backcolor> , <fontcolor> , <.novscroll.> , <.nohscroll.> , <nId>, <bInit> )
 
 
 //SPLITBOX VERSION
 
 #command EDITBOX <name> ;
-		[ <dummy1: OF, PARENT> <parent> ] ;
-		[ WIDTH <w> ] ;
-		[ HEIGHT <h> ] ;
-		[ FIELD <field> ] ;
-		[ VALUE <value> ] ;
-		[ <readonly: READONLY> ] ;
-		[ FONT <f> ] ;
-		[ SIZE <s> ] ;
-		[ <bold : BOLD> ] ;
-		[ <italic : ITALIC> ] ;
-		[ <underline : UNDERLINE> ] ;
-		[ <strikeout : STRIKEOUT> ] ;
-		[ TOOLTIP <tooltip> ] ;
-		[ BACKCOLOR <backcolor> ] ;
-		[ FONTCOLOR <fontcolor> ] ;
-		[ MAXLENGTH <maxlength> ] ;
+                [ <dummy1: OF, PARENT> <parent> ] ;
+                [ WIDTH <w> ] ;
+                [ HEIGHT <h> ] ;
+                [ FIELD <field> ] ;
+                [ VALUE <value> ] ;
+                [ <readonly: READONLY> ] ;
+                [ FONT <f> ] ;
+                [ SIZE <s> ] ;
+                [ <bold : BOLD> ] ;
+                [ <italic : ITALIC> ] ;
+                [ <underline : UNDERLINE> ] ;
+                [ <strikeout : STRIKEOUT> ] ;
+                [ TOOLTIP <tooltip> ] ;
+                [ BACKCOLOR <backcolor> ] ;
+                [ FONTCOLOR <fontcolor> ] ;
+                [ MAXLENGTH <maxlength> ] ;
                 [ ON GOTFOCUS <gotfocus> ] ;
                 [ ON CHANGE <change> ] ;
                 [ ON LOSTFOCUS <lostfocus> ] ;
-		[ HELPID <helpid> ] ;
-		[ <break: BREAK> ] ;
-		[ <invisible: INVISIBLE> ] ;
-		[ <notabstop: NOTABSTOP> ] ;
-		[ <novscroll: NOVSCROLL> ] ;
-		[ <nohscroll: NOHSCROLL> ] ;
-		[ ON INIT <bInit> ] ;
-	=>;
-	_DefineEditBox ( <(name)>, <(parent)>, , , <w>, <h>, <value>, <f>, <s>, <tooltip>, <maxlength>, ;
-		<{gotfocus}>, <{change}>, <{lostfocus}>, <.readonly.>, <.break.>, <helpid>, <.invisible.>, <.notabstop.>, ;
-		<.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <(field)>, <backcolor>, <fontcolor>, <.novscroll.>, <.nohscroll.>, 0, <bInit> )
+                [ HELPID <helpid> ] ;
+                [ <break: BREAK> ] ;
+                [ <invisible: INVISIBLE> ] ;
+                [ <notabstop: NOTABSTOP> ] ;
+                [ <novscroll: NOVSCROLL> ] ;
+                [ <nohscroll: NOHSCROLL> ] ;
+                [ ON INIT <bInit> ] ;
+        =>;
+        _DefineEditBox ( <(name)>, <(parent)>, , , <w>, <h>, <value>, <f>, <s>, <tooltip>, <maxlength>, ;
+                <{gotfocus}>, <{change}>, <{lostfocus}>, <.readonly.>, <.break.>, <helpid>, <.invisible.>, <.notabstop.>, ;
+                <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <(field)>, <backcolor>, <fontcolor>, <.novscroll.>, <.nohscroll.>, 0, <bInit> )
 

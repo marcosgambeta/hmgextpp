@@ -59,7 +59,7 @@
           [ ANGLE <nAngle> ] ;
        =>;
           drawtextout(<"window">,<nRow>,<nCol>,<cString>,<aRGB>,<aBkRGB>,<cFont>,<nSize>, ;
-		<.lBold.>,<.lItalic.>,<.lUnderline.>,<.lStrikeout.>,<.lTransparent.>,<nAngle>)
+                <.lBold.>,<.lItalic.>,<.lUnderline.>,<.lStrikeout.>,<.lTransparent.>,<nAngle>)
 
 #xcommand DRAW TEXT IN <context> ;
           AT <nRow>,<nCol> ;
@@ -77,7 +77,7 @@
           [ <lOnce : ONCE> ] ;
        =>;
           drawtextout(<context>,<nRow>,<nCol>,<cString>,<aRGB>,<aBkRGB>,<cFont>,<nSize>, ;
-		<.lBold.>,<.lItalic.>,<.lUnderline.>,<.lStrikeout.>,<.lTransparent.>,<nAngle>,<.lOnce.>)
+                <.lBold.>,<.lItalic.>,<.lUnderline.>,<.lStrikeout.>,<.lTransparent.>,<nAngle>,<.lOnce.>)
 
 #xcommand DRAW LINE IN WINDOW <windowname> AT <frow>,<fcol> ;
              TO <trow>,<tcol> ;
@@ -157,11 +157,11 @@
           => ;
           hmg_drawicon(<(windowname)>,<icon>,<row>,<col>,[<w>],[<h>],[<rgb>],<.transparent.>)
 
-#define SYSICO_INFO		76
-#define SYSICO_QUES		94
-#define SYSICO_ERROR	93
-#define SYSICO_WARN		79
-#define SYSICO_PROG		11
+#define SYSICO_INFO                76
+#define SYSICO_QUES                94
+#define SYSICO_ERROR        93
+#define SYSICO_WARN                79
+#define SYSICO_PROG                11
 
 #xcommand DRAW SYSICON IN WINDOW <windowname> AT <row>,<col> ;
           [ FROM <library> ] ;
@@ -183,9 +183,9 @@
 
 /* Default parameters management */
 #xcommand DEFAULT <uVar1> := <uVal1> [, <uVarN> := <uValN> ] ;
-		=> ;
-		<uVar1> := iif( <uVar1> == NIL, <uVal1>, <uVar1> ) ;
-		[; <uVarN> := iif( <uVarN> == NIL, <uValN>, <uVarN> ) ]
+                => ;
+                <uVar1> := iif( <uVar1> == NIL, <uVal1>, <uVar1> ) ;
+                [; <uVarN> := iif( <uVarN> == NIL, <uValN>, <uVarN> ) ]
 
 #translate RGB( <nRed>, <nGreen>, <nBlue> ) => ;
               ( <nRed> + ( <nGreen> * 256 ) + ( <nBlue> * 65536 ) )
@@ -194,179 +194,179 @@
               { GetRed( <nColor> ), GetGreen( <nColor> ), GetBlue( <nColor> ) }
 
 #xcommand DRAW GRAPH IN WINDOW <window> ;
-      AT <nT>,<nL> 			;
-      TO <nB>,<nR>			;
-      TITLE <cTitle>			;
-      TYPE PIE				;
-      SERIES <aSer>			;
-      DEPTH <nD>			;
-      SERIENAMES <aName>		;
-      COLORS <aColor>			;
-      [ <l3D : 3DVIEW> ]		;
-      [ <lxVal : SHOWXVALUES> ]		;
-      [ <lSLeg : SHOWLEGENDS>		;
-      [ <placement:RIGHT,BOTTOM> ] ]	;
-      [ DATAMASK <mask> ]		;
-      [ <lNoborder : NOBORDER> ]	;
+      AT <nT>,<nL>                         ;
+      TO <nB>,<nR>                        ;
+      TITLE <cTitle>                        ;
+      TYPE PIE                                ;
+      SERIES <aSer>                        ;
+      DEPTH <nD>                        ;
+      SERIENAMES <aName>                ;
+      COLORS <aColor>                        ;
+      [ <l3D : 3DVIEW> ]                ;
+      [ <lxVal : SHOWXVALUES> ]                ;
+      [ <lSLeg : SHOWLEGENDS>                ;
+      [ <placement:RIGHT,BOTTOM> ] ]        ;
+      [ DATAMASK <mask> ]                ;
+      [ <lNoborder : NOBORDER> ]        ;
 => ;
       DrawPieGraph(<(window)>,;
-			<nT>,;
-			<nL>,;
-			<nB>,;
-			<nR>,;
-			<aSer>,;
-			<aName>,;
-			<aColor>,;
-			<cTitle>,;
-			<nD>,;
-			<.l3D.>,;
-			<.lxVal.>,;
-			<.lSLeg.>,;
-			<mask>,;
-			<.lNoborder.>, <"placement">)
+                        <nT>,;
+                        <nL>,;
+                        <nB>,;
+                        <nR>,;
+                        <aSer>,;
+                        <aName>,;
+                        <aColor>,;
+                        <cTitle>,;
+                        <nD>,;
+                        <.l3D.>,;
+                        <.lxVal.>,;
+                        <.lSLeg.>,;
+                        <mask>,;
+                        <.lNoborder.>, <"placement">)
 
 #define BARS      1
 #define LINES     2
 #define POINTS    3
 
-#xcommand DRAW GRAPH				;
-		IN WINDOW <window>		;
-		AT <nT>,<nL>			;
-		[ TO <nB>,<nR> ]		;
-		[ WIDTH <nW> ]			;
-		[ HEIGHT <nH>	]		;
-		[ TITLE <cTitle> ]		;
-		TYPE <nType>			;
-		SERIES <aSer>			;
-		YVALUES <aYVal>			;
-		DEPTH <nD>			;
-		[ BARWIDTH <nW> ]		;
-		[ BARSEPARATOR <nSep> ]		;
-		HVALUES <nRange>		;
-		SERIENAMES <aName>		;
-		COLORS <aColor>			;
-		[ <l3D : 3DVIEW> ]		;
-		[ <lGrid : SHOWGRID> ]		;
-		[ <lxGrid : SHOWXGRID> ]	; 
-		[ <lyGrid : SHOWYGRID> ]	; 
-		[ <lxVal : SHOWXVALUES> ]	; 
-		[ <lyVal : SHOWYVALUES> ]	; 
-		[ <lSLeg : SHOWLEGENDS> ]	; 
-		[ <lViewVal : SHOWDATAVALUES> ]	; 
-		[ DATAMASK <mask> ]		; 
-		[ LEGENDSWIDTH <nLegendsWidth> ];
-		[ <lNoborder : NOBORDER> ]	; 
+#xcommand DRAW GRAPH                                ;
+                IN WINDOW <window>                ;
+                AT <nT>,<nL>                        ;
+                [ TO <nB>,<nR> ]                ;
+                [ WIDTH <nW> ]                        ;
+                [ HEIGHT <nH>        ]                ;
+                [ TITLE <cTitle> ]                ;
+                TYPE <nType>                        ;
+                SERIES <aSer>                        ;
+                YVALUES <aYVal>                        ;
+                DEPTH <nD>                        ;
+                [ BARWIDTH <nW> ]                ;
+                [ BARSEPARATOR <nSep> ]                ;
+                HVALUES <nRange>                ;
+                SERIENAMES <aName>                ;
+                COLORS <aColor>                        ;
+                [ <l3D : 3DVIEW> ]                ;
+                [ <lGrid : SHOWGRID> ]                ;
+                [ <lxGrid : SHOWXGRID> ]        ; 
+                [ <lyGrid : SHOWYGRID> ]        ; 
+                [ <lxVal : SHOWXVALUES> ]        ; 
+                [ <lyVal : SHOWYVALUES> ]        ; 
+                [ <lSLeg : SHOWLEGENDS> ]        ; 
+                [ <lViewVal : SHOWDATAVALUES> ]        ; 
+                [ DATAMASK <mask> ]                ; 
+                [ LEGENDSWIDTH <nLegendsWidth> ];
+                [ <lNoborder : NOBORDER> ]        ; 
 => ;
-	GraphShow(<(window)>,			;
-		<nT>,				;
-		<nL>,				;
-		<nB>,				;
-		<nR>,				;
-		<nH>,				;
-		<nW>,				;
-		<aSer>,				;
-		<cTitle>,			;
-		<aYVal>,			;
-		<nD>,				;
-		<nW>,				;
-		<nSep>,				;
-		<nRange>,			;
-		<.l3D.>,			;
-		<.lGrid.>,			;
-		<.lxGrid.>,			;
-		<.lyGrid.>,			;
-		<.lxVal.>,			;
-		<.lyVal.>,			;
-		<.lSLeg.>,			;
-		<aName>,			;
-		<aColor>,			;
-		<nType>,			;
-		<.lViewVal.>,			;
-		<mask>, <nLegendsWidth>, <.lNoborder.>)
+        GraphShow(<(window)>,                        ;
+                <nT>,                                ;
+                <nL>,                                ;
+                <nB>,                                ;
+                <nR>,                                ;
+                <nH>,                                ;
+                <nW>,                                ;
+                <aSer>,                                ;
+                <cTitle>,                        ;
+                <aYVal>,                        ;
+                <nD>,                                ;
+                <nW>,                                ;
+                <nSep>,                                ;
+                <nRange>,                        ;
+                <.l3D.>,                        ;
+                <.lGrid.>,                        ;
+                <.lxGrid.>,                        ;
+                <.lyGrid.>,                        ;
+                <.lxVal.>,                        ;
+                <.lyVal.>,                        ;
+                <.lSLeg.>,                        ;
+                <aName>,                        ;
+                <aColor>,                        ;
+                <nType>,                        ;
+                <.lViewVal.>,                        ;
+                <mask>, <nLegendsWidth>, <.lNoborder.>)
 
-#xcommand PRINT GRAPH				;
-		IN WINDOW <window>		;
-		AT <nT>,<nL>			;
-		[ TO <nB>,<nR> ]		;
-		[ WIDTH <nW> ]			;
-		[ HEIGHT <nH>	]		;
-		[ TITLE <cTitle> ]		;
-		TYPE <nType>			;
-		SERIES <aSer>			;
-		YVALUES <aYVal>			;
-		DEPTH <nD>			;
-		[ BARWIDTH <nW> ]		;
-		[ BARSEPARATOR <nSep> ]		;
-		HVALUES <nRange>		;
-		SERIENAMES <aName>		;
-		COLORS <aColor>			;
-		[ <l3D : 3DVIEW> ]		;
-		[ <lGrid : SHOWGRID> ]		;
-		[ <lxGrid : SHOWXGRID> ]	; 
-		[ <lyGrid : SHOWYGRID> ]	; 
-		[ <lxVal : SHOWXVALUES> ]	; 
-		[ <lyVal : SHOWYVALUES> ]	; 
-		[ <lSLeg : SHOWLEGENDS> ]	; 
-		[ <lViewVal : SHOWDATAVALUES> ]	; 
-		[ DATAMASK <mask> ]		; 
-		[ LEGENDSWIDTH <nLegendsWidth> ];
-		[ LIBRARY <clib> ]		; 
+#xcommand PRINT GRAPH                                ;
+                IN WINDOW <window>                ;
+                AT <nT>,<nL>                        ;
+                [ TO <nB>,<nR> ]                ;
+                [ WIDTH <nW> ]                        ;
+                [ HEIGHT <nH>        ]                ;
+                [ TITLE <cTitle> ]                ;
+                TYPE <nType>                        ;
+                SERIES <aSer>                        ;
+                YVALUES <aYVal>                        ;
+                DEPTH <nD>                        ;
+                [ BARWIDTH <nW> ]                ;
+                [ BARSEPARATOR <nSep> ]                ;
+                HVALUES <nRange>                ;
+                SERIENAMES <aName>                ;
+                COLORS <aColor>                        ;
+                [ <l3D : 3DVIEW> ]                ;
+                [ <lGrid : SHOWGRID> ]                ;
+                [ <lxGrid : SHOWXGRID> ]        ; 
+                [ <lyGrid : SHOWYGRID> ]        ; 
+                [ <lxVal : SHOWXVALUES> ]        ; 
+                [ <lyVal : SHOWYVALUES> ]        ; 
+                [ <lSLeg : SHOWLEGENDS> ]        ; 
+                [ <lViewVal : SHOWDATAVALUES> ]        ; 
+                [ DATAMASK <mask> ]                ; 
+                [ LEGENDSWIDTH <nLegendsWidth> ];
+                [ LIBRARY <clib> ]                ; 
 => ;
-	_GraphPrint(<(window)>,			;
-		<nT>,				;
-		<nL>,				;
-		<nB>,				;
-		<nR>,				;
-		<nH>,				;
-		<nW>,				;
-		<aSer>,				;
-		<cTitle>,			;
-		<aYVal>,			;
-		<nD>,				;
-		<nW>,				;
-		<nSep>,				;
-		<nRange>,			;
-		<.l3D.>,			;
-		<.lGrid.>,			;
-		<.lxGrid.>,			;
-		<.lyGrid.>,			;
-		<.lxVal.>,			;
-		<.lyVal.>,			;
-		<.lSLeg.>,			;
-		<aName>,			;
-		<aColor>,			;
-		<nType>,			;
-		<.lViewVal.>,			;
-		<mask>, <nLegendsWidth>, 10, 7, <"clib">)
+        _GraphPrint(<(window)>,                        ;
+                <nT>,                                ;
+                <nL>,                                ;
+                <nB>,                                ;
+                <nR>,                                ;
+                <nH>,                                ;
+                <nW>,                                ;
+                <aSer>,                                ;
+                <cTitle>,                        ;
+                <aYVal>,                        ;
+                <nD>,                                ;
+                <nW>,                                ;
+                <nSep>,                                ;
+                <nRange>,                        ;
+                <.l3D.>,                        ;
+                <.lGrid.>,                        ;
+                <.lxGrid.>,                        ;
+                <.lyGrid.>,                        ;
+                <.lxVal.>,                        ;
+                <.lyVal.>,                        ;
+                <.lSLeg.>,                        ;
+                <aName>,                        ;
+                <aColor>,                        ;
+                <nType>,                        ;
+                <.lViewVal.>,                        ;
+                <mask>, <nLegendsWidth>, 10, 7, <"clib">)
 
 #xcommand PRINT GRAPH IN WINDOW <window>;
-      AT <nT>,<nL>			;
-      TO <nB>,<nR>			;
-      TITLE <cTitle>			;
-      TYPE PIE				;
-      SERIES <aSer>			;
-      DEPTH <nD>			;
-      SERIENAMES <aName>		;
-      COLORS <aColor>			;
-      [ <l3D : 3DVIEW> ]		;
-      [ <lxVal : SHOWXVALUES> ]		;
-      [ <lSLeg : SHOWLEGENDS>		;
-      [ <placement:RIGHT,BOTTOM> ] ]	;
-      [ DATAMASK <mask> ]		;
-      [ LIBRARY <clib> ]		;
+      AT <nT>,<nL>                        ;
+      TO <nB>,<nR>                        ;
+      TITLE <cTitle>                        ;
+      TYPE PIE                                ;
+      SERIES <aSer>                        ;
+      DEPTH <nD>                        ;
+      SERIENAMES <aName>                ;
+      COLORS <aColor>                        ;
+      [ <l3D : 3DVIEW> ]                ;
+      [ <lxVal : SHOWXVALUES> ]                ;
+      [ <lSLeg : SHOWLEGENDS>                ;
+      [ <placement:RIGHT,BOTTOM> ] ]        ;
+      [ DATAMASK <mask> ]                ;
+      [ LIBRARY <clib> ]                ;
 => ;
       _PiePrint(<(window)>,;
-		<nT>,;
-		<nL>,;
-		<nB>,;
-		<nR>,;
-		<aSer>,;
-		<aName>,;
-		<aColor>,;
-		<cTitle>,;
-		<nD>,;
-		<.l3D.>,;
-		<.lxVal.>,;
-		<.lSLeg.>,;
-		<mask>,;
-		10, 5, <"clib">, <"placement">)
+                <nT>,;
+                <nL>,;
+                <nB>,;
+                <nR>,;
+                <aSer>,;
+                <aName>,;
+                <aColor>,;
+                <cTitle>,;
+                <nD>,;
+                <.l3D.>,;
+                <.lxVal.>,;
+                <.lSLeg.>,;
+                <mask>,;
+                10, 5, <"clib">, <"placement">)

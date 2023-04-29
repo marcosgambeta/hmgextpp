@@ -45,19 +45,19 @@
  */
 
 #command @ <row>,<col> QHTM <name> ;
-		[ID <nId>] ;
-		[ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
-		[ VALUE  <value> ]     ;
-		[ FILE <fname> ]       ;
-		[ RESOURCE <resname> ] ;
-		[ WIDTH <w> ] ;
-		[ HEIGHT <h> ] ;
-		[ FONT <fontname> ]   ;
-		[ SIZE <fontsize> ]   ;
-		[ ON CHANGE <change> ] ;
-		[ <border: BORDER> ] ;
-	=>;
-	_DefineQhtm ( <"name">, ;
+                [ID <nId>] ;
+                [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
+                [ VALUE  <value> ]     ;
+                [ FILE <fname> ]       ;
+                [ RESOURCE <resname> ] ;
+                [ WIDTH <w> ] ;
+                [ HEIGHT <h> ] ;
+                [ FONT <fontname> ]   ;
+                [ SIZE <fontsize> ]   ;
+                [ ON CHANGE <change> ] ;
+                [ <border: BORDER> ] ;
+        =>;
+        _DefineQhtm ( <"name">, ;
                    <"parent">, ;
                    <row>, ;
                    <col>, ;
@@ -74,17 +74,17 @@
 
 
 #command REDEFINE QHTM <name> ;
-		ID <nId>;
-		[ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
-		[ VALUE  <value> ]     ;
-		[ FILE <fname> ]       ;
-		[ RESOURCE <resname> ] ;
+                ID <nId>;
+                [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
+                [ VALUE  <value> ]     ;
+                [ FILE <fname> ]       ;
+                [ RESOURCE <resname> ] ;
                 [ FONT <fontname> ]   ;
                 [ SIZE <fontsize> ]   ;
-		[ ON CHANGE <change> ] ;
-		[ <border: BORDER> ] ;
-	=>;
-	_DefineQhtm ( <"name">, ;
+                [ ON CHANGE <change> ] ;
+                [ <border: BORDER> ] ;
+        =>;
+        _DefineQhtm ( <"name">, ;
                    <"parent">, ;
                    0, 0, 0, 0, ;
                    <value>, ;
@@ -102,18 +102,18 @@ QHTM
 
 #xcommand DEFINE QHTM <name> ;
    =>;
-   _HMG_ActiveControlName      := <"name">	;;
-   _HMG_ActiveControlOf      := Nil		;;
-   _HMG_ActiveControlId		:= Nil		;;
+   _HMG_ActiveControlName      := <"name">        ;;
+   _HMG_ActiveControlOf      := Nil                ;;
+   _HMG_ActiveControlId                := Nil                ;;
    _HMG_ActiveControlCol               := Nil   ;;
    _HMG_ActiveControlRow               := Nil   ;;
-   _HMG_ActiveControlWidth      := Nil		;;
-   _HMG_ActiveControlHeight      := Nil		;;
+   _HMG_ActiveControlWidth      := Nil                ;;
+   _HMG_ActiveControlHeight      := Nil                ;;
    _HMG_ActiveControlValue             := ""    ;;
    _HMG_ActiveControlFile      := Nil      ;;
    _HMG_ActiveControlFont      := Nil      ;;
    _HMG_ActiveControlSize      := Nil      ;;
-   _HMG_ActiveControlOnChange          := ""	;;
+   _HMG_ActiveControlOnChange          := ""        ;;
    _HMG_ActiveControlBorder            := .F.
 
 
@@ -138,8 +138,8 @@ QHTM
 
 // Get/Set position of scrolling
 
-#define QHTM_GET_SCROLL_POS	( WM_USER + 6 )
-#define QHTM_SET_SCROLL_POS	( WM_USER + 7 )
+#define QHTM_GET_SCROLL_POS        ( WM_USER + 6 )
+#define QHTM_SET_SCROLL_POS        ( WM_USER + 7 )
 
 #translate QHTM_GetScrollPos( <nHandle> ) ;
         => SendMessage( <nHandle>, QHTM_GET_SCROLL_POS, 0, 0 ) 

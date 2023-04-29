@@ -46,18 +46,18 @@
 
 #command DEFINE TAB <name> ;
         [ID <nId>];
-	[ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
-	AT <row> , <col> ;
-	WIDTH <w> ;
-	HEIGHT <h> ;
-	[ VALUE <value> ] ;
-	[ FONT <f> ] ;
-	[ SIZE <s> ] ;
-	[ <bold : BOLD> ] ;
-	[ <italic : ITALIC> ] ;
-	[ <underline : UNDERLINE> ] ;
-	[ <strikeout : STRIKEOUT> ] ;
-	[ TOOLTIP <tooltip> ] ;
+        [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
+        AT <row> , <col> ;
+        WIDTH <w> ;
+        HEIGHT <h> ;
+        [ VALUE <value> ] ;
+        [ FONT <f> ] ;
+        [ SIZE <s> ] ;
+        [ <bold : BOLD> ] ;
+        [ <italic : ITALIC> ] ;
+        [ <underline : UNDERLINE> ] ;
+        [ <strikeout : STRIKEOUT> ] ;
+        [ TOOLTIP <tooltip> ] ;
         [ BACKCOLOR <backcolor> ] ;
         [ <multiline: MULTILINE> ] ;
         [ <buttons: BUTTONS> ] ;
@@ -66,54 +66,54 @@
         [ HTFORECOLOR <htforecolor> ] ;
         [ HTINACTIVECOLOR <htinactivecolor> ] ] ;
         [ <vertical: VERTICAL> ] ;
-	[ <bottom: BOTTOM> ] ;
-	[ ON CHANGE <change> ] ;
-	[ <notabstop: NOTABSTOP> ] ;
-	[ <NoTrans: NOTRANSPARENT> ] ;
-	[ ON INIT <bInit> ] ;
-	=>;
-	_BeginTab( <(name)> , <(parent)> , <row> , <col> , <w> , <h> , <value> , <f> , <s> , <tooltip> , <{change}> , <.buttons.> , <.flat.> , <.hottrack.> , <.vertical.> , <.bottom.> , <.notabstop.> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <.multiline.>, {<backcolor>, <htforecolor>, <htinactivecolor>}, <nId>, <bInit>, <.NoTrans.> )
+        [ <bottom: BOTTOM> ] ;
+        [ ON CHANGE <change> ] ;
+        [ <notabstop: NOTABSTOP> ] ;
+        [ <NoTrans: NOTRANSPARENT> ] ;
+        [ ON INIT <bInit> ] ;
+        =>;
+        _BeginTab( <(name)> , <(parent)> , <row> , <col> , <w> , <h> , <value> , <f> , <s> , <tooltip> , <{change}> , <.buttons.> , <.flat.> , <.hottrack.> , <.vertical.> , <.bottom.> , <.notabstop.> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <.multiline.>, {<backcolor>, <htforecolor>, <htinactivecolor>}, <nId>, <bInit>, <.NoTrans.> )
 
 #command REDEFINE TAB <name> ;
         ID <nId>;
-	[ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
-	[ VALUE <value> ] ;
-	[ FONT <f> ] ;
-	[ SIZE <s> ] ;
-	[ <bold : BOLD> ] ;
-	[ <italic : ITALIC> ] ;
-	[ <underline : UNDERLINE> ] ;
-	[ <strikeout : STRIKEOUT> ] ;
-	[ TOOLTIP <tooltip> ] ;
+        [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
+        [ VALUE <value> ] ;
+        [ FONT <f> ] ;
+        [ SIZE <s> ] ;
+        [ <bold : BOLD> ] ;
+        [ <italic : ITALIC> ] ;
+        [ <underline : UNDERLINE> ] ;
+        [ <strikeout : STRIKEOUT> ] ;
+        [ TOOLTIP <tooltip> ] ;
         [ <multiline: MULTILINE> ]     ;
         [ <buttons: BUTTONS> ]       ;
         [ <flat: FLAT> ]       ;
         [ <hottrack: HOTTRACK> ]       ;
         [ <vertical: VERTICAL> ]       ;
-	[ <bottom: BOTTOM> ] ;
-	[ ON CHANGE <change> ] ;
-	[ <notabstop: NOTABSTOP> ]       ;
-	[ <NoTrans: NOTRANSPARENT> ] ;
-	[ ON INIT <bInit> ] ;
-	=>;
-	_BeginTab( <(name)> , <(parent)> , 0 , 0 , 0 , 0 , <value> , <f> , <s> , <tooltip> , <{change}> , <.buttons.> , <.flat.> , <.hottrack.> , <.vertical.>, <.bottom.> , <.notabstop.> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <.multiline.>, {,,}, <nId> , <bInit> , <.NoTrans.> )
+        [ <bottom: BOTTOM> ] ;
+        [ ON CHANGE <change> ] ;
+        [ <notabstop: NOTABSTOP> ]       ;
+        [ <NoTrans: NOTRANSPARENT> ] ;
+        [ ON INIT <bInit> ] ;
+        =>;
+        _BeginTab( <(name)> , <(parent)> , 0 , 0 , 0 , 0 , <value> , <f> , <s> , <tooltip> , <{change}> , <.buttons.> , <.flat.> , <.hottrack.> , <.vertical.>, <.bottom.> , <.notabstop.> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <.multiline.>, {,,}, <nId> , <bInit> , <.NoTrans.> )
 
 #command PAGE <caption> [ IMAGE <image> ] [ TOOLTIP <tooltip> ] ;
-	=>;
-	_BeginTabPage ( <caption> , <image> , <tooltip> ) 
+        =>;
+        _BeginTabPage ( <caption> , <image> , <tooltip> ) 
 
 #command DEFINE PAGE <caption> [ IMAGE <image> ] [ TOOLTIP <tooltip> ] ;
-	=>;
-	_BeginTabPage ( <caption> , <image> , <tooltip> ) 
+        =>;
+        _BeginTabPage ( <caption> , <image> , <tooltip> ) 
 
 #command DEFINE TAB PAGE <caption> [ IMAGE <image> ] [ TOOLTIP <tooltip> ] ;
-	=>;
-	_BeginTabPage ( <caption> , <image> , <tooltip> ) 
+        =>;
+        _BeginTabPage ( <caption> , <image> , <tooltip> ) 
 
 #command END PAGE ;
-	=>;
-	_EndTabPage()
+        =>;
+        _EndTabPage()
 
 #command END TAB ;
-	=>;
-	_EndTab()
+        =>;
+        _EndTab()

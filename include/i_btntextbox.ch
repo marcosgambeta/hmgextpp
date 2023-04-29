@@ -45,14 +45,14 @@
  */
 
 #command @ <row>, <col> BTNTEXTBOX <name> ;
-        [ ID <nId> ]			;
+        [ ID <nId> ]                        ;
         [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
         [ HEIGHT <height> ]             ;
         [ WIDTH <width> ]               ;
         [ FIELD <field> ]               ;
         [ VALUE <value> ]               ;
         [ <dummy2: ACTION,ON CLICK,ONCLICK> <action> [ <default: DEFAULT> ] ] ;
-        [ ACTION2 <action2> ]		;
+        [ ACTION2 <action2> ]                ;
         [ <dummy3: IMAGE, PICTURE> <abitmap> ] ;
         [ BUTTONWIDTH <btnwidth> ]      ;
         [ FONT <fontname> ]             ;
@@ -80,7 +80,7 @@
         [ <dummy4: DISABLEEDIT, READONLY> <disableedit> ] ;
         [ HELPID <helpid> ]             ;
         [ <cuebanner : CUEBANNER, PLACEHOLDER> <CueText> ] ;
-	[ ON INIT <bInit> ] ;
+        [ ON INIT <bInit> ] ;
      => ;
      _DefineBtnTextBox( <(name)>, <(parent)>, <col>, <row>, <width>, <height>, <value>, ;
             <{action}>,<{action2}>, <abitmap>, <btnwidth>, <fontname>, <fontsize>, <tooltip>, <maxlenght>, ;
@@ -90,24 +90,24 @@
             [<CueText>], !<.nokeepfocus.>, <bInit> )
 
 
-#command REDEFINE BTNTEXTBOX <name>	;
-        ID <nId>			;
+#command REDEFINE BTNTEXTBOX <name>        ;
+        ID <nId>                        ;
         [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
-        [ FIELD <field> ]		;
+        [ FIELD <field> ]                ;
         [ VALUE <value> ]               ;
         [ <dummy2: ACTION,ON CLICK,ONCLICK> <action> [ <default: DEFAULT> ] ] ;
-        [ ACTION2 <action2> ]		;
+        [ ACTION2 <action2> ]                ;
         [ <dummy3: IMAGE, PICTURE> <abitmap> ] ;
         [ BUTTONWIDTH <btnwidth> ]      ;
         [ FONT <fontname> ]             ;
         [ SIZE <fontsize> ]             ;
-        [ <bold : BOLD> ]		;
-        [ <italic : ITALIC> ]		;
-        [ <underline : UNDERLINE> ]	;
-        [ <strikeout : STRIKEOUT> ]	;
+        [ <bold : BOLD> ]                ;
+        [ <italic : ITALIC> ]                ;
+        [ <underline : UNDERLINE> ]        ;
+        [ <strikeout : STRIKEOUT> ]        ;
         [ TOOLTIP <tooltip> ]           ;
-        [ BACKCOLOR <backcolor> ]	;
-        [ FONTCOLOR <fontcolor> ]	;
+        [ BACKCOLOR <backcolor> ]        ;
+        [ FONTCOLOR <fontcolor> ]        ;
         [ MAXLENGTH <maxlenght> ]       ;
         [ <upper: UPPERCASE> ]          ;
         [ <lower: LOWERCASE> ]          ;
@@ -116,15 +116,15 @@
         [ ON CHANGE <change> ]          ;
         [ ON GOTFOCUS <gotfocus> ]      ;
         [ ON LOSTFOCUS <lostfocus> ]    ;
-        [ ON ENTER <enter> ]		;
-        [ <RightAlign: RIGHTALIGN> ]	;
-        [ <invisible: INVISIBLE> ]	;
-        [ <notabstop: NOTABSTOP> ]	;
+        [ ON ENTER <enter> ]                ;
+        [ <RightAlign: RIGHTALIGN> ]        ;
+        [ <invisible: INVISIBLE> ]        ;
+        [ <notabstop: NOTABSTOP> ]        ;
         [ <nokeepfocus: NOKEEPFOCUS> ]  ;
         [ <dummy4: DISABLEEDIT, READONLY> <disableedit> ] ;
-        [ HELPID <helpid> ]		;
+        [ HELPID <helpid> ]                ;
         [ <cuebanner : CUEBANNER, PLACEHOLDER> <CueText> ] ;
-	[ ON INIT <bInit> ] ;
+        [ ON INIT <bInit> ] ;
      => ;
      _DefineBtnTextBox( <(name)>, <(parent)>, 0, 0, 0, 0, <value>, ;
             <{action}>, <{action2}>, <abitmap>, <btnwidth>, <fontname>, <fontsize>, <tooltip>, <maxlenght>, ;

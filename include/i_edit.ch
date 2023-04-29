@@ -44,39 +44,39 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#translate EDIT WORKAREA <workarea>			;
-		[ TITLE <title> ]			;
-		[ FIELDS <fields> ]			;
-		[ READONLY <editablefields> ]		;
-		[ SAVE <bsave> ]			;
-		[ SEARCH <bsearch> ]			;
-	=> 						;
-		ABM(	<(workarea)> , 			;
-			<title> , 			;
-			<fields> , 			;		
-			NoArray(<editablefields>) , 	;
-			<bsave> , 			;
-			<bsearch> )
+#translate EDIT WORKAREA <workarea>                        ;
+                [ TITLE <title> ]                        ;
+                [ FIELDS <fields> ]                        ;
+                [ READONLY <editablefields> ]                ;
+                [ SAVE <bsave> ]                        ;
+                [ SEARCH <bsearch> ]                        ;
+        =>                                                 ;
+                ABM(        <(workarea)> ,                         ;
+                        <title> ,                         ;
+                        <fields> ,                         ;                
+                        NoArray(<editablefields>) ,         ;
+                        <bsave> ,                         ;
+                        <bsearch> )
 
-#xtranslate EDIT EXTENDED				;
-                [ WORKAREA <cWorkArea> ]		;
-                [ TITLE <cTitle> ]			;
-                [ FIELDNAMES <acFieldNames> ]		;
-                [ FIELDMESSAGES <acFieldMessages> ]	;
-                [ FIELDENABLED <alFieldView> ]		;
-                [ TABLEVIEW <alTableView> ]		;
-                [ OPTIONS <aOptions> ]			;
-                [ ON SAVE <bSave> ]			;
-                [ ON FIND <bFind> ]			;
-                [ ON PRINT <bPrint> ]			;
-	=> 						;
-		ABM2(	<(cWorkArea)>, 			;
-			<cTitle>, 			;
-			<acFieldNames>, 		;
-			<acFieldMessages>, 	        ;
-			<alFieldView>, 			;
-			<alTableView>,                  ;
-                        <aOptions>,			;
-                        <bSave>,                      	;
-                        <bFind>,                      	;
+#xtranslate EDIT EXTENDED                                ;
+                [ WORKAREA <cWorkArea> ]                ;
+                [ TITLE <cTitle> ]                        ;
+                [ FIELDNAMES <acFieldNames> ]                ;
+                [ FIELDMESSAGES <acFieldMessages> ]        ;
+                [ FIELDENABLED <alFieldView> ]                ;
+                [ TABLEVIEW <alTableView> ]                ;
+                [ OPTIONS <aOptions> ]                        ;
+                [ ON SAVE <bSave> ]                        ;
+                [ ON FIND <bFind> ]                        ;
+                [ ON PRINT <bPrint> ]                        ;
+        =>                                                 ;
+                ABM2(        <(cWorkArea)>,                         ;
+                        <cTitle>,                         ;
+                        <acFieldNames>,                 ;
+                        <acFieldMessages>,                 ;
+                        <alFieldView>,                         ;
+                        <alTableView>,                  ;
+                        <aOptions>,                        ;
+                        <bSave>,                              ;
+                        <bFind>,                              ;
                         <bPrint> )

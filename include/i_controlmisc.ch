@@ -372,8 +372,8 @@ _HMG_lMultiple := ( Upper(<(x)>) == "ON" ) ; iif ( _HMG_lMultiple == .F. .AND. _
 
 // Release Control by given Window Handle
 
-#define WM_SYSCOMMAND	274
-#define SC_CLOSE	61536
+#define WM_SYSCOMMAND        274
+#define SC_CLOSE        61536
 
 #xtranslate ReleaseControl ( <hWnd> ) ;
 => ;

@@ -45,66 +45,66 @@
  */
 
 #command DEFINE IMAGELIST <name> ;
-	[ <dummy1: OF, PARENT> <parent> ] ;
-	[ BUTTONSIZE <w> , <h>  ];
-	[ IMAGE <aImage> ] ;
-	[ IMAGEMASK <aImageMask> ] ;
-	[ COLORMASK <aColorMask> ] ;
-	[ IMAGECOUNT <ImageCount> ] ;
-	[ <mask: MASK> ] ;
-	=>;
-	_DefineImageList ( <"name"> , <"parent"> , <w>, <h> ,<aImage> , <aImageMask>, <aColorMask> , <ImageCount> , <.mask.> )
+        [ <dummy1: OF, PARENT> <parent> ] ;
+        [ BUTTONSIZE <w> , <h>  ];
+        [ IMAGE <aImage> ] ;
+        [ IMAGEMASK <aImageMask> ] ;
+        [ COLORMASK <aColorMask> ] ;
+        [ IMAGECOUNT <ImageCount> ] ;
+        [ <mask: MASK> ] ;
+        =>;
+        _DefineImageList ( <"name"> , <"parent"> , <w>, <h> ,<aImage> , <aImageMask>, <aColorMask> , <ImageCount> , <.mask.> )
 
 
 #command DRAW IMAGELIST <name> ;
-	<dummy1: OF, PARENT> <parent> ;
-	AT <row> , <col> ;
-	IMAGEINDEX <ImageIndex> ;
-	=>;
-	_DrawImageFromImageList ( <"name">, <"parent">, <ImageIndex>, <col> , <row> )
+        <dummy1: OF, PARENT> <parent> ;
+        AT <row> , <col> ;
+        IMAGEINDEX <ImageIndex> ;
+        =>;
+        _DrawImageFromImageList ( <"name">, <"parent">, <ImageIndex>, <col> , <row> )
 
 #command RELEASE IMAGELIST <name> ;
-	<dummy1: OF, PARENT> <parent> ;
-	=>;
-	_DestroyImageList ( <"name">, <"parent"> )
+        <dummy1: OF, PARENT> <parent> ;
+        =>;
+        _DestroyImageList ( <"name">, <"parent"> )
 
 #command ERASE IMAGE <name> ;
-	<dummy1: OF, PARENT> <parent>  ;
-	AT <row> , <col> ;
-	=>;
-	_EraseImage ( <"name">, <"parent">, <col> , <row>)
+        <dummy1: OF, PARENT> <parent>  ;
+        AT <row> , <col> ;
+        =>;
+        _EraseImage ( <"name">, <"parent">, <col> , <row>)
 
 #command BEGINDRAG IMAGE <name> ;
-	<dummy1: OF, PARENT> <parent>  ;
-	AT <row> , <col> ;
-	IMAGEINDEX <ImageIndex> ;
-	=>;
-	_BeginDragImage  ( <"name">, <"parent">, <ImageIndex>, <col> , <row>)
+        <dummy1: OF, PARENT> <parent>  ;
+        AT <row> , <col> ;
+        IMAGEINDEX <ImageIndex> ;
+        =>;
+        _BeginDragImage  ( <"name">, <"parent">, <ImageIndex>, <col> , <row>)
 
 
 #command ENTERDRAG IMAGE AT <row> , <col> ;
-	=>;
-	_DragEnterImage ( <col> , <row> )  
+        =>;
+        _DragEnterImage ( <col> , <row> )  
 
 #command MOVE IMAGE AT <row> , <col> ;
-	=>;
-	_MoveImage ( <col> , <row> )   
+        =>;
+        _MoveImage ( <col> , <row> )   
 
 #command ENDDRAG IMAGE ;
-	=>;
-	_EndDragImage () 
+        =>;
+        _EndDragImage () 
 
 
 #command ADD IMAGE <image> [ MASK <mask> ] TO <control> OF <parent> ;
-	=>;
-	DoMethod ( <"parent"> , <"control"> , 'AddImage' , <image> , <mask> )
+        =>;
+        DoMethod ( <"parent"> , <"control"> , 'AddImage' , <image> , <mask> )
 
 
 #command ADD MASKEDIMAGE <image> [ COLOR <aColor> ] TO <control> OF <parent> ;
-	=>;
-	DoMethod ( <"parent"> , <"control"> , 'AddImageMask' , <image> , <aColor> )
+        =>;
+        DoMethod ( <"parent"> , <"control"> , 'AddImageMask' , <image> , <aColor> )
 
 
 #command DELETE IMAGE <index> FROM <control> OF <parent> ;
-	=>;
-	DoMethod ( <"parent"> , <"control"> , 'DeleteImage' , <index> )
+        =>;
+        DoMethod ( <"parent"> , <"control"> , 'DeleteImage' , <index> )

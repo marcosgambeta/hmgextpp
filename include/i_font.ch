@@ -150,66 +150,66 @@
 /* HMG 1.1 Experimental Build 11a */
 
 #command DEFINE FONT <name>   ;
-	FONTNAME <fontname>   ;
-	[ SIZE <fontsize> ]   ;
-	[ <bold : BOLD> ]     ;
-	[ <italic : ITALIC> ] ;
-	[ <underline : UNDERLINE> ] ;
-	[ <strikeout : STRIKEOUT> ] ;
-	[ CHARSET <charset> ]	;
-	[ ANGLE <Angle> ]	;
-	[ <default : DEFAULT> ] ;
+        FONTNAME <fontname>   ;
+        [ SIZE <fontsize> ]   ;
+        [ <bold : BOLD> ]     ;
+        [ <italic : ITALIC> ] ;
+        [ <underline : UNDERLINE> ] ;
+        [ <strikeout : STRIKEOUT> ] ;
+        [ CHARSET <charset> ]        ;
+        [ ANGLE <Angle> ]        ;
+        [ <default : DEFAULT> ] ;
    => ;
-	_DefineFont (  ;
-	<(name)>,      ;
-	<fontname>,    ;
-	<fontsize>,    ;
-	<.bold.>,      ;
-	<.italic.>,    ;
-	<.underline.>, ;
-	<.strikeout.>, ;
-	<Angle>,       ;
-	<.default.>,   ;
+        _DefineFont (  ;
+        <(name)>,      ;
+        <fontname>,    ;
+        <fontsize>,    ;
+        <.bold.>,      ;
+        <.italic.>,    ;
+        <.underline.>, ;
+        <.strikeout.>, ;
+        <Angle>,       ;
+        <.default.>,   ;
         <charset> )
 
 
 #command RELEASE FONT <name1> [, <nameN> ] ;
    => ;
-	_ReleaseFont ( <(name1)> ) ;
-	[; _ReleaseFont ( <(nameN)> ) ]
+        _ReleaseFont ( <(name1)> ) ;
+        [; _ReleaseFont ( <(nameN)> ) ]
 
 ///////////////////////////////////////////////////////////////////////////////
 
 #xtranslate GetDefaultFontName () ;
    => ;
-	GetSystemFont() \[1\]
+        GetSystemFont() \[1\]
 
 #xtranslate GetDefaultFontSize () ;
    => ;
-	GetSystemFont() \[2\]
+        GetSystemFont() \[2\]
 
 ///////////////////////////////////////////////////////////////////////////////
 
 #command SET TITLEBAR FONT TO <fontname> , <fontsize> ;
-	[ <bold : BOLD> ] ;
-	[ CHARSET <charset> ]	;
+        [ <bold : BOLD> ] ;
+        [ CHARSET <charset> ]        ;
    => ;
-	SetNonClientFont( 1 , <fontname> , <fontsize> , <.bold.> , <charset> )
+        SetNonClientFont( 1 , <fontname> , <fontsize> , <.bold.> , <charset> )
 
 #command SET [STANDARD] MENU FONT TO <fontname> , <fontsize> ;
-	[ <bold : BOLD> ] ;
-	[ CHARSET <charset> ]	;
+        [ <bold : BOLD> ] ;
+        [ CHARSET <charset> ]        ;
    => ;
-	SetNonClientFont( 2 , <fontname> , <fontsize> , <.bold.> , <charset> )
+        SetNonClientFont( 2 , <fontname> , <fontsize> , <.bold.> , <charset> )
 
 #command SET STATUSBAR FONT TO <fontname> , <fontsize> ;
-	[ <bold : BOLD> ] ;
-	[ CHARSET <charset> ]	;
+        [ <bold : BOLD> ] ;
+        [ CHARSET <charset> ]        ;
    => ;
-	SetNonClientFont( 3 , <fontname> , <fontsize> , <.bold.> , <charset> )
+        SetNonClientFont( 3 , <fontname> , <fontsize> , <.bold.> , <charset> )
 
 #command SET MESSAGEBOX FONT TO <fontname> , <fontsize> ;
-	[ <bold : BOLD> ] ;
-	[ CHARSET <charset> ]	;
+        [ <bold : BOLD> ] ;
+        [ CHARSET <charset> ]        ;
    => ;
-	SetNonClientFont( 4 , <fontname> , <fontsize> , <.bold.> , <charset> )
+        SetNonClientFont( 4 , <fontname> , <fontsize> , <.bold.> , <charset> )

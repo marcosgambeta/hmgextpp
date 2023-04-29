@@ -46,28 +46,28 @@
 
 #command @ <row>,<col> SLIDER <name> ;
         [ID <nId>];
-		[ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
-		RANGE <lo>,<hi> ;
-		[ SELRANGE <slo>,<shi> ] ;  /* P.Ch. 16.10. */
-		[ VALUE <value> ] ;
-		[ WIDTH <w> ] ;
-		[ HEIGHT <h> ] ;
-		[ TOOLTIP <tooltip> ]  ;
-		[ BACKCOLOR <backcolor> ] ;
-		[ ON CHANGE <change> ] ;
-		[ ON SCROLL <scroll> ] ;
-		[ <vertical: VERTICAL> ] ;
-		[ <noticks: NOTICKS> ] ;
-		[ <enableselrange: ENABLESELRANGE> ] ;  /* P.Ch. 16.10. */
-		[ <both: BOTH> ] ;
-		[ <top: TOP> ] ;
-		[ <left: LEFT> ] ;
-		[ HELPID <helpid> ] ;
-		[ <invisible : INVISIBLE> ] ;
-		[ <notabstop : NOTABSTOP> ] ;
-		[ ON INIT <bInit> ] ;
-	=>;
-	_DefineSlider ( <(name)>, ;
+                [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
+                RANGE <lo>,<hi> ;
+                [ SELRANGE <slo>,<shi> ] ;  /* P.Ch. 16.10. */
+                [ VALUE <value> ] ;
+                [ WIDTH <w> ] ;
+                [ HEIGHT <h> ] ;
+                [ TOOLTIP <tooltip> ]  ;
+                [ BACKCOLOR <backcolor> ] ;
+                [ ON CHANGE <change> ] ;
+                [ ON SCROLL <scroll> ] ;
+                [ <vertical: VERTICAL> ] ;
+                [ <noticks: NOTICKS> ] ;
+                [ <enableselrange: ENABLESELRANGE> ] ;  /* P.Ch. 16.10. */
+                [ <both: BOTH> ] ;
+                [ <top: TOP> ] ;
+                [ <left: LEFT> ] ;
+                [ HELPID <helpid> ] ;
+                [ <invisible : INVISIBLE> ] ;
+                [ <notabstop : NOTABSTOP> ] ;
+                [ ON INIT <bInit> ] ;
+        =>;
+        _DefineSlider ( <(name)>, ;
                    <(parent)>, ;
                    <col>, ;
                    <row>, ;
@@ -95,34 +95,34 @@
 
 #command REDEFINE SLIDER <name> ;
         ID <nId>;
-		[ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
-		RANGE <lo>,<hi> ;
-		[ SELRANGE <slo>,<shi> ] ;  /* P.Ch. 16.10. */
-		[ VALUE <value> ] ;
-		[ WIDTH <w> ] ;
-		[ HEIGHT <h> ] ;
-		[ TOOLTIP <tooltip> ]  ;
-		[ BACKCOLOR <backcolor> ] ;
-		[ ON CHANGE <change> ] ;
-		[ ON SCROLL <scroll> ] ;
-		[ <vertical: VERTICAL> ] ;
-		[ <noticks: NOTICKS> ] ;
-		[ <enableselrange: ENABLESELRANGE> ] ;  /* P.Ch. 16.10. */
-		[ <both: BOTH> ] ;
-		[ <top: TOP> ] ;
-		[ <left: LEFT> ] ;
-		[ HELPID <helpid> ] ;
-		[ <invisible : INVISIBLE> ] ;
-		[ <notabstop : NOTABSTOP> ] ;
-		[ ON INIT <bInit> ] ;
-	=>;
-	_DefineSlider ( <(name)>, <(parent)>, 0, 0, 0, 0 , <lo>, <hi>, ;
-		<value>, <tooltip>, <{scroll}>, <{change}>, ;
-		<.vertical.>, <.noticks.>, <.both.>, <.top.>, ;
-		<.left.>, <helpid>, <.invisible.>, <.notabstop.>, ;
-		<backcolor>, <nId>, ;
-		<.enableselrange.>, <slo>, <shi>, ;  /* P.Ch. 16.10. */
-		<bInit> )
+                [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
+                RANGE <lo>,<hi> ;
+                [ SELRANGE <slo>,<shi> ] ;  /* P.Ch. 16.10. */
+                [ VALUE <value> ] ;
+                [ WIDTH <w> ] ;
+                [ HEIGHT <h> ] ;
+                [ TOOLTIP <tooltip> ]  ;
+                [ BACKCOLOR <backcolor> ] ;
+                [ ON CHANGE <change> ] ;
+                [ ON SCROLL <scroll> ] ;
+                [ <vertical: VERTICAL> ] ;
+                [ <noticks: NOTICKS> ] ;
+                [ <enableselrange: ENABLESELRANGE> ] ;  /* P.Ch. 16.10. */
+                [ <both: BOTH> ] ;
+                [ <top: TOP> ] ;
+                [ <left: LEFT> ] ;
+                [ HELPID <helpid> ] ;
+                [ <invisible : INVISIBLE> ] ;
+                [ <notabstop : NOTABSTOP> ] ;
+                [ ON INIT <bInit> ] ;
+        =>;
+        _DefineSlider ( <(name)>, <(parent)>, 0, 0, 0, 0 , <lo>, <hi>, ;
+                <value>, <tooltip>, <{scroll}>, <{change}>, ;
+                <.vertical.>, <.noticks.>, <.both.>, <.top.>, ;
+                <.left.>, <helpid>, <.invisible.>, <.notabstop.>, ;
+                <backcolor>, <nId>, ;
+                <.enableselrange.>, <slo>, <shi>, ;  /* P.Ch. 16.10. */
+                <bInit> )
 
 
 #define TBM_SETRANGE            (WM_USER+6)

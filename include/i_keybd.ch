@@ -80,140 +80,140 @@ _HMG_ExtendedNavigation := .F.
 // Virtual key Codes And Modifiers
 ///////////////////////////////////////////////////////////////////////////////
 
-#define VK_LBUTTON	1
-#define VK_RBUTTON	2
-#define VK_CANCEL	3
-#define VK_MBUTTON	4
-#define VK_BACK	8
-#define VK_TAB	9
-#define VK_CLEAR	12
-#define VK_RETURN	13
-#define VK_SHIFT	16
-#define VK_CONTROL	17
-#define VK_MENU	18
-#define VK_PAUSE	19
-#define VK_PRINT	42
-#define VK_CAPITAL	20
-#define VK_KANA	0x15
-#define VK_HANGEUL	0x15
-#define VK_HANGUL	0x15
-#define VK_JUNJA	0x17
-#define VK_FINAL	0x18
-#define VK_HANJA	0x19
-#define VK_KANJI	0x19
-#define VK_CONVERT	0x1C
-#define VK_NONCONVERT	0x1D
-#define VK_ACCEPT	0x1E
-#define VK_MODECHANGE	0x1F
-#define VK_ESCAPE	27
-#define VK_SPACE	32
-#define VK_PRIOR	33
-#define VK_NEXT	34
-#define VK_END	35
-#define VK_HOME	36
-#define VK_LEFT	37
-#define VK_UP	38
-#define VK_RIGHT	39
-#define VK_DOWN	40
-#define VK_SELECT	41
-#define VK_EXECUTE	43
-#define VK_SNAPSHOT	44
-#define VK_INSERT	45
-#define VK_DELETE	46
-#define VK_HELP	47
-#define VK_0	48
-#define VK_1	49
-#define VK_2	50
-#define VK_3	51
-#define VK_4	52
-#define VK_5	53
-#define VK_6	54
-#define VK_7	55
-#define VK_8	56
-#define VK_9	57
-#define VK_A	65
-#define VK_B	66
-#define VK_C	67
-#define VK_D	68
-#define VK_E	69
-#define VK_F	70
-#define VK_G	71
-#define VK_H	72
-#define VK_I	73
-#define VK_J	74
-#define VK_K	75
-#define VK_L	76
-#define VK_M	77
-#define VK_N	78
-#define VK_O	79
-#define VK_P	80
-#define VK_Q	81
-#define VK_R	82
-#define VK_S	83
-#define VK_T	84
-#define VK_U	85
-#define VK_V	86
-#define VK_W	87
-#define VK_X	88
-#define VK_Y	89
-#define VK_Z	90
-#define VK_LWIN	0x5B
-#define VK_RWIN	0x5C
-#define VK_APPS	0x5D
-#define VK_NUMPAD0	96
-#define VK_NUMPAD1	97
-#define VK_NUMPAD2	98
-#define VK_NUMPAD3	99
-#define VK_NUMPAD4	100
-#define VK_NUMPAD5	101
-#define VK_NUMPAD6	102
-#define VK_NUMPAD7	103
-#define VK_NUMPAD8	104
-#define VK_NUMPAD9	105
-#define VK_MULTIPLY	106
-#define VK_ADD	107
-#define VK_SEPARATOR	108
-#define VK_SUBTRACT	109
-#define VK_DECIMAL	110
-#define VK_DIVIDE	111
-#define VK_F1	112
-#define VK_F2	113
-#define VK_F3	114
-#define VK_F4	115
-#define VK_F5	116
-#define VK_F6	117
-#define VK_F7	118
-#define VK_F8	119
-#define VK_F9	120
-#define VK_F10	121
-#define VK_F11	122
-#define VK_F12	123
-#define VK_F13	124
-#define VK_F14	125
-#define VK_F15	126
-#define VK_F16	127
-#define VK_F17	128
-#define VK_F18	129
-#define VK_F19	130
-#define VK_F20	131
-#define VK_F21	132
-#define VK_F22	133
-#define VK_F23	134
-#define VK_F24	135
-#define VK_NUMLOCK	144
-#define VK_SCROLL	145
-#define VK_LSHIFT	160
-#define VK_LCONTROL	162
-#define VK_LMENU	164
-#define VK_RSHIFT	161
-#define VK_RCONTROL	163
-#define VK_RMENU	165
-#define VK_PROCESSKEY	229
+#define VK_LBUTTON        1
+#define VK_RBUTTON        2
+#define VK_CANCEL        3
+#define VK_MBUTTON        4
+#define VK_BACK        8
+#define VK_TAB        9
+#define VK_CLEAR        12
+#define VK_RETURN        13
+#define VK_SHIFT        16
+#define VK_CONTROL        17
+#define VK_MENU        18
+#define VK_PAUSE        19
+#define VK_PRINT        42
+#define VK_CAPITAL        20
+#define VK_KANA        0x15
+#define VK_HANGEUL        0x15
+#define VK_HANGUL        0x15
+#define VK_JUNJA        0x17
+#define VK_FINAL        0x18
+#define VK_HANJA        0x19
+#define VK_KANJI        0x19
+#define VK_CONVERT        0x1C
+#define VK_NONCONVERT        0x1D
+#define VK_ACCEPT        0x1E
+#define VK_MODECHANGE        0x1F
+#define VK_ESCAPE        27
+#define VK_SPACE        32
+#define VK_PRIOR        33
+#define VK_NEXT        34
+#define VK_END        35
+#define VK_HOME        36
+#define VK_LEFT        37
+#define VK_UP        38
+#define VK_RIGHT        39
+#define VK_DOWN        40
+#define VK_SELECT        41
+#define VK_EXECUTE        43
+#define VK_SNAPSHOT        44
+#define VK_INSERT        45
+#define VK_DELETE        46
+#define VK_HELP        47
+#define VK_0        48
+#define VK_1        49
+#define VK_2        50
+#define VK_3        51
+#define VK_4        52
+#define VK_5        53
+#define VK_6        54
+#define VK_7        55
+#define VK_8        56
+#define VK_9        57
+#define VK_A        65
+#define VK_B        66
+#define VK_C        67
+#define VK_D        68
+#define VK_E        69
+#define VK_F        70
+#define VK_G        71
+#define VK_H        72
+#define VK_I        73
+#define VK_J        74
+#define VK_K        75
+#define VK_L        76
+#define VK_M        77
+#define VK_N        78
+#define VK_O        79
+#define VK_P        80
+#define VK_Q        81
+#define VK_R        82
+#define VK_S        83
+#define VK_T        84
+#define VK_U        85
+#define VK_V        86
+#define VK_W        87
+#define VK_X        88
+#define VK_Y        89
+#define VK_Z        90
+#define VK_LWIN        0x5B
+#define VK_RWIN        0x5C
+#define VK_APPS        0x5D
+#define VK_NUMPAD0        96
+#define VK_NUMPAD1        97
+#define VK_NUMPAD2        98
+#define VK_NUMPAD3        99
+#define VK_NUMPAD4        100
+#define VK_NUMPAD5        101
+#define VK_NUMPAD6        102
+#define VK_NUMPAD7        103
+#define VK_NUMPAD8        104
+#define VK_NUMPAD9        105
+#define VK_MULTIPLY        106
+#define VK_ADD        107
+#define VK_SEPARATOR        108
+#define VK_SUBTRACT        109
+#define VK_DECIMAL        110
+#define VK_DIVIDE        111
+#define VK_F1        112
+#define VK_F2        113
+#define VK_F3        114
+#define VK_F4        115
+#define VK_F5        116
+#define VK_F6        117
+#define VK_F7        118
+#define VK_F8        119
+#define VK_F9        120
+#define VK_F10        121
+#define VK_F11        122
+#define VK_F12        123
+#define VK_F13        124
+#define VK_F14        125
+#define VK_F15        126
+#define VK_F16        127
+#define VK_F17        128
+#define VK_F18        129
+#define VK_F19        130
+#define VK_F20        131
+#define VK_F21        132
+#define VK_F22        133
+#define VK_F23        134
+#define VK_F24        135
+#define VK_NUMLOCK        144
+#define VK_SCROLL        145
+#define VK_LSHIFT        160
+#define VK_LCONTROL        162
+#define VK_LMENU        164
+#define VK_RSHIFT        161
+#define VK_RCONTROL        163
+#define VK_RMENU        165
+#define VK_PROCESSKEY        229
 
-#define MOD_ALT	1
-#define MOD_CONTROL	2
-#define MOD_SHIFT	4
-#define MOD_WIN	8
+#define MOD_ALT        1
+#define MOD_CONTROL        2
+#define MOD_SHIFT        4
+#define MOD_WIN        8
 
 // End
 
@@ -307,11 +307,11 @@ _DefineHotKey ( <(parent)> , 0 , VK_TAB , <{action}> )
 #xcommand ON KEY RETURN [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , 0 , VK_RETURN , <{action}> )
- 	
+         
 #xcommand ON KEY ESCAPE [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , 0 , VK_ESCAPE , <{action}> )
- 	
+         
 #xcommand ON KEY END [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , 0 , VK_END , <{action}> )
@@ -323,7 +323,7 @@ _DefineHotKey ( <(parent)> , 0 , VK_HOME , <{action}> )
 #xcommand ON KEY LEFT [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , 0 , VK_LEFT , <{action}> )
- 	
+         
 #xcommand ON KEY UP [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , 0 , VK_UP , <{action}> )
@@ -335,11 +335,11 @@ _DefineHotKey ( <(parent)> , 0 , VK_RIGHT , <{action}> )
 #xcommand ON KEY DOWN [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , 0 , VK_DOWN , <{action}> )
- 	
+         
 #xcommand ON KEY INSERT [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , 0 , VK_INSERT , <{action}> )
- 	
+         
 #xcommand ON KEY DELETE [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , 0 , VK_DELETE , <{action}> )
@@ -347,7 +347,7 @@ _DefineHotKey ( <(parent)> , 0 , VK_DELETE , <{action}> )
 #xcommand ON KEY PRIOR [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , 0 , VK_PRIOR , <{action}> )
- 	
+         
 #xcommand ON KEY NEXT [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , 0 , VK_NEXT , <{action}> )
@@ -557,11 +557,11 @@ _DefineHotKey ( <(parent)> , MOD_ALT , VK_TAB , <{action}> )
 #xcommand ON KEY ALT+RETURN [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_ALT , VK_RETURN , <{action}> )
- 	
+         
 #xcommand ON KEY ALT+ESCAPE [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_ALT , VK_ESCAPE , <{action}> )
- 	
+         
 #xcommand ON KEY ALT+END [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_ALT , VK_END , <{action}> )
@@ -573,7 +573,7 @@ _DefineHotKey ( <(parent)> , MOD_ALT , VK_HOME , <{action}> )
 #xcommand ON KEY ALT+LEFT [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_ALT , VK_LEFT , <{action}> )
- 	
+         
 #xcommand ON KEY ALT+UP [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_ALT , VK_UP , <{action}> )
@@ -585,11 +585,11 @@ _DefineHotKey ( <(parent)> , MOD_ALT , VK_RIGHT , <{action}> )
 #xcommand ON KEY ALT+DOWN [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_ALT , VK_DOWN , <{action}> )
- 	
+         
 #xcommand ON KEY ALT+INSERT [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_ALT , VK_INSERT , <{action}> )
- 	
+         
 #xcommand ON KEY ALT+DELETE [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_ALT , VK_DELETE , <{action}> )
@@ -597,7 +597,7 @@ _DefineHotKey ( <(parent)> , MOD_ALT , VK_DELETE , <{action}> )
 #xcommand ON KEY ALT+PRIOR [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_ALT , VK_PRIOR , <{action}> )
- 	
+         
 #xcommand ON KEY ALT+NEXT [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_ALT , VK_NEXT , <{action}> )
@@ -807,11 +807,11 @@ _DefineHotKey ( <(parent)> , MOD_SHIFT , VK_TAB , <{action}> )
 #xcommand ON KEY SHIFT+RETURN [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_SHIFT , VK_RETURN , <{action}> )
- 	
+         
 #xcommand ON KEY SHIFT+ESCAPE [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_SHIFT , VK_ESCAPE , <{action}> )
- 	
+         
 #xcommand ON KEY SHIFT+END [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_SHIFT , VK_END , <{action}> )
@@ -823,7 +823,7 @@ _DefineHotKey ( <(parent)> , MOD_SHIFT , VK_HOME , <{action}> )
 #xcommand ON KEY SHIFT+LEFT [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_SHIFT , VK_LEFT , <{action}> )
- 	
+         
 #xcommand ON KEY SHIFT+UP [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_SHIFT , VK_UP , <{action}> )
@@ -835,11 +835,11 @@ _DefineHotKey ( <(parent)> , MOD_SHIFT , VK_RIGHT , <{action}> )
 #xcommand ON KEY SHIFT+DOWN [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_SHIFT , VK_DOWN , <{action}> )
- 	
+         
 #xcommand ON KEY SHIFT+INSERT [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_SHIFT , VK_INSERT , <{action}> )
- 	
+         
 #xcommand ON KEY SHIFT+DELETE [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_SHIFT , VK_DELETE , <{action}> )
@@ -847,7 +847,7 @@ _DefineHotKey ( <(parent)> , MOD_SHIFT , VK_DELETE , <{action}> )
 #xcommand ON KEY SHIFT+PRIOR [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_SHIFT , VK_PRIOR , <{action}> )
- 	
+         
 #xcommand ON KEY SHIFT+NEXT [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_SHIFT , VK_NEXT , <{action}> )
@@ -1057,11 +1057,11 @@ _DefineHotKey ( <(parent)> , MOD_CONTROL , VK_TAB , <{action}> )
 #xcommand ON KEY CONTROL+RETURN [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_CONTROL , VK_RETURN , <{action}> )
- 	
+         
 #xcommand ON KEY CONTROL+ESCAPE [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_CONTROL , VK_ESCAPE , <{action}> )
- 	
+         
 #xcommand ON KEY CONTROL+END [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_CONTROL , VK_END , <{action}> )
@@ -1073,7 +1073,7 @@ _DefineHotKey ( <(parent)> , MOD_CONTROL , VK_HOME , <{action}> )
 #xcommand ON KEY CONTROL+LEFT [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_CONTROL , VK_LEFT , <{action}> )
- 	
+         
 #xcommand ON KEY CONTROL+UP [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_CONTROL , VK_UP , <{action}> )
@@ -1085,11 +1085,11 @@ _DefineHotKey ( <(parent)> , MOD_CONTROL , VK_RIGHT , <{action}> )
 #xcommand ON KEY CONTROL+DOWN [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_CONTROL , VK_DOWN , <{action}> )
- 	
+         
 #xcommand ON KEY CONTROL+INSERT [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_CONTROL , VK_INSERT , <{action}> )
- 	
+         
 #xcommand ON KEY CONTROL+DELETE [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_CONTROL , VK_DELETE , <{action}> )
@@ -1097,7 +1097,7 @@ _DefineHotKey ( <(parent)> , MOD_CONTROL , VK_DELETE , <{action}> )
 #xcommand ON KEY CONTROL+PRIOR [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_CONTROL , VK_PRIOR , <{action}> )
- 	
+         
 #xcommand ON KEY CONTROL+NEXT [ OF <parent> ] ACTION <action> ;
 => ;
 _DefineHotKey ( <(parent)> , MOD_CONTROL , VK_NEXT , <{action}> )
@@ -1180,11 +1180,11 @@ _ReleaseHotKey ( <(parent)> , 0 , VK_TAB   )
 #xcommand RELEASE KEY RETURN OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , 0 , VK_RETURN   )
- 	
+         
 #xcommand RELEASE KEY ESCAPE OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , 0 , VK_ESCAPE   )
- 	
+         
 #xcommand RELEASE KEY END OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , 0 , VK_END   )
@@ -1196,7 +1196,7 @@ _ReleaseHotKey ( <(parent)> , 0 , VK_HOME   )
 #xcommand RELEASE KEY LEFT OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , 0 , VK_LEFT   )
- 	
+         
 #xcommand RELEASE KEY UP OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , 0 , VK_UP   )
@@ -1208,11 +1208,11 @@ _ReleaseHotKey ( <(parent)> , 0 , VK_RIGHT   )
 #xcommand RELEASE KEY DOWN OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , 0 , VK_DOWN   )
- 	
+         
 #xcommand RELEASE KEY INSERT OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , 0 , VK_INSERT   )
- 	
+         
 #xcommand RELEASE KEY DELETE OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , 0 , VK_DELETE   )
@@ -1220,7 +1220,7 @@ _ReleaseHotKey ( <(parent)> , 0 , VK_DELETE   )
 #xcommand RELEASE KEY PRIOR OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , 0 , VK_PRIOR   )
- 	
+         
 #xcommand RELEASE KEY NEXT OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , 0 , VK_NEXT   )
@@ -1430,11 +1430,11 @@ _ReleaseHotKey ( <(parent)> , MOD_ALT , VK_TAB   )
 #xcommand RELEASE KEY ALT+RETURN OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_ALT , VK_RETURN   )
- 	
+         
 #xcommand RELEASE KEY ALT+ESCAPE OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_ALT , VK_ESCAPE   )
- 	
+         
 #xcommand RELEASE KEY ALT+END OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_ALT , VK_END   )
@@ -1446,7 +1446,7 @@ _ReleaseHotKey ( <(parent)> , MOD_ALT , VK_HOME   )
 #xcommand RELEASE KEY ALT+LEFT OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_ALT , VK_LEFT   )
- 	
+         
 #xcommand RELEASE KEY ALT+UP OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_ALT , VK_UP   )
@@ -1458,11 +1458,11 @@ _ReleaseHotKey ( <(parent)> , MOD_ALT , VK_RIGHT   )
 #xcommand RELEASE KEY ALT+DOWN OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_ALT , VK_DOWN   )
- 	
+         
 #xcommand RELEASE KEY ALT+INSERT OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_ALT , VK_INSERT   )
- 	
+         
 #xcommand RELEASE KEY ALT+DELETE OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_ALT , VK_DELETE   )
@@ -1470,7 +1470,7 @@ _ReleaseHotKey ( <(parent)> , MOD_ALT , VK_DELETE   )
 #xcommand RELEASE KEY ALT+PRIOR OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_ALT , VK_PRIOR   )
- 	
+         
 #xcommand RELEASE KEY ALT+NEXT OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_ALT , VK_NEXT   )
@@ -1680,11 +1680,11 @@ _ReleaseHotKey ( <(parent)> , MOD_SHIFT , VK_TAB   )
 #xcommand RELEASE KEY SHIFT+RETURN OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_SHIFT , VK_RETURN   )
- 	
+         
 #xcommand RELEASE KEY SHIFT+ESCAPE OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_SHIFT , VK_ESCAPE   )
- 	
+         
 #xcommand RELEASE KEY SHIFT+END OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_SHIFT , VK_END   )
@@ -1696,7 +1696,7 @@ _ReleaseHotKey ( <(parent)> , MOD_SHIFT , VK_HOME   )
 #xcommand RELEASE KEY SHIFT+LEFT OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_SHIFT , VK_LEFT   )
- 	
+         
 #xcommand RELEASE KEY SHIFT+UP OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_SHIFT , VK_UP   )
@@ -1708,11 +1708,11 @@ _ReleaseHotKey ( <(parent)> , MOD_SHIFT , VK_RIGHT   )
 #xcommand RELEASE KEY SHIFT+DOWN OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_SHIFT , VK_DOWN   )
- 	
+         
 #xcommand RELEASE KEY SHIFT+INSERT OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_SHIFT , VK_INSERT   )
- 	
+         
 #xcommand RELEASE KEY SHIFT+DELETE OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_SHIFT , VK_DELETE   )
@@ -1720,7 +1720,7 @@ _ReleaseHotKey ( <(parent)> , MOD_SHIFT , VK_DELETE   )
 #xcommand RELEASE KEY SHIFT+PRIOR OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_SHIFT , VK_PRIOR   )
- 	
+         
 #xcommand RELEASE KEY SHIFT+NEXT OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_SHIFT , VK_NEXT   )
@@ -1930,11 +1930,11 @@ _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_TAB   )
 #xcommand RELEASE KEY CONTROL+RETURN OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_RETURN   )
- 	
+         
 #xcommand RELEASE KEY CONTROL+ESCAPE OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_ESCAPE   )
- 	
+         
 #xcommand RELEASE KEY CONTROL+END OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_END   )
@@ -1946,7 +1946,7 @@ _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_HOME   )
 #xcommand RELEASE KEY CONTROL+LEFT OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_LEFT   )
- 	
+         
 #xcommand RELEASE KEY CONTROL+UP OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_UP   )
@@ -1958,11 +1958,11 @@ _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_RIGHT   )
 #xcommand RELEASE KEY CONTROL+DOWN OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_DOWN   )
- 	
+         
 #xcommand RELEASE KEY CONTROL+INSERT OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_INSERT   )
- 	
+         
 #xcommand RELEASE KEY CONTROL+DELETE OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_DELETE   )
@@ -1970,7 +1970,7 @@ _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_DELETE   )
 #xcommand RELEASE KEY CONTROL+PRIOR OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_PRIOR   )
- 	
+         
 #xcommand RELEASE KEY CONTROL+NEXT OF <parent> ;
 => ;
 _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_NEXT   )
@@ -2040,11 +2040,11 @@ _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_NEXT   )
 #xcommand STORE KEY RETURN OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , 0 , VK_RETURN   )
- 	
+         
 #xcommand STORE KEY ESCAPE OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , 0 , VK_ESCAPE   )
- 	
+         
 #xcommand STORE KEY END OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , 0 , VK_END   )
@@ -2056,7 +2056,7 @@ _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_NEXT   )
 #xcommand STORE KEY LEFT OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , 0 , VK_LEFT   )
- 	
+         
 #xcommand STORE KEY UP OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , 0 , VK_UP   )
@@ -2068,11 +2068,11 @@ _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_NEXT   )
 #xcommand STORE KEY DOWN OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , 0 , VK_DOWN   )
- 	
+         
 #xcommand STORE KEY INSERT OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , 0 , VK_INSERT   )
- 	
+         
 #xcommand STORE KEY DELETE OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , 0 , VK_DELETE   )
@@ -2080,7 +2080,7 @@ _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_NEXT   )
 #xcommand STORE KEY PRIOR OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , 0 , VK_PRIOR   )
- 	
+         
 #xcommand STORE KEY NEXT OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , 0 , VK_NEXT   )
@@ -2290,11 +2290,11 @@ _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_NEXT   )
 #xcommand STORE KEY ALT+RETURN OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_ALT , VK_RETURN   )
- 	
+         
 #xcommand STORE KEY ALT+ESCAPE OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_ALT , VK_ESCAPE   )
- 	
+         
 #xcommand STORE KEY ALT+END OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_ALT , VK_END   )
@@ -2306,7 +2306,7 @@ _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_NEXT   )
 #xcommand STORE KEY ALT+LEFT OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_ALT , VK_LEFT   )
- 	
+         
 #xcommand STORE KEY ALT+UP OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_ALT , VK_UP   )
@@ -2318,11 +2318,11 @@ _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_NEXT   )
 #xcommand STORE KEY ALT+DOWN OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_ALT , VK_DOWN   )
- 	
+         
 #xcommand STORE KEY ALT+INSERT OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_ALT , VK_INSERT   )
- 	
+         
 #xcommand STORE KEY ALT+DELETE OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_ALT , VK_DELETE   )
@@ -2330,7 +2330,7 @@ _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_NEXT   )
 #xcommand STORE KEY ALT+PRIOR OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_ALT , VK_PRIOR   )
- 	
+         
 #xcommand STORE KEY ALT+NEXT OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_ALT , VK_NEXT   )
@@ -2540,11 +2540,11 @@ _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_NEXT   )
 #xcommand STORE KEY SHIFT+RETURN OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_SHIFT , VK_RETURN   )
- 	
+         
 #xcommand STORE KEY SHIFT+ESCAPE OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_SHIFT , VK_ESCAPE   )
- 	
+         
 #xcommand STORE KEY SHIFT+END OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_SHIFT , VK_END   )
@@ -2556,7 +2556,7 @@ _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_NEXT   )
 #xcommand STORE KEY SHIFT+LEFT OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_SHIFT , VK_LEFT   )
- 	
+         
 #xcommand STORE KEY SHIFT+UP OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_SHIFT , VK_UP   )
@@ -2568,11 +2568,11 @@ _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_NEXT   )
 #xcommand STORE KEY SHIFT+DOWN OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_SHIFT , VK_DOWN   )
- 	
+         
 #xcommand STORE KEY SHIFT+INSERT OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_SHIFT , VK_INSERT   )
- 	
+         
 #xcommand STORE KEY SHIFT+DELETE OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_SHIFT , VK_DELETE   )
@@ -2580,7 +2580,7 @@ _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_NEXT   )
 #xcommand STORE KEY SHIFT+PRIOR OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_SHIFT , VK_PRIOR   )
- 	
+         
 #xcommand STORE KEY SHIFT+NEXT OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_SHIFT , VK_NEXT   )
@@ -2790,11 +2790,11 @@ _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_NEXT   )
 #xcommand STORE KEY CONTROL+RETURN OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_CONTROL , VK_RETURN   )
- 	
+         
 #xcommand STORE KEY CONTROL+ESCAPE OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_CONTROL , VK_ESCAPE   )
- 	
+         
 #xcommand STORE KEY CONTROL+END OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_CONTROL , VK_END   )
@@ -2806,7 +2806,7 @@ _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_NEXT   )
 #xcommand STORE KEY CONTROL+LEFT OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_CONTROL , VK_LEFT   )
- 	
+         
 #xcommand STORE KEY CONTROL+UP OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_CONTROL , VK_UP   )
@@ -2818,11 +2818,11 @@ _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_NEXT   )
 #xcommand STORE KEY CONTROL+DOWN OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_CONTROL , VK_DOWN   )
- 	
+         
 #xcommand STORE KEY CONTROL+INSERT OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_CONTROL , VK_INSERT   )
- 	
+         
 #xcommand STORE KEY CONTROL+DELETE OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_CONTROL , VK_DELETE   )
@@ -2830,7 +2830,7 @@ _ReleaseHotKey ( <(parent)> , MOD_CONTROL , VK_NEXT   )
 #xcommand STORE KEY CONTROL+PRIOR OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_CONTROL , VK_PRIOR   )
- 	
+         
 #xcommand STORE KEY CONTROL+NEXT OF <parent> TO <baction> ;
 => ;
 <baction> := _GetHotKeyBlock ( <(parent)> , MOD_CONTROL , VK_NEXT   )
@@ -2898,11 +2898,11 @@ _PushKey ( VK_TAB )
 #xcommand PUSH KEY RETURN ;
 => ;
 _PushKey ( VK_RETURN )
- 	
+         
 #xcommand PUSH KEY ESCAPE ;
 => ;
 _PushKey ( VK_ESCAPE )
- 	
+         
 #xcommand PUSH KEY END ;
 => ;
 _PushKey ( VK_END )
@@ -2914,7 +2914,7 @@ _PushKey ( VK_HOME )
 #xcommand PUSH KEY LEFT ;
 => ;
 _PushKey ( VK_LEFT )
- 	
+         
 #xcommand PUSH KEY UP ;
 => ;
 _PushKey ( VK_UP  )
@@ -2926,11 +2926,11 @@ _PushKey ( VK_RIGHT )
 #xcommand PUSH KEY DOWN ;
 => ;
 _PushKey ( VK_DOWN )
- 	
+         
 #xcommand PUSH KEY INSERT ;
 => ;
 _PushKey ( VK_INSERT )
- 	
+         
 #xcommand PUSH KEY DELETE ;
 => ;
 _PushKey ( VK_DELETE )
@@ -2938,7 +2938,7 @@ _PushKey ( VK_DELETE )
 #xcommand PUSH KEY PRIOR ;
 => ;
 _PushKey ( VK_PRIOR )
- 	
+         
 #xcommand PUSH KEY NEXT ;
 => ;
 _PushKey ( VK_NEXT )

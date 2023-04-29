@@ -14,37 +14,37 @@
   MEMVAR _HMG_MINIPRINT
 #endif
 
-#xtranslate _hmg_printer_name			=> _HMG_MINIPRINT\[1\]
-#xtranslate _hmg_printer_aPrinterProperties	=> _HMG_MINIPRINT\[2\]
-#xtranslate _hmg_printer_BasePageName		=> _HMG_MINIPRINT\[3\]
-#xtranslate _hmg_printer_CurrentPageNumber	=> _HMG_MINIPRINT\[4\]
-#xtranslate _hmg_printer_SizeFactor		=> _HMG_MINIPRINT\[5\]
-#xtranslate _hmg_printer_Dx			=> _HMG_MINIPRINT\[6\]
-#xtranslate _hmg_printer_Dy 			=> _HMG_MINIPRINT\[7\]
-#xtranslate _hmg_printer_Dz			=> _HMG_MINIPRINT\[8\]
-#xtranslate _hmg_printer_ScrollStep		=> _HMG_MINIPRINT\[9\]
-#xtranslate _hmg_printer_ZoomClick_xOffset	=> _HMG_MINIPRINT\[10\]
-#xtranslate _hmg_printer_ThumbUpdate		=> _HMG_MINIPRINT\[11\]
-#xtranslate _hmg_printer_ThumbScroll		=> _HMG_MINIPRINT\[12\]
-#xtranslate _hmg_printer_PrevPageNumber		=> _HMG_MINIPRINT\[13\]
-#xtranslate _hmg_printer_Copies			=> _HMG_MINIPRINT\[14\]
-#xtranslate _hmg_printer_Collate		=> _HMG_MINIPRINT\[15\]
-#xtranslate _hmg_printer_Delta_Zoom		=> _HMG_MINIPRINT\[16\]
-#xtranslate _hmg_printer_TimeStamp		=> _HMG_MINIPRINT\[17\]
-#xtranslate _hmg_printer_PageCount		=> _HMG_MINIPRINT\[18\]
-#xtranslate _hmg_printer_hdc			=> _HMG_MINIPRINT\[19\]
-#xtranslate _hmg_printer_hdc_bak		=> _HMG_MINIPRINT\[20\]
-#xtranslate _hmg_printer_JobName		=> _HMG_MINIPRINT\[21\]
-#xtranslate _hmg_printer_UserMessages		=> _HMG_MINIPRINT\[22\]
-#xtranslate _hmg_printer_preview		=> _HMG_MINIPRINT\[23\]
-#xtranslate _hmg_printer_UserCopies		=> _HMG_MINIPRINT\[24\]
-#xtranslate _hmg_printer_UserCollate		=> _HMG_MINIPRINT\[25\]
-#xtranslate _hmg_printer_JobId			=> _HMG_MINIPRINT\[26\]
-#xtranslate _hmg_printer_JobData		=> _HMG_MINIPRINT\[27\]
+#xtranslate _hmg_printer_name                        => _HMG_MINIPRINT\[1\]
+#xtranslate _hmg_printer_aPrinterProperties        => _HMG_MINIPRINT\[2\]
+#xtranslate _hmg_printer_BasePageName                => _HMG_MINIPRINT\[3\]
+#xtranslate _hmg_printer_CurrentPageNumber        => _HMG_MINIPRINT\[4\]
+#xtranslate _hmg_printer_SizeFactor                => _HMG_MINIPRINT\[5\]
+#xtranslate _hmg_printer_Dx                        => _HMG_MINIPRINT\[6\]
+#xtranslate _hmg_printer_Dy                         => _HMG_MINIPRINT\[7\]
+#xtranslate _hmg_printer_Dz                        => _HMG_MINIPRINT\[8\]
+#xtranslate _hmg_printer_ScrollStep                => _HMG_MINIPRINT\[9\]
+#xtranslate _hmg_printer_ZoomClick_xOffset        => _HMG_MINIPRINT\[10\]
+#xtranslate _hmg_printer_ThumbUpdate                => _HMG_MINIPRINT\[11\]
+#xtranslate _hmg_printer_ThumbScroll                => _HMG_MINIPRINT\[12\]
+#xtranslate _hmg_printer_PrevPageNumber                => _HMG_MINIPRINT\[13\]
+#xtranslate _hmg_printer_Copies                        => _HMG_MINIPRINT\[14\]
+#xtranslate _hmg_printer_Collate                => _HMG_MINIPRINT\[15\]
+#xtranslate _hmg_printer_Delta_Zoom                => _HMG_MINIPRINT\[16\]
+#xtranslate _hmg_printer_TimeStamp                => _HMG_MINIPRINT\[17\]
+#xtranslate _hmg_printer_PageCount                => _HMG_MINIPRINT\[18\]
+#xtranslate _hmg_printer_hdc                        => _HMG_MINIPRINT\[19\]
+#xtranslate _hmg_printer_hdc_bak                => _HMG_MINIPRINT\[20\]
+#xtranslate _hmg_printer_JobName                => _HMG_MINIPRINT\[21\]
+#xtranslate _hmg_printer_UserMessages                => _HMG_MINIPRINT\[22\]
+#xtranslate _hmg_printer_preview                => _HMG_MINIPRINT\[23\]
+#xtranslate _hmg_printer_UserCopies                => _HMG_MINIPRINT\[24\]
+#xtranslate _hmg_printer_UserCollate                => _HMG_MINIPRINT\[25\]
+#xtranslate _hmg_printer_JobId                        => _HMG_MINIPRINT\[26\]
+#xtranslate _hmg_printer_JobData                => _HMG_MINIPRINT\[27\]
 
-#xtranslate OpenPrinterGetName()		=> _hmg_printer_name
+#xtranslate OpenPrinterGetName()                => _hmg_printer_name
 
-#xtranslate OpenPrinterGetJobData()		=> { _hmg_printer_JobId , _hmg_printer_name }
+#xtranslate OpenPrinterGetJobData()                => { _hmg_printer_JobId , _hmg_printer_name }
 #xtranslate OpenPrinterGetDC()                  => _hmg_printer_aPrinterProperties\[1\]
 #xtranslate OpenPrinterGetPageDC()              => _hmg_printer_hdc
 
@@ -54,174 +54,174 @@
 * Select Printer <cPrinter> [ TO <lSelect> ]
 
 #xcommand SELECT PRINTER <cPrinter> ;
-	[ <lOrientation 	: ORIENTATION>		<nOrientation> ] ;
-	[ <lPaperSize		: PAPERSIZE>		<nPaperSize> ] ;
-	[ <lPaperLength 	: PAPERLENGTH>		<nPaperLength> ] ;
-	[ <lPaperWidth		: PAPERWIDTH>		<nPaperWidth> ] ;
-	[ <lCopies		: COPIES>		<nCopies> ] ;
-	[ <lDefaultSource	: DEFAULTSOURCE>	<nDefaultSource> ] ;
-	[ <lQuality		: QUALITY>		<nQuality> ] ;
-	[ <lColor		: COLOR>		<nColor> ] ;
-	[ <lDuplex		: DUPLEX>		<nDuplex> ] ;
-	[ <lCollate		: COLLATE>		<nCollate> ] ;
-	[ <Preview 		: PREVIEW> ] ;
+        [ <lOrientation         : ORIENTATION>                <nOrientation> ] ;
+        [ <lPaperSize                : PAPERSIZE>                <nPaperSize> ] ;
+        [ <lPaperLength         : PAPERLENGTH>                <nPaperLength> ] ;
+        [ <lPaperWidth                : PAPERWIDTH>                <nPaperWidth> ] ;
+        [ <lCopies                : COPIES>                <nCopies> ] ;
+        [ <lDefaultSource        : DEFAULTSOURCE>        <nDefaultSource> ] ;
+        [ <lQuality                : QUALITY>                <nQuality> ] ;
+        [ <lColor                : COLOR>                <nColor> ] ;
+        [ <lDuplex                : DUPLEX>                <nDuplex> ] ;
+        [ <lCollate                : COLLATE>                <nCollate> ] ;
+        [ <Preview                 : PREVIEW> ] ;
 => ;
-	_hmg_printer_InitUserMessages() ;;
-	_hmg_printer_aPrinterProperties := _HMG_PRINTER_SetPrinterProperties ( ;
-		<cPrinter> , ;
-		iif ( <.lOrientation.>	, <nOrientation>	, -999 ) , ;
-		iif ( <.lPaperSize.>	, <nPaperSize>		, -999 ) , ;
-		iif ( <.lPaperLength.>	, <nPaperLength>	, -999 ) , ;
-		iif ( <.lPaperWidth.>	, <nPaperWidth>		, -999 ) , ;
-		iif ( <.lCopies.>	, <nCopies>		, -999 ) , ;
-		iif ( <.lDefaultSource.>, <nDefaultSource>	, -999 ) , ;
-		iif ( <.lQuality.>	, <nQuality>		, -999 ) , ;
-		iif ( <.lColor.>	, <nColor>		, -999 ) , ;
-		iif ( <.lDuplex.>	, <nDuplex>		, -999 ) , ;
-		iif ( <.lCollate.>	, <nCollate>		, -999 ) ;
-	) ;;
-	_hmg_printer_hdc := _hmg_printer_aPrinterProperties \[1\] ;;
-	_hmg_printer_copies := _hmg_printer_aPrinterProperties \[3\] ;;
-	_hmg_printer_collate := _hmg_printer_aPrinterProperties \[4\] ;;
-	_hmg_printer_preview := <.Preview.> ;;
-	_hmg_printer_timestamp := strzero( Seconds() * 100 , 8 ) ;;
-	_hmg_printer_name := <cPrinter> ;;
-	_hmg_printer_UserCopies := <.lCopies.> ;;
-	_hmg_printer_UserCollate := <.lCollate.>
+        _hmg_printer_InitUserMessages() ;;
+        _hmg_printer_aPrinterProperties := _HMG_PRINTER_SetPrinterProperties ( ;
+                <cPrinter> , ;
+                iif ( <.lOrientation.>        , <nOrientation>        , -999 ) , ;
+                iif ( <.lPaperSize.>        , <nPaperSize>                , -999 ) , ;
+                iif ( <.lPaperLength.>        , <nPaperLength>        , -999 ) , ;
+                iif ( <.lPaperWidth.>        , <nPaperWidth>                , -999 ) , ;
+                iif ( <.lCopies.>        , <nCopies>                , -999 ) , ;
+                iif ( <.lDefaultSource.>, <nDefaultSource>        , -999 ) , ;
+                iif ( <.lQuality.>        , <nQuality>                , -999 ) , ;
+                iif ( <.lColor.>        , <nColor>                , -999 ) , ;
+                iif ( <.lDuplex.>        , <nDuplex>                , -999 ) , ;
+                iif ( <.lCollate.>        , <nCollate>                , -999 ) ;
+        ) ;;
+        _hmg_printer_hdc := _hmg_printer_aPrinterProperties \[1\] ;;
+        _hmg_printer_copies := _hmg_printer_aPrinterProperties \[3\] ;;
+        _hmg_printer_collate := _hmg_printer_aPrinterProperties \[4\] ;;
+        _hmg_printer_preview := <.Preview.> ;;
+        _hmg_printer_timestamp := strzero( Seconds() * 100 , 8 ) ;;
+        _hmg_printer_name := <cPrinter> ;;
+        _hmg_printer_UserCopies := <.lCopies.> ;;
+        _hmg_printer_UserCollate := <.lCollate.>
 
 #xcommand SELECT PRINTER <cPrinter> TO <lSuccess> ;
-	[ <lOrientation 	: ORIENTATION>		<nOrientation> ] ;
-	[ <lPaperSize		: PAPERSIZE>		<nPaperSize> ] ;
-	[ <lPaperLength 	: PAPERLENGTH>		<nPaperLength> ] ;
-	[ <lPaperWidth		: PAPERWIDTH>		<nPaperWidth> ] ;
-	[ <lCopies		: COPIES>		<nCopies> ] ;
-	[ <lDefaultSource	: DEFAULTSOURCE>	<nDefaultSource> ] ;
-	[ <lQuality		: QUALITY>		<nQuality> ] ;
-	[ <lColor		: COLOR>		<nColor> ] ;
-	[ <lDuplex		: DUPLEX>		<nDuplex> ] ;
-	[ <lCollate		: COLLATE>		<nCollate> ] ;
-	[ <Preview 		: PREVIEW> ] ;
+        [ <lOrientation         : ORIENTATION>                <nOrientation> ] ;
+        [ <lPaperSize                : PAPERSIZE>                <nPaperSize> ] ;
+        [ <lPaperLength         : PAPERLENGTH>                <nPaperLength> ] ;
+        [ <lPaperWidth                : PAPERWIDTH>                <nPaperWidth> ] ;
+        [ <lCopies                : COPIES>                <nCopies> ] ;
+        [ <lDefaultSource        : DEFAULTSOURCE>        <nDefaultSource> ] ;
+        [ <lQuality                : QUALITY>                <nQuality> ] ;
+        [ <lColor                : COLOR>                <nColor> ] ;
+        [ <lDuplex                : DUPLEX>                <nDuplex> ] ;
+        [ <lCollate                : COLLATE>                <nCollate> ] ;
+        [ <Preview                 : PREVIEW> ] ;
 => ;
-	_hmg_printer_InitUserMessages() ;;
-	_hmg_printer_aPrinterProperties := _HMG_PRINTER_SetPrinterProperties ( ;
-		<cPrinter> , ;
-		iif ( <.lOrientation.>	, <nOrientation>	, -999 ) , ;
-		iif ( <.lPaperSize.>	, <nPaperSize>		, -999 ) , ;
-		iif ( <.lPaperLength.>	, <nPaperLength>	, -999 ) , ;
-		iif ( <.lPaperWidth.>	, <nPaperWidth>		, -999 ) , ;
-		iif ( <.lCopies.>	, <nCopies>		, -999 ) , ;
-		iif ( <.lDefaultSource.>, <nDefaultSource>	, -999 ) , ;
-		iif ( <.lQuality.>	, <nQuality>		, -999 ) , ;
-		iif ( <.lColor.>	, <nColor>		, -999 ) , ;
-		iif ( <.lDuplex.>	, <nDuplex>		, -999 ) , ;
-		iif ( <.lCollate.>	, <nCollate>		, -999 ) ;
-	) ;;
-	_hmg_printer_hdc := _hmg_printer_aPrinterProperties \[1\] ;;
-	_hmg_printer_copies := _hmg_printer_aPrinterProperties \[3\] ;;
-	_hmg_printer_collate := _hmg_printer_aPrinterProperties \[4\] ;;
-	<lSuccess> := iif ( _hmg_printer_hdc <> 0 , .T. , .F. ) ;;
-	_hmg_printer_preview := <.Preview.> ;;
-	_hmg_printer_timestamp := strzero( Seconds() * 100 , 8 ) ;;
-	_hmg_printer_name := <cPrinter> ;;
-	_hmg_printer_UserCopies := <.lCopies.> ;;
-	_hmg_printer_UserCollate := <.lCollate.>
+        _hmg_printer_InitUserMessages() ;;
+        _hmg_printer_aPrinterProperties := _HMG_PRINTER_SetPrinterProperties ( ;
+                <cPrinter> , ;
+                iif ( <.lOrientation.>        , <nOrientation>        , -999 ) , ;
+                iif ( <.lPaperSize.>        , <nPaperSize>                , -999 ) , ;
+                iif ( <.lPaperLength.>        , <nPaperLength>        , -999 ) , ;
+                iif ( <.lPaperWidth.>        , <nPaperWidth>                , -999 ) , ;
+                iif ( <.lCopies.>        , <nCopies>                , -999 ) , ;
+                iif ( <.lDefaultSource.>, <nDefaultSource>        , -999 ) , ;
+                iif ( <.lQuality.>        , <nQuality>                , -999 ) , ;
+                iif ( <.lColor.>        , <nColor>                , -999 ) , ;
+                iif ( <.lDuplex.>        , <nDuplex>                , -999 ) , ;
+                iif ( <.lCollate.>        , <nCollate>                , -999 ) ;
+        ) ;;
+        _hmg_printer_hdc := _hmg_printer_aPrinterProperties \[1\] ;;
+        _hmg_printer_copies := _hmg_printer_aPrinterProperties \[3\] ;;
+        _hmg_printer_collate := _hmg_printer_aPrinterProperties \[4\] ;;
+        <lSuccess> := iif ( _hmg_printer_hdc <> 0 , .T. , .F. ) ;;
+        _hmg_printer_preview := <.Preview.> ;;
+        _hmg_printer_timestamp := strzero( Seconds() * 100 , 8 ) ;;
+        _hmg_printer_name := <cPrinter> ;;
+        _hmg_printer_UserCopies := <.lCopies.> ;;
+        _hmg_printer_UserCollate := <.lCollate.>
 
 #xcommand SELECT PRINTER DEFAULT ;
-	[ <lOrientation 	: ORIENTATION>		<nOrientation> ] ;
-	[ <lPaperSize		: PAPERSIZE>		<nPaperSize> ] ;
-	[ <lPaperLength 	: PAPERLENGTH>		<nPaperLength> ] ;
-	[ <lPaperWidth		: PAPERWIDTH>		<nPaperWidth> ] ;
-	[ <lCopies		: COPIES>		<nCopies> ] ;
-	[ <lDefaultSource	: DEFAULTSOURCE>	<nDefaultSource> ] ;
-	[ <lQuality		: QUALITY>		<nQuality> ] ;
-	[ <lColor		: COLOR>		<nColor> ] ;
-	[ <lDuplex		: DUPLEX>		<nDuplex> ] ;
-	[ <lCollate		: COLLATE>		<nCollate> ] ;
-	[ <Preview 		: PREVIEW> ] ;
+        [ <lOrientation         : ORIENTATION>                <nOrientation> ] ;
+        [ <lPaperSize                : PAPERSIZE>                <nPaperSize> ] ;
+        [ <lPaperLength         : PAPERLENGTH>                <nPaperLength> ] ;
+        [ <lPaperWidth                : PAPERWIDTH>                <nPaperWidth> ] ;
+        [ <lCopies                : COPIES>                <nCopies> ] ;
+        [ <lDefaultSource        : DEFAULTSOURCE>        <nDefaultSource> ] ;
+        [ <lQuality                : QUALITY>                <nQuality> ] ;
+        [ <lColor                : COLOR>                <nColor> ] ;
+        [ <lDuplex                : DUPLEX>                <nDuplex> ] ;
+        [ <lCollate                : COLLATE>                <nCollate> ] ;
+        [ <Preview                 : PREVIEW> ] ;
 => ;
-	_hmg_printer_InitUserMessages() ;;
-	_hmg_printer_name := GetDefaultPrinter() ;;
-	_hmg_printer_aPrinterProperties := _HMG_PRINTER_SetPrinterProperties ( ;
-		_hmg_printer_name , ;
-		iif ( <.lOrientation.>	, <nOrientation>	, -999 ) , ;
-		iif ( <.lPaperSize.>	, <nPaperSize>		, -999 ) , ;
-		iif ( <.lPaperLength.>	, <nPaperLength>	, -999 ) , ;
-		iif ( <.lPaperWidth.>	, <nPaperWidth>		, -999 ) , ;
-		iif ( <.lCopies.>	, <nCopies>		, -999 ) , ;
-		iif ( <.lDefaultSource.>, <nDefaultSource>	, -999 ) , ;
-		iif ( <.lQuality.>	, <nQuality>		, -999 ) , ;
-		iif ( <.lColor.>	, <nColor>		, -999 ) , ;
-		iif ( <.lDuplex.>	, <nDuplex>		, -999 ) , ;
-		iif ( <.lCollate.>	, <nCollate>		, -999 ) ;
-	) ;;
-	_hmg_printer_hdc := _hmg_printer_aPrinterProperties \[1\] ;;
-	_hmg_printer_copies := _hmg_printer_aPrinterProperties \[3\] ;;
-	_hmg_printer_collate := _hmg_printer_aPrinterProperties \[4\] ;;
-	_hmg_printer_preview := <.Preview.> ;;
-	_hmg_printer_timestamp := strzero( Seconds() * 100 , 8 ) ;;
-	_hmg_printer_UserCopies := <.lCopies.> ;;
-	_hmg_printer_UserCollate := <.lCollate.>
+        _hmg_printer_InitUserMessages() ;;
+        _hmg_printer_name := GetDefaultPrinter() ;;
+        _hmg_printer_aPrinterProperties := _HMG_PRINTER_SetPrinterProperties ( ;
+                _hmg_printer_name , ;
+                iif ( <.lOrientation.>        , <nOrientation>        , -999 ) , ;
+                iif ( <.lPaperSize.>        , <nPaperSize>                , -999 ) , ;
+                iif ( <.lPaperLength.>        , <nPaperLength>        , -999 ) , ;
+                iif ( <.lPaperWidth.>        , <nPaperWidth>                , -999 ) , ;
+                iif ( <.lCopies.>        , <nCopies>                , -999 ) , ;
+                iif ( <.lDefaultSource.>, <nDefaultSource>        , -999 ) , ;
+                iif ( <.lQuality.>        , <nQuality>                , -999 ) , ;
+                iif ( <.lColor.>        , <nColor>                , -999 ) , ;
+                iif ( <.lDuplex.>        , <nDuplex>                , -999 ) , ;
+                iif ( <.lCollate.>        , <nCollate>                , -999 ) ;
+        ) ;;
+        _hmg_printer_hdc := _hmg_printer_aPrinterProperties \[1\] ;;
+        _hmg_printer_copies := _hmg_printer_aPrinterProperties \[3\] ;;
+        _hmg_printer_collate := _hmg_printer_aPrinterProperties \[4\] ;;
+        _hmg_printer_preview := <.Preview.> ;;
+        _hmg_printer_timestamp := strzero( Seconds() * 100 , 8 ) ;;
+        _hmg_printer_UserCopies := <.lCopies.> ;;
+        _hmg_printer_UserCollate := <.lCollate.>
 
 #xcommand SELECT PRINTER DEFAULT TO <lSuccess> ;
-	[ <lOrientation 	: ORIENTATION>		<nOrientation> ] ;
-	[ <lPaperSize		: PAPERSIZE>		<nPaperSize> ] ;
-	[ <lPaperLength 	: PAPERLENGTH>		<nPaperLength> ] ;
-	[ <lPaperWidth		: PAPERWIDTH>		<nPaperWidth> ] ;
-	[ <lCopies		: COPIES>		<nCopies> ] ;
-	[ <lDefaultSource	: DEFAULTSOURCE>	<nDefaultSource> ] ;
-	[ <lQuality		: QUALITY>		<nQuality> ] ;
-	[ <lColor		: COLOR>		<nColor> ] ;
-	[ <lDuplex		: DUPLEX>		<nDuplex> ] ;
-	[ <lCollate		: COLLATE>		<nCollate> ] ;
-	[ <Preview 		: PREVIEW> ] ;
+        [ <lOrientation         : ORIENTATION>                <nOrientation> ] ;
+        [ <lPaperSize                : PAPERSIZE>                <nPaperSize> ] ;
+        [ <lPaperLength         : PAPERLENGTH>                <nPaperLength> ] ;
+        [ <lPaperWidth                : PAPERWIDTH>                <nPaperWidth> ] ;
+        [ <lCopies                : COPIES>                <nCopies> ] ;
+        [ <lDefaultSource        : DEFAULTSOURCE>        <nDefaultSource> ] ;
+        [ <lQuality                : QUALITY>                <nQuality> ] ;
+        [ <lColor                : COLOR>                <nColor> ] ;
+        [ <lDuplex                : DUPLEX>                <nDuplex> ] ;
+        [ <lCollate                : COLLATE>                <nCollate> ] ;
+        [ <Preview                 : PREVIEW> ] ;
 => ;
-	_hmg_printer_InitUserMessages() ;;
-	_hmg_printer_name := GetDefaultPrinter() ;;
-	_hmg_printer_aPrinterProperties := _HMG_PRINTER_SetPrinterProperties ( ;
-		_hmg_printer_name , ;
-		iif ( <.lOrientation.>	, <nOrientation>	, -999 ) , ;
-		iif ( <.lPaperSize.>	, <nPaperSize>		, -999 ) , ;
-		iif ( <.lPaperLength.>	, <nPaperLength>	, -999 ) , ;
-		iif ( <.lPaperWidth.>	, <nPaperWidth>		, -999 ) , ;
-		iif ( <.lCopies.>	, <nCopies>		, -999 ) , ;
-		iif ( <.lDefaultSource.>, <nDefaultSource>	, -999 ) , ;
-		iif ( <.lQuality.>	, <nQuality>		, -999 ) , ;
-		iif ( <.lColor.>	, <nColor>		, -999 ) , ;
-		iif ( <.lDuplex.>	, <nDuplex>		, -999 ) , ;
-		iif ( <.lCollate.>	, <nCollate>		, -999 ) ;
-	) ;;
-	_hmg_printer_hdc := _hmg_printer_aPrinterProperties \[1\] ;;
-	_hmg_printer_copies := _hmg_printer_aPrinterProperties \[3\] ;;
-	_hmg_printer_collate := _hmg_printer_aPrinterProperties \[4\] ;;
-	<lSuccess> := iif ( _hmg_printer_hdc <> 0 , .T. , .F. ) ;;
-	_hmg_printer_preview := <.Preview.> ;;
-	_hmg_printer_timestamp := strzero( Seconds() * 100 , 8 ) ;;
-	_hmg_printer_UserCopies := <.lCopies.> ;;
-	_hmg_printer_UserCollate := <.lCollate.>
+        _hmg_printer_InitUserMessages() ;;
+        _hmg_printer_name := GetDefaultPrinter() ;;
+        _hmg_printer_aPrinterProperties := _HMG_PRINTER_SetPrinterProperties ( ;
+                _hmg_printer_name , ;
+                iif ( <.lOrientation.>        , <nOrientation>        , -999 ) , ;
+                iif ( <.lPaperSize.>        , <nPaperSize>                , -999 ) , ;
+                iif ( <.lPaperLength.>        , <nPaperLength>        , -999 ) , ;
+                iif ( <.lPaperWidth.>        , <nPaperWidth>                , -999 ) , ;
+                iif ( <.lCopies.>        , <nCopies>                , -999 ) , ;
+                iif ( <.lDefaultSource.>, <nDefaultSource>        , -999 ) , ;
+                iif ( <.lQuality.>        , <nQuality>                , -999 ) , ;
+                iif ( <.lColor.>        , <nColor>                , -999 ) , ;
+                iif ( <.lDuplex.>        , <nDuplex>                , -999 ) , ;
+                iif ( <.lCollate.>        , <nCollate>                , -999 ) ;
+        ) ;;
+        _hmg_printer_hdc := _hmg_printer_aPrinterProperties \[1\] ;;
+        _hmg_printer_copies := _hmg_printer_aPrinterProperties \[3\] ;;
+        _hmg_printer_collate := _hmg_printer_aPrinterProperties \[4\] ;;
+        <lSuccess> := iif ( _hmg_printer_hdc <> 0 , .T. , .F. ) ;;
+        _hmg_printer_preview := <.Preview.> ;;
+        _hmg_printer_timestamp := strzero( Seconds() * 100 , 8 ) ;;
+        _hmg_printer_UserCopies := <.lCopies.> ;;
+        _hmg_printer_UserCollate := <.lCollate.>
 
 #xcommand SELECT PRINTER DIALOG ;
-	[ <Preview : PREVIEW> ] ;
+        [ <Preview : PREVIEW> ] ;
 => ;
-_hmg_printer_InitUserMessages()					;;
-_hmg_printer_aPrinterProperties	= _HMG_PRINTER_PrintDialog()	;;
-_hmg_printer_hdc := _hmg_printer_aPrinterProperties \[1\]	;;
-_hmg_printer_name := _hmg_printer_aPrinterProperties \[2\]	;;
-_hmg_printer_copies := _hmg_printer_aPrinterProperties \[3\]	;;
-_hmg_printer_collate := _hmg_printer_aPrinterProperties \[4\]	;;
-_hmg_printer_preview := <.Preview.>				;;
+_hmg_printer_InitUserMessages()                                        ;;
+_hmg_printer_aPrinterProperties        = _HMG_PRINTER_PrintDialog()        ;;
+_hmg_printer_hdc := _hmg_printer_aPrinterProperties \[1\]        ;;
+_hmg_printer_name := _hmg_printer_aPrinterProperties \[2\]        ;;
+_hmg_printer_copies := _hmg_printer_aPrinterProperties \[3\]        ;;
+_hmg_printer_collate := _hmg_printer_aPrinterProperties \[4\]        ;;
+_hmg_printer_preview := <.Preview.>                                ;;
 _hmg_printer_timestamp := strzero( Seconds() * 100 , 8 ) 
 
 #xcommand SELECT PRINTER DIALOG TO <lSuccess> ;
-	[ <Preview : PREVIEW> ] ;
+        [ <Preview : PREVIEW> ] ;
 => ;
-_hmg_printer_InitUserMessages()					;;
-_hmg_printer_aPrinterProperties	= _HMG_PRINTER_PrintDialog()	;;
-_hmg_printer_hdc := _hmg_printer_aPrinterProperties \[1\]	;;
-_hmg_printer_name := _hmg_printer_aPrinterProperties \[2\]	;;
-_hmg_printer_copies := _hmg_printer_aPrinterProperties \[3\]	;;
-_hmg_printer_collate := _hmg_printer_aPrinterProperties \[4\]	;;
-<lSuccess> := iif ( _hmg_printer_hdc <> 0 , .T. , .F. )		;;
-_hmg_printer_preview := <.Preview.>				;;
+_hmg_printer_InitUserMessages()                                        ;;
+_hmg_printer_aPrinterProperties        = _HMG_PRINTER_PrintDialog()        ;;
+_hmg_printer_hdc := _hmg_printer_aPrinterProperties \[1\]        ;;
+_hmg_printer_name := _hmg_printer_aPrinterProperties \[2\]        ;;
+_hmg_printer_copies := _hmg_printer_aPrinterProperties \[3\]        ;;
+_hmg_printer_collate := _hmg_printer_aPrinterProperties \[4\]        ;;
+<lSuccess> := iif ( _hmg_printer_hdc <> 0 , .T. , .F. )                ;;
+_hmg_printer_preview := <.Preview.>                                ;;
 _hmg_printer_timestamp := strzero( Seconds() * 100 , 8 ) 
 
 #xcommand SET PRINT CHARSET <charset> => _HMG_SETCHARSET( <charset> )
@@ -256,38 +256,38 @@ iif ( _hmg_printer_preview , _HMG_PRINTER_SHOWPREVIEW() , _HMG_PRINTER_EndDoc ( 
 _HMG_PRINTER_ABORTDOC ( _hmg_printer_hdc )
 
 #xtranslate @ <Row> , <Col> PRINT [ DATA ] <cText> ;
-	[ <lfont : FONT> <cFontName> ] ;
-	[ <lsize : SIZE> <nFontSize> ] ;
-	[ <bold : BOLD> ] ;
-	[ <italic : ITALIC> ] ;
-	[ <underline : UNDERLINE> ] ;
-	[ <strikeout : STRIKEOUT> ] ;
-	[ <lcolor : COLOR> <aColor> ] ;
-	[ <lAngle : ANGLE> <nAngle> ] ;
-	[ <align : CENTER,RIGHT> ] ;
-	=> ;
-	_HMG_PRINTER_H_PRINT ( _hmg_printer_hdc , <Row> , <Col> , <cFontName> , <nFontSize> , <aColor>\[1\] , <aColor>\[2\] , <aColor>\[3\] , <cText> , <.bold.> , <.italic.> , <.underline.> , <.strikeout.> , <.lcolor.> , <.lfont.> , <.lsize.> , <"align"> , <.lAngle.> , <nAngle> )
+        [ <lfont : FONT> <cFontName> ] ;
+        [ <lsize : SIZE> <nFontSize> ] ;
+        [ <bold : BOLD> ] ;
+        [ <italic : ITALIC> ] ;
+        [ <underline : UNDERLINE> ] ;
+        [ <strikeout : STRIKEOUT> ] ;
+        [ <lcolor : COLOR> <aColor> ] ;
+        [ <lAngle : ANGLE> <nAngle> ] ;
+        [ <align : CENTER,RIGHT> ] ;
+        => ;
+        _HMG_PRINTER_H_PRINT ( _hmg_printer_hdc , <Row> , <Col> , <cFontName> , <nFontSize> , <aColor>\[1\] , <aColor>\[2\] , <aColor>\[3\] , <cText> , <.bold.> , <.italic.> , <.underline.> , <.strikeout.> , <.lcolor.> , <.lfont.> , <.lsize.> , <"align"> , <.lAngle.> , <nAngle> )
 
 #xtranslate @ <Row> , <Col> PRINT [ DATA ] <cText> ;
-	TO <ToRow> , <ToCol> ;
-	[ <lfont : FONT> <cFontName> ] ;
-	[ <lsize : SIZE> <nFontSize> ] ;
-	[ <bold : BOLD> ] ;
-	[ <italic : ITALIC> ] ;
-	[ <underline : UNDERLINE> ] ;
-	[ <strikeout : STRIKEOUT> ] ;
-	[ <lcolor : COLOR> <aColor> ] ;
-	[ <align : CENTER,RIGHT> ] ;
-	=> ;
-	_HMG_PRINTER_H_MULTILINE_PRINT ( _hmg_printer_hdc , <Row> , <Col> , <ToRow> , <ToCol> , <cFontName> , <nFontSize> , <aColor>\[1\] , <aColor>\[2\] , <aColor>\[3\] , <cText> , <.bold.> , <.italic.> , <.underline.> , <.strikeout.> , <.lcolor.> , <.lfont.> , <.lsize.> , <"align"> )
+        TO <ToRow> , <ToCol> ;
+        [ <lfont : FONT> <cFontName> ] ;
+        [ <lsize : SIZE> <nFontSize> ] ;
+        [ <bold : BOLD> ] ;
+        [ <italic : ITALIC> ] ;
+        [ <underline : UNDERLINE> ] ;
+        [ <strikeout : STRIKEOUT> ] ;
+        [ <lcolor : COLOR> <aColor> ] ;
+        [ <align : CENTER,RIGHT> ] ;
+        => ;
+        _HMG_PRINTER_H_MULTILINE_PRINT ( _hmg_printer_hdc , <Row> , <Col> , <ToRow> , <ToCol> , <cFontName> , <nFontSize> , <aColor>\[1\] , <aColor>\[2\] , <aColor>\[3\] , <cText> , <.bold.> , <.italic.> , <.underline.> , <.strikeout.> , <.lcolor.> , <.lfont.> , <.lsize.> , <"align"> )
 
 #xtranslate @ <nRow> , <nCol> PRINT IMAGE <cImage> ;
-	WIDTH <nWidth> ;
-	HEIGHT <nheight> ;
-	[ <stretch : STRETCH> ] ;
-	[ <transparent : TRANSPARENT> ] ;
-	=> ;
-	_HMG_PRINTER_H_IMAGE ( _hmg_printer_hdc , <cImage> , <nRow> , <nCol> , <nheight> , <nWidth> , <.stretch.> , <.transparent.> )
+        WIDTH <nWidth> ;
+        HEIGHT <nheight> ;
+        [ <stretch : STRETCH> ] ;
+        [ <transparent : TRANSPARENT> ] ;
+        => ;
+        _HMG_PRINTER_H_IMAGE ( _hmg_printer_hdc , <cImage> , <nRow> , <nCol> , <nheight> , <nWidth> , <.stretch.> , <.transparent.> )
 
 * Pen Styles
 
@@ -297,26 +297,26 @@ _HMG_PRINTER_ABORTDOC ( _hmg_printer_hdc )
 #define DASHDOTDOT 4
 
 #xtranslate @ <Row> , <Col> PRINT LINE TO <ToRow> , <ToCol> ;
-	[ <lwidth : PENWIDTH> <Width> ] ;
-	[ <lcolor : COLOR> <aColor> ] ;
-	[ STYLE <nStyle> ] ;
-	=> ;
-	_HMG_PRINTER_H_LINE ( _hmg_printer_hdc , <Row> , <Col> , <ToRow> , <ToCol> , <Width> , <aColor>\[1\] , <aColor>\[2\] , <aColor>\[3\] , <.lwidth.> , <.lcolor.> , <nStyle> )
+        [ <lwidth : PENWIDTH> <Width> ] ;
+        [ <lcolor : COLOR> <aColor> ] ;
+        [ STYLE <nStyle> ] ;
+        => ;
+        _HMG_PRINTER_H_LINE ( _hmg_printer_hdc , <Row> , <Col> , <ToRow> , <ToCol> , <Width> , <aColor>\[1\] , <aColor>\[2\] , <aColor>\[3\] , <.lwidth.> , <.lcolor.> , <nStyle> )
 
 #xtranslate @ <Row> , <Col> PRINT RECTANGLE TO <ToRow> , <ToCol> ;
-	[ <lwidth : PENWIDTH> <Width> ] ;
-	[ <lcolor : COLOR> <aColor> ] ;
-	[ <lfilled: FILLED> [ <lnoborder: NOBORDER> ] ] ;
-	=> ;
-	_HMG_PRINTER_H_RECTANGLE ( _hmg_printer_hdc , <Row> , <Col> , <ToRow> , <ToCol> , <Width> , <aColor>\[1\] , <aColor>\[2\] , <aColor>\[3\] , <.lwidth.> , <.lcolor.> , <.lfilled.> , <.lnoborder.> )
+        [ <lwidth : PENWIDTH> <Width> ] ;
+        [ <lcolor : COLOR> <aColor> ] ;
+        [ <lfilled: FILLED> [ <lnoborder: NOBORDER> ] ] ;
+        => ;
+        _HMG_PRINTER_H_RECTANGLE ( _hmg_printer_hdc , <Row> , <Col> , <ToRow> , <ToCol> , <Width> , <aColor>\[1\] , <aColor>\[2\] , <aColor>\[3\] , <.lwidth.> , <.lcolor.> , <.lfilled.> , <.lnoborder.> )
 
 #xtranslate @ <Row> , <Col> PRINT RECTANGLE TO <ToRow> , <ToCol> ;
-	[ <lwidth : PENWIDTH> <Width> ] ;
-	[ <lcolor : COLOR> <aColor> ] ;
-	[ <lfilled: FILLED> ]; 
-	ROUNDED ;
-	=> ;
-	_HMG_PRINTER_H_ROUNDRECTANGLE ( _hmg_printer_hdc , <Row> , <Col> , <ToRow> , <ToCol> , <Width> , <aColor>\[1\] , <aColor>\[2\] , <aColor>\[3\] , <.lwidth.> , <.lcolor.> , <.lfilled.> )
+        [ <lwidth : PENWIDTH> <Width> ] ;
+        [ <lcolor : COLOR> <aColor> ] ;
+        [ <lfilled: FILLED> ]; 
+        ROUNDED ;
+        => ;
+        _HMG_PRINTER_H_ROUNDRECTANGLE ( _hmg_printer_hdc , <Row> , <Col> , <ToRow> , <ToCol> , <Width> , <aColor>\[1\] , <aColor>\[2\] , <aColor>\[3\] , <.lwidth.> , <.lcolor.> , <.lfilled.> )
 
 #ifndef __HMG_COMPAT__
 ///////////////////////////////////////////////////////////////////////////////
@@ -325,8 +325,8 @@ _HMG_PRINTER_ABORTDOC ( _hmg_printer_hdc )
 
 * Collate
 
-#define PRINTER_COLLATE_TRUE	1
-#define PRINTER_COLLATE_FALSE	0
+#define PRINTER_COLLATE_TRUE        1
+#define PRINTER_COLLATE_FALSE        0
 
 * Source
 

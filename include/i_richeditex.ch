@@ -53,67 +53,67 @@
  */
 
 #xcommand @ <row>,<col> RICHEDITBOXEX <name> ;
-		[ <dummy1: OF, PARENT> <parent> ] ;
-		[ WIDTH <w> ] ;
-		[ HEIGHT <h> ] ;
-		[ FIELD <field> ]		;
-		[ VALUE <value> ] ;
-		[ < readonly: READONLY > ] ;
-		[ FONT <f> ] ;
-		[ SIZE <s> ] ;
-		[ <bold : BOLD> ] ;
-		[ <italic : ITALIC> ] ;
-		[ <underline : UNDERLINE> ] ;
-		[ <strikeout : STRIKEOUT> ] ;
-		[ TOOLTIP <tooltip> ] ;
-		[ BACKCOLOR <backcolor> ] ;
-		[ MAXLENGTH <maxlength> ] ;
+                [ <dummy1: OF, PARENT> <parent> ] ;
+                [ WIDTH <w> ] ;
+                [ HEIGHT <h> ] ;
+                [ FIELD <field> ]                ;
+                [ VALUE <value> ] ;
+                [ < readonly: READONLY > ] ;
+                [ FONT <f> ] ;
+                [ SIZE <s> ] ;
+                [ <bold : BOLD> ] ;
+                [ <italic : ITALIC> ] ;
+                [ <underline : UNDERLINE> ] ;
+                [ <strikeout : STRIKEOUT> ] ;
+                [ TOOLTIP <tooltip> ] ;
+                [ BACKCOLOR <backcolor> ] ;
+                [ MAXLENGTH <maxlength> ] ;
                 [ ON GOTFOCUS <gotfocus> ] ;
                 [ ON CHANGE <change> ] ;
                 [ ON LOSTFOCUS <lostfocus> ] ;
-		[ HELPID <helpid> ] 		;
-		[ <invisible: INVISIBLE> ] ;
-		[ <notabstop: NOTABSTOP> ] ;
-		[ <noHscroll: NOHSCROLL> ] ;
-		[ <noVscroll: NOVSCROLL> ] ;
-		[ ON SELECT <selectchange> ] ;
-		[ ON LINK <onlink> ] ;
-		[ ON VSCROLL  <OnVScroll> ] ;
-	=>;
-	_DefineRichEditBoxEx ( <"name">, <"parent">, <col>, <row>, <w>, <h>, <value> , <f>, <s> , <tooltip> , <maxlength> , <{gotfocus}> , <{change}> , <{lostfocus}> , <.readonly.> , .F. , <helpid>, <.invisible.>, <.notabstop.> ,<.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <"field"> , <backcolor> , <.noHscroll.> , <.noVscroll.> , <{selectchange}> , <{onlink}> , <{OnVScroll}> )
+                [ HELPID <helpid> ]                 ;
+                [ <invisible: INVISIBLE> ] ;
+                [ <notabstop: NOTABSTOP> ] ;
+                [ <noHscroll: NOHSCROLL> ] ;
+                [ <noVscroll: NOVSCROLL> ] ;
+                [ ON SELECT <selectchange> ] ;
+                [ ON LINK <onlink> ] ;
+                [ ON VSCROLL  <OnVScroll> ] ;
+        =>;
+        _DefineRichEditBoxEx ( <"name">, <"parent">, <col>, <row>, <w>, <h>, <value> , <f>, <s> , <tooltip> , <maxlength> , <{gotfocus}> , <{change}> , <{lostfocus}> , <.readonly.> , .F. , <helpid>, <.invisible.>, <.notabstop.> ,<.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <"field"> , <backcolor> , <.noHscroll.> , <.noVscroll.> , <{selectchange}> , <{onlink}> , <{OnVScroll}> )
 
 //SPLITBOX VERSION
 
 #xcommand RICHEDITBOXEX <name> ;
-		[ <dummy1: OF, PARENT> <parent> ] ;
-		[ WIDTH <w> ] ;
-		[ HEIGHT <h> ] ;
-		[ FIELD <field> ]		;
-		[ VALUE <value> ] ;
-		[ < readonly: READONLY > ] ;
-		[ FONT <f> ] ;
-		[ SIZE <s> ] ;
-		[ <bold : BOLD> ] ;
-		[ <italic : ITALIC> ] ;
-		[ <underline : UNDERLINE> ] ;
-		[ <strikeout : STRIKEOUT> ] ;
-		[ TOOLTIP <tooltip> ] ;
-		[ BACKCOLOR <backcolor> ] ;
-		[ MAXLENGTH <maxlength> ] ;
+                [ <dummy1: OF, PARENT> <parent> ] ;
+                [ WIDTH <w> ] ;
+                [ HEIGHT <h> ] ;
+                [ FIELD <field> ]                ;
+                [ VALUE <value> ] ;
+                [ < readonly: READONLY > ] ;
+                [ FONT <f> ] ;
+                [ SIZE <s> ] ;
+                [ <bold : BOLD> ] ;
+                [ <italic : ITALIC> ] ;
+                [ <underline : UNDERLINE> ] ;
+                [ <strikeout : STRIKEOUT> ] ;
+                [ TOOLTIP <tooltip> ] ;
+                [ BACKCOLOR <backcolor> ] ;
+                [ MAXLENGTH <maxlength> ] ;
                 [ ON GOTFOCUS <gotfocus> ] ;
                 [ ON CHANGE <change> ] ;
                 [ ON LOSTFOCUS <lostfocus> ] ;
-		[ HELPID <helpid> ] 		;
-		[ <break: BREAK> ] ;
-		[ <invisible: INVISIBLE> ] ;
-		[ <notabstop: NOTABSTOP> ] ;
-		[ <noHscroll: NOHSCROLL> ] ;
-		[ <noVscroll: NOVSCROLL> ] ;
-		[ ON SELECT <selectchange> ] ;
-		[ ON LINK <onlink> ] ;
-		[ ON VSCROLL  <OnVScroll> ] ;
+                [ HELPID <helpid> ]                 ;
+                [ <break: BREAK> ] ;
+                [ <invisible: INVISIBLE> ] ;
+                [ <notabstop: NOTABSTOP> ] ;
+                [ <noHscroll: NOHSCROLL> ] ;
+                [ <noVscroll: NOVSCROLL> ] ;
+                [ ON SELECT <selectchange> ] ;
+                [ ON LINK <onlink> ] ;
+                [ ON VSCROLL  <OnVScroll> ] ;
       =>;
-	_DefineRichEditBoxEx ( <"name">, <"parent">, , , <w>, <h>, <value> , <f>, <s> , <tooltip> , <maxlength> , <{gotfocus}> , <{change}> , <{lostfocus}> , <.readonly.> , <.break.> , <helpid>, <.invisible.>, <.notabstop.> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <"field"> , <backcolor> , <.noHscroll.> , <.noVscroll.> , <{selectchange}> , <{onlink}> , <{OnVScroll}> )
+        _DefineRichEditBoxEx ( <"name">, <"parent">, , , <w>, <h>, <value> , <f>, <s> , <tooltip> , <maxlength> , <{gotfocus}> , <{change}> , <{lostfocus}> , <.readonly.> , <.break.> , <helpid>, <.invisible.>, <.notabstop.> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <"field"> , <backcolor> , <.noHscroll.> , <.noVscroll.> , <{selectchange}> , <{onlink}> , <{OnVScroll}> )
 
 
 #ifndef _RICHEDIT_CH

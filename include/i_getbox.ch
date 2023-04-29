@@ -106,7 +106,7 @@
         [ <invisible: INVISIBLE> ]      ;
         [ <notabstop: NOTABSTOP> ]      ;
         [ <nominus: NOMINUS> ]          ;
-        [ <noborder: NOBORDER> ]	;
+        [ <noborder: NOBORDER> ]        ;
         [ HELPID <helpid> ]             ;
    => ;
         [ <oGet> := ] _DefineGetBox( <(name)>, <(parent)>, <col>, <row>, <width>, <height>, <value>, ;

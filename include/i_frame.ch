@@ -45,42 +45,42 @@
  */
 
 #xcommand @ <row> , <col> FRAME <name> ;
-		[ ID <nId> ] ;
-		[ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
-		[ CAPTION <caption> ] ;
-		[ WIDTH <w> ] ;
-		[ HEIGHT <h> ] ;
-		[ FONT <fontname> ] ;
-		[ SIZE <fontsize> ] ;
-		[ <bold : BOLD> ] ;
-		[ <italic : ITALIC> ] ;
-		[ <underline : UNDERLINE> ] ;
-		[ <strikeout : STRIKEOUT> ] ;
-		[ BACKCOLOR <backcolor> ] ;
-		[ FONTCOLOR <fontcolor> ] ;
-		[ <opaque: OPAQUE> ] ;
-		[ <invisible: INVISIBLE> ] ;
-		[ <transparent: TRANSPARENT> ] ;
-		[ ON INIT <bInit> ] ;
-	=>;
-	_BeginFrame ( <(name)>, <(parent)>, <row>, <col>, <w>, <h> , <caption> , <fontname> , <fontsize> , <.opaque.> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <backcolor> , <fontcolor> , <.transparent.> , <.invisible.> , <nId> , <bInit> )
+                [ ID <nId> ] ;
+                [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
+                [ CAPTION <caption> ] ;
+                [ WIDTH <w> ] ;
+                [ HEIGHT <h> ] ;
+                [ FONT <fontname> ] ;
+                [ SIZE <fontsize> ] ;
+                [ <bold : BOLD> ] ;
+                [ <italic : ITALIC> ] ;
+                [ <underline : UNDERLINE> ] ;
+                [ <strikeout : STRIKEOUT> ] ;
+                [ BACKCOLOR <backcolor> ] ;
+                [ FONTCOLOR <fontcolor> ] ;
+                [ <opaque: OPAQUE> ] ;
+                [ <invisible: INVISIBLE> ] ;
+                [ <transparent: TRANSPARENT> ] ;
+                [ ON INIT <bInit> ] ;
+        =>;
+        _BeginFrame ( <(name)>, <(parent)>, <row>, <col>, <w>, <h> , <caption> , <fontname> , <fontsize> , <.opaque.> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <backcolor> , <fontcolor> , <.transparent.> , <.invisible.> , <nId> , <bInit> )
 
 
 #xcommand REDEFINE FRAME <name> ;
-		ID <nId> ;
-		[ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
-		[ CAPTION <caption> ] ;
-		[ FONT <fontname> ] ;
-		[ SIZE <fontsize> ] ;
-		[ <bold : BOLD> ] ;
-		[ <italic : ITALIC> ] ;
-		[ <underline : UNDERLINE> ] ;
-		[ <strikeout : STRIKEOUT> ] ;
-		[ BACKCOLOR <backcolor> ] ;
-		[ FONTCOLOR <fontcolor> ] ;
-		[ <opaque: OPAQUE> ] ;
-		[ <invisible: INVISIBLE> ] ;
-		[ <transparent: TRANSPARENT> ] ;
-		[ ON INIT <bInit> ] ;
-	=>;
-	_BeginFrame ( <(name)>, <(parent)>, 0, 0, 0, 0 , <caption> , <fontname> , <fontsize> , <.opaque.> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <backcolor> , <fontcolor> , <.transparent.>, <.invisible.> , <nId> , <bInit> )
+                ID <nId> ;
+                [ <dummy1: OF, PARENT, DIALOG> <parent> ] ;
+                [ CAPTION <caption> ] ;
+                [ FONT <fontname> ] ;
+                [ SIZE <fontsize> ] ;
+                [ <bold : BOLD> ] ;
+                [ <italic : ITALIC> ] ;
+                [ <underline : UNDERLINE> ] ;
+                [ <strikeout : STRIKEOUT> ] ;
+                [ BACKCOLOR <backcolor> ] ;
+                [ FONTCOLOR <fontcolor> ] ;
+                [ <opaque: OPAQUE> ] ;
+                [ <invisible: INVISIBLE> ] ;
+                [ <transparent: TRANSPARENT> ] ;
+                [ ON INIT <bInit> ] ;
+        =>;
+        _BeginFrame ( <(name)>, <(parent)>, 0, 0, 0, 0 , <caption> , <fontname> , <fontsize> , <.opaque.> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <backcolor> , <fontcolor> , <.transparent.>, <.invisible.> , <nId> , <bInit> )

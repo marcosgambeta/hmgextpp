@@ -47,22 +47,22 @@
 * Standard
 
 #xcommand DEFINE SPLITBOX ;
-	[ <dummy1: OF, PARENT> <parent> ] ;
-	[ <bottom: BOTTOM> ] ;
-	[ <horizontal: HORIZONTAL> ] ;
-	[ HANDLE <hSplitWnd> ] ;
+        [ <dummy1: OF, PARENT> <parent> ] ;
+        [ <bottom: BOTTOM> ] ;
+        [ <horizontal: HORIZONTAL> ] ;
+        [ HANDLE <hSplitWnd> ] ;
 => ;
-	[ <hSplitWnd> := ] _DefineSplitBox ( <(parent)> , <.bottom.> , <.horizontal.> )
+        [ <hSplitWnd> := ] _DefineSplitBox ( <(parent)> , <.bottom.> , <.horizontal.> )
 
 * Alternate
 
 #xcommand DEFINE SPLIT BOX ;
-	[ PARENT <parent> ] ;
-	[ BOTTOM <bottom> ] ;
-	[ HORIZONTAL <horizontal> ]	;
-	[ <dummy: HANDLE, STOREIN> <hSplitWnd> ] ;
+        [ PARENT <parent> ] ;
+        [ BOTTOM <bottom> ] ;
+        [ HORIZONTAL <horizontal> ]        ;
+        [ <dummy: HANDLE, STOREIN> <hSplitWnd> ] ;
 =>;
-	[ <hSplitWnd> := ] _DefineSplitBox ( <(parent)> , <.bottom.> , <.horizontal.> )
+        [ <hSplitWnd> := ] _DefineSplitBox ( <(parent)> , <.bottom.> , <.horizontal.> )
 
 
 #xcommand END SPLITBOX ;
