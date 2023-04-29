@@ -468,14 +468,10 @@ PROCEDURE Init()
    _HMG_LastActiveControlIndex := 0
 #endif
 
-#if ((__HARBOUR__ - 0) > 0x030100)
-
 #ifdef UNICODE
    Set(_SET_CODEPAGE, "UTF8")
 #else
    InitCodePage()
-#endif
-
 #endif
 
    InitMessages()
@@ -677,7 +673,6 @@ RETURN (win_regDeleteKey(nKey, cRegKey))
 
 #endif
 
-#if ((__HARBOUR__ - 0) > 0x030100)
 #ifndef UNICODE
 
 /*
@@ -749,7 +744,6 @@ STATIC PROCEDURE InitCodePage()
 
 RETURN
 
-#endif
 #endif
 
 /*

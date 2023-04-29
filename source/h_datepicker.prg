@@ -51,11 +51,6 @@
 #define DTS_SHOWNONE        0x0002 // allow a NONE selection
 #define DTS_RIGHTALIGN      0x0020 // right-align popup instead of left-align it
 
-#if ( __HARBOUR__ - 0 < 0x030200 )
-  #xtranslate hb_UAt( <c>, <n> ) => At( <c>, <n> )
-  #xtranslate hb_ULeft(<c>, <n>) => Left(<c>, <n>)
-#endif
-
 *-----------------------------------------------------------------------------*
 FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
       fontname, fontsize, tooltip, change, lostfocus, ;

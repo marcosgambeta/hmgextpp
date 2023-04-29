@@ -50,13 +50,6 @@
 STATIC _lTabKeyPressed := .F.
 STATIC _lShiftTabKeyPressed := .F.
 
-#if (__HARBOUR__ - 0 < 0x030200)
-   #xtranslate hb_ULeft(<c>, <n>) => Left(<c>, <n>)
-   #xtranslate hb_URight(<c>, <n>) => Right(<c>, <n>)
-   #xtranslate hb_ULen(<c>) => Len(<c>)
-   #xtranslate hb_USubStr(<c>, <n> [, <e>]) => SubStr(<c>, <n> [, <e>])
-#endif
-
 /*
 _DefineGrid(...) --> NIL
 */

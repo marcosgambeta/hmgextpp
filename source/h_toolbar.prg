@@ -47,10 +47,6 @@
 #include "minigui.ch"
 #include "i_winuser.ch"
 
-#if ( __HARBOUR__ - 0 < 0x030200 )
-  #xtranslate hb_UAt( <c>, <n> ) => At( <c>, <n> )
-#endif
-
 *-----------------------------------------------------------------------------*
 FUNCTION _DefineToolBar ( ControlName, ParentForm, x, y, caption, ProcedureName, w, h, fontname, fontsize, tooltip, flat, bottom, righttext, break, bold, italic, underline, strikeout, border, mixedbuttons, rows, tbsize, imagelst, hotimagelst, wrap, custom )
 *-----------------------------------------------------------------------------*

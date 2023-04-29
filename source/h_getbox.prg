@@ -71,16 +71,6 @@
 
 SET PROCEDURE TO tget\tget.prg
 SET PROCEDURE TO tget\tgetint.prg
-#if ( __HARBOUR__ - 0 < 0x030200 )
-  #xtranslate hb_asciiUpper(<c>) => Upper(<c>)
-  #xtranslate hb_BChar( <c> ) => Chr( <c> )
-  #xtranslate hb_UAt( <c>, <n> ) => At( <c>, <n> )
-  #xtranslate hb_ULeft(<c>, <n>) => Left(<c>, <n>)
-  #xtranslate hb_ULen(<c>) => Len(<c>)
-  #xtranslate hb_UPadL( <c>, <n> ) => PadL( <c>, <n> )
-  #xtranslate hb_UPadR( <c>, <n>, <l> ) => PadR( <c>, <n>, <l> )
-  #xtranslate hb_USubStr(<c>, <n> [, <e>]) => SubStr(<c>, <n> [, <e>])
-#endif
 
 STATIC s_Global := { NIL, .F., { 235, 235, 145 }, NIL, NIL, NIL }
 
@@ -91,7 +81,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    fontcolor, invisible, notabstop, nId, valid, cPicture, cmessage, cvalidmessage, ;
    when, ProcedureName, ProcedureName2, abitmap, BtnWidth, lNoMinus, noborder, bInit )
 *-----------------------------------------------------------------------------*
-   
+
    LOCAL ParentFormHandle
    LOCAL ControlHandle
    LOCAL aControlHandle := {}

@@ -50,13 +50,6 @@
 #define CBEM_GETCOMBOCONTROL  1030
 #define CBEM_GETEDITCONTROL   1031
 
-#if ( __HARBOUR__ - 0 < 0x030200 )
-  #xtranslate hb_UAt( <c>, <n> ) => At( <c>, <n> )
-  #xtranslate hb_ULeft(<c>, <n>) => Left(<c>, <n>)
-  #xtranslate hb_URight(<c>, <n>) => Right(<c>, <n>)
-  #xtranslate hb_ULen(<c>) => Len(<c>)
-#endif
-
 // (JK) Extend combobox control - COMBOBOXEX
 // HMG 1.0 Experimental Build 8
 *-----------------------------------------------------------------------------*

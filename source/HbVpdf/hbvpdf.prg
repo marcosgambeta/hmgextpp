@@ -2,10 +2,6 @@
 
 #include "fileio.ch"
 
-#if (__HARBOUR__ - 0 < 0x030200)
-#xtranslate __defaultNIL(@<v>, <x>) => (<v> := iif(<v> == NIL, <x>, <v>))
-#endif
-
 #define CRLF ( Chr(13) + Chr(10) )
 
 STATIC s_aReport

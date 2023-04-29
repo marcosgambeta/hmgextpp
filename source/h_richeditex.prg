@@ -59,11 +59,6 @@
 #include "i_winuser.ch"
 #include "fileio.ch"
 
-#if ( __HARBOUR__ - 0 < 0x030200 )
-# xtranslate hb_UAt( <c>, <n> ) => At( <c>, <n> )
-# xtranslate hb_ULeft(<c>, <n>) => Left(<c>, <n>)
-#endif
-
 *-----------------------------------------------------------------------------*
 FUNCTION _DefineRichEditBoxEx ( ControlName, ;
       ParentForm, ;

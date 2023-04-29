@@ -47,11 +47,6 @@
 #include "minigui.ch"
 #include "i_winuser.ch"
 
-#if ( __HARBOUR__ - 0 < 0x030200 )
-  #xtranslate hb_UAt( <c>, <n> ) => At( <c>, <n> )
-  #xtranslate hb_USubStr(<c>, <n> [, <e>]) => SubStr(<c>, <n> [, <e>])
-#endif
-
 *-----------------------------------------------------------------------------*
 FUNCTION _BeginTab( ControlName, ParentFormName, row, col, w, h, value, f, s, tooltip, change, buttons, flat, hottrack, vertical, bottom, notabstop, bold, italic, underline, strikeout, multiline, backcolor, nId, bInit, NoTrans )
 *-----------------------------------------------------------------------------*

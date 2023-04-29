@@ -115,79 +115,6 @@ HB_FUNC( FREERESOURCES )
    }
 }
 
-#if ( __HARBOUR__ - 0 < 0x030200 )
-
-HB_FUNC( RCDATATOFILE )
-{
-   HMODULE hModule = GetResources();
-   LPTSTR  lpType  = ( hb_parclen(3) > 0 ? ( LPTSTR ) hb_parc(3) : MAKEINTRESOURCE(RT_RCDATA) );
-   HRSRC   hResInfo;
-   HGLOBAL hResData;
-   LPVOID  lpData;
-   DWORD   dwSize, dwRet;
-   HANDLE  hFile;
-
-   if( hb_parclen(1) > 0 )
-   {
-      hResInfo = FindResourceA(hModule, hb_parc(1), lpType);
-   }
-   else
-   {
-      hResInfo = FindResource(hModule, MAKEINTRESOURCE(hb_parni(1)), lpType);
-   }
-
-   if( nullptr == hResInfo )
-   {
-      hb_retnl( -1 );
-      return;
-   }
-
-   hResData = LoadResource(hModule, hResInfo);
-
-   if( nullptr == hResData )
-   {
-      hb_retnl( -2 );
-      return;
-   }
-
-   lpData = LockResource(hResData);
-
-   if( nullptr == lpData )
-   {
-      FreeResource(hResData);
-      hb_retnl( -3 );
-      return;
-   }
-
-   dwSize = SizeofResource(hModule, hResInfo);
-
-   hFile = CreateFile(hb_parc(2), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, ( DWORD ) 0, nullptr);
-
-   if( INVALID_HANDLE_VALUE == hFile )
-   {
-      FreeResource(hResData);
-      hb_retnl( -4 );
-      return;
-   }
-
-   WriteFile(hFile, lpData, dwSize, &dwRet, nullptr);
-
-   FreeResource(hResData);
-
-   if( dwRet != dwSize )
-   {
-      CloseHandle(hFile);
-      hb_retnl( -5 );
-      return;
-   }
-
-   CloseHandle(hFile);
-
-   hb_retnl( dwRet );
-}
-
-#else
-
 HB_FUNC( RCDATATOFILE )
 {
    HMODULE hModule = ( HMODULE ) ( 0 != HB_PARNL(4) ? hmg_par_HINSTANCE(4) : GetResources() );
@@ -272,5 +199,3 @@ HB_FUNC( RCDATATOFILE )
    }
 #endif
 }
-
-#endif

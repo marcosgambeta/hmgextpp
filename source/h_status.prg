@@ -54,10 +54,6 @@
 #define ITEMNAME        "StatusItem"
 #define PROGRESSNAME    "ProgressMessage"
 
-#if ( __HARBOUR__ - 0 < 0x030200 )
-  #xtranslate hb_UAt( <c>, <n> ) => At( <c>, <n> )
-#endif
-
 *-----------------------------------------------------------------------------*
 FUNCTION _BeginMessageBar( ControlName, ParentForm, kbd, fontname, fontsize, bold, italic, underline, strikeout )
 *-----------------------------------------------------------------------------*

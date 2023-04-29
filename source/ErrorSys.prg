@@ -488,27 +488,15 @@ FUNCTION HTML_ERRORLOG
    LOCAL cErrorLogFile := _GetErrorlogFile()
 
    IF IsErrorLogActive()
-#if ( __HARBOUR__ - 0 < 0x030200 )
-      IF !File( cErrorLogFile )
-         HtmArch := Html_Ini( cErrorLogFile, "Harbour MiniGUI Errorlog File" )
-         IF HtmArch > 0
-#else
       IF !hb_vfExists( cErrorLogFile )
          HtmArch := Html_Ini( cErrorLogFile, "Harbour MiniGUI Errorlog File" )
          IF HtmArch != NIL
-#endif
             Html_Line( HtmArch )
          ENDIF
       ELSE
-#if ( __HARBOUR__ - 0 < 0x030200 )
-         HtmArch := FOpen( cErrorLogFile, FO_READWRITE )
-         IF HtmArch > 0
-            FSeek( HtmArch, __HTML_INSERT_OFFSET(), FS_END )
-#else
          HtmArch := hb_vfOpen( cErrorLogFile, FO_WRITE )
          IF HtmArch != NIL
             hb_vfSeek( HtmArch, __HTML_INSERT_OFFSET(), FS_END )
-#endif
          ENDIF
       ENDIF
    ENDIF
@@ -526,13 +514,8 @@ FUNCTION HTML_INI( ARCH, TITLE )
    LOCAL cTemplate
 
    IF IsErrorLogActive()
-#if ( __HARBOUR__ - 0 < 0x030200 )
-      HtmArch := FCreate( ARCH )
-      IF FError() != 0
-#else
       HtmArch := hb_vfOpen( ARCH, FO_CREAT + FO_TRUNC + FO_WRITE )
       IF HtmArch == NIL
-#endif
          MsgStop( "Can`t open errorlog file " + ARCH, "Error" )
       ELSE
          cTemplate := __HTML_BODY_TEMPLATE()
@@ -540,11 +523,7 @@ FUNCTION HTML_INI( ARCH, TITLE )
          IF Set( _SET_CODEPAGE ) == "UTF8"
             cTemplate := StrTran(cTemplate, ["windows-1251"], ["utf-8"])
          ENDIF
-#if ( __HARBOUR__ - 0 < 0x030200 )
-         FWrite( HtmArch, cTemplate )
-#else
          hb_vfWrite( HtmArch, cTemplate )
-#endif
       ENDIF
    ENDIF
 
@@ -553,13 +532,8 @@ RETURN ( HtmArch )
 *-----------------------------------------------------------------------------*
 PROCEDURE HTML_RAWTEXT( HTMARCH, LINEA )
 *-----------------------------------------------------------------------------*
-#if ( __HARBOUR__ - 0 < 0x030200 )
-   IF HTMARCH > 0 .AND. IsErrorLogActive()
-      FWrite( HTMARCH, RTrim(LINEA) + Chr( 13 ) + Chr( 10 ) )
-#else
    IF HTMARCH != NIL .AND. IsErrorLogActive()
       hb_vfWrite( HTMARCH, RTrim(LINEA) + CRLF )
-#endif
    ENDIF
 
 RETURN
@@ -570,13 +544,8 @@ RETURN
 *-----------------------------------------------------------------------------*
 PROCEDURE HTML_LINETEXT( HTMARCH, LINEA )
 *-----------------------------------------------------------------------------*
-#if ( __HARBOUR__ - 0 < 0x030200 )
-   IF HTMARCH > 0 .AND. IsErrorLogActive()
-      FWrite( HTMARCH, RTrim(LINEA) + "<BR>" + Chr( 13 ) + Chr( 10 ) )
-#else
    IF HTMARCH != NIL .AND. IsErrorLogActive()
       hb_vfWrite( HTMARCH, RTrim(LINEA) + "<BR>" + CRLF )
-#endif
    ENDIF
 
 RETURN
@@ -587,13 +556,8 @@ RETURN
 *-----------------------------------------------------------------------------*
 PROCEDURE HTML_LINE( HTMARCH )
 *-----------------------------------------------------------------------------*
-#if ( __HARBOUR__ - 0 < 0x030200 )
-   IF HTMARCH > 0 .AND. IsErrorLogActive()
-      FWrite( HTMARCH, "<HR>" + Chr( 13 ) + Chr( 10 ) )
-#else
    IF HTMARCH != NIL .AND. IsErrorLogActive()
       hb_vfWrite( HTMARCH, "<HR>" + CRLF )
-#endif
    ENDIF
 
 RETURN
@@ -601,15 +565,9 @@ RETURN
 *-----------------------------------------------------------------------------*
 PROCEDURE HTML_END( HTMARCH )
 *-----------------------------------------------------------------------------*
-#if ( __HARBOUR__ - 0 < 0x030200 )
-   IF HTMARCH > 0 .AND. IsErrorLogActive()
-      FWrite( HTMARCH, "</BODY></HTML>" )
-      FClose( HTMARCH )
-#else
    IF HTMARCH != NIL .AND. IsErrorLogActive()
       hb_vfWrite( HTMARCH, "</BODY></HTML>" )
       hb_vfClose( HTMARCH )
-#endif
    ENDIF
 
 RETURN

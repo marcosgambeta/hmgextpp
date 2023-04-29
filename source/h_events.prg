@@ -64,13 +64,6 @@
    MEMVAR _TSB_aControlObjects
 #endif
 
-#if (__HARBOUR__ - 0 < 0x030200)
-   #xtranslate hb_UAt(<c>, <n>) => At(<c>, <n>)
-   #xtranslate hb_ULeft(<c>, <n>) => Left(<c>, <n>)
-   #xtranslate hb_ULen(<c>) => Len(<c>)
-   #xtranslate hb_USubStr(<c>, <n> [, <e>]) => SubStr(<c>, <n> [, <e>])
-#endif
-
 /*
 Events(hWnd, nMsg, wParam, lParam) --> numeric
 */

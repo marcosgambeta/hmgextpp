@@ -47,11 +47,6 @@
 #include "minigui.ch"
 #include "i_winuser.ch"
 
-#if ( __HARBOUR__ - 0 < 0x030200 )
-  #xtranslate hb_UAt( <c>, <n> ) => At( <c>, <n> )
-  #xtranslate hb_ULeft(<c>, <n>) => Left(<c>, <n>)
-#endif
-
 *-----------------------------------------------------------------------------*
 FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
       fontname, fontsize, tooltip, maxlength, gotfocus, change, lostfocus, ;

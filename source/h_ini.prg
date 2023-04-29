@@ -51,12 +51,6 @@
 #include "minigui.ch"
 #include "fileio.ch"
 
-#if ( __HARBOUR__ - 0 < 0x030200 )
-  #xtranslate hb_ULeft(<c>, <n>) => Left(<c>, <n>)
-  #xtranslate hb_ULen(<c>) => Len(<c>)
-  #xtranslate hb_USubStr(<c>, <n> [, <e>]) => SubStr(<c>, <n> [, <e>])
-#endif
-
 *-----------------------------------------------------------------------------*
 FUNCTION _SetGetLogFile( cFile )
 *-----------------------------------------------------------------------------*
@@ -144,24 +138,15 @@ FUNCTION _BeginIni( cIniFile )
       FClose( hFile )
 
    ELSE
-#if ( __HARBOUR__ - 0 < 0x030200 )
-      hFile := iif( File( cIniFile ), FOpen( cIniFile, FO_READ + FO_SHARED ), FCreate( cIniFile ) )
-      IF hFile == F_ERROR
-#else
       hFile := hb_vfOpen( cIniFile, iif( hb_vfExists( cIniFile ), FO_READ + FO_SHARED, FO_CREAT + FO_READWRITE ) )
       IF hFile == NIL
-#endif
          MsgInfo( "Error opening a file INI. DOS ERROR: " + hb_ntos( FError() ) )
          Return( -1 )
       ELSE
          _HMG_ActiveIniFile := cIniFile
       ENDIF
-#if ( __HARBOUR__ - 0 < 0x030200 )
-      FClose( hFile )
-#else
       hb_vfClose( hFile )
-#endif
-   ENDIF
+  ENDIF
 
 RETURN( 0 )
 

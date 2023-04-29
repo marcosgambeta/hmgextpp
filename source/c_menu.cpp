@@ -57,10 +57,6 @@
 #include <hbapiitm.hpp>
 
 #include <hbwinuni.hpp>
-#if ( __HARBOUR__ - 0 < 0x030200 )
-# define HB_STRNLEN    hb_strnlen
-# define HB_STRNDUP    hb_strndup
-#endif
 
 #define MAX_ITEM_TEXT  256
 

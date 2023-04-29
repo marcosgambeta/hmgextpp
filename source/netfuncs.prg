@@ -1,8 +1,5 @@
 /* NetWork Functions */
 
-#if (__HARBOUR__ - 0 < 0x030200)
-#xtranslate __defaultNIL(@<v>, <x>) => (<v> := iif(<v> == NIL, <x>, <v>))
-#endif
 #include "dbinfo.ch"
 #include "error.ch"
 

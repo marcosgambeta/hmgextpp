@@ -54,9 +54,6 @@
 #include <hbvm.hpp>
 
 #include <hbwinuni.hpp>
-#if ( __HARBOUR__ - 0 < 0x030200 )
-# define HB_STRNCPY  hb_strncpy
-#endif
 
 LRESULT CALLBACK  MdiWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 LRESULT CALLBACK  MdiChildWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);

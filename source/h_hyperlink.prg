@@ -95,11 +95,7 @@ PROCEDURE _SetAddressControlProcedure(ControlName, url, i)
 
       url := SubStr(AllTrim(url), 8)
 
-#if ( ( __HARBOUR__ - 0 ) < 0x030200 )
-      IF ( Type( SubStr(url, 1, At( "(", url ) - 1) + "()" ) == "UI" ) 
-#else
       IF hb_IsFunction( SubStr(url, 1, At( "(", url ) - 1) )
-#endif
          _HMG_aControlProcedures[i] := &( "{||" + url + "}" )
       ELSE
          MsgMiniGuiError("Control " + ControlName + " Of " + GetParentFormName(i) + " must have a valid procedure name defined.")
