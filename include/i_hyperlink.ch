@@ -91,11 +91,11 @@
 	<helpid>,         ;
 	<.invisible.>,    ;
 	<.italic.>,       ;
-	.t. , ;
-	.f. , ;
+	.T. , ;
+	.F. , ;
 	<.autosize.> ,    ;
 	<.rightalign.> ,  ;
 	<.centeralign.> , ;
-	.f. , ;
+	.F. , ;
 	iif(<.handcursor.>, {|| RC_CURSOR("MINIGUI_FINGER")}, Nil), , );;
 	_setaddress(<(name)>, iif(empty(_HMG_ActiveFormName), <(parent)>, _HMG_ActiveFormName), <address>)

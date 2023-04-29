@@ -114,7 +114,7 @@
       [ <group: GROUP> ] ;
       [ <notrans: NOTRANSPARENT> ] ;
    =>;
-   _DefineToolButton ( <(name)>, _HMG_ActiveToolBarName, , , <caption> , <{action}> , , , <bitmap> , <tooltip> , , , .f. , <.separator.> , <.autosize.> , <.check.> , <.group.> , <.dropdown.> , <.wholedropdown.> , <.adjust.>, -1, <.notrans.> )
+   _DefineToolButton ( <(name)>, _HMG_ActiveToolBarName, , , <caption> , <{action}> , , , <bitmap> , <tooltip> , , , .F. , <.separator.> , <.autosize.> , <.check.> , <.group.> , <.dropdown.> , <.wholedropdown.> , <.adjust.>, -1, <.notrans.> )
 
 
 #xcommand BUTTON <name> ;
@@ -131,7 +131,7 @@
       [ <group: GROUP> ] ;
       [ <notrans: NOTRANSPARENT> ] ;
    =>;
-   _DefineToolButton ( <(name)>, _HMG_ActiveToolBarName, , , <caption> , <{action}> , , , '' , <tooltip> , , , .f. , <.separator.> , <.autosize.> , <.check.> , <.group.> , <.dropdown.> , <.wholedropdown.> , <.adjust.> , <bitmapinx> , <.notrans.> )
+   _DefineToolButton ( <(name)>, _HMG_ActiveToolBarName, , , <caption> , <{action}> , , , '' , <tooltip> , , , .F. , <.separator.> , <.autosize.> , <.check.> , <.group.> , <.dropdown.> , <.wholedropdown.> , <.adjust.> , <bitmapinx> , <.notrans.> )
 
 
 #define RB_GETBANDCOUNT   (WM_USER + 12)

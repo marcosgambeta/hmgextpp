@@ -64,10 +64,10 @@
 
 #xcommand SET PRINT MARGINS [TOP <lm>] [LEFT <rm>] => hbprn:setviewportorg(<lm>,<rm>)
 
-#xcommand ENABLE THUMBNAILS  => hbprn:thumbnails:=.t.
-#xcommand SET THUMBNAILS ON  => hbprn:thumbnails:=.t.
-#xcommand DISABLE THUMBNAILS => hbprn:thumbnails:=.f.
-#xcommand SET THUMBNAILS OFF => hbprn:thumbnails:=.f.
+#xcommand ENABLE THUMBNAILS  => hbprn:thumbnails:=.T.
+#xcommand SET THUMBNAILS ON  => hbprn:thumbnails:=.T.
+#xcommand DISABLE THUMBNAILS => hbprn:thumbnails:=.F.
+#xcommand SET THUMBNAILS OFF => hbprn:thumbnails:=.F.
 
 #xcommand SET PREVIEW RECT <arr> => hbprn:previewrect:=<arr>
 #xcommand SET PREVIEW RECT MAXIMIZED => hbprn:previewrect:={0,0,-1,-1}

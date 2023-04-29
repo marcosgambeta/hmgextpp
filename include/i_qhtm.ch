@@ -114,7 +114,7 @@ QHTM
    _HMG_ActiveControlFont      := Nil      ;;
    _HMG_ActiveControlSize      := Nil      ;;
    _HMG_ActiveControlOnChange          := ""	;;
-   _HMG_ActiveControlBorder            := .f.
+   _HMG_ActiveControlBorder            := .F.
 
 
 #xcommand END QHTM ;

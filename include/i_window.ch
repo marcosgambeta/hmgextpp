@@ -628,11 +628,11 @@
 
 #xcommand TILE MDICHILDS HORIZONTAL ;
     => ;
-    _MdiWindowsTile(.f.)
+    _MdiWindowsTile(.F.)
 
 #xcommand TILE MDICHILDS VERTICAL ;
     => ;
-    _MdiWindowsTile(.t.)
+    _MdiWindowsTile(.T.)
 
 #xcommand CASCADE MDICHILDS ;
     => ;

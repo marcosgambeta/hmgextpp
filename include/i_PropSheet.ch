@@ -70,7 +70,7 @@
 _BeginPropSheet ( <"name"> , <"parent"> , <row> , <col> , <width> , <height> ,;
                <caption> ,<icon>, <fontname> , <fontsize> , <{dlgproc}> , <{initproc}>,;
                <{applyproc}>, <{cancelproc}>, <{validproc}>, <.bold.>, <.italic.>, <.underline.>,;
-               <.strikeout.>, <.modal.>, .f., 0, 0, .f. )
+               <.strikeout.>, <.modal.>, .F., 0, 0, .F. )
 
 #xcommand DEFINE PROPSHEET  <name>       ;
    [ <dummy1: OF, PARENT> <parent> ] ;
@@ -98,7 +98,7 @@ _BeginPropSheet ( <"name"> , <"parent"> , <row> , <col> , <width> , <height> ,;
 _BeginPropSheet ( <"name"> , <"parent"> , <row> , <col> , <width> , <height> , ;
                <caption> ,<icon>, <fontname> , <fontsize> , <{dlgproc}> , <{initproc}>,;
                <{applyproc}>, <{cancelproc}>, <{validproc}>, <.bold.>, <.italic.>, <.underline.>,;
-               <.strikeout.>, .t., <.wizard.>, <watermark>, <headerbmp>, <.lite.> )
+               <.strikeout.>, .T., <.wizard.>, <watermark>, <headerbmp>, <.lite.> )
 
 #xcommand DEFINE PROPSHEET  <name>       ;
       [ <dummy1: OF, PARENT> <parent> ] ;
@@ -122,7 +122,7 @@ _BeginPropSheet ( <"name"> , <"parent"> , <row> , <col> , <width> , <height> , ;
 _BeginPropSheet ( <"name"> , <"parent"> , <row> , <col> , <width> , <height> ,;
                <caption> ,<icon>, <fontname> , <fontsize> , <{dlgproc}> , <{initproc}>,;
                <{applyproc}>, <{cancelproc}>, <{validproc}>, <.bold.>, <.italic.>, <.underline.>,;
-               <.strikeout.>, .f., .f., 0, 0, .f. )
+               <.strikeout.>, .F., .F., 0, 0, .F. )
 
 
 

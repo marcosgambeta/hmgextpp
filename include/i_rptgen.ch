@@ -164,7 +164,7 @@ ExecuteReport ( <(ReportName)> , <.preview.> , <.select.> )
 
 #xcommand EXECUTE REPORT <ReportName> FILE <FileName> ;
 => ;
-ExecuteReport ( <(ReportName)> , .f. , .f. , <FileName> )
+ExecuteReport ( <(ReportName)> , .F. , .F. , <FileName> )
 
 
 * Layout ......................................................................

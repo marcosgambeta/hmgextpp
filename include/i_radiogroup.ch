@@ -103,4 +103,4 @@
 		[ <horizontal : HORIZONTAL> ] ;
 		[ <leftjustify : LEFTJUSTIFY> ] ;
 	=>;
-	_DefineRadioGroup ( <(name)>, <(parent)>, 0, 0, <aOptions>, <value> , <fontname> , <fontsize> , <tooltip> , <{change}> , 0 , <spacing> , <helpid>, <.invisible.>, <.notabstop.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <backcolor> , <fontcolor> , <.transparent.> , <.horizontal.> , <.leftjustify.> , <aReadOnly> , .f. , <{gotfocus}> , <{lostfocus}> , <aId> , <bInit> )
+	_DefineRadioGroup ( <(name)>, <(parent)>, 0, 0, <aOptions>, <value> , <fontname> , <fontsize> , <tooltip> , <{change}> , 0 , <spacing> , <helpid>, <.invisible.>, <.notabstop.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <backcolor> , <fontcolor> , <.transparent.> , <.horizontal.> , <.leftjustify.> , <aReadOnly> , .F. , <{gotfocus}> , <{lostfocus}> , <aId> , <bInit> )

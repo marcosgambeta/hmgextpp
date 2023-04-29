@@ -124,7 +124,7 @@
 	_HMG_ActiveControlWidth		:= 0		;;
 	_HMG_ActiveControlHeight	:= 0		;;
 	_HMG_ActiveControlValue         := Nil		;;
-	_HMG_ActiveControlClientEdge	:= .f.		;;
+	_HMG_ActiveControlClientEdge	:= .F.		;;
 	_HMG_ActiveControlBorder	:= 0		
 
 #xcommand END ACTIVEX ;

@@ -73,7 +73,7 @@
 		[ ON INIT <bInit> ] ;
 	=>;
 	_DefineEditBox ( <(name)>, <(parent)>, <col>, <row>, <w>, <h>, <value>, <f>, <s>, <tooltip>, <maxlength>, ;
-		<{gotfocus}>, <{change}>, <{lostfocus}>, <.readonly.>, .f., <helpid>, <.invisible.>, <.notabstop.>, ;
+		<{gotfocus}>, <{change}>, <{lostfocus}>, <.readonly.>, .F., <helpid>, <.invisible.>, <.notabstop.>, ;
 		<.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <(field)>, <backcolor>, <fontcolor>, <.novscroll.>, <.nohscroll.>, <nId>, <bInit> )
 
 
@@ -104,7 +104,7 @@
     [ <nohscroll: NOHSCROLL> ] 	;                             
     [ ON INIT <bInit> ] ;
     =>;
-	_DefineEditBox ( <(name)>, <(parent)>, 0, 0, 0, 0, <value> ,<f>,<s> , <tooltip>  , <maxlength>  , <{gotfocus}>  , <{change}>  , <{lostfocus}>  , <.readonly.> , .f. , <helpid>, <.invisible.>, <.notabstop.> ,<.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <(field)> , <backcolor> , <fontcolor> , <.novscroll.> , <.nohscroll.> , <nId>, <bInit> )
+	_DefineEditBox ( <(name)>, <(parent)>, 0, 0, 0, 0, <value> ,<f>,<s> , <tooltip>  , <maxlength>  , <{gotfocus}>  , <{change}>  , <{lostfocus}>  , <.readonly.> , .F. , <helpid>, <.invisible.>, <.notabstop.> ,<.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <(field)> , <backcolor> , <fontcolor> , <.novscroll.> , <.nohscroll.> , <nId>, <bInit> )
 
 
 //SPLITBOX VERSION

@@ -105,7 +105,7 @@
 	[ <threestate : THREESTATE> ] ;
 	[ ON INIT <bInit> ] ;
     =>;
-	_DefineCheckBox ( <(name)>, <(parent)>, 0, 0, <caption>, <value> , <f> , <n> , <tooltip> , <{change}> , 0 , 0 , <{lostfocus}>, <{gotfocus}> , <helpid>, <.invisible.>, <.notabstop.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <(field)> , <backcolor> , <fontcolor> , <.transparent.> , <.leftjustify.> , <.threestate.> , <{enter}> , .f. , .f. , <nId> , <bInit> )
+	_DefineCheckBox ( <(name)>, <(parent)>, 0, 0, <caption>, <value> , <f> , <n> , <tooltip> , <{change}> , 0 , 0 , <{lostfocus}>, <{gotfocus}> , <helpid>, <.invisible.>, <.notabstop.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <(field)> , <backcolor> , <fontcolor> , <.transparent.> , <.leftjustify.> , <.threestate.> , <{enter}> , .F. , .F. , <nId> , <bInit> )
 
 
 #command @ <row>,<col> CHECKBUTTON <name> ;

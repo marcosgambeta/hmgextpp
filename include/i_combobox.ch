@@ -89,7 +89,7 @@
                   <.invisible.>, <.notabstop.>, <.sort.> ,<.bold.>, ;
                   <.italic.>, <.underline.>, <.strikeout.> , <(itemsource)> , ;
                   <(valuesource)> , <.displaychange.> , ;
-                  <{ondisplaychangeprocedure}> ,  .f. , "" , <nValue>, <nId>, ;
+                  <{ondisplaychangeprocedure}> ,  .F. , "" , <nValue>, <nId>, ;
                   <{onListdisplayprocedure}> , <{onListcloseprocedure}> , <backcolor> , <fontcolor> , ;
                   <.upper.> , <.lower.> , [<CueText>] , <{OnCancel}> , <.AutoComplete.> , [<.showdd.>] , ;
                   <nItemHeight> , <bInit> )
@@ -138,7 +138,7 @@
                   <.invisible.>, <.notabstop.>, <.sort.> ,<.bold.>, ;
                   <.italic.>, <.underline.>, <.strikeout.> , ;
                   <(itemsource)> , <(valuesource)> , <.displaychange.> , ;
-                  <{ondisplaychangeprocedure}> ,  .f. , "", <nValue>, <nId>, ;
+                  <{ondisplaychangeprocedure}> ,  .F. , "", <nValue>, <nId>, ;
                   <{onListdisplayprocedure}> , <{onListcloseprocedure}> , <backcolor> , <fontcolor> , ;
                   <.upper.> , <.lower.> , [<CueText>] , <{OnCancel}> , <.AutoComplete.> , [<.showdd.>] , ;
                   <nItemHeight> , <bInit> )
@@ -238,9 +238,9 @@ ComboBox Extend Style
    _DefineComboEx ( <(name)>, <(parent)>, <col>, <row>, <w>, <aRows> , <value>, ;
       <f>, <n>, <tooltip>, <{changeprocedure}>, <h>, ;
       <{gotfocus}>, <{lostfocus}>, <{enter}>, <helpid>, ;
-      <.invisible.>, <.notabstop.>, .f. , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , ;
+      <.invisible.>, <.notabstop.>, .F. , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , ;
       <(itemsource)> , <(valuesource)> , <.displaychange.> , ;
-      <{ondisplaychangeprocedure}> ,  .f. , "", <aImage>, <nValue>, ;
+      <{ondisplaychangeprocedure}> ,  .F. , "", <aImage>, <nValue>, ;
       <{onListdisplayprocedure}> , <{onListcloseprocedure}> , <backcolor> , <fontcolor>, ;
       <imagelist>, <nItemHeight>, <bInit>, <.notrans.> )
 
@@ -287,7 +287,7 @@ ComboBox Extend Style
    _DefineComboEx ( <(name)>, <(parent)>, , , <w>, <aRows> , <value>, ;
       <f>, <n>, <tooltip>, <{changeprocedure}>, <h>, ;
       <{gotfocus}>, <{lostfocus}>, <{enter}>, <helpid>, ;
-      <.invisible.>, <.notabstop.>, .f. ,<.bold.>, <.italic.>, <.underline.>, <.strikeout.> , ;
+      <.invisible.>, <.notabstop.>, .F. ,<.bold.>, <.italic.>, <.underline.>, <.strikeout.> , ;
       <(itemsource)> , <(valuesource)> , <.displaychange.> , ;
       <{ondisplaychangeprocedure}> , <.break.> , <grippertext> , <aImage> , <nValue>, ;
       <{onListdisplayprocedure}> , <{onListcloseprocedure}> , <backcolor> , <fontcolor>, ;

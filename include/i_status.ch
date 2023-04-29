@@ -70,7 +70,7 @@
           [ FONTCOLOR <fontcolor> [ <c: CENTERALIGN> ] [ <r: RIGHTALIGN> ] ] ;
           [ <default: DEFAULT> ] ;
    => ;
-   _DefineItemMessage( "STATUSITEM", , 0, 0, <cMsg>, <{uAction}>, <nSize>, 0, <cBitmap>, <"style">, <cToolTip>, <.default.>, <backcolor>, <fontcolor>, iif( <.r.> == .t., 2, iif( <.c.> == .t., 1, 0 ) ) )
+   _DefineItemMessage( "STATUSITEM", , 0, 0, <cMsg>, <{uAction}>, <nSize>, 0, <cBitmap>, <"style">, <cToolTip>, <.default.>, <backcolor>, <fontcolor>, iif( <.r.> == .T., 2, iif( <.c.> == .T., 1, 0 ) ) )
 
 #xcommand DATE ;
           [ <w: WIDTH> <nSize> ] ;
@@ -79,7 +79,7 @@
           [ BACKCOLOR <backcolor> ] ;
           [ FONTCOLOR <fontcolor> ] ;
    => ;
-   _DefineItemMessage( "STATUSITEM", , 0, 0, Dtoc(Date()), <{uAction}>, iif( <.w.> == .f., iif( lower( left( set( _SET_DATEFORMAT ), 4 ) ) == "yyyy" .or. lower( right( set( _SET_DATEFORMAT ), 4 ) ) == "yyyy", 84, 70 ), <nSize> ), 0, "", , <cToolTip>, , <backcolor>, <fontcolor> )
+   _DefineItemMessage( "STATUSITEM", , 0, 0, Dtoc(Date()), <{uAction}>, iif( <.w.> == .F., iif( lower( left( set( _SET_DATEFORMAT ), 4 ) ) == "yyyy" .or. lower( right( set( _SET_DATEFORMAT ), 4 ) ) == "yyyy", 84, 70 ), <nSize> ), 0, "", , <cToolTip>, , <backcolor>, <fontcolor> )
 
 #xcommand STATUSDATE ;
           [ <w: WIDTH> <nSize> ] ;
@@ -88,7 +88,7 @@
           [ BACKCOLOR <backcolor> ] ;
           [ FONTCOLOR <fontcolor> ] ;
    => ;
-   _DefineItemMessage( "STATUSITEM", , 0, 0, Dtoc(Date()), <{uAction}>, iif( <.w.> == .f., iif( lower( left( set( _SET_DATEFORMAT ), 4 ) ) == "yyyy" .or. lower( right( set( _SET_DATEFORMAT ), 4 ) ) == "yyyy", 84, 70 ), <nSize> ), 0, "", , <cToolTip>, , <backcolor>, <fontcolor>, 1 )
+   _DefineItemMessage( "STATUSITEM", , 0, 0, Dtoc(Date()), <{uAction}>, iif( <.w.> == .F., iif( lower( left( set( _SET_DATEFORMAT ), 4 ) ) == "yyyy" .or. lower( right( set( _SET_DATEFORMAT ), 4 ) ) == "yyyy", 84, 70 ), <nSize> ), 0, "", , <cToolTip>, , <backcolor>, <fontcolor>, 1 )
 
 #xcommand CLOCK ;
           [ WIDTH <nSize> ] ;
@@ -163,7 +163,7 @@
          OF <Form> ;
          ALIGN [ TO ] [ <c: CENTER> ] [ <r: RIGHT> ] [ LEFT ];
       => ;
-	_SetStatusItemProperty( <n>, iif( <.r.> == .t., 2, iif( <.c.> == .t., 1, 0 ) ), GetFormHandle(<(Form)>), STATUS_ITEM_ALIGN )
+	_SetStatusItemProperty( <n>, iif( <.r.> == .T., 2, iif( <.c.> == .T., 1, 0 ) ), GetFormHandle(<(Form)>), STATUS_ITEM_ALIGN )
 
 #command SET STATUSITEM <n> ;
          OF <Form> ;

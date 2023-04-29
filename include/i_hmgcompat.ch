@@ -534,7 +534,7 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 	[ TRANSPARENT <Trans> ] ;
 	[ ON INIT <bInit> ] ;
 	=>;
-	_BeginTab( <(name)> , <(parent)> , <row> , <col> , <w> , <h> , <value> , <f> , <s> , <tooltip> , <{change}> , <.buttons.> , <.flat.> , <.hottrack.> , <.vertical.>, .f., !<.tabstop.> ,<.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <.multiline.> , {,,}, , <bInit> , !<.Trans.> )
+	_BeginTab( <(name)> , <(parent)> , <row> , <col> , <w> , <h> , <value> , <f> , <s> , <tooltip> , <{change}> , <.buttons.> , <.flat.> , <.hottrack.> , <.vertical.>, .F., !<.tabstop.> ,<.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <.multiline.> , {,,}, , <bInit> , !<.Trans.> )
 
 
 #xcommand  DEFINE TOOLBAR  <name> ;
@@ -606,8 +606,8 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 	[ GROUP <group> ] ;
    =>;
    _DefineToolButton ( <(name)>, _HMG_ActiveToolBarName, , , <caption> , <{action}> , , , <picture> , <tooltip> , , , ;
-                       .f. , <.separator.> , <.autosize.> , <.check.> , <.group.> , <.dropdown.> , <.wholedropdown.> , ;
-                       .f., -1 )
+                       .F. , <.separator.> , <.autosize.> , <.check.> , <.group.> , <.dropdown.> , <.wholedropdown.> , ;
+                       .F., -1 )
 
 
 #xcommand @ <row>, <col> BUTTON <name> ;
@@ -635,9 +635,9 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
    =>;
    _DefineOwnerButton ( <(name)>, <(parent)>, <col>, <row>, <caption>, <{action}>, ;
                         <w>, <h>, <bitmap>, <tooltip>, <{gotfocus}>, <{lostfocus}>, ;
-                        <.flat.>, .f., <helpid>, <.invisible.>, <.notabstop.>, ;
-                        .f., NIL, <font>, <size>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, ;
-                        .f., .f., .f., NIL, NIL, .f., .f., .f. )
+                        <.flat.>, .F., <helpid>, <.invisible.>, <.notabstop.>, ;
+                        .F., NIL, <font>, <size>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, ;
+                        .F., .F., .F., NIL, NIL, .F., .F., .F. )
 
 #xcommand @ <row>, <col> BUTTON <name> ;
 	[ <dummy1: OF, PARENT> <parent> ] ;
@@ -664,9 +664,9 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
    =>;
    _DefineOwnerButton ( <(name)>, <(parent)>, <col>, <row>, <caption>, <{action}>, ;
                         <w>, <h>, <bitmap>, <tooltip>, <{gotfocus}>, <{lostfocus}>, ;
-                        <.flat.>, .f., <helpid>, <.invisible.>, <.notabstop.>, ;
-                        .f., NIL, <font>, <size>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, ;
-                        .f., <.alignment.>, .f., NIL, NIL, .f., .f., .f. )
+                        <.flat.>, .F., <helpid>, <.invisible.>, <.notabstop.>, ;
+                        .F., NIL, <font>, <size>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, ;
+                        .F., <.alignment.>, .F., NIL, NIL, .F., .F., .F. )
 
 #xcommand @ <row>, <col> BUTTON <name> ;
 	[ <dummy1: OF, PARENT> <parent> ] ;
@@ -693,9 +693,9 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
    =>;
    _DefineOwnerButton ( <(name)>, <(parent)>, <col>, <row>, <caption>, <{action}>, ;
                         <w>, <h>, <bitmap>, <tooltip>, <{gotfocus}>, <{lostfocus}>, ;
-                        <.flat.>, .f., <helpid>, <.invisible.>, <.notabstop.>, ;
-                        .f., NIL, <font>, <size>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, ;
-                        <.alignment.>, .f., <.alignment.>, NIL, NIL, .f., .f., .f. )
+                        <.flat.>, .F., <helpid>, <.invisible.>, <.notabstop.>, ;
+                        .F., NIL, <font>, <size>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, ;
+                        <.alignment.>, .F., <.alignment.>, NIL, NIL, .F., .F., .F. )
 
 #xcommand @ <row>, <col> BUTTON <name> ;
 	[ <dummy1: OF, PARENT> <parent> ] ;
@@ -722,9 +722,9 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
    =>;
    _DefineOwnerButton ( <(name)>, <(parent)>, <col>, <row>, <caption>, <{action}>, ;
                         <w>, <h>, <bitmap>, <tooltip>, <{gotfocus}>, <{lostfocus}>, ;
-                        <.flat.>, .f., <helpid>, <.invisible.>, <.notabstop.>, ;
-                        .f., NIL, <font>, <size>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, ;
-                        .t., .f., .f., NIL, NIL, .f., .f., .f. )
+                        <.flat.>, .F., <helpid>, <.invisible.>, <.notabstop.>, ;
+                        .F., NIL, <font>, <size>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, ;
+                        .T., .F., .F., NIL, NIL, .F., .F., .F. )
 
 #xcommand @ <row>, <col> GRID <name> ;
       [ <dummy1: OF, PARENT> <parent> ] ;

@@ -72,7 +72,7 @@
              <file: TO FILE, FILENAME> <cFileName> ;
              [ <lShow: SHOW> ] ;
        => ;
-		_ScrSaverInstall := .t. ;;
+		_ScrSaverInstall := .T. ;;
 		_ScrSaverFileName := <"cFileName"> ;;
 		_ScrSaverShow := <.lShow.>
 

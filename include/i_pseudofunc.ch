@@ -260,11 +260,11 @@ PrintWindow( <FormName> )
 
 #translate DoMethod ( <FormName> , "SaveAs", <FileName> ) ;
 => ;
-WndCopy( GetFormHandle( <FormName> ), .f., <FileName> )
+WndCopy( GetFormHandle( <FormName> ), .F., <FileName> )
 
 #translate DoMethod ( <FormName> , <ControlName> , "SaveAs" , <FileName> ) ;
 => ;
-WndCopy( GetControlHandle( <ControlName> , <FormName> ), .t., <FileName> )
+WndCopy( GetControlHandle( <ControlName> , <FormName> ), .T., <FileName> )
 
 #translate SetProperty ( <FormName> , <ControlName> , "Velocity" , <Value> ) ;
 => ;
@@ -300,7 +300,7 @@ MessageBeep( 0 )
 
 #xtranslate PlayWaveFromResource( <wave> ) ;
 => ;
-C_PlayWave( <wave>, .t., .f., .f., .f., .f. )
+C_PlayWave( <wave>, .T., .F., .F., .F., .F. )
 
 #xtranslate _PlayPlayer ( <ControlName> , <ParentFormName> ) ;
 => ;

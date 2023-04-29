@@ -102,7 +102,7 @@
        [ <{aValidFields}> ], ;
        [ <aValidMessages> ], ;
        [ \{<aColors>\} ], ;
-       [ <{uWhen}> ],[ <nId> ],[\{<(Fields)>\}],[<cMsg>], .t., ;
+       [ <{uWhen}> ],[ <nId> ],[\{<(Fields)>\}],[<cMsg>], .T., ;
        [ <.enum.> ],[ <.autosearch.> ],[ <{uUserSearch}> ], ;
        [ <.autofilter.> ], [ <{uUserFilter}> ], [\{<aPicture>\}], ;
        [ <.lTransparent.> ],[ <uSelector> ], [ <.lEditable.> ], ;
@@ -213,7 +213,7 @@
        [ <{aValidFields}> ], ;
        [ <aValidMessages> ], ;
        [ \{<aColors>\} ], ;
-       [ <{uWhen}> ],[ <nId> ],[\{<(Fields)>\}],[<cMsg>], .f., ;
+       [ <{uWhen}> ],[ <nId> ],[\{<(Fields)>\}],[<cMsg>], .F., ;
        [ <.enum.> ],[ <.autosearch.> ],[ <{uUserSearch}> ], ;
        [ <.autofilter.> ], [ <{uUserFilter}> ], [\{<aPicture>\}], ;
        [ <.lTransparent.> ],[ <uSelector> ], [ <.lEditable.> ], ;
@@ -325,7 +325,7 @@
        [ <{aValidFields}> ], ;
        [ <aValidMessages> ], ;
        [ \{<aColors>\} ], ;
-       [ <{uWhen}> ],[ <nId> ],[\{<(Fields)>\}],[<cMsg>], .f., ;
+       [ <{uWhen}> ],[ <nId> ],[\{<(Fields)>\}],[<cMsg>], .F., ;
        [ <.enum.> ],[ <.autosearch.> ],[ <{uUserSearch}> ], ;
        [ <.autofilter.> ], [ <{uUserFilter}> ], [\{<aPicture>\}], ;
        [ <.lTransparent.> ],[ <uSelector> ], [ <.lEditable.> ], ;
@@ -432,7 +432,7 @@
        [ <{aValidFields}> ], ;
        [ <aValidMessages> ], ;
        [ \{<aColors>\} ], ;
-       [ <{uWhen}> ],[ <nId> ],[\{<(Fields)>\}],[ <cMsg> ], .t. ,;
+       [ <{uWhen}> ],[ <nId> ],[\{<(Fields)>\}],[ <cMsg> ], .T. ,;
        [ <.enum.> ],[ <.autosearch.> ],[ <{uUserSearch}> ],;
        [ <.autofilter.> ], [ <{uUserFilter}> ], [\{<aPicture>\}],;
        [ <.lTransparent.> ],[ <uSelector> ], [ <.lEditable.> ], ;

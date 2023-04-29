@@ -75,7 +75,7 @@
       [ TABSWIDTH <aWidth> ] ;
    => ;
    _DefineListBox ( <(name)>, <(parent)>, <col>, <row>, <w>, <h>, <aRows>, <value>, ;
-      <fontname>, <fontsize>, <tooltip>, <{change}>, <{dblclick}>, <{gotfocus}>, <{lostfocus}>, .f., ;
+      <fontname>, <fontsize>, <tooltip>, <{change}>, <{dblclick}>, <{gotfocus}>, <{lostfocus}>, .F., ;
       <helpid>, <.invisible.>, <.notabstop.>, <.sort.> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> ,;
       <backcolor> , <fontcolor> , <.multiselect.> , <.dragitems.>, <.multicolumn.>, <.multitabs.>, <aWidth>, <nId> )
 
@@ -109,7 +109,7 @@
       [ TABSWIDTH <aWidth> ] ;
    => ;
    _DefineListBox ( <(name)>, <(parent)>, 0, 0, 0, 0, <aRows>, <value>, ;
-      <fontname>, <fontsize>, <tooltip>, <{change}>, <{dblclick}>, <{gotfocus}>, <{lostfocus}>, .f., ;
+      <fontname>, <fontsize>, <tooltip>, <{change}>, <{dblclick}>, <{gotfocus}>, <{lostfocus}>, .F., ;
       <helpid>, <.invisible.>, <.notabstop.>, <.sort.> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> ,;
       <backcolor> , <fontcolor> , <.multiselect.> , <.dragitems.>, <.multicolumn.>, <.multitabs.>, <aWidth>, <nId> )
 
@@ -185,7 +185,7 @@
       [ ITEMHEIGHT <nItemHeight> ] ;
    => ;
    _DefineChkListBox ( <(name)>, <(parent)>, <col>, <row>, <w>, <h>, <aRows>, <value>, ;
-      <fontname>, <fontsize>, <tooltip>, <{change}>, <{dblclick}>, <{gotfocus}>, <{lostfocus}>, .f., ;
+      <fontname>, <fontsize>, <tooltip>, <{change}>, <{dblclick}>, <{gotfocus}>, <{lostfocus}>, .F., ;
       <helpid>, <.invisible.>, <.notabstop.>, <.sort.> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, ;
       <backcolor> , <fontcolor> , <.multiselect.> , <aCheck>, <nItemHeight>, <nId> )
 
@@ -216,7 +216,7 @@
       [ ITEMHEIGHT <nItemHeight> ] ;
    => ;
    _DefineChkListBox ( <(name)>, <(parent)>, 0, 0, 0, 0, <aRows>, <value>, ;
-      <fontname>, <fontsize>, <tooltip>, <{change}>, <{dblclick}>, <{gotfocus}>, <{lostfocus}>, .f., ;
+      <fontname>, <fontsize>, <tooltip>, <{change}>, <{dblclick}>, <{gotfocus}>, <{lostfocus}>, .F., ;
       <helpid>, <.invisible.>, <.notabstop.>, <.sort.> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> ,;
       <backcolor> , <fontcolor> , <.multiselect.> , <aCheck>, <nItemHeight>, <nId> )
 

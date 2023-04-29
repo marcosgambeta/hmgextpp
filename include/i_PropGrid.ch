@@ -80,7 +80,7 @@ EXTERNAL PROPGRIDONCUSTOMDRAW
    [ IMAGELIST <imglist> ];
 =>;
 _DefinePropGrid ( <"name"> , <"parent"> , <row> , <col> , <width> , <height> , <{change}> ,<cFile>,<.xml.>,;
-               <tooltip> , <fontname> , <fontsize> , <{gotfocus}> , <{lostfocus}> , <{onclose}>,.f.,;
+               <tooltip> , <fontname> , <fontsize> , <{gotfocus}> , <{lostfocus}> , <{onclose}>,.F.,;
               , <helpid>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <.itemexpand.>,;
               <backcolor>, <fontcolor>, <indent>, <itemheight>, <datawidth> , <imglist>, <.readonly.>,;
               <.iteminfo.> , <nInfoHeight>, <{changevalue}>, \{<aheadname>\}, <.singleexpand.> ,;
@@ -120,8 +120,8 @@ _DefinePropGrid ( <"name"> , <"parent"> , <row> , <col> , <width> , <height> , <
    [ HELPID <helpid> ] ;
    [ IMAGELIST <imglist> ];
 =>;
-_DefinePropGrid ( <"name"> , <"parent"> , <row> , <col> , <width> , <height> , <{change}> ,"",.f.,;
-               <tooltip> , <fontname> , <fontsize> , <{gotfocus}> , <{lostfocus}> , <{onclose}>,.f.,;
+_DefinePropGrid ( <"name"> , <"parent"> , <row> , <col> , <width> , <height> , <{change}> ,"",.F.,;
+               <tooltip> , <fontname> , <fontsize> , <{gotfocus}> , <{lostfocus}> , <{onclose}>,.F.,;
                <aProperty> , <helpid>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <.itemexpand.>,;
               <backcolor>, <fontcolor>, <indent>, <itemheight>, <datawidth> , <imglist>, <.readonly.>,;
               <.iteminfo.> , <nInfoHeight>, <{changevalue}>, \{<aheadname>\}, <.singleexpand.> ,;
@@ -161,8 +161,8 @@ _DefinePropGrid ( <"name"> , <"parent"> , <row> , <col> , <width> , <height> , <
    [ HELPID <helpid> ] ;
    [ IMAGELIST <imglist> ];
 =>;
-_DefinePropGrid ( <"name"> , <"parent"> , <row> , <col> , <width> , <height> , <{change}> ,"",.f.,;
-               <tooltip> , <fontname> , <fontsize> , <{gotfocus}> , <{lostfocus}> , <{onclose}>,.f.,;
+_DefinePropGrid ( <"name"> , <"parent"> , <row> , <col> , <width> , <height> , <{change}> ,"",.F.,;
+               <tooltip> , <fontname> , <fontsize> , <{gotfocus}> , <{lostfocus}> , <{onclose}>,.F.,;
                , <helpid>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <.itemexpand.>,;
               <backcolor>, <fontcolor>, <indent>, <itemheight>, <datawidth> , <imglist>, <.readonly.>,;
               <.iteminfo.> , <nInfoHeight>, <{changevalue}>, \{<aheadname>\}, <.singleexpand.>,;
@@ -171,11 +171,11 @@ _DefinePropGrid ( <"name"> , <"parent"> , <row> , <col> , <width> , <height> , <
 
 #xcommand CATEGORY <cName>  [ ID <id> ];
 =>;
-_DefinePropertyItem ( 'category', <cName>, "", "", .t.,.f., <id> )
+_DefinePropertyItem ( 'category', <cName>, "", "", .T.,.F., <id> )
 
 #xcommand DEFINE CATEGORY <cName>  [ ID <id> ] ;
 =>;
-_DefinePropertyItem ( 'category', <cName>, "", "", .t.,.f., <id> )
+_DefinePropertyItem ( 'category', <cName>, "", "", .T.,.F., <id> )
 
 #xcommand END CATEGORY ;
 =>;
@@ -217,7 +217,7 @@ _DefinePropertyItem ( <ctype>, <cName>, <cValue>, <caData>, !(ValType(<lEnabled>
             [ INFO <cInfo> ] ;
             [ VARNAME <cVarName>  ] ;
 => ;
-_DefinePropertyItem ( 'string', <cName>, <cValue>, <caData>, <.disabled.>, .f., <id>, <cInfo>, <cVarName>, <"cValue"> )
+_DefinePropertyItem ( 'string', <cName>, <cValue>, <caData>, <.disabled.>, .F., <id>, <cInfo>, <cVarName>, <"cValue"> )
 
 
 #xcommand PROPERTYITEM INTEGER <cName>;
@@ -227,7 +227,7 @@ _DefinePropertyItem ( 'string', <cName>, <cValue>, <caData>, <.disabled.>, .f., 
             [ INFO <cInfo> ] ;
             [ VARNAME <cVarName>  ] ;
 => ;
-_DefinePropertyItem ( 'integer', <cName>, <cValue>, "", <.disabled.>, .f., <id>, <cInfo>, <cVarName>, <"cValue"> )
+_DefinePropertyItem ( 'integer', <cName>, <cValue>, "", <.disabled.>, .F., <id>, <cInfo>, <cVarName>, <"cValue"> )
 
 
 #xcommand PROPERTYITEM NUMERIC <cName>;
@@ -237,7 +237,7 @@ _DefinePropertyItem ( 'integer', <cName>, <cValue>, "", <.disabled.>, .f., <id>,
             [ INFO <cInfo> ] ;
             [ VARNAME <cVarName>  ] ;
 => ;
-_DefinePropertyItem ( 'integer', <cName>, <cValue>, "", <.disabled.>, .f., <id>, <cInfo>, <cVarName>, <"cValue"> )
+_DefinePropertyItem ( 'integer', <cName>, <cValue>, "", <.disabled.>, .F., <id>, <cInfo>, <cVarName>, <"cValue"> )
 
 
 #xcommand PROPERTYITEM DOUBLE <cName>  ;
@@ -248,7 +248,7 @@ _DefinePropertyItem ( 'integer', <cName>, <cValue>, "", <.disabled.>, .f., <id>,
             [ INFO <cInfo> ] ;
             [ VARNAME <cVarName>  ] ;
 => ;
-_DefinePropertyItem ( 'double', <cName>, <cValue>, <cInputMask>, <.disabled.>, .f., <id>, <cInfo>, <cVarName>, <"cValue"> )
+_DefinePropertyItem ( 'double', <cName>, <cValue>, <cInputMask>, <.disabled.>, .F., <id>, <cInfo>, <cVarName>, <"cValue"> )
 
 
 #xcommand PROPERTYITEM SYSCOLOR <cName> ;
@@ -259,7 +259,7 @@ _DefinePropertyItem ( 'double', <cName>, <cValue>, <cInputMask>, <.disabled.>, .
             [ INFO <cInfo> ] ;
             [ VARNAME <cVarName>  ] ;
 => ;
-_DefinePropertyItem ( 'syscolor', <cName>, <nValue>, <aSysColorData>, <.disabled.>, .f., <id>, <cInfo>, <cVarName>, <"nValue"> )
+_DefinePropertyItem ( 'syscolor', <cName>, <nValue>, <aSysColorData>, <.disabled.>, .F., <id>, <cInfo>, <cVarName>, <"nValue"> )
 
 
 #xcommand PROPERTYITEM COLOR <cName>  ;
@@ -282,7 +282,7 @@ _DefinePropertyItem ( 'color', <cName>, <cValue>, <aColorData>, <.disabled.>, <.
             [ INFO <cInfo> ] ;
             [ VARNAME <cVarName>  ] ;
 => ;
-_DefinePropertyItem ( 'logic', <cName>, <cValue>, <aData>, <.disabled.>, .f., <id>, <cInfo>, <cVarName>, <"cValue"> )
+_DefinePropertyItem ( 'logic', <cName>, <cValue>, <aData>, <.disabled.>, .F., <id>, <cInfo>, <cVarName>, <"cValue"> )
 
 
 #xcommand PROPERTYITEM DATE <cName> ;
@@ -293,7 +293,7 @@ _DefinePropertyItem ( 'logic', <cName>, <cValue>, <aData>, <.disabled.>, .f., <i
             [ INFO <cInfo> ] ;
             [ VARNAME <cVarName>  ] ;
 => ;
-_DefinePropertyItem ( 'date', <cName>, <cValue>, <aData>, <.disabled.>, .f., <id>, <cInfo>, <cVarName>, <"cValue"> )
+_DefinePropertyItem ( 'date', <cName>, <cValue>, <aData>, <.disabled.>, .F., <id>, <cInfo>, <cVarName>, <"cValue"> )
 
 
 #xcommand PROPERTYITEM FONT <cName> ;
@@ -316,7 +316,7 @@ _DefinePropertyItem ( 'font', <cName>, <cValue>, <aFontData>, <.disabled.>, <.di
             [ INFO <cInfo> ] ;
             [ VARNAME <cVarName>  ] ;
 => ;
-_DefinePropertyItem ( 'enum', <cName>, <nValue>, <acData>, <.disabled.>, .f., <id>, <cInfo>, <cVarName>, <"nValue"> )
+_DefinePropertyItem ( 'enum', <cName>, <nValue>, <acData>, <.disabled.>, .F., <id>, <cInfo>, <cVarName>, <"nValue"> )
 
 
 #xcommand PROPERTYITEM LIST <cName> ;
@@ -327,7 +327,7 @@ _DefinePropertyItem ( 'enum', <cName>, <nValue>, <acData>, <.disabled.>, .f., <i
             [ INFO <cInfo> ] ;
             [ VARNAME <cVarName>  ] ;
 => ;
-_DefinePropertyItem ( 'list', <cName>, <nValue>, <acData>, <.disabled.>, .f., <id>, <cInfo>, <cVarName>, <"nValue"> )
+_DefinePropertyItem ( 'list', <cName>, <nValue>, <acData>, <.disabled.>, .F., <id>, <cInfo>, <cVarName>, <"nValue"> )
 
 
 #xcommand PROPERTYITEM FLAG <cName>  ;
@@ -338,7 +338,7 @@ _DefinePropertyItem ( 'list', <cName>, <nValue>, <acData>, <.disabled.>, .f., <i
             [ INFO <cInfo> ] ;
             [ VARNAME <cVarName>  ] ;
 => ;
-_DefinePropertyItem ( 'flag', <cName>, <cValue>, <acData>, <.disabled.>, .f., <id>, <cInfo>, <cVarName>, <"cValue"> )
+_DefinePropertyItem ( 'flag', <cName>, <cValue>, <acData>, <.disabled.>, .F., <id>, <cInfo>, <cVarName>, <"cValue"> )
 
 
 #xcommand PROPERTYITEM SYSINFO <cName> ;
@@ -349,7 +349,7 @@ _DefinePropertyItem ( 'flag', <cName>, <cValue>, <acData>, <.disabled.>, .f., <i
             [ INFO <cInfo> ] ;
             [ VARNAME <cVarName>  ] ;
 => ;
-_DefinePropertyItem ( 'sysinfo', <cName>, <cValue>, <cInfoType>, <.disabled.>, .f., <id>, <cInfo>, <cVarName>, <"cValue"> )
+_DefinePropertyItem ( 'sysinfo', <cName>, <cValue>, <cInfoType>, <.disabled.>, .F., <id>, <cInfo>, <cVarName>, <"cValue"> )
 
 
 #xcommand PROPERTYITEM IMAGE <cName>   ;
@@ -372,7 +372,7 @@ _DefinePropertyItem ( 'image', <cName>, <cValue>, <acDataFilter>, <.disabled.>, 
             [ INFO <cInfo> ] ;
             [ VARNAME <cVarName>  ] ;
 => ;
-_DefinePropertyItem ( 'check', <cName>, <cValue>, <acData>, <.disabled.>, .f., <id>, <cInfo>, <cVarName>, <"cValue"> )
+_DefinePropertyItem ( 'check', <cName>, <cValue>, <acData>, <.disabled.>, .F., <id>, <cInfo>, <cVarName>, <"cValue"> )
 
 
 #xcommand PROPERTYITEM SIZE <cName>  ;
@@ -481,14 +481,14 @@ _AddPropertyCategory  (<"name"> , <"parent">, <cParentCategory>, <cNameCategory>
             [ ID <id> ] ;
             [ SUBITEM <nSubItem> ] ;
             TO <value> ;
-           => <value>:=GetPropGridValue (<"parent">, <"name">, <id>, .f., <nSubItem>  )
+           => <value>:=GetPropGridValue (<"parent">, <"name">, <id>, .F., <nSubItem>  )
 
 
 #xcommand GET INFO PROPERTYITEM <name>;
             [ <dummy1: OF, PARENT> <parent> ] ;
             [ ID <id> ] ;
             TO <ainfo> ;
-           => <ainfo>:=GetPropGridValue ( <"parent">, <"name">, <id>, .t., 0  )
+           => <ainfo>:=GetPropGridValue ( <"parent">, <"name">, <id>, .T., 0  )
 
 #xcommand GET CHANGED PROPERTYITEM <name>;
             [ <dummy1: OF, PARENT> <parent> ] ;
@@ -522,12 +522,12 @@ _AddPropertyCategory  (<"name"> , <"parent">, <cParentCategory>, <cNameCategory>
 #xcommand ENABLE PROPERTYITEM <name>  ;
             [ <dummy1: OF, PARENT> <parent> ] ;
             [ ID <id> ] ;
-            => EnablePropGridItem ( <"parent">, <"name">, <id>, .t. )
+            => EnablePropGridItem ( <"parent">, <"name">, <id>, .T. )
 
 #xcommand DISABLE PROPERTYITEM <name>  ;
             [ <dummy1: OF, PARENT> <parent> ] ;
             [ ID <id> ] ;
-            => EnablePropGridItem ( <"parent">, <"name">, <id>, .f. )
+            => EnablePropGridItem ( <"parent">, <"name">, <id>, .F. )
 
 
 #xcommand REDRAW PROPERTYITEM <name>  ;

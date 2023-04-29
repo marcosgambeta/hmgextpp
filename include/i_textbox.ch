@@ -226,7 +226,7 @@
         [ <cuebanner : CUEBANNER, PLACEHOLDER> <CueText> ] ;
         [ ON INIT <bInit> ] ;
 	=>;
-	_DefineCharMaskTextBox ( <(name)>, <(parent)>, <col>, <row>, <inputmask> , <w> , <value> , <fontname> , <fontsize> , <tooltip> , <{lostfocus}> , <{gotfocus}> , <{change}> , <height> , <{enter}> , <.RightAlign.> , <helpid> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <(field)> , <backcolor> , <fontcolor> , .f. , <.readonly.> , <.invisible.> , <.notabstop.> , <.noborder.> , [<CueText>] , <nId> , <bInit> )
+	_DefineCharMaskTextBox ( <(name)>, <(parent)>, <col>, <row>, <inputmask> , <w> , <value> , <fontname> , <fontsize> , <tooltip> , <{lostfocus}> , <{gotfocus}> , <{change}> , <height> , <{enter}> , <.RightAlign.> , <helpid> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <(field)> , <backcolor> , <fontcolor> , .F. , <.readonly.> , <.invisible.> , <.notabstop.> , <.noborder.> , [<CueText>] , <nId> , <bInit> )
 
 
 #command REDEFINE TEXTBOX <name>	;
@@ -257,7 +257,7 @@
         [ <cuebanner : CUEBANNER, PLACEHOLDER> <CueText> ] ;
         [ ON INIT <bInit> ] ;
 	=>;
-	_DefineCharMaskTextBox ( <(name)>, <(parent)>, 0, 0, <inputmask> , 0 , <value> , <fontname> , <fontsize> , <tooltip> , <{lostfocus}> , <{gotfocus}> , <{change}> , 0 , <{enter}> , <.RightAlign.> , <helpid> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <(field)> , <backcolor> , <fontcolor> , .f. , <.readonly.> , <.invisible.> , <.notabstop.> , <.noborder.> , [<CueText>] , <nId> , <bInit> )
+	_DefineCharMaskTextBox ( <(name)>, <(parent)>, 0, 0, <inputmask> , 0 , <value> , <fontname> , <fontsize> , <tooltip> , <{lostfocus}> , <{gotfocus}> , <{change}> , 0 , <{enter}> , <.RightAlign.> , <helpid> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <(field)> , <backcolor> , <fontcolor> , .F. , <.readonly.> , <.invisible.> , <.notabstop.> , <.noborder.> , [<CueText>] , <nId> , <bInit> )
 
 
 // TEXTBOX ( DATE TYPE )
