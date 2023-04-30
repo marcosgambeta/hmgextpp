@@ -671,7 +671,7 @@ POSTMESSAGE(HWND, p2, p3, p4) --> numeric
 */
 HB_FUNC( POSTMESSAGE )
 {
-   hb_retnl(( LONG ) PostMessage(hmg_par_HWND(1), hmg_par_UINT(2), ( WPARAM ) hb_parnl(3), hmg_par_LPARAM(4)));
+   hb_retnl(( LONG ) PostMessage(hmg_par_HWND(1), hmg_par_UINT(2), hb_parnl(3), hmg_par_LPARAM(4)));
 }
 
 /*
@@ -679,7 +679,7 @@ DEFWINDOWPROC(HWND, p2, p3, p4) --> numeric
 */
 HB_FUNC( DEFWINDOWPROC )
 {
-   HB_RETNL(( LONG_PTR ) DefWindowProc(hmg_par_HWND(1), hmg_par_UINT(2), ( WPARAM ) hb_parnl(3), hmg_par_LPARAM(4)));
+   HB_RETNL(( LONG_PTR ) DefWindowProc(hmg_par_HWND(1), hmg_par_UINT(2), hb_parnl(3), hmg_par_LPARAM(4)));
 }
 
 /*

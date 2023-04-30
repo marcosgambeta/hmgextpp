@@ -789,7 +789,7 @@ HB_FUNC( _CLICKRADIOBUTTON )
 // TDM_CLICK_VERIFICATION - Simulates a click of the verification checkbox of a task dialog, if it exists.
 HB_FUNC( _CLICKVERIFICATION )
 {
-   SendMessage(hmg_par_HWND(1), TDM_CLICK_VERIFICATION, ( WPARAM ) hmg_par_BOOL(2), ( LPARAM ) hmg_par_BOOL(3));
+   SendMessage(hmg_par_HWND(1), TDM_CLICK_VERIFICATION, hmg_par_BOOL(2), ( LPARAM ) hmg_par_BOOL(3));
 }
 
 // TDM_ENABLE_BUTTON - Enables or disables a push button in a task dialog
@@ -817,7 +817,7 @@ HB_FUNC( _SETMAININSTRUCTION )
    PCWSTR pszMainInstruction = HB_ISCHAR(2) ? HB_PARSTRDEF(2, &hText, nullptr) :
                                ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : nullptr );
 
-   SendMessage(hmg_par_HWND(1), TDM_SET_ELEMENT_TEXT, ( WPARAM ) TDE_MAIN_INSTRUCTION, ( LPARAM ) pszMainInstruction);
+   SendMessage(hmg_par_HWND(1), TDM_SET_ELEMENT_TEXT, TDE_MAIN_INSTRUCTION, ( LPARAM ) pszMainInstruction);
 
    if( hText )
    {
@@ -831,7 +831,7 @@ HB_FUNC( _SETCONTENT )
    PCWSTR pszContent = HB_ISCHAR(2) ? HB_PARSTRDEF(2, &hText, nullptr) :
                        ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : nullptr );
 
-   SendMessage(hmg_par_HWND(1), TDM_SET_ELEMENT_TEXT, ( WPARAM ) TDE_CONTENT, ( LPARAM ) pszContent);
+   SendMessage(hmg_par_HWND(1), TDM_SET_ELEMENT_TEXT, TDE_CONTENT, ( LPARAM ) pszContent);
 
    if( hText )
    {
@@ -845,7 +845,7 @@ HB_FUNC( _SETFOOTER )
    PCWSTR pszFooter = HB_ISCHAR(2) ? HB_PARSTRDEF(2, &hText, nullptr) :
                       ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : nullptr );
 
-   SendMessage(hmg_par_HWND(1), TDM_SET_ELEMENT_TEXT, ( WPARAM ) TDE_FOOTER, ( LPARAM ) pszFooter);
+   SendMessage(hmg_par_HWND(1), TDM_SET_ELEMENT_TEXT, TDE_FOOTER, ( LPARAM ) pszFooter);
 
    if( hText )
    {
@@ -859,7 +859,7 @@ HB_FUNC( _SETEXPANDEDINFORMATION )
    PCWSTR pszExpandedInformation = HB_ISCHAR(2) ? HB_PARSTRDEF(2, &hText, nullptr) :
                                    ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : nullptr );
 
-   SendMessage(hmg_par_HWND(1), TDM_SET_ELEMENT_TEXT, ( WPARAM ) TDE_EXPANDED_INFORMATION, ( LPARAM ) pszExpandedInformation);
+   SendMessage(hmg_par_HWND(1), TDM_SET_ELEMENT_TEXT, TDE_EXPANDED_INFORMATION, ( LPARAM ) pszExpandedInformation);
 
    if( hText )
    {
@@ -878,7 +878,7 @@ HB_FUNC( _SETPROGRESSBARRANGE )
 {
    LPARAM range = MAKELPARAM(hmg_par_WORD(2), hmg_par_WORD(3));
 
-   SendMessage(hmg_par_HWND(1), TDM_SET_PROGRESS_BAR_RANGE, ( WPARAM ) 0, range);
+   SendMessage(hmg_par_HWND(1), TDM_SET_PROGRESS_BAR_RANGE, 0, range);
 }
 
 // TDM_SET_PROGRESS_BAR_STATE - Sets the state of the progress bar in a task dialog.
@@ -891,13 +891,13 @@ HB_FUNC( _SETPROGRESSBARSTATE )
 //                                and sets the speed of the marquee.
 HB_FUNC( _SETPROGRESSBARMARQUEE )
 {
-   SendMessage(hmg_par_HWND(1), TDM_SET_PROGRESS_BAR_MARQUEE, ( WPARAM ) hb_parl(2), ( LPARAM ) hb_parni(3));
+   SendMessage(hmg_par_HWND(1), TDM_SET_PROGRESS_BAR_MARQUEE, hb_parl(2), ( LPARAM ) hb_parni(3));
 }
 
 // TDM_SET_MARQUEE_PROGRESS_BAR - Indicates whether the hosted progress bar of a task dialog should be displayed in marquee mode
 HB_FUNC( _SETMARQUEEPROGRESSBAR )
 {
-   SendMessage(hmg_par_HWND(1), TDM_SET_MARQUEE_PROGRESS_BAR, ( WPARAM ) hb_parl(2), ( LPARAM ) 0);
+   SendMessage(hmg_par_HWND(1), TDM_SET_MARQUEE_PROGRESS_BAR, hb_parl(2), ( LPARAM ) 0);
 }
 
 // TDM_UPDATE_ELEMENT_TEXT - Updates a text element in a task dialog
@@ -907,7 +907,7 @@ HB_FUNC( _UPDATEMAININSTRUCTION )
    PCWSTR pszMainInstruction = HB_ISCHAR(2) ? HB_PARSTRDEF(2, &hText, nullptr) :
                                ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : nullptr );
 
-   SendMessage(hmg_par_HWND(1), TDM_UPDATE_ELEMENT_TEXT, ( WPARAM ) TDE_MAIN_INSTRUCTION, ( LPARAM ) pszMainInstruction);
+   SendMessage(hmg_par_HWND(1), TDM_UPDATE_ELEMENT_TEXT, TDE_MAIN_INSTRUCTION, ( LPARAM ) pszMainInstruction);
 
    if( hText )
    {
@@ -921,7 +921,7 @@ HB_FUNC( _UPDATECONTENT )
    PCWSTR pszContent = HB_ISCHAR(2) ? HB_PARSTRDEF(2, &hText, nullptr) :
                        ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : nullptr );
 
-   SendMessage(hmg_par_HWND(1), TDM_UPDATE_ELEMENT_TEXT, ( WPARAM ) TDE_CONTENT, ( LPARAM ) pszContent);
+   SendMessage(hmg_par_HWND(1), TDM_UPDATE_ELEMENT_TEXT, TDE_CONTENT, ( LPARAM ) pszContent);
 
    if( hText )
    {
@@ -935,7 +935,7 @@ HB_FUNC( _UPDATEFOOTER )
    PCWSTR pszFooter = HB_ISCHAR(2) ? HB_PARSTRDEF(2, &hText, nullptr) :
                       ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : nullptr );
 
-   SendMessage(hmg_par_HWND(1), TDM_UPDATE_ELEMENT_TEXT, ( WPARAM ) TDE_FOOTER, ( LPARAM ) pszFooter);
+   SendMessage(hmg_par_HWND(1), TDM_UPDATE_ELEMENT_TEXT, TDE_FOOTER, ( LPARAM ) pszFooter);
 
    if( hText )
    {
@@ -949,7 +949,7 @@ HB_FUNC( _UPDATEEXPANDEDINFORMATION )
    PCWSTR pszExpandedInformation = HB_ISCHAR(2) ? HB_PARSTRDEF(2, &hText, nullptr) :
                                    ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : nullptr );
 
-   SendMessage(hmg_par_HWND(1), TDM_UPDATE_ELEMENT_TEXT, ( WPARAM ) TDE_EXPANDED_INFORMATION, ( LPARAM ) pszExpandedInformation);
+   SendMessage(hmg_par_HWND(1), TDM_UPDATE_ELEMENT_TEXT, TDE_EXPANDED_INFORMATION, ( LPARAM ) pszExpandedInformation);
 
    if( HB_ISCHAR(2) )
    {
@@ -962,23 +962,23 @@ HB_FUNC( _UPDATEMAINICON )
 {
    if( HB_ISNUM(2) )
    {
-      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_MAIN, ( LPARAM ) MAKEINTRESOURCE(hb_parni(2)));
+      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_MAIN, ( LPARAM ) MAKEINTRESOURCE(hb_parni(2)));
    }
    else if( HB_ISCHAR(2) )
    {
       void * hText;
       PCWSTR pszIcon = HB_PARSTRDEF(2, &hText, nullptr);
 
-      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_MAIN, ( LPARAM ) pszIcon);
+      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_MAIN, ( LPARAM ) pszIcon);
       hb_strfree(hText);
    }
    else if( HB_ISPOINTER(2) )
    {
-      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_MAIN, ( LPARAM ) ( HICON ) hb_parptr(2));
+      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_MAIN, ( LPARAM ) ( HICON ) hb_parptr(2));
    }
    else
    {
-      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_MAIN, ( LPARAM ) nullptr);
+      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_MAIN, ( LPARAM ) nullptr);
    }
 }
 
@@ -987,22 +987,22 @@ HB_FUNC( _UPDATEFOOTERICON )
 {
    if( HB_ISNUM(2) )
    {
-      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_FOOTER, ( LPARAM ) MAKEINTRESOURCE(hb_parni(2)));
+      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_FOOTER, ( LPARAM ) MAKEINTRESOURCE(hb_parni(2)));
    }
    else if( HB_ISCHAR(2) )
    {
       void * hText;
       PCWSTR pszIcon = HB_PARSTRDEF(2, &hText, nullptr);
 
-      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_FOOTER, ( LPARAM ) pszIcon);
+      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_FOOTER, ( LPARAM ) pszIcon);
       hb_strfree(hText);
    }
    else if( HB_ISPOINTER(2) )
    {
-      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_FOOTER, ( LPARAM ) ( HICON ) hb_parptr(2));
+      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_FOOTER, ( LPARAM ) ( HICON ) hb_parptr(2));
    }
    else
    {
-      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, ( WPARAM ) TDIE_ICON_FOOTER, ( LPARAM ) nullptr);
+      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_FOOTER, ( LPARAM ) nullptr);
    }
 }

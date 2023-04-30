@@ -65,7 +65,7 @@ HB_FUNC( INITMESSAGEBAR )
 
    if( hWndSB )
    {
-      SendMessage(hWndSB, SB_SETPARTS, ( WPARAM ) nrOfParts, ( LPARAM ) ( LPINT ) ptArray);
+      SendMessage(hWndSB, SB_SETPARTS, nrOfParts, ( LPARAM ) ( LPINT ) ptArray);
    }
 
    hmg_ret_HANDLE(hWndSB);
@@ -109,7 +109,7 @@ HB_FUNC( INITITEMBAR )
    if( hb_parnl(5) )
    {
       nrOfParts = ( int ) SendMessage(hWndSB, SB_GETPARTS, 40, 0);
-      SendMessage(hWndSB, SB_GETPARTS, ( WPARAM ) 40, ( LPARAM ) ( LPINT ) ptArray);
+      SendMessage(hWndSB, SB_GETPARTS, 40, ( LPARAM ) ( LPINT ) ptArray);
    }
 
    nrOfParts++;
@@ -145,7 +145,7 @@ HB_FUNC( INITITEMBAR )
 
    ReleaseDC(hWndSB, hDC);
 
-   SendMessage(hWndSB, SB_SETPARTS, ( WPARAM ) nrOfParts, ( LPARAM ) ( LPINT ) ptArray);
+   SendMessage(hWndSB, SB_SETPARTS, nrOfParts, ( LPARAM ) ( LPINT ) ptArray);
 
    cy = rect.bottom - rect.top - 4;
    cx = cy;
@@ -159,11 +159,11 @@ HB_FUNC( INITITEMBAR )
 
    if( !( hIcon == nullptr ) )
    {
-      SendMessage(hWndSB, SB_SETICON, ( WPARAM ) nrOfParts - 1, ( LPARAM ) hIcon);
+      SendMessage(hWndSB, SB_SETICON, nrOfParts - 1, ( LPARAM ) hIcon);
    }
 
-   SendMessage(hWndSB, SB_SETTEXT, ( WPARAM ) ( ( nrOfParts - 1 ) | displayFlags ), ( LPARAM ) lpText);
-   SendMessage(hWndSB, SB_SETTIPTEXT, ( WPARAM ) nrOfParts - 1, ( LPARAM ) lpTipText);
+   SendMessage(hWndSB, SB_SETTEXT, ( nrOfParts - 1 ) | displayFlags, ( LPARAM ) lpText);
+   SendMessage(hWndSB, SB_SETTIPTEXT, nrOfParts - 1, ( LPARAM ) lpTipText);
 
    hb_retni( nrOfParts );
 
@@ -186,8 +186,8 @@ HB_FUNC( SETITEMBAR )
    LPWSTR lpText = AnsiToWide(( char * ) hb_parc(2));
 #endif
 
-   nFlags = HIWORD(SendMessage(hWnd, SB_GETTEXTLENGTH, ( WPARAM ) iPos, 0));
-   SendMessage(hWnd, SB_SETTEXT, ( WPARAM ) ( iPos | nFlags ), ( LPARAM ) lpText);
+   nFlags = HIWORD(SendMessage(hWnd, SB_GETTEXTLENGTH, iPos, 0));
+   SendMessage(hWnd, SB_SETTEXT, iPos | nFlags, ( LPARAM ) lpText);
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpText);
@@ -203,8 +203,8 @@ HB_FUNC( GETITEMBAR )
    int     iPos = hb_parni(2);
    TCHAR * cString;
 
-   cString = ( TCHAR * ) hb_xgrab((LOWORD(SendMessage(hWnd, SB_GETTEXTLENGTH, ( WPARAM ) iPos - 1, 0)) + 1) * sizeof(TCHAR));
-   SendMessage(hWnd, SB_GETTEXT, ( WPARAM ) iPos - 1, ( LPARAM ) cString);
+   cString = ( TCHAR * ) hb_xgrab((LOWORD(SendMessage(hWnd, SB_GETTEXTLENGTH, iPos - 1, 0)) + 1) * sizeof(TCHAR));
+   SendMessage(hWnd, SB_GETTEXT, iPos - 1, ( LPARAM ) cString);
 
 #ifndef UNICODE
    hb_retc( cString );
@@ -230,7 +230,7 @@ HB_FUNC( REFRESHITEMBAR )
    hWndSB    = hmg_par_HWND(1);
    size      = hb_parni(2);
    nrOfParts = ( int ) SendMessage(hWndSB, SB_GETPARTS, 40, 0);
-   SendMessage(hWndSB, SB_GETPARTS, ( WPARAM ) 40, ( LPARAM ) ( LPINT ) ptArray);
+   SendMessage(hWndSB, SB_GETPARTS, 40, ( LPARAM ) ( LPINT ) ptArray);
 
    hDC = GetDC(hWndSB);
    GetClientRect(hWndSB, &rect);
@@ -276,7 +276,7 @@ HB_FUNC( REFRESHITEMBAR )
 
    ReleaseDC(hWndSB, hDC);
 
-   SendMessage(hWndSB, SB_SETPARTS, ( WPARAM ) nrOfParts, ( LPARAM ) ( LPINT ) ptArray);
+   SendMessage(hWndSB, SB_SETPARTS, nrOfParts, ( LPARAM ) ( LPINT ) ptArray);
    hb_retni( nrOfParts );
 }
 
@@ -368,7 +368,7 @@ HB_FUNC( SETSTATUSBARSIZE )
       lpParts[i] = nWidth;
    }
 
-   SendMessage(hwndStatus, SB_SETPARTS, ( WPARAM ) nParts, ( LPARAM ) lpParts);
+   SendMessage(hwndStatus, SB_SETPARTS, nParts, ( LPARAM ) lpParts);
 
    MoveWindow(hwndStatus, 0, 0, 0, 0, TRUE);
 

@@ -396,7 +396,7 @@ HB_FUNC( SENDMESSAGE )
 
    if( IsWindow(hwnd) )
    {
-      HB_RETNL( ( LONG_PTR ) SendMessage(hwnd, hmg_par_UINT(2), ( WPARAM ) hb_parnl(3), hmg_par_LPARAM(4)) );
+      HB_RETNL( ( LONG_PTR ) SendMessage(hwnd, hmg_par_UINT(2), hb_parnl(3), hmg_par_LPARAM(4)) );
    }
    else
    {
@@ -406,7 +406,7 @@ HB_FUNC( SENDMESSAGE )
 
 HB_FUNC( SENDMESSAGESTRING )
 {
-   HB_RETNL( ( LONG_PTR ) SendMessage(hmg_par_HWND(1), hmg_par_UINT(2), ( WPARAM ) hb_parnl(3), ( LPARAM ) ( LPSTR ) hb_parc(4)) );
+   HB_RETNL( ( LONG_PTR ) SendMessage(hmg_par_HWND(1), hmg_par_UINT(2), hb_parnl(3), ( LPARAM ) ( LPSTR ) hb_parc(4)) );
 }
 
 HB_FUNC( GETNOTIFYCODE )
@@ -853,7 +853,7 @@ HB_FUNC( ADDSPLITBOXITEM )
       }
    }
 
-   SendMessage(hmg_par_HWND(2), RB_INSERTBAND, ( WPARAM ) -1, ( LPARAM ) &rbBand);
+   SendMessage(hmg_par_HWND(2), RB_INSERTBAND, -1, ( LPARAM ) &rbBand);
 
 #ifdef UNICODE
    hb_xfree(lpText);

@@ -123,7 +123,7 @@ HB_FUNC( INITTREEVIEWBITMAP ) //Tree+
 
       if( himl != nullptr )
       {
-         SendMessage(hbutton, TVM_SETIMAGELIST, ( WPARAM ) TVSIL_NORMAL, ( LPARAM ) himl);
+         SendMessage(hbutton, TVM_SETIMAGELIST, TVSIL_NORMAL, ( LPARAM ) himl);
       }
 
       ic = ImageList_GetImageCount(himl);
@@ -145,7 +145,7 @@ HB_FUNC( ADDTREEVIEWBITMAP )  // Tree+
    {
       HMG_ImageListAdd( himl, ( char * ) hb_parc(2), Transparent );
 
-      SendMessage(hbutton, TVM_SETIMAGELIST, ( WPARAM ) TVSIL_NORMAL, ( LPARAM ) himl);
+      SendMessage(hbutton, TVM_SETIMAGELIST, TVSIL_NORMAL, ( LPARAM ) himl);
 
       ic = ImageList_GetImageCount(himl);
    }

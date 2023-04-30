@@ -564,7 +564,7 @@ HB_FUNC( CLBUTTON_SETIMAGE )
    bi.margin.right  = 10;
    bi.uAlign        = 4;
 
-   SendMessage( ( HWND ) HB_PARNL( 1 ), ( UINT ) BCM_SETIMAGELIST, ( WPARAM ) 0, ( LPARAM ) &bi );
+   SendMessage( ( HWND ) HB_PARNL( 1 ), ( UINT ) BCM_SETIMAGELIST, 0, ( LPARAM ) &bi );
 
    hmg_ret_HANDLE(himl);
 }

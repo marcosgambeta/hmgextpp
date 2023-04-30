@@ -1051,7 +1051,7 @@ HB_FUNC( INITEDSPINNER )
    hupdown = CreateUpDownControl( Style, hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6), hwnd, 0, GetModuleHandle(nullptr),
                                   hedit, iMax, iMin, hb_parni(9) );
 
-   SendMessage(hupdown, UDM_SETRANGE32, ( WPARAM ) iMin, ( LPARAM ) iMax);
+   SendMessage(hupdown, UDM_SETRANGE32, iMin, ( LPARAM ) iMax);
 
    HB_RETNL( ( LONG_PTR ) hupdown );
 }
@@ -1060,10 +1060,10 @@ HB_FUNC( SETINCREMENTSPINNER )
 {
    UDACCEL inc;
 
-   SendMessage(hmg_par_HWND(1), UDM_GETACCEL, ( WPARAM ) 1, ( LPARAM ) &inc);
+   SendMessage(hmg_par_HWND(1), UDM_GETACCEL, 1, ( LPARAM ) &inc);
 
    inc.nSec = 1;
    inc.nInc = hb_parni(2);
 
-   SendMessage(hmg_par_HWND(1), UDM_SETACCEL, ( WPARAM ) 1, ( LPARAM ) &inc);
+   SendMessage(hmg_par_HWND(1), UDM_SETACCEL, 1, ( LPARAM ) &inc);
 }

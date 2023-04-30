@@ -1953,7 +1953,7 @@ HB_FUNC( RR_PREVIEWPLAY )
    FillRect(tmpDC, &rect, static_cast<HBRUSH>(GetStockObject(WHITE_BRUSH)));
    PlayEnhMetaFile(tmpDC, hh, &rect);
    DeleteEnhMetaFile(hh);
-   SendMessage(hmg_par_HWND(1), ( UINT ) STM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himgbmp);
+   SendMessage(hmg_par_HWND(1), ( UINT ) STM_SETIMAGE, IMAGE_BITMAP, ( LPARAM ) himgbmp);
    ReleaseDC(hmg_par_HWND(1), imgDC);
    DeleteDC(tmpDC);
    if( himgbmp == 0 )
@@ -1986,7 +1986,7 @@ HB_FUNC( RR_PLAYTHUMB )
    PlayEnhMetaFile(tmpDC, hh, &rect);
    DeleteEnhMetaFile(hh);
    TextOut(tmpDC, ( int ) rect.right / 2 - 5, ( int ) rect.bottom / 2 - 5, lpText, ( int ) lstrlen(lpText));
-   SendMessage(( HWND ) HB_PARVNL(1, 5), ( UINT ) STM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) hbmp[i]);
+   SendMessage(( HWND ) HB_PARVNL(1, 5), ( UINT ) STM_SETIMAGE, IMAGE_BITMAP, ( LPARAM ) hbmp[i]);
    ReleaseDC(( HWND ) HB_PARVNL(1, 5), imgDC);
    DeleteDC(tmpDC);
 

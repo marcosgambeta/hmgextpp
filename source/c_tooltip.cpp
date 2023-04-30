@@ -208,9 +208,9 @@ HB_FUNC( SETTOOLTIP )
          ti.hwnd   = GetParent(hwndTool);
          ti.uId    = ( UINT_PTR ) hwndTool;
 
-         if( SendMessage(hwndToolTip, TTM_GETTOOLINFO, ( WPARAM ) 0, ( LPARAM ) ( LPTOOLINFO ) &ti) )
+         if( SendMessage(hwndToolTip, TTM_GETTOOLINFO, 0, ( LPARAM ) ( LPTOOLINFO ) &ti) )
          {
-            SendMessage(hwndToolTip, TTM_DELTOOL, ( WPARAM ) 0, ( LPARAM ) ( LPTOOLINFO ) &ti);
+            SendMessage(hwndToolTip, TTM_DELTOOL, 0, ( LPARAM ) ( LPTOOLINFO ) &ti);
          }
 
          if( hb_parclen(2) > 0 )
@@ -218,10 +218,10 @@ HB_FUNC( SETTOOLTIP )
             ti.lpszText = lpText;
          }
 
-         hb_retl(SendMessage(hwndToolTip, TTM_ADDTOOL, ( WPARAM ) 0, ( LPARAM ) ( LPTOOLINFO ) &ti)
+         hb_retl(SendMessage(hwndToolTip, TTM_ADDTOOL, 0, ( LPARAM ) ( LPTOOLINFO ) &ti)
                  ? HB_TRUE : HB_FALSE);
 
-         SendMessage(hwndToolTip, TTM_ACTIVATE, ( WPARAM ) ( BOOL ) g_bIsToolTipActive, 0);
+         SendMessage(hwndToolTip, TTM_ACTIVATE, g_bIsToolTipActive, 0);
 
 #ifdef UNICODE
          hb_xfree(( TCHAR * ) lpText);
@@ -388,7 +388,7 @@ HB_FUNC( INITTOOLTIPEX )
          SendMessage(hwndToolTip, TTM_SETMAXTIPWIDTH, 0, ( LPARAM ) g_iToolTipMaxWidth);
       }
 
-      SendMessage(hwndToolTip, TTM_ACTIVATE, ( WPARAM ) ( BOOL ) g_bIsToolTipActive, 0);
+      SendMessage(hwndToolTip, TTM_ACTIVATE, g_bIsToolTipActive, 0);
 
       hmg_ret_HANDLE(hwndToolTip);
 
@@ -426,7 +426,7 @@ HB_FUNC( TTM_ACTIVATE )
    {
       if( g_bIsToolTipActive )
       {
-         SendMessage(hwndToolTip, TTM_ACTIVATE, ( WPARAM ) hmg_par_BOOL(2), 0);
+         SendMessage(hwndToolTip, TTM_ACTIVATE, hmg_par_BOOL(2), 0);
       }
    }
    else
@@ -599,7 +599,7 @@ HB_FUNC( TTM_POP )
 
    if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) )
    {
-      SendMessage(hwndToolTip, TTM_POP, ( WPARAM ) 0, ( LPARAM ) 0);
+      SendMessage(hwndToolTip, TTM_POP, 0, ( LPARAM ) 0);
    }
    else
    {
@@ -721,7 +721,7 @@ HB_FUNC( TTM_SETTIPBKCOLOR )
             cr = ( COLORREF ) HB_PARNL(2);
          }
 
-         SendMessage(hwndToolTip, TTM_SETTIPBKCOLOR, ( WPARAM ) cr, 0);
+         SendMessage(hwndToolTip, TTM_SETTIPBKCOLOR, cr, 0);
       }
       else
       {
@@ -752,7 +752,7 @@ HB_FUNC( TTM_SETTIPTEXTCOLOR )
             cr = ( COLORREF ) HB_PARNL(2);
          }
 
-         SendMessage(hwndToolTip, TTM_SETTIPTEXTCOLOR, ( WPARAM ) cr, 0);
+         SendMessage(hwndToolTip, TTM_SETTIPTEXTCOLOR, cr, 0);
       }
       else
       {
@@ -790,7 +790,7 @@ HB_FUNC( TTM_TRACKACTIVATE )
       ti.hwnd   = hwndTool;
       ti.uId    = ( UINT_PTR ) hwndTool;
 
-      SendMessage(hwndToolTip, TTM_TRACKACTIVATE, ( WPARAM ) hb_parl(3), ( LPARAM ) ( LPTOOLINFO ) &ti);
+      SendMessage(hwndToolTip, TTM_TRACKACTIVATE, hb_parl(3), ( LPARAM ) ( LPTOOLINFO ) &ti);
    }
    else
    {
