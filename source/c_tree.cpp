@@ -94,7 +94,7 @@ HB_FUNC( INITTREE )
 HB_FUNC( INITTREEVIEWBITMAP ) //Tree+
 {
    HWND       hbutton = hmg_par_HWND(1);
-   HIMAGELIST himl    = ( HIMAGELIST ) nullptr;
+   HIMAGELIST himl    = nullptr;
    PHB_ITEM   hArray;
    char *     FileName;
    int        ic = 0;

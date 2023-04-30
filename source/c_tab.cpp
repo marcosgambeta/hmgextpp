@@ -238,7 +238,7 @@ HB_FUNC( ADDTABBITMAP )
 {
    HWND       hbutton = hmg_par_HWND(1);
    TC_ITEM    tie;
-   HIMAGELIST himl = ( HIMAGELIST ) nullptr;
+   HIMAGELIST himl = nullptr;
    PHB_ITEM   hArray;
    char *     FileName;
    int        nCount;

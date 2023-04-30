@@ -359,7 +359,7 @@ HB_FUNC( INITTOOLBAREX )
 HB_FUNC( INITTOOLBUTTONEX )
 {
    HWND          hwndTB;
-   HWND          himage = ( HWND ) nullptr;
+   HWND          himage = nullptr;
    BITMAP        bm;
    TBADDBITMAP   tbab;
    TBBUTTON      lpBtn;

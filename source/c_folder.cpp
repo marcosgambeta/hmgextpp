@@ -1593,7 +1593,7 @@ static void FLD_CleanUp(HWND hWndDlg)
    -----------------------------------------------------------------*/
 static void FLD_AddBitmap(HWND hWndFolder)
 {
-   HIMAGELIST    himl = ( HIMAGELIST ) nullptr;
+   HIMAGELIST    himl = nullptr;
    HBITMAP       hbmp;
    FLDPAGEINFO * pfpi = nullptr;
    TC_ITEM       tie;

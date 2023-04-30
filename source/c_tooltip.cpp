@@ -143,7 +143,7 @@ HB_FUNC( SETTOOLTIPMAXWIDTH )
  */
 HB_FUNC( INITTOOLTIP )
 {
-   HWND hwndParent = HB_ISNUM(1) ? hmg_par_HWND(1) : ( HWND ) nullptr;
+   HWND hwndParent = HB_ISNUM(1) ? hmg_par_HWND(1) : nullptr;
 
    if( HB_ISNIL(1) ? TRUE : IsWindow(hwndParent) )  // hack for ModalWindow
    {
@@ -308,10 +308,10 @@ HB_FUNC( INITTOOLTIPEX )
       PHB_ITEM aRect = hb_param(2, Harbour::Item::ANY);
       RECT     rect;
 #ifndef UNICODE
-      LPSTR lpszText  = ( LPSTR ) nullptr;
+      LPSTR lpszText  = nullptr;
       LPSTR lpszTitle = ( LPSTR ) ( HB_ISCHAR(4) ? hb_parc(4) : nullptr );
 #else
-      LPWSTR lpszText  = ( LPWSTR ) nullptr;
+      LPWSTR lpszText  = nullptr;
       LPWSTR lpszTitle = HB_ISCHAR(4) ? AnsiToWide(( char * ) hb_parc(4)) : nullptr;
 #endif
       int      nIcon   = hb_parnidef(5, TTI_NONE);

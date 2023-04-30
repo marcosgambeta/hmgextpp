@@ -138,7 +138,7 @@ HB_FUNC( _CREATEWINDOWEX )
    int    nWidth     = HB_ISNIL(7) ? 0 : hb_parni(7);
    int    nHeight    = HB_ISNIL(8) ? 0 : hb_parni(8);
    HWND   hWndParent = hmg_par_HWND(9);
-   HMENU  hMenu      = ( HMENU ) nullptr;
+   HMENU  hMenu      = nullptr;
    HANDLE hInstance  = hmg_par_HANDLE(11);
 
    hWnd = CreateWindowEx(dwExStyle, cClass, cTitle, nStyle, x, y, nWidth, nHeight, hWndParent, hMenu, ( HINSTANCE ) hInstance, nullptr);

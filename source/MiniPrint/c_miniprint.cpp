@@ -525,8 +525,8 @@ HB_FUNC( _HMG_PRINTER_PRINTDIALOG )
    LPDEVMODE pDevMode;
 
    pd.lStructSize         = sizeof(PRINTDLG);
-   pd.hDevMode            = ( HANDLE ) nullptr;
-   pd.hDevNames           = ( HANDLE ) nullptr;
+   pd.hDevMode            = nullptr;
+   pd.hDevNames           = nullptr;
    pd.Flags               = PD_RETURNDC | PD_PRINTSETUP;
    pd.hwndOwner           = nullptr;
    pd.hDC                 = nullptr;
@@ -535,14 +535,14 @@ HB_FUNC( _HMG_PRINTER_PRINTDIALOG )
    pd.nMinPage            = 1;
    pd.nMaxPage            = 0xFFFF;
    pd.nCopies             = 1;
-   pd.hInstance           = ( HINSTANCE ) nullptr;
+   pd.hInstance           = nullptr;
    pd.lCustData           = 0L;
-   pd.lpfnPrintHook       = ( LPPRINTHOOKPROC ) nullptr;
-   pd.lpfnSetupHook       = ( LPSETUPHOOKPROC ) nullptr;
+   pd.lpfnPrintHook       = nullptr;
+   pd.lpfnSetupHook       = nullptr;
    pd.lpPrintTemplateName = nullptr;
    pd.lpSetupTemplateName = nullptr;
-   pd.hPrintTemplate      = ( HANDLE ) nullptr;
-   pd.hSetupTemplate      = ( HANDLE ) nullptr;
+   pd.hPrintTemplate      = nullptr;
+   pd.hSetupTemplate      = nullptr;
 
    if( PrintDlg(&pd) )
    {
@@ -2094,7 +2094,7 @@ static HBITMAP loademffile(TCHAR * filename, int width, int height, HWND handle,
 
    IStream *  iStream;
    IPicture * iPicture = nullptr;
-   HGLOBAL    hMem     = ( HGLOBAL ) nullptr;
+   HGLOBAL    hMem     = nullptr;
    HRESULT    hr;
    DWORD      nFileSize = 0;
    RECT       rect, rect2;

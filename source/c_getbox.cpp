@@ -331,7 +331,7 @@ HB_FUNC( CHECKBIT )
 HB_FUNC( GETTEXTHEIGHT )               // returns the height of a string in pixels
 {
    HDC   hDC        = hmg_par_HDC(1);
-   HWND  hWnd       = ( HWND ) nullptr;
+   HWND  hWnd       = nullptr;
    BOOL  bDestroyDC = FALSE;
    HFONT hFont      = hmg_par_HFONT(3);
    HFONT hOldFont   = nullptr;

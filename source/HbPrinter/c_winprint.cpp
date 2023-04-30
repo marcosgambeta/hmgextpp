@@ -114,8 +114,8 @@ HB_FUNC( RR_PRINTDIALOG )
 
    memset(&pdlg, 0, sizeof(pdlg));
    pdlg.lStructSize = sizeof(pdlg);
-   pdlg.hDevMode    = ( HANDLE ) nullptr;
-   pdlg.hDevNames   = ( HANDLE ) nullptr;
+   pdlg.hDevMode    = nullptr;
+   pdlg.hDevNames   = nullptr;
    pdlg.Flags       = PD_RETURNDC | PD_ALLPAGES;
    pdlg.hwndOwner   = GetActiveWindow(); // Identifies the window that owns the dialog box.
    pdlg.hDC         = nullptr;
@@ -1465,7 +1465,7 @@ LPVOID rr_loadfromhbitmap(HBITMAP hbmpx, LONG * lwidth, LONG * lheight)
    picd.cbSizeofstruct = sizeof(PICTDESC);
    picd.picType        = PICTYPE_BITMAP;
    picd.bmp.hbitmap    = hbmpx;
-   picd.bmp.hpal       = ( HPALETTE ) nullptr;
+   picd.bmp.hpal       = nullptr;
 
    OleCreatePictureIndirect(&picd, IID_IPicture, TRUE, ( LPVOID * ) &iPicture);
    if( iPicture != nullptr )

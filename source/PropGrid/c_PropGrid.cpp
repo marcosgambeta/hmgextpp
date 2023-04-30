@@ -611,7 +611,7 @@ HWND CreateHeaderWindow(HWND hwndParent)
       ) == nullptr
    )
    {  // No application-defined data.
-      return ( HWND ) nullptr;
+      return nullptr;
    }
 
    GetClientRect(hwndParent, &rcParent);
@@ -621,7 +621,7 @@ HWND CreateHeaderWindow(HWND hwndParent)
 
    if( Header_Layout(hwndHeader, &hdl) == FALSE )
    {
-      return ( HWND ) nullptr;
+      return nullptr;
    }
 
    SetWindowPos(hwndHeader, wp.hwndInsertAfter, wp.x, wp.y, wp.cx, wp.cy, wp.flags | SWP_SHOWWINDOW);

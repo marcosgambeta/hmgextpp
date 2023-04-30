@@ -121,7 +121,7 @@ HB_FUNC( GDIPLUSSHUTDOWN )
 
 HB_FUNC( GDIPCREATEBITMAPFROMFILE )
 {
-   GpBitmap * bitmap = ( GpBitmap * ) nullptr;
+   GpBitmap * bitmap = nullptr;
 
    if( nullptr != fn_GdipCreateBitmapFromFile )
    {

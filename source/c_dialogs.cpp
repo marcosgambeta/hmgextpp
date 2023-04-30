@@ -122,13 +122,13 @@ HB_FUNC( CHOOSEFONT )
 
    cf.lStructSize = sizeof(CHOOSEFONT);
    cf.hwndOwner   = hwnd;
-   cf.hDC         = ( HDC ) nullptr;
+   cf.hDC         = nullptr;
    cf.lpLogFont   = &lf;
    cf.Flags       = HB_ISNUM(9) ? hb_parni(9) : CF_SCREENFONTS | CF_EFFECTS | CF_INITTOLOGFONTSTRUCT;
    cf.rgbColors   = hb_parnl(5);
    cf.lCustData   = 0L;
-   cf.lpfnHook    = ( LPCFHOOKPROC ) nullptr;
-   cf.hInstance   = ( HINSTANCE ) nullptr;
+   cf.lpfnHook    = nullptr;
+   cf.hInstance   = nullptr;
    cf.nFontType   = SCREEN_FONTTYPE;
    cf.nSizeMin    = 0;
    cf.nSizeMax    = 0;

@@ -213,7 +213,7 @@ HB_FUNC( DESTROYACCELERATORTABLE )
 // HACCEL WINAPI LoadAccelerators(HINSTANCE hInstance, LPCTSTR lpTableName)
 HB_FUNC( LOADACCELERATORS )
 {
-   HACCEL    hAccel    = ( HACCEL ) nullptr;
+   HACCEL    hAccel    = nullptr;
    HINSTANCE hInstance = HB_ISNUM(1) ? hmg_par_HINSTANCE(1) : GetResources();
    LPCTSTR   lpTableName;
 
@@ -237,7 +237,7 @@ HB_FUNC( LOADACCELERATORS )
 // HMENU WINAPI LoadMenu(HINSTANCE hInstance, LPCTSTR lpMenuName)
 HB_FUNC( LOADMENU )
 {
-   HMENU     hMenu     = ( HMENU ) nullptr;
+   HMENU     hMenu     = nullptr;
    HINSTANCE hInstance = HB_ISNUM(1) ? hmg_par_HINSTANCE(1) : GetResources();
    LPCTSTR   lpMenuName;
 
@@ -367,7 +367,7 @@ HB_FUNC( APPENDMENUSTRING )
       lpMenuItem->hBitmap    = nullptr;
       lpMenuItem->hFont      = nullptr;
       lpMenuItem->uiItemType = hb_parni(4);
-      lpMenuItem->hwnd       = ( HWND ) nullptr;
+      lpMenuItem->hwnd       = nullptr;
 
       switch( hb_parni(4) )
       {

@@ -264,7 +264,7 @@ HB_FUNC( LISTVIEW_SETITEMCOUNT )
 HB_FUNC( ADDLISTVIEWBITMAP )       // Grid+
 {
    HWND       hbutton = hmg_par_HWND(1);
-   HIMAGELIST himl    = ( HIMAGELIST ) nullptr;
+   HIMAGELIST himl    = nullptr;
    PHB_ITEM   hArray;
    char *     FileName;
    int        nCount;
@@ -302,7 +302,7 @@ HB_FUNC( ADDLISTVIEWBITMAP )       // Grid+
 HB_FUNC( ADDLISTVIEWBITMAPHEADER )  // Grid+
 {
    HWND       hheader;
-   HIMAGELIST himl = ( HIMAGELIST ) nullptr;
+   HIMAGELIST himl = nullptr;
    PHB_ITEM   hArray;
    char *     FileName;
    int        nCount;
