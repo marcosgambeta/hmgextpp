@@ -188,7 +188,7 @@ typedef struct tagLVGROUP
 #define LVM_MOVEGROUP           ( LVM_FIRST + 151 )
 #define ListView_MoveGroup(hwnd, iGroupId, toIndex)  SNDMSG(( hwnd ), LVM_MOVEGROUP, ( WPARAM ) iGroupId, ( LPARAM ) toIndex)
 #define LVM_GETGROUPCOUNT       ( LVM_FIRST + 152 )
-#define ListView_GetGroupCount(hwnd)                 SNDMSG(( hwnd ), LVM_GETGROUPCOUNT, ( WPARAM ) 0, ( LPARAM ) 0)
+#define ListView_GetGroupCount(hwnd)                 SNDMSG(( hwnd ), LVM_GETGROUPCOUNT, 0, ( LPARAM ) 0)
 
 #endif
 
@@ -292,7 +292,7 @@ HB_FUNC( ADDLISTVIEWBITMAP )       // Grid+
 
       if( himl != nullptr )
       {
-         SendMessage(hbutton, LVM_SETIMAGELIST, ( WPARAM ) LVSIL_SMALL, ( LPARAM ) himl);
+         SendMessage(hbutton, LVM_SETIMAGELIST, LVSIL_SMALL, ( LPARAM ) himl);
       }
    }
 
@@ -520,7 +520,7 @@ HB_FUNC( LISTVIEWSETMULTISEL )
       }
       else
       {
-         ListView_SetItemState(hwnd, ( WPARAM ) i, 0, LVIS_FOCUSED | LVIS_SELECTED);
+         ListView_SetItemState(hwnd, i, 0, LVIS_FOCUSED | LVIS_SELECTED);
       }
    }
 
@@ -583,7 +583,7 @@ static TCHAR * GetLVItemText(HWND hListView, int i, int iSubItem_)
       lpText         = ( TCHAR * ) hb_xrealloc(lpText, sizeof(TCHAR) * nLen);
       lvi.cchTextMax = nLen;
       lvi.pszText    = lpText;
-      nRes           = ( int ) SendMessage(hListView, LVM_GETITEMTEXT, ( WPARAM ) i, ( LPARAM ) ( LV_ITEM FAR * ) &lvi);
+      nRes           = ( int ) SendMessage(hListView, LVM_GETITEMTEXT, i, ( LPARAM ) ( LV_ITEM FAR * ) &lvi);
    }
    while( nRes >= nLen - 1 );
 

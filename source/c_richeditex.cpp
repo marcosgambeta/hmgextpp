@@ -129,7 +129,7 @@ HB_FUNC( INITRICHEDITBOXEX )
                                    nullptr);
 
       SendMessage(hWndControl, EM_LIMITTEXT, hmg_par_WPARAM(9), 0);
-      SendMessage(hWndControl, EM_SETEVENTMASK, ( WPARAM ) 0, ( LPARAM ) (ENM_CHANGE | ENM_SELCHANGE | ENM_PROTECTED | ENM_SCROLL | ENM_LINK | ENM_KEYEVENTS | ENM_REQUESTRESIZE | ENM_MOUSEEVENTS));
+      SendMessage(hWndControl, EM_SETEVENTMASK, 0, ( LPARAM ) (ENM_CHANGE | ENM_SELCHANGE | ENM_PROTECTED | ENM_SCROLL | ENM_LINK | ENM_KEYEVENTS | ENM_REQUESTRESIZE | ENM_MOUSEEVENTS));
 
       SendMessage(hWndControl, EM_SETTYPOGRAPHYOPTIONS, TO_ADVANCEDTYPOGRAPHY, TO_ADVANCEDTYPOGRAPHY);
 
@@ -210,7 +210,7 @@ HB_FUNC( RICHEDITBOX_STREAMIN )
    es.dwCookie    = ( DWORD_PTR ) hFile;
    es.dwError     = 0;
 
-   SendMessage(hWndControl, EM_STREAMIN, ( WPARAM ) Format, ( LPARAM ) &es);
+   SendMessage(hWndControl, EM_STREAMIN, Format, ( LPARAM ) &es);
 
    CloseHandle(hFile);
 
@@ -285,7 +285,7 @@ HB_FUNC( RICHEDITBOX_STREAMOUT )
    es.dwCookie    = ( DWORD_PTR ) hFile;
    es.dwError     = 0;
 
-   SendMessage(hWndControl, EM_STREAMOUT, ( WPARAM ) Format, ( LPARAM ) &es);
+   SendMessage(hWndControl, EM_STREAMOUT, Format, ( LPARAM ) &es);
 
    CloseHandle(hFile);
 
@@ -358,7 +358,7 @@ HB_FUNC( RICHEDITBOX_SETRTFTEXTMODE )
    BOOL lRTF        = ( HB_ISLOG(2) ? hmg_par_BOOL(2) : TRUE );
    LONG Mode        = ( lRTF ? TM_RICHTEXT : TM_PLAINTEXT ) | TM_MULTILEVELUNDO | TM_MULTICODEPAGE;
 
-   SendMessage(hWndControl, EM_SETTEXTMODE, ( WPARAM ) Mode, 0);
+   SendMessage(hWndControl, EM_SETTEXTMODE, Mode, 0);
 }
 
 //        RichEditBox_IsRTFTextMode ( hWndControl ) --> return lRTF
@@ -376,7 +376,7 @@ HB_FUNC( RICHEDITBOX_SETAUTOURLDETECT )
    HWND hWndControl = hmg_par_HWND(1);
    BOOL lLink       = ( HB_ISLOG(2) ? hmg_par_BOOL(2) : TRUE );
 
-   SendMessage(hWndControl, EM_AUTOURLDETECT, ( WPARAM ) lLink, 0);
+   SendMessage(hWndControl, EM_AUTOURLDETECT, lLink, 0);
 }
 
 //        RichEditBox_GetAutoURLDetect ( hWndControl ) --> return lLink
@@ -399,7 +399,7 @@ HB_FUNC( RICHEDITBOX_SETBKGNDCOLOR )
    }
    else
    {
-      SendMessage(hWndControl, EM_SETBKGNDCOLOR, ( WPARAM ) 1, 0);  // Set to the window background system color
+      SendMessage(hWndControl, EM_SETBKGNDCOLOR, 1, 0);  // Set to the window background system color
    }
 }
 
@@ -683,7 +683,7 @@ HB_FUNC( RICHEDITBOX_REPLACESEL )
    LPCTSTR cBuffer = ( LPCTSTR ) AnsiToWide(hb_parc(2));
 #endif
 
-   SendMessage(hWndControl, EM_REPLACESEL, ( WPARAM ) ( BOOL ) TRUE, ( LPARAM ) cBuffer);
+   SendMessage(hWndControl, EM_REPLACESEL, TRUE, ( LPARAM ) cBuffer);
 }
 
 //        RichEditBox_SetText ( hWndControl , lSelect , cText )
@@ -844,9 +844,9 @@ HB_FUNC( RICHEDITBOX_FINDTEXT )
    FindText.lpstrText = cFind;
 
    #ifdef UNICODE
-   SendMessage(hWndControl, EM_FINDTEXTEXW, ( WPARAM ) Options, ( LPARAM ) &FindText);
+   SendMessage(hWndControl, EM_FINDTEXTEXW, Options, ( LPARAM ) &FindText);
    #else
-   SendMessage(hWndControl, EM_FINDTEXTEX, ( WPARAM ) Options, ( LPARAM ) &FindText);
+   SendMessage(hWndControl, EM_FINDTEXTEX, Options, ( LPARAM ) &FindText);
    #endif
 
    if( SelectFindText == FALSE )
@@ -1206,7 +1206,7 @@ HB_FUNC( RICHEDITBOX_GETRECT )
    HWND hWndControl = hmg_par_HWND(1);
    RECT rc;
 
-   SendMessage(hWndControl, EM_GETRECT, ( WPARAM ) 0, ( LPARAM ) &rc);
+   SendMessage(hWndControl, EM_GETRECT, 0, ( LPARAM ) &rc);
 
    hb_reta(4);
    HB_STORNI( rc.left, -1, 1 );
@@ -1226,7 +1226,7 @@ HB_FUNC( RICHEDITBOX_SETRECT )
    rc.right  = HB_PARNI(2, 3);
    rc.bottom = HB_PARNI(2, 4);
 
-   SendMessage(hWndControl, EM_SETRECT, ( WPARAM ) 1, ( LPARAM ) &rc);
+   SendMessage(hWndControl, EM_SETRECT, 1, ( LPARAM ) &rc);
 }
 
 //        RichEditBox_PastEspecial ( hWndControl , ClipboardFormat )
@@ -1242,7 +1242,7 @@ HB_FUNC( RICHEDITBOX_PASTESPECIAL )    // Paste a specific clipboard format in a
    else
    {
       WPARAM ClipboardFormat = ( WPARAM ) hb_parnl(2);
-      SendMessage(hWndControl, EM_PASTESPECIAL, ( WPARAM ) ClipboardFormat, ( LPARAM ) nullptr);
+      SendMessage(hWndControl, EM_PASTESPECIAL, ClipboardFormat, ( LPARAM ) nullptr);
    }
 }
 
@@ -1278,9 +1278,9 @@ HB_FUNC( RICHEDITBOX_FORMATRANGE )
    FormatRange.chrg.cpMin = HB_PARNL3(7, 1);
    FormatRange.chrg.cpMax = HB_PARNL3(7, 2);
 
-   cpMin = ( LONG ) SendMessage(hWndControl, EM_FORMATRANGE, ( WPARAM ) ( BOOL ) TRUE, ( LPARAM ) &FormatRange);
+   cpMin = ( LONG ) SendMessage(hWndControl, EM_FORMATRANGE, TRUE, ( LPARAM ) &FormatRange);
 
-   SendMessage(hWndControl, EM_FORMATRANGE, ( WPARAM ) ( BOOL ) FALSE, ( LPARAM ) nullptr);
+   SendMessage(hWndControl, EM_FORMATRANGE, FALSE, ( LPARAM ) nullptr);
 
    hb_retnl( ( LONG ) cpMin );
 }

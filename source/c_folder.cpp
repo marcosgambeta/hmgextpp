@@ -1692,7 +1692,7 @@ static void FLD_AddBitmap(HWND hWndFolder)
                }
             }
 
-            SendMessage(pFhi->hwndTab, TCM_SETIMAGELIST, ( WPARAM ) 0, ( LPARAM ) himl);
+            SendMessage(pFhi->hwndTab, TCM_SETIMAGELIST, 0, ( LPARAM ) himl);
 
             for( int s = 0; s <= l; s++ )
             {

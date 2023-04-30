@@ -305,12 +305,12 @@ HB_FUNC( INITGETBOX )
 
    if( himage != nullptr )
    {
-      SendMessage(hBtn1, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage);
+      SendMessage(hBtn1, ( UINT ) BM_SETIMAGE, IMAGE_BITMAP, ( LPARAM ) himage);
    }
 
    if( himage2 != nullptr )
    {
-      SendMessage(hBtn2, ( UINT ) BM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himage2);
+      SendMessage(hBtn2, ( UINT ) BM_SETIMAGE, IMAGE_BITMAP, ( LPARAM ) himage2);
    }
 
    SendMessage(hedit, EM_SETMARGINS, EC_LEFTMARGIN | EC_RIGHTMARGIN, MAKELONG(0, BtnWidth + BtnWidth2 + 2));

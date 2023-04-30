@@ -192,7 +192,7 @@ HB_FUNC( INITPAGER )       // InitPager ( ParentForm, hRebar, nWidth, nHeight, v
       rbBand.cx         = nWidth;
    }
 
-   SendMessage(hRebar, RB_INSERTBAND, ( WPARAM ) -1, ( LPARAM ) &rbBand);
+   SendMessage(hRebar, RB_INSERTBAND, -1, ( LPARAM ) &rbBand);
 
    SetWindowLongPtr(hPager, GWLP_USERDATA, ( LONG_PTR ) hRebar);
 

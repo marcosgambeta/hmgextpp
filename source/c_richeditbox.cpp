@@ -138,7 +138,7 @@ HB_FUNC( INITRICHEDITBOX )
             );
 
       SendMessage(hRE, ( UINT ) EM_EXLIMITTEXT, hmg_par_WPARAM(9), ( LPARAM ) 0);
-      SendMessage(hRE, ( UINT ) EM_SETEVENTMASK, ( WPARAM ) 0, ( LPARAM ) ENM_SELCHANGE | ENM_DRAGDROPDONE | ENM_CHANGE | ENM_SCROLL);
+      SendMessage(hRE, ( UINT ) EM_SETEVENTMASK, 0, ( LPARAM ) ENM_SELCHANGE | ENM_DRAGDROPDONE | ENM_CHANGE | ENM_SCROLL);
    }
 
    hmg_ret_HANDLE(hRE);
@@ -220,8 +220,8 @@ HB_FUNC( STREAMIN )        //StreamIn(HWND hwndCtrl, LPCTSTR lpszPath, int typ )
    es.dwError     = 0;
 
    // send EM_STREAMIN message to the Rich Edit Control.
-   SendMessage(hwnd, ( UINT ) EM_STREAMIN, ( WPARAM ) Flag, ( LPARAM ) &es);
-   SendMessage(hwnd, ( UINT ) EM_SETTEXTMODE, ( WPARAM ) Mode, 0);
+   SendMessage(hwnd, ( UINT ) EM_STREAMIN, Flag, ( LPARAM ) &es);
+   SendMessage(hwnd, ( UINT ) EM_SETTEXTMODE, Mode, 0);
 
    CloseHandle(hFile);
 
@@ -278,7 +278,7 @@ HB_FUNC( STREAMOUT )       //StreamOut(HWND hwndCtrl, LPCTSTR lpszPath, int Typ 
    es.dwError     = 0;
 
    // send EM_STREAMOUT message to the Rich Edit Control.
-   SendMessage(hwnd, EM_STREAMOUT, ( WPARAM ) Flag, ( LPARAM ) &es);
+   SendMessage(hwnd, EM_STREAMOUT, Flag, ( LPARAM ) &es);
 
    CloseHandle(hFile);
 
@@ -351,7 +351,7 @@ HB_FUNC( SETBKGNDCOLOR )   // SetBkgndColor(HWND hwnd, lSyscol, nRed, nGreen, nB
       syscol = 0;
    }
 
-   lResult = SendMessage(hmg_par_HWND(1), ( UINT ) EM_SETBKGNDCOLOR, ( WPARAM ) syscol, ( LPARAM ) bkgcolor);
+   lResult = SendMessage(hmg_par_HWND(1), ( UINT ) EM_SETBKGNDCOLOR, syscol, ( LPARAM ) bkgcolor);
 
    hb_retnl( ( LONG ) lResult );
 }
@@ -381,7 +381,7 @@ HB_FUNC( GETFONTRTF )
       SelText = SCF_DEFAULT;
    }
 
-   SendMessage(hmg_par_HWND(1), EM_GETCHARFORMAT, ( WPARAM ) SelText, ( LPARAM ) &cF);
+   SendMessage(hmg_par_HWND(1), EM_GETCHARFORMAT, SelText, ( LPARAM ) &cF);
 
    PointSize = cF.yHeight / 20;
 
@@ -422,7 +422,7 @@ HB_FUNC( SETFONTRTF )
 #endif
 
    cF.cbSize = sizeof(CHARFORMAT);
-   Mask      = ( DWORD ) SendMessage(hmg_par_HWND(1), EM_GETCHARFORMAT, ( WPARAM ) SelText, ( LPARAM ) &cF);
+   Mask      = ( DWORD ) SendMessage(hmg_par_HWND(1), EM_GETCHARFORMAT, SelText, ( LPARAM ) &cF);
 
    if( hb_parni(10) > 0 )
    {
@@ -473,7 +473,7 @@ HB_FUNC( SETFONTRTF )
       lstrcpy(cF.szFaceName, szFaceName);
    }
 
-   lResult = SendMessage(hmg_par_HWND(1), EM_SETCHARFORMAT, ( WPARAM ) SelText, ( LPARAM ) &cF);
+   lResult = SendMessage(hmg_par_HWND(1), EM_SETCHARFORMAT, SelText, ( LPARAM ) &cF);
 
    if( lResult )
    {

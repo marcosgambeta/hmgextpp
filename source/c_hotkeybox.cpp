@@ -178,7 +178,7 @@ HB_FUNC( SETHOTKEYVALUE )
       SendMessage(hWnd, HKM_SETHOTKEY, wHotKey, 0);
    }
 
-   SendMessage(hWnd, HKM_SETRULES, ( WPARAM ) HKCOMB_NONE | HKCOMB_S,  // invalid key combinations
+   SendMessage(hWnd, HKM_SETRULES, HKCOMB_NONE | HKCOMB_S,  // invalid key combinations
                MAKELPARAM(HOTKEYF_ALT, 0));                         // add ALT to invalid entries
 }
 
