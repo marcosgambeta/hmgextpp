@@ -367,7 +367,7 @@ HBRUSH LinearGradientBrush( HDC pDC, long cx, long cy, COLORREF crFrom, COLORREF
 {
    HDC     memDC;
    HBITMAP memBmp;
-   HBRUSH  pGradientBrush = ( HBRUSH ) nullptr;
+   HBRUSH  pGradientBrush = nullptr;
 
    memDC  = CreateCompatibleDC(pDC);
    memBmp = CreateCompatibleBitmap( pDC, cx, cy );

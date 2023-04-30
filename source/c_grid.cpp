@@ -1137,11 +1137,11 @@ HB_FUNC( LISTVIEW_SETSORTHEADER )
       {
          if( nType > 0 )
          {
-            hdItem.hbm = ( HBITMAP ) LoadImage(GetInstance(), "MINIGUI_GRID_ASC", IMAGE_BITMAP, 0, 0, LR_LOADTRANSPARENT | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS);
+            hdItem.hbm = static_cast<HBITMAP>(LoadImage(GetInstance(), "MINIGUI_GRID_ASC", IMAGE_BITMAP, 0, 0, LR_LOADTRANSPARENT | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS));
          }
          else
          {
-            hdItem.hbm = ( HBITMAP ) LoadImage(GetInstance(), "MINIGUI_GRID_DSC", IMAGE_BITMAP, 0, 0, LR_LOADTRANSPARENT | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS);
+            hdItem.hbm = static_cast<HBITMAP>(LoadImage(GetInstance(), "MINIGUI_GRID_DSC", IMAGE_BITMAP, 0, 0, LR_LOADTRANSPARENT | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS));
          }
 
          hdItem.fmt |= HDF_BITMAP;

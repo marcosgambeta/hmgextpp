@@ -543,7 +543,7 @@ HB_FUNC( INITTOOLBUTTONEX )
    else
    {
       tbab.hInst = nullptr;
-      tbab.nID   = ( UINT_PTR ) ( HBITMAP ) himage;
+      tbab.nID   = ( UINT_PTR ) reinterpret_cast<HBITMAP>(himage);
       nPoz       = ( int ) SendMessage(hwndTB, TB_ADDBITMAP, ( WPARAM ) 1, ( LPARAM ) &tbab);
    }
 
@@ -772,7 +772,7 @@ HB_FUNC( REPLACETOOLBUTTONIMAGE )
    int     nButtonID  = hmg_par_INT(5);
    HBITMAP hBitmapNew;
 
-   hBitmapNew = ( HBITMAP ) HMG_LoadPicture(hb_parc(3), -1, -1, hwndTB, 1, 1, -1, 0, HB_FALSE, 255);
+   hBitmapNew = static_cast<HBITMAP>(HMG_LoadPicture(hb_parc(3), -1, -1, hwndTB, 1, 1, -1, 0, HB_FALSE, 255));
 
    if( ( hBitmapOld != nullptr ) && ( hBitmapNew != nullptr ) )
    {

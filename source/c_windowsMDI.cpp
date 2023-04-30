@@ -99,7 +99,7 @@ HB_FUNC( REGISTERMDIWINDOW )
    WndClass.hCursor = LoadCursor(nullptr, IDC_ARROW);
    if( HB_PARNI(3, 1) == -1 )
    {
-      WndClass.hbrBackground = ( HBRUSH ) ( COLOR_WINDOW + 1 );
+      WndClass.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1);
    }
    else
    {
@@ -139,7 +139,7 @@ HB_FUNC( REGISTERMDIWINDOW )
 
    if( HB_PARNI(3, 1) == -1 )
    {
-      WndClass.hbrBackground = ( HBRUSH ) ( COLOR_WINDOW + 1 );
+      WndClass.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1);
    }
    else
    {

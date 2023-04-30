@@ -227,9 +227,9 @@ void rr_getdevmode(void)
       pi2->pDevMode = pDevMode2;
    }
 
-   hfont  = ( HFONT ) GetCurrentObject(hDC, OBJ_FONT);
-   hbrush = ( HBRUSH ) GetCurrentObject(hDC, OBJ_BRUSH);
-   hpen   = ( HPEN ) GetCurrentObject(hDC, OBJ_PEN);
+   hfont  = static_cast<HFONT>(GetCurrentObject(hDC, OBJ_FONT));
+   hbrush = static_cast<HBRUSH>(GetCurrentObject(hDC, OBJ_BRUSH));
+   hpen   = static_cast<HPEN>(GetCurrentObject(hDC, OBJ_PEN));
 }
 
 HB_FUNC( EF_RESETPRINTER )
@@ -390,7 +390,7 @@ HB_FUNC( RR_GETDEFAULTPRINTER )
             hb_retc( "" );
             return;
          }
-         fnGetDefaultPrinter = ( _GETDEFAULTPRINTER ) GetProcAddress(hWinSpool, GETDEFAULTPRINTER);
+         fnGetDefaultPrinter = reinterpret_cast<_GETDEFAULTPRINTER>(GetProcAddress(hWinSpool, GETDEFAULTPRINTER));
          if( !fnGetDefaultPrinter )
          {
             FreeLibrary(hWinSpool);
@@ -728,7 +728,7 @@ HB_FUNC( RR_DELETEOBJECTS )
    UINT i;
 
    for( i = 2; i <= hb_parinfa(1, 0); i++ )
-      DeleteObject(( HGDIOBJ ) HB_PARVNL(1, i));
+      DeleteObject(reinterpret_cast<HGDIOBJ>(HB_PARVNL(1, i)));
 }
 
 HB_FUNC( RR_DELETEIMAGELISTS )
@@ -785,7 +785,7 @@ HB_FUNC( RR_MODIFYPEN )
    HPEN   hp;
 
    memset(&ppn, 0, sizeof(LOGPEN));
-   i = GetObject(( HPEN ) HB_PARNL(1), sizeof(LOGPEN), &ppn);
+   i = GetObject(reinterpret_cast<HPEN>(HB_PARNL(1)), sizeof(LOGPEN), &ppn);
    if( i > 0 )
    {
       if( hb_parni(2) >= 0 )
@@ -800,7 +800,7 @@ HB_FUNC( RR_MODIFYPEN )
       hp = CreatePenIndirect(&ppn);
       if( hp != nullptr )
       {
-         DeleteObject(( HPEN ) HB_PARNL(1));
+         DeleteObject(reinterpret_cast<HPEN>(HB_PARNL(1)));
          hmg_ret_HANDLE(hp);
       }
       else
@@ -812,8 +812,8 @@ HB_FUNC( RR_MODIFYPEN )
 
 HB_FUNC( RR_SELECTPEN )
 {
-   SelectObject(hDC, ( HPEN ) HB_PARNL(1));
-   hpen = ( HPEN ) HB_PARNL(1);
+   SelectObject(hDC, reinterpret_cast<HPEN>(HB_PARNL(1)));
+   hpen = reinterpret_cast<HPEN>(HB_PARNL(1));
 }
 
 HB_FUNC( RR_CREATEBRUSH )
@@ -833,7 +833,7 @@ HB_FUNC( RR_MODIFYBRUSH )
    HBRUSH   hb;
 
    memset(&ppn, 0, sizeof(LOGBRUSH));
-   i = GetObject(( HBRUSH ) HB_PARNL(1), sizeof(LOGBRUSH), &ppn);
+   i = GetObject(reinterpret_cast<HBRUSH>(HB_PARNL(1)), sizeof(LOGBRUSH), &ppn);
    if( i > 0 )
    {
       if( hb_parni(2) >= 0 )
@@ -848,7 +848,7 @@ HB_FUNC( RR_MODIFYBRUSH )
       hb = CreateBrushIndirect(&ppn);
       if( hb != nullptr )
       {
-         DeleteObject(( HBRUSH ) HB_PARNL(1));
+         DeleteObject(reinterpret_cast<HBRUSH>(HB_PARNL(1)));
          hmg_ret_HANDLE(hb);
       }
       else
@@ -860,8 +860,8 @@ HB_FUNC( RR_MODIFYBRUSH )
 
 HB_FUNC( RR_SELECTBRUSH )
 {
-   SelectObject(hDC, ( HBRUSH ) HB_PARNL(1));
-   hbrush = ( HBRUSH ) HB_PARNL(1);
+   SelectObject(hDC, reinterpret_cast<HBRUSH>(HB_PARNL(1)));
+   hbrush = reinterpret_cast<HBRUSH>(HB_PARNL(1));
 }
 
 HB_FUNC( RR_CREATEFONT )
@@ -933,7 +933,7 @@ HB_FUNC( RR_CREATEFONT )
                 );
    if( FontWidth < 0 )
    {
-      oldfont = ( HFONT ) SelectObject(hDC, hxfont);
+      oldfont = static_cast<HFONT>(SelectObject(hDC, hxfont));
       GetTextMetrics(hDC, &tm);
       SelectObject(hDC, oldfont);
       DeleteObject(hxfont);
@@ -1047,7 +1047,7 @@ HB_FUNC( RR_TEXTOUT )
    int     lspace = hb_parni(4);
 
    if( xfont != 0 )
-      prevfont = ( HFONT ) SelectObject(hDC, xfont);
+      prevfont = static_cast<HFONT>(SelectObject(hDC, xfont));
 
    if( textjust > 0 )
    {
@@ -1089,7 +1089,7 @@ HB_FUNC( RR_DRAWTEXT )
    SetRect(&rect, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1));
 
    if( xfont != 0 )
-      prevfont = ( HFONT ) SelectObject(hDC, xfont);
+      prevfont = static_cast<HFONT>(SelectObject(hDC, xfont));
 
    GetTextExtentPoint32(hDC, pszData, iLen, &sSize);
    w = ( LONG ) sSize.cx;  // text width
@@ -1125,10 +1125,10 @@ HB_FUNC( RR_RECTANGLE )
    LONG_PTR xbrush = HB_PARNL(4);
 
    if( xpen != 0 )
-      SelectObject(hDC, ( HPEN ) xpen);
+      SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
 
    if( xbrush != 0 )
-      SelectObject(hDC, ( HBRUSH ) xbrush);
+      SelectObject(hDC, reinterpret_cast<HBRUSH>(xbrush));
 
    hb_retni( Rectangle(hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1)) );
    if( xpen != 0 )
@@ -1366,7 +1366,7 @@ LPVOID rr_loadpicturefromresource(TCHAR * resname, LONG * lwidth, LONG * lheight
    LPVOID     lpVoid;
    int        nSize;
 
-   hbmpx = ( HBITMAP ) LoadImage(GetResources(), resname, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION);
+   hbmpx = static_cast<HBITMAP>(LoadImage(GetResources(), resname, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION));
    if( hbmpx != nullptr )
    {
       picd.cbSizeofstruct = sizeof(PICTDESC);
@@ -1567,9 +1567,9 @@ HB_FUNC( RR_CREATEIMAGELIST )
    HIMAGELIST himl;
    int        dx, number;
 
-   hbmpx = ( HBITMAP ) LoadImage(0, cFileName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+   hbmpx = static_cast<HBITMAP>(LoadImage(0, cFileName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION));
    if( hbmpx == nullptr )
-      hbmpx = ( HBITMAP ) LoadImage(GetModuleHandle(nullptr), cFileName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION);
+      hbmpx = static_cast<HBITMAP>(LoadImage(GetModuleHandle(nullptr), cFileName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION));
 
    if( hbmpx == nullptr )
       return;
@@ -1642,10 +1642,10 @@ HB_FUNC( RR_POLYGON )
    }
 
    if( xpen != 0 )
-      SelectObject(hDC, ( HPEN ) xpen);
+      SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
 
    if( xbrush != 0 )
-      SelectObject(hDC, ( HBRUSH ) xbrush);
+      SelectObject(hDC, reinterpret_cast<HBRUSH>(xbrush));
 
    SetPolyFillMode(hDC, hb_parni(5));
 
@@ -1674,7 +1674,7 @@ HB_FUNC( RR_POLYBEZIER )
    }
 
    if( xpen != 0 )
-      SelectObject(hDC, ( HPEN ) xpen);
+      SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
 
    hb_retnl( ( LONG ) PolyBezier( hDC, apoints, number ) );
 
@@ -1696,7 +1696,7 @@ HB_FUNC( RR_POLYBEZIERTO )
    }
 
    if( xpen != 0 )
-      SelectObject(hDC, ( HPEN ) xpen);
+      SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
 
    hb_retnl( ( LONG ) PolyBezierTo(hDC, apoints, number) );
 
@@ -1715,7 +1715,7 @@ HB_FUNC( RR_GETTEXTEXTENT )
    SIZE     szMetric;
 
    if( xfont != 0 )
-      SelectObject(hDC, ( HPEN ) xfont);
+      SelectObject(hDC, reinterpret_cast<HPEN>(xfont));
 
    hb_retni( GetTextExtentPoint32(hDC, lpText, ( int ) lstrlen(lpText), &szMetric) );
    HB_STORNI( szMetric.cy, 2, 1 );
@@ -1734,18 +1734,18 @@ HB_FUNC( RR_ROUNDRECT )
    LONG_PTR xbrush = HB_PARNL(5);
 
    if( xpen != 0 )
-      SelectObject(hDC, ( HPEN ) xpen);
+      SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
 
    if( xbrush != 0 )
-      SelectObject(hDC, ( HBRUSH ) xbrush);
+      SelectObject(hDC, reinterpret_cast<HBRUSH>(xbrush));
 
    hb_retni( RoundRect(hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1), HB_PARNI(3, 2), HB_PARNI(3, 1)) );
 
    if( xbrush != 0 )
-      SelectObject(hDC, ( HBRUSH ) hbrush);
+      SelectObject(hDC, static_cast<HBRUSH>(hbrush));
 
    if( xpen != 0 )
-      SelectObject(hDC, ( HPEN ) hpen);
+      SelectObject(hDC, static_cast<HPEN>(hpen));
 }
 
 HB_FUNC( RR_ELLIPSE )
@@ -1754,10 +1754,10 @@ HB_FUNC( RR_ELLIPSE )
    LONG_PTR xbrush = HB_PARNL(4);
 
    if( xpen != 0 )
-      SelectObject(hDC, ( HPEN ) xpen);
+      SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
 
    if( xbrush != 0 )
-      SelectObject(hDC, ( HBRUSH ) xbrush);
+      SelectObject(hDC, reinterpret_cast<HBRUSH>(xbrush));
 
    hb_retni( Ellipse(hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1)) );
 
@@ -1774,10 +1774,10 @@ HB_FUNC( RR_CHORD )
    LONG_PTR xbrush = HB_PARNL(6);
 
    if( xpen != 0 )
-      SelectObject(hDC, ( HPEN ) xpen);
+      SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
 
    if( xbrush != 0 )
-      SelectObject(hDC, ( HBRUSH ) xbrush);
+      SelectObject(hDC, reinterpret_cast<HBRUSH>(xbrush));
 
    hb_retni( Chord(hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1), HB_PARNI(3, 2), HB_PARNI(3, 1), HB_PARNI(4, 2), HB_PARNI(4, 1)) );
 
@@ -1793,7 +1793,7 @@ HB_FUNC( RR_ARCTO )
    LONG_PTR xpen = HB_PARNL(5);
 
    if( xpen != 0 )
-      SelectObject(hDC, ( HPEN ) xpen);
+      SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
 
    hb_retni( ArcTo(hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1), HB_PARNI(3, 2), HB_PARNI(3, 1), HB_PARNI(4, 2), HB_PARNI(4, 1)) );
 
@@ -1806,7 +1806,7 @@ HB_FUNC( RR_ARC )
    LONG_PTR xpen = HB_PARNL(5);
 
    if( xpen != 0 )
-      SelectObject(hDC, ( HPEN ) xpen);
+      SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
 
    hb_retni( Arc( hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1), HB_PARNI(3, 2), HB_PARNI(3, 1), HB_PARNI(4, 2), HB_PARNI(4, 1) ) );
 
@@ -1820,10 +1820,10 @@ HB_FUNC( RR_PIE )
    LONG_PTR xbrush = HB_PARNL(6);
 
    if( xpen != 0 )
-      SelectObject(hDC, ( HPEN ) xpen);
+      SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
 
    if( xbrush != 0 )
-      SelectObject(hDC, ( HBRUSH ) xbrush);
+      SelectObject(hDC, reinterpret_cast<HBRUSH>(xbrush));
 
    hb_retni( Pie(hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1), HB_PARNI(3, 2), HB_PARNI(3, 1), HB_PARNI(4, 2), HB_PARNI(4, 1)) );
 
@@ -1842,7 +1842,7 @@ HB_FUNC( RR_FILLRECT )
    rect.top    = HB_PARNI(1, 1);
    rect.right  = HB_PARNI(2, 2);
    rect.bottom = HB_PARNI(2, 1);
-   hb_retni( FillRect(hDC, &rect, ( HBRUSH ) HB_PARNL(3)) );
+   hb_retni( FillRect(hDC, &rect, reinterpret_cast<HBRUSH>(HB_PARNL(3))) );
 }
 
 HB_FUNC( RR_FRAMERECT )
@@ -1853,7 +1853,7 @@ HB_FUNC( RR_FRAMERECT )
    rect.top    = HB_PARNI(1, 1);
    rect.right  = HB_PARNI(2, 2);
    rect.bottom = HB_PARNI(2, 1);
-   hb_retni( FrameRect(hDC, &rect, ( HBRUSH ) HB_PARNL(3)) );
+   hb_retni( FrameRect(hDC, &rect, reinterpret_cast<HBRUSH>(HB_PARNL(3))) );
 }
 
 HB_FUNC( RR_LINE )
@@ -1861,7 +1861,7 @@ HB_FUNC( RR_LINE )
    LONG_PTR xpen = HB_PARNL(3);
 
    if( xpen != 0 )
-      SelectObject(hDC, ( HPEN ) xpen);
+      SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
 
    MoveToEx(hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), nullptr);
    hb_retni( LineTo(hDC, HB_PARNI(2, 2), HB_PARNI(2, 1)) );
@@ -1874,7 +1874,7 @@ HB_FUNC( RR_LINETO )
    LONG_PTR xpen = HB_PARNL(2);
 
    if( xpen != 0 )
-      SelectObject(hDC, ( HPEN ) xpen);
+      SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
 
    hb_retni( LineTo(hDC, HB_PARNI(1, 2), HB_PARNI(1, 1)) );
    if( xpen != 0 )
@@ -1949,8 +1949,8 @@ HB_FUNC( RR_PREVIEWPLAY )
 
    SetRect(&rect, 0, 0, HB_PARNI(3, 4), HB_PARNI(3, 3));
    himgbmp = CreateCompatibleBitmap(imgDC, rect.right, rect.bottom);
-   DeleteObject(SelectObject(tmpDC, ( HBITMAP ) himgbmp));
-   FillRect(tmpDC, &rect, ( HBRUSH ) GetStockObject(WHITE_BRUSH));
+   DeleteObject(SelectObject(tmpDC, static_cast<HBITMAP>(himgbmp)));
+   FillRect(tmpDC, &rect, static_cast<HBRUSH>(GetStockObject(WHITE_BRUSH)));
    PlayEnhMetaFile(tmpDC, hh, &rect);
    DeleteEnhMetaFile(hh);
    SendMessage(hmg_par_HWND(1), ( UINT ) STM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) himgbmp);
@@ -1982,7 +1982,7 @@ HB_FUNC( RR_PLAYTHUMB )
    SetRect(&rect, 0, 0, HB_PARNI(1, 4), HB_PARNI(1, 3));
    hbmp[i] = CreateCompatibleBitmap(imgDC, rect.right, rect.bottom);
    DeleteObject(SelectObject(tmpDC, hbmp[i]));
-   FillRect(tmpDC, &rect, ( HBRUSH ) GetStockObject(WHITE_BRUSH));
+   FillRect(tmpDC, &rect, static_cast<HBRUSH>(GetStockObject(WHITE_BRUSH)));
    PlayEnhMetaFile(tmpDC, hh, &rect);
    DeleteEnhMetaFile(hh);
    TextOut(tmpDC, ( int ) rect.right / 2 - 5, ( int ) rect.bottom / 2 - 5, lpText, ( int ) lstrlen(lpText));

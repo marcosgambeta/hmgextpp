@@ -640,8 +640,8 @@ void PropGridPaintButton(HDC hDC, RECT rc, BOOL bExpanded, int nIndent)
    hMrkPen = CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
    hNewBrush = CreateSolidBrush(RGB(255, 255, 255));
 
-   hOldPen = ( HPEN ) SelectObject(hDC, hBoxPen);
-   hOldBrush = ( HBRUSH ) SelectObject(hDC, hNewBrush);
+   hOldPen = static_cast<HPEN>(SelectObject(hDC, hBoxPen));
+   hOldBrush = static_cast<HBRUSH>(SelectObject(hDC, hNewBrush));
 
    // Draw the box
 
@@ -708,8 +708,8 @@ LRESULT PropGridOnCustomDraw ( HWND hWnd, LPARAM lParam )
       {
          hLinPen = CreatePen(PS_SOLID, 1, m_crLine);
 
-         hOldPen = ( HPEN ) SelectObject(hDC, hLinPen);
-         hOldBrush = ( HBRUSH ) SelectObject(hDC, m_brush);
+         hOldPen = static_cast<HPEN>(SelectObject(hDC, hLinPen));
+         hOldBrush = static_cast<HBRUSH>(SelectObject(hDC, m_brush));
 
          rcItem = rc;
          rcProp = rc;
@@ -938,13 +938,13 @@ LRESULT PropGridOnCustomDraw ( HWND hWnd, LPARAM lParam )
          if( pItemData->ItemChanged )
          {
             HFONT    hFontBold, hOldFont;
-            HFONT    hFont = ( HFONT ) SendMessage(hWnd, WM_GETFONT, 0, 0);
+            HFONT    hFont = reinterpret_cast<HFONT>(SendMessage(hWnd, WM_GETFONT, 0, 0));
             LOGFONT  lf; memset(&lf, 0, sizeof(lf));
             GetObject(hFont, sizeof(LOGFONT), &lf);
             lf.lfWeight |= FW_BOLD;
 
             hFontBold = CreateFontIndirect(&lf);
-            hOldFont = ( HFONT ) SelectObject(pCD->nmcd.hdc, hFontBold);
+            hOldFont = static_cast<HFONT>(SelectObject(pCD->nmcd.hdc, hFontBold));
 
             DeleteObject(hFontBold);
             DrawText(hDC, PropText, -1, &rcProp, DT_LEFT | DT_NOPREFIX | DT_SINGLELINE | DT_VCENTER | DT_CALCRECT);
@@ -2240,7 +2240,7 @@ HB_FUNC( GET_IMAGELIST )   //Get_ImageList(hWnd)
 HB_FUNC( IL_ADDMASKEDINDIRECT )  //IL_AddMaskedIndirect(hwnd , himage , color , ix , iy , imagecount)
 {
    BITMAP   bm;
-   HBITMAP  himage = ( HBITMAP ) hb_parnl(2);
+   HBITMAP  himage = reinterpret_cast<HBITMAP>(hb_parnl(2));
    COLORREF clrBk   = CLR_NONE;
    LRESULT  lResult = -1;
    int      ic      = 1;

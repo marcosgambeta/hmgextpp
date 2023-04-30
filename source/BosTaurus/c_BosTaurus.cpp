@@ -1079,9 +1079,9 @@ HB_FUNC( BT_DRAW_HDC_POLY )
       }
 
       hPen     = CreatePen(PS_SOLID, nWidthLine, ColorLine);
-      OldPen   = ( HPEN ) SelectObject(hDC, hPen);
+      OldPen   = static_cast<HPEN>(SelectObject(hDC, hPen));
       hBrush   = CreateSolidBrush(ColorFill);
-      OldBrush = ( HBRUSH ) SelectObject(hDC, hBrush);
+      OldBrush = static_cast<HBRUSH>(SelectObject(hDC, hBrush));
 
       switch( nPOLY )
       {
@@ -1147,9 +1147,9 @@ HB_FUNC( BT_DRAW_HDC_ARCX )
    nArcType = hmg_par_INT(13);
 
    hPen     = CreatePen(PS_SOLID, nWidthLine, ColorLine);
-   OldPen   = ( HPEN ) SelectObject(hDC, hPen);
+   OldPen   = static_cast<HPEN>(SelectObject(hDC, hPen));
    hBrush   = CreateSolidBrush(ColorFill);
-   OldBrush = ( HBRUSH ) SelectObject(hDC, hBrush);
+   OldBrush = static_cast<HBRUSH>(SelectObject(hDC, hBrush));
 
    switch( nArcType )
    {
@@ -1206,9 +1206,9 @@ HB_FUNC( BT_DRAW_HDC_FILLEDOBJECT )
    RoundHeight = hmg_par_INT(11);
 
    hPen     = CreatePen(PS_SOLID, nWidthLine, ColorLine);
-   OldPen   = ( HPEN ) SelectObject(hDC, hPen);
+   OldPen   = static_cast<HPEN>(SelectObject(hDC, hPen));
    hBrush   = CreateSolidBrush(ColorFill);
-   OldBrush = ( HBRUSH ) SelectObject(hDC, hBrush);
+   OldBrush = static_cast<HBRUSH>(SelectObject(hDC, hBrush));
 
    switch( Type )
    {
@@ -1483,7 +1483,7 @@ HB_FUNC( BT_DRAW_HDC_TEXTOUT )
    hFont = CreateFont(0 - FontSize, 0, Orientation, Orientation, Bold, Italic, Underline, StrikeOut,
                       DEFAULT_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, FontName);
 
-   hOldFont = ( HFONT ) SelectObject(hDC, hFont);
+   hOldFont = static_cast<HFONT>(SelectObject(hDC, hFont));
 
    SetTextAlign(hDC, Align);
    SetTextColor(hDC, Text_Color);
@@ -1583,7 +1583,7 @@ HB_FUNC( BT_DRAW_HDC_DRAWTEXT )
    hFont = CreateFont(0 - FontSize, 0, ( int ) Orientation, ( int ) Orientation, Bold, Italic, Underline, StrikeOut,
                       DEFAULT_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, FontName);
 
-   hOldFont = ( HFONT ) SelectObject(hDC, hFont);
+   hOldFont = static_cast<HFONT>(SelectObject(hDC, hFont));
 
    SetTextColor(hDC, Text_Color);
 
@@ -1655,7 +1655,7 @@ HB_FUNC( BT_DRAW_HDC_TEXTSIZE )
    hFont = CreateFont(0 - FontSize, 0, Orientation, Orientation, Bold, Italic, Underline, StrikeOut,
                       DEFAULT_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, FontName);
 
-   hOldFont = ( HFONT ) SelectObject(hDC, hFont);
+   hOldFont = static_cast<HFONT>(SelectObject(hDC, hFont));
 
    GetTextExtentPoint32(hDC, lpText, lstrlen(lpText), &SizeText);
    hb_reta(6);
@@ -1851,7 +1851,7 @@ HB_FUNC( BT_BMP_CREATE )
    SetRect(&Rect, 0, 0, bm.bmWidth, bm.bmHeight);
 
    hBrush   = CreateSolidBrush(Color_Fill_Bk);
-   OldBrush = ( HBRUSH ) SelectObject(memDC, hBrush);
+   OldBrush = static_cast<HBRUSH>(SelectObject(memDC, hBrush));
    FillRect(memDC, &Rect, hBrush);
 
    SelectObject(memDC, OldBrush);
@@ -1890,11 +1890,11 @@ HB_FUNC( BT_BMP_LOADFILE )
 #endif
 
    // First find BMP image in resourses (.EXE file)
-   hBitmap = ( HBITMAP ) LoadImage(GetModuleHandle(nullptr), FileName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION);
+   hBitmap = static_cast<HBITMAP>(LoadImage(GetModuleHandle(nullptr), FileName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION));
 
    // If fail: find BMP in disk
    if( hBitmap == nullptr )
-      hBitmap = ( HBITMAP ) LoadImage(nullptr, FileName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+      hBitmap = static_cast<HBITMAP>(LoadImage(nullptr, FileName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION));
 
    // If fail: find JPG Image in resourses
    if( hBitmap == nullptr )
@@ -2013,7 +2013,7 @@ HB_FUNC( BT_BITMAPLOADEMF )
 
    // Paint the background of the Bitmap
    hBrush   = CreateSolidBrush(BackgroundColor);
-   OldBrush = ( HBRUSH ) SelectObject(memDC, hBrush);
+   OldBrush = static_cast<HBRUSH>(SelectObject(memDC, hBrush));
    FillRect(memDC, &Rect, hBrush);
 
    GetBrushOrgEx(memDC, &Point);
@@ -3190,7 +3190,7 @@ HB_FUNC( BT_BMP_TRANSFORM )
    SetBrushOrgEx(memDC2, Point.x, Point.y, nullptr);
 
    hBrush   = CreateSolidBrush(Color_Fill_Bk);
-   OldBrush = ( HBRUSH ) SelectObject(memDC2, hBrush);
+   OldBrush = static_cast<HBRUSH>(SelectObject(memDC2, hBrush));
    SetRect(&rectang, 0, 0, Width, Height);
    FillRect(memDC2, &rectang, hBrush);
 
@@ -3531,7 +3531,7 @@ HB_FUNC( BT_TEXTOUT_SIZE )
    hFont = CreateFont(0 - FontSize, 0, 0, 0, Bold, Italic, Underline, StrikeOut,
                       DEFAULT_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, FontName);
 
-   hOldFont = ( HFONT ) SelectObject(hDC, hFont);
+   hOldFont = static_cast<HFONT>(SelectObject(hDC, hFont));
 
 /*
    When GetTextExtentPoint32() returns the text extent, it assumes that the text is HORIZONTAL,

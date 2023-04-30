@@ -1666,27 +1666,11 @@ static void FLD_AddBitmap(HWND hWndFolder)
 
                if( pfpi->hasIcon )
                {
-                  hbmp = ( HBITMAP ) LoadImage
-                         (
-                     GetResources(),
-                     pfpi->pszTemplate,
-                     IMAGE_BITMAP,
-                     cx,
-                     cy,
-                     LR_LOADTRANSPARENT | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS
-                         );
+                  hbmp = static_cast<HBITMAP>(LoadImage(GetResources(), pfpi->pszTemplate, IMAGE_BITMAP, cx, cy, LR_LOADTRANSPARENT | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS));
 
                   if( hbmp == nullptr )
                   {
-                     hbmp = ( HBITMAP ) LoadImage
-                            (
-                        nullptr,
-                        pfpi->pszTemplate,
-                        IMAGE_BITMAP,
-                        cx,
-                        cy,
-                        LR_LOADTRANSPARENT | LR_LOADFROMFILE | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS
-                            );
+                     hbmp = static_cast<HBITMAP>(LoadImage(nullptr, pfpi->pszTemplate, IMAGE_BITMAP, cx, cy, LR_LOADTRANSPARENT | LR_LOADFROMFILE | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS));
                   }
                }
 

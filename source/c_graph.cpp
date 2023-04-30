@@ -70,7 +70,7 @@ HB_FUNC( TEXTDRAW )
       hDC = hmg_par_HDC(1);
    }
 
-   if( GetObjectType(( HGDIOBJ ) hDC) == OBJ_DC )
+   if( GetObjectType(static_cast<HGDIOBJ>(hDC)) == OBJ_DC )
    {
       void * str1;
       void * str2;
@@ -383,7 +383,7 @@ HB_FUNC( POLYBEZIERDRAW )
 
 void WndDrawBox(HDC hDC, RECT * rct, HPEN hPUpLeft, HPEN hPBotRit)
 {
-   HPEN  hOldPen = ( HPEN ) SelectObject(hDC, hPUpLeft);
+   HPEN  hOldPen = static_cast<HPEN>(SelectObject(hDC, hPUpLeft));
    POINT pt;
 
    MoveToEx(hDC, rct->left, rct->bottom, &pt);

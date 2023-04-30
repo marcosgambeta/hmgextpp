@@ -101,29 +101,29 @@ HB_FUNC( IL_ADD )          //IL_Add( himl , image , maskimage , ix , iy , imagec
       ic = hb_parni(6);
    }
 
-   himage1 = ( HBITMAP ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+   himage1 = static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
    if( himage1 == nullptr )
    {
-      himage1 = ( HBITMAP ) LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+      himage1 = static_cast<HBITMAP>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
    }
 
    if( himage1 == nullptr )
    {
-      himage1 = ( HBITMAP ) HMG_LoadImage(hb_parc(2), nullptr);
+      himage1 = static_cast<HBITMAP>(HMG_LoadImage(hb_parc(2), nullptr));
    }
 
    himage2 = 0;
    if( hb_parclen(3) )
    {
-      himage2 = ( HBITMAP ) LoadImage(GetResources(), lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+      himage2 = static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
       if( himage2 == nullptr )
       {
-         himage2 = ( HBITMAP ) LoadImage(nullptr, lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+         himage2 = static_cast<HBITMAP>(LoadImage(nullptr, lpImageName2, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
       }
 
       if( himage2 == nullptr )
       {
-         himage2 = ( HBITMAP ) HMG_LoadImage(hb_parc(3), nullptr);
+         himage2 = static_cast<HBITMAP>(HMG_LoadImage(hb_parc(3), nullptr));
       }
    }
 
@@ -171,15 +171,15 @@ HB_FUNC( IL_ADDMASKED )    //IL_AddMasked(himl , image , color , ix , iy , image
       ic = hb_parni(6);
    }
 
-   himage1 = ( HBITMAP ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+   himage1 = static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
    if( himage1 == nullptr )
    {
-      himage1 = ( HBITMAP ) LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+      himage1 = static_cast<HBITMAP>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
    }
 
    if( himage1 == nullptr )
    {
-      himage1 = ( HBITMAP ) HMG_LoadPicture(hb_parc(2), -1, -1, nullptr, 0, 1, -1, 0, HB_FALSE, 255);
+      himage1 = static_cast<HBITMAP>(HMG_LoadPicture(hb_parc(2), -1, -1, nullptr, 0, 1, -1, 0, HB_FALSE, 255));
    }
 
 #ifdef UNICODE

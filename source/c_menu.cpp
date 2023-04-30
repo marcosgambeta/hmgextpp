@@ -364,8 +364,8 @@ HB_FUNC( APPENDMENUSTRING )
       lpMenuItem->uiID       = hb_parni(2);
       lpMenuItem->caption    = HB_STRNDUP(lpNewItem, cch);
       lpMenuItem->cch        = cch;
-      lpMenuItem->hBitmap    = ( HBITMAP ) nullptr;
-      lpMenuItem->hFont      = ( HFONT ) nullptr;
+      lpMenuItem->hBitmap    = nullptr;
+      lpMenuItem->hFont      = nullptr;
       lpMenuItem->uiItemType = hb_parni(4);
       lpMenuItem->hwnd       = ( HWND ) nullptr;
 
@@ -421,7 +421,7 @@ HB_FUNC( APPENDMENUPOPUP )
       lpMenuItem->uiID       = hb_parni(2);
       lpMenuItem->caption    = HB_STRNDUP(lpNewItem, cch);
       lpMenuItem->cch        = cch;
-      lpMenuItem->hBitmap    = ( HBITMAP ) nullptr;
+      lpMenuItem->hBitmap    = nullptr;
       lpMenuItem->hFont      = hmg_par_HFONT(5);
       lpMenuItem->uiItemType = hb_parni(4);
 
@@ -822,11 +822,11 @@ HB_FUNC( _ONDRAWMENUITEM )
 
    if( lpMenuItem->hFont != nullptr )
    {
-      oldfont = ( HFONT ) SelectObject(lpdis->hDC, lpMenuItem->hFont);
+      oldfont = static_cast<HFONT>(SelectObject(lpdis->hDC, lpMenuItem->hFont));
    }
    else
    {
-      oldfont = ( HFONT ) SelectObject(lpdis->hDC, GetStockObject(DEFAULT_GUI_FONT));
+      oldfont = static_cast<HFONT>(SelectObject(lpdis->hDC, GetStockObject(DEFAULT_GUI_FONT)));
    }
 
    // save prev. colours state
@@ -907,7 +907,7 @@ HB_FUNC( _ONDRAWMENUITEM )
          pen  = CreatePen(PS_SOLID, ( UINT ) 1, clrSelectedItemBorder2);
          pen1 = CreatePen(PS_SOLID, ( UINT ) 1, clrSelectedItemBorder4);
 
-         oldPen = ( HPEN ) SelectObject(lpdis->hDC, pen1);
+         oldPen = static_cast<HPEN>(SelectObject(lpdis->hDC, pen1));
 
          CopyRect(&rect, &lpdis->rcItem);
          rect.left  += ( cx_delta / 2 - 2 );
@@ -1004,7 +1004,7 @@ VOID DrawSeparator( HDC hDC, RECT r )
    CopyRect(&rect, &r);
 
    pen    = CreatePen(PS_SOLID, ( UINT ) 1, clrSeparator1);
-   oldPen = ( HPEN ) SelectObject(hDC, pen);
+   oldPen = static_cast<HPEN>(SelectObject(hDC, pen));
 
    if( eSeparatorPosition == Right )
    {
@@ -1024,7 +1024,7 @@ VOID DrawSeparator( HDC hDC, RECT r )
    {
       HPEN pen1, oldPen1;
       pen1    = CreatePen(PS_SOLID, ( UINT ) 1, clrSeparator2);
-      oldPen1 = ( HPEN ) SelectObject(hDC, pen1);
+      oldPen1 = static_cast<HPEN>(SelectObject(hDC, pen1));
 
       rect.top += 1;
       MoveToEx(hDC, rect.left, rect.top, nullptr);
@@ -1147,7 +1147,7 @@ VOID DrawSelectedItemBorder(HDC hDC, RECT r, UINT itemType, BOOL clear)
       pen1 = CreatePen(PS_SOLID, ( UINT ) 1, clrSelectedItemBorder4);
    }
 
-   oldPen = ( HPEN ) SelectObject(hDC, pen);
+   oldPen = static_cast<HPEN>(SelectObject(hDC, pen));
 
    CopyRect(&rect, &r);
    if( ( eMenuCursorType == Short ) && ( itemType != 1 ) && ( !clear ) )
@@ -1213,10 +1213,10 @@ VOID DrawCheck(HDC hdc, SIZE size, RECT rect, BOOL disabled, BOOL selected, HBIT
          brush = CreateSolidBrush(clrCheckMarkBk);
       }
 
-      oldBrush = ( HBRUSH ) SelectObject(hdc, brush);
+      oldBrush = static_cast<HBRUSH>(SelectObject(hdc, brush));
 
       pen    = CreatePen(PS_SOLID, ( UINT ) 1, clrCheckMarkSq);
-      oldPen = ( HPEN ) SelectObject(hdc, pen);
+      oldPen = static_cast<HPEN>(SelectObject(hdc, pen));
 
       w = ( size.cx > min_width ? min_width : size.cx );
       h = w;
@@ -1465,7 +1465,7 @@ static BOOL _DestroyMenu(HMENU menu)
             lpMenuItem->hBitmap = nullptr;
          }
 
-         if( GetObjectType(( HGDIOBJ ) lpMenuItem->hFont) == OBJ_FONT )
+         if( GetObjectType(static_cast<HGDIOBJ>(lpMenuItem->hFont)) == OBJ_FONT )
          {
             bResult = bResult && DeleteObject(lpMenuItem->hFont);
             lpMenuItem->hFont = nullptr;
@@ -1497,13 +1497,13 @@ HB_FUNC( _ONMEASUREMENUITEM )
       SIZE  size = { 0, 0 };
       HFONT oldfont;
 
-      if( GetObjectType(( HGDIOBJ ) lpMenuItem->hFont) == OBJ_FONT )
+      if( GetObjectType(static_cast<HGDIOBJ>(lpMenuItem->hFont)) == OBJ_FONT )
       {
-         oldfont = ( HFONT ) SelectObject(hdc, lpMenuItem->hFont);
+         oldfont = static_cast<HFONT>(SelectObject(hdc, lpMenuItem->hFont));
       }
       else
       {
-         oldfont = ( HFONT ) SelectObject(hdc, GetStockObject(DEFAULT_GUI_FONT));
+         oldfont = static_cast<HFONT>(SelectObject(hdc, GetStockObject(DEFAULT_GUI_FONT)));
       }
 
       if( lpMenuItem->uiItemType == 1000 )

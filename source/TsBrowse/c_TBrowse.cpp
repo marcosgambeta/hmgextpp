@@ -101,7 +101,7 @@ HB_FUNC( REGISTER_CLASS )
    WndClass.hInstance  = GetModuleHandle(nullptr);
    WndClass.hIcon      = 0;
    WndClass.hCursor    = LoadCursor(nullptr, IDC_ARROW);
-   hbrush = ( HBRUSH ) ( HB_ISNIL(2) ? COLOR_WINDOW + 1 : HB_PARNL(2) );
+   hbrush = reinterpret_cast<HBRUSH>(HB_ISNIL(2) ? COLOR_WINDOW + 1 : HB_PARNL(2));
    WndClass.hbrBackground = hbrush;
    WndClass.lpszMenuName  = nullptr;
    WndClass.lpszClassName = lpClassName;
@@ -174,12 +174,12 @@ void MaskRegion(HDC hdc, RECT * rct, COLORREF cTransparentColor, COLORREF cBackg
    bmAndObject = CreateBitmap(ptSize.x, ptSize.y, 1, 1, nullptr);
    bmAndBack   = CreateBitmap(ptSize.x, ptSize.y, 1, 1, nullptr);
 
-   bmTempOld   = ( HBITMAP ) SelectObject(hdcTemp, bmAndTemp);
-   bmMemOld    = ( HBITMAP ) SelectObject(hdcMem, bmAndMem);
-   bmBackOld   = ( HBITMAP ) SelectObject(hdcBack, bmAndBack);
-   bmObjectOld = ( HBITMAP ) SelectObject(hdcObject, bmAndObject);
+   bmTempOld   = static_cast<HBITMAP>(SelectObject(hdcTemp, bmAndTemp));
+   bmMemOld    = static_cast<HBITMAP>(SelectObject(hdcMem, bmAndMem));
+   bmBackOld   = static_cast<HBITMAP>(SelectObject(hdcBack, bmAndBack));
+   bmObjectOld = static_cast<HBITMAP>(SelectObject(hdcObject, bmAndObject));
 
-   hBrOld = ( HBRUSH ) SelectObject(hdcMem, hBrush);
+   hBrOld = static_cast<HBRUSH>(SelectObject(hdcMem, hBrush));
 
    BitBlt(hdcTemp, 0, 0, ptSize.x, ptSize.y, hdc, rct->left, rct->top, SRCCOPY);
 
@@ -218,7 +218,7 @@ void DrawBitmap(HDC hDC, HBITMAP hBitmap, int wRow, int wCol, int wWidth, int wH
    if( !dwRaster )
       dwRaster = SRCCOPY;
 
-   hBmpOld = ( HBITMAP ) SelectObject(hDCmem, hBitmap);
+   hBmpOld = static_cast<HBITMAP>(SelectObject(hDCmem, hBitmap));
    GetObject(hBitmap, sizeof(BITMAP), ( LPVOID ) &bitmap);
 
    if( wWidth && ( wWidth != bitmap.bmWidth || wHeight != bitmap.bmHeight ) )
@@ -234,7 +234,7 @@ void DrawMasked(HDC hDC, HBITMAP hbm, int wRow, int wCol)
 {
    HDC      hDcBmp = CreateCompatibleDC(hDC);
    HDC      hDcMask;
-   HBITMAP  hBmpMask, hOldBmp2, hOldBmp1 = ( HBITMAP ) SelectObject(hDcBmp, hbm);
+   HBITMAP  hBmpMask, hOldBmp2, hOldBmp1 = static_cast<HBITMAP>(SelectObject(hDcBmp, hbm));
    BITMAP   bm;
    COLORREF rgbBack;
 
@@ -243,7 +243,7 @@ void DrawMasked(HDC hDC, HBITMAP hbm, int wRow, int wCol)
       GetObject(hbm, sizeof(BITMAP), ( LPSTR ) &bm);
       hDcMask  = CreateCompatibleDC(hDC);
       hBmpMask = CreateCompatibleBitmap(hDcMask, bm.bmWidth, bm.bmHeight);
-      hOldBmp2 = ( HBITMAP ) SelectObject(hDcMask, hBmpMask);
+      hOldBmp2 = static_cast<HBITMAP>(SelectObject(hDcMask, hBmpMask));
       rgbBack  = SetBkColor(hDcBmp, GetPixel(hDcBmp, 0, 0));
       BitBlt(hDcMask, wRow, wCol, bm.bmWidth, bm.bmHeight, hDcBmp, 0, 0, SRCCOPY);
       SetBkColor(hDcBmp, rgbBack);
@@ -296,7 +296,7 @@ HB_FUNC( TSDRAWCELL )
    int      nVertText    = hb_parni(24);
    COLORREF clrTo        = hb_parnl(25);
    BOOL     bOpaque      = hb_parl(26);
-   // HBRUSH   wBrush       = ( HBRUSH ) HB_PARNL(27);
+   // HBRUSH   wBrush       = static_cast<HBRUSH>(HB_PARNL(27));
    BOOL     b3DInv       = ( HB_ISNIL(28) ? FALSE : !hb_parl(28) );
    BOOL     b3D          = ( HB_ISNIL(28) ? FALSE : TRUE );
    COLORREF nClr3DL      = hb_parnl(29);
@@ -340,7 +340,7 @@ HB_FUNC( TSDRAWCELL )
    }
 
    if( hFont )
-      hOldFont = ( HFONT ) SelectObject(hDC, hFont);
+      hOldFont = static_cast<HFONT>(SelectObject(hDC, hFont));
 
    GetClientRect(hWnd, &rct);
 
@@ -566,7 +566,7 @@ HB_FUNC( TSDRAWCELL )
 
 void WndBoxDraw(HDC hDC, RECT * rct, HPEN hPUpLeft, HPEN hPBotRit, int nLineStyle, BOOL bHeader)
 {
-   HPEN hOldPen = ( HPEN ) SelectObject(hDC, hPUpLeft);
+   HPEN hOldPen = static_cast<HPEN>(SelectObject(hDC, hPUpLeft));
    HPEN hBlack  = CreatePen(PS_SOLID, 1, 0);
 
    switch( nLineStyle )
@@ -635,7 +635,7 @@ HB_FUNC( TSBRWSCROLL )
    RECT  rct;
 
    if( hFont )
-      hOldFont = ( HFONT ) SelectObject(hDC, hFont);
+      hOldFont = static_cast<HFONT>(SelectObject(hDC, hFont));
 
    GetClientRect(hWnd, &rct);
 
@@ -724,7 +724,7 @@ HB_FUNC( SBGETHEIGHT )   // ( hWnd, hFont, nTotal )
    if( iTotal < 2 )
    {
       if( hFont )
-         hOldFont = ( HFONT ) SelectObject(hDC, hFont);
+         hOldFont = static_cast<HFONT>(SelectObject(hDC, hFont));
 
       GetTextMetrics(hDC, &tm);
       if( hFont )
@@ -796,7 +796,7 @@ static void DrawCheck(HDC hDC, LPRECT rct, HPEN hWhitePen, int nAlign, BOOL bChe
    HPEN   hLGrayPen   = CreatePen(PS_SOLID, 1, RGB(192, 192, 192));
    HPEN   hGrayPen    = CreatePen(PS_SOLID, 1, RGB(128, 128, 128));
 
-   hOldBrush = ( HBRUSH ) SelectObject(hDC, hGrayBrush);
+   hOldBrush = static_cast<HBRUSH>(SelectObject(hDC, hGrayBrush));
 
    lrct.top = rct->top + ( ( ( rct->bottom - rct->top + 1 ) / 2 ) - 8 );
 
@@ -816,7 +816,7 @@ static void DrawCheck(HDC hDC, LPRECT rct, HPEN hWhitePen, int nAlign, BOOL bChe
    lrct.right  += 1;
    lrct.bottom += 1;
 
-   hOldPen = ( HPEN ) SelectObject(hDC, hBlackPen);
+   hOldPen = static_cast<HPEN>(SelectObject(hDC, hBlackPen));
    Rectangle(hDC, lrct.left, lrct.top, lrct.right, lrct.bottom);
 
    lrct.left   += 1;
@@ -933,7 +933,7 @@ static void DegradColor(HDC hDC, RECT * rori, COLORREF cFrom, signed long cTo)
       rct.right = rct.left + 1;
 
    hBrush    = CreateSolidBrush(RGB(clr1r, clr1g, clr1b));
-   hOldBrush = ( HBRUSH ) SelectObject(hDC, hBrush);
+   hOldBrush = static_cast<HBRUSH>(SelectObject(hDC, hBrush));
    FillRect(hDC, &rct, hBrush);
 
    for( iEle = 1; iEle < iTot; iEle++ )

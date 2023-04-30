@@ -1416,7 +1416,7 @@ HB_FUNC( REGISTERWINDOW )
    {
       if( HB_PARNI(3, 1) == -1 )
       {
-         hBrush = ( HBRUSH ) ( COLOR_BTNFACE + 1 );
+         hBrush = reinterpret_cast<HBRUSH>(COLOR_BTNFACE + 1);
       }
       else
       {
@@ -1432,11 +1432,11 @@ HB_FUNC( REGISTERWINDOW )
       LPWSTR lpImageName = HB_ISCHAR(3) ? AnsiToWide(( char * ) hb_parc(3)) : ( HB_ISNUM(3) ? ( LPWSTR ) MAKEINTRESOURCE(( WORD ) hb_parnl(3)) : nullptr );
 #endif
 
-      hImage = ( HBITMAP ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+      hImage = static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
 
       if( hImage == nullptr && HB_ISCHAR(3) )
       {
-         hImage = ( HBITMAP ) LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+         hImage = static_cast<HBITMAP>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
       }
 
 #ifdef UNICODE
@@ -1444,7 +1444,7 @@ HB_FUNC( REGISTERWINDOW )
 #endif
       if( hImage == nullptr )
       {
-         hImage = ( HBITMAP ) HMG_LoadImage(hb_parc(3), nullptr);
+         hImage = static_cast<HBITMAP>(HMG_LoadImage(hb_parc(3), nullptr));
       }
 
       if( hImage != nullptr )
@@ -1453,7 +1453,7 @@ HB_FUNC( REGISTERWINDOW )
       }
    }
 
-   WndClass.hbrBackground = ( nullptr != hBrush ) ? hBrush : ( hBrush = ( HBRUSH ) ( COLOR_BTNFACE + 1 ) );
+   WndClass.hbrBackground = ( nullptr != hBrush ) ? hBrush : ( hBrush = reinterpret_cast<HBRUSH>(COLOR_BTNFACE + 1) );
    WndClass.lpszMenuName = nullptr;
    WndClass.lpszClassName = lpClassName;
 
@@ -1511,7 +1511,7 @@ HB_FUNC( REGISTERSPLITCHILDWINDOW )
 
    if( HB_PARNI(3, 1) == -1 )
    {
-      WndClass.hbrBackground = ( HBRUSH ) ( COLOR_BTNFACE + 1 );
+      WndClass.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_BTNFACE + 1);
    }
    else
    {

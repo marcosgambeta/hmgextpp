@@ -886,10 +886,10 @@ HB_FUNC( C_SETWINDOWRGN )
             break;
 
          case 4:
-            hbmp = ( HBITMAP ) LoadImage(GetResources(), ( TCHAR * ) hb_parc(2), IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION);
+            hbmp = static_cast<HBITMAP>(LoadImage(GetResources(), ( TCHAR * ) hb_parc(2), IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION));
             if( hbmp == nullptr )
             {
-               hbmp = ( HBITMAP ) LoadImage(nullptr, ( TCHAR * ) hb_parc(2), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+               hbmp = static_cast<HBITMAP>(LoadImage(nullptr, ( TCHAR * ) hb_parc(2), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION));
             }
 
             hRgn = BitmapToRegion(hbmp, ( COLORREF ) RGB(( int ) HB_PARNI(3, 1), ( int ) HB_PARNI(3, 2), ( int ) HB_PARNI(3, 3)), 0x101010);
@@ -1109,7 +1109,7 @@ HB_FUNC( GETTABBEDCONTROLBRUSH )
    GetWindowRect(hmg_par_HWND(2), &rc);
    MapWindowPoints(nullptr, hmg_par_HWND(3), ( LPPOINT ) (&rc), 2);
    SetBrushOrgEx(hDC, -rc.left, -rc.top, nullptr);
-   hBrush = ( HBRUSH ) HB_PARNL(4);
+   hBrush = reinterpret_cast<HBRUSH>(HB_PARNL(4));
 
    hmg_ret_HANDLE(hBrush);
 }
@@ -1130,7 +1130,7 @@ HB_FUNC( GETTABBRUSH )
 
    hBmp = CreateCompatibleBitmap(hDC, rc.right - rc.left, rc.bottom - rc.top);
 
-   hOldBmp = ( HBITMAP ) SelectObject(hDCMem, hBmp);
+   hOldBmp = static_cast<HBITMAP>(SelectObject(hDCMem, hBmp));
 
    SendMessage(hWnd, WM_PRINTCLIENT, ( WPARAM ) hDCMem, ( LPARAM ) PRF_ERASEBKGND | PRF_CLIENT | PRF_NONCLIENT);
 
@@ -1236,15 +1236,15 @@ HB_FUNC( CREATEPATTERNBRUSH )
    LPCWSTR lpImageName = HB_ISCHAR(1) ? AnsiToWide(( char * ) hb_parc(1)) : ( HB_ISNUM(1) ? ( LPCWSTR ) MAKEINTRESOURCE(hb_parni(1)) : nullptr );
 #endif
 
-   hImage = ( HBITMAP ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+   hImage = static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
 
    if( hImage == nullptr && HB_ISCHAR(1) )
    {
-      hImage = ( HBITMAP ) LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+      hImage = static_cast<HBITMAP>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
    }
    if( hImage == nullptr )
    {
-      hImage = ( HBITMAP ) HMG_LoadImage(hb_parc(1), nullptr);
+      hImage = static_cast<HBITMAP>(HMG_LoadImage(hb_parc(1), nullptr));
    }
 
    hmg_ret_HANDLE(( hImage != nullptr ) ? CreatePatternBrush(hImage) : nullptr);
@@ -1309,7 +1309,7 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
          hbm32 = CreateDIBSection(hMemDC, ( BITMAPINFO * ) &RGB32BITSBITMAPINFO, DIB_RGB_COLORS, &pbits32, nullptr, 0);
          if( hbm32 )
          {
-            HBITMAP holdBmp = ( HBITMAP ) SelectObject(hMemDC, hbm32);
+            HBITMAP holdBmp = static_cast<HBITMAP>(SelectObject(hMemDC, hbm32));
 
             // Create a DC just to copy the bitmap into the memory DC
             HDC hDC = CreateCompatibleDC(hMemDC);
@@ -1328,7 +1328,7 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
                   bm32.bmWidthBytes++;
 
                // Copy the bitmap into the memory DC
-               holdBmp = ( HBITMAP ) SelectObject(hDC, hBmp);
+               holdBmp = static_cast<HBITMAP>(SelectObject(hDC, hBmp));
                BitBlt(hMemDC, 0, 0, bm.bmWidth, bm.bmHeight, hDC, 0, 0, SRCCOPY);
 
                // For better performances, we will use the  ExtCreateRegion() function to create the  region.

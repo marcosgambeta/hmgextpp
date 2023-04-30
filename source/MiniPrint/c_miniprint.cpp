@@ -748,11 +748,11 @@ HB_FUNC( _HMG_PRINTER_C_RECTANGLE )
       rect.bottom = ( toy * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000 ) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY);
 
       if( hb_parl(12) && hb_parl(13) )
-         FillRect(hdcPrint, &rect, ( HBRUSH ) hbrush);
+         FillRect(hdcPrint, &rect, static_cast<HBRUSH>(hbrush));
       else
          Rectangle(hdcPrint, rect.left, rect.top, rect.right, rect.bottom);
 
-      SelectObject(hdcPrint, ( HGDIOBJ ) hgdiobj);
+      SelectObject(hdcPrint, static_cast<HGDIOBJ>(hgdiobj));
 
       if( hb_parl(12) )
          DeleteObject(hbrush);
@@ -850,7 +850,7 @@ HB_FUNC( _HMG_PRINTER_C_ROUNDRECTANGLE )
                  p
                 );
 
-      SelectObject(hdcPrint, ( HGDIOBJ ) hgdiobj);
+      SelectObject(hdcPrint, static_cast<HGDIOBJ>(hgdiobj));
 
       if( hb_parl(12) )
          DeleteObject(hbrush);
@@ -952,7 +952,7 @@ HB_FUNC( _HMG_PRINTER_C_LINE )
              ( toy * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000 ) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY)
              );
 
-      SelectObject(hdcPrint, ( HGDIOBJ ) hgdiobj);
+      SelectObject(hdcPrint, static_cast<HGDIOBJ>(hgdiobj));
 
       DeleteObject(hpen);
 
@@ -1570,7 +1570,7 @@ HB_FUNC( _HMG_PRINTER_SHOWPAGE )
            yOffset + ( GetDeviceCaps(hDCPrinter, VERTSIZE) * hb_parni(4) / 10000 ) + hb_parni(7) + zh
            );
 
-   FillRect(hDC, &rct, ( HBRUSH ) RGB(255, 255, 255));
+   FillRect(hDC, &rct, reinterpret_cast<HBRUSH>(RGB(255, 255, 255)));
 
    PlayEnhMetaFile(hDC, hemf, &rct);
 
@@ -1581,28 +1581,28 @@ HB_FUNC( _HMG_PRINTER_SHOWPAGE )
    aux.left   = rct.right;
    aux.right  = ClientWidth;
    aux.bottom = ClientHeight;
-   FillRect(hDC, &aux, ( HBRUSH ) GetStockObject(GRAY_BRUSH));
+   FillRect(hDC, &aux, static_cast<HBRUSH>(GetStockObject(GRAY_BRUSH)));
 
    // Bottom
    aux.top    = rct.bottom;
    aux.left   = 0;
    aux.right  = ClientWidth;
    aux.bottom = ClientHeight;
-   FillRect(hDC, &aux, ( HBRUSH ) GetStockObject(GRAY_BRUSH));
+   FillRect(hDC, &aux, static_cast<HBRUSH>(GetStockObject(GRAY_BRUSH)));
 
    // Top
    aux.top    = 0;
    aux.left   = 0;
    aux.right  = ClientWidth;
    aux.bottom = yOffset + hb_parni(7) - zh;
-   FillRect(hDC, &aux, ( HBRUSH ) GetStockObject(GRAY_BRUSH));
+   FillRect(hDC, &aux, static_cast<HBRUSH>(GetStockObject(GRAY_BRUSH)));
 
    // Left
    aux.top    = 0;
    aux.left   = 0;
    aux.right  = xOffset + hb_parni(6) - zw;
    aux.bottom = ClientHeight;
-   FillRect(hDC, &aux, ( HBRUSH ) GetStockObject(GRAY_BRUSH));
+   FillRect(hDC, &aux, static_cast<HBRUSH>(GetStockObject(GRAY_BRUSH)));
 
    // Clean up
 
@@ -1756,10 +1756,10 @@ HB_FUNC( _HMG_PRINTER_C_IMAGE )
       dc = ( odc * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000 );
       dr = ( odr * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000 );
 
-      hBitmap = ( HBITMAP ) LoadImage(GetInstance(), FileName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION);
+      hBitmap = static_cast<HBITMAP>(LoadImage(GetInstance(), FileName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION));
 
       if( hBitmap == nullptr )
-         hBitmap = ( HBITMAP ) LoadImage(nullptr, FileName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+         hBitmap = static_cast<HBITMAP>(LoadImage(nullptr, FileName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION));
 
       if( hBitmap == nullptr )
       {
@@ -2140,9 +2140,9 @@ static HBITMAP loademffile(TCHAR * filename, int width, int height, HWND handle,
    SelectObject(tmpDC, bitmap);
 
    if( whitebackground == 1 )
-      FillRect(tmpDC, &rect2, ( HBRUSH ) GetStockObject(WHITE_BRUSH));
+      FillRect(tmpDC, &rect2, static_cast<HBRUSH>(GetStockObject(WHITE_BRUSH)));
    else
-      FillRect(tmpDC, &rect2, ( HBRUSH ) GetSysColorBrush(COLOR_BTNFACE));
+      FillRect(tmpDC, &rect2, static_cast<HBRUSH>(GetSysColorBrush(COLOR_BTNFACE)));
 
    // Render to device context
    iPicture->lpVtbl->Render( iPicture, tmpDC, rect.left, rect.top, rect.right, rect.bottom, 0, lHeight, lWidth, -lHeight, nullptr );

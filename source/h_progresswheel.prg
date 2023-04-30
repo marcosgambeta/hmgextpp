@@ -997,18 +997,18 @@ HB_FUNC( BT_DRAW_HDC_ARCX_EX )
    nArcType = ( INT ) hb_parni( 13 );
 
    hPen     = CreatePen( PS_SOLID, nWidthLine, ColorLine );
-   OldPen   = ( HPEN ) SelectObject( hDC, hPen );
+   OldPen   = static_cast<HPEN>(SelectObject( hDC, hPen ));
 
    if( hb_parnl( 14 ) )
    {
-      hBrush   = ( HBRUSH ) HB_PARNL( 14 );
+      hBrush   = reinterpret_cast<HBRUSH>(HB_PARNL( 14 ));
    }
    else
    {
       hBrush   = CreateSolidBrush( ColorFill );
    }
 
-   OldBrush = ( HBRUSH ) SelectObject( hDC, hBrush );
+   OldBrush = static_cast<HBRUSH>(SelectObject( hDC, hBrush ));
 
    switch( nArcType )
    {
@@ -1031,7 +1031,7 @@ HB_FUNC( BT_DRAW_HDC_ARCX_EX )
 
 HB_FUNC( CREATEPATTERNHBRUSH ) // ( hBitmap ) --> hBrush
 {
-   HBRUSH hBrush = CreatePatternBrush( ( HBITMAP ) HB_PARNL( 1 ) );
+   HBRUSH hBrush = CreatePatternBrush( reinterpret_cast<HBITMAP>(HB_PARNL( 1 )) );
 
    RegisterResource(hBrush, "BRUSH");
 

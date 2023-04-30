@@ -1446,7 +1446,7 @@ HB_FUNC( FILLRECT )
       hDC = hmg_par_HDC(1);
    }
 
-   if( GetObjectType(( HGDIOBJ ) hDC) == OBJ_DC )
+   if( GetObjectType(static_cast<HGDIOBJ>(hDC)) == OBJ_DC )
    {
       RECT rc;
       int iParam = 6;

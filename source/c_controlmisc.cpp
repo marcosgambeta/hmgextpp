@@ -69,7 +69,7 @@ HB_FUNC( DELETEOBJECT )
    if( hRes )
    {
       DelResource(hRes);
-      hb_retl(DeleteObject(( HGDIOBJ ) hRes));
+      hb_retl(DeleteObject(static_cast<HGDIOBJ>(hRes)));
    }
    else
    {
@@ -145,7 +145,7 @@ HB_FUNC( GETTEXTWIDTH ) // returns the width of a string in pixels
 
    if( hFont )
    {
-      hOldFont = ( HFONT ) SelectObject(hDC, hFont);
+      hOldFont = static_cast<HFONT>(SelectObject(hDC, hFont));
    }
 
    GetTextExtentPoint32(hDC, lpString, ( int ) lstrlen(lpString), &sz);

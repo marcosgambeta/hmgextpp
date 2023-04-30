@@ -148,7 +148,7 @@ HB_FUNC( GDIPCREATEBITMAPFROMFILE )
 
 HB_FUNC( GDIPCREATEHBITMAPFROMBITMAP )
 {
-   HBITMAP hbitmap = ( HBITMAP ) nullptr;
+   HBITMAP hbitmap = nullptr;
 
    if( nullptr != fn_GdipCreateHBITMAPFromBitmap )
    {

@@ -354,7 +354,7 @@ HB_FUNC( C_SETPICTURE )
 
       if( hBitmap != nullptr )
       {
-         HBITMAP hOldBitmap = ( HBITMAP ) SendMessage(hWnd, STM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) hBitmap);
+         HBITMAP hOldBitmap = reinterpret_cast<HBITMAP>(SendMessage(hWnd, STM_SETIMAGE, ( WPARAM ) IMAGE_BITMAP, ( LPARAM ) hBitmap));
          RegisterResource(hBitmap, "BMP");
 
          if( hOldBitmap != nullptr )
@@ -480,11 +480,11 @@ HB_EXPORT HBITMAP HMG_LoadPicture(const char * pszName, int width, int height, H
 #else
       LPWSTR lpImageName = AnsiToWide(( char * ) pszName);
 #endif
-      hBitmap_new = ( HBITMAP ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, fuLoad);
+      hBitmap_new = static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, fuLoad));
       // If fail: find BMP in disk
       if( hBitmap_new == nullptr )
       {
-         hBitmap_new = ( HBITMAP ) LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | fuLoad);
+         hBitmap_new = static_cast<HBITMAP>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | fuLoad));
       }
 #ifdef UNICODE
       hb_xfree(lpImageName);
@@ -558,13 +558,13 @@ HB_EXPORT HBITMAP HMG_LoadPicture(const char * pszName, int width, int height, H
       }
    }
 
-   hBitmap_old = ( HBITMAP ) SelectObject(memDC1, hBitmap_new);
+   hBitmap_old = static_cast<HBITMAP>(SelectObject(memDC1, hBitmap_new));
    new_hBitmap = CreateCompatibleBitmap(hDC, width, height);
-   old_hBitmap = ( HBITMAP ) SelectObject(memDC2, new_hBitmap);
+   old_hBitmap = static_cast<HBITMAP>(SelectObject(memDC2, new_hBitmap));
 
    if( BackgroundColor == -1 )
    {
-      FillRect(memDC2, &rect2, ( HBRUSH ) ( COLOR_BTNFACE + 1 ));
+      FillRect(memDC2, &rect2, reinterpret_cast<HBRUSH>(COLOR_BTNFACE + 1));
    }
    else
    {
