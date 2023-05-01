@@ -138,7 +138,7 @@ HB_FUNC( INITSPINNER )
              );
 
    SendMessage(hupdown, UDM_SETBUDDY, ( WPARAM ) hedit, ( LPARAM ) nullptr);
-   SendMessage(hupdown, UDM_SETRANGE32, hmg_par_WPARAM(8), ( LPARAM ) hb_parni(9));
+   SendMessage(hupdown, UDM_SETRANGE32, hmg_par_WPARAM(8), hb_parni(9));
 
    // 2006.08.13 JD
    SetProp(( HWND ) hedit, TEXT("oldspinproc"), ( HWND ) GetWindowLongPtr(( HWND ) hedit, GWLP_WNDPROC));

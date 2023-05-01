@@ -313,7 +313,7 @@ HB_FUNC( TREEVIEW_DELETEALLITEMS )
    {
       TreeItem.mask   = TVIF_PARAM;
       TreeItem.hItem  = ( HTREEITEM ) HB_PARVNL(2, i);
-      TreeItem.lParam = ( LPARAM ) 0;
+      TreeItem.lParam = 0;
 
       TreeView_GetItem(TreeHandle, &TreeItem);
 
@@ -446,7 +446,7 @@ HB_FUNC( TREEVIEW_GETSELECTIONID )
    {
       TreeItem.mask   = TVIF_PARAM;
       TreeItem.hItem  = ItemHandle;
-      TreeItem.lParam = ( LPARAM ) 0;
+      TreeItem.lParam = 0;
 
       TreeView_GetItem(TreeHandle, &TreeItem);
 
@@ -745,7 +745,7 @@ HB_FUNC( TREEITEM_GETID )
 
    TreeItem.mask   = TVIF_PARAM;
    TreeItem.hItem  = ItemHandle;
-   TreeItem.lParam = ( LPARAM ) 0;
+   TreeItem.lParam = 0;
 
    if( TreeView_GetItem(hWndTV, &TreeItem) == TRUE )
    {
@@ -765,7 +765,7 @@ HB_FUNC( TREEITEM_SETNODEFLAG )
 
    TreeItem.mask   = TVIF_PARAM;
    TreeItem.hItem  = ItemHandle;
-   TreeItem.lParam = ( LPARAM ) 0;
+   TreeItem.lParam = 0;
    TreeView_GetItem(hWndTV, &TreeItem);
 
    TreeItemLPARAM = ( HMG_StructTreeItemLPARAM * ) TreeItem.lParam;
@@ -784,7 +784,7 @@ HB_FUNC( TREEITEM_GETNODEFLAG )
 
    TreeItem.mask   = TVIF_PARAM;
    TreeItem.hItem  = ItemHandle;
-   TreeItem.lParam = ( LPARAM ) 0;
+   TreeItem.lParam = 0;
 
    TreeView_GetItem(hWndTV, &TreeItem);
 

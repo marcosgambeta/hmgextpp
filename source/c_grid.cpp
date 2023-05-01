@@ -188,7 +188,7 @@ typedef struct tagLVGROUP
 #define LVM_MOVEGROUP           ( LVM_FIRST + 151 )
 #define ListView_MoveGroup(hwnd, iGroupId, toIndex)  SNDMSG(( hwnd ), LVM_MOVEGROUP, ( WPARAM ) iGroupId, ( LPARAM ) toIndex)
 #define LVM_GETGROUPCOUNT       ( LVM_FIRST + 152 )
-#define ListView_GetGroupCount(hwnd)                 SNDMSG(( hwnd ), LVM_GETGROUPCOUNT, 0, ( LPARAM ) 0)
+#define ListView_GetGroupCount(hwnd)                 SNDMSG(( hwnd ), LVM_GETGROUPCOUNT, 0, 0)
 
 #endif
 

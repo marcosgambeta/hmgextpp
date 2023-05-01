@@ -129,7 +129,7 @@ HB_FUNC( INITRICHEDITBOXEX )
                                    nullptr);
 
       SendMessage(hWndControl, EM_LIMITTEXT, hmg_par_WPARAM(9), 0);
-      SendMessage(hWndControl, EM_SETEVENTMASK, 0, ( LPARAM ) (ENM_CHANGE | ENM_SELCHANGE | ENM_PROTECTED | ENM_SCROLL | ENM_LINK | ENM_KEYEVENTS | ENM_REQUESTRESIZE | ENM_MOUSEEVENTS));
+      SendMessage(hWndControl, EM_SETEVENTMASK, 0, ENM_CHANGE | ENM_SELCHANGE | ENM_PROTECTED | ENM_SCROLL | ENM_LINK | ENM_KEYEVENTS | ENM_REQUESTRESIZE | ENM_MOUSEEVENTS);
 
       SendMessage(hWndControl, EM_SETTYPOGRAPHYOPTIONS, TO_ADVANCEDTYPOGRAPHY, TO_ADVANCEDTYPOGRAPHY);
 
@@ -395,7 +395,7 @@ HB_FUNC( RICHEDITBOX_SETBKGNDCOLOR )
 
    if( HB_ISARRAY(2) )
    {
-      SendMessage(hWndControl, EM_SETBKGNDCOLOR, 0, ( LPARAM ) RGB(HB_PARNI(2, 1), HB_PARNI(2, 2), HB_PARNI(2, 3)));
+      SendMessage(hWndControl, EM_SETBKGNDCOLOR, 0, RGB(HB_PARNI(2, 1), HB_PARNI(2, 2), HB_PARNI(2, 3)));
    }
    else
    {
@@ -408,7 +408,7 @@ HB_FUNC( RICHEDITBOX_SETZOOM ) // ZoomRatio = nNumerator / nDenominator
 {
    HWND hWndControl = hmg_par_HWND(1);
 
-   SendMessage(hWndControl, EM_SETZOOM, hmg_par_WPARAM(2), ( LPARAM ) hb_parni(3)); //    1/64 < ZoomRatio < 64
+   SendMessage(hWndControl, EM_SETZOOM, hmg_par_WPARAM(2), hb_parni(3)); //    1/64 < ZoomRatio < 64
 }
 
 //        RichEditBox_GetZoom ( hWndControl, @nNumerator, @nDenominator )

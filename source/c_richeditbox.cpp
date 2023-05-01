@@ -137,8 +137,8 @@ HB_FUNC( INITRICHEDITBOX )
          nullptr
             );
 
-      SendMessage(hRE, ( UINT ) EM_EXLIMITTEXT, hmg_par_WPARAM(9), ( LPARAM ) 0);
-      SendMessage(hRE, ( UINT ) EM_SETEVENTMASK, 0, ( LPARAM ) ENM_SELCHANGE | ENM_DRAGDROPDONE | ENM_CHANGE | ENM_SCROLL);
+      SendMessage(hRE, ( UINT ) EM_EXLIMITTEXT, hmg_par_WPARAM(9), 0);
+      SendMessage(hRE, ( UINT ) EM_SETEVENTMASK, 0, ENM_SELCHANGE | ENM_DRAGDROPDONE | ENM_CHANGE | ENM_SCROLL);
    }
 
    hmg_ret_HANDLE(hRE);
@@ -351,7 +351,7 @@ HB_FUNC( SETBKGNDCOLOR )   // SetBkgndColor(HWND hwnd, lSyscol, nRed, nGreen, nB
       syscol = 0;
    }
 
-   lResult = SendMessage(hmg_par_HWND(1), ( UINT ) EM_SETBKGNDCOLOR, syscol, ( LPARAM ) bkgcolor);
+   lResult = SendMessage(hmg_par_HWND(1), ( UINT ) EM_SETBKGNDCOLOR, syscol, bkgcolor);
 
    hb_retnl( ( LONG ) lResult );
 }

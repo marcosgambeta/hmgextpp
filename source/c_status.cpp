@@ -325,7 +325,7 @@ HB_FUNC( SETSTATUSITEMICON )
 
    // Unloads from memory current icon
 
-   DestroyIcon(( HICON ) SendMessage(hwnd, SB_GETICON, hmg_par_WPARAM(2) - 1, ( LPARAM ) 0));
+   DestroyIcon(( HICON ) SendMessage(hwnd, SB_GETICON, hmg_par_WPARAM(2) - 1, 0));
 
    GetClientRect(hwnd, &rect);
 

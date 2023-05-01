@@ -1132,7 +1132,7 @@ HB_FUNC( GETTABBRUSH )
 
    hOldBmp = static_cast<HBITMAP>(SelectObject(hDCMem, hBmp));
 
-   SendMessage(hWnd, WM_PRINTCLIENT, ( WPARAM ) hDCMem, ( LPARAM ) PRF_ERASEBKGND | PRF_CLIENT | PRF_NONCLIENT);
+   SendMessage(hWnd, WM_PRINTCLIENT, ( WPARAM ) hDCMem, PRF_ERASEBKGND | PRF_CLIENT | PRF_NONCLIENT);
 
    hBrush = CreatePatternBrush(hBmp);
 

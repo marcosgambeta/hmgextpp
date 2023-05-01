@@ -599,7 +599,7 @@ HB_FUNC( TTM_POP )
 
    if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) )
    {
-      SendMessage(hwndToolTip, TTM_POP, 0, ( LPARAM ) 0);
+      SendMessage(hwndToolTip, TTM_POP, 0, 0);
    }
    else
    {
@@ -814,7 +814,7 @@ HB_FUNC( TTM_TRACKPOSITION )
       {
          ClientToScreen(hwndTool, &point);
 
-         SendMessage(hwndToolTip, TTM_TRACKPOSITION, 0, ( LPARAM ) MAKELONG(point.x, point.y));
+         SendMessage(hwndToolTip, TTM_TRACKPOSITION, 0, MAKELONG(point.x, point.y));
       }
       else
       {
@@ -902,7 +902,7 @@ HB_FUNC( TTM_WINDOWFROMPOINT )
       {
          ClientToScreen(hwndTool, &point);
 
-         HB_RETNL( ( LONG_PTR ) SendMessage(hwndToolTip, TTM_WINDOWFROMPOINT, 0, ( LPARAM ) MAKELONG(point.x, point.y)) );
+         HB_RETNL( ( LONG_PTR ) SendMessage(hwndToolTip, TTM_WINDOWFROMPOINT, 0, MAKELONG(point.x, point.y)) );
       }
       else
       {

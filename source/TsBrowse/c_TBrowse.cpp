@@ -1051,7 +1051,7 @@ HB_FUNC( INITEDSPINNER )
    hupdown = CreateUpDownControl( Style, hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6), hwnd, 0, GetModuleHandle(nullptr),
                                   hedit, iMax, iMin, hb_parni(9) );
 
-   SendMessage(hupdown, UDM_SETRANGE32, iMin, ( LPARAM ) iMax);
+   SendMessage(hupdown, UDM_SETRANGE32, iMin, iMax);
 
    HB_RETNL( ( LONG_PTR ) hupdown );
 }

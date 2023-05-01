@@ -616,7 +616,7 @@ HRESULT CALLBACK __ClsCBFunc( HWND hWnd, UINT uiNotification, WPARAM wParam, LPA
                hb_objSendMsg(pObject, ( const char * ) "TIMEDOUT", 1, itmTimeOut);
                hb_itemRelease(itmTimeOut);
                // And cancel a Dialog
-               SendMessage(hWnd, TDM_CLICK_BUTTON, IDCANCEL, ( LPARAM ) 0);
+               SendMessage(hWnd, TDM_CLICK_BUTTON, IDCANCEL, 0);
             }
             else
             {
@@ -777,37 +777,37 @@ HB_FUNC( _SETWINDOWTITLE )
 // TDM_CLICK_BUTTON - Simulates the action of a button click in a task dialog
 HB_FUNC( _CLICKBUTTON )
 {
-   SendMessage(hmg_par_HWND(1), TDM_CLICK_BUTTON, hmg_par_WPARAM(2), ( LPARAM ) 0);
+   SendMessage(hmg_par_HWND(1), TDM_CLICK_BUTTON, hmg_par_WPARAM(2), 0);
 }
 
 // TDM_CLICK_RADIO_BUTTON - Simulates the action of a radio button click in a task dialog
 HB_FUNC( _CLICKRADIOBUTTON )
 {
-   SendMessage(hmg_par_HWND(1), TDM_CLICK_RADIO_BUTTON, hmg_par_WPARAM(2), ( LPARAM ) 0);
+   SendMessage(hmg_par_HWND(1), TDM_CLICK_RADIO_BUTTON, hmg_par_WPARAM(2), 0);
 }
 
 // TDM_CLICK_VERIFICATION - Simulates a click of the verification checkbox of a task dialog, if it exists.
 HB_FUNC( _CLICKVERIFICATION )
 {
-   SendMessage(hmg_par_HWND(1), TDM_CLICK_VERIFICATION, hmg_par_BOOL(2), ( LPARAM ) hmg_par_BOOL(3));
+   SendMessage(hmg_par_HWND(1), TDM_CLICK_VERIFICATION, hmg_par_BOOL(2), hmg_par_BOOL(3));
 }
 
 // TDM_ENABLE_BUTTON - Enables or disables a push button in a task dialog
 HB_FUNC( _ENABLEBUTTON )
 {
-   SendMessage(hmg_par_HWND(1), TDM_ENABLE_BUTTON, hmg_par_WPARAM(2), ( LPARAM ) hmg_par_BOOL(3));
+   SendMessage(hmg_par_HWND(1), TDM_ENABLE_BUTTON, hmg_par_WPARAM(2), hmg_par_BOOL(3));
 }
 
 // TDM_ENABLE_RADIO_BUTTON - Enables or disables a push button in a task dialog
 HB_FUNC( _ENABLERADIOBUTTON )
 {
-   SendMessage(hmg_par_HWND(1), TDM_ENABLE_RADIO_BUTTON, hmg_par_WPARAM(2), ( LPARAM ) hmg_par_BOOL(3));
+   SendMessage(hmg_par_HWND(1), TDM_ENABLE_RADIO_BUTTON, hmg_par_WPARAM(2), hmg_par_BOOL(3));
 }
 
 // TDM_SET_BUTTON_ELEVATION_REQUIRED_STATE - Specifies whether a given task dialog button or command link should have a UAC shield icon
 HB_FUNC( _SETBUTTONELEVATIONREQUIRED )
 {
-   SendMessage(hmg_par_HWND(1), TDM_SET_BUTTON_ELEVATION_REQUIRED_STATE, hmg_par_WPARAM(2), ( LPARAM ) hmg_par_BOOL(3));
+   SendMessage(hmg_par_HWND(1), TDM_SET_BUTTON_ELEVATION_REQUIRED_STATE, hmg_par_WPARAM(2), hmg_par_BOOL(3));
 }
 
 // TDM_SET_ELEMENT_TEXT - Updates a text element in a task dialog
@@ -870,7 +870,7 @@ HB_FUNC( _SETEXPANDEDINFORMATION )
 // TDM_SET_PROGRESS_BAR_POS - Sets the position of the progress bar in a task dialog
 HB_FUNC( _SETPROGRESSBARPOS )
 {
-   SendMessage(hmg_par_HWND(1), TDM_SET_PROGRESS_BAR_POS, hmg_par_WPARAM(2), ( LPARAM ) 0);
+   SendMessage(hmg_par_HWND(1), TDM_SET_PROGRESS_BAR_POS, hmg_par_WPARAM(2), 0);
 }
 
 // TDM_SET_PROGRESS_BAR_RANGE - Sets the minimum and maximum values for the progress bar in a task dialog
@@ -884,20 +884,20 @@ HB_FUNC( _SETPROGRESSBARRANGE )
 // TDM_SET_PROGRESS_BAR_STATE - Sets the state of the progress bar in a task dialog.
 HB_FUNC( _SETPROGRESSBARSTATE )
 {
-   SendMessage(hmg_par_HWND(1), TDM_SET_PROGRESS_BAR_STATE, hmg_par_WPARAM(2), ( LPARAM ) 0);
+   SendMessage(hmg_par_HWND(1), TDM_SET_PROGRESS_BAR_STATE, hmg_par_WPARAM(2), 0);
 }
 
 // TDM_SET_PROGRESS_BAR_MARQUEE - Starts and stops the marquee display of the progress bar in a task dialog,
 //                                and sets the speed of the marquee.
 HB_FUNC( _SETPROGRESSBARMARQUEE )
 {
-   SendMessage(hmg_par_HWND(1), TDM_SET_PROGRESS_BAR_MARQUEE, hb_parl(2), ( LPARAM ) hb_parni(3));
+   SendMessage(hmg_par_HWND(1), TDM_SET_PROGRESS_BAR_MARQUEE, hb_parl(2), hb_parni(3));
 }
 
 // TDM_SET_MARQUEE_PROGRESS_BAR - Indicates whether the hosted progress bar of a task dialog should be displayed in marquee mode
 HB_FUNC( _SETMARQUEEPROGRESSBAR )
 {
-   SendMessage(hmg_par_HWND(1), TDM_SET_MARQUEE_PROGRESS_BAR, hb_parl(2), ( LPARAM ) 0);
+   SendMessage(hmg_par_HWND(1), TDM_SET_MARQUEE_PROGRESS_BAR, hb_parl(2), 0);
 }
 
 // TDM_UPDATE_ELEMENT_TEXT - Updates a text element in a task dialog

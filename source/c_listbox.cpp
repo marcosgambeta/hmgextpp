@@ -154,7 +154,7 @@ HB_FUNC( LISTBOXGETSTRING )
 #ifdef UNICODE
    LPSTR lpString;
 #endif
-   int     iLen = ( int ) SendMessage(hmg_par_HWND(1), LB_GETTEXTLEN, hmg_par_WPARAM(2) - 1, ( LPARAM ) 0);
+   int     iLen = ( int ) SendMessage(hmg_par_HWND(1), LB_GETTEXTLEN, hmg_par_WPARAM(2) - 1, 0);
    TCHAR * cString;
 
    if( iLen > 0 && nullptr != ( cString = ( TCHAR * ) hb_xgrab((iLen + 1) * sizeof(TCHAR)) ) )
@@ -266,13 +266,13 @@ HB_FUNC( LISTBOXSETMULTISEL )
    // CLEAR CURRENT SELECTIONS
    for( int i = 0; i < n; i++ )
    {
-      SendMessage(hwnd, LB_SETSEL, 0, ( LPARAM ) i);
+      SendMessage(hwnd, LB_SETSEL, 0, i);
    }
 
    // SET NEW SELECTIONS
    for( int i = 0; i <= l; i++ )
    {
-      SendMessage(hwnd, LB_SETSEL, 1, ( LPARAM ) ( hb_arrayGetNI( wArray, i + 1 ) ) - 1);
+      SendMessage(hwnd, LB_SETSEL, 1, hb_arrayGetNI( wArray, i + 1 ) - 1);
    }
 }
 

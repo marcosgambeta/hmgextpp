@@ -98,7 +98,7 @@ HB_FUNC( ADDTOPAGER )      // AdToPager (hwndPG , hToolBar)
 
 HB_FUNC( SETBKCOLORPAGER ) // SetBkColorPager(hwndPG , COLOR[])
 {
-   SendMessage(hmg_par_HWND(1), PGM_SETBKCOLOR, 0, ( LPARAM ) RGB(hb_parni(2), hb_parni(3), hb_parni(4)));
+   SendMessage(hmg_par_HWND(1), PGM_SETBKCOLOR, 0, RGB(hb_parni(2), hb_parni(3), hb_parni(4)));
 }
 
 HB_FUNC( PAGERCALCSIZE )   // PagerCalcSize(lParam , nWidth)

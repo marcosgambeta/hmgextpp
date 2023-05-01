@@ -123,10 +123,10 @@ HB_FUNC( INITTOOLBAR )
    if( hb_parni(6) && hb_parni(7) )
    {
       SendMessage(hwndTB, TB_SETBUTTONSIZE, hb_parni(6), hb_parni(7));
-      SendMessage(hwndTB, TB_SETBITMAPSIZE, 0, ( LPARAM ) MAKELONG(hb_parni(6), hb_parni(7)));
+      SendMessage(hwndTB, TB_SETBITMAPSIZE, 0, MAKELONG(hb_parni(6), hb_parni(7)));
    }
 
-   SendMessage(hwndTB, TB_SETEXTENDEDSTYLE, 0, ( LPARAM ) TbExStyle);
+   SendMessage(hwndTB, TB_SETEXTENDEDSTYLE, 0, TbExStyle);
 
    ShowWindow(hwndTB, SW_SHOW);
    hmg_ret_HANDLE(hwndTB);
@@ -346,11 +346,11 @@ HB_FUNC( INITTOOLBAREX )
    {
       SendMessage(hwndTB, TB_SETBUTTONSIZE, hb_parni(6), hb_parni(7));
       nPadd = ( DWORD ) SendMessage(hwndTB, TB_GETPADDING, 0, 0);
-      SendMessage(hwndTB, TB_SETBITMAPSIZE, 0, ( LPARAM ) MAKELONG(hb_parni(6) - LOWORD(nPadd), hb_parni(7) - HIWORD(nPadd)));
+      SendMessage(hwndTB, TB_SETBITMAPSIZE, 0, MAKELONG(hb_parni(6) - LOWORD(nPadd), hb_parni(7) - HIWORD(nPadd)));
    }
 
-   SendMessage(hwndTB, TB_SETBUTTONWIDTH, 0, ( LPARAM ) MAKELONG(hb_parni(6), hb_parni(6)));
-   SendMessage(hwndTB, TB_SETEXTENDEDSTYLE, 0, ( LPARAM ) TbExStyle);
+   SendMessage(hwndTB, TB_SETBUTTONWIDTH, 0, MAKELONG(hb_parni(6), hb_parni(6)));
+   SendMessage(hwndTB, TB_SETEXTENDEDSTYLE, 0, TbExStyle);
 
    ShowWindow(hwndTB, SW_SHOW);
    hmg_ret_HANDLE(hwndTB);
@@ -504,7 +504,7 @@ HB_FUNC( INITTOOLBUTTONEX )
             SendMessage(hwndTB, TB_SETPADDING, 0, MAKELPARAM(px, py));
          }
 
-         SendMessage(hwndTB, TB_SETBITMAPSIZE, 0, ( LPARAM ) MAKELONG(ix, iy));
+         SendMessage(hwndTB, TB_SETBITMAPSIZE, 0, MAKELONG(ix, iy));
       }
    }
 
@@ -659,7 +659,7 @@ HB_FUNC( MAXTEXTBTNTOOLBAR )
    if( tmax == 0 )
    {
       SendMessage(hwndTB, TB_SETBUTTONSIZE, hb_parni(2), hb_parni(3));
-      SendMessage(hwndTB, TB_SETBITMAPSIZE, 0, ( LPARAM ) MAKELONG(hb_parni(2), hb_parni(3)));
+      SendMessage(hwndTB, TB_SETBITMAPSIZE, 0, MAKELONG(hb_parni(2), hb_parni(3)));
    }
    else
    {
@@ -667,15 +667,15 @@ HB_FUNC( MAXTEXTBTNTOOLBAR )
       if( style & TBSTYLE_LIST )
       {
          SendMessage(hwndTB, TB_SETBUTTONSIZE, hb_parni(2), hb_parni(3) + 2);
-         SendMessage(hwndTB, TB_SETBITMAPSIZE, 0, ( LPARAM ) MAKELONG(hb_parni(3), hb_parni(3)));
+         SendMessage(hwndTB, TB_SETBITMAPSIZE, 0, MAKELONG(hb_parni(3), hb_parni(3)));
       }
       else
       {
          SendMessage(hwndTB, TB_SETBUTTONSIZE, hb_parni(2), hb_parni(3) - ty + 2);
-         SendMessage(hwndTB, TB_SETBITMAPSIZE, 0, ( LPARAM ) MAKELONG(hb_parni(3) - ty, hb_parni(3) - ty));
+         SendMessage(hwndTB, TB_SETBITMAPSIZE, 0, MAKELONG(hb_parni(3) - ty, hb_parni(3) - ty));
       }
 
-      SendMessage(hwndTB, TB_SETBUTTONWIDTH, 0, ( LPARAM ) MAKELONG(hb_parni(2), hb_parni(2) + 2));
+      SendMessage(hwndTB, TB_SETBUTTONWIDTH, 0, MAKELONG(hb_parni(2), hb_parni(2) + 2));
    }
 
    SendMessage(hwndTB, TB_AUTOSIZE, 0, 0); //JP62

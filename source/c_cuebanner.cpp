@@ -67,7 +67,7 @@ HB_FUNC( GETCUEBANNERTEXT )
    {
       HB_WCHAR * lpWCStr = ( HB_WCHAR * ) hb_xgrab(256 * sizeof(HB_WCHAR));
 
-      if( SendMessage(hwnd, EM_GETCUEBANNER, ( WPARAM ) ( LPWSTR ) lpWCStr, ( LPARAM ) 256) )
+      if( SendMessage(hwnd, EM_GETCUEBANNER, ( WPARAM ) ( LPWSTR ) lpWCStr, 256) )
       {
          hb_retstrlen_u16(HB_CDP_ENDIAN_NATIVE, lpWCStr, 256);
       }

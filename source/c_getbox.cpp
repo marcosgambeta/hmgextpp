@@ -166,7 +166,7 @@ HB_FUNC( INITGETBOX )
    SetProp(( HWND ) hedit, TEXT("OldWndProc"), ( HWND ) GetWindowLongPtr(( HWND ) hedit, GWLP_WNDPROC));
    SetWindowLongPtr(hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnGetProc);
 
-   SendMessage(hedit, ( UINT ) EM_LIMITTEXT, hmg_par_WPARAM(9), ( LPARAM ) 0);
+   SendMessage(hedit, ( UINT ) EM_LIMITTEXT, hmg_par_WPARAM(9), 0);
 
    if( hb_parc(18) != nullptr )
    {
