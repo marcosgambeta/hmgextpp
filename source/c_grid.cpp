@@ -1076,7 +1076,7 @@ HB_FUNC( LISTVIEW_GETEXTENDEDSTYLE )  // Dr. Claudio Soto
 //                                /*0==none, positive==UP arrow or negative==DOWN arrow*/] ) -> nType (previous setting)
 HB_FUNC( LISTVIEW_SETSORTHEADER )
 {
-   HWND   hWndHD = ( HWND ) SendMessage(hmg_par_HWND(1), LVM_GETHEADER, 0, 0);
+   HWND   hWndHD = reinterpret_cast<HWND>(SendMessage(hmg_par_HWND(1), LVM_GETHEADER, 0, 0));
    INT    nItem  = hb_parni(2) - 1;
    INT    nType;
    HDITEM hdItem;

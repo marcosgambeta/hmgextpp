@@ -334,7 +334,7 @@ HB_FUNC( DRAG_LIST_DRAWINSERT )
    LPDRAGLISTINFO lpdli = ( LPDRAGLISTINFO ) lParam;
    int nItemCount;
 
-   nItemCount = ( int ) SendMessage(( HWND ) lpdli->hWnd, LB_GETCOUNT, 0, 0);
+   nItemCount = ( int ) SendMessage(lpdli->hWnd, LB_GETCOUNT, 0, 0);
 
    if( nItem < nItemCount )
    {

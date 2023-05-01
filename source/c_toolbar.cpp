@@ -168,7 +168,7 @@ HB_FUNC( INITTOOLBUTTON )
          iy = hb_parni(7) - py;
       }
 
-      himage = ( HWND ) HMG_LoadPicture(hb_parc(8), hb_parl(16) ? ix : -1, hb_parl(16) ? iy : -1, hwndTB, 1, Transparent, -1, hb_parl(16) ? 1 : 0, HB_FALSE, 255);
+      himage = reinterpret_cast<HWND>(HMG_LoadPicture(hb_parc(8), hb_parl(16) ? ix : -1, hb_parl(16) ? iy : -1, hwndTB, 1, Transparent, -1, hb_parl(16) ? 1 : 0, HB_FALSE, 255));
    }
 
    memset(tbb, 0, sizeof tbb);
@@ -445,14 +445,14 @@ HB_FUNC( INITTOOLBUTTONEX )
 #else
       lpImageName = AnsiToWide(( char * ) hb_parc(8));
 #endif
-      himage = ( HWND ) LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, ix, iy, fuLoad);
+      himage = static_cast<HWND>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, ix, iy, fuLoad));
       if( himage == nullptr )
       {
-         himage = ( HWND ) LoadImage(nullptr, lpImageName, IMAGE_BITMAP, ix, iy, LR_LOADFROMFILE | fuLoad);
+         himage = static_cast<HWND>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, ix, iy, LR_LOADFROMFILE | fuLoad));
       }
       if( himage == nullptr )
       {
-         himage = ( HWND ) HMG_LoadPicture(hb_parc(8), hb_parl(16) ? ix : -1, hb_parl(16) ? iy : -1, hwndTB, 1, Transparent, -1, hb_parl(16) ? 1 : 0, HB_FALSE, 255);
+         himage = reinterpret_cast<HWND>(HMG_LoadPicture(hb_parc(8), hb_parl(16) ? ix : -1, hb_parl(16) ? iy : -1, hwndTB, 1, Transparent, -1, hb_parl(16) ? 1 : 0, HB_FALSE, 255));
       }
 
 #ifdef UNICODE
@@ -883,7 +883,7 @@ int TestHidenBtn(HWND tbHwnd, RECT rcRb, INT dv, INT nBtn)
 
    for( int i = 0; i < nBtn; i++ )
    {
-      SendMessage(( HWND ) tbHwnd, TB_GETITEMRECT, ( UINT ) i, ( LPARAM ) &rcBt);
+      SendMessage(tbHwnd, TB_GETITEMRECT, ( UINT ) i, ( LPARAM ) &rcBt);
 
       rcBt.left   += dv;
       rcBt.top    += rcRb.top;
@@ -928,12 +928,12 @@ HB_FUNC( CREATEPOPUPCHEVRON )
 
    SendMessage(hmg_par_HWND(1), RB_GETBANDINFO, uBand, ( LPARAM ) ( LPREBARBANDINFO ) &rbbi);
 
-   tbHwnd = ( HWND ) rbbi.hwndChild;
-   GetWindowRect(( HWND ) tbHwnd, &rcTB);
+   tbHwnd = rbbi.hwndChild;
+   GetWindowRect(tbHwnd, &rcTB);
    dv   = rcTB.left - rcRR.left + 1;
-   nBtn = ( INT ) SendMessage(( HWND ) tbHwnd, TB_BUTTONCOUNT, 0, 0);
+   nBtn = ( INT ) SendMessage(tbHwnd, TB_BUTTONCOUNT, 0, 0);
 
-   tx = TestHidenBtn(( HWND ) tbHwnd, rcRb, dv, nBtn);
+   tx = TestHidenBtn(tbHwnd, rcRb, dv, nBtn);
 
    hb_reta(7);
    HB_STORVNL( rcCvr.left, -1, 1 );

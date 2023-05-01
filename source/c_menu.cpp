@@ -76,7 +76,7 @@ HBITMAP HMG_LoadPicture(const char * FileName, int New_Width, int New_Height, HW
 
 HB_FUNC( SETACCELERATORTABLE )
 {
-   HWND   hWndMain = ( HWND ) ( LONG_PTR ) HB_PARNL(1);
+   HWND   hWndMain = reinterpret_cast<HWND>(HB_PARNL(1));
    HACCEL hAccel   = hmg_par_HACCEL(2);
 
    if( hWndMain && hAccel )
@@ -1568,5 +1568,5 @@ HB_FUNC( _COLORMENU )
 
    SetMenuInfo(iMenu, &iMenuInfo);
 
-   DrawMenuBar( ( HWND ) hWnd );
+   DrawMenuBar(hWnd);
 }

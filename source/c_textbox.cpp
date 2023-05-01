@@ -195,7 +195,7 @@ HB_FUNC( INITTEXTBOX )
 
    SendMessage(hedit, ( UINT ) EM_LIMITTEXT, hmg_par_WPARAM(9), 0);
 
-   SetProp(( HWND ) hedit, TEXT("oldeditproc"), ( HWND ) GetWindowLongPtr(( HWND ) hedit, GWLP_WNDPROC));
+   SetProp(hedit, TEXT("oldeditproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hedit, GWLP_WNDPROC)));
    SetWindowLongPtr(hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnEditProc);
 
    hmg_ret_HANDLE(hedit);

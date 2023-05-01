@@ -205,7 +205,7 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
       // 2 HWND hwndParent
       if( hb_arrayGetType(pConfig, TDC_HWND) & Harbour::Item::NUMERIC )
       {
-         config.hwndParent = ( HWND ) HB_arrayGetNL( pConfig, TDC_HWND );
+         config.hwndParent = reinterpret_cast<HWND>(HB_arrayGetNL( pConfig, TDC_HWND ));
       }
       else
       {

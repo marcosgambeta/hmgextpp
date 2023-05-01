@@ -115,7 +115,7 @@ HB_FUNC( INITMONTHCAL )
                                    GetInstance(),
                                    nullptr);
 
-   SetProp(hmonthcal, TEXT("oldmcproc"), ( HWND ) GetWindowLongPtr(hmonthcal, GWLP_WNDPROC));
+   SetProp(hmonthcal, TEXT("oldmcproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hmonthcal, GWLP_WNDPROC)));
    SetWindowLongPtr(hmonthcal, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnMCProc);
 
    if( hb_parl(14) )

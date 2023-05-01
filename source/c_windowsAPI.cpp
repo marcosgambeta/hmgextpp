@@ -109,7 +109,7 @@ HB_FUNC( DOMESSAGELOOP )
       {
          hDlgModeless = GetActiveWindow();
 
-         if( hDlgModeless == ( HWND ) nullptr || (
+         if( hDlgModeless == nullptr || (
                 !IsDialogMessage(hDlgModeless, &Msg) &&
                 !TranslateAccelerator( g_hWndMain, g_hAccel, &Msg ) ) )
          {

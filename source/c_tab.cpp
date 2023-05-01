@@ -273,7 +273,7 @@ HB_FUNC( ADDTABBITMAP )
       {
          tie.mask   = TCIF_IMAGE;
          tie.iImage = i;
-         TabCtrl_SetItem(( HWND ) hbutton, i, &tie);
+         TabCtrl_SetItem(hbutton, i, &tie);
       }
    }
 

@@ -415,7 +415,7 @@ HB_FUNC( INITMDICHILDWINDOW )
    mcs.cy      = hb_parni(6);              // height
    mcs.style   = style;                      // window style
    mcs.lParam  = 0;                          // lparam
-   hwndChild   = ( HWND ) SendMessage(hmg_par_HWND(1), WM_MDICREATE, 0, ( LPARAM ) ( LPMDICREATESTRUCT ) &mcs);
+   hwndChild   = reinterpret_cast<HWND>(SendMessage(hmg_par_HWND(1), WM_MDICREATE, 0, ( LPARAM ) ( LPMDICREATESTRUCT ) &mcs));
 
    if( hwndChild != nullptr )
    {

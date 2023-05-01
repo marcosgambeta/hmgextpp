@@ -458,7 +458,7 @@ RETURN RetVal
 
 HB_FUNC( INITCLBUTTON )
 {
-   HWND hwnd = ( HWND ) HB_PARNL( 1 );
+   HWND hwnd = reinterpret_cast<HWND>(HB_PARNL(1));
    HWND hbutton;
    int style;
 #ifndef UNICODE
@@ -503,7 +503,7 @@ HB_FUNC( CLBUTTON_SETNOTE )
 
       MultiByteToWideChar( CP_ACP, MB_PRECOMPOSED, szText, -1, lpwText, nConvertedLen );
 
-      SendMessage( ( HWND ) HB_PARNL( 1 ), BCM_SETNOTE, 0, ( LPARAM ) lpwText );
+      SendMessage( reinterpret_cast<HWND>(HB_PARNL(1)), BCM_SETNOTE, 0, ( LPARAM ) lpwText );
       hb_xfree(lpwText);
    }
 }
@@ -564,7 +564,7 @@ HB_FUNC( CLBUTTON_SETIMAGE )
    bi.margin.right  = 10;
    bi.uAlign        = 4;
 
-   SendMessage( ( HWND ) HB_PARNL( 1 ), ( UINT ) BCM_SETIMAGELIST, 0, ( LPARAM ) &bi );
+   SendMessage( reinterpret_cast<HWND>(HB_PARNL(1)), ( UINT ) BCM_SETIMAGELIST, 0, ( LPARAM ) &bi );
 
    hmg_ret_HANDLE(himl);
 }

@@ -351,7 +351,7 @@ BOOL FillGradient( HDC hDC, RECT * rect, BOOL vertical, COLORREF crFrom, COLORRE
 
 HB_FUNC( CREATEGRADIENTBRUSH )
 {
-   HWND hwnd = ( HWND ) ( LONG_PTR ) HB_PARNL( 1 );
+   HWND hwnd = reinterpret_cast<HWND>(HB_PARNL(1));
    HDC  hdc;
 
    if( !IsWindow(hwnd) )

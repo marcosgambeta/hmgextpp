@@ -141,7 +141,7 @@ HB_FUNC( INITSPINNER )
    SendMessage(hupdown, UDM_SETRANGE32, hmg_par_WPARAM(8), hb_parni(9));
 
    // 2006.08.13 JD
-   SetProp(( HWND ) hedit, TEXT("oldspinproc"), ( HWND ) GetWindowLongPtr(( HWND ) hedit, GWLP_WNDPROC));
+   SetProp(hedit, TEXT("oldspinproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hedit, GWLP_WNDPROC)));
    SetWindowLongPtr(hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnSpinProc);
 
    hb_reta(2);

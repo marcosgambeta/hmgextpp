@@ -82,7 +82,7 @@ LPWSTR AnsiToWide(LPCSTR);
 
 HB_FUNC( GETHANDLEREBAR )  // GetHandleRebar(hPager)
 {
-   HWND hRebar = ( HWND ) GetWindowLongPtr(hmg_par_HWND(1), GWLP_USERDATA);
+   HWND hRebar = reinterpret_cast<HWND>(GetWindowLongPtr(hmg_par_HWND(1), GWLP_USERDATA));
 
    hmg_ret_HANDLE(hRebar);
 }

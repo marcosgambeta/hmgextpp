@@ -1554,7 +1554,7 @@ HB_FUNC( PROPGRIDONCUSTOMDRAW )
 {
    LRESULT    pResult;
 
-   pResult = PropGridOnCustomDraw (( HWND ) hb_parnl(1), (LPARAM) hb_parnl(2));
+   pResult = PropGridOnCustomDraw (reinterpret_cast<HWND>(hb_parnl(1)), (LPARAM) hb_parnl(2));
 
    hb_retnl( pResult );
 }
@@ -1585,7 +1585,7 @@ HB_FUNC( GETNOTIFYPROPGRIDITEM )
 
 HB_FUNC( ADDPGITEM )
 {
-   HWND              hWndTV = ( HWND ) hb_parnl(1);
+   HWND              hWndTV = reinterpret_cast<HWND>(hb_parnl(1));
 
    HTREEITEM         hPrev = ( HTREEITEM ) hb_parnl(2);
    HTREEITEM         hRet;
@@ -1740,7 +1740,7 @@ HB_FUNC( PG_GETITEM )
 
    memset(&TreeItem, 0, sizeof(TV_ITEM));
 
-   TreeHandle = ( HWND ) hb_parnl(1);
+   TreeHandle = reinterpret_cast<HWND>(hb_parnl(1));
    TreeItemHandle = ( HTREEITEM ) hb_parnl(2);
    nType = hmg_par_int(3);
 
@@ -1836,7 +1836,7 @@ HB_FUNC( PG_GETNEXTITEM )
    HTREEITEM   ItemHandle;
    HTREEITEM   NextItemHandle;
 
-   TreeHandle = ( HWND ) hb_parnl(1);
+   TreeHandle = reinterpret_cast<HWND>(hb_parnl(1));
    ItemHandle = ( HTREEITEM ) hb_parnl(2);
    NextItemHandle = GetNextItemPG(TreeHandle, ItemHandle);
    hb_retnl( (LONG) NextItemHandle );
@@ -1847,7 +1847,7 @@ HB_FUNC( PG_GETROOT )
    HWND        TreeHandle;
    HTREEITEM   ItemHandle;
 
-   TreeHandle = ( HWND ) hb_parnl(1);
+   TreeHandle = reinterpret_cast<HWND>(hb_parnl(1));
 
    ItemHandle = TreeView_GetRoot(TreeHandle);
 
@@ -1860,7 +1860,7 @@ HB_FUNC( PG_ENSUREVISIBLE )
    HTREEITEM   ItemHandle;
    BOOL        lVisible;
 
-   TreeHandle = ( HWND ) hb_parnl(1);
+   TreeHandle = reinterpret_cast<HWND>(hb_parnl(1));
    ItemHandle = ( HTREEITEM ) hb_parnl(2);
 
    lVisible = TreeView_EnsureVisible(TreeHandle, ItemHandle);
@@ -1876,7 +1876,7 @@ HB_FUNC( PG_ISVISIBLE )
    HTREEITEM   ItemHdl;
    BOOL        lVisible = FALSE;
 
-   TreeHandle = ( HWND ) hb_parnl(1);
+   TreeHandle = reinterpret_cast<HWND>(hb_parnl(1));
    ItemHandle = ( HTREEITEM ) hb_parnl(2);
 
    ItemHdl = TreeView_GetFirstVisible ( TreeHandle );
@@ -1901,7 +1901,7 @@ HB_FUNC( PG_SEARCHID )        //PG_SearchID(hWndPG,nID)
    int         nID;
 
    memset(&TreeItem, 0, sizeof(TV_ITEM));
-   TreeHandle = ( HWND ) hb_parnl(1);
+   TreeHandle = reinterpret_cast<HWND>(hb_parnl(1));
    nID = hmg_par_int(2);
    TreeItemHandle = TreeView_GetRoot(TreeHandle);
    while( TreeItemHandle )
@@ -1930,7 +1930,7 @@ HB_FUNC( PG_SEARCHCATEGORY )  //PG_SearchCategory(hWndPG,cCategory)
    LPARAMDATA  *pData;
    LPTSTR      cName;   // temporary buffer
    memset(&TreeItem, 0, sizeof(TV_ITEM));
-   TreeHandle = ( HWND ) hb_parnl(1);
+   TreeHandle = reinterpret_cast<HWND>(hb_parnl(1));
    cName = hb_strndup(hb_parc(2), 255);
    TreeItemHandle = TreeView_GetRoot(TreeHandle);
    while( TreeItemHandle )
@@ -1992,7 +1992,7 @@ HB_FUNC( ADDTREEITEMS )
    int      s;
    int      c;
 
-   h = ( HWND ) hb_parnl(1);
+   h = reinterpret_cast<HWND>(hb_parnl(1));
    l = hb_parinfa(2, 0) - 1;
    hArray = hb_param(2, Harbour::Item::ARRAY);
    c = ListView_GetItemCount(h);
@@ -2022,7 +2022,7 @@ HB_FUNC( INITPROPGRIDIMAGELIST )
    HWND        hWndPG;
    HIMAGELIST  himl;
    int         cx = 0;
-   hWndPG = ( HWND ) hb_parnl(1);
+   hWndPG = reinterpret_cast<HWND>(hb_parnl(1));
    himl = ( HIMAGELIST ) hb_parnl(2);
 
    if( himl != nullptr )
@@ -2042,7 +2042,7 @@ HB_FUNC( RESETPROPGRIDIMAGELIST )
    TV_ITEM     TItem;
 
    int         cx;
-   hWndPG = ( HWND ) hb_parnl(1);
+   hWndPG = reinterpret_cast<HWND>(hb_parnl(1));
    hItemPG = ( HTREEITEM ) hb_parnl(2);
 
    memset(&TItem, 0, sizeof(TV_ITEM));
@@ -2070,7 +2070,7 @@ HB_FUNC( TREEVIEW_SETBOLDITEM )
    HWND        TreeHandle;
    HTREEITEM   ItemHandle;
    BOOL        bold;
-   TreeHandle = ( HWND ) hb_parnl(1);
+   TreeHandle = reinterpret_cast<HWND>(hb_parnl(1));
    ItemHandle = ( HTREEITEM ) hb_parnl(2);
    bold = hmg_par_BOOL(3);
    tvItem.mask = TVIF_HANDLE | TVIF_STATE;
@@ -2128,7 +2128,7 @@ HB_FUNC( CREATECOLORBMP1 ) //CreateColorBmp(hWnd, nColor, BmpWidh, BmpHeight)
 
    RECT     rect;
    HBITMAP  hBmp;
-   HWND     handle = ( HWND ) hb_parnl(1);
+   HWND     handle = reinterpret_cast<HWND>(hb_parnl(1));
    COLORREF clr = hb_parnl(2);
    int      width = HB_ISNIL(3) ? 20 : hb_parni(3);
    int      height = HB_ISNIL(4) ? 20 : hb_parni(4);
@@ -2182,7 +2182,7 @@ HB_FUNC( CREATECOLORBMP )  //CreateColorBmp(hWnd, nColor, BmpWidh, BmpHeight)
 
    RECT     rect;
    HBITMAP  hBmp;
-   HWND     handle = ( HWND ) hb_parnl(1);
+   HWND     handle = reinterpret_cast<HWND>(hb_parnl(1));
    COLORREF clr = hb_parnl(2);
    int      width = hb_parni(3);
    int      height = hb_parni(4);

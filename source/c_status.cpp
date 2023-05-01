@@ -96,7 +96,7 @@ HB_FUNC( INITITEMBAR )
 #endif
 
    hWndSB = hmg_par_HWND(1);
-   style  = GetWindowLong(( HWND ) GetParent(hWndSB), GWL_STYLE);
+   style  = GetWindowLong(GetParent(hWndSB), GWL_STYLE);
 
    switch( hb_parni(8) )
    {
@@ -235,7 +235,7 @@ HB_FUNC( REFRESHITEMBAR )
    hDC = GetDC(hWndSB);
    GetClientRect(hWndSB, &rect);
 
-   if( ( nrOfParts == 1 ) || ( IsZoomed( GetParent(hWndSB) ) ) || ( !(GetWindowLong(( HWND ) GetParent(hWndSB), GWL_STYLE) & WS_SIZEBOX) ) )
+   if( ( nrOfParts == 1 ) || ( IsZoomed( GetParent(hWndSB) ) ) || ( !(GetWindowLong(GetParent(hWndSB), GWL_STYLE) & WS_SIZEBOX) ) )
    {
       nDev = rect.right - ptArray[nrOfParts - 1];
    }

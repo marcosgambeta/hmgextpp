@@ -532,7 +532,7 @@ HB_FUNC( CREATEDLGFOLDER )
       hfpi[s] = ( HFLDPAGEINFO ) ( PHB_ITEM ) HB_arrayGetNL( sArray, s + 1 );
    }
 
-   hwnd = ( HWND ) HB_arrayGetNL( pArray, 2 );
+   hwnd = reinterpret_cast<HWND>(HB_arrayGetNL( pArray, 2 ));
 
    //Fill out the FOLDERHEADERINFO
    pFhi->hwnd        = hWndDlg;
@@ -1698,7 +1698,7 @@ static void FLD_AddBitmap(HWND hWndFolder)
             {
                tie.mask   = TCIF_IMAGE;
                tie.iImage = s;
-               TabCtrl_SetItem(( HWND ) pFhi->hwndTab, s, &tie);
+               TabCtrl_SetItem(static_cast<HWND>(pFhi->hwndTab), s, &tie);
             }
          }
       }

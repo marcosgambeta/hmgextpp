@@ -850,7 +850,7 @@ HB_FUNC( BT_DC_DELETE )
 //   GdiSetBatchLimit (0);
 
    BT.Type = ( INT ) hb_parvni(1, 1);
-   BT.hWnd = ( HWND ) HB_PARVNL(1, 2);
+   BT.hWnd = reinterpret_cast<HWND>(HB_PARVNL(1, 2));
    BT.hDC  = ( HDC ) HB_PARVNL(1, 3);
    // PAINTSTRUCT
    BT.PaintStruct.hdc            = ( HDC ) HB_PARVNL(1, 4);             // HDC  hdc;

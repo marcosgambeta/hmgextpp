@@ -1909,7 +1909,7 @@ HB_FUNC( RR_GETCLIENTRECT )
 {
    RECT rect;
 
-   GetClientRect(( HWND ) HB_PARVNL(1, 7), &rect);
+   GetClientRect(reinterpret_cast<HWND>(HB_PARVNL(1, 7)), &rect);
    HB_STORNI( rect.top, 1, 1 );
    HB_STORNI( rect.left, 1, 2 );
    HB_STORNI( rect.bottom, 1, 3 );
@@ -1966,7 +1966,7 @@ HB_FUNC( RR_PLAYTHUMB )
 {
    RECT rect;
    HDC  tmpDC;
-   HDC  imgDC      = GetWindowDC( ( HWND ) HB_PARVNL(1, 5) );
+   HDC  imgDC      = GetWindowDC( reinterpret_cast<HWND>(HB_PARVNL(1, 5)) );
 #ifndef UNICODE
    LPSTR FileName  = ( LPSTR ) HB_PARC(2, 1);
    LPTSTR lpText   = ( LPTSTR ) hb_parc(3);
@@ -1986,8 +1986,8 @@ HB_FUNC( RR_PLAYTHUMB )
    PlayEnhMetaFile(tmpDC, hh, &rect);
    DeleteEnhMetaFile(hh);
    TextOut(tmpDC, ( int ) rect.right / 2 - 5, ( int ) rect.bottom / 2 - 5, lpText, ( int ) lstrlen(lpText));
-   SendMessage(( HWND ) HB_PARVNL(1, 5), ( UINT ) STM_SETIMAGE, IMAGE_BITMAP, ( LPARAM ) hbmp[i]);
-   ReleaseDC(( HWND ) HB_PARVNL(1, 5), imgDC);
+   SendMessage(reinterpret_cast<HWND>(HB_PARVNL(1, 5)), ( UINT ) STM_SETIMAGE, IMAGE_BITMAP, ( LPARAM ) hbmp[i]);
+   ReleaseDC(reinterpret_cast<HWND>(HB_PARVNL(1, 5)), imgDC);
    DeleteDC(tmpDC);
 
 #ifdef UNICODE
