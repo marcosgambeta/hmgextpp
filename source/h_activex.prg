@@ -507,7 +507,7 @@ HB_FUNC( ATLAXGETDISP ) // hWnd -> pDisp
    IDispatch * pDisp;
 
    _Ax_Init();
-   AtlAxGetControl( reinterpret_cast<HWND>(HB_PARNL(1)), &pUnk );
+   AtlAxGetControl( hmg_par_HWND(1), &pUnk );
 //#if defined( __cplusplus )
 //   pUnk->QueryInterface( IID_IDispatch, ( void ** ) &pDisp );
 //#else
@@ -527,7 +527,7 @@ HB_FUNC_STATIC( CREATEWINDOWEX ) // ( hWnd, cProgId ) -> hActiveXWnd
 #else
                           AnsiToWide( ( char * ) hb_parc( 2 ) ),
 #endif
-                          WS_VISIBLE | WS_CHILD, 0, 0, 0, 0, reinterpret_cast<HWND>(HB_PARNL(1)), 0, 0, nullptr );
+                          WS_VISIBLE | WS_CHILD, 0, 0, 0, 0, hmg_par_HWND(1), 0, 0, nullptr );
    hmg_ret_HANDLE(hControl);
 }
 

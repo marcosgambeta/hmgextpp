@@ -285,7 +285,7 @@ RETURN Nil
 
 HB_FUNC( INITSPLITBUTTON )
 {
-   HWND hwnd = reinterpret_cast<HWND>(HB_PARNL(1));
+   HWND hwnd = hmg_par_HWND(1);
    HWND hbutton;
    int style;
 #ifndef UNICODE

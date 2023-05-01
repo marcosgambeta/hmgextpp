@@ -330,7 +330,7 @@ static LRESULT AppEventOn(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 HB_FUNC( APPEVENTS )
 {
    BOOL bRes = FALSE;
-   HWND hWnd = reinterpret_cast<HWND>(HB_PARNL(1));
+   HWND hWnd = hmg_par_HWND(1);
    UINT message = ( UINT ) hb_parns(2);
 
    if( IsWindow(hWnd) && ( message >= WM_APP && message <= ( WM_APP + MAX_EVENTS ) ) )
@@ -401,7 +401,7 @@ HB_FUNC( APPEVENTS )
 HB_FUNC( APPEVENTSREMOVE )
 {
    HB_BOOL bDel = HB_FALSE;
-   HWND hWnd = reinterpret_cast<HWND>(HB_PARNL(1));
+   HWND hWnd = hmg_par_HWND(1);
    UINT message = ( UINT ) hb_parns(2);
 
    if( IsWindow(hWnd) )
@@ -417,7 +417,7 @@ HB_FUNC( APPEVENTSREMOVE )
 HB_FUNC( APPEVENTSUPDATE )
 {
    HB_BOOL bUpd = HB_FALSE;
-   HWND hWnd = reinterpret_cast<HWND>(HB_PARNL(1));
+   HWND hWnd = hmg_par_HWND(1);
    UINT message = ( UINT ) hb_parns(2);
 
    if( IsWindow(hWnd) )
@@ -466,7 +466,7 @@ HB_FUNC( APPEVENTSUPDATE )
 
 HB_FUNC( ENUMAPPEVENTS )
 {
-   HWND hWnd = reinterpret_cast<HWND>(HB_PARNL(1));
+   HWND hWnd = hmg_par_HWND(1);
    const char * pszProp = hb_parldef(2, HB_TRUE) ? "ONCE" : "ON";
    PHB_ITEM aEvents = hb_itemArrayNew(0);
 
@@ -512,7 +512,7 @@ HB_FUNC( ENUMAPPEVENTS )
 
 HB_FUNC( GETAPPEVENTSINFO )
 {
-   HWND hWnd = reinterpret_cast<HWND>(HB_PARNL(1));
+   HWND hWnd = hmg_par_HWND(1);
    const char * pszProp = hb_parldef(2, HB_TRUE) ? "ONCE" : "ON";
    PHB_ITEM aInfo;
 
@@ -686,7 +686,7 @@ static LRESULT WinEventOn(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 HB_FUNC( WINEVENTS )
 {
    BOOL bRes = FALSE;
-   HWND hWnd = reinterpret_cast<HWND>(HB_PARNL(1));
+   HWND hWnd = hmg_par_HWND(1);
    UINT message = ( UINT ) hb_parns(2);
 
    if( IsWindow(hWnd) && ( message <= ( WM_APP + MAX_EVENTS ) ) )
@@ -757,7 +757,7 @@ HB_FUNC( WINEVENTS )
 HB_FUNC( WINEVENTSREMOVE )
 {
    HB_BOOL bDel = HB_FALSE;
-   HWND hWnd = reinterpret_cast<HWND>(HB_PARNL(1));
+   HWND hWnd = hmg_par_HWND(1);
    UINT message = ( UINT ) hb_parns(2);
 
    if( IsWindow(hWnd) )
@@ -773,7 +773,7 @@ HB_FUNC( WINEVENTSREMOVE )
 HB_FUNC( WINEVENTSUPDATE )
 {
    HB_BOOL bUpd = HB_FALSE;
-   HWND hWnd = reinterpret_cast<HWND>(HB_PARNL(1));
+   HWND hWnd = hmg_par_HWND(1);
    UINT message = ( UINT ) hb_parns(2);
 
    if( IsWindow(hWnd) )
@@ -822,7 +822,7 @@ HB_FUNC( WINEVENTSUPDATE )
 
 HB_FUNC( ENUMWINEVENTS )
 {
-   HWND hWnd = reinterpret_cast<HWND>(HB_PARNL(1));
+   HWND hWnd = hmg_par_HWND(1);
    const char * pszProp = hb_parldef(2, HB_TRUE) ? "ONCE" : "ON";
    PHB_ITEM aEvents = hb_itemArrayNew(0);
 
@@ -868,7 +868,7 @@ HB_FUNC( ENUMWINEVENTS )
 
 HB_FUNC( GETWINEVENTSINFO )
 {
-   HWND hWnd = reinterpret_cast<HWND>(HB_PARNL(1));
+   HWND hWnd = hmg_par_HWND(1);
    const char * pszProp = hb_parldef(2, HB_TRUE) ? "ONCE" : "ON";
    PHB_ITEM aInfo;
 
@@ -1027,7 +1027,7 @@ HB_FUNC( INITMESSAGEONLYWINDOW )
 /* Modified by P.Ch. 17.06. */
 HB_FUNC( INITDUMMY )
 {
-   hmg_ret_HANDLE(CreateWindowEx(0, WC_STATIC, TEXT(""), WS_CHILD, 0, 0, 0, 0, reinterpret_cast<HWND>(HB_PARNL(1)), ( HMENU ) 0, GetInstance(), nullptr));
+   hmg_ret_HANDLE(CreateWindowEx(0, WC_STATIC, TEXT(""), WS_CHILD, 0, 0, 0, 0, hmg_par_HWND(1), ( HMENU ) 0, GetInstance(), nullptr));
 }
 
 /* Modified by P.Ch. 17.06. */
@@ -1156,7 +1156,7 @@ HB_FUNC( INITWINDOW )
       hb_parni(3),
       hb_parni(4),
       hb_parni(5),
-      reinterpret_cast<HWND>(HB_PARNL(13)),
+      hmg_par_HWND(13),
       ( HMENU ) nullptr,
       GetInstance(),
       nullptr
@@ -1197,7 +1197,7 @@ HB_FUNC( INITMODALWINDOW )
       ExStyle = WS_EX_CONTEXTHELP;
    }
 
-   parent = reinterpret_cast<HWND>(HB_PARNL(6));
+   parent = hmg_par_HWND(6);
 
    style = WS_POPUP;
 
@@ -1320,7 +1320,7 @@ HB_FUNC( INITSPLITCHILDWINDOW )
 
 HB_FUNC( INITSPLITBOX )
 {
-   HWND hwndOwner = reinterpret_cast<HWND>(HB_PARNL(1));
+   HWND hwndOwner = hmg_par_HWND(1);
    REBARINFO rbi;
    HWND hwndRB;
    INITCOMMONCONTROLSEX icex;

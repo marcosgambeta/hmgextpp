@@ -290,7 +290,7 @@ RETURN NIL
 HB_FUNC( HMG_SETWINDOWOBJECT )
 {
    PHB_ITEM pObject;
-   HWND hWnd = reinterpret_cast<HWND>(HB_PARNL(1));
+   HWND hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) )
    {
@@ -320,7 +320,7 @@ HB_FUNC( HMG_SETWINDOWOBJECT )
 HB_FUNC( HMG_DELWINDOWOBJECT )
 {
    PHB_ITEM pObject;
-   HWND hWnd = reinterpret_cast<HWND>(HB_PARNL(1));
+   HWND hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) )
    {
@@ -338,7 +338,7 @@ HB_FUNC( HMG_DELWINDOWOBJECT )
 
 HB_FUNC( HMG_GETWINDOWOBJECT )
 {
-   HWND hWnd = reinterpret_cast<HWND>(HB_PARNL(1));
+   HWND hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) )
    {
@@ -354,7 +354,7 @@ HB_FUNC( HMG_ISWINDOWOBJECT )
 {
    PHB_ITEM pObject;
 
-   HWND hWnd = reinterpret_cast<HWND>(HB_PARNL(1));
+   HWND hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) )
    {
