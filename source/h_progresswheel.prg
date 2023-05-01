@@ -948,14 +948,14 @@ RETURN
 
 HB_FUNC( SETBRUSHORG )
 {
-    HDC hDC  = ( HDC ) HB_PARNL( 1 );
+    HDC hDC  = reinterpret_cast<HDC>(HB_PARNL(1));
 
     SetBrushOrgEx( hDC, hb_parni( 2 ), hb_parni( 3 ), nullptr );
 }
 
 HB_FUNC( SETSTRETCHBLTMODE )
 {
-    hb_retni( SetStretchBltMode( ( HDC ) HB_PARNL( 1 ),  hb_parni( 2 ) ) );
+    hb_retni( SetStretchBltMode( reinterpret_cast<HDC>(HB_PARNL(1)),  hb_parni( 2 ) ) );
 }
 
 //**********************************************************************************************************************************************
@@ -979,7 +979,7 @@ HB_FUNC( BT_DRAW_HDC_ARCX_EX )
    INT      XStartArc, YStartArc, XEndArc, YEndArc;
    INT      nArcType;
 
-   hDC = ( HDC ) HB_PARNL( 1 );
+   hDC = reinterpret_cast<HDC>(HB_PARNL(1));
    x1  = ( INT ) hb_parni( 2 );
    y1  = ( INT ) hb_parni( 3 );
    x2  = ( INT ) hb_parni( 4 );

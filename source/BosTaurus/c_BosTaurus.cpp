@@ -851,9 +851,9 @@ HB_FUNC( BT_DC_DELETE )
 
    BT.Type = ( INT ) hb_parvni(1, 1);
    BT.hWnd = reinterpret_cast<HWND>(HB_PARVNL(1, 2));
-   BT.hDC  = ( HDC ) HB_PARVNL(1, 3);
+   BT.hDC  = reinterpret_cast<HDC>(HB_PARVNL(1, 3));
    // PAINTSTRUCT
-   BT.PaintStruct.hdc            = ( HDC ) HB_PARVNL(1, 4);             // HDC  hdc;
+   BT.PaintStruct.hdc            = reinterpret_cast<HDC>(HB_PARVNL(1, 4));             // HDC  hdc;
    BT.PaintStruct.fErase         = ( BOOL ) hb_parvni(1, 5);            // BOOL fErase;
    BT.PaintStruct.rcPaint.left   = ( LONG ) HB_PARVNL(1, 6);            // RECT rcPaint.left;
    BT.PaintStruct.rcPaint.top    = ( LONG ) HB_PARVNL(1, 7);            // RECT rcPaint.top;

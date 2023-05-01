@@ -828,12 +828,12 @@ HB_FUNC( _HMG_PRINTER_C_ROUNDRECTANGLE )
       if( hb_parl(12) )
       {
          hbrush  = CreateSolidBrush(( COLORREF ) RGB(r, g, b));
-         hgdiobj = SelectObject(( HDC ) hdcPrint, hbrush);
+         hgdiobj = SelectObject(hdcPrint, hbrush);
       }
       else
       {
          hpen    = CreatePen(PS_SOLID, ( width * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000 ), ( COLORREF ) RGB(r, g, b));
-         hgdiobj = SelectObject(( HDC ) hdcPrint, hpen);
+         hgdiobj = SelectObject(hdcPrint, hpen);
       }
 
       w = ( tox * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000 ) - ( x * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000 );
@@ -841,7 +841,7 @@ HB_FUNC( _HMG_PRINTER_C_ROUNDRECTANGLE )
       p = ( w + h ) / 2;
       p = p / 10;
 
-      RoundRect(( HDC ) hdcPrint,
+      RoundRect(hdcPrint,
                  ( x * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000 ) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX),
                  ( y * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000 ) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY),
                  ( tox * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000 ) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX),
