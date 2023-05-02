@@ -137,8 +137,8 @@ HB_FUNC( INITRICHEDITBOX )
          nullptr
             );
 
-      SendMessage(hRE, ( UINT ) EM_EXLIMITTEXT, hmg_par_WPARAM(9), 0);
-      SendMessage(hRE, ( UINT ) EM_SETEVENTMASK, 0, ENM_SELCHANGE | ENM_DRAGDROPDONE | ENM_CHANGE | ENM_SCROLL);
+      SendMessage(hRE, EM_EXLIMITTEXT, hmg_par_WPARAM(9), 0);
+      SendMessage(hRE, EM_SETEVENTMASK, 0, ENM_SELCHANGE | ENM_DRAGDROPDONE | ENM_CHANGE | ENM_SCROLL);
    }
 
    hmg_ret_HANDLE(hRE);
@@ -220,8 +220,8 @@ HB_FUNC( STREAMIN )        //StreamIn(HWND hwndCtrl, LPCTSTR lpszPath, int typ )
    es.dwError     = 0;
 
    // send EM_STREAMIN message to the Rich Edit Control.
-   SendMessage(hwnd, ( UINT ) EM_STREAMIN, Flag, ( LPARAM ) &es);
-   SendMessage(hwnd, ( UINT ) EM_SETTEXTMODE, Mode, 0);
+   SendMessage(hwnd, EM_STREAMIN, Flag, ( LPARAM ) &es);
+   SendMessage(hwnd, EM_SETTEXTMODE, Mode, 0);
 
    CloseHandle(hFile);
 
@@ -351,7 +351,7 @@ HB_FUNC( SETBKGNDCOLOR )   // SetBkgndColor(HWND hwnd, lSyscol, nRed, nGreen, nB
       syscol = 0;
    }
 
-   lResult = SendMessage(hmg_par_HWND(1), ( UINT ) EM_SETBKGNDCOLOR, syscol, bkgcolor);
+   lResult = SendMessage(hmg_par_HWND(1), EM_SETBKGNDCOLOR, syscol, bkgcolor);
 
    hb_retnl( ( LONG ) lResult );
 }

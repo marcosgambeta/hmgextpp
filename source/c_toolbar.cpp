@@ -816,7 +816,7 @@ HB_FUNC( SETROWSBUTTON )
 {
    RECT rc;
 
-   SendMessage(hmg_par_HWND(1), ( UINT ) TB_SETROWS, MAKEWPARAM(hb_parni(2), hb_parl(3)), ( LPARAM ) &rc);
+   SendMessage(hmg_par_HWND(1), TB_SETROWS, MAKEWPARAM(hb_parni(2), hb_parl(3)), ( LPARAM ) &rc);
 
    hb_reta(2);
    HB_STORVNL( rc.right - rc.left, -1, 1 );
@@ -920,7 +920,7 @@ HB_FUNC( CREATEPOPUPCHEVRON )
    uBand = lpRB->uBand;
    rcCvr = lpRB->rc;
 
-   SendMessage(hmg_par_HWND(1), ( UINT ) RB_GETRECT, uBand, ( LPARAM ) &rcRb);
+   SendMessage(hmg_par_HWND(1), RB_GETRECT, uBand, ( LPARAM ) &rcRb);
 
    rcRb.right -= ( ( rcCvr.right - rcCvr.left ) );
    rbbi.cbSize = sizeof(REBARBANDINFO);

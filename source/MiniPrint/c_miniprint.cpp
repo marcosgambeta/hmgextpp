@@ -2010,7 +2010,7 @@ HB_FUNC( C_SETEMFFILE )
    hBitmap = loademffile(cFileName, hb_parni(3), hb_parni(4), hmg_par_HWND(1), hb_parni(5), hb_parni(6));
 
    if( hBitmap != nullptr )
-      SendMessage(hmg_par_HWND(1), ( UINT ) STM_SETIMAGE, IMAGE_BITMAP, ( LPARAM ) hBitmap);
+      SendMessage(hmg_par_HWND(1), STM_SETIMAGE, IMAGE_BITMAP, ( LPARAM ) hBitmap);
 
    HB_RETNL( ( LONG_PTR ) hBitmap );
 
