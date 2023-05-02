@@ -5,6 +5,7 @@
 #include <windows.h>
 #include <commctrl.h>
 #include <hbapi.hpp>
+#include "mgdefs.hpp"
 
 // #pragma argsused    // We need a lowercase!!!
 
@@ -108,12 +109,12 @@ HB_FUNC( C_T_MSGEXCLAMATION )
 
 HB_FUNC( _HMG_PRINTER_GETPRINTABLEAREAPHYSICALWIDTH )
 {
-	HDC hdc = (HDC) hb_parni(1);
+	HDC hdc = hmg_par_HDC(1);
 	hb_retnl ( GetDeviceCaps ( hdc , PHYSICALWIDTH ) );
 }
 
 HB_FUNC( _HMG_PRINTER_GETPRINTABLEAREAPHYSICALHEIGTH )
 {
-	HDC hdc = (HDC) hb_parni(1);
+	HDC hdc = hmg_par_HDC(1);
 	hb_retnl ( GetDeviceCaps ( hdc , PHYSICALHEIGHT ) );
 }
