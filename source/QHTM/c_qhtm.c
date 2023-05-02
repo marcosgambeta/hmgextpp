@@ -96,7 +96,7 @@ HB_FUNC( CREATEQHTM )
             hb_parni(5),              /* x, y             */
             hb_parni(6),
             hb_parni(7),              /* nWidth, nHeight  */
-            (HWND) hb_parnl(1),       /* parent window    */
+            hmg_par_HWND(1),       /* parent window    */
             (HMENU) hb_parni(2),      /* control ID       */
             GetModuleHandle(NULL),
             NULL
@@ -223,7 +223,7 @@ HB_FUNC( QHTM_LOADFILE )
 {
    if( hQhtmDll )
    {
-      hb_retl(SendMessage((HWND) hb_parnl(1), QHTM_LOAD_FROM_FILE, 0, (LPARAM) hb_parc(2)));
+      hb_retl(SendMessage(hmg_par_HWND(1), QHTM_LOAD_FROM_FILE, 0, (LPARAM) hb_parc(2)));
    }
 }
 
@@ -236,7 +236,7 @@ HB_FUNC( QHTM_LOADRES )
 {
    if( hQhtmDll )
    {
-      hb_retl(SendMessage((HWND) hb_parnl(1), QHTM_LOAD_FROM_RESOURCE, (WPARAM) GetModuleHandle(NULL), (LPARAM) hb_parc(2)));
+      hb_retl(SendMessage(hmg_par_HWND(1), QHTM_LOAD_FROM_RESOURCE, (WPARAM) GetModuleHandle(NULL), (LPARAM) hb_parc(2)));
    }
 }
 
@@ -249,7 +249,7 @@ HB_FUNC( QHTM_ADDHTML )
 {
    if( hQhtmDll )
    {
-      SendMessage((HWND) hb_parnl(1), QHTM_ADD_HTML, 0, (LPARAM) hb_parc(2));
+      SendMessage(hmg_par_HWND(1), QHTM_ADD_HTML, 0, (LPARAM) hb_parc(2));
    }
 }
 
@@ -262,7 +262,7 @@ HB_FUNC( QHTM_ADDHTML2 )
 {
    if( hQhtmDll )
    {
-      SendMessage((HWND) hb_parnl(1), QHTM_ADD_HTML, (WPARAM) hb_parnl(3), (LPARAM) hb_parc(2));
+      SendMessage(hmg_par_HWND(1), QHTM_ADD_HTML, (WPARAM) hb_parnl(3), (LPARAM) hb_parc(2));
    }
 }
 
@@ -276,7 +276,7 @@ HB_FUNC( QHTM_GETTITLE )
    if( hQhtmDll )
    {
       char  szBuffer[256];
-      SendMessage((HWND) hb_parnl(1), QHTM_GET_HTML_TITLE, 256, (LPARAM) szBuffer);
+      SendMessage(hmg_par_HWND(1), QHTM_GET_HTML_TITLE, 256, (LPARAM) szBuffer);
       hb_retc( szBuffer );
    }
    else
@@ -296,7 +296,7 @@ HB_FUNC( QHTM_GETSIZE )
    {
       SIZE  size;
 
-      if( SendMessage((HWND) hb_parnl(1), QHTM_GET_DRAWN_SIZE, 0, (LPARAM) & size) )
+      if( SendMessage(hmg_par_HWND(1), QHTM_GET_DRAWN_SIZE, 0, (LPARAM) & size) )
       {
          PHB_ITEM aMetr = hb_itemArrayNew(2);
          PHB_ITEM temp;
@@ -328,7 +328,7 @@ HB_FUNC( QHTM_FORMCALLBACK )
 {
    if( hQhtmDll )
    {
-      hb_retl(SendMessage((HWND) hb_parnl(1), QHTM_SET_OPTION, (WPARAM) QHTM_OPT_SET_FORM_SUBMIT_CALLBACK, (LPARAM) FormCallback));
+      hb_retl(SendMessage(hmg_par_HWND(1), QHTM_SET_OPTION, (WPARAM) QHTM_OPT_SET_FORM_SUBMIT_CALLBACK, (LPARAM) FormCallback));
    }
    else
    {
@@ -373,7 +373,7 @@ HB_FUNC( QHTM_SETHTMLBUTTON )
       QHTM_SETHTMLBUTTON   pFunc = ( QHTM_SETHTMLBUTTON ) GetProcAddress(hQhtmDll, "QHTM_SetHTMLButton");
       if( pFunc )
       {
-         hb_retl(pFunc((HWND) hb_parnl(1)));
+         hb_retl(pFunc(hmg_par_HWND(1)));
       }
       else
       {

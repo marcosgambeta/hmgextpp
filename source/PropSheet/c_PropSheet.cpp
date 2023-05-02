@@ -61,7 +61,7 @@
 #include <hbvm.hpp>
 #include <hbstack.hpp>
 #include <hbapiitm.hpp>
-
+#include "mgdefs.hpp"
 
 extern PWORD   CreateDlgTemplate(long lTemplateSize,  PHB_ITEM dArray,PHB_ITEM cArray);
 extern long    GetSizeDlgTemp(PHB_ITEM dArray, PHB_ITEM cArray);
@@ -297,7 +297,7 @@ HB_FUNC( CREATEPROPERTYSHEET )
    char     *strPropSheet;
    int      s, idWM, nPages, idHeader, idIcon, Style;
 
-   HWND hwnd = (HWND) hb_parnl(1);
+   HWND hwnd = hmg_par_HWND(1);
    sArray = hb_param(2, Harbour::Item::ARRAY);
    pArray = hb_param(3, Harbour::Item::ARRAY);
 
@@ -372,7 +372,7 @@ HB_FUNC( PROPSHEETINDEXTOHWND )
 {
   HWND hWndPage;
 
-  hWndPage = PropSheet_IndexToHwnd( (HWND) hb_parnl(1), (int) hb_parni (2) );
+  hWndPage = PropSheet_IndexToHwnd( hmg_par_HWND(1), (int) hb_parni (2) );
 
   hb_retnl ( (long) hWndPage );
 }
@@ -385,7 +385,7 @@ HB_FUNC( PROPSHEETHWNDTOINDEX )
 {
   int iPageIndex;
 
-  iPageIndex = PropSheet_HwndToIndex((HWND) hb_parnl(1), (HWND) hb_parnl(2));
+  iPageIndex = PropSheet_HwndToIndex(hmg_par_HWND(1), hmg_par_HWND(2));
 
   hb_retni ( (int) iPageIndex );
 }
@@ -394,7 +394,7 @@ HB_FUNC( PROPSHEETGETCURRENTPAGEHWND )
 {
   HWND hWndPage;
 
-  hWndPage = PropSheet_GetCurrentPageHwnd((HWND) hb_parnl(1));
+  hWndPage = PropSheet_GetCurrentPageHwnd(hmg_par_HWND(1));
 
   hb_retnl ( (long) hWndPage );
 }
@@ -405,7 +405,7 @@ HB_FUNC( PROPSHEETGETCURRENTPAGEHWND )
 
 HB_FUNC( PROPSHEETSETWIZBUTTONS )
 {
-   HWND hwnd = (HWND)hb_parnl(1);
+   HWND hwnd = hmg_par_HWND(1);
    int nBtnStyle = hb_parni(2);
 
    switch( nBtnStyle)
@@ -426,8 +426,8 @@ HB_FUNC( PROPSHEETSETWIZBUTTONS )
 *****************************************************************************/
 HB_FUNC( PROPSHEET_CHANGED )
 {
-   HWND hWndParent = (HWND)hb_parnl(1);
-   HWND hWndDlg    = (HWND)hb_parni(2);
+   HWND hWndParent = hmg_par_HWND(1);
+   HWND hWndDlg    = hmg_par_HWND(2);
 
    PropSheet_Changed(hWndParent, hWndDlg);
 }
@@ -437,8 +437,8 @@ HB_FUNC( PROPSHEET_CHANGED )
 *****************************************************************************/
 HB_FUNC( PROPSHEET_UNCHANGED )
 {
-   HWND hWndParent = (HWND) hb_parnl(1);
-   HWND hWndDlg    = (HWND) hb_parni(2);
+   HWND hWndParent = hmg_par_HWND(1);
+   HWND hWndDlg    = hmg_par_HWND(2);
 
    PropSheet_UnChanged(hWndParent, hWndDlg);
 }
@@ -449,8 +449,8 @@ HB_FUNC( PROPSHEET_UNCHANGED )
 
 HB_FUNC( DESTROYPROPSHEET )
 {
-   HWND hWnd    = (HWND) hb_parnl(1);
-   HWND hWndDlg = (HWND) hb_parnl(2);
+   HWND hWnd    = hmg_par_HWND(1);
+   HWND hWndDlg = hmg_par_HWND(2);
 
    if (SendMessage(hWndDlg, PSM_GETCURRENTPAGEHWND, 0, 0) == 0)
    {
@@ -470,7 +470,7 @@ HB_FUNC( SENDDLGITEMMESSAGE )
 {
    LRESULT lResult;
 
-   lResult = SendDlgItemMessage((HWND) hb_parnl(1), (int) hb_parni(2), (UINT) hb_parnl(3),
+   lResult = SendDlgItemMessage(hmg_par_HWND(1), (int) hb_parni(2), (UINT) hb_parnl(3),
                                  (WPARAM) hb_parni(4), (LPARAM) hb_parni(5));
    hb_retnl( (LONG) lResult );
 }
@@ -480,7 +480,7 @@ HB_FUNC( SENDDLGITEMMESSAGE )
 *****************************************************************************/
 HB_FUNC( PROPSHEET_SETRESULT )
 {
-  SetWindowLong((HWND) hb_parnl(1), DWL_MSGRESULT, (BOOL) hb_parl(2));
+  SetWindowLong(hmg_par_HWND(1), DWL_MSGRESULT, (BOOL) hb_parl(2));
 }
 
 /****************************************************************************
@@ -489,7 +489,7 @@ HB_FUNC( PROPSHEET_SETRESULT )
 HB_FUNC( PROPSHEET_GETRESULT )
 {
  int nRes;
-  nRes = PropSheet_GetResult((HWND) hb_parnl(1));
+  nRes = PropSheet_GetResult(hmg_par_HWND(1));
   if ( nRes > 0 )
      hb_retl (TRUE);
   else

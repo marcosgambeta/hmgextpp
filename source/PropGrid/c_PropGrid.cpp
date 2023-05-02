@@ -989,7 +989,7 @@ HB_FUNC( INITPROPGRID )
    y =  hb_parni(3),
    w =  hb_parni(4),
    h =  hb_parni(5),
-   hwndParent = (HWND) hb_parnl(1);
+   hwndParent = hmg_par_HWND(1);
    style = WS_VISIBLE | WS_TABSTOP | WS_CHILD | TVS_HASBUTTONS | TVS_FULLROWSELECT | TVS_NOHSCROLL | TVS_SHOWSELALWAYS;
    if( hb_parl(12) )
       style = style  | TVS_SINGLEEXPAND;
@@ -1675,7 +1675,7 @@ void Pg_SetData(HWND hWnd, HTREEITEM hItem, LPCTSTR cValue, LPCTSTR cData, BOOL 
 
 HB_FUNC( PG_SETDATAITEM )
 {
-   Pg_SetData((HWND) hb_parnl(1), (HTREEITEM) hb_parnl(2), (LPSTR) hb_parc(3), (LPSTR) hb_parc(4), (BOOL) hb_parl(5));
+   Pg_SetData(hmg_par_HWND(1), (HTREEITEM) hb_parnl(2), (LPSTR) hb_parc(3), (LPSTR) hb_parc(4), (BOOL) hb_parl(5));
 }
 
 HB_FUNC( PG_ENABLEITEM )     //   Pg_EnableItem(TreeHandle, TreeItemHandle, lEnable);
@@ -1688,7 +1688,7 @@ HB_FUNC( PG_ENABLEITEM )     //   Pg_EnableItem(TreeHandle, TreeItemHandle, lEna
 
    memset(&TreeItem, 0, sizeof(TV_ITEM));
 
-   TreeHandle = (HWND) hb_parnl(1);
+   TreeHandle = hmg_par_HWND(1);
    TreeItemHandle = (HTREEITEM) hb_parnl(2);
 
    TreeItem.mask = TVIF_HANDLE | TVIF_PARAM;
@@ -1715,7 +1715,7 @@ HB_FUNC( PG_CHANGEITEM )     //   Pg_ChangeItem(TreeHandle, TreeItemHandle, lCha
 
    memset(&TreeItem, 0, sizeof(TV_ITEM));
 
-   TreeHandle = (HWND) hb_parnl(1);
+   TreeHandle = hmg_par_HWND(1);
    TreeItemHandle = (HTREEITEM) hb_parnl(2);
 
    TreeItem.mask = TVIF_HANDLE | TVIF_PARAM;
@@ -1952,7 +1952,7 @@ HB_FUNC( PG_SEARCHCATEGORY )  //PG_SearchCategory(hWndPG,cCategory)
 
 HB_FUNC( PG_TOGGLEINFO )   // Pg_ToggleInfo(hWndPG)
 {
-   _ToggleInfo((HWND) hb_parnl(1));
+   _ToggleInfo(hmg_par_HWND(1));
 }
 
 void _ToggleInfo(HWND hWndPG)
@@ -2061,7 +2061,7 @@ HB_FUNC( RESETPROPGRIDIMAGELIST )
 
 HB_FUNC( PG_REDRAWITEM )
 {
-   hb_retl(TreeView_SelectItem((HWND) hb_parnl(1), (HTREEITEM) hb_parnl(2)));
+   hb_retl(TreeView_SelectItem(hmg_par_HWND(1), (HTREEITEM) hb_parnl(2)));
 }
 
 HB_FUNC( TREEVIEW_SETBOLDITEM )
@@ -2103,10 +2103,10 @@ HB_FUNC( PGCOMBOADDSTRING )
    DWORD       dwIndex;
    HIMAGELIST  hILst = ( HIMAGELIST ) hb_parnl(3);
    char        *cString = (char *) hb_parc(2);
-   dwIndex = SendMessage((HWND) hb_parnl(1), CB_ADDSTRING, 0, (LPARAM) cString);
+   dwIndex = SendMessage(hmg_par_HWND(1), CB_ADDSTRING, 0, (LPARAM) cString);
    if( hb_parnl(3) )
    {
-      SendMessage((HWND) hb_parnl(1), CB_SETITEMDATA, dwIndex, (LPARAM) hILst);
+      SendMessage(hmg_par_HWND(1), CB_SETITEMDATA, dwIndex, (LPARAM) hILst);
    }
 }
 
@@ -2114,7 +2114,7 @@ HB_FUNC( PG_SETPICTURE )
 {
    HBITMAP  hBitmap;
 
-   hBitmap = HMG_LoadPicture((char *) hb_parc(2), hb_parni(3), hb_parni(4), (HWND) hb_parnl(1), 0, 0, -1, 0);
+   hBitmap = HMG_LoadPicture((char *) hb_parc(2), hb_parni(3), hb_parni(4), hmg_par_HWND(1), 0, 0, -1, 0);
 
    hb_retnl( (LONG) hBitmap );
 }
@@ -2234,7 +2234,7 @@ HB_FUNC( CREATECOLORBMP )  //CreateColorBmp(hWnd, nColor, BmpWidh, BmpHeight)
 
 HB_FUNC( GET_IMAGELIST )   //Get_ImageList(hWnd)
 {
-   hb_retnl( (LONG) SendMessage((HWND) hb_parnl(1), CBEM_GETIMAGELIST, 0, 0) );
+   hb_retnl( (LONG) SendMessage(hmg_par_HWND(1), CBEM_GETIMAGELIST, 0, 0) );
 }
 
 HB_FUNC( IL_ADDMASKEDINDIRECT )  //IL_AddMaskedIndirect(hwnd , himage , color , ix , iy , imagecount)
@@ -2275,7 +2275,7 @@ HB_FUNC( IL_GETIMAGESIZE ) //IL_GetImageSize(himage)
 
 HB_FUNC( GETDATEPICKER )
 {
-   hb_retni( (LONG) DateTime_GetMonthCal((HWND) hb_parnl(1)) );
+   hb_retni( (LONG) DateTime_GetMonthCal(hmg_par_HWND(1)) );
 }
 
 HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd , BOOL DisEdit)
@@ -2730,7 +2730,7 @@ void enumFonts(HWND hWndEdit)  // , BYTE lfCharSet)
 
 HB_FUNC( PG_GETFONTS )
 {
-   enumFonts((HWND) hb_parnl(1));
+   enumFonts(hmg_par_HWND(1));
 }
 
 HB_FUNC( DIALOGUNITSX)
