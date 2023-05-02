@@ -237,8 +237,8 @@ HB_FUNC( _EXITGRADIENTFUNC )
 HB_FUNC( ALPHABLEND )
 {
    BOOL bRes = FALSE;
-   HDC  hdc1 = reinterpret_cast<HDC>(HB_PARNL(1));
-   HDC  hdc2 = reinterpret_cast<HDC>(HB_PARNL(6));
+   HDC  hdc1 = hmg_par_HDC(1);
+   HDC  hdc2 = hmg_par_HDC(6);
 
    if( ( GetObjectType( hdc1 ) & ( OBJ_DC | OBJ_MEMDC ) ) && ( GetObjectType( hdc2 ) & ( OBJ_DC | OBJ_MEMDC ) ) )
    {
@@ -265,8 +265,8 @@ HB_FUNC( ALPHABLEND )
 HB_FUNC( TRANSPARENTBLT )
 {
    BOOL bRes = FALSE;
-   HDC  hdc1 = reinterpret_cast<HDC>(HB_PARNL(1));
-   HDC  hdc2 = reinterpret_cast<HDC>(HB_PARNL(6));
+   HDC  hdc1 = hmg_par_HDC(1);
+   HDC  hdc2 = hmg_par_HDC(6);
 
    if( ( GetObjectType( hdc1 ) & ( OBJ_DC | OBJ_MEMDC ) ) && ( GetObjectType( hdc2 ) & ( OBJ_DC | OBJ_MEMDC ) ) )
    {
@@ -298,7 +298,7 @@ HB_FUNC( TRANSPARENTBLT )
 HB_FUNC( FILLGRADIENT )
 {
    BOOL bRes = FALSE;
-   HDC  hdc  = reinterpret_cast<HDC>(HB_PARNL(1));
+   HDC  hdc  = hmg_par_HDC(1);
 
    if( GetObjectType( hdc ) & ( OBJ_DC | OBJ_MEMDC ) )
    {
