@@ -2023,7 +2023,7 @@ HB_FUNC( INITPROPGRIDIMAGELIST )
    HIMAGELIST  himl;
    int         cx = 0;
    hWndPG = hmg_par_HWND(1);
-   himl = ( HIMAGELIST ) hb_parnl(2);
+   himl = hmg_par_HIMAGELIST(2);
 
    if( himl != nullptr )
    {
@@ -2101,7 +2101,7 @@ HB_FUNC( GETNOTIFYTREEITEM )
 HB_FUNC( PGCOMBOADDSTRING )
 {
    DWORD       dwIndex;
-   HIMAGELIST  hILst = ( HIMAGELIST ) hb_parnl(3);
+   HIMAGELIST  hILst = hmg_par_HIMAGELIST(3);
    char        *cString = (char *) hb_parc(2);
    dwIndex = SendMessage(hmg_par_HWND(1), CB_ADDSTRING, 0, (LPARAM) cString);
    if( hb_parnl(3) )
@@ -2254,7 +2254,7 @@ HB_FUNC( IL_ADDMASKEDINDIRECT )  //IL_AddMaskedIndirect(hwnd , himage , color , 
    if( GetObject(himage, sizeof(BITMAP), &bm) != 0 )
    {
       if( ( hb_parni(4) * ic == bm.bmWidth ) && ( hb_parni(5) == bm.bmHeight ) )
-         lResult = ImageList_AddMasked(( HIMAGELIST ) hb_parnl(1), himage, clrBk);
+         lResult = ImageList_AddMasked(hmg_par_HIMAGELIST(1), himage, clrBk);
 
       DeleteObject(himage);
    }
@@ -2266,7 +2266,7 @@ HB_FUNC( IL_GETIMAGESIZE ) //IL_GetImageSize(himage)
 {
    int   cx, cy;
 
-   ImageList_GetIconSize(( HIMAGELIST ) hb_parnl(1), &cx, &cy);
+   ImageList_GetIconSize(hmg_par_HIMAGELIST(1), &cx, &cy);
 
    hb_reta(2);  // { cx, cy }
    HB_STORNI( cx, -1, 1 );
