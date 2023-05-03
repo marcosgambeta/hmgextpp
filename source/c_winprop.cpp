@@ -229,7 +229,7 @@ HB_FUNC( GETPROP )
    hb_xfree(pW);
 #endif
 
-   if( nullptr == hMem )
+   if( hMem == nullptr )
    {
       return;
    }
@@ -280,13 +280,13 @@ HB_FUNC( REMOVEPROP )
    hMem     = RemovePropW(hwnd, lpString);
    hb_xfree(( TCHAR * ) lpString);
 #endif
-   if( ( nullptr != hMem ) && ( !hb_parldef(3, HB_FALSE) ) )
+   if( ( hMem != nullptr ) && ( !hb_parldef(3, HB_FALSE) ) )
    {
       GlobalFree(hMem);
       hMem = nullptr;
    }
    // !!!
-   if( nullptr != hMem )
+   if( hMem != nullptr )
    {
       hmg_ret_HANDLE(hMem);      // ( ( ULONG_PTR ) hMem )
    }

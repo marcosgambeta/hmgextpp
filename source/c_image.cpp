@@ -108,7 +108,7 @@ HB_EXPORT IStream * HMG_CreateMemStreamFromResource(HINSTANCE hinstance, const c
    wchar_t * res_typeW;
    IStream * stream;
 
-   if( nullptr == res_name || nullptr == res_type )
+   if( res_name == nullptr || res_type == nullptr )
    {
       return nullptr;
    }
@@ -121,7 +121,7 @@ HB_EXPORT IStream * HMG_CreateMemStreamFromResource(HINSTANCE hinstance, const c
    hb_xfree(res_nameW);
    hb_xfree(res_typeW);
 
-   if( nullptr == resource )
+   if( resource == nullptr )
    {
       return nullptr;
    }
@@ -129,14 +129,14 @@ HB_EXPORT IStream * HMG_CreateMemStreamFromResource(HINSTANCE hinstance, const c
    res_size   = SizeofResource(hinstance, resource);
    res_global = LoadResource(hinstance, resource);
 
-   if( nullptr == res_global )
+   if( res_global == nullptr )
    {
       return nullptr;
    }
 
    res_data = LockResource(res_global);
 
-   if( nullptr == res_data )
+   if( res_data == nullptr )
    {
       return nullptr;
    }
@@ -151,7 +151,7 @@ HB_EXPORT IStream * HMG_CreateMemStream(const BYTE * pInit, UINT cbInitSize)
    HMODULE   hShlDll = LoadLibrary(TEXT("shlwapi.dll"));
    IStream * stream  = nullptr;
 
-   if( nullptr != hShlDll )
+   if( hShlDll != nullptr )
    {
       typedef IStream * ( __stdcall * SHCreateMemStreamPtr )( const BYTE * pInit, UINT cbInitSize );
 
@@ -197,27 +197,27 @@ static HBITMAP HMG_GdipLoadBitmap(const char * res_name, const char * res_type)
    GpBitmap * gpBitmap = nullptr;
    wchar_t *  res_nameW;
 
-   if( nullptr == res_name )
+   if( res_name == nullptr )
    {
       return hBitmap;  // nullptr
    }
 
    res_nameW = hb_mbtowc( res_name );
 
-   if( nullptr != fn_GdipCreateBitmapFromResource )
+   if( fn_GdipCreateBitmapFromResource != nullptr )
    {
       status = fn_GdipCreateBitmapFromResource(GetResources(), res_nameW, &gpBitmap);
    }
 
-   if( Ok != status && nullptr != res_type )
+   if( status != Ok && res_type != nullptr )
    {
       IStream * stream;
 
       stream = HMG_CreateMemStreamFromResource(GetResources(), res_name, res_type);
 
-      if( nullptr != stream )
+      if( stream != nullptr )
       {
-         if( nullptr != fn_GdipCreateBitmapFromStream )
+         if( fn_GdipCreateBitmapFromStream != nullptr )
          {
             status = fn_GdipCreateBitmapFromStream(stream, &gpBitmap);
          }
@@ -226,7 +226,7 @@ static HBITMAP HMG_GdipLoadBitmap(const char * res_name, const char * res_type)
       }
    }
 
-   if( Ok != status && nullptr == res_type && nullptr != fn_GdipCreateBitmapFromFile )
+   if( status != Ok && res_type == nullptr && fn_GdipCreateBitmapFromFile != nullptr )
    {
       status = fn_GdipCreateBitmapFromFile(res_nameW, &gpBitmap);
    }
@@ -235,12 +235,12 @@ static HBITMAP HMG_GdipLoadBitmap(const char * res_name, const char * res_type)
    {
       ARGB BkColor = 0xFF000000UL;  // TODO
 
-      if( nullptr != fn_GdipCreateHBITMAPFromBitmap )
+      if( fn_GdipCreateHBITMAPFromBitmap != nullptr )
       {
          fn_GdipCreateHBITMAPFromBitmap(gpBitmap, &hBitmap, BkColor);
       }
 
-      if( nullptr != fn_GdipDisposeImage )
+      if( fn_GdipDisposeImage != nullptr )
       {
          fn_GdipDisposeImage(gpBitmap);
       }
@@ -468,7 +468,7 @@ HB_EXPORT HBITMAP HMG_LoadPicture(const char * pszName, int width, int height, H
    LONG    bmWidth, bmHeight;
    HDC     hDC, memDC1, memDC2;
 
-   if( nullptr == pszName )
+   if( pszName == nullptr )
    {
       return nullptr;
    }
@@ -637,7 +637,7 @@ HB_EXPORT HBITMAP HMG_OleLoadPicturePath(const char * pszURLorPath)
    HDC        memDC;
    LONG       hmWidth, hmHeight; // HiMetric
 
-   if( nullptr != pszURLorPath )
+   if( pszURLorPath != nullptr )
    {
       LPOLESTR lpURLorPath = ( LPOLESTR ) ( LPCTSTR ) hb_mbtowc( pszURLorPath );
 
@@ -653,7 +653,7 @@ HB_EXPORT HBITMAP HMG_OleLoadPicturePath(const char * pszURLorPath)
    iPicture->lpVtbl->get_Width(iPicture, &hmWidth);
    iPicture->lpVtbl->get_Height(iPicture, &hmHeight);
 
-   if( nullptr != ( memDC = CreateCompatibleDC(nullptr) ) )
+   if( ( memDC = CreateCompatibleDC(nullptr) ) != nullptr )
    {
       POINT Point;
       INT   pxWidth, pxHeight; // Pixel

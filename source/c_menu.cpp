@@ -98,7 +98,7 @@ HB_FUNC( ACCELERATORTABLE2ARRAY )
       {
          LPACCEL lpAccel = ( LPACCEL ) hb_xalloc(cAccelEntries * sizeof(ACCEL));
 
-         if( nullptr != lpAccel )
+         if( lpAccel != nullptr )
          {
             if( CopyAcceleratorTable(hAccel, lpAccel, cAccelEntries) )
             {
@@ -134,7 +134,7 @@ HB_FUNC( ARRAY2ACCELERATORTABLE )
    {
       LPACCEL lpAccel = ( LPACCEL ) hb_xalloc(nLen * sizeof(ACCEL));
 
-      if( nullptr != lpAccel )
+      if( lpAccel != nullptr )
       {
          for( int i = 0; i < nLen; i++ )
          {
@@ -167,7 +167,7 @@ HB_FUNC( COPYACCELERATORTABLE )
 
    hb_retni(0);
 
-   if( nullptr != hAccelSrc )
+   if( hAccelSrc != nullptr )
    {
       int cAccelEntries = CopyAcceleratorTable(hAccelSrc, nullptr, 0);
 
@@ -175,7 +175,7 @@ HB_FUNC( COPYACCELERATORTABLE )
       {
          LPACCEL lpAccelDst = ( LPACCEL ) hb_xalloc(cAccelEntries * sizeof(ACCEL));
 
-         if( nullptr != lpAccelDst )
+         if( lpAccelDst != nullptr )
          {
             hb_retni( CopyAcceleratorTable(hAccelSrc, lpAccelDst, cAccelEntries) );
 

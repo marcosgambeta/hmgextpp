@@ -157,7 +157,7 @@ HB_FUNC( LISTBOXGETSTRING )
    int     iLen = ( int ) SendMessage(hmg_par_HWND(1), LB_GETTEXTLEN, hmg_par_WPARAM(2) - 1, 0);
    TCHAR * cString;
 
-   if( iLen > 0 && nullptr != ( cString = ( TCHAR * ) hb_xgrab((iLen + 1) * sizeof(TCHAR)) ) )
+   if( iLen > 0 && ( cString = ( TCHAR * ) hb_xgrab((iLen + 1) * sizeof(TCHAR)) ) != nullptr )
    {
       SendMessage(hmg_par_HWND(1), LB_GETTEXT, hmg_par_WPARAM(2) - 1, ( LPARAM ) cString);
    #ifdef UNICODE

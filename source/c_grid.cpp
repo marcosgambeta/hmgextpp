@@ -1015,7 +1015,7 @@ HB_FUNC( LISTVIEW_SETCOLUMNORDERARRAY )
 {
    PHB_ITEM pOrder = hb_param(3, Harbour::Item::ARRAY);
 
-   if( nullptr != pOrder )
+   if( pOrder != nullptr )
    {
       int iColumn = hb_parni(2);
 

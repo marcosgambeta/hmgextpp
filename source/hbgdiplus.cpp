@@ -33,12 +33,12 @@ GpStatus GdiplusInit(void)
    LPCTSTR lpFileName = TEXT("Gdiplus.dll");
    GDIPLUS_STARTUP_INPUT GdiplusStartupInput = { 1, nullptr, FALSE, FALSE };
 
-   if( nullptr == g_GpModule )
+   if( g_GpModule == nullptr )
    {
       g_GpModule = LoadLibrary(lpFileName);
    }
 
-   if( nullptr == g_GpModule )
+   if( g_GpModule == nullptr )
    {
       return GdiplusNotInitialized;
    }
@@ -108,12 +108,12 @@ GpStatus GdiplusInit(void)
 
 HB_FUNC( GDIPLUSSHUTDOWN )
 {
-   if( nullptr != fn_GdiplusShutdown )
+   if( fn_GdiplusShutdown != nullptr )
    {
       fn_GdiplusShutdown(g_GpToken);
    }
 
-   if( HB_TRUE == hb_parldef(1, HB_TRUE) && ( nullptr != g_GpModule ) )
+   if( hb_parldef(1, HB_TRUE) == HB_TRUE && ( g_GpModule != nullptr ) )
    {
       FreeLibrary(g_GpModule);
    }
@@ -123,11 +123,11 @@ HB_FUNC( GDIPCREATEBITMAPFROMFILE )
 {
    GpBitmap * bitmap = nullptr;
 
-   if( nullptr != fn_GdipCreateBitmapFromFile )
+   if( fn_GdipCreateBitmapFromFile != nullptr )
    {
       HB_WCHAR * lpFName = ( HB_WCHAR * ) ( ( hb_parclen(1) == 0 ) ? nullptr : hb_mbtowc( hb_parc(1) ) );
 
-      if( nullptr != lpFName )
+      if( lpFName != nullptr )
       {
          hb_retni( fn_GdipCreateBitmapFromFile(lpFName, &bitmap) );
 
@@ -150,11 +150,11 @@ HB_FUNC( GDIPCREATEHBITMAPFROMBITMAP )
 {
    HBITMAP hbitmap = nullptr;
 
-   if( nullptr != fn_GdipCreateHBITMAPFromBitmap )
+   if( fn_GdipCreateHBITMAPFromBitmap != nullptr )
    {
       GpBitmap * bitmap = ( GpBitmap * ) hb_parptr(1);
 
-      if( nullptr != bitmap )
+      if( bitmap != nullptr )
       {
          ARGB argb = ( ARGB ) hb_parnl(3);
 
@@ -175,7 +175,7 @@ HB_FUNC( GDIPCREATEHBITMAPFROMBITMAP )
 
 HB_FUNC( GDIPDISPOSEIMAGE )
 {
-   if( nullptr != fn_GdipDisposeImage )
+   if( fn_GdipDisposeImage != nullptr )
    {
       hb_retni( fn_GdipDisposeImage(reinterpret_cast<GpImage*>(hb_parptr(1))) );
    }

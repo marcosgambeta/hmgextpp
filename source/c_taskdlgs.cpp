@@ -47,7 +47,7 @@ HRESULT TaskDialog(HWND hwndParent, HINSTANCE hInstance, PCWSTR pszWindowTitle, 
       fnTaskDialog pfn     = ( fnTaskDialog ) GetProcAddress(hCommCtl, "TaskDialog");
       HRESULT      hResult = nullptr;
 
-      if( nullptr != pfn )
+      if( pfn != nullptr )
       {
          hResult = pfn(hwndParent, hInstance, pszWindowTitle, pszMainInstruction, pszContent, dwCommonButtons, pszIcon, pnButton);
          /* HB_TRACE(HB_TR_DEBUG, ("TaskDialog() returns %08lX", hResult)); */
@@ -67,7 +67,7 @@ HRESULT TaskDialogIndirect(const TASKDIALOGCONFIG * pTaskConfig, int * pnButton,
       fnTaskDialogIndirect pfn = ( fnTaskDialogIndirect ) GetProcAddress(hCommCtl, "TaskDialogIndirect");
       HRESULT hResult = nullptr;
 
-      if( nullptr != pfn )
+      if( pfn != nullptr )
       {
          hResult = pfn(pTaskConfig, pnButton, pnRadioButton, pfVerificationFlagChecked);
       }
@@ -478,7 +478,7 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
          pCallbackData = hb_itemNew(hb_arrayGetItemPtr(pConfig, 23));
       }
 
-      if( nullptr != pCallbackData )
+      if( pCallbackData != nullptr )
       {
          hb_gcUnlock(pCallbackData);
 
@@ -502,7 +502,7 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
       while( --iButton >= 0 )
          hb_strfree(hButton[iButton]);
 
-      if( nullptr != hButton )
+      if( hButton != nullptr )
       {
          hb_xfree(hButton);
       }
@@ -510,7 +510,7 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
       while( --iRadioButton >= 0 )
          hb_strfree(hRadioButton[iRadioButton]);
 
-      if( nullptr != hRadioButton )
+      if( hRadioButton != nullptr )
       {
          hb_xfree(hRadioButton);
       }
@@ -708,7 +708,7 @@ static const char * TD_NotifyToMsg(UINT uiNotification, PHB_ITEM pObj)
       }
    }
 
-   if( ( nullptr != sMsgName ) && hb_objHasMsg(pObj, sMsgName) )
+   if( ( sMsgName != nullptr ) && hb_objHasMsg(pObj, sMsgName) )
    {
       return sMsgName;
    }
@@ -737,7 +737,7 @@ static BOOL TD_objSendMsg(PHB_ITEM pObject, const char * sMsgName, HRESULT * hRe
 
       itmResult = hb_objSendMsg(pObject, sMsgName, 4, itmHWND, itmNotify, itmWParam, itmLParam);
 
-      if( nullptr != hRes )
+      if( hRes != nullptr )
       {
          ( *hRes ) = ( hb_itemGetL(  itmResult ) == HB_TRUE ? S_OK : S_FALSE );
       }

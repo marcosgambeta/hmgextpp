@@ -94,7 +94,7 @@ HB_FUNC( SENDMESSAGESTRINGW )
 
       HB_RETNL( ( LONG_PTR ) SendMessage(hwnd, hmg_par_UINT(2),
                                           ( WPARAM ) hb_parl(3), ( LPARAM ) ( LPCWSTR ) lpWCStr) );
-      if( nullptr != lpWCStr )
+      if( lpWCStr != nullptr )
       {
          hb_xfree(lpWCStr);
       }

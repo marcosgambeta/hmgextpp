@@ -157,7 +157,7 @@ static HB_CRITICAL_NEW(s_lst_mtx);
 
 HB_FUNC( GETGLOBALLISTENER )
 {
-   if( nullptr != g_ListenerDyns )
+   if( g_ListenerDyns != nullptr )
    {
       hb_retc( hb_dynsymName(g_ListenerDyns) );
    }
@@ -305,7 +305,7 @@ static LRESULT AppEventOn(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
    {
       EVENTSHOLDER * events = ( EVENTSHOLDER * ) GetProp(hWnd, TEXT("ONCE"));
 
-      if( nullptr != events )
+      if( events != nullptr )
       {
          if( hWnd == events->hwnd )
          {
@@ -315,7 +315,7 @@ static LRESULT AppEventOn(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
       events = ( EVENTSHOLDER * ) GetProp(hWnd, TEXT("ON"));
 
-      if( nullptr != events )
+      if( events != nullptr )
       {
          if( hWnd == events->hwnd )
          {
@@ -661,7 +661,7 @@ static LRESULT WinEventOn(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
    {
       WINEVENTSHOLDER * events = ( WINEVENTSHOLDER * ) GetProp(hWnd, TEXT("ONCE"));
 
-      if( nullptr != events )
+      if( events != nullptr )
       {
          if( hWnd == events->hwnd )
          {
@@ -671,7 +671,7 @@ static LRESULT WinEventOn(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
       events = ( WINEVENTSHOLDER * ) GetProp(hWnd, TEXT("ON"));
 
-      if( nullptr != events )
+      if( events != nullptr )
       {
          if( hWnd == events->hwnd )
          {
@@ -1162,7 +1162,7 @@ HB_FUNC( INITWINDOW )
       nullptr
           );
 
-   if( nullptr != hwnd )
+   if( hwnd != nullptr )
    {
       hmg_ret_HANDLE(hwnd);
    }
@@ -1242,7 +1242,7 @@ HB_FUNC( INITMODALWINDOW )
       nullptr
           );
 
-   if( nullptr != hwnd )
+   if( hwnd != nullptr )
    {
       hmg_ret_HANDLE(hwnd);
    }
@@ -1303,7 +1303,7 @@ HB_FUNC( INITSPLITCHILDWINDOW )
       nullptr
           );
 
-   if( nullptr != hwnd )
+   if( hwnd != nullptr )
    {
       hmg_ret_HANDLE(hwnd);
    }
@@ -1397,20 +1397,20 @@ HB_FUNC( REGISTERWINDOW )
    // icon from resource
    hIcon = LoadIcon(GetResources(), lpIconName);
    // from file
-   if( nullptr == hIcon && HB_ISCHAR(1) )
+   if( hIcon == nullptr && HB_ISCHAR(1) )
    {
       hIcon = ( HICON ) LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE);
    }
-   WndClass.hIcon = ( ( nullptr != hIcon ) ? hIcon : LoadIcon(nullptr, IDI_APPLICATION) );
+   WndClass.hIcon = ( ( hIcon != nullptr ) ? hIcon : LoadIcon(nullptr, IDI_APPLICATION) );
 
    // cursor from resource
    hCursor = LoadCursor(GetResources(), lpCursorName);
    // from file
-   if( ( nullptr == hCursor ) && HB_ISCHAR(4) )
+   if( ( hCursor == nullptr ) && HB_ISCHAR(4) )
    {
       hCursor = LoadCursorFromFile(lpCursorName);
    }
-   WndClass.hCursor = ( ( nullptr != hCursor ) ? hCursor : LoadCursor(nullptr, IDC_ARROW) );
+   WndClass.hCursor = ( ( hCursor != nullptr ) ? hCursor : LoadCursor(nullptr, IDC_ARROW) );
 
    if( HB_ISARRAY(3) )  // old behavior (before 16.10)
    {
@@ -1453,7 +1453,7 @@ HB_FUNC( REGISTERWINDOW )
       }
    }
 
-   WndClass.hbrBackground = ( nullptr != hBrush ) ? hBrush : ( hBrush = reinterpret_cast<HBRUSH>(COLOR_BTNFACE + 1) );
+   WndClass.hbrBackground = ( hBrush != nullptr ) ? hBrush : ( hBrush = reinterpret_cast<HBRUSH>(COLOR_BTNFACE + 1) );
    WndClass.lpszMenuName = nullptr;
    WndClass.lpszClassName = lpClassName;
 

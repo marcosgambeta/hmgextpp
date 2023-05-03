@@ -378,7 +378,7 @@ HB_FUNC( INITTOOLTIPEX )
       // Associate the tooltip with the "tool" window.
       SendMessage(hwndToolTip, TTM_ADDTOOL, 0, ( LPARAM ) ( LPTOOLINFO ) &ti);
 
-      if( nullptr != lpszTitle )
+      if( lpszTitle != nullptr )
       {
          SendMessage(hwndToolTip, TTM_SETTITLE, nIcon, ( LPARAM ) lpszTitle);
       }

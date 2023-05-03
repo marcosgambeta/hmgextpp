@@ -140,11 +140,11 @@ HB_FUNC( RCDATATOFILE )
       hResInfo = FindResource(hModule, MAKEINTRESOURCE(hb_parni(1)), lpType);
    }
 
-   if( nullptr != hResInfo )
+   if( hResInfo != nullptr )
    {
       hResData = LoadResource(hModule, hResInfo);
 
-      if( nullptr == hResData )
+      if( hResData == nullptr )
       {
          dwResult = ( HB_SIZE ) -2;  // can't load
       }
@@ -158,14 +158,14 @@ HB_FUNC( RCDATATOFILE )
    {
       LPVOID lpData = LockResource(hResData);
 
-      if( nullptr != lpData )
+      if( lpData != nullptr )
       {
          DWORD    dwSize = SizeofResource(hModule, hResInfo);
          PHB_FILE pFile;
 
          pFile = hb_fileExtOpen(hb_parcx(2), nullptr, FO_CREAT | FO_WRITE | FO_EXCLUSIVE | FO_PRIVATE, nullptr, nullptr);
 
-         if( nullptr != pFile )
+         if( pFile != nullptr )
          {
             dwResult = hb_fileWrite(pFile, ( const void * ) lpData, ( HB_SIZE ) dwSize, -1);
 

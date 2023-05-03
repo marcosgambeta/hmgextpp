@@ -217,7 +217,7 @@ static void ClipOrCenterRectToMonitor( LPRECT prc, HMONITOR hMonitor, UINT flags
    int         h = prc->bottom - prc->top;
 
    // get the nearest monitor to the passed rect.
-   if( nullptr == hMonitor )
+   if( hMonitor == nullptr )
    {
       hMonitor = MonitorFromRect(prc, MONITOR_DEFAULTTONEAREST);
    }

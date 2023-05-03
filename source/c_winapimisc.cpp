@@ -496,12 +496,12 @@ HB_FUNC( GETPHYSICALLYINSTALLEDSYSTEMMEMORY )
 
    hb_retnll(0);
 
-   if( nullptr != hDll )
+   if( hDll != nullptr )
    {
       GetPhysicallyInstalledSystemMemory_ptr fn_GetPhysicallyInstalledSystemMemory =
          ( GetPhysicallyInstalledSystemMemory_ptr ) wapi_GetProcAddress(hDll, "GetPhysicallyInstalledSystemMemory");
 
-      if( nullptr != fn_GetPhysicallyInstalledSystemMemory )
+      if( fn_GetPhysicallyInstalledSystemMemory != nullptr )
       {
          ULONGLONG ullTotalMemoryInKilobytes;
 
@@ -522,12 +522,12 @@ HB_FUNC( MEMORYSTATUS )
 
    HB_RETNL(0);
 
-   if( nullptr != hDll )
+   if( hDll != nullptr )
    {
       GlobalMemoryStatusEx_ptr fn_GlobalMemoryStatusEx =
          ( GlobalMemoryStatusEx_ptr ) wapi_GetProcAddress(hDll, "GlobalMemoryStatusEx");
 
-      if( nullptr != fn_GlobalMemoryStatusEx )
+      if( fn_GlobalMemoryStatusEx != nullptr )
       {
          MEMORYSTATUSEX mstex;
 
