@@ -60,61 +60,61 @@ TimedMessageBox(
 
 HB_FUNC( C_T_MSGRETRYCANCEL )
 {
-	int r;
-	r = TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_RETRYCANCEL | MB_ICONQUESTION | MB_SYSTEMMODAL, hb_parni(3));
-	hb_retni ( r );
+        int r;
+        r = TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_RETRYCANCEL | MB_ICONQUESTION | MB_SYSTEMMODAL, hb_parni(3));
+        hb_retni ( r );
 }
 
 HB_FUNC( C_T_MSGOKCANCEL )
 {
-	int r;
-	r = TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_OKCANCEL | MB_ICONQUESTION | MB_SYSTEMMODAL, hb_parni(3));
-	hb_retni ( r );
+        int r;
+        r = TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_OKCANCEL | MB_ICONQUESTION | MB_SYSTEMMODAL, hb_parni(3));
+        hb_retni ( r );
 }
 
 HB_FUNC( C_T_MSGYESNO )
 {
-	int r;
-	r = TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_YESNO | MB_ICONQUESTION | MB_SYSTEMMODAL, hb_parni(3));
-	hb_retni ( r );
+        int r;
+        r = TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_YESNO | MB_ICONQUESTION | MB_SYSTEMMODAL, hb_parni(3));
+        hb_retni ( r );
 
 }
 
 HB_FUNC( C_T_MSGYESNO_ID )
 {
-	int r;
-	r = TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_YESNO | MB_ICONQUESTION | MB_SYSTEMMODAL | MB_DEFBUTTON2, hb_parni(3));
-	hb_retni ( r );
+        int r;
+        r = TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_YESNO | MB_ICONQUESTION | MB_SYSTEMMODAL | MB_DEFBUTTON2, hb_parni(3));
+        hb_retni ( r );
 }
 
 HB_FUNC( C_T_MSGBOX )
 {
-	TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_SYSTEMMODAL, hb_parni(3));
+        TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_SYSTEMMODAL, hb_parni(3));
 }
 
 HB_FUNC( C_T_MSGINFO )
 {
-	TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_OK | MB_ICONINFORMATION | MB_SYSTEMMODAL, hb_parni(3));
+        TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_OK | MB_ICONINFORMATION | MB_SYSTEMMODAL, hb_parni(3));
 }
 
 HB_FUNC( C_T_MSGSTOP )
 {
-	TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_OK | MB_ICONSTOP | MB_SYSTEMMODAL, hb_parni(3));
+        TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_OK | MB_ICONSTOP | MB_SYSTEMMODAL, hb_parni(3));
 }
 
 HB_FUNC( C_T_MSGEXCLAMATION )
 {
-	TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL, hb_parni(3));
+        TimedMessageBox(nullptr, hb_parc(1), hb_parc(2), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL, hb_parni(3));
 }
 
 HB_FUNC( _HMG_PRINTER_GETPRINTABLEAREAPHYSICALWIDTH )
 {
-	HDC hdc = hmg_par_HDC(1);
-	hb_retnl ( GetDeviceCaps ( hdc , PHYSICALWIDTH ) );
+        HDC hdc = hmg_par_HDC(1);
+        hb_retnl ( GetDeviceCaps ( hdc , PHYSICALWIDTH ) );
 }
 
 HB_FUNC( _HMG_PRINTER_GETPRINTABLEAREAPHYSICALHEIGTH )
 {
-	HDC hdc = hmg_par_HDC(1);
-	hb_retnl ( GetDeviceCaps ( hdc , PHYSICALHEIGHT ) );
+        HDC hdc = hmg_par_HDC(1);
+        hb_retnl ( GetDeviceCaps ( hdc , PHYSICALHEIGHT ) );
 }

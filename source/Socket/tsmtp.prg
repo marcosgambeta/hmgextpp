@@ -548,7 +548,7 @@ STATIC Function cFileWithoutPath( cPathMask )
 * ±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
 LOCAL n1 := RAt( "\", cPathMask ), n2 := RAt( "/", cPathMask ), n
 
-	n := max( n1, n2 )
+        n := max( n1, n2 )
 
 Return IIf( n > 0 .AND. n < Len(cPathMask), ;
    Right(cPathMask, Len(cPathMask) - n), ;

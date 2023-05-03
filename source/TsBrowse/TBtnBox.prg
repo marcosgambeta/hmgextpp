@@ -315,13 +315,13 @@ METHOD Command( nWParam, nLParam ) CLASS TBtnBox
             ::LostFocus()
             ::oWnd:lPostEdit := .F.
          
-	 case nNotifyCode == EN_CHANGE
+         case nNotifyCode == EN_CHANGE
             ::lChanged :=.T.
          
-	 case nNotifyCode == EN_KILLFOCUS
+         case nNotifyCode == EN_KILLFOCUS
             ::LostFocus()
          
-	 case nNotifyCode == EN_UPDATE
+         case nNotifyCode == EN_UPDATE
             If _GetKeyState( VK_ESCAPE )
                ::KeyDown( VK_ESCAPE, 0 )
             Endif

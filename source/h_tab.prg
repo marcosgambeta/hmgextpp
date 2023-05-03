@@ -444,7 +444,7 @@ FUNCTION UpdateTab(y)  // Internal Function
                CShowControl ( w )
 #ifdef _PANEL_
             ELSEIF _IsWindowVisibleFromHandle(w)
-		
+                
                CShowControl ( w )
 #endif
             ENDIF

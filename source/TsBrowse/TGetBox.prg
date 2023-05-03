@@ -51,7 +51,7 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
            nClrBack  := GetSysColor( COLOR_WINDOW ), ;
            lUpdate   := .F., ;
            lCenter   := .F., ;
-	   lRight    := .F., ;
+           lRight    := .F., ;
            lSpinner  := .F., ;
            lNoBorder := .F., ;
            bSetGet   := bSETGET( cText )

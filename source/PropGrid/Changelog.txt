@@ -61,7 +61,7 @@ New: Key ESC restores previous data before writes to internal structure
   -New: Function _ShowInfoItem  (ParentForm, ControlName ) to show or hiden Item Info
 
 28.06.2007
-  - Changed: algorithm of look for item in Property Grid. 	
+  - Changed: algorithm of look for item in Property Grid.         
   - Fixed: Procedure for save data of Property Grid to File. 
   - New:  In Item of type CHECK - optional description, one from list of Data, list with two equivalent value to FALSE and TRUE.
   - New: Read and save from file type INI.
@@ -82,8 +82,8 @@ New: Key ESC restores previous data before writes to internal structure
 
 18.02.2008
   - New: Header for Colums (optional) with resize column width and action doubleclick:
-	- Column 1: Collapse/ Expand Property grid
-	- Column 2: Hide/Show Info window
+        - Column 1: Collapse/ Expand Property grid
+        - Column 2: Hide/Show Info window
   - New: Property folder with action GetFolder.
 
 14.05.2008
@@ -111,17 +111,17 @@ New: Key ESC restores previous data before writes to internal structure
 
 15.02.2010
   - Fixed: Dialog units for Dialog of item type 'array'
-  - Changed: Some Buttons in Array Dialog language translation support.	
+  - Changed: Some Buttons in Array Dialog language translation support.        
 
 17.04.2010
   - Fixed: Improving the display value for the Item in edit mode after changing the value with SET PROPERTYITEM
 
 23.11.2011
   - New: Added optional buttons OK, APPLY, CANCEL and HELP:
-	Syntax:
-	[ OKBTN [USEROKPROC userokproc] [ APPLYBTN ]];
-	[ CANCELBTN [ USERCANCELPROC usercancelproc ] ] ;
-	[ HELPBTN helpproc ] ;
+        Syntax:
+        [ OKBTN [USEROKPROC userokproc] [ APPLYBTN ]];
+        [ CANCELBTN [ USERCANCELPROC usercancelproc ] ] ;
+        [ HELPBTN helpproc ] ;
 
       - The OK button allows to close the PropertyGrid with the possibility to write the changed data
         by using the built-in function Save or optionally with user function described in clause USEROKPROC. 
@@ -142,13 +142,13 @@ New: Key ESC restores previous data before writes to internal structure
 
 22.06.2012:
   - New: Function GetChangendItem(cForm,CPgName)
-	Syntax:
+        Syntax:
          GET CHANGED PROPERTYITEM <name> ;
             [ OF | PARENT> <parent> ] ;
             TO <aIdItem> 
 
   - New: Function SaveMemVarible(cForm,CPgName)
-	Syntax:
+        Syntax:
          SAVE MEMVALUE PROPERTY <name> ;
             [ OF | PARENT> <parent> ] 
             
@@ -156,7 +156,7 @@ New: Key ESC restores previous data before writes to internal structure
 
 30.06.2014:
    - Changed: Optional clause ITEMDATA for item type STRING to execute InputMask in form Control TextBox.
-	Syntax:
+        Syntax:
         PROPERTYITEM STRING <cName> ;
             VALUE <cValue> ;
             [ ITEMDATA <caData> ];
@@ -167,8 +167,8 @@ New: Key ESC restores previous data before writes to internal structure
 
 2016/10/18:
   - New: Added an optional WHEN clause to PROPERTYITEM command.
-	Syntax:
-	PROPERTYITEM <cName>  ;
+        Syntax:
+        PROPERTYITEM <cName>  ;
             [ <dummy1: OF, PARENT> <category> ] ;
             ITEMTYPE <ctype> ;
             VALUE <cValue> ;
@@ -180,4 +180,4 @@ New: Key ESC restores previous data before writes to internal structure
             [ <disableedit : DISABLEEDIT> ];
 
 2017.06.20:
-	- New: Changed item value is only refreshes it if it is visible or if you want it to be visible.
+        - New: Changed item value is only refreshes it if it is visible or if you want it to be visible.

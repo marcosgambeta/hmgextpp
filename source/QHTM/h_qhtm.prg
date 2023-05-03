@@ -29,13 +29,13 @@
 
  Parts of this project are based upon:
 
-	"Harbour GUI framework for Win32"
- 	Copyright 2001 Alexander S.Kresin <alex@belacy.ru>
- 	Copyright 2001 Antonio Linares <alinares@fivetech.com>
-	www - https://harbour.github.io/
+        "Harbour GUI framework for Win32"
+         Copyright 2001 Alexander S.Kresin <alex@belacy.ru>
+         Copyright 2001 Antonio Linares <alinares@fivetech.com>
+        www - https://harbour.github.io/
 
-	"Harbour Project"
-	Copyright 1999-2020, https://harbour.github.io/
+        "Harbour Project"
+        Copyright 1999-2020, https://harbour.github.io/
 
 ---------------------------------------------------------------------------*/
 

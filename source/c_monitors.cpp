@@ -100,7 +100,7 @@ BOOL CALLBACK _MonitorEnumProc0(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMo
    return TRUE;
 }
 
-//	BOOL GetMonitorInfo(HMONITOR hMonitor, LPMONITORINFO lpmi)
+//        BOOL GetMonitorInfo(HMONITOR hMonitor, LPMONITORINFO lpmi)
 HB_FUNC( GETMONITORINFO )
 {
    MONITORINFO mi;

@@ -46,9 +46,9 @@
 
 #include "minigui.ch"
 
-#define WM_SETFONT	0x0030
+#define WM_SETFONT        0x0030
 
-#define _FORMNAME_	"Main"
+#define _FORMNAME_        "Main"
 
 PROCEDURE _DefineFont( FontName, fName, fSize, bold, italic, underline, strikeout, nAngle, default, charset )
 

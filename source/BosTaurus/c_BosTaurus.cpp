@@ -397,11 +397,11 @@ typedef struct GdiplusStartupInput
 
 
 #ifdef _MSC_VER
-	typedef GpStatus (WINGDIPAPI *NotificationHookProc )( ULONG_PTR * token );
-	typedef VOID (WINGDIPAPI *NotificationUnhookProc )( ULONG_PTR token );
+        typedef GpStatus (WINGDIPAPI *NotificationHookProc )( ULONG_PTR * token );
+        typedef VOID (WINGDIPAPI *NotificationUnhookProc )( ULONG_PTR token );
 #else
-	typedef GpStatus WINGDIPAPI ( *NotificationHookProc )( ULONG_PTR * token );
-	typedef VOID WINGDIPAPI ( *NotificationUnhookProc )( ULONG_PTR token );
+        typedef GpStatus WINGDIPAPI ( *NotificationHookProc )( ULONG_PTR * token );
+        typedef VOID WINGDIPAPI ( *NotificationUnhookProc )( ULONG_PTR token );
 #endif
 
 

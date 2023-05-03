@@ -262,7 +262,7 @@ STATIC FUNCTION LaunchDropdownMenu( nHwnd )
       GetWindowRect( nHwnd, aPos )
 
       TrackPopupMenu( _HMG_aControlRangeMax[ nIdx ], aPos[1] + 1, ;
-      	aPos[2] + _HMG_aControlHeight[ nIdx ], _HMG_aControlParentHandles[ nIdx ] )
+              aPos[2] + _HMG_aControlHeight[ nIdx ], _HMG_aControlParentHandles[ nIdx ] )
 
    ENDIF
 

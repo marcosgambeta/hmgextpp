@@ -3,7 +3,7 @@
 #include "miniprint.ch"
 #include "hbclass.ch"
 
-#TRANSLATE MSG	=> MSGBOX
+#TRANSLATE MSG        => MSGBOX
 #TRANSLATE ZAPS(<X>) => ALLTRIM(STR(<X>))
 #define NTRIM(n) LTrim(Str(n))
 #TRANSLATE Test( <c> ) => MsgInfo( <c>, [<c>] )
@@ -135,7 +135,7 @@ Procedure PrMiniEsegui(_MainArea,_psd,db_arc,_prw)
                   nfsize=10
                case ncpl= 120
                   nfsize:=8
-      	         case ncpl= 140
+                       case ncpl= 140
                  nfsize:=7
                case ncpl= 160
                  nfsize:=6
@@ -193,7 +193,7 @@ Test(mkm)
          "Alto Printer "+zaps(_HMG_PRINTER_GETPRINTERHEIGHT(_HMG_SYSDATA [ 374 ]))+crlf+;
          "Alto Fisico "+zaps(_HMG_PRINTER_GETPRINTABLEAREAPHYSICALHEIGTH(_HMG_SYSDATA [ 374 ]))+crlf+;
          "Alto Margine SUP "+zaps(cal)+crlf+;
-         "Largo Margine Sx 	"+zaps(cxx)+crlf+;
+         "Largo Margine Sx         "+zaps(cxx)+crlf+;
          "Offset sx "+zaps(mncl)+crlf+;
          "PHYSICALOFFSET X "+zaps(_HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETX(_HMG_SYSDATA [ 374 ]))+crlf+;
          "AREALOGPIXELSX   "+zaps(_HMG_PRINTER_GETPRINTABLEAREALOGPIXELSX(_HMG_SYSDATA [ 374 ]))+crlf+;
@@ -452,12 +452,12 @@ Function RMiniPar(ArryPar,cmdline,section)
 
         case ArryPar[1]+arryPar[2]="SELECTPRINTER"
 
-	        do case
+                do case
 
-	           case ascan(ArryPar,[DIALOG])=3               //OK
-	               _hmg_printer_aPrinterProperties := _HMG_PRINTER_PrintDialog()
+                   case ascan(ArryPar,[DIALOG])=3               //OK
+                       _hmg_printer_aPrinterProperties := _HMG_PRINTER_PrintDialog()
 
-	           otherwise
+                   otherwise
                //if(MGSYS,_HMG_SYSDATA [ 375 ],_hmg_printer_name) := GetDefaultPrinter()
                _arg1:=eval(chblk,arrypar,[QUALITY])
                lQuality:=oWr:what_ele(_arg1,oWr:aCh,"_aQlt")
@@ -485,25 +485,25 @@ Function RMiniPar(ArryPar,cmdline,section)
                _arg1:=if(_arg1 ="",GetDefaultPrinter(),_arg1)
                //msgbox(_arg1,"stampante")
                _hmg_printer_aPrinterProperties:=_HMG_PRINTER_SetPrinterProperties ( ;
-		if(ascan(ArryPar,[DEFAULT])=3,GetDefaultPrinter(),_arg1 ), ;
-		if(ascan(arryPar,[ORIENTATION])!= 0,iif(val(_arg1) > 0,val(_arg1),iif([PORT]$ _arg1,1,2)) ,-999),;
-		if ( lPaperSize     > 0 , lPaperSize      , -999 ) , ;
-		if ( lPaperLength   > 0 , LPaperLength    , -999 ) , ;
-		if ( lPaperWidth    > 0 , LPaperWidth     , -999 ) , ;
-		if ( lCopies        > 0 , lCopies         , -999 ) , ;
-		if ( lDefaultSource > 0 , LDefaultSource  , -999 ) , ;
-		if ( lQuality      != 0 , lQuality        , -999 ) , ;
-		if ( lColor         > 0 , lColor          , -999 ) , ;
-		if ( lDuplex        > 0 , lDuplex         , -999 ) , ;
-		if ( lCollate       > 0 , nCollate        , -999 ) )
+                if(ascan(ArryPar,[DEFAULT])=3,GetDefaultPrinter(),_arg1 ), ;
+                if(ascan(arryPar,[ORIENTATION])!= 0,iif(val(_arg1) > 0,val(_arg1),iif([PORT]$ _arg1,1,2)) ,-999),;
+                if ( lPaperSize     > 0 , lPaperSize      , -999 ) , ;
+                if ( lPaperLength   > 0 , LPaperLength    , -999 ) , ;
+                if ( lPaperWidth    > 0 , LPaperWidth     , -999 ) , ;
+                if ( lCopies        > 0 , lCopies         , -999 ) , ;
+                if ( lDefaultSource > 0 , LDefaultSource  , -999 ) , ;
+                if ( lQuality      != 0 , lQuality        , -999 ) , ;
+                if ( lColor         > 0 , lColor          , -999 ) , ;
+                if ( lDuplex        > 0 , lDuplex         , -999 ) , ;
+                if ( lCollate       > 0 , nCollate        , -999 ) )
                //msgbox(str(lcopies))
 
-	        EndCase
-	        if MGSYS
-	          _HMG_SYSDATA [ 374 ] := _hmg_printer_aPrinterProperties [1]
-	          _HMG_SYSDATA [ 375 ] := _hmg_printer_aPrinterProperties [2]
-	          _HMG_SYSDATA [ 376 ] := _hmg_printer_aPrinterProperties [3]
-	          _HMG_SYSDATA [ 377 ] := _hmg_printer_aPrinterProperties [4]
+                EndCase
+                if MGSYS
+                  _HMG_SYSDATA [ 374 ] := _hmg_printer_aPrinterProperties [1]
+                  _HMG_SYSDATA [ 375 ] := _hmg_printer_aPrinterProperties [2]
+                  _HMG_SYSDATA [ 376 ] := _hmg_printer_aPrinterProperties [3]
+                  _HMG_SYSDATA [ 377 ] := _hmg_printer_aPrinterProperties [4]
                   _HMG_SYSDATA [ 378 ] := if (ascan(ArryPar,[PREVIEW]) > 0 ,.T.,_HMG_SYSDATA [ 378 ])
                 else
                   _hmg_printer_hdc       := _hmg_printer_aPrinterProperties [1]
@@ -532,19 +532,19 @@ Function RMiniPar(ArryPar,cmdline,section)
           //msgbox(_hmg_printer_timestamp,"timestamp")
 
      case ascan(arryPar,"SET")=1
-	     do case
-	        case ascan(arryPar,[EURO])=2
-	             _euro:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.T.,iif(arrypar[3]=".T.".OR.arrypar[3]="ON",.T.,.F.))
+             do case
+                case ascan(arryPar,[EURO])=2
+                     _euro:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.T.,iif(arrypar[3]=".T.".OR.arrypar[3]="ON",.T.,.F.))
 /*
-	        case ascan(arryPar,[ADDOFFSET])=2
-	             _addoffset:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.T.,iif(arrypar[3]=".T.".OR.arrypar[3]="ON",.T.,.F.))
+                case ascan(arryPar,[ADDOFFSET])=2
+                     _addoffset:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.T.,iif(arrypar[3]=".T.".OR.arrypar[3]="ON",.T.,.F.))
 */
 
-	        case ascan(arryPar,[MONEY])=2
-	             _money:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.T.,iif(arrypar[3]=".T.".OR.arrypar[3]="ON",.T.,.F.))
+                case ascan(arryPar,[MONEY])=2
+                     _money:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.T.,iif(arrypar[3]=".T.".OR.arrypar[3]="ON",.T.,.F.))
 
-	        case ascan(arryPar,[SEPARATOR])=2
-	             _separator:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.T.,iif(arrypar[3]=".T.".OR.arrypar[3]="ON",.T.,.F.))
+                case ascan(arryPar,[SEPARATOR])=2
+                     _separator:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.T.,iif(arrypar[3]=".T.".OR.arrypar[3]="ON",.T.,.F.))
 
                 case ascan(arryPar,[PREVIEW])=2
                      _hmg_printer_preview:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.T.,iif(arrypar[3]=".T.".OR.arrypar[3]="ON",.T.,.F.))

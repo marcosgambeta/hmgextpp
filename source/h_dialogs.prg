@@ -62,9 +62,9 @@ FUNCTION GetColor( aInitColor, aCustomColors, nFlags )
 
    IF ISLOGICAL ( nFlags )  // for HMG compatibility
       IF nFlags == .F.
-         #define CC_RGBINIT			1
-         #define CC_PREVENTFULLOPEN	4
-         #define CC_ANYCOLOR		256
+         #define CC_RGBINIT                        1
+         #define CC_PREVENTFULLOPEN        4
+         #define CC_ANYCOLOR                256
          nFlags := hb_BitOr ( CC_ANYCOLOR, CC_PREVENTFULLOPEN, CC_RGBINIT )
       ELSE
          /* default nFlags value is hb_BitOr( CC_ANYCOLOR, CC_FULLOPEN, CC_RGBINIT ) */

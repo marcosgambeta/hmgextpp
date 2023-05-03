@@ -91,11 +91,11 @@ Possible error codes
 #define APS_BC39            1     // Code 3 of 9
 #define APS_BC128           2     // Code 128 B
 #define APS_EAN128A         3
-#define APS_EAN128B 	    4
+#define APS_EAN128B             4
 #define APS_EAN128C         5
-#define APS_EAN8    	    6
-#define APS_EAN13   	    7
-#define APS_CODE128A 	    8
+#define APS_EAN8                6
+#define APS_EAN13               7
+#define APS_CODE128A             8
 #define APS_CODE128B        9
 #define APS_CODE128C       10  
 #define APS_UPCA           11    
@@ -114,18 +114,18 @@ Possible error codes
 /*-----------------------------------------------------------------------------
  PDF Version
 ------------------------------------------------------------------------------*/
-#define APS_PDF14      	0
-#define APS_PDF15      	1
-#define APS_PDF16      	2
-#define APS_PDF17	3
+#define APS_PDF14              0
+#define APS_PDF15              1
+#define APS_PDF16              2
+#define APS_PDF17        3
 #define APS_PDFA1B      4
 
 /*-----------------------------------------------------------------------------
  PDF Embedded fonts
 ------------------------------------------------------------------------------*/
-#define APS_PDF_FNT_NONE      	0
-#define APS_PDF_FNT_FULL      	1
-#define APS_PDF_FNT_SUB      	2
+#define APS_PDF_FNT_NONE              0
+#define APS_PDF_FNT_FULL              1
+#define APS_PDF_FNT_SUB              2
 
 
 /*-----------------------------------------------------------------------------

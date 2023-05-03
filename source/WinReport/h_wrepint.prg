@@ -6,7 +6,7 @@
 #include "miniprint.ch"
 #include "hbclass.ch"
 
-#TRANSLATE MSG	=> MSGBOX
+#TRANSLATE MSG        => MSGBOX
 #define NTrim(n) LTRIM(STR(n, 20, IIF(n == INT(n), 0, set(_SET_DECIMALS))))
 #TRANSLATE ZAPS(<X>) => NTrim(<X>)
 #TRANSLATE Test( <c> ) => MsgInfo( <c>, [<c>] )
@@ -1763,7 +1763,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                    case ascan(ArryPar,[DUPLEX])=2
                         hbprn:setdevmode(DM_DUPLEX,::what_ele(eval(chblk,arrypar,[DUPLEX]),::aCh,"_aDuplex"))
 
-    	               case ascan(ArryPar,[PREVIEW])=2 .AND. len(arrypar)= 3
+                           case ascan(ArryPar,[PREVIEW])=2 .AND. len(arrypar)= 3
                         hbprn:PreviewMode := iif(eval(chblk,arrypar,[PREVIEW])=[OFF],.F.,.T.)
 
                    case ascan(arryPar,[BIN])=2
