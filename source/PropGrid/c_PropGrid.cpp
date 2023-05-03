@@ -1587,7 +1587,7 @@ HB_FUNC( ADDPGITEM )
 {
    HWND              hWndTV = hmg_par_HWND(1);
 
-   HTREEITEM         hPrev = ( HTREEITEM ) hb_parnl(2);
+   HTREEITEM         hPrev = hmg_par_HTREEITEM(2);
    HTREEITEM         hRet;
 
    TV_ITEM           tvi;
@@ -1675,7 +1675,7 @@ void Pg_SetData(HWND hWnd, HTREEITEM hItem, LPCTSTR cValue, LPCTSTR cData, BOOL 
 
 HB_FUNC( PG_SETDATAITEM )
 {
-   Pg_SetData(hmg_par_HWND(1), (HTREEITEM) hb_parnl(2), (LPSTR) hb_parc(3), (LPSTR) hb_parc(4), (BOOL) hb_parl(5));
+   Pg_SetData(hmg_par_HWND(1), hmg_par_HTREEITEM(2), (LPSTR) hb_parc(3), (LPSTR) hb_parc(4), (BOOL) hb_parl(5));
 }
 
 HB_FUNC( PG_ENABLEITEM )     //   Pg_EnableItem(TreeHandle, TreeItemHandle, lEnable);
@@ -1689,7 +1689,7 @@ HB_FUNC( PG_ENABLEITEM )     //   Pg_EnableItem(TreeHandle, TreeItemHandle, lEna
    memset(&TreeItem, 0, sizeof(TV_ITEM));
 
    TreeHandle = hmg_par_HWND(1);
-   TreeItemHandle = (HTREEITEM) hb_parnl(2);
+   TreeItemHandle = hmg_par_HTREEITEM(2);
 
    TreeItem.mask = TVIF_HANDLE | TVIF_PARAM;
    TreeItem.hItem = TreeItemHandle;
@@ -1716,7 +1716,7 @@ HB_FUNC( PG_CHANGEITEM )     //   Pg_ChangeItem(TreeHandle, TreeItemHandle, lCha
    memset(&TreeItem, 0, sizeof(TV_ITEM));
 
    TreeHandle = hmg_par_HWND(1);
-   TreeItemHandle = (HTREEITEM) hb_parnl(2);
+   TreeItemHandle = hmg_par_HTREEITEM(2);
 
    TreeItem.mask = TVIF_HANDLE | TVIF_PARAM;
    TreeItem.hItem = TreeItemHandle;
@@ -1741,7 +1741,7 @@ HB_FUNC( PG_GETITEM )
    memset(&TreeItem, 0, sizeof(TV_ITEM));
 
    TreeHandle = hmg_par_HWND(1);
-   TreeItemHandle = ( HTREEITEM ) hb_parnl(2);
+   TreeItemHandle = hmg_par_HTREEITEM(2);
    nType = hmg_par_int(3);
 
    TreeItem.mask = TVIF_HANDLE | TVIF_PARAM;
@@ -1837,7 +1837,7 @@ HB_FUNC( PG_GETNEXTITEM )
    HTREEITEM   NextItemHandle;
 
    TreeHandle = hmg_par_HWND(1);
-   ItemHandle = ( HTREEITEM ) hb_parnl(2);
+   ItemHandle = hmg_par_HTREEITEM(2);
    NextItemHandle = GetNextItemPG(TreeHandle, ItemHandle);
    hb_retnl( (LONG) NextItemHandle );
 }
@@ -1861,7 +1861,7 @@ HB_FUNC( PG_ENSUREVISIBLE )
    BOOL        lVisible;
 
    TreeHandle = hmg_par_HWND(1);
-   ItemHandle = ( HTREEITEM ) hb_parnl(2);
+   ItemHandle = hmg_par_HTREEITEM(2);
 
    lVisible = TreeView_EnsureVisible(TreeHandle, ItemHandle);
 
@@ -1877,7 +1877,7 @@ HB_FUNC( PG_ISVISIBLE )
    BOOL        lVisible = FALSE;
 
    TreeHandle = hmg_par_HWND(1);
-   ItemHandle = ( HTREEITEM ) hb_parnl(2);
+   ItemHandle = hmg_par_HTREEITEM(2);
 
    ItemHdl = TreeView_GetFirstVisible ( TreeHandle );
    while( ItemHdl )
@@ -2043,7 +2043,7 @@ HB_FUNC( RESETPROPGRIDIMAGELIST )
 
    int         cx;
    hWndPG = hmg_par_HWND(1);
-   hItemPG = ( HTREEITEM ) hb_parnl(2);
+   hItemPG = hmg_par_HTREEITEM(2);
 
    memset(&TItem, 0, sizeof(TV_ITEM));
 
@@ -2061,7 +2061,7 @@ HB_FUNC( RESETPROPGRIDIMAGELIST )
 
 HB_FUNC( PG_REDRAWITEM )
 {
-   hb_retl(TreeView_SelectItem(hmg_par_HWND(1), (HTREEITEM) hb_parnl(2)));
+   hb_retl(TreeView_SelectItem(hmg_par_HWND(1), hmg_par_HTREEITEM(2)));
 }
 
 HB_FUNC( TREEVIEW_SETBOLDITEM )
@@ -2071,7 +2071,7 @@ HB_FUNC( TREEVIEW_SETBOLDITEM )
    HTREEITEM   ItemHandle;
    BOOL        bold;
    TreeHandle = hmg_par_HWND(1);
-   ItemHandle = ( HTREEITEM ) hb_parnl(2);
+   ItemHandle = hmg_par_HTREEITEM(2);
    bold = hmg_par_BOOL(3);
    tvItem.mask = TVIF_HANDLE | TVIF_STATE;
    tvItem.hItem = ItemHandle;
