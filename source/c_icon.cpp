@@ -60,7 +60,7 @@ HB_FUNC( COPYICON )
 {
    HICON hIcon;
 
-   hIcon = CopyIcon(( HICON ) ( LONG_PTR ) HB_PARNL(1));
+   hIcon = CopyIcon(hmg_par_HICON(1));
 
    RegisterResource(hIcon, "ICON");
    hmg_ret_HANDLE(hIcon);
@@ -69,7 +69,7 @@ HB_FUNC( COPYICON )
 // BOOL WINAPI DestroyIcon(HICON hIcon)
 HB_FUNC( DESTROYICON )
 {
-   HICON hIcon = ( HICON ) ( LONG_PTR ) HB_PARNL(1);
+   HICON hIcon = hmg_par_HICON(1);
 
    DelResource(hIcon);
    hb_retl(DestroyIcon(hIcon));
@@ -80,7 +80,7 @@ HB_FUNC( DUPLICATEICON )
 {
    HICON hIcon;
 
-   hIcon = DuplicateIcon(( HINSTANCE ) nullptr, ( HICON ) ( LONG_PTR ) HB_PARNL(1));
+   hIcon = DuplicateIcon(( HINSTANCE ) nullptr, hmg_par_HICON(1));
 
    RegisterResource(hIcon, "ICON");
    hmg_ret_HANDLE(hIcon);
