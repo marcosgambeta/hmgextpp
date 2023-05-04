@@ -433,7 +433,7 @@ HBITMAP Icon2Bmp(HICON hIcon)
    HBITMAP  hBmp;
    HBITMAP  hOldBmp;
 
-   GetIconInfo(( HICON ) hIcon, &icon);
+   GetIconInfo(hIcon, &icon);
    GetObject(icon.hbmColor, sizeof(BITMAP), ( LPVOID ) &bitmap);
    hBmp    = CreateCompatibleBitmap(hDC, bitmap.bmWidth, bitmap.bmHeight);
    hOldBmp = static_cast<HBITMAP>(SelectObject(hMemDC, hBmp));
@@ -462,7 +462,7 @@ HBITMAP IconMask2Bmp(HICON hIcon)
    HBITMAP  hBmp;
    HBITMAP  hOldBmp;
 
-   GetIconInfo(( HICON ) hIcon, &icon);
+   GetIconInfo(hIcon, &icon);
    GetObject(icon.hbmColor, sizeof(BITMAP), ( LPVOID ) &bitmap);
    hBmp    = CreateCompatibleBitmap(hDC, bitmap.bmWidth, bitmap.bmHeight);
    hOldBmp = static_cast<HBITMAP>(SelectObject(hMemDC, hBmp));
@@ -515,7 +515,7 @@ HB_FUNC( DRAWGLYPH )
    {
       rgbTransparent = hmg_par_COLORREF(7);
    }
-   
+
    // is it a bitmap?
    if( ( UINT ) GetObject(hBmp, sizeof(BITMAP), ( LPVOID ) &bitmap) != sizeof(BITMAP) )
    {
@@ -524,7 +524,7 @@ HB_FUNC( DRAWGLYPH )
       {
          return;
       }
-      
+
       DeleteObject(icon.hbmMask);
       DeleteObject(icon.hbmColor);
 
