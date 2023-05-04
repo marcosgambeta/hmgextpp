@@ -1377,14 +1377,14 @@ HB_FUNC( RR_COMBINERGN )
 {
    HRGN rgnnew = CreateRectRgn(0, 0, 1, 1);
 
-   CombineRgn(rgnnew, ( HRGN ) HB_PARNL(1), ( HRGN ) HB_PARNL(2), hb_parni(3));
+   CombineRgn(rgnnew, hmg_par_HRGN(1), hmg_par_HRGN(2), hb_parni(3));
    hmg_ret_HANDLE(rgnnew);
 }
 
 HB_FUNC( RR_SELECTCLIPRGN )
 {
-   SelectClipRgn(hDC, ( HRGN ) HB_PARNL(1));
-   hrgn = ( HRGN ) HB_PARNL(1);
+   SelectClipRgn(hDC, hmg_par_HRGN(1));
+   hrgn = hmg_par_HRGN(1);
 }
 
 HB_FUNC( RR_SETVIEWPORTORG )
