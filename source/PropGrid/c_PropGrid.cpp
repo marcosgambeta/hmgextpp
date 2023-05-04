@@ -2053,7 +2053,7 @@ HB_FUNC( RESETPROPGRIDIMAGELIST )
    TreeView_GetItem((HWND) hWndPG, &TItem);
 
    himl = ( HIMAGELIST ) SendMessage(hWndPG, TVM_GETIMAGELIST, (WPARAM) TVSIL_NORMAL, 0);
-   ImageList_Replace(himl, ( int ) TItem.iImage - 1, (HBITMAP) hb_parnl(3), 0);
+   ImageList_Replace(himl, ( int ) TItem.iImage - 1, hmg_par_HBITMAP(3), 0);
    SendMessage(hWndPG, TVM_SETIMAGELIST, (WPARAM) TVSIL_NORMAL, (LPARAM) himl);
    cx = ImageList_GetImageCount(himl);
    hb_retni( (INT) cx );
