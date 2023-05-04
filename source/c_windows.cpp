@@ -129,7 +129,6 @@ LPSTR  WideToAnsi(LPWSTR);
 HINSTANCE      GetInstance(void);
 HINSTANCE      GetResources(void);
 extern void    hmg_ErrorExit(LPCTSTR lpMessage, DWORD dwError, BOOL bExit);
-extern HBITMAP HMG_LoadImage(const char * FileName, const char * pszTypeOfRes);
 
 // local functions
 static size_t  AppEventScan(EVENTSHOLDER * events, UINT message);
@@ -1444,7 +1443,7 @@ HB_FUNC( REGISTERWINDOW )
 #endif
       if( hImage == nullptr )
       {
-         hImage = static_cast<HBITMAP>(HMG_LoadImage(hb_parc(3), nullptr));
+         hImage = HMG_LoadImage(hb_parc(3), nullptr);
       }
 
       if( hImage != nullptr )

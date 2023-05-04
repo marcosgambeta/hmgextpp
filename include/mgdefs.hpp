@@ -147,6 +147,7 @@ HINSTANCE GetInstance(void);
 HINSTANCE GetResources(void);
 
 HBITMAP HMG_LoadPicture(const char * pszName, int width, int height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage, bool bAlphaFormat, int iAlpfaConstant);
+HBITMAP HMG_LoadImage(const char * pszImageName, const char * pszTypeOfRes);
 
 // TODO: handles -> pointers
 

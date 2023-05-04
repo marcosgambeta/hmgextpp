@@ -72,7 +72,7 @@ LPSTR  WideToAnsi(LPWSTR);
 HINSTANCE      GetResources(void);
 extern HB_PTRUINT wapi_GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
 extern void    hmg_ErrorExit(LPCTSTR lpMessage, DWORD dwError, BOOL bExit);
-extern HBITMAP HMG_LoadImage(const char * FileName, const char * pszTypeOfRes);
+
 // local  function
 HRGN           BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cTolerance);
 
@@ -1244,7 +1244,7 @@ HB_FUNC( CREATEPATTERNBRUSH )
    }
    if( hImage == nullptr )
    {
-      hImage = static_cast<HBITMAP>(HMG_LoadImage(hb_parc(1), nullptr));
+      hImage = HMG_LoadImage(hb_parc(1), nullptr);
    }
 
    hmg_ret_HANDLE(( hImage != nullptr ) ? CreatePatternBrush(hImage) : nullptr);

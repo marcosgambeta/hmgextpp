@@ -87,7 +87,6 @@ LRESULT APIENTRY ImageSubClassFunc( HWND hwnd, UINT Msg, WPARAM wParam, LPARAM l
 HB_EXPORT IStream * HMG_CreateMemStreamFromResource(HINSTANCE instance, const char * res_type, const char * res_name);
 HB_EXPORT IStream * HMG_CreateMemStream(const BYTE * pInit, UINT cbInitSize);
 HB_EXPORT HBITMAP   HMG_GdiCreateHBITMAP(HDC hDC_mem, int width, int height, WORD iBitCount);
-HB_EXPORT HBITMAP   HMG_LoadImage(const char * pszImageName, const char * pszTypeOfRes);
 HB_EXPORT HBITMAP   HMG_OleLoadPicturePath(const char * pszURLorPath);
 
 #ifdef UNICODE
@@ -374,9 +373,7 @@ HB_FUNC( LOADIMAGE )
 
 HB_FUNC( C_GETRESPICTURE )
 {
-   HBITMAP hBitmap;
-
-   hBitmap = HMG_LoadImage(hb_parc(1), hb_parc(2));
+   HBITMAP hBitmap = HMG_LoadImage(hb_parc(1), hb_parc(2));
 
    if( hBitmap != nullptr )
    {
@@ -389,39 +386,43 @@ HB_FUNC( C_GETRESPICTURE )
 //****************************************************************************************************************
 // HMG_LoadImage (const char *FileName) -> hBitmap (Load: JPG, GIF, ICO, TIF, PNG, WMF)
 //****************************************************************************************************************
-HB_EXPORT HBITMAP HMG_LoadImage(const char * pszImageName, const char * pszTypeOfRes)
+HBITMAP HMG_LoadImage(const char * pszImageName, const char * pszTypeOfRes)
 {
-   HBITMAP hBitmap;
-
    HB_SYMBOL_UNUSED( pszTypeOfRes );
 
    // Find PNG Image in resourses
-   hBitmap = HMG_GdipLoadBitmap(pszImageName, "PNG");
+   HBITMAP hBitmap = HMG_GdipLoadBitmap(pszImageName, "PNG");
+
    // If fail: find JPG Image in resourses
    if( hBitmap == nullptr )
    {
       hBitmap = HMG_GdipLoadBitmap(pszImageName, "JPG");
    }
+
    // If fail: find GIF Image in resourses
    if( hBitmap == nullptr )
    {
       hBitmap = HMG_GdipLoadBitmap(pszImageName, "GIF");
    }
+
    // If fail: find ICON Image in resourses
    if( hBitmap == nullptr )
    {
       hBitmap = HMG_GdipLoadBitmap(pszImageName, "ICO");
    }
+
    // If fail: find TIF Image in resourses
    if( hBitmap == nullptr )
    {
       hBitmap = HMG_GdipLoadBitmap(pszImageName, "TIF");
    }
+
    // If fail: find WMF Image in resourses
    if( hBitmap == nullptr )
    {
       hBitmap = HMG_GdipLoadBitmap(pszImageName, "WMF");
    }
+
    // If fail: PNG, JPG, GIF, WMF and TIF Image on a disk
    if( hBitmap == nullptr )
    {

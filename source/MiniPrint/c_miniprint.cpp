@@ -77,8 +77,6 @@ static DWORD charset = DEFAULT_CHARSET;
   LPSTR  WideToAnsi(LPWSTR);
 #endif
 
-extern HBITMAP HMG_LoadImage(const char * FileName, const char * s);
-
 HB_FUNC( _HMG_SETCHARSET )
 {
    charset = hmg_par_DWORD(1);
@@ -1764,7 +1762,7 @@ HB_FUNC( _HMG_PRINTER_C_IMAGE )
       if( hBitmap == nullptr )
       {
          bBmpImage = FALSE;
-         hBitmap   = HMG_LoadImage(( char * ) hb_parc(2), nullptr);
+         hBitmap   = HMG_LoadImage(hb_parc(2), nullptr);
       }
       if( hBitmap == nullptr )
          return;
