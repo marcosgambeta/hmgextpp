@@ -88,7 +88,6 @@ HB_EXPORT IStream * HMG_CreateMemStreamFromResource(HINSTANCE instance, const ch
 HB_EXPORT IStream * HMG_CreateMemStream(const BYTE * pInit, UINT cbInitSize);
 HB_EXPORT HBITMAP   HMG_GdiCreateHBITMAP(HDC hDC_mem, int width, int height, WORD iBitCount);
 HB_EXPORT HBITMAP   HMG_LoadImage(const char * pszImageName, const char * pszTypeOfRes);
-HB_EXPORT HBITMAP   HMG_LoadPicture(const char * pszName, int width, int height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage, HB_BOOL bAlphaFormat, int iAlpfaConstant);
 HB_EXPORT HBITMAP   HMG_OleLoadPicturePath(const char * pszURLorPath);
 
 #ifdef UNICODE
@@ -338,19 +337,7 @@ HB_FUNC( C_SETPICTURE )
 
    if( IsWindow(hWnd) && ( hb_parclen(2) > 0 ) )
    {
-      hBitmap = HMG_LoadPicture
-                (
-         hb_parc(2),                 // Filename, resource or URL
-         hb_parni(3),                // Width
-         hb_parni(4),                // Height
-         hWnd,                         // Handle of parent window
-         hb_parni(5),                // Scale factor
-         hb_parni(6),                // Transparent
-         hb_parnl(7),                // BackColor
-         hb_parni(8),                // Adjust factor
-         hb_parldef(9, HB_FALSE),    // Bitmap with alpha channel
-         hb_parnidef(10, 255)
-                );
+      hBitmap = HMG_LoadPicture(hb_parc(2), hb_parni(3), hb_parni(4), hWnd, hb_parni(5), hb_parni(6), hb_parnl(7), hb_parni(8), hb_parldef(9, false), hb_parnidef(10, 255));
 
       if( hBitmap != nullptr )
       {
@@ -374,19 +361,7 @@ HB_FUNC( LOADIMAGE )
 
    if( hb_parclen(1) > 0 )
    {
-      hBitmap = HMG_LoadPicture
-                (
-         hb_parc(1),                 // Filename, resource or URL
-         hb_parnidef(3, -1),         // Width
-         hb_parnidef(4, -1),         // Height
-         hWnd,                         // Handle of parent window
-         hb_parnidef(5, 1),          // Scale factor
-         hb_parnidef(6, 1),          // Transparent
-         hb_parnldef(7, -1),         // BackColor
-         hb_parnidef(8, 0),          // Adjust factor
-         hb_parldef(9, HB_FALSE),    // Bitmap with alpha channel
-         hb_parnidef(10, 255)
-                );
+      hBitmap = HMG_LoadPicture(hb_parc(1), hb_parnidef(3, -1), hb_parnidef(4, -1), hWnd, hb_parnidef(5, 1), hb_parnidef(6, 1), hb_parnldef(7, -1), hb_parnidef(8, 0), hb_parldef(9, false), hb_parnidef(10, 255));
 
       if( hBitmap != nullptr )
       {
@@ -459,7 +434,7 @@ HB_EXPORT HBITMAP HMG_LoadImage(const char * pszImageName, const char * pszTypeO
 //****************************************************************************************************************
 // HMG_LoadPicture (Name, width, height, ...) -> hBitmap (Load: BMP, GIF, JPG, TIF, WMF, EMF, PNG)
 //****************************************************************************************************************
-HB_EXPORT HBITMAP HMG_LoadPicture(const char * pszName, int width, int height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage, HB_BOOL bAlphaFormat, int iAlphaConstant)
+HBITMAP HMG_LoadPicture(const char * pszName, int width, int height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage, bool bAlphaFormat, int iAlphaConstant)
 {
    UINT    fuLoad = ( Transparent == 0 ) ? LR_CREATEDIBSECTION | LR_LOADMAP3DCOLORS : LR_CREATEDIBSECTION | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT;
    HBITMAP old_hBitmap, new_hBitmap, hBitmap_old, hBitmap_new = nullptr;
@@ -473,7 +448,7 @@ HB_EXPORT HBITMAP HMG_LoadPicture(const char * pszName, int width, int height, H
       return nullptr;
    }
 
-   if( bAlphaFormat == HB_FALSE ) // Firstly find BMP image in resourses (.EXE file)
+   if( bAlphaFormat == false ) // Firstly find BMP image in resourses (.EXE file)
    {
 #ifndef UNICODE
       LPCSTR lpImageName = pszName;
@@ -587,11 +562,11 @@ HB_EXPORT HBITMAP HMG_LoadPicture(const char * pszName, int width, int height, H
       SetBrushOrgEx(memDC2, Point.x, Point.y, nullptr);
    }
 
-   if( Transparent == 1 && bAlphaFormat == HB_FALSE )
+   if( Transparent == 1 && bAlphaFormat == false )
    {
       TransparentBlt(memDC2, rect.left, rect.top, rect.right, rect.bottom, memDC1, 0, 0, bmWidth, bmHeight, GetPixel(memDC1, 0, 0));
    }
-   else if( Transparent == 1 || bAlphaFormat == HB_TRUE )
+   else if( Transparent == 1 || bAlphaFormat == true )
    {
       // TransparentBlt is supported for source bitmaps of 4 bits per pixel and 8 bits per pixel.
       // Use AlphaBlend to specify 32 bits-per-pixel bitmaps with transparency.
@@ -1377,7 +1352,7 @@ HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transpar
    BITMAP     Bmp;
    TCHAR      TempPathFileName[MAX_PATH];
 
-   hBitmap = HMG_LoadPicture(FileName, -1, -1, nullptr, 0, 0, -1, 0, HB_FALSE, 255);
+   hBitmap = HMG_LoadPicture(FileName, -1, -1, nullptr, 0, 0, -1, 0, false, 255);
    if( hBitmap == nullptr )
    {
       return nullptr;
@@ -1423,7 +1398,7 @@ void HMG_ImageListAdd(HIMAGELIST hImageList, const char * FileName, int Transpar
       return;
    }
 
-   hBitmap = HMG_LoadPicture(FileName, -1, -1, nullptr, 0, 0, -1, 0, HB_FALSE, 255);
+   hBitmap = HMG_LoadPicture(FileName, -1, -1, nullptr, 0, 0, -1, 0, false, 255);
    if( hBitmap == nullptr )
    {
       return;
@@ -1450,7 +1425,7 @@ void HMG_ImageListAdd(HIMAGELIST hImageList, char * FileName, int Transparent) /
       return;
    }
 
-   hBitmap = HMG_LoadPicture(FileName, -1, -1, nullptr, 0, 0, -1, 0, HB_FALSE, 255);
+   hBitmap = HMG_LoadPicture(FileName, -1, -1, nullptr, 0, 0, -1, 0, false, 255);
    if( hBitmap == nullptr )
    {
       return;

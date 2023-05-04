@@ -56,8 +56,6 @@ WINCOMMCTRLAPI void WINAPI ImageList_EndDrag(void);
 #endif
 
 extern HBITMAP HMG_LoadImage(const char * FileName, const char * pszTypeOfRes);
-extern HBITMAP HMG_LoadPicture(const char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage,
-                               HB_BOOL bAlphaFormat, int iAlpfaConstant);
 
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);
@@ -179,7 +177,7 @@ HB_FUNC( IL_ADDMASKED )    //IL_AddMasked(himl , image , color , ix , iy , image
 
    if( himage1 == nullptr )
    {
-      himage1 = static_cast<HBITMAP>(HMG_LoadPicture(hb_parc(2), -1, -1, nullptr, 0, 1, -1, 0, HB_FALSE, 255));
+      himage1 = HMG_LoadPicture(hb_parc(2), -1, -1, nullptr, 0, 1, -1, 0, false, 255);
    }
 
 #ifdef UNICODE

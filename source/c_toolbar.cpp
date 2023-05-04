@@ -59,9 +59,6 @@
 
 #define NUM_TOOLBAR_BUTTONS  10
 
-extern HBITMAP HMG_LoadPicture(const char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage,
-                               HB_BOOL bAlphaFormat, int iAlpfaConstant);
-
 LRESULT APIENTRY ToolBarExFunc( HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam );
 
 #ifdef UNICODE
@@ -168,7 +165,7 @@ HB_FUNC( INITTOOLBUTTON )
          iy = hb_parni(7) - py;
       }
 
-      himage = reinterpret_cast<HWND>(HMG_LoadPicture(hb_parc(8), hb_parl(16) ? ix : -1, hb_parl(16) ? iy : -1, hwndTB, 1, Transparent, -1, hb_parl(16) ? 1 : 0, HB_FALSE, 255));
+      himage = reinterpret_cast<HWND>(HMG_LoadPicture(hb_parc(8), hb_parl(16) ? ix : -1, hb_parl(16) ? iy : -1, hwndTB, 1, Transparent, -1, hb_parl(16) ? 1 : 0, false, 255));
    }
 
    memset(tbb, 0, sizeof tbb);
@@ -452,7 +449,7 @@ HB_FUNC( INITTOOLBUTTONEX )
       }
       if( himage == nullptr )
       {
-         himage = reinterpret_cast<HWND>(HMG_LoadPicture(hb_parc(8), hb_parl(16) ? ix : -1, hb_parl(16) ? iy : -1, hwndTB, 1, Transparent, -1, hb_parl(16) ? 1 : 0, HB_FALSE, 255));
+         himage = reinterpret_cast<HWND>(HMG_LoadPicture(hb_parc(8), hb_parl(16) ? ix : -1, hb_parl(16) ? iy : -1, hwndTB, 1, Transparent, -1, hb_parl(16) ? 1 : 0, false, 255));
       }
 
 #ifdef UNICODE
@@ -770,9 +767,8 @@ HB_FUNC( REPLACETOOLBUTTONIMAGE )
    HBITMAP hBitmapOld = hmg_par_HBITMAP(2);
    int     iImageIdx  = hb_parl(4) ? I_IMAGECALLBACK : I_IMAGENONE;
    int     nButtonID  = hmg_par_INT(5);
-   HBITMAP hBitmapNew;
 
-   hBitmapNew = static_cast<HBITMAP>(HMG_LoadPicture(hb_parc(3), -1, -1, hwndTB, 1, 1, -1, 0, HB_FALSE, 255));
+   HBITMAP hBitmapNew = HMG_LoadPicture(hb_parc(3), -1, -1, hwndTB, 1, 1, -1, 0, false, 255);
 
    if( ( hBitmapOld != nullptr ) && ( hBitmapNew != nullptr ) )
    {

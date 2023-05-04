@@ -71,9 +71,6 @@ HINSTANCE        GetResources(void);
 extern HBITMAP   Icon2Bmp(HICON hIcon);
 extern BOOL      SetAcceleratorTable(HWND, HACCEL);
 
-HBITMAP HMG_LoadPicture(const char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage,
-                        HB_BOOL bAlphaFormat, int iAlpfaConstant);
-
 HB_FUNC( SETACCELERATORTABLE )
 {
    HWND   hWndMain = hmg_par_HWND(1);
@@ -488,10 +485,9 @@ HB_FUNC( REMOVEMENUITEM )
 
 HB_FUNC( MENUITEM_SETBITMAPS )
 {
-   HBITMAP himage1;
    int     Transparent = s_bCustomDraw ? 0 : 1;
 
-   himage1 = HMG_LoadPicture(hb_parc(3), -1, -1, nullptr, 0, Transparent, -1, 0, HB_FALSE, 255);
+   HBITMAP himage1 = HMG_LoadPicture(hb_parc(3), -1, -1, nullptr, 0, Transparent, -1, 0, false, 255);
 
    if( s_bCustomDraw )
    {
@@ -514,9 +510,7 @@ HB_FUNC( MENUITEM_SETBITMAPS )
    }
    else
    {
-      HBITMAP himage2;
-
-      himage2 = HMG_LoadPicture(hb_parc(4), -1, -1, nullptr, 0, Transparent, -1, 0, HB_FALSE, 255);
+      HBITMAP himage2 = HMG_LoadPicture(hb_parc(4), -1, -1, nullptr, 0, Transparent, -1, 0, false, 255);
 
       SetMenuItemBitmaps(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND, himage1, himage2);
    }
@@ -529,11 +523,9 @@ HB_FUNC( MENUITEM_SETCHECKMARKS )
    if( s_bCustomDraw )
    {
       MENUITEMINFO MenuItemInfo;
-      HBITMAP      himage1;
-      HBITMAP      himage2;
 
-      himage1 = HMG_LoadPicture(hb_parc(3), -1, -1, nullptr, 0, 0, -1, 0, HB_FALSE, 255);
-      himage2 = HMG_LoadPicture(hb_parc(4), -1, -1, nullptr, 0, 0, -1, 0, HB_FALSE, 255);
+      HBITMAP himage1 = HMG_LoadPicture(hb_parc(3), -1, -1, nullptr, 0, 0, -1, 0, false, 255);
+      HBITMAP himage2 = HMG_LoadPicture(hb_parc(4), -1, -1, nullptr, 0, 0, -1, 0, false, 255);
 
       MenuItemInfo.cbSize = sizeof(MENUITEMINFO);
       MenuItemInfo.fMask  = MIIM_CHECKMARKS;

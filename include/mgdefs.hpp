@@ -146,6 +146,8 @@ void pascal DelResource(HANDLE hResource);
 HINSTANCE GetInstance(void);
 HINSTANCE GetResources(void);
 
+HBITMAP HMG_LoadPicture(const char * pszName, int width, int height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage, bool bAlphaFormat, int iAlpfaConstant);
+
 // TODO: handles -> pointers
 
 // macros for parameters

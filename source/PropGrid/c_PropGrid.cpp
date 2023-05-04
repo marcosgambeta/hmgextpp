@@ -187,8 +187,6 @@ struct fontProcData
    LOGFONT     *plfTreeView;
 };
 
-extern HBITMAP    HMG_LoadPicture(char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage);
-
 HWND              EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd, BOOL DisEdit);
 HTREEITEM         GetNextItemPG(HWND TreeHandle, HTREEITEM hTreeItem);
 LRESULT CALLBACK  OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam);
@@ -2112,9 +2110,7 @@ HB_FUNC( PGCOMBOADDSTRING )
 
 HB_FUNC( PG_SETPICTURE )
 {
-   HBITMAP  hBitmap;
-
-   hBitmap = HMG_LoadPicture((char *) hb_parc(2), hb_parni(3), hb_parni(4), hmg_par_HWND(1), 0, 0, -1, 0);
+   HBITMAP hBitmap = HMG_LoadPicture(hb_parc(2), hb_parni(3), hb_parni(4), hmg_par_HWND(1), 0, 0, -1, 0, false, 255);
 
    hb_retnl( (LONG) hBitmap );
 }

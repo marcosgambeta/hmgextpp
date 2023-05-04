@@ -61,7 +61,6 @@
 #endif
 
 static HBRUSH CreateGradientBrush(HDC hDC, INT nWidth, INT nHeight, COLORREF Color1, COLORREF Color2);
-HBITMAP HMG_LoadPicture(const char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage, HB_BOOL bAlphaFormat, int iAlpfaConstant);
 HIMAGELIST HMG_SetButtonImageList(HWND hButton, const char * FileName, int Transparent, UINT uAlign);
 BOOL bmp_SaveFile(HBITMAP hBitmap, TCHAR * FileName);
 
@@ -94,7 +93,7 @@ HB_FUNC( _SETBTNPICTURE )
 
    if( himage == nullptr )
    {
-      himage = reinterpret_cast<HWND>(HMG_LoadPicture(hb_parc(2), hb_parni(3), hb_parni(4), hwnd, 0, 1, -1, 0, HB_FALSE, 255)); // TODO: hb_parc(2) -> lpImageName
+      himage = reinterpret_cast<HWND>(HMG_LoadPicture(hb_parc(2), hb_parni(3), hb_parni(4), hwnd, 0, 1, -1, 0, false, 255)); // TODO: hb_parc(2) -> lpImageName
    }
 
    SendMessage(hwnd, BM_SETIMAGE, static_cast<WPARAM>(IMAGE_BITMAP), reinterpret_cast<LPARAM>(himage));
@@ -402,7 +401,7 @@ static HBRUSH CreateGradientBrush(HDC hDC, INT nWidth, INT nHeight, COLORREF Col
 
 HIMAGELIST HMG_SetButtonImageList(HWND hButton, const char * FileName, int Transparent, UINT uAlign)
 {
-   HBITMAP hBitmap = HMG_LoadPicture(FileName, -1, -1, nullptr, 0, 0, -1, 0, HB_FALSE, 255);
+   HBITMAP hBitmap = HMG_LoadPicture(FileName, -1, -1, nullptr, 0, 0, -1, 0, false, 255);
    if( hBitmap == nullptr )
    {
       return nullptr;

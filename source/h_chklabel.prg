@@ -429,9 +429,6 @@ RETURN iif(Len(cHex) > 4, L2Bin(Int(nDec)), iif(Len(cHex) > 2, I2Bin(Int(nDec)),
 LRESULT APIENTRY ChkLabelFunc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam);
 static WNDPROC LabelOldWndProc;
 
-extern HBITMAP HMG_LoadPicture(const char * FileName, int New_Width, int New_Height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage,
-                               HB_BOOL bAlphaFormat, int iAlpfaConstant);
-
 struct INSCHK
 {
    BOOL    lCheck;                        // is checked ?
@@ -667,7 +664,7 @@ HB_FUNC_STATIC( INITCHKLABEL )
 
    if( hb_parc(19) != nullptr )
    {
-      himage = HMG_LoadPicture(hb_parc(19), -1, -1, nullptr, 0, 0, -1, 0, HB_FALSE, 255);
+      himage = HMG_LoadPicture(hb_parc(19), -1, -1, nullptr, 0, 0, -1, 0, false, 255);
    }
    else
    {
@@ -676,7 +673,7 @@ HB_FUNC_STATIC( INITCHKLABEL )
 
    if( hb_parc(20) != nullptr )
    {
-      himage2 = HMG_LoadPicture(hb_parc(20), -1, -1, nullptr, 0, 0, -1, 0, HB_FALSE, 255);
+      himage2 = HMG_LoadPicture(hb_parc(20), -1, -1, nullptr, 0, 0, -1, 0, false, 255);
    }
    else
    {
