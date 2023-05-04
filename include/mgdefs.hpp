@@ -175,6 +175,7 @@ HINSTANCE GetResources(void);
 #define hmg_par_HCURSOR(n) reinterpret_cast<HCURSOR>(HB_PARNL(n))
 #define hmg_par_HKEY(n) reinterpret_cast<HKEY>(HB_PARNL(n))
 #define hmg_par_HBRUSH(n) reinterpret_cast<HBRUSH>(HB_PARNL(n))
+#define hmg_par_HRGN(n) reinterpret_cast<HRGN>(HB_PARNL(n))
 
 // macros for returns
 #define hmg_ret_HANDLE(x) HB_RETNL(reinterpret_cast<LONG_PTR>(x))
