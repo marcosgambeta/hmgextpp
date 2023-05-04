@@ -101,7 +101,7 @@ HB_FUNC( REGISTER_CLASS )
    WndClass.hInstance  = GetModuleHandle(nullptr);
    WndClass.hIcon      = 0;
    WndClass.hCursor    = LoadCursor(nullptr, IDC_ARROW);
-   hbrush = reinterpret_cast<HBRUSH>(HB_ISNIL(2) ? COLOR_WINDOW + 1 : HB_PARNL(2));
+   hbrush = HB_ISNIL(2) ? reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1) : hmg_par_HBRUSH(2);
    WndClass.hbrBackground = hbrush;
    WndClass.lpszMenuName  = nullptr;
    WndClass.lpszClassName = lpClassName;
@@ -296,7 +296,7 @@ HB_FUNC( TSDRAWCELL )
    int      nVertText    = hb_parni(24);
    COLORREF clrTo        = hb_parnl(25);
    BOOL     bOpaque      = hb_parl(26);
-   // HBRUSH   wBrush       = static_cast<HBRUSH>(HB_PARNL(27));
+   // HBRUSH   wBrush       = hmg_par_HBRUSH(27);
    BOOL     b3DInv       = ( HB_ISNIL(28) ? FALSE : !hb_parl(28) );
    BOOL     b3D          = ( HB_ISNIL(28) ? FALSE : TRUE );
    COLORREF nClr3DL      = hb_parnl(29);

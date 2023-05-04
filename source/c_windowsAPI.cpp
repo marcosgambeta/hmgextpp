@@ -1109,7 +1109,7 @@ HB_FUNC( GETTABBEDCONTROLBRUSH )
    GetWindowRect(hmg_par_HWND(2), &rc);
    MapWindowPoints(nullptr, hmg_par_HWND(3), ( LPPOINT ) (&rc), 2);
    SetBrushOrgEx(hDC, -rc.left, -rc.top, nullptr);
-   hBrush = reinterpret_cast<HBRUSH>(HB_PARNL(4));
+   hBrush = hmg_par_HBRUSH(4);
 
    hmg_ret_HANDLE(hBrush);
 }

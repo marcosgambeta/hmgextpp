@@ -1001,7 +1001,7 @@ HB_FUNC( BT_DRAW_HDC_ARCX_EX )
 
    if( hb_parnl( 14 ) )
    {
-      hBrush   = reinterpret_cast<HBRUSH>(HB_PARNL( 14 ));
+      hBrush   = hmg_par_HBRUSH(14);
    }
    else
    {
@@ -1031,7 +1031,7 @@ HB_FUNC( BT_DRAW_HDC_ARCX_EX )
 
 HB_FUNC( CREATEPATTERNHBRUSH ) // ( hBitmap ) --> hBrush
 {
-   HBRUSH hBrush = CreatePatternBrush( reinterpret_cast<HBITMAP>(HB_PARNL( 1 )) );
+   HBRUSH hBrush = CreatePatternBrush( hmg_par_HBITMAP(1) );
 
    RegisterResource(hBrush, "BRUSH");
 

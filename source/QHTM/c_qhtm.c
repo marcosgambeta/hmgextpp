@@ -467,7 +467,7 @@ HB_FUNC( QHTM_PRINTLAYOUT )
 {
    if( hQhtmDll )
    {
-      HDC               hDC = reinterpret_cast<HDC>(hb_parnl(1));
+      HDC               hDC = hmg_par_HDC(1));
       QHTMCONTEXT       qhtmCtx = ( QHTMCONTEXT ) hb_parnl(2);
       RECT              rcPage;
       int               nNumberOfPages;
@@ -495,7 +495,7 @@ HB_FUNC( QHTM_PRINTPAGE )
 {
    if( hQhtmDll )
    {
-      HDC            hDC = reinterpret_cast<HDC>(hb_parnl(1));
+      HDC            hDC = hmg_par_HDC(1));
       QHTMCONTEXT    qhtmCtx = ( QHTMCONTEXT ) hb_parnl(2);
       RECT           rcPage;
       QHTM_PRINTPAGE pFunc = ( QHTM_PRINTPAGE ) GetProcAddress(hQhtmDll, "QHTM_PrintPage");

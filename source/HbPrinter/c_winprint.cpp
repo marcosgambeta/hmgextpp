@@ -877,7 +877,7 @@ HB_FUNC( RR_MODIFYPEN )
    HPEN   hp;
 
    memset(&ppn, 0, sizeof(LOGPEN));
-   i = GetObject(reinterpret_cast<HPEN>(HB_PARNL(1)), sizeof(LOGPEN), &ppn);
+   i = GetObject(hmg_par_HPEN(1), sizeof(LOGPEN), &ppn);
    if( i > 0 )
    {
       if( hb_parni(2) >= 0 )
@@ -898,7 +898,7 @@ HB_FUNC( RR_MODIFYPEN )
       hp = CreatePenIndirect(&ppn);
       if( hp != nullptr )
       {
-         DeleteObject(reinterpret_cast<HPEN>(HB_PARNL(1)));
+         DeleteObject(hmg_par_HPEN(1));
          hmg_ret_HANDLE(hp);
       }
       else
@@ -914,8 +914,8 @@ HB_FUNC( RR_MODIFYPEN )
 
 HB_FUNC( RR_SELECTPEN )
 {
-   SelectObject(hDC, reinterpret_cast<HPEN>(HB_PARNL(1)));
-   hpen = reinterpret_cast<HPEN>(HB_PARNL(1));
+   SelectObject(hDC, hmg_par_HPEN(1));
+   hpen = hmg_par_HPEN(1);
 }
 
 HB_FUNC( RR_CREATEBRUSH )
@@ -935,7 +935,7 @@ HB_FUNC( RR_MODIFYBRUSH )
    HBRUSH   hb;
 
    memset(&ppn, 0, sizeof(LOGBRUSH));
-   i = GetObject(reinterpret_cast<HBRUSH>(HB_PARNL(1)), sizeof(LOGBRUSH), &ppn);
+   i = GetObject(hmg_par_HBRUSH(1), sizeof(LOGBRUSH), &ppn);
    if( i > 0 )
    {
       if( hb_parni(2) >= 0 )
@@ -956,7 +956,7 @@ HB_FUNC( RR_MODIFYBRUSH )
       hb = CreateBrushIndirect(&ppn);
       if( hb != nullptr )
       {
-         DeleteObject(reinterpret_cast<HBRUSH>(HB_PARNL(1)));
+         DeleteObject(hmg_par_HBRUSH(1));
          hmg_ret_HANDLE(hb);
       }
       else
@@ -972,8 +972,8 @@ HB_FUNC( RR_MODIFYBRUSH )
 
 HB_FUNC( RR_SELECTBRUSH )
 {
-   SelectObject(hDC, reinterpret_cast<HBRUSH>(HB_PARNL(1)));
-   hbrush = reinterpret_cast<HBRUSH>(HB_PARNL(1));
+   SelectObject(hDC, hmg_par_HBRUSH(1));
+   hbrush = hmg_par_HBRUSH(1);
 }
 
 HB_FUNC( RR_CREATEFONT )
@@ -2124,7 +2124,7 @@ HB_FUNC( RR_FILLRECT )
    rect.top    = HB_PARNI(1, 1);
    rect.right  = HB_PARNI(2, 2);
    rect.bottom = HB_PARNI(2, 1);
-   hb_retni( FillRect(hDC, &rect, reinterpret_cast<HBRUSH>(HB_PARNL(3))) );
+   hb_retni( FillRect(hDC, &rect, hmg_par_HBRUSH(3)) );
 }
 
 HB_FUNC( RR_FRAMERECT )
@@ -2135,7 +2135,7 @@ HB_FUNC( RR_FRAMERECT )
    rect.top    = HB_PARNI(1, 1);
    rect.right  = HB_PARNI(2, 2);
    rect.bottom = HB_PARNI(2, 1);
-   hb_retni( FrameRect(hDC, &rect, reinterpret_cast<HBRUSH>(HB_PARNL(3))) );
+   hb_retni( FrameRect(hDC, &rect, hmg_par_HBRUSH(3)) );
 }
 
 HB_FUNC( RR_LINE )

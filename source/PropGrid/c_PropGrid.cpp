@@ -2236,7 +2236,7 @@ HB_FUNC( GET_IMAGELIST )   //Get_ImageList(hWnd)
 HB_FUNC( IL_ADDMASKEDINDIRECT )  //IL_AddMaskedIndirect(hwnd , himage , color , ix , iy , imagecount)
 {
    BITMAP   bm;
-   HBITMAP  himage = reinterpret_cast<HBITMAP>(hb_parnl(2));
+   HBITMAP  himage = hmg_par_HBITMAP(2);
    COLORREF clrBk   = CLR_NONE;
    LRESULT  lResult = -1;
    int      ic      = 1;
