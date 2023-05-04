@@ -306,11 +306,11 @@ HB_FUNC( CLEARCLIPBOARD )
    {
       EmptyClipboard();
       CloseClipboard();
-      hb_retl(TRUE);
+      hb_retl(true);
    }
    else
    {
-      hb_retl(FALSE);
+      hb_retl(false);
    }
 }
 
@@ -1553,7 +1553,7 @@ HB_FUNC( ISAPPHUNG )
       {
          MessageBox(nullptr, TEXT("Process not found"), TEXT("Warning"), MB_OK | MB_ICONWARNING);
       }
-      hb_retl(HB_FALSE);
+      hb_retl(false);
    }
 }
 
@@ -1597,12 +1597,12 @@ HB_FUNC( EMPTYWORKINGSET )
       }
       else
       {
-         hb_retl(FALSE);
+         hb_retl(false);
       }
    }
    else
    {
-      hb_retl(FALSE);
+      hb_retl(false);
    }
 }
 

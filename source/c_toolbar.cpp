@@ -1084,7 +1084,7 @@ HB_FUNC( RESIZEFLOATTOOLBAR )
 
    if( isInSizeMsg )
    {
-      hb_retl(FALSE);
+      hb_retl(false);
    }
 
    isInSizeMsg = 1;
@@ -1096,7 +1096,7 @@ HB_FUNC( RESIZEFLOATTOOLBAR )
 
    isInSizeMsg = 0;
 
-   hb_retl(TRUE);
+   hb_retl(true);
 }
 
 HB_FUNC( TOOLBAREXCUSTFUNC )
@@ -1122,7 +1122,7 @@ HB_FUNC( TOOLBAREXCUSTFUNC )
                   SendMessage(lpTB->hdr.hwndFrom, TB_GETBUTTON, i, ( LPARAM ) (lpSaveButtons + i));
                }
 
-               hb_retl(TRUE);
+               hb_retl(true);
                break;
 
             case TBN_GETBUTTONINFO:
@@ -1131,14 +1131,14 @@ HB_FUNC( TOOLBAREXCUSTFUNC )
 
                if( lpTbNotify->iItem >= buttonCount || lpTbNotify->iItem < 0 )
                {
-                  hb_retl(FALSE);
+                  hb_retl(false);
                }
                else
                {
                   SendMessage(lpTB->hdr.hwndFrom, TB_GETBUTTON, lpTbNotify->iItem, ( LPARAM ) &lpBtn);
                   lpTbNotify->tbButton = lpSaveButtons[lpTbNotify->iItem];
 
-                  hb_retl(TRUE);
+                  hb_retl(true);
                }
             }
             break;
@@ -1156,18 +1156,18 @@ HB_FUNC( TOOLBAREXCUSTFUNC )
                SendMessage(lpTB->hdr.hwndFrom, TB_ADDBUTTONS,
                             nResetCount, ( LPARAM ) lpSaveButtons);
 
-               hb_retl(TRUE);
+               hb_retl(true);
             }
             break;
 
             case TBN_ENDADJUST:
 
                GlobalFree(( HGLOBAL ) lpSaveButtons);
-               hb_retl(TRUE);
+               hb_retl(true);
                break;
 
             default:
-               hb_retl(FALSE);
+               hb_retl(false);
                break;
          }
    }

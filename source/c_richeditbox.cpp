@@ -205,7 +205,7 @@ HB_FUNC( STREAMIN )        //StreamIn(HWND hwndCtrl, LPCTSTR lpszPath, int typ )
    // open the source file.
    if( ( hFile = CreateFile(cFileName, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr) ) == INVALID_HANDLE_VALUE )
    {
-      hb_retl(FALSE);
+      hb_retl(false);
       return;
    }
 #ifdef UNICODE
@@ -227,11 +227,11 @@ HB_FUNC( STREAMIN )        //StreamIn(HWND hwndCtrl, LPCTSTR lpszPath, int typ )
 
    if( es.dwError )
    {
-      hb_retl(FALSE);
+      hb_retl(false);
    }
    else
    {
-      hb_retl(TRUE);
+      hb_retl(true);
    }
 }
 
@@ -263,7 +263,7 @@ HB_FUNC( STREAMOUT )       //StreamOut(HWND hwndCtrl, LPCTSTR lpszPath, int Typ 
    // open the destination file.
    if( ( hFile = CreateFile(cFileName, GENERIC_WRITE, FILE_SHARE_WRITE, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr) ) == INVALID_HANDLE_VALUE )
    {
-      hb_retl(FALSE);
+      hb_retl(false);
       return;
    }
 #ifdef UNICODE
@@ -284,11 +284,11 @@ HB_FUNC( STREAMOUT )       //StreamOut(HWND hwndCtrl, LPCTSTR lpszPath, int Typ 
 
    if( es.dwError )
    {
-      hb_retl(FALSE);
+      hb_retl(false);
    }
    else
    {
-      hb_retl(TRUE);
+      hb_retl(true);
    }
 }
 
@@ -302,11 +302,11 @@ HB_FUNC( GETAUTOFONTRTF )  // GetAutoFont(HWND hwnd)
 
    if( lAuto )
    {
-      hb_retl(TRUE);
+      hb_retl(true);
    }
    else
    {
-      hb_retl(FALSE);
+      hb_retl(false);
    }
 }
 
@@ -331,11 +331,11 @@ HB_FUNC( SETAUTOFONTRTF )  // SetAutoFont(HWND hwnd, lAutoFont)
 
    if( lResult )
    {
-      hb_retl(TRUE);
+      hb_retl(true);
    }
    else
    {
-      hb_retl(FALSE);
+      hb_retl(false);
    }
 }
 
@@ -477,11 +477,11 @@ HB_FUNC( SETFONTRTF )
 
    if( lResult )
    {
-      hb_retl(TRUE);
+      hb_retl(true);
    }
    else
    {
-      hb_retl(FALSE);
+      hb_retl(false);
    }
 }
 

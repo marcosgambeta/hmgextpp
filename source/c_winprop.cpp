@@ -90,7 +90,7 @@ HB_FUNC( SETPROP )
    LPWSTR pW;
 #endif
 
-   hb_retl(HB_FALSE);
+   hb_retl(false);
    // check params
    if( !IsWindow(hwnd) || hb_parclen(2) == 0 )
    {

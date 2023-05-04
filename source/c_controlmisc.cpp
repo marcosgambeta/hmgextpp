@@ -73,7 +73,7 @@ HB_FUNC( DELETEOBJECT )
    }
    else
    {
-      hb_retl(HB_FALSE);
+      hb_retl(false);
    }
 }
 

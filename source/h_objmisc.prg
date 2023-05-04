@@ -304,16 +304,16 @@ HB_FUNC( HMG_SETWINDOWOBJECT )
 
          SetWindowLongPtr( hWnd, GWLP_USERDATA, ( LPARAM ) pObject );
 
-         hb_retl(TRUE);
+         hb_retl(true);
       }
       else
       {
-         hb_retl(FALSE);
+         hb_retl(false);
       }
    }
    else
    {
-      hb_retl(FALSE);
+      hb_retl(false);
    }
 }
 
@@ -364,7 +364,7 @@ HB_FUNC( HMG_ISWINDOWOBJECT )
    }
    else
    {
-      hb_retl(FALSE);
+      hb_retl(false);
    }
 }
 

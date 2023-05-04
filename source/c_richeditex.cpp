@@ -196,7 +196,7 @@ HB_FUNC( RICHEDITBOX_STREAMIN )
 
    if( ( hFile = CreateFile(cFileName, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, nullptr) ) == INVALID_HANDLE_VALUE )
    {
-      hb_retl(FALSE);
+      hb_retl(false);
       return;
    }
 #ifdef UNICODE
@@ -216,11 +216,11 @@ HB_FUNC( RICHEDITBOX_STREAMIN )
 
    if( es.dwError )
    {
-      hb_retl(FALSE);
+      hb_retl(false);
    }
    else
    {
-      hb_retl(TRUE);
+      hb_retl(true);
    }
 }
 
@@ -271,7 +271,7 @@ HB_FUNC( RICHEDITBOX_STREAMOUT )
 
    if( ( hFile = CreateFile(cFileName, GENERIC_WRITE, FILE_SHARE_WRITE, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr) ) == INVALID_HANDLE_VALUE )
    {
-      hb_retl(FALSE);
+      hb_retl(false);
       return;
    }
 #ifdef UNICODE
@@ -291,11 +291,11 @@ HB_FUNC( RICHEDITBOX_STREAMOUT )
 
    if( es.dwError )
    {
-      hb_retl(FALSE);
+      hb_retl(false);
    }
    else
    {
-      hb_retl(TRUE);
+      hb_retl(true);
    }
 }
 
@@ -339,11 +339,11 @@ HB_FUNC( RICHEDITBOX_RTFLOADRESOURCEFILE )
 
    if( lpGlobalResource == nullptr )
    {
-      hb_retl(( BOOL ) FALSE);
+      hb_retl(false);
    }
    else
    {
-      hb_retl(( BOOL ) TRUE);
+      hb_retl(true);
    }
 
 #ifdef UNICODE
@@ -543,11 +543,11 @@ HB_FUNC( RICHEDITBOX_SETFONT )
 
    if( SendMessage(hWndControl, EM_SETCHARFORMAT, SCF_SELECTION, ( LPARAM ) &CharFormat2 ))
    {
-      hb_retl(TRUE);
+      hb_retl(true);
    }
    else
    {
-      hb_retl(FALSE);
+      hb_retl(false);
    }
 }
 

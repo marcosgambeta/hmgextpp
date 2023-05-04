@@ -396,7 +396,7 @@ HB_FUNC( C_HASALPHA ) // hBitmap --> lYesNo
    if( GetDeviceCaps(hDC, BITSPIXEL) < 32 )
    {
       ReleaseDC(GetDesktopWindow(), hDC);
-      hb_retl(FALSE);
+      hb_retl(false);
       return;
    }
 

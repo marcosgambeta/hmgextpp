@@ -266,7 +266,7 @@ HB_FUNC( SETLAYEREDWINDOWATTRIBUTES )
    {
       HMODULE hDll = GetModuleHandle(TEXT("user32.dll"));
 
-      hb_retl(HB_FALSE);
+      hb_retl(false);
 
       if( hDll != nullptr )
       {

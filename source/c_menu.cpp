@@ -731,7 +731,7 @@ HB_FUNC( XGETMENUCHECKSTATE )
    }
    else
    {
-      hb_retl(FALSE);
+      hb_retl(false);
    }
 }
 
@@ -747,7 +747,7 @@ HB_FUNC( XGETMENUENABLEDSTATE )
    }
    else
    {
-      hb_retl(FALSE);
+      hb_retl(false);
    }
 }
 

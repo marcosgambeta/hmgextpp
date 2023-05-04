@@ -332,7 +332,7 @@ HB_FUNC( QHTM_FORMCALLBACK )
    }
    else
    {
-      hb_retl(0);
+      hb_retl(false);
    }
 }
 
@@ -352,12 +352,12 @@ HB_FUNC( QHTM_ENABLECOOLTIPS )
       }
       else
       {
-         hb_retl(0);
+         hb_retl(false);
       }
    }
    else
    {
-      hb_retl(0);
+      hb_retl(false);
    }
 }
 
@@ -377,12 +377,12 @@ HB_FUNC( QHTM_SETHTMLBUTTON )
       }
       else
       {
-         hb_retl(0);
+         hb_retl(false);
       }
    }
    else
    {
-      hb_retl(0);
+      hb_retl(false);
    }
 }
 
@@ -418,7 +418,7 @@ HB_FUNC( QHTM_PRINTSETTEXT )
    }
    else
    {
-      hb_retl(0);
+      hb_retl(false);
    }
 }
 
@@ -436,7 +436,7 @@ HB_FUNC( QHTM_PRINTSETTEXTFILE )
    }
    else
    {
-      hb_retl(0);
+      hb_retl(false);
    }
 }
 
@@ -454,7 +454,7 @@ HB_FUNC( QHTM_PRINTSETTEXTRESOURCE )
    }
    else
    {
-      hb_retl(0);
+      hb_retl(false);
    }
 }
 
@@ -508,7 +508,7 @@ HB_FUNC( QHTM_PRINTPAGE )
    }
    else
    {
-      hb_retl(0);
+      hb_retl(false);
    }
 }
 

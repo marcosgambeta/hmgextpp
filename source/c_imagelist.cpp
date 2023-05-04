@@ -205,17 +205,17 @@ HB_FUNC( IL_DRAW )         //BOOL IL_Draw(HWND hwnd, HIMAGELIST himl, int imagei
 
    if( ( hdc = GetDC(hwnd) ) == nullptr )
    {
-      hb_retl(FALSE);
+      hb_retl(false);
    }
 
    if( !ImageList_Draw(hmg_par_HIMAGELIST(2), hmg_par_INT(3), hdc, hb_parni(4), hb_parni(5), ILD_TRANSPARENT) )
    {
-      hb_retl(FALSE);
+      hb_retl(false);
    }
 
    ReleaseDC(hwnd, hdc);
 
-   hb_retl(TRUE);
+   hb_retl(true);
 }
 
 HB_FUNC( IL_REMOVE )       //IL_Remove(hwnd , imageindex)

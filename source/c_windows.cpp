@@ -174,12 +174,12 @@ HB_FUNC( SETGLOBALLISTENER )
    if( pszNewName && hb_dynsymIsFunction(hb_dynsymGet(pszNewName)) )
    {
       HMG_LISTENER_LOCK;
-      g_ListenerDyns = hb_dynsymGet(pszNewName); hb_retl(HB_TRUE);
+      g_ListenerDyns = hb_dynsymGet(pszNewName); hb_retl(true);
       HMG_LISTENER_UNLOCK;
    }
    else
    {
-      hb_retl(HB_FALSE);
+      hb_retl(false);
    }
 }
 

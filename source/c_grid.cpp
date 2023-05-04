@@ -755,11 +755,11 @@ HB_FUNC( LISTVIEW_HITTEST )
 
       if( lvhti.flags & LVHT_ONITEMSTATEICON )
       {
-         hb_retl(1);
+         hb_retl(true);
       }
       else
       {
-         hb_retl(0);
+         hb_retl(false);
       }
    }
    else  // item area.
@@ -963,7 +963,7 @@ HB_FUNC( LISTVIEW_SETCHECKSTATE )
    {
       ListView_SetCheckState(hwndLV, hb_parni(2) - 1, hb_parl(3));
 
-      hb_retl(HB_TRUE);
+      hb_retl(true);
    }
    else
    {

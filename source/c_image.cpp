@@ -1277,7 +1277,7 @@ HB_FUNC( C_SAVEHICONTOFILE )
 
       if( SaveIconToFile(szIconFile, hIcon, hb_parnidef(3, nLen)) )
       {
-         hb_retl(TRUE);
+         hb_retl(true);
 
          // clean up
          for( int i = 0; i < nLen; i++ )
@@ -1287,12 +1287,12 @@ HB_FUNC( C_SAVEHICONTOFILE )
       }
       else
       {
-         hb_retl(FALSE);
+         hb_retl(false);
       }
    }
    else
    {
-      hb_retl(FALSE);
+      hb_retl(false);
    }
 
 #ifdef UNICODE

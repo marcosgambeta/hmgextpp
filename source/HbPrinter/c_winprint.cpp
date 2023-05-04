@@ -2231,7 +2231,7 @@ HB_FUNC( RR_PREVIEWPLAY )
    if( tmpDC == nullptr )
    {
       ReleaseDC(hmg_par_HWND(1), imgDC);
-      hb_retl(0);
+      hb_retl(false);
    }
 
    if( himgbmp != 0 )
@@ -2250,11 +2250,11 @@ HB_FUNC( RR_PREVIEWPLAY )
    DeleteDC(tmpDC);
    if( himgbmp == 0 )
    {
-      hb_retl(0);
+      hb_retl(false);
    }
    else
    {
-      hb_retl(1);
+      hb_retl(true);
    }
 }
 
