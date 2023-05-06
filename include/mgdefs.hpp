@@ -152,6 +152,9 @@ HBITMAP HMG_LoadImage(const char * pszImageName, const char * pszTypeOfRes);
 // TODO: handles -> pointers
 
 // macros for parameters
+
+#if 1
+
 #define hmg_par_HWND(n) reinterpret_cast<HWND>(HB_PARNL(n))
 #define hmg_par_HDC(n) reinterpret_cast<HDC>(HB_PARNL(n))
 #define hmg_par_UINT(n) static_cast<UINT>(hb_parni(n))
@@ -181,6 +184,49 @@ HBITMAP HMG_LoadImage(const char * pszImageName, const char * pszTypeOfRes);
 #define hmg_par_HRGN(n) reinterpret_cast<HRGN>(HB_PARNL(n))
 #define hmg_par_HPEN(n) reinterpret_cast<HPEN>(HB_PARNL(n))
 
+#else
+
+#define hmg_par_HWND(n) reinterpret_cast<HWND>(hb_parptr(n))
+#define hmg_par_HDC(n) reinterpret_cast<HDC>(hb_parptr(n))
+#define hmg_par_UINT(n) static_cast<UINT>(hb_parni(n))
+#define hmg_par_INT(n) static_cast<INT>(hb_parni(n))
+#define hmg_par_HBITMAP(n) reinterpret_cast<HBITMAP>(hb_parptr(n))
+#define hmg_par_HMENU(n) reinterpret_cast<HMENU>(hb_parptr(n))
+#define hmg_par_HFONT(n) reinterpret_cast<HFONT>(hb_parptr(n))
+#define hmg_par_COLORREF(n) static_cast<COLORREF>(hb_parnl(n))
+#define hmg_par_HGDIOBJ(n) reinterpret_cast<HGDIOBJ>(hb_parptr(n))
+#define hmg_par_HINSTANCE(n) reinterpret_cast<HINSTANCE>(hb_parptr(n))
+#define hmg_par_HICON(n) reinterpret_cast<HICON>(hb_parptr(n))
+#define hmg_par_HIMAGELIST(n) reinterpret_cast<HIMAGELIST>(hb_parptr(n))
+#define hmg_par_BOOL(n) static_cast<BOOL>(hb_parl(n))
+#define hmg_par_HTREEITEM(n) reinterpret_cast<HTREEITEM>(hb_parptr(n))
+#define hmg_par_LONG(n) static_cast<LONG>(hb_parnl(n))
+#define hmg_par_BYTE(n) static_cast<BYTE>(hb_parni(n))
+#define hmg_par_DWORD(n) static_cast<DWORD>(hb_parnl(n))
+#define hmg_par_WORD(n) static_cast<WORD>(hb_parni(n))
+#define hmg_par_WPARAM(n) static_cast<WPARAM>(hb_parni(n))
+#define hmg_par_LPARAM(n) static_cast<LPARAM>(hb_parnl(n))
+#define hmg_par_int(n) static_cast<int>(hb_parni(n))
+#define hmg_par_HACCEL(n) reinterpret_cast<HACCEL>(hb_parptr(n))
+#define hmg_par_HANDLE(n) reinterpret_cast<HANDLE>(hb_parptr(n))
+#define hmg_par_HCURSOR(n) reinterpret_cast<HCURSOR>(hb_parptr(n))
+#define hmg_par_HKEY(n) reinterpret_cast<HKEY>(hb_parptr(n))
+#define hmg_par_HBRUSH(n) reinterpret_cast<HBRUSH>(hb_parptr(n))
+#define hmg_par_HRGN(n) reinterpret_cast<HRGN>(hb_parptr(n))
+#define hmg_par_HPEN(n) reinterpret_cast<HPEN>(hb_parptr(n))
+
+#endif
+
 // macros for returns
+
+#if 1
+
 #define hmg_ret_HANDLE(x) HB_RETNL(reinterpret_cast<LONG_PTR>(x))
 #define hmg_ret_HWND(x)   HB_RETNL(reinterpret_cast<LONG_PTR>(x))
+
+#else
+
+#define hmg_ret_HANDLE(x) hb_retptr(x)
+#define hmg_ret_HWND(x)   hb_retptr(x)
+
+#endif
