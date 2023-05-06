@@ -1,35 +1,35 @@
-/*----------------------------------------------------------------------------
- BOS TAURUS - Graphic Library for HMG
+/*
+ * BOS TAURUS - Graphic Library for HMG
+ *
+ * Copyright 2012-2016 by Dr. Claudio Soto (from Uruguay).
+ * mail: <srvet@adinet.com.uy>
+ * blog: http://srvet.blogspot.com
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor Boston, MA 02110-1301, USA
+ * (or visit their web site at http://www.gnu.org/).
+ *
+ * As a special exception, you have permission for additional uses of the text
+ * contained in this release of BOS TAURUS.
+ *
+ * The exception is that, if you link the BOS TAURUS library with other
+ * files to produce an executable, this does not by itself cause the resulting
+ * executable to be covered by the GNU General Public License.
+ * Your use of that executable is in no way restricted on account of linking the
+ * BOS TAURUS library code into it.
+ */
 
- Copyright 2012-2016 by Dr. Claudio Soto (from Uruguay).
- mail: <srvet@adinet.com.uy>
- blog: http://srvet.blogspot.com
-
- This program is free software; you can redistribute it and/or modify it under
- the terms of the GNU General Public License as published by the Free Software
- Foundation; either version 2 of the License, or (at your option) any later
- version.
-
- This program is distributed in the hope that it will be useful, but WITHOUT
- ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 51 Franklin Street, Fifth Floor Boston, MA 02110-1301, USA
- (or visit their web site at http://www.gnu.org/).
-
- As a special exception, you have permission for additional uses of the text
- contained in this release of BOS TAURUS.
-
- The exception is that, if you link the BOS TAURUS library with other
- files to produce an executable, this does not by itself cause the resulting
- executable to be covered by the GNU General Public License.
- Your use of that executable is in no way restricted on account of linking the
- BOS TAURUS library code into it.
-----------------------------------------------------------------------------*/
-
-*******************************************************************************
+/*******************************************************************************
 * ARCHIVO:  h_BosTaurus.prg
 * LENGUAJE: HMG
 * FECHA:    Setiembre 2012
@@ -37,7 +37,7 @@
 * PAIS:     URUGUAY
 * E-MAIL:   srvet@adinet.com.uy
 * BLOG:     http://srvet.blogspot.com
-*******************************************************************************
+*******************************************************************************/
 
 #include "hmg.ch"
 #include "i_winuser.ch"
@@ -85,13 +85,13 @@ RETURN cMsg
 // **********************************************************************************************************************************
 
 FUNCTION BT_InfoName ()
-RETURN (AllTrim(_BT_INFO_NAME_))
+RETURN AllTrim(_BT_INFO_NAME_)
 
 FUNCTION BT_InfoVersion ()
-RETURN (AllTrim(Str(_BT_INFO_MAJOR_VERSION_)) + "." + AllTrim(Str(_BT_INFO_MINOR_VERSION_)) + "." + AllTrim(Str(_BT_INFO_PATCHLEVEL_)))
+RETURN AllTrim(Str(_BT_INFO_MAJOR_VERSION_)) + "." + AllTrim(Str(_BT_INFO_MINOR_VERSION_)) + "." + AllTrim(Str(_BT_INFO_PATCHLEVEL_))
 
 FUNCTION BT_InfoAuthor ()
-RETURN (AllTrim(_BT_INFO_AUTHOR_))
+RETURN AllTrim(_BT_INFO_AUTHOR_)
 
 // **********************************************************************************************************************************
 // * Handle DC
@@ -103,9 +103,9 @@ FUNCTION BT_CreateDC(Win_or_hBitmap, Type, BTstruct)
    LOCAL hDc
 
    DO CASE
-   CASE Type = BT_HDC_DESKTOP
+   CASE Type == BT_HDC_DESKTOP
       Handle := 0
-   CASE Type = BT_HDC_BITMAP
+   CASE Type == BT_HDC_BITMAP
       Handle := Win_or_hBitmap
    OTHERWISE
       Handle := bt_WinHandle(Win_or_hBitmap)
@@ -140,7 +140,7 @@ FUNCTION BT_DrawGetPixel(hDC, Row, Col)
 
    LOCAL aRGBcolor
 
-   aRGBcolor = BT_DRAW_HDC_PIXEL(hDC, Col, Row, BT_HDC_GETPIXEL, 0)
+   aRGBcolor := BT_DRAW_HDC_PIXEL(hDC, Col, Row, BT_HDC_GETPIXEL, 0)
 
 RETURN aRGBcolor
 
@@ -148,7 +148,7 @@ FUNCTION BT_DrawSetPixel(hDC, Row, Col, aRGBcolor)
 
    LOCAL aRGBcolor_Old
 
-   aRGBcolor_Old = BT_DRAW_HDC_PIXEL(hDC, Col, Row, BT_HDC_SETPIXEL, ArrayRGB_TO_COLORREF(aRGBcolor))
+   aRGBcolor_Old := BT_DRAW_HDC_PIXEL(hDC, Col, Row, BT_HDC_SETPIXEL, ArrayRGB_TO_COLORREF(aRGBcolor))
 
 RETURN aRGBcolor_Old
 
@@ -376,8 +376,8 @@ RETURN NIL
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-FUNCTION BT_GetDesktopHandle ()
-RETURN BT_SCR_GETDESKTOPHANDLE ()
+FUNCTION BT_GetDesktopHandle()
+RETURN BT_SCR_GETDESKTOPHANDLE()
 
 FUNCTION BT_DesktopWidth()
 
@@ -533,14 +533,14 @@ RETURN nWidth
 
 FUNCTION BT_ClientAreaInvalidateAll(Win, lErase)
 
-   lErase = IIF(lErase == NIL, .F., lErase)
+   lErase := IIF(lErase == NIL, .F., lErase)
    BT_SCR_INVALIDATERECT(bt_WinHandle(Win), NIL, lErase)
 
 RETURN NIL
 
 FUNCTION BT_ClientAreaInvalidateRect(Win, Row, Col, Width, Height, lErase)
 
-   lErase = IIF(lErase == NIL, .F., lErase)
+   lErase := IIF(lErase == NIL, .F., lErase)
    bt_FillRectIsNIL(@Row, @Col, @Width, @Height, 0, 0, BT_ClientAreaWidth(Win), BT_ClientAreaHeight(Win))
    BT_SCR_INVALIDATERECT(bt_WinHandle(Win), {Col, Row, Col + Width, Row + Height}, lErase)
 
