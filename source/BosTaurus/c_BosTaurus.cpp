@@ -1804,7 +1804,7 @@ HB_FUNC( BT_BMP_CREATE )
    DeleteDC(memDC);
    DeleteObject(hBrush);
 
-   HB_RETNL(( LONG_PTR ) hBitmap_New);
+   hmg_ret_HBITMAP(hBitmap_New);
 }
 
 //*************************************************************************************************
@@ -1882,14 +1882,14 @@ HB_FUNC( BT_BMP_LOADFILE )
    // If fail load: return zero
    if( hBitmap == nullptr )
    {
-      hb_retnl(0);
+      hmg_ret_HBITMAP(nullptr);
       return;
    }
 
 //   if (bt_bmp_is_24bpp (hBitmap) == FALSE)
 //       hBitmapFile = bt_bmp_convert_to_24bpp (hBitmap, BMP_DELETE_ORIGINAL_HBITMAP);   // Convert Bitmap in 24bpp
 
-   HB_RETNL(( LONG_PTR ) hBitmap);
+   hmg_ret_HBITMAP(hBitmap);
 }
 
 //*********************************************************************************************************************************
@@ -1936,7 +1936,7 @@ HB_FUNC( BT_BITMAPLOADEMF )
    // If fail load from Resource and Disk return nullptr
    if( hEMF == nullptr )
    {
-      HB_RETNL(( LONG_PTR ) nullptr);
+      hmg_ret_HBITMAP(nullptr);
       return;
    }
 
@@ -1947,7 +1947,7 @@ HB_FUNC( BT_BITMAPLOADEMF )
    if( GetEnhMetaFileHeader(hEMF, sizeof(ENHMETAHEADER), &emh) == 0 )
    {
       DeleteEnhMetaFile(hEMF);
-      HB_RETNL(( LONG_PTR ) nullptr);
+      hmg_ret_HBITMAP(nullptr);
       return;
    }
 
@@ -1988,7 +1988,7 @@ HB_FUNC( BT_BITMAPLOADEMF )
    DeleteDC(memDC);
    DeleteObject(hBrush);
 
-   HB_RETNL(( LONG_PTR ) hBitmap);
+   hmg_ret_HBITMAP(hBitmap);
 }
 
 //*************************************************************************************************
@@ -2168,7 +2168,7 @@ HB_FUNC( BT_BMP_CLONE )
    DeleteDC(memDC1);
    DeleteDC(memDC2);
 
-   HB_RETNL(( LONG_PTR ) hBitmap_New);
+   hmg_ret_HBITMAP(hBitmap_New);
 }
 
 //************************************************************************************************************
@@ -2397,7 +2397,7 @@ HB_FUNC( BT_BMP_COPYANDRESIZE )
       hBitmap_New = bt_BiLinearInterpolation(hBitmap1, New_Width, New_Height);
    }
 
-   HB_RETNL(( LONG_PTR ) hBitmap_New);
+   hmg_ret_HBITMAP(hBitmap_New);
 }
 
 //*****************************************************************************************************************************
@@ -2551,7 +2551,7 @@ HB_FUNC( BT_BMP_CAPTURESCR )
          hDC = GetDC(hWnd);
          break;
       default:
-         hb_retnl(0);
+         hmg_ret_HBITMAP(nullptr);
          return;
    }
 
@@ -2572,7 +2572,7 @@ HB_FUNC( BT_BMP_CAPTURESCR )
          ReleaseDC(hWnd, hDC);
    }
 
-   HB_RETNL(( LONG_PTR ) hBitmap);
+   hmg_ret_HBITMAP(hBitmap);
 }
 
 //**************************************************************************************************
@@ -3134,7 +3134,7 @@ HB_FUNC( BT_BMP_TRANSFORM )
    DeleteDC(memDC2);
    DeleteObject(hBrush);
 
-   HB_RETNL(( LONG_PTR ) hBitmap_D);
+   hmg_ret_HBITMAP(hBitmap_D);
 }
 
 //************************************************************************************************************
@@ -3188,14 +3188,14 @@ HB_FUNC( BT_BMP_GET_CLIPBOARD )
 {
    if( !IsClipboardFormatAvailable(CF_DIB) )
    {
-      hb_retnl(0);
+      hmg_ret_HBITMAP(nullptr);
       return;
    }
 
    HWND hWnd = hmg_par_HWND(1);
    if( !OpenClipboard(hWnd) )
    {
-      hb_retnl(0);
+      hmg_ret_HBITMAP(nullptr);
       return;
    }
 
@@ -3203,7 +3203,7 @@ HB_FUNC( BT_BMP_GET_CLIPBOARD )
    if( hClipboard == nullptr )
    {
       CloseClipboard();
-      hb_retnl(0);
+      hmg_ret_HBITMAP(nullptr);
       return;
    }
 
@@ -3251,7 +3251,7 @@ HB_FUNC( BT_BMP_GET_CLIPBOARD )
    GlobalUnlock(hClipboard);
    CloseClipboard();
 
-   HB_RETNL(( LONG_PTR ) hBitmap);
+   hmg_ret_HBITMAP(hBitmap);
 }
 
 //*************************************************************************************************
