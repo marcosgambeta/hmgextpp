@@ -1111,7 +1111,7 @@ HB_FUNC( GETTABBEDCONTROLBRUSH )
    SetBrushOrgEx(hDC, -rc.left, -rc.top, nullptr);
    hBrush = hmg_par_HBRUSH(4);
 
-   hmg_ret_HANDLE(hBrush);
+   hmg_ret_HBRUSH(hBrush);
 }
 
 HB_FUNC( GETTABBRUSH )
@@ -1136,7 +1136,7 @@ HB_FUNC( GETTABBRUSH )
 
    hBrush = CreatePatternBrush(hBmp);
 
-   hmg_ret_HANDLE(hBrush);
+   hmg_ret_HBRUSH(hBrush);
 
    SelectObject(hDCMem, hOldBmp);
 

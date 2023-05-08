@@ -1472,7 +1472,7 @@ HB_FUNC( REGISTERWINDOW )
       hb_xfree(( TCHAR * ) lpCursorName);
    }
 #endif
-   hmg_ret_HANDLE(hBrush);
+   hmg_ret_HBRUSH(hBrush);
 }
 
 /* Modified by P.Ch. 17.06. */
@@ -1530,7 +1530,7 @@ HB_FUNC( REGISTERSPLITCHILDWINDOW )
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpIcon);
 #endif
-   hmg_ret_HANDLE(hbrush);
+   hmg_ret_HBRUSH(hbrush);
 }
 
 /* Modified by P.Ch. 17.06. */

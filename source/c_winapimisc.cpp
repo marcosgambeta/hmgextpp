@@ -605,7 +605,7 @@ HB_FUNC( PAINTBKGND )
    ReleaseDC(hwnd, hdc);
 
    RegisterResource(hBrush, "BRUSH");
-   hmg_ret_HANDLE(hBrush);
+   hmg_ret_HBRUSH(hBrush);
 }
 
 /* Functions Contributed  By Luiz Rafael Culik Guimaraes(culikr@uol.com.br) */
@@ -997,7 +997,7 @@ HB_FUNC( CREATESOLIDBRUSH )
 {
    HBRUSH hBrush = CreateSolidBrush(( COLORREF ) RGB(hb_parni(1), hb_parni(2), hb_parni(3)));
    RegisterResource(hBrush, "BRUSH");
-   hmg_ret_HANDLE(hBrush);
+   hmg_ret_HBRUSH(hBrush);
 }
 
 /*

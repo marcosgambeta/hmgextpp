@@ -161,7 +161,7 @@ HB_FUNC( REGISTERMDIWINDOW )
       hb_xfree(( TCHAR * ) lpIconName);
    }
 #endif
-   hmg_ret_HANDLE(hbrush);
+   hmg_ret_HBRUSH(hbrush);
 }
 
 LRESULT CALLBACK MdiWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
