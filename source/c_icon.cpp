@@ -63,7 +63,7 @@ HB_FUNC( COPYICON )
    hIcon = CopyIcon(hmg_par_HICON(1));
 
    RegisterResource(hIcon, "ICON");
-   hmg_ret_HANDLE(hIcon);
+   hmg_ret_HICON(hIcon);
 }
 
 // BOOL WINAPI DestroyIcon(HICON hIcon)
@@ -83,7 +83,7 @@ HB_FUNC( DUPLICATEICON )
    hIcon = DuplicateIcon(( HINSTANCE ) nullptr, hmg_par_HICON(1));
 
    RegisterResource(hIcon, "ICON");
-   hmg_ret_HANDLE(hIcon);
+   hmg_ret_HICON(hIcon);
 }
 
 // HICON LoadIcon(HINSTANCE hInstance, LPCTSTR lpIconName)
@@ -100,7 +100,7 @@ HB_FUNC( LOADICON )
 #endif
 
    RegisterResource(hIcon, "ICON");
-   hmg_ret_HANDLE(hIcon);
+   hmg_ret_HICON(hIcon);
 
 #ifdef UNICODE
    hb_xfree(pW);
@@ -120,7 +120,7 @@ HB_FUNC( EXTRACTICON )
 #endif
 
    RegisterResource(hIcon, "ICON");
-   hmg_ret_HANDLE(hIcon);
+   hmg_ret_HICON(hIcon);
 
 #ifdef UNICODE
    hb_xfree(pW);
@@ -192,7 +192,7 @@ HB_FUNC( LOADICONBYNAME )
 #endif
    }
 
-   hmg_ret_HANDLE(hIcon);
+   hmg_ret_HICON(hIcon);
 }
 
 HB_FUNC( DRAWICONEX )

@@ -143,7 +143,7 @@ HB_FUNC( _SETBTNICON )
    SendMessage(hmg_par_HWND(1), BM_SETIMAGE, static_cast<WPARAM>(IMAGE_ICON), reinterpret_cast<LPARAM>(hIcon));
 
    RegisterResource(hIcon, "ICON");
-   hmg_ret_HANDLE(hIcon);
+   hmg_ret_HICON(hIcon);
 
    hb_strfree(IconName);
 }

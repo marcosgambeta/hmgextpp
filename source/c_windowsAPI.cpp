@@ -645,7 +645,7 @@ HB_FUNC( LOADTRAYICON )
    }
 
    RegisterResource(hIcon, "ICON");
-   hmg_ret_HANDLE(hIcon);
+   hmg_ret_HICON(hIcon);
 
 #ifdef UNICODE
    if( HB_ISCHAR(2) )
