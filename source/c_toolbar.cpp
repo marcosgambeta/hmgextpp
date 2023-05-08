@@ -805,7 +805,7 @@ HB_FUNC( REPLACETOOLBUTTONIMAGE )
       SendMessage(hwndTB, TB_SETBUTTONINFO, nButtonID, ( LPARAM ) &tbinfo);
    }
 
-   hmg_ret_HANDLE(hBitmapNew);
+   hmg_ret_HBITMAP(hBitmapNew);
 }
 
 HB_FUNC( SETROWSBUTTON )
@@ -970,7 +970,7 @@ HB_FUNC( GETIMAGELIST )
 
    himage = ImageInfo.hbmImage;
 
-   hmg_ret_HANDLE(himage);
+   hmg_ret_HBITMAP(himage);
 }
 
 HB_FUNC( SETCHEVRONIMAGE )

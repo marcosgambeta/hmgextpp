@@ -350,7 +350,7 @@ HB_FUNC( C_SETPICTURE )
       }
    }
 
-   hmg_ret_HANDLE(hBitmap);
+   hmg_ret_HBITMAP(hBitmap);
 }
 
 HB_FUNC( LOADIMAGE )
@@ -368,7 +368,7 @@ HB_FUNC( LOADIMAGE )
       }
    }
 
-   hmg_ret_HANDLE(hBitmap);
+   hmg_ret_HBITMAP(hBitmap);
 }
 
 HB_FUNC( C_GETRESPICTURE )
@@ -380,7 +380,7 @@ HB_FUNC( C_GETRESPICTURE )
       RegisterResource(hBitmap, "BMP");
    }
 
-   hmg_ret_HANDLE(hBitmap);
+   hmg_ret_HBITMAP(hBitmap);
 }
 
 //****************************************************************************************************************
