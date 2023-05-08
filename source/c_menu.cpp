@@ -515,7 +515,7 @@ HB_FUNC( MENUITEM_SETBITMAPS )
       SetMenuItemBitmaps(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND, himage1, himage2);
    }
 
-   hmg_ret_HANDLE(himage1);
+   hmg_ret_HBITMAP(himage1);
 }
 
 HB_FUNC( MENUITEM_SETCHECKMARKS )
@@ -597,7 +597,7 @@ HB_FUNC( MENUITEM_SETICON )
 
    DestroyIcon(hIcon);
 
-   hmg_ret_HANDLE(himage1);
+   hmg_ret_HBITMAP(himage1);
 
 #ifdef UNICODE
    hb_xfree(lpIconName);
