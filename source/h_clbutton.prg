@@ -566,7 +566,7 @@ HB_FUNC( CLBUTTON_SETIMAGE )
 
    SendMessage( hmg_par_HWND(1), BCM_SETIMAGELIST, 0, ( LPARAM ) &bi );
 
-   hmg_ret_HANDLE(himl);
+   hmg_ret_HIMAGELIST(himl);
 }
 
 #pragma ENDDUMP

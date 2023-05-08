@@ -74,7 +74,7 @@ HB_FUNC( INITIMAGELIST )   //InitImageList ( cx , cy, mask , nCount )
    himlIcons = ImageList_Create(hmg_par_INT(1), hmg_par_INT(2), Styl, hmg_par_INT(4), 0);
 
    RegisterResource(himlIcons, "IMAGELIST");
-   hmg_ret_HANDLE(himlIcons);
+   hmg_ret_HIMAGELIST(himlIcons);
 }
 
 HB_FUNC( IL_ADD )          //IL_Add( himl , image , maskimage , ix , iy , imagecount )

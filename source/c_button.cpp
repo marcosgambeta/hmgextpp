@@ -120,7 +120,7 @@ HB_FUNC( _SETMIXEDBTNPICTURE )
    int Transparent = hb_parl(3) ? 0 : 1;
    HIMAGELIST himl = HMG_SetButtonImageList(hmg_par_HWND(1), hb_parc(2), Transparent, BUTTON_IMAGELIST_ALIGN_CENTER);
    RegisterResource(himl, "IMAGELIST");
-   hmg_ret_HANDLE(himl);
+   hmg_ret_HIMAGELIST(himl);
 }
 
 // HMG 1.0 Experimental Build 8e
@@ -187,7 +187,7 @@ HB_FUNC( _SETMIXEDBTNICON )
    DestroyIcon(hIcon);
 
    RegisterResource(himl, "IMAGELIST");
-   hmg_ret_HANDLE(himl);
+   hmg_ret_HIMAGELIST(himl);
 
    hb_strfree(IconName);
 }

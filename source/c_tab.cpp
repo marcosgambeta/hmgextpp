@@ -278,7 +278,7 @@ HB_FUNC( ADDTABBITMAP )
    }
 
    RegisterResource(himl, "IMAGELIST");
-   hmg_ret_HANDLE(himl);
+   hmg_ret_HIMAGELIST(himl);
 }
 
 HB_FUNC( WINDOWFROMPOINT )

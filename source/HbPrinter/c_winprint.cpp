@@ -1810,7 +1810,7 @@ HB_FUNC( RR_CREATEIMAGELIST )
    hb_storni( dx, 3 );
    hb_storni( bm.bmHeight, 4 );
    DeleteObject(hbmpx);
-   hmg_ret_HANDLE(himl);
+   hmg_ret_HIMAGELIST(himl);
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) cFileName);

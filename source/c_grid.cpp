@@ -339,7 +339,7 @@ HB_FUNC( ADDLISTVIEWBITMAPHEADER )  // Grid+
       }
    }
 
-   hmg_ret_HANDLE(himl);
+   hmg_ret_HIMAGELIST(himl);
 }
 
 HB_FUNC( LISTVIEW_GETFOCUSEDITEM )
