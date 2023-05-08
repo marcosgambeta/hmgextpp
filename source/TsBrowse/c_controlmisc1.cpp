@@ -148,12 +148,12 @@ HB_FUNC( DRAWICON )
 
 HB_FUNC( CURSORWE )
 {
-   hmg_ret_HANDLE(SetCursor(LoadCursor(0, IDC_SIZEWE)));
+   hmg_ret_HCURSOR(SetCursor(LoadCursor(0, IDC_SIZEWE)));
 }
 
 HB_FUNC( CURSORSIZE )
 {
-   hmg_ret_HANDLE(SetCursor(LoadCursor(0, IDC_SIZEALL)));
+   hmg_ret_HCURSOR(SetCursor(LoadCursor(0, IDC_SIZEALL)));
 }
 
 HB_FUNC( RELEASECAPTURE )
@@ -245,7 +245,7 @@ HB_FUNC( GETCURSORHAND )
       RegisterResource(hHand, "CUR");
    }
 
-   hmg_ret_HANDLE(hHand);
+   hmg_ret_HCURSOR(hHand);
 }
 
 HB_FUNC( GETCURSORDRAG )
@@ -256,7 +256,7 @@ HB_FUNC( GETCURSORDRAG )
       RegisterResource(hDrag, "CUR");
    }
 
-   hmg_ret_HANDLE(hDrag);
+   hmg_ret_HCURSOR(hDrag);
 }
 
 HB_FUNC( GETCURSORCATCH )
@@ -267,7 +267,7 @@ HB_FUNC( GETCURSORCATCH )
       RegisterResource(hCatch, "CUR");
    }
 
-   hmg_ret_HANDLE(hCatch);
+   hmg_ret_HCURSOR(hCatch);
 }
 
 HB_FUNC( GETCURSORSTOP )
@@ -278,7 +278,7 @@ HB_FUNC( GETCURSORSTOP )
       RegisterResource(hStop, "CUR");
    }
 
-   hmg_ret_HANDLE(hStop);
+   hmg_ret_HCURSOR(hStop);
 }
 
 HB_FUNC( CURSORSTOP )

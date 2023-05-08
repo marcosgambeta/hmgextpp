@@ -66,12 +66,12 @@ HB_FUNC( LOADCURSOR )
    {
       void * str;
       LPCTSTR lpCursorName = HB_PARSTR(2, &str, nullptr);
-      hmg_ret_HANDLE(LoadCursor(hInstance, lpCursorName));
+      hmg_ret_HCURSOR(LoadCursor(hInstance, lpCursorName));
       hb_strfree(str);
    }
    else if( HB_ISNUM(2) )
    {
-      hmg_ret_HANDLE(LoadCursor(hInstance, MAKEINTRESOURCE(hb_parni(2))));
+      hmg_ret_HCURSOR(LoadCursor(hInstance, MAKEINTRESOURCE(hb_parni(2))));
    }
 }
 
@@ -81,7 +81,7 @@ LOADCURSORFROMFILE(cFileName) --> HANDLE
 HB_FUNC( LOADCURSORFROMFILE )
 {
    void * str;
-   hmg_ret_HANDLE(LoadCursorFromFile(HB_PARSTR(1, &str, nullptr)));
+   hmg_ret_HCURSOR(LoadCursorFromFile(HB_PARSTR(1, &str, nullptr)));
    hb_strfree(str);
 }
 
@@ -90,7 +90,7 @@ SETRESCURSOR(HCURSOR) --> HANDLE
 */
 HB_FUNC( SETRESCURSOR )
 {
-   hmg_ret_HANDLE(SetCursor(( HCURSOR ) HB_PARNL(1)));
+   hmg_ret_HCURSOR(SetCursor(( HCURSOR ) HB_PARNL(1)));
 }
 
 /*
@@ -99,7 +99,7 @@ FILECURSOR(cFileName) --> HANDLE
 HB_FUNC( FILECURSOR )
 {
    void * str;
-   hmg_ret_HANDLE(SetCursor(LoadCursorFromFile(HB_PARSTR(1, &str, nullptr))));
+   hmg_ret_HCURSOR(SetCursor(LoadCursorFromFile(HB_PARSTR(1, &str, nullptr))));
    hb_strfree(str);
 }
 
@@ -108,7 +108,7 @@ CURSORHAND() --> HANDLE
 */
 HB_FUNC( CURSORHAND )
 {
-   hmg_ret_HANDLE(SetCursor(LoadCursor(nullptr, IDC_HAND)));
+   hmg_ret_HCURSOR(SetCursor(LoadCursor(nullptr, IDC_HAND)));
 }
 
 /*
