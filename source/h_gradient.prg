@@ -359,7 +359,7 @@ HB_FUNC( CREATEGRADIENTBRUSH )
 
    hdc = GetDC(hwnd);
 
-   hmg_ret_HANDLE(LinearGradientBrush( hdc, hb_parnl( 2 ), hb_parnl( 3 ), ( COLORREF ) hb_parnl( 4 ), ( COLORREF ) hb_parnl( 5 ), hb_parl( 6 ) ));
+   hmg_ret_HBRUSH(LinearGradientBrush( hdc, hb_parnl( 2 ), hb_parnl( 3 ), ( COLORREF ) hb_parnl( 4 ), ( COLORREF ) hb_parnl( 5 ), hb_parl( 6 ) ));
    ReleaseDC(hwnd, hdc);
 }
 

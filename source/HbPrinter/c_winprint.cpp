@@ -925,7 +925,7 @@ HB_FUNC( RR_CREATEBRUSH )
    pbr.lbStyle = hb_parni(1);
    pbr.lbColor = hmg_par_COLORREF(2);
    pbr.lbHatch = hmg_par_LONG(3);
-   hmg_ret_HANDLE(CreateBrushIndirect(&pbr));
+   hmg_ret_HBRUSH(CreateBrushIndirect(&pbr));
 }
 
 HB_FUNC( RR_MODIFYBRUSH )
@@ -957,16 +957,16 @@ HB_FUNC( RR_MODIFYBRUSH )
       if( hb != nullptr )
       {
          DeleteObject(hmg_par_HBRUSH(1));
-         hmg_ret_HANDLE(hb);
+         hmg_ret_HBRUSH(hb);
       }
       else
       {
-         hb_retnl( hmg_par_LONG(1) );
+         hb_retnl( hmg_par_LONG(1) ); // TODO: hmg_par_HBRUSH/hmg_ret_HBRUSH ?
       }
    }
    else
    {
-      hb_retnl( hmg_par_LONG(1) );
+      hb_retnl( hmg_par_LONG(1) ); // TODO: hmg_par_HBRUSHhmg_ret_HBRUSH ?
    }
 }
 

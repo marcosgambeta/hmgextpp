@@ -354,7 +354,7 @@ CREATEBUTTONBRUSH(p1, p2, p3, p4, p5) --> HANDLE
 */
 HB_FUNC( CREATEBUTTONBRUSH )
 {
-   hmg_ret_HANDLE(CreateGradientBrush(hmg_par_HDC(1), hb_parni(2), hb_parni(3), hmg_par_COLORREF(4), hmg_par_COLORREF(5)));
+   hmg_ret_HBRUSH(CreateGradientBrush(hmg_par_HDC(1), hb_parni(2), hb_parni(3), hmg_par_COLORREF(4), hmg_par_COLORREF(5)));
 }
 
 static HBRUSH CreateGradientBrush(HDC hDC, INT nWidth, INT nHeight, COLORREF Color1, COLORREF Color2)

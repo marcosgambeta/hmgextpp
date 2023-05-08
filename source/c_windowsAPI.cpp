@@ -1222,7 +1222,7 @@ HB_FUNC( SETWINDOWBRUSH )
 
 HB_FUNC( CREATEHATCHBRUSH )
 {
-   hmg_ret_HANDLE(CreateHatchBrush(hb_parni(1), hmg_par_COLORREF(2)));
+   hmg_ret_HBRUSH(CreateHatchBrush(hb_parni(1), hmg_par_COLORREF(2)));
 }
 
 /* Modified by P.Ch. 16.10. */
@@ -1247,7 +1247,7 @@ HB_FUNC( CREATEPATTERNBRUSH )
       hImage = HMG_LoadImage(hb_parc(1), nullptr);
    }
 
-   hmg_ret_HANDLE(( hImage != nullptr ) ? CreatePatternBrush(hImage) : nullptr);
+   hmg_ret_HBRUSH(( hImage != nullptr ) ? CreatePatternBrush(hImage) : nullptr);
 
 #ifdef UNICODE
    if( HB_ISCHAR(1) )
