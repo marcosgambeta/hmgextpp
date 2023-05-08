@@ -417,7 +417,7 @@ HB_FUNC( INKEYGUI )
 
 HB_FUNC( GETDC )
 {
-   hmg_ret_HANDLE(GetDC(hmg_par_HWND(1)));
+   hmg_ret_HDC(GetDC(hmg_par_HWND(1)));
 }
 
 HB_FUNC( RELEASEDC )

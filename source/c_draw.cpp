@@ -70,12 +70,12 @@ HB_FUNC( BEGINPAINT )
    if( IsWindow(hWnd) )
    {
       PAINTSTRUCT ps;
-      hmg_ret_HANDLE(BeginPaint(hWnd, &ps));
+      hmg_ret_HDC(BeginPaint(hWnd, &ps));
       hb_storclen(reinterpret_cast<const char*>(&ps), sizeof(PAINTSTRUCT), 2);
    }
    else
    {
-      hmg_ret_HANDLE(nullptr);
+      hmg_ret_HDC(nullptr);
    }
 }
 

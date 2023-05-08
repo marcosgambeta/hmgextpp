@@ -271,7 +271,7 @@ HB_FUNC( GETOWNBTNDC )
 
    if( pps )
    {
-      hmg_ret_HANDLE(pps->hDC);
+      hmg_ret_HDC(pps->hDC);
    }
 }
 

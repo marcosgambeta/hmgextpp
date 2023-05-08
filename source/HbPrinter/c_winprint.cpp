@@ -176,7 +176,7 @@ HB_FUNC( RR_PRINTDIALOG )
 
    hDCRef = hDC;
 
-   hmg_ret_HANDLE(hDC);
+   hmg_ret_HDC(hDC);
 }
 
 HB_FUNC( RR_GETDC )
@@ -214,7 +214,7 @@ HB_FUNC( RR_GETDC )
    }
 
    hDCRef = hDC;
-   hmg_ret_HANDLE(hDC);
+   hmg_ret_HDC(hDC);
 
 #ifdef UNICODE
    hb_xfree(pwszDevice);
@@ -378,7 +378,7 @@ HB_FUNC( RR_SETDEVMODE )
    DocumentProperties(nullptr, hPrinter, PrinterName, pi2->pDevMode, pi2->pDevMode, DM_IN_BUFFER | DM_OUT_BUFFER);
    SetPrinter( hPrinter, 2, ( LPBYTE ) pi2, 0 );
    ResetDC( hDCRef, pi2->pDevMode );
-   hmg_ret_HANDLE(hDCRef);
+   hmg_ret_HDC(hDCRef);
 }
 
 HB_FUNC( RR_SETUSERMODE )
@@ -396,7 +396,7 @@ HB_FUNC( RR_SETUSERMODE )
    DocumentProperties(nullptr, hPrinter, PrinterName, pi2->pDevMode, pi2->pDevMode, DM_IN_BUFFER | DM_OUT_BUFFER);
    SetPrinter( hPrinter, 2, ( LPBYTE ) pi2, 0 );
    ResetDC( hDCRef, pi2->pDevMode );
-   hmg_ret_HANDLE(hDCRef);
+   hmg_ret_HDC(hDCRef);
 }
 
 #ifdef UNICODE
@@ -1322,7 +1322,7 @@ HB_FUNC( RR_CREATEMFILE )
    hDC = CreateEnhMetaFile(hDCRef, FileName, &emfrect, TEXT("hbprinter\0emf file\0\0"));
    SetTextAlign(hDC, TA_BASELINE);
    preview = 1;
-   hmg_ret_HANDLE(hDC);
+   hmg_ret_HDC(hDC);
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) FileName);
