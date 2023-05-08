@@ -599,7 +599,7 @@ HB_FUNC( FOLDERGETCURRENTPAGEHWND )
 
    fpi = ( FLDPAGEINFO * ) hfpi[iSel];
 
-   hmg_ret_HANDLE(fpi->hwndPage);
+   hmg_ret_HWND(fpi->hwndPage);
 }
 
 /****************************************************************************
@@ -704,11 +704,11 @@ HB_FUNC( FOLDER_GETTABHANDLE )
 
    if( !pFhi )
    {
-      hb_retnl(0);
+      hb_retnl(0); // TODO: 0 -> nullptr
    }
    else
    {
-      hmg_ret_HANDLE(pFhi->hwndTab);
+      hmg_ret_HWND(pFhi->hwndTab);
    }
 }
 

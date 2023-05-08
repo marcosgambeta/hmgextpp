@@ -237,7 +237,7 @@ HB_FUNC( GETOWNBTNHANDLE )
 
    if( pps )
    {
-      hmg_ret_HANDLE(pps->hwndItem);
+      hmg_ret_HWND(pps->hwndItem);
    }
 }
 

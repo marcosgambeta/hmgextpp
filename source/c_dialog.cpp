@@ -113,7 +113,7 @@ INITDIALOG(HWND, np2) --> HANDLE
 */
 HB_FUNC( INITDIALOG )
 {
-   hmg_ret_HANDLE(CreateDialog(GetResources(), MAKEINTRESOURCE(hb_parni(2)), hmg_par_HWND(1), ( DLGPROC ) HMG_DlgProc));
+   hmg_ret_HWND(CreateDialog(GetResources(), MAKEINTRESOURCE(hb_parni(2)), hmg_par_HWND(1), ( DLGPROC ) HMG_DlgProc));
 }
 
 /*
