@@ -201,7 +201,7 @@ HB_FUNC( GETCLASSINFO )
 
 HB_FUNC( SETCAPTURE )
 {
-   hmg_ret_HANDLE(SetCapture(hmg_par_HWND(1)));
+   hmg_ret_HWND(SetCapture(hmg_par_HWND(1)));
 }
 
 HB_FUNC( GETTEXTCOLOR )

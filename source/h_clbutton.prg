@@ -486,7 +486,7 @@ HB_FUNC( INITCLBUTTON )
                           GetModuleHandle(nullptr),
                           nullptr);
 
-   hmg_ret_HANDLE(hbutton);
+   hmg_ret_HWND(hbutton);
 }
 
 #ifndef BCM_SETNOTE

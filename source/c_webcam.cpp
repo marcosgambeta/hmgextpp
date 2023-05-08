@@ -72,7 +72,7 @@ HB_FUNC( CAP_CREATECAPTUREWINDOW )
    LPWSTR lpszWindowName = AnsiToWide(( char * ) hb_parc(1));
 #endif
 
-   hmg_ret_HANDLE(capCreateCaptureWindow(lpszWindowName, hmg_par_DWORD(2), hmg_par_int(3), hmg_par_int(4), hmg_par_int(5), hmg_par_int(6), hmg_par_HWND(7), hmg_par_int(8)));
+   hmg_ret_HWND(capCreateCaptureWindow(lpszWindowName, hmg_par_DWORD(2), hmg_par_int(3), hmg_par_int(4), hmg_par_int(5), hmg_par_int(6), hmg_par_HWND(7), hmg_par_int(8)));
 }
 
 /*

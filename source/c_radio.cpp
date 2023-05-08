@@ -98,7 +98,7 @@ HB_FUNC( INITRADIOGROUP )
       nullptr
              );
 
-   hmg_ret_HANDLE(hbutton);
+   hmg_ret_HWND(hbutton);
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpWindowName);
@@ -144,7 +144,7 @@ HB_FUNC( INITRADIOBUTTON )
       nullptr
              );
 
-   hmg_ret_HANDLE(hbutton);
+   hmg_ret_HWND(hbutton);
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpWindowName);

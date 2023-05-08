@@ -695,7 +695,7 @@ GETNEXTDLGTABITEM(HWND1, HWND2, lp3) --> HANDLE
 */
 HB_FUNC( GETNEXTDLGTABITEM )
 {
-   hmg_ret_HANDLE(GetNextDlgTabItem(hmg_par_HWND(1), hmg_par_HWND(2), hb_parl(3)));
+   hmg_ret_HWND(GetNextDlgTabItem(hmg_par_HWND(1), hmg_par_HWND(2), hb_parl(3)));
 }
 
 using LPFN_WOW64DISABLEWOW64FSREDIRECTION = BOOL ( WINAPI * )( PVOID * );

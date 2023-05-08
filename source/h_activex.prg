@@ -528,7 +528,7 @@ HB_FUNC_STATIC( CREATEWINDOWEX ) // ( hWnd, cProgId ) -> hActiveXWnd
                           AnsiToWide( ( char * ) hb_parc( 2 ) ),
 #endif
                           WS_VISIBLE | WS_CHILD, 0, 0, 0, 0, hmg_par_HWND(1), 0, 0, nullptr );
-   hmg_ret_HANDLE(hControl);
+   hmg_ret_HWND(hControl);
 }
 
 #ifdef __USEHASHEVENTS

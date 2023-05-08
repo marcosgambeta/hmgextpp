@@ -88,7 +88,7 @@ HB_FUNC( INITTREE )
       nullptr
             );
 
-   hmg_ret_HANDLE(hWndTV);
+   hmg_ret_HWND(hWndTV);
 }
 
 HB_FUNC( INITTREEVIEWBITMAP ) //Tree+

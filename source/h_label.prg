@@ -421,7 +421,7 @@ HB_FUNC_STATIC( INITLABEL )
       LabelOldWndProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(hWnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(LabelSubClassFunc)));
    }
 
-   hmg_ret_HANDLE(hWnd);
+   hmg_ret_HWND(hWnd);
 
    hb_strfree(WindowName);
 }

@@ -126,7 +126,7 @@ HB_FUNC( INITTOOLBAR )
    SendMessage(hwndTB, TB_SETEXTENDEDSTYLE, 0, TbExStyle);
 
    ShowWindow(hwndTB, SW_SHOW);
-   hmg_ret_HANDLE(hwndTB);
+   hmg_ret_HWND(hwndTB);
 }
 
 HB_FUNC( INITTOOLBUTTON )
@@ -241,7 +241,7 @@ HB_FUNC( INITTOOLBUTTON )
 
    ShowWindow(hwndTB, SW_SHOW);
 
-   hmg_ret_HANDLE(himage);
+   hmg_ret_HWND(himage);
 }
 
 LONG WidestBtn(LPCTSTR pszStr, HWND hwnd)
@@ -350,7 +350,7 @@ HB_FUNC( INITTOOLBAREX )
    SendMessage(hwndTB, TB_SETEXTENDEDSTYLE, 0, TbExStyle);
 
    ShowWindow(hwndTB, SW_SHOW);
-   hmg_ret_HANDLE(hwndTB);
+   hmg_ret_HWND(hwndTB);
 }
 
 HB_FUNC( INITTOOLBUTTONEX )
@@ -587,7 +587,7 @@ HB_FUNC( INITTOOLBUTTONEX )
 
    ShowWindow(hwndTB, SW_SHOW);
 
-   hmg_ret_HANDLE(himage);
+   hmg_ret_HWND(himage);
 }
 
 HB_FUNC( GETSIZETOOLBAR )

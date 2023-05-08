@@ -313,7 +313,7 @@ HB_FUNC( INITMDIWINDOW )
       return;
    }
 
-   hmg_ret_HANDLE(hwnd);
+   hmg_ret_HWND(hwnd);
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpWindowName);
@@ -358,7 +358,7 @@ HB_FUNC( INITMDICLIENTWINDOW )
 
    ShowWindow(hwndMDIClient, SW_SHOW);
 
-   hmg_ret_HANDLE(hwndMDIClient);
+   hmg_ret_HWND(hwndMDIClient);
 }
 
 HB_FUNC( INITMDICHILDWINDOW )
@@ -441,7 +441,7 @@ HB_FUNC( INITMDICHILDWINDOW )
       ShowWindow(hwndChild, SW_SHOW);
    }
 
-   hmg_ret_HANDLE(hwndChild);
+   hmg_ret_HWND(hwndChild);
 }
 
 HB_FUNC( ARRANGEICONICWINDOWS )

@@ -567,7 +567,7 @@ HB_FUNC( CREATEDLGFOLDER )
       LocalFree(pdlgtemplate);
    }
 
-   hmg_ret_HANDLE(hWndDlg);
+   hmg_ret_HWND(hWndDlg); // TODO: verificar
 }
 
 /****************************************************************************

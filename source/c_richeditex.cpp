@@ -137,7 +137,7 @@ HB_FUNC( INITRICHEDITBOXEX )
       RegisterClipboardFormat(CF_RETEXTOBJ);
    }
 
-   hmg_ret_HANDLE(hWndControl);
+   hmg_ret_HWND(hWndControl);
 }
 
 HB_FUNC( UNLOADRICHEDITEXLIB )
@@ -1458,7 +1458,7 @@ HB_FUNC( FINDREPLACEDLGSHOW )
 
 HB_FUNC( FINDREPLACEDLGGETHANDLE )
 {
-   hmg_ret_HANDLE(hDlgFindReplace);
+   hmg_ret_HWND(hDlgFindReplace);
 }
 
 HB_FUNC( FINDREPLACEDLGISRELEASE )

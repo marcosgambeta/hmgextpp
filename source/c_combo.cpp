@@ -143,7 +143,7 @@ HB_FUNC( INITCOMBOBOXEX )
       SendMessage(hCombo, CBEM_SETEXTENDEDSTYLE, 0, CBES_EX_NOEDITIMAGE);
    }
 
-   hmg_ret_HANDLE(hCombo);
+   hmg_ret_HWND(hCombo);
 }
 
 /*

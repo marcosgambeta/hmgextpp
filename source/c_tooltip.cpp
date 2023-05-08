@@ -179,7 +179,7 @@ HB_FUNC( INITTOOLTIP )
          nullptr
                     );
 
-      hmg_ret_HANDLE(hwndToolTip);
+      hmg_ret_HWND(hwndToolTip);
    }
    else
    {
@@ -390,7 +390,7 @@ HB_FUNC( INITTOOLTIPEX )
 
       SendMessage(hwndToolTip, TTM_ACTIVATE, g_bIsToolTipActive, 0);
 
-      hmg_ret_HANDLE(hwndToolTip);
+      hmg_ret_HWND(hwndToolTip);
 
 #ifdef UNICODE
       if( lpszText != nullptr )

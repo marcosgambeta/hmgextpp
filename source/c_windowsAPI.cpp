@@ -156,7 +156,7 @@ HB_FUNC( GETACTIVEWINDOW )
 {
    HWND hwnd = GetActiveWindow();
 
-   hmg_ret_HANDLE(hwnd);
+   hmg_ret_HWND(hwnd);
 }
 
 HB_FUNC( SETACTIVEWINDOW )
@@ -209,7 +209,7 @@ HB_FUNC( GETFOREGROUNDWINDOW )
    HWND hwnd;
 
    hwnd = GetForegroundWindow();
-   hmg_ret_HANDLE(hwnd);
+   hmg_ret_HWND(hwnd);
 }
 
 HB_FUNC( SETWINDOWTEXT )
@@ -443,17 +443,17 @@ HB_FUNC( GETHWNDFROM )
    LPARAM  lParam = ( LPARAM ) HB_PARNL(1);
    NMHDR * nmhdr  = ( NMHDR * ) lParam;
 
-   hmg_ret_HANDLE(nmhdr->hwndFrom);
+   hmg_ret_HWND(nmhdr->hwndFrom);
 }
 
 HB_FUNC( GETDRAWITEMHANDLE )
 {
-   hmg_ret_HANDLE(( ( DRAWITEMSTRUCT FAR * ) HB_PARNL(1) )->hwndItem);
+   hmg_ret_HWND(( ( DRAWITEMSTRUCT FAR * ) HB_PARNL(1) )->hwndItem);
 }
 
 HB_FUNC( GETFOCUS )
 {
-   hmg_ret_HANDLE(GetFocus());
+   hmg_ret_HWND(GetFocus());
 }
 
 HB_FUNC( GETGRIDCOLUMN )
@@ -713,12 +713,12 @@ HB_FUNC( GETWINDOWSTATE )
 
 HB_FUNC( GETPARENT )
 {
-   hmg_ret_HANDLE(GetParent(hmg_par_HWND(1)));
+   hmg_ret_HWND(GetParent(hmg_par_HWND(1)));
 }
 
 HB_FUNC( GETDESKTOPWINDOW )
 {
-   hmg_ret_HANDLE(GetDesktopWindow());
+   hmg_ret_HWND(GetDesktopWindow());
 }
 
 static BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM pArray)
@@ -959,7 +959,7 @@ HB_FUNC( GETMSKTEXTLPARAM )
 
 HB_FUNC( GETWINDOW )
 {
-   hmg_ret_HANDLE(GetWindow(hmg_par_HWND(1), hb_parni(2)));
+   hmg_ret_HWND(GetWindow(hmg_par_HWND(1), hb_parni(2)));
 }
 
 HB_FUNC( GETGRIDOLDSTATE )
@@ -1024,7 +1024,7 @@ HB_FUNC( FINDWINDOWEX )
    LPWSTR lpszClass  = ( hb_parc(3) != nullptr ) ? hb_osStrU16Encode(hb_parc(3)) : nullptr;
    LPWSTR lpszWindow = ( hb_parc(4) != nullptr ) ? hb_osStrU16Encode(hb_parc(4)) : nullptr;
 #endif
-   hmg_ret_HANDLE(FindWindowEx(hmg_par_HWND(1), hmg_par_HWND(2), lpszClass, lpszWindow));
+   hmg_ret_HWND(FindWindowEx(hmg_par_HWND(1), hmg_par_HWND(2), lpszClass, lpszWindow));
 
 #ifdef UNICODE
    if( lpszClass != nullptr )

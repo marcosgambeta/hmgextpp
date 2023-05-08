@@ -106,5 +106,5 @@ HB_FUNC( INITEDITBOX )
    SetProp(hbutton, TEXT("oldeditproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hbutton, GWLP_WNDPROC)));
    SetWindowLongPtr(hbutton, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnEditProc);
 
-   hmg_ret_HANDLE(hbutton);
+   hmg_ret_HWND(hbutton);
 }

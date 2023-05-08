@@ -116,7 +116,7 @@ HB_FUNC( INITMASKEDTEXTBOX )
       nullptr
              );
 
-   hmg_ret_HANDLE(hbutton);
+   hmg_ret_HWND(hbutton);
 }
 
 HB_FUNC( INITTEXTBOX )
@@ -198,7 +198,7 @@ HB_FUNC( INITTEXTBOX )
    SetProp(hedit, TEXT("oldeditproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hedit, GWLP_WNDPROC)));
    SetWindowLongPtr(hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnEditProc);
 
-   hmg_ret_HANDLE(hedit);
+   hmg_ret_HWND(hedit);
 }
 
 HB_FUNC( INITCHARMASKTEXTBOX )
@@ -261,7 +261,7 @@ HB_FUNC( INITCHARMASKTEXTBOX )
       nullptr
              );
 
-   hmg_ret_HANDLE(hbutton);
+   hmg_ret_HWND(hbutton);
 }
 
 LRESULT CALLBACK OwnEditProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lParam)

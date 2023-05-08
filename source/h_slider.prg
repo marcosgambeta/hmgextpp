@@ -328,7 +328,7 @@ HB_FUNC_STATIC( INITSLIDER )
       SendMessage(hTrackBar, TBM_SETSEL, static_cast<WPARAM>(TRUE), MAKELONG(iSelMin, iSelMax));  /* P.Ch. 16.10 */
    }
 
-   hmg_ret_HANDLE(hTrackBar);
+   hmg_ret_HWND(hTrackBar);
 }
 
 #pragma ENDDUMP

@@ -111,7 +111,7 @@ HB_FUNC( INITDATEPICK )
    SetProp(hbutton, TEXT("oldpickproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hbutton, GWLP_WNDPROC)));
    SetWindowLongPtr(hbutton, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnPickProc);
 
-   hmg_ret_HANDLE(hbutton);
+   hmg_ret_HWND(hbutton);
 }
 
 /*
@@ -157,7 +157,7 @@ HB_FUNC( INITTIMEPICK )
    SetProp(hbutton, TEXT("oldpickproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hbutton, GWLP_WNDPROC)));
    SetWindowLongPtr(hbutton, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnPickProc);
 
-   hmg_ret_HANDLE(hbutton);
+   hmg_ret_HWND(hbutton);
 }
 
 LRESULT CALLBACK OwnPickProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lParam)

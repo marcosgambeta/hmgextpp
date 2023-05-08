@@ -685,7 +685,7 @@ HB_FUNC_STATIC( INITCHKLABEL )
    LabelOldWndProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(hbutton, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(ChkLabelFunc)));
    SetWindowPos(hbutton, 0, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_NOZORDER);
 
-   hmg_ret_HANDLE(hbutton);
+   hmg_ret_HWND(hbutton);
 
    hb_strfree(WindowName);
 }

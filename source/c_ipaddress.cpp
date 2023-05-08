@@ -90,7 +90,7 @@ HB_FUNC( INITIPADDRESS )
       nullptr
                 );
 
-   hmg_ret_HANDLE(hIpAddress);
+   hmg_ret_HWND(hIpAddress);
 }
 
 HB_FUNC( SETIPADDRESS )

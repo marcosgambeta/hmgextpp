@@ -121,7 +121,7 @@ GETDIALOGITEMHANDLE(HWND, nID) --> HANDLE
 */
 HB_FUNC( GETDIALOGITEMHANDLE )
 {
-   hmg_ret_HANDLE(GetDlgItem(hmg_par_HWND(1), hmg_par_int(2)));
+   hmg_ret_HWND(GetDlgItem(hmg_par_HWND(1), hmg_par_int(2)));
 }
 
 /*
@@ -415,7 +415,7 @@ HB_FUNC( CREATEDLGTEMPLATE )
    {
       HWND hwndDlg = CreateDialogIndirect(GetResources(), ( LPDLGTEMPLATE ) pdlgtemplate, hmg_par_HWND(1), ( DLGPROC ) HMG_DlgProc);
       LocalFree(pdlgtemplate);
-      hmg_ret_HANDLE(hwndDlg);
+      hmg_ret_HWND(hwndDlg);
    }
 }
 

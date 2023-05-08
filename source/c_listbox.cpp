@@ -119,7 +119,7 @@ HB_FUNC( INITLISTBOX )
       SendMessage(hbutton, LB_SETCOLUMNWIDTH, hb_parni(5) - 20, 0);
    }
 
-   hmg_ret_HANDLE(hbutton);
+   hmg_ret_HWND(hbutton);
 }
 
 HB_FUNC( LISTBOXADDSTRING )
@@ -228,7 +228,7 @@ HB_FUNC( INITMULTILISTBOX )
       MakeDragList(hbutton);
    }
 
-   hmg_ret_HANDLE(hbutton);
+   hmg_ret_HWND(hbutton);
 }
 
 HB_FUNC( LISTBOXGETMULTISEL )

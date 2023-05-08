@@ -253,7 +253,7 @@ HB_FUNC( INITLISTVIEW )
       ListView_SetItemCount(hbutton, hb_parni(8));
    }
 
-   hmg_ret_HANDLE(hbutton);
+   hmg_ret_HWND(hbutton);
 }
 
 HB_FUNC( LISTVIEW_SETITEMCOUNT )

@@ -155,7 +155,7 @@ HB_FUNC( INITTABCONTROL )
 
    TabCtrl_SetCurSel( hbutton, hb_parni(8) - 1 );
 
-   hmg_ret_HANDLE(hbutton);
+   hmg_ret_HWND(hbutton);
 }
 
 HB_FUNC( TABCTRL_SETCURSEL )
@@ -286,7 +286,7 @@ HB_FUNC( WINDOWFROMPOINT )
    POINT Point;
 
    Array2Point(hb_param(1, Harbour::Item::ARRAY), &Point);
-   hmg_ret_HANDLE(WindowFromPoint(Point));
+   hmg_ret_HWND(WindowFromPoint(Point));
 }
 
 HB_FUNC( GETMESSAGEPOS )

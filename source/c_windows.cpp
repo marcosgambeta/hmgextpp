@@ -1020,13 +1020,13 @@ HB_FUNC( INITMESSAGEONLYWINDOW )
    }
 
    hb_strfree(hClassName);
-   hmg_ret_HANDLE(hwnd);
+   hmg_ret_HWND(hwnd);
 }
 
 /* Modified by P.Ch. 17.06. */
 HB_FUNC( INITDUMMY )
 {
-   hmg_ret_HANDLE(CreateWindowEx(0, WC_STATIC, TEXT(""), WS_CHILD, 0, 0, 0, 0, hmg_par_HWND(1), ( HMENU ) 0, GetInstance(), nullptr));
+   hmg_ret_HWND(CreateWindowEx(0, WC_STATIC, TEXT(""), WS_CHILD, 0, 0, 0, 0, hmg_par_HWND(1), ( HMENU ) 0, GetInstance(), nullptr));
 }
 
 /* Modified by P.Ch. 17.06. */
@@ -1163,7 +1163,7 @@ HB_FUNC( INITWINDOW )
 
    if( hwnd != nullptr )
    {
-      hmg_ret_HANDLE(hwnd);
+      hmg_ret_HWND(hwnd);
    }
    else
    {
@@ -1243,7 +1243,7 @@ HB_FUNC( INITMODALWINDOW )
 
    if( hwnd != nullptr )
    {
-      hmg_ret_HANDLE(hwnd);
+      hmg_ret_HWND(hwnd);
    }
    else
    {
@@ -1304,7 +1304,7 @@ HB_FUNC( INITSPLITCHILDWINDOW )
 
    if( hwnd != nullptr )
    {
-      hmg_ret_HANDLE(hwnd);
+      hmg_ret_HWND(hwnd);
    }
    else
    {
@@ -1362,7 +1362,7 @@ HB_FUNC( INITSPLITBOX )
    rbi.himl = nullptr;
    SendMessage(hwndRB, RB_SETBARINFO, 0, ( LPARAM ) &rbi);
 
-   hmg_ret_HANDLE(hwndRB);
+   hmg_ret_HWND(hwndRB);
 }
 
 /* Modified by P.Ch. 16.10.-16.12.,17.06. */

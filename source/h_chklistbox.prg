@@ -388,7 +388,7 @@ HB_FUNC_STATIC( INITCHKLISTBOX )
                             GetInstance(),
                             nullptr);
 
-   hmg_ret_HANDLE(hbutton);
+   hmg_ret_HWND(hbutton);
 }
 
 HB_FUNC_STATIC( INITMULTICHKLISTBOX )
@@ -433,7 +433,7 @@ HB_FUNC_STATIC( INITMULTICHKLISTBOX )
                             GetInstance(),
                             nullptr);
 
-   hmg_ret_HANDLE(hbutton);
+   hmg_ret_HWND(hbutton);
 }
 
 HB_FUNC( CHKLISTBOXINSERTITEM )

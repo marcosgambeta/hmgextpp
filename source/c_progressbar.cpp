@@ -99,5 +99,5 @@ HB_FUNC( INITPROGRESSBAR )
    SendMessage(hbutton, PBM_SETRANGE, 0, MAKELONG(hb_parni(7), hb_parni(8)));
    SendMessage(hbutton, PBM_SETPOS, hmg_par_WPARAM(12), 0);
 
-   hmg_ret_HANDLE(hbutton);
+   hmg_ret_HWND(hbutton);
 }

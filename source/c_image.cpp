@@ -326,7 +326,7 @@ HB_FUNC( INITIMAGE )
       s_Image_WNDPROC = ( WNDPROC ) SetWindowLongPtr(hWnd, GWLP_WNDPROC, ( LONG_PTR ) ImageSubClassFunc);
    }
 
-   hmg_ret_HANDLE(hWnd);
+   hmg_ret_HWND(hWnd);
 }
 
 HB_FUNC( C_SETPICTURE )

@@ -545,7 +545,7 @@ HB_FUNC_STATIC( INITCOMBOBOX )
                                  GetInstance(),
                                  nullptr);
 
-   hmg_ret_HANDLE(hbutton);
+   hmg_ret_HWND(hbutton);
 }
 
 #pragma ENDDUMP
