@@ -153,7 +153,7 @@ HB_FUNC( ARRAY2ACCELERATORTABLE )
       }
    }
 
-   hmg_ret_HANDLE(hAccel);
+   hmg_ret_HACCEL(hAccel);
 }
 
 
@@ -196,7 +196,7 @@ HB_FUNC( CREATEACCELERATORTABLE )
       hb_xfree(lpAccels);
    }
 
-   hmg_ret_HANDLE(hAccel);
+   hmg_ret_HACCEL(hAccel);
 }
 
 // BOOL WINAPI DestroyAcceleratorTable(HACCEL hAccel)
@@ -228,7 +228,7 @@ HB_FUNC( LOADACCELERATORS )
       hb_strfree(hTableName);
    }
 
-   hmg_ret_HANDLE(hAccel);
+   hmg_ret_HACCEL(hAccel);
 }
 
 // HMENU WINAPI LoadMenu(HINSTANCE hInstance, LPCTSTR lpMenuName)
