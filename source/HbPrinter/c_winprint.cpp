@@ -1075,7 +1075,7 @@ HB_FUNC( RR_CREATEFONT )
                  );
    }
 
-   hmg_ret_HANDLE(hxfont);
+   hmg_ret_HFONT(hxfont);
 
 #ifdef UNICODE
    hb_xfree(FontName);
@@ -1144,16 +1144,16 @@ HB_FUNC( RR_MODIFYFONT )
       if( hf != nullptr )
       {
          DeleteObject(hmg_par_HFONT(1));
-         hmg_ret_HANDLE(hf);
+         hmg_ret_HFONT(hf);
       }
       else
       {
-         hb_retnl( hmg_par_LONG(1) );
+         hb_retnl( hmg_par_LONG(1) ); // TODO: hmg_par_HFONT/hmg_ret_HFONT ?
       }
    }
    else
    {
-      hb_retnl( hmg_par_LONG(1) );
+      hb_retnl( hmg_par_LONG(1) ); // TODO: hmg_par_HFONT/hmg_ret_HFONT ?
    }
 }
 

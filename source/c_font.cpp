@@ -73,7 +73,7 @@ HB_FUNC( INITFONT )
    HFONT hFont = PrepareFont(HB_PARSTR(1, &str, nullptr), hb_parni(2), bold, italic, underline, strikeout, angle, charset);
    hb_strfree(str);
    RegisterResource(hFont, "FONT");
-   hmg_ret_HANDLE(hFont);
+   hmg_ret_HFONT(hFont);
 }
 
 /*
@@ -96,7 +96,7 @@ HB_FUNC( _SETFONT )
       hb_strfree(str);
       SendMessage(hwnd, WM_SETFONT, ( WPARAM ) hFont, 1);
       RegisterResource(hFont, "FONT");
-      hmg_ret_HANDLE(hFont);
+      hmg_ret_HFONT(hFont);
    }
    else
    {
