@@ -252,7 +252,7 @@ HB_FUNC( LOADMENU )
       hb_strfree(hMenuName);
    }
 
-   hmg_ret_HANDLE(hMenu);
+   hmg_ret_HMENU(hMenu);
 }
 
 HB_FUNC( _NEWMENUSTYLE )
@@ -330,14 +330,14 @@ HB_FUNC( CREATEMENU )
    }
    #endif
 
-   hmg_ret_HANDLE(hMenu);
+   hmg_ret_HMENU(hMenu);
 }
 
 HB_FUNC( CREATEPOPUPMENU )
 {
    HMENU menu = CreatePopupMenu();
 
-   hmg_ret_HANDLE(menu);
+   hmg_ret_HMENU(menu);
 }
 
 HB_FUNC( APPENDMENUSTRING )
@@ -750,12 +750,12 @@ HB_FUNC( ISMENU )
 
 HB_FUNC( GETMENU )
 {
-   hmg_ret_HANDLE(GetMenu(hmg_par_HWND(1)));
+   hmg_ret_HMENU(GetMenu(hmg_par_HWND(1)));
 }
 
 HB_FUNC( GETSYSTEMMENU )
 {
-   hmg_ret_HANDLE(GetSystemMenu(hmg_par_HWND(1), FALSE));
+   hmg_ret_HMENU(GetSystemMenu(hmg_par_HWND(1), FALSE));
 }
 
 HB_FUNC( GETMENUITEMCOUNT )
