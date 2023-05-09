@@ -903,7 +903,7 @@ HB_FUNC( C_SETWINDOWRGN )
       SetWindowRgn(hmg_par_HWND(1), hRgn, TRUE);
 
       RegisterResource(hRgn, "REGION");
-      hmg_ret_HANDLE(hRgn);
+      hmg_ret_HRGN(hRgn);
    }
 }
 
@@ -934,7 +934,7 @@ HB_FUNC( C_SETPOLYWINDOWRGN )
    SetWindowRgn(GetActiveWindow(), hRgn, TRUE);
 
    RegisterResource(hRgn, "REGION");
-   hmg_ret_HANDLE(hRgn);
+   hmg_ret_HRGN(hRgn);
 }
 
 HB_FUNC( GETHELPDATA )

@@ -1341,11 +1341,11 @@ HB_FUNC( RR_CREATERGN )
    GetViewportOrgEx(hDC, &lpp);
    if( hb_parni(3) == 2 )
    {
-      hmg_ret_HANDLE(CreateEllipticRgn(HB_PARNI(1, 2) + lpp.x, HB_PARNI(1, 1) + lpp.y, HB_PARNI(2, 2) + lpp.x, HB_PARNI(2, 1) + lpp.y));
+      hmg_ret_HRGN(CreateEllipticRgn(HB_PARNI(1, 2) + lpp.x, HB_PARNI(1, 1) + lpp.y, HB_PARNI(2, 2) + lpp.x, HB_PARNI(2, 1) + lpp.y));
    }
    else if( hb_parni(3) == 3 )
    {
-      hmg_ret_HANDLE(CreateRoundRectRgn(
+      hmg_ret_HRGN(CreateRoundRectRgn(
          HB_PARNI(1, 2) + lpp.x,
          HB_PARNI(1, 1) + lpp.y,
          HB_PARNI(2, 2) + lpp.x,
@@ -1355,7 +1355,7 @@ HB_FUNC( RR_CREATERGN )
    }
    else
    {
-      hmg_ret_HANDLE(CreateRectRgn(HB_PARNI(1, 2) + lpp.x, HB_PARNI(1, 1) + lpp.y, HB_PARNI(2, 2) + lpp.x, HB_PARNI(2, 1) + lpp.y));
+      hmg_ret_HRGN(CreateRectRgn(HB_PARNI(1, 2) + lpp.x, HB_PARNI(1, 1) + lpp.y, HB_PARNI(2, 2) + lpp.x, HB_PARNI(2, 1) + lpp.y));
    }
 }
 
@@ -1370,7 +1370,7 @@ HB_FUNC( RR_CREATEPOLYGONRGN )
       apoints[i].y = HB_PARNI(2, i + 1);
    }
 
-   hmg_ret_HANDLE(CreatePolygonRgn(apoints, number, hb_parni(3)));
+   hmg_ret_HRGN(CreatePolygonRgn(apoints, number, hb_parni(3)));
 }
 
 HB_FUNC( RR_COMBINERGN )
@@ -1378,7 +1378,7 @@ HB_FUNC( RR_COMBINERGN )
    HRGN rgnnew = CreateRectRgn(0, 0, 1, 1);
 
    CombineRgn(rgnnew, hmg_par_HRGN(1), hmg_par_HRGN(2), hb_parni(3));
-   hmg_ret_HANDLE(rgnnew);
+   hmg_ret_HRGN(rgnnew);
 }
 
 HB_FUNC( RR_SELECTCLIPRGN )
