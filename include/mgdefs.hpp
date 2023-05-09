@@ -234,6 +234,7 @@ HBITMAP HMG_LoadImage(const char * pszImageName, const char * pszTypeOfRes);
 #define hmg_ret_HFONT(x) HB_RETNL(reinterpret_cast<LONG_PTR>(x))
 #define hmg_ret_HMENU(x) HB_RETNL(reinterpret_cast<LONG_PTR>(x))
 #define hmg_ret_HPEN(x) HB_RETNL(reinterpret_cast<LONG_PTR>(x))
+#define hmg_ret_HRGN(x) HB_RETNL(reinterpret_cast<LONG_PTR>(x))
 
 #else
 
@@ -250,5 +251,6 @@ HBITMAP HMG_LoadImage(const char * pszImageName, const char * pszTypeOfRes);
 #define hmg_ret_HFONT(x) hb_retptr(x)
 #define hmg_ret_HMENU(x) hb_retptr(x)
 #define hmg_ret_HPEN(x) hb_retptr(x)
+#define hmg_ret_HRGN(x) hb_retptr(x)
 
 #endif
