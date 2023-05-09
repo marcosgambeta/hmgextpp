@@ -857,12 +857,12 @@ HB_FUNC( RR_GETCURRENTOBJECT )
       hand = GetCurrentObject(hDC, OBJ_PEN);
    }
 
-   hmg_ret_HANDLE(hand);
+   hmg_ret_HGDIOBJ(hand);
 }
 
 HB_FUNC( RR_GETSTOCKOBJECT )
 {
-   hmg_ret_HANDLE(GetStockObject(hb_parni(1)));
+   hmg_ret_HGDIOBJ(GetStockObject(hb_parni(1)));
 }
 
 HB_FUNC( RR_CREATEPEN )

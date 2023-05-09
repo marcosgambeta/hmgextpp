@@ -687,7 +687,7 @@ GETSTOCKOBJECT(np) --> HANDLE
 */
 HB_FUNC( GETSTOCKOBJECT )
 {
-   hmg_ret_HANDLE(GetStockObject(hb_parni(1)));
+   hmg_ret_HGDIOBJ(GetStockObject(hb_parni(1)));
 }
 
 /*
@@ -1423,7 +1423,7 @@ SELECTOBJECT(HDC, HGDIOBJ) --> HANDLE
 */
 HB_FUNC( SELECTOBJECT )
 {
-   hmg_ret_HANDLE(SelectObject(hmg_par_HDC(1), hmg_par_HGDIOBJ(2)));
+   hmg_ret_HGDIOBJ(SelectObject(hmg_par_HDC(1), hmg_par_HGDIOBJ(2)));
 }
 
 /*
