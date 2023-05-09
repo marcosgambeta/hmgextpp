@@ -1059,7 +1059,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
       {
          hb_vmPushSymbol(g_ListenerSymb);
          hb_vmPushNil();
-         hb_vmPushNumInt(( LONG_PTR ) hWnd);
+         #ifdef HMG_USE_POINTERS
+         hb_vmPushPtr(hWnd);
+         #else
+         hb_vmPushNumInt(reinterpret_cast<LONG_PTR>(hWnd));
+         #endif
          hb_vmPushLong(message);
          hb_vmPushNumInt(wParam);
          hb_vmPushNumInt(lParam);
