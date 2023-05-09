@@ -867,7 +867,7 @@ HB_FUNC( RR_GETSTOCKOBJECT )
 
 HB_FUNC( RR_CREATEPEN )
 {
-   hmg_ret_HANDLE(CreatePen(hb_parni(1), hb_parni(2), hmg_par_COLORREF(3)));
+   hmg_ret_HPEN(CreatePen(hb_parni(1), hb_parni(2), hmg_par_COLORREF(3)));
 }
 
 HB_FUNC( RR_MODIFYPEN )
@@ -899,16 +899,16 @@ HB_FUNC( RR_MODIFYPEN )
       if( hp != nullptr )
       {
          DeleteObject(hmg_par_HPEN(1));
-         hmg_ret_HANDLE(hp);
+         hmg_ret_HPEN(hp);
       }
       else
       {
-         hb_retnl( hmg_par_LONG(1) );
+         hb_retnl( hmg_par_LONG(1) ); // TODO: hmg_par_HPEN/hmg_ret_HPEN ?
       }
    }
    else
    {
-      hb_retnl( hmg_par_LONG(1) );
+      hb_retnl( hmg_par_LONG(1) ); // TODO: hmg_par_HPEN/hmg_ret_HPEN ?
    }
 }
 

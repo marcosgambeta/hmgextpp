@@ -126,7 +126,7 @@ HB_FUNC( CREATEPEN )
 
    hpen = CreatePen(fnPenStyle, nWidth, crColor);
 
-   hmg_ret_HANDLE(hpen);
+   hmg_ret_HPEN(hpen);
 }
 
 HB_FUNC( MOVETO )
