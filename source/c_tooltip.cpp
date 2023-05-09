@@ -141,16 +141,20 @@ HB_FUNC( SETTOOLTIPMAXWIDTH )
 
    for ModalWindow : nToolTip := InitToolTip ( , SetToolTipBalloon() )
  */
+
+/*
+INITTOOLTIP(HWND, lBalloon) --> hTooltip
+*/
 HB_FUNC( INITTOOLTIP )
 {
-   HWND hwndParent = HB_ISNUM(1) ? hmg_par_HWND(1) : nullptr;
+   HWND hwndParent = HB_ISNIL(1) ? nullptr : hmg_par_HWND(1);
 
-   if( HB_ISNIL(1) ? TRUE : IsWindow(hwndParent) )  // hack for ModalWindow
+   if( HB_ISNIL(1) ? true : IsWindow(hwndParent) )  // hack for ModalWindow
    {
-      HWND  hwndToolTip;
-      DWORD dwStyle = WS_POPUP | TTS_ALWAYSTIP;
-      INITCOMMONCONTROLSEX icex = { sizeof(INITCOMMONCONTROLSEX), ICC_BAR_CLASSES };
+      INITCOMMONCONTROLSEX icex = {sizeof(INITCOMMONCONTROLSEX), ICC_BAR_CLASSES};
+      InitCommonControlsEx(&icex);
 
+      DWORD dwStyle = WS_POPUP | TTS_ALWAYSTIP;
 
       if( hb_pcount() > 1 )
       {
@@ -164,20 +168,20 @@ HB_FUNC( INITTOOLTIP )
          dwStyle |= TTS_BALLOON;
       }
 
-      InitCommonControlsEx(&icex);
       /* Create a tooltip */
-      hwndToolTip = CreateWindowEx
-                    (
+      HWND hwndToolTip = CreateWindowEx(
          0,
          TOOLTIPS_CLASS,
          nullptr,
          dwStyle,
-         CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
+         CW_USEDEFAULT,
+         CW_USEDEFAULT,
+         CW_USEDEFAULT,
+         CW_USEDEFAULT,
          hwndParent,
-         ( HMENU ) nullptr,
+         nullptr,
          GetInstance(),
-         nullptr
-                    );
+         nullptr);
 
       hmg_ret_HWND(hwndToolTip);
    }
