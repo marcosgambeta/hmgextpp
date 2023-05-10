@@ -1402,7 +1402,7 @@ HB_FUNC( REGISTERWINDOW )
    // from file
    if( hIcon == nullptr && HB_ISCHAR(1) )
    {
-      hIcon = ( HICON ) LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE);
+      hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE));
    }
    WndClass.hIcon = ( ( hIcon != nullptr ) ? hIcon : LoadIcon(nullptr, IDI_APPLICATION) );
 
@@ -1502,7 +1502,7 @@ HB_FUNC( REGISTERSPLITCHILDWINDOW )
    WndClass.hIcon = LoadIcon(GetInstance(), lpIcon);
    if( WndClass.hIcon == nullptr )
    {
-      WndClass.hIcon = ( HICON ) LoadImage(0, lpIcon, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE);
+      WndClass.hIcon = static_cast<HICON>(LoadImage(0, lpIcon, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE));
    }
 
    if( WndClass.hIcon == nullptr )

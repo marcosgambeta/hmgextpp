@@ -1248,7 +1248,7 @@ HB_FUNC( C_SAVEHICONTOFILE )
    {
       for( int i = 0; i < nLen; i++ )
       {
-         hIcon[i] = ( HICON ) ( LONG_PTR ) hb_arrayGetNL( pArray, i + 1 );
+         hIcon[i] = reinterpret_cast<HICON>(hb_arrayGetNL( pArray, i + 1 ));
       }
 
       if( SaveIconToFile(szIconFile, hIcon, hb_parnidef(3, nLen)) )

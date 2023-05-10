@@ -637,11 +637,11 @@ HB_FUNC( LOADTRAYICON )
    int cxDesired = HB_ISNUM(3) ? hb_parni(3) : GetSystemMetrics(SM_CXSMICON);
    int cyDesired = HB_ISNUM(4) ? hb_parni(4) : GetSystemMetrics(SM_CYSMICON);
 
-   hIcon = ( HICON ) LoadImage(hInstance, lpIconName, IMAGE_ICON, cxDesired, cyDesired, LR_DEFAULTCOLOR);
+   hIcon = static_cast<HICON>(LoadImage(hInstance, lpIconName, IMAGE_ICON, cxDesired, cyDesired, LR_DEFAULTCOLOR));
 
    if( hIcon == nullptr )
    {
-      hIcon = ( HICON ) LoadImage(hInstance, lpIconName, IMAGE_ICON, cxDesired, cyDesired, LR_LOADFROMFILE | LR_DEFAULTCOLOR);
+      hIcon = static_cast<HICON>(LoadImage(hInstance, lpIconName, IMAGE_ICON, cxDesired, cyDesired, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
    }
 
    RegisterResource(hIcon, "ICON");

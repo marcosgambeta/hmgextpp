@@ -473,7 +473,7 @@ HB_FUNC( DRAWGLYPH )
       ICONINFO icon;
 
       // is it an icon?
-      if( !GetIconInfo(( HICON ) hBmp, &icon) )
+      if( !GetIconInfo(reinterpret_cast<HICON>(hBmp), &icon) )
       {
          return;
       }
@@ -490,7 +490,7 @@ HB_FUNC( DRAWGLYPH )
       {
          // just simply draw it - nothing to do
          // (API is faster and the transparent colour is more accurate)
-         DrawIconEx(hDC, x, y, ( HICON ) hBmp, dx, dy, 0, nullptr, DI_NORMAL);
+         DrawIconEx(hDC, x, y, reinterpret_cast<HICON>(hBmp), dx, dy, 0, nullptr, DI_NORMAL);
          return;
       }
       else
@@ -498,11 +498,11 @@ HB_FUNC( DRAWGLYPH )
          if( !stretched )
          {
             // convert icon to bitmap mask.
-            hBmp = IconMask2Bmp(( HICON ) hBmp);
+            hBmp = IconMask2Bmp(reinterpret_cast<HICON>(hBmp));
          }
          else
             // convert icon to bitmap.
-            hBmp = Icon2Bmp(( HICON ) hBmp);
+            hBmp = Icon2Bmp(reinterpret_cast<HICON>(hBmp));
 
          hBmpIcon = hBmp;
 
@@ -706,7 +706,7 @@ VOID DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgb
       ICONINFO icon;
 
       // is it an icon?
-      if( !GetIconInfo(( HICON ) hBmp, &icon) )
+      if( !GetIconInfo(reinterpret_cast<HICON>(hBmp), &icon) )
       {
          return;
       }
@@ -721,7 +721,7 @@ VOID DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgb
 
       if( !disabled && !stretched )
       {
-         DrawIconEx(hDC, x, y, ( HICON ) hBmp, dx, dy, 0, nullptr, DI_NORMAL);
+         DrawIconEx(hDC, x, y, reinterpret_cast<HICON>(hBmp), dx, dy, 0, nullptr, DI_NORMAL);
          return;
       }
       else
@@ -729,12 +729,12 @@ VOID DrawGlyph(HDC hDC, int x, int y, int dx, int dy, HBITMAP hBmp, COLORREF rgb
          if( !stretched )
          {
             // convert icon to bitmap mask.
-            hBmp = IconMask2Bmp(( HICON ) hBmp);
+            hBmp = IconMask2Bmp(reinterpret_cast<HICON>(hBmp));
          }
          else
          {
             // convert icon to bitmap.
-            hBmp = Icon2Bmp(( HICON ) hBmp);
+            hBmp = Icon2Bmp(reinterpret_cast<HICON>(hBmp));
          }
 
          hBmpIcon = hBmp;

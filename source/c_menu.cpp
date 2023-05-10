@@ -562,10 +562,10 @@ HB_FUNC( MENUITEM_SETICON )
    LPWSTR lpIconName = AnsiToWide(( char * ) hb_parc(3));
 #endif
 
-   hIcon = ( HICON ) LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_DEFAULTCOLOR);
+   hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_DEFAULTCOLOR));
    if( hIcon == nullptr )
    {
-      hIcon = ( HICON ) LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR);
+      hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
    }
 
    // convert icon to bitmap

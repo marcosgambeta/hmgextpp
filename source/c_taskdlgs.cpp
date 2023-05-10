@@ -264,9 +264,9 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
       else if( iType & Harbour::Item::POINTER )
       {
          #if ( defined( __BORLANDC__ ) && __BORLANDC__ <= 1410 )
-         config.DUMMYUNIONNAME.hMainIcon = ( HICON ) ( hb_arrayGetPtr(pConfig, TDC_MAINICON) );
+         config.DUMMYUNIONNAME.hMainIcon = static_cast<HICON>(hb_arrayGetPtr(pConfig, TDC_MAINICON));
          #else
-         config.hMainIcon = ( HICON ) ( hb_arrayGetPtr(pConfig, TDC_MAINICON) );
+         config.hMainIcon = static_cast<HICON>(hb_arrayGetPtr(pConfig, TDC_MAINICON));
          #endif
       }
       else
@@ -439,9 +439,9 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
       else if( iType & Harbour::Item::POINTER )
       {
          #if ( defined( __BORLANDC__ ) && __BORLANDC__ <= 1410 )
-         config.DUMMYUNIONNAME2.hFooterIcon = ( HICON ) ( hb_arrayGetPtr(pConfig, TDC_FOOTERICON) );
+         config.DUMMYUNIONNAME2.hFooterIcon = static_cast<HICON>((hb_arrayGetPtr(pConfig, TDC_FOOTERICON));
          #else
-         config.hFooterIcon = ( HICON ) ( hb_arrayGetPtr(pConfig, TDC_FOOTERICON) );
+         config.hFooterIcon = static_cast<HICON>(hb_arrayGetPtr(pConfig, TDC_FOOTERICON));
          #endif
       }
       else
@@ -974,7 +974,7 @@ HB_FUNC( _UPDATEMAINICON )
    }
    else if( HB_ISPOINTER(2) )
    {
-      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_MAIN, ( LPARAM ) ( HICON ) hb_parptr(2));
+      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_MAIN, ( LPARAM ) hb_parptr(2));
    }
    else
    {
@@ -999,7 +999,7 @@ HB_FUNC( _UPDATEFOOTERICON )
    }
    else if( HB_ISPOINTER(2) )
    {
-      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_FOOTER, ( LPARAM ) ( HICON ) hb_parptr(2));
+      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_FOOTER, ( LPARAM ) hb_parptr(2));
    }
    else
    {

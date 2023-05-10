@@ -175,11 +175,11 @@ HB_FUNC( LOADICONBYNAME )
       int       cyDesired = hb_parni(3);
       HINSTANCE hInstance = HB_PARNL(4) ? hmg_par_HINSTANCE(4) : GetResources();
 
-      hIcon = ( HICON ) LoadImage(hInstance, pszResOrFile, IMAGE_ICON, cxDesired, cyDesired, LR_DEFAULTCOLOR);
+      hIcon = static_cast<HICON>(LoadImage(hInstance, pszResOrFile, IMAGE_ICON, cxDesired, cyDesired, LR_DEFAULTCOLOR));
 
       if( hIcon == nullptr )
       {
-         hIcon = ( HICON ) LoadImage(0, pszResOrFile, IMAGE_ICON, cxDesired, cyDesired, LR_LOADFROMFILE | LR_DEFAULTCOLOR);
+         hIcon = static_cast<HICON>(LoadImage(0, pszResOrFile, IMAGE_ICON, cxDesired, cyDesired, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
       }
 
       if( hIcon != nullptr )

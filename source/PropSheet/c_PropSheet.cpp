@@ -315,10 +315,10 @@ HB_FUNC( CREATEPROPERTYSHEET )
 
    if( Style & PSP_USEHICON )
    {
-      hicon = ( HICON ) LoadImage(0, hb_arrayGetCPtr(pArray, 20), IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE);
+      hicon = static_cast<HICON>(LoadImage(0, hb_arrayGetCPtr(pArray, 20), IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE));
       if( hicon == nullptr )
       {
-         hicon = ( HICON ) LoadImage(GetModuleHandle(nullptr), hb_arrayGetCPtr(pArray, 20), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+         hicon = static_cast<HICON>(LoadImage(GetModuleHandle(nullptr), hb_arrayGetCPtr(pArray, 20), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
       }
     }
     else

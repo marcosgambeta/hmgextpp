@@ -88,7 +88,7 @@ HB_FUNC( REGISTERMDIWINDOW )
    WndClass.hIcon       = LoadIcon(GetResources(), lpIconName);
    if( WndClass.hIcon == nullptr )
    {
-      WndClass.hIcon = ( HICON ) LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE);
+      WndClass.hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE));
    }
 
    if( WndClass.hIcon == nullptr )
@@ -127,7 +127,7 @@ HB_FUNC( REGISTERMDIWINDOW )
    WndClass.hIcon = LoadIcon(GetResources(), lpIconName);
    if( WndClass.hIcon == nullptr )
    {
-      WndClass.hIcon = ( HICON ) LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE);
+      WndClass.hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE + LR_DEFAULTSIZE));
    }
 
    if( WndClass.hIcon == nullptr )

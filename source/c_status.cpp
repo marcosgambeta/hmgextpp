@@ -150,11 +150,11 @@ HB_FUNC( INITITEMBAR )
    cy = rect.bottom - rect.top - 4;
    cx = cy;
 
-   hIcon = ( HICON ) LoadImage(GetResources(), lpIconName, IMAGE_ICON, cx, cy, 0);
+   hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, cx, cy, 0));
 
    if( hIcon == nullptr )
    {
-      hIcon = ( HICON ) LoadImage(nullptr, lpIconName, IMAGE_ICON, cx, cy, LR_LOADFROMFILE);
+      hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, cx, cy, LR_LOADFROMFILE));
    }
 
    if( !( hIcon == nullptr ) )
@@ -325,18 +325,18 @@ HB_FUNC( SETSTATUSITEMICON )
 
    // Unloads from memory current icon
 
-   DestroyIcon(( HICON ) SendMessage(hwnd, SB_GETICON, hmg_par_WPARAM(2) - 1, 0));
+   DestroyIcon(reinterpret_cast<HICON>(SendMessage(hwnd, SB_GETICON, hmg_par_WPARAM(2) - 1, 0)));
 
    GetClientRect(hwnd, &rect);
 
    cy = rect.bottom - rect.top - 4;
    cx = cy;
 
-   hIcon = ( HICON ) LoadImage(GetResources(), lpIconName, IMAGE_ICON, cx, cy, 0);
+   hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, cx, cy, 0));
 
    if( hIcon == nullptr )
    {
-      hIcon = ( HICON ) LoadImage(nullptr, lpIconName, IMAGE_ICON, cx, cy, LR_LOADFROMFILE);
+      hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, cx, cy, LR_LOADFROMFILE));
    }
 
    SendMessage(hwnd, SB_SETICON, hmg_par_WPARAM(2) - 1, ( LPARAM ) hIcon);
