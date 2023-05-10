@@ -96,7 +96,7 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
          hb_vmPushSymbol(pSymbol2);
          hb_vmPushNil();
          hb_vmPushLong((LONG) hWndDlg);
-         hb_vmPushLong((LONG)ps->lParam);
+         hb_vmPushLong(ps->lParam);
          hb_vmPushLong((LONG)hWndParent);
          hb_vmDo(3);
       }
@@ -123,8 +123,8 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
          hb_vmPushNil();
          hb_vmPushLong((LONG) hWndDlg);
          hb_vmPushLong((LONG) lpnmhdr->code);
-         hb_vmPushLong((LONG) nId);
-         hb_vmPushLong((LONG) nPage);
+         hb_vmPushLong(nId);
+         hb_vmPushLong(nPage);
          hb_vmDo(4);
       }
 
@@ -472,7 +472,7 @@ HB_FUNC( SENDDLGITEMMESSAGE )
 
    lResult = SendDlgItemMessage(hmg_par_HWND(1), hb_parni(2), (UINT) hb_parnl(3),
                                  (WPARAM) hb_parni(4), (LPARAM) hb_parni(5));
-   hb_retnl( (LONG) lResult );
+   hb_retnl( lResult );
 }
 
 /****************************************************************************

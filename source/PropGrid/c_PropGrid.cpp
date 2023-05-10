@@ -1458,7 +1458,7 @@ LRESULT CALLBACK OwnFramePgProc(HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM l
                            hb_vmPushSymbol(pSymbol);
                            hb_vmPushNil();
                            hb_vmPushLong((LONG) ppgrd->hPropGrid);
-                           hb_vmPushLong((LONG) lParam);
+                           hb_vmPushLong(lParam);
                            hb_vmDo(2);
                      }
 
@@ -2402,7 +2402,7 @@ HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd , B
       hb_vmPushLong((LONG) hWnd);
       hb_vmPushLong((LONG) hEdit);
       hb_vmPushLong((LONG) hItem);
-      hb_vmPushLong((LONG) ItemType);
+      hb_vmPushLong(ItemType);
       hb_vmDo(4);
    }
 

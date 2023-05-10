@@ -1455,8 +1455,8 @@ HB_FUNC( BT_DRAW_HDC_TEXTOUT )
    SIZE SizeText;
    GetTextExtentPoint32 (hDC, Text, lstrlen(Text), &SizeText);
    hb_reta(2);
-   hb_storvnl ((LONG) SizeText.cx, -1, 1);
-   hb_storvnl ((LONG) SizeText.cy, -1, 2);
+   hb_storvnl (SizeText.cx, -1, 1);
+   hb_storvnl (SizeText.cy, -1, 2);
  */
    SelectObject(hDC, hOldFont);
    DeleteObject(hFont);
