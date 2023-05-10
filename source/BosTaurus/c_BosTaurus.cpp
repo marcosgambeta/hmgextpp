@@ -809,10 +809,10 @@ HB_FUNC( BT_DC_CREATE )
    // PAINTSTRUCT
    HB_STORVNL(( LONG_PTR ) BT.PaintStruct.hdc, -1, 4);                  // HDC  hdc;
    HB_STORVNI(( INT ) BT.PaintStruct.fErase, -1, 5);                    // BOOL fErase;
-   HB_STORVNL(( LONG ) BT.PaintStruct.rcPaint.left, -1, 6);             // RECT rcPaint.left;
-   HB_STORVNL(( LONG ) BT.PaintStruct.rcPaint.top, -1, 7);              // RECT rcPaint.top;
-   HB_STORVNL(( LONG ) BT.PaintStruct.rcPaint.right, -1, 8);            // RECT rcPaint.right;
-   HB_STORVNL(( LONG ) BT.PaintStruct.rcPaint.bottom, -1, 9);           // RECT rcPaint.bottom;
+   HB_STORVNL( BT.PaintStruct.rcPaint.left, -1, 6);             // RECT rcPaint.left;
+   HB_STORVNL( BT.PaintStruct.rcPaint.top, -1, 7);              // RECT rcPaint.top;
+   HB_STORVNL( BT.PaintStruct.rcPaint.right, -1, 8);            // RECT rcPaint.right;
+   HB_STORVNL( BT.PaintStruct.rcPaint.bottom, -1, 9);           // RECT rcPaint.bottom;
    HB_STORVNI(( INT ) BT.PaintStruct.fRestore, -1, 10);                 // BOOL fRestore;
    HB_STORVNI(( INT ) BT.PaintStruct.fIncUpdate, -1, 11);               // BOOL fIncUpdate;
    for( INT i = 0; i < 32; i++ )
@@ -840,10 +840,10 @@ HB_FUNC( BT_DC_DELETE )
    // PAINTSTRUCT
    BT.PaintStruct.hdc            = reinterpret_cast<HDC>(HB_PARVNL(1, 4));             // HDC  hdc;
    BT.PaintStruct.fErase         = ( BOOL ) hb_parvni(1, 5);            // BOOL fErase;
-   BT.PaintStruct.rcPaint.left   = ( LONG ) HB_PARVNL(1, 6);            // RECT rcPaint.left;
-   BT.PaintStruct.rcPaint.top    = ( LONG ) HB_PARVNL(1, 7);            // RECT rcPaint.top;
-   BT.PaintStruct.rcPaint.right  = ( LONG ) HB_PARVNL(1, 8);            // RECT rcPaint.right;
-   BT.PaintStruct.rcPaint.bottom = ( LONG ) HB_PARVNL(1, 9);            // RECT rcPaint.bottom;
+   BT.PaintStruct.rcPaint.left   = HB_PARVNL(1, 6);            // RECT rcPaint.left;
+   BT.PaintStruct.rcPaint.top    = HB_PARVNL(1, 7);            // RECT rcPaint.top;
+   BT.PaintStruct.rcPaint.right  = HB_PARVNL(1, 8);            // RECT rcPaint.right;
+   BT.PaintStruct.rcPaint.bottom = HB_PARVNL(1, 9);            // RECT rcPaint.bottom;
    BT.PaintStruct.fRestore       = ( BOOL ) hb_parvni(1, 10);           // BOOL fRestore;
    BT.PaintStruct.fIncUpdate     = ( BOOL ) hb_parvni(1, 11);           // BOOL fIncUpdate;
    for( INT i = 0; i < 32; i++ )
@@ -1621,8 +1621,8 @@ HB_FUNC( BT_DRAW_HDC_TEXTSIZE )
    SIZE SizeText;
    GetTextExtentPoint32(hDC, lpText, lstrlen(lpText), &SizeText);
    hb_reta(6);
-   HB_STORVNL(( LONG ) SizeText.cx, -1, 1);
-   HB_STORVNL(( LONG ) SizeText.cy, -1, 2);
+   HB_STORVNL(SizeText.cx, -1, 1);
+   HB_STORVNL(SizeText.cy, -1, 2);
 
    UINT iFirstChar = ( UINT ) lpText[0];
    UINT iLastChar  = ( UINT ) lpText[0];
@@ -3059,9 +3059,9 @@ HB_FUNC( BT_BMP_TRANSFORM )
          xform2.eDx = ( FLOAT ) -x3;
          xform2.eDy = ( FLOAT ) 0.0;
 
-         Width = ( LONG ) dABS((x3 - x1));
+         Width = dABS((x3 - x1));
 
-         Height = ( LONG ) dABS(y2);
+         Height = dABS(y2);
       }
 
       if( (Angle > 90.0) && (Angle <= 180.0) )
@@ -3069,9 +3069,9 @@ HB_FUNC( BT_BMP_TRANSFORM )
          xform2.eDx = ( FLOAT ) -x2;
          xform2.eDy = ( FLOAT ) -y3;
 
-         Width = ( LONG ) dABS(x2);
+         Width = dABS(x2);
 
-         Height = ( LONG ) dABS((y3 - y1));
+         Height = dABS((y3 - y1));
       }
 
       if( (Angle > 180.0) && (Angle <= 270.0) )
@@ -3079,9 +3079,9 @@ HB_FUNC( BT_BMP_TRANSFORM )
          xform2.eDx = ( FLOAT ) -x1;
          xform2.eDy = ( FLOAT ) -y2;
 
-         Width = ( LONG ) dABS((x3 - x1));
+         Width = dABS((x3 - x1));
 
-         Height = ( LONG ) dABS(y2);
+         Height = dABS(y2);
       }
 
       if( (Angle > 270.0) && (Angle <= 360.0) )
@@ -3089,9 +3089,9 @@ HB_FUNC( BT_BMP_TRANSFORM )
          xform2.eDx = ( FLOAT ) 0.0;
          xform2.eDy = ( FLOAT ) -y1;
 
-         Width = ( LONG ) dABS(x2);
+         Width = dABS(x2);
 
-         Height = ( LONG ) dABS((y3 - y1));
+         Height = dABS((y3 - y1));
       }
 
       Width++;
@@ -3477,8 +3477,8 @@ HB_FUNC( BT_TEXTOUT_SIZE )
    SIZE SizeText;
    GetTextExtentPoint32(hDC, lpText, lstrlen(lpText), &SizeText);
    hb_reta(2);
-   HB_STORVNL(( LONG ) SizeText.cx, -1, 1);
-   HB_STORVNL(( LONG ) SizeText.cy, -1, 2);
+   HB_STORVNL(SizeText.cx, -1, 1);
+   HB_STORVNL(SizeText.cy, -1, 2);
 
    SelectObject(hDC, hOldFont);
    DeleteObject(hFont);

@@ -137,7 +137,7 @@ HB_FUNC( CHOOSEFONT )
    {
       hb_reta(8);
       HB_STORC( "", -1, 1 );
-      HB_STORVNL( ( LONG ) 0, -1, 2 );
+      HB_STORVNL( 0, -1, 2 );
       HB_STORL( 0, -1, 3 );
       HB_STORL( 0, -1, 4 );
       HB_STORVNL( 0, -1, 5 );
@@ -167,7 +167,7 @@ HB_FUNC( CHOOSEFONT )
    HB_STORC( pStr, -1, 1 );
    hb_xfree(pStr);
 #endif
-   HB_STORVNL( ( LONG ) PointSize, -1, 2 );
+   HB_STORVNL( PointSize, -1, 2 );
    HB_STORL( bold, -1, 3 );
    HB_STORL( lf.lfItalic, -1, 4 );
    HB_STORVNL( cf.rgbColors, -1, 5 );

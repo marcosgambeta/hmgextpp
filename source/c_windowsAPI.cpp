@@ -422,11 +422,11 @@ HB_FUNC( GETNOTIFYLINK )
    LPARAM   lParam  = ( LPARAM ) HB_PARNL(1);
    ENLINK * pENLink = ( ENLINK * ) lParam;
 
-   hb_retnl( ( LONG ) pENLink->msg );
+   hb_retnl( pENLink->msg );
    HB_STORNL( ( LONG_PTR ) pENLink->wParam, 2 );
    HB_STORNL( ( LONG_PTR ) pENLink->lParam, 3 );
-   hb_stornl( ( LONG ) pENLink->chrg.cpMin, 4 );
-   hb_stornl( ( LONG ) pENLink->chrg.cpMax, 5 );
+   hb_stornl( pENLink->chrg.cpMin, 4 );
+   hb_stornl( pENLink->chrg.cpMax, 5 );
 }
 
 //JP 107a
@@ -1073,7 +1073,7 @@ HB_FUNC( GETRC )     // Get ListView CustomDraw Row and Column
    LPNMLVCUSTOMDRAW lplvcd = ( LPNMLVCUSTOMDRAW ) lParam;
 
    hb_reta(2);
-   HB_STORVNL( ( LONG ) lplvcd->nmcd.dwItemSpec + 1, -1, 1 );
+   HB_STORVNL( lplvcd->nmcd.dwItemSpec + 1, -1, 1 );
    HB_STORNI( ( INT ) lplvcd->iSubItem + 1, -1, 2 );
 }
 
@@ -1164,14 +1164,14 @@ HB_FUNC( INITMINMAXINFO )  // ( hWnd ) --> aMinMaxInfo
    my = GetSystemMetrics(SM_CYSCREEN) - 2 * y;
 
    hb_reta(8);
-   HB_STORVNL( ( LONG ) mx, -1, 1 );
-   HB_STORVNL( ( LONG ) my, -1, 2 );
-   HB_STORVNL( ( LONG ) x, -1, 3 );
-   HB_STORVNL( ( LONG ) y, -1, 4 );
-   HB_STORVNL( ( LONG ) 0, -1, 5 );
-   HB_STORVNL( ( LONG ) 0, -1, 6 );
-   HB_STORVNL( ( LONG ) mx, -1, 7 );
-   HB_STORVNL( ( LONG ) my, -1, 8 );
+   HB_STORVNL( mx, -1, 1 );
+   HB_STORVNL( my, -1, 2 );
+   HB_STORVNL( x, -1, 3 );
+   HB_STORVNL( y, -1, 4 );
+   HB_STORVNL( 0, -1, 5 );
+   HB_STORVNL( 0, -1, 6 );
+   HB_STORVNL( mx, -1, 7 );
+   HB_STORVNL( my, -1, 8 );
 }
 
 HB_FUNC( SETMINMAXINFO )   // ( pMinMaxInfo, aMinMaxInfo ) --> 0

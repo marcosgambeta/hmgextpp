@@ -304,7 +304,7 @@ HB_FUNC( _GETDDLMESSAGE )
 
    g_dDLMessage = RegisterWindowMessage(DRAGLISTMSGSTRING);
 
-   hb_retnl( ( LONG ) g_dDLMessage );
+   hb_retnl( g_dDLMessage );
 }
 
 HB_FUNC( GET_DRAG_LIST_NOTIFICATION_CODE )

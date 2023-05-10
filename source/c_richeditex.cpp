@@ -584,7 +584,7 @@ HB_FUNC( RICHEDITBOX_GETFONT )
 
    if( HB_ISBYREF(3) )
    {
-      hb_stornl( ( LONG ) ( CharFormat2.yHeight * 1 / 20 ), 3 );  // yHeight (character height) is in twips (1/1440 of an inch or 1/20 of a printer point)
+      hb_stornl( ( CharFormat2.yHeight * 1 / 20 ), 3 );  // yHeight (character height) is in twips (1/1440 of an inch or 1/20 of a printer point)
    }
 
    if( HB_ISBYREF(4) )
@@ -629,15 +629,15 @@ HB_FUNC( RICHEDITBOX_GETFONT )
    {
       if( Effects & CFE_SUPERSCRIPT )
       {
-         hb_stornl( ( LONG ) 2, 10 );
+         hb_stornl( 2, 10 );
       }
       else if( Effects & CFE_SUBSCRIPT )
       {
-         hb_stornl( ( LONG ) 1, 10 );
+         hb_stornl( 1, 10 );
       }
       else
       {
-         hb_stornl( ( LONG ) 0, 10 );
+         hb_stornl( 0, 10 );
       }
    }
 
@@ -654,8 +654,8 @@ HB_FUNC( RICHEDITBOX_SETSELRANGE )
    CHARRANGE CharRange;
    HWND      hWndControl = hmg_par_HWND(1);
 
-   CharRange.cpMin = ( LONG ) HB_PARVNL(2, 1);
-   CharRange.cpMax = ( LONG ) HB_PARVNL(2, 2);
+   CharRange.cpMin = HB_PARVNL(2, 1);
+   CharRange.cpMax = HB_PARVNL(2, 2);
 
    SendMessage(hWndControl, EM_EXSETSEL, 0, ( LPARAM ) &CharRange);
 }
@@ -668,8 +668,8 @@ HB_FUNC( RICHEDITBOX_GETSELRANGE )
 
    SendMessage(hWndControl, EM_EXGETSEL, 0, ( LPARAM ) &CharRange);
    hb_reta(2);
-   HB_STORVNL( ( LONG ) CharRange.cpMin, -1, 1 );
-   HB_STORVNL( ( LONG ) CharRange.cpMax, -1, 2 );
+   HB_STORVNL( CharRange.cpMin, -1, 1 );
+   HB_STORVNL( CharRange.cpMax, -1, 2 );
 }
 
 //        RichEditBox_ReplaceSel ( hWndControl, cText )   ==   RichEditBox_SetText ( hWndControl , .T. , cText )
@@ -756,9 +756,9 @@ HB_FUNC( RICHEDITBOX_GETTEXTLENGTH )
    #else
    GTL.codepage = CP_ACP;
    #endif
-   nLength = ( LONG ) SendMessage(hWndControl, EM_GETTEXTLENGTHEX, ( WPARAM ) &GTL, 0);
+   nLength = SendMessage(hWndControl, EM_GETTEXTLENGTHEX, ( WPARAM ) &GTL, 0);
 
-   hb_retnl( ( LONG ) nLength );
+   hb_retnl( nLength );
 }
 
 //        RichEditBox_GetTextRange ( hWndControl ,  { nMin, nMax }  )
@@ -1006,7 +1006,7 @@ HB_FUNC( RICHEDITBOX_GETPARAFORMAT )
          Alignment = 4;
       }
 
-      hb_stornl( ( LONG ) Alignment, 2 );
+      hb_stornl( Alignment, 2 );
    }
 
    if( HB_ISBYREF(3) )
@@ -1044,7 +1044,7 @@ HB_FUNC( RICHEDITBOX_GETPARAFORMAT )
          Numbering = 8;
       }
 
-      hb_stornl( ( LONG ) Numbering, 3 );
+      hb_stornl( Numbering, 3 );
    }
 
    if( HB_ISBYREF(4) )
@@ -1078,13 +1078,13 @@ HB_FUNC( RICHEDITBOX_GETPARAFORMAT )
          NumberingStyle = 0;
       }
 
-      hb_stornl( ( LONG ) NumberingStyle, 4 );
+      hb_stornl( NumberingStyle, 4 );
    }
 
    if( HB_ISBYREF(5) )
    {
       NumberingStart = ParaFormat2.wNumberingStart;
-      hb_stornl( ( LONG ) NumberingStart, 5 );
+      hb_stornl( NumberingStart, 5 );
    }
 
    if( HB_ISBYREF(6) )
@@ -1278,11 +1278,11 @@ HB_FUNC( RICHEDITBOX_FORMATRANGE )
    FormatRange.chrg.cpMin = HB_PARNL3(7, 1);
    FormatRange.chrg.cpMax = HB_PARNL3(7, 2);
 
-   cpMin = ( LONG ) SendMessage(hWndControl, EM_FORMATRANGE, TRUE, ( LPARAM ) &FormatRange);
+   cpMin = SendMessage(hWndControl, EM_FORMATRANGE, TRUE, ( LPARAM ) &FormatRange);
 
    SendMessage(hWndControl, EM_FORMATRANGE, FALSE, ( LPARAM ) nullptr);
 
-   hb_retnl( ( LONG ) cpMin );
+   hb_retnl( cpMin );
 }
 
 //        RichEditBox_PosFromChar ( hWndControl , nPosChar )   return --> { nRowScreen, nColScreen } or { -1, -1 } if character is not displayed
@@ -1327,7 +1327,7 @@ HB_FUNC( REGISTERFINDMSGSTRING )
 {
    UINT MessageID = RegisterWindowMessage(FINDMSGSTRING);
 
-   hb_retnl( ( LONG ) MessageID );
+   hb_retnl( MessageID );
 }
 
 HB_FUNC( FINDREPLACEDLG )
@@ -1506,7 +1506,7 @@ HB_FUNC( FINDREPLACEDLGGETOPTIONS )
 
    hb_reta(6);
 
-   HB_STORVNL( ( LONG ) nRet, -1, 1 );
+   HB_STORVNL( nRet, -1, 1 );
 #ifndef UNICODE
    HB_STORC( FR->lpstrFindWhat, -1, 2 );
 #else

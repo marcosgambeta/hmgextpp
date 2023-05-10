@@ -116,9 +116,9 @@ HB_FUNC( REGQUERYVALUEEX )
       }
       else
       {
-         HB_STORNL(( long ) lpType, 4);
+         HB_STORNL( lpType, 4);
          hb_storc(( char * ) lpData, 5);
-         HB_STORNL(( long ) lpcbData, 6);
+         HB_STORNL( lpcbData, 6);
 
          hb_retnl(0);
       }
@@ -156,9 +156,9 @@ HB_FUNC( REGENUMKEYEX )
    else
    {
       hb_storc(( const char * ) Buffer, 3);
-      HB_STORNL(( long ) dwBuffSize, 4);
+      HB_STORNL( dwBuffSize, 4);
       hb_storc(( const char * ) Class, 6);
-      HB_STORNL(( long ) dwClass, 7);
+      HB_STORNL( dwClass, 7);
       hb_retnl(0);
    }
 }
@@ -235,9 +235,9 @@ HB_FUNC( REGENUMVALUE )
    else
    {
       hb_storc(( const char * ) Buffer, 3);
-      HB_STORNL(( long ) dwBuffSize, 4);
-      HB_STORNL(( long ) lpType, 6);
-      HB_STORNL(( long ) dwClass, 8);
+      HB_STORNL( dwBuffSize, 4);
+      HB_STORNL( lpType, 6);
+      HB_STORNL( dwClass, 8);
       hb_retnl(lError);
    }
 }

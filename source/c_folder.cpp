@@ -1051,7 +1051,7 @@ VOID WINAPI FLD_ChildDialogInit(HWND hWndDlg, HWND hWndParent, int idrc)
          hb_vmPushNil();
          hb_vmPushNumInt(( LONG_PTR ) hWndParent);
          hb_vmPushNumInt(( LONG_PTR ) hWndDlg);
-         hb_vmPushLong(( LONG ) idrc);
+         hb_vmPushLong(idrc);
          hb_vmDo(3);
       }
    }

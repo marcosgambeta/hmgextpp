@@ -524,8 +524,8 @@ HBITMAP HMG_LoadPicture(const char * pszName, int width, int height, HWND hWnd, 
 
       if( AdjustImage == 1 )
       {
-         width  = ( long ) rect.right;
-         height = ( long ) rect.bottom;
+         width  = rect.right;
+         height = rect.bottom;
       }
       else // Center Image
       {

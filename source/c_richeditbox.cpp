@@ -353,7 +353,7 @@ HB_FUNC( SETBKGNDCOLOR )   // SetBkgndColor(HWND hwnd, lSyscol, nRed, nGreen, nB
 
    lResult = SendMessage(hmg_par_HWND(1), EM_SETBKGNDCOLOR, syscol, bkgcolor);
 
-   hb_retnl( ( LONG ) lResult );
+   hb_retnl( lResult );
 }
 
 HB_FUNC( GETFONTRTF )
@@ -398,7 +398,7 @@ HB_FUNC( GETFONTRTF )
    HB_STORC( pStr, -1, 1 );
    hb_xfree(pStr);
 #endif
-   HB_STORVNL( ( LONG ) PointSize, -1, 2 );
+   HB_STORVNL( PointSize, -1, 2 );
    HB_STORL( bold, -1, 3 );
    HB_STORL( Italic, -1, 4 );
    HB_STORVNL( cF.crTextColor, -1, 5 );

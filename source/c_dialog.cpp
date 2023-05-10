@@ -402,8 +402,8 @@ HB_FUNC( CREATEDLGTEMPLATE )
    PHB_ITEM dArray = hb_param(2, Harbour::Item::ARRAY);
    PHB_ITEM cArray = hb_param(3, Harbour::Item::ARRAY);
    BOOL modal = hb_arrayGetL(dArray, 3);
-   HB_SIZE lTemplateSize = ( long ) GetSizeDlgTemp(dArray, cArray);
-   PWORD pdlgtemplate = CreateDlgTemplate(( long ) lTemplateSize, dArray, cArray);
+   HB_SIZE lTemplateSize = GetSizeDlgTemp(dArray, cArray);
+   PWORD pdlgtemplate = CreateDlgTemplate(lTemplateSize, dArray, cArray);
 
    if( modal )
    {

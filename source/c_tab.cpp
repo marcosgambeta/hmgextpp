@@ -291,5 +291,5 @@ HB_FUNC( WINDOWFROMPOINT )
 
 HB_FUNC( GETMESSAGEPOS )
 {
-   hb_retnl( ( LONG ) GetMessagePos() );
+   hb_retnl( GetMessagePos() );
 }

@@ -1047,7 +1047,7 @@ HB_FUNC( LISTVIEW_CHANGEEXTENDEDSTYLE )  // Dr. Claudio Soto
    NewStyle = ( OldStyle | Add ) & ( ~Remove );
    style    = ListView_SetExtendedListViewStyle(hWnd, NewStyle);
 
-   hb_retnl( ( LONG ) style );
+   hb_retnl( style );
 }
 
 //       ListView_GetExtendedStyle ( hWnd, [nExStyle] )
@@ -1063,7 +1063,7 @@ HB_FUNC( LISTVIEW_GETEXTENDEDSTYLE )  // Dr. Claudio Soto
    }
    else
    {
-      hb_retnl( ( LONG ) OldStyle );
+      hb_retnl( OldStyle );
    }
 }
 

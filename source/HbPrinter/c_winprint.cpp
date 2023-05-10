@@ -769,7 +769,7 @@ HB_FUNC( RR_SETPOLYFILLMODE )
    }
    else
    {
-      hb_retnl( ( LONG ) GetPolyFillMode(hDC) );
+      hb_retnl( GetPolyFillMode(hDC) );
    }   
 }
 
@@ -781,7 +781,7 @@ HB_FUNC( RR_SETTEXTCOLOR )
    }
    else
    {
-      hb_retnl( ( LONG ) GetTextColor(hDC) );
+      hb_retnl( GetTextColor(hDC) );
    }
 }
 
@@ -793,7 +793,7 @@ HB_FUNC( RR_SETBKCOLOR )
    }
    else
    {
-      hb_retnl( ( LONG ) GetBkColor(hDC) );
+      hb_retnl( GetBkColor(hDC) );
    }
 }
 
@@ -995,7 +995,7 @@ HB_FUNC( RR_CREATEFONT )
    TEXTMETRIC   tm;
    BYTE         bItalic, bUnderline, bStrikeOut;
 
-   newWidth = ( LONG ) FontWidth;
+   newWidth = FontWidth;
    if( FontSize <= 0 )
    {
       FontSize = 10;
@@ -1238,8 +1238,8 @@ HB_FUNC( RR_DRAWTEXT )
    }
 
    GetTextExtentPoint32(hDC, pszData, iLen, &sSize);
-   w = ( LONG ) sSize.cx;  // text width
-   h = ( LONG ) sSize.cy;  // text height
+   w = sSize.cx;  // text width
+   h = sSize.cy;  // text height
 
    // Center text vertically within rectangle
    if( w < rect.right - rect.left )
@@ -1877,7 +1877,7 @@ HB_FUNC( RR_POLYGON )
 
    SetPolyFillMode(hDC, hb_parni(5));
 
-   hb_retnl( ( LONG ) Polygon(hDC, apoints, number) );
+   hb_retnl( Polygon(hDC, apoints, number) );
 
    if( xpen != 0 )
    {
@@ -1909,7 +1909,7 @@ HB_FUNC( RR_POLYBEZIER )
       SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
    }
 
-   hb_retnl( ( LONG ) PolyBezier( hDC, apoints, number ) );
+   hb_retnl( PolyBezier( hDC, apoints, number ) );
 
    if( xpen != 0 )
    {
@@ -1934,7 +1934,7 @@ HB_FUNC( RR_POLYBEZIERTO )
       SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
    }
 
-   hb_retnl( ( LONG ) PolyBezierTo(hDC, apoints, number) );
+   hb_retnl( PolyBezierTo(hDC, apoints, number) );
 
    if( xpen != 0 )
    {

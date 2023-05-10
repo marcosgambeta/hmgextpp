@@ -452,7 +452,7 @@ HB_FUNC( TREEVIEW_GETSELECTIONID )
 
       TreeItemLPARAM = ( HMG_StructTreeItemLPARAM * ) TreeItem.lParam;
 
-      hb_retnl( ( LONG ) TreeItemLPARAM->nID );
+      hb_retnl( TreeItemLPARAM->nID );
    }
 }
 
@@ -750,7 +750,7 @@ HB_FUNC( TREEITEM_GETID )
    if( TreeView_GetItem(hWndTV, &TreeItem) == TRUE )
    {
       HMG_StructTreeItemLPARAM * TreeItemLPARAM = ( HMG_StructTreeItemLPARAM * ) TreeItem.lParam;
-      hb_retnl( ( LONG ) TreeItemLPARAM->nID );
+      hb_retnl( TreeItemLPARAM->nID );
    }
 }
 

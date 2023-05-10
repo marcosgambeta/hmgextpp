@@ -671,7 +671,7 @@ POSTMESSAGE(HWND, p2, p3, p4) --> numeric
 */
 HB_FUNC( POSTMESSAGE )
 {
-   hb_retnl(( LONG ) PostMessage(hmg_par_HWND(1), hmg_par_UINT(2), hb_parnl(3), hmg_par_LPARAM(4)));
+   hb_retnl( PostMessage(hmg_par_HWND(1), hmg_par_UINT(2), hb_parnl(3), hmg_par_LPARAM(4)));
 }
 
 /*
@@ -940,7 +940,7 @@ GETLASTERROR() --> numeric
 */
 HB_FUNC( GETLASTERROR )
 {
-   hb_retnl(( LONG ) GetLastError());
+   hb_retnl(GetLastError());
 }
 
 /*
@@ -1823,7 +1823,7 @@ HB_FUNC( DRAGACCEPTFILES )
 HB_FUNC( DRAGQUERYFILES )
 {
    HDROP hDrop  = ( HDROP ) HB_PARNL(1);
-   int   iFiles = DragQueryFile(hDrop, ( UINT ) -1, 0, 0);
+   int   iFiles = DragQueryFile(hDrop, -1, 0, 0);
    TCHAR bBuffer[250];
 
 #ifdef UNICODE

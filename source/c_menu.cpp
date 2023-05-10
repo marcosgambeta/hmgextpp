@@ -896,8 +896,8 @@ HB_FUNC( _ONDRAWMENUITEM )
          HPEN pen, pen1, oldPen;
          RECT rect;
 
-         pen  = CreatePen(PS_SOLID, ( UINT ) 1, clrSelectedItemBorder2);
-         pen1 = CreatePen(PS_SOLID, ( UINT ) 1, clrSelectedItemBorder4);
+         pen  = CreatePen(PS_SOLID, 1, clrSelectedItemBorder2);
+         pen1 = CreatePen(PS_SOLID, 1, clrSelectedItemBorder4);
 
          oldPen = static_cast<HPEN>(SelectObject(lpdis->hDC, pen1));
 
@@ -995,7 +995,7 @@ VOID DrawSeparator( HDC hDC, RECT r )
 
    CopyRect(&rect, &r);
 
-   pen    = CreatePen(PS_SOLID, ( UINT ) 1, clrSeparator1);
+   pen    = CreatePen(PS_SOLID, 1, clrSeparator1);
    oldPen = static_cast<HPEN>(SelectObject(hDC, pen));
 
    if( eSeparatorPosition == Right )
@@ -1015,7 +1015,7 @@ VOID DrawSeparator( HDC hDC, RECT r )
    if( eSeparatorType == Double )
    {
       HPEN pen1, oldPen1;
-      pen1    = CreatePen(PS_SOLID, ( UINT ) 1, clrSeparator2);
+      pen1    = CreatePen(PS_SOLID, 1, clrSeparator2);
       oldPen1 = static_cast<HPEN>(SelectObject(hDC, pen1));
 
       rect.top += 1;
@@ -1130,13 +1130,13 @@ VOID DrawSelectedItemBorder(HDC hDC, RECT r, UINT itemType, BOOL clear)
 
    if( itemType != 1 )
    {
-      pen  = CreatePen(PS_SOLID, ( UINT ) 1, clrSelectedItemBorder1);
-      pen1 = CreatePen(PS_SOLID, ( UINT ) 1, clrSelectedItemBorder3);
+      pen  = CreatePen(PS_SOLID, 1, clrSelectedItemBorder1);
+      pen1 = CreatePen(PS_SOLID, 1, clrSelectedItemBorder3);
    }
    else
    {
-      pen  = CreatePen(PS_SOLID, ( UINT ) 1, clrSelectedItemBorder2);
-      pen1 = CreatePen(PS_SOLID, ( UINT ) 1, clrSelectedItemBorder4);
+      pen  = CreatePen(PS_SOLID, 1, clrSelectedItemBorder2);
+      pen1 = CreatePen(PS_SOLID, 1, clrSelectedItemBorder4);
    }
 
    oldPen = static_cast<HPEN>(SelectObject(hDC, pen));
@@ -1207,7 +1207,7 @@ VOID DrawCheck(HDC hdc, SIZE size, RECT rect, BOOL disabled, BOOL selected, HBIT
 
       oldBrush = static_cast<HBRUSH>(SelectObject(hdc, brush));
 
-      pen    = CreatePen(PS_SOLID, ( UINT ) 1, clrCheckMarkSq);
+      pen    = CreatePen(PS_SOLID, 1, clrCheckMarkSq);
       oldPen = static_cast<HPEN>(SelectObject(hdc, pen));
 
       w = ( size.cx > min_width ? min_width : size.cx );
@@ -1221,11 +1221,11 @@ VOID DrawCheck(HDC hdc, SIZE size, RECT rect, BOOL disabled, BOOL selected, HBIT
 
       if( disabled )
       {
-         pen = CreatePen(PS_SOLID, ( UINT ) 1, clrCheckMarkGr);
+         pen = CreatePen(PS_SOLID, 1, clrCheckMarkGr);
       }
       else
       {
-         pen = CreatePen(PS_SOLID, ( UINT ) 1, clrCheckMark);
+         pen = CreatePen(PS_SOLID, 1, clrCheckMark);
       }
 
       SelectObject(hdc, pen);

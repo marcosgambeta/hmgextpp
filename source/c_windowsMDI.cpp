@@ -455,12 +455,12 @@ HB_FUNC( ARRANGEICONICWINDOWS )
 
 HB_FUNC( DEFMDICHILDPROC )
 {
-   hb_retnl( ( LONG ) DefMDIChildProc(hmg_par_HWND(1), hb_parnl(2), hb_parnl(3), hb_parnl(4)) );
+   hb_retnl( DefMDIChildProc(hmg_par_HWND(1), hb_parnl(2), hb_parnl(3), hb_parnl(4)) );
 }
 
 HB_FUNC( DEFFRAMEPROC )
 {
-   hb_retnl( ( LONG ) DefFrameProc(hmg_par_HWND(1), hmg_par_HWND(2), hb_parnl(3), hb_parnl(4), hb_parnl(5)) );
+   hb_retnl( DefFrameProc(hmg_par_HWND(1), hmg_par_HWND(2), hb_parnl(3), hb_parnl(4), hb_parnl(5)) );
 }
 
 HB_FUNC( SIZECLIENTWINDOW )

@@ -189,7 +189,7 @@ HB_FUNC( RCDATATOFILE )
       FreeResource(hResData);
    }
 
-   hb_retnl( ( LONG ) dwResult );
+   hb_retnl( dwResult );
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpName);

@@ -2367,8 +2367,8 @@ HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd , B
    switch( ItemType )
    {
       case PG_LOGIC:
-         SendMessage(hEdit, CB_SETITEMHEIGHT, (WPARAM) - 1, (LPARAM) rc.bottom - rc.top - 6);
-         SendMessage(hEdit, CB_SETITEMHEIGHT, (WPARAM) 0, (LPARAM) rc.bottom - rc.top);
+         SendMessage(hEdit, CB_SETITEMHEIGHT, -1, (LPARAM) rc.bottom - rc.top - 6);
+         SendMessage(hEdit, CB_SETITEMHEIGHT, 0, (LPARAM) rc.bottom - rc.top);
          break;
 
       case PG_COLOR:
