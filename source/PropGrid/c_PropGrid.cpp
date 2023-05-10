@@ -1,52 +1,51 @@
-/*----------------------------------------------------------------------------
- MINIGUI - Harbour Win32 GUI library source code
-
- Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
- http://harbourminigui.googlepages.com/
-
- Property Grid control source code
- (C)2007-2011 Janusz Pora <januszpora@onet.eu>
-
- This program is free software; you can redistribute it and/or modify it under
- the terms of the GNU General Public License as published by the Free Software
- Foundation; either version 2 of the License, or (at your option) any later
- version.
-
- This program is distributed in the hope that it will be useful, but WITHOUT
- ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License along with
- this software; see the file COPYING. If not, write to the Free Software
- Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
- visit the web site http://www.gnu.org/).
-
- As a special exception, you have permission for additional uses of the text
- contained in this release of Harbour Minigui.
-
- The exception is that, if you link the Harbour Minigui library with other
- files to produce an executable, this does not by itself cause the resulting
- executable to be covered by the GNU General Public License.
- Your use of that executable is in no way restricted on account of linking the
- Harbour-Minigui library code into it.
-
- Parts of this project are based upon:
-
-   "Harbour GUI framework for Win32"
-    Copyright 2001 Alexander S.Kresin <alex@belacy.belgorod.su>
-    Copyright 2001 Antonio Linares <alinares@fivetech.com>
-   www - https://harbour.github.io/
-
-   "Harbour Project"
-   Copyright 1999-2022, https://harbour.github.io/
-
-   "WHAT32"
-   Copyright 2002 AJ Wos <andrwos@aust1.net>
-
-   "HWGUI"
-     Copyright 2001-2009 Alexander S.Kresin <alex@belacy.belgorod.su>
-
----------------------------------------------------------------------------*/
+/*
+ * MINIGUI - Harbour Win32 GUI library source code
+ *
+ * Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
+ * http://harbourminigui.googlepages.com/
+ *
+ * Property Grid control source code
+ * (C)2007-2011 Janusz Pora <januszpora@onet.eu>
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this software; see the file COPYING. If not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
+ * visit the web site http://www.gnu.org/).
+ *
+ * As a special exception, you have permission for additional uses of the text
+ * contained in this release of Harbour Minigui.
+ *
+ * The exception is that, if you link the Harbour Minigui library with other
+ * files to produce an executable, this does not by itself cause the resulting
+ * executable to be covered by the GNU General Public License.
+ * Your use of that executable is in no way restricted on account of linking the
+ * Harbour-Minigui library code into it.
+ *
+ * Parts of this project are based upon:
+ *
+ * "Harbour GUI framework for Win32"
+ * Copyright 2001 Alexander S.Kresin <alex@belacy.belgorod.su>
+ * Copyright 2001 Antonio Linares <alinares@fivetech.com>
+ * www - https://harbour.github.io/
+ *
+ * "Harbour Project"
+ * Copyright 1999-2022, https://harbour.github.io/
+ *
+ * "WHAT32"
+ *  Copyright 2002 AJ Wos <andrwos@aust1.net>
+ *
+ * "HWGUI"
+ * Copyright 2001-2009 Alexander S.Kresin <alex@belacy.belgorod.su>
+ */
 
 #define _WIN32_IE 0x0500
 #define _WIN32_WINNT 0x0400
@@ -222,11 +221,11 @@ BOOL InsertBtnPG(HWND hWnd, HTREEITEM hItem, int nBtn, int ItemType, PROPGRD pgr
 
    // replace the old window procedure with our new one
 
-   pbtn->oldproc = ( WNDPROC ) SetWindowLong(hWnd, GWL_WNDPROC, (LONG) PGEditProc);
+   pbtn->oldproc = ( WNDPROC ) SetWindowLongPtr(hWnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(PGEditProc));
 
    // associate our button state structure with the window
 
-   SetWindowLong(hWnd, GWL_USERDATA, (LONG) pbtn);
+   SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pbtn));
 
    // force the edit control to update its non-client area
 
@@ -406,10 +405,10 @@ BOOL InitPropGrd
    ppgrd->fDisable = FALSE;
    ppgrd->readonly = readonly;
    ppgrd->lInfoShow = lInfoShow;
-   ppgrd->lOkBtn = ( (int) hBtnOk > 0 );
-   ppgrd->lApplyBtn = ( (int) hBtnApply > 0 );
-   ppgrd->lCancelBtn = ( (int) hBtnCancel > 0);
-   ppgrd->lHelpBtn = ( (int) hBtnHelp > 0);
+   ppgrd->lOkBtn = ( hBtnOk != nullptr );
+   ppgrd->lApplyBtn = ( hBtnApply != nullptr );
+   ppgrd->lCancelBtn = ( hBtnCancel != nullptr );
+   ppgrd->lHelpBtn = ( hBtnHelp != nullptr );
    ppgrd->nIndent = indent;
    m_crText = GetSysColor(COLOR_WINDOWTEXT);
    m_crTextCg = GetSysColor(COLOR_APPWORKSPACE);
@@ -524,18 +523,18 @@ BOOL InitPropGrd
 
    // replace the old window procedure with our new one
 
-   ppgrd->oldproc = ( WNDPROC ) SetWindowLong(hWndPG, GWL_WNDPROC, (LONG) OwnPropGridProc);
-   SetWindowLong(hFramePG, GWL_WNDPROC, (LONG) (WNDPROC) OwnFramePgProc);
+   ppgrd->oldproc = ( WNDPROC ) SetWindowLongPtr(hWndPG, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(OwnPropGridProc));
+   SetWindowLongPtr(hFramePG, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(OwnFramePgProc));
 
    // associate our button state structure with the window
 
-   SetWindowLong(hFramePG,GWL_USERDATA, (LONG) ppgrd);
-   SetWindowLong(hWndPG,  GWL_USERDATA, (LONG) ppgrd);
-   SetWindowLong(hHeader, GWL_USERDATA, (LONG) ppgrd);
-   SetWindowLong(hBtnOk,  GWL_USERDATA, (LONG) ppgrd);
-   SetWindowLong(hBtnCancel,GWL_USERDATA, (LONG) ppgrd);
-   SetWindowLong(hBtnApply, GWL_USERDATA, (LONG) ppgrd);
-   SetWindowLong(hBtnHelp,  GWL_USERDATA, (LONG) ppgrd);
+   SetWindowLongPtr(hFramePG,  GWLP_USERDATA, reinterpret_cast<LONG_PTR>(ppgrd));
+   SetWindowLongPtr(hWndPG,    GWLP_USERDATA, reinterpret_cast<LONG_PTR>(ppgrd));
+   SetWindowLongPtr(hHeader,   GWLP_USERDATA, reinterpret_cast<LONG_PTR>(ppgrd));
+   SetWindowLongPtr(hBtnOk,    GWLP_USERDATA, reinterpret_cast<LONG_PTR>(ppgrd));
+   SetWindowLongPtr(hBtnCancel,GWLP_USERDATA, reinterpret_cast<LONG_PTR>(ppgrd));
+   SetWindowLongPtr(hBtnApply, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(ppgrd));
+   SetWindowLongPtr(hBtnHelp,  GWLP_USERDATA, reinterpret_cast<LONG_PTR>(ppgrd));
 
    // force the edit control to update its non-client area
 
@@ -670,7 +669,7 @@ LRESULT PropGridOnCustomDraw ( HWND hWnd, LPARAM lParam )
    DWORD          dwDrawStage;
    HBRUSH         m_brush = nullptr;
    LRESULT        pResult;
-   PROPGRD        *ppgrd = ( PROPGRD * ) GetWindowLong(hWnd, GWL_USERDATA);
+   PROPGRD        *ppgrd = ( PROPGRD * ) GetWindowLongPtr(hWnd, GWLP_USERDATA);
    int            nIndent = ppgrd->nIndent;
 
    pResult = CDRF_SKIPDEFAULT;
@@ -793,7 +792,7 @@ LRESULT PropGridOnCustomDraw ( HWND hWnd, LPARAM lParam )
          // Paint the buttons, if any
          //
 
-         if( GetWindowLong(hWnd, GWL_STYLE) & TVS_HASBUTTONS )
+         if( GetWindowLongPtr(hWnd, GWL_STYLE) & TVS_HASBUTTONS )
          {
             if( tvdi.item.cChildren == 1 )
             {
@@ -1018,7 +1017,7 @@ HB_FUNC( INITPROPGRID )
       );
 
 
-   SetProp((HWND) hFramePG, "oldframepgproc", (HWND) GetWindowLong((HWND) hFramePG, GWL_WNDPROC));
+   SetProp((HWND) hFramePG, "oldframepgproc", (HWND) GetWindowLongPtr(hFramePG, GWLP_WNDPROC));
 
 
    if( hb_arrayLen(hArray) > 0 )
@@ -1212,16 +1211,16 @@ HB_FUNC( INITPROPGRID )
    );
 
    hb_reta(10);
-   HB_STORNL( (LONG) hWndPG,   -1, 1 );
-   HB_STORNL( (LONG) hTitle,   -1, 2 );
-   HB_STORNL( (LONG) hInfo,    -1, 3 );
-   HB_STORNL( (LONG) hFrame,   -1, 4 );
-   HB_STORNL( (LONG) hHeader,  -1, 5 );
-   HB_STORNL( (LONG) hFramePG, -1, 6 );
-   HB_STORNL( (LONG) hBtnOk,   -1, 7 );
-   HB_STORNL( (LONG) hBtnApply, -1, 8 );
-   HB_STORNL( (LONG) hBtnCancel, -1, 9 );
-   HB_STORNL( (LONG) hBtnHelp,   -1, 10 );
+   HB_STORNL( reinterpret_cast<LONG_PTR>(hWndPG),   -1, 1 );
+   HB_STORNL( reinterpret_cast<LONG_PTR>(hTitle),   -1, 2 );
+   HB_STORNL( reinterpret_cast<LONG_PTR>(hInfo),    -1, 3 );
+   HB_STORNL( reinterpret_cast<LONG_PTR>(hFrame),   -1, 4 );
+   HB_STORNL( reinterpret_cast<LONG_PTR>(hHeader),  -1, 5 );
+   HB_STORNL( reinterpret_cast<LONG_PTR>(hFramePG), -1, 6 );
+   HB_STORNL( reinterpret_cast<LONG_PTR>(hBtnOk),   -1, 7 );
+   HB_STORNL( reinterpret_cast<LONG_PTR>(hBtnApply), -1, 8 );
+   HB_STORNL( reinterpret_cast<LONG_PTR>(hBtnCancel), -1, 9 );
+   HB_STORNL( reinterpret_cast<LONG_PTR>(hBtnHelp),   -1, 10 );
 }
 
 LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
@@ -1245,7 +1244,7 @@ LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPar
 
    // get the button state structure
 
-   PROPGRD           *ppgrd = ( PROPGRD * ) GetWindowLong(hWnd, GWL_USERDATA);
+   PROPGRD           *ppgrd = ( PROPGRD * ) GetWindowLongPtr(hWnd, GWLP_USERDATA);
    OldWndProc = ppgrd->oldproc;
    switch( Msg )
    {
@@ -1387,12 +1386,12 @@ LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPar
             {
                hb_vmPushSymbol(pSymbol);
                hb_vmPushNil();
-               hb_vmPushLong((LONG) hWnd);
+               hb_vmPushLong(reinterpret_cast<LONG_PTR>(hWnd));
                hb_vmPushLong(Msg);
                hb_vmPushLong(wParam);
                hb_vmPushLong(lParam);
-               hb_vmPushLong((LONG) ppgrd->hItemActive);
-               hb_vmPushLong((LONG) ppgrd->hPropEdit);
+               hb_vmPushLong(reinterpret_cast<LONG_PTR>(ppgrd->hItemActive));
+               hb_vmPushLong(reinterpret_cast<LONG_PTR>(ppgrd->hPropEdit));
                hb_vmDo(6);
             }
 
@@ -1419,14 +1418,14 @@ LRESULT CALLBACK OwnFramePgProc(HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM l
    WNDPROC           OldWndProc;
    HDC               hDC;
    RECT              rc;
-   PROPGRD  *ppgrd = ( PROPGRD * ) GetWindowLong(hFramePG, GWL_USERDATA);
+   PROPGRD  *ppgrd = ( PROPGRD * ) GetWindowLongPtr(hFramePG, GWLP_USERDATA);
 
    OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp(hFramePG, "oldframepgproc");
 
    switch( Msg )
    {
       case WM_DESTROY:
-         SetWindowLong(hFramePG, GWL_WNDPROC, (DWORD) OldWndProc);
+         SetWindowLongPtr(hFramePG, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(OldWndProc));
          RemoveProp(hFramePG, "oldframepgproc");
          break;
 
@@ -1457,7 +1456,7 @@ LRESULT CALLBACK OwnFramePgProc(HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM l
                      {
                            hb_vmPushSymbol(pSymbol);
                            hb_vmPushNil();
-                           hb_vmPushLong((LONG) ppgrd->hPropGrid);
+                           hb_vmPushLong(reinterpret_cast<LONG_PTR>(ppgrd->hPropGrid));
                            hb_vmPushLong(lParam);
                            hb_vmDo(2);
                      }
@@ -1524,7 +1523,7 @@ LRESULT CALLBACK OwnFramePgProc(HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM l
                         {
                            hb_vmPushSymbol(pSymbol);
                            hb_vmPushNil();
-                           hb_vmPushLong((LONG) ppgrd->hPropGrid);
+                           hb_vmPushLong(reinterpret_cast<LONG_PTR>(ppgrd->hPropGrid));
                            hb_vmPushLong(0);
                            hb_vmDo(2);
                         }
@@ -1575,10 +1574,10 @@ void SetIndentLine(HWND hWnd, HTREEITEM hParent, RECT *rc, RECT *rcIndent, int n
 
 HB_FUNC( GETNOTIFYPROPGRIDITEM )
 {
-   NMHDR          *pNMHDR = ( NMHDR FAR * ) hb_parnl(1);
+   NMHDR          *pNMHDR = ( NMHDR FAR * ) HB_PARNL(1);
    NMTVCUSTOMDRAW *pCD = ( NMTVCUSTOMDRAW * ) pNMHDR;
    HTREEITEM      hItem = ( HTREEITEM ) pCD->nmcd.dwItemSpec;
-   hb_retnl( (LONG) hItem );
+   hmg_ret_HTREEITEM(hItem);
 }
 
 HB_FUNC( ADDPGITEM )
@@ -1633,7 +1632,7 @@ HB_FUNC( ADDPGITEM )
 
    hRet = TreeView_InsertItem(hWndTV, &is);
 
-   hb_retnl( (LONG) hRet );
+   hmg_ret_HTREEITEM(hRet);
 }
 
 void Pg_SetData(HWND hWnd, HTREEITEM hItem, LPCTSTR cValue, LPCTSTR cData, BOOL lData)
@@ -1837,7 +1836,7 @@ HB_FUNC( PG_GETNEXTITEM )
    TreeHandle = hmg_par_HWND(1);
    ItemHandle = hmg_par_HTREEITEM(2);
    NextItemHandle = GetNextItemPG(TreeHandle, ItemHandle);
-   hb_retnl( (LONG) NextItemHandle );
+   hmg_ret_HTREEITEM(NextItemHandle);
 }
 
 HB_FUNC( PG_GETROOT )
@@ -1849,7 +1848,7 @@ HB_FUNC( PG_GETROOT )
 
    ItemHandle = TreeView_GetRoot(TreeHandle);
 
-   hb_retnl( (LONG) ItemHandle );
+   hmg_ret_HTREEITEM(ItemHandle);
 }
 
 HB_FUNC( PG_ENSUREVISIBLE )
@@ -1917,7 +1916,7 @@ HB_FUNC( PG_SEARCHID )        //PG_SearchID(hWndPG,nID)
       TreeItemHandle = GetNextItemPG(TreeHandle, TreeItemHandle);
    }
 
-   hb_retnl( (LONG) TreeItemHandle );
+   hmg_ret_HTREEITEM(TreeItemHandle);
 }
 
 HB_FUNC( PG_SEARCHCATEGORY )  //PG_SearchCategory(hWndPG,cCategory)
@@ -1945,7 +1944,7 @@ HB_FUNC( PG_SEARCHCATEGORY )  //PG_SearchCategory(hWndPG,cCategory)
       TreeItemHandle = GetNextItemPG(TreeHandle, TreeItemHandle);
    }
 
-   hb_retnl( (LONG) TreeItemHandle );
+   hmg_ret_HTREEITEM(TreeItemHandle);
 }
 
 HB_FUNC( PG_TOGGLEINFO )   // Pg_ToggleInfo(hWndPG)
@@ -1955,7 +1954,7 @@ HB_FUNC( PG_TOGGLEINFO )   // Pg_ToggleInfo(hWndPG)
 
 void _ToggleInfo(HWND hWndPG)
 {
-   PROPGRD  *ppgrd = ( PROPGRD * ) GetWindowLong(hWndPG, GWL_USERDATA);
+   PROPGRD  *ppgrd = ( PROPGRD * ) GetWindowLongPtr(hWndPG, GWLP_USERDATA);
    int      height, width;
 
    width = ppgrd->cxWidthPG;
@@ -2093,7 +2092,7 @@ HB_FUNC( SETNODECOLOR )
 
 HB_FUNC( GETNOTIFYTREEITEM )
 {
-   hb_retnl( (LONG) ((NMTREEVIEW FAR *) hb_parnl(1))->itemNew.hItem );
+   hb_retnl( (LONG_PTR) ((NMTREEVIEW FAR *) HB_PARNL(1))->itemNew.hItem );
 }
 
 HB_FUNC( PGCOMBOADDSTRING )
@@ -2112,7 +2111,7 @@ HB_FUNC( PG_SETPICTURE )
 {
    HBITMAP hBitmap = HMG_LoadPicture(hb_parc(2), hb_parni(3), hb_parni(4), hmg_par_HWND(1), 0, 0, -1, 0, false, 255);
 
-   hb_retnl( (LONG) hBitmap );
+   hmg_ret_HBITMAP(hBitmap);
 }
 
 HB_FUNC( CREATECOLORBMP1 ) //CreateColorBmp(hWnd, nColor, BmpWidh, BmpHeight)
@@ -2165,7 +2164,7 @@ HB_FUNC( CREATECOLORBMP1 ) //CreateColorBmp(hWnd, nColor, BmpWidh, BmpHeight)
    DeleteDC(tmpDC);
    ReleaseDC(handle, imgDC);
 
-   hb_retnl( (LONG) hBmp );
+   hmg_ret_HBITMAP(hBmp);
    DeleteObject(hBmp);
 }
 
@@ -2225,7 +2224,7 @@ HB_FUNC( CREATECOLORBMP )  //CreateColorBmp(hWnd, nColor, BmpWidh, BmpHeight)
    DeleteDC(imgDC);
    DeleteDC(tmpDC);
 
-   hb_retnl( (LONG) hBmp );
+   hmg_ret_HBITMAP(hBmp);
 }
 
 HB_FUNC( GET_IMAGELIST )   //Get_ImageList(hWnd)
@@ -2271,7 +2270,7 @@ HB_FUNC( IL_GETIMAGESIZE ) //IL_GetImageSize(himage)
 
 HB_FUNC( GETDATEPICKER )
 {
-   hb_retni( (LONG) DateTime_GetMonthCal(hmg_par_HWND(1)) );
+   hmg_ret_HWND(DateTime_GetMonthCal(hmg_par_HWND(1)));
 }
 
 HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd , BOOL DisEdit)
@@ -2360,7 +2359,7 @@ HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd , B
                           rc.right - rc.left - 1,
                           height,
                           hWnd,
-                          (HMENU) hb_parni(2),
+                          hmg_par_HMENU(2),
                           GetModuleHandle(nullptr),
                           nullptr);
 
@@ -2399,9 +2398,9 @@ HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd , B
    {
       hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
-      hb_vmPushLong((LONG) hWnd);
-      hb_vmPushLong((LONG) hEdit);
-      hb_vmPushLong((LONG) hItem);
+      hb_vmPushLong(reinterpret_cast<LONG_PTR>(hWnd));
+      hb_vmPushLong(reinterpret_cast<LONG_PTR>(hEdit));
+      hb_vmPushLong(reinterpret_cast<LONG_PTR>(hItem));
       hb_vmPushLong(ItemType);
       hb_vmDo(4);
    }
@@ -2424,7 +2423,7 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
 
    // get the button state structure
 
-   INSBTN            *pbtn = ( INSBTN * ) GetWindowLong(hEdit, GWL_USERDATA);
+   INSBTN            *pbtn = ( INSBTN * ) GetWindowLongPtr(hEdit, GWLP_USERDATA);
    OldWndProc = pbtn->oldproc;
    hItem = pbtn->hItem;
    hWndParent = GetParent(hEdit);
@@ -2627,12 +2626,12 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
             {
                hb_vmPushSymbol(pSymbol);
                hb_vmPushNil();
-               hb_vmPushLong((LONG) hEdit);
+               hb_vmPushLong(reinterpret_cast<LONG_PTR>(hEdit));
                hb_vmPushLong(Msg);
                hb_vmPushLong(wParam);
                hb_vmPushLong(lParam);
-               hb_vmPushLong((LONG) hWndParent);
-               hb_vmPushLong((LONG) hItem);
+               hb_vmPushLong(reinterpret_cast<LONG_PTR>(hWndParent));
+               hb_vmPushLong(reinterpret_cast<LONG_PTR>(hItem));
                hb_vmDo(6);
             }
 
@@ -2665,12 +2664,12 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
             {
                hb_vmPushSymbol(pSymbol);
                hb_vmPushNil();
-               hb_vmPushLong((LONG) hEdit);
+               hb_vmPushLong(reinterpret_cast<LONG_PTR>(hEdit));
                hb_vmPushLong(Msg);
                hb_vmPushLong(wParam);
                hb_vmPushLong(lParam);
-               hb_vmPushLong((LONG) hWndParent);
-               hb_vmPushLong((LONG) hItem);
+               hb_vmPushLong(reinterpret_cast<LONG_PTR>(hWndParent));
+               hb_vmPushLong(reinterpret_cast<LONG_PTR>(hItem));
                hb_vmDo(6);
             }
 
