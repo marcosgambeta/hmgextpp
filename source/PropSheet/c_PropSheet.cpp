@@ -1,52 +1,51 @@
-/*----------------------------------------------------------------------------
- MINIGUI - Harbour Win32 GUI library source code
-
- Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
- http://harbourminigui.googlepages.com/
-
- Property Sheet control source code
- (C)2008 Janusz Pora <januszpora@onet.eu>
-
- This program is free software; you can redistribute it and/or modify it under
- the terms of the GNU General Public License as published by the Free Software
- Foundation; either version 2 of the License, or (at your option) any later
- version.
-
- This program is distributed in the hope that it will be useful, but WITHOUT
- ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License along with
- this software; see the file COPYING. If not, write to the Free Software
- Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
- visit the web site http://www.gnu.org/).
-
- As a special exception, you have permission for additional uses of the text
- contained in this release of Harbour Minigui.
-
- The exception is that, if you link the Harbour Minigui library with other
- files to produce an executable, this does not by itself cause the resulting
- executable to be covered by the GNU General Public License.
- Your use of that executable is in no way restricted on account of linking the
- Harbour-Minigui library code into it.
-
- Parts of this project are based upon:
-
-   "Harbour GUI framework for Win32"
-    Copyright 2001 Alexander S.Kresin <alex@belacy.belgorod.su>
-    Copyright 2001 Antonio Linares <alinares@fivetech.com>
-   www - https://harbour.github.io/
-
-   "Harbour Project"
-   Copyright 1999-2022, https://harbour.github.io/
-
-   "WHAT32"
-   Copyright 2002 AJ Wos <andrwos@aust1.net>
-
-   "HWGUI"
-     Copyright 2001-2009 Alexander S.Kresin <alex@belacy.belgorod.su>
-
----------------------------------------------------------------------------*/
+/*
+ * MINIGUI - Harbour Win32 GUI library source code
+ *
+ * Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
+ * http://harbourminigui.googlepages.com/
+ *
+ * Property Sheet control source code
+ * (C)2008 Janusz Pora <januszpora@onet.eu>
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this software; see the file COPYING. If not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
+ * visit the web site http://www.gnu.org/).
+ *
+ * As a special exception, you have permission for additional uses of the text
+ * contained in this release of Harbour Minigui.
+ *
+ * The exception is that, if you link the Harbour Minigui library with other
+ * files to produce an executable, this does not by itself cause the resulting
+ * executable to be covered by the GNU General Public License.
+ * Your use of that executable is in no way restricted on account of linking the
+ * Harbour-Minigui library code into it.
+ *
+ * Parts of this project are based upon:
+ *
+ * "Harbour GUI framework for Win32"
+ * Copyright 2001 Alexander S.Kresin <alex@belacy.belgorod.su>
+ * Copyright 2001 Antonio Linares <alinares@fivetech.com>
+ * www - https://harbour.github.io/
+ *
+ * "Harbour Project"
+ * Copyright 1999-2022, https://harbour.github.io/
+ *
+ * "WHAT32"
+ * Copyright 2002 AJ Wos <andrwos@aust1.net>
+ *
+ * "HWGUI"
+ * Copyright 2001-2009 Alexander S.Kresin <alex@belacy.belgorod.su>
+ */
 
 #define _WIN32_IE 0x0500
 #define _WIN32_WINNT 0x0400
@@ -95,9 +94,9 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
       {
          hb_vmPushSymbol(pSymbol2);
          hb_vmPushNil();
-         hb_vmPushLong((LONG) hWndDlg);
+         hb_vmPushLong(reinterpret_cast<LONG_PTR>(hWndDlg));
          hb_vmPushLong(ps->lParam);
-         hb_vmPushLong((LONG)hWndParent);
+         hb_vmPushLong(reinterpret_cast<LONG_PTR>(hWndParent));
          hb_vmDo(3);
       }
       return (TRUE);
@@ -121,7 +120,7 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
       {
          hb_vmPushSymbol(pSymbol3);
          hb_vmPushNil();
-         hb_vmPushLong((LONG) hWndDlg);
+         hb_vmPushLong(reinterpret_cast<LONG_PTR>(hWndDlg));
          hb_vmPushLong((LONG) lpnmhdr->code);
          hb_vmPushLong(nId);
          hb_vmPushLong(nPage);
@@ -136,26 +135,26 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
             if (psn->lParam == FALSE)  // Apply pressed
             {
             if (r)
-               SetWindowLong(hWndDlg, DWL_MSGRESULT, PSNRET_NOERROR);
+               SetWindowLongPtr(hWndDlg, DWLP_MSGRESULT, PSNRET_NOERROR);
             else
-               SetWindowLong(hWndDlg, DWL_MSGRESULT, PSNRET_INVALID_NOCHANGEPAGE);
+               SetWindowLongPtr(hWndDlg, DWLP_MSGRESULT, PSNRET_INVALID_NOCHANGEPAGE);
             }
             break;
             }
          case PSN_RESET:   //sent when Cancel button pressed
             {
             if (r) //Not finished yet.
-               SetWindowLong(hWndDlg, DWL_MSGRESULT, FALSE);
+               SetWindowLongPtr(hWndDlg, DWLP_MSGRESULT, FALSE);
             else
-               SetWindowLong(hWndDlg, DWL_MSGRESULT, PSNRET_INVALID_NOCHANGEPAGE);
+               SetWindowLongPtr(hWndDlg, DWLP_MSGRESULT, PSNRET_INVALID_NOCHANGEPAGE);
             break;
             }
          case PSN_QUERYCANCEL: //sent when Quit button pressed
             {
             if (r) //Not finished yet.
-               SetWindowLong(hWndDlg, DWL_MSGRESULT, FALSE);
+               SetWindowLongPtr(hWndDlg, DWLP_MSGRESULT, FALSE);
             else {
-               SetWindowLong(hWndDlg, DWL_MSGRESULT, TRUE);
+               SetWindowLongPtr(hWndDlg, DWLP_MSGRESULT, TRUE);
                return(TRUE);
                }
             break;
@@ -163,9 +162,9 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
          case PSN_KILLACTIVE:
             {
             if (r)
-               SetWindowLong(hWndDlg, DWL_MSGRESULT, FALSE);
+               SetWindowLongPtr(hWndDlg, DWLP_MSGRESULT, FALSE);
             else    //Not valid.
-               SetWindowLong(hWndDlg, DWL_MSGRESULT, TRUE);
+               SetWindowLongPtr(hWndDlg, DWLP_MSGRESULT, TRUE);
             break;
             }
          case PSN_SETACTIVE:
@@ -189,8 +188,8 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
    {
       hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
-      hb_vmPushLong((LONG) hWndParent);
-      hb_vmPushLong((LONG) hWndDlg);
+      hb_vmPushLong(reinterpret_cast<LONG_PTR>(hWndParent));
+      hb_vmPushLong(reinterpret_cast<LONG_PTR>(hWndDlg));
       hb_vmPushLong(message);
       hb_vmPushLong(wParam);
       hb_vmPushLong(lParam);
@@ -227,7 +226,7 @@ LRESULT CALLBACK HMG_PropSheetProc(HWND hwndPropSheet, UINT message, LPARAM lPar
    {
       hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
-      hb_vmPushLong((LONG) hwndPropSheet);
+      hb_vmPushLong(reinterpret_cast<LONG_PTR>(hwndPropSheet));
       hb_vmPushLong(message);
       hb_vmPushLong(lParam);
       hb_vmDo(3);
@@ -279,7 +278,7 @@ HB_FUNC( CREATEPROPERTYSEEETPAGE )
 
    hPage =  CreatePropertySheetPage(&psp);
 
-   hb_retnl( (LONG) hPage);
+   hmg_ret_HANDLE(hPage);
 }
 
 /****************************************************************************
@@ -370,11 +369,7 @@ HB_FUNC( CREATEPROPERTYSHEET )
 
 HB_FUNC( PROPSHEETINDEXTOHWND )
 {
-  HWND hWndPage;
-
-  hWndPage = PropSheet_IndexToHwnd( hmg_par_HWND(1), hb_parni (2) );
-
-  hb_retnl ( (long) hWndPage );
+  hmg_ret_HWND(PropSheet_IndexToHwnd(hmg_par_HWND(1), hb_parni(2)));
 }
 
 /****************************************************************************
@@ -383,20 +378,12 @@ HB_FUNC( PROPSHEETINDEXTOHWND )
 
 HB_FUNC( PROPSHEETHWNDTOINDEX )
 {
-  int iPageIndex;
-
-  iPageIndex = PropSheet_HwndToIndex(hmg_par_HWND(1), hmg_par_HWND(2));
-
-  hb_retni ( iPageIndex );
+  hb_retni(PropSheet_HwndToIndex(hmg_par_HWND(1), hmg_par_HWND(2)));
 }
 
 HB_FUNC( PROPSHEETGETCURRENTPAGEHWND )
 {
-  HWND hWndPage;
-
-  hWndPage = PropSheet_GetCurrentPageHwnd(hmg_par_HWND(1));
-
-  hb_retnl ( (long) hWndPage );
+  hmg_ret_HWND(PropSheet_GetCurrentPageHwnd(hmg_par_HWND(1)));
 }
 
 /****************************************************************************
@@ -459,7 +446,7 @@ HB_FUNC( DESTROYPROPSHEET )
    }
    else
    {
-      SetWindowLong(hWnd, DWL_MSGRESULT, FALSE);
+      SetWindowLongPtr(hWnd, DWLP_MSGRESULT, FALSE);
       hb_retl (FALSE);
    }
 }
@@ -480,7 +467,7 @@ HB_FUNC( SENDDLGITEMMESSAGE )
 *****************************************************************************/
 HB_FUNC( PROPSHEET_SETRESULT )
 {
-  SetWindowLong(hmg_par_HWND(1), DWL_MSGRESULT, (BOOL) hb_parl(2));
+  SetWindowLongPtr(hmg_par_HWND(1), DWLP_MSGRESULT, (BOOL) hb_parl(2));
 }
 
 /****************************************************************************
@@ -550,5 +537,5 @@ HB_FUNC( CREATEPROPSEEETPAGEINDIRECT )
 
    hPage = CreatePropertySheetPage(&psp);
 
-   hb_retnl( (LONG) hPage );
+   hmg_ret_HANDLE(hPage);
 }
