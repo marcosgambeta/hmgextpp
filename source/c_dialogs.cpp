@@ -201,7 +201,7 @@ HB_FUNC( C_GETFILE )
 
    while( *p != '\0' )
    {
-      cont += ( int ) strlen(p) + 1;
+      cont += strlen(p) + 1;
       if( cont < 4096 )
       {
          lstrcpy(&Filter[j], AnsiToWide(p));
@@ -268,13 +268,13 @@ HB_FUNC( C_GETFILE )
       else
       {
          wsprintf( cCurDir, "%s", &buffer[iPosition] );
-         iPosition = iPosition + ( int ) lstrlen(cCurDir) + 1;
+         iPosition = iPosition + lstrlen(cCurDir) + 1;
 
          do
          {
             iNumSelected++;
             wsprintf( cFileName, "%s", &buffer[iPosition] );
-            iPosition = iPosition + ( int ) lstrlen(cFileName) + 1;
+            iPosition = iPosition + lstrlen(cFileName) + 1;
             wsprintf( cFullName[iNumSelected], "%s\\%s", cCurDir, cFileName );
          }
          while( ( lstrlen(cFileName) != 0 ) && ( iNumSelected <= 255 ) );
@@ -339,7 +339,7 @@ HB_FUNC( C_PUTFILE ) // JK JP
 
    while( *p != '\0' )
    {
-      cont += ( int ) strlen(p) + 1;
+      cont += strlen(p) + 1;
       if( cont < 4096 )
       {
          lstrcpy(&Filter[j], AnsiToWide(p));
@@ -415,7 +415,7 @@ HB_FUNC( C_PUTFILE ) // JK JP
       }
       if( HB_ISBYREF(6) )
       {
-         hb_storni( ( int ) ofn.nFilterIndex, 6 );
+         hb_storni( ofn.nFilterIndex, 6 );
       }
 
 #ifndef UNICODE

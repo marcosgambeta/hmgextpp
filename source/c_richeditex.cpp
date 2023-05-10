@@ -1305,13 +1305,13 @@ HB_FUNC( RICHEDITBOX_POSFROMCHAR )
    }
    else
    {
-      Point.x = ( INT ) PointL.x;
-      Point.y = ( INT ) PointL.y;
+      Point.x = PointL.x;
+      Point.y = PointL.y;
       ClientToScreen(hWndControl, &Point);
    }
 
-   HB_STORNI( ( INT ) Point.y, -1, 1 );
-   HB_STORNI( ( INT ) Point.x, -1, 2 );
+   HB_STORNI( Point.y, -1, 1 );
+   HB_STORNI( Point.x, -1, 2 );
 }
 
 //********************************************************************

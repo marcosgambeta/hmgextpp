@@ -279,7 +279,7 @@ HB_FUNC( TSDRAWCELL )
 #else
    LPWSTR   cData = AnsiToWide(( char * ) hb_parc(6));
 #endif
-   int      nLen         = ( int ) lstrlen(cData);
+   int      nLen         = lstrlen(cData);
    DWORD    nAlign       = hb_parnl(7);
    COLORREF clrFore      = hb_parnl(8);
    COLORREF clrBack      = hb_parnl(9);
@@ -651,7 +651,7 @@ HB_FUNC( TSBRWSCROLL )
    else
       rct.top += nHeightCell;
 
-   ScrollWindowEx(hWnd, 0, ( int ) -( nHeightCell * iRows ), 0, &rct, 0, 0, 0);
+   ScrollWindowEx(hWnd, 0, -( nHeightCell * iRows ), 0, &rct, 0, 0, 0);
 
    if( hFont )
       SelectObject(hDC, hOldFont);

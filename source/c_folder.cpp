@@ -489,7 +489,7 @@ HB_FUNC( CREATEDLGFOLDER )
    //  _HMG_aFolderTemplate -> {0,ParentHandle,modal,style,styleEx ,x,y,w,h,caption,fontname,fontsize,bold,Italic,lOkBtn,lApplyBtn,lCancelBtn, buttons , flat , hottrack , vertical , bottom, multiline}
    modal = hb_arrayGetL( pArray, 3 );
 
-   nPages = ( int ) hb_arrayLen(sArray);
+   nPages = hb_arrayLen(sArray);
    x      = hb_arrayGetNI( pArray, 6 );      //x
    y      = hb_arrayGetNI( pArray, 7 );      //y
    cx     = hb_arrayGetNI( pArray, 8 );      //w
@@ -577,7 +577,7 @@ HB_FUNC( FOLDERHWNDTOINDEX )
 {
    int iPageIndex;
 
-   iPageIndex = ( int ) FLD_HwndToIndex(hmg_par_HWND(1), hmg_par_HWND(2));
+   iPageIndex = FLD_HwndToIndex(hmg_par_HWND(1), hmg_par_HWND(2));
 
    hb_retni( iPageIndex );
 }
@@ -690,7 +690,7 @@ HB_FUNC( FOLDER_GETIDFLD )
    }
    else
    {
-      hb_retni( ( int ) pFhi->nIdFld );
+      hb_retni( pFhi->nIdFld );
    }
 }
 

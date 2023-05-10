@@ -2012,7 +2012,7 @@ HB_FUNC( ADDTREEITEMS )
       ListView_SetItemText(h, c, s, (char *) caption);
    }
 
-   hb_retni( (INT) c );
+   hb_retni( c );
 }
 
 HB_FUNC( INITPROPGRIDIMAGELIST )
@@ -2029,7 +2029,7 @@ HB_FUNC( INITPROPGRIDIMAGELIST )
       cx = ImageList_GetImageCount(himl);
    }
 
-   hb_retni( (INT) cx );
+   hb_retni( cx );
 }
 
 HB_FUNC( RESETPROPGRIDIMAGELIST )
@@ -2051,10 +2051,10 @@ HB_FUNC( RESETPROPGRIDIMAGELIST )
    TreeView_GetItem((HWND) hWndPG, &TItem);
 
    himl = ( HIMAGELIST ) SendMessage(hWndPG, TVM_GETIMAGELIST, (WPARAM) TVSIL_NORMAL, 0);
-   ImageList_Replace(himl, ( int ) TItem.iImage - 1, hmg_par_HBITMAP(3), 0);
+   ImageList_Replace(himl, TItem.iImage - 1, hmg_par_HBITMAP(3), 0);
    SendMessage(hWndPG, TVM_SETIMAGELIST, (WPARAM) TVSIL_NORMAL, (LPARAM) himl);
    cx = ImageList_GetImageCount(himl);
-   hb_retni( (INT) cx );
+   hb_retni( cx );
 }
 
 HB_FUNC( PG_REDRAWITEM )
@@ -2733,12 +2733,12 @@ HB_FUNC( DIALOGUNITSX)
 {
    int  baseunitX = LOWORD(GetDialogBaseUnits());
 
-   hb_retni( ((INT) hb_parni(1) * 4 )/ baseunitX );
+   hb_retni( ( hb_parni(1) * 4 )/ baseunitX );
 }
 
 HB_FUNC( DIALOGUNITSY)
 {
    int  baseunitY =  HIWORD(GetDialogBaseUnits());
 
-   hb_retni( ((INT) hb_parni(1) * 8 )/ baseunitY );
+   hb_retni( ( hb_parni(1) * 8 )/ baseunitY );
 }

@@ -296,7 +296,7 @@ HB_FUNC( ADDLISTVIEWBITMAP )       // Grid+
       }
    }
 
-   hb_retni( ( INT ) cx );
+   hb_retni( cx );
 }
 
 HB_FUNC( ADDLISTVIEWBITMAPHEADER )  // Grid+
@@ -476,7 +476,7 @@ HB_FUNC( LISTVIEWGETMULTISEL )
    int  n;
    int  j = 0;
 
-   n = ( int ) SendMessage(hwnd, LVM_GETSELECTEDCOUNT, 0, 0);
+   n = SendMessage(hwnd, LVM_GETSELECTEDCOUNT, 0, 0);
 
    hb_reta(n);
 
@@ -583,7 +583,7 @@ static TCHAR * GetLVItemText(HWND hListView, int i, int iSubItem_)
       lpText         = ( TCHAR * ) hb_xrealloc(lpText, sizeof(TCHAR) * nLen);
       lvi.cchTextMax = nLen;
       lvi.pszText    = lpText;
-      nRes           = ( int ) SendMessage(hListView, LVM_GETITEMTEXT, i, ( LPARAM ) ( LV_ITEM FAR * ) &lvi);
+      nRes           = SendMessage(hListView, LVM_GETITEMTEXT, i, ( LPARAM ) ( LV_ITEM FAR * ) &lvi);
    }
    while( nRes >= nLen - 1 );
 
@@ -1197,7 +1197,7 @@ HB_FUNC( LISTVIEW_GROUPITEMGETID )
    LVI.iSubItem = 0;
    ListView_GetItem(hWnd, &LVI);
 
-   hb_retni( ( INT ) LVI.iGroupId );
+   hb_retni( LVI.iGroupId );
 }
 
 //        ListView_IsGroupViewEnabled ( hWnd )
@@ -1231,7 +1231,7 @@ HB_FUNC( LISTVIEW_GROUPDELETE )
    HWND hWnd    = hmg_par_HWND(1);
    INT  GroupID = hmg_par_INT(2);
 
-   hb_retni( ( INT ) ListView_RemoveGroup(hWnd, GroupID) );
+   hb_retni( ListView_RemoveGroup(hWnd, GroupID) );
 }
 
 //        ListView_GroupAdd ( hWnd, nGroupID, [nIndex] )
@@ -1239,7 +1239,7 @@ HB_FUNC( LISTVIEW_GROUPADD )
 {
    HWND hWnd    = hmg_par_HWND(1);
    INT  GroupID = hmg_par_INT(2);
-   INT  nIndex  = ( INT ) ( HB_ISNUM(3) ? hb_parni(3) : -1 );
+   INT  nIndex  = ( HB_ISNUM(3) ? hb_parni(3) : -1 );
 
    LVGROUP LVG;
 
@@ -1252,7 +1252,7 @@ HB_FUNC( LISTVIEW_GROUPADD )
    LVG.uAlign    = LVGA_HEADER_LEFT | LVGA_FOOTER_LEFT;
    LVG.state     = LVGS_NORMAL;
 
-   hb_retni( ( INT ) ListView_InsertGroup(hWnd, nIndex, &LVG) );
+   hb_retni( ListView_InsertGroup(hWnd, nIndex, &LVG) );
 }
 
 //        ListView_GroupSetInfo ( hWnd, nGroupID, cHeader, nAlignHeader, cFooter, nAlingFooter, nState )
@@ -1290,7 +1290,7 @@ HB_FUNC( LISTVIEW_GROUPSETINFO )
       LVG.uAlign    = nAlign;
       LVG.state     = ( ( nState != 0 ) ? ( nState >> 1 ) : LVG.state );
 
-      hb_retni( ( INT ) ListView_SetGroupInfo(hWnd, GroupID, &LVG) );
+      hb_retni( ListView_SetGroupInfo(hWnd, GroupID, &LVG) );
    }
    else
    {
@@ -1318,7 +1318,7 @@ HB_FUNC( LISTVIEW_GROUPGETINFO )
    LVG.pszFooter = cFooterBuffer;
    LVG.cchFooter = sizeof(cFooterBuffer) / sizeof(WCHAR);
 
-   if( ( nRet = ( INT ) ListView_GetGroupInfo(hWnd, GroupID, &LVG) ) != -1 )
+   if( ( nRet = ListView_GetGroupInfo(hWnd, GroupID, &LVG) ) != -1 )
    {
       HB_STORC(   hb_wctomb(cHeaderBuffer), 3 );
       hb_storni( ( LVG.uAlign & 0x07 ), 4 );

@@ -233,7 +233,7 @@ HB_FUNC( GETMONTHRANGE )
 {
    SYSTEMTIME sysTime[2];
    memset(&sysTime, 0, sizeof(sysTime));
-   int iCount = ( int ) SendMessage(hmg_par_HWND(1), MCM_GETMONTHRANGE, GMR_DAYSTATE, ( LPARAM ) &sysTime);
+   int iCount = SendMessage(hmg_par_HWND(1), MCM_GETMONTHRANGE, GMR_DAYSTATE, ( LPARAM ) &sysTime);
 
    hb_reta(3);
    HB_STORNI(iCount, -1, 1);
@@ -305,7 +305,7 @@ HB_FUNC( GETDAYSTATEDATA )
 {
    LPNMDAYSTATE pData = ( NMDAYSTATE * ) HB_PARNL(1);
    hb_reta(2);
-   HB_STORNI( ( int ) pData->cDayState, -1, 1 );
+   HB_STORNI( pData->cDayState, -1, 1 );
    HB_STORDL( hb_dateEncode(pData->stStart.wYear, pData->stStart.wMonth, pData->stStart.wDay), -1, 2 );
 }
 

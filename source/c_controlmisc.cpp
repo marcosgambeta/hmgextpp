@@ -148,7 +148,7 @@ HB_FUNC( GETTEXTWIDTH ) // returns the width of a string in pixels
       hOldFont = static_cast<HFONT>(SelectObject(hDC, hFont));
    }
 
-   GetTextExtentPoint32(hDC, lpString, ( int ) lstrlen(lpString), &sz);
+   GetTextExtentPoint32(hDC, lpString, lstrlen(lpString), &sz);
 
    if( hFont )
    {

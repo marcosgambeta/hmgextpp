@@ -890,7 +890,7 @@ BOOL SaveHBitmapToFile(void * HBitmap, const char * FileName, unsigned int Width
       return FALSE;
    }
 
-   MultiByteToWideChar( CP_ACP, 0, FileName, -1, WFileName, ( int ) ( strlen(FileName) * sizeof(WCHAR) ) - 1 );
+   MultiByteToWideChar( CP_ACP, 0, FileName, -1, WFileName, ( strlen(FileName) * sizeof(WCHAR) ) - 1 );
 
    if( ( Width > 0 ) && ( Height > 0 ) )
    {
@@ -1244,7 +1244,7 @@ HB_FUNC( C_SAVEHICONTOFILE )
    PHB_ITEM pArray = hb_param(2, Harbour::Item::ARRAY);
    int      nLen;
 
-   if( pArray && ( ( nLen = ( int ) hb_arrayLen(pArray) ) > 0 ) )
+   if( pArray && ( ( nLen = hb_arrayLen(pArray) ) > 0 ) )
    {
       for( int i = 0; i < nLen; i++ )
       {

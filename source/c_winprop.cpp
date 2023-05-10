@@ -101,7 +101,7 @@ HB_FUNC( SETPROP )
    if( HB_ISCHAR(3) )
    {
       chType = 'C';     // character
-      nLen   = ( int ) hb_parclen(3);
+      nLen   = hb_parclen(3);
    }
    else if( HB_ISLOG(3) )
    {
@@ -174,7 +174,7 @@ HB_FUNC( SETPROP )
       case 'C':   memcpy(lpMem + sizeof(int) + 1, hb_parc(3), nLen); break;
       case 'L':   bValue = hb_parl(3); memcpy(lpMem + sizeof(int) + 1, ( char * ) &bValue, sizeof(BOOL)); break;
       case 'D':   memcpy(lpMem + sizeof(int) + 1, hb_pards(3), nLen); break;
-      case 'I':   iValue = ( INT ) hb_parnl(3); memcpy(lpMem + sizeof(int) + 1, ( char * ) &iValue, sizeof(INT)); break;
+      case 'I':   iValue = hb_parnl(3); memcpy(lpMem + sizeof(int) + 1, ( char * ) &iValue, sizeof(INT)); break;
       case 'F':   dValue = hb_parnd(3); memcpy(lpMem + sizeof(int) + 1, ( char * ) &dValue, sizeof(double)); break;
    }
 

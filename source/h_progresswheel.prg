@@ -980,21 +980,21 @@ HB_FUNC( BT_DRAW_HDC_ARCX_EX )
    INT      nArcType;
 
    hDC = hmg_par_HDC(1);
-   x1  = ( INT ) hb_parni( 2 );
-   y1  = ( INT ) hb_parni( 3 );
-   x2  = ( INT ) hb_parni( 4 );
-   y2  = ( INT ) hb_parni( 5 );
+   x1  = hb_parni( 2 );
+   y1  = hb_parni( 3 );
+   x2  = hb_parni( 4 );
+   y2  = hb_parni( 5 );
 
-   XStartArc = ( INT ) hb_parni( 6 );
-   YStartArc = ( INT ) hb_parni( 7 );
-   XEndArc   = ( INT ) hb_parni( 8 );
-   YEndArc   = ( INT ) hb_parni( 9 );
+   XStartArc = hb_parni( 6 );
+   YStartArc = hb_parni( 7 );
+   XEndArc   = hb_parni( 8 );
+   YEndArc   = hb_parni( 9 );
 
    ColorLine  = ( COLORREF ) hb_parnl( 10 );
-   nWidthLine = ( INT ) hb_parni( 11 );
+   nWidthLine = hb_parni( 11 );
    ColorFill  = ( COLORREF ) hb_parnl( 12 );
 
-   nArcType = ( INT ) hb_parni( 13 );
+   nArcType = hb_parni( 13 );
 
    hPen     = CreatePen( PS_SOLID, nWidthLine, ColorLine );
    OldPen   = static_cast<HPEN>(SelectObject( hDC, hPen ));

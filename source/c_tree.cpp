@@ -129,7 +129,7 @@ HB_FUNC( INITTREEVIEWBITMAP ) //Tree+
       ic = ImageList_GetImageCount(himl);
    }
 
-   hb_retni( ( INT ) ic );
+   hb_retni( ic );
 }
 
 HB_FUNC( ADDTREEVIEWBITMAP )  // Tree+
@@ -150,7 +150,7 @@ HB_FUNC( ADDTREEVIEWBITMAP )  // Tree+
       ic = ImageList_GetImageCount(himl);
    }
 
-   hb_retni( ( INT ) ic );
+   hb_retni( ic );
 }
 
 #define MAX_ITEM_TEXT  256
@@ -509,7 +509,7 @@ HB_FUNC( TREEVIEW_GETITEMSTATE )
    UINT      StateMask  = hmg_par_UINT(3);
    UINT      State      = TreeView_GetItemState(hWndTV, ItemHandle, StateMask);
 
-   hb_retni( ( INT ) State );
+   hb_retni( State );
 }
 
 BOOL TreeView_IsNode(HWND hWndTV, HTREEITEM ItemHandle)

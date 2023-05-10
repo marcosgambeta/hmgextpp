@@ -152,7 +152,7 @@ HB_FUNC( GETCLASSNAMEBYREF )
 
       if( pBuffer )
       {
-         int nResult = GetClassNameA(hwnd, pBuffer, ( int ) nLen);
+         int nResult = GetClassNameA(hwnd, pBuffer, nLen);
 
          if( nResult > 0 )
          {

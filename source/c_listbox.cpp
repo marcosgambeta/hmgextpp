@@ -154,7 +154,7 @@ HB_FUNC( LISTBOXGETSTRING )
 #ifdef UNICODE
    LPSTR lpString;
 #endif
-   int     iLen = ( int ) SendMessage(hmg_par_HWND(1), LB_GETTEXTLEN, hmg_par_WPARAM(2) - 1, 0);
+   int     iLen = SendMessage(hmg_par_HWND(1), LB_GETTEXTLEN, hmg_par_WPARAM(2) - 1, 0);
    TCHAR * cString;
 
    if( iLen > 0 && ( cString = ( TCHAR * ) hb_xgrab((iLen + 1) * sizeof(TCHAR)) ) != nullptr )
@@ -237,7 +237,7 @@ HB_FUNC( LISTBOXGETMULTISEL )
    int  buffer[32768];
    int  n;
 
-   n = ( int ) SendMessage(hwnd, LB_GETSELCOUNT, 0, 0);
+   n = SendMessage(hwnd, LB_GETSELCOUNT, 0, 0);
 
    SendMessage(hwnd, LB_GETSELITEMS, n, ( LPARAM ) buffer);
 
@@ -261,7 +261,7 @@ HB_FUNC( LISTBOXSETMULTISEL )
 
    l = ( int ) hb_parinfa(2, 0) - 1;
 
-   n = ( int ) SendMessage(hwnd, LB_GETCOUNT, 0, 0);
+   n = SendMessage(hwnd, LB_GETCOUNT, 0, 0);
 
    // CLEAR CURRENT SELECTIONS
    for( int i = 0; i < n; i++ )
@@ -334,7 +334,7 @@ HB_FUNC( DRAG_LIST_DRAWINSERT )
    LPDRAGLISTINFO lpdli = ( LPDRAGLISTINFO ) lParam;
    int nItemCount;
 
-   nItemCount = ( int ) SendMessage(lpdli->hWnd, LB_GETCOUNT, 0, 0);
+   nItemCount = SendMessage(lpdli->hWnd, LB_GETCOUNT, 0, 0);
 
    if( nItem < nItemCount )
    {

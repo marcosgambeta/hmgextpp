@@ -1677,7 +1677,7 @@ HB_FUNC( HMG_LOWER )
       return;
    }
 
-   nLen = ( INT ) lstrlen(Text) + 1;
+   nLen = lstrlen(Text) + 1;
    Buffer = ( TCHAR * ) hb_xgrab(nLen * sizeof(TCHAR));
 
    if( Buffer != nullptr )
@@ -1710,7 +1710,7 @@ HB_FUNC( HMG_UPPER )
       return;
    }
 
-   nLen = ( INT ) lstrlen(Text) + 1;
+   nLen = lstrlen(Text) + 1;
    Buffer = ( TCHAR * ) hb_xgrab(nLen * sizeof(TCHAR));
 
    if( Buffer != nullptr )

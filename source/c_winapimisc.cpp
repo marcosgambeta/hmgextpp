@@ -207,7 +207,7 @@ HB_FUNC( COPYRTFTOCLIPBOARD ) // CopyRtfToClipboard(cRtfText) store cRTFText in 
    char *       lptstrCopy;
    UINT         cf;
    const char * cStr = HB_ISCHAR(1) ? hb_parc(1) : "";
-   int          nLen = ( int ) strlen(cStr);
+   int          nLen = strlen(cStr);
 
    if( ( nLen == 0 ) || !OpenClipboard( GetActiveWindow() ) )
    {
@@ -241,7 +241,7 @@ HB_FUNC( COPYTOCLIPBOARD ) // CopyToClipboard(cText) store cText in Windows clip
    char *  lptstrCopy;
 
    const char * cStr = HB_ISCHAR(1) ? hb_parc(1) : "";
-   int          nLen = ( int ) strlen(cStr);
+   int          nLen = strlen(cStr);
 
    if( ( nLen == 0 ) || !OpenClipboard( GetActiveWindow() ) )
    {
@@ -427,12 +427,12 @@ HB_FUNC( RELEASEDC )
 
 HB_FUNC( HIWORD )
 {
-   hb_retni( ( int ) HIWORD(hmg_par_DWORD(1)) );
+   hb_retni( HIWORD(hmg_par_DWORD(1)) );
 }
 
 HB_FUNC( LOWORD )
 {
-   hb_retni( ( int ) LOWORD(hmg_par_DWORD(1)) );
+   hb_retni( LOWORD(hmg_par_DWORD(1)) );
 }
 
 HB_FUNC( C_GETSPECIALFOLDER ) // Contributed By Ryszard Ryüko
@@ -1684,7 +1684,7 @@ HB_FUNC( DRAWTEXT )
    (
       hmg_par_HDC(1),       // device context
       lpchText,                    // pointer to string
-      ( int ) lstrlen(lpchText), // length of  string
+      lstrlen(lpchText), // length of  string
       &rc,                         // rectangle
       hb_parni(7)                // draw style
    );

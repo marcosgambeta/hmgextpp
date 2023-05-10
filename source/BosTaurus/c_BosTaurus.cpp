@@ -803,21 +803,21 @@ HB_FUNC( BT_DC_CREATE )
 
    hb_reta(50);                                                         // Return array = {Type, hWnd, hBitmap, hDC, PaintStruct ...}
 
-   HB_STORVNI(( INT ) BT.Type, -1, 1);                                  // Type
+   HB_STORVNI( BT.Type, -1, 1);                                  // Type
    HB_STORVNL(( LONG_PTR ) BT.hWnd, -1, 2);                             // hWnd
    HB_STORVNL(( LONG_PTR ) BT.hDC, -1, 3);                              // hDC
    // PAINTSTRUCT
    HB_STORVNL(( LONG_PTR ) BT.PaintStruct.hdc, -1, 4);                  // HDC  hdc;
-   HB_STORVNI(( INT ) BT.PaintStruct.fErase, -1, 5);                    // BOOL fErase;
+   HB_STORVNI( BT.PaintStruct.fErase, -1, 5);                    // BOOL fErase;
    HB_STORVNL( BT.PaintStruct.rcPaint.left, -1, 6);             // RECT rcPaint.left;
    HB_STORVNL( BT.PaintStruct.rcPaint.top, -1, 7);              // RECT rcPaint.top;
    HB_STORVNL( BT.PaintStruct.rcPaint.right, -1, 8);            // RECT rcPaint.right;
    HB_STORVNL( BT.PaintStruct.rcPaint.bottom, -1, 9);           // RECT rcPaint.bottom;
-   HB_STORVNI(( INT ) BT.PaintStruct.fRestore, -1, 10);                 // BOOL fRestore;
-   HB_STORVNI(( INT ) BT.PaintStruct.fIncUpdate, -1, 11);               // BOOL fIncUpdate;
+   HB_STORVNI( BT.PaintStruct.fRestore, -1, 10);                 // BOOL fRestore;
+   HB_STORVNI( BT.PaintStruct.fIncUpdate, -1, 11);               // BOOL fIncUpdate;
    for( INT i = 0; i < 32; i++ )
    {
-      HB_STORVNI(( INT ) BT.PaintStruct.rgbReserved[i], -1, 12 + i);  // BYTE rgbReserved[32];
+      HB_STORVNI(BT.PaintStruct.rgbReserved[i], -1, 12 + i);  // BYTE rgbReserved[32];
    }
 
 //   GdiSetBatchLimit (100);
@@ -834,7 +834,7 @@ HB_FUNC( BT_DC_DELETE )
 {
 //   GdiSetBatchLimit (0);
    BT_STRUCT BT;
-   BT.Type = ( INT ) hb_parvni(1, 1);
+   BT.Type = hb_parvni(1, 1);
    BT.hWnd = reinterpret_cast<HWND>(HB_PARVNL(1, 2));
    BT.hDC  = reinterpret_cast<HDC>(HB_PARVNL(1, 3));
    // PAINTSTRUCT
@@ -1666,9 +1666,9 @@ HB_FUNC( BT_DRAW_HDC_PIXEL )
    }
 
    hb_reta(3);
-   HB_STORVNI(( INT ) GetRValue(Color), -1, 1);
-   HB_STORVNI(( INT ) GetGValue(Color), -1, 2);
-   HB_STORVNI(( INT ) GetBValue(Color), -1, 3);
+   HB_STORVNI(GetRValue(Color), -1, 1);
+   HB_STORVNI(GetGValue(Color), -1, 2);
+   HB_STORVNI(GetBValue(Color), -1, 3);
 }
 
 //*****************************************************************************************************************************
@@ -1907,7 +1907,7 @@ HB_FUNC( BT_BITMAPLOADEMF )
    TCHAR * FileName = ( TCHAR * ) hb_osStrU16Encode(hb_parc(1));
 #endif
    COLORREF BackgroundColor = ( COLORREF ) RGB(HB_PARVNL(2, 1), HB_PARVNL(2, 2), HB_PARVNL(2, 3));
-   INT      ModeStretch     = HB_ISNUM(5) ? ( INT ) hb_parnl(5) : BT_SCALE;
+   INT      ModeStretch     = HB_ISNUM(5) ? hb_parnl(5) : BT_SCALE;
 
    HENHMETAFILE  hEMF = nullptr;
    HGLOBAL       hGlobalResource;
@@ -1951,8 +1951,8 @@ HB_FUNC( BT_BITMAPLOADEMF )
       return;
    }
 
-   INT nWidth  = HB_ISNUM(3) ? ( INT ) hb_parnl(3) : ( INT ) emh.rclBounds.right;  // The dimensions: in device units
-   INT nHeight = HB_ISNUM(4) ? ( INT ) hb_parnl(4) : ( INT ) emh.rclBounds.bottom; // The dimensions: in device units
+   INT nWidth  = HB_ISNUM(3) ? hb_parnl(3) : emh.rclBounds.right;  // The dimensions: in device units
+   INT nHeight = HB_ISNUM(4) ? hb_parnl(4) : emh.rclBounds.bottom; // The dimensions: in device units
 
    if( ModeStretch == BT_SCALE )
    {
@@ -2080,7 +2080,7 @@ HB_FUNC( BT_BMP_SAVEFILE )
    TCHAR *  FileName    = ( TCHAR * ) hb_osStrU16Encode(hb_parc(2));
 #endif
 
-   hb_retl(bt_bmp_SaveFile(hmg_par_HBITMAP(1), FileName, ( INT ) hb_parnl(3)));
+   hb_retl(bt_bmp_SaveFile(hmg_par_HBITMAP(1), FileName, hb_parnl(3)));
 }
 
 //**************************************************************************************************
@@ -2099,7 +2099,7 @@ BT_BMP_GETINFO(HBITMAP, info) --> numeric
 HB_FUNC( BT_BMP_GETINFO )
 {
    HBITMAP hBitmap = hmg_par_HBITMAP(1);
-   INT Info = ( INT ) hb_parnl(2);
+   INT Info = hb_parnl(2);
 
    BITMAP bm;
    GetObject(hBitmap, sizeof(BITMAP), ( LPBYTE ) &bm);
@@ -2364,8 +2364,8 @@ HB_FUNC( BT_BMP_COPYANDRESIZE )
    BITMAP bm;
    GetObject(hBitmap1, sizeof(BITMAP), ( LPBYTE ) &bm);
 
-   INT Width1  = ( INT ) bm.bmWidth;
-   INT Height1 = ( INT ) bm.bmHeight;
+   INT Width1  = bm.bmWidth;
+   INT Height1 = bm.bmHeight;
    bt_bmp_adjust_rect(&New_Width, &New_Height, &Width1, &Height1, Mode_Stretch);
 
    if( nAlgorithm == BT_RESIZE_COLORONCOLOR || nAlgorithm == BT_RESIZE_HALFTONE )
@@ -2665,9 +2665,9 @@ HB_FUNC( BT_BMP_PROCESS )
             hb_retl(false);
             return;
          }
-         RLevel = ( INT ) hb_parvni(3, 1);
-         GLevel = ( INT ) hb_parvni(3, 2);
-         BLevel = ( INT ) hb_parvni(3, 3);
+         RLevel = hb_parvni(3, 1);
+         GLevel = hb_parvni(3, 2);
+         BLevel = hb_parvni(3, 3);
          if( (HB_MIN(HB_MIN(RLevel, GLevel), BLevel) < -255) || (HB_MAX(HB_MAX(RLevel, GLevel), BLevel) > 255) )
          {
             hb_retl(false);
@@ -2866,7 +2866,7 @@ HB_FUNC( BT_BMP_FILTER3X3 )
    }
    for( INT i = 0; i < nMATFILTER; i++ )
    {
-      MatKernel3x3Filter[i] = ( INT ) hb_parvni(2, i + 1);
+      MatKernel3x3Filter[i] = hb_parvni(2, i + 1);
    }
 
    BITMAP bm;
@@ -2982,7 +2982,7 @@ HB_FUNC( BT_BMP_TRANSFORM )
    #define SCALING(n)  (( double ) n > 1.0 ? ( double ) (1.0 / n) : ( double ) 1.0)
 
    HBITMAP hBitmap_O      = hmg_par_HBITMAP(1);
-   INT Mode               = ( INT ) hb_parnl(2);
+   INT Mode               = hb_parnl(2);
    FLOAT Angle            = ( FLOAT ) hb_parnd(3);
    COLORREF Color_Fill_Bk = hmg_par_COLORREF(4);
 
@@ -3387,7 +3387,7 @@ HB_FUNC( BT_STRETCH_RECT )
    INT Height1      = hmg_par_INT(2);
    INT Width2       = hmg_par_INT(3);
    INT Height2      = hmg_par_INT(4);
-   INT Mode_Stretch = ( INT ) hb_parnl(5);
+   INT Mode_Stretch = hb_parnl(5);
 
    if( HB_ISBYREF(1) && HB_ISBYREF(2) && HB_ISBYREF(3) && HB_ISBYREF(4) )
    {

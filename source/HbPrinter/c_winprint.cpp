@@ -310,11 +310,11 @@ HB_FUNC( RR_GETDEVICECAPS )
 
    devcaps[11] = tm.tmHeight;
    devcaps[12] = tm.tmAveCharWidth;
-   devcaps[13] = ( int ) ( ( devcaps[3] - tm.tmAscent ) / tm.tmHeight );
-   devcaps[14] = ( int ) ( devcaps[4] / tm.tmAveCharWidth );
-   devcaps[15] = ( int ) pi2->pDevMode->dmOrientation;
-   devcaps[16] = ( int ) tm.tmAscent;
-   devcaps[17] = ( int ) pi2->pDevMode->dmPaperSize;
+   devcaps[13] = ( ( devcaps[3] - tm.tmAscent ) / tm.tmHeight );
+   devcaps[14] = ( devcaps[4] / tm.tmAveCharWidth );
+   devcaps[15] = pi2->pDevMode->dmOrientation;
+   devcaps[16] = tm.tmAscent;
+   devcaps[17] = pi2->pDevMode->dmPaperSize;
    for( UINT i = 1; i <= hb_parinfa(1, 0); i++ )
    {
       HB_STORNI( devcaps[i], 1, i );
@@ -1187,17 +1187,17 @@ HB_FUNC( RR_TEXTOUT )
 
    if( textjust > 0 )
    {
-      GetTextExtentPoint32(hDC, lpText, ( int ) lstrlen(lpText), &szMetric);
+      GetTextExtentPoint32(hDC, lpText, lstrlen(lpText), &szMetric);
       if( szMetric.cx < textjust )      // or can be for better look (szMetric.cx>(int) textjust*2/3)
       {
          if( lspace > 0 )
          {
-            SetTextJustification(hDC, ( int ) textjust - szMetric.cx, lspace);
+            SetTextJustification(hDC, textjust - szMetric.cx, lspace);
          }
       }
    }
 
-   hb_retl(TextOut(hDC, HB_PARNI(2, 2), HB_PARNI(2, 1) + devcaps[16], lpText, ( int ) lstrlen(lpText)));
+   hb_retl(TextOut(hDC, HB_PARNI(2, 2), HB_PARNI(2, 1) + devcaps[16], lpText, lstrlen(lpText)));
    if( xfont != 0 )
    {
       SelectObject(hDC, prevfont);
@@ -1220,7 +1220,7 @@ HB_FUNC( RR_DRAWTEXT )
 #else
    LPCWSTR pszData = AnsiToWide(( char * ) hb_parc(3));
 #endif
-   int     iLen     = ( int ) lstrlen(pszData);
+   int     iLen     = lstrlen(pszData);
    HGDIOBJ xfont    = hmg_par_HFONT(5);
    HFONT   prevfont = nullptr;
    RECT    rect;
@@ -1797,12 +1797,12 @@ HB_FUNC( RR_CREATEIMAGELIST )
    number = HB_ISNIL(2) ? 0 : hb_parni(2);
    if( number == 0 )
    {
-      number = ( int ) bm.bmWidth / bm.bmHeight;
+      number = bm.bmWidth / bm.bmHeight;
       dx     = bm.bmHeight;
    }
    else
    {
-      dx = ( int ) bm.bmWidth / number;
+      dx = bm.bmWidth / number;
    }
 
    himl = ImageList_Create(dx, bm.bmHeight, ILC_COLOR24 | ILC_MASK, number, 0);
@@ -1957,7 +1957,7 @@ HB_FUNC( RR_GETTEXTEXTENT )
       SelectObject(hDC, reinterpret_cast<HPEN>(xfont));
    }
 
-   hb_retni( GetTextExtentPoint32(hDC, lpText, ( int ) lstrlen(lpText), &szMetric) );
+   hb_retni( GetTextExtentPoint32(hDC, lpText, lstrlen(lpText), &szMetric) );
    HB_STORNI( szMetric.cy, 2, 1 );
    HB_STORNI( szMetric.cx, 2, 2 );
    if( xfont != 0 )
@@ -2189,10 +2189,10 @@ HB_FUNC( RR_GETDESKTOPAREA )
    SystemParametersInfo(SPI_GETWORKAREA, 1, &rect, 0);
 
    hb_reta(4);
-   HB_STORNI( ( INT ) rect.top, -1, 1 );
-   HB_STORNI( ( INT ) rect.left, -1, 2 );
-   HB_STORNI( ( INT ) rect.bottom - rect.top, -1, 3 );
-   HB_STORNI( ( INT ) rect.right - rect.left, -1, 4 );
+   HB_STORNI( rect.top, -1, 1 );
+   HB_STORNI( rect.left, -1, 2 );
+   HB_STORNI( rect.bottom - rect.top, -1, 3 );
+   HB_STORNI( rect.right - rect.left, -1, 4 );
 }
 
 HB_FUNC( RR_GETCLIENTRECT )
@@ -2281,7 +2281,7 @@ HB_FUNC( RR_PLAYTHUMB )
    FillRect(tmpDC, &rect, static_cast<HBRUSH>(GetStockObject(WHITE_BRUSH)));
    PlayEnhMetaFile(tmpDC, hh, &rect);
    DeleteEnhMetaFile(hh);
-   TextOut(tmpDC, ( int ) rect.right / 2 - 5, ( int ) rect.bottom / 2 - 5, lpText, ( int ) lstrlen(lpText));
+   TextOut(tmpDC, rect.right / 2 - 5, rect.bottom / 2 - 5, lpText, lstrlen(lpText));
    SendMessage(reinterpret_cast<HWND>(HB_PARVNL(1, 5)), STM_SETIMAGE, IMAGE_BITMAP, ( LPARAM ) hbmp[i]);
    ReleaseDC(reinterpret_cast<HWND>(HB_PARVNL(1, 5)), imgDC);
    DeleteDC(tmpDC);

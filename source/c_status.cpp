@@ -108,7 +108,7 @@ HB_FUNC( INITITEMBAR )
 
    if( hb_parnl(5) )
    {
-      nrOfParts = ( int ) SendMessage(hWndSB, SB_GETPARTS, 40, 0);
+      nrOfParts = SendMessage(hWndSB, SB_GETPARTS, 40, 0);
       SendMessage(hWndSB, SB_GETPARTS, 40, ( LPARAM ) ( LPINT ) ptArray);
    }
 
@@ -229,7 +229,7 @@ HB_FUNC( REFRESHITEMBAR )
 
    hWndSB    = hmg_par_HWND(1);
    size      = hb_parni(2);
-   nrOfParts = ( int ) SendMessage(hWndSB, SB_GETPARTS, 40, 0);
+   nrOfParts = SendMessage(hWndSB, SB_GETPARTS, 40, 0);
    SendMessage(hWndSB, SB_GETPARTS, 40, ( LPARAM ) ( LPINT ) ptArray);
 
    hDC = GetDC(hWndSB);

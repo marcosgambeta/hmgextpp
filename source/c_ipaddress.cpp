@@ -124,8 +124,8 @@ HB_FUNC( GETIPADDRESS )
    v4 = FOURTH_IPADDRESS(pdwAddr);
 
    hb_reta(4);
-   HB_STORNI( ( INT ) v1, -1, 1 );
-   HB_STORNI( ( INT ) v2, -1, 2 );
-   HB_STORNI( ( INT ) v3, -1, 3 );
-   HB_STORNI( ( INT ) v4, -1, 4 );
+   HB_STORNI( v1, -1, 1 );
+   HB_STORNI( v2, -1, 2 );
+   HB_STORNI( v3, -1, 3 );
+   HB_STORNI( v4, -1, 4 );
 }

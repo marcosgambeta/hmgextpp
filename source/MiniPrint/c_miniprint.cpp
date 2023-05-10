@@ -1424,8 +1424,8 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
       HB_STORC( hb_parc(1), -1, 2 );
       hb_xfree(pStr);
 #endif
-      HB_STORNI( ( INT ) pi2->pDevMode->dmCopies, -1, 3 );
-      HB_STORNI( ( INT ) pi2->pDevMode->dmCollate, -1, 4 );
+      HB_STORNI( pi2->pDevMode->dmCopies, -1, 3 );
+      HB_STORNI( pi2->pDevMode->dmCollate, -1, 4 );
    }
    else
    {
@@ -1848,7 +1848,7 @@ HB_FUNC( _HMG_PRINTGETJOBINFO )
          if( GetJob(hPrinter, nJobID, 1, ( LPBYTE ) Job_Info_1, nBytesNeeded, &nBytesUsed) )
          {
             hb_reta(14);
-            HB_STORNI( ( INT ) Job_Info_1->JobId, -1, 1 );
+            HB_STORNI( Job_Info_1->JobId, -1, 1 );
 #ifndef UNICODE
             HB_STORC(      Job_Info_1->pPrinterName, -1, 2 );
             HB_STORC(      Job_Info_1->pMachineName, -1, 3 );
@@ -1876,11 +1876,11 @@ HB_FUNC( _HMG_PRINTGETJOBINFO )
             HB_STORC(      pStr, -1, 7 );
             hb_xfree(pStr);
 #endif
-            HB_STORNI( ( INT ) Job_Info_1->Status, -1, 8 );
-            HB_STORNI( ( INT ) Job_Info_1->Priority, -1, 9 );
-            HB_STORNI( ( INT ) Job_Info_1->Position, -1, 10 );
-            HB_STORNI( ( INT ) Job_Info_1->TotalPages, -1, 11 );
-            HB_STORNI( ( INT ) Job_Info_1->PagesPrinted, -1, 12 );
+            HB_STORNI( Job_Info_1->Status, -1, 8 );
+            HB_STORNI( Job_Info_1->Priority, -1, 9 );
+            HB_STORNI( Job_Info_1->Position, -1, 10 );
+            HB_STORNI( Job_Info_1->TotalPages, -1, 11 );
+            HB_STORNI( Job_Info_1->PagesPrinted, -1, 12 );
 
             SystemTimeToTzSpecificLocalTime(nullptr, &Job_Info_1->Submitted, &LocalSystemTime);
 
@@ -2082,8 +2082,8 @@ static void calc_rect(HWND handle, int width, int height, int scalestrech, LONG 
          rect->bottom = ( int ) lHeight * rect->right / lWidth;
    }
 
-   rect->left = ( int ) ( width - rect->right ) / 2;
-   rect->top  = ( int ) ( height - rect->bottom ) / 2;
+   rect->left = ( width - rect->right ) / 2;
+   rect->top  = ( height - rect->bottom ) / 2;
 
 }
 

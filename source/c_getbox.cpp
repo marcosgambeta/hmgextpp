@@ -355,7 +355,7 @@ HB_FUNC( GETTEXTHEIGHT )               // returns the height of a string in pixe
       hOldFont = static_cast<HFONT>(SelectObject(hDC, hFont));
    }
 
-   GetTextExtentPoint32(hDC, lpString, ( int ) lstrlen(lpString), &sz);
+   GetTextExtentPoint32(hDC, lpString, lstrlen(lpString), &sz);
 
    if( hFont )
    {

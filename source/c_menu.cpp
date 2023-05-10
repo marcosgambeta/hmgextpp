@@ -127,7 +127,7 @@ HB_FUNC( ARRAY2ACCELERATORTABLE )
    int      nLen;
    HACCEL   hAccel = nullptr;
 
-   if( pArray && ( ( nLen = ( int ) hb_arrayLen(pArray) ) > 0 ) )
+   if( pArray && ( ( nLen = hb_arrayLen(pArray) ) > 0 ) )
    {
       LPACCEL lpAccel = ( LPACCEL ) hb_xalloc(nLen * sizeof(ACCEL));
 
@@ -924,7 +924,7 @@ HB_FUNC( _ONDRAWMENUITEM )
    }
 
    // draw menu item text
-   iLen = ( int ) HB_STRNLEN(lpMenuItem->caption, MAX_ITEM_TEXT * sizeof(TCHAR));
+   iLen = HB_STRNLEN(lpMenuItem->caption, MAX_ITEM_TEXT * sizeof(TCHAR));
 
    if( lpMenuItem->uiItemType == 1 )
    {

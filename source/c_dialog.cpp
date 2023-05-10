@@ -274,7 +274,7 @@ HB_SIZE GetSizeDlgTemp(PHB_ITEM dArray, PHB_ITEM cArray)
 {
    PHB_ITEM iArray;
    HB_SIZE lTemplateSize = 36;
-   int nItem = ( int ) hb_arrayLen(cArray);
+   int nItem = hb_arrayLen(cArray);
    HB_SIZE ln = hb_arrayGetCLen(dArray, 10);    //caption
    lTemplateSize += ln * 2;
 
@@ -325,7 +325,7 @@ PWORD CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
    y       = hb_arrayGetNI( dArray, 7 );  //y
    w       = hb_arrayGetNI( dArray, 8 );  //w
    h       = hb_arrayGetNI( dArray, 9 );  //h
-   nItem   = ( int ) hb_arrayLen(cArray);
+   nItem   = hb_arrayLen(cArray);
 
    *pw++   = 1;            // DlgVer
    *pw++   = 0xFFFF;       // Signature

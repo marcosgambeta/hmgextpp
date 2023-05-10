@@ -486,10 +486,10 @@ HB_FUNC( GETWINDOWRECT )
    {
       switch( hb_parni(2) )
       {
-         case 1: hb_retni( ( INT ) rect.top ); break;
-         case 2: hb_retni( ( INT ) rect.left ); break;
-         case 3: hb_retni( ( INT ) rect.right - rect.left ); break;
-         case 4: hb_retni( ( INT ) rect.bottom - rect.top );
+         case 1: hb_retni( rect.top ); break;
+         case 2: hb_retni( rect.left ); break;
+         case 3: hb_retni( rect.right - rect.left ); break;
+         case 4: hb_retni( rect.bottom - rect.top );
       }
    }
    else if( HB_ISARRAY(2) )
@@ -519,10 +519,10 @@ HB_FUNC( GETDESKTOPAREA )
    SystemParametersInfo(SPI_GETWORKAREA, 1, &rect, 0);
 
    hb_reta(4);
-   HB_STORNI( ( INT ) rect.left, -1, 1 );
-   HB_STORNI( ( INT ) rect.top, -1, 2 );
-   HB_STORNI( ( INT ) rect.right, -1, 3 );
-   HB_STORNI( ( INT ) rect.bottom, -1, 4 );
+   HB_STORNI( rect.left, -1, 1 );
+   HB_STORNI( rect.top, -1, 2 );
+   HB_STORNI( rect.right, -1, 3 );
+   HB_STORNI( rect.bottom, -1, 4 );
 }
 
 HB_FUNC( GETTASKBARHEIGHT )
@@ -530,7 +530,7 @@ HB_FUNC( GETTASKBARHEIGHT )
    RECT rect;
 
    GetWindowRect(FindWindow(TEXT("Shell_TrayWnd"), nullptr), &rect);
-   hb_retni( ( INT ) rect.bottom - rect.top );
+   hb_retni( rect.bottom - rect.top );
 }
 
 static BOOL ShowNotifyIcon(HWND hWnd, BOOL bAdd, HICON hIcon, TCHAR * szText)
@@ -892,7 +892,7 @@ HB_FUNC( C_SETWINDOWRGN )
                hbmp = static_cast<HBITMAP>(LoadImage(nullptr, ( TCHAR * ) hb_parc(2), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION));
             }
 
-            hRgn = BitmapToRegion(hbmp, ( COLORREF ) RGB(( int ) HB_PARNI(3, 1), ( int ) HB_PARNI(3, 2), ( int ) HB_PARNI(3, 3)), 0x101010);
+            hRgn = BitmapToRegion(hbmp, ( COLORREF ) RGB(HB_PARNI(3, 1), HB_PARNI(3, 2), HB_PARNI(3, 3)), 0x101010);
             DeleteObject(hbmp);
             break;
 
@@ -1074,7 +1074,7 @@ HB_FUNC( GETRC )     // Get ListView CustomDraw Row and Column
 
    hb_reta(2);
    HB_STORVNL( lplvcd->nmcd.dwItemSpec + 1, -1, 1 );
-   HB_STORNI( ( INT ) lplvcd->iSubItem + 1, -1, 2 );
+   HB_STORNI( lplvcd->iSubItem + 1, -1, 2 );
 }
 
 HB_FUNC( SETBCFC )   // Set Dynamic BackColor and ForeColor

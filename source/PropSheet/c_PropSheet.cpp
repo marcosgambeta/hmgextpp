@@ -372,7 +372,7 @@ HB_FUNC( PROPSHEETINDEXTOHWND )
 {
   HWND hWndPage;
 
-  hWndPage = PropSheet_IndexToHwnd( hmg_par_HWND(1), (int) hb_parni (2) );
+  hWndPage = PropSheet_IndexToHwnd( hmg_par_HWND(1), hb_parni (2) );
 
   hb_retnl ( (long) hWndPage );
 }
@@ -387,7 +387,7 @@ HB_FUNC( PROPSHEETHWNDTOINDEX )
 
   iPageIndex = PropSheet_HwndToIndex(hmg_par_HWND(1), hmg_par_HWND(2));
 
-  hb_retni ( (int) iPageIndex );
+  hb_retni ( iPageIndex );
 }
 
 HB_FUNC( PROPSHEETGETCURRENTPAGEHWND )
@@ -470,7 +470,7 @@ HB_FUNC( SENDDLGITEMMESSAGE )
 {
    LRESULT lResult;
 
-   lResult = SendDlgItemMessage(hmg_par_HWND(1), (int) hb_parni(2), (UINT) hb_parnl(3),
+   lResult = SendDlgItemMessage(hmg_par_HWND(1), hb_parni(2), (UINT) hb_parnl(3),
                                  (WPARAM) hb_parni(4), (LPARAM) hb_parni(5));
    hb_retnl( (LONG) lResult );
 }

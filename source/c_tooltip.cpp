@@ -263,7 +263,7 @@ HB_FUNC( SHOWBALLOONTIP )
       if( HB_ISCHAR(2) )
       {
          ZeroMemory(Text, sizeof(Text));
-         k = ( int ) hb_parclen(2);
+         k = hb_parclen(2);
          s = ( const char * ) hb_parc(2);
          for( int i = 0; i < k; i++ )
          {
@@ -276,7 +276,7 @@ HB_FUNC( SHOWBALLOONTIP )
       if( HB_ISCHAR(3) )
       {
          ZeroMemory(Title, sizeof(Title));
-         k = ( int ) hb_parclen(3);
+         k = hb_parclen(3);
          s = ( const char * ) hb_parc(3);
          for( int i = 0; i < k; i++ )
          {
@@ -471,7 +471,7 @@ HB_FUNC( TTM_GETDELAYTIME )
 
    if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) )
    {
-      hb_retni( ( int ) SendMessage(hwndToolTip, TTM_GETDELAYTIME, hb_parnidef(2, TTDT_AUTOPOP), 0) );
+      hb_retni( SendMessage(hwndToolTip, TTM_GETDELAYTIME, hb_parnidef(2, TTDT_AUTOPOP), 0) );
    }
    else
    {
@@ -512,7 +512,7 @@ HB_FUNC( TTM_GETMAXTIPWIDTH )
 
    if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) )
    {
-      hb_retni( ( int ) SendMessage(hwndToolTip, TTM_GETMAXTIPWIDTH, 0, 0) );
+      hb_retni( SendMessage(hwndToolTip, TTM_GETMAXTIPWIDTH, 0, 0) );
    }
    else
    {
@@ -534,7 +534,7 @@ HB_FUNC( TTM_GETTIPBKCOLOR )
 
    if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) )
    {
-      hb_retni( ( int ) SendMessage(hwndToolTip, TTM_GETTIPBKCOLOR, 0, 0) );
+      hb_retni( SendMessage(hwndToolTip, TTM_GETTIPBKCOLOR, 0, 0) );
    }
    else
    {
@@ -551,7 +551,7 @@ HB_FUNC( TTM_GETTIPTEXTCOLOR )
 
    if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) )
    {
-      hb_retni( ( int ) SendMessage(hwndToolTip, TTM_GETTIPTEXTCOLOR, 0, 0) );
+      hb_retni( SendMessage(hwndToolTip, TTM_GETTIPTEXTCOLOR, 0, 0) );
    }
    else
    {
@@ -574,7 +574,7 @@ HB_FUNC( TTM_GETTOOLCOUNT )
 
    if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) )
    {
-      hb_retni( ( int ) SendMessage(hwndToolTip, TTM_GETTOOLCOUNT, 0, 0) );
+      hb_retni( SendMessage(hwndToolTip, TTM_GETTOOLCOUNT, 0, 0) );
    }
    else
    {
@@ -699,7 +699,7 @@ HB_FUNC( TTM_SETMAXTIPWIDTH )
 
    if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) )
    {
-      hb_retni( ( int ) SendMessage(hwndToolTip, TTM_SETMAXTIPWIDTH, 0, ( LPARAM ) hb_parnidef(2, g_iToolTipMaxWidth)) );
+      hb_retni( SendMessage(hwndToolTip, TTM_SETMAXTIPWIDTH, 0, ( LPARAM ) hb_parnidef(2, g_iToolTipMaxWidth)) );
    }
    else
    {

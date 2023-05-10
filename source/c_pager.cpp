@@ -57,22 +57,22 @@
    ( void ) SendMessage(( hwnd ), PGM_FORWARDMOUSE, ( WPARAM ) ( bForward ), 0)
 
 #define Pager_SetBorder(hwnd, iBorder) \
-   ( int ) SendMessage(( hwnd ), PGM_SETBORDER, 0, ( LPARAM ) ( iBorder ))
+   SendMessage(( hwnd ), PGM_SETBORDER, 0, ( LPARAM ) ( iBorder ))
 
 #define Pager_GetBorder(hwnd) \
-   ( int ) SendMessage(( hwnd ), PGM_GETBORDER, 0, 0)
+   SendMessage(( hwnd ), PGM_GETBORDER, 0, 0)
 
 #define Pager_SetPos(hwnd, iPos) \
-   ( int ) SendMessage(( hwnd ), PGM_SETPOS, 0, ( LPARAM ) ( iPos ))
+   SendMessage(( hwnd ), PGM_SETPOS, 0, ( LPARAM ) ( iPos ))
 
 #define Pager_GetPos(hwnd) \
-   ( int ) SendMessage(( hwnd ), PGM_GETPOS, 0, 0)
+   SendMessage(( hwnd ), PGM_GETPOS, 0, 0)
 
 #define Pager_SetButtonSize(hwnd, iSize) \
-   ( int ) SendMessage(( hwnd ), PGM_SETBUTTONSIZE, 0, ( LPARAM ) ( iSize ))
+   SendMessage(( hwnd ), PGM_SETBUTTONSIZE, 0, ( LPARAM ) ( iSize ))
 
 #define Pager_GetButtonSize(hwnd) \
-   ( int ) SendMessage(( hwnd ), PGM_GETBUTTONSIZE, 0, 0)
+   SendMessage(( hwnd ), PGM_GETBUTTONSIZE, 0, 0)
 
 #endif
 
@@ -122,7 +122,7 @@ HB_FUNC( PAGERSCROLL )     // PagerScroll(lParam , nScroll)
    NMPGSCROLL * lpScroll;
 
    lpScroll = ( LPNMPGSCROLL ) HB_PARNL(1);
-   lpScroll->iScroll = ( INT ) hb_parnl(2);
+   lpScroll->iScroll = hb_parnl(2);
 }
 
 HB_FUNC( INITPAGER )       // InitPager ( ParentForm, hRebar, nWidth, nHeight, vertical, autoscroll )
@@ -210,7 +210,7 @@ HB_FUNC( PAGERFORWARDMOUSE )
 
 HB_FUNC( PAGERGETBUTTONSIZE )
 {
-   hb_retni( ( INT ) Pager_GetButtonSize(hmg_par_HWND(1)) );
+   hb_retni( Pager_GetButtonSize(hmg_par_HWND(1)) );
 }
 
 HB_FUNC( PAGERSETBUTTONSIZE )
@@ -220,20 +220,20 @@ HB_FUNC( PAGERSETBUTTONSIZE )
 
 HB_FUNC( PAGERGETBORDER )
 {
-   hb_retni( ( INT ) Pager_GetBorder(hmg_par_HWND(1)) );
+   hb_retni( Pager_GetBorder(hmg_par_HWND(1)) );
 }
 
 HB_FUNC( PAGERSETBORDER )
 {
-   hb_retni( ( INT ) Pager_SetBorder(hmg_par_HWND(1), hmg_par_INT(2)) );
+   hb_retni( Pager_SetBorder(hmg_par_HWND(1), hmg_par_INT(2)) );
 }
 
 HB_FUNC( PAGERGETPOS )
 {
-   hb_retni( ( INT ) Pager_GetPos(hmg_par_HWND(1)) );
+   hb_retni( Pager_GetPos(hmg_par_HWND(1)) );
 }
 
 HB_FUNC( PAGERSETPOS )
 {
-   hb_retni( ( INT ) Pager_SetPos(hmg_par_HWND(1), hmg_par_INT(2)) );
+   hb_retni( Pager_SetPos(hmg_par_HWND(1), hmg_par_INT(2)) );
 }
