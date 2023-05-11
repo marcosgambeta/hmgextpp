@@ -1665,102 +1665,115 @@ RETURN ( FError() == 0 )
 #define LVN_ITEMCHANGED (-101)
 #define NM_DBLCLK       (-3)
 
-*------------------------------------------------------------------------------*
-FUNCTION OPROPGRIDEVENTS( hWnd, nMsg, wParam, lParam, hItem, hEdit )
-*------------------------------------------------------------------------------*
-   LOCAL i, ItemType, iCheck, cData, aData, cValue
-   DO CASE
-   CASE nMsg == WM_CHAR
+FUNCTION OPROPGRIDEVENTS(hWnd, nMsg, wParam, lParam, hItem, hEdit)
+
+   LOCAL i
+   LOCAL ItemType
+   LOCAL iCheck
+   LOCAL cData
+   LOCAL aData
+   LOCAL cValue
+
+   SWITCH nMsg
+
+   CASE WM_CHAR
       IF wParam == 27
-         _PGInitData( hWnd, hEdit, hItem, PG_GETITEM( hWnd, hItem, PGI_TYPE ) )
+         _PGInitData(hWnd, hEdit, hItem, PG_GETITEM(hWnd, hItem, PGI_TYPE))
       ENDIF
-   CASE nMsg == WM_LBUTTONUP
+      EXIT
+
+   CASE WM_LBUTTONUP
       RETURN 0
-   CASE nMsg == WM_LBUTTONDOWN
+
+   CASE WM_LBUTTONDOWN
       RETURN 0
-   CASE nMsg == WM_LBUTTONDBLCLK
-      IF hItem != 0
-         ItemType := PG_GetItem( hWnd, hItem, PGI_TYPE )
+
+   CASE WM_LBUTTONDBLCLK
+      IF !empty(hItem)
+         ItemType := PG_GetItem(hWnd, hItem, PGI_TYPE)
          IF ItemType == PG_CATEG .OR. ItemType == PG_FONT .OR. ItemType == PG_FLAG .OR. ItemType == PG_SIZE
-            SendMessage ( hWnd , TVM_EXPAND, TVE_TOGGLE, hItem )
+            SendMessage(hWnd, TVM_EXPAND, TVE_TOGGLE, hItem)
             RETURN 1
          ENDIF
       ENDIF
       RETURN 0
-   CASE nMsg == WM_COMMAND
-      IF  HIWORD(wParam) == EN_CHANGE .AND. lParam == hItem
-         i := AScan(_HMG_aControlHandles , {|x| HB_ISARRAY(x) .AND. x[1] == hWnd })
+
+   CASE WM_COMMAND
+      IF HIWORD(wParam) == EN_CHANGE .AND. lParam == hItem
+         i := AScan(_HMG_aControlHandles, {|x|HB_ISARRAY(x) .AND. x[1] == hWnd})
          IF i > 0
-            _ChangeBtnState(  _HMG_aControlHandles[i], .T. , i )
-            _DoControlEventProcedure ( _HMG_aControlHeadClick[i] , i )
+            _ChangeBtnState(_HMG_aControlHandles[i], .T., i)
+            _DoControlEventProcedure(_HMG_aControlHeadClick[i], i)
          ENDIF
       ENDIF
-      IF  HIWORD(wParam) == BN_CLICKED
-         IF PG_GetItem( hWnd, hItem, PGI_TYPE ) == PG_CHECK
+      IF HIWORD(wParam) == BN_CLICKED
+         IF PG_GetItem(hWnd, hItem, PGI_TYPE) == PG_CHECK
             iCheck := LOWORD(wParam)
-            cData  := PG_GETITEM( hWnd, hItem, PGI_DATA )
+            cData  := PG_GETITEM(hWnd, hItem, PGI_DATA)
             IF !Empty(cData)
-               aData := PgIdentData( cData )
+               aData := PgIdentData(cData)
                IF Len(aData) >= 2
                   cValue := aData[iCheck]
-                  PG_SETDATAITEM( hWnd, hItem, cValue, cData, .F. )
+                  PG_SETDATAITEM(hWnd, hItem, cValue, cData, .F.)
                ELSE
-                  cValue := PG_GETITEM( hWnd, hItem, PGI_VALUE )
-                  cData := IIF( iCheck == 2, "true", "false" )
-                  PG_SETDATAITEM( hWnd, hItem, cValue, cData, .T. )
+                  cValue := PG_GETITEM(hWnd, hItem, PGI_VALUE)
+                  cData := IIF(iCheck == 2, "true", "false")
+                  PG_SETDATAITEM(hWnd, hItem, cValue, cData, .T.)
                ENDIF
             ENDIF
          ENDIF
       ENDIF
-      IF  HIWORD(wParam) == CBN_KILLFOCUS
-         IF PG_GetItem( hWnd, hItem, PGI_TYPE ) == PG_LIST
-            cValue := GetWindowText ( hEdit )
-            cData  := PG_GETITEM( hWnd, hItem, PGI_DATA )
+      IF HIWORD(wParam) == CBN_KILLFOCUS
+         IF PG_GetItem(hWnd, hItem, PGI_TYPE) == PG_LIST
+            cValue := GetWindowText(hEdit)
+            cData  := PG_GETITEM(hWnd, hItem, PGI_DATA)
             IF !Empty(cData)
-               aData := PgIdentData( cData )
+               aData := PgIdentData(cData)
                IF AScan(aData, cValue) == 0
                   cData := cData + ";" + cValue
-                  PG_SETDATAITEM( hWnd, hItem, cValue, cData, .T. )
+                  PG_SETDATAITEM(hWnd, hItem, cValue, cData, .T.)
                ENDIF
             ELSE
-               PG_SETDATAITEM( hWnd, hItem, cValue, cValue, .T. )
+               PG_SETDATAITEM(hWnd, hItem, cValue, cValue, .T.)
             ENDIF
          ENDIF
       ENDIF
-      IF  HIWORD(wParam) == EN_CHANGE
-         IF PG_GetItem( hWnd, hItem, PGI_TYPE ) == PG_DOUBLE .OR. ;
-            ( PG_GetItem( hWnd, hItem, PGI_TYPE ) == PG_STRING .AND. !Empty(PG_GETITEM(hWnd, hItem, PGI_DATA)) )
-            IF IsWindowHandle( hEdit )
-               cValue := GetWindowText ( hEdit )
-               cData := PG_GETITEM( hWnd, hItem, PGI_DATA )
+      IF HIWORD(wParam) == EN_CHANGE
+         IF PG_GetItem(hWnd, hItem, PGI_TYPE) == PG_DOUBLE .OR. (PG_GetItem(hWnd, hItem, PGI_TYPE) == PG_STRING .AND. !Empty(PG_GETITEM(hWnd, hItem, PGI_DATA)))
+            IF IsWindowHandle(hEdit)
+               cValue := GetWindowText(hEdit)
+               cData := PG_GETITEM(hWnd, hItem, PGI_DATA)
                IF !Empty(cData)
-                  CharMaskEdit ( hEdit, cValue , cData )
+                  CharMaskEdit(hEdit, cValue, cData)
                ELSE
-                  CharMaskEdit ( hEdit, cValue )
+                  CharMaskEdit(hEdit, cValue)
                ENDIF
             ENDIF
          ENDIF
       ENDIF
-   CASE nMsg == WM_NOTIFY
-      i := AScan(_HMG_aControlHandles , {|x| HB_ISARRAY(x) .AND. x[1] ==  GetHwndFrom ( lParam ) })
+      EXIT
+
+   CASE WM_NOTIFY
+      i := AScan(_HMG_aControlHandles, {|x|HB_ISARRAY(x) .AND. x[1] == GetHwndFrom(lParam)})
       IF i > 0
-         IF GetNotifyCode ( lParam ) = TVN_SELCHANGED   //Tree
-            _DoControlEventProcedure ( _HMG_aControlChangeProcedure[i] , i )
+         IF GetNotifyCode(lParam) == TVN_SELCHANGED // Tree
+            _DoControlEventProcedure(_HMG_aControlChangeProcedure[i], i)
             RETURN 0
          ENDIF
 
          // PropGrid Double Click .........................
 
-         IF GetNotifyCode ( lParam ) == NM_DBLCLK
-            _DoControlEventProcedure ( _HMG_aControlDblClick[i] , i )
+         IF GetNotifyCode(lParam) == NM_DBLCLK
+            _DoControlEventProcedure(_HMG_aControlDblClick[i], i)
             RETURN 0
          ENDIF
 
-         IF GetNotifyCode ( lParam ) = -181
-            ReDrawWindow ( _hmg_acontrolhandles [i,1] )
+         IF GetNotifyCode(lParam) == -181
+            ReDrawWindow(_hmg_acontrolhandles[i, 1])
          ENDIF
       ENDIF
-   ENDCASE
+
+   ENDSWITCH
 
 RETURN 1
 

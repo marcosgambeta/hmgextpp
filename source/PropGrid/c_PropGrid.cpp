@@ -1196,12 +1196,12 @@ LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPar
          {
             hb_vmPushSymbol(pSymbol);
             hb_vmPushNil();
-            hb_vmPushLong(reinterpret_cast<LONG_PTR>(hWnd));
+            hmg_vmPushHandle(hWnd);
             hb_vmPushLong(Msg);
             hb_vmPushLong(wParam);
             hb_vmPushLong(lParam);
-            hb_vmPushLong(reinterpret_cast<LONG_PTR>(ppgrd->hItemActive));
-            hb_vmPushLong(reinterpret_cast<LONG_PTR>(ppgrd->hPropEdit));
+            hmg_vmPushHandle(ppgrd->hItemActive);
+            hmg_vmPushHandle(ppgrd->hPropEdit);
             hb_vmDo(6);
          }
 
@@ -1257,7 +1257,7 @@ LRESULT CALLBACK OwnFramePgProc(HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM l
                {
                   hb_vmPushSymbol(pSymbol);
                   hb_vmPushNil();
-                  hb_vmPushLong(reinterpret_cast<LONG_PTR>(ppgrd->hPropGrid));
+                  hmg_vmPushHandle(ppgrd->hPropGrid);
                   hb_vmPushLong(lParam);
                   hb_vmDo(2);
                }
@@ -1317,7 +1317,7 @@ LRESULT CALLBACK OwnFramePgProc(HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM l
                   {
                      hb_vmPushSymbol(pSymbol);
                      hb_vmPushNil();
-                     hb_vmPushLong(reinterpret_cast<LONG_PTR>(ppgrd->hPropGrid));
+                     hmg_vmPushHandle(ppgrd->hPropGrid);
                      hb_vmPushLong(0);
                      hb_vmDo(2);
                   }
@@ -2225,9 +2225,9 @@ HWND EditPG(HWND hWnd, RECT rc, HTREEITEM hItem, int ItemType, PROPGRD ppgrd , B
    {
       hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
-      hb_vmPushLong(reinterpret_cast<LONG_PTR>(hWnd));
-      hb_vmPushLong(reinterpret_cast<LONG_PTR>(hEdit));
-      hb_vmPushLong(reinterpret_cast<LONG_PTR>(hItem));
+      hmg_vmPushHandle(hWnd);
+      hmg_vmPushHandle(hEdit);
+      hmg_vmPushHandle(hItem);
       hb_vmPushLong(ItemType);
       hb_vmDo(4);
    }
@@ -2453,12 +2453,12 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
             {
                hb_vmPushSymbol(pSymbol);
                hb_vmPushNil();
-               hb_vmPushLong(reinterpret_cast<LONG_PTR>(hEdit));
+               hmg_vmPushHandle(hEdit);
                hb_vmPushLong(Msg);
                hb_vmPushLong(wParam);
                hb_vmPushLong(lParam);
-               hb_vmPushLong(reinterpret_cast<LONG_PTR>(hWndParent));
-               hb_vmPushLong(reinterpret_cast<LONG_PTR>(hItem));
+               hmg_vmPushHandle(hWndParent);
+               hmg_vmPushHandle(hItem);
                hb_vmDo(6);
             }
 
@@ -2491,12 +2491,12 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
             {
                hb_vmPushSymbol(pSymbol);
                hb_vmPushNil();
-               hb_vmPushLong(reinterpret_cast<LONG_PTR>(hEdit));
+               hmg_vmPushHandle(hEdit);
                hb_vmPushLong(Msg);
                hb_vmPushLong(wParam);
                hb_vmPushLong(lParam);
-               hb_vmPushLong(reinterpret_cast<LONG_PTR>(hWndParent));
-               hb_vmPushLong(reinterpret_cast<LONG_PTR>(hItem));
+               hmg_vmPushHandle(hWndParent);
+               hmg_vmPushHandle(hItem);
                hb_vmDo(6);
             }
 
