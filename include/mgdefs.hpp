@@ -149,7 +149,7 @@ HINSTANCE GetResources(void);
 HBITMAP HMG_LoadPicture(const char * pszName, int width, int height, HWND hWnd, int ScaleStretch, int Transparent, long BackgroundColor, int AdjustImage, bool bAlphaFormat, int iAlpfaConstant);
 HBITMAP HMG_LoadImage(const char * pszImageName, const char * pszTypeOfRes);
 
-// TODO: handles -> pointers (work in progress - HMG_USE_POINTERS is unstable)
+// TODO: handles -> pointers (work in progress - HMG_USE_POINTERS is unstable yet)
 
 // macros for parameters
 
@@ -243,4 +243,10 @@ HBITMAP HMG_LoadImage(const char * pszImageName, const char * pszTypeOfRes);
    #define hmg_ret_HRGN(x)       HB_RETNL(reinterpret_cast<LONG_PTR>(x))
    #define hmg_ret_HTREEITEM(x)  HB_RETNL(reinterpret_cast<LONG_PTR>(x))
    #define hmg_ret_HWND(x)       HB_RETNL(reinterpret_cast<LONG_PTR>(x))
+#endif
+
+#ifdef HMG_USE_POINTERS
+#define hmg_vmPushHandle(x)      hb_vmPushPtr(x)
+#else
+#define hmg_vmPushHandle(x)      hb_vmPushLong(reinterpret_cast<LONG_PTR>(x))
 #endif
