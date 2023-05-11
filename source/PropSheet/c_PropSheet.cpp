@@ -305,7 +305,7 @@ HB_FUNC( CREATEPROPERTYSHEET )
    hpsp = (HPROPSHEETPAGE *)malloc(sizeof(HPROPSHEETPAGE)* nPages );
 
    for( s = 0; s < nPages; s = s + 1 )
-      hpsp[s]=(HPROPSHEETPAGE) ( PHB_ITEM ) hb_arrayGetNL( sArray, s + 1 );
+      hpsp[s] = static_cast<HPROPSHEETPAGE>(reinterpret_cast<PHB_ITEM>(hb_arrayGetNL(sArray, s + 1)));
 
    Style        = hb_arrayGetNI( pArray, 4 );
    idWM         = hb_arrayGetNI( pArray, 15 );
@@ -347,7 +347,7 @@ HB_FUNC( CREATEPROPERTYSHEET )
    #endif
    psh.pszCaption       = strPropSheet;
    psh.nPages           = nPages;
-   psh.pfnCallback      = (PFNPROPSHEETCALLBACK)HMG_PropSheetProc;
+   psh.pfnCallback      = reinterpret_cast<PFNPROPSHEETCALLBACK>(reinterpret_cast<void*>(HMG_PropSheetProc));
 
    if (hb_parl(4))
       hb_retnl( (LONG) PropertySheet(&psh) );
