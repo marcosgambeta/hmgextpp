@@ -246,7 +246,7 @@ HBITMAP HMG_LoadImage(const char * pszImageName, const char * pszTypeOfRes);
 #endif
 
 #ifdef HMG_USE_POINTERS
-#define hmg_vmPushHandle(x)      hb_vmPushPtr(x)
+#define hmg_vmPushHandle(x)      hb_vmPushPointer(x)
 #else
 #define hmg_vmPushHandle(x)      hb_vmPushLong(reinterpret_cast<LONG_PTR>(x))
 #endif
