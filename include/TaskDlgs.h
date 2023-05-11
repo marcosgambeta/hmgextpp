@@ -35,7 +35,7 @@ static HB_BOOL TD_CheckButton( const PHB_ITEM arrayOfButtons, HB_SIZE arraysize 
 static const char * TD_NotifyToMsg( UINT uiNotification, PHB_ITEM pObj );
 static BOOL TD_objSendMsg( PHB_ITEM pObject, const char * sMsgName, HRESULT * hRes, HWND hWnd, UINT uiNotification, WPARAM wParam, LPARAM lParam );
 
-#if ( ( defined( __BORLANDC__ ) && __BORLANDC__ <= 1410 ) )
+#if ( ( defined(__BORLANDC__) && __BORLANDC__ <= 1410 ) )
 // ===================== Task Dialog =========================
 #ifndef NOTASKDIALOG
 // Task Dialog is only available starting Windows Vista
@@ -189,4 +189,4 @@ typedef  WINCOMMCTRLAPI HRESULT ( WINAPI * fnTaskDialogIndirect )( const TASKDIA
 #endif // (NTDDI_VERSION >= NTDDI_VISTA)
 #endif // NOTASKDIALOG
 // ==================== End TaskDialog =======================
-#endif // defined( __BORLANDC__ )
+#endif // defined(__BORLANDC__)

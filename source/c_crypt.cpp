@@ -52,7 +52,7 @@
    Notes:      This is very simple crypt algorithm based on XOR encryption.
  */
 
-#if !defined( __MINGW32__ )
+#if !defined(__MINGW32__)
 
 #include <hbapi.hpp>
 

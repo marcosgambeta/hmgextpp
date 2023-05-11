@@ -47,7 +47,7 @@
 #include "mgdefs.hpp"
 
 #include <commctrl.h>
-#if defined( _MSC_VER )
+#if defined(_MSC_VER)
 #pragma warning ( disable:4201 )
 #endif
 #include <richedit.h>
@@ -56,7 +56,7 @@
 # define IMF_AUTOFONT      0x0002
 #endif
 
-#if defined( MSFTEDIT_CLASS )
+#if defined(MSFTEDIT_CLASS)
 # undef MSFTEDIT_CLASS
 #endif
 #define MSFTEDIT_CLASS     TEXT("RICHEDIT50W")
@@ -485,7 +485,7 @@ HB_FUNC( SETFONTRTF )
    }
 }
 
-#if defined( _MSC_VER )
+#if defined(_MSC_VER)
 #pragma warning ( disable:4996 )
 #endif
 static BOOL IsWinxpSp1Min(void)

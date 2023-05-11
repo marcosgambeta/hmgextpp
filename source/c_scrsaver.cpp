@@ -46,7 +46,7 @@
 
 #include "mgdefs.hpp"
 
-#if defined( _MSC_VER )
+#if defined(_MSC_VER)
 #pragma warning ( disable:4996 )
 #endif
 #include <commctrl.h>

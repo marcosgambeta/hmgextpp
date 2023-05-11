@@ -49,10 +49,10 @@
 #include <commctrl.h>
 #include <mmsystem.h>
 
-#if defined( __BORLANDC__ )
+#if defined(__BORLANDC__)
 # pragma warn -use /* unused var */
 
-#if defined( _WIN64 )
+#if defined(_WIN64)
 
 #ifndef UNICODE
 HWND MCIWndCreateA(

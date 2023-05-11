@@ -262,7 +262,7 @@ HB_FUNC( CREATEPROPERTYSEEETPAGE )
    psp.dwSize        = sizeof(PROPSHEETPAGE);
    psp.dwFlags       = PageStyle;
    psp.hInstance     = GetModuleHandle(nullptr);
-#if ( defined( __BORLANDC__ ) && __BORLANDC__ <= 1410 )
+#if ( defined(__BORLANDC__) && __BORLANDC__ <= 1410 )
    psp.DUMMYUNIONNAME.pszTemplate = MAKEINTRESOURCE(idRC);
    psp.DUMMYUNIONNAME2.pszIcon    = nullptr;
 #else
@@ -328,7 +328,7 @@ HB_FUNC( CREATEPROPERTYSHEET )
    psh.dwFlags          = Style;
    psh.hwndParent       = hwnd;
    psh.hInstance        = GetModuleHandle(nullptr);
-   #if ( defined( __BORLANDC__ ) && __BORLANDC__ <= 1410 )
+   #if ( defined(__BORLANDC__) && __BORLANDC__ <= 1410 )
      if( Style & PSP_USEHICON )
         psh.DUMMYUNIONNAME.hIcon       =  hicon;
      else
@@ -521,7 +521,7 @@ HB_FUNC( CREATEPROPSEEETPAGEINDIRECT )
    psp.dwSize        = sizeof(PROPSHEETPAGE);
    psp.dwFlags       = PageStyle | PSP_DLGINDIRECT;
    psp.hInstance     = GetModuleHandle(nullptr);
-#if ( defined( __BORLANDC__ ) && __BORLANDC__ <= 1410 )
+#if ( defined(__BORLANDC__) && __BORLANDC__ <= 1410 )
    psp.DUMMYUNIONNAME.pResource = (DLGTEMPLATE*) pdlgtemplate;
    psp.DUMMYUNIONNAME2.pszIcon       = nullptr;
 #else

@@ -1,16 +1,16 @@
 #ifndef HB_GDIPLUS_H_
 # define HB_GDIPLUS_H_
 
-# if defined( __BORLANDC__ )
+# if defined(__BORLANDC__)
 #  pragma option push -b -a8 -pc -A- -w-inl -w-hid /*P_O_Push*/
 # endif /* __BORLANDC__ */
 
-# if defined( __BORLANDC__ )
+# if defined(__BORLANDC__)
 #  define __inline__  __inline
 #  define __forceinline  __inline
 #  define __extension__
 # else /* =======================__MINGW32__======================*/
-#  if defined( __MINGW32__ )
+#  if defined(__MINGW32__)
 #   ifdef __forceinline
 #    undef __forceinline
 #   endif
@@ -18,19 +18,19 @@
 #  endif /* __MINGW32__ */
 # endif /* __BORLANDC__ */
 
-# if defined( _MSC_VER )
+# if defined(_MSC_VER)
 #  pragma warning(push)
 #  pragma warning(disable:4201)  /* warning C4201: nonstandard extension used: nameless struct/union */
 # endif
-# if defined( __MINGW32__ )
+# if defined(__MINGW32__)
 #  pragma GCC diagnostic push
 #  pragma GCC diagnostic ignored "-Wpedantic"
 # endif
 # include "fGdiPlusFlat.h"
-# if defined( __MINGW32__ )
+# if defined(__MINGW32__)
 #  pragma GCC diagnostic pop
 # endif
-# if defined( _MSC_VER )
+# if defined(_MSC_VER)
 #  pragma warning(pop)
 # endif
 

@@ -207,7 +207,7 @@ HB_FUNC( ADDTREEITEM )
    tvi.iSelectedImage = hb_parni(5);
    tvi.lParam         = nID;
 
-   #if ( defined( __BORLANDC__ ) && __BORLANDC__ <= 1410 )
+   #if ( defined(__BORLANDC__) && __BORLANDC__ <= 1410 )
    is.DUMMYUNIONNAME.item = tvi;
    #else
    is.item = tvi;

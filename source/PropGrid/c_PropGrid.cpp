@@ -1410,7 +1410,7 @@ HB_FUNC( ADDPGITEM )
    tvi.lParam         = ( LPARAM ) pData;
 
    TV_INSERTSTRUCT is;
-   #if ( defined( __BORLANDC__ ) && __BORLANDC__ <= 1410 )
+   #if ( defined(__BORLANDC__) && __BORLANDC__ <= 1410 )
    is.DUMMYUNIONNAME.item = tvi;
    #else
    is.item = tvi;
@@ -2516,13 +2516,13 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
    return CallWindowProc(OldWndProc, hEdit, Msg, wParam, lParam);
 }
 
-#if defined( __BORLANDC__ )
+#if defined(__BORLANDC__)
 #pragma argsused
 #endif
 
 int CALLBACK enumFontFamilyProc(ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *lpntme, DWORD FontType, LPARAM lParam)
 {
-#if defined( __MINGW32__ )
+#if defined(__MINGW32__)
    UNREFERENCED_PARAMETER( lpntme );
 #endif
    if( lpelfe && lParam )

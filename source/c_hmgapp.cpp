@@ -105,9 +105,9 @@ HB_CALL_ON_STARTUP_BEGIN(_hmg_init_)
 hb_vmAtInit(hmg_init, nullptr);
 HB_CALL_ON_STARTUP_END(_hmg_init_)
 
-#if defined( HB_PRAGMA_STARTUP )
+#if defined(HB_PRAGMA_STARTUP)
    #pragma startup _hmg_init_
-#elif defined( HB_DATASEG_STARTUP )
+#elif defined(HB_DATASEG_STARTUP)
    #define HB_DATASEG_BODY  HB_DATASEG_FUNC( _hmg_init_ )
    #include <hbiniseg.hpp>
 #endif

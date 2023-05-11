@@ -26,7 +26,7 @@
 #define MG_SETUP_H_
 
 #ifndef WINVER
-  #if defined( __WIN98__ )
+  #if defined(__WIN98__)
     #define WINVER   0x0400      /* version 4.0 */
   #else
     #define WINVER   0x0501      /* version 5.0 */
@@ -43,7 +43,7 @@
 
 #include "SET_COMPILE_HMG_UNICODE.ch"
 
-#if defined( UNICODE ) && !defined( _UNICODE )
+#if defined(UNICODE) && !defined(_UNICODE)
   #define _UNICODE
 #endif /* UNICODE && !_UNICODE */
 
@@ -64,7 +64,7 @@
 //#define HMG_LEGACY_OFF
 #endif
 
-#if defined( _WIN64 )
+#if defined(_WIN64)
   #define HB_arraySetNL    hb_arraySetNLL
   #define HB_arrayGetNL    hb_arrayGetNLL
   #define HB_PARNI         hb_parvni
@@ -92,13 +92,13 @@
   #define HB_STORDL        hb_storvdl
 #endif /* _WIN64 */
 
-#if defined( UNICODE )
+#if defined(UNICODE)
   #define _isValidCtrlClass  _isValidCtrlClassW
 #else
   #define _isValidCtrlClass  _isValidCtrlClassA
 #endif /* UNICODE */
 
-#if defined( __BORLANDC__ ) && ! defined( HB_ARCH_64BIT )
+#if defined(__BORLANDC__) && ! defined(HB_ARCH_64BIT)
   #undef MAKELONG
   #define MAKELONG( a, b )  ( ( LONG ) ( ( ( WORD ) ( ( DWORD_PTR ) ( a ) & 0xffff ) ) | \
                                          ( ( ( DWORD ) ( ( WORD ) ( ( DWORD_PTR ) ( b ) & 0xffff ) ) ) << 16 ) ) )

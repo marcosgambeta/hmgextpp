@@ -8,30 +8,30 @@
 
 #include "mgdefs.hpp"
 
-#if defined( _MSC_VER )
+#if defined(_MSC_VER)
 # pragma warning ( disable:4996 )
 #endif
 #include <hbapiitm.hpp>
 
-#if defined( _MSC_VER )
+#if defined(_MSC_VER)
 # pragma warning(push)
 # pragma warning(disable:4201)  /* warning C4201: nonstandard extension used: nameless struct/union */
 #endif
 #include <olectl.h>
-#if defined( _MSC_VER )
+#if defined(_MSC_VER)
 # pragma warning(pop)
 #endif
 
 #include <commctrl.h>
 
 #define HB_PARC      hb_parvc
-#if defined( _WIN64 )
+#if defined(_WIN64)
 #  define HB_PARNL3  hb_parvnll
 #else
 #  define HB_PARNL3  hb_parvnl
 #endif
 
-#if defined( _MSC_VER )
+#if defined(_MSC_VER)
 # define itoa(__value, __string, __radix)  _itoa(__value, __string, __radix)
 # define ltoa(__value, __string, __radix)  _ltoa(__value, __string, __radix)
 #endif

@@ -46,7 +46,7 @@
 
 #include "mgdefs.hpp"
 
-#if defined( _MSC_VER )
+#if defined(_MSC_VER)
 #pragma warning ( disable:4996 )
 #endif
 #include <commctrl.h>
@@ -67,7 +67,7 @@
 #include <hbstack.hpp>
 #include <string>
 
-#if defined( _MSC_VER )
+#if defined(_MSC_VER)
 # define itoa(__value, __string, __radix)  _itoa(__value, __string, __radix)
 #endif
 
@@ -1040,7 +1040,7 @@ WINVERSION() --> array
 */
 HB_FUNC( WINVERSION )
 {
-   #if defined( __BORLANDC__ )
+   #if defined(__BORLANDC__)
    #define VER_SUITE_PERSONAL  0x00000200
    #define VER_SUITE_BLADE     0x00000400
    #endif
@@ -1476,7 +1476,7 @@ HB_FUNC( FILLRECT )
    }
 }
 
-#if defined( __MINGW32__ )
+#if defined(__MINGW32__)
 # pragma GCC diagnostic push
 # pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  /* __MINGW32__ */
@@ -1535,7 +1535,7 @@ BOOL IsAppHung(IN HWND hWnd, OUT PBOOL pbHung)
    return TRUE;
 }
 
-#if defined( __MINGW32__ )
+#if defined(__MINGW32__)
 # pragma GCC diagnostic pop
 #endif  /* __MINGW32__ */
 

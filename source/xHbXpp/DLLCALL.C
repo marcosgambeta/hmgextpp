@@ -67,7 +67,7 @@
 
 #include <hbapiitm.hpp>
 
-//#if defined( HB_OS_WIN_32 )
+//#if defined(HB_OS_WIN_32)
 
 #include <windows.h>
 
@@ -807,18 +807,18 @@ RESULT DynaCall(int Flags,       LPVOID lpFunction, int nArgs,
    DWORD   dwEAX, dwEDX, dwVal, *pStack, dwStSize = 0;
    BYTE   *pArg;
 
-   #if defined( __MINGW32__ )
-   #elif defined( __BORLANDC__ )
+   #if defined(__MINGW32__)
+   #elif defined(__BORLANDC__)
    #else
       DWORD *pESP;
    #endif
 
    // Reserve 256 bytes of stack space for our arguments
-   #if defined( __MINGW32__ )
+   #if defined(__MINGW32__)
       asm volatile("\tmovl %%esp, %0\n"
                    "\tsubl $0x100, %%esp\n"
                    : "=r" (pStack));
-   #elif defined( __BORLANDC__ )
+   #elif defined(__BORLANDC__)
       pStack = (DWORD *)_ESP;
       _ESP -= 0x100;
    #else
@@ -865,7 +865,7 @@ RESULT DynaCall(int Flags,       LPVOID lpFunction, int nArgs,
       pStack--;            // ESP = ESP - 4
       *pStack = (DWORD)pRet;  // SS:[ESP] = pMem
    }
-   #if defined( __MINGW32__ )
+   #if defined(__MINGW32__)
       asm volatile("\taddl $0x100, %%esp\n" /* Restore to original position */
                    "\tsubl %2, %%esp\n"     /* Adjust for our new parameters */
 
@@ -899,7 +899,7 @@ RESULT DynaCall(int Flags,       LPVOID lpFunction, int nArgs,
          ((int *)pRet)[0] = dwEAX;
          ((int *)pRet)[1] = dwEDX;
       }
-   #elif defined( __BORLANDC__ )
+   #elif defined(__BORLANDC__)
       _ESP += (0x100 - dwStSize);
       _EDX =  (DWORD) &lpFunction;
       __emit__(0xff,0x12); // call [edx];

@@ -48,7 +48,7 @@
  * Copyright 2007-2017 (C) P.Chornyj <myorg63@mail.ru>
  */
 
-#if !defined( __WINNT__ )
+#if !defined(__WINNT__)
 # define __WINNT__
 #endif
 

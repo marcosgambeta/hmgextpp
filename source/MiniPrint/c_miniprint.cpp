@@ -1451,7 +1451,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 
 }
 
-#if !( ( defined( __MINGW32__ ) ) )
+#if !( ( defined(__MINGW32__) ) )
 
 HB_FUNC( GETDEFAULTPRINTER )
 {
@@ -2115,7 +2115,7 @@ static HBITMAP loademffile(TCHAR * filename, int width, int height, HWND handle,
       return nullptr;
    }
    // Load from stream
-#if defined( __cplusplus )
+#if defined(__cplusplus)
    hr = OleLoadPicture(iStream, nFileSize, ( nFileSize == 0 ), IID_IPicture, ( LPVOID * ) &iPicture);
 #else
    hr = OleLoadPicture(iStream, nFileSize, ( nFileSize == 0 ), &IID_IPicture, ( LPVOID * ) &iPicture);

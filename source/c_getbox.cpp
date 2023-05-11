@@ -51,7 +51,7 @@
 #include "mgdefs.hpp"
 
 #include <commctrl.h>
-#if defined( _MSC_VER )
+#if defined(_MSC_VER)
 #pragma warning ( disable:4201 )
 #endif
 #include "richedit.h"

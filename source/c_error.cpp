@@ -67,7 +67,7 @@ void hmg_ErrorExit(LPCTSTR lpszMessage, DWORD dwError, BOOL bExit)
    LPVOID lpDisplayBuf = ( LPVOID ) LocalAlloc(LMEM_ZEROINIT, (hmg_tstrlen(( LPCTSTR ) lpMsgBuf) + hmg_tstrlen(lpszMessage) + 40) * sizeof(TCHAR));
 
 #ifdef UNICODE
-#if ( ( defined( __BORLANDC__ ) && __BORLANDC__ <= 1410 ) )
+#if ( ( defined(__BORLANDC__) && __BORLANDC__ <= 1410 ) )
    swprintf(( LPTSTR ) lpDisplayBuf, "'%s' failed with error %lu : %s", lpszMessage, nError, ( LPTSTR ) lpMsgBuf);
 #else
    swprintf_s(( LPTSTR ) lpDisplayBuf, LocalSize(lpDisplayBuf) / sizeof(TCHAR), TEXT("'%s' failed with error %lu : %s"), lpszMessage, nError, ( LPTSTR ) lpMsgBuf);

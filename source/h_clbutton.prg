@@ -513,7 +513,7 @@ HB_FUNC( CLBUTTON_SETNOTE )
 #define BCM_SETIMAGELIST  ( BCM_FIRST + 0x0002 )
 #endif
 
-#if ( defined( __BORLANDC__ ) && __BORLANDC__ < 1410 ) || ( defined(__MINGW32__) && defined(__MINGW32_VERSION) )
+#if ( defined(__BORLANDC__) && __BORLANDC__ < 1410 ) || ( defined(__MINGW32__) && defined(__MINGW32_VERSION) )
 typedef struct
 {
    HIMAGELIST himl;

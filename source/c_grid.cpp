@@ -64,7 +64,7 @@ LPWSTR AnsiToWide(LPCSTR);
 LPSTR  WideToAnsi(LPWSTR);
 #endif
 
-#if ( ( defined( __BORLANDC__ ) && __BORLANDC__ < 1410 ) )
+#if ( ( defined(__BORLANDC__) && __BORLANDC__ < 1410 ) )
 
 typedef struct tagLVITEMA2
 {
@@ -1067,7 +1067,7 @@ HB_FUNC( LISTVIEW_GETEXTENDEDSTYLE )  // Dr. Claudio Soto
    }
 }
 
-#if ( ( defined( __BORLANDC__ ) && __BORLANDC__ < 1410 ) )
+#if ( ( defined(__BORLANDC__) && __BORLANDC__ < 1410 ) )
 #define HDF_SORTDOWN  0x0200
 #define HDF_SORTUP    0x0400
 #endif
@@ -1168,7 +1168,7 @@ HB_FUNC( LISTVIEW_GROUPITEMSETID )
    INT  nRow    = hmg_par_INT(2);
    INT  GroupID = hmg_par_INT(3);
 
-#if ( ( defined( __BORLANDC__ ) && __BORLANDC__ < 1410 ) )
+#if ( ( defined(__BORLANDC__) && __BORLANDC__ < 1410 ) )
    _LVITEM LVI;
 #else
    LVITEM LVI;
@@ -1187,7 +1187,7 @@ HB_FUNC( LISTVIEW_GROUPITEMGETID )
    HWND hWnd = hmg_par_HWND(1);
    INT  nRow = hmg_par_INT(2);
 
-#if ( ( defined( __BORLANDC__ ) && __BORLANDC__ < 1410 ) )
+#if ( ( defined(__BORLANDC__) && __BORLANDC__ < 1410 ) )
    _LVITEM LVI;
 #else
    LVITEM LVI;

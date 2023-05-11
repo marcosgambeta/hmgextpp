@@ -65,7 +65,7 @@
 #define TTM_POPUP  ( WM_USER + 34 )
 #endif
 
-#if ( defined( __BORLANDC__ ) && __BORLANDC__ < 1410 )
+#if ( defined(__BORLANDC__) && __BORLANDC__ < 1410 )
 typedef struct _tagEDITBALLOONTIP
 {
    DWORD   cbStruct;

@@ -14,7 +14,7 @@
 
 #define UNICODE
 
-#if defined( __MINGW32__ )
+#if defined(__MINGW32__)
 # define MAKEINTRESOURCEA(i)  ( ( LPSTR ) ( ( ULONG_PTR ) ( ( WORD ) (i) ) ) )
 # define MAKEINTRESOURCEW(i)  ( ( LPWSTR ) ( ( ULONG_PTR ) ( ( WORD ) (i) ) ) )
 # ifdef UNICODE
@@ -36,7 +36,7 @@
 
 #include "TaskDlgs.h"
 
-#if ( ( defined( __BORLANDC__ ) && __BORLANDC__ <= 1410 ) )
+#if ( ( defined(__BORLANDC__) && __BORLANDC__ <= 1410 ) )
 
 HRESULT TaskDialog(HWND hwndParent, HINSTANCE hInstance, PCWSTR pszWindowTitle, PCWSTR pszMainInstruction, PCWSTR pszContent, TASKDIALOG_COMMON_BUTTON_FLAGS dwCommonButtons, PCWSTR pszIcon, int * pnButton)
 {
@@ -76,7 +76,7 @@ HRESULT TaskDialogIndirect(const TASKDIALOGCONFIG * pTaskConfig, int * pnButton,
    }
    return -1;
 }
-#endif /* defined( __BORLANDC__ ) && __BORLANDC__ <= 1410 */
+#endif /* defined(__BORLANDC__) && __BORLANDC__ <= 1410 */
 
 HB_FUNC( WIN_TASKDIALOG0 )
 {
@@ -255,7 +255,7 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
       iType = hb_arrayGetType(pConfig, TDC_MAINICON);
       if( iType & Harbour::Item::NUMERIC )
       {
-         #if ( defined( __BORLANDC__ ) && __BORLANDC__ <= 1410 )
+         #if ( defined(__BORLANDC__) && __BORLANDC__ <= 1410 )
          config.DUMMYUNIONNAME.pszMainIcon = MAKEINTRESOURCE(hb_arrayGetNI( pConfig, TDC_MAINICON ));
          #else
          config.pszMainIcon = MAKEINTRESOURCE(hb_arrayGetNI( pConfig, TDC_MAINICON ));
@@ -263,7 +263,7 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
       }
       else if( iType & Harbour::Item::POINTER )
       {
-         #if ( defined( __BORLANDC__ ) && __BORLANDC__ <= 1410 )
+         #if ( defined(__BORLANDC__) && __BORLANDC__ <= 1410 )
          config.DUMMYUNIONNAME.hMainIcon = static_cast<HICON>(hb_arrayGetPtr(pConfig, TDC_MAINICON));
          #else
          config.hMainIcon = static_cast<HICON>(hb_arrayGetPtr(pConfig, TDC_MAINICON));
@@ -271,7 +271,7 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
       }
       else
       {
-         #if ( defined( __BORLANDC__ ) && __BORLANDC__ <= 1410 )
+         #if ( defined(__BORLANDC__) && __BORLANDC__ <= 1410 )
          config.DUMMYUNIONNAME.hMainIcon   = nullptr;
          config.DUMMYUNIONNAME.pszMainIcon = nullptr;
          #else
@@ -430,7 +430,7 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
       iType = hb_arrayGetType(pConfig, TDC_FOOTERICON);
       if( iType & Harbour::Item::NUMERIC )
       {
-        #if ( defined( __BORLANDC__ ) && __BORLANDC__ <= 1410 )
+        #if ( defined(__BORLANDC__) && __BORLANDC__ <= 1410 )
          config.DUMMYUNIONNAME2.pszFooterIcon = MAKEINTRESOURCE(hb_arrayGetNI( pConfig, TDC_FOOTERICON ));
         #else
          config.pszFooterIcon = MAKEINTRESOURCE(hb_arrayGetNI( pConfig, TDC_FOOTERICON ));
@@ -438,7 +438,7 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
       }
       else if( iType & Harbour::Item::POINTER )
       {
-         #if ( defined( __BORLANDC__ ) && __BORLANDC__ <= 1410 )
+         #if ( defined(__BORLANDC__) && __BORLANDC__ <= 1410 )
          config.DUMMYUNIONNAME2.hFooterIcon = static_cast<HICON>((hb_arrayGetPtr(pConfig, TDC_FOOTERICON));
          #else
          config.hFooterIcon = static_cast<HICON>(hb_arrayGetPtr(pConfig, TDC_FOOTERICON));
@@ -446,7 +446,7 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
       }
       else
       {
-        #if ( defined( __BORLANDC__ ) && __BORLANDC__ <= 1410 )
+        #if ( defined(__BORLANDC__) && __BORLANDC__ <= 1410 )
          config.DUMMYUNIONNAME2.hFooterIcon   = nullptr;
          config.DUMMYUNIONNAME2.pszFooterIcon = nullptr;
         #else

@@ -49,7 +49,7 @@
 #include <hbapiitm.hpp>
 #include <hbwinuni.hpp>
 
-#if ( defined( __BORLANDC__ ) && defined( _WIN64 ) )
+#if ( defined(__BORLANDC__) && defined(_WIN64) )
 #define PtrToLong(p)  ( ( LONG ) ( p ) )
 #endif
 

@@ -49,7 +49,7 @@
 
 #define _WIN32_IE     0x0501
 
-#if defined( __MINGW32__ )
+#if defined(__MINGW32__)
 #define _WIN32_WINNT  0x0500
 #endif /* MINGW | XCC */
 
@@ -97,7 +97,7 @@ typedef struct tagMyUserData
 {
    UINT     cbSize;
    MYPARAMS myParam;
-#if defined( _WIN64 )
+#if defined(_WIN64)
 } MYUSERDATA, * PMYUSERDATA;
 #else
 } MYUSERDATA, UNALIGNED * PMYUSERDATA;
@@ -1545,7 +1545,7 @@ HB_FUNC( UNREGISTERWINDOW )
 
 HB_FUNC( MSC_VER )
 {
-#if defined( _MSC_VER )
+#if defined(_MSC_VER)
    hb_retnl( _MSC_VER );
 #else
    hb_retnl(0);
@@ -1610,9 +1610,9 @@ HB_FUNC( BORLANDC )
       hb_strncpy(pszCompiler, "(unknown)", COMPILER_BUF_SIZE - 1);
    }
 
-   #if defined( HB_ARCH_32BIT )
+   #if defined(HB_ARCH_32BIT)
    hb_strncat(pszCompiler, " (32-bit)", COMPILER_BUF_SIZE - 1);
-   #elif defined( HB_ARCH_64BIT )
+   #elif defined(HB_ARCH_64BIT)
    hb_strncat(pszCompiler, " (64-bit)", COMPILER_BUF_SIZE - 1);
    #endif
 

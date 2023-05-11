@@ -508,7 +508,7 @@ HB_FUNC( ATLAXGETDISP ) // hWnd -> pDisp
 
    _Ax_Init();
    AtlAxGetControl( hmg_par_HWND(1), &pUnk );
-//#if defined( __cplusplus )
+//#if defined(__cplusplus)
 //   pUnk->QueryInterface( IID_IDispatch, ( void ** ) &pDisp );
 //#else
    pUnk->lpVtbl->QueryInterface( pUnk, IID_IDispatch, ( void ** ) &pDisp );

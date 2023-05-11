@@ -56,12 +56,12 @@
 #include <commdlg.h>
 #include <commctrl.h>
 
-#if defined( _MSC_VER )
+#if defined(_MSC_VER)
 # pragma warning(push)
 # pragma warning(disable:4201)  /* warning C4201: nonstandard extension used: nameless struct/union */
 #endif
 #include <richedit.h>
-#if defined( _MSC_VER )
+#if defined(_MSC_VER)
 # pragma warning(pop)
 #endif
 #include <shlwapi.h>
