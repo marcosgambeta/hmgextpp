@@ -276,7 +276,7 @@ LRESULT CALLBACK HMG_FldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPARAM l
    {
       hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
-      hb_vmPushNumInt(( LONG_PTR ) hWndDlg);
+      hmg_vmPushHandle(hWndDlg);
       hb_vmPushLong(message);
       hb_vmPushNumInt(wParam);
       hb_vmPushNumInt(lParam);
@@ -329,7 +329,7 @@ LRESULT CALLBACK HMG_PageFldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
    {
       hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
-      hb_vmPushNumInt(( LONG_PTR ) hWndDlg);
+      hmg_vmPushHandle(hWndDlg);
       hb_vmPushLong(message);
       hb_vmPushNumInt(wParam);
       hb_vmPushNumInt(lParam);
@@ -1049,8 +1049,8 @@ VOID WINAPI FLD_ChildDialogInit(HWND hWndDlg, HWND hWndParent, int idrc)
       {
          hb_vmPushSymbol(pSymbol);
          hb_vmPushNil();
-         hb_vmPushNumInt(( LONG_PTR ) hWndParent);
-         hb_vmPushNumInt(( LONG_PTR ) hWndDlg);
+         hmg_vmPushHandle(hWndParent);
+         hmg_vmPushHandle(hWndDlg);
          hb_vmPushLong(idrc);
          hb_vmDo(3);
       }

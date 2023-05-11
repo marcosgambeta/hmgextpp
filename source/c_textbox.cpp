@@ -290,7 +290,7 @@ LRESULT CALLBACK OwnEditProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
          {
             hb_vmPushSymbol(pSymbol);
             hb_vmPushNil();
-            hb_vmPushNumInt(( LONG_PTR ) hButton);
+            hmg_vmPushHandle(hButton);
             hb_vmPushLong(Msg);
             hb_vmPushNumInt(wParam);
             hb_vmPushNumInt(lParam);

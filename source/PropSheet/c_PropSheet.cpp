@@ -94,9 +94,9 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
       {
          hb_vmPushSymbol(pSymbol2);
          hb_vmPushNil();
-         hb_vmPushLong(reinterpret_cast<LONG_PTR>(hWndDlg));
+         hmg_vmPushHandle(hWndDlg);
          hb_vmPushLong(ps->lParam);
-         hb_vmPushLong(reinterpret_cast<LONG_PTR>(hWndParent));
+         hmg_vmPushHandle(hWndParent);
          hb_vmDo(3);
       }
       return (TRUE);
@@ -120,7 +120,7 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
       {
          hb_vmPushSymbol(pSymbol3);
          hb_vmPushNil();
-         hb_vmPushLong(reinterpret_cast<LONG_PTR>(hWndDlg));
+         hmg_vmPushHandle(hWndDlg);
          hb_vmPushLong((LONG) lpnmhdr->code);
          hb_vmPushLong(nId);
          hb_vmPushLong(nPage);
@@ -188,8 +188,8 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
    {
       hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
-      hb_vmPushLong(reinterpret_cast<LONG_PTR>(hWndParent));
-      hb_vmPushLong(reinterpret_cast<LONG_PTR>(hWndDlg));
+      hmg_vmPushHandle(hWndParent);
+      hmg_vmPushHandle(hWndDlg);
       hb_vmPushLong(message);
       hb_vmPushLong(wParam);
       hb_vmPushLong(lParam);
@@ -226,7 +226,7 @@ LRESULT CALLBACK HMG_PropSheetProc(HWND hwndPropSheet, UINT message, LPARAM lPar
    {
       hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
-      hb_vmPushLong(reinterpret_cast<LONG_PTR>(hwndPropSheet));
+      hmg_vmPushHandle(hwndPropSheet);
       hb_vmPushLong(message);
       hb_vmPushLong(lParam);
       hb_vmDo(3);

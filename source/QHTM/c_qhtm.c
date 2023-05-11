@@ -169,7 +169,7 @@ void CALLBACK FormCallback(HWND hWndQHTM, LPQHTMFORMSubmit pFormSubmit, LPARAM l
    {
       hb_vmPushSymbol(hb_dynsymSymbol(pSymTest));
       hb_vmPushNil();
-      hb_vmPushLong((LONG) hWndQHTM);
+      hmg_vmPushHandle(hWndQHTM);
       hb_vmPushString(( char * ) pFormSubmit->pcszMethod, strlen(pFormSubmit->pcszMethod));
       hb_vmPushString(( char * ) pFormSubmit->pcszAction, strlen(pFormSubmit->pcszAction));
       if( pFormSubmit->pcszName )

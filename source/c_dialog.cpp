@@ -67,7 +67,7 @@ LRESULT CALLBACK HMG_DlgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
    {
       hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
-      hb_vmPushNumInt(( LONG_PTR ) hWnd);
+      hmg_vmPushHandle(hWnd);
       hb_vmPushLong(message);
       hb_vmPushNumInt(wParam);
       hb_vmPushNumInt(lParam);
@@ -90,7 +90,7 @@ LRESULT CALLBACK HMG_ModalDlgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
    {
       hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
-      hb_vmPushNumInt(( LONG_PTR ) hWnd);
+      hmg_vmPushHandle(hWnd);
       hb_vmPushLong(message);
       hb_vmPushNumInt(wParam);
       hb_vmPushNumInt(lParam);
