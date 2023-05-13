@@ -242,7 +242,7 @@ HB_FUNC( GETMONTHRANGE )
 }
 
 #ifndef BOLDDAY
-# define BOLDDAY(ds, iDay)  if( iDay > 0 && iDay < 32 )( ds ) |= ( 0x00000001 << ( iDay - 1 ) )
+#define BOLDDAY(ds, iDay)  if( iDay > 0 && iDay < 32 )( ds ) |= ( 0x00000001 << ( iDay - 1 ) )
 #endif
 
 /*

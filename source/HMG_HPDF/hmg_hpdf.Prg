@@ -12,7 +12,7 @@ FUNCTION _HMG_HPDF_INIT ( cPDFFile, nOrientation, nPaperSize, nPaperLength, nPap
    DEFAULT nOrientation := 1
    DEFAULT nPaperSize   := 1
 
-   PUBLIC _HMG_HPDFDATA := Array( 1 )
+   PUBLIC _HMG_HPDFDATA := Array(1)
 
    IF _HMG_HPDFDATA[1] == NIL
       _HMG_HPDFDATA[1] := { ;
@@ -119,7 +119,7 @@ FUNCTION _HMG_HPDF_InsertPage( nPage )
          RETURN NIL
       ELSE
          // insert current page to the pages array
-         ASize( aPages, Len(aPages) + 1 )
+         ASize(aPages, Len(aPages) + 1)
          AIns( aPages, nPage )
          aPages[ nPage ] := _HMG_HPDFDATA[1, 7]
          _HMG_HPDFDATA[1][12] := AClone( aPages )
@@ -1410,16 +1410,16 @@ FUNCTION _HMG_HPDF_SetInfo( cAttrib, xValue, cTime )
       HPDF_SetInfoAttr( _HMG_HPDFDATA[1][1], HPDF_INFO_KEYWORDS, cValue )
    CASE Upper(AllTrim(cAttrib)) == "DATECREATED"
       IF Len(AllTrim(cTime)) > 0
-         nHours := Val( SubStr(cTime, 1, 2) )
-         nMinutes := Val( SubStr(cTime, 4, 2) )
-         nSeconds := Val( SubStr(cTime, 7, 2) )
+         nHours := Val(SubStr(cTime, 1, 2))
+         nMinutes := Val(SubStr(cTime, 4, 2))
+         nSeconds := Val(SubStr(cTime, 7, 2))
       ENDIF
       HPDF_SetInfoDateAttr( _HMG_HPDFDATA[1][1], HPDF_INFO_CREATION_DATE, { Year( dValue ), Month( dVAlue ), Day( dValue ), nHours, nMinutes, nSeconds } )
    CASE Upper(AllTrim(cAttrib)) == "DATEMODIFIED"
       IF Len(AllTrim(cTime)) > 0
-         nHours := Val( SubStr(cTime, 1, 2) )
-         nMinutes := Val( SubStr(cTime, 4, 2) )
-         nSeconds := Val( SubStr(cTime, 7, 2) )
+         nHours := Val(SubStr(cTime, 1, 2))
+         nMinutes := Val(SubStr(cTime, 4, 2))
+         nSeconds := Val(SubStr(cTime, 7, 2))
       ENDIF
       HPDF_SetInfoDateAttr( _HMG_HPDFDATA[1][1], HPDF_INFO_MOD_DATE, { Year( dValue ), Month( dVAlue ), Day( dValue ), nHours, nMinutes, nSeconds } )
    ENDCASE

@@ -55,12 +55,12 @@
 #include <commctrl.h>
 
 #if defined(_MSC_VER)
-# pragma warning(push)
-# pragma warning(disable:4201)  /* warning C4201: nonstandard extension used: nameless struct/union */
+#pragma warning(push)
+#pragma warning(disable:4201)  /* warning C4201: nonstandard extension used: nameless struct/union */
 #endif
 #include <olectl.h>
 #if defined(_MSC_VER)
-# pragma warning(pop)
+#pragma warning(pop)
 #endif
 
 #include "hbgdiplus.h"
@@ -388,7 +388,7 @@ HB_FUNC( C_GETRESPICTURE )
 //****************************************************************************************************************
 HBITMAP HMG_LoadImage(const char * pszImageName, const char * pszTypeOfRes)
 {
-   HB_SYMBOL_UNUSED( pszTypeOfRes );
+   HB_SYMBOL_UNUSED(pszTypeOfRes);
 
    // Find PNG Image in resourses
    HBITMAP hBitmap = HMG_GdipLoadBitmap(pszImageName, "PNG");

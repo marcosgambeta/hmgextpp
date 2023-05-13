@@ -51,7 +51,7 @@
 FUNCTION _BeginTab( ControlName, ParentFormName, row, col, w, h, value, f, s, tooltip, change, buttons, flat, hottrack, vertical, bottom, notabstop, bold, italic, underline, strikeout, multiline, backcolor, nId, bInit, NoTrans )
 *-----------------------------------------------------------------------------*
 
-   LOCAL aMnemonic := Array( 16 )
+   LOCAL aMnemonic := Array(16)
 
    __defaultNIL(@change, "")
    hb_default(@buttons, .F.)
@@ -128,7 +128,7 @@ FUNCTION _BeginTab( ControlName, ParentFormName, row, col, w, h, value, f, s, to
    _HMG_ActiveTabUnderline       := Underline
    _HMG_ActiveTabStrikeout       := Strikeout
 
-   aEval( aMnemonic, { |x, i| HB_SYMBOL_UNUSED( x ), aMnemonic[i] := &( "{|| _SetValue(" + Chr(34) + ControlName + Chr(34) + "," + Chr(34) + ParentFormName + Chr(34) + "," + hb_ntos(i) + ") }" ) } )
+   aEval(aMnemonic, { |x, i| HB_SYMBOL_UNUSED(x), aMnemonic[i] := &( "{|| _SetValue(" + Chr(34) + ControlName + Chr(34) + "," + Chr(34) + ParentFormName + Chr(34) + "," + hb_ntos(i) + ") }" ) })
 
    _HMG_ActiveTabMnemonic := aMnemonic
 
@@ -241,9 +241,9 @@ STATIC FUNCTION _DefineTab( ControlName, ParentFormName, x, y, w, h, aCaptions, 
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      ControlHandle := InitTabControl ( ParentFormHandle, 0, x, y, w, h, aCaptions, value, "", 0, Buttons, Flat, HotTrack, Vertical, Bottom, Multiline, ISARRAY( backcolor[1] ), notabstop )
+      ControlHandle := InitTabControl ( ParentFormHandle, 0, x, y, w, h, aCaptions, value, "", 0, Buttons, Flat, HotTrack, Vertical, Bottom, Multiline, ISARRAY(backcolor[1]), notabstop )
 
-      IF ISARRAY( backcolor[1] )
+      IF ISARRAY(backcolor[1])
          hBrush := CreateSolidBrush( backcolor[1][1], backcolor[1][2], backcolor[1][3] )
          SetWindowBrush(ControlHandle, hBrush)
       ENDIF
@@ -316,7 +316,7 @@ STATIC FUNCTION _DefineTab( ControlName, ParentFormName, x, y, w, h, aCaptions, 
    ENDIF
 
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlInit, k, mVar )
+      Eval(_HMG_bOnControlInit, k, mVar)
 #ifdef _OBJECT_
       ow := _WindowObj(ParentFormHandle)
       oc := _ControlObj(ControlHandle)
@@ -531,8 +531,8 @@ FUNCTION _BeginTabPage ( caption , image , tooltip )
 
       IF ValType(_HMG_ActiveTabTooltip) != "A"
 
-         _HMG_ActiveTabTooltip := Array( _HMG_ActiveTabPage )
-         AFill( _HMG_ActiveTabTooltip, "" )
+         _HMG_ActiveTabTooltip := Array(_HMG_ActiveTabPage)
+         AFill(_HMG_ActiveTabTooltip, "")
          _HMG_ActiveTabTooltip[ _HMG_ActiveTabPage ] := tooltip  // JP
 
       ELSE
@@ -547,8 +547,8 @@ FUNCTION _BeginTabPage ( caption , image , tooltip )
 
    ELSE  // GF 11/04/2009
 
-      _HMG_ActiveTabTooltip := Array( _HMG_ActiveTabPage )
-      AFill( _HMG_ActiveTabTooltip, "" )
+      _HMG_ActiveTabTooltip := Array(_HMG_ActiveTabPage)
+      AFill(_HMG_ActiveTabTooltip, "")
 
    ENDIF
 
@@ -613,9 +613,9 @@ FUNCTION _AddTabPage ( ControlName , ParentForm , Position , Caption , Image , t
       AIns( _HMG_aControlPicture[i] , Position , Image , .T. )
       // GF 03/10/2021
       aMnemonic := _HMG_aControlMiscData1 [i,3]
-      ASize( aMnemonic , Len(_HMG_aControlCaption[i]) )
+      ASize(aMnemonic , Len(_HMG_aControlCaption[i]))
 
-      aEval( aMnemonic, { |x, i| HB_SYMBOL_UNUSED( x ), aMnemonic[i] := &( "{|| _SetValue(" + Chr(34) + ControlName + Chr(34) + "," + Chr(34) + ParentForm + Chr(34) + "," + hb_ntos(i) + ") }" ) } )
+      aEval(aMnemonic, { |x, i| HB_SYMBOL_UNUSED(x), aMnemonic[i] := &( "{|| _SetValue(" + Chr(34) + ControlName + Chr(34) + "," + Chr(34) + ParentForm + Chr(34) + "," + hb_ntos(i) + ") }" ) })
 
       FOR EACH c IN _HMG_aControlCaption[i]
          Caption := Upper(c)
@@ -641,8 +641,8 @@ FUNCTION _AddTabPage ( ControlName , ParentForm , Position , Caption , Image , t
       ENDIF
       // JR
       IF ValType(_HMG_aControlTooltip[i]) != "A"
-         _HMG_aControlTooltip[i] := Array( Len(_HMG_aControlPageMap[i]) )
-         AFill( _HMG_aControlTooltip[i], "" )
+         _HMG_aControlTooltip[i] := Array(Len(_HMG_aControlPageMap[i]))
+         AFill(_HMG_aControlTooltip[i], "")
          _HMG_aControlTooltip[i] [Position] := tooltip
       ELSE
          AIns( _HMG_aControlTooltip[i], Position, tooltip, .T. )

@@ -230,7 +230,7 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
    _HMG_aControlMiscData2          [k] := ""
 
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlInit, k, mVar )
+      Eval(_HMG_bOnControlInit, k, mVar)
    ENDIF
 
    IF Len(value) > 0

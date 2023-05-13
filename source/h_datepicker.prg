@@ -282,7 +282,7 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
    ENDIF
 
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlInit, k, mVar )
+      Eval(_HMG_bOnControlInit, k, mVar)
 
 #ifdef _OBJECT_
       ow := _WindowObj(ParentFormHandle)
@@ -489,7 +489,7 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
    _HMG_aControlMiscData2          [k] := ""
 
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlInit, k, mVar )
+      Eval(_HMG_bOnControlInit, k, mVar)
    ENDIF
 
    IF SetDatePickerDateFormat(ControlHandle, cTimeFormat)
@@ -543,7 +543,7 @@ FUNCTION OPICKEVENTS( hWnd, nMsg, wParam, lParam )
    LOCAL hDC
    LOCAL hBrush
 
-   HB_SYMBOL_UNUSED( lParam )
+   HB_SYMBOL_UNUSED(lParam)
 
    hDC := wParam
 

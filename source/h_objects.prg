@@ -39,7 +39,7 @@ CLASS THmgData
    METHOD CloneHash() INLINE hb_HClone( ::aKey )
 
    _METHOD GetAll( lAll )
-   _METHOD Eval( Block )
+   _METHOD Eval(Block)
 #if 0
    _METHOD Destroy()
 #endif
@@ -54,19 +54,19 @@ METHOD GetAll( lAll ) CLASS THmgData
    LOCAL aRet := {}
 
    IF HB_ISLOGICAL( lAll ) .AND. lAll
-      ::Eval( {| val | AAdd(aRet, val) } )
+      ::Eval({| val | AAdd(aRet, val) })
    ELSE
-      ::Eval( {| val, KEY | AAdd(aRet, {KEY, val}) } )
+      ::Eval({| val, KEY | AAdd(aRet, {KEY, val}) })
    ENDIF
 
 RETURN aRet
 
-METHOD Eval( Block ) CLASS THmgData
+METHOD Eval(Block) CLASS THmgData
 
    LOCAL i
    LOCAL b := HB_ISBLOCK( Block )
    LOCAL l := HB_ISLOGICAL( Block ) .AND. Block
-   LOCAL a := iif( b, NIL, Array( 0 ) )
+   LOCAL a := iif( b, NIL, Array(0) )
 
    FOR i := 1 TO ::Len()
       IF b
@@ -203,15 +203,15 @@ METHOD Read() CLASS TIniData
    LOCAL nKey
    LOCAL cNote
 
-   IF ::lIni .AND. ( hIni := FOpen( ::cIni, 2 ) ) > 0
+   IF ::lIni .AND. ( hIni := FOpen(::cIni, 2) ) > 0
       cStr := space( Len(::cBOM) )
       cBuf := space( nLen )
-      FRead( hIni, @cStr, Len(::cBOM) )
-      FSeek( hIni, 0, 0 )
-      FRead( hIni, @cBuf, nLen )
+      FRead(hIni, @cStr, Len(::cBOM))
+      FSeek(hIni, 0, 0)
+      FRead(hIni, @cBuf, nLen)
       ::lUtf8 := ( cStr == ::cBOM )
 
-      aBuf := hb_ATokens( cBuf, CRLF )
+      aBuf := hb_ATokens(cBuf, CRLF)
       FOR EACH cBuf IN aBuf
           IF left(cBuf, 1) == "#"
              IF !::lUtf .AND. ::lUtf8
@@ -224,10 +224,10 @@ METHOD Read() CLASS TIniData
       NEXT
 
       cBuf := space( nLen )
-      FSeek( hIni, -nLen, 2 )
-      FRead( hIni, @cBuf, nLen )
+      FSeek(hIni, -nLen, 2)
+      FRead(hIni, @cBuf, nLen)
 
-      aBuf := hb_ATokens( cBuf, CRLF )
+      aBuf := hb_ATokens(cBuf, CRLF)
       FOR nBuf := Len(aBuf) TO 1 STEP -1
           cBuf := aBuf[ nBuf ]
           IF left(cBuf, 1) == "#"
@@ -240,7 +240,7 @@ METHOD Read() CLASS TIniData
           ENDIF
       NEXT
 
-      FClose( hIni )
+      FClose(hIni)
 
       ::hHash := hb_hSetCaseMatch( hb_IniRead( ::cIni, , , ::lAutoMain ), .T. )
 
@@ -386,7 +386,7 @@ METHOD Write( cFile, lUtf8 ) CLASS TIniData
               cVal := hb_StrToUtf8( cVal )
            ENDIF
            cStr := hb_HGetDef( hKey, cKey, Nil )
-           IF HB_ISARRAY( cStr ) .AND. Len(cStr) > 1
+           IF HB_ISARRAY(cStr) .AND. Len(cStr) > 1
               cKey := cStr[1]
               IF !Empty(cStr[2])
                  IF lBlk
@@ -468,7 +468,7 @@ FUNCTION oDlu4Font( nFontSize, lDlu2Pix )
    DEFAULT lDlu2Pix := .T., nFontSize := 11, nPrcW := 100, nPrcH := 100
 
    IF     nFontSize < aScale[1][1]     ; nFontSize := aScale[1][1]
-   ELSEIF nFontSize > ATail( aScale )[1] ; nFontSize := ATail( aScale )[1]
+   ELSEIF nFontSize > ATail(aScale)[1] ; nFontSize := ATail(aScale)[1]
    ENDIF
 
    FOR EACH aDim IN aScale
@@ -499,15 +499,15 @@ FUNCTION oDlu2Pixel( nPrcW, nPrcH, nFontSize )
 
    IF PCount() > 0
 
-      IF HB_ISARRAY( nPrcW )
-         ASize( nPrcW, 2 )
+      IF HB_ISARRAY(nPrcW)
+         ASize(nPrcW, 2)
          nPrcH := nPrcW[2]
          nPrcW := nPrcW[1]
       ELSEIF HB_ISCHAR ( nPrcW )
-         nPrcW := hb_ATokens( nPrcW, "," )
-         ASize( nPrcW, 2 )
-         nPrcH := Val( nPrcW[2] )
-         nPrcW := Val( nPrcW[1] )
+         nPrcW := hb_ATokens(nPrcW, ",")
+         ASize(nPrcW, 2)
+         nPrcH := Val(nPrcW[2])
+         nPrcW := Val(nPrcW[1])
       ENDIF
 
       nPrcH := iif( Empty(nPrcH) .OR. nPrcH < 0, NIL, nPrcH )
@@ -619,21 +619,21 @@ CLASS TDlu2Pix
    METHOD DLU2PixH( nHeight, nPrc ) INLINE Round( ( UnitsToPixelsY( nHeight ) * 13 * nPrc ) / 1500, 0 )
    METHOD DLU2PixW( nWidth, nPrc ) INLINE Round( ( UnitsToPixelsX( nWidth ) * 13 * nPrc ) / 1500, 0 )
   _METHOD Kfc( nKfcW, nKfcH )
-  _METHOD ToVal( nKfc, nVal )
+  _METHOD ToVal(nKfc, nVal)
   _METHOD GetGaps( aGaps, oWnd )
    METHOD TextWidth(cText, nSize, cFont, lBold, cChar)
    METHOD Breadth( nW, k )
 
   _METHOD D(nKfc)
-   METHOD W ( nKfc ) INLINE ::ToVal( nKfc, ::nPixWidth )
-   METHOD H ( nKfc ) INLINE ::ToVal( nKfc, ::nPixHeight )
-   METHOD H_( nKfc ) INLINE ::ToVal( nKfc, ::nPixHeight2 )
+   METHOD W ( nKfc ) INLINE ::ToVal(nKfc, ::nPixWidth)
+   METHOD H ( nKfc ) INLINE ::ToVal(nKfc, ::nPixHeight)
+   METHOD H_( nKfc ) INLINE ::ToVal(nKfc, ::nPixHeight2)
    METHOD G ( nKfc, lW ) INLINE iif( Empty(lW), ::GW( nKfc ), ::GH( nKfc ) )
-   METHOD GW( nKfc )     INLINE ::ToVal( nKfc, ::nGapsWidth )
-   METHOD GH( nKfc )     INLINE ::ToVal( nKfc, ::nGapsHeight )
+   METHOD GW( nKfc )     INLINE ::ToVal(nKfc, ::nGapsWidth)
+   METHOD GH( nKfc )     INLINE ::ToVal(nKfc, ::nGapsHeight)
    METHOD M ( nKfc, lW ) INLINE iif( Empty(lW), ::MW( nKfc ), ::MH( nKfc ) )
-   METHOD MW( nKfc )     INLINE ::ToVal( nKfc, ::nMargWidth )
-   METHOD MH( nKfc )     INLINE ::ToVal( nKfc, ::nMargHeight )
+   METHOD MW( nKfc )     INLINE ::ToVal(nKfc, ::nMargWidth)
+   METHOD MH( nKfc )     INLINE ::ToVal(nKfc, ::nMargHeight)
 
    ASSIGN Handle(hWnd) INLINE (::hWnd := hWnd, ::lError := Empty(hWnd), iif(::lError, MsgMiniGuiError("Application events are not created !"),))
    ACCESS IsError        INLINE ::lError
@@ -746,7 +746,7 @@ METHOD Kfc( nKfcW, nKfcH ) CLASS TDlu2Pix
 
 RETURN NIL
 
-METHOD ToVal( nKfc, nVal ) CLASS TDlu2Pix
+METHOD ToVal(nKfc, nVal) CLASS TDlu2Pix
 
    IF HB_ISNUMERIC(nKfc) .AND. nKfc > 0
       nVal := Int( nKfc * nVal )
@@ -770,8 +770,8 @@ METHOD GetGaps( aGaps, oWnd ) CLASS TDlu2Pix
 
    If HB_ISNUMERIC(aGaps)
       n     := aGaps
-      aGaps := Array( 4 )
-      AFill( aGaps, n )
+      aGaps := Array(4)
+      AFill(aGaps, n)
    EndIf
 
    DEFAULT aGaps := { 0, 0, nGapW, nGapH }
@@ -791,7 +791,7 @@ METHOD GetGaps( aGaps, oWnd ) CLASS TDlu2Pix
       ::nT := aGaps[2]
       ::nB := aGaps[2]
    Else
-      If Len(aGaps) != 4; ASize( aGaps, 4 )
+      If Len(aGaps) != 4; ASize(aGaps, 4)
       EndIf
       If !HB_ISNUMERIC(aGaps[1]); aGaps[1] := nGapW
       EndIf
@@ -1121,8 +1121,8 @@ METHOD GetListType() CLASS TWndData
    LOCAL oType := oKeyData()
    LOCAL aType
 
-   ::oName:Eval( {| o | oType:Set( o:cType, o:cType ) } )
-   aType := oType:Eval( .T. )
+   ::oName:Eval({| o | oType:Set( o:cType, o:cType ) })
+   aType := oType:Eval(.T.)
    oType:Destroy()
    oType := NIL
 
@@ -1139,7 +1139,7 @@ METHOD GetObj4Type( cType, lEque ) CLASS TWndData
       IF ::cChr $ cType ; lEque := .F.
       ENDIF
       FOR EACH cType IN hb_ATokens(Upper(cType), ::cChr)
-         ::oName:Eval( {| oc | iif( lEque, iif( cType == oc:cType, AAdd(aObj, oc), ), iif( cType $ oc:cType, AAdd(aObj, oc), ) ) } )
+         ::oName:Eval({| oc | iif( lEque, iif( cType == oc:cType, AAdd(aObj, oc), ), iif( cType $ oc:cType, AAdd(aObj, oc), ) )})
       NEXT
       FOR EACH o IN aObj
          IF _IsControlDefined(o:Name, o:Window:Name)
@@ -1155,9 +1155,9 @@ METHOD GetObj4Name( cName ) CLASS TWndData
    LOCAL aObj := {}
 
    IF !Empty(cName)
-      FOR EACH cName IN hb_ATokens( Upper(cName), ::cChr )
-         ::oName:Eval( {| oc | iif( _IsControlDefined(oc:Name, oc:Window:Name), ;
-            iif( cName $ Upper(oc:cName), AAdd(aObj, oc), Nil ), Nil ) } )
+      FOR EACH cName IN hb_ATokens(Upper(cName), ::cChr)
+         ::oName:Eval({| oc | iif( _IsControlDefined(oc:Name, oc:Window:Name), ;
+            iif( cName $ Upper(oc:cName), AAdd(aObj, oc), Nil ), Nil ) })
       NEXT
    ENDIF
 
@@ -1480,7 +1480,7 @@ CLASS TKeyData
    METHOD Pos( Key ) INLINE hb_HPos( ::aKey, Key )
 
    METHOD Do ( Key, p1, p2, p3 ) BLOCK {| Self, Key, p1, p2, p3, b | b := ::Get( Key ), ;
-      iif( HB_ISBLOCK( b ), Eval( b, ::oObj, Key, p1, p2, p3 ), Nil ) }
+      iif( HB_ISBLOCK( b ), Eval(b, ::oObj, Key, p1, p2, p3 ), Nil )}
 
    ACCESS Obj INLINE ::oObj
    ASSIGN Obj(o) INLINE ::oObj := iif( HB_ISOBJECT( o ), o, Self )
@@ -1500,7 +1500,7 @@ CLASS TKeyData
    METHOD Fill( xVal )   INLINE hb_HFill( ::aKey, xVal )
 
    _METHOD GetAll( lAll )
-   _METHOD Eval( Block )
+   _METHOD Eval(Block)
    _METHOD Sum( Key, xSum )
    _METHOD Destroy()
 
@@ -1514,19 +1514,19 @@ METHOD GetAll( lAll ) CLASS TKeyData
    LOCAL aRet := {}
 
    IF HB_ISLOGICAL( lAll ) .AND. lAll
-      ::Eval( {| val | AAdd(aRet, val) } )
+      ::Eval({| val | AAdd(aRet, val) })
    ELSE
-      ::Eval( {| val, Key | AAdd(aRet, {Key, val}) } )
+      ::Eval({| val, Key | AAdd(aRet, {Key, val}) })
    ENDIF
 
 RETURN aRet
 
-METHOD Eval( Block ) CLASS TKeyData
+METHOD Eval(Block) CLASS TKeyData
 
    LOCAL i
    LOCAL b := HB_ISBLOCK( Block )
    LOCAL l := HB_ISLOGICAL( Block ) .AND. Block
-   LOCAL a := iif( b, NIL, Array( 0 ) )
+   LOCAL a := iif( b, NIL, Array(0) )
 
    FOR i := 1 TO ::Len
       IF b
@@ -1549,9 +1549,9 @@ METHOD Sum( Key, xSum ) CLASS TKeyData
       ELSE ; Sum := xSum
       ENDIF
       ::Set( Key, sum )
-   ELSEIF HB_ISARRAY( xSum )
-      IF HB_ISARRAY( sum ) .AND. Len(sum) == Len(xSum)
-         AEval( xSum, {| s, i | Sum[i] := iif( HB_ISNUMERIC(s), Sum[i] + s, s ) } )
+   ELSEIF HB_ISARRAY(xSum)
+      IF HB_ISARRAY(sum) .AND. Len(sum) == Len(xSum)
+         AEval(xSum, {| s, i | Sum[i] := iif( HB_ISNUMERIC(s), Sum[i] + s, s ) })
       ELSE
          Sum := xSum
       ENDIF
@@ -1639,7 +1639,7 @@ CLASS TThrData
       iif( hb_HHasKey( ::aKey, Key ), hb_HDel ( ::aKey, Key ), Nil ) )
 
    METHOD Do ( Key, p1, p2, p3 ) BLOCK {| Self, Key, p1, p2, p3, b | b := ::Get( Key ), ;
-      iif( HB_ISBLOCK( b ), Eval( b, ::oObj, Key, p1, p2, p3 ), Nil ) }
+      iif( HB_ISBLOCK( b ), Eval(b, ::oObj, Key, p1, p2, p3), Nil ) }
    ACCESS MT INLINE ::lMT
    ASSIGN MT( lVmMt ) INLINE ::lMT := iif( HB_ISLOGICAL( lVmMt ), lVmMt, .F. )
    ACCESS Obj INLINE ::oObj
@@ -1648,7 +1648,7 @@ CLASS TThrData
    METHOD ISBLOCK( Key ) INLINE HB_ISBLOCK( ::Get( Key ) )
 
    _METHOD GetAll( lAll )
-   _METHOD Eval( Block )
+   _METHOD Eval(Block)
    _METHOD Sum( Key, xSum )
    _METHOD Destroy()
 
@@ -1681,20 +1681,20 @@ METHOD GetAll( lAll ) CLASS TThrData
    LOCAL aRet := {}
 
    IF HB_ISLOGICAL( lAll ) .AND. lAll
-      ::Eval( {| val | AAdd(aRet, val) } )
+      ::Eval({| val | AAdd(aRet, val) })
    ELSE
-      ::Eval( {| val, Key | AAdd(aRet, {Key, val}) } )
+      ::Eval({| val, Key | AAdd(aRet, {Key, val}) })
    ENDIF
 
 RETURN aRet
 
-METHOD Eval( Block ) CLASS TThrData
+METHOD Eval(Block) CLASS TThrData
 
    LOCAL m
    LOCAL i
    LOCAL b := HB_ISBLOCK( Block )
    LOCAL l := HB_ISLOGICAL( Block ) .AND. Block
-   LOCAL a := iif( b, NIL, Array( 0 ) )
+   LOCAL a := iif( b, NIL, Array(0) )
 
    FOR i := 1 TO ::Len
       IF ::lMT
@@ -1728,9 +1728,9 @@ METHOD Sum( Key, xSum ) CLASS TThrData
       ELSE ; Sum := xSum
       ENDIF
       ::Set( Key, sum )
-   ELSEIF HB_ISARRAY( xSum )
-      IF HB_ISARRAY( sum ) .AND. Len(sum) == Len(xSum)
-         AEval( xSum, {| s, i | Sum[i] := iif( HB_ISNUMERIC(s), Sum[i] + s, s ) } )
+   ELSEIF HB_ISARRAY(xSum)
+      IF HB_ISARRAY(sum) .AND. Len(sum) == Len(xSum)
+         AEval(xSum, {| s, i | Sum[i] := iif( HB_ISNUMERIC(s), Sum[i] + s, s ) })
       ELSE
          Sum := xSum
       ENDIF

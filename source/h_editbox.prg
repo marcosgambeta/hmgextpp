@@ -305,7 +305,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
    ENDIF
 
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlInit, k, mVar )
+      Eval(_HMG_bOnControlInit, k, mVar)
 #ifdef _OBJECT_
       ow := _WindowObj(ParentFormHandle)
       oc := _ControlObj(ControlHandle)

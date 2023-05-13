@@ -19,22 +19,22 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
    LOCAL nGh := oApp:GapsHeight
    LOCAL uParam, bRecord, nClr, oCol, nWrec, nHrec
 
-   IF HB_ISARRAY( nWidth )
+   IF HB_ISARRAY(nWidth)
       nWrec  := nWidth[2]
       nWidth := nWidth[1]
    ENDIF
 
-   IF HB_ISARRAY( nHeight )
+   IF HB_ISARRAY(nHeight)
       nHrec   := nHeight[2]
       nHeight := nHeight[1]
    ENDIF
 
-   IF HB_ISARRAY( cTitle )
+   IF HB_ISARRAY(cTitle)
       uParam := cTitle[2]
       cTitle := cTitle[1]
    ENDIF
 
-   IF HB_ISARRAY( bSetUp )
+   IF HB_ISARRAY(bSetUp)
       bRecord := iif( Len(bSetUp) > 2, bSetUp[3], NIL )
       bAfter := bSetUp[2]
       bSetUp := bSetUp[1]
@@ -90,7 +90,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
 
    cFormName := GetUniqueName( "SBrowse" )
 
-   lRec  := HB_ISARRAY( uAlias ) .AND. ;
+   lRec  := HB_ISARRAY(uAlias) .AND. ;
             Len(uAlias[1]) == 2 .AND. Len(aCols) == 2 .AND. ;
             aCols[1] == "Key" .AND. aCols[2] == "Value"
 
@@ -134,7 +134,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
 
          oBrw:Cargo := uParam
 
-         lEdit := Eval( bSetUp, oBrw )
+         lEdit := Eval(bSetUp, oBrw)
          lEdit := iif( HB_ISLOGICAL(lEdit), lEdit, .F. )
 
          WITH OBJECT oBrw
@@ -146,7 +146,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
                               _SetThisFormInfo() }
             :lRecLockArea := .T.
             IF lEdit
-               AEval( :aColumns, {| o | o:lEdit := !( o:cFieldTyp $ "+=^" ) } )
+               AEval(:aColumns, {| o | o:lEdit := !( o:cFieldTyp $ "+=^" ) })
             ENDIF
             nClr := :GetColumn( 1 ):nClrHeadBack
             IF lRec
@@ -263,8 +263,8 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
          ENDIF
       ENDIF
 
-      IF HB_ISBLOCK( bAfter ) ; EVal( bAfter, oBrw, .T. )
-      ELSE                    ; Eval( bSetUp, oBrw, .T. )
+      IF HB_ISBLOCK( bAfter ) ; EVal(bAfter, oBrw, .T.)
+      ELSE                    ; Eval(bSetUp, oBrw, .T.)
       ENDIF
 
    END WINDOW
@@ -329,9 +329,9 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
    IF HB_ISCHAR( uAlias ) ; dbSelectArea( uAlias )
    ENDIF
 
-   IF HB_ISARRAY( oParam:aFont )
+   IF HB_ISARRAY(oParam:aFont)
       IF Len(oParam:aFont) < 6
-         ASize( oParam:aFont, 5 )
+         ASize(oParam:aFont, 5)
          FOR i := 1 TO Len(oParam:aFont)
              IF Empty(oParam:aFont) ; oParam:aFont[i] := oParam:aFont[1]
              ENDIF
@@ -417,7 +417,7 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
                       // нет горизонтального HScroll и есть SELECTOR
                       IF op:uSelector != NIL .AND. op:lAdjust == NIL .AND. ob:lNoHScroll
                          IF HB_ISBLOCK( op:bAdjColumns )
-                            EVal( op:bAdjColumns, ob, op )  // :AdjColumns(...)
+                            EVal(op:bAdjColumns, ob, op)  // :AdjColumns(...)
                          ENDIF
                       ENDIF
                       IF ob:nLen > ob:nRowCount()           // нужен VScroll
@@ -478,14 +478,14 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
       :SetAppendMode( .F. )
       :SetDeleteMode( .F. )
 
-      IF HB_ISBLOCK( bInit ) ; EVal( bInit, oBrw, oParam )                 // 1. call your customization functions
+      IF HB_ISBLOCK( bInit ) ; EVal(bInit, oBrw, oParam)                 // 1. call your customization functions
       ENDIF
 
       IF :lDrawSpecHd .AND. !Empty(oParam:aNumber) .AND. HB_ISBLOCK( oParam:bSpecHdEnum )  // renumbering SpecHeader
-         EVal( oParam:bSpecHdEnum, oBrw, oParam )
+         EVal(oParam:bSpecHdEnum, oBrw, oParam)
       ENDIF
 
-      IF HB_ISBLOCK( oParam:bBody ) ; EVal( oParam:bBody, oBrw, oParam )   // 2. call your customization functions
+      IF HB_ISBLOCK( oParam:bBody ) ; EVal(oParam:bBody, oBrw, oParam)   // 2. call your customization functions
       ENDIF
 
       IF HB_ISLOGICAL( oParam:bDblClick )
@@ -518,7 +518,7 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
          :nFireKey := oParam:nFireKey
       ENDIF
 
-      IF HB_ISARRAY( oParam:aUserKeys )
+      IF HB_ISARRAY(oParam:aUserKeys)
          FOR EACH aTmp IN oParam:aUserKeys
            i := iif( Len(aTmp) > 2, aTmp[3], .F. )             // Ctrl+...
            j := iif( Len(aTmp) > 3, aTmp[4], .F. )             // Shift+...
@@ -536,7 +536,7 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
          :lMoreFields := ( :nColCount() > 30 )
       ELSEIF oParam:uSelector == NIL .AND. oParam:lAdjust == NIL
           IF HB_ISBLOCK( oParam:bAdjColumns )
-             EVal( oParam:bAdjColumns, oBrw, oParam )             // :AdjColumns(...)
+             EVal(oParam:bAdjColumns, oBrw, oParam)             // :AdjColumns(...)
           ENDIF
       ENDIF
 
@@ -545,10 +545,10 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
 
    END TBROWSE
 
-   IF HB_ISBLOCK( bEnd ) ; EVal( bEnd, oBrw, oParam )
+   IF HB_ISBLOCK( bEnd ) ; EVal(bEnd, oBrw, oParam)
    ENDIF
 
-   IF HB_ISARRAY( oParam:aEvents )
+   IF HB_ISARRAY(oParam:aEvents)
       FOR EACH aTmp IN oParam:aEvents
          ( This.Object ):Event( aTmp[1], aTmp[2] )
       NEXT

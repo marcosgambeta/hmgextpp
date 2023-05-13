@@ -209,8 +209,8 @@ FUNCTION _DefinePropSheet ( FormName, ParentForm,  y, x, w, h,  caption, IdIcon,
    LOCAL i, htooltip := NIL, mVar, k, modeless
    LOCAL FormHandle := Nil, ParentHandle, cWaterMark := "", cHeader := "", cIcon := "", Style := PSH_USECALLBACK + DS_SETFONT
 
-   HB_SYMBOL_UNUSED( underline )
-   HB_SYMBOL_UNUSED( strikeout )
+   HB_SYMBOL_UNUSED(underline)
+   HB_SYMBOL_UNUSED(strikeout)
 
    DEFAULT x       TO 0
    DEFAULT y       TO 0
@@ -564,7 +564,7 @@ FUNCTION _DefineSheetDialog ( FormName, Id_resource, FormHandle, hWndParent  )
 *------------------------------------------------------------------------------*
    LOCAL mVar, k
 
-   HB_SYMBOL_UNUSED( Id_resource )
+   HB_SYMBOL_UNUSED(Id_resource)
 
    mVar := "_" + FormName
    IF _HMG_DialogInMemory
@@ -755,13 +755,13 @@ FUNCTION InitPageDlgProc( hwndDlg, idDlg, hWndParent )
             ENDIF
          ENDIF
          IF HB_ISBLOCK(blInit) .AND. _HMG_aControlDeleted [k] != .T.
-            Eval( blInit, _HMG_ActiveDialogName, ControlHandle, k )
+            Eval(blInit, _HMG_ActiveDialogName, ControlHandle, k)
          ENDIF
       NEXT
    ENDIF
 
    IF HB_ISBLOCK(_HMG_InitPropSheetProcedure)
-      Eval( _HMG_InitPropSheetProcedure,  hwndDlg, idDlg )
+      Eval(_HMG_InitPropSheetProcedure,  hwndDlg, idDlg)
    ENDIF
 
    _HMG_ActiveDialogHandle     := 0
@@ -793,14 +793,14 @@ FUNCTION ButtonPageDlgProc( hwndDlg, Msg, IdDlg, nPage )
    CASE Msg == PSN_APPLY
 
       IF HB_ISBLOCK(_HMG_ApplyPropSheetProcedure) .AND. lChd
-         lRet := RetValue( Eval( _HMG_ApplyPropSheetProcedure, hwndDlg, idDlg, nPage ), lRet )
+         lRet := RetValue( Eval(_HMG_ApplyPropSheetProcedure, hwndDlg, idDlg, nPage), lRet )
       ENDIF
 
    CASE Msg == PSN_RESET
 
       IF !_HMG_ActivePropSheetWizard
          IF HB_ISBLOCK(_HMG_CancelPropSheetProcedure) .AND. lChd
-            lRet := RetValue( Eval( _HMG_CancelPropSheetProcedure, hwndDlg, idDlg, nPage ), lRet )
+            lRet := RetValue( Eval(_HMG_CancelPropSheetProcedure, hwndDlg, idDlg, nPage), lRet )
          ELSE
             lRet := .F.
          ENDIF
@@ -812,14 +812,14 @@ FUNCTION ButtonPageDlgProc( hwndDlg, Msg, IdDlg, nPage )
          IF ValType(_HMG_CancelPropSheetProcedure) != "B"
             lRet := MsgYesNo ( "Are you sure you want to Quit?", GetWindowText ( GetActiveWindow() ) )
          ELSE
-            lRet := RetValue( Eval( _HMG_CancelPropSheetProcedure,  hwndDlg, idDlg, nPage ), lRet )
+            lRet := RetValue( Eval(_HMG_CancelPropSheetProcedure,  hwndDlg, idDlg, nPage), lRet )
          ENDIF
       ENDIF
 
    CASE Msg == PSN_KILLACTIVE
 
       IF HB_ISBLOCK(_HMG_ValidPropSheetProcedure)
-         lRet := RetValue( Eval( _HMG_ValidPropSheetProcedure, hwndDlg, idDlg, nPage ), lRet )
+         lRet := RetValue( Eval(_HMG_ValidPropSheetProcedure, hwndDlg, idDlg, nPage), lRet )
       ENDIF
 
    ENDCASE
@@ -875,7 +875,7 @@ FUNCTION PageDlgProc( hwndParent, hwndDlg, nMsg, wParam, lParam )
       i := AScan(_HMG_aFormhandles, hwndParent)  // find PropSheetProcedure
       IF i > 0
          IF HB_ISBLOCK(_HMG_aFormClickProcedure[i]) .AND. _HMG_aFormType[i] == "S"
-            IF ( lRet := RetValue( Eval( _HMG_aFormClickProcedure[i], hwndDlg, nMsg, LOWORD(wParam), HIWORD(wParam) ), lRet ) )
+            IF ( lRet := RetValue( Eval(_HMG_aFormClickProcedure[i], hwndDlg, nMsg, LOWORD(wParam), HIWORD(wParam)), lRet ) )
                PropSheet_Changed( hWndParent, hWndDlg )
                IF nPage > -1 .AND. nPage + 1 <= Len(_HMG_aPropSheetPages)
                   _HMG_aPropSheetPages[ nPage + 1, 6 ] := .T.
@@ -888,7 +888,7 @@ FUNCTION PageDlgProc( hwndParent, hwndDlg, nMsg, wParam, lParam )
          ENDIF
       ELSE
          IF HB_ISBLOCK(_HMG_PropSheetProcedure)
-            IF ( lRet := RetValue( Eval(  _HMG_PropSheetProcedure, hwndDlg, nMsg, LOWORD(wParam), HIWORD(wParam) ), lRet ) )
+            IF ( lRet := RetValue( Eval(_HMG_PropSheetProcedure, hwndDlg, nMsg, LOWORD(wParam), HIWORD(wParam)), lRet ) )
                PropSheet_Changed( hWndParent, hWndDlg )
                IF nPage > -1 .AND. nPage + 1 <= Len(_HMG_aPropSheetPages)
                   _HMG_aPropSheetPages[ nPage + 1, 6 ] := .T.
@@ -922,7 +922,7 @@ FUNCTION PageDlgProc( hwndParent, hwndDlg, nMsg, wParam, lParam )
          i := AScan(_HMG_aPropSheetActivePages,  hwndDlg)
          IF i > 0
             ADel( _HMG_aPropSheetActivePages, i )
-            ASize( _HMG_aPropSheetActivePages, Len(_HMG_aPropSheetActivePages) -1 )
+            ASize(_HMG_aPropSheetActivePages, Len(_HMG_aPropSheetActivePages) -1)
          ENDIF
          hwndActive := PropSheetGetCurrentPageHwnd( hwndParent )
          IF _HMG_ActivePropSheetModeless

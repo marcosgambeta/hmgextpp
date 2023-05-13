@@ -402,7 +402,7 @@ Function StampeEsegui(_MainArea,_psd,db_arc,_prw)
          while !eof()
                sele (DB_ARC)
                StrFlt := oWr:aStat [ "FldRel" ]+" = "+ oWr:aStat [ "area1" ]+"->"+oWr:aStat [ "FldRel" ]
-               DBEVAL( {|| miocont++},{|| &strFLT} )
+               DBEVAL({|| miocont++},{|| &strFLT})
                miocnt := int(miocont/NOZERODIV(lbody))
                if (miocnt * lbody) != miocont
                   miocnt ++
@@ -655,7 +655,7 @@ Procedure MsgMulty( xMesaj, cTitle ) // Created By Bicahi Esgici <esgici@gmail.c
          xMesaj := { xMesaj }
       ENDIF
 
-      AEVAL( xMesaj, { | x1 | cMessage +=  Any2Strg( x1 ) + CRLF } )
+      AEVAL(xMesaj, { | x1 | cMessage +=  Any2Strg( x1 ) + CRLF })
 
       MsgInfo( cMessage, cTitle )
 
@@ -680,7 +680,7 @@ FUNC Any2Strg( xAny )
                     { "U", { |  | "<NIL>" } } }
 
    IF (nType := ASCAN(aCases, { | a1 | VALTYPE(xAny) == a1[1] }) ) > 0
-      cRVal := EVAL( aCases[ nType, 2 ], xAny )
+      cRVal := EVAL(aCases[ nType, 2 ], xAny)
    ENDIF
 
 RETU cRVal
@@ -1814,10 +1814,10 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                         hbprn:setcharset(::what_ele(eval(chblk,arrypar,[CHARSET]),::aCh,"_acharset"))
 
                    case ascan(arryPar,[TEXTCOLOR])=2
-                        hbprn:settextcolor( ::UsaColor( eval( chblk,arrypar,[TEXTCOLOR] ) ) )
+                        hbprn:settextcolor( ::UsaColor( eval(chblk,arrypar,[TEXTCOLOR]) ) )
 
                    case ascan(arryPar,[BACKCOLOR])=2
-                        hbprn:setbkcolor( ::UsaColor( eval( chblk,arrypar,[BACKCOLOR] ) ) )
+                        hbprn:setbkcolor( ::UsaColor( eval(chblk,arrypar,[BACKCOLOR]) ) )
 
                    case ascan(arryPar,[ONEATLEAST])= 2
                         ONEATLEAST :=eval(blse,arrypar[3])
@@ -1844,7 +1844,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                        ::aStat["InlineTot"] := (eval(blse,arrypar[3]))
 
                    case ascan(arryPar,[TOTALSTRING])=2
-                        m->TTS := eval( chblk,arrypar,[TOTALSTRING] )
+                        m->TTS := eval(chblk,arrypar,[TOTALSTRING])
 
                    case ascan(arryPar,[DEBUG])=2
                         if ascan(arryPar,[LIST])= 3
@@ -2220,7 +2220,7 @@ METHOD MEMOSAY(row,col,argm1,argl1,argf1,argcolor1,argalign,onlyone,arrypar) CLA
        arrymemo := aclone(argm1)
     Else
        for each ain IN argm1
-           aeval( ain,{|x,y| str += substr(hb_valtostr(x),1,argl1[y])+" " } )
+           aeval(ain,{|x,y| str += substr(hb_valtostr(x),1,argl1[y])+" " })
            str := rtrim(str)
            aadd(arrymemo,str)
            STR := ""
@@ -2399,7 +2399,7 @@ local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
       if !empty(s_head)
          ::aStat [ "GHline" ]    := .T.
          m->s_head := s_head
-         m->s_col  := val( s_col )
+         m->s_col  := val(s_col)
       else
          m->s_head :=""
       endif
@@ -2412,7 +2412,7 @@ local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
          Else
             m->s_total := s_total
          Endif
-         m->t_col   := Val( t_col )
+         m->t_col   := Val(t_col)
       endif
 
       if HB_ISCHAR(gftotal)    // sistemazione per conti su colonne multiple
@@ -2433,7 +2433,7 @@ local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
             m->s_total := s_total
          Endif
 
-         m->t_col  := Val( t_col )
+         m->t_col  := Val(t_col)
       endif
 
       && make autoset for stringHead position
@@ -2856,9 +2856,9 @@ if !EMPTY(dbfilter())
       //msgbox([conta= ]+zaps(conta)+CRLF+" "+CRLF+query_exp,[Trovati Cxx])
    else
       if left(query_exp,3)=="{||"  // codeblock
-         DBEval( {|| conta  ++ }, &(query_exp) ,,,, .F. )
+         DBEval({|| conta  ++ }, &(query_exp) ,,,, .F.)
       Else
-         DBEval( {|| conta  ++ }, {||&query_exp  } ,,,, .F. )
+         DBEval({|| conta  ++ }, {||&query_exp  } ,,,, .F.)
       Endif
    endif
    DBGOTOP()

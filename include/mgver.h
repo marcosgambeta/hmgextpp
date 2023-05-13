@@ -48,7 +48,7 @@
 #define MG_VER_H_
 
 #ifdef __HMG__
-# undef __HMG__
+#undef __HMG__
 #endif
 
 #define MG_VER_MAJOR    3        /* Major version number */
@@ -60,9 +60,9 @@
 #define __RELEASE__
 
 #if defined(__RELEASE__)
-# define MG_VER_STATUS "stable"  /* Build status (all lowercase) */
+#define MG_VER_STATUS "stable"  /* Build status (all lowercase) */
 #else
-# define MG_VER_STATUS "beta"
+#define MG_VER_STATUS "beta"
 #endif
 
 #endif /* MG_VER_H_ */

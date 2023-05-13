@@ -57,19 +57,19 @@
 #include <commctrl.h>
 
 #if defined(_MSC_VER)
-# pragma warning(push)
-# pragma warning(disable:4201)  /* warning C4201: nonstandard extension used: nameless struct/union */
+#pragma warning(push)
+#pragma warning(disable:4201)  /* warning C4201: nonstandard extension used: nameless struct/union */
 #endif
 #include <richedit.h>
 #if defined(_MSC_VER)
-# pragma warning(pop)
+#pragma warning(pop)
 #endif
 #include <shlwapi.h>
 
 #define HB_PARNL3       hb_parvnl
 
 #ifndef CP_UNICODE
-# define CP_UNICODE      1200 // The text is UTF-16 (the WCHAR data type)
+#define CP_UNICODE      1200 // The text is UTF-16 (the WCHAR data type)
 #endif
 
 #ifdef UNICODE

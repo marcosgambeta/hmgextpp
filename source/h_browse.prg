@@ -119,23 +119,23 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
    hb_default(@value, 0)
    hb_default(@aFields, {})
    /* code borrowed from ooHG project */
-   IF !HB_ISARRAY( aJust )
-      aJust := AFill( Array( Len(aFields) ), 0 )
+   IF !HB_ISARRAY(aJust)
+      aJust := AFill(Array(Len(aFields)), 0)
    ELSE
       IF Len(aJust) < Len(aFields)
-         ASize( aJust, Len(aFields) )
+         ASize(aJust, Len(aFields))
       ENDIF 
-      AEval( aJust, { |x, i| aJust[i] := iif( HB_ISNUMERIC(x), x, 0 ) } )
+      AEval(aJust, { |x, i| aJust[i] := iif( HB_ISNUMERIC(x), x, 0 ) })
    ENDIF
    /* end code borrowed */
    // aPict array verify
-   IF HB_ISARRAY( aPict )
+   IF HB_ISARRAY(aPict)
       IF Len(aPict) < Len(aFields)
-         ASize( aPict, Len(aFields) )
+         ASize(aPict, Len(aFields))
       ENDIF 
-      AEval( aPict, { |x, i| aPict[i] := x } )
+      AEval(aPict, { |x, i| aPict[i] := x })
    ELSE
-      aPict := AFill( Array( Len(aFields) ), NIL )
+      aPict := AFill(Array(Len(aFields)), NIL)
    ENDIF
 
    __defaultNIL(@aImage, {})
@@ -149,7 +149,7 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
 
    hb_default(@notabstop, .F.)
    hb_default(@doublebuffer, .F.)
-   lsort := ( ISARRAY( columnsort ) )
+   lsort := ( ISARRAY(columnsort) )
 
    mVar := "_" + ParentFormName + "_" + ControlName
    k := _GetControlFree()
@@ -231,8 +231,8 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
       ENDIF
 
       IF lsort
-         aHeadClick := Array( Len(aHeaders) )
-         AEval( aHeadClick, { | x, i | aHeadClick[i] := { | n | HMG_SetOrder( n ) }, HB_SYMBOL_UNUSED( x ) } )
+         aHeadClick := Array(Len(aHeaders))
+         AEval(aHeadClick, { | x, i | aHeadClick[i] := { | n | HMG_SetOrder( n ) }, HB_SYMBOL_UNUSED(x) })
       ENDIF
 
       IF FontHandle != 0
@@ -314,7 +314,7 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
                                             NIL, ;                                        // 17
                                             NIL, ;                                        // 18
                                             doublebuffer, ;                               // 19
-                                            iif( lsort, Array( Len(aHeaders) ), 0 ), ;    // 20
+                                            iif( lsort, Array(Len(aHeaders)), 0 ), ;    // 20
                                             aPict, ;                                      // 21 add jsz
                                             aInputMask }                                  // 22
    _HMG_aControlMiscData2          [k] := ""
@@ -323,7 +323,7 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
 
       IF lsort
 
-         AFill( _HMG_aControlMiscData1 [k][20], .T. )
+         AFill(_HMG_aControlMiscData1 [k][20], .T.)
 
          IF Len(columnsort) > 0
 
@@ -346,7 +346,7 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
    ENDIF
 
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlInit, k, mVar )
+      Eval(_HMG_bOnControlInit, k, mVar)
 #ifdef _OBJECT_
       ow := _WindowObj(ParentFormHandle)
       oc := _ControlObj(ControlHandle)
@@ -603,17 +603,17 @@ PROCEDURE _BrowseUpdate( ControlName, ParentName, z )
 
    aPict := _HMG_aControlMiscData1[i] [ 21 ]  // add jsz
 
-   aProcessDisplayItems := Array( Len(Fields) )
-   aDisplayItemsLengths := Array( Len(Fields) )
+   aProcessDisplayItems := Array(Len(Fields))
+   aDisplayItemsLengths := Array(Len(Fields))
 
-   AFill( aProcessDisplayItems , .F. )
-   AFill( aDisplayItemsLengths , 0 )
+   AFill(aProcessDisplayItems , .F.)
+   AFill(aDisplayItemsLengths , 0)
 
-   IF ISARRAY( aDisplayItems )
+   IF ISARRAY(aDisplayItems)
 
       FOR k := 1 TO Len(aProcessDisplayItems)
 
-         IF ISARRAY( aDisplayItems [k] )
+         IF ISARRAY(aDisplayItems[k])
             aProcessDisplayItems [k] := .T.
             aDisplayItemsLengths [k] := Len(aDisplayItems[k])
          ENDIF
@@ -623,10 +623,10 @@ PROCEDURE _BrowseUpdate( ControlName, ParentName, z )
    ENDIF
 
    dfc := _HMG_aControlMiscData1 [i, 9]
-   processdfc := ISARRAY( dfc )
+   processdfc := ISARRAY(dfc)
 
    dbc := _HMG_aControlMiscData1 [i, 10]
-   processdbc := ISARRAY( dbc )
+   processdbc := ISARRAY(dbc)
 
    _HMG_aControlContainerHandle[i] := 0
 
@@ -646,7 +646,7 @@ PROCEDURE _BrowseUpdate( ControlName, ParentName, z )
       colorrow := {}
    ENDIF
 
-   FOR EACH x IN Array( PageLength )
+   FOR EACH x IN Array(PageLength)
 
       aTemp := {}
 
@@ -1670,8 +1670,8 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
       IF !q  // field not found, but maybe an expression (readonly hopefully!)
          // force to readonly
          IF aReadOnly == NIL
-            aReadonly := Array( Len(_HMG_aControlRangeMin[i]) )
-            AFill( aReadonly, .F. )
+            aReadonly := Array(Len(_HMG_aControlRangeMin[i]))
+            AFill(aReadonly, .F.)
             aReadonly [z] := .T.
          ELSEIF aReadOnly [z] == .F.
             aReadonly [z] := .T.
@@ -1961,7 +1961,7 @@ STATIC PROCEDURE _WHENEVAL()
 
                ControlName := "Control_" + AllTrim(Str(i))
 
-               IF Eval( aWhen[i] )
+               IF Eval(aWhen[i])
                   _EnableControl ( ControlName , "_Split_1" )
                ELSE
                   _DisableControl ( ControlName , "_Split_1" )
@@ -2007,7 +2007,7 @@ STATIC FUNCTION _EditRecordOk ( aValid , TmpNames , aValidMessages )
 
          IF HB_ISBLOCK(aValid[i])
 
-            IF !Eval( aValid[i] )
+            IF !Eval(aValid[i])
 
                IF HB_ISARRAY(aValidMessages)
 
@@ -2046,7 +2046,7 @@ RETURN Nil
 STATIC FUNCTION _EditRecordCancel ()
 *-----------------------------------------------------------------------------*
 
-   AEval( aResult, { |x, i| HB_SYMBOL_UNUSED( x ), aResult[i] := Nil } )
+   AEval(aResult, { |x, i| HB_SYMBOL_UNUSED(x), aResult[i] := Nil })
 
    RELEASE WINDOW _EditRecord
 
@@ -2212,7 +2212,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
 
          IF HB_ISBLOCK(aTemp[CellColIndex])
             _HMG_ThisEventType := "BROWSE_WHEN"
-            E := Eval( aTemp [CellColIndex] )
+            E := Eval(aTemp [CellColIndex])
             _HMG_ThisEventType := ""
             IF ISLOGICAL( E ) .AND. E == .F.
                PlayHand()
@@ -2496,7 +2496,7 @@ STATIC PROCEDURE _InPlaceEditOk ( i , r , aValid , CellColIndex , sFieldName , A
 
             _HMG_ThisEventType := "BROWSE_VALID"
 
-            b := Eval( aValid [ CellColIndex ] )
+            b := Eval(aValid [ CellColIndex ])
 
             _HMG_ThisEventType := ""
 
@@ -2514,7 +2514,7 @@ STATIC PROCEDURE _InPlaceEditOk ( i , r , aValid , CellColIndex , sFieldName , A
 
                         ELSEIF HB_ISBLOCK(aValidMessages[CellColIndex])
 
-                           Eval( aValidMessages [ CellColIndex ], Result )
+                           Eval(aValidMessages [ CellColIndex ], Result)
 
                         ENDIF
 
@@ -2779,8 +2779,8 @@ STATIC PROCEDURE _BrowseInPlaceAppend(ControlName, ParentForm, z)
    RestoreWorkArea( _Alias )
 
    IF !NetError()
-      aTemp := Array( Len(_HMG_aControlRangeMin[i]) )
-      AFill( aTemp , "" )
+      aTemp := Array(Len(_HMG_aControlRangeMin[i]))
+      AFill(aTemp , "")
       AAdd(_HMG_aControlRangeMax[i], _NewRec)
 
       AddListViewItems ( _HMG_aControlHandles[i] , aTemp , 0 )

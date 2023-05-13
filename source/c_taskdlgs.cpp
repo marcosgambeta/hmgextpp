@@ -15,13 +15,13 @@
 #define UNICODE
 
 #if defined(__MINGW32__)
-# define MAKEINTRESOURCEA(i)  ( ( LPSTR ) ( ( ULONG_PTR ) ( ( WORD ) (i) ) ) )
-# define MAKEINTRESOURCEW(i)  ( ( LPWSTR ) ( ( ULONG_PTR ) ( ( WORD ) (i) ) ) )
-# ifdef UNICODE
-#  define MAKEINTRESOURCE  MAKEINTRESOURCEW
-# else
-#  define MAKEINTRESOURCE  MAKEINTRESOURCEA
-# endif /* UNICODE */
+#define MAKEINTRESOURCEA(i)  ( ( LPSTR ) ( ( ULONG_PTR ) ( ( WORD ) (i) ) ) )
+#define MAKEINTRESOURCEW(i)  ( ( LPWSTR ) ( ( ULONG_PTR ) ( ( WORD ) (i) ) ) )
+#ifdef UNICODE
+#define MAKEINTRESOURCE  MAKEINTRESOURCEW
+#else
+#define MAKEINTRESOURCE  MAKEINTRESOURCEA
+#endif /* UNICODE */
 #endif  /* __MINGW32__ */
 
 #include <hbwinuni.h>

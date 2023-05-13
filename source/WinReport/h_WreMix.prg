@@ -251,7 +251,7 @@ Test(mkm)
             while !eof()
                   sele (DB_ARC)
                   StrFlt:= oWr:aStat [ "FldRel" ]+" = "+ oWr:aStat [ "area1" ]+"->"+oWr:aStat [ "FldRel" ]
-                  DBEVAL( {|| miocont++},{|| &strFLT} )
+                  DBEVAL({|| miocont++},{|| &strFLT})
 
                   // Vecchia versione
                   // miocnt:=miocont/NOZERODIV(eval(oWr:Valore,oWr:aBody[1]))*10
@@ -327,7 +327,7 @@ Static Function memosay(arg1,arg2,argm1,argl1,argf1,argsize,abold,aita,aunder,as
        arrymemo := aclone(argm1)
     Else
        for each ain IN argm1
-           aeval( ain,{|x,y| str += substr(hb_valtostr(x),1,argl1[y])+" " } )
+           aeval(ain,{|x,y| str += substr(hb_valtostr(x),1,argl1[y])+" " })
            str := rtrim(str)
            aadd(arrymemo,str)
            STR := ""
@@ -421,7 +421,7 @@ Function RMiniPar(ArryPar,cmdline,section)
              Endif
 
         case ascan(arryPar,[ONEATLEAST])= 2
-             ONEATLEAST :=eval(blse,arrypar[3]) 
+             ONEATLEAST :=eval(blse,arrypar[3])
 
         case ascan(arryPar,[DEBUG])=2
              if ascan(arryPar,[LIST])= 3
@@ -432,13 +432,13 @@ Function RMiniPar(ArryPar,cmdline,section)
                            aeval(oWr:aDeclare,{|x|if (x != NIL,aadd(ax, strzero(x[2], 4) + ") " + x[1] ),nil)} )
 
                       case ascan(arryPar,[HEAD])= 4
-                           aeval( oWr:aHead,{|x|if (x != NIL,aadd(ax, strzero(x[2], 4) + ") " + x[1] ),nil)} )
+                           aeval(oWr:aHead,{|x|if (x != NIL,aadd(ax, strzero(x[2], 4) + ") " + x[1] ),nil)})
 
                       case ascan(arryPar,[BODY])= 4
-                           aeval( oWr:aBody,{|x|if (x != NIL,aadd(ax, strzero(x[2], 4) + ") " + x[1] ),nil)} )
+                           aeval(oWr:aBody,{|x|if (x != NIL,aadd(ax, strzero(x[2], 4) + ") " + x[1] ),nil)})
 
                       case ascan(arryPar,[FEET])= 4
-                           aeval( oWr:aFeet,{|x|if (x != NIL,aadd(ax, strzero(x[2], 4) + ") " + x[1] ),nil)} )
+                           aeval(oWr:aFeet,{|x|if (x != NIL,aadd(ax, strzero(x[2], 4) + ") " + x[1] ),nil)})
 
                    endcase
                    msgmulty(ax)
@@ -685,7 +685,7 @@ Function RMiniPar(ArryPar,cmdline,section)
                                      oWr:MACROCOMPILE(eval(chblk,arrypar,[LEN]),.T.,cmdline,section) , ;
                                      val(eval(chblk,arrypar,[LEN]))),NIL) ;
           ,iif(ascan(arryPar,[FONT])>0,eval(chblk,arrypar,[FONT]),NIL);
-          ,iif(ascan(arryPar,[SIZE])>0,val( eval(chblk,arrypar,[SIZE] ) ),NIL );
+          ,iif(ascan(arryPar,[SIZE])>0,val(eval(chblk,arrypar,[SIZE])),NIL );
           ,iif(ascan(arryPar,[BOLD])!=0,.T.,.F.);
           ,iif(ascan(arryPar,[ITALIC])!=0,.T.,.F.) ;
           ,iif(ascan(arryPar,[UNDERLINE])!=0,.T.,.F.);

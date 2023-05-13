@@ -116,8 +116,8 @@ PROCEDURE _DefineActivex ( cControlName, cParentForm, nRow, nCol, nWidth, nHeigh
    nAtlDllHandle := oActiveX:hAtl
 
    IF !Empty(oActiveX:hSink)
-      IF ISARRAY( aEvents ) .AND. Len(aEvents) > 0 .AND. ISARRAY( aEvents [1] )
-         AEval( aEvents, { | x | oActiveX:EventMap( x [1], x [2] ) } )
+      IF ISARRAY(aEvents) .AND. Len(aEvents) > 0 .AND. ISARRAY(aEvents[1])
+         AEval(aEvents, { | x | oActiveX:EventMap( x [1], x [2] ) })
       ENDIF
    ENDIF
 
@@ -441,7 +441,7 @@ METHOD OnError( ... )
    IF cMethod[1] == "_"
       cMethod := Right(cMethod, 2)
    ENDIF
-   hb_ExecFromArray( ::oOle, cMethod, hb_aParams() )
+   hb_ExecFromArray(::oOle, cMethod, hb_aParams())
 
 RETURN NIL
 
@@ -668,8 +668,8 @@ static ULONG STDMETHODCALLTYPE Release( IEventHandler * self )
 // IEventHandler's GetTypeInfoCount()
 static ULONG STDMETHODCALLTYPE GetTypeInfoCount( IEventHandler * self, UINT * pCount )
 {
-   HB_SYMBOL_UNUSED( self );
-   HB_SYMBOL_UNUSED( pCount );
+   HB_SYMBOL_UNUSED(self);
+   HB_SYMBOL_UNUSED(pCount);
    return ( ULONG ) E_NOTIMPL;
 }
 
@@ -677,10 +677,10 @@ static ULONG STDMETHODCALLTYPE GetTypeInfoCount( IEventHandler * self, UINT * pC
 // IEventHandler's GetTypeInfo()
 static ULONG STDMETHODCALLTYPE GetTypeInfo( IEventHandler * self, UINT itinfo, LCID lcid, ITypeInfo ** pTypeInfo )
 {
-   HB_SYMBOL_UNUSED( self );
-   HB_SYMBOL_UNUSED( itinfo );
-   HB_SYMBOL_UNUSED( lcid );
-   HB_SYMBOL_UNUSED( pTypeInfo );
+   HB_SYMBOL_UNUSED(self);
+   HB_SYMBOL_UNUSED(itinfo);
+   HB_SYMBOL_UNUSED(lcid);
+   HB_SYMBOL_UNUSED(pTypeInfo);
    return ( ULONG ) E_NOTIMPL;
 }
 
@@ -688,12 +688,12 @@ static ULONG STDMETHODCALLTYPE GetTypeInfo( IEventHandler * self, UINT itinfo, L
 // IEventHandler's GetIDsOfNames()
 static ULONG STDMETHODCALLTYPE GetIDsOfNames( IEventHandler * self, REFIID riid, LPOLESTR * rgszNames, UINT cNames, LCID lcid, DISPID * rgdispid )
 {
-   HB_SYMBOL_UNUSED( self );
-   HB_SYMBOL_UNUSED( riid );
-   HB_SYMBOL_UNUSED( rgszNames );
-   HB_SYMBOL_UNUSED( cNames );
-   HB_SYMBOL_UNUSED( lcid );
-   HB_SYMBOL_UNUSED( rgdispid );
+   HB_SYMBOL_UNUSED(self);
+   HB_SYMBOL_UNUSED(riid);
+   HB_SYMBOL_UNUSED(rgszNames);
+   HB_SYMBOL_UNUSED(cNames);
+   HB_SYMBOL_UNUSED(lcid);
+   HB_SYMBOL_UNUSED(rgdispid);
    return ( ULONG ) E_NOTIMPL;
 }
 
@@ -721,11 +721,11 @@ static ULONG STDMETHODCALLTYPE Invoke( IEventHandler * self, DISPID dispid, REFI
       return ( ULONG ) DISP_E_UNKNOWNINTERFACE;
    }
 
-   HB_SYMBOL_UNUSED( lcid );
-   HB_SYMBOL_UNUSED( wFlags );
-   HB_SYMBOL_UNUSED( result );
-   HB_SYMBOL_UNUSED( pexcepinfo );
-   HB_SYMBOL_UNUSED( puArgErr );
+   HB_SYMBOL_UNUSED(lcid);
+   HB_SYMBOL_UNUSED(wFlags);
+   HB_SYMBOL_UNUSED(result);
+   HB_SYMBOL_UNUSED(pexcepinfo);
+   HB_SYMBOL_UNUSED(puArgErr);
 
    // delegate work to somewhere else in PRG
    //***************************************

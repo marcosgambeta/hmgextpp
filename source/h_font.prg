@@ -74,7 +74,7 @@ PROCEDURE _DefineFont( FontName, fName, fSize, bold, italic, underline, strikeou
       GetFontList( NIL, NIL, NIL, NIL, NIL, NIL, @aFontList )
 
       GetFontList( NIL, NIL, SYMBOL_CHARSET, NIL, NIL, NIL, @aFontSymb )
-      AEval( aFontSymb, {| cFont | AAdd(aFontList, cFont) } )
+      AEval(aFontSymb, {| cFont | AAdd(aFontList, cFont) })
 
       IF Empty(AScan(aFontList, {|cName|Upper(cName) == Upper(fName)}))
          fName := "Arial"
@@ -140,7 +140,7 @@ PROCEDURE _DefineFont( FontName, fName, fSize, bold, italic, underline, strikeou
    _HMG_aControlMiscData2          [k] := ""
 
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlInit, k, mVar )
+      Eval(_HMG_bOnControlInit, k, mVar)
    ENDIF
 
 RETURN
@@ -164,7 +164,7 @@ PROCEDURE _EraseFontDef( i )
    DeleteObject( _HMG_aControlFontHandle[i] )
 
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlDestroy, i )
+      Eval(_HMG_bOnControlDestroy, i)
    ENDIF
 
    mVar := "_" + _FORMNAME_ + "_" + _HMG_aControlNames[i]
@@ -339,7 +339,7 @@ FUNCTION _SetFontAttr( ControlName, ParentForm, Value, nType )
 
    CASE t == CONTROL_TYPE_RADIOGROUP
       _HMG_aControlFontHandle[i] := _SetFont( h[1], n, s, ab, ai, au, as, aa )
-      AEval( h, {|x| SendMessage(x, WM_SETFONT, _HMG_aControlFontHandle[i], 1) }, 2 )
+      AEval(h, {|x| SendMessage(x, WM_SETFONT, _HMG_aControlFontHandle[i], 1) }, 2)
 
    OTHERWISE
       IF IsWindowHandle(h)

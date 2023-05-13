@@ -53,8 +53,8 @@
 #include <vfw.h>
 
 #if defined(__BORLANDC__)
-#  pragma warn -use /* unused var */
-#  pragma warn -eff /* no effect */
+#pragma warn -use /* unused var */
+#pragma warn -eff /* no effect */
 #endif
 
 #ifdef UNICODE

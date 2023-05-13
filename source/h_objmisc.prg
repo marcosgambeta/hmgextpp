@@ -60,7 +60,7 @@ FUNCTION Do_ControlEventProcedure( bBlock, i, p1, p2, p3, p4 )
       _HMG_ThisFormName := _HMG_aFormNames[ _HMG_ThisFormIndex ]
       _HMG_ThisControlName := _HMG_aControlNames[ _HMG_ThisIndex ]
 
-      RetVal := Eval( bBlock, p1, p2, p3, p4 )
+      RetVal := Eval(bBlock, p1, p2, p3, p4)
 
       _PopEventInfo()
 
@@ -85,7 +85,7 @@ FUNCTION Do_WindowEventProcedure( bBlock, i, p1, p2, p3, p4 )
       _HMG_ThisFormName := _HMG_aFormNames[ _HMG_ThisFormIndex ]
       _HMG_ThisControlName := ""
 
-      RetVal := Eval( bBlock, p1, p2, p3, p4 )
+      RetVal := Eval(bBlock, p1, p2, p3, p4)
 
       _PopEventInfo()
 
@@ -109,7 +109,7 @@ FUNCTION _ControlObj(ControlName, FormName)
    
    LOCAL h := iif( HB_ISNUMERIC(ControlName), ControlName, GetControlHandle(ControlName, FormName) )
 
-   IF ISARRAY( h )
+   IF ISARRAY(h)
       h := h[1]
    ENDIF
 
@@ -228,7 +228,7 @@ FUNC Do_OnCtlInit( i, cVar )
    
    LOCAL nCtlIndex := i
    LOCAL cCtlName  := _HMG_aControlNames[i]
-   LOCAL nHandle   := iif( ISARRAY( _HMG_aControlHandles[i] ), _HMG_aControlHandles[i][1], _HMG_aControlHandles[i] )
+   LOCAL nHandle   := iif( ISARRAY(_HMG_aControlHandles[i]), _HMG_aControlHandles[i][1], _HMG_aControlHandles[i] )
    LOCAL nParent   := _HMG_aControlParentHandles[i]
    LOCAL cFormName := GetParentFormName( i )
    LOCAL cCtlType  := iif( Empty(cFormName), _HMG_aControlType[i], GetProperty( cFormName, cCtlName, "Type" ) )
@@ -262,14 +262,14 @@ FUNC Do_OnWndLaunch( hWnd, nMsg, wParam, lParam )
       hmg_GetWindowObject( hWnd ):DoEvent( wParam, lParam )
    ENDIF
 
-   HB_SYMBOL_UNUSED( nMsg )
+   HB_SYMBOL_UNUSED(nMsg)
 
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNC Do_OnCtlLaunch( hWnd, nMsg, wParam, lParam )
 *-----------------------------------------------------------------------------*
-   HB_SYMBOL_UNUSED( nMsg )
+   HB_SYMBOL_UNUSED(nMsg)
 
    IF !Empty(lParam)
       hWnd := lParam

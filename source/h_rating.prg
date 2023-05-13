@@ -199,7 +199,7 @@ STATIC FUNCTION OnHoverRate( cWindow, cControl )
 
    LOCAL i
    LOCAL img_name
-   LOCAL select := Val( SubStr(This.Name, RAt("_", This.Name) + 1 ) )
+   LOCAL select := Val(SubStr(This.Name, RAt("_", This.Name) + 1 ))
 
    ClearRating( cWindow, cControl )
    FOR i := 1 TO select
@@ -217,7 +217,7 @@ STATIC FUNCTION OnLeaveRate( cWindow, cControl, onchange )
    IF pressed == 0
       ClearRating( cWindow, cControl )
       IF ISBLOCK( onchange )
-         Eval( onchange, pressed )
+         Eval(onchange, pressed)
       ENDIF
    ELSE
       OnSelectRate( cWindow, cControl, onchange )
@@ -239,7 +239,7 @@ STATIC FUNCTION OnSelectRate( cWindow, cControl, onchange )
          SetProperty( cWindow, img_name, "Picture", GetProperty( cWindow, img_name, "Cargo" ) [2] )
       NEXT
       IF ISBLOCK( onchange )
-         Eval( onchange, pressed )
+         Eval(onchange, pressed)
       ENDIF
    ENDIF
 

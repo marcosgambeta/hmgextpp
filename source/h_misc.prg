@@ -75,8 +75,8 @@ FUNCTION GetData()
 
       Packet := MemoRead(_HMG_CommPath + PacketNames[1])
 
-      Rows := Val( SubStr(MemoLine( Packet , , 1 ) , 11 , 99) )
-      Cols := Val( SubStr(MemoLine( Packet , , 2 ) , 11 , 99) )
+      Rows := Val(SubStr(MemoLine( Packet , , 1 ) , 11 , 99))
+      Cols := Val(SubStr(MemoLine( Packet , , 2 ) , 11 , 99))
 
       DO CASE
 
@@ -84,7 +84,7 @@ FUNCTION GetData()
       CASE Rows == 0 .AND. Cols == 0
 
          DataType := SubStr(MemoLine( Packet ,  , 3 ) , 12 , 1)
-         DataLength := Val( SubStr(MemoLine( Packet , , 3 ) , 14 , 99) )
+         DataLength := Val(SubStr(MemoLine( Packet , , 3 ) , 14 , 99))
 
          DataValue := MemoLine( Packet , 254 , 4 )
 
@@ -92,7 +92,7 @@ FUNCTION GetData()
          CASE DataType == "C"
             RetVal := Left(DataValue, DataLength)
          CASE DataType == "N"
-            RetVal := Val( DataValue )
+            RetVal := Val(DataValue)
          CASE DataType == "D"
             RetVal := CToD(DataValue)
          CASE DataType == "L"
@@ -107,7 +107,7 @@ FUNCTION GetData()
          DO WHILE i < MLCount ( Packet )
 
             DataType   := SubStr(MemoLine(Packet, , i), 12, 1)
-            DataLength := Val( SubStr(MemoLine(Packet, , i), 14, 99) )
+            DataLength := Val(SubStr(MemoLine(Packet, , i), 14, 99))
 
             i++
 
@@ -117,7 +117,7 @@ FUNCTION GetData()
             CASE DataType == "C"
                aItem := Left(DataValue, DataLength)
             CASE DataType == "N"
-               aItem := Val( DataValue )
+               aItem := Val(DataValue)
             CASE DataType == "D"
                aItem := CToD(DataValue)
             CASE DataType == "L"
@@ -137,7 +137,7 @@ FUNCTION GetData()
 
          i := 3
 
-         aTemp := Array( Rows , Cols )
+         aTemp := Array(Rows , Cols)
 
          r := 1
          c := 1
@@ -145,7 +145,7 @@ FUNCTION GetData()
          DO WHILE i < MLCount ( Packet )
 
             DataType   := SubStr(MemoLine(Packet, , i) , 12, 1)
-            DataLength := Val( SubStr(MemoLine(Packet, , i), 14, 99) )
+            DataLength := Val(SubStr(MemoLine(Packet, , i), 14, 99))
 
             i++
 
@@ -155,7 +155,7 @@ FUNCTION GetData()
             CASE DataType == "C"
                aItem := Left(DataValue, DataLength)
             CASE DataType == "N"
-               aItem := Val( DataValue )
+               aItem := Val(DataValue)
             CASE DataType == "D"
                aItem := CToD(DataValue)
             CASE DataType == "L"
@@ -335,41 +335,41 @@ FUNCTION HMG_FILECOPY( cSourceFile, cTargetFile, nBuffer, bEval )
 
    DEFAULT nBuffer TO F_BLOCK
 
-   IF ( hSourceFile := FOpen( cSourceFile, FO_READ ) ) != F_ERROR
+   IF ( hSourceFile := FOpen(cSourceFile, FO_READ) ) != F_ERROR
 
       IF ( hTargetFile := FCreate( cTargetFile, FC_NORMAL ) ) != F_ERROR
 
-         nTotalBytes := FSeek( hSourceFile, 0, FS_END )
+         nTotalBytes := FSeek(hSourceFile, 0, FS_END)
          nCurrentlBytes := 0
 
-         FSeek( hSourceFile, 0, FS_SET )
+         FSeek(hSourceFile, 0, FS_SET)
 
          DO WHILE nCurrentlBytes < nTotalBytes
 
             cBuffer := Space( nBuffer )
-            nCurrentlBytes += ( nReadBytes := FRead( hSourceFile, @cBuffer, nBuffer ) )
-            FWrite( hTargetFile, cBuffer, nReadBytes )
+            nCurrentlBytes += ( nReadBytes := FRead(hSourceFile, @cBuffer, nBuffer) )
+            FWrite(hTargetFile, cBuffer, nReadBytes)
 
             IF lShowProgress
 
-               Eval( bEval, nCurrentlBytes / nTotalBytes )
+               Eval(bEval, nCurrentlBytes / nTotalBytes)
 
             ENDIF
 
          ENDDO
 
-         lSuccess := FClose( hTargetFile )
+         lSuccess := FClose(hTargetFile)
 
       ENDIF
 
-      FClose( hSourceFile )
+      FClose(hSourceFile)
 
    ENDIF
 
 RETURN lSuccess
 
 *-----------------------------------------------------------------------------*
-FUNCTION uCharToVal( cText, cType )
+FUNCTION uCharToVal(cText, cType)
 *-----------------------------------------------------------------------------*
    
    LOCAL uVal
@@ -404,7 +404,7 @@ FUNCTION uCharToVal( cText, cType )
 
       CASE cType == "N"
 
-         uVal := IfNil( nStrToNum( cText, , .T. ), Val( cText ) )
+         uVal := IfNil( nStrToNum( cText, , .T. ), Val(cText) )
 
       CASE cType == "L"
 
@@ -493,7 +493,7 @@ FUNCTION nStrToNum( cNum, lEuropean, lForceNumeric )
       nCommaAt := RAt( ",", cNum )
       nDotAt := RAt( ".", cNum )
       IF nCommaAt == 0 .AND. nDotAt == 0
-         RETURN Val( cMinus + cNum )
+         RETURN Val(cMinus + cNum)
       ENDIF
 
       IF Occurs( ",", cNum ) > 1
@@ -531,11 +531,11 @@ FUNCTION nStrToNum( cNum, lEuropean, lForceNumeric )
 
       IF lEuropean
 
-         nVal := Val( cMinus + CharRepl( ",", CharRem( ".", cNum ), "." ) )
+         nVal := Val(cMinus + CharRepl( ",", CharRem( ".", cNum ), "." ))
 
       ELSE
 
-         nVal := Val( cMinus + CharRem( ",", cNum ) )
+         nVal := Val(cMinus + CharRem( ",", cNum ))
 
       ENDIF
 
@@ -590,16 +590,16 @@ STATIC FUNCTION dCharToDate( cDate )
 
    cFormat := Set( _SET_DATEFORMAT )
 
-   dDate := CToD( cDate )
+   dDate := CToD(cDate)
 
    IF Empty(dDate)
 
       cc := Lower( Left(cFormat, 2) )
       Set( _SET_DATEFORMAT, iif( cc == "dd", "mm/dd/yy", "dd/mm/yy" ) )
-      dDate := CToD( cDate )
+      dDate := CToD(cDate)
       IF cc == "yy" .AND. Empty(dDate)
          SET DATE AMERICAN
-         dDate := CToD( cDate )
+         dDate := CToD(cDate)
       ENDIF
 
    ENDIF
@@ -616,7 +616,7 @@ STATIC FUNCTION dAlphaToDate( cDate )
    LOCAL m
    LOCAL n
    LOCAL nEpoch
-   LOCAL aMonths := Array( 12 )
+   LOCAL aMonths := Array(12)
    LOCAL aNum
 
    FOR n := 1 TO 12
@@ -679,7 +679,7 @@ STATIC FUNCTION ParseNumsFromDateStr(cStr)
 
          IF c == ":" .AND. Len(aNum) < 2
 
-            ASize( aNum, 2 )
+            ASize(aNum, 2)
 
          ENDIF
 
@@ -702,11 +702,11 @@ STATIC FUNCTION ParseNumsFromDateStr(cStr)
 
    IF Len(aNum) < 2
 
-      ASize( aNum, 2 )
+      ASize(aNum, 2)
 
    ENDIF
 
-   AEval( aNum, {| c, i | aNum[i] := iif( c == NIL, 0, Val( c ) ) } )
+   AEval(aNum, {| c, i | aNum[i] := iif( c == NIL, 0, Val(c) ) })
 
    IF aNum[1] > 31
 

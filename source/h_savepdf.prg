@@ -174,8 +174,8 @@ STATIC FUNCTION PdfSetInfo( hDoc, cTitle, cAuthor, cCreator )
 
    HPDF_SetInfoDateAttr( hDoc, HPDF_INFO_CREATION_DATE, ;
       { Year( dDate ), Month( dDate ), Day( dDate ), ;
-      Val( SubStr(cTime, 1, 2) ), Val( SubStr(cTime, 4, 2) ), ;
-      Val( SubStr(cTime, 7) ) ;
+      Val(SubStr(cTime, 1, 2)), Val(SubStr(cTime, 4, 2)), ;
+      Val(SubStr(cTime, 7)) ;
       } )
 
 RETURN NIL

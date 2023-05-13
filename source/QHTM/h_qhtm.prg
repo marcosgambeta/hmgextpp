@@ -160,12 +160,12 @@ Return Nil
 
 /******
 *
-*       QHTM_LoadFromVal( ControlName, ParentForm, cValue )
+*       QHTM_LoadFromVal(ControlName, ParentForm, cValue)
 *
 *       Load web-page from variable
 *
 */
-Procedure QHTM_LoadFromVal( ControlName, ParentForm, cValue )
+Procedure QHTM_LoadFromVal(ControlName, ParentForm, cValue)
 Local nHandle := GetControlHandle( ControlName, ParentForm )
 
 If ( nHandle > 0 )

@@ -121,7 +121,7 @@ METHOD Default() CLASS TComboBox
 
    For i = 1 To Len(::aItems)
       ComboAddString( ::hWnd, ::aItems[i] )
-      If i == Eval( ::bSetGet )
+      If i == Eval(::bSetGet)
          ComboSetCurSel( ::hWnd, i )
       Endif
    Next
@@ -134,7 +134,7 @@ Return NIL
 
 METHOD GetDlgCode( nLastKey, nFlags ) CLASS TComboBox
 
-   HB_SYMBOL_UNUSED( nFlags )
+   HB_SYMBOL_UNUSED(nFlags)
    ::nLastKey := nLastKey
 
 Return DLGC_WANTALLKEYS
@@ -147,7 +147,7 @@ METHOD HandleEvent( nMsg, nWParam, nLParam ) CLASS TComboBox
 
    If HiWord(nWParam) == CBN_CLOSEUP
       if ::bCloseUp != NIL
-         IIf( HB_ISBLOCK(::bCloseUp), Eval( ::bCloseUp, Self ), ::bCloseUp( Self ) )
+         IIf( HB_ISBLOCK(::bCloseUp), Eval(::bCloseUp, Self), ::bCloseUp( Self ) )
          Return 0
       endif
    Endif
@@ -169,7 +169,7 @@ METHOD KeyDown( nKey, nFlags ) CLASS TComboBox
    ::nLastKey := nKey
    If nKey == VK_TAB .OR. nKey == VK_RETURN .OR. nKey == VK_ESCAPE
       ::bLostFocus := Nil
-      Eval( ::bKeyDown, nKey, nFlags, .T. )
+      Eval(::bKeyDown, nKey, nFlags, .T.)
       Return 0
    Endif
 
@@ -196,18 +196,18 @@ METHOD LostFocus() CLASS TComboBox
    If nAt != CB_ERR
       ::nAt = nAt + 1
       If HB_ISNUMERIC(Eval(::bSetGet))
-         Eval( ::bSetGet, nAt + 1 )
+         Eval(::bSetGet, nAt + 1)
       Else
-         Eval( ::bSetGet, ::aItems[ nAt + 1 ] )
+         Eval(::bSetGet, ::aItems[ nAt + 1 ])
       Endif
    Else
-      Eval( ::bSetGet, GetWindowText( ::hWnd ) )
+      Eval(::bSetGet, GetWindowText( ::hWnd ))
    Endif
 
    ::lFocused := .F.
 
    If ::bLostFocus != Nil
-      Eval( ::bLostFocus, ::nLastKey )
+      Eval(::bLostFocus, ::nLastKey)
    EndIf
 
 Return 0
@@ -242,8 +242,8 @@ METHOD LButtonDown( nRow, nCol ) CLASS TComboBox
 
    LOCAL nShow := 1
    
-   HB_SYMBOL_UNUSED( nRow )
-   HB_SYMBOL_UNUSED( nCol )
+   HB_SYMBOL_UNUSED(nRow)
+   HB_SYMBOL_UNUSED(nCol)
 
    If ::nLastKey != Nil .AND. ::nLastKey == 9999
       nShow := 0

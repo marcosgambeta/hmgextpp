@@ -120,7 +120,7 @@ PROCEDURE _DefineCLButton ( cName, nRow, nCol, cCaption, cNotes, bAction, cParen
    _HMG_aControlMiscData2          [k] := ""
 
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlInit, k, mVar )
+      Eval(_HMG_bOnControlInit, k, mVar)
    ENDIF
 
    IF !Empty(cBitmap)
@@ -163,7 +163,7 @@ FUNCTION CLButtonEventhandler ( hWnd, nMsg, wParam, lParam )
    LOCAL RetVal // := Nil
    LOCAL i
 
-   HB_SYMBOL_UNUSED( hWnd )
+   HB_SYMBOL_UNUSED(hWnd)
 
    IF nMsg == WM_COMMAND
 

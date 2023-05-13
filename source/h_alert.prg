@@ -121,7 +121,7 @@ FUNCTION HMG_Alert( cMsg, aOptions, cTitle, nType, cIcoFile, nIcoSize, aBtnColor
    hb_default(@lClosable, .F.)
    hb_default(@cFontName, "DlgFont")
 
-   IF ISARRAY( aOptions )
+   IF ISARRAY(aOptions)
       DEFAULT nType := iif( Len(aOptions) > 1, 2, 1 )
    ELSE
       DEFAULT nType := 1
@@ -167,7 +167,7 @@ FUNCTION HMG_Alert( cMsg, aOptions, cTitle, nType, cIcoFile, nIcoSize, aBtnColor
       cMsg := StrTran(cMsg, TAB, Space( 3 ))
    ENDIF
 
-   AEval( hb_ATokens( cMsg, CRLF ), {|ct|nMaxLen := Max(nMaxLen, Len(Trim(ct)))} )
+   AEval(hb_ATokens(cMsg, CRLF), {|ct|nMaxLen := Max(nMaxLen, Len(Trim(ct)))})
 
    IF lEmpty
       lClosable := .T.
@@ -274,9 +274,9 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
 
    ENDIF
 
-   nLenaOp := iif( ISARRAY( aOptions ), Len(aOptions), 1 )
+   nLenaOp := iif( ISARRAY(aOptions), Len(aOptions), 1 )
 
-   IF ( lExt := ( ISARRAY( aBtnColors ) .AND. Len(aBtnColors) == nLenaOp ) )
+   IF ( lExt := ( ISARRAY(aBtnColors) .AND. Len(aBtnColors) == nLenaOp ) )
       nVMARGIN_BUTTON := 3 * VMARGIN_BUTTON
    ENDIF
 

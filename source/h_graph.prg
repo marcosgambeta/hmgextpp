@@ -223,8 +223,8 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
       NEXT nI
    NEXT nJ
 
-   nXMax   := iif( nMax > 0, DetMaxVal( nMax ), 0 )
-   nXMin   := iif( nMin < 0, DetMaxVal( nMin ), 0 )
+   nXMax   := iif( nMax > 0, DetMaxVal(nMax), 0 )
+   nXMin   := iif( nMin < 0, DetMaxVal(nMin), 0 )
    nHigh   := nXMax + nXMin
    nMax    := Max( nXMax, nXMin )
    nRel    := nMaxBar / nHigh
@@ -248,7 +248,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
       DrawLine( parent, nZero - nDeep, nLeft, nZero - nDeep, nRight, GRAY )
    ENDIF
 
-   aPoint := Array( Len(aSeries), Len(aData[1]), 2 )
+   aPoint := Array(Len(aSeries), Len(aData[1]), 2)
    nRange := nMax / nXRanges
 
    // xLabels
@@ -538,12 +538,12 @@ FUNCTION nMax( aData )
 
    LOCAL nMax := 0
 
-   AEval( aData, { | ele | nMax := Max( nMax, Len(ele) ) } )
+   AEval(aData, { | ele | nMax := Max( nMax, Len(ele) ) })
 
 RETURN( nMax )
 
 
-FUNCTION DetMaxVal( nNum )
+FUNCTION DetMaxVal(nNum)
 
    LOCAL nE
    LOCAL nMax
@@ -809,15 +809,15 @@ FUNCTION drawpiegraph( windowname, fromrow, fromcol, torow, tocol, series, aname
    torow++
    tocol++
 
-   AEval( series, {|i| ser_sum += i } )
-   AEval( series, {|i| AAdd(degrees, Round(i / ser_sum * 360, 0)) } )
+   AEval(series, {|i| ser_sum += i })
+   AEval(series, {|i| AAdd(degrees, Round(i / ser_sum * 360, 0)) })
    sum := 0
-   AEval( degrees, {|i| sum += i } )
+   AEval(degrees, {|i| sum += i })
    IF sum != 360
       degrees[len(degrees)] += 360 - sum
    ENDIF
    sum := 0
-   AEval( degrees, {|i| sum += i, AAdd(cumulative, sum) } )
+   AEval(degrees, {|i| sum += i, AAdd(cumulative, sum) })
 
    fromradialrow := middlerightrow
    fromradialcol := middlerightcol

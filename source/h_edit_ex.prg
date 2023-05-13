@@ -522,8 +522,8 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
    _nAnchoPantalla := getDesktopWidth()
 
    // Datos de las etiquetas y los controles de la ventana de edición.
-   _aEtiqueta := Array( nEstructura, ABM_LBL_LEN )
-   _aControl := Array( nEstructura, ABM_CON_LEN )
+   _aEtiqueta := Array(nEstructura, ABM_LBL_LEN)
+   _aControl := Array(nEstructura, ABM_CON_LEN)
    nFila := 10
    nColumna := 10
    nAnchoEtiqueta := 0
@@ -854,7 +854,7 @@ STATIC FUNCTION ABM2EjecutaOpcion()
    bBloque := _aOpciones[nItem, ABM_OPC_BLOQUE]
 
    // ------- Ejecuta la opción.--------------------------------------------------
-   Eval( bBloque )
+   Eval(bBloque)
 
    // ------- Refresca el browse.
    ABM2Redibuja( .T. )
@@ -1211,7 +1211,7 @@ STATIC FUNCTION ABM2EditarGuardar( lNuevo )
          xValor := GetProperty( "wndABM2EditNuevoSplit", _aControl[i, ABM_CON_NAME], "Value" )
          AAdd(aValores, xValor)
       NEXT
-      lResultado := Eval( _bGuardar, aValores, lNuevo )
+      lResultado := Eval(_bGuardar, aValores, lNuevo)
       IF ValType(lResultado) != "L"
          lResultado := .T.
       ENDIF
@@ -1417,7 +1417,7 @@ STATIC FUNCTION ABM2Buscar()
 
    // ------- Comprueba si se ha pasado una acción del usuario.--------------------
    IF _bBuscar != NIL
-      Eval( _bBuscar )
+      Eval(_bBuscar)
       ABM2Redibuja( .T. )
       RETURN NIL
    ENDIF
@@ -1903,7 +1903,7 @@ STATIC FUNCTION ABM2Imprimir()
 
    // ------- Comprueba si se ha pasado la clausula ON PRINT.---------------------
    IF _bImprimir != NIL
-      Eval( _bImprimir )
+      Eval(_bImprimir)
       ABM2Redibuja( .T. )
       RETURN NIL
    ENDIF
@@ -2353,11 +2353,11 @@ STATIC FUNCTION ABM2Listado( aImpresoras )
       xRegistro1 := cRegistro1
       xRegistro2 := cRegistro2
    CASE _aEstructura[_aIndiceCampo[_nIndiceActivo], DBS_TYPE] == "N"
-      xRegistro1 := Val( cRegistro1 )
-      xRegistro2 := Val( cRegistro2 )
+      xRegistro1 := Val(cRegistro1)
+      xRegistro2 := Val(cRegistro2)
    CASE _aEstructura[_aIndiceCampo[_nIndiceActivo], DBS_TYPE] == "D"
-      xRegistro1 := CToD( cRegistro1 )
-      xRegistro2 := CToD( cRegistro2 )
+      xRegistro1 := CToD(cRegistro1)
+      xRegistro2 := CToD(cRegistro2)
    CASE _aEstructura[_aIndiceCampo[_nIndiceActivo], DBS_TYPE] == "L"
       xRegistro1 := ( cRegistro1 == ".t." )
       xRegistro2 := ( cRegistro2 == ".t." )
@@ -2369,7 +2369,7 @@ STATIC FUNCTION ABM2Listado( aImpresoras )
 
    // ------- Obtiene el número de páginas.---------------------------------------
    nTotales := 1
-   ( _cArea )->( dbEval( {|| nTotales++ },, {|| !( RecNo() == nUltimo ) .AND. !Eof() },,, .T. ) )
+   ( _cArea )->( dbEval({|| nTotales++ },, {|| !( RecNo() == nUltimo ) .AND. !Eof() },,, .T.) )
    ( _cArea )->( dbGoto( nPrimero ) )
    IF lOrientacion
       IF Mod( nTotales, 33 ) == 0

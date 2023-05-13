@@ -381,7 +381,7 @@ static void * hb_sqlite3_itemGet(PHB_ITEM pItem, int iType, BOOL fError)
    PHB_SQLITE3_HOLDER   pStructHolder = ( PHB_SQLITE3_HOLDER ) hb_itemGetPtrGC( pItem, hb_sqlite3_destructor );
    int                  iError = 0;
 
-   HB_SYMBOL_UNUSED( iError );
+   HB_SYMBOL_UNUSED(iError);
 
    if( !pStructHolder )
       iError = HB_ERR_MEMSTRU_NOT_MEM_BLOCK;

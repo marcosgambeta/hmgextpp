@@ -286,8 +286,8 @@ RETURN ::lActive
 */
 METHOD OnCreated( hWnd, nNotify, nWParam, nLParam ) CLASS TTaskDialog
 
-   HB_SYMBOL_UNUSED( nWParam )
-   HB_SYMBOL_UNUSED( nLParam )
+   HB_SYMBOL_UNUSED(nWParam)
+   HB_SYMBOL_UNUSED(nLParam)
 
    IF nNotify == TDN_CREATED
       ::lActive := .T.
@@ -301,9 +301,9 @@ RETURN .F.
 */
 METHOD OnDestroyed( hWnd, nNotify, nWParam, nLParam ) CLASS TTaskDialog
 
-   HB_SYMBOL_UNUSED( hWnd )
-   HB_SYMBOL_UNUSED( nWParam )
-   HB_SYMBOL_UNUSED( nLParam )
+   HB_SYMBOL_UNUSED(hWnd)
+   HB_SYMBOL_UNUSED(nWParam)
+   HB_SYMBOL_UNUSED(nLParam)
 
    IF nNotify == TDN_DESTROYED
       ::lActive := .F.
@@ -317,10 +317,10 @@ RETURN .F.
 */
 METHOD Listener( hWnd, nNotify, nWParam, nLParam ) CLASS TTaskDialog
 
-   HB_SYMBOL_UNUSED( hWnd )
+   HB_SYMBOL_UNUSED(hWnd)
 
    IF HB_ISEVALITEM( ::aConfig[ TDC_CALLBACK ] )
-      RETURN ::aConfig[ TDC_CALLBACK ]:Eval( self, nNotify, nWParam, nLParam )
+      RETURN ::aConfig[ TDC_CALLBACK ]:Eval(self, nNotify, nWParam, nLParam)
    ENDIF
 
 RETURN .T.
@@ -421,7 +421,7 @@ METHOD CustomButtons( aCustButton ) CLASS TTaskDialog
    LOCAL aOldVal := ::aConfig[ TDC_TASKDIALOG_BUTTON ]
 
    IF !::lActive
-      IF HB_ISARRAY( aCustButton ) .AND. Len(aCustButton) > 0
+      IF HB_ISARRAY(aCustButton) .AND. Len(aCustButton) > 0
          ::aConfig[ TDC_BUTTON ] := Len(aCustButton)
          ::aConfig[ TDC_TASKDIALOG_BUTTON ] := aCustButton
       ENDIF
@@ -456,7 +456,7 @@ METHOD CustomRadioButtons( aCustButton ) CLASS TTaskDialog
    LOCAL aOldVal := ::aConfig[ TDC_TASKDIALOG_RADIOBUTTON ]
 
    IF !::lActive
-      IF HB_ISARRAY( aCustButton ) .AND. Len(aCustButton) > 0
+      IF HB_ISARRAY(aCustButton) .AND. Len(aCustButton) > 0
          ::aConfig[ TDC_RADIOBUTTON ] := Len(aCustButton)
          ::aConfig[ TDC_TASKDIALOG_RADIOBUTTON ] := aCustButton
       ENDIF

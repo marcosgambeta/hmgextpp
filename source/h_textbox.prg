@@ -260,7 +260,7 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    _HMG_aControlMiscData2          [k] := ""
 
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlInit, k, mVar )
+      Eval(_HMG_bOnControlInit, k, mVar)
    ENDIF
 
    IF !lDialogInMemory
@@ -353,7 +353,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
    LOCAL i
    LOCAL lDialogInMemory
 
-   HB_SYMBOL_UNUSED( RightAlign )
+   HB_SYMBOL_UNUSED(RightAlign)
 
    IF Field != NIL
       IF  hb_UAt ( ">", Field ) == 0
@@ -542,7 +542,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
    _HMG_aControlMiscData2          [k] := ""
 
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlInit, k, mVar )
+      Eval(_HMG_bOnControlInit, k, mVar)
    ENDIF
 
    IF !lDialogInMemory
@@ -614,7 +614,7 @@ FUNCTION GetNumFromText ( Text , i )
 
    s := Transform(Val(s), _HMG_aControlInputMask[i])
 
-RETURN Val( s )
+RETURN Val(s)
 
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION GetNumMask ( Text )
@@ -829,7 +829,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
    _HMG_aControlMiscData2          [k] := ""
 
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlInit, k, mVar )
+      Eval(_HMG_bOnControlInit, k, mVar)
    ENDIF
 
    IF !lDialogInMemory
@@ -902,7 +902,7 @@ PROCEDURE ProcessCharMask ( i , d )
       NegativeZero := .T.
    ENDIF
 
-   HB_SYMBOL_UNUSED( d )
+   HB_SYMBOL_UNUSED(d)
 
    IF PCount() > 1
 
@@ -1275,7 +1275,7 @@ FUNCTION GETNumFromTextSP( Text, i )
 
    s := Transform(Val(s), _HMG_aControlInputMask[i])
 
-RETURN Val( s )
+RETURN Val(s)
 
 *-----------------------------------------------------------------------------*
 FUNCTION OEDITEVENTS( hWnd, nMsg, wParam, lParam )

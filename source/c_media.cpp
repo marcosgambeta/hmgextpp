@@ -50,27 +50,17 @@
 #include <mmsystem.h>
 
 #if defined(__BORLANDC__)
-# pragma warn -use /* unused var */
+#pragma warn -use /* unused var */
 
 #if defined(_WIN64)
 
 #ifndef UNICODE
-HWND MCIWndCreateA(
-   HWND hwndParent,
-   HINSTANCE hInstance,
-   DWORD dwStyle,
-   LPCSTR szFile )
+HWND MCIWndCreateA(HWND hwndParent, HINSTANCE hInstance, DWORD dwStyle, LPCSTR szFile)
 {
    return 0;
 }
-
 #else
-
-HWND MCIWndCreateW(
-   HWND hwndParent,
-   HINSTANCE hInstance,
-   DWORD dwStyle,
-   LPCWSTR szFile )
+HWND MCIWndCreateW(HWND hwndParent, HINSTANCE hInstance, DWORD dwStyle, LPCWSTR szFile)
 {
    return 0;
 }

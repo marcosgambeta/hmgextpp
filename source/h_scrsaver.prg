@@ -106,14 +106,14 @@ FUNCTION _BeginScrSaver( cSSaver, lNoShow, cInit, cRelease, cPaint, nTimer, aBac
    IF cPaint != NIL
       DEFINE TIMER Timer_SSaver;
          INTERVAL nTimer * 1000;
-         ACTION Eval( cPaint )
+         ACTION Eval(cPaint)
    ENDIF
 
    END WINDOW
 
    IF cInit != NIL
 
-      Eval( cInit )
+      Eval(cInit)
 
    ENDIF
 
@@ -138,7 +138,7 @@ FUNCTION _ActivateScrSaver( aForm, cParam )
    CASE cParam == "/c" .OR. cParam == "-c"
 
       IF _ScrSaverConfig != NIL
-         Eval( _ScrSaverConfig )
+         Eval(_ScrSaverConfig)
       ELSE
          MsgInfo( "This screen saver has no options that you configure.", "Information" )
       ENDIF
@@ -199,7 +199,7 @@ FUNCTION _ReleaseScrSaver( cRelease, cSSaver, cPaint )
    LOCAL Dummy := ""
 
    IF cRelease != NIL
-      Eval( cRelease )
+      Eval(cRelease)
    ENDIF
 
    ShowCursor( .T. )

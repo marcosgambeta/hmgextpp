@@ -356,7 +356,7 @@ FUNCTION _DefinePropGrid ( ControlName, ParentFormName, row, col, width, height,
    _HMG_aControlMiscData1 [k] := { indent, ImgList, lInfo, infoHeight, lXml, UserHelpProc, .F. }
    _HMG_aControlMiscData2 [k] := 0
 
-   _InitPgArray( aRowItem, cFile, lXml, k )
+   _InitPgArray(aRowItem, cFile, lXml, k)
 
 RETURN Nil
 
@@ -372,7 +372,7 @@ FUNCTION PgLoadFile( ParentForm, ControlName, cFile, lXml )
       IF !lXml
          aProp := _LoadProperty( cFile, k )
       ENDIF
-      _InitPgArray( aProp, cFile, lXml, k )
+      _InitPgArray(aProp, cFile, lXml, k)
       _HMG_aControlCaption   [k] :=  cFile
       _HMG_aControlMiscData1 [k,5] := lXml
       _ChangeBtnState(  _HMG_aControlHandles [k], .F. , k )
@@ -381,7 +381,7 @@ FUNCTION PgLoadFile( ParentForm, ControlName, cFile, lXml )
 RETURN Nil
 
 *------------------------------------------------------------------------------*
-FUNCTION _InitPgArray( aRowItem, cFile, lXml, k )
+FUNCTION _InitPgArray(aRowItem, cFile, lXml, k)
 *------------------------------------------------------------------------------*
 
    IF  !Empty(cFile) .AND. File( cFile )
@@ -427,7 +427,7 @@ FUNCTION PgBtnEvents( hwndPG, HwndBtn )
          IF HB_ISBLOCK(_HMG_aControlValue[i])
             _DoControlEventProcedure ( _HMG_aControlValue[i] , i )
          ELSE
-            _InitPgArray( aRowItem, cFile, lXml, i )
+            _InitPgArray(aRowItem, cFile, lXml, i)
             _ChangeBtnState(  aHandle, .F. , i )
          ENDIF
       CASE nBtn == PGB_HELP
@@ -550,12 +550,12 @@ FUNCTION PgCheckData( typePG, cValue, aData, mod )
       ENDIF
    CASE typePG == PG_COLOR
       aData := IIf( HB_ISBLOCK(aData), ;
-         Eval( aData ), aData )
+         Eval(aData), aData )
       aCol := PgIdentData( aData, PG_COLOR )
       TOKENINIT ( cValue, " ,()" )
       n := 0
       DO WHILE !TOKENEND() .AND. n++ <= 3
-         nValue := Val( TOKENNEXT ( cValue ) )
+         nValue := Val(TOKENNEXT(cValue))
          IF nValue != aCol[n]
             aCol[n] := nValue
          ENDIF
@@ -822,7 +822,7 @@ FUNCTION PgInitItemXml( cFile, k )
       FOR n := 1 TO Len(oXmlDoc:aItems[1]:aItems)
          oXmlNode := oXmlDoc:aItems[1]:aItems[n]
          IF oXmlNode:Title == "category"  .OR. oXmlNode:Title == "font"
-            aRowItem := PgSetItemArray( oXmlNode )
+            aRowItem := PgSetItemArray(oXmlNode)
             PgAddItem( ControlHandle, aRowItem, nLev, aNodeHandle, k )
             IF !Empty(oXmlNode:aItems)
                FOR i := 1 TO Len(oXmlNode:aItems)
@@ -831,7 +831,7 @@ FUNCTION PgInitItemXml( cFile, k )
                NEXT
             ENDIF
          ELSE
-            aRowItem := PgSetItemArray( oXmlNode )
+            aRowItem := PgSetItemArray(oXmlNode)
             PgAddItem( ControlHandle, aRowItem, nLev, aNodeHandle, k )
          ENDIF
       NEXT n
@@ -851,7 +851,7 @@ FUNCTION PgGetNextLevel( oXmlSubNode, ControlHandle, nLev, aNodeHandle, k )
    LOCAL i, oXmlSubNode1, aRowItem
    nLev++
    IF oXmlSubNode:Title == "category"  .OR. oXmlSubNode:Title == "font"
-      aRowItem := PgSetItemArray( oXmlSubNode )
+      aRowItem := PgSetItemArray(oXmlSubNode)
       PgAddItem( ControlHandle, aRowItem, nLev, aNodeHandle, k )
       IF !Empty(oXmlSubNode:aItems)
          FOR i := 1 TO Len(oXmlSubNode:aItems)
@@ -860,14 +860,14 @@ FUNCTION PgGetNextLevel( oXmlSubNode, ControlHandle, nLev, aNodeHandle, k )
          NEXT
       ENDIF
    ELSE
-      aRowItem := PgSetItemArray( oXmlsubNode )
+      aRowItem := PgSetItemArray(oXmlsubNode)
       PgAddItem( ControlHandle, aRowItem, nLev, aNodeHandle, k )
    ENDIF
 
 RETURN nlev
 
 *------------------------------------------------------------------------------*
-FUNCTION PgSetItemArray( oXmlNode )
+FUNCTION PgSetItemArray(oXmlNode)
 *------------------------------------------------------------------------------*
    LOCAL aItem := {}
 
@@ -1059,7 +1059,7 @@ FUNCTION PgGetSysInfo( aRowIt )
    LOCAL aDan, cDan := aRowIt[APG_VALUE]
    LOCAL typ
    IF HB_ISBLOCK(aRowIt[APG_DATA])
-      cDan := Eval( aRowIt[APG_DATA] )
+      cDan := Eval(aRowIt[APG_DATA])
       IF ValType(cDan) != "C"
          cDan := aRowIt[APG_VALUE]
       ENDIF
@@ -1128,7 +1128,7 @@ FUNCTION PgIdentData( cData, typePG, cValue, sep )
       TOKENINIT ( cData, sep )
       DO WHILE !TOKENEND()
          cToken := AllTrim(TOKENNEXT(cData))
-         aData[n++] := Val( cToken )
+         aData[n++] := Val(cToken)
          IF n > 3
             EXIT
          ENDIF
@@ -1385,7 +1385,7 @@ FUNCTION PgSaveFile( ParentForm, ControlName, cFile )
       DO CASE
       CASE cExt == "xml"
          oXmlDoc := CreatePropXml( ParentForm, ControlName )
-         oXmlDoc:Save( cFile )
+         oXmlDoc:Save(cFile)
       CASE cExt == "txt"
          lSave := CreatePropFile( ParentForm, ControlName, cFile )
       CASE cExt == "ini"
@@ -1422,11 +1422,11 @@ FUNCTION CreatePropXml( ParentForm, ControlName )
       ELSEIF aItemRt[PGI_TYPE] == PG_PASSWORD
          aItemRt[PGI_VALUE] := ValueTran( aItemRt[PGI_VALUE], aItemRt[PGI_TYPE], aItemRt[PGI_DATA] )
       ENDIF
-      DO WHILE ATail( aLev ) != hParentItem
-         aLev := ASize( aLev, Len(aLev) - 1 )
-         aNode := ASize( aNode, Len(aLev) )
+      DO WHILE ATail(aLev) != hParentItem
+         aLev := ASize(aLev, Len(aLev) - 1)
+         aNode := ASize(aNode, Len(aLev))
       ENDDO
-      oXmlNodeAkt := ATail( aNode )
+      oXmlNodeAkt := ATail(aNode)
 
       IF PgIdentType( aItemRt[PGI_TYPE] ) == "category"
          oXmlSubNode := HXMLNode():New( PgIdentType( aItemRt[PGI_TYPE] ), , AttrCreate( aItemRt ) )
@@ -1541,12 +1541,12 @@ FUNCTION CreatePropFile( ParentForm, ControlName, cFile )
          ENDIF
          hItem := GetNextItemPG( hWndPG, hItem )
          hParentItem := TreeView_GetParent( hWndPG, hItem )   // Parent Item
-         DO WHILE ATail( aLev ) != hParentItem
-            aLev := ASize( aLev, Len(aLev) - 1 )
+         DO WHILE ATail(aLev) != hParentItem
+            aLev := ASize(aLev, Len(aLev) - 1)
             lret := ItemRt2File( hand, { "end", "", "", "", "", "", 1, 0, "", "" } )
          ENDDO
       ENDDO
-      FClose( hand )
+      FClose(hand)
    ENDIF
 
 RETURN lret
@@ -1656,7 +1656,7 @@ FUNCTION ItemRt2File( hand, aItemRt )
       ENDIF
    NEXT
    lin += CRLF
-   FWrite( hand, lin, Len(lin) )
+   FWrite(hand, lin, Len(lin))
 
 RETURN ( FError() == 0 )
 
@@ -1988,23 +1988,23 @@ FUNCTION ValueTran( cValue, ItType, cData, nSubIt )
             .OR. ItType == PG_FILE .OR. ItType == PG_FOLDER .OR. ItType == PG_LIST .OR. ItType == PG_USERFUN
          xData := cValue
       CASE ItType == PG_INTEGER
-         xData := Int( Val( cValue ) )
+         xData := Int( Val(cValue) )
       CASE ItType == PG_DOUBLE
-         xData := Val( CharRem( " ", cValue ) )
+         xData := Val(CharRem( " ", cValue ))
       CASE ItType == PG_SYSCOLOR .OR. ItType == PG_COLOR
          xData := PgIdentColor( 0, cValue )
          xData := { GetRed ( xData ), GetGreen ( xData ), GetBlue ( xData ) }
       CASE ItType ==  PG_LOGIC
          xData := IIF( RTrim(cValue) == "true", .T. , .F. )
       CASE ItType ==  PG_DATE
-         xData := CToD( cValue )
+         xData := CToD(cValue)
       CASE ItType == PG_FONT
          xData := PgIdentData( cValue, PG_FONT, , "," )
          IF nSubIt > 0 .AND. nSubIt <= Len(xData)
-            xdata := Val( xData[nSubIt] )
+            xdata := Val(xData[nSubIt])
          ELSE
-            AEval( xData, {|x| x := IIF( x == "true", .T. , .F. ) }, 3 )
-            ASize( xData, 8 )
+            AEval(xData, {|x| x := IIF( x == "true", .T. , .F. ) }, 3)
+            ASize(xData, 8)
             xData := AIns( xData, 5 )
             xData[5] := { 0, 0, 0 }
             xData[8] := 0
@@ -2025,7 +2025,7 @@ FUNCTION ValueTran( cValue, ItType, cData, nSubIt )
       CASE ItType == PG_SIZE
          aData := PgIdentData( cData, PG_SIZE, cValue )
          IF nSubIt > 0 .AND. nSubIt <= Len(aData)
-            xdata := Val( aData[nSubIt,2] )
+            xdata := Val(aData[nSubIt,2])
          ENDIF
       CASE ItType == PG_PASSWORD
          xdata := CHARXOR( cValue, cData )
@@ -2092,7 +2092,7 @@ FUNCTION FormatPropertyLine( cString )
    ENDDO
    TOKENEXIT()
    IF Len(aLine) < 10
-      aLine := ASize( aLine, 10 )
+      aLine := ASize(aLine, 10)
    ENDIF
    FOR n := 1 TO 10
       IF aLine[n] == Nil
@@ -2108,7 +2108,7 @@ FUNCTION FormatPropertyLine( cString )
          CASE n == 7 .AND. Lower( aLine[7] ) == "disableedit"
             aLine[7] := .T.
          CASE n == 8 .AND. HB_ISCHAR(aLine[8])
-            aLine[8] := Val( aLine[8] )
+            aLine[8] := Val(aLine[8])
          ENDCASE
       ENDIF
    NEXT
@@ -2135,7 +2135,7 @@ FUNCTION FormatIniLine( cString )
    ENDDO
    TOKENEXIT()
    IF Len(aLine) < 10
-      aLine := ASize( aLine, 10 )
+      aLine := ASize(aLine, 10)
    ENDIF
    FOR n := 1 TO 10
       IF aLine[n] == Nil
@@ -2232,7 +2232,7 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
             cValue := GetWindowText ( hWnd )
             cData := PG_GETITEM( hWndPG, hItem, PGI_DATA )
             bData := &( cData )
-            cValue := Eval( bData, cValue )
+            cValue := Eval(bData, cValue)
             IF cValue != NIL .AND. HB_ISCHAR(cValue)
                SetWindowText(hWnd, cValue)
                lChg := .T.
@@ -2240,14 +2240,14 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
          CASE LOWORD(wParam) == PG_FONT
             cData := PG_GETITEM( hWndPG, hItem, PGI_DATA )
             aData := PgIdentData( cData, PG_FONT )
-            aDataNew := GetFont ( aData[1,3], Val( aData[2,3] ) , ;
+            aDataNew := GetFont ( aData[1,3], Val(aData[2,3]) , ;
                iif(len(aData)>=3,aData[3,3] == "true",.F.) ,;
                iif(len(aData)>=4,aData[4,3] == "true",.F.) , ,;
                iif(len(aData)>=5,aData[5,3] == "true",.F.) , ;
                iif(len(aData)>=6,aData[6,3] == "true",.F.) )
             IF !Empty(aDataNew[1])
                ADel( aDataNew, 5 )
-               ASize( aDataNew, 6 )
+               ASize(aDataNew, 6)
                cData := AttrTran( aDataNew, "A" )
                aData := PgIdentData( cData, PG_FONT )
                cValue  := aFont2Str(aData)
@@ -2654,7 +2654,7 @@ STATIC FUNCTION DialogFun( lOk, aItem, aItemOld )
          pos := ListBoxGetCurSel( hListBox )
          IF Pos > 0 .AND. pos <= Len(aItem)
             ADel( aItem, pos )
-            ASize( aItem, Len(aItem) - 1 )
+            ASize(aItem, Len(aItem) - 1)
             ListBoxReset( hListBox )
             SetInitItem( aItem, 1 )
             EnableDialogItem ( DLG_HWND, 105 )
@@ -2749,7 +2749,7 @@ STATIC PROCEDURE CharMaskEdit ( hWnd, cValue , Mask )
       SendMessage( hWnd , EM_SETSEL , icp , icp )
       RETURN
    ENDIF
-   IF Left(AllTrim(cValue), 1) == "-" .AND. Val( cValue ) == 0
+   IF Left(AllTrim(cValue), 1) == "-" .AND. Val(cValue) == 0
       NegativeZero := .T.
    ENDIF
 

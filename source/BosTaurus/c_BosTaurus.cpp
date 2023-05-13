@@ -54,8 +54,8 @@
 #define HB_STORVNI  hb_storvni
 
 #ifdef _MSC_VER
-#  define _USE_MATH_DEFINES
-#  include <math.h>
+#define _USE_MATH_DEFINES
+#include <math.h>
 #endif
 
 extern HB_PTRUINT wapi_GetProcAddress(HMODULE hModule, LPCSTR lpProcName);

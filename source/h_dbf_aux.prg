@@ -10,7 +10,7 @@
    cFieldList is a comma delimited list of fields, f.e. "First,Last,Birth,Age".
  */
 *-----------------------------------------------------------------------------*
-FUNCTION HMG_DbfToArray( cFieldList, bFor, bWhile, nNext, nRec, lRest )
+FUNCTION HMG_DbfToArray(cFieldList, bFor, bWhile, nNext, nRec, lRest)
 *-----------------------------------------------------------------------------*
    
    LOCAL aRet := {}
@@ -19,13 +19,13 @@ FUNCTION HMG_DbfToArray( cFieldList, bFor, bWhile, nNext, nRec, lRest )
 
    IF Empty(cFieldList)
       cFieldList := ""
-      AEval( dbStruct(), {| a | cFieldList += "," + a[1] } )
+      AEval(dbStruct(), {| a | cFieldList += "," + a[1] })
       cFieldList := SubStr(cFieldList, 2)
    ENDIF
 
    bLine := &( "{||{" + cFieldList + "}}" )
 
-   dbEval( { || AAdd(aRet, Eval(bLine)) }, bFor, bWhile, nNext, nRec, lRest )
+   dbEval({ || AAdd(aRet, Eval(bLine)) }, bFor, bWhile, nNext, nRec, lRest)
 
    dbGoto( nRecNo )
 
@@ -49,13 +49,13 @@ FUNCTION HMG_ArrayToDbf( aData, cFieldList, bProgress )
    IF HB_ISARRAY(cFieldList)
       aFldName := cFieldList
    ELSEIF HB_ISCHAR(cFieldList)
-      aFldName := hb_ATokens( cFieldList, "," )
+      aFldName := hb_ATokens(cFieldList, ",")
    ENDIF
 
    lFldName := ( Empty(aFldName) )
    nCols := iif( lFldName, FCount(), Min( FCount(), Len(aFldName) ) )
-   aFieldPos := Array( nCols )
-   aFieldTyp := Array( nCols )
+   aFieldPos := Array(nCols)
+   aFieldTyp := Array(nCols)
    FOR nCol := 1 TO nCols
       aFieldPos[ nCol ] := iif( lFldName, nCol, FieldPos( aFldName[ nCol ] ) )
       aFieldTyp[ nCol ] := iif( lFldName, FieldType( nCol ), FieldType( aFieldPos[ nCol ] ) )
@@ -63,7 +63,7 @@ FUNCTION HMG_ArrayToDbf( aData, cFieldList, bProgress )
 
    nRows := Len(aData)
    IF ISBLOCK( bProgress )
-      Eval( bProgress, 0, nRows )
+      Eval(bProgress, 0, nRows)
    ENDIF
 
    FOR nRow := 1 TO nRows
@@ -99,7 +99,7 @@ FUNCTION HMG_ArrayToDbf( aData, cFieldList, bProgress )
 
       dbUnlock()
       IF ISBLOCK( bProgress )
-         Eval( bProgress, nRow, nRows )
+         Eval(bProgress, nRow, nRows)
       ENDIF
 
    NEXT nRow
@@ -123,7 +123,7 @@ STATIC FUNCTION ConvertType( uVal, cTypeDst )
          CASE cTypeSrc == "T"
             uVal := SToD( Left(hb_TToS(uVal), 8) )
          CASE cTypeSrc == "C"
-            uVal := CToD( uVal )
+            uVal := CToD(uVal)
          OTHERWISE
             uVal := BLANK_DATE
          ENDCASE
@@ -141,7 +141,7 @@ STATIC FUNCTION ConvertType( uVal, cTypeDst )
       CASE cTypeDst == "N"
          DO CASE
          CASE cTypeSrc == "C"
-            uVal := Val( uVal )
+            uVal := Val(uVal)
          OTHERWISE
             uVal := 0
          ENDCASE
@@ -179,7 +179,7 @@ FUNCTION HMG_DbfToExcel( cFieldList, aHeader, bFor, bWhile, nNext, nRec, lRest )
 
    IF Empty(cFieldList)
       cFieldList := ""
-      AEval( dbStruct(), { | x | cFieldList += "," + x[1] } )
+      AEval(dbStruct(), { | x | cFieldList += "," + x[1] })
       cFieldList := SubStr(cFieldList, 2)
    ENDIF
 
@@ -208,7 +208,7 @@ FUNCTION HMG_DbfToExcel( cFieldList, aHeader, bFor, bWhile, nNext, nRec, lRest )
       dbGoTop()
    ENDIF
 
-   dbEval( { || oRange:Rows( ++nRow ):Value := Eval( bLine ), nRow }, bFor, bWhile, nNext, nRec, lRest )
+   dbEval({ || oRange:Rows( ++nRow ):Value := Eval(bLine), nRow }, bFor, bWhile, nNext, nRec, lRest)
    dbGoto( nRecNo )
 
    oRange:AutoFit()
@@ -233,26 +233,26 @@ FUNCTION HMG_DbfStruct( cFileName )
       cFileName := hb_FNameExtSetDef( cFileName, ".dbf" )
    ENDIF
 
-   IF ( hFile := FOpen( cFileName, FO_SHARED ) ) >= 0
+   IF ( hFile := FOpen(cFileName, FO_SHARED) ) >= 0
 
-      IF FRead( hFile, @cBuffer, BUFFER_SIZE ) == FIELD_ENTRY_SIZE
+      IF FRead(hFile, @cBuffer, BUFFER_SIZE) == FIELD_ENTRY_SIZE
 
          DO WHILE (FRead(hFile, @cBuffer, BUFFER_SIZE) == FIELD_ENTRY_SIZE .AND. !(cBuffer = Chr(13)))
 
-            aFieldInfo := Array( 4 )
+            aFieldInfo := Array(4)
 
             aFieldInfo[1] := Upper(BeforAtNum(Chr(0), cBuffer, 1))
             aFieldInfo[2] := SubStr(cBuffer, 12, 1)
 
             IF aFieldInfo[2] == "C"
 
-               aFieldInfo[3] := Bin2I( SubStr(cBuffer, 17, 2) )
+               aFieldInfo[3] := Bin2I(SubStr(cBuffer, 17, 2))
                aFieldInfo[4] := 0
 
             ELSE
 
-               aFieldInfo[3] := Asc( SubStr(cBuffer, 17, 1) )
-               aFieldInfo[4] := Asc( SubStr(cBuffer, 18, 1) )
+               aFieldInfo[3] := Asc(SubStr(cBuffer, 17, 1))
+               aFieldInfo[4] := Asc(SubStr(cBuffer, 18, 1))
 
             ENDIF
 
@@ -262,7 +262,7 @@ FUNCTION HMG_DbfStruct( cFileName )
 
       ENDIF
 
-      FClose( hFile )
+      FClose(hFile)
 
    ELSE
 
@@ -284,17 +284,17 @@ FUNCTION HMG_RecToHash( cFieldList, cNames )
 
    IF Empty(cFieldList)
       cFieldList := ""
-      AEval( dbStruct(), {| a | cFieldList += "," + a[1] } )
+      AEval(dbStruct(), {| a | cFieldList += "," + a[1] })
       cFieldList := SubStr(cFieldList, 2)
    ENDIF
 
    DEFAULT cNames := cFieldList
 
-   aNames := hb_ATokens( cNames, "," )
+   aNames := hb_ATokens(cNames, ",")
 
    aVals := &( "{" + cFieldList + "}" )
 
-   AEval( aVals, {| u, i | hSet( hRec, aNames[i], u ) }, , Len(aNames) )
+   AEval(aVals, {| u, i | hSet( hRec, aNames[i], u ) }, , Len(aNames))
 
 RETURN hRec
 
@@ -312,10 +312,10 @@ FUNCTION HMG_HashToRec( hRec, cFieldList )
          ( lLocked := dbRLock( RecNo() ) )
 
       IF Empty(cFieldList)
-         hb_HEval( hRec, {| k, v | FieldPut( FieldPos( k ), v ) } )
+         hb_HEval(hRec, {| k, v | FieldPut( FieldPos( k ), v ) })
       ELSE
-         aFlds := hb_ATokens( cFieldList, "," )
-         hb_HEval( hRec, {| k, v, p | HB_SYMBOL_UNUSED( k ), FieldPut( FieldPos( aFlds[ p ] ), v ) }, , Len(aFlds) )
+         aFlds := hb_ATokens(cFieldList, ",")
+         hb_HEval(hRec, {| k, v, p | HB_SYMBOL_UNUSED(k), FieldPut( FieldPos( aFlds[ p ] ), v ) }, , Len(aFlds))
       ENDIF
 
       IF lLocked
@@ -372,16 +372,16 @@ FUNCTION DbfModStru( cDbfName, aModStru )
 
    nSize := Len(aModStru) * BUFFER_SIZE
    cBuffSize := Space( nSize )
-   hDbfHandle := FOpen( cDbfName, FO_EXCLUSIVE + FO_READWRITE )
+   hDbfHandle := FOpen(cDbfName, FO_EXCLUSIVE + FO_READWRITE)
    nErrorCode := FError()
 
    IF nErrorCode == 0
 
-      IF FRead( hDbfHandle, @cBuffer, BUFFER_SIZE ) != FIELD_ENTRY_SIZE
+      IF FRead(hDbfHandle, @cBuffer, BUFFER_SIZE) != FIELD_ENTRY_SIZE
 
          nErrorCode := FError()
 
-      ELSEIF FRead( hDbfHandle, @cBuffSize, nSize ) != nSize
+      ELSEIF FRead(hDbfHandle, @cBuffSize, nSize) != nSize
 
          nErrorCode := FError()
 
@@ -394,9 +394,9 @@ FUNCTION DbfModStru( cDbfName, aModStru )
 
          NEXT
 
-         FSeek( hDbfHandle, BUFFER_SIZE, FS_SET )
+         FSeek(hDbfHandle, BUFFER_SIZE, FS_SET)
 
-         IF FWrite( hDbfHandle, cBuffSize, nSize ) != nSize
+         IF FWrite(hDbfHandle, cBuffSize, nSize) != nSize
 
             nErrorCode := FError()
 
@@ -404,7 +404,7 @@ FUNCTION DbfModStru( cDbfName, aModStru )
 
       ENDIF
 
-      FClose( hDbfHandle )
+      FClose(hDbfHandle)
 
    ENDIF
 

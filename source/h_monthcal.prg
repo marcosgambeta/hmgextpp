@@ -275,7 +275,7 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
    ENDIF
 
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlInit, k, mVar )
+      Eval(_HMG_bOnControlInit, k, mVar)
 #ifdef _OBJECT_
       ow := _WindowObj(ParentFormHandle)
       oc := _ControlObj(aControlHandle[1])
@@ -301,32 +301,27 @@ FUNCTION InitDialogMonthCalendar( ParentFormName, ControlHandle, k )
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION OMONTHCALEVENTS( hWnd, nMsg, wParam, lParam ) // GF 2016.04.02
+FUNCTION OMONTHCALEVENTS(hWnd, nMsg, wParam, lParam) // GF 2016.04.02
 *-----------------------------------------------------------------------------*
-   
+
    LOCAL i := AScan(_HMG_aControlHandles, hWnd)
 
-   HB_SYMBOL_UNUSED( wParam )
-   HB_SYMBOL_UNUSED( lParam )
+   HB_SYMBOL_UNUSED(wParam)
+   HB_SYMBOL_UNUSED(lParam)
 
    SWITCH nMsg
 
    CASE WM_MOUSEACTIVATE
-
-      SetFocus( hWnd )
-
+      SetFocus(hWnd)
       RETURN 1
 
    CASE WM_SETFOCUS
-
-      VirtualChildControlFocusProcess ( _HMG_aControlHandles[i], _HMG_aControlParentHandles[i] )
-      _DoControlEventProcedure ( _HMG_aControlGotFocusProcedure[i], i )
-
+      VirtualChildControlFocusProcess(_HMG_aControlHandles[i], _HMG_aControlParentHandles[i])
+      _DoControlEventProcedure(_HMG_aControlGotFocusProcedure[i], i)
       EXIT
 
    CASE WM_KILLFOCUS
-
-      _DoControlEventProcedure ( _HMG_aControlLostFocusProcedure[i], i )
+      _DoControlEventProcedure(_HMG_aControlLostFocusProcedure[i], i)
 
    ENDSWITCH
 
@@ -406,8 +401,8 @@ FUNCTION SetDayState( ControlName, ParentFormName )
       RETURN NIL
    ENDIF
 
-   aDays := Array( nCount * 32 )
-   AFill( aDays, 0 )
+   aDays := Array(nCount * 32)
+   AFill(aDays, 0)
 
    i := GetControlIndex(ControlName, ParentFormName)
    aBoldDays := _HMG_aControlPageMap[i]

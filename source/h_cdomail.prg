@@ -79,7 +79,7 @@ METHOD Activate() CLASS TCDOMail
    LOCAL cTmp := ""
 
    IF ::bEmail != NIL
-      Eval( ::bEmail, Self )
+      Eval(::bEmail, Self)
       RETURN NIL
    ENDIF
 

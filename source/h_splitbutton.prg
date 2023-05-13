@@ -126,7 +126,7 @@ PROCEDURE _DefineSplitButton ( cName, nRow, nCol, cCaption, bAction, cParent, ;
    _HMG_aControlMiscData2          [k] := ""
 
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlInit, k, mVar )
+      Eval(_HMG_bOnControlInit, k, mVar)
    ENDIF
 
    IF tooltip != NIL
@@ -147,7 +147,7 @@ FUNCTION SPButtonEventHandler ( hWnd, nMsg, wParam, lParam )
    LOCAL xRetVal // := Nil
    LOCAL i
 
-   HB_SYMBOL_UNUSED( hWnd )
+   HB_SYMBOL_UNUSED(hWnd)
 
    IF nMsg == WM_NOTIFY
 

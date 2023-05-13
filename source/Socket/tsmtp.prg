@@ -381,9 +381,9 @@ if ::oSocket:SendString( "MAIL FROM: " +::cEmail +CHR(13)+CHR(10) )
    if left(cErr,3)=="250" .OR. left(cErr,3)=="550"
 
       aEmails := array(0)
-      AEVAL( ::aTO,  {|aSub|AADD(aEmails, aSub[2])} )
-      AEVAL( ::aCC,  {|aSub|AADD(aEmails, aSub[2])} )
-      AEVAL( ::aBCC, {|aSub|AADD(aEmails, aSub[2])} )
+      AEVAL(::aTO,  {|aSub|AADD(aEmails, aSub[2])})
+      AEVAL(::aCC,  {|aSub|AADD(aEmails, aSub[2])})
+      AEVAL(::aBCC, {|aSub|AADD(aEmails, aSub[2])})
 
       bMail := .T.
       for nPos := 1 to len(aEmails)
@@ -514,7 +514,7 @@ local cRet := ""
 
 if len(aEmail) > 0
    cRet += cTok
-   AEVAL( aEmail, {|aSub, nPos| cRet += iif( nPos==1, "", ","+CHR(13)+CHR(10)+"   " ) + aSub[2]} )
+   AEVAL(aEmail, {|aSub, nPos| cRet += iif( nPos==1, "", ","+CHR(13)+CHR(10)+"   " ) + aSub[2]})
    cRet += CHR(13)+CHR(10)
 endif
 

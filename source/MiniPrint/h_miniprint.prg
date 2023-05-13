@@ -735,7 +735,7 @@ Local c , i , f , t , d , x , a
 
         c := adir ( t + _hmg_printer_timestamp  + "_hmg_print_preview_*.Emf")
 
-        a := array( c )
+        a := array(c)
 
         adir ( t + _hmg_printer_timestamp  + "_hmg_print_preview_*.Emf" , a )
 
@@ -802,8 +802,8 @@ Static Procedure _HMG_PRINTER_CleanPreview
 *------------------------------------------------------------------------------*
 Local t := GetTempFolder() + hb_ps()
 
-        AEval( Directory( t + _hmg_printer_timestamp + "_hmg_print_preview_*.Emf" ), ;
-                {| file | FErase( t + file [1] ) } )
+        AEval(Directory( t + _hmg_printer_timestamp + "_hmg_print_preview_*.Emf" ), ;
+                {| file | FErase( t + file [1] ) })
 
 Return
 *------------------------------------------------------------------------------*
@@ -1280,7 +1280,7 @@ _hmg_printer_JobId := 0
 _hmg_printer_usercopies := .F.
 _hmg_printer_usercollate := .F.
 
-_hmg_printer_usermessages := Array( 29 )
+_hmg_printer_usermessages := Array(29)
 
 _hmg_printer_usermessages [01] := "Page"
 _hmg_printer_usermessages [02] := "Print Preview"

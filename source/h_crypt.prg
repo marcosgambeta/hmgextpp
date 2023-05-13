@@ -52,8 +52,8 @@
    Notes:  This is very simple crypt algorithm based on XOR encryption.
 */
 
-#define MSGALERT( c ) MsgEXCLAMATION( c, "Attention" )
-#define MSGSTOP( c ) MsgStop( c, "Stop!" )
+#define MSGALERT(c) MsgEXCLAMATION(c, "Attention")
+#define MSGSTOP(c) MsgStop(c, "Stop!")
 /*
 */
 FUNCTION _ENCRYPT( cStr, cPass )
@@ -86,14 +86,14 @@ FUNCTION FI_CODE( cInFile, cPass, cOutFile, lDelete )
 
    IF Empty(cInFile) .OR. !File( cInFile )
 
-      MSGSTOP( "No such file" )
+      MSGSTOP("No such file")
       RETURN NIL
 
    ENDIF
 
    IF AllTrim(Upper(cInFile)) == AllTrim(Upper(cOutFile))
 
-      MSGALERT( "New and old filenames must not be the same" )
+      MSGALERT("New and old filenames must not be the same")
       RETURN NIL
 
    ENDIF
@@ -120,44 +120,44 @@ FUNCTION FI_CODE( cInFile, cPass, cOutFile, lDelete )
 
    ENDIF
 
-   nHandle := FOpen( cInFile, 2 )
+   nHandle := FOpen(cInFile, 2)
 
    IF FError() != 0
 
-      MSGSTOP( "File I/O error, cannot proceed" )
+      MSGSTOP("File I/O error, cannot proceed")
 
    ENDIF
 
    cBuffer := Space( 30 )
-   FRead( nHandle, @cBuffer, 30 )
+   FRead(nHandle, @cBuffer, 30)
 
    IF cBuffer == "ENCRYPTED FILE (C) ODESSA 2002"
 
-      MSGSTOP( "File already encrypted" )
-      FClose( nHandle )
+      MSGSTOP("File already encrypted")
+      FClose(nHandle)
       RETURN NIL
 
    ENDIF
 
-   FSeek( nHandle, 0 )
+   FSeek(nHandle, 0)
    nOutHandle := FCreate( cOutFile, 0 )
 
    IF FError() != 0
 
-      MSGSTOP( "File I/O error, cannot proceed" )
-      FClose( nHandle )
+      MSGSTOP("File I/O error, cannot proceed")
+      FClose(nHandle)
       RETURN NIL
 
    ENDIF
 
-   FWrite( nOutHandle, "ENCRYPTED FILE (C) ODESSA 2002" )
+   FWrite(nOutHandle, "ENCRYPTED FILE (C) ODESSA 2002")
    cStr := _ENCRYPT( cPass )
-   FWrite( nOutHandle, cStr )
+   FWrite(nOutHandle, cStr)
    cBuffer := Space( 512 )
 
    DO WHILE nRead != 0
 
-      nRead := FRead( nHandle, @cBuffer, 512 )
+      nRead := FRead(nHandle, @cBuffer, 512)
 
       IF nRead != 512
 
@@ -166,12 +166,12 @@ FUNCTION FI_CODE( cInFile, cPass, cOutFile, lDelete )
       ENDIF
 
       cStr := _ENCRYPT( cBuffer, cPass )
-      FWrite( nOutHandle, cStr )
+      FWrite(nOutHandle, cStr)
 
    ENDDO
 
-   FClose( nHandle )
-   FClose( nOutHandle )
+   FClose(nHandle)
+   FClose(nOutHandle)
 
    IF lDelete
 
@@ -193,14 +193,14 @@ FUNCTION FI_DECODE( cInFile, cPass, cOutFile, lDelete )
 
    IF Empty(cInFile) .OR. !File( cInFile )
 
-      MSGSTOP( "No such file" )
+      MSGSTOP("No such file")
       RETURN NIL
 
    ENDIF
 
    IF AllTrim(Upper(cInFile)) == AllTrim(Upper(cOutFile))
 
-      MSGALERT( "New and old filenames must not be the same" )
+      MSGALERT("New and old filenames must not be the same")
       RETURN NIL
 
    ENDIF
@@ -227,32 +227,32 @@ FUNCTION FI_DECODE( cInFile, cPass, cOutFile, lDelete )
 
    ENDIF
 
-   nHandle := FOpen( cInFile, 2 )
+   nHandle := FOpen(cInFile, 2)
 
    IF FError() != 0
 
-      MSGSTOP( "File I/O error, cannot proceed" )
+      MSGSTOP("File I/O error, cannot proceed")
 
    ENDIF
 
    cBuffer := Space( 30 )
-   FRead( nHandle, @cBuffer, 30 )
+   FRead(nHandle, @cBuffer, 30)
 
    IF cBuffer != "ENCRYPTED FILE (C) ODESSA 2002"
 
-      MSGSTOP( "File is not encrypted" )
-      FClose( nHandle )
+      MSGSTOP("File is not encrypted")
+      FClose(nHandle)
       RETURN NIL
 
    ENDIF
 
    cBuffer := Space( 10 )
-   FRead( nHandle, @cBuffer, 10 )
+   FRead(nHandle, @cBuffer, 10)
 
    IF cBuffer != _ENCRYPT( cPass )
 
-      MSGALERT( "You have entered the wrong password" )
-      FClose( nHandle )
+      MSGALERT("You have entered the wrong password")
+      FClose(nHandle)
       RETURN NIL
 
    ENDIF
@@ -261,8 +261,8 @@ FUNCTION FI_DECODE( cInFile, cPass, cOutFile, lDelete )
 
    IF FError() != 0
 
-      MSGSTOP( "File I/O error, cannot proceed" )
-      FClose( nHandle )
+      MSGSTOP("File I/O error, cannot proceed")
+      FClose(nHandle)
       RETURN NIL
 
    ENDIF
@@ -271,7 +271,7 @@ FUNCTION FI_DECODE( cInFile, cPass, cOutFile, lDelete )
 
    DO WHILE nRead != 0
 
-      nRead := FRead( nHandle, @cBuffer, 512 )
+      nRead := FRead(nHandle, @cBuffer, 512)
 
       IF nRead != 512
 
@@ -280,12 +280,12 @@ FUNCTION FI_DECODE( cInFile, cPass, cOutFile, lDelete )
       ENDIF
 
       cStr := _DECRYPT( cBuffer, cPass )
-      FWrite( nOutHandle, cStr )
+      FWrite(nOutHandle, cStr)
 
    ENDDO
 
-   FClose( nHandle )
-   FClose( nOutHandle )
+   FClose(nHandle)
+   FClose(nOutHandle)
 
    IF lDelete
 
@@ -333,113 +333,113 @@ FUNCTION DB_ENCRYPT( cFile, cPass )
 
    IF File( cFile )
 
-      nHandle := FOpen( cFile, 2 )
+      nHandle := FOpen(cFile, 2)
 
       IF FError() != 0
 
-         MSGSTOP( "File I/O error, cannot encrypt file" )
+         MSGSTOP("File I/O error, cannot encrypt file")
          RETURN NIL
 
       ENDIF
 
-      FSeek( nHandle, 28 )
+      FSeek(nHandle, 28)
 
       IF FError() != 0
 
-         MSGSTOP( "File I/O error, cannot encrypt file" )
-         FClose( nHandle )
+         MSGSTOP("File I/O error, cannot encrypt file")
+         FClose(nHandle)
          RETURN NIL
 
       ENDIF
 
-      IF FRead( nHandle, @cFlag, 3 ) != 3
+      IF FRead(nHandle, @cFlag, 3) != 3
 
-         MSGSTOP( "File I/O error, cannot encrypt file" )
-         FClose( nHandle )
+         MSGSTOP("File I/O error, cannot encrypt file")
+         FClose(nHandle)
          RETURN NIL
 
       ENDIF
 
       IF cFlag == "ENC"
 
-         MSGSTOP( "This database already encrypted!" )
-         FClose( nHandle )
+         MSGSTOP("This database already encrypted!")
+         FClose(nHandle)
          RETURN NIL
 
       ENDIF
 
-      FSeek( nHandle, 8 )
+      FSeek(nHandle, 8)
 
       IF FError() != 0
 
-         FClose( nHandle )
-         MSGSTOP( "File I/O error, cannot encrypt file" )
+         FClose(nHandle)
+         MSGSTOP("File I/O error, cannot encrypt file")
          RETURN NIL
 
       ENDIF
 
-      IF FRead( nHandle, @cBuffer, 4 ) != 4
+      IF FRead(nHandle, @cBuffer, 4) != 4
 
-         FClose( nHandle )
-         MSGSTOP( "File I/O error, cannot encrypt file" )
+         FClose(nHandle)
+         MSGSTOP("File I/O error, cannot encrypt file")
          RETURN NIL
 
       ENDIF
 
       cBuffer := _ENCRYPT( cBuffer, cPass )
-      FSeek( nHandle, 8 )
+      FSeek(nHandle, 8)
 
       IF FError() != 0
 
-         FClose( nHandle )
-         MSGSTOP( "File I/O error, cannot encrypt file" )
+         FClose(nHandle)
+         MSGSTOP("File I/O error, cannot encrypt file")
          RETURN NIL
 
       ENDIF
 
-      IF FWrite( nHandle, cBuffer ) != 4
+      IF FWrite(nHandle, cBuffer) != 4
 
-         FClose( nHandle )
-         MSGSTOP( "File I/O error, cannot encrypt file" )
+         FClose(nHandle)
+         MSGSTOP("File I/O error, cannot encrypt file")
          RETURN NIL
 
       ENDIF
 
-      FSeek( nHandle, 12 )
+      FSeek(nHandle, 12)
 
       IF FError() != 0
 
-         FClose( nHandle )
-         MSGSTOP( "File I/O error, cannot encrypt file" )
+         FClose(nHandle)
+         MSGSTOP("File I/O error, cannot encrypt file")
          RETURN NIL
 
       ENDIF
 
       cBuffer := _ENCRYPT( cPass )
 
-      IF FWrite( nHandle, cBuffer ) != Len(cPass)
+      IF FWrite(nHandle, cBuffer) != Len(cPass)
 
-         FClose( nHandle )
-         MSGSTOP( "File I/O error, cannot encrypt file" )
+         FClose(nHandle)
+         MSGSTOP("File I/O error, cannot encrypt file")
          RETURN NIL
 
       ENDIF
 
-      FSeek( nHandle, 28 )
+      FSeek(nHandle, 28)
 
-      IF FWrite( nHandle, "ENC" ) != 3
+      IF FWrite(nHandle, "ENC") != 3
 
-         FClose( nHandle )
-         MSGSTOP( "File I/O error, cannot encrypt file" )
+         FClose(nHandle)
+         MSGSTOP("File I/O error, cannot encrypt file")
          RETURN NIL
 
       ENDIF
 
-      FClose( nHandle )
+      FClose(nHandle)
 
    ELSE
 
-      MSGSTOP( "No such file" )
+      MSGSTOP("No such file")
 
    ENDIF
 
@@ -484,122 +484,122 @@ FUNCTION DB_UNENCRYPT( cFile, cPass )
 
    IF File( cFile )
 
-      nHandle := FOpen( cFile, 2 )
+      nHandle := FOpen(cFile, 2)
 
       IF FError() != 0
 
-         MSGSTOP( "File I/O error, cannot unencrypt file" )
+         MSGSTOP("File I/O error, cannot unencrypt file")
          RETURN NIL
 
       ENDIF
 
-      FSeek( nHandle, 28 )
+      FSeek(nHandle, 28)
 
       IF FError() != 0
 
-         MSGSTOP( "File I/O error, cannot unencrypt file" )
-         FClose( nHandle )
+         MSGSTOP("File I/O error, cannot unencrypt file")
+         FClose(nHandle)
          RETURN NIL
 
       ENDIF
 
-      IF FRead( nHandle, @cFlag, 3 ) != 3
+      IF FRead(nHandle, @cFlag, 3) != 3
 
-         MSGSTOP( "File I/O error, cannot unencrypt file" )
-         FClose( nHandle )
+         MSGSTOP("File I/O error, cannot unencrypt file")
+         FClose(nHandle)
          RETURN NIL
 
       ENDIF
 
       IF cFlag != "ENC"
 
-         MSGSTOP( "This database is not encrypted!" )
-         FClose( nHandle )
+         MSGSTOP("This database is not encrypted!")
+         FClose(nHandle)
          RETURN NIL
 
       ENDIF
 
-      FSeek( nHandle, 12 )
+      FSeek(nHandle, 12)
 
       IF FError() != 0
 
-         FClose( nHandle )
-         MSGSTOP( "File I/O error, cannot unencrypt file" )
+         FClose(nHandle)
+         MSGSTOP("File I/O error, cannot unencrypt file")
          RETURN NIL
 
       ENDIF
 
       cBuffer := _ENCRYPT( cPass )
 
-      IF FRead( nHandle, @cSavePass, 10 ) != Len(cPass)
+      IF FRead(nHandle, @cSavePass, 10) != Len(cPass)
 
-         FClose( nHandle )
-         MSGSTOP( "File I/O error, cannot unencrypt file" )
+         FClose(nHandle)
+         MSGSTOP("File I/O error, cannot unencrypt file")
          RETURN NIL
 
       ENDIF
 
       IF cBuffer != cSavePass
 
-         FClose( nHandle )
-         MSGALERT( "You have entered the wrong password" )
+         FClose(nHandle)
+         MSGALERT("You have entered the wrong password")
          RETURN NIL
 
       ENDIF
 
       cBuffer := Space( 4 )
-      FSeek( nHandle, 8 )
+      FSeek(nHandle, 8)
 
       IF FError() != 0
 
-         FClose( nHandle )
-         MSGSTOP( "File I/O error, cannot unencrypt file" )
+         FClose(nHandle)
+         MSGSTOP("File I/O error, cannot unencrypt file")
          RETURN NIL
 
       ENDIF
 
-      IF FRead( nHandle, @cBuffer, 4 ) != 4
+      IF FRead(nHandle, @cBuffer, 4) != 4
 
-         FClose( nHandle )
-         MSGSTOP( "File I/O error, cannot unencrypt file" )
+         FClose(nHandle)
+         MSGSTOP("File I/O error, cannot unencrypt file")
          RETURN NIL
 
       ENDIF
 
       cBuffer := _DECRYPT( cBuffer, cPass )
-      FSeek( nHandle, 8 )
+      FSeek(nHandle, 8)
 
       IF FError() != 0
 
-         FClose( nHandle )
-         MSGSTOP( "File I/O error, cannot unencrypt file" )
+         FClose(nHandle)
+         MSGSTOP("File I/O error, cannot unencrypt file")
          RETURN NIL
 
       ENDIF
 
-      IF FWrite( nHandle, cBuffer ) != 4
+      IF FWrite(nHandle, cBuffer) != 4
 
-         FClose( nHandle )
-         MSGSTOP( "File I/O error, cannot unencrypt file" )
+         FClose(nHandle)
+         MSGSTOP("File I/O error, cannot unencrypt file")
          RETURN NIL
 
       ENDIF
 
-      FSeek( nHandle, 12 )
+      FSeek(nHandle, 12)
 
-      IF FWrite( nHandle, Replicate( Chr(0 ), 20 ) ) != 20
+      IF FWrite(nHandle, Replicate(Chr(0), 20)) != 20
 
-         FClose( nHandle )
-         MSGSTOP( "File I/O error, cannot unencrypt file" )
+         FClose(nHandle)
+         MSGSTOP("File I/O error, cannot unencrypt file")
          RETURN NIL
 
       ENDIF
 
-      FClose( nHandle )
+      FClose(nHandle)
 
    ELSE
 
-      MSGSTOP( "No such file" )
+      MSGSTOP("No such file")
 
    ENDIF
 
@@ -663,7 +663,7 @@ FUNCTION DB_CODE( cData, cKey, aFields, cPass, cFor, cWhile )
       NEXT
 
       SELECT &cAlias
-      AFill( aString, "" )
+      AFill(aString, "")
 
       cBuf := &cSeek
       cVal := cBuf

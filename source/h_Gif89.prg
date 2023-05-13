@@ -343,7 +343,7 @@ METHOD RestartGif() CLASS TGif
 
    GifStop( Self )
 
-   AEval( ::aPictData, {| f | FErase( f ) } )
+   AEval(::aPictData, {| f | FErase( f ) })
 
    IF LoadGif( ::cFileName, @aPictures, @aImageInfo, Self )
 
@@ -365,7 +365,7 @@ METHOD End() CLASS TGif
 
    IF _IsControlDefined(::cControlName, ::cParentName)
 
-      AEval( ::aPictData, {| f | FErase( f ) } )
+      AEval(::aPictData, {| f | FErase( f ) })
 
       IF ::nTotalFrames > 1
          DoMethod(::cParentName, ::cTimer, "Release")
@@ -473,11 +473,11 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
          cPicBuf := cGifHeader + SubStr(cStream, i - 1, j - i)
          imgHeader = Left(SubStr(cStream, i - 1, j - i), 16)
 
-         IF FWrite( nFileHandle, cPicBuf ) != Len(cPicBuf)
+         IF FWrite(nFileHandle, cPicBuf) != Len(cPicBuf)
             RETURN .F.
          ENDIF
 
-         IF !FClose( nFileHandle )
+         IF !FClose(nFileHandle)
             RETURN .F.
          ENDIF
 
@@ -506,11 +506,11 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
       cPicBuf := cGifHeader + SubStr(cStream, i - 1, Len(cStream) - i)
       imgHeader := Left(SubStr(cStream, i - 1, Len(cStream) - i), 16)
 
-      IF FWrite( nFileHandle, cPicBuf ) != Len(cPicBuf)
+      IF FWrite(nFileHandle, cPicBuf) != Len(cPicBuf)
          RETURN .F.
       ENDIF
 
-      IF !FClose( nFileHandle )
+      IF !FClose(nFileHandle)
          RETURN .F.
       ENDIF
 
@@ -526,14 +526,14 @@ STATIC FUNCTION ReadFromStream( cFile, cStream )
 *------------------------------------------------------------------------------*
    
    LOCAL nFileSize
-   LOCAL nFileHandle := FOpen( cFile )
+   LOCAL nFileHandle := FOpen(cFile)
 
    IF FError() == 0
-      nFileSize := FSeek( nFileHandle, 0, FS_END )
+      nFileSize := FSeek(nFileHandle, 0, FS_END)
       cStream := Space( nFileSize )
-      FSeek( nFileHandle, 0, FS_SET )
-      FRead( nFileHandle, @cStream, nFileSize )
-      FClose( nFileHandle )
+      FSeek(nFileHandle, 0, FS_SET)
+      FRead(nFileHandle, @cStream, nFileSize)
+      FClose(nFileHandle)
    ENDIF
 
 RETURN ( FError() == 0 .AND. !Empty(cStream) )

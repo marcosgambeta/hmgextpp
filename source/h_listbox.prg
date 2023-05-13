@@ -83,7 +83,7 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
-   rows := iif( ISARRAY( arows ), AClone( arows ), {} )
+   rows := iif( ISARRAY(arows), AClone( arows ), {} )
 
    IF multitabs
       IF Len(rows) > 0
@@ -283,14 +283,14 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
    _HMG_aControlMiscData2          [k] := ""
 
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlInit, k, mVar )
+      Eval(_HMG_bOnControlInit, k, mVar)
    ENDIF
 
    IF Len(_HMG_aDialogTemplate) == 0        //Dialog Template
 
       AEval(Rows, {|r|ListboxAddString(ControlHandle, r)})
       IF multiselect
-         IF ISARRAY( value )
+         IF ISARRAY(value)
             LISTBOXSETMULTISEL(ControlHandle, Value)
          ENDIF
       ELSE
@@ -314,7 +314,7 @@ FUNCTION InitDialogListBox( ParentName, ControlHandle, k )
    LOCAL aWidth
    LOCAL multitabs
 
-   HB_SYMBOL_UNUSED( ParentName )
+   HB_SYMBOL_UNUSED(ParentName)
 
    Rows   := _HMG_aControlRangeMin [k]
    Value  := _HMG_aControlValue [k]
@@ -324,7 +324,7 @@ FUNCTION InitDialogListBox( ParentName, ControlHandle, k )
    AEval(Rows, {|r|ListboxAddString(ControlHandle, r)})
 
    IF _HMG_aControlType[k] == CONTROL_TYPE_MULTILIST
-      IF ISARRAY( value )
+      IF ISARRAY(value)
          LISTBOXSETMULTISEL(ControlHandle, Value)
       ENDIF
    ELSE

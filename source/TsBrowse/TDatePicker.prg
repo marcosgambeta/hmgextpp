@@ -51,9 +51,9 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
            shownone  := .F.,;
            updown    := .F.
 
-   HB_SYMBOL_UNUSED( cPict )
-   HB_SYMBOL_UNUSED( lCenter )
-   HB_SYMBOL_UNUSED( lRight )
+   HB_SYMBOL_UNUSED(cPict)
+   HB_SYMBOL_UNUSED(lCenter)
+   HB_SYMBOL_UNUSED(lRight)
 
    ::nTop         := nRow
    ::nLeft        := nCol
@@ -121,7 +121,7 @@ METHOD Default() CLASS TDatePicker
 
    Local Value
 
-   Value := Eval( ::bSetGet )
+   Value := Eval(::bSetGet)
    If Empty(Value)
       SetDatePickNull( ::hWnd )
    Else
@@ -170,7 +170,7 @@ METHOD KeyDown( nKey, nFlags ) CLASS TDatePicker
 
    If nKey == VK_TAB .OR. nKey == VK_RETURN .OR. nKey == VK_ESCAPE
       ::bLostFocus := Nil
-      Eval( ::bKeyDown, nKey, nFlags, .T. )
+      Eval(::bKeyDown, nKey, nFlags, .T.)
    Endif
 
 RETURN 0
@@ -184,7 +184,7 @@ METHOD lValid() CLASS TDatePicker
    Local lRet := .T.
 
    If HB_ISBLOCK(::bValid)
-      lRet := Eval( ::bValid, ::GetText() )
+      lRet := Eval(::bValid, ::GetText())
    EndIf
 
 Return lRet
@@ -214,7 +214,7 @@ METHOD LostFocus() CLASS TDatePicker
    ::lFocused := .F.
 
    If ::bLostFocus != Nil
-      Eval( ::bLostFocus, ::nLastKey )
+      Eval(::bLostFocus, ::nLastKey)
    EndIf
 
 Return 0

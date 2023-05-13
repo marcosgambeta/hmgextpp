@@ -54,7 +54,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #ifndef CINTERFACE
-# define CINTERFACE
+#define CINTERFACE
 #endif
 
 #define WINVER  0x0410

@@ -1,14 +1,12 @@
 #ifndef HB_SYMBOL_UNUSED
-#  define HB_SYMBOL_UNUSED( symbol ) ( ( symbol ) )
+#define HB_SYMBOL_UNUSED(symbol) ((symbol))
 #endif
-
 
 FUNCTION _GetTextHeight(hwnd, hDC)
 
-   HB_SYMBOL_UNUSED( hwnd )
+   HB_SYMBOL_UNUSED(hwnd)
 
 RETURN GetTextMetric( hDC )[1]
-
 
 FUNCTION _InvertRect( hDC, aRec ) // Temporary
 
@@ -18,7 +16,6 @@ FUNCTION _InvertRect( hDC, aRec ) // Temporary
    InvertRect( hDC, bRec )
 
 RETURN NIL
-
 
 FUNCTION OSend( oObject, cMsg, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10 )
 
@@ -34,7 +31,7 @@ FUNCTION OSend( oObject, cMsg, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10 )
       CASE nParams ==  3 ; uResult := oObject:&( cMsg )( u1, u2, u3 )
       CASE nParams ==  4 ; uResult := oObject:&( cMsg )( u1, u2, u3, u4 )
       CASE nParams ==  5 ; uResult := oObject:&( cMsg )( u1, u2, u3, u4, u5 )
-      CASE nParams ==  6 ; uResult := oObject:&( cMsg )( u1, u2, u3, u4, u5, u6 ) 
+      CASE nParams ==  6 ; uResult := oObject:&( cMsg )( u1, u2, u3, u4, u5, u6 )
       CASE nParams ==  7 ; uResult := oObject:&( cMsg )( u1, u2, u3, u4, u5, u6, u7 )
       CASE nParams ==  8 ; uResult := oObject:&( cMsg )( u1, u2, u3, u4, u5, u6, u7, u8 )
       CASE nParams ==  9 ; uResult := oObject:&( cMsg )( u1, u2, u3, u4, u5, u6, u7, u8, u9 )
@@ -51,26 +48,24 @@ FUNCTION OSend( oObject, cMsg, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10 )
 
 RETURN NIL
 
+FUNCTION ASave(aArray)
 
-FUNCTION ASave( aArray )
-
-   LOCAL n 
-   LOCAL cType 
+   LOCAL n
+   LOCAL cType
    LOCAL uData
    LOCAL cInfo := ""
 
    FOR n := 1 TO Len(aArray)
       cType := ValType(aArray[n])
       DO CASE
-         CASE cType == "A" ; cInfo += ASave( aArray[n] )
+         CASE cType == "A" ; cInfo += ASave(aArray[n])
          CASE cType == "O" ; cInfo += aArray[n]:Save()
       OTHERWISE
-         cInfo += ( cType + I2Bin( Len(uData := cValToChar( aArray[n] )) ) + uData )
+         cInfo += ( cType + I2Bin(Len(uData := cValToChar( aArray[n] ))) + uData )
       ENDCASE
    NEXT
 
-RETURN "A" + I2Bin( 2 + Len(cInfo) ) + I2Bin( Len(aArray) ) + cInfo
-
+RETURN "A" + I2Bin(2 + Len(cInfo)) + I2Bin(Len(aArray)) + cInfo
 
 FUNCTION ARead( cInfo )
 
@@ -81,29 +76,28 @@ FUNCTION ARead( cInfo )
    LOCAL cType
    LOCAL cBuffer
 
-   nLen   := Bin2I( SubStr(cInfo, nPos, 2) )
+   nLen   := Bin2I(SubStr(cInfo, nPos, 2))
    nPos   += 2
-   aArray := Array( nLen )
+   aArray := Array(nLen)
 
    FOR n := 1 TO Len(aArray)
       cType   := SubStr(cInfo, nPos++, 1)
-      nLen    := Bin2I( SubStr(cInfo, nPos, 2) )
+      nLen    := Bin2I(SubStr(cInfo, nPos, 2))
       nPos    += 2
       cBuffer := SubStr(cInfo, nPos, nLen)
       nPos    += nLen
 
       DO CASE
-         CASE cType == "A" ; aArray[n] := ARead( "A" + I2Bin( nLen ) + cBuffer )
+         CASE cType == "A" ; aArray[n] := ARead( "A" + I2Bin(nLen) + cBuffer )
          CASE cType == "O" ; aArray[n] := ORead( cBuffer )
          CASE cType == "C" ; aArray[n] := cBuffer
-         CASE cType == "D" ; aArray[n] := CToD( cBuffer )
-         CASE cType == "L" ; aArray[n] := ( cBuffer == ".T." ) 
-         CASE cType == "N" ; aArray[n] := Val( cBuffer )
+         CASE cType == "D" ; aArray[n] := CToD(cBuffer)
+         CASE cType == "L" ; aArray[n] := ( cBuffer == ".T." )
+         CASE cType == "N" ; aArray[n] := Val(cBuffer)
       ENDCASE
    NEXT
 
 RETURN aArray
-
 
 FUNCTION ORead( cInfo )
 
@@ -112,13 +106,13 @@ FUNCTION ORead( cInfo )
    LOCAL oObj
    LOCAL nPos := 1
 
-   nLen       := Bin2I( SubStr(cInfo, nPos, 2) )
+   nLen       := Bin2I(SubStr(cInfo, nPos, 2))
    nPos       += 2
    cClassName := SubStr(cInfo, nPos, nLen)
    nPos       += nLen
    oObj       := &( cClassName + "()" )
 
    oObj:New()
-   oObj:Load( SubStr(cInfo, nPos) )
+   oObj:Load(SubStr(cInfo, nPos))
 
 RETURN oObj

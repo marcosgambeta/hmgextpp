@@ -87,7 +87,7 @@ BOOL CALLBACK _MonitorEnumProc0(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMo
    PHB_ITEM pMonitor = hb_itemArrayNew(2);
    PHB_ITEM pRect    = Rect2Hash(lprcMonitor);
 
-   HB_SYMBOL_UNUSED( hdcMonitor );
+   HB_SYMBOL_UNUSED(hdcMonitor);
 
    hb_arraySetNInt(pMonitor, 1, ( LONG_PTR ) hMonitor);
    hb_itemArrayPut(pMonitor, 2, pRect);

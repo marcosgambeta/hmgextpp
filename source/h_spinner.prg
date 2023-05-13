@@ -130,7 +130,7 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
    ENDIF
 
    IF tooltip != NIL
-      AEval( RetArray, { |x| SetToolTip ( x , tooltip , GetFormToolTipHandle(cParentForm) ) } )
+      AEval(RetArray, { |x| SetToolTip ( x , tooltip , GetFormToolTipHandle(cParentForm) ) })
    ENDIF
 
    k := _GetControlFree()
@@ -196,7 +196,7 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
    ENDIF
 
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlInit, k, mVar )
+      Eval(_HMG_bOnControlInit, k, mVar)
 #ifdef _OBJECT_
       ow := _WindowObj(ParentForm)
       oc := _ControlObj(ControlHandle)

@@ -161,7 +161,7 @@ void CALLBACK FormCallback(HWND hWndQHTM, LPQHTMFORMSubmit pFormSubmit, LPARAM l
       hb_itemRelease(atemp);
    }
 
-   HB_SYMBOL_UNUSED( lParam );
+   HB_SYMBOL_UNUSED(lParam);
 
    // Method Submit of HTML-form in application have required
    // procedure QHTMFormProc() (!!! with a such name !!!)

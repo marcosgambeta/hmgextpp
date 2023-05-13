@@ -29,12 +29,12 @@ coordinates : PSFrameEx(nLeft, nTop, nRight, nBottom, ...)
 #include "FileIO.ch"
 
 #ifdef __HARBOUR__
-# xtranslate Method <Classname>:<x> => Method <x>
-# include "hbclass.ch"
-# include "Dll.ch"
+#xtranslate Method <Classname>:<x> => Method <x>
+#include "hbclass.ch"
+#include "Dll.ch"
 #else
-# include "Xbp.ch"
-# include "Dll.ch"
+#include "Xbp.ch"
+#include "Dll.ch"
 #endif
 
 // Windows constants for GetDeviceCaps WinApi call (Not complete)
@@ -253,7 +253,7 @@ METHOD TPageScript:Init()
    ::nError := PSE_NOERROR // Indicates an error condition, such as no printer available
    ::aDocInfo := { 0, "", "", APS_PORTRAIT, 1, APS_COURIER } // Print job info array
 
-   ::hDll := DllLoad( "PScript.dll" ) // Handle of the .DLL
+   ::hDll := DllLoad("PScript.dll") // Handle of the .DLL
 
    IF Empty(::hDll)
       ::nError := PSE_DLLNOTLOADED // DLL not loaded error
@@ -391,7 +391,7 @@ METHOD TPageScript:BeginDoc( nPrinter, cTitle, nOrientation, nCopies, nPageSize,
 
    // Put a WaterMark in the BackGround
    IF ::nWaterMark = AWM_BACKGROUND .AND. HB_ISBLOCK(::bWaterMark)
-      Eval( ::bWaterMark, Self )
+      Eval(::bWaterMark, Self)
    ENDIF
 
 RETURN ::nError
@@ -406,7 +406,7 @@ METHOD TPageScript:BeginDocEx()
 
    // Put a WaterMark in the BackGround
    IF ::nWaterMark = AWM_BACKGROUND .AND. HB_ISBLOCK(::bWaterMark)
-      Eval( ::bWaterMark, Self )
+      Eval(::bWaterMark, Self)
    ENDIF
 
 RETURN ::nError
@@ -503,7 +503,7 @@ METHOD TPageScript:EndDoc()
 
    // Put a WaterMark in the ForeGround
    IF ::nWaterMark = AWM_FOREGROUND .AND. HB_ISBLOCK(::bWaterMark)
-      Eval( ::bWaterMark, Self )
+      Eval(::bWaterMark, Self)
    ENDIF
 
    DllCall( ::hDll, DLL_STDCALL, "PSEndDoc" )
@@ -1217,14 +1217,14 @@ METHOD TPageScript:NewPage()
 
    // Put a WaterMark in the ForeGround
    IF ::nWaterMark = AWM_FOREGROUND .AND. HB_ISBLOCK(::bWaterMark)
-      Eval( ::bWaterMark, Self )
+      Eval(::bWaterMark, Self)
    ENDIF
 
    DllCall( ::hDll, DLL_STDCALL, "PSNewPage" )
 
    // Put a WaterMark in the BackGround
    IF ::nWaterMark = AWM_BACKGROUND .AND. HB_ISBLOCK(::bWaterMark)
-      Eval( ::bWaterMark, Self )
+      Eval(::bWaterMark, Self)
    ENDIF
 
 RETURN NIL
@@ -1279,7 +1279,7 @@ METHOD TPageScript:PrintEmuFile( cFileName, lDelete, nPrinter, cTitle, nOrientat
    nOrientation := iif( nOrientation == NIL, APS_PORTRAIT, nOrientation )
    nPrinter := iif( nPrinter == NIL, 0, nPrinter )
    cFont := iif( cFont == NIL, APS_COURIER, cFont )
-   lSuccess := ( nHandle := FOpen( cFileName ) ) != -1
+   lSuccess := ( nHandle := FOpen(cFileName) ) != -1
 
    IF lSuccess
       ::BeginDoc( nPrinter, cTitle, nOrientation, nCopies ) // Start document
@@ -1289,7 +1289,7 @@ METHOD TPageScript:PrintEmuFile( cFileName, lDelete, nPrinter, cTitle, nOrientat
 
       WHILE .T.
          cBuffer := Space( pfBUFFERLEN ) // File buffer
-         nBytes := FRead( nHandle, @cBuffer, pfBUFFERLEN ) // Read a chunk
+         nBytes := FRead(nHandle, @cBuffer, pfBUFFERLEN) // Read a chunk
 
          IF nBytes == 0 // If Eof
             EXIT // Exit
@@ -1306,14 +1306,14 @@ METHOD TPageScript:PrintEmuFile( cFileName, lDelete, nPrinter, cTitle, nOrientat
          ENDIF
 
          WHILE .T.
-            nChar := Asc( SubStr(cBuffer, nLoop, 1) )
+            nChar := Asc(SubStr(cBuffer, nLoop, 1))
 
             DO CASE
             CASE nChar == 27 // ESCAPE code
 
                IF nLoop < nPos // Advances to next char
                   nLoop++
-                  nCtrl := Asc( SubStr(cBuffer, nLoop, 1) ) // Read the control character
+                  nCtrl := Asc(SubStr(cBuffer, nLoop, 1)) // Read the control character
 
                   IF Len(cPrintLine) != 0 // If there's still something to print...  // Changed by STD - 2008-02-25 - 1.3.5.0
                      ::TextOut( nRow, nCol, cPrintLine, , , , , nStyle ) // Print the left part of the string, before the ESCAPE code
@@ -1403,7 +1403,7 @@ METHOD TPageScript:PrintEmuFile( cFileName, lDelete, nPrinter, cTitle, nOrientat
                nLoop++
 
                IF nLoop <= nPos
-                  IF Asc( SubStr(cBuffer, nLoop, 1) ) == 10
+                  IF Asc(SubStr(cBuffer, nLoop, 1)) == 10
                      nLoop++
 
                      IF Len(cPrintLine) != 0 // If there's still something to print...  // Changed by STD - 2008-02-25 - 1.3.5.0
@@ -1414,7 +1414,7 @@ METHOD TPageScript:PrintEmuFile( cFileName, lDelete, nPrinter, cTitle, nOrientat
                      nRow++ // For each CRLF, skip line
                      nCol := 0 // Reset to column 0
 
-                     FSeek( nHandle, -( nBytes - nLoop + 1 ), FS_RELATIVE ) // Position file pointer after EJECT or CRLF
+                     FSeek(nHandle, -( nBytes - nLoop + 1 ), FS_RELATIVE) // Position file pointer after EJECT or CRLF
                   ELSE
                      nCol := 0 // Reset to column 0
                   ENDIF
@@ -1440,7 +1440,7 @@ METHOD TPageScript:PrintEmuFile( cFileName, lDelete, nPrinter, cTitle, nOrientat
       ::SetUnit( nSaveUnit ) // Set to whatever unit was in use before
       ::EndDoc() // End the document
 
-      FClose( nHandle )
+      FClose(nHandle)
 
    ENDIF
 
@@ -1471,7 +1471,7 @@ METHOD TPageScript:PrintRawFile( cFileName, lDelete, nPrinter, cTitle )
    cTitle := iif( cTitle == NIL, "Untitled", cTitle )
    lSuccess := File( cFileName )
 
-   lSuccess := ( nHandle := FOpen( cFileName ) ) != -1
+   lSuccess := ( nHandle := FOpen(cFileName) ) != -1
 
    IF lSuccess
       ::SetPrinter( nPrinter )
@@ -1481,7 +1481,7 @@ METHOD TPageScript:PrintRawFile( cFileName, lDelete, nPrinter, cTitle )
 
       WHILE .T.
          cBuffer := Space( pfBUFFERLEN ) // File buffer
-         nBytes := FRead( nHandle, @cBuffer, pfBUFFERLEN ) // Read a chunk
+         nBytes := FRead(nHandle, @cBuffer, pfBUFFERLEN) // Read a chunk
 
          IF nBytes == 0 // If Eof
             EXIT // Exit
@@ -1490,7 +1490,7 @@ METHOD TPageScript:PrintRawFile( cFileName, lDelete, nPrinter, cTitle )
          DllCall( ::hDll, DLL_STDCALL, "PSPrintRawData", cBuffer, nBytes )
       ENDDO
 
-      FClose( nHandle )
+      FClose(nHandle)
 
       IF lDelete
          FErase( cFileName )
@@ -1636,7 +1636,7 @@ Description : Sets the decimal separator character
 METHOD TPageScript:SetDecimalSep( cSep )
 
    IF HB_ISCHAR(cSep) .AND. Len(cSep) > 0
-      DllCall( ::hDll, DLL_STDCALL, "PSSetDecimalSep", Asc( cSep ) )
+      DllCall( ::hDll, DLL_STDCALL, "PSSetDecimalSep", Asc(cSep) )
    ENDIF
 
 RETURN Self

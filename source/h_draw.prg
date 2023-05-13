@@ -116,7 +116,7 @@ FUNCTION drawrect( window, row, col, row1, col1, penrgb, penwidth, fillrgb )
       FormHandle := _HMG_aFormHandles[i]
       hb_default(@penrgb, {0, 0, 0})
       hb_default(@penwidth, 1)
-      IF !( fill := ISARRAY( fillrgb ) )
+      IF !( fill := ISARRAY(fillrgb) )
          fillrgb := { 255, 255, 255 }
       ENDIF
 
@@ -138,7 +138,7 @@ FUNCTION drawroundrect( window, row, col, row1, col1, width, height, penrgb, pen
       FormHandle := _HMG_aFormHandles[i]
       hb_default(@penrgb, {0, 0, 0})
       hb_default(@penwidth, 1)
-      IF !( fill := ISARRAY( fillrgb ) )
+      IF !( fill := ISARRAY(fillrgb) )
          fillrgb := { 255, 255, 255 }
       ENDIF
 
@@ -160,7 +160,7 @@ FUNCTION drawellipse( window, row, col, row1, col1, penrgb, penwidth, fillrgb )
       FormHandle := _HMG_aFormHandles[i]
       hb_default(@penrgb, {0, 0, 0})
       hb_default(@penwidth, 1)
-      IF !( fill := ISARRAY( fillrgb ) )
+      IF !( fill := ISARRAY(fillrgb) )
          fillrgb := { 255, 255, 255 }
       ENDIF
 
@@ -200,7 +200,7 @@ FUNCTION drawpie( window, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb
       FormHandle := _HMG_aFormHandles[i]
       hb_default(@penrgb, {0, 0, 0})
       hb_default(@penwidth, 1)
-      IF !( fill := ISARRAY( fillrgb ) )
+      IF !( fill := ISARRAY(fillrgb) )
          fillrgb := { 255, 255, 255 }
       ENDIF
 
@@ -224,11 +224,11 @@ FUNCTION drawpolygon( window, apoints, penrgb, penwidth, fillrgb )
       FormHandle := _HMG_aFormHandles[i]
       hb_default(@penrgb, {0, 0, 0})
       hb_default(@penwidth, 1)
-      IF !( fill := ISARRAY( fillrgb ) )
+      IF !( fill := ISARRAY(fillrgb) )
          fillrgb := { 255, 255, 255 }
       ENDIF
 
-      AEval( apoints, { | x | AAdd(yarr, x[1]), AAdd(xarr, x[2]) } )
+      AEval(apoints, { | x | AAdd(yarr, x[1]), AAdd(xarr, x[2]) })
       polygondraw( FormHandle, xarr, yarr, penrgb, penwidth, fillrgb, fill )
       AAdd(_HMG_aFormGraphTasks[i], {||polygondraw(FormHandle, xarr, yarr, penrgb, penwidth, fillrgb, fill)})
    ENDIF
@@ -249,7 +249,7 @@ FUNCTION drawpolybezier( window, apoints, penrgb, penwidth )
       hb_default(@penrgb, {0, 0, 0})
       hb_default(@penwidth, 1)
 
-      AEval( apoints, { | x | AAdd(yarr, x[1]), AAdd(xarr, x[2]) } )
+      AEval(apoints, { | x | AAdd(yarr, x[1]), AAdd(xarr, x[2]) })
       polybezierdraw( FormHandle, xarr, yarr, penrgb, penwidth )
       AAdd(_HMG_aFormGraphTasks[i], {||polybezierdraw(FormHandle, xarr, yarr, penrgb, penwidth)})
    ENDIF
@@ -334,8 +334,8 @@ FUNCTION EraseWindow(window)
 
    IF ( i := GetFormIndex ( Window ) ) > 0
       IF _HMG_aFormDeleted[i] == .F.
-         IF ISARRAY( _HMG_aFormGraphTasks[i] )
-            ASize( _HMG_aFormGraphTasks[i], 0 )
+         IF ISARRAY(_HMG_aFormGraphTasks[i])
+            ASize(_HMG_aFormGraphTasks[i], 0)
             RedrawWindow(_HMG_aFormHandles[i])
          ENDIF
       ENDIF

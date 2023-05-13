@@ -161,8 +161,8 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
       NEXT nI
    NEXT nJ
 
-   nXMax   := iif( nMax > 0, DetMaxVal( nMax ), 0 )
-   nXMin   := iif( nMin < 0, DetMaxVal( nMin ), 0 )
+   nXMax   := iif( nMax > 0, DetMaxVal(nMax), 0 )
+   nXMin   := iif( nMin < 0, DetMaxVal(nMin), 0 )
    nHigh   := nXMax + nXMin
    nMax    := Max( nXMax, nXMin )
 
@@ -187,7 +187,7 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
       DrawLineInBitmap( hDC, nZero - nDeep, nLeft, nZero - nDeep, nRight, GRAY )
    ENDIF
 
-   aPoint := Array( Len(aSeries), Len(aData[1]), 2 )
+   aPoint := Array(Len(aSeries), Len(aData[1]), 2)
    nRange := nMax / nXRanges
 
    // xLabels
@@ -454,15 +454,15 @@ FUNCTION HMG_PieGraph( nWidth, nHeight, series, aname, colors, ctitle, aTitleCol
    torow := torow + 1
    tocol := tocol + 1
 
-   AEval( series, {|i| ser_sum += i } )
-   AEval( series, {|i| AAdd(degrees, Round(i / ser_sum * 360, 0)) } )
+   AEval(series, {|i| ser_sum += i })
+   AEval(series, {|i| AAdd(degrees, Round(i / ser_sum * 360, 0)) })
    sum := 0
-   AEval( degrees, {|i| sum += i } )
+   AEval(degrees, {|i| sum += i })
    IF sum != 360
       degrees[len(degrees)] += 360 - sum
    ENDIF
    sum := 0
-   AEval( degrees, {|i| sum += i, AAdd(cumulative, sum) } )
+   AEval(degrees, {|i| sum += i, AAdd(cumulative, sum) })
 
    fromradialrow := middlerightrow
    fromradialcol := middlerightcol

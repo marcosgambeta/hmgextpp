@@ -54,9 +54,9 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, ;
    LOCAL nMin 
    LOCAL nMax
 
-   HB_SYMBOL_UNUSED( cPict )
-   HB_SYMBOL_UNUSED( bChanged )
-   HB_SYMBOL_UNUSED( bDown )
+   HB_SYMBOL_UNUSED(cPict)
+   HB_SYMBOL_UNUSED(bChanged)
+   HB_SYMBOL_UNUSED(bDown)
 
    DEFAULT nClrFore  := GetSysColor( COLOR_WINDOWTEXT ), ;
            nClrBack  := GetSysColor( COLOR_WINDOW ), ;
@@ -101,9 +101,9 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, ;
    if !Empty(ParentHandle)
       if lSpinner
          ::Create( "EDIT" )
-         nMin := IIf( HB_ISBLOCK(bMin), Eval( bMin ), bMin )
-         nMax := IIf( HB_ISBLOCK(bMax), Eval( bMax ), bMax )
-         ::hWndChild := InitedSpinner( ::hWndParent, ::hWnd , nCol, nRow, 0, nHeight, nMin, nMax, Eval( ::bSetGet ) )
+         nMin := IIf( HB_ISBLOCK(bMin), Eval(bMin), bMin )
+         nMax := IIf( HB_ISBLOCK(bMax), Eval(bMax), bMax )
+         ::hWndChild := InitedSpinner( ::hWndParent, ::hWnd , nCol, nRow, 0, nHeight, nMin, nMax, Eval(::bSetGet) )
          SetIncrementSpinner( ::hWndChild, bUp )
       else
          ::hWnd := InitBtnTextBox( ParentHandle, 0, nCol, nRow, nWidth, nHeight, "", 0, nMaxLenght, ;
@@ -130,7 +130,7 @@ METHOD Default() CLASS TBtnBox
 
    LOCAL cValue
  
-   cValue := Eval( ::bSetGet )
+   cValue := Eval(::bSetGet)
    If Valtype(cValue) != "C"
       cValue := cValToChar( cValue )
    EndIf
@@ -162,7 +162,7 @@ Return ::Super:HandleEvent( nMsg, nWParam, nLParam )
 
 METHOD GetDlgCode( nLastKey, nFlags ) CLASS TBtnBox
 
-   HB_SYMBOL_UNUSED( nFlags )
+   HB_SYMBOL_UNUSED(nFlags)
    ::nLastKey := nLastKey
 
 Return DLGC_WANTALLKEYS + DLGC_WANTCHARS
@@ -195,11 +195,11 @@ METHOD KeyDown( nKey, nFlags ) CLASS TBtnBox
 
       IF nKey != VK_ESCAPE
          If ::bSetGet != Nil
-            Eval( ::bSetGet, ::GetVal() )
+            Eval(::bSetGet, ::GetVal())
          EndIf
       ENDIF
       ::bLostFocus := Nil
-      Eval( ::bKeyDown, nKey, nFlags, .T. )
+      Eval(::bKeyDown, nKey, nFlags, .T.)
    EndIf
 
 RETURN 0
@@ -213,7 +213,7 @@ METHOD lValid() CLASS TBtnBox
    Local lRet := .T.
 
    If HB_ISBLOCK(::bValid)
-      lRet := Eval( ::bValid, ::GetVal() )
+      lRet := Eval(::bValid, ::GetVal())
    EndIf
 
 Return lRet
@@ -233,7 +233,7 @@ METHOD LostFocus( hCtlFocus ) CLASS TBtnBox
    EndIf
    ::lFocused := .F.
    If ::bLostFocus != Nil
-      Eval( ::bLostFocus, ::nLastKey, hCtlFocus )
+      Eval(::bLostFocus, ::nLastKey, hCtlFocus)
    EndIf
    IF ::hWndChild != Nil
       ::SetFocus()
@@ -247,8 +247,8 @@ Return 0
 
 METHOD LButtonDown( nRow, nCol ) CLASS TBtnBox
 
-   HB_SYMBOL_UNUSED( nRow )
-   HB_SYMBOL_UNUSED( nCol )
+   HB_SYMBOL_UNUSED(nRow)
+   HB_SYMBOL_UNUSED(nCol)
 
    If ::nLastKey != Nil .AND. ::nLastKey == 9999
       ::nLastKey := 0
@@ -270,8 +270,8 @@ METHOD GetVal() CLASS TBtnBox
    cType := ValType(::VarGet())
 
    DO CASE
-      CASE cType == "C" ; retVal := GetWindowText( ::hWnd )
-      CASE cType == "N" ; retVal := Int( Val( GetWindowText(  ::hWnd ) ) )
+      CASE cType == "C" ; retVal := GetWindowText(::hWnd)
+      CASE cType == "N" ; retVal := Int(Val(GetWindowText(::hWnd)))
    ENDCASE
 
 RETURN retVal
@@ -308,9 +308,8 @@ METHOD Command( nWParam, nLParam ) CLASS TBtnBox
       do case
          case nNotifyCode == 512 .And. nID == 0 .And. ::bAction != Nil
             ::oWnd:lPostEdit := .T.
-            Eval( ::bAction, Self, Eval( ::bSetGet ) )
-            ::bLostFocus := { | nKey | ::oWnd:EditExit( ::nCell, nKey, ::VarGet(), ;
-                     ::bValid, .F. ) }
+            Eval(::bAction, Self, Eval(::bSetGet))
+            ::bLostFocus := { | nKey | ::oWnd:EditExit( ::nCell, nKey, ::VarGet(), ::bValid, .F. ) }
             ::nLastKey := VK_RETURN
             ::LostFocus()
             ::oWnd:lPostEdit := .F.

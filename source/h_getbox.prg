@@ -146,17 +146,17 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
 
    IF ValType(aBitmap) != "A"
       cBmp := aBitmap
-      aBitmap := Array( 2 )
+      aBitmap := Array(2)
       aBitmap[1] := cBmp
    ENDIF
 
    IF ValType(aToolTip) != "A"
       tmp := aToolTip
-      aToolTip := Array( 3 )
+      aToolTip := Array(3)
       aToolTip[1] := tmp
    ELSE
       IF Len(aToolTip) < 3
-         aToolTip := ASize( aToolTip, 3 )
+         aToolTip := ASize(aToolTip, 3)
       ENDIF
    ENDIF
 
@@ -372,7 +372,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    ENDIF
 
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlInit, k, mVar )
+      Eval(_HMG_bOnControlInit, k, mVar)
 #ifdef _OBJECT_
       ow := _WindowObj(ParentFormHandle)
       oc := _ControlObj(ControlHandle)
@@ -487,7 +487,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
    _HMG_ThisControlName := _HMG_aControlNames[i]
 
    IF HB_ISBLOCK(oGet:preblock) .AND. nMsg == WM_SETFOCUS
-      IF !Eval( oGet:preblock, oGet, .F. )
+      IF !Eval(oGet:preblock, oGet, .F.)
          IF oGet:VarGet() == oGet:UnTransform(oGet:original)
             lAllowEdit := .F.
             _HMG_aControlMiscData1 [i, 9] := .F.
@@ -521,9 +521,9 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
             _HMG_aControlBkColor[i] := nRGB2Arr ( GetSysColor ( COLOR_WINDOW ) )
          ENDIF
          IF HB_ISNUMERIC(_HMG_aControlBkColor[i, 1])
-            _HMG_aControlBkColor[i] := iif( ISBLOCK ( aClrFocus ), Eval( aClrFocus ), aClrFocus )
+            _HMG_aControlBkColor[i] := iif( ISBLOCK ( aClrFocus ), Eval(aClrFocus), aClrFocus )
          ELSEIF HB_ISARRAY(_HMG_aControlBkColor[i, 1]) .AND. Len(_HMG_aControlBkColor[i]) == 3
-            _HMG_aControlBkColor[i][3] := iif( ISBLOCK ( aClrFocus ), Eval( aClrFocus ), aClrFocus )
+            _HMG_aControlBkColor[i][3] := iif( ISBLOCK ( aClrFocus ), Eval(aClrFocus), aClrFocus )
          ENDIF
          aOldFontClr := _HMG_aControlFontColor[i]
          IF _HMG_aControlFontColor[i] == NIL
@@ -531,9 +531,9 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          ENDIF
          IF aFntFocus != NIL
             IF HB_ISNUMERIC(_HMG_aControlFontColor[i, 1])
-               _HMG_aControlFontColor[i] := iif( ISBLOCK ( aFntFocus ), Eval( aFntFocus ), aFntFocus )
+               _HMG_aControlFontColor[i] := iif( ISBLOCK ( aFntFocus ), Eval(aFntFocus), aFntFocus )
             ELSEIF HB_ISARRAY(_HMG_aControlFontColor[i, 1]) .AND. Len(_HMG_aControlFontColor[i]) == 3
-               _HMG_aControlFontColor[i][3] := iif( ISBLOCK ( aFntFocus ), Eval( aFntFocus ), aFntFocus )
+               _HMG_aControlFontColor[i][3] := iif( ISBLOCK ( aFntFocus ), Eval(aFntFocus), aFntFocus )
             ENDIF
          ENDIF
       ENDIF
@@ -643,11 +643,11 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          oGet:assign()
          // Patch By Pier July 2008
          // Add By Pier patch for the smaller negative numbers of zero START
-         IF oGet:type == "N" .AND. oGet:minus .AND. Val( hb_USubStr(oget:buffer, 1, hb_UAt( ",", oget:buffer ) - 1) ) == 0
-            IF Val( hb_USubStr(oget:buffer, hb_UAt( ",", oget:buffer ) + 1) ) != 0
+         IF oGet:type == "N" .AND. oGet:minus .AND. Val(hb_USubStr(oget:buffer, 1, hb_UAt( ",", oget:buffer ) - 1)) == 0
+            IF Val(hb_USubStr(oget:buffer, hb_UAt( ",", oget:buffer ) + 1)) != 0
                MinDec := StrTran(oget:buffer, iif( hb_UAt( "E", cPicFunc ) > 0, ",", ", " ), ".")
                MinDec := StrTran(MinDec,  " ", "")
-               oget:VarPut( Val( MinDec ) * iif( Val( MinDec ) > 0, -1, 1 ) )
+               oget:VarPut( Val(MinDec) * iif( Val(MinDec) > 0, -1, 1 ) )
             ENDIF
             oget:buffer := oget:VarGet()
          ENDIF
@@ -856,7 +856,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 #ifdef UNICODE
          IF wParam != 46 .AND. wParam != 44 .AND. hb_UCode( _Input( hb_UChar( wParam ), i ) ) <= 0  // dot and coma
 #else
-         IF wParam != 46 .AND. wParam != 44 .AND. Asc( _Input( Chr( wParam ), i ) ) <= 0  // dot and coma
+         IF wParam != 46 .AND. wParam != 44 .AND. Asc(_Input(Chr(wParam), i)) <= 0  // dot and coma
 #endif
             RETURN( 0 )
          ENDIF
@@ -974,7 +974,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
       IF wParam == MK_LBUTTON
          IF Len(oGet:aKeyEvent) > 0
             FOR EACH aKey IN oGet:aKeyEvent
-               IF Val( aKey[1] ) == nMsg
+               IF Val(aKey[1]) == nMsg
                   RETURN oGet:DoKeyEvent( nMsg )
                ENDIF
             NEXT
@@ -997,7 +997,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
       IF Len(oGet:aKeyEvent) > 0
          FOR EACH aKey IN oGet:aKeyEvent
-            IF Val( aKey[1] ) == wParam
+            IF Val(aKey[1]) == wParam
                RETURN oGet:DoKeyEvent( wParam )
             ENDIF
          NEXT
@@ -1260,7 +1260,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 #ifdef UNICODE
             wParam := hb_UCode( hb_USubStr(cText, i, 1) )
 #else
-            wParam := Asc( hb_USubStr(cText, i, 1) )
+            wParam := Asc(hb_USubStr(cText, i, 1))
 #endif
             IF oGet:type == "N" .AND. wParam == 46
                oGet:toDecPos()

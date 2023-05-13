@@ -149,7 +149,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
    FOR nCurrExpr := 1 TO nLenSelectList
 
-      xExprValue := Eval( aSelectList[ nCurrExpr, 1 ] )
+      xExprValue := Eval(aSelectList[ nCurrExpr, 1 ])
       cExprType := ValType(xExprValue)
       cExprValue := Transform(xExprValue, "")
       nExprLen := Len(cExprValue)
@@ -231,7 +231,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
    IF lOTM
 
-      DO WHILE !Eof() .AND. !( nSelectChild )->( dbSeek( xValueFromMother := ( nSelectFrom )->( Eval( aOneToMany[2] ) ), .F. ) )
+      DO WHILE !Eof() .AND. !( nSelectChild )->( dbSeek( xValueFromMother := ( nSelectFrom )->( Eval(aOneToMany[2]) ), .F. ) )
 
          dbSkip()
 
@@ -239,15 +239,15 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
    ENDIF
 
-   DO WHILE !Eof() .AND. ( lWhile == NIL .OR. Eval( lWhile ) )
+   DO WHILE !Eof() .AND. ( lWhile == NIL .OR. Eval(lWhile) )
 
       IF HB_ISBLOCK(xEval)
 
-         Eval( xEval )
+         Eval(xEval)
 
       ENDIF
 
-      IF lSelect == NIL .OR. Eval( lSelect )
+      IF lSelect == NIL .OR. Eval(lSelect)
 
          lAppend := .F.
          lCreateIndex := !lCreateIndex
@@ -272,7 +272,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
             IF !lCreateIndex .OR. lAppend .OR. aSelectList[ nCurrExpr, 5 ] $ "TA"
 
-               xExprValue := Eval( aSelectList[ nCurrExpr, 1 ] )
+               xExprValue := Eval(aSelectList[ nCurrExpr, 1 ])
 
                IF aSelectList[ nCurrExpr, 5 ] == "T"
 
@@ -306,13 +306,13 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
       ELSE
 
-         IF ( nSelectChild )->( dbSkip() ) .OR. ( nSelectChild )->( Eof() .OR. !xValueFromMother == Eval( aOneToMany[3] ) )
+         IF ( nSelectChild )->( dbSkip() ) .OR. ( nSelectChild )->( Eof() .OR. !xValueFromMother == Eval(aOneToMany[3]) )
 
             dbSkip()
 
             IF lOTM
 
-               DO WHILE !Eof() .AND. !( nSelectChild )->( dbSeek( xValueFromMother := ( nSelectFrom )->( Eval( aOneToMany[2] ) ), .F. ) )
+               DO WHILE !Eof() .AND. !( nSelectChild )->( dbSeek( xValueFromMother := ( nSelectFrom )->( Eval(aOneToMany[2]) ), .F. ) )
 
                   dbSkip()
 

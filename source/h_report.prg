@@ -121,14 +121,14 @@ FUNCTION easyreport()
 
    nlen := Len(afields)
    IF Len(awidths) > nlen
-      ASize( awidths, nlen )
+      ASize(awidths, nlen)
    ENDIF
    nlmargin := iif( nllmargin == NIL, 0, nllmargin )
    IF aformats == NIL
-      aformats := AFill( Array( nlen ), "" )
+      aformats := AFill(Array(nlen), "")
    ENDIF
    IF atotals == NIL
-      atotals := AFill( Array( nlen ), .F. )
+      atotals := AFill(Array(nlen), .F.)
    ENDIF
    IF npapersize == NIL
       npapersize := DMPAPER_LETTER
@@ -138,8 +138,8 @@ FUNCTION easyreport()
    IF grpby != NIL
       grpby := Upper(grpby)
    ENDIF
-   aresul := Array( nlen )
-   angrpby := Array( nlen )
+   aresul := Array(nlen)
+   angrpby := Array(nlen)
    FOR i := 1 TO nlen
       afields[i] := Upper(afields[i])
    NEXT i
@@ -148,10 +148,10 @@ FUNCTION easyreport()
 
    cfile := calias
    Select( calias )
-   aFieldsg := ( cfile )->( Array( FCount() ) )
-   aT := ( cfile )->( Array( FCount() ) )
-   aW := ( cfile )->( Array( FCount() ) )
-   aD := ( cfile )->( Array( FCount() ) )
+   aFieldsg := ( cfile )->( Array(FCount()) )
+   aT := ( cfile )->( Array(FCount()) )
+   aW := ( cfile )->( Array(FCount()) )
+   aD := ( cfile )->( Array(FCount()) )
    ( cfile )->( AFields( aFieldsg, aT, aW, aD ) )
    lmode := .T.
    IF nlpp == NIL
@@ -180,7 +180,7 @@ FUNCTION easyreport()
       ENDIF
    ELSE
       ntotalchar := nlmargin + nlen - 1 // sum spaces between column
-      AEval( awidths, {|w|ntotalchar += w } )
+      AEval(awidths, {|w|ntotalchar += w })
       IF ncpl == NIL
          ncpl := ntotalchar
       ENDIF
@@ -268,8 +268,8 @@ FUNCTION easyreport()
       ENDIF
    ENDIF
    nlin := headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grpby, chdrgrp )
-   AFill( aresul, 0 )
-   AFill( angrpby, 0 )
+   AFill(aresul, 0)
+   AFill(angrpby, 0)
    IF grpby != NIL
       nposgrp := AScan(afieldsg, grpby)
       IF nposgrp > 0
@@ -290,9 +290,9 @@ FUNCTION easyreport()
          IF Type( afields[i] ) == "B"
             DO CASE
             CASE HB_ISCHAR(afields[i])
-               wfield := Eval( &( afields[i] ) )
+               wfield := Eval(&( afields[i]) )
             OTHERWISE
-               wfield := Eval( afields[i] )
+               wfield := Eval(afields[i])
             ENDCASE
          ELSE
             wfield := afields[i]
@@ -439,7 +439,7 @@ STATIC FUNCTION headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grp
    LOCAL ctitle2
 
    nsum := 0
-   AEval( awidths, {|w|nsum += w } )
+   AEval(awidths, {|w|nsum += w })
    npostitle := At( "|", ctitle )
    ctitle2 := ""
    IF npostitle > 0
@@ -705,10 +705,10 @@ FUNCTION extreport( cfilerep )
    IF aformats != NIL
       aformats := &aformats
    ENDIF
-   nlpp := Val( leadato( "REPORT","LPP","" ) )
-   ncpl := Val( leadato( "REPORT","CPL","" ) )
-   nllmargin := Val( leadato( "REPORT","LMARGIN","0" ) )
-   ntoprow := Val( leadato( "REPORT","TMARGIN","1" ) )
+   nlpp := Val(leadato( "REPORT","LPP","" ))
+   ncpl := Val(leadato( "REPORT","CPL","" ))
+   nllmargin := Val(leadato( "REPORT","LMARGIN","0" ))
+   ntoprow := Val(leadato( "REPORT","TMARGIN","1" ))
    npapersize := leadato( "REPORT", "PAPERSIZE", "DMPAPER_LETTER" )
    IF npapersize = "DMPAPER_USER"
       npapersize := 255
@@ -732,10 +732,10 @@ FUNCTION extreport( cfilerep )
    IF Len(cgraphic) == 0
       cgraphic := NIL
    ENDIF
-   nfi := Val( ( learowi("IMAGE",1 ) ) )
-   nci := Val( ( leacoli("IMAGE",1 ) ) )
-   nff := Val( ( learowi("IMAGE",2 ) ) )
-   ncf := Val( ( leacoli("IMAGE",2 ) ) )
+   nfi := Val((learowi("IMAGE", 1)))
+   nci := Val((leacoli("IMAGE", 1)))
+   nff := Val((learowi("IMAGE", 2)))
+   ncf := Val((leacoli("IMAGE", 2)))
    cgraphicalt := ( leadato( "DEFINE REPORT","IMAGE","" ) )
    IF Len(cgraphicalt) > 0  // para sintaxis DEFINE REPORT
       cgraphicalt := &cgraphicalt
@@ -798,8 +798,8 @@ STATIC FUNCTION leaimage( cName, cPropmet, cDefault )
    LOCAL npos2
 
    // Unused Parameters
-   HB_SYMBOL_UNUSED( cname )
-   HB_SYMBOL_UNUSED( cpropmet )
+   HB_SYMBOL_UNUSED(cname)
+   HB_SYMBOL_UNUSED(cpropmet)
 
    FOR i := 1 TO Len(aline)
       IF At( "IMAGE", aline[i] ) > 0
@@ -825,8 +825,8 @@ STATIC FUNCTION leadatoh( cName, cPropmet, cDefault, npar )
    LOCAL npos2
 
    // Unused Parameters
-   HB_SYMBOL_UNUSED( cname )
-   HB_SYMBOL_UNUSED( cpropmet )
+   HB_SYMBOL_UNUSED(cname)
+   HB_SYMBOL_UNUSED(cpropmet)
 
    FOR i := 1 TO Len(aline)
       IF At( "HEADERS", aline[i] ) > 0
@@ -883,7 +883,7 @@ STATIC FUNCTION learowi( cname, npar )
    LOCAL nrow := "0"
 
    // Unused Parameter
-   HB_SYMBOL_UNUSED( cname )
+   HB_SYMBOL_UNUSED(cname)
 
    FOR i := 1 TO Len(aline)
       IF At( "IMAGE ", Upper(aline[i]) ) != 0
@@ -902,7 +902,7 @@ STATIC FUNCTION leacoli( cname, npar )
    LOCAL ncol := "0"
 
    // Unused Parameter
-   HB_SYMBOL_UNUSED( cname )
+   HB_SYMBOL_UNUSED(cname)
 
    FOR i := 1 TO Len(aline)
       IF At( "IMAGE ", Upper(aline[i]) ) != 0
@@ -951,7 +951,7 @@ STATIC PROCEDURE imp_SUBTOTALES ( nlin, ncol, lmode, swt, grpby )
             ENDIF
          ENDIF
 
-         AFill( angrpby, 0 )
+         AFill(angrpby, 0)
          crompe := iif( !ISEVERYPAGE, &wfield1, Str(nlin) )
 
          IF swt == 0 .AND. !ISEVERYPAGE

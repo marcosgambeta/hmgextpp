@@ -51,7 +51,7 @@ FUNCTION WindowsVersion()
 *-----------------------------------------------------------------------------*
 
    LOCAL cKey
-   LOCAL aRetVal := Array( 4 )
+   LOCAL aRetVal := Array(4)
 
    IF IsWin10OrLater()
       cKey := "SOFTWARE\Microsoft\Windows NT\CurrentVersion"

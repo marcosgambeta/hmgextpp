@@ -53,24 +53,24 @@ CLASS TSBScrlBar FROM TControl
    METHOD GoUp()   BLOCK { | Self, nPos | nPos := ::GetPos(),;
                                           iif( nPos > ::GetRange()[1],;
                                               ::SetPos( --nPos ), ),;
-                          IIf( ::bGoUp != Nil, Eval( ::bGoUp ),) }
+                          IIf( ::bGoUp != Nil, Eval(::bGoUp),) }
 
    METHOD GoDown() BLOCK { | Self, nPos | nPos := ::GetPos(),;
                                           iif( nPos < ::nMax,;
                                               ::SetPos( ++nPos ), ),;
-                          IIf( ::bGoDown != Nil, Eval( ::bGoDown ),) }
+                          IIf( ::bGoDown != Nil, Eval(::bGoDown),) }
 
 
    METHOD GoTop() INLINE  ::SetPos( ::nMin ),;
-                          IIf( ::bGoTop != Nil, Eval( ::bGoTop ),)
+                          IIf( ::bGoTop != Nil, Eval(::bGoTop),)
 
    METHOD GoBottom() INLINE  ::SetPos( ::nMax ),;
-                             IIf( ::bGoBottom != Nil, Eval( ::bGoBottom ),)
+                             IIf( ::bGoBottom != Nil, Eval(::bGoBottom),)
 
-   METHOD PageUp() INLINE  IIf( ::bPageUp != Nil, Eval( ::bPageUp ),),;
+   METHOD PageUp() INLINE  IIf( ::bPageUp != Nil, Eval(::bPageUp),),;
                            ::SetPos( ::GetPos() - ::nPgStep )
 
-   METHOD PageDown() INLINE  IIf( ::bPageDown != Nil, Eval( ::bPageDown ),),;
+   METHOD PageDown() INLINE  IIf( ::bPageDown != Nil, Eval(::bPageDown),),;
                                  ::SetPos( ::GetPos() + ::nPgStep )
 
    METHOD SetMode( l32Bit )
@@ -89,12 +89,12 @@ CLASS TSBScrlBar FROM TControl
                IIf( ::lIsChild, IIf( ::lVertical, SB_VERT, SB_HORZ ), SB_CTL ), ;
                    nMin, nMax, ::lReDraw, ::lShowDisabled, ::l32Bit )   // JP 74
 
-   METHOD ThumbPos( nPos ) INLINE  IIf( ::bPos != Nil, Eval( ::bPos, nPos ),)
+   METHOD ThumbPos( nPos ) INLINE  IIf( ::bPos != Nil, Eval(::bPos, nPos),)
 
    METHOD MouseMove( nRow, nCol, nKeyFlags )
 
    METHOD ThumbTrack( nPos ) INLINE IIf( ::bTrack != Nil, ;
-                                        Eval( ::bTrack, nPos ), ;
+                                        Eval(::bTrack, nPos), ;
                                         ::ThumbPos( nPos ) )
 
 ENDCLASS

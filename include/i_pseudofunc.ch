@@ -522,9 +522,9 @@ GetCursorPos() \[1\]
 => ;
 GetCursorPos() \[2\]
 
-#xtranslate LB_String2Array( <cData> [, <Sep> ] ) ;
+#xtranslate LB_String2Array(<cData> [, <Sep> ]) ;
 => ;
-hb_ATokens( <cData>, iif( hb_IsString( <Sep> ) , <Sep> , Chr(9) ) )
+hb_ATokens(<cData>, iif( hb_IsString( <Sep> ) , <Sep> , Chr(9) ))
 
 // ============================================================================
 
@@ -695,7 +695,7 @@ GetFontParam( <hFont> )\[ 10 ]
 
 #translate HMG_RGB2n( <p1>, <p2>, <p3> )  => IFNUMERIC( <p1>, RGB( <p1>, <p2>, <p3> ), <p1> )
 
-#translate HMG_RGB2n( <x> )               => IFARRAY( <x>, RGB( <x>\[ 1 ], <x>\[ 2 ], <x>\[ 3 ] ), <x> )
+#translate HMG_RGB2n( <x> )               => IFARRAY(<x>, RGB( <x>\[ 1 ], <x>\[ 2 ], <x>\[ 3 ] ), <x>)
 
 #translate HMG_n2RGB( <x> )               => { GetRed( <x> ), GetGreen( <x> ), GetBlue( <x> ) }
 
@@ -711,7 +711,7 @@ GetFontParam( <hFont> )\[ 10 ]
 #ifndef HB_COMMON_CH_
    /* Type checking macros */
 #  translate ISNIL( <xValue> )       => ( <xValue> == NIL )
-#  translate ISARRAY( <xValue> )     => hb_IsArray( <xValue> )
+#  translate ISARRAY(<xValue>)     => hb_IsArray(<xValue>)
 #  translate ISBLOCK( <xValue> )     => hb_IsBlock( <xValue> )
 #  translate ISCHARACTER( <xValue> ) => hb_IsString( <xValue> )
 #  translate ISDATE( <xValue> )      => hb_IsDate( <xValue> )
@@ -726,7 +726,7 @@ GetFontParam( <hFont> )\[ 10 ]
 #translate ISNUMERIC( <xValue> ) => hb_IsNumeric( <xValue> )
 
 #translate IFNIL( <v1>,<exp1>,<exp2> )       => iif( (<v1>) == NIL,<exp1>,<exp2> )
-#translate IFARRAY( <v1>,<exp1>,<exp2> )     => iif( ISARRAY( <v1> ),<exp1>,<exp2> )
+#translate IFARRAY(<v1>,<exp1>,<exp2>)     => iif( ISARRAY(<v1> ),<exp1>,<exp2>)
 #translate IFBLOCK( <v1>,<exp1>,<exp2> )     => iif( ISBLOCK( <v1> ),<exp1>,<exp2> )
 #translate IFCHARACTER( <v1>,<exp1>,<exp2> ) => iif( ISCHARACTER( <v1> ),<exp1>,<exp2> )
 #translate IFCHAR( <v1>,<exp1>,<exp2> )      => iif( ISCHAR( <v1> ),<exp1>,<exp2> )
@@ -755,10 +755,10 @@ GetFontParam( <hFont> )\[ 10 ]
 
 #ifndef HB_COMMON_CH_
    /* Friendly logical aliases */
-#  define TRUE        .T.
-#  define FALSE        .F.
-#  define YES        .T.
-#  define NO        .F.
+#define TRUE        .T.
+#define FALSE        .F.
+#define YES        .T.
+#define NO        .F.
 
    /* DEFAULT and UPDATE commands */
 #  xcommand DEFAULT <v1> TO <x1> [, <vn> TO <xn> ] => ;
@@ -775,7 +775,7 @@ GetFontParam( <hFont> )\[ 10 ]
 #define MAKELRESULT( lw, hw )          MAKELONG( lw, hw ) 
 
 #ifndef HB_SYMBOL_UNUSED
-   #define HB_SYMBOL_UNUSED( symbol )  ( ( symbol ) )
+   #define HB_SYMBOL_UNUSED(symbol)  ((symbol))
 #endif
 
 #xtranslate frac( <num> ) => ( <num> - int( <num> ) )

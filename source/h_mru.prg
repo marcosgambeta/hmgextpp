@@ -141,7 +141,7 @@ FUNCTION AddMenuElement( NewItem , cAction )
       NEXT
       IF Len(aMRU_File) > maxMRU_Files
          cxMRU_Id := aMRU_File[ Len(aMRU_File), 3 ]
-         ASize( aMRU_File , maxMRU_Files )
+         ASize(aMRU_File , maxMRU_Files)
          _RemoveMenuItem( cxMRU_Id , MRUParentForm )
       ENDIF
    ENDIF

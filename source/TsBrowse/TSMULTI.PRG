@@ -97,7 +97,7 @@ RETURN Self
 
 METHOD Default() CLASS TSMulti
 
-   LOCAL VALUE := Eval( ::bSetGet )
+   LOCAL VALUE := Eval(::bSetGet)
 
    If !Empty(Value)
       SetWindowText(::hWnd, Value)
@@ -119,7 +119,7 @@ RETURN ::Super:HandleEvent( nMsg, nWParam, nLParam )
 
 METHOD GetDlgCode( nLastKey, nFlags ) CLASS TSMulti
 
-   HB_SYMBOL_UNUSED( nFlags )
+   HB_SYMBOL_UNUSED(nFlags)
    ::nLastKey := nLastKey
 
 RETURN DLGC_WANTALLKEYS + DLGC_WANTCHARS
@@ -130,7 +130,7 @@ RETURN DLGC_WANTALLKEYS + DLGC_WANTCHARS
 
 METHOD KeyChar( nKey, nFlags ) CLASS TSMulti
 
-   HB_SYMBOL_UNUSED( nFlags )
+   HB_SYMBOL_UNUSED(nFlags)
 
    IF _GetKeyState( VK_CONTROL )
       nKey := IIf( Upper(Chr(nKey)) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey )
@@ -164,7 +164,7 @@ METHOD Save() CLASS TSMulti
          ENDIF
       ENDIF
 
-      Eval( ::bSetGet, cText )
+      Eval(::bSetGet, cText)
       IF Empty(::oCol:bEditEnd)
          ::oBrw:PostEdit( cText, ::nCol )
       ENDIF
@@ -193,7 +193,7 @@ METHOD KeyDown( nKey, nFlags ) CLASS TSMulti
          ENDIF
 
          ::bLostFocus := NIL
-         Eval( ::bKeyDown, nKey, nFlags, .T. )
+         Eval(::bKeyDown, nKey, nFlags, .T.)
 
       ENDIF
 
@@ -210,7 +210,7 @@ METHOD lValid() CLASS TSMulti
    LOCAL lRet := .T.
 
    IF HB_ISBLOCK(::bValid)
-      lRet := Eval( ::bValid, ::GetText() )
+      lRet := Eval(::bValid, ::GetText())
    ENDIF
 
 RETURN lRet
@@ -225,7 +225,7 @@ METHOD LostFocus( hCtlFocus ) CLASS TSMulti
 
    ::nPos := LoWord(::SendMsg( EM_GETSEL ))
    IF ::bLostFocus != NIL
-      Eval( ::bLostFocus, ::nLastKey, hCtlFocus )
+      Eval(::bLostFocus, ::nLastKey, hCtlFocus)
    ENDIF
 
 RETURN 0

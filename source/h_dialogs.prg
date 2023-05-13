@@ -102,8 +102,8 @@ FUNCTION GetFile( aFilter, title, cIniFolder, multiselect, lNoChangeCurDir, nFil
 
    hb_default(@multiselect, .F.)
 
-   IF ISARRAY( aFilter )
-      AEval( aFilter, { | x | cFilter += x [1] + Chr( 0 ) + x [2] + Chr( 0 ) } )
+   IF ISARRAY(aFilter)
+      AEval(aFilter, { | x | cFilter += x [1] + Chr( 0 ) + x [2] + Chr( 0 ) })
       cFilter += Chr( 0 )
    ENDIF
 
@@ -152,8 +152,8 @@ FUNCTION Putfile( aFilter, title, cIniFolder, lNoChangeCurDir, cDefFileName, ;
 
    hb_default(@nFilterIndex, 1)
 
-   IF ISARRAY( aFilter )
-      AEval( aFilter, { | x | cFilter += x [1] + Chr( 0 ) + x [2] + Chr( 0 ) } )
+   IF ISARRAY(aFilter)
+      AEval(aFilter, { | x | cFilter += x [1] + Chr( 0 ) + x [2] + Chr( 0 ) })
       cFilter += Chr( 0 )
    ENDIF
 

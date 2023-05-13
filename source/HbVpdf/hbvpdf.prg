@@ -9,7 +9,7 @@ STATIC s_aReport
 *-----------------
 FUNCTION pdfInit()
 
-   s_aReport := Array( PARAMLEN )
+   s_aReport := Array(PARAMLEN)
 
 RETURN s_aReport
 
@@ -710,7 +710,7 @@ STATIC FUNCTION pdfClosePage()
          FWrite(s_aReport[HANDLE], cTemp)
 
          nImageHandle := FOpen(s_aReport[IMAGES][nI][1])
-         FSeek( nImageHandle, s_aReport[IMAGES][nI][3][IMAGE_FROM] )
+         FSeek(nImageHandle, s_aReport[IMAGES][nI][3][IMAGE_FROM])
 
          nBuffer := 8192
          cBuffer := Space( nBuffer )
@@ -841,7 +841,7 @@ FUNCTION pdfLen(cString)
 
    IF !Empty(s_aReport[FONTWIDTH])
       FOR nI := 1 TO nLen
-         nWidth += s_aReport[FONTWIDTH][nArr][( Asc( SubStr(cString, nI, 1) ) - 32 ) * 4 + 1 + nAdd] * 25.4 * s_aReport[FONTSIZE] / 720.00 / 100.00
+         nWidth += s_aReport[FONTWIDTH][nArr][( Asc(SubStr(cString, nI, 1)) - 32 ) * 4 + 1 + nAdd] * 25.4 * s_aReport[FONTSIZE] / 720.00 / 100.00
       NEXT
    ENDIF
 
@@ -971,7 +971,7 @@ FUNCTION pdfOpen(cFile, nLen, lOptimize)
 
    cTemp := vpdf_FontsDat() // times, times-bold, times-italic, times-bolditalic, helvetica..., courier... // 0.04
    n1 := Len(cTemp) / ( 2 * n2 )
-   s_aReport[FONTWIDTH] := Array( n1, n2 )
+   s_aReport[FONTWIDTH] := Array(n1, n2)
 
    s_aReport[OPTIMIZE] := lOptimize
 
@@ -1034,8 +1034,8 @@ FUNCTION pdfPageSize( _cPageSize, _nWidth, _nHeight )
 
    ELSE
 
-      _nWidth := Val( Str(_nWidth) )
-      _nHeight := Val( Str(_nHeight) )
+      _nWidth := Val(Str(_nWidth))
+      _nHeight := Val(Str(_nHeight))
 
       nSize := AScan(aSize, {| arr | ( arr[2] == _nWidth  ) .AND. ( arr[3] == _nHeight ) })
 
@@ -1166,7 +1166,7 @@ FUNCTION pdfSetLPI( _nLpi )
    __defaultNIL(@_nLpi, 6)
 
    cLpi := iif( cLpi $ "1;2;3;4;6;8;12;16;24;48", cLpi, "6" )
-   s_aReport[LPI] := Val( cLpi )
+   s_aReport[LPI] := Val(cLpi)
 
    pdfPageSize( s_aReport[PAGESIZE] )
 
@@ -1397,9 +1397,9 @@ RETURN n * 25.4 / 72
 *----------------------------------
 STATIC FUNCTION TimeAsAMPM( cTime )
 
-   IF Val( cTime ) < 12
+   IF Val(cTime) < 12
       cTime += " am"
-   ELSEIF Val( cTime ) == 12
+   ELSEIF Val(cTime) == 12
       cTime += " pm"
    ELSE
       cTime := Str(Val(cTime) - 12, 2) + SubStr(cTime, 3) + " pm"
@@ -1423,7 +1423,7 @@ FUNCTION pdfOpenHeader( cFile )
          cFile := "temp.tmp"
       ENDIF
       // s_aReport[HEADER] := ft_RestArr( cFile, @nErrorCode )
-      s_aReport[HEADER] := File2Array( cFile )
+      s_aReport[HEADER] := File2Array(cFile)
    ELSE
       s_aReport[HEADER] := {}
    ENDIF
@@ -1462,7 +1462,7 @@ FUNCTION pdfDeleteHeader( cId )
    IF nId > 0
       nRet := Len(s_aReport[HEADER]) - 1
       ADel( s_aReport[HEADER], nId )
-      ASize( s_aReport[HEADER], nRet )
+      ASize(s_aReport[HEADER], nRet)
       s_aReport[MARGINS] := .T.
    ENDIF
 
@@ -1520,8 +1520,8 @@ FUNCTION pdfHeader( cFunction, cId, arr )
          nIdLen := Len(cId)
          FOR nI := 1 TO nLen
             IF s_aReport[HEADER][nI][2] == cId
-               IF Val( SubStr(s_aReport[HEADER][nI][3], nIdLen + 1) ) > nId
-                  nId := Val( SubStr(s_aReport[HEADER][nI][3], nIdLen + 1) )
+               IF Val(SubStr(s_aReport[HEADER][nI][3], nIdLen + 1)) > nId
+                  nId := Val(SubStr(s_aReport[HEADER][nI][3], nIdLen + 1))
                ENDIF
             ENDIF
          NEXT
@@ -1534,7 +1534,7 @@ FUNCTION pdfHeader( cFunction, cId, arr )
          AAdd(s_aReport[HEADER][nLen], arr[nI])
       NEXT
    ELSE
-      ASize( s_aReport[HEADER][nId], 3 )
+      ASize(s_aReport[HEADER][nId], 3)
       FOR nI := 1 TO Len(arr)
          AAdd(s_aReport[HEADER][nId], arr[nI])
       NEXT
@@ -1931,7 +1931,7 @@ FUNCTION pdfTIFFInfo( cFile )
 
       nIFD := Bin2L( cIFDNext )
 
-      FSeek( nHandle, nIFD )
+      FSeek(nHandle, nIFD)
       // ? "*** IFD " + hb_ntos(++nPages)
 
       FRead(nHandle, @c2, 2)
@@ -1968,12 +1968,12 @@ FUNCTION pdfTIFFInfo( cFile )
 
          IF nCount > 1 .OR. nFieldType == RATIONAL .OR. nFieldType == SRATIONAL
             nPos := filepos( nHandle )
-            FSeek( nHandle, nOffset )
+            FSeek(nHandle, nOffset)
 
             nValues := nCount * aCount[nFieldType]
             cValues := Space( nValues )
             FRead(nHandle, @cValues, nValues)
-            FSeek( nHandle, nPos )
+            FSeek(nHandle, nPos)
          ELSE
             cValues := SubStr(cTemp, 9, 4)
          ENDIF
@@ -2477,14 +2477,14 @@ FUNCTION pdfJPEGInfo( cFile )
    c255 := Space( nBuffer )
    FRead(nHandle, @c255, nBuffer)
 
-   xRes := Asc( SubStr(c255, 15, 1) ) * 256 + Asc( SubStr(c255, 16, 1) )
-   yRes := Asc( SubStr(c255, 17, 1) ) * 256 + Asc( SubStr(c255, 18, 1) )
+   xRes := Asc(SubStr(c255, 15, 1)) * 256 + Asc(SubStr(c255, 16, 1))
+   yRes := Asc(SubStr(c255, 17, 1)) * 256 + Asc(SubStr(c255, 18, 1))
 
    nAt := RAt( Chr(255) + Chr(192), c255 ) + 5
-   nHeight := Asc( SubStr(c255, nAt, 1) ) * 256 + Asc( SubStr(c255, nAt + 1, 1) )
-   nWidth := Asc( SubStr(c255, nAt + 2, 1) ) * 256 + Asc( SubStr(c255, nAt + 3, 1) )
+   nHeight := Asc(SubStr(c255, nAt, 1)) * 256 + Asc(SubStr(c255, nAt + 1, 1))
+   nWidth := Asc(SubStr(c255, nAt + 2, 1)) * 256 + Asc(SubStr(c255, nAt + 3, 1))
 
-   nSpace := Asc( SubStr(c255, nAt + 4, 1) )
+   nSpace := Asc(SubStr(c255, nAt + 4, 1))
 
    nLength := FileSize( nHandle )
 
@@ -2502,7 +2502,7 @@ FUNCTION pdfJPEGInfo( cFile )
 RETURN aTemp
 
 STATIC FUNCTION FilePos( nHandle )
-RETURN FSeek( nHandle, 0, FS_RELATIVE )
+RETURN FSeek(nHandle, 0, FS_RELATIVE)
 
 STATIC FUNCTION Chr_RGB( cChar )
 RETURN Str(Asc(cChar) / 255, 4, 2)
@@ -2581,12 +2581,12 @@ STATIC FUNCTION FileSize( nHandle )
    nCurrent := FilePos( nHandle )
 
    // Get file length
-   nLength := FSeek( nHandle, 0, FS_END )
+   nLength := FSeek(nHandle, 0, FS_END)
 
    // nLength := FilePos( nHandle )
 
    // Reset file position
-   FSeek( nHandle, nCurrent )
+   FSeek(nHandle, nCurrent)
 
 RETURN nLength
 
@@ -2605,7 +2605,7 @@ STATIC FUNCTION Array2File( cFile, aRay, nDepth, hFile )
    ENDIF
    nDepth++
    nBytes += WriteData( hFile, aRay )
-   IF HB_ISARRAY( aRay )
+   IF HB_ISARRAY(aRay)
       FOR i := 1 TO Len(aRay)
          nBytes += Array2File( cFile, aRay[i], nDepth, hFile )
       NEXT
@@ -2629,7 +2629,7 @@ STATIC FUNCTION WriteData( hFile, xData )
       cData += I2Bin(8) + DToS(xData)
    ELSEIF HB_ISLOGICAL( xData )
       cData += I2Bin(1) + iif( xData, "T", "F" )
-   ELSEIF HB_ISARRAY( xData )
+   ELSEIF HB_ISARRAY(xData)
       cData += I2Bin(Len(xData))
    ELSE
       cData += I2Bin(0)   // NIL
@@ -2637,7 +2637,7 @@ STATIC FUNCTION WriteData( hFile, xData )
 
 RETURN FWrite(hFile, cData, Len(cData))
 
-STATIC FUNCTION File2Array( cFile, nLen, hFile )
+STATIC FUNCTION File2Array(cFile, nLen, hFile)
 
    LOCAL cData
    LOCAL cType
@@ -2679,7 +2679,7 @@ STATIC FUNCTION File2Array( cFile, nLen, hFile )
          aRay[nDepth] := cData
          EXIT
       CASE "N"
-         aRay[nDepth] := Val( cData )
+         aRay[nDepth] := Val(cData)
          EXIT
       CASE "D"
          aRay[nDepth] := hb_SToD( cData )

@@ -158,7 +158,7 @@ FUNCTION _BeginMessageBar( ControlName, ParentForm, kbd, fontname, fontsize, bol
    _HMG_aControlMiscData2          [k] := ""
 
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlInit, k, mVar )
+      Eval(_HMG_bOnControlInit, k, mVar)
    ENDIF
 
    _HMG_StatusItemCount := 0
@@ -299,7 +299,7 @@ FUNCTION _DefineItemMessage ( ControlName, ParentControl, x, y, Caption, Procedu
    _HMG_aControlMiscData2          [k] := ""
 
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlInit, k, mVar )
+      Eval(_HMG_bOnControlInit, k, mVar)
    ENDIF
 
    IF IsArrayRGB( backcolor ) .OR. IsArrayRGB( fontcolor )
@@ -402,7 +402,7 @@ RETURN lOwnerDraw
 STATIC FUNCTION AMPM( cTime )
 *-----------------------------------------------------------------------------*
    
-   LOCAL nHour := Val( cTime )
+   LOCAL nHour := Val(cTime)
 
    DO CASE
    CASE nHour == 0 .OR. nHour == 24

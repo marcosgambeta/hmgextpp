@@ -120,7 +120,7 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 
 #xtranslate HMG_Is64Bits() => ISWIN64()
 
-#xtranslate HMG_LEN( <c> ) => iif( hb_IsArray( <c> ) .or. hb_IsHash( <c> ), Len( <c> ), iif( hb_IsChar( <c> ), hb_ULen( <c> ), 0 ) )
+#xtranslate HMG_LEN( <c> ) => iif( hb_IsArray(<c>) .or. hb_IsHash( <c> ), Len( <c> ), iif( hb_IsChar( <c> ), hb_ULen( <c> ), 0 ) )
 
 #xtranslate HMG_PADC(<x>,<n>,<c>) => PADC(<x>,<n>,<c>)
 #xtranslate HMG_PADL(<x>,<n>,<c>) => PADL(<x>,<n>,<c>)

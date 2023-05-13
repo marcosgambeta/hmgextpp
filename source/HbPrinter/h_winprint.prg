@@ -169,8 +169,8 @@ METHOD New() CLASS HBPrinter
    aprnport := rr_getprinters()
    IF aprnport != ",,"
       aprnport := str2arr( aprnport, ",," )
-      AEval( aprnport, {| x, xi | aprnport[xi] := str2arr( x, "," ) } )
-      AEval( aprnport, {| x | AAdd(::Printers, x[1]), AAdd(::ports, x[2]) } )
+      AEval(aprnport, {| x, xi | aprnport[xi] := str2arr( x, "," ) })
+      AEval(aprnport, {| x | AAdd(::Printers, x[1]), AAdd(::ports, x[2]) })
       ::PrinterDefault := RR_GETDEFAULTPRINTER()
    ELSE
       ::error := 1
@@ -217,8 +217,8 @@ METHOD SelectPrinter( cPrinter, lPrev ) CLASS HBPrinter
       rr_devicecapabilities( @txtp, @txtb )
       ::PaperNames := str2arr( txtp, ",," )
       ::BinNames := str2arr( txtb, ",," )
-      AEval( ::BinNames, {| x, xi | ::BinNames[xi] := str2arr( x, "," ) } )
-      AEval( ::PaperNames, {| x, xi | ::PaperNames[xi] := str2arr( x, "," ) } )
+      AEval(::BinNames, {| x, xi | ::BinNames[xi] := str2arr( x, "," ) })
+      AEval(::PaperNames, {| x, xi | ::PaperNames[xi] := str2arr( x, "," ) })
 #endif
       AAdd(::Fonts[1], rr_getcurrentobject(1)) ; AAdd(::Fonts[2], "*") ; AAdd(::Fonts[4], {})
       AAdd(::Fonts[1], rr_getcurrentobject(1)) ; AAdd(::Fonts[2], "DEFAULT") ; AAdd(::Fonts[4], {})
@@ -327,7 +327,7 @@ METHOD SaveMetaFiles( number, filename ) CLASS HBPrinter
       DEFAULT filename := ::DOCNAME
       aPages := {}
       IF number == NIL
-         AEval( ::metafiles, {| x | AAdd(aPages, x[1]) } )
+         AEval(::metafiles, {| x | AAdd(aPages, x[1]) })
       ELSE
          AAdd(aPages, ::BasePageName + StrZero(number, 4) + ".emf")
          filename += iif( At( ".pdf", filename ) > 0, "", "_" + StrZero( number, 4 ) )
@@ -406,7 +406,7 @@ METHOD DefineBrush( defname, lstyle, lcolor, lhatch ) CLASS HBPrinter
       RETURN self
    ENDIF
    // BEGIN RL 2003-08-03
-   IF ISARRAY( lcolor )
+   IF ISARRAY(lcolor)
       lcolor := RGB ( lcolor[1], lcolor[2], lcolor[3] )
    ENDIF
    // END RL
@@ -447,7 +447,7 @@ METHOD ModifyBrush( defname, lstyle, lcolor, lhatch ) CLASS HBPrinter
       RETURN self
    ENDIF
    // BEGIN RL 2003-08-03
-   IF ISARRAY( lcolor )
+   IF ISARRAY(lcolor)
       lcolor := RGB ( lcolor[1], lcolor[2], lcolor[3] )
    ENDIF
    // END RL
@@ -469,7 +469,7 @@ METHOD DefinePen( defname, lstyle, lwidth, lcolor ) CLASS HBPrinter
       RETURN self
    ENDIF
    // BEGIN RL 2003-08-03
-   IF ISARRAY( lcolor )
+   IF ISARRAY(lcolor)
       lcolor := RGB ( lcolor[1], lcolor[2], lcolor[3] )
    ENDIF
    // END RL
@@ -499,7 +499,7 @@ METHOD ModifyPen( defname, lstyle, lwidth, lcolor ) CLASS HBPrinter
       RETURN self
    ENDIF
    // BEGIN RL 2003-08-03
-   IF ISARRAY( lcolor )
+   IF ISARRAY(lcolor)
       lcolor := RGB ( lcolor[1], lcolor[2], lcolor[3] )
    ENDIF
    // END RL
@@ -690,7 +690,7 @@ METHOD Say( row, col, txt, defname, lcolor, lalign ) CLASS HBPrinter
    CASE ValType(txt) == "L" ;  AAdd(atxt, iif(txt, ".T.", ".F."))
    CASE ValType(txt) == "U" ;  AAdd(atxt, "NIL")
    CASE ValType(txt) $ "BO" ;  AAdd(atxt, "")
-   CASE ValType(txt) == "A" ;  AEval( txt, {| x | AAdd(atxt, sayconvert(x)) } )
+   CASE ValType(txt) == "A" ;  AEval(txt, {| x | AAdd(atxt, sayconvert(x)) })
    CASE ValType(txt) $ "MC" ;  atxt := str2arr( txt, hb_osNewLine() )
    ENDCASE
    apos := ::convert( { row, col } )
@@ -865,7 +865,7 @@ METHOD Polygon( apoints, defpen, defbrush, style ) CLASS HBPrinter
    LOCAL apx := {}, apy := {}, temp
    LOCAL lhp := ::getobjbyname( defpen, "P" ), lhb := ::getobjbyname( defbrush, "B" )
 
-   AEval( apoints, {| x | temp := ::convert( x ), AAdd(apx, temp[2] ), AAdd(apy, temp[1]) } )
+   AEval(apoints, {| x | temp := ::convert( x ), AAdd(apx, temp[2] ), AAdd(apy, temp[1]) })
    ::error := rr_polygon( apx, apy, lhp, lhb, style )
 
 RETURN self
@@ -876,7 +876,7 @@ METHOD PolyBezier( apoints, defpen ) CLASS HBPrinter
    LOCAL apx := {}, apy := {}, temp
    LOCAL lhp := ::getobjbyname( defpen, "P" )
 
-   AEval( apoints, {| x | temp := ::convert( x ), AAdd(apx, temp[2]), AAdd(apy, temp[1]) } )
+   AEval(apoints, {| x | temp := ::convert( x ), AAdd(apx, temp[2]), AAdd(apy, temp[1]) })
    ::error := rr_polybezier( apx, apy, lhp )
 
 RETURN self
@@ -887,7 +887,7 @@ METHOD PolyBezierTo( apoints, defpen ) CLASS HBPrinter
    LOCAL apx := {}, apy := {}, temp
    LOCAL lhp := ::getobjbyname( defpen, "P" )
 
-   AEval( apoints, {| x | temp := ::convert( x ), AAdd(apx, temp[2]), AAdd(apy, temp[1]) } )
+   AEval(apoints, {| x | temp := ::convert( x ), AAdd(apx, temp[2]), AAdd(apy, temp[1]) })
    ::error := rr_polybezierto( apx, apy, lhp )
 
 RETURN self
@@ -1013,7 +1013,7 @@ METHOD DefinePolygonRgn( defname, apoints, style ) CLASS HBPrinter
    IF lhand != 0
       RETURN self
    ENDIF
-   AEval( apoints, {| x | temp := ::convert( x ), AAdd(apx, temp[2]), AAdd(apy, temp[1]) } )
+   AEval(apoints, {| x | temp := ::convert( x ), AAdd(apx, temp[2]), AAdd(apy, temp[1]) })
    AAdd(::Regions[1], rr_createPolygonrgn(apx, apy, style))
    AAdd(::Regions[2], Upper(AllTrim(defname)))
 
@@ -1074,7 +1074,7 @@ RETURN self
 METHOD End() CLASS HBPrinter
 
    IF ::PreviewMode
-      AEval( ::metafiles, {| x | FErase( x[1] ) } )
+      AEval(::metafiles, {| x | FErase( x[1] ) })
       ::MetaFiles := {}
    ENDIF
    IF ::HDCRef != 0
@@ -1241,7 +1241,7 @@ METHOD DXCOLORS( par ) CLASS HBPrinter
    aColorNames := _SetGetGlobal( "rgbcolornames" )
    IF HB_ISCHAR(par)
       par := Lower( AllTrim(par) )
-      AEval( aColorNames, {| x | iif( x[1] == par, ltemp := x[2], "" ) } )
+      AEval(aColorNames, {| x | iif( x[1] == par, ltemp := x[2], "" ) })
    ELSEIF HB_ISNUMERIC(par)
       ltemp := iif( par <= Len(aColorNames), aColorNames[par, 2], 0 )
    ENDIF
@@ -1338,10 +1338,10 @@ STATIC FUNCTION str2arr( cList, cDelimiter )
       ENDDO
       EXIT
    CASE "A"
-      AEval( cDelimiter, {| x | nlencd += x } )
+      AEval(cDelimiter, {| x | nlencd += x })
       DO WHILE Len(( nPos := Left(cList, nlencd) )) == nlencd
          asub := {}
-         AEval( cDelimiter, {| x | AAdd(asub, Left(nPos, x)), nPos := SubStr(nPos, x + 1) } )
+         AEval(cDelimiter, {| x | AAdd(asub, Left(nPos, x)), nPos := SubStr(nPos, x + 1) })
          AAdd(aList, asub)
          cList := SubStr(cList, nlencd + 1)
       ENDDO

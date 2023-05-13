@@ -61,7 +61,7 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
    LOCAL FontHandle
    LOCAL ImgDefNode
    LOCAL ImgDefItem
-   LOCAL aBitmaps := Array( 4 )
+   LOCAL aBitmaps := Array(4)
    LOCAL mVar
    LOCAL k
    LOCAL Mask
@@ -324,7 +324,7 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
    _HMG_aControlMiscData2          [k] := ""
 
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlInit, k, mVar )
+      Eval(_HMG_bOnControlInit, k, mVar)
 #ifdef _OBJECT_
       ow := _WindowObj(ParentFormHandle)
       oc := _ControlObj(ControlHandle)
@@ -339,7 +339,7 @@ RETURN NIL
 FUNCTION InitDialogTree( ParentName, ControlHandle, k )
 *-----------------------------------------------------------------------------*
    
-   LOCAL aBitmaps := Array( 4 )
+   LOCAL aBitmaps := Array(4)
    LOCAL aImgNode
    LOCAL aImgItem
    LOCAL aImage
@@ -357,7 +357,7 @@ FUNCTION InitDialogTree( ParentName, ControlHandle, k )
    LOCAL n
    LOCAL Cargo
 
-   HB_SYMBOL_UNUSED( ParentName )
+   HB_SYMBOL_UNUSED(ParentName)
 
    aImgNode := _HMG_aControlMiscData1[ k, 2 ]
    aImgItem := _HMG_aControlMiscData1[ k, 3 ]
@@ -616,7 +616,7 @@ PROCEDURE TreeItemChangeImage ( ControlName, ParentForm, nItem, aImage )
    LOCAL iUnSel
    LOCAL iSel
 
-   IF ItemHandle > 0 .AND. ISARRAY( aImage ) .AND. ( ImgDef := Len(aImage) ) > 0
+   IF ItemHandle > 0 .AND. ISARRAY(aImage) .AND. ( ImgDef := Len(aImage) ) > 0
       k := GetControlIndex(ControlName, ParentForm)
       iUnSel := AddTreeViewBitmap( TreeHandle, aImage[1], _HMG_aControlMiscData1[ k, 4 ] ) - 1
       iSel := iif( ImgDef == 1, iUnSel, AddTreeViewBitmap( TreeHandle, aImage[2], _HMG_aControlMiscData1[ k, 4 ] ) - 1 )

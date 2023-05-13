@@ -747,7 +747,7 @@ PROCEDURE ProgressWheelPaint( cParentForm, cImgName, Width, Height, ;
 
    IF ShowText
       IF ISBLOCK( cText )
-         cText := Eval( cText, Position, Max )
+         cText := Eval(cText, Position, Max)
       ELSE
          cText := hb_ntos( Int( 100 * ( Position - Min ) / ( Max - Min ) ) ) + "%"
       ENDIF

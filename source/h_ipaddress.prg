@@ -111,7 +111,7 @@ FUNCTION _DefineIPAddress ( ControlName, ParentForm, x, y, w, h, aValue, ;
       AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
    ENDIF
 
-   IF ISARRAY( aValue )
+   IF ISARRAY(aValue)
       SetIPAddress(ControlHandle, aValue[1], aValue[2], aValue[3], aValue[4])
    ENDIF
 
@@ -169,7 +169,7 @@ FUNCTION _DefineIPAddress ( ControlName, ParentForm, x, y, w, h, aValue, ;
    _HMG_aControlMiscData2          [k] := ""
 /*
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlInit, k, mVar )
+      Eval(_HMG_bOnControlInit, k, mVar)
    ENDIF
 */
 RETURN Nil

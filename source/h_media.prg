@@ -131,7 +131,7 @@ FUNCTION _DefinePlayer ( ControlName, ParentFormName, file, x, y, w, h, noasw, n
    _HMG_aControlMiscData2          [k] := ""
 
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlInit, k, mVar )
+      Eval(_HMG_bOnControlInit, k, mVar)
    ENDIF
 
 RETURN Nil
@@ -158,23 +158,23 @@ FUNCTION GetAviFileSize( cFile )
    cStr1 := cStr2 := Space( 4 )
    nWidth := nHeight := 0
 
-   nFileHandle := FOpen( cFile )
+   nFileHandle := FOpen(cFile)
 
    IF FError() == 0
 
-      FRead( nFileHandle, @cStr1, 4 )
+      FRead(nFileHandle, @cStr1, 4)
 
       IF cStr1 == "RIFF"
-         FSeek( nFileHandle, 64, 0 )
+         FSeek(nFileHandle, 64, 0)
 
-         FRead( nFileHandle, @cStr1, 4 )
-         FRead( nFileHandle, @cStr2, 4 )
+         FRead(nFileHandle, @cStr1, 4)
+         FRead(nFileHandle, @cStr2, 4)
 
          nWidth  := Bin2L( cStr1 )
          nHeight := Bin2L( cStr2 )
       ENDIF
 
-      FClose( nFileHandle )
+      FClose(nFileHandle)
 
    ENDIF
 
@@ -187,7 +187,7 @@ FUNCTION GetAviResSize( cResName )
    LOCAL aAviSize
    LOCAL cDiskFile
 
-   aAviSize := Array( 2 )
+   aAviSize := Array(2)
    cDiskFile := TempFile( GetTempFolder(), "avi" )
 
    IF RCDataToFile( cResName, cDiskFile, "AVI" ) > 0
@@ -332,7 +332,7 @@ FUNCTION _DefineAnimateBox( ControlName, ParentFormName, x, y, w, h, autoplay, c
    _HMG_aControlMiscData2          [k] := ""
 
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlInit, k, mVar )
+      Eval(_HMG_bOnControlInit, k, mVar)
    ENDIF
 
    IF !lDialogInMemory

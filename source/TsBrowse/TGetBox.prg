@@ -56,10 +56,10 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
            lNoBorder := .F., ;
            bSetGet   := bSETGET( cText )
 
-   HB_SYMBOL_UNUSED( bUp )
-   HB_SYMBOL_UNUSED( bDown )
-   HB_SYMBOL_UNUSED( bMin )
-   HB_SYMBOL_UNUSED( bMax )
+   HB_SYMBOL_UNUSED(bUp)
+   HB_SYMBOL_UNUSED(bDown)
+   HB_SYMBOL_UNUSED(bMin)
+   HB_SYMBOL_UNUSED(bMax)
 
    ::nTop          := nRow
    ::nLeft         := nCol
@@ -91,14 +91,14 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
    nId             := ::nId
    ParentFormName  := oWnd:cParentWnd
 
-   uValue          := Eval( bSetGet )
+   uValue          := Eval(bSetGet)
    aFontColor      := { GetRed( nClrFore ), GetGreen( nClrFore ), GetBlue( nClrFore ) }
    aBackColor      := { GetRed( nClrBack ), GetGreen( nClrBack ), GetBlue( nClrBack ) }
    uLostFocus      := ::LostFocus()
    uGotFocus       := ::GotFocus()
 
    if HB_ISBLOCK(cPict) 
-      cPict := Eval( cPict ) 
+      cPict := Eval(cPict)
    endif
 
    if !Empty(::oWnd:hWnd)
@@ -159,7 +159,7 @@ METHOD KeyDown( nKey, nFlags ) CLASS TGetBox
 
    If nKey == VK_TAB .OR. nKey == VK_RETURN .OR. nKey == VK_ESCAPE
       ::bLostFocus := Nil
-      Eval( ::bKeyDown, nKey, nFlags, .T. )
+      Eval(::bKeyDown, nKey, nFlags, .T.)
    Endif
 
 RETURN 0
@@ -173,7 +173,7 @@ METHOD lValid() CLASS TGetBox
    Local lRet := .T.
 
    If HB_ISBLOCK(::bValid)
-      lRet := Eval( ::bValid, ::GetText() )
+      lRet := Eval(::bValid, ::GetText())
    EndIf
 
 Return lRet
@@ -187,7 +187,7 @@ METHOD LostFocus( hCtlFocus ) CLASS TGetBox
    ::lFocused := .F.
 
    If ::bLostFocus != Nil
-      Eval( ::bLostFocus, ::nLastKey, hCtlFocus )
+      Eval(::bLostFocus, ::nLastKey, hCtlFocus)
    EndIf
 
 Return 0

@@ -53,11 +53,11 @@
 #include <richedit.h>
 
 #if defined ( __MINGW32__ ) && defined ( __MINGW32_VERSION )
-# define IMF_AUTOFONT      0x0002
+#define IMF_AUTOFONT      0x0002
 #endif
 
 #if defined(MSFTEDIT_CLASS)
-# undef MSFTEDIT_CLASS
+#undef MSFTEDIT_CLASS
 #endif
 #define MSFTEDIT_CLASS     TEXT("RICHEDIT50W")
 

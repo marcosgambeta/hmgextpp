@@ -111,8 +111,8 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
    ENDIF
 
    IF ValType(aReadOnly) != "A"
-      aReadOnly := Array( Len(aOptions) )
-      AFill( aReadOnly, .F. )
+      aReadOnly := Array(Len(aOptions))
+      AFill(aReadOnly, .F.)
    ENDIF
 
    mVar := "_" + ParentFormName + "_" + ControlName
@@ -258,7 +258,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
    IF !lDialogInMemory
 
       IF _HMG_IsThemed .AND. ( IsArrayRGB(backcolor) .OR. IsArrayRGB(fontcolor) )
-         AEval( aHandles, { | h | SetWindowTheme ( h, "", "" ) } )
+         AEval(aHandles, { | h | SetWindowTheme ( h, "", "" ) })
       ENDIF
 
       IF _HMG_BeginTabActive
@@ -326,7 +326,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
    ENDIF
 
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlInit, k, mVar )
+      Eval(_HMG_bOnControlInit, k, mVar)
 #ifdef _OBJECT_
       ow := _WindowObj(ParentFormHandle)
       oc := _ControlObj(ControlHandle)

@@ -68,7 +68,7 @@
 #include <string>
 
 #if defined(_MSC_VER)
-# define itoa(__value, __string, __radix)  _itoa(__value, __string, __radix)
+#define itoa(__value, __string, __radix)  _itoa(__value, __string, __radix)
 #endif
 
 
@@ -1477,8 +1477,8 @@ HB_FUNC( FILLRECT )
 }
 
 #if defined(__MINGW32__)
-# pragma GCC diagnostic push
-# pragma GCC diagnostic ignored "-Wstrict-aliasing"
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  /* __MINGW32__ */
 
 BOOL IsAppHung(IN HWND hWnd, OUT PBOOL pbHung)
@@ -1536,7 +1536,7 @@ BOOL IsAppHung(IN HWND hWnd, OUT PBOOL pbHung)
 }
 
 #if defined(__MINGW32__)
-# pragma GCC diagnostic pop
+#pragma GCC diagnostic pop
 #endif  /* __MINGW32__ */
 
 HB_FUNC( ISAPPHUNG )

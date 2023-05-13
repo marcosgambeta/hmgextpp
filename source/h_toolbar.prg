@@ -156,7 +156,7 @@ FUNCTION _DefineToolBar ( ControlName, ParentForm, x, y, caption, ProcedureName,
    _HMG_aControlMiscData2          [k] := ""
 
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlInit, k, mVar )
+      Eval(_HMG_bOnControlInit, k, mVar)
    ENDIF
 
 RETURN ControlHandle
@@ -225,7 +225,7 @@ FUNCTION _DefineToolButton ( ControlName, ParentControl, x, y, Caption, Procedur
    LOCAL i
    LOCAL k
 
-   HB_SYMBOL_UNUSED( Flat )
+   HB_SYMBOL_UNUSED(Flat)
 
    IF ProcedureName == NIL .AND. Dropdown == .T.
       MsgMiniGuiError("ToolBar DropDown buttons must have an associated action (Use WholeDropDown style for no action).")
@@ -323,7 +323,7 @@ FUNCTION _DefineToolButton ( ControlName, ParentControl, x, y, Caption, Procedur
    _HMG_aControlMiscData2          [k] := ""
 
    IF _HMG_lOOPEnabled
-      Eval( _HMG_bOnControlInit, k, mVar )
+      Eval(_HMG_bOnControlInit, k, mVar)
    ENDIF
 
    Caption := Upper(Caption)

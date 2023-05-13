@@ -84,7 +84,7 @@ static void hmg_init(void * cargo)
 {
    LPCTSTR lpszDllName = TEXT("ComCtl32.dll");
 
-   HB_SYMBOL_UNUSED( cargo );
+   HB_SYMBOL_UNUSED(cargo);
 
    if( S_FALSE == CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE | COINIT_SPEED_OVER_MEMORY) )
    {
@@ -172,7 +172,7 @@ HB_FUNC( OLEDATARELEASE )
 
 // borrowed from hbwapi.lib [vszakats]
 #ifndef LOAD_LIBRARY_SEARCH_SYSTEM32
-# define LOAD_LIBRARY_SEARCH_SYSTEM32  0x00000800
+#define LOAD_LIBRARY_SEARCH_SYSTEM32  0x00000800
 #endif
 
 static HB_BOOL win_has_search_system32(void)

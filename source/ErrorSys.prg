@@ -218,7 +218,7 @@ STATIC PROCEDURE ShowError( cErrorMessage, oError )
       _TSB_aControlhWnd := {}
 #endif
       IF ISBLOCK( _HMG_bOnErrorInit )
-         cMsg := Eval( _HMG_bOnErrorInit, cMsg )
+         cMsg := Eval(_HMG_bOnErrorInit, cMsg)
       ENDIF
 
       cMsg += iif( _lShowDetailError(), cErrorMessage, ErrorMessage( oError ) )
@@ -257,7 +257,7 @@ STATIC PROCEDURE ShowError( cErrorMessage, oError )
       ErrorLevel( 1 )
 
       IF ISBLOCK( _HMG_bOnErrorExit )
-         Eval( _HMG_bOnErrorExit )
+         Eval(_HMG_bOnErrorExit)
       ENDIF
 
       ReleaseAllWindows()
@@ -307,7 +307,7 @@ STATIC PROCEDURE ErrorLog( nHandle, oErr )
 
       IF hb_IsFunction( "Select" )
          Html_LineText( nHandle, "" )
-         Html_LineText( nHandle, "Current Work Area..: " + strvalue( Eval( hb_macroBlock( "Select()" ) ) ) )
+         Html_LineText( nHandle, "Current Work Area..: " + strvalue( Eval(hb_macroBlock( "Select()" )) ) )
       ENDIF
 
       HTML_RawText( nHandle, "</details>" )
@@ -337,7 +337,7 @@ STATIC PROCEDURE ErrorLog( nHandle, oErr )
       Html_LineText( nHandle, "SET DIRCASE........: " + strvalue( Set( _SET_DIRCASE ) ) )
       Html_LineText( nHandle, "SET DIRSEPARATOR...: " + strvalue( Set( _SET_DIRSEPARATOR ) ) )
 
-      Html_LineText( nHandle, "SET EOL............: " + strvalue( Asc( Set( _SET_EOL ) ) ) )
+      Html_LineText( nHandle, "SET EOL............: " + strvalue( Asc(Set( _SET_EOL )) ) )
       Html_LineText( nHandle, "SET EPOCH..........: " + strvalue( Set( _SET_EPOCH ) ) )
       Html_LineText( nHandle, "SET ERRORLOG.......: " + strvalue( _GetErrorlogFile() ) )
       Html_LineText( nHandle, "SET EXACT..........: " + strvalue( Set( _SET_EXACT ), .T. ) )
@@ -377,7 +377,7 @@ STATIC PROCEDURE ErrorLog( nHandle, oErr )
       HTML_RawText( nHandle, PadC( " Detailed Work Area Items ", 79, "-" ) )
       HTML_RawText( nHandle, "<br/></summary>" )
 
-      hb_WAEval( {||
+      hb_WAEval({||
       IF hb_IsFunction( "Select" )
          Html_LineText( nHandle, "Work Area No ......: " + strvalue( Do( "Select" ) ) )
       ENDIF
@@ -397,11 +397,11 @@ STATIC PROCEDURE ErrorLog( nHandle, oErr )
          Html_LineText( nHandle, "Index Order .......: " + strvalue( Do( "IndexOrd" ) ) )
       ENDIF
       IF hb_IsFunction( "IndexKey" )
-         Html_LineText( nHandle, "Active Key ........: " + strvalue( Eval( hb_macroBlock( "IndexKey( 0 )" ) ) ) )
+         Html_LineText( nHandle, "Active Key ........: " + strvalue( Eval(hb_macroBlock( "IndexKey( 0 )" )) ) )
       ENDIF
       Html_LineText( nHandle, "" )
       RETURN .T.
-      } )
+      })
 
       HTML_RawText( nHandle, "</details>" )
 
@@ -494,9 +494,9 @@ FUNCTION HTML_ERRORLOG
             Html_Line( HtmArch )
          ENDIF
       ELSE
-         HtmArch := hb_vfOpen( cErrorLogFile, FO_WRITE )
+         HtmArch := hb_vfOpen(cErrorLogFile, FO_WRITE)
          IF HtmArch != NIL
-            hb_vfSeek( HtmArch, __HTML_INSERT_OFFSET(), FS_END )
+            hb_vfSeek(HtmArch, __HTML_INSERT_OFFSET(), FS_END)
          ENDIF
       ENDIF
    ENDIF
@@ -514,7 +514,7 @@ FUNCTION HTML_INI( ARCH, TITLE )
    LOCAL cTemplate
 
    IF IsErrorLogActive()
-      HtmArch := hb_vfOpen( ARCH, FO_CREAT + FO_TRUNC + FO_WRITE )
+      HtmArch := hb_vfOpen(ARCH, FO_CREAT + FO_TRUNC + FO_WRITE)
       IF HtmArch == NIL
          MsgStop( "Can`t open errorlog file " + ARCH, "Error" )
       ELSE
@@ -523,7 +523,7 @@ FUNCTION HTML_INI( ARCH, TITLE )
          IF Set( _SET_CODEPAGE ) == "UTF8"
             cTemplate := StrTran(cTemplate, ["windows-1251"], ["utf-8"])
          ENDIF
-         hb_vfWrite( HtmArch, cTemplate )
+         hb_vfWrite(HtmArch, cTemplate)
       ENDIF
    ENDIF
 
@@ -533,7 +533,7 @@ RETURN ( HtmArch )
 PROCEDURE HTML_RAWTEXT( HTMARCH, LINEA )
 *-----------------------------------------------------------------------------*
    IF HTMARCH != NIL .AND. IsErrorLogActive()
-      hb_vfWrite( HTMARCH, RTrim(LINEA) + CRLF )
+      hb_vfWrite(HTMARCH, RTrim(LINEA) + CRLF)
    ENDIF
 
 RETURN
@@ -545,7 +545,7 @@ RETURN
 PROCEDURE HTML_LINETEXT( HTMARCH, LINEA )
 *-----------------------------------------------------------------------------*
    IF HTMARCH != NIL .AND. IsErrorLogActive()
-      hb_vfWrite( HTMARCH, RTrim(LINEA) + "<BR>" + CRLF )
+      hb_vfWrite(HTMARCH, RTrim(LINEA) + "<BR>" + CRLF)
    ENDIF
 
 RETURN
@@ -557,7 +557,7 @@ RETURN
 PROCEDURE HTML_LINE( HTMARCH )
 *-----------------------------------------------------------------------------*
    IF HTMARCH != NIL .AND. IsErrorLogActive()
-      hb_vfWrite( HTMARCH, "<HR>" + CRLF )
+      hb_vfWrite(HTMARCH, "<HR>" + CRLF)
    ENDIF
 
 RETURN
@@ -566,8 +566,8 @@ RETURN
 PROCEDURE HTML_END( HTMARCH )
 *-----------------------------------------------------------------------------*
    IF HTMARCH != NIL .AND. IsErrorLogActive()
-      hb_vfWrite( HTMARCH, "</BODY></HTML>" )
-      hb_vfClose( HTMARCH )
+      hb_vfWrite(HTMARCH, "</BODY></HTML>")
+      hb_vfClose(HTMARCH)
    ENDIF
 
 RETURN

@@ -151,7 +151,7 @@ METHOD Get( cRegVar, uVar ) CLASS TReg32
             uVar := Bin2U( uVar )
             EXIT
          CASE "D"
-            uVar := CToD( uVar )
+            uVar := CToD(uVar)
             EXIT
          CASE "L"
             uVar := ( Upper(uVar) == ".T." )
@@ -253,7 +253,7 @@ FUNCTION GetRegistryValue( nKey, cRegKey, cRegVar, cType )
       CASE cType == "N"
          uVal := 0
       CASE cType == "D"
-         uVal := CToD( "" )
+         uVal := CToD("")
       CASE cType == "L"
          uVal := .F.
       OTHERWISE

@@ -338,9 +338,9 @@ static BOOL CALLBACK PropsEnumProc(HWND hWnd, LPCTSTR pszPropName, HANDLE handle
 
 /*
    aProps := {}
-        bCodeBlock := {|hWnd,cPropName,hHandle| HB_SYMBOL_UNUSED( hWnd ), ;
+        bCodeBlock := {|hWnd,cPropName,hHandle| HB_SYMBOL_UNUSED(hWnd), ;
                                            AAdd(aProps, cPropName),;
-                                           HB_SYMBOL_UNUSED( hHandle ),;
+                                           HB_SYMBOL_UNUSED(hHandle),;
                                            .T. }
 
         nRetVal := EnumPropsEx(nHandle, bCodeBlock)
@@ -350,15 +350,15 @@ static BOOL CALLBACK PropsEnumProc(HWND hWnd, LPCTSTR pszPropName, HANDLE handle
                 ? "Not find a property."
         ELSE
                 ? "Last value returned by CB is", If( nRetVal == 0, .F., .T. )
-                AEVal( aProps, {|c| QOut(c) } )
+                AEVal(aProps, {|c| QOut(c) })
         ENDIF
         ..
 
         CB return TRUE to continue the property list enumeration
         or return FALSE to stop the property list enumeration.
 
-        bCodeBlock := {|hWnd,cPropName,hHandle| HB_SYMBOL_UNUSED( hWnd ), ;
-                                           HB_SYMBOL_UNUSED( hHandle ),;
+        bCodeBlock := {|hWnd,cPropName,hHandle| HB_SYMBOL_UNUSED(hWnd), ;
+                                           HB_SYMBOL_UNUSED(hHandle),;
                                            ( !( cPropName == "MY_PROP" ) ) }
 
         nRetVal := EnumPropsEx(nHandle, bCodeBlock)

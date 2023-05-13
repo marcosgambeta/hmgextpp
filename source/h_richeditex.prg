@@ -453,7 +453,7 @@ FUNCTION RichEditBox_RTFPrint( hWndControl, aSelRange, nLeft, nTop, nRight, nBot
 
       START PRINTPAGE
 
-      Eval( PrintPageCodeBlock )
+      Eval(PrintPageCodeBlock)
       nNextChar := RichEditBox_FormatRange ( hWndControl, OpenPrinterGetPageDC(), nLeft, nTop, nRight, nBottom, aSelRange )
       aSelRange[1] := nNextChar
       DO EVENTS

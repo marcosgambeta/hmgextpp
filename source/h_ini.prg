@@ -78,14 +78,14 @@ FUNCTION _LogFile( lCrLf, ... )
    LOCAL cFile := hb_defaultValue(_SetGetLogFile(), GetStartUpFolder() + hb_ps() + "_MsgLog.txt")
 
    IF !Empty(cFile)
-      hFile := iif( File( cFile ), FOpen( cFile, FO_READWRITE ), FCreate( cFile, FC_NORMAL ) )
+      hFile := iif( File( cFile ), FOpen(cFile, FO_READWRITE), FCreate( cFile, FC_NORMAL ) )
       IF hFile == F_ERROR
          RETURN .F.
       ENDIF
-      FSeek( hFile, 0, FS_END )
+      FSeek(hFile, 0, FS_END)
       IF nParams > 1
          IF ( lCrLf := hb_defaultValue(lCrLf, .T.) )
-            FWrite( hFile, CRLF, 2 )
+            FWrite(hFile, CRLF, 2)
          ENDIF
          IF nParams == 2 .AND. HB_ISNIL( aParams[2] ) .AND. lCrLf
          ELSE
@@ -104,13 +104,13 @@ FUNCTION _LogFile( lCrLf, ... )
                ELSEIF cTp == "U" ; xVal := "NIL"
                ELSE              ; xVal := "'" + cTp + "'"
                ENDIF
-               FWrite( hFile, xVal + Chr( 9 ) )
+               FWrite(hFile, xVal + Chr(9))
             NEXT
          ENDIF
       ELSE
-         FWrite( hFile, CRLF, 2 )
+         FWrite(hFile, CRLF, 2)
       ENDIF
-      FClose( hFile )
+      FClose(hFile)
    ENDIF
 
 RETURN .T.
@@ -127,7 +127,7 @@ FUNCTION _BeginIni( cIniFile )
 
    IF Set( _SET_CODEPAGE ) == "UTF8"
 
-      hFile := iif( File( cIniFile ), FOpen( cIniFile, FO_READ + FO_SHARED ), HMG_CreateFile_UTF16LE_BOM( cIniFile ) )
+      hFile := iif( File( cIniFile ), FOpen(cIniFile, FO_READ + FO_SHARED), HMG_CreateFile_UTF16LE_BOM( cIniFile ) )
       IF hFile == F_ERROR
          MsgInfo( "Error opening a file INI. DOS ERROR: " + hb_ntos( FError() ) )
          Return( -1 )
@@ -135,17 +135,17 @@ FUNCTION _BeginIni( cIniFile )
          _HMG_ActiveIniFile := cIniFile
       ENDIF
 
-      FClose( hFile )
+      FClose(hFile)
 
    ELSE
-      hFile := hb_vfOpen( cIniFile, iif( hb_vfExists( cIniFile ), FO_READ + FO_SHARED, FO_CREAT + FO_READWRITE ) )
+      hFile := hb_vfOpen(cIniFile, iif( hb_vfExists( cIniFile ), FO_READ + FO_SHARED, FO_CREAT + FO_READWRITE ))
       IF hFile == NIL
          MsgInfo( "Error opening a file INI. DOS ERROR: " + hb_ntos( FError() ) )
          Return( -1 )
       ELSE
          _HMG_ActiveIniFile := cIniFile
       ENDIF
-      hb_vfClose( hFile )
+      hb_vfClose(hFile)
   ENDIF
 
 RETURN( 0 )
@@ -224,7 +224,7 @@ FUNCTION GetBeginComment
    LOCAL cComment := ""
 
    IF !Empty(_HMG_ActiveIniFile)
-      aLines := hb_ATokens( StrTran(MemoRead( _HMG_ActiveIniFile ), CRLF, Chr( 10 )), Chr( 10 ) )
+      aLines := hb_ATokens(StrTran(MemoRead( _HMG_ActiveIniFile ), CRLF, Chr( 10 )), Chr( 10 ))
 
       IF ( nLen := Len(aLines) ) > 0
          FOR i := 1 TO nLen
@@ -256,7 +256,7 @@ FUNCTION GetEndComment
    LOCAL cComment := ""
 
    IF !Empty(_HMG_ActiveIniFile)
-      aLines := hb_ATokens( StrTran(MemoRead( _HMG_ActiveIniFile ), CRLF, Chr( 10 )), Chr( 10 ) )
+      aLines := hb_ATokens(StrTran(MemoRead( _HMG_ActiveIniFile ), CRLF, Chr( 10 )), Chr( 10 ))
 
       IF ( nLen := Len(aLines) ) > 0
          FOR i := nLen TO 1 STEP -1
@@ -290,10 +290,10 @@ FUNCTION SetBeginComment( cComment )
    hb_default(@cComment, "")
 
    IF !Empty(_HMG_ActiveIniFile)
-      aLines := hb_ATokens( StrTran(MemoRead( _HMG_ActiveIniFile ), CRLF, Chr( 10 )), Chr( 10 ) )
+      aLines := hb_ATokens(StrTran(MemoRead( _HMG_ActiveIniFile ), CRLF, Chr( 10 )), Chr( 10 ))
 
-      IF ( nLen := Len(aLines) ) > 0 .AND. Len(ATail( aLines )) == 0
-         ASize( aLines, nLen - 1 )
+      IF ( nLen := Len(aLines) ) > 0 .AND. Len(ATail(aLines)) == 0
+         ASize(aLines, nLen - 1)
          nLen--
       ENDIF
       IF nLen > 0
@@ -350,10 +350,10 @@ FUNCTION SetEndComment( cComment )
    cComment := AllTrim(cComment)
 
    IF !Empty(_HMG_ActiveIniFile)
-      aLines := hb_ATokens( StrTran(MemoRead( _HMG_ActiveIniFile ), CRLF, Chr( 10 )), Chr( 10 ) )
+      aLines := hb_ATokens(StrTran(MemoRead( _HMG_ActiveIniFile ), CRLF, Chr( 10 )), Chr( 10 ))
       nLen := Len(aLines)
-      IF nLen > 0 .AND. hb_ULen(ATail( aLines )) == 0
-         ASize( aLines, nLen - 1 )
+      IF nLen > 0 .AND. hb_ULen(ATail(aLines)) == 0
+         ASize(aLines, nLen - 1)
          nLen--
       ENDIF
       IF nLen > 0
@@ -430,7 +430,7 @@ FUNCTION xValue( cValue, cType )
    DO CASE // TODO: SWITCH
    CASE cType $  "CM"; xValue := cValue
    CASE cType == "D" ; xValue := SToD( cValue )
-   CASE cType == "N" ; xValue := Val( cValue )
+   CASE cType == "N" ; xValue := Val(cValue)
    CASE cType == "L" ; xValue := ( cValue == "T" )
    CASE cType == "A" ; xValue := CToA( cValue )
    OTHERWISE         ; xValue := NIL                 // Nil, Block, Object
@@ -468,7 +468,7 @@ FUNCTION CToA( cArray )
 
    cArray := hb_USubStr(cArray, 6)    // strip off array and length
    WHILE hb_ULen(cArray) > 0
-      nLen := Val( hb_USubStr(cArray, 2, 4) )
+      nLen := Val(hb_USubStr(cArray, 2, 4))
       IF ( cType := hb_ULeft(cArray, 1) ) == "A"
          AAdd(aArray, CToA(hb_USubStr(cArray, 1, nLen + 5)))
       ELSE
@@ -492,7 +492,7 @@ FUNCTION _GetSectionNames( cIniFile )
    IF File( cIniFile )
       aLista := _GetPrivateProfileSectionNames( cIniFile )
       IF !Empty(aLista)
-         AEval( aLista, {|cVal| iif( Empty(cVal), , AAdd(aSectionList, cVal) ) } )
+         AEval(aLista, {|cVal| iif( Empty(cVal), , AAdd(aSectionList, cVal) ) })
       ENDIF
    ELSE
       MsgStop( "Can`t open " + cIniFile, "Error" )
