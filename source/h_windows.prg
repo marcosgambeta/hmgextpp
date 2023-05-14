@@ -1938,7 +1938,7 @@ PROCEDURE VirtualChildControlFocusProcess(nControlHandle, nWindowHandle)
 
    FOR x := 1 TO Len(_HMG_aControlHandles)
 
-      IF ISNUMBER(nControlHandle)
+      IF ISNUMBER(nControlHandle) // TODO:
 
          IF ISNUMBER(_HMG_aControlHandles[x])
 

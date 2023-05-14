@@ -295,7 +295,7 @@ STATIC FUNCTION _DefineTab( ControlName, ParentFormName, x, y, w, h, aCaptions, 
    _HMG_aControlContainerRow       [k] := -1
    _HMG_aControlContainerCol       [k] := -1
    _HMG_aControlPicture            [k] := Images
-   _HMG_aControlContainerHandle    [k] := 0
+   _HMG_aControlContainerHandle    [k] := HMG_NULLHANDLE
    _HMG_aControlFontName           [k] := fontname
    _HMG_aControlFontSize           [k] := fontsize
    _HMG_aControlFontAttributes     [k] := { bold, italic, underline, strikeout }

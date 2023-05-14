@@ -140,7 +140,7 @@ FUNCTION _BeginPager( ControlName, ParentName, nWidth, nHeight, nScroll, cCaptio
    _HMG_aControlContainerRow       [k] := -1
    _HMG_aControlContainerCol       [k] := -1
    _HMG_aControlPicture            [k] := ""
-   _HMG_aControlContainerHandle    [k] := 0
+   _HMG_aControlContainerHandle    [k] := HMG_NULLHANDLE
    _HMG_aControlFontName           [k] := ""
    _HMG_aControlFontSize           [k] := 0
    _HMG_aControlFontAttributes     [k] := { .F. , .F. , .F. , .F. }
@@ -150,8 +150,8 @@ FUNCTION _BeginPager( ControlName, ParentName, nWidth, nHeight, nScroll, cCaptio
    _HMG_aControlCaption            [k] := cCaption
    _HMG_aControlVisible            [k] := .T.
    _HMG_aControlHelpId             [k] := 0
-   _HMG_aControlFontHandle         [k] := 0
-   _HMG_aControlBrushHandle        [k] := 0
+   _HMG_aControlFontHandle         [k] := HMG_NULLHANDLE
+   _HMG_aControlBrushHandle        [k] := HMG_NULLHANDLE
    _HMG_aControlEnabled            [k] := .T.
    _HMG_aControlMiscData1          [k] := vertical
    _HMG_aControlMiscData2          [k] := ""

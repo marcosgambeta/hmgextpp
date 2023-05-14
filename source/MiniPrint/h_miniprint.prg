@@ -2198,7 +2198,7 @@ FUNCTION _DefineEmfFile ( ControlName, ParentFormName, x, y, FileName, w, h, ;
    _HMG_aControlContainerRow  [k] :=  -1
    _HMG_aControlContainerCol  [k] :=  -1
    _HMG_aControlPicture  [k] :=  FileName
-   _HMG_aControlContainerHandle [k] :=  0
+   _HMG_aControlContainerHandle [k] :=  HMG_NULLHANDLE
    _HMG_aControlFontName  [k] :=  ""
    _HMG_aControlFontSize  [k] :=  0
    _HMG_aControlFontAttributes  [k] :=  { .F. , .F. , .F. , .F. }
@@ -2208,7 +2208,7 @@ FUNCTION _DefineEmfFile ( ControlName, ParentFormName, x, y, FileName, w, h, ;
    _HMG_aControlCaption  [k] :=  ""
    _HMG_aControlVisible  [k] :=  iif( invisible, .F. , .T. )
    _HMG_aControlHelpId  [k] :=  HelpId
-   _HMG_aControlFontHandle  [k] :=   0
+   _HMG_aControlFontHandle  [k] :=   HMG_NULLHANDLE
    _HMG_aControlBrushHandle [k] := C_SetEmfFile ( ControlHandle , FileName , W , H , _HMG_aControlValue [k] , _HMG_aControlSpacing [k] )
    _HMG_aControlEnabled  [k] :=  .T.
    _HMG_aControlMiscData1 [k] := 0

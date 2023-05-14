@@ -141,7 +141,7 @@ FUNCTION _BeginMessageBar( ControlName, ParentForm, kbd, fontname, fontsize, bol
    _HMG_aControlContainerRow       [k] := -1
    _HMG_aControlContainerCol       [k] := -1
    _HMG_aControlPicture            [k] := ""
-   _HMG_aControlContainerHandle    [k] := 0
+   _HMG_aControlContainerHandle    [k] := HMG_NULLHANDLE
    _HMG_aControlFontName           [k] := fontname
    _HMG_aControlFontSize           [k] := fontsize
    _HMG_aControlFontAttributes     [k] := { bold, italic, underline, strikeout }
@@ -152,7 +152,7 @@ FUNCTION _BeginMessageBar( ControlName, ParentForm, kbd, fontname, fontsize, bol
    _HMG_aControlVisible            [k] := .T.
    _HMG_aControlHelpId             [k] := 0
    _HMG_aControlFontHandle         [k] := FontHandle
-   _HMG_aControlBrushHandle        [k] := 0
+   _HMG_aControlBrushHandle        [k] := HMG_NULLHANDLE
    _HMG_aControlEnabled            [k] := .T.
    _HMG_aControlMiscData1          [k] := 0
    _HMG_aControlMiscData2          [k] := ""
@@ -292,8 +292,8 @@ FUNCTION _DefineItemMessage ( ControlName, ParentControl, x, y, Caption, Procedu
    _HMG_aControlCaption            [k] := Caption
    _HMG_aControlVisible            [k] := .T.
    _HMG_aControlHelpId             [k] := 0
-   _HMG_aControlFontHandle         [k] := 0
-   _HMG_aControlBrushHandle        [k] := 0
+   _HMG_aControlFontHandle         [k] := HMG_NULLHANDLE
+   _HMG_aControlBrushHandle        [k] := HMG_NULLHANDLE
    _HMG_aControlEnabled            [k] := .T.
    _HMG_aControlMiscData1          [k] := 0
    _HMG_aControlMiscData2          [k] := ""

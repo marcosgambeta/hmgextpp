@@ -588,7 +588,7 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
    _HMG_aControlContainerRow[k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1 )
    _HMG_aControlContainerCol[k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1 )
    _HMG_aControlPicture[k] := DELETE
-   _HMG_aControlContainerHandle[k] := 0
+   _HMG_aControlContainerHandle[k] := HMG_NULLHANDLE
    _HMG_aControlFontName[k] := FONTNAME
    _HMG_aControlFontSize[k] := FONTSIZE
    _HMG_aControlFontAttributes[k] := { BOLD, italic, underline, strikeout }
@@ -599,7 +599,7 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
    _HMG_aControlVisible[k] := .T.
    _HMG_aControlHelpId[k] := HelpId
    _HMG_aControlFontHandle[k] := oBrw:hFont
-   _HMG_aControlBrushHandle[k] := 0
+   _HMG_aControlBrushHandle[k] := HMG_NULLHANDLE
    _HMG_aControlEnabled[k] := .T.
    _HMG_aControlMiscData1[k] := 0
    _HMG_aControlMiscData2[k] := ""
@@ -636,7 +636,7 @@ FUNCTION _EndTBrowse( bEnd )
          oBrw:lRePaint := .T.
          oBrw:Display()
          _HMG_ActiveTBrowseName := ""
-         _HMG_ActiveTBrowseHandle := 0
+         _HMG_ActiveTBrowseHandle := HMG_NULLHANDLE
          _HMG_BeginTBrowseActive := .F.
 
 #ifdef _OBJECT_

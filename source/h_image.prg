@@ -199,7 +199,7 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
    _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
    _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
    _HMG_aControlPicture            [k] := FileName
-   _HMG_aControlContainerHandle    [k] := 0
+   _HMG_aControlContainerHandle    [k] := HMG_NULLHANDLE
    _HMG_aControlFontName           [k] := ""
    _HMG_aControlFontSize           [k] := 0
    _HMG_aControlFontAttributes     [k] := { .F. , .F. , .F. , .F. }
@@ -209,8 +209,8 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
    _HMG_aControlCaption            [k] := iif( adjustimage, 1, 0 )
    _HMG_aControlVisible            [k] := iif( invisible, .F. , .T. )
    _HMG_aControlHelpId             [k] := HelpId
-   _HMG_aControlFontHandle         [k] := 0
-   _HMG_aControlBrushHandle        [k] := 0
+   _HMG_aControlFontHandle         [k] := HMG_NULLHANDLE
+   _HMG_aControlBrushHandle        [k] := HMG_NULLHANDLE
    _HMG_aControlEnabled            [k] := .T.
    _HMG_aControlMiscData1          [k] := nAlphaLevel
    _HMG_aControlMiscData2          [k] := ""

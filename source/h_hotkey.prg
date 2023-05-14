@@ -95,7 +95,7 @@ FUNCTION _DefineHotKey ( cParentForm , nMod , nKey , bAction )
 
    _HMG_aControlType               [k] := CONTROL_TYPE_HOTKEY
    _HMG_aControlNames              [k] := ""
-   _HMG_aControlHandles            [k] := 0
+   _HMG_aControlHandles            [k] := HMG_NULLHANDLE
    _HMG_aControlParentHandles      [k] := nParentForm
    _HMG_aControlIds                [k] := nId
    _HMG_aControlProcedures         [k] := bAction
@@ -118,7 +118,7 @@ FUNCTION _DefineHotKey ( cParentForm , nMod , nKey , bAction )
    _HMG_aControlContainerRow       [k] := 0
    _HMG_aControlContainerCol       [k] := 0
    _HMG_aControlPicture            [k] := ""
-   _HMG_aControlContainerHandle    [k] := 0
+   _HMG_aControlContainerHandle    [k] := HMG_NULLHANDLE
    _HMG_aControlFontName           [k] := ""
    _HMG_aControlFontSize           [k] := 0
    _HMG_aControlFontAttributes     [k] := { .F. , .F. , .F. , .F. }
@@ -128,8 +128,8 @@ FUNCTION _DefineHotKey ( cParentForm , nMod , nKey , bAction )
    _HMG_aControlCaption            [k] := ""
    _HMG_aControlVisible            [k] := .T.
    _HMG_aControlHelpId             [k] := 0
-   _HMG_aControlFontHandle         [k] := 0
-   _HMG_aControlBrushHandle        [k] := 0
+   _HMG_aControlFontHandle         [k] := HMG_NULLHANDLE
+   _HMG_aControlBrushHandle        [k] := HMG_NULLHANDLE
    _HMG_aControlEnabled            [k] := .T.
    _HMG_aControlMiscData1          [k] := 0
    _HMG_aControlMiscData2          [k] := ""
@@ -139,7 +139,7 @@ RETURN lSuccess
 *-----------------------------------------------------------------------------*
 PROCEDURE _ReleaseHotKey ( cParentForm, nMod , nKey )
 *-----------------------------------------------------------------------------*
-   
+
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
    LOCAL ControlType
    LOCAL i
@@ -157,7 +157,7 @@ RETURN
 *-----------------------------------------------------------------------------*
 FUNCTION _GetHotKeyBlock ( cParentForm, nMod, nKey )
 *-----------------------------------------------------------------------------*
-   
+
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
    LOCAL bRetVal // := Nil
    LOCAL ControlType

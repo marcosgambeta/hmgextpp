@@ -168,8 +168,8 @@ FUNCTION _DefineProgressWheel ( cControlName, cParentForm, nCol, nRow, nWidth, ;
    _HMG_aControlCaption            [k] := ""
    _HMG_aControlVisible            [k] := .T.
    _HMG_aControlHelpId             [k] := 0
-   _HMG_aControlFontHandle         [k] := NIL
-   _HMG_aControlBrushHandle        [k] := 0
+   _HMG_aControlFontHandle         [k] := NIL // TODO:
+   _HMG_aControlBrushHandle        [k] := HMG_NULLHANDLE
    _HMG_aControlEnabled            [k] := .T.
    _HMG_aControlMiscData2          [k] := ""
 

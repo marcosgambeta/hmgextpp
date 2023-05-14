@@ -1822,4 +1822,4 @@ STATIC FUNCTION _GetParent ( hWnd )
    
    LOCAL i := AScan(_HMG_aControlHandles, hWnd)
 
-RETURN iif( i > 0, _HMG_aControlParentHandles[i], 0 )
+RETURN iif( i > 0, _HMG_aControlParentHandles[i], HMG_NULLHANDLE )

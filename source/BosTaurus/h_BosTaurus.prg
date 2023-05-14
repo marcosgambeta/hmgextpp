@@ -421,7 +421,7 @@ FUNCTION bt_StatusBarHandle(Win)
 
    LOCAL hWnd := bt_WinHandle(Win)
    LOCAL k
-   LOCAL hWndStatusBar := 0
+   LOCAL hWndStatusBar := HMG_NULLHANDLE
 
    FOR k := 1 TO Len(_HMG_aControlType)
       IF _HMG_aControlType[k] == CONTROL_TYPE_MESSAGEBAR .AND. _HMG_aControlParenthandles[k] == hWnd
@@ -459,7 +459,7 @@ FUNCTION bt_ToolBarBottomHandle(Win)
 
    LOCAL hWnd := bt_WinHandle(Win)
    LOCAL k
-   LOCAL hWndToolBar := 0
+   LOCAL hWndToolBar := HMG_NULLHANDLE
 
    FOR k := 1 TO Len(_HMG_aControlType)
       IF _HMG_aControlType[k] == CONTROL_TYPE_TOOLBAR .AND. _HMG_aControlParenthandles[k] == hWnd .AND. And(GetWindowLong(_HMG_aControlHandles[k], GWL_STYLE), CCS_BOTTOM) == CCS_BOTTOM
@@ -497,7 +497,7 @@ FUNCTION bt_ToolBarTopHandle(Win)
 
    LOCAL hWnd := bt_WinHandle(Win)
    LOCAL k
-   LOCAL hWndToolBar := 0
+   LOCAL hWndToolBar := HMG_NULLHANDLE
 
    FOR k := 1 TO Len(_HMG_aControlType)
       IF _HMG_aControlType[k] == CONTROL_TYPE_TOOLBAR .AND. _HMG_aControlParenthandles[k] == hWnd .AND. And(GetWindowLong(_HMG_aControlHandles[k], GWL_STYLE), CCS_BOTTOM) != CCS_BOTTOM

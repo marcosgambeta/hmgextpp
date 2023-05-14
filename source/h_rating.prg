@@ -92,7 +92,7 @@ FUNCTION _DefineRating ( ControlName, ParentForm, x, y, w, h, nValue, aImages, n
    _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1 )
    _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1 )
    _HMG_aControlPicture            [k] := ""
-   _HMG_aControlContainerHandle    [k] := 0
+   _HMG_aControlContainerHandle    [k] := HMG_NULLHANDLE
    _HMG_aControlFontName           [k] := ""
    _HMG_aControlFontSize           [k] := 0
    _HMG_aControlFontAttributes     [k] := { .F., .F., .F., .F. }
@@ -102,8 +102,8 @@ FUNCTION _DefineRating ( ControlName, ParentForm, x, y, w, h, nValue, aImages, n
    _HMG_aControlCaption            [k] := ""
    _HMG_aControlVisible            [k] := iif( invisible, .F., .T. )
    _HMG_aControlHelpId             [k] := 0
-   _HMG_aControlFontHandle         [k] := 0
-   _HMG_aControlBrushHandle        [k] := 0
+   _HMG_aControlFontHandle         [k] := HMG_NULLHANDLE
+   _HMG_aControlBrushHandle        [k] := HMG_NULLHANDLE
    _HMG_aControlEnabled            [k] := .T.
    _HMG_aControlMiscData1          [k] := 0
    _HMG_aControlMiscData2          [k] := ""
@@ -113,7 +113,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 PROCEDURE _ReleaseRating ( cWindow, cControl )
 *-----------------------------------------------------------------------------*
-   
+
    LOCAL i
    LOCAL img_name
 

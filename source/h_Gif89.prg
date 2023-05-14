@@ -180,8 +180,8 @@ STATIC PROCEDURE _EraseGifDef ( FormName, i )
    _HMG_aControlDeleted           [i] := .T.
    _HMG_aControlType              [i] := ""
    _HMG_aControlNames             [i] := ""
-   _HMG_aControlHandles           [i] := 0
-   _HMG_aControlParentHandles     [i] := 0
+   _HMG_aControlHandles           [i] := HMG_NULLHANDLE
+   _HMG_aControlParentHandles     [i] := HMG_NULLHANDLE
    _HMG_aControlIds               [i] := 0
    _HMG_aControlProcedures        [i] := ""
    _HMG_aControlPageMap           [i] := {}
@@ -202,7 +202,7 @@ STATIC PROCEDURE _EraseGifDef ( FormName, i )
    _HMG_aControlContainerRow      [i] := 0
    _HMG_aControlContainerCol      [i] := 0
    _HMG_aControlPicture           [i] := ""
-   _HMG_aControlContainerHandle   [i] := 0
+   _HMG_aControlContainerHandle   [i] := HMG_NULLHANDLE
    _HMG_aControlFontName          [i] := ""
    _HMG_aControlFontSize          [i] := 0
    _HMG_aControlToolTip           [i] := ""
@@ -211,9 +211,9 @@ STATIC PROCEDURE _EraseGifDef ( FormName, i )
    _HMG_aControlCaption           [i] := ""
    _HMG_aControlVisible           [i] := .F.
    _HMG_aControlHelpId            [i] := 0
-   _HMG_aControlFontHandle        [i] := 0
+   _HMG_aControlFontHandle        [i] := HMG_NULLHANDLE
    _HMG_aControlFontAttributes    [i] := {}
-   _HMG_aControlBrushHandle       [i] := 0
+   _HMG_aControlBrushHandle       [i] := HMG_NULLHANDLE
    _HMG_aControlEnabled           [i] := .F.
    _HMG_aControlMiscData1         [i] := 0
    _HMG_aControlMiscData2         [i] := ""

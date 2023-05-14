@@ -340,7 +340,7 @@ FUNCTION _DefinePropGrid ( ControlName, ParentFormName, row, col, width, height,
    _HMG_aControlContainerRow  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , - 1 )
    _HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , - 1 )
    _HMG_aControlPicture  [k] :=  {}
-   _HMG_aControlContainerHandle  [k] :=  0
+   _HMG_aControlContainerHandle  [k] :=  HMG_NULLHANDLE
    _HMG_aControlFontName  [k] :=  fontname
    _HMG_aControlFontSize  [k] :=  fontsize
    _HMG_aControlFontAttributes   [k] := { bold, italic, underline, strikeout }
@@ -351,7 +351,7 @@ FUNCTION _DefinePropGrid ( ControlName, ParentFormName, row, col, width, height,
    _HMG_aControlVisible  [k] :=   .T.
    _HMG_aControlHelpId   [k] :=   HelpId
    _HMG_aControlFontHandle   [k] :=  FontHandle
-   _HMG_aControlBrushHandle  [k] :=  0
+   _HMG_aControlBrushHandle  [k] :=  HMG_NULLHANDLE
    _HMG_aControlEnabled  [k] :=  .T.
    _HMG_aControlMiscData1 [k] := { indent, ImgList, lInfo, infoHeight, lXml, UserHelpProc, .F. }
    _HMG_aControlMiscData2 [k] := 0
@@ -403,7 +403,7 @@ FUNCTION PgBtnEvents( hwndPG, HwndBtn )
 *------------------------------------------------------------------------------*
    LOCAL i, aHandle, nBtn, aRowItem, cFile, lXml
    i := AScan(_HMG_aControlHandles , {|x| HB_ISARRAY(x) .AND. x[1] == hwndPG })
-   IF i > 0 .AND. HwndBtn > 0
+   IF i > 0 .AND. HwndBtn > 0 // TODO:
       aRowItem := _HMG_aControlPageMap[i]
       cFile    := _HMG_aControlCaption[i]
       lXml     := _HMG_aControlMiscData1 [i,5]

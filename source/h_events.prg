@@ -587,7 +587,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                IF _HMG_aControlType[i] == CONTROL_TYPE_SPINNER
 
-                  IF _HMG_aControlHandles[i][1] == lParam
+                  IF _HMG_aControlHandles[i][1] == lParam // TODO: compare pointer with numeric
 
                      IF _HMG_aControlFontColor[i] != NIL
 
@@ -620,7 +620,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
             IF _HMG_aControlType[i] == CONTROL_TYPE_COMBO
 
                IF _HMG_aControlMiscData1[i][2] == .T. .AND. (GetFocus() == _HMG_aControlRangeMin[i] .OR. _HMG_aControlRangeMin[i] == lParam) .OR. ;
-                  GetFocus() == _HMG_aControlHandles[i] .AND. (_HMG_aControlHandles[i] == lParam .OR. _HMG_aControlMiscData1[i][2] == .F.)
+                  GetFocus() == _HMG_aControlHandles[i] .AND. (_HMG_aControlHandles[i] == lParam .OR. _HMG_aControlMiscData1[i][2] == .F.) // TODO: compare pointer with numeric
 
                   IF _HMG_aControlFontColor[i] != NIL
 
@@ -971,7 +971,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
    CASE WM_HELP
    //**************************************************************************
 
-      i := AScan(_HMG_aControlHandles, GetHelpData(lParam))
+      i := AScan(_HMG_aControlHandles, GetHelpData(lParam)) // TODO:
 
       IF i > 0
 
@@ -1601,7 +1601,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
       _HMG_MouseRow := HIWORD(lParam)
       _HMG_MouseCol := LOWORD(lParam)
 
-      IF (i := AScan(_HMG_aControlHandles, wParam)) > 0 .AND. _HMG_aControlType[i] $ "IMAGE,LABEL" .AND. ISBLOCK(_HMG_aControlChangeProcedure[i])
+      IF (i := AScan(_HMG_aControlHandles, wParam)) > 0 .AND. _HMG_aControlType[i] $ "IMAGE,LABEL" .AND. ISBLOCK(_HMG_aControlChangeProcedure[i]) // TODO:
 
          _DoControlEventProcedure(_HMG_aControlChangeProcedure[i], i)
 
@@ -1890,7 +1890,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                x := hb_enumindex(r)
 
-               IF r[1] == lParam .AND. _HMG_aControlType[x] == CONTROL_TYPE_SPINNER
+               IF r[1] == lParam .AND. _HMG_aControlType[x] == CONTROL_TYPE_SPINNER // TODO:
                   i := x
                   EXIT
                ENDIF
@@ -4378,7 +4378,7 @@ STATIC FUNCTION _GetFocusedControlType(nFormHandle)
 
       IF _HMG_aControlParentHandles[i] == nFormHandle
 
-         IF HB_ISNUMERIC(hControl) .AND. hControl == nHandle
+         IF HB_ISNUMERIC(hControl) .AND. hControl == nHandle // TODO:
             cType := _HMG_aControlType[i]
             EXIT
          ENDIF
