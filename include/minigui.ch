@@ -46,6 +46,12 @@
 
 #ifndef __HMG__
 
+#ifdef HMG_USE_POINTERS
+   #define HMG_NULLHANDLE NIL
+#else
+   #define HMG_NULLHANDLE 0
+#endif
+
 #include "mgver.h"
 
 /* ***********************************************************************
