@@ -49,13 +49,12 @@
  */
 
 #if !defined(__WINNT__)
-# define __WINNT__
+#define __WINNT__
 #endif
 
 #include "mgdefs.hpp"
 #include <hbapierr.hpp>
 #include <hbapiitm.hpp>
-
 #include <hbwinuni.hpp>
 
 #define MAX_ITEM_TEXT  256
@@ -71,29 +70,35 @@ HINSTANCE        GetResources(void);
 extern HBITMAP   Icon2Bmp(HICON hIcon);
 extern BOOL      SetAcceleratorTable(HWND, HACCEL);
 
+/*
+SETACCELERATORTABLE(HWND, HACCEL) --> NIL
+*/
 HB_FUNC( SETACCELERATORTABLE )
 {
-   HWND   hWndMain = hmg_par_HWND(1);
-   HACCEL hAccel   = hmg_par_HACCEL(2);
+   HWND hWndMain = hmg_par_HWND(1);
+   HACCEL hAccel = hmg_par_HACCEL(2);
 
-   if( hWndMain && hAccel )
+   if( hWndMain != nullptr && hAccel != nullptr )
    {
       SetAcceleratorTable(hWndMain, hAccel);
    }
 }
 
+/*
+ACCELERATORTABLE2ARRAY(HACCEL) --> array
+*/
 HB_FUNC( ACCELERATORTABLE2ARRAY )
 {
-   HACCEL   hAccel  = hmg_par_HACCEL(1);
+   HACCEL hAccel = hmg_par_HACCEL(1);
    PHB_ITEM aAccels = hb_itemArrayNew(0);
 
-   if( hAccel )
+   if( hAccel != nullptr )
    {
       int cAccelEntries = CopyAcceleratorTable(hAccel, nullptr, 0);
 
       if( cAccelEntries > 0 )
       {
-         LPACCEL lpAccel = ( LPACCEL ) hb_xalloc(cAccelEntries * sizeof(ACCEL));
+         LPACCEL lpAccel = static_cast<LPACCEL>(hb_xalloc(cAccelEntries * sizeof(ACCEL)));
 
          if( lpAccel != nullptr )
          {
@@ -103,11 +108,11 @@ HB_FUNC( ACCELERATORTABLE2ARRAY )
                {
                   PHB_ITEM aAccel = hb_itemArrayNew(3);
 
-                  hb_arraySetNI( aAccel, 1, lpAccel[i].fVirt );
-                  hb_arraySetNL( aAccel, 2, lpAccel[i].key );
-                  hb_arraySetNL( aAccel, 3, lpAccel[i].cmd );
+                  hb_arraySetNI(aAccel, 1, lpAccel[i].fVirt);
+                  hb_arraySetNL(aAccel, 2, lpAccel[i].key);
+                  hb_arraySetNL(aAccel, 3, lpAccel[i].cmd);
 
-                  hb_arrayAddForward( aAccels, aAccel );
+                  hb_arrayAddForward(aAccels, aAccel);
 
                   hb_itemRelease(aAccel);
                }
@@ -121,15 +126,18 @@ HB_FUNC( ACCELERATORTABLE2ARRAY )
    hb_itemReturnRelease(aAccels);
 }
 
+/*
+ARRAY2ACCELERATORTABLE(array) --> HACCEL
+*/
 HB_FUNC( ARRAY2ACCELERATORTABLE )
 {
    PHB_ITEM pArray = hb_param(1, Harbour::Item::ARRAY);
-   int      nLen;
-   HACCEL   hAccel = nullptr;
+   int nLen;
+   HACCEL hAccel = nullptr;
 
-   if( pArray && ( ( nLen = hb_arrayLen(pArray) ) > 0 ) )
+   if( pArray != nullptr && ((nLen = hb_arrayLen(pArray)) > 0))
    {
-      LPACCEL lpAccel = ( LPACCEL ) hb_xalloc(nLen * sizeof(ACCEL));
+      LPACCEL lpAccel = static_cast<LPACCEL>(hb_xalloc(nLen * sizeof(ACCEL)));
 
       if( lpAccel != nullptr )
       {
@@ -141,9 +149,9 @@ HB_FUNC( ARRAY2ACCELERATORTABLE )
 
                if( hb_arrayLen(pAccel) == 3 )
                {
-                  lpAccel[i].fVirt = ( BYTE ) hb_arrayGetNI( pAccel, 1 );
-                  lpAccel[i].key   = ( WORD ) hb_arrayGetNL( pAccel, 2 );
-                  lpAccel[i].cmd   = ( WORD ) hb_arrayGetNL( pAccel, 3 );
+                  lpAccel[i].fVirt = static_cast<BYTE>(hb_arrayGetNI(pAccel, 1));
+                  lpAccel[i].key   = static_cast<WORD>(hb_arrayGetNL(pAccel, 2));
+                  lpAccel[i].cmd   = static_cast<WORD>(hb_arrayGetNL(pAccel, 3));
                }
             }
          }
@@ -156,8 +164,9 @@ HB_FUNC( ARRAY2ACCELERATORTABLE )
    hmg_ret_HACCEL(hAccel);
 }
 
-
 // int WINAPI CopyAcceleratorTable(HACCEL hAccelSrc, LPACCEL lpAccelDst, int cAccelEntries)
+
+
 HB_FUNC( COPYACCELERATORTABLE )
 {
    HACCEL hAccelSrc = hmg_par_HACCEL(1);
@@ -202,22 +211,23 @@ HB_FUNC( CREATEACCELERATORTABLE )
 // BOOL WINAPI DestroyAcceleratorTable(HACCEL hAccel)
 HB_FUNC( DESTROYACCELERATORTABLE )
 {
-   HACCEL hAccel = hmg_par_HACCEL(1);
-
-   hb_retl(DestroyAcceleratorTable(hAccel) ? HB_TRUE : HB_FALSE);
+   hb_retl(DestroyAcceleratorTable(hmg_par_HACCEL(1)) ? true : false);
 }
 
 // HACCEL WINAPI LoadAccelerators(HINSTANCE hInstance, LPCTSTR lpTableName)
+
+/*
+LOADACCELERATORS(HINSTANCE, cTableName|np2) --> HACCEL
+*/
 HB_FUNC( LOADACCELERATORS )
 {
-   HACCEL    hAccel    = nullptr;
-   HINSTANCE hInstance = HB_ISNUM(1) ? hmg_par_HINSTANCE(1) : GetResources();
-   LPCTSTR   lpTableName;
+   HACCEL hAccel = nullptr;
+   HINSTANCE hInstance = HB_ISNIL(1) ? GetResources() : hmg_par_HINSTANCE(1);
+   LPCTSTR lpTableName;
 
    if( HB_ISNUM(2) )
    {
       lpTableName = MAKEINTRESOURCE(hmg_par_WORD(2));
-
       hAccel = LoadAccelerators(hInstance, lpTableName);
    }
    else if( hb_parclen(2) > 0 )
@@ -232,16 +242,19 @@ HB_FUNC( LOADACCELERATORS )
 }
 
 // HMENU WINAPI LoadMenu(HINSTANCE hInstance, LPCTSTR lpMenuName)
+
+/*
+LOADMENU(HINSTANCE, cMenuName|np2) --> HMENU
+*/
 HB_FUNC( LOADMENU )
 {
-   HMENU     hMenu     = nullptr;
-   HINSTANCE hInstance = HB_ISNUM(1) ? hmg_par_HINSTANCE(1) : GetResources();
-   LPCTSTR   lpMenuName;
+   HMENU hMenu = nullptr;
+   HINSTANCE hInstance = HB_ISNIL(1) ? GetResources() : hmg_par_HINSTANCE(1);
+   LPCTSTR lpMenuName;
 
    if( HB_ISNUM(2) )
    {
       lpMenuName = MAKEINTRESOURCE(hmg_par_WORD(2));
-
       hMenu = LoadMenu(hInstance, lpMenuName);
    }
    else if( HB_ISCHAR(2) )
@@ -255,6 +268,9 @@ HB_FUNC( LOADMENU )
    hmg_ret_HMENU(hMenu);
 }
 
+/*
+_NEWMENUSTYLE(lp1) --> .T.|.F.
+*/
 HB_FUNC( _NEWMENUSTYLE )
 {
    if( HB_ISLOG(1) )
@@ -265,60 +281,87 @@ HB_FUNC( _NEWMENUSTYLE )
    hb_retl(s_bCustomDraw);
 }
 
+/*
+_CLOSEMENU() --> .T.|.F.
+*/
 HB_FUNC( _CLOSEMENU )
 {
-   hb_retl(( BOOL ) EndMenu());
+   hb_retl(EndMenu());
 }
 
+/*
+TRACKPOPUPMENU(HMENU, np2, np3, HWND, lp5) --> NIL
+*/
 HB_FUNC( TRACKPOPUPMENU )
 {
    HWND hwnd = hmg_par_HWND(4);
-
-   SetForegroundWindow(hwnd);            /* hack for Microsoft "feature" */
-
+   SetForegroundWindow(hwnd); /* hack for Microsoft "feature" */
    TrackPopupMenu(hmg_par_HMENU(1), 0, hb_parni(2), hb_parni(3), 0, hwnd, nullptr);
-
    if( hb_pcount() > 4 && HB_ISLOG(5) && hb_parl(5) )
    {
-      PostMessage(hwnd, WM_NULL, 0, 0);  /* hack for tray menu closing */
+      PostMessage(hwnd, WM_NULL, 0, 0); /* hack for tray menu closing */
    }
 }
 
+/*
+SETMENU(HWND, HMENU) --> NIL
+*/
 HB_FUNC( SETMENU )
 {
    SetMenu(hmg_par_HWND(1), hmg_par_HMENU(2));
 }
 
+/*
+SETMENUDEFAULTITEM(HMENU, np2) --> NIL
+*/
 HB_FUNC( SETMENUDEFAULTITEM )
 {
    SetMenuDefaultItem(hmg_par_HMENU(1), hb_parni(2), FALSE);
 }
 
+/*
+XCHECKMENUITEM(HMENU, np2) --> NIL
+*/
 HB_FUNC( XCHECKMENUITEM )
 {
    CheckMenuItem(hmg_par_HMENU(1), hb_parni(2), MF_CHECKED);
 }
 
+/*
+XUNCHECKMENUITEM(HMENU, np2) --> NIL
+*/
 HB_FUNC( XUNCHECKMENUITEM )
 {
    CheckMenuItem(hmg_par_HMENU(1), hb_parni(2), MF_UNCHECKED);
 }
 
+/*
+XENABLEMENUITEM(HMENU, np2) --> NIL
+*/
 HB_FUNC( XENABLEMENUITEM )
 {
    EnableMenuItem(hmg_par_HMENU(1), hb_parni(2), MF_ENABLED);
 }
 
+/*
+XDISABLEMENUITEM(HMENU, np2) --> NIL
+*/
 HB_FUNC( XDISABLEMENUITEM )
 {
    EnableMenuItem(hmg_par_HMENU(1), hb_parni(2), MF_GRAYED);
 }
 
+/*
+XDISABLECLOSEBUTTON(HWND, lp2) --> NIL
+*/
 HB_FUNC( XDISABLECLOSEBUTTON )
 {
    EnableMenuItem(GetSystemMenu(hmg_par_HWND(1), FALSE), SC_CLOSE, MF_BYCOMMAND | (hb_parl(2) ? MF_ENABLED : MF_GRAYED));
 }
 
+/*
+CREATEMENU() --> HMENU
+*/
 HB_FUNC( CREATEMENU )
 {
    HMENU hMenu = CreateMenu();
@@ -333,30 +376,29 @@ HB_FUNC( CREATEMENU )
    hmg_ret_HMENU(hMenu);
 }
 
+/*
+CREATEPOPUPMENU() --> HMENU
+*/
 HB_FUNC( CREATEPOPUPMENU )
 {
-   HMENU menu = CreatePopupMenu();
-
-   hmg_ret_HMENU(menu);
+   hmg_ret_HMENU(CreatePopupMenu());
 }
 
+/*
+APPENDMENUSTRING(HMENU, p2, p3, p4) -->  .T.|.F.
+*/
 HB_FUNC( APPENDMENUSTRING )
 {
-#ifndef UNICODE
-   LPCSTR lpNewItem = hb_parc(3);
-#else
-   LPWSTR lpNewItem = AnsiToWide(( char * ) hb_parc(3));
-#endif
+   void * strNewItem;
+   LPCTSTR lpNewItem = HB_PARSTR(3, &strNewItem, nullptr);
    UINT style;
 
    if( s_bCustomDraw )
    {
-      LPMENUITEM lpMenuItem;
-      UINT       cch = ( UINT ) HB_STRNLEN(lpNewItem, MAX_ITEM_TEXT * sizeof(TCHAR));
+      UINT cch = HB_STRNLEN(lpNewItem, MAX_ITEM_TEXT * sizeof(TCHAR));
 
-      lpMenuItem = ( LPMENUITEM ) hb_xgrab((sizeof(MENUITEM)));
+      LPMENUITEM lpMenuItem = static_cast<LPMENUITEM>(hb_xgrab((sizeof(MENUITEM))));
       ZeroMemory(lpMenuItem, sizeof(MENUITEM));
-
       lpMenuItem->cbSize     = hb_parni(2);
       lpMenuItem->uiID       = hb_parni(2);
       lpMenuItem->caption    = HB_STRNDUP(lpNewItem, cch);
@@ -378,7 +420,7 @@ HB_FUNC( APPENDMENUSTRING )
             style = MF_OWNERDRAW;
       }
 
-      hb_retl(AppendMenu(hmg_par_HMENU(1), style, hb_parni(2), ( LPTSTR ) lpMenuItem));
+      hb_retl(AppendMenu(hmg_par_HMENU(1), style, hb_parni(2), reinterpret_cast<LPTSTR>(lpMenuItem)));
    }
    else
    {
@@ -395,25 +437,22 @@ HB_FUNC( APPENDMENUSTRING )
       hb_retl(AppendMenu(hmg_par_HMENU(1), style, hb_parni(2), lpNewItem));
    }
 
-#ifdef UNICODE
-   hb_xfree(lpNewItem);
-#endif
+   hb_strfree(strNewItem);
 }
 
+/*
+APPENDMENUPOPUP(HMENU, p2, p3, p4, HFONT) --> .T.|.F.
+*/
 HB_FUNC( APPENDMENUPOPUP )
 {
-#ifndef UNICODE
-   LPCSTR lpNewItem = hb_parc(3);
-#else
-   LPWSTR lpNewItem = AnsiToWide(( char * ) hb_parc(3));
-#endif
+   void * strNewItem;
+   LPCTSTR lpNewItem = HB_PARSTR(3, &strNewItem, nullptr);
+
    if( s_bCustomDraw )
    {
-      LPMENUITEM lpMenuItem;
-      UINT       cch = ( UINT ) HB_STRNLEN(lpNewItem, MAX_ITEM_TEXT * sizeof(TCHAR));
+      UINT cch = HB_STRNLEN(lpNewItem, MAX_ITEM_TEXT * sizeof(TCHAR));
 
-      lpMenuItem = ( LPMENUITEM ) hb_xgrabz((sizeof(MENUITEM)));
-
+      LPMENUITEM lpMenuItem = static_cast<LPMENUITEM>(hb_xgrabz((sizeof(MENUITEM))));
       lpMenuItem->cbSize     = hb_parni(2);
       lpMenuItem->uiID       = hb_parni(2);
       lpMenuItem->caption    = HB_STRNDUP(lpNewItem, cch);
@@ -422,27 +461,26 @@ HB_FUNC( APPENDMENUPOPUP )
       lpMenuItem->hFont      = hmg_par_HFONT(5);
       lpMenuItem->uiItemType = hb_parni(4);
 
-      hb_retl(AppendMenu(hmg_par_HMENU(1), MF_POPUP | MF_OWNERDRAW, hb_parni(2), ( LPTSTR ) lpMenuItem));
+      hb_retl(AppendMenu(hmg_par_HMENU(1), MF_POPUP | MF_OWNERDRAW, hb_parni(2), reinterpret_cast<LPTSTR>(lpMenuItem)));
    }
    else
    {
       hb_retl(AppendMenu(hmg_par_HMENU(1), MF_POPUP | MF_STRING, hb_parni(2), lpNewItem));
    }
 
-#ifdef UNICODE
-   hb_xfree(lpNewItem);
-#endif
+   hb_strfree(strNewItem);
 }
 
+/*
+APPENDMENUSEPARATOR(HMENU) --> .T.|.F.
+*/
 HB_FUNC( APPENDMENUSEPARATOR )
 {
    if( s_bCustomDraw )
    {
-      LPMENUITEM lpMenuItem = ( LPMENUITEM ) hb_xgrabz((sizeof(MENUITEM)));
-
+      LPMENUITEM lpMenuItem = static_cast<LPMENUITEM>(hb_xgrabz((sizeof(MENUITEM))));
       lpMenuItem->uiItemType = 1000;
-
-      hb_retl(AppendMenu(hmg_par_HMENU(1), MF_SEPARATOR | MF_OWNERDRAW, 0, ( LPTSTR ) lpMenuItem));
+      hb_retl(AppendMenu(hmg_par_HMENU(1), MF_SEPARATOR | MF_OWNERDRAW, 0, reinterpret_cast<LPTSTR>(lpMenuItem)));
    }
    else
    {
@@ -450,56 +488,53 @@ HB_FUNC( APPENDMENUSEPARATOR )
    }
 }
 
+/*
+MODIFYMENUITEM(HMENU, p2, p3, cNewItem) --> .T.|.F.
+*/
 HB_FUNC( MODIFYMENUITEM )
 {
-#ifndef UNICODE
-   LPCSTR lpNewItem = hb_parc(4);
-#else
-   LPWSTR lpNewItem = AnsiToWide(( char * ) hb_parc(4));
-#endif
-   hb_retl(ModifyMenu(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND | MF_STRING, hb_parni(3), lpNewItem));
-
-#ifdef UNICODE
-   hb_xfree(lpNewItem);
-#endif
+   void * strNewItem;
+   hb_retl(ModifyMenu(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND | MF_STRING, hb_parni(3), HB_PARSTR(4, &strNewItem, nullptr)));
+   hb_strfree(strNewItem);
 }
 
+/*
+INSERTMENUITEM(HMENU, p2, p3, cNewItem) --> .T.|.F.
+*/
 HB_FUNC( INSERTMENUITEM )
 {
-#ifndef UNICODE
-   LPCSTR lpNewItem = hb_parc(4);
-#else
-   LPWSTR lpNewItem = AnsiToWide(( char * ) hb_parc(4));
-#endif
-   hb_retl(InsertMenu(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND | MF_STRING, hb_parni(3), lpNewItem));
-
-#ifdef UNICODE
-   hb_xfree(lpNewItem);
-#endif
+   void * strNewItem;
+   hb_retl(InsertMenu(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND | MF_STRING, hb_parni(3), HB_PARSTR(4, &strNewItem, nullptr)));
+   hb_strfree(strNewItem);
 }
 
+/*
+REMOVEMENUITEM(HMENU, p2) --> .T.|.F.
+*/
 HB_FUNC( REMOVEMENUITEM )
 {
    hb_retl(RemoveMenu(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND));
 }
 
+/*
+MENUITEM_SETBITMAPS(HMENU, p2, p3) --> HBITMAP
+*/
 HB_FUNC( MENUITEM_SETBITMAPS )
 {
-   int     Transparent = s_bCustomDraw ? 0 : 1;
-
+   int Transparent = s_bCustomDraw ? 0 : 1;
    HBITMAP himage1 = HMG_LoadPicture(hb_parc(3), -1, -1, nullptr, 0, Transparent, -1, 0, false, 255);
 
    if( s_bCustomDraw )
    {
-      MENUITEMINFO MenuItemInfo;
-      MENUITEM *   pMENUITEM;
+      MENUITEM * pMENUITEM;
 
+      MENUITEMINFO MenuItemInfo;
       MenuItemInfo.cbSize = sizeof(MENUITEMINFO);
       MenuItemInfo.fMask  = MIIM_DATA;
 
       if( GetMenuItemInfo(hmg_par_HMENU(1), hb_parni(2), FALSE, &MenuItemInfo) )
       {
-         pMENUITEM = ( MENUITEM * ) MenuItemInfo.dwItemData;
+         pMENUITEM = reinterpret_cast<MENUITEM*>(MenuItemInfo.dwItemData);
          if( pMENUITEM->hBitmap != nullptr )
          {
             DeleteObject(pMENUITEM->hBitmap);
@@ -511,7 +546,6 @@ HB_FUNC( MENUITEM_SETBITMAPS )
    else
    {
       HBITMAP himage2 = HMG_LoadPicture(hb_parc(4), -1, -1, nullptr, 0, Transparent, -1, 0, false, 255);
-
       SetMenuItemBitmaps(hmg_par_HMENU(1), hb_parni(2), MF_BYCOMMAND, himage1, himage2);
    }
 
