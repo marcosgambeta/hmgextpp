@@ -83,16 +83,15 @@ PROCEDURE _DefineMenuPopup(Caption, Name, Image, Font)
    IF _HMG_xMenuType $ "MAIN,CONTEXT,OWNCONTEXT,NOTIFY,DROPDOWN"
 
       mVar := Left(_HMG_xMenuType, 1)
+
       SWITCH mVar
 
       CASE "M"
 
          IF _HMG_xMenuPopupLevel == 0
-
             IF Font != NIL .AND. _HMG_xPopupMenuFont == NIL
                _HMG_xPopupMenuFont := Font
             ENDIF
-
          ENDIF
 
          _HMG_xMenuPopupLevel++
@@ -101,11 +100,7 @@ PROCEDURE _DefineMenuPopup(Caption, Name, Image, Font)
          _HMG_xMenuPopupCaption[_HMG_xMenuPopupLevel] := Caption
 
          IF _HMG_xMenuPopupLevel > 1
-
-            AppendMenuPopup(_HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel - 1], ;
-               _HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel], ;
-               _HMG_xMenuPopupCaption[_HMG_xMenuPopupLevel], 2, Font)
-
+            AppendMenuPopup(_HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel - 1], _HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel], _HMG_xMenuPopupCaption[_HMG_xMenuPopupLevel], 2, Font)
          ENDIF
          EXIT
 
@@ -131,11 +126,9 @@ PROCEDURE _DefineMenuPopup(Caption, Name, Image, Font)
          ENDSWITCH
 
          IF _HMG_xContextPopupLevel == 0
-
             IF Font != NIL .AND. _HMG_xContextPopupMenuFont == NIL
                _HMG_xContextPopupMenuFont := Font
             ENDIF
-
          ENDIF
 
          _HMG_xContextPopupLevel++
@@ -144,11 +137,7 @@ PROCEDURE _DefineMenuPopup(Caption, Name, Image, Font)
          _HMG_xContextPopupCaption[_HMG_xContextPopupLevel] := Caption
 
          IF _HMG_xContextPopupLevel > 1
-
-            AppendMenuPopup(_HMG_xContextPopupHandle[_HMG_xContextPopupLevel - 1], ;
-               _HMG_xContextPopupHandle[_HMG_xContextPopupLevel], ;
-               _HMG_xContextPopupCaption[_HMG_xContextPopupLevel], k, Font)
-
+            AppendMenuPopup(_HMG_xContextPopupHandle[_HMG_xContextPopupLevel - 1], _HMG_xContextPopupHandle[_HMG_xContextPopupLevel], _HMG_xContextPopupCaption[_HMG_xContextPopupLevel], k, Font)
          ENDIF
 
       ENDSWITCH
@@ -163,6 +152,7 @@ PROCEDURE _DefineMenuPopup(Caption, Name, Image, Font)
          Name := ""
 #endif
       ENDIF
+
       IF !Empty(name)
          mVar := "_" + FormName + "_" + Name
 #ifdef _NAMES_LIST_
@@ -174,7 +164,7 @@ PROCEDURE _DefineMenuPopup(Caption, Name, Image, Font)
 
       _HMG_aControlType               [k] := CONTROL_TYPE_POPUP
       _HMG_aControlNames              [k] := Name
-      _HMG_aControlHandles            [k] := 0
+      _HMG_aControlHandles            [k] := HMG_NULLHANDLE
       _HMG_aControlIds                [k] := iif(_HMG_xMenuType == "MAIN", _HMG_xMenuPopupLevel, _HMG_xContextPopupLevel)
       _HMG_aControlProcedures         [k] := NIL
       _HMG_aControlValue              [k] := NIL
@@ -194,7 +184,7 @@ PROCEDURE _DefineMenuPopup(Caption, Name, Image, Font)
       _HMG_aControlContainerRow       [k] := -1
       _HMG_aControlContainerCol       [k] := -1
       _HMG_aControlPicture            [k] := Image
-      _HMG_aControlContainerHandle    [k] := 0
+      _HMG_aControlContainerHandle    [k] := HMG_NULLHANDLE
       _HMG_aControlFontName           [k] := ""
       _HMG_aControlFontSize           [k] := 0
       _HMG_aControlFontAttributes     [k] := {.F., .F., .F., .F.}
@@ -204,8 +194,8 @@ PROCEDURE _DefineMenuPopup(Caption, Name, Image, Font)
       _HMG_aControlCaption            [k] := Caption
       _HMG_aControlVisible            [k] := .T.
       _HMG_aControlHelpId             [k] := 0
-      _HMG_aControlFontHandle         [k] := 0
-      _HMG_aControlBrushHandle        [k] := 0
+      _HMG_aControlFontHandle         [k] := HMG_NULLHANDLE
+      _HMG_aControlBrushHandle        [k] := HMG_NULLHANDLE
       _HMG_aControlEnabled            [k] := .T.
       _HMG_aControlMiscData1          [k] := 0
       _HMG_aControlMiscData2          [k] := ""
@@ -242,22 +232,13 @@ PROCEDURE _EndMenuPopup()
    LOCAL k
 
    IF _HMG_xMenuType == "MAIN"
-
-      _HMG_xMenuPopupLevel --
-
+      _HMG_xMenuPopupLevel--
       IF _HMG_xMenuPopupLevel == 0
-
-         AppendMenuPopup(_HMG_xMainMenuHandle, _HMG_xMenuPopupHandle[1], ;
-            _HMG_xMenuPopupCaption[1], 1, _HMG_xPopupMenuFont)
-
+         AppendMenuPopup(_HMG_xMainMenuHandle, _HMG_xMenuPopupHandle[1], _HMG_xMenuPopupCaption[1], 1, _HMG_xPopupMenuFont)
       ENDIF
-
    ELSEIF _HMG_xMenuType $ "CONTEXT,OWNCONTEXT,NOTIFY,DROPDOWN"
-
-      _HMG_xContextPopupLevel --
-
+      _HMG_xContextPopupLevel--
       IF _HMG_xContextPopupLevel == 0
-
          SWITCH Left(_HMG_xMenuType, 1)
          CASE "C"
             k := 3
@@ -269,16 +250,10 @@ PROCEDURE _EndMenuPopup()
          CASE "D"
             k := 5
          ENDSWITCH
-
-         AppendMenuPopup(_HMG_xContextMenuHandle, _HMG_xContextPopupHandle[1], ;
-            _HMG_xContextPopupCaption[1], k, _HMG_xContextPopupMenuFont)
-
+         AppendMenuPopup(_HMG_xContextMenuHandle, _HMG_xContextPopupHandle[1], _HMG_xContextPopupCaption[1], k, _HMG_xContextPopupMenuFont)
       ENDIF
-
    ELSE
-
       MsgMiniGuiError("Menu type incorrect.")
-
    ENDIF
 
 RETURN
@@ -317,7 +292,7 @@ PROCEDURE _DefineMenuItem(caption, action, name, Image, checked, disabled, cMess
    IF _HMG_xMenuType == "MAIN"
 
       IF !(caption == "-")
-         ControlHandle := _HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel ]
+         ControlHandle := _HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel]
          AppendMenuString(ControlHandle, id, caption, nBreakCode)
       ENDIF
 
@@ -344,6 +319,7 @@ PROCEDURE _DefineMenuItem(caption, action, name, Image, checked, disabled, cMess
          Name := ""
 #endif
       ENDIF
+
       IF !Empty(name)
          mVar := "_" + _HMG_xMainMenuParentName + "_" + Name
 #ifdef _NAMES_LIST_
@@ -359,7 +335,7 @@ PROCEDURE _DefineMenuItem(caption, action, name, Image, checked, disabled, cMess
       _HMG_aControlParentHandles      [k] := _HMG_xMainMenuParentHandle
       _HMG_aControlIds                [k] := id
       _HMG_aControlProcedures         [k] := action
-      _HMG_aControlPageMap            [k] := _HMG_xMenuPopuphandle [_HMG_xMenuPopupLevel ]
+      _HMG_aControlPageMap            [k] := _HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel ]
       _HMG_aControlValue              [k] := cMessage
       _HMG_aControlInputMask          [k] := ""
       _HMG_aControllostFocusProcedure [k] := ""
@@ -378,7 +354,7 @@ PROCEDURE _DefineMenuItem(caption, action, name, Image, checked, disabled, cMess
       _HMG_aControlContainerRow       [k] := -1
       _HMG_aControlContainerCol       [k] := -1
       _HMG_aControlPicture            [k] := ""
-      _HMG_aControlContainerHandle    [k] := 0
+      _HMG_aControlContainerHandle    [k] := HMG_NULLHANDLE
       _HMG_aControlFontName           [k] := ""
       _HMG_aControlFontSize           [k] := 0
       _HMG_aControlFontAttributes     [k] := {.F., .F., .F., .F.}
@@ -388,7 +364,7 @@ PROCEDURE _DefineMenuItem(caption, action, name, Image, checked, disabled, cMess
       _HMG_aControlCaption            [k] := Caption
       _HMG_aControlVisible            [k] := .T.
       _HMG_aControlHelpId             [k] := 0
-      _HMG_aControlFontHandle         [k] := 0
+      _HMG_aControlFontHandle         [k] := HMG_NULLHANDLE
       _HMG_aControlBrushHandle        [k] := hBitmap
       _HMG_aControlEnabled            [k] := .T.
       _HMG_aControlMiscData1          [k] := 0
@@ -445,6 +421,7 @@ PROCEDURE _DefineMenuItem(caption, action, name, Image, checked, disabled, cMess
          Name := ""
 #endif
       ENDIF
+
       IF !Empty(name)
          mVar := "_" + _HMG_xContextMenuParentName + "_" + Name
 #ifdef _NAMES_LIST_
@@ -479,7 +456,7 @@ PROCEDURE _DefineMenuItem(caption, action, name, Image, checked, disabled, cMess
       _HMG_aControlContainerRow       [k] := -1
       _HMG_aControlContainerCol       [k] := -1
       _HMG_aControlPicture            [k] := ""
-      _HMG_aControlContainerHandle    [k] := 0
+      _HMG_aControlContainerHandle    [k] := HMG_NULLHANDLE
       _HMG_aControlFontName           [k] := ""
       _HMG_aControlFontSize           [k] := 0
       _HMG_aControlFontAttributes     [k] := {.F., .F., .F., .F.}
@@ -489,7 +466,7 @@ PROCEDURE _DefineMenuItem(caption, action, name, Image, checked, disabled, cMess
       _HMG_aControlCaption            [k] := Caption
       _HMG_aControlVisible            [k] := .T.
       _HMG_aControlHelpId             [k] := 0
-      _HMG_aControlFontHandle         [k] := 0
+      _HMG_aControlFontHandle         [k] := HMG_NULLHANDLE
       _HMG_aControlBrushHandle        [k] := hBitmap
       _HMG_aControlEnabled            [k] := .T.
       _HMG_aControlMiscData1          [k] := 1
@@ -522,21 +499,13 @@ _DefineSeparator()
 PROCEDURE _DefineSeparator()
 
    IF _HMG_xMenuType == "MAIN"
-
       AppendMenuSeparator(_HMG_xMenuPopuphandle[_HMG_xMenuPopupLevel ])
-
    ELSE
-
       IF _HMG_xContextPopupLevel > 0
-
          AppendMenuSeparator(_HMG_xContextPopupHandle[_HMG_xContextPopupLevel])
-
       ELSE
-
          AppendMenuSeparator(_HMG_xContextMenuHandle)
-
       ENDIF
-
    ENDIF
 
    IF IsExtendedMenuStyleActive() // GF 30/08/10
@@ -607,19 +576,13 @@ PROCEDURE _EndMenu()
    ENDSWITCH
 
    FOR EACH h IN _HMG_aControlHandles
-
       i := hb_enumindex(h)
-
       IF _HMG_aControlType[i] == CONTROL_TYPE_POPUP
-
          image := _HMG_aControlPicture[i]
-
          IF image != NIL
             _HMG_aControlBrushHandle[i] := MenuItem_SetBitMaps(_HMG_aControlPageMap[i], _HMG_aControlSpacing[i], image, "")
          ENDIF
-
       ENDIF
-
    NEXT
 
 RETURN
@@ -634,19 +597,12 @@ STATIC FUNCTION _GetMenuIds(ItemName, FormName)
    LOCAL x
 
    IF (x := GetControlIndex(ItemName, FormName)) > 0
-
       h := _HMG_aControlPageMap[x]
-
       IF _HMG_aControlType[x] == CONTROL_TYPE_MENU
-
          id := _HMG_aControlIds[x]
-
       ELSEIF _HMG_aControlType[x] == CONTROL_TYPE_POPUP
-
          id := _HMG_aControlSpacing[x]
-
       ENDIF
-
    ENDIF
 
 RETURN {h, id}
@@ -710,8 +666,7 @@ RETURN NIL
 _IsMenuItemChecked(ItemName, FormName) -->
 */
 FUNCTION _IsMenuItemChecked(ItemName, FormName)
-*-----------------------------------------------------------------------------*
-   
+
    LOCAL a := _GetMenuIds(ItemName, FormName)
 
 RETURN xGetMenuCheckState(a[1], a[2])
@@ -730,8 +685,8 @@ _DefineContextMenu(Parent)
 */
 PROCEDURE _DefineContextMenu(Parent)
 
-   _HMG_xContextMenuHandle := 0
-   _HMG_xContextMenuParentHandle := 0
+   _HMG_xContextMenuHandle := HMG_NULLHANDLE
+   _HMG_xContextMenuParentHandle := HMG_NULLHANDLE
    _HMG_xContextPopupLevel := 0
    _HMG_xContextMenuParentName := ""
    _HMG_xMenuType := "CONTEXT"
@@ -763,7 +718,7 @@ PROCEDURE _ShowContextMenu(Parent, nRow, nCol)
       xContextMenuParentHandle := GetFormHandle(Parent)
    ENDIF
 
-   IF xContextMenuParentHandle == 0
+   IF empty(xContextMenuParentHandle)
       MsgMiniGuiError("Context Menu is not defined.")
    ENDIF
 
@@ -783,8 +738,8 @@ _DefineNotifyMenu(Parent)
 */
 PROCEDURE _DefineNotifyMenu(Parent)
 
-   _HMG_xContextMenuHandle := 0
-   _HMG_xContextMenuParentHandle := 0
+   _HMG_xContextMenuHandle := HMG_NULLHANDLE
+   _HMG_xContextMenuParentHandle := HMG_NULLHANDLE
    _HMG_xContextPopupLevel := 0
    _HMG_xContextMenuParentName := ""
    _HMG_xMenuType := "NOTIFY"
@@ -805,8 +760,8 @@ _DefineDropDownMenu(Button, Parent)
 */
 PROCEDURE _DefineDropDownMenu(Button, Parent)
 
-   _HMG_xContextMenuHandle := 0
-   _HMG_xContextMenuParentHandle := 0
+   _HMG_xContextMenuHandle := HMG_NULLHANDLE
+   _HMG_xContextMenuParentHandle := HMG_NULLHANDLE
    _HMG_xContextPopupLevel := 0
    _HMG_xContextMenuParentName := ""
    _HMG_xMenuType := "DROPDOWN"
@@ -830,8 +785,8 @@ _DefineControlContextMenu(Control, Parent)
 */
 PROCEDURE _DefineControlContextMenu(Control, Parent)
 
-   _HMG_xContextMenuHandle := 0
-   _HMG_xContextMenuParentHandle := 0
+   _HMG_xContextMenuHandle := HMG_NULLHANDLE
+   _HMG_xContextMenuParentHandle := HMG_NULLHANDLE
    _HMG_xContextPopupLevel := 0
    _HMG_xContextMenuParentName := ""
    _HMG_xMenuType := "OWNCONTEXT"
@@ -992,7 +947,7 @@ FUNCTION _InsertMenuItem(ItemName, FormName, caption, action, name, Image)
    AAdd(_HMG_aControlContainerRow      , -1                        )
    AAdd(_HMG_aControlContainerCol      , -1                        )
    AAdd(_HMG_aControlPicture           , ""                        )
-   AAdd(_HMG_aControlContainerHandle   , 0                         )
+   AAdd(_HMG_aControlContainerHandle   , HMG_NULLHANDLE               )
    AAdd(_HMG_aControlFontName          , ""                        )
    AAdd(_HMG_aControlFontSize          , 0                         )
    AAdd(_HMG_aControlFontAttributes    , {.F., .F., .F., .F.}      )
@@ -1002,7 +957,7 @@ FUNCTION _InsertMenuItem(ItemName, FormName, caption, action, name, Image)
    AAdd(_HMG_aControlCaption           , Caption                   )
    AAdd(_HMG_aControlVisible           , .T.                       )
    AAdd(_HMG_aControlHelpId            , 0                         )
-   AAdd(_HMG_aControlFontHandle        , 0                         )
+   AAdd(_HMG_aControlFontHandle        , HMG_NULLHANDLE               )
    AAdd(_HMG_aControlBrushHandle       , hBitmap                   )
    AAdd(_HMG_aControlEnabled           , .T.                       )
    AAdd(_HMG_aControlMiscData1         , 0                         )
