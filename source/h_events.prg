@@ -207,7 +207,11 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
    CASE WM_CTLCOLORSTATIC
    //**************************************************************************
 
+#ifdef HMG_USE_POINTERS
+      i := AScan(_HMG_aControlHandles, win_n2p(lParam))
+#else
       i := AScan(_HMG_aControlHandles, lParam)
+#endif
 
       IF i > 0
 
@@ -417,7 +421,11 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                   FOR x := 1 TO Len(Tmp)
 
+#ifdef HMG_USE_POINTERS
+                     IF Tmp[x] == win_n2p(lParam)
+#else
                      IF Tmp[x] == lParam
+#endif
 
                         IF _HMG_aControlFontColor[i] != NIL
                            SetTextColor(wParam, _HMG_aControlFontColor[i][1], _HMG_aControlFontColor[i][2], _HMG_aControlFontColor[i][3])
@@ -504,7 +512,11 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
    CASE WM_CTLCOLORLISTBOX
    //**************************************************************************
 
+#ifdef HMG_USE_POINTERS
+      i := AScan(_HMG_aControlHandles, win_n2p(lParam))
+#else
       i := AScan(_HMG_aControlHandles, lParam)
+#endif
 
       IF i > 0
 
@@ -961,7 +973,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
          ENDIF
 
-         IF _HMG_aFormFocusedControl[i] != 0
+         IF !empty(_HMG_aFormFocusedControl[i])
             setfocus(_HMG_aFormFocusedControl[i])
          ENDIF
 
@@ -1601,7 +1613,11 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
       _HMG_MouseRow := HIWORD(lParam)
       _HMG_MouseCol := LOWORD(lParam)
 
-      IF (i := AScan(_HMG_aControlHandles, wParam)) > 0 .AND. _HMG_aControlType[i] $ "IMAGE,LABEL" .AND. ISBLOCK(_HMG_aControlChangeProcedure[i]) // TODO:
+#ifdef HMG_USE_POINTERS
+      IF (i := AScan(_HMG_aControlHandles, win_n2p(wParam))) > 0 .AND. _HMG_aControlType[i] $ "IMAGE,LABEL" .AND. ISBLOCK(_HMG_aControlChangeProcedure[i])
+#else
+      IF (i := AScan(_HMG_aControlHandles, wParam)) > 0 .AND. _HMG_aControlType[i] $ "IMAGE,LABEL" .AND. ISBLOCK(_HMG_aControlChangeProcedure[i])
+#endif
 
          _DoControlEventProcedure(_HMG_aControlChangeProcedure[i], i)
 
@@ -1878,27 +1894,28 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
       ENDIF
 #endif
 
+#ifdef HMG_USE_POINTERS
+      i := AScan(_HMG_aControlHandles, win_n2p(lParam))
+#else
       i := AScan(_HMG_aControlHandles, lParam)
+#endif
 
       // If Handle Not Found, Look For Spinner
 
       IF i == 0
-
          FOR EACH r IN _HMG_aControlHandles
-
             IF ISARRAY(r)
-
                x := hb_enumindex(r)
-
-               IF r[1] == lParam .AND. _HMG_aControlType[x] == CONTROL_TYPE_SPINNER // TODO:
+#ifdef HMG_USE_POINTERS
+               IF r[1] == win_n2p(lParam) .AND. _HMG_aControlType[x] == CONTROL_TYPE_SPINNER
+#else
+               IF r[1] == lParam .AND. _HMG_aControlType[x] == CONTROL_TYPE_SPINNER
+#endif
                   i := x
                   EXIT
                ENDIF
-
             ENDIF
-
          NEXT
-
       ENDIF
 
       //................................
@@ -3968,15 +3985,15 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
          ENDIF
 
          _HMG_aFormDeleted                  [i] := .T.
-         _HMG_aFormhandles                  [i] := 0
+         _HMG_aFormhandles                  [i] := HMG_NULLHANDLE
          _HMG_aFormNames                    [i] := ""
          _HMG_aFormActive                   [i] := .F.
          _HMG_aFormType                     [i] := ""
-         _HMG_aFormParenthandle             [i] := 0
+         _HMG_aFormParenthandle             [i] := HMG_NULLHANDLE
          _HMG_aFormInitProcedure            [i] := ""
          _HMG_aFormReleaseProcedure         [i] := ""
-         _HMG_aFormToolTipHandle            [i] := 0
-         _HMG_aFormContextMenuHandle        [i] := 0
+         _HMG_aFormToolTipHandle            [i] := HMG_NULLHANDLE
+         _HMG_aFormContextMenuHandle        [i] := HMG_NULLHANDLE
          _HMG_aFormMouseDragProcedure       [i] := ""
          _HMG_aFormSizeProcedure            [i] := ""
          _HMG_aFormClickProcedure           [i] := ""
@@ -3990,8 +4007,8 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
          _HMG_aFormNotifyIconToolTip        [i] := ""
          _HMG_aFormNotifyIconLeftClick      [i] := ""
          _HMG_aFormNotifyIconDblClick       [i] := ""
-         _HMG_aFormReBarHandle              [i] := 0
-         _HMG_aFormNotifyMenuHandle         [i] := 0
+         _HMG_aFormReBarHandle              [i] := HMG_NULLHANDLE
+         _HMG_aFormNotifyMenuHandle         [i] := HMG_NULLHANDLE
          _HMG_aFormBrowseList               [i] := {}
          _HMG_aFormSplitChildList           [i] := {}
          _HMG_aFormVirtualHeight            [i] := 0
@@ -4005,8 +4022,8 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
          _HMG_aFormScrollRight              [i] := ""
          _HMG_aFormHScrollBox               [i] := ""
          _HMG_aFormVScrollBox               [i] := ""
-         _HMG_aFormBrushHandle              [i] := 0
-         _HMG_aFormFocusedControl           [i] := 0
+         _HMG_aFormBrushHandle              [i] := HMG_NULLHANDLE
+         _HMG_aFormFocusedControl           [i] := HMG_NULLHANDLE
          _HMG_aFormGraphTasks               [i] := {}
          _HMG_aFormMaximizeProcedure        [i] := NIL
          _HMG_aFormMinimizeProcedure        [i] := NIL
