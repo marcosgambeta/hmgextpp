@@ -954,7 +954,7 @@ HB_FUNC( INITPROPGRID )
 
    HWND hFramePG = CreateWindowEx(WS_EX_CONTROLPARENT, "button", "", WS_CHILD | BS_GROUPBOX | WS_VISIBLE, x, y, w, h, hwndParent, nullptr, GetModuleHandle(nullptr), nullptr);
 
-   SetProp(hFramePG, "oldframepgproc", (HWND) GetWindowLongPtr(hFramePG, GWLP_WNDPROC));
+   SetProp(hFramePG, "oldframepgproc", reinterpret_cast<HWND>(GetWindowLongPtr(hFramePG, GWLP_WNDPROC)));
 
    HWND hHeader;
 
@@ -1165,7 +1165,7 @@ LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPar
       case WM_LBUTTONDOWN:
       case WM_KILLFOCUS:
       {
-         if( !((HWND) wParam == ppgrd->hPropEdit) )
+         if( !(reinterpret_cast<HWND>(wParam) == ppgrd->hPropEdit) )
          {
             PostMessage(ppgrd->hPropEdit, WM_CLOSE, 0, 0);
             ppgrd->hItemEdit = nullptr;
@@ -1175,7 +1175,7 @@ LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lPar
 
       case NM_SETFOCUS:
       {
-         if( !((HWND) wParam == ppgrd->hPropEdit) )
+         if( !(reinterpret_cast<HWND>(wParam) == ppgrd->hPropEdit) )
          {
             PostMessage(ppgrd->hPropEdit, WM_CLOSE, 0, 0);
             ppgrd->hItemEdit = nullptr;
@@ -1352,7 +1352,7 @@ HB_FUNC( PROPGRIDONCUSTOMDRAW )
    hb_retnl(PropGridOnCustomDraw (hmg_par_HWND(1), (LPARAM) hb_parnl(2)));
 }
 
-void SetIndentLine(HWND hWnd, HTREEITEM hParent, RECT *rc, RECT *rcIndent, int nIndent)
+void SetIndentLine(HWND hWnd, HTREEITEM hParent, RECT * rc, RECT * rcIndent, int nIndent)
 {
    HTREEITEM   hGrand;
 
@@ -2242,7 +2242,7 @@ LRESULT CALLBACK PGEditProc(HWND hEdit, UINT Msg, WPARAM wParam, LPARAM lParam)
    WNDPROC           OldWndProc;
    HTREEITEM         hItem;
    HWND              hWndParent;
-   RECT              *prect;
+   RECT              * prect;
    RECT              oldrect;
    RECT              rect;
    POINT             pt;
@@ -2529,7 +2529,7 @@ int CALLBACK enumFontFamilyProc(ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *lpntme, 
    {
       if( FontType == TRUETYPE_FONTTYPE )
       {  //DEVICE_FONTTYPE | RASTER_FONTTYPE
-         SendMessage((HWND) lParam, CB_ADDSTRING, 0, (LPARAM) (LPSTR) lpelfe->elfFullName);
+         SendMessage(reinterpret_cast<HWND>(lParam), CB_ADDSTRING, 0, (LPARAM) (LPSTR) lpelfe->elfFullName);
       }
    }
 
