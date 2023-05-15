@@ -202,7 +202,7 @@ FUNCTION _DefineButton(ControlName, ParentFormName, x, y, Caption, ;
    _HMG_aControlContainerRow       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1)
    _HMG_aControlContainerCol       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1)
    _HMG_aControlPicture            [k] := ""
-   _HMG_aControlContainerHandle    [k] := 0
+   _HMG_aControlContainerHandle    [k] := HMG_NULLHANDLE
    _HMG_aControlFontName           [k] := fontname
    _HMG_aControlFontSize           [k] := fontsize
    _HMG_aControlFontAttributes     [k] := {bold, italic, underline, strikeout}
@@ -213,7 +213,7 @@ FUNCTION _DefineButton(ControlName, ParentFormName, x, y, Caption, ;
    _HMG_aControlVisible            [k] := iif(invisible, .F., .T.)
    _HMG_aControlHelpId             [k] := HelpId
    _HMG_aControlFontHandle         [k] := FontHandle
-   _HMG_aControlBrushHandle        [k] := 0
+   _HMG_aControlBrushHandle        [k] := HMG_NULLHANDLE
    _HMG_aControlEnabled            [k] := .T.
    _HMG_aControlMiscData1          [k] := 0
    _HMG_aControlMiscData2          [k] := ""
@@ -374,7 +374,7 @@ FUNCTION _DefineImageButton(ControlName, ParentFormName, x, y, Caption, ;
    _HMG_aControlContainerRow       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1)
    _HMG_aControlContainerCol       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1)
    _HMG_aControlPicture            [k] := cPicture
-   _HMG_aControlContainerHandle    [k] := 0
+   _HMG_aControlContainerHandle    [k] := HMG_NULLHANDLE
    _HMG_aControlFontName           [k] := ""
    _HMG_aControlFontSize           [k] := 0
    _HMG_aControlFontAttributes     [k] := {.F., .F., .F., .F.}
@@ -384,7 +384,7 @@ FUNCTION _DefineImageButton(ControlName, ParentFormName, x, y, Caption, ;
    _HMG_aControlCaption            [k] := Caption
    _HMG_aControlVisible            [k] := iif(invisible, .F., .T.)
    _HMG_aControlHelpId             [k] := HelpId
-   _HMG_aControlFontHandle         [k] := 0
+   _HMG_aControlFontHandle         [k] := HMG_NULLHANDLE
    _HMG_aControlBrushHandle        [k] := nhImage
    _HMG_aControlEnabled            [k] := .T.
    _HMG_aControlMiscData1          [k] := IFEMPTY(icon, 0, 1)  // 0 - bitmap  1 - icon
@@ -434,9 +434,9 @@ RETURN NIL
 #include <shellapi.h>
 #include <commctrl.h>
 #include <math.h>
-#include <hbapiitm.h>
-#include <hbvm.h>
-#include <hbwinuni.h>
+#include <hbapiitm.hpp>
+#include <hbvm.hpp>
+#include <hbwinuni.hpp>
 
 #ifndef BCM_FIRST
 #define BCM_FIRST         0x1600
@@ -496,7 +496,6 @@ INITIMAGEBUTTON(p1, p2, p3, nX, nY, nWidth, nHeight, p8, p9, p10, p11, p12, p13,
 */
 HB_FUNC_STATIC( INITIMAGEBUTTON )
 {
-   HWND himage;
    HICON hIcon;
    int Transparent = hb_parl(10) ? 0 : 1;
    HIMAGELIST himl;
@@ -534,21 +533,29 @@ HB_FUNC_STATIC( INITIMAGEBUTTON )
    {
       if( !hb_parl(17) )
       {
-         himage = reinterpret_cast<HWND>(HMG_LoadPicture(hb_parc(8), -1, -1, hwnd, 0, Transparent, -1, 0, false, 255));
-
+         HWND himage = reinterpret_cast<HWND>(HMG_LoadPicture(hb_parc(8), -1, -1, hwnd, 0, Transparent, -1, 0, false, 255));
          SendMessage(hbutton, BM_SETIMAGE, static_cast<WPARAM>(IMAGE_BITMAP), reinterpret_cast<LPARAM>(himage));
-
          hb_reta(2);
+#ifdef HMG_USE_POINTERS
+         hb_storvptr(hbutton, -1, 1);
+         hb_storvptr(himage, -1, 2);
+#else
          HB_STORVNL(reinterpret_cast<LONG_PTR>(hbutton), -1, 1);
          HB_STORVNL(reinterpret_cast<LONG_PTR>(himage), -1, 2);
+#endif
       }
       else
       {
          himl = HMG_SetButtonImageList(hbutton, hb_parc(8), Transparent, BUTTON_IMAGELIST_ALIGN_CENTER);
 
          hb_reta(2);
+#ifdef HMG_USE_POINTERS
+         hb_storvptr(hbutton, -1, 1);
+         hb_storvptr(himl, -1, 2);
+#else
          HB_STORVNL(reinterpret_cast<LONG_PTR>(hbutton), -1, 1);
          HB_STORVNL(reinterpret_cast<LONG_PTR>(himl), -1, 2);
+#endif
       }
    }
    else
@@ -597,16 +604,26 @@ HB_FUNC_STATIC( INITIMAGEBUTTON )
          DestroyIcon(hIcon);
 
          hb_reta(2);
+#ifdef HMG_USE_POINTERS
+         hb_storvptr(hbutton, -1, 1);
+         hb_storvptr(himl, -1, 2);
+#else
          HB_STORVNL(reinterpret_cast<LONG_PTR>(hbutton), -1, 1);
          HB_STORVNL(reinterpret_cast<LONG_PTR>(himl), -1, 2);
+#endif
       }
       else
       {
          SendMessage(hbutton, BM_SETIMAGE, static_cast<WPARAM>(IMAGE_ICON), reinterpret_cast<LPARAM>(hIcon));
 
          hb_reta(2);
+#ifdef HMG_USE_POINTERS
+         hb_storvptr(hbutton, -1, 1);
+         hb_storvptr(hIcon, -1, 2);
+#else
          HB_STORVNL(reinterpret_cast<LONG_PTR>(hbutton), -1, 1);
          HB_STORVNL(reinterpret_cast<LONG_PTR>(hIcon), -1, 2);
+#endif
       }
    }
 
