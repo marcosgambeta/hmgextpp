@@ -1268,7 +1268,7 @@ FUNCTION _DisableControl(ControlName, ParentForm, nPosition)
    c := GetControlHandle(ControlName, ParentForm)
    y := GetControlIndex(ControlName, ParentForm)
 
-   IF T == "BUTTON" .AND. _HMG_aControlEnabled[y] == .T.
+   IF T == CONTROL_TYPE_BUTTON .AND. _HMG_aControlEnabled[y] == .T.
       SendMessage(c, BM_SETSTYLE, LOWORD(BS_PUSHBUTTON), 1)
       RedrawWindow(c)
       IF !Empty(_HMG_aControlInputMask[y])
@@ -1277,85 +1277,100 @@ FUNCTION _DisableControl(ControlName, ParentForm, nPosition)
       ENDIF
    ENDIF
 
-   DO CASE
+   SWITCH T
 
       // HMG 1.0 Experimental build 9 (JK)
-   CASE T == "BUTTON" .AND. !Empty(_HMG_aControlBrushHandle[y]) .AND. HB_ISARRAY(_HMG_aControlPicture[y]) .AND. _HMG_aControlMiscData1[y] == 0
-      IF _HMG_aControlEnabled[y] == .T.
-         IF _HMG_aControlDblClick[y] == .F. .AND. _HMG_IsThemed
-            ImageList_Destroy(_HMG_aControlBrushHandle[y])
-            _HMG_aControlBrushHandle[y] := _SetMixedBtnPicture(c, _HMG_aControlPicture[y][2])
-            ReDrawWindow(c)
-         ELSE
-            _DestroyBtnPicture(c, y)
-            _SetBtnPicture(c, _HMG_aControlPicture[y][2])
+   CASE CONTROL_TYPE_BUTTON
+      IF !Empty(_HMG_aControlBrushHandle[y]) .AND. HB_ISARRAY(_HMG_aControlPicture[y]) .AND. _HMG_aControlMiscData1[y] == 0
+         IF _HMG_aControlEnabled[y] == .T.
+            IF _HMG_aControlDblClick[y] == .F. .AND. _HMG_IsThemed
+               ImageList_Destroy(_HMG_aControlBrushHandle[y])
+               _HMG_aControlBrushHandle[y] := _SetMixedBtnPicture(c, _HMG_aControlPicture[y][2])
+               ReDrawWindow(c)
+            ELSE
+               _DestroyBtnPicture(c, y)
+               _SetBtnPicture(c, _HMG_aControlPicture[y][2])
+            ENDIF
+            DisableWindow(c)
          ENDIF
-         DisableWindow(c)
       ENDIF
+      IF !Empty(_HMG_aControlBrushHandle[y]) .AND. HB_ISCHAR(_HMG_aControlPicture[y]) .AND. _HMG_aControlMiscData1[y] == 0
+         IF _HMG_aControlEnabled[y] == .T.
+            IF _HMG_aControlDblClick[y] == .F. .AND. _HMG_IsThemed
+               ImageList_Destroy(_HMG_aControlBrushHandle[y])
+               _HMG_aControlBrushHandle[y] := _SetMixedBtnPicture(c, _HMG_aControlPicture[y])
+               ReDrawWindow(c)
+            ELSE
+               _SetBtnPictureMask(c, y)
+               _DestroyBtnPicture(c, y)
+            ENDIF
+            DisableWindow(c)
+         ENDIF
+      ENDIF
+      EXIT
 
-   CASE T == "BUTTON" .AND. !Empty(_HMG_aControlBrushHandle[y]) .AND. HB_ISCHAR(_HMG_aControlPicture[y]) .AND. _HMG_aControlMiscData1[y] == 0
-      IF _HMG_aControlEnabled[y] == .T.
-         IF _HMG_aControlDblClick[y] == .F. .AND. _HMG_IsThemed
-            ImageList_Destroy(_HMG_aControlBrushHandle[y])
-            _HMG_aControlBrushHandle[y] := _SetMixedBtnPicture(c, _HMG_aControlPicture[y])
-            ReDrawWindow(c)
-         ELSE
-            _SetBtnPictureMask(c, y)
-            _DestroyBtnPicture(c, y)
+   CASE CONTROL_TYPE_CHECKBOX
+      IF !Empty(_HMG_aControlBrushHandle[y]) .AND. HB_ISCHAR(_HMG_aControlPicture[y]) .AND. _HMG_aControlMiscData1[y] == 1
+         IF _HMG_aControlEnabled[y] == .T.
+            IF _HMG_IsThemed
+               ImageList_Destroy(_HMG_aControlBrushHandle[y])
+               _HMG_aControlBrushHandle[y] := _SetMixedBtnPicture(c, _HMG_aControlPicture[y], _HMG_aControlSpacing[y])
+               ReDrawWindow(c)
+            ELSE
+               _SetBtnPictureMask(c, y)
+               _DestroyBtnPicture(c, y)
+            ENDIF
+            DisableWindow(c)
          ENDIF
-         DisableWindow(c)
       ENDIF
-
-   CASE T == "CHECKBOX" .AND. !Empty(_HMG_aControlBrushHandle[y]) .AND. HB_ISCHAR(_HMG_aControlPicture[y]) .AND. _HMG_aControlMiscData1[y] == 1
-      IF _HMG_aControlEnabled[y] == .T.
-         IF _HMG_IsThemed
-            ImageList_Destroy(_HMG_aControlBrushHandle[y])
-            _HMG_aControlBrushHandle[y] := _SetMixedBtnPicture(c, _HMG_aControlPicture[y], _HMG_aControlSpacing[y])
-            ReDrawWindow(c)
-         ELSE
-            _SetBtnPictureMask(c, y)
-            _DestroyBtnPicture(c, y)
-         ENDIF
-         DisableWindow(c)
-      ENDIF
+      EXIT
 
 #ifdef _DBFBROWSE_
-   CASE T == "BROWSE"
+   CASE CONTROL_TYPE_BROWSE
       DisableWindow(c)
       IF _HMG_aControlIds[y] != 0
          DisableWindow(_HMG_aControlIds[y])
       ENDIF
       _EnableScrollBars(c, SB_HORZ, ESB_DISABLE_BOTH)
+      EXIT
 #endif
-   CASE T == "GRID"
+
+   CASE CONTROL_TYPE_GRID
       DisableWindow(c)
       _EnableScrollBars(c, SB_BOTH, ESB_DISABLE_BOTH)
+      EXIT
 
-   CASE T == "TOOLBUTTON"
+   CASE CONTROL_TYPE_TOOLBUTTON
       _DisableToolBarButton(ControlName, ParentForm)
+      EXIT
 
-   CASE T == "MENU" .OR. T == "POPUP"
+   CASE CONTROL_TYPE_MENU
+   CASE CONTROL_TYPE_POPUP
       _DisableMenuItem(ControlName, ParentForm)
+      EXIT
 
-   CASE T == "TIMER"
+   CASE CONTROL_TYPE_TIMER
       IF _HMG_aControlEnabled[y] == .T.
          w := GetControlParentHandle(ControlName, ParentForm)
          s := GetControlId(ControlName, ParentForm)
          KillTimer(w, s)
       ENDIF
+      EXIT
 
-   CASE T == "SPINNER"
+   CASE CONTROL_TYPE_SPINNER
       AEval(c, {|y|DisableWindow(y)})
+      EXIT
 
-   CASE T == "RADIOGROUP"
+   CASE CONTROL_TYPE_RADIOGROUP
       IF PCount() == 3  // Position is defined, which Radiobutton to disable
          DisableWindow(c[nPosition])
          _HMG_aControlPageMap[y][nPosition] := .T.
       ELSE
          AEval(c, {|y|DisableWindow(y)})
       ENDIF
+      EXIT
 
-   CASE T == "TAB"
+   CASE CONTROL_TYPE_TAB
       IF PCount() == 3  // Position is defined, which Page to disable
          s := iif(nPosition > _GetItemCount(ControlName, ParentForm), 1, nPosition)
       ELSE
@@ -1371,21 +1386,25 @@ FUNCTION _DisableControl(ControlName, ParentForm, nPosition)
             NEXT
          ENDIF
       NEXT
+      EXIT
 
-   CASE t == "GETBOX"
+   CASE CONTROL_TYPE_GETBOX
       FOR z := 1 TO 3
          DisableWindow(_HMG_aControlRangeMin[y][z])
       NEXT z
+      EXIT
 
-   CASE T == "BTNTEXT" .OR. T == "BTNNUMTEXT"
+   CASE CONTROL_TYPE_BTNTEXT
+   CASE CONTROL_TYPE_BTNNUMTEXT
       FOR z := 1 TO 3
          DisableWindow(_HMG_aControlSpacing[y][z])
       NEXT z
+      EXIT
 
    OTHERWISE
       DisableWindow(c)
 
-   ENDCASE
+   ENDSWITCH
 
    _HMG_aControlEnabled[y] := .F.
 
@@ -1404,73 +1423,86 @@ FUNCTION _EnableControl(ControlName, ParentForm, nPosition)
    c := GetControlHandle(ControlName, ParentForm)
    y := GetControlIndex(ControlName, ParentForm)
 
-   IF T == "BUTTON" .AND. _HMG_aControlEnabled[y] == .F.
+   IF T == CONTROL_TYPE_BUTTON .AND. _HMG_aControlEnabled[y] == .F.
       IF !Empty(_HMG_aControlInputMask[y])
          z := _DetermineKey(_HMG_aControlInputMask[y])
          _DefineHotKey(ParentForm, z[2], z[1], _HMG_aControlProcedures[y])
       ENDIF
    ENDIF
 
-   DO CASE
+   SWITCH T
+
    // HMG 1.0 Experimental build 9 (JK)
-   CASE T == "BUTTON" .AND. !Empty(_HMG_aControlBrushHandle[y]) .AND. HB_ISARRAY(_HMG_aControlPicture[y]) .AND. _HMG_aControlMiscData1[y] == 0
-      IF _HMG_aControlEnabled[y] == .F.
-         IF _HMG_aControlDblClick[y] == .F. .AND. _HMG_IsThemed
-            ImageList_Destroy(_HMG_aControlBrushHandle[y])
-            _HMG_aControlBrushHandle[y] := _SetMixedBtnPicture(c, _HMG_aControlPicture[y][1])
-            ReDrawWindow(c)
-         ELSE
-            _DestroyBtnPicture(c, y)
-            _HMG_aControlBrushHandle[y] := _SetBtnPicture(c, _HMG_aControlPicture[y][1])
+   CASE CONTROL_TYPE_BUTTON
+      IF !Empty(_HMG_aControlBrushHandle[y]) .AND. HB_ISARRAY(_HMG_aControlPicture[y]) .AND. _HMG_aControlMiscData1[y] == 0
+         IF _HMG_aControlEnabled[y] == .F.
+            IF _HMG_aControlDblClick[y] == .F. .AND. _HMG_IsThemed
+               ImageList_Destroy(_HMG_aControlBrushHandle[y])
+               _HMG_aControlBrushHandle[y] := _SetMixedBtnPicture(c, _HMG_aControlPicture[y][1])
+               ReDrawWindow(c)
+            ELSE
+               _DestroyBtnPicture(c, y)
+               _HMG_aControlBrushHandle[y] := _SetBtnPicture(c, _HMG_aControlPicture[y][1])
+            ENDIF
+            EnableWindow(c)
          ENDIF
-         EnableWindow(c)
       ENDIF
+      IF !Empty(_HMG_aControlBrushHandle[y]) .AND. HB_ISCHAR(_HMG_aControlPicture[y]) .AND. _HMG_aControlMiscData1[y] == 0
+         IF _HMG_aControlEnabled[y] == .F.
+            IF _HMG_aControlDblClick[y] == .F. .AND. _HMG_IsThemed
+               ImageList_Destroy(_HMG_aControlBrushHandle[y])
+               _HMG_aControlBrushHandle[y] := _SetMixedBtnPicture(c, _HMG_aControlPicture[y])
+               ReDrawWindow(c)
+            ELSE
+               _DestroyBtnPictureMask(c, y)
+               _HMG_aControlBrushHandle[y] := _SetBtnPicture(c, _HMG_aControlPicture[y])
+            ENDIF
+            EnableWindow(c)
+         ENDIF
+      ENDIF
+      EXIT
 
-   CASE T == "BUTTON" .AND. !Empty(_HMG_aControlBrushHandle[y]) .AND. HB_ISCHAR(_HMG_aControlPicture[y]) .AND. _HMG_aControlMiscData1[y] == 0
-      IF _HMG_aControlEnabled[y] == .F.
-         IF _HMG_aControlDblClick[y] == .F. .AND. _HMG_IsThemed
-            ImageList_Destroy(_HMG_aControlBrushHandle[y])
-            _HMG_aControlBrushHandle[y] := _SetMixedBtnPicture(c, _HMG_aControlPicture[y])
-            ReDrawWindow(c)
-         ELSE
-            _DestroyBtnPictureMask(c, y)
-            _HMG_aControlBrushHandle[y] := _SetBtnPicture(c, _HMG_aControlPicture[y])
+   CASE CONTROL_TYPE_CHECKBOX
+      IF !Empty(_HMG_aControlBrushHandle[y]) .AND. HB_ISCHAR(_HMG_aControlPicture[y]) .AND. _HMG_aControlMiscData1[y] == 1
+         IF _HMG_aControlEnabled[y] == .F.
+            IF _HMG_IsThemed
+               ImageList_Destroy(_HMG_aControlBrushHandle[y])
+               _HMG_aControlBrushHandle[y] := _SetMixedBtnPicture(c, _HMG_aControlPicture[y], _HMG_aControlSpacing[y])
+               ReDrawWindow(c)
+            ELSE
+               _DestroyBtnPictureMask(c, y)
+               _HMG_aControlBrushHandle[y] := _SetBtnPicture(c, _HMG_aControlPicture[y])
+            ENDIF
+            EnableWindow(c)
          ENDIF
-         EnableWindow(c)
       ENDIF
-
-   CASE T == "CHECKBOX" .AND. !Empty(_HMG_aControlBrushHandle[y]) .AND. HB_ISCHAR(_HMG_aControlPicture[y]) .AND. _HMG_aControlMiscData1[y] == 1
-      IF _HMG_aControlEnabled[y] == .F.
-         IF _HMG_IsThemed
-            ImageList_Destroy(_HMG_aControlBrushHandle[y])
-            _HMG_aControlBrushHandle[y] := _SetMixedBtnPicture(c, _HMG_aControlPicture[y], _HMG_aControlSpacing[y])
-            ReDrawWindow(c)
-         ELSE
-            _DestroyBtnPictureMask(c, y)
-            _HMG_aControlBrushHandle[y] := _SetBtnPicture(c, _HMG_aControlPicture[y])
-         ENDIF
-         EnableWindow(c)
-      ENDIF
+      EXIT
 
 #ifdef _DBFBROWSE_
-   CASE T == "BROWSE"
+   CASE CONTROL_TYPE_BROWSE
       EnableWindow(c)
       IF _HMG_aControlIds[y] != 0
          EnableWindow(_HMG_aControlIds[y])
       ENDIF
       _EnableScrollBars(c, SB_BOTH, ESB_ENABLE_BOTH)
+      EXIT
 #endif
-   CASE T == "GRID"
+
+   CASE CONTROL_TYPE_GRID
       EnableWindow(c)
       _EnableScrollBars(c, SB_BOTH, ESB_ENABLE_BOTH)
+      EXIT
 
-   CASE T == "TOOLBUTTON"
+   CASE CONTROL_TYPE_TOOLBUTTON
       _EnableToolBarButton(ControlName, ParentForm)
+      EXIT
 
-   CASE T == "MENU" .OR. T == "POPUP"
+   CASE CONTROL_TYPE_MENU
+   CASE CONTROL_TYPE_POPUP
       _EnableMenuItem(ControlName, ParentForm)
+      EXIT
 
-   CASE T == "TIMER"
+   CASE CONTROL_TYPE_TIMER
       s := GetControlId(ControlName, ParentForm)
       FOR EACH z IN _HMG_aControlIds
          IF ISNUMERIC(z) .AND. z == s
@@ -1478,19 +1510,22 @@ FUNCTION _EnableControl(ControlName, ParentForm, nPosition)
             EXIT
          ENDIF
       NEXT
+      EXIT
 
-   CASE T == "SPINNER"
+   CASE CONTROL_TYPE_SPINNER
       AEval(c, {|y|EnableWindow(y)})
+      EXIT
 
-   CASE T == "RADIOGROUP"
+   CASE CONTROL_TYPE_RADIOGROUP
       IF PCount() == 3  // Position is defined, which Radiobutton to enable
          EnableWindow(c[nPosition])
          _HMG_aControlPageMap[y][nPosition] := .F.
       ELSE
          AEval(c, {|y|EnableWindow(y)})
       ENDIF
+      EXIT
 
-   CASE T == "TAB"
+   CASE CONTROL_TYPE_TAB
       IF PCount() == 3  // Position is defined, which Page to enable
          s := iif(nPosition > _GetItemCount(ControlName, ParentForm), 1, nPosition)
       ELSE
@@ -1506,21 +1541,25 @@ FUNCTION _EnableControl(ControlName, ParentForm, nPosition)
             NEXT
          ENDIF
       NEXT
+      EXIT
 
-   CASE t == "GETBOX"
+   CASE CONTROL_TYPE_GETBOX
       FOR z := 1 TO 3
          EnableWindow(_HMG_aControlRangeMin[y][z])
       NEXT z
+      EXIT
 
-   CASE T == "BTNTEXT" .OR. T == "BTNNUMTEXT"
+   CASE CONTROL_TYPE_BTNTEXT
+   CASE CONTROL_TYPE_BTNNUMTEXT
       FOR z := 1 TO 3
          EnableWindow(_HMG_aControlSpacing[y][z])
       NEXT z
+      EXIT
 
    OTHERWISE
       EnableWindow(c)
 
-   ENDCASE
+   ENDSWITCH
 
    _HMG_aControlEnabled[y] := .T.
 
@@ -2131,7 +2170,7 @@ FUNCTION _SetControlSizePos(ControlName, ParentForm, row, col, width, height)
 
    DO CASE
 
-   CASE T == "TAB"
+   CASE T == CONTROL_TYPE_TAB
 
       DelTaRow    := Row   - _HMG_aControlRow[x]
       DelTaCol    := Col   - _HMG_aControlCol[x]
@@ -2305,7 +2344,7 @@ FUNCTION _SetControlSizePos(ControlName, ParentForm, row, col, width, height)
 
       NEXT r
 
-   CASE T == "SPINNER"
+   CASE T == CONTROL_TYPE_SPINNER
 
       // JD 07/22/2007
       SpinW := GetWindowWidth(c[2])
@@ -2335,7 +2374,7 @@ FUNCTION _SetControlSizePos(ControlName, ParentForm, row, col, width, height)
       ENDIF
 
 #ifdef _DBFBROWSE_
-   CASE T == "BROWSE"
+   CASE T == CONTROL_TYPE_BROWSE
 
       IF _HMG_aControlContainerRow[x] == -1
 
@@ -2415,7 +2454,7 @@ FUNCTION _SetControlSizePos(ControlName, ParentForm, row, col, width, height)
 
       ReDrawWindow(c)
 #endif
-   CASE T == "RADIOGROUP"
+   CASE T == CONTROL_TYPE_RADIOGROUP
 
       p := Array(Len(c))
       IF _HMG_aControlContainerRow[x] == -1
@@ -2476,7 +2515,7 @@ FUNCTION _SetControlSizePos(ControlName, ParentForm, row, col, width, height)
 
       _RedrawControl(x)
 
-   CASE T == "BTNTEXT" .OR. T == "BTNNUMTEXT" .OR. (T == "GETBOX" .AND. _HMG_aControlMiscData1[x][4] != NIL)
+   CASE T == CONTROL_TYPE_BTNTEXT .OR. T == CONTROL_TYPE_BTNNUMTEXT .OR. (T == CONTROL_TYPE_GETBOX .AND. _HMG_aControlMiscData1[x][4] != NIL)
 
       IF _HMG_aControlContainerRow[x] == -1
 
@@ -2485,7 +2524,7 @@ FUNCTION _SetControlSizePos(ControlName, ParentForm, row, col, width, height)
          _HMG_aControlWidth [x] := Width
          _HMG_aControlHeight[x] := Height
 
-         IF T == "GETBOX"
+         IF T == CONTROL_TYPE_GETBOX
             MoveWindow(_HMG_aControlRangeMin[x][1], col - sx, row - sy, width, height, .T.)
             MoveBtnTextBox(_HMG_aControlRangeMin[x][1], _HMG_aControlRangeMin[x][2], _HMG_aControlRangeMin[x][3], ;
                _HMG_aControlMiscData1[x][7], _HMG_aControlMiscData1[x][6], width, height)
@@ -2502,7 +2541,7 @@ FUNCTION _SetControlSizePos(ControlName, ParentForm, row, col, width, height)
          _HMG_aControlWidth [x] := Width
          _HMG_aControlHeight[x] := Height
 
-         IF T == "GETBOX"
+         IF T == CONTROL_TYPE_GETBOX
             MoveWindow(_HMG_aControlRangeMin[x][1], col + _HMG_aControlContainerCol[x] - sx, row + _HMG_aControlContainerRow[x] - sy, width, height, .T.)
             MoveBtnTextBox(_HMG_aControlRangeMin[x][1], _HMG_aControlRangeMin[x][2], _HMG_aControlRangeMin[x][3], ;
                _HMG_aControlMiscData1[x][7], _HMG_aControlMiscData1[x][6], width, height)
@@ -2536,7 +2575,7 @@ FUNCTION _SetControlSizePos(ControlName, ParentForm, row, col, width, height)
 
       ENDIF
 
-      IF T == "LABEL" .OR. T == "BUTTON"
+      IF T == CONTROL_TYPE_LABEL .OR. T == CONTROL_TYPE_BUTTON
          _Refresh(x)
       ENDIF
 
@@ -2816,7 +2855,7 @@ FUNCTION _SetPicture(ControlName, ParentForm, FileName)
       IF _HMG_aControlEnabled[i] == .T.
 
          IF !Empty(_HMG_aControlBrushhandle[i])
-            IF t != "OBUTTON" .AND. _HMG_IsThemed
+            IF t != CONTROL_TYPE_OBUTTON .AND. _HMG_IsThemed
                ImageList_Destroy(_HMG_aControlBrushHandle[i])
             ENDIF
             IF !Empty(_HMG_aControlMiscData1[i])
@@ -2832,18 +2871,18 @@ FUNCTION _SetPicture(ControlName, ParentForm, FileName)
          ENDIF
 
          IF _HMG_aControlMiscData1[i] == 0  // bitmap
-            IF t != "OBUTTON" .AND. _HMG_IsThemed
+            IF t != CONTROL_TYPE_OBUTTON .AND. _HMG_IsThemed
                _HMG_aControlBrushHandle[i] := _SetMixedBtnPicture(c, cImage)
                ReDrawWindow(c)
             ELSE
-               IF t == "OBUTTON"
+               IF t == CONTROL_TYPE_OBUTTON
                   _HMG_aControlBrushHandle[i] := _SetBtnPicture(c, cImage, _HMG_aControlHeadClick[i][1], _HMG_aControlHeadClick[i][2])
                ELSE
                   _HMG_aControlBrushHandle[i] := _SetBtnPicture(c, cImage, -1, -1)
                ENDIF
             ENDIF
          ELSE                                // icon
-            IF t != "OBUTTON" .AND. _HMG_IsThemed
+            IF t != CONTROL_TYPE_OBUTTON .AND. _HMG_IsThemed
                _HMG_aControlBrushHandle[i] := _SetMixedBtnIcon(c, cImage)
                ReDrawWindow(c)
             ELSE
@@ -2912,7 +2951,7 @@ STATIC FUNCTION _SetGetChkListItemState(ControlName, ParentForm, Item, lState)
    IF (i := GetControlIndex(ControlName, ParentForm)) > 0
 
       T := _HMG_aControlType[i]
-      IF "CHKLIST" $ T
+      IF T == CONTROL_TYPE_CHKLIST .OR. T == CONTROL_TYPE_MULTICHKLIST
 
          IF item > 0 .AND. item <= ListBoxGetItemCount(_HMG_aControlHandles[i])
 
@@ -2948,7 +2987,7 @@ STATIC FUNCTION _SetGetDatePickerDateFormat(ControlName, ParentForm, cFormat)
 
    IF (ix := GetControlIndex(ControlName, ParentForm)) > 0
 
-      IF "PICK" $ _HMG_aControlType[ix]
+      IF _HMG_aControlType[ix] == CONTROL_TYPE_DATEPICK .OR. _HMG_aControlType[ix] == CONTROL_TYPE_TIMEPICK
 
          IF ISCHARACTER(cFormat)
 
@@ -3180,7 +3219,7 @@ FUNCTION _SetToolTip(ControlName, ParentForm, Value, Page)
       c := GetControlHandle(ControlName, ParentForm)
       t := GetControlType(ControlName, ParentForm)
 
-      IF t == "TAB"
+      IF t == CONTROL_TYPE_TAB
 
          IF ISNUMBER(Page)  // GF 10/12/2010
             IF Page > 0 .AND. Page <= Len(_HMG_aControlToolTip[i])
@@ -3198,7 +3237,7 @@ FUNCTION _SetToolTip(ControlName, ParentForm, Value, Page)
             ChangeStyle(_HMG_aControlHandles[i], SS_NOTIFY)
          ENDIF
          h := GetFormToolTipHandle(ParentForm)
-         IF t == "RADIOGROUP" .OR. t == "SPINNER"
+         IF t == CONTROL_TYPE_RADIOGROUP .OR. t == CONTROL_TYPE_SPINNER
             Assign cValue := Value
             AEval(c, {|x|SetToolTip(x, cValue, h)})
          ELSEIF ISARRAY(Value)  // GF 25/07/2019
@@ -3215,12 +3254,12 @@ FUNCTION _SetToolTip(ControlName, ParentForm, Value, Page)
                   ENDIF
                NEXT
             ENDIF
-         ELSEIF !(t == "TOOLBUTTON")  // GF 15/11/2016
+         ELSEIF !(t == CONTROL_TYPE_TOOLBUTTON)  // GF 15/11/2016
             Assign cValue := Value
             SetToolTip(c, cValue, h)
          ENDIF
          // HMG 1.0 Experimental Build 8
-         IF t == "COMBO"  // tooltips for editable or/and extend combo
+         IF t == CONTROL_TYPE_COMBO  // tooltips for editable or/and extend combo
             Assign cValue := Value
             IF !Empty(_hmg_acontrolrangemin[i])
                SetToolTip(_hmg_acontrolrangemin[i], cValue, h)
