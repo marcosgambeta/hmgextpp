@@ -185,7 +185,7 @@ FUNCTION _GetValue(ControlName, ParentForm, Index)
 
    CASE CONTROL_TYPE_RADIOGROUP
       FOR EACH x IN c
-         IF x > 0
+         IF !empty(x) // x > 0
             auxval := SendMessage(x, BM_GETCHECK, 0, 0)
             IF auxval == BST_CHECKED
                retval := hb_enumindex(x)
