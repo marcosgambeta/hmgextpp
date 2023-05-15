@@ -150,8 +150,8 @@ HB_FUNC( EXTRACTICONEX )
       {
          hb_reta(2);
 
-         HB_STORVNL( ( LONG_PTR ) hIconLarge, -1, 1 );
-         HB_STORVNL( ( LONG_PTR ) hIconSmall, -1, 2 );
+         hmg_storvhandle(hIconLarge, -1, 1);
+         hmg_storvhandle(hIconSmall, -1, 2);
       }
    }
 

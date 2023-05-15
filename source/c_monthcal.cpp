@@ -149,8 +149,8 @@ HB_FUNC( INITMONTHCAL )
    SetWindowPos(hmonthcal, nullptr, hb_parni(3), hb_parni(4), rc.right, rc.bottom, SWP_NOZORDER);
 
    hb_reta(2);
-   HB_STORVNL( ( LONG_PTR ) hmonthcal, -1, 1 );
-   HB_STORVNL( ( LONG_PTR ) hfont, -1, 2 );
+   hmg_storvhandle(hmonthcal, -1, 1);
+   hmg_storvhandle(hfont, -1, 2);
 }
 
 /*

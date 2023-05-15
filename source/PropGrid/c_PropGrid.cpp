@@ -1018,16 +1018,16 @@ HB_FUNC( INITPROPGRID )
    InitPropGrd(hWndPG, x, y, w, h, hb_parni(6), hb_parni(7), style, hb_parl(8), hb_parl(9), iHeight, PGHeight, hTitle, hInfo, hFrame, hHeader, hFramePG, hBtnOk, hBtnApply, hBtnCancel, hBtnHelp);
 
    hb_reta(10);
-   HB_STORNL( reinterpret_cast<LONG_PTR>(hWndPG),   -1, 1 );
-   HB_STORNL( reinterpret_cast<LONG_PTR>(hTitle),   -1, 2 );
-   HB_STORNL( reinterpret_cast<LONG_PTR>(hInfo),    -1, 3 );
-   HB_STORNL( reinterpret_cast<LONG_PTR>(hFrame),   -1, 4 );
-   HB_STORNL( reinterpret_cast<LONG_PTR>(hHeader),  -1, 5 );
-   HB_STORNL( reinterpret_cast<LONG_PTR>(hFramePG), -1, 6 );
-   HB_STORNL( reinterpret_cast<LONG_PTR>(hBtnOk),   -1, 7 );
-   HB_STORNL( reinterpret_cast<LONG_PTR>(hBtnApply), -1, 8 );
-   HB_STORNL( reinterpret_cast<LONG_PTR>(hBtnCancel), -1, 9 );
-   HB_STORNL( reinterpret_cast<LONG_PTR>(hBtnHelp),   -1, 10 );
+   hmg_storvhandle(hWndPG, -1, 1);
+   hmg_storvhandle(hTitle, -1, 2);
+   hmg_storvhandle(hInfo, -1, 3);
+   hmg_storvhandle(hFrame, -1, 4);
+   hmg_storvhandle(hHeader, -1, 5);
+   hmg_storvhandle(hFramePG, -1, 6);
+   hmg_storvhandle(hBtnOk, -1, 7);
+   hmg_storvhandle(hBtnApply, -1, 8);
+   hmg_storvhandle(hBtnCancel, -1, 9);
+   hmg_storvhandle(hBtnHelp, -1, 10);
 }
 
 LRESULT CALLBACK OwnPropGridProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)

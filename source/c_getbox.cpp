@@ -316,11 +316,11 @@ HB_FUNC( INITGETBOX )
    SendMessage(hedit, EM_SETMARGINS, EC_LEFTMARGIN | EC_RIGHTMARGIN, MAKELONG(0, BtnWidth + BtnWidth2 + 2));
 
    hb_reta(5);
-   HB_STORVNL( ( LONG_PTR ) hedit, -1, 1 );
-   HB_STORVNL( ( LONG_PTR ) hBtn1, -1, 2 );
-   HB_STORVNL( ( LONG_PTR ) hBtn2, -1, 3 );
-   HB_STORVNL( ( LONG_PTR ) himage, -1, 4 );
-   HB_STORVNL( ( LONG_PTR ) himage2, -1, 5 );
+   hmg_storvhandle(hedit, -1, 1);
+   hmg_storvhandle(hBtn1, -1, 2);
+   hmg_storvhandle(hBtn2, -1, 3);
+   hmg_storvhandle(himage, -1, 4);
+   hmg_storvhandle(himage2, -1, 5);
 }
 
 HB_FUNC( CHECKBIT )

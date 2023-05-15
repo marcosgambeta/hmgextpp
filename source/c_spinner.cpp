@@ -145,8 +145,8 @@ HB_FUNC( INITSPINNER )
    SetWindowLongPtr(hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnSpinProc);
 
    hb_reta(2);
-   HB_STORVNL( ( LONG_PTR ) hedit, -1, 1 );
-   HB_STORVNL( ( LONG_PTR ) hupdown, -1, 2 );
+   hmg_storvhandle(hedit, -1, 1);
+   hmg_storvhandle(hupdown, -1, 2);
 }
 
 HB_FUNC( SETSPINNERINCREMENT )

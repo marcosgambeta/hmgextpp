@@ -803,18 +803,18 @@ HB_FUNC( BT_DC_CREATE )
 
    hb_reta(50);                                                         // Return array = {Type, hWnd, hBitmap, hDC, PaintStruct ...}
 
-   HB_STORVNI( BT.Type, -1, 1);                                  // Type
-   HB_STORVNL(( LONG_PTR ) BT.hWnd, -1, 2);                             // hWnd
-   HB_STORVNL(( LONG_PTR ) BT.hDC, -1, 3);                              // hDC
+   HB_STORVNI( BT.Type, -1, 1);                                 // Type
+   hmg_storvhandle(BT.hWnd, -1, 2);                             // hWnd
+   hmg_storvhandle(BT.hDC, -1, 3);                              // hDC
    // PAINTSTRUCT
-   HB_STORVNL(( LONG_PTR ) BT.PaintStruct.hdc, -1, 4);                  // HDC  hdc;
-   HB_STORVNI( BT.PaintStruct.fErase, -1, 5);                    // BOOL fErase;
+   hmg_storvhandle(BT.PaintStruct.hdc, -1, 4);                  // HDC  hdc;
+   HB_STORVNI( BT.PaintStruct.fErase, -1, 5);                   // BOOL fErase;
    HB_STORVNL( BT.PaintStruct.rcPaint.left, -1, 6);             // RECT rcPaint.left;
    HB_STORVNL( BT.PaintStruct.rcPaint.top, -1, 7);              // RECT rcPaint.top;
    HB_STORVNL( BT.PaintStruct.rcPaint.right, -1, 8);            // RECT rcPaint.right;
    HB_STORVNL( BT.PaintStruct.rcPaint.bottom, -1, 9);           // RECT rcPaint.bottom;
-   HB_STORVNI( BT.PaintStruct.fRestore, -1, 10);                 // BOOL fRestore;
-   HB_STORVNI( BT.PaintStruct.fIncUpdate, -1, 11);               // BOOL fIncUpdate;
+   HB_STORVNI( BT.PaintStruct.fRestore, -1, 10);                // BOOL fRestore;
+   HB_STORVNI( BT.PaintStruct.fIncUpdate, -1, 11);              // BOOL fIncUpdate;
    for( INT i = 0; i < 32; i++ )
    {
       HB_STORVNI(BT.PaintStruct.rgbReserved[i], -1, 12 + i);  // BYTE rgbReserved[32];

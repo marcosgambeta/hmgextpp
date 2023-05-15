@@ -770,16 +770,16 @@ HB_FUNC_STATIC( INITIMAGECHECKBUTTON )
       SendMessage(hbutton, BM_SETIMAGE, static_cast<WPARAM>(IMAGE_BITMAP), reinterpret_cast<LPARAM>(himage));
 
       hb_reta(2);
-      HB_STORVNL(reinterpret_cast<LONG_PTR>(hbutton), -1, 1);
-      HB_STORVNL(reinterpret_cast<LONG_PTR>(himage), -1, 2);
+      hmg_storvhandle(hbutton, -1, 1);
+      hmg_storvhandle(himage, -1, 2);
    }
    else
    {
       himl = HMG_SetButtonImageList(hbutton, hb_parc(8), Transparent, BUTTON_IMAGELIST_ALIGN_CENTER);
 
       hb_reta(2);
-      HB_STORVNL(reinterpret_cast<LONG_PTR>(hbutton), -1, 1);
-      HB_STORVNL(reinterpret_cast<LONG_PTR>(himl), -1, 2);
+      hmg_storvhandle(hbutton, -1, 1);
+      hmg_storvhandle(himl, -1, 2);
    }
 
    hb_strfree(WindowName);

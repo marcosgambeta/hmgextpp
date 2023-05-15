@@ -936,7 +936,7 @@ HB_FUNC( CREATEPOPUPCHEVRON )
    HB_STORVNL( rcCvr.top, -1, 2 );
    HB_STORVNL( rcCvr.right, -1, 3 );
    HB_STORVNL( rcCvr.bottom, -1, 4 );
-   HB_STORVNL( ( LONG_PTR ) tbHwnd, -1, 5 );
+   hmg_storvhandle(tbHwnd, -1, 5);
    HB_STORNI( tx, -1, 6 );
    HB_STORNI( nBtn, -1, 7 );
 }

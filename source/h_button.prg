@@ -536,26 +536,16 @@ HB_FUNC_STATIC( INITIMAGEBUTTON )
          HWND himage = reinterpret_cast<HWND>(HMG_LoadPicture(hb_parc(8), -1, -1, hwnd, 0, Transparent, -1, 0, false, 255));
          SendMessage(hbutton, BM_SETIMAGE, static_cast<WPARAM>(IMAGE_BITMAP), reinterpret_cast<LPARAM>(himage));
          hb_reta(2);
-#ifdef HMG_USE_POINTERS
-         hb_storvptr(hbutton, -1, 1);
-         hb_storvptr(himage, -1, 2);
-#else
-         HB_STORVNL(reinterpret_cast<LONG_PTR>(hbutton), -1, 1);
-         HB_STORVNL(reinterpret_cast<LONG_PTR>(himage), -1, 2);
-#endif
+         hmg_storvhandle(hbutton, -1, 1);
+         hmg_storvhandle(himage, -1, 2);
       }
       else
       {
          himl = HMG_SetButtonImageList(hbutton, hb_parc(8), Transparent, BUTTON_IMAGELIST_ALIGN_CENTER);
 
          hb_reta(2);
-#ifdef HMG_USE_POINTERS
-         hb_storvptr(hbutton, -1, 1);
-         hb_storvptr(himl, -1, 2);
-#else
-         HB_STORVNL(reinterpret_cast<LONG_PTR>(hbutton), -1, 1);
-         HB_STORVNL(reinterpret_cast<LONG_PTR>(himl), -1, 2);
-#endif
+         hmg_storvhandle(hbutton, -1, 1);
+         hmg_storvhandle(himl, -1, 2);
       }
    }
    else
@@ -604,26 +594,16 @@ HB_FUNC_STATIC( INITIMAGEBUTTON )
          DestroyIcon(hIcon);
 
          hb_reta(2);
-#ifdef HMG_USE_POINTERS
-         hb_storvptr(hbutton, -1, 1);
-         hb_storvptr(himl, -1, 2);
-#else
-         HB_STORVNL(reinterpret_cast<LONG_PTR>(hbutton), -1, 1);
-         HB_STORVNL(reinterpret_cast<LONG_PTR>(himl), -1, 2);
-#endif
+         hmg_storvhandle(hbutton, -1, 1);
+         hmg_storvhandle(himl, -1, 2);
       }
       else
       {
          SendMessage(hbutton, BM_SETIMAGE, static_cast<WPARAM>(IMAGE_ICON), reinterpret_cast<LPARAM>(hIcon));
 
          hb_reta(2);
-#ifdef HMG_USE_POINTERS
-         hb_storvptr(hbutton, -1, 1);
-         hb_storvptr(hIcon, -1, 2);
-#else
-         HB_STORVNL(reinterpret_cast<LONG_PTR>(hbutton), -1, 1);
-         HB_STORVNL(reinterpret_cast<LONG_PTR>(hIcon), -1, 2);
-#endif
+         hmg_storvhandle(hbutton, -1, 1);
+         hmg_storvhandle(hIcon, -1, 2);
       }
    }
 

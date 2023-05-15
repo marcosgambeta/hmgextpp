@@ -1028,8 +1028,8 @@ HB_FUNC_STATIC( INITOWNERBUTTON )
       }
 
       hb_reta(2);
-      HB_STORVNL(reinterpret_cast<LONG_PTR>(hbutton), -1, 1);
-      HB_STORVNL(reinterpret_cast<LONG_PTR>(himage), -1, 2);
+      hmg_storvhandle(hbutton, -1, 1);
+      hmg_storvhandle(himage, -1, 2);
    }
    else
    {
@@ -1046,8 +1046,8 @@ HB_FUNC_STATIC( INITOWNERBUTTON )
       }
 
       hb_reta(2);
-      HB_STORVNL(reinterpret_cast<LONG_PTR>(hbutton), -1, 1);
-      HB_STORVNL(reinterpret_cast<LONG_PTR>(hIcon), -1, 2);
+      hmg_storvhandle(hbutton, -1, 1);
+      hmg_storvhandle(hIcon, -1, 2);
    }
 
    hb_strfree(WindowName);
