@@ -1645,10 +1645,12 @@ PROCEDURE _SetActivationFocus(i)
 
          IF _HMG_aControlParentHandles[x] == hParent .AND. _HMG_aControlType[x] != CONTROL_TYPE_HOTKEY // BK 25-Apr-2012
 
+#ifdef HMG_USE_POINTERS
+            IF HB_ISPOINTER(hControl)
+#else
             IF ISNUMBER(hControl)
-               IF hControl == Sp ;
-                  .OR. ;
-                  _HMG_aControlType[x] == CONTROL_TYPE_BUTTON .AND. IsWindowHasStyle(hControl, BS_DEFPUSHBUTTON)
+#endif
+               IF hControl == Sp .OR. _HMG_aControlType[x] == CONTROL_TYPE_BUTTON .AND. IsWindowHasStyle(hControl, BS_DEFPUSHBUTTON)
                   _SetFocus(, , x)
                   FocusDefined := .T.
                   EXIT
