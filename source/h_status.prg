@@ -96,7 +96,7 @@ FUNCTION _BeginMessageBar( ControlName, ParentForm, kbd, fontname, fontsize, bol
 
    _HMG_ActiveStatusHandle := ControlHandle // New Public Value JP MDI
 
-   IF FontHandle != 0
+   IF !empty(FontHandle)
       _SetFontHandle(ControlHandle, FontHandle)
    ELSE
       __defaultNIL(@FontName, _HMG_DefaultFontName)

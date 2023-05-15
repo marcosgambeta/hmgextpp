@@ -194,7 +194,7 @@ FUNCTION _DefineCombo(ControlName, ParentFormName, x, y, w, rows, value, ;
          w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
-         IF FontHandle != 0
+         IF !empty(FontHandle)
             _SetFontHandle(ControlHandle, FontHandle)
          ELSE
             __defaultNIL(@FontName, _HMG_DefaultFontName)
@@ -222,7 +222,7 @@ FUNCTION _DefineCombo(ControlName, ParentFormName, x, y, w, rows, value, ;
 
             ControlHandle := InitComboBox(_HMG_aFormReBarHandle[i], 0, x, y, w, lUpper, lLower, h, invisible, notabstop, sort, displaychange, _HMG_IsXPorLater)
 
-            IF FontHandle != 0
+            IF !empty(FontHandle)
                _SetFontHandle(ControlHandle, FontHandle)
             ELSE
                __defaultNIL(@FontName, _HMG_DefaultFontName)
@@ -248,7 +248,7 @@ FUNCTION _DefineCombo(ControlName, ParentFormName, x, y, w, rows, value, ;
 
    IF !lDialogInMemory
 
-      IF FontHandle != 0
+      IF !empty(FontHandle)
          _SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)

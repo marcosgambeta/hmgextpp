@@ -177,7 +177,7 @@ FUNCTION _DefineOwnerButton(ControlName, ParentForm, x, y, Caption, ;
          C_GetResPicture(image), _SetBtnPicture(ControlHandle, image, imagewidth, imageheight))
    ENDIF
 
-   IF FontHandle != 0
+   IF !empty(FontHandle)
       _SetFontHandle(ControlHandle, FontHandle)
    ELSE
       __defaultNIL(@FontName, _HMG_DefaultFontName)

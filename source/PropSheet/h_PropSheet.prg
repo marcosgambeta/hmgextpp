@@ -726,7 +726,7 @@ FUNCTION InitPageDlgProc( hwndDlg, idDlg, hWndParent )
          blInit  := aDialogItems[ n, 19 ]
          ControlHandle := GetDialogItemHandle( _HMG_ActiveDialogHandle, nId )
          FontHandle    := GetFontHandle( aDialogItems[ n, 13 ] )
-         IF FontHandle != 0
+         IF !empty(FontHandle)
             _SetFontHandle ( ControlHandle, FontHandle )
          ELSEIF IsWindowHandle( ControlHandle )
             IF aDialogItems[n, 13] != NIL .AND. aDialogItems[n, 14] != NIL

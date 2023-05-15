@@ -98,7 +98,7 @@ FUNCTION _DefineHotKeyBox ( ControlName, ParentForm, x, y, w, h, value, fontname
 
    ControlHandle := InitHotKeyBox ( ParentForm, x, y, w, h , "" , 0, invisible, notabstop )
 
-   IF FontHandle != 0
+   IF !empty(FontHandle)
       _SetFontHandle(ControlHandle, FontHandle)
    ELSE
       __defaultNIL(@FontName, _HMG_DefaultFontName)

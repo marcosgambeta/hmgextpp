@@ -252,7 +252,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
 
    IF !lDialogInMemory
 
-      IF FontHandle != 0
+      IF !empty(FontHandle)
          _SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)

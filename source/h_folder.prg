@@ -518,7 +518,7 @@ FUNCTION InitPageFldProc(hWndParent, hwndDlg, idDlg)
          blInit  := aDialogItems[n, 19]
          ControlHandle := GetDialogItemHandle(hwndDlg, nId)
          FontHandle := GetFontHandle(aDialogItems[n, 13])
-         IF FontHandle != 0
+         IF !empty(FontHandle)
             _SetFontHandle(ControlHandle, FontHandle)
          ELSE
             IF aDialogItems[n, 13] != NIL .AND. aDialogItems[n, 14] != NIL

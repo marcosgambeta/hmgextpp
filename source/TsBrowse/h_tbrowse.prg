@@ -542,7 +542,7 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
          AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
       ENDIF
 
-      IF FontHandle != 0
+      IF !empty(FontHandle)
          _SetFontHandle( ControlHandle, FontHandle )
          oBrw:hFont := FontHandle
       ELSE

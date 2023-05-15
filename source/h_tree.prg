@@ -234,7 +234,7 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
 
    IF !_HMG_DialogInMemory
 
-      IF FontHandle != 0
+      IF !empty(FontHandle)
          _SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)

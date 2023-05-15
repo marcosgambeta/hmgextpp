@@ -252,7 +252,7 @@ STATIC FUNCTION _DefineTab( ControlName, ParentFormName, x, y, w, h, aCaptions, 
 
    IF !lDialogInMemory
 
-      IF FontHandle != 0
+      IF !empty(FontHandle)
          _SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)

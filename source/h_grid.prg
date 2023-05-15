@@ -297,7 +297,7 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
          AAdd(_HMG_ActiveTabCurrentPageMap, ControlHandle)
       ENDIF
 
-      IF FontHandle != 0
+      IF !empty(FontHandle)
          _SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)

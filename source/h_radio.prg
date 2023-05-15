@@ -179,7 +179,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
                ENDIF
             ENDIF
 
-            IF FontHandle != 0
+            IF !empty(FontHandle)
                _SetFontHandle(ControlHandle, FontHandle)
             ELSE
                __defaultNIL(@FontName, _HMG_DefaultFontName)
@@ -204,7 +204,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
 
       ControlHandle := InitRadioGroup ( ParentFormHandle, aOptions [1], 0, x, y , "" , 0 , width, invisible, notabstop, leftjustify )
 
-      IF FontHandle != 0
+      IF !empty(FontHandle)
          _SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
@@ -232,7 +232,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
 
          ControlHandle := InitRadioButton ( ParentFormHandle, aOptions[i], 0, x, y , "" , 0 , width, invisible, leftjustify )
 
-         IF FontHandle != 0
+         IF !empty(FontHandle)
             _SetFontHandle(ControlHandle, FontHandle)
          ELSE
             IF IsWindowHandle(ControlHandle)

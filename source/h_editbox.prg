@@ -187,7 +187,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
 
             ControlHandle := InitEditBox ( ParentFormHandle , 0, x, y, w, h, "", 0 , maxlength , readonly, invisible, notabstop , novscroll , nohscroll )
 
-            IF FontHandle != 0
+            IF !empty(FontHandle)
                _SetFontHandle(ControlHandle, FontHandle)
             ELSE
                __defaultNIL(@FontName, _HMG_DefaultFontName)
@@ -234,7 +234,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
          AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
       ENDIF
 
-      IF FontHandle != 0
+      IF !empty(FontHandle)
          _SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)

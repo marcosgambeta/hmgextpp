@@ -319,7 +319,7 @@ FUNCTION _EndDialog()
             ControlHandle := GetDialogItemHandle(ParentForm, nId)
             FontHandle    := GetFontHandle(_HMG_aDialogItems[n, 13])
 
-            IF FontHandle != 0
+            IF !empty(FontHandle)
                _SetFontHandle(ControlHandle, FontHandle)
             ELSE
                IF _HMG_aDialogItems[n, 13] != NIL .AND. _HMG_aDialogItems[n, 14] != NIL

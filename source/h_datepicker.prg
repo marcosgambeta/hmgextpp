@@ -178,7 +178,7 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
 
    IF !lDialogInMemory
 
-      IF FontHandle != 0
+      IF !empty(FontHandle)
          _SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)
@@ -409,7 +409,7 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
 
    IF !lDialogInMemory
 
-      IF FontHandle != 0
+      IF !empty(FontHandle)
          _SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)

@@ -179,7 +179,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
 
          ControlHandle := InitComboBoxEx ( _HMG_aFormReBarHandle[i], 0, x, y, w, "", notrans , h, invisible, notabstop, .F. , displaychange, _HMG_IsXPorLater, aImages, ImageList )
 
-         IF FontHandle != 0
+         IF !empty(FontHandle)
             _SetFontHandle(ControlHandle, FontHandle)
          ELSE
             __defaultNIL(@FontName, _HMG_DefaultFontName)
@@ -199,7 +199,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
 
       ControlHandle := InitComboBoxEx ( ParentForm, 0, x, y, w, "", notrans , h, invisible, notabstop, .F. , displaychange, _HMG_IsXPorLater, aImages, ImageList )
 
-      IF FontHandle != 0
+      IF !empty(FontHandle)
          _SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)

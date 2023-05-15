@@ -215,7 +215,7 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
 
    IF !lDialogInMemory
 
-      IF FontHandle != 0
+      IF !empty(FontHandle)
          _SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)

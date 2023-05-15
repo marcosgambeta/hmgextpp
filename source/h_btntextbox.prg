@@ -222,7 +222,7 @@ FUNCTION _DefineBtnTextBox(ControlName, ParentFormName, x, y, w, h, ;
 
    IF !lDialogInMemory
 
-      IF FontHandle != 0
+      IF !empty(FontHandle)
          _SetFontHandle(aControlHandle[1], FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)

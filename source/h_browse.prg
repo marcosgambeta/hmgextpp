@@ -235,7 +235,7 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
          AEval(aHeadClick, { | x, i | aHeadClick[i] := { | n | HMG_SetOrder( n ) }, HB_SYMBOL_UNUSED(x) })
       ENDIF
 
-      IF FontHandle != 0
+      IF !empty(FontHandle)
          _SetFontHandle(ControlHandle, FontHandle)
       ELSE
          __defaultNIL(@FontName, _HMG_DefaultFontName)

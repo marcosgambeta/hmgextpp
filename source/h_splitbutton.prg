@@ -70,7 +70,7 @@ PROCEDURE _DefineSplitButton ( cName, nRow, nCol, cCaption, bAction, cParent, ;
       AAdd(_HMG_ActiveTabCurrentPageMap, hControlHandle)
    ENDIF
 
-   IF FontHandle != 0
+   IF !empty(FontHandle)
       _SetFontHandle(hControlHandle, FontHandle)
    ELSE
       __defaultNIL(@FontName, _HMG_DefaultFontName)

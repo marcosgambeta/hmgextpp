@@ -115,7 +115,7 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
 
    ControlHandle := RetArray [1]
 
-   IF FontHandle != 0
+   IF !empty(FontHandle)
       _SetFontHandle(ControlHandle, FontHandle)
    ELSE
       __defaultNIL(@FontName, _HMG_DefaultFontName)

@@ -97,7 +97,7 @@ FUNCTION _DefineIPAddress ( ControlName, ParentForm, x, y, w, h, aValue, ;
 
    ControlHandle := InitIPAddress ( ParentForm, 0, x, y, w, h, invisible, notabstop )
 
-   IF FontHandle != 0
+   IF !empty(FontHandle)
       _SetFontHandle(ControlHandle, FontHandle)
    ELSE
       __defaultNIL(@FontName, _HMG_DefaultFontName)

@@ -92,7 +92,7 @@ FUNCTION _DefineToolBar ( ControlName, ParentForm, x, y, caption, ProcedureName,
       ControlHandle := InitToolBar ( ParentForm, Caption, id, 0, 0, w, h, "" , 0 , flat , bottom , righttext , _HMG_ActiveSplitBox , border , wrap, custom )
    ENDIF
 
-   IF FontHandle != 0
+   IF !empty(FontHandle)
       _SetFontHandle(ControlHandle, FontHandle)
    ELSE
       __defaultNIL(@FontName, _HMG_DefaultFontName)
