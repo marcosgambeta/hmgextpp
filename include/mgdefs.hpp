@@ -250,3 +250,9 @@ HBITMAP HMG_LoadImage(const char * pszImageName, const char * pszTypeOfRes);
 #else
 #define hmg_vmPushHandle(x)      hb_vmPushLong(reinterpret_cast<LONG_PTR>(x))
 #endif
+
+#ifdef HMG_USE_POINTERS
+#define hmg_storvhandle(h, n1, n2) hb_storvptr(h, n1, n2)
+#else
+#define hmg_storvhandle(h, n1, n2) HB_STORVNL(reinterpret_cast<LONG_PTR>(h), n1, n2)
+#endif
