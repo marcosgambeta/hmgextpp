@@ -52,6 +52,12 @@
    #define HMG_NULLHANDLE 0
 #endif
 
+#ifdef HMG_USE_POINTERS
+   #define hmg_numbertohandle(x)      win_n2p(x)
+#else
+   #define hmg_numbertohandle(x)      x
+#endif
+
 #include "mgver.h"
 
 /* ***********************************************************************
