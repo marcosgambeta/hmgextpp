@@ -554,7 +554,8 @@ PROCEDURE _EndMenu()
                AEval(h, {|x|AAdd(_HMG_aControlsContextMenu, {x, _HMG_xContextMenuHandle, _HMG_xContextMenuButtonIndex[i], .T.})})
             ELSE
                AAdd(_HMG_aControlsContextMenu, {h, _HMG_xContextMenuHandle, _HMG_xContextMenuButtonIndex[i], .T.})
-               IF _HMG_aControlType[_HMG_xContextMenuButtonIndex[i]] $ "IMAGE,LABEL"
+               IF _HMG_aControlType[_HMG_xContextMenuButtonIndex[i]] == CONTROL_TYPE_IMAGE .OR. ;
+                  _HMG_aControlType[_HMG_xContextMenuButtonIndex[i]] == CONTROL_TYPE_LABEL
                   ChangeStyle(h, SS_NOTIFY)
                ENDIF
             ENDIF
