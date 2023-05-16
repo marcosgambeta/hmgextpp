@@ -221,7 +221,7 @@ FUNCTION _DefinePropGrid ( ControlName, ParentFormName, row, col, width, height,
    IF !lCancelBtn
       UserCancelProc := ""
    ENDIF
-   IF HB_ISBLOCK(UserHelpProc)
+   IF hb_IsBlock(UserHelpProc)
       lHelpBtn := .T.
    ENDIF
 
@@ -430,7 +430,7 @@ FUNCTION PgBtnEvents(hwndPG, HwndBtn)
       CASE PGB_OK
       CASE PGB_APPLY
          IF _HMG_aControlMiscData1[i, 7] .OR. nBtn == PGB_APPLY
-            IF HB_ISBLOCK(_HMG_aControlProcedures[i])
+            IF hb_IsBlock(_HMG_aControlProcedures[i])
                _DoControlEventProcedure ( _HMG_aControlProcedures[i], i )
             ELSE
                PgSaveFile( GetParentFormName( i ), _HMG_aControlNames[i], cFile )
@@ -442,7 +442,7 @@ FUNCTION PgBtnEvents(hwndPG, HwndBtn)
          ENDIF
          EXIT
       CASE PGB_CANCEL
-         IF HB_ISBLOCK(_HMG_aControlValue[i])
+         IF hb_IsBlock(_HMG_aControlValue[i])
             _DoControlEventProcedure ( _HMG_aControlValue[i], i )
          ELSE
             _InitPgArray(aRowItem, cFile, lXml, i)
@@ -450,7 +450,7 @@ FUNCTION PgBtnEvents(hwndPG, HwndBtn)
          ENDIF
          EXIT
       CASE PGB_HELP
-         IF HB_ISBLOCK(_HMG_aControlMiscData1[i, 6])
+         IF hb_IsBlock(_HMG_aControlMiscData1[i, 6])
             _DoControlEventProcedure ( _HMG_aControlMiscData1[i, 6], i )
          ENDIF
       ENDSWITCH
@@ -589,7 +589,7 @@ FUNCTION PgCheckData(typePG, cValue, aData, mod)
       ENDIF
       EXIT
    CASE PG_COLOR
-      aData := IIf( HB_ISBLOCK(aData), ;
+      aData := IIf( hb_IsBlock(aData), ;
          Eval(aData), aData )
       aCol := PgIdentData( aData, PG_COLOR )
       TOKENINIT ( cValue, " ,()" )
@@ -1173,7 +1173,7 @@ FUNCTION PgGetSysInfo( aRowIt )
    LOCAL cDan := aRowIt[APG_VALUE]
    LOCAL typ
 
-   IF HB_ISBLOCK(aRowIt[APG_DATA])
+   IF hb_IsBlock(aRowIt[APG_DATA])
       cDan := Eval(aRowIt[APG_DATA])
       IF ValType(cDan) != "C"
          cDan := aRowIt[APG_VALUE]

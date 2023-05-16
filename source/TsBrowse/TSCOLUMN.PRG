@@ -281,7 +281,7 @@ METHOD New(cHeading, bData, cPicture, aColors, aAlign, nWidth, lBitMap, lEdit, b
    ENDIF
 
    IF aAlign != NIL
-      AEval(aAlign, {|nAli, n|aTmpAlign[n] := IIf(HB_ISNUMERIC(nAli) .OR. HB_ISBLOCK(nAli), nAli, ;
+      AEval(aAlign, {|nAli, n|aTmpAlign[n] := IIf(HB_ISNUMERIC(nAli) .OR. hb_IsBlock(nAli), nAli, ;
          IIf((xVar := AScan({"LEFT", "CENTER", "RIGHT", "VERT"}, Upper(nAli))) > 0, xVar - 1, xVar))})
    ENDIF
 

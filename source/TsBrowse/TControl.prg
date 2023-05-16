@@ -137,8 +137,8 @@ CLASS TControl
    METHOD KeyDown(nKey, nFlags)
    METHOD KeyUp(nKey, nFlags) VIRTUAL
    METHOD KillFocus(hCtlFocus)
-   METHOD VarPut(uVal) INLINE IIf(HB_ISBLOCK(::bSetGet), Eval(::bSetGet, uVal), NIL)
-   METHOD VarGet() INLINE IIf(HB_ISBLOCK(::bSetGet), Eval(::bSetGet), NIL)
+   METHOD VarPut(uVal) INLINE IIf(hb_IsBlock(::bSetGet), Eval(::bSetGet, uVal), NIL)
+   METHOD VarGet() INLINE IIf(hb_IsBlock(::bSetGet), Eval(::bSetGet), NIL)
    METHOD LButtonDown(nRow, nCol, nKeyFlags)
    METHOD LButtonUp(nRow, nCol, nKeyFlags)
    METHOD MouseMove(nRow, nCol, nKeyFlags)

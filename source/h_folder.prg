@@ -160,7 +160,7 @@ FUNCTION _DefineFolder(FormName, ParentForm, lRes, x, y, w, h, caption, fontname
    ENDIF
 
    style := BS_NOTIFY + WS_CHILD + BS_PUSHBUTTON + WS_VISIBLE
-   IF HB_ISBLOCK(FolderProcedure)
+   IF hb_IsBlock(FolderProcedure)
       lOkBtn := .T.
       AAdd(_HMG_aFolderInfo[_HMG_FldID,FLD_FIT], {FLBTN_OK, 0, "button", style, 0, 0, 0, 70, 25, _HMG_MESSAGE[6], 0, "", FontName, FontSize, bold, italic, underline, strikeout, , _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
       IF apply
@@ -168,11 +168,11 @@ FUNCTION _DefineFolder(FormName, ParentForm, lRes, x, y, w, h, caption, fontname
          AAdd(_HMG_aFolderInfo[_HMG_FldID,FLD_FIT], {FLBTN_APPLY, 0, "button", style, 0, 0, 0, 70, 25, _HMG_MESSAGE[8], 0, "", FontName, FontSize, bold, italic, underline, strikeout, , _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
       ENDIF
    ENDIF
-   IF HB_ISBLOCK(CancelProcedure)
+   IF hb_IsBlock(CancelProcedure)
       lCancelBtn := .T.
       AAdd(_HMG_aFolderInfo[_HMG_FldID,FLD_FIT], {FLBTN_CANCEL, 0, "button", style, 0, 0, 0, 70, 25, _HMG_MESSAGE[7], 0, "", FontName, FontSize, bold, italic, underline, strikeout, , _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
    ENDIF
-   IF HB_ISBLOCK(HelpProcedure)
+   IF hb_IsBlock(HelpProcedure)
       lHelpBtn := .T.
       AAdd(_HMG_aFolderInfo[_HMG_FldID,FLD_FIT], {FLBTN_HELP, 0, "button", style, 0, 0, 0, 70, 25, "Help", 0, "", FontName, FontSize, bold, italic, underline, strikeout, , _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
    ENDIF
@@ -559,7 +559,7 @@ FUNCTION InitPageFldProc(hWndParent, hwndDlg, idDlg)
             _HMG_aControlParentHandles[k] := hwndDlg
             k_old := k
          ENDIF
-         IF HB_ISBLOCK(blInit) .AND. _HMG_aControlDeleted[k] != .T.
+         IF hb_IsBlock(blInit) .AND. _HMG_aControlDeleted[k] != .T.
             Eval(blInit, _HMG_ActiveDialogName, ControlHandle, k)
          ENDIF
       NEXT
@@ -596,7 +596,7 @@ FUNCTION FolderProc(hwndDlg, nMsg, wParam, lParam)
       ENDIF
       i := AScan(_HMG_aFormhandles, hwndDlg)
       IF i > 0
-         IF HB_ISBLOCK(_HMG_aFormInitProcedure[i]) .AND. _HMG_aFormType[i] == "F"
+         IF hb_IsBlock(_HMG_aFormInitProcedure[i]) .AND. _HMG_aFormType[i] == "F"
             Eval(_HMG_aFormInitProcedure[i], hwndDlg)
             ret := .T.
          ENDIF
@@ -609,7 +609,7 @@ FUNCTION FolderProc(hwndDlg, nMsg, wParam, lParam)
    CASE WM_COMMAND
       i := AScan(_HMG_aFormhandles, hwndDlg)  // find DialogProcedure
       IF i > 0
-         IF HB_ISBLOCK(_HMG_aFormClickProcedure[i]) .AND. _HMG_aFormType[i] == "F"
+         IF hb_IsBlock(_HMG_aFormClickProcedure[i]) .AND. _HMG_aFormType[i] == "F"
             ret :=  RetValue(Eval(_HMG_aFormClickProcedure[i], nMsg, LOWORD(wParam), HIWORD(wParam)), .F.)
          ELSE
             ControlHandle := GetDialogITemHandle(hwndDlg, LOWORD(wParam))
@@ -707,7 +707,7 @@ FUNCTION PageFldProc(hWndDlg, nMsg, wParam, lParam)
          Folder_UnChanged(hwndFolder, hWndDlg)
          i := AScan(_HMG_aFormhandles, hwndFolder)  // find FolderProcedure
          IF i > 0
-            IF HB_ISBLOCK(_HMG_aFormClickProcedure[i]) .AND. _HMG_aFormType[i] == "F"
+            IF hb_IsBlock(_HMG_aFormClickProcedure[i]) .AND. _HMG_aFormType[i] == "F"
                lRet :=  RetValue(Eval(_HMG_aFormClickProcedure[i], nMsg, LOWORD(wParam), HIWORD(wParam)), .F.)
             ELSE
                ControlHandle := GetDialogITemHandle(hwndDlg, LOWORD(wParam))
@@ -729,7 +729,7 @@ FUNCTION PageFldProc(hWndDlg, nMsg, wParam, lParam)
             _HMG_aFolderInfo[nFldID,FLD_HFP, i] := 0
             i := AScan(_HMG_aFormhandles, hwndFolder)  // find FolderProcedure
             IF i > 0
-               IF HB_ISBLOCK(_HMG_aFormInteractiveCloseProcedure[i]) .AND. _HMG_aFormType[i] == "F"
+               IF hb_IsBlock(_HMG_aFormInteractiveCloseProcedure[i]) .AND. _HMG_aFormType[i] == "F"
                   lRet := RetValue(Eval(_HMG_aFormInteractiveCloseProcedure[i], nMsg, LOWORD(wParam), HIWORD(wParam)), .F.)
                ENDIF
             ENDIF
@@ -750,7 +750,7 @@ FUNCTION PageFldProc(hWndDlg, nMsg, wParam, lParam)
       CASE FLN_HELP
          i := AScan(_HMG_aFormhandles, hwndFolder)  // find FolderProcedure
          IF i > 0
-            IF HB_ISBLOCK(_HMG_aFormReleaseProcedure[i]) .AND. _HMG_aFormType[i] == "F"
+            IF hb_IsBlock(_HMG_aFormReleaseProcedure[i]) .AND. _HMG_aFormType[i] == "F"
                lRet :=  RetValue(Eval(_HMG_aFormReleaseProcedure[i], nMsg, LOWORD(wParam), HIWORD(wParam)), .F.)
             ENDIF
          ENDIF

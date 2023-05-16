@@ -109,7 +109,7 @@ FUNCTION _DefineLabel(ControlName, ParentFormName, x, y, Caption, w, h, ;
       mVar := ""
       AEval(Caption, {|v|mVar += cValToChar(v)})
       Caption := mVar
-   ELSEIF ISBLOCK(Caption)
+   ELSEIF hb_IsBlock(Caption)
       Caption := cValToChar(Eval(Caption))
    ELSE
       Caption := cValToChar(Caption)
@@ -179,7 +179,7 @@ FUNCTION _DefineLabel(ControlName, ParentFormName, x, y, Caption, w, h, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      Controlhandle := InitLabel(ParentFormHandle, Caption, 0, x, y, w, h, "", (ISBLOCK(ProcedureName) .OR. ISBLOCK(dblclick) .OR. ISBLOCK(rclick) .OR. ISSTRING(tooltip)), (ISBLOCK(mouseover) .OR. ISBLOCK(mouseleave)), border, clientedge, HSCROLL, VSCROLL, TRANSPARENT, invisible, rightalign, centeralign, VCenterAlign, NoPrefix)
+      Controlhandle := InitLabel(ParentFormHandle, Caption, 0, x, y, w, h, "", (hb_IsBlock(ProcedureName) .OR. hb_IsBlock(dblclick) .OR. hb_IsBlock(rclick) .OR. ISSTRING(tooltip)), (hb_IsBlock(mouseover) .OR. hb_IsBlock(mouseleave)), border, clientedge, HSCROLL, VSCROLL, TRANSPARENT, invisible, rightalign, centeralign, VCenterAlign, NoPrefix)
 
    ENDIF
 

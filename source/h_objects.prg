@@ -64,7 +64,7 @@ RETURN aRet
 METHOD Eval(Block) CLASS THmgData
 
    LOCAL i
-   LOCAL b := HB_ISBLOCK( Block )
+   LOCAL b := hb_IsBlock(Block)
    LOCAL l := HB_ISLOGICAL( Block ) .AND. Block
    LOCAL a := iif( b, NIL, Array(0) )
 
@@ -379,7 +379,7 @@ METHOD Write( cFile, lUtf8 ) CLASS TIniData
        FOR EACH aSec IN oSec:GetAll()
            cKey := aSec[1]
            xVal := aSec[2]
-           lBlk := HB_ISBLOCK( xVal )
+           lBlk := hb_IsBlock(xVal)
            cVal := ::ToString( xVal )
            IF !::lUtf .AND. lUtf8
               cKey := hb_StrToUtf8( cKey )
@@ -687,7 +687,7 @@ CLASS TDlu2Pix
 
    METHOD Create() INLINE _App_Dlu2Pix_Events_( Self )
 
-   METHOD Event( Key, p1, p2, p3 )  INLINE iif( HB_ISBLOCK( p1 ),   ;
+   METHOD Event( Key, p1, p2, p3 )  INLINE iif( hb_IsBlock(p1),   ;
                  ::oEvent:Set( Key, p1 ),                           ;
                  ( p2 := hb_defaultValue(p2, ::oParam:Get(Key)), ;
                  ::oEvent:Do ( Key, p1, p2, p3 ) ) )
@@ -1033,10 +1033,10 @@ CLASS TWndData
    METHOD DelProp( xKey ) INLINE ::oProp:Del( xKey )
    METHOD AllProp( lArray ) INLINE ::oProp:GetAll( lArray )
 
-   METHOD UserKeys( Key, Block, p2, p3 ) INLINE iif( HB_ISBLOCK( Block ), ::oUserKeys:Set( Key, Block ), ;
+   METHOD UserKeys( Key, Block, p2, p3 ) INLINE iif( hb_IsBlock(Block), ::oUserKeys:Set( Key, Block ), ;
       iif( ::lAction, ::oUserKeys:Do( Key, Block, p2, p3 ), Nil ) )
 
-   METHOD Event ( Key, Block, p2, p3 ) INLINE iif( HB_ISBLOCK( Block ), ::oEvent:Set( Key, Block ), ;
+   METHOD Event ( Key, Block, p2, p3 ) INLINE iif( hb_IsBlock(Block), ::oEvent:Set( Key, Block ), ;
       iif( ::lAction, ::oEvent:Do( Key, Block, p2, p3 ), Nil ) )
 
    METHOD Post ( nKey, nHandle, xPar ) INLINE ::PostMsg( nKey, nHandle, xPar )
@@ -1429,7 +1429,7 @@ METHOD Do( nMsg, wParam, lParam ) CLASS TWmEData
    LOCAL r
    LOCAL b := ::Get( nMsg )
 
-   IF HB_ISBLOCK( b )
+   IF hb_IsBlock(b)
       o := ::oObj
       IF o:IsWindow
          r := Do_WindowEventProcedure ( b, o:Index, o, nMsg, wParam, lParam ) // {|ow,nm,wp,lp| ... }
@@ -1480,14 +1480,14 @@ CLASS TKeyData
    METHOD Pos( Key ) INLINE hb_HPos( ::aKey, Key )
 
    METHOD Do ( Key, p1, p2, p3 ) BLOCK {| Self, Key, p1, p2, p3, b | b := ::Get( Key ), ;
-      iif( HB_ISBLOCK( b ), Eval(b, ::oObj, Key, p1, p2, p3 ), Nil )}
+      iif( hb_IsBlock(b), Eval(b, ::oObj, Key, p1, p2, p3 ), Nil )}
 
    ACCESS Obj INLINE ::oObj
    ASSIGN Obj(o) INLINE ::oObj := iif( HB_ISOBJECT( o ), o, Self )
    ACCESS Len INLINE Len(::aKey)
    ACCESS IsEvent INLINE ::lKey
    ASSIGN KeyUpper(lUpper) INLINE hb_HCaseMatch( ::aKey, !Empty(lUpper) )
-   METHOD ISBLOCK( Key ) INLINE HB_ISBLOCK( ::Get( Key ) )
+   METHOD ISBLOCK( Key ) INLINE hb_IsBlock(::Get( Key ))
    METHOD Json( cJson )  INLINE iif( HB_ISCHAR( cJson ), ( cJson := SubStr(cJson, At("{", cJson) ), ;
                                                            cJson := Left(cJson, RAt("}", cJson) ), ;
                                                            ::aKey := hb_jsonDecode( cJson ), Self ), ;
@@ -1524,7 +1524,7 @@ RETURN aRet
 METHOD Eval(Block) CLASS TKeyData
 
    LOCAL i
-   LOCAL b := HB_ISBLOCK( Block )
+   LOCAL b := hb_IsBlock(Block)
    LOCAL l := HB_ISLOGICAL( Block ) .AND. Block
    LOCAL a := iif( b, NIL, Array(0) )
 
@@ -1639,13 +1639,13 @@ CLASS TThrData
       iif( hb_HHasKey( ::aKey, Key ), hb_HDel ( ::aKey, Key ), Nil ) )
 
    METHOD Do ( Key, p1, p2, p3 ) BLOCK {| Self, Key, p1, p2, p3, b | b := ::Get( Key ), ;
-      iif( HB_ISBLOCK( b ), Eval(b, ::oObj, Key, p1, p2, p3), Nil ) }
+      iif( hb_IsBlock(b), Eval(b, ::oObj, Key, p1, p2, p3), Nil ) }
    ACCESS MT INLINE ::lMT
    ASSIGN MT( lVmMt ) INLINE ::lMT := iif( HB_ISLOGICAL( lVmMt ), lVmMt, .F. )
    ACCESS Obj INLINE ::oObj
    ASSIGN Obj(o) INLINE ::oObj := iif( HB_ISOBJECT( o ), o, Self )
    ACCESS Len INLINE Len(::aKey)
-   METHOD ISBLOCK( Key ) INLINE HB_ISBLOCK( ::Get( Key ) )
+   METHOD ISBLOCK( Key ) INLINE hb_IsBlock(::Get( Key ))
 
    _METHOD GetAll( lAll )
    _METHOD Eval(Block)
@@ -1692,7 +1692,7 @@ METHOD Eval(Block) CLASS TThrData
 
    LOCAL m
    LOCAL i
-   LOCAL b := HB_ISBLOCK( Block )
+   LOCAL b := hb_IsBlock(Block)
    LOCAL l := HB_ISLOGICAL( Block ) .AND. Block
    LOCAL a := iif( b, NIL, Array(0) )
 

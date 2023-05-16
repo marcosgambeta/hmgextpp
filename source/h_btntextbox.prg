@@ -67,7 +67,7 @@ FUNCTION _DefineBtnTextBox(ControlName, ParentFormName, x, y, w, h, ;
    LOCAL mVar
    LOCAL k
    LOCAL Style
-   LOCAL lBtn2 := ISBLOCK(ProcedureName2)
+   LOCAL lBtn2 := hb_IsBlock(ProcedureName2)
    LOCAL FontHandle
    LOCAL cBmp
    LOCAL tmp

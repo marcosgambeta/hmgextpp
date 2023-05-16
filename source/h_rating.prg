@@ -216,7 +216,7 @@ STATIC FUNCTION OnLeaveRate( cWindow, cControl, onchange )
 
    IF pressed == 0
       ClearRating( cWindow, cControl )
-      IF ISBLOCK( onchange )
+      IF hb_IsBlock(onchange)
          Eval(onchange, pressed)
       ENDIF
    ELSE
@@ -238,7 +238,7 @@ STATIC FUNCTION OnSelectRate( cWindow, cControl, onchange )
          img_name := cWindow + "_" + cControl + "_" + hb_ntos( i )
          SetProperty( cWindow, img_name, "Picture", GetProperty( cWindow, img_name, "Cargo" ) [2] )
       NEXT
-      IF ISBLOCK( onchange )
+      IF hb_IsBlock(onchange)
          Eval(onchange, pressed)
       ENDIF
    ENDIF

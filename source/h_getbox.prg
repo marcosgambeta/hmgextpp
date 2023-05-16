@@ -93,8 +93,8 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    LOCAL blInit
    LOCAL cBmp
    LOCAL tmp
-   LOCAL lBtns := ISBLOCK( ProcedureName )
-   LOCAL lBtn2 := ISBLOCK( ProcedureName2 )
+   LOCAL lBtns := hb_IsBlock(ProcedureName)
+   LOCAL lBtn2 := hb_IsBlock(ProcedureName2)
    LOCAL lModifyGotFocus := .F.
    LOCAL k
    LOCAL Style
@@ -486,7 +486,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
    _HMG_ThisFormName := _HMG_aFormNames [ ParentHandle ]
    _HMG_ThisControlName := _HMG_aControlNames[i]
 
-   IF HB_ISBLOCK(oGet:preblock) .AND. nMsg == WM_SETFOCUS
+   IF hb_IsBlock(oGet:preblock) .AND. nMsg == WM_SETFOCUS
       IF !Eval(oGet:preblock, oGet, .F.)
          IF oGet:VarGet() == oGet:UnTransform(oGet:original)
             lAllowEdit := .F.
@@ -521,9 +521,9 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
             _HMG_aControlBkColor[i] := nRGB2Arr ( GetSysColor ( COLOR_WINDOW ) )
          ENDIF
          IF HB_ISNUMERIC(_HMG_aControlBkColor[i, 1])
-            _HMG_aControlBkColor[i] := iif( ISBLOCK ( aClrFocus ), Eval(aClrFocus), aClrFocus )
+            _HMG_aControlBkColor[i] := iif( hb_IsBlock(aClrFocus), Eval(aClrFocus), aClrFocus )
          ELSEIF hb_IsArray(_HMG_aControlBkColor[i, 1]) .AND. Len(_HMG_aControlBkColor[i]) == 3
-            _HMG_aControlBkColor[i][3] := iif( ISBLOCK ( aClrFocus ), Eval(aClrFocus), aClrFocus )
+            _HMG_aControlBkColor[i][3] := iif( hb_IsBlock(aClrFocus), Eval(aClrFocus), aClrFocus )
          ENDIF
          aOldFontClr := _HMG_aControlFontColor[i]
          IF _HMG_aControlFontColor[i] == NIL
@@ -531,9 +531,9 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          ENDIF
          IF aFntFocus != NIL
             IF HB_ISNUMERIC(_HMG_aControlFontColor[i, 1])
-               _HMG_aControlFontColor[i] := iif( ISBLOCK ( aFntFocus ), Eval(aFntFocus), aFntFocus )
+               _HMG_aControlFontColor[i] := iif( hb_IsBlock(aFntFocus), Eval(aFntFocus), aFntFocus )
             ELSEIF hb_IsArray(_HMG_aControlFontColor[i, 1]) .AND. Len(_HMG_aControlFontColor[i]) == 3
-               _HMG_aControlFontColor[i][3] := iif( ISBLOCK ( aFntFocus ), Eval(aFntFocus), aFntFocus )
+               _HMG_aControlFontColor[i][3] := iif( hb_IsBlock(aFntFocus), Eval(aFntFocus), aFntFocus )
             ENDIF
          ENDIF
       ENDIF
@@ -590,7 +590,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          IF !lInValid
             lInValid := .T.
 
-            IF HB_ISBLOCK(oGet:postblock)
+            IF hb_IsBlock(oGet:postblock)
                coldbuff := oGet:buffer
 
                h := GetFocus()

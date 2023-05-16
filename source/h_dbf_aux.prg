@@ -62,7 +62,7 @@ FUNCTION HMG_ArrayToDbf( aData, cFieldList, bProgress )
    NEXT
 
    nRows := Len(aData)
-   IF ISBLOCK( bProgress )
+   IF hb_IsBlock(bProgress)
       Eval(bProgress, 0, nRows)
    ENDIF
 
@@ -98,7 +98,7 @@ FUNCTION HMG_ArrayToDbf( aData, cFieldList, bProgress )
       NEXT nCol
 
       dbUnlock()
-      IF ISBLOCK( bProgress )
+      IF hb_IsBlock(bProgress)
          Eval(bProgress, nRow, nRows)
       ENDIF
 

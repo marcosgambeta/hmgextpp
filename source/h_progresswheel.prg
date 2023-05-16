@@ -249,7 +249,7 @@ PROCEDURE PW_SetShowText( cControlName, cParentForm, Value )
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
    LOCAL i := GetControlIndex(cControlName, cParentForm)
 
-   IF ISBLOCK( Value )
+   IF hb_IsBlock(Value)
       _HMG_aControlCaption[i] := Value
       BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], ;
          _HMG_aControlWidth[i], _HMG_aControlHeight[i], .F. )
@@ -746,7 +746,7 @@ PROCEDURE ProgressWheelPaint( cParentForm, cImgName, Width, Height, ;
    SetBrushOrg( hDC, 0, 0 )
 
    IF ShowText
-      IF ISBLOCK( cText )
+      IF hb_IsBlock(cText)
          cText := Eval(cText, Position, Max)
       ELSE
          cText := hb_ntos( Int( 100 * ( Position - Min ) / ( Max - Min ) ) ) + "%"

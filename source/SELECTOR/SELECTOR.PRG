@@ -241,7 +241,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
    DO WHILE !Eof() .AND. ( lWhile == NIL .OR. Eval(lWhile) )
 
-      IF HB_ISBLOCK(xEval)
+      IF hb_IsBlock(xEval)
 
          Eval(xEval)
 

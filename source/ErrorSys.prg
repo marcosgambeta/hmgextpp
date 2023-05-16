@@ -217,7 +217,7 @@ STATIC PROCEDURE ShowError( cErrorMessage, oError )
 #ifdef _TSBROWSE_
       _TSB_aControlhWnd := {}
 #endif
-      IF ISBLOCK( _HMG_bOnErrorInit )
+      IF hb_IsBlock(_HMG_bOnErrorInit)
          cMsg := Eval(_HMG_bOnErrorInit, cMsg)
       ENDIF
 
@@ -256,7 +256,7 @@ STATIC PROCEDURE ShowError( cErrorMessage, oError )
 
       ErrorLevel( 1 )
 
-      IF ISBLOCK( _HMG_bOnErrorExit )
+      IF hb_IsBlock(_HMG_bOnErrorExit)
          Eval(_HMG_bOnErrorExit)
       ENDIF
 

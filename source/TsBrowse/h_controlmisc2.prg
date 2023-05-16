@@ -263,8 +263,10 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
          ENDIF
       ENDIF
 
-      IF HB_ISBLOCK( bAfter ) ; EVal(bAfter, oBrw, .T.)
-      ELSE                    ; Eval(bSetUp, oBrw, .T.)
+      IF hb_IsBlock(bAfter)
+         EVal(bAfter, oBrw, .T.)
+      ELSE
+         Eval(bSetUp, oBrw, .T.)
       ENDIF
 
    END WINDOW
@@ -416,7 +418,7 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
    DEFAULT bEnd  := {|ob, op|
                       // нет горизонтального HScroll и есть SELECTOR
                       IF op:uSelector != NIL .AND. op:lAdjust == NIL .AND. ob:lNoHScroll
-                         IF HB_ISBLOCK( op:bAdjColumns )
+                         IF hb_IsBlock(op:bAdjColumns)
                             EVal(op:bAdjColumns, ob, op)  // :AdjColumns(...)
                          ENDIF
                       ENDIF
@@ -478,39 +480,41 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
       :SetAppendMode( .F. )
       :SetDeleteMode( .F. )
 
-      IF HB_ISBLOCK( bInit ) ; EVal(bInit, oBrw, oParam)                 // 1. call your customization functions
+      IF hb_IsBlock(bInit)
+         EVal(bInit, oBrw, oParam)                 // 1. call your customization functions
       ENDIF
 
-      IF :lDrawSpecHd .AND. !Empty(oParam:aNumber) .AND. HB_ISBLOCK( oParam:bSpecHdEnum )  // renumbering SpecHeader
+      IF :lDrawSpecHd .AND. !Empty(oParam:aNumber) .AND. hb_IsBlock(oParam:bSpecHdEnum)  // renumbering SpecHeader
          EVal(oParam:bSpecHdEnum, oBrw, oParam)
       ENDIF
 
-      IF HB_ISBLOCK( oParam:bBody ) ; EVal(oParam:bBody, oBrw, oParam)   // 2. call your customization functions
+      IF hb_IsBlock(oParam:bBody)
+         EVal(oParam:bBody, oBrw, oParam)   // 2. call your customization functions
       ENDIF
 
       IF HB_ISLOGICAL( oParam:bDblClick )
          :bLDblClick := {|p1, p2, p3, ob| p1:=p2:=p3, ob:PostMsg( WM_KEYDOWN, VK_RETURN, 0 ) }
-      ELSEIF HB_ISBLOCK( oParam:bDblClick )
+      ELSEIF hb_IsBlock(oParam:bDblClick)
          :bLDblClick := oParam:bDblClick     // :bLDblClick := {|p1,p2,p3,ob| ... }
       ENDIF
 
-      IF HB_ISBLOCK( oParam:bRClicked )
+      IF hb_IsBlock(oParam:bRClicked)
          :bRClicked := oParam:bRClicked      // :bRClicked := {|p1,p2,p3,ob| ... }
       ENDIF
 
-      IF HB_ISBLOCK( oParam:bLClicked )
+      IF hb_IsBlock(oParam:bLClicked)
          :bLClicked := oParam:bLClicked      // :bLClicked := {|p1,p2,p3,ob| ... }
       ENDIF
 
-      IF HB_ISBLOCK( oParam:bGotFocus )
+      IF hb_IsBlock(oParam:bGotFocus)
          :bGotFocus := oParam:bGotFocus      // :bGotFocus := {|ob,hCtlLost| ... }
       ENDIF
 
-      IF HB_ISBLOCK( oParam:bChange )
+      IF hb_IsBlock(oParam:bChange)
          :bChange := oParam:bChange          // :bChange := {|ob| ... }
       ENDIF
 
-      IF HB_ISBLOCK( oParam:bKeyDown )
+      IF hb_IsBlock(oParam:bKeyDown)
          :bKeyDown := oParam:bKeyDown        // :bKeyDown := { |nKey,nFalgs,ob| ... }
       ENDIF
 
@@ -535,7 +539,7 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
          :lNoHScroll  := .F.
          :lMoreFields := ( :nColCount() > 30 )
       ELSEIF oParam:uSelector == NIL .AND. oParam:lAdjust == NIL
-          IF HB_ISBLOCK( oParam:bAdjColumns )
+          IF hb_IsBlock(oParam:bAdjColumns)
              EVal(oParam:bAdjColumns, oBrw, oParam)             // :AdjColumns(...)
           ENDIF
       ENDIF
@@ -545,7 +549,8 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
 
    END TBROWSE
 
-   IF HB_ISBLOCK( bEnd ) ; EVal(bEnd, oBrw, oParam)
+   IF hb_IsBlock(bEnd)
+      EVal(bEnd, oBrw, oParam)
    ENDIF
 
    IF hb_IsArray(oParam:aEvents)

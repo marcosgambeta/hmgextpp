@@ -507,7 +507,7 @@ FUNCTION _MdiChildClose(hWnd)
 
       // Process Interactive Close Event / Setting
 
-      IF ISBLOCK(_HMG_aFormInteractiveCloseProcedure[i])
+      IF hb_IsBlock(_HMG_aFormInteractiveCloseProcedure[i])
          xRetVal := _DoWindowEventProcedure(_HMG_aFormInteractiveCloseProcedure[i], i, "WINDOW_ONINTERACTIVECLOSE")
          IF HB_ISLOGICAL(xRetVal)
             IF !xRetVal
@@ -535,7 +535,7 @@ FUNCTION _MdiChildClose(hWnd)
 
       ENDSWITCH
 
-      IF ISBLOCK(_HMG_aFormReleaseProcedure[i])
+      IF hb_IsBlock(_HMG_aFormReleaseProcedure[i])
          _HMG_InteractiveCloseStarted := .T.
          _DoWindowEventProcedure(_HMG_aFormReleaseProcedure[i], i, "WINDOW_RELEASE")
       ENDIF

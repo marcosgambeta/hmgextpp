@@ -97,7 +97,7 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
    uLostFocus      := ::LostFocus()
    uGotFocus       := ::GotFocus()
 
-   if HB_ISBLOCK(cPict) 
+   if hb_IsBlock(cPict) 
       cPict := Eval(cPict)
    endif
 
@@ -172,7 +172,7 @@ METHOD lValid() CLASS TGetBox
 
    Local lRet := .T.
 
-   If HB_ISBLOCK(::bValid)
+   If hb_IsBlock(::bValid)
       lRet := Eval(::bValid, ::GetText())
    EndIf
 

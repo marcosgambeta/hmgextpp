@@ -1628,7 +1628,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
       _HMG_MouseRow := HIWORD(lParam)
       _HMG_MouseCol := LOWORD(lParam)
 
-      IF (i := AScan(_HMG_aControlHandles, hmg_numbertohandle(wParam))) > 0 .AND. (_HMG_aControlType[i] == CONTROL_TYPE_IMAGE .OR. _HMG_aControlType[i] == CONTROL_TYPE_LABEL) .AND. ISBLOCK(_HMG_aControlChangeProcedure[i])
+      IF (i := AScan(_HMG_aControlHandles, hmg_numbertohandle(wParam))) > 0 .AND. (_HMG_aControlType[i] == CONTROL_TYPE_IMAGE .OR. _HMG_aControlType[i] == CONTROL_TYPE_LABEL) .AND. hb_IsBlock(_HMG_aControlChangeProcedure[i])
 
          _DoControlEventProcedure(_HMG_aControlChangeProcedure[i], i)
 
@@ -1700,7 +1700,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             _DoControlEventProcedure(_HMG_aControlProcedures[i], i)
 
-         ELSEIF ISBLOCK(_HMG_aControlProcedures[i])
+         ELSEIF hb_IsBlock(_HMG_aControlProcedures[i])
 
             IF _HMG_BeginWindowActive == .F. .OR. _HMG_MainClientMDIHandle != 0
                Eval(_HMG_aControlProcedures[i])
@@ -2620,7 +2620,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
          i := AScan(_HMG_aControlHandles, x)
 
 #ifdef UNICODE
-         IF i > 0 .AND. !ISBLOCK(_HMG_aControlProcedures[i])
+         IF i > 0 .AND. !hb_IsBlock(_HMG_aControlProcedures[i])
 #else
          IF i > 0
 #endif
@@ -2993,7 +2993,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                   _BrowseEdit(_hmg_acontrolhandles[i], _HMG_acontrolmiscdata1[i][4], _HMG_acontrolmiscdata1[i][5], ;
                      _HMG_acontrolmiscdata1[i][3], _HMG_aControlInputMask[i], .F., _HMG_aControlFontColor[i], _HMG_acontrolmiscdata1[i][13])
                ELSE
-                  IF ISBLOCK(_HMG_aControlDblClick[i])
+                  IF hb_IsBlock(_HMG_aControlDblClick[i])
                      Eval(_HMG_aControlDblClick[i])
                   ENDIF
                ENDIF
@@ -3073,7 +3073,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             IF GetNotifyCode(lParam) == EN_MSGFILTER // for typing text
 
-               IF ISBLOCK(_HMG_aControlChangeProcedure[i])
+               IF hb_IsBlock(_HMG_aControlChangeProcedure[i])
                   _HMG_ThisType := "C"
                   _HMG_ThisIndex := i
                   Eval(_HMG_aControlChangeProcedure[i])
@@ -3085,7 +3085,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             IF GetNotifyCode(lParam) == EN_DRAGDROPDONE // for change text by drag
 
-               IF ISBLOCK(_HMG_aControlChangeProcedure[i])
+               IF hb_IsBlock(_HMG_aControlChangeProcedure[i])
                   _HMG_ThisType := "C"
                   _HMG_ThisIndex := i
                   Eval(_HMG_aControlChangeProcedure[i])
@@ -3097,7 +3097,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             IF GetNotifyCode(lParam) == EN_SELCHANGE // for change text
 
-               IF ISBLOCK(_HMG_aControlDblClick[i])
+               IF hb_IsBlock(_HMG_aControlDblClick[i])
                   _HMG_ThisType := "C"
                   _HMG_ThisIndex := i
                   Eval(_HMG_aControlDblClick[i])
@@ -3326,7 +3326,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             IF GetNotifyCode(lParam) == LVN_GETDISPINFO
 
-               IF ISBLOCK(_HMG_aControlProcedures[i])
+               IF hb_IsBlock(_HMG_aControlProcedures[i])
 
                   _PushEventInfo()
                   _HMG_ThisFormIndex := AScan(_HMG_aFormHandles, _HMG_aControlParentHandles[i])
@@ -3506,7 +3506,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                ELSE
 
-                  IF ISBLOCK(_HMG_aControlDblClick[i])
+                  IF hb_IsBlock(_HMG_aControlDblClick[i])
 
                      _PushEventInfo()
                      _HMG_ThisFormIndex := AScan(_HMG_aFormHandles, _HMG_aControlParentHandles[i])
@@ -3660,7 +3660,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                   IF !_HMG_ProgrammaticChange
                      UpdateTab(i)
                      _DoControlEventProcedure(_HMG_aControlChangeProcedure[i], i, "CONTROL_ONCHANGE")
-                  ELSEIF !ISBLOCK(_HMG_aControlChangeProcedure[i]) .OR. ;
+                  ELSEIF !hb_IsBlock(_HMG_aControlChangeProcedure[i]) .OR. ;
                         _DoControlEventProcedure(_HMG_aControlChangeProcedure[i], i, "CONTROL_ONCHANGE", nOldPage)
                      UpdateTab(i)
                   ELSE
@@ -3842,7 +3842,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
       IF (i := AScan(_HMG_aFormHandles, hWnd)) > 0
 
          // Process Interactive Close Event / Setting
-         IF ISBLOCK(_HMG_aFormInteractiveCloseProcedure[i])
+         IF hb_IsBlock(_HMG_aFormInteractiveCloseProcedure[i])
 
             r := _DoWindowEventProcedure(_HMG_aFormInteractiveCloseProcedure[i], i, "WINDOW_ONINTERACTIVECLOSE")
             IF HB_ISLOGICAL(r) .AND. r == .F.
@@ -3891,7 +3891,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
          ELSE
 
-            IF ISBLOCK(_HMG_aFormReleaseProcedure[i])
+            IF hb_IsBlock(_HMG_aFormReleaseProcedure[i])
                _HMG_InteractiveCloseStarted := .T.
                _DoWindowEventProcedure(_HMG_aFormReleaseProcedure[i], i, "WINDOW_RELEASE")
             ENDIF

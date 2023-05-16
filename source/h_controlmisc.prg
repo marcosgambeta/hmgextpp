@@ -412,7 +412,7 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
          x := ""
          AEval(Value, {|v|x += cValToChar(v)})
          Value := x
-      ELSEIF ISBLOCK(Value)
+      ELSEIF hb_IsBlock(Value)
          Value := cValToChar(Eval(Value))
       ELSE
          Value := cValToChar(Value)
@@ -6533,7 +6533,7 @@ STATIC FUNCTION _SetGetColumnHeadClick(ControlName, ParentForm, nColIndex, bActi
       ENDIF
 
       IF nColIndex > 0 .AND. nColIndex <= Len(_HMG_aControlHeadClick[i])
-         IF ISBLOCK(bAction)
+         IF hb_IsBlock(bAction)
             _HMG_aControlHeadClick[i][nColIndex] := bAction
          ELSE
             RetVal := _HMG_aControlHeadClick[i][nColIndex]

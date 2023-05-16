@@ -70,7 +70,7 @@ PROCEDURE _SetAddressControlProcedure(ControlName, url, i)
 *-----------------------------------------------------------------------------*
 
    DO CASE
-   CASE ISBLOCK( url )
+   CASE hb_IsBlock(url)
 
       _HMG_aControlProcedures[i] := url
 

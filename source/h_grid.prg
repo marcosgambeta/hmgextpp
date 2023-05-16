@@ -137,7 +137,7 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
    ENDIF
    IF Len(aHeadClick) > 0
       FOR EACH mVar IN aHeadClick
-         IF !(mVar == NIL) .AND. !ISBLOCK(mVar)
+         IF !(mVar == NIL) .AND. !hb_IsBlock(mVar)
             MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + ": ON HEADCLICK event must be defined as array of the codeblocks.")
          ENDIF
       NEXT
@@ -848,7 +848,7 @@ STATIC PROCEDURE ProcessDynamicArray(i, Rows, Cols, Arr, item)
 
          _HMG_ThisItemCellValue := aValues[c]
 
-         aTemp[r][c] := iif(ISBLOCK(Arr[c]), _tEval(Arr[c], aValues, r), -1)
+         aTemp[r][c] := iif(hb_IsBlock(Arr[c]), _tEval(Arr[c], aValues, r), -1)
 
       NEXT c
 
@@ -953,7 +953,7 @@ FUNCTION _GridInplaceEdit(idx)
 
    IF hb_IsArray(CWH) .AND. Len(CWH) >= ci
 
-      IF ISBLOCK(CWH[ci])
+      IF hb_IsBlock(CWH[ci])
 
          _HMG_ThisItemCellValue := v
 
@@ -1001,7 +1001,7 @@ FUNCTION _GridInplaceEdit(idx)
    bChange    := XRES[9]
    bBlock     := XRES[10]
 
-   IF ISBLOCK(bBlock)
+   IF hb_IsBlock(bBlock)
       aTemp[ci] := (v := Eval(bBlock, v))
       IF _HMG_aControlMiscData1[idx][5] == .F.
          _SetItem(, , ri, aTemp, idx)
@@ -1179,7 +1179,7 @@ FUNCTION _HMG_OnInplaceEditEvent(nIndex)
 
    hb_default(@nIndex, _HMG_GridInplaceEdit_GridIndex)
 
-   IF _HMG_GridInplaceEdit_ControlHandle != 0 .AND. HB_ISBLOCK(_HMG_aControlMiscData1[nIndex][30])
+   IF _HMG_GridInplaceEdit_ControlHandle != 0 .AND. hb_IsBlock(_HMG_aControlMiscData1[nIndex][30])
       Ret := Eval(_HMG_aControlMiscData1[nIndex][30])
    ENDIF
 
@@ -1219,12 +1219,12 @@ FUNCTION _ParseGridControls(aEditControls, ci, ri)
                   aEdit := Eval(aEditControls[ci][2], ri, ci)
 
                   // A more generic function to simulate ONCHANGE event
-                  bChange := iif(Len(aEditControls[ci]) > 2 .AND. ISBLOCK(aEditControls[ci][3]), aEditControls[ci][3], {|| NIL})
+                  bChange := iif(Len(aEditControls[ci]) > 2 .AND. hb_IsBlock(aEditControls[ci][3]), aEditControls[ci][3], {|| NIL})
 
-                  IF hb_IsArray(aEdit) .AND. Len(aEdit) >= 1 .AND. iif(Len(aEdit) > 1, !ISBLOCK(aEdit[2]), .T.)
+                  IF hb_IsArray(aEdit) .AND. Len(aEdit) >= 1 .AND. iif(Len(aEdit) > 1, !hb_IsBlock(aEdit[2]), .T.)
                      AEC := aEdit[1]    // get normal type for this cell
                   ELSE
-                     IF hb_IsArray(aEdit) .AND. Len(aEdit) >= 2 .AND. ISBLOCK(aEdit[2])
+                     IF hb_IsArray(aEdit) .AND. Len(aEdit) >= 2 .AND. hb_IsBlock(aEdit[2])
                         AEC := "CODEBLOCK"
                         bBlock := aEdit[2]
                      ELSE
@@ -1291,7 +1291,7 @@ FUNCTION _ParseGridControls(aEditControls, ci, ri)
 
                // An individual function overlapping a generic
                FOR i := 3 TO Len(aEdit)
-                  IF ISBLOCK(aEdit[i])
+                  IF hb_IsBlock(aEdit[i])
                      bChange := aEdit[i]
                   ENDIF
                NEXT
@@ -1322,7 +1322,7 @@ STATIC PROCEDURE _GridInplaceEditOK(idx, ci, ri, aec)
 
    IF hb_IsArray(CVA) .AND. Len(CVA) >= ci
 
-      IF ISBLOCK(CVA[ci])
+      IF hb_IsBlock(CVA[ci])
 
          _HMG_ThisItemCellValue := GetProperty("_hmg_grid_inplaceedit", Left(AEC, 1), "value")
 
@@ -1346,7 +1346,7 @@ STATIC PROCEDURE _GridInplaceEditOK(idx, ci, ri, aec)
 
                   MsgAlert(aValidMessages[ci], _HMG_BRWLangError[10])
 
-               ELSEIF ISBLOCK(aValidMessages[ci])
+               ELSEIF hb_IsBlock(aValidMessages[ci])
 
                   Eval(aValidMessages[ci], _HMG_ThisItemCellValue)
 
@@ -1974,7 +1974,7 @@ FUNCTION _GetIVirtualItem(nRow, i, nCols)
 
       _HMG_ThisQueryColIndex := j
 
-      IF ISBLOCK(_HMG_aControlProcedures[i])
+      IF hb_IsBlock(_HMG_aControlProcedures[i])
 
          Eval(_HMG_aControlProcedures[i])   // OnQueryData Event
 
@@ -2067,7 +2067,7 @@ PROCEDURE _GRIDINPLACEKBDEDIT_2(i)
                nEnd := Len(aColumnWhen)
 
                FOR j := nStart TO nEnd
-                  IF ISBLOCK(aColumnWhen[j])
+                  IF hb_IsBlock(aColumnWhen[j])
                      r := Min(IPE_MAXCOL, j)
                      IF ownerdata == .F.
                         _HMG_ThisItemCellValue := aTemp[r]

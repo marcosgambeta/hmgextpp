@@ -390,7 +390,7 @@ METHOD TPageScript:BeginDoc( nPrinter, cTitle, nOrientation, nCopies, nPageSize,
    DllCall( ::hDll, DLL_STDCALL, "PSBeginDoc" )
 
    // Put a WaterMark in the BackGround
-   IF ::nWaterMark = AWM_BACKGROUND .AND. HB_ISBLOCK(::bWaterMark)
+   IF ::nWaterMark = AWM_BACKGROUND .AND. hb_IsBlock(::bWaterMark)
       Eval(::bWaterMark, Self)
    ENDIF
 
@@ -405,7 +405,7 @@ METHOD TPageScript:BeginDocEx()
    DllCall( ::hDll, DLL_STDCALL, "PSBeginDoc" )
 
    // Put a WaterMark in the BackGround
-   IF ::nWaterMark = AWM_BACKGROUND .AND. HB_ISBLOCK(::bWaterMark)
+   IF ::nWaterMark = AWM_BACKGROUND .AND. hb_IsBlock(::bWaterMark)
       Eval(::bWaterMark, Self)
    ENDIF
 
@@ -502,7 +502,7 @@ Description : Signal the end of the document (stop spooling)
 METHOD TPageScript:EndDoc()
 
    // Put a WaterMark in the ForeGround
-   IF ::nWaterMark = AWM_FOREGROUND .AND. HB_ISBLOCK(::bWaterMark)
+   IF ::nWaterMark = AWM_FOREGROUND .AND. hb_IsBlock(::bWaterMark)
       Eval(::bWaterMark, Self)
    ENDIF
 
@@ -1216,14 +1216,14 @@ Description : Signal the end of page, page eject
 METHOD TPageScript:NewPage()
 
    // Put a WaterMark in the ForeGround
-   IF ::nWaterMark = AWM_FOREGROUND .AND. HB_ISBLOCK(::bWaterMark)
+   IF ::nWaterMark = AWM_FOREGROUND .AND. hb_IsBlock(::bWaterMark)
       Eval(::bWaterMark, Self)
    ENDIF
 
    DllCall( ::hDll, DLL_STDCALL, "PSNewPage" )
 
    // Put a WaterMark in the BackGround
-   IF ::nWaterMark = AWM_BACKGROUND .AND. HB_ISBLOCK(::bWaterMark)
+   IF ::nWaterMark = AWM_BACKGROUND .AND. hb_IsBlock(::bWaterMark)
       Eval(::bWaterMark, Self)
    ENDIF
 

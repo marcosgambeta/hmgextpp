@@ -458,7 +458,7 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
       ON KEY ESCAPE OF ( cForm ) ACTION ( _HMG_ModalDialogReturn := 0, _SetGetGlobal( "_HMG_PressButton", .T. ), ThisWindow.Release() )
    ENDIF
 
-   IF HB_ISBLOCK( bBlock )
+   IF hb_IsBlock(bBlock)
       Do_WindowEventProcedure( bBlock, This.Index, "WINDOW_INIT" )
    ENDIF
 

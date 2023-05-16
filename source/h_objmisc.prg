@@ -50,7 +50,7 @@ FUNCTION Do_ControlEventProcedure( bBlock, i, p1, p2, p3, p4 )
    
    LOCAL RetVal
 
-   IF HB_ISBLOCK( bBlock ) .AND. i > 0
+   IF hb_IsBlock(bBlock) .AND. i > 0
 
       _PushEventInfo()
 
@@ -74,7 +74,7 @@ FUNCTION Do_WindowEventProcedure( bBlock, i, p1, p2, p3, p4 )
    
    LOCAL RetVal
 
-   IF HB_ISBLOCK( bBlock ) .AND. i > 0
+   IF hb_IsBlock(bBlock) .AND. i > 0
 
       _PushEventInfo()
 
@@ -179,7 +179,7 @@ FUNCTION Do_Obj(nHandle, bBlock, p1, p2, p3)
 
    IF hmg_IsWindowObject( nHandle )
       o := hmg_GetWindowObject( nHandle )
-      IF ISBLOCK( bBlock )
+      IF hb_IsBlock(bBlock)
          IF o:IsWindow 
             RETURN Do_WindowEventProcedure ( bBlock, o:Index, o, p1, p2, p3 ) 
          ELSE 

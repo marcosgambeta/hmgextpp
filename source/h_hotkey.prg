@@ -221,7 +221,7 @@ FUNCTION _SetHotKeyByName(cParentForm, cKey, bAction)
    IF !Empty(cKey) .AND. ISCHARACTER ( cKey )
       aKey := _DetermineKey ( cKey )
       IF aKey [1] != 0
-         IF HB_ISBLOCK(_GetHotKeyBlock(cParentForm, aKey[2], aKey[1]))
+         IF hb_IsBlock(_GetHotKeyBlock(cParentForm, aKey[2], aKey[1]))
             MsgMiniGuiError("Hotkey " + cKey + " Already defined.")
          ENDIF
          lSuccess := _DefineHotKey ( cParentForm, aKey [2], aKey [1], bAction )

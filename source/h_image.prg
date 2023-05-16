@@ -126,7 +126,7 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
          Style += WS_VISIBLE
       ENDIF
 
-      IF action .OR. ISBLOCK( dblclick ) .OR. ISBLOCK( rclick )
+      IF action .OR. hb_IsBlock(dblclick) .OR. hb_IsBlock(rclick)
          Style += SS_NOTIFY
       ENDIF
 
@@ -152,7 +152,7 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      ControlHandle := InitImage ( ParentFormHandle, 0, x, y, invisible, ( action .OR. ISBLOCK( dblclick ) .OR. ISBLOCK( rclick ) .OR. ISSTRING( tooltip ) ), ( ISBLOCK( mouseover ) .OR. ISBLOCK( mouseleave ) ) )
+      ControlHandle := InitImage ( ParentFormHandle, 0, x, y, invisible, ( action .OR. hb_IsBlock(dblclick) .OR. hb_IsBlock(rclick) .OR. ISSTRING( tooltip ) ), ( hb_IsBlock(mouseover) .OR. hb_IsBlock(mouseleave) ) )
 
    ENDIF
 

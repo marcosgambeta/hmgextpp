@@ -715,7 +715,7 @@ PROCEDURE _BrowseUpdate( ControlName, ParentName, z )
             IF processdfc
 
                IF Len(dfc) == Len(Fields)
-                  AAdd(fcolorrow, iif(ISBLOCK(dfc[j]), _teval(dfc[j]), -1))
+                  AAdd(fcolorrow, iif(hb_IsBlock(dfc[j]), _teval(dfc[j]), -1))
                ENDIF
 
             ENDIF
@@ -723,7 +723,7 @@ PROCEDURE _BrowseUpdate( ControlName, ParentName, z )
             IF processdbc
 
                IF Len(dbc) == Len(Fields)
-                  AAdd(colorrow, iif(ISBLOCK(dbc[j]), _teval(dbc[j]), -1))
+                  AAdd(colorrow, iif(hb_IsBlock(dbc[j]), _teval(dbc[j]), -1))
                ENDIF
 
             ENDIF
@@ -1957,7 +1957,7 @@ STATIC PROCEDURE _WHENEVAL()
 
          FOR i := 1 TO l
 
-            IF HB_ISBLOCK(aWhen[i])
+            IF hb_IsBlock(aWhen[i])
 
                ControlName := "Control_" + AllTrim(Str(i))
 
@@ -2005,7 +2005,7 @@ STATIC FUNCTION _EditRecordOk ( aValid , TmpNames , aValidMessages )
 
       FOR i := 1 TO l
 
-         IF HB_ISBLOCK(aValid[i])
+         IF hb_IsBlock(aValid[i])
 
             IF !Eval(aValid[i])
 
@@ -2210,7 +2210,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
 
       IF Len(aTemp) >= Len(_GridFields)
 
-         IF HB_ISBLOCK(aTemp[CellColIndex])
+         IF hb_IsBlock(aTemp[CellColIndex])
             _HMG_ThisEventType := "BROWSE_WHEN"
             E := Eval(aTemp [CellColIndex])
             _HMG_ThisEventType := ""
@@ -2512,7 +2512,7 @@ STATIC PROCEDURE _InPlaceEditOk ( i , r , aValid , CellColIndex , sFieldName , A
 
                            MsgAlert ( aValidMessages [CellColIndex], _HMG_BRWLangError[10] )
 
-                        ELSEIF HB_ISBLOCK(aValidMessages[CellColIndex])
+                        ELSEIF hb_IsBlock(aValidMessages[CellColIndex])
 
                            Eval(aValidMessages [ CellColIndex ], Result)
 

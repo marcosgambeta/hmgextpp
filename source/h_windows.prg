@@ -291,7 +291,7 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
 
    IF Main
       _HMG_MainHandle := FormHandle
-      IF ISBLOCK(NotifyBalloonClick)
+      IF hb_IsBlock(NotifyBalloonClick)
          _HMG_NotifyBalloonClick := NotifyBalloonClick
       ENDIF
    ENDIF
@@ -1466,7 +1466,7 @@ PROCEDURE _RefreshDataControls(i)
    LOCAL v
 
    IF (Len(_HMG_aFormGraphTasks[i]) > 0 .OR. ;
-      ISBLOCK(_HMG_aFormPaintProcedure[i])) .AND. _HMG_ProgrammaticChange
+      hb_IsBlock(_HMG_aFormPaintProcedure[i])) .AND. _HMG_ProgrammaticChange
       InvalidateRect(_HMG_aFormHandles[i], 0)  // GF 07/11/2012
    ENDIF
 
@@ -1518,7 +1518,7 @@ PROCEDURE _SetActivationFlag(i)
       AEval(_HMG_aFormSplitChildList[i], {|x|_HMG_aFormActive[x] := .T.})
    ENDIF
 
-   IF ISBLOCK(_HMG_aFormDropProcedure[i])
+   IF hb_IsBlock(_HMG_aFormDropProcedure[i])
       DragAcceptFiles(_HMG_aFormHandles[i], .T.)
    ENDIF
 
@@ -1556,7 +1556,7 @@ _ProcessInitProcedure(i)
 */
 PROCEDURE _ProcessInitProcedure(i)
 
-   IF ISBLOCK(_HMG_aFormInitProcedure[i])
+   IF hb_IsBlock(_HMG_aFormInitProcedure[i])
 
       SuppressKeyAndMouseEvents()
 
@@ -1569,7 +1569,7 @@ PROCEDURE _ProcessInitProcedure(i)
       _HMG_ThisFormName := _HMG_aFormNames[_HMG_ThisFormIndex]
       _HMG_ThisControlName := ""
 
-      IF ISBLOCK(_HMG_aFormInitProcedure[i])
+      IF hb_IsBlock(_HMG_aFormInitProcedure[i])
          Eval(_HMG_aFormInitProcedure[i])
       ENDIF
 
@@ -1795,7 +1795,7 @@ FUNCTION _DoControlEventProcedure(bBlock, i, cEventType, nParam, nParam2)
       RETURN .F.
    ENDIF
 #endif
-   IF ISBLOCK(bBlock)
+   IF hb_IsBlock(bBlock)
       _PushEventInfo()
       _HMG_ThisFormIndex := AScan(_HMG_aFormHandles, _HMG_aControlParentHandles[i])
       _HMG_ThisType := "C"
@@ -1830,7 +1830,7 @@ FUNCTION _DoWindowEventProcedure(bBlock, i, cEventType)
       RETURN .F.
    ENDIF
 #endif
-   IF ISBLOCK(bBlock)
+   IF hb_IsBlock(bBlock)
       _PushEventInfo()
       _HMG_ThisFormIndex := i
       _HMG_ThisEventType := hb_defaultValue(cEventType, "")
