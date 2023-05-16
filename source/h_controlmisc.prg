@@ -7090,7 +7090,7 @@ FUNCTION _GetBackColor(ControlName, ParentForm)
 
       t := GetControlType(ControlName, ParentForm)
 
-      IF t $ "MULTIGRID,BROWSE"
+      IF t == CONTROL_TYPE_MULTIGRID .OR. t == CONTROL_TYPE_BROWSE
          nTmp := ListView_GetBkColor(_HMG_aControlHandles[i])
          RetVal := nRGB2Arr(nTmp)
       ELSE
@@ -7261,16 +7261,24 @@ STATIC PROCEDURE _SetTextEditReadOnly(ControlName, ParentForm, Value)
 
    IF _HMG_aControlEnabled[i] == .T.
 
-      IF t == CONTROL_TYPE_SPINNER
+      SWITCH t
+      CASE CONTROL_TYPE_SPINNER
          SendMessage(_HMG_aControlHandles[i][1], EM_SETREADONLY, iif(lValue, 1, 0), 0)
-
-      ELSEIF t == CONTROL_TYPE_COMBO .AND. _HMG_aControlMiscData1[i][2] == .T.
-         SendMessage(_HMG_aControlRangeMin[i], EM_SETREADONLY, iif(lValue, 1, 0), 0)
-
-      ELSEIF "TEXT" $ t .OR. t == CONTROL_TYPE_EDIT .OR. t == CONTROL_TYPE_GETBOX
+         EXIT
+      CASE CONTROL_TYPE_COMBO
+         IF _HMG_aControlMiscData1[i][2] == .T.
+            SendMessage(_HMG_aControlRangeMin[i], EM_SETREADONLY, iif(lValue, 1, 0), 0)
+         ENDIF
+         EXIT
+      CASE CONTROL_TYPE_BTNNUMTEXT
+      CASE CONTROL_TYPE_BTNTEXT
+      CASE CONTROL_TYPE_CHARMASKTEXT
+      CASE CONTROL_TYPE_MASKEDTEXT
+      CASE CONTROL_TYPE_NUMTEXT
+      CASE CONTROL_TYPE_EDIT
+      CASE CONTROL_TYPE_GETBOX
          SendMessage(_HMG_aControlHandles[i], EM_SETREADONLY, iif(lValue, 1, 0), 0)
-
-      ENDIF
+      ENDSWITCH
 
    ENDIF
 
@@ -7379,7 +7387,13 @@ FUNCTION _EnableListViewUpdate(ControlName, ParentForm, lEnable)
    i := GetControlIndex(ControlName, ParentForm)
    t := _HMG_aControlType[i]
 
-   IF "GRID" $ t .OR. t == CONTROL_TYPE_COMBO .OR. "BROWSE" $ t .OR. t == CONTROL_TYPE_TREE
+   IF t == CONTROL_TYPE_GRID .OR. ;
+      t == CONTROL_TYPE_MULTIGRID .OR. ;
+      t == CONTROL_TYPE_PROPGRID .OR. ;
+      t == CONTROL_TYPE_COMBO .OR. ;
+      t == CONTROL_TYPE_BROWSE .OR. ;
+      t == CONTROL_TYPE_TBROWSE .OR. ;
+      t == CONTROL_TYPE_TREE
       SendMessage(_HMG_aControlHandles[i], WM_SETREDRAW, iif(lEnable, 1, 0), 0)
       _HMG_aControlEnabled[i] := lEnable
    ELSE
@@ -7486,7 +7500,8 @@ STATIC FUNCTION _SetGetCheckboxItemState(ControlName, ParentForm, Item, lState)
    LOCAL RetVal As Logical
    LOCAL i
 
-   IF (i := GetControlIndex(ControlName, ParentForm)) > 0 .AND. "GRID" $ _HMG_aControlType[i]
+   IF (i := GetControlIndex(ControlName, ParentForm)) > 0 .AND. ;
+      (_HMG_aControlType[i] == CONTROL_TYPE_GRID .OR. _HMG_aControlType[i] == CONTROL_TYPE_MULTIGRID .OR. _HMG_aControlType[i] == CONTROL_TYPE_PROPGRID)
 
       IF _HMG_aControlMiscData1[i][18]  // if checkboxes mode was activated
 
@@ -7832,45 +7847,139 @@ STATIC FUNCTION GetUserControlType(ControlName, ParentForm)
 
    LOCAL cRetName
    LOCAL i
+   LOCAL t
 
    IF (i := GetControlIndex(ControlName, ParentForm)) == 0
       RETURN ""
    ENDIF
 
-   cRetName := _HMG_aControlType[i] /* TODO: usar constantes */
+   t := _HMG_aControlType[i]
+   cRetName := controlTypeToString(t)
 
-   IF cRetName == "CHECKBOX" .AND. HB_ISARRAY(_HMG_aControlPageMap[i])
-      cRetName := "CHECKBUTTON"
+   SWITCH t
 
-   ELSEIF cRetName == "COMBO"
+   CASE CONTROL_TYPE_CHECKBOX
+      IF HB_ISARRAY(_HMG_aControlPageMap[i])
+         cRetName := "CHECKBUTTON"
+      ENDIF
+      EXIT
+
+   CASE CONTROL_TYPE_COMBO
       IF _HMG_aControlMiscData1[i][1] == 0      // standard combo
          cRetName += "BOX"
-
       ELSEIF _HMG_aControlMiscData1[i][1] == 1  // extend combo
          cRetName += "BOXEX"
       ENDIF
+      EXIT
 
-   ELSEIF "TEXT" $ cRetName .OR. "EDIT" $ cRetName .OR. ("LIST" $ cRetName .AND. cRetName != "IMAGELIST")
+   CASE CONTROL_TYPE_BTNNUMTEXT
+   CASE CONTROL_TYPE_BTNTEXT
+   CASE CONTROL_TYPE_CHARMASKTEXT
+   CASE CONTROL_TYPE_MASKEDTEXT
+   CASE CONTROL_TYPE_NUMTEXT
+   CASE CONTROL_TYPE_TEXT
+   CASE CONTROL_TYPE_EDIT
+   CASE CONTROL_TYPE_RICHEDIT
       cRetName += "BOX"
       IF cRetName == "RICHEDITBOX" .AND. _HMG_aControlMiscData1[i] == 1
          cRetName += "EX"
       ENDIF
+      EXIT
 
-   ELSEIF "PICK" $ cRetName
+   CASE CONTROL_TYPE_CHKLIST
+   //CASE CONTROL_TYPE_IMAGELIST
+   CASE CONTROL_TYPE_LIST
+   CASE CONTROL_TYPE_MULTICHKLIST
+   CASE CONTROL_TYPE_MULTILIST
+      cRetName += "BOX"
+      EXIT
+
+   CASE CONTROL_TYPE_DATEPICK
+   CASE CONTROL_TYPE_TIMEPICK
       cRetName += "ER"
+      EXIT
 
-   ELSEIF "MONTHCAL" $ cRetName
+   CASE CONTROL_TYPE_MONTHCAL
       cRetName += "ENDAR"
+      EXIT
 
-   ELSEIF cRetName == "MESSAGEBAR"
+   CASE CONTROL_TYPE_MESSAGEBAR
       cRetName := "STATUSBAR"
+      EXIT
 
-   ELSEIF cRetName == "ITEMMESSAGE"
+   CASE CONTROL_TYPE_ITEMMESSAGE
       cRetName := "STATUSITEM"
 
-   ENDIF
+   ENDSWITCH
 
 RETURN cRetName
+
+// added by MAG (2023/05/16)
+STATIC FUNCTION controlTypeToString(type)
+
+   SWITCH type
+   CASE CONTROL_TYPE_ACTIVEX       ; RETURN "ACTIVEX"
+   CASE CONTROL_TYPE_ANIGIF        ; RETURN "ANIGIF"
+   CASE CONTROL_TYPE_ANIMATEBOX    ; RETURN "ANIMATEBOX"
+   CASE CONTROL_TYPE_ANIMATERES    ; RETURN "ANIMATERES"
+   CASE CONTROL_TYPE_BROWSE        ; RETURN "BROWSE"
+   CASE CONTROL_TYPE_BTNNUMTEXT    ; RETURN "BTNNUMTEXT"
+   CASE CONTROL_TYPE_BTNTEXT       ; RETURN "BTNTEXT"
+   CASE CONTROL_TYPE_BUTTON        ; RETURN "BUTTON"
+   CASE CONTROL_TYPE_CHARMASKTEXT  ; RETURN "CHARMASKTEXT"
+   CASE CONTROL_TYPE_CHECKBOX      ; RETURN "CHECKBOX"
+   CASE CONTROL_TYPE_CHECKLABEL    ; RETURN "CHECKLABEL"
+   CASE CONTROL_TYPE_CHKLIST       ; RETURN "CHKLIST"
+   CASE CONTROL_TYPE_CLBUTTON      ; RETURN "CLBUTTON"
+   CASE CONTROL_TYPE_COMBO         ; RETURN "COMBO"
+   CASE CONTROL_TYPE_DATEPICK      ; RETURN "DATEPICK"
+   CASE CONTROL_TYPE_EDIT          ; RETURN "EDIT"
+   CASE CONTROL_TYPE_FONT          ; RETURN "FONT"
+   CASE CONTROL_TYPE_FRAME         ; RETURN "FRAME"
+   CASE CONTROL_TYPE_GETBOX        ; RETURN "GETBOX"
+   CASE CONTROL_TYPE_GRID          ; RETURN "GRID"
+   CASE CONTROL_TYPE_HOTKEY        ; RETURN "HOTKEY"
+   CASE CONTROL_TYPE_HOTKEYBOX     ; RETURN "HOTKEYBOX"
+   CASE CONTROL_TYPE_HYPERLINK     ; RETURN "HYPERLINK"
+   CASE CONTROL_TYPE_IMAGE         ; RETURN "IMAGE"
+   CASE CONTROL_TYPE_IMAGELIST     ; RETURN "IMAGELIST"
+   CASE CONTROL_TYPE_IPADDRESS     ; RETURN "IPADDRESS"
+   CASE CONTROL_TYPE_LABEL         ; RETURN "LABEL"
+   CASE CONTROL_TYPE_LIST          ; RETURN "LIST"
+   CASE CONTROL_TYPE_MASKEDTEXT    ; RETURN "MASKEDTEXT"
+   CASE CONTROL_TYPE_MENU          ; RETURN "MENU"
+   CASE CONTROL_TYPE_MESSAGEBAR    ; RETURN "MESSAGEBAR"
+   CASE CONTROL_TYPE_MONTHCAL      ; RETURN "MONTHCAL"
+   CASE CONTROL_TYPE_MULTICHKLIST  ; RETURN "MULTICHKLIST"
+   CASE CONTROL_TYPE_MULTIGRID     ; RETURN "MULTIGRID"
+   CASE CONTROL_TYPE_MULTILIST     ; RETURN "MULTILIST"
+   CASE CONTROL_TYPE_NUMTEXT       ; RETURN "NUMTEXT"
+   CASE CONTROL_TYPE_OBUTTON       ; RETURN "OBUTTON"
+   CASE CONTROL_TYPE_PAGER         ; RETURN "PAGER"
+   CASE CONTROL_TYPE_PLAYER        ; RETURN "PLAYER"
+   CASE CONTROL_TYPE_POPUP         ; RETURN "POPUP"
+   CASE CONTROL_TYPE_PROGRESSBAR   ; RETURN "PROGRESSBAR"
+   CASE CONTROL_TYPE_PROGRESSWHEEL ; RETURN "PROGRESSWHEEL"
+   CASE CONTROL_TYPE_PROPGRID      ; RETURN "PROPGRID"
+   CASE CONTROL_TYPE_RADIOGROUP    ; RETURN "RADIOGROUP"
+   CASE CONTROL_TYPE_RICHEDIT      ; RETURN "RICHEDIT"
+   CASE CONTROL_TYPE_SLIDER        ; RETURN "SLIDER"
+   CASE CONTROL_TYPE_SPBUTTON      ; RETURN "SPBUTTON"
+   CASE CONTROL_TYPE_SPINNER       ; RETURN "SPINNER"
+   CASE CONTROL_TYPE_TAB           ; RETURN "TAB"
+   CASE CONTROL_TYPE_TBROWSE       ; RETURN "TBROWSE"
+   CASE CONTROL_TYPE_TEXT          ; RETURN "TEXT"
+   CASE CONTROL_TYPE_TIMEPICK      ; RETURN "TIMEPICK"
+   CASE CONTROL_TYPE_TIMER         ; RETURN "TIMER"
+   CASE CONTROL_TYPE_TOOLBAR       ; RETURN "TOOLBAR"
+   CASE CONTROL_TYPE_TOOLBUTTON    ; RETURN "TOOLBUTTON"
+   CASE CONTROL_TYPE_TREE          ; RETURN "TREE"
+   CASE CONTROL_TYPE_ITEMMESSAGE   ; RETURN "ITEMMESSAGE"
+   CASE CONTROL_TYPE_RATING        ; RETURN "RATING"
+   CASE CONTROL_TYPE_WEBCAM        ; RETURN "WEBCAM"
+   ENDSWITCH
+
+RETURN ""
 
 FUNCTION _SetAlign(ControlName, ParentForm, cAlign)
 
@@ -7972,7 +8081,7 @@ STATIC FUNCTION _SetTransparent(ControlName, ParentForm, lTransparent)
 
          ENDSWITCH
 
-         _HMG_aControlInputMask[i] := iif(cType != "CHECKBOX", lTransparent, .F.)
+         _HMG_aControlInputMask[i] := iif(cType != CONTROL_TYPE_CHECKBOX, lTransparent, .F.)
 
          _RedrawControl(i)
 
@@ -8024,7 +8133,10 @@ STATIC FUNCTION _SetGetSpacingProperty(ControlName, ParentForm, Value)
    LOCAL i := GetControlIndex(ControlName, ParentForm)
    LOCAL CurrValue
 
-   IF i > 0 .AND. (_HMG_aControlType[i] == CONTROL_TYPE_GETBOX .OR. "GRID" $ _HMG_aControlType[i])
+   IF i > 0 .AND. (_HMG_aControlType[i] == CONTROL_TYPE_GETBOX .OR. ;
+                   _HMG_aControlType[i] == CONTROL_TYPE_GRID .OR. ;
+                   _HMG_aControlType[i] == CONTROL_TYPE_MULTIGRID .OR. ;
+                   _HMG_aControlType[i] == CONTROL_TYPE_PROPGRID)
 
       IF PCount() > 2
          _HMG_aControlSpacing[i] := Value
