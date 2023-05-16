@@ -264,9 +264,9 @@ METHOD New(cHeading, bData, cPicture, aColors, aAlign, nWidth, lBitMap, lEdit, b
    ENDIF
 
    IF aColors != NIL
-      IF HB_ISARRAY(aColors) .AND. Len(aColors) > 0 .AND. HB_ISARRAY(aColors[1])
+      IF hb_IsArray(aColors) .AND. Len(aColors) > 0 .AND. hb_IsArray(aColors[1])
          FOR EACH aClr IN aColors
-            IF HB_ISARRAY(aClr) .AND. HB_ISNUMERIC(aClr[1]) .AND. aClr[1] > 0 .AND. aClr[1] <= Len(aTmpColor)
+            IF hb_IsArray(aClr) .AND. HB_ISNUMERIC(aClr[1]) .AND. aClr[1] > 0 .AND. aClr[1] <= Len(aTmpColor)
                aTmpColor[aClr[1]] := aClr[2]
             ENDIF
          NEXT
@@ -394,7 +394,7 @@ METHOD New(cHeading, bData, cPicture, aColors, aAlign, nWidth, lBitMap, lEdit, b
       cData := "{||Nil}"
    ENDIF
 
-   IF HB_ISARRAY(Eval(bdata))
+   IF hb_IsArray(Eval(bdata))
       ::bData := Eval(bData)[1]
       aList := Eval(bData)[2]
    ELSE
@@ -402,7 +402,7 @@ METHOD New(cHeading, bData, cPicture, aColors, aAlign, nWidth, lBitMap, lEdit, b
    ENDIF
 
    IF aList != NIL
-      IF HB_ISARRAY(aList[1])
+      IF hb_IsArray(aList[1])
          ::aItems := aList[1]
          ::aData  := aList[2]
       ELSE
@@ -576,7 +576,7 @@ RETURN "O" + I2Bin(2 + Len(::ClassName()) + 2 + Len(cInfo)) + I2Bin(Len(::ClassN
 
 METHOD SaveColor() CLASS TSColumn
 
-   IF ::aColorsBack != NIL .AND. HB_ISARRAY(::aColorsBack)
+   IF ::aColorsBack != NIL .AND. hb_IsArray(::aColorsBack)
       ::aColorsBack[1] := ::nClrFore
       ::aColorsBack[2] := ::nClrBack
       ::aColorsBack[3] := ::nClrHeadFore
@@ -604,7 +604,7 @@ RETURN NIL
 
 METHOD RestColor() CLASS TSColumn
 
-   IF ::aColorsBack != NIL .AND. HB_ISARRAY(::aColorsBack)
+   IF ::aColorsBack != NIL .AND. hb_IsArray(::aColorsBack)
       ::nClrFore        := ::aColorsBack[1]
       ::nClrBack        := ::aColorsBack[2]
       ::nClrHeadFore    := ::aColorsBack[3]
@@ -1057,7 +1057,7 @@ FUNCTION ComboWBlock(oBrw, uField, nCol, aList)
 
    IF nCol <= Len(oBrw:aColumns)
 
-      IF HB_ISARRAY(aList[1])
+      IF hb_IsArray(aList[1])
          oBrw:aColumns[nCol]:aItems    := aList[1]
          oBrw:aColumns[nCol]:aData     := aList[2]
          oBrw:aColumns[nCol]:cDataType := ValType(aList[2, 1])
@@ -1071,7 +1071,7 @@ FUNCTION ComboWBlock(oBrw, uField, nCol, aList)
       oBrw:aPostList := aList    // block is created before creating the column
    ENDIF
 
-   IF HB_ISARRAY(aList[1])
+   IF hb_IsArray(aList[1])
       aItems := aList[1]
       aData  := aList[2]
    ELSE

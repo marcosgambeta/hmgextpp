@@ -116,7 +116,7 @@ FUNCTION drawrect( window, row, col, row1, col1, penrgb, penwidth, fillrgb )
       FormHandle := _HMG_aFormHandles[i]
       hb_default(@penrgb, {0, 0, 0})
       hb_default(@penwidth, 1)
-      IF !( fill := ISARRAY(fillrgb) )
+      IF !( fill := hb_IsArray(fillrgb) )
          fillrgb := { 255, 255, 255 }
       ENDIF
 
@@ -138,7 +138,7 @@ FUNCTION drawroundrect( window, row, col, row1, col1, width, height, penrgb, pen
       FormHandle := _HMG_aFormHandles[i]
       hb_default(@penrgb, {0, 0, 0})
       hb_default(@penwidth, 1)
-      IF !( fill := ISARRAY(fillrgb) )
+      IF !( fill := hb_IsArray(fillrgb) )
          fillrgb := { 255, 255, 255 }
       ENDIF
 
@@ -160,7 +160,7 @@ FUNCTION drawellipse( window, row, col, row1, col1, penrgb, penwidth, fillrgb )
       FormHandle := _HMG_aFormHandles[i]
       hb_default(@penrgb, {0, 0, 0})
       hb_default(@penwidth, 1)
-      IF !( fill := ISARRAY(fillrgb) )
+      IF !( fill := hb_IsArray(fillrgb) )
          fillrgb := { 255, 255, 255 }
       ENDIF
 
@@ -200,7 +200,7 @@ FUNCTION drawpie( window, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb
       FormHandle := _HMG_aFormHandles[i]
       hb_default(@penrgb, {0, 0, 0})
       hb_default(@penwidth, 1)
-      IF !( fill := ISARRAY(fillrgb) )
+      IF !( fill := hb_IsArray(fillrgb) )
          fillrgb := { 255, 255, 255 }
       ENDIF
 
@@ -224,7 +224,7 @@ FUNCTION drawpolygon( window, apoints, penrgb, penwidth, fillrgb )
       FormHandle := _HMG_aFormHandles[i]
       hb_default(@penrgb, {0, 0, 0})
       hb_default(@penwidth, 1)
-      IF !( fill := ISARRAY(fillrgb) )
+      IF !( fill := hb_IsArray(fillrgb) )
          fillrgb := { 255, 255, 255 }
       ENDIF
 
@@ -334,7 +334,7 @@ FUNCTION EraseWindow(window)
 
    IF ( i := GetFormIndex ( Window ) ) > 0
       IF _HMG_aFormDeleted[i] == .F.
-         IF ISARRAY(_HMG_aFormGraphTasks[i])
+         IF hb_IsArray(_HMG_aFormGraphTasks[i])
             ASize(_HMG_aFormGraphTasks[i], 0)
             RedrawWindow(_HMG_aFormHandles[i])
          ENDIF

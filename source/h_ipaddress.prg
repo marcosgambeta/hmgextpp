@@ -111,7 +111,7 @@ FUNCTION _DefineIPAddress ( ControlName, ParentForm, x, y, w, h, aValue, ;
       AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
    ENDIF
 
-   IF ISARRAY(aValue)
+   IF hb_IsArray(aValue)
       SetIPAddress(ControlHandle, aValue[1], aValue[2], aValue[3], aValue[4])
    ENDIF
 

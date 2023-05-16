@@ -241,9 +241,9 @@ STATIC FUNCTION _DefineTab( ControlName, ParentFormName, x, y, w, h, aCaptions, 
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      ControlHandle := InitTabControl ( ParentFormHandle, 0, x, y, w, h, aCaptions, value, "", 0, Buttons, Flat, HotTrack, Vertical, Bottom, Multiline, ISARRAY(backcolor[1]), notabstop )
+      ControlHandle := InitTabControl ( ParentFormHandle, 0, x, y, w, h, aCaptions, value, "", 0, Buttons, Flat, HotTrack, Vertical, Bottom, Multiline, hb_IsArray(backcolor[1]), notabstop )
 
-      IF ISARRAY(backcolor[1])
+      IF hb_IsArray(backcolor[1])
          hBrush := CreateSolidBrush( backcolor[1][1], backcolor[1][2], backcolor[1][3] )
          SetWindowBrush(ControlHandle, hBrush)
       ENDIF
@@ -503,7 +503,7 @@ STATIC FUNCTION _IsControlVisibleFromHandle(Handle)
             EXIT
          ENDIF
 
-      ELSEIF HB_ISARRAY(hControl)
+      ELSEIF hb_IsArray(hControl)
 
          IF hControl [1] == Handle
             lVisible := _HMG_aControlVisible [ hb_enumindex( hControl ) ]
@@ -541,7 +541,7 @@ FUNCTION _BeginTabPage ( caption , image , tooltip )
 
       ENDIF
 
-   ELSEIF HB_ISARRAY(_HMG_ActiveTabTooltip)
+   ELSEIF hb_IsArray(_HMG_ActiveTabTooltip)
 
       AAdd(_HMG_ActiveTabTooltip, "")
 

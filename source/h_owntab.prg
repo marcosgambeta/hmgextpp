@@ -104,7 +104,7 @@ FUNCTION OwnTabPaint( lParam )
    nTextColor   := GetSysColor( COLOR_BTNTEXT )
    oldTextColor := SetTextColor( hDC, GetRed( nTextColor ), GetGreen( nTextColor ), GetBlue( nTextColor ) )
 
-   IF ISARRAY(_HMG_aControlMiscData2[i]) .AND. nItemId <= Len(_HMG_aControlMiscData2[i]) .AND. ;
+   IF hb_IsArray(_HMG_aControlMiscData2[i]) .AND. nItemId <= Len(_HMG_aControlMiscData2[i]) .AND. ;
       IsArrayRGB( _HMG_aControlMiscData2[i] [nItemId] )
       aBkColor := _HMG_aControlMiscData2[i] [nItemId]
    ELSE

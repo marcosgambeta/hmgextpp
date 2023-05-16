@@ -235,7 +235,7 @@ FUNCTION OSPINEVENTS( hWnd, nMsg, wParam, lParam )    // 2006.08.13 JD
 
    CASE WM_CONTEXTMENU
 
-      i := AScan(_HMG_aControlHandles, { |x| iif( HB_ISARRAY(x), ( AScan(x, hWnd) > 0 ), x == hWnd ) })
+      i := AScan(_HMG_aControlHandles, { |x| iif( hb_IsArray(x), ( AScan(x, hWnd) > 0 ), x == hWnd ) })
       ParentForm := _HMG_aControlParentHandles[i]
 
       i := AScan(_HMG_aControlsContextMenu, { |x| x [1] == hWnd })

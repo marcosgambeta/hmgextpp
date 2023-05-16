@@ -105,7 +105,7 @@ FUNCTION _DefineLabel(ControlName, ParentFormName, x, y, Caption, w, h, ;
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
-   IF ISARRAY(Caption)
+   IF hb_IsArray(Caption)
       mVar := ""
       AEval(Caption, {|v|mVar += cValToChar(v)})
       Caption := mVar

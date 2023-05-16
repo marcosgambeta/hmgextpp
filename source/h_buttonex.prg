@@ -150,7 +150,7 @@ FUNCTION _DefineOwnerButton(ControlName, ParentForm, x, y, Caption, ;
    ENDIF
 
    cPicture := IFEMPTY(icon, image, icon)
-   IF HB_ISARRAY(cPicture)
+   IF hb_IsArray(cPicture)
       image := cPicture[1]
    ENDIF
 
@@ -429,7 +429,7 @@ FUNCTION OwnButtonPaint(pdis)
    ENDIF
 
    aGradient := _HMG_aControlValue[i]
-   lGradient := (ISARRAY(aGradient) .AND. !Empty(_HMG_aControlBkColor[i]))
+   lGradient := (hb_IsArray(aGradient) .AND. !Empty(_HMG_aControlBkColor[i]))
    lvertical := (_HMG_aControlRangeMin[i] == .F.)
 
    IF !lnoxpstyle .AND. _HMG_IsThemed .AND. !lGradient
@@ -526,7 +526,7 @@ FUNCTION OwnButtonPaint(pdis)
                IF Len(aGradient[1]) == 3
                   _GradientFill(hDC, xp2 + 1, xp1 + 1, yp2 - 1, yp1 - 1, ;
                      iif(Len(aGradient) == 1, InvertGradInfo(aGradient), ;
-                     iif(ISARRAY(_HMG_aControlBkColor[i, 1]), _HMG_aControlBkColor[i], ModifGradInfo(aGradient))), lvertical)
+                     iif(hb_IsArray(_HMG_aControlBkColor[i, 1]), _HMG_aControlBkColor[i], ModifGradInfo(aGradient))), lvertical)
                ELSE
                   hBrush := CreateButtonBrush(hDC, yp1 - 1, yp2 - 1, aGradient[1][2], aGradient[1][1])
                   FillRect(hDC, xp1 + 1, xp2 + 1, yp1 - 1, yp2 - 1, hBrush)
@@ -864,7 +864,7 @@ STATIC FUNCTION InvertGradInfo(aGradInfo)
    
    LOCAL aGradInvert := {}
 
-   IF !Empty(aGradInfo) .AND. HB_ISARRAY(aGradInfo)
+   IF !Empty(aGradInfo) .AND. hb_IsArray(aGradInfo)
 
       AEval(aGradInfo, {|x|AAdd(aGradInvert, {x[1], x[3], x[2]})})
 
@@ -877,7 +877,7 @@ STATIC FUNCTION ModifGradInfo(aGradInfo)
    LOCAL aReturn := {}
    LOCAL nClr
 
-   IF !Empty(aGradInfo) .AND. HB_ISARRAY(aGradInfo)
+   IF !Empty(aGradInfo) .AND. hb_IsArray(aGradInfo)
 
       FOR nClr := 1 TO Len(aGradInfo)
          ReplaceGradInfo(aGradInfo, nClr, 2)
@@ -910,7 +910,7 @@ STATIC FUNCTION _GradientFill(hDC, nTop, nLeft, nBottom, nRight, aGradInfo, lVer
    LOCAL nSize
    LOCAL nSlice
 
-   IF !Empty(aGradInfo) .AND. HB_ISARRAY(aGradInfo)
+   IF !Empty(aGradInfo) .AND. hb_IsArray(aGradInfo)
 
       nClrs := Len(aGradInfo)
 

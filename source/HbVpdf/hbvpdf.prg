@@ -2605,7 +2605,7 @@ STATIC FUNCTION Array2File( cFile, aRay, nDepth, hFile )
    ENDIF
    nDepth++
    nBytes += WriteData( hFile, aRay )
-   IF HB_ISARRAY(aRay)
+   IF hb_IsArray(aRay)
       FOR i := 1 TO Len(aRay)
          nBytes += Array2File( cFile, aRay[i], nDepth, hFile )
       NEXT
@@ -2629,7 +2629,7 @@ STATIC FUNCTION WriteData( hFile, xData )
       cData += I2Bin(8) + DToS(xData)
    ELSEIF HB_ISLOGICAL( xData )
       cData += I2Bin(1) + iif( xData, "T", "F" )
-   ELSEIF HB_ISARRAY(xData)
+   ELSEIF hb_IsArray(xData)
       cData += I2Bin(Len(xData))
    ELSE
       cData += I2Bin(0)   // NIL

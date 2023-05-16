@@ -386,7 +386,7 @@ METHOD Write( cFile, lUtf8 ) CLASS TIniData
               cVal := hb_StrToUtf8( cVal )
            ENDIF
            cStr := hb_HGetDef( hKey, cKey, Nil )
-           IF HB_ISARRAY(cStr) .AND. Len(cStr) > 1
+           IF hb_IsArray(cStr) .AND. Len(cStr) > 1
               cKey := cStr[1]
               IF !Empty(cStr[2])
                  IF lBlk
@@ -499,7 +499,7 @@ FUNCTION oDlu2Pixel( nPrcW, nPrcH, nFontSize )
 
    IF PCount() > 0
 
-      IF HB_ISARRAY(nPrcW)
+      IF hb_IsArray(nPrcW)
          ASize(nPrcW, 2)
          nPrcH := nPrcW[2]
          nPrcW := nPrcW[1]
@@ -1549,8 +1549,8 @@ METHOD Sum( Key, xSum ) CLASS TKeyData
       ELSE ; Sum := xSum
       ENDIF
       ::Set( Key, sum )
-   ELSEIF HB_ISARRAY(xSum)
-      IF HB_ISARRAY(sum) .AND. Len(sum) == Len(xSum)
+   ELSEIF hb_IsArray(xSum)
+      IF hb_IsArray(sum) .AND. Len(sum) == Len(xSum)
          AEval(xSum, {| s, i | Sum[i] := iif( HB_ISNUMERIC(s), Sum[i] + s, s ) })
       ELSE
          Sum := xSum
@@ -1728,8 +1728,8 @@ METHOD Sum( Key, xSum ) CLASS TThrData
       ELSE ; Sum := xSum
       ENDIF
       ::Set( Key, sum )
-   ELSEIF HB_ISARRAY(xSum)
-      IF HB_ISARRAY(sum) .AND. Len(sum) == Len(xSum)
+   ELSEIF hb_IsArray(xSum)
+      IF hb_IsArray(sum) .AND. Len(sum) == Len(xSum)
          AEval(xSum, {| s, i | Sum[i] := iif( HB_ISNUMERIC(s), Sum[i] + s, s ) })
       ELSE
          Sum := xSum

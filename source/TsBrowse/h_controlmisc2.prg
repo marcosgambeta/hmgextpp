@@ -19,22 +19,22 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
    LOCAL nGh := oApp:GapsHeight
    LOCAL uParam, bRecord, nClr, oCol, nWrec, nHrec
 
-   IF HB_ISARRAY(nWidth)
+   IF hb_IsArray(nWidth)
       nWrec  := nWidth[2]
       nWidth := nWidth[1]
    ENDIF
 
-   IF HB_ISARRAY(nHeight)
+   IF hb_IsArray(nHeight)
       nHrec   := nHeight[2]
       nHeight := nHeight[1]
    ENDIF
 
-   IF HB_ISARRAY(cTitle)
+   IF hb_IsArray(cTitle)
       uParam := cTitle[2]
       cTitle := cTitle[1]
    ENDIF
 
-   IF HB_ISARRAY(bSetUp)
+   IF hb_IsArray(bSetUp)
       bRecord := iif( Len(bSetUp) > 2, bSetUp[3], NIL )
       bAfter := bSetUp[2]
       bSetUp := bSetUp[1]
@@ -90,7 +90,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
 
    cFormName := GetUniqueName( "SBrowse" )
 
-   lRec  := HB_ISARRAY(uAlias) .AND. ;
+   lRec  := hb_IsArray(uAlias) .AND. ;
             Len(uAlias[1]) == 2 .AND. Len(aCols) == 2 .AND. ;
             aCols[1] == "Key" .AND. aCols[2] == "Value"
 
@@ -329,7 +329,7 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
    IF HB_ISCHAR( uAlias ) ; dbSelectArea( uAlias )
    ENDIF
 
-   IF HB_ISARRAY(oParam:aFont)
+   IF hb_IsArray(oParam:aFont)
       IF Len(oParam:aFont) < 6
          ASize(oParam:aFont, 5)
          FOR i := 1 TO Len(oParam:aFont)
@@ -518,7 +518,7 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
          :nFireKey := oParam:nFireKey
       ENDIF
 
-      IF HB_ISARRAY(oParam:aUserKeys)
+      IF hb_IsArray(oParam:aUserKeys)
          FOR EACH aTmp IN oParam:aUserKeys
            i := iif( Len(aTmp) > 2, aTmp[3], .F. )             // Ctrl+...
            j := iif( Len(aTmp) > 3, aTmp[4], .F. )             // Shift+...
@@ -548,7 +548,7 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
    IF HB_ISBLOCK( bEnd ) ; EVal(bEnd, oBrw, oParam)
    ENDIF
 
-   IF HB_ISARRAY(oParam:aEvents)
+   IF hb_IsArray(oParam:aEvents)
       FOR EACH aTmp IN oParam:aEvents
          ( This.Object ):Event( aTmp[1], aTmp[2] )
       NEXT

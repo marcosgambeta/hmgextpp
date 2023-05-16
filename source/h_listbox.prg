@@ -83,19 +83,19 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
-   rows := iif( ISARRAY(arows), AClone( arows ), {} )
+   rows := iif( hb_IsArray(arows), AClone( arows ), {} )
 
    IF multitabs
       IF Len(rows) > 0
          IF Len(aWidth) == 0
-            IF HB_ISARRAY(rows[1])
+            IF hb_IsArray(rows[1])
                FOR i:=1 TO Len(rows[1])
                   AAdd(aWidth, Int(w / Len(rows[1])))
                NEXT
             ENDIF
          ENDIF
          FOR i:=1 TO Len(rows)
-            IF HB_ISARRAY(rows[i])
+            IF hb_IsArray(rows[i])
                rows[i] := LB_Array2String( rows[i] )
             ENDIF
          NEXT
@@ -290,7 +290,7 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
 
       AEval(Rows, {|r|ListboxAddString(ControlHandle, r)})
       IF multiselect
-         IF ISARRAY(value)
+         IF hb_IsArray(value)
             LISTBOXSETMULTISEL(ControlHandle, Value)
          ENDIF
       ELSE
@@ -324,7 +324,7 @@ FUNCTION InitDialogListBox( ParentName, ControlHandle, k )
    AEval(Rows, {|r|ListboxAddString(ControlHandle, r)})
 
    IF _HMG_aControlType[k] == CONTROL_TYPE_MULTILIST
-      IF ISARRAY(value)
+      IF hb_IsArray(value)
          LISTBOXSETMULTISEL(ControlHandle, Value)
       ENDIF
    ELSE

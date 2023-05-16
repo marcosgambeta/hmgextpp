@@ -421,7 +421,7 @@ METHOD CustomButtons( aCustButton ) CLASS TTaskDialog
    LOCAL aOldVal := ::aConfig[ TDC_TASKDIALOG_BUTTON ]
 
    IF !::lActive
-      IF HB_ISARRAY(aCustButton) .AND. Len(aCustButton) > 0
+      IF hb_IsArray(aCustButton) .AND. Len(aCustButton) > 0
          ::aConfig[ TDC_BUTTON ] := Len(aCustButton)
          ::aConfig[ TDC_TASKDIALOG_BUTTON ] := aCustButton
       ENDIF
@@ -456,7 +456,7 @@ METHOD CustomRadioButtons( aCustButton ) CLASS TTaskDialog
    LOCAL aOldVal := ::aConfig[ TDC_TASKDIALOG_RADIOBUTTON ]
 
    IF !::lActive
-      IF HB_ISARRAY(aCustButton) .AND. Len(aCustButton) > 0
+      IF hb_IsArray(aCustButton) .AND. Len(aCustButton) > 0
          ::aConfig[ TDC_RADIOBUTTON ] := Len(aCustButton)
          ::aConfig[ TDC_TASKDIALOG_RADIOBUTTON ] := aCustButton
       ENDIF

@@ -82,11 +82,11 @@ FUNCTION _DefineChkListbox(ControlName, ParentFormName, x, y, w, h, arows, value
       GetFontParamByRef(FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout)
    ENDIF
 
-   IF !ISARRAY(arows)
+   IF !hb_IsArray(arows)
       arows := {}
    ENDIF
    IF Len(arows) > 0
-      IF !ISARRAY(arows[1])
+      IF !hb_IsArray(arows[1])
          rows := AClone(arows)
          AEval(arows, {|x, y|HB_SYMBOL_UNUSED(x), nPos := y, AAdd(aChkItem, iif(AScan(aCheck, {|z|z == nPos}) > 0, 2, 1))})
       ELSE
@@ -282,7 +282,7 @@ FUNCTION _DefineChkListbox(ControlName, ParentFormName, x, y, w, h, arows, value
       ENDIF
 
       IF multiselect
-         IF ISARRAY(value)
+         IF hb_IsArray(value)
             LISTBOXSETMULTISEL(ControlHandle, Value)
          ENDIF
       ELSE
@@ -317,7 +317,7 @@ FUNCTION InitDialogChkListBox(ParentName, ControlHandle, k)
    ENDIF
 
    IF _HMG_aControlType[k] == CONTROL_TYPE_MULTICHKLIST
-      IF ISARRAY(value)
+      IF hb_IsArray(value)
          LISTBOXSETMULTISEL(ControlHandle, Value)
       ENDIF
    ELSE

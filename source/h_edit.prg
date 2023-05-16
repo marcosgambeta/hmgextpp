@@ -1279,7 +1279,7 @@ FUNCTION NoArray(aOldArray)
 
    LOCAL aNewArray := {}
 
-   IF ISARRAY(aOldArray)
+   IF hb_IsArray(aOldArray)
       ASize(aNewArray, Len(aOldArray))
       AEval(aOldArray, {|x, i|aNewArray[i] := !x})
    ENDIF

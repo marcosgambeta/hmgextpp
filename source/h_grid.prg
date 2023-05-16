@@ -145,19 +145,19 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
    /* Dr. Claudio Soto, April 2016 */
    #define DEFAULT_COLUMNHEADER  "Column "
    #define DEFAULT_COLUMNWIDTH   150
-   IF HB_ISARRAY(aRows) .AND. Len(aRows) > 0
+   IF hb_IsArray(aRows) .AND. Len(aRows) > 0
       IF aHeaders == NIL .AND. aWidths == NIL
          aHeaders := Array(Len(aRows[1]))
          aWidths  := Array(Len(aRows[1]))
          AEval(aHeaders, {|xValue, nIndex| xValue := NIL, aHeaders[nIndex] := DEFAULT_COLUMNHEADER + hb_ntos(nIndex)})
          AFill(aWidths,  DEFAULT_COLUMNWIDTH)
-      ELSEIF HB_ISARRAY(aHeaders) .AND. aWidths == NIL
+      ELSEIF hb_IsArray(aHeaders) .AND. aWidths == NIL
          aWidths  := Array(Len(aHeaders))
          AFill(aWidths,  DEFAULT_COLUMNWIDTH)
          IF Len(aImage) > 0
             aWidths[1] := 0
          ENDIF
-      ELSEIF aHeaders == NIL .AND. HB_ISARRAY(aWidths)
+      ELSEIF aHeaders == NIL .AND. hb_IsArray(aWidths)
          aHeaders := Array(Len(aWidths))
          AEval(aHeaders, {| xValue, nIndex | xValue := NIL, aHeaders[nIndex] := DEFAULT_COLUMNHEADER + hb_ntos(nIndex)})
       ENDIF
@@ -165,13 +165,13 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
       IF aHeaders == NIL .AND. aWidths == NIL
          aHeaders := {""}
          aWidths  := {0}
-      ELSEIF HB_ISARRAY(aHeaders) .AND. aWidths == NIL
+      ELSEIF hb_IsArray(aHeaders) .AND. aWidths == NIL
          aWidths  := Array(Len(aHeaders))
          AFill(aWidths,  DEFAULT_COLUMNWIDTH)
          IF Len(aImage) > 0
             aWidths[1] := 0
          ENDIF
-      ELSEIF aHeaders == NIL .AND. HB_ISARRAY(aWidths)
+      ELSEIF aHeaders == NIL .AND. hb_IsArray(aWidths)
          aHeaders := Array(Len(aWidths))
          AEval(aHeaders, {| xValue, nIndex | xValue := NIL, aHeaders[nIndex] := DEFAULT_COLUMNHEADER + hb_ntos(nIndex)})
       ENDIF
@@ -186,17 +186,17 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
       value := 0
    ENDIF
    /* code borrowed from ooHG project */
-   IF !HB_ISARRAY(aJust)
+   IF !hb_IsArray(aJust)
       aJust := AFill(Array(Len(aHeaders)), 0)
    ELSE
       ASize(aJust, Len(aHeaders))
       AEval(aJust, {|x, i| aJust[i] := iif(HB_ISNUMERIC(x), x, 0)})
    ENDIF
    /* end code borrowed */
-   inplace := ISARRAY(editcontrols)
-   lsort := (ISARRAY(columnsort) .AND. nosortheaders == .F. .AND. ownerdata == .F.)
+   inplace := hb_IsArray(editcontrols)
+   lsort := (hb_IsArray(columnsort) .AND. nosortheaders == .F. .AND. ownerdata == .F.)
 
-   IF !HB_ISARRAY(aWidthLimits)
+   IF !hb_IsArray(aWidthLimits)
       aWidthLimits := Array(Len(aWidths))
    ENDIF
 
@@ -488,13 +488,13 @@ FUNCTION InitDialogGrid(ParentName, ControlHandle, k)
 
    IF multiselect
 
-      IF ISARRAY(Value)
+      IF hb_IsArray(Value)
          ListViewSetMultiSel(ControlHandle, Value)
       ENDIF
 
    ELSE
 
-      row := iif(ISARRAY(value), value[1], value)
+      row := iif(hb_IsArray(value), value[1], value)
       IF row != 0
          _SetValue(, , Value, k)
       ENDIF
@@ -555,7 +555,7 @@ FUNCTION _AddGridRow(ControlName, ParentForm, aRow)
    ENDIF
 
 #ifdef _HMG_COMPAT_
-   IF !ISARRAY(_HMG_aControlMiscData1[i][13])
+   IF !hb_IsArray(_HMG_aControlMiscData1[i][13])
       AEval(aGridRow, {|x, i| iif(ISCHARACTER(x) .OR. HB_ISNIL(x), , aGridRow[i] := hb_ValToStr(x))})
    ENDIF
 #endif
@@ -563,7 +563,7 @@ FUNCTION _AddGridRow(ControlName, ParentForm, aRow)
    h := _HMG_aControlHandles[i]
    AddListViewItems(h, aGridRow, iIm)
 
-   IF ISARRAY(_HMG_aControlMiscData1[i][13])
+   IF hb_IsArray(_HMG_aControlMiscData1[i][13])
       _SetItem(ControlName, ParentForm, ListViewGetItemCount(h), aGridRow)
       IF Len(_HMG_aControlBkColor[i]) > 0
          SetImageListViewItems(h, ListViewGetItemCount(h), iIm)
@@ -792,8 +792,8 @@ PROCEDURE _UpdateGridColors(i)
 
    LOCAL dBc := _HMG_aControlMiscData1[i, 12]
    LOCAL dFc := _HMG_aControlMiscData1[i, 11]
-   LOCAL processdbc := ISARRAY(dbc)
-   LOCAL processdfc := ISARRAY(dfc)
+   LOCAL processdbc := hb_IsArray(dbc)
+   LOCAL processdfc := hb_IsArray(dfc)
    LOCAL h
    LOCAL Cols
    LOCAL Rows
@@ -951,7 +951,7 @@ FUNCTION _GridInplaceEdit(idx)
 
    CWH := _HMG_aControlMiscData1[idx][15]
 
-   IF ISARRAY(CWH) .AND. Len(CWH) >= ci
+   IF hb_IsArray(CWH) .AND. Len(CWH) >= ci
 
       IF ISBLOCK(CWH[ci])
 
@@ -1144,7 +1144,7 @@ FUNCTION _GridInplaceEdit(idx)
 
    _HMG_GridInplaceEdit_ControlHandle := GetControlHandle(ControlName, FormName)
 
-   IF HB_ISARRAY(_HMG_GridInplaceEdit_ControlHandle)
+   IF hb_IsArray(_HMG_GridInplaceEdit_ControlHandle)
       _HMG_GridInplaceEdit_ControlHandle := _HMG_GridInplaceEdit_ControlHandle[1]
    ENDIF
 
@@ -1203,11 +1203,11 @@ FUNCTION _ParseGridControls(aEditControls, ci, ri)
    LOCAL i
    LOCAL bBlock
 
-   IF ISARRAY(aEditControls)
+   IF hb_IsArray(aEditControls)
 
       IF Len(aEditControls) >= ci
 
-         IF ISARRAY(aEditControls[ci])
+         IF hb_IsArray(aEditControls[ci])
 
             IF Len(aEditControls[ci]) >= 1
 
@@ -1221,10 +1221,10 @@ FUNCTION _ParseGridControls(aEditControls, ci, ri)
                   // A more generic function to simulate ONCHANGE event
                   bChange := iif(Len(aEditControls[ci]) > 2 .AND. ISBLOCK(aEditControls[ci][3]), aEditControls[ci][3], {|| NIL})
 
-                  IF ISARRAY(aEdit) .AND. Len(aEdit) >= 1 .AND. iif(Len(aEdit) > 1, !ISBLOCK(aEdit[2]), .T.)
+                  IF hb_IsArray(aEdit) .AND. Len(aEdit) >= 1 .AND. iif(Len(aEdit) > 1, !ISBLOCK(aEdit[2]), .T.)
                      AEC := aEdit[1]    // get normal type for this cell
                   ELSE
-                     IF ISARRAY(aEdit) .AND. Len(aEdit) >= 2 .AND. ISBLOCK(aEdit[2])
+                     IF hb_IsArray(aEdit) .AND. Len(aEdit) >= 2 .AND. ISBLOCK(aEdit[2])
                         AEC := "CODEBLOCK"
                         bBlock := aEdit[2]
                      ELSE
@@ -1260,7 +1260,7 @@ FUNCTION _ParseGridControls(aEditControls, ci, ri)
                ENDIF
 
                IF Len(aEdit) >= 2 .AND. AEC == "COMBOBOX"
-                  IF ISARRAY(AEDIT[2])
+                  IF hb_IsArray(AEDIT[2])
                      AITEMS := AEDIT[2]
                   ENDIF
                ENDIF
@@ -1320,7 +1320,7 @@ STATIC PROCEDURE _GridInplaceEditOK(idx, ci, ri, aec)
 
    CVA := _HMG_aControlMiscData1[idx][14]
 
-   IF ISARRAY(CVA) .AND. Len(CVA) >= ci
+   IF hb_IsArray(CVA) .AND. Len(CVA) >= ci
 
       IF ISBLOCK(CVA[ci])
 
@@ -1340,7 +1340,7 @@ STATIC PROCEDURE _GridInplaceEditOK(idx, ci, ri, aec)
 
             aValidMessages := _HMG_aControlMiscData1[idx][16]
 
-            IF ISARRAY(aValidMessages)
+            IF hb_IsArray(aValidMessages)
 
                IF ISCHARACTER(aValidMessages[ci])
 
@@ -2055,7 +2055,7 @@ PROCEDURE _GRIDINPLACEKBDEDIT_2(i)
                ENDIF
             ENDIF
 
-            IF ISARRAY(aColumnWhen)
+            IF hb_IsArray(aColumnWhen)
 
                IF ownerdata == .F.
                   aTemp := This.Item(This.CellRowIndex)

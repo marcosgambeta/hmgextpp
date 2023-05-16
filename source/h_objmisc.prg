@@ -109,7 +109,7 @@ FUNCTION _ControlObj(ControlName, FormName)
    
    LOCAL h := iif( HB_ISNUMERIC(ControlName), ControlName, GetControlHandle(ControlName, FormName) )
 
-   IF ISARRAY(h)
+   IF hb_IsArray(h)
       h := h[1]
    ENDIF
 
@@ -228,7 +228,7 @@ FUNC Do_OnCtlInit( i, cVar )
    
    LOCAL nCtlIndex := i
    LOCAL cCtlName  := _HMG_aControlNames[i]
-   LOCAL nHandle   := iif( ISARRAY(_HMG_aControlHandles[i]), _HMG_aControlHandles[i][1], _HMG_aControlHandles[i] )
+   LOCAL nHandle   := iif( hb_IsArray(_HMG_aControlHandles[i]), _HMG_aControlHandles[i][1], _HMG_aControlHandles[i] )
    LOCAL nParent   := _HMG_aControlParentHandles[i]
    LOCAL cFormName := GetParentFormName( i )
    LOCAL cCtlType  := iif( Empty(cFormName), _HMG_aControlType[i], GetProperty( cFormName, cCtlName, "Type" ) )

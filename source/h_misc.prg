@@ -202,7 +202,7 @@ FUNCTION SendData ( cDest , Data )
 
    FileName := _HMG_CommPath + cDest + "." + _HMG_StationName + "." + hb_ntos ( ++_HMG_SendDataCount )
 
-   IF HB_ISARRAY(Data)
+   IF hb_IsArray(Data)
 
       IF ValType(Data [1]) != "A"
 
@@ -554,7 +554,7 @@ STATIC FUNCTION IfNil( ... )
    LOCAL aParams := hb_AParams()
    LOCAL u
 
-   IF Len(aParams) == 1 .AND. HB_ISARRAY(aParams[1])
+   IF Len(aParams) == 1 .AND. hb_IsArray(aParams[1])
       aParams := aParams[1]
    ENDIF
 

@@ -210,8 +210,8 @@ FUNCTION _DefinePropGrid ( ControlName, ParentFormName, row, col, width, height,
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
-   IF aheadname != Nil .AND. HB_ISARRAY(aheadname)
-      IF Len(aheadname) > 0 .AND. HB_ISARRAY(aheadname[1])
+   IF aheadname != Nil .AND. hb_IsArray(aheadname)
+      IF Len(aheadname) > 0 .AND. hb_IsArray(aheadname[1])
          aheadname := aheadname[1]
       ENDIF
    ENDIF
@@ -294,11 +294,11 @@ FUNCTION _DefinePropGrid ( ControlName, ParentFormName, row, col, width, height,
       SetToolTip ( aControlHandle[1], tooltip, GetFormToolTipHandle ( ParentFormName ) )
    ENDIF
 
-   IF HB_ISARRAY(backcolor)
+   IF hb_IsArray(backcolor)
       TreeView_SetBkColor( aControlHandle[1], backcolor )
    ENDIF
 
-   IF HB_ISARRAY(fontcolor)
+   IF hb_IsArray(fontcolor)
       TreeView_SetTextColor( aControlHandle[1], fontcolor )
    ENDIF
 
@@ -418,7 +418,7 @@ FUNCTION PgBtnEvents(hwndPG, HwndBtn)
    LOCAL cFile
    LOCAL lXml
    
-   i := AScan(_HMG_aControlHandles, {|x| HB_ISARRAY(x) .AND. x[1] == hwndPG })
+   i := AScan(_HMG_aControlHandles, {|x| hb_IsArray(x) .AND. x[1] == hwndPG })
    IF i > 0 .AND. !empty(HwndBtn) // HwndBtn > 0
       aRowItem := _HMG_aControlPageMap[i]
       cFile    := _HMG_aControlCaption[i]
@@ -1619,7 +1619,7 @@ FUNCTION AttrTran( xData, type )
       ENDIF
       EXIT
    CASE "A"
-      IF HB_ISARRAY(xData)
+      IF hb_IsArray(xData)
          cData := ""
          FOR n := 1 TO Len(xData)
             IF HB_ISNUMERIC(xdata[n])
@@ -1850,7 +1850,7 @@ FUNCTION OPROPGRIDEVENTS(hWnd, nMsg, wParam, lParam, hItem, hEdit)
 
    CASE WM_COMMAND
       IF HIWORD(wParam) == EN_CHANGE .AND. lParam == hItem
-         i := AScan(_HMG_aControlHandles, {|x|HB_ISARRAY(x) .AND. x[1] == hWnd})
+         i := AScan(_HMG_aControlHandles, {|x|hb_IsArray(x) .AND. x[1] == hWnd})
          IF i > 0
             _ChangeBtnState(_HMG_aControlHandles[i], .T., i)
             _DoControlEventProcedure(_HMG_aControlHeadClick[i], i)
@@ -1904,7 +1904,7 @@ FUNCTION OPROPGRIDEVENTS(hWnd, nMsg, wParam, lParam, hItem, hEdit)
       EXIT
 
    CASE WM_NOTIFY
-      i := AScan(_HMG_aControlHandles, {|x|HB_ISARRAY(x) .AND. x[1] == GetHwndFrom(lParam)})
+      i := AScan(_HMG_aControlHandles, {|x|hb_IsArray(x) .AND. x[1] == GetHwndFrom(lParam)})
       IF i > 0
          IF GetNotifyCode(lParam) == TVN_SELCHANGED // Tree
             _DoControlEventProcedure(_HMG_aControlChangeProcedure[i], i)
@@ -1970,7 +1970,7 @@ FUNCTION aVal2Str(aData, sep)
    
    DEFAULT sep := ";"
    
-   IF HB_ISARRAY(aData)
+   IF hb_IsArray(aData)
       FOR n := 1 TO Len(aData)
          IF HB_ISNUMERIC(adata[n])
             cData += AllTrim(Str(aData[n])) + IIF( n < Len(aData), sep, "" )
@@ -2009,7 +2009,7 @@ FUNCTION SetPropGridValue ( ParentForm, ControlName, nID, cValue, cData, lExp )
       ENDIF
    ENDIF
    hWndPG := GetPGControlHandle ( ControlName, ParentForm )
-   i := AScan(_HMG_aControlHandles, {|x| HB_ISARRAY(x) .AND. x[1] == hwndPG })
+   i := AScan(_HMG_aControlHandles, {|x| hb_IsArray(x) .AND. x[1] == hwndPG })
    IF i > 0
       hEdit := _HMG_aControlMiscData2[i]
    ENDIF
@@ -2405,7 +2405,7 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
 
    lParam := Nil //unused parameter
 
-   IF ( i := AScan(_HMG_aControlHandles, {|x| HB_ISARRAY(x) .AND. x[1] == hwndPG }) ) == 0
+   IF ( i := AScan(_HMG_aControlHandles, {|x| hb_IsArray(x) .AND. x[1] == hwndPG }) ) == 0
       RETURN 0
    ENDIF
    IF ( x := AScan(_HMG_aFormHandles, _HMG_aControlParentHandles[i]) ) > 0
@@ -2770,7 +2770,7 @@ FUNCTION _PGInitData( hWnd, hEdit, hWndItem, ItemType )
    LOCAL aData
    LOCAL hParentItem
 
-   i := AScan(_HMG_aControlHandles, {|x| HB_ISARRAY(x) .AND. x[1] == hWnd })
+   i := AScan(_HMG_aControlHandles, {|x| hb_IsArray(x) .AND. x[1] == hWnd })
    IF i > 0
       ItHeight := _HMG_aControlRangeMin[i] - 4
       IF PG_GETITEM( hWnd, hWndItem, PGI_CHG )

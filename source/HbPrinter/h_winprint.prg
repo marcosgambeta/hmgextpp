@@ -359,7 +359,7 @@ METHOD SetTextColor( clr ) CLASS HBPrinter
       // BEGIN RL 2003-08-03
       IF HB_ISNUMERIC(clr)
          ::TextColor := rr_settextcolor( clr )
-      ELSEIF HB_ISARRAY(clr)
+      ELSEIF hb_IsArray(clr)
          ::TextColor := rr_settextcolor( RGB ( clr[1], clr[2], clr[3] ) )
       ENDIF
       // END RL
@@ -382,7 +382,7 @@ METHOD SetBkColor( clr ) CLASS HBPrinter
    // BEGIN RL 2003-08-03
    IF HB_ISNUMERIC(clr)
       ::BkColor := rr_setbkcolor( clr )
-   ELSEIF HB_ISARRAY(clr)
+   ELSEIF hb_IsArray(clr)
       ::BkColor := rr_setbkcolor( RGB ( clr[1], clr[2], clr[3] ) )
    ENDIF
    // END RL
@@ -406,7 +406,7 @@ METHOD DefineBrush( defname, lstyle, lcolor, lhatch ) CLASS HBPrinter
       RETURN self
    ENDIF
    // BEGIN RL 2003-08-03
-   IF ISARRAY(lcolor)
+   IF hb_IsArray(lcolor)
       lcolor := RGB ( lcolor[1], lcolor[2], lcolor[3] )
    ENDIF
    // END RL
@@ -447,7 +447,7 @@ METHOD ModifyBrush( defname, lstyle, lcolor, lhatch ) CLASS HBPrinter
       RETURN self
    ENDIF
    // BEGIN RL 2003-08-03
-   IF ISARRAY(lcolor)
+   IF hb_IsArray(lcolor)
       lcolor := RGB ( lcolor[1], lcolor[2], lcolor[3] )
    ENDIF
    // END RL
@@ -469,7 +469,7 @@ METHOD DefinePen( defname, lstyle, lwidth, lcolor ) CLASS HBPrinter
       RETURN self
    ENDIF
    // BEGIN RL 2003-08-03
-   IF ISARRAY(lcolor)
+   IF hb_IsArray(lcolor)
       lcolor := RGB ( lcolor[1], lcolor[2], lcolor[3] )
    ENDIF
    // END RL
@@ -499,7 +499,7 @@ METHOD ModifyPen( defname, lstyle, lwidth, lcolor ) CLASS HBPrinter
       RETURN self
    ENDIF
    // BEGIN RL 2003-08-03
-   IF ISARRAY(lcolor)
+   IF hb_IsArray(lcolor)
       lcolor := RGB ( lcolor[1], lcolor[2], lcolor[3] )
    ENDIF
    // END RL
@@ -698,7 +698,7 @@ METHOD Say( row, col, txt, defname, lcolor, lalign ) CLASS HBPrinter
       // BEGIN RL 2003-08-03
       IF HB_ISNUMERIC(lcolor)
          rr_settextcolor( lcolor )
-      ELSEIF HB_ISARRAY(lcolor)
+      ELSEIF hb_IsArray(lcolor)
          rr_settextcolor( RGB ( lcolor[1], lcolor[2], lcolor[3] ) )
       ENDIF
       // END RL

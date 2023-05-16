@@ -46,7 +46,7 @@ FUNCTION HMG_ArrayToDbf( aData, cFieldList, bProgress )
    LOCAL nRow
    LOCAL lFldName
 
-   IF HB_ISARRAY(cFieldList)
+   IF hb_IsArray(cFieldList)
       aFldName := cFieldList
    ELSEIF HB_ISCHAR(cFieldList)
       aFldName := hb_ATokens(cFieldList, ",")

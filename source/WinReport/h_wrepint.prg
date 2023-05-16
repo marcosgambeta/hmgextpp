@@ -370,7 +370,7 @@ Function StampeEsegui(_MainArea,_psd,db_arc,_prw)
    START DOC NAME oWr:aStat [ "JobName" ]
 
    if empty(_MainArea)                // Mono Db List
-      if lastrec() > 0 .OR. HB_ISARRAY(oWr:argm[3])
+      if lastrec() > 0 .OR. hb_IsArray(oWr:argm[3])
          Lbody := eval(oWr:Valore,oWr:aBody[1])
          mx_pg := INT(oWr:aStat[ "end_pr" ]/NOZERODIV(Lbody) )
          if (mx_pg * lbody) != mx_pg
@@ -499,7 +499,7 @@ Function Color(GR,GR1,GR2)
       else
          dato := oWr:SetMyRgb(hbPrn:DXCOLORS(gr))
       Endif
-   ELSEif PCOUNT()=1 .AND. HB_ISARRAY(GR)
+   ELSEif PCOUNT()=1 .AND. hb_IsArray(GR)
          DATO := rgb(GR[1],GR[2],GR[3])
    elseIF PCOUNT()=3
       DATO := rgb(GR,GR1,GR2)
@@ -1132,7 +1132,7 @@ METHOD IsMono(arg1) CLASS WREPORT
 *-----------------------------------------------------------------------------*
 Local en, rtv := .F.
 for each en in arg1
-    if HB_ISARRAY(en)
+    if hb_IsArray(en)
        exit
     Else
        rtv := .T.
@@ -2125,7 +2125,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                 ::MemoSay(iif([LINE] $ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])) ;
                    ,eval(epar,ArryPar[2]) ;
                    ,::MACROCOMPILE(ArryPar[4],.T.,cmdline,section) ;
-                   ,iif(ascan(arryPar,[LEN])>0,iif(HB_ISARRAY(oWr:argm[3]),;
+                   ,iif(ascan(arryPar,[LEN])>0,iif(hb_IsArray(oWr:argm[3]),;
                                               ::MACROCOMPILE(eval(chblk,arrypar,[LEN]),.T.,cmdline,section) , ;
                                               val(eval(chblk,arrypar,[LEN]))),NIL) ;
                    ,iif(ascan(arryPar,[FONT])>0,"FX",NIL);
@@ -2213,7 +2213,7 @@ METHOD MEMOSAY(row,col,argm1,argl1,argf1,argcolor1,argalign,onlyone,arrypar) CLA
  Local units := hbprn:UNITS, k, mcl ,ain, str :="", typa := .F.
  default col to 0 ,row to 0, argl1 to 10, onlyone to ""
 
- if HB_ISARRAY(argm1)
+ if hb_IsArray(argm1)
     typa := .T.
     arrymemo := {}
     if ::IsMono(argm1)
@@ -2330,7 +2330,7 @@ IsMono := ::Ismono(arr)
         _HMG_PRINTER_H_PRINT( iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) ;
          , nline*lstep , arg2, argf1 , argsize , afontscolor[1], afontscolor[2], afontscolor[3] ;
          , xwa, abold, aita, aunder, astrike;
-         , iif(HB_ISARRAY(afontscolor), .T.,.F.) ;
+         , iif(hb_IsArray(afontscolor), .T.,.F.) ;
          , iif(valtype(argf1)=="C", .T.,.F.) ;
          , iif(HB_ISNUMERIC(argsize), .T.,.F.) ;
          , argalign )
@@ -2657,7 +2657,7 @@ METHOD TheBody() CLASS WREPORT
 local db_arc:=dbf(), noline:=.F., subcolor, nxtp :=.F., n, an, al
 Local sstring := "NLINE"+chr(07)+NTrim(t_col)+chr(07)+"SAY"+chr(07)
       sstring += chr(05)+chr(07)+substr(ghstring,at("FONT",ghstring))
-      if HB_ISARRAY(::argm[3])
+      if hb_IsArray(::argm[3])
          al := len(::argm[3])
          for an = 1 to al
              ::aCnt := an
@@ -2843,7 +2843,7 @@ METHOD Quantirec(_MainArea) CLASS WREPORT     //count record that will be print
 local conta:=0 , StrFlt :=""
 Private query_exp
 StrFlt := ::aStat [ "FldRel" ]+" = "+ ::aStat [ "area1" ]+"->"+::aStat [ "FldRel" ]
-if HB_ISARRAY(::argm[3])    // {_MainArea,_psd,db_arc,_prw}
+if hb_IsArray(::argm[3])    // {_MainArea,_psd,db_arc,_prw}
   Return len(::argm[3])
 Endif
 if !EMPTY(dbfilter())
@@ -2913,7 +2913,7 @@ local db_arc:=dbf(), noline:=.F., nxtp :=.F.
 local oErrAntes, oErr, lMyError := .F., n , al ,an
    BEGIN SEQUENCE
       // buono ma da rivedere Yes_Memo  := .F.
-      if HB_ISARRAY(::argm[3])
+      if hb_IsArray(::argm[3])
          al := len(::argm[3])
          for an = 1 to al
              ::aCnt := an

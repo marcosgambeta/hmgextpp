@@ -186,14 +186,14 @@ STATIC FUNCTION ErrorMessage( oError )
       cMessage += " (DOS Error " + hb_ntos( oError:osCode ) + ")"
    ENDIF
 
-   IF HB_ISARRAY(oError:args)
+   IF hb_IsArray(oError:args)
       cMessage += CRLF
       cMessage += "   Args:" + CRLF
       FOR n := 1 TO Len(oError:args)
          cMessage += ;
             "     [" + hb_ntos( n, 2 ) + "] = " + ValType(oError:args[n]) + ;
             "   " + cValToChar( cValToChar( oError:args[n] ) ) + ;
-            iif( HB_ISARRAY(oError:args[n]), " length: " + ;
+            iif( hb_IsArray(oError:args[n]), " length: " + ;
             hb_ntos( Len(oError:args[n]) ), "" ) + iif( n < Len(oError:args), CRLF, "" )
       NEXT
    ENDIF

@@ -399,7 +399,7 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
       SetScrollRange(Formhandle, SB_HORZ, 0, VirtualWidth - w, .T.)
    ENDIF
 
-   IF ISARRAY(aMin) .AND. ISARRAY(aMax)
+   IF hb_IsArray(aMin) .AND. hb_IsArray(aMax)
       iif(aMin[1] == NIL, NIL, _HMG_aFormMinMaxInfo[k][5] := aMin[1])
       iif(aMin[2] == NIL, NIL, _HMG_aFormMinMaxInfo[k][6] := aMin[2])
       iif(aMax[1] == NIL, NIL, _HMG_aFormMinMaxInfo[k][7] := aMax[1])
@@ -622,7 +622,7 @@ FUNCTION _DefineModalWindow(FormName, Caption, x, y, w, h, Parent, nosize, nosys
       SetScrollRange(Formhandle, SB_HORZ, 0, VirtualWidth - w, .T.)
    ENDIF
 
-   IF ISARRAY(aMin) .AND. ISARRAY(aMax)
+   IF hb_IsArray(aMin) .AND. hb_IsArray(aMax)
       iif(aMin[1] == NIL, NIL, _HMG_aFormMinMaxInfo[k][5] := aMin[1])
       iif(aMin[2] == NIL, NIL, _HMG_aFormMinMaxInfo[k][6] := aMin[2])
       iif(aMax[1] == NIL, NIL, _HMG_aFormMinMaxInfo[k][7] := aMax[1])
@@ -1658,7 +1658,7 @@ PROCEDURE _SetActivationFocus(i)
                   EXIT
                ENDIF
 
-            ELSEIF ISARRAY(hControl)
+            ELSEIF hb_IsArray(hControl)
                IF hControl[1] == Sp
                   FocusDefined := .T.
                   EXIT
@@ -1675,7 +1675,7 @@ PROCEDURE _SetActivationFocus(i)
    IF FocusDefined == .F.
 
       IF (x := AScan(_HMG_aControlHandles, GetNextDlgTabItem(hParent, 0, .F.))) > 0 .OR. ;
-         (x := AScan(_HMG_aControlHandles, {|x|iif(ISARRAY(x), x[1] == GetNextDlgTabItem(hParent, 0, .F.), .F.)})) > 0
+         (x := AScan(_HMG_aControlHandles, {|x|iif(hb_IsArray(x), x[1] == GetNextDlgTabItem(hParent, 0, .F.), .F.)})) > 0
          _SetFocus(, , x)
       ENDIF
 
@@ -1956,7 +1956,7 @@ PROCEDURE VirtualChildControlFocusProcess(nControlHandle, nWindowHandle)
 
             ENDIF
 
-         ELSEIF ISARRAY(_HMG_aControlHandles[x])
+         ELSEIF hb_IsArray(_HMG_aControlHandles[x])
 
             IF AScan(_HMG_aControlHandles[x], nControlHandle) > 0
 
@@ -2698,7 +2698,7 @@ FUNCTION WaitWindow(cMessage, lNoWait, nWidth, nSize, cFont, aFontColor, aBackCo
          ELSE
             cMessage := {cMessage}
          ENDIF
-      ELSEIF !HB_ISARRAY(cMessage)
+      ELSEIF !hb_IsArray(cMessage)
          cMessage := {cMessage}
       ENDIF
 
@@ -2756,7 +2756,7 @@ FUNCTION WaitWindow(cMessage, lNoWait, nWidth, nSize, cFont, aFontColor, aBackCo
          SetProperty(cFormName, "TitleBar", .F.)
          SetProperty(cFormName, "SysMenu", .F.)
 
-         IF HB_ISARRAY(aBackColor)
+         IF hb_IsArray(aBackColor)
             SetProperty(cFormName, "BackColor", aBackColor)
          ELSEIF hb_osIsWin10() .AND. _HMG_IsThemed
             SetProperty(cFormName, "Height", GetProperty(cFormName, "Height") + 7)

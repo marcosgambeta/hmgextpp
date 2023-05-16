@@ -83,7 +83,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
    LOCAL nLenSelectList := Len(aSelectList)
    LOCAL xExprValue, cExprValue, cExprType, nExprLen, aStruct := {}
-   LOCAL lOTM := ( HB_ISARRAY(aOneToMany) )
+   LOCAL lOTM := ( hb_IsArray(aOneToMany) )
    LOCAL nExprAlias, nCurrExpr, nSelectFrom, nSelectChild, nSelectTemp, xValueFromMother, axExpr := {}
    LOCAL lCreateIndex := .F.
    LOCAL cIndexName, cIndexKey := ""
@@ -253,7 +253,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
          lCreateIndex := !lCreateIndex
          cSeekExpr := ""
 
-         IF HB_ISARRAY(axExpr) .AND. HB_ISARRAY(AEval(axExpr, {|e|cSeekExpr += ToString(Eval(e))})) .OR. !( nSelectTemp )->( dbSeek( cSeekExpr, .F. ) )
+         IF hb_IsArray(axExpr) .AND. hb_IsArray(AEval(axExpr, {|e|cSeekExpr += ToString(Eval(e))})) .OR. !( nSelectTemp )->( dbSeek( cSeekExpr, .F. ) )
 
             ( nSelectTemp )->( dbAppend() )
             lAppend := .T.

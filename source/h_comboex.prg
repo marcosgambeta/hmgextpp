@@ -157,7 +157,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
             AAdd(aImages, aImage[im])
             AAdd(aImages, aImage[im])
 
-         ELSEIF HB_ISARRAY(aImage[im])
+         ELSEIF hb_IsArray(aImage[im])
             IF Len(aImage[im]) != 2
                MsgMiniGuiError("Control: " + ControlName + " Of " + cParentForm + " : You must specify 2 elements characters array as image param.")
             ELSE

@@ -116,7 +116,7 @@ PROCEDURE _DefineActivex ( cControlName, cParentForm, nRow, nCol, nWidth, nHeigh
    nAtlDllHandle := oActiveX:hAtl
 
    IF !Empty(oActiveX:hSink)
-      IF ISARRAY(aEvents) .AND. Len(aEvents) > 0 .AND. ISARRAY(aEvents[1])
+      IF hb_IsArray(aEvents) .AND. Len(aEvents) > 0 .AND. hb_IsArray(aEvents[1])
          AEval(aEvents, { | x | oActiveX:EventMap( x [1], x [2] ) })
       ENDIF
    ENDIF

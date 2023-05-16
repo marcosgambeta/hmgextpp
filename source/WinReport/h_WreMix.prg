@@ -320,7 +320,7 @@ Static Function memosay(arg1,arg2,argm1,argl1,argf1,argsize,abold,aita,aunder,as
  local arrymemo:={} , esci:=.F. ,str :="" , ain, typa := .F.
  default arg2 to 0 , arg1 to 0 , argl1 to 10, onlyone to "", argalign to "LEFT"
 
- if HB_ISARRAY(argm1)
+ if hb_IsArray(argm1)
     typa := .T.
     arrymemo := {}
     if oWr:IsMono(argm1)
@@ -352,7 +352,7 @@ Static Function memosay(arg1,arg2,argm1,argl1,argf1,argsize,abold,aita,aunder,as
    , aita;
    , aunder;
    , astrike;
-   , iif(HB_ISARRAY(argcolor1), .T.,.F.) ;
+   , iif(hb_IsArray(argcolor1), .T.,.F.) ;
    , iif(valtype(argf1)=="C", .T.,.F.) ;
    , iif(HB_ISNUMERIC(argsize), .T.,.F.) ;
    , argalign )
@@ -367,7 +367,7 @@ Static Function memosay(arg1,arg2,argm1,argl1,argf1,argsize,abold,aita,aunder,as
          _HMG_PRINTER_H_PRINT( iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) ;
          , nline*lstep , arg2, argf1 , argsize , argcolor1[1], argcolor1[2], argcolor1[3] ;
          , arrymemo[mcl], abold, aita, aunder, astrike;
-         , iif(HB_ISARRAY(argcolor1), .T.,.F.) ;
+         , iif(hb_IsArray(argcolor1), .T.,.F.) ;
          , iif(valtype(argf1)=="C", .T.,.F.) ;
          , iif(HB_ISNUMERIC(argsize), .T.,.F.) ;
          , argalign )
@@ -681,7 +681,7 @@ Function RMiniPar(ArryPar,cmdline,section)
 
      case ascan(ArryPar,[MEMOSAY])=3
              memosay(iif([LINE]$ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1]) ) ,eval(epar,ArryPar[2]) ,&(ArryPar[4]) ;
-          ,iif(ascan(arryPar,[LEN])>0,iif(HB_ISARRAY(oWr:argm[3]), ;
+          ,iif(ascan(arryPar,[LEN])>0,iif(hb_IsArray(oWr:argm[3]), ;
                                      oWr:MACROCOMPILE(eval(chblk,arrypar,[LEN]),.T.,cmdline,section) , ;
                                      val(eval(chblk,arrypar,[LEN]))),NIL) ;
           ,iif(ascan(arryPar,[FONT])>0,eval(chblk,arrypar,[FONT]),NIL);

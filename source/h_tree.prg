@@ -148,8 +148,8 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
          Width := GetWindowWidth(Controlhandle)
          Height := GetWindowHeight(Controlhandle)
 
-         ImgDefNode := iif( HB_ISARRAY(aImgNode), Len(aImgNode), 0 )  // Tree+
-         ImgDefItem := iif( HB_ISARRAY(aImgItem), Len(aImgItem), 0 )  // Tree+
+         ImgDefNode := iif( hb_IsArray(aImgNode), Len(aImgNode), 0 )  // Tree+
+         ImgDefItem := iif( hb_IsArray(aImgItem), Len(aImgItem), 0 )  // Tree+
 
          IF ImgDefNode > 0
 
@@ -204,8 +204,8 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
 
       ENDIF
 
-      ImgDefNode := iif( HB_ISARRAY(aImgNode), Len(aImgNode), 0 )  // Tree+
-      ImgDefItem := iif( HB_ISARRAY(aImgItem), Len(aImgItem), 0 )  // Tree+
+      ImgDefNode := iif( hb_IsArray(aImgNode), Len(aImgNode), 0 )  // Tree+
+      ImgDefItem := iif( hb_IsArray(aImgItem), Len(aImgItem), 0 )  // Tree+
 
       IF ImgDefNode > 0
 
@@ -252,15 +252,15 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
          SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
-      IF HB_ISARRAY(backcolor)
+      IF hb_IsArray(backcolor)
          TreeView_SetBkColor(ControlHandle, backcolor)
       ENDIF
 
-      IF HB_ISARRAY(fontcolor)
+      IF hb_IsArray(fontcolor)
          TreeView_SetTextColor(ControlHandle, fontcolor)
       ENDIF
 
-      IF HB_ISARRAY(linecolor)
+      IF hb_IsArray(linecolor)
          TreeView_SetLineColor(ControlHandle, linecolor)
       ENDIF
 
@@ -363,8 +363,8 @@ FUNCTION InitDialogTree( ParentName, ControlHandle, k )
    aImgItem := _HMG_aControlMiscData1[ k, 3 ]
    NoTrans  := _HMG_aControlMiscData1[ k, 4 ]
 
-   ImgDefNode := iif( HB_ISARRAY(aImgNode), Len(aImgNode), 0 )  // Tree+
-   ImgDefItem := iif( HB_ISARRAY(aImgItem), Len(aImgItem), 0 )  // Tree+
+   ImgDefNode := iif( hb_IsArray(aImgNode), Len(aImgNode), 0 )  // Tree+
+   ImgDefItem := iif( hb_IsArray(aImgItem), Len(aImgItem), 0 )  // Tree+
 
    IF ImgDefNode > 0
       aBitmaps[1] := aImgNode[1]              // Node default
@@ -387,7 +387,7 @@ FUNCTION InitDialogTree( ParentName, ControlHandle, k )
       id         := _HMG_aDialogTreeItem[ n, 3 ]
       NodeIndex  := _HMG_aDialogTreeItem[ n, 4 ]
       Cargo      := _HMG_aDialogTreeItem[ n, 6 ]
-      ImgDef     := iif( HB_ISARRAY(aImage), Len(aImage), 0 )  // Tree+
+      ImgDef     := iif( hb_IsArray(aImage), Len(aImage), 0 )  // Tree+
       NodeHandle := _HMG_NodeHandle[ NodeIndex ]
 
       AAdd(a_Node_Item_Cargo, Cargo)
@@ -453,7 +453,7 @@ FUNCTION _DefineTreeNode ( text, aImage, Id, Cargo )
 
    ELSE
 
-      ImgDef := iif( HB_ISARRAY(aImage), Len(aImage), 0 )  // Tree+
+      ImgDef := iif( hb_IsArray(aImage), Len(aImage), 0 )  // Tree+
 
       IF ImgDef == 0
          iUnsel := 0   // Pointer to defalut Node Bitmaps, no Bitmap loaded
@@ -501,7 +501,7 @@ FUNCTION _DefineTreeItem ( text, aImage, Id, Cargo )
 
    ELSE
 
-      ImgDef := iif( HB_ISARRAY(aImage), Len(aImage), 0 )  // Tree+
+      ImgDef := iif( hb_IsArray(aImage), Len(aImage), 0 )  // Tree+
 
       IF ImgDef == 0
          iUnsel := 2   // Pointer to defalut Item Bitmaps, no Bitmap loaded
@@ -616,7 +616,7 @@ PROCEDURE TreeItemChangeImage ( ControlName, ParentForm, nItem, aImage )
    LOCAL iUnSel
    LOCAL iSel
 
-   IF ItemHandle > 0 .AND. ISARRAY(aImage) .AND. ( ImgDef := Len(aImage) ) > 0
+   IF ItemHandle > 0 .AND. hb_IsArray(aImage) .AND. ( ImgDef := Len(aImage) ) > 0
       k := GetControlIndex(ControlName, ParentForm)
       iUnSel := AddTreeViewBitmap( TreeHandle, aImage[1], _HMG_aControlMiscData1[ k, 4 ] ) - 1
       iSel := iif( ImgDef == 1, iUnSel, AddTreeViewBitmap( TreeHandle, aImage[2], _HMG_aControlMiscData1[ k, 4 ] ) - 1 )

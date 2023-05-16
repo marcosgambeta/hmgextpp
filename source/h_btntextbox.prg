@@ -381,7 +381,7 @@ FUNCTION TBBtnEvents(hwndEdit, HwndBtn, nMsg)
    LOCAL i
    LOCAL aHandle
 
-   i := AScan(_HMG_aControlSpacing, {|x|HB_ISARRAY(x) .AND. Len(x) > 0 .AND. HB_ISNUMERIC(x[1]) .AND. x[1] == hwndEdit})
+   i := AScan(_HMG_aControlSpacing, {|x|hb_IsArray(x) .AND. Len(x) > 0 .AND. HB_ISNUMERIC(x[1]) .AND. x[1] == hwndEdit})
 
    IF i > 0 .AND. HwndBtn > 0
 
@@ -390,7 +390,7 @@ FUNCTION TBBtnEvents(hwndEdit, HwndBtn, nMsg)
       SWITCH AScan(aHandle, HwndBtn)
       CASE TBB1
          IF _DoControlEventProcedure(_HMG_aControlProcedures[i], i)
-            IF HB_ISARRAY(_HMG_aControlMiscData1[i]) .AND. Len(_HMG_aControlMiscData1[i]) >= 4 .AND. !_HMG_aControlMiscData1[i][4]
+            IF hb_IsArray(_HMG_aControlMiscData1[i]) .AND. Len(_HMG_aControlMiscData1[i]) >= 4 .AND. !_HMG_aControlMiscData1[i][4]
                SendMessage(HwndBtn, BM_SETSTYLE, LOWORD(BS_PUSHBUTTON), 1)
             ENDIF
          ENDIF
@@ -398,7 +398,7 @@ FUNCTION TBBtnEvents(hwndEdit, HwndBtn, nMsg)
 
       CASE TBB2
          IF _DoControlEventProcedure(_HMG_aControlHeadClick[i], i)
-            IF HB_ISARRAY(_HMG_aControlMiscData1[i]) .AND. Len(_HMG_aControlMiscData1[i]) >= 4 .AND. !_HMG_aControlMiscData1[i][4]
+            IF hb_IsArray(_HMG_aControlMiscData1[i]) .AND. Len(_HMG_aControlMiscData1[i]) >= 4 .AND. !_HMG_aControlMiscData1[i][4]
                SendMessage(HwndBtn, BM_SETSTYLE, LOWORD(BS_PUSHBUTTON), 1)
             ENDIF
          ENDIF
@@ -415,7 +415,7 @@ FUNCTION TBBtnEvents(hwndEdit, HwndBtn, nMsg)
             ENDIF
          ENDIF
       ELSE
-         IF HB_ISARRAY(_HMG_aControlMiscData1[i]) .AND. Len(_HMG_aControlMiscData1[i]) > 4 .AND. _HMG_aControlMiscData1[i][5]
+         IF hb_IsArray(_HMG_aControlMiscData1[i]) .AND. Len(_HMG_aControlMiscData1[i]) > 4 .AND. _HMG_aControlMiscData1[i][5]
             SetFocus(aHandle[1])
          ENDIF
       ENDIF
