@@ -3130,18 +3130,33 @@ FUNCTION _GetControlAction(ControlName, ParentForm, cEvent)
          bAction := _HMG_aControlLostFocusProcedure[i]
          EXIT
       CASE "ONDBLCLICK"
-         IF _HMG_aControlType[i] $ "BROWSE,GRID,LISTBOX,TREE"
+         SWITCH _HMG_aControlType[i]
+         CASE CONTROL_TYPE_BROWSE
+         CASE CONTROL_TYPE_GRID
+         CASE CONTROL_TYPE_LIST
+         CASE CONTROL_TYPE_LISTBOX
+         CASE CONTROL_TYPE_TREE
             bAction := _HMG_aControlDblClick[i]
-         ELSEIF _HMG_aControlType[i] $ "LABEL,IMAGE"
+            EXIT
+         CASE CONTROL_TYPE_LABEL
+         CASE CONTROL_TYPE_IMAGE
             bAction := _HMG_aControlHeadClick[i]
-         ENDIF
+         ENDSWITCH
          EXIT
       CASE "ONENTER"
-         IF "TEXT" $ _HMG_aControlType[i] .OR. _HMG_aControlType[i] == CONTROL_TYPE_COMBO
+         SWITCH _HMG_aControlType[i]
+         CASE CONTROL_TYPE_BTNNUMTEXT
+         CASE CONTROL_TYPE_BTNTEXT
+         CASE CONTROL_TYPE_CHARMASKTEXT
+         CASE CONTROL_TYPE_MASKEDTEXT
+         CASE CONTROL_TYPE_NUMTEXT
+         CASE CONTROL_TYPE_TEXT
+         CASE CONTROL_TYPE_COMBO
             bAction := _HMG_aControlDblClick[i]
-         ELSE
+            EXIT
+         OTHERWISE
             bAction := _HMG_aControlProcedures[i]
-         ENDIF
+         ENDSWITCH
          EXIT
       OTHERWISE
          bAction := _HMG_aControlProcedures[i]
@@ -3171,24 +3186,38 @@ STATIC FUNCTION _SetControlAction(ControlName, ParentForm, Value, cEvent)
          _HMG_aControlLostFocusProcedure[i] := bBlock
          EXIT
       CASE "ONDBLCLICK"
-         IF _HMG_aControlType[i] $ "BROWSE,GRID,LISTBOX,TREE"
+         SWITCH _HMG_aControlType[i]
+         CASE CONTROL_TYPE_BROWSE
+         CASE CONTROL_TYPE_GRID
+         CASE CONTROL_TYPE_LISTBOX
+         CASE CONTROL_TYPE_TREE
             _HMG_aControlDblClick[i] := bBlock
-         ELSEIF _HMG_aControlType[i] $ "LABEL,IMAGE"
+            EXIT
+         CASE CONTROL_TYPE_LABEL
+         CASE CONTROL_TYPE_IMAGE
             _HMG_aControlHeadClick[i] := bBlock
-         ENDIF
+         ENDSWITCH
          EXIT
       CASE "ONENTER"
-         IF "TEXT" $ _HMG_aControlType[i] .OR. _HMG_aControlType[i] == CONTROL_TYPE_COMBO
+         SWITCH _HMG_aControlType[i]
+         CASE CONTROL_TYPE_BTNNUMTEXT
+         CASE CONTROL_TYPE_BTNTEXT
+         CASE CONTROL_TYPE_CHARMASKTEXT
+         CASE CONTROL_TYPE_MASKEDTEXT
+         CASE CONTROL_TYPE_NUMTEXT
+         CASE CONTROL_TYPE_TEXT
+         CASE CONTROL_TYPE_COMBO
             _HMG_aControlDblClick[i] := bBlock
-         ELSE
+            EXIT
+         OTHERWISE
             _HMG_aControlProcedures[i] := bBlock
-         ENDIF
+         ENDSWITCH
          EXIT
       OTHERWISE
          _HMG_aControlProcedures[i] := bBlock
       ENDSWITCH
 
-      IF _HMG_aControlType[i] $ "IMAGE,LABEL"
+      IF _HMG_aControlType[i] == CONTROL_TYPE_IMAGE .OR. _HMG_aControlType[i] == CONTROL_TYPE_LABEL
          ChangeStyle(_HMG_aControlHandles[i], SS_NOTIFY)
       ENDIF
 
@@ -3233,7 +3262,7 @@ FUNCTION _SetToolTip(ControlName, ParentForm, Value, Page)
          IF !ISARRAY(Value)
             _HMG_aControlToolTip[i] := Value
          ENDIF
-         IF t $ "IMAGE,LABEL"
+         IF t == CONTROL_TYPE_IMAGE .OR. t == CONTROL_TYPE_LABEL
             ChangeStyle(_HMG_aControlHandles[i], SS_NOTIFY)
          ENDIF
          h := GetFormToolTipHandle(ParentForm)
@@ -3804,7 +3833,7 @@ FUNCTION _EraseControl(i, p)
       DeleteObject(x)
    ENDIF
 
-   IF _HMG_aControlType[i] $ "OBUTTON" .AND. !Empty(_HMG_aControlMiscData1[i]) // TODO:
+   IF (_HMG_aControlType[i] == CONTROL_TYPE_BUTTON .OR. _HMG_aControlType[i] == CONTROL_TYPE_OBUTTON) .AND. !Empty(_HMG_aControlMiscData1[i])
       DestroyIcon(_HMG_aControlBrushHandle[i])
    ELSE
       DeleteObject(_HMG_aControlBrushHandle[i])
@@ -6977,7 +7006,6 @@ STATIC FUNCTION _SetBackColor(ControlName, ParentForm, Value)
       setfocus(f)
       EXIT
 
-   // CASE t $ "MULTIGRID,BROWSE"
    CASE CONTROL_TYPE_MULTIGRID
    CASE CONTROL_TYPE_BROWSE
       ListView_SetBkColor(c, Value[1], Value[2], Value[3])
