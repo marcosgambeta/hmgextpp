@@ -682,7 +682,10 @@ FUNCTION _AddTabControl ( TabName , ControlName , ParentForm , PageNumber , Row 
          _HMG_aControlFontHandle [x] :=  TabName
          _HMG_aControlMiscData1  [x] :=  ParentForm
 
-      ELSEIF t $ "FRAME,CHECKBOX,RADIOGROUP,LABEL"  // JD 07/20/2007
+      ELSEIF t == CONTROL_TYPE_FRAME .OR. ;
+             t == CONTROL_TYPE_CHECKBOX .OR. ;
+             t == CONTROL_TYPE_RADIOGROUP .OR. ;
+             t == CONTROL_TYPE_LABEL  // JD 07/20/2007
 
          _HMG_aControlRangeMin  [x] :=  TabName
          _HMG_aControlRangeMax  [x] :=  ParentForm
