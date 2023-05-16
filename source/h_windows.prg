@@ -1475,7 +1475,8 @@ PROCEDURE _RefreshDataControls(i)
       v := _HMG_aControlValue[ControlIndex]
       _Refresh(ControlIndex)
 
-      IF _HMG_aControlType[ControlIndex] $ "COMBO,BROWSE"
+      IF _HMG_aControlType[ControlIndex] == CONTROL_TYPE_COMBO .OR. ;
+         _HMG_aControlType[ControlIndex] == CONTROL_TYPE_BROWSE
          _SetValue(, , v, ControlIndex)
       ENDIF
 
@@ -1490,7 +1491,8 @@ PROCEDURE _RefreshDataControls(i)
             v := _HMG_aControlValue[ControlIndex]
             _Refresh(ControlIndex)
 
-            IF _HMG_aControlType[ControlIndex] $ "COMBO,BROWSE"
+            IF _HMG_aControlType[ControlIndex] == CONTROL_TYPE_COMBO .OR. ;
+               _HMG_aControlType[ControlIndex] == CONTROL_TYPE_BROWSE
                _SetValue(, , v, ControlIndex)
             ENDIF
 
