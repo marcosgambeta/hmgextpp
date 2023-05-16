@@ -700,7 +700,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                      SetProperty(_HMG_aFormNames[x], "StatusBar", "Item", 1, _HMG_aControlValue[i])
 
-                  ELSEIF ISCHARACTER(_HMG_DefaultStatusBarMessage)
+                  ELSEIF hb_IsString(_HMG_DefaultStatusBarMessage)
 
                      SetProperty(_HMG_aFormNames[x], "StatusBar", "Item", 1, _HMG_DefaultStatusBarMessage)
 
@@ -714,7 +714,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             IF _IsControlDefined("StatusBar", _HMG_aFormNames[x])
 
-               IF ISCHARACTER(_HMG_DefaultStatusBarMessage)
+               IF hb_IsString(_HMG_DefaultStatusBarMessage)
                   SetProperty(_HMG_aFormNames[x], "StatusBar", "Item", 1, _HMG_DefaultStatusBarMessage)
                ENDIF
 

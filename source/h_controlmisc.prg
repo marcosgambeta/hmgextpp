@@ -196,7 +196,7 @@ FUNCTION _GetValue(ControlName, ParentForm, Index)
       EXIT
 
    CASE CONTROL_TYPE_COMBO
-      IF ISCHARACTER(_HMG_aControlSpacing[ix])
+      IF hb_IsString(_HMG_aControlSpacing[ix])
          auxval := ComboGetCursel(c)
          WorkArea := _HMG_aControlSpacing[ix]
          BackRec := (WorkArea)->(RecNo())
@@ -406,7 +406,7 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
    CASE CONTROL_TYPE_CHECKLABEL
    CASE CONTROL_TYPE_HYPERLINK
       IF Empty(Value)
-         value := iif(T == CONTROL_TYPE_LABEL .OR. T == CONTROL_TYPE_CHECKLABEL, iif(ISCHARACTER(Value), Value, ""), "@")
+         value := iif(T == CONTROL_TYPE_LABEL .OR. T == CONTROL_TYPE_CHECKLABEL, iif(hb_IsString(Value), Value, ""), "@")
       ENDIF
       IF hb_IsArray(Value)
          x := ""
@@ -518,7 +518,7 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
 
    CASE CONTROL_TYPE_COMBO
       Value := IFNUMERIC(Value, Value, 0)
-      IF ISCHARACTER(_HMG_aControlSpacing[ix])
+      IF hb_IsString(_HMG_aControlSpacing[ix])
          _HMG_aControlValue[ix] := value
          WorkArea := _HMG_aControlSpacing[ix]
          BackRec := (WorkArea)->(RecNo())
@@ -604,7 +604,7 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
    CASE CONTROL_TYPE_TIMEPICK
       IF Empty(Value)
          SetDatePickNull(c)
-      ELSEIF ISCHARACTER(Value)
+      ELSEIF hb_IsString(Value)
          SetTimePick(c, Val(Left(value, 2)), Val(SubStr(value, 4, 2)), Val(SubStr(value, 7, 2)))
       ENDIF
       _DoControlEventProcedure(_HMG_aControlChangeProcedure[ix], ix, "CONTROL_ONCHANGE")
@@ -1900,7 +1900,7 @@ FUNCTION _SetItem(ControlName, ParentForm, Item, Value, index)
          IF ValType(AEDITCONTROLS) != "A"
 #ifdef _HMG_COMPAT_
             aTemp := AClone(Value)
-            AEval(aTemp, {|x, i|iif(ISCHARACTER(x) .OR. HB_ISNIL(x), NIL, aTemp[i] := hb_ValToStr(x))})
+            AEval(aTemp, {|x, i|iif(hb_IsString(x) .OR. HB_ISNIL(x), NIL, aTemp[i] := hb_ValToStr(x))})
             ListViewSetItem(c, aTemp, Item)
 #endif
          ELSE
@@ -2865,7 +2865,7 @@ FUNCTION _SetPicture(ControlName, ParentForm, FileName)
             ENDIF
          ENDIF
 
-         IF ISCHARACTER(FileName) .OR. hb_IsArray(Filename)
+         IF hb_IsString(FileName) .OR. hb_IsArray(Filename)
             _HMG_aControlPicture[i] := FileName
             cImage := iif(hb_IsArray(Filename), Filename[1], Filename)
          ENDIF
@@ -2886,7 +2886,7 @@ FUNCTION _SetPicture(ControlName, ParentForm, FileName)
                _HMG_aControlBrushHandle[i] := _SetMixedBtnIcon(c, cImage)
                ReDrawWindow(c)
             ELSE
-               IF ISCHARACTER(cImage)
+               IF hb_IsString(cImage)
                   _HMG_aControlBrushHandle[i] := _SetBtnIcon(c, cImage)
                ELSE
                   _HMG_aControlBrushHandle[i] := Filename
@@ -2910,7 +2910,7 @@ STATIC FUNCTION _EnableToolbarButton(ButtonName, FormName)
 
    IF (i := GetControlIndex(ButtonName, FormName)) > 0
       EnableToolButton(_HMG_aControlContainerHandle[i], GetControlId(ButtonName, FormName))
-      IF ISCHARACTER(_HMG_aControlCaption[i])
+      IF hb_IsString(_HMG_aControlCaption[i])
          cCaption := Upper(_HMG_aControlCaption[i])
          IF (x := hb_UAt("&", cCaption)) > 0
             _DefineLetterOrDigitHotKey(cCaption, x, FormName, _HMG_aControlProcedures[i])
@@ -2928,7 +2928,7 @@ STATIC FUNCTION _DisableToolbarButton(ButtonName, FormName)
 
    IF (i := GetControlIndex(ButtonName, FormName)) > 0
       DisableToolButton(_HMG_aControlContainerHandle[i], GetControlId(ButtonName, FormName))
-      IF ISCHARACTER(_HMG_aControlCaption[i])
+      IF hb_IsString(_HMG_aControlCaption[i])
          cCaption := Upper(_HMG_aControlCaption[i])
          IF (i := hb_UAt("&", cCaption)) > 0
             c := Asc(hb_USubStr(cCaption, i + 1, 1))
@@ -2989,7 +2989,7 @@ STATIC FUNCTION _SetGetDatePickerDateFormat(ControlName, ParentForm, cFormat)
 
       IF _HMG_aControlType[ix] == CONTROL_TYPE_DATEPICK .OR. _HMG_aControlType[ix] == CONTROL_TYPE_TIMEPICK
 
-         IF ISCHARACTER(cFormat)
+         IF hb_IsString(cFormat)
 
             IF SetDatePickerDateFormat(_HMG_aControlHandles[ix], cFormat)
                _HMG_aControlSpacing[ix] := cFormat

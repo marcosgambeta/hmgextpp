@@ -117,7 +117,7 @@ FUNCTION _DefineChkLabel(ControlName, ParentFormName, x, y, Caption, w, h, ;
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
-   IF autosize .AND. !ISCHARACTER(Caption)
+   IF autosize .AND. !hb_IsString(Caption)
       Caption := cValToChar(Caption)
    ENDIF
 

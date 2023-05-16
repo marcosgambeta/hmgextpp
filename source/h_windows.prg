@@ -880,7 +880,7 @@ FUNCTION _SetWindowSizePos(FormName, row, col, width, height)
    height := IFNIL(height, actpos[4] - actpos[2], height)
 
 #ifdef _PANEL_
-   IF ISCHARACTER(FormName) .AND. GetWindowType(FormName) == "P"
+   IF hb_IsString(FormName) .AND. GetWindowType(FormName) == "P"
       IF lspang
          col += GetBorderWidth()
          row += GetTitleHeight() + GetBorderHeight()
@@ -2065,7 +2065,7 @@ FUNCTION _IsWindowActive(FormName)
    LOCAL mVar
    LOCAL i
 
-   IF ISCHARACTER(FormName)
+   IF hb_IsString(FormName)
 
       mVar := "_" + _NoQuote(FormName)
 
@@ -2097,7 +2097,7 @@ FUNCTION _IsWindowDefined(FormName)
    LOCAL mVar
    LOCAL i
 
-   IF ISCHARACTER(FormName)
+   IF hb_IsString(FormName)
 
       mVar := "_" + _NoQuote(FormName)
 
@@ -2265,7 +2265,7 @@ FUNCTION ReleaseAllWindows()
 
          OTHERWISE
 
-            IF ISCHARACTER(_HMG_aControlNames[i])
+            IF hb_IsString(_HMG_aControlNames[i])
                _EraseControl(i, AScan(_HMG_aFormHandles, _HMG_aControlParentHandles[i]))
             ENDIF
 

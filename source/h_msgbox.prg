@@ -172,7 +172,7 @@ STATIC FUNCTION _MsgBox(cMessage, cTitle, nStyle, nIcon, lSysModal, lTopMost)
    __defaultNIL(@cMessage, "")
    __defaultNIL(@cTitle, "")
 
-   IF !ISCHARACTER(cMessage)
+   IF !hb_IsString(cMessage)
       IF hb_IsArray(cMessage)
          cText := ""
          AEval(cMessage, {|x|cText += hb_ValToStr(x)})

@@ -346,7 +346,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    _HMG_aControlMiscData1          [k] := { 0, readonly, 0, ProcedureName, ProcedureName2, BtnWidth, lBtn2, lNoMinus, .T. }
    _HMG_aControlMiscData2          [k] := ""
 
-   IF ISCHARACTER( cPicture ) .AND. !Empty(cPicture) .AND. "@K" $ cPicture
+   IF hb_IsString(cPicture) .AND. !Empty(cPicture) .AND. "@K" $ cPicture
       lModifyGotFocus := .T.
    ENDIF
 

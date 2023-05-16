@@ -218,7 +218,7 @@ FUNCTION _SetHotKeyByName(cParentForm, cKey, bAction)
       MsgMiniGuiError("ON KEY: Parent Window is Not specified.")
    ENDIF
 
-   IF !Empty(cKey) .AND. ISCHARACTER ( cKey )
+   IF !Empty(cKey) .AND. hb_IsString(cKey)
       aKey := _DetermineKey ( cKey )
       IF aKey [1] != 0
          IF hb_IsBlock(_GetHotKeyBlock(cParentForm, aKey[2], aKey[1]))

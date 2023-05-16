@@ -886,7 +886,7 @@ FUNCTION _SetMenuItemFont(ItemName, FormName, Font)
 
    LOCAL a := _GetMenuIds(ItemName, FormName)
 
-RETURN MenuItem_SetFont(a[1], a[2], iif(ISCHARACTER(Font), GetFontHandle(Font), Font))
+RETURN MenuItem_SetFont(a[1], a[2], iif(hb_IsString(Font), GetFontHandle(Font), Font))
 
 /*
 _InsertMenuItem(ItemName, FormName, caption, action, name, Image) --> NIL
@@ -1226,7 +1226,7 @@ FUNCTION HMG_SetMenuTheme(nType, cFormName, aUserDefined)
 
    SetMenuColors(aColors)
 
-   IF ISCHARACTER(cFormName)
+   IF hb_IsString(cFormName)
       SetProperty(cFormName, "BackColor", aColors[ MNUCLR_MENUBARBACKGROUND1 ])
       _ColorMenu(GetFormHandle(cFormName), nRGB2Arr(aColors[ MNUCLR_MENUBARBACKGROUND2 ]))
    ENDIF

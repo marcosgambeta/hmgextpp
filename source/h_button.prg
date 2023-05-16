@@ -185,7 +185,7 @@ FUNCTION _DefineButton(ControlName, ParentFormName, x, y, Caption, ;
    _HMG_aControlProcedures         [k] := ProcedureName
    _HMG_aControlPageMap            [k] := {}
    _HMG_aControlValue              [k] := NIL
-   _HMG_aControlInputMask          [k] := iif(ISCHARACTER(key), key, "")
+   _HMG_aControlInputMask          [k] := iif(hb_IsString(key), key, "")
    _HMG_aControllostFocusProcedure [k] := lostfocus
    _HMG_aControlGotFocusProcedure  [k] := gotfocus
    _HMG_aControlChangeProcedure    [k] := ""
@@ -357,7 +357,7 @@ FUNCTION _DefineImageButton(ControlName, ParentFormName, x, y, Caption, ;
    _HMG_aControlProcedures         [k] := ProcedureName
    _HMG_aControlPageMap            [k] := {}
    _HMG_aControlValue              [k] := NIL
-   _HMG_aControlInputMask          [k] := iif(ISCHARACTER(key), key, "")
+   _HMG_aControlInputMask          [k] := iif(hb_IsString(key), key, "")
    _HMG_aControllostFocusProcedure [k] := lostfocus
    _HMG_aControlGotFocusProcedure  [k] := gotfocus
    _HMG_aControlChangeProcedure    [k] := ""

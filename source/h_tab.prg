@@ -176,7 +176,7 @@ STATIC FUNCTION _DefineTab( ControlName, ParentFormName, x, y, w, h, aCaptions, 
    ENDIF
 
    FOR EACH mVar IN Images
-      IF ISCHARACTER( mVar ) .AND. !Empty(mVar)  // JD 11/05/2006
+      IF hb_IsString(mVar) .AND. !Empty(mVar)  // JD 11/05/2006
          ImageFlag := .T.
          EXIT
       ENDIF

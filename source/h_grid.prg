@@ -556,7 +556,7 @@ FUNCTION _AddGridRow(ControlName, ParentForm, aRow)
 
 #ifdef _HMG_COMPAT_
    IF !hb_IsArray(_HMG_aControlMiscData1[i][13])
-      AEval(aGridRow, {|x, i| iif(ISCHARACTER(x) .OR. HB_ISNIL(x), , aGridRow[i] := hb_ValToStr(x))})
+      AEval(aGridRow, {|x, i| iif(hb_IsString(x) .OR. HB_ISNIL(x), , aGridRow[i] := hb_ValToStr(x))})
    ENDIF
 #endif
 
@@ -1241,18 +1241,18 @@ FUNCTION _ParseGridControls(aEditControls, ci, ri)
 
                IF Len(aEdit) >= 2 .AND. AEC == "TEXTBOX"
 
-                  IF ISCHARACTER(AEDIT[2])
+                  IF hb_IsString(AEDIT[2])
                      CTYPE := Upper(AEDIT[2])
                   ENDIF
 
                   IF Len(AEDIT) >= 3
-                     IF ISCHARACTER(AEDIT[3])
+                     IF hb_IsString(AEDIT[3])
                         CINPUTMASK := AEDIT[3]
                      ENDIF
                   ENDIF
 
                   IF Len(AEDIT) >= 4
-                     IF ISCHARACTER(AEDIT[4])
+                     IF hb_IsString(AEDIT[4])
                         CFORMAT := AEDIT[4]
                      ENDIF
                   ENDIF
@@ -1276,14 +1276,14 @@ FUNCTION _ParseGridControls(aEditControls, ci, ri)
                ENDIF
 
                IF Len(aEdit) >= 2 .AND. AEC == "DATEPICKER"
-                  IF ISCHARACTER(AEDIT[2])
+                  IF hb_IsString(AEDIT[2])
                      DTYPE := Upper(AEDIT[2])
                   ENDIF
                ENDIF
 
                IF Len(aEdit) >= 3 .AND. AEC == "CHECKBOX"
 
-                  IF ISCHARACTER(AEDIT[2]) .AND. ISCHARACTER(AEDIT[3])
+                  IF hb_IsString(AEDIT[2]) .AND. hb_IsString(AEDIT[3])
                      ALABELS := {AEDIT[2], AEDIT[3]}
                   ENDIF
 
@@ -1342,7 +1342,7 @@ STATIC PROCEDURE _GridInplaceEditOK(idx, ci, ri, aec)
 
             IF hb_IsArray(aValidMessages)
 
-               IF ISCHARACTER(aValidMessages[ci])
+               IF hb_IsString(aValidMessages[ci])
 
                   MsgAlert(aValidMessages[ci], _HMG_BRWLangError[10])
 
@@ -1434,7 +1434,7 @@ PROCEDURE _SetGridCellEditValue(arg)
 
    END SWITCH
 
-   IF ISCHARACTER(ControlName)
+   IF hb_IsString(ControlName)
       SetProperty(FormName, ControlName, "value", arg)
    ELSE
       MsgMiniGuiError("CellValue replace: type mismatch.")

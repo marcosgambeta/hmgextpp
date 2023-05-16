@@ -711,9 +711,9 @@ GetFontParam( <hFont> )\[ 10 ]
 #ifndef HB_COMMON_CH_
    /* Type checking macros */
 #  translate ISNIL( <xValue> )       => ( <xValue> == NIL )
-#  translate ISARRAY(<xValue>)     => hb_IsArray(<xValue>) // deprecated
-#  translate ISBLOCK( <xValue> )     => hb_IsBlock( <xValue> ) // deprecated
-#  translate ISCHARACTER( <xValue> ) => hb_IsString( <xValue> )
+#  translate ISARRAY(<xValue>)     => hb_IsArray(<xValue>)       // deprecated
+#  translate ISBLOCK( <xValue> )     => hb_IsBlock( <xValue> )   // deprecated
+#  translate ISCHARACTER( <xValue> ) => hb_IsString( <xValue> )  // deprecated
 #  translate ISDATE( <xValue> )      => hb_IsDate( <xValue> )
 #  translate ISLOGICAL( <xValue> )   => hb_IsLogical( <xValue> )
 #  translate ISMEMO( <xValue> )      => hb_IsMemo( <xValue> )
@@ -728,7 +728,7 @@ GetFontParam( <hFont> )\[ 10 ]
 #translate IFNIL( <v1>,<exp1>,<exp2> )       => iif( (<v1>) == NIL,<exp1>,<exp2> )
 #translate IFARRAY(<v1>,<exp1>,<exp2>)     => iif( hb_IsArray(<v1> ),<exp1>,<exp2>)
 #translate IFBLOCK( <v1>,<exp1>,<exp2> )     => iif( hb_IsBlock( <v1> ),<exp1>,<exp2> )
-#translate IFCHARACTER( <v1>,<exp1>,<exp2> ) => iif( ISCHARACTER( <v1> ),<exp1>,<exp2> )
+#translate IFCHARACTER( <v1>,<exp1>,<exp2> ) => iif( hb_IsString( <v1> ),<exp1>,<exp2> )
 #translate IFCHAR( <v1>,<exp1>,<exp2> )      => iif( ISCHAR( <v1> ),<exp1>,<exp2> )
 #translate IFSTRING( <v1>,<exp1>,<exp2> )    => iif( ISSTRING( <v1> ),<exp1>,<exp2> )
 #translate IFDATE( <v1>,<exp1>,<exp2> )      => iif( ISDATE( <v1> ),<exp1>,<exp2> )

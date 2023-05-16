@@ -35,7 +35,7 @@ FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidt
       MsgMiniGuiError("Control: " + cControlName + " Of " + cParentForm + " Already defined.")
    ENDIF
 
-   IF !ISCHARACTER ( cFilename )
+   IF !hb_IsString(cFilename)
       MsgMiniGuiError("Control: " + cControlName + " Of " + cParentForm + " PICTURE Property Invalid Type.")
    ENDIF
 

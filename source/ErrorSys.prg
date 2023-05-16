@@ -155,7 +155,7 @@ STATIC FUNCTION ErrorMessage( oError )
    LOCAL n
 
    // add subsystem name if available
-   IF ISCHARACTER( oError:subsystem )
+   IF hb_IsString(oError:subsystem)
       cMessage += oError:subsystem()
    ELSE
       cMessage += "???"
@@ -169,7 +169,7 @@ STATIC FUNCTION ErrorMessage( oError )
    ENDIF
 
    // add error description if available
-   IF ISCHARACTER( oError:description )
+   IF hb_IsString(oError:description)
       cMessage += "  " + oError:description
    ENDIF
 

@@ -93,7 +93,7 @@ PROCEDURE _DefineActivex ( cControlName, cParentForm, nRow, nCol, nWidth, nHeigh
       MsgMiniGuiError("Control: " + cControlName + " Of " + cParentForm + " Already defined.")
    ENDIF
 
-   IF !ISCHARACTER ( cProgId )
+   IF !hb_IsString(cProgId)
       MsgMiniGuiError("Control: " + cControlName + " Of " + cParentForm + " PROGID Property Invalid Type.")
    ENDIF
 

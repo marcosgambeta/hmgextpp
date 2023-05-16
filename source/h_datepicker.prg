@@ -263,7 +263,7 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
       SetDatePickFontColor(ControlHandle, fontcolor[1], fontcolor[2], fontcolor[3])
    ENDIF
 
-   IF ISCHARACTER( cDateFormat )
+   IF hb_IsString(cDateFormat)
 
       IF SetDatePickerDateFormat(ControlHandle, cDateFormat)
          _HMG_aControlSpacing[k] := cDateFormat
