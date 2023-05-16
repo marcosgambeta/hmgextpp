@@ -240,13 +240,13 @@ Switch nParamCount
      Exit
 
    Case 1
-     If IsNumber( nHandle )
+     If hb_IsNumeric(nHandle)
         nPos := QHTM_GetScrollPos( nHandle )
      Endif
      Exit
 
    Case 2
-     If ( IsNumber( nHandle ) .AND. IsNumber( nPos ) )
+     If ( hb_IsNumeric(nHandle) .AND. hb_IsNumeric(nPos) )
         QHTM_SetScrollPos( nHandle, nPos )
      Else
         nPos := 0
@@ -272,7 +272,7 @@ Local nParamCount := PCount(), ;
       aSize                  , ;
       nPos
 
-If IsNumber( nHandle )
+If hb_IsNumeric(nHandle)
 
    nHeight := GetWindowHeight(nHandle)
    aSize := QHTM_GetSize( nHandle )
@@ -297,7 +297,7 @@ Switch nParamCount
      Exit
 
    Case 2
-     If IsNumber( nPercent )
+     If hb_IsNumeric(nPercent)
         nPos := Round( ( nPercent * aSize[2] * 0.01 ), 0 )
         QHTM_SetScrollPos( nHandle, nPos )
      Else

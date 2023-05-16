@@ -407,7 +407,7 @@ FUNCTION InitDialogComboBox(ParentName, ControlHandle, k)
          AEval(rows, {|v|ComboAddString(ControlHandle, v)})
       ENDIF
 
-      IF ISNUMBER(value) .AND. value != 0
+      IF hb_IsNumeric(value) .AND. value != 0
          ComboSetCurSel(ControlHandle, Value)
       ENDIF
 

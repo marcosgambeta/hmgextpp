@@ -320,7 +320,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
          AEval(rows, {|v, i|ComboAddStringEx(ControlHandle, v, i)})
       ENDIF
 
-      IF ISNUMBER( value ) .AND. value != 0
+      IF hb_IsNumeric(value) .AND. value != 0
          ComboSetCurSel(ControlHandle, Value)
       ENDIF
 

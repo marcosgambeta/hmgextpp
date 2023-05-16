@@ -155,9 +155,9 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
 #else
    HB_SYMBOL_UNUSED(cPanelParent)
 #endif
-   IF !ISNUMBER(w) .AND. !ISNUMBER(h)
+   IF !hb_IsNumeric(w) .AND. !hb_IsNumeric(h)
 
-      IF !ISNUMBER(clientwidth) .AND. !ISNUMBER(clientheight)
+      IF !hb_IsNumeric(clientwidth) .AND. !hb_IsNumeric(clientheight)
          w := GetDesktopWidth()
          h := GetDesktopHeight() - GetTaskBarHeight()
          IF child
@@ -440,9 +440,9 @@ FUNCTION _DefineModalWindow(FormName, Caption, x, y, w, h, Parent, nosize, nosys
       MsgMiniGuiError("Window: " + FormName + " is already defined.")
    ENDIF
 
-   IF !ISNUMBER(w) .AND. !ISNUMBER(h)
+   IF !hb_IsNumeric(w) .AND. !hb_IsNumeric(h)
 
-      IF !ISNUMBER(clientwidth) .AND. !ISNUMBER(clientheight)
+      IF !hb_IsNumeric(clientwidth) .AND. !hb_IsNumeric(clientheight)
          w := GetDesktopWidth() * 0.614
          h := (GetDesktopHeight() - GetTaskBarHeight()) * 0.614
          IF w / h > 1.75 // widescreen display
@@ -869,7 +869,7 @@ FUNCTION _SetWindowSizePos(FormName, row, col, width, height)
    LOCAL actpos := {0, 0, 0, 0}
    LOCAL hWnd := iif(ISNUMERIC(FormName), FormName, GetFormHandle(FormName))
 #ifdef _PANEL_
-   LOCAL lspang := (ISNUMBER(row) .AND. ISNUMBER(col) .AND. ISNUMBER(width) .AND. ISNUMBER(height))
+   LOCAL lspang := (hb_IsNumeric(row) .AND. hb_IsNumeric(col) .AND. hb_IsNumeric(width) .AND. hb_IsNumeric(height))
 #endif
 
    GetWindowRect(hWnd, /*@*/actpos)
@@ -1650,7 +1650,7 @@ PROCEDURE _SetActivationFocus(i)
 #ifdef HMG_USE_POINTERS
             IF HB_ISPOINTER(hControl)
 #else
-            IF ISNUMBER(hControl)
+            IF hb_IsNumeric(hControl)
 #endif
                IF hControl == Sp .OR. _HMG_aControlType[x] == CONTROL_TYPE_BUTTON .AND. IsWindowHasStyle(hControl, BS_DEFPUSHBUTTON)
                   _SetFocus(, , x)
@@ -1942,9 +1942,9 @@ PROCEDURE VirtualChildControlFocusProcess(nControlHandle, nWindowHandle)
 
    FOR x := 1 TO Len(_HMG_aControlHandles)
 
-      IF ISNUMBER(nControlHandle) // TODO:
+      IF hb_IsNumeric(nControlHandle) // TODO:
 
-         IF ISNUMBER(_HMG_aControlHandles[x])
+         IF hb_IsNumeric(_HMG_aControlHandles[x])
 
             IF _HMG_aControlHandles[x] == nControlHandle
 

@@ -48,7 +48,7 @@ STATIC FUNCTION MyErrorMessage( oError )
    ENDIF
 
    // add subsystem's error code if available
-   IF ISNUMBER( oError:subCode )
+   IF hb_IsNumeric(oError:subCode)
       cMessage += "/" + LTrim(Str(oError:subCode))
    ELSE
       cMessage += "/???"

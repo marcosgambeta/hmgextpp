@@ -627,7 +627,7 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
       EXIT
 
    CASE CONTROL_TYPE_MULTIGRID
-      IF ISNUMBER(value)  // GF 09/02/2013
+      IF hb_IsNumeric(value)  // GF 09/02/2013
          Value := {Value}
       ENDIF
       LISTVIEWSETMULTISEL(c, value)
@@ -652,7 +652,7 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
    CASE CONTROL_TYPE_TBROWSE
       oGet := _HMG_aControlIds[ix]
       IF oGet:lInitGoTop
-         IF ISNUMBER(Value) .AND. Value > 0
+         IF hb_IsNumeric(Value) .AND. Value > 0
             oGet:GoPos(Value)
             Eval(oGet:bGoToPos, Value)
             oGet:Refresh(.T.)
@@ -3250,7 +3250,7 @@ FUNCTION _SetToolTip(ControlName, ParentForm, Value, Page)
 
       IF t == CONTROL_TYPE_TAB
 
-         IF ISNUMBER(Page)  // GF 10/12/2010
+         IF hb_IsNumeric(Page)  // GF 10/12/2010
             IF Page > 0 .AND. Page <= Len(_HMG_aControlToolTip[i])
                Assign cValue := Value
                _HMG_aControlToolTip[i][Page] := cValue
@@ -7728,7 +7728,7 @@ FUNCTION _IsControlEnabled(ControlName, ParentForm, Position)
    ELSEIF t == CONTROL_TYPE_RADIOGROUP
       RetVal := IsWindowEnabled(_HMG_aControlHandles[i][hb_defaultValue(Position, 1)])
 
-   ELSEIF t == CONTROL_TYPE_TAB .AND. ISNUMBER(Position)
+   ELSEIF t == CONTROL_TYPE_TAB .AND. hb_IsNumeric(Position)
       FOR EACH w IN _HMG_aControlPageMap[i][Position]
 
          IF ValType(w) != "A"

@@ -62,7 +62,7 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
    LOCAL BackgroundColor
    LOCAL action := .F.
    LOCAL lDialogInMemory
-   LOCAL lCheckAlpha := ISNUMBER( nAlphaLevel )
+   LOCAL lCheckAlpha := hb_IsNumeric(nAlphaLevel)
    LOCAL oc // := NIL
    LOCAL ow // := NIL
 

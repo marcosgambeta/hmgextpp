@@ -400,7 +400,7 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
 
    IF nIcoSize > 0
 
-      IF ISNUMBER( cIcoFile )
+      IF hb_IsNumeric(cIcoFile)
 
          DRAW SYSICON IN WINDOW (cForm) ;
             AT nRow + GetBorderHeight(), MARGIN / 1.4 ;

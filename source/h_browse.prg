@@ -2226,7 +2226,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
             IF Alias() != _GridWorkArea
                Select &_GridWorkArea
             ENDIF
-            IF ISNUMBER ( nRec ) .AND. RecNo() != nRec
+            IF hb_IsNumeric(nRec) .AND. RecNo() != nRec
                GO nRec
             ENDIF
             IF GetControlHandle(_GetFocusedControl((r := GetParentFormName(i))), r) != GridHandle
@@ -2841,7 +2841,7 @@ PROCEDURE _BrowseVscrollFastUpdate(i, d)
 
       RecordCount := _HMG_aControlBrushHandle[i]
 
-      IF !ISNUMBER( RecordCount ) .OR. RecordCount == 0
+      IF !hb_IsNumeric(RecordCount) .OR. RecordCount == 0
          RETURN
       ENDIF
 
