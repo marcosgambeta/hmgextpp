@@ -207,11 +207,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
    CASE WM_CTLCOLORSTATIC
    //**************************************************************************
 
-#ifdef HMG_USE_POINTERS
-      i := AScan(_HMG_aControlHandles, win_n2p(lParam))
-#else
-      i := AScan(_HMG_aControlHandles, lParam)
-#endif
+      i := AScan(_HMG_aControlHandles, hmg_numbertohandle(lParam))
 
       IF i > 0
 
@@ -440,11 +436,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                   FOR x := 1 TO Len(Tmp)
 
-#ifdef HMG_USE_POINTERS
-                     IF Tmp[x] == win_n2p(lParam)
-#else
-                     IF Tmp[x] == lParam
-#endif
+                     IF Tmp[x] == hmg_numbertohandle(lParam)
 
                         IF _HMG_aControlFontColor[i] != NIL
                            SetTextColor(wParam, _HMG_aControlFontColor[i][1], _HMG_aControlFontColor[i][2], _HMG_aControlFontColor[i][3])
@@ -531,11 +523,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
    CASE WM_CTLCOLORLISTBOX
    //**************************************************************************
 
-#ifdef HMG_USE_POINTERS
-      i := AScan(_HMG_aControlHandles, win_n2p(lParam))
-#else
-      i := AScan(_HMG_aControlHandles, lParam)
-#endif
+      i := AScan(_HMG_aControlHandles, hmg_numbertohandle(lParam))
 
       IF i > 0
 
@@ -1640,11 +1628,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
       _HMG_MouseRow := HIWORD(lParam)
       _HMG_MouseCol := LOWORD(lParam)
 
-#ifdef HMG_USE_POINTERS
-      IF (i := AScan(_HMG_aControlHandles, win_n2p(wParam))) > 0 .AND. (_HMG_aControlType[i] == CONTROL_TYPE_IMAGE .OR. _HMG_aControlType[i] == CONTROL_TYPE_LABEL) .AND. ISBLOCK(_HMG_aControlChangeProcedure[i])
-#else
-      IF (i := AScan(_HMG_aControlHandles, wParam)) > 0 .AND. (_HMG_aControlType[i] == CONTROL_TYPE_IMAGE .OR. _HMG_aControlType[i] == CONTROL_TYPE_LABEL) .AND. ISBLOCK(_HMG_aControlChangeProcedure[i])
-#endif
+      IF (i := AScan(_HMG_aControlHandles, hmg_numbertohandle(wParam))) > 0 .AND. (_HMG_aControlType[i] == CONTROL_TYPE_IMAGE .OR. _HMG_aControlType[i] == CONTROL_TYPE_LABEL) .AND. ISBLOCK(_HMG_aControlChangeProcedure[i])
 
          _DoControlEventProcedure(_HMG_aControlChangeProcedure[i], i)
 
@@ -1921,11 +1905,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
       ENDIF
 #endif
 
-#ifdef HMG_USE_POINTERS
-      i := AScan(_HMG_aControlHandles, win_n2p(lParam))
-#else
-      i := AScan(_HMG_aControlHandles, lParam)
-#endif
+      i := AScan(_HMG_aControlHandles, hmg_numbertohandle(lParam))
 
       // If Handle Not Found, Look For Spinner
 
@@ -1933,11 +1913,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
          FOR EACH r IN _HMG_aControlHandles
             IF ISARRAY(r)
                x := hb_enumindex(r)
-#ifdef HMG_USE_POINTERS
-               IF r[1] == win_n2p(lParam) .AND. _HMG_aControlType[x] == CONTROL_TYPE_SPINNER
-#else
-               IF r[1] == lParam .AND. _HMG_aControlType[x] == CONTROL_TYPE_SPINNER
-#endif
+               IF r[1] == hmg_numbertohandle(lParam) .AND. _HMG_aControlType[x] == CONTROL_TYPE_SPINNER
                   i := x
                   EXIT
                ENDIF
