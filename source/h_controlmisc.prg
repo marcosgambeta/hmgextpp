@@ -2189,7 +2189,7 @@ FUNCTION _SetControlSizePos(ControlName, ParentForm, row, col, width, height)
 
             IF ValType(_HMG_aControlPageMap[x][r][w]) != "A"
 
-               p := AScan(_HMG_aControlhandles, _HMG_aControlPageMap[x][r][w])
+               p := AScan(_HMG_aControlhandles, _HMG_aControlPageMap[x][r][w]) // TODO:
                IF p > 0
                   tCol    := _HMG_aControlCol   [p]
                   tRow    := _HMG_aControlRow   [p]
@@ -2207,7 +2207,7 @@ FUNCTION _SetControlSizePos(ControlName, ParentForm, row, col, width, height)
 
             ELSE
 
-               p := AScan(_HMG_aControlhandles, _HMG_aControlPageMap[x][r][w][1])
+               p := AScan(_HMG_aControlhandles, _HMG_aControlPageMap[x][r][w][1]) // TODO:
                IF p > 0 .AND. _HMG_aControlType[p] == CONTROL_TYPE_BROWSE
 #ifdef _DBFBROWSE_
                   tCol    := _HMG_aControlCol   [p]
@@ -3702,7 +3702,7 @@ FUNCTION _ReleaseControl(ControlName, ParentForm)
          FOR w := 1 TO Len(_HMG_aControlPageMap[i][r])
             IF ValType(_HMG_aControlPageMap[i][r][w]) != "A"
                ReleaseControl(_HMG_aControlPageMap[i][r][w])
-               x := AScan(_HMG_aControlHandles, _HMG_aControlPageMap[i][r][w])
+               x := AScan(_HMG_aControlHandles, _HMG_aControlPageMap[i][r][w]) // TODO:
                IF x > 0
                   _EraseControl(x, k)
                ENDIF
@@ -3800,11 +3800,11 @@ FUNCTION _EraseControl(i, p)
 
    x := _HMG_aControlFontHandle[i]
 
-   IF ISNUMERIC(x) .AND. !Empty(x) .AND. !((t := AScan(_HMG_aControlHandles, x)) > 0 .AND. _HMG_aControlType[t] == CONTROL_TYPE_FONT)
+   IF (ISNUMERIC(x) .OR. HB_ISPOINTER(x)) .AND. !Empty(x) .AND. !((t := AScan(_HMG_aControlHandles, hmg_numbertohandle(x))) > 0 .AND. _HMG_aControlType[t] == CONTROL_TYPE_FONT)
       DeleteObject(x)
    ENDIF
 
-   IF _HMG_aControlType[i] $ "OBUTTON" .AND. !Empty(_HMG_aControlMiscData1[i])
+   IF _HMG_aControlType[i] $ "OBUTTON" .AND. !Empty(_HMG_aControlMiscData1[i]) // TODO:
       DestroyIcon(_HMG_aControlBrushHandle[i])
    ELSE
       DeleteObject(_HMG_aControlBrushHandle[i])

@@ -243,7 +243,7 @@ RETURN 0
 FUNCTION GetFontParam( FontHandle )
 
    LOCAL aFontAttr
-   LOCAL i := AScan(_HMG_aControlHandles, FontHandle)
+   LOCAL i := AScan(_HMG_aControlHandles, FontHandle) // TODO:
 
    aFontAttr := { _HMG_DefaultFontName, _HMG_DefaultFontSize, .F., .F., .F., .F., 0, 0, 0, "" }
 
@@ -365,7 +365,7 @@ RETURN .T.
 FUNCTION GetFontParamByRef( FontHandle, FontName, FontSize, bold, italic, underline, strikeout, angle )
 
    LOCAL lExpr
-   LOCAL i := iif( HB_ISNUMERIC(FontHandle), AScan(_HMG_aControlHandles, FontHandle), 0 ) // TODO: HB_ISNUMERIC
+   LOCAL i := iif( (HB_ISNUMERIC(FontHandle) .OR. HB_ISPOINTER(FontHandle)), AScan(_HMG_aControlHandles, hmg_numbertohandle(FontHandle)), 0 )
 
    lExpr := ( i > 0 .AND. GetObjectType( _HMG_aControlHandles[i] ) == OBJ_FONT )
 

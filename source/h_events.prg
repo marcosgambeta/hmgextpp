@@ -1318,7 +1318,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
    //**************************************************************************
 
       IF LoWord(lParam) != 0
-         NextControlHandle := wParam
+         NextControlHandle := hmg_numbertohandle(wParam)
       ELSE
          NextControlHandle := GetNextDlgTabITem(GetActiveWindow(), GetFocus(), (wParam != 0))
       ENDIF
@@ -2336,7 +2336,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
       // RadioGrop Processing ..............................
 
-      i := AScan(_HMG_aControlHandles, {|x|iif(hb_isArray(x), AScan(x, lParam, , , .T.) != 0, .F.)})
+      i := AScan(_HMG_aControlHandles, {|x|iif(hb_isArray(x), AScan(x, hmg_numbertohandle(lParam), , , .T.) != 0, .F.)})
 
       IF i > 0 .AND. _HMG_aControlType[i] == CONTROL_TYPE_RADIOGROUP
 
@@ -4558,7 +4558,7 @@ STATIC PROCEDURE _ProcessSliderEvents(lParam, wParam)
       STATIC _HMG_OnChangeEvent AS GLOBAL VALUE .F., _HMG_OnScrollEvent AS GLOBAL VALUE .F.
    ENDIF
 
-   IF (i := AScan(_HMG_aControlHandles, lParam)) > 0
+   IF (i := AScan(_HMG_aControlHandles, hmg_numbertohandle(lParam))) > 0
 
       IF _HMG_aControlType[i] == CONTROL_TYPE_SLIDER
 

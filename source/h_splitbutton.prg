@@ -158,7 +158,7 @@ FUNCTION SPButtonEventHandler ( hWnd, nMsg, wParam, lParam )
 
    ELSEIF nMsg == WM_COMMAND
 
-      i := AScan(_HMG_aControlHandles, lParam)
+      i := AScan(_HMG_aControlHandles, hmg_numbertohandle(lParam))
 
       IF i > 0 .AND. _HMG_aControlType[i] == CONTROL_TYPE_SPBUTTON
 

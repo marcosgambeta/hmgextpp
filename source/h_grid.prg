@@ -648,7 +648,7 @@ FUNCTION _EditItem(GridHandle)
 
    _HMG_ActiveFormNameBak := _HMG_ActiveFormName
 
-   i := AScan(_HMG_aControlHandles, GridHandle)
+   i := AScan(_HMG_aControlHandles, GridHandle) // TODO:
 
    a := _HMG_aControlPageMap[i]
 

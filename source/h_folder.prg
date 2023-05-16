@@ -659,7 +659,7 @@ FUNCTION PageFldProc(hWndDlg, nMsg, wParam, lParam)
    SWITCH nMsg
 
    CASE WM_COMMAND
-      i := AScan(_HMG_aControlhandles, lParam)
+      i := AScan(_HMG_aControlhandles, hmg_numbertohandle(lParam))
       IF _HMG_aFolderInfo[nFldID, FLD_FLT, 2] > 0
          IF i > 0
             IF HIWORD(wParam) == BN_CLICKED .OR. HIWORD(wParam) == EN_CHANGE .OR. ;
