@@ -839,7 +839,7 @@ FUNCTION _SetThisFormInfo(i)
          i := GetFormIndex(i)
          lDefine := .F.
 #ifdef _OBJECT_
-      ELSEIF HB_ISOBJECT(i)
+      ELSEIF hb_IsObject(i)
          i := iif(i:ClassName == "TSBROWSE", GetFormIndex(i:cParentWnd), i:Index)
          lDefine := .F.
 #endif

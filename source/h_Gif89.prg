@@ -109,7 +109,7 @@ FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidt
 
    oGif := TGif():New( cFilename, nRow, nCol, nHeight, nWidth, nDelay, aBKColor, cControlName, cParentForm )
 
-   IF ISOBJECT ( oGif )
+   IF hb_IsObject(oGif)
       nControlHandle := GetControlHandle(oGif:hGif, cParentForm)
       _HMG_aControlHandles[k] := nControlHandle
       _HMG_aControlIds[k] := oGif

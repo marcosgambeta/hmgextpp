@@ -11,8 +11,8 @@ FUNCTION _WindowCargo( FormName, xValue )
 *-----------------------------------------------------------------------------*
 
 #ifdef _OBJECT_
-   LOCAL o := iif( HB_ISOBJECT( FormName ), FormName, _WindowObj(FormName) )
-   LOCAL i := iif( HB_ISOBJECT( o ), o:Index, GetFormIndex( FormName ) )
+   LOCAL o := iif( hb_IsObject(FormName), FormName, _WindowObj(FormName) )
+   LOCAL i := iif( hb_IsObject(o), o:Index, GetFormIndex( FormName ) )
 #else
    LOCAL i := GetFormIndex( FormName )
 #endif
@@ -30,8 +30,8 @@ FUNCTION _ControlCargo( ControlName, FormName, xValue )
 *-----------------------------------------------------------------------------*
 
 #ifdef _OBJECT_
-   LOCAL o := iif( HB_ISOBJECT( ControlName ), ControlName, _ControlObj(ControlName, FormName) )
-   LOCAL i := iif( HB_ISOBJECT( o ), o:Index, GetControlIndex(ControlName, FormName) )
+   LOCAL o := iif( hb_IsObject(ControlName), ControlName, _ControlObj(ControlName, FormName) )
+   LOCAL i := iif( hb_IsObject(o), o:Index, GetControlIndex(ControlName, FormName) )
 #else
    LOCAL i := GetControlIndex(ControlName, FormName)
 #endif
@@ -121,10 +121,10 @@ FUNCTION _wPost( nEvent, nIndex, xParam )
    
    LOCAL oWnd
 
-   IF HB_ISOBJECT( nIndex )
+   IF hb_IsObject(nIndex)
       IF nIndex:ClassName == "TSBROWSE"
          oWnd   := _WindowObj(nIndex:cParentWnd)
-         IF !HB_ISOBJECT( oWnd )
+         IF !hb_IsObject(oWnd)
             RETURN NIL
          ENDIF
          nIndex := oWnd:GetObj(nIndex:cControlName):Index
@@ -149,10 +149,10 @@ FUNCTION _wSend( nEvent, nIndex, xParam )
    
    LOCAL oWnd
 
-   IF HB_ISOBJECT( nIndex )
+   IF hb_IsObject(nIndex)
       IF nIndex:ClassName == "TSBROWSE"
          oWnd   := _WindowObj(nIndex:cParentWnd)
-         IF !HB_ISOBJECT( oWnd )
+         IF !hb_IsObject(oWnd)
             RETURN NIL
          ENDIF
          nIndex := oWnd:GetObj(nIndex:cControlName):Index

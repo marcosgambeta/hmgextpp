@@ -95,7 +95,7 @@ METHOD Destroy() CLASS THmgData
       NEXT
    ENDIF
 
-   IF HB_ISOBJECT( ::Cargo ) .AND. ::Cargo:ClassName == ::ClassName
+   IF hb_IsObject(::Cargo) .AND. ::Cargo:ClassName == ::ClassName
       o := ::Cargo
       IF HB_ISHASH( o:aKey )
          FOR i := 1 TO Len(o:aKey)
@@ -548,12 +548,12 @@ FUNCTION _App_Dlu2Pix_Events_( hWnd, nMsg, wParam, lParam )
 
    STATIC o_app
 
-   IF HB_ISOBJECT( hWnd )
+   IF hb_IsObject(hWnd)
       MESSAGEONLY _App_Dlu2Pix_App_ EVENTS _App_Dlu2Pix_Events_ TO h
       o_app := hWnd
       o_app:Handle := h
       RETURN nRet
-   ELSEIF !HB_ISOBJECT( o_app )
+   ELSEIF !hb_IsObject(o_app)
       RETURN nRet
    ENDIF
 
@@ -1053,7 +1053,7 @@ CLASS TWndData
    METHOD Show() INLINE _ShowWindow(::cName)
    METHOD Hide() INLINE _HideWindow(::cName)
    METHOD SetFocus( xName ) INLINE iif( Empty(xName), SetFocus( ::nHandle ), ;
-      iif( HB_ISOBJECT( ::GetObj(xName) ), ::GetObj(xName):SetFocus(), DoMethod(::cName, xName, "SetFocus") ) )
+      iif( hb_IsObject(::GetObj(xName)), ::GetObj(xName):SetFocus(), DoMethod(::cName, xName, "SetFocus") ) )
    METHOD SetSize( y, x, w, h ) INLINE _SetWindowSizePos( ::cName, y, x, w, h )
 
    _METHOD DoEvent( Key, nHandle )
@@ -1065,15 +1065,15 @@ CLASS TWndData
       ::oHand:Get( xName ) )
    // Destructor
    METHOD Destroy() INLINE ( ;
-      ::oCargo := iif( HB_ISOBJECT( ::oCargo ), ::oCargo:Destroy(), Nil ), ;
-      ::oEvent := iif( HB_ISOBJECT( ::oEvent ), ::oEvent:Destroy(), Nil ), ;
-      ::oOnEventBlock := iif( HB_ISOBJECT( ::oOnEventBlock ), ::oOnEventBlock:Destroy(), Nil ), ;
-      ::oStatusBar := iif( HB_ISOBJECT( ::oStatusBar ), ::oStatusBar:Destroy(), Nil ), ;
-      ::oName := iif( HB_ISOBJECT( ::oName ), ::oName:Destroy(), Nil ), ;
-      ::oHand := iif( HB_ISOBJECT( ::oHand ), ::oHand:Destroy(), Nil ), ;
-      ::oProp := iif( HB_ISOBJECT( ::oProp ), ::oProp:Destroy(), Nil ), ;
-      ::oParam := iif( HB_ISOBJECT( ::oParam ), ::oParam:Destroy(), Nil ), ;
-      ::oUserKeys := iif( HB_ISOBJECT( ::oUserKeys ), ::oUserKeys:Destroy(), Nil ), ;
+      ::oCargo := iif( hb_IsObject(::oCargo), ::oCargo:Destroy(), Nil ), ;
+      ::oEvent := iif( hb_IsObject(::oEvent), ::oEvent:Destroy(), Nil ), ;
+      ::oOnEventBlock := iif( hb_IsObject(::oOnEventBlock), ::oOnEventBlock:Destroy(), Nil ), ;
+      ::oStatusBar := iif( hb_IsObject(::oStatusBar), ::oStatusBar:Destroy(), Nil ), ;
+      ::oName := iif( hb_IsObject(::oName), ::oName:Destroy(), Nil ), ;
+      ::oHand := iif( hb_IsObject(::oHand), ::oHand:Destroy(), Nil ), ;
+      ::oProp := iif( hb_IsObject(::oProp), ::oProp:Destroy(), Nil ), ;
+      ::oParam := iif( hb_IsObject(::oParam), ::oParam:Destroy(), Nil ), ;
+      ::oUserKeys := iif( hb_IsObject(::oUserKeys), ::oUserKeys:Destroy(), Nil ), ;
       ::nIndex := ::nParent := ::cType := ::cName := ::cVar := ::cChr := NIL, ;
       hmg_DelWindowObject( ::nHandle ), ::nHandle := Nil )
 
@@ -1096,13 +1096,13 @@ METHOD ControlAssign( xValue ) CLASS TWndData
 
    IF PCount() == 0
       o := ::GetObj(cMessage)
-      IF HB_ISOBJECT( o )
+      IF hb_IsObject(o)
          uRet := _GetValue( , , o:nIndex )
          lError := .F.
       ENDIF
    ELSEIF PCount() == 1
       o := ::GetObj(SubStr(cMessage, 2))
-      IF HB_ISOBJECT( o )
+      IF hb_IsObject(o)
          _SetValue( , , xValue, o:nIndex )
          uRet := _GetValue( , , o:nIndex )
          lError := .F.
@@ -1250,11 +1250,11 @@ CLASS TCnlData INHERIT TWndData
       SendMessage(::oWin:nHandle, ::WM_nMsgC, nKey, ::nHandle) ), Nil )
    METHOD Send(nKey, xPar) INLINE ::SendMsg( nKey, xPar )
 
-   METHOD Set() INLINE ( iif( HB_ISOBJECT( ::oWin:oName ), ::oWin:oName:Set( Upper(::cName), Self ), ), ;
-      iif( HB_ISOBJECT( ::oWin:oHand ), ::oWin:oHand:Set( ::nHandle, Self ), ) )
-   METHOD Del() INLINE ( iif( HB_ISOBJECT( ::oWin:oName ), ;
+   METHOD Set() INLINE ( iif( hb_IsObject(::oWin:oName), ::oWin:oName:Set( Upper(::cName), Self ), ), ;
+      iif( hb_IsObject(::oWin:oHand), ::oWin:oHand:Set( ::nHandle, Self ), ) )
+   METHOD Del() INLINE ( iif( hb_IsObject(::oWin:oName), ;
       iif( HB_ISCHAR( ::cName ), ::oWin:oName:Del( Upper(::cName) ), ), ), ;
-      iif( HB_ISOBJECT( ::oWin:oHand ), ;
+      iif( hb_IsObject(::oWin:oHand), ;
       iif( HB_ISNUMERIC(::nHandle), ::oWin:oHand:Del( ::nHandle ), ), ) )
 
    METHOD Get( xName ) INLINE iif( HB_ISCHAR( xName ), ::oWin:oName:Get( Upper(xName) ), ;
@@ -1287,12 +1287,12 @@ CLASS TCnlData INHERIT TWndData
 
    // Destructor
    METHOD Destroy() INLINE ( ::Del(), ;
-      ::oCargo := iif( HB_ISOBJECT( ::oCargo ), ::oCargo:Destroy(), Nil ), ;
-      ::oEvent := iif( HB_ISOBJECT( ::oEvent ), ::oEvent:Destroy(), Nil ), ;
-      ::oOnEventBlock := iif( HB_ISOBJECT( ::oOnEventBlock ), ::oOnEventBlock:Destroy(), Nil ), ;
-      ::oUserKeys := iif( HB_ISOBJECT( ::oUserKeys ), ::oUserKeys:Destroy(), Nil ), ;
-      ::oName := iif( HB_ISOBJECT( ::oName ), ::oName:Destroy(), Nil ), ;
-      ::oHand := iif( HB_ISOBJECT( ::oHand ), ::oHand:Destroy(), Nil ), ;
+      ::oCargo := iif( hb_IsObject(::oCargo), ::oCargo:Destroy(), Nil ), ;
+      ::oEvent := iif( hb_IsObject(::oEvent), ::oEvent:Destroy(), Nil ), ;
+      ::oOnEventBlock := iif( hb_IsObject(::oOnEventBlock), ::oOnEventBlock:Destroy(), Nil ), ;
+      ::oUserKeys := iif( hb_IsObject(::oUserKeys), ::oUserKeys:Destroy(), Nil ), ;
+      ::oName := iif( hb_IsObject(::oName), ::oName:Destroy(), Nil ), ;
+      ::oHand := iif( hb_IsObject(::oHand), ::oHand:Destroy(), Nil ), ;
       ::nParent := ::nIndex := ::cName := ::cType := ::cVar := ::cChr := NIL, ;
       hmg_DelWindowObject( ::nHandle ), ::nHandle := Nil )
 
@@ -1483,7 +1483,7 @@ CLASS TKeyData
       iif( hb_IsBlock(b), Eval(b, ::oObj, Key, p1, p2, p3 ), Nil )}
 
    ACCESS Obj INLINE ::oObj
-   ASSIGN Obj(o) INLINE ::oObj := iif( HB_ISOBJECT( o ), o, Self )
+   ASSIGN Obj(o) INLINE ::oObj := iif( hb_IsObject(o), o, Self )
    ACCESS Len INLINE Len(::aKey)
    ACCESS IsEvent INLINE ::lKey
    ASSIGN KeyUpper(lUpper) INLINE hb_HCaseMatch( ::aKey, !Empty(lUpper) )
@@ -1574,7 +1574,7 @@ METHOD Destroy() CLASS TKeyData
       NEXT
    ENDIF
 
-   IF HB_ISOBJECT( ::Cargo ) .AND. ::Cargo:ClassName == ::ClassName
+   IF hb_IsObject(::Cargo) .AND. ::Cargo:ClassName == ::ClassName
       o := ::Cargo
       IF HB_ISHASH( o:aKey )
          FOR i := 1 TO Len(o:aKey)
@@ -1643,7 +1643,7 @@ CLASS TThrData
    ACCESS MT INLINE ::lMT
    ASSIGN MT( lVmMt ) INLINE ::lMT := iif( hb_IsLogical(lVmMt), lVmMt, .F. )
    ACCESS Obj INLINE ::oObj
-   ASSIGN Obj(o) INLINE ::oObj := iif( HB_ISOBJECT( o ), o, Self )
+   ASSIGN Obj(o) INLINE ::oObj := iif( hb_IsObject(o), o, Self )
    ACCESS Len INLINE Len(::aKey)
    METHOD ISBLOCK( Key ) INLINE hb_IsBlock(::Get( Key ))
 
@@ -1753,7 +1753,7 @@ METHOD Destroy() CLASS TThrData
       NEXT
    ENDIF
 
-   IF HB_ISOBJECT( ::Cargo ) .AND. ::Cargo:ClassName == ::ClassName
+   IF hb_IsObject(::Cargo) .AND. ::Cargo:ClassName == ::ClassName
       o := ::Cargo
       IF HB_ISHASH( o:aKey )
          FOR i := 1 TO Len(o:aKey)
@@ -1809,7 +1809,7 @@ FUNCTION oCnlData( nIndex, cName, nHandle, nParent, cType, cVar, oWin )
 
    DEFAULT oWin := hmg_GetWindowObject( nParent )
 
-   IF HB_ISOBJECT( oWin )
+   IF hb_IsObject(oWin)
 
       IF cType == "TBROWSE"
          ob := _HMG_aControlIds[ nIndex ]

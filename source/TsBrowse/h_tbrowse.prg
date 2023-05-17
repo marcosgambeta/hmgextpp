@@ -1957,7 +1957,7 @@ METHOD bDataEval(oCol, xVal, nCol) CLASS TSBrowse
    LOCAL cAlias
    LOCAL lNoAls
 
-   IF !HB_ISOBJECT( oCol )
+   IF !hb_IsObject(oCol)
       nCol := iif( HB_ISCHAR( oCol ), ::nColumn( oCol ), oCol )
       oCol := ::aColumns[nCol]
    ENDIF
@@ -2103,12 +2103,12 @@ METHOD hFontGet( xVal, nCol ) CLASS TSBrowse
 
    LOCAL xDef := iif( ::hFont == NIL, 0, ::hFont )
 
-   IF HB_ISOBJECT( xVal ) ; xVal := xVal:hFont
+   IF hb_IsObject(xVal) ; xVal := xVal:hFont
    ENDIF
 
    xVal := ::GetValProp( xVal, xDef, nCol, ::nAt )
 
-   IF HB_ISOBJECT( xVal ) ; xVal := xVal:hFont
+   IF hb_IsObject(xVal) ; xVal := xVal:hFont
    ENDIF
 
    IF xVal == NIL ; xVal := xDef
@@ -2124,12 +2124,12 @@ METHOD hFontHeadGet( xVal, nCol ) CLASS TSBrowse
 
    LOCAL xDef := iif( ::hFont == NIL, 0, ::hFont )
 
-   IF HB_ISOBJECT( xVal ) ; xVal := xVal:hFontHead
+   IF hb_IsObject(xVal) ; xVal := xVal:hFontHead
    ENDIF
 
    xVal := ::GetValProp( xVal, xDef, nCol, 0 )
 
-   IF HB_ISOBJECT( xVal ) ; xVal := xVal:hFontHead
+   IF hb_IsObject(xVal) ; xVal := xVal:hFontHead
    ENDIF
 
    IF xVal == NIL ; xVal := xDef
@@ -2145,12 +2145,12 @@ METHOD hFontFootGet( xVal, nCol ) CLASS TSBrowse
 
    LOCAL xDef := iif( ::hFont == NIL, 0, ::hFont )
 
-   IF HB_ISOBJECT( xVal ) ; xVal := xVal:hFontFoot
+   IF hb_IsObject(xVal) ; xVal := xVal:hFontFoot
    ENDIF
 
    xVal := ::GetValProp( xVal, xDef, nCol, 0 )
 
-   IF HB_ISOBJECT( xVal ) ; xVal := xVal:hFontFoot
+   IF hb_IsObject(xVal) ; xVal := xVal:hFontFoot
    ENDIF
 
    IF xVal == NIL ; xVal := xDef
@@ -2166,12 +2166,12 @@ METHOD hFontSpcHdGet( xVal, nCol ) CLASS TSBrowse
 
    LOCAL xDef := iif( ::hFont == NIL, 0, ::hFont )
 
-   IF HB_ISOBJECT( xVal ) ; xVal := xVal:hFontSpcHd
+   IF hb_IsObject(xVal) ; xVal := xVal:hFontSpcHd
    ENDIF
 
    xVal := ::GetValProp( xVal, xDef, nCol, 0 )
 
-   IF HB_ISOBJECT( xVal ) ; xVal := xVal:hFontSpcHd
+   IF hb_IsObject(xVal) ; xVal := xVal:hFontSpcHd
    ENDIF
 
    IF xVal == NIL ; xVal := xDef
@@ -2434,7 +2434,7 @@ RETURN xVal
 
 METHOD cPictureGet( xVal, nCol ) CLASS TSBrowse
 
-   IF HB_ISOBJECT( xVal ) ; xVal := xVal:cPicture
+   IF hb_IsObject(xVal) ; xVal := xVal:cPicture
    ENDIF
 
 RETURN ::GetValProp( xVal, NIL, nCol, ::nAt )
@@ -4294,7 +4294,7 @@ METHOD DrawLine( xRow, lDrawCell ) CLASS TSBrowse
 
          IF ::lFastDrawCell
             oCell := hb_HGetDef( ::aFastDrawCell, cCell, NIL )
-            lCell := ISOBJECT( oCell )
+            lCell := hb_IsObject(oCell)
          ENDIF
 
          nLineStyle := iif( HB_ISNUMERIC(oColumn:nLineStyle), oColumn:nLineStyle, ::nLineStyle )
@@ -4819,7 +4819,7 @@ METHOD DrawSelect( xRow, lDrawCell ) CLASS TSBrowse
 
          IF ::lFastDrawCell
             oCell := hb_HGetDef( ::aFastDrawCell, cCell, NIL )
-            lCell := ISOBJECT( oCell )
+            lCell := hb_IsObject(oCell)
          ENDIF
 
          nLineStyle := iif( HB_ISNUMERIC(oColumn:nLineStyle), oColumn:nLineStyle, ::nLineStyle )

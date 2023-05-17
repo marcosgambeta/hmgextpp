@@ -128,7 +128,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
 #ifdef _TSBROWSE_
    oGet := GetObjectByHandle(hWnd)
-   IF ISOBJECT(oGet)
+   IF hb_IsObject(oGet)
 
       r := oGet:HandleEvent(nMsg, wParam, lParam)
 
@@ -1892,7 +1892,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
 #ifdef _TSBROWSE_
       oGet := GetObjectByHandle(lParam)
-      IF ISOBJECT(oGet)
+      IF hb_IsObject(oGet)
 
          r := oGet:HandleEvent(nMsg, wParam, lParam)
 
@@ -2409,7 +2409,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
 #ifdef _TSBROWSE_
       oGet := GetObjectByHandle(GetFocus())
-      IF ISOBJECT(oGet)
+      IF hb_IsObject(oGet)
          r := oGet:HandleEvent(nMsg, wParam, lParam)
          IF HB_ISNUMERIC(r)
             IF r != 0
@@ -2724,7 +2724,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
       // Process TSBrowse ..................................
 
       oGet := GetObjectByHandle(GetHwndFrom(lParam))
-      IF ISOBJECT(oGet)
+      IF hb_IsObject(oGet)
 
          r := oGet:HandleEvent(nMsg, wParam, lParam)
 
@@ -3832,7 +3832,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 #ifdef _TSBROWSE_
       oGet := GetObjectByHandle(hWnd)
       IF GetEscapeState() < 0 .AND. ((_GetFocusedControlType(hWnd) == CONTROL_TYPE_EDIT .OR. _GetFocusedControlType(hWnd) == CONTROL_TYPE_RICHEDIT) .OR. ;
-         iif(ISOBJECT(oGet), "Edit" $ oGet:cChildControl, .F. ) )
+         iif(hb_IsObject(oGet), "Edit" $ oGet:cChildControl, .F. ) )
 #else
       IF GetEscapeState() < 0 .AND. (_GetFocusedControlType(hWnd) == CONTROL_TYPE_EDIT .OR. _GetFocusedControlType(hWnd) == CONTROL_TYPE_RICHEDIT)
 #endif

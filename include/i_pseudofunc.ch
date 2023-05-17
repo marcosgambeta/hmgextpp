@@ -718,7 +718,7 @@ GetFontParam( <hFont> )\[ 10 ]
 #  translate ISLOGICAL( <xValue> )   => hb_IsLogical( <xValue> ) // deprecated
 #  translate ISMEMO( <xValue> )      => hb_IsMemo( <xValue> )    // deprecated
 #  translate ISNUMBER( <xValue> )    => hb_IsNumeric( <xValue> ) // deprecated
-#  translate ISOBJECT( <xValue> )    => hb_IsObject( <xValue> )
+#  translate ISOBJECT( <xValue> )    => hb_IsObject( <xValue> )  // deprecated
 #endif
 
 #translate ISCHAR( <xValue> )    => hb_IsString( <xValue> )
@@ -735,7 +735,7 @@ GetFontParam( <hFont> )\[ 10 ]
 #translate IFLOGICAL( <v1>,<exp1>,<exp2> )   => iif( hb_IsLogical( <v1> ),<exp1>,<exp2> )
 #translate IFNUMBER( <v1>,<exp1>,<exp2> )    => iif( hb_IsNumeric( <v1> ),<exp1>,<exp2> )
 #translate IFNUMERIC( <v1>,<exp1>,<exp2> )   => iif( ISNUMERIC( <v1> ),<exp1>,<exp2> )
-#translate IFOBJECT( <v1>,<exp1>,<exp2> )    => iif( ISOBJECT( <v1> ),<exp1>,<exp2> )
+#translate IFOBJECT( <v1>,<exp1>,<exp2> )    => iif( hb_IsObject( <v1> ),<exp1>,<exp2> )
 #translate IFEMPTY( <v1>,<exp1>,<exp2> )     => iif( EMPTY( <v1> ),<exp1>,<exp2> )
 
 /////////////////////////////////////

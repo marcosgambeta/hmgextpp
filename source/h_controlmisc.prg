@@ -875,7 +875,7 @@ FUNCTION _AddItem(ControlName, ParentForm, Value, Parent, aImage, Id)
 #ifdef _TSBROWSE_
    CASE CONTROL_TYPE_TBROWSE
       oGet := GetObjectByHandle(c)
-      IF ISOBJECT(oGet)
+      IF hb_IsObject(oGet)
          oGet:AddItem(value)
       ENDIF
 #endif
@@ -1006,7 +1006,7 @@ FUNCTION _DeleteItem(ControlName, ParentForm, Value)
 #ifdef _TSBROWSE_
    CASE CONTROL_TYPE_TBROWSE
       oGet := GetObjectByHandle(c)
-      IF ISOBJECT(oGet)
+      IF hb_IsObject(oGet)
          oGet:DeleteRow()
       ENDIF
       EXIT
@@ -1067,7 +1067,7 @@ FUNCTION _DeleteAllItems(ControlName, ParentForm)
 #ifdef _TSBROWSE_
    CASE CONTROL_TYPE_TBROWSE
       oGet := GetObjectByHandle(c)
-      IF ISOBJECT(oGet) .AND. oGet:lIsArr
+      IF hb_IsObject(oGet) .AND. oGet:lIsArr
          oGet:DeleteRow(.T.)
       ENDIF
       EXIT
@@ -5001,7 +5001,7 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          IF _HMG_lOOPEnabled
 #ifdef _OBJECT_
             RetVal := _ControlObj(Arg2, Arg1)
-            IF HB_ISOBJECT(RetVal) .AND. _HMG_aControlType[RetVal:Index] == CONTROL_TYPE_TBROWSE
+            IF hb_IsObject(RetVal) .AND. _HMG_aControlType[RetVal:Index] == CONTROL_TYPE_TBROWSE
                RetVal := _HMG_aControlIds[RetVal:Index]
             ENDIF
 #endif
@@ -6129,7 +6129,7 @@ STATIC FUNCTION _SetArrayToControl(ControlName, ParentForm, aValue)  // GF 03/30
 #ifdef _TSBROWSE_
    CASE CONTROL_TYPE_TBROWSE
       oGet := GetObjectByHandle(_HMG_aControlHandles[i])
-      IF ISOBJECT(oGet)
+      IF hb_IsObject(oGet)
          oGet:SetItems(aValue)
       ENDIF
 #endif
@@ -7805,7 +7805,7 @@ FUNCTION HMG_GetForms(cTyp, lObj)
 #ifdef _OBJECT_
          ELSEIF lObj
             o := do_obj(_HMG_aFormHandles[i])
-            IF HB_ISOBJECT(o)
+            IF hb_IsObject(o)
                AAdd(aNames, o)
             ENDIF
 #endif

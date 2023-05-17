@@ -327,7 +327,7 @@ METHOD New(cHeading, bData, cPicture, aColors, aAlign, nWidth, lBitMap, lEdit, b
       cFooting := StrTran(cFooting, ";", Chr(13))
    ENDIF
 
-   IF HB_ISOBJECT(cSpcHeading)
+   IF hb_IsObject(cSpcHeading)
       ::uBmpSpcHd := cSpcHeading
       cSpcHeading := ""
    ELSEIF HB_ISNUMERIC(cSpcHeading)
@@ -384,7 +384,7 @@ METHOD New(cHeading, bData, cPicture, aColors, aAlign, nWidth, lBitMap, lEdit, b
       ENDIF
    NEXT
 
-   IF HB_ISOBJECT(Eval(bData))
+   IF hb_IsObject(Eval(bData))
       ::uBmpCell := bData
       bData := {||Nil}
       cData := "{||Nil}"
