@@ -88,16 +88,12 @@ FUNCTION GetData()
 
          DataValue := MemoLine( Packet , 254 , 4 )
 
-         DO CASE
-         CASE DataType == "C"
-            RetVal := Left(DataValue, DataLength)
-         CASE DataType == "N"
-            RetVal := Val(DataValue)
-         CASE DataType == "D"
-            RetVal := CToD(DataValue)
-         CASE DataType == "L"
-            RetVal := ( AllTrim(DataValue) == "T" )
-         END CASE
+         SWITCH DataType
+         CASE "C" ; RetVal := Left(DataValue, DataLength)   ; EXIT
+         CASE "N" ; RetVal := Val(DataValue)                ; EXIT
+         CASE "D" ; RetVal := CToD(DataValue)               ; EXIT
+         CASE "L" ; RetVal := ( AllTrim(DataValue) == "T" )
+         ENDSWITCH
 
       // One Dimension Array Data
       CASE Rows != 0 .AND. Cols == 0
@@ -113,16 +109,12 @@ FUNCTION GetData()
 
             DataValue  := MemoLine( Packet , 254 , i )
 
-            DO CASE
-            CASE DataType == "C"
-               aItem := Left(DataValue, DataLength)
-            CASE DataType == "N"
-               aItem := Val(DataValue)
-            CASE DataType == "D"
-               aItem := CToD(DataValue)
-            CASE DataType == "L"
-               aItem := ( AllTrim(DataValue) == "T" )
-            END CASE
+            SWITCH DataType
+            CASE "C" ; aItem := Left(DataValue, DataLength)   ; EXIT
+            CASE "N" ; aItem := Val(DataValue)                ; EXIT
+            CASE "D" ; aItem := CToD(DataValue)               ; EXIT
+            CASE "L" ; aItem := ( AllTrim(DataValue) == "T" )
+            ENDSWITCH
 
             AAdd(aTemp, aItem)
 
@@ -151,16 +143,12 @@ FUNCTION GetData()
 
             DataValue  := MemoLine( Packet , 254 , i )
 
-            DO CASE
-            CASE DataType == "C"
-               aItem := Left(DataValue, DataLength)
-            CASE DataType == "N"
-               aItem := Val(DataValue)
-            CASE DataType == "D"
-               aItem := CToD(DataValue)
-            CASE DataType == "L"
-               aItem := ( AllTrim(DataValue) == "T" )
-            END CASE
+            SWITCH DataType
+            CASE "C" ; aItem := Left(DataValue, DataLength)   ; EXIT
+            CASE "N" ; aItem := Val(DataValue)                ; EXIT
+            CASE "D" ; aItem := CToD(DataValue)               ; EXIT
+            CASE "L" ; aItem := ( AllTrim(DataValue) == "T" )
+            ENDSWITCH
 
             aTemp [r] [c] := aItem
 
@@ -189,7 +177,7 @@ RETURN ( RetVal )
 *-----------------------------------------------------------------------------*
 FUNCTION SendData ( cDest , Data )
 *-----------------------------------------------------------------------------*
-   
+
    LOCAL cData
    LOCAL i
    LOCAL j
@@ -213,21 +201,26 @@ FUNCTION SendData ( cDest , Data )
 
             cType := ValType(Data[i])
 
-            IF cType == "D"
+            SWITCH cType
+            CASE "D"
                pData := hb_ntos( Year( data[i] ) ) + "." + hb_ntos( Month( data[i] ) ) + "." + hb_ntos( Day( data[i] ) )
                cLen := hb_ntos( Len(pData) )
-            ELSEIF cType == "L"
+               EXIT
+            CASE "L"
                pData := iif( Data[i] == .T. , "T", "F" )
                cLen := hb_ntos( Len(pData) )
-            ELSEIF cType == "N"
+               EXIT
+            CASE "N"
                pData := Str(Data[i])
                cLen := hb_ntos( Len(pData) )
-            ELSEIF cType == "C"
+               EXIT
+            CASE "C"
                pData := Data[i]
                cLen := hb_ntos( Len(pData) )
-            ELSE
+               EXIT
+            OTHERWISE
                MsgMiniGuiError("SendData: Type Not Supported.")
-            ENDIF
+            ENDSWITCH
 
             cData += "#DataBlock=" + cType + "," + cLen + Chr( 13 ) + Chr( 10 )
             cData += pData + Chr( 13 ) + Chr( 10 )
@@ -250,21 +243,26 @@ FUNCTION SendData ( cDest , Data )
 
                cType := ValType(Data[i] [j])
 
-               IF cType == "D"
+               SWITCH cType
+               CASE "D"
                   pData := hb_ntos( Year( data[i][j] ) ) + "." + hb_ntos( Month( data[i][j] ) ) + "." + hb_ntos( Day( data[i][j] ) )
                   cLen := hb_ntos( Len(pData) )
-               ELSEIF cType == "L"
+                  EXIT
+               CASE "L"
                   pData := iif( Data[i] [j] == .T. , "T", "F" )
                   cLen := hb_ntos( Len(pData) )
-               ELSEIF cType == "N"
+                  EXIT
+               CASE "N"
                   pData := Str(Data[i][j])
                   cLen := hb_ntos( Len(pData) )
-               ELSEIF cType == "C"
+                  EXIT
+               CASE "C"
                   pData := Data[i] [j]
                   cLen := hb_ntos( Len(pData) )
-               ELSE
+                  EXIT
+               OTHERWISE
                   MsgMiniGuiError("SendData: Type Not Supported.")
-               ENDIF
+               ENDSWITCH
 
                cData += "#DataBlock=" + cType + "," + cLen + Chr( 13 ) + Chr( 10 )
                cData += pData + Chr( 13 ) + Chr( 10 )
@@ -280,21 +278,26 @@ FUNCTION SendData ( cDest , Data )
 
       cType := ValType(Data)
 
-      IF cType == "D"
+      SWITCH cType
+      CASE "D"
          pData := hb_ntos( Year( data ) ) + "." + hb_ntos( Month( data ) ) + "." + hb_ntos( Day( data ) )
          cLen := hb_ntos( Len(pData) )
-      ELSEIF cType == "L"
+         EXIT
+      CASE "L"
          pData := iif( Data == .T. , "T", "F" )
          cLen := hb_ntos( Len(pData) )
-      ELSEIF cType == "N"
+         EXIT
+      CASE "N"
          pData := Str(Data)
          cLen := hb_ntos( Len(pData) )
-      ELSEIF cType == "C"
+         EXIT
+      CASE "C"
          pData := Data
          cLen := hb_ntos( Len(pData) )
-      ELSE
+         EXIT
+      OTHERWISE
          MsgMiniGuiError("SendData: Type Not Supported.")
-      ENDIF
+      ENDSWITCH
 
       cData := "#DataRows=0" + Chr( 13 ) + Chr( 10 )
       cData += "#DataCols=0" + Chr( 13 ) + Chr( 10 )
@@ -311,7 +314,7 @@ RETURN Nil
 *-----------------------------------------------------------------------------*
 FUNCTION HMG_ClrToHTML( nClr )
 *-----------------------------------------------------------------------------*
-   
+
    LOCAL cHex := Lower( hb_NumToHex( nClr, 6 ) )
 
 RETURN "#" + Right(cHex, 2) + SubStr(cHex, 3, 2) + Left(cHex, 2)
@@ -371,7 +374,7 @@ RETURN lSuccess
 *-----------------------------------------------------------------------------*
 FUNCTION uCharToVal(cText, cType)
 *-----------------------------------------------------------------------------*
-   
+
    LOCAL uVal
    LOCAL cTrue := "|.T.|T|TRUE|YES|SI|"
    LOCAL cFalse := "|.F.|F|FALSE|NO|"
@@ -396,58 +399,38 @@ FUNCTION uCharToVal(cText, cType)
 
       cText := AllTrim(cText)
 
-      DO CASE
-
-      CASE cType == "C"
-
+      SWITCH cType
+      CASE "C"
          uVal := cText
-
-      CASE cType == "N"
-
+         EXIT
+      CASE "N"
          uVal := IfNil( nStrToNum( cText, , .T. ), Val(cText) )
-
-      CASE cType == "L"
-
+         EXIT
+      CASE "L"
          uVal := ( "|" + Upper(cText) + "|" $ cTrue )
-
-      CASE cType == "D"
-
+         EXIT
+      CASE "D"
          uVal := dCharToDate( cText )
-
+         EXIT
       OTHERWISE
-
          IF ( uVal := nStrToNum( cText ) ) != NIL
-
             cType := "N"
-
          ELSEIF "|" + Upper(cText) + "|" $ cTrue
-
             uVal := .T.
             cType := "L"
-
          ELSEIF "|" + Upper(cText) + "|" $ cFalse
-
             uVal := .F.
             cType := "L"
-
          ELSE
-
             uVal := dCharToDate( cText )
-
             IF Empty(uVal)
-
                uVal := cText
                cType := "C"
-
             ELSE
-
                cType := "D"
-
             ENDIF
-
          ENDIF
-
-      ENDCASE
+      ENDSWITCH
 
    ELSE
 
@@ -461,7 +444,7 @@ RETURN uVal
 *-----------------------------------------------------------------------------*
 FUNCTION nStrToNum( cNum, lEuropean, lForceNumeric )
 *-----------------------------------------------------------------------------*
-   
+
    LOCAL nVal // := NIL
    LOCAL cMinus := ""
    LOCAL lPercent := .F.
