@@ -61,7 +61,7 @@ FUNCTION _DefineTimer ( ControlName , ParentForm , Interval , ProcedureName , On
    ENDIF
 
    IF !_IsWindowDefined(ParentForm)
-      MsgMiniGuiError("Window: " + IFNIL(ParentForm, "Parent", ParentForm) + " is not defined.")
+      MsgMiniGuiError("Window: " + iif(ParentForm == NIL, "Parent", ParentForm) + " is not defined.")
    ENDIF
 
    IF _IsControlDefined(ControlName, ParentForm)

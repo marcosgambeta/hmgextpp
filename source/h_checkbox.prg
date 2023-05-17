@@ -113,7 +113,7 @@ FUNCTION _DefineCheckBox(ControlName, ParentFormName, x, y, Caption, Value, ;
    lDialogInMemory := _HMG_DialogInMemory
 
    IF !_IsWindowDefined(ParentFormName) .AND. !lDialogInMemory
-      MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
+      MsgMiniGuiError("Window: " + iif(ParentFormName == NIL, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
    IF _IsControlDefined(ControlName, ParentFormName) .AND. !lDialogInMemory
@@ -324,7 +324,7 @@ FUNCTION _DefineCheckButton(ControlName, ParentFormName, x, y, Caption, Value, ;
    lDialogInMemory := _HMG_DialogInMemory
 
    IF !_IsWindowDefined(ParentFormName) .AND. !lDialogInMemory
-      MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
+      MsgMiniGuiError("Window: " + iif(ParentFormName == NIL, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
    IF _IsControlDefined(ControlName, ParentFormName) .AND. !lDialogInMemory
@@ -514,7 +514,7 @@ FUNCTION _DefineImageCheckButton(ControlName, ParentFormName, x, y, BitMap, ;
    lDialogInMemory := _HMG_DialogInMemory
 
    IF !_IsWindowDefined(ParentFormName) .AND. !lDialogInMemory
-      MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
+      MsgMiniGuiError("Window: " + iif(ParentFormName == NIL, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
    IF _IsControlDefined(ControlName, ParentFormName) .AND. !lDialogInMemory

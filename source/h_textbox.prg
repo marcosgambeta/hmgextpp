@@ -117,7 +117,7 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
 
    // Check if the window/form is defined.
    IF !_IsWindowDefined(ParentFormName) .AND. !lDialogInMemory
-      MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
+      MsgMiniGuiError("Window: " + iif(ParentFormName == NIL, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
    // Check if the control is already defined.
@@ -421,7 +421,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
    lDialogInMemory := _HMG_DialogInMemory
 
    IF !_IsWindowDefined(ParentFormName) .AND. !lDialogInMemory
-      MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
+      MsgMiniGuiError("Window: " + iif(ParentFormName == NIL, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
    IF _IsControlDefined(ControlName, ParentFormName) .AND. !lDialogInMemory
@@ -705,7 +705,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
    lDialogInMemory := _HMG_DialogInMemory
 
    IF !_IsWindowDefined(ParentFormName) .AND. !lDialogInMemory
-      MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
+      MsgMiniGuiError("Window: " + iif(ParentFormName == NIL, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
    IF _IsControlDefined(ControlName, ParentFormName) .AND. !lDialogInMemory

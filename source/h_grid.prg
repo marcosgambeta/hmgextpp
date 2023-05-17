@@ -130,7 +130,7 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
    lDialogInMemory := _HMG_DialogInMemory
 
    IF !_IsWindowDefined(ParentFormName) .AND. !lDialogInMemory
-      MsgMiniGuiError(_HMG_BRWLangError[1] + IFNIL(ParentFormName, "Parent", ParentFormName) + _HMG_BRWLangError[2], .F.)
+      MsgMiniGuiError(_HMG_BRWLangError[1] + iif(ParentFormName == NIL, "Parent", ParentFormName) + _HMG_BRWLangError[2], .F.)
    ENDIF
    IF _IsControlDefined(ControlName, ParentFormName) .AND. !lDialogInMemory
       MsgMiniGuiError(_HMG_BRWLangError[4] + ControlName + _HMG_BRWLangError[5] + ParentFormName + _HMG_BRWLangError[6], .F.)

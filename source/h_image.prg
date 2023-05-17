@@ -81,7 +81,7 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
    lDialogInMemory := _HMG_DialogInMemory
 
    IF !_IsWindowDefined(ParentFormName) .AND. !lDialogInMemory
-      MsgMiniGuiError("Window: " + IFNIL(ParentFormName, "Parent", ParentFormName) + " is not defined.")
+      MsgMiniGuiError("Window: " + iif(ParentFormName == NIL, "Parent", ParentFormName) + " is not defined.")
    ENDIF
 
    IF _IsControlDefined(ControlName, ParentFormName) .AND. !lDialogInMemory

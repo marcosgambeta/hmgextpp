@@ -874,10 +874,10 @@ FUNCTION _SetWindowSizePos(FormName, row, col, width, height)
 
    GetWindowRect(hWnd, /*@*/actpos)
 
-   col := IFNIL(col, actpos[1], col)
-   row := IFNIL(row, actpos[2], row)
-   width := IFNIL(width, actpos[3] - actpos[1], width)
-   height := IFNIL(height, actpos[4] - actpos[2], height)
+   col := iif(col == NIL, actpos[1], col)
+   row := iif(row == NIL, actpos[2], row)
+   width := iif(width == NIL, actpos[3] - actpos[1], width)
+   height := iif(height == NIL, actpos[4] - actpos[2], height)
 
 #ifdef _PANEL_
    IF hb_IsString(FormName) .AND. GetWindowType(FormName) == "P"
