@@ -154,7 +154,7 @@ FUNCTION _GetValue(ControlName, ParentForm, Index)
       EXIT
 
    CASE CONTROL_TYPE_CHARMASKTEXT
-      IF ISLOGICAL(_HMG_aControlHeadCLick[ix])
+      IF hb_IsLogical(_HMG_aControlHeadCLick[ix])
          IF _HMG_aControlHeadCLick[ix] == .T.
             retval := CToD(AllTrim(GetWindowText(c)))
          ELSE
@@ -426,7 +426,7 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
             iif(_HMG_aControlFontSize[ix] < 14, 12, 16)))
       ENDIF
       SetWindowText(c, value)
-      IF ISLOGICAL(_HMG_aControlInputMask[ix])
+      IF hb_IsLogical(_HMG_aControlInputMask[ix])
          IF _HMG_aControlInputMask[ix] == .T.
             RedrawWindowControlRect(h, _HMG_aControlRow[ix], _HMG_aControlCol[ix], _HMG_aControlRow[ix] + _HMG_aControlHeight[ix], _HMG_aControlCol[ix] + _HMG_aControlWidth[ix])
          ENDIF
@@ -460,7 +460,7 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
 
    CASE CONTROL_TYPE_CHARMASKTEXT
       Value := IFEMPTY(Value, "", Value)
-      IF ISLOGICAL(_HMG_aControlHeadCLick[ix])
+      IF hb_IsLogical(_HMG_aControlHeadCLick[ix])
          IF _HMG_aControlHeadCLick[ix] == .T.
             SetWindowText(c, RTrim(DToC(hb_defaultValue(value, BLANK_DATE))))
          ELSE
@@ -482,7 +482,7 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
       EXIT
 
    CASE CONTROL_TYPE_CHECKBOX
-      Value := iif(ISLOGICAL(Value), Value, NIL)
+      Value := iif(hb_IsLogical(Value), Value, NIL)
       DO CASE
       CASE _HMG_aControlSpacing[ix] .AND. value == NIL
          SendMessage(c, BM_SETCHECK, BST_INDETERMINATE, 0)
@@ -2955,7 +2955,7 @@ STATIC FUNCTION _SetGetChkListItemState(ControlName, ParentForm, Item, lState)
 
          IF item > 0 .AND. item <= ListBoxGetItemCount(_HMG_aControlHandles[i])
 
-            IF ISLOGICAL(lState)
+            IF hb_IsLogical(lState)
                IF T == CONTROL_TYPE_MULTICHKLIST
                   uSel := ListBoxGetMultiSel(_HMG_aControlHandles[i])
                ELSE
@@ -3866,7 +3866,7 @@ FUNCTION _EraseControl(i, p)
       EXIT
 
    CASE CONTROL_TYPE_BUTTON
-      IF !Empty(_HMG_aControlBrushHandle[i]) .AND. _HMG_IsThemed .AND. ISLOGICAL(_HMG_aControlDblClick[i]) .AND. _HMG_aControlDblClick[i] == .F.
+      IF !Empty(_HMG_aControlBrushHandle[i]) .AND. _HMG_IsThemed .AND. hb_IsLogical(_HMG_aControlDblClick[i]) .AND. _HMG_aControlDblClick[i] == .F.
          ImageList_Destroy(_HMG_aControlBrushHandle[i])
       ENDIF
       EXIT
@@ -7220,7 +7220,7 @@ STATIC PROCEDURE _SetRadioGroupReadOnly(ControlName, ParentForm, aReadOnly)
       IF hb_IsArray(aReadOnly)
          IF Len(aReadOnly) == Len(aOptions)
             FOR z := 1 TO Len(aReadOnly)
-               IF HB_ISLOGICAL(aReadOnly[z])
+               IF hb_IsLogical(aReadOnly[z])
                   IF aReadOnly[z]
                      DisableWindow(aHandles[z])
                   ELSE
@@ -7511,7 +7511,7 @@ STATIC FUNCTION _SetGetAutoFont(ControlName, ParentForm, lAuto)
 
    IF (i := GetControlIndex(ControlName, ParentForm)) > 0 .AND. _HMG_aControlType[i] == CONTROL_TYPE_RICHEDIT
 
-      IF ISLOGICAL(lAuto)
+      IF hb_IsLogical(lAuto)
          SetAutoFontRTF(GetControlHandle(ControlName, ParentForm), lAuto)
       ELSE
          RetVal := GetAutoFontRTF(GetControlHandle(ControlName, ParentForm))
@@ -7533,7 +7533,7 @@ STATIC FUNCTION _SetGetCheckboxItemState(ControlName, ParentForm, Item, lState)
 
       IF _HMG_aControlMiscData1[i][18]  // if checkboxes mode was activated
 
-         IF ISLOGICAL(lState)
+         IF hb_IsLogical(lState)
             ListView_SetCheckState(_HMG_aControlHandles[i], Item, lState)
          ELSE
             RetVal := ListView_GetCheckState(_HMG_aControlHandles[i], Item)
@@ -7788,7 +7788,7 @@ FUNCTION HMG_GetForms(cTyp, lObj)
 #endif
 
    cTyp := iif(HB_ISCHAR(cTyp), Upper(cTyp), "")
-   lHand := iif(HB_ISLOGICAL(lObj), !lObj, .F.)
+   lHand := iif(hb_IsLogical(lObj), !lObj, .F.)
    lObj := _HMG_lOOPEnabled .AND. !Empty(lObj)
 
    FOR i := 1 TO Len(_HMG_aFormNames)

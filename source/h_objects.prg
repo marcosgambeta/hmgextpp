@@ -53,7 +53,7 @@ METHOD GetAll( lAll ) CLASS THmgData
 
    LOCAL aRet := {}
 
-   IF HB_ISLOGICAL( lAll ) .AND. lAll
+   IF hb_IsLogical(lAll) .AND. lAll
       ::Eval({| val | AAdd(aRet, val) })
    ELSE
       ::Eval({| val, KEY | AAdd(aRet, {KEY, val}) })
@@ -65,7 +65,7 @@ METHOD Eval(Block) CLASS THmgData
 
    LOCAL i
    LOCAL b := hb_IsBlock(Block)
-   LOCAL l := HB_ISLOGICAL( Block ) .AND. Block
+   LOCAL l := hb_IsLogical(Block) .AND. Block
    LOCAL a := iif( b, NIL, Array(0) )
 
    FOR i := 1 TO ::Len()
@@ -342,7 +342,7 @@ METHOD ToString( xVal ) CLASS TIniData
             cStr := "e" + Chr(34) + cStr + Chr(34)
          ENDIF
       ENDIF
-   ELSEIF HB_ISLOGICAL( xVal ) .AND. ::lYesNo
+   ELSEIF hb_IsLogical(xVal) .AND. ::lYesNo
       cStr := ::aYesNo[ iif( xVal, 1, 2 ) ]
    ELSE
       cStr := hb_valtoexp( xVal )
@@ -1513,7 +1513,7 @@ METHOD GetAll( lAll ) CLASS TKeyData
 
    LOCAL aRet := {}
 
-   IF HB_ISLOGICAL( lAll ) .AND. lAll
+   IF hb_IsLogical(lAll) .AND. lAll
       ::Eval({| val | AAdd(aRet, val) })
    ELSE
       ::Eval({| val, Key | AAdd(aRet, {Key, val}) })
@@ -1525,7 +1525,7 @@ METHOD Eval(Block) CLASS TKeyData
 
    LOCAL i
    LOCAL b := hb_IsBlock(Block)
-   LOCAL l := HB_ISLOGICAL( Block ) .AND. Block
+   LOCAL l := hb_IsLogical(Block) .AND. Block
    LOCAL a := iif( b, NIL, Array(0) )
 
    FOR i := 1 TO ::Len
@@ -1641,7 +1641,7 @@ CLASS TThrData
    METHOD Do ( Key, p1, p2, p3 ) BLOCK {| Self, Key, p1, p2, p3, b | b := ::Get( Key ), ;
       iif( hb_IsBlock(b), Eval(b, ::oObj, Key, p1, p2, p3), Nil ) }
    ACCESS MT INLINE ::lMT
-   ASSIGN MT( lVmMt ) INLINE ::lMT := iif( HB_ISLOGICAL( lVmMt ), lVmMt, .F. )
+   ASSIGN MT( lVmMt ) INLINE ::lMT := iif( hb_IsLogical(lVmMt), lVmMt, .F. )
    ACCESS Obj INLINE ::oObj
    ASSIGN Obj(o) INLINE ::oObj := iif( HB_ISOBJECT( o ), o, Self )
    ACCESS Len INLINE Len(::aKey)
@@ -1680,7 +1680,7 @@ METHOD GetAll( lAll ) CLASS TThrData
 
    LOCAL aRet := {}
 
-   IF HB_ISLOGICAL( lAll ) .AND. lAll
+   IF hb_IsLogical(lAll) .AND. lAll
       ::Eval({| val | AAdd(aRet, val) })
    ELSE
       ::Eval({| val, Key | AAdd(aRet, {Key, val}) })
@@ -1693,7 +1693,7 @@ METHOD Eval(Block) CLASS TThrData
    LOCAL m
    LOCAL i
    LOCAL b := hb_IsBlock(Block)
-   LOCAL l := HB_ISLOGICAL( Block ) .AND. Block
+   LOCAL l := hb_IsLogical(Block) .AND. Block
    LOCAL a := iif( b, NIL, Array(0) )
 
    FOR i := 1 TO ::Len
@@ -1834,7 +1834,7 @@ FUNCTION oKeyData( Obj, Event )
    LOCAL o
 
    IF HB_ISNIL ( Event ) ; o := TKeyData():New():Def( Obj )
-   ELSEIF HB_ISLOGICAL( Event ) .AND. Event ; o := TWmEData():New( Obj )
+   ELSEIF hb_IsLogical(Event) .AND. Event ; o := TWmEData():New( Obj )
 #if 0
    ELSE ; o := TThrData():New():Def( Obj, hb_mtvm() )
 #endif

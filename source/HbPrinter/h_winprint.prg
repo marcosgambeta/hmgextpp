@@ -204,7 +204,7 @@ METHOD SelectPrinter( cPrinter, lPrev ) CLASS HBPrinter
       ::hDC := ::hDCRef
       ::PrinterName := cPrinter
    ENDIF
-   IF HB_ISLOGICAL(lPrev)
+   IF hb_IsLogical(lPrev)
       IF lprev
          ::PreviewMode := .T.
       ENDIF

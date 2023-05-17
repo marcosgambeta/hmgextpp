@@ -60,7 +60,7 @@ FUNCTION GetColor( aInitColor, aCustomColors, nFlags )
 
    /* aCustomColors parameter must be the array with 16 RGB-colors elements if it is defined */
 
-   IF ISLOGICAL ( nFlags )  // for HMG compatibility
+   IF hb_IsLogical(nFlags)  // for HMG compatibility
       IF nFlags == .F.
          #define CC_RGBINIT                        1
          #define CC_PREVENTFULLOPEN        4

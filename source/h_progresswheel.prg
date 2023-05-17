@@ -290,7 +290,7 @@ PROCEDURE PW_SetColorDoneMin( cControlName, cParentForm, Value, lErase )
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
          Value, ColorDoneMax, ColorRemain, ColorInner ) }
-      IF PCount() == 3 .OR. ISLOGICAL( lErase ) .AND. lErase
+      IF PCount() == 3 .OR. hb_IsLogical(lErase) .AND. lErase
          BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue(lErase, .F.) )
       ENDIF
    ENDIF
@@ -330,7 +330,7 @@ PROCEDURE PW_SetColorDoneMax( cControlName, cParentForm, Value, lErase )
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
          ColorDoneMin, Value, ColorRemain, ColorInner ) }
-      IF PCount() == 3 .OR. ISLOGICAL( lErase ) .AND. lErase
+      IF PCount() == 3 .OR. hb_IsLogical(lErase) .AND. lErase
          BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue(lErase, .F.) )
       ENDIF
    ENDIF
@@ -370,7 +370,7 @@ PROCEDURE PW_SetColorRemain( cControlName, cParentForm, Value, lErase )
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
          ColorDoneMin, ColorDoneMax, Value, ColorInner ) }
-      IF PCount() == 3 .OR. ISLOGICAL( lErase ) .AND. lErase
+      IF PCount() == 3 .OR. hb_IsLogical(lErase) .AND. lErase
          BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue(lErase, .F.) )
       ENDIF
    ENDIF
@@ -410,7 +410,7 @@ PROCEDURE PW_SetColorInner( cControlName, cParentForm, Value, lErase )
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
          ColorDoneMin, ColorDoneMax, ColorRemain, Value ) }
-      IF PCount() == 3 .OR. ISLOGICAL( lErase ) .AND. lErase
+      IF PCount() == 3 .OR. hb_IsLogical(lErase) .AND. lErase
          BT_ClientAreaInvalidateRect( nParentFormHandle, _HMG_aControlRow[i], _HMG_aControlCol[i], Width, Height, hb_defaultValue(lErase, .F.) )
       ENDIF
    ENDIF

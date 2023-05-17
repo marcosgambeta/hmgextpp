@@ -963,7 +963,7 @@ FUNCTION _GridInplaceEdit(idx)
 
          _HMG_ThisEventType := ""
 
-         IF ISLOGICAL(WHEN) .AND. WHEN == .F.
+         IF hb_IsLogical(WHEN) .AND. WHEN == .F.
             _HMG_IPE_CANCELLED := .F.
             RETURN .F.
          ENDIF
@@ -1336,7 +1336,7 @@ STATIC PROCEDURE _GridInplaceEditOK(idx, ci, ri, aec)
          _HMG_ThisFormName := _HMG_aFormNames[_HMG_ThisFormIndex]
          _HMG_ThisControlName := _HMG_aControlNames[_HMG_ThisIndex]
 
-         IF ISLOGICAL(VALID) .AND. VALID == .F.
+         IF hb_IsLogical(VALID) .AND. VALID == .F.
 
             aValidMessages := _HMG_aControlMiscData1[idx][16]
 

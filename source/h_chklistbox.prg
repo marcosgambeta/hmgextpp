@@ -91,7 +91,7 @@ FUNCTION _DefineChkListbox(ControlName, ParentFormName, x, y, w, h, arows, value
          AEval(arows, {|x, y|HB_SYMBOL_UNUSED(x), nPos := y, AAdd(aChkItem, iif(AScan(aCheck, {|z|z == nPos}) > 0, 2, 1))})
       ELSE
          AEval(arows, {|x|AAdd(rows, x[1])})
-         AEval(arows, {|x, y|nPos := y, AAdd(aChkItem, iif(HB_ISLOGICAL(x[2]) .AND. x[2] .OR. AScan(aCheck, {|z|z == nPos}) > 0, 2, 1))})
+         AEval(arows, {|x, y|nPos := y, AAdd(aChkItem, iif(hb_IsLogical(x[2]) .AND. x[2] .OR. AScan(aCheck, {|z|z == nPos}) > 0, 2, 1))})
       ENDIF
    ENDIF
 

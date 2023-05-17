@@ -349,7 +349,7 @@ FUNCTION InitDialogEdit( ParentName, ControlHandle, k )
    maxlength := _HMG_aControlMiscData1 [k,2]
    readonly  := _HMG_aControlMiscData1 [k,3]
 
-   IF HB_ISLOGICAL(readonly)
+   IF hb_IsLogical(readonly)
       SendMessage(ControlHandle, EM_SETREADONLY, iif(readonly, 1, 0), 0)
    ENDIF
    IF maxlength != NIL

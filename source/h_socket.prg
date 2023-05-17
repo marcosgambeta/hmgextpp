@@ -123,7 +123,7 @@ FUNCTION httpgeturl( Connection, cPage, uRet )
          cResponse := "<No data returned>"
       ENDIF
 
-      IF HB_ISLOGICAL( uRet )
+      IF hb_IsLogical(uRet)
 
          cHeader := Connection:cReply
          IF !HB_ISSTRING( cHeader )

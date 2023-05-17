@@ -891,7 +891,7 @@ STATIC PROCEDURE _PrintText(aObject, nOffset)
          cValue := AllTrim(Str(cValue))
       ELSEIF ValType(cValue) == "D"
          cValue := DToC(cValue)
-      ELSEIF HB_ISLOGICAL(cValue)
+      ELSEIF hb_IsLogical(cValue)
          cValue := iif(cValue == .T., _HMG_RPTDATA[371][24], _HMG_RPTDATA[371][25])
       ENDIF
 
@@ -911,7 +911,7 @@ STATIC PROCEDURE _PrintText(aObject, nOffset)
          cValue := AllTrim(Str(cValue))
       ELSEIF ValType(cValue) == "D"
          cValue := DToC(cValue)
-      ELSEIF HB_ISLOGICAL(cValue)
+      ELSEIF hb_IsLogical(cValue)
          cValue := iif(cValue == .T., _HMG_RPTDATA[371][24], _HMG_RPTDATA[371][25])
       ENDIF
 

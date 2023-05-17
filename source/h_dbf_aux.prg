@@ -338,7 +338,7 @@ PROCEDURE DbfCopyRec( cnTargetArea, lAppend )
    LOCAL nFieldPos
    LOCAL xFieldValue
 
-   IF HB_ISLOGICAL(lAppend) .AND. lAppend
+   IF hb_IsLogical(lAppend) .AND. lAppend
 
       ( cnTargetArea )->( dbAppend() )
 

@@ -1058,7 +1058,7 @@ FUNCTION InputBox(cInputPrompt, cDialogCaption, cDefaultValue, nTimeout, cTimeou
    LOCAL lIsVistaOrLater := IsVistaOrLater()
    LOCAL nBordW  := iif(lIsVistaOrLater, GetBorderWidth() / 2 + 2, 0)
    LOCAL nTitleH := GetTitleHeight() + iif(lIsVistaOrLater, GetBorderHeight() / 2 + 2, 0)
-   LOCAL nMLines := iif(HB_ISLOGICAL(lMultiLine) .AND. lMultiLine, 150, 0)
+   LOCAL nMLines := iif(hb_IsLogical(lMultiLine) .AND. lMultiLine, 150, 0)
    LOCAL bCancel := {||_HMG_DialogCancelled := lCanceled := .T., DoMethod("_InputBox", "Release")}
    LOCAL RetVal  := ""
    LOCAL lOk := .F.
@@ -1629,7 +1629,7 @@ PROCEDURE _SetActivationFocus(i)
 
       IF _HMG_aControlParentHandles[x] == hParent .AND. _HMG_aControlType[x] != CONTROL_TYPE_HOTKEY
 
-         IF _HMG_aControlType[x] == CONTROL_TYPE_OBUTTON .AND. ISLOGICAL(_HMG_aControlDblClick[x]) .AND. _HMG_aControlDblClick[x] == .T.
+         IF _HMG_aControlType[x] == CONTROL_TYPE_OBUTTON .AND. hb_IsLogical(_HMG_aControlDblClick[x]) .AND. _HMG_aControlDblClick[x] == .T.
             SetFocus(hControl)
             FocusDefined := .T.
             EXIT
@@ -2494,7 +2494,7 @@ FUNCTION _SetCenterWindowStyle(lNewStyle)
    LOCAL cVarName := "_HMG_" + SubStr(ProcName(), 5)
    LOCAL lOldStyle := _AddNewGlobal(cVarName, .F.)
 
-   IF ISLOGICAL(lNewStyle)
+   IF hb_IsLogical(lNewStyle)
       _SetGetGlobal(cVarName, lNewStyle)
    ENDIF
 
@@ -2615,7 +2615,7 @@ FUNCTION StopWindowEventProcedure(cFormName, lStop)
    LOCAL i
 
    IF (i := GetFormIndex(cFormName)) > 0
-      _HMG_StopWindowEventProcedure[i] := iif(HB_ISLOGICAL(lStop), lStop, .F.)
+      _HMG_StopWindowEventProcedure[i] := iif(hb_IsLogical(lStop), lStop, .F.)
    ENDIF
 
 RETURN NIL
@@ -2628,7 +2628,7 @@ FUNCTION StopControlEventProcedure(cControlName, cFormName, lStop)
    LOCAL i
 
    IF (i := GetControlIndex(cControlName, cFormName)) > 0
-      _HMG_StopControlEventProcedure[i] := iif(HB_ISLOGICAL(lStop), lStop, .F.)
+      _HMG_StopControlEventProcedure[i] := iif(hb_IsLogical(lStop), lStop, .F.)
    ENDIF
 
 RETURN NIL

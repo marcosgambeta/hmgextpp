@@ -309,7 +309,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                IF IsXPThemed .AND. TmpStr == CONTROL_TYPE_FRAME .AND. Tmp
 
                   IF (a := _GetBackColor(_HMG_aControlRangeMin[i], _HMG_aControlRangeMax[i])) != NIL
-                     IF ISLOGICAL(_HMG_aControlInputMask[i]) .AND. _HMG_aControlInputMask[i] == .T.
+                     IF hb_IsLogical(_HMG_aControlInputMask[i]) .AND. _HMG_aControlInputMask[i] == .T.
                         SetBkColor(wParam, a[1], a[2], a[3])
                         DeleteObject(_HMG_aControlBrushHandle[i])
                         _HMG_aControlBrushHandle[i] := CreateSolidBrush(a[1], a[2], a[3])
@@ -331,7 +331,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                IF IsXPThemed .AND. TmpStr == CONTROL_TYPE_CHECKBOX .AND. Tmp
 
-                  lvc := (ISLOGICAL(_HMG_aControlInputMask[i]) .AND. _HMG_aControlInputMask[i] == .F.)
+                  lvc := (hb_IsLogical(_HMG_aControlInputMask[i]) .AND. _HMG_aControlInputMask[i] == .F.)
 
                   IF (a := _GetBackColor(_HMG_aControlRangeMin[i], _HMG_aControlRangeMax[i])) != NIL
                      IF lvc
@@ -361,7 +361,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                   SetTextColor(wParam, _HMG_aControlFontColor[i][1], _HMG_aControlFontColor[i][2], _HMG_aControlFontColor[i][3])
                ENDIF
 
-               IF ISLOGICAL(_HMG_aControlInputMask[i])
+               IF hb_IsLogical(_HMG_aControlInputMask[i])
                   IF _HMG_aControlInputMask[i] == .T. .AND. ;
                      (_HMG_aFormBkColor[x := AScan(_HMG_aFormHandles, _HMG_aControlParentHandles[i])][1] != -1 .OR. ;
                      Len(HMG_GetFormControls(_HMG_aFormNames[x], "IMAGE")) > 0)
@@ -442,7 +442,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                            SetTextColor(wParam, _HMG_aControlFontColor[i][1], _HMG_aControlFontColor[i][2], _HMG_aControlFontColor[i][3])
                         ENDIF
 
-                        lvc := (ISLOGICAL(_HMG_aControlInputMask[i]) .AND. _HMG_aControlInputMask[i] == .T.)
+                        lvc := (hb_IsLogical(_HMG_aControlInputMask[i]) .AND. _HMG_aControlInputMask[i] == .T.)
 
                         IF IsXPThemed .AND. _HMG_aControlContainerRow[i] != -1 .AND. _HMG_aControlContainerCol[i] != -1
 
@@ -471,7 +471,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                         ENDIF
 
-                        IF ISLOGICAL(_HMG_aControlInputMask[i])
+                        IF hb_IsLogical(_HMG_aControlInputMask[i])
 
                            IF _HMG_aControlInputMask[i] == .T. .AND. _HMG_aControlBkColor[i] == NIL
 
@@ -2090,7 +2090,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             IF _HMG_aControlType[i] == CONTROL_TYPE_CHARMASKTEXT
 
-               IF HB_ISLOGICAL(_HMG_aControlHeadCLick[i])
+               IF hb_IsLogical(_HMG_aControlHeadCLick[i])
 
                   IF _HMG_aControlHeadCLick[i] == .T.
                      _HMG_DateTextBoxActive := .T.
@@ -3845,7 +3845,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
          IF hb_IsBlock(_HMG_aFormInteractiveCloseProcedure[i])
 
             r := _DoWindowEventProcedure(_HMG_aFormInteractiveCloseProcedure[i], i, "WINDOW_ONINTERACTIVECLOSE")
-            IF HB_ISLOGICAL(r) .AND. r == .F.
+            IF hb_IsLogical(r) .AND. r == .F.
                RETURN (1)
             ENDIF
 

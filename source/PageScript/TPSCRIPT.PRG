@@ -1507,7 +1507,7 @@ Description : Set the conversion from Ascii to Ansi for text strings.
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetAsciiToAnsi( lValue )
 
-   IF HB_ISLOGICAL(lValue)
+   IF hb_IsLogical(lValue)
       DllCall( ::hDll, DLL_STDCALL, "PSSetAsciiToAnsi", iif( lValue, 1, 0 ) )
    ENDIF
 
@@ -1559,7 +1559,7 @@ Description : Set Clipper compatible calls for TextOut() and TextBox()
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetClipperComp( lClipper )
 
-   IF HB_ISLOGICAL(lClipper)
+   IF hb_IsLogical(lClipper)
       ::lClipper := lClipper
    ENDIF
 
@@ -1623,7 +1623,7 @@ Description : Set the direct print flag (used for very special cases)
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetDirectPrint( lDirect )
 
-   IF HB_ISLOGICAL(lDirect)
+   IF hb_IsLogical(lDirect)
       DllCall( ::hDll, DLL_STDCALL, "PSSetDirectPrint", iif( lDirect, 1, 0 ) )
    ENDIF
 
@@ -1922,7 +1922,7 @@ Description : Show PDF in default reader after creation
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:ShowPDF( lShow )
 
-   IF HB_ISLOGICAL(lShow)
+   IF hb_IsLogical(lShow)
       DllCall( ::hDll, DLL_STDCALL, "PSShowPDF", iif( lShow, 1, 0 ) )
    ENDIF
 
@@ -2088,7 +2088,7 @@ Description : Sets the use of DIB (Device Independant Bitmap) when printing bitm
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetUseDIB( lUseDIB )
 
-   IF HB_ISLOGICAL(lUseDIB)
+   IF hb_IsLogical(lUseDIB)
       DllCall( ::hDll, DLL_STDCALL, "PSSetUseDIB", iif( lUseDIB, 1, 0 ) )
    ENDIF
 
@@ -2101,7 +2101,7 @@ Description : Sets the use of Xerox compatible printing mode (Slower, but
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetXerox( lXerox )
 
-   IF HB_ISLOGICAL(lXerox)
+   IF hb_IsLogical(lXerox)
       DllCall( ::hDll, DLL_STDCALL, "PSSetXerox", iif( lXerox, 1, 0 ) )
    ENDIF
 

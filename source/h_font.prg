@@ -353,7 +353,7 @@ FUNCTION _SetFontAttr( ControlName, ParentForm, Value, nType )
 
    ENDCASE
 
-   IF "LABEL" $ _HMG_aControlType[i] .AND. ISLOGICAL ( _HMG_aControlInputMask[i] )
+   IF "LABEL" $ _HMG_aControlType[i] .AND. hb_IsLogical(_HMG_aControlInputMask[i]) // TODO:
       IF _HMG_aControlInputMask[i] == .T.
          _SetValue(ControlName, ParentForm, _GetValue(, , i))
       ENDIF

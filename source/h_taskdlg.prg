@@ -685,7 +685,7 @@ METHOD AllowDialogCancellation( lNewVal ) CLASS TTaskDialog
    hb_default(@nCurFlags, 0)
    lOldVal := ( hb_bitAnd( nCurFlags, TDF_ALLOW_DIALOG_CANCELLATION ) != 0 )
 
-   IF !::lActive .AND. HB_ISLOGICAL( lNewVal )
+   IF !::lActive .AND. hb_IsLogical(lNewVal)
       IF ( ( !lOldVal ) .AND. lNewVal )
          nNewFlags := hb_bitOr( nCurFlags, TDF_ALLOW_DIALOG_CANCELLATION )
       ELSEIF ( lOldVal .AND. ( !lNewVal ) )
@@ -708,7 +708,7 @@ METHOD CanBeMinimized( lNewVal ) CLASS TTaskDialog
    hb_default(@nCurFlags, 0)
    lOldVal := ( hb_bitAnd( nCurFlags, TDF_CAN_BE_MINIMIZED ) != 0 )
 
-   IF !::lActive .AND. HB_ISLOGICAL( lNewVal )
+   IF !::lActive .AND. hb_IsLogical(lNewVal)
       IF ( ( !lOldVal ) .AND. lNewVal )
          nNewFlags := hb_bitOr( nCurFlags, TDF_CAN_BE_MINIMIZED )
       ELSEIF ( lOldVal .AND. ( !lNewVal ) )
@@ -743,7 +743,7 @@ METHOD EnableHyperlinks( lNewVal ) CLASS TTaskDialog
    hb_default(@nCurFlags, 0)
    lOldVal := ( hb_bitAnd( nCurFlags, TDF_ENABLE_HYPERLINKS ) != 0 )
 
-   IF !::lActive .AND. HB_ISLOGICAL( lNewVal )
+   IF !::lActive .AND. hb_IsLogical(lNewVal)
       IF ( ( !lOldVal ) .AND. lNewVal )
          nNewFlags := hb_bitOr( nCurFlags, TDF_ENABLE_HYPERLINKS )
       ELSEIF ( lOldVal .AND. ( !lNewVal ) )
@@ -769,7 +769,7 @@ METHOD ExpandedByDefault( lNewVal ) CLASS TTaskDialog
    hb_default(@nCurFlags, 0)
    lOldVal := ( hb_bitAnd( nCurFlags, TDF_EXPANDED_BY_DEFAULT ) != 0 )
 
-   IF !::lActive .AND. HB_ISLOGICAL( lNewVal )
+   IF !::lActive .AND. hb_IsLogical(lNewVal)
       IF ( ( !lOldVal ) .AND. lNewVal )
          nNewFlags := hb_bitOr( nCurFlags, TDF_EXPANDED_BY_DEFAULT )
       ELSEIF ( lOldVal .AND. ( !lNewVal ) )
@@ -797,7 +797,7 @@ METHOD ExpandFooterArea( lNewVal ) CLASS TTaskDialog
    hb_default(@nCurFlags, 0)
    lOldVal := ( hb_bitAnd( nCurFlags, TDF_EXPAND_FOOTER_AREA ) != 0 )
 
-   IF !::lActive .AND. HB_ISLOGICAL( lNewVal )
+   IF !::lActive .AND. hb_IsLogical(lNewVal)
       IF ( ( !lOldVal ) .AND. lNewVal )
          nNewFlags := hb_bitOr( nCurFlags, TDF_EXPAND_FOOTER_AREA )
       ELSEIF ( lOldVal .AND. ( !lNewVal ) )
@@ -820,7 +820,7 @@ METHOD NoDefaultRadioButton( lNewVal ) CLASS TTaskDialog
    hb_default(@nCurFlags, 0)
    lOldVal := ( hb_bitAnd( nCurFlags, TDF_NO_DEFAULT_RADIO_BUTTON ) != 0 )
 
-   IF !::lActive .AND. HB_ISLOGICAL( lNewVal )
+   IF !::lActive .AND. hb_IsLogical(lNewVal)
       IF ( ( !lOldVal ) .AND. lNewVal )
          nNewFlags := hb_bitOr( nCurFlags, TDF_NO_DEFAULT_RADIO_BUTTON )
       ELSEIF ( lOldVal .AND. ( !lNewVal ) )
@@ -847,7 +847,7 @@ METHOD PositionRelativeToWindow(lNewVal) CLASS TTaskDialog
    hb_default(@nCurFlags, 0)
    lOldVal := ( hb_bitAnd( nCurFlags, TDF_POSITION_RELATIVE_TO_WINDOW ) != 0 )
 
-   IF !::lActive .AND. HB_ISLOGICAL( lNewVal )
+   IF !::lActive .AND. hb_IsLogical(lNewVal)
       IF ( ( !lOldVal ) .AND. lNewVal )
          nNewFlags := hb_bitOr( nCurFlags, TDF_POSITION_RELATIVE_TO_WINDOW )
       ELSEIF ( lOldVal .AND. ( !lNewVal ) )
@@ -870,7 +870,7 @@ METHOD RightToLeftLayout( lNewVal ) CLASS TTaskDialog
    hb_default(@nCurFlags, 0)
    lOldVal := ( hb_bitAnd( nCurFlags, TDF_RTL_LAYOUT ) != 0 )
 
-   IF !::lActive .AND. HB_ISLOGICAL( lNewVal )
+   IF !::lActive .AND. hb_IsLogical(lNewVal)
       IF ( ( !lOldVal ) .AND. lNewVal )
          nNewFlags := hb_bitOr( nCurFlags, TDF_RTL_LAYOUT )
       ELSEIF ( lOldVal .AND. ( !NewVal ) )
@@ -895,7 +895,7 @@ METHOD VerificationEnabled( lNewVal ) CLASS TTaskDialog
    hb_default(@nCurFlags, 0)
    lOldVal := ( hb_bitAnd( nCurFlags, TDF_VERIFICATION_FLAG_CHECKED ) != 0 )
 
-   IF !::lActive .AND. HB_ISLOGICAL( lNewVal )
+   IF !::lActive .AND. hb_IsLogical(lNewVal)
       IF ( ( !lOldVal ) .AND. lNewVal )
          nNewFlags := hb_bitOr( nCurFlags, TDF_VERIFICATION_FLAG_CHECKED )
       ELSEIF ( lOldVal .AND. ( !lNewVal ) )
@@ -927,7 +927,7 @@ RETURN nOldVal
  */
 METHOD TimedOut( lOut ) CLASS TTaskDialog
 
-   IF ::lActive .AND. HB_ISLOGICAL( lOut )
+   IF ::lActive .AND. hb_IsLogical(lOut)
       ::lTimeOut := lOut
    ENDIF
 

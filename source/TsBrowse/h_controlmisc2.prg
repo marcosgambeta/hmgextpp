@@ -40,7 +40,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
       bSetUp := bSetUp[1]
    ENDIF
 
-   IF HB_ISLOGICAL( bSetUp )
+   IF hb_IsLogical(bSetUp)
       lCellBrw := bSetUp
       bSetUp := NIL
    ENDIF
@@ -135,7 +135,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
          oBrw:Cargo := uParam
 
          lEdit := Eval(bSetUp, oBrw)
-         lEdit := iif( HB_ISLOGICAL(lEdit), lEdit, .F. )
+         lEdit := iif( hb_IsLogical(lEdit), lEdit, .F. )
 
          WITH OBJECT oBrw
             :lEditable := lEdit
@@ -492,7 +492,7 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
          EVal(oParam:bBody, oBrw, oParam)   // 2. call your customization functions
       ENDIF
 
-      IF HB_ISLOGICAL( oParam:bDblClick )
+      IF hb_IsLogical(oParam:bDblClick)
          :bLDblClick := {|p1, p2, p3, ob| p1:=p2:=p3, ob:PostMsg( WM_KEYDOWN, VK_RETURN, 0 ) }
       ELSEIF hb_IsBlock(oParam:bDblClick)
          :bLDblClick := oParam:bDblClick     // :bLDblClick := {|p1,p2,p3,ob| ... }

@@ -1628,7 +1628,7 @@ FUNCTION AttrTran( xData, type )
             IF HB_ISCHAR(xdata[n])
                cData += xData[n] + IIF( n < Len(xData), ";", "" )
             ENDIF
-            IF HB_ISLOGICAL(xdata[n])
+            IF hb_IsLogical(xdata[n])
                cData += IIF( xData[n], "true", "false" ) + IIF( n < Len(xData), ";", "" )
             ENDIF
          NEXT
@@ -1636,7 +1636,7 @@ FUNCTION AttrTran( xData, type )
       ENDIF
       EXIT
    CASE "L"
-      IF HB_ISLOGICAL(xData)
+      IF hb_IsLogical(xData)
          RETURN IIF( xData, "true", "false" )
       ENDIF
    ENDSWITCH
@@ -1978,7 +1978,7 @@ FUNCTION aVal2Str(aData, sep)
          IF HB_ISCHAR(adata[n])
             cData += aData[n] + IIF( n < Len(aData), sep, "" )
          ENDIF
-         IF HB_ISLOGICAL(adata[n])
+         IF hb_IsLogical(adata[n])
             cData += IIF( aData[n], "true", "false" ) + IIF( n < Len(aData), sep, "" )
          ENDIF
       NEXT

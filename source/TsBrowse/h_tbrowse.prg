@@ -312,7 +312,7 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
          aArray := uAlias
          uAlias := NIL
       ENDIF
-      IF HB_ISLOGICAL( aEdit )
+      IF hb_IsLogical(aEdit)
          lEditable := aEdit
          aEdit := NIL
       ENDIF
@@ -453,7 +453,7 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
                NEXT
             ENDIF
 
-            IF HB_ISLOGICAL( aFooters ) .AND. aFooters
+            IF hb_IsLogical(aFooters) .AND. aFooters
                aFooters := Array(n)
                AFill(aFooters, " ")
             ENDIF
@@ -497,7 +497,7 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
 
          nW := 0
          IF nColNumber != NIL
-            IF HB_ISLOGICAL( nColNumber )
+            IF hb_IsLogical(nColNumber)
                nColNumber := iif( nColNumber, 1, NIL )
             ELSEIF hb_IsArray(nColNumber)
                IF Len(nColNumber) > 1
@@ -525,7 +525,7 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
 
          IF !( Adjust == NIL .AND. lAdjust == NIL )
 
-            IF HB_ISLOGICAL( lAdjust ) .AND. lAdjust
+            IF hb_IsLogical(lAdjust) .AND. lAdjust
                Adjust := lAdjust
             ENDIF
             IF Adjust != NIL
@@ -1294,7 +1294,7 @@ CLASS TSBrowse FROM TControl
 
    METHOD TSBrwScroll( nDir ) INLINE TSBrwScroll( ::hWnd, nDir, ::hFont, ;
       ::nHeightCell, iif( ::lDrawHeaders, ::nHeightHead, 0 ), ;
-      iif( HB_ISLOGICAL(::lDrawFooters) .AND. ;
+      iif( hb_IsLogical(::lDrawFooters) .AND. ;
       ::lDrawFooters, ::nHeightFoot, 0 ), ::nHeightSuper, ::nHeightSpecHd )
 
    METHOD Seek( nKey )
@@ -1565,7 +1565,7 @@ METHOD New( cControlName, nRow, nCol, nWidth, nHeight, bLine, aHeaders, aColSize
       ::lSelector := .T.
       ::hBmpCursor := StockBmp( 3 )
       ::nSelWidth := uSelector
-   CASE HB_ISLOGICAL(uSelector) .AND. uSelector
+   CASE hb_IsLogical(uSelector) .AND. uSelector
       ::lSelector := .T.
       ::hBmpCursor := StockBmp( 3 )
    CASE uSelector != NIL
@@ -1854,7 +1854,7 @@ METHOD FastDrawClear( cCell ) CLASS TSBrowse
 
    IF !::lFastDrawCell
 
-   ELSEIF ISLOGICAL( cCell ) .AND. cCell
+   ELSEIF hb_IsLogical(cCell) .AND. cCell
       ::aFastDrawCell := hb_Hash()
 
    ELSEIF ISCHAR( cCell )
@@ -1895,7 +1895,7 @@ METHOD AppendRow(lUnlock) CLASS TSBrowse
 
    IF hb_IsBlock(::bAddBefore)
       xRet := Eval(::bAddBefore, Self)
-      IF HB_ISLOGICAL( xRet ) .AND. !xRet
+      IF hb_IsLogical(xRet) .AND. !xRet
          lUps := .T.
       ENDIF
    ENDIF
@@ -3302,7 +3302,7 @@ METHOD DeleteRow(lAll, lUpStable) CLASS TSBrowse
             lEval := Eval(::bDelete, nRecNo, Self)
          ENDIF
 
-         IF HB_ISLOGICAL(lEval) .AND. !lEval
+         IF hb_IsLogical(lEval) .AND. !lEval
             RETURN .F.
          ENDIF
 
@@ -3315,7 +3315,7 @@ METHOD DeleteRow(lAll, lUpStable) CLASS TSBrowse
 
          IF ::bDelBefore != NIL
             lEval := Eval(::bDelBefore, nRecNo, Self)
-            IF HB_ISLOGICAL(lEval) .AND. !lEval
+            IF hb_IsLogical(lEval) .AND. !lEval
                IF !( "SQL" $ ::cDriver )
                   ( cAlias )->( dbUnlock() )
                ENDIF
@@ -3373,7 +3373,7 @@ METHOD DeleteRow(lAll, lUpStable) CLASS TSBrowse
             lEval := Eval(::bDelete, nAt, Self, lAll)
          ENDIF
 
-         IF HB_ISLOGICAL(lEval) .AND. !lEval
+         IF hb_IsLogical(lEval) .AND. !lEval
             RETURN .F.
          ENDIF
 
@@ -4323,9 +4323,9 @@ METHOD DrawLine( xRow, lDrawCell ) CLASS TSBrowse
          lMultiLine := HB_ISCHAR(uData) .AND. At( Chr( 13 ), uData ) > 0
 
          nVertText := 0
-         lCheck := ( oColumn:lCheckBox .AND. HB_ISLOGICAL(uData) .AND. oColumn:lVisible )
+         lCheck := ( oColumn:lCheckBox .AND. hb_IsLogical(uData) .AND. oColumn:lVisible )
 
-         IF lCheck .AND. HB_ISLOGICAL(uData)
+         IF lCheck .AND. hb_IsLogical(uData)
             cPicture := ""
             nVertText := iif( uData, 3, 4 )
             lCheckVal := uData
@@ -4350,7 +4350,7 @@ METHOD DrawLine( xRow, lDrawCell ) CLASS TSBrowse
             uData := oCell:cValue
          ELSEIF Empty(cPicture) .OR. lMultiLine
             IF ValType(uData) != "C"
-               IF HB_ISLOGICAL(uData)
+               IF hb_IsLogical(uData)
                   uData := ::aMsg[iif( uData, 1, 2 )]
                ELSE
                   uData := cValToChar( uData )
@@ -4502,7 +4502,7 @@ METHOD TSDrawCell( oCell, oCol ) CLASS TSBrowse
 
    IF hb_IsBlock(::bTSDrawCell)
       lDraw := Eval(::bTSDrawCell, Self, oCell, oCol)
-      IF ISLOGICAL( lDraw ) .AND. Empty(lDraw)
+      IF hb_IsLogical(lDraw) .AND. Empty(lDraw)
          RETURN .F.
       ENDIF
    ENDIF
@@ -4861,7 +4861,7 @@ METHOD DrawSelect( xRow, lDrawCell ) CLASS TSBrowse
             xData := uData
             lMulti := HB_ISCHAR(uData) .AND. At( Chr( 13 ), uData ) > 0
             cPicture := ::cPictureGet( oColumn, nJ )
-            lCheck := ( oColumn:lCheckBox .AND. HB_ISLOGICAL(uData) .AND. oColumn:lVisible )
+            lCheck := ( oColumn:lCheckBox .AND. hb_IsLogical(uData) .AND. oColumn:lVisible )
             lNoLite := oColumn:lNoLite
             nVertText := 0
 
@@ -4889,7 +4889,7 @@ METHOD DrawSelect( xRow, lDrawCell ) CLASS TSBrowse
                uData := oCell:cValue
             ELSEIF Empty(cPicture) .OR. lMulti
                IF ValType(uData) != "C"
-                  IF HB_ISLOGICAL(uData)
+                  IF hb_IsLogical(uData)
                      uData := ::aMsg[iif( uData, 1, 2 )]
                   ELSE
                      uData := cValToChar( uData )
@@ -5448,7 +5448,7 @@ METHOD Edit( uVar, nCell, nKey, nKeyFlags, cPicture, bValid, nClrFore, nClrBack 
       nClrFore := oCol:nClrEditFore, ;
       nClrBack := oCol:nClrEditBack
 
-   IF HB_ISLOGICAL(::lInsertMode) // Igor Nazarov
+   IF hb_IsLogical(::lInsertMode) // Igor Nazarov
       IF IsInsertActive() != ::lInsertMode
          iif( _HMG_IsXPorLater, KeyToggleNT( VK_INSERT ), KeyToggle( VK_INSERT ) )
       ENDIF
@@ -5507,7 +5507,7 @@ METHOD Edit( uVar, nCell, nKey, nKeyFlags, cPicture, bValid, nClrFore, nClrBack 
             uVar := uVar[1]
             uValue := uVar[2]
          ENDIF
-         IF HB_ISLOGICAL(uVar) .AND. !uVar
+         IF hb_IsLogical(uVar) .AND. !uVar
             nKey := VK_RETURN
          ENDIF
       ENDIF
@@ -6881,7 +6881,7 @@ METHOD ExcelOle( cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, bExtern, 
             ENDIF
 
             uData := iif( ValType(uData) == "D", DToC( uData ), ;
-               iif( HB_ISLOGICAL(uData), iif( uData, ".T.", ".F." ), cValToChar( uData ) ) )
+               iif( hb_IsLogical(uData), iif( uData, ".T.", ".F." ), cValToChar( uData ) ) )
          ENDIF
 
          cText += Trim(uData) + Chr( 9 )
@@ -7144,7 +7144,7 @@ METHOD GotoRec( nRec, nRowPos ) CLASS TSBrowse
       cAlias := ::cAlias
       ::nLastPos := ( cAlias )->( RecNo() )
 
-      IF HB_ISLOGICAL( nRowPos ) .AND. nRowPos .AND. ::nLen > ::nRowCount()
+      IF hb_IsLogical(nRowPos) .AND. nRowPos .AND. ::nLen > ::nRowCount()
          nRecSave := ::nLastPos
          ( cAlias )->( dbGoto( nRec ) )
          ( cAlias )->( dbSkip( ::nRowCount() - ::nRowPos ) )
@@ -7491,7 +7491,7 @@ METHOD AdjColumns( aColumns, nDelta ) CLASS TSBrowse
 
    DEFAULT nDelta := 1
 
-   IF HB_ISLOGICAL( aColumns )
+   IF hb_IsLogical(aColumns)
       IF !aColumns
          ::lAdjColumn := .T.
          RETURN NIL
@@ -8760,10 +8760,10 @@ METHOD KeyDown( nKey, nFlags ) CLASS TSBrowse
       ENDIF
       IF hb_IsBlock(uVal)
          uReturn := Eval(uVal, Self, nKey, uTemp)
-         IF uTemp == "other" .AND. !HB_ISLOGICAL( uReturn )
+         IF uTemp == "other" .AND. !hb_IsLogical(uReturn)
             uReturn := .T.
          ENDIF
-         IF uReturn == NIL .OR. HB_ISLOGICAL( uReturn ) .AND. !uReturn
+         IF uReturn == NIL .OR. hb_IsLogical(uReturn) .AND. !uReturn
             ::nLastKey := 255
             RETURN 0
          ENDIF
@@ -8779,7 +8779,7 @@ METHOD KeyDown( nKey, nFlags ) CLASS TSBrowse
 
       IF uReturn != NIL .AND. HB_ISNUMERIC(uReturn) .AND. uReturn < 200 // interpreted as a virtual key code to
          nKey := uReturn // change the original key pressed
-      ELSEIF uReturn != NIL .AND. HB_ISLOGICAL(uReturn) .AND. !uReturn
+      ELSEIF uReturn != NIL .AND. hb_IsLogical(uReturn) .AND. !uReturn
          ::nUserKey := 255 // want to inhibit the KeyDown and KeyChar Methods for key pressed
          RETURN 0
       ENDIF
@@ -8909,7 +8909,7 @@ METHOD KeyDown( nKey, nFlags ) CLASS TSBrowse
                uVal := uVal[1]
                uValue := uVal[2]
             ENDIF
-            IF HB_ISLOGICAL(uVal) .AND. !uVal
+            IF hb_IsLogical(uVal) .AND. !uVal
                RETURN 0
             ENDIF
          ENDIF
@@ -9041,7 +9041,7 @@ METHOD Selection() CLASS TSBrowse
 
    IF hb_IsBlock(::bPreSelect)
       lCan := Eval(::bPreSelect, ::nAt)
-      IF !HB_ISLOGICAL( lCan )
+      IF !hb_IsLogical(lCan)
          lCan := .T.
       ENDIF
    ENDIF
@@ -9488,7 +9488,7 @@ METHOD LDblClick( nRowPix, nColPix, nKeyFlags ) CLASS TSBrowse
       IF ::lCellBrw .AND. ::IsEditable( nCol )
 
          ::nColSpecHd := 0
-         IF HB_ISLOGICAL(::bDataEval(::aColumns[nCol])) .AND. ;
+         IF hb_IsLogical(::bDataEval(::aColumns[nCol])) .AND. ;
                ::aColumns[nCol]:lCheckBox // virtual checkbox
             ::PostMsg( WM_CHAR, VK_SPACE, 0 )
          ELSEIF ::aColumns[nCol]:oEdit != NIL
@@ -9623,7 +9623,7 @@ METHOD LoadFields( lEditable, aColSel, cAlsSel, aNameSel, aHeadSel ) CLASS TSBro
          iif( ( cAlias )->( ValType(FieldGet( nE )) ) == "N", 2, ;
          iif( ( cAlias )->( ValType(FieldGet( nE )) ) $ "DL", 1, 0 ) ) )
 
-      nAlign := iif( HB_ISLOGICAL(nAlign), iif( nAlign, 2, 0 ), ;
+      nAlign := iif( hb_IsLogical(nAlign), iif( nAlign, 2, 0 ), ;
          iif( ValType(nAlign) == "C", AScan(aAlign, nAlign) - 1, nAlign ) )
 
       nSize := iif( !aColSizes == NIL .AND. Len(aColsizes) >= nE, aColSizes[nE], Nil )
@@ -10584,9 +10584,9 @@ METHOD LoadRecordSet() CLASS TSBrowse
 
       nAlign := iif( ::aJustify != NIL .AND. Len(::aJustify) >= n, ::aJustify[n], ;
          iif( HB_ISNUMERIC(::oRSet:Fields(nE):Value), 2, ;
-         iif( HB_ISLOGICAL(::oRSet:Fields(nE):Value), 1, 0 ) ) )
+         iif( hb_IsLogical(::oRSet:Fields(nE):Value), 1, 0 ) ) )
 
-      nAlign := iif( HB_ISLOGICAL(nAlign), iif( nAlign, 2, 0 ), ;
+      nAlign := iif( hb_IsLogical(nAlign), iif( nAlign, 2, 0 ), ;
          iif( HB_ISCHAR(nAlign), AScan(aAlign, nAlign) - 1, nAlign ) )
 
       nWidth := iif( !aColSizes == NIL .AND. Len(aColsizes) >= n, aColSizes[n], Nil )
@@ -10680,7 +10680,7 @@ METHOD LoadRelated( cAlias, lEditable, aNames, aHeaders ) CLASS TSBrowse
          ::Proper( ( cAlias )->( Field( nE ) ) ) )
 
       nAlign := iif( ( cAlias )->( ValType(FieldGet( nE )) ) == "N", 2, ;
-         iif( ( cAlias )->( HB_ISLOGICAL(FieldGet(nE))), 1, 0 ) )
+         iif( ( cAlias )->( hb_IsLogical(FieldGet(nE))), 1, 0 ) )
 
       cData := ( cAlias )->( FieldGet( nE ) )
       cType := ValType(cData)
@@ -13488,7 +13488,7 @@ METHOD SetArrayTo( aArray, uFontHF, aHead, aSizes, uFooter, aPicture, aAlign, aN
    aDefFooter := Array(nColumns)
    AFill(aDefFooter, "")
 
-   IF HB_ISLOGICAL(uFooter)
+   IF hb_IsLogical(uFooter)
       lFooter := uFooter
    ELSEIF hb_IsArray(uFooter)
       lFooter := .T.
@@ -15404,7 +15404,7 @@ METHOD Enabled( lEnab ) CLASS TSBrowse
 
    DEFAULT lEnab := .T.
 
-   IF HB_ISLOGICAL(lEnab)
+   IF hb_IsLogical(lEnab)
 
       IF !lEnab
 
@@ -16173,7 +16173,7 @@ FUNCTION nValToNum( uVar ) // TODO: SWITCH
 
    LOCAL nVar := iif( ValType(uVar) == "N", uVar, ;
       iif( HB_ISCHAR(uVar), Val(StrTran(AllTrim(uVar), ",")), ;
-      iif( HB_ISLOGICAL(uVar), iif( uVar, 1, 0 ), ;
+      iif( hb_IsLogical(uVar), iif( uVar, 1, 0 ), ;
       iif( ValType(uVar) == "D", Val(DToS( uVar )), 0 ) ) ) )
 
 RETURN nVar
@@ -16832,7 +16832,7 @@ METHOD GetCellInfo( nRowPos, nCell, lColSpecHd ) CLASS TSBrowse
    LOCAL lFoot := .F.
    LOCAL oCell := TSBcell():New()
 
-   IF HB_ISLOGICAL( nRowPos )
+   IF hb_IsLogical(nRowPos)
       IF nRowPos ; lHead := .T.
       ELSE ; lFoot := .T.
       ENDIF
@@ -16935,7 +16935,7 @@ METHOD GetCellSize( nRowPos, nCell, lColSpecHd ) CLASS TSBrowse
    y := aRect[2]
    x := aRect[1]
 
-   IF HB_ISLOGICAL( nRowPos )
+   IF hb_IsLogical(nRowPos)
       IF nRowPos ; lHead := .T.
       ELSE ; lFoot := .T.
       ENDIF

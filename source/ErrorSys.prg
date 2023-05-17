@@ -223,7 +223,7 @@ STATIC PROCEDURE ShowError( cErrorMessage, oError )
 
       cMsg += iif( _lShowDetailError(), cErrorMessage, ErrorMessage( oError ) )
 
-      IF ISLOGICAL( _HMG_lOnErrorStop ) .AND. _HMG_lOnErrorStop == .F.
+      IF hb_IsLogical(_HMG_lOnErrorStop) .AND. _HMG_lOnErrorStop == .F.
 
          MsgStop( StrTran(cMsg, ";", CRLF), "Program Error", NIL, .F. )
 
@@ -471,7 +471,7 @@ FUNCTION _lShowDetailError( lNewValue )
    LOCAL cVarName := "_HMG" + ProcName()
    LOCAL lOldValue := _AddNewGlobal( cVarName, .T. )
 
-   IF ISLOGICAL( lNewValue )
+   IF hb_IsLogical(lNewValue)
       _SetGetGlobal( cVarName, lNewValue )
    ENDIF
 

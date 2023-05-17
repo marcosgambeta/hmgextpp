@@ -329,7 +329,7 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
 
             FOR i := 1 TO Min( Len(columnsort), Len(_HMG_aControlMiscData1[k][20]) )
 
-               IF HB_ISLOGICAL(columnsort[i])
+               IF hb_IsLogical(columnsort[i])
                   _HMG_aControlMiscData1 [k][20][i] := columnsort[i]
                ENDIF
 
@@ -662,7 +662,7 @@ PROCEDURE _BrowseUpdate( ControlName, ParentName, z )
             image := iif( &cTemp, 1, 0 )
             EXIT
          CASE "U"
-            image := iif( HB_ISNUMERIC(&cTemp), &cTemp, iif( HB_ISLOGICAL(&cTemp), iif( &cTemp, 1, 0 ), 0 ) )
+            image := iif( HB_ISNUMERIC(&cTemp), &cTemp, iif( hb_IsLogical(&cTemp), iif( &cTemp, 1, 0 ), 0 ) )
             EXIT
          DEFAULT
             image := 0
@@ -2214,7 +2214,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
             _HMG_ThisEventType := "BROWSE_WHEN"
             E := Eval(aTemp [CellColIndex])
             _HMG_ThisEventType := ""
-            IF ISLOGICAL( E ) .AND. E == .F.
+            IF hb_IsLogical(E) .AND. E == .F.
                PlayHand()
                // Restore Original Record Pointer
                GO BackRec
@@ -2500,7 +2500,7 @@ STATIC PROCEDURE _InPlaceEditOk ( i , r , aValid , CellColIndex , sFieldName , A
 
             _HMG_ThisEventType := ""
 
-            IF ISLOGICAL( b ) .AND. b == .F.
+            IF hb_IsLogical(b) .AND. b == .F.
 
                IF hb_IsArray(aValidMessages)
 

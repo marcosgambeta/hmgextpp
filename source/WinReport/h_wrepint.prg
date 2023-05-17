@@ -2381,7 +2381,7 @@ local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
 
       if HB_ISCHAR(P_F_E_G)
          ::aStat [ "P_F_E_G" ]  :=  (".T." $ upper(P_F_E_G))
-      elseif HB_ISLOGICAL(P_F_E_G)
+      elseif hb_IsLogical(P_F_E_G)
          ::aStat [ "P_F_E_G" ]  := P_F_E_G
       endif
 

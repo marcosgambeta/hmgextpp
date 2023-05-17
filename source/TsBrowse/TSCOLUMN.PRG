@@ -765,7 +765,7 @@ METHOD ToWidth(uLen, nKfc, lHeader) CLASS TSColumn
 
    DEFAULT nKfc := 1
 
-   IF HB_ISLOGICAL(lHeader)
+   IF hb_IsLogical(lHeader)
       hFont := iif(lHeader, ::hFontHead, ::hFontFoot)
       DEFAULT hFont := ::hFont
    ENDIF

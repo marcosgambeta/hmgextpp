@@ -241,8 +241,8 @@ _hmg_hpdf_abortdoc()
         [ <langle2: SKEW> <nAngle2> ] ;
         => ;
         HPDF_SkewText ( <Row> , <Col> , <cFontName> , <nFontSize> , <aColor>\[1\] , <aColor>\[2\] , <aColor>\[3\] , <cText> ,;
-                <.bold.> .AND. iif( HB_IsLogical(<lBold>), <lBold>, HB_IsNil(<lBold>) ) ,; 
-                <.italic.> .AND. iif( HB_IsLogical(<lItalic>), <lItalic>, HB_IsNil(<lItalic>) ) ,;
+                <.bold.> .AND. iif( hb_IsLogical(<lBold>), <lBold>, HB_IsNil(<lBold>) ) ,; 
+                <.italic.> .AND. iif( hb_IsLogical(<lItalic>), <lItalic>, HB_IsNil(<lItalic>) ) ,;
                 <.lcolor.> , <.lfont.> , <.lsize.> , <"align"> , <nAngle> , <nAngle2> ) 
 
                 
@@ -257,8 +257,8 @@ _hmg_hpdf_abortdoc()
         [ <lyscale : YSCALE> <nyscale> ] ;
         => ;
         HPDF_ScaleText ( <Row> , <Col> , <cFontName> , <nFontSize> , <aColor>\[1\] , <aColor>\[2\] , <aColor>\[3\] , <cText> ,;
-                <.bold.> .AND. iif( HB_IsLogical(<lBold>), <lBold>, HB_IsNil(<lBold>) ) ,; 
-                <.italic.> .AND. iif( HB_IsLogical(<lItalic>), <lItalic>, HB_IsNil(<lItalic>) ) ,;
+                <.bold.> .AND. iif( hb_IsLogical(<lBold>), <lBold>, HB_IsNil(<lBold>) ) ,; 
+                <.italic.> .AND. iif( hb_IsLogical(<lItalic>), <lItalic>, HB_IsNil(<lItalic>) ) ,;
                 <.lcolor.> , <.lfont.> , <.lsize.> , <"align"> , <nxscale> , <nyscale> ) 
 
 
@@ -273,8 +273,8 @@ _hmg_hpdf_abortdoc()
         [ <lrim: RIM> <nrim> ] ;
         => ;
         HPDF_RenderText ( <Row> , <Col> , <cFontName> , <nFontSize> , <aColor>\[1\] , <aColor>\[2\] , <aColor>\[3\] , <cText> ,;
-                <.bold.> .AND. iif( HB_IsLogical(<lBold>), <lBold>, HB_IsNil(<lBold>) ) ,; 
-                <.italic.> .AND. iif( HB_IsLogical(<lItalic>), <lItalic>, HB_IsNil(<lItalic>) ) ,;
+                <.bold.> .AND. iif( hb_IsLogical(<lBold>), <lBold>, HB_IsNil(<lBold>) ) ,; 
+                <.italic.> .AND. iif( hb_IsLogical(<lItalic>), <lItalic>, HB_IsNil(<lItalic>) ) ,;
                 <.lcolor.> , <.lfont.> , <.lsize.> , <"align"> , HPDF_<mode> , <nrim> ) 
 
 
@@ -289,8 +289,8 @@ _hmg_hpdf_abortdoc()
         [ <align : TOP, BOTTOM> ] ;
         => ;
         HPDF_CircleText ( <Row> , <Col> , <cFontName> , <nFontSize> , <aColor>\[1\] , <aColor>\[2\] , <aColor>\[3\] , <cText> ,;
-                <.bold.> .AND. iif( HB_IsLogical(<lBold>), <lBold>, HB_IsNil(<lBold>) ) ,;
-                <.italic.> .AND. iif( HB_IsLogical(<lItalic>), <lItalic>, HB_IsNil(<lItalic>) ) ,;
+                <.bold.> .AND. iif( hb_IsLogical(<lBold>), <lBold>, HB_IsNil(<lBold>) ) ,;
+                <.italic.> .AND. iif( hb_IsLogical(<lItalic>), <lItalic>, HB_IsNil(<lItalic>) ) ,;
                 <.lcolor.> , <.lfont.> , <.lsize.> , <nRad> , <.lrims.> , <"align"> )
 
 
