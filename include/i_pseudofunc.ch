@@ -695,7 +695,7 @@ GetFontParam( <hFont> )\[ 10 ]
 
 #translate HMG_RGB2n( <p1>, <p2>, <p3> )  => IFNUMERIC( <p1>, RGB( <p1>, <p2>, <p3> ), <p1> )
 
-#translate HMG_RGB2n( <x> )               => IFARRAY(<x>, RGB( <x>\[ 1 ], <x>\[ 2 ], <x>\[ 3 ] ), <x>)
+#translate HMG_RGB2n( <x> )               => iif(hb_IsArray(<x>), RGB( <x>\[ 1 ], <x>\[ 2 ], <x>\[ 3 ] ), <x>)
 
 #translate HMG_n2RGB( <x> )               => { GetRed( <x> ), GetGreen( <x> ), GetBlue( <x> ) }
 
@@ -726,7 +726,7 @@ GetFontParam( <hFont> )\[ 10 ]
 #translate ISNUMERIC( <xValue> ) => hb_IsNumeric( <xValue> ) // deprecated
 
 #translate IFNIL( <v1>,<exp1>,<exp2> )       => iif( (<v1>) == NIL,<exp1>,<exp2> )        // deprecated
-#translate IFARRAY(<v1>,<exp1>,<exp2>)     => iif( hb_IsArray(<v1> ),<exp1>,<exp2>)
+#translate IFARRAY(<v1>,<exp1>,<exp2>)     => iif( hb_IsArray(<v1> ),<exp1>,<exp2>)       // deprecated
 #translate IFBLOCK( <v1>,<exp1>,<exp2> )     => iif( hb_IsBlock( <v1> ),<exp1>,<exp2> )
 #translate IFCHARACTER( <v1>,<exp1>,<exp2> ) => iif( hb_IsString( <v1> ),<exp1>,<exp2> )
 #translate IFCHAR( <v1>,<exp1>,<exp2> )      => iif( hb_IsString( <v1> ),<exp1>,<exp2> )

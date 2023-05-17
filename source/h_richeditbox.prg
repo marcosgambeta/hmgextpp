@@ -157,7 +157,7 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
          ENDIF
       ENDIF
 
-      SetFontRTF(ControlHandle, IFARRAY(fontcolor, -1, 0), FontName, FontSize, bold, italic, ;
+      SetFontRTF(ControlHandle, iif(hb_IsArray(fontcolor), -1, 0), FontName, FontSize, bold, italic, ;
          iif(IsArrayRGB(fontcolor), RGB(fontcolor[1], fontcolor[2], fontcolor[3]), NIL), underline, strikeout)
 
    ENDIF

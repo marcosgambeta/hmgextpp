@@ -5196,7 +5196,7 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          EXIT
       CASE "TABSTOP"
          ix := GetControlHandle(Arg2, Arg1)
-         RetVal := IsTabStop(IFARRAY(ix, ix[1], ix))
+         RetVal := IsTabStop(iif(hb_IsArray(ix), ix[1], ix))
          EXIT
       CASE "CHECKBOXENABLED"
          RetVal := ListView_GetExtendedStyle(GetControlHandle(Arg2, Arg1), LVS_EX_CHECKBOXES)
@@ -5224,7 +5224,7 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
             RetVal := _GetRadioGroupReadOnly(Arg2, Arg1)
          ELSE
             ix := GetControlHandle(Arg2, Arg1)
-            RetVal := IsWindowHasStyle(IFARRAY(ix, ix[1], ix), ES_READONLY)
+            RetVal := IsWindowHasStyle(iif(hb_IsArray(ix), ix[1], ix), ES_READONLY)
          ENDIF
          EXIT
       CASE "WORKAREA"
