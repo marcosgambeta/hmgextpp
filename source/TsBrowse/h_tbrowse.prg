@@ -7460,7 +7460,7 @@ METHOD GetColumn( nCol ) CLASS TSBrowse
 
    DEFAULT nCol := 1
 
-   IF HB_ISSTRING( nCol ) // 14.07.2015
+   IF hb_IsString(nCol) // 14.07.2015
       nCol := ::nColumn( nCol )
    ELSE
       IF nCol < 1

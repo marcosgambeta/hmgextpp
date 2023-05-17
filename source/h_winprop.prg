@@ -117,7 +117,7 @@ STATIC FUNCTION _GetFormHandle(xParentForm, cParentFormName)
 
    ENDIF
 
-   IF HB_ISSTRING(xParentForm)
+   IF hb_IsString(xParentForm)
 
       IF !_IsWindowDefined(xParentForm)
          MsgMiniGuiError("Window: " + xParentForm + " is not defined.")

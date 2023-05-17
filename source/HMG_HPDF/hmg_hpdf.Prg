@@ -2513,7 +2513,7 @@ FUNCTION HPDF_CircleText( nRow, nCol, cFontName, nFontSize, nRColor, nGColor, nB
       nRadial := 15
    ENDIF
 
-   IF !HB_ISSTRING( cAlign )
+   IF !hb_IsString( cAlign )
       cAlign := ""
    ENDIF
 

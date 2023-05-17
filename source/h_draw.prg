@@ -285,7 +285,7 @@ FUNCTION HMG_DrawIcon( window, icon, row, col, w, h, rgb, transparent )
       IF hb_IsNumeric(icon)
          DrawIconEx( FormHandle, Col, Row, icon, w, h, rgb, .F. )
          AAdd(_HMG_aFormGraphTasks[i], {||DrawIconEx(FormHandle, Col, Row, icon, w, h, rgb, .F.)})
-      ELSEIF ISSTRING( icon )
+      ELSEIF hb_IsString( icon )
          DrawIconEx( FormHandle, Col, Row, LoadIconByName( icon, w, h ), w, h, rgb, .T. )
          AAdd(_HMG_aFormGraphTasks[i], {||DrawIconEx(FormHandle, Col, Row, LoadIconByName(icon, w, h), w, h, rgb, .T.)})
       ENDIF

@@ -2854,7 +2854,7 @@ FUNCTION _HMG_DialogBoxProperty(nRow, nCol, lCenter, Form, lSet)
 
    IF hb_defaultValue(lSet, .T.)
 
-      aDialogBoxPosSizeInfo := {nCol, nRow, lCenter, iif(HB_ISSTRING(Form), GetFormHandle(Form), Form)}
+      aDialogBoxPosSizeInfo := {nCol, nRow, lCenter, iif(hb_IsString(Form), GetFormHandle(Form), Form)}
       _SetGetGlobal(cVarName, aDialogBoxPosSizeInfo)
 
    ELSE

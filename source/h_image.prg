@@ -152,7 +152,7 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      ControlHandle := InitImage ( ParentFormHandle, 0, x, y, invisible, ( action .OR. hb_IsBlock(dblclick) .OR. hb_IsBlock(rclick) .OR. ISSTRING( tooltip ) ), ( hb_IsBlock(mouseover) .OR. hb_IsBlock(mouseleave) ) )
+      ControlHandle := InitImage ( ParentFormHandle, 0, x, y, invisible, ( action .OR. hb_IsBlock(dblclick) .OR. hb_IsBlock(rclick) .OR. hb_IsString( tooltip ) ), ( hb_IsBlock(mouseover) .OR. hb_IsBlock(mouseleave) ) )
 
    ENDIF
 
@@ -261,7 +261,7 @@ FUNCTION BmpSize( xBitmap )
    LOCAL aRet := { 0, 0, 4 }
 
    DO CASE
-   CASE ISSTRING( xBitmap )
+   CASE hb_IsString(xBitmap)
 
       aRet := GetBitmapSize( xBitmap )
 
@@ -302,7 +302,7 @@ FUNCTION HMG_SaveImage( FileName, cOutName, cEncoder, nJpgQuality, aOutSize )
    LOCAL hBitmap
    LOCAL lResult := .F.
 
-   hBitmap := iif( ISSTRING( FileName ), C_GetResPicture( FileName ), FileName )
+   hBitmap := iif( hb_IsString(FileName), C_GetResPicture( FileName ), FileName )
 
    IF GetObjectType( hBitmap ) == OBJ_BITMAP
       hb_default(@cEncoder, "BMP")
@@ -311,7 +311,7 @@ FUNCTION HMG_SaveImage( FileName, cOutName, cEncoder, nJpgQuality, aOutSize )
 
       lResult := C_SaveHBitmapToFile( hBitmap, cOutName, aOutSize [1], aOutSize [2], "image/" + Lower( cEncoder ), nJpgQuality )
 
-      IF ISSTRING( FileName )
+      IF hb_IsString(FileName)
          DeleteObject( hBitmap )
       ENDIF
    ENDIF

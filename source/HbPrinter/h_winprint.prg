@@ -258,7 +258,7 @@ METHOD StartDoc( ldocname ) CLASS HBPrinter
 
    ::Printing := .T.
    IF ldocname != NIL
-      ldocname := iif( HB_ISSTRING( ldocname ), StrTran(StrTran(ldocname, "\", "_"), "/", "_"), "" )
+      ldocname := iif( hb_IsString( ldocname ), StrTran(StrTran(ldocname, "\", "_"), "/", "_"), "" )
       ::DOCNAME := ldocname
    ENDIF
    IF !::PreviewMode

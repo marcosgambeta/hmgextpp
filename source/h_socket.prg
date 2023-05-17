@@ -57,7 +57,7 @@ FUNCTION httpconnect( Connection, Server, Port )
 
    oUrl := TUrl():New( Server + ":" + hb_ntos( Port ) )
 
-   IF HB_ISSTRING( Connection )
+   IF hb_IsString( Connection )
 
       Public &Connection
 
@@ -119,14 +119,14 @@ FUNCTION httpgeturl( Connection, cPage, uRet )
    IF Connection:Open( cUrl )
 
       cResponse := Connection:Read()
-      IF !HB_ISSTRING( cResponse )
+      IF !hb_IsString( cResponse )
          cResponse := "<No data returned>"
       ENDIF
 
       IF hb_IsLogical(uRet)
 
          cHeader := Connection:cReply
-         IF !HB_ISSTRING( cHeader )
+         IF !hb_IsString( cHeader )
             cHeader := "<No header returned>"
          ENDIF
          cHeader += hb_osNewLine()
