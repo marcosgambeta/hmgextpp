@@ -2677,14 +2677,14 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
          IF x > 0 .AND. _HMG_aControlType[x] == CONTROL_TYPE_TOOLBUTTON
 
-            IF ISCHAR(_HMG_aControlToolTip[x])
+            IF hb_IsString(_HMG_aControlToolTip[x])
                SetButtonTip(lParam, _HMG_aControlToolTip[x])
             ENDIF
 
             k := GetHwndFrom(lParam)  // control handle
 
 #ifdef _HMG_COMPAT_
-            IF GetFormNameByHandle(_HMG_aControlParentHandles[x], @z) > 0 .AND. hb_IsArray(a := _WindowCargo(z)) .AND. Len(a) == 2 .AND. ISCHAR(a[2]) .AND. !Empty(a[2])
+            IF GetFormNameByHandle(_HMG_aControlParentHandles[x], @z) > 0 .AND. hb_IsArray(a := _WindowCargo(z)) .AND. Len(a) == 2 .AND. hb_IsString(a[2]) .AND. !Empty(a[2])
 
                SendMessageString(k, TTM_SETTITLE, a[1], a[2])
             ENDIF

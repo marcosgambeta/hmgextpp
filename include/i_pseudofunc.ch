@@ -721,7 +721,7 @@ GetFontParam( <hFont> )\[ 10 ]
 #  translate ISOBJECT( <xValue> )    => hb_IsObject( <xValue> )  // deprecated
 #endif
 
-#translate ISCHAR( <xValue> )    => hb_IsString( <xValue> )
+#translate ISCHAR( <xValue> )    => hb_IsString( <xValue> )  // deprecated
 #translate ISSTRING( <xValue> )  => hb_IsString( <xValue> )  // deprecated
 #translate ISNUMERIC( <xValue> ) => hb_IsNumeric( <xValue> ) // deprecated
 
@@ -729,7 +729,7 @@ GetFontParam( <hFont> )\[ 10 ]
 #translate IFARRAY(<v1>,<exp1>,<exp2>)     => iif( hb_IsArray(<v1> ),<exp1>,<exp2>)
 #translate IFBLOCK( <v1>,<exp1>,<exp2> )     => iif( hb_IsBlock( <v1> ),<exp1>,<exp2> )
 #translate IFCHARACTER( <v1>,<exp1>,<exp2> ) => iif( hb_IsString( <v1> ),<exp1>,<exp2> )
-#translate IFCHAR( <v1>,<exp1>,<exp2> )      => iif( ISCHAR( <v1> ),<exp1>,<exp2> )
+#translate IFCHAR( <v1>,<exp1>,<exp2> )      => iif( hb_IsString( <v1> ),<exp1>,<exp2> )
 #translate IFSTRING( <v1>,<exp1>,<exp2> )    => iif( hb_IsString( <v1> ),<exp1>,<exp2> )
 #translate IFDATE( <v1>,<exp1>,<exp2> )      => iif( hb_IsDate( <v1> ),<exp1>,<exp2> )
 #translate IFLOGICAL( <v1>,<exp1>,<exp2> )   => iif( hb_IsLogical( <v1> ),<exp1>,<exp2> )
