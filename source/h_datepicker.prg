@@ -275,7 +275,7 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
       _HMG_aControlSpacing[k] := ""
    ENDIF
 
-   IF ISDATE( dRangeMin ) .OR. ISDATE( dRangeMax )
+   IF hb_IsDate(dRangeMin) .OR. hb_IsDate(dRangeMax)
       IF !_SetDatePickerRange(ControlHandle, dRangeMin, dRangeMax, k)
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + ": Wrong date range.")
       ENDIF

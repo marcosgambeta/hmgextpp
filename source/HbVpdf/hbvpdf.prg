@@ -2625,7 +2625,7 @@ STATIC FUNCTION WriteData( hFile, xData )
       cData += I2Bin(Len(xData)) + xData
    ELSEIF HB_ISNUMERIC(xData)
       cData += I2Bin(Len(hb_ntos(xData))) + hb_ntos(xData)
-   ELSEIF HB_ISDATE( xData )
+   ELSEIF hb_IsDate(xData)
       cData += I2Bin(8) + DToS(xData)
    ELSEIF HB_ISLOGICAL( xData )
       cData += I2Bin(1) + iif( xData, "T", "F" )
