@@ -728,7 +728,7 @@ GetFontParam( <hFont> )\[ 10 ]
 #translate IFNIL( <v1>,<exp1>,<exp2> )       => iif( (<v1>) == NIL,<exp1>,<exp2> )        // deprecated
 #translate IFARRAY(<v1>,<exp1>,<exp2>)     => iif( hb_IsArray(<v1> ),<exp1>,<exp2>)       // deprecated
 #translate IFBLOCK( <v1>,<exp1>,<exp2> )     => iif( hb_IsBlock( <v1> ),<exp1>,<exp2> )   // deprecated
-#translate IFCHARACTER( <v1>,<exp1>,<exp2> ) => iif( hb_IsString( <v1> ),<exp1>,<exp2> )
+#translate IFCHARACTER( <v1>,<exp1>,<exp2> ) => iif( hb_IsString( <v1> ),<exp1>,<exp2> )  // deprecated
 #translate IFCHAR( <v1>,<exp1>,<exp2> )      => iif( hb_IsString( <v1> ),<exp1>,<exp2> )
 #translate IFSTRING( <v1>,<exp1>,<exp2> )    => iif( hb_IsString( <v1> ),<exp1>,<exp2> )
 #translate IFDATE( <v1>,<exp1>,<exp2> )      => iif( hb_IsDate( <v1> ),<exp1>,<exp2> )
