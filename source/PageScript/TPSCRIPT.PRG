@@ -557,7 +557,7 @@ METHOD TPageScript:FindPrinter( cPrinter )
    LOCAL aPrinters := ::GetPrinters()
 
    // Finds a printer position in the array
-   IF HB_ISCHAR(cPrinter) .AND. Len(cPrinter) > 0
+   IF hb_IsChar(cPrinter) .AND. Len(cPrinter) > 0
       nPos := AScan(aPrinters, {| x | AllTrim(Upper(x)) == AllTrim(Upper(cPrinter)) }, 1, Len(aPrinters))
    ENDIF
 
@@ -1635,7 +1635,7 @@ Description : Sets the decimal separator character
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetDecimalSep( cSep )
 
-   IF HB_ISCHAR(cSep) .AND. Len(cSep) > 0
+   IF hb_IsChar(cSep) .AND. Len(cSep) > 0
       DllCall( ::hDll, DLL_STDCALL, "PSSetDecimalSep", Asc(cSep) )
    ENDIF
 
@@ -1659,7 +1659,7 @@ Description : Sets the file name of a PDF file
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetFileName( cFileName )
 
-   IF HB_ISCHAR(cFileName) .AND. !Empty(cFileName)
+   IF hb_IsChar(cFileName) .AND. !Empty(cFileName)
       DllCall( ::hDll, DLL_STDCALL, "PSSetFileName", cFileName )
    ENDIF
 
@@ -1711,7 +1711,7 @@ Description : Sets the font attributes used by each call to PSTextOut() and othe
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetFontAttributes( cFont, nStyle, nSize, nTFColor, nTBColor, nAngle )
 
-   IF HB_ISCHAR(cFont)
+   IF hb_IsChar(cFont)
       DllCall( ::hDll, DLL_STDCALL, "PSSetFontName", cFont )
    ENDIF
 
@@ -1779,7 +1779,7 @@ Description : Sets the font
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetFontName( cFont )
 
-   IF HB_ISCHAR(cFont)
+   IF hb_IsChar(cFont)
       DllCall( ::hDll, DLL_STDCALL, "PSSetFontName", cFont )
    ENDIF
 
@@ -1875,7 +1875,7 @@ Description : Set the encryption password for PDF documents
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetPDFOwnerPassword( cPassword )
 
-   IF HB_ISCHAR(cPassword) .AND. !Empty(cPassword)
+   IF hb_IsChar(cPassword) .AND. !Empty(cPassword)
       DllCall( ::hDll, DLL_STDCALL, "PSSetPDFOwnerPassword", cPassword )
    ENDIF
 
@@ -2063,7 +2063,7 @@ Description : Sets the title of the document
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:SetTitle( cTitle )
 
-   IF HB_ISCHAR(cTitle) .AND. !Empty(cTitle)
+   IF hb_IsChar(cTitle) .AND. !Empty(cTitle)
       DllCall( ::hDll, DLL_STDCALL, "PSSetTitle", cTitle )
    ENDIF
 
@@ -2117,7 +2117,7 @@ METHOD TPageScript:TextBox( nTop, nLeft, nBottom, nRight, cText, nJustify, cFont
 
    LOCAL Temp
 
-   IF ( HB_ISCHAR(cText) .AND. Len(cText) < 65001 ) // Must be a string and Length of less than 65001 bytes
+   IF ( hb_IsChar(cText) .AND. Len(cText) < 65001 ) // Must be a string and Length of less than 65001 bytes
       cFont := iif( cFont == NIL, "", cFont )
       nJustify := iif( nJustify == NIL, APS_DEFAULT, Int( nJustify ) )
       nStyle := iif( nStyle == NIL, APS_DEFAULT, Int( nStyle ) )
@@ -2144,7 +2144,7 @@ Description : Prints a string in a box at position X1,Y1, X2,Y2 using parameters
 -----------------------------------------------------------------------------*/
 METHOD TPageScript:TextBoxEx( nTop, nLeft, nBottom, nRight, cText )
 
-   IF ( HB_ISCHAR(cText) .AND. Len(cText) < 65001 .AND. !( cText == "" ) ) // Must be a non empty string and Length of less than 65001 bytes
+   IF ( hb_IsChar(cText) .AND. Len(cText) < 65001 .AND. !( cText == "" ) ) // Must be a non empty string and Length of less than 65001 bytes
       DllCall( ::hDll, DLL_STDCALL, "PSTextBox", PSFtoI( nTop ), PSFtoI( nLeft ), PSFtoI( nBottom ), PSFtoI( nRight ), cText )
    ENDIF
 
@@ -2333,7 +2333,7 @@ METHOD TPagescript:SignPDF( cFilename, cOutName, cCertFilename, cCertPassword, c
 
    LOCAL nRet := -1
 
-   IF HB_ISCHAR(cCertFilename) .AND. HB_ISCHAR(cCertPassword)
+   IF hb_IsChar(cCertFilename) .AND. hb_IsChar(cCertPassword)
 
       // Sets default values
       nLeft := iif( nLeft == NIL, 0, nLeft )

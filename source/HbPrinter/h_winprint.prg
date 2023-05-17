@@ -937,7 +937,7 @@ METHOD GetObjByName( defname, what, retpos ) CLASS HBPrinter
 
    LOCAL lfound, lret := 0, aref, ahref
 
-   IF HB_ISCHAR(defname)
+   IF hb_IsChar(defname)
       SWITCH what
       CASE "F" ; aref := ::Fonts[2] ; ahref := ::Fonts[1]; EXIT
       CASE "B" ; aref := ::Brushes[2] ; ahref := ::Brushes[1]; EXIT
@@ -1239,7 +1239,7 @@ METHOD DXCOLORS( par ) CLASS HBPrinter
    ENDIF
 
    aColorNames := _SetGetGlobal( "rgbcolornames" )
-   IF HB_ISCHAR(par)
+   IF hb_IsChar(par)
       par := Lower( AllTrim(par) )
       AEval(aColorNames, {| x | iif( x[1] == par, ltemp := x[2], "" ) })
    ELSEIF hb_IsNumeric(par)

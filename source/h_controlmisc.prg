@@ -1294,7 +1294,7 @@ FUNCTION _DisableControl(ControlName, ParentForm, nPosition)
             DisableWindow(c)
          ENDIF
       ENDIF
-      IF !Empty(_HMG_aControlBrushHandle[y]) .AND. HB_ISCHAR(_HMG_aControlPicture[y]) .AND. _HMG_aControlMiscData1[y] == 0
+      IF !Empty(_HMG_aControlBrushHandle[y]) .AND. hb_IsChar(_HMG_aControlPicture[y]) .AND. _HMG_aControlMiscData1[y] == 0
          IF _HMG_aControlEnabled[y] == .T.
             IF _HMG_aControlDblClick[y] == .F. .AND. _HMG_IsThemed
                ImageList_Destroy(_HMG_aControlBrushHandle[y])
@@ -1310,7 +1310,7 @@ FUNCTION _DisableControl(ControlName, ParentForm, nPosition)
       EXIT
 
    CASE CONTROL_TYPE_CHECKBOX
-      IF !Empty(_HMG_aControlBrushHandle[y]) .AND. HB_ISCHAR(_HMG_aControlPicture[y]) .AND. _HMG_aControlMiscData1[y] == 1
+      IF !Empty(_HMG_aControlBrushHandle[y]) .AND. hb_IsChar(_HMG_aControlPicture[y]) .AND. _HMG_aControlMiscData1[y] == 1
          IF _HMG_aControlEnabled[y] == .T.
             IF _HMG_IsThemed
                ImageList_Destroy(_HMG_aControlBrushHandle[y])
@@ -1447,7 +1447,7 @@ FUNCTION _EnableControl(ControlName, ParentForm, nPosition)
             EnableWindow(c)
          ENDIF
       ENDIF
-      IF !Empty(_HMG_aControlBrushHandle[y]) .AND. HB_ISCHAR(_HMG_aControlPicture[y]) .AND. _HMG_aControlMiscData1[y] == 0
+      IF !Empty(_HMG_aControlBrushHandle[y]) .AND. hb_IsChar(_HMG_aControlPicture[y]) .AND. _HMG_aControlMiscData1[y] == 0
          IF _HMG_aControlEnabled[y] == .F.
             IF _HMG_aControlDblClick[y] == .F. .AND. _HMG_IsThemed
                ImageList_Destroy(_HMG_aControlBrushHandle[y])
@@ -1463,7 +1463,7 @@ FUNCTION _EnableControl(ControlName, ParentForm, nPosition)
       EXIT
 
    CASE CONTROL_TYPE_CHECKBOX
-      IF !Empty(_HMG_aControlBrushHandle[y]) .AND. HB_ISCHAR(_HMG_aControlPicture[y]) .AND. _HMG_aControlMiscData1[y] == 1
+      IF !Empty(_HMG_aControlBrushHandle[y]) .AND. hb_IsChar(_HMG_aControlPicture[y]) .AND. _HMG_aControlMiscData1[y] == 1
          IF _HMG_aControlEnabled[y] == .F.
             IF _HMG_IsThemed
                ImageList_Destroy(_HMG_aControlBrushHandle[y])
@@ -3531,7 +3531,7 @@ FUNCTION InputWindow(cTitle, aLabels, aValues, aFormats, nRow, nCol, lCenterWind
 
    FOR i := 1 TO l
 
-      IF HB_ISCHAR(aValues[i])
+      IF hb_IsChar(aValues[i])
          IF hb_IsNumeric(aFormats[i])
             IF aFormats[i] > 32
                e++
@@ -3590,7 +3590,7 @@ FUNCTION InputWindow(cTitle, aLabels, aValues, aFormats, nRow, nCol, lCenterWind
       CASE "N"
          IF hb_IsArray(aFormats[i])
             @ ControlRow, ControlCol COMBOBOX (CN) ITEMS aFormats[i] VALUE aValues[i] WIDTH nControlWidth
-         ELSEIF HB_ISCHAR(aFormats[i])
+         ELSEIF hb_IsChar(aFormats[i])
             IF hb_UAt( ".", aFormats[i]) > 0
                @ ControlRow, ControlCol TEXTBOX (CN) VALUE aValues[i] WIDTH nControlWidth NUMERIC INPUTMASK aFormats[i]
             ELSE
@@ -4705,7 +4705,7 @@ PROCEDURE SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
    ENDSWITCH
 
 #ifdef _HMG_COMPAT_
-   IF HB_ISCHAR(Arg1) .AND. HB_ISCHAR(Arg2) .AND. "GRID" $ GetControlType(Arg2, Arg1) .AND. HB_ISCHAR(Arg3) .AND. "GROUP" $ Arg3
+   IF hb_IsChar(Arg1) .AND. hb_IsChar(Arg2) .AND. "GRID" $ GetControlType(Arg2, Arg1) .AND. hb_IsChar(Arg3) .AND. "GROUP" $ Arg3
 
       SWITCH Arg3
       CASE "GROUPENABLED"
@@ -5444,7 +5444,7 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
    ENDSWITCH
 
 #ifdef _HMG_COMPAT_
-   IF HB_ISCHAR(Arg1) .AND. HB_ISCHAR(Arg2) .AND. "GRID" $ GetControlType(Arg2, Arg1) .AND. HB_ISCHAR(Arg3) .AND. "GROUP" $ Arg3
+   IF hb_IsChar(Arg1) .AND. hb_IsChar(Arg2) .AND. "GRID" $ GetControlType(Arg2, Arg1) .AND. hb_IsChar(Arg3) .AND. "GROUP" $ Arg3
 
       SWITCH Arg3
       CASE "GROUPENABLED"
@@ -5488,7 +5488,7 @@ FUNCTION DoMethod(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9)
 
    CASE 2 // Window
 
-      IF HB_ISCHAR(Arg1)
+      IF hb_IsChar(Arg1)
          IF !_IsWindowDefined(Arg1)
             MsgMiniGuiError("Window: " + Arg1 + " is not defined.")
          ENDIF
@@ -5647,7 +5647,7 @@ FUNCTION DoMethod(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9)
 
    CASE 5
 
-      IF HB_ISCHAR(Arg3) // CONTROL WITH 2 ARGUMENTS OR SPLITBOX CHILD WITH 1 ARGUMENT
+      IF hb_IsChar(Arg3) // CONTROL WITH 2 ARGUMENTS OR SPLITBOX CHILD WITH 1 ARGUMENT
 
          Arg3 := Upper(Arg3)
 
@@ -5694,7 +5694,7 @@ FUNCTION DoMethod(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9)
 
    CASE 6
 
-      IF HB_ISCHAR(Arg3) // CONTROL WITH 3 ARGUMENTS OR SPLITBOX CHILD WITH 2 ARGUMENTS
+      IF hb_IsChar(Arg3) // CONTROL WITH 3 ARGUMENTS OR SPLITBOX CHILD WITH 2 ARGUMENTS
 
          Arg3 := Upper(Arg3)
 
@@ -5733,7 +5733,7 @@ FUNCTION DoMethod(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9)
 
    CASE 7
 
-      IF HB_ISCHAR(Arg3) // CONTROL WITH 4 ARGUMENTS OR SPLITBOX CHILD WITH 3 ARGUMENTS
+      IF hb_IsChar(Arg3) // CONTROL WITH 4 ARGUMENTS OR SPLITBOX CHILD WITH 3 ARGUMENTS
 
          Arg3 := Upper(Arg3)
 
@@ -5807,7 +5807,7 @@ FUNCTION DoMethod(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9)
    ENDSWITCH
 
 #ifdef _HMG_COMPAT_
-   IF HB_ISCHAR(Arg1) .AND. HB_ISCHAR(Arg2) .AND. "GRID" $ GetControlType(Arg2, Arg1) .AND. HB_ISCHAR(Arg3) .AND. "GROUP" $ Arg3
+   IF hb_IsChar(Arg1) .AND. hb_IsChar(Arg2) .AND. "GRID" $ GetControlType(Arg2, Arg1) .AND. hb_IsChar(Arg3) .AND. "GROUP" $ Arg3
       SWITCH Arg3
       CASE "GROUPDELETEALL"      ; ListView_GroupDeleteAll(GetControlHandle(Arg2, Arg1))                                               ; EXIT
       CASE "GROUPDELETE"         ; ListView_GroupDelete(GetControlHandle(Arg2, Arg1), Arg4)                                            ; EXIT
@@ -6657,7 +6657,7 @@ PROCEDURE _Refresh(i)
       EXIT
 
    CASE CONTROL_TYPE_COMBO
-      IF HB_ISCHAR(_HMG_aControlSpacing[i])
+      IF hb_IsChar(_HMG_aControlSpacing[i])
          _DataComboRefresh(i)
       ELSEIF _HMG_aControlMiscData1[i][1] != 1  // GF 03/30/16
          t := _HMG_aControlHandles[i]
@@ -7492,7 +7492,7 @@ STATIC FUNCTION _SetGetRichValue(ControlName, ParentForm, cValue, nType)
 
    IF (i := GetControlIndex(ControlName, ParentForm)) > 0 .AND. _HMG_aControlType[i] == CONTROL_TYPE_RICHEDIT
 
-      IF HB_ISCHAR(cValue)
+      IF hb_IsChar(cValue)
          _DataRichEditBoxSetValue(ControlName, ParentForm, cValue, nType)
       ELSE
          RetVal := _DataRichEditBoxGetValue(ControlName, ParentForm, nType)
@@ -7787,7 +7787,7 @@ FUNCTION HMG_GetForms(cTyp, lObj)
    LOCAL o
 #endif
 
-   cTyp := iif(HB_ISCHAR(cTyp), Upper(cTyp), "")
+   cTyp := iif(hb_IsChar(cTyp), Upper(cTyp), "")
    lHand := iif(hb_IsLogical(lObj), !lObj, .F.)
    lObj := _HMG_lOOPEnabled .AND. !Empty(lObj)
 

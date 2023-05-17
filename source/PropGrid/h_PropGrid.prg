@@ -542,7 +542,7 @@ FUNCTION PgCheckData(typePG, cValue, aData, mod)
       cErr := _HMG_PGLangError[4] + " INTEGER " + _HMG_PGLangError[2]
       IF hb_IsNumeric(cValue)
          cValue := LTrim(Str(Int(cValue)))
-      ELSEIF HB_ISCHAR(cValue)
+      ELSEIF hb_IsChar(cValue)
          IF IsDigit( cValue )
             cValue := LTrim(Str(Int(Val(cValue))))
          ELSE
@@ -556,7 +556,7 @@ FUNCTION PgCheckData(typePG, cValue, aData, mod)
       cErr := _HMG_PGLangError[4] + " DOUBLE " + _HMG_PGLangError[2]
       IF hb_IsNumeric(cValue)
          cValue := LTrim(REMRIGHT(Str(cValue, 16, 8), "0"))
-      ELSEIF HB_ISCHAR(cValue)
+      ELSEIF hb_IsChar(cValue)
          IF IsDigit( cValue ) .OR. Left(cValue, 1) == "-"
             cValue := LTrim(REMRIGHT(Str(Val(CharRem(" ", cValue)), 16, 8), "0"))
          ELSE
@@ -568,7 +568,7 @@ FUNCTION PgCheckData(typePG, cValue, aData, mod)
       IF !Empty(aData) .AND. ret
          IF hb_IsNumeric(aData)
             aData := LTrim(REMRIGHT(Str(aData, 16, 8), "0"))
-         ELSEIF HB_ISCHAR(cValue)
+         ELSEIF hb_IsChar(cValue)
             ret := .T.
          ENDIF
          IF Ret
@@ -1341,7 +1341,7 @@ FUNCTION PgIdentType( cType )
 
    LOCAL ItemType := PG_DEFAULT
 
-   IF HB_ISCHAR(cType)
+   IF hb_IsChar(cType)
       cType := AllTrim(Lower(cType))
       SWITCH cType
       CASE "category" ; ItemType := PG_CATEG    ; EXIT
@@ -1609,7 +1609,7 @@ FUNCTION AttrTran( xData, type )
 
    SWITCH Type
    CASE "C"
-      IF HB_ISCHAR(xData)
+      IF hb_IsChar(xData)
          RETURN xData
       ENDIF
       EXIT
@@ -1625,7 +1625,7 @@ FUNCTION AttrTran( xData, type )
             IF hb_IsNumeric(xdata[n])
                cData += AllTrim(Str(xData[n])) + IIF( n < Len(xData), ";", "" )
             ENDIF
-            IF HB_ISCHAR(xdata[n])
+            IF hb_IsChar(xdata[n])
                cData += xData[n] + IIF( n < Len(xData), ";", "" )
             ENDIF
             IF hb_IsLogical(xdata[n])
@@ -1975,7 +1975,7 @@ FUNCTION aVal2Str(aData, sep)
          IF hb_IsNumeric(adata[n])
             cData += AllTrim(Str(aData[n])) + IIF( n < Len(aData), sep, "" )
          ENDIF
-         IF HB_ISCHAR(adata[n])
+         IF hb_IsChar(adata[n])
             cData += aData[n] + IIF( n < Len(aData), sep, "" )
          ENDIF
          IF hb_IsLogical(adata[n])
@@ -2171,7 +2171,7 @@ FUNCTION ValueTran( cValue, ItType, cData, nSubIt )
 
    DEFAULT nSubIt := 0
 
-   IF HB_ISCHAR(cValue)
+   IF hb_IsChar(cValue)
       SWITCH ItType
       CASE PG_DEFAULT
       CASE PG_CATEG
@@ -2325,7 +2325,7 @@ FUNCTION FormatPropertyLine( cString )
             aLine[5] := .T.
          CASE n == 7 .AND. Lower( aLine[7] ) == "disableedit"
             aLine[7] := .T.
-         CASE n == 8 .AND. HB_ISCHAR(aLine[8])
+         CASE n == 8 .AND. hb_IsChar(aLine[8])
             aLine[8] := Val(aLine[8])
          ENDCASE
       ENDIF
@@ -2473,7 +2473,7 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
             cData := PG_GETITEM(hWndPG, hItem, PGI_DATA)
             bData := &( cData )
             cValue := Eval(bData, cValue)
-            IF cValue != NIL .AND. HB_ISCHAR(cValue)
+            IF cValue != NIL .AND. hb_IsChar(cValue)
                SetWindowText(hWnd, cValue)
                lChg := .T.
             ENDIF

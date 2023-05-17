@@ -31,7 +31,7 @@ CLASS THmgData
    METHOD Get( Key, Def ) INLINE hb_HGetDef( ::aKey, ::Upp( Key ), Def )
    METHOD Del( Key ) INLINE iif( ::Pos( Key ) > 0, hb_HDel( ::aKey, ::Upp( Key ) ), Nil )
    METHOD Pos( Key ) INLINE hb_HPos( ::aKey, ::Upp( Key ) )
-   METHOD Upp( Key ) INLINE iif( HB_ISCHAR( Key ) .AND. ::lUpp, Upper(Key), Key )
+   METHOD Upp( Key ) INLINE iif( hb_IsChar(Key) .AND. ::lUpp, Upper(Key), Key )
    METHOD Len() INLINE Len(::aKey)
 
    METHOD Keys() INLINE hb_HKeys( ::aKey )
@@ -323,7 +323,7 @@ METHOD ToString( xVal ) CLASS TIniData
    LOCAL cStr
    LOCAL lE := .F.
 
-   IF HB_ISCHAR( xVal )
+   IF hb_IsChar(xVal)
       cStr := Alltrim(xVal)
       IF !Empty(cStr)
          IF CRLF $ cStr
@@ -503,7 +503,7 @@ FUNCTION oDlu2Pixel( nPrcW, nPrcH, nFontSize )
          ASize(nPrcW, 2)
          nPrcH := nPrcW[2]
          nPrcW := nPrcW[1]
-      ELSEIF HB_ISCHAR ( nPrcW )
+      ELSEIF hb_IsChar(nPrcW)
          nPrcW := hb_ATokens(nPrcW, ",")
          ASize(nPrcW, 2)
          nPrcH := Val(nPrcW[2])
@@ -761,7 +761,7 @@ METHOD GetGaps( aGaps, oWnd ) CLASS TDlu2Pix
    LOCAL nGapH
    LOCAL n
 
-   If HB_ISCHAR( oWnd ); oWnd := _WindowObj(oWnd)
+   If hb_IsChar(oWnd); oWnd := _WindowObj(oWnd)
    EndIf
 
    oApp  := iif( Empty(oWnd), Self           , oWnd:App )
@@ -843,7 +843,7 @@ METHOD Breadth( nW, k ) CLASS TDlu2Pix
 
    LOCAL nWidth := 0
 
-   IF HB_ISCHAR( nW ) ; nW := ::TextWidth(nW)
+   IF hb_IsChar(nW) ; nW := ::TextWidth(nW)
    ENDIF
 
    WHILE nW > ( nWidth += ::W( hb_defaultValue(k, 0.5) ) )
@@ -1016,7 +1016,7 @@ CLASS TWndData
    ACCESS IsWindow INLINE .T.
    ACCESS IsControl INLINE .F.
    ACCESS Chr INLINE ::cChr
-   ASSIGN Chr( cChr ) INLINE ::cChr := iif( HB_ISCHAR( cChr ), cChr, ::cChr )
+   ASSIGN Chr( cChr ) INLINE ::cChr := iif( hb_IsChar(cChr), cChr, ::cChr )
 
    ACCESS Action INLINE ::lAction
    ASSIGN Action( lAction ) INLINE ::lAction := !( Empty(lAction) )
@@ -1061,7 +1061,7 @@ CLASS TWndData
    _METHOD GetObj4Type( cType, lEque )
    _METHOD GetObj4Name( cName )
 
-   METHOD GetObj(xName) INLINE iif( HB_ISCHAR( xName ), ::oName:Get( Upper(xName) ), ;
+   METHOD GetObj(xName) INLINE iif( hb_IsChar(xName), ::oName:Get( Upper(xName) ), ;
       ::oHand:Get( xName ) )
    // Destructor
    METHOD Destroy() INLINE ( ;
@@ -1253,11 +1253,11 @@ CLASS TCnlData INHERIT TWndData
    METHOD Set() INLINE ( iif( hb_IsObject(::oWin:oName), ::oWin:oName:Set( Upper(::cName), Self ), ), ;
       iif( hb_IsObject(::oWin:oHand), ::oWin:oHand:Set( ::nHandle, Self ), ) )
    METHOD Del() INLINE ( iif( hb_IsObject(::oWin:oName), ;
-      iif( HB_ISCHAR( ::cName ), ::oWin:oName:Del( Upper(::cName) ), ), ), ;
+      iif( hb_IsChar(::cName), ::oWin:oName:Del( Upper(::cName) ), ), ), ;
       iif( hb_IsObject(::oWin:oHand), ;
       iif( hb_IsNumeric(::nHandle), ::oWin:oHand:Del( ::nHandle ), ), ) )
 
-   METHOD Get( xName ) INLINE iif( HB_ISCHAR( xName ), ::oWin:oName:Get( Upper(xName) ), ;
+   METHOD Get( xName ) INLINE iif( hb_IsChar(xName), ::oWin:oName:Get( Upper(xName) ), ;
       ::oWin:oHand:Get( xName ) )
 
    METHOD GetListType() INLINE ::oWin:GetListType()
@@ -1488,10 +1488,10 @@ CLASS TKeyData
    ACCESS IsEvent INLINE ::lKey
    ASSIGN KeyUpper(lUpper) INLINE hb_HCaseMatch( ::aKey, !Empty(lUpper) )
    METHOD ISBLOCK( Key ) INLINE hb_IsBlock(::Get( Key ))
-   METHOD Json( cJson )  INLINE iif( HB_ISCHAR( cJson ), ( cJson := SubStr(cJson, At("{", cJson) ), ;
-                                                           cJson := Left(cJson, RAt("}", cJson) ), ;
-                                                           ::aKey := hb_jsonDecode( cJson ), Self ), ;
-                                                           hb_jsonEncode( ::aKey, !Empty(cJson) ) )
+   METHOD Json( cJson )  INLINE iif( hb_IsChar(cJson), ( cJson := SubStr(cJson, At("{", cJson) ), ;
+                                                         cJson := Left(cJson, RAt("}", cJson) ), ;
+                                                         ::aKey := hb_jsonDecode( cJson ), Self ), ;
+                                                         hb_jsonEncode( ::aKey, !Empty(cJson) ) )
    METHOD Keys()         INLINE hb_HKeys( ::aKey )
    METHOD Values()       INLINE hb_HValues( ::aKey )
    METHOD CloneHash()    INLINE hb_HClone( ::aKey )

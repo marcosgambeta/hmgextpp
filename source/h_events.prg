@@ -1007,7 +1007,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
             _HMG_nTopic := _HMG_aControlHelpId[i]
 
             _Execute(hWnd, "open", "hh.exe", ;
-               iif(HB_ISCHAR(_HMG_nTopic), Chr(34) + _HMG_ActiveHelpFile + "::/" + AllTrim(_HMG_nTopic) + Chr(34), ;
+               iif(hb_IsChar(_HMG_nTopic), Chr(34) + _HMG_ActiveHelpFile + "::/" + AllTrim(_HMG_nTopic) + Chr(34), ;
                iif(hb_IsNumeric(_HMG_nTopic) .AND. _HMG_nTopic > 0, "-mapid " + hb_ntos(_HMG_nTopic) + " " + ;
                _HMG_ActiveHelpFile, Chr(34) + _HMG_ActiveHelpFile + Chr(34))), , SW_SHOW)
 

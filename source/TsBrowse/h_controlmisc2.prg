@@ -46,7 +46,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
    ENDIF
 
    DEFAULT uAlias := Alias(), ;
-      cTitle := iif( HB_ISCHAR(uAlias), uAlias, "SBrowse" ), ;
+      cTitle := iif( hb_IsChar(uAlias), uAlias, "SBrowse" ), ;
       bSetUp := {|| .F. }, ;
       aCols := {}, ;
       nWidth := GetSysMetrics( 0 ) * .75, ;
@@ -54,7 +54,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
       lSql := .F., ;
       lModal := .F.
 
-   IF HB_ISCHAR(uAlias) .AND. Select( uAlias ) == 0 // TODO: SWITCH
+   IF hb_IsChar(uAlias) .AND. Select( uAlias ) == 0 // TODO: SWITCH
       nSaveSelect := Select()
       IF lSql
          cTable := GetUniqueName( "SqlTable" )
@@ -328,7 +328,7 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
    DEFAULT lSpecHd := oParam:lDrawSpecHd
    DEFAULT lSpecHd := .F.
 
-   IF HB_ISCHAR( uAlias ) ; dbSelectArea( uAlias )
+   IF hb_IsChar(uAlias) ; dbSelectArea( uAlias )
    ENDIF
 
    IF hb_IsArray(oParam:aFont)

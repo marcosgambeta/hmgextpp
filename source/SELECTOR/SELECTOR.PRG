@@ -100,7 +100,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
          nSelectFrom := xcnFromArea
 
-      ELSEIF HB_ISCHAR(xcnFromArea)
+      ELSEIF hb_IsChar(xcnFromArea)
 
          nSelectFrom := Select( xcnFromArea )
 

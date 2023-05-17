@@ -145,7 +145,7 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
 
    ENDIF
 #ifdef _PANEL_
-   IF HB_ISCHAR(cPanelParent) .AND. panel == .F.
+   IF hb_IsChar(cPanelParent) .AND. panel == .F.
       MsgMiniGuiError("Parent can be specified only for Panel windows.")
    ENDIF
 
@@ -183,7 +183,7 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
 #ifdef _PANEL_
    IF panel == .T.
 
-      IF HB_ISCHAR(cPanelParent)
+      IF hb_IsChar(cPanelParent)
          IF GetWindowType(cPanelParent) == "X"
             MsgMiniGuiError("Panel Windows Can't Have SplitChild Parent.")
          ENDIF
@@ -835,7 +835,7 @@ FUNCTION _SetThisFormInfo(i)
 
    ELSE
 
-      IF HB_ISCHAR(i)
+      IF hb_IsChar(i)
          i := GetFormIndex(i)
          lDefine := .F.
 #ifdef _OBJECT_
@@ -2690,7 +2690,7 @@ FUNCTION WaitWindow(cMessage, lNoWait, nWidth, nSize, cFont, aFontColor, aBackCo
       hb_default(@lNoWait, .F.)
       hb_default(@cFont, _HMG_DefaultFontName)
 
-      IF HB_ISCHAR(cMessage)
+      IF hb_IsChar(cMessage)
          IF CRLF $ cMessage
             cMessage := hb_ATokens(cMessage, CRLF)
          ELSEIF ";" $ cMessage

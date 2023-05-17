@@ -378,7 +378,7 @@ FUNCTION InitDialogComboBox(ParentName, ControlHandle, k)
 
    SetDropDownWidth(ControlHandle, ListWidth)
 
-   IF HB_ISCHAR(WorkArea)
+   IF hb_IsChar(WorkArea)
 
       IF Select (WorkArea) != 0
 

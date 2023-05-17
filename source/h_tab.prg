@@ -527,7 +527,7 @@ FUNCTION _BeginTabPage ( caption , image , tooltip )
    AAdd(_HMG_ActiveTabCaptions, caption)
    AAdd(_HMG_ActiveTabImages, image)
    // JR
-   IF HB_ISCHAR(tooltip)
+   IF hb_IsChar(tooltip)
 
       IF ValType(_HMG_ActiveTabTooltip) != "A"
 
@@ -625,7 +625,7 @@ FUNCTION _AddTabPage ( ControlName , ParentForm , Position , Caption , Image , t
       NEXT
       // JD 11/05/2006
       FOR EACH Image IN _HMG_aControlPicture[i]
-         IF HB_ISCHAR(Image) .AND. !Empty(Image)
+         IF hb_IsChar(Image) .AND. !Empty(Image)
             ImageFlag := .T.
             EXIT
          ENDIF
@@ -829,7 +829,7 @@ FUNCTION _DeleteTabPage ( ControlName , ParentForm , Position )
       // JD 11/05/2006
       FOR EACH NewValue IN _HMG_aControlPicture[i]
 
-         IF HB_ISCHAR(NewValue) .AND. !Empty(NewValue)
+         IF hb_IsChar(NewValue) .AND. !Empty(NewValue)
             ImageFlag := .T.
             EXIT
          ENDIF

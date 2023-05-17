@@ -132,7 +132,7 @@ FUNCTION _wPost( nEvent, nIndex, xParam )
          oWnd   := nIndex
          nIndex := NIL
       ENDIF
-   ELSEIF HB_ISCHAR( nIndex )
+   ELSEIF hb_IsChar(nIndex)
       oWnd   := _WindowObj(nIndex)
       nIndex := NIL
    ELSE
@@ -160,7 +160,7 @@ FUNCTION _wSend( nEvent, nIndex, xParam )
          oWnd   := nIndex
          nIndex := NIL
       ENDIF
-   ELSEIF HB_ISCHAR( nIndex )
+   ELSEIF hb_IsChar(nIndex)
       oWnd   := _WindowObj(nIndex)
       nIndex := NIL
    ELSE

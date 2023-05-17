@@ -161,7 +161,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
          w := GetWindowWidth(Controlhandle)
          h := GetWindowHeight(Controlhandle)
 
-         IF HB_ISCHAR(Value) .OR. ValType(Value) == "M"
+         IF hb_IsChar(Value) .OR. ValType(Value) == "M"
             IF !Empty(Value)
                SetWindowText(ControlHandle, value)
             ENDIF
@@ -199,7 +199,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
             AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], w, break, , , , _HMG_ActiveSplitBoxInverted)
             Containerhandle := _HMG_aFormReBarHandle[i]
 
-            IF HB_ISCHAR(Value) ;
+            IF hb_IsChar(Value) ;
                   .OR. ;
                   ValType(Value) == "M"
 
@@ -215,7 +215,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
 
          ControlHandle := InitEditBox ( ParentFormHandle, 0, x, y, w, h, "", 0 , maxlength , readonly, invisible, notabstop , novscroll , nohscroll )
 
-         IF HB_ISCHAR(Value) ;
+         IF hb_IsChar(Value) ;
                .OR. ;
                ValType(Value) == "M"
 

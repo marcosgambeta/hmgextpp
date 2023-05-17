@@ -258,7 +258,7 @@ METHOD New(cHeading, bData, cPicture, aColors, aAlign, nWidth, lBitMap, lEdit, b
    LOCAL lCombo    := .F.
    LOCAL lCheck    := .F.
 
-   IF HB_ISCHAR(bData)
+   IF hb_IsChar(bData)
       ::cField := bData
       bData    := NIL
    ENDIF
@@ -323,7 +323,7 @@ METHOD New(cHeading, bData, cPicture, aColors, aAlign, nWidth, lBitMap, lEdit, b
          cHeading := StrTran(cHeading, ";", Chr(13))
       ENDIF
    ENDSWITCH
-   IF HB_ISCHAR(cFooting) .AND. ";" $ cFooting
+   IF hb_IsChar(cFooting) .AND. ";" $ cFooting
       cFooting := StrTran(cFooting, ";", Chr(13))
    ENDIF
 
@@ -335,7 +335,7 @@ METHOD New(cHeading, bData, cPicture, aColors, aAlign, nWidth, lBitMap, lEdit, b
       cSpcHeading := ""
    ENDIF
 
-   IF HB_ISCHAR(lBitMap)
+   IF hb_IsChar(lBitMap)
       IF lBitMap == "BITMAP"
          lBitMap := .T.
       ELSEIF "CHECK" $ lBitMap
@@ -369,7 +369,7 @@ METHOD New(cHeading, bData, cPicture, aColors, aAlign, nWidth, lBitMap, lEdit, b
 
    FOR nEle := 1 TO 4
 
-      IF HB_ISCHAR(aTmpAlign[nEle])
+      IF hb_IsChar(aTmpAlign[nEle])
          uAlign := AScan({"LEFT", "CENTER", "RIGHT"}, {|c|Upper(aTmpAlign[nEle]) $ c}) - 1
          uAlign := IIf(uAlign < 0, DT_LEFT, uAlign)
          aTmpAlign[nEle] := uAlign
@@ -378,7 +378,7 @@ METHOD New(cHeading, bData, cPicture, aColors, aAlign, nWidth, lBitMap, lEdit, b
    NEXT
 
    FOR nEle := 1 TO 3
-      IF HB_ISCHAR(aTmp3D[nEle])
+      IF hb_IsChar(aTmp3D[nEle])
          uAlign := AScan({"T",".T.","SI","YES"}, {|c|Upper(aTmp3D[nEle]) == c})
          aTmp3D[nEle] := IIf(uAlign > 0, .T., .F.)
       ENDIF
@@ -770,7 +770,7 @@ METHOD ToWidth(uLen, nKfc, lHeader) CLASS TSColumn
       DEFAULT hFont := ::hFont
    ENDIF
 
-   IF HB_ISCHAR(uLen)
+   IF hb_IsChar(uLen)
       IF CRLF $ uLen
          cChr := ""
          FOR EACH uLen IN hb_ATokens(uLen)
@@ -781,7 +781,7 @@ METHOD ToWidth(uLen, nKfc, lHeader) CLASS TSColumn
       ELSE
          cChr := uLen
       ENDIF
-   ELSEIF !Empty(::cPicture) .AND. HB_ISCHAR(::cPicture)
+   ELSEIF !Empty(::cPicture) .AND. hb_IsChar(::cPicture)
       IF Empty(uLen)
          cChr := ::cPicture
          IF Left(cChr, 2) == "@K"
@@ -1051,7 +1051,7 @@ FUNCTION ComboWBlock(oBrw, uField, nCol, aList)
       RETURN NIL
    ENDIF
 
-   IF HB_ISCHAR(nCol)
+   IF hb_IsChar(nCol)
       nCol := oBrw:nColumn(nCol)  // 21.07.2015
    ENDIF
 
@@ -1080,7 +1080,7 @@ FUNCTION ComboWBlock(oBrw, uField, nCol, aList)
 
    IF oBrw:lIsDbf
 
-      IF HB_ISCHAR(uField)
+      IF hb_IsChar(uField)
 
          uField := (oBrw:cAlias)->(FieldPos(uField))
 
@@ -1101,7 +1101,7 @@ FUNCTION ComboWBlock(oBrw, uField, nCol, aList)
 
    ELSE  // editing an array uField is the array element number
 
-      IF HB_ISCHAR(uField)
+      IF hb_IsChar(uField)
          uField := oBrw:nColumn(uField)  // 21.07.2015
       ENDIF
 

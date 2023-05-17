@@ -140,7 +140,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
       nMaxLength := hb_ULen(DToC(Date()))
    CASE hb_IsLogical(Value)
       nMaxLength := 1
-   CASE HB_ISCHAR(Value)
+   CASE hb_IsChar(Value)
       nMaxLength := hb_ULen(Value)
    ENDCASE
 
@@ -351,7 +351,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    ENDIF
 
    IF lModifyGotFocus .AND. Empty(uGotFocus)
-      IF HB_ISCHAR(Value)
+      IF hb_IsChar(Value)
          _HMG_aControlGotFocusProcedure[k] := {||SendMessage(_HMG_aControlHandles[k], EM_SETSEL, 0, iif(Empty(Value), -1, Len(Trim((_HMG_aControlHeadClick[k]):Cargo))))}
       ELSEIF ValType(Value) $ "ND"
          _HMG_aControlGotFocusProcedure [k] := {|| SendMessage(_HMG_aControlHandles[k], EM_SETSEL, 0, -1) }
@@ -683,7 +683,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
          IF _IsControlDefined("StatusBar", _HMG_aFormNames[ParentHandle])
 
-            IF HB_ISCHAR(_HMG_DefaultStatusBarMessage) .AND. _IsOwnerDrawStatusBarItem( _HMG_aControlContainerHandle[i], 1 )
+            IF hb_IsChar(_HMG_DefaultStatusBarMessage) .AND. _IsOwnerDrawStatusBarItem( _HMG_aControlContainerHandle[i], 1 )
                SetProperty( _HMG_aFormNames [ParentHandle], "StatusBar", "Item", 1, _HMG_DefaultStatusBarMessage )
             ELSEIF ValType(cText := _GetDefinedStatusBarItemValue(_HMG_aControlParenthandles[i], 1)) == "C"
                SetProperty( _HMG_aFormNames [ParentHandle], "StatusBar", "Item", 1, cText )

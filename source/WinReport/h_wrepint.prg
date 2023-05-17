@@ -79,7 +79,7 @@ oWr:New()
 oWr:argm     := {_MainArea,_psd,db_arc,_prw}
 oWr:filename := filename
 
-if HB_ISCHAR(_nrec)
+if hb_IsChar(_nrec)
    atf :=_nrec
    oWr:nrec := 1
 else
@@ -2379,7 +2379,7 @@ local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
 
       if hb_IsNumeric(s_col); s_col:=zaps(s_col); endif
 
-      if HB_ISCHAR(P_F_E_G)
+      if hb_IsChar(P_F_E_G)
          ::aStat [ "P_F_E_G" ]  :=  (".T." $ upper(P_F_E_G))
       elseif hb_IsLogical(P_F_E_G)
          ::aStat [ "P_F_E_G" ]  := P_F_E_G
@@ -2415,7 +2415,7 @@ local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
          m->t_col   := Val(t_col)
       endif
 
-      if HB_ISCHAR(gftotal)    // sistemazione per conti su colonne multiple
+      if hb_IsChar(gftotal)    // sistemazione per conti su colonne multiple
          && make an array for gftotal
          gftotal := AscArr(upper(gftotal) )
       endif

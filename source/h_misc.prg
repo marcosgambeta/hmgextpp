@@ -376,7 +376,7 @@ FUNCTION uCharToVal(cText, cType)
    LOCAL cTrue := "|.T.|T|TRUE|YES|SI|"
    LOCAL cFalse := "|.F.|F|FALSE|NO|"
 
-   IF HB_ISCHAR(cType) .AND. Len(cType) == 1 .AND. ( cType := Upper(cType) ) $ "CDLMN"
+   IF hb_IsChar(cType) .AND. Len(cType) == 1 .AND. ( cType := Upper(cType) ) $ "CDLMN"
 
       IF cType == "M"
          cType := "C"
@@ -392,7 +392,7 @@ FUNCTION uCharToVal(cText, cType)
       cType := "D"
    ENDIF
 
-   IF HB_ISCHAR(cText)
+   IF hb_IsChar(cText)
 
       cText := AllTrim(cText)
 

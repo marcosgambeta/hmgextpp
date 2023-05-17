@@ -446,13 +446,13 @@ FUNCTION _BeginToolBarEx( name, parent, row, col, w, h, caption, ProcedureName, 
    hb_default(@wrap, .F.)
 
    IF imagelst != NIL
-      IF HB_ISCHAR(imagelst)
+      IF hb_IsChar(imagelst)
          imagelst := GetControlHandle(imagelst, parent)
       ENDIF
    ENDIF
 
    IF hotimagelst != NIL
-      IF HB_ISCHAR(hotimagelst)
+      IF hb_IsChar(hotimagelst)
          hotimagelst := GetControlHandle(hotimagelst, parent)
       ENDIF
    ENDIF

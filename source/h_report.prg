@@ -289,7 +289,7 @@ FUNCTION easyreport()
          wfield := afields[i]
          IF Type( afields[i] ) == "B"
             DO CASE
-            CASE HB_ISCHAR(afields[i])
+            CASE hb_IsChar(afields[i])
                wfield := Eval(&( afields[i]) )
             OTHERWISE
                wfield := Eval(afields[i])
