@@ -97,7 +97,7 @@ FUNCTION HMG_Alert( cMsg, aOptions, cTitle, nType, cIcoFile, nIcoSize, aBtnColor
    LOCAL nLineas
    LOCAL aIcon := { SYSICO_WARN, SYSICO_QUES, SYSICO_INFO, SYSICO_ERROR }
    LOCAL lFont := .F.
-   LOCAL lEmpty := ( Empty(aOptions) .OR. ISNUMERIC(aOptions) )
+   LOCAL lEmpty := ( Empty(aOptions) .OR. hb_IsNumeric(aOptions) )
    LOCAL cDelim
    LOCAL cOldDelim
    LOCAL cForm := "oDlg"
@@ -199,7 +199,7 @@ FUNCTION HMG_Alert_MaxLines( nLines )
    LOCAL cVarName := "_" + ProcName()
    LOCAL nOldLines := _AddNewGlobal( cVarName, 20 )
 
-   IF HB_ISNUMERIC(nLines) .AND. nLines > 0
+   IF hb_IsNumeric(nLines) .AND. nLines > 0
       _SetGetGlobal( cVarName, nLines )
    ENDIF
 
@@ -212,7 +212,7 @@ FUNCTION HMG_Alert_RowStart( nRow )
    LOCAL cVarName := "_" + ProcName()
    LOCAL nOldRow := _AddNewGlobal( cVarName, 0 )
 
-   IF HB_ISNUMERIC(nRow) .AND. nRow >= 0
+   IF hb_IsNumeric(nRow) .AND. nRow >= 0
       _SetGetGlobal( cVarName, nRow )
    ENDIF
 
@@ -263,7 +263,7 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
       cFont AS CHARACTER, ;
       nMaxLen AS NUMERIC
 #endif
-   IF ISNUMERIC(aOptions)
+   IF hb_IsNumeric(aOptions)
 
       nSeconds := aOptions
       aOptions := { "&OK" }

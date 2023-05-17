@@ -132,7 +132,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
       r := oGet:HandleEvent(nMsg, wParam, lParam)
 
-      IF HB_ISNUMERIC(r)
+      IF hb_IsNumeric(r)
          IF r != 0
             RETURN r
          ENDIF
@@ -242,7 +242,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                      IF hb_IsArray(_HMG_aControlFontColor[i, 2]) .AND. Len(_HMG_aControlFontColor[i, 2]) == 3
                         SetTextColor(wParam, _HMG_aControlFontColor[i, 2, 1], _HMG_aControlFontColor[i, 2, 2], _HMG_aControlFontColor[i, 2, 3])
-                     ELSEIF HB_ISNUMERIC(_HMG_aControlFontColor[i, 2]) .AND. Len(_HMG_aControlFontColor[i]) == 3
+                     ELSEIF hb_IsNumeric(_HMG_aControlFontColor[i, 2]) .AND. Len(_HMG_aControlFontColor[i]) == 3
                         SetTextColor(wParam, _HMG_aControlFontColor[i, 1], _HMG_aControlFontColor[i, 2], _HMG_aControlFontColor[i, 3])
                      ENDIF
 
@@ -259,7 +259,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                      ELSE
 
-                        IF HB_ISNUMERIC(_HMG_aControlBkColor[i, 2]) .AND. Len(_HMG_aControlBkColor[i]) == 3
+                        IF hb_IsNumeric(_HMG_aControlBkColor[i, 2]) .AND. Len(_HMG_aControlBkColor[i]) == 3
 
                            SetBkColor(wParam, _HMG_aControlBkColor[i, 1], _HMG_aControlBkColor[i, 2], _HMG_aControlBkColor[i, 3])
                            DeleteObject(_HMG_aControlBrushHandle[i])
@@ -541,7 +541,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             IF _HMG_aControlFontColor[i] != NIL
 
-               IF HB_ISNUMERIC(_HMG_aControlFontColor[i, 1])
+               IF hb_IsNumeric(_HMG_aControlFontColor[i, 1])
 
                   SetTextColor(wParam, _HMG_aControlFontColor[i][1], _HMG_aControlFontColor[i][2], _HMG_aControlFontColor[i][3])
 
@@ -569,7 +569,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             IF _HMG_aControlBkColor[i] != NIL
 
-               IF HB_ISNUMERIC(_HMG_aControlBkColor[i, 1])
+               IF hb_IsNumeric(_HMG_aControlBkColor[i, 1])
 
                   SetBkColor(wParam, _HMG_aControlBkColor[i][1], _HMG_aControlBkColor[i][2], _HMG_aControlBkColor[i][3])
                   DeleteObject(_HMG_aControlBrushHandle[i])
@@ -1008,7 +1008,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             _Execute(hWnd, "open", "hh.exe", ;
                iif(HB_ISCHAR(_HMG_nTopic), Chr(34) + _HMG_ActiveHelpFile + "::/" + AllTrim(_HMG_nTopic) + Chr(34), ;
-               iif(HB_ISNUMERIC(_HMG_nTopic) .AND. _HMG_nTopic > 0, "-mapid " + hb_ntos(_HMG_nTopic) + " " + ;
+               iif(hb_IsNumeric(_HMG_nTopic) .AND. _HMG_nTopic > 0, "-mapid " + hb_ntos(_HMG_nTopic) + " " + ;
                _HMG_ActiveHelpFile, Chr(34) + _HMG_ActiveHelpFile + Chr(34))), , SW_SHOW)
 
          ELSE
@@ -1896,7 +1896,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
          r := oGet:HandleEvent(nMsg, wParam, lParam)
 
-         IF HB_ISNUMERIC(r)
+         IF hb_IsNumeric(r)
             IF r != 0
                RETURN r
             ENDIF
@@ -2411,7 +2411,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
       oGet := GetObjectByHandle(GetFocus())
       IF hb_IsObject(oGet)
          r := oGet:HandleEvent(nMsg, wParam, lParam)
-         IF HB_ISNUMERIC(r)
+         IF hb_IsNumeric(r)
             IF r != 0
                RETURN r
             ENDIF
@@ -2728,7 +2728,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
          r := oGet:HandleEvent(nMsg, wParam, lParam)
 
-         IF HB_ISNUMERIC(r)
+         IF hb_IsNumeric(r)
             IF r != 0
                RETURN r
             ENDIF
@@ -3977,7 +3977,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 #else
             Tmp := __mvGetDef(TmpStr)
 #endif
-            IF HB_ISNUMERIC(Tmp)
+            IF hb_IsNumeric(Tmp)
 
 #ifdef _NAMES_LIST_
                _SetNameList(TmpStr, --Tmp)
@@ -4412,7 +4412,7 @@ STATIC FUNCTION _GetFocusedControlType(nFormHandle)
 
       IF _HMG_aControlParentHandles[i] == nFormHandle
 
-         IF HB_ISNUMERIC(hControl) .AND. hControl == nHandle // TODO:
+         IF hb_IsNumeric(hControl) .AND. hControl == nHandle // TODO:
             cType := _HMG_aControlType[i]
             EXIT
          ENDIF

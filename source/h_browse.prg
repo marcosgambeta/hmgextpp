@@ -125,7 +125,7 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
       IF Len(aJust) < Len(aFields)
          ASize(aJust, Len(aFields))
       ENDIF 
-      AEval(aJust, { |x, i| aJust[i] := iif( HB_ISNUMERIC(x), x, 0 ) })
+      AEval(aJust, { |x, i| aJust[i] := iif( hb_IsNumeric(x), x, 0 ) })
    ENDIF
    /* end code borrowed */
    // aPict array verify
@@ -662,7 +662,7 @@ PROCEDURE _BrowseUpdate( ControlName, ParentName, z )
             image := iif( &cTemp, 1, 0 )
             EXIT
          CASE "U"
-            image := iif( HB_ISNUMERIC(&cTemp), &cTemp, iif( hb_IsLogical(&cTemp), iif( &cTemp, 1, 0 ), 0 ) )
+            image := iif( hb_IsNumeric(&cTemp), &cTemp, iif( hb_IsLogical(&cTemp), iif( &cTemp, 1, 0 ), 0 ) )
             EXIT
          DEFAULT
             image := 0
@@ -1679,7 +1679,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
          // add a length to aFormats
          IF HB_ISCHAR(aInitValues[z])
             AAdd(aFormats, Max(1, Len(aInitValues[z])))
-         ELSEIF HB_ISNUMERIC(aInitValues[z])
+         ELSEIF hb_IsNumeric(aInitValues[z])
             aInitValues [z] := Str(aInitValues[z]) // type conversion doesn't matter, field should be readonly
             AAdd(aFormats, Max(1, Len(aInitValues[z])))
          ELSE
@@ -1775,7 +1775,7 @@ FUNCTION _EditRecord(Title, aLabels, aValues, aFormats, row, col, aValid, TmpNam
 
       IF HB_ISCHAR(aValues[i])
 
-         IF HB_ISNUMERIC(aFormats[i])
+         IF hb_IsNumeric(aFormats[i])
 
             IF aFormats[i] > 32
                e++
@@ -1866,7 +1866,7 @@ FUNCTION _EditRecord(Title, aLabels, aValues, aFormats, row, col, aValid, TmpNam
             EXIT
          CASE "C"
 
-            IF HB_ISNUMERIC(aFormats[i])
+            IF hb_IsNumeric(aFormats[i])
                IF  aFormats[i] <= 32
                   @ ControlRow , 120 GETBOX &CN  OF _Split_1 VALUE aValues[i] WIDTH 140 FONT "Arial" SIZE 10 PICTURE Replicate( "X", aFormats[i] );
                      ON GOTFOCUS ( LN := _Split_1.FocusedControl, ;
@@ -2573,7 +2573,7 @@ STATIC PROCEDURE _InPlaceEditSave(i, FieldName, Alias, r, lock, ControlType, aIn
 
    ENDIF
 
-   IF ISNUMERIC(r)
+   IF hb_IsNumeric(r)
 
       IF ControlType == "L"
          r := ( r == 1 )

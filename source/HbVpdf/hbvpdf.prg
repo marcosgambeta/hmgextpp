@@ -2597,7 +2597,7 @@ STATIC FUNCTION Array2File( cFile, aRay, nDepth, hFile )
    LOCAL nBytes := 0
    LOCAL i
 
-   nDepth := iif( HB_ISNUMERIC(nDepth), nDepth, 0 )
+   nDepth := iif( hb_IsNumeric(nDepth), nDepth, 0 )
    IF hFile == NIL
       IF ( hFile := FCreate( cFile, FC_NORMAL ) ) == F_ERROR
          RETURN nBytes
@@ -2623,7 +2623,7 @@ STATIC FUNCTION WriteData( hFile, xData )
 
    IF HB_ISSTRING( xData ) // TODO: SWITCH
       cData += I2Bin(Len(xData)) + xData
-   ELSEIF HB_ISNUMERIC(xData)
+   ELSEIF hb_IsNumeric(xData)
       cData += I2Bin(Len(hb_ntos(xData))) + hb_ntos(xData)
    ELSEIF hb_IsDate(xData)
       cData += I2Bin(8) + DToS(xData)

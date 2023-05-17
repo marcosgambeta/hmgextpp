@@ -354,7 +354,7 @@ Static Function memosay(arg1,arg2,argm1,argl1,argf1,argsize,abold,aita,aunder,as
    , astrike;
    , iif(hb_IsArray(argcolor1), .T.,.F.) ;
    , iif(valtype(argf1)=="C", .T.,.F.) ;
-   , iif(HB_ISNUMERIC(argsize), .T.,.F.) ;
+   , iif(hb_IsNumeric(argsize), .T.,.F.) ;
    , argalign )
    oWr:aStat [ "Yes_Memo" ] :=.T.
  else
@@ -369,7 +369,7 @@ Static Function memosay(arg1,arg2,argm1,argl1,argf1,argsize,abold,aita,aunder,as
          , arrymemo[mcl], abold, aita, aunder, astrike;
          , iif(hb_IsArray(argcolor1), .T.,.F.) ;
          , iif(valtype(argf1)=="C", .T.,.F.) ;
-         , iif(HB_ISNUMERIC(argsize), .T.,.F.) ;
+         , iif(hb_IsNumeric(argsize), .T.,.F.) ;
          , argalign )
      next
      if !Typa

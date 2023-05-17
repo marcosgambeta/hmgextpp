@@ -223,7 +223,7 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
    IF aColors != NIL .AND. hb_IsArray(aColors)
       IF hb_IsArray(aColors) .AND. Len(aColors) > 0 .AND. hb_IsArray(aColors[1])
          FOR EACH aClr IN aColors
-            IF HB_ISNUMERIC(aClr[1]) .AND. aClr[1] > 0 .AND. aClr[1] <= Len(aTmpColor)
+            IF hb_IsNumeric(aClr[1]) .AND. aClr[1] > 0 .AND. aClr[1] <= Len(aTmpColor)
                aTmpColor[aClr[1]] := aClr[2]
             ENDIF
          NEXT
@@ -509,7 +509,7 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
             ENDIF
          ENDIF
 
-         IF HB_ISNUMERIC(nColNumber)
+         IF hb_IsNumeric(nColNumber)
             nColNumber := iif( nColNumber > 0 .AND. nColNumber <= n, nColNumber, 1 )
 
             oBrw:InsColNumber( 80, nColNumber )
@@ -518,7 +518,7 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
             oBrw:nFreeze := nColNumber
             oBrw:lLockFreeze := .T.
 
-            IF HB_ISNUMERIC(nW) .AND. nW > 0
+            IF hb_IsNumeric(nW) .AND. nW > 0
                oBrw:GetColumn( nColNumber ):nWidth := nW
             ENDIF
          ENDIF
@@ -1468,7 +1468,7 @@ METHOD New( cControlName, nRow, nCol, nWidth, nHeight, bLine, aHeaders, aColSize
    IF aColors != NIL
       IF hb_IsArray(aColors) .AND. Len(aColors) > 0 .AND. hb_IsArray(aColors[1])
          FOR EACH aClr IN aColors
-            IF HB_ISNUMERIC(aClr[1]) .AND. aClr[1] > 0 .AND. aClr[1] <= Len(aTmpColor)
+            IF hb_IsNumeric(aClr[1]) .AND. aClr[1] > 0 .AND. aClr[1] <= Len(aTmpColor)
                aTmpColor[aClr[1]] := aClr[2]
             ENDIF
          NEXT
@@ -1849,7 +1849,7 @@ METHOD FastDrawClear( cCell ) CLASS TSBrowse
 
    DEFAULT cCell := ::nAtPos
 
-   IF ISNUMERIC(cCell) ; cCell := hb_ntos( cCell )
+   IF hb_IsNumeric(cCell) ; cCell := hb_ntos( cCell )
    ENDIF
 
    IF !::lFastDrawCell
@@ -2083,12 +2083,12 @@ RETURN xVal
 
 METHOD ToolTipSet( nToolTipTime, nToolTipLen ) CLASS TSBrowse
 
-   IF ISNUMERIC(nToolTipLen) .AND. nToolTipLen > 0
+   IF hb_IsNumeric(nToolTipLen) .AND. nToolTipLen > 0
       ::nToolTipLen := nToolTipLen
       TTM_SetMaxTipWidth(hToolTip, ::nToolTipLen)
    ENDIF
 
-   IF ISNUMERIC(nToolTipTime) .AND. nToolTipTime > 0
+   IF hb_IsNumeric(nToolTipTime) .AND. nToolTipTime > 0
       ::nToolTipTime := nToolTipTime
       TTM_SetDelayTime( hToolTip, TTDT_AUTOPOP, ::nToolTipTime * 1000 )
    ENDIF
@@ -2251,7 +2251,7 @@ METHOD nBackSupHdGet( nCol, aSuperHead ) CLASS TSBrowse
    LOCAL xVal
    LOCAL nPos := 0
 
-   IF HB_ISNUMERIC(aSuperHead)
+   IF hb_IsNumeric(aSuperHead)
       nPos := aSuperHead
       aSuperHead := NIL
    ENDIF
@@ -2948,11 +2948,11 @@ METHOD Default() CLASS TSBrowse
 
       FOR nI := 1 TO nElements
 
-         IF HB_ISNUMERIC(aFields[nI]) .OR. ValType(aFields[nI]) == "D"
+         IF hb_IsNumeric(aFields[nI]) .OR. ValType(aFields[nI]) == "D"
             aJustify[nI] := 2
          ELSEIF hb_IsBlock(aFields[nI])
 
-            IF HB_ISNUMERIC(Eval(aFields[nI])) .OR. ValType(Eval(aFields[nI])) == "D"
+            IF hb_IsNumeric(Eval(aFields[nI])) .OR. ValType(Eval(aFields[nI])) == "D"
 
                aJustify[nI] := 2
             ELSE
@@ -3761,7 +3761,7 @@ METHOD DrawHeaders( lFooters, lDrawCell ) CLASS TSBrowse
 
          nLineStyle := 1
 
-         IF HB_ISNUMERIC(oColumn:nHLineStyle)
+         IF hb_IsNumeric(oColumn:nHLineStyle)
             nLineStyle := oColumn:nHLineStyle
          ENDIF
 
@@ -3864,7 +3864,7 @@ METHOD DrawHeaders( lFooters, lDrawCell ) CLASS TSBrowse
             cHeading := hb_ntos( nJ - iif( ::lSelector, 1, 0 ) )
             IF !Empty(oColumn:cSpcHeading)
                uTmp := iif( hb_IsBlock(oColumn:cSpcHeading), Eval(oColumn:cSpcHeading, nJ, Self), oColumn:cSpcHeading )
-               cHeading := iif( HB_ISNUMERIC(uTmp), hb_ntos( uTmp ), iif( HB_ISCHAR( uTmp ), uTmp, "" ) )
+               cHeading := iif( hb_IsNumeric(uTmp), hb_ntos( uTmp ), iif( HB_ISCHAR( uTmp ), uTmp, "" ) )
             ENDIF
             IF nI == nBegin .AND. ::lSelector .OR. nI == nLastCol
                cHeading := ""
@@ -3906,7 +3906,7 @@ METHOD DrawHeaders( lFooters, lDrawCell ) CLASS TSBrowse
 
          nLineStyle := 1
 
-         IF HB_ISNUMERIC(oColumn:nSLineStyle)
+         IF hb_IsNumeric(oColumn:nSLineStyle)
             nLineStyle := oColumn:nSLineStyle
          ENDIF
          // SergKis 11.11.21
@@ -4024,7 +4024,7 @@ METHOD DrawHeaders( lFooters, lDrawCell ) CLASS TSBrowse
 
          nLineStyle := 1
 
-         IF HB_ISNUMERIC(oColumn:nFLineStyle)
+         IF hb_IsNumeric(oColumn:nFLineStyle)
             nLineStyle := oColumn:nFLineStyle
          ENDIF
          // SergKis 11.11.21
@@ -4297,7 +4297,7 @@ METHOD DrawLine( xRow, lDrawCell ) CLASS TSBrowse
             lCell := hb_IsObject(oCell)
          ENDIF
 
-         nLineStyle := iif( HB_ISNUMERIC(oColumn:nLineStyle), oColumn:nLineStyle, ::nLineStyle )
+         nLineStyle := iif( hb_IsNumeric(oColumn:nLineStyle), oColumn:nLineStyle, ::nLineStyle )
          cPicture := ::cPictureGet( oColumn, nJ )
          hFont := ::hFontGet( oColumn, nJ )
          cColAls := iif( "->" $ oColumn:cField, NIL, oColumn:cAlias )
@@ -4337,7 +4337,7 @@ METHOD DrawLine( xRow, lDrawCell ) CLASS TSBrowse
          IF nJ == ::nColSel .AND. ::uBmpSel != NIL .AND. lSelected
             uBmpCell := ::uBmpSel
             nAlign := nMakeLong( LoWord(nAlign), ::nAligBmp )
-         ELSEIF oColumn:lBitMap .AND. HB_ISNUMERIC(uData)
+         ELSEIF oColumn:lBitMap .AND. hb_IsNumeric(uData)
             aBitMaps := iif( hb_IsArray(oColumn:aBitMaps), oColumn:aBitMaps, ::aBitMaps )
             IF !Empty(aBitMaps) .AND. uData > 0 .AND. uData <= Len(aBitMaps)
                uBmpCell := aBitMaps[uData]
@@ -4559,7 +4559,7 @@ METHOD CellMarginLeftRight(nJ, cData, oColumn, nAlign, lMultiLine, nOut) CLASS T
 
    nCellMarginLR := IIf( hb_IsBlock(uTmp), Eval(uTmp, nJ, Self, oColumn, nAlign, nOut), uTmp )
 
-   IF HB_ISNUMERIC ( nCellMarginLR ) ; cBuf := Space( nCellMarginLR )
+   IF hb_IsNumeric(nCellMarginLR) ; cBuf := Space( nCellMarginLR )
    ELSEIF HB_ISCHAR( nCellMarginLR ) ; cBuf := nCellMarginLR
    ENDIF
 
@@ -4822,7 +4822,7 @@ METHOD DrawSelect( xRow, lDrawCell ) CLASS TSBrowse
             lCell := hb_IsObject(oCell)
          ENDIF
 
-         nLineStyle := iif( HB_ISNUMERIC(oColumn:nLineStyle), oColumn:nLineStyle, ::nLineStyle )
+         nLineStyle := iif( hb_IsNumeric(oColumn:nLineStyle), oColumn:nLineStyle, ::nLineStyle )
          hFont := ::hFontGet( oColumn, nJ )
          lAdjBmp := oColumn:lAdjBmp
          nAlign := oColumn:nAlign
@@ -4876,7 +4876,7 @@ METHOD DrawSelect( xRow, lDrawCell ) CLASS TSBrowse
             IF nJ == ::nColSel .AND. ::uBmpSel != NIL .AND. lSelected
                uBmpCell := ::uBmpSel
                nAlign := nMakeLong( LoWord(nAlign), ::nAligBmp )
-            ELSEIF oColumn:lBitMap .AND. HB_ISNUMERIC(uData)
+            ELSEIF oColumn:lBitMap .AND. hb_IsNumeric(uData)
                aBitMaps := iif( hb_IsArray(oColumn:aBitMaps), oColumn:aBitMaps, ::aBitMaps )
                IF !Empty(aBitMaps) .AND. uData > 0 .AND. uData <= Len(aBitMaps)
                   uBmpCell := aBitMaps[uData]
@@ -4908,7 +4908,7 @@ METHOD DrawSelect( xRow, lDrawCell ) CLASS TSBrowse
                nClrBack := ::GetValProp( oColumn:nClrFocuBack, nClrPane, nJ, ::nAt )
                IF !Empty(oColumn:cName) .AND. oColumn:cName == "oPhant"
                   nClrBack := nClrPane
-               ELSEIF HB_ISNUMERIC(nClrBack) .AND. nClrBack < 0
+               ELSEIF hb_IsNumeric(nClrBack) .AND. nClrBack < 0
                   nClrBack *= -1
                ENDIF
             ELSE
@@ -4930,7 +4930,7 @@ METHOD DrawSelect( xRow, lDrawCell ) CLASS TSBrowse
 
             nClrBack := ::GetValProp( nClrBack, nClrBack, nJ, ::nAt )
 
-            IF HB_ISNUMERIC(nClrBack) .AND. nClrBack < 0
+            IF hb_IsNumeric(nClrBack) .AND. nClrBack < 0
                nCursor := Abs( nClrBack )
                nClrBack := ::GetValProp( oColumn:nClrBack, nClrPane, nJ, ::nAt )
             ELSE
@@ -5729,7 +5729,7 @@ METHOD Edit( uVar, nCell, nKey, nKeyFlags, cPicture, bValid, nClrFore, nClrBack 
             uValue := Max(1, AScan(aGet, Upper(Chr(nKey))))
          ENDIF
 
-         IF HB_ISNUMERIC(::bDataEval(oCol))
+         IF hb_IsNumeric(::bDataEval(oCol))
             nWidth := 0
             AEval(aGet, {| x | nWidth := Max(Len(x), nWidth) })
             nWidth := Max(GetTextWidth(0, Replicate("B", nWidth), hFont), oCol:nWidth)
@@ -5857,7 +5857,7 @@ METHOD Edit( uVar, nCell, nKey, nKeyFlags, cPicture, bValid, nClrFore, nClrBack 
          oGet := oCol:oEdit:oGet
          FOR nK := 1 TO Len(oCol:aKeyEvent)
             aKey := oCol:aKeyEvent[nK]
-            IF HB_ISNUMERIC(aKey[1])
+            IF hb_IsNumeric(aKey[1])
                oGet:SetKeyEvent( aKey[1], aKey[2], aKey[3], aKey[4], aKey[5] )
             ENDIF
          NEXT
@@ -5976,10 +5976,10 @@ METHOD EditExit( nCol, nKey, uVar, bValid, lLostFocus ) CLASS TSBrowse
          IF cType == "L"
             uValue := ( oCol:oEdit:nAt == 1 )
             uVar := iif( HB_ISCHAR(uVar), ( AScan(oCol:aItems, uVar) == 1 ), ;
-               iif( HB_ISNUMERIC(uVar), ( uVar == 1 ), uVar ) )
+               iif( hb_IsNumeric(uVar), ( uVar == 1 ), uVar ) )
          ELSE
             IF oCol:aData != NIL
-               IF HB_ISNUMERIC(uValue) .AND. HB_ISCHAR(uVar)
+               IF hb_IsNumeric(uValue) .AND. HB_ISCHAR(uVar)
                   uVar := AScan(oCol:aData, uVar)
                ENDIF
                ::lChanged := ( oCol:oEdit:nAt != uVar ) // JP 69
@@ -6539,7 +6539,7 @@ METHOD Excel2( cFile, lActivate, hProgress, cTitle, lSave, bPrintRow ) CLASS TSB
 
          nPic := iif( !Empty(::aColumns[nCol]:cPicture), anPIC[nCol], Nil )
 
-         IF HB_ISNUMERIC(uData)
+         IF hb_IsNumeric(uData)
             FWrite(nHandle, BiffRec( 3, uData, nLine - 1, nCol - 1, .T., nAlign + 1, nPic, Max(0, nFont - 1) ))
          ELSE
             uData := Trim(StrTran(cValToChar(uData), CRLF, Chr( 10 )))
@@ -7112,7 +7112,7 @@ METHOD ExpLocate( cExp, nCol ) CLASS TSBrowse
    ENDIF
 
    IF ::lIsArr .AND. ::bSetGet != NIL
-      IF HB_ISNUMERIC(Eval(::bSetGet))
+      IF hb_IsNumeric(Eval(::bSetGet))
          Eval(::bSetGet, ::nAt)
       ELSEIF ::nLen > 0
          Eval(::bSetGet, ::aArray[::nAt, 1])
@@ -7400,7 +7400,7 @@ METHOD ExpSeek( cExp, lSoft ) CLASS TSBrowse
    ENDIF
 
    IF ::lIsArr .AND. ::bSetGet != NIL
-      IF HB_ISNUMERIC(Eval(::bSetGet))
+      IF hb_IsNumeric(Eval(::bSetGet))
          Eval(::bSetGet, ::nAt)
       ELSEIF ::nLen > 0
          Eval(::bSetGet, ::aArray[::nAt, 1])
@@ -7504,7 +7504,7 @@ METHOD AdjColumns( aColumns, nDelta ) CLASS TSBrowse
       AEval(aColumns, {| xv, nn | xv := nn, aColumns[nn] := xv })
    ENDIF
 
-   IF HB_ISNUMERIC(aColumns)
+   IF hb_IsNumeric(aColumns)
       AAdd(aCol, aColumns)
    ELSEIF HB_ISCHAR( aColumns )
       AAdd(aCol, ::nColumn( aColumns ))
@@ -7626,7 +7626,7 @@ METHOD GoBottom() CLASS TSBrowse
       ::Refresh( ::nLen < nLines )
 
       IF ::lIsArr .AND. ::bSetGet != NIL
-         IF HB_ISNUMERIC(Eval(::bSetGet))
+         IF hb_IsNumeric(Eval(::bSetGet))
             Eval(::bSetGet, ::nAt)
          ELSEIF ::nLen > 0
             Eval(::bSetGet, ::aArray[::nAt, 1])
@@ -8273,7 +8273,7 @@ METHOD GoPos( nNewRow, nNewCol ) CLASS TSBrowse
    ::lHitTop := ::nAt == 1
 
    IF ::lIsArr .AND. ::bSetGet != NIL
-      IF HB_ISNUMERIC(Eval(::bSetGet))
+      IF hb_IsNumeric(Eval(::bSetGet))
          Eval(::bSetGet, ::nAt)
       ELSEIF ::nLen > 0
          Eval(::bSetGet, ::aArray[::nAt, 1])
@@ -8527,7 +8527,7 @@ METHOD GoTop() CLASS TSBrowse
       ENDIF
 
       IF ::lIsArr .AND. ::bSetGet != NIL
-         IF HB_ISNUMERIC(Eval(::bSetGet))
+         IF hb_IsNumeric(Eval(::bSetGet))
             Eval(::bSetGet, ::nAt)
          ELSEIF ::nLen > 0
             Eval(::bSetGet, ::aArray[::nAt, 1])
@@ -8777,7 +8777,7 @@ METHOD KeyDown( nKey, nFlags ) CLASS TSBrowse
 
       uReturn := Eval(::bUserKeys, nKey, nFlags, Self)
 
-      IF uReturn != NIL .AND. HB_ISNUMERIC(uReturn) .AND. uReturn < 200 // interpreted as a virtual key code to
+      IF uReturn != NIL .AND. hb_IsNumeric(uReturn) .AND. uReturn < 200 // interpreted as a virtual key code to
          nKey := uReturn // change the original key pressed
       ELSEIF uReturn != NIL .AND. hb_IsLogical(uReturn) .AND. !uReturn
          ::nUserKey := 255 // want to inhibit the KeyDown and KeyChar Methods for key pressed
@@ -8999,7 +8999,7 @@ METHOD UserKeys( nKey, bKey, lCtrl, lShift ) CLASS TSBrowse
 
    IF hb_IsBlock(bKey) // set a codeblock on key in a hash
       IF !Empty(nKey)
-         IF HB_ISNUMERIC(nKey)
+         IF hb_IsNumeric(nKey)
             cKey := hb_ntos( nKey )
             cKey += iif( Empty(lCtrl), "", "#" )
             cKey += iif( Empty(lShift), "", "^" )
@@ -9010,7 +9010,7 @@ METHOD UserKeys( nKey, bKey, lCtrl, lShift ) CLASS TSBrowse
       hb_HSet( ::aUserKeys, cKey, bKey )
       ::lUserKeys := ( Len(::aUserKeys) > 0 )
    ELSE // execute a codeblock by key from a hash
-      IF HB_ISNUMERIC(nKey)
+      IF hb_IsNumeric(nKey)
          cKey := hb_ntos( nKey )
       ELSEIF HB_ISCHAR( nKey )
          cKey := nKey
@@ -9239,7 +9239,7 @@ METHOD LButtonDown( nRowPix, nColPix, nKeyFlags ) CLASS TSBrowse
       ENDIF
    ENDIF
 
-   IF lHeader .AND. HB_ISNUMERIC(nKeyFlags)
+   IF lHeader .AND. hb_IsNumeric(nKeyFlags)
       lMChange := ::lMChange
       ::lMChange := .F.
 
@@ -10583,7 +10583,7 @@ METHOD LoadRecordSet() CLASS TSBrowse
          ::Proper( ::oRSet:Fields( nE ):Name ) )
 
       nAlign := iif( ::aJustify != NIL .AND. Len(::aJustify) >= n, ::aJustify[n], ;
-         iif( HB_ISNUMERIC(::oRSet:Fields(nE):Value), 2, ;
+         iif( hb_IsNumeric(::oRSet:Fields(nE):Value), 2, ;
          iif( hb_IsLogical(::oRSet:Fields(nE):Value), 1, 0 ) ) )
 
       nAlign := iif( hb_IsLogical(nAlign), iif( nAlign, 2, 0 ), ;
@@ -13381,14 +13381,14 @@ METHOD SetArrayTo( aArray, uFontHF, aHead, aSizes, uFooter, aPicture, aAlign, aN
       aAlign := iif( ISARRAY(::aJustify), AClone( ::aJustify ), {} ), ;
       aName := {}
 
-   IF HB_ISNUMERIC(uFontHF) .AND. uFontHF != 0
+   IF hb_IsNumeric(uFontHF) .AND. uFontHF != 0
       hFontHead := uFontHF
       hFontFoot := uFontHF
    ELSEIF hb_IsArray(uFontHF) .AND. Len(uFontHF) >= 2
-      IF HB_ISNUMERIC(uFontHF[1]) .AND. uFontHF[1] != 0
+      IF hb_IsNumeric(uFontHF[1]) .AND. uFontHF[1] != 0
          hFontHead := uFontHF[1]
       ENDIF
-      IF HB_ISNUMERIC(uFontHF[2]) .AND. uFontHF[2] != 0
+      IF hb_IsNumeric(uFontHF[2]) .AND. uFontHF[2] != 0
          hFontFoot := uFontHF[2]
       ENDIF
    ENDIF
@@ -13567,7 +13567,7 @@ METHOD SetArrayTo( aArray, uFontHF, aHead, aSizes, uFooter, aPicture, aAlign, aN
          ENDIF
       ENDIF
 
-      IF HB_ISNUMERIC(aAlign[nI]) .AND. ( aAlign[nI] == DT_LEFT .OR. ;
+      IF hb_IsNumeric(aAlign[nI]) .AND. ( aAlign[nI] == DT_LEFT .OR. ;
             aAlign[nI] == DT_CENTER .OR. ;
             aAlign[nI] == DT_RIGHT )
          nAlign := aAlign[nI]
@@ -13601,7 +13601,7 @@ METHOD SetArrayTo( aArray, uFontHF, aHead, aSizes, uFooter, aPicture, aAlign, aN
       nMax := Max(nMax, nFooter)
 
       IF !Empty(aSizes)
-         IF HB_ISNUMERIC(aSizes[nI]) .AND. aSizes[nI] > 0
+         IF hb_IsNumeric(aSizes[nI]) .AND. aSizes[nI] > 0
             nMax := aSizes[nI]
          ELSEIF HB_ISCHAR(aSizes[nI])
             nMax := GetTextWidth(0, aSizes[nI], hFont)
@@ -13711,7 +13711,7 @@ METHOD SetColor( xColor1, xColor2, nColumn ) CLASS TSBrowse
       RETURN NIL
    ENDIF
 
-   IF HB_ISNUMERIC(xColor1) .AND. HB_ISNUMERIC(xColor2) .AND. nColumn == 0
+   IF hb_IsNumeric(xColor1) .AND. hb_IsNumeric(xColor2) .AND. nColumn == 0
       RETURN ::SetColor( xColor1, xColor2 ) // FW SetColor Method only nClrText and nClrPane
    ENDIF
 
@@ -13720,14 +13720,14 @@ METHOD SetColor( xColor1, xColor2, nColumn ) CLASS TSBrowse
       ::hBrush := CreateSolidBrush( GetRed( nColor ), GetGreen( nColor ), GetBlue( nColor ) )
    ENDIF
 
-   IF nColumn == 0 .AND. HB_ISNUMERIC(xColor2[1]) .AND. hb_IsArray(xColor1) .AND. xColor1[1] == 1 .AND. ;
-         Len(xColor1) > 1 .AND. hb_IsArray(xColor2) .AND. HB_ISNUMERIC(xColor2[2]) .AND. xColor1[2] == 2
+   IF nColumn == 0 .AND. hb_IsNumeric(xColor2[1]) .AND. hb_IsArray(xColor1) .AND. xColor1[1] == 1 .AND. ;
+         Len(xColor1) > 1 .AND. hb_IsArray(xColor2) .AND. hb_IsNumeric(xColor2[2]) .AND. xColor1[2] == 2
 
       nColor := iif( hb_IsBlock(xColor2[2]), Eval(xColor2[2], 1, 1, Self), xColor2[2] )
       ::Super:SetColor( xColor2[1], nColor )
    ENDIF
 
-   IF HB_ISNUMERIC(xColor1)
+   IF hb_IsNumeric(xColor1)
       xColor1 := { xColor1 }
       xColor2 := { xcolor2 }
    ENDIF
@@ -14861,7 +14861,7 @@ METHOD SetOrder( nColumn, cPrefix, lDescend ) CLASS TSBrowse
       ENDIF
 
       IF ::bSetGet != NIL
-         IF HB_ISNUMERIC(Eval(::bSetGet))
+         IF hb_IsNumeric(Eval(::bSetGet))
             Eval(::bSetGet, ::nAt)
          ELSEIF ::nLen > 0
             Eval(::bSetGet, ::aArray[::nAt, 1])
@@ -15020,7 +15020,7 @@ METHOD Skip( n ) CLASS TSBrowse
    ::nLastnAt := ::nAt
 
    IF ::lIsArr .AND. ::bSetGet != NIL
-      IF HB_ISNUMERIC(Eval(::bSetGet))
+      IF hb_IsNumeric(Eval(::bSetGet))
          Eval(::bSetGet, ::nAt)
       ELSEIF ::nLen > 0
          Eval(::bSetGet, ::aArray[::nAt, 1])
@@ -15489,7 +15489,7 @@ METHOD HideColumns( nColumn, lHide ) CLASS TSBrowse
       RETURN NIL
    ENDIF
 
-   aColumn := iif( HB_ISNUMERIC(nColumn), { nColumn }, nColumn )
+   aColumn := iif( hb_IsNumeric(nColumn), { nColumn }, nColumn )
 
    FOR nI := 1 TO Len(aColumn)
 
@@ -15518,7 +15518,7 @@ RETURN NIL
 METHOD UserPopup( bUserPopupItem, aColumn ) CLASS TSBrowse
 
    IF ValType(aColumn) != "A"
-      aColumn := iif( HB_ISNUMERIC(aColumn), { aColumn }, { 0 } )
+      aColumn := iif( hb_IsNumeric(aColumn), { aColumn }, { 0 } )
    ENDIF
 
    ::bUserPopupItem := iif( hb_IsBlock(bUserPopupItem), bUserPopupItem, ;
@@ -17169,10 +17169,10 @@ FUNCTION StockBmp( uAnsi, oWnd, cPath, lNew )
 
    HB_SYMBOL_UNUSED(oWnd)
 
-   IF HB_ISNUMERIC(uAnsi) .AND. uAnsi <= Len(aStkName)
+   IF hb_IsNumeric(uAnsi) .AND. uAnsi <= Len(aStkName)
       cName := aStkName[uAnsi]
       uAnsi := StrTran(aStock[uAnsi], " ")
-   ELSEIF HB_ISNUMERIC(uAnsi)
+   ELSEIF hb_IsNumeric(uAnsi)
       uAnsi := StrTran(aStock[1], " ") // calendar
       cName := aStkName[1]
    ELSE

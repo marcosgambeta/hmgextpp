@@ -413,7 +413,7 @@ FUNCTION DialogProc(hwndDlg, nMsg, wParam, lParam)
       IF i > 0
          IF hb_IsBlock(_HMG_aFormClickProcedure[i]) .AND. _HMG_aFormType[i] == "D"
             ret := Eval(_HMG_aFormClickProcedure[i], nMsg, LOWORD(wParam), HIWORD(wParam))
-            IF HB_ISNUMERIC(ret)
+            IF hb_IsNumeric(ret)
                ret := iif(ret = 0, .F., .T.)
             ELSE
                ret := .F.

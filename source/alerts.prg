@@ -59,7 +59,7 @@ FUNCTION AlertExclamation ( Message, Title, Icon, nSize, aColors, lTopMost, bIni
    
    LOCAL nWaitSec
 
-   IF ISNUMERIC(Title)
+   IF hb_IsNumeric(Title)
       nWaitSec := Title
    ENDIF
 
@@ -75,7 +75,7 @@ FUNCTION AlertInfo ( Message, Title, Icon, nSize, aColors, lTopMost, bInit, lNoS
    
    LOCAL nWaitSec
 
-   IF ISNUMERIC(Title)
+   IF hb_IsNumeric(Title)
       nWaitSec := Title
    ENDIF
 
@@ -91,7 +91,7 @@ FUNCTION AlertStop ( Message, Title, Icon, nSize, aColors, lTopMost, bInit, lNoS
    
    LOCAL nWaitSec
 
-   IF ISNUMERIC(Title)
+   IF hb_IsNumeric(Title)
       nWaitSec := Title
    ENDIF
 

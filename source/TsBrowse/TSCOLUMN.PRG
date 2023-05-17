@@ -266,7 +266,7 @@ METHOD New(cHeading, bData, cPicture, aColors, aAlign, nWidth, lBitMap, lEdit, b
    IF aColors != NIL
       IF hb_IsArray(aColors) .AND. Len(aColors) > 0 .AND. hb_IsArray(aColors[1])
          FOR EACH aClr IN aColors
-            IF hb_IsArray(aClr) .AND. HB_ISNUMERIC(aClr[1]) .AND. aClr[1] > 0 .AND. aClr[1] <= Len(aTmpColor)
+            IF hb_IsArray(aClr) .AND. hb_IsNumeric(aClr[1]) .AND. aClr[1] > 0 .AND. aClr[1] <= Len(aTmpColor)
                aTmpColor[aClr[1]] := aClr[2]
             ENDIF
          NEXT
@@ -281,7 +281,7 @@ METHOD New(cHeading, bData, cPicture, aColors, aAlign, nWidth, lBitMap, lEdit, b
    ENDIF
 
    IF aAlign != NIL
-      AEval(aAlign, {|nAli, n|aTmpAlign[n] := IIf(HB_ISNUMERIC(nAli) .OR. hb_IsBlock(nAli), nAli, ;
+      AEval(aAlign, {|nAli, n|aTmpAlign[n] := IIf(hb_IsNumeric(nAli) .OR. hb_IsBlock(nAli), nAli, ;
          IIf((xVar := AScan({"LEFT", "CENTER", "RIGHT", "VERT"}, Upper(nAli))) > 0, xVar - 1, xVar))})
    ENDIF
 
@@ -330,7 +330,7 @@ METHOD New(cHeading, bData, cPicture, aColors, aAlign, nWidth, lBitMap, lEdit, b
    IF hb_IsObject(cSpcHeading)
       ::uBmpSpcHd := cSpcHeading
       cSpcHeading := ""
-   ELSEIF HB_ISNUMERIC(cSpcHeading)
+   ELSEIF hb_IsNumeric(cSpcHeading)
       ::uBmpSpcHd := cSpcHeading
       cSpcHeading := ""
    ENDIF
@@ -388,7 +388,7 @@ METHOD New(cHeading, bData, cPicture, aColors, aAlign, nWidth, lBitMap, lEdit, b
       ::uBmpCell := bData
       bData := {||Nil}
       cData := "{||Nil}"
-   ELSEIF HB_ISNUMERIC(Eval(bData)) .AND. lBitMap
+   ELSEIF hb_IsNumeric(Eval(bData)) .AND. lBitMap
       ::uBmpCell := bData
       bData := {||Nil}
       cData := "{||Nil}"

@@ -381,7 +381,7 @@ FUNCTION TBBtnEvents(hwndEdit, HwndBtn, nMsg)
    LOCAL i
    LOCAL aHandle
 
-   i := AScan(_HMG_aControlSpacing, {|x|hb_IsArray(x) .AND. Len(x) > 0 .AND. HB_ISNUMERIC(x[1]) .AND. x[1] == hwndEdit})
+   i := AScan(_HMG_aControlSpacing, {|x|hb_IsArray(x) .AND. Len(x) > 0 .AND. hb_IsNumeric(x[1]) .AND. x[1] == hwndEdit})
 
    IF i > 0 .AND. HwndBtn > 0
 

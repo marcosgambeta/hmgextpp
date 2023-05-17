@@ -980,7 +980,7 @@ RETURN NIL
 FUNCTION RetValue( lRet, def )
 *------------------------------------------------------------------------------*
    IF lRet == NIL .OR. ValType(lRet) != "L"
-      IF HB_ISNUMERIC(lRet)
+      IF hb_IsNumeric(lRet)
          lRet := iif( lRet == 0, .F., .T. )
       ELSE
          lRet := def

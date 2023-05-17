@@ -500,7 +500,7 @@ FUNCTION OwnButtonPaint(pdis)
 
                IF Len(aGradient[1]) == 3
                   aDarkColor := _HMG_aControlBkColor[i]
-                  IF IsArrayRGB(_HMG_aControlBkColor[i]) .AND. HB_ISNUMERIC(_HMG_aControlBkColor[i, 1])
+                  IF IsArrayRGB(_HMG_aControlBkColor[i]) .AND. hb_IsNumeric(_HMG_aControlBkColor[i, 1])
                      _HMG_aControlBkColor[i] := {{1, _HMG_aControlBkColor[i], Darker(_HMG_aControlBkColor[i], 82)}}
                   ENDIF
                   _GradientFill(hDC, xp2 + 2, xp1 + 2, yp2 - 2, yp1 - 2, _HMG_aControlBkColor[i], lvertical)

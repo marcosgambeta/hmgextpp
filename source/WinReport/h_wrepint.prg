@@ -563,7 +563,7 @@ if Valtype(m->__arg1)="C"
    * MSG(VALtype(m->__arg1),[val1])
    *- make sure it fits on the screen
    arg1 := "@KS" + LTRIM(STR(MIN(LEN((m->__arg1)), 78)))
-elseif HB_ISNUMERIC(m->__arg1)
+elseif hb_IsNumeric(m->__arg1)
    *- convert to a string
    * MSG(VALtype(m->__arg1),[val2])
    arg2 := STR(__arg1)
@@ -613,7 +613,7 @@ return tappo
 *-----------------------------------------------------------------------------*
 Procedure dbselect(area)
 *-----------------------------------------------------------------------------*
-     if HB_ISNUMERIC(area)
+     if hb_IsNumeric(area)
         dbSelectArea( zaps(area) )
      elseif valtype(area)="C"
         select (area)
@@ -2271,7 +2271,7 @@ abitmaps:=if(abitmaps==NIL,"",abitmaps)
 labmp:=if(valtype(abitmaps)=="C",afill(array(len(arr[1])),abitmaps),abitmaps)
 
 afontscolor:=if(afontscolor==NIL,0,afontscolor)
-lafoc:=if(HB_ISNUMERIC(afontscolor),afill(array(len(arr[1])),afontscolor),afontscolor)
+lafoc:=if(hb_IsNumeric(afontscolor),afill(array(len(arr[1])),afontscolor),afontscolor)
 
 abrushes:=if(abrushes==NIL,"",abrushes)
 labr:=if(valtype(abrushes)=="C",afill(array(len(arr[1])),abrushes),abrushes)
@@ -2315,7 +2315,7 @@ IsMono := ::Ismono(arr)
       if !empty(xbmp)
         @row,lxc picture xbmp size xlwh,ltc[j]
       endif
-      if HB_ISNUMERIC(xwa)
+      if hb_IsNumeric(xwa)
          lcol:= lxc+ltc[j]-0.5
          set text align TA_RIGHT
       else
@@ -2332,7 +2332,7 @@ IsMono := ::Ismono(arr)
          , xwa, abold, aita, aunder, astrike;
          , iif(hb_IsArray(afontscolor), .T.,.F.) ;
          , iif(valtype(argf1)=="C", .T.,.F.) ;
-         , iif(HB_ISNUMERIC(argsize), .T.,.F.) ;
+         , iif(hb_IsNumeric(argsize), .T.,.F.) ;
          , argalign )
       */
       Endif
@@ -2377,7 +2377,7 @@ local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
 
       Asize(counter,0)
 
-      if HB_ISNUMERIC(s_col); s_col:=zaps(s_col); endif
+      if hb_IsNumeric(s_col); s_col:=zaps(s_col); endif
 
       if HB_ISCHAR(P_F_E_G)
          ::aStat [ "P_F_E_G" ]  :=  (".T." $ upper(P_F_E_G))
@@ -2497,7 +2497,7 @@ local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
           next
       next
       //Aeval(gfstring,{|x| msgstop( zaps( len(gfstring) ) +crlf+x,"Gfstring" ) })
-      if HB_ISNUMERIC(wheregt)
+      if hb_IsNumeric(wheregt)
          wheregt:=zaps(wheregt)
       endif
 

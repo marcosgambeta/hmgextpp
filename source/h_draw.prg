@@ -282,7 +282,7 @@ FUNCTION HMG_DrawIcon( window, icon, row, col, w, h, rgb, transparent )
       ENDIF
       hb_default(@rgb, GetSysColor(COLOR_BTNFACE))
 
-      IF ISNUMERIC(icon)
+      IF hb_IsNumeric(icon)
          DrawIconEx( FormHandle, Col, Row, icon, w, h, rgb, .F. )
          AAdd(_HMG_aFormGraphTasks[i], {||DrawIconEx(FormHandle, Col, Row, icon, w, h, rgb, .F.)})
       ELSEIF ISSTRING( icon )
@@ -319,7 +319,7 @@ FUNCTION HMG_DrawSysIcon( window, cIconDll, icon, row, col, w, h, rgb, transpare
       hb_default(@rgb, GetSysColor(COLOR_BTNFACE))
       hb_default(@cIconDll, System.SystemFolder + hb_ps() + "imageres.dll")
 
-      IF ISNUMERIC(icon)
+      IF hb_IsNumeric(icon)
          AAdd(_HMG_aFormGraphTasks[i], {||DrawIconEx(FormHandle, Col, Row, ExtractIcon(cIconDll, icon), w, h, rgb, .T.)})
       ENDIF
    ENDIF

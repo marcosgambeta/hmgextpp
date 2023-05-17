@@ -284,7 +284,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
    _HMG_aControlIds                [k] := aId
    _HMG_aControlProcedures         [k] := ""
    _HMG_aControlPageMap            [k] := aReadOnly
-   _HMG_aControlValue              [k] := iif( HB_ISNUMERIC(Value), Value, 0 )
+   _HMG_aControlValue              [k] := iif( hb_IsNumeric(Value), Value, 0 )
    _HMG_aControlInputMask          [k] := transparent
    _HMG_aControllostFocusProcedure [k] := lostfocus
    _HMG_aControlGotFocusProcedure  [k] := gotfocus
@@ -319,7 +319,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
    _HMG_aControlMiscData2          [k] := ""
 
    IF !lDialogInMemory
-      IF HB_ISNUMERIC(Value) .AND. Value > 0  // EF 93
+      IF hb_IsNumeric(Value) .AND. Value > 0  // EF 93
          _SetValue ( , , Value , k )
       ENDIF
       SetProperty ( ParentFormName , ControlName , "ReadOnly" , aReadOnly )
@@ -347,7 +347,7 @@ FUNCTION InitDialogRadioGroup( ParentName, ControlHandle, k )
    aHandles := _HMG_aControlHandles [k]
    Value := _HMG_aControlValue [k]
 // EF 93
-   IF HB_ISNUMERIC(Value) .AND. Value > 0 .AND. ControlHandle > 0
+   IF hb_IsNumeric(Value) .AND. Value > 0 .AND. ControlHandle > 0
       _SetValue ( , , Value , k )
    ENDIF
 //JP V40

@@ -304,7 +304,7 @@ FUNCTION _DefinePropGrid ( ControlName, ParentFormName, row, col, width, height,
 
    indent := TreeView_GetIndent( aControlHandle[1] )
 
-   IF HB_ISNUMERIC(itemheight)
+   IF hb_IsNumeric(itemheight)
       TreeView_SetItemHeight(aControlHandle[1], itemheight)
    ELSE
       itemheight := TreeView_GetItemHeight(aControlHandle[1])
@@ -493,7 +493,7 @@ FUNCTION _DefinePropertyItem ( cType, cName, cValue, aData, disabled, disableedi
    DEFAULT cValNameDef := ""
    DEFAULT cValName    := cValNameDef
 
-   IF HB_ISNUMERIC(aData)
+   IF hb_IsNumeric(aData)
       aData := LTrim(Str(adata))
    ENDIF
    IF typePG == PG_ERROR
@@ -540,7 +540,7 @@ FUNCTION PgCheckData(typePG, cValue, aData, mod)
       EXIT
    CASE PG_INTEGER
       cErr := _HMG_PGLangError[4] + " INTEGER " + _HMG_PGLangError[2]
-      IF HB_ISNUMERIC(cValue)
+      IF hb_IsNumeric(cValue)
          cValue := LTrim(Str(Int(cValue)))
       ELSEIF HB_ISCHAR(cValue)
          IF IsDigit( cValue )
@@ -554,7 +554,7 @@ FUNCTION PgCheckData(typePG, cValue, aData, mod)
       EXIT
    CASE PG_DOUBLE
       cErr := _HMG_PGLangError[4] + " DOUBLE " + _HMG_PGLangError[2]
-      IF HB_ISNUMERIC(cValue)
+      IF hb_IsNumeric(cValue)
          cValue := LTrim(REMRIGHT(Str(cValue, 16, 8), "0"))
       ELSEIF HB_ISCHAR(cValue)
          IF IsDigit( cValue ) .OR. Left(cValue, 1) == "-"
@@ -566,7 +566,7 @@ FUNCTION PgCheckData(typePG, cValue, aData, mod)
          ret := .F.
       ENDIF
       IF !Empty(aData) .AND. ret
-         IF HB_ISNUMERIC(aData)
+         IF hb_IsNumeric(aData)
             aData := LTrim(REMRIGHT(Str(aData, 16, 8), "0"))
          ELSEIF HB_ISCHAR(cValue)
             ret := .T.
@@ -1614,7 +1614,7 @@ FUNCTION AttrTran( xData, type )
       ENDIF
       EXIT
    CASE "N"
-      IF HB_ISNUMERIC(xData)
+      IF hb_IsNumeric(xData)
          RETURN AllTrim(Str(xData))
       ENDIF
       EXIT
@@ -1622,7 +1622,7 @@ FUNCTION AttrTran( xData, type )
       IF hb_IsArray(xData)
          cData := ""
          FOR n := 1 TO Len(xData)
-            IF HB_ISNUMERIC(xdata[n])
+            IF hb_IsNumeric(xdata[n])
                cData += AllTrim(Str(xData[n])) + IIF( n < Len(xData), ";", "" )
             ENDIF
             IF HB_ISCHAR(xdata[n])
@@ -1972,7 +1972,7 @@ FUNCTION aVal2Str(aData, sep)
    
    IF hb_IsArray(aData)
       FOR n := 1 TO Len(aData)
-         IF HB_ISNUMERIC(adata[n])
+         IF hb_IsNumeric(adata[n])
             cData += AllTrim(Str(aData[n])) + IIF( n < Len(aData), sep, "" )
          ENDIF
          IF HB_ISCHAR(adata[n])

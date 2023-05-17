@@ -365,7 +365,7 @@ RETURN .T.
 FUNCTION GetFontParamByRef( FontHandle, FontName, FontSize, bold, italic, underline, strikeout, angle )
 
    LOCAL lExpr
-   LOCAL i := iif( (HB_ISNUMERIC(FontHandle) .OR. HB_ISPOINTER(FontHandle)), AScan(_HMG_aControlHandles, hmg_numbertohandle(FontHandle)), 0 )
+   LOCAL i := iif( (hb_IsNumeric(FontHandle) .OR. HB_ISPOINTER(FontHandle)), AScan(_HMG_aControlHandles, hmg_numbertohandle(FontHandle)), 0 )
 
    lExpr := ( i > 0 .AND. GetObjectType( _HMG_aControlHandles[i] ) == OBJ_FONT )
 

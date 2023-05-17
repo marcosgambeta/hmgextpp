@@ -187,7 +187,7 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
       SendMessageWideString(ControlHandle, EM_SETCUEBANNER, .T., cuetext)
    ENDIF
 
-   IF ISNUMERIC(value)
+   IF hb_IsNumeric(value)
       SetSpinnerValue ( RetArray [2], Value )
    ENDIF
 

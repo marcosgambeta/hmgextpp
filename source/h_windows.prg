@@ -867,7 +867,7 @@ _SetWindowSizePos(FormName, nRow, nCol, nWidth, nHeight) --> NIL
 FUNCTION _SetWindowSizePos(FormName, row, col, width, height)
 
    LOCAL actpos := {0, 0, 0, 0}
-   LOCAL hWnd := iif(ISNUMERIC(FormName), FormName, GetFormHandle(FormName))
+   LOCAL hWnd := iif(hb_IsNumeric(FormName), FormName, GetFormHandle(FormName))
 #ifdef _PANEL_
    LOCAL lspang := (hb_IsNumeric(row) .AND. hb_IsNumeric(col) .AND. hb_IsNumeric(width) .AND. hb_IsNumeric(height))
 #endif
@@ -1092,7 +1092,7 @@ FUNCTION InputBox(cInputPrompt, cDialogCaption, cDefaultValue, nTimeout, cTimeou
 
       @ 67 + nMLines, 230 BUTTON _Cancel CAPTION _HMG_MESSAGE[7] ACTION Eval(bCancel)
 
-      IF ISNUMERIC(nTimeout)
+      IF hb_IsNumeric(nTimeout)
          DEFINE TIMER _InputBox INTERVAL nTimeout ACTION (IFCHAR(cTimeoutValue, RetVal := cTimeoutValue, NIL), _InputBox.Release)
       ENDIF
 

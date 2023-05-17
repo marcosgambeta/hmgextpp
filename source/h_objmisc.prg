@@ -99,7 +99,7 @@ RETURN RetVal
 FUNCTION _WindowObj(FormName)
 *-----------------------------------------------------------------------------*
    
-   LOCAL h := iif( HB_ISNUMERIC(FormName), FormName, GetFormHandle(FormName) )
+   LOCAL h := iif( hb_IsNumeric(FormName), FormName, GetFormHandle(FormName) )
 
 RETURN hmg_GetWindowObject( h )
 
@@ -107,7 +107,7 @@ RETURN hmg_GetWindowObject( h )
 FUNCTION _ControlObj(ControlName, FormName)
 *-----------------------------------------------------------------------------*
    
-   LOCAL h := iif( HB_ISNUMERIC(ControlName), ControlName, GetControlHandle(ControlName, FormName) )
+   LOCAL h := iif( hb_IsNumeric(ControlName), ControlName, GetControlHandle(ControlName, FormName) )
 
    IF hb_IsArray(h)
       h := h[1]

@@ -491,7 +491,7 @@ FUNCTION oDlu2Pixel( nPrcW, nPrcH, nFontSize )
 
    LOCAL aPrcWH
 
-   IF HB_ISNUMERIC(nFontSize)
+   IF hb_IsNumeric(nFontSize)
       aPrcWH := oDlu4Font( nFontSize, .F. )
       nPrcW  := aPrcWH[1]
       nPrcH  := aPrcWH[2]
@@ -748,7 +748,7 @@ RETURN NIL
 
 METHOD ToVal(nKfc, nVal) CLASS TDlu2Pix
 
-   IF HB_ISNUMERIC(nKfc) .AND. nKfc > 0
+   IF hb_IsNumeric(nKfc) .AND. nKfc > 0
       nVal := Int( nKfc * nVal )
    ENDIF
 
@@ -768,7 +768,7 @@ METHOD GetGaps( aGaps, oWnd ) CLASS TDlu2Pix
    nGapW := iif( Empty(oWnd), oApp:GapsWidth , oWnd:GapsWidth  )
    nGapH := iif( Empty(oWnd), oApp:GapsHeight, oWnd:GapsHeight )
 
-   If HB_ISNUMERIC(aGaps)
+   If hb_IsNumeric(aGaps)
       n     := aGaps
       aGaps := Array(4)
       AFill(aGaps, n)
@@ -782,9 +782,9 @@ METHOD GetGaps( aGaps, oWnd ) CLASS TDlu2Pix
    ::nB := 0
 
    If Len(aGaps) == 2
-      If !HB_ISNUMERIC(aGaps[1]); aGaps[1] := nGapW
+      If !hb_IsNumeric(aGaps[1]); aGaps[1] := nGapW
       EndIf
-      If !HB_ISNUMERIC(aGaps[2]); aGaps[2] := nGapH
+      If !hb_IsNumeric(aGaps[2]); aGaps[2] := nGapH
       EndIf
       ::nL := aGaps[1]
       ::nR := aGaps[1]
@@ -793,13 +793,13 @@ METHOD GetGaps( aGaps, oWnd ) CLASS TDlu2Pix
    Else
       If Len(aGaps) != 4; ASize(aGaps, 4)
       EndIf
-      If !HB_ISNUMERIC(aGaps[1]); aGaps[1] := nGapW
+      If !hb_IsNumeric(aGaps[1]); aGaps[1] := nGapW
       EndIf
-      If !HB_ISNUMERIC(aGaps[2]); aGaps[2] := nGapH
+      If !hb_IsNumeric(aGaps[2]); aGaps[2] := nGapH
       EndIf
-      If !HB_ISNUMERIC(aGaps[3]); aGaps[3] := nGapW
+      If !hb_IsNumeric(aGaps[3]); aGaps[3] := nGapW
       EndIf
-      If !HB_ISNUMERIC(aGaps[4]); aGaps[4] := nGapH
+      If !hb_IsNumeric(aGaps[4]); aGaps[4] := nGapH
       EndIf
       ::nL := aGaps[1]
       ::nT := aGaps[2]
@@ -831,7 +831,7 @@ METHOD TextWidth(cText, nSize, cFont, lBold, cChar) CLASS TDlu2Pix
    lBold := hb_defaultValue(lBold, .F.)
    cFont := hb_defaultValue(cFont, _HMG_DefaultFontName)
    nSize := hb_defaultValue(nSize, iif(Empty(::nSize), _HMG_DefaultFontSize, ::nSize))
-   IF HB_ISNUMERIC(cText) ; cText := Replicate( cChar, cText )
+   IF hb_IsNumeric(cText) ; cText := Replicate( cChar, cText )
    ENDIF
    hFont := InitFont( cFont, nSize, lBold )
    nWidth := GetTextWidth(Nil, cText, hFont)
@@ -855,7 +855,7 @@ METHOD D( nKfc ) CLASS TDlu2Pix
 
    LOCAL nVal := ::nPixWidthDT
 
-   IF HB_ISNUMERIC(nKfc) .AND. nKfc > 0
+   IF hb_IsNumeric(nKfc) .AND. nKfc > 0
       IF nKfc == 1 ; nVal := ::nPixWidthDT
       ELSEIF nKfc == 2 ; nVal := ::nPixWidthDT1
       ELSEIF nKfc == 3 ; nVal := ::nPixWidthDT2
@@ -1255,7 +1255,7 @@ CLASS TCnlData INHERIT TWndData
    METHOD Del() INLINE ( iif( hb_IsObject(::oWin:oName), ;
       iif( HB_ISCHAR( ::cName ), ::oWin:oName:Del( Upper(::cName) ), ), ), ;
       iif( hb_IsObject(::oWin:oHand), ;
-      iif( HB_ISNUMERIC(::nHandle), ::oWin:oHand:Del( ::nHandle ), ), ) )
+      iif( hb_IsNumeric(::nHandle), ::oWin:oHand:Del( ::nHandle ), ), ) )
 
    METHOD Get( xName ) INLINE iif( HB_ISCHAR( xName ), ::oWin:oName:Get( Upper(xName) ), ;
       ::oWin:oHand:Get( xName ) )
@@ -1359,7 +1359,7 @@ CLASS TStbData INHERIT TCnlData
 
    METHOD Icon ( cIcon, nItem ) INLINE SetStatusItemIcon( ::nHandle, hb_defaultValue(nItem, 1), cIcon )
 
-   METHOD Width(nItem, nWidth) INLINE iif( HB_ISNUMERIC(nWidth) .AND. nWidth > 0, ;
+   METHOD Width(nItem, nWidth) INLINE iif( hb_IsNumeric(nWidth) .AND. nWidth > 0, ;
       _SetStatusWidth(::oWin:cName, hb_defaultValue(nItem, 1), nWidth), ;
       _GetStatusItemWidth(::oWin:nHandle, nItem) )
 
@@ -1544,14 +1544,14 @@ METHOD Sum( Key, xSum ) CLASS TKeyData
 
    LOCAL Sum := ::Get( Key, 0 )
 
-   IF HB_ISNUMERIC(xSum)
-      IF HB_ISNUMERIC(sum) ; Sum += xSum
+   IF hb_IsNumeric(xSum)
+      IF hb_IsNumeric(sum) ; Sum += xSum
       ELSE ; Sum := xSum
       ENDIF
       ::Set( Key, sum )
    ELSEIF hb_IsArray(xSum)
       IF hb_IsArray(sum) .AND. Len(sum) == Len(xSum)
-         AEval(xSum, {| s, i | Sum[i] := iif( HB_ISNUMERIC(s), Sum[i] + s, s ) })
+         AEval(xSum, {| s, i | Sum[i] := iif( hb_IsNumeric(s), Sum[i] + s, s ) })
       ELSE
          Sum := xSum
       ENDIF
@@ -1723,14 +1723,14 @@ METHOD Sum( Key, xSum ) CLASS TThrData
 
    LOCAL Sum := ::Get( Key, 0 )
 
-   IF HB_ISNUMERIC(xSum)
-      IF HB_ISNUMERIC(sum) ; Sum += xSum
+   IF hb_IsNumeric(xSum)
+      IF hb_IsNumeric(sum) ; Sum += xSum
       ELSE ; Sum := xSum
       ENDIF
       ::Set( Key, sum )
    ELSEIF hb_IsArray(xSum)
       IF hb_IsArray(sum) .AND. Len(sum) == Len(xSum)
-         AEval(xSum, {| s, i | Sum[i] := iif( HB_ISNUMERIC(s), Sum[i] + s, s ) })
+         AEval(xSum, {| s, i | Sum[i] := iif( hb_IsNumeric(s), Sum[i] + s, s ) })
       ELSE
          Sum := xSum
       ENDIF

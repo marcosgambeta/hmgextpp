@@ -190,7 +190,7 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
       aJust := AFill(Array(Len(aHeaders)), 0)
    ELSE
       ASize(aJust, Len(aHeaders))
-      AEval(aJust, {|x, i| aJust[i] := iif(HB_ISNUMERIC(x), x, 0)})
+      AEval(aJust, {|x, i| aJust[i] := iif(hb_IsNumeric(x), x, 0)})
    ENDIF
    /* end code borrowed */
    inplace := hb_IsArray(editcontrols)
@@ -376,7 +376,7 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
          AFill(_HMG_aControlRangeMax[k], 1)
          IF Len(columnsort) > 0
             FOR i := 1 TO Min(Len(columnsort), Len(_HMG_aControlRangeMax[k]))
-               IF HB_ISNUMERIC(columnsort[i])
+               IF hb_IsNumeric(columnsort[i])
                   _HMG_aControlRangeMax[k][i] := columnsort[i]
                ENDIF
             NEXT i
@@ -463,11 +463,11 @@ FUNCTION InitDialogGrid(ParentName, ControlHandle, k)
 
    AEval(aRows, {| r | _AddGridRow(ControlName, ParentName, r)})
 
-   IF ISNUMERIC(autosizeH) .OR. autosizeW
+   IF hb_IsNumeric(autosizeH) .OR. autosizeW
 
       IF ListView_CalculateSize(ControlHandle, autosizeH, @z, @row) > 49
 
-         IF ISNUMERIC(autosizeH)
+         IF hb_IsNumeric(autosizeH)
             SetProperty(ParentName, ControlName, "Height", row)
          ENDIF
          IF autosizeW
@@ -1267,9 +1267,9 @@ FUNCTION _ParseGridControls(aEditControls, ci, ri)
 
                IF Len(aEdit) >= 3 .AND. AEC == "SPINNER"
 
-                  IF Len(aEdit) > 3 .AND. ISNUMERIC(AEDIT[2]) .AND. ISNUMERIC(AEDIT[3]) .AND. ISNUMERIC(AEDIT[4])
+                  IF Len(aEdit) > 3 .AND. hb_IsNumeric(AEDIT[2]) .AND. hb_IsNumeric(AEDIT[3]) .AND. hb_IsNumeric(AEDIT[4])
                      ARANGE := {AEDIT[2], AEDIT[3], AEDIT[4]}
-                  ELSEIF ISNUMERIC(AEDIT[2]) .AND. ISNUMERIC(AEDIT[3])
+                  ELSEIF hb_IsNumeric(AEDIT[2]) .AND. hb_IsNumeric(AEDIT[3])
                      ARANGE := {AEDIT[2], AEDIT[3], 1}
                   ENDIF
 

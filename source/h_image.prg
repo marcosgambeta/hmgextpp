@@ -109,7 +109,7 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
       BackgroundColor := RGB(aBKColor[1], aBKColor[2], aBKColor[3])
    ENDIF
 
-   IF ISNUMERIC(nAlphaLevel) .AND. (nAlphaLevel < 0 .OR. nAlphaLevel > 255)
+   IF hb_IsNumeric(nAlphaLevel) .AND. (nAlphaLevel < 0 .OR. nAlphaLevel > 255)
       nAlphaLevel := 255
    ENDIF
 
@@ -271,7 +271,7 @@ FUNCTION BmpSize( xBitmap )
          DeleteObject( xBitmap )
       ENDIF
 
-   CASE ISNUMERIC(xBitmap)
+   CASE hb_IsNumeric(xBitmap)
 
       aRet := GetBitmapSize( xBitmap )
 

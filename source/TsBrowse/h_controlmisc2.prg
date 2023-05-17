@@ -518,7 +518,7 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
          :bKeyDown := oParam:bKeyDown        // :bKeyDown := { |nKey,nFalgs,ob| ... }
       ENDIF
 
-      IF HB_ISNUMERIC(oParam:nFireKey)
+      IF hb_IsNumeric(oParam:nFireKey)
          :nFireKey := oParam:nFireKey
       ENDIF
 

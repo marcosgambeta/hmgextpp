@@ -96,7 +96,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
    ELSE
 
-      IF HB_ISNUMERIC(xcnFromArea)
+      IF hb_IsNumeric(xcnFromArea)
 
          nSelectFrom := xcnFromArea
 

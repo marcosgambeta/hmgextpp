@@ -357,7 +357,7 @@ METHOD SetTextColor( clr ) CLASS HBPrinter
    LOCAL lret := ::Textcolor
    IF clr != NIL
       // BEGIN RL 2003-08-03
-      IF HB_ISNUMERIC(clr)
+      IF hb_IsNumeric(clr)
          ::TextColor := rr_settextcolor( clr )
       ELSEIF hb_IsArray(clr)
          ::TextColor := rr_settextcolor( RGB ( clr[1], clr[2], clr[3] ) )
@@ -380,7 +380,7 @@ METHOD SetBkColor( clr ) CLASS HBPrinter
 
    LOCAL lret := ::BkColor
    // BEGIN RL 2003-08-03
-   IF HB_ISNUMERIC(clr)
+   IF hb_IsNumeric(clr)
       ::BkColor := rr_setbkcolor( clr )
    ELSEIF hb_IsArray(clr)
       ::BkColor := rr_setbkcolor( RGB ( clr[1], clr[2], clr[3] ) )
@@ -601,7 +601,7 @@ METHOD SetUnits( newvalue, r, c ) CLASS HBPrinter
 
    LOCAL oldvalue := ::Units
 
-   newvalue := iif( HB_ISNUMERIC(newvalue), newvalue, 0 )
+   newvalue := iif( hb_IsNumeric(newvalue), newvalue, 0 )
    ::Units := iif( newvalue < 0 .OR. newvalue > 4, 0, newvalue )
    SWITCH ::Units
    CASE 0 // ROWCOL
@@ -621,8 +621,8 @@ METHOD SetUnits( newvalue, r, c ) CLASS HBPrinter
       ::MaxCol := ::DevCaps[4]
       EXIT
    CASE 4 // ROWS   COLS
-      iif( HB_ISNUMERIC(r), ::MaxRow := r - 1, NIL )
-      iif( HB_ISNUMERIC(c), ::MaxCol := c - 1, NIL )
+      iif( hb_IsNumeric(r), ::MaxRow := r - 1, NIL )
+      iif( hb_IsNumeric(c), ::MaxCol := c - 1, NIL )
    ENDSWITCH
 
 RETURN oldvalue
@@ -696,7 +696,7 @@ METHOD Say( row, col, txt, defname, lcolor, lalign ) CLASS HBPrinter
    apos := ::convert( { row, col } )
    IF lcolor != NIL
       // BEGIN RL 2003-08-03
-      IF HB_ISNUMERIC(lcolor)
+      IF hb_IsNumeric(lcolor)
          rr_settextcolor( lcolor )
       ELSEIF hb_IsArray(lcolor)
          rr_settextcolor( RGB ( lcolor[1], lcolor[2], lcolor[3] ) )
@@ -1242,7 +1242,7 @@ METHOD DXCOLORS( par ) CLASS HBPrinter
    IF HB_ISCHAR(par)
       par := Lower( AllTrim(par) )
       AEval(aColorNames, {| x | iif( x[1] == par, ltemp := x[2], "" ) })
-   ELSEIF HB_ISNUMERIC(par)
+   ELSEIF hb_IsNumeric(par)
       ltemp := iif( par <= Len(aColorNames), aColorNames[par, 2], 0 )
    ENDIF
 

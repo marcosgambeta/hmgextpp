@@ -2193,11 +2193,11 @@ FUNCTION HPDF_SkewText( nRow, nCol, cFontName, nFontSize, nRColor, nGColor, nBCo
    DEFAULT nAngle1 := 0
    DEFAULT nAngle2 := 0
 
-   IF !HB_ISNUMERIC(nAngle1)
+   IF !hb_IsNumeric(nAngle1)
       nAngle1 := 0
    ENDIF
 
-   IF !HB_ISNUMERIC(nAngle2)
+   IF !hb_IsNumeric(nAngle2)
       nAngle2 := 0
    ENDIF
 
@@ -2286,11 +2286,11 @@ FUNCTION HPDF_ScaleText( nRow, nCol, cFontName, nFontSize, nRColor, nGColor, nBC
    DEFAULT nxScale := 1
    DEFAULT nyScale := 1
 
-   IF !HB_ISNUMERIC(nxScale)
+   IF !hb_IsNumeric(nxScale)
       nxScale := 1
    ENDIF
 
-   IF !HB_ISNUMERIC(nyScale)
+   IF !hb_IsNumeric(nyScale)
       nyScale := 0
    ENDIF
 
@@ -2385,11 +2385,11 @@ FUNCTION HPDF_RenderText( nRow, nCol, cFontName, nFontSize, nRColor, nGColor, nB
    DEFAULT cAlign := ""
    DEFAULT nMode := HPDF_FILL
 
-   IF !HB_ISNUMERIC(nMode)
+   IF !hb_IsNumeric(nMode)
       nMode := HPDF_FILL
    ENDIF
 
-   IF !HB_ISNUMERIC(nLineW)
+   IF !hb_IsNumeric(nLineW)
       nLineW := 0.5
    ENDIF
 
@@ -2509,7 +2509,7 @@ FUNCTION HPDF_CircleText( nRow, nCol, cFontName, nFontSize, nRColor, nGColor, nB
    DEFAULT lSize := .F.
    DEFAULT cText := ""
 
-   IF !HB_ISNUMERIC(nRadial)
+   IF !hb_IsNumeric(nRadial)
       nRadial := 15
    ENDIF
 
