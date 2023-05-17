@@ -677,7 +677,7 @@ SendMessageStringW( <h> , <n> , <wp> , <lp> )
 
 #translate And( <p1> , <p2> ) => hb_BitAnd( <p1> , <p2> )
 
-#xtranslate Random( <nMax> )  => hb_RandomInt( IFNUMERIC( <nMax>, <nMax>, 65535 ) )
+#xtranslate Random( <nMax> )  => hb_RandomInt( iif(hb_IsNumeric(<nMax>), <nMax>, 65535) )
 
 #translate _dummy()           => iif( .T.,, )
 
@@ -693,7 +693,7 @@ GetFontParam( GetFontHandle( <FontName> ) )\[ 9 ]
 => ;
 GetFontParam( <hFont> )\[ 10 ]
 
-#translate HMG_RGB2n( <p1>, <p2>, <p3> )  => IFNUMERIC( <p1>, RGB( <p1>, <p2>, <p3> ), <p1> )
+#translate HMG_RGB2n( <p1>, <p2>, <p3> )  => iif( hb_IsNumeric(<p1>), RGB( <p1>, <p2>, <p3> ), <p1> )
 
 #translate HMG_RGB2n( <x> )               => iif(hb_IsArray(<x>), RGB( <x>\[ 1 ], <x>\[ 2 ], <x>\[ 3 ] ), <x>)
 
@@ -733,8 +733,8 @@ GetFontParam( <hFont> )\[ 10 ]
 #translate IFSTRING( <v1>,<exp1>,<exp2> )    => iif( hb_IsString( <v1> ),<exp1>,<exp2> )  // deprecated
 #translate IFDATE( <v1>,<exp1>,<exp2> )      => iif( hb_IsDate( <v1> ),<exp1>,<exp2> )    // deprecated
 #translate IFLOGICAL( <v1>,<exp1>,<exp2> )   => iif( hb_IsLogical( <v1> ),<exp1>,<exp2> ) // deprecated
-#translate IFNUMBER( <v1>,<exp1>,<exp2> )    => iif( hb_IsNumeric( <v1> ),<exp1>,<exp2> )
-#translate IFNUMERIC( <v1>,<exp1>,<exp2> )   => iif( hb_IsNumeric( <v1> ),<exp1>,<exp2> )
+#translate IFNUMBER( <v1>,<exp1>,<exp2> )    => iif( hb_IsNumeric( <v1> ),<exp1>,<exp2> ) // deprecated
+#translate IFNUMERIC( <v1>,<exp1>,<exp2> )   => iif( hb_IsNumeric( <v1> ),<exp1>,<exp2> ) // deprecated
 #translate IFOBJECT( <v1>,<exp1>,<exp2> )    => iif( hb_IsObject( <v1> ),<exp1>,<exp2> )
 #translate IFEMPTY( <v1>,<exp1>,<exp2> )     => iif( EMPTY( <v1> ),<exp1>,<exp2> )
 

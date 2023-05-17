@@ -871,7 +871,7 @@ FUNCTION _tEval(bBlock, Par1, Par2)
       tEval := RGB(tEval[1], tEval[2], tEval[3])
    ENDIF
 
-RETURN IFNUMERIC(tEval, tEval, 0)
+RETURN iif(hb_IsNumeric(tEval), tEval, 0)
 
 /*
 _GridInplaceEdit(idx) --> .T.|.F.
@@ -1490,8 +1490,8 @@ PROCEDURE _GridInplaceKbdEdit(i)
          r := LISTVIEW_GETSUBITEMRECT(h, _HMG_IPE_ROW - 1, _HMG_IPE_COL - 1)
       ENDIF
 
-      _HMG_ThisItemCellRow := IFNUMERIC(_HMG_aControlRow[i], _HMG_aControlRow[i], 0) + r[1]
-      _HMG_ThisItemCellCol := IFNUMERIC(_HMG_aControlCol[i], _HMG_aControlCol[i], 0) + r[2]
+      _HMG_ThisItemCellRow := iif(hb_IsNumeric(_HMG_aControlRow[i]), _HMG_aControlRow[i], 0) + r[1]
+      _HMG_ThisItemCellCol := iif(hb_IsNumeric(_HMG_aControlCol[i]), _HMG_aControlCol[i], 0) + r[2]
       _HMG_ThisItemCellWidth := r[3]
       _HMG_ThisItemCellHeight := r[4]
 
@@ -2010,8 +2010,8 @@ PROCEDURE _GRIDINPLACEKBDEDIT_2(i)
       r := LISTVIEW_GETSUBITEMRECT(_HMG_aControlHandles[i], _HMG_ThisItemRowIndex - 1, _HMG_ThisItemColIndex - 1)
    ENDIF
 
-   _HMG_ThisItemCellRow := IFNUMERIC(_HMG_aControlRow[i], _HMG_aControlRow[i], 0) + r[1]
-   _HMG_ThisItemCellCol := IFNUMERIC(_HMG_aControlCol[i], _HMG_aControlCol[i], 0) + r[2]
+   _HMG_ThisItemCellRow := iif(hb_IsNumeric(_HMG_aControlRow[i]), _HMG_aControlRow[i], 0) + r[1]
+   _HMG_ThisItemCellCol := iif(hb_IsNumeric(_HMG_aControlCol[i]), _HMG_aControlCol[i], 0) + r[2]
    _HMG_ThisItemCellWidth := r[3]
    _HMG_ThisItemCellHeight := r[4]
 

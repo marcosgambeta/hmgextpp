@@ -44,7 +44,7 @@
 #xcommand SET DUPLEX OFF => hbprn:setdevmode(DM_DUPLEX,DMDUP_SIMPLEX)
 #xcommand SET QUALITY <q> => hbprn:setdevmode(DM_PRINTQUALITY,<q>)
 #xcommand SET COLORMODE <c> => hbprn:setdevmode(DM_COLOR,<c>)
-#xcommand SET COPIES [TO] <n> => hbprn:nCopies:=IFNUMERIC(<n>,<n>,1)
+#xcommand SET COPIES [TO] <n> => hbprn:nCopies:=iif(hb_IsNumeric(<n>),<n>,1)
 
 #xcommand SET ORIENTATION PORTRAIT  => hbprn:setdevmode(DM_ORIENTATION,DMORIENT_PORTRAIT)
 #xcommand SET ORIENTATION LANDSCAPE => hbprn:setdevmode(DM_ORIENTATION,DMORIENT_LANDSCAPE)

@@ -517,7 +517,7 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
       EXIT
 
    CASE CONTROL_TYPE_COMBO
-      Value := IFNUMERIC(Value, Value, 0)
+      Value := iif(hb_IsNumeric(Value), Value, 0)
       IF hb_IsString(_HMG_aControlSpacing[ix])
          _HMG_aControlValue[ix] := value
          WorkArea := _HMG_aControlSpacing[ix]
@@ -541,7 +541,7 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
 
    CASE CONTROL_TYPE_LIST
    CASE CONTROL_TYPE_CHKLIST
-      Value := IFNUMERIC(Value, Value, 0)
+      Value := iif(hb_IsNumeric(Value), Value, 0)
       ListBoxSetCursel(c, value)
       _DoControlEventProcedure(_HMG_aControlChangeProcedure[ix], ix, "CONTROL_ONCHANGE")
       EXIT

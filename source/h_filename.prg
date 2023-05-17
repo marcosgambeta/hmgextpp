@@ -85,9 +85,9 @@ RETURN cName
 FUNCTION _GetCompactPath ( cFile, nMax )
 *-----------------------------------------------------------------------------*
 
-   LOCAL cShort := Space( IFNUMERIC( nMax, nMax + 1, 64 ) )
+   LOCAL cShort := Space( iif(hb_IsNumeric(nMax), nMax + 1, 64) )
 
-RETURN iif( GetCompactPath( @cShort, cFile, IFNUMERIC( nMax, nMax, 63 ), NIL ) > 0, cShort, cFile )
+RETURN iif( GetCompactPath( @cShort, cFile, iif(hb_IsNumeric(nMax), nMax, 63), NIL ) > 0, cShort, cFile )
 
 // Jacek Kubica <kubica@wssk.wroc.pl> HMG 1.1 Experimental Build 11a
 // _GetShortPathName("C:\Program Files\Adobe") -> "C:\Program~1\Adobe"

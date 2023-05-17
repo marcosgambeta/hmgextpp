@@ -106,7 +106,7 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
-   _HMG_ActiveTreeValue := IFNUMERIC( Value, Value, 0 )
+   _HMG_ActiveTreeValue := iif(hb_IsNumeric(Value), Value, 0)
 
    hb_default(@Width, 120)
    hb_default(@Height, 120)
