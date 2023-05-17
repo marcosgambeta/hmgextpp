@@ -1093,7 +1093,7 @@ FUNCTION InputBox(cInputPrompt, cDialogCaption, cDefaultValue, nTimeout, cTimeou
       @ 67 + nMLines, 230 BUTTON _Cancel CAPTION _HMG_MESSAGE[7] ACTION Eval(bCancel)
 
       IF hb_IsNumeric(nTimeout)
-         DEFINE TIMER _InputBox INTERVAL nTimeout ACTION (IFCHAR(cTimeoutValue, RetVal := cTimeoutValue, NIL), _InputBox.Release)
+         DEFINE TIMER _InputBox INTERVAL nTimeout ACTION (iif(hb_IsString(cTimeoutValue), RetVal := cTimeoutValue, NIL), _InputBox.Release)
       ENDIF
 
    END WINDOW
