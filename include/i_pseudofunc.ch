@@ -710,7 +710,7 @@ GetFontParam( <hFont> )\[ 10 ]
 ////////////////////////////////////////////
 #ifndef HB_COMMON_CH_
    /* Type checking macros */
-#  translate ISNIL( <xValue> )       => ( <xValue> == NIL )
+#  translate ISNIL( <xValue> )       => ( <xValue> == NIL )      // deprecated
 #  translate ISARRAY(<xValue>)     => hb_IsArray(<xValue>)       // deprecated
 #  translate ISBLOCK( <xValue> )     => hb_IsBlock( <xValue> )   // deprecated
 #  translate ISCHARACTER( <xValue> ) => hb_IsString( <xValue> )  // deprecated
