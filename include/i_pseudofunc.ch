@@ -716,7 +716,7 @@ GetFontParam( <hFont> )\[ 10 ]
 #  translate ISCHARACTER( <xValue> ) => hb_IsString( <xValue> )  // deprecated
 #  translate ISDATE( <xValue> )      => hb_IsDate( <xValue> )    // deprecated
 #  translate ISLOGICAL( <xValue> )   => hb_IsLogical( <xValue> ) // deprecated
-#  translate ISMEMO( <xValue> )      => hb_IsMemo( <xValue> )
+#  translate ISMEMO( <xValue> )      => hb_IsMemo( <xValue> )    // deprecated
 #  translate ISNUMBER( <xValue> )    => hb_IsNumeric( <xValue> ) // deprecated
 #  translate ISOBJECT( <xValue> )    => hb_IsObject( <xValue> )
 #endif
