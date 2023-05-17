@@ -277,7 +277,7 @@ _HMG_lMultiple := ( Upper(<(x)>) == "ON" ) ; iif ( _HMG_lMultiple == .F. .AND. _
 #translate CRLF => hb_eol()
 
 #translate SET OOP [SUPPORT] <x:ON,OFF> => _HMG_lOOPEnabled := ( Upper(<(x)>) == "ON" )
-#translate SET OOP [SUPPORT] TO <x>     => _HMG_lOOPEnabled := IFLOGICAL( <x>, <x>, .F. )
+#translate SET OOP [SUPPORT] TO <x>     => _HMG_lOOPEnabled := iif(hb_IsLogical(<x>), <x>, .F.)
 
 #xtranslate SET WINDOW THIS TO [<w>] => _SetThisFormInfo( [<w>] )
 

@@ -1808,7 +1808,7 @@ FUNCTION _DoControlEventProcedure(bBlock, i, cEventType, nParam, nParam2)
       ENDIF
 
       _PopEventInfo()
-      lRetVal := IFLOGICAL(lRetVal, lRetVal, .T.)
+      lRetVal := iif(hb_IsLogical(lRetVal), lRetVal, .T.)
    ELSE
       lRetVal := .F.
    ENDIF

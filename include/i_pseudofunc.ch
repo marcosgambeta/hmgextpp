@@ -569,7 +569,7 @@ AddToPager ( _HMG_ActivePagerForm, GetControlHandle( <ControlName> , <ParentForm
 
 #xtranslate _Pager_ForwardMouse ( <ControlName> , <ParentFormName>, <lEnable> ) ;
 => ;
-PagerForwardMouse ( GetControlHandle( <ControlName> , <ParentFormName> ), IFLOGICAL( <lEnable>, <lEnable>, .F. ) )
+PagerForwardMouse ( GetControlHandle( <ControlName> , <ParentFormName> ), iif(hb_IsLogical(<lEnable>), <lEnable>, .F.) )
 
 #xtranslate _Pager_GetButtonSize ( <ControlName> , <ParentFormName> ) ;
 => ;
@@ -730,9 +730,9 @@ GetFontParam( <hFont> )\[ 10 ]
 #translate IFBLOCK( <v1>,<exp1>,<exp2> )     => iif( hb_IsBlock( <v1> ),<exp1>,<exp2> )   // deprecated
 #translate IFCHARACTER( <v1>,<exp1>,<exp2> ) => iif( hb_IsString( <v1> ),<exp1>,<exp2> )  // deprecated
 #translate IFCHAR( <v1>,<exp1>,<exp2> )      => iif( hb_IsString( <v1> ),<exp1>,<exp2> )  // deprecated
-#translate IFSTRING( <v1>,<exp1>,<exp2> )    => iif( hb_IsString( <v1> ),<exp1>,<exp2> )
-#translate IFDATE( <v1>,<exp1>,<exp2> )      => iif( hb_IsDate( <v1> ),<exp1>,<exp2> )
-#translate IFLOGICAL( <v1>,<exp1>,<exp2> )   => iif( hb_IsLogical( <v1> ),<exp1>,<exp2> )
+#translate IFSTRING( <v1>,<exp1>,<exp2> )    => iif( hb_IsString( <v1> ),<exp1>,<exp2> )  // deprecated
+#translate IFDATE( <v1>,<exp1>,<exp2> )      => iif( hb_IsDate( <v1> ),<exp1>,<exp2> )    // deprecated
+#translate IFLOGICAL( <v1>,<exp1>,<exp2> )   => iif( hb_IsLogical( <v1> ),<exp1>,<exp2> ) // deprecated
 #translate IFNUMBER( <v1>,<exp1>,<exp2> )    => iif( hb_IsNumeric( <v1> ),<exp1>,<exp2> )
 #translate IFNUMERIC( <v1>,<exp1>,<exp2> )   => iif( hb_IsNumeric( <v1> ),<exp1>,<exp2> )
 #translate IFOBJECT( <v1>,<exp1>,<exp2> )    => iif( hb_IsObject( <v1> ),<exp1>,<exp2> )
