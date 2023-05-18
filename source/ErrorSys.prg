@@ -229,7 +229,7 @@ STATIC PROCEDURE ShowError( cErrorMessage, oError )
 
       ELSE
 
-         bInit := {|| iif( GetControlType( "Say_01", "oDlg" ) == "EDIT",, ( ;
+         bInit := {|| iif( GetControlType("Say_01", "oDlg") == CONTROL_TYPE_EDIT,, ( ;
             SetProperty( "oDlg", "Say_01", "FontColor", YELLOW ), ;
             SetProperty( "oDlg", "Say_01", "Alignment", "CENTER" ), ;
             SetProperty( "oDlg", "Say_02", "FontColor", YELLOW ), ;
