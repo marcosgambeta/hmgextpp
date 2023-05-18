@@ -1147,6 +1147,17 @@ FUNCTION GetControlType(ControlName, ParentForm)
 
 RETURN (_HMG_aControlType[i])
 
+// added by MAG (2023/05/18)
+FUNCTION GetControlTypeAsString(ControlName, ParentForm)
+
+   LOCAL i
+
+   IF (i := GetControlIndex(ControlName, ParentForm)) == 0
+      RETURN ""
+   ENDIF
+
+RETURN controlTypeToString(_HMG_aControlType[i])
+
 FUNCTION GetControlValue(ControlName, ParentForm)
 
    LOCAL i
@@ -7974,6 +7985,7 @@ STATIC FUNCTION controlTypeToString(type)
    CASE CONTROL_TYPE_IPADDRESS     ; RETURN "IPADDRESS"
    CASE CONTROL_TYPE_LABEL         ; RETURN "LABEL"
    CASE CONTROL_TYPE_LIST          ; RETURN "LIST"
+   CASE CONTROL_TYPE_LISTBOX       ; RETURN "LISTBOX"
    CASE CONTROL_TYPE_MASKEDTEXT    ; RETURN "MASKEDTEXT"
    CASE CONTROL_TYPE_MENU          ; RETURN "MENU"
    CASE CONTROL_TYPE_MESSAGEBAR    ; RETURN "MESSAGEBAR"
