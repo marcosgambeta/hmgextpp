@@ -136,7 +136,7 @@ PROCEDURE ReleaseCLButtonImageList ( cWindow, cControl )
    
    LOCAL i
 
-   IF _IsControlDefined(cControl, cWindow) .AND. GetControlType(cControl, cWindow) == "CLBUTTON"
+   IF _IsControlDefined(cControl, cWindow) .AND. GetControlType(cControl, cWindow) == CONTROL_TYPE_CLBUTTON
 
       i := GetControlIndex(cControl, cWindow)
 
@@ -189,7 +189,7 @@ PROCEDURE CLButton_SetShield(cWindow, cControl)
    
    LOCAL i
 
-   IF GetControlType(cControl, cWindow) == "CLBUTTON"
+   IF GetControlType(cControl, cWindow) == CONTROL_TYPE_CLBUTTON
 
       i := GetControlIndex(cControl, cWindow)
 
@@ -219,7 +219,7 @@ PROCEDURE CLButtonSetFocus ( cWindow, cControl )
    LOCAL ControlCount
    LOCAL x
 
-   IF GetControlType(cControl, cWindow) == "CLBUTTON"
+   IF GetControlType(cControl, cWindow) == CONTROL_TYPE_CLBUTTON
 
       _HMG_UserComponentProcess := .T.
 
@@ -248,7 +248,7 @@ RETURN
 PROCEDURE CLButtonEnable(cWindow, cControl)
 *------------------------------------------------------------------------------*
 
-   IF GetControlType(cControl, cWindow) == "CLBUTTON"
+   IF GetControlType(cControl, cWindow) == CONTROL_TYPE_CLBUTTON
 
       EnableWindow(GetControlHandle(cControl, cWindow))
 
@@ -266,7 +266,7 @@ RETURN
 PROCEDURE CLButtonDisable(cWindow, cControl)
 *------------------------------------------------------------------------------*
 
-   IF GetControlType(cControl, cWindow) == "CLBUTTON"
+   IF GetControlType(cControl, cWindow) == CONTROL_TYPE_CLBUTTON
 
       DisableWindow(GetControlHandle(cControl, cWindow))
 
@@ -284,7 +284,7 @@ RETURN
 FUNCTION SetCLButtonHandle(cWindow, cControl)
 *------------------------------------------------------------------------------*
 
-   IF GetControlType(cControl, cWindow) == "CLBUTTON"
+   IF GetControlType(cControl, cWindow) == CONTROL_TYPE_CLBUTTON
 
       MsgExclamation ( "This Property is Read Only!", "Warning" )
 
@@ -304,7 +304,7 @@ FUNCTION GetCLButtonHandle(cWindow, cControl)
 
    LOCAL RetVal // := Nil
 
-   IF GetControlType(cControl, cWindow) == "CLBUTTON"
+   IF GetControlType(cControl, cWindow) == CONTROL_TYPE_CLBUTTON
 
       _HMG_UserComponentProcess := .T.
 
@@ -323,7 +323,7 @@ FUNCTION SetCLButtonCaption ( cWindow, cControl, cProperty, cValue )
 *------------------------------------------------------------------------------*
    cProperty := NIL // Unused variable
 
-   IF GetControlType(cControl, cWindow) == "CLBUTTON"
+   IF GetControlType(cControl, cWindow) == CONTROL_TYPE_CLBUTTON
 
       _HMG_UserComponentProcess := .T.
 
@@ -343,7 +343,7 @@ FUNCTION GetCLButtonCaption ( cWindow, cControl )
    
    LOCAL RetVal // := Nil
 
-   IF GetControlType(cControl, cWindow) == "CLBUTTON"
+   IF GetControlType(cControl, cWindow) == CONTROL_TYPE_CLBUTTON
 
       _HMG_UserComponentProcess := .T.
 
@@ -362,7 +362,7 @@ PROCEDURE SetCLButtonNoteText ( cWindow, cControl, cProperty, cValue )
 *------------------------------------------------------------------------------*
    cProperty := NIL // Unused variable
 
-   IF GetControlType(cControl, cWindow) == "CLBUTTON"
+   IF GetControlType(cControl, cWindow) == CONTROL_TYPE_CLBUTTON
 
       CLButton_SetNote(GetControlHandle(cControl, cWindow), cValue)
 
@@ -380,7 +380,7 @@ RETURN
 FUNCTION GetCLButtonNoteText ( cWindow, cControl )
 *------------------------------------------------------------------------------*
 
-   IF GetControlType(cControl, cWindow) == "CLBUTTON"
+   IF GetControlType(cControl, cWindow) == CONTROL_TYPE_CLBUTTON
 
       MsgExclamation ( "This Property is Write Only!", "Warning" )
 
@@ -398,7 +398,7 @@ PROCEDURE SetCLButtonPicture(cWindow, cControl, cProperty, cBitmap)
    
    cProperty := NIL // Unused variable
 
-   IF GetControlType(cControl, cWindow) == "CLBUTTON"
+   IF GetControlType(cControl, cWindow) == CONTROL_TYPE_CLBUTTON
 
       i := GetControlIndex(cControl, cWindow)
 
@@ -426,7 +426,7 @@ FUNCTION GetCLButtonPicture(cWindow, cControl)
    
    LOCAL RetVal
 
-   IF GetControlType(cControl, cWindow) == "CLBUTTON"
+   IF GetControlType(cControl, cWindow) == CONTROL_TYPE_CLBUTTON
 
       _HMG_UserComponentProcess := .T.
 
