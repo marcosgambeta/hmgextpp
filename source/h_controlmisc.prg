@@ -3648,7 +3648,7 @@ RETURN (aResult)
 FUNCTION _InputWindowOk
 
    AEval(aResult, {|x, i|HB_SYMBOL_UNUSED(x), aResult[i] := ;
-      iif(GetControlType("Control_" + hb_ntos(i), "_InputWindow") == "CHECKLABEL", ;
+      iif(GetControlType("Control_" + hb_ntos(i), "_InputWindow") == CONTROL_TYPE_CHECKLABEL, ;
       GetProperty("_InputWindow", "Control_" + hb_ntos(i), "Checked"), ;
       _GetValue("Control_" + hb_ntos(i), "_InputWindow"))})
 
@@ -4220,18 +4220,26 @@ PROCEDURE SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
       SWITCH Arg3
       CASE "CUEBANNER" /* P.Ch. 16.10. */
          IF IsVistaOrLater()
-            IF "TEXT" $ GetControlType(Arg2, Arg1)
+            SWITCH GetControlType(Arg2, Arg1)
+            CASE CONTROL_TYPE_BTNNUMTEXT
+            CASE CONTROL_TYPE_BTNTEXT
+            CASE CONTROL_TYPE_CHARMASKTEXT
+            CASE CONTROL_TYPE_MASKEDTEXT
+            CASE CONTROL_TYPE_NUMTEXT
+            CASE CONTROL_TYPE_TEXT
                SendMessageWideString(GetControlHandle(Arg2, Arg1), EM_SETCUEBANNER, .T., Arg4)
-            ELSEIF GetControlType(Arg2, Arg1) == "SPINNER"
+               EXIT
+            CASE CONTROL_TYPE_SPINNER
                SendMessageWideString(GetControlHandle(Arg2, Arg1)[1], EM_SETCUEBANNER, .T., Arg4)
-            ELSEIF GetControlType(Arg2, Arg1) == "COMBO"
+               EXIT
+            CASE CONTROL_TYPE_COMBO
                ix := GetControlIndex(Arg2, Arg1)
                IF _HMG_aControlMiscData1[ix][2] == .T.
                   SendMessageWideString(_HMG_aControlRangeMin[ix], EM_SETCUEBANNER, .T., Arg4)
                ELSE
                   SendMessageWideString(GetControlHandle(Arg2, Arg1), CB_SETCUEBANNER, .T., Arg4)
                ENDIF
-            ENDIF
+            ENDSWITCH
          ENDIF
          EXIT
       CASE "ALIGNMENT"  // GF 12/01/17
@@ -4344,7 +4352,7 @@ PROCEDURE SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          iif(Arg4 == .T., _EnableControl(Arg2, Arg1), _DisableControl(Arg2, Arg1))
          EXIT
       CASE "CHECKED"
-         IF GetControlType(Arg2, Arg1) == "CHECKLABEL"
+         IF GetControlType(Arg2, Arg1) == CONTROL_TYPE_CHECKLABEL
             ix := GetControlHandle(Arg2, Arg1)
             IF Arg4 == NIL
                Arg4 := !GetChkLabel(ix)
@@ -4355,7 +4363,7 @@ PROCEDURE SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          ENDIF
          EXIT
       CASE "BLINK"
-         IF "LABEL" $ GetControlType(Arg2, Arg1) .AND. (_IsControlVisible(Arg2, Arg1) .OR. Arg4 == .F.)
+         IF "LABEL" $ GetControlTypeAsString(Arg2, Arg1) .AND. (_IsControlVisible(Arg2, Arg1) .OR. Arg4 == .F.)
             ix := GetControlIndex(Arg2, Arg1)
             IF _HMG_aControlMiscData1[ix][2] == .T.
                iif(Arg4 == .T., _EnableControl("BlinkTimer" + hb_ntos(ix), Arg1), _DisableControl("BlinkTimer" + hb_ntos(ix), Arg1))
@@ -4411,7 +4419,7 @@ PROCEDURE SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          _SetFontColor(Arg2, Arg1, Arg4)
          EXIT
       CASE "CELLNAVIGATION"
-         IF GetControlType(Arg2, Arg1) == "GRID"
+         IF GetControlType(Arg2, Arg1) == CONTROL_TYPE_GRID
             ix := GetControlIndex(Arg2, Arg1)
             _HMG_aControlFontColor[ix] := Arg4
             _HMG_aControlMiscData1[ix][1] := LISTVIEW_GETFOCUSEDITEM(_HMG_aControlHandles[ix])
@@ -4470,19 +4478,19 @@ PROCEDURE SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          EXIT
       CASE "READONLY"
       CASE "DISABLEEDIT"
-         IF GetControlType(Arg2, Arg1) == "RADIOGROUP"
+         IF GetControlType(Arg2, Arg1) == CONTROL_TYPE_RADIOGROUP
             _SetRadioGroupReadOnly(Arg2, Arg1, Arg4)
          ELSE
             _SetTextEditReadOnly(Arg2, Arg1, Arg4)
          ENDIF
          EXIT
       CASE "SPACING"  // GF 04/08/19
-         IF GetControlType(Arg2, Arg1) == "RADIOGROUP"
+         IF GetControlType(Arg2, Arg1) == CONTROL_TYPE_RADIOGROUP
             _SetRadioGroupSpacing(Arg2, Arg1, Arg4)
          ENDIF
          EXIT
       CASE "OPTIONS"  // GF 04/10/19
-         IF GetControlType(Arg2, Arg1) == "RADIOGROUP"
+         IF GetControlType(Arg2, Arg1) == CONTROL_TYPE_RADIOGROUP
             _SetRadioGroupOptions(Arg2, Arg1, Arg4)
          ENDIF
          EXIT
@@ -4500,7 +4508,7 @@ PROCEDURE SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          TreeView_SetLineColor(GetControlHandle(Arg2, Arg1), Arg4)
          EXIT
       CASE "ITEMHEIGHT"
-         IF GetControlType(Arg2, Arg1) == "COMBO"
+         IF GetControlType(Arg2, Arg1) == CONTROL_TYPE_COMBO
             ComboSetItemHeight(GetControlHandle(Arg2, Arg1), Arg4)
          ELSE
             TreeView_SetItemHeight(GetControlHandle(Arg2, Arg1), Arg4)
@@ -4517,7 +4525,7 @@ PROCEDURE SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          _SetGetAutoFont(Arg2, Arg1, Arg4)
          EXIT
       CASE "FIRSTDAYOFWEEK"  // GF 22/03/22
-         IF GetControlType(Arg2, Arg1) == "MONTHCAL"
+         IF GetControlType(Arg2, Arg1) == CONTROL_TYPE_MONTHCAL
             SetFirstDayOfWeek(Arg2, Arg1, Arg4)
          ENDIF
          EXIT
@@ -4539,7 +4547,7 @@ PROCEDURE SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
 
    CASE 5 // PCount() == 5 (CONTROL WITH ARGUMENT OR TOOLBAR BUTTON OR SPLITBOX CHILD CONTROL WITHOUT ARGUMENT)
 
-      IF Upper(Arg2) != "SPLITBOX" .AND. GetControlType(Arg2, Arg1) != "TOOLBAR"
+      IF Upper(Arg2) != "SPLITBOX" .AND. GetControlType(Arg2, Arg1) != CONTROL_TYPE_TOOLBAR
          VerifyControlDefined(Arg1, Arg2)
       ENDIF
 
@@ -4628,19 +4636,19 @@ PROCEDURE SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
             _SetGetRichValue(Arg2, Arg1, Arg5, Arg4)
             EXIT
          CASE "CHECKBOXITEM"
-            IF "GRID" $ GetControlType(Arg2, Arg1) // Eduardo Fernandes 2009/JUN/17
+            IF "GRID" $ GetControlTypeAsString(Arg2, Arg1) // Eduardo Fernandes 2009/JUN/17
                _SetGetCheckBoxItemState(Arg2, Arg1, Arg4, Arg5)
             ELSE
                _SetGetChkListItemState(Arg2, Arg1, Arg4, Arg5)
             ENDIF
             EXIT
          CASE "CARGO" // GF 16/02/2019
-            IF GetControlType(Arg2, Arg1) == "TREE"
+            IF GetControlType(Arg2, Arg1) == CONTROL_TYPE_TREE
                TreeNodeItemCargo(Arg2, Arg1, Arg4, Arg5)
             ENDIF
             EXIT
          OTHERWISE  // If Property Not Matched Look For ToolBar Button
-            IF GetControlType(Arg2, Arg1) == "TOOLBAR"
+            IF GetControlType(Arg2, Arg1) == CONTROL_TYPE_TOOLBAR
                IF GetControlHandle(Arg2, Arg1) != GetControlContainerHandle(Arg3, Arg1)
                   MsgMiniGuiError("Control Does Not Belong To Container.")
                ENDIF
@@ -4716,7 +4724,7 @@ PROCEDURE SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
    ENDSWITCH
 
 #ifdef _HMG_COMPAT_
-   IF hb_IsChar(Arg1) .AND. hb_IsChar(Arg2) .AND. "GRID" $ GetControlType(Arg2, Arg1) .AND. hb_IsChar(Arg3) .AND. "GROUP" $ Arg3
+   IF hb_IsChar(Arg1) .AND. hb_IsChar(Arg2) .AND. "GRID" $ GetControlTypeAsString(Arg2, Arg1) .AND. hb_IsChar(Arg3) .AND. "GROUP" $ Arg3
 
       SWITCH Arg3
       CASE "GROUPENABLED"
@@ -4952,11 +4960,11 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
       SWITCH Arg3
       CASE "CUEBANNER" /* P.Ch. 16.10. */
          IF IsVistaOrLater()
-            IF "TEXT" $ GetControlType(Arg2, Arg1)
+            IF "TEXT" $ GetControlTypeAsString(Arg2, Arg1)
                RetVal := GetCueBannerText(GetControlHandle(Arg2, Arg1))
-            ELSEIF GetControlType(Arg2, Arg1) == "SPINNER"
+            ELSEIF GetControlType(Arg2, Arg1) == CONTROL_TYPE_SPINNER
                RetVal := GetCueBannerText(GetControlHandle(Arg2, Arg1)[1])
-            ELSEIF GetControlType(Arg2, Arg1) == "COMBO"
+            ELSEIF GetControlType(Arg2, Arg1) == CONTROL_TYPE_COMBO
                ix := GetControlIndex(Arg2, Arg1)
                IF _HMG_aControlMiscData1[ix][2] == .T.
                   RetVal := GetCueBannerText(_HMG_aControlRangeMin[ix])
@@ -5153,9 +5161,9 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          RetVal := _IsControlEnabled(Arg2, Arg1)
          EXIT
       CASE "CHECKED"
-         IF GetControlType(Arg2, Arg1) == "CHECKLABEL"
+         IF GetControlType(Arg2, Arg1) == CONTROL_TYPE_CHECKLABEL
             RetVal := GetChkLabel(GetControlHandle(Arg2, Arg1))
-         ELSEIF GetControlType(Arg2, Arg1) == "DATEPICK"
+         ELSEIF GetControlType(Arg2, Arg1) == CONTROL_TYPE_DATEPICK
             RetVal := dtp_IsChecked(GetControlHandle(Arg2, Arg1))
          ELSE
             RetVal := _IsMenuItemChecked(Arg2, Arg1)
@@ -5191,7 +5199,7 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          RetVal := _GetFontColor(Arg2, Arg1)
          EXIT
       CASE "CELLNAVIGATION"
-         IF GetControlType(Arg2, Arg1) == "GRID"
+         IF GetControlType(Arg2, Arg1) == CONTROL_TYPE_GRID
             ix := GetControlIndex(Arg2, Arg1)
             RetVal := _HMG_aControlFontColor[ix]
          ENDIF
@@ -5231,7 +5239,7 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
 #endif
       CASE "READONLY"
       CASE "DISABLEEDIT"
-         IF GetControlType(Arg2, Arg1) == "RADIOGROUP"
+         IF GetControlType(Arg2, Arg1) == CONTROL_TYPE_RADIOGROUP
             RetVal := _GetRadioGroupReadOnly(Arg2, Arg1)
          ELSE
             ix := GetControlHandle(Arg2, Arg1)
@@ -5243,15 +5251,15 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          RetVal := _HMG_aControlSpacing[GetControlIndex(Arg2, Arg1)]
          EXIT
       CASE "HORIZONTAL"  // 26/04/2022
-         IF GetControlType(Arg2, Arg1) == "RADIOGROUP"
+         IF GetControlType(Arg2, Arg1) == CONTROL_TYPE_RADIOGROUP
             RetVal := _HMG_aControlMiscData1[GetControlIndex(Arg2, Arg1)]
-         ELSEIF GetControlType(Arg2, Arg1) == "SPINNER"
+         ELSEIF GetControlType(Arg2, Arg1) == CONTROL_TYPE_SPINNER
             ix := GetControlHandle(Arg2, Arg1)
             RetVal := IsWindowHasStyle(ix[2], UDS_HORZ)
          ENDIF
          EXIT
       CASE "WRAP"  // 26/04/2022
-         IF GetControlType(Arg2, Arg1) == "SPINNER"
+         IF GetControlType(Arg2, Arg1) == CONTROL_TYPE_SPINNER
             ix := GetControlHandle(Arg2, Arg1)
             RetVal := IsWindowHasStyle(ix[2], UDS_WRAP)
          ENDIF
@@ -5266,7 +5274,7 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          RetVal := TreeView_GetLineColor(GetControlHandle(Arg2, Arg1))
          EXIT
       CASE "ITEMHEIGHT"
-         IF GetControlType(Arg2, Arg1) == "COMBO"
+         IF GetControlType(Arg2, Arg1) == CONTROL_TYPE_COMBO
             RetVal := GetWindowHeight(GetControlHandle(Arg2, Arg1)) - 6
          ELSE
             RetVal := TreeView_GetItemHeight(GetControlHandle(Arg2, Arg1))
@@ -5283,7 +5291,7 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          RetVal := _SetGetAutoFont(Arg2, Arg1)
          EXIT
       CASE "FIRSTDAYOFWEEK"  // GF 22/03/22
-         IF GetControlType(Arg2, Arg1) == "MONTHCAL"
+         IF GetControlType(Arg2, Arg1) == CONTROL_TYPE_MONTHCAL
             RetVal := GetFirstDayOfWeek(Arg2, Arg1)
          ENDIF
          EXIT
@@ -5304,7 +5312,7 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
 
       ELSE
 
-         IF GetControlType(Arg2, Arg1) != "TOOLBAR"
+         IF GetControlType(Arg2, Arg1) != CONTROL_TYPE_TOOLBAR
             VerifyControlDefined(Arg1, Arg2)
          ENDIF
 
@@ -5371,19 +5379,19 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
             RetVal := _SetGetRichValue(Arg2, Arg1, NIL, Arg4)
             EXIT
          CASE "CHECKBOXITEM"
-            IF "GRID" $ GetControlType(Arg2, Arg1) // Eduardo Fernandes 2009/JUN/17
+            IF "GRID" $ GetControlTypeAsString(Arg2, Arg1) // Eduardo Fernandes 2009/JUN/17
                RetVal := _SetGetCheckBoxItemState(Arg2, Arg1, Arg4, NIL)
             ELSE
                RetVal := _SetGetChkListItemState(Arg2, Arg1, Arg4)
             ENDIF
             EXIT
          CASE "CARGO" // GF 16/02/2019
-            IF GetControlType(Arg2, Arg1) == "TREE"
+            IF GetControlType(Arg2, Arg1) == CONTROL_TYPE_TREE
                RetVal := TreeNodeItemCargo(Arg2, Arg1, Arg4)
             ENDIF
             EXIT
          OTHERWISE // If Property Not Matched Look For Contained Control With No Arguments (ToolBar Button)
-            IF GetControlType(Arg2, Arg1) == "TOOLBAR"
+            IF GetControlType(Arg2, Arg1) == CONTROL_TYPE_TOOLBAR
                IF GetControlHandle(Arg2, Arg1) != GetControlContainerHandle(Arg3, Arg1)
                   MsgMiniGuiError("Control Does Not Belong To Container.")
                ENDIF
@@ -5455,7 +5463,7 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
    ENDSWITCH
 
 #ifdef _HMG_COMPAT_
-   IF hb_IsChar(Arg1) .AND. hb_IsChar(Arg2) .AND. "GRID" $ GetControlType(Arg2, Arg1) .AND. hb_IsChar(Arg3) .AND. "GROUP" $ Arg3
+   IF hb_IsChar(Arg1) .AND. hb_IsChar(Arg2) .AND. "GRID" $ GetControlTypeAsString(Arg2, Arg1) .AND. hb_IsChar(Arg3) .AND. "GROUP" $ Arg3
 
       SWITCH Arg3
       CASE "GROUPENABLED"
@@ -5580,9 +5588,9 @@ FUNCTION DoMethod(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9)
       CASE "RELEASE"         ; _ReleaseControl(Arg2, Arg1)                                                                             ; EXIT
       CASE "SHOW"            ; _ShowControl(Arg2, Arg1)                                                                                ; EXIT
       CASE "HIDE"            ; _HideControl(Arg2, Arg1)                                                                                ; EXIT
-      CASE "PLAY"            ; iif(GetControlType(Arg2, Arg1) == "ANIMATEBOX", _PlayAnimateBox(Arg2, Arg1), _PlayPlayer(Arg2, Arg1))   ; EXIT
-      CASE "STOP"            ; iif(GetControlType(Arg2, Arg1) == "ANIMATEBOX", _StopAnimateBox(Arg2, Arg1), _StopPlayer(Arg2, Arg1))   ; EXIT
-      CASE "CLOSE"           ; iif(GetControlType(Arg2, Arg1) == "ANIMATEBOX", _CloseAnimateBox(Arg2, Arg1), _ClosePlayer(Arg2, Arg1)) ; EXIT
+      CASE "PLAY"            ; iif(GetControlType(Arg2, Arg1) == CONTROL_TYPE_ANIMATEBOX, _PlayAnimateBox(Arg2, Arg1), _PlayPlayer(Arg2, Arg1))   ; EXIT
+      CASE "STOP"            ; iif(GetControlType(Arg2, Arg1) == CONTROL_TYPE_ANIMATEBOX, _StopAnimateBox(Arg2, Arg1), _StopPlayer(Arg2, Arg1))   ; EXIT
+      CASE "CLOSE"           ; iif(GetControlType(Arg2, Arg1) == CONTROL_TYPE_ANIMATEBOX, _CloseAnimateBox(Arg2, Arg1), _ClosePlayer(Arg2, Arg1)) ; EXIT
       CASE "PLAYREVERSE"     ; _PlayPlayerReverse(Arg2, Arg1)                                                                          ; EXIT
       CASE "PAUSE"           ; _PausePlayer(Arg2, Arg1)                                                                                ; EXIT
       CASE "EJECT"           ; _EjectPlayer(Arg2, Arg1)                                                                                ; EXIT
@@ -5632,7 +5640,7 @@ FUNCTION DoMethod(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9)
       CASE "DELETEITEM"     ; _DeleteItem(Arg2, Arg1, Arg4)                   ; EXIT
       CASE "DELETEPAGE"     ; _DeleteTabPage(Arg2, Arg1, Arg4)                ; EXIT
       CASE "OPEN"
-         iif(GetControlType(Arg2, Arg1) == "ANIMATEBOX", _OpenAnimateBox(Arg2, Arg1, Arg4), _OpenPlayer(Arg2, Arg1, Arg4))
+         iif(GetControlType(Arg2, Arg1) == CONTROL_TYPE_ANIMATEBOX, _OpenAnimateBox(Arg2, Arg1, Arg4), _OpenPlayer(Arg2, Arg1, Arg4))
          EXIT
       CASE "SEEK"           ; _SeekAnimateBox(Arg2, Arg1, Arg4)               ; EXIT
       CASE "ADDITEM"        ; _AddItem(Arg2, Arg1, Arg4)                      ; EXIT
@@ -5643,7 +5651,7 @@ FUNCTION DoMethod(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9)
       CASE "SETARRAY"       ; _SetArrayToControl(Arg2, Arg1, Arg4)            ; EXIT // GF
 #ifdef _BT_
       CASE "SETSHOWTEXT" // GF
-         IF GetControlType(Arg2, Arg1) == "PROGRESSWHEEL"
+         IF GetControlType(Arg2, Arg1) == CONTROL_TYPE_PROGRESSWHEEL
             PW_SetShowText(Arg2, Arg1, Arg4)
          ENDIF
          EXIT
@@ -5818,7 +5826,7 @@ FUNCTION DoMethod(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8, Arg9)
    ENDSWITCH
 
 #ifdef _HMG_COMPAT_
-   IF hb_IsChar(Arg1) .AND. hb_IsChar(Arg2) .AND. "GRID" $ GetControlType(Arg2, Arg1) .AND. hb_IsChar(Arg3) .AND. "GROUP" $ Arg3
+   IF hb_IsChar(Arg1) .AND. hb_IsChar(Arg2) .AND. "GRID" $ GetControlTypeAsString(Arg2, Arg1) .AND. hb_IsChar(Arg3) .AND. "GROUP" $ Arg3
       SWITCH Arg3
       CASE "GROUPDELETEALL"      ; ListView_GroupDeleteAll(GetControlHandle(Arg2, Arg1))                                               ; EXIT
       CASE "GROUPDELETE"         ; ListView_GroupDelete(GetControlHandle(Arg2, Arg1), Arg4)                                            ; EXIT
@@ -5926,7 +5934,7 @@ STATIC FUNCTION _ProgressWheel_GetProperty(xData, Arg1, Arg2, Arg3)
 
    LOCAL RetVal := .F.
 
-   IF (ValType(Arg1) != "C") .OR. (ValType(Arg2) != "C") .OR. (ValType(Arg3) != "C") .OR. (_IsControlDefined(Arg2, Arg1) == .F.) .OR. (GetControlType(Arg2, Arg1) != "PROGRESSWHEEL")
+   IF (ValType(Arg1) != "C") .OR. (ValType(Arg2) != "C") .OR. (ValType(Arg3) != "C") .OR. (_IsControlDefined(Arg2, Arg1) == .F.) .OR. (GetControlType(Arg2, Arg1) != CONTROL_TYPE_PROGRESSWHEEL)
       RETURN .F.
    ENDIF
 
@@ -5952,7 +5960,7 @@ STATIC FUNCTION _ProgressWheel_SetProperty(Arg1, Arg2, Arg3, Arg4)
 
    LOCAL RetVal := .F.
 
-   IF (ValType(Arg1) != "C") .OR. (ValType(Arg2) != "C") .OR. (ValType(Arg3) != "C") .OR. (_IsControlDefined(Arg2, Arg1) == .F.) .OR. (GetControlType(Arg2, Arg1) != "PROGRESSWHEEL")
+   IF (ValType(Arg1) != "C") .OR. (ValType(Arg2) != "C") .OR. (ValType(Arg3) != "C") .OR. (_IsControlDefined(Arg2, Arg1) == .F.) .OR. (GetControlType(Arg2, Arg1) != CONTROL_TYPE_PROGRESSWHEEL)
       RETURN .F.
    ENDIF
 
@@ -6238,7 +6246,7 @@ STATIC FUNCTION _RichEditBox_GetProperty(xData, Arg1, Arg2, Arg3, Arg4, Arg5, Ar
    LOCAL RetVal := .F.
 
    IF (ValType(Arg1) != "C") .OR. (ValType(Arg2) != "C") .OR. (ValType(Arg3) != "C") .OR. ;
-      (_IsControlDefined(Arg2, Arg1) == .F.) .OR. (GetControlType(Arg2, Arg1) != "RICHEDIT") .OR. (_HMG_aControlMiscData1[GetControlIndex(Arg2, Arg1)] != 1)
+      (_IsControlDefined(Arg2, Arg1) == .F.) .OR. (GetControlType(Arg2, Arg1) != CONTROL_TYPE_RICHEDIT) .OR. (_HMG_aControlMiscData1[GetControlIndex(Arg2, Arg1)] != 1)
       RETURN .F.
    ENDIF
 
@@ -6321,7 +6329,7 @@ STATIC FUNCTION _RichEditBox_SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg
    LOCAL RetVal := .F.
 
    IF (ValType(Arg1) != "C") .OR. (ValType(Arg2) != "C") .OR. (ValType(Arg3) != "C") .OR. ;
-      (_IsControlDefined(Arg2, Arg1) == .F.) .OR. (GetControlType(Arg2, Arg1) != "RICHEDIT") .OR. (_HMG_aControlMiscData1[GetControlIndex(Arg2, Arg1)] != 1)
+      (_IsControlDefined(Arg2, Arg1) == .F.) .OR. (GetControlType(Arg2, Arg1) != CONTROL_TYPE_RICHEDIT) .OR. (_HMG_aControlMiscData1[GetControlIndex(Arg2, Arg1)] != 1)
       RETURN .F.
    ENDIF
 
@@ -6386,7 +6394,7 @@ STATIC FUNCTION _RichEditBox_DoMethod(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, 
    LOCAL hWndControl
 
    IF (ValType(Arg1) != "C") .OR. (ValType(Arg2) != "C") .OR. (ValType(Arg3) != "C") .OR. ;
-      (_IsControlDefined(Arg2, Arg1) == .F.) .OR. (GetControlType(Arg2, Arg1) != "RICHEDIT") .OR. (_HMG_aControlMiscData1[GetControlIndex(Arg2, Arg1)] != 1)
+      (_IsControlDefined(Arg2, Arg1) == .F.) .OR. (GetControlType(Arg2, Arg1) != CONTROL_TYPE_RICHEDIT) .OR. (_HMG_aControlMiscData1[GetControlIndex(Arg2, Arg1)] != 1)
       RETURN .F.
    ENDIF
 
@@ -7107,7 +7115,7 @@ STATIC FUNCTION _GetFontColor(ControlName, ParentForm)
 
       t := GetControlType(ControlName, ParentForm)
 
-      IF "GRID" $ t .OR. t == CONTROL_TYPE_BROWSE
+      IF t == CONTROL_TYPE_GRID .OR. t == CONTROL_TYPE_MULTIGRID .OR. t == CONTROL_TYPE_PROPGRID .OR. t == CONTROL_TYPE_BROWSE
          nTmp := ListView_GetTextColor(_HMG_aControlHandles[i])
          RetVal := nRGB2Arr(nTmp)
       ELSE
