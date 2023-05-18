@@ -188,7 +188,7 @@ PROCEDURE ReleaseActiveX ( cWindow, cControl )
    
    LOCAL oActiveX
 
-   IF _IsControlDefined(cControl, cWindow) .AND. GetControlType(cControl, cWindow) == "ACTIVEX"
+   IF _IsControlDefined(cControl, cWindow) .AND. GetControlType(cControl, cWindow) == CONTROL_TYPE_ACTIVEX
 
       oActiveX := _HMG_aControlIds[GetControlIndex(cControl, cWindow)]
 
@@ -210,7 +210,7 @@ RETURN
 FUNCTION SetActiveXObject ( cWindow, cControl )
 *-----------------------------------------------------------------------------*
 
-   IF GetControlType(cControl, cWindow) == "ACTIVEX"
+   IF GetControlType(cControl, cWindow) == CONTROL_TYPE_ACTIVEX
 
       MsgExclamation ( "This Property is Read Only!", "Warning" )
 
@@ -230,7 +230,7 @@ FUNCTION GetActiveXObject ( cWindow, cControl )
    
    LOCAL RetVal
 
-   IF GetControlType(cControl, cWindow) == "ACTIVEX"
+   IF GetControlType(cControl, cWindow) == CONTROL_TYPE_ACTIVEX
 
       _HMG_UserComponentProcess := .T.
 
