@@ -341,7 +341,7 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
 #endif
 
    CASE CONTROL_TYPE_IPADDRESS
-      Value := IFEMPTY(Value, {}, Value)
+      Value := iif(empty(Value), {}, Value)
       IF Len(Value) == 0
          ClearIpAddress(c)
       ELSE
@@ -350,7 +350,7 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
       EXIT
 
    CASE CONTROL_TYPE_MONTHCAL
-      Value := IFEMPTY(Value, BLANK_DATE, Value)
+      Value := iif(empty(Value), BLANK_DATE, Value)
       SetMonthCalValue(c, Year(value), Month(value), Day(value))
       _DoControlEventProcedure(_HMG_aControlChangeProcedure[ix], ix, "CONTROL_ONCHANGE")
       IF hb_Version(HB_VERSION_BITWIDTH) >= 64
@@ -378,7 +378,7 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
       EXIT
 
    CASE CONTROL_TYPE_MASKEDTEXT
-      Value := IFEMPTY(Value, 0, Value)
+      Value := iif(empty(Value), 0, Value)
       IF GetFocus() == c
          SetWindowText(_HMG_aControlhandles[ix], Transform(Value, _HMG_aControlInputMask[ix]))
       ELSE
@@ -435,18 +435,18 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
 
    CASE CONTROL_TYPE_TEXT
    CASE CONTROL_TYPE_BTNTEXT
-      Value := IFEMPTY(Value, "", Value)
+      Value := iif(empty(Value), "", Value)
       SetWindowText(c, RTrim(value))
       EXIT
 
    CASE CONTROL_TYPE_EDIT
-      Value := IFEMPTY(Value, "", Value)
+      Value := iif(empty(Value), "", Value)
       SetWindowText(c, value)
       _DoControlEventProcedure(_HMG_aControlChangeProcedure[ix], ix, "CONTROL_ONCHANGE")
       EXIT
 
    CASE CONTROL_TYPE_RICHEDIT
-      Value := IFEMPTY(Value, "", Value)
+      Value := iif(empty(Value), "", Value)
       IF _HMG_IsXPorLater
          IF Empty(value) .OR. !(Left(value, 7) == "{\rtf1\")
             SetWindowText(c, value)
@@ -459,7 +459,7 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
       EXIT
 
    CASE CONTROL_TYPE_CHARMASKTEXT
-      Value := IFEMPTY(Value, "", Value)
+      Value := iif(empty(Value), "", Value)
       IF hb_IsLogical(_HMG_aControlHeadCLick[ix])
          IF _HMG_aControlHeadCLick[ix] == .T.
             SetWindowText(c, RTrim(DToC(hb_defaultValue(value, BLANK_DATE))))
@@ -472,12 +472,12 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
       EXIT
 
    CASE CONTROL_TYPE_BTNNUMTEXT
-      Value := IFEMPTY(Value, 0, Value)
+      Value := iif(empty(Value), 0, Value)
       SetWindowText(c, hb_ntos(Int(value)))
       EXIT
 
    CASE CONTROL_TYPE_SPINNER
-      Value := IFEMPTY(Value, 0, Value)
+      Value := iif(empty(Value), 0, Value)
       SetSpinnerValue(c[2], Value)
       EXIT
 
@@ -611,12 +611,12 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
       EXIT
 
    CASE CONTROL_TYPE_PROGRESSBAR
-      Value := IFEMPTY(Value, 0, Value)
+      Value := iif(empty(Value), 0, Value)
       SendMessage(c, PBM_SETPOS, value, 0)
       EXIT
 
    CASE CONTROL_TYPE_SLIDER
-      Value := IFEMPTY(Value, 0, Value)
+      Value := iif(empty(Value), 0, Value)
       SendMessage(c, TBM_SETPOS, 1, value)
       _DoControlEventProcedure(_HMG_aControlChangeProcedure[ix], ix, "CONTROL_ONCHANGE")
       EXIT

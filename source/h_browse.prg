@@ -2272,7 +2272,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
          Ldelta := 1
          EXIT
       CASE "N"
-         ControlType := IFEMPTY(Decimals, "I", "F")
+         ControlType := iif(empty(Decimals), "I", "F")
 
       END SWITCH
 

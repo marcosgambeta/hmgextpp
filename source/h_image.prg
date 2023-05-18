@@ -90,8 +90,8 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
 
    hb_default(@w, 0)
    hb_default(@h, 0)
-   w := IFEMPTY(w, -1, w)
-   h := IFEMPTY(h, -1, h)
+   w := iif(empty(w), -1, w)
+   h := iif(empty(h), -1, h)
 
    hb_default(@stretch, .F.)
    __defaultNIL(@BackgroundColor, -1)

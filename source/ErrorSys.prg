@@ -576,7 +576,7 @@ RETURN
 *-----------------------------------------------------------------------------*
 PROCEDURE _SetErrorLogFile( cFile )
 *-----------------------------------------------------------------------------*
-   _HMG_ErrorLogFile := IFEMPTY(cFile, GetStartUpFolder() + hb_ps() + "ErrorLog.htm", cFile)
+   _HMG_ErrorLogFile := iif(empty(cFile), GetStartUpFolder() + hb_ps() + "ErrorLog.htm", cFile)
 
 RETURN
 

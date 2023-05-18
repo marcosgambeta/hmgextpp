@@ -87,7 +87,7 @@ FUNCTION _DefineImageList ( ControlName , ParentForm , w , h , aImage , aImageMa
 
    k := Len(aImage)
    IF ImageCount == 0
-      ImageCount := IFEMPTY(k, MAX_IMAGE, k)
+      ImageCount := iif(empty(k), MAX_IMAGE, k)
    ENDIF
 
    Id := _GetId()

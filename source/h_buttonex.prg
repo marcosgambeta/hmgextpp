@@ -149,7 +149,7 @@ FUNCTION _DefineOwnerButton(ControlName, ParentForm, x, y, Caption, ;
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentForm + ". Either bitmap or icon must be specified.")
    ENDIF
 
-   cPicture := IFEMPTY(icon, image, icon)
+   cPicture := iif(empty(icon), image, icon)
    IF hb_IsArray(cPicture)
       image := cPicture[1]
    ENDIF
@@ -241,7 +241,7 @@ FUNCTION _DefineOwnerButton(ControlName, ParentForm, x, y, Caption, ;
    _HMG_aControlFontHandle         [k] := FontHandle
    _HMG_aControlBrushHandle        [k] := aRet[2]  // handle to an Image (Icon or Bitmap)
    _HMG_aControlEnabled            [k] := .T.
-   _HMG_aControlMiscData1          [k] := IFEMPTY(icon, 0, 1)  // 0 - bitmap  1 - icon
+   _HMG_aControlMiscData1          [k] := iif(empty(icon), 0, 1)  // 0 - bitmap  1 - icon
    _HMG_aControlMiscData2          [k] := ""
 
    IF !Empty(_HMG_aControlBrushHandle[k]) .AND. imagewidth < 0 .AND. imageheight < 0

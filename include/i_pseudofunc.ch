@@ -735,8 +735,8 @@ GetFontParam( <hFont> )\[ 10 ]
 #translate IFLOGICAL( <v1>,<exp1>,<exp2> )   => iif( hb_IsLogical( <v1> ),<exp1>,<exp2> ) // deprecated
 #translate IFNUMBER( <v1>,<exp1>,<exp2> )    => iif( hb_IsNumeric( <v1> ),<exp1>,<exp2> ) // deprecated
 #translate IFNUMERIC( <v1>,<exp1>,<exp2> )   => iif( hb_IsNumeric( <v1> ),<exp1>,<exp2> ) // deprecated
-#translate IFOBJECT( <v1>,<exp1>,<exp2> )    => iif( hb_IsObject( <v1> ),<exp1>,<exp2> )
-#translate IFEMPTY( <v1>,<exp1>,<exp2> )     => iif( EMPTY( <v1> ),<exp1>,<exp2> )
+#translate IFOBJECT( <v1>,<exp1>,<exp2> )    => iif( hb_IsObject( <v1> ),<exp1>,<exp2> )  // deprecated
+#translate IFEMPTY( <v1>,<exp1>,<exp2> )     => iif( EMPTY( <v1> ),<exp1>,<exp2> )        // deprecated
 
 /////////////////////////////////////
 // Abbreviated flow control modifiers

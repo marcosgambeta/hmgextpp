@@ -1083,7 +1083,7 @@ FUNCTION InputBox(cInputPrompt, cDialogCaption, cDefaultValue, nTimeout, cTimeou
       IF nMLines > 0
          @ 30, 10 EDITBOX _TextBox VALUE cDefaultValue HEIGHT 26 + nMLines WIDTH 320
       ELSE
-         @ 30, 10 TEXTBOX _TextBox VALUE cDefaultValue HEIGHT 26 WIDTH 320 ON ENTER IFEMPTY(_InputBox._TextBox.Value, NIL, _InputBox._Ok.OnClick)
+         @ 30, 10 TEXTBOX _TextBox VALUE cDefaultValue HEIGHT 26 WIDTH 320 ON ENTER iif(empty(_InputBox._TextBox.Value), NIL, _InputBox._Ok.OnClick)
          _InputBox.MaxHeight := (_InputBox.Height)
       ENDIF
       //

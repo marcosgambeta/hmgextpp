@@ -291,7 +291,7 @@ FUNCTION _DefineImageButton(ControlName, ParentFormName, x, y, Caption, ;
    mVar := "_" + ParentFormName + "_" + ControlName
    k := _GetControlFree()
 
-   cPicture := IFEMPTY(icon, image, icon)
+   cPicture := iif(empty(icon), image, icon)
    IF hb_IsArray(cPicture)
       image := cPicture[1]
    ENDIF
@@ -387,7 +387,7 @@ FUNCTION _DefineImageButton(ControlName, ParentFormName, x, y, Caption, ;
    _HMG_aControlFontHandle         [k] := HMG_NULLHANDLE
    _HMG_aControlBrushHandle        [k] := nhImage
    _HMG_aControlEnabled            [k] := .T.
-   _HMG_aControlMiscData1          [k] := IFEMPTY(icon, 0, 1)  // 0 - bitmap  1 - icon
+   _HMG_aControlMiscData1          [k] := iif(empty(icon), 0, 1)  // 0 - bitmap  1 - icon
    _HMG_aControlMiscData2          [k] := ""
 
    IF _HMG_lOOPEnabled
