@@ -800,7 +800,7 @@ FUNCTION BT_HMGGetImage(cFormName, cControlName)
 
    k := GetControlIndex(cControlName, cFormName)
 
-   IF k > 0 .AND. GetControlType(cControlName, cFormName) == "IMAGE"
+   IF k > 0 .AND. GetControlType(cControlName, cFormName) == CONTROL_TYPE_IMAGE
 #ifdef __HMG__ // HMG Extended
       hBitmap := _HMG_aControlContainerHandle[k]
 
@@ -832,7 +832,7 @@ FUNCTION BT_HMGSetImage(cFormName, cControlName, hBitmap, lReleasePreviousBitmap
 
    k := GetControlIndex(cControlName, cFormName)
 
-   IF k > 0 .AND. GetControlType(cControlName, cFormName) == "IMAGE"
+   IF k > 0 .AND. GetControlType(cControlName, cFormName) == CONTROL_TYPE_IMAGE
 #ifdef __HMG__ // HMG Extended
       IF _HMG_aControlContainerHandle[k] != 0 .AND. lReleasePreviousBitmap == .T.
          BT_BitmapRelease(_HMG_aControlContainerHandle[k])
