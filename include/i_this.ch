@@ -189,8 +189,8 @@
 
 #xtranslate This . InplaceEditControlHandle  => _HMG_GridInplaceEdit_ControlHandle
 #xtranslate This . InplaceEditControlIndex   => _HMG_GridInplaceEdit_GridIndex
-#xtranslate This . InplaceEditGridName       => iif( _HMG_GridInplaceEdit_GridIndex > 0, _HMG_aControlNames \[ _HMG_GridInplaceEdit_GridIndex ], "" )
-#xtranslate This . InplaceEditParentName     => iif( _HMG_GridInplaceEdit_GridIndex > 0, GetParentFormName( _HMG_GridInplaceEdit_GridIndex ), "" )
+#xtranslate This . InplaceEditGridName       => iif(_HMG_GridInplaceEdit_GridIndex > 0, _HMG_aControlNames \[_HMG_GridInplaceEdit_GridIndex], "")
+#xtranslate This . InplaceEditParentName     => iif(_HMG_GridInplaceEdit_GridIndex > 0, GetParentFormName(_HMG_GridInplaceEdit_GridIndex), "")
 
 #xtranslate This . IsInplaceEditEventInit    => ( _HMG_GridInplaceEdit_StageEvent == 1 )
 #xtranslate This . IsInplaceEditEventRun     => ( _HMG_GridInplaceEdit_StageEvent == 2 )

@@ -89,8 +89,8 @@ FUNCTION _DefineRating ( ControlName, ParentForm, x, y, w, h, nValue, aImages, n
    _HMG_aControlWidth              [k] := w
    _HMG_aControlHeight             [k] := h
    _HMG_aControlSpacing            [k] := 0
-   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1 )
-   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1 )
+   _HMG_aControlContainerRow       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1)
+   _HMG_aControlContainerCol       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1)
    _HMG_aControlPicture            [k] := ""
    _HMG_aControlContainerHandle    [k] := HMG_NULLHANDLE
    _HMG_aControlFontName           [k] := ""
@@ -100,7 +100,7 @@ FUNCTION _DefineRating ( ControlName, ParentForm, x, y, w, h, nValue, aImages, n
    _HMG_aControlRangeMin           [k] := 0
    _HMG_aControlRangeMax           [k] := 0
    _HMG_aControlCaption            [k] := ""
-   _HMG_aControlVisible            [k] := iif( invisible, .F., .T. )
+   _HMG_aControlVisible            [k] := iif(invisible, .F., .T.)
    _HMG_aControlHelpId             [k] := 0
    _HMG_aControlFontHandle         [k] := HMG_NULLHANDLE
    _HMG_aControlBrushHandle        [k] := HMG_NULLHANDLE
@@ -152,11 +152,11 @@ FUNCTION _InitRating ( ParentForm, ControlName, x, y, w, h, nValue, aImages, nCn
          HEIGHT h
          PICTURE aImages [1]
          TOOLTIP tooltip
-         ONMOUSEHOVER iif( readonly, NIL, OnHoverRate( ParentForm, ControlName ) )
-         ONMOUSELEAVE iif( readonly, NIL, OnLeaveRate( ParentForm, ControlName, onchangeprocedure ) )
-         ONCLICK iif( readonly, NIL, ( SetProperty( ParentForm, ControlName, "Value", ;
+         ONMOUSEHOVER iif(readonly, NIL, OnHoverRate( ParentForm, ControlName ))
+         ONMOUSELEAVE iif(readonly, NIL, OnLeaveRate( ParentForm, ControlName, onchangeprocedure ))
+         ONCLICK iif(readonly, NIL, ( SetProperty( ParentForm, ControlName, "Value", ;
             Val(SubStr(This.NAME, RAt("_", This.Name) + 1)) ), ;
-            OnSelectRate( ParentForm, ControlName, onchangeprocedure ) ) )
+            OnSelectRate( ParentForm, ControlName, onchangeprocedure ) ))
          INVISIBLE invisible
       END IMAGE
       _HMG_aControlIds[ GetControlIndex(img_name, ParentForm) ] := nCnt

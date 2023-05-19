@@ -83,7 +83,7 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
-   rows := iif( hb_IsArray(arows), AClone( arows ), {} )
+   rows := iif(hb_IsArray(arows), AClone(arows), {})
 
    IF multitabs
       IF Len(rows) > 0
@@ -103,7 +103,7 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
    ENDIF
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
-      ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
+      ParentFormName := iif(_HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName)
       __defaultNIL(@FontName, _HMG_ActiveFontName)
       __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
@@ -241,7 +241,7 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType               [k] := iif( multiselect , CONTROL_TYPE_MULTILIST , CONTROL_TYPE_LIST )
+   _HMG_aControlType               [k] := iif(multiselect, CONTROL_TYPE_MULTILIST, CONTROL_TYPE_LIST)
    _HMG_aControlNames              [k] := ControlName
    _HMG_aControlHandles            [k] := ControlHandle
    _HMG_aControlParenthandles      [k] := ParentFormHandle
@@ -263,8 +263,8 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
    _HMG_aControlWidth              [k] := w
    _HMG_aControlHeight             [k] := h
    _HMG_aControlSpacing            [k] := 0
-   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerRow       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1)
+   _HMG_aControlContainerCol       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1)
    _HMG_aControlPicture            [k] := ""
    _HMG_aControlContainerHandle    [k] := HMG_NULLHANDLE
    _HMG_aControlFontName           [k] := fontname
@@ -274,7 +274,7 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
    _HMG_aControlRangeMin           [k] := rows
    _HMG_aControlRangeMax           [k] := aWidth
    _HMG_aControlCaption            [k] := ""
-   _HMG_aControlVisible            [k] := iif( invisible, .F., .T. )
+   _HMG_aControlVisible            [k] := iif(invisible, .F., .T.)
    _HMG_aControlHelpId             [k] := HelpId
    _HMG_aControlFontHandle         [k] := FontHandle
    _HMG_aControlBrushHandle        [k] := HMG_NULLHANDLE
@@ -352,7 +352,7 @@ FUNCTION LB_Array2String( aData, Sep )
    hb_default(@Sep, Chr(9))
 
    FOR n := 1 TO Len(aData)
-      cData += iif( n == 1, "", Sep ) + aData [n]
+      cData += iif(n == 1, "", Sep) + aData [n]
    NEXT
 
 RETURN cData

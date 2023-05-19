@@ -53,110 +53,116 @@
 *       Define QHTM control
 *
 */
-Function _DefineQhtm( ControlName, ParentForm, x, y, w, h, Value, fname, resname, ;
-                      fontname, fontsize, Change, lBorder, nId )
-Local mVar, k := 0, ControlHandle, ParentFormHandle
-Local FontHandle, bold, italic, underline, strikeout
+FUNCTION _DefineQhtm(ControlName, ParentForm, x, y, w, h, Value, fname, resname, fontname, fontsize, Change, lBorder, nId)
 
-If ( FontHandle := GetFontHandle( FontName ) ) != 0
-  GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
-Endif
+   LOCAL mVar
+   LOCAL k := 0
+   LOCAL ControlHandle
+   LOCAL ParentFormHandle
+   LOCAL FontHandle
+   LOCAL bold
+   LOCAL italic
+   LOCAL underline
+   LOCAL strikeout
 
-If _HMG_BeginWindowActive
+   IF (FontHandle := GetFontHandle(FontName)) != 0
+      GetFontParamByRef(FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout)
+   ENDIF
 
-   ParentForm := _HMG_ActiveFormName
+   IF _HMG_BeginWindowActive
 
-   If !Empty(ParentForm) .AND. FontName == NIL
-      FontName := _HMG_ActiveFontName
-   EndIf
+      ParentForm := _HMG_ActiveFormName
 
-   If !Empty(ParentForm) .AND. FontSize == NIL
-      FontSize := _HMG_ActiveFontSize
-   EndIf
+      IF !Empty(ParentForm) .AND. FontName == NIL
+         FontName := _HMG_ActiveFontName
+      ENDIF
 
-Endif
+      IF !Empty(ParentForm) .AND. FontSize == NIL
+         FontSize := _HMG_ActiveFontSize
+      ENDIF
 
-If !_IsWindowDefined(ParentForm)
-   MsgMiniGuiError("Window: " + ParentForm + " is not defined.")
-Endif
+   ENDIF
 
-If _IsControlDefined(ControlName, ParentForm)
-   MsgMiniGuiError("Control: " + ControlName + " Of " + ParentForm + " Already defined.")
-Endif
+   IF !_IsWindowDefined(ParentForm)
+      MsgMiniGuiError("Window: " + ParentForm + " is not defined.")
+   ENDIF
 
-hb_default(@nId, _GetId())
+   IF _IsControlDefined(ControlName, ParentForm)
+      MsgMiniGuiError("Control: " + ControlName + " Of " + ParentForm + " Already defined.")
+   ENDIF
 
-mVar := "_" + ParentForm + "_" + ControlName
+   hb_default(@nId, _GetId())
 
-ParentFormHandle := GetFormHandle( ParentForm )
+   mVar := "_" + ParentForm + "_" + ControlName
 
-ControlHandle := CreateQHTM( ParentFormHandle, nId, Iif( lBorder, WS_BORDER, 0 ), y, x, w, h )
+   ParentFormHandle := GetFormHandle(ParentForm)
 
-If ( FontHandle != 0 )
-   _SetFontHandle( ControlHandle, FontHandle )
-Else
-   __defaultNIL(@FontName, _HMG_DefaultFontName)
-   __defaultNIL(@FontSize, _HMG_DefaultFontSize)
+   ControlHandle := CreateQHTM(ParentFormHandle, nId, Iif(lBorder, WS_BORDER, 0), y, x, w, h)
 
-   FontHandle := _SetFont( ControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
-Endif
+   IF FontHandle != 0
+      _SetFontHandle(ControlHandle, FontHandle)
+   ELSE
+      __defaultNIL(@FontName, _HMG_DefaultFontName)
+      __defaultNIL(@FontSize, _HMG_DefaultFontSize)
+      FontHandle := _SetFont(ControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
+   ENDIF
 
-If ( hb_IsChar(Value) )
-   SetWindowText(ControlHandle, Value)   // define from a variable
-ElseIf ( hb_IsChar(fname) )
-   QHTM_LoadFile( ControlHandle, fname )   // loading from a file
-ElseIf ( hb_IsChar(resname) )
-   QHTM_LoadRes( ControlHandle, resname )  // loading from a resource
-Endif
+   IF hb_IsChar(Value)
+      SetWindowText(ControlHandle, Value)   // define from a variable
+   ELSEIF hb_IsChar(fname)
+      QHTM_LoadFile(ControlHandle, fname)   // loading from a file
+   ELSEIF hb_IsChar(resname)
+      QHTM_LoadRes(ControlHandle, resname)  // loading from a resource
+   ENDIF
 
-QHTM_FormCallBack( ControlHandle )         // set a handling procedure of the web-form
+   QHTM_FormCallBack(ControlHandle)         // set a handling procedure of the web-form
 
-k := _GetControlFree()
+   k := _GetControlFree()
 
-Public &mVar. := k
+   PUBLIC &mVar. := k
 
-_HMG_aControlType [k] :=  CONTROL_TYPE_QHTM
-_HMG_aControlNames [k] :=  ControlName 
-_HMG_aControlHandles [k] :=  ControlHandle
-_HMG_aControlParenthandles [k] :=  ParentFormHandle
-_HMG_aControlIds [k] :=   nId
-_HMG_aControlProcedures  [k] :=  ""
-_HMG_aControlPageMap  [k] :=  {}
-_HMG_aControlValue  [k] :=  Value
-_HMG_aControlInputMask  [k] :=  ""
-_HMG_aControllostFocusProcedure  [k] :=  ""
-_HMG_aControlGotFocusProcedure  [k] :=  ""
-_HMG_aControlChangeProcedure  [k] :=  Change
-_HMG_aControlDeleted  [k] :=  .F.
-_HMG_aControlBkColor   [k] := Nil
-_HMG_aControlFontColor   [k] := Nil
-_HMG_aControlDblClick   [k] := ""
-_HMG_aControlHeadClick   [k] := {}
-_HMG_aControlRow  [k] :=  x
-_HMG_aControlCol  [k] :=  y
-_HMG_aControlWidth   [k] := w
-_HMG_aControlHeight  [k] := h
-_HMG_aControlSpacing  [k] :=  0
-_HMG_aControlContainerRow  [k] :=  iif( _HMG_FrameLevel > 0 ,_HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-_HMG_aControlContainerCol  [k] :=  iif( _HMG_FrameLevel > 0 ,_HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
-_HMG_aControlPicture  [k] :=  ""
-_HMG_aControlContainerHandle  [k] :=  HMG_NULLHANDLE
-_HMG_aControlFontName  [k] :=  fontname
-_HMG_aControlFontSize  [k] :=  fontsize
-_HMG_aControlFontAttributes  [k] :=  {bold,italic,underline,strikeout}
-_HMG_aControlToolTip   [k] :=  ""
-_HMG_aControlRangeMin  [k] :=  0
-_HMG_aControlRangeMax  [k] :=  0
-_HMG_aControlCaption  [k] :=  ""
-_HMG_aControlVisible  [k] :=  .T.
-_HMG_aControlHelpId  [k] :=  0
-_HMG_aControlFontHandle  [k] :=  FontHandle
-_HMG_aControlBrushHandle  [k] :=  HMG_NULLHANDLE
-_HMG_aControlEnabled  [k] :=  .T.
-_HMG_aControlMiscData1 [k] := 0
-_HMG_aControlMiscData2 [k] := ""
+   _HMG_aControlType               [k] := CONTROL_TYPE_QHTM
+   _HMG_aControlNames              [k] := ControlName
+   _HMG_aControlHandles            [k] := ControlHandle
+   _HMG_aControlParenthandles      [k] := ParentFormHandle
+   _HMG_aControlIds                [k] := nId
+   _HMG_aControlProcedures         [k] := ""
+   _HMG_aControlPageMap            [k] := {}
+   _HMG_aControlValue              [k] := Value
+   _HMG_aControlInputMask          [k] := ""
+   _HMG_aControllostFocusProcedure [k] := ""
+   _HMG_aControlGotFocusProcedure  [k] := ""
+   _HMG_aControlChangeProcedure    [k] := Change
+   _HMG_aControlDeleted            [k] := .F.
+   _HMG_aControlBkColor            [k] := Nil
+   _HMG_aControlFontColor          [k] := Nil
+   _HMG_aControlDblClick           [k] := ""
+   _HMG_aControlHeadClick          [k] := {}
+   _HMG_aControlRow                [k] := x
+   _HMG_aControlCol                [k] := y
+   _HMG_aControlWidth              [k] := w
+   _HMG_aControlHeight             [k] := h
+   _HMG_aControlSpacing            [k] := 0
+   _HMG_aControlContainerRow       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1)
+   _HMG_aControlContainerCol       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1)
+   _HMG_aControlPicture            [k] := ""
+   _HMG_aControlContainerHandle    [k] := HMG_NULLHANDLE
+   _HMG_aControlFontName           [k] := fontname
+   _HMG_aControlFontSize           [k] := fontsize
+   _HMG_aControlFontAttributes     [k] := {bold, italic, underline, strikeout}
+   _HMG_aControlToolTip            [k] := ""
+   _HMG_aControlRangeMin           [k] := 0
+   _HMG_aControlRangeMax           [k] := 0
+   _HMG_aControlCaption            [k] := ""
+   _HMG_aControlVisible            [k] := .T.
+   _HMG_aControlHelpId             [k] := 0
+   _HMG_aControlFontHandle         [k] := FontHandle
+   _HMG_aControlBrushHandle        [k] := HMG_NULLHANDLE
+   _HMG_aControlEnabled            [k] := .T.
+   _HMG_aControlMiscData1          [k] := 0
+   _HMG_aControlMiscData2          [k] := ""
 
-Return Nil
+RETURN NIL
 
 /******
 *

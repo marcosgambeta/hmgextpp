@@ -123,8 +123,8 @@ FUNCTION _DefineImageList ( ControlName , ParentForm , w , h , aImage , aImageMa
    _HMG_aControlWidth              [k] := w
    _HMG_aControlHeight             [k] := h
    _HMG_aControlSpacing            [k] := 0
-   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerRow       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1)
+   _HMG_aControlContainerCol       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1)
    _HMG_aControlPicture            [k] := ""
    _HMG_aControlContainerHandle    [k] := 0
    _HMG_aControlFontName           [k] := ""
@@ -149,7 +149,7 @@ FUNCTION _DefineImageList ( ControlName , ParentForm , w , h , aImage , aImageMa
    FOR i := 1 TO Len(aImage)
       IF mask
          IF Len(aImageMask) > 0
-            maskimage := iif( i <= Len(aImageMask), aImageMask[i], "" )
+            maskimage := iif(i <= Len(aImageMask), aImageMask[i], "")
             PosImage := IL_Add(ControlHandles, aImage[i], maskimage, w, h, ImageCount)
          ELSE
             IF IsArrayRGB( aColor )

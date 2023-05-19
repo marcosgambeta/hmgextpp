@@ -257,8 +257,8 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
    _HMG_aControlWidth              [k] := w
    _HMG_aControlHeight             [k] := h
    _HMG_aControlSpacing            [k] := WorkArea
-   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerRow       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1)
+   _HMG_aControlContainerCol       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1)
    _HMG_aControlPicture            [k] := OnListCloseProcedure
    _HMG_aControlContainerHandle    [k] := ContainerHandle
    _HMG_aControlFontName           [k] := fontname
@@ -268,7 +268,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
    _HMG_aControlRangeMin           [k] := 0
    _HMG_aControlRangeMax           [k] := 0
    _HMG_aControlCaption            [k] := valuesource
-   _HMG_aControlVisible            [k] := iif( invisible, .F., .T. )
+   _HMG_aControlVisible            [k] := iif(invisible, .F., .T.)
    _HMG_aControlHelpId             [k] := HelpId
    _HMG_aControlFontHandle         [k] := FontHandle
    _HMG_aControlBrushHandle        [k] := 0

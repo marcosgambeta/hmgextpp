@@ -177,16 +177,16 @@ STATIC FUNCTION _DefineFrame(ControlName, ParentFormName, x, y, w, h, ;
    _HMG_aControlWidth              [k] := w
    _HMG_aControlHeight             [k] := h
    _HMG_aControlSpacing            [k] := 0
-   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerRow       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1)
+   _HMG_aControlContainerCol       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1)
    _HMG_aControlPicture            [k] := ""
    _HMG_aControlContainerHandle    [k] := 0
    _HMG_aControlFontName           [k] := fontname
    _HMG_aControlFontSize           [k] := fontsize
    _HMG_aControlFontAttributes     [k] := { bold, italic, underline, strikeout }
    _HMG_aControlToolTip            [k] := ""
-   _HMG_aControlRangeMin           [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveTabName , "" )
-   _HMG_aControlRangeMax           [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameParentFormName [_HMG_FrameLevel] , "" )
+   _HMG_aControlRangeMin           [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveTabName, "")
+   _HMG_aControlRangeMax           [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameParentFormName[_HMG_FrameLevel], "")
    _HMG_aControlCaption            [k] := Caption
    _HMG_aControlVisible            [k] := .T.
    _HMG_aControlHelpId             [k] := 0
@@ -229,7 +229,7 @@ FUNCTION _BeginFrame( name , parent , row , col , w , h , caption , fontname , f
 
    IF parent == NIL
       IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
-         Parent := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
+         Parent := iif(_HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName)
       ENDIF
    ENDIF
 

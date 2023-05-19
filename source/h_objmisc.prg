@@ -11,8 +11,8 @@ FUNCTION _WindowCargo( FormName, xValue )
 *-----------------------------------------------------------------------------*
 
 #ifdef _OBJECT_
-   LOCAL o := iif( hb_IsObject(FormName), FormName, _WindowObj(FormName) )
-   LOCAL i := iif( hb_IsObject(o), o:Index, GetFormIndex( FormName ) )
+   LOCAL o := iif(hb_IsObject(FormName), FormName, _WindowObj(FormName))
+   LOCAL i := iif(hb_IsObject(o), o:Index, GetFormIndex(FormName))
 #else
    LOCAL i := GetFormIndex( FormName )
 #endif
@@ -30,8 +30,8 @@ FUNCTION _ControlCargo( ControlName, FormName, xValue )
 *-----------------------------------------------------------------------------*
 
 #ifdef _OBJECT_
-   LOCAL o := iif( hb_IsObject(ControlName), ControlName, _ControlObj(ControlName, FormName) )
-   LOCAL i := iif( hb_IsObject(o), o:Index, GetControlIndex(ControlName, FormName) )
+   LOCAL o := iif(hb_IsObject(ControlName), ControlName, _ControlObj(ControlName, FormName))
+   LOCAL i := iif(hb_IsObject(o), o:Index, GetControlIndex(ControlName, FormName))
 #else
    LOCAL i := GetControlIndex(ControlName, FormName)
 #endif
@@ -99,7 +99,7 @@ RETURN RetVal
 FUNCTION _WindowObj(FormName)
 *-----------------------------------------------------------------------------*
    
-   LOCAL h := iif( hb_IsNumeric(FormName), FormName, GetFormHandle(FormName) )
+   LOCAL h := iif(hb_IsNumeric(FormName), FormName, GetFormHandle(FormName))
 
 RETURN hmg_GetWindowObject( h )
 
@@ -107,7 +107,7 @@ RETURN hmg_GetWindowObject( h )
 FUNCTION _ControlObj(ControlName, FormName)
 *-----------------------------------------------------------------------------*
    
-   LOCAL h := iif( hb_IsNumeric(ControlName), ControlName, GetControlHandle(ControlName, FormName) )
+   LOCAL h := iif(hb_IsNumeric(ControlName), ControlName, GetControlHandle(ControlName, FormName))
 
    IF hb_IsArray(h)
       h := h[1]
@@ -228,10 +228,10 @@ FUNC Do_OnCtlInit( i, cVar )
    
    LOCAL nCtlIndex := i
    LOCAL cCtlName  := _HMG_aControlNames[i]
-   LOCAL nHandle   := iif( hb_IsArray(_HMG_aControlHandles[i]), _HMG_aControlHandles[i][1], _HMG_aControlHandles[i] )
+   LOCAL nHandle   := iif(hb_IsArray(_HMG_aControlHandles[i]), _HMG_aControlHandles[i][1], _HMG_aControlHandles[i])
    LOCAL nParent   := _HMG_aControlParentHandles[i]
    LOCAL cFormName := GetParentFormName( i )
-   LOCAL cCtlType  := iif( Empty(cFormName), _HMG_aControlType[i], GetProperty( cFormName, cCtlName, "Type" ) )
+   LOCAL cCtlType  := iif(Empty(cFormName), _HMG_aControlType[i], GetProperty(cFormName, cCtlName, "Type"))
 
 RETURN oCnlData( nCtlIndex, cCtlName, nHandle, nParent, cCtlType, cVar )
 

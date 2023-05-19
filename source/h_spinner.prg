@@ -163,8 +163,8 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
    _HMG_aControlWidth              [k] := w
    _HMG_aControlHeight             [k] := h
    _HMG_aControlSpacing            [k] := 0
-   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerRow       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1)
+   _HMG_aControlContainerCol       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1)
    _HMG_aControlPicture            [k] := increment
    _HMG_aControlContainerHandle    [k] := HMG_NULLHANDLE
    _HMG_aControlFontName           [k] := fontname
@@ -174,7 +174,7 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
    _HMG_aControlRangeMin           [k] := Rl
    _HMG_aControlRangeMax           [k] := Rh
    _HMG_aControlCaption            [k] := ""
-   _HMG_aControlVisible            [k] := iif( invisible, .F., .T. )
+   _HMG_aControlVisible            [k] := iif(invisible, .F., .T.)
    _HMG_aControlHelpId             [k] := HelpId
    _HMG_aControlFontHandle         [k] := FontHandle
    _HMG_aControlBrushHandle        [k] := HMG_NULLHANDLE
@@ -235,7 +235,7 @@ FUNCTION OSPINEVENTS( hWnd, nMsg, wParam, lParam )    // 2006.08.13 JD
 
    CASE WM_CONTEXTMENU
 
-      i := AScan(_HMG_aControlHandles, { |x| iif( hb_IsArray(x), ( AScan(x, hWnd) > 0 ), x == hWnd ) })
+      i := AScan(_HMG_aControlHandles, { |x| iif(hb_IsArray(x), ( AScan(x, hWnd) > 0 ), x == hWnd) })
       ParentForm := _HMG_aControlParentHandles[i]
 
       i := AScan(_HMG_aControlsContextMenu, { |x| x [1] == hWnd })

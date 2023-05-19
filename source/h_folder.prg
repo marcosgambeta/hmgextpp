@@ -373,7 +373,7 @@ FUNCTION _EndFolder()
    IF _HMG_aFolderInfo[_HMG_FldID, FLD_FLT, 3]
       ModalFolderReturn := CreateDlgFolder(_HMG_FldID, _HMG_aFolderInfo[_HMG_FldID,FLD_AFH], aHwndFolderPages, _HMG_aFolderInfo[_HMG_FldID,FLD_FLT], _HMG_aFolderInfo[_HMG_FldID,FLD_FIT], _HMG_aFolderInfo[_HMG_FldID,FLD_INM])
       IF ModalFolderReturn != 0
-         MsgMiniGuiError("MODAL FOLDER from " + iif( _HMG_aFolderInfo[_HMG_FldID,FLD_INM],"memory","resouces" ) + " can't be created with success.")
+         MsgMiniGuiError("MODAL FOLDER from " + iif(_HMG_aFolderInfo[_HMG_FldID,FLD_INM], "memory", "resouces") + " can't be created with success.")
       ENDIF
       _HMG_InitDialogProcedure := ""
       _HMG_ModalDialogProcedure := ""

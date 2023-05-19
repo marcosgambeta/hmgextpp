@@ -179,7 +179,7 @@ STATIC FUNCTION pdfBookFirst( nRecno, nCurLevel, nObj )
       ENDIF
    ENDIF
 
-RETURN iif( nFirst == 0, nFirst, nObj + nFirst )
+RETURN iif(nFirst == 0, nFirst, nObj + nFirst)
 
 *-----------------------------------------------------
 STATIC FUNCTION pdfBookLast( nRecno, nCurLevel, nObj )
@@ -199,7 +199,7 @@ STATIC FUNCTION pdfBookLast( nRecno, nCurLevel, nObj )
       ENDIF
    ENDIF
 
-RETURN iif( nLast == 0, nLast, nObj + nLast )
+RETURN iif(nLast == 0, nLast, nObj + nLast)
 
 *-----------------------------------------------------
 STATIC FUNCTION pdfBookNext( nRecno, nCurLevel, nObj )
@@ -222,7 +222,7 @@ STATIC FUNCTION pdfBookNext( nRecno, nCurLevel, nObj )
       ++nRecno
    ENDDO
 
-RETURN iif( nNext == 0, nNext, nObj + nNext )
+RETURN iif(nNext == 0, nNext, nObj + nNext)
 
 *---------------------
 FUNCTION pdfBookOpen()
@@ -247,7 +247,7 @@ STATIC FUNCTION pdfBookParent( nRecno, nCurLevel, nObj )
       --nRecno
    ENDDO
 
-RETURN iif( nParent == 0, nObj - 1, nObj + nParent )
+RETURN iif(nParent == 0, nObj - 1, nObj + nParent)
 
 *-----------------------------------------------------
 STATIC FUNCTION pdfBookPrev( nRecno, nCurLevel, nObj )
@@ -269,7 +269,7 @@ STATIC FUNCTION pdfBookPrev( nRecno, nCurLevel, nObj )
       --nRecno
    ENDDO
 
-RETURN iif( nPrev == 0, nPrev, nObj + nPrev )
+RETURN iif(nPrev == 0, nPrev, nObj + nPrev)
 
 *--------------------------------------------------------------
 FUNCTION pdfBox( x1, y1, x2, y2, nBorder, nShade, cUnits, cColor, cId )
@@ -390,7 +390,7 @@ FUNCTION pdfCenter( cString, nRow, nCol, cUnits, lExact, cId )
          nRow := nRow + s_aReport[PDFTOP]
       ENDIF
    ENDIF
-   pdfAtSay( cString, pdfR2M( nRow ), iif( cUnits == "R", s_aReport[PDFLEFT] + ( s_aReport[PAGEX] / 72 * 25.4 - 2 * s_aReport[PDFLEFT] ) * nCol / s_aReport[REPORTWIDTH], nCol ) - nLen, "M", lExact )
+   pdfAtSay(cString, pdfR2M(nRow), iif(cUnits == "R", s_aReport[PDFLEFT] + (s_aReport[PAGEX] / 72 * 25.4 - 2 * s_aReport[PDFLEFT]) * nCol / s_aReport[REPORTWIDTH], nCol) - nLen, "M", lExact)
 
 RETURN NIL
 
@@ -462,7 +462,7 @@ FUNCTION pdfClose()
    ++s_aReport[REPORTOBJ]
    AAdd(s_aReport[REFS], s_aReport[DOCLEN])
    cTemp := hb_ntos(s_aReport[REPORTOBJ]) + " 0 obj" + CRLF + ;
-      "<< /Type /Catalog /Pages 1 0 R /Outlines " + hb_ntos(s_aReport[REPORTOBJ] + 1) + " 0 R" + iif( ( nBookLen := Len(s_aReport[BOOKMARK]) ) > 0, " /PageMode /UseOutlines", "" ) + " >>" + CRLF + "endobj" + CRLF
+      "<< /Type /Catalog /Pages 1 0 R /Outlines " + hb_ntos(s_aReport[REPORTOBJ] + 1) + " 0 R" + iif((nBookLen := Len(s_aReport[BOOKMARK])) > 0, " /PageMode /UseOutlines", "") + " >>" + CRLF + "endobj" + CRLF
    s_aReport[DOCLEN] += Len(cTemp)
    FWrite(s_aReport[HANDLE], cTemp)
 
@@ -505,11 +505,11 @@ FUNCTION pdfClose()
             "/Parent " + hb_ntos(s_aReport[BOOKMARK][nRecno][BOOKPARENT]) + " 0 R" + CRLF + ;
             "/Dest [" + hb_ntos(s_aReport[PAGES][s_aReport[BOOKMARK][nRecno][BOOKPAGE]]) + " 0 R /XYZ 0 " + hb_ntos(s_aReport[BOOKMARK][nRecno][BOOKCOORD]) + " 0]" + CRLF + ;
             "/Title (" + AllTrim(s_aReport[BOOKMARK][nRecno][BOOKTITLE]) + ")" + CRLF + ;
-            iif( s_aReport[BOOKMARK][nRecno][BOOKPREV] > 0, "/Prev " + hb_ntos(s_aReport[BOOKMARK][nRecno][BOOKPREV]) + " 0 R" + CRLF, "" ) + ;
-            iif( s_aReport[BOOKMARK][nRecno][BOOKNEXT] > 0, "/Next " + hb_ntos(s_aReport[BOOKMARK][nRecno][BOOKNEXT]) + " 0 R" + CRLF, "" ) + ;
-            iif( s_aReport[BOOKMARK][nRecno][BOOKFIRST] > 0, "/First " + hb_ntos(s_aReport[BOOKMARK][nRecno][BOOKFIRST]) + " 0 R" + CRLF, "" ) + ;
-            iif( s_aReport[BOOKMARK][nRecno][BOOKLAST] > 0, "/Last " + hb_ntos(s_aReport[BOOKMARK][nRecno][BOOKLAST]) + " 0 R" + CRLF, "" ) + ;
-            iif( s_aReport[BOOKMARK][nRecno][BOOKCOUNT] != 0, "/Count " + hb_ntos(s_aReport[BOOKMARK][nRecno][BOOKCOUNT]) + CRLF, "" ) + ;
+            iif(s_aReport[BOOKMARK][nRecno][BOOKPREV] > 0, "/Prev " + hb_ntos(s_aReport[BOOKMARK][nRecno][BOOKPREV]) + " 0 R" + CRLF, "") + ;
+            iif(s_aReport[BOOKMARK][nRecno][BOOKNEXT] > 0, "/Next " + hb_ntos(s_aReport[BOOKMARK][nRecno][BOOKNEXT]) + " 0 R" + CRLF, "") + ;
+            iif(s_aReport[BOOKMARK][nRecno][BOOKFIRST] > 0, "/First " + hb_ntos(s_aReport[BOOKMARK][nRecno][BOOKFIRST]) + " 0 R" + CRLF, "") + ;
+            iif(s_aReport[BOOKMARK][nRecno][BOOKLAST] > 0, "/Last " + hb_ntos(s_aReport[BOOKMARK][nRecno][BOOKLAST]) + " 0 R" + CRLF, "") + ;
+            iif(s_aReport[BOOKMARK][nRecno][BOOKCOUNT] != 0, "/Count " + hb_ntos(s_aReport[BOOKMARK][nRecno][BOOKCOUNT]) + CRLF, "") + ;
             ">>" + CRLF + "endobj" + CRLF
 
          AAdd(s_aReport[REFS], s_aReport[DOCLEN] + 2)
@@ -697,11 +697,11 @@ STATIC FUNCTION pdfClosePage()
             "/Type /XObject" + CRLF + ;
             "/Subtype /Image" + CRLF + ;
             "/Name /Image" + hb_ntos(nI) + CRLF + ;
-            "/Filter [" + iif( At( ".jpg", Lower( s_aReport[IMAGES][nI][1] ) ) > 0, " /DCTDecode", "" ) + " ]" + CRLF + ;
+            "/Filter [" + iif(At( ".jpg", Lower( s_aReport[IMAGES][nI][1] ) ) > 0, " /DCTDecode", "") + " ]" + CRLF + ;
             "/Width " + hb_ntos(s_aReport[IMAGES][nI][3][IMAGE_WIDTH]) + CRLF + ;
             "/Height " + hb_ntos(s_aReport[IMAGES][nI][3][IMAGE_HEIGHT]) + CRLF + ;
             "/BitsPerComponent " + hb_ntos(s_aReport[IMAGES][nI][3][IMAGE_BITS]) + CRLF + ;
-            "/ColorSpace /" + iif( s_aReport[IMAGES][nI][3][IMAGE_SPACE] == 1, "DeviceGray", "DeviceRGB" ) + CRLF + ;
+            "/ColorSpace /" + iif(s_aReport[IMAGES][nI][3][IMAGE_SPACE] == 1, "DeviceGray", "DeviceRGB") + CRLF + ;
             "/Length " + hb_ntos(s_aReport[IMAGES][nI][3][IMAGE_LENGTH]) + CRLF + ;
             ">>" + CRLF + ;
             "stream" + CRLF
@@ -1124,7 +1124,7 @@ FUNCTION pdfRJust( cString, nRow, nCol, cUnits, lExact, cId )
          nRow := nRow + s_aReport[PDFTOP]
       ENDIF
    ENDIF
-   pdfAtSay( cString, pdfR2M( nRow ), iif( cUnits == "R", s_aReport[PDFLEFT] + ( s_aReport[PAGEX] / 72 * 25.4 - 2 * s_aReport[PDFLEFT] ) * nCol / s_aReport[REPORTWIDTH] - nAdj, nCol ) - nLen, "M", lExact )
+   pdfAtSay(cString, pdfR2M(nRow), iif(cUnits == "R", s_aReport[PDFLEFT] + (s_aReport[PAGEX] / 72 * 25.4 - 2 * s_aReport[PDFLEFT] ) * nCol / s_aReport[REPORTWIDTH] - nAdj, nCol) - nLen, "M", lExact)
 
 RETURN NIL
 
@@ -1165,7 +1165,7 @@ FUNCTION pdfSetLPI( _nLpi )
 
    __defaultNIL(@_nLpi, 6)
 
-   cLpi := iif( cLpi $ "1;2;3;4;6;8;12;16;24;48", cLpi, "6" )
+   cLpi := iif(cLpi $ "1;2;3;4;6;8;12;16;24;48", cLpi, "6")
    s_aReport[LPI] := Val(cLpi)
 
    pdfPageSize( s_aReport[PAGESIZE] )
@@ -1379,7 +1379,7 @@ STATIC FUNCTION pdfTextNextPara( cString, cDelim, nI )
    cAt := SubStr(cString, nAt, AtToken(cString, cDelim, nI + 1) - nAt)
    nCRLF := NumAt( Chr(13) + Chr(10), cAt )
    nRat := RAt( Chr(13) + Chr(10), cAt )
-   nNew := Len(cAt) - nRat - iif( nRat > 0, 1, 0 )
+   nNew := Len(cAt) - nRat - iif(nRat > 0, 1, 0)
    IF nCRLF > 1 .OR. ( nCRLF == 1 .AND. nNew > 0 )
       nRet := nCRLF
    ENDIF
@@ -2597,7 +2597,7 @@ STATIC FUNCTION Array2File( cFile, aRay, nDepth, hFile )
    LOCAL nBytes := 0
    LOCAL i
 
-   nDepth := iif( hb_IsNumeric(nDepth), nDepth, 0 )
+   nDepth := iif(hb_IsNumeric(nDepth), nDepth, 0)
    IF hFile == NIL
       IF ( hFile := FCreate( cFile, FC_NORMAL ) ) == F_ERROR
          RETURN nBytes
@@ -2628,7 +2628,7 @@ STATIC FUNCTION WriteData( hFile, xData )
    ELSEIF hb_IsDate(xData)
       cData += I2Bin(8) + DToS(xData)
    ELSEIF hb_IsLogical(xData)
-      cData += I2Bin(1) + iif( xData, "T", "F" )
+      cData += I2Bin(1) + iif(xData, "T", "F")
    ELSEIF hb_IsArray(xData)
       cData += I2Bin(Len(xData))
    ELSE

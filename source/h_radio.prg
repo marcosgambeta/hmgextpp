@@ -91,7 +91,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
    ENDIF
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
-      ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
+      ParentFormName := iif(_HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName)
       __defaultNIL(@FontName, _HMG_ActiveFontName)
       __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
@@ -144,7 +144,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
 
          FOR n := 1 TO Len(aId)
 
-            blInit := iif( n == Len(aId), {|x, y, z| InitDialogRadioGroup( x,y,z ) }, {|| Nil } )
+            blInit := iif(n == Len(aId), {|x, y, z| InitDialogRadioGroup( x,y,z ) }, {|| Nil })
             AAdd(_HMG_aDialogItems, {aId[n], k, "button", style, 0, x, y, width, spacing, aOptions[n], HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
             IF horizontal
                x += Width + Spacing
@@ -284,7 +284,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
    _HMG_aControlIds                [k] := aId
    _HMG_aControlProcedures         [k] := ""
    _HMG_aControlPageMap            [k] := aReadOnly
-   _HMG_aControlValue              [k] := iif( hb_IsNumeric(Value), Value, 0 )
+   _HMG_aControlValue              [k] := iif(hb_IsNumeric(Value), Value, 0)
    _HMG_aControlInputMask          [k] := transparent
    _HMG_aControllostFocusProcedure [k] := lostfocus
    _HMG_aControlGotFocusProcedure  [k] := gotfocus
@@ -296,21 +296,21 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
    _HMG_aControlHeadClick          [k] := autosize
    _HMG_aControlRow                [k] := BackRow
    _HMG_aControlCol                [k] := BackCol
-   _HMG_aControlWidth              [k] := iif( autosize, BackWidth, Width )
-   _HMG_aControlHeight             [k] := iif( horizontal, 28, Spacing * Len(aOptions) + GetBorderHeight() )
+   _HMG_aControlWidth              [k] := iif(autosize, BackWidth, Width)
+   _HMG_aControlHeight             [k] := iif(horizontal, 28, Spacing * Len(aOptions) + GetBorderHeight())
    _HMG_aControlSpacing            [k] := Spacing
-   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerRow       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1)
+   _HMG_aControlContainerCol       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1)
    _HMG_aControlPicture            [k] := !NoTabStop
    _HMG_aControlContainerHandle    [k] := HMG_NULLHANDLE
    _HMG_aControlFontName           [k] := fontname
    _HMG_aControlFontSize           [k] := fontsize
    _HMG_aControlFontAttributes     [k] := { bold, italic, underline, strikeout }
    _HMG_aControlToolTip            [k] := tooltip
-   _HMG_aControlRangeMin           [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveTabName , "" )
-   _HMG_aControlRangeMax           [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameParentFormName [_HMG_FrameLevel] , "" )
+   _HMG_aControlRangeMin           [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveTabName, "")
+   _HMG_aControlRangeMax           [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameParentFormName[_HMG_FrameLevel], "")
    _HMG_aControlCaption            [k] := aOptions
-   _HMG_aControlVisible            [k] := iif( invisible, .F., .T. )
+   _HMG_aControlVisible            [k] := iif(invisible, .F., .T.)
    _HMG_aControlHelpId             [k] := HelpId
    _HMG_aControlFontHandle         [k] := FontHandle
    _HMG_aControlBrushHandle        [k] := HMG_NULLHANDLE

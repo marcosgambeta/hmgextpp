@@ -190,7 +190,7 @@ local cRet, cBuf, nRet
 DEFAULT nBufLen TO 1
 cBuf := space(nBufLen)
 
-::PrintDebugMessage( "Receive " + iif( nBufLen==1, "char", "custom string" ) )
+::PrintDebugMessage("Receive " + iif(nBufLen == 1, "char", "custom string"))
 
 nRet := SocketReceive( ::m_hSocket, @cBuf, ::nReceiveTimeout )
 cRet := substr(cBuf, 1, nRet)

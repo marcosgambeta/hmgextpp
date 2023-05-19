@@ -171,7 +171,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
          ParentFormName := _GetWindowProperty ( ParentFormHandle, "PROP_FORMNAME" )
       ELSE
 #endif
-         ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
+         ParentFormName := iif(_HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName)
 #ifdef _TSBROWSE_
       ENDIF
 #endif
@@ -200,7 +200,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    IF _HMG_BeginDialogActive
       ParentFormHandle := _HMG_ActiveDialogHandle
 
-      Style := WS_CHILD + ES_AUTOHSCROLL + BS_FLAT + iif( noborder, 0, WS_BORDER )
+      Style := WS_CHILD + ES_AUTOHSCROLL + BS_FLAT + iif(noborder, 0, WS_BORDER)
 
       IF lPassword
          Style += ES_PASSWORD
@@ -276,7 +276,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    ENDIF
 
    oget := Get()
-   oget:New( -1, -1, { | x | iif( x == NIL, oget:cargo, oget:cargo := x ) }, "", cPicture )
+   oget:New( -1, -1, { | x | iif(x == NIL, oget:cargo, oget:cargo := x) }, "", cPicture )
    oget:cargo     := Value
    oget:preblock  := when
    oget:postblock := valid
@@ -310,7 +310,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    _HMG_aControlHandles            [k] := ControlHandle
    _HMG_aControlParenthandles      [k] := ParentFormHandle
    _HMG_aControlIds                [k] := nId
-   _HMG_aControlProcedures         [k] := iif( readonly, NIL, ProcedureName )
+   _HMG_aControlProcedures         [k] := iif(readonly, NIL, ProcedureName)
    _HMG_aControlPageMap            [k] := Field
    _HMG_aControlValue              [k] := Value
    _HMG_aControlInputMask          [k] := aPicData
@@ -320,15 +320,15 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    _HMG_aControlDeleted            [k] := .F.
    _HMG_aControlBkColor            [k] := backcolor
    _HMG_aControlFontColor          [k] := fontcolor
-   _HMG_aControlDblClick           [k] := iif( readonly, NIL, ProcedureName2 )
+   _HMG_aControlDblClick           [k] := iif(readonly, NIL, ProcedureName2)
    _HMG_aControlHeadClick          [k] := oGet
    _HMG_aControlRow                [k] := y
    _HMG_aControlCol                [k] := x
    _HMG_aControlWidth              [k] := w
    _HMG_aControlHeight             [k] := h
    _HMG_aControlSpacing            [k] := cValidMessage
-   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerRow       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1)
+   _HMG_aControlContainerCol       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1)
    _HMG_aControlPicture            [k] := ""
    _HMG_aControlContainerHandle    [k] := 0
    _HMG_aControlFontName           [k] := FontName
@@ -409,7 +409,7 @@ PROCEDURE _DataGetBoxRefresh ( i )
    
    LOCAL Field := _HMG_aControlPageMap[i]
 
-   _SetGetBoxValue( i, _HMG_aControlHandles[i], iif( Field == NIL, _HMG_aControlValue[i], &( Field ) ) )
+   _SetGetBoxValue( i, _HMG_aControlHandles[i], iif(Field == NIL, _HMG_aControlValue[i], &( Field )) )
 
 RETURN
 
@@ -521,9 +521,9 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
             _HMG_aControlBkColor[i] := nRGB2Arr ( GetSysColor ( COLOR_WINDOW ) )
          ENDIF
          IF hb_IsNumeric(_HMG_aControlBkColor[i, 1])
-            _HMG_aControlBkColor[i] := iif( hb_IsBlock(aClrFocus), Eval(aClrFocus), aClrFocus )
+            _HMG_aControlBkColor[i] := iif(hb_IsBlock(aClrFocus), Eval(aClrFocus), aClrFocus)
          ELSEIF hb_IsArray(_HMG_aControlBkColor[i, 1]) .AND. Len(_HMG_aControlBkColor[i]) == 3
-            _HMG_aControlBkColor[i][3] := iif( hb_IsBlock(aClrFocus), Eval(aClrFocus), aClrFocus )
+            _HMG_aControlBkColor[i][3] := iif(hb_IsBlock(aClrFocus), Eval(aClrFocus), aClrFocus)
          ENDIF
          aOldFontClr := _HMG_aControlFontColor[i]
          IF _HMG_aControlFontColor[i] == NIL
@@ -531,9 +531,9 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          ENDIF
          IF aFntFocus != NIL
             IF hb_IsNumeric(_HMG_aControlFontColor[i, 1])
-               _HMG_aControlFontColor[i] := iif( hb_IsBlock(aFntFocus), Eval(aFntFocus), aFntFocus )
+               _HMG_aControlFontColor[i] := iif(hb_IsBlock(aFntFocus), Eval(aFntFocus), aFntFocus)
             ELSEIF hb_IsArray(_HMG_aControlFontColor[i, 1]) .AND. Len(_HMG_aControlFontColor[i]) == 3
-               _HMG_aControlFontColor[i][3] := iif( hb_IsBlock(aFntFocus), Eval(aFntFocus), aFntFocus )
+               _HMG_aControlFontColor[i][3] := iif(hb_IsBlock(aFntFocus), Eval(aFntFocus), aFntFocus)
             ENDIF
          ENDIF
       ENDIF
@@ -645,9 +645,9 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          // Add By Pier patch for the smaller negative numbers of zero START
          IF oGet:type == "N" .AND. oGet:minus .AND. Val(hb_USubStr(oget:buffer, 1, hb_UAt( ",", oget:buffer ) - 1)) == 0
             IF Val(hb_USubStr(oget:buffer, hb_UAt( ",", oget:buffer ) + 1)) != 0
-               MinDec := StrTran(oget:buffer, iif( hb_UAt( "E", cPicFunc ) > 0, ",", ", " ), ".")
+               MinDec := StrTran(oget:buffer, iif(hb_UAt( "E", cPicFunc ) > 0, ",", ", "), ".")
                MinDec := StrTran(MinDec,  " ", "")
-               oget:VarPut( Val(MinDec) * iif( Val(MinDec) > 0, -1, 1 ) )
+               oget:VarPut( Val(MinDec) * iif(Val(MinDec) > 0, -1, 1) )
             ENDIF
             oget:buffer := oget:VarGet()
          ENDIF
@@ -1578,8 +1578,8 @@ FUNCTION _GetPictureData( oGet, cPicture )
 
          lDecRev := "," $ Transform(1.1, "9.9")
          cNum := Str(oGet:VarGet())
-         IF ( nAt := hb_UAt( iif( lDecRev, ",", "." ), cNum ) ) > 0
-            cPicMask := Replicate( "9", nAt - 1 ) + iif( lDecRev, ",", "." )
+         IF ( nAt := hb_UAt( iif(lDecRev, ",", "."), cNum ) ) > 0
+            cPicMask := Replicate( "9", nAt - 1 ) + iif(lDecRev, ",", ".")
             cPicMask += Replicate( "9", hb_ULen(cNum) - hb_ULen(cPicMask) )
          ELSE
             cPicMask := Replicate( "9", hb_ULen(cNum) )
@@ -1817,9 +1817,9 @@ STATIC FUNCTION _IsChildOfActiveWindow(hWnd)
 RETURN lRet
 
 *-----------------------------------------------------------------------------*
-STATIC FUNCTION _GetParent ( hWnd )
+STATIC FUNCTION _GetParent(hWnd)
 *-----------------------------------------------------------------------------*
-   
+
    LOCAL i := AScan(_HMG_aControlHandles, hWnd)
 
-RETURN iif( i > 0, _HMG_aControlParentHandles[i], HMG_NULLHANDLE )
+RETURN iif(i > 0, _HMG_aControlParentHandles[i], HMG_NULLHANDLE)

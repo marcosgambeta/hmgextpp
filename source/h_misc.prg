@@ -207,7 +207,7 @@ FUNCTION SendData ( cDest , Data )
                cLen := hb_ntos( Len(pData) )
                EXIT
             CASE "L"
-               pData := iif( Data[i] == .T. , "T", "F" )
+               pData := iif(Data[i] == .T., "T", "F")
                cLen := hb_ntos( Len(pData) )
                EXIT
             CASE "N"
@@ -249,7 +249,7 @@ FUNCTION SendData ( cDest , Data )
                   cLen := hb_ntos( Len(pData) )
                   EXIT
                CASE "L"
-                  pData := iif( Data[i] [j] == .T. , "T", "F" )
+                  pData := iif(Data[i][j] == .T., "T", "F")
                   cLen := hb_ntos( Len(pData) )
                   EXIT
                CASE "N"
@@ -284,7 +284,7 @@ FUNCTION SendData ( cDest , Data )
          cLen := hb_ntos( Len(pData) )
          EXIT
       CASE "L"
-         pData := iif( Data == .T. , "T", "F" )
+         pData := iif(Data == .T., "T", "F")
          cLen := hb_ntos( Len(pData) )
          EXIT
       CASE "N"
@@ -578,7 +578,7 @@ STATIC FUNCTION dCharToDate( cDate )
    IF Empty(dDate)
 
       cc := Lower( Left(cFormat, 2) )
-      Set( _SET_DATEFORMAT, iif( cc == "dd", "mm/dd/yy", "dd/mm/yy" ) )
+      Set( _SET_DATEFORMAT, iif(cc == "dd", "mm/dd/yy", "dd/mm/yy") )
       dDate := CToD(cDate)
       IF cc == "yy" .AND. Empty(dDate)
          SET DATE AMERICAN
@@ -689,7 +689,7 @@ STATIC FUNCTION ParseNumsFromDateStr(cStr)
 
    ENDIF
 
-   AEval(aNum, {| c, i | aNum[i] := iif( c == NIL, 0, Val(c) ) })
+   AEval(aNum, {|c, i|aNum[i] := iif(c == NIL, 0, Val(c))})
 
    IF aNum[1] > 31
 

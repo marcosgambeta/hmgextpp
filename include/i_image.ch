@@ -106,4 +106,4 @@
    [ <invisible: INVISIBLE> ] ;
    [ ON INIT <bInit> ] ;
  =>;
- _DefineImage ( <(name)>, <(parent)>, 0, 0, <filename>, 0, 0, <{action}>, , <helpid>, <.invisible.>, <.stretch.>, iif( <.whitebg.>, { 255 , 255 , 255 }, ), <.transparent.>, , , , , <nId> , <bInit> , <{dblclick}> , <{rclick}> )
+ _DefineImage ( <(name)>, <(parent)>, 0, 0, <filename>, 0, 0, <{action}>, , <helpid>, <.invisible.>, <.stretch.>, iif(<.whitebg.>, { 255 , 255 , 255 }, NIL), <.transparent.>, , , , , <nId> , <bInit> , <{dblclick}> , <{rclick}> )

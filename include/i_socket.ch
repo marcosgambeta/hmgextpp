@@ -48,7 +48,7 @@
 
 #xcommand OPEN CONNECTION [<obj: OBJ>] <con> SERVER <server> PORT <port> HTTP ;
    => ;
-   httpconnect( iif( <.obj.>, @<con>, <(con)>), <server>, <port> )
+   httpconnect( iif(<.obj.>, @<con>, <(con)>), <server>, <port>)
 
 #xcommand CLOSE CONNECTION <con> ;
    => ;
@@ -56,4 +56,4 @@
 
 #xcommand GET URL <url> TO <response> CONNECTION <con> [ <data: NOHEADERS, HEADERS> ];
    => ;
-   <response> := httpgeturl( <con>, <url>, iif( upper( #<data> ) == "HEADERS", .F., iif( upper( #<data> ) == "NOHEADERS", NIL, .T. ) ) )
+   <response> := httpgeturl(<con>, <url>, iif(upper(#<data>) == "HEADERS", .F., iif(upper(#<data>) == "NOHEADERS", NIL, .T.)))

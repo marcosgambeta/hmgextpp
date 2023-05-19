@@ -122,10 +122,9 @@ STATIC FUNCTION DefError( oError )
 
    n := 1
    WHILE !Empty(ProcName(++n))
-      HtmText := "Called from " + ProcName( n ) + "(" + hb_ntos( ProcLine( n ) ) + ")" + ;
-         iif( ProcLine( n ) > 0, " in module: " + ProcFile( n ), "" ) + CRLF
+      HtmText := "Called from " + ProcName(n) + "(" + hb_ntos(ProcLine(n)) + ")" + iif(ProcLine(n) > 0, " in module: " + ProcFile(n), "") + CRLF
       cText += HtmText
-      Html_LineText( HtmArch, HtmText )
+      Html_LineText(HtmArch, HtmText)
    ENDDO
 
    Html_RawText( HtmArch, "</span></details>" )
@@ -151,7 +150,7 @@ STATIC FUNCTION ErrorMessage( oError )
 *-----------------------------------------------------------------------------*
    
    // start error message
-   LOCAL cMessage := iif( oError:severity > ES_WARNING, "Error", "Warning" ) + " "
+   LOCAL cMessage := iif(oError:severity > ES_WARNING, "Error", "Warning") + " "
    LOCAL n
 
    // add subsystem name if available
@@ -193,8 +192,7 @@ STATIC FUNCTION ErrorMessage( oError )
          cMessage += ;
             "     [" + hb_ntos( n, 2 ) + "] = " + ValType(oError:args[n]) + ;
             "   " + cValToChar( cValToChar( oError:args[n] ) ) + ;
-            iif( hb_IsArray(oError:args[n]), " length: " + ;
-            hb_ntos( Len(oError:args[n]) ), "" ) + iif( n < Len(oError:args), CRLF, "" )
+            iif(hb_IsArray(oError:args[n]), " length: " + hb_ntos(Len(oError:args[n])), "") + iif(n < Len(oError:args), CRLF, "")
       NEXT
    ENDIF
 
@@ -221,7 +219,7 @@ STATIC PROCEDURE ShowError( cErrorMessage, oError )
          cMsg := Eval(_HMG_bOnErrorInit, cMsg)
       ENDIF
 
-      cMsg += iif( _lShowDetailError(), cErrorMessage, ErrorMessage( oError ) )
+      cMsg += iif(_lShowDetailError(), cErrorMessage, ErrorMessage(oError))
 
       IF hb_IsLogical(_HMG_lOnErrorStop) .AND. _HMG_lOnErrorStop == .F.
 
@@ -229,11 +227,11 @@ STATIC PROCEDURE ShowError( cErrorMessage, oError )
 
       ELSE
 
-         bInit := {|| iif( GetControlType("Say_01", "oDlg") == CONTROL_TYPE_EDIT,, ( ;
+         bInit := {|| iif(GetControlType("Say_01", "oDlg") == CONTROL_TYPE_EDIT,, ( ;
             SetProperty( "oDlg", "Say_01", "FontColor", YELLOW ), ;
             SetProperty( "oDlg", "Say_01", "Alignment", "CENTER" ), ;
             SetProperty( "oDlg", "Say_02", "FontColor", YELLOW ), ;
-            SetProperty( "oDlg", "Say_02", "Alignment", "CENTER" ) ) ) }
+            SetProperty( "oDlg", "Say_02", "Alignment", "CENTER" ) )) }
 
          IF AScan(_HMG_aFormType, "A") == 0
             _HMG_MainWindowFirst := .F.
@@ -302,8 +300,8 @@ STATIC PROCEDURE ErrorLog( nHandle, oErr )
       Html_LineText( nHandle, "Harbour built on...: " + hb_BuildDate() )
 #endif
       Html_LineText( nHandle, "C/C++ compiler.....: " + hb_Compiler() )
-      Html_LineText( nHandle, "Multi Threading....: " + iif( hb_mtvm(), "YES", "NO" ) )
-      Html_LineText( nHandle, "VM Optimization....: " + iif( hb_VMMode() == 1, "YES", "NO" ) )
+      Html_LineText( nHandle, "Multi Threading....: " + iif(hb_mtvm(), "YES", "NO") )
+      Html_LineText( nHandle, "VM Optimization....: " + iif(hb_VMMode() == 1, "YES", "NO") )
 
       IF hb_IsFunction( "Select" )
          Html_LineText( nHandle, "" )
@@ -456,7 +454,7 @@ STATIC FUNCTION strvalue( c, l )
    CASE "M" ; RETURN c
    CASE "N" ; RETURN hb_ntos( c )
    CASE "D" ; RETURN DToC( c )
-   CASE "L" ; RETURN iif( hb_defaultValue(l, .F.), iif( c, "ON", "OFF" ), iif( c, ".T.", ".F." ) )
+   CASE "L" ; RETURN iif(hb_defaultValue(l, .F.), iif(c, "ON", "OFF"), iif(c, ".T.", ".F."))
    ENDSWITCH
 
 RETURN ""

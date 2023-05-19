@@ -38,7 +38,7 @@ STATIC FUNCTION MyErrorMessage( oError )
    LOCAL cMessage
 
    // start error message
-   cMessage := iif( oError:severity > ES_WARNING, "Error", "Warning" ) + " "
+   cMessage := iif(oError:severity > ES_WARNING, "Error", "Warning") + " "
 
    // add subsystem name if available
    IF hb_IsString(oError:subsystem)

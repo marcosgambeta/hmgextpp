@@ -41,9 +41,9 @@ ENDCLASS
 
 METHOD New( cTitle, cInstruction, cContent, nCommonButtons, nMainIcon ) CLASS TSimpleTaskDialog
 
-   ::cTitle       := iif( hb_IsNumeric(cTitle), cTitle, iif( !hb_IsString(cTitle), NIL, iif( HB_ISNULL( cTitle ), NIL, cTitle ) ) )
-   ::cInstruction := iif( hb_IsNumeric(cInstruction), cInstruction, iif( !hb_IsString( cInstruction ), NIL, iif( HB_ISNULL( cInstruction ), NIL, cInstruction ) ) )
-   ::cContent     := iif( hb_IsNumeric(cContent), cContent, iif( !hb_IsString(cContent), NIL, iif( HB_ISNULL( cContent ), NIL, cContent ) ) )
+   ::cTitle       := iif(hb_IsNumeric(cTitle), cTitle, iif(!hb_IsString(cTitle), NIL, iif(HB_ISNULL(cTitle), NIL, cTitle)))
+   ::cInstruction := iif(hb_IsNumeric(cInstruction), cInstruction, iif(!hb_IsString(cInstruction), NIL, iif(HB_ISNULL(cInstruction), NIL, cInstruction)))
+   ::cContent     := iif(hb_IsNumeric(cContent), cContent, iif(!hb_IsString(cContent), NIL, iif(HB_ISNULL(cContent), NIL, cContent)))
 
    IF hb_IsNumeric(nCommonButtons)
       ::nCommonButtons := nCommonButtons
@@ -81,7 +81,7 @@ METHOD Title( cTitle ) CLASS TSimpleTaskDialog
    LOCAL cOldVal := ::cTitle
 
    IF hb_IsString(cTitle) .OR. hb_IsNumeric(cTitle)
-      ::cTitle := iif( hb_IsString(cTitle) .AND. HB_ISNULL( cTitle ), NIL, cTitle )
+      ::cTitle := iif(hb_IsString(cTitle) .AND. HB_ISNULL( cTitle ), NIL, cTitle)
    ENDIF
 
 RETURN cOldVal
@@ -91,7 +91,7 @@ METHOD Instruction( cInstruction ) CLASS TSimpleTaskDialog
    LOCAL cOldVal := ::cInstruction
 
    IF hb_IsString(cInstruction) .OR. hb_IsNumeric(cInstruction)
-      ::cInstruction := iif( hb_IsString(cInstruction) .AND. HB_ISNULL( cInstruction ), NIL, cInstruction )
+      ::cInstruction := iif(hb_IsString(cInstruction) .AND. HB_ISNULL( cInstruction ), NIL, cInstruction)
    ENDIF
 
 RETURN cOldVal
@@ -101,7 +101,7 @@ METHOD Content( cContent ) CLASS TSimpleTaskDialog
    LOCAL cOldVal := ::cContent
 
    IF hb_IsString(cContent) .OR. hb_IsNumeric(cContent)
-      ::cContent := iif( hb_IsString(cContent) .AND. HB_ISNULL( cContent ), NIL, cContent )
+      ::cContent := iif(hb_IsString(cContent) .AND. HB_ISNULL( cContent ), NIL, cContent)
    ENDIF
 
 RETURN cOldVal
@@ -201,10 +201,10 @@ ENDCLASS
 
 METHOD New( cTitle, cInstruction, cContent, cFooter, nCommonButtons, nMainIcon ) CLASS TTaskDialog
 
-   ::aConfig[ TDC_WINDOWTITLE ]     := iif( hb_IsNumeric(cTitle), cTitle, iif( !hb_IsString(cTitle), NIL, iif( HB_ISNULL( cTitle ), NIL, cTitle ) ) )
-   ::aConfig[ TDC_MAININSTRUCTION ] := iif( hb_IsNumeric(cInstruction), cInstruction, iif( !hb_IsString(cInstruction), NIL, iif( HB_ISNULL( cInstruction ), NIL, cInstruction ) ) )
-   ::aConfig[ TDC_CONTENT ] := iif( hb_IsNumeric(cContent), cContent, iif( !hb_IsString(cContent), NIL, iif( HB_ISNULL( cContent ), NIL, cContent ) ) )
-   ::aConfig[ TDC_FOOTER ]  := iif( hb_IsNumeric(cFooter), cFooter, iif( !hb_IsString(cFooter), NIL, iif( HB_ISNULL( cFooter ), NIL, cFooter ) ) )
+   ::aConfig[ TDC_WINDOWTITLE ]     := iif(hb_IsNumeric(cTitle), cTitle, iif(!hb_IsString(cTitle), NIL, iif(HB_ISNULL(cTitle), NIL, cTitle)))
+   ::aConfig[ TDC_MAININSTRUCTION ] := iif(hb_IsNumeric(cInstruction), cInstruction, iif(!hb_IsString(cInstruction), NIL, iif(HB_ISNULL(cInstruction), NIL, cInstruction)))
+   ::aConfig[ TDC_CONTENT ] := iif(hb_IsNumeric(cContent), cContent, iif(!hb_IsString(cContent), NIL, iif(HB_ISNULL(cContent), NIL, cContent)))
+   ::aConfig[ TDC_FOOTER ]  := iif(hb_IsNumeric(cFooter), cFooter, iif(!hb_IsString(cFooter), NIL, iif(HB_ISNULL(cFooter), NIL, cFooter)))
 
    IF hb_IsNumeric(nCommonButtons)
       ::aConfig[ TDC_COMMON_BUTTON_FLAGS ] := nCommonButtons
@@ -352,7 +352,7 @@ METHOD WindowTitle( cTitle ) CLASS TTaskDialog
    LOCAL cOldVal := ::aConfig[ TDC_WINDOWTITLE ]
 
    IF hb_IsString(cTitle) .OR. hb_IsNumeric(cTitle)
-      ::aConfig[ TDC_WINDOWTITLE ] := iif( hb_IsString(cTitle) .AND. HB_ISNULL( cTitle ), NIL, cTitle )
+      ::aConfig[ TDC_WINDOWTITLE ] := iif(hb_IsString(cTitle) .AND. HB_ISNULL( cTitle ), NIL, cTitle)
       IF ::lActive
          _SetWindowTitle( ::HWND, ::aConfig[ TDC_WINDOWTITLE ] )
       ENDIF
@@ -386,7 +386,7 @@ METHOD MainInstruction( cInstruction ) CLASS TTaskDialog
    LOCAL cOldVal := ::aConfig[ TDC_MAININSTRUCTION ]
 
    IF hb_IsString(cInstruction) .OR. hb_IsNumeric(cInstruction)
-      ::aConfig[ TDC_MAININSTRUCTION ] := iif( hb_IsString(cInstruction) .AND. HB_ISNULL( cInstruction ), NIL, cInstruction )
+      ::aConfig[ TDC_MAININSTRUCTION ] := iif(hb_IsString(cInstruction) .AND. HB_ISNULL( cInstruction ), NIL, cInstruction)
       IF ::lActive
          _SetMainInstruction( ::HWND, ::aConfig[ TDC_MAININSTRUCTION ] )
       ENDIF
@@ -405,7 +405,7 @@ METHOD Content( cContent ) CLASS TTaskDialog
    LOCAL cOldVal := ::aConfig[ TDC_CONTENT ]
 
    IF hb_IsString(cContent) .OR. hb_IsNumeric(cContent)
-      ::aConfig[ TDC_CONTENT ] := iif( hb_IsString(cContent) .AND. HB_ISNULL( cContent ), NIL, cContent )
+      ::aConfig[ TDC_CONTENT ] := iif(hb_IsString(cContent) .AND. HB_ISNULL( cContent ), NIL, cContent)
       IF ::lActive
          _SetContent( ::HWND, ::aConfig[ TDC_CONTENT ] )
       ENDIF

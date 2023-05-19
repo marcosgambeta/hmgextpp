@@ -76,7 +76,7 @@ FUNCTION _DefineToolBar ( ControlName, ParentForm, x, y, caption, ProcedureName,
 
    cParentForm := ParentForm
 
-   ParentForm := iif( _HMG_BeginPagerActive, _HMG_ActivePagerForm, GetFormHandle(ParentForm) )
+   ParentForm := iif(_HMG_BeginPagerActive, _HMG_ActivePagerForm, GetFormHandle(ParentForm))
 
    Id := _GetId()
 
@@ -145,7 +145,7 @@ FUNCTION _DefineToolBar ( ControlName, ParentForm, x, y, caption, ProcedureName,
    _HMG_aControlFontAttributes     [k] := { .F. , .F. , .F. , .F. }
    _HMG_aControlToolTip            [k] := ""
    _HMG_aControlRangeMin           [k] := tbsize
-   _HMG_aControlRangeMax           [k] := iif( wrap, 1, 0 )
+   _HMG_aControlRangeMax           [k] := iif(wrap, 1, 0)
    _HMG_aControlCaption            [k] := Caption
    _HMG_aControlVisible            [k] := .T.
    _HMG_aControlHelpId             [k] := 0
@@ -173,7 +173,7 @@ FUNCTION _EndToolBar()
    LOCAL ix
    LOCAL i
 
-   ParentForm := iif( _HMG_BeginWindowActive, _HMG_ActiveFormName, _HMG_ActiveToolBarFormName )
+   ParentForm := iif(_HMG_BeginWindowActive, _HMG_ActiveFormName, _HMG_ActiveToolBarFormName)
    h := GetControlHandle(_HMG_ActiveToolBarName, ParentForm)
 
    IF _HMG_BeginPagerActive
@@ -235,7 +235,7 @@ FUNCTION _DefineToolButton ( ControlName, ParentControl, x, y, Caption, Procedur
       MsgMiniGuiError("ToolBar Action and WholeDropDown clauses can't be used simultaneously.")
    ENDIF
 
-   ParentForm := iif( _HMG_BeginWindowActive, _HMG_ActiveFormName, _HMG_ActiveToolBarFormName )
+   ParentForm := iif(_HMG_BeginWindowActive, _HMG_ActiveFormName, _HMG_ActiveToolBarFormName)
 
    cParentForm := ParentForm
    hParentForm := GetFormHandle(ParentForm)
@@ -271,7 +271,7 @@ FUNCTION _DefineToolButton ( ControlName, ParentControl, x, y, Caption, Procedur
       ControlHandle := InitToolButton ( ParentForm, Caption, id, 0, 0, w, h, image, notrans, separator, autosize, check, group, dropdown, WholeDropDown, adjust )
    ENDIF
 
-   nPos := GetButtonBarCount ( ParentForm ) - iif( separator, 1, 0 )
+   nPos := GetButtonBarCount ( ParentForm ) - iif(separator, 1, 0)
 
    k := _GetControlFree()
 
@@ -319,7 +319,7 @@ FUNCTION _DefineToolButton ( ControlName, ParentControl, x, y, Caption, Procedur
    _HMG_aControlFontHandle         [k] := HMG_NULLHANDLE
    _HMG_aControlBrushHandle        [k] := HMG_NULLHANDLE
    _HMG_aControlEnabled            [k] := .T.
-   _HMG_aControlMiscData1          [k] := iif( _HMG_ActiveToolBarExtend, 1, 0 )
+   _HMG_aControlMiscData1          [k] := iif(_HMG_ActiveToolBarExtend, 1, 0)
    _HMG_aControlMiscData2          [k] := ""
 
    IF _HMG_lOOPEnabled
@@ -551,7 +551,7 @@ STATIC PROCEDURE _DropDownShortcut ( nToolButtonId , nParentWindowHandle , i , n
       aSize := GetButtonBarRect ( _HMG_aControlHandles[i] , nButtonPos - 1 )
 
       TrackPopupMenu ( _HMG_aControlRangeMax [x] , aPos [1] + LoWord(aSize) , aPos [2] + HiWord(aSize) + ;
-         iif( _HMG_ActiveSplitBoxInverted, 0, ( aPos [4] - aPos [2] - HiWord(aSize) ) / 2 ), nParentWindowHandle )
+         iif(_HMG_ActiveSplitBoxInverted, 0, ( aPos [4] - aPos [2] - HiWord(aSize) ) / 2), nParentWindowHandle )
 
       SendMessage(_HMG_aControlHandles[i], TB_SETHOTITEM, -1, 0)
    ENDIF

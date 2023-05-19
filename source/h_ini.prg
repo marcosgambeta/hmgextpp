@@ -78,7 +78,7 @@ FUNCTION _LogFile( lCrLf, ... )
    LOCAL cFile := hb_defaultValue(_SetGetLogFile(), GetStartUpFolder() + hb_ps() + "_MsgLog.txt")
 
    IF !Empty(cFile)
-      hFile := iif( File( cFile ), FOpen(cFile, FO_READWRITE), FCreate( cFile, FC_NORMAL ) )
+      hFile := iif(File(cFile), FOpen(cFile, FO_READWRITE), FCreate(cFile, FC_NORMAL))
       IF hFile == F_ERROR
          RETURN .F.
       ENDIF
@@ -93,9 +93,9 @@ FUNCTION _LogFile( lCrLf, ... )
                xVal := aParams[i]
                cTp  := ValType(xVal)
                // TODO: SWITCH
-               IF     cTp == "C" ; xVal := iif( Empty(xVal), "'" + "'", Trim(xVal) )
+               IF     cTp == "C" ; xVal := iif(Empty(xVal), "'" + "'", Trim(xVal))
                ELSEIF cTp == "N" ; xVal := hb_ntos( xVal )
-               ELSEIF cTp == "L" ; xVal := iif( xVal, ".T.", ".F." )
+               ELSEIF cTp == "L" ; xVal := iif(xVal, ".T.", ".F.")
                ELSEIF cTp == "D" ; xVal := hb_DToC( xVal, "DD.MM.YYYY" )
                ELSEIF cTp == "A" ; xVal := "ARRAY["  + hb_ntos( Len(xVal) ) + "]"
                ELSEIF cTp == "H" ; xVal :=  "HASH["  + hb_ntos( Len(xVal) ) + "]"
@@ -127,7 +127,7 @@ FUNCTION _BeginIni( cIniFile )
 
    IF Set( _SET_CODEPAGE ) == "UTF8"
 
-      hFile := iif( File( cIniFile ), FOpen(cIniFile, FO_READ + FO_SHARED), HMG_CreateFile_UTF16LE_BOM( cIniFile ) )
+      hFile := iif(File(cIniFile), FOpen(cIniFile, FO_READ + FO_SHARED), HMG_CreateFile_UTF16LE_BOM(cIniFile))
       IF hFile == F_ERROR
          MsgInfo( "Error opening a file INI. DOS ERROR: " + hb_ntos( FError() ) )
          Return( -1 )
@@ -138,7 +138,7 @@ FUNCTION _BeginIni( cIniFile )
       FClose(hFile)
 
    ELSE
-      hFile := hb_vfOpen(cIniFile, iif( hb_vfExists( cIniFile ), FO_READ + FO_SHARED, FO_CREAT + FO_READWRITE ))
+      hFile := hb_vfOpen(cIniFile, iif(hb_vfExists(cIniFile), FO_READ + FO_SHARED, FO_CREAT + FO_READWRITE))
       IF hFile == NIL
          MsgInfo( "Error opening a file INI. DOS ERROR: " + hb_ntos( FError() ) )
          Return( -1 )
@@ -410,9 +410,9 @@ FUNCTION xChar( xValue )
 
    DO CASE // TODO: SWITCH
    CASE cType $  "CM"; cValue := xValue
-   CASE cType == "N" ; nDecimals := iif( xValue == Int( xValue ), 0, nDecimals ) ; cValue := LTrim(Str(xValue, 20, nDecimals))
+   CASE cType == "N" ; nDecimals := iif(xValue == Int(xValue), 0, nDecimals) ; cValue := LTrim(Str(xValue, 20, nDecimals))
    CASE cType == "D" ; cValue := DToS( xValue )
-   CASE cType == "L" ; cValue := iif( xValue, "T", "F" )
+   CASE cType == "L" ; cValue := iif(xValue, "T", "F")
    CASE cType == "A" ; cValue := AToC( xValue )
    CASE cType $  "UE"; cValue := "NIL"
    CASE cType == "B" ; cValue := "{|| ... }"
@@ -492,7 +492,7 @@ FUNCTION _GetSectionNames( cIniFile )
    IF File( cIniFile )
       aLista := _GetPrivateProfileSectionNames( cIniFile )
       IF !Empty(aLista)
-         AEval(aLista, {|cVal| iif( Empty(cVal), , AAdd(aSectionList, cVal) ) })
+         AEval(aLista, {|cVal| iif(Empty(cVal), NIL, AAdd(aSectionList, cVal))})
       ENDIF
    ELSE
       MsgStop( "Can`t open " + cIniFile, "Error" )

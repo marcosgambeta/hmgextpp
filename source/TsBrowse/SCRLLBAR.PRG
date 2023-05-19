@@ -36,11 +36,11 @@ CLASS TSBScrlBar FROM TControl
                   bDownAction, bPgUp, bPgDown, bPos, nClrText, nClrBack,;
                   lUpdate, bWhen, bValid ) CONSTRUCTOR
 
-   METHOD GetPos() INLINE GetScrollPos( IIf( ::lIsChild, ::oWnd:hWnd, ::hWnd ),;
-            IIf( ::lIsChild, IIf( ::lVertical, SB_VERT, SB_HORZ ), SB_CTL ) )
+   METHOD GetPos() INLINE GetScrollPos( IIf(::lIsChild, ::oWnd:hWnd, ::hWnd),;
+            IIf(::lIsChild, IIf(::lVertical, SB_VERT, SB_HORZ), SB_CTL) )
 
-   METHOD GetRange() INLINE GetScrlRange( IIf( ::lIsChild, ::oWnd:hWnd, ::hWnd ),;
-            IIf( ::lIsChild, IIf( ::lVertical, SB_VERT, SB_HORZ ), SB_CTL ) )
+   METHOD GetRange() INLINE GetScrlRange( IIf(::lIsChild, ::oWnd:hWnd, ::hWnd),;
+            IIf(::lIsChild, IIf(::lVertical, SB_VERT, SB_HORZ), SB_CTL) )
 
    METHOD HandleEvent( nMsg, nWParam, nLParam )
 
@@ -50,52 +50,35 @@ CLASS TSBScrlBar FROM TControl
 
    // These two have to be BLOCK
 
-   METHOD GoUp()   BLOCK { | Self, nPos | nPos := ::GetPos(),;
-                                          iif( nPos > ::GetRange()[1],;
-                                              ::SetPos( --nPos ), ),;
-                          IIf( ::bGoUp != Nil, Eval(::bGoUp),) }
+   METHOD GoUp()     BLOCK {|Self, nPos|nPos := ::GetPos(), iif(nPos > ::GetRange()[1], ::SetPos(--nPos), NIL), IIf(::bGoUp != Nil, Eval(::bGoUp), NIL)}
+   METHOD GoDown()   BLOCK {|Self, nPos|nPos := ::GetPos(), iif(nPos < ::nMax, ::SetPos(++nPos), NIL), IIf(::bGoDown != Nil, Eval(::bGoDown), NIL)}
+   METHOD GoTop()    INLINE ::SetPos(::nMin), IIf(::bGoTop != Nil, Eval(::bGoTop), NIL)
+   METHOD GoBottom() INLINE ::SetPos(::nMax), IIf(::bGoBottom != Nil, Eval(::bGoBottom), NIL)
 
-   METHOD GoDown() BLOCK { | Self, nPos | nPos := ::GetPos(),;
-                                          iif( nPos < ::nMax,;
-                                              ::SetPos( ++nPos ), ),;
-                          IIf( ::bGoDown != Nil, Eval(::bGoDown),) }
-
-
-   METHOD GoTop() INLINE  ::SetPos( ::nMin ),;
-                          IIf( ::bGoTop != Nil, Eval(::bGoTop),)
-
-   METHOD GoBottom() INLINE  ::SetPos( ::nMax ),;
-                             IIf( ::bGoBottom != Nil, Eval(::bGoBottom),)
-
-   METHOD PageUp() INLINE  IIf( ::bPageUp != Nil, Eval(::bPageUp),),;
-                           ::SetPos( ::GetPos() - ::nPgStep )
-
-   METHOD PageDown() INLINE  IIf( ::bPageDown != Nil, Eval(::bPageDown),),;
-                                 ::SetPos( ::GetPos() + ::nPgStep )
+   METHOD PageUp()   INLINE IIf(::bPageUp != Nil, Eval(::bPageUp), NIL), ::SetPos(::GetPos() - ::nPgStep)
+   METHOD PageDown() INLINE IIf(::bPageDown != Nil, Eval(::bPageDown), NIL), ::SetPos(::GetPos() + ::nPgStep)
 
    METHOD SetMode( l32Bit )
 
    METHOD SetPage( nSize, lReDraw )
 
-   METHOD SetPos( nPos ) INLINE SetScrollPos( IIf( ::lIsChild, ::oWnd:hWnd, ;
-                                  ::hWnd ), IIf( ::lIsChild, IIf( ::lVertical, ;
-                                  SB_VERT, SB_HORZ ), SB_CTL ), ;
+   METHOD SetPos( nPos ) INLINE SetScrollPos( IIf(::lIsChild, ::oWnd:hWnd, ;
+                                  ::hWnd), IIf(::lIsChild, IIf(::lVertical, ;
+                                  SB_VERT, SB_HORZ), SB_CTL), ;
                                   nPos, ::lReDraw, ::lShowDisabled, ;
                                   ::l32Bit )
 
    METHOD SetRange( nMin, nMax ) INLINE ;
                                   ::nMin := nMin, ::nMax := nMax, ;
-           SetScrollRange( iif( ::lIsChild, ::oWnd:hWnd, ::hWnd ), ;
-               IIf( ::lIsChild, IIf( ::lVertical, SB_VERT, SB_HORZ ), SB_CTL ), ;
+           SetScrollRange( iif(::lIsChild, ::oWnd:hWnd, ::hWnd), ;
+               IIf(::lIsChild, IIf(::lVertical, SB_VERT, SB_HORZ), SB_CTL), ;
                    nMin, nMax, ::lReDraw, ::lShowDisabled, ::l32Bit )   // JP 74
 
-   METHOD ThumbPos( nPos ) INLINE  IIf( ::bPos != Nil, Eval(::bPos, nPos),)
+   METHOD ThumbPos( nPos ) INLINE  IIf(::bPos != Nil, Eval(::bPos, nPos), NIL)
 
    METHOD MouseMove( nRow, nCol, nKeyFlags )
 
-   METHOD ThumbTrack( nPos ) INLINE IIf( ::bTrack != Nil, ;
-                                        Eval(::bTrack, nPos), ;
-                                        ::ThumbPos( nPos ) )
+   METHOD ThumbTrack( nPos ) INLINE IIf(::bTrack != Nil, Eval(::bTrack, nPos), ::ThumbPos(nPos))
 
 ENDCLASS
 
@@ -109,16 +92,16 @@ METHOD New( nRow, nCol, nMin, nMax, nPgStep, lVertical, oWnd, nWidth, nHeight,;
 
    Default nRow := 0, nCol := 0,;
            nMin := 0, nMax := 0, nPgStep := 1,;
-           lVertical := .T., nWidth := IIf( lVertical, 16, 100 ),;
-           nHeight   := IIf( lVertical, 100, 17 ),;
+           lVertical := .T., nWidth := IIf(lVertical, 16, 100),;
+           nHeight   := IIf(lVertical, 100, 17),;
            lPixel    := .F.,;
            nClrText  := GetSysColor( COLOR_WINDOW ),;
            nClrBack  := GetSysColor( COLOR_SCROLLBAR ),;
            lUpdate   := .F., lDesign := .F.
 
    ::cCaption   := ""
-   ::nTop       := nRow * IIf( lPixel, 1, SCRL_CHARPIX_H ) //14
-   ::nLeft      := nCol * IIf( lPixel, 1, SCRL_CHARPIX_W )   // 8
+   ::nTop       := nRow * IIf(lPixel, 1, SCRL_CHARPIX_H) //14
+   ::nLeft      := nCol * IIf(lPixel, 1, SCRL_CHARPIX_W)   // 8
    ::nBottom    := ::nTop + nHeight - 1
    ::nRight     := ::nLeft + nWidth - 1
    ::nMin       := nMin
@@ -127,8 +110,8 @@ METHOD New( nRow, nCol, nMin, nMax, nPgStep, lVertical, oWnd, nWidth, nHeight,;
    ::lVertical  := lVertical
    ::lReDraw    := .T.
    ::nStyle     := nOr( WS_CHILD, WS_VISIBLE, WS_TABSTOP,;
-                       iif( lVertical, SBS_VERT, SBS_HORZ ),;
-                       iif( lDesign, WS_CLIPSIBLINGS, 0 ) )
+                       iif(lVertical, SBS_VERT, SBS_HORZ),;
+                       iif(lDesign, WS_CLIPSIBLINGS, 0) )
    ::bGoUp      := bUpAct
    ::bGoDown    := bDownAct
    ::bPageUp    := bPgUp
@@ -238,7 +221,7 @@ METHOD MouseMove( nRow, nCol, nKeyFlags ) CLASS TSBScrlBar
 
    Local nResult := ::Super:MouseMove( nRow, nCol, nKeyFlags )
 
-Return IIf( ::lDrag, nResult, Nil )    // We want standard behavior !!!
+Return IIf(::lDrag, nResult, Nil)    // We want standard behavior !!!
 
 * ============================================================================
 * METHOD TSBScrlBar:SetPage() Version 5.0 27/Feb/2002
@@ -276,4 +259,4 @@ METHOD SetMode( l32Bit ) CLASS TSBScrlBar
 
    Default l32Bit := .T.
 
-Return iif( l32Bit .AND. !lWin32, .F., l32Bit )
+Return iif(l32Bit .AND. !lWin32, .F., l32Bit)

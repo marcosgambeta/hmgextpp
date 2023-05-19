@@ -674,7 +674,7 @@ FUNC Any2Strg( xAny )
                     { "C", { | x | x }},;
                     { "M", { | x | x   } },;
                     { "D", { | x | DTOC( x ) } },;
-                    { "L", { | x | IIF( x,"On","Off") } },;
+                    { "L", { | x | IIF(x, "On", "Off") } },;
                     { "N", { | x | NTrim(x)  } },;
                     { "O", { |  | ":Object:" } },;
                     { "U", { |  | "<NIL>" } } }
@@ -1520,7 +1520,7 @@ BEGIN SEQUENCE
          ::aStat [ "EntroIF" ] := .F.
          ::aStat [ "ElseStat" ] := .T.
       Endif
-       //msgbox(iif( ::aStat [ "DelMode" ]," ::aStat [ "DelMode" ] .T.","::aStat [ "DelMode" ] .F.")+crlf+if( ::aStat [ "ElseStat" ]," ::aStat [ "ElseStat" ] .T.","::aStat [ "ElseStat" ] .F.")," risulta")
+       //msgbox(iif(::aStat [ "DelMode" ]," ::aStat [ "DelMode" ] .T.","::aStat [ "DelMode" ] .F.")+crlf+if( ::aStat [ "ElseStat" ]," ::aStat [ "ElseStat" ] .T.","::aStat [ "ElseStat" ] .F.")," risulta")
       if !::aStat [ "EntroIF" ] .AND. !::aStat [ "DelMode" ] // i am on false condition
          if ::aStat [ "ElseStat" ]
             //msginfo(ifc ,"Cancellato")
@@ -1701,7 +1701,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
 
            case ArryPar[1]+arryPar[2]=[COMBINEREGIONS]
                 hbprn:combinergn(eval(chblk,arrypar,[TO]),ArryPar[3],ArryPar[4];
-                ,iif( val(ArryPar[8])>0,val(ArryPar[8]),::what_ele(eval(chblk,arrypar,[STYLE]),::aCh,"_aRegion")))
+                ,iif(val(ArryPar[8])>0,val(ArryPar[8]),::what_ele(eval(chblk,arrypar,[STYLE]),::aCh,"_aRegion")))
 
            case ascan(arryPar,"SELECT")=1 .AND. len(ArryPar)=3
                 if len(ArryPar)=3
@@ -2360,7 +2360,7 @@ return ritorno
 METHOD GROUP(GField, s_head, s_col, gftotal, wheregt, s_total, t_col, p_f_e_g) CLASS WREPORT
 *                1        2      3       4        5        6       7       8
 *-----------------------------------------------------------------------------*
-local ritorno := iif( indexord()> 0 ,.T.,.F. )
+local ritorno := iif(indexord() > 0, .T., .F.)
 local posiz   := 0, P1 := 0, P2 := 0, P3 := 0, cnt := 1
 local Aposiz  := {}, k, Rl, Rm, Rr, ghf:=""
 local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}

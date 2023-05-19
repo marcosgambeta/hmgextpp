@@ -123,7 +123,7 @@ FUNCTION easyreport()
    IF Len(awidths) > nlen
       ASize(awidths, nlen)
    ENDIF
-   nlmargin := iif( nllmargin == NIL, 0, nllmargin )
+   nlmargin := iif(nllmargin == NIL, 0, nllmargin)
    IF aformats == NIL
       aformats := AFill(Array(nlen), "")
    ENDIF
@@ -206,7 +206,7 @@ FUNCTION easyreport()
       SET PAGE PAPERSIZE npapersize
       nfsize := MAXFONT
       DEFINE FONT "f0" NAME (cFontName) SIZE nfsize
-      norient := iif( llandscape, DMORIENT_LANDSCAPE, DMORIENT_PORTRAIT )
+      norient := iif(llandscape, DMORIENT_LANDSCAPE, DMORIENT_PORTRAIT)
 
       FOR i := nfsize TO MINORFONT step - 0.25
 
@@ -217,7 +217,7 @@ FUNCTION easyreport()
             nfsize := i
             DEFINE FONT "f1" NAME (cFontName) SIZE nfsize BOLD
             DEFINE FONT "f2" NAME (cFontName) SIZE nfsize + 2 BOLD
-            nlpp := iif( ISEVERYPAGE, HBPRNMAXROW - 4, HBPRNMAXROW - 2 )
+            nlpp := iif(ISEVERYPAGE, HBPRNMAXROW - 4, HBPRNMAXROW - 2)
             ncpl := ntotalchar
             EXIT
          ELSE
@@ -240,7 +240,7 @@ FUNCTION easyreport()
             cpagina := apapeles[npapersize]
          ENDIF
          IF nlpp <= HBPRNMAXROW
-            nlpp := iif( ISEVERYPAGE, HBPRNMAXROW - 4, HBPRNMAXROW - 2 )
+            nlpp := iif(ISEVERYPAGE, HBPRNMAXROW - 4, HBPRNMAXROW - 2)
          ENDIF
          
          msgstop( aMessages[6]  + cpagina + " (" + hb_ntos( npapersize ) + ")" + CRLF + ;
@@ -309,13 +309,13 @@ FUNCTION easyreport()
                @ nlin, ncol SAY SubStr(wfield, 1, awidths[i]) font "f0" TO PRINT
                EXIT
             CASE "N"
-               @ nlin, ncol SAY  iif( !( aformats[i] == "" ), Transform(wfield, aformats[i]), Str(wfield, awidths[i]) ) font "f0" TO PRINT
+               @ nlin, ncol SAY  iif(!( aformats[i] == "" ), Transform(wfield, aformats[i]), Str(wfield, awidths[i])) font "f0" TO PRINT
                EXIT
             CASE "D"
                @ nlin, ncol SAY SubStr(DToC(wfield), 1, awidths[i]) font "f0" TO PRINT
                EXIT
             CASE "L"
-               @ nlin, ncol SAY iif( wfield, ".T.", ".F." ) font "f0" TO PRINT
+               @ nlin, ncol SAY iif(wfield, ".T.", ".F.") font "f0" TO PRINT
                EXIT
             CASE "M"
                FOR k := 1 TO MLCount( wfield, awidths[i] ) STEP 1
@@ -334,13 +334,13 @@ FUNCTION easyreport()
                @ nlin, ncol SAY SubStr(wfield, 1, awidths[i])
                EXIT
             CASE "N"
-               @ nlin, ncol SAY iif( !( aformats[i] == "" ), Transform(wfield, aformats[i]), Str(wfield, awidths[i]) )
+               @ nlin, ncol SAY iif(!( aformats[i] == "" ), Transform(wfield, aformats[i]), Str(wfield, awidths[i]))
                EXIT
             CASE "D"
                @ nlin, ncol SAY SubStr(DToC(wfield), 1, awidths[i])
                EXIT
             CASE "L"
-               @ nlin, ncol SAY iif( wfield, ".T.", ".F." )
+               @ nlin, ncol SAY iif(wfield, ".T.", ".F.")
                EXIT
             CASE "M"
                FOR k := 1 TO MLCount( wfield, awidths[i] )
@@ -393,9 +393,9 @@ FUNCTION easyreport()
       FOR i := 1 TO nlen STEP 1
          IF atotals[i]
             IF lmode
-               @nlin, ncol SAY iif( !( aformats[i] == "" ), Transform(aresul[i], aformats[i]), Str(aresul[i], awidths[i]) ) font "f1" TO PRINT
+               @nlin, ncol SAY iif(!( aformats[i] == "" ), Transform(aresul[i], aformats[i]), Str(aresul[i], awidths[i])) font "f1" TO PRINT
             ELSE
-               @nlin, ncol SAY iif( !( aformats[i] == "" ), Transform(aresul[i], aformats[i]), Str(aresul[i], awidths[i]) )
+               @nlin, ncol SAY iif(!( aformats[i] == "" ), Transform(aresul[i], aformats[i]), Str(aresul[i], awidths[i]))
             ENDIF
          ENDIF
          ncol += awidths[i] + 1
@@ -887,7 +887,7 @@ STATIC FUNCTION learowi( cname, npar )
 
    FOR i := 1 TO Len(aline)
       IF At( "IMAGE ", Upper(aline[i]) ) != 0
-         npos1 := At( iif( npar == 1,"AT","TO" ), Upper(aline[i]) )
+         npos1 := At( iif(npar == 1,"AT","TO"), Upper(aline[i]) )
          nrow := SubStr(aline[i], npos1 + 3, 4)
          EXIT
       ENDIF
@@ -906,7 +906,7 @@ STATIC FUNCTION leacoli( cname, npar )
 
    FOR i := 1 TO Len(aline)
       IF At( "IMAGE ", Upper(aline[i]) ) != 0
-         npos := iif( npar == 1, At( ",",aline[i] ), RAt( ",",aline[i] ) )
+         npos := iif(npar == 1, At( ",",aline[i] ), RAt( ",",aline[i] ))
          ncol := SubStr(aline[i], npos + 1, 4)
          EXIT
       ENDIF
@@ -918,12 +918,12 @@ STATIC PROCEDURE imp_SUBTOTALES ( nlin, ncol, lmode, swt, grpby )
 
    LOCAL i
    LOCAL lHayTotals := ( AScan(atotals, .T.) > 0 )
-   LOCAL cSubgrp := iif( !ISEVERYPAGE, aMessages[ 21 ], chdrgrp )
+   LOCAL cSubgrp := iif(!ISEVERYPAGE, aMessages[ 21 ], chdrgrp)
 
    ncol := nlmargin + 1
    IF grpby != NIL
-      crompe := iif( ISEVERYPAGE, Str(nlin), crompe )
-      wfield1 := iif( !ISEVERYPAGE, afieldsg[nposgrp], wfield1 )
+      crompe := iif(ISEVERYPAGE, Str(nlin), crompe)
+      wfield1 := iif(!ISEVERYPAGE, afieldsg[nposgrp], wfield1)
       IF !( &wfield1 == crompe ) .AND. !ISEVERYPAGE .OR. ( ISEVERYPAGE .AND. nlin >= nlpp )
          IF lmode
             IF lHayTotals
@@ -931,7 +931,7 @@ STATIC PROCEDURE imp_SUBTOTALES ( nlin, ncol, lmode, swt, grpby )
                nlin++
                FOR i := 1 TO Len(afields)
                   IF atotals[i]
-                     @ nlin, ncol SAY iif( !( aformats[i] == "" ), Transform(angrpby[i], aformats[i]), Str(angrpby[i], awidths[i]) ) font "f1" TO PRINT
+                     @ nlin, ncol SAY iif(!( aformats[i] == "" ), Transform(angrpby[i], aformats[i]), Str(angrpby[i], awidths[i])) font "f1" TO PRINT
                   ENDIF
                   ncol += awidths[i] + 1
                NEXT i
@@ -943,7 +943,7 @@ STATIC PROCEDURE imp_SUBTOTALES ( nlin, ncol, lmode, swt, grpby )
                nlin++
                FOR i := 1 TO Len(afields)
                   IF atotals[i]
-                     @ nlin, ncol SAY iif( !( aformats[i] == "" ), Transform(angrpby[i], aformats[i]), Str(angrpby[i], awidths[i]) )
+                     @ nlin, ncol SAY iif(!( aformats[i] == "" ), Transform(angrpby[i], aformats[i]), Str(angrpby[i], awidths[i]))
                   ENDIF
                   ncol += awidths[i] + 1
                NEXT i
@@ -952,7 +952,7 @@ STATIC PROCEDURE imp_SUBTOTALES ( nlin, ncol, lmode, swt, grpby )
          ENDIF
 
          AFill(angrpby, 0)
-         crompe := iif( !ISEVERYPAGE, &wfield1, Str(nlin) )
+         crompe := iif(!ISEVERYPAGE, &wfield1, Str(nlin))
 
          IF swt == 0 .AND. !ISEVERYPAGE
             IF lmode
@@ -963,9 +963,9 @@ STATIC PROCEDURE imp_SUBTOTALES ( nlin, ncol, lmode, swt, grpby )
                IF IsOemText( cgrpby )
                   cgrpby := hb_OEMToANSI( cgrpby )
                ENDIF
-               @ nlin, 1 + nlmargin SAY "** " + chdrgrp + " ** " + iif( !ISEVERYPAGE, hb_ValToStr(cgrpby), "" ) font "f1" TO PRINT
+               @ nlin, 1 + nlmargin SAY "** " + chdrgrp + " ** " + iif(!ISEVERYPAGE, hb_ValToStr(cgrpby), "") font "f1" TO PRINT
             ELSE
-               @ nlin, 1 + nlmargin SAY "** " + chdrgrp + " ** " + iif( !ISEVERYPAGE, hb_ValToStr(&grpby), "" )
+               @ nlin, 1 + nlmargin SAY "** " + chdrgrp + " ** " + iif(!ISEVERYPAGE, hb_ValToStr(&grpby), "")
             ENDIF
             nlin++
          ENDIF

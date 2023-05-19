@@ -829,7 +829,7 @@ FUNCTION ButtonPageDlgProc( hwndDlg, Msg, IdDlg, nPage )
    _HMG_ActiveDlgProcHandle    := 0
    _HMG_ActiveDlgProcId        := 0
 
-RETURN IIF( lRet, 1, 0 )
+RETURN IIF(lRet, 1, 0)
 
 *------------------------------------------------------------------------------*
 FUNCTION PropSheetProc( hwndPropSheet, nMsg, lParam )
@@ -855,7 +855,7 @@ FUNCTION PropSheetProc( hwndPropSheet, nMsg, lParam )
       _HMG_PropSheetButton := lParam
    ENDCASE
 
-RETURN IIF( lRet, 1, 0 )
+RETURN IIF(lRet, 1, 0)
 
 *------------------------------------------------------------------------------*
 FUNCTION PageDlgProc( hwndParent, hwndDlg, nMsg, wParam, lParam )
@@ -940,7 +940,7 @@ FUNCTION PageDlgProc( hwndParent, hwndDlg, nMsg, wParam, lParam )
          EXIT
       CASE PSN_SETACTIVE
 
-         nPageMode := IIF( nPage == Len(_HMG_aPropSheetPages) -1, 2, IIF( nPage == 0, 0, 1 ) )
+         nPageMode := IIF(nPage == Len(_HMG_aPropSheetPages) - 1, 2, IIF(nPage == 0, 0, 1))
          PropSheetSetWizButtons( hWndParent, nPageMode )       // this will be ignored if the property sheet is not a wizard
          EXIT
       CASE PSN_KILLACTIVE
@@ -981,7 +981,7 @@ FUNCTION RetValue( lRet, def )
 *------------------------------------------------------------------------------*
    IF lRet == NIL .OR. ValType(lRet) != "L"
       IF hb_IsNumeric(lRet)
-         lRet := iif( lRet == 0, .F., .T. )
+         lRet := iif(lRet == 0, .F., .T.)
       ELSE
          lRet := def
       ENDIF

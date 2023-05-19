@@ -183,7 +183,7 @@ local cLines := ""
 local cLine
 
 while ( len(cLine := ::oSocket:ReceiveLine())>0 )
-   cLines += iif( len(cLine)>0, cLine + CHR(13) + CHR(10), "" ) 
+   cLines += iif(len(cLine)>0, cLine + CHR(13) + CHR(10), "")
    if substr(cLine,4,1)==" " .OR. len(cLine)<=3 .OR. substr(cLine,4,1)==CHR(10)
       exit
    endif
@@ -418,7 +418,7 @@ if ::oSocket:SendString( "MAIL FROM: " +::cEmail +CHR(13)+CHR(10) )
                Set( _SET_EPOCH, nOldEpoch )
 
                cHeader += "From: "     +::cFrom +" " +::cEmail +CHR(13)+CHR(10)
-               cHeader += "Reply-To: " + iif( Empty(::cReplyTo), ::cFrom +" " +::cEmail, ::cReplyTo ) +CHR(13)+CHR(10)
+               cHeader += "Reply-To: " + iif(Empty(::cReplyTo), ::cFrom +" " +::cEmail, ::cReplyTo) +CHR(13)+CHR(10)
 
                cHeader += addAddress( ::aTO, "To: " )
                cHeader += addAddress( ::aCC, "CC: " )
@@ -514,7 +514,7 @@ local cRet := ""
 
 if len(aEmail) > 0
    cRet += cTok
-   AEVAL(aEmail, {|aSub, nPos| cRet += iif( nPos==1, "", ","+CHR(13)+CHR(10)+"   " ) + aSub[2]})
+   AEVAL(aEmail, {|aSub, nPos| cRet += iif(nPos==1, "", ","+CHR(13)+CHR(10)+"   ") + aSub[2]})
    cRet += CHR(13)+CHR(10)
 endif
 
@@ -550,10 +550,10 @@ LOCAL n1 := RAt( "\", cPathMask ), n2 := RAt( "/", cPathMask ), n
 
         n := max( n1, n2 )
 
-Return IIf( n > 0 .AND. n < Len(cPathMask), ;
+Return IIf(n > 0 .AND. n < Len(cPathMask), ;
    Right(cPathMask, Len(cPathMask) - n), ;
-   IIf( ( n := At( ":", cPathMask ) ) > 0, ;
-   Right(cPathMask, Len(cPathMask) - n), cPathMask ) )
+   IIf(( n := At( ":", cPathMask ) ) > 0, ;
+   Right(cPathMask, Len(cPathMask) - n), cPathMask))
 
 
 #pragma BEGINDUMP

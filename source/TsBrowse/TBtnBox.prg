@@ -101,8 +101,8 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, ;
    if !Empty(ParentHandle)
       if lSpinner
          ::Create( "EDIT" )
-         nMin := IIf( hb_IsBlock(bMin), Eval(bMin), bMin )
-         nMax := IIf( hb_IsBlock(bMax), Eval(bMax), bMax )
+         nMin := IIf(hb_IsBlock(bMin), Eval(bMin), bMin)
+         nMax := IIf(hb_IsBlock(bMax), Eval(bMax), bMax)
          ::hWndChild := InitedSpinner( ::hWndParent, ::hWnd , nCol, nRow, 0, nHeight, nMin, nMax, Eval(::bSetGet) )
          SetIncrementSpinner( ::hWndChild, bUp )
       else
@@ -175,7 +175,7 @@ Return DLGC_WANTALLKEYS + DLGC_WANTCHARS
 METHOD KeyChar( nKey, nFlags ) CLASS TBtnBox
 
    If _GetKeyState( VK_CONTROL )
-      nKey := IIf( Upper(Chr(nKey)) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey )
+      nKey := IIf(Upper(Chr(nKey)) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey)
    EndIf
 
    If nKey == VK_TAB .OR. nKey == VK_ESCAPE

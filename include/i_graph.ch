@@ -184,8 +184,8 @@
 /* Default parameters management */
 #xcommand DEFAULT <uVar1> := <uVal1> [, <uVarN> := <uValN> ] ;
                 => ;
-                <uVar1> := iif( <uVar1> == NIL, <uVal1>, <uVar1> ) ;
-                [; <uVarN> := iif( <uVarN> == NIL, <uValN>, <uVarN> ) ]
+                <uVar1> := iif(<uVar1> == NIL, <uVal1>, <uVar1>) ;
+                [; <uVarN> := iif(<uVarN> == NIL, <uValN>, <uVarN>) ]
 
 #translate RGB( <nRed>, <nGreen>, <nBlue> ) => ;
               ( <nRed> + ( <nGreen> * 256 ) + ( <nBlue> * 65536 ) )

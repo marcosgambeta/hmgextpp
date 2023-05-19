@@ -10,9 +10,7 @@ CLASS TCursor
 
    METHOD New( cResName, cPredef ) CONSTRUCTOR
 
-   METHOD End() INLINE IIf( ::hCursor != 0,;
-                       IIf( !::lPredef, DestroyCursor( ::hCursor ),),),;
-                           ::hCursor := 0
+   METHOD End() INLINE IIf(::hCursor != 0, IIf(!::lPredef, DestroyCursor(::hCursor), NIL), NIL), ::hCursor := 0
 
 ENDCLASS
 

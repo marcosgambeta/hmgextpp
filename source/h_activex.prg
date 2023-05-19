@@ -75,7 +75,7 @@ PROCEDURE _DefineActivex ( cControlName, cParentForm, nRow, nCol, nWidth, nHeigh
 
    // If defined inside DEFINE WINDOW structure, determine cParentForm
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
-      cParentForm := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
+      cParentForm := iif(_HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName)
    ENDIF
 
    // If defined inside a Tab structure, adjust position and determine cParentForm
@@ -161,8 +161,8 @@ PROCEDURE _DefineActivex ( cControlName, cParentForm, nRow, nCol, nWidth, nHeigh
    _HMG_aControlWidth              [k] := nWidth
    _HMG_aControlHeight             [k] := nHeight
    _HMG_aControlSpacing            [k] := 0
-   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1 )
-   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1 )
+   _HMG_aControlContainerRow       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1)
+   _HMG_aControlContainerCol       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1)
    _HMG_aControlPicture            [k] := ""
    _HMG_aControlContainerHandle    [k] := 0
    _HMG_aControlFontName           [k] := Nil
@@ -308,10 +308,11 @@ ENDCLASS
 
 METHOD New( cWindowName, cProgId, nRow, nCol, nWidth, nHeight ) CLASS TActiveX
 
-   iif( Empty(nRow)    , nRow    := 0 , )
-   iif( Empty(nCol)    , nCol    := 0 , )
-   iif( Empty(nWidth)  , nWidth  := GetProperty( cWindowName , "width" ) , )
-   iif( Empty(nHeight) , nHeight := GetProperty( cWindowName , "Height" ) , )
+   // TODO: revisar as 4 linhas abaixo
+   iif(Empty(nRow)   , nRow    := 0, NIL)
+   iif(Empty(nCol)   , nCol    := 0, NIL)
+   iif(Empty(nWidth) , nWidth  := GetProperty(cWindowName, "width"), NIL)
+   iif(Empty(nHeight), nHeight := GetProperty(cWindowName, "Height"), NIL)
    ::nRow := nRow
    ::nCol := nCol
    ::nWidth := nWidth

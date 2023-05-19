@@ -27,11 +27,11 @@ CLASS THmgData
 
    METHOD New( lUpper ) INLINE ( ::lUpp := !Empty(lUpper), Self ) CONSTRUCTOR
 
-   METHOD Set( Key, Block ) INLINE iif( HB_ISHASH( Key ), ::aKey := Key, hb_HSet( ::aKey, ::Upp( Key ), Block ) )
+   METHOD Set( Key, Block ) INLINE iif(HB_ISHASH( Key ), ::aKey := Key, hb_HSet( ::aKey, ::Upp( Key ), Block ))
    METHOD Get( Key, Def ) INLINE hb_HGetDef( ::aKey, ::Upp( Key ), Def )
-   METHOD Del( Key ) INLINE iif( ::Pos( Key ) > 0, hb_HDel( ::aKey, ::Upp( Key ) ), Nil )
+   METHOD Del( Key ) INLINE iif(::Pos( Key ) > 0, hb_HDel( ::aKey, ::Upp( Key ) ), Nil)
    METHOD Pos( Key ) INLINE hb_HPos( ::aKey, ::Upp( Key ) )
-   METHOD Upp( Key ) INLINE iif( hb_IsChar(Key) .AND. ::lUpp, Upper(Key), Key )
+   METHOD Upp( Key ) INLINE iif(hb_IsChar(Key) .AND. ::lUpp, Upper(Key), Key)
    METHOD Len() INLINE Len(::aKey)
 
    METHOD Keys() INLINE hb_HKeys( ::aKey )
@@ -66,7 +66,7 @@ METHOD Eval(Block) CLASS THmgData
    LOCAL i
    LOCAL b := hb_IsBlock(Block)
    LOCAL l := hb_IsLogical(Block) .AND. Block
-   LOCAL a := iif( b, NIL, Array(0) )
+   LOCAL a := iif(b, NIL, Array(0))
 
    FOR i := 1 TO ::Len()
       IF b
@@ -179,7 +179,7 @@ METHOD Def( cIni, lMacro, lUtf8, cChar ) CLASS TIniData
 
    IF !Empty(::cIni)
       IF !hb_FileExists( ::cIni )
-         hb_memoWrit( ::cIni, iif( ::lUtf8, ::cBOM, "" ) + CRLF )
+         hb_memoWrit( ::cIni, iif(::lUtf8, ::cBOM, "") + CRLF )
       ENDIF
       ::lIni := hb_FileExists( ::cIni )
    ENDIF
@@ -343,7 +343,7 @@ METHOD ToString( xVal ) CLASS TIniData
          ENDIF
       ENDIF
    ELSEIF hb_IsLogical(xVal) .AND. ::lYesNo
-      cStr := ::aYesNo[ iif( xVal, 1, 2 ) ]
+      cStr := ::aYesNo[ iif(xVal, 1, 2) ]
    ELSE
       cStr := hb_valtoexp( xVal )
    ENDIF
@@ -390,9 +390,9 @@ METHOD Write( cFile, lUtf8 ) CLASS TIniData
               cKey := cStr[1]
               IF !Empty(cStr[2])
                  IF lBlk
-                    cVal := iif( !::lUtf .AND. lUtf8, hb_StrToUtf8( cStr[2] ), cStr[2] )
+                    cVal := iif(!::lUtf .AND. lUtf8, hb_StrToUtf8( cStr[2] ), cStr[2])
                  ELSE
-                    cVal += space(3) + iif( !::lUtf .AND. lUtf8, hb_StrToUtf8( cStr[2] ), cStr[2] )
+                    cVal += space(3) + iif(!::lUtf .AND. lUtf8, hb_StrToUtf8( cStr[2] ), cStr[2])
                  ENDIF
               ENDIF
            ENDIF
@@ -404,16 +404,16 @@ METHOD Write( cFile, lUtf8 ) CLASS TIniData
    NEXT
 
    IF !Empty(::cCommentBegin)
-      cBegin += iif( Left(::cCommentBegin, 1) == "#", "", "#" ) + ::cCommentBegin
+      cBegin += iif(Left(::cCommentBegin, 1) == "#", "", "#") + ::cCommentBegin
       IF !::lUtf .AND. lUtf8
          cBegin := hb_StrToUtf8( cBegin )
       ENDIF
    ENDIF
 
-   cBegin := iif( lUtf8, ::cBOM + CRLF, "" ) + cBegin
+   cBegin := iif(lUtf8, ::cBOM + CRLF, "") + cBegin
 
    IF !Empty(::cCommentEnd)
-      cEnd += CRLF + iif( Left(::cCommentEnd, 1) == "#", "", "#" ) + ::cCommentEnd
+      cEnd += CRLF + iif(Left(::cCommentEnd, 1) == "#", "", "#") + ::cCommentEnd
       IF !::lUtf .AND. lUtf8
          cEnd := hb_StrToUtf8( cEnd )
       ENDIF
@@ -510,8 +510,8 @@ FUNCTION oDlu2Pixel( nPrcW, nPrcH, nFontSize )
          nPrcW := Val(nPrcW[1])
       ENDIF
 
-      nPrcH := iif( Empty(nPrcH) .OR. nPrcH < 0, NIL, nPrcH )
-      nPrcW := iif( Empty(nPrcW) .OR. nPrcW < 0, NIL, nPrcW )
+      nPrcH := iif(Empty(nPrcH) .OR. nPrcH < 0, NIL, nPrcH)
+      nPrcW := iif(Empty(nPrcW) .OR. nPrcW < 0, NIL, nPrcW)
 
       IF o_AppDlu2Pixel != NIL
          hb_default(@nPrcW, o_AppDlu2Pixel:nScaleWidth)
@@ -628,10 +628,10 @@ CLASS TDlu2Pix
    METHOD W ( nKfc ) INLINE ::ToVal(nKfc, ::nPixWidth)
    METHOD H ( nKfc ) INLINE ::ToVal(nKfc, ::nPixHeight)
    METHOD H_( nKfc ) INLINE ::ToVal(nKfc, ::nPixHeight2)
-   METHOD G ( nKfc, lW ) INLINE iif( Empty(lW), ::GW( nKfc ), ::GH( nKfc ) )
+   METHOD G ( nKfc, lW ) INLINE iif(Empty(lW), ::GW( nKfc ), ::GH( nKfc ))
    METHOD GW( nKfc )     INLINE ::ToVal(nKfc, ::nGapsWidth)
    METHOD GH( nKfc )     INLINE ::ToVal(nKfc, ::nGapsHeight)
-   METHOD M ( nKfc, lW ) INLINE iif( Empty(lW), ::MW( nKfc ), ::MH( nKfc ) )
+   METHOD M ( nKfc, lW ) INLINE iif(Empty(lW), ::MW( nKfc ), ::MH( nKfc ))
    METHOD MW( nKfc )     INLINE ::ToVal(nKfc, ::nMargWidth)
    METHOD MH( nKfc )     INLINE ::ToVal(nKfc, ::nMargHeight)
 
@@ -687,19 +687,19 @@ CLASS TDlu2Pix
 
    METHOD Create() INLINE _App_Dlu2Pix_Events_( Self )
 
-   METHOD Event( Key, p1, p2, p3 )  INLINE iif( hb_IsBlock(p1),   ;
+   METHOD Event( Key, p1, p2, p3 )  INLINE iif(hb_IsBlock(p1),   ;
                  ::oEvent:Set( Key, p1 ),                           ;
                  ( p2 := hb_defaultValue(p2, ::oParam:Get(Key)), ;
-                 ::oEvent:Do ( Key, p1, p2, p3 ) ) )
+                 ::oEvent:Do ( Key, p1, p2, p3 ) ))
 
    METHOD Post ( nKey, nPar, xPar ) INLINE ::PostMsg( nKey, nPar, xPar )
    METHOD PostMsg( nKey, nPar, xPar ) INLINE ( nPar := hb_defaultValue(nPar, 0), ;
-      iif( ::IsMsg, ( ::oParam:Set( nKey, xPar ), ;
-      PostMessage( ::hWnd, ::Wm_nApp, nKey, nPar ) ), Nil ) )
+      iif(::IsMsg, ( ::oParam:Set( nKey, xPar ), ;
+      PostMessage( ::hWnd, ::Wm_nApp, nKey, nPar ) ), Nil) )
    METHOD Send(nKey, nPar, xPar) INLINE ::SendMsg( nKey, nPar, xPar )
    METHOD SendMsg( nKey, nPar, xPar ) INLINE ( nPar := hb_defaultValue(nPar, 0), ;
-      iif( ::IsMsg, ( ::oParam:Set( nKey, xPar ), ;
-      SendMessage(::hWnd, ::Wm_nApp, nKey, nPar) ), Nil ) )
+      iif(::IsMsg, ( ::oParam:Set( nKey, xPar ), ;
+      SendMessage(::hWnd, ::Wm_nApp, nKey, nPar) ), Nil) )
 
 ENDCLASS
 
@@ -764,9 +764,9 @@ METHOD GetGaps( aGaps, oWnd ) CLASS TDlu2Pix
    If hb_IsChar(oWnd); oWnd := _WindowObj(oWnd)
    EndIf
 
-   oApp  := iif( Empty(oWnd), Self           , oWnd:App )
-   nGapW := iif( Empty(oWnd), oApp:GapsWidth , oWnd:GapsWidth  )
-   nGapH := iif( Empty(oWnd), oApp:GapsHeight, oWnd:GapsHeight )
+   oApp  := iif(Empty(oWnd), Self, oWnd:App)
+   nGapW := iif(Empty(oWnd), oApp:GapsWidth, oWnd:GapsWidth)
+   nGapH := iif(Empty(oWnd), oApp:GapsHeight, oWnd:GapsHeight)
 
    If hb_IsNumeric(aGaps)
       n     := aGaps
@@ -1016,7 +1016,7 @@ CLASS TWndData
    ACCESS IsWindow INLINE .T.
    ACCESS IsControl INLINE .F.
    ACCESS Chr INLINE ::cChr
-   ASSIGN Chr( cChr ) INLINE ::cChr := iif( hb_IsChar(cChr), cChr, ::cChr )
+   ASSIGN Chr( cChr ) INLINE ::cChr := iif(hb_IsChar(cChr), cChr, ::cChr)
 
    ACCESS Action INLINE ::lAction
    ASSIGN Action( lAction ) INLINE ::lAction := !( Empty(lAction) )
@@ -1029,31 +1029,30 @@ CLASS TWndData
    ACCESS WM_nMsgC INLINE WM_CTL_LAUNCH
 
    METHOD SetProp( xKey, xVal ) INLINE ::oProp:Set( xKey, xVal )
-   METHOD GetProp( xKey ) INLINE iif( xKey == NIL, ::oProp, ::oProp:Get( xKey ) )
+   METHOD GetProp( xKey ) INLINE iif(xKey == NIL, ::oProp, ::oProp:Get( xKey ))
    METHOD DelProp( xKey ) INLINE ::oProp:Del( xKey )
    METHOD AllProp( lArray ) INLINE ::oProp:GetAll( lArray )
 
-   METHOD UserKeys( Key, Block, p2, p3 ) INLINE iif( hb_IsBlock(Block), ::oUserKeys:Set( Key, Block ), ;
-      iif( ::lAction, ::oUserKeys:Do( Key, Block, p2, p3 ), Nil ) )
+   METHOD UserKeys( Key, Block, p2, p3 ) INLINE iif(hb_IsBlock(Block), ::oUserKeys:Set( Key, Block ), ;
+      iif(::lAction, ::oUserKeys:Do( Key, Block, p2, p3 ), Nil))
 
-   METHOD Event ( Key, Block, p2, p3 ) INLINE iif( hb_IsBlock(Block), ::oEvent:Set( Key, Block ), ;
-      iif( ::lAction, ::oEvent:Do( Key, Block, p2, p3 ), Nil ) )
+   METHOD Event ( Key, Block, p2, p3 ) INLINE iif(hb_IsBlock(Block), ::oEvent:Set( Key, Block ), ;
+      iif(::lAction, ::oEvent:Do( Key, Block, p2, p3 ), Nil))
 
    METHOD Post ( nKey, nHandle, xPar ) INLINE ::PostMsg( nKey, nHandle, xPar )
-   METHOD PostMsg( nKey, nHandle, xPar ) INLINE iif( ::lAction, ( ::oParam:Set( nKey, xPar ), ;
-      PostMessage( ::nHandle, ::WM_nMsgW, nKey, hb_defaultValue(nHandle, 0) ) ), Nil )
+   METHOD PostMsg( nKey, nHandle, xPar ) INLINE iif(::lAction, ( ::oParam:Set( nKey, xPar ), ;
+      PostMessage( ::nHandle, ::WM_nMsgW, nKey, hb_defaultValue(nHandle, 0) ) ), Nil)
    METHOD Send(nKey, nHandle, xPar) INLINE ::SendMsg( nKey, nHandle, xPar )
-   METHOD SendMsg( nKey, nHandle, xPar ) INLINE iif( ::lAction, ( ::oParam:Set( nKey, xPar ), ;
-      SendMessage(::nHandle, ::WM_nMsgW, nKey, hb_defaultValue(nHandle, 0)) ), Nil )
+   METHOD SendMsg( nKey, nHandle, xPar ) INLINE iif(::lAction, ( ::oParam:Set( nKey, xPar ), ;
+      SendMessage(::nHandle, ::WM_nMsgW, nKey, hb_defaultValue(nHandle, 0)) ), Nil)
 
-   METHOD Release() INLINE iif( ::IsWindow, ;
-      iif( ::lAction, PostMessage( ::nHandle, WM_CLOSE, 0, 0 ), Nil ), Nil )
+   METHOD Release() INLINE iif(::IsWindow, iif(::lAction, PostMessage(::nHandle, WM_CLOSE, 0, 0), Nil), Nil)
 
    METHOD Restore() INLINE ShowWindow(::nHandle, SW_RESTORE)
    METHOD Show() INLINE _ShowWindow(::cName)
    METHOD Hide() INLINE _HideWindow(::cName)
-   METHOD SetFocus( xName ) INLINE iif( Empty(xName), SetFocus( ::nHandle ), ;
-      iif( hb_IsObject(::GetObj(xName)), ::GetObj(xName):SetFocus(), DoMethod(::cName, xName, "SetFocus") ) )
+   METHOD SetFocus( xName ) INLINE iif(Empty(xName), SetFocus( ::nHandle ), ;
+      iif(hb_IsObject(::GetObj(xName)), ::GetObj(xName):SetFocus(), DoMethod(::cName, xName, "SetFocus")))
    METHOD SetSize( y, x, w, h ) INLINE _SetWindowSizePos( ::cName, y, x, w, h )
 
    _METHOD DoEvent( Key, nHandle )
@@ -1061,19 +1060,19 @@ CLASS TWndData
    _METHOD GetObj4Type( cType, lEque )
    _METHOD GetObj4Name( cName )
 
-   METHOD GetObj(xName) INLINE iif( hb_IsChar(xName), ::oName:Get( Upper(xName) ), ;
-      ::oHand:Get( xName ) )
+   METHOD GetObj(xName) INLINE iif(hb_IsChar(xName), ::oName:Get( Upper(xName) ), ;
+      ::oHand:Get( xName ))
    // Destructor
    METHOD Destroy() INLINE ( ;
-      ::oCargo := iif( hb_IsObject(::oCargo), ::oCargo:Destroy(), Nil ), ;
-      ::oEvent := iif( hb_IsObject(::oEvent), ::oEvent:Destroy(), Nil ), ;
-      ::oOnEventBlock := iif( hb_IsObject(::oOnEventBlock), ::oOnEventBlock:Destroy(), Nil ), ;
-      ::oStatusBar := iif( hb_IsObject(::oStatusBar), ::oStatusBar:Destroy(), Nil ), ;
-      ::oName := iif( hb_IsObject(::oName), ::oName:Destroy(), Nil ), ;
-      ::oHand := iif( hb_IsObject(::oHand), ::oHand:Destroy(), Nil ), ;
-      ::oProp := iif( hb_IsObject(::oProp), ::oProp:Destroy(), Nil ), ;
-      ::oParam := iif( hb_IsObject(::oParam), ::oParam:Destroy(), Nil ), ;
-      ::oUserKeys := iif( hb_IsObject(::oUserKeys), ::oUserKeys:Destroy(), Nil ), ;
+      ::oCargo := iif(hb_IsObject(::oCargo), ::oCargo:Destroy(), Nil), ;
+      ::oEvent := iif(hb_IsObject(::oEvent), ::oEvent:Destroy(), Nil), ;
+      ::oOnEventBlock := iif(hb_IsObject(::oOnEventBlock), ::oOnEventBlock:Destroy(), Nil), ;
+      ::oStatusBar := iif(hb_IsObject(::oStatusBar), ::oStatusBar:Destroy(), Nil), ;
+      ::oName := iif(hb_IsObject(::oName), ::oName:Destroy(), Nil), ;
+      ::oHand := iif(hb_IsObject(::oHand), ::oHand:Destroy(), Nil), ;
+      ::oProp := iif(hb_IsObject(::oProp), ::oProp:Destroy(), Nil), ;
+      ::oParam := iif(hb_IsObject(::oParam), ::oParam:Destroy(), Nil), ;
+      ::oUserKeys := iif(hb_IsObject(::oUserKeys), ::oUserKeys:Destroy(), Nil), ;
       ::nIndex := ::nParent := ::cType := ::cName := ::cVar := ::cChr := NIL, ;
       hmg_DelWindowObject( ::nHandle ), ::nHandle := Nil )
 
@@ -1139,7 +1138,7 @@ METHOD GetObj4Type( cType, lEque ) CLASS TWndData
       IF ::cChr $ cType ; lEque := .F.
       ENDIF
       FOR EACH cType IN hb_ATokens(Upper(cType), ::cChr)
-         ::oName:Eval({| oc | iif( lEque, iif( cType == oc:cType, AAdd(aObj, oc), ), iif( cType $ oc:cType, AAdd(aObj, oc), ) )})
+         ::oName:Eval({| oc | iif(lEque, iif(cType == oc:cType, AAdd(aObj, oc), NIL), iif(cType $ oc:cType, AAdd(aObj, oc), NIL))})
       NEXT
       FOR EACH o IN aObj
          IF _IsControlDefined(o:Name, o:Window:Name)
@@ -1156,8 +1155,8 @@ METHOD GetObj4Name( cName ) CLASS TWndData
 
    IF !Empty(cName)
       FOR EACH cName IN hb_ATokens(Upper(cName), ::cChr)
-         ::oName:Eval({| oc | iif( _IsControlDefined(oc:Name, oc:Window:Name), ;
-            iif( cName $ Upper(oc:cName), AAdd(aObj, oc), Nil ), Nil ) })
+         ::oName:Eval({| oc | iif(_IsControlDefined(oc:Name, oc:Window:Name), ;
+            iif(cName $ Upper(oc:cName), AAdd(aObj, oc), Nil), Nil) })
       NEXT
    ENDIF
 
@@ -1243,28 +1242,28 @@ CLASS TCnlData INHERIT TWndData
    ACCESS IsWindow INLINE .F.
    ACCESS IsControl INLINE .T.
 
-   METHOD PostMsg( nKey, xPar ) INLINE iif( ::oWin:Action, ( ::oParam:Set( nKey, xPar ), ;
-      PostMessage( ::oWin:nHandle, ::WM_nMsgC, nKey, ::nHandle ) ), Nil )
+   METHOD PostMsg( nKey, xPar ) INLINE iif(::oWin:Action, ( ::oParam:Set( nKey, xPar ), ;
+      PostMessage( ::oWin:nHandle, ::WM_nMsgC, nKey, ::nHandle ) ), Nil)
    METHOD Post ( nKey, xPar ) INLINE ::PostMsg( nKey, xPar )
-   METHOD SendMsg( nKey, xPar ) INLINE iif( ::oWin:Action, ( ::oParam:Set( nKey, xPar ), ;
-      SendMessage(::oWin:nHandle, ::WM_nMsgC, nKey, ::nHandle) ), Nil )
+   METHOD SendMsg( nKey, xPar ) INLINE iif(::oWin:Action, ( ::oParam:Set( nKey, xPar ), ;
+      SendMessage(::oWin:nHandle, ::WM_nMsgC, nKey, ::nHandle) ), Nil)
    METHOD Send(nKey, xPar) INLINE ::SendMsg( nKey, xPar )
 
-   METHOD Set() INLINE ( iif( hb_IsObject(::oWin:oName), ::oWin:oName:Set( Upper(::cName), Self ), ), ;
-      iif( hb_IsObject(::oWin:oHand), ::oWin:oHand:Set( ::nHandle, Self ), ) )
-   METHOD Del() INLINE ( iif( hb_IsObject(::oWin:oName), ;
-      iif( hb_IsChar(::cName), ::oWin:oName:Del( Upper(::cName) ), ), ), ;
-      iif( hb_IsObject(::oWin:oHand), ;
-      iif( hb_IsNumeric(::nHandle), ::oWin:oHand:Del( ::nHandle ), ), ) )
+   METHOD Set() INLINE ( iif(hb_IsObject(::oWin:oName), ::oWin:oName:Set( Upper(::cName), Self ), NIL), ;
+      iif(hb_IsObject(::oWin:oHand), ::oWin:oHand:Set( ::nHandle, Self ), NIL) )
+   METHOD Del() INLINE ( iif(hb_IsObject(::oWin:oName), ;
+      iif(hb_IsChar(::cName), ::oWin:oName:Del( Upper(::cName) ), NIL), NIL), ;
+      iif(hb_IsObject(::oWin:oHand), ;
+      iif(hb_IsNumeric(::nHandle), ::oWin:oHand:Del( ::nHandle ), NIL), NIL) )
 
-   METHOD Get( xName ) INLINE iif( hb_IsChar(xName), ::oWin:oName:Get( Upper(xName) ), ;
-      ::oWin:oHand:Get( xName ) )
+   METHOD Get( xName ) INLINE iif(hb_IsChar(xName), ::oWin:oName:Get( Upper(xName) ), ;
+      ::oWin:oHand:Get( xName ))
 
    METHOD GetListType() INLINE ::oWin:GetListType()
    METHOD GetObj4Type( cType, lEque ) INLINE ::oWin:GetObj4Type( cType, lEque )
    METHOD GetObj4Name( cName ) INLINE ::oWin:GetObj4Name( cName )
    METHOD SetProp( xKey, xVal ) INLINE ::oWin:oProp:Set( xKey, xVal )
-   METHOD GetProp( xKey ) INLINE iif( PCount() > 0, ::oWin:oProp:Get( xKey ), ::oWin:oProp )
+   METHOD GetProp( xKey ) INLINE iif(PCount() > 0, ::oWin:oProp:Get( xKey ), ::oWin:oProp)
    METHOD DelProp( xKey ) INLINE ::oWin:oProp:Del( xKey )
 
    ACCESS Value INLINE _GetValue( , , ::nIndex )
@@ -1287,12 +1286,12 @@ CLASS TCnlData INHERIT TWndData
 
    // Destructor
    METHOD Destroy() INLINE ( ::Del(), ;
-      ::oCargo := iif( hb_IsObject(::oCargo), ::oCargo:Destroy(), Nil ), ;
-      ::oEvent := iif( hb_IsObject(::oEvent), ::oEvent:Destroy(), Nil ), ;
-      ::oOnEventBlock := iif( hb_IsObject(::oOnEventBlock), ::oOnEventBlock:Destroy(), Nil ), ;
-      ::oUserKeys := iif( hb_IsObject(::oUserKeys), ::oUserKeys:Destroy(), Nil ), ;
-      ::oName := iif( hb_IsObject(::oName), ::oName:Destroy(), Nil ), ;
-      ::oHand := iif( hb_IsObject(::oHand), ::oHand:Destroy(), Nil ), ;
+      ::oCargo := iif(hb_IsObject(::oCargo), ::oCargo:Destroy(), Nil), ;
+      ::oEvent := iif(hb_IsObject(::oEvent), ::oEvent:Destroy(), Nil), ;
+      ::oOnEventBlock := iif(hb_IsObject(::oOnEventBlock), ::oOnEventBlock:Destroy(), Nil), ;
+      ::oUserKeys := iif(hb_IsObject(::oUserKeys), ::oUserKeys:Destroy(), Nil), ;
+      ::oName := iif(hb_IsObject(::oName), ::oName:Destroy(), Nil), ;
+      ::oHand := iif(hb_IsObject(::oHand), ::oHand:Destroy(), Nil), ;
       ::nParent := ::nIndex := ::cName := ::cType := ::cVar := ::cChr := NIL, ;
       hmg_DelWindowObject( ::nHandle ), ::nHandle := Nil )
 
@@ -1303,7 +1302,7 @@ ENDCLASS
 
 METHOD DoEvent ( Key, nHandle ) CLASS TCnlData
 
-   LOCAL o := iif( hmg_IsWindowObject( nHandle ), hmg_GetWindowObject( nHandle ), Self )
+   LOCAL o := iif(hmg_IsWindowObject( nHandle ), hmg_GetWindowObject( nHandle ), Self)
 
 RETURN Do_ControlEventProcedure( ::oEvent:Get( Key ), o:Index, o, Key, ::oParam:Get( Key ) )
 
@@ -1346,8 +1345,8 @@ CLASS TStbData INHERIT TCnlData
 ///////////////////////////////////////////////////////////////////////////////
 
    EXPORTED:
-   METHOD New( oWnd ) INLINE ( ::Super:New( oWnd ), ::oWin:oStatusBar := iif( Empty(::oWin:oStatusBar), ;
-      Self, ::oWin:oStatusBar ), Self ) CONSTRUCTOR
+   METHOD New( oWnd ) INLINE ( ::Super:New( oWnd ), ::oWin:oStatusBar := iif(Empty(::oWin:oStatusBar), ;
+      Self, ::oWin:oStatusBar), Self ) CONSTRUCTOR
 
    METHOD Def( nIndex, cName, nHandle, nParent, cType, cVar ) INLINE ( ;
       ::Super:Def( nIndex, cName, nHandle, nParent, cType, cVar ), ;
@@ -1359,9 +1358,9 @@ CLASS TStbData INHERIT TCnlData
 
    METHOD Icon ( cIcon, nItem ) INLINE SetStatusItemIcon( ::nHandle, hb_defaultValue(nItem, 1), cIcon )
 
-   METHOD Width(nItem, nWidth) INLINE iif( hb_IsNumeric(nWidth) .AND. nWidth > 0, ;
+   METHOD Width(nItem, nWidth) INLINE iif(hb_IsNumeric(nWidth) .AND. nWidth > 0, ;
       _SetStatusWidth(::oWin:cName, hb_defaultValue(nItem, 1), nWidth), ;
-      _GetStatusItemWidth(::oWin:nHandle, nItem) )
+      _GetStatusItemWidth(::oWin:nHandle, nItem))
 
    METHOD Action( nItem, bBlock ) INLINE _SetStatusItemAction( hb_defaultValue(nItem, 1), bBlock, ;
       ::oWin:nHandle )
@@ -1438,7 +1437,7 @@ METHOD Do( nMsg, wParam, lParam ) CLASS TWmEData
       ENDIF
    ENDIF
 
-RETURN iif( Empty(r), 0, 1 )
+RETURN iif(Empty(r), 0, 1)
 
 METHOD Destroy() CLASS TWmEData
 
@@ -1473,25 +1472,25 @@ CLASS TKeyData
 
    METHOD Def( o ) INLINE ( ::Obj := o, Self )
 
-   METHOD Set( Key, Block ) INLINE ( iif( HB_ISHASH( Key ), ::aKey := Key, hb_HSet ( ::aKey, Key, Block ) ), ;
+   METHOD Set( Key, Block ) INLINE ( iif(HB_ISHASH( Key ), ::aKey := Key, hb_HSet ( ::aKey, Key, Block )), ;
           ::lKey := ( ::Len > 0 ) )
    METHOD Get( Key, Def ) INLINE hb_HGetDef( ::aKey, Key, Def )
-   METHOD Del( Key ) INLINE ( iif( ::Len > 0, hb_HDel ( ::aKey, Key ), ), ::lKey := Len(::aKey) > 0 )
+   METHOD Del( Key ) INLINE ( iif(::Len > 0, hb_HDel ( ::aKey, Key ), NIL), ::lKey := Len(::aKey) > 0 )
    METHOD Pos( Key ) INLINE hb_HPos( ::aKey, Key )
 
    METHOD Do ( Key, p1, p2, p3 ) BLOCK {| Self, Key, p1, p2, p3, b | b := ::Get( Key ), ;
-      iif( hb_IsBlock(b), Eval(b, ::oObj, Key, p1, p2, p3 ), Nil )}
+      iif(hb_IsBlock(b), Eval(b, ::oObj, Key, p1, p2, p3 ), Nil)}
 
    ACCESS Obj INLINE ::oObj
-   ASSIGN Obj(o) INLINE ::oObj := iif( hb_IsObject(o), o, Self )
+   ASSIGN Obj(o) INLINE ::oObj := iif(hb_IsObject(o), o, Self)
    ACCESS Len INLINE Len(::aKey)
    ACCESS IsEvent INLINE ::lKey
    ASSIGN KeyUpper(lUpper) INLINE hb_HCaseMatch( ::aKey, !Empty(lUpper) )
    METHOD ISBLOCK( Key ) INLINE hb_IsBlock(::Get( Key ))
-   METHOD Json( cJson )  INLINE iif( hb_IsChar(cJson), ( cJson := SubStr(cJson, At("{", cJson) ), ;
+   METHOD Json( cJson )  INLINE iif(hb_IsChar(cJson), ( cJson := SubStr(cJson, At("{", cJson) ), ;
                                                          cJson := Left(cJson, RAt("}", cJson) ), ;
                                                          ::aKey := hb_jsonDecode( cJson ), Self ), ;
-                                                         hb_jsonEncode( ::aKey, !Empty(cJson) ) )
+                                                         hb_jsonEncode( ::aKey, !Empty(cJson) ))
    METHOD Keys()         INLINE hb_HKeys( ::aKey )
    METHOD Values()       INLINE hb_HValues( ::aKey )
    METHOD CloneHash()    INLINE hb_HClone( ::aKey )
@@ -1526,7 +1525,7 @@ METHOD Eval(Block) CLASS TKeyData
    LOCAL i
    LOCAL b := hb_IsBlock(Block)
    LOCAL l := hb_IsLogical(Block) .AND. Block
-   LOCAL a := iif( b, NIL, Array(0) )
+   LOCAL a := iif(b, NIL, Array(0))
 
    FOR i := 1 TO ::Len
       IF b
@@ -1551,7 +1550,7 @@ METHOD Sum( Key, xSum ) CLASS TKeyData
       ::Set( Key, sum )
    ELSEIF hb_IsArray(xSum)
       IF hb_IsArray(sum) .AND. Len(sum) == Len(xSum)
-         AEval(xSum, {| s, i | Sum[i] := iif( hb_IsNumeric(s), Sum[i] + s, s ) })
+         AEval(xSum, {| s, i | Sum[i] := iif(hb_IsNumeric(s), Sum[i] + s, s) })
       ELSE
          Sum := xSum
       ENDIF
@@ -1633,17 +1632,16 @@ CLASS TThrData
 
    METHOD Def( o, lVmMt ) INLINE ( ::Obj := o, ::MT := lVmMt, Self )
 
-   METHOD Set( Key, Block ) INLINE iif( ::lMT, ::SGD( 1, Key, Block ), hb_HSet ( ::aKey, Key, Block ) )
-   METHOD Get( Key, Def ) INLINE iif( ::lMT, ::SGD( 2, Key, Def ), hb_HGetDef( ::aKey, Key, Def ) )
-   METHOD Del( Key ) INLINE iif( ::lMT, ::SGD( 3, Key ), ;
-      iif( hb_HHasKey( ::aKey, Key ), hb_HDel ( ::aKey, Key ), Nil ) )
+   METHOD Set( Key, Block ) INLINE iif(::lMT, ::SGD( 1, Key, Block ), hb_HSet ( ::aKey, Key, Block ))
+   METHOD Get( Key, Def ) INLINE iif(::lMT, ::SGD( 2, Key, Def ), hb_HGetDef( ::aKey, Key, Def ))
+   METHOD Del( Key ) INLINE iif(::lMT, ::SGD(3, Key), iif(hb_HHasKey(::aKey, Key), hb_HDel(::aKey, Key), Nil))
 
    METHOD Do ( Key, p1, p2, p3 ) BLOCK {| Self, Key, p1, p2, p3, b | b := ::Get( Key ), ;
-      iif( hb_IsBlock(b), Eval(b, ::oObj, Key, p1, p2, p3), Nil ) }
+      iif(hb_IsBlock(b), Eval(b, ::oObj, Key, p1, p2, p3), Nil) }
    ACCESS MT INLINE ::lMT
-   ASSIGN MT( lVmMt ) INLINE ::lMT := iif( hb_IsLogical(lVmMt), lVmMt, .F. )
+   ASSIGN MT( lVmMt ) INLINE ::lMT := iif(hb_IsLogical(lVmMt), lVmMt, .F.)
    ACCESS Obj INLINE ::oObj
-   ASSIGN Obj(o) INLINE ::oObj := iif( hb_IsObject(o), o, Self )
+   ASSIGN Obj(o) INLINE ::oObj := iif(hb_IsObject(o), o, Self)
    ACCESS Len INLINE Len(::aKey)
    METHOD ISBLOCK( Key ) INLINE hb_IsBlock(::Get( Key ))
 
@@ -1694,7 +1692,7 @@ METHOD Eval(Block) CLASS TThrData
    LOCAL i
    LOCAL b := hb_IsBlock(Block)
    LOCAL l := hb_IsLogical(Block) .AND. Block
-   LOCAL a := iif( b, NIL, Array(0) )
+   LOCAL a := iif(b, NIL, Array(0))
 
    FOR i := 1 TO ::Len
       IF ::lMT
@@ -1730,7 +1728,7 @@ METHOD Sum( Key, xSum ) CLASS TThrData
       ::Set( Key, sum )
    ELSEIF hb_IsArray(xSum)
       IF hb_IsArray(sum) .AND. Len(sum) == Len(xSum)
-         AEval(xSum, {| s, i | Sum[i] := iif( hb_IsNumeric(s), Sum[i] + s, s ) })
+         AEval(xSum, {| s, i | Sum[i] := iif(hb_IsNumeric(s), Sum[i] + s, s) })
       ELSE
          Sum := xSum
       ENDIF

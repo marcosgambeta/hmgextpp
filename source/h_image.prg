@@ -71,7 +71,7 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
 #endif
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
-      ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
+      ParentFormName := iif(_HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName)
    ENDIF
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
       x += _HMG_ActiveFrameCol [_HMG_FrameLevel]
@@ -181,8 +181,8 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
    _HMG_aControlIds                [k] := nId
    _HMG_aControlProcedures         [k] := ProcedureName
    _HMG_aControlPageMap            [k] := {}
-   _HMG_aControlValue              [k] := iif( stretch, 1, 0 )
-   _HMG_aControlInputMask          [k] := iif( transparent, 1, 0 )
+   _HMG_aControlValue              [k] := iif(stretch, 1, 0)
+   _HMG_aControlInputMask          [k] := iif(transparent, 1, 0)
    _HMG_aControllostFocusProcedure [k] := mouseleave
    _HMG_aControlGotFocusProcedure  [k] := mouseover
    _HMG_aControlChangeProcedure    [k] := rclick
@@ -196,8 +196,8 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
    _HMG_aControlWidth              [k] := w
    _HMG_aControlHeight             [k] := h
    _HMG_aControlSpacing            [k] := BackgroundColor
-   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerRow       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1)
+   _HMG_aControlContainerCol       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1)
    _HMG_aControlPicture            [k] := FileName
    _HMG_aControlContainerHandle    [k] := HMG_NULLHANDLE
    _HMG_aControlFontName           [k] := ""
@@ -206,8 +206,8 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
    _HMG_aControlToolTip            [k] := tooltip
    _HMG_aControlRangeMin           [k] := w
    _HMG_aControlRangeMax           [k] := h
-   _HMG_aControlCaption            [k] := iif( adjustimage, 1, 0 )
-   _HMG_aControlVisible            [k] := iif( invisible, .F. , .T. )
+   _HMG_aControlCaption            [k] := iif(adjustimage, 1, 0)
+   _HMG_aControlVisible            [k] := iif(invisible, .F. , .T.)
    _HMG_aControlHelpId             [k] := HelpId
    _HMG_aControlFontHandle         [k] := HMG_NULLHANDLE
    _HMG_aControlBrushHandle        [k] := HMG_NULLHANDLE
@@ -302,7 +302,7 @@ FUNCTION HMG_SaveImage( FileName, cOutName, cEncoder, nJpgQuality, aOutSize )
    LOCAL hBitmap
    LOCAL lResult := .F.
 
-   hBitmap := iif( hb_IsString(FileName), C_GetResPicture( FileName ), FileName )
+   hBitmap := iif(hb_IsString(FileName), C_GetResPicture(FileName), FileName)
 
    IF GetObjectType( hBitmap ) == OBJ_BITMAP
       hb_default(@cEncoder, "BMP")

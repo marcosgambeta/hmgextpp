@@ -123,7 +123,7 @@ GetSpecialFolder( CSIDL_PROFILE )
 
 #xtranslate GetUserTempFolder () ;
 => ;
-iif( IsVistaOrLater(), GetUserProfileFolder() + "\AppData\Local\Temp", cFilePath( GetTempDir() ) )
+iif(IsVistaOrLater(), GetUserProfileFolder() + "\AppData\Local\Temp", cFilePath( GetTempDir() ))
 
 //#define __WIN98__
 
@@ -524,7 +524,7 @@ GetCursorPos() \[2\]
 
 #xtranslate LB_String2Array(<cData> [, <Sep> ]) ;
 => ;
-hb_ATokens(<cData>, iif( hb_IsString( <Sep> ) , <Sep> , Chr(9) ))
+hb_ATokens(<cData>, iif(hb_IsString( <Sep> ) , <Sep> , Chr(9)))
 
 // ============================================================================
 
@@ -679,7 +679,7 @@ SendMessageStringW( <h> , <n> , <wp> , <lp> )
 
 #xtranslate Random( <nMax> )  => hb_RandomInt( iif(hb_IsNumeric(<nMax>), <nMax>, 65535) )
 
-#translate _dummy()           => iif( .T.,, )
+#translate _dummy()           => iif(.T., NIL, NIL)
 
 #xtranslate GetFontWidth( <FontName>, <nLen> ) ;
 => ;
@@ -693,7 +693,7 @@ GetFontParam( GetFontHandle( <FontName> ) )\[ 9 ]
 => ;
 GetFontParam( <hFont> )\[ 10 ]
 
-#translate HMG_RGB2n( <p1>, <p2>, <p3> )  => iif( hb_IsNumeric(<p1>), RGB( <p1>, <p2>, <p3> ), <p1> )
+#translate HMG_RGB2n( <p1>, <p2>, <p3> )  => iif(hb_IsNumeric(<p1>), RGB( <p1>, <p2>, <p3> ), <p1>)
 
 #translate HMG_RGB2n( <x> )               => iif(hb_IsArray(<x>), RGB( <x>\[ 1 ], <x>\[ 2 ], <x>\[ 3 ] ), <x>)
 
@@ -725,18 +725,18 @@ GetFontParam( <hFont> )\[ 10 ]
 #translate ISSTRING( <xValue> )  => hb_IsString( <xValue> )  // deprecated
 #translate ISNUMERIC( <xValue> ) => hb_IsNumeric( <xValue> ) // deprecated
 
-#translate IFNIL( <v1>,<exp1>,<exp2> )       => iif( (<v1>) == NIL,<exp1>,<exp2> )        // deprecated
-#translate IFARRAY(<v1>,<exp1>,<exp2>)     => iif( hb_IsArray(<v1> ),<exp1>,<exp2>)       // deprecated
-#translate IFBLOCK( <v1>,<exp1>,<exp2> )     => iif( hb_IsBlock( <v1> ),<exp1>,<exp2> )   // deprecated
-#translate IFCHARACTER( <v1>,<exp1>,<exp2> ) => iif( hb_IsString( <v1> ),<exp1>,<exp2> )  // deprecated
-#translate IFCHAR( <v1>,<exp1>,<exp2> )      => iif( hb_IsString( <v1> ),<exp1>,<exp2> )  // deprecated
-#translate IFSTRING( <v1>,<exp1>,<exp2> )    => iif( hb_IsString( <v1> ),<exp1>,<exp2> )  // deprecated
-#translate IFDATE( <v1>,<exp1>,<exp2> )      => iif( hb_IsDate( <v1> ),<exp1>,<exp2> )    // deprecated
-#translate IFLOGICAL( <v1>,<exp1>,<exp2> )   => iif( hb_IsLogical( <v1> ),<exp1>,<exp2> ) // deprecated
-#translate IFNUMBER( <v1>,<exp1>,<exp2> )    => iif( hb_IsNumeric( <v1> ),<exp1>,<exp2> ) // deprecated
-#translate IFNUMERIC( <v1>,<exp1>,<exp2> )   => iif( hb_IsNumeric( <v1> ),<exp1>,<exp2> ) // deprecated
-#translate IFOBJECT( <v1>,<exp1>,<exp2> )    => iif( hb_IsObject( <v1> ),<exp1>,<exp2> )  // deprecated
-#translate IFEMPTY( <v1>,<exp1>,<exp2> )     => iif( EMPTY( <v1> ),<exp1>,<exp2> )        // deprecated
+#translate IFNIL( <v1>,<exp1>,<exp2> )       => iif((<v1>) == NIL, <exp1>, <exp2>)      // deprecated
+#translate IFARRAY(<v1>,<exp1>,<exp2>)       => iif(hb_IsArray(<v1> ), <exp1>, <exp2>)  // deprecated
+#translate IFBLOCK( <v1>,<exp1>,<exp2> )     => iif(hb_IsBlock(<v1>), <exp1>, <exp2>)   // deprecated
+#translate IFCHARACTER( <v1>,<exp1>,<exp2> ) => iif(hb_IsString(<v1>), <exp1>, <exp2>)  // deprecated
+#translate IFCHAR( <v1>,<exp1>,<exp2> )      => iif(hb_IsString(<v1>), <exp1>, <exp2>)  // deprecated
+#translate IFSTRING( <v1>,<exp1>,<exp2> )    => iif(hb_IsString(<v1>), <exp1>, <exp2>)  // deprecated
+#translate IFDATE( <v1>,<exp1>,<exp2> )      => iif(hb_IsDate(<v1>), <exp1>, <exp2>)    // deprecated
+#translate IFLOGICAL( <v1>,<exp1>,<exp2> )   => iif(hb_IsLogical(<v1>), <exp1>, <exp2>) // deprecated
+#translate IFNUMBER( <v1>,<exp1>,<exp2> )    => iif(hb_IsNumeric(<v1>), <exp1>, <exp2>) // deprecated
+#translate IFNUMERIC( <v1>,<exp1>,<exp2> )   => iif(hb_IsNumeric(<v1>), <exp1>, <exp2>) // deprecated
+#translate IFOBJECT( <v1>,<exp1>,<exp2> )    => iif(hb_IsObject(<v1>), <exp1>, <exp2>)  // deprecated
+#translate IFEMPTY( <v1>,<exp1>,<exp2> )     => iif(EMPTY(<v1>), <exp1>, <exp2>)        // deprecated
 
 /////////////////////////////////////
 // Abbreviated flow control modifiers
@@ -822,7 +822,7 @@ cFilePath( <cFile> ) + "\" + cFileNoExt( <cFile> ) + <cExt>
 
 #translate HMG_TimeMS( <dTS1> [,<dTS2>] ) => LTrim( hb_TSToStr( ( hb_StrToTS( "" ) + ( hb_defaultValue( <dTS2>, hb_DateTime() ) - <dTS1> ) ), .T. ) )
 
-#xtranslate hb_Ccompiler()                => iif( Empty( BorlandC() ), hb_Compiler(), BorlandC() )
+#xtranslate hb_Ccompiler()                => iif(Empty(BorlandC()), hb_Compiler(), BorlandC())
 
 #xtranslate HMG_SysWait( [ <nSeconds> ] ) => hb_idleSleep( hb_defaultValue( <nSeconds>, 0.105 ) )
 
@@ -836,11 +836,11 @@ cFilePath( <cFile> ) + "\" + cFileNoExt( <cFile> ) + <cExt>
 
 #if ( __HARBOUR__ - 0 < 0x030200 )
 #  xtranslate hb_IsFunction( <c> )        => ( Type( <c> + "()" ) == "UI" )
-#  xtranslate hb_default( @<v>, <x> )     => iif( StrTran( ValType( <v> ), "M", "C" ) == StrTran( ValType( <x> ), "M", "C" ), Nil, <v> := <x> )
-#  xtranslate hb_defaultValue( <v>, <x> ) => iif( StrTran( ValType( <v> ), "M", "C" ) == StrTran( ValType( <x> ), "M", "C" ), <v>, <x> )
-#  xtranslate __defaultNIL( @<v>, <x> )   => ( <v> := iif( <v> == NIL, <x>, <v> ) )
-#  xtranslate __MvGetDef( <x> , <v> )     => iif( __MvExist ( <x> ), __MvGet( <x> ), iif( ValType( <v> ) <> "U", <v>, NIL ) )
-#  xtranslate __MvGetDef( <x> )           => iif( __MvExist ( <x> ), __MvGet( <x> ), NIL )
+#  xtranslate hb_default( @<v>, <x> )     => iif(StrTran(ValType(<v>), "M", "C") == StrTran( ValType( <x> ), "M", "C" ), Nil, <v> := <x> )
+#  xtranslate hb_defaultValue( <v>, <x> ) => iif(StrTran(ValType(<v>), "M", "C") == StrTran( ValType( <x> ), "M", "C" ), <v>, <x> )
+#  xtranslate __defaultNIL( @<v>, <x> )   => ( <v> := iif(<v> == NIL, <x>, <v>) )
+#  xtranslate __MvGetDef( <x> , <v> )     => iif(__MvExist(<x>), __MvGet(<x>), iif(ValType(<v>) <> "U", <v>, NIL))
+#  xtranslate __MvGetDef( <x> )           => iif(__MvExist(<x>), __MvGet(<x>), NIL)
 #  xtranslate hb_cdpCharMax()             => 255
 #  xtranslate hb_osIsWin10()              => '10' $ WinVersion() \[ 1 ]
 #  xtranslate hb_BLen( <c> )              => Len( <c> )
@@ -848,8 +848,8 @@ cFilePath( <cFile> ) + "\" + cFileNoExt( <cFile> ) + <cExt>
 
 #if ( __HARBOUR__ - 0 > 0x030200 )
 #  xtranslate hb_oemtoansi( <x> )         => win_oemtoansi( <x> )
-#  xtranslate __MvGetDef( <x> , <v> )     => iif( __MvExist ( <x> ), __MvGet( <x> ), iif( ValType( <v> ) <> "U", <v>, NIL ) )
-#  xtranslate __MvGetDef( <x> )           => iif( __MvExist ( <x> ), __MvGet( <x> ), NIL )
+#  xtranslate __MvGetDef( <x> , <v> )     => iif(__MvExist(<x>), __MvGet(<x>), iif(ValType(<v>) <> "U", <v>, NIL))
+#  xtranslate __MvGetDef( <x> )           => iif(__MvExist(<x>), __MvGet(<x>), NIL)
 #  xtranslate hb_osIsWin10()              => os_IsWin10()
 #endif
 

@@ -120,7 +120,7 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 
 #xtranslate HMG_Is64Bits() => ISWIN64()
 
-#xtranslate HMG_LEN( <c> ) => iif( hb_IsArray(<c>) .or. hb_IsHash( <c> ), Len( <c> ), iif( hb_IsChar( <c> ), hb_ULen( <c> ), 0 ) )
+#xtranslate HMG_LEN( <c> ) => iif(hb_IsArray(<c>) .or. hb_IsHash( <c> ), Len( <c> ), iif(hb_IsChar( <c> ), hb_ULen( <c> ), 0) )
 
 #xtranslate HMG_PADC(<x>,<n>,<c>) => PADC(<x>,<n>,<c>)
 #xtranslate HMG_PADL(<x>,<n>,<c>) => PADL(<x>,<n>,<c>)
@@ -140,12 +140,12 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 
 #xtranslate HMG_IsWindowStyle( <hWnd>, <nStyle> [, <lExStyle> ] ) ;
    => ;
-   iif( <.lExStyle.>, IsWindowHasExStyle ( <hWnd>, <nStyle> ), IsWindowHasStyle ( <hWnd>, <nStyle> ) )
+   iif(<.lExStyle.>, IsWindowHasExStyle ( <hWnd>, <nStyle> ), IsWindowHasStyle ( <hWnd>, <nStyle> ))
 
 #xtranslate HMG_ChangeWindowStyle( <hWnd>, [ <nAddStyle> ], [ <nRemoveStyle> ], [ <lExStyle> ] [, <lRedrawWindow> ] ) ;
    => ;
    ChangeStyle( <hWnd>, [ <nAddStyle> ], [ <nRemoveStyle> ], [ <lExStyle> ] );;
-   iif( <.lRedrawWindow.>, RedrawWindow ( <hWnd> ), )
+   iif(<.lRedrawWindow.>, RedrawWindow ( <hWnd> ), NIL)
 
 #ifndef WS_EX_WINDOWEDGE
 #define WS_EX_WINDOWEDGE         256
@@ -371,7 +371,7 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 
 #xtranslate SET CODEPAGE TO UNICODE => Set (_SET_CODEPAGE, "UTF8")
 
-#xtranslate RELEASE MEMORY => iif( IsVistaOrLater(), ( hb_gcAll(), EmptyWorkingSet() ), )
+#xtranslate RELEASE MEMORY => iif(IsVistaOrLater(), ( hb_gcAll(), EmptyWorkingSet() ), NIL)
 
 
 #xcommand ACTIVATE WINDOW DEBUGGER <name, ...> => ;

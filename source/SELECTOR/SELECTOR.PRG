@@ -134,7 +134,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
    IF cIndexName == NIL
 
-      cIndexName := IIF( ( nExprAlias := RAt( ".", xcFile ) ) > RAt( "\", xcFile ), SubStr(xcFile, 1, nExprAlias - 1), xcFile ) + IndexExt()
+      cIndexName := IIF(( nExprAlias := RAt( ".", xcFile ) ) > RAt( "\", xcFile ), SubStr(xcFile, 1, nExprAlias - 1), xcFile) + IndexExt()
 
    ENDIF
 
@@ -153,13 +153,13 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
       cExprType := ValType(xExprValue)
       cExprValue := Transform(xExprValue, "")
       nExprLen := Len(cExprValue)
-      AAdd(aStruct, { iif( ( nExprAlias := At( "->", aSelectList[ nCurrExpr, 2 ] ) ) == 0, aSelectList[ nCurrExpr, 2 ], ;
-         SubStr(aSelectList[ nCurrExpr, 2 ], nExprAlias + 2) ), cExprType, ;
-         iif( aSelectList[ nCurrExpr, 3 ] != NIL, aSelectList[ nCurrExpr, 3 ], ;
-         iif( cExprType == "D", 8, nExprLen ) ), ;
-         iif( aSelectList[ nCurrExpr, 4 ] != NIL, aSelectList[ nCurrExpr, 4 ], ;
-         iif( cExprType == "N" .AND. ( nExprAlias := At( ".", cExprValue ) ) > 0, ;
-         nExprLen - nExprAlias, 0 ) ) })
+      AAdd(aStruct, { iif(( nExprAlias := At( "->", aSelectList[ nCurrExpr, 2 ] ) ) == 0, aSelectList[ nCurrExpr, 2 ], ;
+         SubStr(aSelectList[ nCurrExpr, 2 ], nExprAlias + 2)), cExprType, ;
+         iif(aSelectList[ nCurrExpr, 3 ] != NIL, aSelectList[ nCurrExpr, 3 ], ;
+         iif(cExprType == "D", 8, nExprLen)), ;
+         iif(aSelectList[ nCurrExpr, 4 ] != NIL, aSelectList[ nCurrExpr, 4 ], ;
+         iif(cExprType == "N" .AND. ( nExprAlias := At( ".", cExprValue ) ) > 0, ;
+         nExprLen - nExprAlias, 0)) })
 
       IF aSelectList[ nCurrExpr, 5 ] == "G"
 
@@ -353,7 +353,7 @@ STATIC FUNCTION ToString( cStr )
 
    ELSEIF cType == "L"
 
-      cStr := iif( cStr, "1", "0" )
+      cStr := iif(cStr, "1", "0")
 
    ENDIF
 

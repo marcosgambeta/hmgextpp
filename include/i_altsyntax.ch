@@ -1942,7 +1942,7 @@ Image
 
 #xcommand WHITEBACKGROUND <whitebg>;
    =>;
-   _HMG_ActiveControlWhiteBack  := iif( <whitebg>, { 255 , 255 , 255 }, Nil )
+   _HMG_ActiveControlWhiteBack  := iif(<whitebg>, { 255 , 255 , 255 }, Nil)
 
 #xcommand ADJUSTIMAGE     <adjust>;
    =>;
@@ -3293,7 +3293,7 @@ Grid
 
 #xcommand ALLOWSORT <sort> ;
    =>;
-   _HMG_ActiveControlSort       := iif( <sort>, {}, Nil )
+   _HMG_ActiveControlSort       := iif(<sort>, {}, Nil)
 
 #xcommand AUTOSIZEHEIGHT    <h>;
    =>;

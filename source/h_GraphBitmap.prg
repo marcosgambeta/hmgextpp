@@ -72,13 +72,13 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
       nWidth  := nRight - nLeft / 2
    ENDIF
 
-   nTop    := nTop + 1 + iif( Empty(cTitle), 30, 44 )                        // Top gap
-   nLeft   := nLeft + 1 + iif( lxVal, 30 + nLegendsWidth + nBarD, 30 + nBarD ) // Left
-   nBottom := nHeight - 2 - iif( lyVal, 40, 30 )                               // Bottom
-   nRight  := nWidth - 2 - iif( lLegends, 30 + nLegendsWidth, 30 )             // Right
+   nTop    := nTop + 1 + iif(Empty(cTitle), 30, 44)                        // Top gap
+   nLeft   := nLeft + 1 + iif(lxVal, 30 + nLegendsWidth + nBarD, 30 + nBarD) // Left
+   nBottom := nHeight - 2 - iif(lyVal, 40, 30)                               // Bottom
+   nRight  := nWidth - 2 - iif(lLegends, 30 + nLegendsWidth, 30)             // Right
 
-   l3D     := iif( nType == POINTS, .F., l3D )
-   nDeep   := iif( l3D, nBarD, 1 )
+   l3D     := iif(nType == POINTS, .F., l3D)
+   nDeep   := iif(l3D, nBarD, 1)
    nMaxBar := nBottom - nTop - nDeep - 5
    nResH   := nResV := 1
    nWide   := ( nRight - nLeft ) * nResH / ( nMax( aData ) + 1 ) * nResH
@@ -136,7 +136,7 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
    // Graph info
    //
    IF !Empty(cTitle)
-      DrawTextInBitmap( hDC, nTop - 33 * nResV, ( nWidth - GetTextWidth(hDC, cTitle) / iif( Len(cTitle) > 40, 10, 12 ) ) / 2 + 1, cTitle, _HMG_DefaultFontName, _HMG_DefaultFontSize + 3, aTitleColor, 2 )
+      DrawTextInBitmap( hDC, nTop - 33 * nResV, ( nWidth - GetTextWidth(hDC, cTitle) / iif(Len(cTitle) > 40, 10, 12) ) / 2 + 1, cTitle, _HMG_DefaultFontName, _HMG_DefaultFontSize + 3, aTitleColor, 2 )
    ENDIF
 
    // Legends
@@ -161,8 +161,8 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
       NEXT nI
    NEXT nJ
 
-   nXMax   := iif( nMax > 0, DetMaxVal(nMax), 0 )
-   nXMin   := iif( nMin < 0, DetMaxVal(nMin), 0 )
+   nXMax   := iif(nMax > 0, DetMaxVal(nMax), 0)
+   nXMin   := iif(nMin < 0, DetMaxVal(nMin), 0)
    nHigh   := nXMax + nXMin
    nMax    := Max( nXMax, nXMin )
 
@@ -225,7 +225,7 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
    NEXT nI
 
    IF lYGrid
-      nPos := iif( l3D, nTop, nTop - 5 )
+      nPos := iif(l3D, nTop, nTop - 5)
       nI := nLeft + nWide
       FOR nJ := 1 TO nMax( aData )
          DrawlineInBitmap( hDC, nBottom - nDeep, nI, nPos, nI, { 100, 100, 100 } )
@@ -255,7 +255,7 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
       nWideB := ( nRight - nLeft ) / ( nMax( aData ) + 1 )
       nI := nLeft + nWideB
       FOR nJ := 1 TO nMax( aData )
-         DrawTextInBitmap( hDC, nBottom + 8, nI - iif( l3D, nDeep, nDeep + 8 ), aYVals[ nJ ], _HMG_DefaultFontName, _HMG_DefaultFontSize - 1, aClrFore )
+         DrawTextInBitmap( hDC, nBottom + 8, nI - iif(l3D, nDeep, nDeep + 8), aYVals[ nJ ], _HMG_DefaultFontName, _HMG_DefaultFontSize - 1, aClrFore )
          nI += nWideB
       NEXT
    ENDIF
@@ -267,7 +267,7 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
       lRedraw := ( nSeries == 1 .AND. Len(aColors) >= nRange )
       FOR nI := 1 TO nRange
          FOR nJ := 1 TO nSeries
-            DrawBarInBitmap( hDC, nPos, iif( l3D, nZero, nZero - 1 ), aData[nJ,nI] / nMin + nDeep, nWide, l3D, nDeep, ;
+            DrawBarInBitmap( hDC, nPos, iif(l3D, nZero, nZero - 1), aData[nJ,nI] / nMin + nDeep, nWide, l3D, nDeep, ;
                aColors[ iif(lRedraw, nI, nJ) ] )
             nPos += nWide + nSep
          NEXT nJ
@@ -327,8 +327,8 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
       ENDIF
       FOR nI := 1 TO nRange
          FOR nJ := 1 TO nSeries
-            DrawTextInBitmap( hDC, nZero - ( aData[nJ,nI] / nMin + 2 * nDeep ), iif( nType == BARS, nPos - iif( l3D, 38, 18 ), nPos + 8 ), Transform(aData[nJ, nI], cPicture), _HMG_DefaultFontName, _HMG_DefaultFontSize - 1, aClrFore )
-            nPos += iif( nType == BARS, nWide + nSep, 0 )
+            DrawTextInBitmap( hDC, nZero - ( aData[nJ,nI] / nMin + 2 * nDeep ), iif(nType == BARS, nPos - iif(l3D, 38, 18), nPos + 8), Transform(aData[nJ, nI], cPicture), _HMG_DefaultFontName, _HMG_DefaultFontSize - 1, aClrFore )
+            nPos += iif(nType == BARS, nWide + nSep, 0)
          NEXT nJ
          IF nType == BARS
             nPos += nWide + nSep
@@ -467,7 +467,7 @@ FUNCTION HMG_PieGraph( nWidth, nHeight, series, aname, colors, ctitle, aTitleCol
    fromradialrow := middlerightrow
    fromradialcol := middlerightcol
    FOR i := 1 TO Len(cumulative)
-      shadowcolor := { iif( colors[i,1] > 50, colors[i,1] - 50, 0 ), iif( colors[i,2] > 50, colors[i,2] - 50, 0 ), iif( colors[i,3] > 50, colors[i,3] - 50, 0 ) }
+      shadowcolor := { iif(colors[i,1] > 50, colors[i,1] - 50, 0), iif(colors[i,2] > 50, colors[i,2] - 50, 0), iif(colors[i,3] > 50, colors[i,3] - 50, 0) }
       IF cumulative[i] == previos_cumulative
          LOOP  // fixed by Roberto Lopez
       ENDIF
@@ -553,12 +553,12 @@ FUNCTION HMG_PieGraph( nWidth, nHeight, series, aname, colors, ctitle, aTitleCol
          fromrow := topleftrow
          fromcol := toprightcol + 25
       ELSE
-         fromrow := torow + 20 + iif( l3d, depth, 0 )
+         fromrow := torow + 20 + iif(l3d, depth, 0)
       ENDIF
       FOR i := 1 TO Len(aname)
          drawrectInBitmap( hDC, fromrow + 1, fromcol + 1, fromrow + 14, fromcol + 14, colors[i] )
          DrawWindowBoxInBitmap( hDC, fromrow, fromcol, fromrow + 14, fromcol + 14 )
-         drawtextinbitmap( hDC, fromrow, fromcol + 20, aname[i] + iif( lxval, " - " + LTrim(Transform(series[i], cPicture)) + " (" + LTrim(Str(series[i] / ser_sum * 100, 6, 2)) + " %)", "" ), _HMG_DefaultFontName, _HMG_DefaultFontSize - 1, iif( RGB( colors[i][1], colors[i][2], colors[i][3] ) == RGB( 255, 255, 255 ), BLACK, colors[i] ) )
+         drawtextinbitmap( hDC, fromrow, fromcol + 20, aname[i] + iif(lxval, " - " + LTrim(Transform(series[i], cPicture)) + " (" + LTrim(Str(series[i] / ser_sum * 100, 6, 2)) + " %)", ""), _HMG_DefaultFontName, _HMG_DefaultFontSize - 1, iif(RGB( colors[i][1], colors[i][2], colors[i][3] ) == RGB( 255, 255, 255 ), BLACK, colors[i]) )
          fromrow += 20
       NEXT i
    ENDIF

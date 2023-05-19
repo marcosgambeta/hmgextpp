@@ -21,7 +21,7 @@ STATIC FUNCTION NetLock( nType, lReleaseLocks, nSeconds )
 
    SWITCH nType
    CASE NET_RECLOCK                        // 1 = Record Lock...
-      xIdentifier := iif( lReleaseLocks, NIL, RecNo() )
+      xIdentifier := iif(lReleaseLocks, NIL, RecNo())
       bOperation  := {| x | dbRLock( x ) }
       EXIT
    CASE NET_FILELOCK                       // 2 = File Lock...

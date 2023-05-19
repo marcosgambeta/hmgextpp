@@ -302,7 +302,7 @@ _HMG_lMultiple := ( Upper(<(x)>) == "ON" ) ; iif ( _HMG_lMultiple == .F. .AND. _
 
 #xcommand SET SHOWDETAILERROR <x:ON,OFF> => _lShowDetailError( Upper(<(x)>) == "ON" )
 
-#command CLEAN MEMORY => iif( _HMG_IsXP, CleanProgramMemory(), iif( IsVistaOrLater(), EmptyWorkingSet(), ) )
+#command CLEAN MEMORY => iif(_HMG_IsXP, CleanProgramMemory(), iif(IsVistaOrLater(), EmptyWorkingSet(), NIL))
 
 #command SET EVENTS FUNCTION TO <fname> [ RESULT TO <lSuccess> ] ;
 => ;

@@ -541,7 +541,7 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
          _aControl[i, ABM_CON_NAME] := "ABM2Control" + AllTrim(Str(i))
          _aControl[i, ABM_CON_ROW] := nFila
          _aControl[i, ABM_CON_COL] := nColumna + nAnchoEtiqueta + 20
-         _aControl[i, ABM_CON_WIDTH] := iif( ( _aEstructura[i, DBS_LEN] * 10 ) < 50, 50, _aEstructura[i, DBS_LEN] * 10 )
+         _aControl[i, ABM_CON_WIDTH] := iif(( _aEstructura[i, DBS_LEN] * 10 ) < 50, 50, _aEstructura[i, DBS_LEN] * 10)
          _aControl[i, ABM_CON_HEIGHT] := 25
          _aControl[i, ABM_CON_DES] := aAvisoCampo[i]
          _aControl[i, ABM_CON_TYPE] := ABM_TEXTBOXC
@@ -559,7 +559,7 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
          _aControl[i, ABM_CON_NAME] := "ABM2Control" + AllTrim(Str(i))
          _aControl[i, ABM_CON_ROW] := nFila
          _aControl[i, ABM_CON_COL] := nColumna + nAnchoEtiqueta + 20
-         _aControl[i, ABM_CON_WIDTH] := iif( ( _aEstructura[i, DBS_LEN] * 10 ) < 50, 50, _aEstructura[i, DBS_LEN] * 10 )
+         _aControl[i, ABM_CON_WIDTH] := iif(( _aEstructura[i, DBS_LEN] * 10 ) < 50, 50, _aEstructura[i, DBS_LEN] * 10)
          _aControl[i, ABM_CON_HEIGHT] := 25
          _aControl[i, ABM_CON_DES] := aAvisoCampo[i]
          _aControl[i, ABM_CON_TYPE] := ABM_TEXTBOXN
@@ -718,8 +718,7 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
       FONT _GetSysFont() SIZE 9 ;
       ON CHANGE {|| ( _cArea )->( dbGoto( wndABM2Edit.brwABM2Edit.Value ) ), ;
       ABM2Redibuja( .F. ) } ;
-      ON DBLCLICK {|| iif( wndABM2Edit.tbbEditar.Enabled, ABM2Editar( .F. ), ) } ;
-      JUSTIFY _aAlineadoTabla paintdoublebuffer
+      ON DBLCLICK {||iif(wndABM2Edit.tbbEditar.Enabled, ABM2Editar(.F.), NIL)} JUSTIFY _aAlineadoTabla paintdoublebuffer
 
    // Comprueba el estado de las opciones de usuario.
    IF Len(_aOpciones) == 0
@@ -795,7 +794,7 @@ STATIC FUNCTION ABM2Redibuja( lTabla )
 
    // ------- Refresco de la barra de estado.-------------------------------------
    wndABM2Edit.StatusBar.Item( 1 ) := _HMG_aLangLabel[19] + _cFiltro
-   wndABM2Edit.StatusBar.Item( 2 ) := _HMG_aLangLabel[20] + iif( _lFiltro, _HMG_aLangUser[29], _HMG_aLangUser[30] )
+   wndABM2Edit.StatusBar.Item( 2 ) := _HMG_aLangLabel[20] + iif(_lFiltro, _HMG_aLangUser[29], _HMG_aLangUser[30])
    wndABM2Edit.StatusBar.Item( 3 ) := _HMG_aLangLabel[2] + ": " + ;
       AllTrim(Str((_cArea)->(RecNo()))) + "/" + ;
       AllTrim(Str((_cArea)->(RecCount())))
@@ -905,15 +904,15 @@ STATIC FUNCTION ABM2Editar( lNuevo )
    nAlto := 80 + nAltoSplit + 15 + iif(_HMG_IsThemed, 10, 0)
    nAltoTope := _nAltoPantalla - 130
    nAncho := 15 + nAnchoSplit + 15
-   nAncho := iif( nAncho < 300, 300, nAncho )
+   nAncho := iif(nAncho < 300, 300, nAncho)
    nAnchoTope := _nAnchoPantalla - 60
-   cTitulo := iif( lNuevo, _HMG_aLangLabel[6], _HMG_aLangLabel[7] )
+   cTitulo := iif(lNuevo, _HMG_aLangLabel[6], _HMG_aLangLabel[7])
 
    // ------- Define la ventana de edición de registro.---------------------------
    DEFINE WINDOW wndABM2EditNuevo ;
          AT 70, 40 ;
-         WIDTH iif( nAncho > nAnchoTope, nAnchoTope, nAncho ) ;
-         HEIGHT iif( nAlto > nAltoTope, nAltoTope, nAlto ) ;
+         WIDTH iif(nAncho > nAnchoTope, nAnchoTope, nAncho) ;
+         HEIGHT iif(nAlto > nAltoTope, nAltoTope, nAlto) ;
          TITLE cTitulo ;
          MODAL ;
          NOSIZE ;
@@ -936,12 +935,12 @@ STATIC FUNCTION ABM2Editar( lNuevo )
 
          // Define la ventana donde van contenidos los controles de edición.
          DEFINE WINDOW wndABM2EditNuevoSplit ;
-               WIDTH iif( nAncho > nAnchoTope, ;
+               WIDTH iif(nAncho > nAnchoTope, ;
                nAnchoTope - 10, ;
-               nAnchoSplit - 1 ) ;
-               HEIGHT iif( nAlto > nAltoTope, ;
+               nAnchoSplit - 1) ;
+               HEIGHT iif(nAlto > nAltoTope, ;
                nAltoTope - 95, ;
-               nAltoSplit - 1 ) ;
+               nAltoSplit - 1) ;
                VIRTUAL WIDTH nAnchoSplit ;
                VIRTUAL HEIGHT nAltoSplit ;
                SPLITCHILD ;
@@ -2189,7 +2188,7 @@ STATIC FUNCTION ABM2DefinirColumnas( nAccion )
                wndABM2Listado.lbxCampoBase.AddItem( aCampoBase[i] )
             ENDIF
          NEXT
-         wndABM2Listado.lbxCampoBase.VALUE := iif( nItem > 1, nItem - 1, 1 )
+         wndABM2Listado.lbxCampoBase.VALUE := iif(nItem > 1, nItem - 1, 1)
       ENDIF
 
       // Actualiza los datos de los campos del listado.
@@ -2325,9 +2324,7 @@ STATIC FUNCTION ABM2Listado( aImpresoras )
       OTHERWISE
          nAncho := _aEstructura[nCampo, DBS_LEN]
       ENDCASE
-      nAncho := iif( Len(_aNombreCampo[nCampo]) > nAncho, ;
-         Len(_aNombreCampo[nCampo]), ;
-         nAncho )
+      nAncho := iif(Len(_aNombreCampo[nCampo]) > nAncho, Len(_aNombreCampo[nCampo]), nAncho)
       AAdd(aAncho, 2 + nAncho)
    NEXT
 
@@ -2478,7 +2475,7 @@ STATIC FUNCTION ABM2Listado( aImpresoras )
             @ nFila, nColumna + aAncho[i] say ( _cArea )->( FieldGet( aNumeroCampo[i] ) ) FONT "a8" TO PRINT
          CASE _aEstructura[nCampo, DBS_TYPE] == "L"
             SET TEXT ALIGN LEFT
-            @ nFila, nColumna + 1 SAY iif( ( _cArea )->( FieldGet( aNumeroCampo[i] ) ), _HMG_aLangUser[29], _HMG_aLangUser[30] ) FONT "a8" TO PRINT
+            @ nFila, nColumna + 1 SAY iif(( _cArea )->( FieldGet( aNumeroCampo[i] ) ), _HMG_aLangUser[29], _HMG_aLangUser[30]) FONT "a8" TO PRINT
          CASE _aEstructura[nCampo, DBS_TYPE] == "M"
             SET TEXT ALIGN LEFT
             @ nFila, nColumna + 1 SAY SubStr((_cArea)->(FieldGet(aNumeroCampo[i])), 1, 20) FONT "a8" TO PRINT

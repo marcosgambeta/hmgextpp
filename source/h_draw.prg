@@ -76,7 +76,7 @@ FUNCTION drawtextout( window, row, col, string, fontcolor, backcolor, fontname, 
       hb_default(@angle, 0)
       hb_default(@once, .F.)
 
-      torow := row + iif( transparent .OR. !Empty(angle), 0, fontsize + 4 )
+      torow := row + iif(transparent .OR. !Empty(angle), 0, fontsize + 4)
       tocol := col + ( Len(string) - 1 ) * fontsize
       textdraw( FormHandle, row, col, string, torow, tocol, fontcolor, backcolor, fontname, fontsize, bold, italic, underline, strikeout, transparent, angle )
       IF !once

@@ -140,7 +140,7 @@ Return ::Super:HandleEvent( nMsg, nWParam, nLParam )
 METHOD KeyChar( nKey, nFlags ) CLASS TGetBox
 
    If _GetKeyState( VK_CONTROL )
-      nKey := IIf( Upper(Chr(nKey)) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey )
+      nKey := IIf(Upper(Chr(nKey)) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey)
    EndIf
 
    If nKey == VK_TAB .OR. nKey == VK_ESCAPE

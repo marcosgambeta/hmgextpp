@@ -120,8 +120,8 @@ PROCEDURE _DefineFont( FontName, fName, fSize, bold, italic, underline, strikeou
    _HMG_aControlWidth              [k] := GetTextWidth(NIL, "B", FontHandle)
    _HMG_aControlHeight             [k] := GetTextHeight(NIL, "B", FontHandle)
    _HMG_aControlSpacing            [k] := 0
-   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel ], -1 )
-   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel ], -1 )
+   _HMG_aControlContainerRow       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel ], -1)
+   _HMG_aControlContainerCol       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel ], -1)
    _HMG_aControlPicture            [k] := ""
    _HMG_aControlContainerHandle    [k] := 0
    _HMG_aControlFontName           [k] := fName
@@ -255,7 +255,7 @@ FUNCTION GetFontParam( FontHandle )
          _HMG_aControlFontAttributes[ i, FONT_ATTR_ITALIC ], ;
          _HMG_aControlFontAttributes[ i, FONT_ATTR_UNDERLINE ], ;
          _HMG_aControlFontAttributes[ i, FONT_ATTR_STRIKEOUT ], ;
-         iif( Len(_HMG_aControlFontAttributes[i]) == 5, _HMG_aControlFontAttributes[ i, FONT_ATTR_ANGLE ], 0 ), ;
+         iif(Len(_HMG_aControlFontAttributes[i]) == 5, _HMG_aControlFontAttributes[ i, FONT_ATTR_ANGLE ], 0), ;
          _HMG_aControlWidth[i], _HMG_aControlHeight[i], _HMG_aControlNames[i] }
    ENDIF
 
@@ -329,7 +329,7 @@ FUNCTION _SetFontAttr( ControlName, ParentForm, Value, nType )
    ai := _HMG_aControlFontAttributes[i][ FONT_ATTR_ITALIC ]
    au := _HMG_aControlFontAttributes[i][ FONT_ATTR_UNDERLINE ]
    as := _HMG_aControlFontAttributes[i][ FONT_ATTR_STRIKEOUT ]
-   aa := iif( Len(_HMG_aControlFontAttributes[i]) == 5, _HMG_aControlFontAttributes[i][ FONT_ATTR_ANGLE ], 0 )
+   aa := iif(Len(_HMG_aControlFontAttributes[i]) == 5, _HMG_aControlFontAttributes[i][ FONT_ATTR_ANGLE ], 0)
 
    t := _HMG_aControlType[i]
 
@@ -365,32 +365,32 @@ RETURN .T.
 FUNCTION GetFontParamByRef( FontHandle, FontName, FontSize, bold, italic, underline, strikeout, angle )
 
    LOCAL lExpr
-   LOCAL i := iif( (hb_IsNumeric(FontHandle) .OR. HB_ISPOINTER(FontHandle)), AScan(_HMG_aControlHandles, hmg_numbertohandle(FontHandle)), 0 )
+   LOCAL i := iif((hb_IsNumeric(FontHandle) .OR. HB_ISPOINTER(FontHandle)), AScan(_HMG_aControlHandles, hmg_numbertohandle(FontHandle)), 0)
 
    lExpr := ( i > 0 .AND. GetObjectType( _HMG_aControlHandles[i] ) == OBJ_FONT )
 
    IF hb_PIsByRef( 2 )
-      FontName := iif( lExpr, _HMG_aControlFontName[i], _HMG_DefaultFontName )
+      FontName := iif(lExpr, _HMG_aControlFontName[i], _HMG_DefaultFontName)
    ENDIF
    IF hb_PIsByRef( 3 )
-      FontSize := iif( lExpr, _HMG_aControlFontSize[i], _HMG_DefaultFontSize )
+      FontSize := iif(lExpr, _HMG_aControlFontSize[i], _HMG_DefaultFontSize)
    ENDIF
    IF hb_PIsByRef( 4 )
-      bold := iif( lExpr, _HMG_aControlFontAttributes[ i, FONT_ATTR_BOLD ], .F. )
+      bold := iif(lExpr, _HMG_aControlFontAttributes[ i, FONT_ATTR_BOLD ], .F.)
    ENDIF
    IF hb_PIsByRef( 5 )
-      italic := iif( lExpr, _HMG_aControlFontAttributes[ i, FONT_ATTR_ITALIC ], .F. )
+      italic := iif(lExpr, _HMG_aControlFontAttributes[ i, FONT_ATTR_ITALIC ], .F.)
    ENDIF
    IF hb_PIsByRef( 6 )
-      underline := iif( lExpr, _HMG_aControlFontAttributes[ i, FONT_ATTR_UNDERLINE ], .F. )
+      underline := iif(lExpr, _HMG_aControlFontAttributes[ i, FONT_ATTR_UNDERLINE ], .F.)
    ENDIF
    IF hb_PIsByRef( 7 )
-      strikeout := iif( lExpr, _HMG_aControlFontAttributes[ i, FONT_ATTR_STRIKEOUT ], .F. )
+      strikeout := iif(lExpr, _HMG_aControlFontAttributes[ i, FONT_ATTR_STRIKEOUT ], .F.)
    ENDIF
    IF hb_PIsByRef( 8 )
-      angle := iif( lExpr, ;
-        iif( Len(_HMG_aControlFontAttributes[i]) > 4, _HMG_aControlFontAttributes[ i, FONT_ATTR_ANGLE ], 0 ), ;
-        0 )
+      angle := iif(lExpr, ;
+        iif(Len(_HMG_aControlFontAttributes[i]) > 4, _HMG_aControlFontAttributes[ i, FONT_ATTR_ANGLE ], 0), ;
+        0)
    ENDIF
 
 RETURN lExpr

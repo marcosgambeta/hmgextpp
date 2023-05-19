@@ -57,7 +57,7 @@ PROCEDURE SetHelpFile( cFile )
 
       hFile := FOpen(cFile, FO_READ + FO_SHARED)
 
-      _HMG_ActiveHelpFile := iif( FError() == 0, cFile, "" )
+      _HMG_ActiveHelpFile := iif(FError() == 0, cFile, "")
 
       IF Empty(_HMG_ActiveHelpFile)
          MsgAlert( "Error opening of help file. Error: " + Str(FError(), 2, 0), "Alert" )

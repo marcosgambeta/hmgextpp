@@ -79,7 +79,7 @@ FUNCTION _DefineProgressWheel ( cControlName, cParentForm, nCol, nRow, nWidth, ;
 
    // If defined inside DEFINE WINDOW structure, determine cParentForm
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
-      cParentForm := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
+      cParentForm := iif(_HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName)
    ENDIF
 
    IF !_IsWindowDefined(cParentForm)
@@ -755,7 +755,7 @@ PROCEDURE ProgressWheelPaint( cParentForm, cImgName, Width, Height, ;
       Row := R[4] / 2 - InnerSize * Width / 6000 - 6
       Col := R[3] / 2 - InnerSize * Height / 6000 + 2
 
-      DrawTextInBitmap( hDC, row, col, cText, _HMG_DefaultFontName, _HMG_DefaultFontSize, iif( Empty(ColorInner), WHITE, BLACK ), 2 )
+      DrawTextInBitmap( hDC, row, col, cText, _HMG_DefaultFontName, _HMG_DefaultFontSize, iif(Empty(ColorInner), WHITE, BLACK), 2 )
    ENDIF
 
    BT_DeleteDC(BTstruct)

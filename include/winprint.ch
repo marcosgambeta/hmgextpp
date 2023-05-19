@@ -16,7 +16,7 @@
 #xcommand INIT PRINTSYS => hbprn:=hbprinter():new()
 #xcommand START DOC [NAME <docname>] => hbprn:startdoc(<docname>)
 #xcommand START PAGE => hbprn:startpage()
-#xcommand END PAGE => iif( _HMG_SYSDATA\[41\], _EndTabPage(), hbprn:endpage() )
+#xcommand END PAGE => iif(_HMG_SYSDATA\[41\], _EndTabPage(), hbprn:endpage())
 #xcommand END DOC => hbprn:enddoc()
 #xcommand RELEASE PRINTSYS => hbprn:end()
 

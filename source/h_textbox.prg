@@ -103,7 +103,7 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    ENDIF
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
-      ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
+      ParentFormName := iif(_HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName)
       __defaultNIL(@FontName, _HMG_ActiveFontName)
       __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
@@ -131,7 +131,7 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    IF _HMG_BeginDialogActive
       ParentFormHandle := _HMG_ActiveDialogHandle
 
-      Style := WS_CHILD + ES_AUTOHSCROLL + BS_FLAT + iif( noborder, 0, WS_BORDER )
+      Style := WS_CHILD + ES_AUTOHSCROLL + BS_FLAT + iif(noborder, 0, WS_BORDER)
 
       IF lNumeric
          Style += ES_NUMBER
@@ -218,7 +218,7 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    Public &mVar. := k
 #endif
 
-   _HMG_aControlType               [k] := iif( lNumeric, CONTROL_TYPE_NUMTEXT, CONTROL_TYPE_TEXT )
+   _HMG_aControlType               [k] := iif(lNumeric, CONTROL_TYPE_NUMTEXT, CONTROL_TYPE_TEXT)
    _HMG_aControlNames              [k] := ControlName
    _HMG_aControlHandles            [k] := ControlHandle
    _HMG_aControlParenthandles      [k] := ParentFormHandle
@@ -240,8 +240,8 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    _HMG_aControlWidth              [k] := w
    _HMG_aControlHeight             [k] := h
    _HMG_aControlSpacing            [k] := 0
-   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerRow       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1)
+   _HMG_aControlContainerCol       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1)
    _HMG_aControlPicture            [k] := ""
    _HMG_aControlContainerHandle    [k] := HMG_NULLHANDLE
    _HMG_aControlFontName           [k] := FontName
@@ -409,7 +409,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
    ENDIF
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
-      ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
+      ParentFormName := iif(_HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName)
       __defaultNIL(@FontName, _HMG_ActiveFontName)
       __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
@@ -434,7 +434,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
    IF _HMG_BeginDialogActive
       ParentFormHandle := _HMG_ActiveDialogHandle
 
-      Style := WS_CHILD + ES_AUTOHSCROLL + iif( noborder, 0, WS_BORDER )
+      Style := WS_CHILD + ES_AUTOHSCROLL + iif(noborder, 0, WS_BORDER)
 
       IF readonly
          Style += ES_READONLY
@@ -522,8 +522,8 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
    _HMG_aControlWidth              [k] := w
    _HMG_aControlHeight             [k] := h
    _HMG_aControlSpacing            [k] := .F.
-   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerRow       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1)
+   _HMG_aControlContainerCol       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1)
    _HMG_aControlPicture            [k] := ""
    _HMG_aControlContainerHandle    [k] := HMG_NULLHANDLE
    _HMG_aControlFontName           [k] := fontname
@@ -678,7 +678,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
    __defaultNIL(@enter, "")
 
    IF Value == NIL
-      Value := iif( date, CToD("  /  /  "), "" )
+      Value := iif(date, CToD("  /  /  "), "")
    ENDIF
 
    IF date == .T.
@@ -693,7 +693,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
    ENDIF
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
-      ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
+      ParentFormName := iif(_HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName)
       __defaultNIL(@FontName, _HMG_ActiveFontName)
       __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
@@ -718,7 +718,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
    IF _HMG_BeginDialogActive
       ParentFormHandle := _HMG_ActiveDialogHandle
 
-      Style := WS_CHILD + ES_AUTOHSCROLL + iif( noborder, 0, WS_BORDER )
+      Style := WS_CHILD + ES_AUTOHSCROLL + iif(noborder, 0, WS_BORDER)
 
       IF readonly
          Style += ES_READONLY
@@ -809,8 +809,8 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
    _HMG_aControlWidth              [k] := w
    _HMG_aControlHeight             [k] := h
    _HMG_aControlSpacing            [k] := 0
-   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameRow [_HMG_FrameLevel] , -1 )
-   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0 , _HMG_ActiveFrameCol [_HMG_FrameLevel] , -1 )
+   _HMG_aControlContainerRow       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1)
+   _HMG_aControlContainerCol       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1)
    _HMG_aControlPicture            [k] := ""
    _HMG_aControlContainerHandle    [k] := HMG_NULLHANDLE
    _HMG_aControlFontName           [k] := fontname
@@ -1148,7 +1148,7 @@ PROCEDURE _DataTextBoxRefresh ( i )
    ENDIF
 
    IF Field != NIL
-      _SetValue ( , , iif( Type ( Field ) == "C" , RTrim(&Field) , &Field ) , i )
+      _SetValue ( , , iif(Type ( Field ) == "C" , RTrim(&Field) , &Field) , i )
    ELSE
       RedrawWindow(_HMG_aControlHandles[i])
    ENDIF

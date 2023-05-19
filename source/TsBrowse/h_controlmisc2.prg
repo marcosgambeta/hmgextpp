@@ -35,7 +35,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
    ENDIF
 
    IF hb_IsArray(bSetUp)
-      bRecord := iif( Len(bSetUp) > 2, bSetUp[3], NIL )
+      bRecord := iif(Len(bSetUp) > 2, bSetUp[3], NIL)
       bAfter := bSetUp[2]
       bSetUp := bSetUp[1]
    ENDIF
@@ -46,7 +46,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
    ENDIF
 
    DEFAULT uAlias := Alias(), ;
-      cTitle := iif( hb_IsChar(uAlias), uAlias, "SBrowse" ), ;
+      cTitle := iif(hb_IsChar(uAlias), uAlias, "SBrowse"), ;
       bSetUp := {|| .F. }, ;
       aCols := {}, ;
       nWidth := GetSysMetrics( 0 ) * .75, ;
@@ -135,7 +135,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
          oBrw:Cargo := uParam
 
          lEdit := Eval(bSetUp, oBrw)
-         lEdit := iif( hb_IsLogical(lEdit), lEdit, .F. )
+         lEdit := iif(hb_IsLogical(lEdit), lEdit, .F.)
 
          WITH OBJECT oBrw
             :lEditable := lEdit
@@ -185,9 +185,9 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
       nX := This.ClientWidth - ( oApp:W1 + nGw )
 
       @ nY, nX BUTTON Btn_3 CAPTION oBrw:aMsg[ 45 ] WIDTH oApp:W1 HEIGHT oApp:H1 ;
-               ACTION {|| iif( oBrw:IsEdit, oBrw:SetFocus(), ThisWindow.RELEASE ) }
+               ACTION {|| iif(oBrw:IsEdit, oBrw:SetFocus(), ThisWindow.RELEASE) }
 
-      ON KEY ESCAPE ACTION {|| iif( oBrw:IsEdit, oBrw:SetFocus(), ThisWindow.RELEASE ) }
+      ON KEY ESCAPE ACTION {|| iif(oBrw:IsEdit, oBrw:SetFocus(), ThisWindow.RELEASE) }
 
       IF lRec
          nY := Len(oBrw:aColumns)
@@ -199,7 +199,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
          oBrw:lPickerMode := .T.
          FOR EACH oCol IN oBrw:aColumns
              oCol:cPicture := NIL
-             oCol:nAlign := iif( oCol:cName == "KEY", DT_CENTER, DT_LEFT )
+             oCol:nAlign := iif(oCol:cName == "KEY", DT_CENTER, DT_LEFT)
          NEXT
          oBrw:AdjColumns( nY )
          IF hb_IsObject(oBrw:Cargo) .AND. oBrw:ClassName == "TSBROWSE" .AND. oBrw:Cargo:lIsDbf
@@ -373,13 +373,13 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
            nX := 0, ;
            nW := _GetClientRect( hForm )[3] - nX * 2,  ;           // GetClientWidth
            nH := _GetClientRect( hForm )[4] - nY - 1 - ;           // GetClientHeight
-                 iif( _IsControlDefined("StatusBar", cForm), GetProperty( cForm, "StatusBar", "Height" ), 0 )
+                 iif(_IsControlDefined("StatusBar", cForm), GetProperty( cForm, "StatusBar", "Height" ), 0)
 
    DEFAULT aColor := { ;
           { CLR_FOCUSF, GetSysColor( COLOR_WINDOWTEXT ) }, ;
-          { CLR_FOCUSB, {|c,n,b| c := n, iif( b:nCell == n, -CLR_HRED, -RGB( 128, 225, 225 ) ) } }, ;
+          { CLR_FOCUSB, {|c,n,b| c := n, iif(b:nCell == n, -CLR_HRED, -RGB( 128, 225, 225 )) } }, ;
           { CLR_SELEF , GetSysColor( COLOR_WINDOWTEXT ) }, ;
-          { CLR_SELEB , {|c,n,b| c := n, iif( b:nCell == n, -CLR_BLUE, -RGB( 128, 225, 225 ) ) } } }
+          { CLR_SELEB , {|c,n,b| c := n, iif(b:nCell == n, -CLR_BLUE, -RGB( 128, 225, 225 )) } } }
 
    DEFAULT oParam:bSpecHdEnum := {|ob, op, cChar|  // нумерация SpecHd колонок, можно исп. в своем коде вызов
                       LOCAL oCol, cCnt, nCnt := 0  // renumbering SpecHeader
@@ -474,7 +474,7 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
       :lDrawSpecHd := lSpecHd
 
       IF lSpecHd .AND. Empty(:nHeightSpecHd)
-         :nHeightSpecHd := GetFontHeight(oParam:aFont[ iif( Len(oParam:aFont) > 3, 4, 1 ) ])
+         :nHeightSpecHd := GetFontHeight(oParam:aFont[ iif(Len(oParam:aFont) > 3, 4, 1) ])
       ENDIF
 
       :SetAppendMode( .F. )
@@ -524,8 +524,8 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
 
       IF hb_IsArray(oParam:aUserKeys)
          FOR EACH aTmp IN oParam:aUserKeys
-           i := iif( Len(aTmp) > 2, aTmp[3], .F. )             // Ctrl+...
-           j := iif( Len(aTmp) > 3, aTmp[4], .F. )             // Shift+...
+           i := iif(Len(aTmp) > 2, aTmp[3], .F.)             // Ctrl+...
+           j := iif(Len(aTmp) > 3, aTmp[4], .F.)             // Shift+...
            :UserKeys( aTmp[1], aTmp[2], !Empty(i), !Empty(j) )
          NEXT
       ENDIF

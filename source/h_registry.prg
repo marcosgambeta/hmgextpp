@@ -74,7 +74,7 @@ CREATE CLASS TReg32
    METHOD Get( cRegVar, uVar )
    METHOD Set( cRegVar, uVar )
    METHOD Delete( cRegVar )
-   METHOD Close() BLOCK {|Self| iif( ::lError, , RegCloseKey( ::nHandle ) ) }
+   METHOD Close() BLOCK {|Self| iif(::lError, NIL, RegCloseKey(::nHandle)) }
 
 ENDCLASS
 
@@ -87,7 +87,7 @@ METHOD New( nKey, cRegKey, lShowError ) CLASS TReg32
    DEFAULT cRegKey TO ""
 
    nReturn := RegOpenKeyExA( nKey, cRegKey, , ;
-      iif( IsWow64(), hb_BitOr( KEY_ALL_ACCESS, KEY_WOW64_64KEY ), KEY_ALL_ACCESS ), @nHandle )
+      iif(IsWow64(), hb_BitOr(KEY_ALL_ACCESS, KEY_WOW64_64KEY), KEY_ALL_ACCESS), @nHandle )
 
    IF nReturn != ERROR_SUCCESS
       nReturn := RegOpenKeyExA( nKey, cRegKey, , KEY_READ, @nHandle )
@@ -122,7 +122,7 @@ METHOD Create( nKey, cRegKey, lShowError ) CLASS TReg32
       ENDIF
    ELSE
       ::nError := RegOpenKeyExA( nKey, cRegKey, , ;
-         iif( IsWow64(), hb_BitOr( KEY_ALL_ACCESS, KEY_WOW64_64KEY ), KEY_ALL_ACCESS ), @nHandle )
+         iif(IsWow64(), hb_BitOr(KEY_ALL_ACCESS, KEY_WOW64_64KEY), KEY_ALL_ACCESS), @nHandle )
       ::cRegKey := cRegKey
       ::nHandle := nHandle
    ENDIF
@@ -182,7 +182,7 @@ METHOD Set( cRegVar, uVar ) CLASS TReg32
             uVar := DToC( uVar )
             EXIT
          CASE "L"
-            uVar := iif( uVar, ".T.", ".F." )
+            uVar := iif(uVar, ".T.", ".F.")
          ENDSWITCH
       ENDIF
 
@@ -206,7 +206,7 @@ STATIC FUNCTION Bin2U( c )
 
    LOCAL l := Bin2L( c )
 
-RETURN iif( l < 0, l + 4294967296, l )
+RETURN iif(l < 0, l + 4294967296, l)
 
 /*
  * Registry Access Functions

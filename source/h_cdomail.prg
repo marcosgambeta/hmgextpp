@@ -104,9 +104,9 @@ METHOD Activate() CLASS TCDOMail
 
             FOR nEl := 1 TO nLen
                IF Empty(::aRecipients[ nEl ][2])
-                  cTmp := cTmp + ::aRecipients[ nEl ][1] + iif( nEl = nLen, "", ";" )
+                  cTmp := cTmp + ::aRecipients[ nEl ][1] + iif(nEl = nLen, "", ";")
                ELSE
-                  cTmp := cTmp + ::aRecipients[ nEl ][1] + " <" + ::aRecipients[ nEl ][2] + ">" + iif( nEl = nLen, "", ";" )
+                  cTmp := cTmp + ::aRecipients[ nEl ][1] + " <" + ::aRecipients[ nEl ][2] + ">" + iif(nEl = nLen, "", ";")
                ENDIF
             NEXT
 

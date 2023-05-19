@@ -102,6 +102,6 @@
 #endif
 
 #command ?a [<arr>] => If( <arr> == NIL, , aEval(<arr>, { |xv, ne| _LogFile( ( ne==1 ), ne, xv ), _LogFile() }) )
-#command ?v [<arr>] => If( <arr> == NIL, , aEval(<arr>, { |xv, ne| _LogFile( ( ne==1 ), ne, iif( ValType( xv ) == "A", hb_ValToExp( xv ), xv ) ), _LogFile() }) )
+#command ?v [<arr>] => If( <arr> == NIL, , aEval(<arr>, { |xv, ne| _LogFile( ( ne==1 ), ne, iif(ValType( xv ) == "A", hb_ValToExp( xv ), xv) ), _LogFile() }) )
 
 #endif

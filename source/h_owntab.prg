@@ -143,9 +143,9 @@ FUNCTION OwnTabPaint( lParam )
       IF _HMG_aControlMiscData1[i] [4]  // Bottom Tab
 
          IF lSelected
-            DrawGlyph( hDC, aBtnRc [1] + 2 * xp1, 2 * yp1 - iif( lBigFsize, 8, 5 ), xp2, 2 * yp2 - iif( lBigFsize, 8, 5 ), hImage, bkColor, .F., .F. )
+            DrawGlyph( hDC, aBtnRc [1] + 2 * xp1, 2 * yp1 - iif(lBigFsize, 8, 5), xp2, 2 * yp2 - iif(lBigFsize, 8, 5), hImage, bkColor, .F., .F. )
          ELSE
-            DrawGlyph( hDC, aBtnRc [1] + xp1, 2 * yp1 - iif( lBigFsize, 8, 5 ), xp2, 2 * yp2 - iif( lBigFsize, 8, 5 ), hImage, bkColor, .F., .F. )
+            DrawGlyph( hDC, aBtnRc [1] + xp1, 2 * yp1 - iif(lBigFsize, 8, 5), xp2, 2 * yp2 - iif(lBigFsize, 8, 5), hImage, bkColor, .F., .F. )
          ENDIF
 
       ELSE
@@ -187,17 +187,17 @@ FUNCTION OwnTabPaint( lParam )
    IF _HMG_aControlMiscData1[i] [4]  // Bottom Tab
 
       IF lSelected
-         DrawText( hDC, _HMG_aControlCaption[i] [nItemId], x1, 2 * y1 - iif( lBigFsize3, -12, iif( lBigFsize2, -3, iif( lBigFsize, 6, 12 ) ) ), x2, 2 * y2 - iif( lBigFsize3, -12, iif( lBigFsize2, -3, iif( lBigFsize, 6, 12 ) ) ), DT_CENTER )
+         DrawText(hDC, _HMG_aControlCaption[i][nItemId], x1, 2 * y1 - iif(lBigFsize3, -12, iif(lBigFsize2, -3, iif(lBigFsize, 6, 12))), x2, 2 * y2 - iif(lBigFsize3, -12, iif(lBigFsize2, -3, iif(lBigFsize, 6, 12))), DT_CENTER)
       ELSE
-         DrawText( hDC, _HMG_aControlCaption[i] [nItemId], x1, 2 * y1 - iif( lBigFsize3, -18, iif( lBigFsize2, -8, iif(lBigFsize, 0, 8 ) ) ), x2, 2 * y2 - iif( lBigFsize3, -18, iif( lBigFsize2, -8, iif( lBigFsize, 0, 8 ) ) ), DT_CENTER )
+         DrawText(hDC, _HMG_aControlCaption[i][nItemId], x1, 2 * y1 - iif(lBigFsize3, -18, iif(lBigFsize2, -8, iif(lBigFsize, 0, 8))), x2, 2 * y2 - iif(lBigFsize3, -18, iif(lBigFsize2, -8, iif(lBigFsize, 0, 8))), DT_CENTER)
       ENDIF
 
    ELSE
 
       IF lSelected
-         DrawText( hDC, _HMG_aControlCaption[i] [nItemId], x1, y1 - iif( lBigFsize3, -9, iif( lBigFsize2, -5, iif( lBigFsize, 0, 4 ) ) ), x2, y2 - iif( lBigFsize3, -9, iif( lBigFsize2, -5, iif( lBigFsize, 0, 4 ) ) ), DT_CENTER )
+         DrawText(hDC, _HMG_aControlCaption[i][nItemId], x1, y1 - iif(lBigFsize3, -9, iif(lBigFsize2, -5, iif(lBigFsize, 0, 4))), x2, y2 - iif(lBigFsize3, -9, iif(lBigFsize2, -5, iif(lBigFsize, 0, 4))), DT_CENTER)
       ELSE
-         DrawText( hDC, _HMG_aControlCaption[i] [nItemId], x1, y1 + iif( lBigFsize3, 14, iif( lBigFsize2, 8, iif( lBigFsize, 4, 0 ) ) ), x2, y2 + iif( lBigFsize3, 14, iif( lBigFsize2, 8, iif( lBigFsize, 4, 0 ) ) ), DT_CENTER )
+         DrawText(hDC, _HMG_aControlCaption[i][nItemId], x1, y1 + iif(lBigFsize3, 14, iif(lBigFsize2, 8, iif(lBigFsize, 4, 0))), x2, y2 + iif(lBigFsize3, 14, iif(lBigFsize2, 8, iif(lBigFsize, 4, 0))), DT_CENTER)
       ENDIF
 
    ENDIF

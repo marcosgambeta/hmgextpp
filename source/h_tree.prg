@@ -87,7 +87,7 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
    ENDIF
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
-      ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
+      ParentFormName := iif(_HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName)
       __defaultNIL(@FontName, _HMG_ActiveFontName)
       __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
@@ -126,7 +126,7 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
       ParentFormHandle := _HMG_ActiveDialogHandle
 
       IF hb_IsLogical(nobot)
-         mask := iif( nobot, 0, TVS_LINESATROOT )
+         mask := iif(nobot, 0, TVS_LINESATROOT)
       ENDIF
       Style := WS_BORDER + WS_VISIBLE + WS_TABSTOP + WS_CHILD + TVS_HASLINES + TVS_HASBUTTONS + mask + TVS_SHOWSELALWAYS
 
@@ -148,8 +148,8 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
          Width := GetWindowWidth(Controlhandle)
          Height := GetWindowHeight(Controlhandle)
 
-         ImgDefNode := iif( hb_IsArray(aImgNode), Len(aImgNode), 0 )  // Tree+
-         ImgDefItem := iif( hb_IsArray(aImgItem), Len(aImgItem), 0 )  // Tree+
+         ImgDefNode := iif(hb_IsArray(aImgNode), Len(aImgNode), 0)  // Tree+
+         ImgDefItem := iif(hb_IsArray(aImgItem), Len(aImgItem), 0)  // Tree+
 
          IF ImgDefNode > 0
 
@@ -190,7 +190,7 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
 
          IF i > 0
 
-            ControlHandle := InitTree ( _HMG_aFormReBarHandle[i], col, row, width, height, 0, "", 0, iif( noBot, 1, 0 ) )
+            ControlHandle := InitTree ( _HMG_aFormReBarHandle[i], col, row, width, height, 0, "", 0, iif(noBot, 1, 0) )
 
             AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], Width, break, , , , _HMG_ActiveSplitBoxInverted)
 
@@ -200,12 +200,12 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
 
       ELSE
 
-         ControlHandle := InitTree ( ParentFormHandle, col, row, width, height, 0, "", 0, iif( noBot, 1, 0 ) )
+         ControlHandle := InitTree ( ParentFormHandle, col, row, width, height, 0, "", 0, iif(noBot, 1, 0) )
 
       ENDIF
 
-      ImgDefNode := iif( hb_IsArray(aImgNode), Len(aImgNode), 0 )  // Tree+
-      ImgDefItem := iif( hb_IsArray(aImgItem), Len(aImgItem), 0 )  // Tree+
+      ImgDefNode := iif(hb_IsArray(aImgNode), Len(aImgNode), 0)  // Tree+
+      ImgDefItem := iif(hb_IsArray(aImgItem), Len(aImgItem), 0)  // Tree+
 
       IF ImgDefNode > 0
 
@@ -304,8 +304,8 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
    _HMG_aControlWidth              [k] := Width
    _HMG_aControlHeight             [k] := Height
    _HMG_aControlSpacing            [k] := 0
-   _HMG_aControlContainerRow       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1 )
-   _HMG_aControlContainerCol       [k] := iif( _HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1 )
+   _HMG_aControlContainerRow       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1)
+   _HMG_aControlContainerCol       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1)
    _HMG_aControlPicture            [k] := {}
    _HMG_aControlContainerHandle    [k] := HMG_NULLHANDLE
    _HMG_aControlFontName           [k] := fontname
@@ -363,8 +363,8 @@ FUNCTION InitDialogTree( ParentName, ControlHandle, k )
    aImgItem := _HMG_aControlMiscData1[ k, 3 ]
    NoTrans  := _HMG_aControlMiscData1[ k, 4 ]
 
-   ImgDefNode := iif( hb_IsArray(aImgNode), Len(aImgNode), 0 )  // Tree+
-   ImgDefItem := iif( hb_IsArray(aImgItem), Len(aImgItem), 0 )  // Tree+
+   ImgDefNode := iif(hb_IsArray(aImgNode), Len(aImgNode), 0)  // Tree+
+   ImgDefItem := iif(hb_IsArray(aImgItem), Len(aImgItem), 0)  // Tree+
 
    IF ImgDefNode > 0
       aBitmaps[1] := aImgNode[1]              // Node default
@@ -387,7 +387,7 @@ FUNCTION InitDialogTree( ParentName, ControlHandle, k )
       id         := _HMG_aDialogTreeItem[ n, 3 ]
       NodeIndex  := _HMG_aDialogTreeItem[ n, 4 ]
       Cargo      := _HMG_aDialogTreeItem[ n, 6 ]
-      ImgDef     := iif( hb_IsArray(aImage), Len(aImage), 0 )  // Tree+
+      ImgDef     := iif(hb_IsArray(aImage), Len(aImage), 0)  // Tree+
       NodeHandle := _HMG_NodeHandle[ NodeIndex ]
 
       AAdd(a_Node_Item_Cargo, Cargo)
@@ -402,7 +402,7 @@ FUNCTION InitDialogTree( ParentName, ControlHandle, k )
          ENDIF
       ELSE
          iUnSel := AddTreeViewBitmap( _HMG_ActiveTreeHandle, aImage[1], NoTrans ) - 1
-         iSel := iif( ImgDef == 1, iUnSel, AddTreeViewBitmap( _HMG_ActiveTreeHandle, aImage[2], NoTrans ) - 1 )
+         iSel := iif(ImgDef == 1, iUnSel, AddTreeViewBitmap( _HMG_ActiveTreeHandle, aImage[2], NoTrans ) - 1)
          // If only one bitmap in array iSel = iUnsel, only one Bitmap loaded
       ENDIF
       IF _HMG_aDialogTreeItem[ n, 5 ] == "NODE"
@@ -453,7 +453,7 @@ FUNCTION _DefineTreeNode ( text, aImage, Id, Cargo )
 
    ELSE
 
-      ImgDef := iif( hb_IsArray(aImage), Len(aImage), 0 )  // Tree+
+      ImgDef := iif(hb_IsArray(aImage), Len(aImage), 0)  // Tree+
 
       IF ImgDef == 0
          iUnsel := 0   // Pointer to defalut Node Bitmaps, no Bitmap loaded
@@ -461,7 +461,7 @@ FUNCTION _DefineTreeNode ( text, aImage, Id, Cargo )
       ELSE
          k := _HMG_ActiveTreeIndex
          iUnSel := AddTreeViewBitmap( _HMG_ActiveTreeHandle, aImage[1], _HMG_aControlMiscData1[ k, 4 ] ) - 1
-         iSel := iif( ImgDef == 1, iUnSel, AddTreeViewBitmap( _HMG_ActiveTreeHandle, aImage[2], _HMG_aControlMiscData1[ k, 4 ] ) - 1 )
+         iSel := iif(ImgDef == 1, iUnSel, AddTreeViewBitmap( _HMG_ActiveTreeHandle, aImage[2], _HMG_aControlMiscData1[ k, 4 ] ) - 1)
          // If only one bitmap in array iSel = iUnsel, only one Bitmap loaded
       ENDIF
 
@@ -501,7 +501,7 @@ FUNCTION _DefineTreeItem ( text, aImage, Id, Cargo )
 
    ELSE
 
-      ImgDef := iif( hb_IsArray(aImage), Len(aImage), 0 )  // Tree+
+      ImgDef := iif(hb_IsArray(aImage), Len(aImage), 0)  // Tree+
 
       IF ImgDef == 0
          iUnsel := 2   // Pointer to defalut Item Bitmaps, no Bitmap loaded
@@ -509,7 +509,7 @@ FUNCTION _DefineTreeItem ( text, aImage, Id, Cargo )
       ELSE
          k := _HMG_ActiveTreeIndex
          iUnSel := AddTreeViewBitmap( _HMG_ActiveTreeHandle, aImage[1], _HMG_aControlMiscData1[ k, 4 ] ) - 1
-         iSel := iif( ImgDef == 1, iUnSel, AddTreeViewBitmap( _HMG_ActiveTreeHandle, aImage[2], _HMG_aControlMiscData1[ k, 4 ] ) - 1 )
+         iSel := iif(ImgDef == 1, iUnSel, AddTreeViewBitmap( _HMG_ActiveTreeHandle, aImage[2], _HMG_aControlMiscData1[ k, 4 ] ) - 1)
          // If only one bitmap in array iSel = iUnsel, only one Bitmap loaded
       ENDIF
 
@@ -619,7 +619,7 @@ PROCEDURE TreeItemChangeImage ( ControlName, ParentForm, nItem, aImage )
    IF ItemHandle > 0 .AND. hb_IsArray(aImage) .AND. ( ImgDef := Len(aImage) ) > 0
       k := GetControlIndex(ControlName, ParentForm)
       iUnSel := AddTreeViewBitmap( TreeHandle, aImage[1], _HMG_aControlMiscData1[ k, 4 ] ) - 1
-      iSel := iif( ImgDef == 1, iUnSel, AddTreeViewBitmap( TreeHandle, aImage[2], _HMG_aControlMiscData1[ k, 4 ] ) - 1 )
+      iSel := iif(ImgDef == 1, iUnSel, AddTreeViewBitmap( TreeHandle, aImage[2], _HMG_aControlMiscData1[ k, 4 ] ) - 1)
 
       TREEITEM_SETIMAGEINDEX ( TreeHandle, ItemHandle, iUnSel, iSel )
    ENDIF

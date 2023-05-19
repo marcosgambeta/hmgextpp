@@ -109,8 +109,8 @@ FUNCTION AddMenuElement( NewItem , cAction )
    LOCAL n
    LOCAL cx
 
-   Caption := iif( Len(NewItem) < 40, NewItem, SubStr(NewItem, 1, 3) + "..." + SubStr(NewItem, Len(NewItem) - 34) )
-   action := iif( cAction == NIL, {|| Nil }, &( "{|| " + Left(cAction, At("(", cAction)) + " " + Chr(34) + NewItem + Chr(34) + " ) }" ) )
+   Caption := iif(Len(NewItem) < 40, NewItem, SubStr(NewItem, 1, 3) + "..." + SubStr(NewItem, Len(NewItem) - 34))
+   action := iif(cAction == NIL, {||Nil}, &("{||" + Left(cAction, At("(", cAction)) + " " + Chr(34) + NewItem + Chr(34) + ")}"))
 
    // Check if this is the first item
    IF MRUCount == 0
@@ -177,7 +177,7 @@ FUNCTION SaveMRUFileList()
       // Loop through all MRU
       FOR i := 1 TO maxMRU_Files
          // Write MRU to INI with key as it's position in list
-         cFile := iif( i <= Len(aMRU_File), aMru_File[i, 2], "" )
+         cFile := iif(i <= Len(aMRU_File), aMru_File[i, 2], "")
          SET SECTION cSectionIni ENTRY hb_ntos( i ) TO cFile
       NEXT
 

@@ -122,7 +122,7 @@ FUNCTION HMG_Alert( cMsg, aOptions, cTitle, nType, cIcoFile, nIcoSize, aBtnColor
    hb_default(@cFontName, "DlgFont")
 
    IF hb_IsArray(aOptions)
-      DEFAULT nType := iif( Len(aOptions) > 1, 2, 1 )
+      DEFAULT nType := iif(Len(aOptions) > 1, 2, 1)
    ELSE
       DEFAULT nType := 1
    ENDIF
@@ -148,7 +148,7 @@ FUNCTION HMG_Alert( cMsg, aOptions, cTitle, nType, cIcoFile, nIcoSize, aBtnColor
 
    IF GetFontHandle(cFontName) == 0
       lFont := .T.
-      DEFINE FONT ( cFontName ) FONTNAME GetDefaultFontName() SIZE GetDefaultFontSize() - iif( _SetGetGlobal( "_HMG_IsWin10" ), 1, 0 )
+      DEFINE FONT ( cFontName ) FONTNAME GetDefaultFontName() SIZE GetDefaultFontSize() - iif(_SetGetGlobal( "_HMG_IsWin10" ), 1, 0)
    ENDIF
 
    cMsg := cValToChar( cMsg )
@@ -156,7 +156,7 @@ FUNCTION HMG_Alert( cMsg, aOptions, cTitle, nType, cIcoFile, nIcoSize, aBtnColor
    IF Set( _SET_DELIMITERS )
       cOldDelim := Set( _SET_DELIMCHARS )
       Set( _SET_DELIMCHARS, ";|" )
-      cDelim := SubStr(Set( _SET_DELIMCHARS ), iif( "el" $ hb_UserLang(), 2, 1 ), 1)
+      cDelim := SubStr(Set( _SET_DELIMCHARS ), iif("el" $ hb_UserLang(), 2, 1), 1)
       cMsg := StrTran(cMsg, cDelim, CRLF)
       Set( _SET_DELIMCHARS, cOldDelim )
    ENDIF
@@ -178,7 +178,7 @@ FUNCTION HMG_Alert( cMsg, aOptions, cTitle, nType, cIcoFile, nIcoSize, aBtnColor
 
    DEFINE WINDOW (cForm) WIDTH 0 HEIGHT 0 TITLE cTitle MODAL NOSIZE BACKCOLOR aBackColor ;
       ON INTERACTIVECLOSE (_SetGetGlobal("_HMG_PressButton") .OR. lClosable) ;
-      ON RELEASE iif( !_SetGetGlobal( "_HMG_PressButton" ) .AND. lClosable, _HMG_ModalDialogReturn := 0, NIL )
+      ON RELEASE iif(!_SetGetGlobal( "_HMG_PressButton" ) .AND. lClosable, _HMG_ModalDialogReturn := 0, NIL)
 
       FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors, bInit, lClosable, cFontName, nMaxLen )
 
@@ -274,7 +274,7 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
 
    ENDIF
 
-   nLenaOp := iif( hb_IsArray(aOptions), Len(aOptions), 1 )
+   nLenaOp := iif(hb_IsArray(aOptions), Len(aOptions), 1)
 
    IF ( lExt := ( hb_IsArray(aBtnColors) .AND. Len(aBtnColors) == nLenaOp ) )
       nVMARGIN_BUTTON := 3 * VMARGIN_BUTTON
@@ -285,7 +285,7 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
    // calculate the column of the text output
 
    IF nIcoSize > 0
-      nCol := MARGIN_ICON + iif( nIcoSize == 32, 0, MARGIN_ICON / iif( nIcoSize == 64, 2.8, 3.2 ) )
+      nCol := MARGIN_ICON + iif(nIcoSize == 32, 0, MARGIN_ICON / iif(nIcoSize == 64, 2.8, 3.2))
    ENDIF
 
    hWnd := This.Handle
@@ -314,7 +314,7 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
 
    ReleaseDC(hWnd, hDC)
 
-   nMaxBoton += ( HMARGIN_BUTTON * iif( !lExt .AND. lIsWin10 .AND. nLenAop > 2, 1.1, iif( nLenAop > 1, 2, 3 ) ) )
+   nMaxBoton += ( HMARGIN_BUTTON * iif(!lExt .AND. lIsWin10 .AND. nLenAop > 2, 1.1, iif(nLenAop > 1, 2, 3)) )
 
    // calculate the width of the options + their separations
 
@@ -328,8 +328,8 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
       nMaxLin := nMaxWidth
    ENDIF
 
-   nWidthCli := Max( MARGIN_ICON + nMaxLin + MARGIN, MARGIN + nLenBotones + MARGIN - HMARGIN_BUTTON ) + iif( nIcoSize > 48, MARGIN / 4, 0 )
-   nWidthDlg := nWidthCli + GetBorderWidth() + iif( nLineas > nMaxLines, MARGIN * 1.5, 0 )
+   nWidthCli := Max( MARGIN_ICON + nMaxLin + MARGIN, MARGIN + nLenBotones + MARGIN - HMARGIN_BUTTON ) + iif(nIcoSize > 48, MARGIN / 4, 0)
+   nWidthDlg := nWidthCli + GetBorderWidth() + iif(nLineas > nMaxLines, MARGIN * 1.5, 0)
 
    IF nWidthDlg > GetDesktopRealWidth()
       nMaxWidth := nWidthDlg - GetDesktopRealWidth()
@@ -338,8 +338,8 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
       nMaxWidth := 0
    ENDIF
 
-   nHeightCli := ( Min( nMaxLines, nLineas ) + iif( nLineas == 1, 4, 3 ) ) * nChrHeight + nVMARGIN_BUTTON + nHeightBtn + GetBorderHeight()
-   nHeightDlg := nHeightCli + GetTitleHeight() + SEP_BUTTON + GetBorderHeight() / iif( lIsWin10, 2.5, 1 )
+   nHeightCli := ( Min( nMaxLines, nLineas ) + iif(nLineas == 1, 4, 3) ) * nChrHeight + nVMARGIN_BUTTON + nHeightBtn + GetBorderHeight()
+   nHeightDlg := nHeightCli + GetTitleHeight() + SEP_BUTTON + GetBorderHeight() / iif(lIsWin10, 2.5, 1)
 
    IF MSC_VER() > 0 .AND. _HMG_IsThemed
       nWidthDlg += 10
@@ -371,7 +371,7 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
          cLblName := "Say_01"
 
          @ nRow + GetBorderHeight(), nCol EDITBOX ( cLblName ) VALUE AllTrim(cMsg) OF ( cForm ) ;
-            FONT cFont WIDTH nWidthCli - nCol + iif( nLineas < nMaxLines + 5, 0.9, 1 ) * MARGIN - nMaxWidth ;
+            FONT cFont WIDTH nWidthCli - nCol + iif(nLineas < nMaxLines + 5, 0.9, 1) * MARGIN - nMaxWidth ;
             HEIGHT nChrHeight * nMaxLines + GetBorderHeight() ;
             FONTCOLOR aFontColor BACKCOLOR aBackColor READONLY NOHSCROLL
       ELSE
@@ -380,7 +380,7 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
 
             cLblName := "Say_" + StrZero( n, 2 )
 
-            @ nRow * ( n + iif( nLineas == 1, .5, 0 ) ) + GetBorderHeight(), nCol ;
+            @ nRow * ( n + iif(nLineas == 1, .5, 0) ) + GetBorderHeight(), nCol ;
                LABEL ( cLblName ) VALUE AllTrim(MemoLine(cMsg, , n) ) OF ( cForm ) ;
                FONT cFont WIDTH nWidthCli - nCol - GetBorderWidth() - MARGIN / 4 - nMaxWidth ;
                HEIGHT nChrHeight ;
@@ -409,7 +409,7 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
       ELSE
 
          DRAW ICON IN WINDOW (cForm) ;
-            AT nRow + GetBorderHeight(), MARGIN / iif( nIcoSize == 32, 1.4, iif( nIcoSize == 48, 1.7, 2 ) ) ;
+            AT nRow + GetBorderHeight(), MARGIN / iif(nIcoSize == 32, 1.4, iif(nIcoSize == 48, 1.7, 2)) ;
             PICTURE cIcoFile WIDTH nIcoSize HEIGHT nIcoSize TRANSPARENT
 
       ENDIF
@@ -444,8 +444,8 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
    nOpc := 1
 
    FOR n := nLenaOp TO 1 STEP -1
-      This.( aBut[n] ).Row := nHeightCli + SEP_BUTTON + GetBorderHeight() / iif( lIsWin10, 2.5, .9 ) - nChrHeight - nHeightBtn
-      This.( aBut[n] ).Col := nWidthCli - nMaxWidth + iif( nLineas > nMaxLines, MARGIN * 1.5, 0 ) + iif( lIsWin10, 0, GetBorderWidth() / 2 ) - ( nMaxBoton + SEP_BUTTON ) * nOpc++
+      This.( aBut[n] ).Row := nHeightCli + SEP_BUTTON + GetBorderHeight() / iif(lIsWin10, 2.5, .9) - nChrHeight - nHeightBtn
+      This.( aBut[n] ).Col := nWidthCli - nMaxWidth + iif(nLineas > nMaxLines, MARGIN * 1.5, 0) + iif(lIsWin10, 0, GetBorderWidth() / 2) - ( nMaxBoton + SEP_BUTTON ) * nOpc++
    NEXT n
 
    This.Closable := lClosable

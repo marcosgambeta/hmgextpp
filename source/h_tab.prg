@@ -68,7 +68,7 @@ FUNCTION _BeginTab( ControlName, ParentFormName, row, col, w, h, value, f, s, to
    ENDIF
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
-      ParentFormName := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
+      ParentFormName := iif(_HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName)
       __defaultNIL(@f, _HMG_ActiveFontName)
       __defaultNIL(@s, _HMG_ActiveFontSize)
    ENDIF
@@ -849,7 +849,7 @@ FUNCTION _DeleteTabPage ( ControlName , ParentForm , Position )
 
       ENDIF
 
-      NewValue := iif( Position-- > Len(NewMap), Max( 1, Len(NewMap) ), Position )
+      NewValue := iif(Position-- > Len(NewMap), Max( 1, Len(NewMap) ), Position)
 
       TABCTRL_SETCURSEL ( _HMG_aControlhandles[i], NewValue )
 

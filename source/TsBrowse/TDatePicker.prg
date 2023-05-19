@@ -71,8 +71,8 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
    ::cParentWnd   := cWnd
    ::nStyle       := nOR( WS_CHILD, WS_VISIBLE, WS_TABSTOP, ;
                           WS_VSCROLL, WS_BORDER, ;
-                          iif( updown, DTS_UPDOWN, 0 ), ;
-                          iif( shownone, DTS_SHOWNONE, 0 ) )
+                          iif(updown, DTS_UPDOWN, 0), ;
+                          iif(shownone, DTS_SHOWNONE, 0) )
 
    ::bSetGet      := bSetGet
    ::bValid       := bValid
@@ -151,7 +151,7 @@ Return ::Super:HandleEvent( nMsg, nWParam, nLParam )
 METHOD KeyChar( nKey, nFlags ) CLASS TDatePicker
 
    If _GetKeyState( VK_CONTROL )
-      nKey := IIf( Upper(Chr(nKey)) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey )
+      nKey := IIf(Upper(Chr(nKey)) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey)
    EndIf
 
    If nKey == VK_TAB .OR. nKey == VK_ESCAPE

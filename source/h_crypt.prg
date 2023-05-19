@@ -629,10 +629,10 @@ FUNCTION DB_CODE( cData, cKey, aFields, cPass, cFor, cWhile )
    LOCAL cAlias
    LOCAL cTmpAlias // RL
 
-   cData := iif( cData == NIL, Alias() + ".DBF", cData )
-   cData := iif( At( ".",cData ) == 0, cData + ".DBF", cData )
-   cWhile := iif( cWhile == NIL, ".T.", cWhile )
-   cFor := iif( cFor == NIL, ".T.", cFor )
+   cData := iif(cData == NIL, Alias() + ".DBF", cData)
+   cData := iif(At(".", cData) == 0, cData + ".DBF", cData)
+   cWhile := iif(cWhile == NIL, ".T.", cWhile)
+   cFor := iif(cFor == NIL, ".T.", cFor)
    cSeek := cKey
 
    IF cPass == NIL

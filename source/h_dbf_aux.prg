@@ -53,12 +53,12 @@ FUNCTION HMG_ArrayToDbf( aData, cFieldList, bProgress )
    ENDIF
 
    lFldName := ( Empty(aFldName) )
-   nCols := iif( lFldName, FCount(), Min( FCount(), Len(aFldName) ) )
+   nCols := iif(lFldName, FCount(), Min(FCount(), Len(aFldName)))
    aFieldPos := Array(nCols)
    aFieldTyp := Array(nCols)
    FOR nCol := 1 TO nCols
-      aFieldPos[ nCol ] := iif( lFldName, nCol, FieldPos( aFldName[ nCol ] ) )
-      aFieldTyp[ nCol ] := iif( lFldName, FieldType( nCol ), FieldType( aFieldPos[ nCol ] ) )
+      aFieldPos[ nCol ] := iif(lFldName, nCol, FieldPos(aFldName[nCol]))
+      aFieldTyp[ nCol ] := iif(lFldName, FieldType(nCol), FieldType(aFieldPos[nCol]))
    NEXT
 
    nRows := Len(aData)

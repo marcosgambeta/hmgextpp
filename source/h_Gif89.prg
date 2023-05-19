@@ -24,7 +24,7 @@ FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidt
 
    // If defined inside DEFINE WINDOW structure, determine cParentForm
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
-      cParentForm := iif( _HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName )
+      cParentForm := iif(_HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName)
    ENDIF
 
    IF !_IsWindowDefined(cParentForm)

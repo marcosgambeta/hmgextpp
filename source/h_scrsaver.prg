@@ -83,9 +83,9 @@ FUNCTION _BeginScrSaver( cSSaver, lNoShow, cInit, cRelease, cPaint, nTimer, aBac
          ON INIT ( ShowCursor( .F. ), ;
             SystemParametersInfo( SPI_SCREENSAVERRUNNING, 1, @Dummy, 0 ) );
          ON RELEASE _ReleaseScrSaver( cRelease, cSSaver, cPaint );
-         ON MOUSECLICK iif( _lValidScrSaver(), DoMethod(cSSaver, "Release"), );
-         ON MOUSEMOVE ( a := GetCursorPos(), iif( a[1] != y / 2 .AND. a[2] != x / 2,;
-            iif( _lValidScrSaver(), DoMethod(cSSaver, "Release") , ), ) );
+         ON MOUSECLICK iif(_lValidScrSaver(), DoMethod(cSSaver, "Release"), NIL);
+         ON MOUSEMOVE ( a := GetCursorPos(), iif(a[1] != y / 2 .AND. a[2] != x / 2,;
+            iif(_lValidScrSaver(), DoMethod(cSSaver, "Release"), NIL), NIL) );
          BACKCOLOR aBackClr
    ELSE
 
@@ -97,9 +97,9 @@ FUNCTION _BeginScrSaver( cSSaver, lNoShow, cInit, cRelease, cPaint, nTimer, aBac
          ON INIT ( ShowCursor( .F. ), ;
             SystemParametersInfo( SPI_SCREENSAVERRUNNING, 1, @Dummy, 0 ) );
          ON RELEASE _ReleaseScrSaver( cRelease, cSSaver, cPaint );
-         ON MOUSECLICK iif( _lValidScrSaver(), DoMethod(cSSaver, "Release"), );
-         ON MOUSEMOVE ( a := GetCursorPos(), iif( a[1] != y / 2 .AND. a[2] != x / 2,;
-            iif( _lValidScrSaver(), DoMethod(cSSaver, "Release") , ), ) );
+         ON MOUSECLICK iif(_lValidScrSaver(), DoMethod(cSSaver, "Release"), NIL);
+         ON MOUSEMOVE ( a := GetCursorPos(), iif(a[1] != y / 2 .AND. a[2] != x / 2,;
+            iif(_lValidScrSaver(), DoMethod(cSSaver, "Release"), NIL), NIL) );
          BACKCOLOR aBackClr
    ENDIF
 
@@ -126,7 +126,7 @@ FUNCTION _ActivateScrSaver( aForm, cParam )
    LOCAL cFileScr
    LOCAL cFileDes
 
-   DEFAULT cParam TO iif( _ScrSaverInstall, "-i", "-s" )
+   DEFAULT cParam TO iif(_ScrSaverInstall, "-i", "-s")
 
    cParam := Lower( cParam )
 
@@ -150,9 +150,7 @@ FUNCTION _ActivateScrSaver( aForm, cParam )
    CASE cParam == "/i" .OR. cParam == "-i"
 
       cFileScr := GetExeFileName()
-      cFileDes := GetSystemFolder() + hb_ps() + ;
-         iif( hb_IsChar(_ScrSaverFileName), _ScrSaverFileName, ;
-         cFileNoExt( cFileScr ) + ".SCR" )
+      cFileDes := GetSystemFolder() + hb_ps() + iif(hb_IsChar(_ScrSaverFileName), _ScrSaverFileName, cFileNoExt(cFileScr) + ".SCR")
 
       IF File( cFileDes )
          FErase( cFileDes )
@@ -219,7 +217,7 @@ FUNCTION _lValidScrSaver()
    LOCAL oReg
    LOCAL nValue := 1
    LOCAL lRet
-   LOCAL cKey := "ScreenSave" + iif( _HMG_IsXPorLater, "rIsSecure", "UsePassword" )
+   LOCAL cKey := "ScreenSave" + iif(_HMG_IsXPorLater, "rIsSecure", "UsePassword")
 
    OPEN REGISTRY oReg KEY HKEY_CURRENT_USER SECTION "Control Panel\Desktop"
 
