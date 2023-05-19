@@ -105,13 +105,13 @@ FUNCTION OwnTabPaint( lParam )
    oldTextColor := SetTextColor( hDC, GetRed( nTextColor ), GetGreen( nTextColor ), GetBlue( nTextColor ) )
 
    IF hb_IsArray(_HMG_aControlMiscData2[i]) .AND. nItemId <= Len(_HMG_aControlMiscData2[i]) .AND. ;
-      IsArrayRGB( _HMG_aControlMiscData2[i] [nItemId] )
+      IsArrayRGB(_HMG_aControlMiscData2[i] [nItemId])
       aBkColor := _HMG_aControlMiscData2[i] [nItemId]
    ELSE
       aBkColor := _HMG_aControlBkColor[i]
    ENDIF
 
-   bkColor := RGB( aBkColor [1], aBkColor [2], aBkColor [3] )
+   bkColor := RGB(aBkColor[1], aBkColor[2], aBkColor[3])
    SetBkColor( hDC, bkColor )
 
    hBrush := CreateSolidBrush( aBkColor [1], aBkColor [2], aBkColor [3] )

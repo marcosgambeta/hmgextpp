@@ -98,11 +98,11 @@
 
 #xtranslate SetProgressbarBkColor ( <hWnd>, <r>, <g>, <b> ) ;
 => ;
-SendMessage( <hWnd>, PBM_SETBKCOLOR, 0, RGB( <r>, <g>, <b> ) )
+SendMessage( <hWnd>, PBM_SETBKCOLOR, 0, RGB(<r>, <g>, <b>) )
 
 #xtranslate SetProgressbarBarColor ( <hWnd>, <r>, <g>, <b> ) ;
 => ;
-SendMessage( <hWnd>, PBM_SETBARCOLOR, 0, RGB( <r>, <g>, <b> ) )
+SendMessage( <hWnd>, PBM_SETBARCOLOR, 0, RGB(<r>, <g>, <b>) )
 
 #xtranslate SetProgressBarRange ( <hWnd>, <l>, <b> ) ;
 => ;

@@ -255,11 +255,11 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
    _HMG_aControlMiscData1          [k] := { backcolor, fontcolor, TitleBkClr, TitleFrClr, TrlFontClr }
    _HMG_aControlMiscData2          [k] := ""
 
-   IF IsArrayRGB( BackColor )
+   IF IsArrayRGB(BackColor)
       SetDatePickBkColor(ControlHandle, backcolor[1], backcolor[2], backcolor[3])
    ENDIF
 
-   IF IsArrayRGB( FontColor )
+   IF IsArrayRGB(FontColor)
       SetDatePickFontColor(ControlHandle, fontcolor[1], fontcolor[2], fontcolor[3])
    ENDIF
 

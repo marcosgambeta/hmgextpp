@@ -461,7 +461,7 @@ STATIC PROCEDURE DrawBar( parent, nY, nX, nHigh, nWidth, l3D, nDeep, aColor )
    LOCAL nShadow
    LOCAL nH := nHigh
 
-   nColTop := ClrShadow( RGB( aColor[1], aColor[2], aColor[3] ), 15 )
+   nColTop := ClrShadow( RGB(aColor[1], aColor[2], aColor[3]), 15 )
    nShadow := ClrShadow( nColTop, 15 )
    nColTop := nRGB2Arr( nColTop )
    nShadow := nRGB2Arr( nShadow )
@@ -585,9 +585,9 @@ FUNCTION ClrShadow( nColor, nFactor )
 
    aHSL := RGB2HSL( GetRed( nColor ), GetGreen( nColor ), GetBlue( nColor ) )
    aHSL[3] -= nFactor
-   aRGB := HSL2RGB( aHSL[1], aHSL[2], aHSL[3] )
+   aRGB := HSL2RGB(aHSL[1], aHSL[2], aHSL[3])
 
-RETURN RGB( aRGB[1], aRGB[2], aRGB[3] )
+RETURN RGB(aRGB[1], aRGB[2], aRGB[3])
 
 
 FUNCTION RGB2HSL( nR, nG, nB )
@@ -641,7 +641,7 @@ FUNCTION RGB2HSL( nR, nG, nB )
 RETURN { nH, nS, nL }
 
 
-FUNCTION HSL2RGB( nH, nS, nL )
+FUNCTION HSL2RGB(nH, nS, nL)
 
    LOCAL nFor
    LOCAL nR
@@ -924,7 +924,7 @@ FUNCTION drawpiegraph( windowname, fromrow, fromcol, torow, tocol, series, aname
               height 16
            ENDIF
            value aname[i] + iif(lxval, " - " + LTrim(Transform(series[i], cPicture)) + " (" + LTrim(Str(series[i] / ser_sum * 100, 6, 2)) + " %)", "")
-           fontcolor iif(RGB( colors[i][1], colors[i][2], colors[i][3] ) == RGB( 255, 255, 255 ), BLACK, colors[i])
+           fontcolor iif(RGB(colors[i][1], colors[i][2], colors[i][3]) == RGB(255, 255, 255), BLACK, colors[i])
            backcolor iif(lPrint, WHITE, NIL)
            transparent .T.
          end label

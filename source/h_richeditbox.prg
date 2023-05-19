@@ -170,7 +170,7 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
       SetToolTip(ControlHandle, tooltip, GetFormToolTipHandle(cParentForm))
    ENDIF
 
-   IF IsArrayRGB( backcolor )
+   IF IsArrayRGB(backcolor)
       SetBkgndColor(ControlHandle, .T., backcolor[1], backcolor[2], backcolor[3])
    ENDIF
 

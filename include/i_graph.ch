@@ -187,7 +187,7 @@
                 <uVar1> := iif(<uVar1> == NIL, <uVal1>, <uVar1>) ;
                 [; <uVarN> := iif(<uVarN> == NIL, <uValN>, <uVarN>) ]
 
-#translate RGB( <nRed>, <nGreen>, <nBlue> ) => ;
+#translate RGB(<nRed>, <nGreen>, <nBlue>) => ;
               ( <nRed> + ( <nGreen> * 256 ) + ( <nBlue> * 65536 ) )
 
 #xtranslate nRGB2Arr( <nColor> ) => ;

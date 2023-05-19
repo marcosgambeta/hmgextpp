@@ -105,7 +105,7 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
       action := .T.
    ENDIF
 
-   IF IsArrayRGB( aBKColor )
+   IF IsArrayRGB(aBKColor)
       BackgroundColor := RGB(aBKColor[1], aBKColor[2], aBKColor[3])
    ENDIF
 

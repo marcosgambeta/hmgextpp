@@ -2415,7 +2415,7 @@ STATIC FUNCTION ABM2Listado( aImpresoras )
 
    // Definición de los patrones de relleno.
    DEFINE BRUSH "s0" STYLE BS_NULL
-   DEFINE BRUSH "s1" STYLE BS_SOLID COLOR RGB( 220, 220, 220 )
+   DEFINE BRUSH "s1" STYLE BS_SOLID COLOR RGB(220, 220, 220)
 
    // Inicio del listado.
    lCabecera := .T.

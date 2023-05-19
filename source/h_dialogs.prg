@@ -167,8 +167,8 @@ FUNCTION GetFont( cInitFontName , nInitFontSize , lBold , lItalic , anInitColor 
    LOCAL RetArray
    LOCAL rgbcolor As Numeric
 
-   IF IsArrayRGB( anInitColor )
-      rgbcolor := RGB( anInitColor [1] , anInitColor [2] , anInitColor [3] )
+   IF IsArrayRGB(anInitColor)
+      rgbcolor := RGB(anInitColor [1] , anInitColor [2] , anInitColor [3])
    ENDIF
 
    RetArray := ChooseFont( hb_defaultValue(cInitFontName, "") , hb_defaultValue(nInitFontSize, 0) , ;

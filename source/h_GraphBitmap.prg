@@ -558,7 +558,7 @@ FUNCTION HMG_PieGraph( nWidth, nHeight, series, aname, colors, ctitle, aTitleCol
       FOR i := 1 TO Len(aname)
          drawrectInBitmap( hDC, fromrow + 1, fromcol + 1, fromrow + 14, fromcol + 14, colors[i] )
          DrawWindowBoxInBitmap( hDC, fromrow, fromcol, fromrow + 14, fromcol + 14 )
-         drawtextinbitmap( hDC, fromrow, fromcol + 20, aname[i] + iif(lxval, " - " + LTrim(Transform(series[i], cPicture)) + " (" + LTrim(Str(series[i] / ser_sum * 100, 6, 2)) + " %)", ""), _HMG_DefaultFontName, _HMG_DefaultFontSize - 1, iif(RGB( colors[i][1], colors[i][2], colors[i][3] ) == RGB( 255, 255, 255 ), BLACK, colors[i]) )
+         drawtextinbitmap( hDC, fromrow, fromcol + 20, aname[i] + iif(lxval, " - " + LTrim(Transform(series[i], cPicture)) + " (" + LTrim(Str(series[i] / ser_sum * 100, 6, 2)) + " %)", ""), _HMG_DefaultFontName, _HMG_DefaultFontSize - 1, iif(RGB(colors[i][1], colors[i][2], colors[i][3]) == RGB(255, 255, 255), BLACK, colors[i]) )
          fromrow += 20
       NEXT i
    ENDIF
@@ -636,7 +636,7 @@ STATIC PROCEDURE DrawBarInBitmap( hDC, nY, nX, nHigh, nWidth, l3DView, nDeep, aC
    LOCAL nShadow2
    LOCAL nH := nHigh
 
-   nColTop := ClrShadow( RGB( aColor[1], aColor[2], aColor[3] ), 20 )
+   nColTop := ClrShadow( RGB(aColor[1], aColor[2], aColor[3]), 20 )
    nShadow := ClrShadow( nColTop, 20 )
    nShadow2 := ClrShadow( nColTop, 40 )
    nColTop := { GetRed( nColTop ), GetGreen( nColTop ), GetBlue( nColTop ) }

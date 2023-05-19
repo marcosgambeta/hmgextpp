@@ -102,11 +102,11 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
       ENDIF
       DEFINE WINDOW &cFormName AT 0, 0 WIDTH nWidth HEIGHT nHeight TITLE cTitle ;
          MODAL ;
-         BACKCOLOR RGB( 191, 219, 255 )
+         BACKCOLOR RGB(191, 219, 255)
    ELSE
       DEFINE WINDOW &cFormName AT 0, 0 WIDTH nWidth HEIGHT nHeight TITLE cTitle ;
          CHILD TOPMOST ;
-         BACKCOLOR RGB( 191, 219, 255 ) ;
+         BACKCOLOR RGB(191, 219, 255) ;
          ON INIT {|| This.Topmost := .F. }
    ENDIF
 
@@ -377,9 +377,9 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
 
    DEFAULT aColor := { ;
           { CLR_FOCUSF, GetSysColor( COLOR_WINDOWTEXT ) }, ;
-          { CLR_FOCUSB, {|c,n,b| c := n, iif(b:nCell == n, -CLR_HRED, -RGB( 128, 225, 225 )) } }, ;
+          { CLR_FOCUSB, {|c,n,b| c := n, iif(b:nCell == n, -CLR_HRED, -RGB(128, 225, 225)) } }, ;
           { CLR_SELEF , GetSysColor( COLOR_WINDOWTEXT ) }, ;
-          { CLR_SELEB , {|c,n,b| c := n, iif(b:nCell == n, -CLR_BLUE, -RGB( 128, 225, 225 )) } } }
+          { CLR_SELEB , {|c,n,b| c := n, iif(b:nCell == n, -CLR_BLUE, -RGB(128, 225, 225)) } } }
 
    DEFAULT oParam:bSpecHdEnum := {|ob, op, cChar|  // нумерация SpecHd колонок, можно исп. в своем коде вызов
                       LOCAL oCol, cCnt, nCnt := 0  // renumbering SpecHeader

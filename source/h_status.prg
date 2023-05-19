@@ -302,7 +302,7 @@ FUNCTION _DefineItemMessage ( ControlName, ParentControl, x, y, Caption, Procedu
       Eval(_HMG_bOnControlInit, k, mVar)
    ENDIF
 
-   IF IsArrayRGB( backcolor ) .OR. IsArrayRGB( fontcolor )
+   IF IsArrayRGB(backcolor) .OR. IsArrayRGB(fontcolor)
       SendMessage(ParentForm, SB_SETTEXT, hb_BitOr(_HMG_StatusItemCount - 1, SBT_OWNERDRAW), 0)
    ENDIF
 

@@ -492,7 +492,7 @@ Function Color(GR,GR1,GR2)
          gr :=  STRTRAN(gr,"}","")
          tokeninit(GR,",")
          IF oWr:PrnDrv = "HBPR"
-            DATO := rgb( VAL(tokENNEXT(GR)),VAL(tokENNEXT(GR)),VAL(tokENNEXT(GR)) )
+            DATO := rgb(VAL(tokENNEXT(GR)),VAL(tokENNEXT(GR)),VAL(tokENNEXT(GR)))
          else
             Dato := { VAL(tokENNEXT(GR)),VAL(tokENNEXT(GR)),VAL(tokENNEXT(GR)) }
          endif

@@ -133,7 +133,7 @@ CLASS HBPrinter
    METHOD SetViewPortOrg( row, col )
    METHOD GetViewPortOrg()
    METHOD DxColors( par )
-   METHOD SetRGB( red, green, blue )
+   METHOD SetRGB(red, green, blue)
    METHOD SetTextCharExtra( col )
    METHOD GetTextCharExtra()
    METHOD SetTextJustification( col )
@@ -1251,9 +1251,9 @@ METHOD DXCOLORS( par ) CLASS HBPrinter
 RETURN ltemp
 
 
-METHOD SetRGB( red, green, blue ) CLASS HBPrinter
+METHOD SetRGB(red, green, blue) CLASS HBPrinter
 
-RETURN rr_setrgb( red, green, blue )
+RETURN rr_setrgb(red, green, blue)
 
 
 METHOD SetTextCharExtra( col ) CLASS HBPrinter

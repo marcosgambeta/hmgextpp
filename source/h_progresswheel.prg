@@ -198,7 +198,7 @@ FUNCTION PW_GetColorDoneMin( cControlName, cParentForm )
    LOCAL ColorDoneMin
 
    IF i > 0
-      ColorDoneMin := COLORREF_TO_ArrayRGB( _HMG_aControlFontColor[i][1] )
+      ColorDoneMin := COLORREF_TO_ArrayRGB(_HMG_aControlFontColor[i][1])
    ENDIF
 
 RETURN ColorDoneMin
@@ -211,7 +211,7 @@ FUNCTION PW_GetColorDoneMax( cControlName, cParentForm )
    LOCAL ColorDoneMax
 
    IF i > 0
-      ColorDoneMax := COLORREF_TO_ArrayRGB( _HMG_aControlFontColor[i][2] )
+      ColorDoneMax := COLORREF_TO_ArrayRGB(_HMG_aControlFontColor[i][2])
    ENDIF
 
 RETURN ColorDoneMax
@@ -224,7 +224,7 @@ FUNCTION PW_GetColorRemain( cControlName, cParentForm )
    LOCAL ColorRemain
 
    IF i > 0
-      ColorRemain := COLORREF_TO_ArrayRGB( _HMG_aControlBkColor[i][1] )
+      ColorRemain := COLORREF_TO_ArrayRGB(_HMG_aControlBkColor[i][1])
    ENDIF
 
 RETURN ColorRemain
@@ -237,7 +237,7 @@ FUNCTION PW_GetColorInner( cControlName, cParentForm )
    LOCAL ColorInner
 
    IF i > 0
-      ColorInner := COLORREF_TO_ArrayRGB( _HMG_aControlBkColor[i][2] )
+      ColorInner := COLORREF_TO_ArrayRGB(_HMG_aControlBkColor[i][2])
    ENDIF
 
 RETURN ColorInner
@@ -693,7 +693,7 @@ PROCEDURE ProgressWheelPaint( cParentForm, cImgName, Width, Height, ;
    Top := R[2] * BufScale
    Bottom := R[4] * BufScale
 
-   BrushColor := COLORREF_TO_ArrayRGB( ColorRemain )
+   BrushColor := COLORREF_TO_ArrayRGB(ColorRemain)
 
    P1 := AnglePosition( StartAngle, R, Min, Max, Min )
    P2 := AnglePosition( StartAngle, R, Min, Max, Max )
@@ -706,10 +706,10 @@ PROCEDURE ProgressWheelPaint( cParentForm, cImgName, Width, Height, ;
 
       SWITCH GradientMode
       CASE 1 /*None*/
-         BrushColor := COLORREF_TO_ArrayRGB( ColorDoneMax )
+         BrushColor := COLORREF_TO_ArrayRGB(ColorDoneMax)
          EXIT
       CASE 2 /*Position*/
-         BrushColor := COLORREF_TO_ArrayRGB( GradientColor( ColorDoneMin, ColorDoneMax, Min, Max, Position ) )
+         BrushColor := COLORREF_TO_ArrayRGB(GradientColor( ColorDoneMin, ColorDoneMax, Min, Max, Position ))
          EXIT
       CASE 3 /*Angle*/
          hBrushBitmap := CreatePatternHBrush( hGradient )
@@ -737,7 +737,7 @@ PROCEDURE ProgressWheelPaint( cParentForm, cImgName, Width, Height, ;
       Width := Right - Left
       Height := Bottom - Top
 
-      BrushColor := COLORREF_TO_ArrayRGB( ColorInner )
+      BrushColor := COLORREF_TO_ArrayRGB(ColorInner)
 
       DrawEllipseInBitmap( hDC, row, col, Width, Height, BrushColor, , BrushColor )
    ENDIF
@@ -797,7 +797,7 @@ FUNCTION UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, Colo
          P1 := AnglePosition( StartAngle, R, 0, 100, i )
          P2 := AnglePosition( StartAngle, R, 0, 100, i + 1 )
 
-         BrushColor := COLORREF_TO_ArrayRGB( GradientColor( ColorDoneMin, ColorDoneMax, 0, 100, i ) )
+         BrushColor := COLORREF_TO_ArrayRGB(GradientColor( ColorDoneMin, ColorDoneMax, 0, 100, i ))
 
          DrawPieInBitmap( hDC, R[2], R[1], R[3], R[4], P2[1], P2[2], P1[1], P1[2], BrushColor, , BrushColor )
 
@@ -828,13 +828,13 @@ STATIC FUNCTION GradientColor( ColorBegin, ColorEnd, AMin, AMax, APosition )
    LOCAL E3
    LOCAL P
 
-   B := COLORREF_TO_ArrayRGB( ColorBegin )
+   B := COLORREF_TO_ArrayRGB(ColorBegin)
 
    B1 := B[1]
    B2 := B[2]
    B3 := B[3]
 
-   E := COLORREF_TO_ArrayRGB( ColorEnd )
+   E := COLORREF_TO_ArrayRGB(ColorEnd)
 
    E1 := E[1]
    E2 := E[2]

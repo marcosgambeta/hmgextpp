@@ -1452,7 +1452,7 @@ FUNCTION PgIdentColor( met, cColor )
       IF ( pos := AScan(aSysColor, {|x|  Upper(x[2] ) == Upper(cColor ) }) ) > 0
          nColor := GetSysColor ( aSysColor[pos, 1] )
       ELSEIF ( pos := AScan(aColor, {|x|  Upper(x[2] ) == Upper(cColor ) }) ) > 0
-         nColor := RGB( aColor[pos, 1], aColor[pos, 2], aColor[pos, 3] )
+         nColor := RGB(aColor[pos, 1], aColor[pos, 2], aColor[pos, 3])
       ELSE
          IF SubStr(cColor, 1, 1) == "(" .AND. RAt( ")", cColor ) == Len(cColor)
             aCol := {}
@@ -1462,7 +1462,7 @@ FUNCTION PgIdentColor( met, cColor )
                AAdd(aCol, Val(cToken))
             ENDDO
             TOKENEXIT()
-            nColor := RGB( aCol[1], aCol[2], aCol[3] )
+            nColor := RGB(aCol[1], aCol[2], aCol[3])
          ENDIF
       ENDIF
       result := nColor

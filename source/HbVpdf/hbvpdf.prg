@@ -72,9 +72,9 @@ FUNCTION pdfAtSay( cString, nRow, nCol, cUnits, lExact, cId )
       // version 0.01
       IF ( nAt := At( Chr(253), cString ) ) > 0 // some color text inside
          s_aReport[PAGEBUFFER] += CRLF + ;
-            Chr_RGB( SubStr(cString, nAt + 1, 1) ) + " " + ;
-            Chr_RGB( SubStr(cString, nAt + 2, 1) ) + " " + ;
-            Chr_RGB( SubStr(cString, nAt + 3, 1) ) + " rg "
+            Chr_RGB(SubStr(cString, nAt + 1, 1)) + " " + ;
+            Chr_RGB(SubStr(cString, nAt + 2, 1)) + " " + ;
+            Chr_RGB(SubStr(cString, nAt + 3, 1)) + " rg "
          cString := Stuff( cString, nAt, 4, "" )
       ENDIF
       // version 0.01
@@ -284,9 +284,9 @@ FUNCTION pdfBox( x1, y1, x2, y2, nBorder, nShade, cUnits, cColor, cId )
    // version 0.02
    cBoxColor := ""
    IF !Empty(cColor)
-      cBoxColor := " " + Chr_RGB( SubStr(cColor, 2, 1) ) + " " + ;
-         Chr_RGB( SubStr(cColor, 3, 1) ) + " " + ;
-         Chr_RGB( SubStr(cColor, 4, 1) ) + " rg "
+      cBoxColor := " " + Chr_RGB(SubStr(cColor, 2, 1)) + " " + ;
+         Chr_RGB(SubStr(cColor, 3, 1)) + " " + ;
+         Chr_RGB(SubStr(cColor, 4, 1)) + " rg "
       IF Empty(AllTrim(cBoxColor))
          cBoxColor := ""
       ENDIF
@@ -345,14 +345,14 @@ FUNCTION pdfBox1( nTop, nLeft, nBottom, nRight, nBorderWidth, cBorderColor, cBox
    __defaultNIL(@cBoxColor, Chr(255) + Chr(255) + Chr(255))
 
    s_aReport[PAGEBUFFER] += CRLF + ;
-      Chr_RGB( SubStr(cBorderColor, 1, 1) ) + " " + ;
-      Chr_RGB( SubStr(cBorderColor, 2, 1) ) + " " + ;
-      Chr_RGB( SubStr(cBorderColor, 3, 1) ) + ;
+      Chr_RGB(SubStr(cBorderColor, 1, 1)) + " " + ;
+      Chr_RGB(SubStr(cBorderColor, 2, 1)) + " " + ;
+      Chr_RGB(SubStr(cBorderColor, 3, 1)) + ;
       " RG" + ;
       CRLF + ;
-      Chr_RGB( SubStr(cBoxColor, 1, 1) ) + " " + ;
-      Chr_RGB( SubStr(cBoxColor, 2, 1) ) + " " + ;
-      Chr_RGB( SubStr(cBoxColor, 3, 1) ) + ;
+      Chr_RGB(SubStr(cBoxColor, 1, 1)) + " " + ;
+      Chr_RGB(SubStr(cBoxColor, 2, 1)) + " " + ;
+      Chr_RGB(SubStr(cBoxColor, 3, 1)) + ;
       " rg" + ;
       CRLF + hb_ntos(nBorderWidth) + " w" + ;
       CRLF + hb_ntos(nLeft + nBorderWidth / 2) + " " + ;
@@ -2504,7 +2504,7 @@ RETURN aTemp
 STATIC FUNCTION FilePos( nHandle )
 RETURN FSeek(nHandle, 0, FS_RELATIVE)
 
-STATIC FUNCTION Chr_RGB( cChar )
+STATIC FUNCTION Chr_RGB(cChar)
 RETURN Str(Asc(cChar) / 255, 4, 2)
 
 STATIC FUNCTION NumToken( cString, cDelimiter )

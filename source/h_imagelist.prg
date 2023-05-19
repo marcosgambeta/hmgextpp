@@ -152,7 +152,7 @@ FUNCTION _DefineImageList ( ControlName , ParentForm , w , h , aImage , aImageMa
             maskimage := iif(i <= Len(aImageMask), aImageMask[i], "")
             PosImage := IL_Add(ControlHandles, aImage[i], maskimage, w, h, ImageCount)
          ELSE
-            IF IsArrayRGB( aColor )
+            IF IsArrayRGB(aColor)
                color := RGB(aColor[1], aColor[2], aColor[3])
             ELSE
                color := aColor

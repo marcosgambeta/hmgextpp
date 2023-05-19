@@ -233,11 +233,11 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
    ENDIF
 
    IF fontcolor != NIL
-      aTmpColor[1] := RGB( fontcolor[1], fontcolor[2], fontcolor[3] )
+      aTmpColor[1] := RGB(fontcolor[1], fontcolor[2], fontcolor[3])
    ENDIF
 
    IF backcolor != NIL
-      aTmpColor[2] := RGB( backcolor[1], backcolor[2], backcolor[3] )
+      aTmpColor[2] := RGB(backcolor[1], backcolor[2], backcolor[3])
    ENDIF
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive

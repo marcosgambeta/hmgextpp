@@ -217,11 +217,11 @@ FUNCTION _DefineProgressBar ( ControlName, ParentFormName, x, y, w, h, lo, hi, ;
    _HMG_aControlMiscData2          [k] := ""
 
    IF !lDialogInMemory
-      IF IsArrayRGB( BackColor )
+      IF IsArrayRGB(BackColor)
          SetProgressBarBkColor(ControlHandle, BackColor[1], BackColor[2], BackColor[3])
       ENDIF
 
-      IF IsArrayRGB( BarColor )
+      IF IsArrayRGB(BarColor)
          SetProgressBarBarColor(ControlHandle, BarColor[1], BarColor[2], BarColor[3])
       ENDIF
    ENDIF
@@ -256,11 +256,11 @@ FUNCTION InitDialogProgressBar( ParentName, ControlHandle, k )
       SendMessage(ControlHandle, PBM_SETPOS, _HMG_aControlValue[k], 0)
    ENDIF
 
-   IF IsArrayRGB( BackColor )
+   IF IsArrayRGB(BackColor)
       SetProgressBarBkColor(ControlHandle, BackColor[1], BackColor[2], BackColor[3])
    ENDIF
 
-   IF IsArrayRGB( BarColor )
+   IF IsArrayRGB(BarColor)
       SetProgressBarBarColor(ControlHandle, BarColor[1], BarColor[2], BarColor[3])
    ENDIF
 // JP 62

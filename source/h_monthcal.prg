@@ -250,27 +250,27 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
 
    ENDIF
 
-   IF IsArrayRGB( BackColor )
+   IF IsArrayRGB(BackColor)
       SetMonthCalMonthBkColor( aControlHandle[1], backcolor[1], backcolor[2], backcolor[3] )
    ENDIF
 
-   IF IsArrayRGB( FontColor )
+   IF IsArrayRGB(FontColor)
       SetMonthCalFontColor( aControlHandle[1], fontcolor[1], fontcolor[2], fontcolor[3] )
    ENDIF
 
-   IF IsArrayRGB( TitleBkClr )
+   IF IsArrayRGB(TitleBkClr)
       SetMonthCalTitleBkColor( aControlHandle[1], TitleBkClr[1], TitleBkClr[2], TitleBkClr[3] )
    ENDIF
 
-   IF IsArrayRGB( TitleFrClr )
+   IF IsArrayRGB(TitleFrClr)
       SetMonthCalTitleFontColor( aControlHandle[1], TitleFrClr[1], TitleFrClr[2], TitleFrClr[3] )
    ENDIF
 
-   IF IsArrayRGB( BackGround )
+   IF IsArrayRGB(BackGround)
       SetMonthCalBkColor( aControlHandle[1], BackGround[1], BackGround[2], BackGround[3] )
    ENDIF
 
-   IF IsArrayRGB( TrlFontClr )
+   IF IsArrayRGB(TrlFontClr)
       SetMonthCalTrlFontColor( aControlHandle[1], TrlFontClr[1], TrlFontClr[2], TrlFontClr[3] )
    ENDIF
 

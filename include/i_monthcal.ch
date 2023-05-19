@@ -188,27 +188,27 @@ SendMessage( <hWnd>, MCM_SETCURRENTVIEW, 0, <NewView> )
 
 #xtranslate SetMonthCalBkColor ( <hWnd>, <r>, <g>, <b> ) ;
 => ;
-SendMessage( <hWnd>, MCM_SETCOLOR, MCSC_BACKGROUND, RGB( <r>, <g>, <b> ) )
+SendMessage( <hWnd>, MCM_SETCOLOR, MCSC_BACKGROUND, RGB(<r>, <g>, <b>) )
 
 #xtranslate SetMonthCalFontColor ( <hWnd>, <r>, <g>, <b> ) ;
 => ;
-SendMessage( <hWnd>, MCM_SETCOLOR, MCSC_TEXT, RGB( <r>, <g>, <b> ) )
+SendMessage( <hWnd>, MCM_SETCOLOR, MCSC_TEXT, RGB(<r>, <g>, <b>) )
 
 #xtranslate SetMonthCalTitleBkColor ( <hWnd>, <r>, <g>, <b> ) ;
 => ;
-SendMessage( <hWnd>, MCM_SETCOLOR, MCSC_TITLEBK, RGB( <r>, <g>, <b> ) )
+SendMessage( <hWnd>, MCM_SETCOLOR, MCSC_TITLEBK, RGB(<r>, <g>, <b>) )
 
 #xtranslate SetMonthCalTitleFontColor ( <hWnd>, <r>, <g>, <b> ) ;
 => ;
-SendMessage( <hWnd>, MCM_SETCOLOR, MCSC_TITLETEXT, RGB( <r>, <g>, <b> ) )
+SendMessage( <hWnd>, MCM_SETCOLOR, MCSC_TITLETEXT, RGB(<r>, <g>, <b>) )
 
 #xtranslate SetMonthCalMonthBkColor ( <hWnd>, <r>, <g>, <b> ) ;
 => ;
-SendMessage( <hWnd>, MCM_SETCOLOR, MCSC_MONTHBK, RGB( <r>, <g>, <b> ) )
+SendMessage( <hWnd>, MCM_SETCOLOR, MCSC_MONTHBK, RGB(<r>, <g>, <b>) )
 
 #xtranslate SetMonthCalTrlFontColor ( <hWnd>, <r>, <g>, <b> ) ;
 => ;
-SendMessage( <hWnd>, MCM_SETCOLOR, MCSC_TRAILINGTEXT, RGB( <r>, <g>, <b> ) )
+SendMessage( <hWnd>, MCM_SETCOLOR, MCSC_TRAILINGTEXT, RGB(<r>, <g>, <b>) )
 
 #xtranslate SetMonthCalFirstDayOfWeek ( <hWnd>, <d> ) ;
 => ;
