@@ -1,60 +1,40 @@
 #include "minigui.ch"
 #include "hbclass.ch"
 
-* ============================================================================
 CLASS TCursor
-* ============================================================================
 
-   DATA   hCursor
-   DATA   lPredef AS LOGICAL
+   DATA hCursor
+   DATA lPredef AS LOGICAL
 
-   METHOD New( cResName, cPredef ) CONSTRUCTOR
-
+   METHOD New(cResName, cPredef) CONSTRUCTOR
    METHOD End() INLINE IIf(::hCursor != 0, IIf(!::lPredef, DestroyCursor(::hCursor), NIL), NIL), ::hCursor := 0
 
 ENDCLASS
 
-* ============================================================================
-METHOD New( cResName, cPredef ) CLASS TCursor
-* ============================================================================
+METHOD New(cResName, cPredef) CLASS TCursor
 
-   local nAt, aTypes
+   LOCAL nAt
+   LOCAL aTypes
 
-   if !Empty(cPredef)
+   IF !Empty(cPredef)
       cPredef := Upper(cPredef)
-      if ( nAt := AScan({ "ARROW", "IBEAM", "WAIT",;
-                           "CROSS", "UPARROW", ;
-                           "SIZENWSE", "SIZENESW",;
-                           "SIZEWE", "SIZENS" }, cPredef) ) != 0
-
-         aTypes = { IDC_ARROW, IDC_IBEAM, IDC_WAIT,;
-                    IDC_CROSS, IDC_UPARROW,;
-                    IDC_SIZENWSE, IDC_SIZENESW,;
-                    IDC_SIZEWE, IDC_SIZENS }
-
-         ::hCursor = LoadCursor( NIL, aTypes[ nAt ] )
-
+      IF (nAt := AScan({"ARROW", "IBEAM", "WAIT", "CROSS", "UPARROW", "SIZENWSE", "SIZENESW", "SIZEWE", "SIZENS"}, cPredef)) != 0
+         aTypes = { IDC_ARROW, IDC_IBEAM, IDC_WAIT, IDC_CROSS, IDC_UPARROW, IDC_SIZENWSE, IDC_SIZENESW, IDC_SIZEWE, IDC_SIZENS }
+         ::hCursor = LoadCursor(NIL, aTypes[nAt])
          ::lPredef = .T.
-      else
-         if cPredef == "HAND"
-            ::hCursor = GetCursorHand()
-            ::lPredef = .F.
-         elseif cPredef == "STOP"
-            ::hCursor = GetCursorStop()
-            ::lPredef = .F.
-         elseif cPredef == "DRAG"
-            ::hCursor = GetCursorDrag()
-            ::lPredef = .F.
-         elseif cPredef == "CATCH"
-            ::hCursor = GetCursorCatch()
-            ::lPredef = .F.
-         else
-            MsgAlert( "Wrong predefined cursor type!", "Alert" )
-         endif
-      endif
-   else
-      ::hCursor = LoadCursor( GetInstance(), cResName )
+      ELSE
+         SWITCH cPredef
+         CASE "HAND"  ; ::hCursor = GetCursorHand()  ; ::lPredef = .F. ; EXIT
+         CASE "STOP"  ; ::hCursor = GetCursorStop()  ; ::lPredef = .F. ; EXIT
+         CASE "DRAG"  ; ::hCursor = GetCursorDrag()  ; ::lPredef = .F. ; EXIT
+         CASE "CATCH" ; ::hCursor = GetCursorCatch() ; ::lPredef = .F.
+         OTHERWISE
+            MsgAlert("Wrong predefined cursor type!", "Alert")
+         ENDSWITCH
+      ENDIF
+   ELSE
+      ::hCursor = LoadCursor(GetInstance(), cResName)
       ::lPredef = .F.
-   endif
+   ENDIF
 
-Return Self
+RETURN Self
