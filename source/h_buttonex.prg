@@ -293,7 +293,7 @@ FUNCTION OBTNEVENTS(hWnd, nMsg, wParam, lParam)
 
             _HMG_aControlRangeMax[i][2] := .T.
 
-            IF AND(_HMG_aControlSpacing[i], OBT_HOTLIGHT) == OBT_HOTLIGHT .OR. _HMG_IsThemed
+            IF hb_bitand(_HMG_aControlSpacing[i], OBT_HOTLIGHT) == OBT_HOTLIGHT .OR. _HMG_IsThemed
 
                _DoControlEventProcedure(_HMG_aControlGotFocusProcedure[i], i)
 
@@ -315,7 +315,7 @@ FUNCTION OBTNEVENTS(hWnd, nMsg, wParam, lParam)
 
             _DoControlEventProcedure(_HMG_aControlLostFocusProcedure[i], i)
 
-            IF AND(_HMG_aControlSpacing[i], OBT_HOTLIGHT) == OBT_HOTLIGHT .OR. lXPThemeActive
+            IF hb_bitand(_HMG_aControlSpacing[i], OBT_HOTLIGHT) == OBT_HOTLIGHT .OR. lXPThemeActive
 
                IF wParam == 1
                   _HMG_aControlRangeMax[i][1] := 0
@@ -386,9 +386,9 @@ FUNCTION OwnButtonPaint(pdis)
    ENDIF
 
    itemAction := GETOWNBTNITEMACTION(pdis)
-   lDrawEntire := (AND(itemAction, ODA_DRAWENTIRE) == ODA_DRAWENTIRE)
-   loFocus := (AND(itemAction, ODA_FOCUS) == ODA_FOCUS)
-   loSelect := (AND(itemAction, ODA_SELECT) == ODA_SELECT)
+   lDrawEntire := (hb_bitand(itemAction, ODA_DRAWENTIRE) == ODA_DRAWENTIRE)
+   loFocus := (hb_bitand(itemAction, ODA_FOCUS) == ODA_FOCUS)
+   loSelect := (hb_bitand(itemAction, ODA_SELECT) == ODA_SELECT)
 
    IF !lDrawEntire .AND. !loFocus .AND. !loSelect
       RETURN 1
@@ -406,13 +406,13 @@ FUNCTION OwnButtonPaint(pdis)
 
    nCRLF := hb_tokenCount(_HMG_aControlCaption[i], CRLF)
 
-   lDisabled := AND(itemState, ODS_DISABLED) == ODS_DISABLED
-   lSelected := AND(itemState, ODS_SELECTED) == ODS_SELECTED
-   lFocus := AND(itemState, ODS_FOCUS) == ODS_FOCUS
-   lFlat := AND(_HMG_aControlSpacing[i], OBT_FLAT) == OBT_FLAT
-   lNotrans := AND(_HMG_aControlSpacing[i], OBT_NOTRANSPARENT) == OBT_NOTRANSPARENT
-   lnoxpstyle := AND(_HMG_aControlSpacing[i], OBT_NOXPSTYLE) == OBT_NOXPSTYLE
-   lnoadjust := !(AND(_HMG_aControlSpacing[i], OBT_ADJUST) == OBT_ADJUST)
+   lDisabled := hb_bitand(itemState, ODS_DISABLED) == ODS_DISABLED
+   lSelected := hb_bitand(itemState, ODS_SELECTED) == ODS_SELECTED
+   lFocus := hb_bitand(itemState, ODS_FOCUS) == ODS_FOCUS
+   lFlat := hb_bitand(_HMG_aControlSpacing[i], OBT_FLAT) == OBT_FLAT
+   lNotrans := hb_bitand(_HMG_aControlSpacing[i], OBT_NOTRANSPARENT) == OBT_NOTRANSPARENT
+   lnoxpstyle := hb_bitand(_HMG_aControlSpacing[i], OBT_NOXPSTYLE) == OBT_NOXPSTYLE
+   lnoadjust := !(hb_bitand(_HMG_aControlSpacing[i], OBT_ADJUST) == OBT_ADJUST)
 
    IF !lNotrans
 
@@ -437,7 +437,7 @@ FUNCTION OwnButtonPaint(pdis)
       lXPThemeActive := .T.
       nStyle := PBS_NORMAL
 
-      IF AND(itemState, ODS_HOTLIGHT) == ODS_HOTLIGHT .OR. _HMG_aControlRangeMax[i][1] == 1
+      IF hb_bitand(itemState, ODS_HOTLIGHT) == ODS_HOTLIGHT .OR. _HMG_aControlRangeMax[i][1] == 1
          nStyle := PBS_HOT
       ELSEIF lFocus
          nStyle := PBS_DEFAULTED
@@ -463,7 +463,7 @@ FUNCTION OwnButtonPaint(pdis)
 
       DrawButton(hDC, iif(lFocus .OR. _HMG_aControlRangeMax[i][1] == 1, 1, 0), ;
          DFCS_BUTTONPUSH + iif(lSelected, DFCS_PUSHED, 0) + iif(lDisabled, DFCS_INACTIVE, 0) + iif(lflat, DFCS_FLAT, 0), ;
-         pdis, iif(AND(_HMG_aControlSpacing[i], OBT_HOTLIGHT) == OBT_HOTLIGHT, _HMG_aControlRangeMax[i][1], 2), iif(lflat, 1, 0))
+         pdis, iif(hb_bitand(_HMG_aControlSpacing[i], OBT_HOTLIGHT) == OBT_HOTLIGHT, _HMG_aControlRangeMax[i][1], 2), iif(lflat, 1, 0))
 
    ENDIF
 
@@ -579,7 +579,7 @@ FUNCTION OwnButtonPaint(pdis)
 
    ENDIF
 
-   IF AND(_HMG_aControlSpacing[i], OBT_VERTICAL) == OBT_VERTICAL  // vertical text/picture aspect
+   IF hb_bitand(_HMG_aControlSpacing[i], OBT_VERTICAL) == OBT_VERTICAL  // vertical text/picture aspect
 
       y2 := aMetr[1] * nCRLF
       x2 := aBtnRc[3] - 2
@@ -598,7 +598,7 @@ FUNCTION OwnButtonPaint(pdis)
       IF !Empty(_HMG_aControlCaption[i])  // button has caption
 
          IF !Empty(_HMG_aControlBrushHandle[i])
-            IF !(AND(_HMG_aControlSpacing[i], OBT_UPTEXT) == OBT_UPTEXT)  // upper text aspect not set
+            IF !(hb_bitand(_HMG_aControlSpacing[i], OBT_UPTEXT) == OBT_UPTEXT)  // upper text aspect not set
                pozYpic := Max(aBtnRc[2] + nFreeSpace, 5)
                pozYtext := aBtnRc[2] + iif(!Empty(aBmp), nFreeSpace, 0) + yp2 + iif(!Empty(aBmp), nFreeSpace, 0)
             ELSE
@@ -684,7 +684,7 @@ FUNCTION OwnButtonPaint(pdis)
             lDrawEntire := (aBtnRc[3] > 109) .AND. (aBtnRc[4] - yp2 > 16)
             nStyle := xp2 / 2 - iif(xp2 > 24, 8, 0)
 
-            IF !(AND( _HMG_aControlSpacing[i], OBT_LEFTTEXT) == OBT_LEFTTEXT)
+            IF !(hb_bitand( _HMG_aControlSpacing[i], OBT_LEFTTEXT) == OBT_LEFTTEXT)
 
                xp1 := 5 + iif(lDrawEntire, nStyle, 0)
                x1 := aBtnRc[1] + xp1 + xp2

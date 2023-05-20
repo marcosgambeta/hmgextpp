@@ -91,7 +91,7 @@ FUNCTION OwnTabPaint( lParam )
 
    nItemId    := GETOWNBTNITEMID( lParam ) + 1
    aBtnRc     := GETOWNBTNRECT( lParam )
-   lSelected  := ( AND( GETOWNBTNSTATE( lParam ), ODS_SELECTED ) == ODS_SELECTED )
+   lSelected  := ( hb_bitand( GETOWNBTNSTATE( lParam ), ODS_SELECTED ) == ODS_SELECTED )
    lBigFsize  := ( _HMG_aControlFontSize[i] >= 12 )
    lBigFsize2 := ( _HMG_aControlFontSize[i] >= 18 )
    lBigFsize3 := ( _HMG_aControlFontSize[i] >= 24 )

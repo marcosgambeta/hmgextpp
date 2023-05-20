@@ -1475,7 +1475,7 @@ PROCEDURE _DispGetBoxText( hWnd, cText )
 
       IF IsWindowHandle(ControlHandle)
 
-         IF And(GetWindowLong(ControlHandle, GWL_STYLE), ES_PASSWORD) == ES_PASSWORD
+         IF hb_bitand(GetWindowLong(ControlHandle, GWL_STYLE), ES_PASSWORD) == ES_PASSWORD
             SetWindowText(ControlHandle, Replicate("*", Len(Trim(cText))))
          ELSE
             SetWindowText(ControlHandle, cText)
@@ -1800,7 +1800,7 @@ STATIC FUNCTION _IsChildOfActiveWindow(hWnd)
 
       IF hActiveWnd != hParent
 
-         IF AND( GetWindowLong( hParent, GWL_STYLE ), WS_CHILD ) > 0
+         IF hb_bitand( GetWindowLong( hParent, GWL_STYLE ), WS_CHILD ) > 0
             hWnd := hParent
          ELSE
             lRet := .F.

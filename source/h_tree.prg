@@ -749,7 +749,7 @@ FUNCTION TreeItemIsExpand(ControlName, ParentForm, nItem)
    LOCAL nControlHandle := GetControlHandle(ControlName, ParentForm)
    LOCAL ItemHandle     := TreeItemGetHandle(ControlName, ParentForm, nItem)
 
-RETURN ( AND(TreeView_GetItemState(nControlHandle, ItemHandle, TVIS_EXPANDED), TVIS_EXPANDED) == TVIS_EXPANDED )
+RETURN ( hb_bitand(TreeView_GetItemState(nControlHandle, ItemHandle, TVIS_EXPANDED), TVIS_EXPANDED) == TVIS_EXPANDED )
 
 *-----------------------------------------------------------------------------*
 FUNCTION TreeNodeItemCargo( ControlName, ParentForm, Item, Value )

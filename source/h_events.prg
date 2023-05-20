@@ -686,7 +686,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
    CASE WM_MENUSELECT
    //**************************************************************************
 
-      IF AND(HiWord(wParam), MF_HILITE) != 0
+      IF hb_bitand(HiWord(wParam), MF_HILITE) != 0
 
          i := AScan(_HMG_aControlIds, LoWord(wParam))  // LoWord(wParam) => menu id
 
@@ -1516,7 +1516,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             IF _HMG_aControlParentHandles[z] == hWnd
 
-               IF _HMG_aControlType[z] == CONTROL_TYPE_TOOLBAR .AND. And(GetWindowLong(r, GWL_STYLE), CCS_BOTTOM) == CCS_BOTTOM
+               IF _HMG_aControlType[z] == CONTROL_TYPE_TOOLBAR .AND. hb_bitand(GetWindowLong(r, GWL_STYLE), CCS_BOTTOM) == CCS_BOTTOM
                   k := r
                   EXIT
                ENDIF
@@ -2690,7 +2690,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
             ENDIF
 #endif
             IF IsToolTipBalloonActive
-               IF !(And(GetWindowLong(k, GWL_STYLE), TTS_BALLOON) == TTS_BALLOON)
+               IF !(hb_bitand(GetWindowLong(k, GWL_STYLE), TTS_BALLOON) == TTS_BALLOON)
                   SetWindowStyle(k, TTS_BALLOON, .T.)
                ENDIF
             ENDIF
