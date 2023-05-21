@@ -91,7 +91,7 @@ FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidt
    _HMG_aControlContainerRow       [k] := -1
    _HMG_aControlContainerCol       [k] := -1
    _HMG_aControlPicture            [k] := cResName
-   _HMG_aControlContainerHandle    [k] := 0
+   _HMG_aControlContainerHandle    [k] := HMG_NULLHANDLE
    _HMG_aControlFontName           [k] := NIL
    _HMG_aControlFontSize           [k] := NIL
    _HMG_aControlFontAttributes     [k] := {}
@@ -102,7 +102,7 @@ FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidt
    _HMG_aControlVisible            [k] := .T.
    _HMG_aControlHelpId             [k] := 0
    _HMG_aControlFontHandle         [k] := NIL
-   _HMG_aControlBrushHandle        [k] := 0
+   _HMG_aControlBrushHandle        [k] := HMG_NULLHANDLE
    _HMG_aControlEnabled            [k] := .T.
    _HMG_aControlMiscData1          [k] := 0
    _HMG_aControlMiscData2          [k] := ""

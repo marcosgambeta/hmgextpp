@@ -103,7 +103,7 @@ PROCEDURE _DefineCLButton ( cName, nRow, nCol, cCaption, cNotes, bAction, cParen
    _HMG_aControlContainerRow       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1)
    _HMG_aControlContainerCol       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1)
    _HMG_aControlPicture            [k] := "Arrow"
-   _HMG_aControlContainerHandle    [k] := 0
+   _HMG_aControlContainerHandle    [k] := HMG_NULLHANDLE
    _HMG_aControlFontName           [k] := Nil
    _HMG_aControlFontSize           [k] := Nil
    _HMG_aControlFontAttributes     [k] := {}
@@ -114,7 +114,7 @@ PROCEDURE _DefineCLButton ( cName, nRow, nCol, cCaption, cNotes, bAction, cParen
    _HMG_aControlVisible            [k] := .T.
    _HMG_aControlHelpId             [k] := 0
    _HMG_aControlFontHandle         [k] := Nil
-   _HMG_aControlBrushHandle        [k] := 0
+   _HMG_aControlBrushHandle        [k] := HMG_NULLHANDLE
    _HMG_aControlEnabled            [k] := .T.
    _HMG_aControlMiscData1          [k] := 0
    _HMG_aControlMiscData2          [k] := ""
@@ -133,7 +133,7 @@ RETURN
 *------------------------------------------------------------------------------*
 PROCEDURE ReleaseCLButtonImageList ( cWindow, cControl )
 *------------------------------------------------------------------------------*
-   
+
    LOCAL i
 
    IF _IsControlDefined(cControl, cWindow) .AND. GetControlType(cControl, cWindow) == CONTROL_TYPE_CLBUTTON

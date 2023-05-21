@@ -101,7 +101,7 @@ PROCEDURE _DefineFont( FontName, fName, fSize, bold, italic, underline, strikeou
    _HMG_aControlType               [k] := CONTROL_TYPE_FONT
    _HMG_aControlNames              [k] := FontName
    _HMG_aControlHandles            [k] := FontHandle
-   _HMG_aControlParenthandles      [k] := 0
+   _HMG_aControlParenthandles      [k] := HMG_NULLHANDLE
    _HMG_aControlIds                [k] := _GetId()
    _HMG_aControlProcedures         [k] := ""
    _HMG_aControlPageMap            [k] := {}
@@ -123,7 +123,7 @@ PROCEDURE _DefineFont( FontName, fName, fSize, bold, italic, underline, strikeou
    _HMG_aControlContainerRow       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel ], -1)
    _HMG_aControlContainerCol       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel ], -1)
    _HMG_aControlPicture            [k] := ""
-   _HMG_aControlContainerHandle    [k] := 0
+   _HMG_aControlContainerHandle    [k] := HMG_NULLHANDLE
    _HMG_aControlFontName           [k] := fName
    _HMG_aControlFontSize           [k] := fSize
    _HMG_aControlFontAttributes     [k] := { bold, italic, underline, strikeout, nAngle, hb_defaultValue(charset, DEFAULT_CHARSET) }
@@ -134,7 +134,7 @@ PROCEDURE _DefineFont( FontName, fName, fSize, bold, italic, underline, strikeou
    _HMG_aControlVisible            [k] := .T.
    _HMG_aControlHelpId             [k] := 0
    _HMG_aControlFontHandle         [k] := FontHandle
-   _HMG_aControlBrushHandle        [k] := 0
+   _HMG_aControlBrushHandle        [k] := HMG_NULLHANDLE
    _HMG_aControlEnabled            [k] := .T.
    _HMG_aControlMiscData1          [k] := 0
    _HMG_aControlMiscData2          [k] := ""
