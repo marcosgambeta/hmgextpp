@@ -79,7 +79,7 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
    hb_default(@multitabs, .F.)
    hb_default(@aWidth, {})
 
-   IF ( FontHandle := GetFontHandle(FontName) ) != 0
+   IF (FontHandle := GetFontHandle(FontName)) != HMG_NULLHANDLE
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 

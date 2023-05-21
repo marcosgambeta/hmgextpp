@@ -171,7 +171,7 @@ STATIC FUNCTION _DefineTab( ControlName, ParentFormName, x, y, w, h, aCaptions, 
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
-   IF ( FontHandle := GetFontHandle(FontName) ) != 0
+   IF (FontHandle := GetFontHandle(FontName)) != HMG_NULLHANDLE
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 

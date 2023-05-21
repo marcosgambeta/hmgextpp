@@ -67,7 +67,7 @@ STATIC FUNCTION _DefineFrame(ControlName, ParentFormName, x, y, w, h, ;
    ow := oDlu2Pixel()
 #endif
 
-   IF ( FontHandle := GetFontHandle(FontName) ) != 0
+   IF (FontHandle := GetFontHandle(FontName)) != HMG_NULLHANDLE
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory

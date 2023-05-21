@@ -86,7 +86,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
    hb_default(@Spacing, iif(horizontal, iif(autosize, GetBorderWidth(), 0), 25))
    hb_default(@leftjustify, .F.)
 
-   IF ( FontHandle := GetFontHandle(FontName) ) != 0
+   IF (FontHandle := GetFontHandle(FontName)) != HMG_NULLHANDLE
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 

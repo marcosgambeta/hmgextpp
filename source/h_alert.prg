@@ -146,7 +146,7 @@ FUNCTION HMG_Alert( cMsg, aOptions, cTitle, nType, cIcoFile, nIcoSize, aBtnColor
    __defaultNIL(@cIcoFile, aIcon[nType])
    hb_default(@nIcoSize, 32)
 
-   IF GetFontHandle(cFontName) == 0
+   IF GetFontHandle(cFontName) == HMG_NULLHANDLE
       lFont := .T.
       DEFINE FONT ( cFontName ) FONTNAME GetDefaultFontName() SIZE GetDefaultFontSize() - iif(_SetGetGlobal( "_HMG_IsWin10" ), 1, 0)
    ENDIF

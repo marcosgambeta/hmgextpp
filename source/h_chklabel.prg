@@ -79,7 +79,7 @@ FUNCTION _DefineChkLabel(ControlName, ParentFormName, x, y, Caption, w, h, ;
    hb_default(@strikeout, .F.)
    hb_default(@VCenterAlign, .F.)
 
-   IF (FontHandle := GetFontHandle(FontName)) != 0
+   IF (FontHandle := GetFontHandle(FontName)) != HMG_NULLHANDLE
       GetFontParamByRef(FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout)
    ENDIF
 

@@ -84,7 +84,7 @@ FUNCTION _DefineCheckBox(ControlName, ParentFormName, x, y, Caption, Value, ;
    ENDIF
    hb_default(@autosize, .F.)
 
-   IF (FontHandle := GetFontHandle(FontName)) != 0
+   IF (FontHandle := GetFontHandle(FontName)) != HMG_NULLHANDLE
       GetFontParamByRef(FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout)
    ENDIF
 
@@ -307,7 +307,7 @@ FUNCTION _DefineCheckButton(ControlName, ParentFormName, x, y, Caption, Value, ;
    hb_default(@invisible, .F.)
    hb_default(@notabstop, .F.)
 
-   IF (FontHandle := GetFontHandle(FontName)) != 0
+   IF (FontHandle := GetFontHandle(FontName)) != HMG_NULLHANDLE
       GetFontParamByRef(FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout)
    ENDIF
 

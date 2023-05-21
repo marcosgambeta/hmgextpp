@@ -78,7 +78,7 @@ FUNCTION _DefineChkListbox(ControlName, ParentFormName, x, y, w, h, arows, value
    DEFAULT aCheck          TO {}
    DEFAULT nItemHeight     TO 16
 
-   IF (FontHandle := GetFontHandle(FontName)) != 0
+   IF (FontHandle := GetFontHandle(FontName)) != HMG_NULLHANDLE
       GetFontParamByRef(FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout)
    ENDIF
 

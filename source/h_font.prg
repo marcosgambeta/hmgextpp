@@ -230,14 +230,14 @@ FUNCTION GetFontHandle(FontName)
    LOCAL i := AScan(_HMG_aControlNames, FontName)
 
    IF i > 0
-      IF GetFontParamByRef( _HMG_aControlHandles[i] )
+      IF GetFontParamByRef(_HMG_aControlHandles[i])
          RETURN _HMG_aControlHandles[i]
       ELSEIF _HMG_aControlType[i] == CONTROL_TYPE_FONT
-         _EraseFontDef( i )
+         _EraseFontDef(i)
       ENDIF
    ENDIF
 
-RETURN 0
+RETURN HMG_NULLHANDLE
 
 
 FUNCTION GetFontParam( FontHandle )

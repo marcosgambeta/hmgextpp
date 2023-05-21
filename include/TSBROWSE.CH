@@ -697,13 +697,13 @@
             => <oBrw>:SetAlign( <nColumn>, 3, <ConstAlign> )
 
 #xcommand MODIFY [ CONTROL ] [ TBROWSE ] <oBrw> [ COLUMN <nColumn> ] [ PROPERTY ] FONT TO <cFont>;
-               => <oBrw>:ChangeFont( GetFontHandle( <"cFont"> ), <nColumn>, 1 )
+               => <oBrw>:ChangeFont( GetFontHandle(<"cFont">), <nColumn>, 1 )
 #xcommand MODIFY [ CONTROL ] [ TBROWSE ] <oBrw> [ COLUMN <nColumn> ] [ PROPERTY ] HEADER FONT TO <cFont>;
-               => <oBrw>:ChangeFont( GetFontHandle( <"cFont"> ), <nColumn>, 2 )
+               => <oBrw>:ChangeFont( GetFontHandle(<"cFont">), <nColumn>, 2 )
 #xcommand MODIFY [ CONTROL ] [ TBROWSE ] <oBrw> [ COLUMN <nColumn> ] [ PROPERTY ] FOOTER FONT TO <cFont>;
-               => <oBrw>:ChangeFont( GetFontHandle( <"cFont"> ), <nColumn>, 3 )
+               => <oBrw>:ChangeFont( GetFontHandle(<"cFont">), <nColumn>, 3 )
 #xcommand MODIFY [ CONTROL ] [ TBROWSE ] <oBrw> [ COLUMN <nColumn> ] [ PROPERTY ] SUPERHEADER FONT TO <cFont>;
-               => <oBrw>:ChangeFont( GetFontHandle( <"cFont"> ), <nColumn>, 4 )
+               => <oBrw>:ChangeFont( GetFontHandle(<"cFont">), <nColumn>, 4 )
 
 #xcommand MODIFY [ CONTROL ] [ TBROWSE ] <oBrw> COLUMN <nColumn> [ PROPERTY ] COLSIZE TO <nSize> ;
                => <oBrw>:SetColSize( <nColumn>, <nSize> )

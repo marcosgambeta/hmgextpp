@@ -255,7 +255,7 @@ FUNCTION _BeginDialog(name, parent, Id_resource, x, y, w, h, caption, fontname, 
       MsgMiniGuiError("DEFINE DIALOG Structures can't be nested.")
    ENDIF
 
-   IF (FontHandle := GetFontHandle(FontName)) != 0
+   IF (FontHandle := GetFontHandle(FontName)) != HMG_NULLHANDLE
       GetFontParamByRef(FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout)
    ENDIF
 

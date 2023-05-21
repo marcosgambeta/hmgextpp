@@ -93,7 +93,7 @@ FUNCTION _DefineCombo(ControlName, ParentFormName, x, y, w, rows, value, ;
    hb_default(@AutoComplete, .F.)
    hb_default(@lShowDropDown, .F.)
 
-   IF (FontHandle := GetFontHandle(FontName)) != 0
+   IF (FontHandle := GetFontHandle(FontName)) != HMG_NULLHANDLE
       GetFontParamByRef(FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout)
    ENDIF
 

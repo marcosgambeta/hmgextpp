@@ -74,7 +74,7 @@ FUNCTION _DefineButton(ControlName, ParentFormName, x, y, Caption, ;
    hb_default(@flat, .F.)
    hb_default(@NoTabStop, .F.)
 
-   IF (FontHandle := GetFontHandle(FontName)) != 0
+   IF (FontHandle := GetFontHandle(FontName)) != HMG_NULLHANDLE
       GetFontParamByRef(FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout)
    ENDIF
 

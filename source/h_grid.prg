@@ -114,7 +114,7 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
    hb_default(@lcheckboxes, .F.)
    hb_default(@autosizeW, .F.)
 
-   IF (FontHandle := GetFontHandle(FontName)) != 0
+   IF (FontHandle := GetFontHandle(FontName)) != HMG_NULLHANDLE
       GetFontParamByRef(FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout)
    ENDIF
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive

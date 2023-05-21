@@ -201,10 +201,10 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
       cFontHead := aFont[2]
       cFontFoot := aFont[3]
       IF !Empty(cFontHead)
-         hFontHead := GetFontHandle( cFontHead )
+         hFontHead := GetFontHandle(cFontHead)
       ENDIF
       IF !Empty(cFontFoot)
-         hFontFoot := GetFontHandle( cFontFoot )
+         hFontFoot := GetFontHandle(cFontFoot)
       ENDIF
       IF Empty(cFontFoot) .AND. !Empty(cFontHead)
          hFontFoot := hFontHead
@@ -212,7 +212,7 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
    ENDIF
 
    /* BK end */
-   IF ( FontHandle := GetFontHandle( FontName ) ) != 0
+   IF (FontHandle := GetFontHandle(FontName)) != HMG_NULLHANDLE
       GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 
@@ -331,13 +331,13 @@ FUNCTION _DefineTBrowse( ControlName, ParentFormName, nCol, nRow, nWidth, nHeigh
 
       IF hb_IsArray(aFont) .AND. Len(aFont) > 3
          IF hb_IsChar(aFont[4])
-            oBrw:hFontSpcHd := GetFontHandle( aFont[4] )
+            oBrw:hFontSpcHd := GetFontHandle(aFont[4])
          ENDIF
          IF hb_IsChar(aFont[5])
-            oBrw:hFontSupHd := GetFontHandle( aFont[5] )
+            oBrw:hFontSupHd := GetFontHandle(aFont[5])
          ENDIF
          IF hb_IsChar(aFont[6])
-            oBrw:hFontEdit := GetFontHandle( aFont[6] )
+            oBrw:hFontEdit := GetFontHandle(aFont[6])
          ENDIF
       ENDIF
       // BK
@@ -6360,7 +6360,7 @@ METHOD Excel2( cFile, lActivate, hProgress, cTitle, lSave, bPrintRow ) CLASS TSB
    IF ::hFont != NIL
       AAdd(aFont, GetFontParam( ::hFont ))
    ELSE
-      IF ( hFont := GetFontHandle( ::cFont ) ) != 0
+      IF (hFont := GetFontHandle(::cFont)) != HMG_NULLHANDLE
          AAdd(aFont, GetFontParam( hFont ))
       ENDIF
    ENDIF

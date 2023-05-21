@@ -77,7 +77,7 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
    hb_default(@underline, .F.)
    hb_default(@strikeout, .F.)
 
-   IF ( aControlHandle[2] := GetFontHandle(FontName) ) != 0
+   IF (aControlHandle[2] := GetFontHandle(FontName)) != HMG_NULLHANDLE
       GetFontParamByRef( aControlHandle[2], @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
    ENDIF
 

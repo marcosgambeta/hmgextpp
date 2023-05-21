@@ -176,7 +176,7 @@ FUNCTION _BeginPropSheet(  FormName, ParentForm, row, col, width, height, captio
       MsgMiniGuiError("DEFINE PROPERTY SHEET Structures can't be nested.")
    ENDIF
 
-   IF ( FontHandle := GetFontHandle( FontName ) ) != 0
+   IF (FontHandle := GetFontHandle(FontName)) != HMG_NULLHANDLE
       aFont := GetFontParam( FontHandle )
       FontName      := aFont[1]
       FontSize      := aFont[2]
@@ -725,7 +725,7 @@ FUNCTION InitPageDlgProc( hwndDlg, idDlg, hWndParent )
          k       := aDialogItems[ n, 2 ]
          blInit  := aDialogItems[ n, 19 ]
          ControlHandle := GetDialogItemHandle( _HMG_ActiveDialogHandle, nId )
-         FontHandle    := GetFontHandle( aDialogItems[ n, 13 ] )
+         FontHandle    := GetFontHandle(aDialogItems[n, 13])
          IF !empty(FontHandle)
             _SetFontHandle ( ControlHandle, FontHandle )
          ELSEIF IsWindowHandle( ControlHandle )

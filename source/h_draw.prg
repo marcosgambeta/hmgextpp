@@ -65,7 +65,7 @@ FUNCTION drawtextout( window, row, col, string, fontcolor, backcolor, fontname, 
    ENDIF
 
    IF IsWindowHandle(FormHandle) .OR. ( GetObjectType( FormHandle ) == OBJ_DC )
-      IF ( FontHandle := GetFontHandle(FontName) ) != 0
+      IF (FontHandle := GetFontHandle(FontName)) != HMG_NULLHANDLE
          GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout, @angle )
       ENDIF
 
