@@ -54,53 +54,18 @@
 #define FONT_ATTR_SIZE       6
 #define FONT_ATTR_NAME       7
 
-#xtranslate _GetFontName( <ControlName>, <ParentForm> ) ;
-   => ;
-   _GetFontAttr( <ControlName>, <ParentForm>, FONT_ATTR_NAME )
-
-#xtranslate _SetFontName( <ControlName>, <ParentForm>, <Value> ) ;
-   => ;
-   _SetFontAttr( <ControlName>, <ParentForm>, <Value>, FONT_ATTR_NAME )
-
-#xtranslate _GetFontSize( <ControlName>, <ParentForm> ) ;
-   => ;
-   _GetFontAttr( <ControlName>, <ParentForm>, FONT_ATTR_SIZE )
-
-#xtranslate _SetFontSize( <ControlName>, <ParentForm>, <Value> ) ;
-   => ;
-   _SetFontAttr( <ControlName>, <ParentForm>, <Value>, FONT_ATTR_SIZE )
-
-#xtranslate _GetFontBold( <ControlName>, <ParentForm> ) ;
-   => ;
-   _GetFontAttr( <ControlName>, <ParentForm>, FONT_ATTR_BOLD )
-
-#xtranslate _SetFontBold( <ControlName>, <ParentForm>, <Value> ) ;
-   => ;
-   _SetFontAttr( <ControlName>, <ParentForm>, <Value>, FONT_ATTR_BOLD )
-
-#xtranslate _GetFontItalic( <ControlName>, <ParentForm> ) ;
-   => ;
-   _GetFontAttr( <ControlName>, <ParentForm>, FONT_ATTR_ITALIC )
-
-#xtranslate _SetFontItalic( <ControlName>, <ParentForm>, <Value> ) ;
-   => ;
-   _SetFontAttr( <ControlName>, <ParentForm>, <Value>, FONT_ATTR_ITALIC )
-
-#xtranslate _GetFontUnderline( <ControlName>, <ParentForm> ) ;
-   => ;
-   _GetFontAttr( <ControlName>, <ParentForm>, FONT_ATTR_UNDERLINE )
-
-#xtranslate _SetFontUnderline( <ControlName>, <ParentForm>, <Value> ) ;
-   => ;
-   _SetFontAttr( <ControlName>, <ParentForm>, <Value>, FONT_ATTR_UNDERLINE )
-
-#xtranslate _GetFontStrikeOut( <ControlName>, <ParentForm> ) ;
-   => ;
-   _GetFontAttr( <ControlName>, <ParentForm>, FONT_ATTR_STRIKEOUT )
-
-#xtranslate _SetFontStrikeOut( <ControlName>, <ParentForm>, <Value> ) ;
-   => ;
-   _SetFontAttr( <ControlName>, <ParentForm>, <Value>, FONT_ATTR_STRIKEOUT )
+#xtranslate _GetFontName(<ControlName>, <ParentForm>) => _GetFontAttr(<ControlName>, <ParentForm>, FONT_ATTR_NAME)
+#xtranslate _SetFontName(<ControlName>, <ParentForm>, <Value>) => _SetFontAttr(<ControlName>, <ParentForm>, <Value>, FONT_ATTR_NAME)
+#xtranslate _GetFontSize(<ControlName>, <ParentForm>) => _GetFontAttr(<ControlName>, <ParentForm>, FONT_ATTR_SIZE)
+#xtranslate _SetFontSize(<ControlName>, <ParentForm>, <Value>) => _SetFontAttr(<ControlName>, <ParentForm>, <Value>, FONT_ATTR_SIZE)
+#xtranslate _GetFontBold(<ControlName>, <ParentForm>) => _GetFontAttr(<ControlName>, <ParentForm>, FONT_ATTR_BOLD)
+#xtranslate _SetFontBold(<ControlName>, <ParentForm>, <Value>) => _SetFontAttr(<ControlName>, <ParentForm>, <Value>, FONT_ATTR_BOLD)
+#xtranslate _GetFontItalic(<ControlName>, <ParentForm>) => _GetFontAttr(<ControlName>, <ParentForm>, FONT_ATTR_ITALIC)
+#xtranslate _SetFontItalic(<ControlName>, <ParentForm>, <Value>) => _SetFontAttr(<ControlName>, <ParentForm>, <Value>, FONT_ATTR_ITALIC)
+#xtranslate _GetFontUnderline(<ControlName>, <ParentForm>) => _GetFontAttr(<ControlName>, <ParentForm>, FONT_ATTR_UNDERLINE)
+#xtranslate _SetFontUnderline(<ControlName>, <ParentForm>, <Value>) => _SetFontAttr(<ControlName>, <ParentForm>, <Value>, FONT_ATTR_UNDERLINE)
+#xtranslate _GetFontStrikeOut(<ControlName>, <ParentForm>) => _GetFontAttr(<ControlName>, <ParentForm>, FONT_ATTR_STRIKEOUT)
+#xtranslate _SetFontStrikeOut(<ControlName>, <ParentForm>, <Value>) => _SetFontAttr(<ControlName>, <ParentForm>, <Value>, FONT_ATTR_STRIKEOUT)
 
 /* for using with GetFontList() */
 // nCharSet
@@ -136,15 +101,10 @@
 #define FONT_RASTER_TYPE      2
 #define FONT_TRUE_TYPE        3
 
-
 #ifdef _OBJECT_
-  #command SET FONT TO <fontname> , <fontsize> ;
-    => ;
-         _HMG_DefaultFontName := <fontname> ; _HMG_DefaultFontSize := <fontsize> ; oDlu2Pixel( , , <fontsize> )
+#command SET FONT TO <fontname>, <fontsize> => _HMG_DefaultFontName := <fontname> ; _HMG_DefaultFontSize := <fontsize> ; oDlu2Pixel( , , <fontsize> )
 #else
-  #command SET FONT TO <fontname> , <fontsize> ;
-    => ;
-         _HMG_DefaultFontName := <fontname> ; _HMG_DefaultFontSize := <fontsize>
+#command SET FONT TO <fontname>, <fontsize> => _HMG_DefaultFontName := <fontname> ; _HMG_DefaultFontSize := <fontsize>
 #endif
 
 /* HMG 1.1 Experimental Build 11a */
@@ -173,43 +133,27 @@
         <charset> )
 
 
-#command RELEASE FONT <name1> [, <nameN> ] ;
-   => ;
-        _ReleaseFont ( <(name1)> ) ;
-        [; _ReleaseFont ( <(nameN)> ) ]
+#command RELEASE FONT <name1> [, <nameN>] => _ReleaseFont(<(name1)>) [; _ReleaseFont(<(nameN)>)]
 
 ///////////////////////////////////////////////////////////////////////////////
 
-#xtranslate GetDefaultFontName () ;
-   => ;
-        GetSystemFont() \[1\]
-
-#xtranslate GetDefaultFontSize () ;
-   => ;
-        GetSystemFont() \[2\]
+#xtranslate GetDefaultFontName() => GetSystemFont()\[1\]
+#xtranslate GetDefaultFontSize() => GetSystemFont()\[2\]
 
 ///////////////////////////////////////////////////////////////////////////////
 
-#command SET TITLEBAR FONT TO <fontname> , <fontsize> ;
-        [ <bold : BOLD> ] ;
-        [ CHARSET <charset> ]        ;
+#command SET TITLEBAR FONT TO <fontname>, <fontsize> [ <bold : BOLD> ] [ CHARSET <charset> ] ;
    => ;
         SetNonClientFont( 1 , <fontname> , <fontsize> , <.bold.> , <charset> )
 
-#command SET [STANDARD] MENU FONT TO <fontname> , <fontsize> ;
-        [ <bold : BOLD> ] ;
-        [ CHARSET <charset> ]        ;
+#command SET [STANDARD] MENU FONT TO <fontname>, <fontsize> [ <bold : BOLD> ] [ CHARSET <charset> ] ;
    => ;
         SetNonClientFont( 2 , <fontname> , <fontsize> , <.bold.> , <charset> )
 
-#command SET STATUSBAR FONT TO <fontname> , <fontsize> ;
-        [ <bold : BOLD> ] ;
-        [ CHARSET <charset> ]        ;
+#command SET STATUSBAR FONT TO <fontname>, <fontsize> [ <bold : BOLD> ] [ CHARSET <charset> ] ;
    => ;
         SetNonClientFont( 3 , <fontname> , <fontsize> , <.bold.> , <charset> )
 
-#command SET MESSAGEBOX FONT TO <fontname> , <fontsize> ;
-        [ <bold : BOLD> ] ;
-        [ CHARSET <charset> ]        ;
+#command SET MESSAGEBOX FONT TO <fontname>, <fontsize> [ <bold : BOLD> ] [ CHARSET <charset> ] ;
    => ;
         SetNonClientFont( 4 , <fontname> , <fontsize> , <.bold.> , <charset> )
