@@ -176,7 +176,7 @@ PROCEDURE _EraseFontDef( i )
 #ifndef _PUBLIC_RELEASE_
       __mvPut( mVar, 0 )
 #else
-      __mvXRelease( mVar )
+      __mvXRelease(mVar)
 #endif
    ENDIF
 #endif
@@ -367,7 +367,7 @@ FUNCTION GetFontParamByRef( FontHandle, FontName, FontSize, bold, italic, underl
    LOCAL lExpr
    LOCAL i := iif((hb_IsNumeric(FontHandle) .OR. HB_ISPOINTER(FontHandle)), AScan(_HMG_aControlHandles, hmg_numbertohandle(FontHandle)), 0)
 
-   lExpr := ( i > 0 .AND. GetObjectType( _HMG_aControlHandles[i] ) == OBJ_FONT )
+   lExpr := ( i > 0 .AND. GetObjectType(_HMG_aControlHandles[i]) == OBJ_FONT )
 
    IF hb_PIsByRef( 2 )
       FontName := iif(lExpr, _HMG_aControlFontName[i], _HMG_DefaultFontName)

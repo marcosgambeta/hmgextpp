@@ -1625,7 +1625,7 @@ HTREEITEM GetNextItemPG(HWND TreeHandle, HTREEITEM hTreeItem)
 {
    HTREEITEM hTreeItemBack = hTreeItem;
 
-   hTreeItem = TreeView_GetChild( TreeHandle, hTreeItem );
+   hTreeItem = TreeView_GetChild(TreeHandle, hTreeItem);
 
    if( hTreeItem == nullptr )
    {

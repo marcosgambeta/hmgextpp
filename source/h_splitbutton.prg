@@ -280,7 +280,7 @@ RETURN Nil
 #include "mgdefs.hpp"
 
 #ifdef UNICODE
-   LPWSTR AnsiToWide( LPCSTR );
+   LPWSTR AnsiToWide(LPCSTR);
 #endif
 
 HB_FUNC( INITSPLITBUTTON )
@@ -291,7 +291,7 @@ HB_FUNC( INITSPLITBUTTON )
 #ifndef UNICODE
    LPCSTR lpWindowName = hb_parc(4);
 #else
-   LPWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc(4) );
+   LPWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(4));
 #endif
 
    style = BS_SPLITBUTTON;

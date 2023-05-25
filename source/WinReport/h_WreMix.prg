@@ -230,7 +230,7 @@ Test(mkm)
             if (mx_pg * lbody) != mx_pg
                mx_pg ++
             endif
-            mx_pg :=ROUND( max(1,mx_pg), 0 )
+            mx_pg :=ROUND(max(1, mx_pg), 0)
             tpg := mx_pg
             if valtype(oWr:argm[3]) != "A"
                Dbgotop()

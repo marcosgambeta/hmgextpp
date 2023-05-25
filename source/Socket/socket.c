@@ -65,7 +65,7 @@ static int bInit = FALSE;
 /* If startup fails no other functions are allowed */
 HB_FUNC( SOCKETINIT )
 {
-   #define HB_MKWORD( l, h )  ( ( WORD ) ( ( ( BYTE ) ( l ) ) | ( ( ( WORD ) ( ( BYTE ) ( h ) ) ) << 8 ) ) )
+   #define HB_MKWORD(l, h)  ( ( WORD ) ( ( ( BYTE ) ( l ) ) | ( ( ( WORD ) ( ( BYTE ) ( h ) ) ) << 8 ) ) )
 
    WSADATA WSAData;
 

@@ -70,10 +70,10 @@ CREATE CLASS TReg32
    VAR lError
 
    METHOD New( nKey, cRegKey, lShowError )
-   METHOD Create( nKey, cRegKey, lShowError )
+   METHOD Create(nKey, cRegKey, lShowError)
    METHOD Get( cRegVar, uVar )
    METHOD Set( cRegVar, uVar )
-   METHOD Delete( cRegVar )
+   METHOD Delete(cRegVar)
    METHOD Close() BLOCK {|Self| iif(::lError, NIL, RegCloseKey(::nHandle)) }
 
 ENDCLASS
@@ -105,7 +105,7 @@ METHOD New( nKey, cRegKey, lShowError ) CLASS TReg32
 RETURN Self
 
 
-METHOD Create( nKey, cRegKey, lShowError ) CLASS TReg32
+METHOD Create(nKey, cRegKey, lShowError) CLASS TReg32
 
    LOCAL nHandle := 0
    LOCAL nReturn
@@ -191,7 +191,7 @@ METHOD Set( cRegVar, uVar ) CLASS TReg32
 RETURN NIL
 
 
-METHOD Delete( cRegVar ) CLASS TReg32
+METHOD Delete(cRegVar) CLASS TReg32
 
    IF !::lError
       ::nError := RegDeleteValueA(::nHandle, cRegVar)
@@ -228,7 +228,7 @@ FUNCTION CreateRegistryKey( nKey, cRegKey )
    LOCAL oReg
    LOCAL lSuccess
 
-   oReg     := TReg32():Create( nKey, cRegKey, .F. )
+   oReg     := TReg32():Create(nKey, cRegKey, .F.)
    lSuccess := ( oReg:lError == .F. )
 
    oReg:Close()
@@ -236,7 +236,7 @@ FUNCTION CreateRegistryKey( nKey, cRegKey )
 RETURN lSuccess
 
 
-FUNCTION GetRegistryValue( nKey, cRegKey, cRegVar, cType )
+FUNCTION GetRegistryValue(nKey, cRegKey, cRegVar, cType)
 
    LOCAL oReg
    LOCAL uVal
@@ -270,7 +270,7 @@ FUNCTION GetRegistryValue( nKey, cRegKey, cRegVar, cType )
 RETURN uVal
 
 
-FUNCTION SetRegistryValue( nKey, cRegKey, cRegVar, uVal )
+FUNCTION SetRegistryValue(nKey, cRegKey, cRegVar, uVal)
 
    LOCAL oReg
    LOCAL lSuccess := .F.
@@ -299,7 +299,7 @@ FUNCTION DeleteRegistryVar( nKey, cRegKey, cRegVar )
    oReg := TReg32():New( nKey, cRegKey, .F. )
 
    IF !oReg:lError
-      oReg:Delete( cRegVar )
+      oReg:Delete(cRegVar)
       lSuccess := ( oReg:nError == ERROR_SUCCESS )
    ENDIF
 

@@ -85,30 +85,30 @@ FUNCTION CheckStatic()
    LOCAL nCnt := 0
    LOCAL n
 
-   _SetGetLogFile( GetStartUpFolder() + hb_ps() + "checkstatic.txt" )
-   FErase( _SetGetLogFile() )
+   _SetGetLogFile(GetStartUpFolder() + hb_ps() + "checkstatic.txt")
+   FErase(_SetGetLogFile())
 
    cInfo += "Statics variables:" + CRLF
    cInfo += "=================="
-   _LogFile( .F., cInfo )
+   _LogFile(.F., cInfo)
 
    FOR n = 1 TO nStatics()
       if !Empty(Static(n))
          cInfo := CRLF
-         cInfo += hb_ntos(n) + Replicate( "-", 55 ) + "> "
-         _LogFile( .F., cInfo )
+         cInfo += hb_ntos(n) + Replicate("-", 55) + "> "
+         _LogFile(.F., cInfo)
          Scan( Static(n) )
          nCnt++
       ENDIF
    NEXT
 
    cInfo := CRLF
-   cInfo += Replicate( "-", 59 ) + "> "
-   _LogFile( .F., cInfo )
+   cInfo += Replicate("-", 59) + "> "
+   _LogFile(.F., cInfo)
 
-   _LogFile( .T., "Amount = " + hb_ntos(nCnt) )
-   _LogFile( .T., Replicate( "=", 60 ) )
-   _LogFile( .T., GetExeFileName() )
+   _LogFile(.T., "Amount = " + hb_ntos(nCnt))
+   _LogFile(.T., Replicate("=", 60) )
+   _LogFile(.T., GetExeFileName())
 
 RETURN NIL
 
@@ -128,18 +128,18 @@ STATIC FUNCTION Scan( u, cData )
 
    IF nNested > 50
       cInfo += CRLF
-      cInfo += Space( nNested ) + "Break on 50 nested loops"
+      cInfo += Space(nNested) + "Break on 50 nested loops"
       cInfo += CRLF
-      _LogFile( .T., cInfo )
+      _LogFile(.T., cInfo)
    ELSE
       // We write the data and its containts
-      _LogFile( .F., CRLF + Space( nNested ) + cType + " " + cData )
+      _LogFile(.F., CRLF + Space( nNested ) + cType + " " + cData)
       IF !cType $ "UAO"
-         _LogFile( .F., " " + cValToChar( u ) )
+         _LogFile(.F., " " + cValToChar(u))
       ENDIF
 
       IF cType $ "AO"
-         _LogFile( .F., " (Len = " + hb_ntos(Len(u)) + ")" )
+         _LogFile(.F., " (Len = " + hb_ntos(Len(u)) + ")")
       ENDIF
 
       IF cType == "A"
@@ -149,7 +149,7 @@ STATIC FUNCTION Scan( u, cData )
             DoEvents()
 
             IF ValType(u[n]) == ValType(u) .AND. u[n] == u
-               _LogFile( .T., " Direct reference to its container" )
+               _LogFile(.T., " Direct reference to its container")
             ELSE
                nNested++
                Scan( u[n], cData )

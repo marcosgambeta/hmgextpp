@@ -66,7 +66,7 @@ PROCEDURE _DefineCLButton ( cName, nRow, nCol, cCaption, cNotes, bAction, cParen
 
    hControlHandle := InitCLButton(hParentFormHandle, nRow, nCol, cCaption, lDefault, w, h, nId)
 
-   CLButton_SetNote( hControlHandle, cNotes )
+   CLButton_SetNote(hControlHandle, cNotes)
 
    IF _HMG_BeginTabActive
       AAdd(_HMG_ActiveTabCurrentPageMap, hControlHandle)
@@ -125,7 +125,7 @@ PROCEDURE _DefineCLButton ( cName, nRow, nCol, cCaption, cNotes, bAction, cParen
 
    IF !Empty(cBitmap)
       _HMG_aControlPicture[k] := cBitmap
-      _HMG_aControlBrushHandle[k] := CLButton_SetImage( hControlHandle, cBitmap )
+      _HMG_aControlBrushHandle[k] := CLButton_SetImage(hControlHandle, cBitmap)
    ENDIF
 
 RETURN
@@ -453,7 +453,7 @@ RETURN RetVal
 #include <commctrl.h>
 
 #ifdef UNICODE
-   LPWSTR AnsiToWide( LPCSTR );
+   LPWSTR AnsiToWide(LPCSTR);
 #endif
 
 HB_FUNC( INITCLBUTTON )
@@ -464,7 +464,7 @@ HB_FUNC( INITCLBUTTON )
 #ifndef UNICODE
    LPCSTR lpWindowName = hb_parc(4);
 #else
-   LPWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc(4) );
+   LPWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(4));
 #endif
 
    style = BS_COMMANDLINK;
@@ -503,7 +503,7 @@ HB_FUNC( CLBUTTON_SETNOTE )
 
       MultiByteToWideChar( CP_ACP, MB_PRECOMPOSED, szText, -1, lpwText, nConvertedLen );
 
-      SendMessage( hmg_par_HWND(1), BCM_SETNOTE, 0, ( LPARAM ) lpwText );
+      SendMessage(hmg_par_HWND(1), BCM_SETNOTE, 0, ( LPARAM ) lpwText);
       hb_xfree(lpwText);
    }
 }
@@ -529,7 +529,7 @@ HB_FUNC( CLBUTTON_SETIMAGE )
 #ifndef UNICODE
    LPCTSTR lpImageName = hb_parc(2);
 #else
-   LPWSTR  lpImageName = AnsiToWide( ( char * ) hb_parc(2) );
+   LPWSTR  lpImageName = AnsiToWide(( char * ) hb_parc(2));
 #endif
 
    himl = ImageList_LoadImage
@@ -564,7 +564,7 @@ HB_FUNC( CLBUTTON_SETIMAGE )
    bi.margin.right  = 10;
    bi.uAlign        = 4;
 
-   SendMessage( hmg_par_HWND(1), BCM_SETIMAGELIST, 0, ( LPARAM ) &bi );
+   SendMessage(hmg_par_HWND(1), BCM_SETIMAGELIST, 0, ( LPARAM ) &bi);
 
    hmg_ret_HIMAGELIST(himl);
 }

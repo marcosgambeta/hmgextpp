@@ -475,31 +475,31 @@ FUNCTION HMG_PieGraph( nWidth, nHeight, series, aname, colors, ctitle, aTitleCol
       DO CASE
       CASE cumulative[i] <= 45
          toradialcol := middlerightcol
-         toradialrow := middlerightrow - Round( cumulative[i] / 45 * ( middlerightrow - toprightrow ), 0 )
+         toradialrow := middlerightrow - Round(cumulative[i] / 45 * (middlerightrow - toprightrow), 0)
          drawpieInBitmap( hDC, fromrow, fromcol, torow, tocol, fromradialrow, fromradialcol, toradialrow, toradialcol, , , colors[i] )
          fromradialrow := toradialrow
          fromradialcol := toradialcol
       CASE cumulative[i] <= 90 .AND. cumulative[i] > 45
          toradialrow := toprightrow
-         toradialcol := toprightcol - Round( ( cumulative[i] - 45 ) / 45 * ( toprightcol - middletopcol ), 0 )
+         toradialcol := toprightcol - Round((cumulative[i] - 45) / 45 * (toprightcol - middletopcol), 0)
          drawpieInBitmap( hDC, fromrow, fromcol, torow, tocol, fromradialrow, fromradialcol, toradialrow, toradialcol, , , colors[i] )
          fromradialrow := toradialrow
          fromradialcol := toradialcol
       CASE cumulative[i] <= 135 .AND. cumulative[i] > 90
          toradialrow := topleftrow
-         toradialcol := middletopcol - Round( ( cumulative[i] - 90 ) / 45 * ( middletopcol - topleftcol ), 0 )
+         toradialcol := middletopcol - Round((cumulative[i] - 90) / 45 * (middletopcol - topleftcol), 0)
          drawpieInBitmap( hDC, fromrow, fromcol, torow, tocol, fromradialrow, fromradialcol, toradialrow, toradialcol, , , colors[i] )
          fromradialrow := toradialrow
          fromradialcol := toradialcol
       CASE cumulative[i] <= 180 .AND. cumulative[i] > 135
          toradialcol := topleftcol
-         toradialrow := topleftrow + Round( ( cumulative[i] - 135 ) / 45 * ( middleleftrow - topleftrow ), 0 )
+         toradialrow := topleftrow + Round((cumulative[i] - 135) / 45 * (middleleftrow - topleftrow), 0)
          drawpieInBitmap( hDC, fromrow, fromcol, torow, tocol, fromradialrow, fromradialcol, toradialrow, toradialcol, , , colors[i] )
          fromradialrow := toradialrow
          fromradialcol := toradialcol
       CASE cumulative[i] <= 225 .AND. cumulative[i] > 180
          toradialcol := topleftcol
-         toradialrow := middleleftrow + Round( ( cumulative[i] - 180 ) / 45 * ( bottomleftrow - middleleftrow ), 0 )
+         toradialrow := middleleftrow + Round((cumulative[i] - 180) / 45 * (bottomleftrow - middleleftrow), 0)
          IF l3d
             FOR j := 1 TO depth
                drawarcInBitmap( hDC, fromrow + j, fromcol, torow + j, tocol, fromradialrow + j, fromradialcol, toradialrow + j, toradialcol, shadowcolor )
@@ -510,7 +510,7 @@ FUNCTION HMG_PieGraph( nWidth, nHeight, series, aname, colors, ctitle, aTitleCol
          fromradialcol := toradialcol
       CASE cumulative[i] <= 270 .AND. cumulative[i] > 225
          toradialrow := bottomleftrow
-         toradialcol := bottomleftcol + Round( ( cumulative[i] - 225 ) / 45 * ( middlebottomcol - bottomleftcol ), 0 )
+         toradialcol := bottomleftcol + Round((cumulative[i] - 225) / 45 * (middlebottomcol - bottomleftcol), 0)
          IF l3d
             FOR j := 1 TO depth
                drawarcInBitmap( hDC, fromrow + j, fromcol, torow + j, tocol, fromradialrow + j, fromradialcol, toradialrow + j, toradialcol, shadowcolor )
@@ -521,7 +521,7 @@ FUNCTION HMG_PieGraph( nWidth, nHeight, series, aname, colors, ctitle, aTitleCol
          fromradialcol := toradialcol
       CASE cumulative[i] <= 315 .AND. cumulative[i] > 270
          toradialrow := bottomleftrow
-         toradialcol := middlebottomcol + Round( ( cumulative[i] - 270 ) / 45 * ( bottomrightcol - middlebottomcol ), 0 )
+         toradialcol := middlebottomcol + Round((cumulative[i] - 270) / 45 * (bottomrightcol - middlebottomcol), 0)
          IF l3d
             FOR j := 1 TO depth
                drawarcInBitmap( hDC, fromrow + j, fromcol, torow + j, tocol, fromradialrow + j, fromradialcol, toradialrow + j, toradialcol, shadowcolor )
@@ -532,7 +532,7 @@ FUNCTION HMG_PieGraph( nWidth, nHeight, series, aname, colors, ctitle, aTitleCol
          fromradialcol := toradialcol
       CASE cumulative[i] <= 360 .AND. cumulative[i] > 315
          toradialcol := bottomrightcol
-         toradialrow := bottomrightrow - Round( ( cumulative[i] - 315 ) / 45 * ( bottomrightrow - middlerightrow ), 0 )
+         toradialrow := bottomrightrow - Round((cumulative[i] - 315) / 45 * (bottomrightrow - middlerightrow), 0)
          IF l3d
             FOR j := 1 TO depth
                drawarcInBitmap( hDC, fromrow + j, fromcol, torow + j, tocol, fromradialrow + j, fromradialcol, toradialrow + j, toradialcol, shadowcolor )
@@ -624,7 +624,7 @@ RETURN
 
 STATIC PROCEDURE DrawCircleInBitmap( hDC, nCol, nRow, nWidth, aColor, nPenWidth )
 
-   BT_DrawFillEllipse( hDC, nCol, nRow, nWidth, nWidth, aColor, aColor, nPenWidth )
+   BT_DrawFillEllipse(hDC, nCol, nRow, nWidth, nWidth, aColor, aColor, nPenWidth)
 
 RETURN
 
@@ -639,9 +639,9 @@ STATIC PROCEDURE DrawBarInBitmap( hDC, nY, nX, nHigh, nWidth, l3DView, nDeep, aC
    nColTop := ClrShadow( RGB(aColor[1], aColor[2], aColor[3]), 20 )
    nShadow := ClrShadow( nColTop, 20 )
    nShadow2 := ClrShadow( nColTop, 40 )
-   nColTop := { GetRed( nColTop ), GetGreen( nColTop ), GetBlue( nColTop ) }
-   nShadow := { GetRed( nShadow ), GetGreen( nShadow ), GetBlue( nShadow ) }
-   nShadow2 := { GetRed( nShadow2 ), GetGreen( nShadow2 ), GetBlue( nShadow2 ) }
+   nColTop := { GetRed(nColTop), GetGreen(nColTop), GetBlue(nColTop) }
+   nShadow := { GetRed(nShadow), GetGreen(nShadow ), GetBlue(nShadow) }
+   nShadow2 := { GetRed(nShadow2), GetGreen(nShadow2), GetBlue(nShadow2) }
    BT_DrawGradientFillVertical( hDC, nX + nDeep - nHigh, nY, nWidth + 1, nHigh - nDeep, aColor, nShadow2 )
    IF l3DView
       // Lateral

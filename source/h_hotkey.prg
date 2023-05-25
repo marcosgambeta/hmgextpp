@@ -87,7 +87,7 @@ FUNCTION _DefineHotKey ( cParentForm , nMod , nKey , bAction )
       nParentForm := GetFormHandle(cParentForm)
    ENDIF
 
-   nId := _GetId( 49151 )
+   nId := _GetId(49151)
 
    lSuccess := InitHotKey ( nParentForm , nMod , nKey , nId )
 

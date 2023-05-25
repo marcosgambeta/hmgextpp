@@ -23,7 +23,7 @@ CREATE CLASS TSimpleTaskDialog FUNCTION SimpleTaskDialog
    METHOD New( cTitle, cInstruction, cContent, nCommonButtons, nMainIcon )
    METHOD Execute()
 
-   METHOD Title( cTitle )              SETGET
+   METHOD Title(cTitle)                SETGET
    METHOD Instruction( cInstruction )  SETGET
    METHOD Content( cContent )          SETGET
    METHOD CommonButtons( nCBs )        SETGET
@@ -76,7 +76,7 @@ METHOD Execute() CLASS TSimpleTaskDialog
 
 RETURN ( !::lError )
 
-METHOD Title( cTitle ) CLASS TSimpleTaskDialog
+METHOD Title(cTitle) CLASS TSimpleTaskDialog
 
    LOCAL cOldVal := ::cTitle
 
@@ -144,8 +144,8 @@ CREATE CLASS TTaskDialog FUNCTION TaskDialog
    METHOD ShowDialog()
    METHOD DialogHandle()
    METHOD Showing( lState )
-   METHOD OnCreated( hWnd, nNotify, nWParam, nLParam )
-   METHOD OnDestroyed( hWnd, nNotify, nWParam, nLParam )
+   METHOD OnCreated(hWnd, nNotify, nWParam, nLParam)
+   METHOD OnDestroyed(hWnd, nNotify, nWParam, nLParam)
    METHOD Listener( hWnd, nNotify, nWParam, nLParam )
    METHOD CommonButtons(nCBs)                SETGET
    METHOD WindowTitle(cTitle)                SETGET
@@ -236,7 +236,7 @@ METHOD ShowDialog() CLASS TTaskDialog
       ::nResult            := E_FAIL
       ::TimedOut           := .F.
 
-      IF ::timeoutMS() > 0 .OR. __objHasMethod( Self, "ONTIMER" )
+      IF ::timeoutMS() > 0 .OR. __objHasMethod(Self, "ONTIMER")
          ::Flags := hb_bitOr(::Flags, TDF_CALLBACK_TIMER)
       ENDIF
 
@@ -284,7 +284,7 @@ RETURN ::lActive
 /*
    Indicates that the Task Dialog has been created.
 */
-METHOD OnCreated( hWnd, nNotify, nWParam, nLParam ) CLASS TTaskDialog
+METHOD OnCreated(hWnd, nNotify, nWParam, nLParam) CLASS TTaskDialog
 
    HB_SYMBOL_UNUSED(nWParam)
    HB_SYMBOL_UNUSED(nLParam)
@@ -299,7 +299,7 @@ RETURN .F.
 /*
    Indicates that the Task Dialog has been destroyed.
 */
-METHOD OnDestroyed( hWnd, nNotify, nWParam, nLParam ) CLASS TTaskDialog
+METHOD OnDestroyed(hWnd, nNotify, nWParam, nLParam) CLASS TTaskDialog
 
    HB_SYMBOL_UNUSED(hWnd)
    HB_SYMBOL_UNUSED(nWParam)
@@ -347,21 +347,21 @@ RETURN nOldCBS
 /*
    The string to be used for the task dialog title (read/write, LIVE).
  */
-METHOD WindowTitle( cTitle ) CLASS TTaskDialog
+METHOD WindowTitle(cTitle) CLASS TTaskDialog
 
    LOCAL cOldVal := ::aConfig[ TDC_WINDOWTITLE ]
 
    IF hb_IsString(cTitle) .OR. hb_IsNumeric(cTitle)
       ::aConfig[ TDC_WINDOWTITLE ] := iif(hb_IsString(cTitle) .AND. HB_ISNULL( cTitle ), NIL, cTitle)
       IF ::lActive
-         _SetWindowTitle( ::HWND, ::aConfig[ TDC_WINDOWTITLE ] )
+         _SetWindowTitle(::HWND, ::aConfig[TDC_WINDOWTITLE])
       ENDIF
    ENDIF
 
 RETURN cOldVal
 
-METHOD Title( cTitle ) CLASS TTaskDialog
-RETURN ::WindowTitle( cTitle )
+METHOD Title(cTitle) CLASS TTaskDialog
+RETURN ::WindowTitle(cTitle)
 
 /*
    TODO
@@ -699,7 +699,7 @@ RETURN lOldVal
 /*
    Indicates that the task dialog can be minimized (read/write).
  */
-METHOD CanBeMinimized( lNewVal ) CLASS TTaskDialog
+METHOD CanBeMinimized(lNewVal) CLASS TTaskDialog
 
    LOCAL nCurFlags := ::Flags()
    LOCAL lOldVal
@@ -886,7 +886,7 @@ RETURN lOldVal
 
    NOTE: Can be true to enable the checkbox or false to disable.
  */
-METHOD VerificationEnabled( lNewVal ) CLASS TTaskDialog
+METHOD VerificationEnabled(lNewVal) CLASS TTaskDialog
 
    LOCAL nCurFlags := ::Flags()
    LOCAL lOldVal

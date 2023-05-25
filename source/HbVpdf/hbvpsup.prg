@@ -101,7 +101,7 @@ RETURN StrB64Decode( ;
 // Based on VB code from: 1999-2004 Antonin Foller, http://www.motobit.com, http://motobit.cz
 // Converted to Clipper and optimized by Viktor Szakats.
 
-STATIC FUNCTION StrB64Decode( cString )
+STATIC FUNCTION StrB64Decode(cString)
 
    LOCAL cResult
 

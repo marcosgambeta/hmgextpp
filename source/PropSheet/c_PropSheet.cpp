@@ -109,8 +109,8 @@ LRESULT CALLBACK HMG_PageDlgProc(HWND hWndDlg, UINT message, WPARAM wParam, LPAR
       lpnmhdr  = (NMHDR FAR *)lParam;
       psn = (PSHNOTIFY *)lParam;
 
-      nPage    = PropSheet_HwndToIndex(hWndParent,  hWndDlg);
-      nId      = PropSheet_IndexToId( hWndParent,  nPage );
+      nPage    = PropSheet_HwndToIndex(hWndParent, hWndDlg);
+      nId      = PropSheet_IndexToId(hWndParent, nPage);
 
       if( !pSymbol3 )
       {
@@ -364,7 +364,7 @@ HB_FUNC( CREATEPROPERTYSHEET )
 }
 
 /****************************************************************************
- PropSheetIndexToHwnd( hWndPropSheet, iPageIndex )
+ PropSheetIndexToHwnd(hWndPropSheet, iPageIndex)
 *****************************************************************************/
 
 HB_FUNC( PROPSHEETINDEXTOHWND )

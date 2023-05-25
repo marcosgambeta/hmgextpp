@@ -35,7 +35,7 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
             lUpdate, bWhen, lCenter, lRight, bChanged,;
             lNoBorder, nHelpId, lSpinner, bUp, bDown, bMin, bMax, lNoMinus ) CLASS TGetBox
 
-   LOCAL cText          := Space( 50 ), uValue, ix
+   LOCAL cText          := Space(50), uValue, ix
    LOCAL Fontname       := _HMG_DefaultFontName
    LOCAL FontSize       := _HMG_DefaultFontSize
    LOCAL ParentFormName
@@ -68,7 +68,7 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
    
    if oWnd == Nil
       oWnd         := Self
-      oWnd:hWnd    := GetFormHandle( cWnd )
+      oWnd:hWnd    := GetFormHandle(cWnd)
    endif
    
    ::oWnd          := oWnd
@@ -92,8 +92,8 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
    ParentFormName  := oWnd:cParentWnd
 
    uValue          := Eval(bSetGet)
-   aFontColor      := { GetRed( nClrFore ), GetGreen( nClrFore ), GetBlue( nClrFore ) }
-   aBackColor      := { GetRed( nClrBack ), GetGreen( nClrBack ), GetBlue( nClrBack ) }
+   aFontColor      := { GetRed(nClrFore), GetGreen(nClrFore), GetBlue(nClrFore) }
+   aBackColor      := { GetRed(nClrBack), GetGreen(nClrBack), GetBlue(nClrBack) }
    uLostFocus      := ::LostFocus()
    uGotFocus       := ::GotFocus()
 
@@ -114,8 +114,8 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
 
       ::AddVars( ::hWnd )
 
-      if GetObjectType( hFont ) == OBJ_FONT
-         _SetFontHandle( ::hWnd, hFont )
+      if GetObjectType(hFont) == OBJ_FONT
+         _SetFontHandle(::hWnd, hFont)
          ::hFont := hFont
       endif
 
@@ -139,7 +139,7 @@ Return ::Super:HandleEvent( nMsg, nWParam, nLParam )
 
 METHOD KeyChar( nKey, nFlags ) CLASS TGetBox
 
-   If _GetKeyState( VK_CONTROL )
+   If _GetKeyState(VK_CONTROL)
       nKey := IIf(Upper(Chr(nKey)) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey)
    EndIf
 
@@ -198,4 +198,4 @@ Return 0
 
 METHOD VarGet() CLASS TGetBox
 
-RETURN _GetValue( ::cControlName, ::oWnd:cParentWnd )
+RETURN _GetValue(::cControlName, ::oWnd:cParentWnd)

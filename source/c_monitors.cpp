@@ -92,7 +92,7 @@ BOOL CALLBACK _MonitorEnumProc0(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMo
    hb_arraySetNInt(pMonitor, 1, ( LONG_PTR ) hMonitor);
    hb_itemArrayPut(pMonitor, 2, pRect);
 
-   hb_arrayAddForward( ( PHB_ITEM ) dwData, pMonitor );
+   hb_arrayAddForward(( PHB_ITEM ) dwData, pMonitor);
 
    hb_itemRelease(pMonitor);
    hb_itemRelease(pRect);

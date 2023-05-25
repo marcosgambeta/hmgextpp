@@ -132,7 +132,7 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
 
       IF lDialogInMemory         //Dialog Template
          //      {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
-         blInit := {|x, y, z| InitDialogImage( x, y, z ) }
+         blInit := {|x, y, z| InitDialogImage(x, y, z) }
          AAdd(_HMG_aDialogItems, {nId, k, "static", style, 0, x, y, w, h, "", HelpId, "", "", , , , , , blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
@@ -216,7 +216,7 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
    _HMG_aControlMiscData2          [k] := ""
 
    IF !lDialogInMemory
-      InitDialogImage( ParentFormName, ControlHandle, k )
+      InitDialogImage(ParentFormName, ControlHandle, k)
    ENDIF
 
    IF _HMG_lOOPEnabled
@@ -232,7 +232,7 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
 RETURN Nil
 
 *-----------------------------------------------------------------------------*
-FUNCTION InitDialogImage( ParentName, ControlHandle, k )
+FUNCTION InitDialogImage(ParentName, ControlHandle, k)
 *-----------------------------------------------------------------------------*
 
    IF ParentName != NIL
@@ -255,7 +255,7 @@ FUNCTION InitDialogImage( ParentName, ControlHandle, k )
 RETURN Nil
 
 *-----------------------------------------------------------------------------*
-FUNCTION BmpSize( xBitmap )
+FUNCTION BmpSize(xBitmap)
 *-----------------------------------------------------------------------------*
    
    LOCAL aRet := { 0, 0, 4 }
@@ -263,17 +263,17 @@ FUNCTION BmpSize( xBitmap )
    DO CASE
    CASE hb_IsString(xBitmap)
 
-      aRet := GetBitmapSize( xBitmap )
+      aRet := GetBitmapSize(xBitmap)
 
       IF Empty(aRet[1]) .AND. Empty(aRet[2])
-         xBitmap := C_GetResPicture( xBitmap )
-         aRet := GetBitmapSize( xBitmap )
+         xBitmap := C_GetResPicture(xBitmap)
+         aRet := GetBitmapSize(xBitmap)
          DeleteObject( xBitmap )
       ENDIF
 
    CASE hb_IsNumeric(xBitmap)
 
-      aRet := GetBitmapSize( xBitmap )
+      aRet := GetBitmapSize(xBitmap)
 
    ENDCASE
 
@@ -286,9 +286,9 @@ FUNCTION HasAlpha(FileName)
    LOCAL hBitmap
    LOCAL lResult := .F.
 
-   hBitmap := C_GetResPicture( FileName )
+   hBitmap := C_GetResPicture(FileName)
 
-   IF GetObjectType( hBitmap ) == OBJ_BITMAP .AND. BmpSize( FileName ) [3] == 32
+   IF GetObjectType(hBitmap) == OBJ_BITMAP .AND. BmpSize(FileName) [3] == 32
       lResult := C_HasAlpha(hBitmap)
       DeleteObject( hBitmap )
    ENDIF
@@ -296,7 +296,7 @@ FUNCTION HasAlpha(FileName)
 RETURN lResult
 
 *-----------------------------------------------------------------------------*
-FUNCTION HMG_SaveImage( FileName, cOutName, cEncoder, nJpgQuality, aOutSize )
+FUNCTION HMG_SaveImage(FileName, cOutName, cEncoder, nJpgQuality, aOutSize)
 *-----------------------------------------------------------------------------*
    
    LOCAL hBitmap
@@ -304,12 +304,12 @@ FUNCTION HMG_SaveImage( FileName, cOutName, cEncoder, nJpgQuality, aOutSize )
 
    hBitmap := iif(hb_IsString(FileName), C_GetResPicture(FileName), FileName)
 
-   IF GetObjectType( hBitmap ) == OBJ_BITMAP
+   IF GetObjectType(hBitmap) == OBJ_BITMAP
       hb_default(@cEncoder, "BMP")
       hb_default(@nJpgQuality, 100)
       __defaultNIL(@aOutSize, BmpSize(hBitmap))
 
-      lResult := C_SaveHBitmapToFile( hBitmap, cOutName, aOutSize [1], aOutSize [2], "image/" + Lower( cEncoder ), nJpgQuality )
+      lResult := C_SaveHBitmapToFile(hBitmap, cOutName, aOutSize [1], aOutSize [2], "image/" + Lower( cEncoder ), nJpgQuality)
 
       IF hb_IsString(FileName)
          DeleteObject( hBitmap )

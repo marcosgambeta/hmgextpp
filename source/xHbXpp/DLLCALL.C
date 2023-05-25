@@ -105,7 +105,7 @@ HB_EXPORT char * hb_parcstruct(int iParam, ...)
 
    if( pHB_CSTRUCTURE == NULL )
    {
-       pHB_CSTRUCTURE = hb_dynsymFind( "HB_CSTRUCTURE" );
+       pHB_CSTRUCTURE = hb_dynsymFind("HB_CSTRUCTURE");
 
        pPOINTER       = hb_dynsymGetCase("POINTER");
        pVALUE         = hb_dynsymGetCase("VALUE");
@@ -131,7 +131,7 @@ HB_EXPORT char * hb_parcstruct(int iParam, ...)
 
          va_start(va, iParam);
          ulArrayIndex = va_arg(va, ULONG);
-         va_end( va );
+         va_end(va);
 
          pItem = hb_itemNew(NULL);
          bRelease = TRUE;
@@ -557,7 +557,7 @@ static void DllExec(int iFlags, LPVOID lpFunction, int iParams, int iFirst, int 
                   break;
 
                case Harbour::Item::DOUBLE            :
-                  hb_stornd( DblParms[iCnt], i );
+                  hb_stornd(DblParms[iCnt], i);
                   break;
 
                case Harbour::Item::STRING            :
@@ -638,11 +638,11 @@ static void DllExec(int iFlags, LPVOID lpFunction, int iParams, int iFirst, int 
          break;
 
       case CTYPE_FLOAT             :
-         hb_retnd( rc.Float );
+         hb_retnd(rc.Float);
          break;
 
       case CTYPE_DOUBLE            :
-         hb_retnd( rc.Double );
+         hb_retnd(rc.Double);
          break;
 
       default:

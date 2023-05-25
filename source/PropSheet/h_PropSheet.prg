@@ -480,7 +480,7 @@ FUNCTION _DefineSheetPage ( DialogName, Id, cTitle, HdTitle, SubHdTitle, HideHea
    ENDIF
 
    _HMG_aPropSheetPagesTemp   := { cTitle, Id, Style, HdTitle, SubHdTitle }
-   _HMG_ActiveDialogHandle    := CreatePropertySeeetPage( _HMG_aPropSheetPagesTemp )
+   _HMG_ActiveDialogHandle    := CreatePropertySeeetPage(_HMG_aPropSheetPagesTemp)
 
    AAdd(aHwndSheetPages, _HMG_ActiveDialogHandle)
    AAdd(_HMG_aPropSheetPages, { DialogName, Id, _HMG_ActiveDialogHandle, 0, _HMG_DialogInMemory, .F. })
@@ -724,11 +724,11 @@ FUNCTION InitPageDlgProc(hwndDlg, idDlg, hWndParent)
          nId     := aDialogItems[ n, 1 ]
          k       := aDialogItems[ n, 2 ]
          blInit  := aDialogItems[ n, 19 ]
-         ControlHandle := GetDialogItemHandle( _HMG_ActiveDialogHandle, nId )
+         ControlHandle := GetDialogItemHandle(_HMG_ActiveDialogHandle, nId)
          FontHandle    := GetFontHandle(aDialogItems[n, 13])
          IF !empty(FontHandle)
             _SetFontHandle ( ControlHandle, FontHandle )
-         ELSEIF IsWindowHandle( ControlHandle )
+         ELSEIF IsWindowHandle(ControlHandle)
             IF aDialogItems[n, 13] != NIL .AND. aDialogItems[n, 14] != NIL
                FontHandle := _SetFont ( ControlHandle, aDialogItems[ n, 13 ], aDialogItems[ n, 14 ], aDialogItems[ n, 15 ], aDialogItems[ n, 16 ], aDialogItems[ n, 17 ], aDialogItems[ n, 18 ] )
             ELSE
@@ -736,7 +736,7 @@ FUNCTION InitPageDlgProc(hwndDlg, idDlg, hWndParent)
             ENDIF
          ENDIF
          IF _HMG_ActivePropSheetModeless
-            IF aDialogItems[n, 12] != NIL .AND. IsWindowHandle( GetFormToolTipHandle ( _HMG_ActiveDialogName ) )
+            IF aDialogItems[n, 12] != NIL .AND. IsWindowHandle(GetFormToolTipHandle ( _HMG_ActiveDialogName ))
                SetToolTip ( ControlHandle, aDialogItems[ n, 12 ], GetFormToolTipHandle ( _HMG_ActiveDialogName ) )
             ENDIF
             IF  k > 0
@@ -793,14 +793,14 @@ FUNCTION ButtonPageDlgProc(hwndDlg, Msg, IdDlg, nPage)
    CASE Msg == PSN_APPLY
 
       IF hb_IsBlock(_HMG_ApplyPropSheetProcedure) .AND. lChd
-         lRet := RetValue( Eval(_HMG_ApplyPropSheetProcedure, hwndDlg, idDlg, nPage), lRet )
+         lRet := RetValue(Eval(_HMG_ApplyPropSheetProcedure, hwndDlg, idDlg, nPage), lRet)
       ENDIF
 
    CASE Msg == PSN_RESET
 
       IF !_HMG_ActivePropSheetWizard
          IF hb_IsBlock(_HMG_CancelPropSheetProcedure) .AND. lChd
-            lRet := RetValue( Eval(_HMG_CancelPropSheetProcedure, hwndDlg, idDlg, nPage), lRet )
+            lRet := RetValue(Eval(_HMG_CancelPropSheetProcedure, hwndDlg, idDlg, nPage), lRet)
          ELSE
             lRet := .F.
          ENDIF
@@ -812,14 +812,14 @@ FUNCTION ButtonPageDlgProc(hwndDlg, Msg, IdDlg, nPage)
          IF ValType(_HMG_CancelPropSheetProcedure) != "B"
             lRet := MsgYesNo ( "Are you sure you want to Quit?", GetWindowText ( GetActiveWindow() ) )
          ELSE
-            lRet := RetValue( Eval(_HMG_CancelPropSheetProcedure,  hwndDlg, idDlg, nPage), lRet )
+            lRet := RetValue(Eval(_HMG_CancelPropSheetProcedure,  hwndDlg, idDlg, nPage), lRet)
          ENDIF
       ENDIF
 
    CASE Msg == PSN_KILLACTIVE
 
       IF hb_IsBlock(_HMG_ValidPropSheetProcedure)
-         lRet := RetValue( Eval(_HMG_ValidPropSheetProcedure, hwndDlg, idDlg, nPage), lRet )
+         lRet := RetValue(Eval(_HMG_ValidPropSheetProcedure, hwndDlg, idDlg, nPage), lRet)
       ENDIF
 
    ENDCASE
@@ -875,33 +875,33 @@ FUNCTION PageDlgProc(hwndParent, hwndDlg, nMsg, wParam, lParam)
       i := AScan(_HMG_aFormhandles, hwndParent)  // find PropSheetProcedure
       IF i > 0
          IF hb_IsBlock(_HMG_aFormClickProcedure[i]) .AND. _HMG_aFormType[i] == "S"
-            IF ( lRet := RetValue( Eval(_HMG_aFormClickProcedure[i], hwndDlg, nMsg, LOWORD(wParam), HIWORD(wParam)), lRet ) )
-               PropSheet_Changed( hWndParent, hWndDlg )
+            IF ( lRet := RetValue(Eval(_HMG_aFormClickProcedure[i], hwndDlg, nMsg, LOWORD(wParam), HIWORD(wParam)), lRet) )
+               PropSheet_Changed(hWndParent, hWndDlg)
                IF nPage > -1 .AND. nPage + 1 <= Len(_HMG_aPropSheetPages)
                   _HMG_aPropSheetPages[ nPage + 1, 6 ] := .T.
                ENDIF
             ENDIF
          ELSE
-            ControlHandle := GetDialogITemHandle( hwndDlg, LOWORD(wParam) )
+            ControlHandle := GetDialogITemHandle(hwndDlg, LOWORD(wParam))
             Events( hwndDlg, nMsg, wParam, ControlHandle )
             lRet := .T.
          ENDIF
       ELSE
          IF hb_IsBlock(_HMG_PropSheetProcedure)
-            IF ( lRet := RetValue( Eval(_HMG_PropSheetProcedure, hwndDlg, nMsg, LOWORD(wParam), HIWORD(wParam)), lRet ) )
-               PropSheet_Changed( hWndParent, hWndDlg )
+            IF ( lRet := RetValue(Eval(_HMG_PropSheetProcedure, hwndDlg, nMsg, LOWORD(wParam), HIWORD(wParam)), lRet) )
+               PropSheet_Changed(hWndParent, hWndDlg)
                IF nPage > -1 .AND. nPage + 1 <= Len(_HMG_aPropSheetPages)
                   _HMG_aPropSheetPages[ nPage + 1, 6 ] := .T.
                ENDIF
             ENDIF
          ELSE
-            ControlHandle := GetDialogITemHandle( hwndDlg, LOWORD(wParam) )
+            ControlHandle := GetDialogITemHandle(hwndDlg, LOWORD(wParam))
             Events( hwndDlg, nMsg, wParam, ControlHandle )
             lRet := .T.
          ENDIF
       ENDIF
       IF lRet == .F.
-         ControlHandle := GetDialogITemHandle( hwndDlg, LOWORD(wParam) )
+         ControlHandle := GetDialogITemHandle(hwndDlg, LOWORD(wParam))
          Events( hwndDlg, nMsg, wParam, ControlHandle )
          lRet := .T.
       ENDIF
@@ -909,13 +909,13 @@ FUNCTION PageDlgProc(hwndParent, hwndDlg, nMsg, wParam, lParam)
    CASE nMsg == WM_NOTIFY
 
       nPage := PropSheetHwndToIndex( hwndParent, hwndDlg )
-      NotifyCode := GetNotifyCode( lParam )
+      NotifyCode := GetNotifyCode(lParam)
       switch  NotifyCode
       CASE PSN_APPLY   // sent when OK or Apply button pressed
          IF nPage + 1 <= Len(_HMG_aPropSheetPages)
             _HMG_aPropSheetPages[ nPage + 1, 6 ] := .F.
          ENDIF
-         PropSheet_UnChanged( hWndParent, hWndDlg )
+         PropSheet_UnChanged(hWndParent, hWndDlg)
          EXIT
       CASE PSN_RESET   // sent when Cancel button pressed
 
@@ -924,7 +924,7 @@ FUNCTION PageDlgProc(hwndParent, hwndDlg, nMsg, wParam, lParam)
             ADel( _HMG_aPropSheetActivePages, i )
             ASize(_HMG_aPropSheetActivePages, Len(_HMG_aPropSheetActivePages) -1)
          ENDIF
-         hwndActive := PropSheetGetCurrentPageHwnd( hwndParent )
+         hwndActive := PropSheetGetCurrentPageHwnd(hwndParent)
          IF _HMG_ActivePropSheetModeless
             IF hwndActive == 0
                _ReleasePropertySheet( hwndParent, hwndDlg )
@@ -953,7 +953,7 @@ FUNCTION PageDlgProc(hwndParent, hwndDlg, nMsg, wParam, lParam)
          ENDIF
       END
    OTHERWISE
-      ControlHandle := GetDialogITemHandle( hwndDlg, LOWORD(wParam) )
+      ControlHandle := GetDialogITemHandle(hwndDlg, LOWORD(wParam))
       Events( hwndDlg, nMsg, wParam, ControlHandle )
       lRet := .T.                                                         // end
    ENDCASE
@@ -966,18 +966,18 @@ FUNCTION PageDlgProc(hwndParent, hwndDlg, nMsg, wParam, lParam)
 RETURN  lRet
 
 *------------------------------------------------------------------------------*
-FUNCTION PropSheet_Chd( hWndParent, hWndDlg )
+FUNCTION PropSheet_Chd(hWndParent, hWndDlg)
 *------------------------------------------------------------------------------*
    LOCAL  i := AScan(_HMG_aPropSheetPages, {| x| x[3] == hWndDlg })
    IF i > 0
       _HMG_aPropSheetPages[ i, 6 ] := .T.
    ENDIF
-   PropSheet_Changed( hWndParent, hWndDlg )
+   PropSheet_Changed(hWndParent, hWndDlg)
 
 RETURN NIL
 
 *------------------------------------------------------------------------------*
-FUNCTION RetValue( lRet, def )
+FUNCTION RetValue(lRet, def)
 *------------------------------------------------------------------------------*
    IF lRet == NIL .OR. ValType(lRet) != "L"
       IF hb_IsNumeric(lRet)
@@ -1020,7 +1020,7 @@ STATIC FUNCTION ErasePropSheet( hWnd )
 #ifdef _ZEROPUBLIC_
          __mvPut ( mVar, 0 )
 #else
-         __mvXRelease( mVar )
+         __mvXRelease(mVar)
 #endif
       ENDIF
 

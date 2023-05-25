@@ -165,17 +165,17 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi);
 DLGTEMPLATE * WINAPI FLD_SetStyleDlgRes(DLGTEMPLATE * pTemplate, DWORD resSize);
 DLGTEMPLATE * WINAPI FLD_LockDlgRes(TCHAR * lpszResName);
 BOOL WINAPI IsAppThemed(void);
-VOID WINAPI       FLD_SelChanged( HWND hWndDlg );
+VOID WINAPI       FLD_SelChanged(HWND hWndDlg);
 VOID WINAPI       FLD_ChildDialogInit(HWND hWndDlg, HWND hWndParent, int idrc);
 LRESULT CALLBACK  HMG_PageFldProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 VOID WINAPI       FLD_DialogAlign(HWND hWndDlg);
 static BOOL       FLD_PageInfo(DLGTEMPLATE * pTemplate, FLDHDRINFO * pFhi, int index, BOOL resize);
-static BOOL       FLD_DoCommand( HWND hWndDlg, WORD wID );
+static BOOL       FLD_DoCommand(HWND hWndDlg, WORD wID);
 static BOOL       FLD_Apply(HWND hWndDlg, LPARAM lParam);
 static void       FLD_Cancel( HWND hWndDlg, LPARAM lParam );
 static BOOL       FLD_ShowPage(HWND hWndDlg, int index, FLDHDRINFO * pFhi);
-static void       FLD_Changed( HWND hWndParent, HWND hWndDlg );
-static void       FLD_UnChanged( HWND hWndParent, HWND hWndDlg );
+static void       FLD_Changed(HWND hWndParent, HWND hWndDlg);
+static void       FLD_UnChanged(HWND hWndParent, HWND hWndDlg);
 static LRESULT    FLD_HwndToIndex(HWND hWndDlg, HWND hPageDlg);
 static void       FLD_CleanUp(HWND hWndDlg);
 static void       FLD_Help(HWND hwndDlg);
@@ -233,7 +233,7 @@ LRESULT CALLBACK HMG_FldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPARAM l
       case WM_COMMAND:
          if( lParam != 0 && HIWORD(wParam) == BN_CLICKED )
          {
-            if( !FLD_DoCommand( hWndDlg, LOWORD(wParam) ) )
+            if( !FLD_DoCommand(hWndDlg, LOWORD(wParam)) )
             {
                pFhi = ( FLDHDRINFO * ) GetWindowLongPtr(hWndDlg, GWLP_USERDATA);
                if( !pFhi )
@@ -260,7 +260,7 @@ LRESULT CALLBACK HMG_FldProc(HWND hWndDlg, UINT message, WPARAM wParam, LPARAM l
          {
             if( lpnmhdr->code == TCN_SELCHANGE )
             {
-               FLD_SelChanged( hWndDlg );
+               FLD_SelChanged(hWndDlg);
             }
          }
 
@@ -583,7 +583,7 @@ HB_FUNC( FOLDERHWNDTOINDEX )
 }
 
 /****************************************************************************
-      FolderGetCurrentPageHwnd( hWndParent )
+      FolderGetCurrentPageHwnd(hWndParent)
  *****************************************************************************/
 HB_FUNC( FOLDERGETCURRENTPAGEHWND )
 {
@@ -610,7 +610,7 @@ HB_FUNC( FOLDER_CHANGED )
    HWND hWndParent = hmg_par_HWND(1);
    HWND hWndDlg    = hmg_par_HWND(2);
 
-   FLD_Changed( hWndParent, hWndDlg );
+   FLD_Changed(hWndParent, hWndDlg);
 }
 
 /****************************************************************************
@@ -621,7 +621,7 @@ HB_FUNC( FOLDER_UNCHANGED )
    HWND hWndParent = hmg_par_HWND(1);
    HWND hWndDlg    = hmg_par_HWND(2);
 
-   FLD_UnChanged( hWndParent, hWndDlg );
+   FLD_UnChanged(hWndParent, hWndDlg);
 }
 
 /******************************************************************************
@@ -677,7 +677,7 @@ HB_FUNC( FOLDER_ISFINISH )
 }
 
 /******************************************************************************
-      Folder_GetIdFld( hWndParent )
+      Folder_GetIdFld(hWndParent)
  *****************************************************************************/
 HB_FUNC( FOLDER_GETIDFLD )
 {
@@ -942,7 +942,7 @@ VOID WINAPI FLD_FolderInit(HWND hWndDlg, FLDHDRINFO * pFhi)
    }
 
    // Simulate selection of the first item.
-   FLD_SelChanged( hWndDlg );
+   FLD_SelChanged(hWndDlg);
 }
 
 DLGTEMPLATE * WINAPI FLD_SetStyleDlgRes(DLGTEMPLATE * pTemplate, DWORD resSize)
@@ -1014,7 +1014,7 @@ DLGTEMPLATE * WINAPI FLD_LockDlgRes(TCHAR * lpszResName)
 /*-----------------------------------------------------------------
        FLD_SelChanged() - processes the TCN_SELCHANGE notification.()
    -----------------------------------------------------------------*/
-VOID WINAPI FLD_SelChanged( HWND hWndDlg )
+VOID WINAPI FLD_SelChanged(HWND hWndDlg)
 {
    FLDHDRINFO * pFhi = ( FLDHDRINFO * ) GetWindowLongPtr(hWndDlg, GWLP_USERDATA);
 
@@ -1165,7 +1165,7 @@ static BOOL FLD_PageInfo(DLGTEMPLATE * pTemplate, FLDHDRINFO * pFhi, int index, 
 /*-----------------------------------------------------------------
        FLD_Changed()
    -----------------------------------------------------------------*/
-static void FLD_Changed( HWND hWndParent, HWND hwndDirtyPage )
+static void FLD_Changed(HWND hWndParent, HWND hwndDirtyPage)
 {
    FLDHDRINFO * pFhi = ( FLDHDRINFO * ) GetWindowLongPtr(hWndParent, GWLP_USERDATA);
 
@@ -1197,7 +1197,7 @@ static void FLD_Changed( HWND hWndParent, HWND hwndDirtyPage )
 /*-----------------------------------------------------------------
        FLD_UnChanged()
    -----------------------------------------------------------------*/
-static void FLD_UnChanged( HWND hWndParent, HWND hwndCleanPage )
+static void FLD_UnChanged(HWND hWndParent, HWND hwndCleanPage)
 {
    BOOL noPageDirty = TRUE;
 
@@ -1239,7 +1239,7 @@ static void FLD_UnChanged( HWND hWndParent, HWND hwndCleanPage )
 /*-----------------------------------------------------------------
        FLD_DoCommand()
    -----------------------------------------------------------------*/
-static BOOL FLD_DoCommand( HWND hWndDlg, WORD wID )
+static BOOL FLD_DoCommand(HWND hWndDlg, WORD wID)
 {
    switch( wID )
    {

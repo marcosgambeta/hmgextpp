@@ -1090,7 +1090,7 @@ HB_FUNC( RICHEDITBOX_GETPARAFORMAT )
    if( HB_ISBYREF(6) )
    {
       Offset = ( double ) ParaFormat2.dxOffset;
-      hb_stornd( ( double ) ( Offset * 25.4 / 1440.0 ), 6 );
+      hb_stornd(( double ) (Offset * 25.4 / 1440.0), 6);
    }
 
    if( HB_ISBYREF(7) )
@@ -1120,13 +1120,13 @@ HB_FUNC( RICHEDITBOX_GETPARAFORMAT )
          LineSpacing = ( ( double ) ParaFormat2.dyLineSpacing ) * 1.0 / 20.0;
       }
 
-      hb_stornd( ( double ) LineSpacing, 7 );
+      hb_stornd(( double ) LineSpacing, 7);
    }
 
    if( HB_ISBYREF(8) )
    {
       StartIndent = ( double ) ParaFormat2.dxStartIndent;
-      hb_stornd( ( double ) ( StartIndent * 25.4 / 1440.0 ), 8 );
+      hb_stornd(( double ) (StartIndent * 25.4 / 1440.0), 8);
    }
 }
 

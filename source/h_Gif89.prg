@@ -170,7 +170,7 @@ STATIC PROCEDURE _EraseGifDef ( FormName, i )
       __mvPut( mVar, 0 )
 
 #else
-      __mvXRelease( mVar )
+      __mvXRelease(mVar)
 
 #endif
    ENDIF
@@ -284,8 +284,8 @@ METHOD New( cFileName, nTop, nLeft, nBottom, nRight, nDelay, aBKColor, cControlN
    ::nTotalFrames := Len(aPictures)
    ::nCurrentFrame := 1
 
-   ::aPictData := AClone( aPictures )
-   ::aImageData := AClone( aImageInfo )
+   ::aPictData := AClone(aPictures)
+   ::aImageData := AClone(aImageInfo)
 
    nId := _GetId()
 
@@ -343,13 +343,13 @@ METHOD RestartGif() CLASS TGif
 
    GifStop( Self )
 
-   AEval(::aPictData, {| f | FErase( f ) })
+   AEval(::aPictData, {| f | FErase(f) })
 
    IF LoadGif( ::cFileName, @aPictures, @aImageInfo, Self )
 
       ::nTotalFrames := Len(aPictures)
-      ::aPictData := AClone( aPictures )
-      ::aImageData := AClone( aImageInfo )
+      ::aPictData := AClone(aPictures)
+      ::aImageData := AClone(aImageInfo)
 
       ::nCurrentFrame := 1
       ::Update()
@@ -365,7 +365,7 @@ METHOD End() CLASS TGif
 
    IF _IsControlDefined(::cControlName, ::cParentName)
 
-      AEval(::aPictData, {| f | FErase( f ) })
+      AEval(::aPictData, {| f | FErase(f) })
 
       IF ::nTotalFrames > 1
          DoMethod(::cParentName, ::cTimer, "Release")
@@ -530,7 +530,7 @@ STATIC FUNCTION ReadFromStream( cFile, cStream )
 
    IF FError() == 0
       nFileSize := FSeek(nFileHandle, 0, FS_END)
-      cStream := Space( nFileSize )
+      cStream := Space(nFileSize)
       FSeek(nFileHandle, 0, FS_SET)
       FRead(nFileHandle, @cStream, nFileSize)
       FClose(nFileHandle)

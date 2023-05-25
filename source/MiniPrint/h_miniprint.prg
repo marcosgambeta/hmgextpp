@@ -149,7 +149,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
       NOSYSMENU ;
       CURSOR IMG_CURSOR ;
       ON PAINT _HMG_PRINTER_PREVIEWRefresh() ;
-      ON RELEASE _HMG_PRINTER_OnRelease( ModalHandle, icb ) ;
+      ON RELEASE _HMG_PRINTER_OnRelease(ModalHandle, icb) ;
       BACKCOLOR GRAY ;
       ON MOUSECLICK        (_HMG_PRINTER_PPNAV.b5.value := !_HMG_PRINTER_PPNAV.b5.value, _HMG_PRINTER_MouseZoom()) ;
       ON SCROLLUP        _HMG_PRINTER_ScrolluP() ;
@@ -826,7 +826,7 @@ STATIC PROCEDURE _HMG_PRINTER_CleanPreview()
 
    LOCAL t := GetTempFolder() + hb_ps()
 
-   AEval(Directory( t + _hmg_printer_timestamp + "_hmg_print_preview_*.Emf" ), {| file | FErase( t + file [1] ) })
+   AEval(Directory( t + _hmg_printer_timestamp + "_hmg_print_preview_*.Emf" ), {| file | FErase(t + file[1]) })
 
 RETURN
 

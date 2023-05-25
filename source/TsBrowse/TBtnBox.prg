@@ -27,14 +27,14 @@ CLASS TBtnBox FROM TControl
                cResName, bAction, lSpinner, bUp, bDown, bMin, bMax, nBmpWidth, nCell )
    METHOD Default()
    METHOD HandleEvent( nMsg, nWParam, nLParam )
-   METHOD GetDlgCode( nLastKey, nFlags )
+   METHOD GetDlgCode(nLastKey, nFlags)
    Method KeyChar( nKey, nFlags )
    Method KeyDown( nKey, nFlags )
    Method LostFocus( hCtlFocus )
    Method lValid()
    METHOD LButtonDown( nRow, nCol )
    METHOD GetVal()
-   METHOD Command( nWParam, nLParam )
+   METHOD Command(nWParam, nLParam)
 
 ENDCLASS
 
@@ -100,7 +100,7 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, ;
 
    if !Empty(ParentHandle)
       if lSpinner
-         ::Create( "EDIT" )
+         ::Create("EDIT")
          nMin := IIf(hb_IsBlock(bMin), Eval(bMin), bMin)
          nMax := IIf(hb_IsBlock(bMax), Eval(bMax), bMax)
          ::hWndChild := InitedSpinner( ::hWndParent, ::hWnd , nCol, nRow, 0, nHeight, nMin, nMax, Eval(::bSetGet) )
@@ -113,8 +113,8 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, ;
       ::AddVars( ::hWnd )
       ::Default()
 
-      if GetObjectType( hFont ) == OBJ_FONT
-         _SetFontHandle( ::hWnd, hFont )
+      if GetObjectType(hFont) == OBJ_FONT
+         _SetFontHandle(::hWnd, hFont)
          ::hFont := hFont
       endif
       oWnd:AddControl( ::hWnd )
@@ -160,7 +160,7 @@ Return ::Super:HandleEvent( nMsg, nWParam, nLParam )
 * METHOD TBtnBox:GetDlgCode() Version 7.0
 * ============================================================================
 
-METHOD GetDlgCode( nLastKey, nFlags ) CLASS TBtnBox
+METHOD GetDlgCode(nLastKey, nFlags) CLASS TBtnBox
 
    HB_SYMBOL_UNUSED(nFlags)
    ::nLastKey := nLastKey
@@ -174,7 +174,7 @@ Return DLGC_WANTALLKEYS + DLGC_WANTCHARS
 
 METHOD KeyChar( nKey, nFlags ) CLASS TBtnBox
 
-   If _GetKeyState( VK_CONTROL )
+   If _GetKeyState(VK_CONTROL)
       nKey := IIf(Upper(Chr(nKey)) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey)
    EndIf
 
@@ -280,7 +280,7 @@ RETURN retVal
 * METHOD TBtnBox:Command() Version 7.0
 * ============================================================================
 
-METHOD Command( nWParam, nLParam ) CLASS TBtnBox
+METHOD Command(nWParam, nLParam) CLASS TBtnBox
 
    LOCAL nNotifyCode
    LOCAL nID
@@ -321,11 +321,11 @@ METHOD Command( nWParam, nLParam ) CLASS TBtnBox
             ::LostFocus()
          
          case nNotifyCode == EN_UPDATE
-            If _GetKeyState( VK_ESCAPE )
+            If _GetKeyState(VK_ESCAPE)
                ::KeyDown( VK_ESCAPE, 0 )
             Endif
-            If _GetKeyState( VK_CONTROL )
-               If GetKeyState( VK_RETURN ) == -127 .Or. _GetKeyState( VK_RETURN )
+            If _GetKeyState(VK_CONTROL)
+               If GetKeyState(VK_RETURN) == -127 .Or. _GetKeyState(VK_RETURN)
                   ::KeyDown( VK_RETURN, 0 )
                Endif
             Endif

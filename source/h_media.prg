@@ -137,16 +137,16 @@ FUNCTION _DefinePlayer ( ControlName, ParentFormName, file, x, y, w, h, noasw, n
 RETURN Nil
 
 *-----------------------------------------------------------------------------*
-FUNCTION PlayWave( wave, r, s, ns, l, nd )
+FUNCTION PlayWave(wave, r, s, ns, l, nd)
 *-----------------------------------------------------------------------------*
    IF PCount() == 1
       r := s := ns := l := nd := .F.
    ENDIF
 
-RETURN C_PlayWave( wave, r, s, ns, l, nd )
+RETURN C_PlayWave(wave, r, s, ns, l, nd)
 
 *-----------------------------------------------------------------------------*
-FUNCTION GetAviFileSize( cFile )
+FUNCTION GetAviFileSize(cFile)
 *-----------------------------------------------------------------------------*
    
    LOCAL cStr1
@@ -155,7 +155,7 @@ FUNCTION GetAviFileSize( cFile )
    LOCAL nHeight
    LOCAL nFileHandle
 
-   cStr1 := cStr2 := Space( 4 )
+   cStr1 := cStr2 := Space(4)
    nWidth := nHeight := 0
 
    nFileHandle := FOpen(cFile)
@@ -181,20 +181,20 @@ FUNCTION GetAviFileSize( cFile )
 RETURN { nWidth, nHeight }
 
 *-----------------------------------------------------------------------------*
-FUNCTION GetAviResSize( cResName )
+FUNCTION GetAviResSize(cResName)
 *-----------------------------------------------------------------------------*
    
    LOCAL aAviSize
    LOCAL cDiskFile
 
    aAviSize := Array(2)
-   cDiskFile := TempFile( GetTempFolder(), "avi" )
+   cDiskFile := TempFile(GetTempFolder(), "avi")
 
-   IF RCDataToFile( cResName, cDiskFile, "AVI" ) > 0
+   IF RCDataToFile(cResName, cDiskFile, "AVI") > 0
 
       IF hb_FileExists( cDiskFile )
-         aAviSize := GetAviFileSize( cDiskFile )
-         FErase( cDiskFile )
+         aAviSize := GetAviFileSize(cDiskFile)
+         FErase(cDiskFile)
       ENDIF
 
    ENDIF
@@ -273,7 +273,7 @@ FUNCTION _DefineAnimateBox( ControlName, ParentFormName, x, y, w, h, autoplay, c
    ELSE
 
       ParentFormHandle := GetFormHandle(ParentFormName)
-      ControlHandle := InitAnimate( ParentFormHandle, x, y, w, h, autoplay, center, transparent, border, invisible )
+      ControlHandle := InitAnimate(ParentFormHandle, x, y, w, h, autoplay, center, transparent, border, invisible)
 
    ENDIF
 

@@ -75,18 +75,18 @@ FUNCTION GetData()
 
       Packet := MemoRead(_HMG_CommPath + PacketNames[1])
 
-      Rows := Val(SubStr(MemoLine( Packet , , 1 ) , 11 , 99))
-      Cols := Val(SubStr(MemoLine( Packet , , 2 ) , 11 , 99))
+      Rows := Val(SubStr(MemoLine(Packet, , 1) , 11 , 99))
+      Cols := Val(SubStr(MemoLine(Packet, , 2) , 11 , 99))
 
       DO CASE
 
       // Single Data
       CASE Rows == 0 .AND. Cols == 0
 
-         DataType := SubStr(MemoLine( Packet ,  , 3 ) , 12 , 1)
-         DataLength := Val(SubStr(MemoLine( Packet , , 3 ) , 14 , 99))
+         DataType := SubStr(MemoLine(Packet ,  , 3) , 12 , 1)
+         DataLength := Val(SubStr(MemoLine(Packet , , 3) , 14 , 99))
 
-         DataValue := MemoLine( Packet , 254 , 4 )
+         DataValue := MemoLine(Packet , 254 , 4)
 
          SWITCH DataType
          CASE "C" ; RetVal := Left(DataValue, DataLength)   ; EXIT
@@ -107,7 +107,7 @@ FUNCTION GetData()
 
             i++
 
-            DataValue  := MemoLine( Packet , 254 , i )
+            DataValue  := MemoLine(Packet , 254 , i)
 
             SWITCH DataType
             CASE "C" ; aItem := Left(DataValue, DataLength)   ; EXIT
@@ -141,7 +141,7 @@ FUNCTION GetData()
 
             i++
 
-            DataValue  := MemoLine( Packet , 254 , i )
+            DataValue  := MemoLine(Packet , 254 , i)
 
             SWITCH DataType
             CASE "C" ; aItem := Left(DataValue, DataLength)   ; EXIT
@@ -349,7 +349,7 @@ FUNCTION HMG_FILECOPY( cSourceFile, cTargetFile, nBuffer, bEval )
 
          DO WHILE nCurrentlBytes < nTotalBytes
 
-            cBuffer := Space( nBuffer )
+            cBuffer := Space(nBuffer)
             nCurrentlBytes += ( nReadBytes := FRead(hSourceFile, @cBuffer, nBuffer) )
             FWrite(hTargetFile, cBuffer, nReadBytes)
 
@@ -410,7 +410,7 @@ FUNCTION uCharToVal(cText, cType)
          uVal := ( "|" + Upper(cText) + "|" $ cTrue )
          EXIT
       CASE "D"
-         uVal := dCharToDate( cText )
+         uVal := dCharToDate(cText)
          EXIT
       OTHERWISE
          IF ( uVal := nStrToNum( cText ) ) != NIL
@@ -422,7 +422,7 @@ FUNCTION uCharToVal(cText, cType)
             uVal := .F.
             cType := "L"
          ELSE
-            uVal := dCharToDate( cText )
+            uVal := dCharToDate(cText)
             IF Empty(uVal)
                uVal := cText
                cType := "C"
@@ -552,7 +552,7 @@ STATIC FUNCTION IfNil( ... )
 RETURN u
 
 *-----------------------------------------------------------------------------*
-STATIC FUNCTION dCharToDate( cDate )
+STATIC FUNCTION dCharToDate(cDate)
 *-----------------------------------------------------------------------------*
    
    LOCAL cFormat
@@ -560,7 +560,7 @@ STATIC FUNCTION dCharToDate( cDate )
    LOCAL dDate
 
    IF ( cc := Upper(cDate) ) != Lower( cDate )
-      RETURN dAlphaToDate( cc )
+      RETURN dAlphaToDate(cc)
    ENDIF
 
    IF Len(cDate) >= 8 .AND. !Empty(dDate := SToD(Left(cDate, 8)))
@@ -592,7 +592,7 @@ STATIC FUNCTION dCharToDate( cDate )
 RETURN dDate
 
 *-----------------------------------------------------------------------------*
-STATIC FUNCTION dAlphaToDate( cDate )
+STATIC FUNCTION dAlphaToDate(cDate)
 *-----------------------------------------------------------------------------*
    
    LOCAL dDate := BLANK_DATE
@@ -638,7 +638,7 @@ STATIC FUNCTION dAlphaToDate( cDate )
 
       ENDIF
 
-      dDate := SToD( StrZero( aNum[2], 4 ) + StrZero( m, 2 ) + StrZero( aNum[1], 2 ) )
+      dDate := SToD(StrZero(aNum[2], 4) + StrZero(m, 2) + StrZero(aNum[1], 2))
 
    ENDIF
 

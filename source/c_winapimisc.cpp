@@ -209,7 +209,7 @@ HB_FUNC( COPYRTFTOCLIPBOARD ) // CopyRtfToClipboard(cRtfText) store cRTFText in 
    const char * cStr = HB_ISCHAR(1) ? hb_parc(1) : "";
    int          nLen = strlen(cStr);
 
-   if( ( nLen == 0 ) || !OpenClipboard( GetActiveWindow() ) )
+   if( ( nLen == 0 ) || !OpenClipboard(GetActiveWindow()) )
    {
       return;
    }
@@ -243,7 +243,7 @@ HB_FUNC( COPYTOCLIPBOARD ) // CopyToClipboard(cText) store cText in Windows clip
    const char * cStr = HB_ISCHAR(1) ? hb_parc(1) : "";
    int          nLen = strlen(cStr);
 
-   if( ( nLen == 0 ) || !OpenClipboard( GetActiveWindow() ) )
+   if( ( nLen == 0 ) || !OpenClipboard(GetActiveWindow()) )
    {
       return;
    }
@@ -271,7 +271,7 @@ HB_FUNC( RETRIEVETEXTFROMCLIPBOARD )
    HGLOBAL hClipMem;
    LPSTR   lpClip;
 
-   if( IsClipboardFormatAvailable(CF_TEXT) && OpenClipboard( GetActiveWindow() ) )
+   if( IsClipboardFormatAvailable(CF_TEXT) && OpenClipboard(GetActiveWindow()) )
    {
       hClipMem = GetClipboardData(CF_TEXT);
       if( hClipMem )
@@ -302,7 +302,7 @@ HB_FUNC( RETRIEVETEXTFROMCLIPBOARD )
 
 HB_FUNC( CLEARCLIPBOARD )
 {
-   if( OpenClipboard( hmg_par_HWND(1) ) )
+   if( OpenClipboard(hmg_par_HWND(1)) )
    {
       EmptyClipboard();
       CloseClipboard();
@@ -1516,7 +1516,7 @@ BOOL IsAppHung(IN HWND hWnd, OUT PBOOL pbHung)
    }
    else
    {
-      DWORD dwThreadId = GetWindowThreadProcessId( hWnd, nullptr );
+      DWORD dwThreadId = GetWindowThreadProcessId(hWnd, nullptr);
 
       BOOL( WINAPI * _IsHungThread )( DWORD );
 
@@ -1961,7 +1961,7 @@ static HRESULT CreateShortCut(LPWSTR pszTargetfile, LPWSTR pszTargetargs,
                               CLSCTX_INPROC_SERVER,       /* caller and called code are in same process */
                               IID_IShellLink,            /* pre-defined interface of the IShellLink object */
                               ( LPVOID * ) &pShellLink); /* Returns a pointer to the IShellLink object */
-      if( SUCCEEDED( hRes ) )
+      if( SUCCEEDED(hRes) )
       {
          /* Set the fields in the IShellLink object */
          pShellLink->lpVtbl->SetPath(pShellLink, pszTargetfile);
@@ -1972,7 +1972,7 @@ static HRESULT CreateShortCut(LPWSTR pszTargetfile, LPWSTR pszTargetargs,
          }
          if( iShowmode > 0 )
          {
-            pShellLink->lpVtbl->SetShowCmd( pShellLink, iShowmode );
+            pShellLink->lpVtbl->SetShowCmd(pShellLink, iShowmode);
          }
          if( lstrlen(pszCurdir) > 0 )
          {
@@ -1987,7 +1987,7 @@ static HRESULT CreateShortCut(LPWSTR pszTargetfile, LPWSTR pszTargetargs,
          hRes = pShellLink->lpVtbl->QueryInterface(pShellLink,                   /* existing IShellLink object */
                                                    IID_IPersistFile,            /* pre-defined interface of the IPersistFile object */
                                                    ( LPVOID * ) &pPersistFile); /* returns a pointer to the IPersistFile object */
-         if( SUCCEEDED( hRes ) )
+         if( SUCCEEDED(hRes) )
          {
 #ifndef UNICODE
             MultiByteToWideChar( CP_ACP, 0, pszLinkfile, -1, reinterpret_cast<LPWSTR>(wszLinkfile), MAX_PATH );
@@ -2044,7 +2044,7 @@ HB_FUNC( CREATELINK )
 
    /* Call CoInitialize() and create the link if OK. */
    hRes = CoInitialize(nullptr);
-   if( SUCCEEDED( hRes ) )
+   if( SUCCEEDED(hRes) )
    {
       hRes = CreateShortCut(szTargetfile,  /* Targetfile */
                             szTargetargs,  /* Target arguments */
@@ -2054,7 +2054,7 @@ HB_FUNC( CREATELINK )
                             szCurdir,      /* Working directory for linked file */
                             szIconfile,    /* Icon file shown for the link */
                             iIconindex);   /* Index of icon in the file */
-      if( SUCCEEDED( hRes ) )
+      if( SUCCEEDED(hRes) )
       {
          hb_retnl( hRes );
       }

@@ -152,11 +152,11 @@ FUNCTION _InitRating ( ParentForm, ControlName, x, y, w, h, nValue, aImages, nCn
          HEIGHT h
          PICTURE aImages [1]
          TOOLTIP tooltip
-         ONMOUSEHOVER iif(readonly, NIL, OnHoverRate( ParentForm, ControlName ))
-         ONMOUSELEAVE iif(readonly, NIL, OnLeaveRate( ParentForm, ControlName, onchangeprocedure ))
+         ONMOUSEHOVER iif(readonly, NIL, OnHoverRate(ParentForm, ControlName))
+         ONMOUSELEAVE iif(readonly, NIL, OnLeaveRate(ParentForm, ControlName, onchangeprocedure))
          ONCLICK iif(readonly, NIL, ( SetProperty( ParentForm, ControlName, "Value", ;
             Val(SubStr(This.NAME, RAt("_", This.Name) + 1)) ), ;
-            OnSelectRate( ParentForm, ControlName, onchangeprocedure ) ))
+            OnSelectRate(ParentForm, ControlName, onchangeprocedure) ))
          INVISIBLE invisible
       END IMAGE
       _HMG_aControlIds[ GetControlIndex(img_name, ParentForm) ] := nCnt
@@ -189,13 +189,13 @@ FUNCTION _InitRating ( ParentForm, ControlName, x, y, w, h, nValue, aImages, nCn
    ENDIF
 
    IF nValue > 0
-      OnLeaveRate( ParentForm, ControlName, onchangeprocedure )
+      OnLeaveRate(ParentForm, ControlName, onchangeprocedure)
    ENDIF
 
 RETURN _GetId()
 
 
-STATIC FUNCTION OnHoverRate( cWindow, cControl )
+STATIC FUNCTION OnHoverRate(cWindow, cControl)
 
    LOCAL i
    LOCAL img_name
@@ -210,7 +210,7 @@ STATIC FUNCTION OnHoverRate( cWindow, cControl )
 RETURN NIL
 
 
-STATIC FUNCTION OnLeaveRate( cWindow, cControl, onchange )
+STATIC FUNCTION OnLeaveRate(cWindow, cControl, onchange)
 
    LOCAL pressed := GetProperty( cWindow, cControl, "Value" )
 
@@ -220,13 +220,13 @@ STATIC FUNCTION OnLeaveRate( cWindow, cControl, onchange )
          Eval(onchange, pressed)
       ENDIF
    ELSE
-      OnSelectRate( cWindow, cControl, onchange )
+      OnSelectRate(cWindow, cControl, onchange)
    ENDIF
 
 RETURN NIL
 
 
-STATIC FUNCTION OnSelectRate( cWindow, cControl, onchange )
+STATIC FUNCTION OnSelectRate(cWindow, cControl, onchange)
 
    LOCAL i
    LOCAL img_name
@@ -264,4 +264,4 @@ FUNCTION RefreshRating( ParentForm, ControlName )
 
    LOCAL onchangeprocedure := _GetControlAction( ControlName, ParentForm, "ONCHANGE" )
 
-RETURN OnLeaveRate( ParentForm, ControlName, onchangeprocedure )
+RETURN OnLeaveRate(ParentForm, ControlName, onchangeprocedure)

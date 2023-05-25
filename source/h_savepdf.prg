@@ -76,7 +76,7 @@ FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
 
    BEGIN SEQUENCE
 
-      IF HPDF_SetCompressionMode( hDoc, HPDF_COMP_ALL ) != HPDF_OK
+      IF HPDF_SetCompressionMode(hDoc, HPDF_COMP_ALL) != HPDF_OK
          lRet := UPDF_Error( "COMPRESS", hDoc )
          BREAK
       ENDIF
@@ -94,23 +94,23 @@ FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
 
          hBitmap := BT_BitmapLoadEMF( cPage, WHITE )
          cImageFile := hb_FNameExtSet( cPage, "png" )
-         BT_BitmapSaveFile( hBitmap, cImageFile, BT_FILEFORMAT_PNG )
+         BT_BitmapSaveFile(hBitmap, cImageFile, BT_FILEFORMAT_PNG)
 
-         aSizes := BmpSize( hBitmap )
+         aSizes := BmpSize(hBitmap)
          IF aSizes[1] - 850 > aSizes[2]
             page_orient := HPDF_PAGE_LANDSCAPE
          ENDIF
-         BT_BitmapRelease( hBitmap )
+         BT_BitmapRelease(hBitmap)
 
          // create new page
-         hPage := HPDF_AddPage( hDoc )
-         HPDF_Page_SetSize( hPage, page_size, page_orient )
+         hPage := HPDF_AddPage(hDoc)
+         HPDF_Page_SetSize(hPage, page_size, page_orient)
          nPageHeight := HPDF_Page_GetHeight(hPage)
          nPageWidth := HPDF_Page_GetWidth(hPage)
          // put page picture
-         lRet := PutPageImage( hDoc, hPage, cImageFile, nPageHeight, nPageWidth )
+         lRet := PutPageImage(hDoc, hPage, cImageFile, nPageHeight, nPageWidth)
 #ifndef __DEBUG__
-         FErase( cImageFile )
+         FErase(cImageFile)
 #endif
          IF !lRet
             MsgExclamation( "There was an error with image file:" + hb_eol() + cPage + " !", "Warning" )
@@ -120,7 +120,7 @@ FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
       END
 
       IF lRet
-         IF !( HPDF_SaveToFile( hDoc, cPdfFile ) == 0 )
+         IF !( HPDF_SaveToFile(hDoc, cPdfFile) == 0 )
             lRet := UPDF_Error( "SAVE", hDoc )
             BREAK
          ENDIF
@@ -129,7 +129,7 @@ FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
    END SEQUENCE
 
    HPDF_ResetError( hDoc )
-   HPDF_Free( hDoc )
+   HPDF_Free(hDoc)
 
    hb_cdpSelect( cOldCodePage )
 
@@ -140,24 +140,24 @@ FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
    DEFAULT lOpen := MsgYesNo( "View " + cPdfFile + " (Y/N) ?", "Please select" )
 
    IF lRet .AND. lOpen
-      wapi_shellExecute( NIL, "open", Chr(34) + cPdfFile + Chr(34) )
+      wapi_shellExecute(NIL, "open", Chr(34) + cPdfFile + Chr(34))
    ENDIF
 
 RETURN lRet
 
 ********************************************************************************
-STATIC FUNCTION PutPageImage( hDoc, hPage, cLogoFile, nPageHeight, nPageWidth )
+STATIC FUNCTION PutPageImage(hDoc, hPage, cLogoFile, nPageHeight, nPageWidth)
 ********************************************************************************
    
    LOCAL hImage
    LOCAL nResult
 
    IF Upper(hb_FNameExt(cLogoFile)) == ".PNG"
-      hImage := HPDF_LoadPngImageFromFile( hDoc, cLogoFile )
+      hImage := HPDF_LoadPngImageFromFile(hDoc, cLogoFile)
    ELSE
-      hImage := HPDF_LoadJpegImageFromFile( hDoc, cLogoFile )
+      hImage := HPDF_LoadJpegImageFromFile(hDoc, cLogoFile)
    ENDIF
-   nResult := HPDF_Page_DrawImage( hPage, hImage, 20, 10, nPageWidth - 30, nPageHeight - 20 )
+   nResult := HPDF_Page_DrawImage(hPage, hImage, 20, 10, nPageWidth - 30, nPageHeight - 20)
 
 RETURN ( nResult == HPDF_OK )
 

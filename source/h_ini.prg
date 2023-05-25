@@ -52,7 +52,7 @@
 #include "fileio.ch"
 
 *-----------------------------------------------------------------------------*
-FUNCTION _SetGetLogFile( cFile )
+FUNCTION _SetGetLogFile(cFile)
 *-----------------------------------------------------------------------------*
    
    LOCAL cVarName := "_HMG_" + SubStr(ProcName(), 8)
@@ -66,7 +66,7 @@ FUNCTION _SetGetLogFile( cFile )
 RETURN cOld
 
 *-----------------------------------------------------------------------------*
-FUNCTION _LogFile( lCrLf, ... )
+FUNCTION _LogFile(lCrLf, ...)
 *-----------------------------------------------------------------------------*
    
    LOCAL hFile
@@ -166,7 +166,7 @@ FUNCTION _GetIni( cSection, cEntry, cDefault, uVar )
       ENDIF
    ENDIF
 
-   uVar := xValue( cVar, ValType(uVar) )
+   uVar := xValue(cVar, ValType(uVar))
 
 RETURN uVar
 
@@ -224,7 +224,7 @@ FUNCTION GetBeginComment
    LOCAL cComment := ""
 
    IF !Empty(_HMG_ActiveIniFile)
-      aLines := hb_ATokens(StrTran(MemoRead( _HMG_ActiveIniFile ), CRLF, Chr(10)), Chr(10))
+      aLines := hb_ATokens(StrTran(MemoRead(_HMG_ActiveIniFile), CRLF, Chr(10)), Chr(10))
 
       IF ( nLen := Len(aLines) ) > 0
          FOR i := 1 TO nLen
@@ -256,7 +256,7 @@ FUNCTION GetEndComment
    LOCAL cComment := ""
 
    IF !Empty(_HMG_ActiveIniFile)
-      aLines := hb_ATokens(StrTran(MemoRead( _HMG_ActiveIniFile ), CRLF, Chr(10)), Chr(10))
+      aLines := hb_ATokens(StrTran(MemoRead(_HMG_ActiveIniFile), CRLF, Chr(10)), Chr(10))
 
       IF ( nLen := Len(aLines) ) > 0
          FOR i := nLen TO 1 STEP -1
@@ -290,7 +290,7 @@ FUNCTION SetBeginComment( cComment )
    hb_default(@cComment, "")
 
    IF !Empty(_HMG_ActiveIniFile)
-      aLines := hb_ATokens(StrTran(MemoRead( _HMG_ActiveIniFile ), CRLF, Chr(10)), Chr(10))
+      aLines := hb_ATokens(StrTran(MemoRead(_HMG_ActiveIniFile), CRLF, Chr(10)), Chr(10))
 
       IF ( nLen := Len(aLines) ) > 0 .AND. Len(ATail(aLines)) == 0
          ASize(aLines, nLen - 1)
@@ -350,7 +350,7 @@ FUNCTION SetEndComment( cComment )
    cComment := AllTrim(cComment)
 
    IF !Empty(_HMG_ActiveIniFile)
-      aLines := hb_ATokens(StrTran(MemoRead( _HMG_ActiveIniFile ), CRLF, Chr(10)), Chr(10))
+      aLines := hb_ATokens(StrTran(MemoRead(_HMG_ActiveIniFile), CRLF, Chr(10)), Chr(10))
       nLen := Len(aLines)
       IF nLen > 0 .AND. hb_ULen(ATail(aLines)) == 0
          ASize(aLines, nLen - 1)
@@ -422,14 +422,14 @@ FUNCTION xChar( xValue )
 RETURN cValue
 
 *-----------------------------------------------------------------------------*
-FUNCTION xValue( cValue, cType )
+FUNCTION xValue(cValue, cType)
 *-----------------------------------------------------------------------------*
    
    LOCAL xValue
 
    DO CASE // TODO: SWITCH
    CASE cType $  "CM"; xValue := cValue
-   CASE cType == "D" ; xValue := SToD( cValue )
+   CASE cType == "D" ; xValue := SToD(cValue)
    CASE cType == "N" ; xValue := Val(cValue)
    CASE cType == "L" ; xValue := ( cValue == "T" )
    CASE cType == "A" ; xValue := CToA(cValue)
@@ -489,7 +489,7 @@ FUNCTION _GetSectionNames( cIniFile )
    LOCAL aSectionList := {}
    LOCAL aLista
 
-   IF File( cIniFile )
+   IF File(cIniFile)
       aLista := _GetPrivateProfileSectionNames( cIniFile )
       IF !Empty(aLista)
          AEval(aLista, {|cVal| iif(Empty(cVal), NIL, AAdd(aSectionList, cVal))})
@@ -510,7 +510,7 @@ FUNCTION _GetSection( cSection, cIniFile )
    LOCAL i
    LOCAL n
 
-   IF File( cIniFile )
+   IF File(cIniFile)
       aLista := _GetPrivateProfileSection( cSection, cIniFile )
       IF !Empty(aLista)
          FOR i := 1 TO Len(aLista)

@@ -197,7 +197,7 @@ HB_FUNC( SETWINDOWLONG )
 /*
    nCtlStyle := GetWindowStyle(Form_1.Button_1.Handle)
 
-   IF hb_bitAnd( nCtlStyle, WS_TABSTOP ) != 0
+   IF hb_bitAnd(nCtlStyle, WS_TABSTOP) != 0
       SetWindowStyle(nButtonHandle, WS_TABSTOP, .F.)   // Turn WS_TABSTOP style off
    ELSE
       SetWindowStyle(nButtonHandle, WS_TABSTOP, .T.)   // Turn WS_TABSTOP style on

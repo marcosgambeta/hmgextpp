@@ -729,7 +729,7 @@ FUNCTION BT_BitmapCaptureDesktop(Row, Col, Width, Height)
 
    bt_FillRectIsNIL(@Row, @Col, @Width, @Height, 0, 0, Max_Width, Max_Height)
    bt_AdjustWidthHeightRect(Row, Col, @Width, @Height, Max_Width, Max_Height)
-   New_hBitmap := BT_BMP_CAPTURESCR(bt_WinHandle( Win ), Col, Row, Width, Height, BT_BITMAP_CAPTURE_DESKTOP)
+   New_hBitmap := BT_BMP_CAPTURESCR(bt_WinHandle(Win), Col, Row, Width, Height, BT_BITMAP_CAPTURE_DESKTOP)
 
 RETURN New_hBitmap
 

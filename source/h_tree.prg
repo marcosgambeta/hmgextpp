@@ -133,7 +133,7 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
       IF Len(_HMG_aDialogTemplate) > 0        // Dialog Template
 
          // {{"ID",k/hwnd,class,Style,ExStyle,col,row,width,height,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
-         blInit := {| x, y, z| InitDialogTree( x, y, z ) }
+         blInit := {| x, y, z| InitDialogTree(x, y, z) }
          _HMG_aDialogTreeItem := {}
          AAdd(_HMG_aDialogItems, {nId, k, "SysTreeView32", style, 0, col, row, width, height, "", HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
@@ -336,7 +336,7 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION InitDialogTree( ParentName, ControlHandle, k )
+FUNCTION InitDialogTree(ParentName, ControlHandle, k)
 *-----------------------------------------------------------------------------*
    
    LOCAL aBitmaps := Array(4)
@@ -530,7 +530,7 @@ FUNCTION _EndTree()
 
       _HMG_aControlPageMap  [ _HMG_ActiveTreeIndex ] := _HMG_aTreeMap
       _HMG_aControlPicture  [ _HMG_ActiveTreeIndex ] := _HMG_aTreeIdMap
-      _HMG_aControlHeadClick[ _HMG_ActiveTreeIndex ] := AClone( a_Node_Item_Cargo )
+      _HMG_aControlHeadClick[ _HMG_ActiveTreeIndex ] := AClone(a_Node_Item_Cargo)
 
       IF _HMG_ActiveTreeValue > 0
 

@@ -48,12 +48,12 @@
 #include "fileio.ch"
 
 *-----------------------------------------------------------------------------*
-PROCEDURE SetHelpFile( cFile )
+PROCEDURE SetHelpFile(cFile)
 *-----------------------------------------------------------------------------*
 
    LOCAL hFile
 
-   IF File( cFile )
+   IF File(cFile)
 
       hFile := FOpen(cFile, FO_READ + FO_SHARED)
 
@@ -101,7 +101,7 @@ PROCEDURE DisplayHelpTopic(xTopic, nMet)
          cParam := Chr(34) + _HMG_ActiveHelpFile + Chr(34)
       ENDSWITCH
 
-      _Execute( _HMG_MainHandle , "open" , "hh.exe" , cParam , , SW_SHOW )
+      _Execute(_HMG_MainHandle , "open" , "hh.exe" , cParam , , SW_SHOW)
 
    ELSE
 

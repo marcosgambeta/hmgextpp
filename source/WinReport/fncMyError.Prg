@@ -12,7 +12,7 @@
 FUNCTION MyErrorFunc(MyObjError)
     LOCAL cErrorMsg, HtmArch, cText, i := 2
 
-    cErrorMsg := MyErrorMessage( MyObjError )
+    cErrorMsg := MyErrorMessage(MyObjError)
     
     HtmArch := Html_ErrorLog()
     Html_LineText( HtmArch, "<p class=" + Chr(34) + "updated" + Chr(34) + ">Date: " + Dtoc(Date()) + "  " + "Time: " + Time() )
@@ -21,12 +21,12 @@ FUNCTION MyErrorFunc(MyObjError)
     cErrorMsg += CRLF + CRLF
     
     WHILE !Empty(ProcName(i))
-        cText := "Called from " + ProcName( i ) + "(" + AllTrim(Str(ProcLine(i++))) + ")" + CRLF
+        cText := "Called from " + ProcName(i) + "(" + AllTrim(Str(ProcLine(i++))) + ")" + CRLF
         cErrorMsg += cText
-        Html_LineText( HtmArch, cText )
+        Html_LineText(HtmArch, cText)
     ENDDO
-    Html_Line( HtmArch )
-    Html_End( HtmArch )
+    Html_Line(HtmArch)
+    Html_End(HtmArch)
 
     MsgStop( cErrorMsg, "Program Error..." )
 
@@ -34,7 +34,7 @@ RETURN .T.
 
 
 
-STATIC FUNCTION MyErrorMessage( oError )
+STATIC FUNCTION MyErrorMessage(oError)
    LOCAL cMessage
 
    // start error message

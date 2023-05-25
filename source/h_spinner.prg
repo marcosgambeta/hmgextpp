@@ -222,7 +222,7 @@ FUNCTION OSPINEVENTS( hWnd, nMsg, wParam, lParam )    // 2006.08.13 JD
 
          IF wParam == 0x0D   // Return key pressed
 
-            IF _GetKeyState( VK_SHIFT )  // Is Shift key pressed?
+            IF _GetKeyState(VK_SHIFT)  // Is Shift key pressed?
                InsertShiftTab()
             ELSE
                InsertTab()

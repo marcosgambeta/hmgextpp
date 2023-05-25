@@ -176,7 +176,7 @@ FUNCTION _EndMessageBar()
 
    // Must have at least one StatusItem to prevent crash when function Events(...) receives WM_SIZE message
    IF _HMG_StatusItemCount == 0  // JD 07/20/2007
-      _DefineItemMessage( ITEMNAME, _HMG_ActiveMessageBarName, 0, 0, GetProperty( _HMG_ActiveFormName, "Title" ), , , 0, , , , .F. )
+      _DefineItemMessage(ITEMNAME, _HMG_ActiveMessageBarName, 0, 0, GetProperty( _HMG_ActiveFormName, "Title" ), , , 0, , , , .F.)
    ENDIF
 
    IF ( i := GetControlIndex(PROGRESSNAME, _HMG_ActiveFormName) ) != 0
@@ -337,17 +337,17 @@ FUNCTION _SetStatusKeybrd(BarName, FormName, Width, ToolTip, action)
    __defaultNIL(@ToolTip, "")
    __defaultNIL(@Action, "")
 
-   nrItem1 := _DefineItemMessage( "TimerNum", BarName, 0, 0, "NumLock", ;
+   nrItem1 := _DefineItemMessage("TimerNum", BarName, 0, 0, "NumLock", ;
       iif(Empty(Action), {|| iif(_HMG_IsXPorLater, KeyToggleNT( VK_NUMLOCK ), KeyToggle( VK_NUMLOCK )) }, Action), Width + 20, 0, ;
-      iif(IsNumLockActive(), "zzz_led_on", "zzz_led_off"), "", ToolTip )
+      iif(IsNumLockActive(), "zzz_led_on", "zzz_led_off"), "", ToolTip)
 
-   nrItem2 := _DefineItemMessage( "TimerCaps", BarName, 0, 0, "CapsLock", ;
+   nrItem2 := _DefineItemMessage("TimerCaps", BarName, 0, 0, "CapsLock", ;
       iif(Empty(Action), {|| iif(_HMG_IsXPorLater, KeyToggleNT( VK_CAPITAL ), KeyToggle( VK_CAPITAL )) }, Action), Width + 25, 0, ;
-      iif(IsCapsLockActive(), "zzz_led_on", "zzz_led_off"), "", ToolTip )
+      iif(IsCapsLockActive(), "zzz_led_on", "zzz_led_off"), "", ToolTip)
 
-   nrItem3 := _DefineItemMessage( "TimerInsert", BarName, 0, 0, "Insert", ;
+   nrItem3 := _DefineItemMessage("TimerInsert", BarName, 0, 0, "Insert", ;
       iif(Empty(Action), {|| iif(_HMG_IsXPorLater, KeyToggleNT( VK_INSERT ), KeyToggle( VK_INSERT )) }, Action), Width, 0, ;
-      iif(IsInsertActive(), "zzz_led_on", "zzz_led_off"), "", ToolTip )
+      iif(IsInsertActive(), "zzz_led_on", "zzz_led_off"), "", ToolTip)
 
    _DefineTimer ( "StatusKeyBrd" , FormName , 250 , ;
       {|| _SetStatusIcon ( BarName , FormName , nrItem1 , iif(IsNumLockActive() , "zzz_led_on" , "zzz_led_off") ), ;
@@ -475,24 +475,15 @@ FUNCTION _SetStatusItemProperty( nItem, Value, hWnd, nType )
          IF ++nIndex == nItem
 
             SWITCH nType
-            CASE STATUS_ITEM_WIDTH
-               _HMG_aControlWidth[i] := Value
-               EXIT
-            CASE STATUS_ITEM_ACTION
-               _HMG_aControlProcedures[i] := Value
-               EXIT
-            CASE STATUS_ITEM_BACKCOLOR
-               _HMG_aControlBkColor[i] := Value
-               EXIT
-            CASE STATUS_ITEM_FONTCOLOR
-               _HMG_aControlFontColor[i] := Value
-               EXIT
-            CASE STATUS_ITEM_ALIGN
-               _HMG_aControlSpacing[i] := Value
+            CASE STATUS_ITEM_WIDTH     ; _HMG_aControlWidth[i] := Value      ; EXIT
+            CASE STATUS_ITEM_ACTION    ; _HMG_aControlProcedures[i] := Value ; EXIT
+            CASE STATUS_ITEM_BACKCOLOR ; _HMG_aControlBkColor[i] := Value    ; EXIT
+            CASE STATUS_ITEM_FONTCOLOR ; _HMG_aControlFontColor[i] := Value  ; EXIT
+            CASE STATUS_ITEM_ALIGN     ; _HMG_aControlSpacing[i] := Value
             ENDSWITCH
 
             IF nType > STATUS_ITEM_ACTION
-               FormName := GetParentFormName( i )
+               FormName := GetParentFormName(i)
                _SetItem ( "StatusBar", FormName, nItem, _GetItem ( "StatusBar", FormName, nItem ) )
             ENDIF
 

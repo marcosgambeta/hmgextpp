@@ -77,8 +77,8 @@ CLASS TDecode
 
    METHOD New()
 
-   METHOD Decode( cString )
-   METHOD Encode( cString )
+   METHOD Decode(cString)
+   METHOD Encode(cString)
 
    METHOD Encode64( cData, nLen )
    METHOD Decode64( cData )
@@ -119,7 +119,7 @@ return Self
 *    TDecode:Encode
 **********
 */
-METHOD Decode( cString ) CLASS TDecode
+METHOD Decode(cString) CLASS TDecode
 LOCAL cRet := ""
 LOCAL nChars, nDec, i, cChar
 LOCAL nPos1, nPos2
@@ -149,7 +149,7 @@ return cRet
 //
 // Encode String
 //
-METHOD Encode( cString ) CLASS TDecode
+METHOD Encode(cString) CLASS TDecode
 LOCAL cRet := ""
 LOCAL nChars, nChar, i, cChar
 

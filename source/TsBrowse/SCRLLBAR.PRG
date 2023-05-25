@@ -13,35 +13,36 @@
 
 #define COLOR_SCROLLBAR 0
 
-
 CLASS TSBScrlBar FROM TControl
 
-   DATA   lVertical, lReDraw, lIsChild, nMin, nMax, nPgStep
-   DATA   bGoUp, bGoDown, bGoTop, bGoBottom, bPageUp, bPageDown, bPos
-   DATA   bTrack
-   DATA   l32Bit
-   DATA   lShowDisabled, hWnd, oWnd
-   DATA   lUpdate       AS LOGICAL                   // TControl
-   DATA   bWhen                                      // TWindow
-   DATA   bValid                                     // TWindow
+   DATA lVertical
+   DATA lReDraw
+   DATA lIsChild
+   DATA nMin
+   DATA nMax
+   DATA nPgStep
+   DATA bGoUp
+   DATA bGoDown
+   DATA bGoTop
+   DATA bGoBottom
+   DATA bPageUp
+   DATA bPageDown
+   DATA bPos
+   DATA bTrack
+   DATA l32Bit
+   DATA lShowDisabled
+   DATA hWnd
+   DATA oWnd
+   DATA lUpdate AS LOGICAL                   // TControl
+   DATA bWhen                                // TWindow
+   DATA bValid                               // TWindow
 
-   CLASSDATA aProperties INIT { "cVarName", "nMin", "nMax",;
-                                "nPgStep", "nTop", "nLeft", "Cargo" }
+   CLASSDATA aProperties INIT {"cVarName", "nMin", "nMax", "nPgStep", "nTop", "nLeft", "Cargo"}
 
-   METHOD New( nRow, nCol, nMin, nMax, nPgStep, lVertical, oWnd, nWidth, nHeight,;
-               bUpAct, bDownAct, bPgUp, bPgDown, bPos, lPixel, nClrText,;
-               nClrBack, cMsg, lUpdate, bWhen, bValid, lDesign ) CONSTRUCTOR
-
-   METHOD WinNew( nMin, nMax, nPgStep, lVertical, oWnd, bUpAction,;
-                  bDownAction, bPgUp, bPgDown, bPos, nClrText, nClrBack,;
-                  lUpdate, bWhen, bValid ) CONSTRUCTOR
-
-   METHOD GetPos() INLINE GetScrollPos( IIf(::lIsChild, ::oWnd:hWnd, ::hWnd),;
-            IIf(::lIsChild, IIf(::lVertical, SB_VERT, SB_HORZ), SB_CTL) )
-
-   METHOD GetRange() INLINE GetScrlRange( IIf(::lIsChild, ::oWnd:hWnd, ::hWnd),;
-            IIf(::lIsChild, IIf(::lVertical, SB_VERT, SB_HORZ), SB_CTL) )
-
+   METHOD New(nRow, nCol, nMin, nMax, nPgStep, lVertical, oWnd, nWidth, nHeight, bUpAct, bDownAct, bPgUp, bPgDown, bPos, lPixel, nClrText, nClrBack, cMsg, lUpdate, bWhen, bValid, lDesign) CONSTRUCTOR
+   METHOD WinNew(nMin, nMax, nPgStep, lVertical, oWnd, bUpAction, bDownAction, bPgUp, bPgDown, bPos, nClrText, nClrBack, lUpdate, bWhen, bValid) CONSTRUCTOR
+   METHOD GetPos() INLINE GetScrollPos(IIf(::lIsChild, ::oWnd:hWnd, ::hWnd), IIf(::lIsChild, IIf(::lVertical, SB_VERT, SB_HORZ), SB_CTL))
+   METHOD GetRange() INLINE GetScrlRange(IIf(::lIsChild, ::oWnd:hWnd, ::hWnd), IIf(::lIsChild, IIf(::lVertical, SB_VERT, SB_HORZ), SB_CTL))
    METHOD HandleEvent( nMsg, nWParam, nLParam )
 
 //   METHOD Initiate( hDlg ) INLINE  ::Super:Initiate( hDlg ), Tone(500), ;
@@ -58,9 +59,9 @@ CLASS TSBScrlBar FROM TControl
    METHOD PageUp()   INLINE IIf(::bPageUp != Nil, Eval(::bPageUp), NIL), ::SetPos(::GetPos() - ::nPgStep)
    METHOD PageDown() INLINE IIf(::bPageDown != Nil, Eval(::bPageDown), NIL), ::SetPos(::GetPos() + ::nPgStep)
 
-   METHOD SetMode( l32Bit )
+   METHOD SetMode(l32Bit)
 
-   METHOD SetPage( nSize, lReDraw )
+   METHOD SetPage(nSize, lReDraw)
 
    METHOD SetPos( nPos ) INLINE SetScrollPos( IIf(::lIsChild, ::oWnd:hWnd, ;
                                   ::hWnd), IIf(::lIsChild, IIf(::lVertical, ;
@@ -68,15 +69,14 @@ CLASS TSBScrlBar FROM TControl
                                   nPos, ::lReDraw, ::lShowDisabled, ;
                                   ::l32Bit )
 
-   METHOD SetRange( nMin, nMax ) INLINE ;
-                                  ::nMin := nMin, ::nMax := nMax, ;
-           SetScrollRange( iif(::lIsChild, ::oWnd:hWnd, ::hWnd), ;
+   METHOD SetRange(nMin, nMax) INLINE ::nMin := nMin, ::nMax := nMax, ;
+           SetScrollRange(iif(::lIsChild, ::oWnd:hWnd, ::hWnd), ;
                IIf(::lIsChild, IIf(::lVertical, SB_VERT, SB_HORZ), SB_CTL), ;
-                   nMin, nMax, ::lReDraw, ::lShowDisabled, ::l32Bit )   // JP 74
+                   nMin, nMax, ::lReDraw, ::lShowDisabled, ::l32Bit)   // JP 74
 
    METHOD ThumbPos( nPos ) INLINE  IIf(::bPos != Nil, Eval(::bPos, nPos), NIL)
 
-   METHOD MouseMove( nRow, nCol, nKeyFlags )
+   METHOD MouseMove(nRow, nCol, nKeyFlags)
 
    METHOD ThumbTrack( nPos ) INLINE IIf(::bTrack != Nil, Eval(::bTrack, nPos), ::ThumbPos(nPos))
 
@@ -127,8 +127,8 @@ METHOD New( nRow, nCol, nMin, nMax, nPgStep, lVertical, oWnd, nWidth, nHeight,;
    ::bValid     := bValid
 
    if !Empty(::oWnd:hWnd)
-      ::Create( "SCROLLBAR" )
-      ::SetRange( ::nMin, ::nMax )
+      ::Create("SCROLLBAR")
+      ::SetRange(::nMin, ::nMax)
       ::SetPos( ::nMin )
    EndIf
 
@@ -173,8 +173,8 @@ METHOD WinNew( nMin, nMax, nPgStep, lVertical, oWnd, bUpAction,;
    ::lShowDisabled := .F.
    ::l32Bit        := ::SetMode()
    
-   ::SetPage( ::nPgStep, .T. )
-   ::SetRange( nMin, nMax )
+   ::SetPage(::nPgStep, .T.)
+   ::SetRange(nMin, nMax)
    ::SetPos( nMin )
 
 Return Self
@@ -217,9 +217,9 @@ Return ::Super:HandleEvent( nMsg, nWParam, nLParam )
 * METHOD TSBScrlBar:MouseMove() Version 5.0 27/Feb/2002
 * ============================================================================
 
-METHOD MouseMove( nRow, nCol, nKeyFlags ) CLASS TSBScrlBar
+METHOD MouseMove(nRow, nCol, nKeyFlags) CLASS TSBScrlBar
 
-   Local nResult := ::Super:MouseMove( nRow, nCol, nKeyFlags )
+   Local nResult := ::Super:MouseMove(nRow, nCol, nKeyFlags)
 
 Return IIf(::lDrag, nResult, Nil)    // We want standard behavior !!!
 
@@ -227,7 +227,7 @@ Return IIf(::lDrag, nResult, Nil)    // We want standard behavior !!!
 * METHOD TSBScrlBar:SetPage() Version 5.0 27/Feb/2002
 * ============================================================================
 
-METHOD SetPage( nSize, lReDraw ) CLASS TSBScrlBar
+METHOD SetPage(nSize, lReDraw) CLASS TSBScrlBar
 
    Local nFlags
 
@@ -253,7 +253,7 @@ Return Nil
 * METHOD TSBScrlBar:SetMode() Version 5.0 27/Feb/2002
 * ============================================================================
 
-METHOD SetMode( l32Bit ) CLASS TSBScrlBar
+METHOD SetMode(l32Bit) CLASS TSBScrlBar
 
    LOCAL lWin32 := .T. //IsWin95()  // W2K also returns TRUE. NT 4 doesn't support SetScrollInfo
 

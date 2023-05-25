@@ -147,37 +147,37 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
    IF l3D
       // Bottom area
       FOR nI := 1 TO nDeep + 1
-         DrawLine( parent, nBottom - nI, nLeft - nDeep + nI, nBottom - nI, nRight - nDeep + nI, WHITE )
+         DrawLine(parent, nBottom - nI, nLeft - nDeep + nI, nBottom - nI, nRight - nDeep + nI, WHITE)
       NEXT nI
 
       // Lateral
       FOR nI := 1 TO nDeep
-         DrawLine( parent, nTop + nI, nLeft - nI, nBottom - nDeep + nI, nLeft - nI, SILVER )
+         DrawLine(parent, nTop + nI, nLeft - nI, nBottom - nDeep + nI, nLeft - nI, SILVER)
       NEXT nI
 
       // Graph borders
       FOR nI := 1 TO nDeep+1
-         DrawLine( parent, nBottom-nI     , nLeft-nDeep+nI-1 , nBottom-nI     , nLeft-nDeep+nI  , GRAY )
-         DrawLine( parent, nBottom-nI     , nRight-nDeep+nI-1, nBottom-nI     , nRight-nDeep+nI , BLACK )
-         DrawLine( parent, nTop+nDeep-nI+1, nLeft-nDeep+nI-1 , nTop+nDeep-nI+1, nLeft-nDeep+nI  , BLACK )
-         DrawLine( parent, nTop+nDeep-nI+1, nLeft-nDeep+nI-3 , nTop+nDeep-nI+1, nLeft-nDeep+nI-2, BLACK )
+         DrawLine(parent, nBottom-nI     , nLeft-nDeep+nI-1 , nBottom-nI     , nLeft-nDeep+nI  , GRAY)
+         DrawLine(parent, nBottom-nI     , nRight-nDeep+nI-1, nBottom-nI     , nRight-nDeep+nI , BLACK)
+         DrawLine(parent, nTop+nDeep-nI+1, nLeft-nDeep+nI-1 , nTop+nDeep-nI+1, nLeft-nDeep+nI  , BLACK)
+         DrawLine(parent, nTop+nDeep-nI+1, nLeft-nDeep+nI-3 , nTop+nDeep-nI+1, nLeft-nDeep+nI-2, BLACK)
       NEXT nI
 
       FOR nI := 1 TO nDeep+2
-         DrawLine( parent, nTop+nDeep-nI+1, nLeft-nDeep+nI-3, nTop+nDeep-nI+1, nLeft-nDeep+nI-2 , BLACK )
-         DrawLine( parent, nBottom+ 2-nI+1, nRight-nDeep+nI , nBottom+ 2-nI+1, nRight-nDeep+nI-2, BLACK )
+         DrawLine(parent, nTop+nDeep-nI+1, nLeft-nDeep+nI-3, nTop+nDeep-nI+1, nLeft-nDeep+nI-2 , BLACK)
+         DrawLine(parent, nBottom+ 2-nI+1, nRight-nDeep+nI , nBottom+ 2-nI+1, nRight-nDeep+nI-2, BLACK)
       NEXT nI
 
-      DrawLine( parent, nTop         , nLeft        , nTop           , nRight       , BLACK )
-      DrawLine( parent, nTop- 2      , nLeft        , nTop- 2        , nRight+ 2    , BLACK )
-      DrawLine( parent, nTop         , nLeft        , nBottom-nDeep  , nLeft        , GRAY  )
-      DrawLine( parent, nTop+nDeep   , nLeft-nDeep  , nBottom        , nLeft-nDeep  , BLACK )
-      DrawLine( parent, nTop+nDeep   , nLeft-nDeep-2, nBottom+ 2     , nLeft-nDeep-2, BLACK )
-      DrawLine( parent, nTop         , nRight       , nBottom-nDeep  , nRight       , BLACK )
-      DrawLine( parent, nTop- 2      , nRight+ 2    , nBottom-nDeep+2, nRight+ 2    , BLACK )
-      DrawLine( parent, nBottom-nDeep, nLeft        , nBottom-nDeep  , nRight       , GRAY  )
-      DrawLine( parent, nBottom      , nLeft-nDeep  , nBottom        , nRight-nDeep , BLACK )
-      DrawLine( parent, nBottom+ 2   , nLeft-nDeep-2, nBottom+ 2     , nRight-nDeep , BLACK )
+      DrawLine(parent, nTop         , nLeft        , nTop           , nRight       , BLACK)
+      DrawLine(parent, nTop- 2      , nLeft        , nTop- 2        , nRight+ 2    , BLACK)
+      DrawLine(parent, nTop         , nLeft        , nBottom-nDeep  , nLeft        , GRAY )
+      DrawLine(parent, nTop+nDeep   , nLeft-nDeep  , nBottom        , nLeft-nDeep  , BLACK)
+      DrawLine(parent, nTop+nDeep   , nLeft-nDeep-2, nBottom+ 2     , nLeft-nDeep-2, BLACK)
+      DrawLine(parent, nTop         , nRight       , nBottom-nDeep  , nRight       , BLACK)
+      DrawLine(parent, nTop- 2      , nRight+ 2    , nBottom-nDeep+2, nRight+ 2    , BLACK)
+      DrawLine(parent, nBottom-nDeep, nLeft        , nBottom-nDeep  , nRight       , GRAY )
+      DrawLine(parent, nBottom      , nLeft-nDeep  , nBottom        , nRight-nDeep , BLACK)
+      DrawLine(parent, nBottom+ 2   , nLeft-nDeep-2, nBottom+ 2     , nRight-nDeep , BLACK)
    ENDIF
 
    // Graph info
@@ -239,13 +239,13 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
    ENDIF
    IF l3D
       FOR nI := 1 TO nDeep + 1
-         DrawLine( parent, nZero - nI + 1, nLeft - nDeep + nI, nZero - nI + 1, nRight - nDeep + nI, SILVER )
+         DrawLine(parent, nZero - nI + 1, nLeft - nDeep + nI, nZero - nI + 1, nRight - nDeep + nI, SILVER)
       NEXT nI
       FOR nI := 1 TO nDeep + 1
-         DrawLine( parent, nZero - nI + 1, nLeft - nDeep + nI - 1 , nZero - nI + 1, nLeft - nDeep + nI , GRAY )
-         DrawLine( parent, nZero - nI + 1, nRight - nDeep + nI - 1, nZero - nI + 1, nRight - nDeep + nI, BLACK )
+         DrawLine(parent, nZero - nI + 1, nLeft - nDeep + nI - 1 , nZero - nI + 1, nLeft - nDeep + nI , GRAY)
+         DrawLine(parent, nZero - nI + 1, nRight - nDeep + nI - 1, nZero - nI + 1, nRight - nDeep + nI, BLACK)
       NEXT nI
-      DrawLine( parent, nZero - nDeep, nLeft, nZero - nDeep, nRight, GRAY )
+      DrawLine(parent, nZero - nDeep, nLeft, nZero - nDeep, nRight, GRAY)
    ENDIF
 
    aPoint := Array(Len(aSeries), Len(aData[1]), 2)
@@ -287,18 +287,18 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
          IF nRange * nI <= nXMax
             IF l3D
                FOR nJ := 0 TO nDeep + 1
-                  DrawLine( parent, nRPos + nJ, nLeft - nJ - 1, nRPos + nJ, nLeft - nJ, BLACK )
+                  DrawLine(parent, nRPos + nJ, nLeft - nJ - 1, nRPos + nJ, nLeft - nJ, BLACK)
                NEXT nJ
             ENDIF
-            DrawLine( parent, nRPos, nLeft, nRPos, nRight, BLACK )
+            DrawLine(parent, nRPos, nLeft, nRPos, nRight, BLACK)
          ENDIF
          IF nRange *- nI >= nXMin *- 1
             IF l3D
                FOR nJ := 0 TO nDeep + 1
-                  DrawLine( parent, nRNeg + nJ, nLeft - nJ - 1, nRNeg + nJ, nLeft - nJ, BLACK )
+                  DrawLine(parent, nRNeg + nJ, nLeft - nJ - 1, nRNeg + nJ, nLeft - nJ, BLACK)
                NEXT nJ
             ENDIF
-            DrawLine( parent, nRNeg, nLeft, nRNeg, nRight, BLACK )
+            DrawLine(parent, nRNeg, nLeft, nRNeg, nRight, BLACK)
          ENDIF
       ENDIF
       nRPos -= ( nMaxBar / nXRanges )
@@ -309,8 +309,8 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
       nPos := iif(l3D, nTop, nTop - 5)
       nI := nLeft + nWide
       FOR nJ := 1 TO nMax( aData )
-         Drawline( parent, nBottom - nDeep, nI, nPos, nI, { 100, 100, 100 } )
-         Drawline( parent, nBottom, nI - nDeep, nBottom - nDeep, nI, { 100, 100, 100 } )
+         Drawline(parent, nBottom - nDeep, nI, nPos, nI, { 100, 100, 100 })
+         Drawline(parent, nBottom, nI - nDeep, nBottom - nDeep, nI, { 100, 100, 100 })
          nI += nWide
       NEXT
    ENDIF
@@ -384,7 +384,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
                   { aPoint[nJ,nI+1,1] - nDeep, aPoint[nJ,nI+1,2] + nDeep }, { aPoint[nJ,nI,1] - nDeep, aPoint[nJ,nI,2] + nDeep }, ;
                   { aPoint[nJ,nI,1], aPoint[nJ,nI,2] } }, , , aColors[nJ] )
             ELSE
-               DrawLine( parent, aPoint[nJ,nI,1], aPoint[nJ,nI,2], aPoint[nJ,nI+1,1], aPoint[nJ,nI+1,2], aColors[nJ] )
+               DrawLine(parent, aPoint[nJ,nI,1], aPoint[nJ,nI,2], aPoint[nJ,nI+1,1], aPoint[nJ,nI+1,2], aColors[nJ])
             ENDIF
          NEXT nI
       NEXT nI
@@ -429,10 +429,10 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
    ENDIF
 
    IF l3D
-      DrawLine( parent, nZero, nLeft - nDeep, nZero, nRight - nDeep, BLACK )
+      DrawLine(parent, nZero, nLeft - nDeep, nZero, nRight - nDeep, BLACK)
    ELSE
       IF nXMax != 0 .AND. nXMin != 0
-         DrawLine( parent, nZero - 1, nLeft + 1, nZero - 1, nRight - 1, RED )
+         DrawLine(parent, nZero - 1, nLeft + 1, nZero - 1, nRight - 1, RED)
       ENDIF
    ENDIF
 
@@ -467,7 +467,7 @@ STATIC PROCEDURE DrawBar( parent, nY, nX, nHigh, nWidth, l3D, nDeep, aColor )
    nShadow := nRGB2Arr( nShadow )
 
    FOR nI := 1 TO nWidth
-      DrawLine( parent, nX, nY + nI, nX + nDeep - nHigh, nY + nI, aColor )  // front
+      DrawLine(parent, nX, nY + nI, nX + nDeep - nHigh, nY + nI, aColor) // front
    NEXT nI
 
    IF l3D
@@ -490,21 +490,21 @@ RETURN
 STATIC PROCEDURE DrawBox( parent, nY, nX, nHigh, nWidth, l3D, nDeep )
 
    // Set Border
-   DrawLine( parent, nX, nY        , nX-nHigh+nDeep    , nY         , BLACK )  // Left
-   DrawLine( parent, nX, nY+nWidth , nX-nHigh+nDeep    , nY+nWidth  , BLACK )  // Right
-   DrawLine( parent, nX-nHigh+nDeep, nY, nX-nHigh+nDeep, nY+nWidth+1, BLACK )  // Top
-   DrawLine( parent, nX            , nY, nX            , nY+nWidth  , BLACK )  // Bottom
+   DrawLine(parent, nX, nY        , nX-nHigh+nDeep    , nY         , BLACK)  // Left
+   DrawLine(parent, nX, nY+nWidth , nX-nHigh+nDeep    , nY+nWidth  , BLACK)  // Right
+   DrawLine(parent, nX-nHigh+nDeep, nY, nX-nHigh+nDeep, nY+nWidth+1, BLACK)  // Top
+   DrawLine(parent, nX            , nY, nX            , nY+nWidth  , BLACK)  // Bottom
    IF l3D
       // Set shadow
-      DrawLine( parent, nX - nHigh + nDeep, nY + nWidth, nX - nHigh, nY + nDeep + nWidth, BLACK )
-      DrawLine( parent, nX, nY + nWidth, nX - nDeep, nY + nWidth + nDeep, BLACK )
+      DrawLine(parent, nX - nHigh + nDeep, nY + nWidth, nX - nHigh, nY + nDeep + nWidth, BLACK)
+      DrawLine(parent, nX, nY + nWidth, nX - nDeep, nY + nWidth + nDeep, BLACK)
       IF nHigh > 0
-         DrawLine( parent, nX - nDeep, nY + nWidth + nDeep, nX - nHigh, nY + nWidth + nDeep, BLACK )
-         DrawLine( parent, nX - nHigh, nY + nDeep, nX - nHigh , nY + nWidth + nDeep, BLACK )
-         DrawLine( parent, nX - nHigh + nDeep, nY, nX - nHigh, nY + nDeep, BLACK )
+         DrawLine(parent, nX - nDeep, nY + nWidth + nDeep, nX - nHigh, nY + nWidth + nDeep, BLACK)
+         DrawLine(parent, nX - nHigh, nY + nDeep, nX - nHigh , nY + nWidth + nDeep, BLACK)
+         DrawLine(parent, nX - nHigh + nDeep, nY, nX - nHigh, nY + nDeep, BLACK)
       ELSE
-         DrawLine( parent, nX - nDeep, nY + nWidth + nDeep, nX - nHigh + 1, nY + nWidth + nDeep, BLACK )
-         DrawLine( parent, nX, nY, nX - nDeep, nY + nDeep, BLACK )
+         DrawLine(parent, nX - nDeep, nY + nWidth + nDeep, nX - nHigh + 1, nY + nWidth + nDeep, BLACK)
+         DrawLine(parent, nX, nY, nX - nDeep, nY + nDeep, BLACK)
       ENDIF
    ENDIF
 
@@ -516,20 +516,20 @@ STATIC PROCEDURE DrawPoint( parent, nType, nY, nX, nHigh, aColor )
    DO CASE
    CASE nType == POINTS
 
-      Circle( parent, nX - nHigh - 3, nY - 3, 8, aColor )
+      Circle(parent, nX - nHigh - 3, nY - 3, 8, aColor)
 
    CASE nType == LINES
 
-      Circle( parent, nX - nHigh - 2, nY - 2, 6, aColor )
+      Circle(parent, nX - nHigh - 2, nY - 2, 6, aColor)
 
    ENDCASE
 
 RETURN
 
 
-STATIC PROCEDURE Circle( window, nCol, nRow, nWidth, aColor )
+STATIC PROCEDURE Circle(window, nCol, nRow, nWidth, aColor)
 
-   DrawEllipse( window, nCol, nRow, nCol + nWidth - 1, nRow + nWidth - 1, , , aColor )
+   DrawEllipse(window, nCol, nRow, nCol + nWidth - 1, nRow + nWidth - 1, , , aColor)
 
 RETURN
 
@@ -583,7 +583,7 @@ FUNCTION ClrShadow( nColor, nFactor )
    LOCAL aHSL
    LOCAL aRGB
 
-   aHSL := RGB2HSL( GetRed( nColor ), GetGreen( nColor ), GetBlue( nColor ) )
+   aHSL := RGB2HSL(GetRed(nColor), GetGreen(nColor), GetBlue(nColor))
    aHSL[3] -= nFactor
    aRGB := HSL2RGB(aHSL[1], aHSL[2], aHSL[3])
 
@@ -600,9 +600,9 @@ FUNCTION RGB2HSL( nR, nG, nB )
 
    IF nR < 0
       nR := Abs( nR )
-      nG := GetGreen( nR )
-      nB := GetBlue( nR )
-      nR := GetRed( nR )
+      nG := GetGreen(nR)
+      nB := GetBlue(nR)
+      nR := GetRed(nR)
    ENDIF
 
    nR /= 255
@@ -830,76 +830,76 @@ FUNCTION drawpiegraph( windowname, fromrow, fromcol, torow, tocol, series, aname
       DO CASE
       CASE cumulative[i] <= 45
          toradialcol := middlerightcol
-         toradialrow := middlerightrow - Round( cumulative[i] / 45 * ( middlerightrow - toprightrow ), 0 )
-         drawpie( windowname, fromrow, fromcol, torow, tocol, fromradialrow, fromradialcol, toradialrow, toradialcol, , , colors[i] )
+         toradialrow := middlerightrow - Round(cumulative[i] / 45 * (middlerightrow - toprightrow), 0)
+         drawpie(windowname, fromrow, fromcol, torow, tocol, fromradialrow, fromradialcol, toradialrow, toradialcol, , , colors[i])
          fromradialrow := toradialrow
          fromradialcol := toradialcol
       CASE cumulative[i] <= 90 .AND. cumulative[i] > 45
          toradialrow := toprightrow
-         toradialcol := toprightcol - Round( ( cumulative[i] - 45 ) / 45 * ( toprightcol - middletopcol ), 0 )
-         drawpie( windowname, fromrow, fromcol, torow, tocol, fromradialrow, fromradialcol, toradialrow, toradialcol, , , colors[i] )
+         toradialcol := toprightcol - Round((cumulative[i] - 45) / 45 * (toprightcol - middletopcol), 0)
+         drawpie(windowname, fromrow, fromcol, torow, tocol, fromradialrow, fromradialcol, toradialrow, toradialcol, , , colors[i])
          fromradialrow := toradialrow
          fromradialcol := toradialcol
       CASE cumulative[i] <= 135 .AND. cumulative[i] > 90
          toradialrow := topleftrow
-         toradialcol := middletopcol - Round( ( cumulative[i] - 90 ) / 45 * ( middletopcol - topleftcol ), 0 )
-         drawpie( windowname, fromrow, fromcol, torow, tocol, fromradialrow, fromradialcol, toradialrow, toradialcol, , , colors[i] )
+         toradialcol := middletopcol - Round((cumulative[i] - 90) / 45 * (middletopcol - topleftcol), 0)
+         drawpie(windowname, fromrow, fromcol, torow, tocol, fromradialrow, fromradialcol, toradialrow, toradialcol, , , colors[i])
          fromradialrow := toradialrow
          fromradialcol := toradialcol
       CASE cumulative[i] <= 180 .AND. cumulative[i] > 135
          toradialcol := topleftcol
-         toradialrow := topleftrow + Round( ( cumulative[i] - 135 ) / 45 * ( middleleftrow - topleftrow ), 0 )
-         drawpie( windowname, fromrow, fromcol, torow, tocol, fromradialrow, fromradialcol, toradialrow, toradialcol, , , colors[i] )
+         toradialrow := topleftrow + Round((cumulative[i] - 135) / 45 * (middleleftrow - topleftrow), 0)
+         drawpie(windowname, fromrow, fromcol, torow, tocol, fromradialrow, fromradialcol, toradialrow, toradialcol, , , colors[i])
          fromradialrow := toradialrow
          fromradialcol := toradialcol
       CASE cumulative[i] <= 225 .AND. cumulative[i] > 180
          toradialcol := topleftcol
-         toradialrow := middleleftrow + Round( ( cumulative[i] - 180 ) / 45 * ( bottomleftrow - middleleftrow ), 0 )
+         toradialrow := middleleftrow + Round((cumulative[i] - 180) / 45 * (bottomleftrow - middleleftrow), 0)
          IF l3d
             FOR j := 1 TO depth
                drawarc(windowname, fromrow + j, fromcol, torow + j, tocol, fromradialrow + j, fromradialcol, toradialrow + j, toradialcol, shadowcolor)
             NEXT j
          ENDIF
-         drawpie( windowname, fromrow, fromcol, torow, tocol, fromradialrow, fromradialcol, toradialrow, toradialcol, , , colors[i] )
+         drawpie(windowname, fromrow, fromcol, torow, tocol, fromradialrow, fromradialcol, toradialrow, toradialcol, , , colors[i])
          fromradialrow := toradialrow
          fromradialcol := toradialcol
       CASE cumulative[i] <= 270 .AND. cumulative[i] > 225
          toradialrow := bottomleftrow
-         toradialcol := bottomleftcol + Round( ( cumulative[i] - 225 ) / 45 * ( middlebottomcol - bottomleftcol ), 0 )
+         toradialcol := bottomleftcol + Round((cumulative[i] - 225) / 45 * (middlebottomcol - bottomleftcol), 0)
          IF l3d
             FOR j := 1 TO depth
                drawarc(windowname, fromrow + j, fromcol, torow + j, tocol, fromradialrow + j, fromradialcol, toradialrow + j, toradialcol, shadowcolor)
             NEXT j
          ENDIF
-         drawpie( windowname, fromrow, fromcol, torow, tocol, fromradialrow, fromradialcol, toradialrow, toradialcol, , , colors[i] )
+         drawpie(windowname, fromrow, fromcol, torow, tocol, fromradialrow, fromradialcol, toradialrow, toradialcol, , , colors[i])
          fromradialrow := toradialrow
          fromradialcol := toradialcol
       CASE cumulative[i] <= 315 .AND. cumulative[i] > 270
          toradialrow := bottomleftrow
-         toradialcol := middlebottomcol + Round( ( cumulative[i] - 270 ) / 45 * ( bottomrightcol - middlebottomcol ), 0 )
+         toradialcol := middlebottomcol + Round((cumulative[i] - 270) / 45 * (bottomrightcol - middlebottomcol), 0)
          IF l3d
             FOR j := 1 TO depth
                drawarc(windowname, fromrow + j, fromcol, torow + j, tocol, fromradialrow + j, fromradialcol, toradialrow + j, toradialcol, shadowcolor)
             NEXT j
          ENDIF
-         drawpie( windowname, fromrow, fromcol, torow, tocol, fromradialrow, fromradialcol, toradialrow, toradialcol, , , colors[i] )
+         drawpie(windowname, fromrow, fromcol, torow, tocol, fromradialrow, fromradialcol, toradialrow, toradialcol, , , colors[i])
          fromradialrow := toradialrow
          fromradialcol := toradialcol
       CASE cumulative[i] <= 360 .AND. cumulative[i] > 315
          toradialcol := bottomrightcol
-         toradialrow := bottomrightrow - Round( ( cumulative[i] - 315 ) / 45 * ( bottomrightrow - middlerightrow ), 0 )
+         toradialrow := bottomrightrow - Round((cumulative[i] - 315) / 45 * (bottomrightrow - middlerightrow), 0)
          IF l3d
             FOR j := 1 TO depth
                drawarc(windowname, fromrow + j, fromcol, torow + j, tocol, fromradialrow + j, fromradialcol, toradialrow + j, toradialcol, shadowcolor)
             NEXT j
          ENDIF
-         drawpie( windowname, fromrow, fromcol, torow, tocol, fromradialrow, fromradialcol, toradialrow, toradialcol, , , colors[i] )
+         drawpie(windowname, fromrow, fromcol, torow, tocol, fromradialrow, fromradialcol, toradialrow, toradialcol, , , colors[i])
          fromradialrow := toradialrow
          fromradialcol := toradialcol
       ENDCASE
       IF l3d
-         drawline( windowname, middleleftrow, middleleftcol, middleleftrow + depth, middleleftcol )
-         drawline( windowname, middlerightrow, middlerightcol, middlerightrow + depth, middlerightcol )
+         drawline(windowname, middleleftrow, middleleftcol, middleleftrow + depth, middleleftcol)
+         drawline(windowname, middlerightrow, middlerightcol, middlerightrow + depth, middlerightcol)
          drawarc(windowname, fromrow + depth, fromcol, torow + depth, tocol, middleleftrow + depth, middleleftcol, middlerightrow + depth, middlerightcol)
       ENDIF
    NEXT i
@@ -1015,7 +1015,7 @@ RETURN NIL
 STATIC FUNCTION _bmpprint( cForm, x, y, nLibrary )
 *-----------------------------------------------------------------------------*
    
-   LOCAL cTempFile := TempFile( GetTempFolder(), "BMP" )
+   LOCAL cTempFile := TempFile(GetTempFolder(), "BMP")
    LOCAL aSize
    LOCAL nOrientation
    LOCAL lSuccess
@@ -1033,7 +1033,7 @@ STATIC FUNCTION _bmpprint( cForm, x, y, nLibrary )
 
    DoMethod(cForm, "SaveAs", cTempFile)
 
-   aSize := BmpSize( cTempFile )
+   aSize := BmpSize(cTempFile)
 
    bw := aSize[1]
    bh := aSize[2]

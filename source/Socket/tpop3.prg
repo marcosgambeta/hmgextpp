@@ -80,7 +80,7 @@ CLASS TPOP3
    METHOD List( lFullInfo )
    METHOD GetMessageHeader( cMessageID )
    METHOD GetMessageText( cMessageID )
-   METHOD DeleteMessage( cMessageID )
+   METHOD DeleteMessage(cMessageID)
 
    CLASSDATA oSocket HIDDEN
 
@@ -249,7 +249,7 @@ return cRet
 //
 // Delete original text of mail
 //
-METHOD DeleteMessage( cMessageID ) CLASS TPOP3
+METHOD DeleteMessage(cMessageID) CLASS TPOP3
 local bRet := .T.
 
 if ::oSocket:SendString( "DELE " +cMessageID +CHR(13)+CHR(10) )

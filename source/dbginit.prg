@@ -22,7 +22,7 @@ INIT PROCEDURE _DbgInit
    LOCAL nRows    := 0
 
    IF hb_FileExists( cIniFile )
-      cIniCont := MemoRead( cIniFile )
+      cIniCont := MemoRead(cIniFile)
       nLines   := MLCount( cIniCont, nLineLen )
       FOR nLine := 1 TO nLines
          cLine := Upper(AllTrim(MemoLine(cIniCont, nLineLen, nLine)))
@@ -42,7 +42,7 @@ INIT PROCEDURE _DbgInit
    ENDIF
 
    IF !Empty(nRows) .AND. !Empty(nCols)
-      SetMode( nRows, nCols )
+      SetMode(nRows, nCols)
    ENDIF
 
 RETURN

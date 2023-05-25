@@ -98,7 +98,7 @@ CLASS TSocket
    METHOD GetLocalName()    INLINE SocketLocalName()
    METHOD GetLocalAddress() INLINE SocketLocalAddress()
 
-   METHOD Bind( cAddress, nPort )
+   METHOD Bind(cAddress, nPort)
    METHOD Listen( nClient )
 
    METHOD SetReceiveTimeout( nTime )
@@ -106,7 +106,7 @@ CLASS TSocket
 
    // Debug method
    METHOD SetDebug( bDebug )
-   METHOD PrintDebugMessage( cMsg )
+   METHOD PrintDebugMessage(cMsg)
    // Debug method
 
    CLASSDATA m_hSocket       HIDDEN AS STRING INIT space(4)
@@ -126,10 +126,10 @@ return Self
 // Connect to remore site
 //
 METHOD Connect( cAddress, nPort ) CLASS TSocket
-local cSok := space( len(::m_hSocket) )
+local cSok := space(len(::m_hSocket))
 local bRet
 
-::PrintDebugMessage( "Connect to " +cAddress +" port " +str(nPort) )
+::PrintDebugMessage("Connect to " +cAddress +" port " +str(nPort))
 
 bRet := SocketConnect( @cSok, cAddress, nPort )
 
@@ -141,13 +141,13 @@ return bRet
 // Close socket
 //
 METHOD Close() CLASS TSocket
-local cSok := space( len(::m_hSocket) )
+local cSok := space(len(::m_hSocket))
 local bRet
 
-::PrintDebugMessage( "Close socket" )
+::PrintDebugMessage("Close socket")
 
 cSok := ::m_hSocket
-bRet := SocketClose( @cSok )
+bRet := SocketClose(@cSok)
 ::m_hSocket := cSok
 
 return bRet
@@ -156,8 +156,8 @@ return bRet
 // Send string to socket
 //
 METHOD SendString( cString ) CLASS TSocket
-::PrintDebugMessage( "Send string " +cString )
-return SocketSend( ::m_hSocket, cString, ::nSendTimeout )
+::PrintDebugMessage("Send string " + cString)
+return SocketSend(::m_hSocket, cString, ::nSendTimeout)
 
 //
 // Receive string from socket
@@ -167,17 +167,17 @@ local cRet := ""
 local cBuf := space(4096)
 local nRet
 
-::PrintDebugMessage( "Receive string" )
+::PrintDebugMessage("Receive string")
 
 do while .T.
-   nRet := SocketReceive( ::m_hSocket, @cBuf, ::nReceiveTimeout )
+   nRet := SocketReceive(::m_hSocket, @cBuf, ::nReceiveTimeout)
    if nRet <= 0
       exit
    endif
    cRet += substr(cBuf, 1, nRet)
 enddo
 
-::PrintDebugMessage( "Received " +cRet )
+::PrintDebugMessage("Received " +cRet)
 
 return cRet
 
@@ -192,10 +192,10 @@ cBuf := space(nBufLen)
 
 ::PrintDebugMessage("Receive " + iif(nBufLen == 1, "char", "custom string"))
 
-nRet := SocketReceive( ::m_hSocket, @cBuf, ::nReceiveTimeout )
+nRet := SocketReceive(::m_hSocket, @cBuf, ::nReceiveTimeout)
 cRet := substr(cBuf, 1, nRet)
 
-::PrintDebugMessage( "Received " +cRet )
+::PrintDebugMessage("Received " +cRet)
 
 return cRet
 
@@ -207,10 +207,10 @@ local cRet := ""
 local cBuf := space(1)
 local nRet
 
-::PrintDebugMessage( "Receive line" )
+::PrintDebugMessage("Receive line")
 
 do while .T.
-   nRet := SocketReceive( ::m_hSocket, @cBuf, ::nReceiveTimeout )
+   nRet := SocketReceive(::m_hSocket, @cBuf, ::nReceiveTimeout)
    // If EOF, return
    if nRet==1 .AND. right(cBuf,1)==CHR(10)
       // If last char is CHR(13) remove it
@@ -225,20 +225,20 @@ do while .T.
    cRet += substr(cBuf, 1, nRet)
 enddo
 
-::PrintDebugMessage( "Received " +cRet )
+::PrintDebugMessage("Received " +cRet)
 
 return cRet
 
 //
 // Bind all address
 //
-METHOD Bind( cAddress, nPort ) CLASS TSocket
-local cSok := space( len(::m_hSocket) )
+METHOD Bind(cAddress, nPort) CLASS TSocket
+local cSok := space(len(::m_hSocket))
 local bRet
 
-::PrintDebugMessage( "Bind " +cAddress +" port " +str(nPort) )
+::PrintDebugMessage("Bind " +cAddress +" port " +str(nPort))
 
-bRet := SocketBind( @cSok, cAddress, nPort )
+bRet := SocketBind(@cSok, cAddress, nPort)
 
 ::m_hSocket := cSok
 
@@ -248,13 +248,13 @@ return bRet
 // Listen for client
 //
 METHOD Listen( nClient ) CLASS TSocket
-local cSok := space( len(::m_hSocket) )
+local cSok := space(len(::m_hSocket))
 local bRet
 local oRet
 
 DEFAULT nClient TO 10
 
-::PrintDebugMessage( "Listen ..." )
+::PrintDebugMessage("Listen ...")
 
 bRet := SocketListen( ::m_hSocket, nClient, @cSok )
 
@@ -289,7 +289,7 @@ return nil
 //
 // Print error messages
 //
-METHOD PrintDebugMessage( cMsg ) CLASS TSocket
+METHOD PrintDebugMessage(cMsg) CLASS TSocket
 if ::bDebug
    ? "(" +::m_hSocket +") (" +cMsg +")"
 endif

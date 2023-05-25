@@ -174,7 +174,7 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
       SetBkgndColor(ControlHandle, .T., backcolor[1], backcolor[2], backcolor[3])
    ENDIF
 
-   IF File( file )
+   IF File(file)
       StreamIn(ControlHandle, File, iif(plaintext, 1, 2))
    ELSE
       file := ""
@@ -244,7 +244,7 @@ RETURN Nil
 PROCEDURE _DataBaseRichEditBoxSave ( ControlName, ParentForm, typ )
 *-----------------------------------------------------------------------------*
    
-   LOCAL cTempFile := TempFile( GetTempFolder(), "txt" )
+   LOCAL cTempFile := TempFile(GetTempFolder(), "txt")
    LOCAL Field
    LOCAL i
 
@@ -270,7 +270,7 @@ RETURN
 FUNCTION _DataRichEditBoxSetValue ( ControlName, ParentForm, cRichValue, typ )
 *-----------------------------------------------------------------------------*
    
-   LOCAL cTempFile := TempFile( GetTempFolder(), "txt" )
+   LOCAL cTempFile := TempFile(GetTempFolder(), "txt")
 
    IF !Empty(cTempFile)
       hb_MemoWrit ( cTempFile, cRichValue )
@@ -288,7 +288,7 @@ RETURN cRichValue
 FUNCTION _DataRichEditBoxGetValue ( ControlName, ParentForm, typ )
 *-----------------------------------------------------------------------------*
    
-   LOCAL cTempFile := TempFile( GetTempFolder(), "txt" )
+   LOCAL cTempFile := TempFile(GetTempFolder(), "txt")
    LOCAL cRichValue
 
    IF !Empty(cTempFile)

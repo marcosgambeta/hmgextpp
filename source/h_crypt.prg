@@ -76,7 +76,7 @@ RETURN CHARXOR( cXorStr, "<ORIGINAL>" )
 
 /*
 */
-FUNCTION FI_CODE( cInFile, cPass, cOutFile, lDelete )
+FUNCTION FI_CODE(cInFile, cPass, cOutFile, lDelete)
 
    LOCAL nHandle
    LOCAL cBuffer
@@ -84,7 +84,7 @@ FUNCTION FI_CODE( cInFile, cPass, cOutFile, lDelete )
    LOCAL nRead := 1
    LOCAL nOutHandle
 
-   IF Empty(cInFile) .OR. !File( cInFile )
+   IF Empty(cInFile) .OR. !File(cInFile)
 
       MSGSTOP("No such file")
       RETURN NIL
@@ -128,7 +128,7 @@ FUNCTION FI_CODE( cInFile, cPass, cOutFile, lDelete )
 
    ENDIF
 
-   cBuffer := Space( 30 )
+   cBuffer := Space(30)
    FRead(nHandle, @cBuffer, 30)
 
    IF cBuffer == "ENCRYPTED FILE (C) ODESSA 2002"
@@ -153,7 +153,7 @@ FUNCTION FI_CODE( cInFile, cPass, cOutFile, lDelete )
    FWrite(nOutHandle, "ENCRYPTED FILE (C) ODESSA 2002")
    cStr := _ENCRYPT( cPass )
    FWrite(nOutHandle, cStr)
-   cBuffer := Space( 512 )
+   cBuffer := Space(512)
 
    DO WHILE nRead != 0
 
@@ -175,7 +175,7 @@ FUNCTION FI_CODE( cInFile, cPass, cOutFile, lDelete )
 
    IF lDelete
 
-      FErase( cInFile )
+      FErase(cInFile)
 
    ENDIF
 
@@ -183,7 +183,7 @@ RETURN NIL
 
 /*
 */
-FUNCTION FI_DECODE( cInFile, cPass, cOutFile, lDelete )
+FUNCTION FI_DECODE(cInFile, cPass, cOutFile, lDelete)
 
    LOCAL nHandle
    LOCAL cBuffer
@@ -191,7 +191,7 @@ FUNCTION FI_DECODE( cInFile, cPass, cOutFile, lDelete )
    LOCAL nRead := 1
    LOCAL nOutHandle
 
-   IF Empty(cInFile) .OR. !File( cInFile )
+   IF Empty(cInFile) .OR. !File(cInFile)
 
       MSGSTOP("No such file")
       RETURN NIL
@@ -235,7 +235,7 @@ FUNCTION FI_DECODE( cInFile, cPass, cOutFile, lDelete )
 
    ENDIF
 
-   cBuffer := Space( 30 )
+   cBuffer := Space(30)
    FRead(nHandle, @cBuffer, 30)
 
    IF cBuffer != "ENCRYPTED FILE (C) ODESSA 2002"
@@ -246,7 +246,7 @@ FUNCTION FI_DECODE( cInFile, cPass, cOutFile, lDelete )
 
    ENDIF
 
-   cBuffer := Space( 10 )
+   cBuffer := Space(10)
    FRead(nHandle, @cBuffer, 10)
 
    IF cBuffer != _ENCRYPT( cPass )
@@ -267,7 +267,7 @@ FUNCTION FI_DECODE( cInFile, cPass, cOutFile, lDelete )
 
    ENDIF
 
-   cBuffer := Space( 512 )
+   cBuffer := Space(512)
 
    DO WHILE nRead != 0
 
@@ -289,7 +289,7 @@ FUNCTION FI_DECODE( cInFile, cPass, cOutFile, lDelete )
 
    IF lDelete
 
-      FErase( cInFile )
+      FErase(cInFile)
 
    ENDIF
 
@@ -300,8 +300,8 @@ RETURN NIL
 FUNCTION DB_ENCRYPT( cFile, cPass )
 
    LOCAL nHandle
-   LOCAL cBuffer := Space( 4 )
-   LOCAL cFlag := Space( 3 )
+   LOCAL cBuffer := Space(4)
+   LOCAL cFlag := Space(3)
 
    IF cPass == NIL
 
@@ -325,13 +325,13 @@ FUNCTION DB_ENCRYPT( cFile, cPass )
 
    ENDIF
 
-   IF At( ".", cFileName( cFile ) ) == 0
+   IF At( ".", cFileName(cFile) ) == 0
 
       cFile := cFile + ".DBF"
 
    ENDIF
 
-   IF File( cFile )
+   IF File(cFile)
 
       nHandle := FOpen(cFile, 2)
 
@@ -450,9 +450,9 @@ RETURN NIL
 FUNCTION DB_UNENCRYPT( cFile, cPass )
 
    LOCAL nHandle
-   LOCAL cBuffer := Space( 4 )
-   LOCAL cSavePass := Space( 10 )
-   LOCAL cFlag := Space( 3 )
+   LOCAL cBuffer := Space(4)
+   LOCAL cSavePass := Space(10)
+   LOCAL cFlag := Space(3)
 
    IF cPass == NIL
 
@@ -482,7 +482,7 @@ FUNCTION DB_UNENCRYPT( cFile, cPass )
 
    ENDIF
 
-   IF File( cFile )
+   IF File(cFile)
 
       nHandle := FOpen(cFile, 2)
 
@@ -547,7 +547,7 @@ FUNCTION DB_UNENCRYPT( cFile, cPass )
 
       ENDIF
 
-      cBuffer := Space( 4 )
+      cBuffer := Space(4)
       FSeek(nHandle, 8)
 
       IF FError() != 0
@@ -607,7 +607,7 @@ RETURN NIL
 
 /*
 */
-STATIC FUNCTION cFileName( cMask )
+STATIC FUNCTION cFileName(cMask)
 
    LOCAL cName := AllTrim(cMask)
    LOCAL n := At( ".", cName )
@@ -616,7 +616,7 @@ RETURN AllTrim(iif(n > 0, Left(cName, n - 1), cName))
 
 /*
 */
-FUNCTION DB_CODE( cData, cKey, aFields, cPass, cFor, cWhile )
+FUNCTION DB_CODE(cData, cKey, aFields, cPass, cFor, cWhile)
 
    LOCAL cTmpFile := "__temp__.dbf"
    LOCAL nRecno := RecNo()
@@ -704,7 +704,7 @@ FUNCTION DB_CODE( cData, cKey, aFields, cPass, cFor, cWhile )
       SKIP
    ENDDO
    USE                                     // Close target file
-   FErase( cTmpFile )
+   FErase(cTmpFile)
    SELECT &cAlias                          // Select prior file
    GO nRecno
 

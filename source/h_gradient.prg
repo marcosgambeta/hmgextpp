@@ -102,7 +102,7 @@ FUNCTION DrawGradient( window, row, col, rowr, colr, aColor1, aColor2, vertical,
          EXIT
 
       CASE 3  // panel
-         WndBoxRaised( hDC, row, col, rowr, colr )
+         WndBoxRaised(hDC, row, col, rowr, colr)
          FillGradient( hDC, row + 1, col + 1, rowr - 1, colr - 1, vertical, color1, color2 )
          EXIT
 
@@ -129,7 +129,7 @@ FUNCTION DrawGradient( window, row, col, rowr, colr, aColor1, aColor2, vertical,
       CASE 3  // panel
          AAdd(_HMG_aFormGraphTasks[i], ;
             { || hDC := GetDC(FormHandle), ;
-            WndBoxRaised( hDC, row, col, rowr, colr ), ;
+            WndBoxRaised(hDC, row, col, rowr, colr), ;
             FillGradient( hDC, row + 1, col + 1, rowr - 1, colr - 1, vertical, color1, color2 ), ;
             ReleaseDC(FormHandle, hDC) })
          EXIT
@@ -240,7 +240,7 @@ HB_FUNC( ALPHABLEND )
    HDC  hdc1 = hmg_par_HDC(1);
    HDC  hdc2 = hmg_par_HDC(6);
 
-   if( ( GetObjectType( hdc1 ) & ( OBJ_DC | OBJ_MEMDC ) ) && ( GetObjectType( hdc2 ) & ( OBJ_DC | OBJ_MEMDC ) ) )
+   if( ( GetObjectType(hdc1) & ( OBJ_DC | OBJ_MEMDC ) ) && ( GetObjectType(hdc2) & ( OBJ_DC | OBJ_MEMDC ) ) )
    {
       if( ( s_hDLL != nullptr ) && ( f_AlphaBlend != nullptr ) )
       {
@@ -251,11 +251,11 @@ HB_FUNC( ALPHABLEND )
          bf.SourceConstantAlpha = ( BYTE ) hb_parnl( 11 );
          bf.AlphaFormat         = ( BYTE ) hb_parni( 12 );
 
-         bRes = f_AlphaBlend( hdc1,
-                              hb_parnl( 2 ), hb_parnl( 3 ), hb_parnl( 4 ), hb_parnl( 5 ),
-                              hdc2,
-                              hb_parnl( 7 ), hb_parnl( 8 ), hb_parnl( 9 ), hb_parnl( 10 ),
-                              bf );
+         bRes = f_AlphaBlend(hdc1,
+                             hb_parnl(2), hb_parnl(3), hb_parnl(4), hb_parnl(5),
+                             hdc2,
+                             hb_parnl(7), hb_parnl(8), hb_parnl(9), hb_parnl(10),
+                             bf);
       }
    }
 
@@ -268,7 +268,7 @@ HB_FUNC( TRANSPARENTBLT )
    HDC  hdc1 = hmg_par_HDC(1);
    HDC  hdc2 = hmg_par_HDC(6);
 
-   if( ( GetObjectType( hdc1 ) & ( OBJ_DC | OBJ_MEMDC ) ) && ( GetObjectType( hdc2 ) & ( OBJ_DC | OBJ_MEMDC ) ) )
+   if( ( GetObjectType(hdc1) & ( OBJ_DC | OBJ_MEMDC ) ) && ( GetObjectType(hdc2) & ( OBJ_DC | OBJ_MEMDC ) ) )
    {
       if( ( s_hDLL != nullptr ) && ( f_TransparentBlt != nullptr ) )
       {
@@ -279,7 +279,7 @@ HB_FUNC( TRANSPARENTBLT )
          if( bHiRes )
             GetBrushOrgEx( hdc1, &pt );
 
-         SetStretchBltMode( hdc1, iStretchMode );
+         SetStretchBltMode(hdc1, iStretchMode);
 
          if( bHiRes )
             SetBrushOrgEx( hdc1, pt.x, pt.y, nullptr );
@@ -300,7 +300,7 @@ HB_FUNC( FILLGRADIENT )
    BOOL bRes = FALSE;
    HDC  hdc  = hmg_par_HDC(1);
 
-   if( GetObjectType( hdc ) & ( OBJ_DC | OBJ_MEMDC ) )
+   if( GetObjectType(hdc) & ( OBJ_DC | OBJ_MEMDC ) )
    {
       RECT rect;
 
@@ -327,16 +327,16 @@ BOOL FillGradient( HDC hDC, RECT * rect, BOOL vertical, COLORREF crFrom, COLORRE
 
       rcVertex[ 0 ].y     = rect->top;
       rcVertex[ 0 ].x     = rect->left;
-      rcVertex[ 0 ].Red   = ( unsigned short ) ( GetRValue( crFrom ) << 8 );
-      rcVertex[ 0 ].Green = ( unsigned short ) ( GetGValue( crFrom ) << 8 );
-      rcVertex[ 0 ].Blue  = ( unsigned short ) ( GetBValue( crFrom ) << 8 );
+      rcVertex[ 0 ].Red   = ( unsigned short ) ( GetRValue(crFrom) << 8 );
+      rcVertex[ 0 ].Green = ( unsigned short ) ( GetGValue(crFrom) << 8 );
+      rcVertex[ 0 ].Blue  = ( unsigned short ) ( GetBValue(crFrom) << 8 );
       rcVertex[ 0 ].Alpha = 0;
 
       rcVertex[1].y     = rect->bottom;
       rcVertex[1].x     = rect->right;
-      rcVertex[1].Red   = ( unsigned short ) ( GetRValue( crTo ) << 8 );
-      rcVertex[1].Green = ( unsigned short ) ( GetGValue( crTo ) << 8 );
-      rcVertex[1].Blue  = ( unsigned short ) ( GetBValue( crTo ) << 8 );
+      rcVertex[1].Red   = ( unsigned short ) ( GetRValue(crTo) << 8 );
+      rcVertex[1].Green = ( unsigned short ) ( GetGValue(crTo) << 8 );
+      rcVertex[1].Blue  = ( unsigned short ) ( GetBValue(crTo) << 8 );
       rcVertex[1].Alpha = 0;
 
       gRect.UpperLeft  = 0;
@@ -379,16 +379,16 @@ HBRUSH LinearGradientBrush( HDC pDC, long cx, long cy, COLORREF crFrom, COLORREF
 
       rcVertex[ 0 ].x     = 0;
       rcVertex[ 0 ].y     = 0;
-      rcVertex[ 0 ].Red   = ( unsigned short ) ( GetRValue( crFrom ) << 8 );
-      rcVertex[ 0 ].Green = ( unsigned short ) ( GetGValue( crFrom ) << 8 );
-      rcVertex[ 0 ].Blue  = ( unsigned short ) ( GetBValue( crFrom ) << 8 );
+      rcVertex[ 0 ].Red   = ( unsigned short ) ( GetRValue(crFrom) << 8 );
+      rcVertex[ 0 ].Green = ( unsigned short ) ( GetGValue(crFrom) << 8 );
+      rcVertex[ 0 ].Blue  = ( unsigned short ) ( GetBValue(crFrom) << 8 );
       rcVertex[ 0 ].Alpha = 0;
 
       rcVertex[1].x     = cx;
       rcVertex[1].y     = cy;
-      rcVertex[1].Red   = ( unsigned short ) ( GetRValue( crTo ) << 8 );
-      rcVertex[1].Green = ( unsigned short ) ( GetGValue( crTo ) << 8 );
-      rcVertex[1].Blue  = ( unsigned short ) ( GetBValue( crTo ) << 8 );
+      rcVertex[1].Red   = ( unsigned short ) ( GetRValue(crTo) << 8 );
+      rcVertex[1].Green = ( unsigned short ) ( GetGValue(crTo) << 8 );
+      rcVertex[1].Blue  = ( unsigned short ) ( GetBValue(crTo) << 8 );
       rcVertex[1].Alpha = 0;
 
       gRect.UpperLeft  = 0;

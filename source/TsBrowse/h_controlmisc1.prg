@@ -17,7 +17,7 @@ FUNCTION _InvertRect( hDC, aRec ) // Temporary
 
 RETURN NIL
 
-FUNCTION OSend( oObject, cMsg, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10 )
+FUNCTION OSend(oObject, cMsg, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10)
 
    LOCAL nParams := PCount() - 2
    LOCAL uResult
@@ -67,7 +67,7 @@ FUNCTION ASave(aArray)
 
 RETURN "A" + I2Bin(2 + Len(cInfo)) + I2Bin(Len(aArray)) + cInfo
 
-FUNCTION ARead( cInfo )
+FUNCTION ARead(cInfo)
 
    LOCAL nPos    := 4
    LOCAL nLen
@@ -88,8 +88,8 @@ FUNCTION ARead( cInfo )
       nPos    += nLen
 
       DO CASE
-         CASE cType == "A" ; aArray[n] := ARead( "A" + I2Bin(nLen) + cBuffer )
-         CASE cType == "O" ; aArray[n] := ORead( cBuffer )
+         CASE cType == "A" ; aArray[n] := ARead("A" + I2Bin(nLen) + cBuffer)
+         CASE cType == "O" ; aArray[n] := ORead(cBuffer)
          CASE cType == "C" ; aArray[n] := cBuffer
          CASE cType == "D" ; aArray[n] := CToD(cBuffer)
          CASE cType == "L" ; aArray[n] := ( cBuffer == ".T." )
@@ -99,7 +99,7 @@ FUNCTION ARead( cInfo )
 
 RETURN aArray
 
-FUNCTION ORead( cInfo )
+FUNCTION ORead(cInfo)
 
    LOCAL nLen
    LOCAL cClassName

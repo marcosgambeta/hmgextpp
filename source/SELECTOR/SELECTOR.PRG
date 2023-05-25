@@ -209,7 +209,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
    ELSE
 
-      dbCreate( xcFile, aStruct )
+      dbCreate(xcFile, aStruct)
       dbUseArea(.T., NIL, xcFile, xcAlias, .F.)
       nSelectTemp := Select()
 

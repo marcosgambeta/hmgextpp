@@ -30,7 +30,7 @@ CLASS TComboBox FROM TControl
    METHOD New( nRow, nCol, bSetGet, aGetData, nWidth, nHeight, oWnd, bChanged,;
              nClrFore, nClrBack, hFont, cMsg, cControl, cWnd )
    METHOD Default()
-   METHOD GetDlgCode( nLastKey, nFlags )
+   METHOD GetDlgCode(nLastKey, nFlags)
    METHOD HandleEvent( nMsg, nWParam, nLParam )
    METHOD KeyDown( nKey, nFlags )
    METHOD KeyChar( nKey, nFlags )
@@ -63,7 +63,7 @@ METHOD New( nRow, nCol, bSetGet, aGetData, nWidth, nHeight, oWnd, bChanged,;
    
    if oWnd == Nil
        oWnd       := Self
-       oWnd:hWnd  := GetFormHandle( cWnd )                  //JP
+       oWnd:hWnd  := GetFormHandle(cWnd)                  //JP
    endif
    
    ::oWnd         := oWnd
@@ -100,8 +100,8 @@ METHOD New( nRow, nCol, bSetGet, aGetData, nWidth, nHeight, oWnd, bChanged,;
       ::AddVars( ::hWnd )
       ::Default()
 
-      if GetObjectType( hFont ) == OBJ_FONT
-         _SetFontHandle( ::hWnd, hFont )
+      if GetObjectType(hFont) == OBJ_FONT
+         _SetFontHandle(::hWnd, hFont)
          ::hFont := hFont
       endif
 
@@ -132,7 +132,7 @@ Return NIL
 * METHOD TComboBox:GetDlgCode() Version 7.0 Jul/15/2004
 * ============================================================================
 
-METHOD GetDlgCode( nLastKey, nFlags ) CLASS TComboBox
+METHOD GetDlgCode(nLastKey, nFlags) CLASS TComboBox
 
    HB_SYMBOL_UNUSED(nFlags)
    ::nLastKey := nLastKey

@@ -45,7 +45,7 @@ FUNCTION _ControlCargo( ControlName, FormName, xValue )
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION Do_ControlEventProcedure( bBlock, i, p1, p2, p3, p4 )
+FUNCTION Do_ControlEventProcedure(bBlock, i, p1, p2, p3, p4)
 *-----------------------------------------------------------------------------*
    
    LOCAL RetVal
@@ -69,7 +69,7 @@ FUNCTION Do_ControlEventProcedure( bBlock, i, p1, p2, p3, p4 )
 RETURN RetVal
 
 *-----------------------------------------------------------------------------*
-FUNCTION Do_WindowEventProcedure( bBlock, i, p1, p2, p3, p4 )
+FUNCTION Do_WindowEventProcedure(bBlock, i, p1, p2, p3, p4)
 *-----------------------------------------------------------------------------*
    
    LOCAL RetVal
@@ -144,7 +144,7 @@ FUNCTION _wPost( nEvent, nIndex, xParam )
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION _wSend( nEvent, nIndex, xParam )
+FUNCTION _wSend(nEvent, nIndex, xParam)
 *-----------------------------------------------------------------------------*
    
    LOCAL oWnd
@@ -183,7 +183,7 @@ FUNCTION Do_Obj(nHandle, bBlock, p1, p2, p3)
          IF o:IsWindow 
             RETURN Do_WindowEventProcedure ( bBlock, o:Index, o, p1, p2, p3 ) 
          ELSE 
-            RETURN Do_ControlEventProcedure( bBlock, o:Index, o, p1, p2, p3 ) 
+            RETURN Do_ControlEventProcedure(bBlock, o:Index, o, p1, p2, p3)
          ENDIF 
       ENDIF
    ENDIF
@@ -203,7 +203,7 @@ FUNC Do_OnWndInit( i, cVar )
 RETURN oWndData(nIndex, cName, nHandle, nParent, cType, cVar)
 
 *-----------------------------------------------------------------------------*
-FUNC Do_OnWndRelease( i )
+FUNC Do_OnWndRelease(i)
 *-----------------------------------------------------------------------------*
    
    LOCAL o
@@ -211,10 +211,10 @@ FUNC Do_OnWndRelease( i )
 
    IF hmg_IsWindowObject( hWnd )
       o := hmg_GetWindowObject( hWnd )
-      IF __objHasMethod( o, "Del" )
+      IF __objHasMethod(o, "Del")
          o:Del()
       ENDIF
-      IF __objHasMethod( o, "Destroy" )
+      IF __objHasMethod(o, "Destroy")
          o:Destroy()
       ENDIF
       RETURN .T.
@@ -230,13 +230,13 @@ FUNC Do_OnCtlInit( i, cVar )
    LOCAL cCtlName  := _HMG_aControlNames[i]
    LOCAL nHandle   := iif(hb_IsArray(_HMG_aControlHandles[i]), _HMG_aControlHandles[i][1], _HMG_aControlHandles[i])
    LOCAL nParent   := _HMG_aControlParentHandles[i]
-   LOCAL cFormName := GetParentFormName( i )
+   LOCAL cFormName := GetParentFormName(i)
    LOCAL cCtlType  := iif(Empty(cFormName), _HMG_aControlType[i], GetProperty(cFormName, cCtlName, "Type"))
 
 RETURN oCnlData(nCtlIndex, cCtlName, nHandle, nParent, cCtlType, cVar)
 
 *-----------------------------------------------------------------------------*
-FUNC Do_OnCtlRelease( i )
+FUNC Do_OnCtlRelease(i)
 *-----------------------------------------------------------------------------*
    
    LOCAL o
@@ -244,10 +244,10 @@ FUNC Do_OnCtlRelease( i )
 
    IF hmg_IsWindowObject( hWnd )
       o := hmg_GetWindowObject( hWnd )
-      IF __objHasMethod( o, "Del" )
+      IF __objHasMethod(o, "Del")
          o:Del()
       ENDIF
-      IF __objHasMethod( o, "Destroy" )
+      IF __objHasMethod(o, "Destroy")
          o:Destroy()
       ENDIF
       RETURN .T.
@@ -330,8 +330,8 @@ HB_FUNC( HMG_DELWINDOWOBJECT )
 
       if( pObject && HB_IS_OBJECT( pObject ) )
       {
-         hb_gcUnlock( pObject );     // Ref --
-         hb_itemRelease( pObject );
+         hb_gcUnlock(pObject);     // Ref --
+         hb_itemRelease(pObject);
       }
    }
 }

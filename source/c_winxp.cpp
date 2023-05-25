@@ -85,7 +85,7 @@ using PDTBGOPTS = _DTBGOPTS *;
 HRESULT WINAPI DrawThemeBackgroundEx(HTHEME, HDC, int, int, const RECT *, const DTBGOPTS *);
 HRESULT WINAPI DrawThemeEdge(HTHEME, HDC, int, int, const RECT *, UINT, UINT, RECT *);
 HRESULT WINAPI DrawThemeIcon(HTHEME, HDC, int, int, const RECT *, HIMAGELIST, int);
-HRESULT WINAPI DrawThemeParentBackground( HWND, HDC, RECT * );
+HRESULT WINAPI DrawThemeParentBackground(HWND, HDC, RECT *);
 
 #define DTT_GRAYED             0x1
 

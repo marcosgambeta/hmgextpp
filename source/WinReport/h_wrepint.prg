@@ -377,7 +377,7 @@ Function StampeEsegui(_MainArea,_psd,db_arc,_prw)
              //  msgmulty({oWr:aStat[ "end_pr" ],lbody,mx_pg} )
              mx_pg ++
          endif
-         mx_pg := ROUND( max(1,mx_pg), 0 )
+         mx_pg := ROUND(max(1, mx_pg), 0)
          tpg   := mx_pg
          if valtype(oWr:argm[3]) != "A"
             Dbgotop()
@@ -1075,35 +1075,35 @@ data Ach              INIT  {;
                             ,{"DT_HIDEPREFIX"          , 0x00100000};
                             ,{"DT_PREFIXONLY"          , 0x00200000}}  PROTECTED
 
-METHOD New ()  CONSTRUCTOR
+METHOD New()  CONSTRUCTOR
 METHOD ISMONO()
-METHOD SPLASH ()
-METHOD DoPr ()
-METHOD DoMiniPr ()
-METHOD fGetline ()
-METHOD Transpace ()
-METHOD MACROCOMPILE ()
-METHOD TRADUCI ()
-METHOD LEGGIPAR ()
-METHOD WHAT_ELE ()
-METHOD MEMOSAY ()
+METHOD SPLASH()
+METHOD DoPr()
+METHOD DoMiniPr()
+METHOD fGetline()
+METHOD Transpace()
+METHOD MACROCOMPILE()
+METHOD TRADUCI()
+METHOD LEGGIPAR()
+METHOD WHAT_ELE()
+METHOD MEMOSAY()
 METHOD PUTARRAY(row,col,arr,awidths,rowheight,vertalign,noframes,abrushes,apens,afonts,afontscolor,abitmaps,userfun)
-METHOD HATCH ()
-METHOD GROUP ()
-METHOD GrHead ()
-METHOD GFeet ()
-METHOD UsaFont ()
-METHOD Hgconvert ()
-METHOD TheHead ()
-METHOD TheBody ()
-METHOD TheFeet ()
-METHOD UsaColor ()
+METHOD HATCH()
+METHOD GROUP()
+METHOD GrHead()
+METHOD GFeet()
+METHOD UsaFont()
+METHOD Hgconvert()
+METHOD TheHead()
+METHOD TheBody()
+METHOD TheFeet()
+METHOD UsaColor()
 METHOD SETMYRGB()
 METHOD QUANTIREC()
-METHOD COUNTSECT ()
-METHOD TheMiniHead ()
-METHOD TheMiniBody ()
-METHOD JUSTIFICALINEA ()
+METHOD COUNTSECT()
+METHOD TheMiniHead()
+METHOD TheMiniBody()
+METHOD JUSTIFICALINEA()
 /*
 METHOD SaveData()
 */
@@ -1865,7 +1865,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
 
                               endcase
                               msgmulty(ax)
-//                            mchoice( ax,,,,,"["+arrypar[4]+"]"+" section with len = "+ltrim(str(len(ax))))
+//                            mchoice(ax,,,,,"["+arrypar[4]+"]"+" section with len = "+ltrim(str(len(ax))))
                               asize(ax,0)
                            endif
                         else
@@ -2408,7 +2408,7 @@ local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
          GFline     := .T.
          IF "{||" = LEFT(S_total,3)
             EXT := alltrim(substr(S_Total,at("||",S_Total)+2,at("}",S_Total)-4))
-            m->s_total := ::macrocompile( EXT )
+            m->s_total := ::macrocompile(EXT)
          Else
             m->s_total := s_total
          Endif

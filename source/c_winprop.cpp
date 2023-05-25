@@ -250,7 +250,7 @@ HB_FUNC( GETPROP )
       case 'L':   hb_retl(( BOOL ) *( BOOL * ) ( lpMem + sizeof(int) + 1 )); break;
       case 'D':   hb_retds(lpMem + sizeof(int) + 1); break;
       case 'I':   hb_retni( ( INT ) *( INT * ) ( lpMem + sizeof(int) + 1 ) ); break;
-      case 'F':   hb_retnd( ( double ) *( double * ) ( lpMem + sizeof(int) + 1 ) ); break;
+      case 'F':   hb_retnd(( double ) *( double * ) ( lpMem + sizeof(int) + 1 )); break;
    }
 
    GlobalUnlock(hMem);
@@ -329,7 +329,7 @@ static BOOL CALLBACK PropsEnumProc(HWND hWnd, LPCTSTR pszPropName, HANDLE handle
    #endif
       hb_arraySetNInt(item, 3, ( LONG_PTR ) handle);
 
-      hb_arrayAddForward( ( PHB_ITEM ) lParam, item );
+      hb_arrayAddForward(( PHB_ITEM ) lParam, item);
       hb_itemRelease(item);
    }
 

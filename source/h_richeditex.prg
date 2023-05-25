@@ -301,7 +301,7 @@ FUNCTION RichEditBox_mnuEdit_Click( cAction )
    CASE cAction == "COPY"
       RichEditBox_SelCopy( hEdit )    // Ctrl+C
    CASE cAction == "PASTE"
-      RichEditBox_SelPaste( hEdit )   // Ctrl+V
+      RichEditBox_SelPaste(hEdit)   // Ctrl+V
    CASE cAction == "DEL"
       RichEditBox_SelClear( hEdit )   // Del
    CASE cAction == "SELALL"
@@ -467,7 +467,7 @@ FUNCTION RichEditBox_RTFPrint( hWndControl, aSelRange, nLeft, nTop, nRight, nBot
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION RichEditBox_LoadFile( hWndControl, cFile, lSelection, nType )
+FUNCTION RichEditBox_LoadFile(hWndControl, cFile, lSelection, nType)
 *-----------------------------------------------------------------------------*
    
    LOCAL lSuccess
@@ -475,7 +475,7 @@ FUNCTION RichEditBox_LoadFile( hWndControl, cFile, lSelection, nType )
    hb_default(@lSelection, .F.)
    hb_default(@nType, RICHEDITFILE_RTF)
 
-   lSuccess := RichEditBox_RTFLoadResourceFile( hWndControl, cFile, lSelection )
+   lSuccess := RichEditBox_RTFLoadResourceFile(hWndControl, cFile, lSelection)
 
    IF lSuccess == .F.
       lSuccess := RichEditBox_StreamIn( hWndControl, cFile, lSelection, nType )
@@ -484,7 +484,7 @@ FUNCTION RichEditBox_LoadFile( hWndControl, cFile, lSelection, nType )
 RETURN lSuccess
 
 *-----------------------------------------------------------------------------*
-FUNCTION RichEditBox_SaveFile( hWndControl, cFile, lSelection, nType )
+FUNCTION RichEditBox_SaveFile(hWndControl, cFile, lSelection, nType)
 *-----------------------------------------------------------------------------*
    hb_default(@lSelection, .F.)
    hb_default(@nType, RICHEDITFILE_RTF)

@@ -684,7 +684,7 @@ FUNCTION OwnButtonPaint(pdis)
             lDrawEntire := (aBtnRc[3] > 109) .AND. (aBtnRc[4] - yp2 > 16)
             nStyle := xp2 / 2 - iif(xp2 > 24, 8, 0)
 
-            IF !(hb_bitand( _HMG_aControlSpacing[i], OBT_LEFTTEXT) == OBT_LEFTTEXT)
+            IF !(hb_bitand(_HMG_aControlSpacing[i], OBT_LEFTTEXT) == OBT_LEFTTEXT)
 
                xp1 := 5 + iif(lDrawEntire, nStyle, 0)
                x1 := aBtnRc[1] + xp1 + xp2

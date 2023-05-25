@@ -181,7 +181,7 @@ FUNCTION _AddImageToImageList ( ControlName, ParentControl, Image, MaskImage )
    h := _GetControlHeight(ControlName, ParentControl)
    c := GetControlHandle(ControlName, ParentControl)
 
-RETURN IL_Add( c , image , hb_defaultValue(maskimage, "") , w , h )
+RETURN IL_Add(c, image, hb_defaultValue(maskimage, ""), w, h)
 
 *-----------------------------------------------------------------------------*
 FUNCTION _AddImageMaskedToImageList ( ControlName, ParentControl, Image, aColor )
@@ -199,7 +199,7 @@ FUNCTION _AddImageMaskedToImageList ( ControlName, ParentControl, Image, aColor 
       color := RGB(aColor[1], aColor[2], aColor[3])
    ENDIF
 
-RETURN IL_AddMasked( c , image , color , w , h )
+RETURN IL_AddMasked(c, image, color, w, h)
 
 *-----------------------------------------------------------------------------*
 FUNCTION _ImageListSetBkColor ( ControlName, ParentControl, aColor )
@@ -224,7 +224,7 @@ FUNCTION _EraseImage ( ControlName, ParentControl, ix, iy )
 
    w := _GetControlWidth(ControlName, ParentControl)
    h := _GetControlHeight(ControlName, ParentControl)
-   IL_EraseImage( GetFormHandle(ParentControl), ix, iy, w, h )
+   IL_EraseImage(GetFormHandle(ParentControl), ix, iy, w, h)
 
 RETURN Nil
 

@@ -10,7 +10,7 @@
 // FUNCTION SBrowse() Version 9.0 Nov/30/2009
 // ============================================================================
 
-FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, lNumber )
+FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, lNumber)
 
    LOCAL cFormName, oBrw, nSaveSelect, cDbf, cAlias, lEdit, cTable
    LOCAL lbSetUp := !Empty(bSetUp), lRec, nY, nX, bAfter, lCellBrw := .F.
@@ -57,7 +57,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
    IF hb_IsChar(uAlias) .AND. Select( uAlias ) == 0 // TODO: SWITCH
       nSaveSelect := Select()
       IF lSql
-         cTable := GetUniqueName( "SqlTable" )
+         cTable := GetUniqueName("SqlTable")
 
          dbUseArea(.T.,, "SELECT * FROM " + uAlias, cTable,,, "UTF8")
          SELECT &cTable
@@ -88,7 +88,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
 
    ENDIF
 
-   cFormName := GetUniqueName( "SBrowse" )
+   cFormName := GetUniqueName("SBrowse")
 
    lRec  := hb_IsArray(uAlias) .AND. ;
             Len(uAlias[1]) == 2 .AND. Len(aCols) == 2 .AND. ;
@@ -141,9 +141,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
             :lEditable := lEdit
             :lCellBrw := ( lEdit .OR. lCellBrw )
             :lUpdate := .T.
-            :bRClicked := {|| _SetThisFormInfo( oBrw:cParentWnd ), ;
-                              SBrowse_Record( oBrw, , bRecord, , nWrec, nHrec ), ;
-                              _SetThisFormInfo() }
+            :bRClicked := {||_SetThisFormInfo(oBrw:cParentWnd), SBrowse_Record(oBrw, , bRecord, , nWrec, nHrec), _SetThisFormInfo()}
             :lRecLockArea := .T.
             IF lEdit
                AEval(:aColumns, {| o | o:lEdit := !( o:cFieldTyp $ "+=^" ) })
@@ -211,8 +209,8 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
                  LOCAL lRet := .T., cn, oc, ob, xv
                  LOCAL oDlu := oDlu4Font( _HMG_DefaultFontSize )
                  LOCAL nLen := oDlu:W( 1.5 )
-                 cn := obr:GetValue( "KEY" )
-                 xv := obr:GetValue( "VALUE" )
+                 cn := obr:GetValue("KEY")
+                 xv := obr:GetValue("VALUE")
                  obr:GetColumn( "VALUE" ):Cargo := NIL
                  ob := obr:Cargo
                  IF !hb_IsObject(ob) .OR. !ob:lIsDbf
@@ -235,7 +233,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
             oCol:bPostEdit := ;
                <|uv, obr|
                  LOCAL cn, oc, ob, uo, nm
-                 cn := obr:GetValue( obr:nColumn( "KEY" ) )
+                 cn := obr:GetValue(obr:nColumn("KEY"))
                  uo := obr:GetColumn( "VALUE" ):Cargo
                  obr:GetColumn( "VALUE" ):nEditWidth := 0
                  IF uo != NIL .AND. uo == uv
@@ -288,7 +286,7 @@ RETURN NIL
 
 // --------------------------------------------------------------------------------------------------------------------//
 
-FUNCTION SBrowse_Record( oBrw, cTitle, bSetUp, aHead, nWidth, nHeight, lNoCrLf, lModal )
+FUNCTION SBrowse_Record(oBrw, cTitle, bSetUp, aHead, nWidth, nHeight, lNoCrLf, lModal)
 
    LOCAL oCol, aArr := {}, cHdr
    DEFAULT cTitle := "Record View", bSetUp := .T., aHead := { "Key", "Value" }, lNoCrLf := .F.
@@ -303,7 +301,7 @@ FUNCTION SBrowse_Record( oBrw, cTitle, bSetUp, aHead, nWidth, nHeight, lNoCrLf, 
       AAdd(aArr, {cHdr, oBrw:GetValue(oCol)})
    NEXT
 
-   SBrowse( aArr, { cTitle, oBrw }, bSetUp, aHead, nWidth, nHeight, , lModal )
+   SBrowse(aArr, { cTitle, oBrw }, bSetUp, aHead, nWidth, nHeight, , lModal)
 
 RETURN NIL
 
@@ -311,11 +309,11 @@ RETURN NIL
 // FUNCTION _TBrowse()  by SergKis
 // ============================================================================
 
-FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
+FUNCTION _TBrowse(oParam, uAlias, cBrw, nY, nX, nW, nH)
 
    LOCAL oBrw, aTmp, aBrush, aHead, aField, aFoot, aColor
    LOCAL cForm := _HMG_ThisFormName, lSpecHd, bInit, bEnd
-   LOCAL hForm := GetFormHandle( cForm )
+   LOCAL hForm := GetFormHandle(cForm)
    LOCAL i, j
    DEFAULT oParam := oHmgData()
 
@@ -477,8 +475,8 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
          :nHeightSpecHd := GetFontHeight(oParam:aFont[ iif(Len(oParam:aFont) > 3, 4, 1) ])
       ENDIF
 
-      :SetAppendMode( .F. )
-      :SetDeleteMode( .F. )
+      :SetAppendMode(.F.)
+      :SetDeleteMode(.F.)
 
       IF hb_IsBlock(bInit)
          EVal(bInit, oBrw, oParam)                 // 1. call your customization functions
@@ -545,7 +543,7 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
       ENDIF
 
       :ResetVScroll( .T. )
-      :oHScroll:SetRange( 0, 0 )
+      :oHScroll:SetRange(0, 0)
 
    END TBROWSE
 

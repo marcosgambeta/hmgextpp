@@ -496,7 +496,7 @@ HB_FUNC( ENUMAPPEVENTS )
                hb_arraySet(aEvent, 3, nullptr);
             }
 
-            hb_arrayAddForward( aEvents, aEvent );
+            hb_arrayAddForward(aEvents, aEvent);
 
             hb_itemRelease(aEvent);
          }
@@ -852,7 +852,7 @@ HB_FUNC( ENUMWINEVENTS )
                hb_arraySet(aEvent, 3, nullptr);
             }
 
-            hb_arrayAddForward( aEvents, aEvent );
+            hb_arrayAddForward(aEvents, aEvent);
 
             hb_itemRelease(aEvent);
          }

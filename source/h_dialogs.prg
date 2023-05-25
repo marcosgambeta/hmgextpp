@@ -92,7 +92,7 @@ RETURN C_BrowseForFolder(NIL, cTitle, ;
    hb_defaultValue(nFlags, hb_BitOr(BIF_NEWDIALOGSTYLE, BIF_EDITBOX, BIF_VALIDATE)), nFolderType, cInitPath)
 
 *-----------------------------------------------------------------------------*
-FUNCTION GetFile( aFilter, title, cIniFolder, multiselect, lNoChangeCurDir, nFilterIndex )
+FUNCTION GetFile(aFilter, title, cIniFolder, multiselect, lNoChangeCurDir, nFilterIndex)
 *-----------------------------------------------------------------------------*
    
    LOCAL fileslist As Array
@@ -125,7 +125,7 @@ FUNCTION GetFile( aFilter, title, cIniFolder, multiselect, lNoChangeCurDir, nFil
 
             NEXT
 
-            fileslist := AClone( files )
+            fileslist := AClone(files)
 
          ELSE
 
@@ -144,8 +144,8 @@ FUNCTION GetFile( aFilter, title, cIniFolder, multiselect, lNoChangeCurDir, nFil
 RETURN ( fileslist )
 
 *-----------------------------------------------------------------------------*
-FUNCTION Putfile( aFilter, title, cIniFolder, lNoChangeCurDir, cDefFileName, ;
-   /*@*/nFilterIndex, lPromptOverwrite ) //  p.d. 12/05/2016 added lPromptOverwrite
+FUNCTION Putfile(aFilter, title, cIniFolder, lNoChangeCurDir, cDefFileName, ;
+   /*@*/nFilterIndex, lPromptOverwrite) //  p.d. 12/05/2016 added lPromptOverwrite
 *-----------------------------------------------------------------------------*
    
    LOCAL cFilter As String

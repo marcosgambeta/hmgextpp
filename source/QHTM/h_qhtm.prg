@@ -172,7 +172,7 @@ RETURN NIL
 *
 */
 Procedure QHTM_LoadFromVal(ControlName, ParentForm, cValue)
-Local nHandle := GetControlHandle( ControlName, ParentForm )
+Local nHandle := GetControlHandle(ControlName, ParentForm)
 
 If ( nHandle > 0 )
    SetWindowText(nHandle, cValue)
@@ -182,16 +182,16 @@ Return
 
 /******
 *
-*       QHTM_LoadFromFile( ControlName, ParentForm, cFile )
+*       QHTM_LoadFromFile(ControlName, ParentForm, cFile)
 *
 *       Load web-page from file
 *
 */
-Procedure QHTM_LoadFromFile( ControlName, ParentForm, cFile )
-Local nHandle := GetControlHandle( ControlName, ParentForm )
+Procedure QHTM_LoadFromFile(ControlName, ParentForm, cFile)
+Local nHandle := GetControlHandle(ControlName, ParentForm)
 
 If ( nHandle > 0 )
-   QHTM_LoadFile( nHandle, cFile )
+   QHTM_LoadFile(nHandle, cFile)
 Endif
 
 Return
@@ -204,7 +204,7 @@ Return
 *
 */
 Procedure QHTM_LoadFromRes( ControlName, ParentForm, cResName )
-Local nHandle := GetControlHandle( ControlName, ParentForm )
+Local nHandle := GetControlHandle(ControlName, ParentForm)
 
 If ( nHandle > 0 )
    QHTM_LoadRes( nHandle, cResName )
@@ -222,7 +222,7 @@ Return
 Function QHTM_GetLink( lParam )
 Local cLink := QHTM_GetNotify( lParam )
 
-QHTM_SetReturnValue( lParam, .F. )
+QHTM_SetReturnValue(lParam, .F.)
 
 Return cLink
 
@@ -281,7 +281,7 @@ Local nParamCount := PCount(), ;
 If hb_IsNumeric(nHandle)
 
    nHeight := GetWindowHeight(nHandle)
-   aSize := QHTM_GetSize( nHandle )
+   aSize := QHTM_GetSize(nHandle)
 
    // an amendment on a height of the QHTM
 
@@ -299,12 +299,12 @@ Switch nParamCount
 
    Case 1
      nPos  := QHTM_GetScrollPos( nHandle )
-     nPercent := Min( Round( ( ( nPos / aSize[2] ) * 100 ), 2 ), 100.00 )
+     nPercent := Min(Round(((nPos / aSize[2]) * 100), 2), 100.00)
      Exit
 
    Case 2
      If hb_IsNumeric(nPercent)
-        nPos := Round( ( nPercent * aSize[2] * 0.01 ), 0 )
+        nPos := Round((nPercent * aSize[2] * 0.01), 0)
         QHTM_SetScrollPos( nHandle, nPos )
      Else
         nPercent := 0
@@ -316,12 +316,12 @@ Return nPercent
 
 /******
 *
-*       QHTM_EnableUpdate( ControlName, ParentForm, lEnable )
+*       QHTM_EnableUpdate(ControlName, ParentForm, lEnable)
 *
 *       Enable/disable redraw of control
 *
 */
-Procedure QHTM_EnableUpdate( ControlName, ParentForm, lEnable )
+Procedure QHTM_EnableUpdate(ControlName, ParentForm, lEnable)
 
 If ( PCount() < 2 )
    Return

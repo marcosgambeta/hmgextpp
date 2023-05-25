@@ -55,15 +55,15 @@ FUNCTION WindowsVersion()
 
    IF IsWin10OrLater()
       cKey := "SOFTWARE\Microsoft\Windows NT\CurrentVersion"
-      aRetVal [1] := GetRegistryValue( HKEY_LOCAL_MACHINE, cKey, "ProductName" )
+      aRetVal [1] := GetRegistryValue(HKEY_LOCAL_MACHINE, cKey, "ProductName")
       IF hb_osisWin11()
          aRetVal [1] := StrTran(aRetVal [1], "10", "11")
-         aRetVal [2] := GetRegistryValue( HKEY_LOCAL_MACHINE, cKey, "DisplayVersion" )
+         aRetVal [2] := GetRegistryValue(HKEY_LOCAL_MACHINE, cKey, "DisplayVersion")
       ELSE
-         aRetVal [2] := GetRegistryValue( HKEY_LOCAL_MACHINE, cKey, "ReleaseId" )
+         aRetVal [2] := GetRegistryValue(HKEY_LOCAL_MACHINE, cKey, "ReleaseId")
       ENDIF
-      aRetVal [3] := GetRegistryValue( HKEY_LOCAL_MACHINE, cKey, "CurrentBuild" ) + "." + ;
-         hb_ntos(GetRegistryValue( HKEY_LOCAL_MACHINE, cKey, "UBR", "N" ))
+      aRetVal [3] := GetRegistryValue(HKEY_LOCAL_MACHINE, cKey, "CurrentBuild") + "." + ;
+         hb_ntos(GetRegistryValue(HKEY_LOCAL_MACHINE, cKey, "UBR", "N"))
       aRetVal [4] := ""
    ELSE
       aRetVal := WinVersion()
@@ -72,11 +72,11 @@ FUNCTION WindowsVersion()
 RETURN { aRetVal [1] + aRetVal [4] , aRetVal [2] , "Build " + aRetVal [3] }
 
 *-----------------------------------------------------------------------------*
-FUNCTION _Execute( hWnd , cOperation , cFile , cParameters , cDirectory , nState )
+FUNCTION _Execute(hWnd, cOperation, cFile, cParameters, cDirectory, nState)
 *-----------------------------------------------------------------------------*
-RETURN ShellExecute( hb_defaultValue(hWnd, GetActiveWindow()) , ;
+RETURN ShellExecute(hb_defaultValue(hWnd, GetActiveWindow()) , ;
    cOperation /* possible values are 'edit', 'explore', 'find', 'open', 'print' */ , ;
-   hb_defaultValue(cFile, "") , cParameters , cDirectory , hb_defaultValue(nState, SW_SHOWNORMAL) )
+   hb_defaultValue(cFile, "") , cParameters , cDirectory , hb_defaultValue(nState, SW_SHOWNORMAL))
 
 *-----------------------------------------------------------------------------*
 PROCEDURE ShellAbout( cTitle , cMsg , hIcon )

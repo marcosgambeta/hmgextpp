@@ -57,7 +57,7 @@
 extern BOOL _isValidCtrlClass(HWND, LPCTSTR);
 
 HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transparent, int * nWidth, int * nHeight);
-void HMG_ImageListAdd( HIMAGELIST himl, char * FileName, int Transparent );
+void HMG_ImageListAdd(HIMAGELIST himl, char * FileName, int Transparent);
 
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);
@@ -174,8 +174,7 @@ typedef struct tagLVGROUP
    SNDMSG(( hwnd ), LVM_HASGROUP, dwGroupId, 0)
 
 #define LVM_ISGROUPVIEWENABLED  ( LVM_FIRST + 175 )
-#define ListView_IsGroupViewEnabled( hwnd ) \
-   ( BOOL ) SNDMSG(( hwnd ), LVM_ISGROUPVIEWENABLED, 0, 0)
+#define ListView_IsGroupViewEnabled(hwnd) ( BOOL ) SNDMSG(( hwnd ), LVM_ISGROUPVIEWENABLED, 0, 0)
 
 #define LVM_INSERTGROUP         ( LVM_FIRST + 145 )
 #define ListView_InsertGroup(hwnd, index, pgrp)      SNDMSG(( hwnd ), LVM_INSERTGROUP, ( WPARAM ) index, ( LPARAM ) pgrp)
@@ -286,7 +285,7 @@ HB_FUNC( ADDLISTVIEWBITMAP )       // Grid+
          }
          else
          {
-            HMG_ImageListAdd( himl, FileName, 1 );
+            HMG_ImageListAdd(himl, FileName, 1);
          }
       }
 
@@ -327,7 +326,7 @@ HB_FUNC( ADDLISTVIEWBITMAPHEADER )  // Grid+
             }
             else
             {
-               HMG_ImageListAdd( himl, FileName, 1 );
+               HMG_ImageListAdd(himl, FileName, 1);
             }
          }
 
@@ -1205,7 +1204,7 @@ HB_FUNC( LISTVIEW_ISGROUPVIEWENABLED )
 {
    HWND hWnd = hmg_par_HWND(1);
 
-   hb_retl(( BOOL ) ListView_IsGroupViewEnabled( hWnd ));
+   hb_retl(( BOOL ) ListView_IsGroupViewEnabled(hWnd));
 }
 
 //        ListView_EnableGroupView ( hWnd, lEnable )

@@ -851,7 +851,7 @@ HB_FUNC( SQLITE3_ROLLBACK_HOOK )
 
 HB_FUNC( SQLITE3_COMPILEOPTION_USED )
 {
-        hb_retl(( BOOL ) sqlite3_compileoption_used( hb_parc(1) ));
+        hb_retl(( BOOL ) sqlite3_compileoption_used(hb_parc(1)));
 }
 
 HB_FUNC( SQLITE3_COMPILEOPTION_GET )
@@ -917,7 +917,7 @@ HB_FUNC( SQLITE3_COLUMN_DOUBLE )
         psqlite3_stmt pStmt = ( psqlite3_stmt ) hb_parptr(1);
 
         if( pStmt )
-                hb_retnd( sqlite3_column_double(pStmt, hb_parni(2) - 1) );
+                hb_retnd(sqlite3_column_double(pStmt, hb_parni(2) - 1));
         else
                 hb_errRT_BASE_SubstR(EG_ARG, 0, NULL, HB_ERR_FUNCNAME, 1, hb_paramError(1));
 }
@@ -1196,7 +1196,7 @@ HB_FUNC( SQLITE3_GET_TABLE )
                                 for( j = 1; j <= iCol; j++, k++ )
                                         hb_arraySetStrUTF8(pArray, j, ( const char * ) pResult[ k ]);
                         
-                                hb_arrayAddForward( pResultList, pArray );
+                                hb_arrayAddForward(pResultList, pArray);
                                 hb_itemRelease(pArray);
                         }
                 }
@@ -1234,7 +1234,7 @@ HB_FUNC( SQLITE3_LAST_INSERT_ROWID )
         HB_SQLITE3 * pHbSqlite3 = ( HB_SQLITE3 * ) hb_sqlite3_param(1, HB_SQLITE3_DB, TRUE);
 
         if( pHbSqlite3 && pHbSqlite3->db )
-                hb_retnint(sqlite3_last_insert_rowid( pHbSqlite3->db));
+                hb_retnint(sqlite3_last_insert_rowid(pHbSqlite3->db));
         else
                 hb_errRT_BASE_SubstR(EG_ARG, 0, NULL, HB_ERR_FUNCNAME, 1, hb_paramError(1));
 }

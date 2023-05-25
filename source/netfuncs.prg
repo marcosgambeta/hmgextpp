@@ -29,7 +29,7 @@ STATIC FUNCTION NetLock( nType, lReleaseLocks, nSeconds )
       EXIT
    CASE NET_APPEND                         // 3 = Append Blank...
       xIdentifier := lReleaseLocks
-      bOperation  := {| x | dbAppend( x ), !NetErr() }
+      bOperation  := {| x | dbAppend(x), !NetErr() }
       EXIT
    ENDSWITCH
 
@@ -117,7 +117,7 @@ FUNCTION NetFileLock( nSeconds )
    RETURN s_lNetOk
 
 
-FUNCTION NetAppend( nSeconds, lReleaseLocks )
+FUNCTION NetAppend(nSeconds, lReleaseLocks)
 
    LOCAL nOrd
 
@@ -137,7 +137,7 @@ FUNCTION NetAppend( nSeconds, lReleaseLocks )
    RETURN s_lNetOk
 
 
-FUNCTION IsLocked( nRecId )
+FUNCTION IsLocked(nRecId)
 
    __defaultNIL(@nRecID, RecNo())
 

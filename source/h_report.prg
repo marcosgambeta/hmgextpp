@@ -169,7 +169,7 @@ FUNCTION easyreport()
       IF lpreview
          nran := random( 9999999 )
          cfilerepo := "T" + hb_ntos(nran) + ".prn"
-         DO WHILE File( "&cfilerepo" )
+         DO WHILE File("&cfilerepo")
             nran := random( 9999999 )
             cfilerepo := "T" + hb_ntos(nran) + ".prn"
          ENDDO
@@ -261,7 +261,7 @@ FUNCTION easyreport()
 
    nlin := ntoprow
    IF cgraphic != NIL .AND. !ldos
-      IF !File( cgraphic )
+      IF !File(cgraphic)
          msgstop( aMessages[12], aMessages[13] )
        ELSE
          @nfi, nci + nlmargin PICTURE cgraphic SIZE nff - nfi - 4, ncf - nci - 3
@@ -287,7 +287,7 @@ FUNCTION easyreport()
       ncol := nlmargin + 1
       FOR i := 1 TO nlen
          wfield := afields[i]
-         IF Type( afields[i] ) == "B"
+         IF Type(afields[i]) == "B"
             DO CASE
             CASE hb_IsChar(afields[i])
                wfield := Eval(&( afields[i]) )
@@ -319,14 +319,14 @@ FUNCTION easyreport()
                EXIT
             CASE "M"
                FOR k := 1 TO MLCount( wfield, awidths[i] ) STEP 1
-                  @ nlin, ncol SAY justificalinea(MemoLine( wfield, awidths[i], k ), awidths[i]) font "f0" TO PRINT
+                  @ nlin, ncol SAY justificalinea(MemoLine(wfield, awidths[i], k), awidths[i]) font "f0" TO PRINT
                   nlin := nlin + 1
                   // Imprimir otra página?
                   imp_pagina(@nlin, @lmode, @grpby, @chdrgrp)
                NEXT k
                EXIT
             OTHERWISE
-               @ nlin, ncol SAY Replicate( "_", awidths[i] ) font "f0" TO PRINT
+               @ nlin, ncol SAY Replicate("_", awidths[i]) font "f0" TO PRINT
             ENDSWITCH
          ELSE
             SWITCH cType
@@ -344,7 +344,7 @@ FUNCTION easyreport()
                EXIT
             CASE "M"
                FOR k := 1 TO MLCount( wfield, awidths[i] )
-                  @ nlin, ncol SAY justificalinea(MemoLine( wfield, awidths[i], k ), awidths[i])
+                  @ nlin, ncol SAY justificalinea(MemoLine(wfield, awidths[i], k), awidths[i])
                   nlin := nlin + 1
                   IF nlin > nlpp
                      nlin := ntoprow
@@ -353,7 +353,7 @@ FUNCTION easyreport()
                NEXT k
                EXIT
             OTHERWISE
-               @ nlin, ncol SAY Replicate( "_", awidths[i] )
+               @ nlin, ncol SAY Replicate("_", awidths[i])
             ENDSWITCH
          ENDIF
 
@@ -502,9 +502,9 @@ STATIC FUNCTION headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grp
    ncol := nlmargin + 1
    FOR i := 1 TO Len(awidths)
       IF lmode
-         @ nlin, ncol SAY Replicate( "-", awidths[i] ) font "f0" TO PRINT
+         @ nlin, ncol SAY Replicate("-", awidths[i]) font "f0" TO PRINT
       ELSE
-         @ nlin, ncol SAY Replicate( "-", awidths[i] )
+         @ nlin, ncol SAY Replicate("-", awidths[i])
       ENDIF
       ncol += awidths[i] + 1
    NEXT i
@@ -545,9 +545,9 @@ STATIC FUNCTION headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grp
    ncol := nlmargin + 1
    FOR i := 1 TO  Len(awidths)
       IF lmode
-         @ nlin, ncol SAY Replicate( "-", awidths[i] ) font "f0" TO PRINT
+         @ nlin, ncol SAY Replicate("-", awidths[i]) font "f0" TO PRINT
       ELSE
-         @ nlin, ncol SAY Replicate( "-", awidths[i] )
+         @ nlin, ncol SAY Replicate("-", awidths[i])
       ENDIF
       ncol += awidths[i] + 1
    NEXT i
@@ -580,7 +580,7 @@ STATIC FUNCTION mypreview( cfilerepo )
    MEMVAR wfilerepo
 
    wfilerepo := cfilerepo
-   wr := MemoRead( wfilerepo )
+   wr := MemoRead(wfilerepo)
    IF IsOemText( wr )
       wr := hb_OEMToANSI( wr )
    ENDIF
@@ -606,7 +606,7 @@ STATIC FUNCTION mypreview( cfilerepo )
    IF MSGYESNO ( aMessages[14] , aMessages[15]  )
       RUN TYPE &WFILEREPO > PRN
    ENDIF
-   IF File( "&WFILErepo" )
+   IF File("&WFILErepo")
       ERASE &WFILEREPO
    ENDIF
 
@@ -615,7 +615,7 @@ RETURN nil
 STATIC FUNCTION JUSTIFICALINEA(WPR_LINE, WTOPE)
 
    LOCAL I
-   LOCAL SPACE1 := Space( 1 )
+   LOCAL SPACE1 := Space(1)
    LOCAL WLARLIN := Len(Trim(WPR_LINE))
 
    FOR I := 1 TO WLARLIN
@@ -662,14 +662,14 @@ FUNCTION extreport( cfilerep )
    LOCAL creport
    LOCAL ipaper
 
-   IF !File( cfilerep + ".rpt" )
+   IF !File(cfilerep + ".rpt")
       msginfo( "(" + cfilerep + ".rpt) " + aMessages[16] )
       RETURN Nil
    ENDIF
 
    PUBLIC aline := {}
 
-   creport := MemoRead( cfilerep + ".rpt" )
+   creport := MemoRead(cfilerep + ".rpt")
 
    nContlin := MLCount( cReport )
    FOR i := 1 TO nContlin
@@ -728,7 +728,7 @@ FUNCTION extreport( cfilerep )
    lselect := leadatologic("REPORT", "SELECT", .F.)
    lmul := leadatologic("REPORT", "MULTIPLE", .F.)
 
-   cgraphic := clean( leaimage( "REPORT","IMAGE","" ) )
+   cgraphic := clean( leaimage("REPORT", "IMAGE", "") )
    IF Len(cgraphic) == 0
       cgraphic := NIL
    ENDIF
@@ -789,7 +789,7 @@ STATIC FUNCTION leadato( cName, cPropmet, cDefault )
 
 RETURN cDefault
 
-STATIC FUNCTION leaimage( cName, cPropmet, cDefault )
+STATIC FUNCTION leaimage(cName, cPropmet, cDefault)
 
    LOCAL i
    LOCAL sw1 := 0
@@ -992,7 +992,7 @@ STATIC PROCEDURE imp_pagina(nlin, lmode, grpby, chdrgrp)
          END PAGE
          START PAGE
          IF cgraphic != NIL .AND. lmul .AND. !ldos
-            IF !File( cgraphic )
+            IF !File(cgraphic)
                msgstop( aMessages[12], aMessages[13] )
             ELSE
                @nfi, nci + nlmargin PICTURE cgraphic SIZE nff - nfi - 4, ncf - nci - 3

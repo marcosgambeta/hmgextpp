@@ -82,7 +82,7 @@ FUNCTION HMG_ArrayToDbf( aData, cFieldList, bProgress )
                IF !( aFieldTyp[ nCol ] $ "+@" )
 
                   IF ValType(uVal) != aFieldTyp[ nCol ]
-                     uVal := ConvertType( uVal, aFieldTyp[ nCol ] )
+                     uVal := ConvertType(uVal, aFieldTyp[ nCol ])
                   ENDIF
 
                   IF !Empty(uVal)
@@ -107,7 +107,7 @@ FUNCTION HMG_ArrayToDbf( aData, cFieldList, bProgress )
 RETURN .T.
 
 *-----------------------------------------------------------------------------*
-STATIC FUNCTION ConvertType( uVal, cTypeDst )
+STATIC FUNCTION ConvertType(uVal, cTypeDst)
 *-----------------------------------------------------------------------------*
    
    LOCAL cTypeSrc := ValType(uVal)
@@ -121,7 +121,7 @@ STATIC FUNCTION ConvertType( uVal, cTypeDst )
       CASE cTypeDst == "D"
          DO CASE
          CASE cTypeSrc == "T"
-            uVal := SToD( Left(hb_TToS(uVal), 8) )
+            uVal := SToD(Left(hb_TToS(uVal), 8))
          CASE cTypeSrc == "C"
             uVal := CToD(uVal)
          OTHERWISE
@@ -196,7 +196,7 @@ FUNCTION HMG_DbfToExcel( cFieldList, aHeader, bFor, bWhile, nNext, nRec, lRest )
    oSheet := oBook:ActiveSheet
 
    nCols := Len(aHeader)
-   oRange := oSheet:Range( oSheet:Columns( nRow ), oSheet:Columns( nCols ) )
+   oRange := oSheet:Range(oSheet:Columns( nRow ), oSheet:Columns( nCols ))
 
    oExcel:ScreenUpdating := .F.
 
@@ -227,7 +227,7 @@ FUNCTION HMG_DbfStruct( cFileName )
    LOCAL aStruct := {}
    LOCAL hFile
    LOCAL aFieldInfo
-   LOCAL cBuffer := Space( BUFFER_SIZE )
+   LOCAL cBuffer := Space(BUFFER_SIZE)
 
    IF Set( _SET_DEFEXTENSIONS )
       cFileName := hb_FNameExtSetDef( cFileName, ".dbf" )
@@ -346,7 +346,7 @@ PROCEDURE DbfCopyRec(cnTargetArea, lAppend)
 
    FOR nCnt := 1 TO nFieldsCnt
 
-      cFieldName := FieldName( nCnt )
+      cFieldName := FieldName(nCnt)
 
       IF ( nFieldPos := ( cnTargetArea )->( FieldPos( cFieldName ) ) ) > 0 .AND. ;
          ValType(xFieldValue := FieldGet( nCnt )) == ValType(( cnTargetArea )->( FieldGet( nFieldPos ) ))
@@ -364,14 +364,14 @@ FUNCTION DbfModStru( cDbfName, aModStru )
 *-----------------------------------------------------------------------------*
    
    LOCAL nSize
-   LOCAL cBuffer := Space( BUFFER_SIZE )
+   LOCAL cBuffer := Space(BUFFER_SIZE)
    LOCAL cBuffSize
    LOCAL hDbfHandle
    LOCAL nErrorCode
    LOCAL nStru
 
    nSize := Len(aModStru) * BUFFER_SIZE
-   cBuffSize := Space( nSize )
+   cBuffSize := Space(nSize)
    hDbfHandle := FOpen(cDbfName, FO_EXCLUSIVE + FO_READWRITE)
    nErrorCode := FError()
 

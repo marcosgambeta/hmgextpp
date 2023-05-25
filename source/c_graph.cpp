@@ -411,7 +411,7 @@ void WindowBoxIn(HDC hDC, RECT * pRect)
    DeleteObject(hWhite);
 }
 
-void WindowRaised( HDC hDC, RECT * pRect )
+void WindowRaised(HDC hDC, RECT * pRect)
 {
    HPEN hGray  = CreatePen(PS_SOLID, 1, GetSysColor(COLOR_BTNSHADOW));
    HPEN hWhite = CreatePen(PS_SOLID, 1, GetSysColor(COLOR_BTNHIGHLIGHT));
@@ -449,5 +449,5 @@ HB_FUNC( WNDBOXRAISED )
    rct.bottom = hb_parni(4);
    rct.right  = hb_parni(5);
 
-   WindowRaised( hmg_par_HDC(1), &rct );
+   WindowRaised(hmg_par_HDC(1), &rct);
 }

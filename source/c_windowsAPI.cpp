@@ -181,7 +181,7 @@ HB_FUNC( ISWINDOWVISIBLE )
 
 HB_FUNC( ISWINDOWENABLED )
 {
-   hb_retl(IsWindowEnabled( hmg_par_HWND(1) ));
+   hb_retl(IsWindowEnabled(hmg_par_HWND(1)));
 }
 
 HB_FUNC( ENABLEWINDOW )
@@ -725,7 +725,7 @@ static BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM pArray)
 {
    PHB_ITEM pHWnd = hb_itemPutNInt(nullptr, ( LONG_PTR ) hWnd);
 
-   hb_arrayAddForward( ( PHB_ITEM ) pArray, pHWnd );
+   hb_arrayAddForward(( PHB_ITEM ) pArray, pHWnd);
    hb_itemRelease(pHWnd);
 
    return TRUE;
@@ -1207,7 +1207,7 @@ HB_FUNC( ISICONIC )
 
 HB_FUNC( ISZOOMED )
 {
-   hb_retl(IsZoomed( hmg_par_HWND(1) ));
+   hb_retl(IsZoomed(hmg_par_HWND(1)));
 }
 
 HB_FUNC( GETWINDOWBRUSH )

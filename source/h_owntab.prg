@@ -89,7 +89,7 @@ FUNCTION OwnTabPaint( lParam )
       RETURN( 1 )
    ENDIF
 
-   nItemId    := GETOWNBTNITEMID( lParam ) + 1
+   nItemId    := GETOWNBTNITEMID(lParam) + 1
    aBtnRc     := GETOWNBTNRECT( lParam )
    lSelected  := ( hb_bitand(GETOWNBTNSTATE(lParam), ODS_SELECTED) == ODS_SELECTED )
    lBigFsize  := ( _HMG_aControlFontSize[i] >= 12 )
@@ -100,9 +100,9 @@ FUNCTION OwnTabPaint( lParam )
 
    hOldFont     := SelectObject( hDC, _HMG_aControlFontHandle[i] )
    aMetr        := GetTextMetric(hDC)
-   oldBkMode    := SetBkMode( hDC, TRANSPARENT )
+   oldBkMode    := SetBkMode(hDC, TRANSPARENT)
    nTextColor   := GetSysColor( COLOR_BTNTEXT )
-   oldTextColor := SetTextColor( hDC, GetRed( nTextColor ), GetGreen( nTextColor ), GetBlue( nTextColor ) )
+   oldTextColor := SetTextColor( hDC, GetRed(nTextColor), GetGreen(nTextColor), GetBlue(nTextColor) )
 
    IF hb_IsArray(_HMG_aControlMiscData2[i]) .AND. nItemId <= Len(_HMG_aControlMiscData2[i]) .AND. ;
       IsArrayRGB(_HMG_aControlMiscData2[i] [nItemId])
@@ -119,7 +119,7 @@ FUNCTION OwnTabPaint( lParam )
    DeleteObject( hBrush )
 
    x1 := aBtnRc [1]
-   y1 := Round( aBtnRc [4] / 2, 0 ) - ( aMetr [1] - 10 )
+   y1 := Round(aBtnRc [4] / 2, 0) - ( aMetr [1] - 10 )
    x2 := aBtnRc [3] - 2
    y2 := y1 + aMetr [1]
 
@@ -129,15 +129,15 @@ FUNCTION OwnTabPaint( lParam )
 
       hImage := LoadBitmap( _HMG_aControlPicture[i] [nItemId] )
       IF Empty(hImage)
-         hImage := LoadImage( _HMG_aControlPicture[i] [nItemId], , , , , , bkColor )
+         hImage := LoadImage(_HMG_aControlPicture[i] [nItemId], , , , , , bkColor)
       ENDIF
 
-      aBmp := GetBitmapSize( hImage )
+      aBmp := GetBitmapSize(hImage)
 
       xp1 := 4
       xp2 := aBmp [1]
       yp2 := aBmp [2]
-      yp1 := Round( aBtnRc [4] / 2 - yp2 / 2, 0 )
+      yp1 := Round(aBtnRc [4] / 2 - yp2 / 2, 0)
       x1  += 2 * xp1 + xp2
 
       IF _HMG_aControlMiscData1[i] [4]  // Bottom Tab
@@ -202,8 +202,8 @@ FUNCTION OwnTabPaint( lParam )
 
    ENDIF
 
-   SelectObject( hDC, hOldFont )
-   SetBkMode( hDC, oldBkMode )
-   SetTextColor( hDC, oldTextColor )
+   SelectObject(hDC, hOldFont)
+   SetBkMode(hDC, oldBkMode)
+   SetTextColor(hDC, oldTextColor)
 
 RETURN( 0 )

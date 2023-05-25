@@ -164,7 +164,7 @@ FUNCTION HMG_Alert( cMsg, aOptions, cTitle, nType, cIcoFile, nIcoSize, aBtnColor
    nLineas := MLCount( cMsg )
 
    IF TAB $ cMsg
-      cMsg := StrTran(cMsg, TAB, Space( 3 ))
+      cMsg := StrTran(cMsg, TAB, Space(3))
    ENDIF
 
    AEval(hb_ATokens(cMsg, CRLF), {|ct|nMaxLen := Max(nMaxLen, Len(Trim(ct)))})
@@ -459,7 +459,7 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
    ENDIF
 
    IF hb_IsBlock(bBlock)
-      Do_WindowEventProcedure( bBlock, This.Index, "WINDOW_INIT" )
+      Do_WindowEventProcedure(bBlock, This.Index, "WINDOW_INIT")
    ENDIF
 
    IF _IsControlDefined("oTimer", cForm)
@@ -487,7 +487,7 @@ RETURN aOldClrs
 #ifdef _HMG_COMPAT_
 
 *-----------------------------------------------------------------------------*
-PROCEDURE HMG_CheckType( lSoft, ... )
+PROCEDURE HMG_CheckType(lSoft, ...)
 *-----------------------------------------------------------------------------*
    
    LOCAL i

@@ -61,7 +61,7 @@ void hmg_ErrorExit(LPCTSTR lpszMessage, DWORD dwError, BOOL bExit)
    DWORD nError = ((0 != dwError) ? dwError : GetLastError());
 
    FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS, nullptr, nError,
-      MAKELANGID( LANG_NEUTRAL, SUBLANG_DEFAULT ), ( LPTSTR ) &lpMsgBuf, 0, nullptr);
+      MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), ( LPTSTR ) &lpMsgBuf, 0, nullptr);
 
    // Display the error message and exit the process
    LPVOID lpDisplayBuf = ( LPVOID ) LocalAlloc(LMEM_ZEROINIT, (hmg_tstrlen(( LPCTSTR ) lpMsgBuf) + hmg_tstrlen(lpszMessage) + 40) * sizeof(TCHAR));

@@ -50,7 +50,7 @@
 #include <commctrl.h>
 
 HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transparent, int * nWidth, int * nHeight);
-void HMG_ImageListAdd( HIMAGELIST himl, char * FileName, int Transparent );
+void HMG_ImageListAdd(HIMAGELIST himl, char * FileName, int Transparent);
 
 HB_FUNC( INITTREE )
 {
@@ -117,7 +117,7 @@ HB_FUNC( INITTREEVIEWBITMAP ) //Tree+
          }
          else
          {
-            HMG_ImageListAdd( himl, FileName, Transparent );
+            HMG_ImageListAdd(himl, FileName, Transparent);
          }
       }
 
@@ -143,7 +143,7 @@ HB_FUNC( ADDTREEVIEWBITMAP )  // Tree+
 
    if( himl != nullptr )
    {
-      HMG_ImageListAdd( himl, ( char * ) hb_parc(2), Transparent );
+      HMG_ImageListAdd(himl, ( char * ) hb_parc(2), Transparent);
 
       SendMessage(hbutton, TVM_SETIMAGELIST, TVSIL_NORMAL, ( LPARAM ) himl);
 
@@ -280,7 +280,7 @@ void TreeView_FreeMemoryLPARAMRecursive(HWND hWndTV, HTREEITEM ItemHandle)
       TreeView_SetItem(hWndTV, &TreeItem);
    }
 
-   ChildItem = TreeView_GetChild( hWndTV, ItemHandle );
+   ChildItem = TreeView_GetChild(hWndTV, ItemHandle);
    while( ChildItem != nullptr )
    {
       TreeView_FreeMemoryLPARAMRecursive(hWndTV, ChildItem);
@@ -479,7 +479,7 @@ HB_FUNC( TREEVIEW_GETCHILD )
    TreeHandle = hmg_par_HWND(1);
    ItemHandle = hmg_par_HTREEITEM(2);
 
-   ChildItemHandle = TreeView_GetChild( TreeHandle, ItemHandle );
+   ChildItemHandle = TreeView_GetChild(TreeHandle, ItemHandle);
 
    hmg_ret_HTREEITEM(ChildItemHandle);
 }
@@ -514,7 +514,7 @@ HB_FUNC( TREEVIEW_GETITEMSTATE )
 
 BOOL TreeView_IsNode(HWND hWndTV, HTREEITEM ItemHandle)
 {
-   if( TreeView_GetChild( hWndTV, ItemHandle ) != nullptr )
+   if( TreeView_GetChild(hWndTV, ItemHandle) != nullptr )
    {
       return TRUE;
    }
@@ -535,8 +535,8 @@ void TreeView_ExpandChildrenRecursive(HWND hWndTV, HTREEITEM ItemHandle, UINT nE
 
    if( TreeView_IsNode(hWndTV, ItemHandle) )
    {
-      TreeView_Expand( hWndTV, ItemHandle, nExpand );
-      ChildItem = TreeView_GetChild( hWndTV, ItemHandle );
+      TreeView_Expand(hWndTV, ItemHandle, nExpand);
+      ChildItem = TreeView_GetChild(hWndTV, ItemHandle);
 
       while( ChildItem != nullptr )
       {
@@ -555,11 +555,11 @@ HB_FUNC( TREEVIEW_EXPANDCHILDRENRECURSIVE )
    UINT      nExpand    = hmg_par_UINT(3);
    BOOL      fRecurse   = hmg_par_BOOL(4);
    HWND      hWndParent = GetParent(hWndTV);
-   BOOL      lEnabled   = IsWindowEnabled( hWndParent );
+   BOOL      lEnabled   = IsWindowEnabled(hWndParent);
 
    if( fRecurse == FALSE )
    {
-      TreeView_Expand( hWndTV, ItemHandle, nExpand );
+      TreeView_Expand(hWndTV, ItemHandle, nExpand);
    }
    else
    {
@@ -623,8 +623,8 @@ int CALLBACK TreeViewCompareFunc( LPARAM lParam1, LPARAM lParam2, LPARAM lParamS
    TV_Item2.hItem      = ( HTREEITEM ) ItemHandle2;
    TreeView_GetItem(hWndTV, &TV_Item2);
 
-   IsTreeNode1 = ( TreeItemLPARAM1->IsNodeFlag == TRUE || TreeView_GetChild( hWndTV, ItemHandle1 ) != nullptr ) ? TRUE : FALSE;
-   IsTreeNode2 = ( TreeItemLPARAM2->IsNodeFlag == TRUE || TreeView_GetChild( hWndTV, ItemHandle2 ) != nullptr ) ? TRUE : FALSE;
+   IsTreeNode1 = ( TreeItemLPARAM1->IsNodeFlag == TRUE || TreeView_GetChild(hWndTV, ItemHandle1) != nullptr ) ? TRUE : FALSE;
+   IsTreeNode2 = ( TreeItemLPARAM2->IsNodeFlag == TRUE || TreeView_GetChild(hWndTV, ItemHandle2) != nullptr ) ? TRUE : FALSE;
 
    if( TreeViewCompareInfo->CaseSensitive == FALSE )
    {
@@ -675,7 +675,7 @@ void TreeView_SortChildrenRecursiveCB(HWND hWndTV, TVSORTCB TVSortCB)
    if( TreeView_IsNode(hWndTV, TVSortCB.hParent) )
    {
       TreeView_SortChildrenCB(hWndTV, &TVSortCB, 0);
-      ChildItem = TreeView_GetChild( hWndTV, TVSortCB.hParent );
+      ChildItem = TreeView_GetChild(hWndTV, TVSortCB.hParent);
 
       while( ChildItem != nullptr )
       {
@@ -697,7 +697,7 @@ HB_FUNC( TREEVIEW_SORTCHILDRENRECURSIVECB )
    BOOL      lAscendingOrder = hmg_par_BOOL(5);
    INT       nNodePosition   = hmg_par_INT(6);
    HWND      hWndParent      = GetParent(hWndTV);
-   BOOL      lEnabled        = IsWindowEnabled( hWndParent );
+   BOOL      lEnabled        = IsWindowEnabled(hWndParent);
 
    TVSORTCB TVSortCB;
    HMG_StructTreeViewCompareInfo TreeViewCompareInfo;

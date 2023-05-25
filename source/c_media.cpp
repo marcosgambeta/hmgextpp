@@ -122,7 +122,7 @@ HB_FUNC( C_PLAYWAVE )
       style |= SND_NODEFAULT;
    }
 
-   hb_retl(PlaySound( pszSound, hmod, style ));
+   hb_retl(PlaySound(pszSound, hmod, style));
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) pszSound);
@@ -131,7 +131,7 @@ HB_FUNC( C_PLAYWAVE )
 
 HB_FUNC( STOPWAVE )
 {
-   hb_retl(PlaySound( nullptr, ( HMODULE ) GetResources(), SND_PURGE ));
+   hb_retl(PlaySound(nullptr, ( HMODULE ) GetResources(), SND_PURGE));
 }
 
 HB_FUNC( INITPLAYER )

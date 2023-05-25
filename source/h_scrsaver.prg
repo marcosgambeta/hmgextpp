@@ -145,20 +145,20 @@ FUNCTION _ActivateScrSaver( aForm, cParam )
 
    CASE cParam == "/a" .OR. cParam == "-a"
 
-      ChangePassword( GetActiveWindow() )
+      ChangePassword(GetActiveWindow())
 
    CASE cParam == "/i" .OR. cParam == "-i"
 
       cFileScr := GetExeFileName()
       cFileDes := GetSystemFolder() + hb_ps() + iif(hb_IsChar(_ScrSaverFileName), _ScrSaverFileName, cFileNoExt(cFileScr) + ".SCR")
 
-      IF File( cFileDes )
-         FErase( cFileDes )
+      IF File(cFileDes)
+         FErase(cFileDes)
       ENDIF
 
       COPY FILE ( cFileScr ) TO ( cFileDes )
 
-      IF File( cFileDes )
+      IF File(cFileDes)
 
          IF _hmg_IsXp
 
@@ -226,7 +226,7 @@ FUNCTION _lValidScrSaver()
    CLOSE REGISTRY oReg
 
    IF nValue == 1
-      lRet := VerifyPassword( GetActiveWindow() )
+      lRet := VerifyPassword(GetActiveWindow())
    ELSE
       lRet := .T.
    ENDIF

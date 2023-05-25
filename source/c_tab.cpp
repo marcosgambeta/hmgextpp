@@ -52,7 +52,7 @@
 extern BOOL Array2Point(PHB_ITEM aPoint, POINT * pt);
 
 HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transparent, int * nWidth, int * nHeight);
-void HMG_ImageListAdd( HIMAGELIST himl, char * FileName, int Transparent );
+void HMG_ImageListAdd(HIMAGELIST himl, char * FileName, int Transparent);
 
 #ifdef UNICODE
 LPWSTR AnsiToWide(LPCSTR);
@@ -260,7 +260,7 @@ HB_FUNC( ADDTABBITMAP )
          }
          else
          {
-            HMG_ImageListAdd( himl, FileName, Transparent );
+            HMG_ImageListAdd(himl, FileName, Transparent);
          }
       }
 

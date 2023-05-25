@@ -64,7 +64,7 @@ FUNCTION drawtextout( window, row, col, string, fontcolor, backcolor, fontname, 
       FormHandle := window
    ENDIF
 
-   IF IsWindowHandle(FormHandle) .OR. ( GetObjectType( FormHandle ) == OBJ_DC )
+   IF IsWindowHandle(FormHandle) .OR. ( GetObjectType(FormHandle) == OBJ_DC )
       IF (FontHandle := GetFontHandle(FontName)) != HMG_NULLHANDLE
          GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout, @angle )
       ENDIF
@@ -87,7 +87,7 @@ FUNCTION drawtextout( window, row, col, string, fontcolor, backcolor, fontname, 
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION drawline( window, row, col, row1, col1, penrgb, penwidth )
+FUNCTION drawline(window, row, col, row1, col1, penrgb, penwidth)
 *-----------------------------------------------------------------------------*
    
    LOCAL FormHandle
@@ -149,7 +149,7 @@ FUNCTION drawroundrect( window, row, col, row1, col1, width, height, penrgb, pen
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION drawellipse( window, row, col, row1, col1, penrgb, penwidth, fillrgb )
+FUNCTION drawellipse(window, row, col, row1, col1, penrgb, penwidth, fillrgb)
 *-----------------------------------------------------------------------------*
    
    LOCAL FormHandle
@@ -189,7 +189,7 @@ FUNCTION drawarc(window, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb,
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION drawpie( window, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb, penwidth, fillrgb )
+FUNCTION drawpie(window, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb, penwidth, fillrgb)
 *-----------------------------------------------------------------------------*
    
    LOCAL FormHandle
@@ -286,7 +286,7 @@ FUNCTION HMG_DrawIcon( window, icon, row, col, w, h, rgb, transparent )
          DrawIconEx( FormHandle, Col, Row, icon, w, h, rgb, .F. )
          AAdd(_HMG_aFormGraphTasks[i], {||DrawIconEx(FormHandle, Col, Row, icon, w, h, rgb, .F.)})
       ELSEIF hb_IsString( icon )
-         DrawIconEx( FormHandle, Col, Row, LoadIconByName( icon, w, h ), w, h, rgb, .T. )
+         DrawIconEx( FormHandle, Col, Row, LoadIconByName(icon, w, h), w, h, rgb, .T. )
          AAdd(_HMG_aFormGraphTasks[i], {||DrawIconEx(FormHandle, Col, Row, LoadIconByName(icon, w, h), w, h, rgb, .T.)})
       ENDIF
    ENDIF
@@ -362,7 +362,7 @@ FUNCTION DrawWindowBoxIn( window, row, col, rowr, colr )
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION DrawWindowBoxRaised( window, row, col, rowr, colr )
+FUNCTION DrawWindowBoxRaised(window, row, col, rowr, colr)
 *-----------------------------------------------------------------------------*
    
    LOCAL FormHandle

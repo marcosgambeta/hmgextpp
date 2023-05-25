@@ -1005,9 +1005,9 @@ STATIC FUNCTION ABM2Editar( lNuevo )
                ON LOSTFOCUS ABM2SinFoco( i ) ;
                ON ENTER ABM2AlEntrar()
          ELSE
-            cMascara := Replicate( "9", _aEstructura[i, DBS_LEN] - ( _aEstructura[i, DBS_DEC] + 1 ) )
+            cMascara := Replicate("9", _aEstructura[i, DBS_LEN] - ( _aEstructura[i, DBS_DEC] + 1 ))
             cMascara += "."
-            cMascara += Replicate( "9", _aEstructura[i, DBS_DEC] )
+            cMascara += Replicate("9", _aEstructura[i, DBS_DEC])
             @ _aControl[i, ABM_CON_ROW], _aControl[i, ABM_CON_COL] ;
                TEXTBOX ( _aControl[i, ABM_CON_NAME] ) ;
                OF wndABM2EditNuevoSplit ;
@@ -1518,9 +1518,9 @@ STATIC FUNCTION ABM2Buscar()
       ELSE
 
          // Con decimales.
-         cMascara := Replicate( "9", _aEstructura[nControl, DBS_LEN] - ( _aEstructura[nControl, DBS_DEC] + 1 ) )
+         cMascara := Replicate("9", _aEstructura[nControl, DBS_LEN] - ( _aEstructura[nControl, DBS_DEC] + 1 ))
          cMascara += "."
-         cMascara += Replicate( "9", _aEstructura[nControl, DBS_DEC] )
+         cMascara += Replicate("9", _aEstructura[nControl, DBS_DEC])
          @ 75, 20 TEXTBOX conBuscar ;
             OF wndABMBuscar ;
             VALUE "" ;
@@ -1750,9 +1750,9 @@ STATIC FUNCTION ABM2ControlFiltro()
       ELSE
 
          // Con decimales.
-         cMascara := Replicate( "9", _aEstructura[nControl, DBS_LEN] - ( _aEstructura[nControl, DBS_DEC] + 1 ) )
+         cMascara := Replicate("9", _aEstructura[nControl, DBS_LEN] - ( _aEstructura[nControl, DBS_DEC] + 1 ))
          cMascara += "."
-         cMascara += Replicate( "9", _aEstructura[nControl, DBS_DEC] )
+         cMascara += Replicate("9", _aEstructura[nControl, DBS_DEC])
          @ 226, 20 TEXTBOX conValor ;
             OF wndABM2Filtro ;
             VALUE "" ;
@@ -2369,13 +2369,13 @@ STATIC FUNCTION ABM2Listado( aImpresoras )
    ( _cArea )->( dbEval({|| nTotales++ },, {|| !( RecNo() == nUltimo ) .AND. !Eof() },,, .T.) )
    ( _cArea )->( dbGoto( nPrimero ) )
    IF lOrientacion
-      IF Mod( nTotales, 33 ) == 0
+      IF Mod(nTotales, 33) == 0
          nPaginas := Int( nTotales / 33 )
       ELSE
          nPaginas := Int( nTotales / 33 ) + 1
       ENDIF
    ELSE
-      IF Mod( nTotales, 55 ) == 0
+      IF Mod(nTotales, 55) == 0
          nPaginas := Int( nTotales / 55 )
       ELSE
          nPaginas := Int( nTotales / 55 ) + 1

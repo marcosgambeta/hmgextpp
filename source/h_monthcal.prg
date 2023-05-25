@@ -179,7 +179,7 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
          AAdd(_HMG_ActiveTabCurrentPageMap, aControlhandle[1])
       ENDIF
 
-      SetMonthCalValue( aControlHandle[1], Year( value ), Month( value ), Day( value ) )
+      SetMonthCalValue(aControlHandle[1], Year( value ), Month( value ), Day( value ))
 
       IF tooltip != NIL
          SetToolTip ( aControlHandle[1], tooltip, GetFormToolTipHandle(ParentFormName) )
@@ -339,10 +339,10 @@ FUNCTION AddMonthCalBoldDay( ControlName, ParentFormName, dDay )
 
    IF ( i := AScan(aBoldDays, {| d | d >= dDay }) ) == 0
       AAdd(aBoldDays, dDay)
-      SetDayState( ControlName, ParentFormName )
+      SetDayState(ControlName, ParentFormName)
    ELSEIF aBoldDays[i] > dDay
       hb_AIns( aBoldDays, i, dDay, .T. )
-      SetDayState( ControlName, ParentFormName )
+      SetDayState(ControlName, ParentFormName)
    ENDIF
 
 RETURN NIL
@@ -359,7 +359,7 @@ FUNCTION DelMonthCalBoldDay( ControlName, ParentFormName, dDay )
 
    IF ( i := AScan(aBoldDays, dDay) ) > 0
       hb_ADel( aBoldDays, i, .T. )
-      SetDayState( ControlName, ParentFormName )
+      SetDayState(ControlName, ParentFormName)
    ENDIF
 
 RETURN NIL
@@ -376,7 +376,7 @@ FUNCTION IsMonthCalBoldDay( ControlName, ParentFormName, dDay )
 Return( AScan(aBoldDays, dDay) > 0 )
 
 *-----------------------------------------------------------------------------*
-FUNCTION SetDayState( ControlName, ParentFormName )
+FUNCTION SetDayState(ControlName, ParentFormName)
 *-----------------------------------------------------------------------------*
    
    LOCAL hWnd
@@ -395,7 +395,7 @@ FUNCTION SetDayState( ControlName, ParentFormName )
 
    hWnd := GetControlHandle(ControlName, ParentFormName)
 
-   aData := GetMonthRange( hWnd )
+   aData := GetMonthRange(hWnd)
    nCount := aData[1]
    IF nCount < 1
       RETURN NIL
@@ -432,6 +432,6 @@ FUNCTION SetDayState( ControlName, ParentFormName )
       ENDDO
    ENDIF
 
-   C_SETDAYSTATE( hWnd, nCount, aDays )
+   C_SETDAYSTATE(hWnd, nCount, aDays)
 
 RETURN NIL

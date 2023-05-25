@@ -409,7 +409,7 @@ PROCEDURE _DataGetBoxRefresh ( i )
    
    LOCAL Field := _HMG_aControlPageMap[i]
 
-   _SetGetBoxValue( i, _HMG_aControlHandles[i], iif(Field == NIL, _HMG_aControlValue[i], &( Field )) )
+   _SetGetBoxValue(i, _HMG_aControlHandles[i], iif(Field == NIL, _HMG_aControlValue[i], &( Field )))
 
 RETURN
 
@@ -511,8 +511,8 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
 #ifdef __CLIPPER_COMPAT__
       IF !lAllowEdit
-         Tone( 400 )
-         PostMessage( hWnd, WM_KEYDOWN, VK_DOWN, 0 )
+         Tone(400)
+         PostMessage(hWnd, WM_KEYDOWN, VK_DOWN, 0)
       ENDIF
 #endif
       IF lClrFocus .AND. !readonly .AND. lAllowEdit
@@ -547,7 +547,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
       ENDIF
 
       InvalidateRect( hWnd, 0 )
-      PostMessage( hWnd, WM_CARET, 0, 0 )
+      PostMessage(hWnd, WM_CARET, 0, 0)
       _HMG_aControlMiscData1[i][1] := 1
 
       IF "@K" $ oGet:Picture .OR. oGet:type == "N"
@@ -598,9 +598,9 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
                HideCaret( h )
 
 #ifdef _NAMES_LIST_
-               IF !Do_ControlEventProcedure( oGet:postblock, _GetNameList( oGet:name ), oGet )
+               IF !Do_ControlEventProcedure(oGet:postblock, _GetNameList( oGet:name ), oGet)
 #else
-               IF !Do_ControlEventProcedure( oGet:postblock, __mvGet( oGet:name ), oGet )
+               IF !Do_ControlEventProcedure(oGet:postblock, __mvGet( oGet:name ), oGet)
 #endif
                   SetFocus( hWnd )
                   IF Empty(_HMG_aControlSpacing[i])
@@ -608,7 +608,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
                   ELSE
                      oGet:changed := MsgRetryCancel( _HMG_aControlSpacing[i], _HMG_BRWLangError [11], , .F. )
                      IF !oGet:changed
-                        PostMessage( hWnd, WM_KEYDOWN, VK_ESCAPE, 0 )
+                        PostMessage(hWnd, WM_KEYDOWN, VK_ESCAPE, 0)
                      ENDIF
                      SetFocus( hWnd )
                   ENDIF
@@ -659,12 +659,12 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          oGet:BadDate := .F.
          oGet:VarPut( BLANK_DATE )
          oGet:UpdateBuffer()
-         PostMessage( hWnd, WM_INVALID, wParam, 0 )
+         PostMessage(hWnd, WM_INVALID, wParam, 0)
          RETURN( 0 )
       ENDIF
 
       IF lCleanZero .AND. oGet:type == "N" .AND. oGet:VarGet() == 0
-         oGet:buffer := Space( hb_ULen(oGet:buffer) )
+         oGet:buffer := Space(hb_ULen(oGet:buffer))
       ENDIF
 
       IF oGet:type == "N" .AND. hb_UAt( "B", cPicFunc ) > 0
@@ -697,7 +697,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
       // check post-validation
       IF !lInValid
-         PostMessage( hWnd, WM_INVALID, wParam, 0 )
+         PostMessage(hWnd, WM_INVALID, wParam, 0)
       ENDIF
 
       RETURN( 0 )
@@ -756,7 +756,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
          ELSE
 
-            IF _IsEditable( oGet:pos, i )
+            IF _IsEditable(oGet:pos, i)
                oGet:Delete()
             ENDIF
 
@@ -788,7 +788,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
             SendMessage(hWnd, EM_SETSEL, 0, 0)
             oGet:Pos := 1
          ELSE
-            lShift := _GetKeyState( VK_SHIFT )  // Shift key pressed (or not)
+            lShift := _GetKeyState(VK_SHIFT)  // Shift key pressed (or not)
             _GetBoxSetNextFocus( lShift )
          ENDIF
 
@@ -854,7 +854,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          ENDIF
 
 #ifdef UNICODE
-         IF wParam != 46 .AND. wParam != 44 .AND. hb_UCode( _Input( hb_UChar( wParam ), i ) ) <= 0  // dot and coma
+         IF wParam != 46 .AND. wParam != 44 .AND. hb_UCode(_Input(hb_UChar(wParam), i)) <= 0  // dot and coma
 #else
          IF wParam != 46 .AND. wParam != 44 .AND. Asc(_Input(Chr(wParam), i)) <= 0  // dot and coma
 #endif
@@ -888,7 +888,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
             oGet:home()
          ENDIF
 
-         IF oGet:pos == _FirstEditable( i ) .AND. _HMG_aControlMiscData1[i][1] == 1 .AND. ( oGet:type == "N" .OR. hb_UAt( "K", cPicFunc ) > 0 )
+         IF oGet:pos == _FirstEditable(i) .AND. _HMG_aControlMiscData1[i][1] == 1 .AND. ( oGet:type == "N" .OR. hb_UAt( "K", cPicFunc ) > 0 )
             _HMG_aControlMiscData1[i][1] := 0
             oGet:minus   := .F.
             oGet:clear   := .T.
@@ -922,15 +922,15 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 #endif
             ELSE
 #ifdef UNICODE
-               oGet:Overstrike( hb_UChar( wParam ) )
+               oGet:Overstrike(hb_UChar(wParam))
 #else
-               oGet:Overstrike( hb_BChar( wParam ) )
+               oGet:Overstrike(hb_BChar(wParam))
 #endif
             ENDIF
 
             IF oGet:Rejected
 #ifdef __CLIPPER_COMPAT__
-               Tone( 400 )
+               Tone(400)
 #endif
             ELSE
                oGet:Assign()
@@ -1003,8 +1003,8 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          NEXT
       ENDIF
 
-      lShift := _GetKeyState( VK_SHIFT )
-      lCtrl  := _GetKeyState( VK_CONTROL )
+      lShift := _GetKeyState(VK_SHIFT)
+      lCtrl  := _GetKeyState(VK_CONTROL)
 
       SWITCH wParam
 
@@ -1059,7 +1059,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
       CASE VK_INSERT
 
          IF lCtrl
-            CopyToClipboard( hb_USubStr(oGet:buffer, nStart, nEnd - nStart) )
+            CopyToClipboard(hb_USubStr(oGet:buffer, nStart, nEnd - nStart))
             RETURN( 0 )
          ELSEIF lShift
             SendMessage(hWnd, WM_PASTE, 0, 0)
@@ -1212,7 +1212,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
          ELSE
 
-            IF _IsEditable( oGet:pos , i )
+            IF _IsEditable(oGet:pos, i)
                IF oGet:type == "N" .AND. hb_USubStr(oGet:buffer, oGet:pos, 1) $ "(-"
                   oGet:minus := .F.
                ENDIF
@@ -1258,7 +1258,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
          FOR i := 1 TO hb_ULen(cText)
 #ifdef UNICODE
-            wParam := hb_UCode( hb_USubStr(cText, i, 1) )
+            wParam := hb_UCode(hb_USubStr(cText, i, 1))
 #else
             wParam := Asc(hb_USubStr(cText, i, 1))
 #endif
@@ -1273,9 +1273,9 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 #endif
                ELSE
 #ifdef UNICODE
-                  oGet:Overstrike( hb_UChar( wParam ) )
+                  oGet:Overstrike(hb_UChar(wParam))
 #else
-                  oGet:Overstrike( hb_BChar( wParam ) )
+                  oGet:Overstrike(hb_BChar(wParam))
 #endif
                ENDIF
             ENDIF
@@ -1298,7 +1298,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
    CASE WM_CUT
    CASE WM_CLEAR
 
-      IF IsWindowEnabled( hWnd ) .AND. !readonly .AND. lAllowEdit
+      IF IsWindowEnabled(hWnd) .AND. !readonly .AND. lAllowEdit
 
          nStart := LoWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
          nEnd := HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
@@ -1381,7 +1381,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 RETURN( 0 )
 
 *-----------------------------------------------------------------------------*
-PROCEDURE _SetGetBoxValue( nId, hWnd, Value )
+PROCEDURE _SetGetBoxValue(nId, hWnd, Value)
 *-----------------------------------------------------------------------------*
    
    LOCAL aPicData
@@ -1419,7 +1419,7 @@ PROCEDURE _SetGetBoxValue( nId, hWnd, Value )
          oGet:cargo := Value
       ENDIF
       IF aPicData [3] .AND. oGet:type == "N" .AND. oGet:VarGet() == 0
-         oGet:buffer := Space( Max( hb_ULen(oGet:buffer), Len(aPicData [2]) ) )
+         oGet:buffer := Space(Max(hb_ULen(oGet:buffer), Len(aPicData[2])))
       ENDIF
 
       _DispGetBoxText( hWnd, oGet:buffer )
@@ -1579,15 +1579,15 @@ FUNCTION _GetPictureData(oGet, cPicture)
          lDecRev := "," $ Transform(1.1, "9.9")
          cNum := Str(oGet:VarGet())
          IF ( nAt := hb_UAt( iif(lDecRev, ",", "."), cNum ) ) > 0
-            cPicMask := Replicate( "9", nAt - 1 ) + iif(lDecRev, ",", ".")
-            cPicMask += Replicate( "9", hb_ULen(cNum) - hb_ULen(cPicMask) )
+            cPicMask := Replicate("9", nAt - 1) + iif(lDecRev, ",", ".")
+            cPicMask += Replicate("9", hb_ULen(cNum) - hb_ULen(cPicMask))
          ELSE
-            cPicMask := Replicate( "9", hb_ULen(cNum) )
+            cPicMask := Replicate("9", hb_ULen(cNum))
          ENDIF
 
       CASE oGet:type == "C" .AND. cPicFunc == "@9"
 
-         cPicMask := Replicate( "9", hb_ULen(oGet:VarGet()) )
+         cPicMask := Replicate("9", hb_ULen(oGet:VarGet()))
          cPicFunc := ""
       ENDCASE
 
@@ -1596,7 +1596,7 @@ FUNCTION _GetPictureData(oGet, cPicture)
 RETURN { cPicFunc, cPicMask, lCleanZero }
 
 *-----------------------------------------------------------------------------*
-STATIC FUNCTION _FirstEditable( nId )
+STATIC FUNCTION _FirstEditable(nId)
 *-----------------------------------------------------------------------------*
    
    LOCAL nFor
@@ -1605,12 +1605,12 @@ STATIC FUNCTION _FirstEditable( nId )
 
    IF nMaxLen != NIL
 
-      IF _IsEditable( 1, nId )
+      IF _IsEditable(1, nId)
          RETURN 1
       ENDIF
 
       FOR nFor := 2 TO nMaxLen
-         IF _IsEditable( nFor, nId )
+         IF _IsEditable(nFor, nId)
             RETURN nFor
          ENDIF
       NEXT
@@ -1622,7 +1622,7 @@ STATIC FUNCTION _FirstEditable( nId )
 RETURN 0
 
 *-----------------------------------------------------------------------------*
-STATIC FUNCTION _IsEditable( nPos, nId )
+STATIC FUNCTION _IsEditable(nPos, nId)
 *-----------------------------------------------------------------------------*
    
    LOCAL cChar
@@ -1664,8 +1664,8 @@ STATIC FUNCTION _Input( cChar , nID )
    LOCAL oGet     := _HMG_aControlHeadClick [nId]
    LOCAL cPicFunc := _HMG_aControlInputMask [nId, 1]
    LOCAL cPicMask := _HMG_aControlInputMask [nId, 2]
-   LOCAL cLangItem_1 := hb_langMessage( HB_LANG_ITEM_BASE_TEXT + 1 )
-   LOCAL cLangItem_2 := hb_langMessage( HB_LANG_ITEM_BASE_TEXT + 2 )
+   LOCAL cLangItem_1 := hb_langMessage(HB_LANG_ITEM_BASE_TEXT + 1)
+   LOCAL cLangItem_2 := hb_langMessage(HB_LANG_ITEM_BASE_TEXT + 2)
    LOCAL cPic
 
    SWITCH oGet:type
@@ -1760,7 +1760,7 @@ RETURN cChar
 
 // (JK) HMG 1.1 Experimental Build 12
 *-----------------------------------------------------------------------------*
-STATIC FUNCTION _GetDefinedStatusBarItemValue( ParentHandle, ItemID )
+STATIC FUNCTION _GetDefinedStatusBarItemValue(ParentHandle, ItemID)
 *-----------------------------------------------------------------------------*
    
    LOCAL h
@@ -1800,7 +1800,7 @@ STATIC FUNCTION _IsChildOfActiveWindow(hWnd)
 
       IF hActiveWnd != hParent
 
-         IF hb_bitand( GetWindowLong( hParent, GWL_STYLE ), WS_CHILD ) > 0
+         IF hb_bitand(GetWindowLong( hParent, GWL_STYLE ), WS_CHILD) > 0
             hWnd := hParent
          ELSE
             lRet := .F.

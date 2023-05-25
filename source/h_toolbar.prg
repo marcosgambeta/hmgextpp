@@ -493,7 +493,7 @@ FUNCTION _CreatePopUpChevron ( hWnd, wParam, lParam )
       FOR n := aChevronInfo [6] TO aChevronInfo [7] - 1
 
          aBtnInfo := GetButtonBar( TbHwnd, n )
-         lEnable  := IsButtonEnabled( TbHwnd, n )
+         lEnable  := IsButtonEnabled(TbHwnd, n)
          hImage := GetImageList( tbhwnd, aBtnInfo [1] )
 
          IF ( k := AScan(_HMG_aControlIds, aBtnInfo [2]) ) > 0 .AND. !aBtnInfo [3]

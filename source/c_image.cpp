@@ -725,7 +725,7 @@ HB_FUNC( GPLUSGETENCODERSMIMETYPE )
 
       pItem = hb_itemPutC( nullptr, RecvMimeType );
 
-      hb_arrayAdd( pResult, pItem );
+      hb_arrayAdd(pResult, pItem);
    }
 
    // free resource
@@ -738,7 +738,7 @@ HB_FUNC( GPLUSGETENCODERSMIMETYPE )
    hb_itemReturnRelease(pResult);
 }
 
-static BOOL GetEnCodecClsid( const char * MimeType, CLSID * Clsid )
+static BOOL GetEnCodecClsid(const char * MimeType, CLSID * Clsid)
 {
    UINT num  = 0;
    UINT size = 0;
@@ -818,7 +818,7 @@ BOOL SaveHBitmapToFile(void * HBitmap, const char * FileName, unsigned int Width
 
    if( MimeTypeOld == nullptr )
    {
-      if( !GetEnCodecClsid( MimeType, &Clsid ) )
+      if( !GetEnCodecClsid(MimeType, &Clsid) )
       {
          HB_GPLUS_MSG_ERROR( TEXT("Wrong MimeType") );
          return FALSE;
@@ -840,7 +840,7 @@ BOOL SaveHBitmapToFile(void * HBitmap, const char * FileName, unsigned int Width
       {
          LocalFree(MimeTypeOld);
 
-         if( !GetEnCodecClsid( MimeType, &Clsid ) )
+         if( !GetEnCodecClsid(MimeType, &Clsid) )
          {
             HB_GPLUS_MSG_ERROR( TEXT("Wrong MimeType") );
             return FALSE;

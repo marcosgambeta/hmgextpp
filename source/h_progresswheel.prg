@@ -417,7 +417,7 @@ PROCEDURE PW_SetColorInner( cControlName, cParentForm, Value, lErase )
 RETURN
 
 *------------------------------------------------------------------------------*
-PROCEDURE PW_SetStartAngle( cControlName, cParentForm, Value, lErase )
+PROCEDURE PW_SetStartAngle(cControlName, cParentForm, Value, lErase)
 *------------------------------------------------------------------------------*
 
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
@@ -584,7 +584,7 @@ PROCEDURE PW_SetPosition( cControlName, cParentForm, Value, lErase )
 RETURN
 
 *------------------------------------------------------------------------------*
-PROCEDURE PW_SetInnerSize( cControlName, cParentForm, Value, lErase )
+PROCEDURE PW_SetInnerSize(cControlName, cParentForm, Value, lErase)
 *------------------------------------------------------------------------------*
 
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
@@ -624,7 +624,7 @@ PROCEDURE PW_SetInnerSize( cControlName, cParentForm, Value, lErase )
 RETURN
 
 *------------------------------------------------------------------------------*
-PROCEDURE PW_SetGradientMode( cControlName, cParentForm, Value, lErase )
+PROCEDURE PW_SetGradientMode(cControlName, cParentForm, Value, lErase)
 *------------------------------------------------------------------------------*
 
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
@@ -741,7 +741,7 @@ PROCEDURE ProgressWheelPaint( cParentForm, cImgName, Width, Height, ;
       DrawEllipseInBitmap( hDC, row, col, Width, Height, BrushColor, , BrushColor )
    ENDIF
 
-   SetStretchBltMode( hDC, HALFTONE )
+   SetStretchBltMode(hDC, HALFTONE)
    SetBrushOrg( hDC, 0, 0 )
 
    IF ShowText
@@ -805,7 +805,7 @@ FUNCTION UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, Colo
       BT_DeleteDC(BTstruct)
 
 #ifdef __DEBUG__
-      BT_BitmapSaveFile( hBitmap, "grad.bmp", BT_FILEFORMAT_BMP )
+      BT_BitmapSaveFile(hBitmap, "grad.bmp", BT_FILEFORMAT_BMP)
 
 #endif
       hGradient := hBitmap
@@ -863,8 +863,8 @@ STATIC FUNCTION AnglePosition( StartAngle, Rect, AMin, AMax, APosition )
    Right := Rect[3]
    Bottom := Rect[4]
 
-   X := Round( Cos( a ) * ( Right - Left ) / 2 + ( Left + Right ) / 2, 0 )
-   Y := Round( Sin( a ) * ( Bottom - Top ) / 2 + ( Bottom + Top ) / 2, 0 )
+   X := Round(Cos( a ) * ( Right - Left ) / 2 + ( Left + Right ) / 2, 0)
+   Y := Round(Sin( a ) * ( Bottom - Top ) / 2 + ( Bottom + Top ) / 2, 0)
 
 RETURN { Y, X }
 
@@ -954,7 +954,7 @@ HB_FUNC( SETBRUSHORG )
 
 HB_FUNC( SETSTRETCHBLTMODE )
 {
-    hb_retni( SetStretchBltMode( hmg_par_HDC(1),  hb_parni( 2 ) ) );
+    hb_retni(SetStretchBltMode(hmg_par_HDC(1),  hb_parni(2)));
 }
 
 //**********************************************************************************************************************************************
@@ -1015,10 +1015,10 @@ HB_FUNC( BT_DRAW_HDC_ARCX_EX )
          Arc(hDC, x1, y1, x2, y2, XStartArc, YStartArc, XEndArc, YEndArc);
          break;
       case BT_DRAW_CHORD:
-         Chord( hDC, x1, y1, x2, y2, XStartArc, YStartArc, XEndArc, YEndArc );
+         Chord(hDC, x1, y1, x2, y2, XStartArc, YStartArc, XEndArc, YEndArc);
          break;
       case BT_DRAW_PIE:
-         Pie( hDC, x1, y1, x2, y2, XStartArc, YStartArc, XEndArc, YEndArc );
+         Pie(hDC, x1, y1, x2, y2, XStartArc, YStartArc, XEndArc, YEndArc);
          break;
    }
 

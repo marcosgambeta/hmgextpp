@@ -105,7 +105,7 @@ CLASS TSMTP
 
    METHOD AddAttach( cAttach )
 
-   METHOD Send( bIgnoreTOError, bRequestReturnReceipt )
+   METHOD Send(bIgnoreTOError, bRequestReturnReceipt)
    METHOD GetLastError()
 
    METHOD SetSendTimeout( nMilliSec )
@@ -360,7 +360,7 @@ return nil
 //
 // Send message
 //
-METHOD Send( bIgnoreTOError, bRequestReturnReceipt ) CLASS TSMTP
+METHOD Send(bIgnoreTOError, bRequestReturnReceipt) CLASS TSMTP
 local bRet := .F.
 local cHeader := ""
 local cErr
@@ -598,14 +598,14 @@ HB_FUNC_STATIC( MEMOREAD )
             pbyBuffer = ( BYTE * ) hb_xgrab(ulSize + sizeof(char));
 
             hb_fsSeek( fhnd, 0, FS_SET );
-            hb_fsReadLarge( fhnd, pbyBuffer, ulSize );
+            hb_fsReadLarge(fhnd, pbyBuffer, ulSize);
 
             hb_retclen_buffer( ( char * ) pbyBuffer, ulSize );
          }
          else
             hb_retc(nullptr);
 
-         hb_fsClose( fhnd );
+         hb_fsClose(fhnd);
       }
       else
          hb_retc(nullptr);

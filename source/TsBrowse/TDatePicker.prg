@@ -61,7 +61,7 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
    ::nRight       := ::nLeft + nWidth - 1
    if oWnd == Nil
        oWnd := Self
-       oWnd:hWnd  := GetFormHandle( cWnd )           //JP
+       oWnd:hWnd  := GetFormHandle(cWnd)           //JP
    endif
    ::oWnd         := oWnd
 
@@ -92,7 +92,7 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
    ::SetColor( nClrFore, nClrBack )
 
    if oWnd == Nil
-       oWnd := GetFormHandle( cWnd )                 //JP
+       oWnd := GetFormHandle(cWnd)                 //JP
    endif
 
    if !Empty(::oWnd:hWnd)
@@ -102,8 +102,8 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
       ::AddVars( ::hWnd )
       ::Default()
 
-      if GetObjectType( hFont ) == OBJ_FONT
-         _SetFontHandle( ::hWnd, hFont )
+      if GetObjectType(hFont) == OBJ_FONT
+         _SetFontHandle(::hWnd, hFont)
          ::hFont := hFont
       endif
 
@@ -150,7 +150,7 @@ Return ::Super:HandleEvent( nMsg, nWParam, nLParam )
 
 METHOD KeyChar( nKey, nFlags ) CLASS TDatePicker
 
-   If _GetKeyState( VK_CONTROL )
+   If _GetKeyState(VK_CONTROL)
       nKey := IIf(Upper(Chr(nKey)) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey)
    EndIf
 
@@ -195,7 +195,7 @@ Return lRet
 
 METHOD VarGet() CLASS TDatePicker
 
-RETURN hb_Date( GetDatePickYear( ::hWnd ), GetDatePickMonth( ::hWnd ), GetDatePickDay( ::hWnd ) )
+RETURN hb_Date(GetDatePickYear( ::hWnd ), GetDatePickMonth( ::hWnd ), GetDatePickDay( ::hWnd ))
 
 * ============================================================================
 * METHOD TDatePicker:LostFocus() Version 7.0 Jul/15/2004

@@ -74,7 +74,7 @@ HB_FUNC( MESSAGEBOXINDIRECT )
    mbp.dwStyle            = ( DWORD ) hb_parni(4);
    mbp.dwContextHelpId    = HB_ISNUM(7) ? ( DWORD ) hb_parni(7) : 0;
    mbp.lpfnMsgBoxCallback = nullptr; /* Modified by P.Ch. 16.10. */
-   mbp.dwLanguageId       = HB_ISNUM(9) ? ( DWORD ) hb_parni(9) : MAKELANGID( LANG_NEUTRAL, SUBLANG_NEUTRAL );
+   mbp.dwLanguageId       = HB_ISNUM(9) ? ( DWORD ) hb_parni(9) : MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL);
 
    hb_retni( MessageBoxIndirect(&mbp) );
 }
@@ -92,7 +92,7 @@ HB_FUNC( MESSAGEBOXTIMEOUT )
    TCHAR * lpCaption = hb_osStrU16Encode(hb_parc(2));
 #endif
    UINT  uType          = ( UINT ) hb_parnldef(3, MB_OK);
-   WORD  wLanguageId    = MAKELANGID( LANG_NEUTRAL, SUBLANG_NEUTRAL );
+   WORD  wLanguageId    = MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL);
    DWORD dwMilliseconds = HB_ISNUM(4) ? hmg_par_DWORD(4) : ( DWORD ) 0xFFFFFFFF;
 
    hb_retni( MessageBoxTimeout(hWnd, lpText, lpCaption, uType, wLanguageId, dwMilliseconds) );

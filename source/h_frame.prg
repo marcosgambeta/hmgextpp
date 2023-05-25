@@ -213,7 +213,7 @@ STATIC FUNCTION _DefineFrame(ControlName, ParentFormName, x, y, w, h, ;
 RETURN Nil
 
 *-----------------------------------------------------------------------------*
-FUNCTION _BeginFrame( name , parent , row , col , w , h , caption , fontname , fontsize , opaque , bold, italic, underline, strikeout , backcolor , fontcolor , transparent , invisible , nId, bInit )
+FUNCTION _BeginFrame(name, parent, row, col, w, h, caption, fontname, fontsize, opaque, bold, italic, underline, strikeout, backcolor, fontcolor, transparent, invisible, nId, bInit)
 *-----------------------------------------------------------------------------*
 
    IF _HMG_BeginWindowActive
