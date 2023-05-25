@@ -200,7 +200,7 @@ FUNC Do_OnWndInit( i, cVar )
    LOCAL nParent := _HMG_aFormParentHandle[i]
    LOCAL cType   := _HMG_aFormType[i]
 
-RETURN oWndData( nIndex, cName, nHandle, nParent, cType, cVar )
+RETURN oWndData(nIndex, cName, nHandle, nParent, cType, cVar)
 
 *-----------------------------------------------------------------------------*
 FUNC Do_OnWndRelease( i )
@@ -233,7 +233,7 @@ FUNC Do_OnCtlInit( i, cVar )
    LOCAL cFormName := GetParentFormName( i )
    LOCAL cCtlType  := iif(Empty(cFormName), _HMG_aControlType[i], GetProperty(cFormName, cCtlName, "Type"))
 
-RETURN oCnlData( nCtlIndex, cCtlName, nHandle, nParent, cCtlType, cVar )
+RETURN oCnlData(nCtlIndex, cCtlName, nHandle, nParent, cCtlType, cVar)
 
 *-----------------------------------------------------------------------------*
 FUNC Do_OnCtlRelease( i )

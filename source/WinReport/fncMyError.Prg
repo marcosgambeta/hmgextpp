@@ -9,7 +9,7 @@
 #include <minigui.ch>
 #include "error.ch"
 
-FUNCTION MyErrorFunc( MyObjError )
+FUNCTION MyErrorFunc(MyObjError)
     LOCAL cErrorMsg, HtmArch, cText, i := 2
 
     cErrorMsg := MyErrorMessage( MyObjError )

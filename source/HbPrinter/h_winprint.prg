@@ -79,7 +79,7 @@ CLASS HBPrinter
    METHOD SelectPrinter( cPrinter, lPrev )
    METHOD SetDevMode( what, newvalue )
    METHOD SetUserMode( what, value, value2 )
-   METHOD Startdoc( ldocname )
+   METHOD Startdoc(ldocname)
    METHOD SetPage( orient, size, fontname )
    METHOD Startpage()
    METHOD Endpage()
@@ -112,7 +112,7 @@ CLASS HBPrinter
    METHOD FrameRect( row, col, torow, tocol, defbrush )
    METHOD InvertRect( row, col, torow, tocol )
    METHOD Ellipse( row, col, torow, tocol, defpen, defbrush )
-   METHOD Arc( row, col, torow, tocol, rowsarc, colsarc, rowearc, colearc, defpen )
+   METHOD Arc(row, col, torow, tocol, rowsarc, colsarc, rowearc, colearc, defpen)
    METHOD ArcTo( row, col, torow, tocol, rowrad1, colrad1, rowrad2, colrad2, defpen )
    METHOD Chord( row, col, torow, tocol, rowrad1, colrad1, rowrad2, colrad2, defpen, defbrush )
    METHOD Pie( row, col, torow, tocol, rowrad1, colrad1, rowrad2, colrad2, defpen, defbrush )
@@ -134,7 +134,7 @@ CLASS HBPrinter
    METHOD GetViewPortOrg()
    METHOD DxColors( par )
    METHOD SetRGB(red, green, blue)
-   METHOD SetTextCharExtra( col )
+   METHOD SetTextCharExtra(col)
    METHOD GetTextCharExtra()
    METHOD SetTextJustification( col )
    METHOD GetTextJustification()
@@ -149,12 +149,12 @@ CLASS HBPrinter
    METHOD End()
 
 #ifdef _DEBUG_
-   METHOD ReportData( l_x1, l_x2, l_x3, l_x4, l_x5, l_x6 )
+   METHOD ReportData(l_x1, l_x2, l_x3, l_x4, l_x5, l_x6)
 #endif
    METHOD Preview()
    METHOD PrevPrint( n1 )
    METHOD PrevShow()
-   METHOD PrevThumb( nclick )
+   METHOD PrevThumb(nclick)
    METHOD PrevClose( lEsc )
    METHOD PrintOption()
    METHOD GetVersion() INLINE ::Version
@@ -254,7 +254,7 @@ METHOD SetUserMode( what, value, value2 ) CLASS HBPrinter
 RETURN Self
 
 
-METHOD StartDoc( ldocname ) CLASS HBPrinter
+METHOD StartDoc(ldocname) CLASS HBPrinter
 
    ::Printing := .T.
    IF ldocname != NIL
@@ -262,7 +262,7 @@ METHOD StartDoc( ldocname ) CLASS HBPrinter
       ::DOCNAME := ldocname
    ENDIF
    IF !::PreviewMode
-      rr_startdoc( ::DOCNAME )
+      rr_startdoc(::DOCNAME)
    ENDIF
 
 RETURN self
@@ -360,7 +360,7 @@ METHOD SetTextColor( clr ) CLASS HBPrinter
       IF hb_IsNumeric(clr)
          ::TextColor := rr_settextcolor( clr )
       ELSEIF hb_IsArray(clr)
-         ::TextColor := rr_settextcolor( RGB ( clr[1], clr[2], clr[3] ) )
+         ::TextColor := rr_settextcolor( RGB(clr[1], clr[2], clr[3]) )
       ENDIF
       // END RL
    ENDIF
@@ -383,7 +383,7 @@ METHOD SetBkColor( clr ) CLASS HBPrinter
    IF hb_IsNumeric(clr)
       ::BkColor := rr_setbkcolor( clr )
    ELSEIF hb_IsArray(clr)
-      ::BkColor := rr_setbkcolor( RGB ( clr[1], clr[2], clr[3] ) )
+      ::BkColor := rr_setbkcolor( RGB(clr[1], clr[2], clr[3]) )
    ENDIF
    // END RL
 
@@ -407,7 +407,7 @@ METHOD DefineBrush( defname, lstyle, lcolor, lhatch ) CLASS HBPrinter
    ENDIF
    // BEGIN RL 2003-08-03
    IF hb_IsArray(lcolor)
-      lcolor := RGB ( lcolor[1], lcolor[2], lcolor[3] )
+      lcolor := RGB(lcolor[1], lcolor[2], lcolor[3])
    ENDIF
    // END RL
    hb_default(@lstyle, BS_NULL)
@@ -448,7 +448,7 @@ METHOD ModifyBrush( defname, lstyle, lcolor, lhatch ) CLASS HBPrinter
    ENDIF
    // BEGIN RL 2003-08-03
    IF hb_IsArray(lcolor)
-      lcolor := RGB ( lcolor[1], lcolor[2], lcolor[3] )
+      lcolor := RGB(lcolor[1], lcolor[2], lcolor[3])
    ENDIF
    // END RL
    hb_default(@lstyle, -1)
@@ -470,7 +470,7 @@ METHOD DefinePen( defname, lstyle, lwidth, lcolor ) CLASS HBPrinter
    ENDIF
    // BEGIN RL 2003-08-03
    IF hb_IsArray(lcolor)
-      lcolor := RGB ( lcolor[1], lcolor[2], lcolor[3] )
+      lcolor := RGB(lcolor[1], lcolor[2], lcolor[3])
    ENDIF
    // END RL
    hb_default(@lstyle, PS_SOLID)
@@ -500,7 +500,7 @@ METHOD ModifyPen( defname, lstyle, lwidth, lcolor ) CLASS HBPrinter
    ENDIF
    // BEGIN RL 2003-08-03
    IF hb_IsArray(lcolor)
-      lcolor := RGB ( lcolor[1], lcolor[2], lcolor[3] )
+      lcolor := RGB(lcolor[1], lcolor[2], lcolor[3])
    ENDIF
    // END RL
    hb_default(@lstyle, -1)
@@ -701,7 +701,7 @@ METHOD Say( row, col, txt, defname, lcolor, lalign ) CLASS HBPrinter
       IF hb_IsNumeric(lcolor)
          rr_settextcolor( lcolor )
       ELSEIF hb_IsArray(lcolor)
-         rr_settextcolor( RGB ( lcolor[1], lcolor[2], lcolor[3] ) )
+         rr_settextcolor( RGB(lcolor[1], lcolor[2], lcolor[3]) )
       ENDIF
       // END RL
    ENDIF
@@ -818,13 +818,13 @@ METHOD Ellipse( row, col, torow, tocol, defpen, defbrush ) CLASS HBPrinter
 RETURN self
 
 
-METHOD Arc( row, col, torow, tocol, rowsarc, colsarc, rowearc, colearc, defpen ) CLASS HBPrinter
+METHOD Arc(row, col, torow, tocol, rowsarc, colsarc, rowearc, colearc, defpen) CLASS HBPrinter
 
    LOCAL lhp := ::getobjbyname( defpen, "P" )
 
    hb_default(@torow, ::maxrow)
    hb_default(@tocol, ::maxcol)
-   ::error = rr_arc( ::convert( { row, col } ), ::convert( { torow, tocol } ), ::convert( { rowsarc, colsarc } ), ::convert( { rowearc, colearc } ), lhp )
+   ::error = rr_arc(::convert( { row, col } ), ::convert( { torow, tocol } ), ::convert( { rowsarc, colsarc } ), ::convert( { rowearc, colearc } ), lhp)
 
 RETURN self
 
@@ -1256,11 +1256,11 @@ METHOD SetRGB(red, green, blue) CLASS HBPrinter
 RETURN rr_setrgb(red, green, blue)
 
 
-METHOD SetTextCharExtra( col ) CLASS HBPrinter
+METHOD SetTextCharExtra(col) CLASS HBPrinter
 
    LOCAL p1 := ::convert( { 0, 0 } ), p2 := ::convert( { 0, col } )
 
-RETURN rr_SetTextCharExtra( p2[2] - p1[2] )
+RETURN rr_SetTextCharExtra(p2[2] - p1[2])
 
 
 METHOD GetTextCharExtra() CLASS HBPrinter
@@ -1309,7 +1309,7 @@ STATIC FUNCTION sayconvert( ltxt )
    DO CASE // TODO: SWITCH
    CASE ValType(ltxt) $ "MC" ;  RETURN ltxt
    CASE ValType(ltxt) == "N" ;  RETURN Str(ltxt)
-   CASE ValType(ltxt) == "D" ;  RETURN DToC( ltxt )
+   CASE ValType(ltxt) == "D" ;  RETURN DToC(ltxt)
    CASE ValType(ltxt) == "L" ;  RETURN IIF(ltxt, ".T.", ".F.")
    ENDCASE
 
@@ -1364,7 +1364,7 @@ RETURN n
 
 #endif
 
-METHOD PrevThumb( nclick ) CLASS HBPrinter
+METHOD PrevThumb(nclick) CLASS HBPrinter
 
    LOCAL i, spage
    IF iloscstron == 1
@@ -1394,7 +1394,7 @@ METHOD PrevThumb( nclick ) CLASS HBPrinter
             ath[i, 4] := dx - 5
             ath[i, 3] := dy * ::Metafiles[i + spage, 2] / ::Metafiles[i + spage, 3] - 5
          ENDIF
-         rr_playthumb( ath[i], ::Metafiles[i + spage, 1], AllTrim(Str(i + spage)), i )
+         rr_playthumb(ath[i], ::Metafiles[i + spage, 1], AllTrim(Str(i + spage)), i)
          CShowControl( ath[i, 5] )
       ENDIF
    NEXT
@@ -2246,9 +2246,9 @@ METHOD Preview() CLASS HBPrinter
       _DefineHotKey( "HBPREVIEW", 0, VK_NEXT, {|| page := ::CurPage := iif(page == iloscstron, page, page + 1), HBPREVIEW.combo_1.VALUE := page, ::PrevShow() } ) // next
 
       DEFINE STATUSBAR
-      STATUSITEM aopisy[15] + " " + hb_ntos( page ) WIDTH 100
+      STATUSITEM aopisy[15] + " " + hb_ntos(page) WIDTH 100
       STATUSITEM aopisy[16] WIDTH 200 ICON "zzz_Printicon" ACTION ::PREVPRINT( page ) RAISED
-      STATUSITEM aopisy[17] + " " + hb_ntos( iloscstron ) WIDTH 100
+      STATUSITEM aopisy[17] + " " + hb_ntos(iloscstron) WIDTH 100
    END STATUSBAR
 
    IF iloscstron > 1
@@ -2337,25 +2337,25 @@ METHOD Preview() CLASS HBPrinter
                ath[i, 1] := Int( ( i - 1 ) / 5 ) * dy + 5
                ath[i, 2] := ( ( i - 1 ) % 5 ) * dx + 5
             NEXT
-            @ ath[1, 1], ath[1, 2] image it1 OF hbpreview2 PICTURE "" action {|| ::Prevthumb( 1 ) } width ath[1, 4] height ath[1, 3]
-            @ ath[2, 1], ath[2, 2] image it2 OF hbpreview2 PICTURE "" action {|| ::Prevthumb( 2 ) } width ath[2, 4] height ath[2, 3]
-            @ ath[3, 1], ath[3, 2] image it3 OF hbpreview2 PICTURE "" action {|| ::Prevthumb( 3 ) } width ath[3, 4] height ath[3, 3]
-            @ ath[4, 1], ath[4, 2] image it4 OF hbpreview2 PICTURE "" action {|| ::Prevthumb( 4 ) } width ath[4, 4] height ath[4, 3]
-            @ ath[5, 1], ath[5, 2] image it5 OF hbpreview2 PICTURE "" action {|| ::Prevthumb( 5 ) } width ath[5, 4] height ath[5, 3]
-            @ ath[6, 1], ath[6, 2] image it6 OF hbpreview2 PICTURE "" action {|| ::Prevthumb( 6 ) } width ath[6, 4] height ath[6, 3]
-            @ ath[7, 1], ath[7, 2] image it7 OF hbpreview2 PICTURE "" action {|| ::Prevthumb( 7 ) } width ath[7, 4] height ath[7, 3]
-            @ ath[8, 1], ath[8, 2] image it8 OF hbpreview2 PICTURE "" action {|| ::Prevthumb( 8 ) } width ath[8, 4] height ath[8, 3]
-            @ ath[9, 1], ath[9, 2] image it9 OF hbpreview2 PICTURE "" action {|| ::Prevthumb( 9 ) } width ath[9, 4] height ath[9, 3]
-            @ ath[10, 1], ath[10, 2] image it10 OF hbpreview2 PICTURE "" action {|| ::Prevthumb( 10 ) } width ath[10, 4] height ath[10, 3]
-            @ ath[11, 1], ath[11, 2] image it11 OF hbpreview2 PICTURE "" action {|| ::Prevthumb( 11 ) } width ath[11, 4] height ath[11, 3]
-            @ ath[12, 1], ath[12, 2] image it12 OF hbpreview2 PICTURE "" action {|| ::Prevthumb( 12 ) } width ath[12, 4] height ath[12, 3]
-            @ ath[13, 1], ath[13, 2] image it13 OF hbpreview2 PICTURE "" action {|| ::Prevthumb( 13 ) } width ath[13, 4] height ath[13, 3]
-            @ ath[14, 1], ath[14, 2] image it14 OF hbpreview2 PICTURE "" action {|| ::Prevthumb( 14 ) } width ath[14, 4] height ath[14, 3]
-            @ ath[15, 1], ath[15, 2] image it15 OF hbpreview2 PICTURE "" action {|| ::Prevthumb( 15 ) } width ath[15, 4] height ath[15, 3]
+            @ ath[1, 1], ath[1, 2] image it1 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(1) } width ath[1, 4] height ath[1, 3]
+            @ ath[2, 1], ath[2, 2] image it2 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(2) } width ath[2, 4] height ath[2, 3]
+            @ ath[3, 1], ath[3, 2] image it3 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(3) } width ath[3, 4] height ath[3, 3]
+            @ ath[4, 1], ath[4, 2] image it4 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(4) } width ath[4, 4] height ath[4, 3]
+            @ ath[5, 1], ath[5, 2] image it5 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(5) } width ath[5, 4] height ath[5, 3]
+            @ ath[6, 1], ath[6, 2] image it6 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(6) } width ath[6, 4] height ath[6, 3]
+            @ ath[7, 1], ath[7, 2] image it7 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(7) } width ath[7, 4] height ath[7, 3]
+            @ ath[8, 1], ath[8, 2] image it8 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(8) } width ath[8, 4] height ath[8, 3]
+            @ ath[9, 1], ath[9, 2] image it9 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(9) } width ath[9, 4] height ath[9, 3]
+            @ ath[10, 1], ath[10, 2] image it10 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(10) } width ath[10, 4] height ath[10, 3]
+            @ ath[11, 1], ath[11, 2] image it11 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(11) } width ath[11, 4] height ath[11, 3]
+            @ ath[12, 1], ath[12, 2] image it12 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(12) } width ath[12, 4] height ath[12, 3]
+            @ ath[13, 1], ath[13, 2] image it13 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(13) } width ath[13, 4] height ath[13, 3]
+            @ ath[14, 1], ath[14, 2] image it14 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(14) } width ath[14, 4] height ath[14, 3]
+            @ ath[15, 1], ath[15, 2] image it15 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(15) } width ath[15, 4] height ath[15, 3]
 
             FOR i := 1 TO 15
-               ath[i, 5] := GetControlHandle( "it" + hb_ntos( i ), "hbpreview2" )
-               rr_playthumb( ath[i], ::Metafiles[i], hb_ntos( i ), i )
+               ath[i, 5] := GetControlHandle( "it" + hb_ntos(i), "hbpreview2" )
+               rr_playthumb(ath[i], ::Metafiles[i], hb_ntos(i), i)
                IF i >= iloscstron
                   EXIT
                ENDIF
@@ -2439,7 +2439,7 @@ RETURN OKPrint
 
 #ifdef _DEBUG_
 
-METHOD ReportData( l_x1, l_x2, l_x3, l_x4, l_x5, l_x6 ) CLASS HBPrinter
+METHOD ReportData(l_x1, l_x2, l_x3, l_x4, l_x5, l_x6) CLASS HBPrinter
    SET PRINTER TO "hbprinter.rep" ADDITIVE
    SET DEVICE TO PRINT
    SET PRINTER ON

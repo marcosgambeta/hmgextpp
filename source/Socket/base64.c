@@ -23,7 +23,7 @@ static unsigned char b64d[] = {
    0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f, 0x30, 0x31, 0x32, 0x33, 0x00, 0x00, 0x00, 0x00, 0x00  /* 0x70-0x7F */
 };
 
-static void b64enc (unsigned char *in, int inlen, unsigned char *out)
+static void b64enc(unsigned char *in, int inlen, unsigned char *out)
 {
    unsigned char t0 = ( inlen > 0 ) ? in[ 0 ] : 0;
    unsigned char t1 = ( inlen > 1 ) ? in[ 1 ] : 0;
@@ -43,7 +43,7 @@ static void b64enc (unsigned char *in, int inlen, unsigned char *out)
    out[ 3 ] = b64e[ t2 & 0x3f ];
 }
 
-static void b64dec (unsigned char *in, int inlen, unsigned char *out)
+static void b64dec(unsigned char *in, int inlen, unsigned char *out)
 {
    unsigned char t0 = ( inlen > 0 ) ? b64d[ in[ 0 ] & 0x7f ] : 0;
    unsigned char t1 = ( inlen > 1 ) ? b64d[ in[ 1 ] & 0x7f ] : 0;
@@ -81,7 +81,7 @@ int b64decode_len (unsigned char *in)
    return 3 * ( ( l + 3 ) / 4 );
 }
 
-unsigned char *b64encode_alloc (unsigned char *in)
+unsigned char *b64encode_alloc(unsigned char *in)
 {
    int l = b64encode_len(in);
    unsigned char *n = malloc(l + 1);
@@ -133,7 +133,7 @@ void b64encodelen (unsigned char *in, unsigned char *out, int nLen, int nSubLen 
    }
 }
 
-unsigned char *b64decode_alloc (unsigned char *in)
+unsigned char *b64decode_alloc(unsigned char *in)
 {
    int l = b64decode_len(in);
    unsigned char *n = malloc(l + 1);

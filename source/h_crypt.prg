@@ -140,7 +140,7 @@ FUNCTION FI_CODE( cInFile, cPass, cOutFile, lDelete )
    ENDIF
 
    FSeek(nHandle, 0)
-   nOutHandle := FCreate( cOutFile, 0 )
+   nOutHandle := FCreate(cOutFile, 0)
 
    IF FError() != 0
 
@@ -257,7 +257,7 @@ FUNCTION FI_DECODE( cInFile, cPass, cOutFile, lDelete )
 
    ENDIF
 
-   nOutHandle := FCreate( cOutFile, 0 )
+   nOutHandle := FCreate(cOutFile, 0)
 
    IF FError() != 0
 

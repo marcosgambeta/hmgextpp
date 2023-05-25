@@ -280,7 +280,7 @@ FUNCTION BmpSize( xBitmap )
 RETURN aRet
 
 *-----------------------------------------------------------------------------*
-FUNCTION HasAlpha( FileName )
+FUNCTION HasAlpha(FileName)
 *-----------------------------------------------------------------------------*
    
    LOCAL hBitmap
@@ -289,7 +289,7 @@ FUNCTION HasAlpha( FileName )
    hBitmap := C_GetResPicture( FileName )
 
    IF GetObjectType( hBitmap ) == OBJ_BITMAP .AND. BmpSize( FileName ) [3] == 32
-      lResult := C_HasAlpha( hBitmap )
+      lResult := C_HasAlpha(hBitmap)
       DeleteObject( hBitmap )
    ENDIF
 

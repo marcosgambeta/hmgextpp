@@ -175,7 +175,7 @@ FUNCTION GetData()
 RETURN ( RetVal )
 
 *-----------------------------------------------------------------------------*
-FUNCTION SendData ( cDest , Data )
+FUNCTION SendData(cDest, Data)
 *-----------------------------------------------------------------------------*
 
    LOCAL cData
@@ -188,14 +188,14 @@ FUNCTION SendData ( cDest , Data )
    LOCAL Rows
    LOCAL Cols
 
-   FileName := _HMG_CommPath + cDest + "." + _HMG_StationName + "." + hb_ntos ( ++_HMG_SendDataCount )
+   FileName := _HMG_CommPath + cDest + "." + _HMG_StationName + "." + hb_ntos(++_HMG_SendDataCount)
 
    IF hb_IsArray(Data)
 
       IF ValType(Data [1]) != "A"
 
-         cData := "#DataRows=" + hb_ntos( Len(Data ) ) + Chr( 13 ) + Chr( 10 )
-         cData += "#DataCols=0" + Chr( 13 ) + Chr( 10 )
+         cData := "#DataRows=" + hb_ntos(Len(Data)) + Chr(13) + Chr(10)
+         cData += "#DataCols=0" + Chr(13) + Chr(10)
 
          FOR i := 1 TO Len(Data)
 
@@ -203,27 +203,27 @@ FUNCTION SendData ( cDest , Data )
 
             SWITCH cType
             CASE "D"
-               pData := hb_ntos( Year( data[i] ) ) + "." + hb_ntos( Month( data[i] ) ) + "." + hb_ntos( Day( data[i] ) )
-               cLen := hb_ntos( Len(pData) )
+               pData := hb_ntos(Year(data[i])) + "." + hb_ntos(Month(data[i])) + "." + hb_ntos(Day(data[i]))
+               cLen := hb_ntos(Len(pData))
                EXIT
             CASE "L"
                pData := iif(Data[i] == .T., "T", "F")
-               cLen := hb_ntos( Len(pData) )
+               cLen := hb_ntos(Len(pData))
                EXIT
             CASE "N"
                pData := Str(Data[i])
-               cLen := hb_ntos( Len(pData) )
+               cLen := hb_ntos(Len(pData))
                EXIT
             CASE "C"
                pData := Data[i]
-               cLen := hb_ntos( Len(pData) )
+               cLen := hb_ntos(Len(pData))
                EXIT
             OTHERWISE
                MsgMiniGuiError("SendData: Type Not Supported.")
             ENDSWITCH
 
-            cData += "#DataBlock=" + cType + "," + cLen + Chr( 13 ) + Chr( 10 )
-            cData += pData + Chr( 13 ) + Chr( 10 )
+            cData += "#DataBlock=" + cType + "," + cLen + Chr(13) + Chr(10)
+            cData += pData + Chr(13) + Chr(10)
 
          NEXT i
 
@@ -234,8 +234,8 @@ FUNCTION SendData ( cDest , Data )
          Rows := Len(Data)
          Cols := Len(Data[1])
 
-         cData := "#DataRows=" + hb_ntos( Rows ) + Chr( 13 ) + Chr( 10 )
-         cData += "#DataCols=" + hb_ntos( Cols ) + Chr( 13 ) + Chr( 10 )
+         cData := "#DataRows=" + hb_ntos(Rows) + Chr(13) + Chr(10)
+         cData += "#DataCols=" + hb_ntos(Cols) + Chr(13) + Chr(10)
 
          FOR i := 1 TO Rows
 
@@ -245,27 +245,27 @@ FUNCTION SendData ( cDest , Data )
 
                SWITCH cType
                CASE "D"
-                  pData := hb_ntos( Year( data[i][j] ) ) + "." + hb_ntos( Month( data[i][j] ) ) + "." + hb_ntos( Day( data[i][j] ) )
-                  cLen := hb_ntos( Len(pData) )
+                  pData := hb_ntos(Year(data[i][j])) + "." + hb_ntos(Month(data[i][j])) + "." + hb_ntos(Day(data[i][j]))
+                  cLen := hb_ntos(Len(pData))
                   EXIT
                CASE "L"
                   pData := iif(Data[i][j] == .T., "T", "F")
-                  cLen := hb_ntos( Len(pData) )
+                  cLen := hb_ntos(Len(pData))
                   EXIT
                CASE "N"
                   pData := Str(Data[i][j])
-                  cLen := hb_ntos( Len(pData) )
+                  cLen := hb_ntos(Len(pData))
                   EXIT
                CASE "C"
                   pData := Data[i] [j]
-                  cLen := hb_ntos( Len(pData) )
+                  cLen := hb_ntos(Len(pData))
                   EXIT
                OTHERWISE
                   MsgMiniGuiError("SendData: Type Not Supported.")
                ENDSWITCH
 
-               cData += "#DataBlock=" + cType + "," + cLen + Chr( 13 ) + Chr( 10 )
-               cData += pData + Chr( 13 ) + Chr( 10 )
+               cData += "#DataBlock=" + cType + "," + cLen + Chr(13) + Chr(10)
+               cData += pData + Chr(13) + Chr(10)
 
             NEXT j
          NEXT i
@@ -280,30 +280,30 @@ FUNCTION SendData ( cDest , Data )
 
       SWITCH cType
       CASE "D"
-         pData := hb_ntos( Year( data ) ) + "." + hb_ntos( Month( data ) ) + "." + hb_ntos( Day( data ) )
-         cLen := hb_ntos( Len(pData) )
+         pData := hb_ntos(Year(data)) + "." + hb_ntos(Month(data)) + "." + hb_ntos(Day(data))
+         cLen := hb_ntos(Len(pData))
          EXIT
       CASE "L"
          pData := iif(Data == .T., "T", "F")
-         cLen := hb_ntos( Len(pData) )
+         cLen := hb_ntos(Len(pData))
          EXIT
       CASE "N"
          pData := Str(Data)
-         cLen := hb_ntos( Len(pData) )
+         cLen := hb_ntos(Len(pData))
          EXIT
       CASE "C"
          pData := Data
-         cLen := hb_ntos( Len(pData) )
+         cLen := hb_ntos(Len(pData))
          EXIT
       OTHERWISE
          MsgMiniGuiError("SendData: Type Not Supported.")
       ENDSWITCH
 
-      cData := "#DataRows=0" + Chr( 13 ) + Chr( 10 )
-      cData += "#DataCols=0" + Chr( 13 ) + Chr( 10 )
+      cData := "#DataRows=0" + Chr(13) + Chr(10)
+      cData += "#DataCols=0" + Chr(13) + Chr(10)
 
-      cData += "#DataBlock=" + cType + "," + cLen + Chr( 13 ) + Chr( 10 )
-      cData += pData + Chr( 13 ) + Chr( 10 )
+      cData += "#DataBlock=" + cType + "," + cLen + Chr(13) + Chr(10)
+      cData += pData + Chr(13) + Chr(10)
 
       MemoWrit ( FileName , cData )
 
@@ -340,7 +340,7 @@ FUNCTION HMG_FILECOPY( cSourceFile, cTargetFile, nBuffer, bEval )
 
    IF ( hSourceFile := FOpen(cSourceFile, FO_READ) ) != F_ERROR
 
-      IF ( hTargetFile := FCreate( cTargetFile, FC_NORMAL ) ) != F_ERROR
+      IF ( hTargetFile := FCreate(cTargetFile, FC_NORMAL) ) != F_ERROR
 
          nTotalBytes := FSeek(hSourceFile, 0, FS_END)
          nCurrentlBytes := 0

@@ -289,9 +289,9 @@ HB_FUNC( INITSPLITBUTTON )
    HWND hbutton;
    int style;
 #ifndef UNICODE
-   LPCSTR lpWindowName = hb_parc( 4 );
+   LPCSTR lpWindowName = hb_parc(4);
 #else
-   LPWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc( 4 ) );
+   LPWSTR lpWindowName = AnsiToWide( ( char * ) hb_parc(4) );
 #endif
 
    style = BS_SPLITBUTTON;

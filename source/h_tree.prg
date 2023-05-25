@@ -653,7 +653,7 @@ FUNCTION TreeItemGetParentValue ( ControlName , ParentForm , nItem )
 *-----------------------------------------------------------------------------*
    
    LOCAL nControlHandle := GetControlHandle(ControlName, ParentForm)
-   LOCAL ItemHandle := TreeView_GetParent ( nControlHandle , TreeItemGetHandle(ControlName, ParentForm, nItem) )
+   LOCAL ItemHandle := TreeView_GetParent(nControlHandle, TreeItemGetHandle(ControlName, ParentForm, nItem))
    LOCAL nPos
    LOCAL nID
    LOCAL i

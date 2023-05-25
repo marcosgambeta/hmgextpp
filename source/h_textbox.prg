@@ -267,7 +267,7 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
       // With NUMERIC clause, transform numeric value into a string.
       IF lNumeric
          IF ValType(cValue) != "C"
-            cValue := hb_ntos( cValue )
+            cValue := hb_ntos(cValue)
          ENDIF
       ENDIF
 
@@ -315,7 +315,7 @@ FUNCTION InitDialogTextBox( ParentName, ControlHandle, k )
    // With NUMERIC clause, transform numeric value into a string.
    IF lNumeric
       IF ValType(cValue) != "C"
-         cValue := hb_ntos( cValue )
+         cValue := hb_ntos(cValue)
       ENDIF
    ENDIF
 
@@ -968,7 +968,7 @@ PROCEDURE ProcessCharMask ( i , d )
 
       CASE CM == "A" .OR. CM == "N" .OR. CM == "!"
 
-         IF hmg_IsAlpha( CB ) .OR. CB == " " .OR. ( ( CM == "N" .OR. CM == "!" ) .AND. hmg_IsDigit( CB ) )
+         IF hmg_IsAlpha(CB) .OR. CB == " " .OR. ( ( CM == "N" .OR. CM == "!" ) .AND. hmg_IsDigit( CB ) )
 
             IF CM == "!" .AND. !hmg_IsDigit( CB )
                OutBuffer += hmg_Upper(CB)
@@ -1088,8 +1088,7 @@ PROCEDURE ProcessCharMask ( i , d )
             IF CM == "X"
                EXIT
             ENDIF
-            IF !hmg_IsDigit( CB ) .AND. !hmg_IsAlpha( CB ) .AND. ;
-               ( !( CB == " " ) .OR. ( CB == " " .AND. CM == " " ) )
+            IF !hmg_IsDigit( CB ) .AND. !hmg_IsAlpha(CB) .AND. ( !( CB == " " ) .OR. ( CB == " " .AND. CM == " " ) )
                SendMessage(_HMG_aControlhandles[i], EM_SETSEL, icp + x, icp + x)
             ELSE
                EXIT
@@ -1118,9 +1117,9 @@ STATIC FUNCTION CharMaskTekstOK( cString, cMask )
       CM := hb_USubStr(cMask, x, 1)
       DO CASE  // JK
       CASE CM == "A"
-         lPassed := ( hmg_IsAlpha( CB ) .OR. CB == " " )
+         lPassed := ( hmg_IsAlpha(CB) .OR. CB == " " )
       CASE CM == "N" .OR. CM == "!"
-         lPassed := ( hmg_IsDigit( CB ) .OR. hmg_IsAlpha( CB ) .OR. CB == " " )
+         lPassed := ( hmg_IsDigit( CB ) .OR. hmg_IsAlpha(CB) .OR. CB == " " )
       CASE CM == "9"
          lPassed := ( hmg_IsDigit( CB ) .OR. CB == " " )
       CASE CM == " "
@@ -1300,12 +1299,12 @@ FUNCTION OEDITEVENTS( hWnd, nMsg, wParam, lParam )
       InBuffer := GetWindowText ( hTextBox )
 
       // simulate overwrite mode
-      IF !IsInsertActive() .AND. wParam != 13 .AND. wParam != 8 .AND. hb_USubStr(inBuffer, icp + 1, 1) != Chr( 13 )
+      IF !IsInsertActive() .AND. wParam != 13 .AND. wParam != 8 .AND. hb_USubStr(inBuffer, icp + 1, 1) != Chr(13)
 
 #ifdef UNICODE
-         IF hmg_IsAlpha( hb_UChar( wParam ) ) .OR. hmg_IsDigit( hb_UChar( wParam ) )
+         IF hmg_IsAlpha(hb_UChar( wParam )) .OR. hmg_IsDigit( hb_UChar( wParam ) )
 #else
-         IF hmg_IsAlpha( Chr( wParam ) ) .OR. hmg_IsDigit( Chr( wParam ) )
+         IF hmg_IsAlpha(Chr(wParam)) .OR. hmg_IsDigit( Chr(wParam) )
 #endif
             IF icp != icpe
                SendMessage(hTextBox, WM_CLEAR, 0, 0)

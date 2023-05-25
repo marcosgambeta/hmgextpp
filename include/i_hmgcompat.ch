@@ -128,7 +128,7 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 
 #xtranslate HMG_ISLOWER( <c> ) => ISLOWER( <c> )
 #xtranslate HMG_ISUPPER( <c> ) => ISUPPER( <c> )
-#xtranslate HMG_ISALPHANUMERIC( <c> ) => ( ISALPHA( <c> ) .OR. ISDIGIT( <c> ) )
+#xtranslate HMG_ISALPHANUMERIC(<c>) => ( ISALPHA( <c> ) .OR. ISDIGIT( <c> ) )
 
 #xtranslate HMG_ISUTF8 ( <x> ) => hb_StrIsUTF8 ( <x> )
 #xtranslate HMG_UNICODE_TO_ANSI( <x> ) => hb_Translate( <x>, "UTF8", hb_cdpOS() )
@@ -156,7 +156,7 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 #xtranslate SET CONTROL <ControlName> OF <FormName> CLIENTEDGE => HMG_ChangeWindowStyle (GetControlHandle (<"ControlName">, <"FormName">), WS_EX_CLIENTEDGE, NIL, .T.)
 #xtranslate SET CONTROL <ControlName> OF <FormName> STATICEDGE => HMG_ChangeWindowStyle (GetControlHandle (<"ControlName">, <"FormName">), WS_EX_STATICEDGE, NIL, .T.)
 #xtranslate SET CONTROL <ControlName> OF <FormName> WINDOWEDGE => HMG_ChangeWindowStyle (GetControlHandle (<"ControlName">, <"FormName">), WS_EX_WINDOWEDGE, NIL, .T.)
-#xtranslate SET CONTROL <ControlName> OF <FormName> NOTEDGE    => HMG_ChangeWindowStyle (GetControlHandle (<"ControlName">, <"FormName">), NIL, hb_bitOr (WS_EX_CLIENTEDGE, WS_EX_STATICEDGE, WS_EX_WINDOWEDGE), .T.)
+#xtranslate SET CONTROL <ControlName> OF <FormName> NOTEDGE    => HMG_ChangeWindowStyle (GetControlHandle (<"ControlName">, <"FormName">), NIL, hb_bitOr(WS_EX_CLIENTEDGE, WS_EX_STATICEDGE, WS_EX_WINDOWEDGE), .T.)
 
 // Dynamic Font
 #xtranslate ARRAY ;
@@ -429,7 +429,7 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
 #xtranslate GetFocusedControlType () => _GetFocusedControlType ( GetActiveWindow() )
 
 #xtranslate IsValidWindowHandle ( <hWnd> ) => IsWindowHandle ( <hWnd> )
-#xtranslate IsMinimized ( <hWnd> ) => IsIconic ( <hWnd> )
+#xtranslate IsMinimized ( <hWnd> ) => IsIconic(<hWnd>)
 #xtranslate IsMaximized ( <hWnd> ) => IsZoomed ( <hWnd> )
 
 #xtranslate System.EmptyClipboard => ClearClipboard()
@@ -534,7 +534,7 @@ _ColorMenu ( <hWnd>, <argb> [, <lSubMenu> ] )
         [ TRANSPARENT <Trans> ] ;
         [ ON INIT <bInit> ] ;
         =>;
-        _BeginTab( <(name)> , <(parent)> , <row> , <col> , <w> , <h> , <value> , <f> , <s> , <tooltip> , <{change}> , <.buttons.> , <.flat.> , <.hottrack.> , <.vertical.>, .F., !<.tabstop.> ,<.bold.>, <.italic.>, <.underline.>, <.strikeout.> , <.multiline.> , {,,}, , <bInit> , !<.Trans.> )
+        _BeginTab(<(name)>, <(parent)>, <row>, <col>, <w>, <h>, <value>, <f>, <s>, <tooltip>, <{change}>, <.buttons.>, <.flat.>, <.hottrack.>, <.vertical.>, .F., !<.tabstop.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <.multiline.>, {,,}, , <bInit>, !<.Trans.>)
 
 
 #xcommand  DEFINE TOOLBAR  <name> ;

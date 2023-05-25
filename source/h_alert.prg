@@ -86,7 +86,7 @@
 #define VMARGIN_BUTTON  4
 #define HMARGIN_BUTTON  22
 #define SEP_BUTTON      10
-#define TAB             Chr( 9 )
+#define TAB             Chr(9)
 
 STATIC aBackColor, aFontColor
 
@@ -110,7 +110,7 @@ FUNCTION HMG_Alert( cMsg, aOptions, cTitle, nType, cIcoFile, nIcoSize, aBtnColor
 
    IF _IsWindowDefined(cForm)
       nLineas := 0
-      WHILE _IsWindowDefined(cForm := "oDlg" + hb_ntos( ++nLineas ))
+      WHILE _IsWindowDefined(cForm := "oDlg" + hb_ntos(++nLineas))
       END
    ENDIF
 

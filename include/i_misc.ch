@@ -117,7 +117,7 @@
 #define BIF_VALIDATE           0x0020       // insist on valid result (or CANCEL)
 #define BIF_NEWDIALOGSTYLE     0x0040       // Use the new dialog layout with the ability to resize
                                             // Caller needs to call OleInitialize() before using this API
-#define BIF_USENEWUI           hb_BitOr( BIF_NEWDIALOGSTYLE, BIF_EDITBOX )
+#define BIF_USENEWUI           hb_BitOr(BIF_NEWDIALOGSTYLE, BIF_EDITBOX)
 #define BIF_BROWSEINCLUDEURLS  0x0080       // Allow URLs to be displayed or entered. (Requires BIF_USENEWUI)
 #define BIF_BROWSEFORCOMPUTER  0x1000       // Browsing for Computers.
 #define BIF_BROWSEFORPRINTER   0x2000       // Browsing for Printers

@@ -108,7 +108,7 @@ STATIC FUNCTION DefError( oError )
 
    Html_RawText( HtmArch, "<div class='record'>" )
    Html_RawText( HtmArch, "<p class='updated'>" )
-   Html_LineText( HtmArch, "Date: <span class='date'>" + DToC( Date() ) + "</span> " + "Time: <span class='time'>" + Time() + "</span>" )
+   Html_LineText( HtmArch, "Date: <span class='date'>" + DToC(Date()) + "</span> " + "Time: <span class='time'>" + Time() + "</span>" )
    Html_LineText( HtmArch, "Application: " + GetExeFileName() )
    Html_LineText( HtmArch, "User: " + NetName() + " / " + GetUserName() )
    Html_LineText( HtmArch, "Time from start: " + TimeFromStart() )
@@ -117,7 +117,7 @@ STATIC FUNCTION DefError( oError )
    cText += CRLF + CRLF
 
    HTML_RawText( HtmArch, "<details><summary>" )
-   HTML_RawText( HtmArch, PadC( " Stack Trace ", 79, "-" ) )
+   HTML_RawText( HtmArch, PadC(" Stack Trace ", 79, "-") )
    HTML_RawText( HtmArch, "<br/></summary><span class='stacktrace'>" )
 
    n := 1
@@ -162,7 +162,7 @@ STATIC FUNCTION ErrorMessage( oError )
 
    // add subsystem's error code if available
    IF hb_IsNumeric(oError:subCode)
-      cMessage += "/" + hb_ntos( oError:subCode )
+      cMessage += "/" + hb_ntos(oError:subCode)
    ELSE
       cMessage += "/???"
    ENDIF
@@ -182,7 +182,7 @@ STATIC FUNCTION ErrorMessage( oError )
 
    // add OS error code if available
    IF !Empty(oError:osCode)
-      cMessage += " (DOS Error " + hb_ntos( oError:osCode ) + ")"
+      cMessage += " (DOS Error " + hb_ntos(oError:osCode) + ")"
    ENDIF
 
    IF hb_IsArray(oError:args)
@@ -190,7 +190,7 @@ STATIC FUNCTION ErrorMessage( oError )
       cMessage += "   Args:" + CRLF
       FOR n := 1 TO Len(oError:args)
          cMessage += ;
-            "     [" + hb_ntos( n, 2 ) + "] = " + ValType(oError:args[n]) + ;
+            "     [" + hb_ntos(n, 2) + "] = " + ValType(oError:args[n]) + ;
             "   " + cValToChar( cValToChar( oError:args[n] ) ) + ;
             iif(hb_IsArray(oError:args[n]), " length: " + hb_ntos(Len(oError:args[n])), "") + iif(n < Len(oError:args), CRLF, "")
       NEXT
@@ -281,7 +281,7 @@ STATIC PROCEDURE ErrorLog( nHandle, oErr )
       _lAddError := .F.
 
       HTML_RawText( nHandle, "<details><summary>" )
-      HTML_RawText( nHandle, PadC( " System Information ", 79, "-" ) )
+      HTML_RawText( nHandle, PadC(" System Information ", 79, "-") )
       HTML_RawText( nHandle, "<br/></summary>" )
 
       Html_LineText( nHandle, "Workstation name...: " + NetName() )
@@ -311,7 +311,7 @@ STATIC PROCEDURE ErrorLog( nHandle, oErr )
       HTML_RawText( nHandle, "</details>" )
 
       HTML_RawText( nHandle, "<details><summary>" )
-      HTML_RawText( nHandle, PadC( " Environmental Information ", 79, "-" ) )
+      HTML_RawText( nHandle, PadC(" Environmental Information ", 79, "-") )
       HTML_RawText( nHandle, "<br/></summary>" )
 
       Html_LineText( nHandle, "SET ALTERNATE......: " + strvalue( Set( _SET_ALTERNATE ), .T. ) )
@@ -372,7 +372,7 @@ STATIC PROCEDURE ErrorLog( nHandle, oErr )
       HTML_RawText( nHandle, "</details>" )
 
       HTML_RawText( nHandle, "<details><summary>" )
-      HTML_RawText( nHandle, PadC( " Detailed Work Area Items ", 79, "-" ) )
+      HTML_RawText( nHandle, PadC(" Detailed Work Area Items ", 79, "-") )
       HTML_RawText( nHandle, "<br/></summary>" )
 
       hb_WAEval({||
@@ -404,7 +404,7 @@ STATIC PROCEDURE ErrorLog( nHandle, oErr )
       HTML_RawText( nHandle, "</details>" )
 
       HTML_RawText( nHandle, "<details><summary>" )
-      HTML_RawText( nHandle, PadC( " Internal Error Handling Information ", 79, "-" ) )
+      HTML_RawText( nHandle, PadC(" Internal Error Handling Information ", 79, "-") )
       HTML_RawText( nHandle, "<br/></summary>" )
 
       Html_LineText( nHandle, "Subsystem Call ....: " + oErr:subsystem() )
@@ -419,7 +419,7 @@ STATIC PROCEDURE ErrorLog( nHandle, oErr )
 
       /* NOTE: Adapted from hb_mvSave() source in Harbour RTL. */
       HTML_RawText( nHandle, "<details><summary>" )
-      HTML_RawText( nHandle, PadC( " Available Memory Variables ", 79, "-" ) )
+      HTML_RawText( nHandle, PadC(" Available Memory Variables ", 79, "-") )
       HTML_RawText( nHandle, "<br/></summary>" )
 
       FOR EACH nScope IN { HB_MV_PUBLIC, HB_MV_PRIVATE }
@@ -452,8 +452,8 @@ STATIC FUNCTION strvalue( c, l )
    SWITCH ValType(c)
    CASE "C"
    CASE "M" ; RETURN c
-   CASE "N" ; RETURN hb_ntos( c )
-   CASE "D" ; RETURN DToC( c )
+   CASE "N" ; RETURN hb_ntos(c)
+   CASE "D" ; RETURN DToC(c)
    CASE "L" ; RETURN iif(hb_defaultValue(l, .F.), iif(c, "ON", "OFF"), iif(c, ".T.", ".F."))
    ENDSWITCH
 

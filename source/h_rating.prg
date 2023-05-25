@@ -120,7 +120,7 @@ PROCEDURE _ReleaseRating ( cWindow, cControl )
    IF _IsControlDefined(cControl, cWindow)
 
       FOR i := 1 TO GetControlId(cControl, cWindow)
-         img_name := cWindow + "_" + cControl + "_" + hb_ntos( i )
+         img_name := cWindow + "_" + cControl + "_" + hb_ntos(i)
          DoMethod(cWindow, img_name, "Release")
       NEXT
 
@@ -143,7 +143,7 @@ FUNCTION _InitRating ( ParentForm, ControlName, x, y, w, h, nValue, aImages, nCn
    DEFAULT nSpace := 0
 
    FOR i := 1 TO nCnt
-      img_name := ParentForm + "_" + ControlName + "_" + hb_ntos( i )
+      img_name := ParentForm + "_" + ControlName + "_" + hb_ntos(i)
       DEFINE IMAGE &img_name
          PARENT &ParentForm
          ROW y
@@ -203,7 +203,7 @@ STATIC FUNCTION OnHoverRate( cWindow, cControl )
 
    ClearRating( cWindow, cControl )
    FOR i := 1 TO select
-      img_name := cWindow + "_" + cControl + "_" + hb_ntos( i )
+      img_name := cWindow + "_" + cControl + "_" + hb_ntos(i)
       SetProperty( cWindow, img_name, "Picture", GetProperty( cWindow, img_name, "Cargo" ) [2] )
    NEXT
 
@@ -235,7 +235,7 @@ STATIC FUNCTION OnSelectRate( cWindow, cControl, onchange )
    IF pressed > 0
       ClearRating( cWindow, cControl )
       FOR i := 1 TO pressed
-         img_name := cWindow + "_" + cControl + "_" + hb_ntos( i )
+         img_name := cWindow + "_" + cControl + "_" + hb_ntos(i)
          SetProperty( cWindow, img_name, "Picture", GetProperty( cWindow, img_name, "Cargo" ) [2] )
       NEXT
       IF hb_IsBlock(onchange)
@@ -253,7 +253,7 @@ FUNCTION ClearRating( cWindow, cControl )
    LOCAL nCount := GetControlId(cControl, cWindow)
 
    FOR i := 1 TO nCount
-      img_name := cWindow + "_" + cControl + "_" + hb_ntos( i )
+      img_name := cWindow + "_" + cControl + "_" + hb_ntos(i)
       SetProperty( cWindow, img_name, "Picture", GetProperty( cWindow, img_name, "Cargo" ) [1] )
    NEXT
 

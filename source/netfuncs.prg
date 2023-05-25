@@ -65,7 +65,7 @@ FUNCTION NetDelete()
       dbCommit()
    ELSE
       s_lNetOk := .F.
-      HMG_Alert( " Failed to DELETE Record -> " + hb_ntos( RecNo() ) )
+      HMG_Alert( " Failed to DELETE Record -> " + hb_ntos(RecNo()) )
    ENDIF
 
    RETURN s_lNetOk
@@ -85,7 +85,7 @@ FUNCTION NetRecall()
       dbCommit()
    ELSE
       s_lNetOk := .F.
-      HMG_Alert( " Failed to RECALL Record -> " + hb_ntos( RecNo() ) )
+      HMG_Alert( " Failed to RECALL Record -> " + hb_ntos(RecNo()) )
    ENDIF
 
    RETURN s_lNetOk

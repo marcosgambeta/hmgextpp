@@ -524,9 +524,9 @@ HB_FUNC_STATIC( CREATEWINDOWEX ) // ( hWnd, cProgId ) -> hActiveXWnd
 
    hControl = CreateWindowEx( 0, "AtlAxWin",
 #ifndef UNICODE
-                          hb_parc( 2 ),
+                          hb_parc(2),
 #else
-                          AnsiToWide( ( char * ) hb_parc( 2 ) ),
+                          AnsiToWide( ( char * ) hb_parc(2) ),
 #endif
                           WS_VISIBLE | WS_CHILD, 0, 0, 0, 0, hmg_par_HWND(1), 0, 0, nullptr );
    hmg_ret_HWND(hControl);
@@ -925,7 +925,7 @@ HB_FUNC( SETUPCONNECTIONPOINT )
    // Allocate our IEventHandler object (actually a MyRealIEventHandler)
    // intentional misrepresentation of size
 
-   selfobj = ( IEventHandler * ) GlobalAlloc( GMEM_FIXED, sizeof(MyRealIEventHandler) );
+   selfobj = ( IEventHandler * ) GlobalAlloc(GMEM_FIXED, sizeof(MyRealIEventHandler));
 
    if( !selfobj )
    {

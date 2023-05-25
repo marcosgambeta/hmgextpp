@@ -74,7 +74,7 @@ PROCEDURE SetHelpFile( cFile )
 RETURN
 
 *-----------------------------------------------------------------------------*
-PROCEDURE DisplayHelpTopic( xTopic , nMet )
+PROCEDURE DisplayHelpTopic(xTopic, nMet)
 *-----------------------------------------------------------------------------*
    
    LOCAL cParam := ""
@@ -92,7 +92,7 @@ PROCEDURE DisplayHelpTopic( xTopic , nMet )
 
       SWITCH ValType(xTopic)
       CASE "N"
-         cParam := "-mapid " + hb_ntos( xTopic ) + " " + _HMG_ActiveHelpFile
+         cParam := "-mapid " + hb_ntos(xTopic) + " " + _HMG_ActiveHelpFile
          EXIT
       CASE "C"
          cParam := Chr(34) + _HMG_ActiveHelpFile + "::/" + AllTrim(xTopic) + Chr(34)

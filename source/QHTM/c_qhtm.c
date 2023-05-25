@@ -56,7 +56,7 @@ HB_FUNC( QHTM_INIT )
          QHTM_INITIALIZE   pFunc = ( QHTM_INITIALIZE ) GetProcAddress(hQhtmDll, "QHTM_Initialize");
          if( pFunc )
          {
-            bSuccess = pFunc( GetModuleHandle(NULL) );
+            bSuccess = pFunc(GetModuleHandle(NULL));
          }
       }
    }
@@ -120,11 +120,11 @@ HB_FUNC( QHTM_GETNOTIFY )
    if( hQhtmDll )
    {
       LPNMQHTM pnm = ( LPNMQHTM ) hb_parnl(1);
-      hb_retc( ( char * ) pnm->pcszLinkText );
+      hb_retc(( char * ) pnm->pcszLinkText);
    }
    else
    {
-      hb_retc( "" );
+      hb_retc("");
    }
 }
 
@@ -150,10 +150,10 @@ void CALLBACK FormCallback(HWND hWndQHTM, LPQHTMFORMSubmit pFormSubmit, LPARAM l
    for( i = 0; i < ( int ) pFormSubmit->uFieldCount; i++ )
    {
       atemp = hb_itemArrayNew(2);
-      temp = hb_itemPutC( NULL, ( char * ) ((pFormSubmit->parrFields + i)->pcszName) );
+      temp = hb_itemPutC(NULL, ( char * ) ((pFormSubmit->parrFields + i)->pcszName));
       hb_itemArrayPut(atemp, 1, temp);
       hb_itemRelease(temp);
-      temp = hb_itemPutC( NULL, ( char * ) ((pFormSubmit->parrFields + i)->pcszValue) );
+      temp = hb_itemPutC(NULL, ( char * ) ((pFormSubmit->parrFields + i)->pcszValue));
       hb_itemArrayPut(atemp, 2, temp);
       hb_itemRelease(temp);
 
@@ -277,11 +277,11 @@ HB_FUNC( QHTM_GETTITLE )
    {
       char  szBuffer[256];
       SendMessage(hmg_par_HWND(1), QHTM_GET_HTML_TITLE, 256, (LPARAM) szBuffer);
-      hb_retc( szBuffer );
+      hb_retc(szBuffer);
    }
    else
    {
-      hb_retc( "" );
+      hb_retc("");
    }
 }
 
@@ -477,7 +477,7 @@ HB_FUNC( QHTM_PRINTLAYOUT )
       rcPage.right = GetDeviceCaps(hDC, HORZRES);
       rcPage.bottom = GetDeviceCaps(hDC, VERTRES);
 
-      pFunc( qhtmCtx, hDC, &rcPage, &nNumberOfPages );
+      pFunc(qhtmCtx, hDC, &rcPage, &nNumberOfPages);
       hb_retni( nNumberOfPages );
    }
    else
@@ -488,7 +488,7 @@ HB_FUNC( QHTM_PRINTLAYOUT )
 
 /*
    QHTM_PrintPage(hDC, hContext, nPage)
-   
+
    Print page
 */
 HB_FUNC( QHTM_PRINTPAGE )
@@ -522,6 +522,6 @@ HB_FUNC( QHTM_PRINTDESTROYCONTEXT )
    if( hQhtmDll )
    {
       QHTM_PRINTDESTROYCONTEXT   pFunc = ( QHTM_PRINTDESTROYCONTEXT ) GetProcAddress(hQhtmDll, "QHTM_PrintDestroyContext");
-      pFunc( (QHTMCONTEXT) hb_parnl(1) );
+      pFunc((QHTMCONTEXT) hb_parnl(1));
    }
 }

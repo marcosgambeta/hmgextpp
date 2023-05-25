@@ -72,7 +72,7 @@
         [ <NoTrans: NOTRANSPARENT> ] ;
         [ ON INIT <bInit> ] ;
         =>;
-        _BeginTab( <(name)> , <(parent)> , <row> , <col> , <w> , <h> , <value> , <f> , <s> , <tooltip> , <{change}> , <.buttons.> , <.flat.> , <.hottrack.> , <.vertical.> , <.bottom.> , <.notabstop.> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <.multiline.>, {<backcolor>, <htforecolor>, <htinactivecolor>}, <nId>, <bInit>, <.NoTrans.> )
+        _BeginTab(<(name)>, <(parent)>, <row>, <col>, <w>, <h>, <value>, <f>, <s>, <tooltip>, <{change}>, <.buttons.>, <.flat.>, <.hottrack.>, <.vertical.>, <.bottom.>, <.notabstop.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <.multiline.>, {<backcolor>, <htforecolor>, <htinactivecolor>}, <nId>, <bInit>, <.NoTrans.>)
 
 #command REDEFINE TAB <name> ;
         ID <nId>;
@@ -96,7 +96,7 @@
         [ <NoTrans: NOTRANSPARENT> ] ;
         [ ON INIT <bInit> ] ;
         =>;
-        _BeginTab( <(name)> , <(parent)> , 0 , 0 , 0 , 0 , <value> , <f> , <s> , <tooltip> , <{change}> , <.buttons.> , <.flat.> , <.hottrack.> , <.vertical.>, <.bottom.> , <.notabstop.> , <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <.multiline.>, {,,}, <nId> , <bInit> , <.NoTrans.> )
+        _BeginTab(<(name)>, <(parent)>, 0, 0, 0, 0, <value>, <f>, <s>, <tooltip>, <{change}>, <.buttons.>, <.flat.>, <.hottrack.>, <.vertical.>, <.bottom.>, <.notabstop.>, <.bold.>, <.italic.>, <.underline.>, <.strikeout.>, <.multiline.>, {,,}, <nId>, <bInit>, <.NoTrans.>)
 
 #command PAGE <caption> [ IMAGE <image> ] [ TOOLTIP <tooltip> ] ;
         =>;

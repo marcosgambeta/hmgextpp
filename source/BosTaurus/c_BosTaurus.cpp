@@ -769,8 +769,8 @@ HB_FUNC( BT_DC_CREATE )
    switch( BT.Type )
    {
       case BT_HDC_DESKTOP:
-         // BT.hDC  = CreateDC ("DISPLAY", nullptr, nullptr, nullptr);
-         // BT.hDC  = GetDC (nullptr);
+         // BT.hDC  = CreateDC("DISPLAY", nullptr, nullptr, nullptr);
+         // BT.hDC  = GetDC(nullptr);
          BT.hWnd = GetDesktopWindow();
          BT.hDC  = GetDC(BT.hWnd);
          break;
@@ -854,7 +854,7 @@ HB_FUNC( BT_DC_DELETE )
    switch( BT.Type )
    {
       case BT_HDC_DESKTOP:
-         // DeleteDC (BT.hDC);
+         // DeleteDC(BT.hDC);
          ReleaseDC(BT.hWnd, BT.hDC);
          break;
 
@@ -1672,7 +1672,7 @@ HB_FUNC( BT_DRAW_HDC_PIXEL )
 }
 
 //*****************************************************************************************************************************
-//* BT_DRAW_HDC_TO_HDC (hDC1, x1, y1, Width1, Height1, hDC2, x2, y2, Width2, Height2, Mode_Stretch, Action, Color_Transp)
+//* BT_DRAW_HDC_TO_HDC(hDC1, x1, y1, Width1, Height1, hDC2, x2, y2, Width2, Height2, Mode_Stretch, Action, Color_Transp)
 //*****************************************************************************************************************************
 
 // Action

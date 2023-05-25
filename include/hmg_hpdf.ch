@@ -175,7 +175,7 @@ _hmg_hpdf_abortdoc()
    [ <lwidth : PENWIDTH> <Width> ] ;
    [ <lcolor : COLOR> <aColor> ] ;
    => ;
-   _HMG_HPDF_Arc ( <Row> , <Col> , <nRadius> , <nFromAngle>, <nToAngle>, <Width> , <aColor>\[1\] , <aColor>\[2\] , <aColor>\[3\]  , <.lwidth.> , <.lcolor.> )
+   _HMG_HPDF_Arc(<Row>, <Col>, <nRadius>, <nFromAngle>, <nToAngle>, <Width>, <aColor>\[1\], <aColor>\[2\], <aColor>\[3\], <.lwidth.>, <.lcolor.>)
 
 
 #xcommand @ <Row> , <Col> HPDFPRINT CURVE FROM <nFromRow>, <nFromCol> TO <ToRow> , <ToCol> ;

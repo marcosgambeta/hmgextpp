@@ -286,7 +286,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    oget:SetFocus()
    oget:original  := oGet:buffer
 
-   aPicData := _GetPictureData( oGet, cPicture )
+   aPicData := _GetPictureData(oGet, cPicture)
 
    IF cPicture == NIL .OR. !( "@K" $ cPicture )
       oget:Clear := .F.
@@ -432,7 +432,7 @@ PROCEDURE _DataGetBoxSave(ControlName, ParentForm)
    oGet:cargo := &( Field )
 
    IF oGet:type == "D"
-      oGet:buffer := DToC( oGet:cargo )
+      oGet:buffer := DToC(oGet:cargo)
    ENDIF
 
 RETURN
@@ -862,9 +862,9 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          ENDIF
 
 #ifdef UNICODE
-         IF ( "A" $ cPicFunc ) .AND. !hmg_IsAlpha( hb_UChar( wParam ) )
+         IF ( "A" $ cPicFunc ) .AND. !hmg_IsAlpha(hb_UChar(wParam))
 #else
-         IF ( "A" $ cPicFunc ) .AND. !hmg_IsAlpha( hb_BChar( wParam ) )
+         IF ( "A" $ cPicFunc ) .AND. !hmg_IsAlpha(hb_BChar(wParam))
 #endif
             RETURN ( 0 )
          ENDIF
@@ -1408,7 +1408,7 @@ PROCEDURE _SetGetBoxValue( nId, hWnd, Value )
          oGet:buffer := LTrim(oGet:buffer)
       ENDIF
 
-      aPicData := _GetPictureData( oGet, oGet:Picture )
+      aPicData := _GetPictureData(oGet, oGet:Picture)
 
       IF oGet:Picture == NIL .OR. !( "@K" $ oGet:Picture )
          oGet:clear := .F.
@@ -1501,7 +1501,7 @@ STATIC PROCEDURE _SetGetBoxCaret( hWnd )
 RETURN
 
 *-----------------------------------------------------------------------------*
-FUNCTION _GetPictureData( oGet, cPicture )
+FUNCTION _GetPictureData(oGet, cPicture)
 *-----------------------------------------------------------------------------*
    
    LOCAL nAt
@@ -1711,12 +1711,12 @@ STATIC FUNCTION _Input( cChar , nID )
       cPic := hb_USubStr(cPicMask, oGet:pos, 1)
       SWITCH cPic
       CASE "A"
-        IF !hmg_IsAlpha( cChar )
+        IF !hmg_IsAlpha(cChar)
           cChar := ""
         ENDIF
         EXIT
       CASE "N"
-        IF !hmg_IsAlpha( cChar ) .AND. !hmg_IsDigit( cChar )
+        IF !hmg_IsAlpha(cChar) .AND. !hmg_IsDigit( cChar )
           cChar := ""
         ENDIF
         EXIT

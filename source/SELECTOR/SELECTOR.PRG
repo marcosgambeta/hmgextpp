@@ -106,7 +106,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
       ENDIF
 
-      dbSelectArea( nSelectFrom )
+      dbSelectArea(nSelectFrom)
 
    ENDIF
 
@@ -187,7 +187,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
          ELSEIF cExprType == "L"
 
-            cIndexKey += ( "Iif(" + aStruct[ nCurrExpr, 1 ] + "," + Chr( 34 ) + "1" + Chr( 34 ) + "," + Chr( 34 ) + "0" + Chr( 34 ) + ")" )
+            cIndexKey += ( "Iif(" + aStruct[ nCurrExpr, 1 ] + "," + Chr(34) + "1" + Chr(34) + "," + Chr(34) + "0" + Chr(34) + ")" )
 
          ENDIF
 
@@ -210,7 +210,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
    ELSE
 
       dbCreate( xcFile, aStruct )
-      dbUseArea( .T., NIL, xcFile, xcAlias, .F. )
+      dbUseArea(.T., NIL, xcFile, xcAlias, .F.)
       nSelectTemp := Select()
 
       IF lCreateIndex
@@ -219,7 +219,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
       ENDIF
 
-      dbSelectArea( nSelectFrom )
+      dbSelectArea(nSelectFrom)
 
    ENDIF
 
@@ -326,7 +326,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
    ENDDO
 
-   dbSelectArea( nSelectTemp )
+   dbSelectArea(nSelectTemp)
    dbGoTop()
 
 RETURN

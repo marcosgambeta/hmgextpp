@@ -59,7 +59,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
       IF lSql
          cTable := GetUniqueName( "SqlTable" )
 
-         dbUseArea( .T.,, "SELECT * FROM " + uAlias, cTable,,, "UTF8" )
+         dbUseArea(.T.,, "SELECT * FROM " + uAlias, cTable,,, "UTF8")
          SELECT &cTable
 
          cAlias := cTable
@@ -69,7 +69,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
          cDbf := uAlias
          cAlias := uAlias
          TRY
-            dbUseArea( .T., NIL, cDbf, cAlias, .T. )
+            dbUseArea(.T., NIL, cDbf, cAlias, .T.)
             uAlias := cAlias
          CATCH
             uAlias := { { uAlias } }
@@ -156,7 +156,7 @@ FUNCTION SBrowse( uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, 
                :lDrawFooters := .T.
                :nHeightFoot := :nHeightHead
                :InsColNumber()
-               :GetColumn( "ORDKEYNO" ):cFooting := hb_ntos( :nLen )
+               :GetColumn( "ORDKEYNO" ):cFooting := hb_ntos(:nLen)
                :nFreeze := :nColumn( "ORDKEYNO" )
                :nCell   := :nFreeze + 1
                :lLockFreeze := .T.
@@ -328,7 +328,7 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
    DEFAULT lSpecHd := oParam:lDrawSpecHd
    DEFAULT lSpecHd := .F.
 
-   IF hb_IsChar(uAlias) ; dbSelectArea( uAlias )
+   IF hb_IsChar(uAlias) ; dbSelectArea(uAlias)
    ENDIF
 
    IF hb_IsArray(oParam:aFont)
@@ -354,7 +354,7 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
 
    IF _IsControlDefined(cBrw, cForm)
       i := 0
-      WHILE _IsControlDefined(j := cBrw + "_" + hb_ntos( ++i ), cForm)
+      WHILE _IsControlDefined(j := cBrw + "_" + hb_ntos(++i), cForm)
       END
       cBrw := j
    ENDIF
@@ -391,7 +391,7 @@ FUNCTION _TBrowse( oParam, uAlias, cBrw, nY, nX, nW, nH )
                              ENDIF
                              cCnt := cChar
                              IF oCol:cName != "ORDKEYNO" .AND. oCol:lVisible
-                                cCnt := hb_ntos( ++nCnt )
+                                cCnt := hb_ntos(++nCnt)
                              ENDIF
                              oCol:cSpcHeading := cCnt
                          NEXT

@@ -113,7 +113,7 @@ RETURN oError
 FUNCTION MiniGuiVersion( nVer )
 *-----------------------------------------------------------------------------*
    
-   LOCAL cVer := MG_VERSION + hb_ntos( hb_Version( HB_VERSION_BITWIDTH ) ) + "-bit)"
+   LOCAL cVer := MG_VERSION + hb_ntos(hb_Version( HB_VERSION_BITWIDTH )) + "-bit)"
    LOCAL anOfs
 
    cVer += " " + HMG_CharsetName()

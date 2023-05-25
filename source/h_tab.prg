@@ -48,7 +48,7 @@
 #include "i_winuser.ch"
 
 *-----------------------------------------------------------------------------*
-FUNCTION _BeginTab( ControlName, ParentFormName, row, col, w, h, value, f, s, tooltip, change, buttons, flat, hottrack, vertical, bottom, notabstop, bold, italic, underline, strikeout, multiline, backcolor, nId, bInit, NoTrans )
+FUNCTION _BeginTab(ControlName, ParentFormName, row, col, w, h, value, f, s, tooltip, change, buttons, flat, hottrack, vertical, bottom, notabstop, bold, italic, underline, strikeout, multiline, backcolor, nId, bInit, NoTrans)
 *-----------------------------------------------------------------------------*
 
    LOCAL aMnemonic := Array(16)
@@ -135,7 +135,7 @@ FUNCTION _BeginTab( ControlName, ParentFormName, row, col, w, h, value, f, s, to
 RETURN Nil
 
 *-----------------------------------------------------------------------------*
-STATIC FUNCTION _DefineTab( ControlName, ParentFormName, x, y, w, h, aCaptions, aPageMap, value, fontname, fontsize, tooltip, change, Buttons, Flat, HotTrack, Vertical, Bottom, notabstop, aMnemonic, bold, italic, underline, strikeout, Images, multiline, backcolor, nId, bInit, NoTrans )
+STATIC FUNCTION _DefineTab(ControlName, ParentFormName, x, y, w, h, aCaptions, aPageMap, value, fontname, fontsize, tooltip, change, Buttons, Flat, HotTrack, Vertical, Bottom, notabstop, aMnemonic, bold, italic, underline, strikeout, Images, multiline, backcolor, nId, bInit, NoTrans)
 *-----------------------------------------------------------------------------*
    
    LOCAL ParentFormHandle
@@ -218,7 +218,7 @@ STATIC FUNCTION _DefineTab( ControlName, ParentFormName, x, y, w, h, aCaptions, 
 
       IF Len(_HMG_aDialogTemplate) > 0        //Dialog Template
          //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
-         blInit := {|x, y, z| InitDialogTab( x, y, z ) }
+         blInit := {|x, y, z| InitDialogTab(x, y, z) }
          AAdd(_HMG_aDialogItems, { _HMG_ActiveTabnId, k, "SysTabControl32", style, 0, ;
             _HMG_ActiveTabCol, _HMG_ActiveTabRow, _HMG_ActiveTabWidth, _HMG_ActiveTabHeight, "", ;
             0, _HMG_ActiveTabToolTip, _HMG_ActiveTabFontName, _HMG_ActiveTabFontSize, ;
@@ -312,7 +312,7 @@ STATIC FUNCTION _DefineTab( ControlName, ParentFormName, x, y, w, h, aCaptions, 
    _HMG_aControlMiscData2          [k] := ""
 
    IF Len(_HMG_aDialogTemplate) == 0   //Dialog Template
-      InitDialogTab( ParentFormName, ControlHandle, k )
+      InitDialogTab(ParentFormName, ControlHandle, k)
    ENDIF
 
    IF _HMG_lOOPEnabled
@@ -328,7 +328,7 @@ STATIC FUNCTION _DefineTab( ControlName, ParentFormName, x, y, w, h, aCaptions, 
 RETURN Nil
 
 *-----------------------------------------------------------------------------*
-FUNCTION InitDialogTab( ParentName, ControlHandle, k )
+FUNCTION InitDialogTab(ParentName, ControlHandle, k)
 *-----------------------------------------------------------------------------*
    
    LOCAL aCaptions

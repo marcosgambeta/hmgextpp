@@ -247,7 +247,7 @@ HB_FUNC( DLLPREPARECALL )
 
    if( xec->hDLL && xec->lpFunc )
    {
-       hb_retptrGC(  xec );
+       hb_retptrGC(xec);
    }
    else if( xec->hDLL && xec->lpFunc == NULL )
    {
@@ -617,7 +617,7 @@ static void DllExec(int iFlags, LPVOID lpFunction, int iParams, int iFirst, int 
 
       case CTYPE_CHAR_PTR          :
       case CTYPE_UNSIGNED_CHAR_PTR :
-         hb_retc ( (char *) rc.Long );
+         hb_retc((char *) rc.Long);
          break;
 
       case CTYPE_UNSIGNED_INT      :

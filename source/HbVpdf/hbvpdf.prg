@@ -58,7 +58,7 @@ FUNCTION pdfAtSay( cString, nRow, nCol, cUnits, lExact, cId )
       nCol := pdfM2X(s_aReport[PDFLEFT]) + nCol * 100.00 / s_aReport[REPORTWIDTH] * (s_aReport[PAGEX] - pdfM2X(s_aReport[PDFLEFT]) * 2 - 9.0) / 100.00
    ENDIF
    IF !Empty(cString)
-      cString := pdfStringB( cString )
+      cString := pdfStringB(cString)
       IF Right(cString, 1) == Chr(255) // reverse
          cString := Left(cString, Len(cString) - 1)
          pdfBox( s_aReport[PAGEY] - nRow - s_aReport[FONTSIZE] + 2.0, nCol, s_aReport[PAGEY] - nRow + 2.0, nCol + pdfM2X( pdfLen(cString) ) + 1,, 100, "D" )
@@ -957,7 +957,7 @@ FUNCTION pdfOpen(cFile, nLen, lOptimize)
    s_aReport[PDFTOP      ] := 1 // top
    s_aReport[PDFLEFT     ] := 10 // left & right
    s_aReport[PDFBOTTOM   ] := s_aReport[PAGEY] / 72 * s_aReport[LPI] - 1 // bottom, default "LETTER", "P", 6
-   s_aReport[HANDLE      ] := FCreate( cFile )
+   s_aReport[HANDLE      ] := FCreate(cFile)
    s_aReport[PAGES       ] := {}
    s_aReport[REFS        ] := { 0, 0 }
    s_aReport[BOOKMARK    ] := {}
@@ -1173,7 +1173,7 @@ FUNCTION pdfSetLPI( _nLpi )
 RETURN NIL
 
 *-----------------------------
-FUNCTION pdfStringB( cString )
+FUNCTION pdfStringB(cString)
 
    cString := StrTran(cString, "(", "\(")
    cString := StrTran(cString, ")", "\)")
@@ -1291,7 +1291,7 @@ FUNCTION pdfText( cString, nTop, nLeft, nLength, nTab, nJustify, cUnits, cColor,
          ELSE
             pdfTextPrint( nI - 1, nLeft, @lParagraph, nJustify, nSpace, nNew, nLength, @nLineLen, @nLines, @nStart, cString, cDelim, cColor, lPrint )
          ENDIF
-      ELSEIF ( nI == nTokens ) .OR. ( nI < nTokens .AND. ( nCRLF := pdfTextNextPara( cString, cDelim, nI ) ) > 0 )
+      ELSEIF ( nI == nTokens ) .OR. ( nI < nTokens .AND. ( nCRLF := pdfTextNextPara(cString, cDelim, nI) ) > 0 )
          IF nI == nTokens
             nLineLen += nSpace + nTokenLen
          ENDIF
@@ -1365,7 +1365,7 @@ STATIC FUNCTION pdfTextPrint( nI, nLeft, lParagraph, nJustify, nSpace, nNew, nLe
 RETURN NIL
 
 *-----------------------------------------------------
-STATIC FUNCTION pdfTextNextPara( cString, cDelim, nI )
+STATIC FUNCTION pdfTextNextPara(cString, cDelim, nI)
 
    LOCAL nAt
    LOCAL cAt
@@ -1863,7 +1863,7 @@ FUNCTION pdfCreateHeader( _file, _size, _orient, _lpi, _width )
    pdfSetFont( "Helvetica", BOLD, 10 ) // 0.04
    pdfAtSay( "Test Line 5", s_aReportStyle[nStyle][5], 1, "R", .T. )
 
-   pdfAtSay( DToC( Date() ) + " " + TimeAsAMPM( Time() ), s_aReportStyle[nStyle][6], 1, "R", .T. )
+   pdfAtSay( DToC(Date()) + " " + TimeAsAMPM( Time() ), s_aReportStyle[nStyle][6], 1, "R", .T. )
    pdfRJust( "Page: #pagenumber#", s_aReportStyle[nStyle][6], s_aReport[REPORTWIDTH], "R", .T. )
 
    pdfEditOffHeader()
@@ -2599,12 +2599,12 @@ STATIC FUNCTION Array2File( cFile, aRay, nDepth, hFile )
 
    nDepth := iif(hb_IsNumeric(nDepth), nDepth, 0)
    IF hFile == NIL
-      IF ( hFile := FCreate( cFile, FC_NORMAL ) ) == F_ERROR
+      IF ( hFile := FCreate(cFile, FC_NORMAL) ) == F_ERROR
          RETURN nBytes
       ENDIF
    ENDIF
    nDepth++
-   nBytes += WriteData( hFile, aRay )
+   nBytes += WriteData(hFile, aRay)
    IF hb_IsArray(aRay)
       FOR i := 1 TO Len(aRay)
          nBytes += Array2File( cFile, aRay[i], nDepth, hFile )
@@ -2617,7 +2617,7 @@ STATIC FUNCTION Array2File( cFile, aRay, nDepth, hFile )
 
 RETURN nBytes
 
-STATIC FUNCTION WriteData( hFile, xData )
+STATIC FUNCTION WriteData(hFile, xData)
 
    LOCAL cData := ValType(xData)
 

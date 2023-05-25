@@ -86,7 +86,7 @@ HB_FUNC( _HMG_PRINTER_ABORTDOC )
 {
    HDC hdcPrint = hmg_par_HDC(1);
 
-   AbortDoc( hdcPrint );
+   AbortDoc(hdcPrint);
 }
 
 HB_FUNC( _HMG_PRINTER_STARTDOC )
@@ -107,7 +107,7 @@ HB_FUNC( _HMG_PRINTER_STARTDOC )
       docInfo.cbSize      = sizeof(docInfo);
       docInfo.lpszDocName = lpText;
 
-      hb_retni( StartDoc( hdcPrint, &docInfo ) );
+      hb_retni( StartDoc(hdcPrint, &docInfo) );
    }
 
 }
@@ -499,7 +499,7 @@ HB_FUNC( _HMG_PRINTER_ENDDOC )
    HDC hdcPrint = hmg_par_HDC(1);
 
    if( hdcPrint != 0 )
-      EndDoc( hdcPrint );
+      EndDoc(hdcPrint);
 
 }
 
@@ -549,10 +549,10 @@ HB_FUNC( _HMG_PRINTER_PRINTDIALOG )
       hb_reta(4);
       hmg_storvhandle(pd.hDC, -1, 1);
 #ifndef UNICODE
-      HB_STORC( ( const char * ) pDevMode->dmDeviceName, -1, 2 );
+      HB_STORC(( const char * ) pDevMode->dmDeviceName, -1, 2);
 #else
       pStr = WideToAnsi(pDevMode->dmDeviceName);
-      HB_STORC( pStr, -1, 2 );
+      HB_STORC(pStr, -1, 2);
       hb_xfree(pStr);
 #endif
       HB_STORNI( pDevMode->dmCopies > 1 ? pDevMode->dmCopies : pd.nCopies, -1, 3 );
@@ -565,10 +565,10 @@ HB_FUNC( _HMG_PRINTER_PRINTDIALOG )
       hb_reta(4);
       HB_STORVNL( 0, -1, 1 );
 #ifndef UNICODE
-      HB_STORC( "", -1, 2 );
+      HB_STORC("", -1, 2);
 #else
       pStr = WideToAnsi("");
-      HB_STORC( pStr, -1, 2 );
+      HB_STORC(pStr, -1, 2);
       hb_xfree(pStr);
 #endif
       HB_STORNI( 0, -1, 3 );
@@ -639,10 +639,10 @@ HB_FUNC( APRINTERS )
          cBuffer = GlobalAlloc(GPTR, 256);
          lstrcat(reinterpret_cast<LPSTR>(cBuffer), pInfo4->pPrinterName);
 #ifndef UNICODE
-         HB_STORC( ( const char * ) cBuffer, -1, i + 1 );
+         HB_STORC(( const char * ) cBuffer, -1, i + 1);
 #else
          pStr = WideToAnsi(cBuffer);
-         HB_STORC( pStr, -1, i + 1 );
+         HB_STORC(pStr, -1, i + 1);
          hb_xfree(pStr);
 #endif
          GlobalFree(cBuffer);
@@ -653,10 +653,10 @@ HB_FUNC( APRINTERS )
          cBuffer = GlobalAlloc(GPTR, 256);
          lstrcat(reinterpret_cast<LPSTR>(cBuffer), pInfo->pPrinterName);
 #ifndef UNICODE
-         HB_STORC( ( const char * ) cBuffer, -1, i + 1 );
+         HB_STORC(( const char * ) cBuffer, -1, i + 1);
 #else
          pStr = WideToAnsi(cBuffer);
-         HB_STORC( pStr, -1, i + 1 );
+         HB_STORC(pStr, -1, i + 1);
          hb_xfree(pStr);
 #endif
          GlobalFree(cBuffer);
@@ -991,7 +991,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 #endif
       hb_reta(4);
       HB_STORVNL( 0, -1, 1 );
-      HB_STORC( "", -1, 2 );
+      HB_STORC("", -1, 2);
       HB_STORNI( 0, -1, 3 );
       HB_STORNI( 0, -1, 4 );
 
@@ -1010,7 +1010,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 #endif
       hb_reta(4);
       HB_STORVNL( 0, -1, 1 );
-      HB_STORC( "", -1, 2 );
+      HB_STORC("", -1, 2);
       HB_STORNI( 0, -1, 3 );
       HB_STORNI( 0, -1, 4 );
 
@@ -1027,7 +1027,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 #endif
       hb_reta(4);
       HB_STORVNL( 0, -1, 1 );
-      HB_STORC( "", -1, 2 );
+      HB_STORC("", -1, 2);
       HB_STORNI( 0, -1, 3 );
       HB_STORNI( 0, -1, 4 );
 
@@ -1045,7 +1045,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 #endif
       hb_reta(4);
       HB_STORVNL( 0, -1, 1 );
-      HB_STORC( "", -1, 2 );
+      HB_STORC("", -1, 2);
       HB_STORNI( 0, -1, 3 );
       HB_STORNI( 0, -1, 4 );
 
@@ -1072,7 +1072,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 #endif
          hb_reta(4);
          HB_STORVNL( 0, -1, 1 );
-         HB_STORC( "", -1, 2 );
+         HB_STORC("", -1, 2);
          HB_STORNI( 0, -1, 3 );
          HB_STORNI( 0, -1, 4 );
 
@@ -1088,7 +1088,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 #endif
          hb_reta(4);
          HB_STORVNL( 0, -1, 1 );
-         HB_STORC( "", -1, 2 );
+         HB_STORC("", -1, 2);
          HB_STORNI( 0, -1, 3 );
          HB_STORNI( 0, -1, 4 );
 
@@ -1112,7 +1112,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 #endif
          hb_reta(4);
          HB_STORVNL( 0, -1, 1 );
-         HB_STORC( "", -1, 2 );
+         HB_STORC("", -1, 2);
          HB_STORNI( 0, -1, 3 );
          HB_STORNI( 0, -1, 4 );
 
@@ -1181,7 +1181,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 #endif
          hb_reta(4);
          HB_STORVNL( 0, -1, 1 );
-         HB_STORC( "", -1, 2 );
+         HB_STORC("", -1, 2);
          HB_STORNI( 0, -1, 3 );
          HB_STORNI( 0, -1, 4 );
 
@@ -1202,7 +1202,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 #endif
          hb_reta(4);
          HB_STORVNL( 0, -1, 1 );
-         HB_STORC( "", -1, 2 );
+         HB_STORC("", -1, 2);
          HB_STORNI( 0, -1, 3 );
          HB_STORNI( 0, -1, 4 );
 
@@ -1223,7 +1223,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 #endif
          hb_reta(4);
          HB_STORVNL( 0, -1, 1 );
-         HB_STORC( "", -1, 2 );
+         HB_STORC("", -1, 2);
          HB_STORNI( 0, -1, 3 );
          HB_STORNI( 0, -1, 4 );
 
@@ -1244,7 +1244,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 #endif
          hb_reta(4);
          HB_STORVNL( 0, -1, 1 );
-         HB_STORC( "", -1, 2 );
+         HB_STORC("", -1, 2);
          HB_STORNI( 0, -1, 3 );
          HB_STORNI( 0, -1, 4 );
 
@@ -1264,7 +1264,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 #endif
          hb_reta(4);
          HB_STORVNL( 0, -1, 1 );
-         HB_STORC( "", -1, 2 );
+         HB_STORC("", -1, 2);
          HB_STORNI( 0, -1, 3 );
          HB_STORNI( 0, -1, 4 );
 
@@ -1285,7 +1285,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 #endif
          hb_reta(4);
          HB_STORVNL( 0, -1, 1 );
-         HB_STORC( "", -1, 2 );
+         HB_STORC("", -1, 2);
          HB_STORNI( 0, -1, 3 );
          HB_STORNI( 0, -1, 4 );
 
@@ -1306,7 +1306,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 #endif
          hb_reta(4);
          HB_STORVNL( 0, -1, 1 );
-         HB_STORC( "", -1, 2 );
+         HB_STORC("", -1, 2);
          HB_STORNI( 0, -1, 3 );
          HB_STORNI( 0, -1, 4 );
 
@@ -1326,7 +1326,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 #endif
          hb_reta(4);
          HB_STORVNL( 0, -1, 1 );
-         HB_STORC( "", -1, 2 );
+         HB_STORC("", -1, 2);
          HB_STORNI( 0, -1, 3 );
          HB_STORNI( 0, -1, 4 );
 
@@ -1346,7 +1346,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 #endif
          hb_reta(4);
          HB_STORVNL( 0, -1, 1 );
-         HB_STORC( "", -1, 2 );
+         HB_STORC("", -1, 2);
          HB_STORNI( 0, -1, 3 );
          HB_STORNI( 0, -1, 4 );
 
@@ -1367,7 +1367,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 #endif
          hb_reta(4);
          HB_STORVNL( 0, -1, 1 );
-         HB_STORC( "", -1, 2 );
+         HB_STORC("", -1, 2);
          HB_STORNI( 0, -1, 3 );
          HB_STORNI( 0, -1, 4 );
 
@@ -1399,7 +1399,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 #endif
       hb_reta(4);
       HB_STORVNL( 0, -1, 1 );
-      HB_STORC( "", -1, 2 );
+      HB_STORC("", -1, 2);
       HB_STORNI( 0, -1, 3 );
       HB_STORNI( 0, -1, 4 );
 
@@ -1408,9 +1408,9 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 
 #ifdef UNICODE
    pwszDevice = AnsiToWide(( char * ) hb_parc(1));
-   hdcPrint   = CreateDC( nullptr, pwszDevice, nullptr, pi2->pDevMode );
+   hdcPrint   = CreateDC(nullptr, pwszDevice, nullptr, pi2->pDevMode);
 #else
-   hdcPrint = CreateDC( nullptr, hb_parc(1), nullptr, pi2->pDevMode );
+   hdcPrint = CreateDC(nullptr, hb_parc(1), nullptr, pi2->pDevMode);
 #endif
 
    if( hdcPrint != nullptr )
@@ -1418,10 +1418,10 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
       hb_reta(4);
       hmg_storvhandle(hdcPrint, -1, 1);
 #ifndef UNICODE
-      HB_STORC( hb_parc(1), -1, 2 );
+      HB_STORC(hb_parc(1), -1, 2);
 #else
       pStr = WideToAnsi(pwszDevice);
-      HB_STORC( hb_parc(1), -1, 2 );
+      HB_STORC(hb_parc(1), -1, 2);
       hb_xfree(pStr);
 #endif
       HB_STORNI( pi2->pDevMode->dmCopies, -1, 3 );
@@ -1431,7 +1431,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
    {
       hb_reta(4);
       HB_STORVNL( 0, -1, 1 );
-      HB_STORC( "", -1, 2 );
+      HB_STORC("", -1, 2);
       HB_STORNI( 0, -1, 3 );
       HB_STORNI( 0, -1, 4 );
    }
@@ -1490,10 +1490,10 @@ HB_FUNC( GETDEFAULTPRINTER )
    }
 
 #ifndef UNICODE
-   hb_retc( DefaultPrinter );
+   hb_retc(DefaultPrinter);
 #else
    pStr = WideToAnsi(DefaultPrinter);
-   hb_retc( pStr );
+   hb_retc(pStr);
    hb_xfree(pStr);
 #endif
 
@@ -1850,30 +1850,30 @@ HB_FUNC( _HMG_PRINTGETJOBINFO )
             hb_reta(14);
             HB_STORNI( Job_Info_1->JobId, -1, 1 );
 #ifndef UNICODE
-            HB_STORC(      Job_Info_1->pPrinterName, -1, 2 );
-            HB_STORC(      Job_Info_1->pMachineName, -1, 3 );
-            HB_STORC(      Job_Info_1->pUserName, -1, 4 );
-            HB_STORC(      Job_Info_1->pDocument, -1, 5 );
-            HB_STORC(      Job_Info_1->pDatatype, -1, 6 );
-            HB_STORC(      Job_Info_1->pStatus, -1, 7 );
+            HB_STORC(Job_Info_1->pPrinterName, -1, 2);
+            HB_STORC(Job_Info_1->pMachineName, -1, 3);
+            HB_STORC(Job_Info_1->pUserName, -1, 4);
+            HB_STORC(Job_Info_1->pDocument, -1, 5);
+            HB_STORC(Job_Info_1->pDatatype, -1, 6);
+            HB_STORC(Job_Info_1->pStatus, -1, 7);
 #else
             pStr = WideToAnsi(Job_Info_1->pPrinterName);
-            HB_STORC(      pStr, -1, 2 );
+            HB_STORC(pStr, -1, 2);
             hb_xfree(pStr);
             pStr = WideToAnsi(Job_Info_1->pMachineName);
-            HB_STORC(      pStr, -1, 3 );
+            HB_STORC(pStr, -1, 3);
             hb_xfree(pStr);
             pStr = WideToAnsi(Job_Info_1->pUserName);
-            HB_STORC(      pStr, -1, 4 );
+            HB_STORC(pStr, -1, 4);
             hb_xfree(pStr);
             pStr = WideToAnsi(Job_Info_1->pDocument);
-            HB_STORC(      pStr, -1, 5 );
+            HB_STORC(pStr, -1, 5);
             hb_xfree(pStr);
             pStr = WideToAnsi(Job_Info_1->pDatatype);
-            HB_STORC(      pStr, -1, 6 );
+            HB_STORC(pStr, -1, 6);
             hb_xfree(pStr);
             pStr = WideToAnsi(Job_Info_1->pStatus);
-            HB_STORC(      pStr, -1, 7 );
+            HB_STORC(pStr, -1, 7);
             hb_xfree(pStr);
 #endif
             HB_STORNI( Job_Info_1->Status, -1, 8 );
@@ -1886,19 +1886,19 @@ HB_FUNC( _HMG_PRINTGETJOBINFO )
 
             wsprintf( cDateTime, "%02d/%02d/%02d", LocalSystemTime.wYear, LocalSystemTime.wMonth, LocalSystemTime.wDay );
 #ifndef UNICODE
-            HB_STORC( cDateTime, -1, 13 );
+            HB_STORC(cDateTime, -1, 13);
 #else
             pStr = WideToAnsi(cDateTime);
-            HB_STORC( pStr, -1, 13 );
+            HB_STORC(pStr, -1, 13);
             hb_xfree(pStr);
 #endif
 
             wsprintf( cDateTime, "%02d:%02d:%02d", LocalSystemTime.wHour, LocalSystemTime.wMinute, LocalSystemTime.wSecond );
 #ifndef UNICODE
-            HB_STORC( cDateTime, -1, 14 );
+            HB_STORC(cDateTime, -1, 14);
 #else
             pStr = WideToAnsi(cDateTime);
-            HB_STORC( pStr, -1, 14 );
+            HB_STORC(pStr, -1, 14);
             hb_xfree(pStr);
 #endif
          }

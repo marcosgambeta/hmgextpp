@@ -208,8 +208,8 @@ static int callback(void * Cargo, int argc, char ** argv, char ** azColName)
           
       for( i = 0; i < argc; i++ )
       {
-         hb_arraySetC( pArrayValue, i + 1, ( const char * ) ( argv[ i ] ? argv[ i ] : "NULL" ) );
-         hb_arraySetC( pArrayColName, i + 1, ( const char * ) azColName[ i ] );
+         hb_arraySetC(pArrayValue, i + 1, ( const char * ) ( argv[ i ] ? argv[ i ] : "NULL" ));
+         hb_arraySetC(pArrayColName, i + 1, ( const char * ) azColName[ i ]);
       }
  
           hb_vmPushSymbol(hb_dynsymGetSymbol(cFunc));
@@ -373,12 +373,12 @@ static PHB_ITEM hb_sqlite3_itemPut(PHB_ITEM pItem, void * pMemAddr, int iType)
    pStructHolder->hbsqlite3 = ( HB_SQLITE3 * ) pMemAddr;
    pStructHolder->type = iType;
 
-   return hb_itemPutPtrGC( pItem, pStructHolder );
+   return hb_itemPutPtrGC(pItem, pStructHolder);
 }
 
 static void * hb_sqlite3_itemGet(PHB_ITEM pItem, int iType, BOOL fError)
 {
-   PHB_SQLITE3_HOLDER   pStructHolder = ( PHB_SQLITE3_HOLDER ) hb_itemGetPtrGC( pItem, hb_sqlite3_destructor );
+   PHB_SQLITE3_HOLDER   pStructHolder = ( PHB_SQLITE3_HOLDER ) hb_itemGetPtrGC(pItem, hb_sqlite3_destructor);
    int                  iError = 0;
 
    HB_SYMBOL_UNUSED(iError);
@@ -856,7 +856,7 @@ HB_FUNC( SQLITE3_COMPILEOPTION_USED )
 
 HB_FUNC( SQLITE3_COMPILEOPTION_GET )
 {
-        hb_retc( sqlite3_compileoption_get(hb_parni(1)) );
+        hb_retc(sqlite3_compileoption_get(hb_parni(1)));
 }
 
 HB_FUNC( SQLITE3_COLUMN_BLOB )
@@ -897,7 +897,7 @@ HB_FUNC( SQLITE3_COLUMN_DATABASE_NAME )
         psqlite3_stmt pStmt = ( psqlite3_stmt ) hb_parptr(1);
 
         if( pStmt )
-                hb_retc( sqlite3_column_database_name(pStmt, hb_parni(2) - 1) );
+                hb_retc(sqlite3_column_database_name(pStmt, hb_parni(2) - 1));
         else
                 hb_errRT_BASE_SubstR(EG_ARG, 0, NULL, HB_ERR_FUNCNAME, 1, hb_paramError(1));
 }
@@ -1241,7 +1241,7 @@ HB_FUNC( SQLITE3_LAST_INSERT_ROWID )
 
 HB_FUNC( SQLITE3_LIBVERSION )
 {
-        hb_retc( sqlite3_libversion() );
+        hb_retc(sqlite3_libversion());
 }
 
 HB_FUNC( SQLITE3_LIBVERSION_NUMBER )
@@ -1460,7 +1460,7 @@ HB_FUNC( SQLITE3_SLEEP )
 HB_FUNC( SQLITE3_SOURCEID )
 {
 #if SQLITE_VERSION_NUMBER >= 3006018
-   hb_retc( sqlite3_sourceid() );
+   hb_retc(sqlite3_sourceid());
 #else
    hb_retc_null();
 #endif /* SQLITE_VERSION_NUMBER >= 3006018 */

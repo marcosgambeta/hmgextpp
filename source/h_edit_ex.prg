@@ -473,7 +473,7 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
    nArea := Select()
    cIndiceActivo := ( _cArea )->( ordSetFocus() )
    cFiltroAnt := ( _cArea )->( dbFilter() )
-   dbSelectArea( _cArea )
+   dbSelectArea(_cArea)
    ( _cArea )->( dbGoTop() )
 
    // ------- Inicialización de variables.----------------------------------------
@@ -717,7 +717,7 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
       VALUE (_cArea)->(RecNo()) ;
       FONT _GetSysFont() SIZE 9 ;
       ON CHANGE {|| ( _cArea )->( dbGoto( wndABM2Edit.brwABM2Edit.Value ) ), ;
-      ABM2Redibuja( .F. ) } ;
+      ABM2Redibuja(.F.) } ;
       ON DBLCLICK {||iif(wndABM2Edit.tbbEditar.Enabled, ABM2Editar(.F.), NIL)} JUSTIFY _aAlineadoTabla paintdoublebuffer
 
    // Comprueba el estado de las opciones de usuario.
@@ -755,7 +755,7 @@ STATIC FUNCTION ABM2salir( nRegistro, cIndiceActivo, cFiltroAnt, nArea )
    ELSE
       ( _cArea )->( dbSetFilter( &( "{||" + cFiltroAnt + "}" ), cFiltroAnt ) )
    ENDIF
-   dbSelectArea( nArea )
+   dbSelectArea(nArea)
 
 RETURN NIL
 
@@ -768,7 +768,7 @@ RETURN NIL
  *  Parámetros: Ninguno
  *    Devuelve: NIL
 ****************************************************************************************/
-STATIC FUNCTION ABM2Redibuja( lTabla )
+STATIC FUNCTION ABM2Redibuja(lTabla)
 
    LOCAL lDeleted /*as logical*/
 
@@ -830,7 +830,7 @@ STATIC FUNCTION ABM2CambiarOrden()
    ( _cArea )->( ordSetFocus( nIndice ) )
    // (_cArea)->( dbGoTop() )
    _nIndiceActivo := ++nIndice
-   ABM2Redibuja( .T. )
+   ABM2Redibuja(.T.)
 
 RETURN NIL
 
@@ -856,7 +856,7 @@ STATIC FUNCTION ABM2EjecutaOpcion()
    Eval(bBloque)
 
    // ------- Refresca el browse.
-   ABM2Redibuja( .T. )
+   ABM2Redibuja(.T.)
 
 RETURN NIL
 
@@ -1197,7 +1197,7 @@ STATIC FUNCTION ABM2EditarGuardar( lNuevo )
 
          // Refresca la ventana de visualización.
          wndABM2EditNuevo.RELEASE
-         ABM2Redibuja( .T. )
+         ABM2Redibuja(.T.)
 
       ELSE
          AlertStop ( _HMG_aLangUser[41], _cTitulo )
@@ -1218,7 +1218,7 @@ STATIC FUNCTION ABM2EditarGuardar( lNuevo )
       // Refresca la ventana de visualización.
       IF lResultado
          wndABM2EditNuevo.RELEASE
-         ABM2Redibuja( .T. )
+         ABM2Redibuja(.T.)
       ENDIF
    ENDIF
 
@@ -1360,7 +1360,7 @@ STATIC FUNCTION ABM2Borrar()
                ( _cArea )->( dbGoBottom() )
             ENDIF
          ENDIF
-         ABM2Redibuja( .T. )
+         ABM2Redibuja(.T.)
       ELSE
          AlertStop( _HMG_aLangUser[41], _cTitulo )
       ENDIF
@@ -1385,7 +1385,7 @@ STATIC FUNCTION ABM2Recover()
          ( _cArea )->( dbRecall() )
          ( _cArea )->( dbCommit() )
          ( _cArea )->( dbUnlock() )
-         ABM2Redibuja( .T. )
+         ABM2Redibuja(.T.)
       ELSE
          AlertStop( _HMG_aLangUser[41], _cTitulo )
       ENDIF
@@ -1417,7 +1417,7 @@ STATIC FUNCTION ABM2Buscar()
    // ------- Comprueba si se ha pasado una acción del usuario.--------------------
    IF _bBuscar != NIL
       Eval(_bBuscar)
-      ABM2Redibuja( .T. )
+      ABM2Redibuja(.T.)
       RETURN NIL
    ENDIF
 
@@ -1555,7 +1555,7 @@ STATIC FUNCTION ABM2Buscar()
          AlertExclamation( _HMG_aLangUser[11], _cTitulo )
          ( _cArea )->( dbGoto( nRegistro ) )
       ELSE
-         ABM2Redibuja( .T. )
+         ABM2Redibuja(.T.)
       ENDIF
    ENDIF
 
@@ -1602,7 +1602,7 @@ STATIC FUNCTION ABM2ActivarFiltro()
          BUTTON tbbCancelarFil CAPTION _HMG_aLangButton[7] ;
             PICTURE "MINIGUI_EDIT_CANCEL" ;
             ACTION {|| wndABM2Filtro.RELEASE, ;
-            ABM2Redibuja( .F. ) }
+            ABM2Redibuja(.F.) }
          BUTTON tbbAceptarFil CAPTION _HMG_aLangButton[8] ;
             PICTURE "MINIGUI_EDIT_OK" ;
             ACTION {|| ABM2EstableceFiltro() }
@@ -1851,7 +1851,7 @@ STATIC FUNCTION ABM2EstableceFiltro()
    ( _cArea )->( dbSetFilter( {|| &_cFiltro }, _cFiltro ) )
    _lFiltro := .T.
    wndABM2Filtro.RELEASE
-   ABM2Redibuja( .T. )
+   ABM2Redibuja(.T.)
 
 RETURN NIL
 
@@ -1869,14 +1869,14 @@ STATIC FUNCTION ABM2DesactivarFiltro()
    // ------- Desactiva el filtro si procede.
    if !_lFiltro
       AlertExclamation( _HMG_aLangUser[39], _cTitulo )
-      ABM2Redibuja( .F. )
+      ABM2Redibuja(.F.)
       RETURN NIL
    ENDIF
    IF AlertYesNo( _HMG_aLangUser[40], _cTitulo )
       ( _cArea )->( dbClearFilter( NIL ) )
       _lFiltro := .F.
       _cFiltro := ""
-      ABM2Redibuja( .T. )
+      ABM2Redibuja(.T.)
    ENDIF
 
 RETURN NIL
@@ -1903,7 +1903,7 @@ STATIC FUNCTION ABM2Imprimir()
    // ------- Comprueba si se ha pasado la clausula ON PRINT.---------------------
    IF _bImprimir != NIL
       Eval(_bImprimir)
-      ABM2Redibuja( .T. )
+      ABM2Redibuja(.T.)
       RETURN NIL
    ENDIF
 
@@ -2094,7 +2094,7 @@ STATIC FUNCTION ABM2Imprimir()
    // ------- Restaura.-----------------------------------------------------------
    SET DELETED OFF
    ( _cArea )->( dbGoto( nRegistro ) )
-   ABM2Redibuja( .F. )
+   ABM2Redibuja(.F.)
 
 RETURN NIL
 

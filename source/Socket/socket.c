@@ -58,7 +58,7 @@
 #include <hbapiitm.hpp>
 #include <hbapierr.hpp>
 
-#define HB_STORC( n, x, y ) hb_storvc( n, x, y )
+#define HB_STORC(n, x, y) hb_storvc(n, x, y)
 
 static int bInit = FALSE;
 
@@ -308,9 +308,9 @@ HB_FUNC( SOCKETLOCALNAME )
    char ac[ 80 ];
 
    if( bInit && gethostname(ac, sizeof(ac) ) != SOCKET_ERROR )
-      hb_retc( ac );
+      hb_retc(ac);
    else
-      hb_retc( "" );
+      hb_retc("");
 }
 
 HB_FUNC( SOCKETLOCALADDRESS )
@@ -332,7 +332,7 @@ HB_FUNC( SOCKETLOCALADDRESS )
          {
             struct in_addr addr;
             memcpy(&addr, phe->h_addr_list[ i ], sizeof(struct in_addr));
-            HB_STORC( inet_ntoa(addr), -1, i + 1 );
+            HB_STORC(inet_ntoa(addr), -1, i + 1);
          }
       }
       else
@@ -367,7 +367,7 @@ HB_FUNC( SOCKETMD5 )
       hb_xfree(pRet);
    }
    else
-      hb_retc( "" );
+      hb_retc("");
 }
 
 HB_FUNC( SOCKETENCODE64 )
@@ -403,7 +403,7 @@ HB_FUNC( SOCKETENCODE64 )
       hb_xfree(pRet);
    }
    else
-      hb_retc( "" );
+      hb_retc("");
 }
 
 HB_FUNC( SOCKETDECODE64 )
@@ -426,7 +426,7 @@ HB_FUNC( SOCKETDECODE64 )
       hb_xfree(pRet);
    }
    else
-      hb_retc( "" );
+      hb_retc("");
 }
 
 HB_FUNC( SOCKETHMAC_MD5 )
@@ -458,10 +458,10 @@ HB_FUNC( SOCKETHMAC_MD5 )
       strcat(( char * ) decoded, " ");
       strcat(( char * ) decoded, ( char * ) digasc);
 
-      hb_retc( ( const char * ) decoded );
+      hb_retc(( const char * ) decoded);
 
       hb_xfree(decoded);
    }
    else
-      hb_retc( "" );
+      hb_retc("");
 }

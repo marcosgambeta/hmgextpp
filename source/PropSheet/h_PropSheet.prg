@@ -697,7 +697,7 @@ FUNCTION _DefineSheetDialog ( FormName, Id_resource, FormHandle, hWndParent  )
 RETURN NIL
 
 *------------------------------------------------------------------------------*
-FUNCTION InitPageDlgProc( hwndDlg, idDlg, hWndParent )
+FUNCTION InitPageDlgProc(hwndDlg, idDlg, hWndParent)
 *------------------------------------------------------------------------------*
    LOCAL i, n, aDialogItems, k_old, nId, k, blInit
    LOCAL FontHandle, ControlHandle
@@ -772,7 +772,7 @@ FUNCTION InitPageDlgProc( hwndDlg, idDlg, hWndParent )
 RETURN NIL
 
 *------------------------------------------------------------------------------*
-FUNCTION ButtonPageDlgProc( hwndDlg, Msg, IdDlg, nPage )
+FUNCTION ButtonPageDlgProc(hwndDlg, Msg, IdDlg, nPage)
 *------------------------------------------------------------------------------*
    LOCAL i, lRet := .T., lChd := .F.
    _HMG_ActiveDialogHandle     := hwndDlg
@@ -832,7 +832,7 @@ FUNCTION ButtonPageDlgProc( hwndDlg, Msg, IdDlg, nPage )
 RETURN IIF(lRet, 1, 0)
 
 *------------------------------------------------------------------------------*
-FUNCTION PropSheetProc( hwndPropSheet, nMsg, lParam )
+FUNCTION PropSheetProc(hwndPropSheet, nMsg, lParam)
 *------------------------------------------------------------------------------*
    LOCAL lRet := .T., k
 
@@ -858,7 +858,7 @@ FUNCTION PropSheetProc( hwndPropSheet, nMsg, lParam )
 RETURN IIF(lRet, 1, 0)
 
 *------------------------------------------------------------------------------*
-FUNCTION PageDlgProc( hwndParent, hwndDlg, nMsg, wParam, lParam )
+FUNCTION PageDlgProc(hwndParent, hwndDlg, nMsg, wParam, lParam)
 *------------------------------------------------------------------------------*
    LOCAL lRet := .F., i, nPage, nPageMode, NotifyCode, hwndActive, ControlHandle
    _HMG_ActiveDlgProcHandle    := hwndDlg

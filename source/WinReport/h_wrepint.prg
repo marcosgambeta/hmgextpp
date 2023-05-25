@@ -361,9 +361,9 @@ Function StampeEsegui(_MainArea,_psd,db_arc,_prw)
       if !empty(atf)
          set filter to &atf
       endif
-      oWr:aStat[ "end_pr" ] := oWr:quantirec( _mainarea )
+      oWr:aStat[ "end_pr" ] := oWr:quantirec(_mainarea)
    else
-      oWr:aStat[ "end_pr" ] := oWr:quantirec( _mainarea )
+      oWr:aStat[ "end_pr" ] := oWr:quantirec(_mainarea)
    endif
    //msg(zaps(mx_pg)+CRLF+[oWr:Valore= ]+zaps(eval(oWr:Valore,oWr:aBody[1,1]))+CRLF+zaps(oWr:aStat[ "end_pr" ]),[tutte])
 
@@ -614,7 +614,7 @@ return tappo
 Procedure dbselect(area)
 *-----------------------------------------------------------------------------*
      if hb_IsNumeric(area)
-        dbSelectArea( zaps(area) )
+        dbSelectArea(zaps(area))
      elseif valtype(area)="C"
         select (area)
      endif
@@ -673,7 +673,7 @@ FUNC Any2Strg( xAny )
                     { "B", { |  | "{||}" } },;
                     { "C", { | x | x }},;
                     { "M", { | x | x   } },;
-                    { "D", { | x | DTOC( x ) } },;
+                    { "D", { | x | DTOC(x) } },;
                     { "L", { | x | IIF(x, "On", "Off") } },;
                     { "N", { | x | NTrim(x)  } },;
                     { "O", { |  | ":Object:" } },;
@@ -1098,8 +1098,8 @@ METHOD TheHead ()
 METHOD TheBody ()
 METHOD TheFeet ()
 METHOD UsaColor ()
-METHOD SETMYRGB ()
-METHOD QUANTIREC ()
+METHOD SETMYRGB()
+METHOD QUANTIREC()
 METHOD COUNTSECT ()
 METHOD TheMiniHead ()
 METHOD TheMiniBody ()

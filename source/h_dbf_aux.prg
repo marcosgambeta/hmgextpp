@@ -299,7 +299,7 @@ FUNCTION HMG_RecToHash( cFieldList, cNames )
 RETURN hRec
 
 *-----------------------------------------------------------------------------*
-FUNCTION HMG_HashToRec( hRec, cFieldList )
+FUNCTION HMG_HashToRec(hRec, cFieldList)
 *-----------------------------------------------------------------------------*
    
    LOCAL lShared := dbInfo( DBI_SHARED )
@@ -329,7 +329,7 @@ FUNCTION HMG_HashToRec( hRec, cFieldList )
 RETURN lSaved
 
 *-----------------------------------------------------------------------------*
-PROCEDURE DbfCopyRec( cnTargetArea, lAppend )
+PROCEDURE DbfCopyRec(cnTargetArea, lAppend)
 *-----------------------------------------------------------------------------*
    
    LOCAL nFieldsCnt := FCount()

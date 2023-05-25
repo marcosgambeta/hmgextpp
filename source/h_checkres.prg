@@ -12,7 +12,7 @@ FUNCTION MGAddResource( nHResource, cType )
    LOCAL cInfo := ""
 
    WHILE !Empty(ProcName(n))
-      cInfo += ProcName( n ) + "(" + hb_ntos( ProcLine( n ) ) + ")->"
+      cInfo += ProcName( n ) + "(" + hb_ntos(ProcLine( n )) + ")->"
       n++
    END
 
@@ -48,7 +48,7 @@ FUNCTION CheckRes()
 
    FOR EACH p IN aResources
       IF p[2] != 0
-         cInfo += GetExeFileName() + " -- " + p[1] + "," + hb_ntos( p[2] ) + "," + p[3] + CRLF
+         cInfo += GetExeFileName() + " -- " + p[1] + "," + hb_ntos(p[2]) + "," + p[3] + CRLF
          _LogFile( .T., cInfo )
       ENDIF
    NEXT

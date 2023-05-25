@@ -61,7 +61,7 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
    ENDIF
 
    hBitmap := BT_BitmapCreateNew ( nWidth, nHeight, aClrBack )
-   hDC := BT_CreateDC( hBitmap, BT_HDC_BITMAP, @BTStruct )
+   hDC := BT_CreateDC(hBitmap, BT_HDC_BITMAP, @BTStruct)
 
    IF lGrid
       lxGrid := lyGrid := .T.
@@ -398,7 +398,7 @@ FUNCTION HMG_PieGraph( nWidth, nHeight, series, aname, colors, ctitle, aTitleCol
    ENDIF
 
    hBitmap := BT_BitmapCreateNew ( nWidth, nHeight, aClrBack )
-   hDC := BT_CreateDC( hBitmap, BT_HDC_BITMAP, @BTStruct )
+   hDC := BT_CreateDC(hBitmap, BT_HDC_BITMAP, @BTStruct)
 
    IF !lNoborder
       DrawWindowBoxInBitmap( hDC, fromrow, fromcol, torow - 1, tocol - 1 )

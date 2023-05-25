@@ -100,10 +100,10 @@
   #undef HB_STORNL
 #endif
 
-#define HB_STORC( n, x, y )  hb_storvc( n, x, y )
-#define HB_STORL( n, x, y )  hb_storvl( n, x, y )
-#define HB_STORNI( n, x, y ) hb_storvni( n, x, y )
-#define HB_STORNL( n, x, y ) hb_storvnl( n, x, y )
+#define HB_STORC(n, x, y)  hb_storvc(n, x, y)
+#define HB_STORL(n, x, y)  hb_storvl(n, x, y)
+#define HB_STORNI(n, x, y) hb_storvni(n, x, y)
+#define HB_STORNL(n, x, y) hb_storvnl(n, x, y)
 
 #ifdef MAKELONG
   #undef MAKELONG
@@ -254,7 +254,7 @@ static void GetBtnPG(INSBTN *pbtn, RECT *rect)
 static void DrawInsBtnPG(HWND hWnd, INSBTN *pbtn, RECT *prect)
 {
    HWND hBitmap = pbtn->himage;
-   HDC hdc = GetWindowDC( hWnd );
+   HDC hdc = GetWindowDC(hWnd);
    if( pbtn->nButton )
    {
       if( pbtn->fButtonDown == TRUE )
@@ -1541,34 +1541,34 @@ HB_FUNC( PG_GETITEM )
       case 0:
       {
          hb_reta(10);
-         HB_STORC( pData->ItemName, -1, 1 );
-         HB_STORC( pData->ItemValue, -1, 2 );
-         HB_STORC( pData->ItemData, -1, 3 );
-         HB_STORL( pData->ItemDisabled, -1, 4 );
-         HB_STORL( pData->ItemChanged, -1, 5 );
-         HB_STORL( pData->ItemEdit, -1, 6 );
-         HB_STORNI( pData->ItemType, -1, 7 );
-         HB_STORNI( pData->ItemID, -1, 8 );
-         HB_STORC( pData->ItemInfo, -1, 9 );
-         HB_STORC( pData->ItemValueName, -1, 10 );
+         HB_STORC(pData->ItemName, -1, 1);
+         HB_STORC(pData->ItemValue, -1, 2);
+         HB_STORC(pData->ItemData, -1, 3);
+         HB_STORL(pData->ItemDisabled, -1, 4);
+         HB_STORL(pData->ItemChanged, -1, 5);
+         HB_STORL(pData->ItemEdit, -1, 6);
+         HB_STORNI(pData->ItemType, -1, 7);
+         HB_STORNI(pData->ItemID, -1, 8);
+         HB_STORC(pData->ItemInfo, -1, 9);
+         HB_STORC(pData->ItemValueName, -1, 10);
          break;
       }
 
       case 1:
       {
-         hb_retc( pData->ItemName );
+         hb_retc(pData->ItemName);
          break;
       }
 
       case 2:
       {
-         hb_retc( pData->ItemValue );
+         hb_retc(pData->ItemValue);
          break;
       }
 
       case 3:
       {
-         hb_retc( pData->ItemData );
+         hb_retc(pData->ItemData);
          break;
       }
 
@@ -1604,19 +1604,19 @@ HB_FUNC( PG_GETITEM )
 
       case 9:
       {
-         hb_retc( pData->ItemInfo );
+         hb_retc(pData->ItemInfo);
          break;
       }
 
       case 10:
       {
-         hb_retc( pData->ItemValueName );
+         hb_retc(pData->ItemValueName);
          break;
       }
 
       default:
       {
-         hb_retc( pData->ItemValue );
+         hb_retc(pData->ItemValue);
       }
    }
 }

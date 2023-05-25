@@ -113,9 +113,9 @@ STATIC FUNCTION StrB64Decode( cString )
    LOCAL nData
 
    // remove white spaces, If any
-   cString := StrTran(cString, Chr( 10 ), "")
-   cString := StrTran(cString, Chr( 13 ), "")
-   cString := StrTran(cString, Chr( 9 ), "")
+   cString := StrTran(cString, Chr(10), "")
+   cString := StrTran(cString, Chr(13), "")
+   cString := StrTran(cString, Chr(9), "")
    cString := StrTran(cString, " ", "")
 
    // The source must consists from groups with Len of 4 chars

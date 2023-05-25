@@ -98,10 +98,10 @@ CLASS TSMTP
    METHOD SetPriority( nPriority )
 
    METHOD AddTo( cUser, cEmail )
-   METHOD AddCc( cUser, cEmail )
-   METHOD AddBcc( cUser, cEmail )
+   METHOD AddCc(cUser, cEmail)
+   METHOD AddBcc(cUser, cEmail)
 
-   METHOD SetData( cMail, bHTML )
+   METHOD SetData(cMail, bHTML)
 
    METHOD AddAttach( cAttach )
 
@@ -317,21 +317,21 @@ return nil
 //
 // Add cc
 //
-METHOD AddCc( cUser, cEmail ) CLASS TSMTP
+METHOD AddCc(cUser, cEmail) CLASS TSMTP
 aadd(::aCc, {cUser, cEmail})
 return nil
 
 //
 // Add Bcc
 //
-METHOD AddBcc( cUser, cEmail ) CLASS TSMTP
+METHOD AddBcc(cUser, cEmail) CLASS TSMTP
 aadd(::aBcc, {cUser, cEmail})
 return nil
 
 //
 // Set data
 //
-METHOD SetData( cMail, bHTML ) CLASS TSMTP
+METHOD SetData(cMail, bHTML) CLASS TSMTP
 DEFAULT bHTML TO .F.
 ::cData := cMail
 ::bHTML := bHTML
@@ -603,15 +603,15 @@ HB_FUNC_STATIC( MEMOREAD )
             hb_retclen_buffer( ( char * ) pbyBuffer, ulSize );
          }
          else
-            hb_retc( nullptr );
+            hb_retc(nullptr);
 
          hb_fsClose( fhnd );
       }
       else
-         hb_retc( nullptr );
+         hb_retc(nullptr);
    }
    else
-      hb_retc( nullptr );
+      hb_retc(nullptr);
 }
 
 #pragma ENDDUMP

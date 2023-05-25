@@ -94,11 +94,11 @@ FUNCTION _LogFile( lCrLf, ... )
                cTp  := ValType(xVal)
                // TODO: SWITCH
                IF     cTp == "C" ; xVal := iif(Empty(xVal), "'" + "'", Trim(xVal))
-               ELSEIF cTp == "N" ; xVal := hb_ntos( xVal )
+               ELSEIF cTp == "N" ; xVal := hb_ntos(xVal)
                ELSEIF cTp == "L" ; xVal := iif(xVal, ".T.", ".F.")
-               ELSEIF cTp == "D" ; xVal := hb_DToC( xVal, "DD.MM.YYYY" )
-               ELSEIF cTp == "A" ; xVal := "ARRAY["  + hb_ntos( Len(xVal) ) + "]"
-               ELSEIF cTp == "H" ; xVal :=  "HASH["  + hb_ntos( Len(xVal) ) + "]"
+               ELSEIF cTp == "D" ; xVal := hb_DToC(xVal, "DD.MM.YYYY")
+               ELSEIF cTp == "A" ; xVal := "ARRAY["  + hb_ntos(Len(xVal)) + "]"
+               ELSEIF cTp == "H" ; xVal :=  "HASH["  + hb_ntos(Len(xVal)) + "]"
                ELSEIF cTp == "B" ; xVal := "'" + "B" + "'"
                ELSEIF cTp == "T" ; xVal := hb_TSToStr(xVal, .T.)
                ELSEIF cTp == "U" ; xVal := "NIL"
@@ -129,7 +129,7 @@ FUNCTION _BeginIni( cIniFile )
 
       hFile := iif(File(cIniFile), FOpen(cIniFile, FO_READ + FO_SHARED), HMG_CreateFile_UTF16LE_BOM(cIniFile))
       IF hFile == F_ERROR
-         MsgInfo( "Error opening a file INI. DOS ERROR: " + hb_ntos( FError() ) )
+         MsgInfo( "Error opening a file INI. DOS ERROR: " + hb_ntos(FError()) )
          Return( -1 )
       ELSE
          _HMG_ActiveIniFile := cIniFile
@@ -140,7 +140,7 @@ FUNCTION _BeginIni( cIniFile )
    ELSE
       hFile := hb_vfOpen(cIniFile, iif(hb_vfExists(cIniFile), FO_READ + FO_SHARED, FO_CREAT + FO_READWRITE))
       IF hFile == NIL
-         MsgInfo( "Error opening a file INI. DOS ERROR: " + hb_ntos( FError() ) )
+         MsgInfo( "Error opening a file INI. DOS ERROR: " + hb_ntos(FError()) )
          Return( -1 )
       ELSE
          _HMG_ActiveIniFile := cIniFile
@@ -224,7 +224,7 @@ FUNCTION GetBeginComment
    LOCAL cComment := ""
 
    IF !Empty(_HMG_ActiveIniFile)
-      aLines := hb_ATokens(StrTran(MemoRead( _HMG_ActiveIniFile ), CRLF, Chr( 10 )), Chr( 10 ))
+      aLines := hb_ATokens(StrTran(MemoRead( _HMG_ActiveIniFile ), CRLF, Chr(10)), Chr(10))
 
       IF ( nLen := Len(aLines) ) > 0
          FOR i := 1 TO nLen
@@ -256,7 +256,7 @@ FUNCTION GetEndComment
    LOCAL cComment := ""
 
    IF !Empty(_HMG_ActiveIniFile)
-      aLines := hb_ATokens(StrTran(MemoRead( _HMG_ActiveIniFile ), CRLF, Chr( 10 )), Chr( 10 ))
+      aLines := hb_ATokens(StrTran(MemoRead( _HMG_ActiveIniFile ), CRLF, Chr(10)), Chr(10))
 
       IF ( nLen := Len(aLines) ) > 0
          FOR i := nLen TO 1 STEP -1
@@ -290,7 +290,7 @@ FUNCTION SetBeginComment( cComment )
    hb_default(@cComment, "")
 
    IF !Empty(_HMG_ActiveIniFile)
-      aLines := hb_ATokens(StrTran(MemoRead( _HMG_ActiveIniFile ), CRLF, Chr( 10 )), Chr( 10 ))
+      aLines := hb_ATokens(StrTran(MemoRead( _HMG_ActiveIniFile ), CRLF, Chr(10)), Chr(10))
 
       IF ( nLen := Len(aLines) ) > 0 .AND. Len(ATail(aLines)) == 0
          ASize(aLines, nLen - 1)
@@ -350,7 +350,7 @@ FUNCTION SetEndComment( cComment )
    cComment := AllTrim(cComment)
 
    IF !Empty(_HMG_ActiveIniFile)
-      aLines := hb_ATokens(StrTran(MemoRead( _HMG_ActiveIniFile ), CRLF, Chr( 10 )), Chr( 10 ))
+      aLines := hb_ATokens(StrTran(MemoRead( _HMG_ActiveIniFile ), CRLF, Chr(10)), Chr(10))
       nLen := Len(aLines)
       IF nLen > 0 .AND. hb_ULen(ATail(aLines)) == 0
          ASize(aLines, nLen - 1)
@@ -413,7 +413,7 @@ FUNCTION xChar( xValue )
    CASE cType == "N" ; nDecimals := iif(xValue == Int(xValue), 0, nDecimals) ; cValue := LTrim(Str(xValue, 20, nDecimals))
    CASE cType == "D" ; cValue := DToS( xValue )
    CASE cType == "L" ; cValue := iif(xValue, "T", "F")
-   CASE cType == "A" ; cValue := AToC( xValue )
+   CASE cType == "A" ; cValue := AToC(xValue)
    CASE cType $  "UE"; cValue := "NIL"
    CASE cType == "B" ; cValue := "{|| ... }"
    CASE cType == "O" ; cValue := "{" + xValue:className + "}"
@@ -432,14 +432,14 @@ FUNCTION xValue( cValue, cType )
    CASE cType == "D" ; xValue := SToD( cValue )
    CASE cType == "N" ; xValue := Val(cValue)
    CASE cType == "L" ; xValue := ( cValue == "T" )
-   CASE cType == "A" ; xValue := CToA( cValue )
+   CASE cType == "A" ; xValue := CToA(cValue)
    OTHERWISE         ; xValue := NIL                 // Nil, Block, Object
    ENDCASE
 
 RETURN xValue
 
 *-----------------------------------------------------------------------------*
-FUNCTION AToC( aArray )
+FUNCTION AToC(aArray)
 *-----------------------------------------------------------------------------*
    
    LOCAL elem
@@ -459,7 +459,7 @@ FUNCTION AToC( aArray )
 RETURN( "A" + Str(hb_ULen(cArray), 4) + cArray )
 
 *-----------------------------------------------------------------------------*
-FUNCTION CToA( cArray )
+FUNCTION CToA(cArray)
 *-----------------------------------------------------------------------------*
    
    LOCAL cType

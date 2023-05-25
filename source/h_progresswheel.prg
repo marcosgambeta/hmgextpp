@@ -113,10 +113,9 @@ FUNCTION _DefineProgressWheel ( cControlName, cParentForm, nCol, nRow, nWidth, ;
 
    nId := _GetId()
 
-   cImageName := cControlName + hb_ntos( nId )
+   cImageName := cControlName + hb_ntos(nId)
 
-   @ nROW, nCol IMAGE ( cImageName ) PARENT ( cParentForm ) PICTURE NIL ;
-      WIDTH nWidth HEIGHT nHeight
+   @ nROW, nCol IMAGE (cImageName) PARENT (cParentForm) PICTURE NIL WIDTH nWidth HEIGHT nHeight
 
    nControlHandle := GetControlHandle(cImageName, cParentForm)
 
@@ -680,7 +679,7 @@ PROCEDURE ProgressWheelPaint( cParentForm, cImgName, Width, Height, ;
    LOCAL P2
 
    hBitmap := BT_BitmapCreateNew ( Width, Height, nRGB2Arr( GetSysColor( COLOR_BTNFACE ) ) )
-   hDC := BT_CreateDC( hBitmap, BT_HDC_BITMAP, @BTStruct )
+   hDC := BT_CreateDC(hBitmap, BT_HDC_BITMAP, @BTStruct)
 
    IF Width > Height
       R := { 0, 0, Height, Height }
@@ -749,7 +748,7 @@ PROCEDURE ProgressWheelPaint( cParentForm, cImgName, Width, Height, ;
       IF hb_IsBlock(cText)
          cText := Eval(cText, Position, Max)
       ELSE
-         cText := hb_ntos( Int( 100 * ( Position - Min ) / ( Max - Min ) ) ) + "%"
+         cText := hb_ntos(Int(100 * (Position - Min) / (Max - Min))) + "%"
       ENDIF
 
       Row := R[4] / 2 - InnerSize * Width / 6000 - 6
@@ -788,7 +787,7 @@ FUNCTION UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, Colo
       Height *= BufScale
 
       hBitmap := BT_BitmapCreateNew ( Width, Height, nRGB2Arr( GetSysColor( COLOR_BTNFACE ) ) )
-      hDC := BT_CreateDC( hBitmap, BT_HDC_BITMAP, @BTStruct )
+      hDC := BT_CreateDC(hBitmap, BT_HDC_BITMAP, @BTStruct)
 
       R := { 0, 0, Width, Height }
 
@@ -846,7 +845,7 @@ STATIC FUNCTION GradientColor( ColorBegin, ColorEnd, AMin, AMax, APosition )
       P := 0
    ENDIF
 
-RETURN B1 + Round( ( E1 - B1 ) * P, 0 ) + hb_bitShift( B2 + Round( ( E2 - B2 ) * P, 0 ), 8 ) + hb_bitShift( B3 + Round( ( E3 - B3 ) * P, 0 ), 16 )
+RETURN B1 + Round((E1 - B1) * P, 0) + hb_bitShift(B2 + Round((E2 - B2) * P, 0), 8) + hb_bitShift(B3 + Round((E3 - B3) * P, 0), 16)
 
 *------------------------------------------------------------------------------*
 STATIC FUNCTION AnglePosition( StartAngle, Rect, AMin, AMax, APosition )
@@ -1013,7 +1012,7 @@ HB_FUNC( BT_DRAW_HDC_ARCX_EX )
    switch( nArcType )
    {
       case BT_DRAW_ARC:
-         Arc( hDC, x1, y1, x2, y2, XStartArc, YStartArc, XEndArc, YEndArc );
+         Arc(hDC, x1, y1, x2, y2, XStartArc, YStartArc, XEndArc, YEndArc);
          break;
       case BT_DRAW_CHORD:
          Chord( hDC, x1, y1, x2, y2, XStartArc, YStartArc, XEndArc, YEndArc );

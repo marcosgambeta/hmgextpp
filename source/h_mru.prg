@@ -128,13 +128,13 @@ FUNCTION AddMenuElement( NewItem , cAction )
          ENDIF
       NEXT
 
-      cyMRU_Id := cMRU_Id + "_" + hb_ntos( x )
+      cyMRU_Id := cMRU_Id + "_" + hb_ntos(x)
       cxMRU_Id := aMRU_File[1, 3]
       _InsertMenuItem ( cxMRU_Id , MRUParentForm , "&1 " + caption , action, cyMRU_Id )
       // Insert a first element the menu
       AIns( aMRU_File, 1, { caption, NewItem, cyMRU_Id, action, x }, .T. )
       FOR n := 1 TO Len(aMRU_File)
-         cx := hb_ntos( n )
+         cx := hb_ntos(n)
          cxMRU_Id := aMRU_File[n, 3]
          xCaption := "&" + cx + " " + aMRU_File[n, 1]
          _ModifyMenuItem ( cxMRU_Id , MRUParentForm , xCaption , aMRU_File[n, 4] )
@@ -178,7 +178,7 @@ FUNCTION SaveMRUFileList()
       FOR i := 1 TO maxMRU_Files
          // Write MRU to INI with key as it's position in list
          cFile := iif(i <= Len(aMRU_File), aMru_File[i, 2], "")
-         SET SECTION cSectionIni ENTRY hb_ntos( i ) TO cFile
+         SET SECTION cSectionIni ENTRY hb_ntos(i) TO cFile
       NEXT
 
    END INI
@@ -212,7 +212,7 @@ FUNCTION _DefineMruItem ( caption , cIniFile , cSection , nMaxItems , action , n
 
       FOR n := 1 TO nMaxItems  // Retrieve entry from INI
 
-         GET cValue SECTION cSection ENTRY hb_ntos( n ) DEFAULT ""
+         GET cValue SECTION cSection ENTRY hb_ntos(n) DEFAULT ""
 
          IF !Empty(cValue)  // Check if a value was returned
 

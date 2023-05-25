@@ -369,7 +369,7 @@ STATIC FUNCTION _AddToolBarToSplitBox ( ControlName , break , Caption , ParentFo
    ix := GetControlIndex(ControlName, ParentForm)
    /* WRAP style handling */
    IF ( _HMG_aControlRangeMax [ix] == 1 ) .AND. ;
-      ( hb_bitand( GetWindowLong ( _HMG_aFormReBarHandle[i] , GWL_STYLE ) , CCS_VERT ) == CCS_VERT )
+      ( hb_bitand(GetWindowLong(_HMG_aFormReBarHandle[i], GWL_STYLE), CCS_VERT) == CCS_VERT )
       MinWidth  := _HMG_aControlWidth [ix]
       MinHeight := HiWord(w)
    ENDIF
@@ -503,7 +503,7 @@ FUNCTION _CreatePopUpChevron ( hWnd, wParam, lParam )
             ELSEIF !Empty(_HMG_aControlCaption [k])
                cMenu := _HMG_aControlCaption [k]
             ELSE
-               cMenu := "Button " + hb_ntos( n )
+               cMenu := "Button " + hb_ntos(n)
             ENDIF
 
             AppendMenuString ( hMenu, aBtnInfo [2], cMenu )
@@ -529,7 +529,7 @@ FUNCTION _CreatePopUpChevron ( hWnd, wParam, lParam )
       TrackPopupMenu ( hMenu , aPos [1] + aChevronInfo [1] , aPos [2] + aChevronInfo [4] + 3 , hWnd )
    ENDIF
 
-   DefWindowProc( hWnd, RBN_CHEVRONPUSHED, wParam, lParam )
+   DefWindowProc(hWnd, RBN_CHEVRONPUSHED, wParam, lParam)
    DestroyMenu( hMenu )
 
 RETURN Nil

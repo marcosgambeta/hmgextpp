@@ -133,7 +133,7 @@ PHB_ITEM hb_itemPutStrLenUTF8(PHB_ITEM pItem, const char * pStr, ULONG nLen)
    HB_TRACE(HB_TR_DEBUG, ("hb_itemPutStrLenUTF8(%p,%p,%" HB_PFS "u)", pItem, pStr, nLen));
 
    if( nLen == 0 )
-      return hb_itemPutC( pItem, NULL );
+      return hb_itemPutC(pItem, NULL);
 
    cdp = hb_cdppage();
    nDest = hb_cdpStringInUTF8Length(cdp, FALSE, pStr, nLen);
@@ -170,7 +170,7 @@ const char * hb_itemGetStrUTF8(PHB_ITEM pItem, void ** phString, ULONG * pnLen)
                 if( pItem->item.asString.allocated != 0 )
                 {
                         * phString = ( void * ) pItem->item.asString.value;
-                        hb_xRefInc( pItem->item.asString.value );
+                        hb_xRefInc(pItem->item.asString.value);
                 }
                 else
                         * phString = ( void * ) s_szConstStr;
@@ -193,7 +193,7 @@ PHB_ITEM hb_itemPutStrUTF8(PHB_ITEM pItem, const char * pStr)
    HB_TRACE(HB_TR_DEBUG, ("hb_itemPutStrUTF8(%p,%p)", pItem, pStr));
 
    if( pStr == NULL )
-      return hb_itemPutC( pItem, NULL );
+      return hb_itemPutC(pItem, NULL);
 
    cdp = hb_cdppage(); 
    nLen = strlen(pStr);

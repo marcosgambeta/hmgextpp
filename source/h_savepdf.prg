@@ -188,7 +188,7 @@ STATIC FUNCTION UPDF_Error( cType, hDoc ) // allways return .F.
    LOCAL cMessage
 
    hb_default(@cType, "CREATE")
-   DO CASE
+   DO CASE // TODO: switch
    CASE cType == "CREATE"
       cMessage := "PDF file creation operation failed!"
    CASE cType == "COMPRESS"
@@ -198,7 +198,7 @@ STATIC FUNCTION UPDF_Error( cType, hDoc ) // allways return .F.
    OTHERWISE
       cMessage := "Error(s) occured!"
    ENDCASE
-   cMessage += hb_eol() + "Error Code: " + hb_ntos( nError ) + " (HPDF)"
+   cMessage += hb_eol() + "Error Code: " + hb_ntos(nError) + " (HPDF)"
    MsgExclamation( cMessage )
 
 RETURN .F.

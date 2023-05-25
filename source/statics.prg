@@ -93,11 +93,11 @@ FUNCTION CheckStatic()
    _LogFile( .F., cInfo )
 
    FOR n = 1 TO nStatics()
-      if !Empty(Static( n ))
+      if !Empty(Static(n))
          cInfo := CRLF
-         cInfo += hb_ntos( n ) + Replicate( "-", 55 ) + "> "
+         cInfo += hb_ntos(n) + Replicate( "-", 55 ) + "> "
          _LogFile( .F., cInfo )
-         Scan( Static( n ) )
+         Scan( Static(n) )
          nCnt++
       ENDIF
    NEXT
@@ -106,7 +106,7 @@ FUNCTION CheckStatic()
    cInfo += Replicate( "-", 59 ) + "> "
    _LogFile( .F., cInfo )
 
-   _LogFile( .T., "Amount = " + hb_ntos( nCnt ) )
+   _LogFile( .T., "Amount = " + hb_ntos(nCnt) )
    _LogFile( .T., Replicate( "=", 60 ) )
    _LogFile( .T., GetExeFileName() )
 
@@ -139,7 +139,7 @@ STATIC FUNCTION Scan( u, cData )
       ENDIF
 
       IF cType $ "AO"
-         _LogFile( .F., " (Len = " + hb_ntos( Len(u) ) + ")" )
+         _LogFile( .F., " (Len = " + hb_ntos(Len(u)) + ")" )
       ENDIF
 
       IF cType == "A"
@@ -174,7 +174,7 @@ STATIC FUNCTION nStatics()
 RETURN HB_DBG_VMVARSLEN()
 
 *-----------------------------------------------------------------------------*
-STATIC FUNCTION Static( n )
+STATIC FUNCTION Static(n)
 *-----------------------------------------------------------------------------*
 
 RETURN HB_DBG_VMVARSGET( HB_DBG_VMVARSLIST(), n )

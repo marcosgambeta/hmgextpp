@@ -86,17 +86,16 @@ METHOD New( nKey, cRegKey, lShowError ) CLASS TReg32
 
    DEFAULT cRegKey TO ""
 
-   nReturn := RegOpenKeyExA( nKey, cRegKey, , ;
-      iif(IsWow64(), hb_BitOr(KEY_ALL_ACCESS, KEY_WOW64_64KEY), KEY_ALL_ACCESS), @nHandle )
+   nReturn := RegOpenKeyExA(nKey, cRegKey, , iif(IsWow64(), hb_BitOr(KEY_ALL_ACCESS, KEY_WOW64_64KEY), KEY_ALL_ACCESS), @nHandle)
 
    IF nReturn != ERROR_SUCCESS
-      nReturn := RegOpenKeyExA( nKey, cRegKey, , KEY_READ, @nHandle )
+      nReturn := RegOpenKeyExA(nKey, cRegKey, , KEY_READ, @nHandle)
    ENDIF
 
    ::lError := ( nReturn != ERROR_SUCCESS )
    IF ::lError
       IF lShowError == NIL .OR. lShowError == .T.
-         MsgStop( "Error opening TReg32 object (" + hb_ntos( nReturn ) + ")" )
+         MsgStop( "Error opening TReg32 object (" + hb_ntos(nReturn) + ")" )
       ENDIF
    ELSE
       ::cRegKey := cRegKey
@@ -118,11 +117,10 @@ METHOD Create( nKey, cRegKey, lShowError ) CLASS TReg32
    ::lError := ( nReturn != ERROR_SUCCESS )
    IF ::lError
       IF lShowError == NIL .OR. lShowError == .T.
-         MsgStop( "Error creating TReg32 object (" + hb_ntos( nReturn ) + ")" )
+         MsgStop( "Error creating TReg32 object (" + hb_ntos(nReturn) + ")" )
       ENDIF
    ELSE
-      ::nError := RegOpenKeyExA( nKey, cRegKey, , ;
-         iif(IsWow64(), hb_BitOr(KEY_ALL_ACCESS, KEY_WOW64_64KEY), KEY_ALL_ACCESS), @nHandle )
+      ::nError := RegOpenKeyExA(nKey, cRegKey, , iif(IsWow64(), hb_BitOr(KEY_ALL_ACCESS, KEY_WOW64_64KEY), KEY_ALL_ACCESS), @nHandle)
       ::cRegKey := cRegKey
       ::nHandle := nHandle
    ENDIF
@@ -142,7 +140,7 @@ METHOD Get( cRegVar, uVar ) CLASS TReg32
       DEFAULT cRegVar TO ""
       cType := ValType(uVar)
 
-      ::nError := RegQueryValueExA( ::nHandle, cRegVar, 0, @nType, @cValue, @nLen )
+      ::nError := RegQueryValueExA(::nHandle, cRegVar, 0, @nType, @cValue, @nLen)
 
       IF Empty(::nError)
          uVar := cValue
@@ -179,14 +177,14 @@ METHOD Set( cRegVar, uVar ) CLASS TReg32
          nType := REG_SZ
          SWITCH cType
          CASE "D"
-            uVar := DToC( uVar )
+            uVar := DToC(uVar)
             EXIT
          CASE "L"
             uVar := iif(uVar, ".T.", ".F.")
          ENDSWITCH
       ENDIF
 
-      ::nError := RegSetValueExA( ::nHandle, cRegVar, 0, nType, @uVar )
+      ::nError := RegSetValueExA(::nHandle, cRegVar, 0, nType, @uVar)
 
    ENDIF
 
@@ -196,7 +194,7 @@ RETURN NIL
 METHOD Delete( cRegVar ) CLASS TReg32
 
    IF !::lError
-      ::nError := RegDeleteValueA( ::nHandle, cRegVar )
+      ::nError := RegDeleteValueA(::nHandle, cRegVar)
    ENDIF
 
 RETURN NIL

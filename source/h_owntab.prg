@@ -81,7 +81,7 @@ FUNCTION OwnTabPaint( lParam )
    LOCAL lBigFsize2
    LOCAL lBigFsize3
 
-   hDC := GETOWNBTNDC( lParam )
+   hDC := GETOWNBTNDC(lParam)
 
    i := AScan(_HMG_aControlHandles, GETOWNBTNHANDLE(lParam))
 
@@ -91,7 +91,7 @@ FUNCTION OwnTabPaint( lParam )
 
    nItemId    := GETOWNBTNITEMID( lParam ) + 1
    aBtnRc     := GETOWNBTNRECT( lParam )
-   lSelected  := ( hb_bitand( GETOWNBTNSTATE( lParam ), ODS_SELECTED ) == ODS_SELECTED )
+   lSelected  := ( hb_bitand(GETOWNBTNSTATE(lParam), ODS_SELECTED) == ODS_SELECTED )
    lBigFsize  := ( _HMG_aControlFontSize[i] >= 12 )
    lBigFsize2 := ( _HMG_aControlFontSize[i] >= 18 )
    lBigFsize3 := ( _HMG_aControlFontSize[i] >= 24 )
@@ -99,7 +99,7 @@ FUNCTION OwnTabPaint( lParam )
    _HMG_aControlMiscData1[i] [1] := aBtnRc [4] - aBtnRc [2]  // store a bookmark height
 
    hOldFont     := SelectObject( hDC, _HMG_aControlFontHandle[i] )
-   aMetr        := GetTextMetric( hDC )
+   aMetr        := GetTextMetric(hDC)
    oldBkMode    := SetBkMode( hDC, TRANSPARENT )
    nTextColor   := GetSysColor( COLOR_BTNTEXT )
    oldTextColor := SetTextColor( hDC, GetRed( nTextColor ), GetGreen( nTextColor ), GetBlue( nTextColor ) )

@@ -289,7 +289,7 @@ METHOD New( cFileName, nTop, nLeft, nBottom, nRight, nDelay, aBKColor, cControlN
 
    nId := _GetId()
 
-   ::hGif := cControlName + hb_ntos( nId )
+   ::hGif := cControlName + hb_ntos(nId)
 
    @ nTop, nLeft IMAGE (::hGif) PARENT (cParentName) PICTURE cFileName WIDTH nRight HEIGHT nBottom STRETCH BACKGROUNDCOLOR aBKColor TRANSPARENT
 
@@ -426,7 +426,7 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
    
    LOCAL cPath := GetTempFolder()
    LOCAL cGifHeader
-   LOCAL cGifEnd := Chr( 0 ) + Chr( 33 ) + Chr( 249 )
+   LOCAL cGifEnd := Chr(0) + Chr(33) + Chr(249)
    LOCAL cStream
    LOCAL cFile
    LOCAL cPicBuf
@@ -464,8 +464,8 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
       j := At( cGifEnd, cStream, i ) + 3
 
       IF j > Len(cGifEnd)
-         cFile := cPath + hb_ps() + cFileNoExt( GIF ) + "_frame_" + hb_ntos( nID ) + "_" + StrZero( nImgCount, 4 ) + ".gif"
-         nFileHandle := FCreate( cFile, FC_NORMAL )
+         cFile := cPath + hb_ps() + cFileNoExt( GIF ) + "_frame_" + hb_ntos(nID) + "_" + StrZero( nImgCount, 4 ) + ".gif"
+         nFileHandle := FCreate(cFile, FC_NORMAL)
          IF FError() != 0
             RETURN .F.
          ENDIF
@@ -497,8 +497,8 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
 
    IF i < Len(cStream)
 
-      cFile := cPath + hb_ps() + cFileNoExt( GIF ) + "_frame_" + hb_ntos( nID ) + "_" + StrZero( ++nImgCount, 4 ) + ".gif"
-      nFileHandle := FCreate( cFile, FC_NORMAL )
+      cFile := cPath + hb_ps() + cFileNoExt( GIF ) + "_frame_" + hb_ntos(nID) + "_" + StrZero( ++nImgCount, 4 ) + ".gif"
+      nFileHandle := FCreate(cFile, FC_NORMAL)
       IF FError() != 0
          RETURN .F.
       ENDIF

@@ -29,8 +29,8 @@
 #define TDC_CALLBACK                22
 #define TDC_WIDTH                   24
 
-HRESULT CALLBACK __CBFunc( HWND hWnd, UINT uNotification, WPARAM wParam, LPARAM lParam, LONG_PTR dwRefData );
-HRESULT CALLBACK __ClsCBFunc( HWND hWnd, UINT uNotification, WPARAM wParam, LPARAM lParam, LONG_PTR dwRefData );
+HRESULT CALLBACK __CBFunc(HWND hWnd, UINT uNotification, WPARAM wParam, LPARAM lParam, LONG_PTR dwRefData);
+HRESULT CALLBACK __ClsCBFunc(HWND hWnd, UINT uNotification, WPARAM wParam, LPARAM lParam, LONG_PTR dwRefData);
 static HB_BOOL TD_CheckButton( const PHB_ITEM arrayOfButtons, HB_SIZE arraysize );
 static const char * TD_NotifyToMsg( UINT uiNotification, PHB_ITEM pObj );
 static BOOL TD_objSendMsg( PHB_ITEM pObject, const char * sMsgName, HRESULT * hRes, HWND hWnd, UINT uiNotification, WPARAM wParam, LPARAM lParam );

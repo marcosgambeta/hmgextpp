@@ -183,7 +183,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
    // Graph info
    //
    IF !Empty(cTitle)
-      cNameObj := "Obj_Name_" + hb_ntos( nGraphObj++ )
+      cNameObj := "Obj_Name_" + hb_ntos(nGraphObj++)
       @ nTop - 36 * nResV, nLeft LABEL (cNameObj) OF (parent) VALUE cTitle;
          WIDTH nRight - nLeft;
          HEIGHT 24;
@@ -203,7 +203,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
       FOR nI := 1 TO Len(aSeries)
          DrawBar( parent, nRight + ( ( _HMG_DefaultFontSize - 1 ) * nResH ), nPos + _HMG_DefaultFontSize * nResV,;
             ( _HMG_DefaultFontSize - 2 ) * nResH, ( _HMG_DefaultFontSize - 3 ) * nResV, l3D, 1, aColors[nI] )
-         cNameObj := "Obj_Name_" + hb_ntos( nGraphObj++ )
+         cNameObj := "Obj_Name_" + hb_ntos(nGraphObj++)
          @ nPos, nRight + 2 * _HMG_DefaultFontSize * nResH LABEL (cNameObj) OF (parent);
             VALUE aSeries[nI] AUTOSIZE;
             FONTCOLOR aClrFore;
@@ -257,7 +257,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
    FOR nI := 0 TO nXRanges
       IF lxVal
          IF nRange * nI <= nXMax
-            cNameObj := "Obj_Name_" + hb_ntos( nGraphObj++ )
+            cNameObj := "Obj_Name_" + hb_ntos(nGraphObj++)
             @ nRPos + nDeep - 5, nLeft - nDeep - 75 LABEL (cNameObj) OF (parent);
                VALUE Transform(nRange * nI, cPicture);
                WIDTH 65;
@@ -270,7 +270,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
             ENDIF
          ENDIF
          IF nRange * ( - nI ) >= nXMin * ( -1 )
-            cNameObj := "Obj_Name_" + hb_ntos( nGraphObj++ )
+            cNameObj := "Obj_Name_" + hb_ntos(nGraphObj++)
             @ nRNeg + nDeep - 5, nLeft - nDeep - 75 LABEL (cNameObj) OF (parent);
                VALUE Transform(nRange *- nI, cPicture);
                WIDTH 65;
@@ -336,7 +336,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
       nWideB := ( nRight - nLeft ) / ( nMax( aData ) + 1 )
       nI := nLeft + nWideB
       FOR nJ := 1 TO nMax( aData )
-         cNameObj := "Obj_Name_" + hb_ntos( nGraphObj++ )
+         cNameObj := "Obj_Name_" + hb_ntos(nGraphObj++)
          @ nBottom + 8, nI - iif(l3D, nDeep, nDeep + 8) LABEL (cNameObj) OF (parent);
             VALUE aYVals[nJ] AUTOSIZE;
             FONTCOLOR aClrFore;
@@ -445,7 +445,7 @@ PROCEDURE EraseBarGraph ( Parent )
    LOCAL i := 1
 
    DO WHILE i < nGraphObj
-      cName := "Obj_Name_" + hb_ntos( i++ )
+      cName := "Obj_Name_" + hb_ntos(i++)
       IF _IsControlDefined(cName, Parent)
          _ReleaseControl ( cName, Parent )
       ENDIF
@@ -746,22 +746,22 @@ FUNCTION drawpiegraph( windowname, fromrow, fromcol, torow, tocol, series, aname
       IF backcolor[1] == -1 .AND. backcolor[2] == -1 .AND. backcolor[3] == -1
          backcolor := NIL
       ENDIF
-      cname := "title_of_pie" + hb_ntos( nPieObj++ )
-      define label (cname)
-        parent (windowname)
-        row fromrow + 10
-        col fromcol + iif(Len(ctitle) * 8 > ( tocol - fromcol ), 0, 5)
-        width iif(Len(ctitle) * 8 > ( tocol - fromcol ), Len(ctitle) * 10, tocol - fromcol - 10)
-        height 16 + _HMG_DefaultFontSize
-//        fontbold .T.
-        fontname _HMG_DefaultFontName
-        fontsize _HMG_DefaultFontSize + 3
-        centeralign ( Len(ctitle) * 8 < ( tocol - fromcol ) )
-        vcenteralign .T.
-        value ctitle
-        fontcolor { 0, 0, 0 }
-        backcolor iif(lPrint, WHITE, backcolor)
-      end label
+      cname := "title_of_pie" + hb_ntos(nPieObj++)
+      DEFINE LABEL (cname)
+        PARENT (windowname)
+        ROW fromrow + 10
+        COL fromcol + iif(Len(ctitle) * 8 > ( tocol - fromcol ), 0, 5)
+        WIDTH iif(Len(ctitle) * 8 > ( tocol - fromcol ), Len(ctitle) * 10, tocol - fromcol - 10)
+        HEIGHT 16 + _HMG_DefaultFontSize
+//        FONTBOLD .T.
+        FONTNAME _HMG_DefaultFontName
+        FONTSIZE _HMG_DefaultFontSize + 3
+        CENTERALIGN ( Len(ctitle) * 8 < ( tocol - fromcol ) )
+        VCENTERALIGN .T.
+        VALUE ctitle
+        FONTCOLOR { 0, 0, 0 }
+        BACKCOLOR iif(lPrint, WHITE, backcolor)
+      END LABEL
       RedrawWindow(GetControlHandle(cname, windowname))
       fromrow += 25 + _HMG_DefaultFontSize
    ENDIF
@@ -857,7 +857,7 @@ FUNCTION drawpiegraph( windowname, fromrow, fromcol, torow, tocol, series, aname
          toradialrow := middleleftrow + Round( ( cumulative[i] - 180 ) / 45 * ( bottomleftrow - middleleftrow ), 0 )
          IF l3d
             FOR j := 1 TO depth
-               drawarc( windowname, fromrow + j, fromcol, torow + j, tocol, fromradialrow + j, fromradialcol, toradialrow + j, toradialcol, shadowcolor )
+               drawarc(windowname, fromrow + j, fromcol, torow + j, tocol, fromradialrow + j, fromradialcol, toradialrow + j, toradialcol, shadowcolor)
             NEXT j
          ENDIF
          drawpie( windowname, fromrow, fromcol, torow, tocol, fromradialrow, fromradialcol, toradialrow, toradialcol, , , colors[i] )
@@ -868,7 +868,7 @@ FUNCTION drawpiegraph( windowname, fromrow, fromcol, torow, tocol, series, aname
          toradialcol := bottomleftcol + Round( ( cumulative[i] - 225 ) / 45 * ( middlebottomcol - bottomleftcol ), 0 )
          IF l3d
             FOR j := 1 TO depth
-               drawarc( windowname, fromrow + j, fromcol, torow + j, tocol, fromradialrow + j, fromradialcol, toradialrow + j, toradialcol, shadowcolor )
+               drawarc(windowname, fromrow + j, fromcol, torow + j, tocol, fromradialrow + j, fromradialcol, toradialrow + j, toradialcol, shadowcolor)
             NEXT j
          ENDIF
          drawpie( windowname, fromrow, fromcol, torow, tocol, fromradialrow, fromradialcol, toradialrow, toradialcol, , , colors[i] )
@@ -879,7 +879,7 @@ FUNCTION drawpiegraph( windowname, fromrow, fromcol, torow, tocol, series, aname
          toradialcol := middlebottomcol + Round( ( cumulative[i] - 270 ) / 45 * ( bottomrightcol - middlebottomcol ), 0 )
          IF l3d
             FOR j := 1 TO depth
-               drawarc( windowname, fromrow + j, fromcol, torow + j, tocol, fromradialrow + j, fromradialcol, toradialrow + j, toradialcol, shadowcolor )
+               drawarc(windowname, fromrow + j, fromcol, torow + j, tocol, fromradialrow + j, fromradialcol, toradialrow + j, toradialcol, shadowcolor)
             NEXT j
          ENDIF
          drawpie( windowname, fromrow, fromcol, torow, tocol, fromradialrow, fromradialcol, toradialrow, toradialcol, , , colors[i] )
@@ -890,7 +890,7 @@ FUNCTION drawpiegraph( windowname, fromrow, fromcol, torow, tocol, series, aname
          toradialrow := bottomrightrow - Round( ( cumulative[i] - 315 ) / 45 * ( bottomrightrow - middlerightrow ), 0 )
          IF l3d
             FOR j := 1 TO depth
-               drawarc( windowname, fromrow + j, fromcol, torow + j, tocol, fromradialrow + j, fromradialcol, toradialrow + j, toradialcol, shadowcolor )
+               drawarc(windowname, fromrow + j, fromcol, torow + j, tocol, fromradialrow + j, fromradialcol, toradialrow + j, toradialcol, shadowcolor)
             NEXT j
          ENDIF
          drawpie( windowname, fromrow, fromcol, torow, tocol, fromradialrow, fromradialcol, toradialrow, toradialcol, , , colors[i] )
@@ -900,7 +900,7 @@ FUNCTION drawpiegraph( windowname, fromrow, fromcol, torow, tocol, series, aname
       IF l3d
          drawline( windowname, middleleftrow, middleleftcol, middleleftrow + depth, middleleftcol )
          drawline( windowname, middlerightrow, middlerightcol, middlerightrow + depth, middlerightcol )
-         drawarc( windowname, fromrow + depth, fromcol, torow + depth, tocol, middleleftrow + depth, middleleftcol, middlerightrow + depth, middlerightcol )
+         drawarc(windowname, fromrow + depth, fromcol, torow + depth, tocol, middleleftrow + depth, middleleftcol, middlerightrow + depth, middlerightcol)
       ENDIF
    NEXT i
    IF lsleg
@@ -911,23 +911,23 @@ FUNCTION drawpiegraph( windowname, fromrow, fromcol, torow, tocol, series, aname
          fromrow := torow + 20 + iif(l3d, depth, 0)
       ENDIF
       FOR i := 1 TO Len(aname)
-         cname := "pielegend_" + hb_ntos( nPieObj++ )
+         cname := "pielegend_" + hb_ntos(nPieObj++)
          drawrect( windowname, fromrow, fromcol, fromrow + 15, fromcol + 15, { 0, 0, 0 }, 1, colors[i] )
-         define label (cname)
-           parent (windowname)
-           row fromrow
-           col fromcol + 20
-           fontname _HMG_DefaultFontName
-           fontsize _HMG_DefaultFontSize - 1
-           autosize .T.
+         DEFINE LABEL (cname)
+           PARENT (windowname)
+           ROW fromrow
+           COL fromcol + 20
+           FONTNAME _HMG_DefaultFontName
+           FONTSIZE _HMG_DefaultFontSize - 1
+           AUTOSIZE .T.
            IF !lPrint .AND. !lNoborder
-              height 16
+              HEIGHT 16
            ENDIF
-           value aname[i] + iif(lxval, " - " + LTrim(Transform(series[i], cPicture)) + " (" + LTrim(Str(series[i] / ser_sum * 100, 6, 2)) + " %)", "")
-           fontcolor iif(RGB(colors[i][1], colors[i][2], colors[i][3]) == RGB(255, 255, 255), BLACK, colors[i])
-           backcolor iif(lPrint, WHITE, NIL)
-           transparent .T.
-         end label
+           VALUE aname[i] + iif(lxval, " - " + LTrim(Transform(series[i], cPicture)) + " (" + LTrim(Str(series[i] / ser_sum * 100, 6, 2)) + " %)", "")
+           FONTCOLOR iif(RGB(colors[i][1], colors[i][2], colors[i][3]) == RGB(255, 255, 255), BLACK, colors[i])
+           BACKCOLOR iif(lPrint, WHITE, NIL)
+           TRANSPARENT .T.
+         END LABEL
          fromrow += 20
       NEXT i
    ENDIF
@@ -943,12 +943,12 @@ PROCEDURE ErasePieGraph( windowname )
 
    DO WHILE i < nPieObj
 
-      cname := "title_of_pie" + hb_ntos( i )
+      cname := "title_of_pie" + hb_ntos(i)
       IF _IsControlDefined(cname, windowname)
          _ReleaseControl( cname, windowname )
       ENDIF
 
-      cname := "pielegend_" + hb_ntos( i++ )
+      cname := "pielegend_" + hb_ntos(i++)
       IF _IsControlDefined(cname, windowname)
          _ReleaseControl( cname, windowname )
       ENDIF
@@ -962,7 +962,7 @@ FUNCTION _PiePrint( cForm, fromrow, fromcol, torow, tocol, series, aname, colors
 *-----------------------------------------------------------------------------*
    
    LOCAL b := _HMG_IsModalActive
-   LOCAL FormName := "_Tmp_" + hb_ntos( _GetId() )
+   LOCAL FormName := "_Tmp_" + hb_ntos(_GetId())
 
    _HMG_IsModalActive := .F.
 
@@ -989,7 +989,7 @@ FUNCTION _GraphPrint( cForm, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
 *-----------------------------------------------------------------------------*
    
    LOCAL b := _HMG_IsModalActive
-   LOCAL FormName := "_Tmp_" + hb_ntos( _GetId() )
+   LOCAL FormName := "_Tmp_" + hb_ntos(_GetId())
 
    _HMG_IsModalActive := .F.
 

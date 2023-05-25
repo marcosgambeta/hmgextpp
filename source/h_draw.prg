@@ -171,7 +171,7 @@ FUNCTION drawellipse( window, row, col, row1, col1, penrgb, penwidth, fillrgb )
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION drawarc( window, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb, penwidth )
+FUNCTION drawarc(window, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb, penwidth)
 *-----------------------------------------------------------------------------*
    
    LOCAL FormHandle

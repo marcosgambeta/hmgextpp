@@ -575,7 +575,7 @@ HB_FUNC( TREEVIEW_EXPANDCHILDRENRECURSIVE )
 }
 
 //---------------------------------------------------------------------------------------------------------------------
-// TreeView_SortChildrenRecursiveCB ( hWndTV, ItemHandle, fRecurse, lCaseSensitive, lAscendingOrder, nNodePosition )
+// TreeView_SortChildrenRecursiveCB(hWndTV, ItemHandle, fRecurse, lCaseSensitive, lAscendingOrder, nNodePosition)
 //---------------------------------------------------------------------------------------------------------------------
 
 #define SORTTREENODE_FIRST  0

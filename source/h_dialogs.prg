@@ -65,9 +65,9 @@ FUNCTION GetColor( aInitColor, aCustomColors, nFlags )
          #define CC_RGBINIT                        1
          #define CC_PREVENTFULLOPEN        4
          #define CC_ANYCOLOR                256
-         nFlags := hb_BitOr ( CC_ANYCOLOR, CC_PREVENTFULLOPEN, CC_RGBINIT )
+         nFlags := hb_BitOr(CC_ANYCOLOR, CC_PREVENTFULLOPEN, CC_RGBINIT)
       ELSE
-         /* default nFlags value is hb_BitOr( CC_ANYCOLOR, CC_FULLOPEN, CC_RGBINIT ) */
+         /* default nFlags value is hb_BitOr(CC_ANYCOLOR, CC_FULLOPEN, CC_RGBINIT) */
          nFlags := NIL
       ENDIF
    ENDIF
@@ -103,8 +103,8 @@ FUNCTION GetFile( aFilter, title, cIniFolder, multiselect, lNoChangeCurDir, nFil
    hb_default(@multiselect, .F.)
 
    IF hb_IsArray(aFilter)
-      AEval(aFilter, { | x | cFilter += x [1] + Chr( 0 ) + x [2] + Chr( 0 ) })
-      cFilter += Chr( 0 )
+      AEval(aFilter, { | x | cFilter += x [1] + Chr(0) + x [2] + Chr(0) })
+      cFilter += Chr(0)
    ENDIF
 
    files := C_GetFile(cFilter, title, cIniFolder, multiselect, lNoChangeCurDir, hb_defaultValue(nFilterIndex, 1))
@@ -153,8 +153,8 @@ FUNCTION Putfile( aFilter, title, cIniFolder, lNoChangeCurDir, cDefFileName, ;
    hb_default(@nFilterIndex, 1)
 
    IF hb_IsArray(aFilter)
-      AEval(aFilter, { | x | cFilter += x [1] + Chr( 0 ) + x [2] + Chr( 0 ) })
-      cFilter += Chr( 0 )
+      AEval(aFilter, { | x | cFilter += x [1] + Chr(0) + x [2] + Chr(0) })
+      cFilter += Chr(0)
    ENDIF
 
 RETURN C_PutFile(cFilter, title, cIniFolder, lNoChangeCurDir, hb_defaultValue(cDefFileName, ""), ;

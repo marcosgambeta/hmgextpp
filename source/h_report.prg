@@ -163,15 +163,15 @@ FUNCTION easyreport()
          ncpl := 80
       ELSE
          IF ncpl = 132
-            @ PRow(), PCol() SAY Chr( 15 )
+            @ PRow(), PCol() SAY Chr(15)
          ENDIF
       ENDIF
       IF lpreview
          nran := random( 9999999 )
-         cfilerepo := "T" + hb_ntos( nran ) + ".prn"
+         cfilerepo := "T" + hb_ntos(nran) + ".prn"
          DO WHILE File( "&cfilerepo" )
             nran := random( 9999999 )
-            cfilerepo := "T" + hb_ntos( nran ) + ".prn"
+            cfilerepo := "T" + hb_ntos(nran) + ".prn"
          ENDDO
          SET PRINTER to &cfilerepo
          SET DEVICE TO PRINT
@@ -243,8 +243,8 @@ FUNCTION easyreport()
             nlpp := iif(ISEVERYPAGE, HBPRNMAXROW - 4, HBPRNMAXROW - 2)
          ENDIF
          
-         msgstop( aMessages[6]  + cpagina + " (" + hb_ntos( npapersize ) + ")" + CRLF + ;
-                  aMessages[7]  + hb_ntos( nfsize ) + CRLF + ;
+         msgstop( aMessages[6]  + cpagina + " (" + hb_ntos(npapersize) + ")" + CRLF + ;
+                  aMessages[7]  + hb_ntos(nfsize) + CRLF + ;
                   aMessages[8]  + Str(HBPRNMAXROW, 3) + CRLF + ;
                   aMessages[9]  + Str(nlpp, 3) + CRLF + ;
                   aMessages[10] + Str(HBPRNMAXCOL, 3) + CRLF + ;
@@ -319,10 +319,10 @@ FUNCTION easyreport()
                EXIT
             CASE "M"
                FOR k := 1 TO MLCount( wfield, awidths[i] ) STEP 1
-                  @ nlin, ncol SAY justificalinea( MemoLine( wfield, awidths[i], k ), awidths[i] ) font "f0" TO PRINT
+                  @ nlin, ncol SAY justificalinea(MemoLine( wfield, awidths[i], k ), awidths[i]) font "f0" TO PRINT
                   nlin := nlin + 1
                   // Imprimir otra página?
-                  imp_pagina( @nlin, @lmode, @grpby, @chdrgrp )
+                  imp_pagina(@nlin, @lmode, @grpby, @chdrgrp)
                NEXT k
                EXIT
             OTHERWISE
@@ -344,7 +344,7 @@ FUNCTION easyreport()
                EXIT
             CASE "M"
                FOR k := 1 TO MLCount( wfield, awidths[i] )
-                  @ nlin, ncol SAY justificalinea( MemoLine( wfield, awidths[i], k ), awidths[i] )
+                  @ nlin, ncol SAY justificalinea(MemoLine( wfield, awidths[i], k ), awidths[i])
                   nlin := nlin + 1
                   IF nlin > nlpp
                      nlin := ntoprow
@@ -368,7 +368,7 @@ FUNCTION easyreport()
       NEXT
 
       nlin++
-      imp_pagina( @nlin, @lmode, @grpby, @chdrgrp )
+      imp_pagina(@nlin, @lmode, @grpby, @chdrgrp)
 
       ( cfile )->( dbSkip() )
    ENDDO
@@ -458,14 +458,14 @@ STATIC FUNCTION headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grp
          ctitle1 := hb_OEMToANSI( ctitle1 )
       ENDIF
       @ nlin, 1 + nlmargin SAY _HMG_MESSAGE [9] font "f0" TO PRINT
-      @ nlin, 6 + nlmargin SAY hb_ntos( _npage ) font "f0" TO PRINT
+      @ nlin, 6 + nlmargin SAY hb_ntos(_npage) font "f0" TO PRINT
       @ nlin, ncenter + nlmargin SAY ctitle1 font "f2" TO PRINT
       IF ldatetimestamp
          @ nlin, nsum - 10 + Len(afields) + nlmargin SAY Date() font "f0" TO PRINT
       ENDIF
    ELSE
       @ nlin, 1 + nlmargin SAY _HMG_MESSAGE [9]
-      @ nlin, 6 + nlmargin SAY hb_ntos( _npage )
+      @ nlin, 6 + nlmargin SAY hb_ntos(_npage)
       @ nlin, ncenter + nlmargin SAY ctitle1
       IF ldatetimestamp
          @ nlin, nsum - 10 + Len(afields) + nlmargin SAY Date()
@@ -612,7 +612,7 @@ STATIC FUNCTION mypreview( cfilerepo )
 
 RETURN nil
 
-STATIC FUNCTION JUSTIFICALINEA( WPR_LINE, WTOPE )
+STATIC FUNCTION JUSTIFICALINEA(WPR_LINE, WTOPE)
 
    LOCAL I
    LOCAL SPACE1 := Space( 1 )
@@ -723,10 +723,10 @@ FUNCTION extreport( cfilerep )
       npapersize := ipaper
    ENDIF
    calias := leadato( "REPORT", "WORKAREA", "" )
-   ldos := leadatologic( "REPORT", "DOSMODE", .F. )
-   lpreview := leadatologic( "REPORT", "PREVIEW", .F. )
-   lselect := leadatologic( "REPORT", "SELECT", .F. )
-   lmul := leadatologic( "REPORT", "MULTIPLE", .F. )
+   ldos := leadatologic("REPORT", "DOSMODE", .F.)
+   lpreview := leadatologic("REPORT", "PREVIEW", .F.)
+   lselect := leadatologic("REPORT", "SELECT", .F.)
+   lmul := leadatologic("REPORT", "MULTIPLE", .F.)
 
    cgraphic := clean( leaimage( "REPORT","IMAGE","" ) )
    IF Len(cgraphic) == 0
@@ -750,8 +750,8 @@ FUNCTION extreport( cfilerep )
       cgrpby := NIL
    ENDIF
    chdrgrp := clean( leadato( "REPORT","HEADRGRP","" ) )
-   llandscape := leadatologic( "REPORT", "LANDSCAPE", .F. )
-   lnodatetimestamp := leadatologic( "REPORT", "NODATETIMESTAMP", .F. )
+   llandscape := leadatologic("REPORT", "LANDSCAPE", .F.)
+   lnodatetimestamp := leadatologic("REPORT", "NODATETIMESTAMP", .F.)
    cfont := leadato( "REPORT", "FONTNAME", NIL )
 
    easyreport( ctitle, aheaders1, aheaders2, afields, awidths, atotals, nlpp, ldos, lpreview, cgraphic, nfi, nci, nff, ncf, lmul, cgrpby, chdrgrp, llandscape, ncpl, lselect, calias, nllmargin, aformats, npapersize, ntoprow, lnodatetimestamp , cfont )
@@ -848,7 +848,7 @@ STATIC FUNCTION leadatoh( cName, cPropmet, cDefault, npar )
 
 RETURN cDefault
 
-STATIC FUNCTION leadatologic( cName, cPropmet, cDefault )
+STATIC FUNCTION leadatologic(cName, cPropmet, cDefault)
 
    LOCAL i
    LOCAL sw := 0
@@ -984,7 +984,7 @@ STATIC PROCEDURE imp_SUBTOTALES ( nlin, ncol, lmode, swt, grpby )
 
 RETURN
 
-STATIC PROCEDURE imp_pagina( nlin, lmode, grpby, chdrgrp )
+STATIC PROCEDURE imp_pagina(nlin, lmode, grpby, chdrgrp)
 
    IF nlin > nlpp
       nlin := ntoprow

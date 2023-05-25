@@ -63,7 +63,7 @@ FUNCTION WindowsVersion()
          aRetVal [2] := GetRegistryValue( HKEY_LOCAL_MACHINE, cKey, "ReleaseId" )
       ENDIF
       aRetVal [3] := GetRegistryValue( HKEY_LOCAL_MACHINE, cKey, "CurrentBuild" ) + "." + ;
-         hb_ntos( GetRegistryValue( HKEY_LOCAL_MACHINE, cKey, "UBR", "N" ) )
+         hb_ntos(GetRegistryValue( HKEY_LOCAL_MACHINE, cKey, "UBR", "N" ))
       aRetVal [4] := ""
    ELSE
       aRetVal := WinVersion()

@@ -145,7 +145,7 @@ CLASS TIniData INHERIT THmgData
   VAR hHash                     INIT { => }
   VAR hKeys                     INIT { => }
   VAR hLens                     INIT { => }
-  VAR cBOM          AS STRING   INIT hb_utf8Chr( 0xFEFF )
+  VAR cBOM          AS STRING   INIT hb_utf8Chr(0xFEFF)
   VAR cIni          AS STRING   INIT ""
   VAR lIni          AS LOGICAL  INIT .F.
   VAR lUtf          AS LOGICAL  INIT .F.
@@ -365,7 +365,7 @@ METHOD Write( cFile, lUtf8 ) CLASS TIniData
    LOCAL xVal
    LOCAL cStr
    LOCAL lBlk
-   LOCAL cIni := "_" + DtoS( Date() ) + "_" + StrTran(hb_ntos( Seconds() ), ".", "") + "_" + ".ini"
+   LOCAL cIni := "_" + DtoS( Date() ) + "_" + StrTran(hb_ntos(Seconds()), ".", "") + "_" + ".ini"
    LOCAL cBegin := ""
    LOCAL cEnd := ""
 
@@ -618,7 +618,7 @@ CLASS TDlu2Pix
   _METHOD UnitsToPixels( nPrcW, nPrcH )
    METHOD DLU2PixH( nHeight, nPrc ) INLINE Round( ( UnitsToPixelsY( nHeight ) * 13 * nPrc ) / 1500, 0 )
    METHOD DLU2PixW( nWidth, nPrc ) INLINE Round( ( UnitsToPixelsX( nWidth ) * 13 * nPrc ) / 1500, 0 )
-  _METHOD Kfc( nKfcW, nKfcH )
+  _METHOD Kfc(nKfcW, nKfcH)
   _METHOD ToVal(nKfc, nVal)
   _METHOD GetGaps( aGaps, oWnd )
    METHOD TextWidth(cText, nSize, cFont, lBold, cChar)
@@ -667,7 +667,7 @@ CLASS TDlu2Pix
    ACCESS R      INLINE ::nR
    ASSIGN R( n ) INLINE ::nR := n
    ACCESS B      INLINE ::nB
-   ASSIGN B( n ) INLINE ::nB := n
+   ASSIGN B(n) INLINE ::nB := n
 
    ACCESS W1     INLINE ::W ( 1 )
    ACCESS W2     INLINE ::W ( 2 )
@@ -726,7 +726,7 @@ METHOD UnitsToPixels( nPrcW, nPrcH ) CLASS TDlu2Pix
 
 RETURN NIL
 
-METHOD Kfc( nKfcW, nKfcH ) CLASS TDlu2Pix
+METHOD Kfc(nKfcW, nKfcH) CLASS TDlu2Pix
 
    If !Empty(nKfcW)
       ::nPixWidth += Int( ::nPixWidth * nKfcW )
@@ -807,16 +807,16 @@ METHOD GetGaps( aGaps, oWnd ) CLASS TDlu2Pix
       ::nB := aGaps[4]
    EndIf
 
-   If "." $ hb_ntos( ::nL ); ::nL := oApp:GW( ::nL )
+   If "." $ hb_ntos(::nL); ::nL := oApp:GW( ::nL )
    EndIf
 
-   If "." $ hb_ntos( ::nT); ::nT := oApp:GH( ::nT )
+   If "." $ hb_ntos(::nT); ::nT := oApp:GH( ::nT )
    EndIf
 
-   If "." $ hb_ntos( ::nR ); ::nR := oApp:GW( ::nR )
+   If "." $ hb_ntos(::nR); ::nR := oApp:GW( ::nR )
    EndIf
 
-   If "." $ hb_ntos( ::nB ); ::nB := oApp:GH( ::nB )
+   If "." $ hb_ntos(::nB); ::nB := oApp:GH( ::nB )
    EndIf
 
 RETURN ( ::LTRB )
@@ -906,8 +906,8 @@ CLASS TWndData
    METHOD Def( nIndex, cName, nHandle, nParent, cType, cVar ) INLINE ( ;
       ::nIndex := nIndex, ::cName := cName, ::nHandle := nHandle, ;
       ::nParent := nParent, ::cType := cType, ::cVar := cVar, ;
-      ::oCargo := oKeyData(), ::oOnEventBlock := oKeyData( Self, .T. ), ;
-      ::oEvent := oKeyData( Self ), ::oUserKeys := oKeyData(), ;
+      ::oCargo := oKeyData(), ::oOnEventBlock := oKeyData(Self, .T.), ;
+      ::oEvent := oKeyData(Self), ::oUserKeys := oKeyData(), ;
       ::oName := oKeyData(), ::oHand := oKeyData(), ;
       ::oProp := oKeyData(), ::oParam := oKeyData(), ;
       hmg_SetWindowObject( ::nHandle, Self ), ;
@@ -942,7 +942,7 @@ CLASS TWndData
    ACCESS R          INLINE ::oApp:nR
    ASSIGN R( n )     INLINE ::oApp:nR := n
    ACCESS B          INLINE ::oApp:nB
-   ASSIGN B( n )     INLINE ::oApp:nB := n
+   ASSIGN B(n)     INLINE ::oApp:nB := n
 
    ACCESS AO         INLINE ::oApp:oCargo
    ACCESS AP         INLINE ::oApp:oProp
@@ -1016,7 +1016,7 @@ CLASS TWndData
    ACCESS IsWindow INLINE .T.
    ACCESS IsControl INLINE .F.
    ACCESS Chr INLINE ::cChr
-   ASSIGN Chr( cChr ) INLINE ::cChr := iif(hb_IsChar(cChr), cChr, ::cChr)
+   ASSIGN Chr(cChr) INLINE ::cChr := iif(hb_IsChar(cChr), cChr, ::cChr)
 
    ACCESS Action INLINE ::lAction
    ASSIGN Action( lAction ) INLINE ::lAction := !( Empty(lAction) )
@@ -1768,7 +1768,7 @@ RETURN NIL
 
 #endif
 *-----------------------------------------------------------------------------*
-FUNCTION oWndData( nIndex, cName, nHandle, nParent, cType, cVar )
+FUNCTION oWndData(nIndex, cName, nHandle, nParent, cType, cVar)
 *-----------------------------------------------------------------------------*
    
    LOCAL o
@@ -1789,7 +1789,7 @@ FUNCTION oWndData( nIndex, cName, nHandle, nParent, cType, cVar )
 RETURN o
 
 *-----------------------------------------------------------------------------*
-FUNCTION oCnlData( nIndex, cName, nHandle, nParent, cType, cVar, oWin )
+FUNCTION oCnlData(nIndex, cName, nHandle, nParent, cType, cVar, oWin)
 *-----------------------------------------------------------------------------*
    
    LOCAL o
@@ -1826,7 +1826,7 @@ FUNCTION oCnlData( nIndex, cName, nHandle, nParent, cType, cVar, oWin )
 RETURN o
 
 *-----------------------------------------------------------------------------*
-FUNCTION oKeyData( Obj, Event )
+FUNCTION oKeyData(Obj, Event)
 *-----------------------------------------------------------------------------*
    
    LOCAL o

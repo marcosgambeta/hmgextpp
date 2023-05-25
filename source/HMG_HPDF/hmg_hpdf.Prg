@@ -883,7 +883,7 @@ FUNCTION _HMG_HPDF_ELLIPSE( nRow, nCol, nHR, nVR, nLineWidth, nRColor, nGColor, 
 
 RETURN NIL
 
-FUNCTION _HMG_HPDF_ARC( nRow, nCol, nR, nFromAngle, nToAngle, nLineWidth, nRColor, nGColor, nBColor, lWidth, lColor )
+FUNCTION _HMG_HPDF_ARC(nRow, nCol, nR, nFromAngle, nToAngle, nLineWidth, nRColor, nGColor, nBColor, lWidth, lColor)
 
    LOCAL nHeight := _HMG_HPDFDATA[1][5]
    LOCAL nxPos := _HMG_HPDF_MM2Pixel( nCol )
@@ -913,7 +913,7 @@ FUNCTION _HMG_HPDF_ARC( nRow, nCol, nR, nFromAngle, nToAngle, nLineWidth, nRColo
    ELSE
       HPDF_Page_SetLineWidth(_HMG_HPDFDATA[1][7], 1)
    ENDIF
-   HPDF_Page_Arc( _HMG_HPDFDATA[1][7], nxPos, nyPos, _HMG_HPDF_MM2Pixel( nR ), nFromAngle, nToAngle )
+   HPDF_Page_Arc(_HMG_HPDFDATA[1][7], nxPos, nyPos, _HMG_HPDF_MM2Pixel( nR ), nFromAngle, nToAngle)
    HPDF_Page_Stroke( _HMG_HPDFDATA[1][7] )
 
 RETURN NIL
@@ -1454,7 +1454,7 @@ FUNCTION _HMG_HPDF_GetInfo( cAttrib )
       bd := Set( _SET_DATEFORMAT )
       bc := __SetCentury( .T. )
       SET DATE GERMAN
-      cRetValue := DToC( SToD( SubStr(cRetValue, 3, 8) ) ) + " " + SubStr(cRetValue, 11, 2) + ":" + SubStr(cRetValue, 13, 2) + ":" + SubStr(cRetValue, 15, 2)
+      cRetValue := DToC(SToD(SubStr(cRetValue, 3, 8))) + " " + SubStr(cRetValue, 11, 2) + ":" + SubStr(cRetValue, 13, 2) + ":" + SubStr(cRetValue, 15, 2)
       __SetCentury( bc )
       Set( _SET_DATEFORMAT, bd )
    ENDIF

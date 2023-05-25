@@ -229,13 +229,13 @@ _hmg_printer_timestamp := strzero( Seconds() * 100 , 8 )
 #xcommand START PRINTDOC [ NAME <name> ] ;
 => ;
 _hmg_printer_JobName := _hmg_printer_setjobname( <name> ) ;;
-iif ( _hmg_printer_preview , ( _hmg_printer_PageCount := 0 , _hmg_printer_hdc_bak := _hmg_printer_hdc ) , _hmg_printer_JobId := _HMG_PRINTER_StartDoc ( _hmg_printer_hdc , _hmg_printer_JobName ) ) ;;
+iif ( _hmg_printer_preview , ( _hmg_printer_PageCount := 0 , _hmg_printer_hdc_bak := _hmg_printer_hdc ) , _hmg_printer_JobId := _HMG_PRINTER_StartDoc(_hmg_printer_hdc, _hmg_printer_JobName) ) ;;
 _hmg_printer_Jobdata := ""
 
 #xcommand START PRINTDOC [ NAME <name> ] STOREJOBDATA <aJobData> ;
 => ;
 _hmg_printer_JobName := _hmg_printer_setjobname( <name> ) ;;
-iif ( _hmg_printer_preview , ( _hmg_printer_PageCount := 0 , _hmg_printer_hdc_bak := _hmg_printer_hdc ) , _hmg_printer_JobId := _HMG_PRINTER_StartDoc ( _hmg_printer_hdc , _hmg_printer_JobName ) ) ;;
+iif ( _hmg_printer_preview , ( _hmg_printer_PageCount := 0 , _hmg_printer_hdc_bak := _hmg_printer_hdc ) , _hmg_printer_JobId := _HMG_PRINTER_StartDoc(_hmg_printer_hdc, _hmg_printer_JobName) ) ;;
 _hmg_printer_Jobdata := <"aJobData"> ;;
 <aJobData> := OpenPrinterGetJobData()
 
@@ -249,11 +249,11 @@ iif ( _hmg_printer_preview , _HMG_PRINTER_ENDPAGE_PREVIEW (_hmg_printer_hdc) , _
 
 #xcommand END PRINTDOC ;
 => ;
-iif ( _hmg_printer_preview , _HMG_PRINTER_SHOWPREVIEW() , _HMG_PRINTER_EndDoc ( _hmg_printer_hdc ) )
+iif ( _hmg_printer_preview , _HMG_PRINTER_SHOWPREVIEW() , _HMG_PRINTER_EndDoc(_hmg_printer_hdc) )
 
 #xcommand ABORT PRINTDOC ;
 => ;
-_HMG_PRINTER_ABORTDOC ( _hmg_printer_hdc )
+_HMG_PRINTER_ABORTDOC(_hmg_printer_hdc)
 
 #xtranslate @ <Row> , <Col> PRINT [ DATA ] <cText> ;
         [ <lfont : FONT> <cFontName> ] ;

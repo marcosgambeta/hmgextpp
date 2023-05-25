@@ -55,7 +55,7 @@ FUNCTION httpconnect( Connection, Server, Port )
       Server := "http://" + Server
    ENDIF
 
-   oUrl := TUrl():New( Server + ":" + hb_ntos( Port ) )
+   oUrl := TUrl():New( Server + ":" + hb_ntos(Port) )
 
    IF hb_IsString( Connection )
 
@@ -110,7 +110,7 @@ FUNCTION httpgeturl( Connection, cPage, uRet )
    IF !Empty(Connection:oUrl:cServer)
       cUrl += Connection:oUrl:cServer
       IF Connection:oUrl:nPort > 0
-         cUrl += ":" + hb_ntos( Connection:oUrl:nPort )
+         cUrl += ":" + hb_ntos(Connection:oUrl:nPort)
       ENDIF
    ENDIF
 

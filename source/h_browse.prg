@@ -490,17 +490,17 @@ STATIC PROCEDURE HMG_OrdCreate( i )
    ordSetFocus( 0 )
    GO TOP
 
-   RestoreWorkArea( _Alias )
+   RestoreWorkArea(_Alias)
 
 RETURN
 
 *-----------------------------------------------------------------------------*
-STATIC PROCEDURE RestoreWorkArea( _Alias )
+STATIC PROCEDURE RestoreWorkArea(_Alias)
 *-----------------------------------------------------------------------------*
    IF Select( _Alias ) != 0
-      dbSelectArea( _Alias )
+      dbSelectArea(_Alias)
    ELSE
-      dbSelectArea( 0 )
+      dbSelectArea(0)
    ENDIF
 
 RETURN
@@ -553,7 +553,7 @@ PROCEDURE HMG_SetOrder( nColumn, lDescend )
 
       GO nRecord
 
-      RestoreWorkArea( _Alias )
+      RestoreWorkArea(_Alias)
 
       _BrowseRefresh( "", "", i )
 
@@ -907,7 +907,7 @@ PROCEDURE _BrowseNext ( ControlName , ParentForm , z )
       ListView_SetCursel ( _BrowseHandle , Len(_HMG_aControlRangeMax[i]) )
 
       GO _RecNo
-      RestoreWorkArea( _Alias )
+      RestoreWorkArea(_Alias)
 
    ELSE
 
@@ -958,7 +958,7 @@ PROCEDURE _BrowsePrior ( ControlName , ParentForm , z )
       ListView_Scroll( _BrowseHandle , _DeltaScroll[2] * ( -1 ) , 0 )
 
       GO _RecNo
-      RestoreWorkArea( _Alias )
+      RestoreWorkArea(_Alias)
 
    ELSE
 
@@ -1006,7 +1006,7 @@ PROCEDURE _BrowseHome(ControlName, ParentForm, z)
    ListView_Scroll( _BrowseHandle , _DeltaScroll[2] * ( -1 ) , 0 )
 
    GO _RecNo
-   RestoreWorkArea( _Alias )
+   RestoreWorkArea(_Alias)
 
    ListView_SetCursel ( _BrowseHandle , 1 )
 
@@ -1051,7 +1051,7 @@ PROCEDURE _BrowseEnd(ControlName, ParentForm, z)
    ListView_Scroll( _BrowseHandle , _DeltaScroll[2] * ( -1 ) , 0 )
 
    GO _RecNo
-   RestoreWorkArea( _Alias )
+   RestoreWorkArea(_Alias)
 
    ListView_SetCursel ( _BrowseHandle , AScan(_HMG_aControlRangeMax[i] , _BottomRec) )
 
@@ -1102,7 +1102,7 @@ PROCEDURE _BrowseUp ( ControlName , ParentForm , z )
       ENDIF
 
       GO _RecNo
-      RestoreWorkArea( _Alias )
+      RestoreWorkArea(_Alias)
 
       ListView_SetCursel ( _BrowseHandle , 1 )
 
@@ -1173,7 +1173,7 @@ PROCEDURE _BrowseDown ( ControlName , ParentForm , z )
       ListView_Scroll( _BrowseHandle , _DeltaScroll[2] * ( -1 ) , 0 )
 
       GO _RecNo
-      RestoreWorkArea( _Alias )
+      RestoreWorkArea(_Alias)
 
       ListView_SetCursel ( _BrowseHandle , Len(_HMG_aControlRangeMax[i]) )
 
@@ -1258,7 +1258,7 @@ PROCEDURE _BrowseRefresh ( ControlName , ParentForm , z )
       ListViewReset ( _BrowseHandle )
 
       GO _RecNo
-      RestoreWorkArea( _Alias )
+      RestoreWorkArea(_Alias)
 
       RETURN
 
@@ -1276,7 +1276,7 @@ PROCEDURE _BrowseRefresh ( ControlName , ParentForm , z )
    ListView_SetCursel ( _BrowseHandle , AScan(_HMG_aControlRangeMax[i] , v) )
 
    GO _RecNo
-   RestoreWorkArea( _Alias )
+   RestoreWorkArea(_Alias)
 
 RETURN
 
@@ -1340,7 +1340,7 @@ PROCEDURE _BrowseSetValue(ControlName, ParentForm, Value, z, mp)
 
    IF (!Empty(dbFilter()) .AND. !Eval(hb_macroBlock(dbFilter())))
       GO _RecNo
-      RestoreWorkArea( _Alias )
+      RestoreWorkArea(_Alias)
 
       RETURN
 
@@ -1349,7 +1349,7 @@ PROCEDURE _BrowseSetValue(ControlName, ParentForm, Value, z, mp)
    IF EOF()
 
       GO _RecNo
-      RestoreWorkArea( _Alias )
+      RestoreWorkArea(_Alias)
 
       RETURN
 
@@ -1366,7 +1366,7 @@ PROCEDURE _BrowseSetValue(ControlName, ParentForm, Value, z, mp)
    _HMG_aControlValue[i] := Value
    _BrowseUpdate( "" , "" , i )
    GO _RecNo
-   RestoreWorkArea( _Alias )
+   RestoreWorkArea(_Alias)
 
    ListView_Scroll( _BrowseHandle , _DeltaScroll[2] * ( -1 ) , 0 )
    ListView_SetCursel ( _BrowseHandle , AScan(_HMG_aControlRangeMax[i] , Value) )
@@ -1479,7 +1479,7 @@ FUNCTION _BrowseDelete(ControlName, ParentForm, z)
    ENDIF
 
    GO _RecNo
-   RestoreWorkArea( _Alias )
+   RestoreWorkArea(_Alias)
 
 RETURN Nil
 
@@ -1697,7 +1697,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
       IF !NetRecLock()
          MsgAlert ( _HMG_BRWLangError[9], _HMG_BRWLangError[10] )
          GO BackRec
-         RestoreWorkArea( BackArea )
+         RestoreWorkArea(BackArea)
          RETURN Nil
       ENDIF
    ENDIF
@@ -1738,7 +1738,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
    ENDIF
 
    GO BackRec
-   RestoreWorkArea( BackArea )
+   RestoreWorkArea(BackArea)
 
    _SetFocus( ControlName , FormName )
 
@@ -1823,8 +1823,8 @@ FUNCTION _EditRecord(Title, aLabels, aValues, aFormats, row, col, aValid, TmpNam
 
       FOR i := 1 TO l
 
-         LN := "Label_" + hb_ntos( i )
-         CN := "Control_" + hb_ntos( i )
+         LN := "Label_" + hb_ntos(i)
+         CN := "Control_" + hb_ntos(i)
 
          @ ControlRow , 10 LABEL &LN OF _Split_1 VALUE aLabels[i] WIDTH 90
 
@@ -2027,7 +2027,7 @@ STATIC FUNCTION _EditRecordOk ( aValid , TmpNames , aValidMessages )
 
                ENDIF
 
-               _SetFocus ( "Control_" + hb_ntos( i ) , "_Split_1" )
+               _SetFocus ( "Control_" + hb_ntos(i) , "_Split_1" )
 
                RETURN Nil
 
@@ -2198,7 +2198,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
          // Restore Original Record Pointer
          GO BackRec
          // Restore Original WorkArea
-         RestoreWorkArea( BackArea )
+         RestoreWorkArea(BackArea)
          RETURN Nil
       ENDIF
 
@@ -2219,7 +2219,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
                // Restore Original Record Pointer
                GO BackRec
                // Restore Original WorkArea
-               RestoreWorkArea( BackArea )
+               RestoreWorkArea(BackArea)
                _HMG_IPE_CANCELLED := .F.
                RETURN Nil
             ENDIF
@@ -2282,7 +2282,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
 
    IF ControlType == "M"
 
-      r := InputBox ( "" , _HMG_aControlCaption[i][CellColIndex] , StrTran(CellData, Chr( 141 ), " ") , , , .T. )
+      r := InputBox ( "" , _HMG_aControlCaption[i][CellColIndex] , StrTran(CellData, Chr(141), " ") , , , .T. )
 
       IF _HMG_DialogCancelled == .F.
          Replace &FieldName WITH r
@@ -2451,7 +2451,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
    // Restore Original Record Pointer
    GO BackRec
    // Restore Original WorkArea
-   RestoreWorkArea( BackArea )
+   RestoreWorkArea(BackArea)
 
 RETURN Nil
 
@@ -2724,7 +2724,7 @@ STATIC PROCEDURE _BrowseSync(i)
       GO _CurrentValue
    ENDIF
 
-   RestoreWorkArea( _Alias )
+   RestoreWorkArea(_Alias)
 
 RETURN
 
@@ -2776,7 +2776,7 @@ STATIC PROCEDURE _BrowseInPlaceAppend(ControlName, ParentForm, z)
    NetAppend()
 
    GO _RecNo
-   RestoreWorkArea( _Alias )
+   RestoreWorkArea(_Alias)
 
    IF !NetError()
       aTemp := Array(Len(_HMG_aControlRangeMin[i]))
