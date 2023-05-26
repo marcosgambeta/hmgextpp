@@ -406,7 +406,7 @@ HB_FUNC( SENDMESSAGE )
 
 HB_FUNC( SENDMESSAGESTRING )
 {
-   HB_RETNL( ( LONG_PTR ) SendMessage(hmg_par_HWND(1), hmg_par_UINT(2), hb_parnl(3), ( LPARAM ) ( LPSTR ) hb_parc(4)) );
+   HB_RETNL( ( LONG_PTR ) SendMessage(hmg_par_HWND(1), hmg_par_UINT(2), hb_parnl(3), reinterpret_cast<LPARAM>(hb_parc(4))) );
 }
 
 HB_FUNC( GETNOTIFYCODE )
@@ -735,7 +735,7 @@ HB_FUNC( ENUMWINDOWS )
 {
    PHB_ITEM pArray = hb_itemArrayNew(0);
 
-   EnumWindows(( WNDENUMPROC ) EnumWindowsProc, ( LPARAM ) pArray);
+   EnumWindows(( WNDENUMPROC ) EnumWindowsProc, reinterpret_cast<LPARAM>(pArray));
 
    hb_itemReturnRelease(pArray);
 }
@@ -762,7 +762,7 @@ HB_FUNC( C_ENUMCHILDWINDOWS )
 
    if( IsWindow(hWnd) && pCodeBlock )
    {
-      hb_retl(EnumChildWindows(hWnd, EnumChildProc, ( LPARAM ) pCodeBlock) ? HB_TRUE : HB_FALSE);
+      hb_retl(EnumChildWindows(hWnd, EnumChildProc, reinterpret_cast<LPARAM>(pCodeBlock)) ? HB_TRUE : HB_FALSE);
    }
 }
 
@@ -853,7 +853,7 @@ HB_FUNC( ADDSPLITBOXITEM )
       }
    }
 
-   SendMessage(hmg_par_HWND(2), RB_INSERTBAND, -1, ( LPARAM ) &rbBand);
+   SendMessage(hmg_par_HWND(2), RB_INSERTBAND, -1, reinterpret_cast<LPARAM>(&rbBand));
 
 #ifdef UNICODE
    hb_xfree(lpText);

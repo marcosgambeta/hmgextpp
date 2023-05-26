@@ -65,7 +65,7 @@ HB_FUNC( INITMESSAGEBAR )
 
    if( hWndSB )
    {
-      SendMessage(hWndSB, SB_SETPARTS, nrOfParts, ( LPARAM ) ( LPINT ) ptArray);
+      SendMessage(hWndSB, SB_SETPARTS, nrOfParts, reinterpret_cast<LPARAM>(ptArray));
    }
 
    hmg_ret_HWND(hWndSB);
@@ -109,7 +109,7 @@ HB_FUNC( INITITEMBAR )
    if( hb_parnl(5) )
    {
       nrOfParts = SendMessage(hWndSB, SB_GETPARTS, 40, 0);
-      SendMessage(hWndSB, SB_GETPARTS, 40, ( LPARAM ) ( LPINT ) ptArray);
+      SendMessage(hWndSB, SB_GETPARTS, 40, reinterpret_cast<LPARAM>(ptArray));
    }
 
    nrOfParts++;
@@ -145,7 +145,7 @@ HB_FUNC( INITITEMBAR )
 
    ReleaseDC(hWndSB, hDC);
 
-   SendMessage(hWndSB, SB_SETPARTS, nrOfParts, ( LPARAM ) ( LPINT ) ptArray);
+   SendMessage(hWndSB, SB_SETPARTS, nrOfParts, reinterpret_cast<LPARAM>(ptArray));
 
    cy = rect.bottom - rect.top - 4;
    cx = cy;
@@ -159,11 +159,11 @@ HB_FUNC( INITITEMBAR )
 
    if( !( hIcon == nullptr ) )
    {
-      SendMessage(hWndSB, SB_SETICON, nrOfParts - 1, ( LPARAM ) hIcon);
+      SendMessage(hWndSB, SB_SETICON, nrOfParts - 1, reinterpret_cast<LPARAM>(hIcon));
    }
 
-   SendMessage(hWndSB, SB_SETTEXT, ( nrOfParts - 1 ) | displayFlags, ( LPARAM ) lpText);
-   SendMessage(hWndSB, SB_SETTIPTEXT, nrOfParts - 1, ( LPARAM ) lpTipText);
+   SendMessage(hWndSB, SB_SETTEXT, ( nrOfParts - 1 ) | displayFlags, reinterpret_cast<LPARAM>(lpText));
+   SendMessage(hWndSB, SB_SETTIPTEXT, nrOfParts - 1, reinterpret_cast<LPARAM>(lpTipText));
 
    hb_retni( nrOfParts );
 
@@ -187,7 +187,7 @@ HB_FUNC( SETITEMBAR )
 #endif
 
    nFlags = HIWORD(SendMessage(hWnd, SB_GETTEXTLENGTH, iPos, 0));
-   SendMessage(hWnd, SB_SETTEXT, iPos | nFlags, ( LPARAM ) lpText);
+   SendMessage(hWnd, SB_SETTEXT, iPos | nFlags, reinterpret_cast<LPARAM>(lpText));
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpText);
@@ -204,7 +204,7 @@ HB_FUNC( GETITEMBAR )
    TCHAR * cString;
 
    cString = ( TCHAR * ) hb_xgrab((LOWORD(SendMessage(hWnd, SB_GETTEXTLENGTH, iPos - 1, 0)) + 1) * sizeof(TCHAR));
-   SendMessage(hWnd, SB_GETTEXT, iPos - 1, ( LPARAM ) cString);
+   SendMessage(hWnd, SB_GETTEXT, iPos - 1, reinterpret_cast<LPARAM>(cString));
 
 #ifndef UNICODE
    hb_retc( cString );
@@ -230,7 +230,7 @@ HB_FUNC( REFRESHITEMBAR )
    hWndSB    = hmg_par_HWND(1);
    size      = hb_parni(2);
    nrOfParts = SendMessage(hWndSB, SB_GETPARTS, 40, 0);
-   SendMessage(hWndSB, SB_GETPARTS, 40, ( LPARAM ) ( LPINT ) ptArray);
+   SendMessage(hWndSB, SB_GETPARTS, 40, reinterpret_cast<LPARAM>(ptArray));
 
    hDC = GetDC(hWndSB);
    GetClientRect(hWndSB, &rect);
@@ -276,7 +276,7 @@ HB_FUNC( REFRESHITEMBAR )
 
    ReleaseDC(hWndSB, hDC);
 
-   SendMessage(hWndSB, SB_SETPARTS, nrOfParts, ( LPARAM ) ( LPINT ) ptArray);
+   SendMessage(hWndSB, SB_SETPARTS, nrOfParts, reinterpret_cast<LPARAM>(ptArray));
    hb_retni( nrOfParts );
 }
 
@@ -339,7 +339,7 @@ HB_FUNC( SETSTATUSITEMICON )
       hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, cx, cy, LR_LOADFROMFILE));
    }
 
-   SendMessage(hwnd, SB_SETICON, hmg_par_WPARAM(2) - 1, ( LPARAM ) hIcon);
+   SendMessage(hwnd, SB_SETICON, hmg_par_WPARAM(2) - 1, reinterpret_cast<LPARAM>(hIcon));
 
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) lpIconName);
@@ -368,7 +368,7 @@ HB_FUNC( SETSTATUSBARSIZE )
       lpParts[i] = nWidth;
    }
 
-   SendMessage(hwndStatus, SB_SETPARTS, nParts, ( LPARAM ) lpParts);
+   SendMessage(hwndStatus, SB_SETPARTS, nParts, reinterpret_cast<LPARAM>(lpParts));
 
    MoveWindow(hwndStatus, 0, 0, 0, 0, TRUE);
 
@@ -381,7 +381,7 @@ HB_FUNC( REFRESHPROGRESSITEM )       // RefreshProgressItem(HwndStatus, NrItem, 
    HWND hwndStatus = hmg_par_HWND(1);
    RECT rc;
 
-   SendMessage(hwndStatus, SB_GETRECT, hmg_par_WPARAM(2) - 1, ( LPARAM ) &rc);
+   SendMessage(hwndStatus, SB_GETRECT, hmg_par_WPARAM(2) - 1, reinterpret_cast<LPARAM>(&rc));
    SetWindowPos(hmg_par_HWND(3), 0, rc.left, rc.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
 }
 
@@ -392,7 +392,7 @@ HB_FUNC( CREATEPROGRESSBARITEM )     // CreateProgressBarItem(HwndStatus, NrItem
    RECT rc;
    int  style = WS_CHILD | PBS_SMOOTH;
 
-   SendMessage(hwndStatus, SB_GETRECT, hmg_par_WPARAM(2) - 1, ( LPARAM ) &rc);
+   SendMessage(hwndStatus, SB_GETRECT, hmg_par_WPARAM(2) - 1, reinterpret_cast<LPARAM>(&rc));
    if( hb_parni(3) )
    {
       style |= WS_VISIBLE;

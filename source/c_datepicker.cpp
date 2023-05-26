@@ -243,7 +243,7 @@ HB_FUNC( SETDATEPICK )
    sysTime.wSecond       = 0;
    sysTime.wMilliseconds = 0;
 
-   hb_retl(SendMessage(hmg_par_HWND(1), DTM_SETSYSTEMTIME, GDT_VALID, ( LPARAM ) &sysTime) == GDT_VALID ? true : false);
+   hb_retl(SendMessage(hmg_par_HWND(1), DTM_SETSYSTEMTIME, GDT_VALID, reinterpret_cast<LPARAM>(&sysTime)) == GDT_VALID ? true : false);
 }
 
 /*
@@ -262,7 +262,7 @@ HB_FUNC( SETTIMEPICK )
    sysTime.wSecond       = hmg_par_WORD(4);
    sysTime.wMilliseconds = 0;
 
-   hb_retl(SendMessage(hmg_par_HWND(1), DTM_SETSYSTEMTIME, GDT_VALID, ( LPARAM ) &sysTime) == GDT_VALID ? true : false);
+   hb_retl(SendMessage(hmg_par_HWND(1), DTM_SETSYSTEMTIME, GDT_VALID, reinterpret_cast<LPARAM>(&sysTime)) == GDT_VALID ? true : false);
 }
 
 /*
@@ -276,7 +276,7 @@ HB_FUNC( GETDATEPICKDATE )
    st.wMonth = 0;
    st.wDay   = 0;
 
-   SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st);
+   SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st));
 
    hb_retd(st.wYear, st.wMonth, st.wDay);
 }
@@ -290,7 +290,7 @@ HB_FUNC( GETDATEPICKYEAR )
 
    st.wYear = 0;
 
-   SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st);
+   SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st));
 
    hb_retni(st.wYear);
 }
@@ -304,7 +304,7 @@ HB_FUNC( GETDATEPICKMONTH )
 
    st.wMonth = 0;
 
-   SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st);
+   SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st));
 
    hb_retni(st.wMonth);
 }
@@ -318,7 +318,7 @@ HB_FUNC( GETDATEPICKDAY )
 
    st.wDay = 0;
 
-   SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st);
+   SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st));
 
    hb_retni(st.wDay);
 }
@@ -332,7 +332,7 @@ HB_FUNC( GETDATEPICKHOUR )
 
    st.wHour = 0;
 
-   hb_retni(SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st) == GDT_VALID ? st.wHour : -1);
+   hb_retni(SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st)) == GDT_VALID ? st.wHour : -1);
 }
 
 /*
@@ -344,7 +344,7 @@ HB_FUNC( GETDATEPICKMINUTE )
 
    st.wMinute = 0;
 
-   hb_retni(SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st) == GDT_VALID ? st.wMinute : -1);
+   hb_retni(SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st)) == GDT_VALID ? st.wMinute : -1);
 }
 
 /*
@@ -356,7 +356,7 @@ HB_FUNC( GETDATEPICKSECOND )
 
    st.wSecond = 0;
 
-   hb_retni(SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st) == GDT_VALID ? st.wSecond : -1);
+   hb_retni(SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st)) == GDT_VALID ? st.wSecond : -1);
 }
 
 /*
@@ -428,7 +428,7 @@ HB_FUNC( DTP_SETDATETIME )
       sysTime.wMilliseconds = 0;
    }
 
-   hb_retl(SendMessage(hmg_par_HWND(1), DTM_SETSYSTEMTIME, GDT_VALID, ( LPARAM ) &sysTime) == GDT_VALID ? true : false);
+   hb_retl(SendMessage(hmg_par_HWND(1), DTM_SETSYSTEMTIME, GDT_VALID, reinterpret_cast<LPARAM>(&sysTime)) == GDT_VALID ? true : false);
 }
 
 /*
@@ -437,7 +437,7 @@ DTP_GETDATETIME(HWND) --> datetime
 HB_FUNC( DTP_GETDATETIME )
 {
    SYSTEMTIME st;
-   SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st);
+   SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st));
    hb_rettd(hb_timeStampPack(st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond, st.wMilliseconds));
 }
 
@@ -487,7 +487,7 @@ HB_FUNC( SETDATEPICKRANGE )
          wLimit |= GDTR_MAX;
       }
 
-      hb_retl(SendMessage(hmg_par_HWND(1), DTM_SETRANGE, wLimit, ( LPARAM ) &sysTime));
+      hb_retl(SendMessage(hmg_par_HWND(1), DTM_SETRANGE, wLimit, reinterpret_cast<LPARAM>(&sysTime)));
    }
 }
 
@@ -497,7 +497,7 @@ SETDATEPICKERDATEFORMAT(HWND, cFormat) --> .T.|.F.
 HB_FUNC( SETDATEPICKERDATEFORMAT )
 {
    void * str;
-   hb_retl(SendMessage(hmg_par_HWND(1), DTM_SETFORMAT, 0, ( LPARAM ) HB_PARSTR(2, &str, nullptr)));
+   hb_retl(SendMessage(hmg_par_HWND(1), DTM_SETFORMAT, 0, reinterpret_cast<LPARAM>(HB_PARSTR(2, &str, nullptr))));
    hb_strfree(str);
 }
 
@@ -505,5 +505,5 @@ HB_FUNC( DTP_ISCHECKED )
 {
    SYSTEMTIME st;
 
-   hb_retl(SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, ( LPARAM ) &st) == GDT_VALID ? true : false);
+   hb_retl(SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st)) == GDT_VALID ? true : false);
 }

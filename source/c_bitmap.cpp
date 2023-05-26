@@ -638,7 +638,7 @@ HB_FUNC( DRAWGLYPHMASK )
    // handle to bitmaped button mask
    if( hwnd != nullptr )
    {
-      SendMessage(hwnd, BM_SETIMAGE, IMAGE_BITMAP, ( LPARAM ) hBmpTransMask);
+      SendMessage(hwnd, BM_SETIMAGE, IMAGE_BITMAP, reinterpret_cast<LPARAM>(hBmpTransMask));
    }
 
    SelectObject(hDCMem, hBmpDefault);

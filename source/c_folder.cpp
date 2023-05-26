@@ -557,13 +557,13 @@ HB_FUNC( CREATEDLGFOLDER )
 
    if( modal )
    {
-      lResult = DialogBoxIndirectParam(GetResources(), ( LPDLGTEMPLATE ) pdlgtemplate, hwnd, ( DLGPROC ) HMG_FldProc, ( LPARAM ) pFhi);
+      lResult = DialogBoxIndirectParam(GetResources(), ( LPDLGTEMPLATE ) pdlgtemplate, hwnd, ( DLGPROC ) HMG_FldProc, reinterpret_cast<LPARAM>(pFhi));
       LocalFree(pdlgtemplate);
       HB_RETNL( ( LONG_PTR ) lResult );
    }
    else
    {
-      hWndDlg = CreateDialogIndirectParam(GetResources(), ( LPDLGTEMPLATE ) pdlgtemplate, hwnd, ( DLGPROC ) HMG_FldProc, ( LPARAM ) pFhi);
+      hWndDlg = CreateDialogIndirectParam(GetResources(), ( LPDLGTEMPLATE ) pdlgtemplate, hwnd, ( DLGPROC ) HMG_FldProc, reinterpret_cast<LPARAM>(pFhi));
       LocalFree(pdlgtemplate);
    }
 
@@ -1293,7 +1293,7 @@ static BOOL FLD_DoCommand(HWND hWndDlg, WORD wID)
             fpi      = ( FLDPAGEINFO * ) hfpi[pFhi->active_page];
             hwndPage = fpi->hwndPage;
 
-            SendMessage(hwndPage, WM_NOTIFY, 0, ( LPARAM ) &fln);
+            SendMessage(hwndPage, WM_NOTIFY, 0, reinterpret_cast<LPARAM>(&fln));
          }
          break;
       }
@@ -1340,7 +1340,7 @@ static BOOL FLD_Apply(HWND hWndDlg, LPARAM lParam)
    fpi      = ( FLDPAGEINFO * ) hfpi[pFhi->active_page];
    hwndPage = fpi->hwndPage;
 
-   if( SendMessage(hwndPage, WM_NOTIFY, 0, ( LPARAM ) &fln) != FALSE )
+   if( SendMessage(hwndPage, WM_NOTIFY, 0, reinterpret_cast<LPARAM>(&fln)) != FALSE )
    {
       return FALSE;
    }
@@ -1356,7 +1356,7 @@ static BOOL FLD_Apply(HWND hWndDlg, LPARAM lParam)
       hwndPage = fpi->hwndPage;
       if( hwndPage )
       {
-         SendMessage(hwndPage, WM_NOTIFY, ( WPARAM ) lParam, ( LPARAM ) &fln);
+         SendMessage(hwndPage, WM_NOTIFY, ( WPARAM ) lParam, reinterpret_cast<LPARAM>(&fln));
       }
    }
 
@@ -1383,7 +1383,7 @@ static BOOL FLD_Apply(HWND hWndDlg, LPARAM lParam)
       fpi      = ( FLDPAGEINFO * ) hfpi[pFhi->active_page];
       hwndPage = fpi->hwndPage;
 
-      SendMessage(hwndPage, WM_NOTIFY, ( WPARAM ) lParam, ( LPARAM ) &fln);
+      SendMessage(hwndPage, WM_NOTIFY, ( WPARAM ) lParam, reinterpret_cast<LPARAM>(&fln));
    }
 
    return TRUE;
@@ -1415,7 +1415,7 @@ static void FLD_Cancel( HWND hWndDlg, LPARAM lParam )
    fln.hdr.idFrom   = 0;
    fln.lParam       = 0;
 
-   if( SendMessage(hwndPage, WM_NOTIFY, ( WPARAM ) lParam, ( LPARAM ) &fln) )
+   if( SendMessage(hwndPage, WM_NOTIFY, ( WPARAM ) lParam, reinterpret_cast<LPARAM>(&fln)) )
    {
       return;
    }
@@ -1431,7 +1431,7 @@ static void FLD_Cancel( HWND hWndDlg, LPARAM lParam )
 
       if( hwndPage )
       {
-         SendMessage(hwndPage, WM_NOTIFY, ( WPARAM ) lParam, ( LPARAM ) &fln);
+         SendMessage(hwndPage, WM_NOTIFY, ( WPARAM ) lParam, reinterpret_cast<LPARAM>(&fln));
       }
    }
 
@@ -1449,7 +1449,7 @@ static void FLD_Cancel( HWND hWndDlg, LPARAM lParam )
    hwndPage = fpi->hwndPage;
    if( hwndPage )
    {
-      SendMessage(hwndPage, WM_NOTIFY, ( WPARAM ) lParam, ( LPARAM ) &fln);
+      SendMessage(hwndPage, WM_NOTIFY, ( WPARAM ) lParam, reinterpret_cast<LPARAM>(&fln));
    }
 }
 
@@ -1478,7 +1478,7 @@ static void FLD_Help(HWND hWndDlg)
    fln.hdr.idFrom   = 0;
    fln.lParam       = 0;
 
-   SendMessage(hwndPage, WM_NOTIFY, 0, ( LPARAM ) &fln);
+   SendMessage(hwndPage, WM_NOTIFY, 0, reinterpret_cast<LPARAM>(&fln));
 }
 
 /*-----------------------------------------------------------------
@@ -1509,7 +1509,7 @@ static BOOL FLD_ShowPage(HWND hWndDlg, int index, FLDHDRINFO * pFhi)
          ( DLGTEMPLATE * ) fpi->apRes,
          hWndDlg,
          ( DLGPROC ) HMG_PageFldProc,
-         ( LPARAM ) pFhi
+         reinterpret_cast<LPARAM>(pFhi)
                           );
       fpi->hwndPage = pFhi->hwndDisplay;
    }
@@ -1692,7 +1692,7 @@ static void FLD_AddBitmap(HWND hWndFolder)
                }
             }
 
-            SendMessage(pFhi->hwndTab, TCM_SETIMAGELIST, 0, ( LPARAM ) himl);
+            SendMessage(pFhi->hwndTab, TCM_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(himl));
 
             for( int s = 0; s <= l; s++ )
             {

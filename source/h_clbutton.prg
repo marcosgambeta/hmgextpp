@@ -503,7 +503,7 @@ HB_FUNC( CLBUTTON_SETNOTE )
 
       MultiByteToWideChar( CP_ACP, MB_PRECOMPOSED, szText, -1, lpwText, nConvertedLen );
 
-      SendMessage(hmg_par_HWND(1), BCM_SETNOTE, 0, ( LPARAM ) lpwText);
+      SendMessage(hmg_par_HWND(1), BCM_SETNOTE, 0, reinterpret_cast<LPARAM>(lpwText));
       hb_xfree(lpwText);
    }
 }
@@ -564,7 +564,7 @@ HB_FUNC( CLBUTTON_SETIMAGE )
    bi.margin.right  = 10;
    bi.uAlign        = 4;
 
-   SendMessage(hmg_par_HWND(1), BCM_SETIMAGELIST, 0, ( LPARAM ) &bi);
+   SendMessage(hmg_par_HWND(1), BCM_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(&bi));
 
    hmg_ret_HIMAGELIST(himl);
 }

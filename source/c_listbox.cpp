@@ -129,7 +129,7 @@ HB_FUNC( LISTBOXADDSTRING )
 #else
    LPWSTR lpString = AnsiToWide(( char * ) hb_parc(2));
 #endif
-   SendMessage(hmg_par_HWND(1), LB_ADDSTRING, 0, ( LPARAM ) lpString);
+   SendMessage(hmg_par_HWND(1), LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(lpString));
 #ifdef UNICODE
    hb_xfree(lpString);
 #endif
@@ -142,7 +142,7 @@ HB_FUNC( LISTBOXINSERTSTRING )
 #else
    LPWSTR lpString = AnsiToWide(( char * ) hb_parc(2));
 #endif
-   SendMessage(hmg_par_HWND(1), LB_INSERTSTRING, hmg_par_WPARAM(3) - 1, ( LPARAM ) lpString);
+   SendMessage(hmg_par_HWND(1), LB_INSERTSTRING, hmg_par_WPARAM(3) - 1, reinterpret_cast<LPARAM>(lpString));
 #ifdef UNICODE
    hb_xfree(lpString);
 #endif
@@ -159,7 +159,7 @@ HB_FUNC( LISTBOXGETSTRING )
 
    if( iLen > 0 && ( cString = ( TCHAR * ) hb_xgrab((iLen + 1) * sizeof(TCHAR)) ) != nullptr )
    {
-      SendMessage(hmg_par_HWND(1), LB_GETTEXT, hmg_par_WPARAM(2) - 1, ( LPARAM ) cString);
+      SendMessage(hmg_par_HWND(1), LB_GETTEXT, hmg_par_WPARAM(2) - 1, reinterpret_cast<LPARAM>(cString));
    #ifdef UNICODE
       lpString = WideToAnsi(cString);
       hb_retc( lpString );
@@ -239,7 +239,7 @@ HB_FUNC( LISTBOXGETMULTISEL )
 
    n = SendMessage(hwnd, LB_GETSELCOUNT, 0, 0);
 
-   SendMessage(hwnd, LB_GETSELITEMS, n, ( LPARAM ) buffer);
+   SendMessage(hwnd, LB_GETSELITEMS, n, reinterpret_cast<LPARAM>(buffer));
 
    hb_reta(n);
 
@@ -295,7 +295,7 @@ HB_FUNC( LISTBOXSETMULTITAB )
       nTabStops[i] = MulDiv(hb_arrayGetNI(wArray, i + 1), 4, baseunitX);
    }
 
-   SendMessage(hwnd, LB_SETTABSTOPS, l, ( LPARAM ) &nTabStops);
+   SendMessage(hwnd, LB_SETTABSTOPS, l, reinterpret_cast<LPARAM>(&nTabStops));
 }
 
 HB_FUNC( _GETDDLMESSAGE )

@@ -266,7 +266,7 @@ HB_FUNC( ADDTABBITMAP )
 
       if( himl != nullptr )
       {
-         SendMessage(hbutton, TCM_SETIMAGELIST, 0, ( LPARAM ) himl);
+         SendMessage(hbutton, TCM_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(himl));
       }
 
       for( int i = 0; i < nCount; i++ )

@@ -180,7 +180,7 @@ HB_FUNC( GETMONTHCALVALUE )
 {
    SYSTEMTIME st;
 
-   SendMessage(hmg_par_HWND(1), MCM_GETCURSEL, 0, ( LPARAM ) &st);
+   SendMessage(hmg_par_HWND(1), MCM_GETCURSEL, 0, reinterpret_cast<LPARAM>(&st));
 
    switch( hb_parni(2) )
    {
@@ -196,7 +196,7 @@ GETMONTHCALDATE(HWND) --> data
 HB_FUNC( GETMONTHCALDATE )
 {
    SYSTEMTIME st;
-   SendMessage(hmg_par_HWND(1), MCM_GETCURSEL, 0, ( LPARAM ) &st);
+   SendMessage(hmg_par_HWND(1), MCM_GETCURSEL, 0, reinterpret_cast<LPARAM>(&st));
    long lJulian = hb_dateEncode(st.wYear, st.wMonth, st.wDay);
    hb_retdl(lJulian);
 }
@@ -233,7 +233,7 @@ HB_FUNC( GETMONTHRANGE )
 {
    SYSTEMTIME sysTime[2];
    memset(&sysTime, 0, sizeof(sysTime));
-   int iCount = SendMessage(hmg_par_HWND(1), MCM_GETMONTHRANGE, GMR_DAYSTATE, ( LPARAM ) &sysTime);
+   int iCount = SendMessage(hmg_par_HWND(1), MCM_GETMONTHRANGE, GMR_DAYSTATE, reinterpret_cast<LPARAM>(&sysTime));
 
    hb_reta(3);
    HB_STORNI(iCount, -1, 1);
@@ -267,7 +267,7 @@ HB_FUNC( C_SETDAYSTATE )
       }
    }
 
-   SendMessage(hmg_par_HWND(1), MCM_SETDAYSTATE, iCount, ( LPARAM ) rgMonths);
+   SendMessage(hmg_par_HWND(1), MCM_SETDAYSTATE, iCount, reinterpret_cast<LPARAM>(rgMonths));
    hb_xfree(rgMonths);
 }
 

@@ -188,7 +188,7 @@ HB_FUNC( ENUMFONTSEX )
    lf.lfPitchAndFamily = ( BYTE ) ( HB_ISNUM(4) ? ( hb_parni(4) == DEFAULT_PITCH ? -1 : ( hb_parni(4) | FF_DONTCARE ) ) : -1 );
    /* TODO - nFontType */
 
-   EnumFontFamiliesEx(hdc, &lf, ( FONTENUMPROC ) EnumFontFamExProc, ( LPARAM ) pArray, 0);
+   EnumFontFamiliesEx(hdc, &lf, ( FONTENUMPROC ) EnumFontFamExProc, reinterpret_cast<LPARAM>(pArray), 0);
 
    if( bReleaseDC )
    {

@@ -92,7 +92,7 @@ HB_FUNC( ADDTOPAGER )      // AdToPager (hwndPG , hToolBar)
    HWND hPager = hmg_par_HWND(1);
    HWND hTool  = hmg_par_HWND(2);
 
-   SendMessage(hPager, PGM_SETCHILD, 0, ( LPARAM ) hTool);
+   SendMessage(hPager, PGM_SETCHILD, 0, reinterpret_cast<LPARAM>(hTool));
    SendMessage(hPager, PGM_RECALCSIZE, 0, 0);
 }
 
@@ -192,7 +192,7 @@ HB_FUNC( INITPAGER )       // InitPager ( ParentForm, hRebar, nWidth, nHeight, v
       rbBand.cx         = nWidth;
    }
 
-   SendMessage(hRebar, RB_INSERTBAND, -1, ( LPARAM ) &rbBand);
+   SendMessage(hRebar, RB_INSERTBAND, -1, reinterpret_cast<LPARAM>(&rbBand));
 
    SetWindowLongPtr(hPager, GWLP_USERDATA, ( LONG_PTR ) hRebar);
 

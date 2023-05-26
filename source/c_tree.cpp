@@ -123,7 +123,7 @@ HB_FUNC( INITTREEVIEWBITMAP ) //Tree+
 
       if( himl != nullptr )
       {
-         SendMessage(hbutton, TVM_SETIMAGELIST, TVSIL_NORMAL, ( LPARAM ) himl);
+         SendMessage(hbutton, TVM_SETIMAGELIST, TVSIL_NORMAL, reinterpret_cast<LPARAM>(himl));
       }
 
       ic = ImageList_GetImageCount(himl);
@@ -145,7 +145,7 @@ HB_FUNC( ADDTREEVIEWBITMAP )  // Tree+
    {
       HMG_ImageListAdd(himl, ( char * ) hb_parc(2), Transparent);
 
-      SendMessage(hbutton, TVM_SETIMAGELIST, TVSIL_NORMAL, ( LPARAM ) himl);
+      SendMessage(hbutton, TVM_SETIMAGELIST, TVSIL_NORMAL, reinterpret_cast<LPARAM>(himl));
 
       ic = ImageList_GetImageCount(himl);
    }
@@ -709,7 +709,7 @@ HB_FUNC( TREEVIEW_SORTCHILDRENRECURSIVECB )
 
    TVSortCB.hParent     = ( HTREEITEM ) ItemHandle;
    TVSortCB.lpfnCompare = ( PFNTVCOMPARE ) TreeViewCompareFunc;
-   TVSortCB.lParam      = ( LPARAM ) &TreeViewCompareInfo;
+   TVSortCB.lParam      = reinterpret_cast<LPARAM>(&TreeViewCompareInfo);
 
    if( fRecurse == FALSE )
    {

@@ -340,7 +340,7 @@ HB_FUNC( C_SETPICTURE )
 
       if( hBitmap != nullptr )
       {
-         HBITMAP hOldBitmap = reinterpret_cast<HBITMAP>(SendMessage(hWnd, STM_SETIMAGE, IMAGE_BITMAP, ( LPARAM ) hBitmap));
+         HBITMAP hOldBitmap = reinterpret_cast<HBITMAP>(SendMessage(hWnd, STM_SETIMAGE, IMAGE_BITMAP, reinterpret_cast<LPARAM>(hBitmap)));
          RegisterResource(hBitmap, "BMP");
 
          if( hOldBitmap != nullptr )

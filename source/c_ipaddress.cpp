@@ -116,7 +116,7 @@ HB_FUNC( GETIPADDRESS )
 
    hWnd = hmg_par_HWND(1);
 
-   SendMessage(hWnd, IPM_GETADDRESS, 0, ( LPARAM ) ( LPDWORD ) &pdwAddr);
+   SendMessage(hWnd, IPM_GETADDRESS, 0, reinterpret_cast<LPARAM>(&pdwAddr));
 
    v1 = FIRST_IPADDRESS(pdwAddr);
    v2 = SECOND_IPADDRESS(pdwAddr);

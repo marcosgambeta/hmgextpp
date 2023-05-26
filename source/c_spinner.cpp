@@ -137,7 +137,7 @@ HB_FUNC( INITSPINNER )
       nullptr
              );
 
-   SendMessage(hupdown, UDM_SETBUDDY, ( WPARAM ) hedit, ( LPARAM ) nullptr);
+   SendMessage(hupdown, UDM_SETBUDDY, ( WPARAM ) hedit, reinterpret_cast<LPARAM>(nullptr));
    SendMessage(hupdown, UDM_SETRANGE32, hmg_par_WPARAM(8), hb_parni(9));
 
    // 2006.08.13 JD
@@ -156,7 +156,7 @@ HB_FUNC( SETSPINNERINCREMENT )
    inc.nSec = 0;
    inc.nInc = hb_parni(2);
 
-   SendMessage(hmg_par_HWND(1), UDM_SETACCEL, 1, ( LPARAM ) &inc);
+   SendMessage(hmg_par_HWND(1), UDM_SETACCEL, 1, reinterpret_cast<LPARAM>(&inc));
 }
 
 // 2006.08.13 JD

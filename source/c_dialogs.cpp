@@ -470,7 +470,7 @@ int CALLBACK BrowseCallbackProc(HWND hWnd, UINT uMsg, LPARAM lParam, LPARAM lpDa
          if( lpData )
          {
             SHGetPathFromIDList(( LPITEMIDLIST ) lParam, szPath);
-            SendMessage(hWnd, BFFM_SETSTATUSTEXT, 0, ( LPARAM ) szPath);
+            SendMessage(hWnd, BFFM_SETSTATUSTEXT, 0, reinterpret_cast<LPARAM>(szPath));
          }
    }
 
@@ -512,10 +512,10 @@ HB_FUNC( C_BROWSEFORFOLDER )  // Syntax: C_BROWSEFORFOLDER([<hWnd>],[<cTitle>],[
    BrowseInfo.ulFlags = hb_parni(3) | ( HB_ISCHAR(5) ? BIF_STATUSTEXT | BIF_RETURNONLYFSDIRS : 0 );
    BrowseInfo.lpfn    = BrowseCallbackProc;
 #ifndef UNICODE
-   BrowseInfo.lParam = HB_ISCHAR(5) ? ( LPARAM ) ( char * ) hb_parc(5) : 0;
+   BrowseInfo.lParam = HB_ISCHAR(5) ? reinterpret_cast<LPARAM>(hb_parc(5)) : 0;
 #else
    pW2 = AnsiToWide(hb_parc(5));
-   BrowseInfo.lParam = HB_ISCHAR(5) ? ( LPARAM ) pW2 : 0;
+   BrowseInfo.lParam = HB_ISCHAR(5) ? reinterpret_cast<LPARAM>(pW2) : 0;
 #endif
    BrowseInfo.iImage = 0;
 

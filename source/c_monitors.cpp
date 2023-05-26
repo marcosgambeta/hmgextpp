@@ -77,7 +77,7 @@ HB_FUNC( ENUMDISPLAYMONITORS )
 {
    PHB_ITEM pMonitorEnum = hb_itemArrayNew(0);
 
-   EnumDisplayMonitors(nullptr, nullptr, _MonitorEnumProc0, ( LPARAM ) pMonitorEnum);
+   EnumDisplayMonitors(nullptr, nullptr, _MonitorEnumProc0, reinterpret_cast<LPARAM>(pMonitorEnum));
 
    hb_itemReturnRelease(pMonitorEnum);
 }

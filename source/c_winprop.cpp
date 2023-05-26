@@ -304,7 +304,7 @@ HB_FUNC( ENUMPROPS )
    {
       PHB_ITEM pArray = hb_itemArrayNew(0);
 
-      EnumPropsEx(hWnd, ( PROPENUMPROCEX ) PropsEnumProc, ( LPARAM ) pArray);
+      EnumPropsEx(hWnd, ( PROPENUMPROCEX ) PropsEnumProc, reinterpret_cast<LPARAM>(pArray));
 
       hb_itemReturnRelease(pArray);
    }
@@ -375,7 +375,7 @@ HB_FUNC( ENUMPROPSEX )
 
    if( IsWindow(hWnd) && pCodeBlock )
    {
-      hb_retni( EnumPropsEx(hWnd, ( PROPENUMPROCEX ) PropsEnumProcEx, ( LPARAM ) pCodeBlock) );
+      hb_retni( EnumPropsEx(hWnd, ( PROPENUMPROCEX ) PropsEnumProcEx, reinterpret_cast<LPARAM>(pCodeBlock)) );
    }
    else
    {

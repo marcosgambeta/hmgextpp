@@ -220,7 +220,7 @@ HB_FUNC( STREAMIN )        //StreamIn(HWND hwndCtrl, LPCTSTR lpszPath, int typ )
    es.dwError     = 0;
 
    // send EM_STREAMIN message to the Rich Edit Control.
-   SendMessage(hwnd, EM_STREAMIN, Flag, ( LPARAM ) &es);
+   SendMessage(hwnd, EM_STREAMIN, Flag, reinterpret_cast<LPARAM>(&es));
    SendMessage(hwnd, EM_SETTEXTMODE, Mode, 0);
 
    CloseHandle(hFile);
@@ -278,7 +278,7 @@ HB_FUNC( STREAMOUT )       //StreamOut(HWND hwndCtrl, LPCTSTR lpszPath, int Typ 
    es.dwError     = 0;
 
    // send EM_STREAMOUT message to the Rich Edit Control.
-   SendMessage(hwnd, EM_STREAMOUT, Flag, ( LPARAM ) &es);
+   SendMessage(hwnd, EM_STREAMOUT, Flag, reinterpret_cast<LPARAM>(&es));
 
    CloseHandle(hFile);
 
@@ -381,7 +381,7 @@ HB_FUNC( GETFONTRTF )
       SelText = SCF_DEFAULT;
    }
 
-   SendMessage(hmg_par_HWND(1), EM_GETCHARFORMAT, SelText, ( LPARAM ) &cF);
+   SendMessage(hmg_par_HWND(1), EM_GETCHARFORMAT, SelText, reinterpret_cast<LPARAM>(&cF));
 
    PointSize = cF.yHeight / 20;
 
@@ -422,7 +422,7 @@ HB_FUNC( SETFONTRTF )
 #endif
 
    cF.cbSize = sizeof(CHARFORMAT);
-   Mask      = ( DWORD ) SendMessage(hmg_par_HWND(1), EM_GETCHARFORMAT, SelText, ( LPARAM ) &cF);
+   Mask      = ( DWORD ) SendMessage(hmg_par_HWND(1), EM_GETCHARFORMAT, SelText, reinterpret_cast<LPARAM>(&cF));
 
    if( hb_parni(10) > 0 )
    {
@@ -473,7 +473,7 @@ HB_FUNC( SETFONTRTF )
       lstrcpy(cF.szFaceName, szFaceName);
    }
 
-   lResult = SendMessage(hmg_par_HWND(1), EM_SETCHARFORMAT, SelText, ( LPARAM ) &cF);
+   lResult = SendMessage(hmg_par_HWND(1), EM_SETCHARFORMAT, SelText, reinterpret_cast<LPARAM>(&cF));
 
    if( lResult )
    {

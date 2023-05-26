@@ -302,7 +302,7 @@ HB_FUNC( HMG_SETWINDOWOBJECT )
 
          hb_gcLock( pObject );    // Ref++
 
-         SetWindowLongPtr( hWnd, GWLP_USERDATA, ( LPARAM ) pObject );
+         SetWindowLongPtr( hWnd, GWLP_USERDATA, reinterpret_cast<LPARAM>(pObject) );
 
          hb_retl(true);
       }

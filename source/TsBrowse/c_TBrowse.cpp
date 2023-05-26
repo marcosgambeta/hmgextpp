@@ -1060,10 +1060,10 @@ HB_FUNC( SETINCREMENTSPINNER )
 {
    UDACCEL inc;
 
-   SendMessage(hmg_par_HWND(1), UDM_GETACCEL, 1, ( LPARAM ) &inc);
+   SendMessage(hmg_par_HWND(1), UDM_GETACCEL, 1, reinterpret_cast<LPARAM>(&inc));
 
    inc.nSec = 1;
    inc.nInc = hb_parni(2);
 
-   SendMessage(hmg_par_HWND(1), UDM_SETACCEL, 1, ( LPARAM ) &inc);
+   SendMessage(hmg_par_HWND(1), UDM_SETACCEL, 1, reinterpret_cast<LPARAM>(&inc));
 }

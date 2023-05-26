@@ -817,7 +817,7 @@ HB_FUNC( _SETMAININSTRUCTION )
    PCWSTR pszMainInstruction = HB_ISCHAR(2) ? HB_PARSTRDEF(2, &hText, nullptr) :
                                ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : nullptr );
 
-   SendMessage(hmg_par_HWND(1), TDM_SET_ELEMENT_TEXT, TDE_MAIN_INSTRUCTION, ( LPARAM ) pszMainInstruction);
+   SendMessage(hmg_par_HWND(1), TDM_SET_ELEMENT_TEXT, TDE_MAIN_INSTRUCTION, reinterpret_cast<LPARAM>(pszMainInstruction));
 
    if( hText )
    {
@@ -831,7 +831,7 @@ HB_FUNC( _SETCONTENT )
    PCWSTR pszContent = HB_ISCHAR(2) ? HB_PARSTRDEF(2, &hText, nullptr) :
                        ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : nullptr );
 
-   SendMessage(hmg_par_HWND(1), TDM_SET_ELEMENT_TEXT, TDE_CONTENT, ( LPARAM ) pszContent);
+   SendMessage(hmg_par_HWND(1), TDM_SET_ELEMENT_TEXT, TDE_CONTENT, reinterpret_cast<LPARAM>(pszContent));
 
    if( hText )
    {
@@ -845,7 +845,7 @@ HB_FUNC( _SETFOOTER )
    PCWSTR pszFooter = HB_ISCHAR(2) ? HB_PARSTRDEF(2, &hText, nullptr) :
                       ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : nullptr );
 
-   SendMessage(hmg_par_HWND(1), TDM_SET_ELEMENT_TEXT, TDE_FOOTER, ( LPARAM ) pszFooter);
+   SendMessage(hmg_par_HWND(1), TDM_SET_ELEMENT_TEXT, TDE_FOOTER, reinterpret_cast<LPARAM>(pszFooter));
 
    if( hText )
    {
@@ -859,7 +859,7 @@ HB_FUNC( _SETEXPANDEDINFORMATION )
    PCWSTR pszExpandedInformation = HB_ISCHAR(2) ? HB_PARSTRDEF(2, &hText, nullptr) :
                                    ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : nullptr );
 
-   SendMessage(hmg_par_HWND(1), TDM_SET_ELEMENT_TEXT, TDE_EXPANDED_INFORMATION, ( LPARAM ) pszExpandedInformation);
+   SendMessage(hmg_par_HWND(1), TDM_SET_ELEMENT_TEXT, TDE_EXPANDED_INFORMATION, reinterpret_cast<LPARAM>(pszExpandedInformation));
 
    if( hText )
    {
@@ -907,7 +907,7 @@ HB_FUNC( _UPDATEMAININSTRUCTION )
    PCWSTR pszMainInstruction = HB_ISCHAR(2) ? HB_PARSTRDEF(2, &hText, nullptr) :
                                ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : nullptr );
 
-   SendMessage(hmg_par_HWND(1), TDM_UPDATE_ELEMENT_TEXT, TDE_MAIN_INSTRUCTION, ( LPARAM ) pszMainInstruction);
+   SendMessage(hmg_par_HWND(1), TDM_UPDATE_ELEMENT_TEXT, TDE_MAIN_INSTRUCTION, reinterpret_cast<LPARAM>(pszMainInstruction));
 
    if( hText )
    {
@@ -921,7 +921,7 @@ HB_FUNC( _UPDATECONTENT )
    PCWSTR pszContent = HB_ISCHAR(2) ? HB_PARSTRDEF(2, &hText, nullptr) :
                        ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : nullptr );
 
-   SendMessage(hmg_par_HWND(1), TDM_UPDATE_ELEMENT_TEXT, TDE_CONTENT, ( LPARAM ) pszContent);
+   SendMessage(hmg_par_HWND(1), TDM_UPDATE_ELEMENT_TEXT, TDE_CONTENT, reinterpret_cast<LPARAM>(pszContent));
 
    if( hText )
    {
@@ -935,7 +935,7 @@ HB_FUNC( _UPDATEFOOTER )
    PCWSTR pszFooter = HB_ISCHAR(2) ? HB_PARSTRDEF(2, &hText, nullptr) :
                       ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : nullptr );
 
-   SendMessage(hmg_par_HWND(1), TDM_UPDATE_ELEMENT_TEXT, TDE_FOOTER, ( LPARAM ) pszFooter);
+   SendMessage(hmg_par_HWND(1), TDM_UPDATE_ELEMENT_TEXT, TDE_FOOTER, reinterpret_cast<LPARAM>(pszFooter));
 
    if( hText )
    {
@@ -949,7 +949,7 @@ HB_FUNC( _UPDATEEXPANDEDINFORMATION )
    PCWSTR pszExpandedInformation = HB_ISCHAR(2) ? HB_PARSTRDEF(2, &hText, nullptr) :
                                    ( HB_ISNUM(2) ? MAKEINTRESOURCE(hb_parni(2)) : nullptr );
 
-   SendMessage(hmg_par_HWND(1), TDM_UPDATE_ELEMENT_TEXT, TDE_EXPANDED_INFORMATION, ( LPARAM ) pszExpandedInformation);
+   SendMessage(hmg_par_HWND(1), TDM_UPDATE_ELEMENT_TEXT, TDE_EXPANDED_INFORMATION, reinterpret_cast<LPARAM>(pszExpandedInformation));
 
    if( HB_ISCHAR(2) )
    {
@@ -969,16 +969,16 @@ HB_FUNC( _UPDATEMAINICON )
       void * hText;
       PCWSTR pszIcon = HB_PARSTRDEF(2, &hText, nullptr);
 
-      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_MAIN, ( LPARAM ) pszIcon);
+      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_MAIN, reinterpret_cast<LPARAM>(pszIcon));
       hb_strfree(hText);
    }
    else if( HB_ISPOINTER(2) )
    {
-      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_MAIN, ( LPARAM ) hb_parptr(2));
+      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_MAIN, reinterpret_cast<LPARAM>(hb_parptr(2)));
    }
    else
    {
-      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_MAIN, ( LPARAM ) nullptr);
+      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_MAIN, reinterpret_cast<LPARAM>(nullptr));
    }
 }
 
@@ -994,15 +994,15 @@ HB_FUNC( _UPDATEFOOTERICON )
       void * hText;
       PCWSTR pszIcon = HB_PARSTRDEF(2, &hText, nullptr);
 
-      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_FOOTER, ( LPARAM ) pszIcon);
+      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_FOOTER, reinterpret_cast<LPARAM>(pszIcon));
       hb_strfree(hText);
    }
    else if( HB_ISPOINTER(2) )
    {
-      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_FOOTER, ( LPARAM ) hb_parptr(2));
+      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_FOOTER, reinterpret_cast<LPARAM>(hb_parptr(2)));
    }
    else
    {
-      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_FOOTER, ( LPARAM ) nullptr);
+      SendMessage(hmg_par_HWND(1), TDM_UPDATE_ICON, TDIE_ICON_FOOTER, reinterpret_cast<LPARAM>(nullptr));
    }
 }

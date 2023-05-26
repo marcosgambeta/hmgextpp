@@ -210,7 +210,7 @@ HB_FUNC( RICHEDITBOX_STREAMIN )
    es.dwCookie    = ( DWORD_PTR ) hFile;
    es.dwError     = 0;
 
-   SendMessage(hWndControl, EM_STREAMIN, Format, ( LPARAM ) &es);
+   SendMessage(hWndControl, EM_STREAMIN, Format, reinterpret_cast<LPARAM>(&es));
 
    CloseHandle(hFile);
 
@@ -285,7 +285,7 @@ HB_FUNC( RICHEDITBOX_STREAMOUT )
    es.dwCookie    = ( DWORD_PTR ) hFile;
    es.dwError     = 0;
 
-   SendMessage(hWndControl, EM_STREAMOUT, Format, ( LPARAM ) &es);
+   SendMessage(hWndControl, EM_STREAMOUT, Format, reinterpret_cast<LPARAM>(&es));
 
    CloseHandle(hFile);
 
@@ -331,7 +331,7 @@ HB_FUNC( RICHEDITBOX_RTFLOADRESOURCEFILE )
                #else
             ST.codepage = CP_ACP;
                #endif
-            SendMessage(hWndControl, EM_SETTEXTEX, ( WPARAM ) &ST, ( LPARAM ) lpGlobalResource);
+            SendMessage(hWndControl, EM_SETTEXTEX, ( WPARAM ) &ST, reinterpret_cast<LPARAM>(lpGlobalResource));
          }
          FreeResource(hGlobalResource);
       }
@@ -417,7 +417,7 @@ HB_FUNC( RICHEDITBOX_GETZOOM )
    int  nNumerator, nDenominator;
    HWND hWndControl = hmg_par_HWND(1);
 
-   SendMessage(hWndControl, EM_GETZOOM, ( WPARAM ) &nNumerator, ( LPARAM ) &nDenominator);
+   SendMessage(hWndControl, EM_GETZOOM, ( WPARAM ) &nNumerator, reinterpret_cast<LPARAM>(&nDenominator));
 
    if( HB_ISBYREF(2) )
    {
@@ -541,7 +541,7 @@ HB_FUNC( RICHEDITBOX_SETFONT )
    CharFormat2.dwMask    = Mask;
    CharFormat2.dwEffects = Effects;
 
-   if( SendMessage(hWndControl, EM_SETCHARFORMAT, SCF_SELECTION, ( LPARAM ) &CharFormat2 ))
+   if( SendMessage(hWndControl, EM_SETCHARFORMAT, SCF_SELECTION, reinterpret_cast<LPARAM>(&CharFormat2)) )
    {
       hb_retl(true);
    }
@@ -568,7 +568,7 @@ HB_FUNC( RICHEDITBOX_GETFONT )
    CharFormat2.cbSize = sizeof(CHARFORMAT2);
    Mask = CFM_FACE | CFM_SIZE | CFM_BOLD | CFM_ITALIC | CFM_UNDERLINE | CFM_STRIKEOUT | CFM_COLOR | CFM_BACKCOLOR | CFM_SUBSCRIPT | CFM_SUPERSCRIPT | CFM_LINK;
    CharFormat2.dwMask = Mask;
-   SendMessage(hWndControl, EM_GETCHARFORMAT, SCF_SELECTION, ( LPARAM ) &CharFormat2);
+   SendMessage(hWndControl, EM_GETCHARFORMAT, SCF_SELECTION, reinterpret_cast<LPARAM>(&CharFormat2));
    Effects = CharFormat2.dwEffects;
 
    if( HB_ISBYREF(2) )
@@ -657,7 +657,7 @@ HB_FUNC( RICHEDITBOX_SETSELRANGE )
    CharRange.cpMin = HB_PARVNL(2, 1);
    CharRange.cpMax = HB_PARVNL(2, 2);
 
-   SendMessage(hWndControl, EM_EXSETSEL, 0, ( LPARAM ) &CharRange);
+   SendMessage(hWndControl, EM_EXSETSEL, 0, reinterpret_cast<LPARAM>(&CharRange));
 }
 
 //        RichEditBox_GetSelRange ( hWndControl ) --> return { nMin, nMax }
@@ -666,7 +666,7 @@ HB_FUNC( RICHEDITBOX_GETSELRANGE )
    CHARRANGE CharRange;
    HWND      hWndControl = hmg_par_HWND(1);
 
-   SendMessage(hWndControl, EM_EXGETSEL, 0, ( LPARAM ) &CharRange);
+   SendMessage(hWndControl, EM_EXGETSEL, 0, reinterpret_cast<LPARAM>(&CharRange));
    hb_reta(2);
    HB_STORVNL( CharRange.cpMin, -1, 1 );
    HB_STORVNL( CharRange.cpMax, -1, 2 );
@@ -683,7 +683,7 @@ HB_FUNC( RICHEDITBOX_REPLACESEL )
    LPCTSTR cBuffer = ( LPCTSTR ) AnsiToWide(hb_parc(2));
 #endif
 
-   SendMessage(hWndControl, EM_REPLACESEL, TRUE, ( LPARAM ) cBuffer);
+   SendMessage(hWndControl, EM_REPLACESEL, TRUE, reinterpret_cast<LPARAM>(cBuffer));
 }
 
 //        RichEditBox_SetText ( hWndControl , lSelect , cText )
@@ -706,7 +706,7 @@ HB_FUNC( RICHEDITBOX_SETTEXT )
    #else
    ST.codepage = CP_ACP;
    #endif
-   SendMessage(hWndControl, EM_SETTEXTEX, ( WPARAM ) &ST, ( LPARAM ) cBuffer);
+   SendMessage(hWndControl, EM_SETTEXTEX, ( WPARAM ) &ST, reinterpret_cast<LPARAM>(cBuffer));
 }
 
 //        RichEditBox_GetText ( hWndControl , lSelect )
@@ -732,7 +732,7 @@ HB_FUNC( RICHEDITBOX_GETTEXT )
    GT.lpDefaultChar = nullptr;
    GT.lpUsedDefChar = nullptr;
 
-   SendMessage(hWndControl, EM_GETTEXTEX, ( WPARAM ) &GT, ( LPARAM ) &cBuffer);
+   SendMessage(hWndControl, EM_GETTEXTEX, ( WPARAM ) &GT, reinterpret_cast<LPARAM>(&cBuffer));
 
 #ifndef UNICODE
    hb_retc( cBuffer );
@@ -777,7 +777,7 @@ HB_FUNC( RICHEDITBOX_GETTEXTRANGE )
    TextRange.chrg.cpMin = HB_PARNL3(2, 1);
    TextRange.chrg.cpMax = HB_PARNL3(2, 2);
 
-   SendMessage(hWndControl, EM_GETTEXTRANGE, 0, ( LPARAM ) &TextRange);
+   SendMessage(hWndControl, EM_GETTEXTRANGE, 0, reinterpret_cast<LPARAM>(&TextRange));
 
 #ifndef UNICODE
    hb_retc( TextRange.lpstrText );
@@ -827,7 +827,7 @@ HB_FUNC( RICHEDITBOX_FINDTEXT )
       Options = Options | FR_WHOLEWORD;
    }
 
-   SendMessage(hWndControl, EM_EXGETSEL, 0, ( LPARAM ) &CharRange);
+   SendMessage(hWndControl, EM_EXGETSEL, 0, reinterpret_cast<LPARAM>(&CharRange));
 
    if( Down )
    {
@@ -844,9 +844,9 @@ HB_FUNC( RICHEDITBOX_FINDTEXT )
    FindText.lpstrText = cFind;
 
    #ifdef UNICODE
-   SendMessage(hWndControl, EM_FINDTEXTEXW, Options, ( LPARAM ) &FindText);
+   SendMessage(hWndControl, EM_FINDTEXTEXW, Options, reinterpret_cast<LPARAM>(&FindText));
    #else
-   SendMessage(hWndControl, EM_FINDTEXTEX, Options, ( LPARAM ) &FindText);
+   SendMessage(hWndControl, EM_FINDTEXTEX, Options, reinterpret_cast<LPARAM>(&FindText));
    #endif
 
    if( SelectFindText == FALSE )
@@ -854,7 +854,7 @@ HB_FUNC( RICHEDITBOX_FINDTEXT )
       FindText.chrgText.cpMin = FindText.chrgText.cpMax;
    }
 
-   SendMessage(hWndControl, EM_EXSETSEL, 0, ( LPARAM ) &FindText.chrgText);
+   SendMessage(hWndControl, EM_EXSETSEL, 0, reinterpret_cast<LPARAM>(&FindText.chrgText));
 
    hb_reta(2);
    HB_STORVNL( FindText.chrgText.cpMin, -1, 1 );
@@ -963,7 +963,7 @@ HB_FUNC( RICHEDITBOX_SETPARAFORMAT )
    }
 
    ParaFormat2.dwMask = Mask;
-   SendMessage(hWndControl, EM_SETPARAFORMAT, 0, ( LPARAM ) &ParaFormat2);
+   SendMessage(hWndControl, EM_SETPARAFORMAT, 0, reinterpret_cast<LPARAM>(&ParaFormat2));
 }
 
 //        RichEditBox_GetParaFormat ( hWndControl, @nAlignment, @nNumbering, @nNumberingStyle, @nNumberingStart, @Offset, @ndLineSpacing, @ndStartIndent )
@@ -985,7 +985,7 @@ HB_FUNC( RICHEDITBOX_GETPARAFORMAT )
    ParaFormat2.cbSize = sizeof(PARAFORMAT2);
    ParaFormat2.dwMask = PFM_ALIGNMENT | PFM_NUMBERING | PFM_NUMBERINGSTYLE | PFM_NUMBERINGSTART | PFM_LINESPACING | PFM_STARTINDENT | PFM_OFFSET;
 
-   SendMessage(hWndControl, EM_GETPARAFORMAT, 0, ( LPARAM ) &ParaFormat2);
+   SendMessage(hWndControl, EM_GETPARAFORMAT, 0, reinterpret_cast<LPARAM>(&ParaFormat2));
 
    if( HB_ISBYREF(2) )
    {
@@ -1206,7 +1206,7 @@ HB_FUNC( RICHEDITBOX_GETRECT )
    HWND hWndControl = hmg_par_HWND(1);
    RECT rc;
 
-   SendMessage(hWndControl, EM_GETRECT, 0, ( LPARAM ) &rc);
+   SendMessage(hWndControl, EM_GETRECT, 0, reinterpret_cast<LPARAM>(&rc));
 
    hb_reta(4);
    HB_STORNI( rc.left, -1, 1 );
@@ -1226,7 +1226,7 @@ HB_FUNC( RICHEDITBOX_SETRECT )
    rc.right  = HB_PARNI(2, 3);
    rc.bottom = HB_PARNI(2, 4);
 
-   SendMessage(hWndControl, EM_SETRECT, 1, ( LPARAM ) &rc);
+   SendMessage(hWndControl, EM_SETRECT, 1, reinterpret_cast<LPARAM>(&rc));
 }
 
 //        RichEditBox_PastEspecial ( hWndControl , ClipboardFormat )
@@ -1237,12 +1237,12 @@ HB_FUNC( RICHEDITBOX_PASTESPECIAL )    // Paste a specific clipboard format in a
    if( HB_ISCHAR(2) )
    {
       CHAR * ClipboardFormat = ( CHAR * ) hb_parc(2);
-      SendMessage(hWndControl, EM_PASTESPECIAL, ( WPARAM ) ClipboardFormat, ( LPARAM ) nullptr);
+      SendMessage(hWndControl, EM_PASTESPECIAL, ( WPARAM ) ClipboardFormat, reinterpret_cast<LPARAM>(nullptr));
    }
    else
    {
       WPARAM ClipboardFormat = ( WPARAM ) hb_parnl(2);
-      SendMessage(hWndControl, EM_PASTESPECIAL, ClipboardFormat, ( LPARAM ) nullptr);
+      SendMessage(hWndControl, EM_PASTESPECIAL, ClipboardFormat, reinterpret_cast<LPARAM>(nullptr));
    }
 }
 
@@ -1278,9 +1278,9 @@ HB_FUNC( RICHEDITBOX_FORMATRANGE )
    FormatRange.chrg.cpMin = HB_PARNL3(7, 1);
    FormatRange.chrg.cpMax = HB_PARNL3(7, 2);
 
-   cpMin = SendMessage(hWndControl, EM_FORMATRANGE, TRUE, ( LPARAM ) &FormatRange);
+   cpMin = SendMessage(hWndControl, EM_FORMATRANGE, TRUE, reinterpret_cast<LPARAM>(&FormatRange));
 
-   SendMessage(hWndControl, EM_FORMATRANGE, FALSE, ( LPARAM ) nullptr);
+   SendMessage(hWndControl, EM_FORMATRANGE, FALSE, reinterpret_cast<LPARAM>(nullptr));
 
    hb_retnl( cpMin );
 }
