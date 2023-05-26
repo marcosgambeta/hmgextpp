@@ -1099,7 +1099,7 @@ HB_FUNC( TOOLBAREXCUSTFUNC )
 {
    TBBUTTON   lpBtn;
    UINT       Msg    = hmg_par_UINT(2);
-   LPARAM     lParam = ( LPARAM ) HB_PARNL(4);
+   LPARAM     lParam = HB_PARNL(4);
    LPTBNOTIFY lpTB   = ( LPTBNOTIFY ) lParam;
 
    switch( Msg )

@@ -411,7 +411,7 @@ HB_FUNC( SENDMESSAGESTRING )
 
 HB_FUNC( GETNOTIFYCODE )
 {
-   LPARAM  lParam = ( LPARAM ) HB_PARNL(1);
+   LPARAM  lParam = HB_PARNL(1);
    NMHDR * nmhdr  = ( NMHDR * ) lParam;
 
    hb_retni( nmhdr->code );
@@ -419,7 +419,7 @@ HB_FUNC( GETNOTIFYCODE )
 
 HB_FUNC( GETNOTIFYLINK )
 {
-   LPARAM   lParam  = ( LPARAM ) HB_PARNL(1);
+   LPARAM   lParam  = HB_PARNL(1);
    ENLINK * pENLink = ( ENLINK * ) lParam;
 
    hb_retnl( pENLink->msg );
@@ -432,7 +432,7 @@ HB_FUNC( GETNOTIFYLINK )
 //JP 107a
 HB_FUNC( GETNOTIFYID )
 {
-   LPARAM  lParam = ( LPARAM ) HB_PARNL(1);
+   LPARAM  lParam = HB_PARNL(1);
    NMHDR * nmhdr  = ( NMHDR * ) lParam;
 
    HB_RETNL( ( LONG_PTR ) nmhdr->idFrom ); // TODO: hmg_ret_HANDLE ?
@@ -440,7 +440,7 @@ HB_FUNC( GETNOTIFYID )
 
 HB_FUNC( GETHWNDFROM )
 {
-   LPARAM  lParam = ( LPARAM ) HB_PARNL(1);
+   LPARAM  lParam = HB_PARNL(1);
    NMHDR * nmhdr  = ( NMHDR * ) lParam;
 
    hmg_ret_HWND(nmhdr->hwndFrom);
@@ -964,7 +964,7 @@ HB_FUNC( GETWINDOW )
 
 HB_FUNC( GETGRIDOLDSTATE )
 {
-   LPARAM        lParam = ( LPARAM ) HB_PARNL(1);
+   LPARAM        lParam = HB_PARNL(1);
    NM_LISTVIEW * NMLV   = ( NM_LISTVIEW * ) lParam;
 
    hb_retni( NMLV->uOldState );
@@ -972,7 +972,7 @@ HB_FUNC( GETGRIDOLDSTATE )
 
 HB_FUNC( GETGRIDNEWSTATE )
 {
-   LPARAM        lParam = ( LPARAM ) HB_PARNL(1);
+   LPARAM        lParam = HB_PARNL(1);
    NM_LISTVIEW * NMLV   = ( NM_LISTVIEW * ) lParam;
 
    hb_retni( NMLV->uNewState );
@@ -980,7 +980,7 @@ HB_FUNC( GETGRIDNEWSTATE )
 
 HB_FUNC( GETGRIDDISPINFOINDEX )
 {
-   LPARAM        lParam    = ( LPARAM ) HB_PARNL(1);
+   LPARAM        lParam    = HB_PARNL(1);
    LV_DISPINFO * pDispInfo = ( LV_DISPINFO * ) lParam;
 
    int iItem    = pDispInfo->item.iItem;
@@ -993,7 +993,7 @@ HB_FUNC( GETGRIDDISPINFOINDEX )
 
 HB_FUNC( SETGRIDQUERYDATA )
 {
-   LPARAM        lParam    = ( LPARAM ) HB_PARNL(1);
+   LPARAM        lParam    = HB_PARNL(1);
    LV_DISPINFO * pDispInfo = ( LV_DISPINFO * ) lParam;
 
    // Copy the text to the LV_ITEM structure
@@ -1009,7 +1009,7 @@ HB_FUNC( SETGRIDQUERYDATA )
 
 HB_FUNC( SETGRIDQUERYIMAGE )
 {
-   LPARAM        lParam    = ( LPARAM ) HB_PARNL(1);
+   LPARAM        lParam    = HB_PARNL(1);
    LV_DISPINFO * pDispInfo = ( LV_DISPINFO * ) lParam;
 
    pDispInfo->item.iImage = hb_parni(2);
@@ -1041,7 +1041,7 @@ HB_FUNC( FINDWINDOWEX )
 
 HB_FUNC( GETDS )
 {
-   LPARAM lParam = ( LPARAM ) HB_PARNL(1);
+   LPARAM lParam = HB_PARNL(1);
    LPNMLVCUSTOMDRAW lplvcd = ( LPNMLVCUSTOMDRAW ) lParam;
 
    if( lplvcd->nmcd.dwDrawStage == CDDS_PREPAINT )
@@ -1069,7 +1069,7 @@ HB_FUNC( GETDS )
 
 HB_FUNC( GETRC )     // Get ListView CustomDraw Row and Column
 {
-   LPARAM lParam = ( LPARAM ) HB_PARNL(1);
+   LPARAM lParam = HB_PARNL(1);
    LPNMLVCUSTOMDRAW lplvcd = ( LPNMLVCUSTOMDRAW ) lParam;
 
    hb_reta(2);
@@ -1079,7 +1079,7 @@ HB_FUNC( GETRC )     // Get ListView CustomDraw Row and Column
 
 HB_FUNC( SETBCFC )   // Set Dynamic BackColor and ForeColor
 {
-   LPARAM lParam = ( LPARAM ) HB_PARNL(1);
+   LPARAM lParam = HB_PARNL(1);
    LPNMLVCUSTOMDRAW lplvcd = ( LPNMLVCUSTOMDRAW ) lParam;
 
    lplvcd->clrTextBk = hb_parni(2);
@@ -1090,7 +1090,7 @@ HB_FUNC( SETBCFC )   // Set Dynamic BackColor and ForeColor
 
 HB_FUNC( SETBRCCD )  // Set Default BackColor and ForeColor
 {
-   LPARAM lParam = ( LPARAM ) HB_PARNL(1);
+   LPARAM lParam = HB_PARNL(1);
    LPNMLVCUSTOMDRAW lplvcd = ( LPNMLVCUSTOMDRAW ) lParam;
 
    lplvcd->clrText   = RGB(0, 0, 0);

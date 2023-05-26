@@ -1253,7 +1253,7 @@ HB_FUNC( RICHEDITBOX_SETMARGINS )
    WORD LeftMargin  = hmg_par_WORD(2); // in pixels
    WORD RightMargin = hmg_par_WORD(3); // in pixels
 
-   SendMessage(hWndControl, EM_SETMARGINS, EC_USEFONTINFO, ( LPARAM ) MAKELPARAM(LeftMargin, RightMargin));
+   SendMessage(hWndControl, EM_SETMARGINS, EC_USEFONTINFO, MAKELPARAM(LeftMargin, RightMargin));
 }
 
 //        RichEditBox_FormatRange ( hWndControl, hDCPrinter, nLeft, nTop, nRight, nBottom, { cpMin , cpMax } )
@@ -1293,7 +1293,7 @@ HB_FUNC( RICHEDITBOX_POSFROMCHAR )
    POINTL PointL;
    POINT  Point;
 
-   SendMessage(hWndControl, EM_POSFROMCHAR, ( WPARAM ) &PointL, ( LPARAM ) nPosChar);   // Retrieves the client area coordinates of
+   SendMessage(hWndControl, EM_POSFROMCHAR, ( WPARAM ) &PointL, nPosChar);   // Retrieves the client area coordinates of
                                                                                           // a specified character in an edit control
    hb_reta(2);
 
@@ -1480,7 +1480,7 @@ HB_FUNC( FINDREPLACEDLGGETOPTIONS )
 #ifdef UNICODE
    LPSTR pStr, pStr2;
 #endif
-   LPARAM        lParam = ( LPARAM ) HB_PARNL(1);
+   LPARAM        lParam = HB_PARNL(1);
    FINDREPLACE * FR     = ( FINDREPLACE * ) lParam;
    LONG          nRet   = -1;
 

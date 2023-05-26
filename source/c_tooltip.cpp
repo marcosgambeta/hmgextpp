@@ -389,7 +389,7 @@ HB_FUNC( INITTOOLTIPEX )
 
       if( g_iToolTipMaxWidth != -1 )
       {
-         SendMessage(hwndToolTip, TTM_SETMAXTIPWIDTH, 0, ( LPARAM ) g_iToolTipMaxWidth);
+         SendMessage(hwndToolTip, TTM_SETMAXTIPWIDTH, 0, g_iToolTipMaxWidth);
       }
 
       SendMessage(hwndToolTip, TTM_ACTIVATE, g_bIsToolTipActive, 0);
