@@ -92,33 +92,26 @@ HB_FUNC( C_PLAYWAVE )
    LPCWSTR pszSound = AnsiToWide(( char * ) hb_parc(1));
 #endif
 
-   if( hb_parl(2) )
-   {
+   if( hb_parl(2) ) {
       style |= SND_RESOURCE;
       hmod  = GetResources();
-   }
-   else
-   {
+   } else {
       style |= SND_FILENAME;
    }
 
-   if( hb_parl(3) )
-   {
+   if( hb_parl(3) ) {
       style |= SND_SYNC;
    }
 
-   if( hb_parl(4) )
-   {
+   if( hb_parl(4) ) {
       style |= SND_NOSTOP;
    }
 
-   if( hb_parl(5) )
-   {
+   if( hb_parl(5) ) {
       style |= SND_LOOP;
    }
 
-   if( hb_parl(6) )
-   {
+   if( hb_parl(6) ) {
       style |= SND_NODEFAULT;
    }
 
@@ -145,53 +138,43 @@ HB_FUNC( INITPLAYER )
 #endif
    int style = WS_VISIBLE | WS_CHILD | WS_BORDER;
 
-   if( hb_parl(7) )
-   {
+   if( hb_parl(7) ) {
       style |= MCIWNDF_NOAUTOSIZEWINDOW;
    }
 
-   if( hb_parl(8) )
-   {
+   if( hb_parl(8) ) {
       style |= MCIWNDF_NOAUTOSIZEMOVIE;
    }
 
-   if( hb_parl(9) )
-   {
+   if( hb_parl(9) ) {
       style |= MCIWNDF_NOERRORDLG;
    }
 
-   if( hb_parl(10) )
-   {
+   if( hb_parl(10) ) {
       style |= MCIWNDF_NOMENU;
    }
 
-   if( hb_parl(11) )
-   {
+   if( hb_parl(11) ) {
       style |= MCIWNDF_NOOPEN;
    }
 
-   if( hb_parl(12) )
-   {
+   if( hb_parl(12) ) {
       style |= MCIWNDF_NOPLAYBAR;
    }
 
-   if( hb_parl(13) )
-   {
+   if( hb_parl(13) ) {
       style |= MCIWNDF_SHOWALL;
    }
 
-   if( hb_parl(14) )
-   {
+   if( hb_parl(14) ) {
       style |= MCIWNDF_SHOWMODE;
    }
 
-   if( hb_parl(15) )
-   {
+   if( hb_parl(15) ) {
       style |= MCIWNDF_SHOWNAME;
    }
 
-   if( hb_parl(16) )
-   {
+   if( hb_parl(16) ) {
       style |= MCIWNDF_SHOWPOS;
    }
 
@@ -200,8 +183,7 @@ HB_FUNC( INITPLAYER )
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) szFile);
 #endif
-   if( hwnd == nullptr )
-   {
+   if( hwnd == nullptr ) {
       MessageBox(0, TEXT("Player Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
       return;
    }
@@ -215,8 +197,7 @@ HB_FUNC( MCIFUNC )
    HWND mcihand = hmg_par_HWND(1);
    int  func    = hb_parni(2);
 
-   switch( func )
-   {
+   switch( func ) {
       case 1:  hb_retnl( MCIWndPlay(mcihand) ); break;
       case 2:  hb_retnl( MCIWndStop(mcihand) ); break;
       case 3:  hb_retnl( MCIWndPause(mcihand) ); break;
@@ -246,35 +227,29 @@ HB_FUNC( INITANIMATE )
    HWND hwnd;
    int style = WS_CHILD;
 
-   if( hb_parl(9) )
-   {
+   if( hb_parl(9) ) {
       style |= WS_BORDER;
    }
 
-   if( !hb_parl(10) )
-   {
+   if( !hb_parl(10) ) {
       style |= WS_VISIBLE;
    }
 
-   if( hb_parl(6) )
-   {
+   if( hb_parl(6) ) {
       style |= ACS_AUTOPLAY;
    }
 
-   if( hb_parl(7) )
-   {
+   if( hb_parl(7) ) {
       style |= ACS_CENTER;
    }
 
-   if( hb_parl(8) )
-   {
+   if( hb_parl(8) ) {
       style |= ACS_TRANSPARENT;
    }
 
    hwnd = Animate_Create(hmg_par_HWND(1), nullptr, style, GetResources());
 
-   if( hwnd == nullptr )
-   {
+   if( hwnd == nullptr ) {
       MessageBox(0, TEXT("AnimateBox Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
       return;
    }

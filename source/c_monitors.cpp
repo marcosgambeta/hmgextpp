@@ -107,8 +107,7 @@ HB_FUNC( GETMONITORINFO )
 
    mi.cbSize = sizeof(MONITORINFO);
 
-   if( GetMonitorInfo(( HMONITOR ) HB_PARNL(1), &mi) )
-   {
+   if( GetMonitorInfo(( HMONITOR ) HB_PARNL(1), &mi) ) {
       PHB_ITEM pMonInfo = hb_itemArrayNew(3);
       PHB_ITEM pMonitor = Rect2Hash(&mi.rcMonitor);
       PHB_ITEM pWork    = Rect2Hash(&mi.rcWork);
@@ -120,9 +119,7 @@ HB_FUNC( GETMONITORINFO )
       hb_itemReturnRelease(pMonInfo);
       hb_itemRelease(pMonitor);
       hb_itemRelease(pWork);
-   }
-   else
-   {
+   } else {
       hb_ret();
    }
 }
@@ -132,26 +129,18 @@ HB_FUNC( MONITORFROMPOINT )
 {
    POINT pt;
 
-   if( HB_ISARRAY(1) )
-   {
-      if( !Array2Point(hb_param(1, Harbour::Item::ARRAY), &pt) )
-      {
+   if( HB_ISARRAY(1) ) {
+      if( !Array2Point(hb_param(1, Harbour::Item::ARRAY), &pt) ) {
          hb_errRT_BASE_SubstR(EG_ARG, 5000, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
-      }
-      else
-      {
+      } else {
          hmg_ret_HMONITOR(MonitorFromPoint(pt, hb_parnldef(2, MONITOR_DEFAULTTONULL)));
       }
-   }
-   else if( HB_ISNUM(1) && HB_ISNUM(2) )
-   {
+   } else if( HB_ISNUM(1) && HB_ISNUM(2) ) {
       pt.x = hb_parnl(1);
       pt.y = hb_parnl(2);
 
       hmg_ret_HMONITOR(MonitorFromPoint(pt, hb_parnldef(3, MONITOR_DEFAULTTONULL)));
-   }
-   else
-   {
+   } else {
       hb_errRT_BASE_SubstR(EG_ARG, 5000, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
    }
 }
@@ -161,12 +150,9 @@ HB_FUNC( MONITORFROMWINDOW )
 {
    HWND hwnd = hmg_par_HWND(1);
 
-   if( IsWindow(hwnd) )
-   {
+   if( IsWindow(hwnd) ) {
       hmg_ret_HMONITOR(MonitorFromWindow(hwnd, hb_parnldef(2, MONITOR_DEFAULTTONULL)));
-   }
-   else
-   {
+   } else {
       hb_errRT_BASE_SubstR(EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
    }
 }
@@ -192,8 +178,7 @@ HB_FUNC( WINDOWTOMONITOR )
 {
    HWND hwnd = hmg_par_HWND(1);
 
-   if( IsWindow(hwnd) )
-   {
+   if( IsWindow(hwnd) ) {
       HMONITOR hMonitor = HB_ISNUM(2) ? ( HMONITOR ) HB_PARNL(2) : nullptr;
       UINT     flags    = 0 | ( ( UINT ) hb_parnldef(3, (MONITOR_CENTER | MONITOR_WORKAREA)) );
       RECT     rc;
@@ -202,9 +187,7 @@ HB_FUNC( WINDOWTOMONITOR )
       ClipOrCenterRectToMonitor( &rc, hMonitor, flags );
 
       SetWindowPos(hwnd, nullptr, rc.left, rc.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
-   }
-   else
-   {
+   } else {
       hb_errRT_BASE_SubstR(EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
    }
 }
@@ -217,8 +200,7 @@ static void ClipOrCenterRectToMonitor( LPRECT prc, HMONITOR hMonitor, UINT flags
    int         h = prc->bottom - prc->top;
 
    // get the nearest monitor to the passed rect.
-   if( hMonitor == nullptr )
-   {
+   if( hMonitor == nullptr ) {
       hMonitor = MonitorFromRect(prc, MONITOR_DEFAULTTONEAREST);
    }
 
@@ -229,15 +211,12 @@ static void ClipOrCenterRectToMonitor( LPRECT prc, HMONITOR hMonitor, UINT flags
    rc = ( flags & MONITOR_WORKAREA ) ? mi.rcWork : mi.rcMonitor;
 
    // center or clip the passed rect to the monitor rect
-   if( flags & MONITOR_CENTER )
-   {
+   if( flags & MONITOR_CENTER ) {
       prc->left   = rc.left + ( rc.right - rc.left - w ) / 2;
       prc->top    = rc.top + ( rc.bottom - rc.top - h ) / 2;
       prc->right  = prc->left + w;
       prc->bottom = prc->top + h;
-   }
-   else
-   {
+   } else {
       prc->left   = HB_MAX(rc.left, HB_MIN(rc.right - w, prc->left));
       prc->top    = HB_MAX(rc.top, HB_MIN(rc.bottom - h, prc->top));
       prc->right  = prc->left + w;

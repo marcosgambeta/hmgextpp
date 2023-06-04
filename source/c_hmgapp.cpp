@@ -86,8 +86,7 @@ static void hmg_init(void * cargo)
 
    HB_SYMBOL_UNUSED(cargo);
 
-   if( S_FALSE == CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE | COINIT_SPEED_OVER_MEMORY) )
-   {
+   if( S_FALSE == CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE | COINIT_SPEED_OVER_MEMORY) ) {
       hmg_ErrorExit(TEXT("hmg_init(void)"), S_FALSE, TRUE);
    }
 
@@ -95,8 +94,7 @@ static void hmg_init(void * cargo)
 
    GetInstance();
 
-   if( Ok != GdiplusInit() )
-   {
+   if( Ok != GdiplusInit() ) {
       hmg_ErrorExit(TEXT("GdiplusInit(void)"), 0, TRUE);
    }
 }
@@ -114,8 +112,7 @@ HB_CALL_ON_STARTUP_END(_hmg_init_)
 
 HINSTANCE GetInstance(void)
 {
-   if( !g_hInstance )
-   {
+   if( !g_hInstance ) {
       g_hInstance = GetModuleHandle(0);
    }
 
@@ -129,13 +126,11 @@ static DWORD DllGetVersion(LPCTSTR lpszDllName)
 
    hinstDll = hmg_LoadLibrarySystem(lpszDllName);
 
-   if( hinstDll )
-   {
+   if( hinstDll ) {
       _DLLGETVERSIONPROC pDllGetVersion;
       pDllGetVersion = ( _DLLGETVERSIONPROC ) wapi_GetProcAddress(hinstDll, "DllGetVersion");
 
-      if( pDllGetVersion )
-      {
+      if( pDllGetVersion ) {
          DLLVERSIONINFO2 dvi;
          HRESULT         hr;
 
@@ -144,8 +139,7 @@ static DWORD DllGetVersion(LPCTSTR lpszDllName)
          dvi.info1.cbSize = sizeof(dvi);
 
          hr = ( *pDllGetVersion )( &dvi );
-         if( S_OK == hr )
-         {
+         if( S_OK == hr ) {
             dwVersion = PACKVERSION(dvi.info1.dwMajorVersion, dvi.info1.dwMinorVersion);
          }
       }
@@ -179,8 +173,7 @@ static HB_BOOL win_has_search_system32(void)
 {
    HMODULE hKernel32 = GetModuleHandle(TEXT("kernel32.dll"));
 
-   if( hKernel32 )
-   {
+   if( hKernel32 ) {
       return GetProcAddress(hKernel32, "AddDllDirectory") != nullptr;  /* Detect KB2533623 */
    }
 
@@ -202,12 +195,10 @@ static TCHAR * hmg_FileNameAtSystemDir( const TCHAR * pFileName )
 {
    UINT nLen = GetSystemDirectory(nullptr, 0);
 
-   if( nLen )
-   {
+   if( nLen ) {
       LPTSTR buffer;
 
-      if( pFileName )
-      {
+      if( pFileName ) {
          nLen += ( UINT ) hmg_tstrlen(pFileName) + 1;
       }
 
@@ -215,16 +206,13 @@ static TCHAR * hmg_FileNameAtSystemDir( const TCHAR * pFileName )
 
       GetSystemDirectory(buffer, nLen);
 
-      if( pFileName )
-      {
+      if( pFileName ) {
          hmg_tstrncat(buffer, TEXT("\\"), nLen - 1);
          hmg_tstrncat(buffer, pFileName, nLen - 1);
       }
 
       return buffer;
-   }
-   else
-   {
+   } else {
       return hmg_tstrdup(pFileName);
    }
 }
@@ -248,14 +236,14 @@ TCHAR * hmg_tstrncat(TCHAR * pDest, const TCHAR * pSource, HB_SIZE nLen)
 
    pDest[nLen] = '\0';
 
-   while( nLen && *pDest )
-   {
+   while( nLen && *pDest ) {
       pDest++;
       nLen--;
    }
 
-   while( nLen && ( *pDest++ = *pSource++ ) != '\0' )
+   while( nLen && ( *pDest++ = *pSource++ ) != '\0' ) {
       nLen--;
+   }
 
    return pBuf;
 }
@@ -264,8 +252,9 @@ HB_SIZE hmg_tstrlen(const TCHAR * pText)
 {
    HB_SIZE nLen = 0;
 
-   while( pText[nLen] != '\0' )
+   while( pText[nLen] != '\0' ) {
       ++nLen;
+   }
 
    return nLen;
 }

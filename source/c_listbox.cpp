@@ -68,28 +68,23 @@ HB_FUNC( INITLISTBOX )
 
    hwnd = hmg_par_HWND(1);
 
-   if( !hb_parl(9) )
-   {
+   if( !hb_parl(9) ) {
       style |= WS_VISIBLE;
    }
 
-   if( !hb_parl(10) )
-   {
+   if( !hb_parl(10) ) {
       style |= WS_TABSTOP;
    }
 
-   if( hb_parl(11) )
-   {
+   if( hb_parl(11) ) {
       style |= LBS_SORT;
    }
 
-   if( hb_parl(13) )
-   {
+   if( hb_parl(13) ) {
       style |= LBS_USETABSTOPS;
    }
 
-   if( hb_parl(14) )
-   {
+   if( hb_parl(14) ) {
       style |= LBS_MULTICOLUMN | WS_HSCROLL;
    }
 
@@ -109,13 +104,11 @@ HB_FUNC( INITLISTBOX )
       nullptr
              );
 
-   if( hb_parl(12) )
-   {
+   if( hb_parl(12) ) {
       MakeDragList(hbutton);
    }
 
-   if( hb_parl(14) )
-   {
+   if( hb_parl(14) ) {
       SendMessage(hbutton, LB_SETCOLUMNWIDTH, hb_parni(5) - 20, 0);
    }
 
@@ -157,8 +150,7 @@ HB_FUNC( LISTBOXGETSTRING )
    int     iLen = SendMessage(hmg_par_HWND(1), LB_GETTEXTLEN, hmg_par_WPARAM(2) - 1, 0);
    TCHAR * cString;
 
-   if( iLen > 0 && ( cString = ( TCHAR * ) hb_xgrab((iLen + 1) * sizeof(TCHAR)) ) != nullptr )
-   {
+   if( iLen > 0 && ( cString = ( TCHAR * ) hb_xgrab((iLen + 1) * sizeof(TCHAR)) ) != nullptr ) {
       SendMessage(hmg_par_HWND(1), LB_GETTEXT, hmg_par_WPARAM(2) - 1, reinterpret_cast<LPARAM>(cString));
    #ifdef UNICODE
       lpString = WideToAnsi(cString);
@@ -167,9 +159,7 @@ HB_FUNC( LISTBOXGETSTRING )
    #else
       hb_retclen_buffer(cString, iLen);
    #endif
-   }
-   else
-   {
+   } else {
       hb_retc_null();
    }
 }
@@ -182,28 +172,23 @@ HB_FUNC( INITMULTILISTBOX )
 
    hwnd = hmg_par_HWND(1);
 
-   if( !hb_parl(9) )
-   {
+   if( !hb_parl(9) ) {
       style |= WS_VISIBLE;
    }
 
-   if( !hb_parl(10) )
-   {
+   if( !hb_parl(10) ) {
       style |= WS_TABSTOP;
    }
 
-   if( hb_parl(11) )
-   {
+   if( hb_parl(11) ) {
       style |= LBS_SORT;
    }
 
-   if( hb_parl(13) )
-   {
+   if( hb_parl(13) ) {
       style |= LBS_USETABSTOPS;
    }
 
-   if( hb_parl(14) )
-   {
+   if( hb_parl(14) ) {
       style |= LBS_MULTICOLUMN;
    }
 
@@ -223,8 +208,7 @@ HB_FUNC( INITMULTILISTBOX )
       nullptr
              );
 
-   if( hb_parl(12) )
-   {
+   if( hb_parl(12) ) {
       MakeDragList(hbutton);
    }
 
@@ -243,8 +227,7 @@ HB_FUNC( LISTBOXGETMULTISEL )
 
    hb_reta(n);
 
-   for( INT i = 0; i < n; i++ )
-   {
+   for( INT i = 0; i < n; i++ ) {
       HB_STORNI( buffer[i] + 1, -1, i + 1 );
    }
 }
@@ -264,14 +247,12 @@ HB_FUNC( LISTBOXSETMULTISEL )
    n = SendMessage(hwnd, LB_GETCOUNT, 0, 0);
 
    // CLEAR CURRENT SELECTIONS
-   for( int i = 0; i < n; i++ )
-   {
+   for( int i = 0; i < n; i++ ) {
       SendMessage(hwnd, LB_SETSEL, 0, i);
    }
 
    // SET NEW SELECTIONS
-   for( int i = 0; i <= l; i++ )
-   {
+   for( int i = 0; i <= l; i++ ) {
       SendMessage(hwnd, LB_SETSEL, 1, hb_arrayGetNI( wArray, i + 1 ) - 1);
    }
 }
@@ -290,8 +271,7 @@ HB_FUNC( LISTBOXSETMULTITAB )
 
    l = ( int ) hb_parinfa(2, 0) - 1;
 
-   for( int i = 0; i <= l; i++ )
-   {
+   for( int i = 0; i <= l; i++ ) {
       nTabStops[i] = MulDiv(hb_arrayGetNI(wArray, i + 1), 4, baseunitX);
    }
 
@@ -336,12 +316,9 @@ HB_FUNC( DRAG_LIST_DRAWINSERT )
 
    nItemCount = SendMessage(lpdli->hWnd, LB_GETCOUNT, 0, 0);
 
-   if( nItem < nItemCount )
-   {
+   if( nItem < nItemCount ) {
       DrawInsert(hwnd, lpdli->hWnd, nItem);
-   }
-   else
-   {
+   } else {
       DrawInsert(hwnd, lpdli->hWnd, -1);
    }
 }
@@ -355,16 +332,13 @@ HB_FUNC( DRAG_LIST_MOVE_ITEMS )
    int  result;
 
    result = ListBox_GetText(lpdli->hWnd, hb_parni(2), string);
-   if( result != LB_ERR )
-   {
+   if( result != LB_ERR ) {
       result = ListBox_DeleteString(lpdli->hWnd, hb_parni(2));
    }
-   if( result != LB_ERR )
-   {
+   if( result != LB_ERR ) {
       result = ListBox_InsertString(lpdli->hWnd, hb_parni(3), string);
    }
-   if( result != LB_ERR )
-   {
+   if( result != LB_ERR ) {
       result = ListBox_SetCurSel( lpdli->hWnd, hb_parni(3) );
    }
 

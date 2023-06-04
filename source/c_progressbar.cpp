@@ -65,18 +65,15 @@ HB_FUNC( INITPROGRESSBAR )
 
    hwnd = hmg_par_HWND(1);
 
-   if( hb_parl(9) )
-   {
+   if( hb_parl(9) ) {
       style |= PBS_VERTICAL;
    }
 
-   if( hb_parl(10) )
-   {
+   if( hb_parl(10) ) {
       style |= PBS_SMOOTH;
    }
 
-   if( !hb_parl(11) )
-   {
+   if( !hb_parl(11) ) {
       style |= WS_VISIBLE;
    }
 

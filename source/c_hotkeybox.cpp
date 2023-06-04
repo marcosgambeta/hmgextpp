@@ -86,12 +86,9 @@ void InterpretHotKey(UINT setting, TCHAR * szKeyName)
 #endif
    WorkKey = MapVirtualKey(uVKey, 0);
 
-   if( uCode & 0x00000008 )  // extended key
-   {
+   if( uCode & 0x00000008 ) { // extended key
       WorkKey = 0x03000000 | ( WorkKey << 16 );
-   }
-   else
-   {
+   } else {
       WorkKey = 0x02000000 | ( WorkKey << 16 );
    }
 
@@ -135,13 +132,11 @@ HB_FUNC( INITHOTKEYBOX )
 
    hWnd = hmg_par_HWND(1);
 
-   if( !hb_parl(8) )
-   {
+   if( !hb_parl(8) ) {
       style |= WS_VISIBLE;
    }
 
-   if( !hb_parl(9) )
-   {
+   if( !hb_parl(9) ) {
       style |= WS_TABSTOP;
    }
 
@@ -173,8 +168,7 @@ HB_FUNC( SETHOTKEYVALUE )
 
    wHotKey = ( WORD ) hb_parnl(2);
 
-   if( wHotKey != 0 )
-   {
+   if( wHotKey != 0 ) {
       SendMessage(hWnd, HKM_SETHOTKEY, wHotKey, 0);
    }
 

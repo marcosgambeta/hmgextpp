@@ -88,8 +88,7 @@ HB_FUNC( GETNONCLIENTFONT )
 
    hb_reta(4);
 
-   switch( hb_parni(1) )
-   {
+   switch( hb_parni(1) ) {
       case 1:
 #ifndef UNICODE
          HB_STORC( ncm.lfCaptionFont.lfFaceName, -1, 1 );
@@ -149,8 +148,7 @@ HB_FUNC( SETNONCLIENT )
    ncm.cbSize = sizeof(NONCLIENTMETRICS);
    SystemParametersInfo(SPI_GETNONCLIENTMETRICS, 0, &ncm, 0);
 
-   switch( hb_parni(1) )
-   {
+   switch( hb_parni(1) ) {
       case 1:  ncm.iBorderWidth   = HB_MIN(50, HB_MAX(1, hb_parni(2))); break;
       case 2:  ncm.iScrollWidth   = HB_MIN(100, HB_MAX(8, hb_parni(2))); ncm.iScrollHeight = HB_MIN(100, HB_MAX(8, hb_parni(2))); break;
       case 3:  ncm.iCaptionWidth  = HB_MIN(100, HB_MAX(17, hb_parni(2))); break;
@@ -186,8 +184,7 @@ HB_FUNC( SETNONCLIENTFONT )
    lf.lfWeight  = ( HB_ISLOG(4) && hb_parl(4) ) ? 700 : 400;
    lf.lfCharSet = ( BYTE ) ( HB_ISNIL(5) ? 0 : hb_parni(5) );
 
-   switch( hb_parni(1) )
-   {
+   switch( hb_parni(1) ) {
       case 1:  ncm.lfCaptionFont = lf; break;
       case 2:  ncm.lfMenuFont    = lf; break;
       case 3:  ncm.lfStatusFont  = lf; break;

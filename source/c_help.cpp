@@ -56,8 +56,7 @@ HB_FUNC( WINHELP )
    DWORD context;
    void * str;
 
-   switch( hb_parni(3) )
-   {
+   switch( hb_parni(3) ) {
       case 0:  style = HELP_FINDER;       context = 0;           break;
       case 1:  style = HELP_CONTEXT;      context = hb_parni(4); break;
       case 2:  style = HELP_CONTEXTPOPUP; context = hb_parni(4); break;

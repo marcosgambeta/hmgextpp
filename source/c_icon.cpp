@@ -137,17 +137,13 @@ HB_FUNC( EXTRACTICONEX )
 #endif
    int nIconIndex = hb_parni(2);
 
-   if( nIconIndex == -1 )
-   {
+   if( nIconIndex == -1 ) {
       hb_retni( ExtractIconEx(lpFileName, -1, nullptr, nullptr, 0) );
-   }
-   else
-   {
+   } else {
       HICON hIconLarge, hIconSmall;
       UINT  nIconCount = ExtractIconEx(lpFileName, nIconIndex, &hIconLarge, &hIconSmall, 1);
 
-      if( nIconCount > 0 )
-      {
+      if( nIconCount > 0 ) {
          hb_reta(2);
 
          hmg_storvhandle(hIconLarge, -1, 1);
@@ -164,8 +160,7 @@ HB_FUNC( LOADICONBYNAME )
 {
    HICON hIcon = nullptr;
 
-   if( hb_parclen(1) > 0 )
-   {
+   if( hb_parclen(1) > 0 ) {
 #ifndef UNICODE
       const char * pszResOrFile = hb_parc(1);
 #else
@@ -177,13 +172,11 @@ HB_FUNC( LOADICONBYNAME )
 
       hIcon = static_cast<HICON>(LoadImage(hInstance, pszResOrFile, IMAGE_ICON, cxDesired, cyDesired, LR_DEFAULTCOLOR));
 
-      if( hIcon == nullptr )
-      {
+      if( hIcon == nullptr ) {
          hIcon = static_cast<HICON>(LoadImage(0, pszResOrFile, IMAGE_ICON, cxDesired, cyDesired, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
       }
 
-      if( hIcon != nullptr )
-      {
+      if( hIcon != nullptr ) {
          RegisterResource(hIcon, "ICON");
       }
 
@@ -199,8 +192,7 @@ HB_FUNC( DRAWICONEX )
 {
    HWND hwnd = hmg_par_HWND(1);
 
-   if( IsWindow(hwnd) )
-   {
+   if( IsWindow(hwnd) ) {
       HICON  hIcon = hmg_par_HICON(4);
       HDC    hdc   = GetDC(hwnd);
       HBRUSH hbrFlickerFreeDraw = CreateSolidBrush(hb_parni(7));

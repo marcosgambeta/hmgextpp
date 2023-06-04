@@ -64,13 +64,11 @@ HB_FUNC( INITIPADDRESS )
 
    hWnd = hmg_par_HWND(1);
 
-   if( !hb_parl(7) )
-   {
+   if( !hb_parl(7) ) {
       style |= WS_VISIBLE;
    }
 
-   if( !hb_parl(8) )
-   {
+   if( !hb_parl(8) ) {
       style |= WS_TABSTOP;
    }
 

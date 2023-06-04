@@ -103,8 +103,7 @@ int WINAPI MessageBoxTimeout(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT 
    typedef int ( WINAPI * PMessageBoxTimeout )( HWND, LPCTSTR, LPCTSTR, UINT, WORD, DWORD );
    static PMessageBoxTimeout pMessageBoxTimeout = nullptr;
 
-   if( pMessageBoxTimeout == nullptr )
-   {
+   if( pMessageBoxTimeout == nullptr ) {
       HMODULE hLib = LoadLibrary(TEXT("User32.dll"));
 
    #ifdef UNICODE
