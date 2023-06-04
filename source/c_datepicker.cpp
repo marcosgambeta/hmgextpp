@@ -70,28 +70,23 @@ HB_FUNC( INITDATEPICK )
 
    DWORD style = WS_CHILD;
 
-   if( hb_parl(9) )
-   {
+   if( hb_parl(9) ) {
       style |= DTS_SHOWNONE;
    }
 
-   if( hb_parl(10) )
-   {
+   if( hb_parl(10) ) {
       style |= DTS_UPDOWN;
    }
 
-   if( hb_parl(11) )
-   {
+   if( hb_parl(11) ) {
       style |= DTS_RIGHTALIGN;
    }
 
-   if( !hb_parl(12) )
-   {
+   if( !hb_parl(12) ) {
       style |= WS_VISIBLE;
    }
 
-   if( !hb_parl(13) )
-   {
+   if( !hb_parl(13) ) {
       style |= WS_TABSTOP;
    }
 
@@ -126,18 +121,15 @@ HB_FUNC( INITTIMEPICK )
 
    DWORD style = WS_CHILD | DTS_TIMEFORMAT;
 
-   if( hb_parl(9) )
-   {
+   if( hb_parl(9) ) {
       style |= DTS_SHOWNONE;
    }
 
-   if( !hb_parl(10) )
-   {
+   if( !hb_parl(10) ) {
       style |= WS_VISIBLE;
    }
 
-   if( !hb_parl(11) )
-   {
+   if( !hb_parl(11) ) {
       style |= WS_TABSTOP;
    }
 
@@ -168,16 +160,13 @@ LRESULT CALLBACK OwnPickProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
 
    OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp(hButton, TEXT("oldpickproc"));
 
-   switch( Msg )
-   {
+   switch( Msg ) {
       case WM_ERASEBKGND:
-         if( !pSymbol )
-         {
+         if( !pSymbol ) {
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OPICKEVENTS"));
          }
 
-         if( pSymbol )
-         {
+         if( pSymbol ) {
             hb_vmPushSymbol(pSymbol);
             hb_vmPushNil();
             hmg_vmPushHandle(hButton);
@@ -189,13 +178,11 @@ LRESULT CALLBACK OwnPickProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
 
          r = hb_parnl(-1);
 
-         if( r != 0 )
-         {
+         if( r != 0 ) {
             return r;
          }
 #if 0
-         else
-         {
+         else {
             return CallWindowProc(OldWndProc, hButton, Msg, wParam, lParam);
          }
 #endif
@@ -212,8 +199,7 @@ HB_FUNC( SETDATEPICK )
 {
    SYSTEMTIME sysTime;
 
-   if( hb_pcount() == 2 && HB_ISDATE(2) )
-   {
+   if( hb_pcount() == 2 && HB_ISDATE(2) ) {
       long lJulian;
       int iYear, iMonth, iDay;
 
@@ -223,15 +209,11 @@ HB_FUNC( SETDATEPICK )
       sysTime.wYear  = ( WORD ) iYear;
       sysTime.wMonth = ( WORD ) iMonth;
       sysTime.wDay   = ( WORD ) iDay;
-   }
-   else if( hb_pcount() > 2 )
-   {
+   } else if( hb_pcount() > 2 ) {
       sysTime.wYear  = hmg_par_WORD(2);
       sysTime.wMonth = hmg_par_WORD(3);
       sysTime.wDay   = hmg_par_WORD(4);
-   }
-   else
-   {
+   } else {
       sysTime.wYear  = 2005; // date() ?
       sysTime.wMonth = 1;
       sysTime.wDay   = 1;
@@ -370,8 +352,7 @@ HB_FUNC( DTP_SETDATETIME )
 
    bool bTimeToZero = false;
 
-   if( HB_ISDATETIME(2) )
-   {
+   if( HB_ISDATETIME(2) ) {
       int iYear, iMonth, iDay, iHour, iMinute, iSecond, iMSec;
 
       hb_timeStampUnpack(hb_partd(2), &iYear, &iMonth, &iDay, &iHour, &iMinute, &iSecond, &iMSec);
@@ -384,9 +365,7 @@ HB_FUNC( DTP_SETDATETIME )
       sysTime.wMinute       = ( WORD ) iMinute;
       sysTime.wSecond       = ( WORD ) iSecond;
       sysTime.wMilliseconds = ( WORD ) iMSec;
-   }
-   else if( HB_ISDATE(2) )
-   {
+   } else if( HB_ISDATE(2) ) {
       long lJulian;
       int iYear, iMonth, iDay;
 
@@ -399,29 +378,23 @@ HB_FUNC( DTP_SETDATETIME )
       sysTime.wDayOfWeek = 0;
 
       bTimeToZero = true;
-   }
-   else
-   {
+   } else {
       sysTime.wYear      = ( WORD ) hb_parnidef(2, 2005);
       sysTime.wMonth     = ( WORD ) hb_parnidef(3, 1);
       sysTime.wDay       = ( WORD ) hb_parnidef(4, 1);
       sysTime.wDayOfWeek = 0;
 
-      if( hb_pcount() >= 7 )
-      {
+      if( hb_pcount() >= 7 ) {
          sysTime.wHour         = hmg_par_WORD(5);
          sysTime.wMinute       = hmg_par_WORD(6);
          sysTime.wSecond       = hmg_par_WORD(7);
          sysTime.wMilliseconds = hmg_par_WORD(8);
-      }
-      else
-      {
+      } else {
          bTimeToZero = true;
       }
    }
 
-   if( bTimeToZero )
-   {
+   if( bTimeToZero ) {
       sysTime.wHour         = 0;
       sysTime.wMinute       = 0;
       sysTime.wSecond       = 0;
@@ -459,13 +432,11 @@ HB_FUNC( SETDATEPICKRANGE )
    DWORD      y, m, d;
    WPARAM     wLimit = 0;
 
-   if( HB_ISDATE(2) && HB_ISDATE(3) )
-   {
+   if( HB_ISDATE(2) && HB_ISDATE(3) ) {
       memset(&sysTime, 0, sizeof(sysTime));
 
       cDate = ( char * ) hb_pards(2);
-      if( !(cDate[0] == ' ') )
-      {
+      if( !(cDate[0] == ' ') ) {
          y = ( DWORD ) ((cDate[0] - '0') * 1000) + ((cDate[1] - '0') * 100) + ((cDate[2] - '0') * 10) + (cDate[3] - '0');
          sysTime[0].wYear = ( WORD ) y;
          m = ( DWORD ) ((cDate[4] - '0') * 10) + (cDate[5] - '0');
@@ -476,8 +447,7 @@ HB_FUNC( SETDATEPICKRANGE )
       }
 
       cDate = ( char * ) hb_pards(3);
-      if( !(cDate[0] == ' ') )
-      {
+      if( !(cDate[0] == ' ') ) {
          y = ( DWORD ) ((cDate[0] - '0') * 1000) + ((cDate[1] - '0') * 100) + ((cDate[2] - '0') * 10) + (cDate[3] - '0');
          sysTime[1].wYear = ( WORD ) y;
          m = ( DWORD ) ((cDate[4] - '0') * 10) + (cDate[5] - '0');

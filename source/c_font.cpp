@@ -83,8 +83,7 @@ HB_FUNC( _SETFONT )
 {
    HWND hwnd = hmg_par_HWND(1);
 
-   if( IsWindow(hwnd) )
-   {
+   if( IsWindow(hwnd) ) {
       int   bold      = hb_parl(4) ? FW_BOLD : FW_NORMAL;
       DWORD italic    = ( DWORD ) hb_parl(5);
       DWORD underline = ( DWORD ) hb_parl(6);
@@ -97,9 +96,7 @@ HB_FUNC( _SETFONT )
       SendMessage(hwnd, WM_SETFONT, ( WPARAM ) hFont, 1);
       RegisterResource(hFont, "FONT");
       hmg_ret_HFONT(hFont);
-   }
-   else
-   {
+   } else {
       hb_errRT_BASE_SubstR(EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
    }
 }
@@ -111,19 +108,13 @@ HB_FUNC( _SETFONTHANDLE )
 {
    HWND hwnd = hmg_par_HWND(1);
 
-   if( IsWindow(hwnd) )
-   {
-      if( GetObjectType(hmg_par_HGDIOBJ(2)) == OBJ_FONT )
-      {
+   if( IsWindow(hwnd) ) {
+      if( GetObjectType(hmg_par_HGDIOBJ(2)) == OBJ_FONT ) {
          SendMessage(hwnd, WM_SETFONT, ( WPARAM ) hmg_par_HFONT(2), 1);
-      }
-      else
-      {
+      } else {
          hb_errRT_BASE_SubstR(EG_ARG, 5050 + OBJ_FONT, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
       }
-   }
-   else
-   {
+   } else {
       hb_errRT_BASE_SubstR(EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
    }
 }
@@ -165,22 +156,16 @@ HB_FUNC( ENUMFONTSEX )
 
    memset(&lf, 0, sizeof(LOGFONT));
 
-   if( GetObjectType(hmg_par_HGDIOBJ(1)) == OBJ_DC )
-   {
+   if( GetObjectType(hmg_par_HGDIOBJ(1)) == OBJ_DC ) {
       hdc = hmg_par_HDC(1);
-   }
-   else
-   {
+   } else {
       hdc = GetDC(nullptr);
       bReleaseDC = true;
    }
 
-   if( hb_parclen(2) > 0 )
-   {
+   if( hb_parclen(2) > 0 ) {
       HB_STRNCPY(lf.lfFaceName, ( LPCTSTR ) hb_parc(2), HB_MIN(LF_FACESIZE - 1, hb_parclen(2)));
-   }
-   else
-   {
+   } else {
       lf.lfFaceName[0] = '\0';
    }
 
@@ -190,25 +175,21 @@ HB_FUNC( ENUMFONTSEX )
 
    EnumFontFamiliesEx(hdc, &lf, ( FONTENUMPROC ) EnumFontFamExProc, reinterpret_cast<LPARAM>(pArray), 0);
 
-   if( bReleaseDC )
-   {
+   if( bReleaseDC ) {
       ReleaseDC(nullptr, hdc);
    }
 
-   if( HB_ISBLOCK(6) )
-   {
+   if( HB_ISBLOCK(6) ) {
       hb_arraySort(pArray, nullptr, nullptr, hb_param(6, Harbour::Item::BLOCK));
    }
 
-   if( HB_ISBYREF(7) )
-   {
+   if( HB_ISBYREF(7) ) {
       PHB_ITEM aFontName = hb_param(7, Harbour::Item::ANY);
       int nLen = hb_arrayLen(pArray);
 
       hb_arrayNew(aFontName, nLen);
 
-      for( int i = 1; i <= nLen; i++ )
-      {
+      for( int i = 1; i <= nLen; i++ ) {
          hb_arraySetC(aFontName, i, hb_arrayGetC(hb_arrayGetItemPtr(pArray, i), 1));
       }
    }
@@ -220,8 +201,7 @@ int CALLBACK EnumFontFamExProc(ENUMLOGFONTEX * lpelfe, NEWTEXTMETRICEX * lpntme,
 {
    HB_SYMBOL_UNUSED(lpntme);
 
-   if( lpelfe->elfLogFont.lfFaceName[0] != '@' )
-   {
+   if( lpelfe->elfLogFont.lfFaceName[0] != '@' ) {
       PHB_ITEM pSubArray = hb_itemArrayNew(4);
       HB_ARRAYSETSTR(pSubArray, 1, lpelfe->elfLogFont.lfFaceName);
       hb_arraySetNL(pSubArray, 2, lpelfe->elfLogFont.lfCharSet);

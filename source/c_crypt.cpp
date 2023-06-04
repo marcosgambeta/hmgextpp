@@ -65,18 +65,13 @@ HB_FUNC( CHARXOR )
    len1 = hb_parclen(1);
    Str2 = ( char * ) hb_parc(2);
    len2 = hb_parclen(2);
-   if( !len1 )
-   {
+   if( !len1 ) {
       hb_retclen("", 0);
-   }
-   else
-   {
+   } else {
       Res = ( char * ) hb_xgrab(len1);
-      for( nl1 = nl2 = 0; nl1 < len1; nl1++ )
-      {
+      for( nl1 = nl2 = 0; nl1 < len1; nl1++ ) {
          Res[nl1] = Str1[nl1] ^ Str2[nl2];
-         if( ( ++nl2 ) >= len2 )
-         {
+         if( ( ++nl2 ) >= len2 ) {
             nl2 = 0;
          }
       }

@@ -207,27 +207,22 @@ HB_FUNC( INITLISTVIEW )
 
    style = LVS_SHOWSELALWAYS | WS_CHILD | WS_VISIBLE | LVS_REPORT;
 
-   if( !hb_parl(9) )
-   {
+   if( !hb_parl(9) ) {
       style |= LVS_SINGLESEL;
    }
 
-   if( !hb_parl(12) )
-   {
+   if( !hb_parl(12) ) {
       style |= WS_TABSTOP;
    }
 
-   if( !hb_parl(10) )
-   {
+   if( !hb_parl(10) ) {
       style |= LVS_NOCOLUMNHEADER;
    }
-   else if( hb_parl(11) )
-   {
+   else if( hb_parl(11) ) {
       style |= LVS_NOSORTHEADER;
    }
 
-   if( hb_parl(7) )
-   {
+   if( hb_parl(7) ) {
       style |= LVS_OWNERDATA;
    }
 
@@ -247,8 +242,7 @@ HB_FUNC( INITLISTVIEW )
       nullptr
              );
 
-   if( hb_parl(7) )
-   {
+   if( hb_parl(7) ) {
       ListView_SetItemCount(hbutton, hb_parni(8));
    }
 
@@ -271,26 +265,20 @@ HB_FUNC( ADDLISTVIEWBITMAP )       // Grid+
 
    nCount = ( int ) hb_parinfa(2, 0);
 
-   if( nCount > 0 )
-   {
+   if( nCount > 0 ) {
       hArray = hb_param(2, Harbour::Item::ARRAY);
 
-      for( int s = 1; s <= nCount; s++ )
-      {
+      for( int s = 1; s <= nCount; s++ ) {
          FileName = ( char * ) hb_arrayGetCPtr(hArray, s);
 
-         if( himl == nullptr )
-         {
+         if( himl == nullptr ) {
             himl = HMG_ImageListLoadFirst(FileName, nCount, 1, &cx, nullptr);
-         }
-         else
-         {
+         } else {
             HMG_ImageListAdd(himl, FileName, 1);
          }
       }
 
-      if( himl != nullptr )
-      {
+      if( himl != nullptr ) {
          SendMessage(hbutton, LVM_SETIMAGELIST, LVSIL_SMALL, reinterpret_cast<LPARAM>(himl));
       }
    }
@@ -308,30 +296,23 @@ HB_FUNC( ADDLISTVIEWBITMAPHEADER )  // Grid+
 
    hheader = ListView_GetHeader(hmg_par_HWND(1));
 
-   if( hheader )
-   {
+   if( hheader ) {
       nCount = ( int ) hb_parinfa(2, 0);
 
-      if( nCount > 0 )
-      {
+      if( nCount > 0 ) {
          hArray = hb_param(2, Harbour::Item::ARRAY);
 
-         for( int s = 1; s <= nCount; s++ )
-         {
+         for( int s = 1; s <= nCount; s++ ) {
             FileName = ( char * ) hb_arrayGetCPtr(hArray, s);
 
-            if( himl == nullptr )
-            {
+            if( himl == nullptr ) {
                himl = HMG_ImageListLoadFirst(FileName, nCount, 1, nullptr, nullptr);
-            }
-            else
-            {
+            } else {
                HMG_ImageListAdd(himl, FileName, 1);
             }
          }
 
-         if( himl != nullptr )
-         {
+         if( himl != nullptr ) {
             SendMessage(hheader, HDM_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(himl));
             RegisterResource(himl, "IMAGELIST");
          }
@@ -379,8 +360,7 @@ HB_FUNC( INITLISTVIEWCOLUMNS )
 
    COL.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM;
 
-   for( s = 0; s <= iLen; s++ )
-   {
+   for( s = 0; s <= iLen; s++ ) {
       COL.fmt = hb_arrayGetNI( jArray, s + 1 );
       COL.cx  = hb_arrayGetNI( wArray, s + 1 );
    #ifndef UNICODE
@@ -391,8 +371,7 @@ HB_FUNC( INITLISTVIEWCOLUMNS )
       COL.pszText  = lpText;
       COL.iSubItem = iColumn;
       ListView_InsertColumn(hc, iColumn, &COL);
-      if( iColumn == 0 && COL.fmt != LVCFMT_LEFT )
-      {
+      if( iColumn == 0 && COL.fmt != LVCFMT_LEFT ) {
          iColumn++;
          COL.iSubItem = iColumn;
          ListView_InsertColumn(hc, iColumn, &COL);
@@ -405,8 +384,7 @@ HB_FUNC( INITLISTVIEWCOLUMNS )
 #endif
    }
 
-   if( iColumn != s )
-   {
+   if( iColumn != s ) {
       ListView_DeleteColumn(hc, 0);
    }
 }
@@ -447,8 +425,7 @@ HB_FUNC( ADDLISTVIEWITEMS )
    LI.pszText   = lpText;
    ListView_InsertItem(h, &LI);
 
-   for( int s = 1; s <= l; s = s + 1 )
-   {
+   for( int s = 1; s <= l; s = s + 1 ) {
       caption = ( char * ) hb_arrayGetCPtr(hArray, s + 1);
 #ifndef UNICODE
       lpText = caption;
@@ -479,16 +456,12 @@ HB_FUNC( LISTVIEWGETMULTISEL )
 
    hb_reta(n);
 
-   while(1)
-   {
+   while(1) {
       i = ListView_GetNextItem(hwnd, i, LVNI_ALL | LVNI_SELECTED);
 
-      if( i == -1 )
-      {
+      if( i == -1 ) {
          break;
-      }
-      else
-      {
+      } else {
          j++;
       }
 
@@ -509,24 +482,19 @@ HB_FUNC( LISTVIEWSETMULTISEL )
 
    // CLEAR CURRENT SELECTIONS
 
-   while(1)
-   {
+   while(1) {
       i = ListView_GetNextItem(hwnd, i, LVNI_ALL | LVNI_SELECTED);
 
-      if( i == -1 )
-      {
+      if( i == -1 ) {
          break;
-      }
-      else
-      {
+      } else {
          ListView_SetItemState(hwnd, i, 0, LVIS_FOCUSED | LVIS_SELECTED);
       }
    }
 
    // SET NEW SELECTIONS
 
-   for( i = 0; i <= l; i++ )
-   {
+   for( i = 0; i <= l; i++ ) {
       ListView_SetItemState(hwnd, hb_arrayGetNI( wArray, i + 1 ) - 1, LVIS_FOCUSED | LVIS_SELECTED, LVIS_FOCUSED | LVIS_SELECTED);
    }
 }
@@ -547,8 +515,7 @@ HB_FUNC( LISTVIEWSETITEM )
 
    hArray = hb_param(2, Harbour::Item::ARRAY);
 
-   for( int s = 0; s <= l; s = s + 1 )
-   {
+   for( int s = 0; s <= l; s = s + 1 ) {
       caption = ( char * ) hb_arrayGetCPtr(hArray, s + 1);
 #ifndef UNICODE
       lpText = caption;
@@ -576,15 +543,13 @@ static TCHAR * GetLVItemText(HWND hListView, int i, int iSubItem_)
 
    lvi.iSubItem = iSubItem_;
 
-   do
-   {
+   do {
       nLen          *= 2;
       lpText         = ( TCHAR * ) hb_xrealloc(lpText, sizeof(TCHAR) * nLen);
       lvi.cchTextMax = nLen;
       lvi.pszText    = lpText;
       nRes           = SendMessage(hListView, LVM_GETITEMTEXT, i, reinterpret_cast<LPARAM>(&lvi));
-   }
-   while( nRes >= nLen - 1 );
+   } while( nRes >= nLen - 1 );
 
    return ( TCHAR * ) lpText;
 }
@@ -601,8 +566,7 @@ HB_FUNC( LISTVIEWGETITEM )
 
    hb_reta(l);
 
-   for( int s = 0; s <= l - 1; s++ )
-   {
+   for( int s = 0; s <= l - 1; s++ ) {
       pszRet = GetLVItemText(h, c, s);
    #ifndef UNICODE
       HB_STORC( pszRet, -1, s + 1 );
@@ -666,12 +630,9 @@ HB_FUNC( SETGRIDCOLUMNHEADERIMAGE )
 
    COL.mask = LVCF_FMT | LVCF_IMAGE;
 
-   if( hb_parl(4) )
-   {
+   if( hb_parl(4) ) {
       fmt = fmt | LVCFMT_BITMAP_ON_RIGHT | LVCFMT_RIGHT;
-   }
-   else
-   {
+   } else {
       fmt = fmt | LVCFMT_LEFT;
    }
 
@@ -748,31 +709,22 @@ HB_FUNC( LISTVIEW_HITTEST )
 
    lvhti.pt = point;
 
-   if( hb_parni(4) )  // checkbox area.
-   {
+   if( hb_parni(4) ) { // checkbox area.
       ListView_HitTest(hmg_par_HWND(1), &lvhti);
 
-      if( lvhti.flags & LVHT_ONITEMSTATEICON )
-      {
+      if( lvhti.flags & LVHT_ONITEMSTATEICON ) {
          hb_retl(true);
-      }
-      else
-      {
+      } else {
          hb_retl(false);
       }
-   }
-   else  // item area.
-   {
+   } else { // item area.
       ListView_SubItemHitTest(hmg_par_HWND(1), &lvhti);
 
-      if( lvhti.flags & LVHT_ONITEM )
-      {
+      if( lvhti.flags & LVHT_ONITEM ) {
          hb_reta(2);
          HB_STORNI( lvhti.iItem + 1, -1, 1 );
          HB_STORNI( lvhti.iSubItem + 1, -1, 2 );
-      }
-      else
-      {
+      } else {
          hb_reta(2);
          HB_STORNI( 0, -1, 1 );
          HB_STORNI( 0, -1, 2 );
@@ -867,12 +819,9 @@ HB_FUNC( GETHEADERLISTVIEWITEMCX )
 {
    LPNMHEADER lpnmheader = ( LPNMHEADER ) HB_PARNL(1);
 
-   if( lpnmheader->pitem->mask == HDI_WIDTH )
-   {
+   if( lpnmheader->pitem->mask == HDI_WIDTH ) {
       hb_retni( lpnmheader->pitem->cxy );
-   }
-   else
-   {
+   } else {
       hb_retni( -1 );
    }
 }
@@ -907,8 +856,7 @@ HB_FUNC( LISTVIEW_ADDCOLUMN )
 #ifdef UNICODE
    hb_xfree(lpText);
 #endif
-   if( iColumn == 0 && COL.fmt != LVCFMT_LEFT )
-   {
+   if( iColumn == 0 && COL.fmt != LVCFMT_LEFT ) {
       COL.iSubItem = 1;
       ListView_InsertColumn(hwnd, 1, &COL);
       ListView_DeleteColumn(hwnd, 0);
@@ -944,12 +892,9 @@ HB_FUNC( LISTVIEW_GETCHECKSTATE )
 {
    HWND hwndLV = hmg_par_HWND(1);
 
-   if( _isValidCtrlClass(hwndLV, WC_LISTVIEW) )
-   {
+   if( _isValidCtrlClass(hwndLV, WC_LISTVIEW) ) {
       hb_retl(ListView_GetCheckState(hwndLV, hb_parni(2) - 1));
-   }
-   else
-   {
+   } else {
       hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
    }
 }
@@ -958,14 +903,11 @@ HB_FUNC( LISTVIEW_SETCHECKSTATE )
 {
    HWND hwndLV = hmg_par_HWND(1);
 
-   if( _isValidCtrlClass(hwndLV, WC_LISTVIEW) )
-   {
+   if( _isValidCtrlClass(hwndLV, WC_LISTVIEW) ) {
       ListView_SetCheckState(hwndLV, hb_parni(2) - 1, hb_parl(3));
 
       hb_retl(true);
-   }
-   else
-   {
+   } else {
       hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
    }
 }
@@ -974,12 +916,9 @@ HB_FUNC( LISTVIEW_GETCOLUMNCOUNT )  // Dr. Claudio Soto 2016/APR/07
 {
    HWND hwndLV = hmg_par_HWND(1);
 
-   if( _isValidCtrlClass(hwndLV, WC_LISTVIEW) )
-   {
+   if( _isValidCtrlClass(hwndLV, WC_LISTVIEW) ) {
       hb_retni( Header_GetItemCount(ListView_GetHeader(hwndLV)) );
-   }
-   else
-   {
+   } else {
       hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
    }
 }
@@ -988,24 +927,20 @@ HB_FUNC( LISTVIEW_GETCOLUMNORDERARRAY )
 {
    int iCols = hb_parni(2);
 
-   if( iCols )
-   {
+   if( iCols ) {
       int *    iArray = ( int * ) hb_xgrab(iCols * sizeof(int));
       PHB_ITEM pArray = hb_itemArrayNew(( HB_SIZE ) iCols);
 
       ListView_GetColumnOrderArray(hmg_par_HWND(1), iCols, ( int * ) iArray);
 
-      for( int i = 0; i < iCols; i++ )
-      {
+      for( int i = 0; i < iCols; i++ ) {
          hb_arraySetNI( pArray, ( HB_SIZE ) i + 1, iArray[i] + 1 );
       }
 
       hb_xfree(iArray);
 
       hb_itemReturnRelease(pArray);
-   }
-   else
-   {
+   } else {
       hb_reta(0);
    }
 }
@@ -1014,16 +949,13 @@ HB_FUNC( LISTVIEW_SETCOLUMNORDERARRAY )
 {
    PHB_ITEM pOrder = hb_param(3, Harbour::Item::ARRAY);
 
-   if( pOrder != nullptr )
-   {
+   if( pOrder != nullptr ) {
       int iColumn = hb_parni(2);
 
-      if( iColumn )
-      {
+      if( iColumn ) {
          int * iArray = ( int * ) hb_xgrab(iColumn * sizeof(int));
 
-         for( int i = 0; i < iColumn; i++ )
-         {
+         for( int i = 0; i < iColumn; i++ ) {
             iArray[i] = HB_PARNI(3, i + 1) - 1;
          }
 
@@ -1056,12 +988,9 @@ HB_FUNC( LISTVIEW_GETEXTENDEDSTYLE )  // Dr. Claudio Soto
    DWORD ExStyle  = hmg_par_DWORD(2);
    DWORD OldStyle = ListView_GetExtendedListViewStyle(hWnd);
 
-   if( HB_ISNUM(2) )
-   {
+   if( HB_ISNUM(2) ) {
       hb_retl(( BOOL ) ( ( OldStyle & ExStyle ) == ExStyle ));
-   }
-   else
-   {
+   } else {
       hb_retnl( OldStyle );
    }
 }
@@ -1080,76 +1009,53 @@ HB_FUNC( LISTVIEW_SETSORTHEADER )
    INT    nType;
    HDITEM hdItem;
 
-   if( hb_parl(4) )
-   {
+   if( hb_parl(4) ) {
       hdItem.mask = HDI_FORMAT;
 
       SendMessage(hWndHD, HDM_GETITEM, nItem, reinterpret_cast<LPARAM>(&hdItem));
 
-      if( hdItem.fmt & HDF_SORTUP )
-      {
+      if( hdItem.fmt & HDF_SORTUP ) {
          hb_retni(1);
-      }
-      else if( hdItem.fmt & HDF_SORTDOWN )
-      {
+      } else if( hdItem.fmt & HDF_SORTDOWN ) {
          hb_retni( -1 );
-      }
-      else
-      {
+      } else {
          hb_retni(0);
       }
 
-      if( ( hb_pcount() > 2 ) && HB_ISNUM(3) )
-      {
+      if( ( hb_pcount() > 2 ) && HB_ISNUM(3) ) {
          nType = hb_parni(3);
 
-         if( nType == 0 )
-         {
+         if( nType == 0 ) {
             hdItem.fmt &= ~( HDF_SORTDOWN | HDF_SORTUP );
-         }
-         else if( nType > 0 )
-         {
+         } else if( nType > 0 ) {
             hdItem.fmt = ( hdItem.fmt & ~HDF_SORTDOWN ) | HDF_SORTUP;
-         }
-         else
-         {
+         } else {
             hdItem.fmt = ( hdItem.fmt & ~HDF_SORTUP ) | HDF_SORTDOWN;
          }
 
          SendMessage(hWndHD, HDM_SETITEM, nItem, reinterpret_cast<LPARAM>(&hdItem));
       }
-   }
-   else
-   {
+   } else {
       hdItem.mask = HDI_BITMAP | HDI_FORMAT;
 
       SendMessage(hWndHD, HDM_GETITEM, nItem, reinterpret_cast<LPARAM>(&hdItem));
 
       nType = hb_parni(3);
 
-      if( nType == 0 )
-      {
+      if( nType == 0 ) {
          hdItem.mask = HDI_FORMAT;
          hdItem.fmt &= ~( HDF_BITMAP | HDF_BITMAP_ON_RIGHT );
-      }
-      else
-      {
-         if( nType > 0 )
-         {
+      } else {
+         if( nType > 0 ) {
             hdItem.hbm = static_cast<HBITMAP>(LoadImage(GetInstance(), "MINIGUI_GRID_ASC", IMAGE_BITMAP, 0, 0, LR_LOADTRANSPARENT | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS));
-         }
-         else
-         {
+         } else {
             hdItem.hbm = static_cast<HBITMAP>(LoadImage(GetInstance(), "MINIGUI_GRID_DSC", IMAGE_BITMAP, 0, 0, LR_LOADTRANSPARENT | LR_DEFAULTCOLOR | LR_LOADMAP3DCOLORS));
          }
 
          hdItem.fmt |= HDF_BITMAP;
-         if( hdItem.fmt & HDF_RIGHT )
-         {
+         if( hdItem.fmt & HDF_RIGHT ) {
             hdItem.fmt &= ~HDF_BITMAP_ON_RIGHT;
-         }
-         else
-         {
+         } else {
             hdItem.fmt |= HDF_BITMAP_ON_RIGHT;
          }
       }
@@ -1278,8 +1184,7 @@ HB_FUNC( LISTVIEW_GROUPSETINFO )
    LVG.pszFooter = cFooterBuffer;
    LVG.cchFooter = sizeof(cFooterBuffer) / sizeof(WCHAR);
 
-   if( ListView_GetGroupInfo(hWnd, GroupID, &LVG) != -1 )
-   {
+   if( ListView_GetGroupInfo(hWnd, GroupID, &LVG) != -1 ) {
       UINT nAlign = 0;
       LVG.stateMask = LVM_SETGROUPINFO;
       LVG.pszHeader = ( cHeader != nullptr ) ? cHeader : cHeaderBuffer;
@@ -1290,9 +1195,7 @@ HB_FUNC( LISTVIEW_GROUPSETINFO )
       LVG.state     = ( ( nState != 0 ) ? ( nState >> 1 ) : LVG.state );
 
       hb_retni( ListView_SetGroupInfo(hWnd, GroupID, &LVG) );
-   }
-   else
-   {
+   } else {
       hb_retni( -1 );
    }
 }
@@ -1317,8 +1220,7 @@ HB_FUNC( LISTVIEW_GROUPGETINFO )
    LVG.pszFooter = cFooterBuffer;
    LVG.cchFooter = sizeof(cFooterBuffer) / sizeof(WCHAR);
 
-   if( ( nRet = ListView_GetGroupInfo(hWnd, GroupID, &LVG) ) != -1 )
-   {
+   if( ( nRet = ListView_GetGroupInfo(hWnd, GroupID, &LVG) ) != -1 ) {
       HB_STORC(   hb_wctomb(cHeaderBuffer), 3 );
       hb_storni( ( LVG.uAlign & 0x07 ), 4 );
       HB_STORC(   hb_wctomb(cFooterBuffer), 5 );

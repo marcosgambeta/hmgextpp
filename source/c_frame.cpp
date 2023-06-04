@@ -62,8 +62,7 @@ HB_FUNC( INITFRAME )
    HWND hwnd = hmg_par_HWND(1);
    HWND hbutton = nullptr;
 
-   if( IsWindow(hwnd) )
-   {
+   if( IsWindow(hwnd) ) {
       HMENU hmenu = hmg_par_HMENU(2);
       DWORD dwExStyle = hmg_par_BOOL(10) ? 0 : WS_EX_TRANSPARENT; /* opaque | transparent */
       void * str;
@@ -82,9 +81,7 @@ HB_FUNC( INITFRAME )
                                nullptr);
 
       hb_strfree(str);
-   }
-   else
-   {
+   } else {
       hb_errRT_BASE_SubstR(EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
    }
 

@@ -69,20 +69,17 @@ HB_FUNC( INITCOMBOBOXEX )
 
    DWORD style = WS_CHILD | WS_VSCROLL;
 
-   if( !hb_parl(9) )
-   {
+   if( !hb_parl(9) ) {
       style |= WS_VISIBLE;
    }
 
-   if( !hb_parl(10) )
-   {
+   if( !hb_parl(10) ) {
       style |= WS_TABSTOP;
    }
 
    style |= hb_parl(12) ? CBS_DROPDOWN : CBS_DROPDOWNLIST;
 
-   if( hb_parl(13) )
-   {
+   if( hb_parl(13) ) {
       style |= CBS_NOINTEGRALHEIGHT;
    }
 
@@ -106,39 +103,30 @@ HB_FUNC( INITCOMBOBOXEX )
 
    int nCount = ( int ) hb_parinfa(14, 0);
 
-   if( nCount > 0 )
-   {
+   if( nCount > 0 ) {
       int Transparent = hb_parl(7) ? 0 : 1;
       hArray = hb_param(14, Harbour::Item::ARRAY);
 
-      for( int s = 1; s <= nCount; s++ )
-      {
+      for( int s = 1; s <= nCount; s++ ) {
          const char * FileName = hb_arrayGetCPtr(hArray, s);
 
-         if( himl == nullptr )
-         {
+         if( himl == nullptr ) {
             himl = HMG_ImageListLoadFirst(FileName, nCount, Transparent, nullptr, nullptr);
-         }
-         else
-         {
+         } else {
             HMG_ImageListAdd(himl, FileName, Transparent);
          }
       }
    }
 
-   if( himl == nullptr && HB_PARNL(15) > 0 )
-   {
+   if( himl == nullptr && HB_PARNL(15) > 0 ) {
       himl = hmg_par_HIMAGELIST(15);
    }
 
    // set imagelist for created ComboEx
 
-   if( himl != nullptr )
-   {
+   if( himl != nullptr ) {
       SendMessage(hCombo, CBEM_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(himl));
-   }
-   else
-   {
+   } else {
       // extend combo without images
       SendMessage(hCombo, CBEM_SETEXTENDEDSTYLE, 0, CBES_EX_NOEDITIMAGE);
    }
@@ -220,15 +208,12 @@ HB_FUNC( COMBOGETSTRING )
 {
    int strlen = SendMessage(hmg_par_HWND(1), CB_GETLBTEXTLEN, hmg_par_WPARAM(2) - 1, 0);
 
-   if( strlen > 0 )
-   {
+   if( strlen > 0 ) {
       TCHAR * str = new TCHAR[strlen + 1];
       SendMessage(hmg_par_HWND(1), CB_GETLBTEXT, hmg_par_WPARAM(2) - 1, reinterpret_cast<LPARAM>(str));
       HB_RETSTR(str);
       delete[] str;
-   }
-   else
-   {
+   } else {
      hb_retc_null();
    }
 }

@@ -63,23 +63,17 @@ HB_FUNC( GETCUEBANNERTEXT )
 {
    HWND hwnd = hmg_par_HWND(1);
 
-   if( IsWindow(hwnd) )
-   {
+   if( IsWindow(hwnd) ) {
       HB_WCHAR * lpWCStr = ( HB_WCHAR * ) hb_xgrab(256 * sizeof(HB_WCHAR));
 
-      if( SendMessage(hwnd, EM_GETCUEBANNER, ( WPARAM ) ( LPWSTR ) lpWCStr, 256) )
-      {
+      if( SendMessage(hwnd, EM_GETCUEBANNER, ( WPARAM ) ( LPWSTR ) lpWCStr, 256) ) {
          hb_retstrlen_u16(HB_CDP_ENDIAN_NATIVE, lpWCStr, 256);
-      }
-      else
-      {
+      } else {
          hb_retc_null();
       }
 
       hb_xfree(lpWCStr);
-   }
-   else
-   {
+   } else {
       hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
    }
 }
@@ -88,19 +82,15 @@ HB_FUNC( SENDMESSAGESTRINGW )
 {
    HWND hwnd = hmg_par_HWND(1);
 
-   if( IsWindow(hwnd) )
-   {
+   if( IsWindow(hwnd) ) {
       HB_WCHAR * lpWCStr = ( HB_WCHAR * ) ( ( hb_parclen(4) == 0 ) ? nullptr : hb_mbtowc( hb_parc(4) ) );
 
       HB_RETNL( ( LONG_PTR ) SendMessage(hwnd, hmg_par_UINT(2),
                                           ( WPARAM ) hb_parl(3), reinterpret_cast<LPARAM>(lpWCStr)) );
-      if( lpWCStr != nullptr )
-      {
+      if( lpWCStr != nullptr ) {
          hb_xfree(lpWCStr);
       }
-   }
-   else
-   {
+   } else {
       hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
    }
 }

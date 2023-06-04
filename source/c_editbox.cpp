@@ -60,32 +60,25 @@ HB_FUNC( INITEDITBOX )
 {
    DWORD style = ES_MULTILINE | ES_WANTRETURN | WS_CHILD;
 
-   if( hb_parl(10) )
-   {
+   if( hb_parl(10) ) {
       style |= ES_READONLY;
    }
 
-   if( !hb_parl(11) )
-   {
+   if( !hb_parl(11) ) {
       style |= WS_VISIBLE;
    }
 
-   if( !hb_parl(12) )
-   {
+   if( !hb_parl(12) ) {
       style |= WS_TABSTOP;
    }
 
-   if( !hb_parl(13) )
-   {
+   if( !hb_parl(13) ) {
       style |= WS_VSCROLL;
-   }
-   else
-   {
+   } else {
       style |= ES_AUTOVSCROLL;
    }
 
-   if( !hb_parl(14) )
-   {
+   if( !hb_parl(14) ) {
       style |= WS_HSCROLL;
    }
 

@@ -66,13 +66,10 @@ HB_FUNC( DELETEOBJECT )
 {
    HANDLE hRes = hmg_par_HANDLE(1);
 
-   if( hRes )
-   {
+   if( hRes ) {
       DelResource(hRes);
       hb_retl(DeleteObject(static_cast<HGDIOBJ>(hRes)));
-   }
-   else
-   {
+   } else {
       hb_retl(false);
    }
 }
@@ -92,29 +89,9 @@ HB_FUNC( SETFOCUS )
 
 HB_FUNC( INSERTSHIFTTAB )
 {
-   keybd_event
-   (
-      VK_SHIFT,         // virtual-key code
-      0,                // hardware scan code
-      0,                // flags specifying various function options
-      0                 // additional data associated with keystroke
-   );
-
-   keybd_event
-   (
-      VK_TAB,           // virtual-key code
-      0,                // hardware scan code
-      0,                // flags specifying various function options
-      0                 // additional data associated with keystroke
-   );
-
-   keybd_event
-   (
-      VK_SHIFT,         // virtual-key code
-      0,                // hardware scan code
-      KEYEVENTF_KEYUP,  // flags specifying various function options
-      0                 // additional data associated with keystroke
-   );
+   keybd_event(VK_SHIFT, 0, 0, 0);
+   keybd_event(VK_TAB, 0, 0, 0);
+   keybd_event(VK_SHIFT, 0, KEYEVENTF_KEYUP, 0);
 }
 
 HB_FUNC( SYSTEMPARAMETERSINFO )
@@ -136,27 +113,23 @@ HB_FUNC( GETTEXTWIDTH ) // returns the width of a string in pixels
    void * String;
    LPCTSTR lpString = HB_PARSTR(2, &String, nullptr);
 
-   if( !hDC )
-   {
+   if( !hDC ) {
       bDestroyDC = true;
       hWnd       = GetActiveWindow();
       hDC        = GetDC(hWnd);
    }
 
-   if( hFont )
-   {
+   if( hFont ) {
       hOldFont = static_cast<HFONT>(SelectObject(hDC, hFont));
    }
 
    GetTextExtentPoint32(hDC, lpString, lstrlen(lpString), &sz);
 
-   if( hFont )
-   {
+   if( hFont ) {
       SelectObject(hDC, hOldFont);
    }
 
-   if( bDestroyDC )
-   {
+   if( bDestroyDC ) {
       ReleaseDC(hWnd, hDC);
    }
 
@@ -260,11 +233,9 @@ HB_FUNC( MOVEBTNTEXTBOX )   //MoveBtnTextBox(hEdit, hBtn1, hBtn2, fBtn2, BtnWidt
    BtnWidth2 = ( fBtn2 ? BtnWidth : 0 );
 
    SetWindowPos(hedit, nullptr, 0, 0, width, height, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);
-   if( fBtns )
-   {
+   if( fBtns ) {
       SetWindowPos(hBtn1, nullptr, width - BtnWidth - 4, -1, BtnWidth, height - 2, SWP_NOACTIVATE | SWP_NOZORDER);
-      if( fBtn2 )
-      {
+      if( fBtn2 ) {
          SetWindowPos(hBtn2, nullptr, width - BtnWidth - BtnWidth2 - 4, -1, BtnWidth2, height - 2, SWP_NOACTIVATE | SWP_NOZORDER);
       }
    }

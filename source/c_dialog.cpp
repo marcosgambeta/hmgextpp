@@ -58,13 +58,11 @@ LRESULT CALLBACK HMG_DlgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 {
    static PHB_SYMB pSymbol = nullptr;
 
-   if( !pSymbol )
-   {
+   if( !pSymbol ) {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("DIALOGPROC"));
    }
 
-   if( pSymbol )
-   {
+   if( pSymbol ) {
       hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
       hmg_vmPushHandle(hWnd);
@@ -81,13 +79,11 @@ LRESULT CALLBACK HMG_ModalDlgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
 {
    static PHB_SYMB pSymbol = nullptr;
 
-   if( !pSymbol )
-   {
+   if( !pSymbol ) {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("MODALDIALOGPROC"));
    }
 
-   if( pSymbol )
-   {
+   if( pSymbol ) {
       hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
       hmg_vmPushHandle(hWnd);
@@ -171,8 +167,7 @@ HB_FUNC( ADDDIALOGPAGES )
    tie.mask = TCIF_TEXT;
    tie.iImage = -1;
 
-   for( int i = l; i >= 0; i = i - 1 )
-   {
+   for( int i = l; i >= 0; i = i - 1 ) {
       tie.pszText = ( TCHAR * ) hb_arrayGetCPtr(hArray, i + 1);
       TabCtrl_InsertItem(hwnd, 0, &tie);
    }
@@ -253,14 +248,12 @@ static int nCopyAnsiToWideChar(LPWORD lpWCStr, LPCSTR lpAnsiIn)
    int CodePage = GetACP();
    int nDstLen = MultiByteToWideChar(CodePage, 0, lpAnsiIn, -1, nullptr, 0);
 
-   if( nDstLen > 0 )
-   {
+   if( nDstLen > 0 ) {
       LPWSTR pszDst = ( LPWSTR ) hb_xgrab(nDstLen * 2);
 
       MultiByteToWideChar(CodePage, 0, lpAnsiIn, -1, pszDst, nDstLen);
 
-      for( int i = 0; i < nDstLen; i++ )
-      {
+      for( int i = 0; i < nDstLen; i++ ) {
          *(lpWCStr + i) = *(pszDst + i);
       }
 
@@ -278,15 +271,13 @@ HB_SIZE GetSizeDlgTemp(PHB_ITEM dArray, PHB_ITEM cArray)
    HB_SIZE ln = hb_arrayGetCLen(dArray, 10);    //caption
    lTemplateSize += ln * 2;
 
-   if( hb_arrayGetNI( dArray, 4 ) & DS_SETFONT )
-   {
+   if( hb_arrayGetNI( dArray, 4 ) & DS_SETFONT ) {
       ln = hb_arrayGetCLen(dArray, 11); //fontname
       lTemplateSize += ln * 2;
       lTemplateSize += 3;
    }
 
-   for( int s = 0; s < nItem; s++ )
-   {
+   for( int s = 0; s < nItem; s++ ) {
       iArray = ( PHB_ITEM ) hb_arrayGetItemPtr(cArray, s + 1);
       lTemplateSize += 36;
       ln = hb_arrayGetCLen(iArray, 3);  //class
@@ -345,8 +336,7 @@ PWORD CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
    strtemp = ( char * ) hb_arrayGetCPtr(dArray, 10);    //caption
    nchar   = nCopyAnsiToWideChar( pw, strtemp );
    pw     += nchar;
-   if( hb_arrayGetNI( dArray, 4 ) & DS_SETFONT )
-   {
+   if( hb_arrayGetNI( dArray, 4 ) & DS_SETFONT ) {
       iPointSize = ( WORD ) hb_arrayGetNI( dArray, 12 );                //fontsize
       *pw++      = iPointSize;
       *pw++      = ( WORD ) ( hb_arrayGetL( dArray, 13 ) ? 700 : 400 ); //bold
@@ -356,8 +346,7 @@ PWORD CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
       pw        += nchar;
    }
 
-   for( int s = 0; s < nItem; s = s + 1 )
-   {
+   for( int s = 0; s < nItem; s = s + 1 ) {
       iArray = ( PHB_ITEM ) hb_arrayGetItemPtr(cArray, s + 1);
       pw     = lpwAlign(pw);
 
@@ -405,14 +394,11 @@ HB_FUNC( CREATEDLGTEMPLATE )
    HB_SIZE lTemplateSize = GetSizeDlgTemp(dArray, cArray);
    PWORD pdlgtemplate = CreateDlgTemplate(lTemplateSize, dArray, cArray);
 
-   if( modal )
-   {
+   if( modal ) {
       LRESULT lResult = DialogBoxIndirect(GetResources(), ( LPDLGTEMPLATE ) pdlgtemplate, hmg_par_HWND(1), ( DLGPROC ) HMG_ModalDlgProc);
       LocalFree(pdlgtemplate);
       HB_RETNL(( LONG_PTR ) lResult);
-   }
-   else
-   {
+   } else {
       HWND hwndDlg = CreateDialogIndirect(GetResources(), ( LPDLGTEMPLATE ) pdlgtemplate, hmg_par_HWND(1), ( DLGPROC ) HMG_DlgProc);
       LocalFree(pdlgtemplate);
       hmg_ret_HWND(hwndDlg);
@@ -428,8 +414,7 @@ HB_FUNC( INITEXCOMMONCONTROLS )
 
    i.dwSize = sizeof(INITCOMMONCONTROLSEX);
 
-   switch( hb_parni(1) )
-   {
+   switch( hb_parni(1) ) {
       case 1:  i.dwICC = ICC_DATE_CLASSES;     break;
       case 2:  i.dwICC = ICC_TREEVIEW_CLASSES; break;
       case 3:  i.dwICC = ICC_INTERNET_CLASSES; break;
