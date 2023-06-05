@@ -63,8 +63,7 @@ HB_FUNC( INITMESSAGEBAR )
 
    hWndSB = CreateStatusWindow(WS_CHILD | WS_VISIBLE | SBT_TOOLTIPS, nullptr, hmg_par_HWND(1), hb_parni(2));
 
-   if( hWndSB )
-   {
+   if( hWndSB ) {
       SendMessage(hWndSB, SB_SETPARTS, nrOfParts, reinterpret_cast<LPARAM>(ptArray));
    }
 
@@ -98,16 +97,14 @@ HB_FUNC( INITITEMBAR )
    hWndSB = hmg_par_HWND(1);
    style  = GetWindowLong(GetParent(hWndSB), GWL_STYLE);
 
-   switch( hb_parni(8) )
-   {
+   switch( hb_parni(8) ) {
       case 0:  displayFlags = 0; break;
       case 1:  displayFlags = SBT_POPOUT; break;
       case 2:  displayFlags = SBT_NOBORDERS; break;
       default: displayFlags = 0;
    }
 
-   if( hb_parnl(5) )
-   {
+   if( hb_parnl(5) ) {
       nrOfParts = SendMessage(hWndSB, SB_GETPARTS, 40, 0);
       SendMessage(hWndSB, SB_GETPARTS, 40, reinterpret_cast<LPARAM>(ptArray));
    }
@@ -117,28 +114,20 @@ HB_FUNC( INITITEMBAR )
    hDC = GetDC(hWndSB);
    GetClientRect(hWndSB, &rect);
 
-   if( hb_parnl(5) == 0 )
-   {
+   if( hb_parnl(5) == 0 ) {
       ptArray[nrOfParts - 1] = rect.right;
-   }
-   else
-   {
-      for( int n = 0; n < nrOfParts - 1; n++ )
-      {
+   } else {
+      for( int n = 0; n < nrOfParts - 1; n++ ) {
          ptArray[n] -= hb_parni(4) - cSpaceInBetween;
       }
 
-      if( style & WS_SIZEBOX )
-      {
-         if( nrOfParts == 2 )
-         {
+      if( style & WS_SIZEBOX ) {
+         if( nrOfParts == 2 ) {
             ptArray[0] -= 21;
          }
 
          ptArray[nrOfParts - 1] = rect.right - rect.bottom - rect.top + 2;
-      }
-      else
-      {
+      } else {
          ptArray[nrOfParts - 1] = rect.right;
       }
    }
@@ -152,13 +141,11 @@ HB_FUNC( INITITEMBAR )
 
    hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, cx, cy, 0));
 
-   if( hIcon == nullptr )
-   {
+   if( hIcon == nullptr ) {
       hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, cx, cy, LR_LOADFROMFILE));
    }
 
-   if( !( hIcon == nullptr ) )
-   {
+   if( !( hIcon == nullptr ) ) {
       SendMessage(hWndSB, SB_SETICON, nrOfParts - 1, reinterpret_cast<LPARAM>(hIcon));
    }
 
@@ -235,39 +222,27 @@ HB_FUNC( REFRESHITEMBAR )
    hDC = GetDC(hWndSB);
    GetClientRect(hWndSB, &rect);
 
-   if( ( nrOfParts == 1 ) || ( IsZoomed(GetParent(hWndSB)) ) || ( !(GetWindowLong(GetParent(hWndSB), GWL_STYLE) & WS_SIZEBOX) ) )
-   {
+   if( ( nrOfParts == 1 ) || ( IsZoomed(GetParent(hWndSB)) ) || ( !(GetWindowLong(GetParent(hWndSB), GWL_STYLE) & WS_SIZEBOX) ) ) {
       nDev = rect.right - ptArray[nrOfParts - 1];
-   }
-   else
-   {
+   } else {
       nDev = rect.right - ptArray[nrOfParts - 1] - rect.bottom - rect.top + 2;
    }
 
    s = TRUE;
-   if( rect.right > 0 )
-   {
-      for( int n = 0; n <= nrOfParts - 1; n++ )
-      {
+   if( rect.right > 0 ) {
+      for( int n = 0; n <= nrOfParts - 1; n++ ) {
 
-         if( n == 0 )
-         {
-            if( size >= ptArray[n] && nDev < 0 )
-            {
+         if( n == 0 ) {
+            if( size >= ptArray[n] && nDev < 0 ) {
                s = FALSE;
-            }
-            else
-            {
-               if( ptArray[n] + nDev < size )
-               {
+            } else {
+               if( ptArray[n] + nDev < size ) {
                   nDev = size - ptArray[n];
                }
 
                ptArray[n] += nDev;
             }
-         }
-         else if( s )
-         {
+         } else if( s ) {
             ptArray[n] += nDev;
          }
 
@@ -287,12 +262,9 @@ HB_FUNC( KEYTOGGLE )
 
    GetKeyboardState(pBuffer);
 
-   if( pBuffer[wKey] & 0x01 )
-   {
+   if( pBuffer[wKey] & 0x01 ) {
       pBuffer[wKey] &= 0xFE;
-   }
-   else
-   {
+   } else {
       pBuffer[wKey] |= 0x01;
    }
 
@@ -334,8 +306,7 @@ HB_FUNC( SETSTATUSITEMICON )
 
    hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, cx, cy, 0));
 
-   if( hIcon == nullptr )
-   {
+   if( hIcon == nullptr ) {
       hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, cx, cy, LR_LOADFROMFILE));
    }
 
@@ -362,8 +333,7 @@ HB_FUNC( SETSTATUSBARSIZE )
 
    nWidth = 0;
 
-   for( int i = 0; i < nParts; i++ )
-   {
+   for( int i = 0; i < nParts; i++ ) {
       nWidth       = nWidth + HB_PARNI(2, i + 1);
       lpParts[i] = nWidth;
    }
@@ -393,8 +363,7 @@ HB_FUNC( CREATEPROGRESSBARITEM )     // CreateProgressBarItem(HwndStatus, NrItem
    int  style = WS_CHILD | PBS_SMOOTH;
 
    SendMessage(hwndStatus, SB_GETRECT, hmg_par_WPARAM(2) - 1, reinterpret_cast<LPARAM>(&rc));
-   if( hb_parni(3) )
-   {
+   if( hb_parni(3) ) {
       style |= WS_VISIBLE;
    }
 
@@ -410,15 +379,12 @@ HB_FUNC( CREATEPROGRESSBARITEM )     // CreateProgressBarItem(HwndStatus, NrItem
             hwndStatus,             // Handle to the parent window.
             ( HMENU ) nullptr,         // ID for the progress window.
             GetInstance(),          // Current instance.
-            ( LPVOID ) nullptr) ) != nullptr )
-   {
+            ( LPVOID ) nullptr) ) != nullptr ) {
       SendMessage(hwndProgressBar, PBM_SETRANGE, 0, MAKELONG(hb_parni(4), hb_parni(5)));
       SendMessage(hwndProgressBar, PBM_SETPOS, hmg_par_WPARAM(3), 0);
 
       hmg_ret_HWND(hwndProgressBar);
-   }
-   else // No application-defined data.
-   {
+   } else { // No application-defined data.
       hmg_ret_HWND(nullptr);
    }
 }

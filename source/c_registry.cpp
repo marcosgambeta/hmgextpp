@@ -72,12 +72,9 @@ HB_FUNC( REGOPENKEYEX )
    long lError = RegOpenKeyEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), 0, ( REGSAM ) hb_parnl(4), &phwHandle);
    hb_strfree(str);
 
-   if( lError != ERROR_SUCCESS )
-   {
+   if( lError != ERROR_SUCCESS ) {
       hb_retnl(-1);
-   }
-   else
-   {
+   } else {
       HB_STORNL(PtrToLong(phwHandle), 5);
       hb_retnl(0);
    }
@@ -101,8 +98,7 @@ HB_FUNC( REGQUERYVALUEEX )
    long lError = RegQueryValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), nullptr, &lpType, nullptr, &lpcbData);
    hb_strfree(str);
 
-   if( lError == ERROR_SUCCESS )
-   {
+   if( lError == ERROR_SUCCESS ) {
       BYTE * lpData;
 
       lpData = ( BYTE * ) hb_xgrab(lpcbData + 1);
@@ -110,12 +106,9 @@ HB_FUNC( REGQUERYVALUEEX )
       lError = RegQueryValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), nullptr, &lpType, ( BYTE * ) lpData, &lpcbData);
       hb_strfree(str);
 
-      if( lError != ERROR_SUCCESS )
-      {
+      if( lError != ERROR_SUCCESS ) {
          hb_retnl(-1);
-      }
-      else
-      {
+      } else {
          HB_STORNL( lpType, 4);
          hb_storc(( char * ) lpData, 5);
          HB_STORNL( lpcbData, 6);
@@ -124,9 +117,7 @@ HB_FUNC( REGQUERYVALUEEX )
       }
 
       hb_xfree(lpData);
-   }
-   else
-   {
+   } else {
       hb_retnl(-1);
    }
 }
@@ -149,12 +140,9 @@ HB_FUNC( REGENUMKEYEX )
 
    long bErr = RegEnumKeyEx(hmg_par_HKEY(1), hb_parnl(2), Buffer, &dwBuffSize, nullptr, Class, &dwClass, &ft);
 
-   if( bErr != ERROR_SUCCESS )
-   {
+   if( bErr != ERROR_SUCCESS ) {
       hb_retnl(-1);
-   }
-   else
-   {
+   } else {
       hb_storc(( const char * ) Buffer, 3);
       HB_STORNL( dwBuffSize, 4);
       hb_storc(( const char * ) Class, 6);
@@ -175,14 +163,11 @@ HB_FUNC( REGSETVALUEEX )
 {
    DWORD nType = hb_parnl(4);
 
-   if( nType != REG_DWORD )
-   {
+   if( nType != REG_DWORD ) {
       void * str;
       hb_retnl((RegSetValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), 0, hb_parnl(4), ( BYTE * ) hb_parc(5), ( DWORD ) hb_parclen(5) + 1) == ERROR_SUCCESS) ? 0 : -1);
       hb_strfree(str);
-   }
-   else
-   {
+   } else {
       void * str;
       DWORD nSpace = hb_parnl(5);
       hb_retnl((RegSetValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), 0, hb_parnl(4), ( BYTE * ) &nSpace, sizeof(REG_DWORD)) == ERROR_SUCCESS) ? 0 : -1);
@@ -203,13 +188,10 @@ HB_FUNC( REGCREATEKEY )
    void * str;
    HKEY hKey;
 
-   if( RegCreateKey(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), &hKey) == ERROR_SUCCESS )
-   {
+   if( RegCreateKey(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), &hKey) == ERROR_SUCCESS ) {
       HB_STORNL(PtrToLong(hKey), 3);
       hb_retnl(0);
-   }
-   else
-   {
+   } else {
       hb_retnl(-1);
    }
 
@@ -228,12 +210,9 @@ HB_FUNC( REGENUMVALUE )
 
    long lError = RegEnumValue(hmg_par_HKEY(1), hb_parnl(2), Buffer, &dwBuffSize, nullptr, &lpType, nullptr, &dwClass);
 
-   if( lError != ERROR_SUCCESS )
-   {
+   if( lError != ERROR_SUCCESS ) {
       hb_retnl(-1);
-   }
-   else
-   {
+   } else {
       hb_storc(( const char * ) Buffer, 3);
       HB_STORNL( dwBuffSize, 4);
       HB_STORNL( lpType, 6);
@@ -282,12 +261,9 @@ HB_FUNC( REGCONNECTREGISTRY )
 
    long lError = RegConnectRegistry(HB_PARSTR(1, &str, nullptr), hmg_par_HKEY(2), &phwHandle);
 
-   if( lError != ERROR_SUCCESS )
-   {
+   if( lError != ERROR_SUCCESS ) {
       hb_retnl(-1);
-   }
-   else
-   {
+   } else {
       HB_STORNL(PtrToLong(phwHandle), 3);
       hb_retnl(lError);
    }

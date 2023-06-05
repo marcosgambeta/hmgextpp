@@ -78,49 +78,39 @@ HB_FUNC( INITRICHEDITBOX )
 
    style = ES_MULTILINE | ES_WANTRETURN | WS_CHILD | ES_NOHIDESEL;
 
-   if( hb_parl(10) )
-   {
+   if( hb_parl(10) ) {
       style |= ES_READONLY;
    }
 
-   if( !hb_parl(11) )
-   {
+   if( !hb_parl(11) ) {
       style |= WS_VISIBLE;
    }
 
-   if( !hb_parl(12) )
-   {
+   if( !hb_parl(12) ) {
       style |= WS_TABSTOP;
    }
 
-   if( !hb_parl(13) )
-   {
+   if( !hb_parl(13) ) {
       style |= WS_HSCROLL;
    }
 
    style |= hb_parl(14) ? ES_AUTOVSCROLL : WS_VSCROLL;
 
-   if( IsWinxpSp1Min() )
-   {
-      if( !hRELib )
-      {
+   if( IsWinxpSp1Min() ) {
+      if( !hRELib ) {
          hRELib = LoadLibrary(TEXT("Msftedit.dll"));
       }
 
       lpClassName = MSFTEDIT_CLASS;
-   }
-   else
-   {
-      if( !hRELib )
-      {
+   } else {
+      if( !hRELib ) {
          hRELib = LoadLibrary(TEXT("RichEd20.dll"));
       }
 
       lpClassName = RICHEDIT_CLASS;
    }
 
-   if( hRELib )
-   {
+   if( hRELib ) {
       hRE = CreateWindowEx
             (
          WS_EX_CLIENTEDGE,
@@ -146,8 +136,7 @@ HB_FUNC( INITRICHEDITBOX )
 
 HB_FUNC( UNLOADRICHEDITLIB )
 {
-   if( hRELib )
-   {
+   if( hRELib ) {
       FreeLibrary(hRELib);
       hRELib = nullptr;
    }
@@ -157,8 +146,7 @@ DWORD CALLBACK EditStreamCallbackR( DWORD_PTR dwCookie, LPBYTE lpbBuff, LONG cb,
 {
    HANDLE hFile = ( HANDLE ) dwCookie;
 
-   if( !ReadFile(hFile, ( LPVOID ) lpbBuff, cb, ( LPDWORD ) pcb, nullptr) )
-   {
+   if( !ReadFile(hFile, ( LPVOID ) lpbBuff, cb, ( LPDWORD ) pcb, nullptr) ) {
       return ( DWORD ) -1;
    }
 
@@ -169,8 +157,7 @@ DWORD CALLBACK EditStreamCallbackW(DWORD_PTR dwCookie, LPBYTE lpbBuff, LONG cb, 
 {
    HANDLE hFile = ( HANDLE ) dwCookie;
 
-   if( !WriteFile(hFile, ( LPVOID ) lpbBuff, cb, ( LPDWORD ) pcb, nullptr) )
-   {
+   if( !WriteFile(hFile, ( LPVOID ) lpbBuff, cb, ( LPDWORD ) pcb, nullptr) ) {
       return ( DWORD ) -1;
    }
 
@@ -191,8 +178,7 @@ HB_FUNC( STREAMIN )        //StreamIn(HWND hwndCtrl, LPCTSTR lpszPath, int typ )
    long       Flag, Mode;
 
    hwnd = hmg_par_HWND(1);
-   switch( hb_parni(3) )
-   {
+   switch( hb_parni(3) ) {
       case 1:    Flag = SF_TEXT; Mode = TM_PLAINTEXT; break;
       case 2:    Flag = SF_RTF; Mode = TM_RICHTEXT; break;
       case 3:    Flag = SF_TEXT | SF_UNICODE; Mode = TM_PLAINTEXT; break;
@@ -203,14 +189,12 @@ HB_FUNC( STREAMIN )        //StreamIn(HWND hwndCtrl, LPCTSTR lpszPath, int typ )
    }
 
    // open the source file.
-   if( ( hFile = CreateFile(cFileName, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr) ) == INVALID_HANDLE_VALUE )
-   {
+   if( ( hFile = CreateFile(cFileName, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr) ) == INVALID_HANDLE_VALUE ) {
       hb_retl(false);
       return;
    }
 #ifdef UNICODE
-   else
-   {
+   else {
       hb_xfree(( TCHAR * ) cFileName);
    }
 #endif
@@ -225,12 +209,9 @@ HB_FUNC( STREAMIN )        //StreamIn(HWND hwndCtrl, LPCTSTR lpszPath, int typ )
 
    CloseHandle(hFile);
 
-   if( es.dwError )
-   {
+   if( es.dwError ) {
       hb_retl(false);
-   }
-   else
-   {
+   } else {
       hb_retl(true);
    }
 }
@@ -249,8 +230,7 @@ HB_FUNC( STREAMOUT )       //StreamOut(HWND hwndCtrl, LPCTSTR lpszPath, int Typ 
    long       Flag;
 
    hwnd = hmg_par_HWND(1);
-   switch( hb_parni(3) )
-   {
+   switch( hb_parni(3) ) {
       case 1:  Flag = SF_TEXT; break;
       case 2:  Flag = SF_RTF; break;
       case 3:  Flag = SF_TEXT | SF_UNICODE; break;
@@ -261,14 +241,12 @@ HB_FUNC( STREAMOUT )       //StreamOut(HWND hwndCtrl, LPCTSTR lpszPath, int Typ 
    }
 
    // open the destination file.
-   if( ( hFile = CreateFile(cFileName, GENERIC_WRITE, FILE_SHARE_WRITE, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr) ) == INVALID_HANDLE_VALUE )
-   {
+   if( ( hFile = CreateFile(cFileName, GENERIC_WRITE, FILE_SHARE_WRITE, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr) ) == INVALID_HANDLE_VALUE ) {
       hb_retl(false);
       return;
    }
 #ifdef UNICODE
-   else
-   {
+   else {
       hb_xfree(( TCHAR * ) cFileName);
    }
 #endif
@@ -282,12 +260,9 @@ HB_FUNC( STREAMOUT )       //StreamOut(HWND hwndCtrl, LPCTSTR lpszPath, int Typ 
 
    CloseHandle(hFile);
 
-   if( es.dwError )
-   {
+   if( es.dwError ) {
       hb_retl(false);
-   }
-   else
-   {
+   } else {
       hb_retl(true);
    }
 }
@@ -300,12 +275,9 @@ HB_FUNC( GETAUTOFONTRTF )  // GetAutoFont(HWND hwnd)
    hwnd  = hmg_par_HWND(1);
    lAuto = SendMessage(hwnd, EM_GETLANGOPTIONS, 0, 0) & IMF_AUTOFONT;
 
-   if( lAuto )
-   {
+   if( lAuto ) {
       hb_retl(true);
-   }
-   else
-   {
+   } else {
       hb_retl(false);
    }
 }
@@ -318,23 +290,17 @@ HB_FUNC( SETAUTOFONTRTF )  // SetAutoFont(HWND hwnd, lAutoFont)
    hwnd = hmg_par_HWND(1);
    lOpt = SendMessage(hwnd, EM_GETLANGOPTIONS, 0, 0);
 
-   if( hb_parl(2) )
-   {
+   if( hb_parl(2) ) {
       lOpt &= IMF_AUTOFONT;
-   }
-   else
-   {
+   } else {
       lOpt &= ~IMF_AUTOFONT;
    }
 
    lResult = SendMessage(hwnd, EM_SETLANGOPTIONS, 0, lOpt);
 
-   if( lResult )
-   {
+   if( lResult ) {
       hb_retl(true);
-   }
-   else
-   {
+   } else {
       hb_retl(false);
    }
 }
@@ -346,8 +312,7 @@ HB_FUNC( SETBKGNDCOLOR )   // SetBkgndColor(HWND hwnd, lSyscol, nRed, nGreen, nB
    INT      syscol = 1;
 
    bkgcolor = ( COLORREF ) RGB(hb_parni(3), hb_parni(4), hb_parni(5));
-   if( hb_parl(2) )
-   {
+   if( hb_parl(2) ) {
       syscol = 0;
    }
 
@@ -372,12 +337,9 @@ HB_FUNC( GETFONTRTF )
 
    cF.cbSize = sizeof(CHARFORMAT);
    cF.dwMask = CFM_BOLD | CFM_ITALIC | CFM_UNDERLINE | CFM_SIZE;
-   if( hb_parni(2) > 0 )
-   {
+   if( hb_parni(2) > 0 ) {
       SelText = SCF_SELECTION;
-   }
-   else
-   {
+   } else {
       SelText = SCF_DEFAULT;
    }
 
@@ -424,63 +386,51 @@ HB_FUNC( SETFONTRTF )
    cF.cbSize = sizeof(CHARFORMAT);
    Mask      = ( DWORD ) SendMessage(hmg_par_HWND(1), EM_GETCHARFORMAT, SelText, reinterpret_cast<LPARAM>(&cF));
 
-   if( hb_parni(10) > 0 )
-   {
+   if( hb_parni(10) > 0 ) {
       Mask = hb_parni(10);
    }
 
-   if( hb_parni(2) > 0 )
-   {
+   if( hb_parni(2) > 0 ) {
       SelText = SCF_SELECTION | SCF_WORD;
    }
 
-   if( hb_parni(2) < 0 )
-   {
+   if( hb_parni(2) < 0 ) {
       SelText = SCF_ALL;
    }
 
-   if( hb_parl(5) )
-   {
+   if( hb_parl(5) ) {
       Effects = Effects | CFE_BOLD;
    }
 
-   if( hb_parl(6) )
-   {
+   if( hb_parl(6) ) {
       Effects = Effects | CFE_ITALIC;
    }
 
-   if( hb_parl(8) )
-   {
+   if( hb_parl(8) ) {
       Effects = Effects | CFE_UNDERLINE;
    }
 
-   if( hb_parl(9) )
-   {
+   if( hb_parl(9) ) {
       Effects = Effects | CFE_STRIKEOUT;
    }
 
    cF.dwMask    = Mask;
    cF.dwEffects = Effects;
-   if( hb_parnl(4) )
-   {
+   if( hb_parnl(4) ) {
       cF.yHeight = hb_parnl(4) * 20;
    }
 
    cF.crTextColor = hb_parnl(7);
 
-   if( hb_parclen(3) > 0 )
-   {
+   if( hb_parclen(3) > 0 ) {
       lstrcpy(cF.szFaceName, szFaceName);
    }
 
    lResult = SendMessage(hmg_par_HWND(1), EM_SETCHARFORMAT, SelText, reinterpret_cast<LPARAM>(&cF));
 
-   if( lResult )
-   {
+   if( lResult ) {
       hb_retl(true);
-   }
-   else
-   {
+   } else {
       hb_retl(false);
    }
 }
@@ -499,30 +449,23 @@ static BOOL IsWinxpSp1Min(void)
 
    osvi.dwOSVersionInfoSize = sizeof(osvi);
 
-   if( !GetVersionEx(&osvi) )
-   {
+   if( !GetVersionEx(&osvi) ) {
       return FALSE;
    }
 
-   if( osvi.dwMajorVersion >= 5 )
-   {
-      if( osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 0 )
-      {
+   if( osvi.dwMajorVersion >= 5 ) {
+      if( osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 0 ) {
          return FALSE;
-      }
-      else if( osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 1 )
+      } else if( osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 1 )
       {
 #ifndef UNICODE
          pch = strstr( osvi.szCSDVersion, "Service Pack" );
 #else
          pch = _tcsstr( osvi.szCSDVersion, TEXT("Service Pack") );
 #endif
-         if( lstrcmpi( pch, TEXT("Service Pack 1") ) >= 0 )
-         {
+         if( lstrcmpi( pch, TEXT("Service Pack 1") ) >= 0 ) {
             return TRUE;
-         }
-         else
-         {
+         } else {
             return FALSE;
          }
       }

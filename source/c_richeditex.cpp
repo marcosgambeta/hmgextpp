@@ -87,35 +87,29 @@ HB_FUNC( INITRICHEDITBOXEX )
 
    int style = ES_MULTILINE | ES_WANTRETURN | WS_CHILD | ES_NOHIDESEL;
 
-   if( hb_parl(10) )
-   {
+   if( hb_parl(10) ) {
       style |= ES_READONLY;
    }
 
-   if( !hb_parl(11) )
-   {
+   if( !hb_parl(11) ) {
       style |= WS_VISIBLE;
    }
 
-   if( !hb_parl(12) )
-   {
+   if( !hb_parl(12) ) {
       style |= WS_TABSTOP;
    }
 
-   if( !hb_parl(13) )
-   {
+   if( !hb_parl(13) ) {
       style |= WS_HSCROLL;
    }
 
    style |= !hb_parl(14) ? WS_VSCROLL : ES_AUTOVSCROLL;
 
-   if( !hRELib )
-   {
+   if( !hRELib ) {
       hRELib = LoadLibrary(TEXT("RichEd20.dll"));
    }
 
-   if( hRELib )
-   {
+   if( hRELib ) {
       hWndControl = CreateWindowEx(WS_EX_CLIENTEDGE, ( LPCTSTR ) RICHEDIT_CLASS,
                                    TEXT(""),
                                    style,
@@ -142,8 +136,7 @@ HB_FUNC( INITRICHEDITBOXEX )
 
 HB_FUNC( UNLOADRICHEDITEXLIB )
 {
-   if( hRELib )
-   {
+   if( hRELib ) {
       FreeLibrary(hRELib);
       hRELib = nullptr;
    }
@@ -153,12 +146,9 @@ DWORD CALLBACK EditStreamCallbackRead(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb
 {
    HANDLE hFile = ( HANDLE ) dwCookie;
 
-   if( ReadFile(hFile, ( LPVOID ) lpBuff, ( DWORD ) cb, ( LPDWORD ) pcb, nullptr) )
-   {
+   if( ReadFile(hFile, ( LPVOID ) lpBuff, ( DWORD ) cb, ( LPDWORD ) pcb, nullptr) ) {
       return 0;
-   }
-   else
-   {
+   } else {
       return ( DWORD ) -1;
    }
 }
@@ -179,8 +169,7 @@ HB_FUNC( RICHEDITBOX_STREAMIN )
    EDITSTREAM es;
    LONG       Format;
 
-   switch( nDataFormat )
-   {
+   switch( nDataFormat ) {
       case 1:   Format = SF_TEXT; break;                                      // ANSI and UTF-8 with BOM
       case 2:   Format = ( CP_UTF8 << 16 ) | SF_USECODEPAGE | SF_TEXT; break; // ANSI and UTF-8 without BOM
       case 3:   Format = SF_TEXT | SF_UNICODE; break;                         // UTF-16 LE
@@ -189,19 +178,16 @@ HB_FUNC( RICHEDITBOX_STREAMIN )
       default:  Format = SF_RTF; break;
    }
 
-   if( lSelection )
-   {
+   if( lSelection ) {
       Format = Format | SFF_SELECTION;
    }
 
-   if( ( hFile = CreateFile(cFileName, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, nullptr) ) == INVALID_HANDLE_VALUE )
-   {
+   if( ( hFile = CreateFile(cFileName, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, nullptr) ) == INVALID_HANDLE_VALUE ) {
       hb_retl(false);
       return;
    }
 #ifdef UNICODE
-   else
-   {
+   else {
       hb_xfree(( TCHAR * ) cFileName);
    }
 #endif
@@ -214,12 +200,9 @@ HB_FUNC( RICHEDITBOX_STREAMIN )
 
    CloseHandle(hFile);
 
-   if( es.dwError )
-   {
+   if( es.dwError ) {
       hb_retl(false);
-   }
-   else
-   {
+   } else {
       hb_retl(true);
    }
 }
@@ -228,12 +211,9 @@ DWORD CALLBACK EditStreamCallbackWrite(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG c
 {
    HANDLE hFile = ( HANDLE ) dwCookie;
 
-   if( WriteFile(hFile, ( LPVOID ) lpBuff, ( DWORD ) cb, ( LPDWORD ) pcb, nullptr) )
-   {
+   if( WriteFile(hFile, ( LPVOID ) lpBuff, ( DWORD ) cb, ( LPDWORD ) pcb, nullptr) ) {
       return 0;
-   }
-   else
-   {
+   } else {
       return ( DWORD ) -1;
    }
 }
@@ -254,8 +234,7 @@ HB_FUNC( RICHEDITBOX_STREAMOUT )
    EDITSTREAM es;
    LONG       Format;
 
-   switch( nDataFormat )
-   {
+   switch( nDataFormat ) {
       case 1:   Format = SF_TEXT; break;                                      // ANSI and UTF-8 with BOM
       case 2:   Format = ( CP_UTF8 << 16 ) | SF_USECODEPAGE | SF_TEXT; break; // ANSI and UTF-8 without BOM
       case 3:   Format = SF_TEXT | SF_UNICODE; break;                         // UTF-16 LE
@@ -264,19 +243,16 @@ HB_FUNC( RICHEDITBOX_STREAMOUT )
       default:  Format = SF_RTF; break;
    }
 
-   if( lSelection )
-   {
+   if( lSelection ) {
       Format = Format | SFF_SELECTION;
    }
 
-   if( ( hFile = CreateFile(cFileName, GENERIC_WRITE, FILE_SHARE_WRITE, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr) ) == INVALID_HANDLE_VALUE )
-   {
+   if( ( hFile = CreateFile(cFileName, GENERIC_WRITE, FILE_SHARE_WRITE, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr) ) == INVALID_HANDLE_VALUE ) {
       hb_retl(false);
       return;
    }
 #ifdef UNICODE
-   else
-   {
+   else {
       hb_xfree(( TCHAR * ) cFileName);
    }
 #endif
@@ -289,12 +265,9 @@ HB_FUNC( RICHEDITBOX_STREAMOUT )
 
    CloseHandle(hFile);
 
-   if( es.dwError )
-   {
+   if( es.dwError ) {
       hb_retl(false);
-   }
-   else
-   {
+   } else {
       hb_retl(true);
    }
 }
@@ -316,14 +289,11 @@ HB_FUNC( RICHEDITBOX_RTFLOADRESOURCEFILE )
    TCHAR * lpGlobalResource = nullptr;
 
    hResourceData = FindResource(nullptr, cFileName, TEXT("RTF"));
-   if( hResourceData != nullptr )
-   {
+   if( hResourceData != nullptr ) {
       hGlobalResource = LoadResource(nullptr, hResourceData);
-      if( hGlobalResource != nullptr )
-      {
+      if( hGlobalResource != nullptr ) {
          lpGlobalResource = reinterpret_cast<TCHAR*>(LockResource(hGlobalResource));
-         if( lpGlobalResource != nullptr )
-         {
+         if( lpGlobalResource != nullptr ) {
             SETTEXTEX ST;
             ST.flags = ( lSelect ? ST_SELECTION : ST_DEFAULT );
                #ifdef UNICODE
@@ -337,12 +307,9 @@ HB_FUNC( RICHEDITBOX_RTFLOADRESOURCEFILE )
       }
    }
 
-   if( lpGlobalResource == nullptr )
-   {
+   if( lpGlobalResource == nullptr ) {
       hb_retl(false);
-   }
-   else
-   {
+   } else {
       hb_retl(true);
    }
 
@@ -393,12 +360,9 @@ HB_FUNC( RICHEDITBOX_SETBKGNDCOLOR )
 {
    HWND hWndControl = hmg_par_HWND(1);
 
-   if( HB_ISARRAY(2) )
-   {
+   if( HB_ISARRAY(2) ) {
       SendMessage(hWndControl, EM_SETBKGNDCOLOR, 0, RGB(HB_PARNI(2, 1), HB_PARNI(2, 2), HB_PARNI(2, 3)));
-   }
-   else
-   {
+   } else {
       SendMessage(hWndControl, EM_SETBKGNDCOLOR, 1, 0);  // Set to the window background system color
    }
 }
@@ -419,13 +383,11 @@ HB_FUNC( RICHEDITBOX_GETZOOM )
 
    SendMessage(hWndControl, EM_GETZOOM, ( WPARAM ) &nNumerator, reinterpret_cast<LPARAM>(&nDenominator));
 
-   if( HB_ISBYREF(2) )
-   {
+   if( HB_ISBYREF(2) ) {
       hb_storni( nNumerator, 2 );
    }
 
-   if( HB_ISBYREF(3) )
-   {
+   if( HB_ISBYREF(3) ) {
       hb_storni( nDenominator, 3 );
    }
 }
@@ -441,8 +403,7 @@ HB_FUNC( RICHEDITBOX_SETFONT )
    ZeroMemory(&CharFormat2, sizeof(CHARFORMAT2));
    CharFormat2.cbSize = sizeof(CHARFORMAT2);
 
-   if( HB_ISCHAR(2) )
-   {
+   if( HB_ISCHAR(2) ) {
 #ifndef UNICODE
       TCHAR * szFaceName = ( TCHAR * ) hb_parc(2);
 #else
@@ -452,88 +413,68 @@ HB_FUNC( RICHEDITBOX_SETFONT )
       lstrcpy(CharFormat2.szFaceName, szFaceName);
    }
 
-   if( HB_ISNUM(3) && hb_parnl(3) )
-   {
+   if( HB_ISNUM(3) && hb_parnl(3) ) {
       Mask = Mask | CFM_SIZE;
       CharFormat2.yHeight = hb_parnl(3) * 20 / 1;   // yHeight (character height) is in twips (1/1440 of an inch or 1/20 of a printer point)
    }
 
-   if( HB_ISLOG(4) )
-   {
+   if( HB_ISLOG(4) ) {
       Mask = Mask | CFM_BOLD;
-      if( hb_parl(4) )
-      {
+      if( hb_parl(4) ) {
          Effects = Effects | CFE_BOLD;
       }
    }
 
-   if( HB_ISLOG(5) )
-   {
+   if( HB_ISLOG(5) ) {
       Mask = Mask | CFM_ITALIC;
-      if( hb_parl(5) )
-      {
+      if( hb_parl(5) ) {
          Effects = Effects | CFE_ITALIC;
       }
    }
 
-   if( HB_ISLOG(6) )
-   {
+   if( HB_ISLOG(6) ) {
       Mask = Mask | CFM_UNDERLINE;
-      if( hb_parl(6) )
-      {
+      if( hb_parl(6) ) {
          Effects = Effects | CFE_UNDERLINE;
       }
    }
 
-   if( HB_ISLOG(7) )
-   {
+   if( HB_ISLOG(7) ) {
       Mask = Mask | CFM_STRIKEOUT;
-      if( hb_parl(7) )
-      {
+      if( hb_parl(7) ) {
          Effects = Effects | CFE_STRIKEOUT;
       }
    }
 
-   if( HB_ISARRAY(8) )
-   {
+   if( HB_ISARRAY(8) ) {
       Mask = Mask | CFM_COLOR;
       CharFormat2.crTextColor = RGB(HB_PARNI(8, 1), HB_PARNI(8, 2), HB_PARNI(8, 3));
-   }
-   else if( HB_ISNUM(8) && hb_parnl(8) == -1 )
-   {
+   } else if( HB_ISNUM(8) && hb_parnl(8) == -1 ) {
       Mask    = Mask | CFM_COLOR;
       Effects = Effects | CFE_AUTOCOLOR;    // equivalent to GetSysColor(COLOR_WINDOWTEXT)
    }
 
-   if( HB_ISARRAY(9) )
-   {
+   if( HB_ISARRAY(9) ) {
       Mask = Mask | CFM_BACKCOLOR;
       CharFormat2.crBackColor = RGB(HB_PARNI(9, 1), HB_PARNI(9, 2), HB_PARNI(9, 3));
-   }
-   else if( HB_ISNUM(9) && hb_parnl(9) == -1 )
-   {
+   } else if( HB_ISNUM(9) && hb_parnl(9) == -1 ) {
       Mask    = Mask | CFM_BACKCOLOR;
       Effects = Effects | CFE_AUTOBACKCOLOR;    // equivalent to GetSysColor(COLOR_WINDOW)
    }
 
-   if( HB_ISNUM(10) )
-   {
+   if( HB_ISNUM(10) ) {
       Mask = Mask | CFM_SUBSCRIPT | CFM_SUPERSCRIPT;    // The CFE_SUPERSCRIPT and CFE_SUBSCRIPT values are mutually exclusive
-      if( hb_parnl(10) == 1 )
-      {
+      if( hb_parnl(10) == 1 ) {
          Effects = Effects | CFE_SUBSCRIPT;
       }
-      if( hb_parnl(10) == 2 )
-      {
+      if( hb_parnl(10) == 2 ) {
          Effects = Effects | CFE_SUPERSCRIPT;
       }
    }
 
-   if( HB_ISLOG(11) )
-   {
+   if( HB_ISLOG(11) ) {
       Mask = Mask | CFM_LINK;
-      if( hb_parl(11) )
-      {
+      if( hb_parl(11) ) {
          Effects = Effects | CFE_LINK;
       }
    }
@@ -541,12 +482,9 @@ HB_FUNC( RICHEDITBOX_SETFONT )
    CharFormat2.dwMask    = Mask;
    CharFormat2.dwEffects = Effects;
 
-   if( SendMessage(hWndControl, EM_SETCHARFORMAT, SCF_SELECTION, reinterpret_cast<LPARAM>(&CharFormat2)) )
-   {
+   if( SendMessage(hWndControl, EM_SETCHARFORMAT, SCF_SELECTION, reinterpret_cast<LPARAM>(&CharFormat2)) ) {
       hb_retl(true);
-   }
-   else
-   {
+   } else {
       hb_retl(false);
    }
 }
@@ -571,8 +509,7 @@ HB_FUNC( RICHEDITBOX_GETFONT )
    SendMessage(hWndControl, EM_GETCHARFORMAT, SCF_SELECTION, reinterpret_cast<LPARAM>(&CharFormat2));
    Effects = CharFormat2.dwEffects;
 
-   if( HB_ISBYREF(2) )
-   {
+   if( HB_ISBYREF(2) ) {
 #ifndef UNICODE
       hb_storc( CharFormat2.szFaceName, 2 );
 #else
@@ -582,33 +519,27 @@ HB_FUNC( RICHEDITBOX_GETFONT )
 #endif
    }
 
-   if( HB_ISBYREF(3) )
-   {
+   if( HB_ISBYREF(3) ) {
       hb_stornl( ( CharFormat2.yHeight * 1 / 20 ), 3 );  // yHeight (character height) is in twips (1/1440 of an inch or 1/20 of a printer point)
    }
 
-   if( HB_ISBYREF(4) )
-   {
+   if( HB_ISBYREF(4) ) {
       hb_storl( ( BOOL ) ( Effects & CFE_BOLD ), 4 );
    }
 
-   if( HB_ISBYREF(5) )
-   {
+   if( HB_ISBYREF(5) ) {
       hb_storl( ( BOOL ) ( Effects & CFE_ITALIC ), 5 );
    }
 
-   if( HB_ISBYREF(6) )
-   {
+   if( HB_ISBYREF(6) ) {
       hb_storl( ( BOOL ) ( Effects & CFE_UNDERLINE ), 6 );
    }
 
-   if( HB_ISBYREF(7) )
-   {
+   if( HB_ISBYREF(7) ) {
       hb_storl( ( BOOL ) ( Effects & CFE_STRIKEOUT ), 7 );
    }
 
-   if( HB_ISBYREF(8) )
-   {
+   if( HB_ISBYREF(8) ) {
       PHB_ITEM pArray = hb_param(8, Harbour::Item::ANY);
       hb_arrayNew(pArray, 3);
       hb_arraySetNL( pArray, 1, GetRValue(CharFormat2.crTextColor) );
@@ -616,8 +547,7 @@ HB_FUNC( RICHEDITBOX_GETFONT )
       hb_arraySetNL( pArray, 3, GetBValue(CharFormat2.crTextColor) );
    }
 
-   if( HB_ISBYREF(9) )
-   {
+   if( HB_ISBYREF(9) ) {
       PHB_ITEM pArray = hb_param(9, Harbour::Item::ANY);
       hb_arrayNew(pArray, 3);
       hb_arraySetNL( pArray, 1, GetRValue(CharFormat2.crBackColor) );
@@ -625,24 +555,17 @@ HB_FUNC( RICHEDITBOX_GETFONT )
       hb_arraySetNL( pArray, 3, GetBValue(CharFormat2.crBackColor) );
    }
 
-   if( HB_ISBYREF(10) )
-   {
-      if( Effects & CFE_SUPERSCRIPT )
-      {
+   if( HB_ISBYREF(10) ) {
+      if( Effects & CFE_SUPERSCRIPT ) {
          hb_stornl( 2, 10 );
-      }
-      else if( Effects & CFE_SUBSCRIPT )
-      {
+      } else if( Effects & CFE_SUBSCRIPT ) {
          hb_stornl( 1, 10 );
-      }
-      else
-      {
+      } else {
          hb_stornl( 0, 10 );
       }
    }
 
-   if( HB_ISBYREF(11) )
-   {
+   if( HB_ISBYREF(11) ) {
       hb_storl( ( BOOL ) ( Effects & CFE_LINK ), 11 );
    }
 
@@ -812,30 +735,24 @@ HB_FUNC( RICHEDITBOX_FINDTEXT )
    FINDTEXTEX FindText;
    #endif
 
-   if( Down )
-   {
+   if( Down ) {
       Options = Options | FR_DOWN;
    }
 
-   if( MatchCase )
-   {
+   if( MatchCase ) {
       Options = Options | FR_MATCHCASE;
    }
 
-   if( WholeWord )
-   {
+   if( WholeWord ) {
       Options = Options | FR_WHOLEWORD;
    }
 
    SendMessage(hWndControl, EM_EXGETSEL, 0, reinterpret_cast<LPARAM>(&CharRange));
 
-   if( Down )
-   {
+   if( Down ) {
       CharRange.cpMin = CharRange.cpMax;
       CharRange.cpMax = -1;
-   }
-   else
-   {
+   } else {
       CharRange.cpMin = CharRange.cpMin;
       CharRange.cpMax = 0;
    }
@@ -849,8 +766,7 @@ HB_FUNC( RICHEDITBOX_FINDTEXT )
    SendMessage(hWndControl, EM_FINDTEXTEX, Options, reinterpret_cast<LPARAM>(&FindText));
    #endif
 
-   if( SelectFindText == FALSE )
-   {
+   if( SelectFindText == FALSE ) {
       FindText.chrgText.cpMin = FindText.chrgText.cpMax;
    }
 
@@ -884,11 +800,9 @@ HB_FUNC( RICHEDITBOX_SETPARAFORMAT )
 
    ParaFormat2.cbSize = sizeof(PARAFORMAT2);
 
-   if( Alignment > 0 )
-   {
+   if( Alignment > 0 ) {
       Mask = Mask | PFM_ALIGNMENT;
-      switch( Alignment )
-      {
+      switch( Alignment ) {
          case 1:  ParaFormat2.wAlignment = PFA_LEFT; break;
          case 2:  ParaFormat2.wAlignment = PFA_RIGHT; break;
          case 3:  ParaFormat2.wAlignment = PFA_CENTER; break;
@@ -898,11 +812,9 @@ HB_FUNC( RICHEDITBOX_SETPARAFORMAT )
       }
    }
 
-   if( Numbering > 0 )
-   {
+   if( Numbering > 0 ) {
       Mask = Mask | PFM_NUMBERING;
-      switch( Numbering )
-      {
+      switch( Numbering ) {
          case 1:  ParaFormat2.wNumbering = 0; break;             // No paragraph numbering or bullets
          case 2:  ParaFormat2.wNumbering = PFN_BULLET; break;    // Insert a bullet at the beginning of each selected paragraph
          case 3:  ParaFormat2.wNumbering = PFN_ARABIC; break;    // Use Arabic numbers          ( 0,  1,   2, ... )
@@ -917,11 +829,9 @@ HB_FUNC( RICHEDITBOX_SETPARAFORMAT )
    }
 
 
-   if( NumberingStyle > 0 )
-   {
+   if( NumberingStyle > 0 ) {
       Mask = Mask | PFM_NUMBERINGSTYLE;
-      switch( NumberingStyle )
-      {
+      switch( NumberingStyle ) {
          case 1:  ParaFormat2.wNumberingStyle = PFNS_PAREN; break;      // Follows the number with a right parenthesis.
          case 2:  ParaFormat2.wNumberingStyle = PFNS_PARENS; break;     // Encloses the number in parentheses
          case 3:  ParaFormat2.wNumberingStyle = PFNS_PERIOD; break;     // Follows the number with a period
@@ -934,30 +844,26 @@ HB_FUNC( RICHEDITBOX_SETPARAFORMAT )
    }
 
 
-   if( HB_ISNUM(5) )
-   {
+   if( HB_ISNUM(5) ) {
       Mask = Mask | PFM_NUMBERINGSTART;
       ParaFormat2.wNumberingStart = NumberingStart;
    }
 
 
-   if( HB_ISNUM(6) )
-   {
+   if( HB_ISNUM(6) ) {
       Mask = Mask | PFM_OFFSET;
       ParaFormat2.dxOffset = ( LONG ) ( ( double ) ( Offset * 1440.0 / 25.4 ) ); // Offset is in millimeters ( 1 inch = 25.4 mm = 1440 twips )
    }
 
 
-   if( LineSpacing > 0.0 )
-   {
+   if( LineSpacing > 0.0 ) {
       Mask = Mask | PFM_LINESPACING;
       ParaFormat2.bLineSpacingRule = 5;    // Spacing from one line to the next, 20 twips = single-spaced text
       ParaFormat2.dyLineSpacing    = ( LONG ) ( ( double ) ( LineSpacing * 20.0 / 1.0 ) );
    }
 
 
-   if( HB_ISNUM(8) )
-   {
+   if( HB_ISNUM(8) ) {
       Mask = Mask | PFM_STARTINDENT;
       ParaFormat2.dxStartIndent = ( LONG ) ( ( double ) ( StartIndent * 1440.0 / 25.4 ) ); // StartIndent is in millimeters ( 1 inch = 25.4 mm = 1440 twips )
    }
@@ -987,144 +893,91 @@ HB_FUNC( RICHEDITBOX_GETPARAFORMAT )
 
    SendMessage(hWndControl, EM_GETPARAFORMAT, 0, reinterpret_cast<LPARAM>(&ParaFormat2));
 
-   if( HB_ISBYREF(2) )
-   {
-      if( ParaFormat2.wAlignment == PFA_LEFT )
-      {
+   if( HB_ISBYREF(2) ) {
+      if( ParaFormat2.wAlignment == PFA_LEFT ) {
          Alignment = 1;
-      }
-      else if( ParaFormat2.wAlignment == PFA_RIGHT )
-      {
+      } else if( ParaFormat2.wAlignment == PFA_RIGHT ) {
          Alignment = 2;
-      }
-      else if( ParaFormat2.wAlignment == PFA_CENTER )
-      {
+      } else if( ParaFormat2.wAlignment == PFA_CENTER ) {
          Alignment = 3;
-      }
-      else if( ParaFormat2.wAlignment == PFA_JUSTIFY )
-      {
+      } else if( ParaFormat2.wAlignment == PFA_JUSTIFY ) {
          Alignment = 4;
       }
 
       hb_stornl( Alignment, 2 );
    }
 
-   if( HB_ISBYREF(3) )
-   {
-      if( ParaFormat2.wNumbering == 0 )
-      {
+   if( HB_ISBYREF(3) ) {
+      if( ParaFormat2.wNumbering == 0 ) {
          Numbering = 1;
-      }
-      else if( ParaFormat2.wNumbering == PFN_BULLET )
-      {
+      } else if( ParaFormat2.wNumbering == PFN_BULLET ) {
          Numbering = 2;
-      }
-      else if( ParaFormat2.wNumbering == PFN_ARABIC )
-      {
+      } else if( ParaFormat2.wNumbering == PFN_ARABIC ) {
          Numbering = 3;
-      }
-      else if( ParaFormat2.wNumbering == PFN_LCLETTER )
-      {
+      } else if( ParaFormat2.wNumbering == PFN_LCLETTER ) {
          Numbering = 4;
-      }
-      else if( ParaFormat2.wNumbering == PFN_LCROMAN )
-      {
+      } else if( ParaFormat2.wNumbering == PFN_LCROMAN ) {
          Numbering = 5;
-      }
-      else if( ParaFormat2.wNumbering == PFN_UCLETTER )
-      {
+      } else if( ParaFormat2.wNumbering == PFN_UCLETTER ) {
          Numbering = 6;
-      }
-      else if( ParaFormat2.wNumbering == PFN_UCROMAN )
-      {
+      } else if( ParaFormat2.wNumbering == PFN_UCROMAN ) {
          Numbering = 7;
-      }
-      else if( ParaFormat2.wNumbering == 7 )
-      {
+      } else if( ParaFormat2.wNumbering == 7 ) {
          Numbering = 8;
       }
 
       hb_stornl( Numbering, 3 );
    }
 
-   if( HB_ISBYREF(4) )
-   {
-      if( ParaFormat2.wNumberingStyle == PFNS_PAREN )
-      {
+   if( HB_ISBYREF(4) ) {
+      if( ParaFormat2.wNumberingStyle == PFNS_PAREN ) {
          NumberingStyle = 1;
-      }
-      else if( ParaFormat2.wNumberingStyle == PFNS_PARENS )
-      {
+      } else if( ParaFormat2.wNumberingStyle == PFNS_PARENS ) {
          NumberingStyle = 2;
-      }
-      else if( ParaFormat2.wNumberingStyle == PFNS_PERIOD )
-      {
+      } else if( ParaFormat2.wNumberingStyle == PFNS_PERIOD ) {
          NumberingStyle = 3;
-      }
-      else if( ParaFormat2.wNumberingStyle == PFNS_PLAIN )
-      {
+      } else if( ParaFormat2.wNumberingStyle == PFNS_PLAIN ) {
          NumberingStyle = 4;
-      }
-      else if( ParaFormat2.wNumberingStyle == PFNS_NONUMBER )
-      {
+      } else if( ParaFormat2.wNumberingStyle == PFNS_NONUMBER ) {
          NumberingStyle = 5;
-      }
-      else if( ParaFormat2.wNumberingStyle == PFNS_NEWNUMBER )
-      {
+      } else if( ParaFormat2.wNumberingStyle == PFNS_NEWNUMBER ) {
          NumberingStyle = 6;
-      }
-      else
-      {
+      } else {
          NumberingStyle = 0;
       }
 
       hb_stornl( NumberingStyle, 4 );
    }
 
-   if( HB_ISBYREF(5) )
-   {
+   if( HB_ISBYREF(5) ) {
       NumberingStart = ParaFormat2.wNumberingStart;
       hb_stornl( NumberingStart, 5 );
    }
 
-   if( HB_ISBYREF(6) )
-   {
+   if( HB_ISBYREF(6) ) {
       Offset = ( double ) ParaFormat2.dxOffset;
       hb_stornd(( double ) (Offset * 25.4 / 1440.0), 6);
    }
 
-   if( HB_ISBYREF(7) )
-   {
-      if( ParaFormat2.bLineSpacingRule == 0 )
-      {
+   if( HB_ISBYREF(7) ) {
+      if( ParaFormat2.bLineSpacingRule == 0 ) {
          LineSpacing = 1.0;
-      }
-      else if( ParaFormat2.bLineSpacingRule == 1 )
-      {
+      } else if( ParaFormat2.bLineSpacingRule == 1 ) {
          LineSpacing = 1.5;
-      }
-      else if( ParaFormat2.bLineSpacingRule == 2 )
-      {
+      } else if( ParaFormat2.bLineSpacingRule == 2 ) {
          LineSpacing = 2.0;
-      }
-      else if( ParaFormat2.bLineSpacingRule == 3 )
-      {
+      } else if( ParaFormat2.bLineSpacingRule == 3 ) {
          LineSpacing = ( ( double ) ParaFormat2.dyLineSpacing ) * -1.0;  // if < 0 is in twips
-      }
-      else if( ParaFormat2.bLineSpacingRule == 4 )
-      {
+      } else if( ParaFormat2.bLineSpacingRule == 4 ) {
          LineSpacing = ( ( double ) ParaFormat2.dyLineSpacing ) * -1.0;  // if < 0 is in twips
-      }
-      else if( ParaFormat2.bLineSpacingRule == 5 )
-      {
+      } else if( ParaFormat2.bLineSpacingRule == 5 ) {
          LineSpacing = ( ( double ) ParaFormat2.dyLineSpacing ) * 1.0 / 20.0;
       }
 
       hb_stornd(( double ) LineSpacing, 7);
    }
 
-   if( HB_ISBYREF(8) )
-   {
+   if( HB_ISBYREF(8) ) {
       StartIndent = ( double ) ParaFormat2.dxStartIndent;
       hb_stornd(( double ) (StartIndent * 25.4 / 1440.0), 8);
    }
@@ -1234,13 +1087,10 @@ HB_FUNC( RICHEDITBOX_PASTESPECIAL )    // Paste a specific clipboard format in a
 {
    HWND hWndControl = hmg_par_HWND(1);
 
-   if( HB_ISCHAR(2) )
-   {
+   if( HB_ISCHAR(2) ) {
       CHAR * ClipboardFormat = ( CHAR * ) hb_parc(2);
       SendMessage(hWndControl, EM_PASTESPECIAL, ( WPARAM ) ClipboardFormat, reinterpret_cast<LPARAM>(nullptr));
-   }
-   else
-   {
+   } else {
       WPARAM ClipboardFormat = ( WPARAM ) hb_parnl(2);
       SendMessage(hWndControl, EM_PASTESPECIAL, ClipboardFormat, reinterpret_cast<LPARAM>(nullptr));
    }
@@ -1298,13 +1148,10 @@ HB_FUNC( RICHEDITBOX_POSFROMCHAR )
    hb_reta(2);
 
    // A returned coordinate can be a negative value if the specified character is not displayed in the edit control's client area
-   if( PointL.y < 0 || PointL.x < 0 )
-   {
+   if( PointL.y < 0 || PointL.x < 0 ) {
       Point.y = -1;
       Point.x = -1;
-   }
-   else
-   {
+   } else {
       Point.x = PointL.x;
       Point.y = PointL.y;
       ClientToScreen(hWndControl, &Point);
@@ -1351,8 +1198,7 @@ HB_FUNC( FINDREPLACEDLG )
    LPWSTR cTitle      = AnsiToWide(( char * ) hb_parc(11));
 #endif
 
-   if( hDlgFindReplace == nullptr )
-   {
+   if( hDlgFindReplace == nullptr ) {
       ZeroMemory(&FindReplace, sizeof(FindReplace));
 
       lstrcpy(cFindWhat, FindWhat);
@@ -1367,17 +1213,13 @@ HB_FUNC( FINDREPLACEDLG )
       FindReplace.lpstrReplaceWith = cReplaceWith;
       FindReplace.wReplaceWithLen  = sizeof(cReplaceWith) / sizeof(TCHAR);
 
-      if( lReplace )
-      {
+      if( lReplace ) {
          hDlgFindReplace = ReplaceText(&FindReplace);
-      }
-      else
-      {
+      } else {
          hDlgFindReplace = FindText(&FindReplace);
       }
 
-      if( HB_ISCHAR(11) )
-      {
+      if( HB_ISCHAR(11) ) {
          SetWindowText(hDlgFindReplace, cTitle);
       }
 
@@ -1399,8 +1241,7 @@ HB_FUNC( FINDREPLACEDLGSETTITLE )
    LPCWSTR cTitle = AnsiToWide(( char * ) hb_parc(1));
 #endif
 
-   if( hDlgFindReplace != nullptr )
-   {
+   if( hDlgFindReplace != nullptr ) {
       SetWindowText(hDlgFindReplace, cTitle);
    }
 
@@ -1416,8 +1257,7 @@ HB_FUNC( FINDREPLACEDLGGETTITLE )
 #endif
    TCHAR cTitle[256];
 
-   if( hDlgFindReplace != nullptr )
-   {
+   if( hDlgFindReplace != nullptr ) {
       GetWindowText(hDlgFindReplace, cTitle, sizeof(cTitle) / sizeof(TCHAR));
 #ifndef UNICODE
       hb_retc( cTitle );
@@ -1426,9 +1266,7 @@ HB_FUNC( FINDREPLACEDLGGETTITLE )
       hb_retc( pStr );
       hb_xfree(pStr);
 #endif
-   }
-   else
-   {
+   } else {
 #ifndef UNICODE
       hb_retc( "" );
 #else
@@ -1443,14 +1281,10 @@ HB_FUNC( FINDREPLACEDLGSHOW )
 {
    BOOL lShow = HB_ISNIL(1) ? TRUE : hb_parl(1);
 
-   if( hDlgFindReplace != nullptr )
-   {
-      if( lShow )
-      {
+   if( hDlgFindReplace != nullptr ) {
+      if( lShow ) {
          ShowWindow(hDlgFindReplace, SW_SHOW);
-      }
-      else
-      {
+      } else {
          ShowWindow(hDlgFindReplace, SW_HIDE);
       }
    }
@@ -1470,8 +1304,9 @@ HB_FUNC( FINDREPLACEDLGRELEASE )
 {
    BOOL lDestroy = HB_ISNIL(1) ? TRUE : hb_parl(1);
 
-   if( hDlgFindReplace != nullptr && lDestroy )
+   if( hDlgFindReplace != nullptr && lDestroy ) {
       DestroyWindow(hDlgFindReplace);
+   }
    hDlgFindReplace = nullptr;
 }
 
@@ -1484,23 +1319,19 @@ HB_FUNC( FINDREPLACEDLGGETOPTIONS )
    FINDREPLACE * FR     = ( FINDREPLACE * ) lParam;
    LONG          nRet   = -1;
 
-   if( FR->Flags & FR_DIALOGTERM )
-   {
+   if( FR->Flags & FR_DIALOGTERM ) {
       nRet = 0;
    }
 
-   if( FR->Flags & FR_FINDNEXT )
-   {
+   if( FR->Flags & FR_FINDNEXT ) {
       nRet = 1;
    }
 
-   if( FR->Flags & FR_REPLACE )
-   {
+   if( FR->Flags & FR_REPLACE ) {
       nRet = 2;
    }
 
-   if( FR->Flags & FR_REPLACEALL )
-   {
+   if( FR->Flags & FR_REPLACEALL ) {
       nRet = 3;
    }
 

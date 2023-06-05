@@ -76,29 +76,24 @@ HB_FUNC( INITSPINNER )
 
    hwnd = hmg_par_HWND(1);
 
-   if( !hb_parl(11) )
-   {
+   if( !hb_parl(11) ) {
       style1 |= WS_VISIBLE;
       style2 |= WS_VISIBLE;
    }
 
-   if( !hb_parl(12) )
-   {
+   if( !hb_parl(12) ) {
       style1 |= WS_TABSTOP;
    }
 
-   if( hb_parl(13) )
-   {
+   if( hb_parl(13) ) {
       style2 |= UDS_WRAP;
    }
 
-   if( hb_parl(14) )
-   {
+   if( hb_parl(14) ) {
       style1 |= ES_READONLY;
    }
 
-   if( hb_parl(15) )
-   {
+   if( hb_parl(15) ) {
       style2 |= UDS_HORZ | UDS_ALIGNRIGHT;  /* P.Ch. 10.16. */
    }
 
@@ -168,8 +163,7 @@ LRESULT CALLBACK OwnSpinProc(HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam)
 
    OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp(hedit, TEXT("oldspinproc"));
 
-   switch( Msg )
-   {
+   switch( Msg ) {
       case WM_DESTROY:
          SetWindowLongPtr(hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OldWndProc);
          RemoveProp(hedit, TEXT("oldspinproc"));
@@ -177,11 +171,11 @@ LRESULT CALLBACK OwnSpinProc(HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam)
 
       case WM_CONTEXTMENU:
       case WM_GETDLGCODE:
-         if( !pSymbol )
+         if( !pSymbol ) {
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OSPINEVENTS"));
+         }
 
-         if( pSymbol )
-         {
+         if( pSymbol ) {
             hb_vmPushSymbol(pSymbol);
             hb_vmPushNil();
             hmg_vmPushHandle(hedit);
