@@ -479,8 +479,7 @@ LPAtlAxGetControl AtlAxGetControl;
 
 static void _Ax_Init( void )
 {
-   if( !hAtl )
-   {
+   if( !hAtl ) {
       hAtl            = LoadLibrary( "Atl.Dll" );
       AtlAxWinInit    = ( LPAtlAxWinInit ) wapi_GetProcAddress( hAtl, "AtlAxWinInit" );
       AtlAxGetControl = ( LPAtlAxGetControl ) wapi_GetProcAddress( hAtl, "AtlAxGetControl" );
@@ -495,8 +494,7 @@ HB_FUNC( ATLAXWININIT )
 
 HB_FUNC( ATLAXWINEND )
 {
-   if( hAtl )
-   {
+   if( hAtl ) {
       FreeLibrary( hAtl );
       hAtl = nullptr;
    }
@@ -613,23 +611,20 @@ static HRESULT STDMETHODCALLTYPE QueryInterface(IEventHandler * self, REFIID vTa
    // IDispatch GUID, then we'll return the IExample3, since it can masquerade
    // as an IDispatch too
 
-   if( IsEqualIID( vTableGuid, IID_IUnknown ) )
-   {
+   if( IsEqualIID( vTableGuid, IID_IUnknown ) ) {
       *ppv = ( IUnknown * ) self;
       // Increment the count of callers who have an outstanding pointer to self object
       self->lpVtbl->AddRef( self );
       return S_OK;
    }
 
-   if( IsEqualIID( vTableGuid, IID_IDispatch ) )
-   {
+   if( IsEqualIID( vTableGuid, IID_IDispatch ) ) {
       *ppv = ( IDispatch * ) self;
       self->lpVtbl->AddRef( self );
       return S_OK;
    }
 
-   if( IsEqualIID( vTableGuid, ( ( ( MyRealIEventHandler * ) self )->device_event_interface_iid ) ) )
-   {
+   if( IsEqualIID( vTableGuid, ( ( ( MyRealIEventHandler * ) self )->device_event_interface_iid ) ) ) {
       *ppv = ( IDispatch * ) self;
       self->lpVtbl->AddRef( self );
       return S_OK;
@@ -657,8 +652,7 @@ static ULONG STDMETHODCALLTYPE AddRef( IEventHandler * self )
 // IEventHandler's Release()
 static ULONG STDMETHODCALLTYPE Release(IEventHandler * self)
 {
-   if( --( ( MyRealIEventHandler * ) self )->count == 0 )
-   {
+   if( --( ( MyRealIEventHandler * ) self )->count == 0 ) {
       GlobalFree(self);
       return 0;
    }
@@ -717,8 +711,7 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * self, DISPID dispid, REFII
    Key = hb_itemNew( nullptr );
 
    // We implement only a "default" interface
-   if( !IsEqualIID( riid, IID_NULL ) )
-   {
+   if( !IsEqualIID( riid, IID_NULL ) ) {
       return ( ULONG ) DISP_E_UNKNOWNINTERFACE;
    }
 
@@ -734,8 +727,7 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * self, DISPID dispid, REFII
 #ifdef __USEHASHEVENTS
 
    if( hb_hashScan( ( ( MyRealIEventHandler * ) self )->pEvents, hb_itemPutNL( Key, dispid ),
-                    &ulPos ) )
-   {
+                    &ulPos ) ) {
       PHB_ITEM pArray = hb_hashGetValueAt( ( ( MyRealIEventHandler * ) self )->pEvents, ulPos );
 
 #else
@@ -743,143 +735,121 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * self, DISPID dispid, REFII
    ulPos = hb_arrayScan( ( ( MyRealIEventHandler * ) self )->pEvents, hb_itemPutNL( Key, dispid ),
                          nullptr, nullptr, 0 );
 
-   if( ulPos )
-   {
+   if( ulPos ) {
       PHB_ITEM pArray = hb_arrayGetItemPtr( ( ( MyRealIEventHandler * ) self )->pEventsExec, ulPos );
 
 #endif
       PHB_ITEM pExec = hb_arrayGetItemPtr( pArray, 1 );
 
-      if( pExec )
-      {
+      if( pExec ) {
 
-         if( hb_vmRequestReenter() )
-         {
+         if( hb_vmRequestReenter() ) {
 
-         switch( hb_itemType(pExec) )
-         {
+            switch( hb_itemType(pExec) ) {
 
-            case Harbour::Item::BLOCK:
-            {
-               hb_vmPushEvalSym();
-               hb_vmPush( pExec );
-               break;
-            }
-
-            case Harbour::Item::STRING:
-            {
-               PHB_ITEM pObject = hb_arrayGetItemPtr( pArray, 2 );
-               hb_vmPushSymbol( hb_dynsymSymbol( hb_dynsymFindName(hb_itemGetCPtr( pExec )) ) );
-
-               if( HB_IS_OBJECT( pObject ) )
+               case Harbour::Item::BLOCK:
                {
-                  hb_vmPush( pObject );
+                  hb_vmPushEvalSym();
+                  hb_vmPush( pExec );
+                  break;
                }
-               else
+
+               case Harbour::Item::STRING:
                {
+                  PHB_ITEM pObject = hb_arrayGetItemPtr( pArray, 2 );
+                  hb_vmPushSymbol( hb_dynsymSymbol( hb_dynsymFindName(hb_itemGetCPtr( pExec )) ) );
+
+                  if( HB_IS_OBJECT( pObject ) ) {
+                     hb_vmPush( pObject );
+                  } else {
+                     hb_vmPushNil();
+                  }
+                  break;
+               }
+
+               case Harbour::Item::POINTER:
+               {
+                  hb_vmPushSymbol( hb_dynsymSymbol( ( ( PHB_SYMB ) pExec )->pDynSym ) );
                   hb_vmPushNil();
-               }
-               break;
-
-            }
-
-            case Harbour::Item::POINTER:
-            {
-               hb_vmPushSymbol( hb_dynsymSymbol( ( ( PHB_SYMB ) pExec )->pDynSym ) );
-               hb_vmPushNil();
-               break;
-            }
-
-         }
-
-         iArg = params->cArgs;
-         for( i = 1; i <= iArg; i++ )
-         {
-            pItem = hb_itemNew( nullptr );
-            hb_oleVariantToItem( pItem, &( params->rgvarg[iArg - i] ) );
-            pItemArray[i - 1] = pItem;
-            // set bit i
-            //ulRefMask |= ( 1L << ( i - 1 ) );
-         }
-
-         if( iArg )
-         {
-            pItems = pItemArray;
-            if( iArg )
-            {
-               for( i = 0; i < iArg; i++ )
-               {
-                  hb_vmPush( ( pItems )[i] );
+                  break;
                }
             }
-         }
 
-         // execute
-         hb_vmDo( ( USHORT ) iArg );
-
-         // En caso de que los parametros sean pasados por referencia
-         for( i = iArg; i > 0; i-- )
-         {
-            if( ( ( &( params->rgvarg[iArg - i] ) )->n1.n2.vt & VT_BYREF ) == VT_BYREF )
-            {
-
-               switch( ( &( params->rgvarg[iArg - i] ) )->n1.n2.vt )
-               {
-
-                  //case VT_UI1|VT_BYREF:
-                  //   *((&(params->rgvarg[iArg-i]))->n1.n2.n3.pbVal) = va_arg(argList,unsigned char*);  //pItemArray[i-1]
-                  //   break;
-                  case VT_I2 | VT_BYREF:
-                     *( ( &( params->rgvarg[iArg - i] ) )->n1.n2.n3.piVal ) = ( short ) hb_itemGetNI( pItemArray[i - 1] );
-                     break;
-                  case VT_I4 | VT_BYREF:
-                     *( ( &( params->rgvarg[iArg - i] ) )->n1.n2.n3.plVal ) = hb_itemGetNL( pItemArray[i - 1] );
-                     break;
-                  case VT_R4 | VT_BYREF:
-                     *( ( &( params->rgvarg[iArg - i] ) )->n1.n2.n3.pfltVal ) = ( float ) hb_itemGetND( pItemArray[i - 1] );
-                     break;
-                  case VT_R8 | VT_BYREF:
-                     *( ( &( params->rgvarg[iArg - i] ) )->n1.n2.n3.pdblVal ) = ( double ) hb_itemGetND( pItemArray[i - 1] );
-                     break;
-                  case VT_BOOL | VT_BYREF:
-                     *( ( &( params->rgvarg[iArg - i] ) )->n1.n2.n3.pboolVal ) = ( VARIANT_BOOL ) ( hb_itemGetL( pItemArray[i - 1] ) ? 0xFFFF : 0 );
-                     break;
-                  //case VT_ERROR|VT_BYREF:
-                  //   *((&(params->rgvarg[iArg-i]))->n1.n2.n3.pscode) = va_arg(argList, SCODE*);
-                  //   break;
-                  case VT_DATE | VT_BYREF:
-                     *( ( &( params->rgvarg[iArg - i] ) )->n1.n2.n3.pdate ) = ( DATE ) ( double ) ( hb_itemGetDL( pItemArray[i - 1] ) - 2415019 );
-                     break;
-                  //case VT_CY|VT_BYREF:
-                  //   *((&(params->rgvarg[iArg-i]))->n1.n2.n3.pcyVal) = va_arg(argList, CY*);
-                  //   break;
-                  //case VT_BSTR|VT_BYREF:
-                  //   *((&(params->rgvarg[iArg-i]))->n1.n2.n3.pbstrVal = va_arg(argList, BSTR*);
-                  //   break;
-                  //case VT_UNKNOWN|VT_BYREF:
-                  //   pArg->ppunkVal = va_arg(argList, LPUNKNOWN*);
-                  //   break;
-                  //case VT_DISPATCH|VT_BYREF:
-                  //   pArg->ppdispVal = va_arg(argList, LPDISPATCH*);
-                  //   break;
-
-               }
-
+            iArg = params->cArgs;
+            for( i = 1; i <= iArg; i++ ) {
+               pItem = hb_itemNew( nullptr );
+               hb_oleVariantToItem( pItem, &( params->rgvarg[iArg - i] ) );
+               pItemArray[i - 1] = pItem;
+               // set bit i
+               //ulRefMask |= ( 1L << ( i - 1 ) );
             }
 
-         }
+            if( iArg ) {
+               pItems = pItemArray;
+               if( iArg ) {
+                  for( i = 0; i < iArg; i++ ) {
+                     hb_vmPush( ( pItems )[i] );
+                  }
+               }
+            }
 
-         hb_vmRequestRestore();
-         }
+            // execute
+            hb_vmDo( ( USHORT ) iArg );
 
+            // En caso de que los parametros sean pasados por referencia
+            for( i = iArg; i > 0; i-- ) {
+               if( ( ( &( params->rgvarg[iArg - i] ) )->n1.n2.vt & VT_BYREF ) == VT_BYREF ) {
+
+                  switch( ( &( params->rgvarg[iArg - i] ) )->n1.n2.vt ) {
+
+                     //case VT_UI1|VT_BYREF:
+                     //   *((&(params->rgvarg[iArg-i]))->n1.n2.n3.pbVal) = va_arg(argList,unsigned char*);  //pItemArray[i-1]
+                     //   break;
+                     case VT_I2 | VT_BYREF:
+                        *( ( &( params->rgvarg[iArg - i] ) )->n1.n2.n3.piVal ) = ( short ) hb_itemGetNI( pItemArray[i - 1] );
+                        break;
+                     case VT_I4 | VT_BYREF:
+                        *( ( &( params->rgvarg[iArg - i] ) )->n1.n2.n3.plVal ) = hb_itemGetNL( pItemArray[i - 1] );
+                        break;
+                     case VT_R4 | VT_BYREF:
+                        *( ( &( params->rgvarg[iArg - i] ) )->n1.n2.n3.pfltVal ) = ( float ) hb_itemGetND( pItemArray[i - 1] );
+                        break;
+                     case VT_R8 | VT_BYREF:
+                        *( ( &( params->rgvarg[iArg - i] ) )->n1.n2.n3.pdblVal ) = ( double ) hb_itemGetND( pItemArray[i - 1] );
+                        break;
+                     case VT_BOOL | VT_BYREF:
+                        *( ( &( params->rgvarg[iArg - i] ) )->n1.n2.n3.pboolVal ) = ( VARIANT_BOOL ) ( hb_itemGetL( pItemArray[i - 1] ) ? 0xFFFF : 0 );
+                        break;
+                     //case VT_ERROR|VT_BYREF:
+                     //   *((&(params->rgvarg[iArg-i]))->n1.n2.n3.pscode) = va_arg(argList, SCODE*);
+                     //   break;
+                     case VT_DATE | VT_BYREF:
+                        *( ( &( params->rgvarg[iArg - i] ) )->n1.n2.n3.pdate ) = ( DATE ) ( double ) ( hb_itemGetDL( pItemArray[i - 1] ) - 2415019 );
+                        break;
+                     //case VT_CY|VT_BYREF:
+                     //    *((&(params->rgvarg[iArg-i]))->n1.n2.n3.pcyVal) = va_arg(argList, CY*);
+                     //   break;
+                     //case VT_BSTR|VT_BYREF:
+                     //   *((&(params->rgvarg[iArg-i]))->n1.n2.n3.pbstrVal = va_arg(argList, BSTR*);
+                     //   break;
+                     //case VT_UNKNOWN|VT_BYREF:
+                     //   pArg->ppunkVal = va_arg(argList, LPUNKNOWN*);
+                     //   break;
+                     //case VT_DISPATCH|VT_BYREF:
+                     //   pArg->ppdispVal = va_arg(argList, LPDISPATCH*);
+                     //   break;
+                  }
+               }
+            }
+
+            hb_vmRequestRestore();
+         }
       }
-
    }
 
    hb_itemRelease(Key);
 
    return S_OK;
-
 }
 
 //------------------------------------------------------------------------------
@@ -927,12 +897,9 @@ HB_FUNC( SETUPCONNECTIONPOINT )
 
    selfobj = ( IEventHandler * ) GlobalAlloc(GMEM_FIXED, sizeof(MyRealIEventHandler));
 
-   if( !selfobj )
-   {
+   if( !selfobj ) {
       hr = E_OUTOFMEMORY;
-   }
-   else
-   {
+   } else {
       // Store IEventHandler's VTable in the object
       selfobj->lpVtbl = ( IEventHandlerVtbl * ) &IEventHandler_Vtbl;
 
@@ -946,31 +913,24 @@ HB_FUNC( SETUPCONNECTIONPOINT )
       // Query self object itself for its IUnknown pointer which will be used
       // later to connect to the Connection Point of the device_interface object.
       hr = selfobj->lpVtbl->QueryInterface(selfobj, IID_IUnknown, ( void ** ) ( void * ) &pIUnknown);
-      if( hr == S_OK && pIUnknown )
-      {
+      if( hr == S_OK && pIUnknown ) {
 
          // Query the pdevice_interface for its connection point.
          hr = pdevice_interface->lpVtbl->QueryInterface(pdevice_interface, IID_IConnectionPointContainer, ( void ** ) ( void * ) &pIConnectionPointContainerTemp);
 
-         if( hr == S_OK && pIConnectionPointContainerTemp )
-         {
+         if( hr == S_OK && pIConnectionPointContainerTemp ) {
             hr = pIConnectionPointContainerTemp->lpVtbl->EnumConnectionPoints( pIConnectionPointContainerTemp, &m_pIEnumConnectionPoints );
 
-            if( hr == S_OK && m_pIEnumConnectionPoints )
-            {
-               do
-               {
+            if( hr == S_OK && m_pIEnumConnectionPoints ) {
+               do {
                   hr = m_pIEnumConnectionPoints->lpVtbl->Next( m_pIEnumConnectionPoints, 1, &m_pIConnectionPoint, nullptr );
-                  if( hr == S_OK )
-                  {
-                     if( m_pIConnectionPoint->lpVtbl->GetConnectionInterface(m_pIConnectionPoint, &rriid) == S_OK )
-                     {
+                  if( hr == S_OK ) {
+                     if( m_pIConnectionPoint->lpVtbl->GetConnectionInterface(m_pIConnectionPoint, &rriid) == S_OK ) {
                         break;
                      }
                   }
 
-               }
-               while( hr == S_OK );
+               } while( hr == S_OK );
                m_pIEnumConnectionPoints->lpVtbl->Release(m_pIEnumConnectionPoints);
             }
 
@@ -978,11 +938,9 @@ HB_FUNC( SETUPCONNECTIONPOINT )
             pIConnectionPointContainerTemp = nullptr;
          }
 
-         if( hr == S_OK && m_pIConnectionPoint )
-         {
+         if( hr == S_OK && m_pIConnectionPoint ) {
 
-            if( hr == S_OK )
-            {
+            if( hr == S_OK ) {
                ( ( MyRealIEventHandler * ) selfobj )->device_event_interface_iid = rriid;
             }
 
@@ -998,8 +956,7 @@ HB_FUNC( SETUPCONNECTIONPOINT )
       }
    }
 
-   if( selfobj )
-   {
+   if( selfobj ) {
       pThis = ( MyRealIEventHandler * ) selfobj;
 
 #ifndef __USEHASHEVENTS
@@ -1019,8 +976,7 @@ HB_FUNC( SHUTDOWNCONNECTIONPOINT )
 {
    MyRealIEventHandler * self = ( MyRealIEventHandler * ) HB_PARNL( 1 );
 
-   if( self->pIConnectionPoint )
-   {
+   if( self->pIConnectionPoint ) {
       self->pIConnectionPoint->lpVtbl->Unadvise(self->pIConnectionPoint, self->dwEventCookie);
       self->dwEventCookie = 0;
       self->pIConnectionPoint->lpVtbl->Release(self->pIConnectionPoint);

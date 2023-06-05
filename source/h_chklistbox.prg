@@ -355,23 +355,19 @@ HB_FUNC_STATIC( INITCHKLISTBOX )
    hwnd = hmg_par_HWND(1);
    m_nHeightItem = 16;
 
-   if( !hb_parl(9) )
-   {
+   if( !hb_parl(9) ) {
       style |= WS_VISIBLE;
    }
 
-   if( !hb_parl(10) )
-   {
+   if( !hb_parl(10) ) {
       style |= WS_TABSTOP;
    }
 
-   if( hb_parl(11) )
-   {
+   if( hb_parl(11) ) {
       style |= LBS_SORT;
    }
 
-   if( hb_parni(12) )
-   {
+   if( hb_parni(12) ) {
       m_nHeightItem = hb_parni(12);
    }
 
@@ -400,23 +396,19 @@ HB_FUNC_STATIC( INITMULTICHKLISTBOX )
    hwnd = hmg_par_HWND(1);
    m_nHeightItem = 16;
 
-   if( !hb_parl(9) )
-   {
+   if( !hb_parl(9) ) {
       style |= WS_VISIBLE;
    }
 
-   if( !hb_parl(10) )
-   {
+   if( !hb_parl(10) ) {
       style |= WS_TABSTOP;
    }
 
-   if( hb_parl(11) )
-   {
+   if( hb_parl(11) ) {
       style |= LBS_SORT;
    }
 
-   if( hb_parni(12) )
-   {
+   if( hb_parni(12) ) {
       m_nHeightItem = hb_parni(12);
    }
 
@@ -474,29 +466,25 @@ HB_FUNC( SETCHKLBITEMHEIGHT ) // set the height of a string in pixels
    HFONT hOldFont = nullptr;
    SIZE sz;
 
-   if( !hdc )
-   {
+   if( !hdc ) {
       hwnd = GetActiveWindow();
       hdc = GetDC(hwnd);
    }
    SendMessage(hwnd, LB_GETTEXT, 0, reinterpret_cast<LPARAM>(achBuffer));
 
-   if( hFont )
-   {
+   if( hFont ) {
       hOldFont = static_cast<HFONT>(SelectObject(hdc, hFont));
    }
 
    GetTextExtentPoint32(hdc, achBuffer, static_cast<int>(HB_STRLEN(achBuffer)), &sz);
 
-   if( sz.cy > m_nHeightItem )
-   {
+   if( sz.cy > m_nHeightItem ) {
       m_nHeightItem = sz.cy;
 
       SendMessage(hwnd, LB_SETITEMHEIGHT, 0, MAKELPARAM(m_nHeightItem, 0));
    }
 
-   if( hFont )
-   {
+   if( hFont ) {
       SelectObject(hdc, hOldFont);
    }
 
@@ -548,27 +536,21 @@ HB_FUNC( _ONDRAWLISTBOXITEM )
    pdis = reinterpret_cast<PDRAWITEMSTRUCT>(HB_PARNL(1));
 
    // If there are no list box items, skip this message.
-   if( static_cast<int>(pdis->itemID) > -1 )
-   {
+   if( static_cast<int>(pdis->itemID) > -1 ) {
       // Draw the bitmap and text for the list box item. Draw a
       // rectangle around the bitmap if it is selected.
 
-      switch( pdis->itemAction )
-      {
+      switch( pdis->itemAction ) {
          case ODA_SELECT:
          case ODA_DRAWENTIRE:
 
             iCheck = static_cast<int>(SendMessage(pdis->hwndItem, LB_GETITEMDATA, pdis->itemID, 0));
 
-            if( pdis->itemState & ODS_SELECTED )
-            {
+            if( pdis->itemState & ODS_SELECTED ) {
                SetTextColor(pdis->hDC, GetSysColor(COLOR_HIGHLIGHTTEXT));
                SetBkColor(pdis->hDC, GetSysColor(COLOR_HIGHLIGHT));
                hBackBrush = CreateSolidBrush(GetSysColor(COLOR_HIGHLIGHT));
-
-            }
-            else
-            {
+            } else {
                SetTextColor(pdis->hDC, GetSysColor(COLOR_WINDOWTEXT));
                SetBkColor(pdis->hDC, GetSysColor(COLOR_WINDOW));
                hBackBrush = CreateSolidBrush(GetSysColor(COLOR_WINDOW));
@@ -576,19 +558,15 @@ HB_FUNC( _ONDRAWLISTBOXITEM )
             FillRect(pdis->hDC, &pdis->rcItem, hBackBrush);
             DeleteObject(hBackBrush);
             rcCheck = pdis->rcItem;
-            if( iCheck )
-            {
+            if( iCheck ) {
                rcCheck.left += 4;
                rcCheck.top += 2;
                rcCheck.right = rcCheck.left + (pdis->rcItem.bottom - pdis->rcItem.top);
                rcCheck.bottom -= 2;
 
-               if( iCheck == 1 )
-               {
+               if( iCheck == 1 ) {
                   style = DFCS_BUTTONCHECK;
-               }
-               else if( iCheck == 2 )
-               {
+               } else if( iCheck == 2 ) {
                   style = DFCS_BUTTONCHECK | DFCS_CHECKED;
                }
                DrawFrameControl(pdis->hDC, &rcCheck, DFC_BUTTON, style);
@@ -629,8 +607,7 @@ HB_FUNC( GETMISCTLTYPE )
 {
    LPMEASUREITEMSTRUCT pmis = reinterpret_cast<LPMEASUREITEMSTRUCT>(HB_PARNL(1));
 
-   if( pmis )
-   {
+   if( pmis ) {
       hb_retni(static_cast<UINT>(pmis->CtlType));
    }
 }

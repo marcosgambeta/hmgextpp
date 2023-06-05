@@ -269,40 +269,33 @@ HB_FUNC_STATIC( INITSLIDER )
 
    DWORD style = WS_CHILD;
 
-   if( hb_parl(9) )
-   {
+   if( hb_parl(9) ) {
       style |= TBS_VERT;
    }
 
    style |= hb_parl(10) ? TBS_NOTICKS : TBS_AUTOTICKS;
 
-   if( hb_parl(11) )
-   {
+   if( hb_parl(11) ) {
       style |= TBS_BOTH;
    }
 
-   if( hb_parl(12) )
-   {
+   if( hb_parl(12) ) {
       style |= TBS_TOP;
    }
 
-   if( hb_parl(13) )
-   {
+   if( hb_parl(13) ) {
       style |= TBS_LEFT;
    }
 
-   if( !hb_parl(14) )
-   {
+   if( !hb_parl(14) ) {
       style |= WS_VISIBLE;
    }
 
-   if( !hb_parl(15) )
-   {
+   if( !hb_parl(15) ) {
       style |= WS_TABSTOP;
    }
 
-   if( hb_parl(16) )  /* P.Ch. 16.10 */
-   {
+   if( hb_parl(16) ) { /* P.Ch. 16.10 */
       style |= TBS_ENABLESELRANGE;
       iSelMin = HB_MIN(hb_parnidef(17, 0), hb_parnidef(18, 0));
       iSelMax = HB_MAX(hb_parnidef(17, 0), hb_parnidef(18, 0));
@@ -323,8 +316,7 @@ HB_FUNC_STATIC( INITSLIDER )
 
    SendMessage(hTrackBar, TBM_SETRANGE, static_cast<WPARAM>(TRUE), MAKELONG(hb_parni(7), hb_parni(8)));
 
-   if( hb_parl(16) && (iSelMin != iSelMax) )
-   {
+   if( hb_parl(16) && (iSelMin != iSelMax) ) {
       SendMessage(hTrackBar, TBM_SETSEL, static_cast<WPARAM>(TRUE), MAKELONG(iSelMin, iSelMax));  /* P.Ch. 16.10 */
    }
 

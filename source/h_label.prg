@@ -348,58 +348,47 @@ HB_FUNC_STATIC( INITLABEL )
    void * WindowName;
    LPCTSTR lpWindowName = HB_PARSTR(2, &WindowName, nullptr);
 
-   if( hb_parl(9) || hb_parl(10) )
-   {
+   if( hb_parl(9) || hb_parl(10) ) {
       style |= SS_NOTIFY;
    }
 
-   if( hb_parl(11) )
-   {
+   if( hb_parl(11) ) {
       style |= WS_BORDER;
    }
 
-   if( hb_parl(13) )
-   {
+   if( hb_parl(13) ) {
       style |= WS_HSCROLL;
    }
 
-   if( hb_parl(14) )
-   {
+   if( hb_parl(14) ) {
       style |= WS_VSCROLL;
    }
 
-   if( !hb_parl(16) )
-   {
+   if( !hb_parl(16) ) {
       style |= WS_VISIBLE;
    }
 
-   if( hb_parl(17) )
-   {
+   if( hb_parl(17) ) {
       style |= ES_RIGHT;
    }
 
-   if( hb_parl(18) )
-   {
+   if( hb_parl(18) ) {
       style |= ES_CENTER;
    }
 
-   if( hb_parl(19) )
-   {
+   if( hb_parl(19) ) {
       style |= SS_CENTERIMAGE;
    }
 
-   if( hb_parl(20) )
-   {
+   if( hb_parl(20) ) {
       style |= SS_NOPREFIX;
    }
 
-   if( hb_parl(12) )
-   {
+   if( hb_parl(12) ) {
       ExStyle |= WS_EX_CLIENTEDGE;
    }
 
-   if( hb_parl(15) )
-   {
+   if( hb_parl(15) ) {
       ExStyle |= WS_EX_TRANSPARENT;
    }
 
@@ -416,8 +405,7 @@ HB_FUNC_STATIC( INITLABEL )
                          GetInstance(),
                          nullptr);
 
-   if( hb_parl(10) )
-   {
+   if( hb_parl(10) ) {
       LabelOldWndProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(hWnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(LabelSubClassFunc)));
    }
 
@@ -439,10 +427,8 @@ LRESULT APIENTRY LabelSubClassFunc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lP
    bool bCallUDF = false;
 #endif
 
-   if( Msg == WM_MOUSEMOVE || Msg == WM_MOUSELEAVE )
-   {
-      if( Msg == WM_MOUSEMOVE )
-      {
+   if( Msg == WM_MOUSEMOVE || Msg == WM_MOUSELEAVE ) {
+      if( Msg == WM_MOUSEMOVE ) {
          if( bMouseTracking == false )
          {
             tme.cbSize      = sizeof(TRACKMOUSEEVENT);
@@ -450,39 +436,31 @@ LRESULT APIENTRY LabelSubClassFunc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lP
             tme.hwndTrack   = hWnd;
             tme.dwHoverTime = HOVER_DEFAULT;
 
-            if( _TrackMouseEvent(&tme) == TRUE )
-            {
+            if( _TrackMouseEvent(&tme) == TRUE ) {
 #if _OLD_STYLE
                bCallUDF = true;
 #endif
                bMouseTracking = true;
             }
 #if _OLD_STYLE
-         }
-         else
-         {
+         } else {
             bCallUDF = false;
 #endif
          }
-      }
-      else
-      {
+      } else {
 #if _OLD_STYLE
          bCallUDF = true;
 #endif
          bMouseTracking = false;
       }
 #if _OLD_STYLE
-      if( bCallUDF == true )
-      {
+      if( bCallUDF == true ) {
 #endif
-      if( !pSymbol )
-      {
+      if( !pSymbol ) {
          pSymbol = hb_dynsymSymbol(hb_dynsymGet("OLABELEVENTS"));
       }
 
-      if( pSymbol && hb_vmRequestReenter() )
-      {
+      if( pSymbol && hb_vmRequestReenter() ) {
          hb_vmPushSymbol(pSymbol);
          hb_vmPushNil();
          hmg_vmPushHandle(hWnd);

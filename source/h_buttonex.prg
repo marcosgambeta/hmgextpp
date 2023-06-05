@@ -994,18 +994,15 @@ HB_FUNC_STATIC( INITOWNERBUTTON )
 
    DWORD style = BS_NOTIFY | WS_CHILD | BS_OWNERDRAW | (HB_ISNIL(14) ? BS_BITMAP : BS_ICON) | (hb_parl(13) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON);
 
-   if( hb_parl(9) )
-   {
+   if( hb_parl(9) ) {
       style |= BS_FLAT;
    }
 
-   if( !hb_parl(11) )
-   {
+   if( !hb_parl(11) ) {
       style |= WS_VISIBLE;
    }
 
-   if( !hb_parl(12) )
-   {
+   if( !hb_parl(12) ) {
       style |= WS_TABSTOP;
    }
 
@@ -1018,30 +1015,24 @@ HB_FUNC_STATIC( INITOWNERBUTTON )
 
    int ImgStyle = hb_parl(10) ? 0 : LR_LOADTRANSPARENT;
 
-   if( HB_ISNIL(14) )
-   {
+   if( HB_ISNIL(14) ) {
       himage = static_cast<HWND>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef(15, 0), 0), HB_MAX(hb_parnidef(16, 0), 0), LR_LOADMAP3DCOLORS | ImgStyle));
 
-      if( himage == nullptr )
-      {
+      if( himage == nullptr ) {
          himage = static_cast<HWND>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, HB_MAX(hb_parnidef(15, 0), 0), HB_MAX(hb_parnidef(16, 0), 0), LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | ImgStyle));
       }
 
       hb_reta(2);
       hmg_storvhandle(hbutton, -1, 1);
       hmg_storvhandle(himage, -1, 2);
-   }
-   else
-   {
+   } else {
       hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR));
 
-      if( hIcon == nullptr )
-      {
+      if( hIcon == nullptr ) {
          hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
       }
 
-      if( hIcon == nullptr )
-      {
+      if( hIcon == nullptr ) {
          hIcon = ExtractIcon(GetInstance(), lpIconName, 0);
       }
 
@@ -1061,8 +1052,7 @@ LRESULT CALLBACK OwnButtonProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPa
 
    WNDPROC OldWndProc = reinterpret_cast<WNDPROC>(GetProp(hButton, TEXT("oldbtnproc")));
 
-   switch( Msg )
-   {
+   switch( Msg ) {
       case WM_LBUTTONDBLCLK:
          SendMessage(hButton, WM_LBUTTONDOWN, wParam, lParam);
          break;
@@ -1076,13 +1066,11 @@ LRESULT CALLBACK OwnButtonProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPa
          tme.dwHoverTime = 0;
          _TrackMouseEvent(&tme);
 
-         if( !pSymbol )
-         {
+         if( !pSymbol ) {
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OBTNEVENTS"));
          }
 
-         if( pSymbol )
-         {
+         if( pSymbol ) {
             hb_vmPushSymbol(pSymbol);
             hb_vmPushNil();
             hmg_vmPushHandle(hButton);
@@ -1098,13 +1086,11 @@ LRESULT CALLBACK OwnButtonProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPa
       }
       case WM_MOUSELEAVE:
       {
-         if( !pSymbol )
-         {
+         if( !pSymbol ) {
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OBTNEVENTS"));
          }
 
-         if( pSymbol )
-         {
+         if( pSymbol ) {
             hb_vmPushSymbol(pSymbol);
             hb_vmPushNil();
             hmg_vmPushHandle(hButton);

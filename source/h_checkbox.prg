@@ -669,23 +669,19 @@ HB_FUNC_STATIC( INITCHECKBOX )
 
    DWORD style = BS_NOTIFY | WS_CHILD;
 
-   if( !hb_parl(10) )
-   {
+   if( !hb_parl(10) ) {
       style |= WS_VISIBLE;
    }
 
-   if( !hb_parl(11) )
-   {
+   if( !hb_parl(11) ) {
       style |= WS_TABSTOP;
    }
 
-   if( hb_parl(12) )
-   {
+   if( hb_parl(12) ) {
       style |= BS_LEFTTEXT;
    }
 
-   if( hb_parl(6) )
-   {
+   if( hb_parl(6) ) {
       style |= BS_MULTILINE;
    }
 
@@ -693,8 +689,7 @@ HB_FUNC_STATIC( INITCHECKBOX )
 
    DWORD ExStyle = 0;
 
-   if( hb_parl(13) )
-   {
+   if( hb_parl(13) ) {
       ExStyle |= WS_EX_TRANSPARENT;
    }
 
@@ -715,13 +710,11 @@ HB_FUNC_STATIC( INITCHECKBUTTON )
 
    DWORD style = BS_NOTIFY | WS_CHILD | BS_AUTOCHECKBOX | BS_PUSHLIKE;
 
-   if( !hb_parl(10) )
-   {
+   if( !hb_parl(10) ) {
       style |= WS_VISIBLE;
    }
 
-   if( !hb_parl(11) )
-   {
+   if( !hb_parl(11) ) {
       style |= WS_TABSTOP;
    }
 
@@ -749,13 +742,11 @@ HB_FUNC_STATIC( INITIMAGECHECKBUTTON )
 
    DWORD style = BS_NOTIFY | BS_BITMAP | WS_CHILD | BS_AUTOCHECKBOX | BS_PUSHLIKE;
 
-   if( !hb_parl(11) )
-   {
+   if( !hb_parl(11) ) {
       style |= WS_VISIBLE;
    }
 
-   if( !hb_parl(12) )
-   {
+   if( !hb_parl(12) ) {
       style |= WS_TABSTOP;
    }
 
@@ -763,8 +754,7 @@ HB_FUNC_STATIC( INITIMAGECHECKBUTTON )
       hmg_par_int(4), hmg_par_int(5), hmg_par_int(9), hmg_par_int(10),
       hwnd, hmg_par_HMENU(3), GetInstance(), nullptr);
 
-   if( !hb_parl(13) )
-   {
+   if( !hb_parl(13) ) {
       himage = reinterpret_cast<HWND>(HMG_LoadPicture(hb_parc(8), -1, -1, hwnd, 0, Transparent, -1, 0, false, 255));
 
       SendMessage(hbutton, BM_SETIMAGE, static_cast<WPARAM>(IMAGE_BITMAP), reinterpret_cast<LPARAM>(himage));
@@ -772,9 +762,7 @@ HB_FUNC_STATIC( INITIMAGECHECKBUTTON )
       hb_reta(2);
       hmg_storvhandle(hbutton, -1, 1);
       hmg_storvhandle(himage, -1, 2);
-   }
-   else
-   {
+   } else {
       himl = HMG_SetButtonImageList(hbutton, hb_parc(8), Transparent, BUTTON_IMAGELIST_ALIGN_CENTER);
 
       hb_reta(2);

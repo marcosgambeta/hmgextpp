@@ -266,8 +266,7 @@ HB_FUNC_STATIC( INITANIMATERES )
 
    DWORD style = WS_CHILD | WS_VISIBLE | ACS_TRANSPARENT | ACS_CENTER | ACS_AUTOPLAY;
 
-   if( !hb_parl(9) )
-   {
+   if( !hb_parl(9) ) {
       style |= WS_VISIBLE;
    }
 
@@ -293,8 +292,7 @@ HB_FUNC_STATIC( UNLOADANIMATELIB )
 {
    HINSTANCE hLib = hmg_par_HINSTANCE(1);
 
-   if( hLib != nullptr )
-   {
+   if( hLib != nullptr ) {
       FreeLibrary(hLib);
    }
 }

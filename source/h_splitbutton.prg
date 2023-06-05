@@ -296,8 +296,7 @@ HB_FUNC( INITSPLITBUTTON )
 
    style = BS_SPLITBUTTON;
 
-   if( hb_parl( 5 ) )
-   {
+   if( hb_parl( 5 ) ) {
       style = BS_DEFSPLITBUTTON;
    }
 

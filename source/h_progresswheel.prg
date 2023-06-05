@@ -998,19 +998,15 @@ HB_FUNC( BT_DRAW_HDC_ARCX_EX )
    hPen     = CreatePen( PS_SOLID, nWidthLine, ColorLine );
    OldPen   = static_cast<HPEN>(SelectObject( hDC, hPen ));
 
-   if( hb_parnl( 14 ) )
-   {
+   if( hb_parnl( 14 ) ) {
       hBrush   = hmg_par_HBRUSH(14);
-   }
-   else
-   {
+   } else {
       hBrush   = CreateSolidBrush( ColorFill );
    }
 
    OldBrush = static_cast<HBRUSH>(SelectObject( hDC, hBrush ));
 
-   switch( nArcType )
-   {
+   switch( nArcType ) {
       case BT_DRAW_ARC:
          Arc(hDC, x1, y1, x2, y2, XStartArc, YStartArc, XEndArc, YEndArc);
          break;

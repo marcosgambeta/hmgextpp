@@ -500,35 +500,29 @@ HB_FUNC_STATIC( INITCOMBOBOX )
 {
    DWORD style = WS_CHILD | WS_VSCROLL;
 
-   if( !hb_parl(9) )
-   {
+   if( !hb_parl(9) ) {
       style |= WS_VISIBLE;
    }
 
-   if( !hb_parl(10) )
-   {
+   if( !hb_parl(10) ) {
       style |= WS_TABSTOP;
    }
 
-   if( hb_parl(11) )
-   {
+   if( hb_parl(11) ) {
       style |= CBS_SORT;
    }
 
    style |= hb_parl(12) ? CBS_DROPDOWN : CBS_DROPDOWNLIST;
 
-   if( hb_parl(13) )
-   {
+   if( hb_parl(13) ) {
       style |= CBS_NOINTEGRALHEIGHT;
    }
 
-   if( hb_parl(6) )
-   {
+   if( hb_parl(6) ) {
       style |= CBS_UPPERCASE;
    }
 
-   if( hb_parl(7) )
-   {
+   if( hb_parl(7) ) {
       style |= CBS_LOWERCASE;
    }
 
