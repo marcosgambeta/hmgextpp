@@ -60,17 +60,13 @@ BOOL _isValidCtrlClassW(HWND hwndTip, LPWSTR ClassName)
    TCHAR lpClassName[256];
    int   iLen = 0;
 
-   if( IsWindow(hwndTip) )
-   {
+   if( IsWindow(hwndTip) ) {
       iLen = GetClassNameW(hwndTip, lpClassName, 256);
    }
 
-   if( ( iLen > 0 ) && ( hb_wstrncmp(( TCHAR * ) lpClassName, ClassName, iLen) == 0 ) )
-   {
+   if( ( iLen > 0 ) && ( hb_wstrncmp(( TCHAR * ) lpClassName, ClassName, iLen) == 0 ) ) {
       return TRUE;
-   }
-   else
-   {
+   } else {
       return FALSE;
    }
 }
@@ -82,17 +78,13 @@ BOOL _isValidCtrlClassA(HWND hwndTip, const char * ClassName)
    char lpClassName[256];
    int  iLen = 0;
 
-   if( IsWindow(hwndTip) )
-   {
+   if( IsWindow(hwndTip) ) {
       iLen = GetClassNameA(hwndTip, lpClassName, 256);
    }
 
-   if( ( iLen > 0 ) && ( strncmp(( const char * ) lpClassName, ClassName, iLen) == 0 ) )
-   {
+   if( ( iLen > 0 ) && ( strncmp(( const char * ) lpClassName, ClassName, iLen) == 0 ) ) {
       return TRUE;
-   }
-   else
-   {
+   } else {
       return FALSE;
    }
 }
@@ -109,24 +101,18 @@ HB_FUNC( GETCLASSNAME )
 {
    HWND hwnd = hmg_par_HWND(1);
 
-   if( IsWindow(hwnd) )
-   {
+   if( IsWindow(hwnd) ) {
       char ClassName[256];
       int  iLen;
 
       iLen = GetClassNameA(hwnd, ClassName, sizeof(ClassName) / sizeof(char));
 
-      if( iLen > 0 )
-      {
+      if( iLen > 0 ) {
          hb_retclen(( const char * ) ClassName, iLen);
-      }
-      else
-      {
+      } else {
          hb_retc_null();
       }
-   }
-   else
-   {
+   } else {
       hb_errRT_BASE_SubstR(EG_ARG, 3012, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
    }
 }
@@ -146,20 +132,15 @@ HB_FUNC( GETCLASSNAMEBYREF )
 
    hb_retni(0);
 
-   if( IsWindow(hwnd) && nLen > 1 )
-   {
+   if( IsWindow(hwnd) && nLen > 1 ) {
       char * pBuffer = ( char * ) hb_xgrab(nLen + 1);
 
-      if( pBuffer )
-      {
+      if( pBuffer ) {
          int nResult = GetClassNameA(hwnd, pBuffer, nLen);
 
-         if( nResult > 0 )
-         {
+         if( nResult > 0 ) {
             hb_retni( hb_storclen_buffer(pBuffer, ( HB_SIZE ) nResult, 2) );
-         }
-         else
-         {
+         } else {
             hb_xfree(pBuffer);
          }
       }
@@ -170,12 +151,9 @@ HB_FUNC( GETWINDOWLONG )
 {
    HWND hwnd = hmg_par_HWND(1);
 
-   if( IsWindow(hwnd) )
-   {
+   if( IsWindow(hwnd) ) {
       HB_RETNL( GetWindowLongPtr(hwnd, hb_parni(2)) );
-   }
-   else
-   {
+   } else {
       hb_errRT_BASE_SubstR(EG_ARG, 3012, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
    }
 }
@@ -184,12 +162,9 @@ HB_FUNC( SETWINDOWLONG )
 {
    HWND hwnd = hmg_par_HWND(1);
 
-   if( IsWindow(hwnd) )
-   {
+   if( IsWindow(hwnd) ) {
       HB_RETNL( SetWindowLongPtr(hwnd, hb_parni(2), hb_parnl(3)) );
-   }
-   else
-   {
+   } else {
       hb_errRT_BASE_SubstR(EG_ARG, 3012, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
    }
 }
@@ -207,12 +182,9 @@ HB_FUNC( GETWINDOWSTYLE )
 {
    HWND hwnd = hmg_par_HWND(1);
 
-   if( IsWindow(hwnd) )
-   {
+   if( IsWindow(hwnd) ) {
       HB_RETNL( GetWindowLongPtr(hwnd, GWL_STYLE) );
-   }
-   else
-   {
+   } else {
       hb_errRT_BASE_SubstR(EG_ARG, 3012, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
    }
 }
@@ -228,15 +200,12 @@ HB_FUNC( SETWINDOWSTYLE )
 {
    HWND hwnd = hmg_par_HWND(1);
 
-   if( IsWindow(hwnd) )
-   {
+   if( IsWindow(hwnd) ) {
       LONG_PTR nOldStyle = GetWindowLongPtr(hwnd, GWL_STYLE);
       LONG_PTR nNewStyle = ( LONG_PTR ) HB_PARNL(2);
 
       HB_RETNL( SetWindowLongPtr(hwnd, GWL_STYLE, ( hmg_par_BOOL(3) ) ? nOldStyle | nNewStyle : nOldStyle&( ~nNewStyle )) );
-   }
-   else
-   {
+   } else {
       hb_errRT_BASE_SubstR(EG_ARG, 3012, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
    }
 }
@@ -252,14 +221,11 @@ HB_FUNC( ISWINDOWHASSTYLE )
 {
    HWND hwnd = hmg_par_HWND(1);
 
-   if( IsWindow(hwnd) )
-   {
+   if( IsWindow(hwnd) ) {
       LONG_PTR style = GetWindowLongPtr(hwnd, GWL_STYLE);
 
       hb_retl(( style & ( LONG_PTR ) HB_PARNL(2) ) ? HB_TRUE : HB_FALSE);
-   }
-   else
-   {
+   } else {
       hb_errRT_BASE_SubstR(EG_ARG, 3012, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
    }
 }
@@ -268,14 +234,11 @@ HB_FUNC( ISWINDOWHASEXSTYLE )
 {
    HWND hwnd = hmg_par_HWND(1);
 
-   if( IsWindow(hwnd) )
-   {
+   if( IsWindow(hwnd) ) {
       LONG_PTR nExStyle = GetWindowLongPtr(hwnd, GWL_EXSTYLE);
 
       hb_retl(( nExStyle & ( LONG_PTR ) HB_PARNL(2) ) ? HB_TRUE : HB_FALSE);
-   }
-   else
-   {
+   } else {
       hb_errRT_BASE_SubstR(EG_ARG, 3012, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
    }
 }

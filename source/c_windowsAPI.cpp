@@ -95,24 +95,18 @@ HB_FUNC( DOMESSAGELOOP )
    MSG Msg;
    int status;
 
-   while( ( status = GetMessage(&Msg, nullptr, 0, 0) ) != 0 )
-   {
-      if( status == -1 )  // Exception
-      {
+   while( ( status = GetMessage(&Msg, nullptr, 0, 0) ) != 0 ) {
+      if( status == -1 ) { // Exception
          // handle the error and possibly exit
-         if( hb_parldef(1, HB_TRUE) )
-         {
+         if( hb_parldef(1, HB_TRUE) ) {
             hmg_ErrorExit(TEXT("DOMESSAGELOOP"), 0, TRUE);
          }
-      }
-      else
-      {
+      } else {
          hDlgModeless = GetActiveWindow();
 
          if( hDlgModeless == nullptr || (
                 !IsDialogMessage(hDlgModeless, &Msg) &&
-                !TranslateAccelerator( g_hWndMain, g_hAccel, &Msg ) ) )
-         {
+                !TranslateAccelerator( g_hWndMain, g_hAccel, &Msg ) ) ) {
             TranslateMessage(&Msg);
             DispatchMessage(&Msg);
          }
@@ -130,12 +124,10 @@ HB_FUNC( DOEVENTS )
 {
    MSG Msg;
 
-   while( PeekMessage(( LPMSG ) &Msg, 0, 0, 0, PM_REMOVE) )
-   {
+   while( PeekMessage(( LPMSG ) &Msg, 0, 0, 0, PM_REMOVE) ) {
       hDlgModeless = GetActiveWindow();
 
-      if( hDlgModeless == nullptr || !IsDialogMessage(hDlgModeless, &Msg) )
-      {
+      if( hDlgModeless == nullptr || !IsDialogMessage(hDlgModeless, &Msg) ) {
          TranslateMessage(&Msg);
          DispatchMessage(&Msg);
       }
@@ -262,36 +254,30 @@ HB_FUNC( SETLAYEREDWINDOWATTRIBUTES )
 {
    HWND hWnd = hmg_par_HWND(1);
 
-   if( IsWindow(hWnd) )
-   {
+   if( IsWindow(hWnd) ) {
       HMODULE hDll = GetModuleHandle(TEXT("user32.dll"));
 
       hb_retl(false);
 
-      if( hDll != nullptr )
-      {
+      if( hDll != nullptr ) {
          typedef BOOL ( __stdcall * SetLayeredWindowAttributes_ptr )( HWND, COLORREF, BYTE, DWORD );
 
          SetLayeredWindowAttributes_ptr fn_SetLayeredWindowAttributes =
             ( SetLayeredWindowAttributes_ptr ) wapi_GetProcAddress(hDll, "SetLayeredWindowAttributes");
 
-         if( fn_SetLayeredWindowAttributes != nullptr )
-         {
+         if( fn_SetLayeredWindowAttributes != nullptr ) {
             COLORREF crKey   = hmg_par_COLORREF(2);
             BYTE     bAlpha  = hmg_par_BYTE(3);
             DWORD    dwFlags = hmg_par_DWORD(4);
 
-            if( !( GetWindowLongPtr(hWnd, GWL_EXSTYLE) & WS_EX_LAYERED ) )
-            {
+            if( !( GetWindowLongPtr(hWnd, GWL_EXSTYLE) & WS_EX_LAYERED ) ) {
                SetWindowLongPtr(hWnd, GWL_EXSTYLE, GetWindowLongPtr( hWnd, GWL_EXSTYLE ) | WS_EX_LAYERED);
             }
 
             hb_retl(fn_SetLayeredWindowAttributes(hWnd, crKey, bAlpha, dwFlags) ? HB_TRUE : HB_FALSE);
          }
       }
-   }
-   else
-   {
+   } else {
       hb_errRT_BASE_SubstR(EG_ARG, 3012, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
    }
 }
@@ -320,20 +306,16 @@ static BOOL CenterIntoParent(HWND hwnd)
    screenheight = GetSystemMetrics(SM_CYSCREEN);
 
    // make sure that the child window never moves outside of the screen
-   if( x < 0 )
-   {
+   if( x < 0 ) {
       x = 0;
    }
-   if( y < 0 )
-   {
+   if( y < 0 ) {
       y = 0;
    }
-   if( x + width > screenwidth )
-   {
+   if( x + width > screenwidth ) {
       x = screenwidth - width;
    }
-   if( y + height > screenheight )
-   {
+   if( y + height > screenheight ) {
       y = screenheight - height;
    }
 
@@ -350,12 +332,9 @@ HB_FUNC( C_CENTER )
 
    hwnd = hmg_par_HWND(1);
 
-   if( hb_parl(2) )
-   {
+   if( hb_parl(2) ) {
       CenterIntoParent(hwnd);
-   }
-   else
-   {
+   } else {
       GetWindowRect(hwnd, &rect);
       w = rect.right - rect.left;
       h = rect.bottom - rect.top;
@@ -394,12 +373,9 @@ HB_FUNC( SENDMESSAGE )
 {
    HWND hwnd = hmg_par_HWND(1);
 
-   if( IsWindow(hwnd) )
-   {
+   if( IsWindow(hwnd) ) {
       HB_RETNL( ( LONG_PTR ) SendMessage(hwnd, hmg_par_UINT(2), hb_parnl(3), hmg_par_LPARAM(4)) );
-   }
-   else
-   {
+   } else {
       hb_errRT_BASE_SubstR(EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
    }
 }
@@ -482,8 +458,7 @@ HB_FUNC( GETWINDOWRECT )
 
    GetWindowRect(hmg_par_HWND(1), &rect);
 
-   if( HB_ISNUM(2) )
-   {
+   if( HB_ISNUM(2) ) {
       switch( hb_parni(2) )
       {
          case 1: hb_retni( rect.top ); break;
@@ -491,9 +466,7 @@ HB_FUNC( GETWINDOWRECT )
          case 3: hb_retni( rect.right - rect.left ); break;
          case 4: hb_retni( rect.bottom - rect.top );
       }
-   }
-   else if( HB_ISARRAY(2) )
-   {
+   } else if( HB_ISARRAY(2) ) {
       HB_STORVNL( rect.left, 2, 1 );
       HB_STORVNL( rect.top, 2, 2 );
       HB_STORVNL( rect.right, 2, 3 );
@@ -569,19 +542,15 @@ HB_FUNC( GETCURSORPOS )
    POINT pt;
 
    GetCursorPos(&pt);
-   if( hb_pcount() == 1 )
-   {
+   if( hb_pcount() == 1 ) {
       ScreenToClient(hmg_par_HWND(1), &pt);
    }
 
    hb_reta(2);
-   if( hb_pcount() == 0 )
-   {
+   if( hb_pcount() == 0 ) {
       HB_STORNI( pt.y, -1, 1 );
       HB_STORNI( pt.x, -1, 2 );
-   }
-   else
-   {
+   } else {
       HB_STORNI( pt.x, -1, 1 );
       HB_STORNI( pt.y, -1, 2 );
    }
@@ -614,12 +583,10 @@ HB_FUNC( CLIENTTOSCREEN )
 
    hb_retl(ClientToScreen(hmg_par_HWND(1), &pt));
 
-   if( HB_ISBYREF(2) )
-   {
+   if( HB_ISBYREF(2) ) {
       hb_storni( pt.x, 2 );
    }
-   if( HB_ISBYREF(3) )
-   {
+   if( HB_ISBYREF(3) ) {
       hb_storni( pt.y, 3 );
    }
 }
@@ -639,8 +606,7 @@ HB_FUNC( LOADTRAYICON )
 
    hIcon = static_cast<HICON>(LoadImage(hInstance, lpIconName, IMAGE_ICON, cxDesired, cyDesired, LR_DEFAULTCOLOR));
 
-   if( hIcon == nullptr )
-   {
+   if( hIcon == nullptr ) {
       hIcon = static_cast<HICON>(LoadImage(hInstance, lpIconName, IMAGE_ICON, cxDesired, cyDesired, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
    }
 
@@ -648,8 +614,7 @@ HB_FUNC( LOADTRAYICON )
    hmg_ret_HICON(hIcon);
 
 #ifdef UNICODE
-   if( HB_ISCHAR(2) )
-   {
+   if( HB_ISCHAR(2) ) {
       hb_xfree(( TCHAR * ) lpIconName);
    }
 #endif
@@ -745,8 +710,7 @@ static BOOL CALLBACK EnumChildProc(HWND hWnd, LPARAM lParam)
    PHB_ITEM pCodeBlock = ( PHB_ITEM ) lParam;
    PHB_ITEM pHWnd      = hb_itemPutNInt(nullptr, ( LONG_PTR ) hWnd);
 
-   if( pCodeBlock )
-   {
+   if( pCodeBlock ) {
       hb_evalBlock1(pCodeBlock, pHWnd);
    }
 
@@ -760,8 +724,7 @@ HB_FUNC( C_ENUMCHILDWINDOWS )
    HWND     hWnd       = hmg_par_HWND(1);
    PHB_ITEM pCodeBlock = hb_param(2, Harbour::Item::BLOCK);
 
-   if( IsWindow(hWnd) && pCodeBlock )
-   {
+   if( IsWindow(hWnd) && pCodeBlock ) {
       hb_retl(EnumChildWindows(hWnd, EnumChildProc, reinterpret_cast<LPARAM>(pCodeBlock)) ? HB_TRUE : HB_FALSE);
    }
 }
@@ -790,8 +753,7 @@ HB_FUNC( ADDSPLITBOXITEM )
    LPWSTR lpText = AnsiToWide(( char * ) hb_parc(5));
 #endif
 
-   if( hb_parl(4) )
-   {
+   if( hb_parl(4) ) {
       style |= RBBS_BREAK;
    }
 
@@ -805,49 +767,36 @@ HB_FUNC( ADDSPLITBOXITEM )
    rbBand.lpText    = lpText;
    rbBand.hwndChild = hmg_par_HWND(1);
 
-   if( hb_parni(9) )
-   {
+   if( hb_parni(9) ) {
       rbBand.fMask = rbBand.fMask | RBBIM_IDEALSIZE;
    }
 
-   if( !hb_parl(8) )
-   {
+   if( !hb_parl(8) ) {
       // Not Horizontal
       rbBand.cxMinChild = hb_parni(6) ? hb_parni(6) : 0;
       rbBand.cyMinChild = hb_parni(7) ? hb_parni(7) : rc.bottom - rc.top;
       rbBand.cx         = hb_parni(3);
-      if( hb_parni(9) )
-      {
+      if( hb_parni(9) ) {
          rbBand.cxIdeal    = hb_parni(6) ? hb_parni(6) : 0;
          rbBand.cxMinChild = hb_parni(9);
-      }
-      else
-      {
+      } else {
          rbBand.cxMinChild = hb_parni(6) ? hb_parni(6) : 0;
       }
-   }
-   else
-   {
+   } else {
       // Horizontal
-      if( hb_parni(6) == 0 && hb_parni(7) == 0 )
-      {
+      if( hb_parni(6) == 0 && hb_parni(7) == 0 ) {
          // Not ToolBar
          rbBand.cxMinChild = 0;
          rbBand.cyMinChild = rc.right - rc.left;
          rbBand.cx         = rc.bottom - rc.top;
-      }
-      else
-      {
+      } else {
          // ToolBar
          rbBand.cyMinChild = hb_parni(6) ? hb_parni(6) : 0;
          rbBand.cx         = hb_parni(7) ? hb_parni(7) : rc.bottom - rc.top;
-         if( hb_parni(9) )
-         {
+         if( hb_parni(9) ) {
             rbBand.cxIdeal    = hb_parni(7) ? hb_parni(7) : rc.bottom - rc.top;
             rbBand.cxMinChild = hb_parni(9);
-         }
-         else
-         {
+         } else {
             rbBand.cxMinChild = hb_parni(7) ? hb_parni(7) : rc.bottom - rc.top;
          }
       }
@@ -865,12 +814,9 @@ HB_FUNC( C_SETWINDOWRGN )
    HRGN    hRgn = nullptr;
    HBITMAP hbmp;
 
-   if( hb_parni(6) == 0 )
-   {
+   if( hb_parni(6) == 0 ) {
       SetWindowRgn(GetActiveWindow(), nullptr, TRUE);
-   }
-   else
-   {
+   } else {
       switch( hb_parni(6) )
       {
          case 1:
@@ -887,8 +833,7 @@ HB_FUNC( C_SETWINDOWRGN )
 
          case 4:
             hbmp = static_cast<HBITMAP>(LoadImage(GetResources(), ( TCHAR * ) hb_parc(2), IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION));
-            if( hbmp == nullptr )
-            {
+            if( hbmp == nullptr ) {
                hbmp = static_cast<HBITMAP>(LoadImage(nullptr, ( TCHAR * ) hb_parc(2), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION));
             }
 
@@ -914,17 +859,13 @@ HB_FUNC( C_SETPOLYWINDOWRGN )
    int   fnPolyFillMode;
    int   cPoints = ( int ) hb_parinfa(2, 0);
 
-   if( hb_parni(4) == 1 )
-   {
+   if( hb_parni(4) == 1 ) {
       fnPolyFillMode = WINDING;
-   }
-   else
-   {
+   } else {
       fnPolyFillMode = ALTERNATE;
    }
 
-   for( int i = 0; i <= cPoints - 1; i++ )
-   {
+   for( int i = 0; i <= cPoints - 1; i++ ) {
       lppt[i].x = HB_PARNI(2, i + 1);
       lppt[i].y = HB_PARNI(3, i + 1);
    }
@@ -1027,12 +968,10 @@ HB_FUNC( FINDWINDOWEX )
    hmg_ret_HWND(FindWindowEx(hmg_par_HWND(1), hmg_par_HWND(2), lpszClass, lpszWindow));
 
 #ifdef UNICODE
-   if( lpszClass != nullptr )
-   {
+   if( lpszClass != nullptr ) {
       hb_xfree(lpszClass);
    }
-   if( lpszWindow != nullptr )
-   {
+   if( lpszWindow != nullptr ) {
       hb_xfree(lpszWindow);
    }
 #endif
@@ -1044,25 +983,18 @@ HB_FUNC( GETDS )
    LPARAM lParam = HB_PARNL(1);
    LPNMLVCUSTOMDRAW lplvcd = ( LPNMLVCUSTOMDRAW ) lParam;
 
-   if( lplvcd->nmcd.dwDrawStage == CDDS_PREPAINT )
-   {
+   if( lplvcd->nmcd.dwDrawStage == CDDS_PREPAINT ) {
       hb_retni( CDRF_NOTIFYITEMDRAW );
-   }
-   else if( lplvcd->nmcd.dwDrawStage == CDDS_ITEMPREPAINT )
-   {
-      if( hb_pcount() > 1 )
-      {
-         if( ListView_GetNextItem(hmg_par_HWND(2), -1, LVNI_ALL | LVNI_SELECTED) == hb_parni(3) )
+   } else if( lplvcd->nmcd.dwDrawStage == CDDS_ITEMPREPAINT ) {
+      if( hb_pcount() > 1 ) {
+         if( ListView_GetNextItem(hmg_par_HWND(2), -1, LVNI_ALL | LVNI_SELECTED) == hb_parni(3) ) {
             ListView_SetItemState(hmg_par_HWND(2), hb_parni(3), 0, LVIS_SELECTED);
+         }
       }
       hb_retni( CDRF_NOTIFYSUBITEMDRAW );
-   }
-   else if( lplvcd->nmcd.dwDrawStage == ( CDDS_SUBITEM | CDDS_ITEMPREPAINT ) )
-   {
+   } else if( lplvcd->nmcd.dwDrawStage == ( CDDS_SUBITEM | CDDS_ITEMPREPAINT ) ) {
       hb_retni( -1 );
-   }
-   else
-   {
+   } else {
       hb_retni( CDRF_DODEFAULT );
    }
 }
@@ -1149,13 +1081,10 @@ HB_FUNC( INITMINMAXINFO )  // ( hWnd ) --> aMinMaxInfo
 {
    long x, y, mx, my;
 
-   if( GetWindowLong(hmg_par_HWND(1), GWL_STYLE) & WS_SIZEBOX )
-   {
+   if( GetWindowLong(hmg_par_HWND(1), GWL_STYLE) & WS_SIZEBOX ) {
       x = -GetSystemMetrics(SM_CXFRAME);
       y = -GetSystemMetrics(SM_CYFRAME);
-   }
-   else
-   {
+   } else {
       x = -GetSystemMetrics(SM_CXBORDER);
       y = -GetSystemMetrics(SM_CYBORDER);
    }
@@ -1238,20 +1167,17 @@ HB_FUNC( CREATEPATTERNBRUSH )
 
    hImage = static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
 
-   if( hImage == nullptr && HB_ISCHAR(1) )
-   {
+   if( hImage == nullptr && HB_ISCHAR(1) ) {
       hImage = static_cast<HBITMAP>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
    }
-   if( hImage == nullptr )
-   {
+   if( hImage == nullptr ) {
       hImage = HMG_LoadImage(hb_parc(1), nullptr);
    }
 
    hmg_ret_HBRUSH(( hImage != nullptr ) ? CreatePatternBrush(hImage) : nullptr);
 
 #ifdef UNICODE
-   if( HB_ISCHAR(1) )
-   {
+   if( HB_ISCHAR(1) ) {
       hb_xfree(( TCHAR * ) lpImageName);
    }
 #endif
@@ -1280,12 +1206,10 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
    VOID * pbits32;
    DWORD  maxRects = ALLOC_UNIT;
 
-   if( hBmp )
-   {
+   if( hBmp ) {
       // Create a memory DC inside which we will scan the bitmap content
       HDC hMemDC = CreateCompatibleDC(nullptr);
-      if( hMemDC )
-      {
+      if( hMemDC ) {
          BITMAP bm;
          BITMAPINFOHEADER RGB32BITSBITMAPINFO;
          HBITMAP          hbm32;
@@ -1307,14 +1231,12 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
          RGB32BITSBITMAPINFO.biClrImportant  = 0;
 
          hbm32 = CreateDIBSection(hMemDC, ( BITMAPINFO * ) &RGB32BITSBITMAPINFO, DIB_RGB_COLORS, &pbits32, nullptr, 0);
-         if( hbm32 )
-         {
+         if( hbm32 ) {
             HBITMAP holdBmp = static_cast<HBITMAP>(SelectObject(hMemDC, hbm32));
 
             // Create a DC just to copy the bitmap into the memory DC
             HDC hDC = CreateCompatibleDC(hMemDC);
-            if( hDC )
-            {
+            if( hDC ) {
                // Get how many bytes per row we have for the bitmap bits (rounded up to 32 bits)
                BITMAP    bm32;
                HANDLE    hData;
@@ -1324,8 +1246,9 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
                HRGN      h;
 
                GetObject(hbm32, sizeof(bm32), &bm32);
-               while( bm32.bmWidthBytes % 4 )
+               while( bm32.bmWidthBytes % 4 ) {
                   bm32.bmWidthBytes++;
+               }   
 
                // Copy the bitmap into the memory DC
                holdBmp = static_cast<HBITMAP>(SelectObject(hDC, hBmp));
@@ -1352,23 +1275,17 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
 
                // Scan each bitmap row from bottom to top (the bitmap is  inverted vertically)
                p32 = ( BYTE * ) bm32.bmBits + ( bm32.bmHeight - 1 ) * bm32.bmWidthBytes;
-               for( INT y = 0; y < bm.bmHeight; y++ )     // Scan each bitmap pixel from left to right
-               {
-                  for( INT x = 0; x < bm.bmWidth; x++ )   // Search for a continuous range of "non transparent pixels"
-                  {
+               for( INT y = 0; y < bm.bmHeight; y++ ) {    // Scan each bitmap pixel from left to right
+                  for( INT x = 0; x < bm.bmWidth; x++ ) {  // Search for a continuous range of "non transparent pixels"
                      int    x0 = x;
                      LONG * p  = ( LONG * ) p32 + x;
-                     while( x < bm.bmWidth )
-                     {
+                     while( x < bm.bmWidth ) {
                         BYTE b = GetRValue(*p);
-                        if( b >= lr && b <= hr )
-                        {
+                        if( b >= lr && b <= hr ) {
                            b = GetGValue(*p);
-                           if( b >= lg && b <= hg )
-                           {
+                           if( b >= lg && b <= hg ) {
                               b = GetBValue(*p);
-                              if( b >= lb && b <= hb )
-                              {
+                              if( b >= lb && b <= hb ) {
                                  break;   // This pixel is "transparent"
                               }
                            }
@@ -1378,11 +1295,9 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
                         x++;
                      }
 
-                     if( x > x0 )         // Add the pixels (x0, y) to (x, y+1) as a new rectangle in the region
-                     {
+                     if( x > x0 ) {        // Add the pixels (x0, y) to (x, y+1) as a new rectangle in the region
                         RECT * pr;
-                        if( pData->rdh.nCount >= maxRects )
-                        {
+                        if( pData->rdh.nCount >= maxRects ) {
                            GlobalUnlock(hData);
                            maxRects += ALLOC_UNIT;
                            hData     = GlobalReAlloc(hData, sizeof(RGNDATAHEADER) + (sizeof(RECT) * maxRects), GMEM_MOVEABLE);
@@ -1391,23 +1306,19 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
 
                         pr = ( RECT * ) &pData->Buffer;
                         SetRect(&pr[pData->rdh.nCount], x0, y, x, y + 1);
-                        if( x0 < pData->rdh.rcBound.left )
-                        {
+                        if( x0 < pData->rdh.rcBound.left ) {
                            pData->rdh.rcBound.left = x0;
                         }
 
-                        if( y < pData->rdh.rcBound.top )
-                        {
+                        if( y < pData->rdh.rcBound.top ) {
                            pData->rdh.rcBound.top = y;
                         }
 
-                        if( x > pData->rdh.rcBound.right )
-                        {
+                        if( x > pData->rdh.rcBound.right ) {
                            pData->rdh.rcBound.right = x;
                         }
 
-                        if( y + 1 > pData->rdh.rcBound.bottom )
-                        {
+                        if( y + 1 > pData->rdh.rcBound.bottom ) {
                            pData->rdh.rcBound.bottom = y + 1;
                         }
 
@@ -1416,16 +1327,12 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
                         // On Windows98, ExtCreateRegion() may fail if  the number of rectangles is too
                         // large (ie: > 4000).
                         // Therefore, we have to create the region by multiple steps.
-                        if( pData->rdh.nCount == 2000 )
-                        {
+                        if( pData->rdh.nCount == 2000 ) {
                            h = ExtCreateRegion(nullptr, sizeof(RGNDATAHEADER) + ( sizeof(RECT) * maxRects ), pData);
-                           if( hRgn )
-                           {
+                           if( hRgn ) {
                               CombineRgn(hRgn, hRgn, h, RGN_OR);
                               DeleteObject(h);
-                           }
-                           else
-                           {
+                           } else {
                               hRgn = h;
                            }
 
@@ -1441,13 +1348,10 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
 
                // Create or extend the region with the remaining  rectangles
                h = ExtCreateRegion(nullptr, sizeof(RGNDATAHEADER) + ( sizeof(RECT) * maxRects ), pData);
-               if( hRgn )
-               {
+               if( hRgn ) {
                   CombineRgn(hRgn, hRgn, h, RGN_OR);
                   DeleteObject(h);
-               }
-               else
-               {
+               } else {
                   hRgn = h;
                }
 

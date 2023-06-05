@@ -74,43 +74,35 @@ HB_FUNC( INITTABCONTROL )
 
    int style = WS_CHILD | WS_VISIBLE | TCS_TOOLTIPS;
 
-   if( hb_parl(11) )
-   {
+   if( hb_parl(11) ) {
       style |= TCS_BUTTONS;
    }
 
-   if( hb_parl(12) )
-   {
+   if( hb_parl(12) ) {
       style |= TCS_FLATBUTTONS;
    }
 
-   if( hb_parl(13) )
-   {
+   if( hb_parl(13) ) {
       style |= TCS_HOTTRACK;
    }
 
-   if( hb_parl(14) )
-   {
+   if( hb_parl(14) ) {
       style |= TCS_VERTICAL;
    }
 
-   if( hb_parl(15) )
-   {
+   if( hb_parl(15) ) {
       style |= TCS_BOTTOM;
    }
 
-   if( hb_parl(16) )
-   {
+   if( hb_parl(16) ) {
       style |= TCS_MULTILINE;
    }
 
-   if( hb_parl(17) )
-   {
+   if( hb_parl(17) ) {
       style |= TCS_OWNERDRAWFIXED;
    }
 
-   if( !hb_parl(18) )
-   {
+   if( !hb_parl(18) ) {
       style |= WS_TABSTOP;
    }
 
@@ -137,8 +129,7 @@ HB_FUNC( INITTABCONTROL )
    tie.mask   = TCIF_TEXT;
    tie.iImage = -1;
 
-   for( int i = l; i >= 0; i = i - 1 )
-   {
+   for( int i = l; i >= 0; i = i - 1 ) {
    #ifndef UNICODE
       lpText = ( char * ) hb_arrayGetCPtr(hArray, i + 1);
    #else
@@ -245,32 +236,25 @@ HB_FUNC( ADDTABBITMAP )
 
    nCount = ( int ) hb_parinfa(2, 0);
 
-   if( nCount > 0 )
-   {
+   if( nCount > 0 ) {
       int Transparent = hb_parl(3) ? 0 : 1;
       hArray = hb_param(2, Harbour::Item::ARRAY);
 
-      for( int i = 1; i <= nCount; i++ )
-      {
+      for( int i = 1; i <= nCount; i++ ) {
          FileName = ( char * ) hb_arrayGetCPtr(hArray, i);
 
-         if( himl == nullptr )
-         {
+         if( himl == nullptr ) {
             himl = HMG_ImageListLoadFirst(FileName, nCount, Transparent, nullptr, nullptr);
-         }
-         else
-         {
+         } else {
             HMG_ImageListAdd(himl, FileName, Transparent);
          }
       }
 
-      if( himl != nullptr )
-      {
+      if( himl != nullptr ) {
          SendMessage(hbutton, TCM_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(himl));
       }
 
-      for( int i = 0; i < nCount; i++ )
-      {
+      for( int i = 0; i < nCount; i++ ) {
          tie.mask   = TCIF_IMAGE;
          tie.iImage = i;
          TabCtrl_SetItem(hbutton, i, &tie);
