@@ -807,15 +807,14 @@ FUNCTION ButtonPageDlgProc(hwndDlg, Msg, IdDlg, nPage)
       _HMG_ActiveDialogName := _HMG_aPropSheetPages[i, 1]
       lChd := _HMG_aPropSheetPages[i, 6]
    ENDIF
-   DO CASE // TODO: SWITCH
-   CASE Msg == PSN_APPLY
 
+   SWITCH Msg
+   CASE PSN_APPLY
       IF hb_IsBlock(_HMG_ApplyPropSheetProcedure) .AND. lChd
          lRet := RetValue(Eval(_HMG_ApplyPropSheetProcedure, hwndDlg, idDlg, nPage), lRet)
       ENDIF
-
-   CASE Msg == PSN_RESET
-
+      EXIT
+   CASE PSN_RESET
       IF !_HMG_ActivePropSheetWizard
          IF hb_IsBlock(_HMG_CancelPropSheetProcedure) .AND. lChd
             lRet := RetValue(Eval(_HMG_CancelPropSheetProcedure, hwndDlg, idDlg, nPage), lRet)
@@ -823,9 +822,8 @@ FUNCTION ButtonPageDlgProc(hwndDlg, Msg, IdDlg, nPage)
             lRet := .F.
          ENDIF
       ENDIF
-
-   CASE Msg == PSN_QUERYCANCEL
-
+      EXIT
+   CASE PSN_QUERYCANCEL
       IF _HMG_ActivePropSheetWizard
          IF ValType(_HMG_CancelPropSheetProcedure) != "B"
             lRet := MsgYesNo("Are you sure you want to Quit?", GetWindowText(GetActiveWindow()))
@@ -833,14 +831,12 @@ FUNCTION ButtonPageDlgProc(hwndDlg, Msg, IdDlg, nPage)
             lRet := RetValue(Eval(_HMG_CancelPropSheetProcedure, hwndDlg, idDlg, nPage), lRet)
          ENDIF
       ENDIF
-
-   CASE Msg == PSN_KILLACTIVE
-
+      EXIT
+   CASE PSN_KILLACTIVE
       IF hb_IsBlock(_HMG_ValidPropSheetProcedure)
          lRet := RetValue(Eval(_HMG_ValidPropSheetProcedure, hwndDlg, idDlg, nPage), lRet)
       ENDIF
-
-   ENDCASE
+   ENDSWITCH
 
    _HMG_ActiveDialogHandle  := HMG_NULLHANDLE
    _HMG_BeginDialogActive   := .F.
@@ -854,14 +850,15 @@ FUNCTION PropSheetProc(hwndPropSheet, nMsg, lParam)
    LOCAL lRet := .T.
    LOCAL k
 
-   DO CASE
-   CASE nMsg == PSCB_INITIALIZED
+   SWITCH nMsg
+   CASE PSCB_INITIALIZED
       k := _HMG_aPropSheetTemplate[1]
       IF k > 0
          _HMG_aFormhandles[k] := hwndPropSheet
       ENDIF
-   CASE nMsg ==  PSCB_BUTTONPRESSED
-      DO CASE
+      EXIT
+   CASE PSCB_BUTTONPRESSED
+      DO CASE // TODO: ?
       CASE lParam == PSBTN_OK
       CASE lParam == PSBTN_CANCEL
       CASE lParam == PSBTN_APPLYNOW
@@ -871,7 +868,7 @@ FUNCTION PropSheetProc(hwndPropSheet, nMsg, lParam)
       CASE lParam == PSBTN_FINISH
       ENDCASE
       _HMG_PropSheetButton := lParam
-   ENDCASE
+   ENDSWITCH
 
 RETURN IIF(lRet, 1, 0)
 
@@ -891,10 +888,11 @@ FUNCTION PageDlgProc(hwndParent, hwndDlg, nMsg, wParam, lParam)
    _HMG_ActiveDlgProcNotify := lParam
    _HMG_ActiveDlgProcModal  := .F.
 
-   DO CASE
-   CASE nMsg == WM_DESTROY
+   SWITCH nMsg
+   CASE WM_DESTROY
       _ReleasePropertySheet(hwndParent, hwndDlg)
-   CASE nMsg == WM_COMMAND
+      EXIT
+   CASE WM_COMMAND
       nPage := PropSheetHwndToIndex(hwndParent, hwndDlg)
       i := AScan(_HMG_aFormhandles, hwndParent)  // find PropSheetProcedure
       IF i > 0
@@ -929,12 +927,11 @@ FUNCTION PageDlgProc(hwndParent, hwndDlg, nMsg, wParam, lParam)
          Events(hwndDlg, nMsg, wParam, ControlHandle)
          lRet := .T.
       ENDIF
-
-   CASE nMsg == WM_NOTIFY
-
+      EXIT
+   CASE WM_NOTIFY
       nPage := PropSheetHwndToIndex(hwndParent, hwndDlg)
       NotifyCode := GetNotifyCode(lParam)
-      switch  NotifyCode
+      SWITCH NotifyCode
       CASE PSN_APPLY   // sent when OK or Apply button pressed
          IF nPage + 1 <= Len(_HMG_aPropSheetPages)
             _HMG_aPropSheetPages[nPage + 1, 6] := .F.
@@ -942,7 +939,6 @@ FUNCTION PageDlgProc(hwndParent, hwndDlg, nMsg, wParam, lParam)
          PropSheet_UnChanged(hWndParent, hWndDlg)
          EXIT
       CASE PSN_RESET   // sent when Cancel button pressed
-
          i := AScan(_HMG_aPropSheetActivePages, hwndDlg)
          IF i > 0
             ADel(_HMG_aPropSheetActivePages, i)
@@ -963,7 +959,6 @@ FUNCTION PageDlgProc(hwndParent, hwndDlg, nMsg, wParam, lParam)
          ENDIF
          EXIT
       CASE PSN_SETACTIVE
-
          nPageMode := IIF(nPage == Len(_HMG_aPropSheetPages) - 1, 2, IIF(nPage == 0, 0, 1))
          PropSheetSetWizButtons(hWndParent, nPageMode)       // this will be ignored if the property sheet is not a wizard
          EXIT
@@ -972,15 +967,16 @@ FUNCTION PageDlgProc(hwndParent, hwndDlg, nMsg, wParam, lParam)
       CASE PSN_QUERYCANCEL
          EXIT
       CASE -211
-         IF nPage == 0 .AND.  _HMG_ActivePropSheetModeless  .AND. _HMG_PropSheetButton == PSBTN_OK
+         IF nPage == 0 .AND. _HMG_ActivePropSheetModeless .AND. _HMG_PropSheetButton == PSBTN_OK
             _ReleasePropertySheet(hwndParent, hwndDlg)
          ENDIF
-      END
+      ENDSWITCH
+      EXIT
    OTHERWISE
       ControlHandle := GetDialogITemHandle(hwndDlg, LOWORD(wParam))
       Events(hwndDlg, nMsg, wParam, ControlHandle)
       lRet := .T.                                                         // end
-   ENDCASE
+   ENDSWITCH
 
    _HMG_ActiveDlgProcHandle := HMG_NULLHANDLE
    _HMG_ActiveDlgProcMsg    := 0
