@@ -125,16 +125,12 @@ HB_FUNC( RR_PRINTDIALOG )
    pdlg.nMinPage    = 1;
    pdlg.nMaxPage    = 0xFFFF;
 
-   if( PrintDlg(&pdlg) )
-   {
+   if( PrintDlg(&pdlg) ) {
       hDC = pdlg.hDC;
 
-      if( hDC == nullptr )
-      {
+      if( hDC == nullptr ) {
          lstrcpy(PrinterName, TEXT(""));
-      }
-      else
-      {
+      } else {
          pDevMode  = ( LPDEVMODE ) GlobalLock(pdlg.hDevMode);
          pDevNames = ( LPDEVNAMES ) GlobalLock(pdlg.hDevNames);
 
@@ -150,16 +146,11 @@ HB_FUNC( RR_PRINTDIALOG )
          HB_STORNI( pdlg.nFromPage, 1, 1 );
          HB_STORNI( pdlg.nToPage, 1, 2 );
          HB_STORNI( pDevMode->dmCopies > 1 ? pDevMode->dmCopies : pdlg.nCopies, 1, 3 );
-         if( ( pdlg.Flags & PD_PAGENUMS ) == PD_PAGENUMS )
-         {
+         if( ( pdlg.Flags & PD_PAGENUMS ) == PD_PAGENUMS ) {
             HB_STORNI(2, 1, 4);
-         }
-         else if( ( pdlg.Flags & PD_SELECTION ) == PD_SELECTION )
-         {
+         } else if( ( pdlg.Flags & PD_SELECTION ) == PD_SELECTION ) {
             HB_STORNI(1, 1, 4);
-         }
-         else
-         {
+         } else {
             HB_STORNI( 0, 1, 4 );
          }
 
@@ -168,9 +159,7 @@ HB_FUNC( RR_PRINTDIALOG )
          GlobalUnlock(pdlg.hDevMode);
          GlobalUnlock(pdlg.hDevNames);
       }
-   }
-   else
-   {
+   } else {
       hDC = 0;
    }
 
@@ -184,27 +173,20 @@ HB_FUNC( RR_GETDC )
 #ifdef UNICODE
    LPWSTR pwszDevice = AnsiToWide(( char * ) hb_parc(1));
 
-   if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT )
-   {
+   if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT ) {
       hDC = CreateDC( TEXT("WINSPOOL"), pwszDevice, nullptr, nullptr );
-   }
-   else
-   {
+   } else {
       hDC = CreateDC( nullptr, pwszDevice, nullptr, nullptr );
    }
 #else
-   if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT )
-   {
+   if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT ) {
       hDC = CreateDC( "WINSPOOL", hb_parc(1), nullptr, nullptr );
-   }
-   else
-   {
+   } else {
       hDC = CreateDC( nullptr, hb_parc(1), nullptr, nullptr );
    }
 #endif
 
-   if( hDC )
-   {
+   if( hDC ) {
 #ifdef UNICODE
       lstrcpy(PrinterName, pwszDevice);
 #else
@@ -233,12 +215,9 @@ void rr_getdevmode(void)
    GetPrinter( hPrinter, 2, ( LPBYTE ) pi2, dwNeeded, &dwNeeded );
    pi22 = ( PRINTER_INFO_2 * ) GlobalAlloc(GPTR, dwNeeded);
    GetPrinter( hPrinter, 2, ( LPBYTE ) pi22, dwNeeded, &dwNeeded );
-   if( pDevMode )
-   {
+   if( pDevMode ) {
       pi2->pDevMode = pDevMode;
-   }
-   else if( pi2->pDevMode == nullptr )
-   {
+   } else if( pi2->pDevMode == nullptr ) {
       dwNeeded  = DocumentProperties(nullptr, hPrinter, PrinterName, nullptr, nullptr, 0);
       pDevMode2 = ( DEVMODE * ) GlobalAlloc(GPTR, dwNeeded);
       DocumentProperties(nullptr, hPrinter, PrinterName, pDevMode2, nullptr, DM_OUT_BUFFER);
@@ -252,8 +231,7 @@ void rr_getdevmode(void)
 
 HB_FUNC( EF_RESETPRINTER )
 {
-   if( pi22 )
-   {
+   if( pi22 ) {
       SetPrinter( hPrinter, 2, ( LPBYTE ) pi22, 0 );
    }
 
@@ -263,23 +241,19 @@ HB_FUNC( EF_RESETPRINTER )
 
 HB_FUNC( RR_DELETEDC )
 {
-   if( pDevMode )
-   {
+   if( pDevMode ) {
       GlobalFree(pDevMode);
    }
 
-   if( pDevMode2 )
-   {
+   if( pDevMode2 ) {
       GlobalFree(pDevMode2);
    }
 
-   if( pDevNames )
-   {
+   if( pDevNames ) {
       GlobalFree(pDevNames);
    }
 
-   if( pi2 )
-   {
+   if( pi2 ) {
       GlobalFree(pi2);
    }
 
@@ -291,8 +265,7 @@ HB_FUNC( RR_GETDEVICECAPS )
    TEXTMETRIC tm;
    HFONT      xfont = hmg_par_HFONT(2);
 
-   if( xfont != 0 )
-   {
+   if( xfont != 0 ) {
       SelectObject(hDCRef, xfont);
    }
 
@@ -315,13 +288,11 @@ HB_FUNC( RR_GETDEVICECAPS )
    devcaps[15] = pi2->pDevMode->dmOrientation;
    devcaps[16] = tm.tmAscent;
    devcaps[17] = pi2->pDevMode->dmPaperSize;
-   for( UINT i = 1; i <= hb_parinfa(1, 0); i++ )
-   {
+   for( UINT i = 1; i <= hb_parinfa(1, 0); i++ ) {
       HB_STORNI( devcaps[i], 1, i );
    }
 
-   if( xfont != 0 )
-   {
+   if( xfont != 0 ) {
       SelectObject(hDCRef, hfont);
    }
 }
@@ -330,47 +301,38 @@ HB_FUNC( RR_SETDEVMODE )
 {
    DWORD what = hb_parnl(1);
 
-   if( what == ( pi2->pDevMode->dmFields & what ) )
-   {
+   if( what == ( pi2->pDevMode->dmFields & what ) ) {
       pi2->pDevMode->dmFields = pi2->pDevMode->dmFields | what;
 
-      if( what == DM_ORIENTATION )
-      {
+      if( what == DM_ORIENTATION ) {
          pi2->pDevMode->dmOrientation = ( short ) hb_parni(2);
       }
 
-      if( what == DM_PAPERSIZE )
-      {
+      if( what == DM_PAPERSIZE ) {
          pi2->pDevMode->dmPaperSize = ( short ) hb_parni(2);
       }
 
-      if( what == DM_SCALE )
-      {
+      if( what == DM_SCALE ) {
          pi2->pDevMode->dmScale = ( short ) hb_parni(2);
       }
 
-      if( what == DM_COPIES )
-      {
+      if( what == DM_COPIES ) {
          pi2->pDevMode->dmCopies = ( short ) hb_parni(2);
       }
 
-      if( what == DM_DEFAULTSOURCE )
-      {
+      if( what == DM_DEFAULTSOURCE ) {
          pi2->pDevMode->dmDefaultSource = ( short ) hb_parni(2);
       }
 
-      if( what == DM_PRINTQUALITY )
-      {
+      if( what == DM_PRINTQUALITY ) {
          pi2->pDevMode->dmPrintQuality = ( short ) hb_parni(2);
       }
 
-      if( what == DM_COLOR )
-      {
+      if( what == DM_COLOR ) {
          pi2->pDevMode->dmColor = ( short ) hb_parni(2);
       }
 
-      if( what == DM_DUPLEX )
-      {
+      if( what == DM_DUPLEX ) {
          pi2->pDevMode->dmDuplex = ( short ) hb_parni(2);
       }
    }
@@ -385,8 +347,7 @@ HB_FUNC( RR_SETUSERMODE )
 {
    DWORD what = hb_parnl(1);
 
-   if( what == ( pi2->pDevMode->dmFields & what ) )
-   {
+   if( what == ( pi2->pDevMode->dmFields & what ) ) {
       pi2->pDevMode->dmFields      = pi2->pDevMode->dmFields | DM_PAPERSIZE | DM_PAPERWIDTH | DM_PAPERLENGTH;
       pi2->pDevMode->dmPaperSize   = DMPAPER_USER;
       pi2->pDevMode->dmPaperWidth  = ( short ) hb_parnl(2);
@@ -417,31 +378,25 @@ HB_FUNC( RR_GETDEFAULTPRINTER )
    LPSTR pStr;
 #endif
 
-   if( osvi.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS ) /* Windows 95 or 98 */
-   {
+   if( osvi.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS ) { /* Windows 95 or 98 */
       EnumPrinters(PRINTER_ENUM_DEFAULT, nullptr, 5, nullptr, 0, &Needed, &Returned);
       PrinterInfo = ( LPPRINTER_INFO_5 ) LocalAlloc(LPTR, Needed);
       EnumPrinters(PRINTER_ENUM_DEFAULT, nullptr, 5, ( LPBYTE ) PrinterInfo, Needed, &Needed, &Returned);
       lstrcpy(PrinterDefault, PrinterInfo->pPrinterName);
       LocalFree(PrinterInfo);
-   }
-   else if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT )
-   {
-      if( osvi.dwMajorVersion == 5 ) /* Windows 2000 or XP */
-      {
+   } else if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT ) {
+      if( osvi.dwMajorVersion == 5 ) { /* Windows 2000 or XP */
          BOOL  bFlag;
          TCHAR lpPrinterName[MAX_BUFFER_SIZE];
          _GETDEFAULTPRINTER fnGetDefaultPrinter;
 
          HMODULE hWinSpool = LoadLibrary(TEXT("winspool.drv"));
-         if( !hWinSpool )
-         {
+         if( !hWinSpool ) {
             hb_retc( "" );
             return;
          }
          fnGetDefaultPrinter = reinterpret_cast<_GETDEFAULTPRINTER>(reinterpret_cast<void*>(GetProcAddress(hWinSpool, GETDEFAULTPRINTER)));
-         if( !fnGetDefaultPrinter )
-         {
+         if( !fnGetDefaultPrinter ) {
             FreeLibrary(hWinSpool);
             hb_retc( "" );
             return;
@@ -450,14 +405,11 @@ HB_FUNC( RR_GETDEFAULTPRINTER )
          bFlag = ( *fnGetDefaultPrinter )( lpPrinterName, &BuffSize );
          lstrcpy(PrinterDefault, lpPrinterName);
          FreeLibrary(hWinSpool);
-         if( !bFlag )
-         {
+         if( !bFlag ) {
             hb_retc( "" );
             return;
          }
-      }
-      else  /* Windows NT 4.0 or earlier */
-      {
+      } else { /* Windows NT 4.0 or earlier */
          GetProfileString(TEXT("windows"), TEXT("device"), TEXT(""), PrinterDefault, BuffSize);
          _tcstok(PrinterDefault, TEXT(","));
       }
@@ -491,13 +443,10 @@ HB_FUNC( RR_GETPRINTERS )
 
    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
    GetVersionEx(&osvi);
-   if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT )
-   {
+   if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT ) {
       level = 4;
       flags = PRINTER_ENUM_CONNECTIONS | PRINTER_ENUM_LOCAL;
-   }
-   else
-   {
+   } else {
       level = 5;
       flags = PRINTER_ENUM_LOCAL;
    }
@@ -505,16 +454,14 @@ HB_FUNC( RR_GETPRINTERS )
    EnumPrinters(flags, nullptr, level, nullptr, 0, &dwSize, &dwPrinters);
 
    pBuffer = ( char * ) GlobalAlloc(GPTR, dwSize);
-   if( pBuffer == nullptr )
-   {
+   if( pBuffer == nullptr ) {
       hb_retc( ",," );
       return;
    }
 
    EnumPrinters(flags, nullptr, level, ( LPBYTE ) pBuffer, dwSize, &dwSize, &dwPrinters);
 
-   if( dwPrinters == 0 )
-   {
+   if( dwPrinters == 0 ) {
       hb_retc( ",," );
       GlobalFree(pBuffer);
       return;
@@ -522,46 +469,33 @@ HB_FUNC( RR_GETPRINTERS )
 
    cBuffer = ( char * ) GlobalAlloc(GPTR, dwPrinters * 256);
 
-   if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT )
-   {
+   if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT ) {
       pInfo4 = ( PRINTER_INFO_4 * ) pBuffer;
-   }
-   else
-   {
+   } else {
       pInfo5 = ( PRINTER_INFO_5 * ) pBuffer;
    }
 
-   for( DWORD i = 0; i < dwPrinters; i++ )
-   {
-      if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT )
-      {
+   for( DWORD i = 0; i < dwPrinters; i++ ) {
+      if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT ) {
 #ifdef UNICODE
          lstrcat(reinterpret_cast<LPWSTR>(cBuffer), pInfo4->pPrinterName);
          lstrcat(reinterpret_cast<LPWSTR>(cBuffer), TEXT(","));
-         if( pInfo4->Attributes == PRINTER_ATTRIBUTE_LOCAL )
-         {
+         if( pInfo4->Attributes == PRINTER_ATTRIBUTE_LOCAL ) {
             lstrcat(reinterpret_cast<LPWSTR>(cBuffer), TEXT("local printer"));
-         }
-         else
-         {
+         } else {
             lstrcat(reinterpret_cast<LPWSTR>(cBuffer), TEXT("network printer"));
          }
 #else
          lstrcat(reinterpret_cast<LPSTR>(cBuffer), pInfo4->pPrinterName);
          lstrcat(reinterpret_cast<LPSTR>(cBuffer), ",");
-         if( pInfo4->Attributes == PRINTER_ATTRIBUTE_LOCAL )
-         {
+         if( pInfo4->Attributes == PRINTER_ATTRIBUTE_LOCAL ) {
             lstrcat(reinterpret_cast<LPSTR>(cBuffer), "local printer");
-         }
-         else
-         {
+         } else {
             lstrcat(reinterpret_cast<LPSTR>(cBuffer), "network printer");
          }
 #endif
          pInfo4++;
-      }
-      else
-      {
+      } else {
 #ifdef UNICODE
          lstrcat(reinterpret_cast<LPWSTR>(cBuffer), pInfo5->pPrinterName);
          lstrcat(reinterpret_cast<LPWSTR>(cBuffer), TEXT(","));
@@ -574,8 +508,7 @@ HB_FUNC( RR_GETPRINTERS )
          pInfo5++;
       }
 
-      if( i < dwPrinters - 1 )
-      {
+      if( i < dwPrinters - 1 ) {
 #ifdef UNICODE
          lstrcat(reinterpret_cast<LPWSTR>(cBuffer), TEXT(",,"));
 #else
@@ -650,8 +583,7 @@ HB_FUNC( RR_DEVICECAPABILITIES )
 #else
    numpapers = DeviceCapabilities(pi2->pPrinterName, pi2->pPortName, DC_PAPERNAMES, nullptr, nullptr);
 #endif
-   if( numpapers > 0 )
-   {
+   if( numpapers > 0 ) {
       pGBuffer = GlobalAlloc(GPTR, numpapers * 64);
       nGBuffer = GlobalAlloc(GPTR, numpapers * sizeof(WORD));
       sGBuffer = GlobalAlloc(GPTR, numpapers * sizeof(POINT));
@@ -670,8 +602,7 @@ HB_FUNC( RR_DEVICECAPABILITIES )
       DeviceCapabilities(pi2->pPrinterName, pi2->pPortName, DC_PAPERSIZE, sBuffer, pi2->pDevMode);
 #endif
       cBuffer[0] = 0;
-      for( DWORD i = 0; i < numpapers; i++ )
-      {
+      for( DWORD i = 0; i < numpapers; i++ ) {
          lstrcat(cBuffer, pBuffer);
          lstrcat(cBuffer, TEXT(","));
          lstrcat(cBuffer, _itot(*nBuffer, buffer, 10));
@@ -681,8 +612,7 @@ HB_FUNC( RR_DEVICECAPABILITIES )
          lstrcat(cBuffer, _ltot(lp->x, buffer, 10));
          lstrcat(cBuffer, TEXT(","));
          lstrcat(cBuffer, _ltot(lp->y, buffer, 10));
-         if( i < numpapers - 1 )
-         {
+         if( i < numpapers - 1 ) {
             lstrcat(cBuffer, TEXT(",,"));
          }
          pBuffer += 64;
@@ -702,9 +632,7 @@ HB_FUNC( RR_DEVICECAPABILITIES )
       GlobalFree(pGBuffer);
       GlobalFree(nGBuffer);
       GlobalFree(sGBuffer);
-   }
-   else
-   {
+   } else {
       hb_storc( "", 1 );
    }
 
@@ -713,8 +641,7 @@ HB_FUNC( RR_DEVICECAPABILITIES )
 #else
    numbins = DeviceCapabilities(pi2->pPrinterName, pi2->pPortName, DC_BINNAMES, nullptr, nullptr);
 #endif
-   if( numbins > 0 )
-   {
+   if( numbins > 0 ) {
       bnGBuffer = GlobalAlloc(GPTR, numbins * 24);
       bwGBuffer = GlobalAlloc(GPTR, numbins * sizeof(WORD));
       bcGBuffer = GlobalAlloc(GPTR, numbins * 64);
@@ -729,14 +656,12 @@ HB_FUNC( RR_DEVICECAPABILITIES )
       DeviceCapabilities(pi2->pPrinterName, pi2->pPortName, DC_BINS, bwBuffer, pi2->pDevMode);
 #endif
       bcBuffer[0] = 0;
-      for( DWORD i = 0; i < numbins; i++ )
-      {
+      for( DWORD i = 0; i < numbins; i++ ) {
          lstrcat(bcBuffer, bnBuffer);
          lstrcat(bcBuffer, TEXT(","));
          lstrcat(bcBuffer, _itot(*bwBuffer, buffer, 10));
 
-         if( i < numbins - 1 )
-         {
+         if( i < numbins - 1 ) {
             lstrcat(bcBuffer, TEXT(",,"));
          }
          bnBuffer += 24;
@@ -754,73 +679,57 @@ HB_FUNC( RR_DEVICECAPABILITIES )
       GlobalFree(bnGBuffer);
       GlobalFree(bwGBuffer);
       GlobalFree(bcGBuffer);
-   }
-   else
-   {
+   } else {
       hb_storc( "", 2 );
    }
 }
 
 HB_FUNC( RR_SETPOLYFILLMODE )
 {
-   if( SetPolyFillMode(hDC, hmg_par_COLORREF(1)) != 0 )
-   {
+   if( SetPolyFillMode(hDC, hmg_par_COLORREF(1)) != 0 ) {
       hb_retnl( hb_parnl(1) );
-   }
-   else
-   {
+   } else {
       hb_retnl( GetPolyFillMode(hDC) );
    }   
 }
 
 HB_FUNC( RR_SETTEXTCOLOR )
 {
-   if( SetTextColor(hDC, hmg_par_COLORREF(1)) != CLR_INVALID )
-   {
+   if( SetTextColor(hDC, hmg_par_COLORREF(1)) != CLR_INVALID ) {
       hb_retnl( hb_parnl(1) );
-   }
-   else
-   {
+   } else {
       hb_retnl( GetTextColor(hDC) );
    }
 }
 
 HB_FUNC( RR_SETBKCOLOR )
 {
-   if( SetBkColor(hDC, hmg_par_COLORREF(1)) != CLR_INVALID )
-   {
+   if( SetBkColor(hDC, hmg_par_COLORREF(1)) != CLR_INVALID ) {
       hb_retnl( hb_parnl(1) );
-   }
-   else
-   {
+   } else {
       hb_retnl( GetBkColor(hDC) );
    }
 }
 
 HB_FUNC( RR_SETBKMODE )
 {
-   if( hb_parni(1) == 1 )
-   {
+   if( hb_parni(1) == 1 ) {
       SetBkMode(hDC, TRANSPARENT);
-   }
-   else
-   {
+   } else {
       SetBkMode(hDC, OPAQUE);
    }
 }
 
 HB_FUNC( RR_DELETEOBJECTS )
 {
-   for( UINT i = 2; i <= hb_parinfa(1, 0); i++ )
-   {
+   for( UINT i = 2; i <= hb_parinfa(1, 0); i++ ) {
       DeleteObject(reinterpret_cast<HGDIOBJ>(HB_PARVNL(1, i)));
    }
 }
 
 HB_FUNC( RR_DELETEIMAGELISTS )
 {
-   for( UINT i = 1; i <= hb_parinfa(1, 0); i++ )
-   {
+   for( UINT i = 1; i <= hb_parinfa(1, 0); i++ ) {
       ImageList_Destroy(( HIMAGELIST ) HB_PARNL3(1, i, 1));
    }
 }
@@ -844,16 +753,11 @@ HB_FUNC( RR_GETCURRENTOBJECT )
    int     what = hb_parni(1);
    HGDIOBJ hand;
 
-   if( what == 1 )
-   {
+   if( what == 1 ) {
       hand = GetCurrentObject(hDC, OBJ_FONT);
-   }
-   else if( what == 2 )
-   {
+   } else if( what == 2 ) {
       hand = GetCurrentObject(hDC, OBJ_BRUSH);
-   }
-   else
-   {
+   } else {
       hand = GetCurrentObject(hDC, OBJ_PEN);
    }
 
@@ -878,36 +782,27 @@ HB_FUNC( RR_MODIFYPEN )
 
    memset(&ppn, 0, sizeof(LOGPEN));
    i = GetObject(hmg_par_HPEN(1), sizeof(LOGPEN), &ppn);
-   if( i > 0 )
-   {
-      if( hb_parni(2) >= 0 )
-      {
+   if( i > 0 ) {
+      if( hb_parni(2) >= 0 ) {
          ppn.lopnStyle = hmg_par_UINT(2);
       }
 
-      if( hb_parnl(3) >= 0 )
-      {
+      if( hb_parnl(3) >= 0 ) {
          ppn.lopnWidth.x = hb_parnl(3);
       }
 
-      if( hb_parnl(4) >= 0 )
-      {
+      if( hb_parnl(4) >= 0 ) {
          ppn.lopnColor = hmg_par_COLORREF(4);
       }
 
       hp = CreatePenIndirect(&ppn);
-      if( hp != nullptr )
-      {
+      if( hp != nullptr ) {
          DeleteObject(hmg_par_HPEN(1));
          hmg_ret_HPEN(hp);
-      }
-      else
-      {
+      } else {
          hb_retnl( hmg_par_LONG(1) ); // TODO: hmg_par_HPEN/hmg_ret_HPEN ?
       }
-   }
-   else
-   {
+   } else {
       hb_retnl( hmg_par_LONG(1) ); // TODO: hmg_par_HPEN/hmg_ret_HPEN ?
    }
 }
@@ -936,36 +831,27 @@ HB_FUNC( RR_MODIFYBRUSH )
 
    memset(&ppn, 0, sizeof(LOGBRUSH));
    i = GetObject(hmg_par_HBRUSH(1), sizeof(LOGBRUSH), &ppn);
-   if( i > 0 )
-   {
-      if( hb_parni(2) >= 0 )
-      {
+   if( i > 0 ) {
+      if( hb_parni(2) >= 0 ) {
          ppn.lbStyle = hmg_par_UINT(2);
       }
 
-      if( hb_parnl(3) >= 0 )
-      {
+      if( hb_parnl(3) >= 0 ) {
          ppn.lbColor = hmg_par_COLORREF(3);
       }
 
-      if( hb_parnl(4) >= 0 )
-      {
+      if( hb_parnl(4) >= 0 ) {
          ppn.lbHatch = hb_parnl(4);
       }
 
       hb = CreateBrushIndirect(&ppn);
-      if( hb != nullptr )
-      {
+      if( hb != nullptr ) {
          DeleteObject(hmg_par_HBRUSH(1));
          hmg_ret_HBRUSH(hb);
-      }
-      else
-      {
+      } else {
          hb_retnl( hmg_par_LONG(1) ); // TODO: hmg_par_HBRUSH/hmg_ret_HBRUSH ?
       }
-   }
-   else
-   {
+   } else {
       hb_retnl( hmg_par_LONG(1) ); // TODO: hmg_par_HBRUSHhmg_ret_HBRUSH ?
    }
 }
@@ -996,61 +882,45 @@ HB_FUNC( RR_CREATEFONT )
    BYTE         bItalic, bUnderline, bStrikeOut;
 
    newWidth = FontWidth;
-   if( FontSize <= 0 )
-   {
+   if( FontSize <= 0 ) {
       FontSize = 10;
    }
 
-   if( FontWidth < 0 )
-   {
+   if( FontWidth < 0 ) {
       newWidth = 0;
    }
 
-   if( Orient <= 0 )
-   {
+   if( Orient <= 0 ) {
       Orient = 0;
    }
 
-   if( Weight <= 0 )
-   {
+   if( Weight <= 0 ) {
       Weight = FW_NORMAL;
-   }
-   else
-   {
+   } else {
       Weight = FW_BOLD;
    }
 
-   if( Italic <= 0 )
-   {
+   if( Italic <= 0 ) {
       bItalic = 0;
-   }
-   else
-   {
+   } else {
       bItalic = 1;
    }
 
-   if( Underline <= 0 )
-   {
+   if( Underline <= 0 ) {
       bUnderline = 0;
-   }
-   else
-   {
+   } else {
       bUnderline = 1;
    }
 
-   if( Strikeout <= 0 )
-   {
+   if( Strikeout <= 0 ) {
       bStrikeOut = 0;
-   }
-   else
-   {
+   } else {
       bStrikeOut = 1;
    }
 
    FontHeight = -MulDiv(FontSize, GetDeviceCaps(hDCRef, LOGPIXELSY), 72);
    hxfont = CreateFont(FontHeight, newWidth, Orient, Orient, Weight, bItalic, bUnderline, bStrikeOut, charset, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_DONTCARE, FontName);
-   if( FontWidth < 0 )
-   {
+   if( FontWidth < 0 ) {
       oldfont = static_cast<HFONT>(SelectObject(hDC, hxfont));
       GetTextMetrics(hDC, &tm);
       SelectObject(hDC, oldfont);
@@ -1091,68 +961,52 @@ HB_FUNC( RR_MODIFYFONT )
 
    memset(&ppn, 0, sizeof(LOGFONT));
    i = GetObject(hmg_par_HFONT(1), sizeof(LOGFONT), &ppn);
-   if( i > 0 )
-   {
+   if( i > 0 ) {
       //     if (hb_parc(2)!="")
       //       ppn.lfFaceName = hb_parc(2);
 
-      if( hb_parni(3) > 0 )
-      {
+      if( hb_parni(3) > 0 ) {
          nHeight      = -MulDiv(hb_parni(3), GetDeviceCaps(hDC, LOGPIXELSY), 72);
          ppn.lfHeight = nHeight;
       }
 
-      if( hb_parnl(4) >= 0 )
-      {
+      if( hb_parnl(4) >= 0 ) {
          ppn.lfWidth = hmg_par_LONG(4) * ppn.lfWidth / 100;
       }
 
-      if( hb_parnl(5) >= 0 )
-      {
+      if( hb_parnl(5) >= 0 ) {
          ppn.lfOrientation = hb_parnl(5);
          ppn.lfEscapement  = hb_parnl(5);
       }
 
-      if( hb_parnl(6) >= 0 )
-      {
-         if( hb_parnl(6) == 0 )
-         {
+      if( hb_parnl(6) >= 0 ) {
+         if( hb_parnl(6) == 0 ) {
             ppn.lfWeight = FW_NORMAL;
-         }
-         else
-         {
+         } else {
             ppn.lfWeight = FW_BOLD;
          }
       }
 
-      if( hb_parni(7) >= 0 )
-      {
+      if( hb_parni(7) >= 0 ) {
          ppn.lfItalic = hmg_par_BYTE(7);
       }
 
-      if( hb_parni(8) >= 0 )
-      {
+      if( hb_parni(8) >= 0 ) {
          ppn.lfUnderline = hmg_par_BYTE(8);
       }
 
-      if( hb_parni(9) >= 0 )
-      {
+      if( hb_parni(9) >= 0 ) {
          ppn.lfStrikeOut = hmg_par_BYTE(9);
       }
 
       hf = CreateFontIndirect(&ppn);
-      if( hf != nullptr )
-      {
+      if( hf != nullptr ) {
          DeleteObject(hmg_par_HFONT(1));
          hmg_ret_HFONT(hf);
-      }
-      else
-      {
+      } else {
          hb_retnl( hmg_par_LONG(1) ); // TODO: hmg_par_HFONT/hmg_ret_HFONT ?
       }
-   }
-   else
-   {
+   } else {
       hb_retnl( hmg_par_LONG(1) ); // TODO: hmg_par_HFONT/hmg_ret_HFONT ?
    }
 }
@@ -1180,31 +1034,25 @@ HB_FUNC( RR_TEXTOUT )
    SIZE    szMetric;
    int     lspace = hb_parni(4);
 
-   if( xfont != 0 )
-   {
+   if( xfont != 0 ) {
       prevfont = static_cast<HFONT>(SelectObject(hDC, xfont));
    }
 
-   if( textjust > 0 )
-   {
+   if( textjust > 0 ) {
       GetTextExtentPoint32(hDC, lpText, lstrlen(lpText), &szMetric);
-      if( szMetric.cx < textjust )      // or can be for better look (szMetric.cx>(int) textjust*2/3)
-      {
-         if( lspace > 0 )
-         {
+      if( szMetric.cx < textjust ) {     // or can be for better look (szMetric.cx>(int) textjust*2/3)
+         if( lspace > 0 ) {
             SetTextJustification(hDC, textjust - szMetric.cx, lspace);
          }
       }
    }
 
    hb_retl(TextOut(hDC, HB_PARNI(2, 2), HB_PARNI(2, 1) + devcaps[16], lpText, lstrlen(lpText)));
-   if( xfont != 0 )
-   {
+   if( xfont != 0 ) {
       SelectObject(hDC, prevfont);
    }
 
-   if( textjust > 0 )
-   {
+   if( textjust > 0 ) {
       SetTextJustification(hDC, 0, 0);
    }
 
@@ -1232,8 +1080,7 @@ HB_FUNC( RR_DRAWTEXT )
 
    SetRect(&rect, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1));
 
-   if( xfont != 0 )
-   {
+   if( xfont != 0 ) {
       prevfont = static_cast<HFONT>(SelectObject(hDC, xfont));
    }
 
@@ -1242,33 +1089,24 @@ HB_FUNC( RR_DRAWTEXT )
    h = sSize.cy;  // text height
 
    // Center text vertically within rectangle
-   if( w < rect.right - rect.left )
-   {
+   if( w < rect.right - rect.left ) {
       rect.top = rect.top + ( rect.bottom - rect.top + h / 2 ) / 2;
-   }
-   else
-   {
+   } else {
       rect.top = rect.top + ( rect.bottom - rect.top - h / 2 ) / 2;
    }
 
    uFormat = DT_NOCLIP | DT_NOPREFIX | DT_WORDBREAK | DT_END_ELLIPSIS;
 
-   if( iStyle == 0 )
-   {
+   if( iStyle == 0 ) {
       uFormat = uFormat | DT_LEFT;
-   }
-   else if( iStyle == 2 )
-   {
+   } else if( iStyle == 2 ) {
       uFormat = uFormat | DT_RIGHT;
-   }
-   else if( iStyle == 1 )
-   {
+   } else if( iStyle == 1 ) {
       uFormat = uFormat | DT_CENTER;
    }
 
    hb_retni( DrawText(hDC, pszData, -1, &rect, uFormat) );
-   if( xfont != 0 )
-   {
+   if( xfont != 0 ) {
       SelectObject(hDC, prevfont);
    }
 
@@ -1282,24 +1120,20 @@ HB_FUNC( RR_RECTANGLE )
    LONG_PTR xpen   = HB_PARNL(3);
    LONG_PTR xbrush = HB_PARNL(4);
 
-   if( xpen != 0 )
-   {
+   if( xpen != 0 ) {
       SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
    }
 
-   if( xbrush != 0 )
-   {
+   if( xbrush != 0 ) {
       SelectObject(hDC, reinterpret_cast<HBRUSH>(xbrush));
    }
 
    hb_retni( Rectangle(hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1)) );
-   if( xpen != 0 )
-   {
+   if( xpen != 0 ) {
       SelectObject(hDC, hpen);
    }
 
-   if( xbrush != 0 )
-   {
+   if( xbrush != 0 ) {
       SelectObject(hDC, hbrush);
    }
 }
@@ -1339,12 +1173,9 @@ HB_FUNC( RR_CREATERGN )
    POINT lpp;
 
    GetViewportOrgEx(hDC, &lpp);
-   if( hb_parni(3) == 2 )
-   {
+   if( hb_parni(3) == 2 ) {
       hmg_ret_HRGN(CreateEllipticRgn(HB_PARNI(1, 2) + lpp.x, HB_PARNI(1, 1) + lpp.y, HB_PARNI(2, 2) + lpp.x, HB_PARNI(2, 1) + lpp.y));
-   }
-   else if( hb_parni(3) == 3 )
-   {
+   } else if( hb_parni(3) == 3 ) {
       hmg_ret_HRGN(CreateRoundRectRgn(
          HB_PARNI(1, 2) + lpp.x,
          HB_PARNI(1, 1) + lpp.y,
@@ -1352,9 +1183,7 @@ HB_FUNC( RR_CREATERGN )
          HB_PARNI(2, 1) + lpp.y,
          HB_PARNI(4, 2) + lpp.x,
          HB_PARNI(4, 1) + lpp.y));
-   }
-   else
-   {
+   } else {
       hmg_ret_HRGN(CreateRectRgn(HB_PARNI(1, 2) + lpp.x, HB_PARNI(1, 1) + lpp.y, HB_PARNI(2, 2) + lpp.x, HB_PARNI(2, 1) + lpp.y));
    }
 }
@@ -1364,8 +1193,7 @@ HB_FUNC( RR_CREATEPOLYGONRGN )
    int   number = ( int ) hb_parinfa(1, 0);
    POINT apoints[1024];
 
-   for( int i = 0; i <= number - 1; i++ )
-   {
+   for( int i = 0; i <= number - 1; i++ ) {
       apoints[i].x = HB_PARNI(1, i + 1);
       apoints[i].y = HB_PARNI(2, i + 1);
    }
@@ -1466,8 +1294,7 @@ HB_FUNC( RR_PICTURE )
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) cFileName);
 #endif
-   if( hFile == INVALID_HANDLE_VALUE )
-   {
+   if( hFile == INVALID_HANDLE_VALUE ) {
       return;
    }
 
@@ -1481,30 +1308,25 @@ HB_FUNC( RR_PICTURE )
    OleLoadPicture(iStream, nFileSize, TRUE, IID_IPicture, ( LPVOID * ) &iPicture);
    GlobalFree(hGlobal);
    iStream->lpVtbl->Release(iStream);
-   if( iPicture == nullptr )
-   {
+   if( iPicture == nullptr ) {
       return;
    }
 
    iPicture->lpVtbl->get_Width(iPicture, &lWidth);
    iPicture->lpVtbl->get_Height(iPicture, &lHeight);
-   if( dc == 0 )
-   {
+   if( dc == 0 ) {
       dc = ( int ) ( ( float ) dr * lWidth / lHeight );
    }
 
-   if( dr == 0 )
-   {
+   if( dr == 0 ) {
       dr = ( int ) ( ( float ) dc * lHeight / lWidth );
    }
 
-   if( tor <= 0 )
-   {
+   if( tor <= 0 ) {
       tor = dr;
    }
 
-   if( toc <= 0 )
-   {
+   if( toc <= 0 ) {
       toc = dc;
    }
 
@@ -1514,19 +1336,14 @@ HB_FUNC( RR_PICTURE )
    ye = r + tor - 1;
    GetViewportOrgEx(hDC, &lpp);
    hrgn1 = CreateRectRgn(c + lpp.x, r + lpp.y, xe + lpp.x, ye + lpp.y);
-   if( hrgn == nullptr )
-   {
+   if( hrgn == nullptr ) {
       SelectClipRgn(hDC, hrgn1);
-   }
-   else
-   {
+   } else {
       ExtSelectClipRgn(hDC, hrgn1, RGN_AND);
    }
 
-   while( x < xe )
-   {
-      while( y < ye )
-      {
+   while( x < xe ) {
+      while( y < ye ) {
          iPicture->lpVtbl->Render( iPicture, hDC, x, y, dc, dr, 0, lHeight, lWidth, -lHeight, nullptr );
          y += dr;
       }
@@ -1554,45 +1371,37 @@ LPVOID rr_loadpicturefromresource(TCHAR * resname, LONG * lwidth, LONG * lheight
    int        nSize;
 
    hbmpx = static_cast<HBITMAP>(LoadImage(GetResources(), resname, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION));
-   if( hbmpx != nullptr )
-   {
+   if( hbmpx != nullptr ) {
       picd.cbSizeofstruct = sizeof(PICTDESC);
       picd.picType        = PICTYPE_BITMAP;
       picd.bmp.hbitmap    = hbmpx;
       OleCreatePictureIndirect(&picd, IID_IPicture, TRUE, ( LPVOID * ) &iPicture);
-   }
-   else
-   {
+   } else {
       hSource = FindResource(GetResources(), resname, TEXT("HMGPICTURE"));
-      if( hSource == nullptr )
-      {
+      if( hSource == nullptr ) {
          return nullptr;
       }
 
       hGlobalres = LoadResource(GetResources(), hSource);
-      if( hGlobalres == nullptr )
-      {
+      if( hGlobalres == nullptr ) {
          return nullptr;
       }
 
       lpVoid = LockResource(hGlobalres);
-      if( lpVoid == nullptr )
-      {
+      if( lpVoid == nullptr ) {
          return nullptr;
       }
 
       nSize   = SizeofResource(GetResources(), hSource);
       hGlobal = GlobalAlloc(GPTR, nSize);
-      if( hGlobal == nullptr )
-      {
+      if( hGlobal == nullptr ) {
          return nullptr;
       }
 
       memcpy(hGlobal, lpVoid, nSize);
       FreeResource(hGlobalres);
       CreateStreamOnHGlobal( hGlobal, TRUE, &iStream );
-      if( iStream == nullptr )
-      {
+      if( iStream == nullptr ) {
          GlobalFree(hGlobal);
          return nullptr;
       }
@@ -1602,8 +1411,7 @@ LPVOID rr_loadpicturefromresource(TCHAR * resname, LONG * lwidth, LONG * lheight
       GlobalFree(hGlobal);
    }
 
-   if( iPicture != nullptr )
-   {
+   if( iPicture != nullptr ) {
       iPicture->lpVtbl->get_Width(iPicture, lwidth);
       iPicture->lpVtbl->get_Height(iPicture, lheight);
    }
@@ -1621,8 +1429,7 @@ LPVOID rr_loadpicture(TCHAR * filename, LONG * lwidth, LONG * lheight)
    DWORD      nFileSize, nReadByte;
 
    hFile = CreateFile(filename, GENERIC_READ, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
-   if( hFile == INVALID_HANDLE_VALUE )
-   {
+   if( hFile == INVALID_HANDLE_VALUE ) {
       return nullptr;
    }
 
@@ -1633,8 +1440,7 @@ LPVOID rr_loadpicture(TCHAR * filename, LONG * lwidth, LONG * lheight)
    CloseHandle(hFile);
 
    CreateStreamOnHGlobal( hGlobal, TRUE, &iStream );
-   if( iStream == nullptr )
-   {
+   if( iStream == nullptr ) {
       GlobalUnlock(hGlobal);
       GlobalFree(hGlobal);
       return nullptr;
@@ -1645,8 +1451,7 @@ LPVOID rr_loadpicture(TCHAR * filename, LONG * lwidth, LONG * lheight)
    GlobalFree(hGlobal);
    iStream->lpVtbl->Release(iStream);
    iStream = nullptr;
-   if( iPicture != nullptr )
-   {
+   if( iPicture != nullptr ) {
       iPicture->lpVtbl->get_Width(iPicture, lwidth);
       iPicture->lpVtbl->get_Height(iPicture, lheight);
    }
@@ -1665,8 +1470,7 @@ LPVOID rr_loadfromhbitmap(HBITMAP hbmpx, LONG * lwidth, LONG * lheight)
    picd.bmp.hpal       = nullptr;
 
    OleCreatePictureIndirect(&picd, IID_IPicture, TRUE, ( LPVOID * ) &iPicture);
-   if( iPicture != nullptr )
-   {
+   if( iPicture != nullptr ) {
       iPicture->lpVtbl->get_Width(iPicture, lwidth);
       iPicture->lpVtbl->get_Height(iPicture, lheight);
    }
@@ -1697,38 +1501,31 @@ HB_FUNC( RR_DRAWPICTURE )
    int        lw, lh;
 
    ipic = ( IPicture * ) rr_loadpicture(cFileName, &lwidth, &lheight);
-   if( ipic == nullptr )
-   {
+   if( ipic == nullptr ) {
       ipic = ( IPicture * ) rr_loadpicturefromresource(cFileName, &lwidth, &lheight);
    }
-   if( ipic == nullptr && HB_ISNUM(1) )
-   {
+   if( ipic == nullptr && HB_ISNUM(1) ) {
       ipic = ( IPicture * ) rr_loadfromhbitmap(hmg_par_HBITMAP(1), &lwidth, &lheight);
    }
-   if( ipic == nullptr )
-   {
+   if( ipic == nullptr ) {
       return;
    }
 
    lw = MulDiv(lwidth, devcaps[6], 2540);
    lh = MulDiv(lheight, devcaps[5], 2540);
-   if( dc == 0 )
-   {
+   if( dc == 0 ) {
       dc = ( int ) ( ( float ) dr * lw / lh );
    }
 
-   if( dr == 0 )
-   {
+   if( dr == 0 ) {
       dr = ( int ) ( ( float ) dc * lh / lw );
    }
 
-   if( tor <= 0 )
-   {
+   if( tor <= 0 ) {
       tor = dr;
    }
 
-   if( toc <= 0 )
-   {
+   if( toc <= 0 ) {
       toc = dc;
    }
 
@@ -1738,19 +1535,14 @@ HB_FUNC( RR_DRAWPICTURE )
    ye = r + tor - 1;
    GetViewportOrgEx(hDC, &lpp);
    hrgn1 = CreateRectRgn(c + lpp.x, r + lpp.y, xe + lpp.x, ye + lpp.y);
-   if( hrgn == nullptr )
-   {
+   if( hrgn == nullptr ) {
       SelectClipRgn(hDC, hrgn1);
-   }
-   else
-   {
+   } else {
       ExtSelectClipRgn(hDC, hrgn1, RGN_AND);
    }
 
-   while( x < xe )
-   {
-      while( y < ye )
-      {
+   while( x < xe ) {
+      while( y < ye ) {
          SetRect(&lrect, x, y, dc + x, dr + y);
          ipic->lpVtbl->Render( ipic, hDC, x, y, dc, dr, 0, lheight, lwidth, -lheight, &lrect );
          y += dr;
@@ -1783,25 +1575,20 @@ HB_FUNC( RR_CREATEIMAGELIST )
    int        dx, number;
 
    hbmpx = static_cast<HBITMAP>(LoadImage(0, cFileName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION));
-   if( hbmpx == nullptr )
-   {
+   if( hbmpx == nullptr ) {
       hbmpx = static_cast<HBITMAP>(LoadImage(GetModuleHandle(nullptr), cFileName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION));
    }
 
-   if( hbmpx == nullptr )
-   {
+   if( hbmpx == nullptr ) {
       return;
    }
 
    GetObject(hbmpx, sizeof(BITMAP), &bm);
    number = HB_ISNIL(2) ? 0 : hb_parni(2);
-   if( number == 0 )
-   {
+   if( number == 0 ) {
       number = bm.bmWidth / bm.bmHeight;
       dx     = bm.bmHeight;
-   }
-   else
-   {
+   } else {
       dx = bm.bmWidth / number;
    }
 
@@ -1835,14 +1622,12 @@ HB_FUNC( RR_DRAWIMAGELIST )
    ReleaseDC(hwnd, temp2dc);
    SelectObject(tempdc, hbmpx);
    BitBlt(tempdc, 0, 0, hb_parni(5), hb_parni(6), tempdc, 0, 0, WHITENESS);
-   if( hb_parnl(8) >= 0 )
-   {
+   if( hb_parnl(8) >= 0 ) {
       ImageList_SetBkColor(himl, hmg_par_COLORREF(8));
    }
 
    ImageList_Draw(himl, hb_parni(2) - 1, tempdc, 0, 0, hb_parni(7));
-   if( hb_parnl(8) >= 0 )
-   {
+   if( hb_parnl(8) >= 0 ) {
       ImageList_SetBkColor(himl, CLR_NONE);
    }
 
@@ -1859,19 +1644,16 @@ HB_FUNC( RR_POLYGON )
    LONG_PTR xpen   = HB_PARNL(3);
    LONG_PTR xbrush = HB_PARNL(4);
 
-   for( int i = 0; i <= number - 1; i++ )
-   {
+   for( int i = 0; i <= number - 1; i++ ) {
       apoints[i].x = HB_PARNI(1, i + 1);
       apoints[i].y = HB_PARNI(2, i + 1);
    }
 
-   if( xpen != 0 )
-   {
+   if( xpen != 0 ) {
       SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
    }
 
-   if( xbrush != 0 )
-   {
+   if( xbrush != 0 ) {
       SelectObject(hDC, reinterpret_cast<HBRUSH>(xbrush));
    }
 
@@ -1879,13 +1661,11 @@ HB_FUNC( RR_POLYGON )
 
    hb_retnl( Polygon(hDC, apoints, number) );
 
-   if( xpen != 0 )
-   {
+   if( xpen != 0 ) {
       SelectObject(hDC, hpen);
    }
 
-   if( xbrush != 0 )
-   {
+   if( xbrush != 0 ) {
       SelectObject(hDC, hbrush);
    }
 
@@ -1898,21 +1678,18 @@ HB_FUNC( RR_POLYBEZIER )
    POINT    apoints[1024];
    LONG_PTR xpen = HB_PARNL(3);
 
-   for( DWORD i = 0; i <= number - 1; i++ )
-   {
+   for( DWORD i = 0; i <= number - 1; i++ ) {
       apoints[i].x = HB_PARNI(1, i + 1);
       apoints[i].y = HB_PARNI(2, i + 1);
    }
 
-   if( xpen != 0 )
-   {
+   if( xpen != 0 ) {
       SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
    }
 
    hb_retnl( PolyBezier( hDC, apoints, number ) );
 
-   if( xpen != 0 )
-   {
+   if( xpen != 0 ) {
       SelectObject(hDC, hpen);
    }
 }
@@ -1923,21 +1700,18 @@ HB_FUNC( RR_POLYBEZIERTO )
    POINT    apoints[1024];
    LONG_PTR xpen = HB_PARNL(3);
 
-   for( DWORD i = 0; i <= number - 1; i++ )
-   {
+   for( DWORD i = 0; i <= number - 1; i++ ) {
       apoints[i].x = HB_PARNI(1, i + 1);
       apoints[i].y = HB_PARNI(2, i + 1);
    }
 
-   if( xpen != 0 )
-   {
+   if( xpen != 0 ) {
       SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
    }
 
    hb_retnl( PolyBezierTo(hDC, apoints, number) );
 
-   if( xpen != 0 )
-   {
+   if( xpen != 0 ) {
       SelectObject(hDC, hpen);
    }
 }
@@ -1952,16 +1726,14 @@ HB_FUNC( RR_GETTEXTEXTENT )
    LONG_PTR xfont = HB_PARNL(3);
    SIZE     szMetric;
 
-   if( xfont != 0 )
-   {
+   if( xfont != 0 ) {
       SelectObject(hDC, reinterpret_cast<HPEN>(xfont));
    }
 
    hb_retni( GetTextExtentPoint32(hDC, lpText, lstrlen(lpText), &szMetric) );
    HB_STORNI( szMetric.cy, 2, 1 );
    HB_STORNI( szMetric.cx, 2, 2 );
-   if( xfont != 0 )
-   {
+   if( xfont != 0 ) {
       SelectObject(hDC, hfont);
    }
 
@@ -1975,25 +1747,21 @@ HB_FUNC( RR_ROUNDRECT )
    LONG_PTR xpen   = HB_PARNL(4);
    LONG_PTR xbrush = HB_PARNL(5);
 
-   if( xpen != 0 )
-   {
+   if( xpen != 0 ) {
       SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
    }
 
-   if( xbrush != 0 )
-   {
+   if( xbrush != 0 ) {
       SelectObject(hDC, reinterpret_cast<HBRUSH>(xbrush));
    }
 
    hb_retni( RoundRect(hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1), HB_PARNI(3, 2), HB_PARNI(3, 1)) );
 
-   if( xbrush != 0 )
-   {
+   if( xbrush != 0 ) {
       SelectObject(hDC, static_cast<HBRUSH>(hbrush));
    }
 
-   if( xpen != 0 )
-   {
+   if( xpen != 0 ) {
       SelectObject(hDC, static_cast<HPEN>(hpen));
    }
 }
@@ -2003,25 +1771,21 @@ HB_FUNC( RR_ELLIPSE )
    LONG_PTR xpen   = HB_PARNL(3);
    LONG_PTR xbrush = HB_PARNL(4);
 
-   if( xpen != 0 )
-   {
+   if( xpen != 0 ) {
       SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
    }
 
-   if( xbrush != 0 )
-   {
+   if( xbrush != 0 ) {
       SelectObject(hDC, reinterpret_cast<HBRUSH>(xbrush));
    }
 
    hb_retni( Ellipse(hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1)) );
 
-   if( xpen != 0 )
-   {
+   if( xpen != 0 ) {
       SelectObject(hDC, hpen);
    }
 
-   if( xbrush != 0 )
-   {
+   if( xbrush != 0 ) {
       SelectObject(hDC, hbrush);
    }
 }
@@ -2031,25 +1795,21 @@ HB_FUNC( RR_CHORD )
    LONG_PTR xpen   = HB_PARNL(5);
    LONG_PTR xbrush = HB_PARNL(6);
 
-   if( xpen != 0 )
-   {
+   if( xpen != 0 ) {
       SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
    }
 
-   if( xbrush != 0 )
-   {
+   if( xbrush != 0 ) {
       SelectObject(hDC, reinterpret_cast<HBRUSH>(xbrush));
    }
 
    hb_retni( Chord(hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1), HB_PARNI(3, 2), HB_PARNI(3, 1), HB_PARNI(4, 2), HB_PARNI(4, 1)) );
 
-   if( xpen != 0 )
-   {
+   if( xpen != 0 ) {
       SelectObject(hDC, hpen);
    }
 
-   if( xbrush != 0 )
-   {
+   if( xbrush != 0 ) {
       SelectObject(hDC, hbrush);
    }
 }
@@ -2058,15 +1818,13 @@ HB_FUNC( RR_ARCTO )
 {
    LONG_PTR xpen = HB_PARNL(5);
 
-   if( xpen != 0 )
-   {
+   if( xpen != 0 ) {
       SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
    }
 
    hb_retni( ArcTo(hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1), HB_PARNI(3, 2), HB_PARNI(3, 1), HB_PARNI(4, 2), HB_PARNI(4, 1)) );
 
-   if( xpen != 0 )
-   {
+   if( xpen != 0 ) {
       SelectObject(hDC, hpen);
    }
 }
@@ -2075,15 +1833,13 @@ HB_FUNC( RR_ARC )
 {
    LONG_PTR xpen = HB_PARNL(5);
 
-   if( xpen != 0 )
-   {
+   if( xpen != 0 ) {
       SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
    }
 
    hb_retni( Arc( hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1), HB_PARNI(3, 2), HB_PARNI(3, 1), HB_PARNI(4, 2), HB_PARNI(4, 1) ) );
 
-   if( xpen != 0 )
-   {
+   if( xpen != 0 ) {
       SelectObject(hDC, hpen);
    }
 }
@@ -2093,25 +1849,21 @@ HB_FUNC( RR_PIE )
    LONG_PTR xpen   = HB_PARNL(5);
    LONG_PTR xbrush = HB_PARNL(6);
 
-   if( xpen != 0 )
-   {
+   if( xpen != 0 ) {
       SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
    }
 
-   if( xbrush != 0 )
-   {
+   if( xbrush != 0 ) {
       SelectObject(hDC, reinterpret_cast<HBRUSH>(xbrush));
    }
 
    hb_retni( Pie(hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), HB_PARNI(2, 2), HB_PARNI(2, 1), HB_PARNI(3, 2), HB_PARNI(3, 1), HB_PARNI(4, 2), HB_PARNI(4, 1)) );
 
-   if( xpen != 0 )
-   {
+   if( xpen != 0 ) {
       SelectObject(hDC, hpen);
    }
 
-   if( xbrush != 0 )
-   {
+   if( xbrush != 0 ) {
       SelectObject(hDC, hbrush);
    }
 }
@@ -2142,15 +1894,13 @@ HB_FUNC( RR_LINE )
 {
    LONG_PTR xpen = HB_PARNL(3);
 
-   if( xpen != 0 )
-   {
+   if( xpen != 0 ) {
       SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
    }
 
    MoveToEx(hDC, HB_PARNI(1, 2), HB_PARNI(1, 1), nullptr);
    hb_retni( LineTo(hDC, HB_PARNI(2, 2), HB_PARNI(2, 1)) );
-   if( xpen != 0 )
-   {
+   if( xpen != 0 ) {
       SelectObject(hDC, hpen);
    }
 }
@@ -2159,14 +1909,12 @@ HB_FUNC( RR_LINETO )
 {
    LONG_PTR xpen = HB_PARNL(2);
 
-   if( xpen != 0 )
-   {
+   if( xpen != 0 ) {
       SelectObject(hDC, reinterpret_cast<HPEN>(xpen));
    }
 
    hb_retni( LineTo(hDC, HB_PARNI(1, 2), HB_PARNI(1, 1)) );
-   if( xpen != 0 )
-   {
+   if( xpen != 0 ) {
       SelectObject(hDC, hpen);
    }
 }
@@ -2228,14 +1976,12 @@ HB_FUNC( RR_PREVIEWPLAY )
 #ifdef UNICODE
    hb_xfree(( TCHAR * ) FileName);
 #endif
-   if( tmpDC == nullptr )
-   {
+   if( tmpDC == nullptr ) {
       ReleaseDC(hmg_par_HWND(1), imgDC);
       hb_retl(false);
    }
 
-   if( himgbmp != 0 )
-   {
+   if( himgbmp != 0 ) {
       DeleteObject(himgbmp);
    }
 
@@ -2248,12 +1994,9 @@ HB_FUNC( RR_PREVIEWPLAY )
    SendMessage(hmg_par_HWND(1), STM_SETIMAGE, IMAGE_BITMAP, reinterpret_cast<LPARAM>(himgbmp));
    ReleaseDC(hmg_par_HWND(1), imgDC);
    DeleteDC(tmpDC);
-   if( himgbmp == 0 )
-   {
+   if( himgbmp == 0 ) {
       hb_retl(false);
-   }
-   else
-   {
+   } else {
       hb_retl(true);
    }
 }
@@ -2313,13 +2056,10 @@ HB_FUNC( RR_PLAYENHMETAFILE )
 
 HB_FUNC( RR_LALABYE )
 {
-   if( hb_parni(1) == 1 )
-   {
+   if( hb_parni(1) == 1 ) {
       hDCtemp = hDC;
       hDC     = hDCRef;
-   }
-   else
-   {
+   } else {
       hDC = hDCtemp;
    }
 }
