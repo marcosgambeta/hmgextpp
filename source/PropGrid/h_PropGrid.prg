@@ -606,7 +606,7 @@ FUNCTION PgCheckData(typePG, cValue, aData, mod)
    CASE PG_USERFUN
       IF SubStr(AllTrim(aData), 1, 1) != "{"
          aData := "{|x| " + aData + " }"
-         IF ValType(&aData) != "B"
+         IF !hb_isBlock(&aData)
             cErr := _HMG_PGLangError[6] + " USERFUN " + _HMG_PGLangError[2]
             ret := .F.
          ENDIF
@@ -653,7 +653,7 @@ FUNCTION PgCheckData(typePG, cValue, aData, mod)
       TOKENEXIT()
       EXIT
    CASE PG_SYSINFO
-      IF ValType(aData) != "B"
+      IF !hb_isBlock(aData)
          IF At("SYSTEM", aData) == 0
             IF At("USERHOME", aData) == 0
                IF At("USERID", aData) == 0

@@ -434,7 +434,7 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
       lSalida := .F.
    ELSE
       FOR i := 1 TO Len(aOpciones)
-         IF !hb_isChar(aOpciones[i, ABM_OPC_TEXTO]) .OR. ValType(aOpciones[i, ABM_OPC_BLOQUE]) != "B"
+         IF !hb_isChar(aOpciones[i, ABM_OPC_TEXTO]) .OR. !hb_isBlock(aOpciones[i, ABM_OPC_BLOQUE])
             lSalida := .F.
             EXIT
          ENDIF

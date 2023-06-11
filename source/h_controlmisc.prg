@@ -6166,7 +6166,7 @@ PROCEDURE FindTextDlg(OnActionCodeBlock, cFind, lNoUpDown, lNoMatchCase, lNoWhol
 
    LOCAL cReplace := NIL
 
-   IF ValType(OnActionCodeBlock) != "B"
+   IF !hb_isBlock(OnActionCodeBlock)
       OnActionCodeBlock := {||NIL}
    ENDIF
 
@@ -6196,7 +6196,7 @@ PROCEDURE ReplaceTextDlg(OnActionCodeBlock, cFind, cReplace, lNoMatchCase, lNoWh
    LOCAL lNoUpDown := NIL
    LOCAL lCheckDown := NIL
 
-   IF ValType(OnActionCodeBlock) != "B"
+   IF !hb_isBlock(OnActionCodeBlock)
       OnActionCodeBlock := {||NIL}
    ENDIF
 

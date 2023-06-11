@@ -825,7 +825,7 @@ FUNCTION ButtonPageDlgProc(hwndDlg, Msg, IdDlg, nPage)
       EXIT
    CASE PSN_QUERYCANCEL
       IF _HMG_ActivePropSheetWizard
-         IF ValType(_HMG_CancelPropSheetProcedure) != "B"
+         IF !hb_isBlock(_HMG_CancelPropSheetProcedure)
             lRet := MsgYesNo("Are you sure you want to Quit?", GetWindowText(GetActiveWindow()))
          ELSE
             lRet := RetValue(Eval(_HMG_CancelPropSheetProcedure, hwndDlg, idDlg, nPage), lRet)

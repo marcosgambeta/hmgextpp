@@ -262,14 +262,14 @@ FUNCTION ABM(cArea, cTitulo, aCampos, aEditables, bGuardar, bBuscar)
    ENDIF
 
    // Bloque de codigo de la acción guardar.--------------------------------------
-   IF ValType(bGuardar) != "B"
+   IF !hb_isBlock(bGuardar)
       _bGuardar := NIL
    ELSE
       _bGuardar := bGuardar
    ENDIF
 
    // Bloque de código de la acción buscar.---------------------------------------
-   IF ValType(bBuscar) != "B"
+   IF !hb_isBlock(bBuscar)
       _bBuscar := NIL
    ELSE
       _bBuscar := bBuscar
@@ -639,7 +639,7 @@ STATIC FUNCTION ABMEventos(nEvento)
       EXIT
 
    CASE ABM_EVENTO_BUSCAR // Pulsación del botón BUSCAR.-----------------------------------------
-      IF ValType(_bBuscar) != "B"
+      IF !hb_isBlock(_bBuscar)
          IF Empty((_cArea)->(ordSetFocus()))
             MsgExclamation(_HMG_aABMLangUser[2])
          ELSE
@@ -695,7 +695,7 @@ STATIC FUNCTION ABMEventos(nEvento)
       EXIT
 
    CASE ABM_EVENTO_GUARDAR // Pulsación del botón GUARDAR.----------------------------------------
-      IF ValType(_bGuardar) != "B"
+      IF !hb_isBlock(_bGuardar)
          // Guarda el registro.
          IF !_lEditar
             (_cArea)->(dbAppend())
