@@ -826,7 +826,7 @@ FUNCTION BT_HMGSetImage(cFormName, cControlName, hBitmap, lReleasePreviousBitmap
    MEMVAR _HMG_SYSDATA
 #endif
 
-   IF ValType(lReleasePreviousBitmap) != "L"
+   IF !hb_isLogical(lReleasePreviousBitmap)
       lReleasePreviousBitmap := .T.
    ENDIF
 

@@ -416,11 +416,11 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
    nPaperWidth  := aLayout[3]
    nPaperHeight := aLayout[4]
 
-   IF ValType(lPreview) != "L"
+   IF !hb_isLogical(lPreview)
       lPreview := .F.
    ENDIF
 
-   IF ValType(lSelect) != "L"
+   IF !hb_isLogical(lSelect)
       lSelect := .F.
    ENDIF
 

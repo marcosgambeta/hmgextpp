@@ -382,7 +382,7 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
          lSalida := .F.
       ELSE
          FOR i := 1 TO Len(aVisibleEnTabla)
-            IF ValType(aVisibleEnTabla[i]) != "L"
+            IF !hb_isLogical(aVisibleEnTabla[i])
                lSalida := .F.
                EXIT
             ENDIF
@@ -407,7 +407,7 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
          lSalida := .F.
       ELSE
          FOR i := 1 TO Len(aEditable)
-            IF ValType(aEditable[i]) != "L"
+            IF !hb_isLogical(aEditable[i])
                lSalida := .F.
                EXIT
             ENDIF
@@ -773,7 +773,7 @@ STATIC FUNCTION ABM2Redibuja(lTabla)
    LOCAL lDeleted /*as logical*/
 
    // ------- Control de parámetros.----------------------------------------------
-   IF ValType(lTabla) != "L"
+   IF !hb_isLogical(lTabla)
       lTabla := .F.
    ENDIF
 
@@ -886,7 +886,7 @@ STATIC FUNCTION ABM2Editar( lNuevo )
    LOCAL nAnchoControl /*as numeric*/
 
    // ------- Control de parámetros.----------------------------------------------
-   IF ValType(lNuevo) != "L"
+   IF !hb_isLogical(lNuevo)
       lNuevo := .T.
    ENDIF
 
@@ -1211,7 +1211,7 @@ STATIC FUNCTION ABM2EditarGuardar( lNuevo )
          AAdd(aValores, xValor)
       NEXT
       lResultado := Eval(_bGuardar, aValores, lNuevo)
-      IF ValType(lResultado) != "L"
+      IF !hb_isLogical(lResultado)
          lResultado := .T.
       ENDIF
 

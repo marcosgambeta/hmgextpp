@@ -253,7 +253,7 @@ FUNCTION ABM(cArea, cTitulo, aCampos, aEditables, bGuardar, bBuscar)
       NEXT nItem
    ELSE
       FOR nItem := 1 TO nCampos
-         IF ValType(aEditables[nItem]) != "L"
+         IF !hb_isLogical(aEditables[nItem])
             _aEditables[nItem] := .T.
          ELSE
             _aEditables[nItem] := aEditables[nItem]
@@ -719,7 +719,7 @@ STATIC FUNCTION ABMEventos(nEvento)
             AAdd(aValores, GetProperty("wndABM", _HMG_aControles[nItem, 1], "Value"))
          NEXT nItem
          lGuardar := Eval(_bGuardar, aValores, _lEditar)
-         lGuardar := iif(ValType(lGuardar) != "L", .T., lGuardar)
+         lGuardar := iif(!hb_isLogical(lGuardar), .T., lGuardar)
          IF lGuardar
             (_cArea)->(dbCommit())
             // Refresca el browse.

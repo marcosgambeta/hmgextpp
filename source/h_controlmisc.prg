@@ -6170,15 +6170,15 @@ PROCEDURE FindTextDlg(OnActionCodeBlock, cFind, lNoUpDown, lNoMatchCase, lNoWhol
       OnActionCodeBlock := {||NIL}
    ENDIF
 
-   IF ValType(lCheckDown) != "L"
+   IF !hb_isLogical(lCheckDown)
       lCheckDown := .T.
    ENDIF
 
-   IF ValType(lCheckMatchCase) != "L"
+   IF !hb_isLogical(lCheckMatchCase)
       lCheckMatchCase := .F.
    ENDIF
 
-   IF ValType(lCheckWholeWord) != "L"
+   IF !hb_isLogical(lCheckWholeWord)
       lCheckWholeWord := .F.
    ENDIF
 
@@ -6200,11 +6200,11 @@ PROCEDURE ReplaceTextDlg(OnActionCodeBlock, cFind, cReplace, lNoMatchCase, lNoWh
       OnActionCodeBlock := {||NIL}
    ENDIF
 
-   IF ValType(lCheckMatchCase) != "L"
+   IF !hb_isLogical(lCheckMatchCase)
       lCheckMatchCase := .F.
    ENDIF
 
-   IF ValType(lCheckWholeWord) != "L"
+   IF !hb_isLogical(lCheckWholeWord)
       lCheckWholeWord := .F.
    ENDIF
 

@@ -2414,7 +2414,7 @@ METHOD AddSuperHead(nFromCol, nToCol, uHead, nHeight, aColors, l3dLook, uFont, u
       ENDIF
    ENDIF
 
-   IF uBitMap != NIL .AND. ValType(uBitMap) != "L"
+   IF uBitMap != NIL .AND. !hb_isLogical(uBitMap)
 
       DEFAULT lNoLines := .T.
       cHeading := iif(hb_IsBlock(uBitMap), Eval(uBitMap), uBitMap)

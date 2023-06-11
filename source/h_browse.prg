@@ -540,7 +540,7 @@ PROCEDURE HMG_SetOrder( nColumn, lDescend )
 
       ListView_SetSortHeader( _BrowseHandle, nOrder, 0, _HMG_IsThemed )
 
-      IF ValType(lDescend) != "L"
+      IF !hb_isLogical(lDescend)
          lDescend := iif(nOrder == nColumn, !ordDescend(nOrder), .F.)
       ENDIF
 
