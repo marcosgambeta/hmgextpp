@@ -5934,7 +5934,7 @@ STATIC FUNCTION _ProgressWheel_GetProperty(xData, Arg1, Arg2, Arg3)
 
    LOCAL RetVal := .F.
 
-   IF (ValType(Arg1) != "C") .OR. (ValType(Arg2) != "C") .OR. (ValType(Arg3) != "C") .OR. (_IsControlDefined(Arg2, Arg1) == .F.) .OR. (GetControlType(Arg2, Arg1) != CONTROL_TYPE_PROGRESSWHEEL)
+   IF !hb_isChar(Arg1) .OR. !hb_isChar(Arg2) .OR. !hb_isChar(Arg3) .OR. (_IsControlDefined(Arg2, Arg1) == .F.) .OR. (GetControlType(Arg2, Arg1) != CONTROL_TYPE_PROGRESSWHEEL)
       RETURN .F.
    ENDIF
 
@@ -5960,7 +5960,7 @@ STATIC FUNCTION _ProgressWheel_SetProperty(Arg1, Arg2, Arg3, Arg4)
 
    LOCAL RetVal := .F.
 
-   IF (ValType(Arg1) != "C") .OR. (ValType(Arg2) != "C") .OR. (ValType(Arg3) != "C") .OR. (_IsControlDefined(Arg2, Arg1) == .F.) .OR. (GetControlType(Arg2, Arg1) != CONTROL_TYPE_PROGRESSWHEEL)
+   IF !hb_isChar(Arg1) .OR. !hb_isChar(Arg2) .OR. !hb_isChar(Arg3) .OR. (_IsControlDefined(Arg2, Arg1) == .F.) .OR. (GetControlType(Arg2, Arg1) != CONTROL_TYPE_PROGRESSWHEEL)
       RETURN .F.
    ENDIF
 
@@ -6124,7 +6124,7 @@ STATIC FUNCTION _SetArrayToControl(ControlName, ParentForm, aValue)  // GF 03/30
       EXIT
 
    CASE CONTROL_TYPE_COMBO
-      IF ValType(_HMG_aControlSpacing[i]) != "C" .AND. _HMG_aControlMiscData1[i][1] != 1
+      IF !hb_isChar(_HMG_aControlSpacing[i]) .AND. _HMG_aControlMiscData1[i][1] != 1
          _HMG_aControlMiscData1[i][4] := aValue
          _Refresh(i)
       ENDIF
@@ -6245,7 +6245,7 @@ STATIC FUNCTION _RichEditBox_GetProperty(xData, Arg1, Arg2, Arg3, Arg4, Arg5, Ar
    LOCAL nDenominator
    LOCAL RetVal := .F.
 
-   IF (ValType(Arg1) != "C") .OR. (ValType(Arg2) != "C") .OR. (ValType(Arg3) != "C") .OR. ;
+   IF !hb_isChar(Arg1) .OR. !hb_isChar(Arg2) .OR. !hb_isChar(Arg3) .OR. ;
       (_IsControlDefined(Arg2, Arg1) == .F.) .OR. (GetControlType(Arg2, Arg1) != CONTROL_TYPE_RICHEDIT) .OR. (_HMG_aControlMiscData1[GetControlIndex(Arg2, Arg1)] != 1)
       RETURN .F.
    ENDIF
@@ -6328,7 +6328,7 @@ STATIC FUNCTION _RichEditBox_SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg
    LOCAL nDenominator
    LOCAL RetVal := .F.
 
-   IF (ValType(Arg1) != "C") .OR. (ValType(Arg2) != "C") .OR. (ValType(Arg3) != "C") .OR. ;
+   IF !hb_isChar(Arg1) .OR. !hb_isChar(Arg2) .OR. !hb_isChar(Arg3) .OR. ;
       (_IsControlDefined(Arg2, Arg1) == .F.) .OR. (GetControlType(Arg2, Arg1) != CONTROL_TYPE_RICHEDIT) .OR. (_HMG_aControlMiscData1[GetControlIndex(Arg2, Arg1)] != 1)
       RETURN .F.
    ENDIF
@@ -6393,7 +6393,7 @@ STATIC FUNCTION _RichEditBox_DoMethod(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, 
    LOCAL RetVal := .F.
    LOCAL hWndControl
 
-   IF (ValType(Arg1) != "C") .OR. (ValType(Arg2) != "C") .OR. (ValType(Arg3) != "C") .OR. ;
+   IF !hb_isChar(Arg1) .OR. !hb_isChar(Arg2) .OR. !hb_isChar(Arg3) .OR. ;
       (_IsControlDefined(Arg2, Arg1) == .F.) .OR. (GetControlType(Arg2, Arg1) != CONTROL_TYPE_RICHEDIT) .OR. (_HMG_aControlMiscData1[GetControlIndex(Arg2, Arg1)] != 1)
       RETURN .F.
    ENDIF

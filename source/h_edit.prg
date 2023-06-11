@@ -207,7 +207,7 @@ FUNCTION ABM(cArea, cTitulo, aCampos, aEditables, bGuardar, bBuscar)
 
    // Control de parámetros.
    // Area de la base de datos.---------------------------------------------------
-   IF (ValType(cArea) != "C") .OR. Empty(cArea)
+   IF !hb_isChar(cArea) .OR. Empty(cArea)
       MsgMiniGUIError(_HMG_aABMLangError[1])
    ELSE
       _cArea := cArea
@@ -221,7 +221,7 @@ FUNCTION ABM(cArea, cTitulo, aCampos, aEditables, bGuardar, bBuscar)
    ENDIF
 
    // Titulo de la ventana.-------------------------------------------------------
-   IF (ValType(cTitulo) != "C") .OR. Empty(cTitulo)
+   IF !hb_isChar(cTitulo) .OR. Empty(cTitulo)
       _cTitulo := cArea
    ELSE
       _cTitulo := cTitulo
@@ -236,7 +236,7 @@ FUNCTION ABM(cArea, cTitulo, aCampos, aEditables, bGuardar, bBuscar)
       NEXT nItem
    ELSE
       FOR nItem := 1 TO nCampos
-         IF ValType(aCampos[nItem]) != "C"
+         IF !hb_isChar(aCampos[nItem])
             _aCampos[nItem] := Lower(_aEstructura[nItem, 1])
          ELSE
             _aCampos[nItem] := aCampos[nItem]

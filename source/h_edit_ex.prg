@@ -293,7 +293,7 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
 
    // ------- Control de parámetros.----------------------------------------------
    // Area de la base de datos.
-   IF ValType(cArea) != "C" .OR. Empty(cArea)
+   IF !hb_isChar(cArea) .OR. Empty(cArea)
       _cArea := Alias()
       IF _cArea == ""
          AlertExclamation( _HMG_aLangUser[1], "EDIT EXTENDED" )
@@ -306,7 +306,7 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
    nEstructura := Len(_aEstructura)
 
    // Título de la ventana.
-   IF Empty(cTitulo) .OR. ValType(cTitulo) != "C"
+   IF Empty(cTitulo) .OR. !hb_isChar(cTitulo)
       _cTitulo := _cArea
    ELSE
       _cTitulo := cTitulo
@@ -321,7 +321,7 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
          lSalida := .F.
       ELSE
          FOR i := 1 TO Len(aNombreCampo)
-            IF ValType(aNombreCampo[i]) != "C"
+            IF !hb_isChar(aNombreCampo[i])
                lSalida := .F.
                EXIT
             ENDIF
@@ -346,7 +346,7 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
          lSalida := .F.
       ELSE
          FOR i := 1 TO Len(aAvisoCampo)
-            IF ValType(aAvisoCampo[i]) != "C"
+            IF !hb_isChar(aAvisoCampo[i])
                lSalida := .F.
                EXIT
             ENDIF
@@ -434,7 +434,7 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
       lSalida := .F.
    ELSE
       FOR i := 1 TO Len(aOpciones)
-         IF ValType(aOpciones[i, ABM_OPC_TEXTO]) != "C" .OR. ValType(aOpciones[i, ABM_OPC_BLOQUE]) != "B"
+         IF !hb_isChar(aOpciones[i, ABM_OPC_TEXTO]) .OR. ValType(aOpciones[i, ABM_OPC_BLOQUE]) != "B"
             lSalida := .F.
             EXIT
          ENDIF

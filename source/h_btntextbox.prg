@@ -296,7 +296,7 @@ FUNCTION _DefineBtnTextBox(ControlName, ParentFormName, x, y, w, h, ;
    IF !lDialogInMemory
       // With NUMERIC clause, transform numeric value into a string.
       IF lNumeric
-         IF ValType(cValue) != "C"
+         IF !hb_isChar(cValue)
             cValue := hb_ntos(cValue)
          ENDIF
       ENDIF
@@ -353,7 +353,7 @@ FUNCTION InitDialogBtnTextBox(ParentName, ControlHandle, k)
 
 // With NUMERIC clause, transform numeric value into a string.
    IF lNumeric
-      IF ValType(cValue) != "C"
+      IF !hb_isChar(cValue)
          cValue := hb_ntos(cValue)
       ENDIF
    ENDIF

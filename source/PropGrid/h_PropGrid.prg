@@ -533,7 +533,7 @@ FUNCTION PgCheckData(typePG, cValue, aData, mod)
 
    SWITCH typePG
    CASE PG_STRING
-      IF ValType(cValue) != "C"
+      IF !hb_isChar(cValue)
          cErr := _HMG_PGLangError[4] + " STRING " + _HMG_PGLangError[2]
          ret := .F.
       ENDIF
@@ -1174,7 +1174,7 @@ FUNCTION PgGetSysInfo( aRowIt )
 
    IF hb_IsBlock(aRowIt[APG_DATA])
       cDan := Eval(aRowIt[APG_DATA])
-      IF ValType(cDan) != "C"
+      IF !hb_isChar(cDan)
          cDan := aRowIt[APG_VALUE]
       ENDIF
    ELSE

@@ -254,7 +254,7 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
       ENDIF
    ENDIF
 
-   IF ValType(aRGB) != "C" .AND. IsArrayRGB(aRGB) == .F.
+   IF !hb_isChar(aRGB) .AND. IsArrayRGB(aRGB) == .F.
       aRGB := {-1, -1, -1}
    ENDIF
 
@@ -508,7 +508,7 @@ FUNCTION _DefineModalWindow(FormName, Caption, x, y, w, h, Parent, nosize, nosys
       ENDIF
    ENDIF
 
-   IF ValType(aRGB) != "C" .AND. IsArrayRGB(aRGB) == .F.
+   IF !hb_isChar(aRGB) .AND. IsArrayRGB(aRGB) == .F.
       aRGB := {-1, -1, -1}
    ENDIF
 

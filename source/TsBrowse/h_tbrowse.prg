@@ -2829,7 +2829,7 @@ METHOD Default() CLASS TSBrowse
          nTxtWid := SBGetHeight(::hWnd, hFont, 1)
 
          FOR nI := 1 TO nElements
-            ::aColSizes[nI] := iif(ValType(aFields[nI]) != "C", 16, /* Bitmap handle */ (nTxtWid * Max(Len(::aHeaders[nI]), Len(aFields[nI])) + 1))
+            ::aColSizes[nI] := iif(!hb_isChar(aFields[nI]), 16, /* Bitmap handle */ (nTxtWid * Max(Len(::aHeaders[nI]), Len(aFields[nI])) + 1))
          NEXT
 
       ENDIF
@@ -3759,7 +3759,7 @@ METHOD DrawHeaders(lFooters, lDrawCell) CLASS TSBrowse
             cHeading := iif(hb_IsBlock(oColumn:cSpcHeading), Eval(oColumn:cSpcHeading, nJ, Self), oColumn:cSpcHeading)
             uTmp := cHeading
             IF Empty(oColumn:cPicture)
-               cHeading := iif(ValType(cHeading) != "C", cValToChar(cHeading), cHeading)
+               cHeading := iif(!hb_isChar(cHeading), cValToChar(cHeading), cHeading)
             ELSE
                cHeading := iif(cHeading == NIL, "", Transform(cHeading, oColumn:cPicture))
             ENDIF
@@ -4234,7 +4234,7 @@ METHOD DrawLine(xRow, lDrawCell) CLASS TSBrowse
          ELSEIF lCell
             uData := oCell:cValue
          ELSEIF Empty(cPicture) .OR. lMultiLine
-            IF ValType(uData) != "C"
+            IF !hb_isChar(uData)
                IF hb_IsLogical(uData)
                   uData := ::aMsg[iif(uData, 1, 2)]
                ELSE
@@ -4778,7 +4778,7 @@ METHOD DrawSelect(xRow, lDrawCell) CLASS TSBrowse
             ELSEIF lCell
                uData := oCell:cValue
             ELSEIF Empty(cPicture) .OR. lMulti
-               IF ValType(uData) != "C"
+               IF !hb_isChar(uData)
                   IF hb_IsLogical(uData)
                      uData := ::aMsg[iif(uData, 1, 2)]
                   ELSE
@@ -6374,7 +6374,7 @@ METHOD Excel2(cFile, lActivate, hProgress, cTitle, lSave, bPrintRow) CLASS TSBro
 
             uData := iif(hb_IsBlock(::aColumns[nCol]:cHeading), Eval(::aColumns[nCol]:cHeading, nCol, Self), ::aColumns[nCol]:cHeading)
 
-            IF ValType(uData) != "C"
+            IF !hb_isChar(uData)
                LOOP
             ENDIF
 
@@ -6467,7 +6467,7 @@ METHOD Excel2(cFile, lActivate, hProgress, cTitle, lSave, bPrintRow) CLASS TSBro
 
          uData := iif(hb_IsBlock(::aColumns[nCol]:cFooting), Eval(::aColumns[nCol]:cFooting, nCol, Self), ::aColumns[nCol]:cFooting)
 
-         IF ValType(uData) != "C"
+         IF !hb_isChar(uData)
             uData := " "
          ENDIF
 
@@ -6704,7 +6704,7 @@ METHOD ExcelOle(cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, bExtern, a
 
             uData := iif(hb_IsBlock(::aColumns[nCol]:cHeading), Eval(::aColumns[nCol]:cHeading), ::aColumns[nCol]:cHeading)
 
-            IF ValType(uData) != "C"
+            IF !hb_isChar(uData)
                LOOP
             ENDIF
 
@@ -10533,7 +10533,7 @@ METHOD LoadRecordSet() CLASS TSBrowse
       IF nWidth == NIL
          cData := ::oRSet:Fields(nE):Value
          cType := ClipperFieldType(nType := ::oRSet:Fields(nE):Type)
-         IF ValType(cType) != "C"
+         IF !hb_isChar(cType)
             // msginfo(::oRSet:Fields(nE):Name, cType)
             LOOP
          ENDIF
@@ -13919,7 +13919,7 @@ METHOD SetColumns(aData, aHeaders, aColSizes) CLASS TSBrowse
       aFields := Eval(::bLine)
 
       FOR n := 1 TO nElements
-         ::aColSizes[n] := iif(ValType(aFields[n]) != "C", 16, ; // Bitmap handle
+         ::aColSizes[n] := iif(!hb_isChar(aFields[n]), 16, ; // Bitmap handle
          GetTextWidth(0, Replicate("B", Max(Len(::aHeaders[n]), Len(aFields[n])) + 1), iif(!Empty(::hFont), ::hFont, 0)))
       NEXT
    ENDIF
@@ -14783,7 +14783,7 @@ METHOD SetSelectMode(lOnOff, bSelected, uBmpSel, nColSel, nAlign) CLASS TSBrowse
 
    IF ::lCanSelect .AND. uBmpSel != NIL
 
-      IF ValType(uBmpSel) != "C"
+      IF !hb_isChar(uBmpSel)
          ::uBmpSel := uBmpSel
       ELSE
          ::uBmpSel := LoadImage(uBmpSel)

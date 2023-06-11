@@ -131,7 +131,7 @@ METHOD Default() CLASS TBtnBox
    LOCAL cValue
  
    cValue := Eval(::bSetGet)
-   If Valtype(cValue) != "C"
+   If !hb_isChar(cValue)
       cValue := cValToChar( cValue )
    EndIf
 
