@@ -117,7 +117,7 @@ FUNCTION MdiEvents(hWnd, nMsg, wParam, lParam)
 #endif
 
    CASE WM_MDIACTIVATE
-      IF _HMG_MdiChildActive == .F.
+      IF !_HMG_MdiChildActive
          i := AScan(_HMG_aFormHandles, hWnd)
          IF i > 0
             _DoWindowEventProcedure(_HMG_aFormClickProcedure[i], i)
@@ -133,7 +133,7 @@ FUNCTION MdiEvents(hWnd, nMsg, wParam, lParam)
       RETURN 0
 
    CASE WM_MOVE
-      IF _HMG_MdiChildActive == .F.
+      IF !_HMG_MdiChildActive
          i := AScan(_HMG_aFormhandles, hWnd)
          IF i > 0
             _DoWindowEventProcedure(_HMG_aFormMoveProcedure[i], i)
@@ -142,7 +142,7 @@ FUNCTION MdiEvents(hWnd, nMsg, wParam, lParam)
       EXIT
 
    CASE WM_SIZE
-      IF _HMG_MdiChildActive == .F.
+      IF !_HMG_MdiChildActive
          i := AScan(_HMG_aFormHandles, hWnd)
          IF i > 0
             IF wParam == SIZE_MAXIMIZED
@@ -310,7 +310,7 @@ FUNCTION _DefineChildMDIWindow(FormName, x, y, w, h, nominimize, nomaximize, ;
       MsgMiniGuiError("Window: " + FormName + " already defined.")
    ENDIF
 
-   IF _HMG_BeginWindowMDIActive == .F.
+   IF !_HMG_BeginWindowMDIActive
       MsgMiniGuiError("MdiChild Windows can be defined only inside MDI Window.")
    ENDIF
 
@@ -470,7 +470,7 @@ FUNCTION _ActivateMdiWindow(FormName)
          MsgMiniGUIError(Formname + ": Non Modal Windows can't be activated when a modal window is active.")
       ENDIF
 
-      IF _HMG_aFormNoShow[i] == .F.
+      IF !_HMG_aFormNoShow[i]
          ShowWindow(GetFormHandle(FormName))
          IF _HMG_ProgrammaticChange
             SetFocus(_HMG_MainClientMDIHandle)  // BK 26-Apr-2012
@@ -482,7 +482,7 @@ FUNCTION _ActivateMdiWindow(FormName)
       _ProcessInitProcedure(i)
       _RefreshDataControls(i)
 
-      IF _SetFocusedSplitChild(i) == .F.
+      IF !_SetFocusedSplitChild(i)
          _SetActivationFocus(i)
       ENDIF
 

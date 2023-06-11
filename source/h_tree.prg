@@ -422,7 +422,7 @@ FUNCTION InitDialogTree(ParentName, ControlHandle, k)
 
    IF _HMG_ActiveTreeValue > 0
 
-      IF _HMG_ActiveTreeItemIds == .F.
+      IF !_HMG_ActiveTreeItemIds
          TreeView_SelectItem ( _HMG_ActiveTreeHandle, _HMG_aTreeMap[ _HMG_ActiveTreeValue ] )
       ELSE
          TreeView_SelectItem ( _HMG_ActiveTreeHandle, _HMG_aTreeMap[ AScan(_HMG_aTreeIdMap, _HMG_ActiveTreeValue) ] )
@@ -534,7 +534,7 @@ FUNCTION _EndTree()
 
       IF _HMG_ActiveTreeValue > 0
 
-         IF _HMG_ActiveTreeItemIds == .F.
+         IF !_HMG_ActiveTreeItemIds
             TreeView_SelectItem ( _HMG_ActiveTreeHandle, _HMG_aTreeMap[ _HMG_ActiveTreeValue ] )
          ELSE
             TreeView_SelectItem ( _HMG_ActiveTreeHandle, _HMG_aTreeMap[ AScan(_HMG_aTreeIdMap, _HMG_ActiveTreeValue) ] )
@@ -590,7 +590,7 @@ STATIC FUNCTION TreeItemGetHandle(ControlName, ParentForm, Item)
 
    IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0
 
-      IF _HMG_aControlInputMask[i] == .F.
+      IF !_HMG_aControlInputMask[i]
          IF Item <= Len(_HMG_aControlPageMap[i])
             ItemHandle := _HMG_aControlPageMap[i][ Item ]
          ENDIF
@@ -637,7 +637,7 @@ FUNCTION TreeItemGetRootValue ( ControlName, ParentForm )
    LOCAL i
 
    IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0 .AND. ItemHandle != 0
-      IF _HMG_aControlInputMask[i] == .F.
+      IF !_HMG_aControlInputMask[i]
          nPos := AScan(_HMG_aControlPageMap[i], ItemHandle)
          RETURN nPos
       ELSE
@@ -659,7 +659,7 @@ FUNCTION TreeItemGetParentValue ( ControlName , ParentForm , nItem )
    LOCAL i
 
    IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0 .AND. ItemHandle != 0
-      IF _HMG_aControlInputMask[i] == .F.
+      IF !_HMG_aControlInputMask[i]
          nPos := AScan(_HMG_aControlPageMap[i], ItemHandle)
          RETURN nPos
       ELSE
@@ -679,7 +679,7 @@ FUNCTION TreeItemGetFirstItemValue ( ControlName, ParentForm )
    LOCAL nPos := 1
 
    IF GetProperty ( ParentForm, ControlName, "ItemCount" ) > 0
-      IF _HMG_aControlInputMask [nIndex] == .F.
+      IF !_HMG_aControlInputMask [nIndex]
          RETURN nPos
       ELSE
          nID := _HMG_aControlPicture [nIndex][nPos]
@@ -761,7 +761,7 @@ FUNCTION TreeNodeItemCargo( ControlName, ParentForm, Item, Value )
 
    IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0
 
-      IF _HMG_aControlInputMask[i] == .F.
+      IF !_HMG_aControlInputMask[i]
 
          IF Item > 0 .AND. Item <= Len(_HMG_aControlHeadClick[i])
             xData := _HMG_aControlHeadClick[i][ Item ]

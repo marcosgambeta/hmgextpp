@@ -289,7 +289,7 @@ FUNCTION OBTNEVENTS(hWnd, nMsg, wParam, lParam)
             RC_CURSOR("MINIGUI_FINGER")
          ENDIF
 
-         IF lParam == .F.
+         IF !lParam
 
             _HMG_aControlRangeMax[i][2] := .T.
 
@@ -430,7 +430,7 @@ FUNCTION OwnButtonPaint(pdis)
 
    aGradient := _HMG_aControlValue[i]
    lGradient := (hb_IsArray(aGradient) .AND. !Empty(_HMG_aControlBkColor[i]))
-   lvertical := (_HMG_aControlRangeMin[i] == .F.)
+   lvertical := !_HMG_aControlRangeMin[i]
 
    IF !lnoxpstyle .AND. _HMG_IsThemed .AND. !lGradient
 

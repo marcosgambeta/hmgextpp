@@ -333,7 +333,7 @@ FUNCTION EraseWindow(window)
    LOCAL i
 
    IF ( i := GetFormIndex ( Window ) ) > 0
-      IF _HMG_aFormDeleted[i] == .F.
+      IF !_HMG_aFormDeleted[i]
          IF hb_IsArray(_HMG_aFormGraphTasks[i])
             ASize(_HMG_aFormGraphTasks[i], 0)
             RedrawWindow(_HMG_aFormHandles[i])

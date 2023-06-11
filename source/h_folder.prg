@@ -617,7 +617,7 @@ FUNCTION FolderProc(hwndDlg, nMsg, wParam, lParam)
             ret := .T.
          ENDIF
       ENDIF
-      IF ret == .F.
+      IF !ret
          ControlHandle := GetDialogITemHandle(hwndDlg, LOWORD(wParam))
          Events(hwndDlg, nMsg, wParam, ControlHandle)
          ret := .T.
@@ -691,7 +691,7 @@ FUNCTION PageFldProc(hWndDlg, nMsg, wParam, lParam)
             ENDIF
          ENDIF
       ENDIF
-      IF lRet == .F.
+      IF !lRet
          IF GetDialogITemHandle(hwndDlg, LOWORD(wParam)) != 0
             Events(hwndDlg, nMsg, wParam, lParam)
             lRet := .T.
@@ -715,7 +715,7 @@ FUNCTION PageFldProc(hWndDlg, nMsg, wParam, lParam)
                lRet := .T.
             ENDIF
          ENDIF
-         IF lret == .F.
+         IF !lret
             ControlHandle := GetDialogITemHandle(hwndDlg, LOWORD(wParam))
             IF ControlHandle != 0
                Events(hwndDlg, nMsg, wParam, ControlHandle)
@@ -733,7 +733,7 @@ FUNCTION PageFldProc(hWndDlg, nMsg, wParam, lParam)
                   lRet := RetValue(Eval(_HMG_aFormInteractiveCloseProcedure[i], nMsg, LOWORD(wParam), HIWORD(wParam)), .F.)
                ENDIF
             ENDIF
-            IF lret == .F.
+            IF !lret
                ControlHandle := GetDialogITemHandle(hwndDlg, LOWORD(wParam))
                IF  ControlHandle != 0
                   Events(hwndDlg, nMsg, wParam, ControlHandle)
@@ -769,7 +769,7 @@ FUNCTION PageFldProc(hWndDlg, nMsg, wParam, lParam)
 
       ENDSWITCH
 
-      IF lRet == .F.
+      IF !lRet
          IF GetDialogITemHandle(hwndDlg, LOWORD(wParam)) != 0
             Events(hwndDlg, nMsg, wParam, lParam)
             lRet := .T.

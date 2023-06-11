@@ -1333,12 +1333,12 @@ METHOD Transpace(arg1,arg2,arg3) CLASS WREPORT // The core of parser
             elseif cdc < 1
                extfnc := .F.
             endif
-            if Pt == "," .AND. extFnc == .F. .AND. al1 == .F. .AND. opp < 1
+            if Pt == "," .AND. !extFnc .AND. !al1 .AND. opp < 1
                nr := substr(nr,1,len(nr)-1) + chr(07)
             endif
          else
-            if extFnc == .F.        //esterno a funzione
-               if al1 == .F.
+            if !extFnc        //esterno a funzione
+               if !al1
                   if opp < 1
                      nr += IIF(al2," ",chr(07)) //"/")
                   endif

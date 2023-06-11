@@ -426,7 +426,7 @@ FUNCTION DialogProc(hwndDlg, nMsg, wParam, lParam)
             ret := .T.
          ENDIF
       ENDIF
-      IF ret == .F.
+      IF !ret
          IF (ControlHandle := GetDialogITemHandle(hwndDlg,LOWORD(wParam))) == 0    //JP 66
             ControlHandle := lParam
          ENDIF

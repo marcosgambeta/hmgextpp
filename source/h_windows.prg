@@ -145,11 +145,11 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
 
    ENDIF
 #ifdef _PANEL_
-   IF hb_IsChar(cPanelParent) .AND. panel == .F.
+   IF hb_IsChar(cPanelParent) .AND. !panel
       MsgMiniGuiError("Parent can be specified only for Panel windows.")
    ENDIF
 
-   IF !Empty(_HMG_ActiveFormName) .AND. panel == .F. .AND. _HMG_ProgrammaticChange
+   IF !Empty(_HMG_ActiveFormName) .AND. !panel .AND. _HMG_ProgrammaticChange
       MsgMiniGuiError("Only Panel windows can be defined inside a DEFINE WINDOW...END WINDOW structure.")
    ENDIF
 #else
@@ -254,7 +254,7 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
       ENDIF
    ENDIF
 
-   IF !hb_isChar(aRGB) .AND. IsArrayRGB(aRGB) == .F.
+   IF !hb_isChar(aRGB) .AND. !IsArrayRGB(aRGB)
       aRGB := {-1, -1, -1}
    ENDIF
 
@@ -508,7 +508,7 @@ FUNCTION _DefineModalWindow(FormName, Caption, x, y, w, h, Parent, nosize, nosys
       ENDIF
    ENDIF
 
-   IF !hb_isChar(aRGB) .AND. IsArrayRGB(aRGB) == .F.
+   IF !hb_isChar(aRGB) .AND. !IsArrayRGB(aRGB)
       aRGB := {-1, -1, -1}
    ENDIF
 
@@ -663,7 +663,7 @@ FUNCTION _DefineSplitChildWindow(FormName, w, h, break, grippertext, nocaption, 
       MsgMiniGuiError("Window: " + FormName + " is already defined.")
    ENDIF
 
-   IF _HMG_ActiveSplitBox == .F.
+   IF !_HMG_ActiveSplitBox
       MsgMiniGuiError("SplitChild Windows can be defined only inside SplitBox.")
    ENDIF
 
@@ -715,7 +715,7 @@ FUNCTION _DefineSplitChildWindow(FormName, w, h, break, grippertext, nocaption, 
          SetWindowCursor(FormHandle, cursor)
       ENDIF
 
-      IF _HMG_SplitLastControl == "TOOLBAR" .AND. _HMG_ActiveSplitBoxInverted == .F.
+      IF _HMG_SplitLastControl == "TOOLBAR" .AND. !_HMG_ActiveSplitBoxInverted
          Break := .T.
       ENDIF
 
@@ -1208,8 +1208,8 @@ FUNCTION _ActivateWindow(aForm, lNoWait, lDebugger, bInit)
 
    IF _HMG_MainWindowFirst == .T.
       // Main Check
-      IF _HMG_MainActive == .F.
-         IF MainFound == .F.
+      IF !_HMG_MainActive
+         IF !MainFound
             MsgMiniGUIError("ACTIVATE WINDOW: Main Window must be activated in the first ACTIVATE WINDOW command.")
          ENDIF
       ELSE
@@ -1257,7 +1257,7 @@ FUNCTION _ActivateWindow(aForm, lNoWait, lDebugger, bInit)
             IF _HMG_aFormType[x] == "P" .AND. _HMG_aFormParentHandle[x] == _HMG_aFormHandles[i]
 
                // If NOSHOW Clause Is Not Specified, Show The Panel Window
-               IF _HMG_aFormNoShow[x] == .F.
+               IF !_HMG_aFormNoShow[x]
                   _ShowWindow(_HMG_aFormNames[x])
                ENDIF
 
@@ -1265,7 +1265,7 @@ FUNCTION _ActivateWindow(aForm, lNoWait, lDebugger, bInit)
                _ProcessInitProcedure(x)
                _RefreshDataControls(x)
 
-               IF _SetFocusedSplitChild(x) == .F.
+               IF !_SetFocusedSplitChild(x)
                   _SetActivationFocus(x)
                ENDIF
 
@@ -1274,7 +1274,7 @@ FUNCTION _ActivateWindow(aForm, lNoWait, lDebugger, bInit)
          NEXT x
 #endif
          // Only One Visible Modal is Allowed
-         IF _HMG_aFormType[i] == "M" .AND. _HMG_aFormNoShow[i] == .F.
+         IF _HMG_aFormType[i] == "M" .AND. !_HMG_aFormNoShow[i]
             VisibleModalName := _HMG_aFormNames[i]
             IF ++VisibleModalCount > 1
                MsgMiniGUIError("ACTIVATE WINDOW: Only one initially visible modal window is allowed.")
@@ -1285,7 +1285,7 @@ FUNCTION _ActivateWindow(aForm, lNoWait, lDebugger, bInit)
          _HMG_aFormActivateId[i] := TmpId
 
          // If NOSHOW Clause Is Not Specified, Show The Window
-         IF _HMG_aFormNoShow[i] == .F.
+         IF !_HMG_aFormNoShow[i]
             ShowWindow(_HMG_aFormHandles[i])
          ENDIF
 
@@ -1301,7 +1301,7 @@ FUNCTION _ActivateWindow(aForm, lNoWait, lDebugger, bInit)
       IF VisibleModalCount == 1
          _ShowWindow(VisibleModalName)
       ELSE
-         IF _SetFocusedSplitChild(i) == .F.
+         IF !_SetFocusedSplitChild(i)
             _SetActivationFocus(i)
          ENDIF
       ENDIF
@@ -1331,7 +1331,7 @@ FUNCTION _ActivateWindow(aForm, lNoWait, lDebugger, bInit)
          IF _HMG_aFormType[x] == "P" .AND. _HMG_aFormParentHandle[x] == _HMG_aFormHandles[i]
 
             // If NOSHOW Clause Is Not Specified, Show The Panel Window
-            IF _HMG_aFormNoShow[x] == .F.
+            IF !_HMG_aFormNoShow[x]
                _ShowWindow(_HMG_aFormNames[x])
             ENDIF
 
@@ -1339,7 +1339,7 @@ FUNCTION _ActivateWindow(aForm, lNoWait, lDebugger, bInit)
             _ProcessInitProcedure(x)
             _RefreshDataControls(x)
 
-            IF _SetFocusedSplitChild(x) == .F.
+            IF !_SetFocusedSplitChild(x)
                _SetActivationFocus(x)
             ENDIF
 
@@ -1366,11 +1366,11 @@ FUNCTION _ActivateWindow(aForm, lNoWait, lDebugger, bInit)
       ELSE
 
          // Non Modal Check
-         IF _HMG_IsModalActive .AND. lNoWait == .F.
+         IF _HMG_IsModalActive .AND. !lNoWait
             MsgMiniGUIError("Non Modal Window " + Formname + " can't be activated when a Modal window is active.")
          ENDIF
 
-         IF _HMG_aFormNoShow[i] == .F.
+         IF !_HMG_aFormNoShow[i]
             ShowWindow(GetFormHandle(FormName))
          ENDIF
 
@@ -1378,7 +1378,7 @@ FUNCTION _ActivateWindow(aForm, lNoWait, lDebugger, bInit)
          _ProcessInitProcedure(i)
          _RefreshDataControls(i)
 
-         IF _SetFocusedSplitChild(i) == .F.
+         IF !_SetFocusedSplitChild(i)
             _SetActivationFocus(i)
          ENDIF
 
@@ -1386,7 +1386,7 @@ FUNCTION _ActivateWindow(aForm, lNoWait, lDebugger, bInit)
 
    ENDIF
 
-   IF lNoWait == .F.
+   IF !lNoWait
       // Start The Message Loop
       DO MESSAGE LOOP
    ENDIF
@@ -1423,7 +1423,7 @@ FUNCTION _ActivateAllWindows(bInit)
 
       i := hb_enumindex(FormName)
 
-      IF _HMG_aFormDeleted[i] == .F.
+      IF !_HMG_aFormDeleted[i]
 
          IF !_HMG_aFormType[i] $ "XP"
 
@@ -1528,11 +1528,11 @@ PROCEDURE _SetActivationFlag(i)
 
          i := hb_enumindex(FormName)
 
-         IF _HMG_aFormDeleted[i] == .F.
+         IF !_HMG_aFormDeleted[i]
 
             IF !_HMG_aFormType[i] $ "AXP"
 
-               IF _HMG_aFormAutoRelease[i] == .F.
+               IF !_HMG_aFormAutoRelease[i]
                   NoAutoReleaseFound := .T.
                   EXIT
                ENDIF
@@ -1543,7 +1543,7 @@ PROCEDURE _SetActivationFlag(i)
 
       NEXT
 
-      IF NoAutoReleaseFound == .F. .AND. _HMG_AutoScroll
+      IF !NoAutoReleaseFound .AND. _HMG_AutoScroll
          iif(_HMG_IsXPorLater, KeyToggleNT(VK_INSERT), KeyToggle(VK_INSERT))
       ENDIF
 
@@ -1639,7 +1639,7 @@ PROCEDURE _SetActivationFocus(i)
 
    NEXT
 
-   IF FocusDefined == .F.
+   IF !FocusDefined
 
       FOR EACH hControl IN _HMG_aControlHandles
 
@@ -1672,7 +1672,7 @@ PROCEDURE _SetActivationFocus(i)
 
    ENDIF
 
-   IF FocusDefined == .F.
+   IF !FocusDefined
 
       IF (x := AScan(_HMG_aControlHandles, GetNextDlgTabItem(hParent, 0, .F.))) > 0 .OR. ;
          (x := AScan(_HMG_aControlHandles, {|x|iif(hb_IsArray(x), x[1] == GetNextDlgTabItem(hParent, 0, .F.), .F.)})) > 0
@@ -1720,14 +1720,14 @@ _hmg_OnHideFocusManagement(i)
 */
 PROCEDURE _hmg_OnHideFocusManagement(i)
 
-   LOCAL bEnableWindow := {|y, z|iif(_HMG_aFormDeleted[z] == .F., EnableWindow(_HMG_aFormhandles[z]),), HB_SYMBOL_UNUSED(y)}
+   LOCAL bEnableWindow := {|y, z|iif(!_HMG_aFormDeleted[z], EnableWindow(_HMG_aFormhandles[z]),), HB_SYMBOL_UNUSED(y)}
    LOCAL x
 
    IF _HMG_aFormParentHandle[i] == 0
 
       // Non Modal
 
-      IF _HMG_IsModalActive == .F.
+      IF !_HMG_IsModalActive
 
          AEval(_HMG_aFormHandles, bEnableWindow)
 
@@ -1803,7 +1803,7 @@ FUNCTION _DoControlEventProcedure(bBlock, i, cEventType, nParam, nParam2)
       _HMG_ThisFormName := _HMG_aFormNames[_HMG_ThisFormIndex]
       _HMG_ThisControlName := _HMG_aControlNames[_HMG_ThisIndex]
 
-      IF _HMG_BeginWindowActive == .F. .OR. !(hb_defaultValue(cEventType, "") == "CONTROL_ONCHANGE") .OR. _HMG_MainClientMDIHandle != 0
+      IF !_HMG_BeginWindowActive .OR. !(hb_defaultValue(cEventType, "") == "CONTROL_ONCHANGE") .OR. _HMG_MainClientMDIHandle != 0
          lRetVal := Eval(bBlock, hb_defaultValue(nParam, 0), nParam2)
       ENDIF
 
@@ -1913,7 +1913,7 @@ PROCEDURE VirtualChildControlFocusProcess(nControlHandle, nWindowHandle)
    LOCAL nNewScrollBarPos
    LOCAL x
 
-   IF _HMG_AutoScroll == .F. .OR. _HMG_AutoAdjust == .T.
+   IF !_HMG_AutoScroll .OR. _HMG_AutoAdjust == .T.
       RETURN
    ENDIF
 
@@ -2248,7 +2248,7 @@ FUNCTION ReleaseAllWindows()
 
       i := hb_enumindex(ControlType)
 
-      IF _HMG_aControlDeleted[i] == .F.
+      IF !_HMG_aControlDeleted[i]
 
          DO CASE
          CASE ControlType == CONTROL_TYPE_HOTKEY
@@ -2416,7 +2416,7 @@ FUNCTION _ShowWindow(FormName, lProcessMessages)
 
       EnableWindow(_HMG_aFormHandles[i])
 
-      IF _SetFocusedSplitChild(i) == .F.
+      IF !_SetFocusedSplitChild(i)
          _SetActivationFocus(i)
       ENDIF
 

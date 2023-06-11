@@ -515,7 +515,7 @@ FUNCTION _CreatePopUpChevron ( hWnd, wParam, lParam )
                SetChevronImage ( hMenu, aBtnInfo [2], hImage )
             ENDIF
 
-            IF lEnable == .F.
+            IF !lEnable
                xDisableMenuItem ( hMenu, aBtnInfo [2] )
             ENDIF
 

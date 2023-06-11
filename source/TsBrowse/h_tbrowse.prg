@@ -5413,7 +5413,7 @@ METHOD Edit(uVar, nCell, nKey, nKeyFlags, cPicture, bValid, nClrFore, nClrBack) 
       IF nKey != VK_RETURN .OR. !oCol:lCheckBoxNoReturn .OR. ::lCheckBoxAllReturn
 
          IF Upper(Chr(nKey)) $ "YCST1"
-            ::lChanged := (uVar == .F.)
+            ::lChanged := !uVar
             uVar := .T.
          ELSEIF Upper(Chr(nKey)) $ "FN0"
             ::lChanged := (uVar == .T.)
@@ -7786,7 +7786,7 @@ METHOD GoHome() CLASS TSBrowse
       ::oHScroll:SetPos(::nCell)
    ENDIF
 
-   IF ::aColumns[::nCell]:lVisible == .F.
+   IF !::aColumns[::nCell]:lVisible
       ::GoRight()
    ENDIF
 
@@ -7867,7 +7867,7 @@ METHOD GoLeft() CLASS TSBrowse
       ::nOldCell := ::nCell
       ::HiliteCell(::nCell)
       ::DrawSelect()
-      IF ::aColumns[::nCell]:lVisible == .F.
+      IF !::aColumns[::nCell]:lVisible
          IF ::nCell == 1
             ::GoRight()
          ELSE
@@ -8253,7 +8253,7 @@ METHOD GoRight() CLASS TSBrowse
       iif(::oHScroll != NIL, ::oHScroll:SetPos(::nCell), Nil)
 
       ::nOldCell := ::nCell
-      IF ::aColumns[::nCell]:lVisible == .F.
+      IF !::aColumns[::nCell]:lVisible
          IF ::nCell == Len(::aColumns)
             ::GoLeft()
          ELSE

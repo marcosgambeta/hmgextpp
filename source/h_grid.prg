@@ -179,7 +179,7 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
    /* end code borrowed */
    __defaultNIL(@aRows, {})
 
-   IF showheaders == .F.
+   IF !showheaders
       aHeaders := AFill(Array(Len(aWidths)), "")
    ENDIF
    IF value == NIL .AND. !MultiSelect
@@ -194,7 +194,7 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
    ENDIF
    /* end code borrowed */
    inplace := hb_IsArray(editcontrols)
-   lsort := (hb_IsArray(columnsort) .AND. nosortheaders == .F. .AND. ownerdata == .F.)
+   lsort := (hb_IsArray(columnsort) .AND. !nosortheaders .AND. !ownerdata)
 
    IF !hb_IsArray(aWidthLimits)
       aWidthLimits := Array(Len(aWidths))
@@ -798,7 +798,7 @@ PROCEDURE _UpdateGridColors(i)
    LOCAL Cols
    LOCAL Rows
 
-   IF processdbc == .F. .AND. processdfc == .F.
+   IF !processdbc .AND. !processdfc
       RETURN
    ENDIF
 
@@ -937,7 +937,7 @@ FUNCTION _GridInplaceEdit(idx)
 
    _HMG_GridInplaceEdit_GridIndex := idx
 
-   IF _HMG_aControlMiscData1[idx][5] == .F.
+   IF !_HMG_aControlMiscData1[idx][5]
       aTemp := This.Item(ri)
       v := aTemp[ci]
    ELSE
@@ -963,7 +963,7 @@ FUNCTION _GridInplaceEdit(idx)
 
          _HMG_ThisEventType := ""
 
-         IF hb_IsLogical(WHEN) .AND. WHEN == .F.
+         IF hb_IsLogical(WHEN) .AND. !WHEN
             _HMG_IPE_CANCELLED := .F.
             RETURN .F.
          ENDIF
@@ -1003,7 +1003,7 @@ FUNCTION _GridInplaceEdit(idx)
 
    IF hb_IsBlock(bBlock)
       aTemp[ci] := (v := Eval(bBlock, v))
-      IF _HMG_aControlMiscData1[idx][5] == .F.
+      IF !_HMG_aControlMiscData1[idx][5]
          _SetItem(, , ri, aTemp, idx)
       ENDIF
       IF Save != hb_ValToStr(v)
@@ -1336,7 +1336,7 @@ STATIC PROCEDURE _GridInplaceEditOK(idx, ci, ri, aec)
          _HMG_ThisFormName := _HMG_aFormNames[_HMG_ThisFormIndex]
          _HMG_ThisControlName := _HMG_aControlNames[_HMG_ThisIndex]
 
-         IF hb_IsLogical(VALID) .AND. VALID == .F.
+         IF hb_IsLogical(VALID) .AND. !VALID
 
             aValidMessages := _HMG_aControlMiscData1[idx][16]
 
@@ -1372,7 +1372,7 @@ STATIC PROCEDURE _GridInplaceEditOK(idx, ci, ri, aec)
 
    ENDIF
 
-   IF _HMG_aControlMiscData1[idx][5] == .F.
+   IF !_HMG_aControlMiscData1[idx][5]
 
       aTemp := _GetItem(, , ri, idx)
 
@@ -1397,7 +1397,7 @@ STATIC PROCEDURE _GridInplaceEditOK(idx, ci, ri, aec)
 
    aTemp[ci] := GetProperty("_hmg_grid_inplaceedit", Left(AEC, 1), "value")
 
-   IF _HMG_aControlMiscData1[idx][5] == .F.
+   IF !_HMG_aControlMiscData1[idx][5]
       _SetItem(, , ri, aTemp, idx)
    ENDIF
 
@@ -2024,7 +2024,7 @@ PROCEDURE _GRIDINPLACEKBDEDIT_2(i)
 
    r := _GridInplaceEdit(i)
 
-   IF _HMG_IPE_CANCELLED == .F.
+   IF !_HMG_IPE_CANCELLED
 
       IF r == .T. .AND. _HMG_aControlMiscData1[i][19] == 0
 
@@ -2057,7 +2057,7 @@ PROCEDURE _GRIDINPLACEKBDEDIT_2(i)
 
             IF hb_IsArray(aColumnWhen)
 
-               IF ownerdata == .F.
+               IF !ownerdata
                   aTemp := This.Item(This.CellRowIndex)
                ELSE
                   _HMG_ThisQueryRowIndex := This.CellRowIndex
@@ -2069,7 +2069,7 @@ PROCEDURE _GRIDINPLACEKBDEDIT_2(i)
                FOR j := nStart TO nEnd
                   IF hb_IsBlock(aColumnWhen[j])
                      r := Min(IPE_MAXCOL, j)
-                     IF ownerdata == .F.
+                     IF !ownerdata
                         _HMG_ThisItemCellValue := aTemp[r]
                      ELSE
                         _HMG_ThisQueryColIndex := r
@@ -2079,7 +2079,7 @@ PROCEDURE _GRIDINPLACEKBDEDIT_2(i)
                      _HMG_ThisEventType := "GRID_WHEN"
                      lResult := Eval(aColumnWhen[j])
                      _HMG_ThisEventType := ""
-                     IF lResult == .F.
+                     IF !lResult
                         _HMG_aControlMiscData1[i][17]++
                      ELSE
                         EXIT

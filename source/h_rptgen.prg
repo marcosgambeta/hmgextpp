@@ -424,7 +424,7 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
       lSelect := .F.
    ENDIF
 
-   IF _HMG_RPTDATA[150] == .F. .AND. _HMG_RPTDATA[163] == .F.
+   IF !_HMG_RPTDATA[150] .AND. !_HMG_RPTDATA[163]
 
       IF lSelect == .T.
          cPrinter := GetPrinter()
@@ -442,7 +442,7 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
    // Select Printer
    // **********************************************************************
 
-   IF _HMG_RPTDATA[150] == .F. .AND. _HMG_RPTDATA[163] == .F.
+   IF !_HMG_RPTDATA[150] .AND. !_HMG_RPTDATA[163]
 
       IF lPreview == .T.
 
@@ -566,7 +566,7 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
 
    _HMG_RPTDATA[117] := 1
 
-   IF _HMG_RPTDATA[150] == .F. .AND. _HMG_RPTDATA[163] == .F.
+   IF !_HMG_RPTDATA[150] .AND. !_HMG_RPTDATA[163]
       START PRINTDOC
    ENDIF
 
@@ -585,7 +585,7 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
 
    DO WHILE !lTempEof
 
-      IF _HMG_RPTDATA[163] == .F.
+      IF !_HMG_RPTDATA[163]
 
          IF _HMG_RPTDATA[150] == .T.
             pdfNewPage(cPdfPaperSize, cPdfOrientation, 6)
@@ -649,7 +649,7 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
                      nCurrentOffset := nPaperHeight - nFooterHeight
                      _ProcessBand(aFooter, nCurrentOffset)
 
-                     IF _HMG_RPTDATA[150] == .F.
+                     IF !_HMG_RPTDATA[150]
                         END PRINTPAGE
                         START PRINTPAGE
                      ELSE
@@ -681,7 +681,7 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
                      nCurrentOffset := nPaperHeight - nFooterHeight
                      _ProcessBand(aFooter, nCurrentOffset)
 
-                     IF _HMG_RPTDATA[150] == .F.
+                     IF !_HMG_RPTDATA[150]
                         END PRINTPAGE
                         START PRINTPAGE
                      ELSE
@@ -720,7 +720,7 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
 
          _ProcessBand(aFooter, nCurrentOffset)
 
-         IF _HMG_RPTDATA[150] == .F.
+         IF !_HMG_RPTDATA[150]
             END PRINTPAGE
          ENDIF
 
@@ -802,7 +802,7 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
 
    ENDDO
 
-   IF _HMG_RPTDATA[150] == .F. .AND. _HMG_RPTDATA[163] == .F.
+   IF !_HMG_RPTDATA[150] .AND. !_HMG_RPTDATA[163]
       END PRINTDOC
    ELSEIF _HMG_RPTDATA[150] == .T.
       pdfClose()
@@ -873,13 +873,13 @@ STATIC PROCEDURE _PrintText(aObject, nOffset)
 
    cValue := &cValue
 
-   IF _HMG_RPTDATA[150] == .F. .AND. _HMG_RPTDATA[163] == .F.
+   IF !_HMG_RPTDATA[150] .AND. !_HMG_RPTDATA[163]
 
-      IF lAlignment_1 == .F. .AND.  lAlignment_2 == .T.
+      IF !lAlignment_1 .AND. lAlignment_2 == .T.
          cAlignment := "CENTER"
-      ELSEIF lAlignment_1 == .T. .AND.  lAlignment_2 == .F.
+      ELSEIF lAlignment_1 == .T. .AND. !lAlignment_2
          cAlignment := "RIGHT"
-      ELSEIF lAlignment_1 == .F. .AND.  lAlignment_2 == .F.
+      ELSEIF !lAlignment_1 .AND. !lAlignment_2
          cAlignment := ""
       ENDIF
 
@@ -895,11 +895,11 @@ STATIC PROCEDURE _PrintText(aObject, nOffset)
          cValue := iif(cValue == .T., _HMG_RPTDATA[371][24], _HMG_RPTDATA[371][25])
       ENDIF
 
-      IF lAlignment_1 == .F. .AND.  lAlignment_2 == .T.
+      IF !lAlignment_1 .AND.  lAlignment_2 == .T.
          cHtmlAlignment := "center"
-      ELSEIF lAlignment_1 == .T. .AND.  lAlignment_2 == .F.
+      ELSEIF lAlignment_1 == .T. .AND. !lAlignment_2
          cHtmlAlignment := "right"
-      ELSEIF lAlignment_1 == .F. .AND.  lAlignment_2 == .F.
+      ELSEIF !lAlignment_1 .AND. !lAlignment_2
          cHtmlAlignment := "left"
       ENDIF
 
@@ -915,11 +915,11 @@ STATIC PROCEDURE _PrintText(aObject, nOffset)
          cValue := iif(cValue == .T., _HMG_RPTDATA[371][24], _HMG_RPTDATA[371][25])
       ENDIF
 
-      IF lFontBold == .F. .AND. lFontItalic == .F.
+      IF !lFontBold .AND. !lFontItalic
          nFontStyle := 0
-      ELSEIF lFontBold == .T. .AND. lFontItalic == .F.
+      ELSEIF lFontBold == .T. .AND. !lFontItalic
          nFontStyle := 1
-      ELSEIF lFontBold == .F. .AND. lFontItalic == .T.
+      ELSEIF !lFontBold .AND. lFontItalic == .T.
          nFontStyle := 2
       ELSEIF lFontBold == .T. .AND. lFontItalic == .T.
          nFontStyle := 3
@@ -927,7 +927,7 @@ STATIC PROCEDURE _PrintText(aObject, nOffset)
 
       pdfSetFont(cFontname, nFontStyle, nFontSize)
 
-      IF lAlignment_1 == .F. .AND.  lAlignment_2 == .T. // Center
+      IF !lAlignment_1 .AND.  lAlignment_2 == .T. // Center
 
          IF lFontUnderLine
             pdfAtSay(cValue + Chr(254), nRow + nOffset + nTextRowFix, nCol + (nWidth - (pdfTextWidth(cValue) * 25.4)) / 2, "M")
@@ -935,7 +935,7 @@ STATIC PROCEDURE _PrintText(aObject, nOffset)
             pdfAtSay(Chr(253) + Chr(aFontColor[1]) + Chr(aFontColor[2]) + Chr(aFontColor[3]) + cValue, nRow + nOffset + nTextRowFix, nCol + (nWidth - (pdfTextWidth(cValue) * 25.4)) / 2, "M")
          ENDIF
 
-      ELSEIF lAlignment_1 == .T. .AND.  lAlignment_2 == .F. // Right
+      ELSEIF lAlignment_1 == .T. .AND. !lAlignment_2 // Right
 
          IF lFontUnderLine
             pdfAtSay(cValue + Chr(254), nRow + nOffset + nTextRowFix, nCol + nWidth - pdfTextWidth(cValue) * 25.4, "M")
@@ -943,7 +943,7 @@ STATIC PROCEDURE _PrintText(aObject, nOffset)
             pdfAtSay(Chr(253) + Chr(aFontColor[1]) + Chr(aFontColor[2]) + Chr(aFontColor[3]) + cValue, nRow + nOffset + nTextRowFix, nCol + nWidth - pdfTextWidth(cValue) * 25.4, "M")
          ENDIF
 
-      ELSEIF lAlignment_1 == .F. .AND.  lAlignment_2 == .F. // Left
+      ELSEIF !lAlignment_1 .AND.  !lAlignment_2 // Left
 
          IF lFontUnderLine
             pdfAtSay(cValue + Chr(254), nRow + nOffset + nTextRowFix, nCol, "M")
@@ -967,7 +967,7 @@ STATIC PROCEDURE _PrintImage(aObject, nOffset)
    LOCAL nWidth := aObject[5]
    LOCAL nHeight := aObject[6]
 
-   IF _HMG_RPTDATA[150] == .F. .AND. _HMG_RPTDATA[163] == .F.
+   IF !_HMG_RPTDATA[150] .AND. !_HMG_RPTDATA[163]
 
       _HMG_PRINTER_H_IMAGE(_HMG_PRINTER_HDC, cValue, nRow + nOffset, nCol, nHeight, nWidth, .T.)
 
@@ -1002,7 +1002,7 @@ STATIC PROCEDURE _PrintLine(aObject, nOffset)
    LOCAL nPenWidth := aObject[6]
    LOCAL aPenColor := aObject[7]
 
-   IF _HMG_RPTDATA[150] == .F. .AND. _HMG_RPTDATA[163] == .F.
+   IF !_HMG_RPTDATA[150] .AND. !_HMG_RPTDATA[163]
 
       _HMG_PRINTER_H_LINE(_HMG_PRINTER_HDC, nFromRow + nOffset, nFromCol, nToRow  + nOffset, nToCol, nPenWidth, aPenColor[1], aPenColor[2], aPenColor[3], .T., .T.)
 
@@ -1033,7 +1033,7 @@ STATIC PROCEDURE _PrintRectangle(aObject, nOffset)
    LOCAL nPenWidth := aObject[6]
    LOCAL aPenColor := aObject[7]
 
-   IF _HMG_RPTDATA[150] == .F. .AND. _HMG_RPTDATA[163] == .F.
+   IF !_HMG_RPTDATA[150] .AND. !_HMG_RPTDATA[163]
 
       _HMG_PRINTER_H_RECTANGLE(_HMG_PRINTER_HDC, nFromRow + nOffset, nFromCol, nToRow  + nOffset, nToCol, nPenWidth, aPenColor[1], aPenColor[2], aPenColor[3], .T., .T.)
 

@@ -3220,7 +3220,7 @@ STATIC FUNCTION CharMaskTekstOK( cString, cMask )
          OTHERWISE
             lPassed := .T.
          ENDCASE
-         IF lPassed == .F.
+         IF !lPassed
             EXIT
          ENDIF
       NEXT

@@ -438,7 +438,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
 
    END WINDOW
 
-   IF _hmg_printer_thumbscroll == .F.
+   IF !_hmg_printer_thumbscroll
       _HMG_PRINTER_PREVIEW_DISABLESCROLLBARS (GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS"))
    ENDIF
 
@@ -594,7 +594,7 @@ STATIC PROCEDURE _HMG_PRINTER_OnRelease(ModalHandle, icb)
    IF ModalHandle != 0
 
       FOR i := 1 TO Len(_HMG_aFormHandles)
-         IF _HMG_aFormDeleted[i] == .F.
+         IF !_HMG_aFormDeleted[i]
             IF _HMG_aFormType[i] != "X"
                IF _HMG_aFormHandles[i] != ModalHandle
                   DisableWindow (_HMG_aFormHandles[i] )
@@ -606,7 +606,7 @@ STATIC PROCEDURE _HMG_PRINTER_OnRelease(ModalHandle, icb)
       EnableWindow(ModalHandle)
 
       FOR i := 1 TO Len(_HMG_aFormHandles)
-         IF _HMG_aFormDeleted[i] == .F.
+         IF !_HMG_aFormDeleted[i]
             IF _HMG_aFormType[i] == "P" .And. _HMG_aFormParentHandle[i] == ModalHandle  // Panel window into Modal window
                EnableWindow (_HMG_aFormHandles[i] )
             ENDIF
@@ -980,7 +980,7 @@ PROCEDURE _HMG_PRINTER_PrintPagesDo()
 
    ELSE
 
-      IF _HMG_PRINTER_PrintPages.CheckBox_1.Value == .F.
+      IF !_HMG_PRINTER_PrintPages.CheckBox_1.Value
 
          FOR p := 1 TO _HMG_PRINTER_PrintPages.Spinner_3.Value
 

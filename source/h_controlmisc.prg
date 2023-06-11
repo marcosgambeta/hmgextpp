@@ -115,7 +115,7 @@ FUNCTION _GetValue(ControlName, ParentForm, Index)
       EXIT
 
    CASE CONTROL_TYPE_TREE
-      retval := iif(_HMG_aControlInputMask[ix] == .F., AScan(_HMG_aControlPageMap[ix], TreeView_GetSelection(c)), TreeView_GetSelectionId(c))
+      retval := iif(!_HMG_aControlInputMask[ix], AScan(_HMG_aControlPageMap[ix], TreeView_GetSelection(c)), TreeView_GetSelectionId(c))
       EXIT
 
    CASE CONTROL_TYPE_MASKEDTEXT
@@ -362,7 +362,7 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
       IF Empty(Value)
          RETURN NIL
       ENDIF
-      IF _HMG_aControlInputMask[ix] == .F.
+      IF !_HMG_aControlInputMask[ix]
          IF Value > TreeView_GetCount(c)
             RETURN NIL
          ENDIF
@@ -421,7 +421,7 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
          _SetControlWidth(ControlName, ParentForm, GetTextWidth(NIL, Value, _HMG_aControlFontHandle[ix]) + ;
             iif(_HMG_aControlFontAttributes[ix][1] == .T. .OR. _HMG_aControlFontAttributes[ix][2] == .T., ;
             GetTextWidth(NIL, " ", _HMG_aControlFontHandle[ix]), 0) + iif(T == CONTROL_TYPE_CHECKLABEL, _HMG_aControlRangeMin[ix] + ;
-            iif(Len(Value) > 0 .AND. _HMG_aControlRangeMax[ix] == .F., GetBorderWidth(), iif(_HMG_aControlRangeMax[ix], GetBorderWidth() / 2, 0)), 0))
+            iif(Len(Value) > 0 .AND. !_HMG_aControlRangeMax[ix], GetBorderWidth(), iif(_HMG_aControlRangeMax[ix], GetBorderWidth() / 2, 0)), 0))
          _SetControlHeight(ControlName, ParentForm, iif(T == CONTROL_TYPE_CHECKLABEL .AND. _HMG_aControlFontSize[ix] < 13, 22, _HMG_aControlFontSize[ix] + ;
             iif(_HMG_aControlFontSize[ix] < 14, 12, 16)))
       ENDIF
@@ -488,7 +488,7 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
          SendMessage(c, BM_SETCHECK, BST_INDETERMINATE, 0)
       CASE value == .T.
          SendMessage(c, BM_SETCHECK, BST_CHECKED, 0)
-      CASE value == .F.
+      CASE !value
          SendMessage(c, BM_SETCHECK, BST_UNCHECKED, 0)
       ENDCASE
       IF Empty(_HMG_aControlMiscData1[ix])
@@ -504,7 +504,7 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
             h := c[value]
             IF h > 0
                SendMessage(h, BM_SETCHECK, BST_CHECKED, 0)
-               IF _HMG_aControlPicture[ix] == .F. .AND. IsTabStop(h)
+               IF !_HMG_aControlPicture[ix] .AND. IsTabStop(h)
                   SetTabStop(h, .F.)
                ENDIF
             ENDIF
@@ -547,7 +547,7 @@ FUNCTION _SetValue(ControlName, ParentForm, Value, index)
       EXIT
 
    CASE CONTROL_TYPE_GRID
-      IF _HMG_aControlFontColor[ix] == .F.
+      IF !_HMG_aControlFontColor[ix]
          ListView_SetCursel(c, iif(hb_IsArray(Value), value[1], value))
          ListView_EnsureVisible(c, iif(hb_IsArray(Value), value[1], value))
       ELSE
@@ -706,7 +706,7 @@ FUNCTION _AddItem(ControlName, ParentForm, Value, Parent, aImage, Id)
    SWITCH T
 
    CASE CONTROL_TYPE_TREE
-      IF _HMG_aControlInputmask[ix] == .F.
+      IF !_HMG_aControlInputmask[ix]
          IF Parent > TreeView_GetCount(c) .OR. Parent < 0
             MsgMiniGuiError("AddItem Method: Invalid Parent Value.")
          ENDIF
@@ -716,7 +716,7 @@ FUNCTION _AddItem(ControlName, ParentForm, Value, Parent, aImage, Id)
 
       IF Parent != 0
 
-         IF _HMG_aControlInputmask[ix] == .F.
+         IF !_HMG_aControlInputmask[ix]
             TreeItemHandle := _HMG_aControlPageMap[ix][Parent]
          ELSE
             aPos := AScan(_HMG_aControlPicture[ix], Parent)
@@ -781,7 +781,7 @@ FUNCTION _AddItem(ControlName, ParentForm, Value, Parent, aImage, Id)
          ASize(_HMG_aControlHeadClick[ix], TreeView_GetCount(c))
 
          // Insert New Element
-         IF _HMG_aControlInputmask[ix] == .F.
+         IF !_HMG_aControlInputmask[ix]
             AIns(_HMG_aControlPageMap[ix], Parent + i)
             AIns(_HMG_aControlPicture[ix], Parent + i)
             AIns(_HMG_aControlHeadClick[ix], Parent + i)
@@ -792,7 +792,7 @@ FUNCTION _AddItem(ControlName, ParentForm, Value, Parent, aImage, Id)
          ENDIF
 
          // Assign Handle
-         IF _HMG_aControlInputmask[ix] == .F.
+         IF !_HMG_aControlInputmask[ix]
 
             _HMG_aControlPageMap[ix][Parent + i] := NewHandle
             _HMG_aControlPicture[ix][Parent + i] := Id
@@ -864,7 +864,7 @@ FUNCTION _AddItem(ControlName, ParentForm, Value, Parent, aImage, Id)
    CASE CONTROL_TYPE_GRID
    CASE CONTROL_TYPE_MULTIGRID
    CASE CONTROL_TYPE_PROPGRID
-      IF _HMG_aControlMiscData1[ix][5] == .F.
+      IF !_HMG_aControlMiscData1[ix][5]
          _AddGridRow(ControlName, ParentForm, value)
          IF _HMG_aControlEnabled[ix] == .T.
             _UpdateGridColors(ix)
@@ -909,7 +909,7 @@ FUNCTION _DeleteItem(ControlName, ParentForm, Value)
    CASE CONTROL_TYPE_TREE
       BeforeCount := TreeView_GetCount(c)
 
-      IF _HMG_aControlInputmask[ix] == .F.
+      IF !_HMG_aControlInputmask[ix]
 
          IF Value > BeforeCount .OR. Value < 1
             MsgMiniGuiError("DeleteItem Method: Invalid Item Specified.")
@@ -934,7 +934,7 @@ FUNCTION _DeleteItem(ControlName, ParentForm, Value)
       AfterCount := TreeView_GetCount(c)
       DeletedCount := BeforeCount - AfterCount
 
-      IF _HMG_aControlInputmask[ix] == .F.
+      IF !_HMG_aControlInputmask[ix]
 
          IF DeletedCount == 1
             ADel(_HMG_aControlPageMap[ix], Value)
@@ -984,7 +984,7 @@ FUNCTION _DeleteItem(ControlName, ParentForm, Value)
    CASE CONTROL_TYPE_GRID
    CASE CONTROL_TYPE_MULTIGRID
    CASE CONTROL_TYPE_PROPGRID
-      IF _HMG_aControlMiscData1[ix][5] == .F.
+      IF !_HMG_aControlMiscData1[ix][5]
          ListViewDeleteString(c, value)
          IF _HMG_aControlFontColor[ix] == .T. .AND. T == CONTROL_TYPE_GRID
             IF _HMG_aControlMiscData1[ix][1] == value
@@ -1055,7 +1055,7 @@ FUNCTION _DeleteAllItems(ControlName, ParentForm)
    CASE CONTROL_TYPE_GRID
    CASE CONTROL_TYPE_MULTIGRID
    CASE CONTROL_TYPE_PROPGRID
-      IF _HMG_aControlMiscData1[i][5] == .F.
+      IF !_HMG_aControlMiscData1[i][5]
          ListViewReset(c)
          IF _HMG_aControlFontColor[i] == .T. .AND. T == CONTROL_TYPE_GRID
             _HMG_aControlMiscData1[i][1] := 0
@@ -1294,7 +1294,7 @@ FUNCTION _DisableControl(ControlName, ParentForm, nPosition)
    CASE CONTROL_TYPE_BUTTON
       IF !Empty(_HMG_aControlBrushHandle[y]) .AND. hb_IsArray(_HMG_aControlPicture[y]) .AND. _HMG_aControlMiscData1[y] == 0
          IF _HMG_aControlEnabled[y] == .T.
-            IF _HMG_aControlDblClick[y] == .F. .AND. _HMG_IsThemed
+            IF !_HMG_aControlDblClick[y] .AND. _HMG_IsThemed
                ImageList_Destroy(_HMG_aControlBrushHandle[y])
                _HMG_aControlBrushHandle[y] := _SetMixedBtnPicture(c, _HMG_aControlPicture[y][2])
                ReDrawWindow(c)
@@ -1307,7 +1307,7 @@ FUNCTION _DisableControl(ControlName, ParentForm, nPosition)
       ENDIF
       IF !Empty(_HMG_aControlBrushHandle[y]) .AND. hb_IsChar(_HMG_aControlPicture[y]) .AND. _HMG_aControlMiscData1[y] == 0
          IF _HMG_aControlEnabled[y] == .T.
-            IF _HMG_aControlDblClick[y] == .F. .AND. _HMG_IsThemed
+            IF !_HMG_aControlDblClick[y] .AND. _HMG_IsThemed
                ImageList_Destroy(_HMG_aControlBrushHandle[y])
                _HMG_aControlBrushHandle[y] := _SetMixedBtnPicture(c, _HMG_aControlPicture[y])
                ReDrawWindow(c)
@@ -1434,7 +1434,7 @@ FUNCTION _EnableControl(ControlName, ParentForm, nPosition)
    c := GetControlHandle(ControlName, ParentForm)
    y := GetControlIndex(ControlName, ParentForm)
 
-   IF T == CONTROL_TYPE_BUTTON .AND. _HMG_aControlEnabled[y] == .F.
+   IF T == CONTROL_TYPE_BUTTON .AND. !_HMG_aControlEnabled[y]
       IF !Empty(_HMG_aControlInputMask[y])
          z := _DetermineKey(_HMG_aControlInputMask[y])
          _DefineHotKey(ParentForm, z[2], z[1], _HMG_aControlProcedures[y])
@@ -1446,8 +1446,8 @@ FUNCTION _EnableControl(ControlName, ParentForm, nPosition)
    // HMG 1.0 Experimental build 9 (JK)
    CASE CONTROL_TYPE_BUTTON
       IF !Empty(_HMG_aControlBrushHandle[y]) .AND. hb_IsArray(_HMG_aControlPicture[y]) .AND. _HMG_aControlMiscData1[y] == 0
-         IF _HMG_aControlEnabled[y] == .F.
-            IF _HMG_aControlDblClick[y] == .F. .AND. _HMG_IsThemed
+         IF !_HMG_aControlEnabled[y]
+            IF !_HMG_aControlDblClick[y] .AND. _HMG_IsThemed
                ImageList_Destroy(_HMG_aControlBrushHandle[y])
                _HMG_aControlBrushHandle[y] := _SetMixedBtnPicture(c, _HMG_aControlPicture[y][1])
                ReDrawWindow(c)
@@ -1459,8 +1459,8 @@ FUNCTION _EnableControl(ControlName, ParentForm, nPosition)
          ENDIF
       ENDIF
       IF !Empty(_HMG_aControlBrushHandle[y]) .AND. hb_IsChar(_HMG_aControlPicture[y]) .AND. _HMG_aControlMiscData1[y] == 0
-         IF _HMG_aControlEnabled[y] == .F.
-            IF _HMG_aControlDblClick[y] == .F. .AND. _HMG_IsThemed
+         IF !_HMG_aControlEnabled[y]
+            IF !_HMG_aControlDblClick[y] .AND. _HMG_IsThemed
                ImageList_Destroy(_HMG_aControlBrushHandle[y])
                _HMG_aControlBrushHandle[y] := _SetMixedBtnPicture(c, _HMG_aControlPicture[y])
                ReDrawWindow(c)
@@ -1475,7 +1475,7 @@ FUNCTION _EnableControl(ControlName, ParentForm, nPosition)
 
    CASE CONTROL_TYPE_CHECKBOX
       IF !Empty(_HMG_aControlBrushHandle[y]) .AND. hb_IsChar(_HMG_aControlPicture[y]) .AND. _HMG_aControlMiscData1[y] == 1
-         IF _HMG_aControlEnabled[y] == .F.
+         IF !_HMG_aControlEnabled[y]
             IF _HMG_IsThemed
                ImageList_Destroy(_HMG_aControlBrushHandle[y])
                _HMG_aControlBrushHandle[y] := _SetMixedBtnPicture(c, _HMG_aControlPicture[y], _HMG_aControlSpacing[y])
@@ -1843,13 +1843,13 @@ FUNCTION _SetItem(ControlName, ParentForm, Item, Value, index)
    SWITCH t
 
    CASE CONTROL_TYPE_TREE
-      IF _HMG_aControlInputmask[i] == .F.
+      IF !_HMG_aControlInputmask[i]
          IF Item > TreeView_GetCount(c) .OR. Item < 1
             MsgMiniGuiError("Item Property: Invalid Item Reference.")
          ENDIF
       ENDIF
       TreeHandle := c
-      IF _HMG_aControlInputmask[i] == .F.
+      IF !_HMG_aControlInputmask[i]
          ItemHandle := _HMG_aControlPageMap[i][Item]
       ELSE
          Pos := AScan(_HMG_aControlPicture[i], Item)
@@ -1906,7 +1906,7 @@ FUNCTION _SetItem(ControlName, ParentForm, Item, Value, index)
    CASE CONTROL_TYPE_GRID
    CASE CONTROL_TYPE_MULTIGRID
    CASE CONTROL_TYPE_PROPGRID
-      IF _HMG_aControlMiscData1[i][5] == .F.
+      IF !_HMG_aControlMiscData1[i][5]
          AEDITCONTROLS := _HMG_aControlMiscData1[i][13]
          IF !hb_isArray(AEDITCONTROLS)
 #ifdef _HMG_COMPAT_
@@ -2028,13 +2028,13 @@ FUNCTION _GetItem(ControlName, ParentForm, Item, index)
    SWITCH t
 
    CASE CONTROL_TYPE_TREE
-      IF _HMG_aControlInputmask[i] == .F.
+      IF !_HMG_aControlInputmask[i]
          IF Item > TreeView_GetCount(c) .OR. Item < 1
             MsgMiniGuiError("Item Property: Invalid Item Reference.")
          ENDIF
       ENDIF
       TreeHandle := c
-      IF _HMG_aControlInputmask[i] == .F.
+      IF !_HMG_aControlInputmask[i]
          ItemHandle := _HMG_aControlPageMap[i][Item]
       ELSE
          Pos := AScan(_HMG_aControlPicture[i], Item)
@@ -3877,7 +3877,7 @@ FUNCTION _EraseControl(i, p)
       EXIT
 
    CASE CONTROL_TYPE_BUTTON
-      IF !Empty(_HMG_aControlBrushHandle[i]) .AND. _HMG_IsThemed .AND. hb_IsLogical(_HMG_aControlDblClick[i]) .AND. _HMG_aControlDblClick[i] == .F.
+      IF !Empty(_HMG_aControlBrushHandle[i]) .AND. _HMG_IsThemed .AND. hb_IsLogical(_HMG_aControlDblClick[i]) .AND. !_HMG_aControlDblClick[i]
          ImageList_Destroy(_HMG_aControlBrushHandle[i])
       ENDIF
       EXIT
@@ -4363,11 +4363,11 @@ PROCEDURE SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
          ENDIF
          EXIT
       CASE "BLINK"
-         IF "LABEL" $ GetControlTypeAsString(Arg2, Arg1) .AND. (_IsControlVisible(Arg2, Arg1) .OR. Arg4 == .F.)
+         IF "LABEL" $ GetControlTypeAsString(Arg2, Arg1) .AND. (_IsControlVisible(Arg2, Arg1) .OR. !Arg4)
             ix := GetControlIndex(Arg2, Arg1)
             IF _HMG_aControlMiscData1[ix][2] == .T.
                iif(Arg4 == .T., _EnableControl("BlinkTimer" + hb_ntos(ix), Arg1), _DisableControl("BlinkTimer" + hb_ntos(ix), Arg1))
-               IF _HMG_aControlMiscData1[ix][3] == .F.
+               IF !_HMG_aControlMiscData1[ix][3]
                   _ShowControl(Arg2, Arg1)
                ENDIF
             ELSEIF Arg4 == .T.
@@ -5934,7 +5934,7 @@ STATIC FUNCTION _ProgressWheel_GetProperty(xData, Arg1, Arg2, Arg3)
 
    LOCAL RetVal := .F.
 
-   IF !hb_isChar(Arg1) .OR. !hb_isChar(Arg2) .OR. !hb_isChar(Arg3) .OR. (_IsControlDefined(Arg2, Arg1) == .F.) .OR. (GetControlType(Arg2, Arg1) != CONTROL_TYPE_PROGRESSWHEEL)
+   IF !hb_isChar(Arg1) .OR. !hb_isChar(Arg2) .OR. !hb_isChar(Arg3) .OR. !_IsControlDefined(Arg2, Arg1) .OR. (GetControlType(Arg2, Arg1) != CONTROL_TYPE_PROGRESSWHEEL)
       RETURN .F.
    ENDIF
 
@@ -5960,7 +5960,7 @@ STATIC FUNCTION _ProgressWheel_SetProperty(Arg1, Arg2, Arg3, Arg4)
 
    LOCAL RetVal := .F.
 
-   IF !hb_isChar(Arg1) .OR. !hb_isChar(Arg2) .OR. !hb_isChar(Arg3) .OR. (_IsControlDefined(Arg2, Arg1) == .F.) .OR. (GetControlType(Arg2, Arg1) != CONTROL_TYPE_PROGRESSWHEEL)
+   IF !hb_isChar(Arg1) .OR. !hb_isChar(Arg2) .OR. !hb_isChar(Arg3) .OR. !_IsControlDefined(Arg2, Arg1) .OR. (GetControlType(Arg2, Arg1) != CONTROL_TYPE_PROGRESSWHEEL)
       RETURN .F.
    ENDIF
 
@@ -6059,7 +6059,7 @@ RETURN nRetVal
 
 STATIC PROCEDURE IsControlInsideSplitBox(cParentName, cControlName)
 
-   IF _IsControlSplitBoxed(cControlName, cParentName) == .F.
+   IF !_IsControlSplitBoxed(cControlName, cParentName)
       MsgMiniGuiError("Control Does Not Belong To Container.")
    ENDIF
 
@@ -6182,7 +6182,7 @@ PROCEDURE FindTextDlg(OnActionCodeBlock, cFind, lNoUpDown, lNoMatchCase, lNoWhol
       lCheckWholeWord := .F.
    ENDIF
 
-   IF FindReplaceDlgIsRelease () == .F.
+   IF !FindReplaceDlgIsRelease ()
       FindReplaceDlgRelease(.T.)
    ENDIF
 
@@ -6208,7 +6208,7 @@ PROCEDURE ReplaceTextDlg(OnActionCodeBlock, cFind, cReplace, lNoMatchCase, lNoWh
       lCheckWholeWord := .F.
    ENDIF
 
-   IF FindReplaceDlgIsRelease () == .F.
+   IF !FindReplaceDlgIsRelease ()
       FindReplaceDlgRelease(.T.)
    ENDIF
 
@@ -6246,7 +6246,7 @@ STATIC FUNCTION _RichEditBox_GetProperty(xData, Arg1, Arg2, Arg3, Arg4, Arg5, Ar
    LOCAL RetVal := .F.
 
    IF !hb_isChar(Arg1) .OR. !hb_isChar(Arg2) .OR. !hb_isChar(Arg3) .OR. ;
-      (_IsControlDefined(Arg2, Arg1) == .F.) .OR. (GetControlType(Arg2, Arg1) != CONTROL_TYPE_RICHEDIT) .OR. (_HMG_aControlMiscData1[GetControlIndex(Arg2, Arg1)] != 1)
+      !_IsControlDefined(Arg2, Arg1) .OR. (GetControlType(Arg2, Arg1) != CONTROL_TYPE_RICHEDIT) .OR. (_HMG_aControlMiscData1[GetControlIndex(Arg2, Arg1)] != 1)
       RETURN .F.
    ENDIF
 
@@ -6329,7 +6329,7 @@ STATIC FUNCTION _RichEditBox_SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg
    LOCAL RetVal := .F.
 
    IF !hb_isChar(Arg1) .OR. !hb_isChar(Arg2) .OR. !hb_isChar(Arg3) .OR. ;
-      (_IsControlDefined(Arg2, Arg1) == .F.) .OR. (GetControlType(Arg2, Arg1) != CONTROL_TYPE_RICHEDIT) .OR. (_HMG_aControlMiscData1[GetControlIndex(Arg2, Arg1)] != 1)
+      !_IsControlDefined(Arg2, Arg1) .OR. (GetControlType(Arg2, Arg1) != CONTROL_TYPE_RICHEDIT) .OR. (_HMG_aControlMiscData1[GetControlIndex(Arg2, Arg1)] != 1)
       RETURN .F.
    ENDIF
 
@@ -6394,7 +6394,7 @@ STATIC FUNCTION _RichEditBox_DoMethod(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, 
    LOCAL hWndControl
 
    IF !hb_isChar(Arg1) .OR. !hb_isChar(Arg2) .OR. !hb_isChar(Arg3) .OR. ;
-      (_IsControlDefined(Arg2, Arg1) == .F.) .OR. (GetControlType(Arg2, Arg1) != CONTROL_TYPE_RICHEDIT) .OR. (_HMG_aControlMiscData1[GetControlIndex(Arg2, Arg1)] != 1)
+      !_IsControlDefined(Arg2, Arg1) .OR. (GetControlType(Arg2, Arg1) != CONTROL_TYPE_RICHEDIT) .OR. (_HMG_aControlMiscData1[GetControlIndex(Arg2, Arg1)] != 1)
       RETURN .F.
    ENDIF
 

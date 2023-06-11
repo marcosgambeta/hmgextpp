@@ -295,7 +295,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                   IF (a := _GetBackColor(_HMG_aControlFontHandle[i], _HMG_aControlMiscData1[i])) != NIL
                      _HMG_aControlBkColor[i] := a
                   ELSE
-                     IF _HMG_aControlDblClick[i] == .F. .AND. !lOpaque
+                     IF !_HMG_aControlDblClick[i] .AND. !lOpaque
                         r := GetControlIndex(_HMG_aControlFontHandle[i], _HMG_aControlMiscData1[i])
                         DeleteObject(_HMG_aControlBrushHandle[r])
                         z := GetControlHandle(_HMG_aControlFontHandle[i], _HMG_aControlMiscData1[i])
@@ -316,7 +316,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                         RETURN _HMG_aControlBrushHandle[i]
                      ENDIF
                   ELSE
-                     IF _HMG_aControlDblClick[i] == .F.
+                     IF !_HMG_aControlDblClick[i]
                         r := GetControlIndex(_HMG_aControlRangeMin[i], _HMG_aControlRangeMax[i])
                         DeleteObject(_HMG_aControlBrushHandle[r])
                         z := GetControlHandle(_HMG_aControlRangeMin[i], _HMG_aControlRangeMax[i])
@@ -331,7 +331,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                IF IsXPThemed .AND. TmpStr == CONTROL_TYPE_CHECKBOX .AND. Tmp
 
-                  lvc := (hb_IsLogical(_HMG_aControlInputMask[i]) .AND. _HMG_aControlInputMask[i] == .F.)
+                  lvc := (hb_IsLogical(_HMG_aControlInputMask[i]) .AND. !_HMG_aControlInputMask[i])
 
                   IF (a := _GetBackColor(_HMG_aControlRangeMin[i], _HMG_aControlRangeMax[i])) != NIL
                      IF lvc
@@ -343,9 +343,9 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                   ELSE
 #if defined(_PANEL_) .AND. defined(_HMG_COMPAT_)
                      IF GetFormNameByHandle(_HMG_aControlParentHandles[i], @z) > 0 .AND. GetWindowType(z) == "P"
-                     ELSEIF _HMG_aControlDblClick[i] == .F. .AND. (!lOpaque .OR. !lvc)
+                     ELSEIF !_HMG_aControlDblClick[i] .AND. (!lOpaque .OR. !lvc)
 #else
-                     IF _HMG_aControlDblClick[i] == .F. .AND. (!lOpaque .OR. !lvc)
+                     IF !_HMG_aControlDblClick[i] .AND. (!lOpaque .OR. !lvc)
 #endif
                         r := GetControlIndex(_HMG_aControlRangeMin[i], _HMG_aControlRangeMax[i])
                         DeleteObject(_HMG_aControlBrushHandle[r])
@@ -456,9 +456,9 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
 #if defined(_PANEL_) .AND. defined(_HMG_COMPAT_)
                               IF GetFormNameByHandle(_HMG_aControlParentHandles[i], @z) > 0 .AND. GetWindowType(z) == "P"
-                              ELSEIF _HMG_aControlDblClick[i] == .F. .AND. (!lOpaque .OR. lvc) .AND. _HMG_aControlBkColor[i] == NIL
+                              ELSEIF !_HMG_aControlDblClick[i] .AND. (!lOpaque .OR. lvc) .AND. _HMG_aControlBkColor[i] == NIL
 #else
-                              IF _HMG_aControlDblClick[i] == .F. .AND. (!lOpaque .OR. lvc) .AND. _HMG_aControlBkColor[i] == NIL
+                              IF !_HMG_aControlDblClick[i] .AND. (!lOpaque .OR. lvc) .AND. _HMG_aControlBkColor[i] == NIL
 #endif
                                  r := GetControlIndex(_HMG_aControlRangeMin[i], _HMG_aControlRangeMax[i])
                                  DeleteObject(_HMG_aControlBrushHandle[r])
@@ -647,7 +647,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
             IF _HMG_aControlType[i] == CONTROL_TYPE_COMBO
 
                IF _HMG_aControlMiscData1[i][2] == .T. .AND. (GetFocus() == _HMG_aControlRangeMin[i] .OR. _HMG_aControlRangeMin[i] == lParam) .OR. ;
-                  GetFocus() == _HMG_aControlHandles[i] .AND. (_HMG_aControlHandles[i] == lParam .OR. _HMG_aControlMiscData1[i][2] == .F.) // TODO: compare pointer with numeric
+                  GetFocus() == _HMG_aControlHandles[i] .AND. (_HMG_aControlHandles[i] == lParam .OR. !_HMG_aControlMiscData1[i][2]) // TODO: compare pointer with numeric
 
                   IF _HMG_aControlFontColor[i] != NIL
 
@@ -1118,7 +1118,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                         FOR z := 1 TO Len(_HMG_aControlhandles[x])
 
-                           IF _HMG_aControlMiscData1[x] == .F.
+                           IF !_HMG_aControlMiscData1[x]
                               MoveWindow(_HMG_aControlhandles[x][z], _HMG_aControlCol[x] - NewHPos, _HMG_aControlRow[x] - NewPos + ((z - 1) * _HMG_aControlSpacing[x]), _HMG_aControlWidth[x], _HMG_aControlHeight[x] / Len(_HMG_aControlhandles[x]), .T.)
                            ELSE  // horizontal
                               MoveWindow(_HMG_aControlhandles[x][z], _HMG_aControlCol[x] - NewHPos + (z - 1) * (_HMG_aControlWidth[x] + _HMG_aControlSpacing[x]), _HMG_aControlRow[x] - NewPos, _HMG_aControlWidth[x], _HMG_aControlHeight[x], .T.)
@@ -1428,7 +1428,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                         FOR z := 1 TO Len(_HMG_aControlhandles[x])
 
-                           IF _HMG_aControlMiscData1[x] == .F.
+                           IF !_HMG_aControlMiscData1[x]
                               MoveWindow(_HMG_aControlhandles[x][z], _HMG_aControlCol[x] - NewHPos, _HMG_aControlRow[x] - NewVPos + ((z - 1) * _HMG_aControlSpacing[x]), ;
                                  _HMG_aControlWidth[x], _HMG_aControlHeight[x] / Len(_HMG_aControlhandles[x]), .T.)
                            ELSE  // horizontal
@@ -1486,7 +1486,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
          z := hb_enumindex(r)
 
-         IF _HMG_aFormDeleted[z] == .F. .AND. _HMG_aFormType[z] == "X"
+         IF !_HMG_aFormDeleted[z] .AND. _HMG_aFormType[z] == "X"
 
             a := _HMG_aFormGraphTasks[z]
             IF hb_IsArray(a) .AND. Len(a) > 0
@@ -1702,7 +1702,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
          ELSEIF hb_IsBlock(_HMG_aControlProcedures[i])
 
-            IF _HMG_BeginWindowActive == .F. .OR. _HMG_MainClientMDIHandle != 0
+            IF !_HMG_BeginWindowActive .OR. _HMG_MainClientMDIHandle != 0
                Eval(_HMG_aControlProcedures[i])
             ENDIF
 
@@ -1792,7 +1792,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             ENDIF
 
-            IF _HMG_MainActive == .T. .OR. _HMG_MainWindowFirst == .F.
+            IF _HMG_MainActive == .T. .OR. !_HMG_MainWindowFirst
 
                IF wParam == SIZE_MAXIMIZED
 
@@ -2349,7 +2349,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                _DoControlEventProcedure(_HMG_aControlChangeProcedure[i], i, "CONTROL_ONCHANGE")
             ENDIF
 
-            IF _HMG_aControlPicture[i] == .F. // No TabStop
+            IF !_HMG_aControlPicture[i] // No TabStop
                IF IsTabStop(lParam)
                   SetTabStop(lParam, .F.)
                ENDIF
@@ -2384,7 +2384,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             ENDIF
 
-            IF _HMG_aControlPicture[i] == .F. // No TabStop
+            IF !_HMG_aControlPicture[i] // No TabStop
                IF IsTabStop(lParam)
                   SetTabStop(lParam, .F.)
                ENDIF
@@ -2395,7 +2395,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
       ENDIF
 
-      IF _HMG_ProceedEachRadioButtonEvent == .F. .AND. nLastRadioGroupFocusedIndex > 0 .AND. GetEscapeState() >= 0
+      IF !_HMG_ProceedEachRadioButtonEvent .AND. nLastRadioGroupFocusedIndex > 0 .AND. GetEscapeState() >= 0
 
          // Other control type than radiogroup -> call last radiogroup onLostFocus action
          _DoControlEventProcedure(_HMG_aControlLostFocusProcedure[nLastRadioGroupFocusedIndex], nLastRadioGroupFocusedIndex)
@@ -2430,7 +2430,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
             IF Empty(_HMG_aControlMiscData1[i])
                _DoControlEventProcedure(_HMG_aControlProcedures[i], i)
             ENDIF
-            IF _HMG_SetFocusExecuted == .F.
+            IF !_HMG_SetFocusExecuted
                IF _HMG_ExtendedNavigation == .T.
                   _SetNextFocus()
                ENDIF
@@ -2452,7 +2452,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
          IF (_HMG_aControlType[i] == CONTROL_TYPE_DATEPICK .OR. _HMG_aControlType[i] == CONTROL_TYPE_TIMEPICK) .AND. (HiWord(wParam) == 0 .AND. LoWord(wParam) == 1)
             _HMG_SetFocusExecuted := .F.
             _DoControlEventProcedure(_HMG_aControlProcedures[i], i)
-            IF _HMG_SetFocusExecuted == .F.
+            IF !_HMG_SetFocusExecuted
                IF _HMG_ExtendedNavigation == .T.
                   _SetNextFocus()
                ENDIF
@@ -2491,7 +2491,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
             IF _hmg_acontrolspacing[i] == .T.
 
                IF _HMG_aControlMiscData1[i][20] == .T. .OR. _HMG_aControlFontColor[i] == .T.
-                  IF _HMG_aControlFontColor[i] == .F.
+                  IF !_HMG_aControlFontColor[i]
                      _GridInplaceKBDEdit(i)
                   ELSE
                      _GridInplaceKBDEdit_2(i)
@@ -2513,7 +2513,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             _HMG_SetFocusExecuted := .F.
             _DoControlEventProcedure(_HMG_aControlDblClick[i], i)
-            IF _HMG_SetFocusExecuted == .F.
+            IF !_HMG_SetFocusExecuted
                IF _HMG_ExtendedNavigation == .T.
                   _SetNextFocus()
                ENDIF
@@ -2548,7 +2548,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
             ENDIF
             _HMG_SetFocusExecuted := .F.
             _DoControlEventProcedure(_HMG_aControlDblClick[i], i)
-            IF _HMG_SetFocusExecuted == .F.
+            IF !_HMG_SetFocusExecuted
                IF _HMG_ExtendedNavigation == .T.
                   _SetNextFocus()
                ENDIF
@@ -2580,7 +2580,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                   _HMG_SetFocusExecuted := .F.
                   _DoControlEventProcedure(_HMG_aControlDblClick[i], i)
-                  IF _HMG_SetFocusExecuted == .F.
+                  IF !_HMG_SetFocusExecuted
                      IF _HMG_ExtendedNavigation == .T.
                         _SetNextFocus()
                      ENDIF
@@ -2601,7 +2601,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
    CASE WM_NOTIFY
    //**************************************************************************
 
-      IF _HMG_ProceedEachRadioButtonEvent == .F. .AND. nLastRadioGroupFocusedIndex > 0 .AND. GetNotifyCode(lParam) == NM_SETFOCUS
+      IF !_HMG_ProceedEachRadioButtonEvent .AND. nLastRadioGroupFocusedIndex > 0 .AND. GetNotifyCode(lParam) == NM_SETFOCUS
 
          // Other control type than radiogroup -> call last radiogroup onLostFocus action
          _DoControlEventProcedure(_HMG_aControlLostFocusProcedure[nLastRadioGroupFocusedIndex], nLastRadioGroupFocusedIndex)
@@ -3845,7 +3845,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
          IF hb_IsBlock(_HMG_aFormInteractiveCloseProcedure[i])
 
             r := _DoWindowEventProcedure(_HMG_aFormInteractiveCloseProcedure[i], i, "WINDOW_ONINTERACTIVECLOSE")
-            IF hb_IsLogical(r) .AND. r == .F.
+            IF hb_IsLogical(r) .AND. !r
                RETURN (1)
             ENDIF
 
@@ -3877,7 +3877,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
          ENDIF
 
          // Process AutoRelease Property
-         IF _HMG_aFormAutoRelease[i] == .F.
+         IF !_HMG_aFormAutoRelease[i]
 
             _HideWindow(_HMG_aFormNames[i])
             RETURN (1)

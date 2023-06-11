@@ -216,7 +216,7 @@ FUNCTION IsRegistryKey( nKey, cRegKey )
    LOCAL lExist
 
    oReg   := TReg32():New( nKey, cRegKey, .F. )
-   lExist := ( oReg:lError == .F. )
+   lExist := !oReg:lError
 
    oReg:Close()
 
@@ -229,7 +229,7 @@ FUNCTION CreateRegistryKey( nKey, cRegKey )
    LOCAL lSuccess
 
    oReg     := TReg32():Create(nKey, cRegKey, .F.)
-   lSuccess := ( oReg:lError == .F. )
+   lSuccess := !oReg:lError
 
    oReg:Close()
 

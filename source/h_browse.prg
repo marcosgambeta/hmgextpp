@@ -414,7 +414,7 @@ FUNCTION InitDialogBrowse(ParentName, ControlHandle, i)
    ENDIF
 
    // Add Vertical scrollbar
-   IF _HMG_aControlMiscData1 [i,8] == .F.
+   IF !_HMG_aControlMiscData1 [i,8]
 
       IF hsum > w - GETVSCROLLBARWIDTH() - 4
          ScrollBarHandle := InitVScrollBar (  ParentFormHandle , x + w - GETVSCROLLBARWIDTH() , y , GETVSCROLLBARWIDTH() , h - GETHSCROLLBARHEIGHT() )
@@ -477,7 +477,7 @@ STATIC PROCEDURE HMG_OrdCreate(i)
 
    FOR nColumn := 1 TO Len(aFields)
 
-      IF _HMG_aControlMiscData1[i][20][nColumn] == .F. .OR. FieldPos( aFields [nColumn] ) == 0
+      IF !_HMG_aControlMiscData1[i][20][nColumn] .OR. FieldPos( aFields [nColumn] ) == 0
          ordCreate(NIL, "Bag" + StrZero( Random( 999999 ), 6 ), "Field->" + FieldName( 1 ))
       ELSE
          cField := FieldName(FieldPos( aFields [nColumn] ))
@@ -1438,7 +1438,7 @@ FUNCTION _BrowseDelete(ControlName, ParentForm, z)
    Select &_BrowseArea
    _RecNo := RecNo()
 
-   IF lock == .F. .AND. ( _BrowseArea )->( dbInfo( DBI_SHARED ) )
+   IF !lock .AND. ( _BrowseArea )->( dbInfo( DBI_SHARED ) )
       lock := .T.
    ENDIF
 
@@ -1524,7 +1524,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
 
    IF LISTVIEW_GETFIRSTITEM ( GridHandle ) == 0
       IF append != NIL
-         IF append == .F.
+         IF !append
             RETURN Nil
          ENDIF
       ENDIF
@@ -1673,7 +1673,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
             aReadonly := Array(Len(_HMG_aControlRangeMin[i]))
             AFill(aReadonly, .F.)
             aReadonly [z] := .T.
-         ELSEIF aReadOnly [z] == .F.
+         ELSEIF !aReadOnly [z]
             aReadonly [z] := .T.
          ENDIF
          // add a length to aFormats
@@ -1720,7 +1720,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
 
       FOR z := 1 TO Len(aResults)
 
-         IF aReadOnly == NIL .OR. aReadOnly [z] == .F.
+         IF aReadOnly == NIL .OR. !aReadOnly [z]
 
             tvar := _HMG_aControlRangeMin[i] [z]
             Replace &tvar WITH aResults [z]
@@ -2185,14 +2185,14 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
       GO nRec
    ENDIF
 
-   IF lock == .F. .AND. ( _GridWorkArea )->( dbInfo( DBI_SHARED ) )
+   IF !lock .AND. ( _GridWorkArea )->( dbInfo( DBI_SHARED ) )
       lock := .T.
    ENDIF
 
    // If LOCK clause is present, try to lock.
    IF lock == .T.
 
-      IF ( _GridWorkArea )->( NetRecLock() ) == .F.
+      IF !( _GridWorkArea )->( NetRecLock() )
          _HMG_IPE_CANCELLED := .T.
          MsgAlert( _HMG_BRWLangError[9], _HMG_BRWLangError[10] )
          // Restore Original Record Pointer
@@ -2214,7 +2214,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
             _HMG_ThisEventType := "BROWSE_WHEN"
             E := Eval(aTemp [CellColIndex])
             _HMG_ThisEventType := ""
-            IF hb_IsLogical(E) .AND. E == .F.
+            IF hb_IsLogical(E) .AND. !E
                PlayHand()
                // Restore Original Record Pointer
                GO BackRec
@@ -2284,7 +2284,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
 
       r := InputBox ( "" , _HMG_aControlCaption[i][CellColIndex] , StrTran(CellData, Chr(141), " ") , , , .T. )
 
-      IF _HMG_DialogCancelled == .F.
+      IF !_HMG_DialogCancelled
          Replace &FieldName WITH r
          _HMG_IPE_CANCELLED := .F.
       ELSE
@@ -2500,7 +2500,7 @@ STATIC PROCEDURE _InPlaceEditOk ( i , r , aValid , CellColIndex , sFieldName , A
 
             _HMG_ThisEventType := ""
 
-            IF hb_IsLogical(b) .AND. b == .F.
+            IF hb_IsLogical(b) .AND. !b
 
                IF hb_IsArray(aValidMessages)
 

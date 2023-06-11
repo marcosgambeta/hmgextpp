@@ -284,7 +284,7 @@ FUNCTION _DefineChkLabel(ControlName, ParentFormName, x, y, Caption, w, h, ;
 
    IF autosize == .T. .AND. !lDialogInMemory
       _SetControlWidth(ControlName, ParentFormName, GetTextWidth(NIL, Caption, FontHandle) + ;
-         iif(bold == .T. .OR. italic == .T., GetTextWidth(NIL, " ", FontHandle), 0) + h + iif(Len(Caption) > 0 .AND. leftcheck == .F., GetBorderWidth(), iif(leftcheck, GetBorderWidth() / 2, 0)))
+         iif(bold == .T. .OR. italic == .T., GetTextWidth(NIL, " ", FontHandle), 0) + h + iif(Len(Caption) > 0 .AND. !leftcheck, GetBorderWidth(), iif(leftcheck, GetBorderWidth() / 2, 0)))
       _SetControlHeight(ControlName, ParentFormName, iif(FontSize < 13, 22, FontSize + 16))
       RedrawWindow(ControlHandle)
    ENDIF

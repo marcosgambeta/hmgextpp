@@ -922,7 +922,7 @@ FUNCTION PageDlgProc(hwndParent, hwndDlg, nMsg, wParam, lParam)
             lRet := .T.
          ENDIF
       ENDIF
-      IF lRet == .F.
+      IF !lRet
          ControlHandle := GetDialogITemHandle(hwndDlg, LOWORD(wParam))
          Events(hwndDlg, nMsg, wParam, ControlHandle)
          lRet := .T.
