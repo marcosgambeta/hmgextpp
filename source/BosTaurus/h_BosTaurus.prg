@@ -119,7 +119,7 @@ FUNCTION BT_DeleteDC(BTstruct)
 
    LOCAL lRet
 
-   IF ValType(BTstruct) != "A"
+   IF !hb_isArray(BTstruct)
       MsgBox("Error in call to " + ProcName() + ": The second parameter is not an array" + CRLF + bt_ListCalledFunctions(2), "BT Fatal Error")
       RELEASE WINDOW ALL
    ELSEIF Len(BTstruct) != 50

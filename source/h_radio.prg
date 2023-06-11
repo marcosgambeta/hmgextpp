@@ -110,7 +110,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
-   IF ValType(aReadOnly) != "A"
+   IF !hb_isArray(aReadOnly)
       aReadOnly := Array(Len(aOptions))
       AFill(aReadOnly, .F.)
    ENDIF

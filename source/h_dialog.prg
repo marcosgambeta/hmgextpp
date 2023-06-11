@@ -344,7 +344,7 @@ FUNCTION _EndDialog()
             ENDIF
             IF k > 0
                IF k_old != k
-                  IF ValType(_HMG_aControlHandles[k]) != "A"
+                  IF !hb_isArray(_HMG_aControlHandles[k])
                      _HMG_aControlHandles[k] := ControlHandle
                   ELSE
                      _HMG_aControlHandles[k] := {}

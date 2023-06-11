@@ -144,13 +144,13 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
       nMaxLength := hb_ULen(Value)
    ENDCASE
 
-   IF ValType(aBitmap) != "A"
+   IF !hb_isArray(aBitmap)
       cBmp := aBitmap
       aBitmap := Array(2)
       aBitmap[1] := cBmp
    ENDIF
 
-   IF ValType(aToolTip) != "A"
+   IF !hb_isArray(aToolTip)
       tmp := aToolTip
       aToolTip := Array(3)
       aToolTip[1] := tmp

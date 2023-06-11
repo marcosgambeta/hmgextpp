@@ -192,7 +192,7 @@ FUNCTION SendData(cDest, Data)
 
    IF hb_IsArray(Data)
 
-      IF ValType(Data [1]) != "A"
+      IF !hb_isArray(Data [1])
 
          cData := "#DataRows=" + hb_ntos(Len(Data)) + Chr(13) + Chr(10)
          cData += "#DataCols=0" + Chr(13) + Chr(10)

@@ -232,7 +232,7 @@ Test(mkm)
             endif
             mx_pg :=ROUND(max(1, mx_pg), 0)
             tpg := mx_pg
-            if valtype(oWr:argm[3]) != "A"
+            if !hb_isArray(oWr:argm[3])
                Dbgotop()
             Endif
             if oWr:aStat [ "end_pr" ] != 0

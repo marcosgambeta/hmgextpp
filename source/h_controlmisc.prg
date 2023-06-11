@@ -1389,7 +1389,7 @@ FUNCTION _DisableControl(ControlName, ParentForm, nPosition)
          s := TabCtrl_GetCurSel(_HMG_aControlHandles[y])
       ENDIF
       FOR EACH w IN _HMG_aControlPageMap[y][s]
-         IF ValType(w) != "A"
+         IF !hb_isArray(w)
             DisableWindow(w)
          ELSE
             FOR EACH z IN w
@@ -1544,7 +1544,7 @@ FUNCTION _EnableControl(ControlName, ParentForm, nPosition)
          s := TabCtrl_GetCurSel(_HMG_aControlHandles[y])
       ENDIF
       FOR EACH w IN _HMG_aControlPageMap[y][s]
-         IF ValType(w) != "A"
+         IF !hb_isArray(w)
             EnableWindow(w)
          ELSE
             FOR EACH z IN w
@@ -1682,7 +1682,7 @@ FUNCTION _ShowControl(ControlName, ParentForm)
       CShowControl(c)
       s := TabCtrl_GetCurSel(_HMG_aControlHandles[y])
       FOR EACH w IN _HMG_aControlPageMap[y][s]
-         IF ValType(w) != "A"
+         IF !hb_isArray(w)
             CShowControl(w)
          ELSE
             FOR EACH z IN w
@@ -1763,7 +1763,7 @@ FUNCTION _HideControl(ControlName, ParentForm)
       HideWindow(c)
       FOR EACH r IN _HMG_aControlPageMap[y]
          FOR EACH w IN r
-            IF ValType(w) != "A"
+            IF !hb_isArray(w)
                HideWindow(w)
             ELSE
                FOR EACH z IN w
@@ -1908,7 +1908,7 @@ FUNCTION _SetItem(ControlName, ParentForm, Item, Value, index)
    CASE CONTROL_TYPE_PROPGRID
       IF _HMG_aControlMiscData1[i][5] == .F.
          AEDITCONTROLS := _HMG_aControlMiscData1[i][13]
-         IF ValType(AEDITCONTROLS) != "A"
+         IF !hb_isArray(AEDITCONTROLS)
 #ifdef _HMG_COMPAT_
             aTemp := AClone(Value)
             AEval(aTemp, {|x, i|iif(hb_IsString(x) .OR. HB_ISNIL(x), NIL, aTemp[i] := hb_ValToStr(x))})
@@ -2071,7 +2071,7 @@ FUNCTION _GetItem(ControlName, ParentForm, Item, index)
          RetVal := _GetIVirtualItem(Item, i, ColumnCount)
       ELSE
          AEDITCONTROLS := _HMG_aControlMiscData1[i][13]
-         IF ValType(AEDITCONTROLS) != "A"
+         IF !hb_isArray(AEDITCONTROLS)
             RetVal := ListViewGetItem(c, Item, ColumnCount)
          ELSE
             V := ListViewGetItem(c, Item, ColumnCount)
@@ -2198,7 +2198,7 @@ FUNCTION _SetControlSizePos(ControlName, ParentForm, row, col, width, height)
 
          FOR w := 1 TO Len(_HMG_aControlPageMap[x][r])
 
-            IF ValType(_HMG_aControlPageMap[x][r][w]) != "A"
+            IF !hb_isArray(_HMG_aControlPageMap[x][r][w])
 
                p := AScan(_HMG_aControlhandles, _HMG_aControlPageMap[x][r][w]) // TODO:
                IF p > 0
@@ -3740,7 +3740,7 @@ FUNCTION _ReleaseControl(ControlName, ParentForm)
    CASE CONTROL_TYPE_TAB
       FOR r := 1 TO Len(_HMG_aControlPageMap[i])
          FOR w := 1 TO Len(_HMG_aControlPageMap[i][r])
-            IF ValType(_HMG_aControlPageMap[i][r][w]) != "A"
+            IF !hb_isArray(_HMG_aControlPageMap[i][r][w])
                ReleaseControl(_HMG_aControlPageMap[i][r][w])
                x := AScan(_HMG_aControlHandles, _HMG_aControlPageMap[i][r][w]) // TODO:
                IF x > 0
@@ -6618,7 +6618,7 @@ STATIC FUNCTION _SetGetGridProperty(ControlName, ParentForm, nControl, nColIndex
 
          IF PCount() > 4
 
-            IF Valtype(_HMG_aControlMiscData1[i][nControl]) != "A"
+            IF !hb_isArray(_HMG_aControlMiscData1[i][nControl])
                _HMG_aControlMiscData1[i][nControl] := {}
             ENDIF
             IF Len(_HMG_aControlMiscData1[i][nControl]) < nColumnCount
@@ -7159,7 +7159,7 @@ STATIC PROCEDURE _SetGridColumnWidthLimits(ControlName, ParentForm, aLimits)
       IF hb_IsArray(aLimits)
          IF Len(aLimits) == ListView_GetColumnCount(_HMG_aControlHandles[i])
             FOR z := 1 TO Len(aLimits)
-               IF ValType(aLimits[z]) != "A" .OR. ValType(aLimits[z][1]) != "N" .OR. ValType(aLimits[z][2]) != "N"
+               IF !hb_isArray(aLimits[z]) .OR. ValType(aLimits[z][1]) != "N" .OR. ValType(aLimits[z][2]) != "N"
                   lError := .T.
                   EXIT
                ENDIF
@@ -7750,7 +7750,7 @@ FUNCTION _IsControlEnabled(ControlName, ParentForm, Position)
    ELSEIF t == CONTROL_TYPE_TAB .AND. hb_IsNumeric(Position)
       FOR EACH w IN _HMG_aControlPageMap[i][Position]
 
-         IF ValType(w) != "A"
+         IF !hb_isArray(w)
             RetVal := IsWindowEnabled(w)
          ELSE
             FOR EACH t IN w

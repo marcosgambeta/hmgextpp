@@ -229,7 +229,7 @@ FUNCTION ABM(cArea, cTitulo, aCampos, aEditables, bGuardar, bBuscar)
 
    // Nombre de los campos.-------------------------------------------------------
    _aCampos := Array(nCampos)
-   IF (ValType(aCampos) != "A") .OR. (Len(aCampos) != nCampos)
+   IF !hb_isArray(aCampos) .OR. (Len(aCampos) != nCampos)
       _aCampos := Array(nCampos)
       FOR nItem := 1 TO nCampos
          _aCampos[nItem] := Lower(_aEstructura[nItem, 1])
@@ -246,7 +246,7 @@ FUNCTION ABM(cArea, cTitulo, aCampos, aEditables, bGuardar, bBuscar)
 
    // Array de controles editables.-----------------------------------------------
    _aEditables := Array(nCampos)
-   IF (ValType(aEditables) != "A") .OR. (Len(aEditables) != nCampos)
+   IF !hb_isArray(aEditables) .OR. (Len(aEditables) != nCampos)
       _aEditables := Array(nCampos)
       FOR nItem := 1 TO nCampos
          _aEditables[nItem] := .T.

@@ -379,7 +379,7 @@ Function StampeEsegui(_MainArea,_psd,db_arc,_prw)
          endif
          mx_pg := ROUND(max(1, mx_pg), 0)
          tpg   := mx_pg
-         if valtype(oWr:argm[3]) != "A"
+         if !hb_isArray(oWr:argm[3])
             Dbgotop()
          Endif
          if oWr:aStat [ "end_pr" ] != 0
@@ -651,7 +651,7 @@ Procedure MsgMulty( xMesaj, cTitle ) // Created By Bicahi Esgici <esgici@gmail.c
          cTitle := PROCNAME(1) + "\" +   NTrim(PROCLINE(1))
       ENDIF
 
-      IF VALTYPE(xMesaj) != "A"
+      IF !hb_isArray(xMesaj)
          xMesaj := { xMesaj }
       ENDIF
 

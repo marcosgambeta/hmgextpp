@@ -314,7 +314,7 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
 
    // Nombres de los campos.
    lSalida := .T.
-   IF ValType(aNombreCampo) != "A"
+   IF !hb_isArray(aNombreCampo)
       lSalida := .F.
    ELSE
       IF Len(aNombreCampo) != nEstructura
@@ -339,7 +339,7 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
 
    // Texto de aviso en la barra de estado de la ventana de edición de registro.
    lSalida := .T.
-   IF ValType(aAvisoCampo) != "A"
+   IF !hb_isArray(aAvisoCampo)
       lSalida := .F.
    ELSE
       IF Len(aAvisoCampo) != nEstructura
@@ -375,7 +375,7 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
 
    // Campos visibles en la tabla de la ventana de visualización de registros.
    lSalida := .T.
-   IF ValType(aVisibleEnTabla) != "A"
+   IF !hb_isArray(aVisibleEnTabla)
       lSalida := .F.
    ELSE
       IF Len(aVisibleEnTabla) != nEstructura
@@ -400,7 +400,7 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
 
    // Estado de los campos en la ventana de edición de registro.
    lSalida := .T.
-   IF ValType(aEditable) != "A"
+   IF !hb_isArray(aEditable)
       lSalida := .F.
    ELSE
       IF Len(aEditable) != nEstructura
@@ -426,7 +426,7 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
    // Opciones del usuario.
    lSalida := .T.
 
-   IF ValType(aOpciones) != "A"
+   IF !hb_isArray(aOpciones)
       lSalida := .F.
    ELSEIF Len(aOpciones) < 1
       lSalida := .F.

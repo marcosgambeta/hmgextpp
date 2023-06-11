@@ -184,7 +184,7 @@ FUNCTION _DefineTBrowse(ControlName, ParentFormName, nCol, nRow, nWidth, nHeight
 
    /* BK  18.05.2015 */
    IF hb_IsBlock(uWhen)
-      IF ValType(readonly) != "A"
+      IF !hb_isArray(readonly)
          readonly := !Eval(uWhen)
       ENDIF
       uWhen := NIL
@@ -2783,7 +2783,7 @@ METHOD Default() CLASS TSBrowse
                ::lPhantArrRow := .T.
             ENDIF
             IF Len(::cArray) > 0
-               IF ValType(::cArray[1]) != "A"
+               IF !hb_isArray(::cArray[1])
                   ::SetItems(::cArray)
                ELSE
                   ::SetArray(::cArray, .T.)
@@ -13126,7 +13126,7 @@ METHOD SetArray(aArray, lAutoCols, aHead, aSizes) CLASS TSBrowse
    LOCAL nMax
    LOCAL bData
    LOCAL cHead
-   LOCAL lListBox := Len(aArray) > 0 .AND. ValType(aArray[1]) != "A"
+   LOCAL lListBox := Len(aArray) > 0 .AND. !hb_isArray(aArray[1])
 
    DEFAULT aArray := {}
    DEFAULT lAutoCols := ::lAutoCol
@@ -13202,7 +13202,7 @@ METHOD SetArray(aArray, lAutoCols, aHead, aSizes) CLASS TSBrowse
          aHead := AutoHeaders(Len(::aArray[1]))
       ENDIF
 
-      IF aSizes != NIL .AND. ValType(aSizes) != "A"
+      IF aSizes != NIL .AND. !hb_isArray(aSizes)
          aSizes := AFill(Array(Len(::aArray[1])), nValToNum(aSizes))
       ELSEIF hb_IsArray(aSizes) .AND. !Empty(aSizes)
          IF Len(aSizes) < nColumns
@@ -13411,7 +13411,7 @@ METHOD SetArrayTo(aArray, uFontHF, aHead, aSizes, uFooter, aPicture, aAlign, aNa
       aHead := AutoHeaders(Len(::aArray[1]))
    ENDIF
 
-   IF aSizes != NIL .AND. ValType(aSizes) != "A"
+   IF aSizes != NIL .AND. !hb_isArray(aSizes)
       aSizes := AFill(Array(Len(::aArray[1])), nValToNum(aSizes))
    ELSEIF hb_IsArray(aSizes) .AND. !Empty(aSizes)
       IF Len(aSizes) < nColumns
@@ -15384,7 +15384,7 @@ RETURN NIL
 
 METHOD UserPopup(bUserPopupItem, aColumn) CLASS TSBrowse
 
-   IF ValType(aColumn) != "A"
+   IF !hb_isArray(aColumn)
       aColumn := iif(hb_IsNumeric(aColumn), {aColumn}, {0})
    ENDIF
 
@@ -16885,7 +16885,7 @@ FUNCTION lAEqual(aArr1, aArr2)
       RETURN .T.
    ELSEIF Empty(aArr1) .OR. Empty(aArr2)
       RETURN .F.
-   ELSEIF ValType(aArr1) != "A" .OR. ValType(aArr2) != "A"
+   ELSEIF !hb_isArray(aArr1) .OR. !hb_isArray(aArr2)
       RETURN .F.
    ELSEIF Len(aArr1) != Len(aArr2)
       RETURN .F.

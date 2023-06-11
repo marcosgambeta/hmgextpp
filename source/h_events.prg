@@ -2825,7 +2825,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                      aTemp  := _HMG_aControlMiscData1[i][18]
                      aTemp2 := _HMG_aControlMiscData1[i][17]
 
-                     IF hb_IsArray(aTemp) .AND. ValType(aTemp2) != "A"
+                     IF hb_IsArray(aTemp) .AND. !hb_isArray(aTemp2)
                         IF Len(aTemp) >= a[1]
 
                            IF aTemp[a[1]][a[2]] != -1
@@ -2836,7 +2836,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                         ENDIF
 
-                     ELSEIF ValType(aTemp) != "A" .AND. hb_IsArray(aTemp2)
+                     ELSEIF !hb_isArray(aTemp) .AND. hb_IsArray(aTemp2)
                         IF Len(aTemp2) >= a[1]
 
                            IF aTemp2[a[1]][a[2]] != -1
@@ -4284,7 +4284,7 @@ STATIC FUNCTION _DoGridCustomDraw(i, a, lParam)
       aTemp  := _HMG_aControlMiscData1[i, 22]
       aTemp2 := _HMG_aControlMiscData1[i, 21]
 
-      IF hb_IsArray(aTemp) .AND. ValType(aTemp2) != "A"
+      IF hb_IsArray(aTemp) .AND. !hb_isArray(aTemp2)
 
          IF Len(aTemp) >= a[1]
             IF aTemp[a[1]][a[2]] != -1
@@ -4294,7 +4294,7 @@ STATIC FUNCTION _DoGridCustomDraw(i, a, lParam)
             ENDIF
          ENDIF
 
-      ELSEIF ValType(aTemp) != "A" .AND. hb_IsArray(aTemp2)
+      ELSEIF !hb_isArray(aTemp) .AND. hb_IsArray(aTemp2)
 
          IF Len(aTemp2) >= a[1]
             IF aTemp2[a[1]][a[2]] != -1

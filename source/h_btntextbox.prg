@@ -97,7 +97,7 @@ FUNCTION _DefineBtnTextBox(ControlName, ParentFormName, x, y, w, h, ;
    hb_default(@lDefault, .F.)
    hb_default(@keepfocus, .T.)
 
-   IF ValType(aBitmap) != "A"
+   IF !hb_isArray(aBitmap)
       cBmp := aBitmap
       aBitmap := Array(2)
       aBitmap[1] := cBmp
@@ -114,7 +114,7 @@ FUNCTION _DefineBtnTextBox(ControlName, ParentFormName, x, y, w, h, ;
       ENDIF
    ENDIF
 
-   IF ValType(aToolTip) != "A"
+   IF !hb_isArray(aToolTip)
       tmp := aToolTip
       aToolTip := Array(3)
       aToolTip[1] := tmp

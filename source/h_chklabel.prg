@@ -121,7 +121,7 @@ FUNCTION _DefineChkLabel(ControlName, ParentFormName, x, y, Caption, w, h, ;
       Caption := cValToChar(Caption)
    ENDIF
 
-   IF ValType(aBitmap) != "A"
+   IF !hb_isArray(aBitmap)
       cBmp := aBitmap
       aBitmap := Array(2)
       aBitmap[1] := iif(Empty(cBmp), GetCheckBmp(), cBmp)

@@ -547,7 +547,7 @@ FUNCTION InitPageFldProc(hWndParent, hwndDlg, idDlg)
             SetToolTip(ControlHandle, aDialogItems[n, 12], GetFormToolTipHandle(_HMG_ActiveDialogName))
          ENDIF
          IF k > 0
-            IF ValType(_HMG_aControlHandles[k]) != "A"
+            IF !hb_isArray(_HMG_aControlHandles[k])
                _HMG_aControlHandles[k] :=  ControlHandle
             ELSE
                IF k_old != k

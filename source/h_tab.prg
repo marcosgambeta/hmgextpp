@@ -375,7 +375,7 @@ FUNCTION InitDialogTab(ParentName, ControlHandle, k)
 
          FOR EACH c IN tabpage
 
-            IF ValType(c) != "A"
+            IF !hb_isArray(c)
 
                HideWindow(c)
 
@@ -414,7 +414,7 @@ FUNCTION UpdateTab(y)  // Internal Function
 
       FOR EACH w IN tabpage
 
-         IF ValType(w) != "A"
+         IF !hb_isArray(w)
 
             HideWindow(w)
 
@@ -437,7 +437,7 @@ FUNCTION UpdateTab(y)  // Internal Function
 
       FOR EACH w IN _HMG_aControlPageMap [y] [s]
 
-         IF ValType(w) != "A"
+         IF !hb_isArray(w)
 
             IF _IsControlVisibleFromHandle(w)
 
@@ -529,7 +529,7 @@ FUNCTION _BeginTabPage ( caption , image , tooltip )
    // JR
    IF hb_IsChar(tooltip)
 
-      IF ValType(_HMG_ActiveTabTooltip) != "A"
+      IF !hb_isArray(_HMG_ActiveTabTooltip)
 
          _HMG_ActiveTabTooltip := Array(_HMG_ActiveTabPage)
          AFill(_HMG_ActiveTabTooltip, "")
@@ -640,7 +640,7 @@ FUNCTION _AddTabPage ( ControlName , ParentForm , Position , Caption , Image , t
          _HMG_aControlInputMask[i] := AddTabBitMap ( _HMG_aControlHandles[i], _HMG_aControlPicture[i], _HMG_aControlMiscData1 [i, 8] )
       ENDIF
       // JR
-      IF ValType(_HMG_aControlTooltip[i]) != "A"
+      IF !hb_isArray(_HMG_aControlTooltip[i])
          _HMG_aControlTooltip[i] := Array(Len(_HMG_aControlPageMap[i]))
          AFill(_HMG_aControlTooltip[i], "")
          _HMG_aControlTooltip[i] [Position] := tooltip
@@ -734,7 +734,7 @@ FUNCTION _DeleteTabPage ( ControlName , ParentForm , Position )
 
                FOR EACH c IN NewValue
 
-                  IF ValType(c) != "A"
+                  IF !hb_isArray(c)
                      HideWindow(c)
                   ELSE
                      FOR EACH j IN c
