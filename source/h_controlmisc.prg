@@ -4680,7 +4680,7 @@ PROCEDURE SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
 
       ELSE
 
-         IF ValType(Arg3) != "N"
+         IF !hb_isNumeric(Arg3)
             Arg3 := Upper(Arg3)
             IF Arg3 == "CELL"
                VerifyControlDefined(Arg1, Arg2)
@@ -5420,7 +5420,7 @@ FUNCTION GetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
 
       ELSE
 
-         IF ValType(Arg3) != "N"
+         IF !hb_isNumeric(Arg3)
             Arg3 := Upper(Arg3)
             IF Arg3 == "CELL"
                IF Len(_HMG_aControlBkColor[GetControlIndex(Arg2, Arg1)]) > 0 .AND. Arg5 == 1
@@ -6366,11 +6366,11 @@ STATIC FUNCTION _RichEditBox_SetProperty(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg
    CASE "CARETPOS"           ; RichEditBox_SetCaretPos(hWndControl, Arg4)      ; RetVal := .T. ; EXIT
    CASE "VALUE"              ; RichEditBox_SetText(hWndControl, .F., Arg4)     ; RetVal := .T. ; EXIT
    CASE "ADDTEXT"
-      Arg4 := IIF(ValType(Arg4) != "N", -1, Arg4)
+      Arg4 := IIF(!hb_isNumeric(Arg4), -1, Arg4)
       RichEditBox_SetCaretPos(hWndControl, Arg4)
       RichEditBox_SetText(hWndControl, .T., Arg5)                              ; RetVal := .T. ; EXIT
    CASE "ADDTEXTANDSELECT"
-      Arg4 := IIF(ValType(Arg4) != "N", -1, Arg4)
+      Arg4 := IIF(!hb_isNumeric(Arg4), -1, Arg4)
       RichEditBox_AddTextAndSelect(hWndControl, Arg4, Arg5)                    ; RetVal := .T. ; EXIT
    CASE "PARAALIGNMENT"      ; nAlignment := Arg4                              ; RetVal := .T. ; EXIT
    CASE "PARANUMBERING"      ; nNumbering := Arg4                              ; RetVal := .T. ; EXIT
@@ -7159,7 +7159,7 @@ STATIC PROCEDURE _SetGridColumnWidthLimits(ControlName, ParentForm, aLimits)
       IF hb_IsArray(aLimits)
          IF Len(aLimits) == ListView_GetColumnCount(_HMG_aControlHandles[i])
             FOR z := 1 TO Len(aLimits)
-               IF !hb_isArray(aLimits[z]) .OR. ValType(aLimits[z][1]) != "N" .OR. ValType(aLimits[z][2]) != "N"
+               IF !hb_isArray(aLimits[z]) .OR. !hb_isNumeric(aLimits[z][1]) .OR. !hb_isNumeric(aLimits[z][2])
                   lError := .T.
                   EXIT
                ENDIF

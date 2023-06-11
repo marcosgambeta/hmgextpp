@@ -8019,7 +8019,7 @@ METHOD GoPos(nNewRow, nNewCol) CLASS TSBrowse
 
    ::lNoPaint := ::lFirstFocus := .F.
 
-   IF ValType(nNewRow) != "N" .OR. ValType(nNewCol) != "N" .OR. nNewCol > Len(::aColumns) .OR. nNewRow > ::nLen .OR. nNewCol <= 0 .OR. nNewRow <= 0
+   IF !hb_isNumeric(nNewRow) .OR. !hb_isNumeric(nNewCol) .OR. nNewCol > Len(::aColumns) .OR. nNewRow > ::nLen .OR. nNewCol <= 0 .OR. nNewRow <= 0
 
       Tone(500, 1)
       RETURN NIL
@@ -13969,7 +13969,7 @@ METHOD SetData(nColumn, bData, aList) CLASS TSBrowse
       nColumn := ::nColumn(nColumn) // 21.07.2015
    ENDIF
 
-   IF ValType(nColumn) != "N" .OR. nColumn <= 0
+   IF !hb_isNumeric(nColumn) .OR. nColumn <= 0
       RETURN NIL
    ENDIF
 
