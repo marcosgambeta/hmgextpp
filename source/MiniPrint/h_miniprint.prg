@@ -87,7 +87,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
    _hmg_printer_PrevPageNumber := 0
    _hmg_printer_collate := PRINTER_COLLATE_FALSE
 
-   IF _HMG_IsModalActive == .T.
+   IF _HMG_IsModalActive
 
       ModalHandle := _hmg_activemodalhandle
 
@@ -716,7 +716,7 @@ RETURN
 
 PROCEDURE _HMG_PRINTER_ProcessTHUMBNAILS()
 
-   IF _HMG_PRINTER_PPNAV.thumbswitch.Value == .T.
+   IF _HMG_PRINTER_PPNAV.thumbswitch.Value
       CreateThumbNails()
       _hmg_printer_zoomclick_xoffset := 90
       _hmg_printer_SizeFactor := GetDesktopHeight() / _HMG_PRINTER_GETPAGEHEIGHT(_hmg_printer_hdc_bak) * 0.58
@@ -838,7 +838,7 @@ PROCEDURE _HMG_PRINTER_PREVIEWRefresh()
    LOCAL nRow
    LOCAL nScrollMax
 
-   IF _IsControlDefined("Image" + hb_ntos(_hmg_printer_CurrentPageNumber), "_HMG_PRINTER_SHOWTHUMBNAILS") .And. _HMG_PRINTER_THUMBUPDATE == .T. .And. _hmg_printer_thumbscroll == .T.
+   IF _IsControlDefined("Image" + hb_ntos(_hmg_printer_CurrentPageNumber), "_HMG_PRINTER_SHOWTHUMBNAILS") .And. _HMG_PRINTER_THUMBUPDATE .And. _hmg_printer_thumbscroll
 
       IF _hmg_printer_PrevPageNumber != _hmg_printer_CurrentPageNumber
 
@@ -913,7 +913,7 @@ PROCEDURE _HMG_PRINTER_PrintPages()
    _HMG_PRINTER_PRINTPAGES.Combo_1.Enabled := .F.
    _HMG_PRINTER_PRINTPAGES.CheckBox_1.Enabled := .F.
 
-   IF _hmg_printer_usercopies == .T. .Or. _hmg_printer_usercollate == .T.
+   IF _hmg_printer_usercopies .Or. _hmg_printer_usercollate
       _HMG_PRINTER_PRINTPAGES.Spinner_3.Enabled := .F.
    ENDIF
 
@@ -964,11 +964,11 @@ PROCEDURE _HMG_PRINTER_PrintPagesDo()
 
       FOR i := PageFrom TO PageTo
 
-         IF OddOnly == .T.
+         IF OddOnly
             IF i / 2 != int(i / 2)
                _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i,4) + ".emf" )
             ENDIF
-         ELSEIF EvenOnly == .T.
+         ELSEIF EvenOnly
             IF i / 2 == int(i / 2)
                _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i,4) + ".emf" )
             ENDIF
@@ -986,11 +986,11 @@ PROCEDURE _HMG_PRINTER_PrintPagesDo()
 
             FOR i := PageFrom TO PageTo
 
-               IF OddOnly == .T.
+               IF OddOnly
                   IF i / 2 != int(i / 2)
                      _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i,4) + ".emf" )
                   ENDIF
-               ELSEIF EvenOnly == .T.
+               ELSEIF EvenOnly
                   IF i / 2 == int(i / 2)
                      _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i,4) + ".emf" )
                   ENDIF
@@ -1008,11 +1008,11 @@ PROCEDURE _HMG_PRINTER_PrintPagesDo()
 
             FOR p := 1 TO _HMG_PRINTER_PrintPages.Spinner_3.Value
 
-               IF OddOnly == .T.
+               IF OddOnly
                   IF i / 2 != int(i / 2)
                      _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i,4) + ".emf" )
                   ENDIF
-               ELSEIF EvenOnly == .T.
+               ELSEIF EvenOnly
                   IF i / 2 == int(i / 2)
                      _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i,4) + ".emf" )
                   ENDIF
@@ -1164,7 +1164,7 @@ PROCEDURE _HMG_PRINTER_H_PRINT(nHdc, nRow, nCol, cFontName, nFontSize, nColor1, 
       cText := dtoc(cText)
       EXIT
    CASE "L"
-      cText := iif(cText == .T., _hmg_printer_usermessages[24], _hmg_printer_usermessages[25])
+      cText := iif(cText, _hmg_printer_usermessages[24], _hmg_printer_usermessages[25])
       EXIT
    CASE "A"
    CASE "B"
@@ -1212,7 +1212,7 @@ PROCEDURE _HMG_PRINTER_H_MULTILINE_PRINT(nHdc, nRow, nCol, nToRow, nToCol, cFont
       cText := dtoc(cText)
       EXIT
    CASE "L"
-      cText := iif(cText == .T., _hmg_printer_usermessages[24], _hmg_printer_usermessages[25])
+      cText := iif(cText, _hmg_printer_usermessages[24], _hmg_printer_usermessages[25])
       EXIT
    CASE "A"
    CASE "B"

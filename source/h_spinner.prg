@@ -242,7 +242,7 @@ FUNCTION OSPINEVENTS( hWnd, nMsg, wParam, lParam )    // 2006.08.13 JD
 
       IF i > 0
 
-         IF _HMG_aControlsContextMenu[i][4] == .T.
+         IF _HMG_aControlsContextMenu[i][4]
             setfocus( wParam )
 
             _HMG_xControlsContextMenuID := _HMG_aControlsContextMenu[i][3]

@@ -309,7 +309,7 @@ FUNCTION OBTNEVENTS(hWnd, nMsg, wParam, lParam)
 
       CASE WM_MOUSELEAVE
 
-         IF lParam == .T.
+         IF lParam
 
             _HMG_aControlRangeMax[i][2] := .F.
 

@@ -257,7 +257,7 @@ FUNCTION _DefineChkLabel(ControlName, ParentFormName, x, y, Caption, w, h, ;
    _HMG_aControlCol                [k] := x
    _HMG_aControlWidth              [k] := w
    _HMG_aControlHeight             [k] := h
-   _HMG_aControlSpacing            [k] := iif(autosize == .T., 1, 0)
+   _HMG_aControlSpacing            [k] := iif(autosize, 1, 0)
    _HMG_aControlContainerRow       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1)
    _HMG_aControlContainerCol       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1)
    _HMG_aControlPicture            [k] := abitmap
@@ -277,14 +277,14 @@ FUNCTION _DefineChkLabel(ControlName, ParentFormName, x, y, Caption, w, h, ;
    _HMG_aControlMiscData1          [k] := {0, blink, .T.}
    _HMG_aControlMiscData2          [k] := ""
 
-   IF blink == .T. .AND. !lDialogInMemory
+   IF blink .AND. !lDialogInMemory
       _DefineTimer("BlinkTimer" + hb_ntos(k), ParentFormName, 500, {||_HMG_aControlMiscData1[k][3] := !_HMG_aControlMiscData1[k][3], ;
-         iif(_HMG_aControlMiscData1[k][3] == .T., _ShowControl(ControlName, ParentFormName), _HideControl(ControlName, ParentFormName))})
+         iif(_HMG_aControlMiscData1[k][3], _ShowControl(ControlName, ParentFormName), _HideControl(ControlName, ParentFormName))})
    ENDIF
 
-   IF autosize == .T. .AND. !lDialogInMemory
+   IF autosize .AND. !lDialogInMemory
       _SetControlWidth(ControlName, ParentFormName, GetTextWidth(NIL, Caption, FontHandle) + ;
-         iif(bold == .T. .OR. italic == .T., GetTextWidth(NIL, " ", FontHandle), 0) + h + iif(Len(Caption) > 0 .AND. !leftcheck, GetBorderWidth(), iif(leftcheck, GetBorderWidth() / 2, 0)))
+         iif(bold .OR. italic, GetTextWidth(NIL, " ", FontHandle), 0) + h + iif(Len(Caption) > 0 .AND. !leftcheck, GetBorderWidth(), iif(leftcheck, GetBorderWidth() / 2, 0)))
       _SetControlHeight(ControlName, ParentFormName, iif(FontSize < 13, 22, FontSize + 16))
       RedrawWindow(ControlHandle)
    ENDIF

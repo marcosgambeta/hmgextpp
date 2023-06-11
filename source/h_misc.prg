@@ -207,7 +207,7 @@ FUNCTION SendData(cDest, Data)
                cLen := hb_ntos(Len(pData))
                EXIT
             CASE "L"
-               pData := iif(Data[i] == .T., "T", "F")
+               pData := iif(Data[i], "T", "F")
                cLen := hb_ntos(Len(pData))
                EXIT
             CASE "N"
@@ -249,7 +249,7 @@ FUNCTION SendData(cDest, Data)
                   cLen := hb_ntos(Len(pData))
                   EXIT
                CASE "L"
-                  pData := iif(Data[i][j] == .T., "T", "F")
+                  pData := iif(Data[i][j], "T", "F")
                   cLen := hb_ntos(Len(pData))
                   EXIT
                CASE "N"
@@ -284,7 +284,7 @@ FUNCTION SendData(cDest, Data)
          cLen := hb_ntos(Len(pData))
          EXIT
       CASE "L"
-         pData := iif(Data == .T., "T", "F")
+         pData := iif(Data, "T", "F")
          cLen := hb_ntos(Len(pData))
          EXIT
       CASE "N"
@@ -466,7 +466,7 @@ FUNCTION nStrToNum( cNum, lEuropean, lForceNumeric )
       cNum := Trim(Left(cNum, Len(cNum) - 1))
    ENDIF
 
-   IF lForceNumeric == .T. .AND. " " $ cNum
+   IF lForceNumeric .AND. " " $ cNum
       cNum := BeforAtNum( " ", cNum, 1 )
    ENDIF
 

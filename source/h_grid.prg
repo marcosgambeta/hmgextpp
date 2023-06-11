@@ -831,7 +831,7 @@ STATIC PROCEDURE ProcessDynamicArray(i, Rows, Cols, Arr, item)
 
    FOR r := 1 TO Rows
 
-      IF _HMG_aControlMiscData1[i][5] == .T.
+      IF _HMG_aControlMiscData1[i][5]
 
          aValues := _GetIVirtualItem(r, i, Cols)
 
@@ -912,7 +912,7 @@ FUNCTION _GridInplaceEdit(idx)
       MsgMiniGuiError("GRID: Editing within VALID event procedure is not allowed.")
    ENDIF
 
-   IF _HMG_aControlFontColor[idx] == .T.
+   IF _HMG_aControlFontColor[idx]
       IF This.CellRowIndex != _HMG_aControlMiscData1[idx][1]
          RETURN .F.
       ENDIF
@@ -1133,9 +1133,9 @@ FUNCTION _GridInplaceEdit(idx)
         VALUE     v
         FONTNAME _hmg_aControlFontName[idx]
         FONTSIZE _hmg_aControlFontSize[idx]
-        CAPTION   ALABELS[iif(V == .T., 1, 2)]
+        CAPTION   ALABELS[iif(V, 1, 2)]
         BACKCOLOR WHITE
-        ON CHANGE (v := This.Value, This.Caption := ALABELS[iif(V == .T., 1, 2)], _HMG_GridInplaceEdit_StageEvent := 2, _HMG_OnInplaceEditEvent(idx))
+        ON CHANGE (v := This.Value, This.Caption := ALABELS[iif(V, 1, 2)], _HMG_GridInplaceEdit_StageEvent := 2, _HMG_OnInplaceEditEvent(idx))
       END CHECKBOX
 
    ENDIF
@@ -1519,7 +1519,7 @@ PROCEDURE _GridInplaceKbdEdit(i)
       _HMG_ThisFormName := ""
       _HMG_ThisControlName := ""
 
-      IF _HMG_IPE_CANCELLED == .T.
+      IF _HMG_IPE_CANCELLED
 
          IF _HMG_IPE_COL == IPE_MAXCOL
             _HMG_IPE_COL := 1
@@ -2026,7 +2026,7 @@ PROCEDURE _GRIDINPLACEKBDEDIT_2(i)
 
    IF !_HMG_IPE_CANCELLED
 
-      IF r == .T. .AND. _HMG_aControlMiscData1[i][19] == 0
+      IF r .AND. _HMG_aControlMiscData1[i][19] == 0
 
          IF _HMG_aControlMiscData1[i][17] < IPE_MAXCOL
 

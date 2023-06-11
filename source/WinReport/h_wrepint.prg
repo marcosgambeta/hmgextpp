@@ -174,16 +174,16 @@ if ritorna
                   _object_ := substr(_object_,1,a1-1)+upper(substr(_object_,a1))
                endif
                do case
-                  CASE oWr:aStat[ "Define" ] == .T.
+                  CASE oWr:aStat[ "Define" ]
                        aadd(oWr:ADECLARE,{_object_,lcnt})
 
-                  CASE oWr:aStat[ "Head" ] == .T.
+                  CASE oWr:aStat[ "Head" ]
                        aadd(oWr:aHead,{_object_,lcnt})
 
-                  CASE oWr:aStat[ "Body" ] == .T.
+                  CASE oWr:aStat[ "Body" ]
                        aadd(oWr:ABody,{_object_,lcnt})
 
-                  CASE oWr:aStat[ "Feet" ] == .T.
+                  CASE oWr:aStat[ "Feet" ]
                        aadd(oWr:Afeet,{_object_,lcnt})
                endcase
             endif
@@ -217,7 +217,7 @@ if ritorna
    endif
 
    if "ASKR" $ Str1
-      do while msgYesno("Reprint ?") == .T.
+      do while msgYesno("Reprint ?")
          ritorna := oWr:splash(oWr:aStat [ "lblsplash" ],if (oWr:PrnDrv = "HBPR","oWr:doPr()","oWr:doMiniPr()") )
       enddo
       filename := "" //release window all
@@ -2827,7 +2827,7 @@ METHOD TheFeet(last) CLASS WREPORT            //Feet // IL Piede
    if ::PrnDrv = "HBPR"
       End PAGE
    Else
-      if ( _HMG_MINIPRINT [23] == .T. , _HMG_PRINTER_ENDPAGE_PREVIEW (_HMG_MINIPRINT [19]) , _HMG_PRINTER_ENDPAGE ( _HMG_MINIPRINT [19] ) )
+      if ( _HMG_MINIPRINT [23], _HMG_PRINTER_ENDPAGE_PREVIEW (_HMG_MINIPRINT [19]) , _HMG_PRINTER_ENDPAGE ( _HMG_MINIPRINT [19] ) )
    Endif
    if last
       nPgr := 0

@@ -118,11 +118,11 @@ FUNCTION _DefineCombo(ControlName, ParentFormName, x, y, w, rows, value, ;
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
-   IF ItemSource != NIL .AND. Sort == .T.
+   IF ItemSource != NIL .AND. Sort
       MsgMiniGuiError("Sort and ItemSource clauses can't be used simultaneously.")
    ENDIF
 
-   IF ValueSource != NIL .AND. Sort == .T.
+   IF ValueSource != NIL .AND. Sort
       MsgMiniGuiError("Sort and ValueSource clauses can't be used simultaneously.")
    ENDIF
 
@@ -356,7 +356,7 @@ FUNCTION InitDialogComboBox(ParentName, ControlHandle, k)
    cuetext       := _HMG_aControlMiscData1[k, 6]
    ItemHeight    := _HMG_aControlMiscData1[k, 11]
 
-   IF DisplayChange == .T.
+   IF DisplayChange
 
       _HMG_aControlRangeMin[k] := FindWindowEx(ControlHandle, 0, "Edit", NIL)
       // add tooltip for editable combo window if defined //(JK) HMG Exp. Build 8

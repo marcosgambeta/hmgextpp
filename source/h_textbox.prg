@@ -681,7 +681,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
       Value := iif(date, CToD("  /  /  "), "")
    ENDIF
 
-   IF date == .T.
+   IF date
       InputMask := Set( _SET_DATEFORMAT )
       FOR EACH cChar IN "yYmMdD"
          InputMask := StrTran(InputMask, cChar, "9")
@@ -1042,7 +1042,7 @@ PROCEDURE ProcessCharMask ( i , d )
 
       pc := hb_UAt ( ".", OutBuffer )
       // RL 104
-      IF NegativeZero == .T.
+      IF NegativeZero
 
          Output := Transform(GetNumFromText(GetWindowText(_HMG_aControlhandles[i]), i), Mask)
 
@@ -1063,7 +1063,7 @@ PROCEDURE ProcessCharMask ( i , d )
 
    ELSE
 
-      IF pFlag == .T.
+      IF pFlag
 
          ncp := hb_UAt ( "." , GetWindowText ( _HMG_aControlHandles[i] ) )
          SendMessage(_HMG_aControlhandles[i], EM_SETSEL, ncp, ncp)
@@ -1338,7 +1338,7 @@ FUNCTION OEDITEVENTS( hWnd, nMsg, wParam, lParam )
 
       IF ( i := AScan(_HMG_aControlsContextMenu , {|x| x [1] == hWnd }) ) > 0
 
-         IF _HMG_aControlsContextMenu[i][4] == .T.
+         IF _HMG_aControlsContextMenu[i][4]
             setfocus( wParam )
 
             _HMG_xControlsContextMenuID := _HMG_aControlsContextMenu[i][3]

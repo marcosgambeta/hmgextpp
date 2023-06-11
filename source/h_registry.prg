@@ -94,7 +94,7 @@ METHOD New( nKey, cRegKey, lShowError ) CLASS TReg32
 
    ::lError := ( nReturn != ERROR_SUCCESS )
    IF ::lError
-      IF lShowError == NIL .OR. lShowError == .T.
+      IF lShowError == NIL .OR. lShowError
          MsgStop( "Error opening TReg32 object (" + hb_ntos(nReturn) + ")" )
       ENDIF
    ELSE
@@ -116,7 +116,7 @@ METHOD Create(nKey, cRegKey, lShowError) CLASS TReg32
 
    ::lError := ( nReturn != ERROR_SUCCESS )
    IF ::lError
-      IF lShowError == NIL .OR. lShowError == .T.
+      IF lShowError == NIL .OR. lShowError
          MsgStop( "Error creating TReg32 object (" + hb_ntos(nReturn) + ")" )
       ENDIF
    ELSE

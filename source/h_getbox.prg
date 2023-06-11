@@ -1012,7 +1012,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
          IF !readonly
 
-            IF oGet:Type == "N" .AND. oGet:minus == .T. .AND. hb_UAt( "-", oGet:original ) <= 0
+            IF oGet:Type == "N" .AND. oGet:minus .AND. hb_UAt( "-", oGet:original ) <= 0
                oGet:buffer := oGet:original
                oGet:VarPut( ( oGet:unTransform() ) * ( -1 ), .T. )
                oGet:minus := .F.
@@ -1039,7 +1039,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
             IF !oGet:changed
                oGet:buffer := oGet:original
-               IF oGet:Type == "N" .AND. oGet:minus == .T. .AND. hb_UAt( "-", oGet:original ) <= 0
+               IF oGet:Type == "N" .AND. oGet:minus .AND. hb_UAt( "-", oGet:original ) <= 0
                   oGet:VarPut( ( oGet:unTransform() ) * ( -1 ), .T. )
                   oGet:minus := .F.
                ENDIF
@@ -1339,7 +1339,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
       IF ( i := AScan(_HMG_aControlsContextMenu , {|x| x [1] == hWnd }) ) > 0
 
-         IF _HMG_aControlsContextMenu[i][4] == .T.
+         IF _HMG_aControlsContextMenu[i][4]
             setfocus( wParam )
 
             _HMG_xControlsContextMenuID := _HMG_aControlsContextMenu[i][3]

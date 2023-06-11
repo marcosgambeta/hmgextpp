@@ -3165,7 +3165,7 @@ STATIC PROCEDURE CharMaskEdit ( hWnd, cValue, Mask )
    ENDIF
    IF pc > 1
       pc := At(".", OutBuffer)
-      IF NegativeZero == .T.
+      IF NegativeZero
          Output := FormatDouble(GetWindowText(hWnd), Mask)
          Output := Right(Output, ol - 1)
          Output := "-" + Output
@@ -3176,7 +3176,7 @@ STATIC PROCEDURE CharMaskEdit ( hWnd, cValue, Mask )
          SendMessage(hWnd, EM_SETSEL, pc + dc, pc + dc)
       ENDIF
    ELSE
-      IF pFlag == .T.
+      IF pFlag
          ncp := At(".", GetWindowText(hWnd))
          SendMessage(hWnd, EM_SETSEL, ncp, ncp)
       ELSE

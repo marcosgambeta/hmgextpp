@@ -522,7 +522,7 @@ PROCEDURE HMG_SetOrder( nColumn, lDescend )
       RETURN 
    ENDIF
    
-   IF _HMG_aControlMiscData1[i][20][nColumn] == .T.
+   IF _HMG_aControlMiscData1[i][20][nColumn]
 
       _Alias := Alias()
       _BrowseArea := _HMG_aControlSpacing[i]
@@ -695,7 +695,7 @@ PROCEDURE _BrowseUpdate(ControlName, ParentName, z)
 
          IF j >= First
 
-            IF aProcessDisplayItems [ j ] == .T.
+            IF aProcessDisplayItems [ j ]
                lFound := .F.
                FOR k := 1 TO aDisplayItemsLengths [ j ]
                   IF aDisplayItems [ j ] [k] [2] == &cTemp
@@ -797,7 +797,7 @@ FUNCTION _GetBrowseFieldValue(cTemp, cPict)  // add jsz   param
       cRet := TransForm(RTrim(&cTemp), cPict)  // add jsz
       EXIT
    CASE "L"
-      cRet := iif(&cTemp == .T., ".T.", ".F.")
+      cRet := iif(&cTemp, ".T.", ".F.")
       EXIT
    CASE "M"
       cRet := iif(Empty(&cTemp), "<memo>", "<Memo>")
@@ -835,7 +835,7 @@ FUNCTION _GetBrowseFnValue(cTemp, cPict)  // add jsz   param
       cRet := DToC(&cTemp)
       EXIT
    CASE "L"
-      cRet := iif(&cTemp == .T., ".T.", ".F.")
+      cRet := iif(&cTemp, ".T.", ".F.")
       EXIT
    CASE "C"
       cRet := TransForm(RTrim(&cTemp), cPict)  // add jsz
@@ -1568,7 +1568,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
    Col := GCol + ( GWidth - 310 ) / 2
 
    IF append != NIL
-      Title := _HMG_BRWLangButton [ iif(append == .T., 1, 2) ]
+      Title := _HMG_BRWLangButton [ iif(append, 1, 2) ]
    ELSE
       Title := _HMG_BRWLangButton [2]
    ENDIF
@@ -1581,7 +1581,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
    BackRec := RecNo()
 
    IF append != NIL
-      IF append == .T.
+      IF append
          GO BOTTOM
          SKIP
       ELSE
@@ -1631,8 +1631,8 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
       ENDIF
 
       IF append != NIL
-         IF append == .T.
-            IF MixedFields == .T.
+         IF append
+            IF MixedFields
                MsgMiniGuiError(_HMG_BRWLangError[8], .F.)
             ENDIF
          ENDIF
@@ -1693,7 +1693,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
 
    Select &BrowseArea
 
-   IF lock == .T.
+   IF lock
       IF !NetRecLock()
          MsgAlert ( _HMG_BRWLangError[9], _HMG_BRWLangError[10] )
          GO BackRec
@@ -1708,13 +1708,13 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
    IF tvar != NIL
 
       IF append != NIL
-         IF append == .T.
+         IF append
             APPEND BLANK
             NewRec := RecNo()
          ENDIF
       ENDIF
 
-      IF lock == .T.
+      IF lock
          NetRecLock()
       ENDIF
 
@@ -1733,7 +1733,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
 
    ENDIF
 
-   IF lock == .T.
+   IF lock
       dbRUnLock()
    ENDIF
 
@@ -1743,7 +1743,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
    _SetFocus( ControlName , FormName )
 
    IF append != NIL
-      IF append == .T.
+      IF append
          IF NewRec != 0
             _SetValue(ControlName, FormName, NewRec)
          ENDIF
@@ -1889,9 +1889,9 @@ FUNCTION _EditRecord(Title, aLabels, aValues, aFormats, row, col, aValid, TmpNam
          ENDSWITCH
 
          IF aReadOnly != NIL
-            IF aReadOnly[i] == .T.
+            IF aReadOnly[i]
                _DisableControl ( CN , "_Split_1" )
-            ELSEIF lFirstEnabledControl == .T.
+            ELSEIF lFirstEnabledControl
                lFirstEnabledControl := .F.
                ControlFocused := CN
             ENDIF
@@ -2138,7 +2138,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
 
          IF aReadOnly [ CellColIndex ] != Nil
 
-            IF aReadOnly [ CellColIndex ] == .T.
+            IF aReadOnly [ CellColIndex ]
                _HMG_IPE_CANCELLED := .F.
                RETURN Nil
             ENDIF
@@ -2190,7 +2190,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
    ENDIF
 
    // If LOCK clause is present, try to lock.
-   IF lock == .T.
+   IF lock
 
       IF !( _GridWorkArea )->( NetRecLock() )
          _HMG_IPE_CANCELLED := .T.
@@ -2252,7 +2252,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
    GridRow := GetWindowRow(GridHandle)
    GridCol := GetWindowCol(GridHandle)
 
-   IF lInputItems == .T.
+   IF lInputItems
 
       ControlType := "X"
       Ldelta := 1
@@ -2291,7 +2291,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
          _HMG_IPE_CANCELLED := .T.
       ENDIF
 
-      IF lock == .T.
+      IF lock
          ( _GridWorkArea )->( dbRUnlock() )
       ENDIF
 
@@ -2310,10 +2310,10 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
       ON KEY RETURN ACTION iif(_IsWindowActive("_InPlaceEdit"), ;
          _InPlaceEditOk ( i , _InPlaceEdit.Control_1.Value , aValid , CellColIndex , ;
          sFieldName , _GridWorkArea , aValidMessages , lock , ControlType , aInputItems ), NIL)
-      ON KEY ESCAPE ACTION ( _HMG_IPE_CANCELLED := .T. , iif(lock == .T. , dbUnlock(), NIL) , ;
+      ON KEY ESCAPE ACTION ( _HMG_IPE_CANCELLED := .T. , iif(lock, dbUnlock(), NIL) , ;
          iif(_IsWindowActive("_InPlaceEdit"), _InPlaceEdit.Release, NIL) )
 
-      IF lInputItems == .T.
+      IF lInputItems
 
          // Fill Items Array
          AEval(aInputItems[CellColIndex], {|p|AAdd(aItems, p[1])})
@@ -2564,7 +2564,7 @@ RETURN
 STATIC PROCEDURE _InPlaceEditSave(i, FieldName, Alias, r, lock, ControlType, aInputItems, CellColIndex)
 *-----------------------------------------------------------------------------*
 
-   IF lock == .T.
+   IF lock
 
       IF !(Alias)->(NetRecLock())
          MsgAlert ( _HMG_BRWLangError[9], _HMG_BRWLangError[10] )
@@ -2586,7 +2586,7 @@ STATIC PROCEDURE _InPlaceEditSave(i, FieldName, Alias, r, lock, ControlType, aIn
    FieldName := Alias + "->" + FieldName
    REPLACE &FieldName WITH r
 
-   IF lock == .T.
+   IF lock
       ( Alias )->( dbRUnlock() )
    ENDIF
 
@@ -2669,7 +2669,7 @@ PROCEDURE ProcessInPlaceKbdEdit( i )
       _HMG_ThisItemCellWidth := 0
       _HMG_ThisItemCellHeight := 0
 
-      IF _HMG_IPE_CANCELLED == .T.
+      IF _HMG_IPE_CANCELLED
 
          IF _HMG_IPE_COL == IPE_MAXCOL
 
@@ -2732,7 +2732,7 @@ RETURN
 PROCEDURE _BrowseOnChange(i)
 *-----------------------------------------------------------------------------*
 
-   IF _HMG_BrowseSyncStatus == .T.
+   IF _HMG_BrowseSyncStatus
       _BrowseSync(i)
    ENDIF
 

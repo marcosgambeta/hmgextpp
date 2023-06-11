@@ -355,7 +355,7 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
 
    ENDIF
 
-   IF _HMG_RPTDATA[163] == .T.
+   IF _HMG_RPTDATA[163]
 
       _HMG_RPTDATA[149] += "<html>" + Chr(13) + Chr(10)
 
@@ -368,7 +368,7 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
 
    ENDIF
 
-   IF _HMG_RPTDATA[150] == .T.
+   IF _HMG_RPTDATA[150]
       PdfInit()
       pdfOpen(cOutputFileName, 200, .T.)
    ENDIF
@@ -426,7 +426,7 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
 
    IF !_HMG_RPTDATA[150] .AND. !_HMG_RPTDATA[163]
 
-      IF lSelect == .T.
+      IF lSelect
          cPrinter := GetPrinter()
       ELSE
          cPrinter := GetDefaultPrinter()
@@ -444,7 +444,7 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
 
    IF !_HMG_RPTDATA[150] .AND. !_HMG_RPTDATA[163]
 
-      IF lPreview == .T.
+      IF lPreview
 
          IF nPaperSize == PRINTER_PAPER_USER
             SELECT PRINTER cPrinter TO lSuccess ORIENTATION nOrientation PAPERSIZE nPaperSize PAPERWIDTH nPaperWidth PAPERLENGTH nPaperHeight PREVIEW
@@ -508,7 +508,7 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
    ENDIF
 
 
-   IF _HMG_RPTDATA[150] == .T.
+   IF _HMG_RPTDATA[150]
 
       // PDF Paper Size
 
@@ -587,7 +587,7 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
 
       IF !_HMG_RPTDATA[163]
 
-         IF _HMG_RPTDATA[150] == .T.
+         IF _HMG_RPTDATA[150]
             pdfNewPage(cPdfPaperSize, cPdfOrientation, 6)
          ELSE
             START PRINTPAGE
@@ -804,9 +804,9 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
 
    IF !_HMG_RPTDATA[150] .AND. !_HMG_RPTDATA[163]
       END PRINTDOC
-   ELSEIF _HMG_RPTDATA[150] == .T.
+   ELSEIF _HMG_RPTDATA[150]
       pdfClose()
-   ELSEIF _HMG_RPTDATA[163] == .T.
+   ELSEIF _HMG_RPTDATA[163]
       _HMG_RPTDATA[149] += "</body>" + Chr(13) + Chr(10)
       _HMG_RPTDATA[149] += "</html>" + Chr(13) + Chr(10)
       nOutfile := FCreate(cOutputFileName, FC_NORMAL)
@@ -875,9 +875,9 @@ STATIC PROCEDURE _PrintText(aObject, nOffset)
 
    IF !_HMG_RPTDATA[150] .AND. !_HMG_RPTDATA[163]
 
-      IF !lAlignment_1 .AND. lAlignment_2 == .T.
+      IF !lAlignment_1 .AND. lAlignment_2
          cAlignment := "CENTER"
-      ELSEIF lAlignment_1 == .T. .AND. !lAlignment_2
+      ELSEIF lAlignment_1 .AND. !lAlignment_2
          cAlignment := "RIGHT"
       ELSEIF !lAlignment_1 .AND. !lAlignment_2
          cAlignment := ""
@@ -885,19 +885,19 @@ STATIC PROCEDURE _PrintText(aObject, nOffset)
 
       _HMG_PRINTER_H_MULTILINE_PRINT(_HMG_PRINTER_HDC, nRow + nOffset, nCol, nRow + nHeight + nOffset, nCol + nWidth, cFontName, nFontSize, aFontColor[1], aFontColor[2], aFontColor[3], cValue, lFontBold, lFontItalic, lFontUnderline, lFontStrikeout, .T., .T., .T., cAlignment)
 
-   ELSEIF _HMG_RPTDATA[163] == .T.
+   ELSEIF _HMG_RPTDATA[163]
 
       IF hb_IsNumeric(cValue)
          cValue := AllTrim(Str(cValue))
       ELSEIF ValType(cValue) == "D"
          cValue := DToC(cValue)
       ELSEIF hb_IsLogical(cValue)
-         cValue := iif(cValue == .T., _HMG_RPTDATA[371][24], _HMG_RPTDATA[371][25])
+         cValue := iif(cValue, _HMG_RPTDATA[371][24], _HMG_RPTDATA[371][25])
       ENDIF
 
-      IF !lAlignment_1 .AND.  lAlignment_2 == .T.
+      IF !lAlignment_1 .AND.  lAlignment_2
          cHtmlAlignment := "center"
-      ELSEIF lAlignment_1 == .T. .AND. !lAlignment_2
+      ELSEIF lAlignment_1 .AND. !lAlignment_2
          cHtmlAlignment := "right"
       ELSEIF !lAlignment_1 .AND. !lAlignment_2
          cHtmlAlignment := "left"
@@ -905,29 +905,29 @@ STATIC PROCEDURE _PrintText(aObject, nOffset)
 
       _HMG_RPTDATA[149] += "<div style=position:absolute;left:" + AllTrim(Str(nCol)) + "mm;top:" + AllTrim(Str(nRow + nOffset)) + "mm;width:" +  AllTrim(Str(nWidth)) + "mm;font-size:" + AllTrim(Str(nFontSize)) + "pt;font-family:" + Chr(34) + cFontname + Chr(34) + ";text-align:" + cHtmlAlignment + ";font-weight:" + iif(lFontBold, "bold", "normal") + ";font-style:" + iif(lFontItalic, "italic", "normal") + ";text-decoration:" + iif(lFontUnderLine, "underline", "none") + ";color:rgb(" + AllTrim(Str(aFontColor[1])) + "," + AllTrim(Str(aFontColor[2])) + "," +  AllTrim(Str(aFontColor[3])) + ");>" + cValue + "</div>" + Chr(13) + Chr(10)
 
-   ELSEIF _HMG_RPTDATA[150] == .T.
+   ELSEIF _HMG_RPTDATA[150]
 
       IF hb_IsNumeric(cValue)
          cValue := AllTrim(Str(cValue))
       ELSEIF ValType(cValue) == "D"
          cValue := DToC(cValue)
       ELSEIF hb_IsLogical(cValue)
-         cValue := iif(cValue == .T., _HMG_RPTDATA[371][24], _HMG_RPTDATA[371][25])
+         cValue := iif(cValue, _HMG_RPTDATA[371][24], _HMG_RPTDATA[371][25])
       ENDIF
 
       IF !lFontBold .AND. !lFontItalic
          nFontStyle := 0
-      ELSEIF lFontBold == .T. .AND. !lFontItalic
+      ELSEIF lFontBold .AND. !lFontItalic
          nFontStyle := 1
-      ELSEIF !lFontBold .AND. lFontItalic == .T.
+      ELSEIF !lFontBold .AND. lFontItalic
          nFontStyle := 2
-      ELSEIF lFontBold == .T. .AND. lFontItalic == .T.
+      ELSEIF lFontBold .AND. lFontItalic
          nFontStyle := 3
       ENDIF
 
       pdfSetFont(cFontname, nFontStyle, nFontSize)
 
-      IF !lAlignment_1 .AND.  lAlignment_2 == .T. // Center
+      IF !lAlignment_1 .AND.  lAlignment_2 // Center
 
          IF lFontUnderLine
             pdfAtSay(cValue + Chr(254), nRow + nOffset + nTextRowFix, nCol + (nWidth - (pdfTextWidth(cValue) * 25.4)) / 2, "M")
@@ -935,7 +935,7 @@ STATIC PROCEDURE _PrintText(aObject, nOffset)
             pdfAtSay(Chr(253) + Chr(aFontColor[1]) + Chr(aFontColor[2]) + Chr(aFontColor[3]) + cValue, nRow + nOffset + nTextRowFix, nCol + (nWidth - (pdfTextWidth(cValue) * 25.4)) / 2, "M")
          ENDIF
 
-      ELSEIF lAlignment_1 == .T. .AND. !lAlignment_2 // Right
+      ELSEIF lAlignment_1 .AND. !lAlignment_2 // Right
 
          IF lFontUnderLine
             pdfAtSay(cValue + Chr(254), nRow + nOffset + nTextRowFix, nCol + nWidth - pdfTextWidth(cValue) * 25.4, "M")
@@ -971,7 +971,7 @@ STATIC PROCEDURE _PrintImage(aObject, nOffset)
 
       _HMG_PRINTER_H_IMAGE(_HMG_PRINTER_HDC, cValue, nRow + nOffset, nCol, nHeight, nWidth, .T.)
 
-   ELSEIF _HMG_RPTDATA[150] == .T.
+   ELSEIF _HMG_RPTDATA[150]
 
       IF Upper(Right(cValue, 4)) == ".JPG"
 
@@ -983,7 +983,7 @@ STATIC PROCEDURE _PrintImage(aObject, nOffset)
 
       ENDIF
 
-   ELSEIF _HMG_RPTDATA[163] == .T.
+   ELSEIF _HMG_RPTDATA[163]
 
       _HMG_RPTDATA[149] += "<div style=position:absolute;left:" + AllTrim(Str(nCol)) + "mm;top:" + AllTrim(Str(nRow + nOffset)) + "mm;> <img src=" + Chr(34) + cValue + Chr(34) + " " + "width=" + AllTrim(Str(nWidth * 3.85)) + "mm height=" + AllTrim(Str(nHeight * 3.85)) + "mm/> </div>" + Chr(13) + Chr(10)
 
@@ -1006,7 +1006,7 @@ STATIC PROCEDURE _PrintLine(aObject, nOffset)
 
       _HMG_PRINTER_H_LINE(_HMG_PRINTER_HDC, nFromRow + nOffset, nFromCol, nToRow  + nOffset, nToCol, nPenWidth, aPenColor[1], aPenColor[2], aPenColor[3], .T., .T.)
 
-   ELSEIF _HMG_RPTDATA[150] == .T.
+   ELSEIF _HMG_RPTDATA[150]
 
       IF nFromRow != nToRow .AND. nFromCol != nToCol
          MsgMiniGUIError("Report: Only horizontal and vertical lines are supported with PDF output.")
@@ -1014,7 +1014,7 @@ STATIC PROCEDURE _PrintLine(aObject, nOffset)
 
       pdfBox(nFromRow + nOffset, nFromCol, nToRow + nOffset + nPenWidth, nToCol, 0, 1, "M", Chr(253) + Chr(aPenColor[1]) + Chr(aPenColor[2]) + Chr(aPenColor[3]))
 
-   ELSEIF _HMG_RPTDATA[163] == .T.
+   ELSEIF _HMG_RPTDATA[163]
 
       _HMG_RPTDATA[149] += "<div style=" + Chr(34) + "left:" + AllTrim(Str(nFromCol)) + "mm;top:" +  AllTrim(Str(nFromRow + nOffset)) + "mm;width:" +  AllTrim(Str(nToCol - nFromCol)) + "mm;height:0mm;BORDER-STYLE:SOLID;BORDER-COLOR:" + "rgb(" + AllTrim(Str(aPenColor[1])) + "," + AllTrim(Str(aPenColor[2])) + "," +  AllTrim(Str(aPenColor[3])) + ")" + ";BORDER-WIDTH:" + AllTrim(Str(nPenWidth)) + "mm;BACKGROUND-COLOR:#FFFFFF;" + Chr(34) + "><span class=" + Chr(34) + "line" + Chr(34) + "></span></DIV>" + Chr(13) + Chr(10)
 
@@ -1037,14 +1037,14 @@ STATIC PROCEDURE _PrintRectangle(aObject, nOffset)
 
       _HMG_PRINTER_H_RECTANGLE(_HMG_PRINTER_HDC, nFromRow + nOffset, nFromCol, nToRow  + nOffset, nToCol, nPenWidth, aPenColor[1], aPenColor[2], aPenColor[3], .T., .T.)
 
-   ELSEIF _HMG_RPTDATA[150] == .T.
+   ELSEIF _HMG_RPTDATA[150]
 
       pdfBox(nFromRow + nOffset, nFromCol, nFromRow + nOffset + nPenWidth, nToCol, 0, 1, "M", Chr(253) + Chr(aPenColor[1]) + Chr(aPenColor[2]) + Chr(aPenColor[3]))
       pdfBox(nToRow + nOffset, nFromCol, nToRow + nOffset + nPenWidth, nToCol, 0, 1, "M", Chr(253) + Chr(aPenColor[1]) + Chr(aPenColor[2]) + Chr(aPenColor[3]))
       pdfBox(nFromRow + nOffset, nFromCol, nToRow + nOffset, nFromCol + nPenWidth, 0, 1, "M", Chr(253) + Chr(aPenColor[1]) + Chr(aPenColor[2]) + Chr(aPenColor[3]))
       pdfBox(nFromRow + nOffset, nToCol, nToRow + nOffset, nToCol + nPenWidth, 0, 1, "M", Chr(253) + Chr(aPenColor[1]) + Chr(aPenColor[2]) + Chr(aPenColor[3]))
 
-   ELSEIF _HMG_RPTDATA[163] == .T.
+   ELSEIF _HMG_RPTDATA[163]
 
       _HMG_RPTDATA[149] += "<div style=" + Chr(34) + "left:" + AllTrim(Str(nFromCol)) + "mm;top:" +  AllTrim(Str(nFromRow + nOffset)) + "mm;width:" +  AllTrim(Str(nToCol - nFromCol)) + "mm;height:" + AllTrim(Str(nToRow - nFromRow)) + "mm;BORDER-STYLE:SOLID;BORDER-COLOR:" + "rgb(" + AllTrim(Str(aPenColor[1])) + "," + AllTrim(Str(aPenColor[2])) + "," + AllTrim(Str(aPenColor[3])) + ")" + ";BORDER-WIDTH:" + AllTrim(Str(nPenWidth)) + "mm;BACKGROUND-COLOR:#FFFFFF;" + Chr(34) + "><span class=" + Chr(34) + "line" + Chr(34) + "></span></DIV>" + Chr(13) + Chr(10)
 

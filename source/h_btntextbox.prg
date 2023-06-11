@@ -407,7 +407,7 @@ FUNCTION TBBtnEvents(hwndEdit, HwndBtn, nMsg)
       IF nMsg == WM_CONTEXTMENU
          ParentForm := _HMG_aControlParentHandles[i]
          IF (i := AScan(_HMG_aControlsContextMenu, {|x|x[1] == aHandle[1]})) > 0
-            IF _HMG_aControlsContextMenu[i][4] == .T.
+            IF _HMG_aControlsContextMenu[i][4]
                setfocus(aHandle[1])
                _HMG_xControlsContextMenuID := _HMG_aControlsContextMenu[i][3]
                TrackPopupMenu(_HMG_aControlsContextMenu[i][2], LOWORD(HwndBtn), HIWORD(HwndBtn), ParentForm)

@@ -232,7 +232,7 @@ FUNCTION _DefineLabel(ControlName, ParentFormName, x, y, Caption, w, h, ;
    _HMG_aControlCol                [k] := x
    _HMG_aControlWidth              [k] := w
    _HMG_aControlHeight             [k] := h
-   _HMG_aControlSpacing            [k] := iif(autosize == .T., 1, 0)
+   _HMG_aControlSpacing            [k] := iif(autosize, 1, 0)
    _HMG_aControlContainerRow       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1)
    _HMG_aControlContainerCol       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1)
    _HMG_aControlPicture            [k] := ""
@@ -252,14 +252,14 @@ FUNCTION _DefineLabel(ControlName, ParentFormName, x, y, Caption, w, h, ;
    _HMG_aControlMiscData1          [k] := {0, blink, .T.}
    _HMG_aControlMiscData2          [k] := ""
 
-   IF blink == .T. .AND. !lDialogInMemory
+   IF blink .AND. !lDialogInMemory
       _DefineTimer("BlinkTimer" + hb_ntos(k), ParentFormName, 500, {||_HMG_aControlMiscData1[k][3] := !_HMG_aControlMiscData1[k][3], ;
-         iif(_HMG_aControlMiscData1[k][3] == .T., _ShowControl(ControlName, ParentFormName), _HideControl(ControlName, ParentFormName))})
+         iif(_HMG_aControlMiscData1[k][3], _ShowControl(ControlName, ParentFormName), _HideControl(ControlName, ParentFormName))})
    ENDIF
 
-   IF autosize == .T. .AND. !lDialogInMemory
+   IF autosize .AND. !lDialogInMemory
       _SetControlWidth(ControlName, ParentFormName, GetTextWidth(NIL, Caption, FontHandle) + ;
-         iif(bold == .T. .OR. italic == .T., GetTextWidth(NIL, " ", FontHandle), 0))
+         iif(bold .OR. italic, GetTextWidth(NIL, " ", FontHandle), 0))
       _SetControlHeight(ControlName, ParentFormName, FontSize + iif(FontSize < 14, 12, 16))
    ENDIF
 
@@ -279,14 +279,14 @@ FUNCTION InitDialogLabel(ParentFormName, ControlHandle, k)
 
    LOCAL ControlName := _HMG_aControlNames[k]
 
-   IF _HMG_aControlMiscData1[k][2] == .T.
+   IF _HMG_aControlMiscData1[k][2]
       _DefineTimer("BlinkTimer" + hb_ntos(k), ParentFormName, 500, {||_HMG_aControlMiscData1[k][3] := !_HMG_aControlMiscData1[k][3], ;
-         iif(_HMG_aControlMiscData1[k][3] == .T., _ShowControl(ControlName, ParentFormName), _HideControl(ControlName, ParentFormName))})
+         iif(_HMG_aControlMiscData1[k][3], _ShowControl(ControlName, ParentFormName), _HideControl(ControlName, ParentFormName))})
    ENDIF
 
    IF _HMG_aControlSpacing[k] == 1
       _SetControlWidth(ControlName, ParentFormName, GetTextWidth(NIL, _HMG_aControlCaption[k], _HMG_aControlFontHandle[k]) + ;
-         iif(_HMG_aControlFontAttributes[k][1] == .T. .OR. _HMG_aControlFontAttributes[k][2] == .T., ;
+         iif(_HMG_aControlFontAttributes[k][1] .OR. _HMG_aControlFontAttributes[k][2], ;
          GetTextWidth(NIL, " ", _HMG_aControlFontHandle[k]), 0))
       _SetControlHeight(ControlName, ParentFormName, _HMG_aControlFontSize[k] + iif(_HMG_aControlFontSize[k] < 14, 12, 16))
       RedrawWindow(ControlHandle)

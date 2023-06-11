@@ -834,14 +834,14 @@ FUNCTION BT_HMGSetImage(cFormName, cControlName, hBitmap, lReleasePreviousBitmap
 
    IF k > 0 .AND. GetControlType(cControlName, cFormName) == CONTROL_TYPE_IMAGE
 #ifdef __HMG__ // HMG Extended
-      IF _HMG_aControlContainerHandle[k] != 0 .AND. lReleasePreviousBitmap == .T.
+      IF _HMG_aControlContainerHandle[k] != 0 .AND. lReleasePreviousBitmap
          BT_BitmapRelease(_HMG_aControlContainerHandle[k])
       ENDIF
       _HMG_aControlContainerHandle[k] := hBitmap
       _HMG_aControlWidth[k] := BT_BitmapWidth(hBitmap)
       _HMG_aControlHeight[k] := BT_BitmapHeight(hBitmap)
 #else          // HMG Official
-      IF _HMG_SYSDATA[37, k] != 0 .AND. lReleasePreviousBitmap == .T.
+      IF _HMG_SYSDATA[37, k] != 0 .AND. lReleasePreviousBitmap
          BT_BitmapRelease(_HMG_SYSDATA[37, k])
       ENDIF
       _HMG_SYSDATA[37, k] := hBitmap
