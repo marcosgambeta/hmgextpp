@@ -80,13 +80,13 @@ Procedure PrMiniEsegui(_MainArea,_psd,db_arc,_prw)
 
          chblk  :={|x,y|if(ascan(x,y)>0,iif(len(X)>ascan(x,y),x[ascan(x,y)+1],""),"")}
          if !empty(_MainArea)
-             oWr:aStat [ "area1" ]  :=substr(_MainArea,at("(",_MainArea)+1)
-             oWr:aStat [ "FldRel" ] :=substr(oWr:aStat [ "area1" ],at("->",oWr:aStat [ "area1" ])+2)
-             oWr:aStat [ "FldRel" ] :=substr(oWr:aStat [ "FldRel" ],1,iif(at(")",oWr:aStat [ "FldRel" ])>0,at(")",oWr:aStat [ "FldRel" ])-1,len(oWr:aStat [ "FldRel" ]))) //+(at("->",oWr:aStat [ "area1" ])))
-             oWr:aStat [ "area1" ]  :=left(oWr:aStat [ "area1" ],at("->",oWr:aStat [ "area1" ])-1)
+             oWr:aStat["area1"]  := substr(_MainArea, at("(", _MainArea) + 1)
+             oWr:aStat["FldRel"] := substr(oWr:aStat["area1"], at("->", oWr:aStat["area1"]) + 2)
+             oWr:aStat["FldRel"] := substr(oWr:aStat["FldRel"], 1, iif(at(")", oWr:aStat["FldRel"]) > 0, at(")", oWr:aStat["FldRel"]) - 1, len(oWr:aStat["FldRel"]))) //+(at("->",oWr:aStat [ "area1" ])))
+             oWr:aStat["area1"]  := left(oWr:aStat["area1"], at("->", oWr:aStat["area1"]) - 1)
          else
-             oWr:aStat [ "area1" ]:=dbf()
-             oWr:aStat [ "FldRel" ]:=""
+             oWr:aStat["area1"] := dbf()
+             oWr:aStat["FldRel"] := ""
          endif
 
          aprinters := aprinters()
@@ -166,43 +166,43 @@ Procedure PrMiniEsegui(_MainArea,_psd,db_arc,_prw)
          endif
          //msginfo(zaps(GETPRINTABLEAREAHORIZONTALOFFSET())+crlf+zaps(GETPRINTABLEAREAVERTICALOFFSET()),"H_offset")
 
-         IF iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) == 0
+         IF iif(MGSYS,_HMG_SYSDATA [374],_hmg_printer_hdc) == 0
             r_mem()
             return
          ENDIF
          if !MGSYS
-           _HMG_SYSDATA [ 374 ]:=_hmg_printer_hdc
+           _HMG_SYSDATA [374]:=_hmg_printer_hdc
          endif
-         mncl:=round(( _HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETX ( _HMG_SYSDATA [ 374 ] ) / _HMG_PRINTER_GETPRINTABLEAREALOGPIXELSX ( _HMG_SYSDATA [ 374 ] ) * 25.4 ),2)
+         mncl:=round(( _HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETX ( _HMG_SYSDATA [374] ) / _HMG_PRINTER_GETPRINTABLEAREALOGPIXELSX ( _HMG_SYSDATA [374] ) * 25.4 ),2)
 
-         Cal :=(_HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETY ( _HMG_SYSDATA [ 374 ] ) / _HMG_PRINTER_GETPRINTABLEAREALOGPIXELSY ( _HMG_SYSDATA [ 374 ] ) )* 25.4 //,2)
-         Cxx :=(_HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETX ( _HMG_SYSDATA [ 374 ] ) / _HMG_PRINTER_GETPRINTABLEAREALOGPIXELSX ( _HMG_SYSDATA [ 374 ] ) )* 25.4 //,2)
+         Cal :=(_HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETY ( _HMG_SYSDATA [374] ) / _HMG_PRINTER_GETPRINTABLEAREALOGPIXELSY ( _HMG_SYSDATA [374] ) )* 25.4 //,2)
+         Cxx :=(_HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETX ( _HMG_SYSDATA [374] ) / _HMG_PRINTER_GETPRINTABLEAREALOGPIXELSX ( _HMG_SYSDATA [374] ) )* 25.4 //,2)
 
-         _pW :=round((2*cxx)+_HMG_PRINTER_GETPRINTERWIDTH(_HMG_SYSDATA [ 374 ]),0)
-         _pH :=round((2*cal)+_HMG_PRINTER_GETPRINTERHEIGHT(_HMG_SYSDATA [ 374 ]),0)
+         _pW :=round((2*cxx)+_HMG_PRINTER_GETPRINTERWIDTH(_HMG_SYSDATA [374]),0)
+         _pH :=round((2*cal)+_HMG_PRINTER_GETPRINTERHEIGHT(_HMG_SYSDATA [374]),0)
          mncl:=round(mncl,2)
 
 /*
 mkm:=str(cxx)
 Test(mkm)
          msgt(;
-         "Largo "+zaps(_HMG_PRINTER_GETPRINTERWIDTH(_HMG_SYSDATA [ 374 ]))+crlf+;
-         "Largo Fisico "+zaps(_HMG_PRINTER_GETPRINTABLEAREAPHYSICALWIDTH(_HMG_SYSDATA [ 374 ]))+crlf+;
+         "Largo "+zaps(_HMG_PRINTER_GETPRINTERWIDTH(_HMG_SYSDATA [374]))+crlf+;
+         "Largo Fisico "+zaps(_HMG_PRINTER_GETPRINTABLEAREAPHYSICALWIDTH(_HMG_SYSDATA [374]))+crlf+;
          "Larghezza pagina "+zaps(_pw)+crlf+;
          "Altezza  Pagina "+zaps(_pH)+crlf+;
-         "Alto Printer "+zaps(_HMG_PRINTER_GETPRINTERHEIGHT(_HMG_SYSDATA [ 374 ]))+crlf+;
-         "Alto Fisico "+zaps(_HMG_PRINTER_GETPRINTABLEAREAPHYSICALHEIGTH(_HMG_SYSDATA [ 374 ]))+crlf+;
+         "Alto Printer "+zaps(_HMG_PRINTER_GETPRINTERHEIGHT(_HMG_SYSDATA [374]))+crlf+;
+         "Alto Fisico "+zaps(_HMG_PRINTER_GETPRINTABLEAREAPHYSICALHEIGTH(_HMG_SYSDATA [374]))+crlf+;
          "Alto Margine SUP "+zaps(cal)+crlf+;
          "Largo Margine Sx         "+zaps(cxx)+crlf+;
          "Offset sx "+zaps(mncl)+crlf+;
-         "PHYSICALOFFSET X "+zaps(_HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETX(_HMG_SYSDATA [ 374 ]))+crlf+;
-         "AREALOGPIXELSX   "+zaps(_HMG_PRINTER_GETPRINTABLEAREALOGPIXELSX(_HMG_SYSDATA [ 374 ]))+crlf+;
-         "PHYSICALOFFSET Y "+zaps(_HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETY (_HMG_SYSDATA [ 374 ]))+crlf+;
-         "AREALOGPIXELSY Y "+zaps(_HMG_PRINTER_GETPRINTABLEAREALOGPIXELSY (_HMG_SYSDATA [ 374 ])),"Valori")
+         "PHYSICALOFFSET X "+zaps(_HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETX(_HMG_SYSDATA [374]))+crlf+;
+         "AREALOGPIXELSX   "+zaps(_HMG_PRINTER_GETPRINTABLEAREALOGPIXELSX(_HMG_SYSDATA [374]))+crlf+;
+         "PHYSICALOFFSET Y "+zaps(_HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETY (_HMG_SYSDATA [374]))+crlf+;
+         "AREALOGPIXELSY Y "+zaps(_HMG_PRINTER_GETPRINTABLEAREALOGPIXELSY (_HMG_SYSDATA [374])),"Valori")
 */
-         mxH := _HMG_PRINTER_GETPAGEHEIGHT(iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc))
+         mxH := _HMG_PRINTER_GETPAGEHEIGHT(iif(MGSYS,_HMG_SYSDATA [374],_hmg_printer_hdc))
          maxrow  := int(mxh/LStep)
-         maxcol  := int(_HMG_PRINTER_GETPAGEWIDTH(iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc))/1.1811)
+         maxcol  := int(_HMG_PRINTER_GETPAGEWIDTH(iif(MGSYS,_HMG_SYSDATA [374],_hmg_printer_hdc))/1.1811)
 //   msginfo(str(mxH)+" =mxH"+CRLF+str(maxrow)+" =maxrow"+crlf+str(maxcol)+" =maxcol"+crlf+str(maxcol)+" =maxcol","PUTTY")
 
          aeval(oWr:adeclare,{|x,y|if(Y>1 ,oWr:traduci(x[1],,x[2]),"")})
@@ -216,17 +216,17 @@ Test(mkm)
                //msg(atf,[atf])
                set filter to &atf
             endif
-            oWr:aStat [ "end_pr" ] := oWr:quantirec(_mainarea)
+            oWr:aStat ["end_pr"] := oWr:quantirec(_mainarea)
          else
-            oWr:aStat [ "end_pr" ] := oWr:quantirec(_mainarea)
+            oWr:aStat ["end_pr"] := oWr:quantirec(_mainarea)
          endif
-         //msg(zaps(mx_pg)+CRLF+[oWr:Valore= ]+zaps(eval(oWr:Valore,oWr:aBody[1]))+CRLF+zaps(oWr:aStat [ "end_pr" ]),[tutte])
+         //msg(zaps(mx_pg)+CRLF+[oWr:Valore= ]+zaps(eval(oWr:Valore,oWr:aBody[1]))+CRLF+zaps(oWr:aStat ["end_pr"]),[tutte])
 
-         START PRINTDOC NAME _HMG_SYSDATA [ 358 ]
+         START PRINTDOC NAME _HMG_SYSDATA [358]
 
          if empty(_MainArea)
             Lbody := eval(oWr:Valore,oWr:aBody[1])
-            mx_pg := INT(oWr:aStat[ "end_pr" ]/NOZERODIV(Lbody) )
+            mx_pg := INT(oWr:aStat["end_pr"]/NOZERODIV(Lbody) )
             if (mx_pg * lbody) != mx_pg
                mx_pg ++
             endif
@@ -235,14 +235,14 @@ Test(mkm)
             if !hb_isArray(oWr:argm[3])
                Dbgotop()
             Endif
-            if oWr:aStat [ "end_pr" ] != 0
-               while !oWr:aStat [ "EndDoc" ]
+            if oWr:aStat ["end_pr"] != 0
+               while !oWr:aStat ["EndDoc"]
                      oWr:TheMiniHead()
                      oWr:TheMiniBody()
                enddo
             Endif
          else
-            sele (oWr:aStat [ "area1" ])
+            sele (oWr:aStat ["area1"])
             if !empty(atf)
                set filter to &atf
             endif
@@ -250,7 +250,7 @@ Test(mkm)
             lbody:=eval(oWr:Valore,oWr:aBody[1])
             while !eof()
                   sele (DB_ARC)
-                  StrFlt:= oWr:aStat [ "FldRel" ]+" = "+ oWr:aStat [ "area1" ]+"->"+oWr:aStat [ "FldRel" ]
+                  StrFlt:= oWr:aStat ["FldRel"]+" = "+ oWr:aStat ["area1"]+"->"+oWr:aStat ["FldRel"]
                   DBEVAL({|| miocont++},{|| &strFLT})
 
                   // Vecchia versione
@@ -263,7 +263,7 @@ Test(mkm)
                   //msg(zaps(tpg)+crlf+zaps(miocnt),[Tpg1])
                   aadd(Amx_pg,miocnt)
                   miocont := 0
-                  sele (oWr:aStat [ "area1" ])
+                  sele (oWr:aStat ["area1"])
                   dbskip()
             enddo
             go top
@@ -278,10 +278,10 @@ Test(mkm)
                        oWr:TheMiniHead()
                        oWr:TheMiniBody()
                  enddo
-                 oWr:aStat [ "EndDoc" ]:=.F.
+                 oWr:aStat ["EndDoc"]:=.F.
                  last_pag:=.F.
                  set filter to
-                 sele (oWr:aStat [ "area1" ])
+                 sele (oWr:aStat ["area1"])
                  dbskip()
             enddo
          endif
@@ -339,7 +339,7 @@ Static Function memosay(arg1,arg2,argm1,argl1,argf1,argsize,abold,aita,aunder,as
     next
  Endif
  if empty(onlyone)
-    _HMG_PRINTER_H_PRINT( iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) ;
+    _HMG_PRINTER_H_PRINT( iif(MGSYS,_HMG_SYSDATA [374],_hmg_printer_hdc) ;
    , arg1 ;
    , arg2  ;
    , argf1 ;
@@ -356,7 +356,7 @@ Static Function memosay(arg1,arg2,argm1,argl1,argf1,argsize,abold,aita,aunder,as
    , iif(valtype(argf1)=="C", .T.,.F.) ;
    , iif(hb_IsNumeric(argsize), .T.,.F.) ;
    , argalign )
-   oWr:aStat [ "Yes_Memo" ] :=.T.
+   oWr:aStat ["Yes_Memo"] :=.T.
  else
      for mcl=2 to len(arrymemo)
          nline ++
@@ -364,7 +364,7 @@ Static Function memosay(arg1,arg2,argm1,argl1,argf1,argsize,abold,aita,aunder,as
             oWr:TheFeet()
             oWr:TheMiniHead()
          endif
-         _HMG_PRINTER_H_PRINT( iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) ;
+         _HMG_PRINTER_H_PRINT( iif(MGSYS,_HMG_SYSDATA [374],_hmg_printer_hdc) ;
          , nline*lstep , arg2, argf1 , argsize , argcolor1[1], argcolor1[2], argcolor1[3] ;
          , arrymemo[mcl], abold, aita, aunder, astrike;
          , iif(hb_IsArray(argcolor1), .T.,.F.) ;
@@ -387,8 +387,8 @@ Function RMiniPar(ArryPar,cmdline,section)
 
      if len(ArryPar) < 1 ;return .F. ;endif
 
-     maxrow  := int(_HMG_PRINTER_GETPAGEHEIGHT(iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc))/LStep)
-     maxcol  := int(_HMG_PRINTER_GETPAGEWIDTH(iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc))/1)
+     maxrow  := int(_HMG_PRINTER_GETPAGEHEIGHT(iif(MGSYS,_HMG_SYSDATA [374],_hmg_printer_hdc))/LStep)
+     maxcol  := int(_HMG_PRINTER_GETPAGEWIDTH(iif(MGSYS,_HMG_SYSDATA [374],_hmg_printer_hdc))/1)
      /*
      msginfo(zaps(GETPRINTABLEAREAHORIZONTALOFFSET())+crlf+zaps(GETPRINTABLEAREAVERTICALOFFSET());
      +crlf+"Largo = "+zaps(GETPRINTABLEAREAWIDTH())+crlf+"Alto = "+zaps(GETPRINTABLEAREAHEIGHT()),"H_offset")
@@ -445,7 +445,7 @@ Function RMiniPar(ArryPar,cmdline,section)
                    asize(ax,0)
                  endif
              Else
-               oWr:aStat [ "Control" ] := eval(blse,arrypar[3])
+               oWr:aStat ["Control"] := eval(blse,arrypar[3])
              Endif
 
         case ascan(arryPar,[MAXROW]) > 0
@@ -458,7 +458,7 @@ Function RMiniPar(ArryPar,cmdline,section)
                        _hmg_printer_aPrinterProperties := _HMG_PRINTER_PrintDialog()
 
                    otherwise
-               //if(MGSYS,_HMG_SYSDATA [ 375 ],_hmg_printer_name) := GetDefaultPrinter()
+               //if(MGSYS,_HMG_SYSDATA [375],_hmg_printer_name) := GetDefaultPrinter()
                _arg1:=eval(chblk,arrypar,[QUALITY])
                lQuality:=oWr:what_ele(_arg1,oWr:aCh,"_aQlt")
                // msgbox("|"+str(lquality)+"|","quality")
@@ -500,11 +500,11 @@ Function RMiniPar(ArryPar,cmdline,section)
 
                 EndCase
                 if MGSYS
-                  _HMG_SYSDATA [ 374 ] := _hmg_printer_aPrinterProperties [1]
-                  _HMG_SYSDATA [ 375 ] := _hmg_printer_aPrinterProperties [2]
-                  _HMG_SYSDATA [ 376 ] := _hmg_printer_aPrinterProperties [3]
-                  _HMG_SYSDATA [ 377 ] := _hmg_printer_aPrinterProperties [4]
-                  _HMG_SYSDATA [ 378 ] := if (ascan(ArryPar,[PREVIEW]) > 0 ,.T.,_HMG_SYSDATA [ 378 ])
+                  _HMG_SYSDATA [374] := _hmg_printer_aPrinterProperties [1]
+                  _HMG_SYSDATA [375] := _hmg_printer_aPrinterProperties [2]
+                  _HMG_SYSDATA [376] := _hmg_printer_aPrinterProperties [3]
+                  _HMG_SYSDATA [377] := _hmg_printer_aPrinterProperties [4]
+                  _HMG_SYSDATA [378] := if (ascan(ArryPar,[PREVIEW]) > 0 ,.T.,_HMG_SYSDATA [378])
                 else
                   _hmg_printer_hdc       := _hmg_printer_aPrinterProperties [1]
                   _hmg_printer_name      := _hmg_printer_aPrinterProperties [2]
@@ -514,7 +514,7 @@ Function RMiniPar(ArryPar,cmdline,section)
                 endif
                 _hmg_printer_InitUserMessages()
           if MGSYS
-             _HMG_SYSDATA [ 379 ]  := strzero(Seconds() * 100,8 )
+             _HMG_SYSDATA [379]  := strzero(Seconds() * 100,8 )
           else
             _hmg_printer_timestamp := strzero(Seconds() * 100,8 )
           endif
@@ -523,10 +523,10 @@ Function RMiniPar(ArryPar,cmdline,section)
              _varmem:=ArryPar[5]
              if __mvexist(ArryPar[5])
                  //msginfo("Private BHX")
-                &_varmem := if ( iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) != 0 , .T. , .F. )
+                &_varmem := if ( iif(MGSYS,_HMG_SYSDATA [374],_hmg_printer_hdc) != 0 , .T. , .F. )
              else
                 Public &_varmem
-                &_varmem := if ( iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) != 0 , .T. , .F. )
+                &_varmem := if ( iif(MGSYS,_HMG_SYSDATA [374],_hmg_printer_hdc) != 0 , .T. , .F. )
              endif
           endif
           //msgbox(_hmg_printer_timestamp,"timestamp")
@@ -550,10 +550,10 @@ Function RMiniPar(ArryPar,cmdline,section)
                      _hmg_printer_preview:= eval(blse,arrypar[3]) // iif(val(arrypar[3])> 0,.T.,iif(arrypar[3]=".T.".OR.arrypar[3]="ON",.T.,.F.))
 
                 case ascan(arryPar,[JOB])= 2
-                     _HMG_SYSDATA [ 358 ]:= eval(chblk,arrypar,[NAME])
+                     _HMG_SYSDATA [358]:= eval(chblk,arrypar,[NAME])
 
                 case arryPar[2]+arryPar[3] == "COPIETO"
-                     _HMG_SYSDATA [ 376 ]:= val(eval(chblk,arrypar,[TO]))
+                     _HMG_SYSDATA [376]:= val(eval(chblk,arrypar,[TO]))
           endcase
 
      case ascan(ArryPar,[PRINT])=3 .OR. ascan(ArryPar,[SAY])= 3
@@ -563,14 +563,14 @@ Function RMiniPar(ArryPar,cmdline,section)
                 case ASCAN(ArryPar,[IMAGE]) > 0
                 // msgexclamation(zaps(GETPRINTABLEAREAHORIZONTALOFFSET()))
                     //msg("IMAGE"+crlf+eval(chblk,arrypar,[IMAGE]))
-                   _HMG_PRINTER_H_IMAGE ( iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) ;
+                   _HMG_PRINTER_H_IMAGE ( iif(MGSYS,_HMG_SYSDATA [374],_hmg_printer_hdc) ;
                    , eval(chblk,arrypar,[IMAGE]);
                    , iif([LINE]$ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])) ;
                    , eval(epar,ArryPar[2]) ;
                    , val(eval(chblk,arrypar,[HEIGHT]));
                    , val(eval(chblk,arrypar,[WIDTH]));
                    , iif(ascan(ArryPar,[STRETCH])> 0,.T.,.F.))
-                     // _HMG_PRINTER_IMAGE (iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc),"hmglogo.gif",25,25,20,16 )
+                     // _HMG_PRINTER_IMAGE (iif(MGSYS,_HMG_SYSDATA [374],_hmg_printer_hdc),"hmglogo.gif",25,25,20,16 )
 
                 case ASCAN(ArryPar,[LINE]) > 0
                       // 1: hDC
@@ -585,10 +585,10 @@ Function RMiniPar(ArryPar,cmdline,section)
                       // 10: lWindth
                       // 11: lColor
                       // @ 260,20 PRINT LINE TO 260,190 ==
-                      //_HMG_PRINTER_LINE (iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc),260,20,260,190,,"1","2","3",.F.,.F. )
+                      //_HMG_PRINTER_LINE (iif(MGSYS,_HMG_SYSDATA [374],_hmg_printer_hdc),260,20,260,190,,"1","2","3",.F.,.F. )
 
                     //Aclr:= color(eval(chblk,arrypar,[COLOR]))
-                     _HMG_PRINTER_H_LINE ( iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) ;
+                     _HMG_PRINTER_H_LINE ( iif(MGSYS,_HMG_SYSDATA [374],_hmg_printer_hdc) ;
                      , iif([LINE]$ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])) ;
                      , eval(epar,ArryPar[2]) ;
                      , eval(epar,ArryPar[6]) ;
@@ -602,12 +602,12 @@ Function RMiniPar(ArryPar,cmdline,section)
 
                 case ASCAN(ArryPar,[RECTANGLE]) > 0
                      // @ 20,20 PRINT RECTANGLE TO 50,190 ==
-                     //_HMG_PRINTER_RECTANGLE (iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc),20,20,50,190,,"1","2","3",.F.,.F. )
+                     //_HMG_PRINTER_RECTANGLE (iif(MGSYS,_HMG_SYSDATA [374],_hmg_printer_hdc),20,20,50,190,,"1","2","3",.F.,.F. )
 
                      //      Aclr:= color(eval(chblk,arrypar,[COLOR]))
 
                      if ASCAN(ArryPar,[ROUNDED])> 0
-                        _HMG_PRINTER_H_ROUNDRECTANGLE ( iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) ;
+                        _HMG_PRINTER_H_ROUNDRECTANGLE ( iif(MGSYS,_HMG_SYSDATA [374],_hmg_printer_hdc) ;
                         , iif([LINE]$ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])) ;
                         , eval(epar,ArryPar[2]) ;
                         , eval(epar,ArryPar[6]) ;
@@ -619,7 +619,7 @@ Function RMiniPar(ArryPar,cmdline,section)
                          , iif(ascan(arryPar,[PENWIDTH])>0, .T.,.F.);
                         , iif(ascan(arryPar,[COLOR])>0, .T.,.F.) )
                      else
-                        _HMG_PRINTER_H_RECTANGLE ( iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) ;
+                        _HMG_PRINTER_H_RECTANGLE ( iif(MGSYS,_HMG_SYSDATA [374],_hmg_printer_hdc) ;
                         , iif([LINE]$ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])) ;
                         , eval(epar,ArryPar[2]) ;
                         , eval(epar,ArryPar[6]) ;
@@ -660,7 +660,7 @@ Function RMiniPar(ArryPar,cmdline,section)
                      ArryPar[4]:= trans(eval(epar,ArryPar[4]),"@A")
                      // MSGBOX(ARRYPAR[4],[ap4Post])
                   endif
-                 _HMG_PRINTER_H_PRINT( iif(MGSYS,_HMG_SYSDATA [ 374 ],_hmg_printer_hdc) ;
+                 _HMG_PRINTER_H_PRINT( iif(MGSYS,_HMG_SYSDATA [374],_hmg_printer_hdc) ;
                 , iif([LINE]$ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])) ;
                 , eval(epar,ArryPar[2])  ;
                 , eval(chblk,arrypar,[FONT]) ;

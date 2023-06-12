@@ -172,7 +172,7 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
       nY := This.ClientHeight - nGh - oApp:H1
       nX := nGw
 
-      @ nY, nX BUTTON Btn_1 CAPTION oBrw:aMsg[ 44 ] WIDTH oApp:W1 HEIGHT oApp:H1 ;
+      @ nY, nX BUTTON Btn_1 CAPTION oBrw:aMsg[44] WIDTH oApp:W1 HEIGHT oApp:H1 ;
                ACTION {|| oBrw:Report( cTitle,,,, .T. ), oBrw:GoTop() }
 
       nX += oApp:W1 + nGw
@@ -182,18 +182,18 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
 
       nX := This.ClientWidth - ( oApp:W1 + nGw )
 
-      @ nY, nX BUTTON Btn_3 CAPTION oBrw:aMsg[ 45 ] WIDTH oApp:W1 HEIGHT oApp:H1 ;
+      @ nY, nX BUTTON Btn_3 CAPTION oBrw:aMsg[45] WIDTH oApp:W1 HEIGHT oApp:H1 ;
                ACTION {|| iif(oBrw:IsEdit, oBrw:SetFocus(), ThisWindow.RELEASE) }
 
       ON KEY ESCAPE ACTION {|| iif(oBrw:IsEdit, oBrw:SetFocus(), ThisWindow.RELEASE) }
 
       IF lRec
          nY := Len(oBrw:aColumns)
-         oBrw:aColumns[ nY - 1 ]:nWidth += 50
-         oBrw:aColumns[ nY - 1 ]:cName := "KEY"
-         oBrw:aColumns[ nY - 1 ]:lEdit := .F.
-         oBrw:aColumns[ nY ]:lEdit := .F.
-         oBrw:aColumns[ nY ]:cName := "VALUE"
+         oBrw:aColumns[nY - 1]:nWidth += 50
+         oBrw:aColumns[nY - 1]:cName := "KEY"
+         oBrw:aColumns[nY - 1]:lEdit := .F.
+         oBrw:aColumns[nY]:lEdit := .F.
+         oBrw:aColumns[nY]:cName := "VALUE"
          oBrw:lPickerMode := .T.
          FOR EACH oCol IN oBrw:aColumns
              oCol:cPicture := NIL
@@ -404,7 +404,7 @@ FUNCTION _TBrowse(oParam, uAlias, cBrw, nY, nX, nW, nH)
                       IF nK > 0
                          aCol := {}
                          FOR nI := nK TO Len(ob:aColumns)
-                             IF ob:aColumns[ nI ]:lVisible
+                             IF ob:aColumns[nI]:lVisible
                                 AAdd(aCol, nI)
                              ENDIF
                          NEXT
@@ -472,7 +472,7 @@ FUNCTION _TBrowse(oParam, uAlias, cBrw, nY, nX, nW, nH)
       :lDrawSpecHd := lSpecHd
 
       IF lSpecHd .AND. Empty(:nHeightSpecHd)
-         :nHeightSpecHd := GetFontHeight(oParam:aFont[ iif(Len(oParam:aFont) > 3, 4, 1) ])
+         :nHeightSpecHd := GetFontHeight(oParam:aFont[iif(Len(oParam:aFont) > 3, 4, 1)])
       ENDIF
 
       :SetAppendMode(.F.)

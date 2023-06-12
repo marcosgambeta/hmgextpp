@@ -229,7 +229,7 @@ METHOD Read() CLASS TIniData
 
       aBuf := hb_ATokens(cBuf, CRLF)
       FOR nBuf := Len(aBuf) TO 1 STEP -1
-          cBuf := aBuf[ nBuf ]
+          cBuf := aBuf[nBuf]
           IF left(cBuf, 1) == "#"
              IF !::lUtf .AND. ::lUtf8
                 ::cCommentEnd := hb_Utf8ToStr(cBuf)
@@ -343,7 +343,7 @@ METHOD ToString( xVal ) CLASS TIniData
          ENDIF
       ENDIF
    ELSEIF hb_IsLogical(xVal) .AND. ::lYesNo
-      cStr := ::aYesNo[ iif(xVal, 1, 2) ]
+      cStr := ::aYesNo[iif(xVal, 1, 2)]
    ELSE
       cStr := hb_valtoexp( xVal )
    ENDIF
@@ -1171,8 +1171,8 @@ METHOD DoEvent ( Key, nHandle ) CLASS TWndData
 
    IF !Empty(nHandle)
       IF nHandle > 0 .AND. nHandle <= Len(_HMG_aControlHandles) // control index
-         IF hmg_IsWindowObject( _HMG_aControlHandles[ nHandle ] )
-            o := hmg_GetWindowObject( _HMG_aControlHandles[ nHandle ] )
+         IF hmg_IsWindowObject( _HMG_aControlHandles[nHandle] )
+            o := hmg_GetWindowObject( _HMG_aControlHandles[nHandle] )
             i := o:Index
             w := o:IsWindow
          ELSE
@@ -1808,10 +1808,10 @@ FUNCTION oCnlData(nIndex, cName, nHandle, nParent, cType, cVar, oWin)
    IF hb_IsObject(oWin)
 
       IF cType == "TBROWSE"
-         ob := _HMG_aControlIds[ nIndex ]
+         ob := _HMG_aControlIds[nIndex]
          o := TTsbData():New( oWin, ob ):Def( nIndex, cName, nHandle, nParent, cType, cVar )
       ELSEIF cType == "GETBOX"
-         ob := _HMG_aControlHeadClick[ nIndex ]
+         ob := _HMG_aControlHeadClick[nIndex]
          o := TGetData():New( oWin, ob ):Def( nIndex, cName, nHandle, nParent, cType, cVar )
       ELSEIF cType == "STATUSBAR"
          o := TStbData():New( oWin ):Def( nIndex, cName, nHandle, nParent, cType, cVar )

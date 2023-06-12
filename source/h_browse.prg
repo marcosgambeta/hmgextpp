@@ -601,7 +601,7 @@ PROCEDURE _BrowseUpdate(ControlName, ParentName, z)
 
    aDisplayItems := _HMG_aControlMiscData1[i] [14]
 
-   aPict := _HMG_aControlMiscData1[i] [ 21 ]  // add jsz
+   aPict := _HMG_aControlMiscData1[i] [21]  // add jsz
 
    aProcessDisplayItems := Array(Len(Fields))
    aDisplayItemsLengths := Array(Len(Fields))
@@ -695,10 +695,10 @@ PROCEDURE _BrowseUpdate(ControlName, ParentName, z)
 
          IF j >= First
 
-            IF aProcessDisplayItems [ j ]
+            IF aProcessDisplayItems [j]
                lFound := .F.
-               FOR k := 1 TO aDisplayItemsLengths [ j ]
-                  IF aDisplayItems [ j ] [k] [2] == &cTemp
+               FOR k := 1 TO aDisplayItemsLengths [j]
+                  IF aDisplayItems [j] [k] [2] == &cTemp
                      AAdd(aTemp, RTrim(aDisplayItems[j][k][1]))
                      lFound := .T.
                      EXIT
@@ -1396,7 +1396,7 @@ FUNCTION _BrowseGetValue(ControlName, ParentForm, z)
    _BrowseRecMap := _HMG_aControlRangeMax[i]
 
    IF LISTVIEW_GETFIRSTITEM ( _HMG_aControlHandles[i] ) != 0
-      RETURN _BrowseRecMap [ LISTVIEW_GETFIRSTITEM ( _HMG_aControlHandles[i] ) ]
+      RETURN _BrowseRecMap[LISTVIEW_GETFIRSTITEM(_HMG_aControlHandles[i])]
    ENDIF
 
 RETURN 0
@@ -1421,7 +1421,7 @@ FUNCTION _BrowseDelete(ControlName, ParentForm, z)
 
    _BrowseRecMap := _HMG_aControlRangeMax[i]
 
-   Value := _BrowseRecMap [ LISTVIEW_GETFIRSTITEM ( _HMG_aControlHandles[i] ) ]
+   Value := _BrowseRecMap[LISTVIEW_GETFIRSTITEM(_HMG_aControlHandles[i])]
 
    IF Value == 0
       RETURN Nil
@@ -1553,7 +1553,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
 
    j := AScan(_HMG_aFormHandles , _HMG_aControlParentHandles[i])
 
-   FormName := _HMG_aFormNames [ j ]
+   FormName := _HMG_aFormNames[j]
 
    item := _GetValue(ControlName, FormName)
 
@@ -1568,7 +1568,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
    Col := GCol + ( GWidth - 310 ) / 2
 
    IF append != NIL
-      Title := _HMG_BRWLangButton [ iif(append, 1, 2) ]
+      Title := _HMG_BRWLangButton[iif(append, 1, 2)]
    ELSE
       Title := _HMG_BRWLangButton [2]
    ENDIF
@@ -2118,7 +2118,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
       RETURN Nil
    ENDIF
 
-   aInputMask := _HMG_aControlMiscData1[i] [ 22 ]
+   aInputMask := _HMG_aControlMiscData1[i] [22]
 
    IF hb_IsArray(aInputItems)
 
@@ -2136,9 +2136,9 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
 
       IF Len(aReadOnly) >= CellColIndex
 
-         IF aReadOnly [ CellColIndex ] != Nil
+         IF aReadOnly[CellColIndex] != Nil
 
-            IF aReadOnly [ CellColIndex ]
+            IF aReadOnly[CellColIndex]
                _HMG_IPE_CANCELLED := .F.
                RETURN Nil
             ENDIF
@@ -2149,7 +2149,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
 
    ENDIF
 
-   FieldName := _GridFields [ CellColIndex ]
+   FieldName := _GridFields[CellColIndex]
 
    IF AScan(aEnabledTypes, ( _GridWorkArea )->( _TypeEx ( FieldName ) )) < 1
       MsgAlert ( "Edit of this field is not supported.", _HMG_BRWLangError[10] )
@@ -2480,14 +2480,14 @@ STATIC PROCEDURE _InPlaceEditOk ( i , r , aValid , CellColIndex , sFieldName , A
 
       IF Len(aValid) >= CellColIndex
 
-         IF aValid [ CellColIndex ] != Nil
+         IF aValid[CellColIndex] != Nil
 
             Result := _GetValue("Control_1", "_InPlaceEdit")
 
             IF ControlType == "L"
                Result := ( Result == 1 )
             ELSEIF ControlType == "X"
-               Result := aInputItems [ CellColIndex ] [ r ] [2]
+               Result := aInputItems[CellColIndex] [r] [2]
             ENDIF
 
             TmpName := "MemVar" + AreaName + sFieldname
@@ -2496,7 +2496,7 @@ STATIC PROCEDURE _InPlaceEditOk ( i , r , aValid , CellColIndex , sFieldName , A
 
             _HMG_ThisEventType := "BROWSE_VALID"
 
-            b := Eval(aValid [ CellColIndex ])
+            b := Eval(aValid[CellColIndex])
 
             _HMG_ThisEventType := ""
 
@@ -2514,7 +2514,7 @@ STATIC PROCEDURE _InPlaceEditOk ( i , r , aValid , CellColIndex , sFieldName , A
 
                         ELSEIF hb_IsBlock(aValidMessages[CellColIndex])
 
-                           Eval(aValidMessages [ CellColIndex ], Result)
+                           Eval(aValidMessages[CellColIndex], Result)
 
                         ENDIF
 
@@ -2578,7 +2578,7 @@ STATIC PROCEDURE _InPlaceEditSave(i, FieldName, Alias, r, lock, ControlType, aIn
       IF ControlType == "L"
          r := ( r == 1 )
       ELSEIF ControlType == "X"
-         r := aInputItems [ CellColIndex ] [ r ] [2]
+         r := aInputItems[CellColIndex][r][2]
       ENDIF
 
    ENDIF
@@ -2866,9 +2866,9 @@ FUNCTION _SetGetBrowseProperty ( ControlName, ParentForm, nId, Value )
    IF i > 0 .AND. _HMG_aControlType[i] == CONTROL_TYPE_BROWSE
 
       IF PCount() > 3
-         _HMG_aControlMiscData1[i] [ nId ] := Value
+         _HMG_aControlMiscData1[i][nId] := Value
       ELSE
-         RetVal := _HMG_aControlMiscData1[i] [ nId ]
+         RetVal := _HMG_aControlMiscData1[i][nId]
       ENDIF
 
    ENDIF

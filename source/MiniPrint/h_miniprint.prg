@@ -1127,9 +1127,9 @@ Function GetPrinter()
          ON ENTER _HMG_PRINTER_GETPRINTER.Ok.OnClick () ;
          ON CANCEL IIF(_GetKeyState(VK_ESCAPE), _HMG_PRINTER_GETPRINTER.Cancel.OnClick(), NIL)
 
-      @ 53, 65  BUTTON Ok CAPTION _hmg_printer_usermessages [11] ACTION ( RetVal := Printers [ GetProperty ( "_HMG_PRINTER_GETPRINTER","Combo_1","Value" ) ], DoMethod("_HMG_PRINTER_GETPRINTER", "Release") )
+      @ 53, 65  BUTTON Ok CAPTION _hmg_printer_usermessages[11] ACTION (RetVal := Printers[GetProperty("_HMG_PRINTER_GETPRINTER", "Combo_1", "Value")], DoMethod("_HMG_PRINTER_GETPRINTER", "Release"))
 
-      @ 53, 175 BUTTON Cancel CAPTION _hmg_printer_usermessages [12] ACTION ( RetVal := "", DoMethod("_HMG_PRINTER_GETPRINTER", "Release") )
+      @ 53, 175 BUTTON Cancel CAPTION _hmg_printer_usermessages[12] ACTION (RetVal := "", DoMethod("_HMG_PRINTER_GETPRINTER", "Release"))
 
       ON KEY ESCAPE ACTION _HMG_PRINTER_GETPRINTER.Cancel.OnClick ()
 

@@ -354,7 +354,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
       FOR nI := 1 TO nRange
          FOR nJ := 1 TO nSeries
             DrawBar( parent, nPos, iif(l3D, nZero, nZero - 1), aData[nJ,nI] / nMin + nDeep, nWide, l3D, nDeep, ;
-               aColors[ iif(lRedraw, nI, nJ) ] )
+               aColors[iif(lRedraw, nI, nJ)] )
             nPos += nWide + nSep
          NEXT nJ
          nPos += nWide + nSep

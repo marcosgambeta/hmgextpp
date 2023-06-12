@@ -154,17 +154,17 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
          IF ImgDefNode > 0
 
             aBitmaps[1] := aImgNode[1]              // Node default
-            aBitmaps[2] := aImgNode[ ImgDefNode ]
+            aBitmaps[2] := aImgNode[ImgDefNode]
 
             IF ImgDefItem > 0
 
                aBitmaps[3] := aImgItem[1]          // Item default
-               aBitmaps[4] := aImgItem[ ImgDefItem ]
+               aBitmaps[4] := aImgItem[ImgDefItem]
 
             ELSE
 
                aBitmaps[3] := aImgNode[1]           // Copy Node def if no Item def
-               aBitmaps[4] := aImgNode[ ImgDefNode ]
+               aBitmaps[4] := aImgNode[ImgDefNode]
 
             ENDIF
 
@@ -210,17 +210,17 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
       IF ImgDefNode > 0
 
          aBitmaps[1] := aImgNode[1]          // Node default
-         aBitmaps[2] := aImgNode[ ImgDefNode ]
+         aBitmaps[2] := aImgNode[ImgDefNode]
 
          IF ImgDefItem > 0
 
             aBitmaps[3] := aImgItem[1]       // Item default
-            aBitmaps[4] := aImgItem[ ImgDefItem ]
+            aBitmaps[4] := aImgItem[ImgDefItem]
 
          ELSE
 
             aBitmaps[3] := aImgNode[1]       // Copy Node def if no Item def
-            aBitmaps[4] := aImgNode[ ImgDefNode ]
+            aBitmaps[4] := aImgNode[ImgDefNode]
 
          ENDIF
 
@@ -359,22 +359,22 @@ FUNCTION InitDialogTree(ParentName, ControlHandle, k)
 
    HB_SYMBOL_UNUSED(ParentName)
 
-   aImgNode := _HMG_aControlMiscData1[ k, 2 ]
-   aImgItem := _HMG_aControlMiscData1[ k, 3 ]
-   NoTrans  := _HMG_aControlMiscData1[ k, 4 ]
+   aImgNode := _HMG_aControlMiscData1[k, 2]
+   aImgItem := _HMG_aControlMiscData1[k, 3]
+   NoTrans  := _HMG_aControlMiscData1[k, 4]
 
    ImgDefNode := iif(hb_IsArray(aImgNode), Len(aImgNode), 0)  // Tree+
    ImgDefItem := iif(hb_IsArray(aImgItem), Len(aImgItem), 0)  // Tree+
 
    IF ImgDefNode > 0
       aBitmaps[1] := aImgNode[1]              // Node default
-      aBitmaps[2] := aImgNode[ ImgDefNode ]
+      aBitmaps[2] := aImgNode[ImgDefNode]
       IF ImgDefItem > 0
          aBitmaps[3] := aImgItem[1]           // Item default
-         aBitmaps[4] := aImgItem[ ImgDefItem ]
+         aBitmaps[4] := aImgItem[ImgDefItem]
       ELSE
          aBitmaps[3] := aImgNode[1]           // Copy Node def if no Item def
-         aBitmaps[4] := aImgNode[ ImgDefNode ]
+         aBitmaps[4] := aImgNode[ImgDefNode]
       ENDIF
       InitTreeViewBitmap(ControlHandle, aBitmaps, NoTrans) // Init Bitmap List
    ENDIF
@@ -382,18 +382,18 @@ FUNCTION InitDialogTree(ParentName, ControlHandle, k)
    _HMG_ActiveTreeHandle := ControlHandle
 
    FOR n := 1 TO Len(_HMG_aDialogTreeItem)
-      aImage     := _HMG_aDialogTreeItem[ n, 2 ]
-      text       := _HMG_aDialogTreeItem[ n, 1 ]
-      id         := _HMG_aDialogTreeItem[ n, 3 ]
-      NodeIndex  := _HMG_aDialogTreeItem[ n, 4 ]
-      Cargo      := _HMG_aDialogTreeItem[ n, 6 ]
+      aImage     := _HMG_aDialogTreeItem[n, 2]
+      text       := _HMG_aDialogTreeItem[n, 1]
+      id         := _HMG_aDialogTreeItem[n, 3]
+      NodeIndex  := _HMG_aDialogTreeItem[n, 4]
+      Cargo      := _HMG_aDialogTreeItem[n, 6]
       ImgDef     := iif(hb_IsArray(aImage), Len(aImage), 0)  // Tree+
-      NodeHandle := _HMG_NodeHandle[ NodeIndex ]
+      NodeHandle := _HMG_NodeHandle[NodeIndex]
 
       AAdd(a_Node_Item_Cargo, Cargo)
 
       IF ImgDef == 0
-         IF _HMG_aDialogTreeItem[ n, 5 ] == "NODE"
+         IF _HMG_aDialogTreeItem[n, 5] == "NODE"
             iUnsel := 0   // Pointer to defalut Node Bitmaps, no Bitmap loaded
             iSel   := 1
          ELSE
@@ -405,8 +405,8 @@ FUNCTION InitDialogTree(ParentName, ControlHandle, k)
          iSel := iif(ImgDef == 1, iUnSel, AddTreeViewBitmap( _HMG_ActiveTreeHandle, aImage[2], NoTrans ) - 1)
          // If only one bitmap in array iSel = iUnsel, only one Bitmap loaded
       ENDIF
-      IF _HMG_aDialogTreeItem[ n, 5 ] == "NODE"
-         _HMG_NodeHandle[ NodeIndex ] := AddTreeItem ( _HMG_ActiveTreeHandle, _HMG_NodeHandle[ NodeIndex - 1 ], text, iUnsel, iSel, Id, .T. )
+      IF _HMG_aDialogTreeItem[n, 5] == "NODE"
+         _HMG_NodeHandle[NodeIndex] := AddTreeItem ( _HMG_ActiveTreeHandle, _HMG_NodeHandle[NodeIndex - 1], text, iUnsel, iSel, Id, .T. )
          AAdd(_HMG_aTreeMap, _HMG_NodeHandle[NodeIndex])
          AAdd(_HMG_aTreeIdMap, Id)
       ELSE
@@ -416,16 +416,16 @@ FUNCTION InitDialogTree(ParentName, ControlHandle, k)
       ENDIF
    NEXT
 
-   _HMG_aControlPageMap  [ _HMG_ActiveTreeIndex ] := _HMG_aTreeMap
-   _HMG_aControlPicture  [ _HMG_ActiveTreeIndex ] := _HMG_aTreeIdMap
-   _HMG_aControlHeadClick[ _HMG_ActiveTreeIndex ] := AClone ( a_Node_Item_Cargo )
+   _HMG_aControlPageMap  [_HMG_ActiveTreeIndex] := _HMG_aTreeMap
+   _HMG_aControlPicture  [_HMG_ActiveTreeIndex] := _HMG_aTreeIdMap
+   _HMG_aControlHeadClick[_HMG_ActiveTreeIndex] := AClone ( a_Node_Item_Cargo )
 
    IF _HMG_ActiveTreeValue > 0
 
       IF !_HMG_ActiveTreeItemIds
-         TreeView_SelectItem ( _HMG_ActiveTreeHandle, _HMG_aTreeMap[ _HMG_ActiveTreeValue ] )
+         TreeView_SelectItem ( _HMG_ActiveTreeHandle, _HMG_aTreeMap[_HMG_ActiveTreeValue] )
       ELSE
-         TreeView_SelectItem ( _HMG_ActiveTreeHandle, _HMG_aTreeMap[ AScan(_HMG_aTreeIdMap, _HMG_ActiveTreeValue) ] )
+         TreeView_SelectItem ( _HMG_ActiveTreeHandle, _HMG_aTreeMap[AScan(_HMG_aTreeIdMap, _HMG_ActiveTreeValue)] )
       ENDIF
    ENDIF
    // JP 62
@@ -460,13 +460,13 @@ FUNCTION _DefineTreeNode ( text, aImage, Id, Cargo )
          iSel   := 1
       ELSE
          k := _HMG_ActiveTreeIndex
-         iUnSel := AddTreeViewBitmap( _HMG_ActiveTreeHandle, aImage[1], _HMG_aControlMiscData1[ k, 4 ] ) - 1
-         iSel := iif(ImgDef == 1, iUnSel, AddTreeViewBitmap( _HMG_ActiveTreeHandle, aImage[2], _HMG_aControlMiscData1[ k, 4 ] ) - 1)
+         iUnSel := AddTreeViewBitmap( _HMG_ActiveTreeHandle, aImage[1], _HMG_aControlMiscData1[k, 4] ) - 1
+         iSel := iif(ImgDef == 1, iUnSel, AddTreeViewBitmap( _HMG_ActiveTreeHandle, aImage[2], _HMG_aControlMiscData1[k, 4] ) - 1)
          // If only one bitmap in array iSel = iUnsel, only one Bitmap loaded
       ENDIF
 
       _HMG_NodeIndex++
-      _HMG_NodeHandle[ _HMG_NodeIndex ] := AddTreeItem ( _HMG_ActiveTreeHandle, _HMG_NodeHandle[ _HMG_NodeIndex - 1 ], text, iUnsel, iSel, Id, .T. )
+      _HMG_NodeHandle[_HMG_NodeIndex] := AddTreeItem ( _HMG_ActiveTreeHandle, _HMG_NodeHandle[_HMG_NodeIndex - 1], text, iUnsel, iSel, Id, .T. )
       AAdd(_HMG_aTreeMap, _HMG_NodeHandle[_HMG_NodeIndex])
       AAdd(_HMG_aTreeIdMap, Id)
       AAdd(a_Node_Item_Cargo, Cargo)
@@ -508,12 +508,12 @@ FUNCTION _DefineTreeItem ( text, aImage, Id, Cargo )
          iSel   := 3
       ELSE
          k := _HMG_ActiveTreeIndex
-         iUnSel := AddTreeViewBitmap( _HMG_ActiveTreeHandle, aImage[1], _HMG_aControlMiscData1[ k, 4 ] ) - 1
-         iSel := iif(ImgDef == 1, iUnSel, AddTreeViewBitmap( _HMG_ActiveTreeHandle, aImage[2], _HMG_aControlMiscData1[ k, 4 ] ) - 1)
+         iUnSel := AddTreeViewBitmap( _HMG_ActiveTreeHandle, aImage[1], _HMG_aControlMiscData1[k, 4] ) - 1
+         iSel := iif(ImgDef == 1, iUnSel, AddTreeViewBitmap( _HMG_ActiveTreeHandle, aImage[2], _HMG_aControlMiscData1[k, 4] ) - 1)
          // If only one bitmap in array iSel = iUnsel, only one Bitmap loaded
       ENDIF
 
-      handle := AddTreeItem ( _HMG_ActiveTreeHandle, _HMG_NodeHandle[ _HMG_NodeIndex ], text, iUnSel, iSel, Id, .F. )
+      handle := AddTreeItem ( _HMG_ActiveTreeHandle, _HMG_NodeHandle[_HMG_NodeIndex], text, iUnSel, iSel, Id, .F. )
       AAdd(_HMG_aTreeMap, Handle)
       AAdd(_HMG_aTreeIdMap, Id)
       AAdd(a_Node_Item_Cargo, Cargo)
@@ -528,16 +528,16 @@ FUNCTION _EndTree()
 
    IF !_SetGetGlobal( "_HMG_lDialogInMemory" )
 
-      _HMG_aControlPageMap  [ _HMG_ActiveTreeIndex ] := _HMG_aTreeMap
-      _HMG_aControlPicture  [ _HMG_ActiveTreeIndex ] := _HMG_aTreeIdMap
-      _HMG_aControlHeadClick[ _HMG_ActiveTreeIndex ] := AClone(a_Node_Item_Cargo)
+      _HMG_aControlPageMap  [_HMG_ActiveTreeIndex] := _HMG_aTreeMap
+      _HMG_aControlPicture  [_HMG_ActiveTreeIndex] := _HMG_aTreeIdMap
+      _HMG_aControlHeadClick[_HMG_ActiveTreeIndex] := AClone(a_Node_Item_Cargo)
 
       IF _HMG_ActiveTreeValue > 0
 
          IF !_HMG_ActiveTreeItemIds
-            TreeView_SelectItem ( _HMG_ActiveTreeHandle, _HMG_aTreeMap[ _HMG_ActiveTreeValue ] )
+            TreeView_SelectItem ( _HMG_ActiveTreeHandle, _HMG_aTreeMap[_HMG_ActiveTreeValue] )
          ELSE
-            TreeView_SelectItem ( _HMG_ActiveTreeHandle, _HMG_aTreeMap[ AScan(_HMG_aTreeIdMap, _HMG_ActiveTreeValue) ] )
+            TreeView_SelectItem ( _HMG_ActiveTreeHandle, _HMG_aTreeMap[AScan(_HMG_aTreeIdMap, _HMG_ActiveTreeValue)] )
          ENDIF
 
       ENDIF
@@ -592,12 +592,12 @@ STATIC FUNCTION TreeItemGetHandle(ControlName, ParentForm, Item)
 
       IF !_HMG_aControlInputMask[i]
          IF Item <= Len(_HMG_aControlPageMap[i])
-            ItemHandle := _HMG_aControlPageMap[i][ Item ]
+            ItemHandle := _HMG_aControlPageMap[i][Item]
          ENDIF
       ELSE
          Pos := AScan(_HMG_aControlPicture[i], Item)
          IF Pos > 0
-            ItemHandle := _HMG_aControlPageMap[i][ Pos ]
+            ItemHandle := _HMG_aControlPageMap[i][Pos]
          ENDIF
       ENDIF
 
@@ -618,8 +618,8 @@ PROCEDURE TreeItemChangeImage ( ControlName, ParentForm, nItem, aImage )
 
    IF ItemHandle > 0 .AND. hb_IsArray(aImage) .AND. ( ImgDef := Len(aImage) ) > 0
       k := GetControlIndex(ControlName, ParentForm)
-      iUnSel := AddTreeViewBitmap( TreeHandle, aImage[1], _HMG_aControlMiscData1[ k, 4 ] ) - 1
-      iSel := iif(ImgDef == 1, iUnSel, AddTreeViewBitmap( TreeHandle, aImage[2], _HMG_aControlMiscData1[ k, 4 ] ) - 1)
+      iUnSel := AddTreeViewBitmap( TreeHandle, aImage[1], _HMG_aControlMiscData1[k, 4] ) - 1
+      iSel := iif(ImgDef == 1, iUnSel, AddTreeViewBitmap( TreeHandle, aImage[2], _HMG_aControlMiscData1[k, 4] ) - 1)
 
       TREEITEM_SETIMAGEINDEX ( TreeHandle, ItemHandle, iUnSel, iSel )
    ENDIF
@@ -764,9 +764,9 @@ FUNCTION TreeNodeItemCargo( ControlName, ParentForm, Item, Value )
       IF !_HMG_aControlInputMask[i]
 
          IF Item > 0 .AND. Item <= Len(_HMG_aControlHeadClick[i])
-            xData := _HMG_aControlHeadClick[i][ Item ]
+            xData := _HMG_aControlHeadClick[i][Item]
             IF PCount() > 3
-               _HMG_aControlHeadClick[i][ Item ] := Value
+               _HMG_aControlHeadClick[i][Item] := Value
             ENDIF
          ENDIF
 
@@ -774,9 +774,9 @@ FUNCTION TreeNodeItemCargo( ControlName, ParentForm, Item, Value )
 
          Pos := AScan(_HMG_aControlPicture[i], Item)
          IF Pos > 0 .AND. Pos <= Len(_HMG_aControlHeadClick[i])
-            xData := _HMG_aControlHeadClick[i][ Pos ]
+            xData := _HMG_aControlHeadClick[i][Pos]
             IF PCount() > 3
-               _HMG_aControlHeadClick[i][ Pos ] := Value
+               _HMG_aControlHeadClick[i][Pos] := Value
             ENDIF
          ENDIF
 

@@ -285,7 +285,7 @@ PROCEDURE PW_SetColorDoneMin( cControlName, cParentForm, Value, lErase )
    IF ColorDoneMin != Value
       _HMG_aControlFontColor[i][1] := Value
       UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
-      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][n] := ;
+      _HMG_aFormGraphTasks[GetFormIndex ( cParentForm )][n] := ;
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
          Value, ColorDoneMax, ColorRemain, ColorInner ) }
@@ -325,7 +325,7 @@ PROCEDURE PW_SetColorDoneMax( cControlName, cParentForm, Value, lErase )
    IF ColorDoneMax != Value
       _HMG_aControlFontColor[i][2] := Value
       UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
-      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][n] := ;
+      _HMG_aFormGraphTasks[GetFormIndex ( cParentForm )][n] := ;
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
          ColorDoneMin, Value, ColorRemain, ColorInner ) }
@@ -365,7 +365,7 @@ PROCEDURE PW_SetColorRemain( cControlName, cParentForm, Value, lErase )
    IF ColorRemain != Value
       _HMG_aControlBkColor[i][1] := Value
       UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
-      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][n] := ;
+      _HMG_aFormGraphTasks[GetFormIndex ( cParentForm )][n] := ;
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
          ColorDoneMin, ColorDoneMax, Value, ColorInner ) }
@@ -405,7 +405,7 @@ PROCEDURE PW_SetColorInner( cControlName, cParentForm, Value, lErase )
    IF ColorInner != Value
       _HMG_aControlBkColor[i][2] := Value
       UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
-      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][n] := ;
+      _HMG_aFormGraphTasks[GetFormIndex ( cParentForm )][n] := ;
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
          ColorDoneMin, ColorDoneMax, ColorRemain, Value ) }
@@ -448,7 +448,7 @@ PROCEDURE PW_SetStartAngle(cControlName, cParentForm, Value, lErase)
    IF StartAngle != V
       _HMG_aControlInputMask[i] := V
       UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
-      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][n] := ;
+      _HMG_aFormGraphTasks[GetFormIndex ( cParentForm )][n] := ;
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, Position, ;
          V, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
          ColorDoneMin, ColorDoneMax, ColorRemain, ColorInner ) }
@@ -491,7 +491,7 @@ PROCEDURE PW_SetMin( cControlName, cParentForm, Value, lErase )
          _HMG_aControlValue[i] := Position := Min
       ENDIF
       UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
-      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][n] := ;
+      _HMG_aFormGraphTasks[GetFormIndex ( cParentForm )][n] := ;
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
          ColorDoneMin, ColorDoneMax, ColorRemain, ColorInner ) }
@@ -534,7 +534,7 @@ PROCEDURE PW_SetMax( cControlName, cParentForm, Value, lErase )
          _HMG_aControlValue[i] := Position := Max
       ENDIF
       UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
-      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][n] := ;
+      _HMG_aFormGraphTasks[GetFormIndex ( cParentForm )][n] := ;
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
          ColorDoneMin, ColorDoneMax, ColorRemain, ColorInner ) }
@@ -574,7 +574,7 @@ PROCEDURE PW_SetPosition( cControlName, cParentForm, Value, lErase )
    ENDIF
    IF Position != V
       _HMG_aControlValue[i] := V
-      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][n] := ;
+      _HMG_aFormGraphTasks[GetFormIndex ( cParentForm )][n] := ;
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, V, ;
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
          ColorDoneMin, ColorDoneMax, ColorRemain, ColorInner ) }
@@ -614,7 +614,7 @@ PROCEDURE PW_SetInnerSize(cControlName, cParentForm, Value, lErase)
    ENDIF
    IF InnerSize != V
       _HMG_aControlSpacing[i] := V
-      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][n] := ;
+      _HMG_aFormGraphTasks[GetFormIndex ( cParentForm )][n] := ;
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, V, GradientMode, cText, ShowText, Min, Max, ;
          ColorDoneMin, ColorDoneMax, ColorRemain, ColorInner ) }
@@ -649,7 +649,7 @@ PROCEDURE PW_SetGradientMode(cControlName, cParentForm, Value, lErase)
    IF GradientMode != Value
       _HMG_aControlPicture[i] := Value
       UpdateAngleGradientBrush( Value, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
-      _HMG_aFormGraphTasks[ GetFormIndex ( cParentForm ) ][n] := ;
+      _HMG_aFormGraphTasks[GetFormIndex ( cParentForm )][n] := ;
          {|| ProgressWheelPaint( cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, InnerSize, Value, cText, ShowText, Min, Max, ;
          ColorDoneMin, ColorDoneMax, ColorRemain, ColorInner ) }

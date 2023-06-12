@@ -140,7 +140,7 @@ FUNCTION AddMenuElement( NewItem , cAction )
          _ModifyMenuItem ( cxMRU_Id , MRUParentForm , xCaption , aMRU_File[n, 4] )
       NEXT
       IF Len(aMRU_File) > maxMRU_Files
-         cxMRU_Id := aMRU_File[ Len(aMRU_File), 3 ]
+         cxMRU_Id := aMRU_File[Len(aMRU_File), 3]
          ASize(aMRU_File , maxMRU_Files)
          _RemoveMenuItem( cxMRU_Id , MRUParentForm )
       ENDIF
@@ -159,7 +159,7 @@ STATIC FUNCTION ReorderMRUList( DuplicateLocation )
    // Move entries previously "more recent" than the
    // duplicate down one in the MRU list
    IF DuplicateLocation > 1
-      cxMRU_Id := aMRU_File[ DuplicateLocation, 3 ]
+      cxMRU_Id := aMRU_File[DuplicateLocation, 3]
       _RemoveMenuItem( cxMRU_Id , MRUParentForm )
       hb_ADel( aMRU_File, DuplicateLocation, .T. )
    ENDIF

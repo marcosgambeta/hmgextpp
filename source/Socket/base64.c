@@ -25,46 +25,46 @@ static unsigned char b64d[] = {
 
 static void b64enc(unsigned char *in, int inlen, unsigned char *out)
 {
-   unsigned char t0 = ( inlen > 0 ) ? in[ 0 ] : 0;
-   unsigned char t1 = ( inlen > 1 ) ? in[ 1 ] : 0;
-   unsigned char t2 = ( inlen > 2 ) ? in[ 2 ] : 0;
+   unsigned char t0 = ( inlen > 0 ) ? in[0] : 0;
+   unsigned char t1 = ( inlen > 1 ) ? in[1] : 0;
+   unsigned char t2 = ( inlen > 2 ) ? in[2] : 0;
 
    if( inlen <= 0 )
       return;
-   out[ 0 ] = b64e[ ( t0 >> 2 ) & 0x3f ];
-   out[ 1 ] = b64e[ ( ( t0 << 4 ) & 0x30 ) | ( t1 >> 4 ) ];
+   out[0] = b64e[( t0 >> 2) & 0x3f];
+   out[1] = b64e[((t0 << 4) & 0x30) | (t1 >> 4)];
 
    if( inlen <= 1 )
       return;
-   out[ 2 ] = b64e[ ( ( t1 << 2 ) & 0x3c ) | ( t2 >> 6 ) ];
+   out[2] = b64e[((t1 << 2) & 0x3c) | (t2 >> 6)];
 
    if( inlen <= 2 )
       return;
-   out[ 3 ] = b64e[ t2 & 0x3f ];
+   out[3] = b64e[t2 & 0x3f];
 }
 
 static void b64dec(unsigned char *in, int inlen, unsigned char *out)
 {
-   unsigned char t0 = ( inlen > 0 ) ? b64d[ in[ 0 ] & 0x7f ] : 0;
-   unsigned char t1 = ( inlen > 1 ) ? b64d[ in[ 1 ] & 0x7f ] : 0;
-   unsigned char t2 = ( inlen > 2 ) ? b64d[ in[ 2 ] & 0x7f ] : 0;
-   unsigned char t3 = ( inlen > 3 ) ? b64d[ in[ 3 ] & 0x7f ] : 0;
+   unsigned char t0 = ( inlen > 0 ) ? b64d[in[0] & 0x7f] : 0;
+   unsigned char t1 = ( inlen > 1 ) ? b64d[in[1] & 0x7f] : 0;
+   unsigned char t2 = ( inlen > 2 ) ? b64d[in[2] & 0x7f] : 0;
+   unsigned char t3 = ( inlen > 3 ) ? b64d[in[3] & 0x7f] : 0;
 
    if( inlen <= 0 )
       return;
-   out[ 0 ] = ( t0 << 2 ) | ( t1 >> 4 );
+   out[0] = ( t0 << 2 ) | ( t1 >> 4 );
    if( inlen <= 1 )
    {
-      out[ 1 ] = 0;
+      out[1] = 0;
       return;
    }
-   out[ 1 ] = ( t1 << 4 ) | ( ( t2 & 0x3c ) >> 2 );
+   out[1] = ( t1 << 4 ) | ( ( t2 & 0x3c ) >> 2 );
    if( inlen <= 2 )
    {
-      out[ 2 ] = 0;
+      out[2] = 0;
       return;
    }
-   out[ 2 ] = ( t2 << 6 ) | t3;
+   out[2] = ( t2 << 6 ) | t3;
 }
 
 int b64encode_len (unsigned char *in)
@@ -88,9 +88,9 @@ unsigned char *b64encode_alloc(unsigned char *in)
 
    if( n != NULL )
    {
-      n[ l-- ] = 0;
+      n[l--] = 0;
       while( l >= 0 )
-         n[ l-- ] = '=';
+         n[l--] = '=';
    }
    return n;
 }
@@ -125,8 +125,8 @@ void b64encodelen (unsigned char *in, unsigned char *out, int nLen, int nSubLen 
          nPos += 3;
          if( ( nPos % nSubLen ) == 0 )
          {
-            out[ 0 ] = 13;
-            out[ 1 ] = 10;
+            out[0] = 13;
+            out[1] = 10;
             out += 2;
          }
       }
@@ -140,7 +140,7 @@ unsigned char *b64decode_alloc(unsigned char *in)
 
    if( n != NULL )
       while( l >= 0 )
-         n[ l-- ] = 0;
+         n[l--] = 0;
 
    return n;
 }

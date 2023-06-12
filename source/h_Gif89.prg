@@ -310,8 +310,8 @@ METHOD PlayGif() CLASS TGif
       ::nCurrentFrame := 1
    ENDIF
 
-   SetProperty( ::cParentName, ::hGif, "Picture", ::aPictData[ ::nCurrentFrame ] )
-   SetProperty( ::cParentName, ::cTimer, "Value", ::aDelay[ ::nCurrentFrame ] )
+   SetProperty( ::cParentName, ::hGif, "Picture", ::aPictData[::nCurrentFrame] )
+   SetProperty( ::cParentName, ::cTimer, "Value", ::aDelay[::nCurrentFrame] )
 
 RETURN NIL
 

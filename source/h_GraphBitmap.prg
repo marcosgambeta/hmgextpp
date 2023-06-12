@@ -146,7 +146,7 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
       FOR nI := 1 TO Len(aSeries)
          DrawBarInBitmap( hDC, nRight + ( ( _HMG_DefaultFontSize - 1 ) * nResH ), nPos + _HMG_DefaultFontSize * nResV,;
             ( _HMG_DefaultFontSize - 1 ) * nResH, ( _HMG_DefaultFontSize - 2 ) * nResV, l3D, 1, aColors[nI] )
-         DrawTextInBitmap( hDC, nPos, nRight + ( 4 + 2 * _HMG_DefaultFontSize ) * nResH, aSeries[ nI ], _HMG_DefaultFontName, _HMG_DefaultFontSize - 1, aClrFore, 0 )
+         DrawTextInBitmap( hDC, nPos, nRight + ( 4 + 2 * _HMG_DefaultFontSize ) * nResH, aSeries[nI], _HMG_DefaultFontName, _HMG_DefaultFontSize - 1, aClrFore, 0 )
          nPos += ( _HMG_DefaultFontSize + 7 ) * nResV
       NEXT nI
    ENDIF
@@ -255,7 +255,7 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
       nWideB := ( nRight - nLeft ) / ( nMax( aData ) + 1 )
       nI := nLeft + nWideB
       FOR nJ := 1 TO nMax( aData )
-         DrawTextInBitmap( hDC, nBottom + 8, nI - iif(l3D, nDeep, nDeep + 8), aYVals[ nJ ], _HMG_DefaultFontName, _HMG_DefaultFontSize - 1, aClrFore )
+         DrawTextInBitmap( hDC, nBottom + 8, nI - iif(l3D, nDeep, nDeep + 8), aYVals[nJ], _HMG_DefaultFontName, _HMG_DefaultFontSize - 1, aClrFore )
          nI += nWideB
       NEXT
    ENDIF
@@ -268,7 +268,7 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
       FOR nI := 1 TO nRange
          FOR nJ := 1 TO nSeries
             DrawBarInBitmap( hDC, nPos, iif(l3D, nZero, nZero - 1), aData[nJ,nI] / nMin + nDeep, nWide, l3D, nDeep, ;
-               aColors[ iif(lRedraw, nI, nJ) ] )
+               aColors[iif(lRedraw, nI, nJ)] )
             nPos += nWide + nSep
          NEXT nJ
          nPos += nWide + nSep

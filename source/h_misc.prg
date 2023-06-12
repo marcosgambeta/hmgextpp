@@ -52,7 +52,7 @@ SET PROCEDURE TO h_cdomail.prg
 FUNCTION GetData()
 *-----------------------------------------------------------------------------*
 
-   LOCAL PacketNames [ aDir ( _HMG_CommPath + _HMG_StationName + ".*" ) ]
+   LOCAL PacketNames[aDir(_HMG_CommPath + _HMG_StationName + ".*")]
    LOCAL i
    LOCAL Rows
    LOCAL Cols

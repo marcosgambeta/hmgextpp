@@ -149,19 +149,19 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
    FOR nCurrExpr := 1 TO nLenSelectList
 
-      xExprValue := Eval(aSelectList[ nCurrExpr, 1 ])
+      xExprValue := Eval(aSelectList[nCurrExpr, 1])
       cExprType := ValType(xExprValue)
       cExprValue := Transform(xExprValue, "")
       nExprLen := Len(cExprValue)
-      AAdd(aStruct, { iif(( nExprAlias := At( "->", aSelectList[ nCurrExpr, 2 ] ) ) == 0, aSelectList[ nCurrExpr, 2 ], ;
-         SubStr(aSelectList[ nCurrExpr, 2 ], nExprAlias + 2)), cExprType, ;
-         iif(aSelectList[ nCurrExpr, 3 ] != NIL, aSelectList[ nCurrExpr, 3 ], ;
+      AAdd(aStruct, { iif(( nExprAlias := At( "->", aSelectList[nCurrExpr, 2] ) ) == 0, aSelectList[nCurrExpr, 2], ;
+         SubStr(aSelectList[nCurrExpr, 2], nExprAlias + 2)), cExprType, ;
+         iif(aSelectList[nCurrExpr, 3] != NIL, aSelectList[nCurrExpr, 3], ;
          iif(cExprType == "D", 8, nExprLen)), ;
-         iif(aSelectList[ nCurrExpr, 4 ] != NIL, aSelectList[ nCurrExpr, 4 ], ;
+         iif(aSelectList[nCurrExpr, 4] != NIL, aSelectList[nCurrExpr, 4], ;
          iif(cExprType == "N" .AND. ( nExprAlias := At( ".", cExprValue ) ) > 0, ;
          nExprLen - nExprAlias, 0)) })
 
-      IF aSelectList[ nCurrExpr, 5 ] == "G"
+      IF aSelectList[nCurrExpr, 5] == "G"
 
          IF !lCreateIndex
 
@@ -175,25 +175,25 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
          IF cExprType == "C"
 
-            cIndexKey += aStruct[ nCurrExpr, 1 ]
+            cIndexKey += aStruct[nCurrExpr, 1]
 
          ELSEIF cExprType == "N"
 
-            cIndexKey += ( "Str(" + aStruct[ nCurrExpr, 1 ] + ")" )
+            cIndexKey += ( "Str(" + aStruct[nCurrExpr, 1] + ")" )
 
          ELSEIF cExprType == "D"
 
-            cIndexKey += ( "DToS(" + aStruct[ nCurrExpr, 1 ] + ")" )
+            cIndexKey += ( "DToS(" + aStruct[nCurrExpr, 1] + ")" )
 
          ELSEIF cExprType == "L"
 
-            cIndexKey += ( "Iif(" + aStruct[ nCurrExpr, 1 ] + "," + Chr(34) + "1" + Chr(34) + "," + Chr(34) + "0" + Chr(34) + ")" )
+            cIndexKey += ( "Iif(" + aStruct[nCurrExpr, 1] + "," + Chr(34) + "1" + Chr(34) + "," + Chr(34) + "0" + Chr(34) + ")" )
 
          ENDIF
 
          AAdd(axExpr, aSelectList[nCurrExpr, 1])
 
-      ELSEIF aSelectList[ nCurrExpr, 6 ] .AND. ( lSummary .AND. !lAdditive )
+      ELSEIF aSelectList[nCurrExpr, 6] .AND. ( lSummary .AND. !lAdditive )
 
          AAdd(aSummary, 0)
 
@@ -264,21 +264,21 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
          FOR nCurrExpr := 1 TO nLenSelectList
 
-            IF aSelectList[ nCurrExpr, 6 ]
+            IF aSelectList[nCurrExpr, 6]
 
                ++nCurrent
 
             ENDIF
 
-            IF !lCreateIndex .OR. lAppend .OR. aSelectList[ nCurrExpr, 5 ] $ "TA"
+            IF !lCreateIndex .OR. lAppend .OR. aSelectList[nCurrExpr, 5] $ "TA"
 
-               xExprValue := Eval(aSelectList[ nCurrExpr, 1 ])
+               xExprValue := Eval(aSelectList[nCurrExpr, 1])
 
-               IF aSelectList[ nCurrExpr, 5 ] == "T"
+               IF aSelectList[nCurrExpr, 5] == "T"
 
                   ( nSelectTemp )->( FieldPut( nCurrExpr, FieldGet( nCurrExpr ) + xExprValue ) )
 
-               ELSEIF aSelectList[ nCurrExpr, 5 ] == "A" .AND. !lAppend
+               ELSEIF aSelectList[nCurrExpr, 5] == "A" .AND. !lAppend
 
                   ( nSelectTemp )->( FieldPut( nCurrExpr, ( FieldGet( nCurrExpr ) + xExprValue ) / 2 ) )
 
@@ -288,9 +288,9 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
                ENDIF
 
-               IF aSelectList[ nCurrExpr, 6 ] .AND. lSummary
+               IF aSelectList[nCurrExpr, 6] .AND. lSummary
 
-                  aSummary[ nCurrent ] := aSummary[ nCurrent ] + xExprValue
+                  aSummary[nCurrent] := aSummary[nCurrent] + xExprValue
 
                ENDIF
 

@@ -461,20 +461,20 @@ RETURN Nil
 *------------------------------------------------------------------------------*
 FUNCTION _ChangeBtnState(aHandle, lChg, k)
 *------------------------------------------------------------------------------*
-   IF aHandle[ PGB_APPLY] > 0
+   IF aHandle[PGB_APPLY] > 0
       IF lChg
-         EnableWindow( aHandle[ PGB_APPLY] )
+         EnableWindow( aHandle[PGB_APPLY] )
          _HMG_aControlMiscData1[k, 7] := .T.
       ELSE
-         DisableWindow( aHandle[ PGB_APPLY] )
+         DisableWindow( aHandle[PGB_APPLY] )
          _HMG_aControlMiscData1[k, 7] := .F.
       ENDIF
    ENDIF
-   IF aHandle[ PGB_CANCEL] > 0
+   IF aHandle[PGB_CANCEL] > 0
       IF lChg
-         EnableWindow( aHandle[ PGB_CANCEL] )
+         EnableWindow( aHandle[PGB_CANCEL] )
       ELSE
-         DisableWindow( aHandle[ PGB_CANCEL] )
+         DisableWindow( aHandle[PGB_CANCEL] )
       ENDIF
    ENDIF
 

@@ -918,7 +918,7 @@ STATIC PROCEDURE imp_SUBTOTALES ( nlin, ncol, lmode, swt, grpby )
 
    LOCAL i
    LOCAL lHayTotals := ( AScan(atotals, .T.) > 0 )
-   LOCAL cSubgrp := iif(!ISEVERYPAGE, aMessages[ 21 ], chdrgrp)
+   LOCAL cSubgrp := iif(!ISEVERYPAGE, aMessages[21], chdrgrp)
 
    ncol := nlmargin + 1
    IF grpby != NIL

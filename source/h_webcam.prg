@@ -189,7 +189,7 @@ FUNCTION _StartWebCam(cWindow, cControl)
       DestroyWindow(hWnd)
    ENDIF
 
-   _HMG_aControlVisible[ GetControlIndex(cControl, cWindow) ] := lSuccess
+   _HMG_aControlVisible[GetControlIndex(cControl, cWindow)] := lSuccess
 
 RETURN lSuccess
 

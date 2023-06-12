@@ -494,9 +494,9 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
       aPaper[PRINTER_PAPER_NOTE       ] := {215.9, 279.4}
 
       IF nOrientation == PRINTER_ORIENT_PORTRAIT
-         npaperHeight := aPaper[ nPaperSize][2]
+         npaperHeight := aPaper[nPaperSize][2]
       ELSEIF nOrientation == PRINTER_ORIENT_LANDSCAPE
-         npaperHeight := aPaper[ nPaperSize][1]
+         npaperHeight := aPaper[nPaperSize][1]
       ELSE
          MsgMiniGUIError("Report: Orientation Not Supported.")
       ENDIF

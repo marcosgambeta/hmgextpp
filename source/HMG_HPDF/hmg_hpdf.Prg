@@ -103,7 +103,7 @@ FUNCTION _HMG_HPDF_InsertPage(nPage)
       _HMG_HPDF_Error( 16 )
       RETURN NIL
    ENDIF
-   oOldPage := aPages[ nPage ]
+   oOldPage := aPages[nPage]
    IF Empty(oOldPage)
       _HMG_HPDF_Error( 16 )
       RETURN NIL
@@ -121,7 +121,7 @@ FUNCTION _HMG_HPDF_InsertPage(nPage)
          // insert current page to the pages array
          ASize(aPages, Len(aPages) + 1)
          AIns( aPages, nPage )
-         aPages[ nPage ] := _HMG_HPDFDATA[1, 7]
+         aPages[nPage] := _HMG_HPDFDATA[1, 7]
          _HMG_HPDFDATA[1][12] := AClone(aPages)
          _HMG_HPDFDATA[1][13] := nPage
          HPDF_Page_SetWidth(_HMG_HPDFDATA[1][7], _HMG_HPDFDATA[1][4])
@@ -142,7 +142,7 @@ FUNCTION _HMG_HPDF_GoToPage(nPage)
       _HMG_HPDF_Error( 18 )
       RETURN NIL
    ENDIF
-   oPage := aPages[ nPage ]
+   oPage := aPages[nPage]
    IF Empty(oPage)
       _HMG_HPDF_Error( 18 )
       RETURN NIL
@@ -152,7 +152,7 @@ FUNCTION _HMG_HPDF_GoToPage(nPage)
       RETURN NIL
    ENDIF
    IF _HMG_HPDFDATA[1][7] == NIL // Page is free
-      _HMG_HPDFDATA[1][7] := aPages[ nPage ]
+      _HMG_HPDFDATA[1][7] := aPages[nPage]
       IF Empty(_HMG_HPDFDATA[1, 7])
          _HMG_HPDF_Error( 19 )
          RETURN NIL
@@ -421,7 +421,7 @@ FUNCTION _HMG_HPDF_MULTILINE_PRINT( nRow, nCol, nToRow, nToCol, cFontName, nFont
          nLineSpacing := nLineSpacingPrev
          bbox := HPDF_Font_GetBBox ( oFont )
          IF nLineSpacing == 0  // set default Line spacing
-            nLineSpacing := ( bbox[ bbox_top ] - bbox[ bbox_bottom ] ) / 1000 * nFontSize
+            nLineSpacing := ( bbox[bbox_top] - bbox[bbox_bottom] ) / 1000 * nFontSize
          ENDIF
 
          DO WHILE .T. // Fitting text
@@ -444,7 +444,7 @@ FUNCTION _HMG_HPDF_MULTILINE_PRINT( nRow, nCol, nToRow, nToCol, cFontName, nFont
             ENDDO
 
             nAreaHeight := ( ( nLineCount - 1 ) * nLineSpacing /* Lines: 1 .. Last-1. The height of each line equals the line spacing. */ ) + ;
-            ( ( bbox[ bbox_top ] - bbox[ bbox_bottom ] ) / 1000 * nFontSize /* The height of the last line equals the default line spacing for this font */ ) + .01 /* area higher than calculated (floating point and HPDF_Page_TextRect issue) */
+            ( ( bbox[bbox_top] - bbox[bbox_bottom] ) / 1000 * nFontSize /* The height of the last line equals the default line spacing for this font */ ) + .01 /* area higher than calculated (floating point and HPDF_Page_TextRect issue) */
 
             IF !( Upper(cFit) == "FONTSIZEFIT" ) /* Don't fit font size */ .OR. ;
                nAreaHeight <= nyPos - nToyPos /* Fits */ .OR. ;
@@ -452,7 +452,7 @@ FUNCTION _HMG_HPDF_MULTILINE_PRINT( nRow, nCol, nToRow, nToCol, cFontName, nFont
                EXIT
             ENDIF
             nFontSize -= 0.1   // decrease font size
-            nLineSpacing := ( bbox[ bbox_top ] - bbox[ bbox_bottom ] ) / 1000 * nFontSize  // decrease line spacing
+            nLineSpacing := ( bbox[bbox_top] - bbox[bbox_bottom] ) / 1000 * nFontSize  // decrease line spacing
          ENDDO
 
          cText := cTextOut
@@ -480,7 +480,7 @@ FUNCTION _HMG_HPDF_MULTILINE_PRINT( nRow, nCol, nToRow, nToCol, cFontName, nFont
          // restore previous line spacing
          HPDF_Page_SetTextLeading( _HMG_HPDFDATA[1][7], nLineSpacingPrev )
          IF lUnderline .OR. lStrikeout
-            nyPos -= bbox[ bbox_top ] / 1000 * nFontSize - IF ( lStrikeout, ( nFontSize / 2.5 ), 0 )
+            nyPos -= bbox[bbox_top] / 1000 * nFontSize - IF ( lStrikeout, ( nFontSize / 2.5 ), 0 )
             DO WHILE !Empty(cText)
                nLineLen := HPDF_Page_MeasureText( _HMG_HPDFDATA[1][7], cText, nToxPos - nxPos, !lWrap, NIL )
                IF nLineLen = 0
@@ -568,7 +568,7 @@ FUNCTION _HMG_HPDF_GetHeight_MULTILINE_PRINT( cText, nLen, cFontName, nFontSize,
       nLineSpacing := HPDF_Page_GetTextLeading( _HMG_HPDFDATA[1][7] )
       bbox := HPDF_Font_GetBBox ( oFont )
       IF nLineSpacing == 0  // set default Linespacing, based on: hpdfpago.c -> HPDF_Page_TextRect
-         nLineSpacing := ( bbox[ bbox_top ] - bbox[ bbox_bottom ] ) / 1000 * nFontSize
+         nLineSpacing := ( bbox[bbox_top] - bbox[bbox_bottom] ) / 1000 * nFontSize
       ENDIF
 
       HPDF_Page_SetFontAndSize(_HMG_HPDFDATA[1][7], oFont, nFontSize)
@@ -584,7 +584,7 @@ FUNCTION _HMG_HPDF_GetHeight_MULTILINE_PRINT( cText, nLen, cFontName, nFontSize,
       ENDDO
    ENDIF
    nAreaHeight := ( ( nLineCount - 1 ) * nLineSpacing /* Lines: 1 .. Last-1. The height of each line equals the line spacing */ ) + ;
-   ( ( bbox[ bbox_top ] - bbox[ bbox_bottom ] ) / 1000 * nFontSize /* The height of the last line equals the default line spacing for this font */ ) + .01 /* area higher than calculated (floating point and HPDF_Page_TextRect issue) */
+   ( ( bbox[bbox_top] - bbox[bbox_bottom] ) / 1000 * nFontSize /* The height of the last line equals the default line spacing for this font */ ) + .01 /* area higher than calculated (floating point and HPDF_Page_TextRect issue) */
 
 RETURN _HMG_HPDF_Pixel2MM ( nAreaHeight )
 
@@ -1074,7 +1074,7 @@ FUNCTION _HMG_HPDF_RootOutline(cTitle, cName, cParent)
       aOutLines := AClone(_HMG_HPDFDATA[1][11])
       FOR i := 1 TO Len(aOutLines)
          IF Upper(AllTrim(aOutLines[i, 2])) == Upper(AllTrim(cParent))
-            oOutline := HPDF_CreateOutline(_HMG_HPDFDATA[1][1], aOutLines[ i, 1 ], cTitle, HPDF_GetCurrentEncoder())
+            oOutline := HPDF_CreateOutline(_HMG_HPDFDATA[1][1], aOutLines[i, 1], cTitle, HPDF_GetCurrentEncoder())
             IF Empty(oOutLine)
                _HMG_HPDF_Error( 10 )
                RETURN NIL
@@ -1119,7 +1119,7 @@ FUNCTION _HMG_HPDF_PageOutline(cTitle, cParent, cName)
       aOutlines := AClone(_HMG_HPDFDATA[1][11])
       FOR i := 1 TO Len(aOutlines)
          IF Upper(AllTrim(aOutlines[i, 2])) == Upper(AllTrim(cParent))
-            oOutline := HPDF_CreateOutline(_HMG_HPDFDATA[1][1], aOutlines[ i, 1 ], cTitle, HPDF_GetCurrentEncoder())
+            oOutline := HPDF_CreateOutline(_HMG_HPDFDATA[1][1], aOutlines[i, 1], cTitle, HPDF_GetCurrentEncoder())
             EXIT
          ENDIF
       NEXT i
@@ -1221,7 +1221,7 @@ FUNCTION _HMG_HPDF_SetPageLink( nRow, nCol, cText, nPage, cFontName, nFontSize, 
       RETURN NIL
    ENDIF
 
-   oLinkPage := aPages[ nPage ]
+   oLinkPage := aPages[nPage]
    IF Empty(oLinkPage)
       _HMG_HPDF_Error( 17 )
       RETURN NIL
@@ -1980,7 +1980,7 @@ FUNCTION _HMG_HPDF_SeekHaruFonts( cFontName, lBold, lItalic )
    LOCAL nPos, cFntHaru
 
    IF ( nPos := AScan(aHpdf_Font, {| cFnt | Upper(cFnt) == Upper(cFontName) }) ) > 0
-      cFntHaru := aHpdf_Font[ nPos ]
+      cFntHaru := aHpdf_Font[nPos]
 
       DO CASE
       CASE "SYMBOL" $ Upper(cFntHaru)

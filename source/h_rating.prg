@@ -159,16 +159,16 @@ FUNCTION _InitRating ( ParentForm, ControlName, x, y, w, h, nValue, aImages, nCn
             OnSelectRate(ParentForm, ControlName, onchangeprocedure) ))
          INVISIBLE invisible
       END IMAGE
-      _HMG_aControlIds[ GetControlIndex(img_name, ParentForm) ] := nCnt
-      _HMG_aControlMiscData2[ GetControlIndex(img_name, ParentForm) ] := aImages
-      _HMG_aControlChangeProcedure[ GetControlIndex(img_name, ParentForm) ] := onchangeprocedure
+      _HMG_aControlIds[GetControlIndex(img_name, ParentForm)] := nCnt
+      _HMG_aControlMiscData2[GetControlIndex(img_name, ParentForm)] := aImages
+      _HMG_aControlChangeProcedure[GetControlIndex(img_name, ParentForm)] := onchangeprocedure
       IF vertical
          y += h + nSpace
       ELSE
          col += w + nSpace
       ENDIF
       IF nValue > 0
-         _HMG_aControlValue[ GetControlIndex(img_name, ParentForm) ] := nValue
+         _HMG_aControlValue[GetControlIndex(img_name, ParentForm)] := nValue
       ENDIF
    NEXT
 

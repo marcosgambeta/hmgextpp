@@ -622,7 +622,7 @@ FUNCTION DB_CODE(cData, cKey, aFields, cPass, cFor, cWhile)
    LOCAL nRecno := RecNo()
    LOCAL cVal
    LOCAL cBuf
-   LOCAL aString[ Len(aFields) ]
+   LOCAL aString[Len(aFields)]
    LOCAL nFields
    LOCAL cSeek
    LOCAL i

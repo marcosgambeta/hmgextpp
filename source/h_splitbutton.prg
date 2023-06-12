@@ -192,7 +192,7 @@ PROCEDURE SPButtonSetFocus ( cWindow, cControl )
       hWnd := GetControlHandle(cControl, cWindow)
 
       ControlCount := Len(_HMG_aControlNames)
-      ParentFormHandle := _HMG_aControlParentHandles [ GetControlIndex(cControl, cWindow) ]
+      ParentFormHandle := _HMG_aControlParentHandles [GetControlIndex(cControl, cWindow)]
       FOR x := 1 TO ControlCount
          IF _HMG_aControlType[x] == CONTROL_TYPE_SPBUTTON
             IF _HMG_aControlParentHandles [x] == ParentFormHandle
@@ -261,8 +261,8 @@ STATIC FUNCTION LaunchDropdownMenu( nHwnd )
 
       GetWindowRect( nHwnd, aPos )
 
-      TrackPopupMenu( _HMG_aControlRangeMax[ nIdx ], aPos[1] + 1, ;
-              aPos[2] + _HMG_aControlHeight[ nIdx ], _HMG_aControlParentHandles[ nIdx ] )
+      TrackPopupMenu( _HMG_aControlRangeMax[nIdx], aPos[1] + 1, ;
+              aPos[2] + _HMG_aControlHeight[nIdx], _HMG_aControlParentHandles[nIdx] )
 
    ENDIF
 

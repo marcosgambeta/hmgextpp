@@ -1227,8 +1227,8 @@ FUNCTION HMG_SetMenuTheme(nType, cFormName, aUserDefined)
    SetMenuColors(aColors)
 
    IF hb_IsString(cFormName)
-      SetProperty(cFormName, "BackColor", aColors[ MNUCLR_MENUBARBACKGROUND1 ])
-      _ColorMenu(GetFormHandle(cFormName), nRGB2Arr(aColors[ MNUCLR_MENUBARBACKGROUND2 ]))
+      SetProperty(cFormName, "BackColor", aColors[MNUCLR_MENUBARBACKGROUND1])
+      _ColorMenu(GetFormHandle(cFormName), nRGB2Arr(aColors[MNUCLR_MENUBARBACKGROUND2]))
    ENDIF
 
 RETURN nType

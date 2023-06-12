@@ -57,7 +57,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
    LOCAL ParentFormHandle
    LOCAL ControlHandle
    LOCAL FontHandle
-   LOCAL aHandles[ 0 ]
+   LOCAL aHandles[0]
    LOCAL blInit
    LOCAL mVar
    LOCAL k

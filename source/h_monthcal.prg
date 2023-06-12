@@ -335,7 +335,7 @@ FUNCTION AddMonthCalBoldDay( ControlName, ParentFormName, dDay )
    LOCAL ix := GetControlIndex(ControlName, ParentFormName)
    LOCAL aBoldDays
 
-   aBoldDays := _HMG_aControlPageMap[ ix ]
+   aBoldDays := _HMG_aControlPageMap[ix]
 
    IF ( i := AScan(aBoldDays, {| d | d >= dDay }) ) == 0
       AAdd(aBoldDays, dDay)
@@ -355,7 +355,7 @@ FUNCTION DelMonthCalBoldDay( ControlName, ParentFormName, dDay )
    LOCAL ix := GetControlIndex(ControlName, ParentFormName)
    LOCAL aBoldDays
 
-   aBoldDays := _HMG_aControlPageMap[ ix ]
+   aBoldDays := _HMG_aControlPageMap[ix]
 
    IF ( i := AScan(aBoldDays, dDay) ) > 0
       hb_ADel( aBoldDays, i, .T. )
@@ -414,17 +414,17 @@ FUNCTION SetDayState(ControlName, ParentFormName)
       dEnd := aData[3]
       dEoM := EoM( dStart )
       nMonth := 0
-      dDay := aBoldDays[ iNextD ]
+      dDay := aBoldDays[iNextD]
       nLen := Len(aBoldDays)
 
       DO WHILE dDay <= dEnd
          IF dDay <= dEoM
-            aDays[ nMonth * 32 + Day( dDay ) ] := 1
+            aDays[nMonth * 32 + Day( dDay )] := 1
             iNextD++
             IF iNextD > nLen
                EXIT
             ENDIF
-            dDay := aBoldDays[ iNextD ]
+            dDay := aBoldDays[iNextD]
          ELSE
             nMonth++
             dEoM := EoM( dEoM + 1 )

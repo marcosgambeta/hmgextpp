@@ -315,12 +315,12 @@ BOOL FillGradient( HDC hDC, RECT * rect, BOOL vertical, COLORREF crFrom, COLORRE
       TRIVERTEX     rcVertex[2];
       GRADIENT_RECT gRect;
 
-      rcVertex[ 0 ].y     = rect->top;
-      rcVertex[ 0 ].x     = rect->left;
-      rcVertex[ 0 ].Red   = ( unsigned short ) ( GetRValue(crFrom) << 8 );
-      rcVertex[ 0 ].Green = ( unsigned short ) ( GetGValue(crFrom) << 8 );
-      rcVertex[ 0 ].Blue  = ( unsigned short ) ( GetBValue(crFrom) << 8 );
-      rcVertex[ 0 ].Alpha = 0;
+      rcVertex[0].y     = rect->top;
+      rcVertex[0].x     = rect->left;
+      rcVertex[0].Red   = ( unsigned short ) ( GetRValue(crFrom) << 8 );
+      rcVertex[0].Green = ( unsigned short ) ( GetGValue(crFrom) << 8 );
+      rcVertex[0].Blue  = ( unsigned short ) ( GetBValue(crFrom) << 8 );
+      rcVertex[0].Alpha = 0;
 
       rcVertex[1].y     = rect->bottom;
       rcVertex[1].x     = rect->right;
@@ -367,12 +367,12 @@ HBRUSH LinearGradientBrush( HDC pDC, long cx, long cy, COLORREF crFrom, COLORREF
       TRIVERTEX     rcVertex[2];
       GRADIENT_RECT gRect;
 
-      rcVertex[ 0 ].x     = 0;
-      rcVertex[ 0 ].y     = 0;
-      rcVertex[ 0 ].Red   = ( unsigned short ) ( GetRValue(crFrom) << 8 );
-      rcVertex[ 0 ].Green = ( unsigned short ) ( GetGValue(crFrom) << 8 );
-      rcVertex[ 0 ].Blue  = ( unsigned short ) ( GetBValue(crFrom) << 8 );
-      rcVertex[ 0 ].Alpha = 0;
+      rcVertex[0].x     = 0;
+      rcVertex[0].y     = 0;
+      rcVertex[0].Red   = ( unsigned short ) ( GetRValue(crFrom) << 8 );
+      rcVertex[0].Green = ( unsigned short ) ( GetGValue(crFrom) << 8 );
+      rcVertex[0].Blue  = ( unsigned short ) ( GetBValue(crFrom) << 8 );
+      rcVertex[0].Alpha = 0;
 
       rcVertex[1].x     = cx;
       rcVertex[1].y     = cy;

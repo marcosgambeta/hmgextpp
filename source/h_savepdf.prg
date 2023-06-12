@@ -90,7 +90,7 @@ FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
       nPage := 0
       // start main loop
       WHILE ++nPage <= Min( nPages, MAX_IMAGE )
-         cPage := aPages[ nPage ]
+         cPage := aPages[nPage]
 
          hBitmap := BT_BitmapLoadEMF( cPage, WHITE )
          cImageFile := hb_FNameExtSet( cPage, "png" )

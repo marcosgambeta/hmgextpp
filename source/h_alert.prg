@@ -437,7 +437,7 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
 
       ENDIF
 
-      This.( aBut[ nOpc ] ).Cargo := nOpc++
+      This.( aBut[nOpc] ).Cargo := nOpc++
 
    NEXT n
 
@@ -450,7 +450,7 @@ STATIC FUNCTION FillDlg( cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors
 
    This.Closable := lClosable
 
-   This.( aBut[ Max( 1, Min( nLenaOp, _HMG_ModalDialogReturn ) ) ] ).SetFocus()
+   This.( aBut[Max( 1, Min( nLenaOp, _HMG_ModalDialogReturn ) )] ).SetFocus()
 
    This.Center()
 

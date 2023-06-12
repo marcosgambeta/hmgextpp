@@ -57,8 +57,8 @@ FUNCTION Do_ControlEventProcedure(bBlock, i, p1, p2, p3, p4)
       _HMG_ThisFormIndex := AScan(_HMG_aFormHandles, _HMG_aControlParentHandles[i])
       _HMG_ThisType := "C"
       _HMG_ThisIndex := i
-      _HMG_ThisFormName := _HMG_aFormNames[ _HMG_ThisFormIndex ]
-      _HMG_ThisControlName := _HMG_aControlNames[ _HMG_ThisIndex ]
+      _HMG_ThisFormName := _HMG_aFormNames[_HMG_ThisFormIndex]
+      _HMG_ThisControlName := _HMG_aControlNames[_HMG_ThisIndex]
 
       RetVal := Eval(bBlock, p1, p2, p3, p4)
 
@@ -82,7 +82,7 @@ FUNCTION Do_WindowEventProcedure(bBlock, i, p1, p2, p3, p4)
       _HMG_ThisEventType := ""
       _HMG_ThisType := "W"
       _HMG_ThisIndex := i
-      _HMG_ThisFormName := _HMG_aFormNames[ _HMG_ThisFormIndex ]
+      _HMG_ThisFormName := _HMG_aFormNames[_HMG_ThisFormIndex]
       _HMG_ThisControlName := ""
 
       RetVal := Eval(bBlock, p1, p2, p3, p4)

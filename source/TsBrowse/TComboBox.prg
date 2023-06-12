@@ -198,7 +198,7 @@ METHOD LostFocus() CLASS TComboBox
       If hb_IsNumeric(Eval(::bSetGet))
          Eval(::bSetGet, nAt + 1)
       Else
-         Eval(::bSetGet, ::aItems[ nAt + 1 ])
+         Eval(::bSetGet, ::aItems[nAt + 1])
       Endif
    Else
       Eval(::bSetGet, GetWindowText( ::hWnd ))

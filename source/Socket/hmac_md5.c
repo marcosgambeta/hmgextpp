@@ -14,13 +14,13 @@ unsigned char *digest;                 /* caller digest to be filled in */
 
 {
    MD5_CTX context;
-   unsigned char k_ipad[ 65 ];         /* inner padding -
+   unsigned char k_ipad[65];         /* inner padding -
                                         * key XORd with ipad
                                         */
-   unsigned char k_opad[ 65 ];         /* outer padding -
+   unsigned char k_opad[65];         /* outer padding -
                                         * key XORd with opad
                                         */
-   unsigned char tk[ 16 ];
+   unsigned char tk[16];
    int i;
    /* if key is longer than 64 bytes reset it to key=MD5(key) */
    if( key_len > 64 )
@@ -56,8 +56,8 @@ unsigned char *digest;                 /* caller digest to be filled in */
    /* XOR key with ipad and opad values */
    for( i = 0; i < 64; i++ )
    {
-      k_ipad[ i ] ^= 0x36;
-      k_opad[ i ] ^= 0x5c;
+      k_ipad[i] ^= 0x36;
+      k_opad[i] ^= 0x5c;
    }
    /*
     * perform inner MD5

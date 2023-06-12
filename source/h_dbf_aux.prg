@@ -57,8 +57,8 @@ FUNCTION HMG_ArrayToDbf( aData, cFieldList, bProgress )
    aFieldPos := Array(nCols)
    aFieldTyp := Array(nCols)
    FOR nCol := 1 TO nCols
-      aFieldPos[ nCol ] := iif(lFldName, nCol, FieldPos(aFldName[nCol]))
-      aFieldTyp[ nCol ] := iif(lFldName, FieldType(nCol), FieldType(aFieldPos[nCol]))
+      aFieldPos[nCol] := iif(lFldName, nCol, FieldPos(aFldName[nCol]))
+      aFieldTyp[nCol] := iif(lFldName, FieldType(nCol), FieldType(aFieldPos[nCol]))
    NEXT
 
    nRows := Len(aData)
@@ -68,25 +68,25 @@ FUNCTION HMG_ArrayToDbf( aData, cFieldList, bProgress )
 
    FOR nRow := 1 TO nRows
 
-      aRow := aData[ nRow ]
+      aRow := aData[nRow]
       REPEAT
          dbAppend()
       UNTIL NetErr()
 
       FOR nCol := 1 TO nCols
 
-         IF !Empty(aFieldPos[ nCol ])
+         IF !Empty(aFieldPos[nCol])
 
-            IF !Empty(uVal := aRow[ nCol ])
+            IF !Empty(uVal := aRow[nCol])
 
-               IF !( aFieldTyp[ nCol ] $ "+@" )
+               IF !( aFieldTyp[nCol] $ "+@" )
 
-                  IF ValType(uVal) != aFieldTyp[ nCol ]
-                     uVal := ConvertType(uVal, aFieldTyp[ nCol ])
+                  IF ValType(uVal) != aFieldTyp[nCol]
+                     uVal := ConvertType(uVal, aFieldTyp[nCol])
                   ENDIF
 
                   IF !Empty(uVal)
-                     FieldPut( aFieldPos[ nCol ], uVal )
+                     FieldPut( aFieldPos[nCol], uVal )
                   ENDIF
 
                ENDIF
@@ -315,7 +315,7 @@ FUNCTION HMG_HashToRec(hRec, cFieldList)
          hb_HEval(hRec, {| k, v | FieldPut( FieldPos( k ), v ) })
       ELSE
          aFlds := hb_ATokens(cFieldList, ",")
-         hb_HEval(hRec, {| k, v, p | HB_SYMBOL_UNUSED(k), FieldPut( FieldPos( aFlds[ p ] ), v ) }, , Len(aFlds))
+         hb_HEval(hRec, {| k, v, p | HB_SYMBOL_UNUSED(k), FieldPut( FieldPos( aFlds[p] ), v ) }, , Len(aFlds))
       ENDIF
 
       IF lLocked
@@ -389,8 +389,8 @@ FUNCTION DbfModStru( cDbfName, aModStru )
 
          FOR nStru := 1 TO Len(aModStru)
 
-            cBuffSize := Stuff( cBuffSize, 1 + BUFFER_SIZE * ( nStru - 1 ), 10, PadR( aModStru[ nStru, 1 ], 10 ) )
-            cBuffSize := Stuff( cBuffSize, 12 + BUFFER_SIZE * ( nStru - 1 ), 1, PadR( aModStru[ nStru, 2 ], 1 ) )
+            cBuffSize := Stuff( cBuffSize, 1 + BUFFER_SIZE * ( nStru - 1 ), 10, PadR( aModStru[nStru, 1], 10 ) )
+            cBuffSize := Stuff( cBuffSize, 12 + BUFFER_SIZE * ( nStru - 1 ), 1, PadR( aModStru[nStru, 2], 1 ) )
 
          NEXT
 

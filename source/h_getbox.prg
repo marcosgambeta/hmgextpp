@@ -483,7 +483,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
    readonly   := _HMG_aControlMiscData1 [i, 2]
    lAllowEdit := _HMG_aControlMiscData1 [i, 9]
 
-   _HMG_ThisFormName := _HMG_aFormNames [ ParentHandle ]
+   _HMG_ThisFormName := _HMG_aFormNames [ParentHandle]
    _HMG_ThisControlName := _HMG_aControlNames[i]
 
    IF hb_IsBlock(oGet:preblock) .AND. nMsg == WM_SETFOCUS

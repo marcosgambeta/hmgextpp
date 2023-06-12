@@ -528,8 +528,8 @@ FUNCTION _SetDatePickerRange(ControlHandle, dRangeMin, dRangeMax, Index)
    hb_default(@dRangeMax, BLANK_DATE)
 
    IF (lOK := SetDatePickRange(ControlHandle, dRangeMin, dRangeMax))
-      _HMG_aControlRangeMin[ Index ] := dRangeMin
-      _HMG_aControlRangeMax[ Index ] := dRangeMax
+      _HMG_aControlRangeMin[Index] := dRangeMin
+      _HMG_aControlRangeMax[Index] := dRangeMax
    ENDIF
 
 RETURN lOK

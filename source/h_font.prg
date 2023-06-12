@@ -251,11 +251,11 @@ FUNCTION GetFontParam( FontHandle )
       aFontAttr := { ;
          _HMG_aControlFontName[i], ;
          _HMG_aControlFontSize[i], ;
-         _HMG_aControlFontAttributes[ i, FONT_ATTR_BOLD ], ;
-         _HMG_aControlFontAttributes[ i, FONT_ATTR_ITALIC ], ;
-         _HMG_aControlFontAttributes[ i, FONT_ATTR_UNDERLINE ], ;
-         _HMG_aControlFontAttributes[ i, FONT_ATTR_STRIKEOUT ], ;
-         iif(Len(_HMG_aControlFontAttributes[i]) == 5, _HMG_aControlFontAttributes[ i, FONT_ATTR_ANGLE ], 0), ;
+         _HMG_aControlFontAttributes[i, FONT_ATTR_BOLD], ;
+         _HMG_aControlFontAttributes[i, FONT_ATTR_ITALIC], ;
+         _HMG_aControlFontAttributes[i, FONT_ATTR_UNDERLINE], ;
+         _HMG_aControlFontAttributes[i, FONT_ATTR_STRIKEOUT], ;
+         iif(Len(_HMG_aControlFontAttributes[i]) == 5, _HMG_aControlFontAttributes[i, FONT_ATTR_ANGLE], 0), ;
          _HMG_aControlWidth[i], _HMG_aControlHeight[i], _HMG_aControlNames[i] }
    ENDIF
 
@@ -276,7 +276,7 @@ FUNCTION _GetFontAttr( ControlName, ParentForm, nType )
          RETURN _HMG_aControlFontSize[i]
 
       CASE nType >= FONT_ATTR_BOLD .AND. nType <= FONT_ATTR_ANGLE
-         RETURN _HMG_aControlFontAttributes[i][ nType ]
+         RETURN _HMG_aControlFontAttributes[i][nType]
 
       ENDCASE
 
@@ -318,18 +318,18 @@ FUNCTION _SetFontAttr( ControlName, ParentForm, Value, nType )
       _HMG_aControlFontSize[i] := Value
 
    OTHERWISE
-      _HMG_aControlFontAttributes[i][ nType ] := Value
+      _HMG_aControlFontAttributes[i][nType] := Value
 
    ENDCASE
 
    h  := _HMG_aControlHandles[i]
    n  := _HMG_aControlFontName[i]
    s  := _HMG_aControlFontSize[i]
-   ab := _HMG_aControlFontAttributes[i][ FONT_ATTR_BOLD ]
-   ai := _HMG_aControlFontAttributes[i][ FONT_ATTR_ITALIC ]
-   au := _HMG_aControlFontAttributes[i][ FONT_ATTR_UNDERLINE ]
-   as := _HMG_aControlFontAttributes[i][ FONT_ATTR_STRIKEOUT ]
-   aa := iif(Len(_HMG_aControlFontAttributes[i]) == 5, _HMG_aControlFontAttributes[i][ FONT_ATTR_ANGLE ], 0)
+   ab := _HMG_aControlFontAttributes[i][FONT_ATTR_BOLD]
+   ai := _HMG_aControlFontAttributes[i][FONT_ATTR_ITALIC]
+   au := _HMG_aControlFontAttributes[i][FONT_ATTR_UNDERLINE]
+   as := _HMG_aControlFontAttributes[i][FONT_ATTR_STRIKEOUT]
+   aa := iif(Len(_HMG_aControlFontAttributes[i]) == 5, _HMG_aControlFontAttributes[i][FONT_ATTR_ANGLE], 0)
 
    t := _HMG_aControlType[i]
 
@@ -376,20 +376,20 @@ FUNCTION GetFontParamByRef( FontHandle, FontName, FontSize, bold, italic, underl
       FontSize := iif(lExpr, _HMG_aControlFontSize[i], _HMG_DefaultFontSize)
    ENDIF
    IF hb_PIsByRef( 4 )
-      bold := iif(lExpr, _HMG_aControlFontAttributes[ i, FONT_ATTR_BOLD ], .F.)
+      bold := iif(lExpr, _HMG_aControlFontAttributes[i, FONT_ATTR_BOLD], .F.)
    ENDIF
    IF hb_PIsByRef( 5 )
-      italic := iif(lExpr, _HMG_aControlFontAttributes[ i, FONT_ATTR_ITALIC ], .F.)
+      italic := iif(lExpr, _HMG_aControlFontAttributes[i, FONT_ATTR_ITALIC], .F.)
    ENDIF
    IF hb_PIsByRef( 6 )
-      underline := iif(lExpr, _HMG_aControlFontAttributes[ i, FONT_ATTR_UNDERLINE ], .F.)
+      underline := iif(lExpr, _HMG_aControlFontAttributes[i, FONT_ATTR_UNDERLINE], .F.)
    ENDIF
    IF hb_PIsByRef( 7 )
-      strikeout := iif(lExpr, _HMG_aControlFontAttributes[ i, FONT_ATTR_STRIKEOUT ], .F.)
+      strikeout := iif(lExpr, _HMG_aControlFontAttributes[i, FONT_ATTR_STRIKEOUT], .F.)
    ENDIF
    IF hb_PIsByRef( 8 )
       angle := iif(lExpr, ;
-        iif(Len(_HMG_aControlFontAttributes[i]) > 4, _HMG_aControlFontAttributes[ i, FONT_ATTR_ANGLE ], 0), ;
+        iif(Len(_HMG_aControlFontAttributes[i]) > 4, _HMG_aControlFontAttributes[i, FONT_ATTR_ANGLE], 0), ;
         0)
    ENDIF
 

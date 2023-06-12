@@ -67,7 +67,7 @@ FUNCTION _SetWindowBKBrush( cWindow, lNoDelete, cBrushStyle, nHatch, aColor, xIm
    nIndex := GetFormIndex ( cWindow )
 
    IF nIndex > 0
-      hWnd := _HMG_aFormHandles[ nIndex ]
+      hWnd := _HMG_aFormHandles[nIndex]
 
       SWITCH Left(cBrushStyle, 1)
       CASE "S"
@@ -89,7 +89,7 @@ FUNCTION _SetWindowBKBrush( cWindow, lNoDelete, cBrushStyle, nHatch, aColor, xIm
 
       IF GetObjectType ( hBrush ) == OBJ_BRUSH
          hOldBrush := SetWindowBrush ( hWnd, hBrush )
-         _HMG_aFormBrushHandle[ nIndex ] := hBrush
+         _HMG_aFormBrushHandle[nIndex] := hBrush
 
          IF lNoDelete
             RETURN hOldBrush
