@@ -103,9 +103,9 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
       __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
-      x    := x + _HMG_ActiveFrameCol [_HMG_FrameLevel]
-      y    := y + _HMG_ActiveFrameRow [_HMG_FrameLevel]
-      ParentFormName := _HMG_ActiveFrameParentFormName [_HMG_FrameLevel]
+      x    := x + _HMG_ActiveFrameCol[_HMG_FrameLevel]
+      y    := y + _HMG_ActiveFrameRow[_HMG_FrameLevel]
+      ParentFormName := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory
 
@@ -356,8 +356,8 @@ FUNCTION InitDialogEdit( ParentName, ControlHandle, k )
       SendMessage(ControlHandle, EM_LIMITTEXT, maxlength, 0)
    ENDIF
 // JP 62
-   IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate [3]  // Modal
-      _HMG_aControlDeleted [k] := .T.
+   IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]  // Modal
+      _HMG_aControlDeleted[k] := .T.
    ENDIF
 
 RETURN Nil

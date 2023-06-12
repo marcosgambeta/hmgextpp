@@ -85,9 +85,9 @@ FUNCTION _DefineProgressBar ( ControlName, ParentFormName, x, y, w, h, lo, hi, ;
       ParentFormName := iif(_HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName)
    ENDIF
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
-      x += _HMG_ActiveFrameCol [_HMG_FrameLevel]
-      y += _HMG_ActiveFrameRow [_HMG_FrameLevel]
-      ParentFormName := _HMG_ActiveFrameParentFormName [_HMG_FrameLevel]
+      x += _HMG_ActiveFrameCol[_HMG_FrameLevel]
+      y += _HMG_ActiveFrameRow[_HMG_FrameLevel]
+      ParentFormName := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory
    IF !_IsWindowDefined(ParentFormName) .AND. !lDialogInMemory
@@ -245,8 +245,8 @@ FUNCTION InitDialogProgressBar( ParentName, ControlHandle, k )
    LOCAL BackColor
    LOCAL BarColor
 
-   BackColor := _HMG_aControlBkColor [k]
-   BarColor  := _HMG_aControlFontColor [k]
+   BackColor := _HMG_aControlBkColor[k]
+   BarColor  := _HMG_aControlFontColor[k]
 
    IF _HMG_IsThemed .AND. ( IsArrayRGB(BarColor) .OR. IsArrayRGB(BackColor) )
       SetWindowTheme(ControlHandle, "", "")
@@ -265,7 +265,7 @@ FUNCTION InitDialogProgressBar( ParentName, ControlHandle, k )
    ENDIF
 // JP 62
    IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]  // Modal
-      _HMG_aControlDeleted [k] := .T.
+      _HMG_aControlDeleted[k] := .T.
    ENDIF
 
 RETURN Nil

@@ -45,8 +45,8 @@ FUNCTION _DefineRating ( ControlName, ParentForm, x, y, w, h, nValue, aImages, n
    ENDIF
 
    IF resource
-      aImages [1] := "_empty"
-      aImages [2] := "_full"
+      aImages[1] := "_empty"
+      aImages[2] := "_full"
    ENDIF
 
    mVar := "_" + ParentForm + "_" + ControlName
@@ -150,7 +150,7 @@ FUNCTION _InitRating ( ParentForm, ControlName, x, y, w, h, nValue, aImages, nCn
          COL col
          WIDTH w
          HEIGHT h
-         PICTURE aImages [1]
+         PICTURE aImages[1]
          TOOLTIP tooltip
          ONMOUSEHOVER iif(readonly, NIL, OnHoverRate(ParentForm, ControlName))
          ONMOUSELEAVE iif(readonly, NIL, OnLeaveRate(ParentForm, ControlName, onchangeprocedure))

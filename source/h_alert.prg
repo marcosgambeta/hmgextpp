@@ -548,10 +548,10 @@ FUNCTION GetDesktopRealWidth()
 
    LOCAL a := GetDesktopArea()
 
-RETURN ( a [3] - a [1] )
+RETURN ( a[3] - a[1] )
 
 FUNCTION GetDesktopRealHeight()
 
    LOCAL a := GetDesktopArea()
 
-RETURN ( a [4] - a [2] )
+RETURN ( a[4] - a[2] )

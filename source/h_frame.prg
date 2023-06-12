@@ -99,7 +99,7 @@ STATIC FUNCTION _DefineFrame(ControlName, ParentFormName, x, y, w, h, ;
 
          AAdd(_HMG_aDialogItems, {nId, k, "button", style, 0, x, y, w, h, caption, , , FontName, FontSize, bold, italic, underline, strikeout, , _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
          IF _HMG_aDialogTemplate[3]   // Modal
-            _HMG_aControlDeleted [k] := .T.
+            _HMG_aControlDeleted[k] := .T.
             RETURN Nil
          ENDIF
 
@@ -222,9 +222,9 @@ FUNCTION _BeginFrame(name, parent, row, col, w, h, caption, fontname, fontsize, 
    ENDIF
 
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
-      col    := col + _HMG_ActiveFrameCol [_HMG_FrameLevel]
-      row    := row + _HMG_ActiveFrameRow [_HMG_FrameLevel]
-      Parent := _HMG_ActiveFrameParentFormName [_HMG_FrameLevel]
+      col    := col + _HMG_ActiveFrameCol[_HMG_FrameLevel]
+      row    := row + _HMG_ActiveFrameRow[_HMG_FrameLevel]
+      Parent := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
 
    IF parent == NIL

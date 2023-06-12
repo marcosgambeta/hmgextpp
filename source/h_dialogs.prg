@@ -50,7 +50,7 @@
 FUNCTION GetColor( aInitColor, aCustomColors, nFlags )
 *-----------------------------------------------------------------------------*
 
-   LOCAL aRetVal [3]
+   LOCAL aRetVal[3]
    LOCAL nColor
    LOCAL nInitColor
 
@@ -103,7 +103,7 @@ FUNCTION GetFile(aFilter, title, cIniFolder, multiselect, lNoChangeCurDir, nFilt
    hb_default(@multiselect, .F.)
 
    IF hb_IsArray(aFilter)
-      AEval(aFilter, { | x | cFilter += x [1] + Chr(0) + x [2] + Chr(0) })
+      AEval(aFilter, { | x | cFilter += x[1] + Chr(0) + x[2] + Chr(0) })
       cFilter += Chr(0)
    ENDIF
 
@@ -117,9 +117,9 @@ FUNCTION GetFile(aFilter, title, cIniFolder, multiselect, lNoChangeCurDir, nFilt
 
             FOR n := 1 TO Len(files)
 
-               IF At( "\\", files [n] ) > 0 .AND. Left(files[n], 2) != "\\"
+               IF At( "\\", files[n] ) > 0 .AND. Left(files[n], 2) != "\\"
 
-                  files [n] := StrTran(files [n] , "\\", "\")
+                  files[n] := StrTran(files[n] , "\\", "\")
 
                ENDIF
 
@@ -153,7 +153,7 @@ FUNCTION Putfile(aFilter, title, cIniFolder, lNoChangeCurDir, cDefFileName, ;
    hb_default(@nFilterIndex, 1)
 
    IF hb_IsArray(aFilter)
-      AEval(aFilter, { | x | cFilter += x [1] + Chr(0) + x [2] + Chr(0) })
+      AEval(aFilter, { | x | cFilter += x[1] + Chr(0) + x[2] + Chr(0) })
       cFilter += Chr(0)
    ENDIF
 
@@ -168,18 +168,18 @@ FUNCTION GetFont( cInitFontName , nInitFontSize , lBold , lItalic , anInitColor 
    LOCAL rgbcolor As Numeric
 
    IF IsArrayRGB(anInitColor)
-      rgbcolor := RGB(anInitColor [1] , anInitColor [2] , anInitColor [3])
+      rgbcolor := RGB(anInitColor[1] , anInitColor[2] , anInitColor[3])
    ENDIF
 
    RetArray := ChooseFont( hb_defaultValue(cInitFontName, "") , hb_defaultValue(nInitFontSize, 0) , ;
       hb_defaultValue(lBold, .F.) , hb_defaultValue(lItalic, .F.) , rgbcolor , ;
       hb_defaultValue(lUnderLine, .F.) , hb_defaultValue(lStrikeOut, .F.) , hb_defaultValue(nCharSet, 0) )
 
-   IF Empty(RetArray [1])
-      RetArray [5] := { Nil, Nil, Nil }
+   IF Empty(RetArray[1])
+      RetArray[5] := { Nil, Nil, Nil }
    ELSE
-      rgbcolor := RetArray [5]
-      RetArray [5] := nRGB2Arr( rgbcolor )
+      rgbcolor := RetArray[5]
+      RetArray[5] := nRGB2Arr( rgbcolor )
    ENDIF
 
 RETURN RetArray

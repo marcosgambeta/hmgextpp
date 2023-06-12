@@ -457,14 +457,14 @@ STATIC FUNCTION headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grp
       IF IsOemText( ctitle1 )
          ctitle1 := hb_OEMToANSI( ctitle1 )
       ENDIF
-      @ nlin, 1 + nlmargin SAY _HMG_MESSAGE [9] font "f0" TO PRINT
+      @ nlin, 1 + nlmargin SAY _HMG_MESSAGE[9] font "f0" TO PRINT
       @ nlin, 6 + nlmargin SAY hb_ntos(_npage) font "f0" TO PRINT
       @ nlin, ncenter + nlmargin SAY ctitle1 font "f2" TO PRINT
       IF ldatetimestamp
          @ nlin, nsum - 10 + Len(afields) + nlmargin SAY Date() font "f0" TO PRINT
       ENDIF
    ELSE
-      @ nlin, 1 + nlmargin SAY _HMG_MESSAGE [9]
+      @ nlin, 1 + nlmargin SAY _HMG_MESSAGE[9]
       @ nlin, 6 + nlmargin SAY hb_ntos(_npage)
       @ nlin, ncenter + nlmargin SAY ctitle1
       IF ldatetimestamp

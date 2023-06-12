@@ -96,7 +96,7 @@ FUNCTION OwnTabPaint( lParam )
    lBigFsize2 := ( _HMG_aControlFontSize[i] >= 18 )
    lBigFsize3 := ( _HMG_aControlFontSize[i] >= 24 )
 
-   _HMG_aControlMiscData1[i] [1] := aBtnRc [4] - aBtnRc [2]  // store a bookmark height
+   _HMG_aControlMiscData1[i][1] := aBtnRc[4] - aBtnRc[2]  // store a bookmark height
 
    hOldFont     := SelectObject( hDC, _HMG_aControlFontHandle[i] )
    aMetr        := GetTextMetric(hDC)
@@ -105,8 +105,8 @@ FUNCTION OwnTabPaint( lParam )
    oldTextColor := SetTextColor( hDC, GetRed(nTextColor), GetGreen(nTextColor), GetBlue(nTextColor) )
 
    IF hb_IsArray(_HMG_aControlMiscData2[i]) .AND. nItemId <= Len(_HMG_aControlMiscData2[i]) .AND. ;
-      IsArrayRGB(_HMG_aControlMiscData2[i] [nItemId])
-      aBkColor := _HMG_aControlMiscData2[i] [nItemId]
+      IsArrayRGB(_HMG_aControlMiscData2[i][nItemId])
+      aBkColor := _HMG_aControlMiscData2[i][nItemId]
    ELSE
       aBkColor := _HMG_aControlBkColor[i]
    ENDIF
@@ -114,46 +114,46 @@ FUNCTION OwnTabPaint( lParam )
    bkColor := RGB(aBkColor[1], aBkColor[2], aBkColor[3])
    SetBkColor( hDC, bkColor )
 
-   hBrush := CreateSolidBrush( aBkColor [1], aBkColor [2], aBkColor [3] )
-   FillRect( hDC, aBtnRc [1], aBtnRc [2], aBtnRc [3], aBtnRc [4], hBrush )
+   hBrush := CreateSolidBrush( aBkColor[1], aBkColor[2], aBkColor[3] )
+   FillRect( hDC, aBtnRc[1], aBtnRc[2], aBtnRc[3], aBtnRc[4], hBrush )
    DeleteObject( hBrush )
 
-   x1 := aBtnRc [1]
-   y1 := Round(aBtnRc [4] / 2, 0) - ( aMetr [1] - 10 )
-   x2 := aBtnRc [3] - 2
-   y2 := y1 + aMetr [1]
+   x1 := aBtnRc[1]
+   y1 := Round(aBtnRc[4] / 2, 0) - ( aMetr[1] - 10 )
+   x2 := aBtnRc[3] - 2
+   y2 := y1 + aMetr[1]
 
-   IF _HMG_aControlMiscData1[i] [2]  // ImageFlag
+   IF _HMG_aControlMiscData1[i][2]  // ImageFlag
 
       nItemId := Min( nItemId, Len(_HMG_aControlPicture[i]) )
 
-      hImage := LoadBitmap( _HMG_aControlPicture[i] [nItemId] )
+      hImage := LoadBitmap( _HMG_aControlPicture[i][nItemId] )
       IF Empty(hImage)
-         hImage := LoadImage(_HMG_aControlPicture[i] [nItemId], , , , , , bkColor)
+         hImage := LoadImage(_HMG_aControlPicture[i][nItemId], , , , , , bkColor)
       ENDIF
 
       aBmp := GetBitmapSize(hImage)
 
       xp1 := 4
-      xp2 := aBmp [1]
-      yp2 := aBmp [2]
-      yp1 := Round(aBtnRc [4] / 2 - yp2 / 2, 0)
+      xp2 := aBmp[1]
+      yp2 := aBmp[2]
+      yp1 := Round(aBtnRc[4] / 2 - yp2 / 2, 0)
       x1  += 2 * xp1 + xp2
 
-      IF _HMG_aControlMiscData1[i] [4]  // Bottom Tab
+      IF _HMG_aControlMiscData1[i][4]  // Bottom Tab
 
          IF lSelected
-            DrawGlyph( hDC, aBtnRc [1] + 2 * xp1, 2 * yp1 - iif(lBigFsize, 8, 5), xp2, 2 * yp2 - iif(lBigFsize, 8, 5), hImage, bkColor, .F., .F. )
+            DrawGlyph( hDC, aBtnRc[1] + 2 * xp1, 2 * yp1 - iif(lBigFsize, 8, 5), xp2, 2 * yp2 - iif(lBigFsize, 8, 5), hImage, bkColor, .F., .F. )
          ELSE
-            DrawGlyph( hDC, aBtnRc [1] + xp1, 2 * yp1 - iif(lBigFsize, 8, 5), xp2, 2 * yp2 - iif(lBigFsize, 8, 5), hImage, bkColor, .F., .F. )
+            DrawGlyph( hDC, aBtnRc[1] + xp1, 2 * yp1 - iif(lBigFsize, 8, 5), xp2, 2 * yp2 - iif(lBigFsize, 8, 5), hImage, bkColor, .F., .F. )
          ENDIF
 
       ELSE
 
          IF lSelected
-            DrawGlyph( hDC, aBtnRc [1] + 2 * xp1, yp1 - 2, xp2, yp2, hImage, bkColor, .F., .F. )
+            DrawGlyph( hDC, aBtnRc[1] + 2 * xp1, yp1 - 2, xp2, yp2, hImage, bkColor, .F., .F. )
          ELSE
-            DrawGlyph( hDC, aBtnRc [1] + xp1, yp1 + 2, xp2, yp2, hImage, bkColor, .F., .F. )
+            DrawGlyph( hDC, aBtnRc[1] + xp1, yp1 + 2, xp2, yp2, hImage, bkColor, .F., .F. )
          ENDIF
 
       ENDIF
@@ -164,10 +164,10 @@ FUNCTION OwnTabPaint( lParam )
 
    IF lSelected
 
-      IF _HMG_aControlMiscData1[i] [5]  // HotTrack
+      IF _HMG_aControlMiscData1[i][5]  // HotTrack
 
          IF IsArrayRGB(aForeColor := _HMG_aControlMiscData1[i][6])
-            SetTextColor( hDC, aForeColor [1], aForeColor [2], aForeColor [3] )
+            SetTextColor( hDC, aForeColor[1], aForeColor[2], aForeColor[3] )
          ELSEIF bkColor == GetSysColor( COLOR_BTNFACE )
             SetTextColor( hDC, 0, 0, 128 )
          ELSE
@@ -179,12 +179,12 @@ FUNCTION OwnTabPaint( lParam )
    ELSE
 
       IF IsArrayRGB(aInactiveColor := _HMG_aControlMiscData1[i][7])
-         SetTextColor( hDC, aInactiveColor [1], aInactiveColor [2], aInactiveColor [3] )
+         SetTextColor( hDC, aInactiveColor[1], aInactiveColor[2], aInactiveColor[3] )
       ENDIF
 
    ENDIF
 
-   IF _HMG_aControlMiscData1[i] [4]  // Bottom Tab
+   IF _HMG_aControlMiscData1[i][4]  // Bottom Tab
 
       IF lSelected
          DrawText(hDC, _HMG_aControlCaption[i][nItemId], x1, 2 * y1 - iif(lBigFsize3, -12, iif(lBigFsize2, -3, iif(lBigFsize, 6, 12))), x2, 2 * y2 - iif(lBigFsize3, -12, iif(lBigFsize2, -3, iif(lBigFsize, 6, 12))), DT_CENTER)

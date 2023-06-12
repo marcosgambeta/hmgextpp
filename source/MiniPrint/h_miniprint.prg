@@ -128,7 +128,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          col 5
          width 300
          height 30
-         value _hmg_printer_usermessages [29]
+         value _hmg_printer_usermessages[29]
          centeralign .T.
       end label
    end window
@@ -141,7 +141,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
       HEIGHT GetDesktopHeight() - 103  - iif(IsVistaThemed, 25, 0);
       VIRTUAL WIDTH (GetDesktopWidth() - 103) * 2 ;
       VIRTUAL HEIGHT (GetDesktopHeight() - 103) * 2 ;
-      TITLE _hmg_printer_usermessages [01] + " [" + hb_ntos(_hmg_printer_CurrentPageNumber) + "/" + hb_ntos(_hmg_printer_PageCount) + "]" ;
+      TITLE _hmg_printer_usermessages[01] + " [" + hb_ntos(_hmg_printer_CurrentPageNumber) + "/" + hb_ntos(_hmg_printer_PageCount) + "]" ;
       CHILD ;
       NOSIZE ;
       NOMINIMIZE ;
@@ -167,7 +167,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
       At 0,0                                        ;
       Width 420                                ;
       Height 168 + GetTitleHeight()                ;
-      Title _hmg_printer_usermessages [9]        ;
+      Title _hmg_printer_usermessages[9]        ;
       CHILD NOSHOW                                 ;
       NOSIZE NOSYSMENU
 
@@ -185,7 +185,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          Height 147
          FontName "Arial"
          FontSize 9
-         Caption _hmg_printer_usermessages [15]
+         Caption _hmg_printer_usermessages[15]
       End Frame
 
       Define RadioGroup Radio_1
@@ -194,7 +194,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          FontName "Arial"
          FontSize 9
          Value 1
-         Options {_hmg_printer_usermessages [16], _hmg_printer_usermessages [17]}
+         Options {_hmg_printer_usermessages[16], _hmg_printer_usermessages[17]}
          OnChange iif(This.value == 1, (_HMG_PRINTER_PRINTPAGES.Label_1.Enabled := .F., _HMG_PRINTER_PRINTPAGES.Label_2.Enabled := .F., _HMG_PRINTER_PRINTPAGES.Spinner_1.Enabled := .F., _HMG_PRINTER_PRINTPAGES.Spinner_2.Enabled := .F., _HMG_PRINTER_PRINTPAGES.Combo_1.Enabled := .F., _HMG_PRINTER_PRINTPAGES.Label_4.Enabled := .F. ), ( _HMG_PRINTER_PRINTPAGES.Label_1.Enabled := .T., _HMG_PRINTER_PRINTPAGES.Label_2.Enabled := .T., _HMG_PRINTER_PRINTPAGES.Spinner_1.Enabled := .T., _HMG_PRINTER_PRINTPAGES.Spinner_2.Enabled := .T., _HMG_PRINTER_PRINTPAGES.Combo_1.Enabled := .T., _HMG_PRINTER_PRINTPAGES.Label_4.Enabled := .T., _HMG_PRINTER_PRINTPAGES.Spinner_1.SetFocus))
       End RadioGroup
 
@@ -205,7 +205,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          Height 25
          FontName "Arial"
          FontSize 9
-         Value _hmg_printer_usermessages [18] + ":"
+         Value _hmg_printer_usermessages[18] + ":"
       End Label
 
       Define Spinner Spinner_1
@@ -226,7 +226,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          Height 25
          FontName "Arial"
          FontSize 9
-         Value _hmg_printer_usermessages [19] + ":"
+         Value _hmg_printer_usermessages[19] + ":"
       End Label
 
       Define Spinner Spinner_2
@@ -247,7 +247,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          Height 25
          FontName "Arial"
          FontSize 9
-         Value _hmg_printer_usermessages [09] + ":"
+         Value _hmg_printer_usermessages[09] + ":"
       End Label
 
       Define ComboBox Combo_1
@@ -257,7 +257,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          FontName "Arial"
          FontSize 9
          Value 1
-         Items {_hmg_printer_usermessages [21], _hmg_printer_usermessages [22], _hmg_printer_usermessages [23] }
+         Items {_hmg_printer_usermessages[21], _hmg_printer_usermessages[22], _hmg_printer_usermessages[23] }
       End ComboBox
 
       Define Button Ok
@@ -267,7 +267,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          Height 25
          FontName "Arial"
          FontSize 9
-         Caption _hmg_printer_usermessages [11]
+         Caption _hmg_printer_usermessages[11]
          Action _HMG_PRINTER_PrintPagesDo()
       End Button
 
@@ -278,7 +278,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          Height 25
          FontName "Arial"
          FontSize 9
-         Caption _hmg_printer_usermessages [12]
+         Caption _hmg_printer_usermessages[12]
          Action (EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW")), ;
                  EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS")), ;
                  EnableWindow(GetFormHandle("_HMG_PRINTER_PPNAV")), ;
@@ -293,7 +293,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          Height 25
          FontName "Arial"
          FontSize 9
-         Value _hmg_printer_usermessages [20] + ":"
+         Value _hmg_printer_usermessages[20] + ":"
       End Label
 
       Define Spinner Spinner_3
@@ -315,7 +315,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          FontName "Arial"
          FontSize 9
          Value iif(_hmg_printer_collate == 1, .T., .F.)
-         Caption _hmg_printer_usermessages [14]
+         Caption _hmg_printer_usermessages[14]
       End CheckBox
 
    End Window
@@ -326,7 +326,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
       At 0,0                                        ;
       Width 195                                ;
       Height 90 + GetTitleHeight()                ;
-      Title _hmg_printer_usermessages [07]         ;
+      Title _hmg_printer_usermessages[07]         ;
       CHILD NOSHOW                                ;
       NOSIZE NOSYSMENU
 
@@ -350,7 +350,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          Height 25
          FontName "Arial"
          FontSize 9
-         Value _hmg_printer_usermessages [10] + ":"
+         Value _hmg_printer_usermessages[10] + ":"
       End Label
 
       Define Spinner Spinner_1
@@ -371,7 +371,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          Height 25
          FontName "Arial"
          FontSize 9
-         Caption _hmg_printer_usermessages [11]
+         Caption _hmg_printer_usermessages[11]
          Action (_hmg_printer_CurrentPageNumber := _HMG_PRINTER_GO_TO_PAGE.Spinner_1.Value, ;
                  HideWindow(GetFormHandle("_HMG_PRINTER_GO_TO_PAGE")), ;
                  EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW")), ;
@@ -388,7 +388,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          Height 25
          FontName "Arial"
          FontSize 9
-         Caption _hmg_printer_usermessages [12]
+         Caption _hmg_printer_usermessages[12]
          Action (HideWindow(GetFormHandle("_HMG_PRINTER_GO_TO_PAGE")), ;
                  EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW")), ;
                  EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS")), ;
@@ -425,7 +425,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
       HEIGHT GetDesktopHeight() - 103 - IIF(IsVistaThemed, 25, 0) ;
       VIRTUAL WIDTH 131 ;
       VIRTUAL HEIGHT tvHeight ;
-      TITLE _hmg_printer_usermessages [28] ;
+      TITLE _hmg_printer_usermessages[28] ;
       CHILD ;
       NOSIZE ;
       NOMINIMIZE ;
@@ -446,7 +446,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
       AT 1 + iif(IsVistaThemed, 3, 0), GetDesktopWidth() - 320 - iif(IsVistaThemed, 5, 0) ;
       WIDTH 312 + GetBorderWidth() ;
       HEIGHT 35 + GetTitleHeight() - iif(IsVistaThemed .Or. !_HMG_IsXP, 0, GetBorderHeight()) ;
-      TITLE " " + _hmg_printer_usermessages [02] ;
+      TITLE " " + _hmg_printer_usermessages[02] ;
       PALETTE ;
       NOMAXIMIZE ;
       NOMINIMIZE ;
@@ -459,7 +459,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          WIDTH 30
          HEIGHT 30
          PICTURE IMG_TOP
-         TOOLTIP _hmg_printer_usermessages [03]
+         TOOLTIP _hmg_printer_usermessages[03]
          ACTION (_hmg_printer_CurrentPageNumber := 1, _HMG_PRINTER_PREVIEWRefresh())
       END BUTTONEX
 
@@ -469,7 +469,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          WIDTH 30
          HEIGHT 30
          PICTURE IMG_BACK
-         TOOLTIP _hmg_printer_usermessages [04]
+         TOOLTIP _hmg_printer_usermessages[04]
          ACTION (_hmg_printer_CurrentPageNumber--, _HMG_PRINTER_PREVIEWRefresh())
       END BUTTONEX
 
@@ -479,7 +479,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          WIDTH 30
          HEIGHT 30
          PICTURE IMG_NEXT
-         TOOLTIP _hmg_printer_usermessages [05]
+         TOOLTIP _hmg_printer_usermessages[05]
          ACTION (_hmg_printer_CurrentPageNumber++, _HMG_PRINTER_PREVIEWRefresh())
       END BUTTONEX
 
@@ -489,7 +489,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          WIDTH 30
          HEIGHT 30
          PICTURE IMG_END
-         TOOLTIP _hmg_printer_usermessages [06]
+         TOOLTIP _hmg_printer_usermessages[06]
          ACTION (_hmg_printer_CurrentPageNumber := _hmg_printer_PageCount, _HMG_PRINTER_PREVIEWRefresh())
       END BUTTONEX
 
@@ -499,7 +499,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          WIDTH 30
          HEIGHT 30
          PICTURE IMG_THUMBNAIL
-         TOOLTIP _hmg_printer_usermessages [28] + " [Ctrl+T]"
+         TOOLTIP _hmg_printer_usermessages[28] + " [Ctrl+T]"
          OnChange _HMG_PRINTER_ProcessTHUMBNAILS()
       END CHECKBUTTON
 
@@ -509,7 +509,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          WIDTH 30
          HEIGHT 30
          PICTURE IMG_GOPAGE
-         TOOLTIP _hmg_printer_usermessages [07] + " [Ctrl+G]"
+         TOOLTIP _hmg_printer_usermessages[07] + " [Ctrl+G]"
          ACTION _HMG_PRINTER_GO_TO_PAGE()
       END BUTTONEX
 
@@ -519,7 +519,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          WIDTH 30
          HEIGHT 30
          PICTURE IMG_ZOOM
-         TOOLTIP _hmg_printer_usermessages [08] + " [*]"
+         TOOLTIP _hmg_printer_usermessages[08] + " [*]"
          ON CHANGE _HMG_PRINTER_Zoom()
       END CHECKBUTTON
 
@@ -529,7 +529,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          WIDTH 30
          HEIGHT 30
          PICTURE IMG_PRINT
-         TOOLTIP _hmg_printer_usermessages [09] + " [Ctrl+P]"
+         TOOLTIP _hmg_printer_usermessages[09] + " [Ctrl+P]"
          ACTION _HMG_PRINTER_PrintPages()
       END BUTTONEX
 
@@ -539,7 +539,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          WIDTH 30
          HEIGHT 30
          PICTURE IMG_SAVE
-         TOOLTIP _hmg_printer_usermessages [27] + " [Ctrl+S]"
+         TOOLTIP _hmg_printer_usermessages[27] + " [Ctrl+S]"
          ACTION _hmg_printer_savepages()
       END BUTTONEX
 
@@ -549,7 +549,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          WIDTH 30
          HEIGHT 30
          PICTURE IMG_CLOSE
-         TOOLTIP _hmg_printer_usermessages [26] + " [Ctrl+C]"
+         TOOLTIP _hmg_printer_usermessages[26] + " [Ctrl+C]"
          ACTION _HMG_PRINTER_PreviewClose()
       END BUTTONEX
 
@@ -695,7 +695,7 @@ STATIC PROCEDURE CreateThumbNails()
          .T.;
          )
 
-      SetToolTip ( GetControlHandle ( cMacroTemp, "_HMG_PRINTER_SHOWTHUMBNAILS" ), _hmg_printer_usermessages [01] + " " + hb_ntos(i) + " [Click]", ttHandle )
+      SetToolTip ( GetControlHandle ( cMacroTemp, "_HMG_PRINTER_SHOWTHUMBNAILS" ), _hmg_printer_usermessages[01] + " " + hb_ntos(i) + " [Click]", ttHandle )
 
    NEXT i
 
@@ -891,7 +891,7 @@ PROCEDURE _HMG_PRINTER_PREVIEWRefresh()
 
    _HMG_PRINTER_SHOWPAGE ( _hmg_printer_BasePageName + strzero(_hmg_printer_CurrentPageNumber, 4) + ".emf", GetFormHandle ("_HMG_PRINTER_SHOWPREVIEW"), _hmg_printer_hdc_bak, _hmg_printer_SizeFactor * 10000, _hmg_printer_Dz, _hmg_printer_Dx, _hmg_printer_Dy )
 
-   _HMG_PRINTER_SHOWPREVIEW.TITLE := _hmg_printer_usermessages [01] + " [" + hb_ntos(_hmg_printer_CurrentPageNumber) + "/" + hb_ntos(_hmg_printer_PageCount) + "]"
+   _HMG_PRINTER_SHOWPREVIEW.TITLE := _hmg_printer_usermessages[01] + " [" + hb_ntos(_hmg_printer_CurrentPageNumber) + "/" + hb_ntos(_hmg_printer_PageCount) + "]"
 
 RETURN
 
@@ -1119,7 +1119,7 @@ Function GetPrinter()
       AT 0,0                                ;
       WIDTH 345                        ;
       HEIGHT GetTitleHeight() + 100         ;
-      TITLE _hmg_printer_usermessages [13] ;
+      TITLE _hmg_printer_usermessages[13] ;
       MODAL                                ;
       NOSIZE
 
@@ -1329,35 +1329,35 @@ PROCEDURE _hmg_printer_InitUserMessages()
 
    _hmg_printer_usermessages := Array(29)
 
-   _hmg_printer_usermessages [01] := "Page"
-   _hmg_printer_usermessages [02] := "Print Preview"
-   _hmg_printer_usermessages [03] := "First Page [HOME]"
-   _hmg_printer_usermessages [04] := "Previous Page [PGUP]"
-   _hmg_printer_usermessages [05] := "Next Page [PGDN]"
-   _hmg_printer_usermessages [06] := "Last Page [END]"
-   _hmg_printer_usermessages [07] := "Go To Page"
-   _hmg_printer_usermessages [08] := "Zoom"
-   _hmg_printer_usermessages [09] := "Print"
-   _hmg_printer_usermessages [10] := "Page Number"
-   _hmg_printer_usermessages [11] := "Ok"
-   _hmg_printer_usermessages [12] := "Cancel"
-   _hmg_printer_usermessages [13] := "Select Printer"
-   _hmg_printer_usermessages [14] := "Collate Copies"
-   _hmg_printer_usermessages [15] := "Print Range"
-   _hmg_printer_usermessages [16] := "All"
-   _hmg_printer_usermessages [17] := "Pages"
-   _hmg_printer_usermessages [18] := "From"
-   _hmg_printer_usermessages [19] := "To"
-   _hmg_printer_usermessages [20] := "Copies"
-   _hmg_printer_usermessages [21] := "All Range"
-   _hmg_printer_usermessages [22] := "Odd Pages Only"
-   _hmg_printer_usermessages [23] := "Even Pages Only"
-   _hmg_printer_usermessages [24] := "Yes"
-   _hmg_printer_usermessages [25] := "No"
-   _hmg_printer_usermessages [26] := "Close"
-   _hmg_printer_usermessages [27] := "Save"
-   _hmg_printer_usermessages [28] := "Thumbnails"
-   _hmg_printer_usermessages [29] := "Generating Thumbnails... Please Wait..."
+   _hmg_printer_usermessages[01] := "Page"
+   _hmg_printer_usermessages[02] := "Print Preview"
+   _hmg_printer_usermessages[03] := "First Page [HOME]"
+   _hmg_printer_usermessages[04] := "Previous Page [PGUP]"
+   _hmg_printer_usermessages[05] := "Next Page [PGDN]"
+   _hmg_printer_usermessages[06] := "Last Page [END]"
+   _hmg_printer_usermessages[07] := "Go To Page"
+   _hmg_printer_usermessages[08] := "Zoom"
+   _hmg_printer_usermessages[09] := "Print"
+   _hmg_printer_usermessages[10] := "Page Number"
+   _hmg_printer_usermessages[11] := "Ok"
+   _hmg_printer_usermessages[12] := "Cancel"
+   _hmg_printer_usermessages[13] := "Select Printer"
+   _hmg_printer_usermessages[14] := "Collate Copies"
+   _hmg_printer_usermessages[15] := "Print Range"
+   _hmg_printer_usermessages[16] := "All"
+   _hmg_printer_usermessages[17] := "Pages"
+   _hmg_printer_usermessages[18] := "From"
+   _hmg_printer_usermessages[19] := "To"
+   _hmg_printer_usermessages[20] := "Copies"
+   _hmg_printer_usermessages[21] := "All Range"
+   _hmg_printer_usermessages[22] := "Odd Pages Only"
+   _hmg_printer_usermessages[23] := "Even Pages Only"
+   _hmg_printer_usermessages[24] := "Yes"
+   _hmg_printer_usermessages[25] := "No"
+   _hmg_printer_usermessages[26] := "Close"
+   _hmg_printer_usermessages[27] := "Save"
+   _hmg_printer_usermessages[28] := "Thumbnails"
+   _hmg_printer_usermessages[29] := "Generating Thumbnails... Please Wait..."
 
 #ifdef _MULTILINGUAL_
 
@@ -1372,564 +1372,564 @@ PROCEDURE _hmg_printer_InitUserMessages()
 
    CASE "CS" // CZECH
 
-      _hmg_printer_usermessages [01] := "Strana"
-      _hmg_printer_usermessages [02] := "Náhled"
-      _hmg_printer_usermessages [03] := "První strana [HOME]"
-      _hmg_printer_usermessages [04] := "Pøedchozí strana [PGUP]"
-      _hmg_printer_usermessages [05] := "Další strana [PGDN]"
-      _hmg_printer_usermessages [06] := "Poslední strana [END]"
-      _hmg_printer_usermessages [07] := "Jdi na stranu"
-      _hmg_printer_usermessages [08] := "Lupa"
-      _hmg_printer_usermessages [09] := "Tisk"
-      _hmg_printer_usermessages [10] := "Èíslo strany"
-      _hmg_printer_usermessages [11] := "Ok"
-      _hmg_printer_usermessages [12] := "Storno"
-      _hmg_printer_usermessages [13] := "Vyber tiskárnu"
-      _hmg_printer_usermessages [14] := "Tøídìní"
-      _hmg_printer_usermessages [15] := "Rozsah tisku"
-      _hmg_printer_usermessages [16] := "vše"
-      _hmg_printer_usermessages [17] := "strany"
-      _hmg_printer_usermessages [18] := "od"
-      _hmg_printer_usermessages [19] := "do"
-      _hmg_printer_usermessages [20] := "kopií"
-      _hmg_printer_usermessages [21] := "všechny strany"
-      _hmg_printer_usermessages [22] := "liché strany"
-      _hmg_printer_usermessages [23] := "sudé strany"
-      _hmg_printer_usermessages [24] := "Ano"
-      _hmg_printer_usermessages [25] := "No"
-      _hmg_printer_usermessages [26] := "Zavøi"
-      _hmg_printer_usermessages [27] := "Ulož"
-      _hmg_printer_usermessages [28] := "Miniatury"
-      _hmg_printer_usermessages [29] := "Generuji miniatury... Èekejte, prosím..."
+      _hmg_printer_usermessages[01] := "Strana"
+      _hmg_printer_usermessages[02] := "Náhled"
+      _hmg_printer_usermessages[03] := "První strana [HOME]"
+      _hmg_printer_usermessages[04] := "Pøedchozí strana [PGUP]"
+      _hmg_printer_usermessages[05] := "Další strana [PGDN]"
+      _hmg_printer_usermessages[06] := "Poslední strana [END]"
+      _hmg_printer_usermessages[07] := "Jdi na stranu"
+      _hmg_printer_usermessages[08] := "Lupa"
+      _hmg_printer_usermessages[09] := "Tisk"
+      _hmg_printer_usermessages[10] := "Èíslo strany"
+      _hmg_printer_usermessages[11] := "Ok"
+      _hmg_printer_usermessages[12] := "Storno"
+      _hmg_printer_usermessages[13] := "Vyber tiskárnu"
+      _hmg_printer_usermessages[14] := "Tøídìní"
+      _hmg_printer_usermessages[15] := "Rozsah tisku"
+      _hmg_printer_usermessages[16] := "vše"
+      _hmg_printer_usermessages[17] := "strany"
+      _hmg_printer_usermessages[18] := "od"
+      _hmg_printer_usermessages[19] := "do"
+      _hmg_printer_usermessages[20] := "kopií"
+      _hmg_printer_usermessages[21] := "všechny strany"
+      _hmg_printer_usermessages[22] := "liché strany"
+      _hmg_printer_usermessages[23] := "sudé strany"
+      _hmg_printer_usermessages[24] := "Ano"
+      _hmg_printer_usermessages[25] := "No"
+      _hmg_printer_usermessages[26] := "Zavøi"
+      _hmg_printer_usermessages[27] := "Ulož"
+      _hmg_printer_usermessages[28] := "Miniatury"
+      _hmg_printer_usermessages[29] := "Generuji miniatury... Èekejte, prosím..."
       EXIT
 
    CASE "HR" // CROATIAN
 
-      _hmg_printer_usermessages [01] := "Page"
-      _hmg_printer_usermessages [02] := "Print Preview"
-      _hmg_printer_usermessages [03] := "First Page [HOME]"
-      _hmg_printer_usermessages [04] := "Previous Page [PGUP]"
-      _hmg_printer_usermessages [05] := "Next Page [PGDN]"
-      _hmg_printer_usermessages [06] := "Last Page [END]"
-      _hmg_printer_usermessages [07] := "Go To Page"
-      _hmg_printer_usermessages [08] := "Zoom"
-      _hmg_printer_usermessages [09] := "Print"
-      _hmg_printer_usermessages [10] := "Page Number"
-      _hmg_printer_usermessages [11] := "Ok"
-      _hmg_printer_usermessages [12] := "Cancel"
-      _hmg_printer_usermessages [13] := "Select Printer"
-      _hmg_printer_usermessages [14] := "Collate Copies"
-      _hmg_printer_usermessages [15] := "Print Range"
-      _hmg_printer_usermessages [16] := "All"
-      _hmg_printer_usermessages [17] := "Pages"
-      _hmg_printer_usermessages [18] := "From"
-      _hmg_printer_usermessages [19] := "To"
-      _hmg_printer_usermessages [20] := "Copies"
-      _hmg_printer_usermessages [21] := "All Range"
-      _hmg_printer_usermessages [22] := "Odd Pages Only"
-      _hmg_printer_usermessages [23] := "Even Pages Only"
-      _hmg_printer_usermessages [24] := "Yes"
-      _hmg_printer_usermessages [25] := "No"
-      _hmg_printer_usermessages [26] := "Close"
-      _hmg_printer_usermessages [27] := "Save"
-      _hmg_printer_usermessages [28] := "Thumbnails"
-      _hmg_printer_usermessages [29] := "Generating Thumbnails... Please Wait..."
+      _hmg_printer_usermessages[01] := "Page"
+      _hmg_printer_usermessages[02] := "Print Preview"
+      _hmg_printer_usermessages[03] := "First Page [HOME]"
+      _hmg_printer_usermessages[04] := "Previous Page [PGUP]"
+      _hmg_printer_usermessages[05] := "Next Page [PGDN]"
+      _hmg_printer_usermessages[06] := "Last Page [END]"
+      _hmg_printer_usermessages[07] := "Go To Page"
+      _hmg_printer_usermessages[08] := "Zoom"
+      _hmg_printer_usermessages[09] := "Print"
+      _hmg_printer_usermessages[10] := "Page Number"
+      _hmg_printer_usermessages[11] := "Ok"
+      _hmg_printer_usermessages[12] := "Cancel"
+      _hmg_printer_usermessages[13] := "Select Printer"
+      _hmg_printer_usermessages[14] := "Collate Copies"
+      _hmg_printer_usermessages[15] := "Print Range"
+      _hmg_printer_usermessages[16] := "All"
+      _hmg_printer_usermessages[17] := "Pages"
+      _hmg_printer_usermessages[18] := "From"
+      _hmg_printer_usermessages[19] := "To"
+      _hmg_printer_usermessages[20] := "Copies"
+      _hmg_printer_usermessages[21] := "All Range"
+      _hmg_printer_usermessages[22] := "Odd Pages Only"
+      _hmg_printer_usermessages[23] := "Even Pages Only"
+      _hmg_printer_usermessages[24] := "Yes"
+      _hmg_printer_usermessages[25] := "No"
+      _hmg_printer_usermessages[26] := "Close"
+      _hmg_printer_usermessages[27] := "Save"
+      _hmg_printer_usermessages[28] := "Thumbnails"
+      _hmg_printer_usermessages[29] := "Generating Thumbnails... Please Wait..."
       EXIT
 
    CASE "EU" // BASQUE
 
-      _hmg_printer_usermessages [01] := "Page"
-      _hmg_printer_usermessages [02] := "Print Preview"
-      _hmg_printer_usermessages [03] := "First Page [HOME]"
-      _hmg_printer_usermessages [04] := "Previous Page [PGUP]"
-      _hmg_printer_usermessages [05] := "Next Page [PGDN]"
-      _hmg_printer_usermessages [06] := "Last Page [END]"
-      _hmg_printer_usermessages [07] := "Go To Page"
-      _hmg_printer_usermessages [08] := "Zoom"
-      _hmg_printer_usermessages [09] := "Print"
-      _hmg_printer_usermessages [10] := "Page Number"
-      _hmg_printer_usermessages [11] := "Ok"
-      _hmg_printer_usermessages [12] := "Cancel"
-      _hmg_printer_usermessages [13] := "Select Printer"
-      _hmg_printer_usermessages [14] := "Collate Copies"
-      _hmg_printer_usermessages [15] := "Print Range"
-      _hmg_printer_usermessages [16] := "All"
-      _hmg_printer_usermessages [17] := "Pages"
-      _hmg_printer_usermessages [18] := "From"
-      _hmg_printer_usermessages [19] := "To"
-      _hmg_printer_usermessages [20] := "Copies"
-      _hmg_printer_usermessages [21] := "All Range"
-      _hmg_printer_usermessages [22] := "Odd Pages Only"
-      _hmg_printer_usermessages [23] := "Even Pages Only"
-      _hmg_printer_usermessages [24] := "Yes"
-      _hmg_printer_usermessages [25] := "No"
-      _hmg_printer_usermessages [26] := "Close"
-      _hmg_printer_usermessages [27] := "Save"
-      _hmg_printer_usermessages [28] := "Thumbnails"
-      _hmg_printer_usermessages [29] := "Generating Thumbnails... Please Wait..."
+      _hmg_printer_usermessages[01] := "Page"
+      _hmg_printer_usermessages[02] := "Print Preview"
+      _hmg_printer_usermessages[03] := "First Page [HOME]"
+      _hmg_printer_usermessages[04] := "Previous Page [PGUP]"
+      _hmg_printer_usermessages[05] := "Next Page [PGDN]"
+      _hmg_printer_usermessages[06] := "Last Page [END]"
+      _hmg_printer_usermessages[07] := "Go To Page"
+      _hmg_printer_usermessages[08] := "Zoom"
+      _hmg_printer_usermessages[09] := "Print"
+      _hmg_printer_usermessages[10] := "Page Number"
+      _hmg_printer_usermessages[11] := "Ok"
+      _hmg_printer_usermessages[12] := "Cancel"
+      _hmg_printer_usermessages[13] := "Select Printer"
+      _hmg_printer_usermessages[14] := "Collate Copies"
+      _hmg_printer_usermessages[15] := "Print Range"
+      _hmg_printer_usermessages[16] := "All"
+      _hmg_printer_usermessages[17] := "Pages"
+      _hmg_printer_usermessages[18] := "From"
+      _hmg_printer_usermessages[19] := "To"
+      _hmg_printer_usermessages[20] := "Copies"
+      _hmg_printer_usermessages[21] := "All Range"
+      _hmg_printer_usermessages[22] := "Odd Pages Only"
+      _hmg_printer_usermessages[23] := "Even Pages Only"
+      _hmg_printer_usermessages[24] := "Yes"
+      _hmg_printer_usermessages[25] := "No"
+      _hmg_printer_usermessages[26] := "Close"
+      _hmg_printer_usermessages[27] := "Save"
+      _hmg_printer_usermessages[28] := "Thumbnails"
+      _hmg_printer_usermessages[29] := "Generating Thumbnails... Please Wait..."
       EXIT
 
    CASE "FR" // FRENCH
 
-      _hmg_printer_usermessages [01] := "Page"
-      _hmg_printer_usermessages [02] := "Aperçu avant impression"
-      _hmg_printer_usermessages [03] := "Première page [HOME]"
-      _hmg_printer_usermessages [04] := "Page précédente [PGUP]"
-      _hmg_printer_usermessages [05] := "Page suivante [PGDN]"
-      _hmg_printer_usermessages [06] := "Dernière page [END]"
-      _hmg_printer_usermessages [07] := "Allez page"
-      _hmg_printer_usermessages [08] := "Zoom"
-      _hmg_printer_usermessages [09] := "Imprimer"
-      _hmg_printer_usermessages [10] := "Page"
-      _hmg_printer_usermessages [11] := "Ok"
-      _hmg_printer_usermessages [12] := "Annulation"
-      _hmg_printer_usermessages [13] := "Sélection de l" + Chr(34) + "imprimante"
-      _hmg_printer_usermessages [14] := "Assemblez"
-      _hmg_printer_usermessages [15] := "Paramètres d" + Chr(34) + "impression"
-      _hmg_printer_usermessages [16] := "Tous"
-      _hmg_printer_usermessages [17] := "Pages"
-      _hmg_printer_usermessages [18] := "De"
-      _hmg_printer_usermessages [19] := "À"
-      _hmg_printer_usermessages [20] := "Copies"
-      _hmg_printer_usermessages [21] := "Toutes les pages"
-      _hmg_printer_usermessages [22] := "Pages Impaires"
-      _hmg_printer_usermessages [23] := "Pages Paires"
-      _hmg_printer_usermessages [24] := "Oui"
-      _hmg_printer_usermessages [25] := "Non"
-      _hmg_printer_usermessages [26] := "Fermer"
-      _hmg_printer_usermessages [27] := "Sauver"
-      _hmg_printer_usermessages [28] := "Affichettes"
-      _hmg_printer_usermessages [29] := "Création des affichettes... Merci d" + Chr(34) + "attendre..."
+      _hmg_printer_usermessages[01] := "Page"
+      _hmg_printer_usermessages[02] := "Aperçu avant impression"
+      _hmg_printer_usermessages[03] := "Première page [HOME]"
+      _hmg_printer_usermessages[04] := "Page précédente [PGUP]"
+      _hmg_printer_usermessages[05] := "Page suivante [PGDN]"
+      _hmg_printer_usermessages[06] := "Dernière page [END]"
+      _hmg_printer_usermessages[07] := "Allez page"
+      _hmg_printer_usermessages[08] := "Zoom"
+      _hmg_printer_usermessages[09] := "Imprimer"
+      _hmg_printer_usermessages[10] := "Page"
+      _hmg_printer_usermessages[11] := "Ok"
+      _hmg_printer_usermessages[12] := "Annulation"
+      _hmg_printer_usermessages[13] := "Sélection de l" + Chr(34) + "imprimante"
+      _hmg_printer_usermessages[14] := "Assemblez"
+      _hmg_printer_usermessages[15] := "Paramètres d" + Chr(34) + "impression"
+      _hmg_printer_usermessages[16] := "Tous"
+      _hmg_printer_usermessages[17] := "Pages"
+      _hmg_printer_usermessages[18] := "De"
+      _hmg_printer_usermessages[19] := "À"
+      _hmg_printer_usermessages[20] := "Copies"
+      _hmg_printer_usermessages[21] := "Toutes les pages"
+      _hmg_printer_usermessages[22] := "Pages Impaires"
+      _hmg_printer_usermessages[23] := "Pages Paires"
+      _hmg_printer_usermessages[24] := "Oui"
+      _hmg_printer_usermessages[25] := "Non"
+      _hmg_printer_usermessages[26] := "Fermer"
+      _hmg_printer_usermessages[27] := "Sauver"
+      _hmg_printer_usermessages[28] := "Affichettes"
+      _hmg_printer_usermessages[29] := "Création des affichettes... Merci d" + Chr(34) + "attendre..."
       EXIT
 
    CASE "DE" // GERMAN
 
-      _hmg_printer_usermessages [01] := "Seite"
-      _hmg_printer_usermessages [02] := "Druck Vorschau"
-      _hmg_printer_usermessages [03] := "Erste Seite [HOME]"
-      _hmg_printer_usermessages [04] := "Vorherige Seite [PGUP]"
-      _hmg_printer_usermessages [05] := "Nächste Seite [PGDN]"
-      _hmg_printer_usermessages [06] := "Letzte Seite [END]"
-      _hmg_printer_usermessages [07] := "Gehe zur Seite "
-      _hmg_printer_usermessages [08] := "Zoom"
-      _hmg_printer_usermessages [09] := "Drucken"
-      _hmg_printer_usermessages [10] := "Seite Nummer"
-      _hmg_printer_usermessages [11] := "Okay"
-      _hmg_printer_usermessages [12] := "Abbruch"
-      _hmg_printer_usermessages [13] := "Drucker wählen"
-      _hmg_printer_usermessages [14] := "Sortieren"
-      _hmg_printer_usermessages [15] := "Druckbereich Auswahl"
-      _hmg_printer_usermessages [16] := "Alle Seiten"
-      _hmg_printer_usermessages [17] := "Seiten"
-      _hmg_printer_usermessages [18] := "von"
-      _hmg_printer_usermessages [19] := "bis"
-      _hmg_printer_usermessages [20] := "Kopien"
-      _hmg_printer_usermessages [21] := "Alle Seiten"
-      _hmg_printer_usermessages [22] := "Nur ungerade Seiten"
-      _hmg_printer_usermessages [23] := "Nur gerade Seiten"
-      _hmg_printer_usermessages [24] := "Ja"
-      _hmg_printer_usermessages [25] := "Nein"
-      _hmg_printer_usermessages [26] := "Beenden"
-      _hmg_printer_usermessages [27] := "Speichern"
-      _hmg_printer_usermessages [28] := "Seitenvorschau"
-      _hmg_printer_usermessages [29] := "Erzeuge Vorschau...  Bitte warten..."
+      _hmg_printer_usermessages[01] := "Seite"
+      _hmg_printer_usermessages[02] := "Druck Vorschau"
+      _hmg_printer_usermessages[03] := "Erste Seite [HOME]"
+      _hmg_printer_usermessages[04] := "Vorherige Seite [PGUP]"
+      _hmg_printer_usermessages[05] := "Nächste Seite [PGDN]"
+      _hmg_printer_usermessages[06] := "Letzte Seite [END]"
+      _hmg_printer_usermessages[07] := "Gehe zur Seite "
+      _hmg_printer_usermessages[08] := "Zoom"
+      _hmg_printer_usermessages[09] := "Drucken"
+      _hmg_printer_usermessages[10] := "Seite Nummer"
+      _hmg_printer_usermessages[11] := "Okay"
+      _hmg_printer_usermessages[12] := "Abbruch"
+      _hmg_printer_usermessages[13] := "Drucker wählen"
+      _hmg_printer_usermessages[14] := "Sortieren"
+      _hmg_printer_usermessages[15] := "Druckbereich Auswahl"
+      _hmg_printer_usermessages[16] := "Alle Seiten"
+      _hmg_printer_usermessages[17] := "Seiten"
+      _hmg_printer_usermessages[18] := "von"
+      _hmg_printer_usermessages[19] := "bis"
+      _hmg_printer_usermessages[20] := "Kopien"
+      _hmg_printer_usermessages[21] := "Alle Seiten"
+      _hmg_printer_usermessages[22] := "Nur ungerade Seiten"
+      _hmg_printer_usermessages[23] := "Nur gerade Seiten"
+      _hmg_printer_usermessages[24] := "Ja"
+      _hmg_printer_usermessages[25] := "Nein"
+      _hmg_printer_usermessages[26] := "Beenden"
+      _hmg_printer_usermessages[27] := "Speichern"
+      _hmg_printer_usermessages[28] := "Seitenvorschau"
+      _hmg_printer_usermessages[29] := "Erzeuge Vorschau...  Bitte warten..."
       EXIT
 
    CASE "IT" // ITALIAN
 
-      _hmg_printer_usermessages [01] := "Pagina"
-      _hmg_printer_usermessages [02] := "Anteprima di stampa"
-      _hmg_printer_usermessages [03] := "Prima Pagina [HOME]"
-      _hmg_printer_usermessages [04] := "Pagina Precedente [PGUP]"
-      _hmg_printer_usermessages [05] := "Pagina Seguente [PGDN]"
-      _hmg_printer_usermessages [06] := "Ultima Pagina [END]"
-      _hmg_printer_usermessages [07] := "Vai Alla Pagina"
-      _hmg_printer_usermessages [08] := "Zoom"
-      _hmg_printer_usermessages [09] := "Stampa"
-      _hmg_printer_usermessages [10] := "Pagina"
-      _hmg_printer_usermessages [11] := "Ok"
-      _hmg_printer_usermessages [12] := "Annulla"
-      _hmg_printer_usermessages [13] := "Selezioni Lo Stampatore"
-      _hmg_printer_usermessages [14] := "Fascicoli"
-      _hmg_printer_usermessages [15] := "Intervallo di stampa"
-      _hmg_printer_usermessages [16] := "Tutti"
-      _hmg_printer_usermessages [17] := "Pagine"
-      _hmg_printer_usermessages [18] := "Da"
-      _hmg_printer_usermessages [19] := "A"
-      _hmg_printer_usermessages [20] := "Copie"
-      _hmg_printer_usermessages [21] := "Tutte le pagine"
-      _hmg_printer_usermessages [22] := "Le Pagine Pari"
-      _hmg_printer_usermessages [23] := "Le Pagine Dispari"
-      _hmg_printer_usermessages [24] := "Si"
-      _hmg_printer_usermessages [25] := "No"
-      _hmg_printer_usermessages [26] := "Chiudi"
-      _hmg_printer_usermessages [27] := "Salva"
-      _hmg_printer_usermessages [28] := "Miniatura"
-      _hmg_printer_usermessages [29] := "Generando Miniatura...  Prego Attesa..."
+      _hmg_printer_usermessages[01] := "Pagina"
+      _hmg_printer_usermessages[02] := "Anteprima di stampa"
+      _hmg_printer_usermessages[03] := "Prima Pagina [HOME]"
+      _hmg_printer_usermessages[04] := "Pagina Precedente [PGUP]"
+      _hmg_printer_usermessages[05] := "Pagina Seguente [PGDN]"
+      _hmg_printer_usermessages[06] := "Ultima Pagina [END]"
+      _hmg_printer_usermessages[07] := "Vai Alla Pagina"
+      _hmg_printer_usermessages[08] := "Zoom"
+      _hmg_printer_usermessages[09] := "Stampa"
+      _hmg_printer_usermessages[10] := "Pagina"
+      _hmg_printer_usermessages[11] := "Ok"
+      _hmg_printer_usermessages[12] := "Annulla"
+      _hmg_printer_usermessages[13] := "Selezioni Lo Stampatore"
+      _hmg_printer_usermessages[14] := "Fascicoli"
+      _hmg_printer_usermessages[15] := "Intervallo di stampa"
+      _hmg_printer_usermessages[16] := "Tutti"
+      _hmg_printer_usermessages[17] := "Pagine"
+      _hmg_printer_usermessages[18] := "Da"
+      _hmg_printer_usermessages[19] := "A"
+      _hmg_printer_usermessages[20] := "Copie"
+      _hmg_printer_usermessages[21] := "Tutte le pagine"
+      _hmg_printer_usermessages[22] := "Le Pagine Pari"
+      _hmg_printer_usermessages[23] := "Le Pagine Dispari"
+      _hmg_printer_usermessages[24] := "Si"
+      _hmg_printer_usermessages[25] := "No"
+      _hmg_printer_usermessages[26] := "Chiudi"
+      _hmg_printer_usermessages[27] := "Salva"
+      _hmg_printer_usermessages[28] := "Miniatura"
+      _hmg_printer_usermessages[29] := "Generando Miniatura...  Prego Attesa..."
       EXIT
 
    CASE "PL" // POLISH
 
-      _hmg_printer_usermessages [01] := "Strona"
-      _hmg_printer_usermessages [02] := "Podgl¹d wydruku"
-      _hmg_printer_usermessages [03] := "Pierwsza strona [HOME]"
-      _hmg_printer_usermessages [04] := "Poprzednia strona [PGUP]"
-      _hmg_printer_usermessages [05] := "Nastêpna strona [PGDN]"
-      _hmg_printer_usermessages [06] := "Ostatnia strona [END]"
-      _hmg_printer_usermessages [07] := "Skocz do strony"
-      _hmg_printer_usermessages [08] := "Powiêksz"
-      _hmg_printer_usermessages [09] := "Drukuj"
-      _hmg_printer_usermessages [10] := "Numer strony"
-      _hmg_printer_usermessages [11] := "Tak"
-      _hmg_printer_usermessages [12] := "Przerwij"
-      _hmg_printer_usermessages [13] := "Wybierz drukarkê"
-      _hmg_printer_usermessages [14] := "Sortuj kopie"
-      _hmg_printer_usermessages [15] := "Zakres wydruku"
-      _hmg_printer_usermessages [16] := "Wszystkie"
-      _hmg_printer_usermessages [17] := "Strony"
-      _hmg_printer_usermessages [18] := "Od"
-      _hmg_printer_usermessages [19] := "Do"
-      _hmg_printer_usermessages [20] := "Kopie"
-      _hmg_printer_usermessages [21] := "Wszystkie"
-      _hmg_printer_usermessages [22] := "Nieparzyste"
-      _hmg_printer_usermessages [23] := "Parzyste"
-      _hmg_printer_usermessages [24] := "Tak"
-      _hmg_printer_usermessages [25] := "Nie"
-      _hmg_printer_usermessages [26] := "Zamknij"
-      _hmg_printer_usermessages [27] := "Zapisz"
-      _hmg_printer_usermessages [28] := "Thumbnails"
-      _hmg_printer_usermessages [29] := "Generujê Thumbnails... Proszê czekaæ..."
+      _hmg_printer_usermessages[01] := "Strona"
+      _hmg_printer_usermessages[02] := "Podgl¹d wydruku"
+      _hmg_printer_usermessages[03] := "Pierwsza strona [HOME]"
+      _hmg_printer_usermessages[04] := "Poprzednia strona [PGUP]"
+      _hmg_printer_usermessages[05] := "Nastêpna strona [PGDN]"
+      _hmg_printer_usermessages[06] := "Ostatnia strona [END]"
+      _hmg_printer_usermessages[07] := "Skocz do strony"
+      _hmg_printer_usermessages[08] := "Powiêksz"
+      _hmg_printer_usermessages[09] := "Drukuj"
+      _hmg_printer_usermessages[10] := "Numer strony"
+      _hmg_printer_usermessages[11] := "Tak"
+      _hmg_printer_usermessages[12] := "Przerwij"
+      _hmg_printer_usermessages[13] := "Wybierz drukarkê"
+      _hmg_printer_usermessages[14] := "Sortuj kopie"
+      _hmg_printer_usermessages[15] := "Zakres wydruku"
+      _hmg_printer_usermessages[16] := "Wszystkie"
+      _hmg_printer_usermessages[17] := "Strony"
+      _hmg_printer_usermessages[18] := "Od"
+      _hmg_printer_usermessages[19] := "Do"
+      _hmg_printer_usermessages[20] := "Kopie"
+      _hmg_printer_usermessages[21] := "Wszystkie"
+      _hmg_printer_usermessages[22] := "Nieparzyste"
+      _hmg_printer_usermessages[23] := "Parzyste"
+      _hmg_printer_usermessages[24] := "Tak"
+      _hmg_printer_usermessages[25] := "Nie"
+      _hmg_printer_usermessages[26] := "Zamknij"
+      _hmg_printer_usermessages[27] := "Zapisz"
+      _hmg_printer_usermessages[28] := "Thumbnails"
+      _hmg_printer_usermessages[29] := "Generujê Thumbnails... Proszê czekaæ..."
       EXIT
 
    CASE "PT" // PORTUGUESE
 
-      _hmg_printer_usermessages [01] := "Página"
-      _hmg_printer_usermessages [02] := "Visualização da Impressão"
-      _hmg_printer_usermessages [03] := "Primeira Página [HOME]"
-      _hmg_printer_usermessages [04] := "Página Anterior [PGUP]"
-      _hmg_printer_usermessages [05] := "Página Seguinte [PGDN]"
-      _hmg_printer_usermessages [06] := "Última Página [END]"
-      _hmg_printer_usermessages [07] := "Ir Para a Página Nº"
-      _hmg_printer_usermessages [08] := "Ampliar"
-      _hmg_printer_usermessages [09] := "Imprimir"
-      _hmg_printer_usermessages [10] := "Página"
-      _hmg_printer_usermessages [11] := "Ok"
-      _hmg_printer_usermessages [12] := "Cancelar"
-      _hmg_printer_usermessages [13] := "Selecione a Impressora"
-      _hmg_printer_usermessages [14] := "Ordenar Cópias"
-      _hmg_printer_usermessages [15] := "Intervalo de Impressão"
-      _hmg_printer_usermessages [16] := "Tudo"
-      _hmg_printer_usermessages [17] := "Páginas"
-      _hmg_printer_usermessages [18] := "De"
-      _hmg_printer_usermessages [19] := "Até"
-      _hmg_printer_usermessages [20] := "Nº de Cópias"
-      _hmg_printer_usermessages [21] := "Todas as Páginas"
-      _hmg_printer_usermessages [22] := " Somente Páginas Impares"
-      _hmg_printer_usermessages [23] := " Somente Páginas Pares"
-      _hmg_printer_usermessages [24] := "Sim"
-      _hmg_printer_usermessages [25] := "Não"
-      _hmg_printer_usermessages [26] := "Fechar"
-      _hmg_printer_usermessages [27] := "Salvar"
-      _hmg_printer_usermessages [28] := "Miniaturas"
-      _hmg_printer_usermessages [29] := "Aguarde, Gerando Miniaturas..."
+      _hmg_printer_usermessages[01] := "Página"
+      _hmg_printer_usermessages[02] := "Visualização da Impressão"
+      _hmg_printer_usermessages[03] := "Primeira Página [HOME]"
+      _hmg_printer_usermessages[04] := "Página Anterior [PGUP]"
+      _hmg_printer_usermessages[05] := "Página Seguinte [PGDN]"
+      _hmg_printer_usermessages[06] := "Última Página [END]"
+      _hmg_printer_usermessages[07] := "Ir Para a Página Nº"
+      _hmg_printer_usermessages[08] := "Ampliar"
+      _hmg_printer_usermessages[09] := "Imprimir"
+      _hmg_printer_usermessages[10] := "Página"
+      _hmg_printer_usermessages[11] := "Ok"
+      _hmg_printer_usermessages[12] := "Cancelar"
+      _hmg_printer_usermessages[13] := "Selecione a Impressora"
+      _hmg_printer_usermessages[14] := "Ordenar Cópias"
+      _hmg_printer_usermessages[15] := "Intervalo de Impressão"
+      _hmg_printer_usermessages[16] := "Tudo"
+      _hmg_printer_usermessages[17] := "Páginas"
+      _hmg_printer_usermessages[18] := "De"
+      _hmg_printer_usermessages[19] := "Até"
+      _hmg_printer_usermessages[20] := "Nº de Cópias"
+      _hmg_printer_usermessages[21] := "Todas as Páginas"
+      _hmg_printer_usermessages[22] := " Somente Páginas Impares"
+      _hmg_printer_usermessages[23] := " Somente Páginas Pares"
+      _hmg_printer_usermessages[24] := "Sim"
+      _hmg_printer_usermessages[25] := "Não"
+      _hmg_printer_usermessages[26] := "Fechar"
+      _hmg_printer_usermessages[27] := "Salvar"
+      _hmg_printer_usermessages[28] := "Miniaturas"
+      _hmg_printer_usermessages[29] := "Aguarde, Gerando Miniaturas..."
       EXIT
 
    CASE "RU" // RUSSIAN
 
-      _hmg_printer_usermessages [01] := "Ñòðàíèöà"
-      _hmg_printer_usermessages [02] := "Ïðåäâàðèòåëüíûé ïðîñìîòð"
-      _hmg_printer_usermessages [03] := "Ïåðâàÿ [HOME]"
-      _hmg_printer_usermessages [04] := "Ïðåäûäóùàÿ [PGUP]"
-      _hmg_printer_usermessages [05] := "Ñëåäóþùàÿ [PGDN]"
-      _hmg_printer_usermessages [06] := "Ïîñëåäíÿÿ [END]"
-      _hmg_printer_usermessages [07] := "Ïåðåéòè ê"
-      _hmg_printer_usermessages [08] := "Ìàñøòàá"
-      _hmg_printer_usermessages [09] := "Ïå÷àòü"
-      _hmg_printer_usermessages [10] := "Ñòðàíèöà ¹"
-      _hmg_printer_usermessages [11] := "Ok"
-      _hmg_printer_usermessages [12] := "Îòìåíà"
-      _hmg_printer_usermessages [13] := "Âûáîð ïðèíòåðà"
-      _hmg_printer_usermessages [14] := "Ñîðòèðîâêà êîïèé"
-      _hmg_printer_usermessages [15] := "Èíòåðâàë ïå÷àòè"
-      _hmg_printer_usermessages [16] := "Âñå"
-      _hmg_printer_usermessages [17] := "Ñòðàíèöû"
-      _hmg_printer_usermessages [18] := "Îò"
-      _hmg_printer_usermessages [19] := "Äî"
-      _hmg_printer_usermessages [20] := "Êîïèé"
-      _hmg_printer_usermessages [21] := "Âåñü èíòåðâàë"
-      _hmg_printer_usermessages [22] := "Íå÷åòíûå òîëüêî"
-      _hmg_printer_usermessages [23] := "×åòíûå òîëüêî"
-      _hmg_printer_usermessages [24] := "Äà"
-      _hmg_printer_usermessages [25] := "Íåò"
-      _hmg_printer_usermessages [26] := "Çàêðûòü"
-      _hmg_printer_usermessages [27] := "Ñîõðàíèòü"
-      _hmg_printer_usermessages [28] := "Ìèíèàòþðû"
-      _hmg_printer_usermessages [29] := "Æäèòå, ãåíåðèðóþ ìèíèàòþðû..."
+      _hmg_printer_usermessages[01] := "Ñòðàíèöà"
+      _hmg_printer_usermessages[02] := "Ïðåäâàðèòåëüíûé ïðîñìîòð"
+      _hmg_printer_usermessages[03] := "Ïåðâàÿ [HOME]"
+      _hmg_printer_usermessages[04] := "Ïðåäûäóùàÿ [PGUP]"
+      _hmg_printer_usermessages[05] := "Ñëåäóþùàÿ [PGDN]"
+      _hmg_printer_usermessages[06] := "Ïîñëåäíÿÿ [END]"
+      _hmg_printer_usermessages[07] := "Ïåðåéòè ê"
+      _hmg_printer_usermessages[08] := "Ìàñøòàá"
+      _hmg_printer_usermessages[09] := "Ïå÷àòü"
+      _hmg_printer_usermessages[10] := "Ñòðàíèöà ¹"
+      _hmg_printer_usermessages[11] := "Ok"
+      _hmg_printer_usermessages[12] := "Îòìåíà"
+      _hmg_printer_usermessages[13] := "Âûáîð ïðèíòåðà"
+      _hmg_printer_usermessages[14] := "Ñîðòèðîâêà êîïèé"
+      _hmg_printer_usermessages[15] := "Èíòåðâàë ïå÷àòè"
+      _hmg_printer_usermessages[16] := "Âñå"
+      _hmg_printer_usermessages[17] := "Ñòðàíèöû"
+      _hmg_printer_usermessages[18] := "Îò"
+      _hmg_printer_usermessages[19] := "Äî"
+      _hmg_printer_usermessages[20] := "Êîïèé"
+      _hmg_printer_usermessages[21] := "Âåñü èíòåðâàë"
+      _hmg_printer_usermessages[22] := "Íå÷åòíûå òîëüêî"
+      _hmg_printer_usermessages[23] := "×åòíûå òîëüêî"
+      _hmg_printer_usermessages[24] := "Äà"
+      _hmg_printer_usermessages[25] := "Íåò"
+      _hmg_printer_usermessages[26] := "Çàêðûòü"
+      _hmg_printer_usermessages[27] := "Ñîõðàíèòü"
+      _hmg_printer_usermessages[28] := "Ìèíèàòþðû"
+      _hmg_printer_usermessages[29] := "Æäèòå, ãåíåðèðóþ ìèíèàòþðû..."
       EXIT
 
    CASE "UK"
    CASE "UA" // UKRAINIAN
 
-      _hmg_printer_usermessages [01] := "Ñòîð³íêà"
-      _hmg_printer_usermessages [02] := "Ïîïåðåäí³é ïåðåãëÿä"
-      _hmg_printer_usermessages [03] := "Ïåðøà [HOME]"
-      _hmg_printer_usermessages [04] := "Ïîïåðåäíÿ [PGUP]"
-      _hmg_printer_usermessages [05] := "Íàñòóïíà [PGDN]"
-      _hmg_printer_usermessages [06] := "Îñòàííÿ [END]"
-      _hmg_printer_usermessages [07] := "Ïåðåéòè äî"
-      _hmg_printer_usermessages [08] := "Ìàñøòàá"
-      _hmg_printer_usermessages [09] := "Äðóê"
-      _hmg_printer_usermessages [10] := "Ñòîð³íêà ¹"
-      _hmg_printer_usermessages [11] := "Ãàðàçä"
-      _hmg_printer_usermessages [12] := "Â³äìîâà"
-      _hmg_printer_usermessages [13] := "Âèá³ð ïðèíòåðà"
-      _hmg_printer_usermessages [14] := "Ñîðòóâàííÿ êîï³é"
-      _hmg_printer_usermessages [15] := "²íòåðâàë äðóêó"
-      _hmg_printer_usermessages [16] := "Óñ³"
-      _hmg_printer_usermessages [17] := "Ñòîð³íêè"
-      _hmg_printer_usermessages [18] := "Ç"
-      _hmg_printer_usermessages [19] := "Ïî"
-      _hmg_printer_usermessages [20] := "Êîï³é"
-      _hmg_printer_usermessages [21] := "Âåñü ³íòåðâàë"
-      _hmg_printer_usermessages [22] := "Ò³ëüêè íåïàðí³"
-      _hmg_printer_usermessages [23] := "Ò³ëüêè ïàðí³"
-      _hmg_printer_usermessages [24] := "Òàê"
-      _hmg_printer_usermessages [25] := "Í³"
-      _hmg_printer_usermessages [26] := "Çàêðèòè"
-      _hmg_printer_usermessages [27] := "Çáåðåãòè"
-      _hmg_printer_usermessages [28] := "Ì³í³àòþðè"
-      _hmg_printer_usermessages [29] := "Î÷³êóéòå, ãåíåðóþ ì³í³àòþðè..."
+      _hmg_printer_usermessages[01] := "Ñòîð³íêà"
+      _hmg_printer_usermessages[02] := "Ïîïåðåäí³é ïåðåãëÿä"
+      _hmg_printer_usermessages[03] := "Ïåðøà [HOME]"
+      _hmg_printer_usermessages[04] := "Ïîïåðåäíÿ [PGUP]"
+      _hmg_printer_usermessages[05] := "Íàñòóïíà [PGDN]"
+      _hmg_printer_usermessages[06] := "Îñòàííÿ [END]"
+      _hmg_printer_usermessages[07] := "Ïåðåéòè äî"
+      _hmg_printer_usermessages[08] := "Ìàñøòàá"
+      _hmg_printer_usermessages[09] := "Äðóê"
+      _hmg_printer_usermessages[10] := "Ñòîð³íêà ¹"
+      _hmg_printer_usermessages[11] := "Ãàðàçä"
+      _hmg_printer_usermessages[12] := "Â³äìîâà"
+      _hmg_printer_usermessages[13] := "Âèá³ð ïðèíòåðà"
+      _hmg_printer_usermessages[14] := "Ñîðòóâàííÿ êîï³é"
+      _hmg_printer_usermessages[15] := "²íòåðâàë äðóêó"
+      _hmg_printer_usermessages[16] := "Óñ³"
+      _hmg_printer_usermessages[17] := "Ñòîð³íêè"
+      _hmg_printer_usermessages[18] := "Ç"
+      _hmg_printer_usermessages[19] := "Ïî"
+      _hmg_printer_usermessages[20] := "Êîï³é"
+      _hmg_printer_usermessages[21] := "Âåñü ³íòåðâàë"
+      _hmg_printer_usermessages[22] := "Ò³ëüêè íåïàðí³"
+      _hmg_printer_usermessages[23] := "Ò³ëüêè ïàðí³"
+      _hmg_printer_usermessages[24] := "Òàê"
+      _hmg_printer_usermessages[25] := "Í³"
+      _hmg_printer_usermessages[26] := "Çàêðèòè"
+      _hmg_printer_usermessages[27] := "Çáåðåãòè"
+      _hmg_printer_usermessages[28] := "Ì³í³àòþðè"
+      _hmg_printer_usermessages[29] := "Î÷³êóéòå, ãåíåðóþ ì³í³àòþðè..."
       EXIT
 
    CASE "ES" // SPANISH
 
-      _hmg_printer_usermessages [01] := "Página"
-      _hmg_printer_usermessages [02] := "Vista Previa"
-      _hmg_printer_usermessages [03] := "Inicio [INICIO]"
-      _hmg_printer_usermessages [04] := "Anterior [REPAG]"
-      _hmg_printer_usermessages [05] := "Siguiente [AVPAG]"
-      _hmg_printer_usermessages [06] := "Fin [FIN]"
-      _hmg_printer_usermessages [07] := "Ir a"
-      _hmg_printer_usermessages [08] := "Zoom"
-      _hmg_printer_usermessages [09] := "Imprimir"
-      _hmg_printer_usermessages [10] := "Página Nro."
-      _hmg_printer_usermessages [11] := "Aceptar"
-      _hmg_printer_usermessages [12] := "Cancelar"
-      _hmg_printer_usermessages [13] := "Seleccionar Impresora"
-      _hmg_printer_usermessages [14] := "Ordenar Copias"
-      _hmg_printer_usermessages [15] := "Rango de Impresión"
-      _hmg_printer_usermessages [16] := "Todo"
-      _hmg_printer_usermessages [17] := "Páginas"
-      _hmg_printer_usermessages [18] := "Desde"
-      _hmg_printer_usermessages [19] := "Hasta"
-      _hmg_printer_usermessages [20] := "Copias"
-      _hmg_printer_usermessages [21] := "Todo El Rango"
-      _hmg_printer_usermessages [22] := "Solo Páginas Impares"
-      _hmg_printer_usermessages [23] := "Solo Páginas Pares"
-      _hmg_printer_usermessages [24] := "Si"
-      _hmg_printer_usermessages [25] := "No"
-      _hmg_printer_usermessages [26] := "Cerrar"
-      _hmg_printer_usermessages [27] := "Guardar"
-      _hmg_printer_usermessages [28] := "Miniaturas"
-      _hmg_printer_usermessages [29] := "Generando Miniaturas... Espere Por Favor..."
+      _hmg_printer_usermessages[01] := "Página"
+      _hmg_printer_usermessages[02] := "Vista Previa"
+      _hmg_printer_usermessages[03] := "Inicio [INICIO]"
+      _hmg_printer_usermessages[04] := "Anterior [REPAG]"
+      _hmg_printer_usermessages[05] := "Siguiente [AVPAG]"
+      _hmg_printer_usermessages[06] := "Fin [FIN]"
+      _hmg_printer_usermessages[07] := "Ir a"
+      _hmg_printer_usermessages[08] := "Zoom"
+      _hmg_printer_usermessages[09] := "Imprimir"
+      _hmg_printer_usermessages[10] := "Página Nro."
+      _hmg_printer_usermessages[11] := "Aceptar"
+      _hmg_printer_usermessages[12] := "Cancelar"
+      _hmg_printer_usermessages[13] := "Seleccionar Impresora"
+      _hmg_printer_usermessages[14] := "Ordenar Copias"
+      _hmg_printer_usermessages[15] := "Rango de Impresión"
+      _hmg_printer_usermessages[16] := "Todo"
+      _hmg_printer_usermessages[17] := "Páginas"
+      _hmg_printer_usermessages[18] := "Desde"
+      _hmg_printer_usermessages[19] := "Hasta"
+      _hmg_printer_usermessages[20] := "Copias"
+      _hmg_printer_usermessages[21] := "Todo El Rango"
+      _hmg_printer_usermessages[22] := "Solo Páginas Impares"
+      _hmg_printer_usermessages[23] := "Solo Páginas Pares"
+      _hmg_printer_usermessages[24] := "Si"
+      _hmg_printer_usermessages[25] := "No"
+      _hmg_printer_usermessages[26] := "Cerrar"
+      _hmg_printer_usermessages[27] := "Guardar"
+      _hmg_printer_usermessages[28] := "Miniaturas"
+      _hmg_printer_usermessages[29] := "Generando Miniaturas... Espere Por Favor..."
       EXIT
 
    CASE "FI" // FINNISH
 
-      _hmg_printer_usermessages [01] := "Page"
-      _hmg_printer_usermessages [02] := "Print Preview"
-      _hmg_printer_usermessages [03] := "First Page [HOME]"
-      _hmg_printer_usermessages [04] := "Previous Page [PGUP]"
-      _hmg_printer_usermessages [05] := "Next Page [PGDN]"
-      _hmg_printer_usermessages [06] := "Last Page [END]"
-      _hmg_printer_usermessages [07] := "Go To Page"
-      _hmg_printer_usermessages [08] := "Zoom"
-      _hmg_printer_usermessages [09] := "Print"
-      _hmg_printer_usermessages [10] := "Page Number"
-      _hmg_printer_usermessages [11] := "Ok"
-      _hmg_printer_usermessages [12] := "Cancel"
-      _hmg_printer_usermessages [13] := "Select Printer"
-      _hmg_printer_usermessages [14] := "Collate Copies"
-      _hmg_printer_usermessages [15] := "Print Range"
-      _hmg_printer_usermessages [16] := "All"
-      _hmg_printer_usermessages [17] := "Pages"
-      _hmg_printer_usermessages [18] := "From"
-      _hmg_printer_usermessages [19] := "To"
-      _hmg_printer_usermessages [20] := "Copies"
-      _hmg_printer_usermessages [21] := "All Range"
-      _hmg_printer_usermessages [22] := "Odd Pages Only"
-      _hmg_printer_usermessages [23] := "Even Pages Only"
-      _hmg_printer_usermessages [24] := "Yes"
-      _hmg_printer_usermessages [25] := "No"
-      _hmg_printer_usermessages [26] := "Close"
-      _hmg_printer_usermessages [27] := "Save"
-      _hmg_printer_usermessages [28] := "Thumbnails"
-      _hmg_printer_usermessages [29] := "Generating Thumbnails... Please Wait..."
+      _hmg_printer_usermessages[01] := "Page"
+      _hmg_printer_usermessages[02] := "Print Preview"
+      _hmg_printer_usermessages[03] := "First Page [HOME]"
+      _hmg_printer_usermessages[04] := "Previous Page [PGUP]"
+      _hmg_printer_usermessages[05] := "Next Page [PGDN]"
+      _hmg_printer_usermessages[06] := "Last Page [END]"
+      _hmg_printer_usermessages[07] := "Go To Page"
+      _hmg_printer_usermessages[08] := "Zoom"
+      _hmg_printer_usermessages[09] := "Print"
+      _hmg_printer_usermessages[10] := "Page Number"
+      _hmg_printer_usermessages[11] := "Ok"
+      _hmg_printer_usermessages[12] := "Cancel"
+      _hmg_printer_usermessages[13] := "Select Printer"
+      _hmg_printer_usermessages[14] := "Collate Copies"
+      _hmg_printer_usermessages[15] := "Print Range"
+      _hmg_printer_usermessages[16] := "All"
+      _hmg_printer_usermessages[17] := "Pages"
+      _hmg_printer_usermessages[18] := "From"
+      _hmg_printer_usermessages[19] := "To"
+      _hmg_printer_usermessages[20] := "Copies"
+      _hmg_printer_usermessages[21] := "All Range"
+      _hmg_printer_usermessages[22] := "Odd Pages Only"
+      _hmg_printer_usermessages[23] := "Even Pages Only"
+      _hmg_printer_usermessages[24] := "Yes"
+      _hmg_printer_usermessages[25] := "No"
+      _hmg_printer_usermessages[26] := "Close"
+      _hmg_printer_usermessages[27] := "Save"
+      _hmg_printer_usermessages[28] := "Thumbnails"
+      _hmg_printer_usermessages[29] := "Generating Thumbnails... Please Wait..."
       EXIT
 
    CASE "NL" // DUTCH
 
-      _hmg_printer_usermessages [01] := "Page"
-      _hmg_printer_usermessages [02] := "Print Preview"
-      _hmg_printer_usermessages [03] := "First Page [HOME]"
-      _hmg_printer_usermessages [04] := "Previous Page [PGUP]"
-      _hmg_printer_usermessages [05] := "Next Page [PGDN]"
-      _hmg_printer_usermessages [06] := "Last Page [END]"
-      _hmg_printer_usermessages [07] := "Go To Page"
-      _hmg_printer_usermessages [08] := "Zoom"
-      _hmg_printer_usermessages [09] := "Print"
-      _hmg_printer_usermessages [10] := "Page Number"
-      _hmg_printer_usermessages [11] := "Ok"
-      _hmg_printer_usermessages [12] := "Cancel"
-      _hmg_printer_usermessages [13] := "Select Printer"
-      _hmg_printer_usermessages [14] := "Collate Copies"
-      _hmg_printer_usermessages [15] := "Print Range"
-      _hmg_printer_usermessages [16] := "All"
-      _hmg_printer_usermessages [17] := "Pages"
-      _hmg_printer_usermessages [18] := "From"
-      _hmg_printer_usermessages [19] := "To"
-      _hmg_printer_usermessages [20] := "Copies"
-      _hmg_printer_usermessages [21] := "All Range"
-      _hmg_printer_usermessages [22] := "Odd Pages Only"
-      _hmg_printer_usermessages [23] := "Even Pages Only"
-      _hmg_printer_usermessages [24] := "Yes"
-      _hmg_printer_usermessages [25] := "No"
-      _hmg_printer_usermessages [26] := "Close"
-      _hmg_printer_usermessages [27] := "Save"
-      _hmg_printer_usermessages [28] := "Thumbnails"
-      _hmg_printer_usermessages [29] := "Generating Thumbnails... Please Wait..."
+      _hmg_printer_usermessages[01] := "Page"
+      _hmg_printer_usermessages[02] := "Print Preview"
+      _hmg_printer_usermessages[03] := "First Page [HOME]"
+      _hmg_printer_usermessages[04] := "Previous Page [PGUP]"
+      _hmg_printer_usermessages[05] := "Next Page [PGDN]"
+      _hmg_printer_usermessages[06] := "Last Page [END]"
+      _hmg_printer_usermessages[07] := "Go To Page"
+      _hmg_printer_usermessages[08] := "Zoom"
+      _hmg_printer_usermessages[09] := "Print"
+      _hmg_printer_usermessages[10] := "Page Number"
+      _hmg_printer_usermessages[11] := "Ok"
+      _hmg_printer_usermessages[12] := "Cancel"
+      _hmg_printer_usermessages[13] := "Select Printer"
+      _hmg_printer_usermessages[14] := "Collate Copies"
+      _hmg_printer_usermessages[15] := "Print Range"
+      _hmg_printer_usermessages[16] := "All"
+      _hmg_printer_usermessages[17] := "Pages"
+      _hmg_printer_usermessages[18] := "From"
+      _hmg_printer_usermessages[19] := "To"
+      _hmg_printer_usermessages[20] := "Copies"
+      _hmg_printer_usermessages[21] := "All Range"
+      _hmg_printer_usermessages[22] := "Odd Pages Only"
+      _hmg_printer_usermessages[23] := "Even Pages Only"
+      _hmg_printer_usermessages[24] := "Yes"
+      _hmg_printer_usermessages[25] := "No"
+      _hmg_printer_usermessages[26] := "Close"
+      _hmg_printer_usermessages[27] := "Save"
+      _hmg_printer_usermessages[28] := "Thumbnails"
+      _hmg_printer_usermessages[29] := "Generating Thumbnails... Please Wait..."
       EXIT
 
    CASE "SL" // SLOVENIAN
 
-      _hmg_printer_usermessages [01] := "Stran"
-      _hmg_printer_usermessages [02] := "Predgled tiskanja"
-      _hmg_printer_usermessages [03] := "Prva stran [HOME]"
-      _hmg_printer_usermessages [04] := "Prej¹nja stran [PGUP]"
-      _hmg_printer_usermessages [05] := "Naslednja stran [PGDN]"
-      _hmg_printer_usermessages [06] := "Zadnja stran [END]"
-      _hmg_printer_usermessages [07] := "Pojdi na stran"
-      _hmg_printer_usermessages [08] := "Poveèava"
-      _hmg_printer_usermessages [09] := "Natisni"
-      _hmg_printer_usermessages [10] := "©tevilka strani"
-      _hmg_printer_usermessages [11] := "V redu"
-      _hmg_printer_usermessages [12] := "Prekini"
-      _hmg_printer_usermessages [13] := "Izberi tiskalnik"
-      _hmg_printer_usermessages [14] := "Zbiranje kopij"
-      _hmg_printer_usermessages [15] := "Obseg tiskanja"
-      _hmg_printer_usermessages [16] := "Vse"
-      _hmg_printer_usermessages [17] := "Strani"
-      _hmg_printer_usermessages [18] := "od"
-      _hmg_printer_usermessages [19] := "do"
-      _hmg_printer_usermessages [20] := "Kopij"
-      _hmg_printer_usermessages [21] := "Ves obseg"
-      _hmg_printer_usermessages [22] := "Neparne strani"
-      _hmg_printer_usermessages [23] := "Parne strani"
-      _hmg_printer_usermessages [24] := "Ja"
-      _hmg_printer_usermessages [25] := "Ne"
-      _hmg_printer_usermessages [26] := "Zapri"
-      _hmg_printer_usermessages [27] := "Shrani"
-      _hmg_printer_usermessages [28] := "Slièice"
-      _hmg_printer_usermessages [29] := "Pripravljam slièice... prosim, poèakajte..."
+      _hmg_printer_usermessages[01] := "Stran"
+      _hmg_printer_usermessages[02] := "Predgled tiskanja"
+      _hmg_printer_usermessages[03] := "Prva stran [HOME]"
+      _hmg_printer_usermessages[04] := "Prej¹nja stran [PGUP]"
+      _hmg_printer_usermessages[05] := "Naslednja stran [PGDN]"
+      _hmg_printer_usermessages[06] := "Zadnja stran [END]"
+      _hmg_printer_usermessages[07] := "Pojdi na stran"
+      _hmg_printer_usermessages[08] := "Poveèava"
+      _hmg_printer_usermessages[09] := "Natisni"
+      _hmg_printer_usermessages[10] := "©tevilka strani"
+      _hmg_printer_usermessages[11] := "V redu"
+      _hmg_printer_usermessages[12] := "Prekini"
+      _hmg_printer_usermessages[13] := "Izberi tiskalnik"
+      _hmg_printer_usermessages[14] := "Zbiranje kopij"
+      _hmg_printer_usermessages[15] := "Obseg tiskanja"
+      _hmg_printer_usermessages[16] := "Vse"
+      _hmg_printer_usermessages[17] := "Strani"
+      _hmg_printer_usermessages[18] := "od"
+      _hmg_printer_usermessages[19] := "do"
+      _hmg_printer_usermessages[20] := "Kopij"
+      _hmg_printer_usermessages[21] := "Ves obseg"
+      _hmg_printer_usermessages[22] := "Neparne strani"
+      _hmg_printer_usermessages[23] := "Parne strani"
+      _hmg_printer_usermessages[24] := "Ja"
+      _hmg_printer_usermessages[25] := "Ne"
+      _hmg_printer_usermessages[26] := "Zapri"
+      _hmg_printer_usermessages[27] := "Shrani"
+      _hmg_printer_usermessages[28] := "Slièice"
+      _hmg_printer_usermessages[29] := "Pripravljam slièice... prosim, poèakajte..."
       EXIT
 
    CASE "SK" // SLOVAK
 
-      _hmg_printer_usermessages [01] := "Strana"
-      _hmg_printer_usermessages [02] := "Náh¾ad"
-      _hmg_printer_usermessages [03] := "Prvá strana [HOME]"
-      _hmg_printer_usermessages [04] := "Predcházajúca strana [PGUP]"
-      _hmg_printer_usermessages [05] := "Ïalšia strana [PGDN]"
-      _hmg_printer_usermessages [06] := "Posledná strana [END]"
-      _hmg_printer_usermessages [07] := "Ukaž stranu"
-      _hmg_printer_usermessages [08] := "Lupa"
-      _hmg_printer_usermessages [09] := "Tlaè"
-      _hmg_printer_usermessages [10] := "Èíslo strany"
-      _hmg_printer_usermessages [11] := "Ok"
-      _hmg_printer_usermessages [12] := "Storno"
-      _hmg_printer_usermessages [13] := "Vyberte tlaèiáreò"
-      _hmg_printer_usermessages [14] := "Zoradenie"
-      _hmg_printer_usermessages [15] := "Rozsah tlaèe"
-      _hmg_printer_usermessages [16] := "všetko"
-      _hmg_printer_usermessages [17] := "strany"
-      _hmg_printer_usermessages [18] := "od"
-      _hmg_printer_usermessages [19] := "po"
-      _hmg_printer_usermessages [20] := "kópií"
-      _hmg_printer_usermessages [21] := "všetky strany"
-      _hmg_printer_usermessages [22] := "nepárné strany"
-      _hmg_printer_usermessages [23] := "párné strany"
-      _hmg_printer_usermessages [24] := "Áno"
-      _hmg_printer_usermessages [25] := "Nie"
-      _hmg_printer_usermessages [26] := "Zatvor"
-      _hmg_printer_usermessages [27] := "Ulož"
-      _hmg_printer_usermessages [28] := "Miniatury"
-      _hmg_printer_usermessages [29] := "Generujem miniatury... Èakajte, prosím..."
+      _hmg_printer_usermessages[01] := "Strana"
+      _hmg_printer_usermessages[02] := "Náh¾ad"
+      _hmg_printer_usermessages[03] := "Prvá strana [HOME]"
+      _hmg_printer_usermessages[04] := "Predcházajúca strana [PGUP]"
+      _hmg_printer_usermessages[05] := "Ïalšia strana [PGDN]"
+      _hmg_printer_usermessages[06] := "Posledná strana [END]"
+      _hmg_printer_usermessages[07] := "Ukaž stranu"
+      _hmg_printer_usermessages[08] := "Lupa"
+      _hmg_printer_usermessages[09] := "Tlaè"
+      _hmg_printer_usermessages[10] := "Èíslo strany"
+      _hmg_printer_usermessages[11] := "Ok"
+      _hmg_printer_usermessages[12] := "Storno"
+      _hmg_printer_usermessages[13] := "Vyberte tlaèiáreò"
+      _hmg_printer_usermessages[14] := "Zoradenie"
+      _hmg_printer_usermessages[15] := "Rozsah tlaèe"
+      _hmg_printer_usermessages[16] := "všetko"
+      _hmg_printer_usermessages[17] := "strany"
+      _hmg_printer_usermessages[18] := "od"
+      _hmg_printer_usermessages[19] := "po"
+      _hmg_printer_usermessages[20] := "kópií"
+      _hmg_printer_usermessages[21] := "všetky strany"
+      _hmg_printer_usermessages[22] := "nepárné strany"
+      _hmg_printer_usermessages[23] := "párné strany"
+      _hmg_printer_usermessages[24] := "Áno"
+      _hmg_printer_usermessages[25] := "Nie"
+      _hmg_printer_usermessages[26] := "Zatvor"
+      _hmg_printer_usermessages[27] := "Ulož"
+      _hmg_printer_usermessages[28] := "Miniatury"
+      _hmg_printer_usermessages[29] := "Generujem miniatury... Èakajte, prosím..."
       EXIT
 
    CASE "HU" // HUNGARIAN
 
-      _hmg_printer_usermessages [01] := "Oldal"
-      _hmg_printer_usermessages [02] := "Elõnézet"
-      _hmg_printer_usermessages [03] := "Elsõ oldal [HOME]"
-      _hmg_printer_usermessages [04] := "Elõzõ oldal [PGUP]"
-      _hmg_printer_usermessages [05] := "Következõ oldal [PGDN]"
-      _hmg_printer_usermessages [06] := "Utolsó oldal [END]"
-      _hmg_printer_usermessages [07] := "Oldalt mutasd"
-      _hmg_printer_usermessages [08] := "Nagyító"
-      _hmg_printer_usermessages [09] := "Nyomtasd"
-      _hmg_printer_usermessages [10] := "Oldal száma"
-      _hmg_printer_usermessages [11] := "Ok"
-      _hmg_printer_usermessages [12] := "Elvetés"
-      _hmg_printer_usermessages [13] := "Válasszon nyomtatót"
-      _hmg_printer_usermessages [14] := "Rendezve"
-      _hmg_printer_usermessages [15] := "Oldalak nyomtatása"
-      _hmg_printer_usermessages [16] := "mindent"
-      _hmg_printer_usermessages [17] := "Oldalakat"
-      _hmg_printer_usermessages [18] := "ettõl"
-      _hmg_printer_usermessages [19] := "eddig"
-      _hmg_printer_usermessages [20] := "másolat"
-      _hmg_printer_usermessages [21] := "Minden oldalt"
-      _hmg_printer_usermessages [22] := "páros oldalakat"
-      _hmg_printer_usermessages [23] := "páratlan oldalakat"
-      _hmg_printer_usermessages [24] := "Igen"
-      _hmg_printer_usermessages [25] := "Nem"
-      _hmg_printer_usermessages [26] := "Zárd be"
-      _hmg_printer_usermessages [27] := "Mentsd"
-      _hmg_printer_usermessages [28] := "Miniatúrák"
-      _hmg_printer_usermessages [29] := "Miniatúrák létrehozása... Kérem, várjon..."
+      _hmg_printer_usermessages[01] := "Oldal"
+      _hmg_printer_usermessages[02] := "Elõnézet"
+      _hmg_printer_usermessages[03] := "Elsõ oldal [HOME]"
+      _hmg_printer_usermessages[04] := "Elõzõ oldal [PGUP]"
+      _hmg_printer_usermessages[05] := "Következõ oldal [PGDN]"
+      _hmg_printer_usermessages[06] := "Utolsó oldal [END]"
+      _hmg_printer_usermessages[07] := "Oldalt mutasd"
+      _hmg_printer_usermessages[08] := "Nagyító"
+      _hmg_printer_usermessages[09] := "Nyomtasd"
+      _hmg_printer_usermessages[10] := "Oldal száma"
+      _hmg_printer_usermessages[11] := "Ok"
+      _hmg_printer_usermessages[12] := "Elvetés"
+      _hmg_printer_usermessages[13] := "Válasszon nyomtatót"
+      _hmg_printer_usermessages[14] := "Rendezve"
+      _hmg_printer_usermessages[15] := "Oldalak nyomtatása"
+      _hmg_printer_usermessages[16] := "mindent"
+      _hmg_printer_usermessages[17] := "Oldalakat"
+      _hmg_printer_usermessages[18] := "ettõl"
+      _hmg_printer_usermessages[19] := "eddig"
+      _hmg_printer_usermessages[20] := "másolat"
+      _hmg_printer_usermessages[21] := "Minden oldalt"
+      _hmg_printer_usermessages[22] := "páros oldalakat"
+      _hmg_printer_usermessages[23] := "páratlan oldalakat"
+      _hmg_printer_usermessages[24] := "Igen"
+      _hmg_printer_usermessages[25] := "Nem"
+      _hmg_printer_usermessages[26] := "Zárd be"
+      _hmg_printer_usermessages[27] := "Mentsd"
+      _hmg_printer_usermessages[28] := "Miniatúrák"
+      _hmg_printer_usermessages[29] := "Miniatúrák létrehozása... Kérem, várjon..."
       EXIT
 
    CASE "BG" // BULGARIAN
 
-      _hmg_printer_usermessages [01] := "Ñòðàíèöà"
-      _hmg_printer_usermessages [02] := "Ïðåäâàðèòåëåí ïðåãëåä"
-      _hmg_printer_usermessages [03] := "Ïúðâà [HOME]"
-      _hmg_printer_usermessages [04] := "Ïðåäèäóùà [PGUP]"
-      _hmg_printer_usermessages [05] := "Ñëåäâùà [PGDN]"
-      _hmg_printer_usermessages [06] := "Ïîñëåäíà [END]"
-      _hmg_printer_usermessages [07] := "Èäè íà"
-      _hmg_printer_usermessages [08] := "Ìàùàá"
-      _hmg_printer_usermessages [09] := "Ïå÷àò"
-      _hmg_printer_usermessages [10] := "Ñòðàíèöà ¹"
-      _hmg_printer_usermessages [11] := "Ok"
-      _hmg_printer_usermessages [12] := "Îòìÿíà"
-      _hmg_printer_usermessages [13] := "Èçáîð íà ïðèíòåð"
-      _hmg_printer_usermessages [14] := "Ñîðòèðîâêà íà êîïèÿòà"
-      _hmg_printer_usermessages [15] := "Èíòåðâàë çà ïå÷àò"
-      _hmg_printer_usermessages [16] := "Âñè÷êè"
-      _hmg_printer_usermessages [17] := "Ñòðàíèöè"
-      _hmg_printer_usermessages [18] := "Îò"
-      _hmg_printer_usermessages [19] := "Äî"
-      _hmg_printer_usermessages [20] := "Êîïèÿ"
-      _hmg_printer_usermessages [21] := "Öåëèÿ èíòåðâàë"
-      _hmg_printer_usermessages [22] := "Ñàìî íå÷åòíèòå"
-      _hmg_printer_usermessages [23] := "Ñàìî ÷åòíèòå"
-      _hmg_printer_usermessages [24] := "Äà"
-      _hmg_printer_usermessages [25] := "Íå"
-      _hmg_printer_usermessages [26] := "Çàòâîðè"
-      _hmg_printer_usermessages [27] := "Ñúõðàíè"
-      _hmg_printer_usermessages [28] := "Ìèíèàòþðè"
-      _hmg_printer_usermessages [29] := "Èç÷àêàéòå, ãåíåðèðàì ìèíèàòþðè..."
+      _hmg_printer_usermessages[01] := "Ñòðàíèöà"
+      _hmg_printer_usermessages[02] := "Ïðåäâàðèòåëåí ïðåãëåä"
+      _hmg_printer_usermessages[03] := "Ïúðâà [HOME]"
+      _hmg_printer_usermessages[04] := "Ïðåäèäóùà [PGUP]"
+      _hmg_printer_usermessages[05] := "Ñëåäâùà [PGDN]"
+      _hmg_printer_usermessages[06] := "Ïîñëåäíà [END]"
+      _hmg_printer_usermessages[07] := "Èäè íà"
+      _hmg_printer_usermessages[08] := "Ìàùàá"
+      _hmg_printer_usermessages[09] := "Ïå÷àò"
+      _hmg_printer_usermessages[10] := "Ñòðàíèöà ¹"
+      _hmg_printer_usermessages[11] := "Ok"
+      _hmg_printer_usermessages[12] := "Îòìÿíà"
+      _hmg_printer_usermessages[13] := "Èçáîð íà ïðèíòåð"
+      _hmg_printer_usermessages[14] := "Ñîðòèðîâêà íà êîïèÿòà"
+      _hmg_printer_usermessages[15] := "Èíòåðâàë çà ïå÷àò"
+      _hmg_printer_usermessages[16] := "Âñè÷êè"
+      _hmg_printer_usermessages[17] := "Ñòðàíèöè"
+      _hmg_printer_usermessages[18] := "Îò"
+      _hmg_printer_usermessages[19] := "Äî"
+      _hmg_printer_usermessages[20] := "Êîïèÿ"
+      _hmg_printer_usermessages[21] := "Öåëèÿ èíòåðâàë"
+      _hmg_printer_usermessages[22] := "Ñàìî íå÷åòíèòå"
+      _hmg_printer_usermessages[23] := "Ñàìî ÷åòíèòå"
+      _hmg_printer_usermessages[24] := "Äà"
+      _hmg_printer_usermessages[25] := "Íå"
+      _hmg_printer_usermessages[26] := "Çàòâîðè"
+      _hmg_printer_usermessages[27] := "Ñúõðàíè"
+      _hmg_printer_usermessages[28] := "Ìèíèàòþðè"
+      _hmg_printer_usermessages[29] := "Èç÷àêàéòå, ãåíåðèðàì ìèíèàòþðè..."
 
    ENDSWITCH
 
@@ -2136,7 +2136,7 @@ FUNCTION HMG_PrintGetJobInfo(aJobData)   // by Dr. Claudio Soto, August 2015
       aJobData := OpenPrinterGetJobData()
    ENDIF
 
-RETURN _HMG_PrintGetJobInfo( aJobData [2], aJobData [1] ) // --> aJobInfo
+RETURN _HMG_PrintGetJobInfo( aJobData[2], aJobData[1] ) // --> aJobInfo
 
 //----------------------------------------------------------------------------//
 
@@ -2217,7 +2217,7 @@ FUNCTION _DefineEmfFile(ControlName, ParentFormName, x, y, FileName, w, h, Proce
    _HMG_aControlVisible            [k] := iif(invisible, .F., .T.)
    _HMG_aControlHelpId             [k] := HelpId
    _HMG_aControlFontHandle         [k] := HMG_NULLHANDLE
-   _HMG_aControlBrushHandle        [k] := C_SetEmfFile ( ControlHandle, FileName, W, H, _HMG_aControlValue [k], _HMG_aControlSpacing [k] )
+   _HMG_aControlBrushHandle        [k] := C_SetEmfFile ( ControlHandle, FileName, W, H, _HMG_aControlValue [k], _HMG_aControlSpacing[k] )
    _HMG_aControlEnabled            [k] := .T.
    _HMG_aControlMiscData1          [k] := 0
    _HMG_aControlMiscData2          [k] := ""

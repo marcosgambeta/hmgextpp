@@ -117,7 +117,7 @@ PROCEDURE _DefineActivex ( cControlName, cParentForm, nRow, nCol, nWidth, nHeigh
 
    IF !Empty(oActiveX:hSink)
       IF hb_IsArray(aEvents) .AND. Len(aEvents) > 0 .AND. hb_IsArray(aEvents[1])
-         AEval(aEvents, { | x | oActiveX:EventMap( x [1], x [2] ) })
+         AEval(aEvents, { | x | oActiveX:EventMap( x[1], x[2] ) })
       ENDIF
    ENDIF
 

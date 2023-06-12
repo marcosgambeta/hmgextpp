@@ -228,7 +228,7 @@ PROCEDURE CLButtonSetFocus ( cWindow, cControl )
       ParentFormHandle := _HMG_aControlParentHandles[GetControlIndex(cControl, cWindow)]
       FOR x := 1 TO ControlCount
          IF _HMG_aControlType[x] == CONTROL_TYPE_CLBUTTON
-            IF _HMG_aControlParentHandles [x] == ParentFormHandle
+            IF _HMG_aControlParentHandles[x] == ParentFormHandle
                SendMessage(_HMG_aControlHandles[x], BM_SETSTYLE, LOWORD(BS_COMMANDLINK), 1)
             ENDIF
          ENDIF

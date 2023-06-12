@@ -96,9 +96,9 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
       __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
-      x += _HMG_ActiveFrameCol [_HMG_FrameLevel]
-      y += _HMG_ActiveFrameRow [_HMG_FrameLevel]
-      ParentFormName := _HMG_ActiveFrameParentFormName [_HMG_FrameLevel]
+      x += _HMG_ActiveFrameCol[_HMG_FrameLevel]
+      y += _HMG_ActiveFrameRow[_HMG_FrameLevel]
+      ParentFormName := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory
 
@@ -202,7 +202,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
       BackCol := x
       BackRow := y
 
-      ControlHandle := InitRadioGroup ( ParentFormHandle, aOptions [1], 0, x, y , "" , 0 , width, invisible, notabstop, leftjustify )
+      ControlHandle := InitRadioGroup ( ParentFormHandle, aOptions[1], 0, x, y , "" , 0 , width, invisible, notabstop, leftjustify )
 
       IF !empty(FontHandle)
          _SetFontHandle(ControlHandle, FontHandle)
@@ -216,7 +216,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
 
       IF autosize
          BackWidth := Width
-         Width := GetTextWidth(NIL, aOptions [1], FontHandle) + 21
+         Width := GetTextWidth(NIL, aOptions[1], FontHandle) + 21
          MoveWindow(ControlHandle, x, y, width, GetTextHeight(NIL, aOptions[1], FontHandle) + 8, .T.)
       ENDIF
 
@@ -266,7 +266,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
       ENDIF
 
       IF tooltip != NIL
-         SetToolTip ( aHandles [1] , tooltip , GetFormToolTipHandle(ParentFormName) )
+         SetToolTip ( aHandles[1] , tooltip , GetFormToolTipHandle(ParentFormName) )
       ENDIF
 
    ENDIF
@@ -344,19 +344,19 @@ FUNCTION InitDialogRadioGroup( ParentName, ControlHandle, k )
    LOCAL aHandles
    LOCAL Value
 
-   aHandles := _HMG_aControlHandles [k]
-   Value := _HMG_aControlValue [k]
+   aHandles := _HMG_aControlHandles[k]
+   Value := _HMG_aControlValue[k]
 // EF 93
    IF hb_IsNumeric(Value) .AND. Value > 0 .AND. ControlHandle > 0
       _SetValue ( , , Value , k )
    ENDIF
 //JP V40
    IF Len(_HMG_aControlIds[k]) == Len(aHandles) .AND. ParentName != NIL
-      SetProperty ( ParentName , _HMG_aControlNames [k] , "ReadOnly" , _HMG_aControlPageMap [k] )
+      SetProperty ( ParentName , _HMG_aControlNames[k] , "ReadOnly" , _HMG_aControlPageMap[k] )
    ENDIF
 // JP 62
    IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]  // Modal
-      _HMG_aControlDeleted [k] := .T.
+      _HMG_aControlDeleted[k] := .T.
    ENDIF
 
 RETURN Nil

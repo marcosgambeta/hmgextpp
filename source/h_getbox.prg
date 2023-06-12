@@ -180,9 +180,9 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    ENDIF
 
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
-      x += _HMG_ActiveFrameCol [_HMG_FrameLevel]
-      y += _HMG_ActiveFrameRow [_HMG_FrameLevel]
-      ParentFormName := _HMG_ActiveFrameParentFormName [_HMG_FrameLevel]
+      x += _HMG_ActiveFrameCol[_HMG_FrameLevel]
+      y += _HMG_ActiveFrameRow[_HMG_FrameLevel]
+      ParentFormName := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory
 
@@ -354,7 +354,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
       IF hb_IsChar(Value)
          _HMG_aControlGotFocusProcedure[k] := {||SendMessage(_HMG_aControlHandles[k], EM_SETSEL, 0, iif(Empty(Value), -1, Len(Trim((_HMG_aControlHeadClick[k]):Cargo))))}
       ELSEIF ValType(Value) $ "ND"
-         _HMG_aControlGotFocusProcedure [k] := {|| SendMessage(_HMG_aControlHandles[k], EM_SETSEL, 0, -1) }
+         _HMG_aControlGotFocusProcedure[k] := {|| SendMessage(_HMG_aControlHandles[k], EM_SETSEL, 0, -1) }
       ENDIF
    ENDIF
 
@@ -475,15 +475,15 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
       RETURN( 0 )
    ENDIF
 
-   cPicFunc   := _HMG_aControlInputMask [i, 1]
-   cPicMask   := _HMG_aControlInputMask [i, 2]
-   lCleanZero := _HMG_aControlInputMask [i, 3]
+   cPicFunc   := _HMG_aControlInputMask[i, 1]
+   cPicMask   := _HMG_aControlInputMask[i, 2]
+   lCleanZero := _HMG_aControlInputMask[i, 3]
 
    oGet       := _HMG_aControlHeadClick[i]
    readonly   := _HMG_aControlMiscData1 [i, 2]
    lAllowEdit := _HMG_aControlMiscData1 [i, 9]
 
-   _HMG_ThisFormName := _HMG_aFormNames [ParentHandle]
+   _HMG_ThisFormName := _HMG_aFormNames[ParentHandle]
    _HMG_ThisControlName := _HMG_aControlNames[i]
 
    IF hb_IsBlock(oGet:preblock) .AND. nMsg == WM_SETFOCUS
@@ -576,7 +576,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
       IF ParentHandle > 0
          IF _IsControlDefined("StatusBar", _HMG_aFormNames[ParentHandle])
             IF !Empty(oGet:message)
-               SetProperty( _HMG_aFormNames [ParentHandle], "StatusBar", "Item", 1, oGet:message )
+               SetProperty( _HMG_aFormNames[ParentHandle], "StatusBar", "Item", 1, oGet:message )
             ENDIF
          ENDIF
       ENDIF
@@ -606,7 +606,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
                   IF Empty(_HMG_aControlSpacing[i])
                      oGet:changed := .T.
                   ELSE
-                     oGet:changed := MsgRetryCancel( _HMG_aControlSpacing[i], _HMG_BRWLangError [11], , .F. )
+                     oGet:changed := MsgRetryCancel( _HMG_aControlSpacing[i], _HMG_BRWLangError[11], , .F. )
                      IF !oGet:changed
                         PostMessage(hWnd, WM_KEYDOWN, VK_ESCAPE, 0)
                      ENDIF
@@ -684,11 +684,11 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          IF _IsControlDefined("StatusBar", _HMG_aFormNames[ParentHandle])
 
             IF hb_IsChar(_HMG_DefaultStatusBarMessage) .AND. _IsOwnerDrawStatusBarItem( _HMG_aControlContainerHandle[i], 1 )
-               SetProperty( _HMG_aFormNames [ParentHandle], "StatusBar", "Item", 1, _HMG_DefaultStatusBarMessage )
+               SetProperty( _HMG_aFormNames[ParentHandle], "StatusBar", "Item", 1, _HMG_DefaultStatusBarMessage )
             ELSEIF ValType(cText := _GetDefinedStatusBarItemValue(_HMG_aControlParenthandles[i], 1)) == "C"
-               SetProperty( _HMG_aFormNames [ParentHandle], "StatusBar", "Item", 1, cText )
+               SetProperty( _HMG_aFormNames[ParentHandle], "StatusBar", "Item", 1, cText )
             ELSE
-               SetProperty( _HMG_aFormNames [ParentHandle], "StatusBar", "Item", 1, "" )
+               SetProperty( _HMG_aFormNames[ParentHandle], "StatusBar", "Item", 1, "" )
             ENDIF
 
          ENDIF
@@ -1337,7 +1337,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
       ParentHandle := _HMG_aControlParentHandles[i]
 
-      IF ( i := AScan(_HMG_aControlsContextMenu , {|x| x [1] == hWnd }) ) > 0
+      IF ( i := AScan(_HMG_aControlsContextMenu , {|x| x[1] == hWnd }) ) > 0
 
          IF _HMG_aControlsContextMenu[i][4]
             setfocus( wParam )
@@ -1359,7 +1359,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
          aHandle := _HMG_aControlRangeMin[i]
 
-         IF hb_IsArray(aHandle) .AND. Len(aHandle) >= 1 .AND. aHandle [1] == hWnd
+         IF hb_IsArray(aHandle) .AND. Len(aHandle) >= 1 .AND. aHandle[1] == hWnd
 
             SWITCH AScan(aHandle , HwndBtn)
             CASE GBB1
@@ -1370,7 +1370,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
             ENDSWITCH
 
             SendMessage(HwndBtn, BM_SETSTYLE, LOWORD(BS_PUSHBUTTON), 1)
-            setfocus ( aHandle [1] )
+            setfocus ( aHandle[1] )
 
          ENDIF
 
@@ -1385,16 +1385,16 @@ PROCEDURE _SetGetBoxValue(nId, hWnd, Value)
 *-----------------------------------------------------------------------------*
    
    LOCAL aPicData
-   LOCAL oGet       := _HMG_aControlHeadClick [nId]
-   LOCAL cPicFunc   := _HMG_aControlInputMask [nId, 1]
-   LOCAL lCleanZero := _HMG_aControlInputMask [nId, 3]
+   LOCAL oGet       := _HMG_aControlHeadClick[nId]
+   LOCAL cPicFunc   := _HMG_aControlInputMask[nId, 1]
+   LOCAL lCleanZero := _HMG_aControlInputMask[nId, 3]
 
    IF ValType(Value) == ValType(oGet:VarGet())
 
-      _HMG_ThisFormIndex   := AScan(_HMG_aFormHandles , _HMG_aControlParentHandles [nId])
-      _HMG_ThisFormName    := _HMG_aFormNames [_HMG_ThisFormIndex]
-      _HMG_ThisControlName := _HMG_aControlNames [nId]
-      _HMG_aControlValue [nId] := Value
+      _HMG_ThisFormIndex   := AScan(_HMG_aFormHandles , _HMG_aControlParentHandles[nId])
+      _HMG_ThisFormName    := _HMG_aFormNames[_HMG_ThisFormIndex]
+      _HMG_ThisControlName := _HMG_aControlNames[nId]
+      _HMG_aControlValue[nId] := Value
 
       oGet:VarPut( Value )
       oGet:UpdateBuffer()
@@ -1415,10 +1415,10 @@ PROCEDURE _SetGetBoxValue(nId, hWnd, Value)
       ENDIF
 
       IF !Empty(aPicData[2]) .AND. oGet:type == "C"
-         Value := PadR( Value, Len(aPicData [2]) )
+         Value := PadR( Value, Len(aPicData[2]) )
          oGet:cargo := Value
       ENDIF
-      IF aPicData [3] .AND. oGet:type == "N" .AND. oGet:VarGet() == 0
+      IF aPicData[3] .AND. oGet:type == "N" .AND. oGet:VarGet() == 0
          oGet:buffer := Space(Max(hb_ULen(oGet:buffer), Len(aPicData[2])))
       ENDIF
 
@@ -1600,7 +1600,7 @@ STATIC FUNCTION _FirstEditable(nId)
 *-----------------------------------------------------------------------------*
    
    LOCAL nFor
-   LOCAL oGet := _HMG_aControlHeadClick [nId]
+   LOCAL oGet := _HMG_aControlHeadClick[nId]
    LOCAL nMaxLen := hb_ULen(oGet:buffer)
 
    IF nMaxLen != NIL
@@ -1628,13 +1628,13 @@ STATIC FUNCTION _IsEditable(nPos, nId)
    LOCAL cChar
    LOCAL oGet
    LOCAL nMaxLen
-   LOCAL cPicMask := _HMG_aControlInputMask [nId, 2]
+   LOCAL cPicMask := _HMG_aControlInputMask[nId, 2]
 
    IF Empty(cPicMask)
       RETURN .T.
    ENDIF
 
-   oGet := _HMG_aControlHeadClick [nId]
+   oGet := _HMG_aControlHeadClick[nId]
    nMaxLen := hb_ULen(oGet:buffer)
 
    IF nPos > hb_ULen(cPicMask) .AND. nPos <= nMaxLen
@@ -1661,9 +1661,9 @@ RETURN .F.
 STATIC FUNCTION _Input( cChar , nID )
 *-----------------------------------------------------------------------------*
    
-   LOCAL oGet     := _HMG_aControlHeadClick [nId]
-   LOCAL cPicFunc := _HMG_aControlInputMask [nId, 1]
-   LOCAL cPicMask := _HMG_aControlInputMask [nId, 2]
+   LOCAL oGet     := _HMG_aControlHeadClick[nId]
+   LOCAL cPicFunc := _HMG_aControlInputMask[nId, 1]
+   LOCAL cPicMask := _HMG_aControlInputMask[nId, 2]
    LOCAL cLangItem_1 := hb_langMessage(HB_LANG_ITEM_BASE_TEXT + 1)
    LOCAL cLangItem_2 := hb_langMessage(HB_LANG_ITEM_BASE_TEXT + 2)
    LOCAL cPic

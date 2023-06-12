@@ -111,9 +111,9 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
    ENDIF
 
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
-      x    := x + _HMG_ActiveFrameCol [_HMG_FrameLevel]
-      y    := y + _HMG_ActiveFrameRow [_HMG_FrameLevel]
-      ParentForm := _HMG_ActiveFrameParentFormName [_HMG_FrameLevel]
+      x    := x + _HMG_ActiveFrameCol[_HMG_FrameLevel]
+      y    := y + _HMG_ActiveFrameRow[_HMG_FrameLevel]
+      ParentForm := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
 
    IF !_IsWindowDefined(ParentForm)
@@ -278,18 +278,18 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
 
    IF DisplayChange
       // handle for ComboBoxEx edit window
-      _hmg_acontrolrangemin [k] := SendMessage(Controlhandle, CBEM_GETEDITCONTROL, 0, 0)
+      _hmg_acontrolrangemin[k] := SendMessage(Controlhandle, CBEM_GETEDITCONTROL, 0, 0)
       IF tooltip != NIL
-         SetToolTip ( _hmg_acontrolrangemin [k] , tooltip , GetFormToolTipHandle(cParentForm) )
+         SetToolTip ( _hmg_acontrolrangemin[k] , tooltip , GetFormToolTipHandle(cParentForm) )
       ENDIF
    ENDIF
    // handle for ComboBoxEx child window
-   _hmg_acontrolrangemax [k] := SendMessage(Controlhandle, CBEM_GETCOMBOCONTROL, 0, 0)
+   _hmg_acontrolrangemax[k] := SendMessage(Controlhandle, CBEM_GETCOMBOCONTROL, 0, 0)
    IF tooltip != NIL
-      SetToolTip ( _hmg_acontrolrangemax [k] , tooltip , GetFormToolTipHandle(cParentForm) )
+      SetToolTip ( _hmg_acontrolrangemax[k] , tooltip , GetFormToolTipHandle(cParentForm) )
    ENDIF
 
-   SetDropDownWidth(_hmg_acontrolrangemax [k] , hb_defaultValue(ListWidth, w))
+   SetDropDownWidth(_hmg_acontrolrangemax[k] , hb_defaultValue(ListWidth, w))
 
    IF hb_IsChar(WorkArea)
 

@@ -679,10 +679,10 @@ FUNCTION TreeItemGetFirstItemValue ( ControlName, ParentForm )
    LOCAL nPos := 1
 
    IF GetProperty ( ParentForm, ControlName, "ItemCount" ) > 0
-      IF !_HMG_aControlInputMask [nIndex]
+      IF !_HMG_aControlInputMask[nIndex]
          RETURN nPos
       ELSE
-         nID := _HMG_aControlPicture [nIndex][nPos]
+         nID := _HMG_aControlPicture[nIndex][nPos]
          RETURN nID
       ENDIF
    ENDIF

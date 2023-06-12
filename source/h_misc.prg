@@ -150,7 +150,7 @@ FUNCTION GetData()
             CASE "L" ; aItem := ( AllTrim(DataValue) == "T" )
             ENDSWITCH
 
-            aTemp [r] [c] := aItem
+            aTemp[r][c] := aItem
 
             c++
             IF c > Cols
@@ -166,7 +166,7 @@ FUNCTION GetData()
 
       END CASE
 
-      DELETE File ( _HMG_CommPath + PacketNames [1] )
+      DELETE File ( _HMG_CommPath + PacketNames[1] )
 
    ENDIF
 
@@ -192,7 +192,7 @@ FUNCTION SendData(cDest, Data)
 
    IF hb_IsArray(Data)
 
-      IF !hb_isArray(Data [1])
+      IF !hb_isArray(Data[1])
 
          cData := "#DataRows=" + hb_ntos(Len(Data)) + Chr(13) + Chr(10)
          cData += "#DataCols=0" + Chr(13) + Chr(10)
@@ -241,7 +241,7 @@ FUNCTION SendData(cDest, Data)
 
             FOR j := 1 TO Cols
 
-               cType := ValType(Data[i] [j])
+               cType := ValType(Data[i][j])
 
                SWITCH cType
                CASE "D"
@@ -257,7 +257,7 @@ FUNCTION SendData(cDest, Data)
                   cLen := hb_ntos(Len(pData))
                   EXIT
                CASE "C"
-                  pData := Data[i] [j]
+                  pData := Data[i][j]
                   cLen := hb_ntos(Len(pData))
                   EXIT
                OTHERWISE

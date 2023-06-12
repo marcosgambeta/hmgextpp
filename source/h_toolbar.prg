@@ -187,10 +187,10 @@ FUNCTION _EndToolBar()
          i      := GetFormIndex ( _HMG_ActiveSplitBoxParentFormName )
          nBand  := GetBandCount ( _HMG_aFormReBarHandle[i] )
          _HMG_aControlMiscData1 [ix] := nBand
-         nRow   := _HMG_aControlSpacing [ix]
+         nRow   := _HMG_aControlSpacing[ix]
          IF nRow > 1
             aSize := SetRowsButton ( h , nRow , .T. )
-            ResizeSplitBoxItem ( _HMG_aFormReBarHandle[i], nBand - 1, aSize [1], aSize [2], aSize [1] )
+            ResizeSplitBoxItem ( _HMG_aFormReBarHandle[i], nBand - 1, aSize[1], aSize[2], aSize[1] )
          ENDIF
       ELSE
          MaxTextBtnToolBar ( h, _GetControlWidth(_HMG_ActiveToolBarName, ParentForm), _GetControlHeight(_HMG_ActiveToolBarName, ParentForm) )
@@ -259,8 +259,8 @@ FUNCTION _DefineToolButton ( ControlName, ParentControl, x, y, Caption, Procedur
 
    IF imageindex != NIL
       aImage      := GetControlValue ( _HMG_ActiveToolBarName, cParentForm )
-      imagelst    := aImage [1]
-      hotimagelst := aImage [2]
+      imagelst    := aImage[1]
+      hotimagelst := aImage[2]
    ELSE
       imageindex := -1
    ENDIF
@@ -368,13 +368,13 @@ STATIC FUNCTION _AddToolBarToSplitBox ( ControlName , break , Caption , ParentFo
 
    ix := GetControlIndex(ControlName, ParentForm)
    /* WRAP style handling */
-   IF ( _HMG_aControlRangeMax [ix] == 1 ) .AND. ;
+   IF ( _HMG_aControlRangeMax[ix] == 1 ) .AND. ;
       ( hb_bitand(GetWindowLong(_HMG_aFormReBarHandle[i], GWL_STYLE), CCS_VERT) == CCS_VERT )
-      MinWidth  := _HMG_aControlWidth [ix]
+      MinWidth  := _HMG_aControlWidth[ix]
       MinHeight := HiWord(w)
    ENDIF
    IF i > 0
-      AddSplitBoxItem ( c , _HMG_aFormReBarHandle[i] , w , break , Caption , MinWidth , MinHeight , _HMG_ActiveSplitBoxInverted , _HMG_aControlRangeMin [ix] )
+      AddSplitBoxItem ( c , _HMG_aFormReBarHandle[i] , w , break , Caption , MinWidth , MinHeight , _HMG_ActiveSplitBoxInverted , _HMG_aControlRangeMin[ix] )
    ENDIF
 
 RETURN Nil
@@ -487,36 +487,36 @@ FUNCTION _CreatePopUpChevron ( hWnd, wParam, lParam )
    IF ( i := AScan(_HMG_aFormhandles, hWnd) ) > 0
       aChevronInfo := CreatePopUpChevron( _HMG_aFormReBarHandle[i], lParam )
 
-      TbHwnd := aChevronInfo [5]
+      TbHwnd := aChevronInfo[5]
       hMenu := CreatePopupMenu()
 
-      FOR n := aChevronInfo [6] TO aChevronInfo [7] - 1
+      FOR n := aChevronInfo[6] TO aChevronInfo[7] - 1
 
          aBtnInfo := GetButtonBar( TbHwnd, n )
          lEnable  := IsButtonEnabled(TbHwnd, n)
-         hImage := GetImageList( tbhwnd, aBtnInfo [1] )
+         hImage := GetImageList( tbhwnd, aBtnInfo[1] )
 
-         IF ( k := AScan(_HMG_aControlIds, aBtnInfo [2]) ) > 0 .AND. !aBtnInfo [3]
+         IF ( k := AScan(_HMG_aControlIds, aBtnInfo[2]) ) > 0 .AND. !aBtnInfo[3]
 
-            IF !Empty(_HMG_aControlToolTip [k])
-               cMenu := _HMG_aControlToolTip [k]
-            ELSEIF !Empty(_HMG_aControlCaption [k])
-               cMenu := _HMG_aControlCaption [k]
+            IF !Empty(_HMG_aControlToolTip[k])
+               cMenu := _HMG_aControlToolTip[k]
+            ELSEIF !Empty(_HMG_aControlCaption[k])
+               cMenu := _HMG_aControlCaption[k]
             ELSE
                cMenu := "Button " + hb_ntos(n)
             ENDIF
 
-            AppendMenuString ( hMenu, aBtnInfo [2], cMenu )
+            AppendMenuString ( hMenu, aBtnInfo[2], cMenu )
 
             image := _HMG_aControlPicture  [k]
             IF Len(image) != 0
-               MenuItem_SetBitMaps ( hMenu, aBtnInfo [2], image, NIL )
+               MenuItem_SetBitMaps ( hMenu, aBtnInfo[2], image, NIL )
             ELSE
-               SetChevronImage ( hMenu, aBtnInfo [2], hImage )
+               SetChevronImage ( hMenu, aBtnInfo[2], hImage )
             ENDIF
 
             IF !lEnable
-               xDisableMenuItem ( hMenu, aBtnInfo [2] )
+               xDisableMenuItem ( hMenu, aBtnInfo[2] )
             ENDIF
 
          ENDIF
@@ -526,7 +526,7 @@ FUNCTION _CreatePopUpChevron ( hWnd, wParam, lParam )
       aPos := { 0, 0, 0, 0 }
       GetWindowRect( _HMG_aFormReBarHandle[i], aPos )
 
-      TrackPopupMenu ( hMenu , aPos [1] + aChevronInfo [1] , aPos [2] + aChevronInfo [4] + 3 , hWnd )
+      TrackPopupMenu ( hMenu , aPos[1] + aChevronInfo[1] , aPos[2] + aChevronInfo[4] + 3 , hWnd )
    ENDIF
 
    DefWindowProc(hWnd, RBN_CHEVRONPUSHED, wParam, lParam)
@@ -550,8 +550,8 @@ STATIC PROCEDURE _DropDownShortcut ( nToolButtonId , nParentWindowHandle , i , n
 
       aSize := GetButtonBarRect ( _HMG_aControlHandles[i] , nButtonPos - 1 )
 
-      TrackPopupMenu ( _HMG_aControlRangeMax [x] , aPos [1] + LoWord(aSize) , aPos [2] + HiWord(aSize) + ;
-         iif(_HMG_ActiveSplitBoxInverted, 0, ( aPos [4] - aPos [2] - HiWord(aSize) ) / 2), nParentWindowHandle )
+      TrackPopupMenu ( _HMG_aControlRangeMax[x] , aPos[1] + LoWord(aSize) , aPos[2] + HiWord(aSize) + ;
+         iif(_HMG_ActiveSplitBoxInverted, 0, ( aPos[4] - aPos[2] - HiWord(aSize) ) / 2), nParentWindowHandle )
 
       SendMessage(_HMG_aControlHandles[i], TB_SETHOTITEM, -1, 0)
    ENDIF

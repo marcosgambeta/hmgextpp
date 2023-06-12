@@ -455,7 +455,7 @@ FUNCTION _GetStatusItemWidth(hWnd, nItem)
 
    NEXT
 
-RETURN iif(!Empty(nItem), aItemWidth [nItem], aItemWidth)
+RETURN iif(!Empty(nItem), aItemWidth[nItem], aItemWidth)
 
 *-----------------------------------------------------------------------------*
 FUNCTION _SetStatusItemProperty( nItem, Value, hWnd, nType )

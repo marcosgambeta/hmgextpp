@@ -757,20 +757,20 @@ FUNCTION InitPageDlgProc(hwndDlg, idDlg, hWndParent)
             ENDIF
             IF  k > 0
                IF k_old != k
-                  IF !hb_isArray(_HMG_aControlHandles [k])
-                     _HMG_aControlHandles [k] :=  ControlHandle
+                  IF !hb_isArray(_HMG_aControlHandles[k])
+                     _HMG_aControlHandles[k] :=  ControlHandle
                   ELSE
-                     _HMG_aControlHandles [k] :=  {}
+                     _HMG_aControlHandles[k] :=  {}
                      AAdd(_HMG_aControlHandles[k], ControlHandle)
                   ENDIF
                ELSE
                   AAdd(_HMG_aControlHandles[k], ControlHandle)
                ENDIF
-               _HMG_aControlParentHandles [k] :=  _HMG_ActiveDialogHandle
+               _HMG_aControlParentHandles[k] :=  _HMG_ActiveDialogHandle
                k_old := k
             ENDIF
          ENDIF
-         IF hb_IsBlock(blInit) .AND. _HMG_aControlDeleted [k] != .T.
+         IF hb_IsBlock(blInit) .AND. _HMG_aControlDeleted[k] != .T.
             Eval(blInit, _HMG_ActiveDialogName, ControlHandle, k)
          ENDIF
       NEXT

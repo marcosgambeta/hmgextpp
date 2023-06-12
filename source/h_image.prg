@@ -74,9 +74,9 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
       ParentFormName := iif(_HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName)
    ENDIF
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
-      x += _HMG_ActiveFrameCol [_HMG_FrameLevel]
-      y += _HMG_ActiveFrameRow [_HMG_FrameLevel]
-      ParentFormName := _HMG_ActiveFrameParentFormName [_HMG_FrameLevel]
+      x += _HMG_ActiveFrameCol[_HMG_FrameLevel]
+      y += _HMG_ActiveFrameRow[_HMG_FrameLevel]
+      ParentFormName := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory
 
@@ -242,14 +242,14 @@ FUNCTION InitDialogImage(ParentName, ControlHandle, k)
          _HMG_aControlCaption[k], _HMG_aControlDblClick[k] .AND. HasAlpha(_HMG_aControlPicture[k]), _HMG_aControlMiscData1[k])
 
       IF Empty(_HMG_aControlValue[k])
-         _HMG_aControlWidth [k] := GetWindowWidth(ControlHandle)
-         _HMG_aControlHeight [k] := GetWindowHeight(ControlHandle)
+         _HMG_aControlWidth[k] := GetWindowWidth(ControlHandle)
+         _HMG_aControlHeight[k] := GetWindowHeight(ControlHandle)
       ENDIF
 
    ENDIF
 // JP 62
    IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]  // Modal
-      _HMG_aControlDeleted [k] := .T.
+      _HMG_aControlDeleted[k] := .T.
    ENDIF
 
 RETURN Nil
@@ -309,7 +309,7 @@ FUNCTION HMG_SaveImage(FileName, cOutName, cEncoder, nJpgQuality, aOutSize)
       hb_default(@nJpgQuality, 100)
       __defaultNIL(@aOutSize, BmpSize(hBitmap))
 
-      lResult := C_SaveHBitmapToFile(hBitmap, cOutName, aOutSize [1], aOutSize [2], "image/" + Lower( cEncoder ), nJpgQuality)
+      lResult := C_SaveHBitmapToFile(hBitmap, cOutName, aOutSize[1], aOutSize[2], "image/" + Lower( cEncoder ), nJpgQuality)
 
       IF hb_IsString(FileName)
          DeleteObject( hBitmap )

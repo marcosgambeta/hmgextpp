@@ -109,9 +109,9 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
    ENDIF
 
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
-      x += _HMG_ActiveFrameCol [_HMG_FrameLevel]
-      y += _HMG_ActiveFrameRow [_HMG_FrameLevel]
-      ParentFormName := _HMG_ActiveFrameParentFormName [_HMG_FrameLevel]
+      x += _HMG_ActiveFrameCol[_HMG_FrameLevel]
+      y += _HMG_ActiveFrameRow[_HMG_FrameLevel]
+      ParentFormName := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory
 
@@ -316,10 +316,10 @@ FUNCTION InitDialogListBox( ParentName, ControlHandle, k )
 
    HB_SYMBOL_UNUSED(ParentName)
 
-   Rows   := _HMG_aControlRangeMin [k]
-   Value  := _HMG_aControlValue [k]
-   aWidth := _HMG_aControlRangeMax [k]
-   multitabs := _HMG_aControlMiscData1 [k] [2]
+   Rows   := _HMG_aControlRangeMin[k]
+   Value  := _HMG_aControlValue[k]
+   aWidth := _HMG_aControlRangeMax[k]
+   multitabs := _HMG_aControlMiscData1[k][2]
 
    AEval(Rows, {|r|ListboxAddString(ControlHandle, r)})
 
@@ -337,7 +337,7 @@ FUNCTION InitDialogListBox( ParentName, ControlHandle, k )
    ENDIF
 // JP 62
    IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]  // Modal
-      _HMG_aControlDeleted [k] := .T.
+      _HMG_aControlDeleted[k] := .T.
    ENDIF
 
    RETURN Nil
@@ -352,7 +352,7 @@ FUNCTION LB_Array2String( aData, Sep )
    hb_default(@Sep, Chr(9))
 
    FOR n := 1 TO Len(aData)
-      cData += iif(n == 1, "", Sep) + aData [n]
+      cData += iif(n == 1, "", Sep) + aData[n]
    NEXT
 
 RETURN cData

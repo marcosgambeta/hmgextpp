@@ -273,11 +273,11 @@ FUNCTION HMG_DrawIcon( window, icon, row, col, w, h, rgb, transparent )
       IF transparent
          backcolor := _HMG_aFormBkColor[i]
          IF IsArrayRGB(backcolor)
-            rgb := RGB(backcolor [1], backcolor [2], backcolor [3])
+            rgb := RGB(backcolor[1], backcolor[2], backcolor[3])
          ENDIF
       ELSE
          IF IsArrayRGB(rgb)
-            rgb := RGB(rgb [1], rgb [2], rgb [3])
+            rgb := RGB(rgb[1], rgb[2], rgb[3])
          ENDIF
       ENDIF
       hb_default(@rgb, GetSysColor(COLOR_BTNFACE))
@@ -309,11 +309,11 @@ FUNCTION HMG_DrawSysIcon( window, cIconDll, icon, row, col, w, h, rgb, transpare
       IF transparent
          backcolor := _HMG_aFormBkColor[i]
          IF IsArrayRGB(backcolor)
-            rgb := RGB(backcolor [1], backcolor [2], backcolor [3])
+            rgb := RGB(backcolor[1], backcolor[2], backcolor[3])
          ENDIF
       ELSE
          IF IsArrayRGB(rgb)
-            rgb := RGB(rgb [1], rgb [2], rgb [3])
+            rgb := RGB(rgb[1], rgb[2], rgb[3])
          ENDIF
       ENDIF
       hb_default(@rgb, GetSysColor(COLOR_BTNFACE))

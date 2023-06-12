@@ -109,9 +109,9 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    ENDIF
 
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
-      x += _HMG_ActiveFrameCol [_HMG_FrameLevel]
-      y += _HMG_ActiveFrameRow [_HMG_FrameLevel]
-      ParentFormName := _HMG_ActiveFrameParentFormName [_HMG_FrameLevel]
+      x += _HMG_ActiveFrameCol[_HMG_FrameLevel]
+      y += _HMG_ActiveFrameRow[_HMG_FrameLevel]
+      ParentFormName := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory
 
@@ -299,10 +299,10 @@ FUNCTION InitDialogTextBox( ParentName, ControlHandle, k )
    LOCAL readonly
    LOCAL lNumeric
 
-   Field       := _HMG_aControlPageMap [k]
-   nMaxLength  := _HMG_aControlRangeMax [k]
+   Field       := _HMG_aControlPageMap[k]
+   nMaxLength  := _HMG_aControlRangeMax[k]
    readonly    := _HMG_aControlMiscData1 [k,2]
-   cValue      := _HMG_aControlValue [k]
+   cValue      := _HMG_aControlValue[k]
    lNumeric    := ( _HMG_aControlType[k] == CONTROL_TYPE_NUMTEXT )
 
    IF hb_IsLogical(readonly)
@@ -329,7 +329,7 @@ FUNCTION InitDialogTextBox( ParentName, ControlHandle, k )
    ENDIF
 // JP 62
    IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]   // Modal
-      _HMG_aControlDeleted [k] := .T.
+      _HMG_aControlDeleted[k] := .T.
    ENDIF
 
 RETURN Nil
@@ -414,9 +414,9 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
       __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
-      x += _HMG_ActiveFrameCol [_HMG_FrameLevel]
-      y += _HMG_ActiveFrameRow [_HMG_FrameLevel]
-      ParentFormName := _HMG_ActiveFrameParentFormName [_HMG_FrameLevel]
+      x += _HMG_ActiveFrameCol[_HMG_FrameLevel]
+      y += _HMG_ActiveFrameRow[_HMG_FrameLevel]
+      ParentFormName := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory
 
@@ -569,9 +569,9 @@ FUNCTION InitDialogMaskedTextBox( ParentName, ControlHandle, k )
    LOCAL cValue
    LOCAL date
 
-   Field  := _HMG_aControlPageMap [k]
+   Field  := _HMG_aControlPageMap[k]
    date   := _HMG_aControlMiscData1 [k,2]
-   cValue := _HMG_aControlValue [k]
+   cValue := _HMG_aControlValue[k]
 
    IF !date
       SetWindowText(ControlHandle, cValue)
@@ -585,7 +585,7 @@ FUNCTION InitDialogMaskedTextBox( ParentName, ControlHandle, k )
 
 // JP 62
    IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]   // Modal
-      _HMG_aControlDeleted [k] := .T.
+      _HMG_aControlDeleted[k] := .T.
    ENDIF
 
 RETURN Nil
@@ -698,9 +698,9 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
       __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
-      x += _HMG_ActiveFrameCol [_HMG_FrameLevel]
-      y += _HMG_ActiveFrameRow [_HMG_FrameLevel]
-      ParentFormName := _HMG_ActiveFrameParentFormName [_HMG_FrameLevel]
+      x += _HMG_ActiveFrameCol[_HMG_FrameLevel]
+      y += _HMG_ActiveFrameRow[_HMG_FrameLevel]
+      ParentFormName := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
    lDialogInMemory := _HMG_DialogInMemory
 
@@ -1336,7 +1336,7 @@ FUNCTION OEDITEVENTS( hWnd, nMsg, wParam, lParam )
 
       ParentForm := _HMG_aControlParentHandles[i]
 
-      IF ( i := AScan(_HMG_aControlsContextMenu , {|x| x [1] == hWnd }) ) > 0
+      IF ( i := AScan(_HMG_aControlsContextMenu , {|x| x[1] == hWnd }) ) > 0
 
          IF _HMG_aControlsContextMenu[i][4]
             setfocus( wParam )

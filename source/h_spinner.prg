@@ -92,9 +92,9 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
       __defaultNIL(@FontSize, _HMG_ActiveFontSize)
    ENDIF
    IF _HMG_FrameLevel > 0 .AND. !_HMG_ParentWindowActive
-      x += _HMG_ActiveFrameCol [_HMG_FrameLevel]
-      y += _HMG_ActiveFrameRow [_HMG_FrameLevel]
-      ParentForm := _HMG_ActiveFrameParentFormName [_HMG_FrameLevel]
+      x += _HMG_ActiveFrameCol[_HMG_FrameLevel]
+      y += _HMG_ActiveFrameRow[_HMG_FrameLevel]
+      ParentForm := _HMG_ActiveFrameParentFormName[_HMG_FrameLevel]
    ENDIF
 
    IF !_IsWindowDefined(ParentForm)
@@ -113,7 +113,7 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
 
    RetArray := InitSpinner( ParentForm, 0, x, y, w, "", 0, rl, rh, h, invisible, notabstop, wrap, readonly, horizontal )
 
-   ControlHandle := RetArray [1]
+   ControlHandle := RetArray[1]
 
    IF !empty(FontHandle)
       _SetFontHandle(ControlHandle, FontHandle)
@@ -188,11 +188,11 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
    ENDIF
 
    IF hb_IsNumeric(value)
-      SetSpinnerValue ( RetArray [2], Value )
+      SetSpinnerValue ( RetArray[2], Value )
    ENDIF
 
    IF increment != 1
-      SetSpinnerIncrement ( RetArray [2], increment )
+      SetSpinnerIncrement ( RetArray[2], increment )
    ENDIF
 
    IF _HMG_lOOPEnabled
@@ -238,7 +238,7 @@ FUNCTION OSPINEVENTS( hWnd, nMsg, wParam, lParam )    // 2006.08.13 JD
       i := AScan(_HMG_aControlHandles, { |x| iif(hb_IsArray(x), ( AScan(x, hWnd) > 0 ), x == hWnd) })
       ParentForm := _HMG_aControlParentHandles[i]
 
-      i := AScan(_HMG_aControlsContextMenu, { |x| x [1] == hWnd })
+      i := AScan(_HMG_aControlsContextMenu, { |x| x[1] == hWnd })
 
       IF i > 0
 
