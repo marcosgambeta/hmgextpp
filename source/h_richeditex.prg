@@ -273,14 +273,14 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
    aRichEditMenu := _SetGetGlobal( "_HMG_aRichEditMenu" )
 
    _DefineControlContextMenu( ControlName , cParentForm )
-      _DefineMenuItem ( aRichEditMenu[1] , {|| RichEditBox_mnuEdit_Click( "UNDO" )} , "mnuEditUndo" , , .F. , .F. ,,,, .F., .F. ,, .F. )
+      _DefineMenuItem ( aRichEditMenu[1] , {||RichEditBox_mnuEdit_Click("UNDO")} , "mnuEditUndo" , , .F. , .F. ,,,, .F., .F. ,, .F. )
       _DefineSeparator ()
-      _DefineMenuItem ( aRichEditMenu[2] , {|| RichEditBox_mnuEdit_Click( "CUT" )} , "mnuEditCut" , , .F. , .F. ,,,, .F., .F. ,, .F. )
-      _DefineMenuItem ( aRichEditMenu[3] , {|| RichEditBox_mnuEdit_Click( "COPY" )} , "mnuEditCopy" , , .F. , .F. ,,,, .F., .F. ,, .F. )
-      _DefineMenuItem ( aRichEditMenu[4] , {|| RichEditBox_mnuEdit_Click( "PASTE" )} , "mnuEditPaste" , , .F. , .F. ,,,, .F., .F. ,, .F. )
-      _DefineMenuItem ( aRichEditMenu[5] , {|| RichEditBox_mnuEdit_Click( "DEL" )} , "mnuEditDelete" , , .F. , .F. ,,,, .F., .F. ,, .F. )
+      _DefineMenuItem ( aRichEditMenu[2] , {||RichEditBox_mnuEdit_Click("CUT")} , "mnuEditCut" , , .F. , .F. ,,,, .F., .F. ,, .F. )
+      _DefineMenuItem ( aRichEditMenu[3] , {||RichEditBox_mnuEdit_Click("COPY")} , "mnuEditCopy" , , .F. , .F. ,,,, .F., .F. ,, .F. )
+      _DefineMenuItem ( aRichEditMenu[4] , {||RichEditBox_mnuEdit_Click("PASTE")} , "mnuEditPaste" , , .F. , .F. ,,,, .F., .F. ,, .F. )
+      _DefineMenuItem ( aRichEditMenu[5] , {||RichEditBox_mnuEdit_Click("DEL")} , "mnuEditDelete" , , .F. , .F. ,,,, .F., .F. ,, .F. )
       _DefineSeparator ()
-      _DefineMenuItem ( aRichEditMenu[6] , {|| RichEditBox_mnuEdit_Click( "SELALL" )} , "mnuEditSelAll" , , .F. , .F. ,,,, .F., .F. ,, .F. )
+      _DefineMenuItem ( aRichEditMenu[6] , {||RichEditBox_mnuEdit_Click("SELALL")} , "mnuEditSelAll" , , .F. , .F. ,,,, .F., .F. ,, .F. )
    _EndMenu()
 
 RETURN NIL
@@ -429,7 +429,7 @@ FUNCTION RichEditBox_RTFPrint(hWndControl, aSelRange, nLeft, nTop, nRight, nBott
    DEFAULT nTop TO 20             // Top    page margin in millimeters
    DEFAULT nRight TO 20           // Right  page margin in millimeters
    DEFAULT nBottom TO 20          // Bottom page margin in millimeters
-   DEFAULT PrintPageCodeBlock TO {|| NIL }
+   DEFAULT PrintPageCodeBlock TO {||NIL}
 
    nPageWidth := OpenPrinterGetPageWidth() // in millimeters
    nPageHeight := OpenPrinterGetPageHeight() // in millimeters

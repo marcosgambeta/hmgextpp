@@ -343,7 +343,7 @@ METHOD RestartGif() CLASS TGif
 
    GifStop( Self )
 
-   AEval(::aPictData, {| f | FErase(f) })
+   AEval(::aPictData, {|f|FErase(f)})
 
    IF LoadGif( ::cFileName, @aPictures, @aImageInfo, Self )
 
@@ -365,7 +365,7 @@ METHOD End() CLASS TGif
 
    IF _IsControlDefined(::cControlName, ::cParentName)
 
-      AEval(::aPictData, {| f | FErase(f) })
+      AEval(::aPictData, {|f|FErase(f)})
 
       IF ::nTotalFrames > 1
          DoMethod(::cParentName, ::cTimer, "Release")

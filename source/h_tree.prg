@@ -133,7 +133,7 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
       IF Len(_HMG_aDialogTemplate) > 0        // Dialog Template
 
          // {{"ID",k/hwnd,class,Style,ExStyle,col,row,width,height,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
-         blInit := {| x, y, z| InitDialogTree(x, y, z) }
+         blInit := {|x, y, z|InitDialogTree(x, y, z)}
          _HMG_aDialogTreeItem := {}
          AAdd(_HMG_aDialogItems, {nId, k, "SysTreeView32", style, 0, col, row, width, height, "", HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 

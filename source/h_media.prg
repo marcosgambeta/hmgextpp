@@ -255,7 +255,7 @@ FUNCTION _DefineAnimateBox( ControlName, ParentFormName, x, y, w, h, autoplay, c
       IF lDialogInMemory         //Dialog Template
 
          //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout,blInit,.f.}}  --->_HMG_aDialogItems
-         blInit := {|x, y, z| InitDialogAnimateBox( x, y, z ) }
+         blInit := {|x, y, z|InitDialogAnimateBox(x, y, z)}
          AAdd(_HMG_aDialogItems, {nId, k, "SysAnimate32", style, 0, x, y, w, h, "", HelpId, tooltip, "", 0, , , , , blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE

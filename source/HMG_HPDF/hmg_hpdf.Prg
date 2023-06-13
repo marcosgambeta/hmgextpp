@@ -1979,7 +1979,7 @@ FUNCTION _HMG_HPDF_SeekHaruFonts( cFontName, lBold, lItalic )
       "ZapfDingbats" }
    LOCAL nPos, cFntHaru
 
-   IF ( nPos := AScan(aHpdf_Font, {| cFnt | Upper(cFnt) == Upper(cFontName) }) ) > 0
+   IF ( nPos := AScan(aHpdf_Font, {|cFnt|Upper(cFnt) == Upper(cFontName)}) ) > 0
       cFntHaru := aHpdf_Font[nPos]
 
       DO CASE
@@ -2083,7 +2083,7 @@ FUNCTION _HMG_HPDF_SeekInLocalOptions( FontName, lBold, lItalic )
 
    cFldWindows := GetSpecialFolder( CSIDL_FONTS )
    cFileTTF := cFileNoExt(FontName)
-   aDirFnts := ASort(Directory( cFldWindows + "\" + SubStr(cFileTTF, 1, 4) + "*.ttf" ),,, {| x, y | Len(x[1]) < Len(y[1]) })
+   aDirFnts := ASort(Directory( cFldWindows + "\" + SubStr(cFileTTF, 1, 4) + "*.ttf" ),,, {|x, y|Len(x[1]) < Len(y[1])})
    IF Len(aDirFnts) > 0
       cRet := cFldWindows + "\" + cFileNoExt(aDirFnts[1, 1])
       IF lBold .AND. lItalic

@@ -538,7 +538,7 @@ FUNCTION nMax( aData )
 
    LOCAL nMax := 0
 
-   AEval(aData, { | ele | nMax := Max( nMax, Len(ele) ) })
+   AEval(aData, {|ele|nMax := Max(nMax, Len(ele))})
 
 RETURN( nMax )
 
@@ -809,15 +809,15 @@ FUNCTION drawpiegraph( windowname, fromrow, fromcol, torow, tocol, series, aname
    torow++
    tocol++
 
-   AEval(series, {|i| ser_sum += i })
-   AEval(series, {|i| AAdd(degrees, Round(i / ser_sum * 360, 0)) })
+   AEval(series, {|i|ser_sum += i})
+   AEval(series, {|i|AAdd(degrees, Round(i / ser_sum * 360, 0))})
    sum := 0
-   AEval(degrees, {|i| sum += i })
+   AEval(degrees, {|i|sum += i})
    IF sum != 360
       degrees[len(degrees)] += 360 - sum
    ENDIF
    sum := 0
-   AEval(degrees, {|i| sum += i, AAdd(cumulative, sum) })
+   AEval(degrees, {|i|sum += i, AAdd(cumulative, sum)})
 
    fromradialrow := middlerightrow
    fromradialcol := middlerightcol

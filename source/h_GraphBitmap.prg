@@ -454,15 +454,15 @@ FUNCTION HMG_PieGraph( nWidth, nHeight, series, aname, colors, ctitle, aTitleCol
    torow := torow + 1
    tocol := tocol + 1
 
-   AEval(series, {|i| ser_sum += i })
-   AEval(series, {|i| AAdd(degrees, Round(i / ser_sum * 360, 0)) })
+   AEval(series, {|i|ser_sum += i})
+   AEval(series, {|i|AAdd(degrees, Round(i / ser_sum * 360, 0))})
    sum := 0
-   AEval(degrees, {|i| sum += i })
+   AEval(degrees, {|i|sum += i})
    IF sum != 360
       degrees[len(degrees)] += 360 - sum
    ENDIF
    sum := 0
-   AEval(degrees, {|i| sum += i, AAdd(cumulative, sum) })
+   AEval(degrees, {|i|sum += i, AAdd(cumulative, sum)})
 
    fromradialrow := middlerightrow
    fromradialcol := middlerightcol

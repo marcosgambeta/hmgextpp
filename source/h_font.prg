@@ -74,7 +74,7 @@ PROCEDURE _DefineFont(FontName, fName, fSize, bold, italic, underline, strikeout
       GetFontList(NIL, NIL, NIL, NIL, NIL, NIL, @aFontList)
 
       GetFontList(NIL, NIL, SYMBOL_CHARSET, NIL, NIL, NIL, @aFontSymb)
-      AEval(aFontSymb, {| cFont | AAdd(aFontList, cFont) })
+      AEval(aFontSymb, {|cFont|AAdd(aFontList, cFont)})
 
       IF Empty(AScan(aFontList, {|cName|Upper(cName) == Upper(fName)}))
          fName := "Arial"
@@ -339,7 +339,7 @@ FUNCTION _SetFontAttr( ControlName, ParentForm, Value, nType )
 
    CASE t == CONTROL_TYPE_RADIOGROUP
       _HMG_aControlFontHandle[i] := _SetFont(h[1], n, s, ab, ai, au, as, aa)
-      AEval(h, {|x| SendMessage(x, WM_SETFONT, _HMG_aControlFontHandle[i], 1) }, 2)
+      AEval(h, {|x|SendMessage(x, WM_SETFONT, _HMG_aControlFontHandle[i], 1)}, 2)
 
    OTHERWISE
       IF IsWindowHandle(h)
@@ -405,9 +405,9 @@ FUNCTION GetFontList(hDC, cFontFamilyName, nCharSet, nPitch, nFontType, lSortCas
    LOCAL SortCodeBlock
 
    IF hb_defaultValue(lSortCaseSensitive, .F.)
-      SortCodeBlock := { |x, y| x[1] < y[1] }
+      SortCodeBlock := {|x, y|x[1] < y[1]}
    ELSE
-      SortCodeBlock := { |x, y| Upper(x[1]) < Upper(y[1]) }
+      SortCodeBlock := {|x, y|Upper(x[1]) < Upper(y[1])}
    ENDIF
 
 RETURN EnumFontsEx( hDC, cFontFamilyName, nCharSet, nPitch, nFontType, SortCodeBlock, @aFontName )

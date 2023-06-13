@@ -167,7 +167,7 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
       IF Len(_HMG_aDialogTemplate) > 0        //Dialog Template
 
          //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
-         blInit := {|x, y, z| InitDialogTextBox( x, y, z ) }
+         blInit := {|x, y, z|InitDialogTextBox(x, y, z)}
          AAdd(_HMG_aDialogItems, {nId, k, "EDIT", style, 0, x, y, w, h, cValue, HelpId, Tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
@@ -451,7 +451,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
       IF lDialogInMemory         //Dialog Template
 
          //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
-         blInit := {|x, y, z| InitDialogMaskedTextBox( x, y, z ) }
+         blInit := {|x, y, z|InitDialogMaskedTextBox(x, y, z)}
          AAdd(_HMG_aDialogItems, {nId, k, "EDIT", style, 0, x, y, w, h, Value, HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
@@ -735,7 +735,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
       IF lDialogInMemory         //Dialog Template
 
          //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
-         blInit := {|x, y, z| InitDialogMaskedTextBox( x, y, z ) }
+         blInit := {|x, y, z|InitDialogMaskedTextBox(x, y, z)}
          AAdd(_HMG_aDialogItems, {nId, k, "EDIT", style, 0, x, y, w, h, Value, HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
@@ -1336,7 +1336,7 @@ FUNCTION OEDITEVENTS( hWnd, nMsg, wParam, lParam )
 
       ParentForm := _HMG_aControlParentHandles[i]
 
-      IF ( i := AScan(_HMG_aControlsContextMenu , {|x| x[1] == hWnd }) ) > 0
+      IF ( i := AScan(_HMG_aControlsContextMenu , {|x|x[1] == hWnd}) ) > 0
 
          IF _HMG_aControlsContextMenu[i][4]
             setfocus( wParam )

@@ -61,8 +61,8 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, ;
    DEFAULT nClrFore  := GetSysColor( COLOR_WINDOWTEXT ), ;
            nClrBack  := GetSysColor( COLOR_WINDOW ), ;
            nHeight   := 12, ;
-           bMin      := {|| 0 }, ;
-           bMax      := {|| 32000 }
+           bMin      := {||0}, ;
+           bMax      := {||32000}
 
    ::nTop         := nRow
    ::nLeft        := nCol
@@ -309,7 +309,7 @@ METHOD Command(nWParam, nLParam) CLASS TBtnBox
          case nNotifyCode == 512 .And. nID == 0 .And. ::bAction != Nil
             ::oWnd:lPostEdit := .T.
             Eval(::bAction, Self, Eval(::bSetGet))
-            ::bLostFocus := { | nKey | ::oWnd:EditExit(::nCell, nKey, ::VarGet(), ::bValid, .F.) }
+            ::bLostFocus := {|nKey|::oWnd:EditExit(::nCell, nKey, ::VarGet(), ::bValid, .F.)}
             ::nLastKey := VK_RETURN
             ::LostFocus()
             ::oWnd:lPostEdit := .F.

@@ -47,7 +47,7 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
 
    DEFAULT uAlias := Alias(), ;
       cTitle := iif(hb_IsChar(uAlias), uAlias, "SBrowse"), ;
-      bSetUp := {|| .F. }, ;
+      bSetUp := {||.F.}, ;
       aCols := {}, ;
       nWidth := GetSysMetrics( 0 ) * .75, ;
       nHeight := GetSysMetrics( 1 ) / 2, ;
@@ -107,7 +107,7 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
       DEFINE WINDOW &cFormName AT 0, 0 WIDTH nWidth HEIGHT nHeight TITLE cTitle ;
          CHILD TOPMOST ;
          BACKCOLOR RGB(191, 219, 255) ;
-         ON INIT {|| This.Topmost := .F. }
+         ON INIT {||This.Topmost := .F.}
    ENDIF
 
       This.Cargo := uParam
@@ -120,17 +120,17 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
 
       DEFINE TBROWSE oBrw AT nY, nX Alias ( uAlias ) WIDTH nWidth HEIGHT nHeight HEADER aCols ;
          AUTOCOLS SELECTOR 20 ;
-         ON INIT {|ob| ob:nColOrder     :=  0 , ;
-                       ob:lNoGrayBar    := .F., ;
-                       ob:lNoLiteBar    := .F., ;
-                       ob:lNoResetPos   := .F., ;
-                       ob:nStatusItem   :=  0 , ;
-                       ob:lNoKeyChar    := .T., ;
-                       ob:nWheelLines   :=  1 , ;
-                       ob:nCellMarginLR :=  1 , ;
-                       ob:nLineStyle := LINES_ALL , ;
-                       ob:nClrLine   := COLOR_GRID, ;
-                       ob:lCheckBoxAllReturn := .T. }
+         ON INIT {|ob|ob:nColOrder     :=  0 , ;
+                      ob:lNoGrayBar    := .F., ;
+                      ob:lNoLiteBar    := .F., ;
+                      ob:lNoResetPos   := .F., ;
+                      ob:nStatusItem   :=  0 , ;
+                      ob:lNoKeyChar    := .T., ;
+                      ob:nWheelLines   :=  1 , ;
+                      ob:nCellMarginLR :=  1 , ;
+                      ob:nLineStyle := LINES_ALL , ;
+                      ob:nClrLine   := COLOR_GRID, ;
+                      ob:lCheckBoxAllReturn := .T.}
 
          oBrw:Cargo := uParam
 
@@ -144,7 +144,7 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
             :bRClicked := {||_SetThisFormInfo(oBrw:cParentWnd), SBrowse_Record(oBrw, , bRecord, , nWrec, nHrec), _SetThisFormInfo()}
             :lRecLockArea := .T.
             IF lEdit
-               AEval(:aColumns, {| o | o:lEdit := !( o:cFieldTyp $ "+=^" ) })
+               AEval(:aColumns, {|o|o:lEdit := !( o:cFieldTyp $ "+=^" )})
             ENDIF
             nClr := :GetColumn( 1 ):nClrHeadBack
             IF lRec
@@ -173,7 +173,7 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
       nX := nGw
 
       @ nY, nX BUTTON Btn_1 CAPTION oBrw:aMsg[44] WIDTH oApp:W1 HEIGHT oApp:H1 ;
-               ACTION {|| oBrw:Report(cTitle,,,, .T.), oBrw:GoTop() }
+               ACTION {||oBrw:Report(cTitle,,,, .T.), oBrw:GoTop()}
 
       nX += oApp:W1 + nGw
 
@@ -183,9 +183,9 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
       nX := This.ClientWidth - ( oApp:W1 + nGw )
 
       @ nY, nX BUTTON Btn_3 CAPTION oBrw:aMsg[45] WIDTH oApp:W1 HEIGHT oApp:H1 ;
-               ACTION {|| iif(oBrw:IsEdit, oBrw:SetFocus(), ThisWindow.RELEASE) }
+               ACTION {||iif(oBrw:IsEdit, oBrw:SetFocus(), ThisWindow.RELEASE)}
 
-      ON KEY ESCAPE ACTION {|| iif(oBrw:IsEdit, oBrw:SetFocus(), ThisWindow.RELEASE) }
+      ON KEY ESCAPE ACTION {||iif(oBrw:IsEdit, oBrw:SetFocus(), ThisWindow.RELEASE)}
 
       IF lRec
          nY := Len(oBrw:aColumns)
@@ -375,9 +375,9 @@ FUNCTION _TBrowse(oParam, uAlias, cBrw, nY, nX, nW, nH)
 
    DEFAULT aColor := { ;
           { CLR_FOCUSF, GetSysColor( COLOR_WINDOWTEXT ) }, ;
-          { CLR_FOCUSB, {|c,n,b| c := n, iif(b:nCell == n, -CLR_HRED, -RGB(128, 225, 225)) } }, ;
+          { CLR_FOCUSB, {|c,n,b|c := n, iif(b:nCell == n, -CLR_HRED, -RGB(128, 225, 225))} }, ;
           { CLR_SELEF , GetSysColor( COLOR_WINDOWTEXT ) }, ;
-          { CLR_SELEB , {|c,n,b| c := n, iif(b:nCell == n, -CLR_BLUE, -RGB(128, 225, 225)) } } }
+          { CLR_SELEB , {|c,n,b|c := n, iif(b:nCell == n, -CLR_BLUE, -RGB(128, 225, 225))} } }
 
    DEFAULT oParam:bSpecHdEnum := {|ob, op, cChar|  // нумерация SpecHd колонок, можно исп. в своем коде вызов
                       LOCAL oCol, cCnt, nCnt := 0  // renumbering SpecHeader
@@ -451,21 +451,21 @@ FUNCTION _TBrowse(oParam, uAlias, cBrw, nY, nX, nW, nH)
       ON HEADCLICK oParam:aHeadClick                              ;
       LOADFIELDS                                                  ;
       FIXED        COLSEMPTY  GOTFOCUSSELECT  LOCK                ;
-      ON INIT  {|ob| ob:Cargo := oHmgData() , ;
-                     ob:nColOrder     :=  0 , ;
-                     ob:lNoHScroll    := .T., ;
-                     ob:lNoGrayBar    := .F., ;
-                     ob:lNoLiteBar    := .F., ;
-                     ob:lNoResetPos   := .F., ;
-                     ob:lPickerMode   := .F., ;
-                     ob:lNoChangeOrd  := .T., ;
-                     ob:nStatusItem   :=  0 , ;
-                     ob:lNoKeyChar    := .T., ;
-                     ob:nWheelLines   :=  1 , ;
-                     ob:nCellMarginLR :=  1 , ;
-                     ob:nLineStyle := LINES_ALL , ;
-                     ob:nClrLine   := COLOR_GRID, ;
-                     ob:lCheckBoxAllReturn := .T. }
+      ON INIT  {|ob|ob:Cargo := oHmgData() , ;
+                    ob:nColOrder     :=  0 , ;
+                    ob:lNoHScroll    := .T., ;
+                    ob:lNoGrayBar    := .F., ;
+                    ob:lNoLiteBar    := .F., ;
+                    ob:lNoResetPos   := .F., ;
+                    ob:lPickerMode   := .F., ;
+                    ob:lNoChangeOrd  := .T., ;
+                    ob:nStatusItem   :=  0 , ;
+                    ob:lNoKeyChar    := .T., ;
+                    ob:nWheelLines   :=  1 , ;
+                    ob:nCellMarginLR :=  1 , ;
+                    ob:nLineStyle := LINES_ALL , ;
+                    ob:nClrLine   := COLOR_GRID, ;
+                    ob:lCheckBoxAllReturn := .T.}
 
       :Cargo:oParam := oParam
       :lEnum := lSpecHd
@@ -491,29 +491,29 @@ FUNCTION _TBrowse(oParam, uAlias, cBrw, nY, nX, nW, nH)
       ENDIF
 
       IF hb_IsLogical(oParam:bDblClick)
-         :bLDblClick := {|p1, p2, p3, ob| p1:=p2:=p3, ob:PostMsg( WM_KEYDOWN, VK_RETURN, 0 ) }
+         :bLDblClick := {|p1, p2, p3, ob|p1 := p2 := p3, ob:PostMsg(WM_KEYDOWN, VK_RETURN, 0)}
       ELSEIF hb_IsBlock(oParam:bDblClick)
-         :bLDblClick := oParam:bDblClick     // :bLDblClick := {|p1,p2,p3,ob| ... }
+         :bLDblClick := oParam:bDblClick     // :bLDblClick := {|p1,p2,p3,ob|...}
       ENDIF
 
       IF hb_IsBlock(oParam:bRClicked)
-         :bRClicked := oParam:bRClicked      // :bRClicked := {|p1,p2,p3,ob| ... }
+         :bRClicked := oParam:bRClicked      // :bRClicked := {|p1,p2,p3,ob|...}
       ENDIF
 
       IF hb_IsBlock(oParam:bLClicked)
-         :bLClicked := oParam:bLClicked      // :bLClicked := {|p1,p2,p3,ob| ... }
+         :bLClicked := oParam:bLClicked      // :bLClicked := {|p1,p2,p3,ob|...}
       ENDIF
 
       IF hb_IsBlock(oParam:bGotFocus)
-         :bGotFocus := oParam:bGotFocus      // :bGotFocus := {|ob,hCtlLost| ... }
+         :bGotFocus := oParam:bGotFocus      // :bGotFocus := {|ob,hCtlLost|...}
       ENDIF
 
       IF hb_IsBlock(oParam:bChange)
-         :bChange := oParam:bChange          // :bChange := {|ob| ... }
+         :bChange := oParam:bChange          // :bChange := {|ob|...}
       ENDIF
 
       IF hb_IsBlock(oParam:bKeyDown)
-         :bKeyDown := oParam:bKeyDown        // :bKeyDown := { |nKey,nFalgs,ob| ... }
+         :bKeyDown := oParam:bKeyDown        // :bKeyDown := {|nKey,nFalgs,ob|...}
       ENDIF
 
       IF hb_IsNumeric(oParam:nFireKey)

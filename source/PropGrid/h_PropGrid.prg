@@ -418,7 +418,7 @@ FUNCTION PgBtnEvents(hwndPG, HwndBtn)
    LOCAL cFile
    LOCAL lXml
    
-   i := AScan(_HMG_aControlHandles, {|x| hb_IsArray(x) .AND. x[1] == hwndPG })
+   i := AScan(_HMG_aControlHandles, {|x|hb_IsArray(x) .AND. x[1] == hwndPG})
    IF i > 0 .AND. !empty(HwndBtn) // HwndBtn > 0
       aRowItem := _HMG_aControlPageMap[i]
       cFile    := _HMG_aControlCaption[i]
@@ -507,7 +507,7 @@ FUNCTION _DefinePropertyItem ( cType, cName, cValue, aData, disabled, disableedi
       Id := nItemId++
    ENDIF
    IF id != 0
-      IF AScan(_HMG_ActivePropGridArray, {|x| x[8] == Id }) > 0
+      IF AScan(_HMG_ActivePropGridArray, {|x|x[8] == Id}) > 0
          //         MsgMiniGuiError("Property Item ID double defined.")
          MsgMiniGuiError(_HMG_PGLangError[3])
       ENDIF
@@ -605,7 +605,7 @@ FUNCTION PgCheckData(typePG, cValue, aData, mod)
       EXIT
    CASE PG_USERFUN
       IF SubStr(AllTrim(aData), 1, 1) != "{"
-         aData := "{|x| " + aData + " }"
+         aData := "{|x|" + aData + "}"
          IF !hb_isBlock(&aData)
             cErr := _HMG_PGLangError[6] + " USERFUN " + _HMG_PGLangError[2]
             ret := .F.
@@ -1449,9 +1449,9 @@ FUNCTION PgIdentColor( met, cColor )
    DO CASE
    CASE met == 0
       cColor := AllTrim(cColor)
-      IF ( pos := AScan(aSysColor, {|x|  Upper(x[2] ) == Upper(cColor ) }) ) > 0
+      IF ( pos := AScan(aSysColor, {|x|Upper(x[2]) == Upper(cColor)}) ) > 0
          nColor := GetSysColor ( aSysColor[pos, 1] )
-      ELSEIF ( pos := AScan(aColor, {|x|  Upper(x[2] ) == Upper(cColor ) }) ) > 0
+      ELSEIF ( pos := AScan(aColor, {|x|Upper(x[2]) == Upper(cColor)}) ) > 0
          nColor := RGB(aColor[pos, 1], aColor[pos, 2], aColor[pos, 3])
       ELSE
          IF SubStr(cColor, 1, 1) == "(" .AND. RAt(")", cColor) == Len(cColor)
@@ -1469,7 +1469,7 @@ FUNCTION PgIdentColor( met, cColor )
    CASE met == 1
       result := aSysColor
    CASE met == 2
-      result := AScan(aSysColor, {|x|  Upper(x[2]) == Upper(AllTrim(cColor)) })
+      result := AScan(aSysColor, {|x|Upper(x[2]) == Upper(AllTrim(cColor))})
    ENDCASE
 
 RETURN result
@@ -2008,7 +2008,7 @@ FUNCTION SetPropGridValue ( ParentForm, ControlName, nID, cValue, cData, lExp )
       ENDIF
    ENDIF
    hWndPG := GetPGControlHandle ( ControlName, ParentForm )
-   i := AScan(_HMG_aControlHandles, {|x| hb_IsArray(x) .AND. x[1] == hwndPG })
+   i := AScan(_HMG_aControlHandles, {|x|hb_IsArray(x) .AND. x[1] == hwndPG})
    IF i > 0
       hEdit := _HMG_aControlMiscData2[i]
    ENDIF
@@ -2207,7 +2207,7 @@ FUNCTION ValueTran( cValue, ItType, cData, nSubIt )
          IF nSubIt > 0 .AND. nSubIt <= Len(xData)
             xdata := Val(xData[nSubIt])
          ELSE
-            AEval(xData, {|x| x := IIF(x == "true", .T., .F.) }, 3)
+            AEval(xData, {|x|x := IIF(x == "true", .T., .F.)}, 3)
             ASize(xData, 8)
             xData := AIns( xData, 5 )
             xData[5] := { 0, 0, 0 }
@@ -2404,7 +2404,7 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
 
    lParam := Nil //unused parameter
 
-   IF ( i := AScan(_HMG_aControlHandles, {|x| hb_IsArray(x) .AND. x[1] == hwndPG }) ) == 0
+   IF ( i := AScan(_HMG_aControlHandles, {|x|hb_IsArray(x) .AND. x[1] == hwndPG}) ) == 0
       RETURN 0
    ENDIF
    IF ( x := AScan(_HMG_aFormHandles, _HMG_aControlParentHandles[i]) ) > 0
@@ -2686,7 +2686,7 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
             ENDIF
             DO WHILE ( hChildItem := TreeView_GetNextSibling(hWndPG, hChildItem) ) > 0 // TODO:
                IF TreeView_GetParent(hWndPG, hChildItem) == hItem
-                  IF  ( pos := AScan(aData,{|fIt| fIt[2] == PG_GETITEM(hWndPG,hChildItem,PGI_NAME ) }) ) > 0
+                  IF  ( pos := AScan(aData,{|fIt|fIt[2] == PG_GETITEM(hWndPG, hChildItem, PGI_NAME)}) ) > 0
                      PG_SETDATAITEM(hWndPG, hChildItem, aData[pos, 3], "FONT", .T.)
                      PG_REDRAWITEM(hWndPG, hChildItem)
                      TreeView_SelectItem(hWndPG, hItem)
@@ -2769,7 +2769,7 @@ FUNCTION _PGInitData(hWnd, hEdit, hWndItem, ItemType)
    LOCAL aData
    LOCAL hParentItem
 
-   i := AScan(_HMG_aControlHandles, {|x| hb_IsArray(x) .AND. x[1] == hWnd })
+   i := AScan(_HMG_aControlHandles, {|x|hb_IsArray(x) .AND. x[1] == hWnd})
    IF i > 0
       ItHeight := _HMG_aControlRangeMin[i] - 4
       IF PG_GETITEM( hWnd, hWndItem, PGI_CHG )

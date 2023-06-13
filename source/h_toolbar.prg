@@ -332,7 +332,7 @@ FUNCTION _DefineToolButton ( ControlName, ParentControl, x, y, Caption, Procedur
 
       IF WholeDropDown
          nToolBarIndex := AScan(_HMG_aControlHandles , ParentForm)
-         ProcedureName := { || _DropDownShortcut ( Id , hParentForm , nToolBarIndex , nPos ) }
+         ProcedureName := {||_DropDownShortcut(Id, hParentForm, nToolBarIndex, nPos)}
       ENDIF
 
       _DefineLetterOrDigitHotKey ( Caption , i , cParentForm , ProcedureName )

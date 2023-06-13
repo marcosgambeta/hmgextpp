@@ -520,11 +520,11 @@ PROCEDURE HMG_CheckType(lSoft, ...)
 
          IF !( lSoft .AND. AllTrim(aData[2]) == "U" )
 
-            i := AScan(aType, {| x | x[1] == Upper(AllTrim(aData[1])) })
+            i := AScan(aType, {|x|x[1] == Upper(AllTrim(aData[1]))})
 
             IF i == 0 .OR. aType[i][2] != aData[2]
 
-               j := AScan(aType, {| x | x[2] == aData[2] })
+               j := AScan(aType, {|x|x[2] == aData[2]})
 
                MsgMiniGuiError("CHECK TYPE ( Param # " + hb_ntos(aData:__enumindex()) + " ) : " + AllTrim(aData[3]) + " is declared as " + Upper(AllTrim(aData[1])) + " but it have type " + aType[j][1] + ".")
 

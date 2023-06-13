@@ -89,7 +89,7 @@ STATIC FUNCTION CheckForDuplicateMRU( NewItem )
       // Uppercase newitem for string comparisons
       NewItem := Upper(NewItem)
       // Check all existing MRUs for duplicate
-      IF ( i := AScan(aMRU_File , {|y| Upper(y[2]) == NewItem }) ) != 0
+      IF ( i := AScan(aMRU_File , {|y|Upper(y[2]) == NewItem}) ) != 0
          DuplicateMRU := i
       ENDIF
    ENDIF
@@ -121,7 +121,7 @@ FUNCTION AddMenuElement(NewItem, cAction)
    ELSE
       // Add a new element to the menu
       FOR n := 1 TO Len(aMRU_File) + 1
-         x := AScan(aMRU_File , {|y| y[5] == n })
+         x := AScan(aMRU_File , {|y|y[5] == n})
          IF x == 0
             x := n
             EXIT
@@ -261,7 +261,7 @@ FUNCTION ClearMRUList()
    FOR EACH n IN aMRU_File DESCEND
       cxMRU_Id := n[3]
       IF n:__enumIsLast()
-         _ModifyMenuItem( cxMRU_Id , MRUParentForm , " (Empty) " , {|| Nil } )
+         _ModifyMenuItem( cxMRU_Id , MRUParentForm , " (Empty) " , {||Nil} )
          SetProperty( MRUParentForm , cxMRU_Id , "Enabled" , .F. )
          cMRU_Id := cxMRU_Id
          aMRU_File := {}

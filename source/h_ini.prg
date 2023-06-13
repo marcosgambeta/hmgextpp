@@ -415,7 +415,7 @@ FUNCTION xChar( xValue )
    CASE cType == "L" ; cValue := iif(xValue, "T", "F")
    CASE cType == "A" ; cValue := AToC(xValue)
    CASE cType $  "UE"; cValue := "NIL"
-   CASE cType == "B" ; cValue := "{|| ... }"
+   CASE cType == "B" ; cValue := "{||...}"
    CASE cType == "O" ; cValue := "{" + xValue:className + "}"
    ENDCASE
 
@@ -492,7 +492,7 @@ FUNCTION _GetSectionNames( cIniFile )
    IF File(cIniFile)
       aLista := _GetPrivateProfileSectionNames( cIniFile )
       IF !Empty(aLista)
-         AEval(aLista, {|cVal| iif(Empty(cVal), NIL, AAdd(aSectionList, cVal))})
+         AEval(aLista, {|cVal|iif(Empty(cVal), NIL, AAdd(aSectionList, cVal))})
       ENDIF
    ELSE
       MsgStop( "Can`t open " + cIniFile, "Error" )

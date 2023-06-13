@@ -321,7 +321,7 @@ FUNCTION _SetStatusClock ( BarName , FormName , Width , ToolTip , Action , lAMPM
 
    nrItem := _DefineItemMessage ( "TimerBar", BarName, 0, 0, iif(lAMPM, AMPM( Time() ), Time()), Action, Width, 0, , "", ToolTip, , backcolor, fontcolor, 1 )
 
-   _DefineTimer ( "StatusTimer" , FormName , 1000 , {|| _SetItem ( BarName , FormName , nrItem , iif(lAMPM, AMPM( Time() ), Time()) ) } )
+   _DefineTimer ( "StatusTimer" , FormName , 1000 , {||_SetItem(BarName, FormName, nrItem, iif(lAMPM, AMPM(Time()), Time()))} )
 
 RETURN Nil
 
@@ -338,21 +338,21 @@ FUNCTION _SetStatusKeybrd(BarName, FormName, Width, ToolTip, action)
    __defaultNIL(@Action, "")
 
    nrItem1 := _DefineItemMessage("TimerNum", BarName, 0, 0, "NumLock", ;
-      iif(Empty(Action), {|| iif(_HMG_IsXPorLater, KeyToggleNT(VK_NUMLOCK), KeyToggle(VK_NUMLOCK)) }, Action), Width + 20, 0, ;
+      iif(Empty(Action), {||iif(_HMG_IsXPorLater, KeyToggleNT(VK_NUMLOCK), KeyToggle(VK_NUMLOCK))}, Action), Width + 20, 0, ;
       iif(IsNumLockActive(), "zzz_led_on", "zzz_led_off"), "", ToolTip)
 
    nrItem2 := _DefineItemMessage("TimerCaps", BarName, 0, 0, "CapsLock", ;
-      iif(Empty(Action), {|| iif(_HMG_IsXPorLater, KeyToggleNT(VK_CAPITAL), KeyToggle(VK_CAPITAL)) }, Action), Width + 25, 0, ;
+      iif(Empty(Action), {||iif(_HMG_IsXPorLater, KeyToggleNT(VK_CAPITAL), KeyToggle(VK_CAPITAL))}, Action), Width + 25, 0, ;
       iif(IsCapsLockActive(), "zzz_led_on", "zzz_led_off"), "", ToolTip)
 
    nrItem3 := _DefineItemMessage("TimerInsert", BarName, 0, 0, "Insert", ;
-      iif(Empty(Action), {|| iif(_HMG_IsXPorLater, KeyToggleNT(VK_INSERT), KeyToggle(VK_INSERT)) }, Action), Width, 0, ;
+      iif(Empty(Action), {||iif(_HMG_IsXPorLater, KeyToggleNT(VK_INSERT), KeyToggle(VK_INSERT))}, Action), Width, 0, ;
       iif(IsInsertActive(), "zzz_led_on", "zzz_led_off"), "", ToolTip)
 
    _DefineTimer ( "StatusKeyBrd" , FormName , 250 , ;
-      {|| _SetStatusIcon ( BarName , FormName , nrItem1 , iif(IsNumLockActive() , "zzz_led_on" , "zzz_led_off") ), ;
+      {||_SetStatusIcon ( BarName , FormName , nrItem1 , iif(IsNumLockActive() , "zzz_led_on" , "zzz_led_off") ), ;
       _SetStatusIcon ( BarName , FormName , nrItem2 , iif(IsCapsLockActive() , "zzz_led_on" , "zzz_led_off") ), ;
-      _SetStatusIcon ( BarName , FormName , nrItem3 , iif(IsInsertActive() , "zzz_led_on" , "zzz_led_off") ) } )
+      _SetStatusIcon ( BarName , FormName , nrItem3 , iif(IsInsertActive() , "zzz_led_on" , "zzz_led_off") )} )
 
 RETURN Nil
 
@@ -431,9 +431,9 @@ FUNCTION _SetStatusBarKbd(BarName, FormName)
    _DefineItemMessage ( ITEMNAME, BarName, 0, 0, "SCRL", , 44, 0, , , , , , SILVER )
 
    _DefineTimer ( "StatusBarKbd" , FormName , 250 , ;
-      {|| _SetStatusItemProperty( 2, iif(IsCapsLockActive(), BLACK, SILVER), GetFormHandle(FormName), STATUS_ITEM_FONTCOLOR ), ;
+      {||_SetStatusItemProperty( 2, iif(IsCapsLockActive(), BLACK, SILVER), GetFormHandle(FormName), STATUS_ITEM_FONTCOLOR ), ;
       _SetStatusItemProperty( 3, iif(IsNumLockActive(), BLACK, SILVER), GetFormHandle(FormName), STATUS_ITEM_FONTCOLOR ), ;
-      _SetStatusItemProperty( 4, iif(IsScrollLockActive(), BLACK, SILVER), GetFormHandle(FormName), STATUS_ITEM_FONTCOLOR ) } )
+      _SetStatusItemProperty( 4, iif(IsScrollLockActive(), BLACK, SILVER), GetFormHandle(FormName), STATUS_ITEM_FONTCOLOR )} )
 
 RETURN Nil
 

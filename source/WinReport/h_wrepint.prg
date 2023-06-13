@@ -655,7 +655,7 @@ Procedure MsgMulty( xMesaj, cTitle ) // Created By Bicahi Esgici <esgici@gmail.c
          xMesaj := { xMesaj }
       ENDIF
 
-      AEVAL(xMesaj, { | x1 | cMessage +=  Any2Strg( x1 ) + CRLF })
+      AEVAL(xMesaj, {|x1|cMessage +=  Any2Strg(x1) + CRLF})
 
       MsgInfo( cMessage, cTitle )
 
@@ -669,17 +669,17 @@ FUNC Any2Strg( xAny )
 *-----------------------------------------------------------------------------*
    loca cRVal  := "???",;
         nType  :=  0,;
-        aCases := { { "A", { |  | "{...}" } },;
-                    { "B", { |  | "{||}" } },;
-                    { "C", { | x | x }},;
-                    { "M", { | x | x   } },;
-                    { "D", { | x | DTOC(x) } },;
-                    { "L", { | x | IIF(x, "On", "Off") } },;
-                    { "N", { | x | NTrim(x)  } },;
-                    { "O", { |  | ":Object:" } },;
-                    { "U", { |  | "<NIL>" } } }
+        aCases := {{"A", {||"{...}"}},;
+                   {"B", {||"{||}"}},;
+                   {"C", {|x|x}},;
+                   {"M", {|x|x}},;
+                   {"D", {|x|DTOC(x)}},;
+                   {"L", {|x|IIF(x, "On", "Off")}},;
+                   {"N", {|x|NTrim(x)}},;
+                   {"O", {||":Object:"}},;
+                   {"U", {||"<NIL>"}}}
 
-   IF (nType := ASCAN(aCases, { | a1 | VALTYPE(xAny) == a1[1] }) ) > 0
+   IF (nType := ASCAN(aCases, {|a1|VALTYPE(xAny) == a1[1]})) > 0
       cRVal := EVAL(aCases[ nType, 2 ], xAny)
    ENDIF
 
@@ -1500,7 +1500,7 @@ if "{" $ left(TransPar[1], 2)
    endcase
 endif
 ifc := alltrim(upper(TransPar[1]))
-oErrAntes := ERRORBLOCK({ |objErr| BREAK(objErr) } )
+oErrAntes := ERRORBLOCK({|objErr|BREAK(objErr)})
 BEGIN SEQUENCE
       if ifc == "IF"     /// Start adaptation if else construct - 03/Feb/2008
          ::aStat["EntroIF"] := .T.

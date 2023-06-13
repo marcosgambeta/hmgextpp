@@ -74,7 +74,7 @@ CREATE CLASS TReg32
    METHOD Get(cRegVar, uVar)
    METHOD Set(cRegVar, uVar)
    METHOD Delete(cRegVar)
-   METHOD Close() BLOCK {|Self| iif(::lError, NIL, RegCloseKey(::nHandle)) }
+   METHOD Close() BLOCK {|Self|iif(::lError, NIL, RegCloseKey(::nHandle))}
 
 ENDCLASS
 

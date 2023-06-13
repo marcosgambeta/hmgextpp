@@ -146,7 +146,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
 
       IF lDialogInMemory         //Dialog Template
 
-         blInit := {|x, y, z| InitDialogEdit(x, y, z) }
+         blInit := {|x, y, z|InitDialogEdit(x, y, z)}
 
          //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          AAdd(_HMG_aDialogItems, {nId, k, "edit", style, 0, x, y, w, h, value, HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})

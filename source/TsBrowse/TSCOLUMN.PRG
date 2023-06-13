@@ -287,7 +287,7 @@ METHOD New(cHeading, bData, cPicture, aColors, aAlign, nWidth, lBitMap, lEdit, b
 
    DEFAULT cHeading    := ""
    DEFAULT bData       := {||NIL}
-   DEFAULT cData       := "{|| Nil }"
+   DEFAULT cData       := "{||Nil}"
    DEFAULT cPicture    := NIL
    DEFAULT lBitMap     := .F.
    DEFAULT lEdit       := .F.
@@ -295,7 +295,7 @@ METHOD New(cHeading, bData, cPicture, aColors, aAlign, nWidth, lBitMap, lEdit, b
    DEFAULT cOrder      := ""
    DEFAULT cWhen       := ""
    DEFAULT bValid      := {||.T.}
-   DEFAULT cValid      := "{|| .T. }"
+   DEFAULT cValid      := "{||.T.}"
    DEFAULT nEditMove   := DT_MOVE_RIGHT // cursor movement after editing
    DEFAULT lFixLite    := .F.           // for "double cursor" (permanent) efect (only when lCellBrw == .T.)
    DEFAULT lSpinner    := .F.

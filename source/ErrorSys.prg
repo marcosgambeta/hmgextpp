@@ -224,11 +224,11 @@ STATIC PROCEDURE ShowError(cErrorMessage, oError)
 
       ELSE
 
-         bInit := {|| iif(GetControlType("Say_01", "oDlg") == CONTROL_TYPE_EDIT,, ( ;
+         bInit := {||iif(GetControlType("Say_01", "oDlg") == CONTROL_TYPE_EDIT,, ( ;
             SetProperty("oDlg", "Say_01", "FontColor", YELLOW), ;
             SetProperty("oDlg", "Say_01", "Alignment", "CENTER"), ;
             SetProperty("oDlg", "Say_02", "FontColor", YELLOW), ;
-            SetProperty("oDlg", "Say_02", "Alignment", "CENTER"))) }
+            SetProperty("oDlg", "Say_02", "Alignment", "CENTER")))}
 
          IF AScan(_HMG_aFormType, "A") == 0
             _HMG_MainWindowFirst := .F.
@@ -373,29 +373,29 @@ STATIC PROCEDURE ErrorLog(nHandle, oErr)
       HTML_RawText(nHandle, "<br/></summary>")
 
       hb_WAEval({||
-      IF hb_IsFunction("Select")
-         Html_LineText(nHandle, "Work Area No ......: " + strvalue(Do("Select")))
-      ENDIF
-      IF hb_IsFunction("Alias")
-         Html_LineText(nHandle, "Alias .............: " + Do("Alias"))
-      ENDIF
-      IF hb_IsFunction("RecNo")
-         Html_LineText(nHandle, "Current Recno .....: " + strvalue(Do("RecNo")))
-      ENDIF
-      IF hb_IsFunction("dbFilter")
-         Html_LineText(nHandle, "Current Filter ....: " + Do("dbFilter"))
-      ENDIF
-      IF hb_IsFunction("dbRelation")
-         Html_LineText(nHandle, "Relation Exp. .....: " + Do("dbRelation"))
-      ENDIF
-      IF hb_IsFunction("IndexOrd")
-         Html_LineText(nHandle, "Index Order .......: " + strvalue(Do("IndexOrd")))
-      ENDIF
-      IF hb_IsFunction("IndexKey")
-         Html_LineText(nHandle, "Active Key ........: " + strvalue(Eval(hb_macroBlock("IndexKey( 0 )"))))
-      ENDIF
-      Html_LineText(nHandle, "")
-      RETURN .T.
+         IF hb_IsFunction("Select")
+            Html_LineText(nHandle, "Work Area No ......: " + strvalue(Do("Select")))
+         ENDIF
+         IF hb_IsFunction("Alias")
+            Html_LineText(nHandle, "Alias .............: " + Do("Alias"))
+         ENDIF
+         IF hb_IsFunction("RecNo")
+            Html_LineText(nHandle, "Current Recno .....: " + strvalue(Do("RecNo")))
+         ENDIF
+         IF hb_IsFunction("dbFilter")
+            Html_LineText(nHandle, "Current Filter ....: " + Do("dbFilter"))
+         ENDIF
+         IF hb_IsFunction("dbRelation")
+            Html_LineText(nHandle, "Relation Exp. .....: " + Do("dbRelation"))
+         ENDIF
+         IF hb_IsFunction("IndexOrd")
+            Html_LineText(nHandle, "Index Order .......: " + strvalue(Do("IndexOrd")))
+         ENDIF
+         IF hb_IsFunction("IndexKey")
+            Html_LineText(nHandle, "Active Key ........: " + strvalue(Eval(hb_macroBlock("IndexKey( 0 )"))))
+         ENDIF
+         Html_LineText(nHandle, "")
+         RETURN .T.
       })
 
       HTML_RawText(nHandle, "</details>")

@@ -130,7 +130,7 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
    ENDIF
 
    IF tooltip != NIL
-      AEval(RetArray, { |x| SetToolTip ( x , tooltip , GetFormToolTipHandle(cParentForm) ) })
+      AEval(RetArray, {|x|SetToolTip(x, tooltip, GetFormToolTipHandle(cParentForm))})
    ENDIF
 
    k := _GetControlFree()
@@ -235,10 +235,10 @@ FUNCTION OSPINEVENTS( hWnd, nMsg, wParam, lParam )    // 2006.08.13 JD
 
    CASE WM_CONTEXTMENU
 
-      i := AScan(_HMG_aControlHandles, { |x| iif(hb_IsArray(x), ( AScan(x, hWnd) > 0 ), x == hWnd) })
+      i := AScan(_HMG_aControlHandles, {|x|iif(hb_IsArray(x), (AScan(x, hWnd) > 0), x == hWnd)})
       ParentForm := _HMG_aControlParentHandles[i]
 
-      i := AScan(_HMG_aControlsContextMenu, { |x| x[1] == hWnd })
+      i := AScan(_HMG_aControlsContextMenu, {|x|x[1] == hWnd})
 
       IF i > 0
 

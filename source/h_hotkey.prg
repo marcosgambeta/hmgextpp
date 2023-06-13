@@ -272,7 +272,7 @@ FUNCTION _DetermineKey ( cKey )
 
       IF ( nPos := At("+", cKey2) ) == 0
          cKey2 := AllTrim(cKey2)
-         nPos := AScan(_SetGetGlobal( "_HMG_aKeyTables" ), { |c| cKey2 == c })
+         nPos := AScan(_SetGetGlobal( "_HMG_aKeyTables" ), {|c|cKey2 == c})
          cKey2 := ""
          IF nPos != 0
             aKey := { nPos, nAlt + nCtrl + nShift + nWin }

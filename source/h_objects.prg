@@ -54,9 +54,9 @@ METHOD GetAll( lAll ) CLASS THmgData
    LOCAL aRet := {}
 
    IF hb_IsLogical(lAll) .AND. lAll
-      ::Eval({| val | AAdd(aRet, val) })
+      ::Eval({|val|AAdd(aRet, val)})
    ELSE
-      ::Eval({| val, KEY | AAdd(aRet, {KEY, val}) })
+      ::Eval({|val, KEY|AAdd(aRet, {KEY, val})})
    ENDIF
 
 RETURN aRet
@@ -297,7 +297,7 @@ METHOD ToValue(cStr) CLASS TIniData
       left(cStr, 2) == "e" + Chr(34) .AND. right(cStr, 1) == Chr(34) .OR. ;
       left(cStr, 2) == "t" + Chr(34) .AND. right(cStr, 1) == Chr(34) .OR. ;
       left(cStr, 4) == "0d20" .AND. Len(cStr) == 10
-      BEGIN SEQUENCE WITH { |e|break(e) }
+      BEGIN SEQUENCE WITH {|e|break(e)}
          xVal := &(cStr)
       END SEQUENCE
       IF left(cStr, 2) == "t" + Chr(34) .AND. right(cStr, 1) == Chr(34) .AND. ;
@@ -1120,7 +1120,7 @@ METHOD GetListType() CLASS TWndData
    LOCAL oType := oKeyData()
    LOCAL aType
 
-   ::oName:Eval({| o | oType:Set(o:cType, o:cType) })
+   ::oName:Eval({|o|oType:Set(o:cType, o:cType)})
    aType := oType:Eval(.T.)
    oType:Destroy()
    oType := NIL
@@ -1138,7 +1138,7 @@ METHOD GetObj4Type(cType, lEque) CLASS TWndData
       IF ::cChr $ cType ; lEque := .F.
       ENDIF
       FOR EACH cType IN hb_ATokens(Upper(cType), ::cChr)
-         ::oName:Eval({| oc | iif(lEque, iif(cType == oc:cType, AAdd(aObj, oc), NIL), iif(cType $ oc:cType, AAdd(aObj, oc), NIL))})
+         ::oName:Eval({|oc|iif(lEque, iif(cType == oc:cType, AAdd(aObj, oc), NIL), iif(cType $ oc:cType, AAdd(aObj, oc), NIL))})
       NEXT
       FOR EACH o IN aObj
          IF _IsControlDefined(o:Name, o:Window:Name)
@@ -1155,8 +1155,7 @@ METHOD GetObj4Name(cName) CLASS TWndData
 
    IF !Empty(cName)
       FOR EACH cName IN hb_ATokens(Upper(cName), ::cChr)
-         ::oName:Eval({| oc | iif(_IsControlDefined(oc:Name, oc:Window:Name), ;
-            iif(cName $ Upper(oc:cName), AAdd(aObj, oc), Nil), Nil) })
+         ::oName:Eval({|oc|iif(_IsControlDefined(oc:Name, oc:Window:Name), iif(cName $ Upper(oc:cName), AAdd(aObj, oc), Nil), Nil)})
       NEXT
    ENDIF
 
@@ -1476,7 +1475,7 @@ CLASS TKeyData
    METHOD Del( Key ) INLINE ( iif(::Len > 0, hb_HDel ( ::aKey, Key ), NIL), ::lKey := Len(::aKey) > 0 )
    METHOD Pos( Key ) INLINE hb_HPos( ::aKey, Key )
 
-   METHOD Do ( Key, p1, p2, p3 ) BLOCK {| Self, Key, p1, p2, p3, b | b := ::Get(Key), ;
+   METHOD Do ( Key, p1, p2, p3 ) BLOCK {|Self, Key, p1, p2, p3, b|b := ::Get(Key), ;
       iif(hb_IsBlock(b), Eval(b, ::oObj, Key, p1, p2, p3 ), Nil)}
 
    ACCESS Obj INLINE ::oObj
@@ -1511,9 +1510,9 @@ METHOD GetAll( lAll ) CLASS TKeyData
    LOCAL aRet := {}
 
    IF hb_IsLogical(lAll) .AND. lAll
-      ::Eval({| val | AAdd(aRet, val) })
+      ::Eval({|val|AAdd(aRet, val)})
    ELSE
-      ::Eval({| val, Key | AAdd(aRet, {Key, val}) })
+      ::Eval({|val, Key|AAdd(aRet, {Key, val})})
    ENDIF
 
 RETURN aRet
@@ -1548,7 +1547,7 @@ METHOD Sum( Key, xSum ) CLASS TKeyData
       ::Set(Key, sum)
    ELSEIF hb_IsArray(xSum)
       IF hb_IsArray(sum) .AND. Len(sum) == Len(xSum)
-         AEval(xSum, {| s, i | Sum[i] := iif(hb_IsNumeric(s), Sum[i] + s, s) })
+         AEval(xSum, {|s, i|Sum[i] := iif(hb_IsNumeric(s), Sum[i] + s, s)})
       ELSE
          Sum := xSum
       ENDIF
@@ -1634,8 +1633,8 @@ CLASS TThrData
    METHOD Get(Key, Def) INLINE iif(::lMT, ::SGD(2, Key, Def), hb_HGetDef( ::aKey, Key, Def ))
    METHOD Del( Key ) INLINE iif(::lMT, ::SGD(3, Key), iif(hb_HHasKey(::aKey, Key), hb_HDel(::aKey, Key), Nil))
 
-   METHOD Do ( Key, p1, p2, p3 ) BLOCK {| Self, Key, p1, p2, p3, b | b := ::Get(Key), ;
-      iif(hb_IsBlock(b), Eval(b, ::oObj, Key, p1, p2, p3), Nil) }
+   METHOD Do ( Key, p1, p2, p3 ) BLOCK {|Self, Key, p1, p2, p3, b|b := ::Get(Key), ;
+      iif(hb_IsBlock(b), Eval(b, ::oObj, Key, p1, p2, p3), Nil)}
    ACCESS MT INLINE ::lMT
    ASSIGN MT(lVmMt) INLINE ::lMT := iif(hb_IsLogical(lVmMt), lVmMt, .F.)
    ACCESS Obj INLINE ::oObj
@@ -1677,9 +1676,9 @@ METHOD GetAll( lAll ) CLASS TThrData
    LOCAL aRet := {}
 
    IF hb_IsLogical(lAll) .AND. lAll
-      ::Eval({| val | AAdd(aRet, val) })
+      ::Eval({|val|AAdd(aRet, val)})
    ELSE
-      ::Eval({| val, Key | AAdd(aRet, {Key, val}) })
+      ::Eval({|val, Key|AAdd(aRet, {Key, val})})
    ENDIF
 
 RETURN aRet
@@ -1726,7 +1725,7 @@ METHOD Sum( Key, xSum ) CLASS TThrData
       ::Set(Key, sum)
    ELSEIF hb_IsArray(xSum)
       IF hb_IsArray(sum) .AND. Len(sum) == Len(xSum)
-         AEval(xSum, {| s, i | Sum[i] := iif(hb_IsNumeric(s), Sum[i] + s, s) })
+         AEval(xSum, {|s, i|Sum[i] := iif(hb_IsNumeric(s), Sum[i] + s, s)})
       ELSE
          Sum := xSum
       ENDIF

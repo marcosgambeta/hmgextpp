@@ -71,7 +71,7 @@ FUNCTION _DefineChkLabel(ControlName, ParentFormName, x, y, Caption, w, h, ;
 #endif
    hb_default(@w, 120)
    hb_default(@h, 24)
-   __defaultNIL(@ProcedureName, {|| SetProperty(ParentFormName, ControlName, "Checked", NIL) })
+   __defaultNIL(@ProcedureName, {||SetProperty(ParentFormName, ControlName, "Checked", NIL)})
    hb_default(@invisible, .F.)
    hb_default(@bold, .F.)
    hb_default(@italic, .F.)

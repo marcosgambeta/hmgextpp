@@ -180,7 +180,7 @@ FUNCTION easyreport()
       ENDIF
    ELSE
       ntotalchar := nlmargin + nlen - 1 // sum spaces between column
-      AEval(awidths, {|w|ntotalchar += w })
+      AEval(awidths, {|w|ntotalchar += w})
       IF ncpl == NIL
          ncpl := ntotalchar
       ENDIF
@@ -439,7 +439,7 @@ STATIC FUNCTION headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grp
    LOCAL ctitle2
 
    nsum := 0
-   AEval(awidths, {|w|nsum += w })
+   AEval(awidths, {|w|nsum += w})
    npostitle := At("|", ctitle)
    ctitle2 := ""
    IF npostitle > 0

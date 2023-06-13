@@ -793,7 +793,7 @@ FUNCTION _DefineSplitChildWindow(FormName, w, h, break, grippertext, nocaption, 
    _HMG_aFormMinimizeProcedure         [k] := NIL
    _HMG_aFormRestoreProcedure          [k] := NIL
    _HMG_aFormAutoRelease               [k] := .T.
-   _HMG_aFormInteractiveCloseProcedure [k] := iif(nocaption, {|| .F.}, "")
+   _HMG_aFormInteractiveCloseProcedure [k] := iif(nocaption, {||.F.}, "")
    _HMG_aFormMinMaxInfo                [k] := InitMinMaxInfo(FormHandle)
    _HMG_aFormActivateId                [k] := 0
    _HMG_aFormMiscData1                 [k] := {NIL, cursor, 0, nBand, grippertext}
@@ -2359,8 +2359,7 @@ FUNCTION _ReleaseWindow(FormName)
 
    ELSE
 
-      AEval(_HMG_aFormHandles, {|x, i|iif(_HMG_aFormParentHandle[i] == FormHandle, _HMG_aFormParentHandle[i] := _HMG_MainHandle,), ;
-         HB_SYMBOL_UNUSED(x)})
+      AEval(_HMG_aFormHandles, {|x, i|iif(_HMG_aFormParentHandle[i] == FormHandle, _HMG_aFormParentHandle[i] := _HMG_MainHandle,), HB_SYMBOL_UNUSED(x)})
 
       EnableWindow(FormHandle)
       PostMessage(FormHandle, WM_CLOSE, 0, 1)

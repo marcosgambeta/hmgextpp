@@ -228,7 +228,7 @@ FUNCTION drawpolygon( window, apoints, penrgb, penwidth, fillrgb )
          fillrgb := { 255, 255, 255 }
       ENDIF
 
-      AEval(apoints, { | x | AAdd(yarr, x[1]), AAdd(xarr, x[2]) })
+      AEval(apoints, {|x|AAdd(yarr, x[1]), AAdd(xarr, x[2])})
       polygondraw( FormHandle, xarr, yarr, penrgb, penwidth, fillrgb, fill )
       AAdd(_HMG_aFormGraphTasks[i], {||polygondraw(FormHandle, xarr, yarr, penrgb, penwidth, fillrgb, fill)})
    ENDIF
@@ -249,7 +249,7 @@ FUNCTION drawpolybezier( window, apoints, penrgb, penwidth )
       hb_default(@penrgb, {0, 0, 0})
       hb_default(@penwidth, 1)
 
-      AEval(apoints, { | x | AAdd(yarr, x[1]), AAdd(xarr, x[2]) })
+      AEval(apoints, {|x|AAdd(yarr, x[1]), AAdd(xarr, x[2])})
       polybezierdraw( FormHandle, xarr, yarr, penrgb, penwidth )
       AAdd(_HMG_aFormGraphTasks[i], {||polybezierdraw(FormHandle, xarr, yarr, penrgb, penwidth)})
    ENDIF

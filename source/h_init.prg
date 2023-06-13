@@ -119,12 +119,12 @@ PROCEDURE Init()
    _HMG_lOOPEnabled := .F.
 
 #ifdef _OBJECT_
-   _HMG_bOnFormInit       := {|nIndex, cVar  | Do_OnWndInit(nIndex, cVar) }
-   _HMG_bOnFormDestroy    := {|nIndex        | Do_OnWndRelease(nIndex) }
-   _HMG_bOnControlInit    := {|nIndex, cVar  | Do_OnCtlInit(nIndex, cVar) }
-   _HMG_bOnControlDestroy := {|nIndex        | Do_OnCtlRelease(nIndex) }
-   _HMG_bOnWndLaunch      := {|hWnd, nMsg, wParam, lParam| Do_OnWndLaunch(hWnd, nMsg, wParam, lParam) }
-   _HMG_bOnCtlLaunch      := {|hWnd, nMsg, wParam, lParam| Do_OnCtlLaunch(hWnd, nMsg, wParam, lParam) }
+   _HMG_bOnFormInit       := {|nIndex, cVar|Do_OnWndInit(nIndex, cVar)}
+   _HMG_bOnFormDestroy    := {|nIndex|Do_OnWndRelease(nIndex)}
+   _HMG_bOnControlInit    := {|nIndex, cVar|Do_OnCtlInit(nIndex, cVar)}
+   _HMG_bOnControlDestroy := {|nIndex|Do_OnCtlRelease(nIndex)}
+   _HMG_bOnWndLaunch      := {|hWnd, nMsg, wParam, lParam|Do_OnWndLaunch(hWnd, nMsg, wParam, lParam)}
+   _HMG_bOnCtlLaunch      := {|hWnd, nMsg, wParam, lParam|Do_OnCtlLaunch(hWnd, nMsg, wParam, lParam)}
 #endif
    _HMG_DateTextBoxActive := .F.
 

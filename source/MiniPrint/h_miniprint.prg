@@ -826,7 +826,7 @@ STATIC PROCEDURE _HMG_PRINTER_CleanPreview()
 
    LOCAL t := GetTempFolder() + hb_ps()
 
-   AEval(Directory( t + _hmg_printer_timestamp + "_hmg_print_preview_*.Emf" ), {| file | FErase(t + file[1]) })
+   AEval(Directory( t + _hmg_printer_timestamp + "_hmg_print_preview_*.Emf" ), {|file|FErase(t + file[1])})
 
 RETURN
 

@@ -120,24 +120,23 @@ FUNCTION DrawGradient(window, row, col, rowr, colr, aColor1, aColor2, vertical, 
  
       CASE 2  // box
          AAdd(_HMG_aFormGraphTasks[i], ;
-            { || hDC := GetDC(FormHandle), ;
+            {||hDC := GetDC(FormHandle), ;
             WndBoxIn( hDC, row, col, rowr, colr ), ;
             FillGradient(hDC, row + 1, col + 1, rowr - 1, colr - 1, vertical, color1, color2), ;
-            ReleaseDC(FormHandle, hDC) })
+            ReleaseDC(FormHandle, hDC)})
          EXIT
 
       CASE 3  // panel
          AAdd(_HMG_aFormGraphTasks[i], ;
-            { || hDC := GetDC(FormHandle), ;
+            {||hDC := GetDC(FormHandle), ;
             WndBoxRaised(hDC, row, col, rowr, colr), ;
             FillGradient(hDC, row + 1, col + 1, rowr - 1, colr - 1, vertical, color1, color2), ;
-            ReleaseDC(FormHandle, hDC) })
+            ReleaseDC(FormHandle, hDC)})
          EXIT
 
       DEFAULT // border none
          AAdd(_HMG_aFormGraphTasks[i], ;
-            {|| FillGradient(hDC := GetDC(FormHandle), row, col, rowr, colr, vertical, color1, color2), ;
-            ReleaseDC(FormHandle, hDC) })
+            {||FillGradient(hDC := GetDC(FormHandle), row, col, rowr, colr, vertical, color1, color2), ReleaseDC(FormHandle, hDC)})
 
       END SWITCH
 

@@ -134,7 +134,7 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
          InitExCommonControls( 1 )
 
          // {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
-         blInit := {| x, y, z | InitDialogMonthCalendar( x, y, z ) }
+         blInit := {|x, y, z|InitDialogMonthCalendar(x, y, z)}
 
          AAdd(_HMG_aDialogItems, {nId, k, "SysMonthCal32", style, 0, x, y, w, h, "", HelpId, tooltip, fontname, fontsize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
@@ -337,7 +337,7 @@ FUNCTION AddMonthCalBoldDay( ControlName, ParentFormName, dDay )
 
    aBoldDays := _HMG_aControlPageMap[ix]
 
-   IF ( i := AScan(aBoldDays, {| d | d >= dDay }) ) == 0
+   IF ( i := AScan(aBoldDays, {|d|d >= dDay}) ) == 0
       AAdd(aBoldDays, dDay)
       SetDayState(ControlName, ParentFormName)
    ELSEIF aBoldDays[i] > dDay
@@ -408,7 +408,7 @@ FUNCTION SetDayState(ControlName, ParentFormName)
    aBoldDays := _HMG_aControlPageMap[i]
 
    dStart := aData[2]
-   iNextD := AScan(aBoldDays, {| d | d >= dStart })
+   iNextD := AScan(aBoldDays, {|d|d >= dStart})
 
    IF iNextD > 0
       dEnd := aData[3]

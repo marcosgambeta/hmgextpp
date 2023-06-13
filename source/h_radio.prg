@@ -144,7 +144,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
 
          FOR n := 1 TO Len(aId)
 
-            blInit := iif(n == Len(aId), {|x, y, z| InitDialogRadioGroup( x,y,z ) }, {|| Nil })
+            blInit := iif(n == Len(aId), {|x, y, z|InitDialogRadioGroup(x, y, z)}, {||Nil})
             AAdd(_HMG_aDialogItems, {aId[n], k, "button", style, 0, x, y, width, spacing, aOptions[n], HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
             IF horizontal
                x += Width + Spacing
@@ -258,7 +258,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
    IF !lDialogInMemory
 
       IF _HMG_IsThemed .AND. ( IsArrayRGB(backcolor) .OR. IsArrayRGB(fontcolor) )
-         AEval(aHandles, { | h | SetWindowTheme ( h, "", "" ) })
+         AEval(aHandles, {|h|SetWindowTheme(h, "", "")})
       ENDIF
 
       IF _HMG_BeginTabActive

@@ -125,7 +125,7 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
       IF Len(aJust) < Len(aFields)
          ASize(aJust, Len(aFields))
       ENDIF 
-      AEval(aJust, { |x, i| aJust[i] := iif(hb_IsNumeric(x), x, 0) })
+      AEval(aJust, {|x, i|aJust[i] := iif(hb_IsNumeric(x), x, 0)})
    ENDIF
    /* end code borrowed */
    // aPict array verify
@@ -133,7 +133,7 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
       IF Len(aPict) < Len(aFields)
          ASize(aPict, Len(aFields))
       ENDIF 
-      AEval(aPict, { |x, i| aPict[i] := x })
+      AEval(aPict, {|x, i|aPict[i] := x})
    ELSE
       aPict := AFill(Array(Len(aFields)), NIL)
    ENDIF
@@ -165,7 +165,7 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
 
       IF lDialogInMemory         //Dialog Template
 
-         blInit := {|x, y, z| InitDialogBrowse(x, y, z) }
+         blInit := {|x, y, z|InitDialogBrowse(x, y, z)}
          AAdd(_HMG_aDialogItems, {nId, k, "SysListView32", style, 0, x, y, w - DeltaWidth, h, "", HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
@@ -232,7 +232,7 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
 
       IF lsort
          aHeadClick := Array(Len(aHeaders))
-         AEval(aHeadClick, { | x, i | aHeadClick[i] := { | n | HMG_SetOrder( n ) }, HB_SYMBOL_UNUSED(x) })
+         AEval(aHeadClick, {|x, i|aHeadClick[i] := {|n|HMG_SetOrder(n)}, HB_SYMBOL_UNUSED(x)})
       ENDIF
 
       IF !empty(FontHandle)
@@ -855,7 +855,7 @@ STATIC FUNCTION _TypeEx ( cTemp )
    LOCAL nFieldPos
 
    aStruct := dbStruct()
-   nFieldPos := AScan(aStruct, {|x| x[DBS_NAME] == Upper(cTemp) })
+   nFieldPos := AScan(aStruct, {|x|x[DBS_NAME] == Upper(cTemp)})
 
 RETURN iif(nFieldPos > 0, aStruct[nFieldPos][DBS_TYPE], Type(cTemp))
 
@@ -2046,7 +2046,7 @@ RETURN Nil
 STATIC FUNCTION _EditRecordCancel ()
 *-----------------------------------------------------------------------------*
 
-   AEval(aResult, { |x, i| HB_SYMBOL_UNUSED(x), aResult[i] := Nil })
+   AEval(aResult, {|x, i|HB_SYMBOL_UNUSED(x), aResult[i] := Nil})
 
    RELEASE WINDOW _EditRecord
 

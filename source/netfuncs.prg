@@ -22,14 +22,14 @@ STATIC FUNCTION NetLock( nType, lReleaseLocks, nSeconds )
    SWITCH nType
    CASE NET_RECLOCK                        // 1 = Record Lock...
       xIdentifier := iif(lReleaseLocks, NIL, RecNo())
-      bOperation  := {| x | dbRLock( x ) }
+      bOperation  := {|x|dbRLock(x)}
       EXIT
    CASE NET_FILELOCK                       // 2 = File Lock...
-      bOperation := {|| FLock() }
+      bOperation := {||FLock()}
       EXIT
    CASE NET_APPEND                         // 3 = Append Blank...
       xIdentifier := lReleaseLocks
-      bOperation  := {| x | dbAppend(x), !NetErr() }
+      bOperation  := {|x|dbAppend(x), !NetErr()}
       EXIT
    ENDSWITCH
 
@@ -141,7 +141,7 @@ FUNCTION IsLocked(nRecId)
 
    __defaultNIL(@nRecID, RecNo())
 
-   RETURN AScan(dbRLockList(), {| n | n == nRecID }) > 0
+   RETURN AScan(dbRLockList(), {|n|n == nRecID}) > 0
 
 
 FUNCTION NetError()

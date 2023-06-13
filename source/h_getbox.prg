@@ -224,7 +224,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
 
       IF Len(_HMG_aDialogTemplate) > 0        //Dialog Template
 
-         blInit := {|x, y, z| InitDialogTextBox( x, y, z ) }
+         blInit := {|x, y, z|InitDialogTextBox( x, y, z )}
          AAdd(_HMG_aDialogItems, {nId, k, "EDIT", style, 0, x, y, w, h, Value, HelpId, aTooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
@@ -276,7 +276,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    ENDIF
 
    oget := Get()
-   oget:New( -1, -1, { | x | iif(x == NIL, oget:cargo, oget:cargo := x) }, "", cPicture )
+   oget:New( -1, -1, {|x|iif(x == NIL, oget:cargo, oget:cargo := x)}, "", cPicture )
    oget:cargo     := Value
    oget:preblock  := when
    oget:postblock := valid
@@ -354,7 +354,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
       IF hb_IsChar(Value)
          _HMG_aControlGotFocusProcedure[k] := {||SendMessage(_HMG_aControlHandles[k], EM_SETSEL, 0, iif(Empty(Value), -1, Len(Trim((_HMG_aControlHeadClick[k]):Cargo))))}
       ELSEIF ValType(Value) $ "ND"
-         _HMG_aControlGotFocusProcedure[k] := {|| SendMessage(_HMG_aControlHandles[k], EM_SETSEL, 0, -1) }
+         _HMG_aControlGotFocusProcedure[k] := {||SendMessage(_HMG_aControlHandles[k], EM_SETSEL, 0, -1)}
       ENDIF
    ENDIF
 
@@ -1337,7 +1337,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
       ParentHandle := _HMG_aControlParentHandles[i]
 
-      IF ( i := AScan(_HMG_aControlsContextMenu , {|x| x[1] == hWnd }) ) > 0
+      IF ( i := AScan(_HMG_aControlsContextMenu , {|x|x[1] == hWnd}) ) > 0
 
          IF _HMG_aControlsContextMenu[i][4]
             setfocus( wParam )

@@ -19,13 +19,13 @@ FUNCTION HMG_DbfToArray(cFieldList, bFor, bWhile, nNext, nRec, lRest)
 
    IF Empty(cFieldList)
       cFieldList := ""
-      AEval(dbStruct(), {| a | cFieldList += "," + a[1] })
+      AEval(dbStruct(), {|a|cFieldList += "," + a[1]})
       cFieldList := SubStr(cFieldList, 2)
    ENDIF
 
-   bLine := &( "{||{" + cFieldList + "}}" )
+   bLine := &("{||{" + cFieldList + "}}")
 
-   dbEval({ || AAdd(aRet, Eval(bLine)) }, bFor, bWhile, nNext, nRec, lRest)
+   dbEval({||AAdd(aRet, Eval(bLine))}, bFor, bWhile, nNext, nRec, lRest)
 
    dbGoto( nRecNo )
 
@@ -179,7 +179,7 @@ FUNCTION HMG_DbfToExcel( cFieldList, aHeader, bFor, bWhile, nNext, nRec, lRest )
 
    IF Empty(cFieldList)
       cFieldList := ""
-      AEval(dbStruct(), { | x | cFieldList += "," + x[1] })
+      AEval(dbStruct(), {|x|cFieldList += "," + x[1]})
       cFieldList := SubStr(cFieldList, 2)
    ENDIF
 
@@ -203,12 +203,12 @@ FUNCTION HMG_DbfToExcel( cFieldList, aHeader, bFor, bWhile, nNext, nRec, lRest )
    oRange:Rows( nRow ):Value := aHeader
    oRange:Rows( nRow ):Font:Bold := .T.
 
-   bLine := &( "{||{" + cFieldList + "}}" )
+   bLine := &("{||{" + cFieldList + "}}")
    IF Empty(bWhile) .AND. Empty(nNext) .AND. Empty(nRec) .AND. Empty(lRest)
       dbGoTop()
    ENDIF
 
-   dbEval({ || oRange:Rows( ++nRow ):Value := Eval(bLine), nRow }, bFor, bWhile, nNext, nRec, lRest)
+   dbEval({||oRange:Rows(++nRow):Value := Eval(bLine), nRow}, bFor, bWhile, nNext, nRec, lRest)
    dbGoto( nRecNo )
 
    oRange:AutoFit()
@@ -284,7 +284,7 @@ FUNCTION HMG_RecToHash( cFieldList, cNames )
 
    IF Empty(cFieldList)
       cFieldList := ""
-      AEval(dbStruct(), {| a | cFieldList += "," + a[1] })
+      AEval(dbStruct(), {|a|cFieldList += "," + a[1]})
       cFieldList := SubStr(cFieldList, 2)
    ENDIF
 
@@ -294,7 +294,7 @@ FUNCTION HMG_RecToHash( cFieldList, cNames )
 
    aVals := &( "{" + cFieldList + "}" )
 
-   AEval(aVals, {| u, i | hSet(hRec, aNames[i], u) }, , Len(aNames))
+   AEval(aVals, {|u, i|hSet(hRec, aNames[i], u)}, , Len(aNames))
 
 RETURN hRec
 
@@ -312,10 +312,10 @@ FUNCTION HMG_HashToRec(hRec, cFieldList)
          ( lLocked := dbRLock( RecNo() ) )
 
       IF Empty(cFieldList)
-         hb_HEval(hRec, {| k, v | FieldPut(FieldPos(k), v) })
+         hb_HEval(hRec, {|k, v|FieldPut(FieldPos(k), v)})
       ELSE
          aFlds := hb_ATokens(cFieldList, ",")
-         hb_HEval(hRec, {| k, v, p | HB_SYMBOL_UNUSED(k), FieldPut(FieldPos(aFlds[p]), v) }, , Len(aFlds))
+         hb_HEval(hRec, {|k, v, p|HB_SYMBOL_UNUSED(k), FieldPut(FieldPos(aFlds[p]), v)}, , Len(aFlds))
       ENDIF
 
       IF lLocked

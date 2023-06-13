@@ -79,7 +79,7 @@ FUNCTION pdfAtSay( cString, nRow, nCol, cUnits, lExact, cId )
       ENDIF
       // version 0.01
 
-      _nFont := AScan(s_aReport[FONTS], {| arr | arr[1] == s_aReport[FONTNAME] })
+      _nFont := AScan(s_aReport[FONTS], {|arr|arr[1] == s_aReport[FONTNAME]})
       IF !( s_aReport[FONTNAME] == s_aReport[FONTNAMEPREV] )
          s_aReport[FONTNAMEPREV] := s_aReport[FONTNAME]
          s_aReport[PAGEBUFFER] += CRLF + "BT /Fo" + hb_ntos(_nFont) + " " + LTrim(Transform(s_aReport[FONTSIZE], "999.99")) + " Tf " + LTrim(Transform(nCol, "9999.99")) + " " + LTrim(Transform(nRow, "9999.99")) + " Td (" + cString + ") Tj ET"
@@ -107,7 +107,7 @@ FUNCTION pdfBold()
       s_aReport[FONTNAME] := 10 // Courier // 0.04
    ENDIF
    AAdd(s_aReport[PAGEFONTS], s_aReport[FONTNAME])
-   IF AScan(s_aReport[FONTS], {| arr | arr[1] == s_aReport[FONTNAME] }) == 0
+   IF AScan(s_aReport[FONTS], {|arr|arr[1] == s_aReport[FONTNAME]}) == 0
       AAdd(s_aReport[FONTS], { s_aReport[FONTNAME], ++s_aReport[NEXTOBJ] })
    ENDIF
 
@@ -124,7 +124,7 @@ FUNCTION pdfBoldItalic()
       s_aReport[FONTNAME] := 12 // 0.04
    ENDIF
    AAdd(s_aReport[PAGEFONTS], s_aReport[FONTNAME])
-   IF AScan(s_aReport[FONTS], {| arr | arr[1] == s_aReport[FONTNAME] }) == 0
+   IF AScan(s_aReport[FONTS], {|arr|arr[1] == s_aReport[FONTNAME]}) == 0
       AAdd(s_aReport[FONTS], { s_aReport[FONTNAME], ++s_aReport[NEXTOBJ] })
    ENDIF
 
@@ -600,7 +600,7 @@ STATIC FUNCTION pdfClosePage()
          "<<"
 
       FOR nI := 1 TO Len(s_aReport[PAGEFONTS])
-         nFont := AScan(s_aReport[FONTS], {| arr | arr[1] == s_aReport[PAGEFONTS][nI] })
+         nFont := AScan(s_aReport[FONTS], {|arr|arr[1] == s_aReport[PAGEFONTS][nI]})
          cTemp += CRLF + "/Fo" + hb_ntos(nFont) + " " + hb_ntos(s_aReport[FONTS][nFont][2]) + " 0 R"
       NEXT
 
@@ -610,7 +610,7 @@ STATIC FUNCTION pdfClosePage()
    IF Len(s_aReport[PAGEIMAGES]) > 0
       cTemp += CRLF + "/XObject" + CRLF + "<<"
       FOR nI := 1 TO Len(s_aReport[PAGEIMAGES])
-         nImage := AScan(s_aReport[IMAGES], {| arr | arr[1] == s_aReport[PAGEIMAGES][nI][1] })
+         nImage := AScan(s_aReport[IMAGES], {|arr|arr[1] == s_aReport[PAGEIMAGES][nI][1]})
          IF nImage == 0
             AAdd(s_aReport[IMAGES], { s_aReport[PAGEIMAGES][nI][1], ++s_aReport[NEXTOBJ], pdfImageInfo( s_aReport[PAGEIMAGES][nI][1] ) })
             nImage := Len(s_aReport[IMAGES])
@@ -635,7 +635,7 @@ STATIC FUNCTION pdfClosePage()
       cTemp := ""
       FOR nI := 1 TO Len(s_aReport[PAGEIMAGES])
          cTemp += CRLF + "q"
-         nImage := AScan(s_aReport[IMAGES], {| arr | arr[1] == s_aReport[PAGEIMAGES][nI][1] })
+         nImage := AScan(s_aReport[IMAGES], {|arr|arr[1] == s_aReport[PAGEIMAGES][nI][1]})
          cTemp += CRLF + hb_ntos(iif(s_aReport[PAGEIMAGES][nI][5] == 0, pdfM2X(s_aReport[IMAGES][nImage][3][IMAGE_WIDTH] / s_aReport[IMAGES][nImage][3][IMAGE_XRES] * 25.4), s_aReport[PAGEIMAGES][nI][5])) + ;
             " 0 0 " + ;
             hb_ntos(iif(s_aReport[PAGEIMAGES][nI][4] == 0, pdfM2X(s_aReport[IMAGES][nImage][3][IMAGE_HEIGHT] / s_aReport[IMAGES][nImage][3][IMAGE_YRES] * 25.4 ), s_aReport[PAGEIMAGES][nI][4])) + ;
@@ -812,7 +812,7 @@ FUNCTION pdfItalic()
       s_aReport[FONTNAME] := 11 // 0.04
    ENDIF
    AAdd(s_aReport[PAGEFONTS], s_aReport[FONTNAME])
-   IF AScan(s_aReport[FONTS], {| arr | arr[1] == s_aReport[FONTNAME] }) == 0
+   IF AScan(s_aReport[FONTS], {|arr|arr[1] == s_aReport[FONTNAME]}) == 0
       AAdd(s_aReport[FONTS], { s_aReport[FONTNAME], ++s_aReport[NEXTOBJ] })
    ENDIF
 
@@ -916,7 +916,7 @@ FUNCTION pdfNormal()
       s_aReport[FONTNAME] := 9 // 0.04
    ENDIF
    AAdd(s_aReport[PAGEFONTS], s_aReport[FONTNAME])
-   IF AScan(s_aReport[FONTS], {| arr | arr[1] == s_aReport[FONTNAME] }) == 0
+   IF AScan(s_aReport[FONTS], {|arr|arr[1] == s_aReport[FONTNAME]}) == 0
       AAdd(s_aReport[FONTS], { s_aReport[FONTNAME], ++s_aReport[NEXTOBJ] })
    ENDIF
 
@@ -1021,7 +1021,7 @@ FUNCTION pdfPageSize(_cPageSize, _nWidth, _nHeight)
 
    IF Empty(_nWidth) .OR. Empty(_nHeight)
 
-      nSize := AScan(aSize, {| arr | arr[1] == _cPageSize })
+      nSize := AScan(aSize, {|arr|arr[1] == _cPageSize})
 
       IF nSize == 0
          nSize := 1
@@ -1037,10 +1037,10 @@ FUNCTION pdfPageSize(_cPageSize, _nWidth, _nHeight)
       _nWidth := Val(Str(_nWidth))
       _nHeight := Val(Str(_nHeight))
 
-      nSize := AScan(aSize, {| arr | ( arr[2] == _nWidth  ) .AND. ( arr[3] == _nHeight ) })
+      nSize := AScan(aSize, {|arr|(arr[2] == _nWidth) .AND. (arr[3] == _nHeight)})
 
       IF nSize == 0
-         nSize := AScan(aSize, {| arr | ( arr[3] == _nWidth ) .AND. ( arr[2] == _nHeight ) })
+         nSize := AScan(aSize, {|arr|(arr[3] == _nWidth) .AND. (arr[2] == _nHeight)})
       ENDIF
 
       IF nSize == 0
@@ -1152,7 +1152,7 @@ FUNCTION pdfSetFont(_cFont, _nType, _nSize, cId)
 
    AAdd(s_aReport[PAGEFONTS], s_aReport[FONTNAME])
 
-   IF AScan(s_aReport[FONTS], {| arr | arr[1] == s_aReport[FONTNAME] }) == 0
+   IF AScan(s_aReport[FONTS], {|arr|arr[1] == s_aReport[FONTNAME]}) == 0
       AAdd(s_aReport[FONTS], { s_aReport[FONTNAME], ++s_aReport[NEXTOBJ] })
    ENDIF
 
@@ -1458,7 +1458,7 @@ FUNCTION pdfDeleteHeader( cId )
    LOCAL nId
 
    cId := Upper(cId)
-   nId := AScan(s_aReport[HEADER], {| arr | arr[3] == cId })
+   nId := AScan(s_aReport[HEADER], {|arr|arr[3] == cId})
    IF nId > 0
       nRet := Len(s_aReport[HEADER]) - 1
       ADel( s_aReport[HEADER], nId )
@@ -1473,7 +1473,7 @@ FUNCTION pdfEnableHeader( cId )
    LOCAL nId
 
    cId := Upper(cId)
-   nId := AScan(s_aReport[HEADER], {| arr | arr[3] == cId })
+   nId := AScan(s_aReport[HEADER], {|arr|arr[3] == cId})
    IF nId > 0
       s_aReport[HEADER][nId][1] := .T.
       s_aReport[MARGINS] := .T.
@@ -1486,7 +1486,7 @@ FUNCTION pdfDisableHeader( cId )
    LOCAL nId
 
    cId := Upper(cId)
-   nId := AScan(s_aReport[HEADER], {| arr | arr[3] == cId })
+   nId := AScan(s_aReport[HEADER], {|arr|arr[3] == cId})
    IF nId > 0
       s_aReport[HEADER][nId][1] := .F.
       s_aReport[MARGINS] := .T.
@@ -1511,7 +1511,7 @@ FUNCTION pdfHeader( cFunction, cId, arr )
    nId := 0
    IF !Empty(cId)
       cId := Upper(cId)
-      nId := AScan(s_aReport[HEADER], {| arr | arr[3] == cId })
+      nId := AScan(s_aReport[HEADER], {|arr|arr[3] == cId})
    ENDIF
    IF nId == 0
       nLen := Len(s_aReport[HEADER])

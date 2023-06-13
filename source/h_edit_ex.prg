@@ -628,8 +628,8 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
          MODAL ;
          NOSIZE ;
          NOSYSMENU ;
-         ON INIT {|| ABM2Redibuja() } ;
-         ON RELEASE {|| ABM2salir( nRegistro, cIndiceActivo, cFiltroAnt, nArea ) } ;
+         ON INIT {||ABM2Redibuja()} ;
+         ON RELEASE {||ABM2salir(nRegistro, cIndiceActivo, cFiltroAnt, nArea)} ;
          FONT _GetSysFont() SIZE 9
 
       // Define la barra de estado de la ventana de visualización.
@@ -674,7 +674,7 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
       VALUE _nIndiceActivo ;
       WIDTH 150 ;
       FONT _GetSysFont() SIZE 9 ;
-      ON CHANGE {|| ABM2CambiarOrden() }
+      ON CHANGE {||ABM2CambiarOrden()}
    nColumna := wndABM2Edit.WIDTH - 175
    aTextoOp := {}
    FOR i := 1 TO Len(_aOpciones)
@@ -691,18 +691,18 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
       VALUE 1 ;
       WIDTH 150 ;
       FONT _GetSysFont() SIZE 9 ;
-      ON CHANGE {|| ABM2EjecutaOpcion() }
+      ON CHANGE {||ABM2EjecutaOpcion()}
    @ 65, ( wndABM2Edit.Width / 2 ) - 110 BUTTON btnFiltro1 ;
       OF wndABM2Edit ;
       CAPTION _HMG_aLangButton[10] ;
-      ACTION {|| ABM2ActivarFiltro() } ;
+      ACTION {||ABM2ActivarFiltro()} ;
       WIDTH 100 ;
       HEIGHT 32 ;
       FONT _GetSysFont() SIZE 9
    @ 65, ( wndABM2Edit.Width / 2 ) + 5 BUTTON btnFiltro2 ;
       OF wndABM2Edit ;
       CAPTION _HMG_aLangButton[11] ;
-      ACTION {|| ABM2DesactivarFiltro() } ;
+      ACTION {||ABM2DesactivarFiltro()} ;
       WIDTH 100 ;
       HEIGHT 32 ;
       FONT _GetSysFont() SIZE 9
@@ -716,8 +716,7 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
       FIELDS _aCampoTabla ;
       VALUE (_cArea)->(RecNo()) ;
       FONT _GetSysFont() SIZE 9 ;
-      ON CHANGE {|| ( _cArea )->( dbGoto( wndABM2Edit.brwABM2Edit.Value ) ), ;
-      ABM2Redibuja(.F.) } ;
+      ON CHANGE {||(_cArea)->(dbGoto(wndABM2Edit.brwABM2Edit.Value)), ABM2Redibuja(.F.)} ;
       ON DBLCLICK {||iif(wndABM2Edit.tbbEditar.Enabled, ABM2Editar(.F.), NIL)} JUSTIFY _aAlineadoTabla paintdoublebuffer
 
    // Comprueba el estado de las opciones de usuario.
@@ -1263,14 +1262,10 @@ STATIC FUNCTION ABM2Seleccionar()
       DEFINE TOOLBAR tbSeleccionar buttonsize 100, 32 FLAT righttext BORDER
          BUTTON tbbCancelarSel CAPTION _HMG_aLangButton[7] ;
             PICTURE "MINIGUI_EDIT_CANCEL" ;
-            ACTION {|| lSalida := .F., ;
-            nReg := 0, ;
-            wndSeleccionar.Release }
+            ACTION {||lSalida := .F., nReg := 0, wndSeleccionar.Release }
          BUTTON tbbAceptarSel CAPTION _HMG_aLangButton[8] ;
             PICTURE "MINIGUI_EDIT_OK" ;
-            ACTION {|| lSalida := .T., ;
-            nReg := wndSeleccionar.brwSeleccionar.VALUE, ;
-            wndSeleccionar.Release }
+            ACTION {||lSalida := .T., nReg := wndSeleccionar.brwSeleccionar.VALUE, wndSeleccionar.Release}
       END TOOLBAR
 
       // Define la barra de estado de la ventana de selección.
@@ -1288,9 +1283,7 @@ STATIC FUNCTION ABM2Seleccionar()
          FIELDS _aCampoTabla ;
          VALUE (_cArea)->(RecNo()) ;
          FONT "Arial" SIZE 9 ;
-         ON DBLCLICK {|| lSalida := .T., ;
-         nReg := wndSeleccionar.brwSeleccionar.VALUE, ;
-         wndSeleccionar.Release } ;
+         ON DBLCLICK {||lSalida := .T., nReg := wndSeleccionar.brwSeleccionar.VALUE, wndSeleccionar.Release} ;
          JUSTIFY _aAlineadoTabla paintdoublebuffer
 
    END WINDOW
@@ -1448,14 +1441,10 @@ STATIC FUNCTION ABM2Buscar()
       DEFINE TOOLBAR tbBuscar buttonsize 100, 32 FLAT righttext BORDER
          BUTTON tbbCancelarBus CAPTION _HMG_aLangButton[7] ;
             PICTURE "MINIGUI_EDIT_CANCEL" ;
-            ACTION {|| lSalida := .F., ;
-            xValor := wndABMBuscar .conBuscar.VALUE, ;
-            wndABMBuscar.Release }
+            ACTION {||lSalida := .F., xValor := wndABMBuscar.conBuscar.VALUE, wndABMBuscar.Release}
          BUTTON tbbAceptarBus CAPTION _HMG_aLangButton[8] ;
             PICTURE "MINIGUI_EDIT_OK" ;
-            ACTION {|| lSalida := .T., ;
-            xValor := wndABMBuscar .conBuscar.VALUE, ;
-            wndABMBuscar.Release }
+            ACTION {||lSalida := .T., xValor := wndABMBuscar.conBuscar.VALUE, wndABMBuscar.Release}
       END TOOLBAR
 
       // Define la barra de estado de la ventana de busqueda.
@@ -1594,18 +1583,17 @@ STATIC FUNCTION ABM2ActivarFiltro()
          MODAL ;
          NOSIZE ;
          NOSYSMENU ;
-         ON INIT {|| ABM2ControlFiltro() } ;
+         ON INIT {||ABM2ControlFiltro()} ;
          FONT _GetSysFont() SIZE 9
 
       // Define la barra de botones de la ventana de filtrado.
       DEFINE TOOLBAR tbBuscar buttonsize 100, 32 FLAT righttext BORDER
          BUTTON tbbCancelarFil CAPTION _HMG_aLangButton[7] ;
             PICTURE "MINIGUI_EDIT_CANCEL" ;
-            ACTION {|| wndABM2Filtro.RELEASE, ;
-            ABM2Redibuja(.F.) }
+            ACTION {||wndABM2Filtro.RELEASE, ABM2Redibuja(.F.)}
          BUTTON tbbAceptarFil CAPTION _HMG_aLangButton[8] ;
             PICTURE "MINIGUI_EDIT_OK" ;
-            ACTION {|| ABM2EstableceFiltro() }
+            ACTION {||ABM2EstableceFiltro()}
       END TOOLBAR
 
       // Define la barra de estado de la ventana de filtrado.
@@ -1646,7 +1634,7 @@ STATIC FUNCTION ABM2ActivarFiltro()
       ITEMS aCampos ;
       VALUE 1 ;
       FONT "Arial" SIZE 9 ;
-      ON CHANGE {|| ABM2ControlFiltro() } ;
+      ON CHANGE {||ABM2ControlFiltro()} ;
       ON GOTFOCUS wndABM2Filtro.StatusBar.Item( 1 ) := _HMG_aLangLabel[25] ;
       ON LOSTFOCUS wndABM2Filtro.StatusBar.Item( 1 ) := ""
    @ 85, 220 LISTBOX lbxCompara ;
@@ -1848,7 +1836,7 @@ STATIC FUNCTION ABM2EstableceFiltro()
       _cFiltro := _cArea + "->" + _aEstructura[nCampo, DBS_NAME] + aOperador[nCompara]
       _cFiltro += cValor
    ENDCASE
-   ( _cArea )->( dbSetFilter( {|| &_cFiltro }, _cFiltro ) )
+   ( _cArea )->( dbSetFilter( {||&_cFiltro}, _cFiltro ) )
    _lFiltro := .T.
    wndABM2Filtro.RELEASE
    ABM2Redibuja(.T.)
@@ -2366,7 +2354,7 @@ STATIC FUNCTION ABM2Listado( aImpresoras )
 
    // ------- Obtiene el número de páginas.---------------------------------------
    nTotales := 1
-   ( _cArea )->( dbEval({|| nTotales++ },, {|| !( RecNo() == nUltimo ) .AND. !Eof() },,, .T.) )
+   ( _cArea )->( dbEval({||nTotales++},, {||!(RecNo() == nUltimo) .AND. !Eof()},,, .T.) )
    ( _cArea )->( dbGoto( nPrimero ) )
    IF lOrientacion
       IF Mod(nTotales, 33) == 0

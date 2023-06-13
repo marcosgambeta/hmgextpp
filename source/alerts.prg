@@ -112,7 +112,7 @@ STATIC FUNCTION _Alert ( cMsg, aOptions, cTitle, nType, nDefault, xIcon, nSize, 
    ENDIF
 
    IF hb_defaultValue(lTopMost, .T.) .AND. Empty(bInit)
-      bInit := {|| This.TopMost := .T. }
+      bInit := {||This.TopMost := .T.}
    ENDIF
 
    IF AScan(_HMG_aFormType, "A") == 0

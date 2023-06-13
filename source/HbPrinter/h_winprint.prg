@@ -169,8 +169,8 @@ METHOD New() CLASS HBPrinter
    aprnport := rr_getprinters()
    IF aprnport != ",,"
       aprnport := str2arr( aprnport, ",," )
-      AEval(aprnport, {| x, xi | aprnport[xi] := str2arr( x, "," ) })
-      AEval(aprnport, {| x | AAdd(::Printers, x[1]), AAdd(::ports, x[2]) })
+      AEval(aprnport, {|x, xi|aprnport[xi] := str2arr(x, ",")})
+      AEval(aprnport, {|x|AAdd(::Printers, x[1]), AAdd(::ports, x[2])})
       ::PrinterDefault := RR_GETDEFAULTPRINTER()
    ELSE
       ::error := 1
@@ -217,8 +217,8 @@ METHOD SelectPrinter( cPrinter, lPrev ) CLASS HBPrinter
       rr_devicecapabilities( @txtp, @txtb )
       ::PaperNames := str2arr( txtp, ",," )
       ::BinNames := str2arr( txtb, ",," )
-      AEval(::BinNames, {| x, xi | ::BinNames[xi] := str2arr( x, "," ) })
-      AEval(::PaperNames, {| x, xi | ::PaperNames[xi] := str2arr( x, "," ) })
+      AEval(::BinNames, {|x, xi|::BinNames[xi] := str2arr(x, ",")})
+      AEval(::PaperNames, {|x, xi|::PaperNames[xi] := str2arr(x, ",")})
 #endif
       AAdd(::Fonts[1], rr_getcurrentobject(1)) ; AAdd(::Fonts[2], "*") ; AAdd(::Fonts[4], {})
       AAdd(::Fonts[1], rr_getcurrentobject(1)) ; AAdd(::Fonts[2], "DEFAULT") ; AAdd(::Fonts[4], {})
@@ -327,7 +327,7 @@ METHOD SaveMetaFiles( number, filename ) CLASS HBPrinter
       DEFAULT filename := ::DOCNAME
       aPages := {}
       IF number == NIL
-         AEval(::metafiles, {| x | AAdd(aPages, x[1]) })
+         AEval(::metafiles, {|x|AAdd(aPages, x[1])})
       ELSE
          AAdd(aPages, ::BasePageName + StrZero(number, 4) + ".emf")
          filename += iif(At(".pdf", filename) > 0, "", "_" + StrZero( number, 4 ))
@@ -692,7 +692,7 @@ METHOD Say( row, col, txt, defname, lcolor, lalign ) CLASS HBPrinter
    CASE ValType(txt) == "L" ;  AAdd(atxt, iif(txt, ".T.", ".F."))
    CASE ValType(txt) == "U" ;  AAdd(atxt, "NIL")
    CASE ValType(txt) $ "BO" ;  AAdd(atxt, "")
-   CASE ValType(txt) == "A" ;  AEval(txt, {| x | AAdd(atxt, sayconvert(x)) })
+   CASE ValType(txt) == "A" ;  AEval(txt, {|x|AAdd(atxt, sayconvert(x))})
    CASE ValType(txt) $ "MC" ;  atxt := str2arr( txt, hb_osNewLine() )
    ENDCASE
    apos := ::convert({ row, col })
@@ -867,7 +867,7 @@ METHOD Polygon( apoints, defpen, defbrush, style ) CLASS HBPrinter
    LOCAL apx := {}, apy := {}, temp
    LOCAL lhp := ::getobjbyname(defpen, "P"), lhb := ::getobjbyname(defbrush, "B")
 
-   AEval(apoints, {| x | temp := ::convert(x), AAdd(apx, temp[2] ), AAdd(apy, temp[1]) })
+   AEval(apoints, {|x|temp := ::convert(x), AAdd(apx, temp[2] ), AAdd(apy, temp[1])})
    ::error := rr_polygon( apx, apy, lhp, lhb, style )
 
 RETURN self
@@ -878,7 +878,7 @@ METHOD PolyBezier( apoints, defpen ) CLASS HBPrinter
    LOCAL apx := {}, apy := {}, temp
    LOCAL lhp := ::getobjbyname(defpen, "P")
 
-   AEval(apoints, {| x | temp := ::convert(x), AAdd(apx, temp[2]), AAdd(apy, temp[1]) })
+   AEval(apoints, {|x|temp := ::convert(x), AAdd(apx, temp[2]), AAdd(apy, temp[1])})
    ::error := rr_polybezier( apx, apy, lhp )
 
 RETURN self
@@ -889,7 +889,7 @@ METHOD PolyBezierTo( apoints, defpen ) CLASS HBPrinter
    LOCAL apx := {}, apy := {}, temp
    LOCAL lhp := ::getobjbyname(defpen, "P")
 
-   AEval(apoints, {| x | temp := ::convert(x), AAdd(apx, temp[2]), AAdd(apy, temp[1]) })
+   AEval(apoints, {|x|temp := ::convert(x), AAdd(apx, temp[2]), AAdd(apy, temp[1])})
    ::error := rr_polybezierto( apx, apy, lhp )
 
 RETURN self
@@ -1015,7 +1015,7 @@ METHOD DefinePolygonRgn( defname, apoints, style ) CLASS HBPrinter
    IF lhand != 0
       RETURN self
    ENDIF
-   AEval(apoints, {| x | temp := ::convert(x), AAdd(apx, temp[2]), AAdd(apy, temp[1]) })
+   AEval(apoints, {|x|temp := ::convert(x), AAdd(apx, temp[2]), AAdd(apy, temp[1])})
    AAdd(::Regions[1], rr_createPolygonrgn(apx, apy, style))
    AAdd(::Regions[2], Upper(AllTrim(defname)))
 
@@ -1243,7 +1243,7 @@ METHOD DXCOLORS( par ) CLASS HBPrinter
    aColorNames := _SetGetGlobal( "rgbcolornames" )
    IF hb_IsChar(par)
       par := Lower( AllTrim(par) )
-      AEval(aColorNames, {| x | iif(x[1] == par, ltemp := x[2], "") })
+      AEval(aColorNames, {|x|iif(x[1] == par, ltemp := x[2], "")})
    ELSEIF hb_IsNumeric(par)
       ltemp := iif(par <= Len(aColorNames), aColorNames[par, 2], 0)
    ENDIF
@@ -1340,10 +1340,10 @@ STATIC FUNCTION str2arr( cList, cDelimiter )
       ENDDO
       EXIT
    CASE "A"
-      AEval(cDelimiter, {| x | nlencd += x })
+      AEval(cDelimiter, {|x|nlencd += x})
       DO WHILE Len(( nPos := Left(cList, nlencd) )) == nlencd
          asub := {}
-         AEval(cDelimiter, {| x | AAdd(asub, Left(nPos, x)), nPos := SubStr(nPos, x + 1) })
+         AEval(cDelimiter, {|x|AAdd(asub, Left(nPos, x)), nPos := SubStr(nPos, x + 1)})
          AAdd(aList, asub)
          cList := SubStr(cList, nlencd + 1)
       ENDDO
@@ -2238,12 +2238,12 @@ METHOD Preview() CLASS HBPrinter
          MODAL NOSIZE ;
          FONT "Arial" SIZE 9
 
-      _DefineHotKey( "HBPREVIEW", 0, VK_ESCAPE, {|| ::PrevClose(.T.) } ) // Escape
-      _DefineHotKey( "HBPREVIEW", 0, VK_ADD, {|| scale := scale * 1.25, ::PrevShow() } ) // zoom in
-      _DefineHotKey( "HBPREVIEW", 0, VK_SUBTRACT, {|| scale := scale / 1.25, ::PrevShow() } ) // zoom out
-      _definehotkey( "HBPREVIEW", MOD_CONTROL, VK_P, {|| ::prevprint(), iif(::CLSPREVIEW, ::PrevClose(.F.), NIL) } ) // Print
-      _DefineHotKey( "HBPREVIEW", 0, VK_PRIOR, {|| page := ::CurPage := iif(page == 1, 1, page - 1), HBPREVIEW.combo_1.VALUE := page, ::PrevShow() } ) // back
-      _DefineHotKey( "HBPREVIEW", 0, VK_NEXT, {|| page := ::CurPage := iif(page == iloscstron, page, page + 1), HBPREVIEW.combo_1.VALUE := page, ::PrevShow() } ) // next
+      _DefineHotKey( "HBPREVIEW", 0, VK_ESCAPE, {||::PrevClose(.T.)} ) // Escape
+      _DefineHotKey( "HBPREVIEW", 0, VK_ADD, {||scale := scale * 1.25, ::PrevShow()} ) // zoom in
+      _DefineHotKey( "HBPREVIEW", 0, VK_SUBTRACT, {||scale := scale / 1.25, ::PrevShow()} ) // zoom out
+      _definehotkey( "HBPREVIEW", MOD_CONTROL, VK_P, {||::prevprint(), iif(::CLSPREVIEW, ::PrevClose(.F.), NIL)} ) // Print
+      _DefineHotKey( "HBPREVIEW", 0, VK_PRIOR, {||page := ::CurPage := iif(page == 1, 1, page - 1), HBPREVIEW.combo_1.VALUE := page, ::PrevShow()} ) // back
+      _DefineHotKey( "HBPREVIEW", 0, VK_NEXT, {||page := ::CurPage := iif(page == iloscstron, page, page + 1), HBPREVIEW.combo_1.VALUE := page, ::PrevShow()} ) // next
 
       DEFINE STATUSBAR
       STATUSITEM aopisy[15] + " " + hb_ntos(page) WIDTH 100
@@ -2252,30 +2252,30 @@ METHOD Preview() CLASS HBPrinter
    END STATUSBAR
 
    IF iloscstron > 1
-      @ 16, ahs[1, 6] -  77 COMBOBOX combo_1 ITEMS npages VALUE 1  WIDTH 48  FONT "Arial" SIZE 8 NOTABSTOP ON CHANGE {|| page := ::CurPage := HBPREVIEW.combo_1.VALUE, ::PrevShow() }
+      @ 16, ahs[1, 6] -  77 COMBOBOX combo_1 ITEMS npages VALUE 1  WIDTH 48  FONT "Arial" SIZE 8 NOTABSTOP ON CHANGE {||page := ::CurPage := HBPREVIEW.combo_1.VALUE, ::PrevShow()}
       @ 20, ahs[1, 6] - 184 LABEL prl VALUE aopisy[12] WIDTH 100 HEIGHT 18 FONT "Arial" SIZE 8 BACKCOLOR iif(IsAppXPThemed(), iif(isseven(), { 211, 218, 237 }, iif(_HMG_IsXP, { 239, 235, 219 }, nRGB2Arr(GetSysColor(5)))), NIL) RIGHTALIGN
    ENDIF
 
    DEFINE SPLITBOX
    DEFINE TOOLBAR TB1 BUTTONSIZE 75, 40 FONT _HMG_DefaultFontName SIZE 8 FLAT BREAK
-      BUTTON B2 CAPTION aopisy[3] PICTURE "hbprint_print" ACTION {|| ::prevprint(), iif(::CLSPREVIEW, ::PrevClose(.F.), NIL) }
+      BUTTON B2 CAPTION aopisy[3] PICTURE "hbprint_print" ACTION {||::prevprint(), iif(::CLSPREVIEW, ::PrevClose(.F.), NIL)}
       IF ::SaveButtons
          BUTTON B3 CAPTION aopisy[4] PICTURE "hbprint_save" WHOLEDROPDOWN
          DEFINE DROPDOWN MENU BUTTON B3
-                ITEM aopisy[4] ACTION {|| ::savemetafiles( ::CurPage ) }
-                ITEM aopisy[31] ACTION {|| pi := Putfile ( { { aopisy[33], "*.pdf" }, { aopisy[34], "*.*" } }, , GetCurrentFolder(), .T., ::DOCNAME ), iif(Empty(pi), NIL, ::savemetafiles(NIL, pi)) }
-                ITEM aopisy[32] ACTION {|| ::savemetafiles() }
+                ITEM aopisy[4] ACTION {||::savemetafiles(::CurPage)}
+                ITEM aopisy[31] ACTION {||pi := Putfile({{aopisy[33], "*.pdf"}, {aopisy[34], "*.*"}}, , GetCurrentFolder(), .T., ::DOCNAME ), iif(Empty(pi), NIL, ::savemetafiles(NIL, pi)) }
+                ITEM aopisy[32] ACTION {||::savemetafiles()}
          END MENU
       ENDIF
-      BUTTON B1 CAPTION aopisy[2] PICTURE "hbprint_close" ACTION {|| ::PrevClose(.T.) } SEPARATOR
-      BUTTON B10 CAPTION aopisy[11] PICTURE "hbprint_option" ACTION {|| ::PrintOption() } SEPARATOR
-      BUTTON B8 CAPTION aopisy[9] PICTURE "hbprint_zoomin" ACTION {|| scale := scale * 1.25, ::PrevShow() }
-      BUTTON B9 CAPTION aopisy[10] PICTURE "hbprint_zoomout" ACTION {|| scale := scale / 1.25, ::PrevShow() } SEPARATOR
+      BUTTON B1 CAPTION aopisy[2] PICTURE "hbprint_close" ACTION {||::PrevClose(.T.)} SEPARATOR
+      BUTTON B10 CAPTION aopisy[11] PICTURE "hbprint_option" ACTION {||::PrintOption()} SEPARATOR
+      BUTTON B8 CAPTION aopisy[9] PICTURE "hbprint_zoomin" ACTION {||scale := scale * 1.25, ::PrevShow()}
+      BUTTON B9 CAPTION aopisy[10] PICTURE "hbprint_zoomout" ACTION {||scale := scale / 1.25, ::PrevShow()} SEPARATOR
    IF iloscstron > 1
-      BUTTON B4 CAPTION aopisy[5] PICTURE "hbprint_top" ACTION {|| page := ::CurPage := 1, HBPREVIEW.combo_1.VALUE := page, ::PrevShow() }
-      BUTTON B5 CAPTION aopisy[6] PICTURE "hbprint_back" ACTION {|| page := ::CurPage := iif(page == 1, 1, page - 1), HBPREVIEW.combo_1.VALUE := page, ::PrevShow() }
-      BUTTON B6 CAPTION aopisy[7] PICTURE "hbprint_next" ACTION {|| page := ::CurPage := iif(page == iloscstron, page, page + 1), HBPREVIEW.combo_1.VALUE := page, ::PrevShow() }
-      BUTTON B7 CAPTION aopisy[8] PICTURE "hbprint_end" ACTION {|| page := ::CurPage := iloscstron, HBPREVIEW.combo_1.VALUE := page, ::PrevShow() } SEPARATOR
+      BUTTON B4 CAPTION aopisy[5] PICTURE "hbprint_top" ACTION {||page := ::CurPage := 1, HBPREVIEW.combo_1.VALUE := page, ::PrevShow()}
+      BUTTON B5 CAPTION aopisy[6] PICTURE "hbprint_back" ACTION {||page := ::CurPage := iif(page == 1, 1, page - 1), HBPREVIEW.combo_1.VALUE := page, ::PrevShow()}
+      BUTTON B6 CAPTION aopisy[7] PICTURE "hbprint_next" ACTION {||page := ::CurPage := iif(page == iloscstron, page, page + 1), HBPREVIEW.combo_1.VALUE := page, ::PrevShow()}
+      BUTTON B7 CAPTION aopisy[8] PICTURE "hbprint_end" ACTION {||page := ::CurPage := iloscstron, HBPREVIEW.combo_1.VALUE := page, ::PrevShow()} SEPARATOR
    ENDIF
 
    END TOOLBAR
@@ -2299,20 +2299,20 @@ METHOD Preview() CLASS HBPrinter
       AAdd(ahs, {0, 0, 0, 0, 0, 0, GetControlHandle("i1", "hbpreview1")})
       rr_getclientrect(ahs[6])
 
-      _DefineHotKey( "HBPREVIEW1", 0, VK_ESCAPE, {|| _ReleaseWindow( "HBPREVIEW" ) } )
-      _DefineHotKey( "HBPREVIEW1", 0, VK_ADD, {|| scale := scale * 1.25, :: PrevShow () } )
-      _DefineHotKey( "HBPREVIEW1", 0, VK_SUBTRACT, {|| scale := scale / 1.25, :: PrevShow () } )
-      _definehotkey( "HBPREVIEW1", MOD_CONTROL, VK_P, {|| ::prevprint(), iif(::CLSPREVIEW, ::PrevClose(.F.), NIL) } ) // Print
+      _DefineHotKey( "HBPREVIEW1", 0, VK_ESCAPE, {||_ReleaseWindow("HBPREVIEW")} )
+      _DefineHotKey( "HBPREVIEW1", 0, VK_ADD, {||scale := scale * 1.25, ::PrevShow()} )
+      _DefineHotKey( "HBPREVIEW1", 0, VK_SUBTRACT, {||scale := scale / 1.25, ::PrevShow()} )
+      _definehotkey( "HBPREVIEW1", MOD_CONTROL, VK_P, {||::prevprint(), iif(::CLSPREVIEW, ::PrevClose(.F.), NIL)} ) // Print
 
       IF iloscstron > 1
-         _DefineHotKey( "HBPREVIEW1", 0, VK_PRIOR, {|| page := ::CurPage := iif(page == 1, 1, page - 1), HBPREVIEW.combo_1.VALUE := page, ::PrevShow() } ) // back
-         _DefineHotKey( "HBPREVIEW1", 0, VK_NEXT, {|| page := ::CurPage := iif(page == iloscstron, page, page + 1), HBPREVIEW.combo_1.VALUE := page, ::PrevShow() } ) // next
-         _DefineHotKey( "HBPREVIEW1", 0, VK_END, {|| page := ::CurPage := iloscstron, HBPREVIEW.combo_1.VALUE := page, ::PrevShow() } ) // end
-         _DefineHotKey( "HBPREVIEW1", 0, VK_HOME, {|| page := ::CurPage := 1, HBPREVIEW.combo_1.VALUE := page, ::PrevShow() } ) // home
-         _DefineHotKey( "HBPREVIEW1", 0, VK_LEFT, {|| page := ::CurPage := iif(page == 1, 1, page - 1), HBPREVIEW.combo_1.VALUE := page, ::PrevShow() } ) // Left
-         _DefineHotKey( "HBPREVIEW1", 0, VK_UP, {|| page := ::CurPage := iif(page == 1, 1, page - 1), HBPREVIEW.combo_1.VALUE := page, ::PrevShow() } ) // up
-         _DefineHotKey( "HBPREVIEW1", 0, VK_RIGHT, {|| page := ::CurPage := iif(page == iloscstron, page, page + 1), HBPREVIEW.combo_1.VALUE := page, ::PrevShow() } ) // right
-         _DefineHotKey( "HBPREVIEW1", 0, VK_DOWN, {|| page := ::CurPage := iif(page == iloscstron, page, page + 1), HBPREVIEW.combo_1.VALUE := page, ::PrevShow() } ) // down
+         _DefineHotKey( "HBPREVIEW1", 0, VK_PRIOR, {||page := ::CurPage := iif(page == 1, 1, page - 1), HBPREVIEW.combo_1.VALUE := page, ::PrevShow()} ) // back
+         _DefineHotKey( "HBPREVIEW1", 0, VK_NEXT, {||page := ::CurPage := iif(page == iloscstron, page, page + 1), HBPREVIEW.combo_1.VALUE := page, ::PrevShow()} ) // next
+         _DefineHotKey( "HBPREVIEW1", 0, VK_END, {||page := ::CurPage := iloscstron, HBPREVIEW.combo_1.VALUE := page, ::PrevShow()} ) // end
+         _DefineHotKey( "HBPREVIEW1", 0, VK_HOME, {||page := ::CurPage := 1, HBPREVIEW.combo_1.VALUE := page, ::PrevShow()} ) // home
+         _DefineHotKey( "HBPREVIEW1", 0, VK_LEFT, {||page := ::CurPage := iif(page == 1, 1, page - 1), HBPREVIEW.combo_1.VALUE := page, ::PrevShow()} ) // Left
+         _DefineHotKey( "HBPREVIEW1", 0, VK_UP, {||page := ::CurPage := iif(page == 1, 1, page - 1), HBPREVIEW.combo_1.VALUE := page, ::PrevShow()} ) // up
+         _DefineHotKey( "HBPREVIEW1", 0, VK_RIGHT, {||page := ::CurPage := iif(page == iloscstron, page, page + 1), HBPREVIEW.combo_1.VALUE := page, ::PrevShow()} ) // right
+         _DefineHotKey( "HBPREVIEW1", 0, VK_DOWN, {||page := ::CurPage := iif(page == iloscstron, page, page + 1), HBPREVIEW.combo_1.VALUE := page, ::PrevShow()} ) // down
       ENDIF
       END WINDOW
 
@@ -2337,21 +2337,21 @@ METHOD Preview() CLASS HBPrinter
                ath[i, 1] := Int((i - 1) / 5) * dy + 5
                ath[i, 2] := ( ( i - 1 ) % 5 ) * dx + 5
             NEXT
-            @ ath[1, 1], ath[1, 2] image it1 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(1) } width ath[1, 4] height ath[1, 3]
-            @ ath[2, 1], ath[2, 2] image it2 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(2) } width ath[2, 4] height ath[2, 3]
-            @ ath[3, 1], ath[3, 2] image it3 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(3) } width ath[3, 4] height ath[3, 3]
-            @ ath[4, 1], ath[4, 2] image it4 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(4) } width ath[4, 4] height ath[4, 3]
-            @ ath[5, 1], ath[5, 2] image it5 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(5) } width ath[5, 4] height ath[5, 3]
-            @ ath[6, 1], ath[6, 2] image it6 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(6) } width ath[6, 4] height ath[6, 3]
-            @ ath[7, 1], ath[7, 2] image it7 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(7) } width ath[7, 4] height ath[7, 3]
-            @ ath[8, 1], ath[8, 2] image it8 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(8) } width ath[8, 4] height ath[8, 3]
-            @ ath[9, 1], ath[9, 2] image it9 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(9) } width ath[9, 4] height ath[9, 3]
-            @ ath[10, 1], ath[10, 2] image it10 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(10) } width ath[10, 4] height ath[10, 3]
-            @ ath[11, 1], ath[11, 2] image it11 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(11) } width ath[11, 4] height ath[11, 3]
-            @ ath[12, 1], ath[12, 2] image it12 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(12) } width ath[12, 4] height ath[12, 3]
-            @ ath[13, 1], ath[13, 2] image it13 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(13) } width ath[13, 4] height ath[13, 3]
-            @ ath[14, 1], ath[14, 2] image it14 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(14) } width ath[14, 4] height ath[14, 3]
-            @ ath[15, 1], ath[15, 2] image it15 OF hbpreview2 PICTURE "" action {|| ::Prevthumb(15) } width ath[15, 4] height ath[15, 3]
+            @ ath[1, 1], ath[1, 2] IMAGE it1 OF hbpreview2 PICTURE "" ACTION {||::Prevthumb(1)} WIDTH ath[1, 4] HEIGHT ath[1, 3]
+            @ ath[2, 1], ath[2, 2] IMAGE it2 OF hbpreview2 PICTURE "" ACTION {||::Prevthumb(2)} WIDTH ath[2, 4] HEIGHT ath[2, 3]
+            @ ath[3, 1], ath[3, 2] IMAGE it3 OF hbpreview2 PICTURE "" ACTION {||::Prevthumb(3)} WIDTH ath[3, 4] HEIGHT ath[3, 3]
+            @ ath[4, 1], ath[4, 2] IMAGE it4 OF hbpreview2 PICTURE "" ACTION {||::Prevthumb(4)} WIDTH ath[4, 4] HEIGHT ath[4, 3]
+            @ ath[5, 1], ath[5, 2] IMAGE it5 OF hbpreview2 PICTURE "" ACTION {||::Prevthumb(5)} WIDTH ath[5, 4] HEIGHT ath[5, 3]
+            @ ath[6, 1], ath[6, 2] IMAGE it6 OF hbpreview2 PICTURE "" ACTION {||::Prevthumb(6)} WIDTH ath[6, 4] HEIGHT ath[6, 3]
+            @ ath[7, 1], ath[7, 2] IMAGE it7 OF hbpreview2 PICTURE "" ACTION {||::Prevthumb(7)} WIDTH ath[7, 4] HEIGHT ath[7, 3]
+            @ ath[8, 1], ath[8, 2] IMAGE it8 OF hbpreview2 PICTURE "" ACTION {||::Prevthumb(8)} WIDTH ath[8, 4] HEIGHT ath[8, 3]
+            @ ath[9, 1], ath[9, 2] IMAGE it9 OF hbpreview2 PICTURE "" ACTION {||::Prevthumb(9)} WIDTH ath[9, 4] HEIGHT ath[9, 3]
+            @ ath[10, 1], ath[10, 2] IMAGE it10 OF hbpreview2 PICTURE "" ACTION {||::Prevthumb(10)} WIDTH ath[10, 4] HEIGHT ath[10, 3]
+            @ ath[11, 1], ath[11, 2] IMAGE it11 OF hbpreview2 PICTURE "" ACTION {||::Prevthumb(11)} WIDTH ath[11, 4] HEIGHT ath[11, 3]
+            @ ath[12, 1], ath[12, 2] IMAGE it12 OF hbpreview2 PICTURE "" ACTION {||::Prevthumb(12)} WIDTH ath[12, 4] HEIGHT ath[12, 3]
+            @ ath[13, 1], ath[13, 2] IMAGE it13 OF hbpreview2 PICTURE "" ACTION {||::Prevthumb(13)} WIDTH ath[13, 4] HEIGHT ath[13, 3]
+            @ ath[14, 1], ath[14, 2] IMAGE it14 OF hbpreview2 PICTURE "" ACTION {||::Prevthumb(14)} WIDTH ath[14, 4] HEIGHT ath[14, 3]
+            @ ath[15, 1], ath[15, 2] IMAGE it15 OF hbpreview2 PICTURE "" ACTION {||::Prevthumb(15)} WIDTH ath[15, 4] HEIGHT ath[15, 3]
 
             FOR i := 1 TO 15
                ath[i, 5] := GetControlHandle("it" + hb_ntos(i), "hbpreview2")
@@ -2396,12 +2396,12 @@ METHOD PrintOption() CLASS HBPrinter
 
          @ 10,  10 LABEL     label_11 VALUE aopisy[20] WIDTH 120 HEIGHT 24 VCENTERALIGN
          @ 10, 135 TEXTBOX   textFrom                    WIDTH 30  HEIGHT 24 NUMERIC MAXLENGTH 3 RIGHTALIGN ;
-            ON LOSTFOCUS {|| iif(This.Value > 0 .AND. This.Value <= PrOpt.textTo.Value, NIL, This.setfocus)} ;
+            ON LOSTFOCUS {||iif(This.Value > 0 .AND. This.Value <= PrOpt.textTo.Value, NIL, This.setfocus)} ;
             ON ENTER PrOpt.TextTo.setfocus
 
          @ 40,  10 LABEL     label_12 VALUE aopisy[21] WIDTH 120 HEIGHT 24 VCENTERALIGN
          @ 40, 135 TEXTBOX   textTo                      WIDTH 30  HEIGHT 24 NUMERIC MAXLENGTH 3 RIGHTALIGN ;
-            ON LOSTFOCUS {|| iif(This.Value >= Getproperty( "PrOpt", "textFrom", "Value" ) .AND. ;
+            ON LOSTFOCUS {||iif(This.Value >= Getproperty( "PrOpt", "textFrom", "Value" ) .AND. ;
             This.Value <= iif(::nwhattoprint < 2, iloscstron, ::ntopage), NIL, This.setfocus)} ;
             ON ENTER PrOpt.TextCopies.setfocus
 
@@ -2416,15 +2416,15 @@ METHOD PrintOption() CLASS HBPrinter
             ON ENTER PrOpt.Button_14.setfocus
 
          @ 10, 248 BUTTON button_14 CAPTION aopisy[35] ;
-            ACTION {|| OKprint := .T., ::nFromPage := PrOpt.textFrom.Value, ::nToPage := PrOpt.textTo.Value, ;
-            ::nCopies := Max( PrOpt.textCopies.Value, 1 ), ::PrintOpt := PrOpt.prnCombo.Value, PrOpt.Release } ;
+            ACTION {||OKprint := .T., ::nFromPage := PrOpt.textFrom.Value, ::nToPage := PrOpt.textTo.Value, ;
+            ::nCopies := Max( PrOpt.textCopies.Value, 1 ), ::PrintOpt := PrOpt.prnCombo.Value, PrOpt.Release} ;
             WIDTH 90 HEIGHT 24
 
          @ 40, 248 BUTTON button_15 CAPTION aopisy[2] ACTION PrOpt.Release WIDTH 90 HEIGHT 24
 
       END WINDOW
 
-      _DefineHotKey( "PrOpt", 0, VK_ESCAPE, {|| _ReleaseWindow( "PrOpt" ) } )
+      _DefineHotKey( "PrOpt", 0, VK_ESCAPE, {||_ReleaseWindow("PrOpt")} )
 
       PrOpt.textFrom.VALUE := Max( ::nfrompage, 1 )
       PrOpt.textTo.VALUE := ::ntopage

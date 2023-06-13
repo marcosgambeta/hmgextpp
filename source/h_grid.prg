@@ -159,7 +159,7 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
          ENDIF
       ELSEIF aHeaders == NIL .AND. hb_IsArray(aWidths)
          aHeaders := Array(Len(aWidths))
-         AEval(aHeaders, {| xValue, nIndex | xValue := NIL, aHeaders[nIndex] := DEFAULT_COLUMNHEADER + hb_ntos(nIndex)})
+         AEval(aHeaders, {|xValue, nIndex|xValue := NIL, aHeaders[nIndex] := DEFAULT_COLUMNHEADER + hb_ntos(nIndex)})
       ENDIF
    ELSE
       IF aHeaders == NIL .AND. aWidths == NIL
@@ -173,7 +173,7 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
          ENDIF
       ELSEIF aHeaders == NIL .AND. hb_IsArray(aWidths)
          aHeaders := Array(Len(aWidths))
-         AEval(aHeaders, {| xValue, nIndex | xValue := NIL, aHeaders[nIndex] := DEFAULT_COLUMNHEADER + hb_ntos(nIndex)})
+         AEval(aHeaders, {|xValue, nIndex|xValue := NIL, aHeaders[nIndex] := DEFAULT_COLUMNHEADER + hb_ntos(nIndex)})
       ENDIF
    ENDIF
    /* end code borrowed */
@@ -190,7 +190,7 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
       aJust := AFill(Array(Len(aHeaders)), 0)
    ELSE
       ASize(aJust, Len(aHeaders))
-      AEval(aJust, {|x, i| aJust[i] := iif(hb_IsNumeric(x), x, 0)})
+      AEval(aJust, {|x, i|aJust[i] := iif(hb_IsNumeric(x), x, 0)})
    ENDIF
    /* end code borrowed */
    inplace := hb_IsArray(editcontrols)
@@ -229,7 +229,7 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
       IF Len(_HMG_aDialogTemplate) > 0     //Dialog Template
 
          //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
-         blInit := {|x, y, z| InitDialogGrid(x, y, z)}
+         blInit := {|x, y, z|InitDialogGrid(x, y, z)}
          AAdd(_HMG_aDialogItems, {nId, k, "SysListView32", style, 0, x, y, w, h, "", HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, , _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
@@ -286,7 +286,7 @@ FUNCTION _DefineGrid(ControlName, ParentFormName, ;
       IF lsort
          aImageHeader := {"MINIGUI_GRID_ASC", "MINIGUI_GRID_DSC"}
          aHeadClick := Array(Len(aHeaders))
-         AEval(aHeadClick, {| x, i | aHeadClick[i] := {| n | HMG_SortColumn(n)}, HB_SYMBOL_UNUSED(x)})
+         AEval(aHeadClick, {|x, i|aHeadClick[i] := {|n|HMG_SortColumn(n)}, HB_SYMBOL_UNUSED(x)})
       ENDIF
 
       IF Len(aImageHeader) > 0
@@ -461,7 +461,7 @@ FUNCTION InitDialogGrid(ParentName, ControlHandle, k)
 
    InitListViewColumns(ControlHandle, _HMG_aControlCaption[k], aWidths, aJust)
 
-   AEval(aRows, {| r | _AddGridRow(ControlName, ParentName, r)})
+   AEval(aRows, {|r|_AddGridRow(ControlName, ParentName, r)})
 
    IF hb_IsNumeric(autosizeH) .OR. autosizeW
 
@@ -556,7 +556,7 @@ FUNCTION _AddGridRow(ControlName, ParentForm, aRow)
 
 #ifdef _HMG_COMPAT_
    IF !hb_IsArray(_HMG_aControlMiscData1[i][13])
-      AEval(aGridRow, {|x, i| iif(hb_IsString(x) .OR. HB_ISNIL(x), , aGridRow[i] := hb_ValToStr(x))})
+      AEval(aGridRow, {|x, i|iif(hb_IsString(x) .OR. HB_ISNIL(x), , aGridRow[i] := hb_ValToStr(x))})
    ENDIF
 #endif
 
@@ -600,20 +600,20 @@ PROCEDURE HMG_SortColumn(nColumnNo)
 
       lAscend := (nOrder < 2)
       IF lAscend
-         ASort(aItems, , , {|x, y| x[nColumnNo] < y[nColumnNo]})
+         ASort(aItems, , , {|x, y|x[nColumnNo] < y[nColumnNo]})
       ELSE
-         ASort(aItems, , , {|x, y| x[nColumnNo] > y[nColumnNo]})
+         ASort(aItems, , , {|x, y|x[nColumnNo] > y[nColumnNo]})
       ENDIF
 
       DoMethod(cFormName, cControlName, "DeleteAllItems")
 
-      AEval(aItems, {| x | DoMethod(cFormName, cControlName, "AddItem", x)})
+      AEval(aItems, {|x|DoMethod(cFormName, cControlName, "AddItem", x)})
 
-      AEval(aImages, {|x, i| aImages[i] := HDR_IMAGE_NONE, HB_SYMBOL_UNUSED(x)})
+      AEval(aImages, {|x, i|aImages[i] := HDR_IMAGE_NONE, HB_SYMBOL_UNUSED(x)})
 
       aImages[nColumnNo] := iif(lAscend, HDR_IMAGE_ASCENDING, HDR_IMAGE_DESCENDING)
 
-      AEval(aImages, {|n, i| _SetMultiImage(cControlName, cFormName, i, n, (_HMG_aControlMiscData1[ix][3][i] == 1))})
+      AEval(aImages, {|n, i|_SetMultiImage(cControlName, cFormName, i, n, (_HMG_aControlMiscData1[ix][3][i] == 1))})
 
       _HMG_aControlRangeMax[ix][nColumnNo] := iif(lAscend, ++nOrder, 1)
 
@@ -682,7 +682,7 @@ FUNCTION _EditItem(GridHandle)
          @ i * 30 - 20, 120 TEXTBOX("Text_" + hb_ntos(i)) OF _EditItem VALUE g[i]
       NEXT i
 
-      @ l * 30 + 20, 20 BUTTON BUTTON_1 CAPTION _HMG_MESSAGE[6] ACTION {|| _EditItemOk(ControlName, FormName, Item, l)}
+      @ l * 30 + 20, 20 BUTTON BUTTON_1 CAPTION _HMG_MESSAGE[6] ACTION {||_EditItemOk(ControlName, FormName, Item, l)}
 
       @ l * 30 + 20, 130 BUTTON BUTTON_2 CAPTION _HMG_MESSAGE[7] ACTION _EditItem.Release
 
@@ -703,7 +703,7 @@ STATIC FUNCTION _EditItemOk(ControlName, FormName, Item, l)
 
    LOCAL a := Array(l)
 
-   AEval(a, {| x, i | HB_SYMBOL_UNUSED(x), a[i] := GetProperty("_EditItem", "Text_" + hb_ntos(i), "Value")})
+   AEval(a, {|x, i|HB_SYMBOL_UNUSED(x), a[i] := GetProperty("_EditItem", "Text_" + hb_ntos(i), "Value")})
 
    _SetItem(ControlName, FormName, Item, a)
 
@@ -1199,7 +1199,7 @@ FUNCTION _ParseGridControls(aEditControls, ci, ri)
    LOCAL CINPUTMASK := ""
    LOCAL CFORMAT := ""
    LOCAL aEdit
-   LOCAL bChange := {|| NIL}
+   LOCAL bChange := {||NIL}
    LOCAL i
    LOCAL bBlock
 
@@ -1219,7 +1219,7 @@ FUNCTION _ParseGridControls(aEditControls, ci, ri)
                   aEdit := Eval(aEditControls[ci][2], ri, ci)
 
                   // A more generic function to simulate ONCHANGE event
-                  bChange := iif(Len(aEditControls[ci]) > 2 .AND. hb_IsBlock(aEditControls[ci][3]), aEditControls[ci][3], {|| NIL})
+                  bChange := iif(Len(aEditControls[ci]) > 2 .AND. hb_IsBlock(aEditControls[ci][3]), aEditControls[ci][3], {||NIL})
 
                   IF hb_IsArray(aEdit) .AND. Len(aEdit) >= 1 .AND. iif(Len(aEdit) > 1, !hb_IsBlock(aEdit[2]), .T.)
                      AEC := aEdit[1]    // get normal type for this cell
