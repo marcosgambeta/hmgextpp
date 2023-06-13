@@ -14,7 +14,7 @@ CLASS TGetBox FROM TControl
                nClrFore, nClrBack, hFont, cControl, cWnd, cMsg,;
                lUpdate, bWhen, lCenter, lRight, bChanged,;
                lNoBorder, nHelpId, lSpinner, bUp, bDown, bMin, bMax, lNoMinus )
-   METHOD HandleEvent( nMsg, nWParam, nLParam )
+   METHOD HandleEvent(nMsg, nWParam, nLParam)
    Method KeyChar( nKey, nFlags )
    Method KeyDown( nKey, nFlags )
    Method LostFocus( hCtlFocus )
@@ -54,7 +54,7 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
            lRight    := .F., ;
            lSpinner  := .F., ;
            lNoBorder := .F., ;
-           bSetGet   := bSETGET( cText )
+           bSetGet   := bSETGET(cText)
 
    HB_SYMBOL_UNUSED(bUp)
    HB_SYMBOL_UNUSED(bDown)
@@ -129,9 +129,9 @@ return Self
 * METHOD TGetBox:HandleEvent() Version 7.0 Jul/15/2004
 * ============================================================================
 
-METHOD HandleEvent( nMsg, nWParam, nLParam ) CLASS TGetBox
+METHOD HandleEvent(nMsg, nWParam, nLParam) CLASS TGetBox
 
-Return ::Super:HandleEvent( nMsg, nWParam, nLParam )
+Return ::Super:HandleEvent(nMsg, nWParam, nLParam)
 
 * ============================================================================
 * METHOD TGetBox:KeyChar() Version 7.0 Jul/15/2004

@@ -31,7 +31,7 @@ CLASS TComboBox FROM TControl
              nClrFore, nClrBack, hFont, cMsg, cControl, cWnd )
    METHOD Default()
    METHOD GetDlgCode(nLastKey, nFlags)
-   METHOD HandleEvent( nMsg, nWParam, nLParam )
+   METHOD HandleEvent(nMsg, nWParam, nLParam)
    METHOD KeyDown( nKey, nFlags )
    METHOD KeyChar( nKey, nFlags )
    METHOD LButtonDown( nRow, nCol )
@@ -143,7 +143,7 @@ Return DLGC_WANTALLKEYS
 * METHOD TComboBox:HandleEvent() Version 7.0 Jul/15/2004
 * ============================================================================
 
-METHOD HandleEvent( nMsg, nWParam, nLParam ) CLASS TComboBox
+METHOD HandleEvent(nMsg, nWParam, nLParam) CLASS TComboBox
 
    If HiWord(nWParam) == CBN_CLOSEUP
       if ::bCloseUp != NIL
@@ -152,7 +152,7 @@ METHOD HandleEvent( nMsg, nWParam, nLParam ) CLASS TComboBox
       endif
    Endif
 
-Return ::Super:HandleEvent( nMsg, nWParam, nLParam )
+Return ::Super:HandleEvent(nMsg, nWParam, nLParam)
 
 * ============================================================================
 * METHOD TComboBox:KeyDown() Version 7.0 Jul/15/2004
@@ -201,7 +201,7 @@ METHOD LostFocus() CLASS TComboBox
          Eval(::bSetGet, ::aItems[nAt + 1])
       Endif
    Else
-      Eval(::bSetGet, GetWindowText( ::hWnd ))
+      Eval(::bSetGet, GetWindowText(::hWnd))
    Endif
 
    ::lFocused := .F.

@@ -26,7 +26,7 @@ CLASS TBtnBox FROM TControl
                nClrFore, nClrBack, hFont, cControl, cWnd, cMsg, bChanged, bValid,;
                cResName, bAction, lSpinner, bUp, bDown, bMin, bMax, nBmpWidth, nCell )
    METHOD Default()
-   METHOD HandleEvent( nMsg, nWParam, nLParam )
+   METHOD HandleEvent(nMsg, nWParam, nLParam)
    METHOD GetDlgCode(nLastKey, nFlags)
    Method KeyChar( nKey, nFlags )
    Method KeyDown( nKey, nFlags )
@@ -145,7 +145,7 @@ Return NIL
 * METHOD TBtnBox:HandleEvent() Version 7.0
 * ============================================================================
 
-METHOD HandleEvent( nMsg, nWParam, nLParam ) CLASS TBtnBox
+METHOD HandleEvent(nMsg, nWParam, nLParam) CLASS TBtnBox
 
    // just used for some testings
    If nMsg == WM_NOTIFY
@@ -154,7 +154,7 @@ METHOD HandleEvent( nMsg, nWParam, nLParam ) CLASS TBtnBox
       Endif
    EndIf
 
-Return ::Super:HandleEvent( nMsg, nWParam, nLParam )
+Return ::Super:HandleEvent(nMsg, nWParam, nLParam)
 
 * ============================================================================
 * METHOD TBtnBox:GetDlgCode() Version 7.0
@@ -309,7 +309,7 @@ METHOD Command(nWParam, nLParam) CLASS TBtnBox
          case nNotifyCode == 512 .And. nID == 0 .And. ::bAction != Nil
             ::oWnd:lPostEdit := .T.
             Eval(::bAction, Self, Eval(::bSetGet))
-            ::bLostFocus := { | nKey | ::oWnd:EditExit( ::nCell, nKey, ::VarGet(), ::bValid, .F. ) }
+            ::bLostFocus := { | nKey | ::oWnd:EditExit(::nCell, nKey, ::VarGet(), ::bValid, .F.) }
             ::nLastKey := VK_RETURN
             ::LostFocus()
             ::oWnd:lPostEdit := .F.

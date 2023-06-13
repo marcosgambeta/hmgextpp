@@ -8,12 +8,12 @@ FUNCTION _GetTextHeight(hwnd, hDC)
 
 RETURN GetTextMetric(hDC)[1]
 
-FUNCTION _InvertRect( hDC, aRec ) // Temporary
+FUNCTION _InvertRect(hDC, aRec) // Temporary
 
    LOCAL bRec
 
    bRec := { aRec[2], aRec[1], aRec[4], aRec[3] }
-   InvertRect( hDC, bRec )
+   InvertRect(hDC, bRec)
 
 RETURN NIL
 

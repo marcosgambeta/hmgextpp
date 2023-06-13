@@ -91,7 +91,7 @@
 STATIC aBackColor, aFontColor
 
 *-----------------------------------------------------------------------------*
-FUNCTION HMG_Alert( cMsg, aOptions, cTitle, nType, cIcoFile, nIcoSize, aBtnColors, bInit, lClosable, cFontName )
+FUNCTION HMG_Alert(cMsg, aOptions, cTitle, nType, cIcoFile, nIcoSize, aBtnColors, bInit, lClosable, cFontName)
 *-----------------------------------------------------------------------------*
    
    LOCAL nLineas
@@ -153,15 +153,15 @@ FUNCTION HMG_Alert( cMsg, aOptions, cTitle, nType, cIcoFile, nIcoSize, aBtnColor
 
    cMsg := cValToChar( cMsg )
 
-   IF Set( _SET_DELIMITERS )
-      cOldDelim := Set( _SET_DELIMCHARS )
-      Set( _SET_DELIMCHARS, ";|" )
-      cDelim := SubStr(Set( _SET_DELIMCHARS ), iif("el" $ hb_UserLang(), 2, 1), 1)
+   IF Set(_SET_DELIMITERS)
+      cOldDelim := Set(_SET_DELIMCHARS)
+      Set(_SET_DELIMCHARS, ";|")
+      cDelim := SubStr(Set(_SET_DELIMCHARS), iif("el" $ hb_UserLang(), 2, 1), 1)
       cMsg := StrTran(cMsg, cDelim, CRLF)
-      Set( _SET_DELIMCHARS, cOldDelim )
+      Set(_SET_DELIMCHARS, cOldDelim)
    ENDIF
 
-   nLineas := MLCount( cMsg )
+   nLineas := MLCount(cMsg)
 
    IF TAB $ cMsg
       cMsg := StrTran(cMsg, TAB, Space(3))
@@ -206,7 +206,7 @@ FUNCTION HMG_Alert_MaxLines( nLines )
 RETURN nOldLines
 
 *-----------------------------------------------------------------------------*
-FUNCTION HMG_Alert_RowStart( nRow )
+FUNCTION HMG_Alert_RowStart(nRow)
 *-----------------------------------------------------------------------------*
    
    LOCAL cVarName := "_" + ProcName()

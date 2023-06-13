@@ -3602,7 +3602,7 @@ FUNCTION InputWindow(cTitle, aLabels, aValues, aFormats, nRow, nCol, lCenterWind
          IF hb_IsArray(aFormats[i])
             @ ControlRow, ControlCol COMBOBOX (CN) ITEMS aFormats[i] VALUE aValues[i] WIDTH nControlWidth
          ELSEIF hb_IsChar(aFormats[i])
-            IF hb_UAt( ".", aFormats[i]) > 0
+            IF hb_UAt(".", aFormats[i]) > 0
                @ ControlRow, ControlCol TEXTBOX (CN) VALUE aValues[i] WIDTH nControlWidth NUMERIC INPUTMASK aFormats[i]
             ELSE
                @ ControlRow, ControlCol TEXTBOX (CN) VALUE aValues[i] WIDTH nControlWidth MAXLENGTH Len(aFormats[i]) NUMERIC

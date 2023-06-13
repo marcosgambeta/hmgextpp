@@ -212,7 +212,7 @@ FUNCTION _DefineRichEditBoxEx ( ControlName, ;
    k := _GetControlFree()
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif
@@ -297,7 +297,7 @@ FUNCTION RichEditBox_mnuEdit_Click( cAction )
    CASE cAction == "UNDO"
       RichEditBox_ChangeUndo( hEdit ) // Ctrl+Z
    CASE cAction == "CUT"
-      RichEditBox_SelCut( hEdit )     // Ctrl+X
+      RichEditBox_SelCut(hEdit)     // Ctrl+X
    CASE cAction == "COPY"
       RichEditBox_SelCopy( hEdit )    // Ctrl+C
    CASE cAction == "PASTE"
@@ -416,7 +416,7 @@ RETURN NIL
 
 #define TWIPS     1440 / 25.4
 *-----------------------------------------------------------------------------*
-FUNCTION RichEditBox_RTFPrint( hWndControl, aSelRange, nLeft, nTop, nRight, nBottom, PrintPageCodeBlock )
+FUNCTION RichEditBox_RTFPrint(hWndControl, aSelRange, nLeft, nTop, nRight, nBottom, PrintPageCodeBlock)
 *-----------------------------------------------------------------------------*
    
    LOCAL nPageWidth
@@ -489,7 +489,7 @@ FUNCTION RichEditBox_SaveFile(hWndControl, cFile, lSelection, nType)
    hb_default(@lSelection, .F.)
    hb_default(@nType, RICHEDITFILE_RTF)
 
-   RichEditBox_StreamOut( hWndControl, cFile, lSelection, nType )
+   RichEditBox_StreamOut(hWndControl, cFile, lSelection, nType)
 
 RETURN NIL
 

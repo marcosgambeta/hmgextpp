@@ -183,7 +183,7 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
    k := _GetControlFree()
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif
@@ -329,7 +329,7 @@ PROCEDURE _DataRichEditBoxSave ( ControlName, ParentForm, cFile, typ )
          cFile := _HMG_aControlCaption[i]
       ENDIF
 
-      StreamOut( GetControlHandle(ControlName, ParentForm), cFile, hb_defaultValue(typ, 2) )
+      StreamOut(GetControlHandle(ControlName, ParentForm), cFile, hb_defaultValue(typ, 2))
 
    ENDIF
 

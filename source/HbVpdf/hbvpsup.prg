@@ -124,7 +124,7 @@ STATIC FUNCTION StrB64Decode(cString)
    ENDIF
 
 /*
-   IF nLen > Int( MAXSTRINGLENGTH / 1.34 ) // Base64 is 1/3rd larger than source text.
+   IF nLen > Int(MAXSTRINGLENGTH / 1.34) // Base64 is 1/3rd larger than source text.
       RETURN "" // Not enough memory to decode.
    ENDIF
 */
@@ -145,7 +145,7 @@ STATIC FUNCTION StrB64Decode(cString)
          // is one fewer data byte.  (There can only be a maximum of 2 '=' In
          // the whole string.)
 
-         nData := At( SubStr(cString, nGroupPos + nCharPos, 1), "=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/" ) - 2
+         nData := At(SubStr(cString, nGroupPos + nCharPos, 1), "=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/") - 2
 
          DO CASE
          CASE nData >= 0

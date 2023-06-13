@@ -164,7 +164,7 @@ FUNCTION _ActivateScrSaver( aForm, cParam )
 
             EXECUTE FILE "Rundll32.exe";
                PARAMETERS "desk.cpl,InstallScreenSaver " + ;
-               GetSystemFolder() + hb_ps() + cFileNoExt( cFileScr ) + ".SCR"
+               GetSystemFolder() + hb_ps() + cFileNoExt(cFileScr) + ".SCR"
 
          ELSE
 

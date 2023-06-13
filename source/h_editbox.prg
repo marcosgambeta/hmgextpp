@@ -146,7 +146,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
 
       IF lDialogInMemory         //Dialog Template
 
-         blInit := {|x, y, z| InitDialogEdit( x, y, z ) }
+         blInit := {|x, y, z| InitDialogEdit(x, y, z) }
 
          //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          AAdd(_HMG_aDialogItems, {nId, k, "edit", style, 0, x, y, w, h, value, HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
@@ -250,7 +250,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
    ENDIF
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif
@@ -297,7 +297,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
    _HMG_aControlMiscData2          [k] := ""
 
    IF Len(_HMG_aDialogTemplate) == 0        //Dialog Template
-      InitDialogEdit( ParentFormName, ControlHandle, k )
+      InitDialogEdit(ParentFormName, ControlHandle, k)
    ENDIF
 
    IF Field != NIL
@@ -338,7 +338,7 @@ PROCEDURE _DataEditBoxRefresh ( i )
 RETURN
 
 *-----------------------------------------------------------------------------*
-FUNCTION InitDialogEdit( ParentName, ControlHandle, k )
+FUNCTION InitDialogEdit(ParentName, ControlHandle, k)
 *-----------------------------------------------------------------------------*
    
    LOCAL maxlength
@@ -346,8 +346,8 @@ FUNCTION InitDialogEdit( ParentName, ControlHandle, k )
 
    ParentName := Nil
 
-   maxlength := _HMG_aControlMiscData1 [k,2]
-   readonly  := _HMG_aControlMiscData1 [k,3]
+   maxlength := _HMG_aControlMiscData1[k, 2]
+   readonly  := _HMG_aControlMiscData1[k, 3]
 
    IF hb_IsLogical(readonly)
       SendMessage(ControlHandle, EM_SETREADONLY, iif(readonly, 1, 0), 0)

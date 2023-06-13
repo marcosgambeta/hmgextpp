@@ -71,8 +71,8 @@ CREATE CLASS TReg32
 
    METHOD New( nKey, cRegKey, lShowError )
    METHOD Create(nKey, cRegKey, lShowError)
-   METHOD Get( cRegVar, uVar )
-   METHOD Set( cRegVar, uVar )
+   METHOD Get(cRegVar, uVar)
+   METHOD Set(cRegVar, uVar)
    METHOD Delete(cRegVar)
    METHOD Close() BLOCK {|Self| iif(::lError, NIL, RegCloseKey(::nHandle)) }
 
@@ -128,7 +128,7 @@ METHOD Create(nKey, cRegKey, lShowError) CLASS TReg32
 RETURN Self
 
 
-METHOD Get( cRegVar, uVar ) CLASS TReg32
+METHOD Get(cRegVar, uVar) CLASS TReg32
 
    LOCAL cValue := ""
    LOCAL nType := 0
@@ -161,7 +161,7 @@ METHOD Get( cRegVar, uVar ) CLASS TReg32
 RETURN uVar
 
 
-METHOD Set( cRegVar, uVar ) CLASS TReg32
+METHOD Set(cRegVar, uVar) CLASS TReg32
 
    LOCAL cType
    LOCAL nType
@@ -258,7 +258,7 @@ FUNCTION GetRegistryValue(nKey, cRegKey, cRegVar, cType)
          uVal := ""
       ENDCASE
 
-      uVal := oReg:Get( cRegVar, uVal )
+      uVal := oReg:Get(cRegVar, uVal)
       IF oReg:nError != ERROR_SUCCESS
          uVal := NIL
       ENDIF
@@ -280,7 +280,7 @@ FUNCTION SetRegistryValue(nKey, cRegKey, cRegVar, uVal)
    oReg := TReg32():New( nKey, cRegKey, .F. )
 
    IF !oReg:lError
-      oReg:Set( cRegVar, uVal )
+      oReg:Set(cRegVar, uVal)
       lSuccess := ( oReg:nError == ERROR_SUCCESS )
    ENDIF
 

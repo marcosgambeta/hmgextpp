@@ -230,7 +230,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
    k := _GetControlFree()
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif
@@ -293,7 +293,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
 
    IF hb_IsChar(WorkArea)
 
-      IF Select( WorkArea ) != 0
+      IF Select(WorkArea) != 0
 
          BackRec := ( WorkArea )->( RecNo() )
 

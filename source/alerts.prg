@@ -18,7 +18,7 @@ FUNCTION AlertYesNo ( Message, Title, RevertDefault, Icon, nSize, aColors, lTopM
       nDefaultButton := 2
    ENDIF
 
-RETURN ( _Alert( Message, aOptions, Title, , nDefaultButton, Icon, nSize, aColors, lTopMost, bInit ) == IDOK )
+RETURN ( _Alert(Message, aOptions, Title, , nDefaultButton, Icon, nSize, aColors, lTopMost, bInit) == IDOK )
 
 *-----------------------------------------------------------------------------*
 FUNCTION AlertYesNoCancel ( Message, Title, nDefaultButton, Icon, nSize, aColors, lTopMost, bInit )
@@ -26,7 +26,7 @@ FUNCTION AlertYesNoCancel ( Message, Title, nDefaultButton, Icon, nSize, aColors
 
    LOCAL aOptions := { "&" + _HMG_aABMLangLabel[20], "&" + _HMG_aABMLangLabel[21], "&" + _HMG_aABMLangButton[13] }
 
-   SWITCH _Alert( Message, aOptions, Title, , hb_defaultValue(nDefaultButton, 1), Icon, nSize, aColors, lTopMost, bInit, .T. )
+   SWITCH _Alert(Message, aOptions, Title, , hb_defaultValue(nDefaultButton, 1), Icon, nSize, aColors, lTopMost, bInit, .T.)
 
    CASE 1
       RETURN ( 1 )
@@ -43,7 +43,7 @@ FUNCTION AlertRetryCancel ( Message, Title, nDefaultButton, Icon, nSize, aColors
    
    LOCAL aOptions := { _HMG_aLangButton[13], _HMG_aLangButton[7] } // P.D. July 3, 2021
 
-RETURN ( _Alert( Message, aOptions, Title, , hb_defaultValue(nDefaultButton, 1), Icon, nSize, aColors, lTopMost, bInit, .T. ) == IDOK )
+RETURN ( _Alert(Message, aOptions, Title, , hb_defaultValue(nDefaultButton, 1), Icon, nSize, aColors, lTopMost, bInit, .T.) == IDOK )
 
 *-----------------------------------------------------------------------------*
 FUNCTION AlertOkCancel ( Message, Title, nDefaultButton, Icon, nSize, aColors, lTopMost, bInit )
@@ -51,7 +51,7 @@ FUNCTION AlertOkCancel ( Message, Title, nDefaultButton, Icon, nSize, aColors, l
    
    LOCAL aOptions := { _HMG_BRWLangButton[4], _HMG_BRWLangButton[3] }
 
-RETURN ( _Alert( Message, aOptions, Title, , hb_defaultValue(nDefaultButton, 1), Icon, nSize, aColors, lTopMost, bInit, .T. ) == IDOK )
+RETURN ( _Alert(Message, aOptions, Title, , hb_defaultValue(nDefaultButton, 1), Icon, nSize, aColors, lTopMost, bInit, .T.) == IDOK )
 
 *-----------------------------------------------------------------------------*
 FUNCTION AlertExclamation ( Message, Title, Icon, nSize, aColors, lTopMost, bInit, lNoSound )
@@ -67,7 +67,7 @@ FUNCTION AlertExclamation ( Message, Title, Icon, nSize, aColors, lTopMost, bIni
       PlayExclamation()
    ENDIF                 
 
-RETURN _Alert( Message, nWaitSec, hb_defaultValue(Title, _HMG_MESSAGE[10]), , , Icon, nSize, aColors, lTopMost, bInit )
+RETURN _Alert(Message, nWaitSec, hb_defaultValue(Title, _HMG_MESSAGE[10]), , , Icon, nSize, aColors, lTopMost, bInit)
 
 *-----------------------------------------------------------------------------*
 FUNCTION AlertInfo ( Message, Title, Icon, nSize, aColors, lTopMost, bInit, lNoSound )
@@ -83,7 +83,7 @@ FUNCTION AlertInfo ( Message, Title, Icon, nSize, aColors, lTopMost, bInit, lNoS
       PlayAsterisk()
    ENDIF
 
-RETURN _Alert( Message, nWaitSec, hb_defaultValue(Title, _HMG_MESSAGE[11]), ICON_INFORMATION, , Icon, nSize, aColors, lTopMost, bInit )
+RETURN _Alert(Message, nWaitSec, hb_defaultValue(Title, _HMG_MESSAGE[11]), ICON_INFORMATION, , Icon, nSize, aColors, lTopMost, bInit)
 
 *-----------------------------------------------------------------------------*
 FUNCTION AlertStop ( Message, Title, Icon, nSize, aColors, lTopMost, bInit, lNoSound )
@@ -99,7 +99,7 @@ FUNCTION AlertStop ( Message, Title, Icon, nSize, aColors, lTopMost, bInit, lNoS
       PlayHand()
    ENDIF                 
 
-RETURN _Alert( Message, nWaitSec, hb_defaultValue(Title, _HMG_MESSAGE[12]), ICON_STOP, , Icon, nSize, aColors, lTopMost, bInit )
+RETURN _Alert(Message, nWaitSec, hb_defaultValue(Title, _HMG_MESSAGE[12]), ICON_STOP, , Icon, nSize, aColors, lTopMost, bInit)
 
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION _Alert ( cMsg, aOptions, cTitle, nType, nDefault, xIcon, nSize, aColors, lTopMost, bInit, lClosable )
@@ -119,4 +119,4 @@ STATIC FUNCTION _Alert ( cMsg, aOptions, cTitle, nType, nDefault, xIcon, nSize, 
       _HMG_MainWindowFirst := .F.
    ENDIF
 
-RETURN HMG_Alert( cMsg, aOptions, cTitle, nType, xIcon, nSize, aColors, bInit, lClosable )
+RETURN HMG_Alert(cMsg, aOptions, cTitle, nType, xIcon, nSize, aColors, bInit, lClosable)

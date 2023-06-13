@@ -133,8 +133,8 @@ While i < (nChars + 1)
       cRet += " "
    elseif cChar=="%"
       cChar := lower(substr(cString, i + 1, 2))
-      nPos1 := AT( Left(cChar,1), ::cCharPos )-1
-      nPos2 := AT( Right(cChar,1), ::cCharPos )-1
+      nPos1 := AT(Left(cChar, 1), ::cCharPos)-1
+      nPos2 := AT(Right(cChar, 1), ::cCharPos)-1
       nDec := (nPos1*16) +nPos2
       cRet += CHR(nDec)
       i+=2

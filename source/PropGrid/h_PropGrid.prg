@@ -302,7 +302,7 @@ FUNCTION _DefinePropGrid(ControlName, ParentFormName, row, col, width, height, ;
       TreeView_SetTextColor( aControlHandle[1], fontcolor )
    ENDIF
 
-   indent := TreeView_GetIndent( aControlHandle[1] )
+   indent := TreeView_GetIndent(aControlHandle[1])
 
    IF hb_IsNumeric(itemheight)
       TreeView_SetItemHeight(aControlHandle[1], itemheight)
@@ -312,11 +312,11 @@ FUNCTION _DefinePropGrid(ControlName, ParentFormName, row, col, width, height, ;
 
    hColorIL := InitImageList ( ( itemheight - 4 ) * 1.4, itemheight - 4, .T. )
 
-   InitPropGridImageList( aControlHandle[1], hColorIL )  // Init Color Image List
+   InitPropGridImageList(aControlHandle[1], hColorIL)  // Init Color Image List
 
    _HMG_ActivePropGridIndex := k
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar, k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif
@@ -543,7 +543,7 @@ FUNCTION PgCheckData(typePG, cValue, aData, mod)
       IF hb_IsNumeric(cValue)
          cValue := LTrim(Str(Int(cValue)))
       ELSEIF hb_IsChar(cValue)
-         IF IsDigit( cValue )
+         IF IsDigit(cValue)
             cValue := LTrim(Str(Int(Val(cValue))))
          ELSE
             ret := .F.
@@ -557,7 +557,7 @@ FUNCTION PgCheckData(typePG, cValue, aData, mod)
       IF hb_IsNumeric(cValue)
          cValue := LTrim(REMRIGHT(Str(cValue, 16, 8), "0"))
       ELSEIF hb_IsChar(cValue)
-         IF IsDigit( cValue ) .OR. Left(cValue, 1) == "-"
+         IF IsDigit(cValue) .OR. Left(cValue, 1) == "-"
             cValue := LTrim(REMRIGHT(Str(Val(CharRem(" ", cValue)), 16, 8), "0"))
          ELSE
             ret := .F.
@@ -629,7 +629,7 @@ FUNCTION PgCheckData(typePG, cValue, aData, mod)
    //CASE typePG == PG_FONT
    //CASE typePG == PG_ARRAY
    CASE PG_ENUM
-      IF !( At( cValue, aData ) != 0 .OR. CharOnly(cValue, aData) == cValue )
+      IF !( At(cValue, aData) != 0 .OR. CharOnly(cValue, aData) == cValue )
          cErr := _HMG_PGLangError[4] + " ENUM " + _HMG_PGLangError[2]
          ret := .F.
       ENDIF
@@ -687,7 +687,7 @@ FUNCTION PgCheckData(typePG, cValue, aData, mod)
       TOKENINIT ( cData, "," )
       DO WHILE !TOKENEND()
          cToken := AllTrim(TOKENNEXT(cData))
-         IF !IsDigit( cToken )
+         IF !IsDigit(cToken)
             cErr := _HMG_PGLangError[4] + " SIZE " + _HMG_PGLangError[2]
             ret := .F.
          ENDIF
@@ -926,8 +926,8 @@ FUNCTION PgInitItemXml( cFile, k )
    IF _HMG_aControlInputMask[k]
       ExpandPG( ControlHandle, 1 )
    ENDIF
-   TreeView_SelectItem ( ControlHandle, PG_GetRoot(  ControlHandle ) )
-   SetFocus( ControlHandle )
+   TreeView_SelectItem(ControlHandle, PG_GetRoot(ControlHandle))
+   SetFocus(ControlHandle)
 
 RETURN Nil
 
@@ -1210,7 +1210,7 @@ FUNCTION PgAddColorIL( cColor, k )
    nColor := PgIdentColor( 0, cColor )
    hImage := CREATECOLORBMP( _HMG_aControlParentHandles[k], nColor, ItWidth, ItHeight )
 
-RETURN  IL_AddMaskedIndirect( hImageLst, hImage, , ItWidth, ItHeight, 1 )
+RETURN  IL_AddMaskedIndirect(hImageLst, hImage, , ItWidth, ItHeight, 1)
 
 *------------------------------------------------------------------------------*
 FUNCTION PgLoadImag(cFile, k, hItem)
@@ -1297,7 +1297,7 @@ FUNCTION PgIdentData(cData, typePG, cValue, sep)
       TOKENINIT ( cData, ";" )
       DO WHILE !TOKENEND()
          cToken := AllTrim(TOKENNEXT(cData))
-         cLogic := IIF(At( cToken,cValue ) != 0, "true", "false")
+         cLogic := IIF(At(cToken, cValue) != 0, "true", "false")
          AAdd(aData, {"logic", cToken, cLogic})
          IF cLogic == "false"
             aData[1, 3] := cLogic
@@ -1454,7 +1454,7 @@ FUNCTION PgIdentColor( met, cColor )
       ELSEIF ( pos := AScan(aColor, {|x|  Upper(x[2] ) == Upper(cColor ) }) ) > 0
          nColor := RGB(aColor[pos, 1], aColor[pos, 2], aColor[pos, 3])
       ELSE
-         IF SubStr(cColor, 1, 1) == "(" .AND. RAt( ")", cColor ) == Len(cColor)
+         IF SubStr(cColor, 1, 1) == "(" .AND. RAt(")", cColor) == Len(cColor)
             aCol := {}
             TOKENINIT ( cColor, " ,()" )
             DO WHILE !TOKENEND()
@@ -1657,7 +1657,7 @@ FUNCTION CreatePropFile(ParentForm, ControlName, cFile)
    hand := FCreate(cFile, 0)
    IF FError() == 0
       lret := .T.
-      hItem := PG_GetRoot(  hWndPG )
+      hItem := PG_GetRoot(hWndPG)
       hParentItem := TreeView_GetParent(hWndPG, hItem)      // Parent Item
       AAdd(aLev, hParentItem)
       WHILE !empty(hItem)
@@ -1696,7 +1696,7 @@ FUNCTION CreateIniFile(ParentForm, ControlName, cFile)
 
    IF _BeginIni(cFile) == 0
       lRet := .T.
-      hItem := PG_GetRoot(  hWndPG )
+      hItem := PG_GetRoot(hWndPG)
       WHILE !empty(hItem)
          aItemRt := PG_GetItem(hWndPG, hItem, PGI_ALLDATA)
          IF aItemRt[PGI_CHG]
@@ -1773,7 +1773,7 @@ FUNCTION GetChangedItem( ParentForm, ControlName )
       ENDIF
    ENDIF
    hWndPG := GetPGControlHandle ( ControlName, ParentForm )
-   hItem := PG_GetRoot(  hWndPG )
+   hItem := PG_GetRoot(hWndPG)
    WHILE !empty(hItem)
       IF PG_GetItem(hWndPG, hItem, PGI_CHG)
          AAdd(aRetItem, PG_GetItem(hWndPG, hItem,PGI_ID))
@@ -1948,7 +1948,7 @@ FUNCTION aFont2Str(aFont)
    LOCAL sep := ""
    
    FOR n := 1 TO Len(aFont)
-      IF At( aFont[n, 3], "true false" ) != 0
+      IF At(aFont[n, 3], "true false") != 0
          IF aFont[n, 3]  == "true"
             cValue += "," + aFontName[n]
          ENDIF
@@ -2186,7 +2186,7 @@ FUNCTION ValueTran( cValue, ItType, cData, nSubIt )
          xData := cValue
          EXIT
       CASE PG_INTEGER
-         xData := Int( Val(cValue) )
+         xData := Int(Val(cValue))
          EXIT
       CASE PG_DOUBLE
          xData := Val(CharRem( " ", cValue ))
@@ -2293,8 +2293,8 @@ FUNCTION FormatPropertyLine(cString)
 
    TOKENINIT ( cString, " " + Chr(9) + Chr(13) )
    DO WHILE ( !TOKENEND() )
-      cToken := TOKENNEXT( cString )
-      IF RAt( Chr(34), cToken ) < Len(cToken)
+      cToken := TOKENNEXT(cString)
+      IF RAt(Chr(34), cToken) < Len(cToken)
          lToken := .F.
          cStr += cToken + " "
       ELSE
@@ -2343,14 +2343,14 @@ FUNCTION FormatIniLine(cString)
    
    cString := LTrim(cString)
    TOKENINIT ( cString, "=" + Chr(9) + Chr(13) )
-   IF At( "[", cString ) == 1
+   IF At("[", cString) == 1
       aLine := { "category" }
    ELSE
       aLine := { "string" }
    ENDIF
    cString := CharRem ( "[]", cString )
    DO WHILE ( !TOKENEND() )
-      cToken := TOKENNEXT( cString )
+      cToken := TOKENNEXT(cString)
       AAdd(aLine, cToken)
    ENDDO
    TOKENEXIT()
@@ -2425,7 +2425,7 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
       ENDIF
       // simulate overwrite mode
       IF !IsInsertActive() .AND. wParam != 13 .AND. wParam != 8 .AND. SubStr(cValue, icp + 1, 1) != Chr(13)
-         IF IsAlpha(Chr(wParam)) .OR. IsDigit( Chr(wParam) )
+         IF IsAlpha(Chr(wParam)) .OR. IsDigit(Chr(wParam))
             IF icp != icpe
                SendMessage(hWnd, WM_CLEAR, 0, 0)
                SendMessage(hWnd, EM_SETSEL, icpe, icpe)
@@ -2571,7 +2571,7 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
          cValue := GetWindowText(hWnd)
          IF ItemType == PG_DOUBLE
             cValue := CharRem( " ", cValue )
-            IF ( Pos := RAt( ".",cValue ) ) > 0
+            IF ( Pos := RAt(".", cValue) ) > 0
                cValue := CharRem( ".", Left(cValue, Pos) ) + SubStr(cValue, Pos)
             ENDIF
          ENDIF
@@ -2593,7 +2593,7 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
                   lChg := lChg .OR. PG_GETITEM(hWndPG, hChildItem, PGI_CHG)
                   cVal := PG_GETITEM(hWndPG, hChildItem, PGI_VALUE)
                   cData += ";" + cVal
-                  IF At( cVal, "true false" ) != 0
+                  IF At(cVal, "true false") != 0
                      IF cVal  == "true"
                         cValue += "," + aFontName[n]
                      ENDIF
@@ -2813,7 +2813,7 @@ FUNCTION _PGInitData(hWnd, hEdit, hWndItem, ItemType)
          EXIT
       CASE PG_ENUM
       CASE PG_LIST
-         hParentItem := TreeView_GetParent( hWnd, hWndItem )      // Parent Item
+         hParentItem := TreeView_GetParent(hWnd, hWndItem)      // Parent Item
          SetWindowText(hEdit, PG_GETITEM(hWnd, hWndItem, PGI_VALUE))
          ComboBoxReset(hEdit)
          IF PG_GETITEM( hWnd, hParentItem, PGI_TYPE ) == PG_FONT
@@ -2937,7 +2937,7 @@ STATIC FUNCTION DialogFun( lOk, aItem, aItemOld )
       CASE DLG_ID == 110 .AND. DLG_NOT == 0
          cValue := GetEditText ( DLG_HWND, 101 )
          EnableDialogItem ( DLG_HWND, 105 )
-         SetDialogItemText( DLG_HWND, 101, "" )
+         SetDialogItemText(DLG_HWND, 101, "")
          AAdd(aItem, cValue)
          ListboxAddString ( hListBox, cValue )
          DisableDialogItem ( DLG_HWND, 110 )
@@ -2947,7 +2947,7 @@ STATIC FUNCTION DialogFun( lOk, aItem, aItemOld )
          IF Pos > 0 .AND. pos <= Len(aItem)
             ADel( aItem, pos )
             ASize(aItem, Len(aItem) - 1)
-            ListBoxReset( hListBox )
+            ListBoxReset(hListBox)
             SetInitItem( aItem, 1 )
             EnableDialogItem ( DLG_HWND, 105 )
          ENDIF
@@ -2958,7 +2958,7 @@ STATIC FUNCTION DialogFun( lOk, aItem, aItemOld )
             ADel( aItem, pos )
             AIns( aItem, pos - 1 )
             aItem[pos-1] := cValue
-            ListBoxReset( hListBox )
+            ListBoxReset(hListBox)
             SetInitItem( aItem, 1 )
             ListBoxSetCurSel( hListBox, pos - 1 )
             EnableDialogItem ( DLG_HWND, 105 )
@@ -2970,7 +2970,7 @@ STATIC FUNCTION DialogFun( lOk, aItem, aItemOld )
             ADel( aItem, pos )
             AIns( aItem, pos + 1 )
             aItem[pos+1] := cValue
-            ListBoxReset( hListBox )
+            ListBoxReset(hListBox)
             SetInitItem( aItem, 1 )
             ListBoxSetCurSel( hListBox, pos + 1 )
             EnableDialogItem ( DLG_HWND, 105 )
@@ -2980,10 +2980,10 @@ STATIC FUNCTION DialogFun( lOk, aItem, aItemOld )
          lOk := .T.
          _ReleaseDialog ( )
       CASE DLG_ID == 106 .AND. DLG_NOT == 0
-         ListBoxReset( hListBox )
+         ListBoxReset(hListBox)
          aItem := AClone(aItemOld)
          SetInitItem( aItem, 1 )
-         SetDialogItemText( DLG_HWND, 101, "" )
+         SetDialogItemText(DLG_HWND, 101, "")
       CASE DLG_ID == 107 .AND. DLG_NOT == 0
          _ReleaseDialog ( )
       ENDCASE
@@ -3117,8 +3117,8 @@ STATIC PROCEDURE CharMaskEdit ( hWnd, cValue, Mask )
       CASE "A"
       CASE "N"
       CASE "!"
-         IF IsAlpha(CB) .OR. CB == " " .OR. ( ( CM == "N" .OR. CM == "!"  ) .AND. IsDigit( CB ) )
-            IF CM == "!" .AND. !IsDigit( CB )
+         IF IsAlpha(CB) .OR. CB == " " .OR. ( ( CM == "N" .OR. CM == "!"  ) .AND. IsDigit(CB) )
+            IF CM == "!" .AND. !IsDigit(CB)
                OutBuffer += Upper(CB)
             ELSE
                OutBuffer += CB
@@ -3133,7 +3133,7 @@ STATIC PROCEDURE CharMaskEdit ( hWnd, cValue, Mask )
          ENDIF
          EXIT
       CASE "9"
-         IF IsDigit( CB ) .OR. CB == " " .OR. ( CB == "-" .AND. x == fnb .AND. PCount() > 1 )
+         IF IsDigit(CB) .OR. CB == " " .OR. ( CB == "-" .AND. x == fnb .AND. PCount() > 1 )
             OutBuffer += CB
          ELSE
             IF x == icp
@@ -3187,7 +3187,7 @@ STATIC PROCEDURE CharMaskEdit ( hWnd, cValue, Mask )
          FOR x := 1 TO Len(OutBuffer)
             CB := SubStr(OutBuffer, icp + x, 1)
             CM := SubStr(Mask, icp + x, 1)
-            IF !IsDigit( CB ) .AND. !IsAlpha(CB) .AND. ( !( CB == " " ) .OR. ( CB == " " .AND. CM == " " ) )
+            IF !IsDigit(CB) .AND. !IsAlpha(CB) .AND. ( !( CB == " " ) .OR. ( CB == " " .AND. CM == " " ) )
                SendMessage(hWnd, EM_SETSEL, icp + x, icp + x)
             ELSE
                EXIT
@@ -3214,7 +3214,7 @@ STATIC FUNCTION CharMaskTekstOK( cString, cMask )
          CM := SubStr(cMask, x, 1)
          DO CASE
          CASE CM == "9"
-            lPassed := ( IsDigit( CB ) .OR. CB == " " )
+            lPassed := ( IsDigit(CB) .OR. CB == " " )
          CASE CM == " "
             lPassed := ( CB == " " )
          OTHERWISE

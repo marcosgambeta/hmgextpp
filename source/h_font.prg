@@ -50,7 +50,7 @@
 
 #define _FORMNAME_        "Main"
 
-PROCEDURE _DefineFont( FontName, fName, fSize, bold, italic, underline, strikeout, nAngle, default, charset )
+PROCEDURE _DefineFont(FontName, fName, fSize, bold, italic, underline, strikeout, nAngle, default, charset)
 
    LOCAL FontHandle
    LOCAL aFontList := {}
@@ -59,7 +59,7 @@ PROCEDURE _DefineFont( FontName, fName, fSize, bold, italic, underline, strikeou
    LOCAL k
 
    IF _IsControlDefined(FontName, _FORMNAME_)
-      _ReleaseFont( FontName )
+      _ReleaseFont(FontName)
    ENDIF
 
    hb_default(@fName, _HMG_DefaultFontName)
@@ -71,9 +71,9 @@ PROCEDURE _DefineFont( FontName, fName, fSize, bold, italic, underline, strikeou
    hb_default(@nAngle, 0)
 
    IF charset == NIL
-      GetFontList( NIL, NIL, NIL, NIL, NIL, NIL, @aFontList )
+      GetFontList(NIL, NIL, NIL, NIL, NIL, NIL, @aFontList)
 
-      GetFontList( NIL, NIL, SYMBOL_CHARSET, NIL, NIL, NIL, @aFontSymb )
+      GetFontList(NIL, NIL, SYMBOL_CHARSET, NIL, NIL, NIL, @aFontSymb)
       AEval(aFontSymb, {| cFont | AAdd(aFontList, cFont) })
 
       IF Empty(AScan(aFontList, {|cName|Upper(cName) == Upper(fName)}))
@@ -91,12 +91,12 @@ PROCEDURE _DefineFont( FontName, fName, fSize, bold, italic, underline, strikeou
    k := _GetControlFree()
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif
 
-   FontHandle := InitFont( fName, fSize, bold, italic, underline, strikeout, nAngle * 10, charset )
+   FontHandle := InitFont(fName, fSize, bold, italic, underline, strikeout, nAngle * 10, charset)
 
    _HMG_aControlType               [k] := CONTROL_TYPE_FONT
    _HMG_aControlNames              [k] := FontName
@@ -146,7 +146,7 @@ PROCEDURE _DefineFont( FontName, fName, fSize, bold, italic, underline, strikeou
 RETURN
 
 
-PROCEDURE _ReleaseFont( FontName )
+PROCEDURE _ReleaseFont(FontName)
 
    LOCAL i := AScan(_HMG_aControlNames, FontName)
 
@@ -161,7 +161,7 @@ PROCEDURE _EraseFontDef( i )
 
    LOCAL mVar
 
-   DeleteObject( _HMG_aControlFontHandle[i] )
+   DeleteObject(_HMG_aControlFontHandle[i])
 
    IF _HMG_lOOPEnabled
       Eval(_HMG_bOnControlDestroy, i)
@@ -170,11 +170,11 @@ PROCEDURE _EraseFontDef( i )
    mVar := "_" + _FORMNAME_ + "_" + _HMG_aControlNames[i]
 
 #ifdef _NAMES_LIST_
-   _DelNameList( mVar )
+   _DelNameList(mVar)
 #else
-   IF __mvExist( mVar )
+   IF __mvExist(mVar)
 #ifndef _PUBLIC_RELEASE_
-      __mvPut( mVar, 0 )
+      __mvPut(mVar, 0)
 #else
       __mvXRelease(mVar)
 #endif
@@ -335,15 +335,15 @@ FUNCTION _SetFontAttr( ControlName, ParentForm, Value, nType )
 
    DO CASE
    CASE t == CONTROL_TYPE_SPINNER
-      _HMG_aControlFontHandle[i] := _SetFont( h[1], n, s, ab, ai, au, as, aa )
+      _HMG_aControlFontHandle[i] := _SetFont(h[1], n, s, ab, ai, au, as, aa)
 
    CASE t == CONTROL_TYPE_RADIOGROUP
-      _HMG_aControlFontHandle[i] := _SetFont( h[1], n, s, ab, ai, au, as, aa )
+      _HMG_aControlFontHandle[i] := _SetFont(h[1], n, s, ab, ai, au, as, aa)
       AEval(h, {|x| SendMessage(x, WM_SETFONT, _HMG_aControlFontHandle[i], 1) }, 2)
 
    OTHERWISE
       IF IsWindowHandle(h)
-         _HMG_aControlFontHandle[i] := _SetFont( h, n, s, ab, ai, au, as, aa )
+         _HMG_aControlFontHandle[i] := _SetFont(h, n, s, ab, ai, au, as, aa)
          IF t == CONTROL_TYPE_MONTHCAL
             SetPosMonthCal ( h, _HMG_aControlCol[i], _HMG_aControlRow[i] )
             _HMG_aControlWidth[i] := GetWindowWidth(h)
@@ -399,7 +399,7 @@ RETURN lExpr
 // by Dr. Claudio Soto (January 2014)
 //*********************************************
 
-FUNCTION GetFontList( hDC, cFontFamilyName, nCharSet, nPitch, nFontType, lSortCaseSensitive, aFontName )
+FUNCTION GetFontList(hDC, cFontFamilyName, nCharSet, nPitch, nFontType, lSortCaseSensitive, aFontName)
    // return is array { { cFontName, nCharSet, nPitchAndFamily, nFontType } , ... }
    
    LOCAL SortCodeBlock

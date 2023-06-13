@@ -73,13 +73,13 @@ CLASS TPOP3
 
    METHOD New()
 
-   METHOD Connect( cAddress, nPort )
+   METHOD Connect(cAddress, nPort)
    METHOD Close()
 
    METHOD Login( cUser, cPwd )
-   METHOD List( lFullInfo )
+   METHOD List(lFullInfo)
    METHOD GetMessageHeader( cMessageID )
-   METHOD GetMessageText( cMessageID )
+   METHOD GetMessageText(cMessageID)
    METHOD DeleteMessage(cMessageID)
 
    CLASSDATA oSocket HIDDEN
@@ -105,7 +105,7 @@ return Self
 //
 // Connect to remore site
 //
-METHOD Connect( cAddress, nPort ) CLASS TPOP3
+METHOD Connect(cAddress, nPort) CLASS TPOP3
 local bRet
 
 DEFAULT nPort TO 110
@@ -156,11 +156,11 @@ LOCAL bRet := .T.
 if ::oSocket:SendString( "USER " +cUser +CHR(13)+CHR(10) )
    // Consume reply
    cLine := ::oSocket:ReceiveLine()
-   bRet  := (LEFT(cLine,3)=="+OK")
+   bRet  := (LEFT(cLine, 3)=="+OK")
    if bRet .AND. ::oSocket:SendString( "PASS " +cPwd +CHR(13)+CHR(10) )
       // Consume reply
       cLine := ::oSocket:ReceiveLine()
-      bRet  := (LEFT(cLine,3)=="+OK")
+      bRet  := (LEFT(cLine, 3)=="+OK")
    endif
 endif
 return bRet
@@ -168,7 +168,7 @@ return bRet
 //
 // List messages
 //
-METHOD List( lFullInfo ) CLASS TPOP3
+METHOD List(lFullInfo) CLASS TPOP3
 local aRet := {}
 local cMsg
 local nSpace, cMsgID, cSize, cInfo, nPos, cDmm, cSubject
@@ -183,7 +183,7 @@ if ::oSocket:SendString( "LIST" +CHR(13)+CHR(10) )
          exit
       endif
       //? cMsg
-      nSpace := at( " ", cMsg )
+      nSpace := at(" ", cMsg)
       cMsgID := alltrim(substr(cMsg, 1, nSpace))
       cSize  := alltrim(substr(cMsg, nSpace))
       aadd(aRet, {cMsgID, val(cSize)})
@@ -194,7 +194,7 @@ if ::oSocket:SendString( "LIST" +CHR(13)+CHR(10) )
          cInfo    := ::GetMessageHeader( aRet[nPos][1] )
 
          cSubject := ""
-         if at( "Subject:", cInfo )>0
+         if at("Subject:", cInfo)>0
             cDmm := substr(cInfo, at("Subject:", cInfo) + 8)
             cSubject := substr(cDmm, 0, at(CHR(13) + CHR(10), cDmm) - 1)
          endif
@@ -228,7 +228,7 @@ return cRet
 //
 // Get original text of mail
 //
-METHOD GetMessageText( cMessageID ) CLASS TPOP3
+METHOD GetMessageText(cMessageID) CLASS TPOP3
 local cRet := ""
 local cMsg
 

@@ -47,7 +47,7 @@
 #include "minigui.ch"
 
 *-----------------------------------------------------------------------------*
-FUNCTION drawtextout( window, row, col, string, fontcolor, backcolor, fontname, fontsize, bold, italic, underline, strikeout, transparent, angle, once )
+FUNCTION drawtextout(window, row, col, string, fontcolor, backcolor, fontname, fontsize, bold, italic, underline, strikeout, transparent, angle, once)
 *-----------------------------------------------------------------------------*
 
    LOCAL FormHandle
@@ -105,7 +105,7 @@ FUNCTION drawline(window, row, col, row1, col1, penrgb, penwidth)
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION drawrect( window, row, col, row1, col1, penrgb, penwidth, fillrgb )
+FUNCTION drawrect(window, row, col, row1, col1, penrgb, penwidth, fillrgb)
 *-----------------------------------------------------------------------------*
    
    LOCAL FormHandle
@@ -127,7 +127,7 @@ FUNCTION drawrect( window, row, col, row1, col1, penrgb, penwidth, fillrgb )
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION drawroundrect( window, row, col, row1, col1, width, height, penrgb, penwidth, fillrgb )
+FUNCTION drawroundrect(window, row, col, row1, col1, width, height, penrgb, penwidth, fillrgb)
 *-----------------------------------------------------------------------------*
    
    LOCAL FormHandle

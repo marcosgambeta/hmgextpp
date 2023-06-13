@@ -281,7 +281,7 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
    LOCAL cFiltroAnt AS character // Condición del filtro anterior.
 
    // ------- Gusrdar estado actual de SET DELETED y activarlo
-   _BackDeleted := Set( _SET_DELETED )
+   _BackDeleted := Set(_SET_DELETED)
    SET DELETED OFF
 
    // ------- Inicialización del soporte multilenguaje.---------------------------
@@ -498,7 +498,7 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
          cClave := Upper((_cArea)->(ordKey(k)))
          FOR i := 1 TO nEstructura
             IF nVeces <= 1
-               nInicio := At( _aEstructura[i, DBS_NAME], cClave )
+               nInicio := At(_aEstructura[i, DBS_NAME], cClave)
                IF nInicio != 0
                   AAdd(_aIndiceCampo, i)
                   nVeces++
@@ -732,7 +732,7 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
    _HMG_ExtendedNavigation := _BakExtendedNavigation
 
    // ------- Restaurar SET DELETED a su valor inicial
-   Set( _SET_DELETED, _BackDeleted )
+   Set(_SET_DELETED, _BackDeleted)
 
 RETURN NIL
 
@@ -1046,7 +1046,7 @@ STATIC FUNCTION ABM2Editar( lNuevo )
    // ------- Actualiza los controles si se está editando.------------------------
    if !lNuevo
       FOR i := 1 TO Len(_aControl)
-         SetProperty( "wndABM2EditNuevoSplit", _aControl[i, ABM_CON_NAME], "Value", ( _cArea )->( FieldGet( i ) ) )
+         SetProperty( "wndABM2EditNuevoSplit", _aControl[i, ABM_CON_NAME], "Value", ( _cArea )->( FieldGet(i) ) )
       NEXT
    ENDIF
 
@@ -1190,7 +1190,7 @@ STATIC FUNCTION ABM2EditarGuardar( lNuevo )
 
          FOR i := 1 TO Len(_aEstructura)
             xValor := GetProperty( "wndABM2EditNuevoSplit", _aControl[i, ABM_CON_NAME], "Value" )
-            ( _cArea )->( FieldPut( i, xValor ) )
+            ( _cArea )->( FieldPut(i, xValor) )
          NEXT
 
          ( _cArea )->( dbUnlock() )
@@ -1329,7 +1329,7 @@ STATIC FUNCTION ABM2EditarCopiar()
       ( _cArea )->( dbGoto( nReg ) )
       FOR i := 1 TO Len(_aControl)
          IF _aEditable[i]
-            SetProperty( "wndABM2EditNuevoSplit", _aControl[i, ABM_CON_NAME], "Value", ( _cArea )->( FieldGet( i ) ) )
+            SetProperty( "wndABM2EditNuevoSplit", _aControl[i, ABM_CON_NAME], "Value", ( _cArea )->( FieldGet(i) ) )
          ENDIF
       NEXT
       ( _cArea )->( dbGoto( nRegistro ) )
@@ -1354,7 +1354,7 @@ STATIC FUNCTION ABM2Borrar()
          ( _cArea )->( dbDelete() )
          ( _cArea )->( dbCommit() )
          ( _cArea )->( dbUnlock() )
-         IF Set( _SET_DELETED )
+         IF Set(_SET_DELETED)
             ( _cArea )->( dbSkip() )
             IF ( _cArea )->( Eof() )
                ( _cArea )->( dbGoBottom() )
@@ -2370,15 +2370,15 @@ STATIC FUNCTION ABM2Listado( aImpresoras )
    ( _cArea )->( dbGoto( nPrimero ) )
    IF lOrientacion
       IF Mod(nTotales, 33) == 0
-         nPaginas := Int( nTotales / 33 )
+         nPaginas := Int(nTotales / 33)
       ELSE
-         nPaginas := Int( nTotales / 33 ) + 1
+         nPaginas := Int(nTotales / 33) + 1
       ENDIF
    ELSE
       IF Mod(nTotales, 55) == 0
-         nPaginas := Int( nTotales / 55 )
+         nPaginas := Int(nTotales / 55)
       ELSE
-         nPaginas := Int( nTotales / 55 ) + 1
+         nPaginas := Int(nTotales / 55) + 1
       ENDIF
    ENDIF
 
@@ -2472,16 +2472,16 @@ STATIC FUNCTION ABM2Listado( aImpresoras )
          DO CASE
          CASE _aEstructura[nCampo, DBS_TYPE] == "N"
             SET TEXT ALIGN RIGHT
-            @ nFila, nColumna + aAncho[i] say ( _cArea )->( FieldGet( aNumeroCampo[i] ) ) FONT "a8" TO PRINT
+            @ nFila, nColumna + aAncho[i] say ( _cArea )->( FieldGet(aNumeroCampo[i]) ) FONT "a8" TO PRINT
          CASE _aEstructura[nCampo, DBS_TYPE] == "L"
             SET TEXT ALIGN LEFT
-            @ nFila, nColumna + 1 SAY iif(( _cArea )->( FieldGet( aNumeroCampo[i] ) ), _HMG_aLangUser[29], _HMG_aLangUser[30]) FONT "a8" TO PRINT
+            @ nFila, nColumna + 1 SAY iif(( _cArea )->( FieldGet(aNumeroCampo[i]) ), _HMG_aLangUser[29], _HMG_aLangUser[30]) FONT "a8" TO PRINT
          CASE _aEstructura[nCampo, DBS_TYPE] == "M"
             SET TEXT ALIGN LEFT
             @ nFila, nColumna + 1 SAY SubStr((_cArea)->(FieldGet(aNumeroCampo[i])), 1, 20) FONT "a8" TO PRINT
          OTHERWISE
             SET TEXT ALIGN LEFT
-            @ nFila, nColumna + 1 say ( _cArea )->( FieldGet( aNumeroCampo[i] ) ) FONT "a8" TO PRINT
+            @ nFila, nColumna + 1 say ( _cArea )->( FieldGet(aNumeroCampo[i]) ) FONT "a8" TO PRINT
          ENDCASE
          nColumna += aAncho[i]
       NEXT

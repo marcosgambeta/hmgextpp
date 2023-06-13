@@ -188,7 +188,7 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
    ENDIF
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif

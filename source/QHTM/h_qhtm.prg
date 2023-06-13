@@ -272,7 +272,7 @@ Return nPos
 *       Get/Set position of scrollbar QHTM
 *
 */
-Function QHTM_ScrollPercent( nHandle, nPercent )
+Function QHTM_ScrollPercent(nHandle, nPercent)
 Local nParamCount := PCount(), ;
       nHeight                , ;
       aSize                  , ;

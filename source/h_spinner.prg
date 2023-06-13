@@ -136,7 +136,7 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
    k := _GetControlFree()
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif

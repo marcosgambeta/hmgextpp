@@ -195,11 +195,11 @@ FUNCTION HMG_PressKey( ... )  // by Dr. Claudio Soto, April 2016
       ELSE
          LOOP
       ENDIF
-      Keybd_Event( aVK[i], .F. )   // KeyDown
+      Keybd_Event(aVK[i], .F.)   // KeyDown
    NEXT
 
    FOR i := Len(aVK) TO 1 STEP -1
-      Keybd_Event( aVK[i], .T. )   // KeyUp
+      Keybd_Event(aVK[i], .T.)   // KeyUp
    NEXT
 
 RETURN aVK
@@ -270,7 +270,7 @@ FUNCTION _DetermineKey ( cKey )
 
    DO WHILE !Empty(cKey2)
 
-      IF ( nPos := At( "+", cKey2 ) ) == 0
+      IF ( nPos := At("+", cKey2) ) == 0
          cKey2 := AllTrim(cKey2)
          nPos := AScan(_SetGetGlobal( "_HMG_aKeyTables" ), { |c| cKey2 == c })
          cKey2 := ""

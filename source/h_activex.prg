@@ -134,7 +134,7 @@ PROCEDURE _DefineActivex ( cControlName, cParentForm, nRow, nCol, nWidth, nHeigh
    k := _GetControlFree()
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif
@@ -337,11 +337,11 @@ METHOD Load() CLASS TActiveX
    xObjeto := AtlAxGetDisp( ::hWnd )
    ::hAtl := xObjeto
    TRY
-      ::oOle := CreateObject( xObjeto )
+      ::oOle := CreateObject(xObjeto)
    CATCH oError
       MsgInfo( oError:description )
    END
-   IF SetupConnectionPoint( ::hAtl, @hSink, ::aAxEv, ::aAxExec ) == S_OK
+   IF SetupConnectionPoint(::hAtl, @hSink, ::aAxEv, ::aAxExec) == S_OK
       ::hSink := hSink
    ENDIF
 
@@ -407,7 +407,7 @@ METHOD Release() CLASS TActiveX
       DestroyWindow(::hWnd)
    ENDIF
    IF !Empty(::hSink)
-      ShutdownConnectionPoint( ::hSink )
+      ShutdownConnectionPoint(::hSink)
    ENDIF
    ReleaseDispatch( ::hAtl )
    AtlAxWinEnd()
@@ -477,7 +477,7 @@ static HMODULE    hAtl = nullptr;
 LPAtlAxWinInit    AtlAxWinInit;
 LPAtlAxGetControl AtlAxGetControl;
 
-static void _Ax_Init( void )
+static void _Ax_Init(void)
 {
    if( !hAtl ) {
       hAtl            = LoadLibrary( "Atl.Dll" );
@@ -661,7 +661,7 @@ static ULONG STDMETHODCALLTYPE Release(IEventHandler * self)
 
 //------------------------------------------------------------------------------
 // IEventHandler's GetTypeInfoCount()
-static ULONG STDMETHODCALLTYPE GetTypeInfoCount( IEventHandler * self, UINT * pCount )
+static ULONG STDMETHODCALLTYPE GetTypeInfoCount(IEventHandler * self, UINT * pCount)
 {
    HB_SYMBOL_UNUSED(self);
    HB_SYMBOL_UNUSED(pCount);
@@ -728,7 +728,7 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * self, DISPID dispid, REFII
 
    if( hb_hashScan( ( ( MyRealIEventHandler * ) self )->pEvents, hb_itemPutNL( Key, dispid ),
                     &ulPos ) ) {
-      PHB_ITEM pArray = hb_hashGetValueAt( ( ( MyRealIEventHandler * ) self )->pEvents, ulPos );
+      PHB_ITEM pArray = hb_hashGetValueAt(( ( MyRealIEventHandler * ) self )->pEvents, ulPos);
 
 #else
 
@@ -759,7 +759,7 @@ static ULONG STDMETHODCALLTYPE Invoke(IEventHandler * self, DISPID dispid, REFII
                   PHB_ITEM pObject = hb_arrayGetItemPtr( pArray, 2 );
                   hb_vmPushSymbol( hb_dynsymSymbol( hb_dynsymFindName(hb_itemGetCPtr( pExec )) ) );
 
-                  if( HB_IS_OBJECT( pObject ) ) {
+                  if( HB_IS_OBJECT(pObject) ) {
                      hb_vmPush( pObject );
                   } else {
                      hb_vmPushNil();
@@ -875,8 +875,8 @@ static const IEventHandlerVtbl IEventHandler_Vtbl = {
 
 typedef IEventHandler device_interface;
 
-// Hash  // SetupConnectionPoint( oOle:hObj, @hSink, hEvents )             -> nError
-// Array // SetupConnectionPoint( oOle:hObj, @hSink, aEvents, aExecEvent ) -> nError
+// Hash  // SetupConnectionPoint(oOle:hObj, @hSink, hEvents)             -> nError
+// Array // SetupConnectionPoint(oOle:hObj, @hSink, aEvents, aExecEvent) -> nError
 
 HB_FUNC( SETUPCONNECTIONPOINT )
 {
@@ -923,7 +923,7 @@ HB_FUNC( SETUPCONNECTIONPOINT )
 
             if( hr == S_OK && m_pIEnumConnectionPoints ) {
                do {
-                  hr = m_pIEnumConnectionPoints->lpVtbl->Next( m_pIEnumConnectionPoints, 1, &m_pIConnectionPoint, nullptr );
+                  hr = m_pIEnumConnectionPoints->lpVtbl->Next(m_pIEnumConnectionPoints, 1, &m_pIConnectionPoint, nullptr);
                   if( hr == S_OK ) {
                      if( m_pIConnectionPoint->lpVtbl->GetConnectionInterface(m_pIConnectionPoint, &rriid) == S_OK ) {
                         break;

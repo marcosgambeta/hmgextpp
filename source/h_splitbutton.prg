@@ -79,7 +79,7 @@ PROCEDURE _DefineSplitButton ( cName, nRow, nCol, cCaption, bAction, cParent, ;
    ENDIF
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif
@@ -259,10 +259,9 @@ STATIC FUNCTION LaunchDropdownMenu( nHwnd )
 
    IF nIdx > 0
 
-      GetWindowRect( nHwnd, aPos )
+      GetWindowRect(nHwnd, aPos)
 
-      TrackPopupMenu( _HMG_aControlRangeMax[nIdx], aPos[1] + 1, ;
-              aPos[2] + _HMG_aControlHeight[nIdx], _HMG_aControlParentHandles[nIdx] )
+      TrackPopupMenu(_HMG_aControlRangeMax[nIdx], aPos[1] + 1, aPos[2] + _HMG_aControlHeight[nIdx], _HMG_aControlParentHandles[nIdx])
 
    ENDIF
 

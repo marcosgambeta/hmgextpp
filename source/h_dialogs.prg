@@ -117,7 +117,7 @@ FUNCTION GetFile(aFilter, title, cIniFolder, multiselect, lNoChangeCurDir, nFilt
 
             FOR n := 1 TO Len(files)
 
-               IF At( "\\", files[n] ) > 0 .AND. Left(files[n], 2) != "\\"
+               IF At("\\", files[n]) > 0 .AND. Left(files[n], 2) != "\\"
 
                   files[n] := StrTran(files[n] , "\\", "\")
 
@@ -161,7 +161,7 @@ RETURN C_PutFile(cFilter, title, cIniFolder, lNoChangeCurDir, hb_defaultValue(cD
    @nFilterIndex, hb_defaultValue(lPromptOverwrite, .F.))
 
 *-----------------------------------------------------------------------------*
-FUNCTION GetFont( cInitFontName , nInitFontSize , lBold , lItalic , anInitColor , lUnderLine , lStrikeOut , nCharset )
+FUNCTION GetFont(cInitFontName , nInitFontSize , lBold , lItalic , anInitColor , lUnderLine , lStrikeOut , nCharset)
 *-----------------------------------------------------------------------------*
    
    LOCAL RetArray
@@ -171,9 +171,9 @@ FUNCTION GetFont( cInitFontName , nInitFontSize , lBold , lItalic , anInitColor 
       rgbcolor := RGB(anInitColor[1] , anInitColor[2] , anInitColor[3])
    ENDIF
 
-   RetArray := ChooseFont( hb_defaultValue(cInitFontName, "") , hb_defaultValue(nInitFontSize, 0) , ;
+   RetArray := ChooseFont(hb_defaultValue(cInitFontName, "") , hb_defaultValue(nInitFontSize, 0) , ;
       hb_defaultValue(lBold, .F.) , hb_defaultValue(lItalic, .F.) , rgbcolor , ;
-      hb_defaultValue(lUnderLine, .F.) , hb_defaultValue(lStrikeOut, .F.) , hb_defaultValue(nCharSet, 0) )
+      hb_defaultValue(lUnderLine, .F.) , hb_defaultValue(lStrikeOut, .F.) , hb_defaultValue(nCharSet, 0))
 
    IF Empty(RetArray[1])
       RetArray[5] := { Nil, Nil, Nil }

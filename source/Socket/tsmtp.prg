@@ -86,7 +86,7 @@ CLASS TSMTP
   EXPORTED:
    METHOD New()
 
-   METHOD Connect( cAddress, nPort, cHelo )
+   METHOD Connect(cAddress, nPort, cHelo)
    METHOD Login( cUser, cPwd )
    METHOD LoginMD5( cUser, cPwd )
    METHOD Close()
@@ -94,7 +94,7 @@ CLASS TSMTP
    METHOD ClearData()
    METHOD SetFrom( cUser, cEmail )
    METHOD SetReplyTo( cReplyTo )
-   METHOD SetSubject( cSubject )
+   METHOD SetSubject(cSubject)
    METHOD SetPriority( nPriority )
 
    METHOD AddTo( cUser, cEmail )
@@ -108,7 +108,7 @@ CLASS TSMTP
    METHOD Send(bIgnoreTOError, bRequestReturnReceipt)
    METHOD GetLastError()
 
-   METHOD SetSendTimeout( nMilliSec )
+   METHOD SetSendTimeout(nMilliSec)
 
   HIDDEN:
    METHOD GetLines()
@@ -139,7 +139,7 @@ return Self
 //
 // Connect to remore site
 //
-METHOD Connect( cAddress, nPort, cHelo ) CLASS TSMTP
+METHOD Connect(cAddress, nPort, cHelo) CLASS TSMTP
 local bRet, cErr
 
 DEFAULT nPort TO 25
@@ -151,15 +151,15 @@ bRet := ::oSocket:Connect(cAddress,nPort)
 if bRet
    // Consume banner
    cErr := ::GetLines()
-   if LEFT(cErr,3)=="220"
+   if LEFT(cErr, 3)=="220"
       // Send extended hello first (RFC 2821)
       if ::oSocket:SendString( "EHLO " +cHelo +CHR(13)+CHR(10) )
          cErr := ::GetLines()
-         if !(LEFT(cErr,3)=="250")
+         if !(LEFT(cErr, 3)=="250")
             // Send hello (RFC 821)
             if ::oSocket:SendString( "HELO " +cHelo +CHR(13)+CHR(10) )
                cErr := ::GetLines()
-               if !(LEFT(cErr,3)=="250")
+               if !(LEFT(cErr, 3)=="250")
                   ::cError := cErr
                else
                   bRet := .T.
@@ -184,7 +184,7 @@ local cLine
 
 while ( len(cLine := ::oSocket:ReceiveLine())>0 )
    cLines += iif(len(cLine)>0, cLine + CHR(13) + CHR(10), "")
-   if substr(cLine,4,1)==" " .OR. len(cLine)<=3 .OR. substr(cLine,4,1)==CHR(10)
+   if substr(cLine, 4, 1)==" " .OR. len(cLine)<=3 .OR. substr(cLine, 4, 1)==CHR(10)
       exit
    endif
 enddo
@@ -200,15 +200,15 @@ local oDecode := TDecode():new()
 if ::oSocket:SendString( "AUTH LOGIN" +CHR(13)+CHR(10) )
    // Consume banner
    cErr := ::GetLines()
-   if LEFT(cErr,3)=="334"
+   if LEFT(cErr, 3)=="334"
       if ::oSocket:SendString( oDecode:Encode64( cUser ) +CHR(13)+CHR(10) )
          // Consume banner
          cErr := ::GetLines()
-         if LEFT(cErr,3)=="334"
+         if LEFT(cErr, 3)=="334"
             if ::oSocket:SendString( oDecode:Encode64( cPwd ) +CHR(13)+CHR(10) )
                // Consume banner
                cErr := ::GetLines()
-               if LEFT(cErr,3)=="235" .OR. LEFT(cErr,3)=="335"
+               if LEFT(cErr, 3)=="235" .OR. LEFT(cErr, 3)=="335"
                   bRet := .T.
                endif
             endif
@@ -233,13 +233,13 @@ local cDigest, hMac
 if ::oSocket:SendString( "AUTH CRAM-MD5" +CHR(13)+CHR(10) )
    // Consume banner
    cErr := ::GetLines()
-   if LEFT(cErr,3)=="334"
+   if LEFT(cErr, 3)=="334"
       cDigest := substr(cErr, 5)
       hMac    := oDecode:hmac_md5( cUser, cPwd, cDigest )
       if ::oSocket:SendString( hMac +CHR(13)+CHR(10) )
          // Consume banner
          cErr := ::GetLines()
-         if LEFT(cErr,3)=="235" .OR. LEFT(cErr,3)=="335"
+         if LEFT(cErr, 3)=="235" .OR. LEFT(cErr, 3)=="335"
             bRet := .T.
          endif
       endif
@@ -296,7 +296,7 @@ return nil
 //
 // Set Subject
 //
-METHOD SetSubject( cSubject )  CLASS TSMTP
+METHOD SetSubject(cSubject)  CLASS TSMTP
 ::cSubject := cSubject
 return nil
 
@@ -353,8 +353,8 @@ return ::cError
 //
 // Set Send timeout
 //
-METHOD SetSendTimeout( nMilliSec ) CLASS TSMTP
-::oSocket:SetSendTimeout( nMilliSec )
+METHOD SetSendTimeout(nMilliSec) CLASS TSMTP
+::oSocket:SetSendTimeout(nMilliSec)
 return nil
 
 //
@@ -378,7 +378,7 @@ if ::oSocket:SendString( "MAIL FROM: " +::cEmail +CHR(13)+CHR(10) )
    // Banner
    cErr := ::GetLines()
    // Check 250
-   if left(cErr,3)=="250" .OR. left(cErr,3)=="550"
+   if left(cErr, 3)=="250" .OR. left(cErr, 3)=="550"
 
       aEmails := array(0)
       AEVAL(::aTO,  {|aSub|AADD(aEmails, aSub[2])})
@@ -390,7 +390,7 @@ if ::oSocket:SendString( "MAIL FROM: " +::cEmail +CHR(13)+CHR(10) )
          if bMail
             ::oSocket:SendString( "RCPT TO: " +aEmails[nPos] +CHR(13)+CHR(10) )
             cErr := ::GetLines()
-            if !(LEFT(cErr,3)=="250") .AND. !bIgnoreTOError
+            if !(LEFT(cErr, 3)=="250") .AND. !bIgnoreTOError
                ::cError := cErr
                bMail := .F.
             endif
@@ -403,19 +403,19 @@ if ::oSocket:SendString( "MAIL FROM: " +::cEmail +CHR(13)+CHR(10) )
             // Banner
             cErr := ::GetLines()
             // Check 354 or 554
-            if LEFT(cErr,3)=="354" .OR. LEFT(cErr,3)=="554"
+            if LEFT(cErr, 3)=="354" .OR. LEFT(cErr, 3)=="554"
                nOldEpoch := Set(_SET_EPOCH, 1980)
-               cOldDateFormat := Set( _SET_DATEFORMAT, "mm/dd/yyyy" )
+               cOldDateFormat := Set(_SET_DATEFORMAT, "mm/dd/yyyy")
                dDate := Date()
-               cOldLang := Set( _SET_LANGUAGE, "EN" )
+               cOldLang := Set(_SET_LANGUAGE, "EN")
                //Date: Sat, 14 Aug 2004 14:18:08 +0100
                cHeader := "Date: " + left(cDoW(dDate), 3) + ", " + ltrim(trans(Day(dDate), "99 "));
                      + trans(cMonth(dDate), "AAA") + " " + trans(Year(dDate), "9999 ") + Time();
                      + " " + GETTIMEZONEDIFF() +CHR(13)+CHR(10)
 
-               Set( _SET_LANGUAGE, cOldLang )
-               Set( _SET_DATEFORMAT, cOldDateFormat )
-               Set( _SET_EPOCH, nOldEpoch )
+               Set(_SET_LANGUAGE, cOldLang)
+               Set(_SET_DATEFORMAT, cOldDateFormat)
+               Set(_SET_EPOCH, nOldEpoch)
 
                cHeader += "From: "     +::cFrom +" " +::cEmail +CHR(13)+CHR(10)
                cHeader += "Reply-To: " + iif(Empty(::cReplyTo), ::cFrom +" " +::cEmail, ::cReplyTo) +CHR(13)+CHR(10)
@@ -488,7 +488,7 @@ if ::oSocket:SendString( "MAIL FROM: " +::cEmail +CHR(13)+CHR(10) )
 
                if ::oSocket:SendString( cHeader )
                   cErr := ::GetLines()
-                  if !(LEFT(cErr,3)=="250" .OR. LEFT(cErr,3)=="550")
+                  if !(LEFT(cErr, 3)=="250" .OR. LEFT(cErr, 3)=="550")
                      ::cError := cErr
                   else
                      bRet := .T.
@@ -546,13 +546,13 @@ Return cBias
 * ±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
 STATIC Function cFileWithoutPath( cPathMask )
 * ±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
-LOCAL n1 := RAt( "\", cPathMask ), n2 := RAt( "/", cPathMask ), n
+LOCAL n1 := RAt("\", cPathMask), n2 := RAt("/", cPathMask), n
 
         n := max( n1, n2 )
 
 Return IIf(n > 0 .AND. n < Len(cPathMask), ;
    Right(cPathMask, Len(cPathMask) - n), ;
-   IIf(( n := At( ":", cPathMask ) ) > 0, ;
+   IIf(( n := At(":", cPathMask) ) > 0, ;
    Right(cPathMask, Len(cPathMask) - n), cPathMask))
 
 

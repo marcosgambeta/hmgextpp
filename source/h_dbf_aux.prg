@@ -86,7 +86,7 @@ FUNCTION HMG_ArrayToDbf( aData, cFieldList, bProgress )
                   ENDIF
 
                   IF !Empty(uVal)
-                     FieldPut( aFieldPos[nCol], uVal )
+                     FieldPut(aFieldPos[nCol], uVal)
                   ENDIF
 
                ENDIF
@@ -149,11 +149,11 @@ STATIC FUNCTION ConvertType(uVal, cTypeDst)
       CASE cTypeDst == "T"
          DO CASE
          CASE cTypeSrc == "D"
-            uVal := hb_SToT( DToS( uVal ) + "000000.000" )
+            uVal := hb_SToT(DToS(uVal) + "000000.000")
          CASE cTypeSrc == "C"
-            uVal := hb_CToT( uVal )
+            uVal := hb_CToT(uVal)
          OTHERWISE
-            uVal := hb_CToT( "" )
+            uVal := hb_CToT("")
          ENDCASE
 
       OTHERWISE
@@ -186,9 +186,9 @@ FUNCTION HMG_DbfToExcel( cFieldList, aHeader, bFor, bWhile, nNext, nRec, lRest )
    hb_default(@aHeader, hb_ATokens(cFieldList, ","))
 
    TRY
-      oExcel := CreateObject( "Excel.Application" )
+      oExcel := CreateObject("Excel.Application")
    CATCH
-      MsgAlert( "Excel not installed", "Warning" )
+      MsgAlert("Excel not installed", "Warning")
       RETURN .F.
    END
 
@@ -221,7 +221,7 @@ RETURN .T.
 #define FIELD_ENTRY_SIZE 32
 #define BUFFER_SIZE 32
 *-----------------------------------------------------------------------------*
-FUNCTION HMG_DbfStruct( cFileName )
+FUNCTION HMG_DbfStruct(cFileName)
 *-----------------------------------------------------------------------------*
    
    LOCAL aStruct := {}
@@ -229,7 +229,7 @@ FUNCTION HMG_DbfStruct( cFileName )
    LOCAL aFieldInfo
    LOCAL cBuffer := Space(BUFFER_SIZE)
 
-   IF Set( _SET_DEFEXTENSIONS )
+   IF Set(_SET_DEFEXTENSIONS)
       cFileName := hb_FNameExtSetDef( cFileName, ".dbf" )
    ENDIF
 
@@ -294,7 +294,7 @@ FUNCTION HMG_RecToHash( cFieldList, cNames )
 
    aVals := &( "{" + cFieldList + "}" )
 
-   AEval(aVals, {| u, i | hSet( hRec, aNames[i], u ) }, , Len(aNames))
+   AEval(aVals, {| u, i | hSet(hRec, aNames[i], u) }, , Len(aNames))
 
 RETURN hRec
 
@@ -312,10 +312,10 @@ FUNCTION HMG_HashToRec(hRec, cFieldList)
          ( lLocked := dbRLock( RecNo() ) )
 
       IF Empty(cFieldList)
-         hb_HEval(hRec, {| k, v | FieldPut( FieldPos( k ), v ) })
+         hb_HEval(hRec, {| k, v | FieldPut(FieldPos(k), v) })
       ELSE
          aFlds := hb_ATokens(cFieldList, ",")
-         hb_HEval(hRec, {| k, v, p | HB_SYMBOL_UNUSED(k), FieldPut( FieldPos( aFlds[p] ), v ) }, , Len(aFlds))
+         hb_HEval(hRec, {| k, v, p | HB_SYMBOL_UNUSED(k), FieldPut(FieldPos(aFlds[p]), v) }, , Len(aFlds))
       ENDIF
 
       IF lLocked
@@ -349,9 +349,9 @@ PROCEDURE DbfCopyRec(cnTargetArea, lAppend)
       cFieldName := FieldName(nCnt)
 
       IF ( nFieldPos := ( cnTargetArea )->( FieldPos( cFieldName ) ) ) > 0 .AND. ;
-         ValType(xFieldValue := FieldGet( nCnt )) == ValType(( cnTargetArea )->( FieldGet( nFieldPos ) ))
+         ValType(xFieldValue := FieldGet(nCnt)) == ValType(( cnTargetArea )->( FieldGet(nFieldPos) ))
 
-         ( cnTargetArea )->( FieldPut( nFieldPos, xFieldValue ) )
+         ( cnTargetArea )->( FieldPut(nFieldPos, xFieldValue) )
 
       ENDIF
 

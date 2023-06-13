@@ -420,7 +420,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
    ENDIF
 
    DEFINE WINDOW _HMG_PRINTER_SHOWTHUMBNAILS ;
-      AT 0,5 ;
+      AT 0, 5 ;
       WIDTH 130 ;
       HEIGHT GetDesktopHeight() - 103 - IIF(IsVistaThemed, 25, 0) ;
       VIRTUAL WIDTH 131 ;
@@ -685,7 +685,7 @@ STATIC PROCEDURE CreateThumbNails()
          "_HMG_PRINTER_SHOWTHUMBNAILS",;
          10,;
          ( i * (tHeight + 10) ) - tHeight,;
-         _hmg_printer_BasePageName + strzero(i,4) + ".emf",;
+         _hmg_printer_BasePageName + strzero(i, 4) + ".emf",;
          tWidth,;
          tHeight,;
          {||&cAction},;
@@ -753,7 +753,7 @@ PROCEDURE _hmg_printer_savepages()
       RETURN
    ENDIF
 
-   x := cFilePath( x ) + hb_ps() + cFileNoExt( x )
+   x := cFilePath( x ) + hb_ps() + cFileNoExt(x)
 
    t := GetTempFolder() + hb_ps()
 
@@ -953,8 +953,8 @@ PROCEDURE _HMG_PRINTER_PrintPagesDo()
    _hmg_printer_JobId := _HMG_PRINTER_StartDoc(_hmg_printer_hdc_bak, _hmg_printer_JobName)
 
    IF !Empty(_hmg_printer_JobData)
-      IF __mvExist( _hmg_printer_JobData )
-         __mvPut( _hmg_printer_JobData, OpenPrinterGetJobData() )
+      IF __mvExist(_hmg_printer_JobData)
+         __mvPut(_hmg_printer_JobData, OpenPrinterGetJobData())
       ELSE
          MsgMiniGuiError("START PRINTDOC STOREJOBDATA: " + _hmg_printer_JobData + " must be declared as Public or Private.")
       ENDIF
@@ -966,14 +966,14 @@ PROCEDURE _HMG_PRINTER_PrintPagesDo()
 
          IF OddOnly
             IF i / 2 != int(i / 2)
-               _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i,4) + ".emf" )
+               _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i, 4) + ".emf" )
             ENDIF
          ELSEIF EvenOnly
             IF i / 2 == int(i / 2)
-               _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i,4) + ".emf" )
+               _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i, 4) + ".emf" )
             ENDIF
          ELSE
-            _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i,4) + ".emf" )
+            _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i, 4) + ".emf" )
          ENDIF
 
       NEXT i
@@ -988,14 +988,14 @@ PROCEDURE _HMG_PRINTER_PrintPagesDo()
 
                IF OddOnly
                   IF i / 2 != int(i / 2)
-                     _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i,4) + ".emf" )
+                     _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i, 4) + ".emf" )
                   ENDIF
                ELSEIF EvenOnly
                   IF i / 2 == int(i / 2)
-                     _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i,4) + ".emf" )
+                     _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i, 4) + ".emf" )
                   ENDIF
                ELSE
-                  _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i,4) + ".emf" )
+                  _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i, 4) + ".emf" )
                ENDIF
 
             NEXT i
@@ -1010,14 +1010,14 @@ PROCEDURE _HMG_PRINTER_PrintPagesDo()
 
                IF OddOnly
                   IF i / 2 != int(i / 2)
-                     _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i,4) + ".emf" )
+                     _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i, 4) + ".emf" )
                   ENDIF
                ELSEIF EvenOnly
                   IF i / 2 == int(i / 2)
-                     _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i,4) + ".emf" )
+                     _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i, 4) + ".emf" )
                   ENDIF
                ELSE
-                  _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i,4) + ".emf" )
+                  _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i, 4) + ".emf" )
                ENDIF
 
             NEXT p
@@ -1123,7 +1123,7 @@ Function GetPrinter()
       MODAL                                ;
       NOSIZE
 
-      @ 15,10 COMBOBOX Combo_1 ITEMS Printers VALUE nInitPosition WIDTH 320 ;
+      @ 15, 10 COMBOBOX Combo_1 ITEMS Printers VALUE nInitPosition WIDTH 320 ;
          ON ENTER _HMG_PRINTER_GETPRINTER.Ok.OnClick () ;
          ON CANCEL IIF(_GetKeyState(VK_ESCAPE), _HMG_PRINTER_GETPRINTER.Cancel.OnClick(), NIL)
 
@@ -1242,10 +1242,10 @@ RETURN
 
 PROCEDURE _HMG_PRINTER_H_IMAGE(nHdc, cImage, nRow, nCol, nHeight, nWidth, lStretch, lTransparent)
 
-   nRow        := Int( nRow * 10000 / 254 )
-   nCol        := Int( nCol * 10000 / 254 )
-   nWidth        := Int( nWidth * 10000 / 254 )
-   nHeight        := Int( nHeight * 10000 / 254 )
+   nRow        := Int(nRow * 10000 / 254)
+   nCol        := Int(nCol * 10000 / 254)
+   nWidth        := Int(nWidth * 10000 / 254)
+   nHeight        := Int(nHeight * 10000 / 254)
 
    _HMG_PRINTER_C_IMAGE ( nHdc, cImage, nRow, nCol, nHeight, nWidth, lStretch, lTransparent )
 
@@ -1255,15 +1255,15 @@ RETURN
 
 PROCEDURE _HMG_PRINTER_H_LINE(nHdc, nRow, nCol, nToRow, nToCol, nWidth, nColor1, nColor2, nColor3, lwidth, lcolor, nstyle)
 
-   nRow        := Int( nRow * 10000 / 254 )
-   nCol        := Int( nCol * 10000 / 254 )
-   nToRow        := Int( nToRow * 10000 / 254 )
-   nToCol        := Int( nToCol * 10000 / 254 )
+   nRow        := Int(nRow * 10000 / 254)
+   nCol        := Int(nCol * 10000 / 254)
+   nToRow        := Int(nToRow * 10000 / 254)
+   nToCol        := Int(nToCol * 10000 / 254)
 
    DEFAULT nstyle TO 0
 
    IF nWidth != NIL
-      nWidth        := Int( nWidth * 10000 / 254 )
+      nWidth        := Int(nWidth * 10000 / 254)
    ELSEIF nstyle > 0
       SWITCH nstyle
       CASE 1 ; nWidth := 1  ; EXIT
@@ -1282,13 +1282,13 @@ RETURN
 
 PROCEDURE _HMG_PRINTER_H_RECTANGLE(nHdc, nRow, nCol, nToRow, nToCol, nWidth, nColor1, nColor2, nColor3, lwidth, lcolor, lfilled, lnoborder)
 
-   nRow        := Int( nRow * 10000 / 254 )
-   nCol        := Int( nCol * 10000 / 254 )
-   nToRow        := Int( nToRow * 10000 / 254 )
-   nToCol        := Int( nToCol * 10000 / 254 )
+   nRow        := Int(nRow * 10000 / 254)
+   nCol        := Int(nCol * 10000 / 254)
+   nToRow        := Int(nToRow * 10000 / 254)
+   nToCol        := Int(nToCol * 10000 / 254)
 
    IF nWidth != NIL
-      nWidth        := Int( nWidth * 10000 / 254 )
+      nWidth        := Int(nWidth * 10000 / 254)
    ENDIF
 
    _HMG_PRINTER_C_RECTANGLE ( nHdc, nRow, nCol, nToRow, nToCol, nWidth, nColor1, nColor2, nColor3, lwidth, lcolor, lfilled, lnoborder )
@@ -1299,13 +1299,13 @@ RETURN
 
 PROCEDURE _HMG_PRINTER_H_ROUNDRECTANGLE(nHdc, nRow, nCol, nToRow, nToCol, nWidth, nColor1, nColor2, nColor3, lwidth, lcolor, lfilled)
 
-   nRow        := Int( nRow * 10000 / 254 )
-   nCol        := Int( nCol * 10000 / 254 )
-   nToRow        := Int( nToRow * 10000 / 254 )
-   nToCol        := Int( nToCol * 10000 / 254 )
+   nRow        := Int(nRow * 10000 / 254)
+   nCol        := Int(nCol * 10000 / 254)
+   nToRow        := Int(nToRow * 10000 / 254)
+   nToCol        := Int(nToCol * 10000 / 254)
 
    IF nWidth != NIL
-      nWidth        := Int( nWidth * 10000 / 254 )
+      nWidth        := Int(nWidth * 10000 / 254)
    ENDIF
 
    _HMG_PRINTER_C_ROUNDRECTANGLE ( nHdc, nRow, nCol, nToRow, nToCol, nWidth, nColor1, nColor2, nColor3, lwidth, lcolor, lfilled )
@@ -2176,7 +2176,7 @@ FUNCTION _DefineEmfFile(ControlName, ParentFormName, x, y, FileName, w, h, Proce
    ControlHandle := InitEmfFile ( ParentFormHandle, 0, x, y, invisible, action )
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar, k )
+   _SetNameList(mVar, k)
 #else
    PUBLIC &mVar. := k
 #endif

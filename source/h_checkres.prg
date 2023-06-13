@@ -75,7 +75,7 @@ void RegisterResource(HANDLE hRes, LPCSTR szType)
 
    hb_vmPushSymbol( hb_dynsymGetSymbol( "MGADDRESOURCE" ) );
    hb_vmPushNil();
-   hb_vmPushNumInt( ( LONG_PTR ) hRes );
+   hb_vmPushNumInt(( LONG_PTR ) hRes);
    hb_vmPushString( szType, strlen(szType) );
    hb_vmFunction( 2 );
 
@@ -88,7 +88,7 @@ void pascal DelResource(HANDLE hResource)
 
    hb_vmPushSymbol( hb_dynsymGetSymbol( "MGDELRESOURCE" ) );
    hb_vmPushNil();
-   hb_vmPushNumInt( ( LONG_PTR ) hResource );
+   hb_vmPushNumInt(( LONG_PTR ) hResource);
    hb_vmFunction( 1 );
 
    hb_itemReturnRelease(pRet);

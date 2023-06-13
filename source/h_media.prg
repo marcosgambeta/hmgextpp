@@ -84,7 +84,7 @@ FUNCTION _DefinePlayer ( ControlName, ParentFormName, file, x, y, w, h, noasw, n
    k := _GetControlFree()
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif
@@ -285,7 +285,7 @@ FUNCTION _DefineAnimateBox( ControlName, ParentFormName, x, y, w, h, autoplay, c
    ENDIF
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif

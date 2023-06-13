@@ -49,7 +49,7 @@
 #define DT_CENTER     1
 
 *------------------------------------------------------------------------------*
-FUNCTION OwnTabPaint( lParam )
+FUNCTION OwnTabPaint(lParam)
 *------------------------------------------------------------------------------*
    
    LOCAL hDC
@@ -90,7 +90,7 @@ FUNCTION OwnTabPaint( lParam )
    ENDIF
 
    nItemId    := GETOWNBTNITEMID(lParam) + 1
-   aBtnRc     := GETOWNBTNRECT( lParam )
+   aBtnRc     := GETOWNBTNRECT(lParam)
    lSelected  := ( hb_bitand(GETOWNBTNSTATE(lParam), ODS_SELECTED) == ODS_SELECTED )
    lBigFsize  := ( _HMG_aControlFontSize[i] >= 12 )
    lBigFsize2 := ( _HMG_aControlFontSize[i] >= 18 )
@@ -98,7 +98,7 @@ FUNCTION OwnTabPaint( lParam )
 
    _HMG_aControlMiscData1[i][1] := aBtnRc[4] - aBtnRc[2]  // store a bookmark height
 
-   hOldFont     := SelectObject( hDC, _HMG_aControlFontHandle[i] )
+   hOldFont     := SelectObject(hDC, _HMG_aControlFontHandle[i])
    aMetr        := GetTextMetric(hDC)
    oldBkMode    := SetBkMode(hDC, TRANSPARENT)
    nTextColor   := GetSysColor( COLOR_BTNTEXT )
@@ -115,8 +115,8 @@ FUNCTION OwnTabPaint( lParam )
    SetBkColor( hDC, bkColor )
 
    hBrush := CreateSolidBrush( aBkColor[1], aBkColor[2], aBkColor[3] )
-   FillRect( hDC, aBtnRc[1], aBtnRc[2], aBtnRc[3], aBtnRc[4], hBrush )
-   DeleteObject( hBrush )
+   FillRect(hDC, aBtnRc[1], aBtnRc[2], aBtnRc[3], aBtnRc[4], hBrush)
+   DeleteObject(hBrush)
 
    x1 := aBtnRc[1]
    y1 := Round(aBtnRc[4] / 2, 0) - ( aMetr[1] - 10 )
@@ -158,7 +158,7 @@ FUNCTION OwnTabPaint( lParam )
 
       ENDIF
 
-      DeleteObject( hImage )
+      DeleteObject(hImage)
 
    ENDIF
 

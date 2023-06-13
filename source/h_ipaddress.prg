@@ -122,7 +122,7 @@ FUNCTION _DefineIPAddress ( ControlName, ParentForm, x, y, w, h, aValue, ;
    k := _GetControlFree()
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif

@@ -23,14 +23,14 @@ INIT PROCEDURE _DbgInit
 
    IF hb_FileExists( cIniFile )
       cIniCont := MemoRead(cIniFile)
-      nLines   := MLCount( cIniCont, nLineLen )
+      nLines   := MLCount(cIniCont, nLineLen)
       FOR nLine := 1 TO nLines
          cLine := Upper(AllTrim(MemoLine(cIniCont, nLineLen, nLine)))
          IF Left(cLine, 7) == "SCREEN "
-            nPos  := At( " ", cLine )
+            nPos  := At(" ", cLine)
             cLine := AllTrim(SubStr(cLine, nPos + 1))
             IF Left(cLine, 5) == "SIZE "
-               nPos  := At( " ", cLine )
+               nPos  := At(" ", cLine)
                cLine := AllTrim(SubStr(cLine, nPos + 1))
                IF " " $ cLine
                   nRows := Max(Val(AllTrim(Left(cLine, nPos - 1))), 25)

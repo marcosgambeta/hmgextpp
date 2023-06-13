@@ -822,15 +822,15 @@ PROCEDURE _ShowControlContextMenu(Control, Parent, lShow)
    IF hb_IsArray(h)
       FOR j := 1 TO Len(h)
          FOR i := 1 TO Len(_HMG_aControlsContextMenu)
-            IF _HMG_aControlsContextMenu[i,1] == h[j]
-               _HMG_aControlsContextMenu[i,4] := lShow
+            IF _HMG_aControlsContextMenu[i, 1] == h[j]
+               _HMG_aControlsContextMenu[i, 4] := lShow
             ENDIF
          NEXT
       NEXT
    ELSE
       FOR i := 1 TO Len(_HMG_aControlsContextMenu)
-         IF _HMG_aControlsContextMenu[i,1] == h
-            _HMG_aControlsContextMenu[i,4] := lShow
+         IF _HMG_aControlsContextMenu[i, 1] == h
+            _HMG_aControlsContextMenu[i, 4] := lShow
          ENDIF
       NEXT
    ENDIF

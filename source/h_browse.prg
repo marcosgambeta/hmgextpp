@@ -323,14 +323,14 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
 
       IF lsort
 
-         AFill(_HMG_aControlMiscData1 [k][20], .T.)
+         AFill(_HMG_aControlMiscData1[k][20], .T.)
 
          IF Len(columnsort) > 0
 
             FOR i := 1 TO Min( Len(columnsort), Len(_HMG_aControlMiscData1[k][20]) )
 
                IF hb_IsLogical(columnsort[i])
-                  _HMG_aControlMiscData1 [k][20][i] := columnsort[i]
+                  _HMG_aControlMiscData1[k][20][i] := columnsort[i]
                ENDIF
 
             NEXT i
@@ -382,19 +382,19 @@ FUNCTION InitDialogBrowse(ParentName, ControlHandle, i)
    h := _HMG_aControlHeight[i]
 
    ParentFormHandle := _HMG_aControlParenthandles[i]
-   nogrid           := _HMG_aControlMiscData1 [i, 7]
-   aJust            := _HMG_aControlMiscData1 [i,16]
-   doublebuffer     := _HMG_aControlMiscData1 [i,19]
+   nogrid           := _HMG_aControlMiscData1[i, 7]
+   aJust            := _HMG_aControlMiscData1[i, 16]
+   doublebuffer     := _HMG_aControlMiscData1[i, 19]
    aImageHeader     := _HMG_aControlPicture[i]
 
    SendMessage(ControlHandle, LVM_SETEXTENDEDLISTVIEWSTYLE, 0, iif(nogrid, 0, LVS_EX_GRIDLINES) + ;
       iif(doublebuffer, LVS_EX_DOUBLEBUFFER, 0) + LVS_EX_FULLROWSELECT + LVS_EX_INFOTIP + LVS_EX_HEADERDRAGDROP)
 
    wBitmap := iif(Len(_HMG_aControlBkColor[i]) > 0, AddListViewBitmap(ControlHandle, _HMG_aControlBkColor[i]), 0) // Add Bitmap Column
-   _HMG_aControlProcedures[i,1] := Max( _HMG_aControlProcedures[i,1], wBitmap + GetBorderWidth() / 2 ) // Set Column 1 width to Bitmap width
+   _HMG_aControlProcedures[i, 1] := Max( _HMG_aControlProcedures[i, 1], wBitmap + GetBorderWidth() / 2 ) // Set Column 1 width to Bitmap width
 
    IF Len(aImageHeader) > 0
-      _HMG_aControlMiscData1 [i,15] := AddListViewBitmapHeader(ControlHandle, aImageHeader) // Add Header Bitmaps
+      _HMG_aControlMiscData1[i, 15] := AddListViewBitmapHeader(ControlHandle, aImageHeader) // Add Header Bitmaps
    ENDIF
 
    InitListViewColumns(ControlHandle, _HMG_aControlCaption[i], _HMG_aControlProcedures[i], aJust)
@@ -414,7 +414,7 @@ FUNCTION InitDialogBrowse(ParentName, ControlHandle, i)
    ENDIF
 
    // Add Vertical scrollbar
-   IF !_HMG_aControlMiscData1 [i,8]
+   IF !_HMG_aControlMiscData1[i, 8]
 
       IF hsum > w - GETVSCROLLBARWIDTH() - 4
          ScrollBarHandle := InitVScrollBar (  ParentFormHandle , x + w - GETVSCROLLBARWIDTH() , y , GETVSCROLLBARWIDTH() , h - GETHSCROLLBARHEIGHT() )
@@ -463,7 +463,7 @@ STATIC PROCEDURE HMG_OrdCreate(i)
    _Alias := Alias()
    _BrowseArea := _HMG_aControlSpacing[i]
 
-   IF Select( _BrowseArea ) == 0
+   IF Select(_BrowseArea) == 0
       RETURN
    ENDIF
 
@@ -473,7 +473,7 @@ STATIC PROCEDURE HMG_OrdCreate(i)
 
    ordListClear()
 
-   ordCondSet( , , .T. /*All*/, , , , RecNo(), , , , , , , , , , , .T. /*Memory*/, , )
+   ordCondSet(, , .T. /*All*/, , , , RecNo(), , , , , , , , , , , .T. /*Memory*/, ,)
 
    FOR nColumn := 1 TO Len(aFields)
 
@@ -497,7 +497,7 @@ RETURN
 *-----------------------------------------------------------------------------*
 STATIC PROCEDURE RestoreWorkArea(_Alias)
 *-----------------------------------------------------------------------------*
-   IF Select( _Alias ) != 0
+   IF Select(_Alias) != 0
       dbSelectArea(_Alias)
    ELSE
       dbSelectArea(0)
@@ -527,7 +527,7 @@ PROCEDURE HMG_SetOrder( nColumn, lDescend )
       _Alias := Alias()
       _BrowseArea := _HMG_aControlSpacing[i]
 
-      IF Select( _BrowseArea ) == 0
+      IF Select(_BrowseArea) == 0
          RETURN
       ENDIF
 
@@ -622,10 +622,10 @@ PROCEDURE _BrowseUpdate(ControlName, ParentName, z)
 
    ENDIF
 
-   dfc := _HMG_aControlMiscData1 [i, 9]
+   dfc := _HMG_aControlMiscData1[i, 9]
    processdfc := hb_IsArray(dfc)
 
-   dbc := _HMG_aControlMiscData1 [i, 10]
+   dbc := _HMG_aControlMiscData1[i, 10]
    processdbc := hb_IsArray(dbc)
 
    _HMG_aControlContainerHandle[i] := 0
@@ -1325,7 +1325,7 @@ PROCEDURE _BrowseSetValue(ControlName, ParentForm, Value, z, mp)
    ENDIF
 
    IF mp == NIL
-      m := Int( ListViewGetCountPerPage(_BrowseHandle) / 2 )
+      m := Int(ListViewGetCountPerPage(_BrowseHandle) / 2)
    ELSE
       m := mp
    ENDIF
@@ -1559,7 +1559,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
 
    h := GridHandle
 
-   GetWindowRect( h, actpos )
+   GetWindowRect(h, actpos)
 
    GRow   := actpos[2]
    GCol   := actpos[1]
@@ -2194,7 +2194,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
 
       IF !( _GridWorkArea )->( NetRecLock() )
          _HMG_IPE_CANCELLED := .T.
-         MsgAlert( _HMG_BRWLangError[9], _HMG_BRWLangError[10] )
+         MsgAlert(_HMG_BRWLangError[9], _HMG_BRWLangError[10])
          // Restore Original Record Pointer
          GO BackRec
          // Restore Original WorkArea
@@ -2597,7 +2597,7 @@ STATIC PROCEDURE _InPlaceEditSave(i, FieldName, Alias, r, lock, ControlType, aIn
 RETURN
 
 *-----------------------------------------------------------------------------*
-PROCEDURE ProcessInPlaceKbdEdit( i )
+PROCEDURE ProcessInPlaceKbdEdit(i)
 *-----------------------------------------------------------------------------*
    
    LOCAL IPE_MAXCOL
@@ -2767,7 +2767,7 @@ STATIC PROCEDURE _BrowseInPlaceAppend(ControlName, ParentForm, z)
 
    _NewRec := RecCount() + 1
 
-   IF LISTVIEWGETITEMCOUNT( _HMG_aControlhandles[i] ) != 0
+   IF LISTVIEWGETITEMCOUNT(_HMG_aControlhandles[i]) != 0
       _BrowseVscrollUpdate(i)
       Skip - LISTVIEWGETCOUNTPERPAGE(_HMG_aControlhandles[i]) + 2
       _BrowseUpdate("" , "" , i)
@@ -2822,7 +2822,7 @@ STATIC PROCEDURE _BrowseVscrollUpdate(i)
          SetScrollPos ( _HMG_aControlIds[i] , SB_CTL , ActualRecord , .T. )
       ELSE
          SetScrollRange(_HMG_aControlIds[i], SB_CTL, 1, 100, .T.)
-         SetScrollPos ( _HMG_aControlIds[i] , SB_CTL , Int( ActualRecord * 100 / RecordCount ) , .T. )
+         SetScrollPos ( _HMG_aControlIds[i] , SB_CTL , Int(ActualRecord * 100 / RecordCount) , .T. )
       ENDIF
 
    ENDIF

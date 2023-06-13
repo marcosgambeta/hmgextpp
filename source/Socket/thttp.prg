@@ -75,20 +75,20 @@ CLASS THttp
 
    METHOD New()
 
-   METHOD Connect( cAddress, nPort )
+   METHOD Connect(cAddress, nPort)
    METHOD Close()
 
    METHOD SetProxy( cProxy, nPort, cUser, cPwd )
 
    METHOD SetUser( cUser, cPwd )
 
-   METHOD Get( cPage, aPair )
-   METHOD Post( cPage, aPair )
+   METHOD Get(cPage, aPair)
+   METHOD Post(cPage, aPair)
 
-   METHOD SetUserAgent( cAgent )
+   METHOD SetUserAgent(cAgent)
    METHOD GetUserAgent()
 
-   METHOD SetReceiveTimeout( nMilliSec )
+   METHOD SetReceiveTimeout(nMilliSec)
 
    METHOD Value2String( aPair )
 
@@ -156,7 +156,7 @@ return Self
 *    THttp:Get
 **********
 */
-METHOD Connect( cAddress, nPort ) CLASS THttp
+METHOD Connect(cAddress, nPort) CLASS THttp
 LOCAL lRet
 
 DEFAULT nPort TO 80
@@ -224,13 +224,13 @@ return ::oSocket:Close()
 *    THttp:Post
 **********
 */
-METHOD Get( cPage, aPair ) CLASS THttp
+METHOD Get(cPage, aPair) CLASS THttp
 LOCAL cRet := ""
 LOCAL cURL := ""
 LOCAL cPost := ::Value2String( aPair )
 LOCAL nPos
 
-nPos := AT( "@", cPage )
+nPos := AT("@", cPage)
 IF nPos>0
    ::cLoginRemote := ::SetUser( LEFT(cPage, nPos - 1) )
    cPage := SUBSTR(cPage, nPos + 1)
@@ -307,13 +307,13 @@ return cRet
 *    THttp:Get
 **********
 */
-METHOD Post( cPage, aPair ) CLASS THttp
+METHOD Post(cPage, aPair) CLASS THttp
 LOCAL cRet := ""
 LOCAL cURL := ""
 LOCAL cPost := ::Value2String( aPair )
 LOCAL nPos
 
-nPos := AT( "@", cPage )
+nPos := AT("@", cPage)
 IF nPos>0
    ::cLoginRemote := ::SetUser( LEFT(cPage, nPos - 1) )
    cPage := SUBSTR(cPage, nPos + 1)
@@ -401,7 +401,7 @@ return nil
 //
 // Set user agent
 //
-METHOD SetUserAgent( cAgent ) CLASS THttp
+METHOD SetUserAgent(cAgent) CLASS THttp
 ::cUserAgent := cAgent
 return nil
 
@@ -414,6 +414,6 @@ return ::cUserAgent
 //
 // Set receive timeout
 //
-METHOD SetReceiveTimeout( nMilliSec ) CLASS THttp
-::oSocket:SetReceiveTimeout( nMilliSec )
+METHOD SetReceiveTimeout(nMilliSec) CLASS THttp
+::oSocket:SetReceiveTimeout(nMilliSec)
 return nil

@@ -80,7 +80,7 @@ RETURN cName
 // Jacek Kubica <kubica@wssk.wroc.pl> HMG 1.1 Experimental Build 11a
 // cFile - string to be compacted (may be for example fullpath, path or file name)
 // nMax  - required string size (characters count)
-// _GetCompactPath("C:\Program Files\Adobe",20) -> "C:\Program...\Adobe"
+// _GetCompactPath("C:\Program Files\Adobe", 20) -> "C:\Program...\Adobe"
 *-----------------------------------------------------------------------------*
 FUNCTION _GetCompactPath ( cFile, nMax )
 *-----------------------------------------------------------------------------*

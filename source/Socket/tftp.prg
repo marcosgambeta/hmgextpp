@@ -70,7 +70,7 @@ CLASS TFtp
 
    METHOD New()
 
-   METHOD Connect( cAddress, nPort )
+   METHOD Connect(cAddress, nPort)
    METHOD Login( cUser, cPwd )
    METHOD Close()
 
@@ -93,7 +93,7 @@ return Self
 //
 // Connect
 //
-METHOD Connect( cAddress, nPort ) CLASS TFtp
+METHOD Connect(cAddress, nPort) CLASS TFtp
 local lRet
 
 DEFAULT nPort TO 21
@@ -126,20 +126,20 @@ DEFAULT cPwd  TO ""
 if ::oSocket:SendString( "USER " +cUser +CHR(13)+CHR(10) )
    cErr := ::oSocket:ReceiveLine()
    // OK
-   if LEFT(cErr,1)=="2"
+   if LEFT(cErr, 1)=="2"
       lRet := .T.
    // Error
-   elseif LEFT(cErr,1)$"145"
+   elseif LEFT(cErr, 1)$"145"
       lRet := .F.
    // Password
-   elseif LEFT(cErr,1)=="3"
+   elseif LEFT(cErr, 1)=="3"
       if ::oSocket:SendString( "PASS " +cPwd +CHR(13)+CHR(10) )
          cErr := ::oSocket:ReceiveLine()
-         if LEFT(cErr,1)=="2"
+         if LEFT(cErr, 1)=="2"
             lRet := .T.
-         elseif LEFT(cErr,1)$"145"
+         elseif LEFT(cErr, 1)$"145"
             lRet := .F.
-         elseif LEFT(cErr,1)=="3"
+         elseif LEFT(cErr, 1)=="3"
             //## NEED ACCT .. to implement
             lRet := .F.
          endif
@@ -148,7 +148,7 @@ if ::oSocket:SendString( "USER " +cUser +CHR(13)+CHR(10) )
 endif
 
 // Consume long message
-while substr(cErr,4,1)=="-"
+while substr(cErr, 4, 1)=="-"
    cErr := ::oSocket:ReceiveLine()
 enddo
 

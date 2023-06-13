@@ -8,7 +8,7 @@
 
 #ifdef _NAMES_LIST_
 *-----------------------------------------------------------------------------*
-FUNCTION _SetGetNamesList( cName, nIndex, lDelete )
+FUNCTION _SetGetNamesList(cName, nIndex, lDelete)
 *-----------------------------------------------------------------------------*
    STATIC _HMG_NAMESLIST
 
@@ -18,18 +18,18 @@ FUNCTION _SetGetNamesList( cName, nIndex, lDelete )
 
    IF PCount() == 1
 
-      RETURN _HMG_NAMESLIST:Get( cName, 0 )
+      RETURN _HMG_NAMESLIST:Get(cName, 0)
 
    ELSEIF PCount() == 2
 
-      _HMG_NAMESLIST:Set( cName, nIndex )
+      _HMG_NAMESLIST:Set(cName, nIndex)
 
    ELSEIF PCount() == 3
 
       IF lDelete
          _HMG_NAMESLIST:Del( cName )
       ELSE
-         _HMG_NAMESLIST:Set( cName, NIL )
+         _HMG_NAMESLIST:Set(cName, NIL)
       ENDIF
 
    ENDIF 
@@ -54,10 +54,10 @@ FUNCTION _SetGetGlobal( cVarName, xNewValue, ... )
    CASE 0
       RETURN _HMG_STATIC
    CASE 1
-      RETURN _HMG_STATIC:Get( cVarName, NIL )
+      RETURN _HMG_STATIC:Get(cVarName, NIL)
    CASE 2
-      xOldValue := _HMG_STATIC:Get( cVarName, NIL )
-      _HMG_STATIC:Set( cVarName, xNewValue )
+      xOldValue := _HMG_STATIC:Get(cVarName, NIL)
+      _HMG_STATIC:Set(cVarName, xNewValue)
       EXIT
    CASE 3
       _HMG_STATIC:Del( cVarName )
@@ -177,4 +177,4 @@ RETURN HB_DBG_VMVARSLEN()
 STATIC FUNCTION Static(n)
 *-----------------------------------------------------------------------------*
 
-RETURN HB_DBG_VMVARSGET( HB_DBG_VMVARSLIST(), n )
+RETURN HB_DBG_VMVARSGET(HB_DBG_VMVARSLIST(), n)

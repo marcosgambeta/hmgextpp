@@ -102,7 +102,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
       ELSEIF hb_IsChar(xcnFromArea)
 
-         nSelectFrom := Select( xcnFromArea )
+         nSelectFrom := Select(xcnFromArea)
 
       ENDIF
 
@@ -112,7 +112,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
    IF lOTM
 
-      nSelectChild := Select( aOneToMany[1] )
+      nSelectChild := Select(aOneToMany[1])
 
    ENDIF
 
@@ -134,7 +134,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
    IF cIndexName == NIL
 
-      cIndexName := IIF(( nExprAlias := RAt( ".", xcFile ) ) > RAt( "\", xcFile ), SubStr(xcFile, 1, nExprAlias - 1), xcFile) + IndexExt()
+      cIndexName := IIF(( nExprAlias := RAt(".", xcFile) ) > RAt("\", xcFile), SubStr(xcFile, 1, nExprAlias - 1), xcFile) + IndexExt()
 
    ENDIF
 
@@ -153,12 +153,12 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
       cExprType := ValType(xExprValue)
       cExprValue := Transform(xExprValue, "")
       nExprLen := Len(cExprValue)
-      AAdd(aStruct, { iif(( nExprAlias := At( "->", aSelectList[nCurrExpr, 2] ) ) == 0, aSelectList[nCurrExpr, 2], ;
+      AAdd(aStruct, { iif(( nExprAlias := At("->", aSelectList[nCurrExpr, 2]) ) == 0, aSelectList[nCurrExpr, 2], ;
          SubStr(aSelectList[nCurrExpr, 2], nExprAlias + 2)), cExprType, ;
          iif(aSelectList[nCurrExpr, 3] != NIL, aSelectList[nCurrExpr, 3], ;
          iif(cExprType == "D", 8, nExprLen)), ;
          iif(aSelectList[nCurrExpr, 4] != NIL, aSelectList[nCurrExpr, 4], ;
-         iif(cExprType == "N" .AND. ( nExprAlias := At( ".", cExprValue ) ) > 0, ;
+         iif(cExprType == "N" .AND. ( nExprAlias := At(".", cExprValue) ) > 0, ;
          nExprLen - nExprAlias, 0)) })
 
       IF aSelectList[nCurrExpr, 5] == "G"
@@ -205,7 +205,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
    IF lAdditive
 
-      nSelectTemp := Select( xcAlias )
+      nSelectTemp := Select(xcAlias)
 
    ELSE
 
@@ -276,15 +276,15 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
                IF aSelectList[nCurrExpr, 5] == "T"
 
-                  ( nSelectTemp )->( FieldPut( nCurrExpr, FieldGet( nCurrExpr ) + xExprValue ) )
+                  ( nSelectTemp )->( FieldPut(nCurrExpr, FieldGet(nCurrExpr) + xExprValue) )
 
                ELSEIF aSelectList[nCurrExpr, 5] == "A" .AND. !lAppend
 
-                  ( nSelectTemp )->( FieldPut( nCurrExpr, ( FieldGet( nCurrExpr ) + xExprValue ) / 2 ) )
+                  ( nSelectTemp )->( FieldPut(nCurrExpr, (FieldGet(nCurrExpr) + xExprValue) / 2) )
 
                ELSE
 
-                  ( nSelectTemp )->( FieldPut( nCurrExpr, xExprValue ) )
+                  ( nSelectTemp )->( FieldPut(nCurrExpr, xExprValue) )
 
                ENDIF
 

@@ -109,7 +109,7 @@ FUNCTION _DefineToolBar ( ControlName, ParentForm, x, y, caption, ProcedureName,
    k := _GetControlFree()
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif
@@ -186,7 +186,7 @@ FUNCTION _EndToolBar()
          ix     := GetControlIndex(_HMG_ActiveToolBarName, ParentForm)
          i      := GetFormIndex ( _HMG_ActiveSplitBoxParentFormName )
          nBand  := GetBandCount ( _HMG_aFormReBarHandle[i] )
-         _HMG_aControlMiscData1 [ix] := nBand
+         _HMG_aControlMiscData1[ix] := nBand
          nRow   := _HMG_aControlSpacing[ix]
          IF nRow > 1
             aSize := SetRowsButton ( h , nRow , .T. )
@@ -276,7 +276,7 @@ FUNCTION _DefineToolButton ( ControlName, ParentControl, x, y, Caption, Procedur
    k := _GetControlFree()
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif
@@ -494,7 +494,7 @@ FUNCTION _CreatePopUpChevron ( hWnd, wParam, lParam )
 
          aBtnInfo := GetButtonBar( TbHwnd, n )
          lEnable  := IsButtonEnabled(TbHwnd, n)
-         hImage := GetImageList( tbhwnd, aBtnInfo[1] )
+         hImage := GetImageList(tbhwnd, aBtnInfo[1])
 
          IF ( k := AScan(_HMG_aControlIds, aBtnInfo[2]) ) > 0 .AND. !aBtnInfo[3]
 
@@ -524,7 +524,7 @@ FUNCTION _CreatePopUpChevron ( hWnd, wParam, lParam )
       NEXT
 
       aPos := { 0, 0, 0, 0 }
-      GetWindowRect( _HMG_aFormReBarHandle[i], aPos )
+      GetWindowRect(_HMG_aFormReBarHandle[i], aPos)
 
       TrackPopupMenu ( hMenu , aPos[1] + aChevronInfo[1] , aPos[2] + aChevronInfo[4] + 3 , hWnd )
    ENDIF

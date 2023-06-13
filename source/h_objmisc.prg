@@ -101,7 +101,7 @@ FUNCTION _WindowObj(FormName)
    
    LOCAL h := iif(hb_IsNumeric(FormName), FormName, GetFormHandle(FormName))
 
-RETURN hmg_GetWindowObject( h )
+RETURN hmg_GetWindowObject(h)
 
 *-----------------------------------------------------------------------------*
 FUNCTION _ControlObj(ControlName, FormName)
@@ -113,10 +113,10 @@ FUNCTION _ControlObj(ControlName, FormName)
       h := h[1]
    ENDIF
 
-RETURN hmg_GetWindowObject( h )
+RETURN hmg_GetWindowObject(h)
 
 *-----------------------------------------------------------------------------*
-FUNCTION _wPost( nEvent, nIndex, xParam )
+FUNCTION _wPost(nEvent, nIndex, xParam)
 *-----------------------------------------------------------------------------*
    
    LOCAL oWnd
@@ -177,8 +177,8 @@ FUNCTION Do_Obj(nHandle, bBlock, p1, p2, p3)
    
    LOCAL o
 
-   IF hmg_IsWindowObject( nHandle )
-      o := hmg_GetWindowObject( nHandle )
+   IF hmg_IsWindowObject(nHandle)
+      o := hmg_GetWindowObject(nHandle)
       IF hb_IsBlock(bBlock)
          IF o:IsWindow 
             RETURN Do_WindowEventProcedure ( bBlock, o:Index, o, p1, p2, p3 ) 
@@ -191,7 +191,7 @@ FUNCTION Do_Obj(nHandle, bBlock, p1, p2, p3)
 RETURN o
 
 *-----------------------------------------------------------------------------*
-FUNC Do_OnWndInit( i, cVar )
+FUNC Do_OnWndInit(i, cVar)
 *-----------------------------------------------------------------------------*
    
    LOCAL nIndex  := i
@@ -209,8 +209,8 @@ FUNC Do_OnWndRelease(i)
    LOCAL o
    LOCAL hWnd := _HMG_aFormHandles[i]
 
-   IF hmg_IsWindowObject( hWnd )
-      o := hmg_GetWindowObject( hWnd )
+   IF hmg_IsWindowObject(hWnd)
+      o := hmg_GetWindowObject(hWnd)
       IF __objHasMethod(o, "Del")
          o:Del()
       ENDIF
@@ -223,7 +223,7 @@ FUNC Do_OnWndRelease(i)
 RETURN .F.
 
 *-----------------------------------------------------------------------------*
-FUNC Do_OnCtlInit( i, cVar )
+FUNC Do_OnCtlInit(i, cVar)
 *-----------------------------------------------------------------------------*
    
    LOCAL nCtlIndex := i
@@ -242,8 +242,8 @@ FUNC Do_OnCtlRelease(i)
    LOCAL o
    LOCAL hWnd := _HMG_aControlHandles[i]
 
-   IF hmg_IsWindowObject( hWnd )
-      o := hmg_GetWindowObject( hWnd )
+   IF hmg_IsWindowObject(hWnd)
+      o := hmg_GetWindowObject(hWnd)
       IF __objHasMethod(o, "Del")
          o:Del()
       ENDIF
@@ -259,7 +259,7 @@ RETURN .F.
 FUNC Do_OnWndLaunch( hWnd, nMsg, wParam, lParam )
 *-----------------------------------------------------------------------------*
    IF hmg_IsWindowObject ( hWnd )
-      hmg_GetWindowObject( hWnd ):DoEvent( wParam, lParam )
+      hmg_GetWindowObject(hWnd):DoEvent(wParam, lParam)
    ENDIF
 
    HB_SYMBOL_UNUSED(nMsg)
@@ -276,7 +276,7 @@ FUNC Do_OnCtlLaunch( hWnd, nMsg, wParam, lParam )
    ENDIF
 
    IF hmg_IsWindowObject ( hWnd )
-      hmg_GetWindowObject( hWnd ):DoEvent( wParam, lParam )
+      hmg_GetWindowObject(hWnd):DoEvent(wParam, lParam)
    ENDIF
 
 RETURN NIL
@@ -295,7 +295,7 @@ HB_FUNC( HMG_SETWINDOWOBJECT )
    if( IsWindow(hWnd) ) {
       pObject = ( PHB_ITEM ) hb_param( 2, Harbour::Item::OBJECT );
 
-      if( pObject && HB_IS_OBJECT( pObject ) ) {
+      if( pObject && HB_IS_OBJECT(pObject) ) {
          pObject = hb_itemNew( pObject );
 
          hb_gcLock( pObject );    // Ref++
@@ -321,7 +321,7 @@ HB_FUNC( HMG_DELWINDOWOBJECT )
 
       SetWindowLongPtr( hWnd, GWLP_USERDATA, 0 );
 
-      if( pObject && HB_IS_OBJECT( pObject ) ) {
+      if( pObject && HB_IS_OBJECT(pObject) ) {
          hb_gcUnlock(pObject);     // Ref --
          hb_itemRelease(pObject);
       }
@@ -348,7 +348,7 @@ HB_FUNC( HMG_ISWINDOWOBJECT )
    if( IsWindow(hWnd) ) {
       pObject = ( PHB_ITEM ) GetWindowLongPtr( hWnd, GWLP_USERDATA );
 
-      hb_retl(pObject && HB_IS_OBJECT( pObject ));
+      hb_retl(pObject && HB_IS_OBJECT(pObject));
    } else {
       hb_retl(false);
    }

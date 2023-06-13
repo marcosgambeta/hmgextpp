@@ -74,15 +74,15 @@ PROCEDURE _SetAddressControlProcedure(ControlName, url, i)
 
       _HMG_aControlProcedures[i] := url
 
-   CASE At( "@", url ) > 0
+   CASE At("@", url) > 0
 
       _HMG_aControlProcedures[i] := {|| ShellExecute(0, "open", "rundll32.exe", "url.dll,FileProtocolHandler mailto:" + url, , 1) }
 
-   CASE At( "http", Lower( url ) ) > 0 .OR. File(url)
+   CASE At("http", Lower(url)) > 0 .OR. File(url)
 
       _HMG_aControlProcedures[i] := {|| ShellExecute(0, "open", url, , , 1) }
 
-   CASE At( "file:\\", Lower( url ) ) > 0
+   CASE At("file:\\", Lower(url)) > 0
 
       IF iswinnt()
          _HMG_aControlProcedures[i] := {|| ShellExecute(0, "open", "explorer.exe", "/e," + url, , 1) }
@@ -91,11 +91,11 @@ PROCEDURE _SetAddressControlProcedure(ControlName, url, i)
          _HMG_aControlProcedures[i] := {|| ShellExecute(0, "open", "explorer.exe", "/e,/select," + url + hb_ps() + Directory( url + hb_ps() + "*.*" )[1][1], , 1) }
       ENDIF
 
-   CASE At( "proc:\\", Lower( url ) ) > 0
+   CASE At("proc:\\", Lower(url)) > 0
 
       url := SubStr(AllTrim(url), 8)
 
-      IF hb_IsFunction( SubStr(url, 1, At( "(", url ) - 1) )
+      IF hb_IsFunction( SubStr(url, 1, At("(", url) - 1) )
          _HMG_aControlProcedures[i] := &( "{||" + url + "}" )
       ELSE
          MsgMiniGuiError("Control " + ControlName + " Of " + GetParentFormName(i) + " must have a valid procedure name defined.")

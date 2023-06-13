@@ -61,7 +61,7 @@ FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidt
    k := _GetControlFree()
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar, k )
+   _SetNameList(mVar, k)
 
 #else
    PUBLIC &mVar. := k
@@ -161,13 +161,13 @@ STATIC PROCEDURE _EraseGifDef ( FormName, i )
    mVar := "_" + FormName + "_" + _HMG_aControlNames[i]
 
 #ifdef _NAMES_LIST_
-   _DelNameList( mVar )
+   _DelNameList(mVar)
 
 #else
-   IF __mvExist( mVar )
+   IF __mvExist(mVar)
 
 #ifndef _PUBLIC_RELEASE_
-      __mvPut( mVar, 0 )
+      __mvPut(mVar, 0)
 
 #else
       __mvXRelease(mVar)
@@ -450,7 +450,7 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
 
    nImgCount := 0
    i := 1
-   j := At( cGifEnd, cStream, i ) + 1
+   j := At(cGifEnd, cStream, i) + 1
    cGifHeader = Left(cStream, j)
 
    i := j + 2
@@ -461,10 +461,10 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
 
       nImgCount++
 
-      j := At( cGifEnd, cStream, i ) + 3
+      j := At(cGifEnd, cStream, i) + 3
 
       IF j > Len(cGifEnd)
-         cFile := cPath + hb_ps() + cFileNoExt( GIF ) + "_frame_" + hb_ntos(nID) + "_" + StrZero( nImgCount, 4 ) + ".gif"
+         cFile := cPath + hb_ps() + cFileNoExt(GIF) + "_frame_" + hb_ntos(nID) + "_" + StrZero( nImgCount, 4 ) + ".gif"
          nFileHandle := FCreate(cFile, FC_NORMAL)
          IF FError() != 0
             RETURN .F.
@@ -497,7 +497,7 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
 
    IF i < Len(cStream)
 
-      cFile := cPath + hb_ps() + cFileNoExt( GIF ) + "_frame_" + hb_ntos(nID) + "_" + StrZero( ++nImgCount, 4 ) + ".gif"
+      cFile := cPath + hb_ps() + cFileNoExt(GIF) + "_frame_" + hb_ntos(nID) + "_" + StrZero( ++nImgCount, 4 ) + ".gif"
       nFileHandle := FCreate(cFile, FC_NORMAL)
       IF FError() != 0
          RETURN .F.

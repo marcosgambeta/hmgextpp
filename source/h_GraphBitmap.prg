@@ -285,8 +285,8 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
             IF !l3D
                DrawPointInBitmap( hDC, nType, nPos, nZero, aData[nJ,nI] / nMin + nDeep, aColors[nJ] )
             ENDIF
-            aPoint[nJ,nI,2] := nPos
-            aPoint[nJ,nI,1] := nZero - ( aData[nJ,nI] / nMin + nDeep )
+            aPoint[nJ, nI, 2] := nPos
+            aPoint[nJ, nI, 1] := nZero - ( aData[nJ,nI] / nMin + nDeep )
          NEXT nJ
          nPos += nWideB
       NEXT nI
@@ -294,11 +294,11 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
       FOR nI := 1 TO nRange - 1
          FOR nJ := 1 TO nSeries
             IF l3D
-               drawpolygonInBitmap( hDC, { { aPoint[nJ,nI,1],aPoint[nJ,nI,2] }, { aPoint[nJ,nI+1,1],aPoint[nJ,nI+1,2] }, ;
-                  { aPoint[nJ,nI+1,1] - nDeep, aPoint[nJ,nI+1,2] + nDeep }, { aPoint[nJ,nI,1] - nDeep, aPoint[nJ,nI,2] + nDeep }, ;
-                  { aPoint[nJ,nI,1], aPoint[nJ,nI,2] } }, , , aColors[nJ] )
+               drawpolygonInBitmap( hDC, { { aPoint[nJ, nI, 1],aPoint[nJ, nI, 2] }, { aPoint[nJ, nI+1, 1],aPoint[nJ, nI+1, 2] }, ;
+                  { aPoint[nJ, nI+1, 1] - nDeep, aPoint[nJ, nI+1, 2] + nDeep }, { aPoint[nJ, nI, 1] - nDeep, aPoint[nJ, nI, 2] + nDeep }, ;
+                  { aPoint[nJ, nI, 1], aPoint[nJ, nI, 2] } }, , , aColors[nJ] )
             ELSE
-               DrawLineInBitmap( hDC, aPoint[nJ,nI,1], aPoint[nJ,nI,2], aPoint[nJ,nI+1,1], aPoint[nJ,nI+1,2], aColors[nJ] )
+               DrawLineInBitmap( hDC, aPoint[nJ, nI, 1], aPoint[nJ, nI, 2], aPoint[nJ, nI+1, 1], aPoint[nJ, nI+1, 2], aColors[nJ] )
             ENDIF
          NEXT nI
       NEXT nI
@@ -417,7 +417,7 @@ FUNCTION HMG_PieGraph( nWidth, nHeight, series, aname, colors, ctitle, aTitleCol
       ELSE
          IF Len(aname) * 20 > ( torow - fromrow - 60 )
             lsleg := .F.
-            MsgAlert( "No space for showing legends", "Pie Graph" )
+            MsgAlert("No space for showing legends", "Pie Graph")
          ELSE
             torow -= ( Len(aname) * 20 )
          ENDIF
@@ -444,11 +444,11 @@ FUNCTION HMG_PieGraph( nWidth, nHeight, series, aname, colors, ctitle, aTitleCol
    bottomrightcol := tocol
    bottomleftrow := torow
    bottomleftcol := fromcol
-   middletopcol := fromcol + Int( tocol - fromcol ) / 2
-   middleleftrow := fromrow + Int( torow - fromrow ) / 2
+   middletopcol := fromcol + Int(tocol - fromcol) / 2
+   middleleftrow := fromrow + Int(torow - fromrow) / 2
    middleleftcol := fromcol
-   middlebottomcol := fromcol + Int( tocol - fromcol ) / 2
-   middlerightrow := fromrow + Int( torow - fromrow ) / 2
+   middlebottomcol := fromcol + Int(tocol - fromcol) / 2
+   middlerightrow := fromrow + Int(torow - fromrow) / 2
    middlerightcol := tocol
 
    torow := torow + 1
@@ -467,7 +467,7 @@ FUNCTION HMG_PieGraph( nWidth, nHeight, series, aname, colors, ctitle, aTitleCol
    fromradialrow := middlerightrow
    fromradialcol := middlerightcol
    FOR i := 1 TO Len(cumulative)
-      shadowcolor := { iif(colors[i,1] > 50, colors[i,1] - 50, 0), iif(colors[i,2] > 50, colors[i,2] - 50, 0), iif(colors[i,3] > 50, colors[i,3] - 50, 0) }
+      shadowcolor := { iif(colors[i, 1] > 50, colors[i, 1] - 50, 0), iif(colors[i, 2] > 50, colors[i, 2] - 50, 0), iif(colors[i, 3] > 50, colors[i, 3] - 50, 0) }
       IF cumulative[i] == previos_cumulative
          LOOP  // fixed by Roberto Lopez
       ENDIF

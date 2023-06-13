@@ -209,7 +209,7 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
    ENDIF
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif
@@ -442,7 +442,7 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
    ENDIF
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif
@@ -553,10 +553,10 @@ FUNCTION OPICKEVENTS( hWnd, nMsg, wParam, lParam )
 
       IF i > 0
          IF _HMG_aControlBkColor[i] != NIL
-            GetClientRect( _HMG_aControlHandles[i], /*@*/aRect )
+            GetClientRect(_HMG_aControlHandles[i], /*@*/aRect)
             hBrush := CreateSolidBrush( _HMG_aControlBkColor[i][1], _HMG_aControlBkColor[i][2], _HMG_aControlBkColor[i][3] )
-            FillRect( hDC, aRect[1], aRect[2], aRect[3] - GETVSCROLLBARWIDTH(), aRect[4], hBrush )
-            DeleteObject( hBrush )
+            FillRect(hDC, aRect[1], aRect[2], aRect[3] - GETVSCROLLBARWIDTH(), aRect[4], hBrush)
+            DeleteObject(hBrush)
             RETURN 1
          ENDIF
       ENDIF

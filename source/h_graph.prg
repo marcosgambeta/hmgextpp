@@ -139,9 +139,9 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
    // Back area
    //
    IF l3D
-      drawrect( parent, nTop + 1, nLeft, nBottom - nDeep, nRight, WHITE, , WHITE )
+      drawrect(parent, nTop + 1, nLeft, nBottom - nDeep, nRight, WHITE, , WHITE)
    ELSE
-      drawrect( parent, nTop - 5, nLeft, nBottom, nRight, , , WHITE )
+      drawrect(parent, nTop - 5, nLeft, nBottom, nRight, , , WHITE)
    ENDIF
 
    IF l3D
@@ -369,10 +369,10 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
       FOR nI := 1 TO nRange
          FOR nJ := 1 TO nSeries
             IF !l3D
-               DrawPoint( parent, nType, nPos, nZero, aData[nJ,nI] / nMin + nDeep, aColors[nJ] )
+               DrawPoint(parent, nType, nPos, nZero, aData[nJ,nI] / nMin + nDeep, aColors[nJ])
             ENDIF
-            aPoint[nJ,nI,2] := nPos
-            aPoint[nJ,nI,1] := nZero - ( aData[nJ,nI] / nMin + nDeep )
+            aPoint[nJ, nI, 2] := nPos
+            aPoint[nJ, nI, 1] := nZero - ( aData[nJ,nI] / nMin + nDeep )
          NEXT nJ
          nPos += nWideB
       NEXT nI
@@ -380,11 +380,11 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
       FOR nI := 1 TO nRange - 1
          FOR nJ := 1 TO nSeries
             IF l3D
-               drawpolygon( parent, { { aPoint[nJ,nI,1],aPoint[nJ,nI,2] }, { aPoint[nJ,nI+1,1],aPoint[nJ,nI+1,2] }, ;
-                  { aPoint[nJ,nI+1,1] - nDeep, aPoint[nJ,nI+1,2] + nDeep }, { aPoint[nJ,nI,1] - nDeep, aPoint[nJ,nI,2] + nDeep }, ;
-                  { aPoint[nJ,nI,1], aPoint[nJ,nI,2] } }, , , aColors[nJ] )
+               drawpolygon( parent, { { aPoint[nJ, nI, 1],aPoint[nJ, nI, 2] }, { aPoint[nJ, nI+1, 1],aPoint[nJ, nI+1, 2] }, ;
+                  { aPoint[nJ, nI+1, 1] - nDeep, aPoint[nJ, nI+1, 2] + nDeep }, { aPoint[nJ, nI, 1] - nDeep, aPoint[nJ, nI, 2] + nDeep }, ;
+                  { aPoint[nJ, nI, 1], aPoint[nJ, nI, 2] } }, , , aColors[nJ] )
             ELSE
-               DrawLine(parent, aPoint[nJ,nI,1], aPoint[nJ,nI,2], aPoint[nJ,nI+1,1], aPoint[nJ,nI+1,2], aColors[nJ])
+               DrawLine(parent, aPoint[nJ, nI, 1], aPoint[nJ, nI, 2], aPoint[nJ, nI+1, 1], aPoint[nJ, nI+1, 2], aColors[nJ])
             ENDIF
          NEXT nI
       NEXT nI
@@ -398,7 +398,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
       nPos := nLeft + nWideB
       FOR nI := 1 TO nRange
          FOR nJ := 1 TO nSeries
-            DrawPoint( parent, nType, nPos, nZero, aData[nJ,nI] / nMin + nDeep, aColors[nJ] )
+            DrawPoint(parent, nType, nPos, nZero, aData[nJ,nI] / nMin + nDeep, aColors[nJ])
          NEXT nJ
          nPos += nWideB
       NEXT nI
@@ -511,7 +511,7 @@ STATIC PROCEDURE DrawBox( parent, nY, nX, nHigh, nWidth, l3D, nDeep )
 RETURN
 
 
-STATIC PROCEDURE DrawPoint( parent, nType, nY, nX, nHigh, aColor )
+STATIC PROCEDURE DrawPoint(parent, nType, nY, nX, nHigh, aColor)
 
    DO CASE
    CASE nType == POINTS
@@ -558,15 +558,15 @@ FUNCTION DetMaxVal(nNum)
 
       nMax := 10 ** nE
 
-      IF Int( nNum / nMax ) > 0
+      IF Int(nNum / nMax) > 0
 
-         nMan    := nNum / nMax - Int( nNum / nMax )
+         nMan    := nNum / nMax - Int(nNum / nMax)
          nOffset := 1
          nOffset := iif(nMan <= .75, .75, nOffset)
          nOffset := iif(nMan <= .50, .50, nOffset)
          nOffset := iif(nMan <= .25, .25, nOffset)
          nOffset := iif(nMan <= .00, .00, nOffset)
-         nVal    := ( Int( nNum / nMax ) + nOffset ) * nMax
+         nVal    := ( Int(nNum / nMax) + nOffset ) * nMax
          EXIT
 
       ENDIF
@@ -631,12 +631,12 @@ FUNCTION RGB2HSL( nR, nG, nB )
       ENDCASE
    ENDIF
 
-   nH := Int( ( nH * 239 ) / 6 )
+   nH := Int((nH * 239) / 6)
    IF nH < 0
       nH += 240
    ENDIF
-   nS := Int( nS * 239 )
-   nL := Int( nL * 239 )
+   nS := Int(nS * 239)
+   nL := Int(nL * 239)
 
 RETURN { nH, nS, nL }
 
@@ -694,7 +694,7 @@ FUNCTION HSL2RGB(nH, nS, nL)
       nB := aTmp3[3]
    ENDIF
 
-RETURN { Int( nR * 255 ), Int( nG * 255 ), Int( nB * 255 ) }
+RETURN { Int(nR * 255), Int(nG * 255), Int(nB * 255) }
 
 
 /*
@@ -773,14 +773,14 @@ FUNCTION drawpiegraph( windowname, fromrow, fromcol, torow, tocol, series, aname
       ELSE
          IF Len(aname) * 20 > ( torow - fromrow - 60 )
             lsleg := .F.
-            MsgAlert( "No space for showing legends", "Pie Graph" )
+            MsgAlert("No space for showing legends", "Pie Graph")
          ELSE
             torow -= ( Len(aname) * 20 )
          ENDIF
       ENDIF
    ENDIF
 
-   drawrect( windowname, fromrow + 10, fromcol + 10, torow - 10, tocol - 10, BLACK, 1, WHITE )
+   drawrect(windowname, fromrow + 10, fromcol + 10, torow - 10, tocol - 10, BLACK, 1, WHITE)
 
    IF l3d
       torow -= depth
@@ -799,11 +799,11 @@ FUNCTION drawpiegraph( windowname, fromrow, fromcol, torow, tocol, series, aname
    bottomrightcol := tocol
    bottomleftrow := torow
    bottomleftcol := fromcol
-   middletopcol := fromcol + Int( tocol - fromcol ) / 2
-   middleleftrow := fromrow + Int( torow - fromrow ) / 2
+   middletopcol := fromcol + Int(tocol - fromcol) / 2
+   middleleftrow := fromrow + Int(torow - fromrow) / 2
    middleleftcol := fromcol
-   middlebottomcol := fromcol + Int( tocol - fromcol ) / 2
-   middlerightrow := fromrow + Int( torow - fromrow ) / 2
+   middlebottomcol := fromcol + Int(tocol - fromcol) / 2
+   middlerightrow := fromrow + Int(torow - fromrow) / 2
    middlerightcol := tocol
 
    torow++
@@ -822,7 +822,7 @@ FUNCTION drawpiegraph( windowname, fromrow, fromcol, torow, tocol, series, aname
    fromradialrow := middlerightrow
    fromradialcol := middlerightcol
    FOR i := 1 TO Len(cumulative)
-      shadowcolor := { iif(colors[i,1] > 50, colors[i,1] - 50, 0), iif(colors[i,2] > 50, colors[i,2] - 50, 0), iif(colors[i,3] > 50, colors[i,3] - 50, 0) }
+      shadowcolor := { iif(colors[i, 1] > 50, colors[i, 1] - 50, 0), iif(colors[i, 2] > 50, colors[i, 2] - 50, 0), iif(colors[i, 3] > 50, colors[i, 3] - 50, 0) }
       IF cumulative[i] == previos_cumulative
          LOOP  // fixed by Roberto Lopez
       ENDIF
@@ -912,7 +912,7 @@ FUNCTION drawpiegraph( windowname, fromrow, fromcol, torow, tocol, series, aname
       ENDIF
       FOR i := 1 TO Len(aname)
          cname := "pielegend_" + hb_ntos(nPieObj++)
-         drawrect( windowname, fromrow, fromcol, fromrow + 15, fromcol + 15, { 0, 0, 0 }, 1, colors[i] )
+         drawrect(windowname, fromrow, fromcol, fromrow + 15, fromcol + 15, { 0, 0, 0 }, 1, colors[i])
          DEFINE LABEL (cname)
            PARENT (windowname)
            ROW fromrow
@@ -958,7 +958,7 @@ PROCEDURE ErasePieGraph( windowname )
 RETURN
 
 *-----------------------------------------------------------------------------*
-FUNCTION _PiePrint( cForm, fromrow, fromcol, torow, tocol, series, aname, colors, ctitle, depth, l3d, lxval, lsleg, cPicture, x, y, cLibrary, placement )
+FUNCTION _PiePrint(cForm, fromrow, fromcol, torow, tocol, series, aname, colors, ctitle, depth, l3d, lxval, lsleg, cPicture, x, y, cLibrary, placement)
 *-----------------------------------------------------------------------------*
    
    LOCAL b := _HMG_IsModalActive
@@ -972,7 +972,7 @@ FUNCTION _PiePrint( cForm, fromrow, fromcol, torow, tocol, series, aname, colors
       HEIGHT GetProperty( cForm, "Height" ) ;
       CHILD ;
       ON INIT ( drawpiegraph( FormName, fromrow, fromcol, torow, tocol, series, aname, colors, ctitle, depth, l3d, lxval, lsleg, cPicture, .T., placement, .T. ), ;
-         _bmpprint( ThisWindow.Name, x, y, iif("HBPRINT" $ Upper(hb_defaultValue(cLibrary, "")), 2, 1) ) ) ;
+         _bmpprint(ThisWindow.Name, x, y, iif("HBPRINT" $ Upper(hb_defaultValue(cLibrary, "")), 2, 1)) ) ;
       BACKCOLOR WHITE
 
    END WINDOW
@@ -984,8 +984,8 @@ FUNCTION _PiePrint( cForm, fromrow, fromcol, torow, tocol, series, aname, colors
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION _GraphPrint( cForm, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aData, cTitle, aYVals, nBarD, nWideB, nSep, nXRanges, ;
-      l3D, lGrid, lxGrid, lyGrid, lxVal, lyVal, lLegends, aSeries, aColors, nType, lViewVal, cPicture, nLegendsWidth, x, y, cLibrary )
+FUNCTION _GraphPrint(cForm, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aData, cTitle, aYVals, nBarD, nWideB, nSep, nXRanges, ;
+      l3D, lGrid, lxGrid, lyGrid, lxVal, lyVal, lLegends, aSeries, aColors, nType, lViewVal, cPicture, nLegendsWidth, x, y, cLibrary)
 *-----------------------------------------------------------------------------*
    
    LOCAL b := _HMG_IsModalActive
@@ -1000,7 +1000,7 @@ FUNCTION _GraphPrint( cForm, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
       CHILD ;
       ON INIT ( GraphShow( FormName, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aData, cTitle, aYVals, nBarD, nWideB, nSep, nXRanges, ;
          l3D, lGrid, lxGrid, lyGrid, lxVal, lyVal, lLegends, aSeries, aColors, nType, lViewVal, cPicture, nLegendsWidth, .T. , .T. ), ;
-         _bmpprint( ThisWindow.Name, x, y, iif("HBPRINT" $ Upper(hb_defaultValue(cLibrary, "")), 2, 1) ) ) ;
+         _bmpprint(ThisWindow.Name, x, y, iif("HBPRINT" $ Upper(hb_defaultValue(cLibrary, "")), 2, 1)) ) ;
       BACKCOLOR WHITE
 
    END WINDOW
@@ -1012,7 +1012,7 @@ FUNCTION _GraphPrint( cForm, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-STATIC FUNCTION _bmpprint( cForm, x, y, nLibrary )
+STATIC FUNCTION _bmpprint(cForm, x, y, nLibrary)
 *-----------------------------------------------------------------------------*
    
    LOCAL cTempFile := TempFile(GetTempFolder(), "BMP")

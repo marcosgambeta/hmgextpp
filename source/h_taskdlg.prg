@@ -25,7 +25,7 @@ CREATE CLASS TSimpleTaskDialog FUNCTION SimpleTaskDialog
 
    METHOD Title(cTitle)                SETGET
    METHOD Instruction( cInstruction )  SETGET
-   METHOD Content( cContent )          SETGET
+   METHOD Content(cContent)            SETGET
    METHOD CommonButtons( nCBs )        SETGET
    METHOD MainIcon( nIcon )            SETGET
 
@@ -96,7 +96,7 @@ METHOD Instruction( cInstruction ) CLASS TSimpleTaskDialog
 
 RETURN cOldVal
 
-METHOD Content( cContent ) CLASS TSimpleTaskDialog
+METHOD Content(cContent) CLASS TSimpleTaskDialog
 
    LOCAL cOldVal := ::cContent
 
@@ -400,14 +400,14 @@ RETURN ::MainInstruction( cInstruction )
 /*
    The string to be used for the dialog's primary content (read/write, LIVE).
  */
-METHOD Content( cContent ) CLASS TTaskDialog
+METHOD Content(cContent) CLASS TTaskDialog
 
    LOCAL cOldVal := ::aConfig[TDC_CONTENT]
 
    IF hb_IsString(cContent) .OR. hb_IsNumeric(cContent)
       ::aConfig[TDC_CONTENT] := iif(hb_IsString(cContent) .AND. HB_ISNULL( cContent ), NIL, cContent)
       IF ::lActive
-         _SetContent( ::HWND, ::aConfig[TDC_CONTENT] )
+         _SetContent(::HWND, ::aConfig[TDC_CONTENT])
       ENDIF
    ENDIF
 
@@ -484,7 +484,7 @@ RETURN nOldVal
 /*
    The string to be used to label the verification checkbox (read/write).
 */
-METHOD VerificationText( cText ) CLASS TTaskDialog
+METHOD VerificationText(cText) CLASS TTaskDialog
 
    LOCAL cOldVal := ::aConfig[TDC_VERIFICATIONTEXT]
 
@@ -531,7 +531,7 @@ RETURN cOldVal
    If this member is empty and the CollapsedControlText is specified, then the
    CollapsedControlText value will be used for this member as well.
  */
-METHOD ExpandedControlText( cText ) CLASS TTaskDialog
+METHOD ExpandedControlText(cText) CLASS TTaskDialog
 
    LOCAL cOldVal := ::aConfig[TDC_EXPANDEDCONTROLTEXT]
 
@@ -543,8 +543,8 @@ METHOD ExpandedControlText( cText ) CLASS TTaskDialog
 
 RETURN cOldVal
 
-METHOD ExpandedCtrlText( cText ) CLASS TTaskDialog
-RETURN ::ExpandedControlText( cText )
+METHOD ExpandedCtrlText(cText) CLASS TTaskDialog
+RETURN ::ExpandedControlText(cText)
 
 /* CollapsedControlText
    The  string  to  be  used  to label the button for expanding the expandable
@@ -554,7 +554,7 @@ RETURN ::ExpandedControlText( cText )
    If this member is empty and the CollapsedControlText is specified, then the
    CollapsedControlText value will be used for this member as well.
  */
-METHOD CollapsedControlText( cText ) CLASS TTaskDialog
+METHOD CollapsedControlText(cText) CLASS TTaskDialog
 
    LOCAL cOldVal := ::aConfig[TDC_COLLAPSEDCONTROLTEXT]
 
@@ -566,8 +566,8 @@ METHOD CollapsedControlText( cText ) CLASS TTaskDialog
 
 RETURN cOldVal
 
-METHOD CollapsedCtrlText( cText ) CLASS TTaskDialog
-RETURN ::CollapsedControlText( cText )
+METHOD CollapsedCtrlText(cText) CLASS TTaskDialog
+RETURN ::CollapsedControlText(cText)
 
 /*
    TODO
@@ -634,7 +634,7 @@ RETURN nOldVal
 /*
    Parent window name (read/write).
  */
-METHOD Parent( cFormName ) CLASS TTaskDialog
+METHOD Parent(cFormName) CLASS TTaskDialog
 RETURN _HMG_aFormNames[AScan(_HMG_aFormHandles, ::ParentHandle(GetFormHandle(cFormName)))]
 
 /*
@@ -760,7 +760,7 @@ RETURN lOldVal
 
    NOTE: This flag is ignored if the ExpandedInformation member is empty.
  */
-METHOD ExpandedByDefault( lNewVal ) CLASS TTaskDialog
+METHOD ExpandedByDefault(lNewVal) CLASS TTaskDialog
 
    LOCAL nCurFlags := ::Flags()
    LOCAL lOldVal
@@ -861,7 +861,7 @@ RETURN lOldVal
 /*
    Indicates that text is displayed reading right to left (read/write).
  */
-METHOD RightToLeftLayout( lNewVal ) CLASS TTaskDialog
+METHOD RightToLeftLayout(lNewVal) CLASS TTaskDialog
 
    LOCAL nCurFlags := ::Flags()
    LOCAL lOldVal
@@ -925,7 +925,7 @@ RETURN nOldVal
 /*
    Whether we got a timeout (read/write, read only in future, maybe)
  */
-METHOD TimedOut( lOut ) CLASS TTaskDialog
+METHOD TimedOut(lOut) CLASS TTaskDialog
 
    IF ::lActive .AND. hb_IsLogical(lOut)
       ::lTimeOut := lOut

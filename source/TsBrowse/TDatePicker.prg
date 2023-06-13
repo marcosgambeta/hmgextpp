@@ -21,7 +21,7 @@ CLASS TDatePicker FROM TControl
       lNoBorder, nHelpId, shownone, updown )
 
    METHOD Default()
-   METHOD HandleEvent( nMsg, nWParam, nLParam )
+   METHOD HandleEvent(nMsg, nWParam, nLParam)
    METHOD KeyChar( nKey, nFlags )
    METHOD KeyDown( nKey, nFlags )
    METHOD LostFocus()
@@ -134,7 +134,7 @@ Return NIL
 * METHOD TDatePicker:HandleEvent()
 * ============================================================================
 
-METHOD HandleEvent( nMsg, nWParam, nLParam ) CLASS TDatePicker
+METHOD HandleEvent(nMsg, nWParam, nLParam) CLASS TDatePicker
 
    If nMsg == WM_NOTIFY
       If HiWord(nWParam) == NM_KILLFOCUS
@@ -142,7 +142,7 @@ METHOD HandleEvent( nMsg, nWParam, nLParam ) CLASS TDatePicker
       EndIf
    EndIf
 
-Return ::Super:HandleEvent( nMsg, nWParam, nLParam )
+Return ::Super:HandleEvent(nMsg, nWParam, nLParam)
 
 * ============================================================================
 * METHOD TDatePicker:KeyChar() Version 7.0 Jul/15/2004

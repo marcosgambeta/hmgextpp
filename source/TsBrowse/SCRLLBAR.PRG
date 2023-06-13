@@ -43,7 +43,7 @@ CLASS TSBScrlBar FROM TControl
    METHOD WinNew(nMin, nMax, nPgStep, lVertical, oWnd, bUpAction, bDownAction, bPgUp, bPgDown, bPos, nClrText, nClrBack, lUpdate, bWhen, bValid) CONSTRUCTOR
    METHOD GetPos() INLINE GetScrollPos(IIf(::lIsChild, ::oWnd:hWnd, ::hWnd), IIf(::lIsChild, IIf(::lVertical, SB_VERT, SB_HORZ), SB_CTL))
    METHOD GetRange() INLINE GetScrlRange(IIf(::lIsChild, ::oWnd:hWnd, ::hWnd), IIf(::lIsChild, IIf(::lVertical, SB_VERT, SB_HORZ), SB_CTL))
-   METHOD HandleEvent( nMsg, nWParam, nLParam )
+   METHOD HandleEvent(nMsg, nWParam, nLParam)
 
 //   METHOD Initiate( hDlg ) INLINE  ::Super:Initiate( hDlg ), Tone(500), ;
 //                               ::SetRange( ::nMin, ::nMax ),;
@@ -183,7 +183,7 @@ Return Self
 * METHOD TSBScrlBar:HandleEvent() Version 5.0 27/Feb/2002
 * ============================================================================
 
-METHOD HandleEvent( nMsg, nWParam, nLParam ) CLASS TSBScrlBar
+METHOD HandleEvent(nMsg, nWParam, nLParam) CLASS TSBScrlBar
 
    do case
       case nMsg == FM_SCROLLUP
@@ -211,7 +211,7 @@ METHOD HandleEvent( nMsg, nWParam, nLParam ) CLASS TSBScrlBar
            Return 0
    endcase
 
-Return ::Super:HandleEvent( nMsg, nWParam, nLParam )
+Return ::Super:HandleEvent(nMsg, nWParam, nLParam)
 
 * ============================================================================
 * METHOD TSBScrlBar:MouseMove() Version 5.0 27/Feb/2002

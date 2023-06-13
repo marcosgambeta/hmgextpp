@@ -169,7 +169,7 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
    ENDIF
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif
@@ -268,7 +268,7 @@ FUNCTION BmpSize(xBitmap)
       IF Empty(aRet[1]) .AND. Empty(aRet[2])
          xBitmap := C_GetResPicture(xBitmap)
          aRet := GetBitmapSize(xBitmap)
-         DeleteObject( xBitmap )
+         DeleteObject(xBitmap)
       ENDIF
 
    CASE hb_IsNumeric(xBitmap)
@@ -290,7 +290,7 @@ FUNCTION HasAlpha(FileName)
 
    IF GetObjectType(hBitmap) == OBJ_BITMAP .AND. BmpSize(FileName) [3] == 32
       lResult := C_HasAlpha(hBitmap)
-      DeleteObject( hBitmap )
+      DeleteObject(hBitmap)
    ENDIF
 
 RETURN lResult
@@ -312,7 +312,7 @@ FUNCTION HMG_SaveImage(FileName, cOutName, cEncoder, nJpgQuality, aOutSize)
       lResult := C_SaveHBitmapToFile(hBitmap, cOutName, aOutSize[1], aOutSize[2], "image/" + Lower( cEncoder ), nJpgQuality)
 
       IF hb_IsString(FileName)
-         DeleteObject( hBitmap )
+         DeleteObject(hBitmap)
       ENDIF
    ENDIF
 

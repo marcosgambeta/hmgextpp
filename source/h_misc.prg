@@ -473,8 +473,8 @@ FUNCTION nStrToNum( cNum, lEuropean, lForceNumeric )
    IF CharOnly( "0123456789,.", cNum ) == cNum
 
       // valid number string
-      nCommaAt := RAt( ",", cNum )
-      nDotAt := RAt( ".", cNum )
+      nCommaAt := RAt(",", cNum)
+      nDotAt := RAt(".", cNum)
       IF nCommaAt == 0 .AND. nDotAt == 0
          RETURN Val(cMinus + cNum)
       ENDIF
@@ -571,14 +571,14 @@ STATIC FUNCTION dCharToDate(cDate)
       RETURN dDate
    ENDIF
 
-   cFormat := Set( _SET_DATEFORMAT )
+   cFormat := Set(_SET_DATEFORMAT)
 
    dDate := CToD(cDate)
 
    IF Empty(dDate)
 
       cc := Lower( Left(cFormat, 2) )
-      Set( _SET_DATEFORMAT, iif(cc == "dd", "mm/dd/yy", "dd/mm/yy") )
+      Set(_SET_DATEFORMAT, iif(cc == "dd", "mm/dd/yy", "dd/mm/yy"))
       dDate := CToD(cDate)
       IF cc == "yy" .AND. Empty(dDate)
          SET DATE AMERICAN
@@ -587,7 +587,7 @@ STATIC FUNCTION dCharToDate(cDate)
 
    ENDIF
 
-   Set( _SET_DATEFORMAT, cFormat )
+   Set(_SET_DATEFORMAT, cFormat)
 
 RETURN dDate
 
@@ -627,7 +627,7 @@ STATIC FUNCTION dAlphaToDate(cDate)
 
          IF aNum[2] < 100
 
-            nEpoch := Set( _SET_EPOCH )
+            nEpoch := Set(_SET_EPOCH)
             aNum[2] += 1900
 
             IF aNum[2] < nEpoch
@@ -654,7 +654,7 @@ STATIC FUNCTION ParseNumsFromDateStr(cStr)
 
    FOR EACH c IN cStr
 
-      IF IsDigit( c )
+      IF IsDigit(c)
 
          cNum += c
 

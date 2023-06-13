@@ -73,7 +73,7 @@ PROCEDURE _DefineCLButton ( cName, nRow, nCol, cCaption, cNotes, bAction, cParen
    ENDIF
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif

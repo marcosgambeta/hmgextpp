@@ -56,7 +56,7 @@
 #define MSGSTOP(c) MsgStop(c, "Stop!")
 /*
 */
-FUNCTION _ENCRYPT( cStr, cPass )
+FUNCTION _ENCRYPT(cStr, cPass)
 
    LOCAL cXorStr := CHARXOR( cStr, "<ORIGINAL>" )
 
@@ -68,7 +68,7 @@ FUNCTION _ENCRYPT( cStr, cPass )
 
 RETURN cXorStr
 
-FUNCTION _DECRYPT( cStr, cPass )
+FUNCTION _DECRYPT(cStr, cPass)
 
    LOCAL cXorStr := CHARXOR( cStr, cPass )
 
@@ -151,7 +151,7 @@ FUNCTION FI_CODE(cInFile, cPass, cOutFile, lDelete)
    ENDIF
 
    FWrite(nOutHandle, "ENCRYPTED FILE (C) ODESSA 2002")
-   cStr := _ENCRYPT( cPass )
+   cStr := _ENCRYPT(cPass)
    FWrite(nOutHandle, cStr)
    cBuffer := Space(512)
 
@@ -165,7 +165,7 @@ FUNCTION FI_CODE(cInFile, cPass, cOutFile, lDelete)
 
       ENDIF
 
-      cStr := _ENCRYPT( cBuffer, cPass )
+      cStr := _ENCRYPT(cBuffer, cPass)
       FWrite(nOutHandle, cStr)
 
    ENDDO
@@ -249,7 +249,7 @@ FUNCTION FI_DECODE(cInFile, cPass, cOutFile, lDelete)
    cBuffer := Space(10)
    FRead(nHandle, @cBuffer, 10)
 
-   IF cBuffer != _ENCRYPT( cPass )
+   IF cBuffer != _ENCRYPT(cPass)
 
       MSGALERT("You have entered the wrong password")
       FClose(nHandle)
@@ -279,7 +279,7 @@ FUNCTION FI_DECODE(cInFile, cPass, cOutFile, lDelete)
 
       ENDIF
 
-      cStr := _DECRYPT( cBuffer, cPass )
+      cStr := _DECRYPT(cBuffer, cPass)
       FWrite(nOutHandle, cStr)
 
    ENDDO
@@ -297,7 +297,7 @@ RETURN NIL
 
 /*
 */
-FUNCTION DB_ENCRYPT( cFile, cPass )
+FUNCTION DB_ENCRYPT(cFile, cPass)
 
    LOCAL nHandle
    LOCAL cBuffer := Space(4)
@@ -325,7 +325,7 @@ FUNCTION DB_ENCRYPT( cFile, cPass )
 
    ENDIF
 
-   IF At( ".", cFileName(cFile) ) == 0
+   IF At(".", cFileName(cFile)) == 0
 
       cFile := cFile + ".DBF"
 
@@ -386,7 +386,7 @@ FUNCTION DB_ENCRYPT( cFile, cPass )
 
       ENDIF
 
-      cBuffer := _ENCRYPT( cBuffer, cPass )
+      cBuffer := _ENCRYPT(cBuffer, cPass)
       FSeek(nHandle, 8)
 
       IF FError() != 0
@@ -415,7 +415,7 @@ FUNCTION DB_ENCRYPT( cFile, cPass )
 
       ENDIF
 
-      cBuffer := _ENCRYPT( cPass )
+      cBuffer := _ENCRYPT(cPass)
 
       IF FWrite(nHandle, cBuffer) != Len(cPass)
 
@@ -447,7 +447,7 @@ RETURN NIL
 
 /*
 */
-FUNCTION DB_UNENCRYPT( cFile, cPass )
+FUNCTION DB_UNENCRYPT(cFile, cPass)
 
    LOCAL nHandle
    LOCAL cBuffer := Space(4)
@@ -476,7 +476,7 @@ FUNCTION DB_UNENCRYPT( cFile, cPass )
 
    ENDIF
 
-   IF At( ".", cFile ) == 0
+   IF At(".", cFile) == 0
 
       cFile := cFile + ".DBF"
 
@@ -529,7 +529,7 @@ FUNCTION DB_UNENCRYPT( cFile, cPass )
 
       ENDIF
 
-      cBuffer := _ENCRYPT( cPass )
+      cBuffer := _ENCRYPT(cPass)
 
       IF FRead(nHandle, @cSavePass, 10) != Len(cPass)
 
@@ -566,7 +566,7 @@ FUNCTION DB_UNENCRYPT( cFile, cPass )
 
       ENDIF
 
-      cBuffer := _DECRYPT( cBuffer, cPass )
+      cBuffer := _DECRYPT(cBuffer, cPass)
       FSeek(nHandle, 8)
 
       IF FError() != 0
@@ -610,7 +610,7 @@ RETURN NIL
 STATIC FUNCTION cFileName(cMask)
 
    LOCAL cName := AllTrim(cMask)
-   LOCAL n := At( ".", cName )
+   LOCAL n := At(".", cName)
 
 RETURN AllTrim(iif(n > 0, Left(cName, n - 1), cName))
 
@@ -659,7 +659,7 @@ FUNCTION DB_CODE(cData, cKey, aFields, cPass, cFor, cWhile)
       dbAppend()                           // Create record at target file
 
       FOR i := 1 TO nFields
-         FieldPut( i, &cAlias->( FieldGet( i ) ) )
+         FieldPut(i, &cAlias->(FieldGet(i)))
       NEXT
 
       SELECT &cAlias
@@ -674,7 +674,7 @@ FUNCTION DB_CODE(cData, cKey, aFields, cPass, cFor, cWhile)
          ENDIF
 
          FOR i := 1 TO Len(aString)      // Crypt values
-            aString[i] := _ENCRYPT( FieldGet( FieldPos( aFields[i] ) ), cPass )
+            aString[i] := _ENCRYPT(FieldGet(FieldPos(aFields[i])), cPass)
          NEXT
 
          SKIP                              // Evaluate condition in next record
@@ -683,7 +683,7 @@ FUNCTION DB_CODE(cData, cKey, aFields, cPass, cFor, cWhile)
 
       SELECT &cTmpAlias
       FOR i := 1 TO Len(aString)         // Place Crypts in target file
-         FieldPut( FieldPos( aFields[i] ), aString[i] )
+         FieldPut(FieldPos(aFields[i]), aString[i])
       NEXT
 
       SELECT &cAlias
@@ -697,7 +697,7 @@ FUNCTION DB_CODE(cData, cKey, aFields, cPass, cFor, cWhile)
       SEEK cVal
       RLock()
       FOR i := 1 TO nFields
-         FieldPut( i, &cTmpAlias->( FieldGet( i ) ) )
+         FieldPut(i, &cTmpAlias->(FieldGet(i)))
       NEXT
       dbUnlock()
       SELECT &cTmpAlias

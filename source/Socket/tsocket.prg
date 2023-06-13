@@ -87,7 +87,7 @@ CLASS TSocket
 
    METHOD New()
 
-   METHOD Connect( cAddress, nPort )
+   METHOD Connect(cAddress, nPort)
    METHOD Close()
 
    METHOD SendString( cString )
@@ -101,8 +101,8 @@ CLASS TSocket
    METHOD Bind(cAddress, nPort)
    METHOD Listen( nClient )
 
-   METHOD SetReceiveTimeout( nTime )
-   METHOD SetSendTimeout( nTime )
+   METHOD SetReceiveTimeout(nTime)
+   METHOD SetSendTimeout(nTime)
 
    // Debug method
    METHOD SetDebug( bDebug )
@@ -125,13 +125,13 @@ return Self
 //
 // Connect to remore site
 //
-METHOD Connect( cAddress, nPort ) CLASS TSocket
+METHOD Connect(cAddress, nPort) CLASS TSocket
 local cSok := space(len(::m_hSocket))
 local bRet
 
 ::PrintDebugMessage("Connect to " +cAddress +" port " +str(nPort))
 
-bRet := SocketConnect( @cSok, cAddress, nPort )
+bRet := SocketConnect(@cSok, cAddress, nPort)
 
 ::m_hSocket := cSok
 
@@ -212,9 +212,9 @@ local nRet
 do while .T.
    nRet := SocketReceive(::m_hSocket, @cBuf, ::nReceiveTimeout)
    // If EOF, return
-   if nRet==1 .AND. right(cBuf,1)==CHR(10)
+   if nRet==1 .AND. right(cBuf, 1)==CHR(10)
       // If last char is CHR(13) remove it
-      if right(cRet,1)==CHR(13)
+      if right(cRet, 1)==CHR(13)
          cRet := substr(cRet, 1, len(cRet) - 1)
       endif
       exit
@@ -268,14 +268,14 @@ return oRet
 //
 // Receive Timeout
 //
-METHOD SetReceiveTimeout( nTime ) CLASS TSocket
+METHOD SetReceiveTimeout(nTime) CLASS TSocket
 ::nReceiveTimeout := nTime
 return nil
 
 //
 // Send Timeout
 //
-METHOD SetSendTimeout( nTime ) CLASS TSocket
+METHOD SetSendTimeout(nTime) CLASS TSocket
 ::nSendTimeout := nTime
 return nil
 

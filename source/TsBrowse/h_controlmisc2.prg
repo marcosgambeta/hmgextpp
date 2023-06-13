@@ -14,7 +14,7 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
 
    LOCAL cFormName, oBrw, nSaveSelect, cDbf, cAlias, lEdit, cTable
    LOCAL lbSetUp := !Empty(bSetUp), lRec, nY, nX, bAfter, lCellBrw := .F.
-   LOCAL oApp := oDlu4Font( _HMG_DefaultFontSize )
+   LOCAL oApp := oDlu4Font(_HMG_DefaultFontSize)
    LOCAL nGw := oApp:GapsWidth
    LOCAL nGh := oApp:GapsHeight
    LOCAL uParam, bRecord, nClr, oCol, nWrec, nHrec
@@ -54,7 +54,7 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
       lSql := .F., ;
       lModal := .F.
 
-   IF hb_IsChar(uAlias) .AND. Select( uAlias ) == 0 // TODO: SWITCH
+   IF hb_IsChar(uAlias) .AND. Select(uAlias) == 0 // TODO: SWITCH
       nSaveSelect := Select()
       IF lSql
          cTable := GetUniqueName("SqlTable")
@@ -173,7 +173,7 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
       nX := nGw
 
       @ nY, nX BUTTON Btn_1 CAPTION oBrw:aMsg[44] WIDTH oApp:W1 HEIGHT oApp:H1 ;
-               ACTION {|| oBrw:Report( cTitle,,,, .T. ), oBrw:GoTop() }
+               ACTION {|| oBrw:Report(cTitle,,,, .T.), oBrw:GoTop() }
 
       nX += oApp:W1 + nGw
 
@@ -207,7 +207,7 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
             oCol:bPrevEdit := ;
                <|uv, obr|
                  LOCAL lRet := .T., cn, oc, ob, xv
-                 LOCAL oDlu := oDlu4Font( _HMG_DefaultFontSize )
+                 LOCAL oDlu := oDlu4Font(_HMG_DefaultFontSize)
                  LOCAL nLen := oDlu:W( 1.5 )
                  cn := obr:GetValue("KEY")
                  xv := obr:GetValue("VALUE")
@@ -246,7 +246,7 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
                  oc := ob:GetColumn( cn )
                  nm := oc:nEditMove
                  oc:nEditMove := 0
-                 ob:PostEdit( uv, ob:nColumn( oc:cName ) )
+                 ob:PostEdit(uv, ob:nColumn(oc:cName))
                  oc:nEditMove := nm
                  RETURN Nil
                >
@@ -279,7 +279,7 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
    ENDIF
 
    IF !Empty(nSaveSelect)
-      Select( nSaveSelect )
+      Select(nSaveSelect)
    ENDIF
 
 RETURN NIL
@@ -369,8 +369,8 @@ FUNCTION _TBrowse(oParam, uAlias, cBrw, nY, nX, nW, nH)
            aFoot  := !Empty(aFoot) , ;
            nY := 0, ;
            nX := 0, ;
-           nW := _GetClientRect( hForm )[3] - nX * 2,  ;           // GetClientWidth
-           nH := _GetClientRect( hForm )[4] - nY - 1 - ;           // GetClientHeight
+           nW := _GetClientRect(hForm)[3] - nX * 2,  ;           // GetClientWidth
+           nH := _GetClientRect(hForm)[4] - nY - 1 - ;           // GetClientHeight
                  iif(_IsControlDefined("StatusBar", cForm), GetProperty( cForm, "StatusBar", "Height" ), 0)
 
    DEFAULT aColor := { ;
@@ -533,7 +533,7 @@ FUNCTION _TBrowse(oParam, uAlias, cBrw, nY, nX, nW, nH)
          :nCell   := :nFreeze + 1
       ENDIF
 
-      IF ( :GetAllColsWidth() - 1 ) > ( _GetClientRect( :hWnd )[3] )
+      IF ( :GetAllColsWidth() - 1 ) > ( _GetClientRect(:hWnd)[3] )
          :lNoHScroll  := .F.
          :lMoreFields := ( :nColCount() > 30 )
       ELSEIF oParam:uSelector == NIL .AND. oParam:lAdjust == NIL
@@ -553,7 +553,7 @@ FUNCTION _TBrowse(oParam, uAlias, cBrw, nY, nX, nW, nH)
 
    IF hb_IsArray(oParam:aEvents)
       FOR EACH aTmp IN oParam:aEvents
-         ( This.Object ):Event( aTmp[1], aTmp[2] )
+         ( This.Object ):Event(aTmp[1], aTmp[2])
       NEXT
    ENDIF
 

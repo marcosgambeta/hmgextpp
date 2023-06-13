@@ -15,8 +15,8 @@ FUNCTION MyErrorFunc(MyObjError)
     cErrorMsg := MyErrorMessage(MyObjError)
     
     HtmArch := Html_ErrorLog()
-    Html_LineText( HtmArch, "<p class=" + Chr(34) + "updated" + Chr(34) + ">Date: " + Dtoc(Date()) + "  " + "Time: " + Time() )
-    Html_LineText( HtmArch, cErrorMsg + "</p>" )
+    Html_LineText(HtmArch, "<p class=" + Chr(34) + "updated" + Chr(34) + ">Date: " + Dtoc(Date()) + "  " + "Time: " + Time())
+    Html_LineText(HtmArch, cErrorMsg + "</p>")
 
     cErrorMsg += CRLF + CRLF
     

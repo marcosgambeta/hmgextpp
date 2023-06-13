@@ -170,7 +170,7 @@ FUNCTION _DefineProgressBar ( ControlName, ParentFormName, x, y, w, h, lo, hi, ;
    ENDIF
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif

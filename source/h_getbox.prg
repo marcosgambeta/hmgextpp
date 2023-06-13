@@ -300,7 +300,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    oGet:UpdateBuffer()
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif
@@ -360,7 +360,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
 
    IF !lDialogInMemory
       IF !Empty(Value)
-         IF oGet:type == "N" .AND. hb_UAt( "B", aPicData[1] ) > 0
+         IF oGet:type == "N" .AND. hb_UAt("B", aPicData[1]) > 0
             oGet:buffer := LTrim(oGet:buffer)
          ENDIF
          _DispGetBoxText(ControlHandle, oGet:buffer)
@@ -428,7 +428,7 @@ PROCEDURE _DataGetBoxSave(ControlName, ParentForm)
    Field := _HMG_aControlPageMap[i]
    &( Field ) := _GetValue(ControlName, ParentForm)
 
-   oGet:VarPut( &( Field ) )
+   oGet:VarPut(&(Field))
    oGet:cargo := &( Field )
 
    IF oGet:type == "D"
@@ -480,8 +480,8 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
    lCleanZero := _HMG_aControlInputMask[i, 3]
 
    oGet       := _HMG_aControlHeadClick[i]
-   readonly   := _HMG_aControlMiscData1 [i, 2]
-   lAllowEdit := _HMG_aControlMiscData1 [i, 9]
+   readonly   := _HMG_aControlMiscData1[i, 2]
+   lAllowEdit := _HMG_aControlMiscData1[i, 9]
 
    _HMG_ThisFormName := _HMG_aFormNames[ParentHandle]
    _HMG_ThisControlName := _HMG_aControlNames[i]
@@ -490,10 +490,10 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
       IF !Eval(oGet:preblock, oGet, .F.)
          IF oGet:VarGet() == oGet:UnTransform(oGet:original)
             lAllowEdit := .F.
-            _HMG_aControlMiscData1 [i, 9] := .F.
+            _HMG_aControlMiscData1[i, 9] := .F.
          ENDIF
       ELSE
-         _HMG_aControlMiscData1 [i, 9] := .T.
+         _HMG_aControlMiscData1[i, 9] := .T.
       ENDIF
    ENDIF
 
@@ -540,13 +540,13 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
       IF !( coldbuff == oGet:buffer )
          IF oGet:BadDate
-            _DispGetBoxText( hWnd, BLANK_DATE )
+            _DispGetBoxText(hWnd, BLANK_DATE)
          ELSE
-            _DispGetBoxText( hWnd, oGet:buffer )
+            _DispGetBoxText(hWnd, oGet:buffer)
          ENDIF
       ENDIF
 
-      InvalidateRect( hWnd, 0 )
+      InvalidateRect(hWnd, 0)
       PostMessage(hWnd, WM_CARET, 0, 0)
       _HMG_aControlMiscData1[i][1] := 1
 
@@ -560,16 +560,16 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
       oGet:UpdateBuffer()
 
       IF !readonly .AND. lAllowEdit
-         _DispGetBoxText( hWnd, oGet:buffer )
+         _DispGetBoxText(hWnd, oGet:buffer)
       ELSE
-         IF oGet:type == "N" .AND. hb_UAt( "B", cPicFunc ) > 0
+         IF oGet:type == "N" .AND. hb_UAt("B", cPicFunc) > 0
             oGet:buffer := LTrim(oGet:buffer)
-            _DispGetBoxText( hWnd, oGet:buffer )
+            _DispGetBoxText(hWnd, oGet:buffer)
          ENDIF
       ENDIF
 
       SendMessage(hWnd, EM_SETSEL, nStart, nStart)
-      _SetGetBoxCaret( hWnd )
+      _SetGetBoxCaret(hWnd)
       SendMessage(hWnd, EM_SETSEL, nStart, nStart)
 
       // show message if any
@@ -594,13 +594,13 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
                coldbuff := oGet:buffer
 
                h := GetFocus()
-               HideCaret( hWnd )
-               HideCaret( h )
+               HideCaret(hWnd)
+               HideCaret(h)
 
 #ifdef _NAMES_LIST_
-               IF !Do_ControlEventProcedure(oGet:postblock, _GetNameList( oGet:name ), oGet)
+               IF !Do_ControlEventProcedure(oGet:postblock, _GetNameList(oGet:name), oGet)
 #else
-               IF !Do_ControlEventProcedure(oGet:postblock, __mvGet( oGet:name ), oGet)
+               IF !Do_ControlEventProcedure(oGet:postblock, __mvGet(oGet:name), oGet)
 #endif
                   SetFocus( hWnd )
                   IF Empty(_HMG_aControlSpacing[i])
@@ -615,11 +615,11 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
                ELSE
                   oGet:changed := .T.
                   oGet:original := oGet:buffer
-                  ShowCaret( h )
+                  ShowCaret(h)
                ENDIF
 
                IF !( coldbuff == oGet:buffer )
-                  _DispGetBoxText( hWnd, oGet:buffer )
+                  _DispGetBoxText(hWnd, oGet:buffer)
                ENDIF
             ELSE
                oGet:changed := .T.
@@ -643,11 +643,11 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          oGet:assign()
          // Patch By Pier July 2008
          // Add By Pier patch for the smaller negative numbers of zero START
-         IF oGet:type == "N" .AND. oGet:minus .AND. Val(hb_USubStr(oget:buffer, 1, hb_UAt( ",", oget:buffer ) - 1)) == 0
-            IF Val(hb_USubStr(oget:buffer, hb_UAt( ",", oget:buffer ) + 1)) != 0
-               MinDec := StrTran(oget:buffer, iif(hb_UAt( "E", cPicFunc ) > 0, ",", ", "), ".")
+         IF oGet:type == "N" .AND. oGet:minus .AND. Val(hb_USubStr(oget:buffer, 1, hb_UAt(",", oget:buffer) - 1)) == 0
+            IF Val(hb_USubStr(oget:buffer, hb_UAt(",", oget:buffer) + 1)) != 0
+               MinDec := StrTran(oget:buffer, iif(hb_UAt("E", cPicFunc) > 0, ",", ", "), ".")
                MinDec := StrTran(MinDec,  " ", "")
-               oget:VarPut( Val(MinDec) * iif(Val(MinDec) > 0, -1, 1) )
+               oget:VarPut(Val(MinDec) * iif(Val(MinDec) > 0, -1, 1))
             ENDIF
             oget:buffer := oget:VarGet()
          ENDIF
@@ -657,7 +657,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
       IF ValType(oGet:cargo) == "D" .AND. oGet:BadDate
          oGet:BadDate := .F.
-         oGet:VarPut( BLANK_DATE )
+         oGet:VarPut(BLANK_DATE)
          oGet:UpdateBuffer()
          PostMessage(hWnd, WM_INVALID, wParam, 0)
          RETURN( 0 )
@@ -667,7 +667,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          oGet:buffer := Space(hb_ULen(oGet:buffer))
       ENDIF
 
-      IF oGet:type == "N" .AND. hb_UAt( "B", cPicFunc ) > 0
+      IF oGet:type == "N" .AND. hb_UAt("B", cPicFunc) > 0
          oGet:buffer := LTrim(oGet:buffer)
       ENDIF
 
@@ -675,7 +675,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          _HMG_aControlBkColor[i] := aOldBackClr
          _HMG_aControlFontColor[i] := aOldFontClr
       ENDIF
-      _DispGetBoxText( hWnd, oGet:buffer )
+      _DispGetBoxText(hWnd, oGet:buffer)
       SendMessage(hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1)
 
       // message
@@ -707,7 +707,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
       nStart := LoWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0)) + 1
       nEnd   := HiWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0)) + 1
       oGet:pos := nEnd
-      _HMG_aControlMiscData1 [i,3] := wParam  //JP
+      _HMG_aControlMiscData1[i, 3] := wParam  //JP
 
       DO CASE
 
@@ -763,7 +763,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          ENDIF
 
          oGet:Assign()
-         _DispGetBoxText( hWnd, oGet:buffer )
+         _DispGetBoxText(hWnd, oGet:buffer)
          SendMessage(hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1)
 
          RETURN( 0 )
@@ -777,7 +777,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          oGet:DelEnd()
 
          oGet:Assign()
-         _DispGetBoxText( hWnd, oGet:buffer )
+         _DispGetBoxText(hWnd, oGet:buffer)
          SendMessage(hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1)
 
          RETURN( 0 )
@@ -834,13 +834,13 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
          oGet:Assign()
          _HMG_aControlValue[i] := oGet:VarGet()
-         _DispGetBoxText( hWnd, oGet:buffer )
+         _DispGetBoxText(hWnd, oGet:buffer)
          SendMessage(hWnd, EM_SETSEL, (oGet:pos - 1), (oGet:pos - 1))
 
          RETURN( 0 )
 
       CASE wParam >= 32 .AND. wParam <= hb_cdpCharMax()  // regular input
-         _HMG_aControlMiscData1 [i,3] := 0
+         _HMG_aControlMiscData1[i, 3] := 0
 
          IF readonly .OR. !lAllowEdit
             RETURN( 0 )
@@ -888,13 +888,13 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
             oGet:home()
          ENDIF
 
-         IF oGet:pos == _FirstEditable(i) .AND. _HMG_aControlMiscData1[i][1] == 1 .AND. ( oGet:type == "N" .OR. hb_UAt( "K", cPicFunc ) > 0 )
+         IF oGet:pos == _FirstEditable(i) .AND. _HMG_aControlMiscData1[i][1] == 1 .AND. ( oGet:type == "N" .OR. hb_UAt("K", cPicFunc) > 0 )
             _HMG_aControlMiscData1[i][1] := 0
             oGet:minus   := .F.
             oGet:clear   := .T.
             oGet:changed := .T.
             oGet:Assign()
-            _DispGetBoxText( hWnd, oGet:buffer )
+            _DispGetBoxText(hWnd, oGet:buffer)
          ELSE
             _HMG_aControlMiscData1[i][1] := 1
          ENDIF
@@ -903,7 +903,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
             IF oGet:type == "N"
                nlen := hb_ULen(oGet:buffer)
-               IF ( ipp := hb_UAt( "." , oGet:buffer ) ) > 0
+               IF ( ipp := hb_UAt("." , oGet:buffer) ) > 0
                   oGet:buffer := hb_UPadL( StrTran(hb_ULeft(oGet:buffer, ipp - 1) , " " , "") , ipp - 1 ) + ;
                      "." + hb_UPadR( StrTran(hb_USubStr(oGet:buffer , ipp + 1) , " " , "") , nlen - ipp , "0" )
 
@@ -916,9 +916,9 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
             IF IsInsertActive()
 #ifdef UNICODE
-               oGet:Insert( hb_UChar( wParam ) )
+               oGet:Insert(hb_UChar(wParam))
 #else
-               oGet:Insert( hb_BChar( wParam ) )
+               oGet:Insert(hb_BChar(wParam))
 #endif
             ELSE
 #ifdef UNICODE
@@ -960,7 +960,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
          ENDIF
 
-         _DispGetBoxText( hWnd, oGet:buffer )
+         _DispGetBoxText(hWnd, oGet:buffer)
          SendMessage(hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1)
 
          RETURN( 0 )
@@ -975,7 +975,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          IF Len(oGet:aKeyEvent) > 0
             FOR EACH aKey IN oGet:aKeyEvent
                IF Val(aKey[1]) == nMsg
-                  RETURN oGet:DoKeyEvent( nMsg )
+                  RETURN oGet:DoKeyEvent(nMsg)
                ENDIF
             NEXT
          ENDIF
@@ -993,12 +993,12 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
       nStart := LoWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0))
       nEnd   := HiWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0))
       oGet:pos := nEnd + 1
-      _HMG_aControlMiscData1 [i,3] := wParam  //JP
+      _HMG_aControlMiscData1[i, 3] := wParam  //JP
 
       IF Len(oGet:aKeyEvent) > 0
          FOR EACH aKey IN oGet:aKeyEvent
             IF Val(aKey[1]) == wParam
-               RETURN oGet:DoKeyEvent( wParam )
+               RETURN oGet:DoKeyEvent(wParam)
             ENDIF
          NEXT
       ENDIF
@@ -1012,9 +1012,9 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
          IF !readonly
 
-            IF oGet:Type == "N" .AND. oGet:minus .AND. hb_UAt( "-", oGet:original ) <= 0
+            IF oGet:Type == "N" .AND. oGet:minus .AND. hb_UAt("-", oGet:original) <= 0
                oGet:buffer := oGet:original
-               oGet:VarPut( ( oGet:unTransform() ) * ( -1 ), .T. )
+               oGet:VarPut((oGet:unTransform()) * (-1), .T.)
                oGet:minus := .F.
                IF oGet:Changed
                   oGet:Assign()
@@ -1030,7 +1030,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
                _HMG_aControlValue[i] := oGet:VarGet()
             ENDIF
 
-            _DispGetBoxText( hWnd, oGet:buffer )
+            _DispGetBoxText(hWnd, oGet:buffer)
             SendMessage(hWnd, EM_SETSEL, 0, 0)
 
             oGet:BadDate := .F.
@@ -1039,8 +1039,8 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
             IF !oGet:changed
                oGet:buffer := oGet:original
-               IF oGet:Type == "N" .AND. oGet:minus .AND. hb_UAt( "-", oGet:original ) <= 0
-                  oGet:VarPut( ( oGet:unTransform() ) * ( -1 ), .T. )
+               IF oGet:Type == "N" .AND. oGet:minus .AND. hb_UAt("-", oGet:original) <= 0
+                  oGet:VarPut((oGet:unTransform()) * (-1), .T.)
                   oGet:minus := .F.
                ENDIF
                oGet:Assign()
@@ -1066,7 +1066,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
             RETURN( 0 )
          ENDIF
          lInsert := !lInsert
-         _SetGetBoxCaret( hWnd )
+         _SetGetBoxCaret(hWnd)
          EXIT
 
       CASE VK_DOWN
@@ -1082,15 +1082,15 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          ELSE
             IF lCtrl .AND. !readonly .AND. lAllowEdit
                IF oGet:type == "D" .OR. oGet:type == "N"
-                  oGet:VarPut( oGet:VarGet() - 1 )
+                  oGet:VarPut(oGet:VarGet() - 1)
                   oGet:UpdateBuffer()
-                  _DispGetBoxText( hWnd, oGet:buffer )
+                  _DispGetBoxText(hWnd, oGet:buffer)
                   oGet:changed := .T.
                ENDIF
                IF oGet:type == "L"
-                  oGet:VarPut( !oGet:VarGet() )
+                  oGet:VarPut(!oGet:VarGet())
                   oGet:UpdateBuffer()
-                  _DispGetBoxText( hWnd, oGet:buffer )
+                  _DispGetBoxText(hWnd, oGet:buffer)
                   oGet:changed := .T.
                ENDIF
             ENDIF
@@ -1111,15 +1111,15 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          ELSE
             IF lCtrl .AND. !readonly .AND. lAllowEdit
                IF oGet:type == "D" .OR. oGet:type == "N"
-                  oGet:VarPut( oGet:VarGet() + 1 )
+                  oGet:VarPut(oGet:VarGet() + 1)
                   oGet:UpdateBuffer()
-                  _DispGetBoxText( hWnd, oGet:buffer )
+                  _DispGetBoxText(hWnd, oGet:buffer)
                   oGet:changed := .T.
                ENDIF
                IF oGet:type == "L"
-                  oGet:VarPut( !oGet:VarGet() )
+                  oGet:VarPut(!oGet:VarGet())
                   oGet:UpdateBuffer()
-                  _DispGetBoxText( hWnd, oGet:buffer )
+                  _DispGetBoxText(hWnd, oGet:buffer)
                   oGet:changed := .T.
                ENDIF
             ENDIF
@@ -1177,7 +1177,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
       CASE VK_INSERT
 
          lInsert := !lInsert
-         _SetGetBoxCaret( hWnd )
+         _SetGetBoxCaret(hWnd)
          EXIT
 #endif
 
@@ -1223,7 +1223,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
          oGet:Assign()
 
-         _DispGetBoxText( hWnd, oGet:buffer )
+         _DispGetBoxText(hWnd, oGet:buffer)
          SendMessage(hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1)
 
          RETURN( 0 )
@@ -1267,9 +1267,9 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
             ELSE
                IF IsInsertActive()
 #ifdef UNICODE
-                  oGet:Insert( hb_UChar( wParam ) )
+                  oGet:Insert(hb_UChar(wParam))
 #else
-                  oGet:Insert( hb_BChar( wParam ) )
+                  oGet:Insert(hb_BChar(wParam))
 #endif
                ELSE
 #ifdef UNICODE
@@ -1286,9 +1286,9 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
          NEXT
          oGet:Assign()
-         oGet:VarPut( oGet:unTransform() )
+         oGet:VarPut(oGet:unTransform())
 
-         _DispGetBoxText( hWnd, oGet:buffer )
+         _DispGetBoxText(hWnd, oGet:buffer)
          SendMessage(hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1)
 
       ENDIF
@@ -1320,7 +1320,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
             oGet:delete()
          ENDIF
 
-         _DispGetBoxText( hWnd, oGet:buffer )
+         _DispGetBoxText(hWnd, oGet:buffer)
          SendMessage(hWnd, EM_SETSEL, oGet:pos - 1, oGet:pos - 1)
 
       ENDIF
@@ -1329,7 +1329,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
    CASE WM_CARET
 
-      _SetGetBoxCaret( hWnd )
+      _SetGetBoxCaret(hWnd)
       
       EXIT
 
@@ -1396,7 +1396,7 @@ PROCEDURE _SetGetBoxValue(nId, hWnd, Value)
       _HMG_ThisControlName := _HMG_aControlNames[nId]
       _HMG_aControlValue[nId] := Value
 
-      oGet:VarPut( Value )
+      oGet:VarPut(Value)
       oGet:UpdateBuffer()
       oGet:original := oGet:buffer
 
@@ -1404,7 +1404,7 @@ PROCEDURE _SetGetBoxValue(nId, hWnd, Value)
          oGet:minus := .F.
       ENDIF
 
-      IF oGet:type == "N" .AND. ( hb_UAt( "B", cPicFunc ) > 0 .OR. lCleanZero )
+      IF oGet:type == "N" .AND. ( hb_UAt("B", cPicFunc) > 0 .OR. lCleanZero )
          oGet:buffer := LTrim(oGet:buffer)
       ENDIF
 
@@ -1422,7 +1422,7 @@ PROCEDURE _SetGetBoxValue(nId, hWnd, Value)
          oGet:buffer := Space(Max(hb_ULen(oGet:buffer), Len(aPicData[2])))
       ENDIF
 
-      _DispGetBoxText( hWnd, oGet:buffer )
+      _DispGetBoxText(hWnd, oGet:buffer)
 
    ELSE
 
@@ -1463,7 +1463,7 @@ FUNCTION _SetGetBoxColorFocus( aBackColor, aFontColor )
 RETURN aOldClrFocus
 
 *-----------------------------------------------------------------------------*
-PROCEDURE _DispGetBoxText( hWnd, cText )
+PROCEDURE _DispGetBoxText(hWnd, cText)
 *-----------------------------------------------------------------------------*
    
    LOCAL ControlHandle
@@ -1488,9 +1488,9 @@ PROCEDURE _DispGetBoxText( hWnd, cText )
 RETURN
 
 *-----------------------------------------------------------------------------*
-STATIC PROCEDURE _SetGetBoxCaret( hWnd )
+STATIC PROCEDURE _SetGetBoxCaret(hWnd)
 *-----------------------------------------------------------------------------*
-   HideCaret( hWnd )
+   HideCaret(hWnd)
    DestroyCaret()
 
    IF !IsWindowHasStyle(hWnd, ES_READONLY)
@@ -1514,7 +1514,7 @@ FUNCTION _GetPictureData(oGet, cPicture)
 
    IF Left(cPicture, 1) == "@"
 
-      nAt := hb_UAt( " ", cPicture )
+      nAt := hb_UAt(" ", cPicture)
 
       IF nAt == 0
          cPicFunc := hb_asciiUpper(cPicture)
@@ -1526,17 +1526,17 @@ FUNCTION _GetPictureData(oGet, cPicture)
 
       IF "D" $ cPicFunc
 
-         cPicMask := Set( _SET_DATEFORMAT )
+         cPicMask := Set(_SET_DATEFORMAT)
          FOR EACH cNum IN "yYmMdD"
             cPicMask := StrTran(cPicMask, cNum, "9")
          NEXT 
 
       ENDIF
 
-      IF ( nAt := hb_UAt( "S", cPicFunc ) ) > 0
+      IF ( nAt := hb_UAt("S", cPicFunc) ) > 0
 
          FOR nFor := nAt + 1 TO hb_ULen(cPicFunc)
-            IF !IsDigit( hb_USubStr(cPicFunc, nFor, 1) )
+            IF !IsDigit(hb_USubStr(cPicFunc, nFor, 1))
                EXIT
             ENDIF
          NEXT
@@ -1569,7 +1569,7 @@ FUNCTION _GetPictureData(oGet, cPicture)
       DO CASE
       CASE oGet:type == "D"
 
-         cPicMask := Set( _SET_DATEFORMAT )
+         cPicMask := Set(_SET_DATEFORMAT)
          FOR EACH cNum IN "yYmMdD"
             cPicMask := StrTran(cPicMask, cNum, "9")
          NEXT 
@@ -1578,7 +1578,7 @@ FUNCTION _GetPictureData(oGet, cPicture)
 
          lDecRev := "," $ Transform(1.1, "9.9")
          cNum := Str(oGet:VarGet())
-         IF ( nAt := hb_UAt( iif(lDecRev, ",", "."), cNum ) ) > 0
+         IF ( nAt := hb_UAt(iif(lDecRev, ",", "."), cNum) ) > 0
             cPicMask := Replicate("9", nAt - 1) + iif(lDecRev, ",", ".")
             cPicMask += Replicate("9", hb_ULen(cNum) - hb_ULen(cPicMask))
          ELSE
@@ -1658,7 +1658,7 @@ STATIC FUNCTION _IsEditable(nPos, nId)
 RETURN .F.
 
 *-----------------------------------------------------------------------------*
-STATIC FUNCTION _Input( cChar , nID )
+STATIC FUNCTION _Input(cChar, nID)
 *-----------------------------------------------------------------------------*
    
    LOCAL oGet     := _HMG_aControlHeadClick[nId]
@@ -1671,7 +1671,7 @@ STATIC FUNCTION _Input( cChar , nID )
    SWITCH oGet:type
    CASE "N"
       DO CASE
-      CASE cChar == "-" .AND. !_HMG_aControlMiscData1 [nId, 8]
+      CASE cChar == "-" .AND. !_HMG_aControlMiscData1[nId, 8]
          oGet:minus := .T.  /* The minus symbol can be write in any place */
       CASE cChar == "."
       CASE cChar == ","
@@ -1716,17 +1716,17 @@ STATIC FUNCTION _Input( cChar , nID )
         ENDIF
         EXIT
       CASE "N"
-        IF !hmg_IsAlpha(cChar) .AND. !hmg_IsDigit( cChar )
+        IF !hmg_IsAlpha(cChar) .AND. !hmg_IsDigit(cChar)
           cChar := ""
         ENDIF
         EXIT
       CASE "9"
-        IF !hmg_IsDigit( cChar ) .AND. cChar != "-"
+        IF !hmg_IsDigit(cChar) .AND. cChar != "-"
           cChar := ""
         ENDIF
         EXIT
       CASE "#"
-        IF !hmg_IsDigit( cChar ) .AND. !( cChar == " " ) .AND. !( cChar $ ".+-" )
+        IF !hmg_IsDigit(cChar) .AND. !( cChar == " " ) .AND. !( cChar $ ".+-" )
           cChar := ""
         ENDIF
         EXIT
@@ -1744,7 +1744,7 @@ STATIC FUNCTION _Input( cChar , nID )
         EXIT
       CASE "*"
         IF oGet:type == "N"
-          IF !hmg_IsDigit( cChar ) .AND. cChar != "-"
+          IF !hmg_IsDigit(cChar) .AND. cChar != "-"
             cChar := ""
           ENDIF
         ELSE
@@ -1791,12 +1791,12 @@ STATIC FUNCTION _IsChildOfActiveWindow(hWnd)
 *-----------------------------------------------------------------------------*
    
    LOCAL hActiveWnd := GetActiveWindow()
-   LOCAL lRet := ( _GetParent( hWnd ) == hActiveWnd )
+   LOCAL lRet := ( _GetParent(hWnd) == hActiveWnd )
    LOCAL hParent
 
    DO WHILE lRet
 
-      hParent := _GetParent( hWnd )
+      hParent := _GetParent(hWnd)
 
       IF hActiveWnd != hParent
 

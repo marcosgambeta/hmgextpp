@@ -213,7 +213,7 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    ENDIF
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif
@@ -301,7 +301,7 @@ FUNCTION InitDialogTextBox( ParentName, ControlHandle, k )
 
    Field       := _HMG_aControlPageMap[k]
    nMaxLength  := _HMG_aControlRangeMax[k]
-   readonly    := _HMG_aControlMiscData1 [k,2]
+   readonly    := _HMG_aControlMiscData1[k, 2]
    cValue      := _HMG_aControlValue[k]
    lNumeric    := ( _HMG_aControlType[k] == CONTROL_TYPE_NUMTEXT )
 
@@ -495,7 +495,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
    ENDIF
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif
@@ -570,7 +570,7 @@ FUNCTION InitDialogMaskedTextBox( ParentName, ControlHandle, k )
    LOCAL date
 
    Field  := _HMG_aControlPageMap[k]
-   date   := _HMG_aControlMiscData1 [k,2]
+   date   := _HMG_aControlMiscData1[k, 2]
    cValue := _HMG_aControlValue[k]
 
    IF !date
@@ -602,7 +602,7 @@ FUNCTION GetNumFromText ( Text , i )
 
       c := hb_USubStr(Text, x, 1)
 
-      IF hmg_IsDigit( c ) .OR. c = "." .OR. c = "-"
+      IF hmg_IsDigit(c) .OR. c = "." .OR. c = "-"
          s += c
       ENDIF
 
@@ -682,7 +682,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
    ENDIF
 
    IF date
-      InputMask := Set( _SET_DATEFORMAT )
+      InputMask := Set(_SET_DATEFORMAT)
       FOR EACH cChar IN "yYmMdD"
          InputMask := StrTran(InputMask, cChar, "9")
       NEXT 
@@ -782,7 +782,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
    ENDIF
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif
@@ -968,9 +968,9 @@ PROCEDURE ProcessCharMask ( i , d )
 
       CASE CM == "A" .OR. CM == "N" .OR. CM == "!"
 
-         IF hmg_IsAlpha(CB) .OR. CB == " " .OR. ( ( CM == "N" .OR. CM == "!" ) .AND. hmg_IsDigit( CB ) )
+         IF hmg_IsAlpha(CB) .OR. CB == " " .OR. ( ( CM == "N" .OR. CM == "!" ) .AND. hmg_IsDigit(CB) )
 
-            IF CM == "!" .AND. !hmg_IsDigit( CB )
+            IF CM == "!" .AND. !hmg_IsDigit(CB)
                OutBuffer += hmg_Upper(CB)
             ELSE
                OutBuffer += CB
@@ -989,7 +989,7 @@ PROCEDURE ProcessCharMask ( i , d )
 
       CASE CM == "9"
 
-         IF hmg_IsDigit( CB ) .OR. CB == " " .OR. ( CB == "-" .AND. x == fnb .AND. PCount() > 1 )
+         IF hmg_IsDigit(CB) .OR. CB == " " .OR. ( CB == "-" .AND. x == fnb .AND. PCount() > 1 )
 
             OutBuffer += CB
 
@@ -1088,7 +1088,7 @@ PROCEDURE ProcessCharMask ( i , d )
             IF CM == "X"
                EXIT
             ENDIF
-            IF !hmg_IsDigit( CB ) .AND. !hmg_IsAlpha(CB) .AND. ( !( CB == " " ) .OR. ( CB == " " .AND. CM == " " ) )
+            IF !hmg_IsDigit(CB) .AND. !hmg_IsAlpha(CB) .AND. ( !( CB == " " ) .OR. ( CB == " " .AND. CM == " " ) )
                SendMessage(_HMG_aControlhandles[i], EM_SETSEL, icp + x, icp + x)
             ELSE
                EXIT
@@ -1119,9 +1119,9 @@ STATIC FUNCTION CharMaskTekstOK( cString, cMask )
       CASE CM == "A"
          lPassed := ( hmg_IsAlpha(CB) .OR. CB == " " )
       CASE CM == "N" .OR. CM == "!"
-         lPassed := ( hmg_IsDigit( CB ) .OR. hmg_IsAlpha(CB) .OR. CB == " " )
+         lPassed := ( hmg_IsDigit(CB) .OR. hmg_IsAlpha(CB) .OR. CB == " " )
       CASE CM == "9"
-         lPassed := ( hmg_IsDigit( CB ) .OR. CB == " " )
+         lPassed := ( hmg_IsDigit(CB) .OR. CB == " " )
       CASE CM == " "
          lPassed := ( CB == " " )
       OTHERWISE
@@ -1213,7 +1213,7 @@ PROCEDURE ProcessNumText ( i )
 
       CB := hb_USubStr(InBuffer, x, 1)
 
-      IF IsDigit( CB ) .OR. ( CB == "-" .AND. x == fnb ) .OR. ;
+      IF IsDigit(CB) .OR. ( CB == "-" .AND. x == fnb ) .OR. ;
          ( ( CB == "." .OR. CB == "," ) .AND. hb_UAt ( ".", OutBuffer ) == 0 )
 
          OutBuffer += CB
@@ -1252,7 +1252,7 @@ FUNCTION GETNumFromTextSP( Text, i )
 
       c := hb_USubStr(Text, x, 1)
 
-      IF hmg_IsDigit( c ) .OR. c = "," .OR. c = "-" .OR. c = "."
+      IF hmg_IsDigit(c) .OR. c = "," .OR. c = "-" .OR. c = "."
 
          IF c == "."
             c := ""
@@ -1302,9 +1302,9 @@ FUNCTION OEDITEVENTS( hWnd, nMsg, wParam, lParam )
       IF !IsInsertActive() .AND. wParam != 13 .AND. wParam != 8 .AND. hb_USubStr(inBuffer, icp + 1, 1) != Chr(13)
 
 #ifdef UNICODE
-         IF hmg_IsAlpha(hb_UChar( wParam )) .OR. hmg_IsDigit( hb_UChar( wParam ) )
+         IF hmg_IsAlpha(hb_UChar(wParam)) .OR. hmg_IsDigit(hb_UChar(wParam))
 #else
-         IF hmg_IsAlpha(Chr(wParam)) .OR. hmg_IsDigit( Chr(wParam) )
+         IF hmg_IsAlpha(Chr(wParam)) .OR. hmg_IsDigit(Chr(wParam))
 #endif
             IF icp != icpe
                SendMessage(hTextBox, WM_CLEAR, 0, 0)

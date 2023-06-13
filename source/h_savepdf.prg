@@ -53,7 +53,7 @@ FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
 
    hb_default(@cTitle, "Untitled")
 
-   cPdfFile := hb_FNameExtSet( cPdfFile, "pdf" )
+   cPdfFile := hb_FNameExtSet(cPdfFile, "pdf")
 
    IF hb_FileExists( cPdfFile )
       IF !MsgYesNo( "File " + cPdfFile + " already exists!" + hb_eol() + "Overwrite?", "Warning!" )
@@ -68,7 +68,7 @@ FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
       RETURN UPDF_Error( "CREATE", hDoc )
    ENDIF
 
-   cOldCodePage := hb_cdpSelect( "UTF8" )
+   cOldCodePage := hb_cdpSelect("UTF8")
    cCodePage := "UTF-8"
    cAuthor := GetUserName()
 
@@ -93,7 +93,7 @@ FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
          cPage := aPages[nPage]
 
          hBitmap := BT_BitmapLoadEMF( cPage, WHITE )
-         cImageFile := hb_FNameExtSet( cPage, "png" )
+         cImageFile := hb_FNameExtSet(cPage, "png")
          BT_BitmapSaveFile(hBitmap, cImageFile, BT_FILEFORMAT_PNG)
 
          aSizes := BmpSize(hBitmap)
@@ -131,7 +131,7 @@ FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
    HPDF_ResetError( hDoc )
    HPDF_Free(hDoc)
 
-   hb_cdpSelect( cOldCodePage )
+   hb_cdpSelect(cOldCodePage)
 
    WaitWindow()
 

@@ -265,7 +265,7 @@ STATIC FUNCTION _DefineTab(ControlName, ParentFormName, x, y, w, h, aCaptions, a
    ENDIF
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif
@@ -339,7 +339,7 @@ FUNCTION InitDialogTab(ParentName, ControlHandle, k)
    LOCAL z
    LOCAL i
 
-   aMnemonic := _HMG_aControlMiscData1[k,3]
+   aMnemonic := _HMG_aControlMiscData1[k, 3]
    aCaptions := _HMG_aControlCaption[k]
 
    IF _HMG_BeginDialogActive
@@ -354,7 +354,7 @@ FUNCTION InitDialogTab(ParentName, ControlHandle, k)
 
    ENDIF
 
-   IF _HMG_aControlMiscData1 [k,2]  // ImageFlag
+   IF _HMG_aControlMiscData1[k, 2]  // ImageFlag
       _HMG_aControlInputMask[k] := AddTabBitMap(ControlHandle, _HMG_aControlPicture[k], _HMG_aControlMiscData1[k, 8])
    ENDIF
 
@@ -612,7 +612,7 @@ FUNCTION _AddTabPage ( ControlName , ParentForm , Position , Caption , Image , t
       AIns( _HMG_aControlCaption[i] , Position , Caption , .T. )
       AIns( _HMG_aControlPicture[i] , Position , Image , .T. )
       // GF 03/10/2021
-      aMnemonic := _HMG_aControlMiscData1 [i,3]
+      aMnemonic := _HMG_aControlMiscData1[i, 3]
       ASize(aMnemonic , Len(_HMG_aControlCaption[i]))
 
       aEval(aMnemonic, { |x, i| HB_SYMBOL_UNUSED(x), aMnemonic[i] := &( "{|| _SetValue(" + Chr(34) + ControlName + Chr(34) + "," + Chr(34) + ParentForm + Chr(34) + "," + hb_ntos(i) + ") }" ) })
@@ -637,7 +637,7 @@ FUNCTION _AddTabPage ( ControlName , ParentForm , Position , Caption , Image , t
          IF !Empty(_HMG_aControlInputMask[i])
             IMAGELIST_DESTROY ( _HMG_aControlInputMask[i] )
          ENDIF
-         _HMG_aControlInputMask[i] := AddTabBitMap ( _HMG_aControlHandles[i], _HMG_aControlPicture[i], _HMG_aControlMiscData1 [i, 8] )
+         _HMG_aControlInputMask[i] := AddTabBitMap ( _HMG_aControlHandles[i], _HMG_aControlPicture[i], _HMG_aControlMiscData1[i, 8] )
       ENDIF
       // JR
       IF !hb_isArray(_HMG_aControlTooltip[i])
@@ -671,7 +671,7 @@ FUNCTION _AddTabControl ( TabName , ControlName , ParentForm , PageNumber , Row 
       t := _HMG_aControlType[x]
 
       // JD 07/20/2007
-      IF t == CONTROL_TYPE_BROWSE .AND. !_HMG_aControlMiscData1 [x,8]
+      IF t == CONTROL_TYPE_BROWSE .AND. !_HMG_aControlMiscData1[x, 8]
          AAdd(_HMG_aControlPageMap[i][PageNumber], {_HMG_aControlHandles[x], _HMG_aControlIds[x], _HMG_aControlMiscData1[x][1]})
       ELSE
          AAdd(_HMG_aControlPageMap[i][PageNumber], _HMG_aControlHandles[x])
@@ -680,7 +680,7 @@ FUNCTION _AddTabControl ( TabName , ControlName , ParentForm , PageNumber , Row 
       IF t == CONTROL_TYPE_SLIDER
 
          _HMG_aControlFontHandle[x] :=  TabName
-         _HMG_aControlMiscData1 [x] :=  ParentForm
+         _HMG_aControlMiscData1[x] :=  ParentForm
 
       ELSEIF t == CONTROL_TYPE_FRAME .OR. ;
              t == CONTROL_TYPE_CHECKBOX .OR. ;
@@ -800,7 +800,7 @@ FUNCTION _DeleteTabPage ( ControlName , ParentForm , Position )
       _HMG_aControlCaption[i] := NewMap
 
       // Hotkeys assignment
-      aMnemonic := _HMG_aControlMiscData1 [i,3]
+      aMnemonic := _HMG_aControlMiscData1[i, 3]
 
       FOR EACH c IN _HMG_aControlCaption[i]
 
@@ -836,7 +836,7 @@ FUNCTION _DeleteTabPage ( ControlName , ParentForm , Position )
 
       NEXT
 
-      _HMG_aControlMiscData1 [i,2] := ImageFlag   // JD 11/05/2006
+      _HMG_aControlMiscData1[i, 2] := ImageFlag   // JD 11/05/2006
 
       // JD 11/05/2006
       IF ImageFlag
@@ -845,7 +845,7 @@ FUNCTION _DeleteTabPage ( ControlName , ParentForm , Position )
             IMAGELIST_DESTROY ( _HMG_aControlInputMask[i] )
          ENDIF
 
-         _HMG_aControlInputMask[i] := AddTabBitMap ( _HMG_aControlHandles[i], _HMG_aControlPicture[i], _HMG_aControlMiscData1 [i, 8] )
+         _HMG_aControlInputMask[i] := AddTabBitMap ( _HMG_aControlHandles[i], _HMG_aControlPicture[i], _HMG_aControlMiscData1[i, 8] )
 
       ENDIF
 

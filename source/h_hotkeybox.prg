@@ -121,7 +121,7 @@ FUNCTION _DefineHotKeyBox ( ControlName, ParentForm, x, y, w, h, value, fontname
    k := _GetControlFree()
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif
@@ -179,4 +179,4 @@ FUNCTION _GetHotKeyName(cControlName, cFormName)
    
    LOCAL cKeyName := C_GETHOTKEYNAME(GetControlHandle(cControlName, cFormName))
 
-RETURN SubStr(cKeyName, 1, At( Chr(0), cKeyName ) - 1)
+RETURN SubStr(cKeyName, 1, At(Chr(0), cKeyName) - 1)

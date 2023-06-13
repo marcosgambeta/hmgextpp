@@ -53,7 +53,7 @@ FUNCTION _DefineRating ( ControlName, ParentForm, x, y, w, h, nValue, aImages, n
    k := _GetControlFree()
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif

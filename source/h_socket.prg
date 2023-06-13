@@ -46,7 +46,7 @@
 
 #xtranslate hb_OsNewLine() => hb_eol()
 *-----------------------------------------------------------------------------*
-FUNCTION httpconnect( Connection, Server, Port )
+FUNCTION httpconnect(Connection, Server, Port)
 *-----------------------------------------------------------------------------*
 
    LOCAL oUrl
@@ -132,7 +132,7 @@ FUNCTION httpgeturl( Connection, cPage, uRet )
          cHeader += hb_osNewLine()
 
          FOR i := 1 TO Len(Connection:hHeaders)
-            cHeader += hb_HKeyAt( Connection:hHeaders, i ) + ": " + hb_HValueAt( Connection:hHeaders, i ) + hb_osNewLine()
+            cHeader += hb_HKeyAt(Connection:hHeaders, i) + ": " + hb_HValueAt(Connection:hHeaders, i) + hb_osNewLine()
          NEXT
          cHeader += hb_osNewLine()
 

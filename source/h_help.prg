@@ -60,14 +60,14 @@ PROCEDURE SetHelpFile(cFile)
       _HMG_ActiveHelpFile := iif(FError() == 0, cFile, "")
 
       IF Empty(_HMG_ActiveHelpFile)
-         MsgAlert( "Error opening of help file. Error: " + Str(FError(), 2, 0), "Alert" )
+         MsgAlert("Error opening of help file. Error: " + Str(FError(), 2, 0), "Alert")
       ENDIF
 
       FClose(hFile)
 
    ELSE
 
-      MsgAlert( "Help file " + cFile + " is not found!", "Warning" )
+      MsgAlert("Help file " + cFile + " is not found!", "Warning")
 
    ENDIF
 

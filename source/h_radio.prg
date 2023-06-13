@@ -272,7 +272,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
    ENDIF
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif

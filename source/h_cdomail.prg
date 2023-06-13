@@ -126,7 +126,7 @@ METHOD Activate() CLASS TCDOMail
 
          IF ( nLen := Len(::aFiles) ) > 0
             FOR nEl := 1 TO nLen
-               :AddAttachment( ::aFiles[nEl][1] ) // Full path must be informed
+               :AddAttachment(::aFiles[nEl][1]) // Full path must be informed
             NEXT
          ENDIF
 

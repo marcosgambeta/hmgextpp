@@ -79,7 +79,7 @@ RETURN ShellExecute(hb_defaultValue(hWnd, GetActiveWindow()) , ;
    hb_defaultValue(cFile, "") , cParameters , cDirectory , hb_defaultValue(nState, SW_SHOWNORMAL))
 
 *-----------------------------------------------------------------------------*
-PROCEDURE ShellAbout( cTitle , cMsg , hIcon )
+PROCEDURE ShellAbout(cTitle, cMsg, hIcon)
 *-----------------------------------------------------------------------------*
    
    LOCAL nCount
@@ -92,7 +92,7 @@ PROCEDURE ShellAbout( cTitle , cMsg , hIcon )
 
       ASSIGN GLOBAL _HMG_ShellAbout := ++nCount
 
-      IF C_ShellAbout( GetActiveWindow() , cTitle , cMsg , hIcon )
+      IF C_ShellAbout(GetActiveWindow(), cTitle, cMsg, hIcon)
          DestroyIcon ( hIcon )
          ASSIGN GLOBAL _HMG_ShellAbout := --nCount
       ENDIF

@@ -70,10 +70,10 @@ FUNCTION AddMRUItem( NewItem , action )
 
    result := CheckForDuplicateMRU( NewItem )
    IF result != NOFOUND
-      ReorderMRUList( result )
+      ReorderMRUList(result)
    ENDIF
    IF result != 1 .OR. MRUCount == 0
-      AddMenuElement( NewItem , action )
+      AddMenuElement(NewItem, action)
    ENDIF
 
 RETURN Nil
@@ -97,7 +97,7 @@ STATIC FUNCTION CheckForDuplicateMRU( NewItem )
 RETURN DuplicateMRU
 
 *-----------------------------------------------------------------------------*
-FUNCTION AddMenuElement( NewItem , cAction )
+FUNCTION AddMenuElement(NewItem, cAction)
 *-----------------------------------------------------------------------------*
    
    LOCAL action
@@ -151,7 +151,7 @@ FUNCTION AddMenuElement( NewItem , cAction )
 RETURN Nil
 
 *-----------------------------------------------------------------------------*
-STATIC FUNCTION ReorderMRUList( DuplicateLocation )
+STATIC FUNCTION ReorderMRUList(DuplicateLocation)
 *-----------------------------------------------------------------------------*
    
    LOCAL cxMRU_Id

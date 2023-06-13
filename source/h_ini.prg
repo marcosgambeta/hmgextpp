@@ -121,11 +121,11 @@ FUNCTION _BeginIni( cIniFile )
    
    LOCAL hFile
 
-   IF At( "\", cIniFile ) == 0
+   IF At("\", cIniFile) == 0
       cIniFile := ".\" + cIniFile
    ENDIF
 
-   IF Set( _SET_CODEPAGE ) == "UTF8"
+   IF Set(_SET_CODEPAGE) == "UTF8"
 
       hFile := iif(File(cIniFile), FOpen(cIniFile, FO_READ + FO_SHARED), HMG_CreateFile_UTF16LE_BOM(cIniFile))
       IF hFile == F_ERROR
@@ -278,7 +278,7 @@ FUNCTION GetEndComment
 RETURN SubStr(cComment, 2)
 
 *-----------------------------------------------------------------------------*
-FUNCTION SetBeginComment( cComment )
+FUNCTION SetBeginComment(cComment)
 *-----------------------------------------------------------------------------*
    
    LOCAL aLines
@@ -330,14 +330,14 @@ FUNCTION SetBeginComment( cComment )
             ENDIF
             cMemo := cMemo + aLines[i]
          NEXT i
-         hb_MemoWrit( _HMG_ActiveIniFile, cMemo )
+         hb_MemoWrit(_HMG_ActiveIniFile, cMemo)
       ENDIF
    ENDIF
 
 RETURN cComment
 
 *-----------------------------------------------------------------------------*
-FUNCTION SetEndComment( cComment )
+FUNCTION SetEndComment(cComment)
 *-----------------------------------------------------------------------------*
    
    LOCAL aLines
@@ -394,7 +394,7 @@ FUNCTION SetEndComment( cComment )
          IF hb_ULeft(cMemo, Len(CRLF)) == CRLF
             cMemo := SubStr(cMemo, Len(CRLF) + 1)
          ENDIF
-         hb_MemoWrit( _HMG_ActiveIniFile, cMemo )
+         hb_MemoWrit(_HMG_ActiveIniFile, cMemo)
       ENDIF
    ENDIF
 
@@ -406,7 +406,7 @@ FUNCTION xChar( xValue )
    
    LOCAL cType := ValType(xValue)
    LOCAL cValue := ""
-   LOCAL nDecimals := Set( _SET_DECIMALS )
+   LOCAL nDecimals := Set(_SET_DECIMALS)
 
    DO CASE // TODO: SWITCH
    CASE cType $  "CM"; cValue := xValue
@@ -514,7 +514,7 @@ FUNCTION _GetSection( cSection, cIniFile )
       aLista := _GetPrivateProfileSection( cSection, cIniFile )
       IF !Empty(aLista)
          FOR i := 1 TO Len(aLista)
-            IF ( n := At( "=", aLista[i] ) ) > 0
+            IF ( n := At("=", aLista[i]) ) > 0
                AAdd(aKeyValueList, {Left(aLista[i], n - 1), SubStr(aLista[i], n + 1)})
             ENDIF
          NEXT i

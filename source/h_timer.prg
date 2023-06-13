@@ -82,7 +82,7 @@ FUNCTION _DefineTimer ( ControlName , ParentForm , Interval , ProcedureName , On
    k := _GetControlFree()
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar, k)
 #else
    Public &mVar. := k
 #endif
