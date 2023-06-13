@@ -559,7 +559,7 @@ FUNCTION InitPageFldProc(hWndParent, hwndDlg, idDlg)
             _HMG_aControlParentHandles[k] := hwndDlg
             k_old := k
          ENDIF
-         IF hb_IsBlock(blInit) .AND. _HMG_aControlDeleted[k] != .T.
+         IF hb_IsBlock(blInit) .AND. !_HMG_aControlDeleted[k]
             Eval(blInit, _HMG_ActiveDialogName, ControlHandle, k)
          ENDIF
       NEXT

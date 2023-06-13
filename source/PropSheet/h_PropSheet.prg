@@ -770,7 +770,7 @@ FUNCTION InitPageDlgProc(hwndDlg, idDlg, hWndParent)
                k_old := k
             ENDIF
          ENDIF
-         IF hb_IsBlock(blInit) .AND. _HMG_aControlDeleted[k] != .T.
+         IF hb_IsBlock(blInit) .AND. !_HMG_aControlDeleted[k]
             Eval(blInit, _HMG_ActiveDialogName, ControlHandle, k)
          ENDIF
       NEXT

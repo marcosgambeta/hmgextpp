@@ -177,7 +177,7 @@ FUNCTION _StartWebCam(cWindow, cControl)
    REPEAT
       lSuccess := cap_DriverConnect(hWnd, 0)
       DO EVENTS
-   UNTIL (lSuccess != .T. .AND. nTry++ < 3)
+   UNTIL (!lSuccess .AND. nTry++ < 3)
 
    IF lSuccess
       w := _GetControlWidth(cControl, cWindow)

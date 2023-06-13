@@ -2101,7 +2101,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             ENDIF
 
-            IF _HMG_InteractiveCloseStarted != .T.
+            IF !_HMG_InteractiveCloseStarted
 
                _DoControlEventProcedure(_HMG_aControlLostFocusProcedure[i], i)
 
