@@ -9,6 +9,7 @@ libs=propgrid
 libs=propsheet
 libs=tsbrowse
 libs=winreport
+libs=hmg_hpdf
 libs=vfw32
 libs=gdiplus
 libs=xhb.hbc

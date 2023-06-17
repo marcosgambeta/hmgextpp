@@ -1,0 +1,12 @@
+-hblib
+
+-olib/${hb_plat}/${hb_comp}/hmg_hpdf
+
+-iinclude
+-isource\HMG_HPDF
+
+-prgflag=-n -w3 -es2 -gc3
+
+source\HMG_HPDF\hmg_hpdf.prg
+
+-inc
