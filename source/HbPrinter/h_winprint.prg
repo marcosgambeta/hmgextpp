@@ -1349,7 +1349,7 @@ STATIC FUNCTION str2arr( cList, cDelimiter )
       ENDDO
    ENDSWITCH
 
-RETURN ( aList )
+RETURN aList
 
 #ifdef HB_DYNLIB
 STATIC FUNCTION NumAt(cSearch, cString)

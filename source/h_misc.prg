@@ -172,7 +172,7 @@ FUNCTION GetData()
 
    SET ( _SET_DATEFORMAT , bd )
 
-RETURN ( RetVal )
+RETURN RetVal
 
 *-----------------------------------------------------------------------------*
 FUNCTION SendData(cDest, Data)

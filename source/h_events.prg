@@ -192,10 +192,10 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
          RETURN 0
 
       CASE ODT_BUTTON
-         RETURN (OwnButtonPaint(lParam))
+         RETURN OwnButtonPaint(lParam)
 
       CASE ODT_TAB
-         RETURN (OwnTabPaint(lParam))
+         RETURN OwnTabPaint(lParam)
 
       END SWITCH
 
@@ -255,7 +255,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                         SetBkColor(wParam, _HMG_aControlBkColor[i, 2, 1], _HMG_aControlBkColor[i, 2, 2], _HMG_aControlBkColor[i, 2, 3])
                         DeleteObject(_HMG_aControlBrushHandle[i])
                         _HMG_aControlBrushHandle[i] := CreateSolidBrush(_HMG_aControlBkColor[i, 2, 1], _HMG_aControlBkColor[i, 2, 2], _HMG_aControlBkColor[i, 2, 3])
-                        RETURN (_HMG_aControlBrushHandle[i])
+                        RETURN _HMG_aControlBrushHandle[i]
 
                      ELSE
 
@@ -574,7 +574,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                   SetBkColor(wParam, _HMG_aControlBkColor[i][1], _HMG_aControlBkColor[i][2], _HMG_aControlBkColor[i][3])
                   DeleteObject(_HMG_aControlBrushHandle[i])
                   _HMG_aControlBrushHandle[i] := CreateSolidBrush(_HMG_aControlBkColor[i][1], _HMG_aControlBkColor[i][2], _HMG_aControlBkColor[i][3])
-                  RETURN (_HMG_aControlBrushHandle[i])
+                  RETURN _HMG_aControlBrushHandle[i]
 
                ELSE
 
@@ -585,7 +585,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                         SetBkColor(wParam, _HMG_aControlBkColor[i, 3, 1], _HMG_aControlBkColor[i, 3, 2], _HMG_aControlBkColor[i, 3, 3])
                         DeleteObject (_HMG_aControlBrushHandle[i])
                         _HMG_aControlBrushHandle[i] := CreateSolidBrush(_HMG_aControlBkColor[i, 3, 1], _HMG_aControlBkColor[i, 3, 2], _HMG_aControlBkColor[i, 3, 3])
-                        RETURN (_HMG_aControlBrushHandle[i])
+                        RETURN _HMG_aControlBrushHandle[i]
 
                      ELSE
 
@@ -3836,7 +3836,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 #else
       IF GetEscapeState() < 0 .AND. (_GetFocusedControlType(hWnd) == CONTROL_TYPE_EDIT .OR. _GetFocusedControlType(hWnd) == CONTROL_TYPE_RICHEDIT)
 #endif
-         RETURN (1)
+         RETURN 1
       ENDIF
 
       IF (i := AScan(_HMG_aFormHandles, hWnd)) > 0
@@ -3846,7 +3846,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             r := _DoWindowEventProcedure(_HMG_aFormInteractiveCloseProcedure[i], i, "WINDOW_ONINTERACTIVECLOSE")
             IF hb_IsLogical(r) .AND. !r
-               RETURN (1)
+               RETURN 1
             ENDIF
 
          ENDIF
@@ -3857,18 +3857,18 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
             CASE 0
                MsgStop(_HMG_MESSAGE[3])
-               RETURN (1)
+               RETURN 1
 
             CASE 2
                IF !MsgYesNo(_HMG_MESSAGE[1], _HMG_MESSAGE[2])
-                  RETURN (1)
+                  RETURN 1
                ENDIF
                EXIT
 
             CASE 3
                IF _HMG_aFormType[i] == "A"
                   IF !MsgYesNo(_HMG_MESSAGE[1], _HMG_MESSAGE[2])
-                     RETURN (1)
+                     RETURN 1
                   ENDIF
                ENDIF
 
@@ -3880,7 +3880,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
          IF !_HMG_aFormAutoRelease[i]
 
             _HideWindow(_HMG_aFormNames[i])
-            RETURN (1)
+            RETURN 1
 
          ENDIF
 
@@ -4125,7 +4125,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
    END SWITCH
 
-RETURN (0)
+RETURN 0
 
 /*
 */

@@ -171,7 +171,7 @@ FUNCTION _GetHotKeyBlock ( cParentForm, nMod, nKey )
       ENDIF
    NEXT
 
-RETURN ( bRetVal )
+RETURN bRetVal
 
 *-----------------------------------------------------------------------------*
 PROCEDURE _PushKey ( nKey )

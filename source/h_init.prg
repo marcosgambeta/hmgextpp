@@ -639,7 +639,7 @@ FUNCTION SetRegistryValue(nKey, cRegKey, cRegVar, uVal, nRegSam)
       nRegSam := KEY_WOW64_64KEY
    ENDIF
 
-RETURN (win_regSet(nKey, cRegKey, cRegVar, uVal, , nRegSam))
+RETURN win_regSet(nKey, cRegKey, cRegVar, uVal, , nRegSam)
 
 /*
 DeleteRegistryVar(nKey, cRegKey, cRegVar, nRegSam) --> .T.|.F.
@@ -669,7 +669,7 @@ DeleteRegistryKey(nKey, cRegKey) -->
 */
 FUNCTION DeleteRegistryKey(nKey, cRegKey)
 
-RETURN (win_regDeleteKey(nKey, cRegKey))
+RETURN win_regDeleteKey(nKey, cRegKey)
 
 #endif
 

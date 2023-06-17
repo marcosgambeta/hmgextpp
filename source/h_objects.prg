@@ -819,7 +819,7 @@ METHOD GetGaps( aGaps, oWnd ) CLASS TDlu2Pix
    If "." $ hb_ntos(::nB); ::nB := oApp:GH( ::nB )
    EndIf
 
-RETURN ( ::LTRB )
+RETURN ::LTRB
 
 METHOD TextWidth(cText, nSize, cFont, lBold, cChar) CLASS TDlu2Pix
 

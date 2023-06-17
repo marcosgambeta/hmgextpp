@@ -575,7 +575,7 @@ FUNCTION DetMaxVal(nNum)
 
    ENDDO
 
-RETURN ( nVal )
+RETURN nVal
 
 
 FUNCTION ClrShadow( nColor, nFactor )

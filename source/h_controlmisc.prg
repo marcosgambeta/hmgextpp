@@ -1095,7 +1095,7 @@ FUNCTION GetControlName(ControlName, ParentForm)
       RETURN ""
    ENDIF
 
-RETURN (_HMG_aControlNames[i])
+RETURN _HMG_aControlNames[i]
 
 FUNCTION GetControlHandle(ControlName, ParentForm)
 
@@ -1105,7 +1105,7 @@ FUNCTION GetControlHandle(ControlName, ParentForm)
       MsgMiniGuiError("Control " + ControlName + " Of " + ParentForm + " Not defined.")
    ENDIF
 
-RETURN (_HMG_aControlHandles[i])
+RETURN _HMG_aControlHandles[i]
 
 FUNCTION GetControlContainerHandle(ControlName, ParentForm)
 
@@ -1115,7 +1115,7 @@ FUNCTION GetControlContainerHandle(ControlName, ParentForm)
       RETURN 0
    ENDIF
 
-RETURN (_HMG_aControlContainerHandle[i])
+RETURN _HMG_aControlContainerHandle[i]
 
 FUNCTION GetControlParentHandle(ControlName, ParentForm)
 
@@ -1125,7 +1125,7 @@ FUNCTION GetControlParentHandle(ControlName, ParentForm)
       RETURN 0
    ENDIF
 
-RETURN (_HMG_aControlParentHandles[i])
+RETURN _HMG_aControlParentHandles[i]
 
 FUNCTION GetControlId(ControlName, ParentForm)
 
@@ -1135,7 +1135,7 @@ FUNCTION GetControlId(ControlName, ParentForm)
       RETURN 0
    ENDIF
 
-RETURN (_HMG_aControlIds[i])
+RETURN _HMG_aControlIds[i]
 
 FUNCTION GetControlType(ControlName, ParentForm)
 
@@ -1145,7 +1145,7 @@ FUNCTION GetControlType(ControlName, ParentForm)
       RETURN ""
    ENDIF
 
-RETURN (_HMG_aControlType[i])
+RETURN _HMG_aControlType[i]
 
 // added by MAG (2023/05/18)
 FUNCTION GetControlTypeAsString(ControlName, ParentForm)
@@ -1166,7 +1166,7 @@ FUNCTION GetControlValue(ControlName, ParentForm)
       RETURN NIL
    ENDIF
 
-RETURN (_HMG_aControlValue[i])
+RETURN _HMG_aControlValue[i]
 
 FUNCTION GetControlPageMap(ControlName, ParentForm)
 
@@ -1176,7 +1176,7 @@ FUNCTION GetControlPageMap(ControlName, ParentForm)
       RETURN {}
    ENDIF
 
-RETURN (_HMG_aControlPageMap[i])
+RETURN _HMG_aControlPageMap[i]
 
 FUNCTION _SetFocus(ControlName, ParentForm, Index)
 
@@ -2142,7 +2142,7 @@ FUNCTION _GetItem(ControlName, ParentForm, Item, index)
 
    ENDSWITCH
 
-RETURN (RetVal)
+RETURN RetVal
 
 FUNCTION _SetControlSizePos(ControlName, ParentForm, row, col, width, height)
 
@@ -2688,7 +2688,7 @@ FUNCTION _GetControlWidth(ControlName, ParentForm)
       RETURN 0
    ENDIF
 
-RETURN (_HMG_aControlWidth[i])
+RETURN _HMG_aControlWidth[i]
 
 FUNCTION _GetControlHeight(ControlName, ParentForm)
 
@@ -2706,7 +2706,7 @@ FUNCTION _GetControlHeight(ControlName, ParentForm)
       RETURN 0
    ENDIF
 
-RETURN (_HMG_aControlHeight[i])
+RETURN _HMG_aControlHeight[i]
 
 FUNCTION _SetControlCaption(ControlName, ParentForm, Value)
 
@@ -3244,7 +3244,7 @@ FUNCTION _GetToolTip(ControlName, ParentForm)
       RETURN ""
    ENDIF
 
-RETURN (_HMG_aControlToolTip[i])
+RETURN _HMG_aControlToolTip[i]
 
 FUNCTION _SetToolTip(ControlName, ParentForm, Value, Page)
 
@@ -3324,7 +3324,7 @@ FUNCTION _GetMultiToolTip(ControlName, ParentForm, Item)  // GF 10/12/2010
 
       Assign nItem := Item
       IF nItem <= _GetItemCount(ControlName, ParentForm)
-         RETURN (_HMG_aControlToolTip[i][nItem])
+         RETURN _HMG_aControlToolTip[i][nItem]
       ENDIF
 
    ENDIF
@@ -3385,7 +3385,7 @@ FUNCTION _GetRangeMin(ControlName, ParentForm)
       RETURN 0
    ENDIF
 
-RETURN (_HMG_aControlRangeMin[i])
+RETURN _HMG_aControlRangeMin[i]
 
 FUNCTION _GetRangeMax(ControlName, ParentForm)
 
@@ -3395,7 +3395,7 @@ FUNCTION _GetRangeMax(ControlName, ParentForm)
       RETURN 0
    ENDIF
 
-RETURN (_HMG_aControlRangeMax[i])
+RETURN _HMG_aControlRangeMax[i]
 
 FUNCTION _SetMultiCaption(ControlName, ParentForm, Column, Value)
 
@@ -3453,7 +3453,7 @@ FUNCTION _GetMultiCaption(ControlName, ParentForm, Item)
 
    Assign nItem := Item
 
-RETURN (_HMG_aControlCaption[i][nItem])
+RETURN _HMG_aControlCaption[i][nItem]
 
 FUNCTION _SetMultiImage(ControlName, ParentForm, Column, Value, lRightAlign)
 
@@ -3505,7 +3505,7 @@ STATIC FUNCTION _GetMultiImage(ControlName, ParentForm, Item)  // JD 11/30/2006
 
    Assign nItem := Item
 
-RETURN (_HMG_aControlPicture[i][nItem])
+RETURN _HMG_aControlPicture[i][nItem]
 
 FUNCTION InputWindow(cTitle, aLabels, aValues, aFormats, nRow, nCol, lCenterWindow, aButOKCancelCaptions, nLabelWidth, nControlWidth, lUseSwitcher)
 
@@ -3643,7 +3643,7 @@ FUNCTION InputWindow(cTitle, aLabels, aValues, aFormats, nRow, nCol, lCenterWind
 
    _HMG_ExtendedNavigation := lExtendedNavigation
 
-RETURN (aResult)
+RETURN aResult
 
 FUNCTION _InputWindowOk
 
@@ -4027,7 +4027,7 @@ FUNCTION _GetCaretPos(ControlName, FormName)
    LOCAL i
 
    IF (i := GetControlIndex(ControlName, FormName)) > 0
-      RETURN (HiWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0)))
+      RETURN HiWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0))
    ENDIF
 
 RETURN 0
@@ -5858,7 +5858,7 @@ STATIC FUNCTION SetFirstDayOfWeek(cControlName, cFormName, Value)
    NEXT
 
    IF (nPos := AScan(aWeek, {|x|x[2] == cDay})) == 0
-      RETURN (-1)
+      RETURN -1
    ENDIF
 
 RETURN SetMonthCalFirstDayOfWeek(GetControlHandle(cControlName, cFormName), aWeek[nPos][1])
@@ -7790,7 +7790,7 @@ FUNCTION _IsControlDefined(ControlName, FormName)
       RETURN .F.
    ENDIF
 
-RETURN (!_HMG_aControlDeleted[i])
+RETURN !_HMG_aControlDeleted[i]
 
 FUNCTION _NoQuote(cStr)
 

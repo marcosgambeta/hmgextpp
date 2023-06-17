@@ -74,7 +74,7 @@ METHOD Execute() CLASS TSimpleTaskDialog
    ::nButtonResult := nButton
    ::nResult       := nResult
 
-RETURN ( !::lError )
+RETURN !::lError
 
 METHOD Title(cTitle) CLASS TSimpleTaskDialog
 
@@ -258,7 +258,7 @@ METHOD ShowDialog() CLASS TTaskDialog
       ::nResult            := nResult
    ENDIF
 
-RETURN ( !::lError )
+RETURN !::lError
 
 /*
    The handle of the dialog.

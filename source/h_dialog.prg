@@ -242,7 +242,7 @@ FUNCTION _DefineDialog(FormName, ParentForm, Id_resource, x, y, w, h, caption, f
 #endif
    ENDIF
 
-RETURN (FormHandle)
+RETURN FormHandle
 
 /*
 _BeginDialog(...) --> NIL

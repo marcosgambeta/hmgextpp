@@ -141,7 +141,7 @@ FUNCTION GetFile(aFilter, title, cIniFolder, multiselect, lNoChangeCurDir, nFilt
 
    ENDIF
 
-RETURN ( fileslist )
+RETURN fileslist
 
 *-----------------------------------------------------------------------------*
 FUNCTION Putfile(aFilter, title, cIniFolder, lNoChangeCurDir, cDefFileName, ;

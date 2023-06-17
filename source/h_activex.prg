@@ -254,7 +254,7 @@ FUNCTION _GetControlObject ( ControlName, ParentForm )
       RETURN NIL
    ENDIF
 
-RETURN ( _HMG_aControlMiscData1[i] )
+RETURN _HMG_aControlMiscData1[i]
 
 /*
    Marcelo Torres, Noviembre de 2006.

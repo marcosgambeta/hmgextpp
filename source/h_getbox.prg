@@ -866,7 +866,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 #else
          IF ( "A" $ cPicFunc ) .AND. !hmg_IsAlpha(hb_BChar(wParam))
 #endif
-            RETURN ( 0 )
+            RETURN 0
          ENDIF
 
          oGet:changed := .T.
@@ -1783,7 +1783,7 @@ STATIC FUNCTION _GetDefinedStatusBarItemValue(ParentHandle, ItemID)
 
    NEXT
 
-RETURN ( _HMG_aControlCaption[i] )
+RETURN _HMG_aControlCaption[i]
 
 // (JK) HMG Experimental 1.1. Build 14
 *-----------------------------------------------------------------------------*

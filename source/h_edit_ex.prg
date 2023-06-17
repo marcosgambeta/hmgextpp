@@ -1295,7 +1295,7 @@ STATIC FUNCTION ABM2Seleccionar()
    // ------- Restuara el puntero de registro.------------------------------------
    ( _cArea )->( dbGoto( nRegistro ) )
 
-RETURN ( nReg )
+RETURN nReg
 
 
 /****************************************************************************************

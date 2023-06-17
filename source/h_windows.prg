@@ -406,7 +406,7 @@ FUNCTION _DefineWindow(FormName, Caption, x, y, w, h, nominimize, nomaximize, ;
       iif(aMax[2] == NIL, NIL, _HMG_aFormMinMaxInfo[k][8] := aMax[2])
    ENDIF
 
-RETURN (FormHandle)
+RETURN FormHandle
 
 /*
 _DefineModalWindow(...) --> FormHandle
@@ -629,7 +629,7 @@ FUNCTION _DefineModalWindow(FormName, Caption, x, y, w, h, Parent, nosize, nosys
       iif(aMax[2] == NIL, NIL, _HMG_aFormMinMaxInfo[k][8] := aMax[2])
    ENDIF
 
-RETURN (FormHandle)
+RETURN FormHandle
 
 /*
 _DefineSplitChildWindow(...) --> FormHandle
@@ -820,7 +820,7 @@ FUNCTION _DefineSplitChildWindow(FormName, w, h, break, grippertext, nocaption, 
       SetScrollRange(FormHandle, SB_HORZ, 0, VirtualWidth - w, .T.)
    ENDIF
 
-RETURN (FormHandle)
+RETURN FormHandle
 
 /*
 _SetThisFormInfo(c|o) --> NIL
@@ -1108,7 +1108,7 @@ FUNCTION InputBox(cInputPrompt, cDialogCaption, cDefaultValue, nTimeout, cTimeou
    CENTER WINDOW _InputBox
    ACTIVATE WINDOW _InputBox
 
-RETURN (RetVal)
+RETURN RetVal
 
 /*
 _InputBoxAdjust(nTitleH, nBordW)
@@ -1713,7 +1713,7 @@ STATIC FUNCTION _GenActivateId(nForm)
    __mvPut(TmpStr, nForm)
 #endif
 
-RETURN (TmpId)
+RETURN TmpId
 
 /*
 _hmg_OnHideFocusManagement(i)
@@ -2074,14 +2074,14 @@ FUNCTION _IsWindowActive(FormName)
       IF i == 0
          RETURN .F.
       ENDIF
-      RETURN (_HMG_aFormActive[i])
+      RETURN _HMG_aFormActive[i]
 #else
       IF __mvExist(mVar)
          i := __mvGet(mVar)
          IF i == 0
             RETURN .F.
          ENDIF
-         RETURN (_HMG_aFormActive[i])
+         RETURN _HMG_aFormActive[i]
       ENDIF
 #endif
 
@@ -2106,14 +2106,14 @@ FUNCTION _IsWindowDefined(FormName)
       IF i == 0
          RETURN .F.
       ENDIF
-      RETURN (!(_HMG_aFormDeleted[i]))
+      RETURN !(_HMG_aFormDeleted[i])
 #else
       IF __mvExist(mVar)
          i := __mvGet(mVar)
          IF i == 0
             RETURN .F.
          ENDIF
-         RETURN (!(_HMG_aFormDeleted[i]))
+         RETURN !(_HMG_aFormDeleted[i])
       ENDIF
 #endif
 
@@ -2132,7 +2132,7 @@ FUNCTION GetWindowType(FormName)
       RETURN ""
    ENDIF
 
-RETURN (_HMG_aFormType[i])
+RETURN _HMG_aFormType[i]
 
 /*
 GetFormName(FormName) --> cFormName
@@ -2155,7 +2155,7 @@ FUNCTION GetFormName(FormName)
       RETURN ""
    ENDIF
 
-RETURN (_HMG_aFormNames[i])
+RETURN _HMG_aFormNames[i]
 
 /*
 GetFormToolTipHandle(FormName) --> ToolTipHandle
@@ -2172,7 +2172,7 @@ FUNCTION GetFormToolTipHandle(FormName)
       MsgMiniGuiError("Form " + FormName + " is not defined.")
    ENDIF
 
-RETURN (_HMG_aFormToolTipHandle[i])
+RETURN _HMG_aFormToolTipHandle[i]
 
 /*
 GetFormHandle(FormName) --> FormHandle
@@ -2185,7 +2185,7 @@ FUNCTION GetFormHandle(FormName)
       MsgMiniGuiError("Form " + FormName + " is not defined.")
    ENDIF
 
-RETURN (_HMG_aFormHandles[i])
+RETURN _HMG_aFormHandles[i]
 
 /*
 ReleaseAllWindows() --> NIL

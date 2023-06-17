@@ -498,7 +498,7 @@ FUNCTION HTML_ERRORLOG()
       ENDIF
    ENDIF
 
-RETURN (HtmArch)
+RETURN HtmArch
 
 //----------------------------------------------------------------------------//
 
@@ -525,7 +525,7 @@ FUNCTION HTML_INI(ARCH, TITLE)
       ENDIF
    ENDIF
 
-RETURN (HtmArch)
+RETURN HtmArch
 
 //----------------------------------------------------------------------------//
 

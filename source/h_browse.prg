@@ -1924,7 +1924,7 @@ FUNCTION _EditRecord(Title, aLabels, aValues, aFormats, row, col, aValid, TmpNam
 
    ACTIVATE WINDOW _EditRecord
 
-RETURN ( aResult )
+RETURN aResult
 
 *-----------------------------------------------------------------------------*
 STATIC PROCEDURE _WHENEVAL()

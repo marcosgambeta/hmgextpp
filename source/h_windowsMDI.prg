@@ -161,7 +161,7 @@ FUNCTION MdiEvents(hWnd, nMsg, wParam, lParam)
    CASE WM_CLOSE
       // TODO: usar RETURN IIF(condicao, true, false)
       IF GetEscapeState() < 0
-         RETURN (1)
+         RETURN 1
       ENDIF
       RETURN _MdiChildClose(hWnd)
 
@@ -267,7 +267,7 @@ FUNCTION MdiEvents(hWnd, nMsg, wParam, lParam)
 
    ENDSWITCH
 
-RETURN (0)
+RETURN 0
 
 /*
 _DefineChildMDIWindow(...) --> FormHandle
@@ -426,7 +426,7 @@ FUNCTION _DefineChildMDIWindow(FormName, x, y, w, h, nominimize, nomaximize, ;
       Eval(_HMG_bOnFormInit, k, mVar)
    ENDIF
 
-RETURN (FormHandle)
+RETURN FormHandle
 
 /*
 _EndMdiChildWindow() --> NIL

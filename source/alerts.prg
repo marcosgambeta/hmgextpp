@@ -29,13 +29,13 @@ FUNCTION AlertYesNoCancel ( Message, Title, nDefaultButton, Icon, nSize, aColors
    SWITCH _Alert(Message, aOptions, Title, , hb_defaultValue(nDefaultButton, 1), Icon, nSize, aColors, lTopMost, bInit, .T.)
 
    CASE 1
-      RETURN ( 1 )
+      RETURN 1
    CASE 2
-      RETURN ( 0 )
+      RETURN 0
 
    END SWITCH
 
-RETURN ( -1 )
+RETURN -1
 
 *-----------------------------------------------------------------------------*
 FUNCTION AlertRetryCancel ( Message, Title, nDefaultButton, Icon, nSize, aColors, lTopMost, bInit )
