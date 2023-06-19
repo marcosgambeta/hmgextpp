@@ -200,7 +200,7 @@ FUNCTION easyreport()
          ENDIF
       ENDIF
       IF HBPRNERROR != 0
-         RETURN nil
+         RETURN NIL
       ENDIF
 
       SET PAGE PAPERSIZE npapersize
@@ -242,7 +242,7 @@ FUNCTION easyreport()
          IF nlpp <= HBPRNMAXROW
             nlpp := iif(ISEVERYPAGE, HBPRNMAXROW - 4, HBPRNMAXROW - 2)
          ENDIF
-         
+
          msgstop( aMessages[6]  + cpagina + " (" + hb_ntos(npapersize) + ")" + CRLF + ;
                   aMessages[7]  + hb_ntos(nfsize) + CRLF + ;
                   aMessages[8]  + Str(HBPRNMAXROW, 3) + CRLF + ;
@@ -250,7 +250,7 @@ FUNCTION easyreport()
                   aMessages[10] + Str(HBPRNMAXCOL, 3) + CRLF + ;
                   aMessages[11] + Str(ncpl, 3), aMessages[19] )
       ENDIF
-    
+
       START DOC
       START PAGE
    ENDIF
@@ -425,7 +425,7 @@ FUNCTION easyreport()
    ENDIF
    RELEASE _npage, angrpby, wfield, nlmargin, nfsize, ISEVERYPAGE, wfield1, crompe
 
-RETURN Nil
+RETURN NIL
 
 STATIC FUNCTION headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grpby, chdrgrp )
 
@@ -610,7 +610,7 @@ STATIC FUNCTION mypreview( cfilerepo )
       ERASE &WFILEREPO
    ENDIF
 
-RETURN nil
+RETURN NIL
 
 STATIC FUNCTION JUSTIFICALINEA(WPR_LINE, WTOPE)
 
@@ -664,7 +664,7 @@ FUNCTION extreport(cfilerep)
 
    IF !File(cfilerep + ".rpt")
       msginfo( "(" + cfilerep + ".rpt) " + aMessages[16] )
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    PUBLIC aline := {}
@@ -687,14 +687,14 @@ FUNCTION extreport(cfilerep)
    IF Len(afields) == 0
       msginfo( aMessages[17], aMessages[13] )
       RELEASE aline
-      RETURN Nil
+      RETURN NIL
    ENDIF
    afields := &afields
    awidths := leadato( "REPORT", "WIDTHS", "{}" )
    IF Len(awidths) == 0
       msginfo( aMessages[18], aMessages[13] )
       RELEASE aline
-      RETURN Nil
+      RETURN NIL
    ENDIF
    awidths := &awidths
    atotals := leadato( "REPORT", "TOTALS", NIL )
@@ -757,7 +757,7 @@ FUNCTION extreport(cfilerep)
    easyreport(ctitle, aheaders1, aheaders2, afields, awidths, atotals, nlpp, ldos, lpreview, cgraphic, nfi, nci, nff, ncf, lmul, cgrpby, chdrgrp, llandscape, ncpl, lselect, calias, nllmargin, aformats, npapersize, ntoprow, lnodatetimestamp , cfont)
    RELEASE aline
 
-RETURN Nil
+RETURN NIL
 
 STATIC FUNCTION leadato( cName, cPropmet, cDefault )
 

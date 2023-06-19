@@ -187,8 +187,8 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
    _HMG_aControlGotFocusProcedure  [k] := mouseover
    _HMG_aControlChangeProcedure    [k] := rclick
    _HMG_aControlDeleted            [k] := .F.
-   _HMG_aControlBkColor            [k] := Nil
-   _HMG_aControlFontColor          [k] := Nil
+   _HMG_aControlBkColor            [k] := NIL
+   _HMG_aControlFontColor          [k] := NIL
    _HMG_aControlDblClick           [k] := lCheckAlpha
    _HMG_aControlHeadClick          [k] := dblclick
    _HMG_aControlRow                [k] := y
@@ -229,7 +229,7 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
 
    Do_ControlEventProcedure ( bInit, k, ow, oc )
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION InitDialogImage(ParentName, ControlHandle, k)
@@ -252,7 +252,7 @@ FUNCTION InitDialogImage(ParentName, ControlHandle, k)
       _HMG_aControlDeleted[k] := .T.
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION BmpSize(xBitmap)

@@ -355,7 +355,7 @@ Function StampeEsegui(_MainArea,_psd,db_arc,_prw)
    aeval(oWr:adeclare,{|x,y|if(Y > 1 ,oWr:traduci(x[1],,x[2]),"")})
    if abort != 0
       r_mem()
-      return nil
+      return NIL
    endif
    if used()
       if !empty(atf)
@@ -637,7 +637,7 @@ return IIF(nValue=0, 1, nValue)
 *-----------------------------------------------------------------------------*
 Function _dummy_( ... )
 *-----------------------------------------------------------------------------*
-return nil
+return NIL
 /*
 */
 *-----------------------------------------------------------------------------*
@@ -781,7 +781,7 @@ DATA aCnt             INIT 0
 DATA Valore           INIT {|x|val(substr(x[1],at("]",x[1])+1))}
 DATA mx_ln_doc        INIT 0
 DATA PRNDRV           INIT  "HBPR"
-DATA argm             INIT {nil,nil, nil,nil}
+DATA argm             INIT {NIL,NIL, NIL,NIL}
 DATA aStat            INIT { "Define"     => .F. , ;    // Define Section
                              "Head"       => .F. , ;    // Head Section
                              "Body"       => .F. , ;    // Body Section
@@ -1124,7 +1124,7 @@ METHOD End() CLASS WREPORT
 release ::F_HANDLE,::aDeclare,::AHead,::ABody,::AFeet,::Hb,::Valore,::mx_ln_doc;
 ,       ::PRNDRV,::argm,::aStat
 RELEASE ::ach , ::filename
-return nil
+return NIL
 /*
 */
 *-----------------------------------------------------------------------------*
@@ -1150,7 +1150,7 @@ DEFAULT EXEC TO .F.
        ::HB := eval(::Valore,::aHead[1])+ eval(::Valore,::aBody[1])
        ::mx_ln_doc := ::hb + eval(::Valore,::aFeet[1])
     ENDIF
-return nil
+return NIL
 /*
 */
 *-----------------------------------------------------------------------------*
@@ -1166,7 +1166,7 @@ METHOD Splash(etichetta,prc_init,sezione,rit) CLASS WREPORT
       domethod("FORM_SPLASH", "SHOW")
       if ("doPr" $ prc_init,::doPr(),::doMiniPr())
       DOMETHOD("FORM_SPLASH", "RELEASE")
-      return nil
+      return NIL
    Endif
    if empty(etichetta)
       DEFINE WINDOW FORM_SPLASH AT 140 , 235 WIDTH 0 HEIGHT 0 MODAL NOSHOW NOSIZE NOSYSMENU NOCAPTION ;
@@ -1206,7 +1206,7 @@ METHOD DoPr() CLASS WREPORT
     CursorWait()
     ritspl := stampeEsegui(::argm[1],::argm[2],::argm[3],::argm[4])
     CursorArrow()
-return nil
+return NIL
 /*
 */
 *-----------------------------------------------------------------------------*
@@ -1215,7 +1215,7 @@ METHOD DoMiniPr() CLASS WREPORT
    CursorWait()
    ritspl := PrminiEsegui(::argm[1],::argm[2],::argm[3],::argm[4])
    CursorArrow()
-return nil
+return NIL
 
 /*
 */
@@ -1367,7 +1367,7 @@ METHOD Transpace(arg1,arg2,arg3) CLASS WREPORT // The core of parser
      nr := STRTRAN(nr,chr(07)+chr(07),chr(07))
      if arg2
         arg1 := upper(nr)
-        aeval(aFsrc,{|x|if ( at(x,arg1) > 0, aadd(_aFnt,{upper(Nr),arg3}), Nil ) } )
+        aeval(aFsrc,{|x|if ( at(x,arg1) > 0, aadd(_aFnt,{upper(Nr),arg3}), NIL ) } )
      Endif
 
 return nr
@@ -1534,10 +1534,10 @@ BEGIN SEQUENCE
          endif
       Endif
 
-      aeval(transpar,{|x| iif(x != NIL,aadd(ArryPar,X), nil ) } )
+      aeval(transpar,{|x| iif(x != NIL,aadd(ArryPar,X), NIL ) } )
 
       if ::aStat["Control"] .AND. (UPPER(LEFT(STRING, 5)) != "DEBUG")
-         aeval(Arrypar,{|x,y|x:=nil,MsgBox("Section "+ssection+" Line is n° "+zaps(cmdline)+CRLF+"String =";
+         aeval(Arrypar,{|x,y|x:=NIL,MsgBox("Section "+ssection+" Line is n° "+zaps(cmdline)+CRLF+"String =";
         +string+CRLF+CRLF+"Argument N°"+zaps(y)+[ ]+ArryPar[y],+::Filename+[ Pag n°]+zaps(npag))})
       endif
       ::leggipar(Arrypar,cmdline,substr(procname(1), 4))
@@ -1585,7 +1585,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
            case arryPar[1]==[GROUP]
                 Group(arryPar[2],arryPar[3],arryPar[4],arryPar[5],arryPar[6],arryPar[7],arryPar[8],arryPar[9])
                 /* Alternate method
-                aX:={} ; aeval(ArryPar,{|x,y|if (Y >1,aadd(aX,x),Nil)})
+                aX:={} ; aeval(ArryPar,{|x,y|if (Y >1,aadd(aX,x),NIL)})
                 Hb_execFromarray("GROUP",ax)
                 asize(ax,0)
                 */
@@ -1852,16 +1852,16 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                               asize(ax,0)
                               do case
                                  case ascan(arryPar,[DECLARE])= 4
-                                      aeval(::aDeclare, {|x|iif(x != NIL, aadd(ax, strzero(x[2], 4) + ") " + x[1]), nil)})
+                                      aeval(::aDeclare, {|x|iif(x != NIL, aadd(ax, strzero(x[2], 4) + ") " + x[1]), NIL)})
 
                                  case ascan(arryPar,[HEAD])= 4
-                                      aeval(::aHead, {|x|iif(x != NIL, aadd(ax, strzero(x[2], 4) + ") " + x[1]), nil)})
+                                      aeval(::aHead, {|x|iif(x != NIL, aadd(ax, strzero(x[2], 4) + ") " + x[1]), NIL)})
 
                                  case ascan(arryPar,[BODY])= 4
-                                      aeval(::aBody, {|x|iif(x != NIL, aadd(ax, strzero(x[2], 4) + ") " + x[1]), nil)})
+                                      aeval(::aBody, {|x|iif(x != NIL, aadd(ax, strzero(x[2], 4) + ") " + x[1]), NIL)})
 
                                  case ascan(arryPar,[FEET])= 4
-                                      aeval(::aFeet, {|x|iif(x != NIL, aadd(ax, strzero(x[2], 4) + ") " + x[1]), nil)})
+                                      aeval(::aFeet, {|x|iif(x != NIL, aadd(ax, strzero(x[2], 4) + ") " + x[1]), NIL)})
 
                               endcase
                               msgmulty(ax)
@@ -2112,7 +2112,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                          ,iif("->" $ ArryPar[4] .OR. [(] $ ArryPar[4],::MACROCOMPILE(ArryPar[4],.T.,cmdline,section),ArryPar[4]);
                          ,iif(ascan(hbprn:Fonts[2],eval(chblk,arrypar,[FONT]) )> 0,eval(chblk,arrypar,[FONT]),"FX")  ;
                          ,iif(ascan(arryPar,[COLOR])>0,::UsaColor(eval(chblk,arrypar,[COLOR])),NIL);
-                         ,nil )
+                         ,NIL )
                          //,iif(ascan(arryPar,[ALIGN])>0,::what_ele(eval(chblk,arrypar,[ALIGN]),::aCh,"_aAlign"),NIL))
 
                 hbprn:settextalign( al[1] )
@@ -2146,15 +2146,15 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                    ,eval(epar,ArryPar[2]) ;
                    ,::MACROCOMPILE(ArryPar[4],.T.,cmdline,section)    ;            //arr
                    ,iif(ascan(arryPar,[LEN])>0,::macrocompile(eval(chblk,arrypar,[LEN])),NIL) ; //awidts
-                   ,nil                                                           ;      //rowheight
-                   ,nil                                                           ;      //vertalign
+                   ,NIL                                                           ;      //rowheight
+                   ,NIL                                                           ;      //vertalign
                    ,(ascan(arryPar,[NOFRAME])>0)                                  ;      //noframes
-                   ,nil                                                           ;      //abrushes
-                   ,nil                                                           ;      //apens
+                   ,NIL                                                           ;      //abrushes
+                   ,NIL                                                           ;      //apens
                    ,iif(ascan(arryPar,[FONT])>0,NIL,NIL)                           ;      //afonts
                    ,iif(ascan(arryPar,[COLOR])> 0,::UsaColor(eval(chblk,arrypar,[COLOR])),NIL);//afontscolor
                    ,NIL                                                           ;      //abitmaps
-                   ,nil )                                                                //userfun
+                   ,NIL )                                                                //userfun
 
                 hbprn:settextalign( al[1] )
                 hbprn:settexcolor ( al[2] )
@@ -2260,7 +2260,7 @@ local IsMono
 
 private xlwh,xfo,xfc,xbr,xpe,xwa,xbmp
 if empty(arr)
-   return nil
+   return NIL
 endif
 ::aStat["Yes_Array"]:= .T.
 // hbprn:setunits(0)
@@ -2648,7 +2648,7 @@ local grd, nkol
          endif
          nline := iif(nPgr =1,iif(flob < 1,eval(::Valore,::aHead[1])-1,flob),eval(::Valore,::aHead[1])-1)
          shd := .T.
-return nil
+return NIL
 /*
 */
 *-----------------------------------------------------------------------------*
@@ -2810,7 +2810,7 @@ Local sstring := "NLINE"+chr(07)+NTrim(t_col)+chr(07)+"SAY"+chr(07)
                   endif
           enddo
       Endif
-return nil
+return NIL
 /*
 */
 *-----------------------------------------------------------------------------*
@@ -2834,7 +2834,7 @@ METHOD TheFeet(last) CLASS WREPORT            //Feet // IL Piede
       ::aStat["EndDoc"] := .T.
       ONEATLEAST := .F.
    endif
-return nil
+return NIL
 /*
 */
 *-----------------------------------------------------------------------------*
@@ -2903,7 +2903,7 @@ Method TheMiniHead() Class Wreport
 
       nline := iif(nPgr =1,iif(flob < 1,eval(oWr:Valore,oWr:aHead[1])-1,flob),eval(oWr:Valore,oWr:aHead[1])-1)
 
-return nil
+return NIL
 /*
 */
 *-----------------------------------------------------------------------------*
@@ -3069,4 +3069,4 @@ local oErrAntes, oErr, lMyError := .F., n , al ,an
    if lMyError
       MsgBox("Ocurrio un error y el sintema no pudo completar la operacion")
    endif
-return nil
+return NIL

@@ -100,7 +100,7 @@ STATIC FUNCTION _DefineFrame(ControlName, ParentFormName, x, y, w, h, ;
          AAdd(_HMG_aDialogItems, {nId, k, "button", style, 0, x, y, w, h, caption, , , FontName, FontSize, bold, italic, underline, strikeout, , _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
          IF _HMG_aDialogTemplate[3]   // Modal
             _HMG_aControlDeleted[k] := .T.
-            RETURN Nil
+            RETURN NIL
          ENDIF
 
       ELSE
@@ -162,7 +162,7 @@ STATIC FUNCTION _DefineFrame(ControlName, ParentFormName, x, y, w, h, ;
    _HMG_aControlIds                [k] := nId
    _HMG_aControlProcedures         [k] := ""
    _HMG_aControlPageMap            [k] := {}
-   _HMG_aControlValue              [k] := Nil
+   _HMG_aControlValue              [k] := NIL
    _HMG_aControlInputMask          [k] := transparent
    _HMG_aControllostFocusProcedure [k] := ""
    _HMG_aControlGotFocusProcedure  [k] := ""
@@ -210,7 +210,7 @@ STATIC FUNCTION _DefineFrame(ControlName, ParentFormName, x, y, w, h, ;
 
    Do_ControlEventProcedure(bInit, k, ow, oc)
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION _BeginFrame(name, parent, row, col, w, h, caption, fontname, fontsize, opaque, bold, italic, underline, strikeout, backcolor, fontcolor, transparent, invisible, nId, bInit)
@@ -244,4 +244,4 @@ FUNCTION _BeginFrame(name, parent, row, col, w, h, caption, fontname, fontsize, 
 
    _DefineFrame(name, parent, col, row, w, h, caption, fontname, fontsize, opaque, bold, italic, underline, strikeout, backcolor, fontcolor, transparent, invisible, nId, bInit)
 
-RETURN Nil
+RETURN NIL

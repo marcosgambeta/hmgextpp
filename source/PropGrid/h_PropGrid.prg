@@ -210,7 +210,7 @@ FUNCTION _DefinePropGrid(ControlName, ParentFormName, row, col, width, height, ;
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " Already defined.")
    ENDIF
 
-   IF aheadname != Nil .AND. hb_IsArray(aheadname)
+   IF aheadname != NIL .AND. hb_IsArray(aheadname)
       IF Len(aheadname) > 0 .AND. hb_IsArray(aheadname[1])
          aheadname := aheadname[1]
       ENDIF
@@ -364,7 +364,7 @@ FUNCTION _DefinePropGrid(ControlName, ParentFormName, row, col, width, height, ;
 
    _InitPgArray(aRowItem, cFile, lXml, k)
 
-RETURN Nil
+RETURN NIL
 
 *------------------------------------------------------------------------------*
 FUNCTION PgLoadFile(ParentForm, ControlName, cFile, lXml)
@@ -387,7 +387,7 @@ FUNCTION PgLoadFile(ParentForm, ControlName, cFile, lXml)
       _ChangeBtnState(_HMG_aControlHandles[k], .F., k)
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 *------------------------------------------------------------------------------*
 FUNCTION _InitPgArray(aRowItem, cFile, lXml, k)
@@ -405,7 +405,7 @@ FUNCTION _InitPgArray(aRowItem, cFile, lXml, k)
       PgInitItem( aRowItem, k )
    ENDIF
 
-RETURN nil
+RETURN NIL
 
 *------------------------------------------------------------------------------*
 FUNCTION PgBtnEvents(hwndPG, HwndBtn)
@@ -456,7 +456,7 @@ FUNCTION PgBtnEvents(hwndPG, HwndBtn)
       ENDSWITCH
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 *------------------------------------------------------------------------------*
 FUNCTION _ChangeBtnState(aHandle, lChg, k)
@@ -478,7 +478,7 @@ FUNCTION _ChangeBtnState(aHandle, lChg, k)
       ENDIF
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 *------------------------------------------------------------------------------*
 FUNCTION _DefinePropertyItem ( cType, cName, cValue, aData, disabled, disableedit, id, cInfo, cValName, cValNameDef )
@@ -515,7 +515,7 @@ FUNCTION _DefinePropertyItem ( cType, cName, cValue, aData, disabled, disableedi
    PgCheckData(typePG, @cValue, @aData, 0)
    AAdd(_HMG_ActivePropGridArray, {cType, cName, cValue, aData, disabled, .F., disableedit, id, cInfo, cValName})
 
-RETURN Nil
+RETURN NIL
 
 *------------------------------------------------------------------------------*
 FUNCTION PgCheckData(typePG, cValue, aData, mod)
@@ -743,7 +743,7 @@ FUNCTION _ShowInfoItem  ( ParentForm, ControlName )
       Pg_ToggleInfo(aControlHandle[1])
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 *------------------------------------------------------------------------------*
 FUNCTION _AddPropertyItem  ( ControlName, ParentForm, cCategory, cType, cName, cValue, aData, disabled, disableedit, id, Info, cValName, cValNameDef, mod )
@@ -806,7 +806,7 @@ FUNCTION _AddPropertyItem  ( ControlName, ParentForm, cCategory, cType, cName, c
       MsgInfo ( _HMG_PGLangError[10] + AllTrim(Str(Id)) + _HMG_PGLangError[11], _HMG_PGLangMessage[3] )
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 *------------------------------------------------------------------------------*
 FUNCTION _AddPropertyCategory  ( ControlName, ParentForm, cCategory, cName, id, Info )
@@ -860,7 +860,7 @@ FUNCTION _AddPropertyCategory  ( ControlName, ParentForm, cCategory, cName, id, 
       MsgInfo ( _HMG_PGLangError[10] + AllTrim(Str(Id)) + _HMG_PGLangError[11], _HMG_PGLangMessage[3] )
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 *------------------------------------------------------------------------------*
 FUNCTION PgInitItem( aRowItem, k )
@@ -883,7 +883,7 @@ FUNCTION PgInitItem( aRowItem, k )
    TreeView_SelectItem(ControlHandle, PG_GetRoot(ControlHandle))
    SetFocus(ControlHandle)
 
-RETURN Nil
+RETURN NIL
 
 *------------------------------------------------------------------------------*
 FUNCTION PgInitItemXml( cFile, k )
@@ -929,7 +929,7 @@ FUNCTION PgInitItemXml( cFile, k )
    TreeView_SelectItem(ControlHandle, PG_GetRoot(ControlHandle))
    SetFocus(ControlHandle)
 
-RETURN Nil
+RETURN NIL
 
 *------------------------------------------------------------------------------*
 FUNCTION PgGetNextLevel( oXmlSubNode, ControlHandle, nLev, aNodeHandle, k )
@@ -981,7 +981,7 @@ FUNCTION PgGetAttr( oXmlNode, cAttr )
 
    LOCAL xAttr := oXmlNode:GetAttribute(cAttr)
 
-RETURN IIF(xAttr == Nil, "", xAttr)
+RETURN IIF(xAttr == NIL, "", xAttr)
 
 *------------------------------------------------------------------------------*
 FUNCTION ExpandPG(hWndPG, typ)
@@ -1005,7 +1005,7 @@ FUNCTION ExpandPG(hWndPG, typ)
       hItem := PG_GetNextItem(hWndPG, hItem)
    ENDDO
 
-RETURN Nil
+RETURN NIL
 
 *------------------------------------------------------------------------------*
 FUNCTION ExpandCategPG( ParentForm, ControlName, cCategory, typ )
@@ -1035,7 +1035,7 @@ FUNCTION ExpandCategPG( ParentForm, ControlName, cCategory, typ )
       ENDIF
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 *------------------------------------------------------------------------------*
 FUNCTION PgAddItem( ControlHandle, aRowIt, nLev, aNodeHandle, nIndex, lSelect )
@@ -1232,7 +1232,7 @@ FUNCTION PgLoadImag(cFile, k, hItem)
    ENDIF
    ResetPropGridImageList(_HMG_aControlHandles[k, 1], hItem, hImage)
 
-RETURN Nil
+RETURN NIL
 
 *------------------------------------------------------------------------------*
 FUNCTION PgIdentData(cData, typePG, cValue, sep)
@@ -2110,7 +2110,7 @@ FUNCTION RedrawPropGridItem ( ParentForm, ControlName, nID )
       ENDIF
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 *------------------------------------------------------------------------------*
 FUNCTION GetPropGridValue ( ParentForm, ControlName, nID, lAllData, nSubItem )
@@ -2312,7 +2312,7 @@ FUNCTION FormatPropertyLine(cString)
       aLine := ASize(aLine, 10)
    ENDIF
    FOR n := 1 TO 10
-      IF aLine[n] == Nil
+      IF aLine[n] == NIL
          IF n == 8
             aLine[n] :=  nItemId++
          ELSE
@@ -2358,7 +2358,7 @@ FUNCTION FormatIniLine(cString)
       aLine := ASize(aLine, 10)
    ENDIF
    FOR n := 1 TO 10
-      IF aLine[n] == Nil
+      IF aLine[n] == NIL
          IF n == 8
             aLine[n] := nItemId++
          ELSE
@@ -2402,7 +2402,7 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
    LOCAL bData
    LOCAL lChg
 
-   lParam := Nil //unused parameter
+   lParam := NIL //unused parameter
 
    IF ( i := AScan(_HMG_aControlHandles, {|x|hb_IsArray(x) .AND. x[1] == hwndPG}) ) == 0
       RETURN 0
@@ -2858,7 +2858,7 @@ FUNCTION _PGInitData(hWnd, hEdit, hWndItem, ItemType)
       ENDSWITCH
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 *------------------------------------------------------------------------------*
 FUNCTION ArrayDlg( cArr, FormName )
@@ -2924,7 +2924,7 @@ STATIC FUNCTION DialogFun( lOk, aItem, aItemOld )
    LOCAL pos
    LOCAL hListBox
 
-   IF DLG_ID != Nil
+   IF DLG_ID != NIL
       hListBox := Getdialogitemhandle(DLG_HWND, 102)
       DO CASE
       CASE DLG_ID == 101 .AND. DLG_NOT == 1024
@@ -3006,7 +3006,7 @@ STATIC FUNCTION SetInitItem( aItem, met )
       ListboxAddString( hListBox, aItem[i] )
    NEXT i
 
-RETURN Nil
+RETURN NIL
 
 *------------------------------------------------------------------------------*
 STATIC FUNCTION FormatDouble(Text, InputMask)

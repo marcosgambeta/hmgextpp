@@ -287,7 +287,7 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
 
    Do_ControlEventProcedure ( bInit, k )
 
-RETURN nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION InitDialogTextBox( ParentName, ControlHandle, k )
@@ -332,7 +332,7 @@ FUNCTION InitDialogTextBox( ParentName, ControlHandle, k )
       _HMG_aControlDeleted[k] := .T.
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w, ;
@@ -559,7 +559,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
 
    Do_ControlEventProcedure ( bInit, k )
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION InitDialogMaskedTextBox( ParentName, ControlHandle, k )
@@ -588,7 +588,7 @@ FUNCTION InitDialogMaskedTextBox( ParentName, ControlHandle, k )
       _HMG_aControlDeleted[k] := .T.
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION GetNumFromText ( Text , i )
@@ -856,7 +856,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
 
    Do_ControlEventProcedure ( bInit, k )
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 PROCEDURE ProcessCharMask ( i , d )

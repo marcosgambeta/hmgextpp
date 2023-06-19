@@ -51,13 +51,13 @@ CLASS TSBScrlBar FROM TControl
 
    // These two have to be BLOCK
 
-   METHOD GoUp()     BLOCK {|Self, nPos|nPos := ::GetPos(), iif(nPos > ::GetRange()[1], ::SetPos(--nPos), NIL), IIf(::bGoUp != Nil, Eval(::bGoUp), NIL)}
-   METHOD GoDown()   BLOCK {|Self, nPos|nPos := ::GetPos(), iif(nPos < ::nMax, ::SetPos(++nPos), NIL), IIf(::bGoDown != Nil, Eval(::bGoDown), NIL)}
-   METHOD GoTop()    INLINE ::SetPos(::nMin), IIf(::bGoTop != Nil, Eval(::bGoTop), NIL)
-   METHOD GoBottom() INLINE ::SetPos(::nMax), IIf(::bGoBottom != Nil, Eval(::bGoBottom), NIL)
+   METHOD GoUp()     BLOCK {|Self, nPos|nPos := ::GetPos(), iif(nPos > ::GetRange()[1], ::SetPos(--nPos), NIL), IIf(::bGoUp != NIL, Eval(::bGoUp), NIL)}
+   METHOD GoDown()   BLOCK {|Self, nPos|nPos := ::GetPos(), iif(nPos < ::nMax, ::SetPos(++nPos), NIL), IIf(::bGoDown != NIL, Eval(::bGoDown), NIL)}
+   METHOD GoTop()    INLINE ::SetPos(::nMin), IIf(::bGoTop != NIL, Eval(::bGoTop), NIL)
+   METHOD GoBottom() INLINE ::SetPos(::nMax), IIf(::bGoBottom != NIL, Eval(::bGoBottom), NIL)
 
-   METHOD PageUp()   INLINE IIf(::bPageUp != Nil, Eval(::bPageUp), NIL), ::SetPos(::GetPos() - ::nPgStep)
-   METHOD PageDown() INLINE IIf(::bPageDown != Nil, Eval(::bPageDown), NIL), ::SetPos(::GetPos() + ::nPgStep)
+   METHOD PageUp()   INLINE IIf(::bPageUp != NIL, Eval(::bPageUp), NIL), ::SetPos(::GetPos() - ::nPgStep)
+   METHOD PageDown() INLINE IIf(::bPageDown != NIL, Eval(::bPageDown), NIL), ::SetPos(::GetPos() + ::nPgStep)
 
    METHOD SetMode(l32Bit)
 
@@ -74,11 +74,11 @@ CLASS TSBScrlBar FROM TControl
                IIf(::lIsChild, IIf(::lVertical, SB_VERT, SB_HORZ), SB_CTL), ;
                    nMin, nMax, ::lReDraw, ::lShowDisabled, ::l32Bit)   // JP 74
 
-   METHOD ThumbPos( nPos ) INLINE  IIf(::bPos != Nil, Eval(::bPos, nPos), NIL)
+   METHOD ThumbPos( nPos ) INLINE  IIf(::bPos != NIL, Eval(::bPos, nPos), NIL)
 
    METHOD MouseMove(nRow, nCol, nKeyFlags)
 
-   METHOD ThumbTrack( nPos ) INLINE IIf(::bTrack != Nil, Eval(::bTrack, nPos), ::ThumbPos(nPos))
+   METHOD ThumbTrack( nPos ) INLINE IIf(::bTrack != NIL, Eval(::bTrack, nPos), ::ThumbPos(nPos))
 
 ENDCLASS
 
@@ -221,7 +221,7 @@ METHOD MouseMove(nRow, nCol, nKeyFlags) CLASS TSBScrlBar
 
    Local nResult := ::Super:MouseMove(nRow, nCol, nKeyFlags)
 
-Return IIf(::lDrag, nResult, Nil)    // We want standard behavior !!!
+Return IIf(::lDrag, nResult, NIL)    // We want standard behavior !!!
 
 * ============================================================================
 * METHOD TSBScrlBar:SetPage() Version 5.0 27/Feb/2002
@@ -247,7 +247,7 @@ METHOD SetPage(nSize, lReDraw) CLASS TSBScrlBar
 
    SetScrollInfo(IIf(!Empty(::hWnd), ::oWnd:hWnd, ::hWnd), nFlags, nSize, lReDraw, ::lShowDisabled)
 
-Return Nil
+Return NIL
 
 * ============================================================================
 * METHOD TSBScrlBar:SetMode() Version 5.0 27/Feb/2002

@@ -194,11 +194,11 @@ METHOD KeyDown( nKey, nFlags ) CLASS TBtnBox
    If nKey == VK_TAB .OR. nKey == VK_RETURN .OR. nKey == VK_ESCAPE
 
       IF nKey != VK_ESCAPE
-         If ::bSetGet != Nil
+         If ::bSetGet != NIL
             Eval(::bSetGet, ::GetVal())
          EndIf
       ENDIF
-      ::bLostFocus := Nil
+      ::bLostFocus := NIL
       Eval(::bKeyDown, nKey, nFlags, .T.)
    EndIf
 
@@ -226,16 +226,16 @@ METHOD LostFocus( hCtlFocus ) CLASS TBtnBox
 
    DEFAULT ::lAppend := .F.
 
-   If ::nLastKey == Nil .AND. ::lAppend
+   If ::nLastKey == NIL .AND. ::lAppend
       ::SetFocus()
       ::nLastKey := 0
       Return 0
    EndIf
    ::lFocused := .F.
-   If ::bLostFocus != Nil
+   If ::bLostFocus != NIL
       Eval(::bLostFocus, ::nLastKey, hCtlFocus)
    EndIf
-   IF ::hWndChild != Nil
+   IF ::hWndChild != NIL
       ::SetFocus()
    endif
 
@@ -250,7 +250,7 @@ METHOD LButtonDown( nRow, nCol ) CLASS TBtnBox
    HB_SYMBOL_UNUSED(nRow)
    HB_SYMBOL_UNUSED(nCol)
 
-   If ::nLastKey != Nil .AND. ::nLastKey == 9999
+   If ::nLastKey != NIL .AND. ::nLastKey == 9999
       ::nLastKey := 0
    Else
       ::nLastKey := 9999
@@ -306,7 +306,7 @@ METHOD Command(nWParam, nLParam) CLASS TBtnBox
    case hWndCtl != 0
 
       do case
-         case nNotifyCode == 512 .And. nID == 0 .And. ::bAction != Nil
+         case nNotifyCode == 512 .And. nID == 0 .And. ::bAction != NIL
             ::oWnd:lPostEdit := .T.
             Eval(::bAction, Self, Eval(::bSetGet))
             ::bLostFocus := {|nKey|::oWnd:EditExit(::nCell, nKey, ::VarGet(), ::bValid, .F.)}
@@ -333,4 +333,4 @@ METHOD Command(nWParam, nLParam) CLASS TBtnBox
 
    endcase
 
-Return nil
+Return NIL

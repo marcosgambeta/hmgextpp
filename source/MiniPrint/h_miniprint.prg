@@ -305,7 +305,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          Value _hmg_printer_copies
          RangeMin 1
          RangeMax 999
-         OnChange iif(IsControlDefined(CheckBox_1, _HMG_PRINTER_PRINTPAGES), iif(This.Value > 1, SetProperty("_HMG_PRINTER_PRINTPAGES", "CheckBox_1", "Enabled", .T.), SetProperty("_HMG_PRINTER_PRINTPAGES", "CheckBox_1", "Enabled", .F.)), Nil)
+         OnChange iif(IsControlDefined(CheckBox_1, _HMG_PRINTER_PRINTPAGES), iif(This.Value > 1, SetProperty("_HMG_PRINTER_PRINTPAGES", "CheckBox_1", "Enabled", .T.), SetProperty("_HMG_PRINTER_PRINTPAGES", "CheckBox_1", "Enabled", .F.)), NIL)
       End Spinner
 
       Define CheckBox CheckBox_1
@@ -689,7 +689,7 @@ STATIC PROCEDURE CreateThumbNails()
          tWidth,;
          tHeight,;
          {||&cAction},;
-         Nil,;
+         NIL,;
          .F.,;
          .F.,;
          .T.;
@@ -2194,8 +2194,8 @@ FUNCTION _DefineEmfFile(ControlName, ParentFormName, x, y, FileName, w, h, Proce
    _HMG_aControlGotFocusProcedure  [k] := ""
    _HMG_aControlChangeProcedure    [k] := ""
    _HMG_aControlDeleted            [k] := .F.
-   _HMG_aControlBkColor            [k] := Nil
-   _HMG_aControlFontColor          [k] := Nil
+   _HMG_aControlBkColor            [k] := NIL
+   _HMG_aControlFontColor          [k] := NIL
    _HMG_aControlDblClick           [k] := ""
    _HMG_aControlHeadClick          [k] := {}
    _HMG_aControlRow                [k] := y
@@ -2222,6 +2222,6 @@ FUNCTION _DefineEmfFile(ControlName, ParentFormName, x, y, FileName, w, h, Proce
    _HMG_aControlMiscData1          [k] := 0
    _HMG_aControlMiscData2          [k] := ""
 
-RETURN Nil
+RETURN NIL
 
 //----------------------------------------------------------------------------//

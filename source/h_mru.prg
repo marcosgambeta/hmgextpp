@@ -59,7 +59,7 @@
 #define cMRU_Id       asMRU[5]
 #define maxMRU_Files  asMRU[6]
 
-STATIC asMRU := { Nil, Nil, Nil, Nil, Nil, Nil }
+STATIC asMRU := { NIL, NIL, NIL, NIL, NIL, NIL }
 STATIC aMRU_File
 
 *-----------------------------------------------------------------------------*
@@ -76,7 +76,7 @@ FUNCTION AddMRUItem( NewItem , action )
       AddMenuElement(NewItem, action)
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION CheckForDuplicateMRU( NewItem )
@@ -110,7 +110,7 @@ FUNCTION AddMenuElement(NewItem, cAction)
    LOCAL cx
 
    Caption := iif(Len(NewItem) < 40, NewItem, SubStr(NewItem, 1, 3) + "..." + SubStr(NewItem, Len(NewItem) - 34))
-   action := iif(cAction == NIL, {||Nil}, &("{||" + Left(cAction, At("(", cAction)) + " " + Chr(34) + NewItem + Chr(34) + ")}"))
+   action := iif(cAction == NIL, {||NIL}, &("{||" + Left(cAction, At("(", cAction)) + " " + Chr(34) + NewItem + Chr(34) + ")}"))
 
    // Check if this is the first item
    IF MRUCount == 0
@@ -148,7 +148,7 @@ FUNCTION AddMenuElement(NewItem, cAction)
    // Increment the menu count
    MRUCount++
       
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION ReorderMRUList(DuplicateLocation)
@@ -164,7 +164,7 @@ STATIC FUNCTION ReorderMRUList(DuplicateLocation)
       hb_ADel( aMRU_File, DuplicateLocation, .T. )
    ENDIF
    
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION SaveMRUFileList()
@@ -183,7 +183,7 @@ FUNCTION SaveMRUFileList()
 
    END INI
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION _DefineMruItem ( caption , cIniFile , cSection , nMaxItems , action , name )
@@ -236,7 +236,7 @@ FUNCTION _DefineMruItem ( caption , cIniFile , cSection , nMaxItems , action , n
    IF lExist
 
       IF Empty(action)
-         action := Nil
+         action := NIL
       ENDIF
 
       FOR EACH n IN aTmp DESCEND
@@ -249,7 +249,7 @@ FUNCTION _DefineMruItem ( caption , cIniFile , cSection , nMaxItems , action , n
 
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION ClearMRUList()
@@ -261,7 +261,7 @@ FUNCTION ClearMRUList()
    FOR EACH n IN aMRU_File DESCEND
       cxMRU_Id := n[3]
       IF n:__enumIsLast()
-         _ModifyMenuItem( cxMRU_Id , MRUParentForm , " (Empty) " , {||Nil} )
+         _ModifyMenuItem( cxMRU_Id , MRUParentForm , " (Empty) " , {||NIL} )
          SetProperty( MRUParentForm , cxMRU_Id , "Enabled" , .F. )
          cMRU_Id := cxMRU_Id
          aMRU_File := {}
@@ -271,4 +271,4 @@ FUNCTION ClearMRUList()
       ENDIF
    NEXT
 
-RETURN Nil
+RETURN NIL

@@ -196,7 +196,7 @@ FUNCTION _DefineSlider(ControlName, ParentFormName, x, y, w, h, lo, hi, value, ;
    _HMG_aControlChangeProcedure    [k] := change
    _HMG_aControlDeleted            [k] := .F.
    _HMG_aControlBkColor            [k] := backcolor
-   _HMG_aControlFontColor          [k] := Nil
+   _HMG_aControlFontColor          [k] := NIL
    _HMG_aControlDblClick           [k] := _HMG_ActiveTabButtons
    _HMG_aControlHeadClick          [k] := {}
    _HMG_aControlRow                [k] := y
@@ -233,7 +233,7 @@ FUNCTION _DefineSlider(ControlName, ParentFormName, x, y, w, h, lo, hi, value, ;
 
    Do_ControlEventProcedure(bInit, k, ow, oc)
 
-RETURN Nil
+RETURN NIL
 
 FUNCTION InitDialogSlider(ParentName, ControlHandle, k)
 
@@ -245,7 +245,7 @@ FUNCTION InitDialogSlider(ParentName, ControlHandle, k)
       _HMG_aControlDeleted[k] := .T.
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 #pragma BEGINDUMP
 

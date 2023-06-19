@@ -307,7 +307,7 @@ METHOD OnDestroyed(hWnd, nNotify, nWParam, nLParam) CLASS TTaskDialog
 
    IF nNotify == TDN_DESTROYED
       ::lActive := .F.
-      ::HWND := Nil
+      ::HWND := NIL
    ENDIF
 
 RETURN .F.

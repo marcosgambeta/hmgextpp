@@ -123,14 +123,14 @@ FUNCTION _BeginMessageBar( ControlName, ParentForm, kbd, fontname, fontsize, bol
    _HMG_aControlIds                [k] := ID_STATUSBAR
    _HMG_aControlProcedures         [k] := ""
    _HMG_aControlPageMap            [k] := {}
-   _HMG_aControlValue              [k] := Nil
+   _HMG_aControlValue              [k] := NIL
    _HMG_aControlInputMask          [k] := ""
    _HMG_aControllostFocusProcedure [k] := ""
    _HMG_aControlGotFocusProcedure  [k] := ""
    _HMG_aControlChangeProcedure    [k] := ""
    _HMG_aControlDeleted            [k] := .F.
-   _HMG_aControlBkColor            [k] := Nil
-   _HMG_aControlFontColor          [k] := Nil
+   _HMG_aControlBkColor            [k] := NIL
+   _HMG_aControlFontColor          [k] := NIL
    _HMG_aControlDblClick           [k] := ""
    _HMG_aControlHeadClick          [k] := {}
    _HMG_aControlRow                [k] := 0
@@ -167,7 +167,7 @@ FUNCTION _BeginMessageBar( ControlName, ParentForm, kbd, fontname, fontsize, bol
       _SetStatusBarKbd(ControlName, ParentForm)
    ENDIF
 
-RETURN Nil
+RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION _EndMessageBar()
 *-----------------------------------------------------------------------------*
@@ -186,7 +186,7 @@ FUNCTION _EndMessageBar()
    _HMG_ActiveMessageBarName := ""
    _HMG_StatusItemCount      := 0
 
-RETURN Nil
+RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION _DefineItemMessage ( ControlName, ParentControl, x, y, Caption, ProcedureName, w, h, icon, cstyl, tooltip, default, backcolor, fontcolor, align )
 *-----------------------------------------------------------------------------*
@@ -264,7 +264,7 @@ FUNCTION _DefineItemMessage ( ControlName, ParentControl, x, y, Caption, Procedu
    _HMG_aControlIds                [k] := 0
    _HMG_aControlProcedures         [k] := ProcedureName
    _HMG_aControlPageMap            [k] := {}
-   _HMG_aControlValue              [k] := Nil
+   _HMG_aControlValue              [k] := NIL
    _HMG_aControlInputMask          [k] := ""
    _HMG_aControllostFocusProcedure [k] := ""
    _HMG_aControlGotFocusProcedure  [k] := ""
@@ -323,7 +323,7 @@ FUNCTION _SetStatusClock ( BarName , FormName , Width , ToolTip , Action , lAMPM
 
    _DefineTimer ( "StatusTimer" , FormName , 1000 , {||_SetItem(BarName, FormName, nrItem, iif(lAMPM, AMPM(Time()), Time()))} )
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION _SetStatusKeybrd(BarName, FormName, Width, ToolTip, action)
@@ -354,7 +354,7 @@ FUNCTION _SetStatusKeybrd(BarName, FormName, Width, ToolTip, action)
       _SetStatusIcon ( BarName , FormName , nrItem2 , iif(IsCapsLockActive() , "zzz_led_on" , "zzz_led_off") ), ;
       _SetStatusIcon ( BarName , FormName , nrItem3 , iif(IsInsertActive() , "zzz_led_on" , "zzz_led_off") )} )
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION _IsOwnerDrawStatusBarItem( ParentHandle , ItemID , Value , lSet )
@@ -379,7 +379,7 @@ FUNCTION _IsOwnerDrawStatusBarItem( ParentHandle , ItemID , Value , lSet )
 
          IF ++nLocID == ItemID
 
-            IF ( lOwnerDraw := ( _HMG_aControlBkColor[i] != Nil .OR. _HMG_aControlFontColor[i] != Nil ) )
+            IF ( lOwnerDraw := ( _HMG_aControlBkColor[i] != NIL .OR. _HMG_aControlFontColor[i] != NIL ) )
                IF lSet
                   _HMG_aControlCaption[i] := Value
                ELSE
@@ -435,7 +435,7 @@ FUNCTION _SetStatusBarKbd(BarName, FormName)
       _SetStatusItemProperty( 3, iif(IsNumLockActive(), BLACK, SILVER), GetFormHandle(FormName), STATUS_ITEM_FONTCOLOR ), ;
       _SetStatusItemProperty( 4, iif(IsScrollLockActive(), BLACK, SILVER), GetFormHandle(FormName), STATUS_ITEM_FONTCOLOR )} )
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION _GetStatusItemWidth(hWnd, nItem)
@@ -495,7 +495,7 @@ FUNCTION _SetStatusItemProperty( nItem, Value, hWnd, nType )
 
    NEXT
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION _SetStatusProgressMessage ( BarName , FormName , Width , ToolTip , Action , nValue , nMin , nMax )
@@ -524,7 +524,7 @@ FUNCTION _SetStatusProgressMessage ( BarName , FormName , Width , ToolTip , Acti
    _HMG_aControlRangeMax[i]  := nMax
    _HMG_aControlValue[i]     := nValue
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION _SetStatusProgressPos ( FormName, nValue )
@@ -536,7 +536,7 @@ FUNCTION _SetStatusProgressPos ( FormName, nValue )
       SetPosProgressBarItem ( _HMG_aControlMiscData1[i, 2], hb_defaultValue(nValue, 0) )
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION _SetStatusProgressRange ( FormName, nMin, nMax )
@@ -548,4 +548,4 @@ FUNCTION _SetStatusProgressRange ( FormName, nMin, nMax )
       SetProgressBarRange ( _HMG_aControlMiscData1[i, 2], hb_defaultValue(nMin, 0), hb_defaultValue(nMax, 100) )
    ENDIF
 
-RETURN Nil
+RETURN NIL

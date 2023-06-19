@@ -303,7 +303,7 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
       ENDIF
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION InitDialogListBox( ParentName, ControlHandle, k )
@@ -340,7 +340,7 @@ FUNCTION InitDialogListBox( ParentName, ControlHandle, k )
       _HMG_aControlDeleted[k] := .T.
    ENDIF
 
-   RETURN Nil
+   RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION LB_Array2String( aData, Sep )

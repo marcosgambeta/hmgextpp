@@ -262,7 +262,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
    _HMG_aControlIds                [k] := nId
    _HMG_aControlProcedures         [k] := ""
    _HMG_aControlPageMap            [k] := Field
-   _HMG_aControlValue              [k] := Nil
+   _HMG_aControlValue              [k] := NIL
    _HMG_aControlInputMask          [k] := ""
    _HMG_aControllostFocusProcedure [k] := lostfocus
    _HMG_aControlGotFocusProcedure  [k] := gotfocus
@@ -314,12 +314,12 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
 
    Do_ControlEventProcedure(bInit, k, ow, oc)
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 PROCEDURE _DataEditBoxRefresh ( i )
 *-----------------------------------------------------------------------------*
-   
+
    LOCAL Field := _HMG_aControlPageMap[i]
    LOCAL icp
 
@@ -344,7 +344,7 @@ FUNCTION InitDialogEdit(ParentName, ControlHandle, k)
    LOCAL maxlength
    LOCAL readonly
 
-   ParentName := Nil
+   ParentName := NIL
 
    maxlength := _HMG_aControlMiscData1[k, 2]
    readonly  := _HMG_aControlMiscData1[k, 3]
@@ -360,4 +360,4 @@ FUNCTION InitDialogEdit(ParentName, ControlHandle, k)
       _HMG_aControlDeleted[k] := .T.
    ENDIF
 
-RETURN Nil
+RETURN NIL

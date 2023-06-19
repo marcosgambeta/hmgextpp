@@ -134,14 +134,14 @@ FUNCTION _DefineIPAddress ( ControlName, ParentForm, x, y, w, h, aValue, ;
    _HMG_aControlIds                [k] := 0
    _HMG_aControlProcedures         [k] := ""
    _HMG_aControlPageMap            [k] := {}
-   _HMG_aControlValue              [k] := Nil
+   _HMG_aControlValue              [k] := NIL
    _HMG_aControlInputMask          [k] := ""
    _HMG_aControllostFocusProcedure [k] := lostfocus
    _HMG_aControlGotFocusProcedure  [k] := gotfocus
    _HMG_aControlChangeProcedure    [k] := change
    _HMG_aControlDeleted            [k] := .F.
-   _HMG_aControlBkColor            [k] := Nil
-   _HMG_aControlFontColor          [k] := Nil
+   _HMG_aControlBkColor            [k] := NIL
+   _HMG_aControlFontColor          [k] := NIL
    _HMG_aControlDblClick           [k] := ""
    _HMG_aControlHeadClick          [k] := {}
    _HMG_aControlRow                [k] := y
@@ -172,4 +172,4 @@ FUNCTION _DefineIPAddress ( ControlName, ParentForm, x, y, w, h, aValue, ;
       Eval(_HMG_bOnControlInit, k, mVar)
    ENDIF
 */
-RETURN Nil
+RETURN NIL

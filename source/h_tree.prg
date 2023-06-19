@@ -289,7 +289,7 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
    _HMG_aControlIds                [k] := nId
    _HMG_aControlProcedures         [k] := ""
    _HMG_aControlPageMap            [k] := {}
-   _HMG_aControlValue              [k] := Nil
+   _HMG_aControlValue              [k] := NIL
    _HMG_aControlInputMask          [k] := itemids
    _HMG_aControllostFocusProcedure [k] := lostfocus
    _HMG_aControlGotFocusProcedure  [k] := gotfocus

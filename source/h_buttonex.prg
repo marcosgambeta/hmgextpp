@@ -118,7 +118,7 @@ FUNCTION _DefineOwnerButton(ControlName, ParentForm, x, y, Caption, ;
    ENDIF
 
    IF _HMG_ToolBarActive
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    IF (FontHandle := GetFontHandle(FontName)) != HMG_NULLHANDLE
@@ -154,11 +154,11 @@ FUNCTION _DefineOwnerButton(ControlName, ParentForm, x, y, Caption, ;
       image := cPicture[1]
    ENDIF
 
-   IF aRGB_bk !=NIL .AND. !IsArrayRGB(aRGB_bk)
+   IF aRGB_bk != NIL .AND. !IsArrayRGB(aRGB_bk)
       aRGB_bk := nRGB2Arr(aRGB_bk)
    ENDIF
 
-   IF aRGB_font !=NIL .AND. !IsArrayRGB(aRGB_font)
+   IF aRGB_font != NIL .AND. !IsArrayRGB(aRGB_font)
       aRGB_font := nRGB2Arr(aRGB_font)
    ENDIF
 
@@ -270,7 +270,7 @@ FUNCTION _DefineOwnerButton(ControlName, ParentForm, x, y, Caption, ;
 
    _SetHotKeyByName(cParentForm, ckey, ProcedureName)
 
-RETURN Nil
+RETURN NIL
 
 FUNCTION OBTNEVENTS(hWnd, nMsg, wParam, lParam)
    

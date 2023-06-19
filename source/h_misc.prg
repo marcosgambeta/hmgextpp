@@ -56,7 +56,7 @@ FUNCTION GetData()
    LOCAL i
    LOCAL Rows
    LOCAL Cols
-   LOCAL RetVal := Nil
+   LOCAL RetVal := NIL
    LOCAL aItem
    LOCAL aTemp := {}
    LOCAL r
@@ -309,7 +309,7 @@ FUNCTION SendData(cDest, Data)
 
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION HMG_ClrToHTML( nClr )
@@ -647,7 +647,7 @@ RETURN dDate
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION ParseNumsFromDateStr(cStr)
 *-----------------------------------------------------------------------------*
-   
+
    LOCAL aNum := {}
    LOCAL cNum := ""
    LOCAL c

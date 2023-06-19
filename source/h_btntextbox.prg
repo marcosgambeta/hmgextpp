@@ -325,7 +325,7 @@ FUNCTION _DefineBtnTextBox(ControlName, ParentFormName, x, y, w, h, ;
 
    Do_ControlEventProcedure(bInit, k, ow, oc)
 
-RETURN nil
+RETURN NIL
 
 FUNCTION InitDialogBtnTextBox(ParentName, ControlHandle, k)
 
@@ -373,7 +373,7 @@ FUNCTION InitDialogBtnTextBox(ParentName, ControlHandle, k)
       _HMG_aControlDeleted[k] := .T.
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 FUNCTION TBBtnEvents(hwndEdit, HwndBtn, nMsg)
 

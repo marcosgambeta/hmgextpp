@@ -237,18 +237,18 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
                  uo := obr:GetColumn( "VALUE" ):Cargo
                  obr:GetColumn( "VALUE" ):nEditWidth := 0
                  IF uo != NIL .AND. uo == uv
-                    RETURN Nil
+                    RETURN NIL
                  ENDIF
                  ob := obr:Cargo
                  IF !hb_IsObject(ob) .OR. !ob:lIsDbf
-                    RETURN Nil
+                    RETURN NIL
                  ENDIF
                  oc := ob:GetColumn( cn )
                  nm := oc:nEditMove
                  oc:nEditMove := 0
                  ob:PostEdit(uv, ob:nColumn(oc:cName))
                  oc:nEditMove := nm
-                 RETURN Nil
+                 RETURN NIL
                >
          ENDIF
       ENDIF
@@ -394,7 +394,7 @@ FUNCTION _TBrowse(oParam, uAlias, cBrw, nY, nX, nW, nH)
                              oCol:cSpcHeading := cCnt
                          NEXT
                       ENDIF
-                      RETURN Nil
+                      RETURN NIL
                     }
 
    DEFAULT oParam:bAdjColumns := {|ob|               // "раст€гивание" колонок в пределах окна тсб
@@ -410,7 +410,7 @@ FUNCTION _TBrowse(oParam, uAlias, cBrw, nY, nX, nW, nH)
                          NEXT
                       ENDIF
                       ob:AdjColumns( aCol )
-                      RETURN Nil
+                      RETURN NIL
                     }
 
    DEFAULT bEnd  := {|ob, op|
@@ -425,7 +425,7 @@ FUNCTION _TBrowse(oParam, uAlias, cBrw, nY, nX, nW, nH)
                       ENDIF
                       ob:SetNoHoles()
                       ob:SetFocus()
-                      RETURN Nil
+                      RETURN NIL
                     }
 
    DEFINE TBROWSE &cBrw OBJ oBrw AT nY,nX WIDTH nW HEIGHT nH CELL ;

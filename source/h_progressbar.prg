@@ -236,7 +236,7 @@ FUNCTION _DefineProgressBar ( ControlName, ParentFormName, x, y, w, h, lo, hi, ;
 
    Do_ControlEventProcedure ( bInit, k, ow, oc )
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION InitDialogProgressBar( ParentName, ControlHandle, k )
@@ -268,4 +268,4 @@ FUNCTION InitDialogProgressBar( ParentName, ControlHandle, k )
       _HMG_aControlDeleted[k] := .T.
    ENDIF
 
-RETURN Nil
+RETURN NIL

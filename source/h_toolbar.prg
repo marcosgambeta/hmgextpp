@@ -127,8 +127,8 @@ FUNCTION _DefineToolBar ( ControlName, ParentForm, x, y, caption, ProcedureName,
    _HMG_aControlGotFocusProcedure  [k] := ""
    _HMG_aControlChangeProcedure    [k] := ""
    _HMG_aControlDeleted            [k] := .F.
-   _HMG_aControlBkColor            [k] := Nil
-   _HMG_aControlFontColor          [k] := Nil
+   _HMG_aControlBkColor            [k] := NIL
+   _HMG_aControlFontColor          [k] := NIL
    _HMG_aControlDblClick           [k] := ""
    _HMG_aControlHeadClick          [k] := {}
    _HMG_aControlRow                [k] := y
@@ -205,7 +205,7 @@ FUNCTION _EndToolBar()
 
    _HMG_ToolBarActive         := .F.
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION _DefineToolButton ( ControlName, ParentControl, x, y, Caption, ProcedureName, w, h, image , tooltip , gotfocus , lostfocus , flat , separator , autosize , check , group , dropdown , WholeDropDown, adjust , imageindex, notrans )
@@ -294,8 +294,8 @@ FUNCTION _DefineToolButton ( ControlName, ParentControl, x, y, Caption, Procedur
    _HMG_aControlGotFocusProcedure  [k] := gotfocus
    _HMG_aControlChangeProcedure    [k] := ""
    _HMG_aControlDeleted            [k] := .F.
-   _HMG_aControlBkColor            [k] := Nil
-   _HMG_aControlFontColor          [k] := Nil
+   _HMG_aControlBkColor            [k] := NIL
+   _HMG_aControlFontColor          [k] := NIL
    _HMG_aControlDblClick           [k] := ""
    _HMG_aControlHeadClick          [k] := {}
    _HMG_aControlRow                [k] := y
@@ -339,7 +339,7 @@ FUNCTION _DefineToolButton ( ControlName, ParentControl, x, y, Caption, Procedur
 
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION _AddToolBarToSplitBox ( ControlName , break , Caption , ParentForm )
@@ -377,7 +377,7 @@ STATIC FUNCTION _AddToolBarToSplitBox ( ControlName , break , Caption , ParentFo
       AddSplitBoxItem ( c , _HMG_aFormReBarHandle[i] , w , break , Caption , MinWidth , MinHeight , _HMG_ActiveSplitBoxInverted , _HMG_aControlRangeMin[ix] )
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION _BeginToolBar ( name, parent, row, col, w, h, caption, ProcedureName, fontname, fontsize, tooltip, flat, bottom, righttext, break, bold, italic, underline, strikeout, border, wrap, custom )
@@ -414,7 +414,7 @@ FUNCTION _BeginToolBar ( name, parent, row, col, w, h, caption, ProcedureName, f
 
    _DefineToolBar ( name , parent , col , row , caption , ProcedureName , w , h , fontname , fontsize , tooltip , flat , bottom , righttext , break , bold , italic , underline , strikeout , border , .F. , 0 , 0 , , , wrap, custom )
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION _BeginToolBarEx( name, parent, row, col, w, h, caption, ProcedureName, fontname, fontsize, tooltip, flat, bottom, righttext, break, bold, italic, underline, strikeout, border , mixedbuttons , rows , tbsize, imagelst , hotimagelst , wrap, custom )
@@ -465,7 +465,7 @@ FUNCTION _BeginToolBarEx( name, parent, row, col, w, h, caption, ProcedureName, 
 
    _DefineToolBar ( name , parent , col , row , caption , ProcedureName , w , h , fontname , fontsize , tooltip , flat , bottom , righttext , break , bold , italic , underline , strikeout , border , mixedbuttons , rows , tbsize, imagelst , hotimagelst , wrap, custom )
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION _CreatePopUpChevron ( hWnd, wParam, lParam )
@@ -532,7 +532,7 @@ FUNCTION _CreatePopUpChevron ( hWnd, wParam, lParam )
    DefWindowProc(hWnd, RBN_CHEVRONPUSHED, wParam, lParam)
    DestroyMenu( hMenu )
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 STATIC PROCEDURE _DropDownShortcut ( nToolButtonId , nParentWindowHandle , i , nButtonPos )

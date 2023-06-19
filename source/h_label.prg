@@ -218,7 +218,7 @@ FUNCTION _DefineLabel(ControlName, ParentFormName, x, y, Caption, w, h, ;
    _HMG_aControlIds                [k] := nId
    _HMG_aControlProcedures         [k] := ProcedureName
    _HMG_aControlPageMap            [k] := {}
-   _HMG_aControlValue              [k] := Nil
+   _HMG_aControlValue              [k] := NIL
    _HMG_aControlInputMask          [k] := transparent
    _HMG_aControllostFocusProcedure [k] := mouseleave
    _HMG_aControlGotFocusProcedure  [k] := mouseover
@@ -273,7 +273,7 @@ FUNCTION _DefineLabel(ControlName, ParentFormName, x, y, Caption, w, h, ;
 
    Do_ControlEventProcedure(bInit, k, ow, oc)
 
-RETURN Nil
+RETURN NIL
 
 FUNCTION InitDialogLabel(ParentFormName, ControlHandle, k)
 
@@ -296,7 +296,7 @@ FUNCTION InitDialogLabel(ParentFormName, ControlHandle, k)
       _HMG_aControlDeleted[k] := .T.
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 FUNCTION OLABELEVENTS(hWnd, nMsg, wParam, lParam)
 

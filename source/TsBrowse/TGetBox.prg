@@ -66,7 +66,7 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
    ::nBottom       := ::nTop + nHeight - 1
    ::nRight        := ::nLeft + nWidth - 1
    
-   if oWnd == Nil
+   if oWnd == NIL
       oWnd         := Self
       oWnd:hWnd    := GetFormHandle(cWnd)
    endif
@@ -158,7 +158,7 @@ METHOD KeyDown( nKey, nFlags ) CLASS TGetBox
    ::nLastKey := nKey
 
    If nKey == VK_TAB .OR. nKey == VK_RETURN .OR. nKey == VK_ESCAPE
-      ::bLostFocus := Nil
+      ::bLostFocus := NIL
       Eval(::bKeyDown, nKey, nFlags, .T.)
    Endif
 
@@ -186,7 +186,7 @@ METHOD LostFocus( hCtlFocus ) CLASS TGetBox
 
    ::lFocused := .F.
 
-   If ::bLostFocus != Nil
+   If ::bLostFocus != NIL
       Eval(::bLostFocus, ::nLastKey, hCtlFocus)
    EndIf
 

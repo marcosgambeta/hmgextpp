@@ -117,7 +117,7 @@ FUNCTION _BeginScrSaver( cSSaver, lNoShow, cInit, cRelease, cPaint, nTimer, aBac
 
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION _ActivateScrSaver( aForm, cParam )
@@ -188,7 +188,7 @@ FUNCTION _ActivateScrSaver( aForm, cParam )
 
    ENDCASE
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION _ReleaseScrSaver( cRelease, cSSaver, cPaint )
@@ -208,7 +208,7 @@ FUNCTION _ReleaseScrSaver( cRelease, cSSaver, cPaint )
 
    SystemParametersInfo( SPI_SCREENSAVERRUNNING, 0, @Dummy, 0 )
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION _lValidScrSaver()

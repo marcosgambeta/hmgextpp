@@ -59,7 +59,7 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
    ::nLeft        := nCol
    ::nBottom      := ::nTop + nHeight - 1
    ::nRight       := ::nLeft + nWidth - 1
-   if oWnd == Nil
+   if oWnd == NIL
        oWnd := Self
        oWnd:hWnd  := GetFormHandle(cWnd)           //JP
    endif
@@ -91,7 +91,7 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
 
    ::SetColor( nClrFore, nClrBack )
 
-   if oWnd == Nil
+   if oWnd == NIL
        oWnd := GetFormHandle(cWnd)                 //JP
    endif
 
@@ -169,7 +169,7 @@ METHOD KeyDown( nKey, nFlags ) CLASS TDatePicker
    ::nLastKey := nKey
 
    If nKey == VK_TAB .OR. nKey == VK_RETURN .OR. nKey == VK_ESCAPE
-      ::bLostFocus := Nil
+      ::bLostFocus := NIL
       Eval(::bKeyDown, nKey, nFlags, .T.)
    Endif
 
@@ -205,7 +205,7 @@ METHOD LostFocus() CLASS TDatePicker
 
    Default ::lAppend := .F.
 
-   If ::nLastKey == Nil .AND. ::lAppend
+   If ::nLastKey == NIL .AND. ::lAppend
       ::SetFocus()
       ::nLastKey := 0
       Return 0
@@ -213,7 +213,7 @@ METHOD LostFocus() CLASS TDatePicker
 
    ::lFocused := .F.
 
-   If ::bLostFocus != Nil
+   If ::bLostFocus != NIL
       Eval(::bLostFocus, ::nLastKey)
    EndIf
 

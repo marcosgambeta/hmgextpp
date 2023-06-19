@@ -76,8 +76,8 @@ PROCEDURE _DefineReport(cName)
    _HMG_RPTDATA[127] := 0
    _HMG_RPTDATA[161] := "MAIN"
 
-   _HMG_RPTDATA[164] := Nil
-   _HMG_RPTDATA[165] := Nil
+   _HMG_RPTDATA[164] := NIL
+   _HMG_RPTDATA[165] := NIL
 
    IF cName != "_TEMPLATE_"
 

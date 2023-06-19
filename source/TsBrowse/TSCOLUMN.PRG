@@ -287,7 +287,7 @@ METHOD New(cHeading, bData, cPicture, aColors, aAlign, nWidth, lBitMap, lEdit, b
 
    DEFAULT cHeading    := ""
    DEFAULT bData       := {||NIL}
-   DEFAULT cData       := "{||Nil}"
+   DEFAULT cData       := "{||NIL}"
    DEFAULT cPicture    := NIL
    DEFAULT lBitMap     := .F.
    DEFAULT lEdit       := .F.
@@ -386,12 +386,12 @@ METHOD New(cHeading, bData, cPicture, aColors, aAlign, nWidth, lBitMap, lEdit, b
 
    IF hb_IsObject(Eval(bData))
       ::uBmpCell := bData
-      bData := {||Nil}
-      cData := "{||Nil}"
+      bData := {||NIL}
+      cData := "{||NIL}"
    ELSEIF hb_IsNumeric(Eval(bData)) .AND. lBitMap
       ::uBmpCell := bData
-      bData := {||Nil}
-      cData := "{||Nil}"
+      bData := {||NIL}
+      cData := "{||NIL}"
    ENDIF
 
    IF hb_IsArray(Eval(bdata))

@@ -144,7 +144,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
 
          FOR n := 1 TO Len(aId)
 
-            blInit := iif(n == Len(aId), {|x, y, z|InitDialogRadioGroup(x, y, z)}, {||Nil})
+            blInit := iif(n == Len(aId), {|x, y, z|InitDialogRadioGroup(x, y, z)}, {||NIL})
             AAdd(_HMG_aDialogItems, {aId[n], k, "button", style, 0, x, y, width, spacing, aOptions[n], HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
             IF horizontal
                x += Width + Spacing
@@ -335,7 +335,7 @@ FUNCTION _DefineRadioGroup ( ControlName, ParentFormName, x, y, aOptions, Value,
 
    Do_ControlEventProcedure ( bInit, k, ow, oc )
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION InitDialogRadioGroup( ParentName, ControlHandle, k )
@@ -359,4 +359,4 @@ FUNCTION InitDialogRadioGroup( ParentName, ControlHandle, k )
       _HMG_aControlDeleted[k] := .T.
    ENDIF
 
-RETURN Nil
+RETURN NIL

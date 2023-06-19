@@ -128,18 +128,18 @@ PROCEDURE Init()
 #endif
    _HMG_DateTextBoxActive := .F.
 
-   _HMG_ThisFormName := Nil
-   _HMG_ThisControlName := Nil
+   _HMG_ThisFormName := NIL
+   _HMG_ThisControlName := NIL
 
    _HMG_aBrowseSyncStatus := Array(2)
    _HMG_BrowseSyncStatus := .F.
    _HMG_BrowseUpdateStatus := .F.
 
-   _HMG_ActiveTabBold := Nil
-   _HMG_ActiveTabItalic := Nil
-   _HMG_ActiveTabUnderline := Nil
-   _HMG_ActiveTabStrikeout := Nil
-   _HMG_ActiveTabImages := Nil
+   _HMG_ActiveTabBold := NIL
+   _HMG_ActiveTabItalic := NIL
+   _HMG_ActiveTabUnderline := NIL
+   _HMG_ActiveTabStrikeout := NIL
+   _HMG_ActiveTabImages := NIL
 
    _HMG_ThisFormIndex := 0
 
@@ -179,7 +179,7 @@ PROCEDURE Init()
    _HMG_ThisItemCellCol  := 0
    _HMG_ThisItemCellWidth  := 0
    _HMG_ThisItemCellHeight  := 0
-   _HMG_ThisItemCellValue  := Nil
+   _HMG_ThisItemCellValue  := NIL
 
    _HMG_ThisQueryData  := ""
    _HMG_ThisQueryRowIndex  := 0
@@ -189,9 +189,9 @@ PROCEDURE Init()
    _HMG_ThisIndex    := 0
    _HMG_ShowContextMenus  := .T.
    _HMG_lMultiple   := .T.
-   _HMG_IsMultiple   := Nil
+   _HMG_IsMultiple   := NIL
 
-   _HMG_DefaultIconName  := Nil
+   _HMG_DefaultIconName  := NIL
    _HMG_DefaultFontName  := _GetSysFont()
    _HMG_DefaultFontSize  := Max(9, GetDefaultFontSize())
 
@@ -234,7 +234,7 @@ PROCEDURE Init()
 
    _HMG_ActiveTreeHandle := 0
    _HMG_NodeHandle := Array(255)
-   _HMG_NodeIndex := Nil
+   _HMG_NodeIndex := NIL
    _HMG_aTreeMap := {}
    _HMG_aTreeIdMap := {}
 
@@ -334,7 +334,7 @@ PROCEDURE Init()
    _HMG_ActiveTabFontName := ""
    _HMG_ActiveTabFontSize := 0
    _HMG_ActiveTabToolTip  := ""
-   _HMG_ActiveTabChangeProcedure := Nil
+   _HMG_ActiveTabChangeProcedure := NIL
    _HMG_ActiveTabButtons  := .F.
    _HMG_ActiveTabFlat  := .F.
    _HMG_ActiveTabHotTrack := .F.

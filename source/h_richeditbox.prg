@@ -195,7 +195,7 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
    _HMG_aControlIds                [k] := 0
    _HMG_aControlProcedures         [k] := vscroll
    _HMG_aControlPageMap            [k] := Field
-   _HMG_aControlValue              [k] := Nil
+   _HMG_aControlValue              [k] := NIL
    _HMG_aControlInputMask          [k] := ""
    _HMG_aControllostFocusProcedure [k] := lostfocus
    _HMG_aControlGotFocusProcedure  [k] := gotfocus
@@ -237,7 +237,7 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
       _SetValue ( , , value, k )
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 // Modified by Kevin Carmody <i@kevincarmody.com> 2007.04.23
 *-----------------------------------------------------------------------------*

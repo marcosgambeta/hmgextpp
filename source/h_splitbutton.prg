@@ -91,14 +91,14 @@ PROCEDURE _DefineSplitButton ( cName, nRow, nCol, cCaption, bAction, cParent, ;
    _HMG_aControlIds                [k] := nId
    _HMG_aControlProcedures         [k] := bAction
    _HMG_aControlPageMap            [k] := {}
-   _HMG_aControlValue              [k] := Nil
+   _HMG_aControlValue              [k] := NIL
    _HMG_aControlInputMask          [k] := ""
    _HMG_aControllostFocusProcedure [k] := ""
    _HMG_aControlGotFocusProcedure  [k] := ""
    _HMG_aControlChangeProcedure    [k] := ""
    _HMG_aControlDeleted            [k] := .F.
-   _HMG_aControlBkColor            [k] := Nil
-   _HMG_aControlFontColor          [k] := Nil
+   _HMG_aControlBkColor            [k] := NIL
+   _HMG_aControlFontColor          [k] := NIL
    _HMG_aControlDblClick           [k] := ""
    _HMG_aControlHeadClick          [k] := {}
    _HMG_aControlRow                [k] := nRow
@@ -108,7 +108,7 @@ PROCEDURE _DefineSplitButton ( cName, nRow, nCol, cCaption, bAction, cParent, ;
    _HMG_aControlSpacing            [k] := 0
    _HMG_aControlContainerRow       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameRow[_HMG_FrameLevel], -1)
    _HMG_aControlContainerCol       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1)
-   _HMG_aControlPicture            [k] := Nil
+   _HMG_aControlPicture            [k] := NIL
    _HMG_aControlContainerHandle    [k] := HMG_NULLHANDLE
    _HMG_aControlFontName           [k] := fontname
    _HMG_aControlFontSize           [k] := fontsize
@@ -144,7 +144,7 @@ RETURN
 FUNCTION SPButtonEventHandler ( hWnd, nMsg, wParam, lParam )
 *------------------------------------------------------------------------------*
    
-   LOCAL xRetVal // := Nil
+   LOCAL xRetVal // := NIL
    LOCAL i
 
    HB_SYMBOL_UNUSED(hWnd)
@@ -265,7 +265,7 @@ STATIC FUNCTION LaunchDropdownMenu( nHwnd )
 
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 *------------------------------------------------------------------------------*
 * Low Level C Routines

@@ -62,24 +62,24 @@ FUNCTION httpconnect(Connection, Server, Port)
       Public &Connection
 
       IF Empty(oUrl)
-         &Connection := Nil
+         &Connection := NIL
       ELSE
          &Connection := TIpClientHttp():New( oUrl )
 
          IF !( &Connection ):Open()
-            &Connection := Nil
+            &Connection := NIL
          ENDIF
       ENDIF
 
    ELSE
 
       IF Empty(oUrl)
-         Connection := Nil
+         Connection := NIL
       ELSE
          Connection := TIpClientHttp():New( oUrl )
 
          IF !Connection:Open()
-            Connection := Nil
+            Connection := NIL
          ENDIF
       ENDIF
 

@@ -61,7 +61,7 @@ METHOD New( nRow, nCol, bSetGet, aGetData, nWidth, nHeight, oWnd, bChanged,;
    ::nBottom      := ::nTop + nHeight - 1
    ::nRight       := ::nLeft + nWidth - 1
    
-   if oWnd == Nil
+   if oWnd == NIL
        oWnd       := Self
        oWnd:hWnd  := GetFormHandle(cWnd)                  //JP
    endif
@@ -168,7 +168,7 @@ METHOD KeyDown( nKey, nFlags ) CLASS TComboBox
 
    ::nLastKey := nKey
    If nKey == VK_TAB .OR. nKey == VK_RETURN .OR. nKey == VK_ESCAPE
-      ::bLostFocus := Nil
+      ::bLostFocus := NIL
       Eval(::bKeyDown, nKey, nFlags, .T.)
       Return 0
    Endif
@@ -185,7 +185,7 @@ METHOD LostFocus() CLASS TComboBox
 
    DEFAULT ::lAppend := .F.
 
-   If ::nLastKey == Nil .AND. ::lAppend
+   If ::nLastKey == NIL .AND. ::lAppend
       ::SetFocus()
       ::nLastKey := 0
       Return 0
@@ -206,7 +206,7 @@ METHOD LostFocus() CLASS TComboBox
 
    ::lFocused := .F.
 
-   If ::bLostFocus != Nil
+   If ::bLostFocus != NIL
       Eval(::bLostFocus, ::nLastKey)
    EndIf
 
@@ -245,7 +245,7 @@ METHOD LButtonDown( nRow, nCol ) CLASS TComboBox
    HB_SYMBOL_UNUSED(nRow)
    HB_SYMBOL_UNUSED(nCol)
 
-   If ::nLastKey != Nil .AND. ::nLastKey == 9999
+   If ::nLastKey != NIL .AND. ::nLastKey == 9999
       nShow := 0
       ::nLastKey := 0
    Else

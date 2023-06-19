@@ -176,7 +176,7 @@ FUNCTION GetFont(cInitFontName , nInitFontSize , lBold , lItalic , anInitColor ,
       hb_defaultValue(lUnderLine, .F.) , hb_defaultValue(lStrikeOut, .F.) , hb_defaultValue(nCharSet, 0))
 
    IF Empty(RetArray[1])
-      RetArray[5] := { Nil, Nil, Nil }
+      RetArray[5] := { NIL, NIL, NIL }
    ELSE
       rgbcolor := RetArray[5]
       RetArray[5] := nRGB2Arr( rgbcolor )

@@ -355,7 +355,7 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
 
    Do_ControlEventProcedure(bInit, k, ow, oc)
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION InitDialogBrowse(ParentName, ControlHandle, i)
@@ -447,7 +447,7 @@ FUNCTION InitDialogBrowse(ParentName, ControlHandle, i)
       _HMG_aControlDeleted[i] := .T.
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 STATIC PROCEDURE HMG_OrdCreate(i)
@@ -1240,7 +1240,7 @@ PROCEDURE _BrowseRefresh ( ControlName , ParentForm , z )
       ENDIF
 
       IF IndexOrd() != 0
-         IF ordKeyVal() == Nil
+         IF ordKeyVal() == NIL
             GO TOP
          ENDIF
       ENDIF
@@ -1416,7 +1416,7 @@ FUNCTION _BrowseDelete(ControlName, ParentForm, z)
    i := iif(PCount() == 2, GetControlIndex(ControlName, ParentForm), z)
 
    IF LISTVIEW_GETFIRSTITEM ( _HMG_aControlHandles[i] ) == 0
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    _BrowseRecMap := _HMG_aControlRangeMax[i]
@@ -1424,7 +1424,7 @@ FUNCTION _BrowseDelete(ControlName, ParentForm, z)
    Value := _BrowseRecMap[LISTVIEW_GETFIRSTITEM(_HMG_aControlHandles[i])]
 
    IF Value == 0
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    _Alias := Alias()
@@ -1432,7 +1432,7 @@ FUNCTION _BrowseDelete(ControlName, ParentForm, z)
    _BrowseArea := _HMG_aControlSpacing[i]
 
    IF Select ( _BrowseArea ) == 0
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    Select &_BrowseArea
@@ -1481,7 +1481,7 @@ FUNCTION _BrowseDelete(ControlName, ParentForm, z)
    GO _RecNo
    RestoreWorkArea(_Alias)
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock , append , inplace , InputItems )
@@ -1525,7 +1525,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
    IF LISTVIEW_GETFIRSTITEM ( GridHandle ) == 0
       IF append != NIL
          IF !append
-            RETURN Nil
+            RETURN NIL
          ENDIF
       ENDIF
    ENDIF
@@ -1534,7 +1534,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
    BrowseArea := _HMG_aControlSpacing[i]
 
    IF ( BrowseArea )->( dbInfo( DBI_ISDBF ) ) .AND. ( BrowseArea )->( dbInfo( DBI_ISREADONLY ) )
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    IF InPlace .OR. _HMG_MainClientMDIHandle != 0  // GF HMG 64
@@ -1658,7 +1658,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
                EXIT
             CASE "D"
             CASE "L"
-               AAdd(aFormats, Nil)
+               AAdd(aFormats, NIL)
                EXIT
             CASE "+"
                q := .F.
@@ -1683,7 +1683,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
             aInitValues[z] := Str(aInitValues[z]) // type conversion doesn't matter, field should be readonly
             AAdd(aFormats, Max(1, Len(aInitValues[z])))
          ELSE
-            AAdd(aFormats, Nil)
+            AAdd(aFormats, NIL)
          ENDIF
       ENDIF
 
@@ -1698,7 +1698,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
          MsgAlert ( _HMG_BRWLangError[9], _HMG_BRWLangError[10] )
          GO BackRec
          RestoreWorkArea(BackArea)
-         RETURN Nil
+         RETURN NIL
       ENDIF
    ENDIF
 
@@ -1752,7 +1752,7 @@ FUNCTION _BrowseEdit ( GridHandle , aValid , aValidMessages , aReadOnly , lock ,
 #endif
    ENDIF
 
-RETURN Nil
+RETURN NIL
 
 #ifdef HMG_LEGACY_ON
 *-----------------------------------------------------------------------------*
@@ -2029,7 +2029,7 @@ STATIC FUNCTION _EditRecordOk ( aValid , TmpNames , aValidMessages )
 
                _SetFocus ( "Control_" + hb_ntos(i) , "_Split_1" )
 
-               RETURN Nil
+               RETURN NIL
 
             ENDIF
 
@@ -2041,16 +2041,16 @@ STATIC FUNCTION _EditRecordOk ( aValid , TmpNames , aValidMessages )
 
    RELEASE WINDOW _EditRecord
 
-RETURN Nil
+RETURN NIL
 *-----------------------------------------------------------------------------*
 STATIC FUNCTION _EditRecordCancel ()
 *-----------------------------------------------------------------------------*
 
-   AEval(aResult, {|x, i|HB_SYMBOL_UNUSED(x), aResult[i] := Nil})
+   AEval(aResult, {|x, i|HB_SYMBOL_UNUSED(x), aResult[i] := NIL})
 
    RELEASE WINDOW _EditRecord
 
-RETURN Nil
+RETURN NIL
 #endif
 
 *-----------------------------------------------------------------------------*
@@ -2094,11 +2094,11 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
    IF append
       i := AScan(_HMG_aControlHandles , GridHandle)
       _BrowseInPlaceAppend("", "", i)
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    IF This.CellRowIndex != LISTVIEW_GETFIRSTITEM ( GridHandle )
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    i := AScan(_HMG_aControlhandles , GridHandle)
@@ -2110,12 +2110,12 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
    CellColIndex := This.CellColIndex
 
    IF CellColIndex < 1 .OR. CellColIndex > Len(_GridFields)
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    IF Len(_HMG_aControlBkColor[i]) > 0 .AND. CellColIndex == 1
       PlayHand()
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    aInputMask := _HMG_aControlMiscData1[i][22]
@@ -2136,11 +2136,11 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
 
       IF Len(aReadOnly) >= CellColIndex
 
-         IF aReadOnly[CellColIndex] != Nil
+         IF aReadOnly[CellColIndex] != NIL
 
             IF aReadOnly[CellColIndex]
                _HMG_IPE_CANCELLED := .F.
-               RETURN Nil
+               RETURN NIL
             ENDIF
 
          ENDIF
@@ -2153,7 +2153,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
 
    IF AScan(aEnabledTypes, ( _GridWorkArea )->( _TypeEx ( FieldName ) )) < 1
       MsgAlert ( "Edit of this field is not supported.", _HMG_BRWLangError[10] )
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    r := hb_UAt ( ">", FieldName )
@@ -2170,7 +2170,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
 
    // If the specified area does not exists, when return
    IF Select ( _GridWorkArea ) == 0
-      RETURN Nil
+      RETURN NIL
    ENDIF
 
    // Save Original WorkArea
@@ -2199,7 +2199,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
          GO BackRec
          // Restore Original WorkArea
          RestoreWorkArea(BackArea)
-         RETURN Nil
+         RETURN NIL
       ENDIF
 
    ENDIF
@@ -2221,7 +2221,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
                // Restore Original WorkArea
                RestoreWorkArea(BackArea)
                _HMG_IPE_CANCELLED := .F.
-               RETURN Nil
+               RETURN NIL
             ENDIF
             IF Alias() != _GridWorkArea
                Select &_GridWorkArea
@@ -2453,7 +2453,7 @@ STATIC FUNCTION _BrowseInPlaceEdit ( GridHandle , aValid , aValidMessages , aRea
    // Restore Original WorkArea
    RestoreWorkArea(BackArea)
 
-RETURN Nil
+RETURN NIL
 
 *-----------------------------------------------------------------------------*
 STATIC PROCEDURE _InPlaceEditOk ( i , r , aValid , CellColIndex , sFieldName , AreaName , aValidMessages , lock , ControlType , aInputItems )
@@ -2480,7 +2480,7 @@ STATIC PROCEDURE _InPlaceEditOk ( i , r , aValid , CellColIndex , sFieldName , A
 
       IF Len(aValid) >= CellColIndex
 
-         IF aValid[CellColIndex] != Nil
+         IF aValid[CellColIndex] != NIL
 
             Result := _GetValue("Control_1", "_InPlaceEdit")
 
@@ -2506,7 +2506,7 @@ STATIC PROCEDURE _InPlaceEditOk ( i , r , aValid , CellColIndex , sFieldName , A
 
                   IF Len(aValidMessages) >= CellColIndex
 
-                     IF aValidMessages[CellColIndex] != Nil
+                     IF aValidMessages[CellColIndex] != NIL
 
                         IF hb_IsChar(aValidMessages[CellColIndex])
 

@@ -85,14 +85,14 @@ PROCEDURE _DefineCLButton ( cName, nRow, nCol, cCaption, cNotes, bAction, cParen
    _HMG_aControlIds                [k] := nId
    _HMG_aControlProcedures         [k] := bAction
    _HMG_aControlPageMap            [k] := {}
-   _HMG_aControlValue              [k] := Nil
+   _HMG_aControlValue              [k] := NIL
    _HMG_aControlInputMask          [k] := ""
    _HMG_aControllostFocusProcedure [k] := ""
    _HMG_aControlGotFocusProcedure  [k] := ""
    _HMG_aControlChangeProcedure    [k] := ""
    _HMG_aControlDeleted            [k] := .F.
-   _HMG_aControlBkColor            [k] := Nil
-   _HMG_aControlFontColor          [k] := Nil
+   _HMG_aControlBkColor            [k] := NIL
+   _HMG_aControlFontColor          [k] := NIL
    _HMG_aControlDblClick           [k] := ""
    _HMG_aControlHeadClick          [k] := {}
    _HMG_aControlRow                [k] := nRow
@@ -104,8 +104,8 @@ PROCEDURE _DefineCLButton ( cName, nRow, nCol, cCaption, cNotes, bAction, cParen
    _HMG_aControlContainerCol       [k] := iif(_HMG_FrameLevel > 0, _HMG_ActiveFrameCol[_HMG_FrameLevel], -1)
    _HMG_aControlPicture            [k] := "Arrow"
    _HMG_aControlContainerHandle    [k] := HMG_NULLHANDLE
-   _HMG_aControlFontName           [k] := Nil
-   _HMG_aControlFontSize           [k] := Nil
+   _HMG_aControlFontName           [k] := NIL
+   _HMG_aControlFontSize           [k] := NIL
    _HMG_aControlFontAttributes     [k] := {}
    _HMG_aControlToolTip            [k] := ""
    _HMG_aControlRangeMin           [k] := 0
@@ -113,7 +113,7 @@ PROCEDURE _DefineCLButton ( cName, nRow, nCol, cCaption, cNotes, bAction, cParen
    _HMG_aControlCaption            [k] := ""
    _HMG_aControlVisible            [k] := .T.
    _HMG_aControlHelpId             [k] := 0
-   _HMG_aControlFontHandle         [k] := Nil
+   _HMG_aControlFontHandle         [k] := NIL
    _HMG_aControlBrushHandle        [k] := HMG_NULLHANDLE
    _HMG_aControlEnabled            [k] := .T.
    _HMG_aControlMiscData1          [k] := 0
@@ -160,7 +160,7 @@ RETURN
 FUNCTION CLButtonEventhandler ( hWnd, nMsg, wParam, lParam )
 *------------------------------------------------------------------------------*
    
-   LOCAL RetVal // := Nil
+   LOCAL RetVal // := NIL
    LOCAL i
 
    HB_SYMBOL_UNUSED(hWnd)
@@ -302,7 +302,7 @@ RETURN NIL
 FUNCTION GetCLButtonHandle(cWindow, cControl)
 *------------------------------------------------------------------------------*
 
-   LOCAL RetVal // := Nil
+   LOCAL RetVal // := NIL
 
    IF GetControlType(cControl, cWindow) == CONTROL_TYPE_CLBUTTON
 
@@ -341,7 +341,7 @@ RETURN NIL
 FUNCTION GetCLButtonCaption ( cWindow, cControl )
 *------------------------------------------------------------------------------*
    
-   LOCAL RetVal // := Nil
+   LOCAL RetVal // := NIL
 
    IF GetControlType(cControl, cWindow) == CONTROL_TYPE_CLBUTTON
 
