@@ -376,7 +376,7 @@ Static Function memosay(arg1,arg2,argm1,argl1,argf1,argsize,abold,aita,aunder,as
         dbskip()
      Endif
  endif
- return nil
+ return NIL
 /*
 */
 *-----------------------------------------------------------------------------*
@@ -429,16 +429,16 @@ Function RMiniPar(ArryPar,cmdline,section)
                    asize(ax,0)
                    do case
                       case ascan(arryPar,[DECLARE])= 4
-                           aeval(oWr:aDeclare,{|x|if (x != NIL,aadd(ax, strzero(x[2], 4) + ") " + x[1] ),nil)} )
+                           aeval(oWr:aDeclare,{|x|if (x != NIL,aadd(ax, strzero(x[2], 4) + ") " + x[1] ),NIL)} )
 
                       case ascan(arryPar,[HEAD])= 4
-                           aeval(oWr:aHead,{|x|if (x != NIL,aadd(ax, strzero(x[2], 4) + ") " + x[1] ),nil)})
+                           aeval(oWr:aHead,{|x|if (x != NIL,aadd(ax, strzero(x[2], 4) + ") " + x[1] ),NIL)})
 
                       case ascan(arryPar,[BODY])= 4
-                           aeval(oWr:aBody,{|x|if (x != NIL,aadd(ax, strzero(x[2], 4) + ") " + x[1] ),nil)})
+                           aeval(oWr:aBody,{|x|if (x != NIL,aadd(ax, strzero(x[2], 4) + ") " + x[1] ),NIL)})
 
                       case ascan(arryPar,[FEET])= 4
-                           aeval(oWr:aFeet,{|x|if (x != NIL,aadd(ax, strzero(x[2], 4) + ") " + x[1] ),nil)})
+                           aeval(oWr:aFeet,{|x|if (x != NIL,aadd(ax, strzero(x[2], 4) + ") " + x[1] ),NIL)})
 
                    endcase
                    msgmulty(ax)
@@ -702,15 +702,15 @@ Function RMiniPar(ArryPar,cmdline,section)
                    ,eval(epar,ArryPar[2]) ;
                    ,oWr:MACROCOMPILE(ArryPar[4],.T.,cmdline,section)    ;            //arr
                    ,iif(ascan(arryPar,[LEN])>0,oWr:macrocompile(eval(chblk,arrypar,[LEN])),NIL) ; //awidts
-                   ,nil                                                           ;      //rowheight
-                   ,nil                                                           ;      //vertalign
+                   ,NIL                                                           ;      //rowheight
+                   ,NIL                                                           ;      //vertalign
                    ,(ascan(arryPar,[NOFRAME])>0)                                  ;      //noframes
-                   ,nil                                                           ;      //abrushes
-                   ,nil                                                           ;      //apens
+                   ,NIL                                                           ;      //abrushes
+                   ,NIL                                                           ;      //apens
                    ,iif(ascan(arryPar,[FONT])>0,NIL,NIL)                           ;      //afonts
                    ,iif(ascan(arryPar,[COLOR])> 0,oWr:UsaColor(eval(chblk,arrypar,[COLOR])),NIL);//afontscolor
                    ,NIL                                                           ;      //abitmaps
-                   ,nil )                                                                //userfun
+                   ,NIL )                                                                //userfun
 */
      endcase
 return .T.

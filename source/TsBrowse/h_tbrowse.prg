@@ -9883,7 +9883,7 @@ METHOD HiliteCell(nCol, nColPix) CLASS TSBrowse
    DEFAULT nCol := 1
 
    IF !::lCellBrw .AND. nColPix == NIL // if not browsing cell-style AND no nColPix, ignore call.
-      RETURN lDraw // nColPix NOT nil means called from ::LButtonDown()
+      RETURN lDraw // nColPix NOT NIL means called from ::LButtonDown()
    ENDIF
 
    IF nCol < 1
@@ -10118,7 +10118,7 @@ METHOD InsColumn(nPos, oColumn) CLASS TSBrowse
    LOCAL nCell := ::nCell
 
    IF oColumn == NIL // if no Column object supplied
-      RETURN NIL // return nil instead of reference to object
+      RETURN NIL // return NIL instead of reference to object
    ENDIF
 
    IF oColumn:lDefineColumn
@@ -13145,7 +13145,7 @@ METHOD SetArray(aArray, lAutoCols, aHead, aSizes) CLASS TSBrowse
 
    // default values for array elements used during append mode
    // The user MUST AIns() as element no. 1 to ::aDefValue
-   // a nil value when using the actual elemnt no (::nAt)
+   // a NIL value when using the actual elemnt no (::nAt)
    // when browsing arrays like this:
    // AIns(ASize(::aDefValue, Len(::aDefValue) + 1), 1)
    // AFTER calling ::SetArray()

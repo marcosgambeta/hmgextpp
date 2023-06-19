@@ -270,21 +270,21 @@ return oRet
 //
 METHOD SetReceiveTimeout(nTime) CLASS TSocket
 ::nReceiveTimeout := nTime
-return nil
+return NIL
 
 //
 // Send Timeout
 //
 METHOD SetSendTimeout(nTime) CLASS TSocket
 ::nSendTimeout := nTime
-return nil
+return NIL
 
 //
 // Set debug inside socket class
 //
 METHOD SetDebug( bDebug ) CLASS TSocket
 ::bDebug := bDebug
-return nil
+return NIL
 
 //
 // Print error messages
@@ -293,4 +293,4 @@ METHOD PrintDebugMessage(cMsg) CLASS TSocket
 if ::bDebug
    ? "(" +::m_hSocket +") (" +cMsg +")"
 endif
-return nil
+return NIL

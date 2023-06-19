@@ -140,7 +140,7 @@ RETURN NIL
 *----------------------
 FUNCTION pdfBookClose()
 
-   s_aReport[BOOKMARK] := nil
+   s_aReport[BOOKMARK] := NIL
 
 RETURN NIL
 
@@ -552,7 +552,7 @@ FUNCTION pdfClose()
 #endif
    FClose(s_aReport[HANDLE])
 
-   s_aReport := nil
+   s_aReport := NIL
 
 RETURN NIL
 

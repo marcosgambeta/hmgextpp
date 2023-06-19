@@ -276,7 +276,7 @@ METHOD ClearData() CLASS TSMTP
 ::bHTML     := .F.
 ::aAttach   := {}
 ::cError    := ""
-return nil
+return NIL
 
 //
 // Set From
@@ -284,49 +284,49 @@ return nil
 METHOD SetFrom( cUser, cEmail )  CLASS TSMTP
 ::cFrom  := cUser
 ::cEmail := cEmail
-return nil
+return NIL
 
 //
 // Set Reply-To
 //
 METHOD SetReplyTo( cReplyTo )  CLASS TSMTP
 ::cReplyTo := cReplyTo
-return nil
+return NIL
 
 //
 // Set Subject
 //
 METHOD SetSubject(cSubject)  CLASS TSMTP
 ::cSubject := cSubject
-return nil
+return NIL
 
 //
 // Set Priority
 //
 METHOD SetPriority( nPriority )  CLASS TSMTP
 ::nPriority := nPriority
-return nil
+return NIL
 
 //
 // Add to
 //
 METHOD AddTo( cUser, cEmail ) CLASS TSMTP
 aadd(::aTo, {cUser, cEmail})
-return nil
+return NIL
 
 //
 // Add cc
 //
 METHOD AddCc(cUser, cEmail) CLASS TSMTP
 aadd(::aCc, {cUser, cEmail})
-return nil
+return NIL
 
 //
 // Add Bcc
 //
 METHOD AddBcc(cUser, cEmail) CLASS TSMTP
 aadd(::aBcc, {cUser, cEmail})
-return nil
+return NIL
 
 //
 // Set data
@@ -335,14 +335,14 @@ METHOD SetData(cMail, bHTML) CLASS TSMTP
 DEFAULT bHTML TO .F.
 ::cData := cMail
 ::bHTML := bHTML
-return nil
+return NIL
 
 //
 // Add attach
 //
 METHOD AddAttach( cAttach ) CLASS TSMTP
 aadd(::aAttach, cAttach)
-return nil
+return NIL
 
 //
 // Get Error
@@ -355,7 +355,7 @@ return ::cError
 //
 METHOD SetSendTimeout(nMilliSec) CLASS TSMTP
 ::oSocket:SetSendTimeout(nMilliSec)
-return nil
+return NIL
 
 //
 // Send message

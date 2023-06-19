@@ -371,7 +371,7 @@ DEFAULT nPort TO 8080
 ::nProxyPort    := nPort
 if cUser!=NIL
    oSock := TDecode():new()
-   if cPwd!=nil
+   if cPwd != NIL
       ::cLogin := oSock:encode64( cUser+":"+cPwd )
    else
       ::cLogin := oSock:encode64( cUser )
@@ -379,7 +379,7 @@ if cUser!=NIL
 else
    ::cLogin := NIL
 endif
-return nil
+return NIL
 
 //
 // Set user and password method
@@ -388,7 +388,7 @@ METHOD SetUser( cUser, cPwd ) CLASS THttp
 local oSock
 if cUser!=NIL
    oSock := TDecode():new()
-   if cPwd!=nil
+   if cPwd != NIL
       ::cLoginRemote := oSock:encode64( cUser+":"+cPwd )
    else
       ::cLoginRemote := oSock:encode64( cUser )
@@ -396,14 +396,14 @@ if cUser!=NIL
 else
    ::cLoginRemote := NIL
 endif
-return nil
+return NIL
 
 //
 // Set user agent
 //
 METHOD SetUserAgent(cAgent) CLASS THttp
 ::cUserAgent := cAgent
-return nil
+return NIL
 
 //
 // Get user agent
@@ -416,4 +416,4 @@ return ::cUserAgent
 //
 METHOD SetReceiveTimeout(nMilliSec) CLASS THttp
 ::oSocket:SetReceiveTimeout(nMilliSec)
-return nil
+return NIL
