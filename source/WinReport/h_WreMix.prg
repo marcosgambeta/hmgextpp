@@ -173,10 +173,10 @@ Procedure PrMiniEsegui(_MainArea,_psd,db_arc,_prw)
          if !MGSYS
            _HMG_SYSDATA[374]:=_hmg_printer_hdc
          endif
-         mncl:=round(( _HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETX ( _HMG_SYSDATA[374] ) / _HMG_PRINTER_GETPRINTABLEAREALOGPIXELSX ( _HMG_SYSDATA[374] ) * 25.4 ), 2)
+         mncl:=round(( _HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETX(_HMG_SYSDATA[374]) / _HMG_PRINTER_GETPRINTABLEAREALOGPIXELSX(_HMG_SYSDATA[374]) * 25.4 ), 2)
 
-         Cal :=(_HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETY ( _HMG_SYSDATA[374] ) / _HMG_PRINTER_GETPRINTABLEAREALOGPIXELSY ( _HMG_SYSDATA[374] ) )* 25.4 //, 2)
-         Cxx :=(_HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETX ( _HMG_SYSDATA[374] ) / _HMG_PRINTER_GETPRINTABLEAREALOGPIXELSX ( _HMG_SYSDATA[374] ) )* 25.4 //, 2)
+         Cal :=(_HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETY(_HMG_SYSDATA[374]) / _HMG_PRINTER_GETPRINTABLEAREALOGPIXELSY(_HMG_SYSDATA[374]) )* 25.4 //, 2)
+         Cxx :=(_HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETX(_HMG_SYSDATA[374]) / _HMG_PRINTER_GETPRINTABLEAREALOGPIXELSX(_HMG_SYSDATA[374]) )* 25.4 //, 2)
 
          _pW :=round((2*cxx)+_HMG_PRINTER_GETPRINTERWIDTH(_HMG_SYSDATA[374]),0)
          _pH :=round((2*cal)+_HMG_PRINTER_GETPRINTERHEIGHT(_HMG_SYSDATA[374]),0)
@@ -398,7 +398,7 @@ Function RMiniPar(ArryPar,cmdline,section)
 
         case ArryPar[1]=[VAR]
              _varmem := ArryPar[2]
-             If !__MVEXIST ( ArryPar[2] )
+             If !__MVEXIST(ArryPar[2])
                  _varmem := ArryPar[2]
                  Public &_varmem
                  aadd(nomevar,_varmem)
@@ -484,7 +484,7 @@ Function RMiniPar(ArryPar,cmdline,section)
                _arg1:= eval(chblk,arrypar,[PRINTER])
                _arg1:=if(_arg1 ="",GetDefaultPrinter(),_arg1)
                //msgbox(_arg1,"stampante")
-               _hmg_printer_aPrinterProperties:=_HMG_PRINTER_SetPrinterProperties ( ;
+               _hmg_printer_aPrinterProperties:=_HMG_PRINTER_SetPrinterProperties( ;
                 if(ascan(ArryPar,[DEFAULT])=3,GetDefaultPrinter(),_arg1 ), ;
                 if(ascan(arryPar,[ORIENTATION])!= 0,iif(val(_arg1) > 0,val(_arg1),iif([PORT]$ _arg1, 1, 2)) ,-999),;
                 if ( lPaperSize     > 0 , lPaperSize      , -999 ) , ;
@@ -495,7 +495,7 @@ Function RMiniPar(ArryPar,cmdline,section)
                 if ( lQuality      != 0 , lQuality        , -999 ) , ;
                 if ( lColor         > 0 , lColor          , -999 ) , ;
                 if ( lDuplex        > 0 , lDuplex         , -999 ) , ;
-                if ( lCollate       > 0 , nCollate        , -999 ) )
+                if ( lCollate       > 0 , nCollate        , -999 ))
                //msgbox(str(lcopies))
 
                 EndCase
@@ -563,7 +563,7 @@ Function RMiniPar(ArryPar,cmdline,section)
                 case ASCAN(ArryPar,[IMAGE]) > 0
                 // msgexclamation(zaps(GETPRINTABLEAREAHORIZONTALOFFSET()))
                     //msg("IMAGE"+crlf+eval(chblk,arrypar,[IMAGE]))
-                   _HMG_PRINTER_H_IMAGE ( iif(MGSYS,_HMG_SYSDATA[374],_hmg_printer_hdc) ;
+                   _HMG_PRINTER_H_IMAGE(iif(MGSYS,_HMG_SYSDATA[374],_hmg_printer_hdc) ;
                    , eval(chblk,arrypar,[IMAGE]);
                    , iif([LINE]$ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])) ;
                    , eval(epar,ArryPar[2]) ;
@@ -588,7 +588,7 @@ Function RMiniPar(ArryPar,cmdline,section)
                       //_HMG_PRINTER_LINE(iif(MGSYS,_HMG_SYSDATA[374], _hmg_printer_hdc), 260, 20, 260, 190, , "1", "2", "3", .F., .F.)
 
                     //Aclr:= color(eval(chblk,arrypar,[COLOR]))
-                     _HMG_PRINTER_H_LINE ( iif(MGSYS,_HMG_SYSDATA[374],_hmg_printer_hdc) ;
+                     _HMG_PRINTER_H_LINE(iif(MGSYS,_HMG_SYSDATA[374],_hmg_printer_hdc) ;
                      , iif([LINE]$ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])) ;
                      , eval(epar,ArryPar[2]) ;
                      , eval(epar,ArryPar[6]) ;
@@ -598,7 +598,7 @@ Function RMiniPar(ArryPar,cmdline,section)
                      , Aclr[2] ;
                      , Aclr[3] ;
                      , iif(ascan(arryPar,[PENWIDTH])>0, .T.,.F.);
-                     , iif(ascan(arryPar,[COLOR])>0, .T.,.F.) )
+                     , iif(ascan(arryPar,[COLOR])>0, .T.,.F.))
 
                 case ASCAN(ArryPar,[RECTANGLE]) > 0
                      // @ 20, 20 PRINT RECTANGLE TO 50,190 ==
@@ -607,7 +607,7 @@ Function RMiniPar(ArryPar,cmdline,section)
                      //      Aclr:= color(eval(chblk,arrypar,[COLOR]))
 
                      if ASCAN(ArryPar,[ROUNDED])> 0
-                        _HMG_PRINTER_H_ROUNDRECTANGLE ( iif(MGSYS,_HMG_SYSDATA[374],_hmg_printer_hdc) ;
+                        _HMG_PRINTER_H_ROUNDRECTANGLE(iif(MGSYS,_HMG_SYSDATA[374],_hmg_printer_hdc) ;
                         , iif([LINE]$ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])) ;
                         , eval(epar,ArryPar[2]) ;
                         , eval(epar,ArryPar[6]) ;
@@ -617,9 +617,9 @@ Function RMiniPar(ArryPar,cmdline,section)
                         , Aclr[2] ;
                         , Aclr[3] ;
                          , iif(ascan(arryPar,[PENWIDTH])>0, .T.,.F.);
-                        , iif(ascan(arryPar,[COLOR])>0, .T.,.F.) )
+                        , iif(ascan(arryPar,[COLOR])>0, .T.,.F.))
                      else
-                        _HMG_PRINTER_H_RECTANGLE ( iif(MGSYS,_HMG_SYSDATA[374],_hmg_printer_hdc) ;
+                        _HMG_PRINTER_H_RECTANGLE(iif(MGSYS,_HMG_SYSDATA[374],_hmg_printer_hdc) ;
                         , iif([LINE]$ Arrypar[1],&(Arrypar[1]),eval(epar,ArryPar[1])) ;
                         , eval(epar,ArryPar[2]) ;
                         , eval(epar,ArryPar[6]) ;
@@ -629,7 +629,7 @@ Function RMiniPar(ArryPar,cmdline,section)
                         , Aclr[2] ;
                         , Aclr[3] ;
                         , iif(ascan(arryPar,[PENWIDTH])>0, .T.,.F.);
-                        , iif(ascan(arryPar,[COLOR])>0, .T.,.F.) )
+                        , iif(ascan(arryPar,[COLOR])>0, .T.,.F.))
 
                     endif
 

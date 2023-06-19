@@ -84,7 +84,7 @@ FUNCTION _BeginPager( ControlName, ParentName, nWidth, nHeight, nScroll, cCaptio
    hb_default(@vertical, .F.)
    hb_default(@autoscroll, .F.)
 
-   hRebar := _DefineSplitBox ( ParentName, .F. , vertical )
+   hRebar := _DefineSplitBox(ParentName, .F. , vertical)
 
    _HMG_ActiveSplitBoxParentFormName := ParentName
 
@@ -92,7 +92,7 @@ FUNCTION _BeginPager( ControlName, ParentName, nWidth, nHeight, nScroll, cCaptio
 
    ParentForm := GetFormHandle(ParentName)
 
-   ControlHandle := InitPager ( hRebar, nWidth, nHeight, vertical, autoscroll, cCaption )
+   ControlHandle := InitPager(hRebar, nWidth, nHeight, vertical, autoscroll, cCaption)
 
    _HMG_ActivePagerForm := ControlHandle
 

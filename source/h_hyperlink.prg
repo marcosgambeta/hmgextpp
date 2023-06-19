@@ -47,7 +47,7 @@
 #include "minigui.ch"
 
 *-----------------------------------------------------------------------------*
-PROCEDURE _SetAddress ( ControlName , ParentForm , url )
+PROCEDURE _SetAddress(ControlName , ParentForm , url)
 *-----------------------------------------------------------------------------*
    
    LOCAL i

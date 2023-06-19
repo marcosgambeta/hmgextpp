@@ -48,11 +48,11 @@
 #include "i_winuser.ch"
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
+FUNCTION _DefineMonthCal(ControlName, ParentFormName, x, y, w, h, value, ;
       fontname, fontsize, tooltip, notoday, notodaycircle, weeknumbers, change, ;
       HelpId, invisible, notabstop, bold, italic, underline, strikeout, ;
       backcolor, fontcolor, titlebkclr, titlefrclr, background, trlfontclr, ;
-      select, gotfocus, lostfocus, nId, bInit )
+      select, gotfocus, lostfocus, nId, bInit)
 *-----------------------------------------------------------------------------*
 
    LOCAL ParentFormHandle
@@ -150,7 +150,7 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
             __defaultNIL(@FontName, _HMG_DefaultFontName)
             __defaultNIL(@FontSize, _HMG_DefaultFontSize)
             IF IsWindowHandle(aControlHandle[1])
-               aControlHandle[2] := _SetFont ( aControlHandle[1], fontname, fontsize, bold, italic, underline, strikeout )
+               aControlHandle[2] := _SetFont(aControlHandle[1], fontname, fontsize, bold, italic, underline, strikeout)
             ENDIF
          ENDIF
 
@@ -166,7 +166,7 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
       __defaultNIL(@FontName, _HMG_DefaultFontName)
       __defaultNIL(@FontSize, _HMG_DefaultFontSize)
 
-      aControlHandle := InitMonthCal ( ParentFormHandle, 0, x, y, w, h, fontname, fontsize, notoday, notodaycircle, weeknumbers, invisible, notabstop, bold, italic, underline, strikeout )
+      aControlHandle := InitMonthCal(ParentFormHandle, 0, x, y, w, h, fontname, fontsize, notoday, notodaycircle, weeknumbers, invisible, notabstop, bold, italic, underline, strikeout)
 
    ENDIF
 
@@ -182,7 +182,7 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
       SetMonthCalValue(aControlHandle[1], Year( value ), Month( value ), Day( value ))
 
       IF tooltip != NIL
-         SetToolTip ( aControlHandle[1], tooltip, GetFormToolTipHandle(ParentFormName) )
+         SetToolTip(aControlHandle[1], tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
    ENDIF
@@ -240,9 +240,9 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
 
       IF _HMG_IsThemed .AND. ( IsArrayRGB(backcolor) .OR. IsArrayRGB(fontcolor) .OR. IsArrayRGB(TitleBkClr) .OR. IsArrayRGB(TitleFrClr) )
 
-         SetWindowTheme ( aControlHandle[1], "", "" )
+         SetWindowTheme(aControlHandle[1], "", "")
          // set the ideal size of the month calendar control
-         SetPosMonthCal ( aControlHandle[1], x, y )
+         SetPosMonthCal(aControlHandle[1], x, y)
          _HMG_aControlWidth[k] := GetWindowWidth(aControlHandle[1])
          _HMG_aControlHeight[k] := GetWindowHeight(aControlHandle[1])
 
@@ -282,7 +282,7 @@ FUNCTION _DefineMonthCal ( ControlName, ParentFormName, x, y, w, h, value, ;
 #endif
    ENDIF
 
-   Do_ControlEventProcedure ( bInit, k, ow, oc )
+   Do_ControlEventProcedure(bInit, k, ow, oc)
 
 RETURN NIL
 

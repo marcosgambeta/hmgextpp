@@ -56,13 +56,13 @@ ANNOUNCE CLASS_TACTIVEX
 INIT PROCEDURE _InitActiveX
 *-----------------------------------------------------------------------------*
 
-   InstallMethodHandler ( "Release", "ReleaseActiveX" )
-   InstallPropertyHandler ( "XObject", "SetActiveXObject", "GetActiveXObject" )
+   InstallMethodHandler("Release", "ReleaseActiveX")
+   InstallPropertyHandler("XObject", "SetActiveXObject", "GetActiveXObject")
 
 RETURN
 
 *-----------------------------------------------------------------------------*
-PROCEDURE _DefineActivex ( cControlName, cParentForm, nRow, nCol, nWidth, nHeight, cProgId, aEvents, clientedge )
+PROCEDURE _DefineActivex(cControlName, cParentForm, nRow, nCol, nWidth, nHeight, cProgId, aEvents, clientedge)
 *-----------------------------------------------------------------------------*
    
    LOCAL nControlHandle
@@ -183,7 +183,7 @@ PROCEDURE _DefineActivex ( cControlName, cParentForm, nRow, nCol, nWidth, nHeigh
 RETURN
 
 *-----------------------------------------------------------------------------*
-PROCEDURE ReleaseActiveX ( cWindow, cControl )
+PROCEDURE ReleaseActiveX(cWindow, cControl)
 *-----------------------------------------------------------------------------*
 
    LOCAL oActiveX
@@ -207,12 +207,12 @@ PROCEDURE ReleaseActiveX ( cWindow, cControl )
 RETURN
 
 *-----------------------------------------------------------------------------*
-FUNCTION SetActiveXObject ( cWindow, cControl )
+FUNCTION SetActiveXObject(cWindow, cControl)
 *-----------------------------------------------------------------------------*
 
    IF GetControlType(cControl, cWindow) == CONTROL_TYPE_ACTIVEX
 
-      MsgExclamation ( "This Property is Read Only!", "Warning" )
+      MsgExclamation("This Property is Read Only!", "Warning")
 
       _HMG_UserComponentProcess := .T.
 
@@ -225,7 +225,7 @@ FUNCTION SetActiveXObject ( cWindow, cControl )
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION GetActiveXObject ( cWindow, cControl )
+FUNCTION GetActiveXObject(cWindow, cControl)
 *-----------------------------------------------------------------------------*
    
    LOCAL RetVal
@@ -234,7 +234,7 @@ FUNCTION GetActiveXObject ( cWindow, cControl )
 
       _HMG_UserComponentProcess := .T.
 
-      RetVal := _GetControlObject ( cControl, cWindow )
+      RetVal := _GetControlObject(cControl, cWindow)
 
    ELSE
 
@@ -245,7 +245,7 @@ FUNCTION GetActiveXObject ( cWindow, cControl )
 RETURN RetVal
 
 *-----------------------------------------------------------------------------*
-FUNCTION _GetControlObject ( ControlName, ParentForm )
+FUNCTION _GetControlObject(ControlName, ParentForm)
 *-----------------------------------------------------------------------------*
    
    LOCAL i

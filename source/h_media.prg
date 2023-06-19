@@ -48,7 +48,7 @@
 #include "i_winuser.ch"
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefinePlayer ( ControlName, ParentFormName, file, x, y, w, h, noasw, noasm, noed, nom, noo, nop, sha, shm, shn, shp, HelpId )
+FUNCTION _DefinePlayer(ControlName, ParentFormName, file, x, y, w, h, noasw, noasm, noed, nom, noo, nop, sha, shm, shn, shp, HelpId)
 *-----------------------------------------------------------------------------*
 
    LOCAL ControlHandle
@@ -337,7 +337,7 @@ FUNCTION _DefineAnimateBox( ControlName, ParentFormName, x, y, w, h, autoplay, c
 
    IF !lDialogInMemory
       IF file != NIL
-         _OpenAnimateBox ( ControlName , ParentFormName , File )
+         _OpenAnimateBox(ControlName , ParentFormName , File)
       ENDIF
    ENDIF
 
@@ -351,7 +351,7 @@ FUNCTION InitDialogAnimateBox( ParentName, ControlHandle, k )
 
    File := _HMG_aControlCaption[k]
    IF File != NIL .AND. ControlHandle != NIL
-      _OpenAnimateBox ( _HMG_aControlNames[k] , ParentName , File )
+      _OpenAnimateBox(_HMG_aControlNames[k] , ParentName , File)
    ENDIF
 // JP 62
    IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]  // Modal

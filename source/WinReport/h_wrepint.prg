@@ -1571,7 +1571,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
         do case
            case ArryPar[1]=[VAR]
                 _varmem := ArryPar[2]
-                If !__MVEXIST ( ArryPar[2] )
+                If !__MVEXIST(ArryPar[2])
                    _varmem := ArryPar[2]
                    Public &_varmem
                    aadd(nomevar,_varmem)
@@ -1992,7 +1992,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                 ,::what_ele(eval(chblk,arrypar,[STYLE]),::aCh,"_STYLE"), "Fx" )
 
                 hbprn:settextalign( al[1] )
-                hbprn:settexcolor ( al[2] )
+                hbprn:settexcolor(al[2])
 
            case ascan(arryPar,[RECTANGLE])=5
                 //MSG([PEN=]+eval(chblk,arrypar,[PEN])+CRLF+[BRUSH=]+eval(chblk,arrypar,[BRUSH]),[RETTANGOLO])
@@ -2102,7 +2102,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                 ENDIF
 
                 hbprn:settextalign( al[1] )
-                hbprn:settexcolor ( al[2] )
+                hbprn:settexcolor(al[2])
 
            case ascan(ArryPar,[PRINT])=3 .OR. ascan(ArryPar,[SAY])= 3
 
@@ -2116,7 +2116,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                          //,iif(ascan(arryPar,[ALIGN])>0,::what_ele(eval(chblk,arrypar,[ALIGN]),::aCh,"_aAlign"),NIL))
 
                 hbprn:settextalign( al[1] )
-                hbprn:settexcolor ( al[2] )
+                hbprn:settexcolor(al[2])
 
            case ascan(ArryPar,[MEMOSAY])=3
 
@@ -2136,7 +2136,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                    ,arrypar)
 
                 hbprn:settextalign( al[1] )
-                hbprn:settexcolor ( al[2] )
+                hbprn:settexcolor(al[2])
 
           case ascan(ArryPar,[PUTARRAY])=3
 
@@ -2157,7 +2157,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                    ,NIL )                                                                //userfun
 
                 hbprn:settextalign( al[1] )
-                hbprn:settexcolor ( al[2] )
+                hbprn:settexcolor(al[2])
 
           case ascan(ArryPar,[NEWPAGE])=1 .OR. ascan(ArryPar,[EJECT])=1
                 hbprn:endpage()
@@ -2827,7 +2827,7 @@ METHOD TheFeet(last) CLASS WREPORT            //Feet // IL Piede
    if ::PrnDrv = "HBPR"
       End PAGE
    Else
-      if ( _HMG_MINIPRINT[23], _HMG_PRINTER_ENDPAGE_PREVIEW (_HMG_MINIPRINT[19]) , _HMG_PRINTER_ENDPAGE ( _HMG_MINIPRINT[19] ) )
+      if ( _HMG_MINIPRINT[23], _HMG_PRINTER_ENDPAGE_PREVIEW (_HMG_MINIPRINT[19]) , _HMG_PRINTER_ENDPAGE(_HMG_MINIPRINT[19]) )
    Endif
    if last
       nPgr := 0

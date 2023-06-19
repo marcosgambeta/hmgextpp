@@ -64,31 +64,31 @@ FUNCTION _SetWindowBKBrush( cWindow, lNoDelete, cBrushStyle, nHatch, aColor, xIm
    __defaultNIL(@aColor, {255, 0, 255})
    __defaultNIL(@xImage, "MINIGUI_EDIT_DELETE")
 
-   nIndex := GetFormIndex ( cWindow )
+   nIndex := GetFormIndex(cWindow)
 
    IF nIndex > 0
       hWnd := _HMG_aFormHandles[nIndex]
 
       SWITCH Left(cBrushStyle, 1)
       CASE "S"
-         hBrush := CreateSolidBrush ( aColor[1], aColor[2], aColor[3] )
+         hBrush := CreateSolidBrush(aColor[1], aColor[2], aColor[3])
          EXIT
 
       CASE "H"
-         hBrush := CreateHatchBrush ( nHatch, RGB(aColor[1], aColor[2], aColor[3]) )
+         hBrush := CreateHatchBrush(nHatch, RGB(aColor[1], aColor[2], aColor[3]))
          EXIT
 
       CASE "P"
-         hBrush := CreatePatternBrush ( xImage )
+         hBrush := CreatePatternBrush(xImage)
          EXIT
 
       OTHERWISE
-         hBrush := GetWindowBrush ( hWnd )
+         hBrush := GetWindowBrush(hWnd)
 
       END SWITCH
 
-      IF GetObjectType ( hBrush ) == OBJ_BRUSH
-         hOldBrush := SetWindowBrush ( hWnd, hBrush )
+      IF GetObjectType(hBrush) == OBJ_BRUSH
+         hOldBrush := SetWindowBrush(hWnd, hBrush)
          _HMG_aFormBrushHandle[nIndex] := hBrush
 
          IF lNoDelete

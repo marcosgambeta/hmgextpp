@@ -181,7 +181,7 @@ FUNCTION Do_Obj(nHandle, bBlock, p1, p2, p3)
       o := hmg_GetWindowObject(nHandle)
       IF hb_IsBlock(bBlock)
          IF o:IsWindow 
-            RETURN Do_WindowEventProcedure ( bBlock, o:Index, o, p1, p2, p3 ) 
+            RETURN Do_WindowEventProcedure(bBlock, o:Index, o, p1, p2, p3)
          ELSE 
             RETURN Do_ControlEventProcedure(bBlock, o:Index, o, p1, p2, p3)
          ENDIF 
@@ -258,7 +258,7 @@ RETURN .F.
 *-----------------------------------------------------------------------------*
 FUNC Do_OnWndLaunch( hWnd, nMsg, wParam, lParam )
 *-----------------------------------------------------------------------------*
-   IF hmg_IsWindowObject ( hWnd )
+   IF hmg_IsWindowObject(hWnd)
       hmg_GetWindowObject(hWnd):DoEvent(wParam, lParam)
    ENDIF
 
@@ -275,7 +275,7 @@ FUNC Do_OnCtlLaunch( hWnd, nMsg, wParam, lParam )
       hWnd := lParam
    ENDIF
 
-   IF hmg_IsWindowObject ( hWnd )
+   IF hmg_IsWindowObject(hWnd)
       hmg_GetWindowObject(hWnd):DoEvent(wParam, lParam)
    ENDIF
 

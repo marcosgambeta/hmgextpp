@@ -47,10 +47,10 @@
 #include "minigui.ch"
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
+FUNCTION _DefineRichEditBox(ControlName, ParentForm, x, y, w, h, value, ;
       fontname, fontsize, tooltip, maxlength, gotfocus, change, lostfocus, readonly, ;
       break, HelpId, invisible, notabstop, bold, italic, underline, strikeout, file, ;
-      field, backcolor, fontcolor, plaintext, nohscroll, novscroll, select, vscroll )
+      field, backcolor, fontcolor, plaintext, nohscroll, novscroll, select, vscroll)
 *-----------------------------------------------------------------------------*
    
    LOCAL ControlHandle
@@ -81,7 +81,7 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
    ENDIF
 
    IF !Empty(Field)
-      IF  hb_UAt ( ">", Field ) == 0
+      IF  hb_UAt(">", Field) == 0
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentForm + " : You must specify a fully qualified field name.")
       ELSE
          WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
@@ -124,11 +124,11 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
 
       _HMG_SplitLastControl := "RICHEDIT"
 
-      i := GetFormIndex ( cParentForm )
+      i := GetFormIndex(cParentForm)
 
       IF i > 0
 
-         ControlHandle := InitRichEditBox ( _HMG_aFormReBarHandle[i] , 0, x, y, w, h, "", 0 , maxlength , readonly, invisible, notabstop, nohscroll, novscroll )
+         ControlHandle := InitRichEditBox(_HMG_aFormReBarHandle[i] , 0, x, y, w, h, "", 0 , maxlength , readonly, invisible, notabstop, nohscroll, novscroll)
          IF !empty(FontHandle)
             _SetFontHandle(ControlHandle, FontHandle)
          ELSE
@@ -146,7 +146,7 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
 
    ELSE
 
-      ControlHandle := InitRichEditBox ( ParentForm, 0, x, y, w, h, "", 0 , maxlength , readonly, invisible, notabstop, nohscroll, novscroll )
+      ControlHandle := InitRichEditBox(ParentForm, 0, x, y, w, h, "", 0 , maxlength , readonly, invisible, notabstop, nohscroll, novscroll)
       IF !empty(FontHandle)
          _SetFontHandle(ControlHandle, FontHandle)
       ELSE
@@ -234,14 +234,14 @@ FUNCTION _DefineRichEditBox ( ControlName, ParentForm, x, y, w, h, value, ;
    ENDIF
 
    IF Len(value) > 0
-      _SetValue ( , , value, k )
+      _SetValue(, , value, k)
    ENDIF
 
 RETURN NIL
 
 // Modified by Kevin Carmody <i@kevincarmody.com> 2007.04.23
 *-----------------------------------------------------------------------------*
-PROCEDURE _DataBaseRichEditBoxSave ( ControlName, ParentForm, typ )
+PROCEDURE _DataBaseRichEditBoxSave(ControlName, ParentForm, typ)
 *-----------------------------------------------------------------------------*
    
    LOCAL cTempFile := TempFile(GetTempFolder(), "txt")
@@ -253,13 +253,13 @@ PROCEDURE _DataBaseRichEditBoxSave ( ControlName, ParentForm, typ )
 
       Field := _HMG_aControlPageMap[i]
 
-      _DataRichEditBoxSave ( ControlName, ParentForm, cTempFile, typ )
+      _DataRichEditBoxSave(ControlName, ParentForm, cTempFile, typ)
 
-      IF _IsFieldExists ( Field )
+      IF _IsFieldExists(Field)
          REPLACE &Field WITH MemoRead(cTempFile)
       ENDIF
 
-      FErase ( cTempFile )
+      FErase(cTempFile)
    ENDIF
 
 RETURN
@@ -267,17 +267,17 @@ RETURN
 // Kevin Carmody <i@kevincarmody.com> 2007.04.23, modified 2010.03.14
 // Set rich value of rich edit box.
 *-----------------------------------------------------------------------------*
-FUNCTION _DataRichEditBoxSetValue ( ControlName, ParentForm, cRichValue, typ )
+FUNCTION _DataRichEditBoxSetValue(ControlName, ParentForm, cRichValue, typ)
 *-----------------------------------------------------------------------------*
    
    LOCAL cTempFile := TempFile(GetTempFolder(), "txt")
 
    IF !Empty(cTempFile)
-      hb_MemoWrit ( cTempFile, cRichValue )
+      hb_MemoWrit(cTempFile, cRichValue)
 
-      _DataRichEditBoxOpen ( ControlName, ParentForm, cTempFile, typ )
+      _DataRichEditBoxOpen(ControlName, ParentForm, cTempFile, typ)
 
-      FErase ( cTempFile )
+      FErase(cTempFile)
    ENDIF
 
 RETURN cRichValue
@@ -285,24 +285,24 @@ RETURN cRichValue
 // Kevin Carmody <i@kevincarmody.com> 2007.04.23
 // Get rich value of rich edit box.
 *-----------------------------------------------------------------------------*
-FUNCTION _DataRichEditBoxGetValue ( ControlName, ParentForm, typ )
+FUNCTION _DataRichEditBoxGetValue(ControlName, ParentForm, typ)
 *-----------------------------------------------------------------------------*
    
    LOCAL cTempFile := TempFile(GetTempFolder(), "txt")
    LOCAL cRichValue
 
    IF !Empty(cTempFile)
-      _DataRichEditBoxSave ( ControlName, ParentForm, cTempFile, typ )
+      _DataRichEditBoxSave(ControlName, ParentForm, cTempFile, typ)
 
       cRichValue := MemoRead(cTempFile)
 
-      FErase ( cTempFile )
+      FErase(cTempFile)
    ENDIF
 
 RETURN cRichValue
 
 *-----------------------------------------------------------------------------*
-PROCEDURE _DataRichEditBoxOpen ( ControlName, ParentForm, cFile, typ )
+PROCEDURE _DataRichEditBoxOpen(ControlName, ParentForm, cFile, typ)
 *-----------------------------------------------------------------------------*
    
    LOCAL i
@@ -318,7 +318,7 @@ PROCEDURE _DataRichEditBoxOpen ( ControlName, ParentForm, cFile, typ )
 RETURN
 
 *-----------------------------------------------------------------------------*
-PROCEDURE _DataRichEditBoxSave ( ControlName, ParentForm, cFile, typ )
+PROCEDURE _DataRichEditBoxSave(ControlName, ParentForm, cFile, typ)
 *-----------------------------------------------------------------------------*
    
    LOCAL i

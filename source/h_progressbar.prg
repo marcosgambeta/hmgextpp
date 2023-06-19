@@ -53,9 +53,9 @@
 #define PBM_SETMARQUEE          (WM_USER+10)
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineProgressBar ( ControlName, ParentFormName, x, y, w, h, lo, hi, ;
+FUNCTION _DefineProgressBar(ControlName, ParentFormName, x, y, w, h, lo, hi, ;
       tooltip, vertical, smooth, HelpId, invisible, value, BackColor, BarColor, ;
-      marquee, velocity, nId, bInit )
+      marquee, velocity, nId, bInit)
 *-----------------------------------------------------------------------------*
    
    LOCAL ParentFormHandle
@@ -140,7 +140,7 @@ FUNCTION _DefineProgressBar ( ControlName, ParentFormName, x, y, w, h, lo, hi, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      ControlHandle := InitProgressBar ( ParentFormHandle, 0, x, y, w, h , lo , hi, vertical, smooth, invisible, value )
+      ControlHandle := InitProgressBar(ParentFormHandle, 0, x, y, w, h , lo , hi, vertical, smooth, invisible, value)
 
    ENDIF
 
@@ -234,7 +234,7 @@ FUNCTION _DefineProgressBar ( ControlName, ParentFormName, x, y, w, h, lo, hi, ;
 #endif
    ENDIF
 
-   Do_ControlEventProcedure ( bInit, k, ow, oc )
+   Do_ControlEventProcedure(bInit, k, ow, oc)
 
 RETURN NIL
 

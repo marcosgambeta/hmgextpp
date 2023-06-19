@@ -47,9 +47,9 @@
 #include "minigui.ch"
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineIPAddress ( ControlName, ParentForm, x, y, w, h, aValue, ;
+FUNCTION _DefineIPAddress(ControlName, ParentForm, x, y, w, h, aValue, ;
       fontname, fontsize, tooltip, lostfocus, gotfocus, ;
-      change, HelpId, invisible, notabstop , bold, italic, underline, strikeout )
+      change, HelpId, invisible, notabstop , bold, italic, underline, strikeout)
 *-----------------------------------------------------------------------------*
    
    LOCAL ControlHandle
@@ -95,7 +95,7 @@ FUNCTION _DefineIPAddress ( ControlName, ParentForm, x, y, w, h, aValue, ;
 
    ParentForm := GetFormHandle(ParentForm)
 
-   ControlHandle := InitIPAddress ( ParentForm, 0, x, y, w, h, invisible, notabstop )
+   ControlHandle := InitIPAddress(ParentForm, 0, x, y, w, h, invisible, notabstop)
 
    IF !empty(FontHandle)
       _SetFontHandle(ControlHandle, FontHandle)

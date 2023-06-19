@@ -93,7 +93,7 @@ PROCEDURE ShellAbout(cTitle, cMsg, hIcon)
       ASSIGN GLOBAL _HMG_ShellAbout := ++nCount
 
       IF C_ShellAbout(GetActiveWindow(), cTitle, cMsg, hIcon)
-         DestroyIcon ( hIcon )
+         DestroyIcon(hIcon)
          ASSIGN GLOBAL _HMG_ShellAbout := --nCount
       ENDIF
 

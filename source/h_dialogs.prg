@@ -72,8 +72,8 @@ FUNCTION GetColor( aInitColor, aCustomColors, nFlags )
       ENDIF
    ENDIF
 
-   IF ( nColor := ChooseColor ( NIL, nInitColor, aCustomColors, nFlags ) ) != -1
-      aRetVal := nRGB2Arr ( nColor )
+   IF ( nColor := ChooseColor(NIL, nInitColor, aCustomColors, nFlags) ) != -1
+      aRetVal := nRGB2Arr(nColor)
    ENDIF
 
 RETURN aRetVal

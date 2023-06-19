@@ -7,8 +7,8 @@
 #include "minigui.ch"
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineRating ( ControlName, ParentForm, x, y, w, h, nValue, aImages, nCnt, ;
-      nSpace, tooltip, onchangeprocedure, border, resource, readonly, invisible, vertical )
+FUNCTION _DefineRating(ControlName, ParentForm, x, y, w, h, nValue, aImages, nCnt, ;
+      nSpace, tooltip, onchangeprocedure, border, resource, readonly, invisible, vertical)
 *-----------------------------------------------------------------------------*
    
    LOCAL cParentForm
@@ -61,7 +61,7 @@ FUNCTION _DefineRating ( ControlName, ParentForm, x, y, w, h, nValue, aImages, n
 
    ParentForm := GetFormHandle(ParentForm)
 
-   ControlHandle := _InitRating ( cParentForm, ControlName, x, y, w, h, nValue, aImages, nCnt, nSpace, tooltip, onchangeprocedure, border, readonly, invisible, vertical )
+   ControlHandle := _InitRating(cParentForm, ControlName, x, y, w, h, nValue, aImages, nCnt, nSpace, tooltip, onchangeprocedure, border, readonly, invisible, vertical)
 
    IF _HMG_BeginTabActive
       AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
@@ -111,7 +111,7 @@ FUNCTION _DefineRating ( ControlName, ParentForm, x, y, w, h, nValue, aImages, n
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-PROCEDURE _ReleaseRating ( cWindow, cControl )
+PROCEDURE _ReleaseRating(cWindow, cControl)
 *-----------------------------------------------------------------------------*
 
    LOCAL i
@@ -131,8 +131,8 @@ PROCEDURE _ReleaseRating ( cWindow, cControl )
 RETURN
 
 *-----------------------------------------------------------------------------*
-FUNCTION _InitRating ( ParentForm, ControlName, x, y, w, h, nValue, aImages, nCnt, ;
-      nSpace, tooltip, onchangeprocedure, border, readonly, invisible, vertical )
+FUNCTION _InitRating(ParentForm, ControlName, x, y, w, h, nValue, aImages, nCnt, ;
+      nSpace, tooltip, onchangeprocedure, border, readonly, invisible, vertical)
 *-----------------------------------------------------------------------------*
    
    LOCAL i

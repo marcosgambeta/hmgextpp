@@ -85,7 +85,7 @@ METHOD Activate() CLASS TCDOMail
 
    TRY
 
-      oEmailMsg := CREATEOBJECT ( "CDO.Message" )
+      oEmailMsg := CREATEOBJECT("CDO.Message")
 
       WITH OBJECT oEmailMsg
 
@@ -168,12 +168,12 @@ METHOD Activate() CLASS TCDOMail
 
    CATCH oError
 
-      MsgStop ( "The email was not sent." + CRLF + ;
+      MsgStop("The email was not sent." + CRLF + ;
          "Error:      " + cValToChar( oError:GenCode ) + CRLF + ;
          "SubCode:   " + cValToChar( oError:SubCode ) + CRLF + ;
          "OSCode:    " + cValToChar( oError:OsCode ) + CRLF + ;
          "SubSystem: " + cValToChar( oError:SubSystem ) + CRLF + ;
-         "Description:      " + oError:Description )
+         "Description:      " + oError:Description)
 
    END
 

@@ -11,7 +11,7 @@ ANNOUNCE CLASS_TGIF
 #include "minigui.ch"
 
 *------------------------------------------------------------------------------*
-FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidth, nHeight, nDelay, aBKColor )
+FUNCTION _DefineAniGif(cControlName, cParentForm, cFilename, nRow, nCol, nWidth, nHeight, nDelay, aBKColor)
 *------------------------------------------------------------------------------*
    
    LOCAL nControlHandle
@@ -43,10 +43,10 @@ FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidt
       MsgMiniGuiError("Control: " + cControlName + " Of " + cParentForm + " PICTURE Can't Be Empty.")
    ENDIF
 
-   IF !hb_FileExists ( cFileName )
+   IF !hb_FileExists(cFileName)
       cDiskFile := TempFile(GetTempFolder(), "gif")
       IF RCDataToFile(cFilename, cDiskFile, "GIF") > 0
-         IF hb_FileExists ( cDiskFile )
+         IF hb_FileExists(cDiskFile)
             cResName := cFileName
             cFilename := cDiskFile
          ENDIF
@@ -119,14 +119,14 @@ FUNCTION _DefineAniGif ( cControlName, cParentForm, cFilename, nRow, nCol, nWidt
       ENDIF
    ENDIF
 
-   IF hb_FileExists ( cDiskFile )
+   IF hb_FileExists(cDiskFile)
       FErase(cDiskFile)
    ENDIF
 
 RETURN oGif
 
 *------------------------------------------------------------------------------*
-PROCEDURE _ReleaseAniGif ( GifName, FormName )
+PROCEDURE _ReleaseAniGif(GifName, FormName)
 *------------------------------------------------------------------------------*
    
    LOCAL hWnd
@@ -142,7 +142,7 @@ PROCEDURE _ReleaseAniGif ( GifName, FormName )
          IF _HMG_aControlParentHandles[i] == hWnd .AND. _HMG_aControlType[i] == CONTROL_TYPE_ANIGIF
             oGif := _HMG_aControlIds[i]
             oGif:End()
-            _EraseGifDef ( FormName, i )
+            _EraseGifDef(FormName, i)
             EXIT
          ENDIF
 
@@ -153,7 +153,7 @@ PROCEDURE _ReleaseAniGif ( GifName, FormName )
 RETURN
 
 *------------------------------------------------------------------------------*
-STATIC PROCEDURE _EraseGifDef ( FormName, i )
+STATIC PROCEDURE _EraseGifDef(FormName, i)
 *------------------------------------------------------------------------------*
    
    LOCAL mVar
@@ -372,7 +372,7 @@ METHOD End() CLASS TGif
       ENDIF
 
       IF _IsControlDefined(::hGif, ::cParentName)
-         _ReleaseControl ( ::hGif, ::cParentName )
+         _ReleaseControl(::hGif, ::cParentName)
       ENDIF
 
    ENDIF

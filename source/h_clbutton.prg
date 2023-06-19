@@ -12,21 +12,21 @@
 INIT PROCEDURE _InitCLButton
 *------------------------------------------------------------------------------*
 
-   InstallEventHandler ( "CLButtonEventHandler" )
-   InstallMethodHandler ( "Release", "ReleaseCLButtonImageList" )
-   InstallMethodHandler ( "SetShield", "CLButton_SetShield" )
-   InstallMethodHandler ( "SetFocus", "CLButtonSetFocus" )
-   InstallMethodHandler ( "Enable", "CLButtonEnable" )
-   InstallMethodHandler ( "Disable", "CLButtonDisable" )
-   InstallPropertyHandler ( "Handle", "SetCLButtonHandle", "GetCLButtonHandle" )
-   InstallPropertyHandler ( "Caption", "SetCLButtonCaption", "GetCLButtonCaption" )
-   InstallPropertyHandler ( "NoteText", "SetCLButtonNoteText", "GetCLButtonNoteText" )
-   InstallPropertyHandler ( "Picture", "SetCLButtonPicture", "GetCLButtonPicture" )
+   InstallEventHandler("CLButtonEventHandler")
+   InstallMethodHandler("Release", "ReleaseCLButtonImageList")
+   InstallMethodHandler("SetShield", "CLButton_SetShield")
+   InstallMethodHandler("SetFocus", "CLButtonSetFocus")
+   InstallMethodHandler("Enable", "CLButtonEnable")
+   InstallMethodHandler("Disable", "CLButtonDisable")
+   InstallPropertyHandler("Handle", "SetCLButtonHandle", "GetCLButtonHandle")
+   InstallPropertyHandler("Caption", "SetCLButtonCaption", "GetCLButtonCaption")
+   InstallPropertyHandler("NoteText", "SetCLButtonNoteText", "GetCLButtonNoteText")
+   InstallPropertyHandler("Picture", "SetCLButtonPicture", "GetCLButtonPicture")
 
 RETURN
 
 *------------------------------------------------------------------------------*
-PROCEDURE _DefineCLButton ( cName, nRow, nCol, cCaption, cNotes, bAction, cParent, lDefault, w, h, cBitmap )
+PROCEDURE _DefineCLButton(cName, nRow, nCol, cCaption, cNotes, bAction, cParent, lDefault, w, h, cBitmap)
 *------------------------------------------------------------------------------*
    
    LOCAL hControlHandle
@@ -131,7 +131,7 @@ PROCEDURE _DefineCLButton ( cName, nRow, nCol, cCaption, cNotes, bAction, cParen
 RETURN
 
 *------------------------------------------------------------------------------*
-PROCEDURE ReleaseCLButtonImageList ( cWindow, cControl )
+PROCEDURE ReleaseCLButtonImageList(cWindow, cControl)
 *------------------------------------------------------------------------------*
 
    LOCAL i
@@ -141,7 +141,7 @@ PROCEDURE ReleaseCLButtonImageList ( cWindow, cControl )
       i := GetControlIndex(cControl, cWindow)
 
       IF !Empty(_HMG_aControlBrushHandle[i])
-         IMAGELIST_DESTROY ( _HMG_aControlBrushHandle[i] )
+         IMAGELIST_DESTROY(_HMG_aControlBrushHandle[i])
       ENDIF
 
       _HMG_UserComponentProcess := .T.
@@ -157,7 +157,7 @@ RETURN
 #define WM_COMMAND  0x0111
 #define BN_CLICKED  0
 *------------------------------------------------------------------------------*
-FUNCTION CLButtonEventhandler ( hWnd, nMsg, wParam, lParam )
+FUNCTION CLButtonEventhandler(hWnd, nMsg, wParam, lParam)
 *------------------------------------------------------------------------------*
    
    LOCAL RetVal // := NIL
@@ -211,7 +211,7 @@ RETURN
 #define BS_DEFCOMMANDLINK  0x0000000F
 #define BM_SETSTYLE        244
 *------------------------------------------------------------------------------*
-PROCEDURE CLButtonSetFocus ( cWindow, cControl )
+PROCEDURE CLButtonSetFocus(cWindow, cControl)
 *------------------------------------------------------------------------------*
    
    LOCAL hWnd
@@ -286,7 +286,7 @@ FUNCTION SetCLButtonHandle(cWindow, cControl)
 
    IF GetControlType(cControl, cWindow) == CONTROL_TYPE_CLBUTTON
 
-      MsgExclamation ( "This Property is Read Only!", "Warning" )
+      MsgExclamation("This Property is Read Only!", "Warning")
 
       _HMG_UserComponentProcess := .T.
 
@@ -319,7 +319,7 @@ FUNCTION GetCLButtonHandle(cWindow, cControl)
 RETURN RetVal
 
 *------------------------------------------------------------------------------*
-FUNCTION SetCLButtonCaption ( cWindow, cControl, cProperty, cValue )
+FUNCTION SetCLButtonCaption(cWindow, cControl, cProperty, cValue)
 *------------------------------------------------------------------------------*
    cProperty := NIL // Unused variable
 
@@ -338,7 +338,7 @@ FUNCTION SetCLButtonCaption ( cWindow, cControl, cProperty, cValue )
 RETURN NIL
 
 *------------------------------------------------------------------------------*
-FUNCTION GetCLButtonCaption ( cWindow, cControl )
+FUNCTION GetCLButtonCaption(cWindow, cControl)
 *------------------------------------------------------------------------------*
    
    LOCAL RetVal // := NIL
@@ -358,7 +358,7 @@ FUNCTION GetCLButtonCaption ( cWindow, cControl )
 RETURN RetVal
 
 *------------------------------------------------------------------------------*
-PROCEDURE SetCLButtonNoteText ( cWindow, cControl, cProperty, cValue )
+PROCEDURE SetCLButtonNoteText(cWindow, cControl, cProperty, cValue)
 *------------------------------------------------------------------------------*
    cProperty := NIL // Unused variable
 
@@ -377,12 +377,12 @@ PROCEDURE SetCLButtonNoteText ( cWindow, cControl, cProperty, cValue )
 RETURN
 
 *------------------------------------------------------------------------------*
-FUNCTION GetCLButtonNoteText ( cWindow, cControl )
+FUNCTION GetCLButtonNoteText(cWindow, cControl)
 *------------------------------------------------------------------------------*
 
    IF GetControlType(cControl, cWindow) == CONTROL_TYPE_CLBUTTON
 
-      MsgExclamation ( "This Property is Write Only!", "Warning" )
+      MsgExclamation("This Property is Write Only!", "Warning")
 
    ENDIF
 
@@ -405,7 +405,7 @@ PROCEDURE SetCLButtonPicture(cWindow, cControl, cProperty, cBitmap)
       _HMG_aControlPicture[i] := cBitmap
 
       IF !Empty(_HMG_aControlBrushHandle[i])
-         IMAGELIST_DESTROY ( _HMG_aControlBrushHandle[i] )
+         IMAGELIST_DESTROY(_HMG_aControlBrushHandle[i])
       ENDIF
 
       _HMG_aControlBrushHandle[i] := CLButton_SetImage(GetControlHandle(cControl, cWindow), cBitmap)

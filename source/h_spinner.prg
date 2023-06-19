@@ -50,10 +50,10 @@
 #define EM_SETCUEBANNER       0x1501
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
+FUNCTION _DefineSpinner(ControlName, ParentForm, x, y, w, value , fontname, ;
       fontsize, rl, rh, tooltip, change, lostfocus, gotfocus, h, HelpId, ;
       horizontal, invisible, notabstop, bold, italic, underline, strikeout, ;
-      wrap, readonly, increment, backcolor, fontcolor, cuetext, bInit )
+      wrap, readonly, increment, backcolor, fontcolor, cuetext, bInit)
 *-----------------------------------------------------------------------------*
 
    LOCAL ControlHandle
@@ -188,11 +188,11 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
    ENDIF
 
    IF hb_IsNumeric(value)
-      SetSpinnerValue ( RetArray[2], Value )
+      SetSpinnerValue(RetArray[2], Value)
    ENDIF
 
    IF increment != 1
-      SetSpinnerIncrement ( RetArray[2], increment )
+      SetSpinnerIncrement(RetArray[2], increment)
    ENDIF
 
    IF _HMG_lOOPEnabled
@@ -203,7 +203,7 @@ FUNCTION _DefineSpinner ( ControlName, ParentForm, x, y, w, value , fontname, ;
 #endif
    ENDIF
 
-   Do_ControlEventProcedure ( bInit, k, ow, oc )
+   Do_ControlEventProcedure(bInit, k, ow, oc)
 
 RETURN NIL
 
@@ -247,7 +247,7 @@ FUNCTION OSPINEVENTS( hWnd, nMsg, wParam, lParam )    // 2006.08.13 JD
 
             _HMG_xControlsContextMenuID := _HMG_aControlsContextMenu[i][3]
 
-            TrackPopupMenu ( _HMG_aControlsContextMenu[i][2], LOWORD(lParam), HIWORD(lParam), ParentForm )
+            TrackPopupMenu(_HMG_aControlsContextMenu[i][2], LOWORD(lParam), HIWORD(lParam), ParentForm)
 
             RETURN 1
          ENDIF

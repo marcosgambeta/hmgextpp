@@ -47,7 +47,7 @@
 #include "minigui.ch"
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineHotKey ( cParentForm , nMod , nKey , bAction )
+FUNCTION _DefineHotKey(cParentForm , nMod , nKey , bAction)
 *-----------------------------------------------------------------------------*
 
    LOCAL nParentForm
@@ -61,7 +61,7 @@ FUNCTION _DefineHotKey ( cParentForm , nMod , nKey , bAction )
       IF nParentForm == 0
          cParentForm := _HMG_MainClientMDIName
       ELSE
-         cParentForm := _GetWindowProperty ( nParentForm, "PROP_FORMNAME" )
+         cParentForm := _GetWindowProperty(nParentForm, "PROP_FORMNAME")
       ENDIF                                                         //End JP
    ELSEIF _HMG_BeginWindowActive
       cParentForm := _HMG_ActiveFormName
@@ -76,7 +76,7 @@ FUNCTION _DefineHotKey ( cParentForm , nMod , nKey , bAction )
       MsgMiniGuiError("Window " + cParentForm + " is not defined.")
    ENDIF
 
-   _ReleaseHotKey ( cParentForm, nMod , nKey )
+   _ReleaseHotKey(cParentForm, nMod , nKey)
    // BK 22-Apr-2012
    IF _HMG_BeginWindowMDIActive .AND. Empty(_HMG_ActiveFormName)  //JP MDI HotKey
       nParentForm := GetActiveMdiHandle()
@@ -89,7 +89,7 @@ FUNCTION _DefineHotKey ( cParentForm , nMod , nKey , bAction )
 
    nId := _GetId(49151)
 
-   lSuccess := InitHotKey ( nParentForm , nMod , nKey , nId )
+   lSuccess := InitHotKey(nParentForm , nMod , nKey , nId)
 
    k := _GetControlFree()
 
@@ -137,7 +137,7 @@ FUNCTION _DefineHotKey ( cParentForm , nMod , nKey , bAction )
 RETURN lSuccess
 
 *-----------------------------------------------------------------------------*
-PROCEDURE _ReleaseHotKey ( cParentForm, nMod , nKey )
+PROCEDURE _ReleaseHotKey(cParentForm, nMod , nKey)
 *-----------------------------------------------------------------------------*
 
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
@@ -147,7 +147,7 @@ PROCEDURE _ReleaseHotKey ( cParentForm, nMod , nKey )
    FOR EACH ControlType IN _HMG_aControlType
       i := hb_enumindex( ControlType )
       IF ControlType == CONTROL_TYPE_HOTKEY .AND. _HMG_aControlParentHandles[i] == nParentFormHandle .AND. _HMG_aControlPageMap[i] == nMod .AND. _HMG_aControlValue[i] == nKey
-         _EraseControl( i, GetFormIndex ( cParentForm ) )
+         _EraseControl( i, GetFormIndex(cParentForm) )
          EXIT
       ENDIF
    NEXT
@@ -155,7 +155,7 @@ PROCEDURE _ReleaseHotKey ( cParentForm, nMod , nKey )
 RETURN
 
 *-----------------------------------------------------------------------------*
-FUNCTION _GetHotKeyBlock ( cParentForm, nMod, nKey )
+FUNCTION _GetHotKeyBlock(cParentForm, nMod, nKey)
 *-----------------------------------------------------------------------------*
 
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
@@ -174,10 +174,10 @@ FUNCTION _GetHotKeyBlock ( cParentForm, nMod, nKey )
 RETURN bRetVal
 
 *-----------------------------------------------------------------------------*
-PROCEDURE _PushKey ( nKey )
+PROCEDURE _PushKey(nKey)
 *-----------------------------------------------------------------------------*
-   Keybd_Event ( nKey, .F. )
-   Keybd_Event ( nKey, .T. )
+   Keybd_Event(nKey, .F.)
+   Keybd_Event(nKey, .T.)
 
 RETURN
 
@@ -219,12 +219,12 @@ FUNCTION _SetHotKeyByName(cParentForm, cKey, bAction)
    ENDIF
 
    IF !Empty(cKey) .AND. hb_IsString(cKey)
-      aKey := _DetermineKey ( cKey )
+      aKey := _DetermineKey(cKey)
       IF aKey[1] != 0
          IF hb_IsBlock(_GetHotKeyBlock(cParentForm, aKey[2], aKey[1]))
             MsgMiniGuiError("Hotkey " + cKey + " Already defined.")
          ENDIF
-         lSuccess := _DefineHotKey ( cParentForm, aKey[2], aKey[1], bAction )
+         lSuccess := _DefineHotKey(cParentForm, aKey[2], aKey[1], bAction)
       ELSE
          MsgMiniGuiError("Hotkey " + cKey + " is not valid.")
       ENDIF
@@ -233,7 +233,7 @@ FUNCTION _SetHotKeyByName(cParentForm, cKey, bAction)
 RETURN lSuccess
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DetermineKey ( cKey )
+FUNCTION _DetermineKey(cKey)
 *-----------------------------------------------------------------------------*
    
    LOCAL aKey := { 0, 0 }

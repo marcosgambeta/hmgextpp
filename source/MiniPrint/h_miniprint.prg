@@ -659,7 +659,7 @@ STATIC PROCEDURE CreateThumbNails()
       RETURN
    ENDIF
 
-   ShowWindow ( GetFormHandle ( "_HMG_PRINTER_Wait" ) )
+   ShowWindow(GetFormHandle ( "_HMG_PRINTER_Wait" ))
 
    IF _HMG_PRINTER_GETPAGEHEIGHT(_hmg_printer_hdc_bak) > _HMG_PRINTER_GETPAGEWIDTH(_hmg_printer_hdc_bak)
       tFactor := 0.44
@@ -672,7 +672,7 @@ STATIC PROCEDURE CreateThumbNails()
 
    tHeight := Int(tHeight)
 
-   ttHandle := GetFormToolTipHandle ( "_HMG_PRINTER_SHOWTHUMBNAILS" )
+   ttHandle := GetFormToolTipHandle("_HMG_PRINTER_SHOWTHUMBNAILS")
 
    FOR i := 1 TO _hmg_printer_PageCount
 
@@ -695,11 +695,11 @@ STATIC PROCEDURE CreateThumbNails()
          .T.;
          )
 
-      SetToolTip ( GetControlHandle ( cMacroTemp, "_HMG_PRINTER_SHOWTHUMBNAILS" ), _hmg_printer_usermessages[01] + " " + hb_ntos(i) + " [Click]", ttHandle )
+      SetToolTip(GetControlHandle(cMacroTemp, "_HMG_PRINTER_SHOWTHUMBNAILS" ), _hmg_printer_usermessages[01] + " " + hb_ntos(i) + " [Click]", ttHandle)
 
    NEXT i
 
-   HideWindow ( GetFormHandle ( "_HMG_PRINTER_Wait" ) )
+   HideWindow(GetFormHandle("_HMG_PRINTER_Wait"))
 
 RETURN
 
@@ -723,13 +723,13 @@ PROCEDURE _HMG_PRINTER_ProcessTHUMBNAILS()
       _HMG_PRINTER_SHOWPREVIEW.Width := GetDesktopWidth() - 148 - IIF(IsVistaThemed, 30, 0)
       _HMG_PRINTER_SHOWPREVIEW.Col := 138 + IIF(IsVistaThemed, 20, 0)
       _HMG_PRINTER_PREVIEWRefresh()
-      ShowWindow ( GetFormHandle ( "_HMG_PRINTER_SHOWTHUMBNAILS" ) )
+      ShowWindow(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS"))
    ELSE
       _hmg_printer_zoomclick_xoffset := 0
       _hmg_printer_SizeFactor := GetDesktopHeight() / _HMG_PRINTER_GETPAGEHEIGHT(_hmg_printer_hdc_bak) * 0.63
       _HMG_PRINTER_SHOWPREVIEW.Width := GetDesktopWidth() - 103
       _HMG_PRINTER_SHOWPREVIEW.Col := 51
-      HideWindow ( GetFormHandle ( "_HMG_PRINTER_SHOWTHUMBNAILS" ) )
+      HideWindow(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS"))
       _HMG_PRINTER_PPNAV.SetFocus
    ENDIF
 
@@ -757,15 +757,15 @@ PROCEDURE _hmg_printer_savepages()
 
    t := GetTempFolder() + hb_ps()
 
-   c := adir ( t + _hmg_printer_timestamp  + "_hmg_print_preview_*.Emf")
+   c := adir(t + _hmg_printer_timestamp  + "_hmg_print_preview_*.Emf")
 
    a := array(c)
 
-   adir ( t + _hmg_printer_timestamp  + "_hmg_print_preview_*.Emf", a )
+   adir(t + _hmg_printer_timestamp  + "_hmg_print_preview_*.Emf", a)
 
    FOR i := 1 TO c
       f := t + a[i]
-      d := x + "_" + StrZero ( i, 4 ) + ".emf"
+      d := x + "_" + StrZero(i, 4) + ".emf"
       COPY FILE (F) TO (D)
    NEXT i
 
@@ -775,10 +775,10 @@ RETURN
 
 PROCEDURE _HMG_PRINTER_GO_TO_PAGE()
 
-   DisableWindow ( GetFormHandle ( "_HMG_PRINTER_PPNAV" ) )
-   DisableWindow ( GetFormHandle ( "_HMG_PRINTER_SHOWTHUMBNAILS" ) )
-   DisableWindow ( GetFormHandle ( "_HMG_PRINTER_SHOWPREVIEW" ) )
-   ShowWindow ( GetFormHandle ( "_HMG_PRINTER_GO_TO_PAGE" ) )
+   DisableWindow(GetFormHandle("_HMG_PRINTER_PPNAV"))
+   DisableWindow(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS"))
+   DisableWindow(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"))
+   ShowWindow(GetFormHandle("_HMG_PRINTER_GO_TO_PAGE"))
 
 RETURN
 
@@ -788,7 +788,7 @@ STATIC PROCEDURE _HMG_PRINTER_hScrollBoxProcess()
 
    LOCAL Sp
 
-   Sp := GetScrollPos (  GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ )
+   Sp := GetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ)
    _hmg_printer_Dx        := - ( Sp - 50 ) * 10
    _HMG_PRINTER_PREVIEWRefresh()
 
@@ -800,7 +800,7 @@ STATIC PROCEDURE _HMG_PRINTER_vScrollBoxProcess()
 
    LOCAL Sp
 
-   Sp := GetScrollPos (  GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT )
+   Sp := GetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT)
    _hmg_printer_Dy        := - ( Sp - 50 ) * 10
    _HMG_PRINTER_PREVIEWRefresh()
 
@@ -844,28 +844,28 @@ PROCEDURE _HMG_PRINTER_PREVIEWRefresh()
 
          _hmg_printer_PrevPageNumber := _hmg_printer_CurrentPageNumber
          hwnd := GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS")
-         nRow := GetProperty ( "_HMG_PRINTER_SHOWTHUMBNAILS", "Image" + hb_ntos(_hmg_printer_CurrentPageNumber), "Row" )
+         nRow := GetProperty("_HMG_PRINTER_SHOWTHUMBNAILS", "Image" + hb_ntos(_hmg_printer_CurrentPageNumber), "Row")
          nScrollMax := GetScrollRangeMax( hwnd, SB_VERT )
 
          IF _hmg_printer_PageCount == _hmg_printer_CurrentPageNumber
 
             IF GetScrollPos(hwnd,SB_VERT) != nScrollMax
-               _HMG_SETVSCROLLVALUE ( hwnd, nScrollMax )
+               _HMG_SETVSCROLLVALUE(hwnd, nScrollMax)
             ENDIF
 
          ELSEIF _hmg_printer_CurrentPageNumber == 1
 
             IF GetScrollPos(hwnd,SB_VERT) != 0
-               _HMG_SETVSCROLLVALUE ( hwnd, 0 )
+               _HMG_SETVSCROLLVALUE(hwnd, 0)
             ENDIF
 
          ELSE
 
             IF ( nRow - 9 ) < nScrollMax
-               _HMG_SETVSCROLLVALUE ( hwnd, nRow - 9 )
+               _HMG_SETVSCROLLVALUE(hwnd, nRow - 9)
             ELSE
                IF GetScrollPos(hwnd,SB_VERT) != nScrollMax
-                  _HMG_SETVSCROLLVALUE ( hwnd, nScrollMax )
+                  _HMG_SETVSCROLLVALUE(hwnd, nScrollMax)
                ENDIF
             ENDIF
 
@@ -887,9 +887,9 @@ PROCEDURE _HMG_PRINTER_PREVIEWRefresh()
       RETURN
    ENDIF
 
-   InvalidateRect ( GetFormHandle ("_HMG_PRINTER_SHOWPREVIEW"), 0 )
+   InvalidateRect(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), 0)
 
-   _HMG_PRINTER_SHOWPAGE ( _hmg_printer_BasePageName + strzero(_hmg_printer_CurrentPageNumber, 4) + ".emf", GetFormHandle ("_HMG_PRINTER_SHOWPREVIEW"), _hmg_printer_hdc_bak, _hmg_printer_SizeFactor * 10000, _hmg_printer_Dz, _hmg_printer_Dx, _hmg_printer_Dy )
+   _HMG_PRINTER_SHOWPAGE(_hmg_printer_BasePageName + strzero(_hmg_printer_CurrentPageNumber, 4) + ".emf", GetFormHandle ("_HMG_PRINTER_SHOWPREVIEW"), _hmg_printer_hdc_bak, _hmg_printer_SizeFactor * 10000, _hmg_printer_Dz, _hmg_printer_Dx, _hmg_printer_Dy)
 
    _HMG_PRINTER_SHOWPREVIEW.TITLE := _hmg_printer_usermessages[01] + " [" + hb_ntos(_hmg_printer_CurrentPageNumber) + "/" + hb_ntos(_hmg_printer_PageCount) + "]"
 
@@ -899,9 +899,9 @@ RETURN
 
 PROCEDURE _HMG_PRINTER_PrintPages()
 
-   DIsableWindow ( GetFormHandle ( "_HMG_PRINTER_PPNAV" ) )
-   DIsableWindow ( GetFormHandle ( "_HMG_PRINTER_SHOWTHUMBNAILS" ) )
-   DIsableWindow ( GetFormHandle ( "_HMG_PRINTER_SHOWPREVIEW" ) )
+   DIsableWindow(GetFormHandle("_HMG_PRINTER_PPNAV"))
+   DIsableWindow(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS"))
+   DIsableWindow(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"))
 
    _HMG_PRINTER_PRINTPAGES.Radio_1.Value := 1
 
@@ -917,7 +917,7 @@ PROCEDURE _HMG_PRINTER_PrintPages()
       _HMG_PRINTER_PRINTPAGES.Spinner_3.Enabled := .F.
    ENDIF
 
-   ShowWindow ( GetFormHandle ( "_HMG_PRINTER_PRINTPAGES" ) )
+   ShowWindow(GetFormHandle("_HMG_PRINTER_PRINTPAGES"))
 
 RETURN
 
@@ -966,14 +966,14 @@ PROCEDURE _HMG_PRINTER_PrintPagesDo()
 
          IF OddOnly
             IF i / 2 != int(i / 2)
-               _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i, 4) + ".emf" )
+               _HMG_PRINTER_PRINTPAGE(_hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i, 4) + ".emf")
             ENDIF
          ELSEIF EvenOnly
             IF i / 2 == int(i / 2)
-               _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i, 4) + ".emf" )
+               _HMG_PRINTER_PRINTPAGE(_hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i, 4) + ".emf")
             ENDIF
          ELSE
-            _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i, 4) + ".emf" )
+            _HMG_PRINTER_PRINTPAGE(_hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i, 4) + ".emf")
          ENDIF
 
       NEXT i
@@ -988,14 +988,14 @@ PROCEDURE _HMG_PRINTER_PrintPagesDo()
 
                IF OddOnly
                   IF i / 2 != int(i / 2)
-                     _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i, 4) + ".emf" )
+                     _HMG_PRINTER_PRINTPAGE(_hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i, 4) + ".emf")
                   ENDIF
                ELSEIF EvenOnly
                   IF i / 2 == int(i / 2)
-                     _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i, 4) + ".emf" )
+                     _HMG_PRINTER_PRINTPAGE(_hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i, 4) + ".emf")
                   ENDIF
                ELSE
-                  _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i, 4) + ".emf" )
+                  _HMG_PRINTER_PRINTPAGE(_hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i, 4) + ".emf")
                ENDIF
 
             NEXT i
@@ -1010,14 +1010,14 @@ PROCEDURE _HMG_PRINTER_PrintPagesDo()
 
                IF OddOnly
                   IF i / 2 != int(i / 2)
-                     _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i, 4) + ".emf" )
+                     _HMG_PRINTER_PRINTPAGE(_hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i, 4) + ".emf")
                   ENDIF
                ELSEIF EvenOnly
                   IF i / 2 == int(i / 2)
-                     _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i, 4) + ".emf" )
+                     _HMG_PRINTER_PRINTPAGE(_hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i, 4) + ".emf")
                   ENDIF
                ELSE
-                  _HMG_PRINTER_PRINTPAGE ( _hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i, 4) + ".emf" )
+                  _HMG_PRINTER_PRINTPAGE(_hmg_printer_hdc_bak, _hmg_printer_BasePageName + strzero(i, 4) + ".emf")
                ENDIF
 
             NEXT p
@@ -1030,11 +1030,11 @@ PROCEDURE _HMG_PRINTER_PrintPagesDo()
 
    _HMG_PRINTER_ENDDOC(_hmg_printer_hdc_bak)
 
-   EnableWindow ( GetFormHandle ( "_HMG_PRINTER_SHOWPREVIEW" ) )
-   EnableWindow ( GetFormHandle ( "_HMG_PRINTER_SHOWTHUMBNAILS" ) )
-   EnableWindow ( GetFormHandle ( "_HMG_PRINTER_PPNAV" ) )
+   EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"))
+   EnableWindow(GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS"))
+   EnableWindow(GetFormHandle("_HMG_PRINTER_PPNAV"))
 
-   HideWindow ( GetFormHandle ( "_HMG_PRINTER_PRINTPAGES" ) )
+   HideWindow(GetFormHandle("_HMG_PRINTER_PRINTPAGES"))
 
    _HMG_PRINTER_SHOWPREVIEW.setfocus
 
@@ -1111,7 +1111,7 @@ Function GetPrinter()
 
    NEXT i
 
-   IF Type ( "_HMG_MINIPRINT[22]" ) == "U"
+   IF Type("_HMG_MINIPRINT[22]") == "U"
       _hmg_printer_InitUserMessages()
    ENDIF
 
@@ -1247,7 +1247,7 @@ PROCEDURE _HMG_PRINTER_H_IMAGE(nHdc, cImage, nRow, nCol, nHeight, nWidth, lStret
    nWidth        := Int(nWidth * 10000 / 254)
    nHeight        := Int(nHeight * 10000 / 254)
 
-   _HMG_PRINTER_C_IMAGE ( nHdc, cImage, nRow, nCol, nHeight, nWidth, lStretch, lTransparent )
+   _HMG_PRINTER_C_IMAGE(nHdc, cImage, nRow, nCol, nHeight, nWidth, lStretch, lTransparent)
 
 RETURN
 
@@ -1274,7 +1274,7 @@ PROCEDURE _HMG_PRINTER_H_LINE(nHdc, nRow, nCol, nToRow, nToCol, nWidth, nColor1,
       lwidth := .T.
    ENDIF
 
-   _HMG_PRINTER_C_LINE ( nHdc, nRow, nCol, nToRow, nToCol, nWidth, nColor1, nColor2, nColor3, lwidth, lcolor, nstyle )
+   _HMG_PRINTER_C_LINE(nHdc, nRow, nCol, nToRow, nToCol, nWidth, nColor1, nColor2, nColor3, lwidth, lcolor, nstyle)
 
 RETURN
 
@@ -1291,7 +1291,7 @@ PROCEDURE _HMG_PRINTER_H_RECTANGLE(nHdc, nRow, nCol, nToRow, nToCol, nWidth, nCo
       nWidth        := Int(nWidth * 10000 / 254)
    ENDIF
 
-   _HMG_PRINTER_C_RECTANGLE ( nHdc, nRow, nCol, nToRow, nToCol, nWidth, nColor1, nColor2, nColor3, lwidth, lcolor, lfilled, lnoborder )
+   _HMG_PRINTER_C_RECTANGLE(nHdc, nRow, nCol, nToRow, nToCol, nWidth, nColor1, nColor2, nColor3, lwidth, lcolor, lfilled, lnoborder)
 
 RETURN
 
@@ -1308,7 +1308,7 @@ PROCEDURE _HMG_PRINTER_H_ROUNDRECTANGLE(nHdc, nRow, nCol, nToRow, nToCol, nWidth
       nWidth        := Int(nWidth * 10000 / 254)
    ENDIF
 
-   _HMG_PRINTER_C_ROUNDRECTANGLE ( nHdc, nRow, nCol, nToRow, nToCol, nWidth, nColor1, nColor2, nColor3, lwidth, lcolor, lfilled )
+   _HMG_PRINTER_C_ROUNDRECTANGLE(nHdc, nRow, nCol, nToRow, nToCol, nWidth, nColor1, nColor2, nColor3, lwidth, lcolor, lfilled)
 
 RETURN
 
@@ -1953,21 +1953,21 @@ RETURN _HMG_PRINTER_GETPRINTERHEIGHT(_hmg_printer_hdc)
 
 FUNCTION GETPRINTABLEAREAHORIZONTALOFFSET()
 
-   IF TYPE ( "_hmg_miniprint[19]" ) == "U"
+   IF TYPE("_hmg_miniprint[19]") == "U"
       RETURN 0
    ENDIF
 
-RETURN ( _HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETX ( _hmg_printer_hdc ) / _HMG_PRINTER_GETPRINTABLEAREALOGPIXELSX ( _hmg_printer_hdc ) * 25.4 )
+RETURN ( _HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETX(_hmg_printer_hdc) / _HMG_PRINTER_GETPRINTABLEAREALOGPIXELSX(_hmg_printer_hdc) * 25.4 )
 
 //----------------------------------------------------------------------------//
 
 FUNCTION GETPRINTABLEAREAVERTICALOFFSET()
 
-   IF TYPE ( "_hmg_miniprint[19]" ) == "U"
+   IF TYPE("_hmg_miniprint[19]") == "U"
       RETURN 0
    ENDIF
 
-RETURN ( _HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETY ( _hmg_printer_hdc ) / _HMG_PRINTER_GETPRINTABLEAREALOGPIXELSY ( _hmg_printer_hdc ) * 25.4 )
+RETURN ( _HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETY(_hmg_printer_hdc) / _HMG_PRINTER_GETPRINTABLEAREALOGPIXELSY(_hmg_printer_hdc) * 25.4 )
 
 //----------------------------------------------------------------------------//
 
@@ -2171,9 +2171,9 @@ FUNCTION _DefineEmfFile(ControlName, ParentFormName, x, y, FileName, w, h, Proce
    mVar := "_" + ParentFormName + "_" + ControlName
    k := _GetControlFree()
 
-   ParentFormHandle := GetFormHandle ( ParentFormName )
+   ParentFormHandle := GetFormHandle(ParentFormName)
 
-   ControlHandle := InitEmfFile ( ParentFormHandle, 0, x, y, invisible, action )
+   ControlHandle := InitEmfFile(ParentFormHandle, 0, x, y, invisible, action)
 
 #ifdef _NAMES_LIST_
    _SetNameList(mVar, k)
@@ -2217,7 +2217,7 @@ FUNCTION _DefineEmfFile(ControlName, ParentFormName, x, y, FileName, w, h, Proce
    _HMG_aControlVisible            [k] := iif(invisible, .F., .T.)
    _HMG_aControlHelpId             [k] := HelpId
    _HMG_aControlFontHandle         [k] := HMG_NULLHANDLE
-   _HMG_aControlBrushHandle        [k] := C_SetEmfFile ( ControlHandle, FileName, W, H, _HMG_aControlValue [k], _HMG_aControlSpacing[k] )
+   _HMG_aControlBrushHandle        [k] := C_SetEmfFile(ControlHandle, FileName, W, H, _HMG_aControlValue [k], _HMG_aControlSpacing[k])
    _HMG_aControlEnabled            [k] := .T.
    _HMG_aControlMiscData1          [k] := 0
    _HMG_aControlMiscData2          [k] := ""

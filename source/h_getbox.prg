@@ -75,11 +75,11 @@ SET PROCEDURE TO tget\tgetint.prg
 STATIC s_Global := { NIL, .F., { 235, 235, 145 }, NIL, NIL, NIL }
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
+FUNCTION _DefineGetBox(ControlName, ParentFormName, x, y, w, h, Value, ;
    FontName, FontSize, aToolTip, lPassword, uLostFocus, uGotFocus, uChange, ;
    right, HelpId, readonly, bold, italic, underline, strikeout, field, backcolor, ;
    fontcolor, invisible, notabstop, nId, valid, cPicture, cmessage, cvalidmessage, ;
-   when, ProcedureName, ProcedureName2, abitmap, BtnWidth, lNoMinus, noborder, bInit )
+   when, ProcedureName, ProcedureName2, abitmap, BtnWidth, lNoMinus, noborder, bInit)
 *-----------------------------------------------------------------------------*
 
    LOCAL ParentFormHandle
@@ -112,7 +112,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
    ENDIF
 
    IF Field != NIL
-      IF  hb_UAt ( ">", Field ) == 0
+      IF  hb_UAt(">", Field) == 0
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name.")
       ELSE
          WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
@@ -168,7 +168,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
 #ifdef _TSBROWSE_
       IF _HMG_BeginWindowMDIActive
          ParentFormHandle := GetActiveMdiHandle()
-         ParentFormName := _GetWindowProperty ( ParentFormHandle, "PROP_FORMNAME" )
+         ParentFormName := _GetWindowProperty(ParentFormHandle, "PROP_FORMNAME")
       ELSE
 #endif
          ParentFormName := iif(_HMG_BeginDialogActive, _HMG_ActiveDialogName, _HMG_ActiveFormName)
@@ -243,8 +243,8 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      aControlHandle := InitGetBox ( ParentFormHandle, 0, x, y, w, h, "", 0, nMaxLength, ;
-         .F. , .F. , .F. , lPassword , right , readonly , invisible , notabstop, abitmap[1], BtnWidth, lBtns, abitmap[2], lBtn2, noborder )
+      aControlHandle := InitGetBox(ParentFormHandle, 0, x, y, w, h, "", 0, nMaxLength, ;
+         .F. , .F. , .F. , lPassword , right , readonly , invisible , notabstop, abitmap[1], BtnWidth, lBtns, abitmap[2], lBtn2, noborder)
 
       ControlHandle := aControlHandle[1]
 
@@ -269,7 +269,7 @@ FUNCTION _DefineGetBox ( ControlName, ParentFormName, x, y, w, h, Value, ;
 
       FOR tmp := 1 TO 3
          IF aToolTip[tmp] != NIL
-            SetToolTip ( aControlHandle[tmp], aToolTip[tmp], GetFormToolTipHandle(ParentFormName) )
+            SetToolTip(aControlHandle[tmp], aToolTip[tmp], GetFormToolTipHandle(ParentFormName))
          ENDIF
       NEXT
 
@@ -390,8 +390,8 @@ STATIC PROCEDURE _GetBoxSetNextFocus( lPrevious )
    LOCAL NextControlHandle
    LOCAL i
 
-   NextControlHandle := GetNextDlgTabITem ( GetActiveWindow() , GetFocus() , lPrevious )
-   setfocus ( NextControlHandle )
+   NextControlHandle := GetNextDlgTabITem(GetActiveWindow() , GetFocus() , lPrevious)
+   setfocus(NextControlHandle)
 
    IF ( i := AScan(_HMG_aControlHandles , NextControlHandle) ) > 0
 
@@ -404,7 +404,7 @@ STATIC PROCEDURE _GetBoxSetNextFocus( lPrevious )
 RETURN
 
 *-----------------------------------------------------------------------------*
-PROCEDURE _DataGetBoxRefresh ( i )
+PROCEDURE _DataGetBoxRefresh(i)
 *-----------------------------------------------------------------------------*
    
    LOCAL Field := _HMG_aControlPageMap[i]
@@ -518,7 +518,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
       IF lClrFocus .AND. !readonly .AND. lAllowEdit
          aOldBackClr := _HMG_aControlBkColor[i]
          IF _HMG_aControlBkColor[i] == NIL
-            _HMG_aControlBkColor[i] := nRGB2Arr ( GetSysColor ( COLOR_WINDOW ) )
+            _HMG_aControlBkColor[i] := nRGB2Arr(GetSysColor(COLOR_WINDOW))
          ENDIF
          IF hb_IsNumeric(_HMG_aControlBkColor[i, 1])
             _HMG_aControlBkColor[i] := iif(hb_IsBlock(aClrFocus), Eval(aClrFocus), aClrFocus)
@@ -527,7 +527,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          ENDIF
          aOldFontClr := _HMG_aControlFontColor[i]
          IF _HMG_aControlFontColor[i] == NIL
-            _HMG_aControlFontColor[i] := nRGB2Arr ( GetSysColor ( COLOR_WINDOWTEXT ) )
+            _HMG_aControlFontColor[i] := nRGB2Arr(GetSysColor(COLOR_WINDOWTEXT))
          ENDIF
          IF aFntFocus != NIL
             IF hb_IsNumeric(_HMG_aControlFontColor[i, 1])
@@ -1344,7 +1344,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
             _HMG_xControlsContextMenuID := _HMG_aControlsContextMenu[i][3]
 
-            TrackPopupMenu ( _HMG_aControlsContextMenu[i][2] , LOWORD(lParam) , HIWORD(lParam) , ParentHandle )
+            TrackPopupMenu(_HMG_aControlsContextMenu[i][2] , LOWORD(lParam) , HIWORD(lParam) , ParentHandle)
 
             RETURN 1
          ENDIF
@@ -1370,7 +1370,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
             ENDSWITCH
 
             SendMessage(HwndBtn, BM_SETSTYLE, LOWORD(BS_PUSHBUTTON), 1)
-            setfocus ( aHandle[1] )
+            setfocus(aHandle[1])
 
          ENDIF
 

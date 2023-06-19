@@ -53,14 +53,14 @@
 // (JK) Extend combobox control - COMBOBOXEX
 // HMG 1.0 Experimental Build 8
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
+FUNCTION _DefineComboEx(ControlName, ParentForm, x, y, w, rows, value, ;
       fontname, fontsize, tooltip, changeprocedure, h, gotfocus, lostfocus, ;
       uEnter, HelpId, invisible, notabstop, ;
       sort , ;  // not used with extend COMBO
       bold, italic, underline, strikeout , itemsource , valuesource , ;
       displaychange , ondisplaychangeprocedure , break , GripperText, ;
       aImage, ListWidth, OnListDisplayProcedure, OnListCloseProcedure, ;
-      backcolor, fontcolor, ImageList, nItemHeight, bInit, notrans )
+      backcolor, fontcolor, ImageList, nItemHeight, bInit, notrans)
 *-----------------------------------------------------------------------------*
    
    LOCAL ControlHandle
@@ -125,7 +125,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
    ENDIF
 
    IF itemsource != NIL
-      IF  hb_UAt ( ">", ItemSource ) == 0
+      IF  hb_UAt(">", ItemSource) == 0
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentForm + " (ItemSource): You must specify a fully qualified field name.")
       ELSE
          WorkArea := hb_ULeft(ItemSource, hb_UAt(">", ItemSource) - 2)
@@ -173,11 +173,11 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
 
       _HMG_SplitLastControl := "COMBOBOX"
 
-      i := GetFormIndex ( cParentForm )
+      i := GetFormIndex(cParentForm)
 
       IF i > 0
 
-         ControlHandle := InitComboBoxEx ( _HMG_aFormReBarHandle[i], 0, x, y, w, "", notrans , h, invisible, notabstop, .F. , displaychange, _HMG_IsXPorLater, aImages, ImageList )
+         ControlHandle := InitComboBoxEx(_HMG_aFormReBarHandle[i], 0, x, y, w, "", notrans , h, invisible, notabstop, .F. , displaychange, _HMG_IsXPorLater, aImages, ImageList)
 
          IF !empty(FontHandle)
             _SetFontHandle(ControlHandle, FontHandle)
@@ -197,7 +197,7 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
 
    ELSE
 
-      ControlHandle := InitComboBoxEx ( ParentForm, 0, x, y, w, "", notrans , h, invisible, notabstop, .F. , displaychange, _HMG_IsXPorLater, aImages, ImageList )
+      ControlHandle := InitComboBoxEx(ParentForm, 0, x, y, w, "", notrans , h, invisible, notabstop, .F. , displaychange, _HMG_IsXPorLater, aImages, ImageList)
 
       IF !empty(FontHandle)
          _SetFontHandle(ControlHandle, FontHandle)
@@ -280,13 +280,13 @@ FUNCTION _DefineComboEx ( ControlName, ParentForm, x, y, w, rows, value, ;
       // handle for ComboBoxEx edit window
       _hmg_acontrolrangemin[k] := SendMessage(Controlhandle, CBEM_GETEDITCONTROL, 0, 0)
       IF tooltip != NIL
-         SetToolTip ( _hmg_acontrolrangemin[k] , tooltip , GetFormToolTipHandle(cParentForm) )
+         SetToolTip(_hmg_acontrolrangemin[k] , tooltip , GetFormToolTipHandle(cParentForm))
       ENDIF
    ENDIF
    // handle for ComboBoxEx child window
    _hmg_acontrolrangemax[k] := SendMessage(Controlhandle, CBEM_GETCOMBOCONTROL, 0, 0)
    IF tooltip != NIL
-      SetToolTip ( _hmg_acontrolrangemax[k] , tooltip , GetFormToolTipHandle(cParentForm) )
+      SetToolTip(_hmg_acontrolrangemax[k] , tooltip , GetFormToolTipHandle(cParentForm))
    ENDIF
 
    SetDropDownWidth(_hmg_acontrolrangemax[k] , hb_defaultValue(ListWidth, w))

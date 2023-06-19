@@ -71,7 +71,7 @@ METHOD New( nRow, nCol, bSetGet, aGetData, nWidth, nHeight, oWnd, bChanged,;
    
    if _HMG_BeginWindowMDIActive
         ParentHandle :=  GetActiveMdiHandle()
-        cWnd         := _GetWindowProperty ( ParentHandle, "PROP_FORMNAME" )
+        cWnd         := _GetWindowProperty(ParentHandle, "PROP_FORMNAME")
    endif
    
    ::nId          := ::GetNewId()

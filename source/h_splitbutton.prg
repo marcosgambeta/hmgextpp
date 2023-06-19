@@ -11,16 +11,16 @@
 INIT PROCEDURE _InitSPButton
 *------------------------------------------------------------------------------*
 
-   InstallEventHandler  ( "SPButtonEventHandler" )
-   InstallMethodHandler ( "SetFocus", "SPButtonSetFocus" )
-   InstallMethodHandler ( "Enable", "SPButtonEnable" )
-   InstallMethodHandler ( "Disable", "SPButtonDisable" )
+   InstallEventHandler("SPButtonEventHandler")
+   InstallMethodHandler("SetFocus", "SPButtonSetFocus")
+   InstallMethodHandler("Enable", "SPButtonEnable")
+   InstallMethodHandler("Disable", "SPButtonDisable")
 
 RETURN
 
 *------------------------------------------------------------------------------*
-PROCEDURE _DefineSplitButton ( cName, nRow, nCol, cCaption, bAction, cParent, ;
-   lDefault, w, h, tooltip, fontname, fontsize, bold, italic, underline, strikeout )
+PROCEDURE _DefineSplitButton(cName, nRow, nCol, cCaption, bAction, cParent, ;
+   lDefault, w, h, tooltip, fontname, fontsize, bold, italic, underline, strikeout)
 *------------------------------------------------------------------------------*
    
    LOCAL hControlHandle
@@ -75,7 +75,7 @@ PROCEDURE _DefineSplitButton ( cName, nRow, nCol, cCaption, bAction, cParent, ;
    ELSE
       __defaultNIL(@FontName, _HMG_DefaultFontName)
       __defaultNIL(@FontSize, _HMG_DefaultFontSize)
-      FontHandle := _SetFont ( hControlHandle, FontName, FontSize, bold, italic, underline, strikeout )
+      FontHandle := _SetFont(hControlHandle, FontName, FontSize, bold, italic, underline, strikeout)
    ENDIF
 
 #ifdef _NAMES_LIST_
@@ -130,7 +130,7 @@ PROCEDURE _DefineSplitButton ( cName, nRow, nCol, cCaption, bAction, cParent, ;
    ENDIF
 
    IF tooltip != NIL
-      SetToolTip ( hControlHandle , tooltip , GetFormToolTipHandle(cParent) )
+      SetToolTip(hControlHandle , tooltip , GetFormToolTipHandle(cParent))
    ENDIF
 
 RETURN
@@ -141,7 +141,7 @@ RETURN
 #define BCN_FIRST    -1250
 #define BCN_DROPDOWN (BCN_FIRST + 0x0002)
 *------------------------------------------------------------------------------*
-FUNCTION SPButtonEventHandler ( hWnd, nMsg, wParam, lParam )
+FUNCTION SPButtonEventHandler(hWnd, nMsg, wParam, lParam)
 *------------------------------------------------------------------------------*
    
    LOCAL xRetVal // := NIL
@@ -151,9 +151,9 @@ FUNCTION SPButtonEventHandler ( hWnd, nMsg, wParam, lParam )
 
    IF nMsg == WM_NOTIFY
 
-      IF GetNotifyCode ( lParam ) == BCN_DROPDOWN  // Notify for dropdown button
+      IF GetNotifyCode(lParam) == BCN_DROPDOWN  // Notify for dropdown button
          xRetVal := 0
-         LaunchDropdownMenu( GetHwndFrom ( lParam ) )
+         LaunchDropdownMenu( GetHwndFrom(lParam) )
       ENDIF
 
    ELSEIF nMsg == WM_COMMAND
@@ -164,7 +164,7 @@ FUNCTION SPButtonEventHandler ( hWnd, nMsg, wParam, lParam )
 
          IF HiWord(wParam) == BN_CLICKED
             xRetVal := 0
-            _DoControlEventProcedure ( _HMG_aControlProcedures[i], i )
+            _DoControlEventProcedure(_HMG_aControlProcedures[i], i)
          ENDIF
 
       ENDIF
@@ -177,7 +177,7 @@ RETURN xRetVal
 #define BS_SPLITBUTTON     0x0000000C
 #define BS_DEFSPLITBUTTON  0x0000000D
 *------------------------------------------------------------------------------*
-PROCEDURE SPButtonSetFocus ( cWindow, cControl )
+PROCEDURE SPButtonSetFocus(cWindow, cControl)
 *------------------------------------------------------------------------------*
    
    LOCAL hWnd
@@ -185,7 +185,7 @@ PROCEDURE SPButtonSetFocus ( cWindow, cControl )
    LOCAL ControlCount
    LOCAL x
 
-   IF GetControlType ( cControl, cWindow ) == "SPBUTTON"
+   IF GetControlType(cControl, cWindow) == "SPBUTTON"
 
       _HMG_UserComponentProcess := .T.
 
@@ -213,10 +213,10 @@ PROCEDURE SPButtonSetFocus ( cWindow, cControl )
 RETURN
 
 *------------------------------------------------------------------------------*
-PROCEDURE SPButtonEnable ( cWindow, cControl )
+PROCEDURE SPButtonEnable(cWindow, cControl)
 *------------------------------------------------------------------------------*
 
-   IF GetControlType ( cControl, cWindow ) == "SPBUTTON"
+   IF GetControlType(cControl, cWindow) == "SPBUTTON"
 
       EnableWindow(GetControlHandle(cControl, cWindow))
 
@@ -231,10 +231,10 @@ PROCEDURE SPButtonEnable ( cWindow, cControl )
 RETURN
 
 *------------------------------------------------------------------------------*
-PROCEDURE SPButtonDisable ( cWindow, cControl )
+PROCEDURE SPButtonDisable(cWindow, cControl)
 *------------------------------------------------------------------------------*
 
-   IF GetControlType ( cControl, cWindow ) == "SPBUTTON"
+   IF GetControlType(cControl, cWindow) == "SPBUTTON"
 
       DisableWindow(GetControlHandle(cControl, cWindow))
 

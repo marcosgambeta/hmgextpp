@@ -48,10 +48,10 @@
 #include "i_winuser.ch"
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
+FUNCTION _DefineEditbox(ControlName, ParentFormName, x, y, w, h, value, ;
       fontname, fontsize, tooltip, maxlength, gotfocus, change, lostfocus, ;
       readonly, break, HelpId, invisible, notabstop, bold, italic, underline, ;
-      strikeout, field, backcolor, fontcolor, novscroll, nohscroll, nId, bInit )
+      strikeout, field, backcolor, fontcolor, novscroll, nohscroll, nId, bInit)
 *-----------------------------------------------------------------------------*
    
    LOCAL ParentFormHandle
@@ -87,7 +87,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
    ENDIF
 
    IF Field != NIL
-      IF  hb_UAt ( ">", Field ) == 0
+      IF  hb_UAt(">", Field) == 0
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name.")
       ELSE
          WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
@@ -181,11 +181,11 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
 
          _HMG_SplitLastControl := "EDIT"
 
-         i := GetFormIndex ( ParentFormName )
+         i := GetFormIndex(ParentFormName)
 
          IF i > 0
 
-            ControlHandle := InitEditBox ( ParentFormHandle , 0, x, y, w, h, "", 0 , maxlength , readonly, invisible, notabstop , novscroll , nohscroll )
+            ControlHandle := InitEditBox(ParentFormHandle , 0, x, y, w, h, "", 0 , maxlength , readonly, invisible, notabstop , novscroll , nohscroll)
 
             IF !empty(FontHandle)
                _SetFontHandle(ControlHandle, FontHandle)
@@ -213,7 +213,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
 
       ELSE
 
-         ControlHandle := InitEditBox ( ParentFormHandle, 0, x, y, w, h, "", 0 , maxlength , readonly, invisible, notabstop , novscroll , nohscroll )
+         ControlHandle := InitEditBox(ParentFormHandle, 0, x, y, w, h, "", 0 , maxlength , readonly, invisible, notabstop , novscroll , nohscroll)
 
          IF hb_IsChar(Value) ;
                .OR. ;
@@ -317,7 +317,7 @@ FUNCTION _DefineEditbox ( ControlName, ParentFormName, x, y, w, h, value, ;
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-PROCEDURE _DataEditBoxRefresh ( i )
+PROCEDURE _DataEditBoxRefresh(i)
 *-----------------------------------------------------------------------------*
 
    LOCAL Field := _HMG_aControlPageMap[i]

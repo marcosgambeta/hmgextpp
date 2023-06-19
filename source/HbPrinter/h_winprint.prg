@@ -1419,7 +1419,7 @@ METHOD PrevShow() CLASS HBPrinter
       azoom[3] := ( ahs[5, 4] * ::MetaFiles[page, 2] / ::MetaFiles[page, 3] ) * scale - 60
       azoom[4] := ( ahs[5, 4] ) * scale - 60
    ENDIF
-   _SetItem ( "StatusBar", "hbpreview", 1, aopisy[15] + " " + AllTrim(Str(page)) )
+   _SetItem("StatusBar", "hbpreview", 1, aopisy[15] + " " + AllTrim(Str(page)))
 
    IF azoom[3] < 30
       scale := scale * 1.25
@@ -2374,7 +2374,7 @@ RETURN NIL
 METHOD PrevClose(lEsc) CLASS HBPrinter
 
    ::lEscaped := lEsc
-   _ReleaseWindow ( "HBPREVIEW" )
+   _ReleaseWindow("HBPREVIEW")
 
 RETURN self
 

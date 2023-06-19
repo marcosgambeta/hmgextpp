@@ -116,7 +116,7 @@ FUNCTION AddMenuElement(NewItem, cAction)
    IF MRUCount == 0
       // Modify a first element the menu
       cxMRU_Id := cMRU_Id
-      _ModifyMenuItem ( cxMRU_Id , MRUParentForm , "&1 " + caption , action )
+      _ModifyMenuItem(cxMRU_Id , MRUParentForm , "&1 " + caption , action)
       AAdd(aMRU_File, {caption, NewItem, cxMRU_Id, action, 1})
    ELSE
       // Add a new element to the menu
@@ -130,14 +130,14 @@ FUNCTION AddMenuElement(NewItem, cAction)
 
       cyMRU_Id := cMRU_Id + "_" + hb_ntos(x)
       cxMRU_Id := aMRU_File[1, 3]
-      _InsertMenuItem ( cxMRU_Id , MRUParentForm , "&1 " + caption , action, cyMRU_Id )
+      _InsertMenuItem(cxMRU_Id , MRUParentForm , "&1 " + caption , action, cyMRU_Id)
       // Insert a first element the menu
       AIns( aMRU_File, 1, { caption, NewItem, cyMRU_Id, action, x }, .T. )
       FOR n := 1 TO Len(aMRU_File)
          cx := hb_ntos(n)
          cxMRU_Id := aMRU_File[n, 3]
          xCaption := "&" + cx + " " + aMRU_File[n, 1]
-         _ModifyMenuItem ( cxMRU_Id , MRUParentForm , xCaption , aMRU_File[n, 4] )
+         _ModifyMenuItem(cxMRU_Id , MRUParentForm , xCaption , aMRU_File[n, 4])
       NEXT
       IF Len(aMRU_File) > maxMRU_Files
          cxMRU_Id := aMRU_File[Len(aMRU_File), 3]
@@ -186,7 +186,7 @@ FUNCTION SaveMRUFileList()
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineMruItem ( caption , cIniFile , cSection , nMaxItems , action , name )
+FUNCTION _DefineMruItem(caption , cIniFile , cSection , nMaxItems , action , name)
 *-----------------------------------------------------------------------------*
    
    LOCAL aTmp := {}

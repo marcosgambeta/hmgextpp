@@ -912,7 +912,7 @@ RETURN lOldVal
 
    NOTE: In Milliseconds. The dialog closes after given time.
  */
-METHOD timeoutMS ( nMS ) CLASS TTaskDialog
+METHOD timeoutMS(nMS) CLASS TTaskDialog
 
    LOCAL nOldVal := ::nTimeOutMS
 

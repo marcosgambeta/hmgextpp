@@ -48,9 +48,9 @@
 #include "i_winuser.ch"
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
+FUNCTION _DefineImage(ControlName, ParentFormName, x, y, FileName, w, h, ;
       ProcedureName, tooltip, HelpId, invisible, stretch, aBKColor, transparent, ;
-      adjustimage, mouseover, mouseleave, nAlphaLevel, nId, bInit, dblclick, rclick )
+      adjustimage, mouseover, mouseleave, nAlphaLevel, nId, bInit, dblclick, rclick)
 *-----------------------------------------------------------------------------*
    
    LOCAL ParentFormHandle
@@ -152,7 +152,7 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      ControlHandle := InitImage ( ParentFormHandle, 0, x, y, invisible, ( action .OR. hb_IsBlock(dblclick) .OR. hb_IsBlock(rclick) .OR. hb_IsString( tooltip ) ), ( hb_IsBlock(mouseover) .OR. hb_IsBlock(mouseleave) ) )
+      ControlHandle := InitImage(ParentFormHandle, 0, x, y, invisible, ( action .OR. hb_IsBlock(dblclick) .OR. hb_IsBlock(rclick) .OR. hb_IsString( tooltip ) ), ( hb_IsBlock(mouseover) .OR. hb_IsBlock(mouseleave) ))
 
    ENDIF
 
@@ -227,7 +227,7 @@ FUNCTION _DefineImage ( ControlName, ParentFormName, x, y, FileName, w, h, ;
 #endif
    ENDIF
 
-   Do_ControlEventProcedure ( bInit, k, ow, oc )
+   Do_ControlEventProcedure(bInit, k, ow, oc)
 
 RETURN NIL
 

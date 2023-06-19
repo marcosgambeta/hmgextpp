@@ -1199,7 +1199,7 @@ STATIC FUNCTION ABM2EditarGuardar( lNuevo )
          ABM2Redibuja(.T.)
 
       ELSE
-         AlertStop ( _HMG_aLangUser[41], _cTitulo )
+         AlertStop(_HMG_aLangUser[41], _cTitulo)
       ENDIF
    ELSE
 

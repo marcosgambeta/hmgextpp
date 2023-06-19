@@ -52,12 +52,12 @@
 #define DTS_RIGHTALIGN      0x0020 // right-align popup instead of left-align it
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
+FUNCTION _DefineDatePick(ControlName, ParentFormName, x, y, w, h, value, ;
       fontname, fontsize, tooltip, change, lostfocus, ;
       gotfocus, shownone, updown, rightalign, HelpId, ;
       invisible, notabstop, bold, italic, underline, strikeout, ;
       Field, Enter, backcolor, fontcolor, titlebkclr, titlefrclr, trlfontclr, ;
-      cDateFormat, dRangeMin, dRangeMax, nId, bInit )
+      cDateFormat, dRangeMin, dRangeMax, nId, bInit)
 *-----------------------------------------------------------------------------*
    
    LOCAL ParentFormHandle
@@ -90,7 +90,7 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
    ENDIF
 
    IF Field != NIL
-      IF hb_UAt ( ">", Field ) == 0
+      IF hb_UAt(">", Field) == 0
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified Field name.")
       ELSE
          WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
@@ -172,7 +172,7 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      ControlHandle := InitDatePick ( ParentFormHandle, 0, x, y, w, h, "", 0, shownone, updown, rightalign, invisible, notabstop )
+      ControlHandle := InitDatePick(ParentFormHandle, 0, x, y, w, h, "", 0, shownone, updown, rightalign, invisible, notabstop)
 
    ENDIF
 
@@ -295,11 +295,11 @@ FUNCTION _DefineDatePick ( ControlName, ParentFormName, x, y, w, h, value, ;
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
+FUNCTION _DefineTimePick(ControlName, ParentFormName, x, y, w, h, value, ;
       fontname, fontsize, tooltip, change, lostfocus, ;
       gotfocus, shownone, HelpId, ;
       invisible, notabstop, bold, italic, underline, strikeout, ;
-      Field, Enter, cTimeFormat, nId )
+      Field, Enter, cTimeFormat, nId)
 *-----------------------------------------------------------------------------*
    
    LOCAL ParentFormHandle
@@ -327,7 +327,7 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
    ENDIF
 
    IF Field != NIL
-      IF hb_UAt ( ">", Field ) == 0
+      IF hb_UAt(">", Field) == 0
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified Field name.")
       ELSE
          WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
@@ -403,7 +403,7 @@ FUNCTION _DefineTimePick ( ControlName, ParentFormName, x, y, w, h, value, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      ControlHandle := InitTimePick ( ParentFormHandle, 0, x, y, w, h, "", 0, shownone, invisible, notabstop )
+      ControlHandle := InitTimePick(ParentFormHandle, 0, x, y, w, h, "", 0, shownone, invisible, notabstop)
 
    ENDIF
 

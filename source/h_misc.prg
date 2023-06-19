@@ -69,7 +69,7 @@ FUNCTION GetData()
 
    SET DATE TO ANSI
 
-   ADir ( _HMG_CommPath + _HMG_StationName + ".*" , PacketNames )
+   ADir(_HMG_CommPath + _HMG_StationName + ".*" , PacketNames)
 
    IF Len(PacketNames) > 0
 
@@ -100,7 +100,7 @@ FUNCTION GetData()
 
          i := 3
 
-         DO WHILE i < MLCount ( Packet )
+         DO WHILE i < MLCount(Packet)
 
             DataType   := SubStr(MemoLine(Packet, , i), 12, 1)
             DataLength := Val(SubStr(MemoLine(Packet, , i), 14, 99))
@@ -134,7 +134,7 @@ FUNCTION GetData()
          r := 1
          c := 1
 
-         DO WHILE i < MLCount ( Packet )
+         DO WHILE i < MLCount(Packet)
 
             DataType   := SubStr(MemoLine(Packet, , i) , 12, 1)
             DataLength := Val(SubStr(MemoLine(Packet, , i), 14, 99))
@@ -227,7 +227,7 @@ FUNCTION SendData(cDest, Data)
 
          NEXT i
 
-         MemoWrit ( FileName , cData )
+         MemoWrit(FileName , cData)
 
       ELSE
 
@@ -270,7 +270,7 @@ FUNCTION SendData(cDest, Data)
             NEXT j
          NEXT i
 
-         MemoWrit ( FileName , cData )
+         MemoWrit(FileName , cData)
 
       ENDIF
 
@@ -305,7 +305,7 @@ FUNCTION SendData(cDest, Data)
       cData += "#DataBlock=" + cType + "," + cLen + Chr(13) + Chr(10)
       cData += pData + Chr(13) + Chr(10)
 
-      MemoWrit ( FileName , cData )
+      MemoWrit(FileName , cData)
 
    ENDIF
 

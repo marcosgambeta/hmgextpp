@@ -48,10 +48,10 @@
 #include "i_winuser.ch"
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value, ;
+FUNCTION _DefineListbox(ControlName, ParentFormName, x, y, w, h, arows, value, ;
       fontname, fontsize, tooltip, changeprocedure, dblclick, gotfocus, lostfocus, break, HelpId, ;
       invisible, notabstop, sort, bold, italic, underline, strikeout, backcolor, fontcolor, ;
-      multiselect, dragitems, multicolumn, multitabs, aWidth, nId )
+      multiselect, dragitems, multicolumn, multitabs, aWidth, nId)
 *-----------------------------------------------------------------------------*
    
    LOCAL ParentFormHandle
@@ -185,14 +185,14 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
             Break := .T.
          ENDIF
 
-         i := GetFormIndex ( ParentFormName )
+         i := GetFormIndex(ParentFormName)
 
          IF i > 0
 
             IF multiselect
-               ControlHandle := InitMultiListBox ( _HMG_aFormReBarHandle[i], 0, x, y, w, h, fontname, fontsize, invisible, notabstop, sort, dragitems, multitabs, multicolumn )
+               ControlHandle := InitMultiListBox(_HMG_aFormReBarHandle[i], 0, x, y, w, h, fontname, fontsize, invisible, notabstop, sort, dragitems, multitabs, multicolumn)
             ELSE
-               ControlHandle := InitListBox ( _HMG_aFormReBarHandle[i] , 0 , 0 , 0 , w , h , "" , 0 , invisible , notabstop, sort, dragitems, multitabs, multicolumn )
+               ControlHandle := InitListBox(_HMG_aFormReBarHandle[i] , 0 , 0 , 0 , w , h , "" , 0 , invisible , notabstop, sort, dragitems, multitabs, multicolumn)
             ENDIF
 
             AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], w, break, , , , _HMG_ActiveSplitBoxInverted)
@@ -204,9 +204,9 @@ FUNCTION _DefineListbox ( ControlName, ParentFormName, x, y, w, h, arows, value,
       ELSE
 
          IF multiselect
-            ControlHandle := InitMultiListBox ( ParentFormHandle, 0, x, y, w, h, fontname, fontsize, invisible, notabstop, sort, dragitems, multitabs, multicolumn )
+            ControlHandle := InitMultiListBox(ParentFormHandle, 0, x, y, w, h, fontname, fontsize, invisible, notabstop, sort, dragitems, multitabs, multicolumn)
          ELSE
-            ControlHandle := InitListBox ( ParentFormHandle , 0 , x , y , w , h , "" , 0 , invisible, notabstop, sort, dragitems, multitabs, multicolumn )
+            ControlHandle := InitListBox(ParentFormHandle , 0 , x , y , w , h , "" , 0 , invisible, notabstop, sort, dragitems, multitabs, multicolumn)
          ENDIF
 
       ENDIF

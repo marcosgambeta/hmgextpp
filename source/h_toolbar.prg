@@ -48,7 +48,7 @@
 #include "i_winuser.ch"
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineToolBar ( ControlName, ParentForm, x, y, caption, ProcedureName, w, h, fontname, fontsize, tooltip, flat, bottom, righttext, break, bold, italic, underline, strikeout, border, mixedbuttons, rows, tbsize, imagelst, hotimagelst, wrap, custom )
+FUNCTION _DefineToolBar(ControlName, ParentForm, x, y, caption, ProcedureName, w, h, fontname, fontsize, tooltip, flat, bottom, righttext, break, bold, italic, underline, strikeout, border, mixedbuttons, rows, tbsize, imagelst, hotimagelst, wrap, custom)
 *-----------------------------------------------------------------------------*
 
    LOCAL FontHandle
@@ -87,9 +87,9 @@ FUNCTION _DefineToolBar ( ControlName, ParentForm, x, y, caption, ProcedureName,
    _HMG_ActiveToolBarCaption := Caption
 
    IF _HMG_ActiveToolBarExtend
-      ControlHandle := InitToolBarEx ( ParentForm, Caption, id, 0, 0, w, h, "" , 0 , flat , bottom , righttext , _HMG_ActiveSplitBox , border , mixedbuttons , wrap, custom )
+      ControlHandle := InitToolBarEx(ParentForm, Caption, id, 0, 0, w, h, "" , 0 , flat , bottom , righttext , _HMG_ActiveSplitBox , border , mixedbuttons , wrap, custom)
    ELSE
-      ControlHandle := InitToolBar ( ParentForm, Caption, id, 0, 0, w, h, "" , 0 , flat , bottom , righttext , _HMG_ActiveSplitBox , border , wrap, custom )
+      ControlHandle := InitToolBar(ParentForm, Caption, id, 0, 0, w, h, "" , 0 , flat , bottom , righttext , _HMG_ActiveSplitBox , border , wrap, custom)
    ENDIF
 
    IF !empty(FontHandle)
@@ -178,22 +178,22 @@ FUNCTION _EndToolBar()
 
    IF _HMG_BeginPagerActive
 #ifdef _PAGER_
-      _AddChildToPager ( _HMG_ActiveToolBarName , ParentForm )
+      _AddChildToPager(_HMG_ActiveToolBarName , ParentForm)
 #endif
    ELSE
       IF _HMG_ActiveSplitBox
-         _AddToolBarToSplitBox ( _HMG_ActiveToolBarName , _HMG_ActiveToolBarBreak , _HMG_ActiveToolBarCaption , ParentForm )
+         _AddToolBarToSplitBox(_HMG_ActiveToolBarName , _HMG_ActiveToolBarBreak , _HMG_ActiveToolBarCaption , ParentForm)
          ix     := GetControlIndex(_HMG_ActiveToolBarName, ParentForm)
-         i      := GetFormIndex ( _HMG_ActiveSplitBoxParentFormName )
-         nBand  := GetBandCount ( _HMG_aFormReBarHandle[i] )
+         i      := GetFormIndex(_HMG_ActiveSplitBoxParentFormName)
+         nBand  := GetBandCount(_HMG_aFormReBarHandle[i])
          _HMG_aControlMiscData1[ix] := nBand
          nRow   := _HMG_aControlSpacing[ix]
          IF nRow > 1
-            aSize := SetRowsButton ( h , nRow , .T. )
-            ResizeSplitBoxItem ( _HMG_aFormReBarHandle[i], nBand - 1, aSize[1], aSize[2], aSize[1] )
+            aSize := SetRowsButton(h , nRow , .T.)
+            ResizeSplitBoxItem(_HMG_aFormReBarHandle[i], nBand - 1, aSize[1], aSize[2], aSize[1])
          ENDIF
       ELSE
-         MaxTextBtnToolBar ( h, _GetControlWidth(_HMG_ActiveToolBarName, ParentForm), _GetControlHeight(_HMG_ActiveToolBarName, ParentForm) )
+         MaxTextBtnToolBar(h, _GetControlWidth(_HMG_ActiveToolBarName, ParentForm), _GetControlHeight(_HMG_ActiveToolBarName, ParentForm))
       ENDIF
    ENDIF
 
@@ -208,7 +208,7 @@ FUNCTION _EndToolBar()
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineToolButton ( ControlName, ParentControl, x, y, Caption, ProcedureName, w, h, image , tooltip , gotfocus , lostfocus , flat , separator , autosize , check , group , dropdown , WholeDropDown, adjust , imageindex, notrans )
+FUNCTION _DefineToolButton(ControlName, ParentControl, x, y, Caption, ProcedureName, w, h, image , tooltip , gotfocus , lostfocus , flat , separator , autosize , check , group , dropdown , WholeDropDown, adjust , imageindex, notrans)
 *-----------------------------------------------------------------------------*
    
    LOCAL ParentForm
@@ -258,7 +258,7 @@ FUNCTION _DefineToolButton ( ControlName, ParentControl, x, y, Caption, Procedur
    hb_default(@notrans, .F.)
 
    IF imageindex != NIL
-      aImage      := GetControlValue ( _HMG_ActiveToolBarName, cParentForm )
+      aImage      := GetControlValue(_HMG_ActiveToolBarName, cParentForm)
       imagelst    := aImage[1]
       hotimagelst := aImage[2]
    ELSE
@@ -266,12 +266,12 @@ FUNCTION _DefineToolButton ( ControlName, ParentControl, x, y, Caption, Procedur
    ENDIF
 
    IF _HMG_ActiveToolBarExtend
-      ControlHandle := InitToolButtonEx ( ParentForm, Caption, id, 0, 0, w, h, image, notrans, separator, autosize, check, group, dropdown, WholeDropDown, adjust, imageindex, imagelst, hotimagelst )
+      ControlHandle := InitToolButtonEx(ParentForm, Caption, id, 0, 0, w, h, image, notrans, separator, autosize, check, group, dropdown, WholeDropDown, adjust, imageindex, imagelst, hotimagelst)
    ELSE
-      ControlHandle := InitToolButton ( ParentForm, Caption, id, 0, 0, w, h, image, notrans, separator, autosize, check, group, dropdown, WholeDropDown, adjust )
+      ControlHandle := InitToolButton(ParentForm, Caption, id, 0, 0, w, h, image, notrans, separator, autosize, check, group, dropdown, WholeDropDown, adjust)
    ENDIF
 
-   nPos := GetButtonBarCount ( ParentForm ) - iif(separator, 1, 0)
+   nPos := GetButtonBarCount(ParentForm) - iif(separator, 1, 0)
 
    k := _GetControlFree()
 
@@ -328,21 +328,21 @@ FUNCTION _DefineToolButton ( ControlName, ParentControl, x, y, Caption, Procedur
 
    Caption := Upper(Caption)
 
-   IF ( i := hb_UAt ( "&" , Caption ) ) > 0
+   IF ( i := hb_UAt("&" , Caption) ) > 0
 
       IF WholeDropDown
          nToolBarIndex := AScan(_HMG_aControlHandles , ParentForm)
          ProcedureName := {||_DropDownShortcut(Id, hParentForm, nToolBarIndex, nPos)}
       ENDIF
 
-      _DefineLetterOrDigitHotKey ( Caption , i , cParentForm , ProcedureName )
+      _DefineLetterOrDigitHotKey(Caption , i , cParentForm , ProcedureName)
 
    ENDIF
 
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-STATIC FUNCTION _AddToolBarToSplitBox ( ControlName , break , Caption , ParentForm )
+STATIC FUNCTION _AddToolBarToSplitBox(ControlName , break , Caption , ParentForm)
 *-----------------------------------------------------------------------------*
    
    LOCAL MinWidth
@@ -352,14 +352,14 @@ STATIC FUNCTION _AddToolBarToSplitBox ( ControlName , break , Caption , ParentFo
    LOCAL w
    LOCAL ix
 
-   i := GetFormIndex ( _HMG_ActiveSplitBoxParentFormName )
+   i := GetFormIndex(_HMG_ActiveSplitBoxParentFormName)
    c := GetControlHandle(ControlName, _HMG_ActiveSplitBoxParentFormName)
 
    IF !_HMG_ActiveToolBarExtend
-      MaxTextBtnToolBar ( c, _GetControlWidth(ControlName, ParentForm), _GetControlHeight(ControlName, ParentForm) )
+      MaxTextBtnToolBar(c, _GetControlWidth(ControlName, ParentForm), _GetControlHeight(ControlName, ParentForm))
    ENDIF
 
-   w := GetSizeToolBar ( c )
+   w := GetSizeToolBar(c)
 
    MinWidth  := HiWord(w)
    MinHeight := LoWord(w)
@@ -374,13 +374,13 @@ STATIC FUNCTION _AddToolBarToSplitBox ( ControlName , break , Caption , ParentFo
       MinHeight := HiWord(w)
    ENDIF
    IF i > 0
-      AddSplitBoxItem ( c , _HMG_aFormReBarHandle[i] , w , break , Caption , MinWidth , MinHeight , _HMG_ActiveSplitBoxInverted , _HMG_aControlRangeMin[ix] )
+      AddSplitBoxItem(c , _HMG_aFormReBarHandle[i] , w , break , Caption , MinWidth , MinHeight , _HMG_ActiveSplitBoxInverted , _HMG_aControlRangeMin[ix])
    ENDIF
 
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION _BeginToolBar ( name, parent, row, col, w, h, caption, ProcedureName, fontname, fontsize, tooltip, flat, bottom, righttext, break, bold, italic, underline, strikeout, border, wrap, custom )
+FUNCTION _BeginToolBar(name, parent, row, col, w, h, caption, ProcedureName, fontname, fontsize, tooltip, flat, bottom, righttext, break, bold, italic, underline, strikeout, border, wrap, custom)
 *-----------------------------------------------------------------------------*
 
    _HMG_ToolBarActive       := .T.
@@ -412,7 +412,7 @@ FUNCTION _BeginToolBar ( name, parent, row, col, w, h, caption, ProcedureName, f
 
    _HMG_ActiveToolBarName := name
 
-   _DefineToolBar ( name , parent , col , row , caption , ProcedureName , w , h , fontname , fontsize , tooltip , flat , bottom , righttext , break , bold , italic , underline , strikeout , border , .F. , 0 , 0 , , , wrap, custom )
+   _DefineToolBar(name , parent , col , row , caption , ProcedureName , w , h , fontname , fontsize , tooltip , flat , bottom , righttext , break , bold , italic , underline , strikeout , border , .F. , 0 , 0 , , , wrap, custom)
 
 RETURN NIL
 
@@ -463,12 +463,12 @@ FUNCTION _BeginToolBarEx( name, parent, row, col, w, h, caption, ProcedureName, 
 
    _HMG_ActiveToolBarName := name
 
-   _DefineToolBar ( name , parent , col , row , caption , ProcedureName , w , h , fontname , fontsize , tooltip , flat , bottom , righttext , break , bold , italic , underline , strikeout , border , mixedbuttons , rows , tbsize, imagelst , hotimagelst , wrap, custom )
+   _DefineToolBar(name , parent , col , row , caption , ProcedureName , w , h , fontname , fontsize , tooltip , flat , bottom , righttext , break , bold , italic , underline , strikeout , border , mixedbuttons , rows , tbsize, imagelst , hotimagelst , wrap, custom)
 
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION _CreatePopUpChevron ( hWnd, wParam, lParam )
+FUNCTION _CreatePopUpChevron(hWnd, wParam, lParam)
 *-----------------------------------------------------------------------------*
    
    LOCAL hMenu
@@ -506,17 +506,17 @@ FUNCTION _CreatePopUpChevron ( hWnd, wParam, lParam )
                cMenu := "Button " + hb_ntos(n)
             ENDIF
 
-            AppendMenuString ( hMenu, aBtnInfo[2], cMenu )
+            AppendMenuString(hMenu, aBtnInfo[2], cMenu)
 
             image := _HMG_aControlPicture  [k]
             IF Len(image) != 0
-               MenuItem_SetBitMaps ( hMenu, aBtnInfo[2], image, NIL )
+               MenuItem_SetBitMaps(hMenu, aBtnInfo[2], image, NIL)
             ELSE
-               SetChevronImage ( hMenu, aBtnInfo[2], hImage )
+               SetChevronImage(hMenu, aBtnInfo[2], hImage)
             ENDIF
 
             IF !lEnable
-               xDisableMenuItem ( hMenu, aBtnInfo[2] )
+               xDisableMenuItem(hMenu, aBtnInfo[2])
             ENDIF
 
          ENDIF
@@ -526,7 +526,7 @@ FUNCTION _CreatePopUpChevron ( hWnd, wParam, lParam )
       aPos := { 0, 0, 0, 0 }
       GetWindowRect(_HMG_aFormReBarHandle[i], aPos)
 
-      TrackPopupMenu ( hMenu , aPos[1] + aChevronInfo[1] , aPos[2] + aChevronInfo[4] + 3 , hWnd )
+      TrackPopupMenu(hMenu , aPos[1] + aChevronInfo[1] , aPos[2] + aChevronInfo[4] + 3 , hWnd)
    ENDIF
 
    DefWindowProc(hWnd, RBN_CHEVRONPUSHED, wParam, lParam)
@@ -535,7 +535,7 @@ FUNCTION _CreatePopUpChevron ( hWnd, wParam, lParam )
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-STATIC PROCEDURE _DropDownShortcut ( nToolButtonId , nParentWindowHandle , i , nButtonPos )
+STATIC PROCEDURE _DropDownShortcut(nToolButtonId , nParentWindowHandle , i , nButtonPos)
 *-----------------------------------------------------------------------------*
    
    LOCAL aPos
@@ -544,14 +544,14 @@ STATIC PROCEDURE _DropDownShortcut ( nToolButtonId , nParentWindowHandle , i , n
 
    IF ( x := AScan(_HMG_aControlIds , nToolButtonId) ) > 0 .AND. _HMG_aControlType[x] == CONTROL_TYPE_TOOLBUTTON
       aPos := { 0, 0, 0, 0 }
-      GetWindowRect ( _HMG_aControlHandles[i] , aPos )
+      GetWindowRect(_HMG_aControlHandles[i] , aPos)
 
       SendMessage(_HMG_aControlHandles[i], TB_SETHOTITEM, nButtonPos - 1, 0)
 
-      aSize := GetButtonBarRect ( _HMG_aControlHandles[i] , nButtonPos - 1 )
+      aSize := GetButtonBarRect(_HMG_aControlHandles[i] , nButtonPos - 1)
 
-      TrackPopupMenu ( _HMG_aControlRangeMax[x] , aPos[1] + LoWord(aSize) , aPos[2] + HiWord(aSize) + ;
-         iif(_HMG_ActiveSplitBoxInverted, 0, ( aPos[4] - aPos[2] - HiWord(aSize) ) / 2), nParentWindowHandle )
+      TrackPopupMenu(_HMG_aControlRangeMax[x] , aPos[1] + LoWord(aSize) , aPos[2] + HiWord(aSize) + ;
+         iif(_HMG_ActiveSplitBoxInverted, 0, ( aPos[4] - aPos[2] - HiWord(aSize) ) / 2), nParentWindowHandle)
 
       SendMessage(_HMG_aControlHandles[i], TB_SETHOTITEM, -1, 0)
    ENDIF

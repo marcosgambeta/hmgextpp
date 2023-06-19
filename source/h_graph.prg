@@ -439,7 +439,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
 RETURN
 
 
-PROCEDURE EraseBarGraph ( Parent )
+PROCEDURE EraseBarGraph(Parent)
 
    LOCAL cName
    LOCAL i := 1
@@ -447,7 +447,7 @@ PROCEDURE EraseBarGraph ( Parent )
    DO WHILE i < nGraphObj
       cName := "Obj_Name_" + hb_ntos(i++)
       IF _IsControlDefined(cName, Parent)
-         _ReleaseControl ( cName, Parent )
+         _ReleaseControl(cName, Parent)
       ENDIF
    ENDDO
 
@@ -1185,8 +1185,8 @@ FUNCTION PrintWindow(cWindowName, lPreview, ldialog, nRow, nCol, nWidth, nHeight
 
    IF ntop == -1
 
-      bw := GetProperty ( cWindowName, "Width" )
-      bh := GetProperty ( cWindowName, "Height" ) - GetTitleHeight()
+      bw := GetProperty(cWindowName, "Width")
+      bh := GetProperty(cWindowName, "Height") - GetTitleHeight()
 
    ELSE
 

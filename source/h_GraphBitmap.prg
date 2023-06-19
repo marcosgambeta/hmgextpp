@@ -60,7 +60,7 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
       MsgMiniGuiError("DRAW GRAPH: 'Series' / 'SerieNames' / 'Colors' arrays size mismatch.")
    ENDIF
 
-   hBitmap := BT_BitmapCreateNew ( nWidth, nHeight, aClrBack )
+   hBitmap := BT_BitmapCreateNew(nWidth, nHeight, aClrBack)
    hDC := BT_CreateDC(hBitmap, BT_HDC_BITMAP, @BTStruct)
 
    IF lGrid
@@ -598,13 +598,13 @@ STATIC PROCEDURE DrawTextInBitmap( hDC, Row, Col, cText, cFontName, nFontSize, a
    DEFAULT nAlign := 0
    SWITCH nAlign
    CASE 0
-      BT_DrawText ( hDC, Row, Col, cText, cFontName, nFontSize, aColor, , BT_TEXT_TRANSPARENT )
+      BT_DrawText(hDC, Row, Col, cText, cFontName, nFontSize, aColor, , BT_TEXT_TRANSPARENT)
       EXIT
    CASE 1
-      BT_DrawText ( hDC, Row, Col, cText, cFontName, nFontSize, aColor, , , BT_TEXT_RIGHT + BT_TEXT_TOP )
+      BT_DrawText(hDC, Row, Col, cText, cFontName, nFontSize, aColor, , , BT_TEXT_RIGHT + BT_TEXT_TOP)
       EXIT
    CASE 2
-      BT_DrawText ( hDC, Row, Col, cText, cFontName, nFontSize, aColor, , BT_TEXT_TRANSPARENT, BT_TEXT_CENTER + BT_TEXT_TOP )
+      BT_DrawText(hDC, Row, Col, cText, cFontName, nFontSize, aColor, , BT_TEXT_TRANSPARENT, BT_TEXT_CENTER + BT_TEXT_TOP)
       EXIT
    ENDSWITCH
 
@@ -711,7 +711,7 @@ STATIC PROCEDURE DrawPolygonInBitmap( hDC, apoints, penrgb, penwidth, fillrgb )
       AAdd(yarr, apoints[x, 1])
    NEXT x
 
-   BT_DrawPolygon ( hDC, yarr, xarr, penrgb, penwidth, fillrgb )
+   BT_DrawPolygon(hDC, yarr, xarr, penrgb, penwidth, fillrgb)
 
 RETURN
 

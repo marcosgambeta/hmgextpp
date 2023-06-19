@@ -50,10 +50,10 @@
 STATIC a_Node_Item_Cargo := {}
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
+FUNCTION _DefineTree(ControlName, ParentFormName, row, col, width, height, ;
       change, tooltip, fontname, fontsize, gotfocus, lostfocus, dblclick, break, ;
       value, HelpId, aImgNode, aImgItem, noBot, bold, italic, underline, strikeout, ;
-      itemids, backcolor, fontcolor, linecolor, indent, itemheight, nId, bInit, NoTrans )
+      itemids, backcolor, fontcolor, linecolor, indent, itemheight, nId, bInit, NoTrans)
 *-----------------------------------------------------------------------------*
 
    LOCAL ParentFormHandle
@@ -186,11 +186,11 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
             Break := .T.
          ENDIF
 
-         i := GetFormIndex ( ParentFormName )
+         i := GetFormIndex(ParentFormName)
 
          IF i > 0
 
-            ControlHandle := InitTree ( _HMG_aFormReBarHandle[i], col, row, width, height, 0, "", 0, iif(noBot, 1, 0) )
+            ControlHandle := InitTree(_HMG_aFormReBarHandle[i], col, row, width, height, 0, "", 0, iif(noBot, 1, 0))
 
             AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], Width, break, , , , _HMG_ActiveSplitBoxInverted)
 
@@ -200,7 +200,7 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
 
       ELSE
 
-         ControlHandle := InitTree ( ParentFormHandle, col, row, width, height, 0, "", 0, iif(noBot, 1, 0) )
+         ControlHandle := InitTree(ParentFormHandle, col, row, width, height, 0, "", 0, iif(noBot, 1, 0))
 
       ENDIF
 
@@ -331,7 +331,7 @@ FUNCTION _DefineTree ( ControlName, ParentFormName, row, col, width, height, ;
 #endif
    ENDIF
 
-   Do_ControlEventProcedure ( bInit, k, ow, oc )
+   Do_ControlEventProcedure(bInit, k, ow, oc)
 
 RETURN NIL
 
@@ -406,11 +406,11 @@ FUNCTION InitDialogTree(ParentName, ControlHandle, k)
          // If only one bitmap in array iSel = iUnsel, only one Bitmap loaded
       ENDIF
       IF _HMG_aDialogTreeItem[n, 5] == "NODE"
-         _HMG_NodeHandle[NodeIndex] := AddTreeItem ( _HMG_ActiveTreeHandle, _HMG_NodeHandle[NodeIndex - 1], text, iUnsel, iSel, Id, .T. )
+         _HMG_NodeHandle[NodeIndex] := AddTreeItem(_HMG_ActiveTreeHandle, _HMG_NodeHandle[NodeIndex - 1], text, iUnsel, iSel, Id, .T.)
          AAdd(_HMG_aTreeMap, _HMG_NodeHandle[NodeIndex])
          AAdd(_HMG_aTreeIdMap, Id)
       ELSE
-         handle := AddTreeItem ( _HMG_ActiveTreeHandle, NodeHandle, text, iUnSel, iSel, Id, .F. )
+         handle := AddTreeItem(_HMG_ActiveTreeHandle, NodeHandle, text, iUnSel, iSel, Id, .F.)
          AAdd(_HMG_aTreeMap, Handle)
          AAdd(_HMG_aTreeIdMap, Id)
       ENDIF
@@ -418,14 +418,14 @@ FUNCTION InitDialogTree(ParentName, ControlHandle, k)
 
    _HMG_aControlPageMap  [_HMG_ActiveTreeIndex] := _HMG_aTreeMap
    _HMG_aControlPicture  [_HMG_ActiveTreeIndex] := _HMG_aTreeIdMap
-   _HMG_aControlHeadClick[_HMG_ActiveTreeIndex] := AClone ( a_Node_Item_Cargo )
+   _HMG_aControlHeadClick[_HMG_ActiveTreeIndex] := AClone(a_Node_Item_Cargo)
 
    IF _HMG_ActiveTreeValue > 0
 
       IF !_HMG_ActiveTreeItemIds
-         TreeView_SelectItem ( _HMG_ActiveTreeHandle, _HMG_aTreeMap[_HMG_ActiveTreeValue] )
+         TreeView_SelectItem(_HMG_ActiveTreeHandle, _HMG_aTreeMap[_HMG_ActiveTreeValue])
       ELSE
-         TreeView_SelectItem ( _HMG_ActiveTreeHandle, _HMG_aTreeMap[AScan(_HMG_aTreeIdMap, _HMG_ActiveTreeValue)] )
+         TreeView_SelectItem(_HMG_ActiveTreeHandle, _HMG_aTreeMap[AScan(_HMG_aTreeIdMap, _HMG_ActiveTreeValue)])
       ENDIF
    ENDIF
    // JP 62
@@ -436,7 +436,7 @@ FUNCTION InitDialogTree(ParentName, ControlHandle, k)
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineTreeNode ( text, aImage, Id, Cargo )
+FUNCTION _DefineTreeNode(text, aImage, Id, Cargo)
 *-----------------------------------------------------------------------------*
    
    LOCAL ImgDef
@@ -466,7 +466,7 @@ FUNCTION _DefineTreeNode ( text, aImage, Id, Cargo )
       ENDIF
 
       _HMG_NodeIndex++
-      _HMG_NodeHandle[_HMG_NodeIndex] := AddTreeItem ( _HMG_ActiveTreeHandle, _HMG_NodeHandle[_HMG_NodeIndex - 1], text, iUnsel, iSel, Id, .T. )
+      _HMG_NodeHandle[_HMG_NodeIndex] := AddTreeItem(_HMG_ActiveTreeHandle, _HMG_NodeHandle[_HMG_NodeIndex - 1], text, iUnsel, iSel, Id, .T.)
       AAdd(_HMG_aTreeMap, _HMG_NodeHandle[_HMG_NodeIndex])
       AAdd(_HMG_aTreeIdMap, Id)
       AAdd(a_Node_Item_Cargo, Cargo)
@@ -484,7 +484,7 @@ FUNCTION _EndTreeNode()
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineTreeItem ( text, aImage, Id, Cargo )
+FUNCTION _DefineTreeItem(text, aImage, Id, Cargo)
 *-----------------------------------------------------------------------------*
    
    LOCAL handle
@@ -513,7 +513,7 @@ FUNCTION _DefineTreeItem ( text, aImage, Id, Cargo )
          // If only one bitmap in array iSel = iUnsel, only one Bitmap loaded
       ENDIF
 
-      handle := AddTreeItem ( _HMG_ActiveTreeHandle, _HMG_NodeHandle[_HMG_NodeIndex], text, iUnSel, iSel, Id, .F. )
+      handle := AddTreeItem(_HMG_ActiveTreeHandle, _HMG_NodeHandle[_HMG_NodeIndex], text, iUnSel, iSel, Id, .F.)
       AAdd(_HMG_aTreeMap, Handle)
       AAdd(_HMG_aTreeIdMap, Id)
       AAdd(a_Node_Item_Cargo, Cargo)
@@ -535,9 +535,9 @@ FUNCTION _EndTree()
       IF _HMG_ActiveTreeValue > 0
 
          IF !_HMG_ActiveTreeItemIds
-            TreeView_SelectItem ( _HMG_ActiveTreeHandle, _HMG_aTreeMap[_HMG_ActiveTreeValue] )
+            TreeView_SelectItem(_HMG_ActiveTreeHandle, _HMG_aTreeMap[_HMG_ActiveTreeValue])
          ELSE
-            TreeView_SelectItem ( _HMG_ActiveTreeHandle, _HMG_aTreeMap[AScan(_HMG_aTreeIdMap, _HMG_ActiveTreeValue)] )
+            TreeView_SelectItem(_HMG_ActiveTreeHandle, _HMG_aTreeMap[AScan(_HMG_aTreeIdMap, _HMG_ActiveTreeValue)])
          ENDIF
 
       ENDIF
@@ -549,7 +549,7 @@ FUNCTION _EndTree()
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-PROCEDURE _Collapse ( ControlName, ParentForm, nItem, lRecurse )   // Dr. Claudio Soto (November 2013)
+PROCEDURE _Collapse(ControlName, ParentForm, nItem, lRecurse)   // Dr. Claudio Soto (November 2013)
 *-----------------------------------------------------------------------------*
    
    LOCAL i
@@ -558,7 +558,7 @@ PROCEDURE _Collapse ( ControlName, ParentForm, nItem, lRecurse )   // Dr. Claudi
    IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0
       ItemHandle := TreeItemGetHandle(ControlName, ParentForm, nItem)
       IF ItemHandle != 0
-         TreeView_ExpandChildrenRecursive ( _HMG_aControlHandles[i], ItemHandle, TVE_COLLAPSE, hb_defaultValue(lRecurse, .F.) )
+         TreeView_ExpandChildrenRecursive(_HMG_aControlHandles[i], ItemHandle, TVE_COLLAPSE, hb_defaultValue(lRecurse, .F.))
       ENDIF
    ENDIF
 
@@ -574,7 +574,7 @@ PROCEDURE _Expand(ControlName, ParentForm, nItem, lRecurse)   // Dr. Claudio Sot
    IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0
       ItemHandle := TreeItemGetHandle(ControlName, ParentForm, nItem)
       IF ItemHandle != 0
-         TreeView_ExpandChildrenRecursive ( _HMG_aControlHandles[i], ItemHandle, TVE_EXPAND, hb_defaultValue(lRecurse, .F.) )
+         TreeView_ExpandChildrenRecursive(_HMG_aControlHandles[i], ItemHandle, TVE_EXPAND, hb_defaultValue(lRecurse, .F.))
       ENDIF
    ENDIF
 
@@ -606,7 +606,7 @@ STATIC FUNCTION TreeItemGetHandle(ControlName, ParentForm, Item)
 RETURN ItemHandle
 
 *-----------------------------------------------------------------------------*
-PROCEDURE TreeItemChangeImage ( ControlName, ParentForm, nItem, aImage )
+PROCEDURE TreeItemChangeImage(ControlName, ParentForm, nItem, aImage)
 *-----------------------------------------------------------------------------*
    
    LOCAL TreeHandle := GetControlHandle(ControlName, ParentForm)
@@ -621,17 +621,17 @@ PROCEDURE TreeItemChangeImage ( ControlName, ParentForm, nItem, aImage )
       iUnSel := AddTreeViewBitmap( TreeHandle, aImage[1], _HMG_aControlMiscData1[k, 4] ) - 1
       iSel := iif(ImgDef == 1, iUnSel, AddTreeViewBitmap( TreeHandle, aImage[2], _HMG_aControlMiscData1[k, 4] ) - 1)
 
-      TREEITEM_SETIMAGEINDEX ( TreeHandle, ItemHandle, iUnSel, iSel )
+      TREEITEM_SETIMAGEINDEX(TreeHandle, ItemHandle, iUnSel, iSel)
    ENDIF
 
 RETURN
 
 *-----------------------------------------------------------------------------*
-FUNCTION TreeItemGetRootValue ( ControlName, ParentForm )
+FUNCTION TreeItemGetRootValue(ControlName, ParentForm)
 *-----------------------------------------------------------------------------*
    
    LOCAL nControlHandle := GetControlHandle(ControlName, ParentForm)
-   LOCAL ItemHandle := TreeView_GetRoot ( nControlHandle )
+   LOCAL ItemHandle := TreeView_GetRoot(nControlHandle)
    LOCAL nPos
    LOCAL nID
    LOCAL i
@@ -649,7 +649,7 @@ FUNCTION TreeItemGetRootValue ( ControlName, ParentForm )
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION TreeItemGetParentValue ( ControlName , ParentForm , nItem )
+FUNCTION TreeItemGetParentValue(ControlName , ParentForm , nItem)
 *-----------------------------------------------------------------------------*
    
    LOCAL nControlHandle := GetControlHandle(ControlName, ParentForm)
@@ -671,14 +671,14 @@ FUNCTION TreeItemGetParentValue ( ControlName , ParentForm , nItem )
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION TreeItemGetFirstItemValue ( ControlName, ParentForm )
+FUNCTION TreeItemGetFirstItemValue(ControlName, ParentForm)
 *-----------------------------------------------------------------------------*
    
    LOCAL nIndex := GetControlIndex(ControlName, ParentForm)
    LOCAL nID
    LOCAL nPos := 1
 
-   IF GetProperty ( ParentForm, ControlName, "ItemCount" ) > 0
+   IF GetProperty(ParentForm, ControlName, "ItemCount") > 0
       IF !_HMG_aControlInputMask[nIndex]
          RETURN nPos
       ELSE
@@ -691,7 +691,7 @@ RETURN NIL
 
 #define TREESORTNODE_MIX    2
 *-----------------------------------------------------------------------------*
-PROCEDURE TreeItemSort ( cTreeName, cFormName, nItem, lRecurse, lCaseSensitive, lAscendingOrder, nNodePosition )
+PROCEDURE TreeItemSort(cTreeName, cFormName, nItem, lRecurse, lCaseSensitive, lAscendingOrder, nNodePosition)
 *-----------------------------------------------------------------------------*
    
    LOCAL nControlHandle
@@ -700,7 +700,7 @@ PROCEDURE TreeItemSort ( cTreeName, cFormName, nItem, lRecurse, lCaseSensitive, 
    nControlHandle := GetControlHandle(cTreeName, cFormName)
 
    IF nItem == NIL
-      nItemHandle := TreeView_GetRoot ( nControlHandle )
+      nItemHandle := TreeView_GetRoot(nControlHandle)
    ELSE
       nItemHandle := TreeItemGetHandle(cTreeName, cFormName, nItem)
    ENDIF
@@ -715,7 +715,7 @@ PROCEDURE TreeItemSort ( cTreeName, cFormName, nItem, lRecurse, lCaseSensitive, 
 RETURN
 
 *-----------------------------------------------------------------------------*
-FUNCTION TreeItemIsTrueNode ( ControlName , ParentForm , nItem )
+FUNCTION TreeItemIsTrueNode(ControlName , ParentForm , nItem)
 *-----------------------------------------------------------------------------*
    
    LOCAL nControlHandle := GetControlHandle(ControlName, ParentForm)
@@ -724,22 +724,22 @@ FUNCTION TreeItemIsTrueNode ( ControlName , ParentForm , nItem )
 RETURN !Empty(TreeView_GetChild(nControlHandle, ItemHandle))
 
 *-----------------------------------------------------------------------------*
-FUNCTION TreeItemSetNodeFlag ( ControlName , ParentForm , nItem , lNodeFlag )
+FUNCTION TreeItemSetNodeFlag(ControlName , ParentForm , nItem , lNodeFlag)
 *-----------------------------------------------------------------------------*
    
    LOCAL nControlHandle := GetControlHandle(ControlName, ParentForm)
    LOCAL ItemHandle := TreeItemGetHandle(ControlName, ParentForm, nItem)
 
-RETURN TREEITEM_SETNODEFLAG ( nControlHandle, ItemHandle, lNodeFlag )
+RETURN TREEITEM_SETNODEFLAG(nControlHandle, ItemHandle, lNodeFlag)
 
 *-----------------------------------------------------------------------------*
-FUNCTION TreeItemGetNodeFlag ( ControlName , ParentForm , nItem )
+FUNCTION TreeItemGetNodeFlag(ControlName , ParentForm , nItem)
 *-----------------------------------------------------------------------------*
    
    LOCAL nControlHandle := GetControlHandle(ControlName, ParentForm)
    LOCAL ItemHandle := TreeItemGetHandle(ControlName, ParentForm, nItem)
 
-RETURN TREEITEM_GETNODEFLAG ( nControlHandle, ItemHandle )
+RETURN TREEITEM_GETNODEFLAG(nControlHandle, ItemHandle)
 
 #define TVIS_EXPANDED   32
 *-----------------------------------------------------------------------------*

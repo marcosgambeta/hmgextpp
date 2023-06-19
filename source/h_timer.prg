@@ -47,7 +47,7 @@
 #include "minigui.ch"
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineTimer ( ControlName , ParentForm , Interval , ProcedureName , Once )
+FUNCTION _DefineTimer(ControlName , ParentForm , Interval , ProcedureName , Once)
 *-----------------------------------------------------------------------------*
 
    LOCAL ParentFormHandle
@@ -77,7 +77,7 @@ FUNCTION _DefineTimer ( ControlName , ParentForm , Interval , ProcedureName , On
    ParentFormHandle := GetFormHandle(ParentForm)
 
    Id := _GetId()
-   lSuccess := InitTimer ( ParentFormHandle , id , Interval )
+   lSuccess := InitTimer(ParentFormHandle , id , Interval)
 
    k := _GetControlFree()
 

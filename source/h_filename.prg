@@ -47,33 +47,33 @@
 #include "minigui.ch"
 
 *-----------------------------------------------------------------------------*
-FUNCTION cFilePath ( cPathMask )
+FUNCTION cFilePath(cPathMask)
 *-----------------------------------------------------------------------------*
 
    LOCAL cPath
 
-   hb_FNameSplit ( cPathMask, @cPath )
+   hb_FNameSplit(cPathMask, @cPath)
 
 RETURN hb_StrShrink( cPath )
 
 *-----------------------------------------------------------------------------*
-FUNCTION cFileNoPath ( cPathMask )
+FUNCTION cFileNoPath(cPathMask)
 *-----------------------------------------------------------------------------*
 
    LOCAL cName
    LOCAL cExt
 
-   hb_FNameSplit ( cPathMask, , @cName, @cExt )
+   hb_FNameSplit(cPathMask, , @cName, @cExt)
 
 RETURN ( cName + cExt )
 
 *-----------------------------------------------------------------------------*
-FUNCTION cFileNoExt ( cPathMask )
+FUNCTION cFileNoExt(cPathMask)
 *-----------------------------------------------------------------------------*
 
    LOCAL cName
 
-   hb_FNameSplit ( cPathMask, , @cName )
+   hb_FNameSplit(cPathMask, , @cName)
 
 RETURN cName
 
@@ -82,7 +82,7 @@ RETURN cName
 // nMax  - required string size (characters count)
 // _GetCompactPath("C:\Program Files\Adobe", 20) -> "C:\Program...\Adobe"
 *-----------------------------------------------------------------------------*
-FUNCTION _GetCompactPath ( cFile, nMax )
+FUNCTION _GetCompactPath(cFile, nMax)
 *-----------------------------------------------------------------------------*
 
    LOCAL cShort := Space(iif(hb_IsNumeric(nMax), nMax + 1, 64))

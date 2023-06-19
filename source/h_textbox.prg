@@ -56,11 +56,11 @@
 #define EM_SETCUEBANNER       0x1501
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
+FUNCTION _DefineTextBox(ControlName, ParentFormName, x, y, w, h, ;
       cValue, FontName, FontSize, ToolTip, nMaxLength, lUpper, lLower, ;
       lNumeric, lPassword, uLostFocus, uGotFocus, uChange, uEnter, right, ;
       HelpId, readonly, bold, italic, underline, strikeout, field, ;
-      backcolor, fontcolor, invisible, notabstop, noborder, cuetext, nId, bInit )
+      backcolor, fontcolor, invisible, notabstop, noborder, cuetext, nId, bInit)
 *-----------------------------------------------------------------------------*
    
    LOCAL ParentFormHandle
@@ -88,7 +88,7 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
    hb_default(@lPassword, .F.)
 
    IF Field != NIL
-      IF  hb_UAt ( ">", Field ) == 0
+      IF  hb_UAt(">", Field) == 0
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name.")
       ELSE
          WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
@@ -285,7 +285,7 @@ FUNCTION _DefineTextBox ( ControlName, ParentFormName, x, y, w, h, ;
       ENDIF
    ENDIF
 
-   Do_ControlEventProcedure ( bInit, k )
+   Do_ControlEventProcedure(bInit, k)
 
 RETURN NIL
 
@@ -335,10 +335,10 @@ FUNCTION InitDialogTextBox( ParentName, ControlHandle, k )
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w, ;
+FUNCTION _DefineMaskedTextbox(ControlName, ParentFormName, x, y, inputmask, w, ;
       value, fontname, fontsize, tooltip, lostfocus, gotfocus, change, h, enter, ;
       rightalign, HelpId, Format, bold, italic, underline, strikeout, field, ;
-      backcolor, fontcolor, readonly, invisible, notabstop, noborder, cuetext, nId, bInit )
+      backcolor, fontcolor, readonly, invisible, notabstop, noborder, cuetext, nId, bInit)
 *-----------------------------------------------------------------------------*
    
    LOCAL ParentFormHandle
@@ -356,7 +356,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
    HB_SYMBOL_UNUSED(RightAlign)
 
    IF Field != NIL
-      IF  hb_UAt ( ">", Field ) == 0
+      IF  hb_UAt(">", Field) == 0
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name.")
       ELSE
          WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
@@ -469,7 +469,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
    ELSE
 
       ParentFormHandle := GetFormHandle(ParentFormName)
-      ControlHandle := InitMaskedTextBox ( ParentFormHandle, 0, x, y, w , "" , 0 , 255 , .F. , .F. , h , .T. , readonly , invisible , notabstop , noborder )
+      ControlHandle := InitMaskedTextBox(ParentFormHandle, 0, x, y, w , "" , 0 , 255 , .F. , .F. , h , .T. , readonly , invisible , notabstop , noborder)
 
    ENDIF
 
@@ -508,7 +508,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
    _HMG_aControlProcedures         [k] := ""
    _HMG_aControlPageMap            [k] := InputMask
    _HMG_aControlValue              [k] := Value
-   _HMG_aControlInputMask          [k] := GetNumMask ( InputMask )
+   _HMG_aControlInputMask          [k] := GetNumMask(InputMask)
    _HMG_aControllostFocusProcedure [k] := lostfocus
    _HMG_aControlGotFocusProcedure  [k] := gotfocus
    _HMG_aControlChangeProcedure    [k] := Change
@@ -557,7 +557,7 @@ FUNCTION _DefineMaskedTextbox ( ControlName, ParentFormName, x, y, inputmask, w,
       ENDIF
    ENDIF
 
-   Do_ControlEventProcedure ( bInit, k )
+   Do_ControlEventProcedure(bInit, k)
 
 RETURN NIL
 
@@ -591,7 +591,7 @@ FUNCTION InitDialogMaskedTextBox( ParentName, ControlHandle, k )
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION GetNumFromText ( Text , i )
+FUNCTION GetNumFromText(Text , i)
 *-----------------------------------------------------------------------------*
    
    LOCAL s As String
@@ -617,7 +617,7 @@ FUNCTION GetNumFromText ( Text , i )
 RETURN Val(s)
 
 *-----------------------------------------------------------------------------*
-STATIC FUNCTION GetNumMask ( Text )
+STATIC FUNCTION GetNumMask(Text)
 *-----------------------------------------------------------------------------*
    
    LOCAL s As String
@@ -641,10 +641,10 @@ STATIC FUNCTION GetNumMask ( Text )
 RETURN s
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask , ;
+FUNCTION _DefineCharMaskTextbox(ControlName, ParentFormName, x, y, inputmask , ;
       w , value , fontname, fontsize , tooltip , lostfocus , gotfocus , change , ;
       h , enter , rightalign , HelpId , bold, italic, underline, strikeout, field, ;
-      backcolor, fontcolor, date, readonly, invisible, notabstop, noborder, cuetext, nId, bInit )
+      backcolor, fontcolor, date, readonly, invisible, notabstop, noborder, cuetext, nId, bInit)
 *-----------------------------------------------------------------------------*
    
    LOCAL ParentFormHandle
@@ -659,7 +659,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
    LOCAL lDialogInMemory
 
    IF Field != NIL
-      IF  hb_UAt ( ">", Field ) == 0
+      IF  hb_UAt(">", Field) == 0
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name.")
       ELSE
          WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
@@ -755,7 +755,7 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
    ELSE
 
       ParentFormHandle := GetFormHandle(ParentFormName)
-      ControlHandle := InitCharMaskTextBox ( ParentFormHandle, 0, x, y, w , "" , 0 , 255 , .F. , .F. , h , rightalign , readonly , invisible , notabstop , noborder )
+      ControlHandle := InitCharMaskTextBox(ParentFormHandle, 0, x, y, w , "" , 0 , 255 , .F. , .F. , h , rightalign , readonly , invisible , notabstop , noborder)
 
    ENDIF
 
@@ -854,12 +854,12 @@ FUNCTION _DefineCharMaskTextbox ( ControlName, ParentFormName, x, y, inputmask ,
       ENDIF
    ENDIF
 
-   Do_ControlEventProcedure ( bInit, k )
+   Do_ControlEventProcedure(bInit, k)
 
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-PROCEDURE ProcessCharMask ( i , d )
+PROCEDURE ProcessCharMask(i , d)
 *-----------------------------------------------------------------------------*
    
    LOCAL OutBuffer As String
@@ -895,7 +895,7 @@ PROCEDURE ProcessCharMask ( i , d )
    icp := HiWord(SendMessage(_HMG_aControlHandles[i], EM_GETSEL, 0, 0))
 
    // Get Current Content
-   InBuffer := GetWindowText ( _HMG_aControlHandles[i] )
+   InBuffer := GetWindowText(_HMG_aControlHandles[i])
 
    // RL 104
    IF Left(AllTrim(InBuffer), 1) == "-" .AND. Val(InBuffer) == 0
@@ -1040,7 +1040,7 @@ PROCEDURE ProcessCharMask ( i , d )
 
    IF pc > 1
 
-      pc := hb_UAt ( ".", OutBuffer )
+      pc := hb_UAt(".", OutBuffer)
       // RL 104
       IF NegativeZero
 
@@ -1065,7 +1065,7 @@ PROCEDURE ProcessCharMask ( i , d )
 
       IF pFlag
 
-         ncp := hb_UAt ( "." , GetWindowText ( _HMG_aControlHandles[i] ) )
+         ncp := hb_UAt("." , GetWindowText(_HMG_aControlHandles[i]))
          SendMessage(_HMG_aControlhandles[i], EM_SETSEL, ncp, ncp)
 
       ELSE
@@ -1135,7 +1135,7 @@ STATIC FUNCTION CharMaskTekstOK( cString, cMask )
 RETURN lPassed
 
 *-----------------------------------------------------------------------------*
-PROCEDURE _DataTextBoxRefresh ( i )
+PROCEDURE _DataTextBoxRefresh(i)
 *-----------------------------------------------------------------------------*
    
    LOCAL Field
@@ -1147,7 +1147,7 @@ PROCEDURE _DataTextBoxRefresh ( i )
    ENDIF
 
    IF Field != NIL
-      _SetValue ( , , iif(Type ( Field ) == "C" , RTrim(&Field) , &Field) , i )
+      _SetValue(, , iif(Type ( Field ) == "C" , RTrim(&Field) , &Field) , i)
    ELSE
       RedrawWindow(_HMG_aControlHandles[i])
    ENDIF
@@ -1155,7 +1155,7 @@ PROCEDURE _DataTextBoxRefresh ( i )
 RETURN
 
 *-----------------------------------------------------------------------------*
-PROCEDURE _DataTextBoxSave ( ControlName, ParentForm )
+PROCEDURE _DataTextBoxSave(ControlName, ParentForm)
 *-----------------------------------------------------------------------------*
    
    LOCAL Field
@@ -1169,14 +1169,14 @@ PROCEDURE _DataTextBoxSave ( ControlName, ParentForm )
       Field := _HMG_aControlPageMap[i]
    ENDIF
 
-   IF _IsFieldExists ( Field )
-      REPLACE &Field WITH _GetValue ( Controlname , ParentForm )
+   IF _IsFieldExists(Field)
+      REPLACE &Field WITH _GetValue(Controlname , ParentForm)
    ENDIF
 
 RETURN
 
 *-----------------------------------------------------------------------------*
-PROCEDURE ProcessNumText ( i )
+PROCEDURE ProcessNumText(i)
 *-----------------------------------------------------------------------------*
    
    LOCAL BadEntry As Logical
@@ -1192,7 +1192,7 @@ PROCEDURE ProcessNumText ( i )
    icp := HiWord(SendMessage(_HMG_aControlhandles[i], EM_GETSEL, 0, 0))
 
    // Get Current Content
-   InBuffer := GetWindowText ( _HMG_aControlHandles[i] )
+   InBuffer := GetWindowText(_HMG_aControlHandles[i])
 
    BackInBuffer := InBuffer
 
@@ -1214,7 +1214,7 @@ PROCEDURE ProcessNumText ( i )
       CB := hb_USubStr(InBuffer, x, 1)
 
       IF IsDigit(CB) .OR. ( CB == "-" .AND. x == fnb ) .OR. ;
-         ( ( CB == "." .OR. CB == "," ) .AND. hb_UAt ( ".", OutBuffer ) == 0 )
+         ( ( CB == "." .OR. CB == "," ) .AND. hb_UAt(".", OutBuffer) == 0 )
 
          OutBuffer += CB
 
@@ -1243,7 +1243,7 @@ RETURN
 *-----------------------------------------------------------------------------*
 FUNCTION GETNumFromTextSP( Text, i )
 *-----------------------------------------------------------------------------*
-   
+
    LOCAL s As String
    LOCAL x
    LOCAL c
@@ -1279,7 +1279,7 @@ RETURN Val(s)
 *-----------------------------------------------------------------------------*
 FUNCTION OEDITEVENTS( hWnd, nMsg, wParam, lParam )
 *-----------------------------------------------------------------------------*
-   
+
    LOCAL hTextBox
    LOCAL ParentForm
    LOCAL inbuffer
@@ -1296,7 +1296,7 @@ FUNCTION OEDITEVENTS( hWnd, nMsg, wParam, lParam )
       hTextBox := _HMG_aControlHandles[i]
       icp  := HiWord(SendMessage(hTextBox, EM_GETSEL, 0, 0))
       icpe := LoWord(SendMessage(hTextBox, EM_GETSEL, 0, 0))
-      InBuffer := GetWindowText ( hTextBox )
+      InBuffer := GetWindowText(hTextBox)
 
       // simulate overwrite mode
       IF !IsInsertActive() .AND. wParam != 13 .AND. wParam != 8 .AND. hb_USubStr(inBuffer, icp + 1, 1) != Chr(13)
@@ -1343,7 +1343,7 @@ FUNCTION OEDITEVENTS( hWnd, nMsg, wParam, lParam )
 
             _HMG_xControlsContextMenuID := _HMG_aControlsContextMenu[i][3]
 
-            TrackPopupMenu ( _HMG_aControlsContextMenu[i][2] , LOWORD(lParam) , HIWORD(lParam) , ParentForm )
+            TrackPopupMenu(_HMG_aControlsContextMenu[i][2] , LOWORD(lParam) , HIWORD(lParam) , ParentForm)
 
             RETURN 1
          ENDIF

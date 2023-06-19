@@ -603,7 +603,7 @@ STATIC FUNCTION mypreview( cfilerepo )
    CENTER WINDOW PRINT_PREVIEW
    ACTIVATE WINDOW PRINT_PREVIEW
 
-   IF MSGYESNO ( aMessages[14] , aMessages[15]  )
+   IF MSGYESNO(aMessages[14] , aMessages[15])
       RUN TYPE &WFILEREPO > PRN
    ENDIF
    IF File("&WFILErepo")
@@ -914,7 +914,7 @@ STATIC FUNCTION leacoli( cname, npar )
 
 RETURN ncol
 
-STATIC PROCEDURE imp_SUBTOTALES ( nlin, ncol, lmode, swt, grpby )
+STATIC PROCEDURE imp_SUBTOTALES(nlin, ncol, lmode, swt, grpby)
 
    LOCAL i
    LOCAL lHayTotals := ( AScan(atotals, .T.) > 0 )

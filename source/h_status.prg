@@ -92,7 +92,7 @@ FUNCTION _BeginMessageBar( ControlName, ParentForm, kbd, fontname, fontsize, bol
 
    ParentFormHandle := GetFormHandle(ParentForm)
 
-   ControlHandle := InitMessageBar ( ParentFormHandle, ID_STATUSBAR )
+   ControlHandle := InitMessageBar(ParentFormHandle, ID_STATUSBAR)
 
    _HMG_ActiveStatusHandle := ControlHandle // New Public Value JP MDI
 
@@ -188,7 +188,7 @@ FUNCTION _EndMessageBar()
 
 RETURN NIL
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineItemMessage ( ControlName, ParentControl, x, y, Caption, ProcedureName, w, h, icon, cstyl, tooltip, default, backcolor, fontcolor, align )
+FUNCTION _DefineItemMessage(ControlName, ParentControl, x, y, Caption, ProcedureName, w, h, icon, cstyl, tooltip, default, backcolor, fontcolor, align)
 *-----------------------------------------------------------------------------*
    
    LOCAL ControlHandle
@@ -227,11 +227,11 @@ FUNCTION _DefineItemMessage ( ControlName, ParentControl, x, y, Caption, Procedu
 
       cCaption := Upper(Caption)
 
-      IF ( i := hb_UAt ( "&", cCaption ) ) > 0
-         _DefineLetterOrDigitHotKey ( cCaption, i, cParentForm, ProcedureName )
+      IF ( i := hb_UAt("&", cCaption) ) > 0
+         _DefineLetterOrDigitHotKey(cCaption, i, cParentForm, ProcedureName)
       ENDIF
 
-      Caption := StrTran ( Caption, "&", "" )
+      Caption := StrTran(Caption, "&", "")
 
    ENDIF
 
@@ -247,7 +247,7 @@ FUNCTION _DefineItemMessage ( ControlName, ParentControl, x, y, Caption, Procedu
 
    hb_default(@cStyl, "")
 
-   ControlHandle := InitItemBar ( ParentForm, Caption, 0, w, h, Icon, ToolTip, iif(Upper(cStyl) == "RAISED", 1, iif(Upper(cStyl) == "FLAT", 2, 0)) )
+   ControlHandle := InitItemBar(ParentForm, Caption, 0, w, h, Icon, ToolTip, iif(Upper(cStyl) == "RAISED", 1, iif(Upper(cStyl) == "FLAT", 2, 0)))
 
    k := _GetControlFree()
 
@@ -309,7 +309,7 @@ FUNCTION _DefineItemMessage ( ControlName, ParentControl, x, y, Caption, Procedu
 RETURN ControlHandle
 
 *-----------------------------------------------------------------------------*
-FUNCTION _SetStatusClock ( BarName , FormName , Width , ToolTip , Action , lAMPM , backcolor , fontcolor )
+FUNCTION _SetStatusClock(BarName , FormName , Width , ToolTip , Action , lAMPM , backcolor , fontcolor)
 *-----------------------------------------------------------------------------*
    
    LOCAL nrItem
@@ -319,9 +319,9 @@ FUNCTION _SetStatusClock ( BarName , FormName , Width , ToolTip , Action , lAMPM
    __defaultNIL(@ToolTip, "")
    __defaultNIL(@Action, "")
 
-   nrItem := _DefineItemMessage ( "TimerBar", BarName, 0, 0, iif(lAMPM, AMPM( Time() ), Time()), Action, Width, 0, , "", ToolTip, , backcolor, fontcolor, 1 )
+   nrItem := _DefineItemMessage("TimerBar", BarName, 0, 0, iif(lAMPM, AMPM( Time() ), Time()), Action, Width, 0, , "", ToolTip, , backcolor, fontcolor, 1)
 
-   _DefineTimer ( "StatusTimer" , FormName , 1000 , {||_SetItem(BarName, FormName, nrItem, iif(lAMPM, AMPM(Time()), Time()))} )
+   _DefineTimer("StatusTimer" , FormName , 1000 , {||_SetItem(BarName, FormName, nrItem, iif(lAMPM, AMPM(Time()), Time()))})
 
 RETURN NIL
 
@@ -349,10 +349,10 @@ FUNCTION _SetStatusKeybrd(BarName, FormName, Width, ToolTip, action)
       iif(Empty(Action), {||iif(_HMG_IsXPorLater, KeyToggleNT(VK_INSERT), KeyToggle(VK_INSERT))}, Action), Width, 0, ;
       iif(IsInsertActive(), "zzz_led_on", "zzz_led_off"), "", ToolTip)
 
-   _DefineTimer ( "StatusKeyBrd" , FormName , 250 , ;
+   _DefineTimer("StatusKeyBrd" , FormName , 250 , ;
       {||_SetStatusIcon ( BarName , FormName , nrItem1 , iif(IsNumLockActive() , "zzz_led_on" , "zzz_led_off") ), ;
       _SetStatusIcon ( BarName , FormName , nrItem2 , iif(IsCapsLockActive() , "zzz_led_on" , "zzz_led_off") ), ;
-      _SetStatusIcon ( BarName , FormName , nrItem3 , iif(IsInsertActive() , "zzz_led_on" , "zzz_led_off") )} )
+      _SetStatusIcon ( BarName , FormName , nrItem3 , iif(IsInsertActive() , "zzz_led_on" , "zzz_led_off") )})
 
 RETURN NIL
 
@@ -422,18 +422,18 @@ RETURN cTime
 FUNCTION _SetStatusBarKbd(BarName, FormName)
 *-----------------------------------------------------------------------------*
 
-   _DefineItemMessage ( ITEMNAME, BarName, 0, 0, GetProperty ( FormName, "Title" ), , , 0, , "RAISED" )
+   _DefineItemMessage(ITEMNAME, BarName, 0, 0, GetProperty ( FormName, "Title" ), , , 0, , "RAISED")
 
-   _DefineItemMessage ( ITEMNAME, BarName, 0, 0, "CAP", , iif(_HMG_IsThemed, 38, 36), 0, , , , , , SILVER )
+   _DefineItemMessage(ITEMNAME, BarName, 0, 0, "CAP", , iif(_HMG_IsThemed, 38, 36), 0, , , , , , SILVER)
 
-   _DefineItemMessage ( ITEMNAME, BarName, 0, 0, "NUM", , 42, 0, , , , , , SILVER )
+   _DefineItemMessage(ITEMNAME, BarName, 0, 0, "NUM", , 42, 0, , , , , , SILVER)
 
-   _DefineItemMessage ( ITEMNAME, BarName, 0, 0, "SCRL", , 44, 0, , , , , , SILVER )
+   _DefineItemMessage(ITEMNAME, BarName, 0, 0, "SCRL", , 44, 0, , , , , , SILVER)
 
-   _DefineTimer ( "StatusBarKbd" , FormName , 250 , ;
+   _DefineTimer("StatusBarKbd" , FormName , 250 , ;
       {||_SetStatusItemProperty( 2, iif(IsCapsLockActive(), BLACK, SILVER), GetFormHandle(FormName), STATUS_ITEM_FONTCOLOR ), ;
       _SetStatusItemProperty( 3, iif(IsNumLockActive(), BLACK, SILVER), GetFormHandle(FormName), STATUS_ITEM_FONTCOLOR ), ;
-      _SetStatusItemProperty( 4, iif(IsScrollLockActive(), BLACK, SILVER), GetFormHandle(FormName), STATUS_ITEM_FONTCOLOR )} )
+      _SetStatusItemProperty( 4, iif(IsScrollLockActive(), BLACK, SILVER), GetFormHandle(FormName), STATUS_ITEM_FONTCOLOR )})
 
 RETURN NIL
 
@@ -484,7 +484,7 @@ FUNCTION _SetStatusItemProperty( nItem, Value, hWnd, nType )
 
             IF nType > STATUS_ITEM_ACTION
                FormName := GetParentFormName(i)
-               _SetItem ( "StatusBar", FormName, nItem, _GetItem ( "StatusBar", FormName, nItem ) )
+               _SetItem("StatusBar", FormName, nItem, _GetItem("StatusBar", FormName, nItem))
             ENDIF
 
             EXIT
@@ -498,7 +498,7 @@ FUNCTION _SetStatusItemProperty( nItem, Value, hWnd, nType )
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION _SetStatusProgressMessage ( BarName , FormName , Width , ToolTip , Action , nValue , nMin , nMax )
+FUNCTION _SetStatusProgressMessage(BarName , FormName , Width , ToolTip , Action , nValue , nMin , nMax)
 *-----------------------------------------------------------------------------*
    
    LOCAL hwndStatus
@@ -514,9 +514,9 @@ FUNCTION _SetStatusProgressMessage ( BarName , FormName , Width , ToolTip , Acti
    __defaultNIL(@Action, "")
 
    hwndStatus := GetControlHandle(BarName, FormName)
-   nrItem := _DefineItemMessage ( PROGRESSNAME, BarName, 0, 0, "", Action, Width, 0, , "", ToolTip )
+   nrItem := _DefineItemMessage(PROGRESSNAME, BarName, 0, 0, "", Action, Width, 0, , "", ToolTip)
 
-   hwndProgress := CreateProgressBarItem ( hwndStatus, nrItem, nValue, nMin, nMax )
+   hwndProgress := CreateProgressBarItem(hwndStatus, nrItem, nValue, nMin, nMax)
    i := GetControlIndex(PROGRESSNAME, FormName)
 
    _HMG_aControlMiscData1[i] := {hwndStatus, hwndProgress}
@@ -527,25 +527,25 @@ FUNCTION _SetStatusProgressMessage ( BarName , FormName , Width , ToolTip , Acti
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION _SetStatusProgressPos ( FormName, nValue )
+FUNCTION _SetStatusProgressPos(FormName, nValue)
 *-----------------------------------------------------------------------------*
    
    LOCAL i
 
    IF ( i := GetControlIndex(PROGRESSNAME, FormName) ) > 0
-      SetPosProgressBarItem ( _HMG_aControlMiscData1[i, 2], hb_defaultValue(nValue, 0) )
+      SetPosProgressBarItem(_HMG_aControlMiscData1[i, 2], hb_defaultValue(nValue, 0))
    ENDIF
 
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION _SetStatusProgressRange ( FormName, nMin, nMax )
+FUNCTION _SetStatusProgressRange(FormName, nMin, nMax)
 *-----------------------------------------------------------------------------*
    
    LOCAL i
 
    IF ( i := GetControlIndex(PROGRESSNAME, FormName) ) > 0
-      SetProgressBarRange ( _HMG_aControlMiscData1[i, 2], hb_defaultValue(nMin, 0), hb_defaultValue(nMax, 100) )
+      SetProgressBarRange(_HMG_aControlMiscData1[i, 2], hb_defaultValue(nMin, 0), hb_defaultValue(nMax, 100))
    ENDIF
 
 RETURN NIL
