@@ -136,7 +136,7 @@ METHOD Activate() CLASS TCDOMail
             :Item( cSchema + "smtpserverport" ):Value := ::nPort
             :Item( cSchema + "sendusing" ):Value := CDO_SENDUSINGPORT
             :Item( cSchema + "smtpauthenticate" ):Value := CDO_AUTH_BASIC
-            :Item( cSchema + "smtpusessl" ):Value := ( ::nPort == 465 )
+            :Item( cSchema + "smtpusessl" ):Value := (::nPort == 465)
             :Item( cSchema + "sendusername" ):Value := ::cUser
             :Item( cSchema + "sendpassword" ):Value := ::cPass
             :Item( cSchema + "smtpconnectiontimeout" ):Value := ::nTimeout

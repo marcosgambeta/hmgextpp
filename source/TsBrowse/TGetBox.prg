@@ -112,14 +112,14 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
       ::Atx  := ix
       ::hWnd :=_HMG_aControlHandles[ix]
 
-      ::AddVars( ::hWnd )
+      ::AddVars(::hWnd)
 
       if GetObjectType(hFont) == OBJ_FONT
          _SetFontHandle(::hWnd, hFont)
          ::hFont := hFont
       endif
 
-      oWnd:AddControl( ::hWnd )
+      oWnd:AddControl(::hWnd)
 
    endif
 

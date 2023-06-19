@@ -246,7 +246,7 @@ METHOD ShowDialog() CLASS TTaskDialog
 
       IF os_IsWinVista_Or_Later()
          ::aConfig[23] := self
-         nResult := win_TaskDialogIndirect0( ::aConfig, @nButton, @nRadioButton, @lVerificationFlagChecked )
+         nResult := win_TaskDialogIndirect0(::aConfig, @nButton, @nRadioButton, @lVerificationFlagChecked)
       ELSE
          nResult := E_NOTIMPL // Not implemented yet
       ENDIF
@@ -319,7 +319,7 @@ METHOD Listener( hWnd, nNotify, nWParam, nLParam ) CLASS TTaskDialog
 
    HB_SYMBOL_UNUSED(hWnd)
 
-   IF HB_ISEVALITEM( ::aConfig[TDC_CALLBACK] )
+   IF HB_ISEVALITEM(::aConfig[TDC_CALLBACK])
       RETURN ::aConfig[TDC_CALLBACK]:Eval(self, nNotify, nWParam, nLParam)
    ENDIF
 
@@ -371,7 +371,7 @@ METHOD MainIcon( nIcon ) CLASS TTaskDialog
    IF hb_IsNumeric(nIcon)
       ::aConfig[TDC_MAINICON] := nIcon
       IF ::lActive
-         _UpdateMainIcon( ::HWND, ::aConfig[TDC_MAINICON] )
+         _UpdateMainIcon(::HWND, ::aConfig[TDC_MAINICON])
       ENDIF
    ENDIF
 
@@ -388,7 +388,7 @@ METHOD MainInstruction( cInstruction ) CLASS TTaskDialog
    IF hb_IsString(cInstruction) .OR. hb_IsNumeric(cInstruction)
       ::aConfig[TDC_MAININSTRUCTION] := iif(hb_IsString(cInstruction) .AND. HB_ISNULL( cInstruction ), NIL, cInstruction)
       IF ::lActive
-         _SetMainInstruction( ::HWND, ::aConfig[TDC_MAININSTRUCTION] )
+         _SetMainInstruction(::HWND, ::aConfig[TDC_MAININSTRUCTION])
       ENDIF
    ENDIF
 
@@ -517,7 +517,7 @@ METHOD ExpandedInfo( cText ) CLASS TTaskDialog
    IF hb_IsString(cText) .OR. hb_IsNumeric(cText)
       ::aConfig[TDC_EXPANDEDINFORMATION] := cText
       IF ::lActive
-         _SetExpandedInformation( ::HWND, ::aConfig[TDC_EXPANDEDINFORMATION] )
+         _SetExpandedInformation(::HWND, ::aConfig[TDC_EXPANDEDINFORMATION])
       ENDIF
    ENDIF
 
@@ -579,7 +579,7 @@ METHOD FooterIcon( nIcon ) CLASS TTaskDialog
    IF hb_IsNumeric(nIcon)
       ::aConfig[TDC_FOOTERICON] := nIcon
       IF ::lActive
-         _UpdateFooterIcon( ::HWND, ::aConfig[TDC_FOOTERICON] )
+         _UpdateFooterIcon(::HWND, ::aConfig[TDC_FOOTERICON])
       ENDIF
    ENDIF
 
@@ -597,7 +597,7 @@ METHOD Footer( cFooter ) CLASS TTaskDialog
    IF hb_IsString(cFooter) .OR. hb_IsNumeric(cFooter)
       ::aConfig[TDC_FOOTER] := cFooter
       IF ::lActive
-         _SetFooter( ::HWND, ::aConfig[TDC_FOOTER] )
+         _SetFooter(::HWND, ::aConfig[TDC_FOOTER])
       ENDIF
    ENDIF
 

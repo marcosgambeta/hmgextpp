@@ -46,8 +46,8 @@ CLASS TSBScrlBar FROM TControl
    METHOD HandleEvent(nMsg, nWParam, nLParam)
 
 //   METHOD Initiate( hDlg ) INLINE  ::Super:Initiate( hDlg ), Tone(500), ;
-//                               ::SetRange( ::nMin, ::nMax ),;
-//                               ::SetPos( ::nMin )
+//                               ::SetRange(::nMin, ::nMax),;
+//                               ::SetPos(::nMin)
 
    // These two have to be BLOCK
 
@@ -129,7 +129,7 @@ METHOD New( nRow, nCol, nMin, nMax, nPgStep, lVertical, oWnd, nWidth, nHeight,;
    if !Empty(::oWnd:hWnd)
       ::Create("SCROLLBAR")
       ::SetRange(::nMin, ::nMax)
-      ::SetPos( ::nMin )
+      ::SetPos(::nMin)
    EndIf
 
    if lDesign

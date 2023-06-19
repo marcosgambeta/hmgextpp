@@ -229,8 +229,8 @@ METHOD SelectPrinter( cPrinter, lPrev ) CLASS HBPrinter
       AAdd(::Regions[1], 0) ; AAdd(::Regions[2], "*")
       AAdd(::Regions[1], 0) ; AAdd(::Regions[2], "DEFAULT")
       ::Fonts[3] := ::Fonts[1, 1]
-      rr_getdevicecaps( ::DEVCAPS, ::Fonts[3] )
-      ::setunits( ::units )
+      rr_getdevicecaps(::DEVCAPS, ::Fonts[3])
+      ::setunits(::units)
    ENDIF
 
 RETURN NIL
@@ -239,8 +239,8 @@ RETURN NIL
 METHOD SetDevMode(what, newvalue) CLASS HBPrinter
 
    ::hDCRef := rr_setdevmode(what, newvalue)
-   rr_getdevicecaps( ::DEVCAPS, ::Fonts[3] )
-   ::setunits( ::units )
+   rr_getdevicecaps(::DEVCAPS, ::Fonts[3])
+   ::setunits(::units)
 
 RETURN Self
 
@@ -248,8 +248,8 @@ RETURN Self
 METHOD SetUserMode(what, value, value2) CLASS HBPrinter
 
    ::hDCRef := rr_setusermode(what, value, value2)
-   rr_getdevicecaps( ::DEVCAPS, ::Fonts[3] )
-   ::setunits( ::units )
+   rr_getdevicecaps(::DEVCAPS, ::Fonts[3])
+   ::setunits(::units)
 
 RETURN Self
 
@@ -281,8 +281,8 @@ METHOD SetPage(orient, size, fontname) CLASS HBPrinter
    IF lhand != 0
       ::Fonts[3] := lhand
    ENDIF
-   rr_getdevicecaps( ::DEVCAPS, ::Fonts[3] )
-   ::setunits( ::units )
+   rr_getdevicecaps(::DEVCAPS, ::Fonts[3])
+   ::setunits(::units)
 
 RETURN Self
 
@@ -295,13 +295,13 @@ METHOD Startpage() CLASS HBPrinter
       rr_Startpage()
    ENDIF
    IF !::Printingemf
-      rr_selectcliprgn( ::Regions[1, 1] )
-      rr_setviewportorg( ::ViewPortOrg )
-      rr_settextcolor( ::textcolor )
-      rr_setbkcolor( ::bkcolor )
+      rr_selectcliprgn(::Regions[1, 1])
+      rr_setviewportorg(::ViewPortOrg)
+      rr_settextcolor(::textcolor)
+      rr_setbkcolor(::bkcolor)
       rr_setbkmode(::bkmode)
-      rr_selectbrush( ::Brushes[1, 1] )
-      rr_selectpen( ::Pens[1, 1] )
+      rr_selectbrush(::Brushes[1, 1])
+      rr_selectpen(::Pens[1, 1])
       rr_selectfont(::Fonts[1, 1])
    ENDIF
 
@@ -456,7 +456,7 @@ METHOD ModifyBrush( defname, lstyle, lcolor, lhatch ) CLASS HBPrinter
    hb_default(@lhatch, -1)
    ::Brushes[1, lpos] := rr_modifybrush( lhand, lstyle, lcolor, lhatch )
    IF lhand == ::Brushes[1, 1]
-      ::selectbrush( ::Brushes[2, lpos] )
+      ::selectbrush(::Brushes[2, lpos])
    ENDIF
 
 RETURN self
@@ -508,7 +508,7 @@ METHOD ModifyPen( defname, lstyle, lwidth, lcolor ) CLASS HBPrinter
    hb_default(@lwidth, -1)
    ::Pens[1, lpos] := rr_modifypen( lhand, lstyle, lwidth, lcolor )
    IF lhand == ::Pens[1, 1]
-      ::selectpen( ::Pens[2, lpos] )
+      ::selectpen(::Pens[2, lpos])
    ENDIF
 
 RETURN self
@@ -615,8 +615,8 @@ METHOD SetUnits( newvalue, r, c ) CLASS HBPrinter
       ::MaxCol := ::DevCaps[2] - 1
       EXIT
    CASE 2 // INCHES
-      ::MaxRow := ( ::DevCaps[1] / 25.4 ) - 1
-      ::MaxCol := ( ::DevCaps[2] / 25.4 ) - 1
+      ::MaxRow := (::DevCaps[1] / 25.4) - 1
+      ::MaxCol := (::DevCaps[2] / 25.4) - 1
       EXIT
    CASE 3 // PIXEL
       ::MaxRow := ::DevCaps[3]
@@ -642,8 +642,8 @@ METHOD Convert(arr, lsize) CLASS HBPrinter
    CASE 3 // PIXEL
       EXIT
    CASE 4 // ROWS   COLS
-      aret[1] := ( arr[1] ) * ::DEVCAPS[3] / ( ::maxrow + 1 )
-      aret[2] := ( arr[2] ) * ::DEVCAPS[4] / ( ::maxcol + 1 )
+      aret[1] := ( arr[1] ) * ::DEVCAPS[3] / (::maxrow + 1)
+      aret[2] := ( arr[2] ) * ::DEVCAPS[4] / (::maxcol + 1)
       EXIT
    CASE 1 // MM
       aret[1] := ( arr[1] ) * ::DEVCAPS[5] / 25.4 - iif(lsize == NIL, ::DEVCAPS[9], 0)
@@ -717,7 +717,7 @@ METHOD Say( row, col, txt, defname, lcolor, lalign ) CLASS HBPrinter
       rr_settextalign( oldalign )
    ENDIF
    IF lcolor != NIL
-      rr_settextcolor( ::textcolor )
+      rr_settextcolor(::textcolor)
    ENDIF
 
 RETURN self
@@ -835,7 +835,7 @@ METHOD ArcTo( row, col, torow, tocol, rowrad1, colrad1, rowrad2, colrad2, defpen
 
    hb_default(@torow, ::maxrow)
    hb_default(@tocol, ::maxcol)
-   ::error = rr_arcto( ::convert({row, col}), ::convert({torow, tocol}), ::convert({rowrad1, colrad1}), ::convert({rowrad2, colrad2}), lhp)
+   ::error = rr_arcto(::convert({row, col}), ::convert({torow, tocol}), ::convert({rowrad1, colrad1}), ::convert({rowrad2, colrad2}), lhp)
 
 RETURN self
 
@@ -910,7 +910,7 @@ METHOD LineTo( row, col, defpen ) CLASS HBPrinter
 
    LOCAL lhp := ::getobjbyname(defpen, "P")
 
-   ::error = rr_lineto( ::convert({row, col}), lhp )
+   ::error = rr_lineto(::convert({row, col}), lhp)
 
 RETURN self
 
@@ -1061,14 +1061,14 @@ METHOD SetViewPortOrg( row, col ) CLASS HBPrinter
    row := iif(row != NIL, row, 0)
    col := iif(col != NIL, col, 0)
    ::ViewPortOrg := ::convert({row, col})
-   rr_setviewportorg( ::ViewPortOrg )
+   rr_setviewportorg(::ViewPortOrg)
 
 RETURN self
 
 
 METHOD GetViewPortOrg() CLASS HBPrinter
 
-   rr_getviewportorg( ::ViewPortOrg )
+   rr_getviewportorg(::ViewPortOrg)
 
 RETURN self
 
@@ -1083,11 +1083,11 @@ METHOD End() CLASS HBPrinter
       ef_resetprinter()
       rr_deletedc(::HDCRef)
    ENDIF
-   rr_deleteobjects( ::Fonts[1] )
-   rr_deleteobjects( ::Brushes[1] )
-   rr_deleteobjects( ::Pens[1] )
-   rr_deleteobjects( ::Regions[1] )
-   rr_deleteimagelists( ::ImageLists[1] )
+   rr_deleteobjects(::Fonts[1])
+   rr_deleteobjects(::Brushes[1])
+   rr_deleteobjects(::Pens[1])
+   rr_deleteobjects(::Regions[1])
+   rr_deleteimagelists(::ImageLists[1])
    rr_finish()
 
 RETURN NIL
@@ -2190,7 +2190,7 @@ METHOD Preview() CLASS HBPrinter
    PRIVATE page := 1, scale := ::PREVIEWSCALE, azoom := { 0, 0, 0, 0 }, ahs := {}, npages := {}
    PRIVATE dx, dy, ngroup := -1, ath := {}, iloscstron := Len(::metafiles)
    PRIVATE aOpisy := LangInit()
-   ::nFromPage := Min( ::nFromPage, iloscstron )
+   ::nFromPage := Min(::nFromPage, iloscstron)
    IF ::nwhattoprint < 2
       ::nTopage := iloscstron
    ELSE
@@ -2426,7 +2426,7 @@ METHOD PrintOption() CLASS HBPrinter
 
       _DefineHotKey( "PrOpt", 0, VK_ESCAPE, {||_ReleaseWindow("PrOpt")} )
 
-      PrOpt.textFrom.VALUE := Max( ::nfrompage, 1 )
+      PrOpt.textFrom.VALUE := Max(::nfrompage, 1)
       PrOpt.textTo.VALUE := ::ntopage
       PrOpt.textCopies.VALUE := ::nCopies
 

@@ -103,21 +103,21 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, ;
          ::Create("EDIT")
          nMin := IIf(hb_IsBlock(bMin), Eval(bMin), bMin)
          nMax := IIf(hb_IsBlock(bMax), Eval(bMax), bMax)
-         ::hWndChild := InitedSpinner( ::hWndParent, ::hWnd , nCol, nRow, 0, nHeight, nMin, nMax, Eval(::bSetGet) )
-         SetIncrementSpinner( ::hWndChild, bUp )
+         ::hWndChild := InitedSpinner(::hWndParent, ::hWnd , nCol, nRow, 0, nHeight, nMin, nMax, Eval(::bSetGet))
+         SetIncrementSpinner(::hWndChild, bUp)
       else
          ::hWnd := InitBtnTextBox( ParentHandle, 0, nCol, nRow, nWidth, nHeight, "", 0, nMaxLenght, ;
            .F., .F., .F., .F.,.F., invisible, notabstop, cResName, nBmpWidth, "", .F. )[1]
       endif
 
-      ::AddVars( ::hWnd )
+      ::AddVars(::hWnd)
       ::Default()
 
       if GetObjectType(hFont) == OBJ_FONT
          _SetFontHandle(::hWnd, hFont)
          ::hFont := hFont
       endif
-      oWnd:AddControl( ::hWnd )
+      oWnd:AddControl(::hWnd)
    endif
 
 Return Self

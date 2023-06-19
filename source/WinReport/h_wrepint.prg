@@ -1520,7 +1520,7 @@ BEGIN SEQUENCE
          ::aStat["EntroIF"] := .F.
          ::aStat["ElseStat"] := .T.
       Endif
-       //msgbox(iif(::aStat["DelMode"]," ::aStat["DelMode"] .T.","::aStat["DelMode"] .F.")+crlf+if( ::aStat["ElseStat"]," ::aStat["ElseStat"] .T.","::aStat["ElseStat"] .F.")," risulta")
+       //msgbox(iif(::aStat["DelMode"]," ::aStat["DelMode"] .T.","::aStat["DelMode"] .F.")+crlf+if(::aStat["ElseStat"]," ::aStat["ElseStat"] .T.","::aStat["ElseStat"] .F.")," risulta")
       if !::aStat["EntroIF"] .AND. !::aStat["DelMode"] // i am on false condition
          if ::aStat["ElseStat"]
             //msginfo(ifc ,"Cancellato")
@@ -1814,10 +1814,10 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                         hbprn:setcharset(::what_ele(eval(chblk,arrypar,[CHARSET]),::aCh,"_acharset"))
 
                    case ascan(arryPar,[TEXTCOLOR])=2
-                        hbprn:settextcolor( ::UsaColor( eval(chblk,arrypar,[TEXTCOLOR]) ) )
+                        hbprn:settextcolor(::UsaColor( eval(chblk,arrypar,[TEXTCOLOR]) ))
 
                    case ascan(arryPar,[BACKCOLOR])=2
-                        hbprn:setbkcolor( ::UsaColor( eval(chblk,arrypar,[BACKCOLOR]) ) )
+                        hbprn:setbkcolor(::UsaColor( eval(chblk,arrypar,[BACKCOLOR]) ))
 
                    case ascan(arryPar,[ONEATLEAST])= 2
                         ONEATLEAST :=eval(blse,arrypar[3])

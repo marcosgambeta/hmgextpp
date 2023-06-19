@@ -420,9 +420,9 @@ if ::oSocket:SendString( "MAIL FROM: " +::cEmail +CHR(13)+CHR(10) )
                cHeader += "From: "     +::cFrom +" " +::cEmail +CHR(13)+CHR(10)
                cHeader += "Reply-To: " + iif(Empty(::cReplyTo), ::cFrom +" " +::cEmail, ::cReplyTo) +CHR(13)+CHR(10)
 
-               cHeader += addAddress( ::aTO, "To: " )
-               cHeader += addAddress( ::aCC, "CC: " )
-               cHeader += addAddress( ::aBCC, "BCC: " )
+               cHeader += addAddress(::aTO, "To: ")
+               cHeader += addAddress(::aCC, "CC: ")
+               cHeader += addAddress(::aBCC, "BCC: ")
 
                cHeader += "Subject: "  +::cSubject +CHR(13)+CHR(10)
 
@@ -454,7 +454,7 @@ if ::oSocket:SendString( "MAIL FROM: " +::cEmail +CHR(13)+CHR(10) )
                   endif
                   cHeader += "Content-Transfer-Encoding: base64" +CHR(13)+CHR(10)
                   cHeader += "" +CHR(13)+CHR(10)
-                  cHeader += oDecode:Encode64( ::cData ) +CHR(13)+CHR(10)
+                  cHeader += oDecode:Encode64(::cData) +CHR(13)+CHR(10)
                   cHeader += "" +CHR(13)+CHR(10)
 
                   // Attach

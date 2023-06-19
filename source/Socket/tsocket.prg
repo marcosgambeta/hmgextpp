@@ -256,7 +256,7 @@ DEFAULT nClient TO 10
 
 ::PrintDebugMessage("Listen ...")
 
-bRet := SocketListen( ::m_hSocket, nClient, @cSok )
+bRet := SocketListen(::m_hSocket, nClient, @cSok)
 
 if bRet
    oRet := TSocket():New()

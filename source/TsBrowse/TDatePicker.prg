@@ -97,9 +97,9 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
 
    if !Empty(::oWnd:hWnd)
 
-      ::hWnd := InitDatePick( ::oWnd:hWnd, 0, nCol, nRow, nWidth, nHeight, "", 0, shownone, updown, rightalign, invisible, notabstop )
+      ::hWnd := InitDatePick(::oWnd:hWnd, 0, nCol, nRow, nWidth, nHeight, "", 0, shownone, updown, rightalign, invisible, notabstop)
 
-      ::AddVars( ::hWnd )
+      ::AddVars(::hWnd)
       ::Default()
 
       if GetObjectType(hFont) == OBJ_FONT
@@ -107,7 +107,7 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
          ::hFont := hFont
       endif
 
-      oWnd:AddControl( ::hWnd )
+      oWnd:AddControl(::hWnd)
 
    endif
 
@@ -123,9 +123,9 @@ METHOD Default() CLASS TDatePicker
 
    Value := Eval(::bSetGet)
    If Empty(Value)
-      SetDatePickNull( ::hWnd )
+      SetDatePickNull(::hWnd)
    Else
-      SetDatePick( ::hWnd, Year( value ), Month( value ), Day( value ) )
+      SetDatePick(::hWnd, Year( value ), Month( value ), Day( value ))
    EndIf
 
 Return NIL
@@ -195,7 +195,7 @@ Return lRet
 
 METHOD VarGet() CLASS TDatePicker
 
-RETURN hb_Date(GetDatePickYear( ::hWnd ), GetDatePickMonth( ::hWnd ), GetDatePickDay( ::hWnd ))
+RETURN hb_Date(GetDatePickYear(::hWnd), GetDatePickMonth(::hWnd), GetDatePickDay(::hWnd))
 
 * ============================================================================
 * METHOD TDatePicker:LostFocus() Version 7.0 Jul/15/2004

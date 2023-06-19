@@ -97,7 +97,7 @@ METHOD New( nRow, nCol, bSetGet, aGetData, nWidth, nHeight, oWnd, bChanged,;
 
       ::hWnd := InitComboBox( ParentHandle, 0, nCol, nRow, nWidth , "", 0 , nHeight, invisible, notabstop, sort , displaychange , _HMG_IsXP )
 
-      ::AddVars( ::hWnd )
+      ::AddVars(::hWnd)
       ::Default()
 
       if GetObjectType(hFont) == OBJ_FONT
@@ -105,7 +105,7 @@ METHOD New( nRow, nCol, bSetGet, aGetData, nWidth, nHeight, oWnd, bChanged,;
          ::hFont := hFont
       endif
 
-      oWnd:AddControl( ::hWnd )
+      oWnd:AddControl(::hWnd)
 
    endif
 
@@ -120,9 +120,9 @@ METHOD Default() CLASS TComboBox
    LOCAL i
 
    For i = 1 To Len(::aItems)
-      ComboAddString( ::hWnd, ::aItems[i] )
+      ComboAddString(::hWnd, ::aItems[i])
       If i == Eval(::bSetGet)
-         ComboSetCurSel( ::hWnd, i )
+         ComboSetCurSel(::hWnd, i)
       Endif
    Next
 

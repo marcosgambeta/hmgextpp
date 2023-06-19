@@ -310,8 +310,8 @@ METHOD PlayGif() CLASS TGif
       ::nCurrentFrame := 1
    ENDIF
 
-   SetProperty( ::cParentName, ::hGif, "Picture", ::aPictData[::nCurrentFrame] )
-   SetProperty( ::cParentName, ::cTimer, "Value", ::aDelay[::nCurrentFrame] )
+   SetProperty(::cParentName, ::hGif, "Picture", ::aPictData[::nCurrentFrame])
+   SetProperty(::cParentName, ::cTimer, "Value", ::aDelay[::nCurrentFrame])
 
 RETURN NIL
 
@@ -319,18 +319,15 @@ RETURN NIL
 METHOD Update() CLASS TGif
 
    IF !Empty(::hGif) .AND. _IsControlDefined(::hGif, ::cParentName)
-
-      IF GetProperty( ::cParentName, ::hGif, "Row" ) != GetProperty( ::cParentName, ::cControlName, "Row" ) .OR. ;
-            GetProperty( ::cParentName, ::hGif, "Col" ) != GetProperty( ::cParentName, ::cControlName, "Col" ) .OR. ;
-            GetProperty( ::cParentName, ::hGif, "Width" ) != GetProperty( ::cParentName, ::cControlName, "Width" ) .OR. ;
-            GetProperty( ::cParentName, ::hGif, "Height" ) != GetProperty( ::cParentName, ::cControlName, "Height" )
-
-         SetProperty( ::cParentName, ::hGif, "Row", GetProperty( ::cParentName, ::cControlName, "Row" ) )
-         SetProperty( ::cParentName, ::hGif, "Col", GetProperty( ::cParentName, ::cControlName, "Col" ) )
-         SetProperty( ::cParentName, ::hGif, "Width", GetProperty( ::cParentName, ::cControlName, "Width" ) )
-         SetProperty( ::cParentName, ::hGif, "Height", GetProperty( ::cParentName, ::cControlName, "Height" ) )
+      IF      GetProperty(::cParentName, ::hGif, "Row") != GetProperty(::cParentName, ::cControlName, "Row") ;
+         .OR. GetProperty(::cParentName, ::hGif, "Col") != GetProperty(::cParentName, ::cControlName, "Col") ;
+         .OR. GetProperty(::cParentName, ::hGif, "Width") != GetProperty(::cParentName, ::cControlName, "Width") ;
+         .OR. GetProperty(::cParentName, ::hGif, "Height") != GetProperty(::cParentName, ::cControlName, "Height")
+         SetProperty(::cParentName, ::hGif, "Row", GetProperty(::cParentName, ::cControlName, "Row"))
+         SetProperty(::cParentName, ::hGif, "Col", GetProperty(::cParentName, ::cControlName, "Col"))
+         SetProperty(::cParentName, ::hGif, "Width", GetProperty(::cParentName, ::cControlName, "Width"))
+         SetProperty(::cParentName, ::hGif, "Height", GetProperty(::cParentName, ::cControlName, "Height"))
       ENDIF
-
    ENDIF
 
 RETURN NIL
@@ -345,7 +342,7 @@ METHOD RestartGif() CLASS TGif
 
    AEval(::aPictData, {|f|FErase(f)})
 
-   IF LoadGif( ::cFileName, @aPictures, @aImageInfo, Self )
+   IF LoadGif(::cFileName, @aPictures, @aImageInfo, Self)
 
       ::nTotalFrames := Len(aPictures)
       ::aPictData := AClone(aPictures)
