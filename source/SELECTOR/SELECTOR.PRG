@@ -143,7 +143,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
    IF lOTM
 
-      ( nSelectChild )->( dbGoto( LastRec() + 1 ) )
+      (nSelectChild)->(dbGoto(LastRec() + 1))
 
    ENDIF
 
@@ -231,7 +231,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
    IF lOTM
 
-      DO WHILE !Eof() .AND. !( nSelectChild )->( dbSeek( xValueFromMother := ( nSelectFrom )->( Eval(aOneToMany[2]) ), .F. ) )
+      DO WHILE !Eof() .AND. !(nSelectChild)->(dbSeek(xValueFromMother := (nSelectFrom)->(Eval(aOneToMany[2])), .F.))
 
          dbSkip()
 
@@ -253,9 +253,9 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
          lCreateIndex := !lCreateIndex
          cSeekExpr := ""
 
-         IF hb_IsArray(axExpr) .AND. hb_IsArray(AEval(axExpr, {|e|cSeekExpr += ToString(Eval(e))})) .OR. !( nSelectTemp )->( dbSeek( cSeekExpr, .F. ) )
+         IF hb_IsArray(axExpr) .AND. hb_IsArray(AEval(axExpr, {|e|cSeekExpr += ToString(Eval(e))})) .OR. !(nSelectTemp)->(dbSeek(cSeekExpr, .F.))
 
-            ( nSelectTemp )->( dbAppend() )
+            (nSelectTemp)->(dbAppend())
             lAppend := .T.
 
          ENDIF
@@ -276,15 +276,15 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
                IF aSelectList[nCurrExpr, 5] == "T"
 
-                  ( nSelectTemp )->( FieldPut(nCurrExpr, FieldGet(nCurrExpr) + xExprValue) )
+                  (nSelectTemp)->(FieldPut(nCurrExpr, FieldGet(nCurrExpr) + xExprValue))
 
                ELSEIF aSelectList[nCurrExpr, 5] == "A" .AND. !lAppend
 
-                  ( nSelectTemp )->( FieldPut(nCurrExpr, (FieldGet(nCurrExpr) + xExprValue) / 2) )
+                  (nSelectTemp)->(FieldPut(nCurrExpr, (FieldGet(nCurrExpr) + xExprValue) / 2))
 
                ELSE
 
-                  ( nSelectTemp )->( FieldPut(nCurrExpr, xExprValue) )
+                  (nSelectTemp)->(FieldPut(nCurrExpr, xExprValue))
 
                ENDIF
 
@@ -302,17 +302,17 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
       IF !lOTM
 
-         ( nSelectFrom )->( dbSkip() )
+         (nSelectFrom)->(dbSkip())
 
       ELSE
 
-         IF ( nSelectChild )->( dbSkip() ) .OR. ( nSelectChild )->( Eof() .OR. !xValueFromMother == Eval(aOneToMany[3]) )
+         IF (nSelectChild)->(dbSkip()) .OR. (nSelectChild)->(Eof() .OR. !xValueFromMother == Eval(aOneToMany[3])) // TODO: check
 
             dbSkip()
 
             IF lOTM
 
-               DO WHILE !Eof() .AND. !( nSelectChild )->( dbSeek( xValueFromMother := ( nSelectFrom )->( Eval(aOneToMany[2]) ), .F. ) )
+               DO WHILE !Eof() .AND. !(nSelectChild)->(dbSeek(xValueFromMother := (nSelectFrom)->(Eval(aOneToMany[2])), .F.))
 
                   dbSkip()
 

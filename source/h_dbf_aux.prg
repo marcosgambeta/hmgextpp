@@ -340,7 +340,7 @@ PROCEDURE DbfCopyRec(cnTargetArea, lAppend)
 
    IF hb_IsLogical(lAppend) .AND. lAppend
 
-      ( cnTargetArea )->( dbAppend() )
+      (cnTargetArea)->(dbAppend())
 
    ENDIF
 
@@ -348,10 +348,10 @@ PROCEDURE DbfCopyRec(cnTargetArea, lAppend)
 
       cFieldName := FieldName(nCnt)
 
-      IF ( nFieldPos := ( cnTargetArea )->( FieldPos( cFieldName ) ) ) > 0 .AND. ;
-         ValType(xFieldValue := FieldGet(nCnt)) == ValType(( cnTargetArea )->( FieldGet(nFieldPos) ))
+      IF ( nFieldPos := (cnTargetArea)->(FieldPos(cFieldName)) ) > 0 .AND. ;
+         ValType(xFieldValue := FieldGet(nCnt)) == ValType((cnTargetArea)->(FieldGet(nFieldPos)))
 
-         ( cnTargetArea )->( FieldPut(nFieldPos, xFieldValue) )
+         (cnTargetArea)->(FieldPut(nFieldPos, xFieldValue))
 
       ENDIF
 

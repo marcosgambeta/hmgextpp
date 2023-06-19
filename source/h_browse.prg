@@ -1313,14 +1313,14 @@ PROCEDURE _BrowseSetValue(ControlName, ParentForm, Value, z, mp)
 
    _BrowseHandle := _HMG_aControlHandles[i]
 
-   IF Value == ( _BrowseArea )->( RecCount() ) + 1
+   IF Value == (_BrowseArea)->(RecCount()) + 1
       _HMG_aControlValue[i] := Value
       ListViewReset(_BrowseHandle)
       _BrowseOnChange(i)
       RETURN
    ENDIF
 
-   IF Value > ( _BrowseArea )->( RecCount() ) + 1
+   IF Value > (_BrowseArea)->(RecCount()) + 1
       RETURN
    ENDIF
 
@@ -1438,7 +1438,7 @@ FUNCTION _BrowseDelete(ControlName, ParentForm, z)
    Select &_BrowseArea
    _RecNo := RecNo()
 
-   IF !lock .AND. ( _BrowseArea )->( dbInfo( DBI_SHARED ) )
+   IF !lock .AND. (_BrowseArea)->(dbInfo(DBI_SHARED))
       lock := .T.
    ENDIF
 
@@ -1533,7 +1533,7 @@ FUNCTION _BrowseEdit(GridHandle , aValid , aValidMessages , aReadOnly , lock , a
    i := AScan(_HMG_aControlHandles , GridHandle)
    BrowseArea := _HMG_aControlSpacing[i]
 
-   IF ( BrowseArea )->( dbInfo( DBI_ISDBF ) ) .AND. ( BrowseArea )->( dbInfo( DBI_ISREADONLY ) )
+   IF (BrowseArea)->(dbInfo(DBI_ISDBF)) .AND. (BrowseArea)->(dbInfo(DBI_ISREADONLY))
       RETURN NIL
    ENDIF
 
@@ -2151,7 +2151,7 @@ STATIC FUNCTION _BrowseInPlaceEdit(GridHandle , aValid , aValidMessages , aReadO
 
    FieldName := _GridFields[CellColIndex]
 
-   IF AScan(aEnabledTypes, ( _GridWorkArea )->( _TypeEx ( FieldName ) )) < 1
+   IF AScan(aEnabledTypes, (_GridWorkArea)->(_TypeEx(FieldName))) < 1
       MsgAlert("Edit of this field is not supported.", _HMG_BRWLangError[10])
       RETURN NIL
    ENDIF
@@ -2185,14 +2185,14 @@ STATIC FUNCTION _BrowseInPlaceEdit(GridHandle , aValid , aValidMessages , aReadO
       GO nRec
    ENDIF
 
-   IF !lock .AND. ( _GridWorkArea )->( dbInfo( DBI_SHARED ) )
+   IF !lock .AND. (_GridWorkArea)->(dbInfo(DBI_SHARED))
       lock := .T.
    ENDIF
 
    // If LOCK clause is present, try to lock.
    IF lock
 
-      IF !( _GridWorkArea )->( NetRecLock() )
+      IF !(_GridWorkArea)->(NetRecLock())
          _HMG_IPE_CANCELLED := .T.
          MsgAlert(_HMG_BRWLangError[9], _HMG_BRWLangError[10])
          // Restore Original Record Pointer
@@ -2292,7 +2292,7 @@ STATIC FUNCTION _BrowseInPlaceEdit(GridHandle , aValid , aValidMessages , aReadO
       ENDIF
 
       IF lock
-         ( _GridWorkArea )->( dbRUnlock() )
+         (_GridWorkArea)->(dbRUnlock())
       ENDIF
 
    ELSE
@@ -2587,7 +2587,7 @@ STATIC PROCEDURE _InPlaceEditSave(i, FieldName, Alias, r, lock, ControlType, aIn
    REPLACE &FieldName WITH r
 
    IF lock
-      ( Alias )->( dbRUnlock() )
+      (Alias)->(dbRUnlock())
    ENDIF
 
    _BrowseRefresh("" , "" , i)

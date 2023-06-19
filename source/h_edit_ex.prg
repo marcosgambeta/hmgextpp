@@ -302,7 +302,7 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
    ELSE
       _cArea := cArea
    ENDIF
-   _aEstructura := ( _cArea )->( dbStruct() )
+   _aEstructura := (_cArea)->(dbStruct())
    nEstructura := Len(_aEstructura)
 
    // Título de la ventana.
@@ -469,12 +469,12 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
    ENDIF
 
    // ------- Selección del area de la bdd.---------------------------------------
-   nRegistro := ( _cArea )->( RecNo() )
+   nRegistro := (_cArea)->(RecNo())
    nArea := Select()
-   cIndiceActivo := ( _cArea )->( ordSetFocus() )
-   cFiltroAnt := ( _cArea )->( dbFilter() )
+   cIndiceActivo := (_cArea)->(ordSetFocus())
+   cFiltroAnt := (_cArea)->(dbFilter())
    dbSelectArea(_cArea)
-   ( _cArea )->( dbGoTop() )
+   (_cArea)->(dbGoTop())
 
    // ------- Inicialización de variables.----------------------------------------
    // Filtro.
@@ -747,12 +747,12 @@ RETURN NIL
 STATIC FUNCTION ABM2salir( nRegistro, cIndiceActivo, cFiltroAnt, nArea )
 
    // ------- Restaura el area de la bdd inicial.---------------------------------
-   ( _cArea )->( dbGoto( nRegistro ) )
-   ( _cArea )->( ordSetFocus( cIndiceActivo ) )
+   (_cArea)->(dbGoto(nRegistro))
+   (_cArea)->(ordSetFocus(cIndiceActivo))
    IF Empty(cFiltroAnt)
-      ( _cArea )->( dbClearFilter() )
+      (_cArea)->(dbClearFilter())
    ELSE
-      ( _cArea )->( dbSetFilter( &( "{||" + cFiltroAnt + "}" ), cFiltroAnt ) )
+      (_cArea)->(dbSetFilter(&("{||" + cFiltroAnt + "}"), cFiltroAnt))
    ENDIF
    dbSelectArea(nArea)
 
@@ -777,7 +777,7 @@ STATIC FUNCTION ABM2Redibuja(lTabla)
    ENDIF
 
    // ------- Refresco de la barra de botones.------------------------------------
-   IF ( _cArea )->( RecCount() ) == 0
+   IF (_cArea)->(RecCount()) == 0
       wndABM2Edit.tbbEditar.Enabled := .F.
       wndABM2Edit.tbbBorrar.Enabled := .F.
       wndABM2Edit.tbbBuscar.Enabled := .F.
@@ -800,7 +800,7 @@ STATIC FUNCTION ABM2Redibuja(lTabla)
 
    // ------- Refresca el browse si se indica.
    IF lTabla
-      wndABM2Edit.brwABM2Edit.VALUE := ( _cArea )->( RecNo() )
+      wndABM2Edit.brwABM2Edit.VALUE := (_cArea)->(RecNo())
       wndABM2Edit.brwABM2Edit.Refresh
    ENDIF
 
@@ -826,8 +826,8 @@ STATIC FUNCTION ABM2CambiarOrden()
    nIndice := wndABM2Edit.cbIndices.VALUE - 1
 
    // ------- Cambia el orden del area de trabajo.--------------------------------
-   ( _cArea )->( ordSetFocus( nIndice ) )
-   // (_cArea)->( dbGoTop() )
+   (_cArea)->(ordSetFocus(nIndice))
+   // (_cArea)->(dbGoTop())
    _nIndiceActivo := ++nIndice
    ABM2Redibuja(.T.)
 
@@ -1045,7 +1045,7 @@ STATIC FUNCTION ABM2Editar( lNuevo )
    // ------- Actualiza los controles si se está editando.------------------------
    if !lNuevo
       FOR i := 1 TO Len(_aControl)
-         SetProperty( "wndABM2EditNuevoSplit", _aControl[i, ABM_CON_NAME], "Value", ( _cArea )->( FieldGet(i) ) )
+         SetProperty( "wndABM2EditNuevoSplit", _aControl[i, ABM_CON_NAME], "Value", (_cArea)->(FieldGet(i)) )
       NEXT
    ENDIF
 
@@ -1182,17 +1182,17 @@ STATIC FUNCTION ABM2EditarGuardar( lNuevo )
 
       // No hay bloque de código del usuario.
       IF lNuevo
-         ( _cArea )->( dbAppend() )
+         (_cArea)->(dbAppend())
       ENDIF
 
-      IF ( _cArea )->( RLock() )
+      IF (_cArea)->(RLock())
 
          FOR i := 1 TO Len(_aEstructura)
             xValor := GetProperty( "wndABM2EditNuevoSplit", _aControl[i, ABM_CON_NAME], "Value" )
-            ( _cArea )->( FieldPut(i, xValor) )
+            (_cArea)->(FieldPut(i, xValor))
          NEXT
 
-         ( _cArea )->( dbUnlock() )
+         (_cArea)->(dbUnlock())
 
          // Refresca la ventana de visualización.
          wndABM2EditNuevo.RELEASE
@@ -1242,10 +1242,10 @@ STATIC FUNCTION ABM2Seleccionar()
    // ------- Inicialización de variables.----------------------------------------
    lSalida := .F.
    nReg := 0
-   nRegistro := ( _cArea )->( RecNo() )
+   nRegistro := (_cArea)->(RecNo())
 
    // ------- Se situa en el primer registro.-------------------------------------
-   ( _cArea )->( dbGoTop() )
+   (_cArea)->(dbGoTop())
 
    // ------- Creación de la ventana de selección de registro.--------------------
    DEFINE WINDOW wndSeleccionar ;
@@ -1293,7 +1293,7 @@ STATIC FUNCTION ABM2Seleccionar()
    ACTIVATE WINDOW wndSeleccionar
 
    // ------- Restuara el puntero de registro.------------------------------------
-   ( _cArea )->( dbGoto( nRegistro ) )
+   (_cArea)->(dbGoto(nRegistro))
 
 RETURN nReg
 
@@ -1318,14 +1318,14 @@ STATIC FUNCTION ABM2EditarCopiar()
 
    // ------- Actualiza los controles de edición.---------------------------------
    IF nReg != 0
-      nRegistro := ( _cArea )->( RecNo() )
-      ( _cArea )->( dbGoto( nReg ) )
+      nRegistro := (_cArea)->(RecNo())
+      (_cArea)->(dbGoto(nReg))
       FOR i := 1 TO Len(_aControl)
          IF _aEditable[i]
-            SetProperty( "wndABM2EditNuevoSplit", _aControl[i, ABM_CON_NAME], "Value", ( _cArea )->( FieldGet(i) ) )
+            SetProperty( "wndABM2EditNuevoSplit", _aControl[i, ABM_CON_NAME], "Value", (_cArea)->(FieldGet(i)) )
          ENDIF
       NEXT
-      ( _cArea )->( dbGoto( nRegistro ) )
+      (_cArea)->(dbGoto(nRegistro))
    ENDIF
 
 RETURN NIL
@@ -1343,14 +1343,14 @@ STATIC FUNCTION ABM2Borrar()
 
    // ------- Borra el registro si se acepta.-------------------------------------
    IF AlertOKCancel( _HMG_aLangUser[8], _HMG_aLangLabel[16] )
-      IF ( _cArea )->( RLock() )
-         ( _cArea )->( dbDelete() )
-         ( _cArea )->( dbCommit() )
-         ( _cArea )->( dbUnlock() )
+      IF (_cArea)->(RLock())
+         (_cArea)->(dbDelete())
+         (_cArea)->(dbCommit())
+         (_cArea)->(dbUnlock())
          IF Set(_SET_DELETED)
-            ( _cArea )->( dbSkip() )
-            IF ( _cArea )->( Eof() )
-               ( _cArea )->( dbGoBottom() )
+            (_cArea)->(dbSkip())
+            IF (_cArea)->(Eof())
+               (_cArea)->(dbGoBottom())
             ENDIF
          ENDIF
          ABM2Redibuja(.T.)
@@ -1374,10 +1374,10 @@ STATIC FUNCTION ABM2Recover()
 
    // ------- Restaurar el registro si se acepta.-----------------------------------
    IF AlertOKCancel( _HMG_aLangUser[42], StrTran(_HMG_aLangButton[12], "&", "") )
-      IF ( _cArea )->( RLock() )
-         ( _cArea )->( dbRecall() )
-         ( _cArea )->( dbCommit() )
-         ( _cArea )->( dbUnlock() )
+      IF (_cArea)->(RLock())
+         (_cArea)->(dbRecall())
+         (_cArea)->(dbCommit())
+         (_cArea)->(dbUnlock())
          ABM2Redibuja(.T.)
       ELSE
          AlertStop( _HMG_aLangUser[41], _cTitulo )
@@ -1538,11 +1538,11 @@ STATIC FUNCTION ABM2Buscar()
 
    // ------- Busca el registro.--------------------------------------------------
    IF lSalida
-      nRegistro := ( _cArea )->( RecNo() )
-      lResultado := ( _cArea )->( dbSeek( xValor ) )
+      nRegistro := (_cArea)->(RecNo())
+      lResultado := (_cArea)->(dbSeek(xValor))
       if !lResultado
          AlertExclamation( _HMG_aLangUser[11], _cTitulo )
-         ( _cArea )->( dbGoto( nRegistro ) )
+         (_cArea)->(dbGoto(nRegistro))
       ELSE
          ABM2Redibuja(.T.)
       ENDIF
@@ -1836,7 +1836,7 @@ STATIC FUNCTION ABM2EstableceFiltro()
       _cFiltro := _cArea + "->" + _aEstructura[nCampo, DBS_NAME] + aOperador[nCompara]
       _cFiltro += cValor
    ENDCASE
-   ( _cArea )->( dbSetFilter( {||&_cFiltro}, _cFiltro ) )
+   (_cArea)->(dbSetFilter({||&_cFiltro}, _cFiltro))
    _lFiltro := .T.
    wndABM2Filtro.RELEASE
    ABM2Redibuja(.T.)
@@ -1861,7 +1861,7 @@ STATIC FUNCTION ABM2DesactivarFiltro()
       RETURN NIL
    ENDIF
    IF AlertYesNo( _HMG_aLangUser[40], _cTitulo )
-      ( _cArea )->( dbClearFilter( NIL ) )
+      (_cArea)->(dbClearFilter(NIL))
       _lFiltro := .F.
       _cFiltro := ""
       ABM2Redibuja(.T.)
@@ -1911,18 +1911,18 @@ STATIC FUNCTION ABM2Imprimir()
    aCampoListado := {}
    aCampoBase := _aNombreCampo
    SET DELETED ON
-   nRegistro := ( _cArea )->( RecNo() )
-   IF ( _cArea )->( Deleted() )
-      ( _cArea )->( dbSkip() )
+   nRegistro := (_cArea)->(RecNo())
+   IF (_cArea)->(Deleted())
+      (_cArea)->(dbSkip())
    ENDIF
 
    // Registro inicial y final.
    nCampo := _aIndiceCampo[_nIndiceActivo]
-   ( _cArea )->( dbGoTop() )
+   (_cArea)->(dbGoTop())
    cRegistro1 := hb_ValToStr((_cArea)->(FieldGet(nCampo)))
-   ( _cArea )->( dbGoBottom() )
+   (_cArea)->(dbGoBottom())
    cRegistro2 := hb_ValToStr((_cArea)->(FieldGet(nCampo)))
-   ( _cArea )->( dbGoto( nRegistro ) )
+   (_cArea)->(dbGoto(nRegistro))
 
    // ------- Definición de la ventana de formato de listado.---------------------
    DEFINE WINDOW wndABM2Listado ;
@@ -2081,7 +2081,7 @@ STATIC FUNCTION ABM2Imprimir()
 
    // ------- Restaura.-----------------------------------------------------------
    SET DELETED OFF
-   ( _cArea )->( dbGoto( nRegistro ) )
+   (_cArea)->(dbGoto(nRegistro))
    ABM2Redibuja(.F.)
 
 RETURN NIL
@@ -2103,15 +2103,15 @@ STATIC FUNCTION ABM2DefinirRegistro( nAccion )
    LOCAL nCampo /*as numeric*/ // Numero del campo indice.
 
    // ------- Inicializa las variables.-------------------------------------------
-   nRegistro := ( _cArea )->( RecNo() )
+   nRegistro := (_cArea)->(RecNo())
 
    // ------- Selecciona el registro.---------------------------------------------
    nReg := ABM2Seleccionar()
    IF nReg == 0
-      ( _cArea )->( dbGoto( nRegistro ) )
+      (_cArea)->(dbGoto(nRegistro))
       RETURN NIL
    ELSE
-      ( _cArea )->( dbGoto( nReg ) )
+      (_cArea)->(dbGoto(nReg))
       nCampo := _aIndiceCampo[_nIndiceActivo]
       cValor := hb_ValToStr((_cArea)->(FieldGet(nCampo)))
    ENDIF
@@ -2125,7 +2125,7 @@ STATIC FUNCTION ABM2DefinirRegistro( nAccion )
    ENDCASE
 
    // ------- Restaura el registro.
-   ( _cArea )->( dbGoto( nRegistro ) )
+   (_cArea)->(dbGoto(nRegistro))
 
 RETURN NIL
 
@@ -2329,7 +2329,7 @@ STATIC FUNCTION ABM2Listado( aImpresoras )
    ENDIF
 
    // ------- Valores de inicio y fin de listado.---------------------------------
-   nRegistro := ( _cArea )->( RecNo() )
+   nRegistro := (_cArea)->(RecNo())
    cRegistro1 := wndABM2Listado .txtRegistro1.VALUE
    cRegistro2 := wndABM2Listado .txtRegistro2.VALUE
    // TODO: switch ?
@@ -2347,15 +2347,15 @@ STATIC FUNCTION ABM2Listado( aImpresoras )
       xRegistro1 := ( cRegistro1 == ".t." )
       xRegistro2 := ( cRegistro2 == ".t." )
    ENDCASE
-   ( _cArea )->( dbSeek( xRegistro2 ) )
-   nUltimo := ( _cArea )->( RecNo() )
-   ( _cArea )->( dbSeek( xRegistro1 ) )
-   nPrimero := ( _cArea )->( RecNo() )
+   (_cArea)->(dbSeek(xRegistro2))
+   nUltimo := (_cArea)->(RecNo())
+   (_cArea)->(dbSeek(xRegistro1))
+   nPrimero := (_cArea)->(RecNo())
 
    // ------- Obtiene el número de páginas.---------------------------------------
    nTotales := 1
-   ( _cArea )->( dbEval({||nTotales++},, {||!(RecNo() == nUltimo) .AND. !Eof()},,, .T.) )
-   ( _cArea )->( dbGoto( nPrimero ) )
+   (_cArea)->(dbEval({||nTotales++},, {||!(RecNo() == nUltimo) .AND. !Eof()},,, .T.))
+   (_cArea)->(dbGoto(nPrimero))
    IF lOrientacion
       IF Mod(nTotales, 33) == 0
          nPaginas := Int(nTotales / 33)
@@ -2434,7 +2434,7 @@ STATIC FUNCTION ABM2Listado( aImpresoras )
             @ 10, 29 SAY _HMG_aLangUser[33] FONT "a9n" TO PRINT
          ENDIF
          SET TEXT ALIGN LEFT
-         @ 7, 31 say ( _cArea )->( ordName() ) FONT "a9" TO PRINT
+         @ 7, 31 say (_cArea)->(ordName()) FONT "a9" TO PRINT
          @ 8, 31 SAY cRegistro1 FONT "a9" TO PRINT
          @ 9, 31 SAY cRegistro2 FONT "a9" TO PRINT
          if !Empty(_cFiltro)
@@ -2460,26 +2460,26 @@ STATIC FUNCTION ABM2Listado( aImpresoras )
          DO CASE
          CASE _aEstructura[nCampo, DBS_TYPE] == "N"
             SET TEXT ALIGN RIGHT
-            @ nFila, nColumna + aAncho[i] say ( _cArea )->( FieldGet(aNumeroCampo[i]) ) FONT "a8" TO PRINT
+            @ nFila, nColumna + aAncho[i] say (_cArea)->(FieldGet(aNumeroCampo[i])) FONT "a8" TO PRINT
          CASE _aEstructura[nCampo, DBS_TYPE] == "L"
             SET TEXT ALIGN LEFT
-            @ nFila, nColumna + 1 SAY iif(( _cArea )->( FieldGet(aNumeroCampo[i]) ), _HMG_aLangUser[29], _HMG_aLangUser[30]) FONT "a8" TO PRINT
+            @ nFila, nColumna + 1 SAY iif((_cArea)->(FieldGet(aNumeroCampo[i])), _HMG_aLangUser[29], _HMG_aLangUser[30]) FONT "a8" TO PRINT
          CASE _aEstructura[nCampo, DBS_TYPE] == "M"
             SET TEXT ALIGN LEFT
             @ nFila, nColumna + 1 SAY SubStr((_cArea)->(FieldGet(aNumeroCampo[i])), 1, 20) FONT "a8" TO PRINT
          OTHERWISE
             SET TEXT ALIGN LEFT
-            @ nFila, nColumna + 1 say ( _cArea )->( FieldGet(aNumeroCampo[i]) ) FONT "a8" TO PRINT
+            @ nFila, nColumna + 1 say (_cArea)->(FieldGet(aNumeroCampo[i])) FONT "a8" TO PRINT
          ENDCASE
          nColumna += aAncho[i]
       NEXT
       nFila++
 
       // Comprueba el final del registro.
-      IF ( _cArea )->( RecNo() ) == nUltimo .OR. ( _cArea )->( Eof() )
+      IF (_cArea)->(RecNo()) == nUltimo .OR. (_cArea)->(Eof())
          lSalida := .F.
       ENDIF
-      ( _cArea )->( dbSkip( 1 ) )
+      (_cArea)->(dbSkip(1))
 
       // Pie.
       IF lOrientacion
@@ -2558,7 +2558,7 @@ STATIC FUNCTION ABM2Listado( aImpresoras )
    RELEASE PRINTSYS
 
    // ------- Cierra la ventana.--------------------------------------------------
-   ( _cArea )->( dbGoto( nRegistro ) )
+   (_cArea)->(dbGoto(nRegistro))
    wndABM2Listado.RELEASE
 
 RETURN NIL

@@ -275,7 +275,7 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
    _HMG_InplaceParentHandle := 0
 
    IF !Empty(cAlias)
-      ( cAlias )->( dbCloseArea() )
+      (cAlias)->(dbCloseArea())
    ENDIF
 
    IF !Empty(nSaveSelect)

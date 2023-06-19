@@ -295,20 +295,20 @@ FUNCTION _DefineComboEx(ControlName, ParentForm, x, y, w, rows, value, ;
 
       IF Select(WorkArea) != 0
 
-         BackRec := ( WorkArea )->( RecNo() )
+         BackRec := (WorkArea)->(RecNo())
 
-         ( WorkArea )->( dbGoTop() )
+         (WorkArea)->(dbGoTop())
 
-         DO WHILE !( WorkArea )->( EOF() )
+         DO WHILE !(WorkArea)->(EOF())
             rcount++
-            IF value == ( WorkArea )->( RecNo() )
+            IF value == (WorkArea)->(RecNo())
                cset := rcount
             ENDIF
             ComboAddStringEx(ControlHandle, cValToChar((WorkArea)->&(cField), 1))
-            ( WorkArea )->( dbSkip() )
+            (WorkArea)->(dbSkip())
          ENDDO
 
-         ( WorkArea )->( dbGoto( BackRec ) )
+         (WorkArea)->(dbGoto(BackRec))
 
          ComboSetCurSel(ControlHandle, cset)
 

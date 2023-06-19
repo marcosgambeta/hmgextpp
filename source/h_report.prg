@@ -148,11 +148,11 @@ FUNCTION easyreport()
 
    cfile := calias
    Select(calias)
-   aFieldsg := ( cfile )->( Array(FCount()) )
-   aT := ( cfile )->( Array(FCount()) )
-   aW := ( cfile )->( Array(FCount()) )
-   aD := ( cfile )->( Array(FCount()) )
-   ( cfile )->( AFields( aFieldsg, aT, aW, aD ) )
+   aFieldsg := (cfile)->(Array(FCount()))
+   aT := (cfile)->(Array(FCount()))
+   aW := (cfile)->(Array(FCount()))
+   aD := (cfile)->(Array(FCount()))
+   (cfile)->(AFields(aFieldsg, aT, aW, aD))
    lmode := .T.
    IF nlpp == NIL
       nlpp := 50
@@ -279,8 +279,8 @@ FUNCTION easyreport()
       ENDIF
       crompe := &wfield1
    ENDIF
-   nRecNo := ( cfile )->( RecNo() )  //JP 18
-   DO WHILE !( cfile )->( Eof() )
+   nRecNo := (cfile)->(RecNo())  //JP 18
+   DO WHILE !(cfile)->(Eof())
       swt := 0
       imp_SUBTOTALES( @nlin, @ncol, @lmode, @swt, @grpby )
 
@@ -370,7 +370,7 @@ FUNCTION easyreport()
       nlin++
       imp_pagina(@nlin, @lmode, @grpby, @chdrgrp)
 
-      ( cfile )->( dbSkip() )
+      (cfile)->(dbSkip())
    ENDDO
    // FIN DE LA IMPRESIÓN DEL ÚLTIMO REGISTRO DE LA TABLA
    // IMPRESIÓN DEL SUBTOTAL DEL ULTIMO GRUPO DE LA TABLA EN CASO DE HABER SUBTOTALES
@@ -409,7 +409,7 @@ FUNCTION easyreport()
          EJECT
       ENDIF
    ENDIF
-   ( cfile )->( dbGoto( nRecNo ) )  //JP 18
+   (cfile)->(dbGoto(nRecNo))  //JP 18
    IF ldos
       IF lpreview
          SET DEVICE TO SCREEN
