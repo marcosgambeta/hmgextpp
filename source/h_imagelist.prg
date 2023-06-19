@@ -50,9 +50,10 @@
 #include "minigui.ch"
 
 #define MAX_IMAGE 10
-*-----------------------------------------------------------------------------*
-FUNCTION _DefineImageList ( ControlName , ParentForm , w , h , aImage , aImageMask , aColor , ImageCount , mask )
-*-----------------------------------------------------------------------------*
+
+//----------------------------------------------------------------------------//
+
+FUNCTION _DefineImageList(ControlName, ParentForm, w, h, aImage, aImageMask, aColor, ImageCount, mask)
 
    LOCAL i
    LOCAL mVar
@@ -91,7 +92,7 @@ FUNCTION _DefineImageList ( ControlName , ParentForm , w , h , aImage , aImageMa
    ENDIF
 
    Id := _GetId()
-   ControlHandles := InitImageList ( w , h , mask , ImageCount )
+   ControlHandles := InitImageList(w, h, mask, ImageCount)
 
    k := _GetControlFree()
 
@@ -114,8 +115,8 @@ FUNCTION _DefineImageList ( ControlName , ParentForm , w , h , aImage , aImageMa
    _HMG_aControlGotFocusProcedure  [k] := ""
    _HMG_aControlChangeProcedure    [k] := ""
    _HMG_aControlDeleted            [k] := .F.
-   _HMG_aControlBkColor            [k] := Nil
-   _HMG_aControlFontColor          [k] := Nil
+   _HMG_aControlBkColor            [k] := NIL
+   _HMG_aControlFontColor          [k] := NIL
    _HMG_aControlDblClick           [k] := ""
    _HMG_aControlHeadClick          [k] := {}
    _HMG_aControlRow                [k] := 0
@@ -129,7 +130,7 @@ FUNCTION _DefineImageList ( ControlName , ParentForm , w , h , aImage , aImageMa
    _HMG_aControlContainerHandle    [k] := HMG_NULLHANDLE
    _HMG_aControlFontName           [k] := ""
    _HMG_aControlFontSize           [k] := 0
-   _HMG_aControlFontAttributes     [k] := { .F. , .F. , .F. , .F. }
+   _HMG_aControlFontAttributes     [k] := {.F., .F., .F., .F.}
    _HMG_aControlToolTip            [k] := ""
    _HMG_aControlRangeMin           [k] := 0
    _HMG_aControlRangeMax           [k] := 0
@@ -167,12 +168,12 @@ FUNCTION _DefineImageList ( ControlName , ParentForm , w , h , aImage , aImageMa
       ENDIF
    NEXT
 
-RETURN Nil
+RETURN NIL
 
-*-----------------------------------------------------------------------------*
-FUNCTION _AddImageToImageList ( ControlName, ParentControl, Image, MaskImage )
-*-----------------------------------------------------------------------------*
-   
+//----------------------------------------------------------------------------//
+
+FUNCTION _AddImageToImageList(ControlName, ParentControl, Image, MaskImage)
+
    LOCAL w
    LOCAL h
    LOCAL c
@@ -183,10 +184,10 @@ FUNCTION _AddImageToImageList ( ControlName, ParentControl, Image, MaskImage )
 
 RETURN IL_Add(c, image, hb_defaultValue(maskimage, ""), w, h)
 
-*-----------------------------------------------------------------------------*
-FUNCTION _AddImageMaskedToImageList ( ControlName, ParentControl, Image, aColor )
-*-----------------------------------------------------------------------------*
-   
+//----------------------------------------------------------------------------//
+
+FUNCTION _AddImageMaskedToImageList(ControlName, ParentControl, Image, aColor)
+
    LOCAL w
    LOCAL h
    LOCAL c
@@ -201,10 +202,10 @@ FUNCTION _AddImageMaskedToImageList ( ControlName, ParentControl, Image, aColor 
 
 RETURN IL_AddMasked(c, image, color, w, h)
 
-*-----------------------------------------------------------------------------*
-FUNCTION _ImageListSetBkColor ( ControlName, ParentControl, aColor )
-*-----------------------------------------------------------------------------*
-   
+//----------------------------------------------------------------------------//
+
+FUNCTION _ImageListSetBkColor(ControlName, ParentControl, aColor)
+
    LOCAL c
    LOCAL color := 0
 
@@ -213,12 +214,12 @@ FUNCTION _ImageListSetBkColor ( ControlName, ParentControl, aColor )
       color := RGB(aColor[1], aColor[2], aColor[3])
    ENDIF
 
-RETURN IL_SetBkColor( c, color )
+RETURN IL_SetBkColor(c, color)
 
-*-----------------------------------------------------------------------------*
-FUNCTION _EraseImage ( ControlName, ParentControl, ix, iy )
-*-----------------------------------------------------------------------------*
-   
+//----------------------------------------------------------------------------//
+
+FUNCTION _EraseImage(ControlName, ParentControl, ix, iy)
+
    LOCAL w
    LOCAL h
 
@@ -226,18 +227,20 @@ FUNCTION _EraseImage ( ControlName, ParentControl, ix, iy )
    h := _GetControlHeight(ControlName, ParentControl)
    IL_EraseImage(GetFormHandle(ParentControl), ix, iy, w, h)
 
-RETURN Nil
+RETURN NIL
 
-*-----------------------------------------------------------------------------*
-FUNCTION _BeginDragImage ( ControlName, ParentControl, imageindex, ix, iy )
-*-----------------------------------------------------------------------------*
-   
+//----------------------------------------------------------------------------//
+
+FUNCTION _BeginDragImage(ControlName, ParentControl, imageindex, ix, iy)
+
    LOCAL c
    LOCAL h
 
    c := GetControlHandle(ControlName, ParentControl)
    h := GetFormHandle(ParentControl)
    _HMG_ActiveDragImageHandle := h
-   IL_BeginDrag( h, c, ImageIndex, ix, iy )
+   IL_BeginDrag(h, c, ImageIndex, ix, iy)
 
-RETURN Nil
+RETURN NIL
+
+//----------------------------------------------------------------------------//
