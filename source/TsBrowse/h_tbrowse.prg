@@ -4,7 +4,7 @@
  ---------------------------------------------------------------------------*/
 
 #include "minigui.ch"
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "TSBrowse.ch"
 
 // 03.10.2012

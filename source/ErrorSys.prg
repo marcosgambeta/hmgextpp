@@ -45,10 +45,10 @@
  */
 
 #include "minigui.ch"
-#include "error.ch"
-#include "fileio.ch"
-#include "hbmemvar.ch"
-#include "hbver.ch"
+#include <error.ch>
+#include <fileio.ch>
+#include <hbmemvar.ch>
+#include <hbver.ch>
 
 #ifdef _TSBROWSE_
 MEMVAR _TSB_aControlhWnd

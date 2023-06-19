@@ -24,7 +24,7 @@ MEMVAR aopisy
 
 #include "SET_COMPILE_HMG_UNICODE.ch"
 
-#include "hbclass.ch"
+#include <hbclass.ch>
 
 CLASS HBPrinter
 

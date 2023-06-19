@@ -270,7 +270,7 @@ RETURN _HMG_aControlMiscData1[i]
    ---------------------------------------------
 */
 
-#include "hbclass.ch"
+#include <hbclass.ch>
 
 CLASS TActiveX
    DATA oOle

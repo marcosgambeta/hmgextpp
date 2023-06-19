@@ -4,7 +4,7 @@
 
 #include "minigui.ch"
 #include "TSBrowse.ch"
-#include "hbcompat.ch"
+#include <hbcompat.ch>
 
 // ============================================================================
 // FUNCTION SBrowse() Version 9.0 Nov/30/2009

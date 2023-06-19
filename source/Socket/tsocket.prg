@@ -46,8 +46,8 @@
  *
  */
 
-#include "hbclass.ch"
-#include "common.ch"
+#include <hbclass.ch>
+#include <common.ch>
 
 // These proocedures are required for startup the windows socket interface
 init procedure StartSocket

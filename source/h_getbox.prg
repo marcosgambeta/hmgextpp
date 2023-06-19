@@ -54,7 +54,7 @@
 
 #include "minigui.ch"
 #include "i_winuser.ch"
-#include "hblang.ch"
+#include <hblang.ch>
 
 #define WM_INVALID   WM_USER + 50
 #define WM_CARET     WM_USER + 51

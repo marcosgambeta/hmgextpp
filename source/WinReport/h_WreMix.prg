@@ -1,7 +1,7 @@
 
 #include "minigui.ch"
 #include "miniprint.ch"
-#include "hbclass.ch"
+#include <hbclass.ch>
 
 #TRANSLATE MSG        => MSGBOX
 #TRANSLATE ZAPS(<X>) => ALLTRIM(STR(<X>))

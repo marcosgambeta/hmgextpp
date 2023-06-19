@@ -46,8 +46,8 @@
  *
  */
 
-#include "common.ch"
-#include "hbclass.ch"
+#include <common.ch>
+#include <hbclass.ch>
 
 /****c* TPop3/TPop3
 *  NAME

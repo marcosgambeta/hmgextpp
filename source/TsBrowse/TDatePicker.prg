@@ -1,5 +1,5 @@
 #include "minigui.ch"
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "TSBrowse.ch"
 
 #define DTS_UPDOWN          0x0001 // use UPDOWN instead of MONTHCAL

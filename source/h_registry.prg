@@ -44,8 +44,8 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#include "hbclass.ch"
-#include "common.ch"
+#include <hbclass.ch>
+#include <common.ch>
 
 #define KEY_READ        25
 #define KEY_WRITE       6

@@ -46,9 +46,9 @@
  *
  */
 
-#include "common.ch"
-#include "hbclass.ch"
-#include "set.ch"
+#include <common.ch>
+#include <hbclass.ch>
+#include <set.ch>
 
 /****** TSMTP/TSMTP
 *  NAME

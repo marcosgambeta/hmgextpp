@@ -4,7 +4,7 @@
 #include "minigui.ch"
 #include "winprint.ch"
 #include "miniprint.ch"
-#include "hbclass.ch"
+#include <hbclass.ch>
 
 #TRANSLATE MSG        => MSGBOX
 #define NTrim(n) LTRIM(STR(n, 20, IIF(n == INT(n), 0, set(_SET_DECIMALS))))

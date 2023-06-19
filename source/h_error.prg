@@ -45,8 +45,8 @@
  */
 
 #include "minigui.ch"
-#include "error.ch"
-#include "hbver.ch"
+#include <error.ch>
+#include <hbver.ch>
 
 *-----------------------------------------------------------------------------*
 INIT PROCEDURE ClipInit()

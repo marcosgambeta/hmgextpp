@@ -46,8 +46,8 @@
  *
  */
 
-#include "common.ch"
-#include "hbclass.ch"
+#include <common.ch>
+#include <hbclass.ch>
 
 /****c* TPair/TPair
 *  NAME

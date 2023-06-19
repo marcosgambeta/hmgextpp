@@ -1,5 +1,5 @@
 #include "minigui.ch"
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "TSBrowse.ch"
 
 #define EM_GETSEL     176

@@ -221,7 +221,7 @@ STATIC PROCEDURE _EraseGifDef ( FormName, i )
 RETURN
 
 
-#include "hbclass.ch"
+#include <hbclass.ch>
 
 CLASS TGif
 

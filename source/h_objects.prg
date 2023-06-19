@@ -8,7 +8,7 @@
 
 #include "i_winuser.ch"
 #xtranslate hb_HSetCaseMatch( <x>[, <z>] ) => ( hb_HCaseMatch( <x>[, <z>] ), <x> )
-#include "hbclass.ch"
+#include <hbclass.ch>
 
 #define _METHOD METHOD
 

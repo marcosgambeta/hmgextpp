@@ -5,7 +5,7 @@
  */
 
 #include "minigui.ch"
-#include "hbclass.ch"
+#include <hbclass.ch>
 
 #define CDO_SENDUSINGPICKUP  1  // Send message using local SMTP service pickup directory.
 #define CDO_SENDUSINGPORT    2  // Send the message using SMTP over TCP/IP networking.

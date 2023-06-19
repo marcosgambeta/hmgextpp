@@ -6,7 +6,7 @@
 
 #if ( __HARBOUR__ - 0 > 0x030000 )
 
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "TaskDlgs.ch"
 #include "i_var.ch"
 

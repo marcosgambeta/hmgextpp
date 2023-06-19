@@ -1,5 +1,5 @@
 #include "minigui.ch"
-#include "hbclass.ch"
+#include <hbclass.ch>
 #include "TSBrowse.ch"
 
 #define EN_CHANGE      768    // 0x0300

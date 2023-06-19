@@ -46,8 +46,8 @@
  *
  */
 
-#include "hbclass.ch"
-#include "common.ch"
+#include <hbclass.ch>
+#include <common.ch>
 
 /****c* TDecode/TDecode
 *  NAME
