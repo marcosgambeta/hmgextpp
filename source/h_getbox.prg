@@ -393,7 +393,7 @@ STATIC PROCEDURE _GetBoxSetNextFocus( lPrevious )
    NextControlHandle := GetNextDlgTabITem(GetActiveWindow() , GetFocus() , lPrevious)
    setfocus(NextControlHandle)
 
-   IF ( i := AScan(_HMG_aControlHandles , NextControlHandle) ) > 0
+   IF (i := AScan(_HMG_aControlHandles , NextControlHandle)) > 0
 
       IF _HMG_aControlType[i] == CONTROL_TYPE_BUTTON
          SendMessage(NextControlHandle, BM_SETSTYLE, LOWORD(BS_DEFPUSHBUTTON), 1)
@@ -862,9 +862,9 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          ENDIF
 
 #ifdef UNICODE
-         IF ( "A" $ cPicFunc ) .AND. !hmg_IsAlpha(hb_UChar(wParam))
+         IF ("A" $ cPicFunc) .AND. !hmg_IsAlpha(hb_UChar(wParam))
 #else
-         IF ( "A" $ cPicFunc ) .AND. !hmg_IsAlpha(hb_BChar(wParam))
+         IF ("A" $ cPicFunc) .AND. !hmg_IsAlpha(hb_BChar(wParam))
 #endif
             RETURN 0
          ENDIF
@@ -903,7 +903,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
             IF oGet:type == "N"
                nlen := hb_ULen(oGet:buffer)
-               IF ( ipp := hb_UAt("." , oGet:buffer) ) > 0
+               IF (ipp := hb_UAt("." , oGet:buffer)) > 0
                   oGet:buffer := hb_UPadL( StrTran(hb_ULeft(oGet:buffer, ipp - 1) , " " , "") , ipp - 1 ) + ;
                      "." + hb_UPadR( StrTran(hb_USubStr(oGet:buffer , ipp + 1) , " " , "") , nlen - ipp , "0" )
 
@@ -949,7 +949,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
             oGet:UpdateBuffer()
 
             IF oGet:DecPos != 0
-               IF ( oGet:DecPos == hb_ULen(cPicMask) )
+               IF oGet:DecPos == hb_ULen(cPicMask)
                   oGet:pos := oGet:DecPos - 1   //9999.
                ELSE
                   oGet:pos := oGet:DecPos + 1   //9999.9
@@ -1238,7 +1238,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
          RETURN( 0 )
       ENDIF
 
-      IF ( cText := System.Clipboard ) != NIL
+      IF (cText := System.Clipboard) != NIL
 
          nStart := LoWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
          nEnd   := HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0)) + 1
@@ -1337,7 +1337,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
       ParentHandle := _HMG_aControlParentHandles[i]
 
-      IF ( i := AScan(_HMG_aControlsContextMenu , {|x|x[1] == hWnd}) ) > 0
+      IF (i := AScan(_HMG_aControlsContextMenu , {|x|x[1] == hWnd})) > 0
 
          IF _HMG_aControlsContextMenu[i][4]
             setfocus( wParam )
@@ -1355,7 +1355,7 @@ FUNCTION OGETEVENTS( hWnd, nMsg, wParam, lParam )
 
    CASE WM_COMMAND
 
-      IF ( HwndBtn := lParam ) > 0
+      IF (HwndBtn := lParam) > 0
 
          aHandle := _HMG_aControlRangeMin[i]
 
@@ -1469,7 +1469,7 @@ PROCEDURE _DispGetBoxText(hWnd, cText)
    LOCAL ControlHandle
    LOCAL i
 
-   IF ( i := AScan(_HMG_aControlHandles, hWnd) ) > 0
+   IF (i := AScan(_HMG_aControlHandles, hWnd)) > 0
 
       ControlHandle := _HMG_aControlHandles[i]
 
@@ -1533,7 +1533,7 @@ FUNCTION _GetPictureData(oGet, cPicture)
 
       ENDIF
 
-      IF ( nAt := hb_UAt("S", cPicFunc) ) > 0
+      IF (nAt := hb_UAt("S", cPicFunc)) > 0
 
          FOR nFor := nAt + 1 TO hb_ULen(cPicFunc)
             IF !IsDigit(hb_USubStr(cPicFunc, nFor, 1))
@@ -1578,7 +1578,7 @@ FUNCTION _GetPictureData(oGet, cPicture)
 
          lDecRev := "," $ Transform(1.1, "9.9")
          cNum := Str(oGet:VarGet())
-         IF ( nAt := hb_UAt(iif(lDecRev, ",", "."), cNum) ) > 0
+         IF (nAt := hb_UAt(iif(lDecRev, ",", "."), cNum)) > 0
             cPicMask := Replicate("9", nAt - 1) + iif(lDecRev, ",", ".")
             cPicMask += Replicate("9", hb_ULen(cNum) - hb_ULen(cPicMask))
          ELSE

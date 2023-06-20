@@ -64,7 +64,7 @@ FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
    CLEAN MEMORY
 
    // create pdf doc
-   IF ( hDoc := HPDF_New() ) == NIL
+   IF (hDoc := HPDF_New()) == NIL
       RETURN UPDF_Error( "CREATE", hDoc )
    ENDIF
 

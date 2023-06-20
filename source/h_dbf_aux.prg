@@ -233,7 +233,7 @@ FUNCTION HMG_DbfStruct(cFileName)
       cFileName := hb_FNameExtSetDef( cFileName, ".dbf" )
    ENDIF
 
-   IF ( hFile := FOpen(cFileName, FO_SHARED) ) >= 0
+   IF (hFile := FOpen(cFileName, FO_SHARED)) >= 0
 
       IF FRead(hFile, @cBuffer, BUFFER_SIZE) == FIELD_ENTRY_SIZE
 
@@ -348,7 +348,7 @@ PROCEDURE DbfCopyRec(cnTargetArea, lAppend)
 
       cFieldName := FieldName(nCnt)
 
-      IF ( nFieldPos := (cnTargetArea)->(FieldPos(cFieldName)) ) > 0 .AND. ;
+      IF (nFieldPos := (cnTargetArea)->(FieldPos(cFieldName))) > 0 .AND. ;
          ValType(xFieldValue := FieldGet(nCnt)) == ValType((cnTargetArea)->(FieldGet(nFieldPos)))
 
          (cnTargetArea)->(FieldPut(nFieldPos, xFieldValue))

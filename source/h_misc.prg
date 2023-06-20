@@ -338,9 +338,9 @@ FUNCTION HMG_FILECOPY( cSourceFile, cTargetFile, nBuffer, bEval )
 
    DEFAULT nBuffer TO F_BLOCK
 
-   IF ( hSourceFile := FOpen(cSourceFile, FO_READ) ) != F_ERROR
+   IF (hSourceFile := FOpen(cSourceFile, FO_READ)) != F_ERROR
 
-      IF ( hTargetFile := FCreate(cTargetFile, FC_NORMAL) ) != F_ERROR
+      IF (hTargetFile := FCreate(cTargetFile, FC_NORMAL)) != F_ERROR
 
          nTotalBytes := FSeek(hSourceFile, 0, FS_END)
          nCurrentlBytes := 0
@@ -413,7 +413,7 @@ FUNCTION uCharToVal(cText, cType)
          uVal := dCharToDate(cText)
          EXIT
       OTHERWISE
-         IF ( uVal := nStrToNum( cText ) ) != NIL
+         IF (uVal := nStrToNum( cText )) != NIL
             cType := "N"
          ELSEIF "|" + Upper(cText) + "|" $ cTrue
             uVal := .T.
@@ -559,7 +559,7 @@ STATIC FUNCTION dCharToDate(cDate)
    LOCAL cc
    LOCAL dDate
 
-   IF ( cc := Upper(cDate) ) != Lower( cDate )
+   IF (cc := Upper(cDate)) != Lower( cDate )
       RETURN dAlphaToDate(cc)
    ENDIF
 

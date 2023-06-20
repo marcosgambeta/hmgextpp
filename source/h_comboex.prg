@@ -133,7 +133,7 @@ FUNCTION _DefineComboEx(ControlName, ParentForm, x, y, w, rows, value, ;
       ENDIF
    ENDIF
 
-   IF ( hb_IsChar(ImageList) .OR. ImageList > 0 ) .AND. Len(aImage) > 0
+   IF (hb_IsChar(ImageList) .OR. ImageList > 0) .AND. Len(aImage) > 0
       MsgMiniGuiError("Control: " + ControlName + " Of " + ParentForm + " : Image and ImageList clauses can't be used simultaneously.")
    ENDIF
 

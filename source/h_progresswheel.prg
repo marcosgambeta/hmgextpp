@@ -876,7 +876,7 @@ RETURN { Y, X }
 STATIC FUNCTION BT_DrawPieEx(hDC, Row1, Col1, Row2, Col2, RowStartArc, ColStartArc, RowEndArc, ColEndArc, aColorRGBLine, nWidthLine, aColorRGBFill, hBrushBitmap)
 *------------------------------------------------------------------------------*
 
-   nWidthLine := IF ( nWidthLine == NIL, 1, nWidthLine )
+   nWidthLine := IIF(nWidthLine == NIL, 1, nWidthLine)
    BT_DRAW_HDC_ARCX_EX(hDC, Col1, Row1, Col2, Row2, ColStartArc, RowStartArc, ColEndArc, RowEndArc, ArrayRGB_TO_COLORREF( aColorRGBLine ), nWidthLine, ArrayRGB_TO_COLORREF( aColorRGBFill ), BT_DRAW_PIE, hBrushBitmap)
 
 RETURN NIL

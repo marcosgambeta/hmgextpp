@@ -207,7 +207,7 @@ FUNCTION _DefineTextBox(ControlName, ParentFormName, x, y, w, h, ;
       ENDIF
 
       // Add a tooltip if param has value
-      IF ( ToolTip != NIL )
+      IF ToolTip != NIL
          SetToolTip(ControlHandle, ToolTip, GetFormToolTipHandle(ParentFormName))
       ENDIF
    ENDIF
@@ -1336,7 +1336,7 @@ FUNCTION OEDITEVENTS( hWnd, nMsg, wParam, lParam )
 
       ParentForm := _HMG_aControlParentHandles[i]
 
-      IF ( i := AScan(_HMG_aControlsContextMenu , {|x|x[1] == hWnd}) ) > 0
+      IF (i := AScan(_HMG_aControlsContextMenu , {|x|x[1] == hWnd})) > 0
 
          IF _HMG_aControlsContextMenu[i][4]
             setfocus( wParam )

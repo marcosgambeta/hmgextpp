@@ -328,7 +328,7 @@ FUNCTION _DefineToolButton(ControlName, ParentControl, x, y, Caption, ProcedureN
 
    Caption := Upper(Caption)
 
-   IF ( i := hb_UAt("&" , Caption) ) > 0
+   IF (i := hb_UAt("&" , Caption)) > 0
 
       IF WholeDropDown
          nToolBarIndex := AScan(_HMG_aControlHandles , ParentForm)
@@ -368,7 +368,7 @@ STATIC FUNCTION _AddToolBarToSplitBox(ControlName , break , Caption , ParentForm
 
    ix := GetControlIndex(ControlName, ParentForm)
    /* WRAP style handling */
-   IF ( _HMG_aControlRangeMax[ix] == 1 ) .AND. ;
+   IF (_HMG_aControlRangeMax[ix] == 1) .AND. ;
       ( hb_bitand(GetWindowLong(_HMG_aFormReBarHandle[i], GWL_STYLE), CCS_VERT) == CCS_VERT )
       MinWidth  := _HMG_aControlWidth[ix]
       MinHeight := HiWord(w)
@@ -484,7 +484,7 @@ FUNCTION _CreatePopUpChevron(hWnd, wParam, lParam)
    LOCAL k
    LOCAL n
 
-   IF ( i := AScan(_HMG_aFormhandles, hWnd) ) > 0
+   IF (i := AScan(_HMG_aFormhandles, hWnd)) > 0
       aChevronInfo := CreatePopUpChevron( _HMG_aFormReBarHandle[i], lParam )
 
       TbHwnd := aChevronInfo[5]
@@ -496,7 +496,7 @@ FUNCTION _CreatePopUpChevron(hWnd, wParam, lParam)
          lEnable  := IsButtonEnabled(TbHwnd, n)
          hImage := GetImageList(tbhwnd, aBtnInfo[1])
 
-         IF ( k := AScan(_HMG_aControlIds, aBtnInfo[2]) ) > 0 .AND. !aBtnInfo[3]
+         IF (k := AScan(_HMG_aControlIds, aBtnInfo[2])) > 0 .AND. !aBtnInfo[3]
 
             IF !Empty(_HMG_aControlToolTip[k])
                cMenu := _HMG_aControlToolTip[k]
@@ -542,7 +542,7 @@ STATIC PROCEDURE _DropDownShortcut(nToolButtonId , nParentWindowHandle , i , nBu
    LOCAL aSize
    LOCAL x
 
-   IF ( x := AScan(_HMG_aControlIds , nToolButtonId) ) > 0 .AND. _HMG_aControlType[x] == CONTROL_TYPE_TOOLBUTTON
+   IF (x := AScan(_HMG_aControlIds , nToolButtonId)) > 0 .AND. _HMG_aControlType[x] == CONTROL_TYPE_TOOLBUTTON
       aPos := { 0, 0, 0, 0 }
       GetWindowRect(_HMG_aControlHandles[i] , aPos)
 

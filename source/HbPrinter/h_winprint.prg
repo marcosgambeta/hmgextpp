@@ -1550,7 +1550,7 @@ STATIC FUNCTION LangInit
    cLang := Upper(Left(Set(_SET_LANGUAGE), 2))
 
    // LANGUAGE IS NOT SUPPORTED BY hb_langSelect() FUNCTION
-   IF ( _HMG_LANG_ID == "FI" ) // FINNISH
+   IF _HMG_LANG_ID == "FI" // FINNISH
       cLang := "FI"
    ENDIF
 

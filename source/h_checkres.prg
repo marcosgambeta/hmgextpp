@@ -30,7 +30,7 @@ FUNCTION MGDelResource(nHResource)
    
    LOCAL nAt
 
-   IF ( nAt := AScan(aResources, {|aRes|aRes[2] == nHResource}) ) != 0
+   IF (nAt := AScan(aResources, {|aRes|aRes[2] == nHResource})) != 0
       hb_ADel( aResources, nAt, .T. )
    ENDIF
 

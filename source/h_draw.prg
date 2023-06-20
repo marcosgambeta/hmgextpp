@@ -57,7 +57,7 @@ FUNCTION drawtextout(window, row, col, string, fontcolor, backcolor, fontname, f
    LOCAL i
 
    IF hb_IsString( window )
-      IF ( i := GetFormIndex( window ) ) > 0
+      IF (i := GetFormIndex(window)) > 0
          FormHandle := _HMG_aFormHandles[i]
       ENDIF
    ELSE
@@ -93,7 +93,7 @@ FUNCTION drawline(window, row, col, row1, col1, penrgb, penwidth)
    LOCAL FormHandle
    LOCAL i
 
-   IF ( i := GetFormIndex(Window) ) > 0
+   IF (i := GetFormIndex(Window)) > 0
       FormHandle := _HMG_aFormHandles[i]
       hb_default(@penrgb, {0, 0, 0})
       hb_default(@penwidth, 1)
@@ -112,7 +112,7 @@ FUNCTION drawrect(window, row, col, row1, col1, penrgb, penwidth, fillrgb)
    LOCAL i
    LOCAL fill
 
-   IF ( i := GetFormIndex(Window) ) > 0
+   IF (i := GetFormIndex(Window)) > 0
       FormHandle := _HMG_aFormHandles[i]
       hb_default(@penrgb, {0, 0, 0})
       hb_default(@penwidth, 1)
@@ -134,7 +134,7 @@ FUNCTION drawroundrect(window, row, col, row1, col1, width, height, penrgb, penw
    LOCAL i
    LOCAL fill
 
-   IF ( i := GetFormIndex(Window) ) > 0
+   IF (i := GetFormIndex(Window)) > 0
       FormHandle := _HMG_aFormHandles[i]
       hb_default(@penrgb, {0, 0, 0})
       hb_default(@penwidth, 1)
@@ -156,7 +156,7 @@ FUNCTION drawellipse(window, row, col, row1, col1, penrgb, penwidth, fillrgb)
    LOCAL i
    LOCAL fill
 
-   IF ( i := GetFormIndex(Window) ) > 0
+   IF (i := GetFormIndex(Window)) > 0
       FormHandle := _HMG_aFormHandles[i]
       hb_default(@penrgb, {0, 0, 0})
       hb_default(@penwidth, 1)
@@ -177,7 +177,7 @@ FUNCTION drawarc(window, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb,
    LOCAL FormHandle
    LOCAL i
 
-   IF ( i := GetFormIndex(Window) ) > 0
+   IF (i := GetFormIndex(Window)) > 0
       FormHandle := _HMG_aFormHandles[i]
       hb_default(@penrgb, {0, 0, 0})
       hb_default(@penwidth, 1)
@@ -196,7 +196,7 @@ FUNCTION drawpie(window, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb,
    LOCAL i
    LOCAL fill
 
-   IF ( i := GetFormIndex(Window) ) > 0
+   IF (i := GetFormIndex(Window)) > 0
       FormHandle := _HMG_aFormHandles[i]
       hb_default(@penrgb, {0, 0, 0})
       hb_default(@penwidth, 1)
@@ -220,7 +220,7 @@ FUNCTION drawpolygon( window, apoints, penrgb, penwidth, fillrgb )
    LOCAL xarr := {}
    LOCAL yarr := {}
 
-   IF ( i := GetFormIndex(Window) ) > 0
+   IF (i := GetFormIndex(Window)) > 0
       FormHandle := _HMG_aFormHandles[i]
       hb_default(@penrgb, {0, 0, 0})
       hb_default(@penwidth, 1)
@@ -244,7 +244,7 @@ FUNCTION drawpolybezier( window, apoints, penrgb, penwidth )
    LOCAL yarr := {}
    LOCAL i
 
-   IF ( i := GetFormIndex(Window) ) > 0
+   IF (i := GetFormIndex(Window)) > 0
       FormHandle := _HMG_aFormHandles[i]
       hb_default(@penrgb, {0, 0, 0})
       hb_default(@penwidth, 1)
@@ -265,7 +265,7 @@ FUNCTION HMG_DrawIcon( window, icon, row, col, w, h, rgb, transparent )
    LOCAL backcolor
    LOCAL i
 
-   IF ( i := GetFormIndex(Window) ) > 0
+   IF (i := GetFormIndex(Window)) > 0
       FormHandle := _HMG_aFormHandles[i]
       hb_default(@w, 0)
       hb_default(@h, 0)
@@ -301,7 +301,7 @@ FUNCTION HMG_DrawSysIcon( window, cIconDll, icon, row, col, w, h, rgb, transpare
    LOCAL backcolor
    LOCAL i
 
-   IF ( i := GetFormIndex(Window) ) > 0
+   IF (i := GetFormIndex(Window)) > 0
       FormHandle := _HMG_aFormHandles[i]
       hb_default(@w, 0)
       hb_default(@h, 0)
@@ -332,7 +332,7 @@ FUNCTION EraseWindow(window)
    
    LOCAL i
 
-   IF ( i := GetFormIndex(Window) ) > 0
+   IF (i := GetFormIndex(Window)) > 0
       IF !_HMG_aFormDeleted[i]
          IF hb_IsArray(_HMG_aFormGraphTasks[i])
             ASize(_HMG_aFormGraphTasks[i], 0)
@@ -351,7 +351,7 @@ FUNCTION DrawWindowBoxIn( window, row, col, rowr, colr )
    LOCAL hDC
    LOCAL i
 
-   IF ( i := GetFormIndex(Window) ) > 0
+   IF (i := GetFormIndex(Window)) > 0
       FormHandle := _HMG_aFormHandles[i]
       hDC := GetDC(FormHandle)
       WndBoxIn(hDC, row, col, rowr, colr)
@@ -369,7 +369,7 @@ FUNCTION DrawWindowBoxRaised(window, row, col, rowr, colr)
    LOCAL hDC
    LOCAL i
 
-   IF ( i := GetFormIndex(Window) ) > 0
+   IF (i := GetFormIndex(Window)) > 0
       FormHandle := _HMG_aFormHandles[i]
       hDC := GetDC(FormHandle)
       WndBoxRaised(hDC, row, col, rowr, colr)

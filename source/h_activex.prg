@@ -250,7 +250,7 @@ FUNCTION _GetControlObject(ControlName, ParentForm)
    
    LOCAL i
 
-   IF ( i := GetControlIndex(ControlName, ParentForm) ) == 0
+   IF (i := GetControlIndex(ControlName, ParentForm)) == 0
       RETURN NIL
    ENDIF
 

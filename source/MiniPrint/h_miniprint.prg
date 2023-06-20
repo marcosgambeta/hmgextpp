@@ -861,7 +861,7 @@ PROCEDURE _HMG_PRINTER_PREVIEWRefresh()
 
          ELSE
 
-            IF ( nRow - 9 ) < nScrollMax
+            IF (nRow - 9) < nScrollMax
                _HMG_SETVSCROLLVALUE(hwnd, nRow - 9)
             ELSE
                IF GetScrollPos(hwnd,SB_VERT) != nScrollMax

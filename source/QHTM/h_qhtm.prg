@@ -174,7 +174,7 @@ RETURN NIL
 Procedure QHTM_LoadFromVal(ControlName, ParentForm, cValue)
 Local nHandle := GetControlHandle(ControlName, ParentForm)
 
-If ( nHandle > 0 )
+If nHandle > 0
    SetWindowText(nHandle, cValue)
 Endif
 
@@ -190,7 +190,7 @@ Return
 Procedure QHTM_LoadFromFile(ControlName, ParentForm, cFile)
 Local nHandle := GetControlHandle(ControlName, ParentForm)
 
-If ( nHandle > 0 )
+If nHandle > 0
    QHTM_LoadFile(nHandle, cFile)
 Endif
 
@@ -206,7 +206,7 @@ Return
 Procedure QHTM_LoadFromRes( ControlName, ParentForm, cResName )
 Local nHandle := GetControlHandle(ControlName, ParentForm)
 
-If ( nHandle > 0 )
+If nHandle > 0
    QHTM_LoadRes( nHandle, cResName )
 Endif
 
@@ -252,7 +252,7 @@ Switch nParamCount
      Exit
 
    Case 2
-     If ( hb_IsNumeric(nHandle) .AND. hb_IsNumeric(nPos) )
+     If hb_IsNumeric(nHandle) .AND. hb_IsNumeric(nPos)
         QHTM_SetScrollPos( nHandle, nPos )
      Else
         nPos := 0
@@ -285,7 +285,7 @@ If hb_IsNumeric(nHandle)
 
    // an amendment on a height of the QHTM
 
-   If ( aSize[2] > nHeight )
+   If aSize[2] > nHeight
       aSize[2] -= nHeight
    Endif
 
@@ -323,7 +323,7 @@ Return nPercent
 */
 Procedure QHTM_EnableUpdate(ControlName, ParentForm, lEnable)
 
-If ( PCount() < 2 )
+If PCount() < 2
    Return
 Endif
  

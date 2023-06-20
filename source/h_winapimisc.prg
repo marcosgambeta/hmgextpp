@@ -88,7 +88,7 @@ PROCEDURE ShellAbout(cTitle, cMsg, hIcon)
       STATIC _HMG_ShellAbout AS GLOBAL VALUE 0
    ENDIF
 
-   IF ( nCount := _SetGetGlobal( "_HMG_ShellAbout" ) ) == 0
+   IF (nCount := _SetGetGlobal("_HMG_ShellAbout")) == 0
 
       ASSIGN GLOBAL _HMG_ShellAbout := ++nCount
 

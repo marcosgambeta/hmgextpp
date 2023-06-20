@@ -89,7 +89,7 @@ STATIC FUNCTION CheckForDuplicateMRU( NewItem )
       // Uppercase newitem for string comparisons
       NewItem := Upper(NewItem)
       // Check all existing MRUs for duplicate
-      IF ( i := AScan(aMRU_File , {|y|Upper(y[2]) == NewItem}) ) != 0
+      IF (i := AScan(aMRU_File , {|y|Upper(y[2]) == NewItem})) != 0
          DuplicateMRU := i
       ENDIF
    ENDIF

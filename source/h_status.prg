@@ -179,7 +179,7 @@ FUNCTION _EndMessageBar()
       _DefineItemMessage(ITEMNAME, _HMG_ActiveMessageBarName, 0, 0, GetProperty( _HMG_ActiveFormName, "Title" ), , , 0, , , , .F.)
    ENDIF
 
-   IF ( i := GetControlIndex(PROGRESSNAME, _HMG_ActiveFormName) ) != 0
+   IF (i := GetControlIndex(PROGRESSNAME, _HMG_ActiveFormName)) != 0
       RefreshProgressItem( _HMG_aControlMiscData1[i, 1], _HMG_aControlHandles[i], _HMG_aControlMiscData1[i, 2] )
    ENDIF
 
@@ -227,7 +227,7 @@ FUNCTION _DefineItemMessage(ControlName, ParentControl, x, y, Caption, Procedure
 
       cCaption := Upper(Caption)
 
-      IF ( i := hb_UAt("&", cCaption) ) > 0
+      IF (i := hb_UAt("&", cCaption)) > 0
          _DefineLetterOrDigitHotKey(cCaption, i, cParentForm, ProcedureName)
       ENDIF
 
@@ -379,7 +379,7 @@ FUNCTION _IsOwnerDrawStatusBarItem( ParentHandle , ItemID , Value , lSet )
 
          IF ++nLocID == ItemID
 
-            IF ( lOwnerDraw := ( _HMG_aControlBkColor[i] != NIL .OR. _HMG_aControlFontColor[i] != NIL ) )
+            IF (lOwnerDraw := (_HMG_aControlBkColor[i] != NIL .OR. _HMG_aControlFontColor[i] != NIL))
                IF lSet
                   _HMG_aControlCaption[i] := Value
                ELSE
@@ -532,7 +532,7 @@ FUNCTION _SetStatusProgressPos(FormName, nValue)
    
    LOCAL i
 
-   IF ( i := GetControlIndex(PROGRESSNAME, FormName) ) > 0
+   IF (i := GetControlIndex(PROGRESSNAME, FormName)) > 0
       SetPosProgressBarItem(_HMG_aControlMiscData1[i, 2], hb_defaultValue(nValue, 0))
    ENDIF
 
@@ -544,7 +544,7 @@ FUNCTION _SetStatusProgressRange(FormName, nMin, nMax)
    
    LOCAL i
 
-   IF ( i := GetControlIndex(PROGRESSNAME, FormName) ) > 0
+   IF (i := GetControlIndex(PROGRESSNAME, FormName)) > 0
       SetProgressBarRange(_HMG_aControlMiscData1[i, 2], hb_defaultValue(nMin, 0), hb_defaultValue(nMax, 100))
    ENDIF
 

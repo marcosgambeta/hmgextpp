@@ -533,7 +533,7 @@ FUNCTION _TBrowse(oParam, uAlias, cBrw, nY, nX, nW, nH)
          :nCell   := :nFreeze + 1
       ENDIF
 
-      IF ( :GetAllColsWidth() - 1 ) > ( _GetClientRect(:hWnd)[3] )
+      IF (:GetAllColsWidth() - 1) > (_GetClientRect(:hWnd)[3])
          :lNoHScroll  := .F.
          :lMoreFields := ( :nColCount() > 30 )
       ELSEIF oParam:uSelector == NIL .AND. oParam:lAdjust == NIL

@@ -555,7 +555,7 @@ PROCEDURE _Collapse(ControlName, ParentForm, nItem, lRecurse)   // Dr. Claudio S
    LOCAL i
    LOCAL ItemHandle
 
-   IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0
+   IF (i := GetControlIndex(ControlName, ParentForm)) > 0
       ItemHandle := TreeItemGetHandle(ControlName, ParentForm, nItem)
       IF ItemHandle != 0
          TreeView_ExpandChildrenRecursive(_HMG_aControlHandles[i], ItemHandle, TVE_COLLAPSE, hb_defaultValue(lRecurse, .F.))
@@ -571,7 +571,7 @@ PROCEDURE _Expand(ControlName, ParentForm, nItem, lRecurse)   // Dr. Claudio Sot
    LOCAL i
    LOCAL ItemHandle
 
-   IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0
+   IF (i := GetControlIndex(ControlName, ParentForm)) > 0
       ItemHandle := TreeItemGetHandle(ControlName, ParentForm, nItem)
       IF ItemHandle != 0
          TreeView_ExpandChildrenRecursive(_HMG_aControlHandles[i], ItemHandle, TVE_EXPAND, hb_defaultValue(lRecurse, .F.))
@@ -588,7 +588,7 @@ STATIC FUNCTION TreeItemGetHandle(ControlName, ParentForm, Item)
    LOCAL Pos
    LOCAL i
 
-   IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0
+   IF (i := GetControlIndex(ControlName, ParentForm)) > 0
 
       IF !_HMG_aControlInputMask[i]
          IF Item <= Len(_HMG_aControlPageMap[i])
@@ -636,7 +636,7 @@ FUNCTION TreeItemGetRootValue(ControlName, ParentForm)
    LOCAL nID
    LOCAL i
 
-   IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0 .AND. ItemHandle != 0
+   IF (i := GetControlIndex(ControlName, ParentForm)) > 0 .AND. ItemHandle != 0
       IF !_HMG_aControlInputMask[i]
          nPos := AScan(_HMG_aControlPageMap[i], ItemHandle)
          RETURN nPos
@@ -658,7 +658,7 @@ FUNCTION TreeItemGetParentValue(ControlName , ParentForm , nItem)
    LOCAL nID
    LOCAL i
 
-   IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0 .AND. ItemHandle != 0
+   IF (i := GetControlIndex(ControlName, ParentForm)) > 0 .AND. ItemHandle != 0
       IF !_HMG_aControlInputMask[i]
          nPos := AScan(_HMG_aControlPageMap[i], ItemHandle)
          RETURN nPos
@@ -759,7 +759,7 @@ FUNCTION TreeNodeItemCargo( ControlName, ParentForm, Item, Value )
    LOCAL xData
    LOCAL Pos
 
-   IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0
+   IF (i := GetControlIndex(ControlName, ParentForm)) > 0
 
       IF !_HMG_aControlInputMask[i]
 

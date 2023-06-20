@@ -56,7 +56,7 @@ FUNCTION HMG_Graph( nWidth, nHeight, aData, cTitle, aYVals, nBarD, nWideB, nSep,
 
    DEFAULT cTitle := "", nSep := 0, nLegendsWidth := 50, cPicture := "999,999.99"
 
-   IF ( Len(aSeries) != Len(aData) ) .OR. ( Len(aSeries) > Len(aColors) )
+   IF (Len(aSeries) != Len(aData)) .OR. (Len(aSeries) > Len(aColors))
       MsgMiniGuiError("DRAW GRAPH: 'Series' / 'SerieNames' / 'Colors' arrays size mismatch.")
    ENDIF
 

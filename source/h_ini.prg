@@ -84,7 +84,7 @@ FUNCTION _LogFile(lCrLf, ...)
       ENDIF
       FSeek(hFile, 0, FS_END)
       IF nParams > 1
-         IF ( lCrLf := hb_defaultValue(lCrLf, .T.) )
+         IF (lCrLf := hb_defaultValue(lCrLf, .T.))
             FWrite(hFile, CRLF, 2)
          ENDIF
          IF nParams == 2 .AND. HB_ISNIL( aParams[2] ) .AND. lCrLf
@@ -226,7 +226,7 @@ FUNCTION GetBeginComment
    IF !Empty(_HMG_ActiveIniFile)
       aLines := hb_ATokens(StrTran(MemoRead(_HMG_ActiveIniFile), CRLF, Chr(10)), Chr(10))
 
-      IF ( nLen := Len(aLines) ) > 0
+      IF (nLen := Len(aLines)) > 0
          FOR i := 1 TO nLen
             aLines[i] := AllTrim(aLines[i])
             IF lTest
@@ -258,7 +258,7 @@ FUNCTION GetEndComment
    IF !Empty(_HMG_ActiveIniFile)
       aLines := hb_ATokens(StrTran(MemoRead(_HMG_ActiveIniFile), CRLF, Chr(10)), Chr(10))
 
-      IF ( nLen := Len(aLines) ) > 0
+      IF (nLen := Len(aLines)) > 0
          FOR i := nLen TO 1 STEP -1
             aLines[i] := AllTrim(aLines[i])
             IF lTest
@@ -292,7 +292,7 @@ FUNCTION SetBeginComment(cComment)
    IF !Empty(_HMG_ActiveIniFile)
       aLines := hb_ATokens(StrTran(MemoRead(_HMG_ActiveIniFile), CRLF, Chr(10)), Chr(10))
 
-      IF ( nLen := Len(aLines) ) > 0 .AND. Len(ATail(aLines)) == 0
+      IF (nLen := Len(aLines)) > 0 .AND. Len(ATail(aLines)) == 0
          ASize(aLines, nLen - 1)
          nLen--
       ENDIF
@@ -449,7 +449,7 @@ FUNCTION AToC(aArray)
 
    FOR EACH elem IN aArray
       cElement := xChar( elem )
-      IF ( cType := ValType(elem) ) == "A"
+      IF (cType := ValType(elem)) == "A"
          cArray += cElement
       ELSE
          cArray += hb_ULeft(cType, 1) + Str(hb_ULen(cElement), 4) + cElement
@@ -469,7 +469,7 @@ FUNCTION CToA(cArray)
    cArray := hb_USubStr(cArray, 6)    // strip off array and length
    WHILE hb_ULen(cArray) > 0
       nLen := Val(hb_USubStr(cArray, 2, 4))
-      IF ( cType := hb_ULeft(cArray, 1) ) == "A"
+      IF (cType := hb_ULeft(cArray, 1)) == "A"
          AAdd(aArray, CToA(hb_USubStr(cArray, 1, nLen + 5)))
       ELSE
          AAdd(aArray, xValue(hb_USubStr(cArray, 6, nLen), cType))
@@ -514,7 +514,7 @@ FUNCTION _GetSection( cSection, cIniFile )
       aLista := _GetPrivateProfileSection( cSection, cIniFile )
       IF !Empty(aLista)
          FOR i := 1 TO Len(aLista)
-            IF ( n := At("=", aLista[i]) ) > 0
+            IF (n := At("=", aLista[i])) > 0
                AAdd(aKeyValueList, {Left(aLista[i], n - 1), SubStr(aLista[i], n + 1)})
             ENDIF
          NEXT i

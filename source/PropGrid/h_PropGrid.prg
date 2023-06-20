@@ -1281,7 +1281,7 @@ FUNCTION PgIdentData(cData, typePG, cValue, sep)
             IF n < 3
                aData[n] := cToken
             ELSE
-               IF ( pos := AScan(aFontName,cToken) ) > 0
+               IF (pos := AScan(aFontName,cToken)) > 0
                   aData[pos] := "true"
                ENDIF
             ENDIF
@@ -1449,9 +1449,9 @@ FUNCTION PgIdentColor( met, cColor )
    DO CASE
    CASE met == 0
       cColor := AllTrim(cColor)
-      IF ( pos := AScan(aSysColor, {|x|Upper(x[2]) == Upper(cColor)}) ) > 0
+      IF (pos := AScan(aSysColor, {|x|Upper(x[2]) == Upper(cColor)})) > 0
          nColor := GetSysColor(aSysColor[pos, 1])
-      ELSEIF ( pos := AScan(aColor, {|x|Upper(x[2]) == Upper(cColor)}) ) > 0
+      ELSEIF (pos := AScan(aColor, {|x|Upper(x[2]) == Upper(cColor)})) > 0
          nColor := RGB(aColor[pos, 1], aColor[pos, 2], aColor[pos, 3])
       ELSE
          IF SubStr(cColor, 1, 1) == "(" .AND. RAt(")", cColor) == Len(cColor)
@@ -2070,7 +2070,7 @@ FUNCTION EnablePropGridItem(ParentForm, ControlName, nID, lEnabled)
          hItem := PG_SearchID(hWndPG, nID)
       ENDIF
       IF !empty(hItem)
-         IF ( !PG_GETITEM(hWndPG, hItem, PGI_ENAB) .AND. !lEnabled ) .OR. ;
+         IF (!PG_GETITEM(hWndPG, hItem, PGI_ENAB) .AND. !lEnabled) .OR. ;
                ( PG_GETITEM(hWndPG, hItem, PGI_ENAB) .AND. lEnabled )
             PG_ENABLEITEM(hWndPG, hItem, lEnabled)
             IF hItemSel == hItem
@@ -2404,10 +2404,10 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
 
    lParam := NIL //unused parameter
 
-   IF ( i := AScan(_HMG_aControlHandles, {|x|hb_IsArray(x) .AND. x[1] == hwndPG}) ) == 0
+   IF (i := AScan(_HMG_aControlHandles, {|x|hb_IsArray(x) .AND. x[1] == hwndPG})) == 0
       RETURN 0
    ENDIF
-   IF ( x := AScan(_HMG_aFormHandles, _HMG_aControlParentHandles[i]) ) > 0
+   IF (x := AScan(_HMG_aFormHandles, _HMG_aControlParentHandles[i])) > 0
       cParentName :=  _HMG_aFormNames[x]
    ENDIF
    ItHeight := _HMG_aControlRangeMin[i] - 4
@@ -2571,7 +2571,7 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
          cValue := GetWindowText(hWnd)
          IF ItemType == PG_DOUBLE
             cValue := CharRem( " ", cValue )
-            IF ( Pos := RAt(".", cValue) ) > 0
+            IF (Pos := RAt(".", cValue)) > 0
                cValue := CharRem( ".", Left(cValue, Pos) ) + SubStr(cValue, Pos)
             ENDIF
          ENDIF

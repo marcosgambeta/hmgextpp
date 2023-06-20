@@ -307,7 +307,7 @@ PROCEDURE _DataRichEditBoxOpen(ControlName, ParentForm, cFile, typ)
    
    LOCAL i
 
-   IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0
+   IF (i := GetControlIndex(ControlName, ParentForm)) > 0
 
       _HMG_aControlCaption[i] := cFile
 
@@ -323,7 +323,7 @@ PROCEDURE _DataRichEditBoxSave(ControlName, ParentForm, cFile, typ)
    
    LOCAL i
 
-   IF ( i := GetControlIndex(ControlName, ParentForm) ) > 0
+   IF (i := GetControlIndex(ControlName, ParentForm)) > 0
 
       IF cFile == NIL
          cFile := _HMG_aControlCaption[i]

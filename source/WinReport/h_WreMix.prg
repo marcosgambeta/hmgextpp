@@ -485,17 +485,17 @@ Function RMiniPar(ArryPar,cmdline,section)
                _arg1:=if(_arg1 ="",GetDefaultPrinter(),_arg1)
                //msgbox(_arg1,"stampante")
                _hmg_printer_aPrinterProperties:=_HMG_PRINTER_SetPrinterProperties( ;
-                if(ascan(ArryPar,[DEFAULT])=3,GetDefaultPrinter(),_arg1 ), ;
-                if(ascan(arryPar,[ORIENTATION])!= 0,iif(val(_arg1) > 0,val(_arg1),iif([PORT]$ _arg1, 1, 2)) ,-999),;
-                if ( lPaperSize     > 0 , lPaperSize      , -999 ) , ;
-                if ( lPaperLength   > 0 , LPaperLength    , -999 ) , ;
-                if ( lPaperWidth    > 0 , LPaperWidth     , -999 ) , ;
-                if ( lCopies        > 0 , lCopies         , -999 ) , ;
-                if ( lDefaultSource > 0 , LDefaultSource  , -999 ) , ;
-                if ( lQuality      != 0 , lQuality        , -999 ) , ;
-                if ( lColor         > 0 , lColor          , -999 ) , ;
-                if ( lDuplex        > 0 , lDuplex         , -999 ) , ;
-                if ( lCollate       > 0 , nCollate        , -999 ))
+                iif(ascan(ArryPar,[DEFAULT])=3,GetDefaultPrinter(),_arg1), ;
+                iif(ascan(arryPar,[ORIENTATION])!= 0,iif(val(_arg1) > 0,val(_arg1),iif([PORT]$ _arg1, 1, 2)) ,-999),;
+                iif(lPaperSize     > 0 , lPaperSize      , -999) , ;
+                iif(lPaperLength   > 0 , LPaperLength    , -999) , ;
+                iif(lPaperWidth    > 0 , LPaperWidth     , -999) , ;
+                iif(lCopies        > 0 , lCopies         , -999) , ;
+                iif(lDefaultSource > 0 , LDefaultSource  , -999) , ;
+                iif(lQuality      != 0 , lQuality        , -999) , ;
+                iif(lColor         > 0 , lColor          , -999) , ;
+                iif(lDuplex        > 0 , lDuplex         , -999) , ;
+                iif(lCollate       > 0 , nCollate        , -999))
                //msgbox(str(lcopies))
 
                 EndCase
@@ -523,10 +523,10 @@ Function RMiniPar(ArryPar,cmdline,section)
              _varmem:=ArryPar[5]
              if __mvexist(ArryPar[5])
                  //msginfo("Private BHX")
-                &_varmem := if ( iif(MGSYS,_HMG_SYSDATA[374],_hmg_printer_hdc) != 0 , .T. , .F. )
+                &_varmem := iif(iif(MGSYS,_HMG_SYSDATA[374],_hmg_printer_hdc) != 0 , .T. , .F.)
              else
                 Public &_varmem
-                &_varmem := if ( iif(MGSYS,_HMG_SYSDATA[374],_hmg_printer_hdc) != 0 , .T. , .F. )
+                &_varmem := iif(iif(MGSYS,_HMG_SYSDATA[374],_hmg_printer_hdc) != 0 , .T. , .F.)
              endif
           endif
           //msgbox(_hmg_printer_timestamp,"timestamp")

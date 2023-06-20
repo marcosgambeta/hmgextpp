@@ -337,7 +337,7 @@ FUNCTION AddMonthCalBoldDay( ControlName, ParentFormName, dDay )
 
    aBoldDays := _HMG_aControlPageMap[ix]
 
-   IF ( i := AScan(aBoldDays, {|d|d >= dDay}) ) == 0
+   IF (i := AScan(aBoldDays, {|d|d >= dDay})) == 0
       AAdd(aBoldDays, dDay)
       SetDayState(ControlName, ParentFormName)
    ELSEIF aBoldDays[i] > dDay
@@ -357,7 +357,7 @@ FUNCTION DelMonthCalBoldDay( ControlName, ParentFormName, dDay )
 
    aBoldDays := _HMG_aControlPageMap[ix]
 
-   IF ( i := AScan(aBoldDays, dDay) ) > 0
+   IF (i := AScan(aBoldDays, dDay)) > 0
       hb_ADel( aBoldDays, i, .T. )
       SetDayState(ControlName, ParentFormName)
    ENDIF

@@ -1367,7 +1367,7 @@ METHOD Transpace(arg1,arg2,arg3) CLASS WREPORT // The core of parser
      nr := STRTRAN(nr,chr(07)+chr(07),chr(07))
      if arg2
         arg1 := upper(nr)
-        aeval(aFsrc,{|x|if ( at(x,arg1) > 0, aadd(_aFnt,{upper(Nr),arg3}), NIL ) } )
+        aeval(aFsrc,{|x|iif(at(x,arg1) > 0, aadd(_aFnt,{upper(Nr),arg3}), NIL)})
      Endif
 
 return nr
@@ -2827,7 +2827,7 @@ METHOD TheFeet(last) CLASS WREPORT            //Feet // IL Piede
    if ::PrnDrv = "HBPR"
       End PAGE
    Else
-      if ( _HMG_MINIPRINT[23], _HMG_PRINTER_ENDPAGE_PREVIEW (_HMG_MINIPRINT[19]) , _HMG_PRINTER_ENDPAGE(_HMG_MINIPRINT[19]) )
+      iif(_HMG_MINIPRINT[23], _HMG_PRINTER_ENDPAGE_PREVIEW(_HMG_MINIPRINT[19]), _HMG_PRINTER_ENDPAGE(_HMG_MINIPRINT[19]))
    Endif
    if last
       nPgr := 0
