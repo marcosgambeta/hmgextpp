@@ -392,7 +392,7 @@ STATIC PROCEDURE ErrorLog(nHandle, oErr)
             Html_LineText(nHandle, "Index Order .......: " + strvalue(Do("IndexOrd")))
          ENDIF
          IF hb_IsFunction("IndexKey")
-            Html_LineText(nHandle, "Active Key ........: " + strvalue(Eval(hb_macroBlock("IndexKey( 0 )"))))
+            Html_LineText(nHandle, "Active Key ........: " + strvalue(Eval(hb_macroBlock("IndexKey(0)"))))
          ENDIF
          Html_LineText(nHandle, "")
          RETURN .T.

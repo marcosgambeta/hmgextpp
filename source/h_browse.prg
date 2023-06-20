@@ -86,7 +86,7 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
 #endif
 
    IF (FontHandle := GetFontHandle(FontName)) != HMG_NULLHANDLE
-      GetFontParamByRef( FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout )
+      GetFontParamByRef(FontHandle, @FontName, @FontSize, @bold, @italic, @underline, @strikeout)
    ENDIF
 
    IF _HMG_BeginWindowActive .OR. _HMG_BeginDialogActive
@@ -149,7 +149,7 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
 
    hb_default(@notabstop, .F.)
    hb_default(@doublebuffer, .F.)
-   lsort := ( hb_IsArray(columnsort) )
+   lsort := (hb_IsArray(columnsort))
 
    mVar := "_" + ParentFormName + "_" + ControlName
    k := _GetControlFree()
@@ -252,7 +252,7 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
    ENDIF
 
 #ifdef _NAMES_LIST_
-   _SetNameList( mVar , k )
+   _SetNameList(mVar , k)
 #else
    Public &mVar. := k
 #endif
@@ -327,7 +327,7 @@ FUNCTION _DefineBrowse(ControlName, ParentFormName, x, y, w, h, aHeaders, aWidth
 
          IF Len(columnsort) > 0
 
-            FOR i := 1 TO Min( Len(columnsort), Len(_HMG_aControlMiscData1[k][20]) )
+            FOR i := 1 TO Min(Len(columnsort), Len(_HMG_aControlMiscData1[k][20]))
 
                IF hb_IsLogical(columnsort[i])
                   _HMG_aControlMiscData1[k][20][i] := columnsort[i]
@@ -391,7 +391,7 @@ FUNCTION InitDialogBrowse(ParentName, ControlHandle, i)
       iif(doublebuffer, LVS_EX_DOUBLEBUFFER, 0) + LVS_EX_FULLROWSELECT + LVS_EX_INFOTIP + LVS_EX_HEADERDRAGDROP)
 
    wBitmap := iif(Len(_HMG_aControlBkColor[i]) > 0, AddListViewBitmap(ControlHandle, _HMG_aControlBkColor[i]), 0) // Add Bitmap Column
-   _HMG_aControlProcedures[i, 1] := Max( _HMG_aControlProcedures[i, 1], wBitmap + GetBorderWidth() / 2 ) // Set Column 1 width to Bitmap width
+   _HMG_aControlProcedures[i, 1] := Max(_HMG_aControlProcedures[i, 1], wBitmap + GetBorderWidth() / 2) // Set Column 1 width to Bitmap width
 
    IF Len(aImageHeader) > 0
       _HMG_aControlMiscData1[i, 15] := AddListViewBitmapHeader(ControlHandle, aImageHeader) // Add Header Bitmaps
@@ -441,7 +441,7 @@ FUNCTION InitDialogBrowse(ParentName, ControlHandle, i)
    _HMG_aControlIds[i] := ScrollBarHandle
    _HMG_aControlMiscData1[i][1] := ScrollBarButtonHandle
 
-   _BrowseRefresh( "", "", i )
+   _BrowseRefresh("", "", i)
 
    IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]  // Modal
       _HMG_aControlDeleted[i] := .T.
@@ -477,17 +477,17 @@ STATIC PROCEDURE HMG_OrdCreate(i)
 
    FOR nColumn := 1 TO Len(aFields)
 
-      IF !_HMG_aControlMiscData1[i][20][nColumn] .OR. FieldPos( aFields[nColumn] ) == 0
-         ordCreate(NIL, "Bag" + StrZero( Random( 999999 ), 6 ), "Field->" + FieldName( 1 ))
+      IF !_HMG_aControlMiscData1[i][20][nColumn] .OR. FieldPos(aFields[nColumn]) == 0
+         ordCreate(NIL, "Bag" + StrZero(Random(999999), 6), "Field->" + FieldName(1))
       ELSE
-         cField := FieldName(FieldPos( aFields[nColumn] ))
+         cField := FieldName(FieldPos(aFields[nColumn]))
          cOrdKey := Alias() + "->" + cField
-         ordCreate(NIL, cField, cOrdKey, hb_macroBlock( cOrdKey ), .F. /*lUnique*/)
+         ordCreate(NIL, cField, cOrdKey, hb_macroBlock(cOrdKey), .F. /*lUnique*/)
       ENDIF
 
    NEXT
 
-   ordSetFocus( 0 )
+   ordSetFocus(0)
    GO TOP
 
    RestoreWorkArea(_Alias)
@@ -506,7 +506,7 @@ STATIC PROCEDURE RestoreWorkArea(_Alias)
 RETURN
 
 *-----------------------------------------------------------------------------*
-PROCEDURE HMG_SetOrder( nColumn, lDescend )
+PROCEDURE HMG_SetOrder(nColumn, lDescend)
 *-----------------------------------------------------------------------------*
    
    LOCAL cFormName := ThisWindow.Name
@@ -533,12 +533,12 @@ PROCEDURE HMG_SetOrder( nColumn, lDescend )
 
       Select &_BrowseArea
 
-      nOrder := ordNumber( ordSetFocus() )
+      nOrder := ordNumber(ordSetFocus())
       nRecord := RecNo()
 
       _BrowseHandle := _HMG_aControlHandles[i]
 
-      ListView_SetSortHeader( _BrowseHandle, nOrder, 0, _HMG_IsThemed )
+      ListView_SetSortHeader(_BrowseHandle, nOrder, 0, _HMG_IsThemed)
 
       IF !hb_isLogical(lDescend)
          lDescend := iif(nOrder == nColumn, !ordDescend(nOrder), .F.)
@@ -546,16 +546,16 @@ PROCEDURE HMG_SetOrder( nColumn, lDescend )
 
       nOrder := nColumn
 
-      ListView_SetSortHeader( _BrowseHandle, nColumn, iif(lDescend, -1, 1), _HMG_IsThemed )
+      ListView_SetSortHeader(_BrowseHandle, nColumn, iif(lDescend, -1, 1), _HMG_IsThemed)
 
-      ordSetFocus( nOrder )
+      ordSetFocus(nOrder)
       ordDescend(nOrder, NIL, lDescend)
 
       GO nRecord
 
       RestoreWorkArea(_Alias)
 
-      _BrowseRefresh( "", "", i )
+      _BrowseRefresh("", "", i)
 
    ENDIF
 
@@ -691,7 +691,7 @@ PROCEDURE _BrowseUpdate(ControlName, ParentName, z)
 
       FOR EACH cTemp IN Fields
 
-         j := hb_enumindex( cTemp )
+         j := hb_enumindex(cTemp)
 
          IF j >= First
 
@@ -892,7 +892,7 @@ PROCEDURE _BrowseNext(ControlName , ParentForm , z)
 
       _Alias := Alias()
       _BrowseArea := _HMG_aControlSpacing[i]
-      IF Select ( _BrowseArea ) == 0
+      IF Select (_BrowseArea) == 0
          RETURN
       ENDIF
       Select &_BrowseArea
@@ -903,7 +903,7 @@ PROCEDURE _BrowseNext(ControlName , ParentForm , z)
       _BrowseUpdate("", "", i)
       _BrowseVscrollUpdate(i)
 
-      ListView_Scroll( _BrowseHandle , _DeltaScroll[2] * ( -1 ) , 0 )
+      ListView_Scroll(_BrowseHandle , _DeltaScroll[2] * (-1) , 0)
       ListView_SetCursel(_BrowseHandle , Len(_HMG_aControlRangeMax[i]))
 
       GO _RecNo
@@ -943,7 +943,7 @@ PROCEDURE _BrowsePrior(ControlName , ParentForm , z)
 
       _Alias := Alias()
       _BrowseArea := _HMG_aControlSpacing[i]
-      IF Select ( _BrowseArea ) == 0
+      IF Select (_BrowseArea) == 0
          RETURN
       ENDIF
       Select &_BrowseArea
@@ -955,7 +955,7 @@ PROCEDURE _BrowsePrior(ControlName , ParentForm , z)
       _BrowseVscrollUpdate(i)
       _BrowseUpdate("", "", i)
 
-      ListView_Scroll( _BrowseHandle , _DeltaScroll[2] * ( -1 ) , 0 )
+      ListView_Scroll(_BrowseHandle , _DeltaScroll[2] * (-1) , 0)
 
       GO _RecNo
       RestoreWorkArea(_Alias)
@@ -991,7 +991,7 @@ PROCEDURE _BrowseHome(ControlName, ParentForm, z)
    _Alias := Alias()
    _BrowseArea := _HMG_aControlSpacing[i]
 
-   IF Select ( _BrowseArea ) == 0
+   IF Select (_BrowseArea) == 0
       RETURN
    ENDIF
 
@@ -1003,7 +1003,7 @@ PROCEDURE _BrowseHome(ControlName, ParentForm, z)
    _BrowseVscrollUpdate(i)
    _BrowseUpdate("", "", i)
 
-   ListView_Scroll( _BrowseHandle , _DeltaScroll[2] * ( -1 ) , 0 )
+   ListView_Scroll(_BrowseHandle , _DeltaScroll[2] * (-1) , 0)
 
    GO _RecNo
    RestoreWorkArea(_Alias)
@@ -1034,7 +1034,7 @@ PROCEDURE _BrowseEnd(ControlName, ParentForm, z)
    _Alias := Alias()
    _BrowseArea := _HMG_aControlSpacing[i]
 
-   IF Select ( _BrowseArea ) == 0
+   IF Select (_BrowseArea) == 0
       RETURN
    ENDIF
 
@@ -1048,7 +1048,7 @@ PROCEDURE _BrowseEnd(ControlName, ParentForm, z)
    Skip - LISTVIEWGETCOUNTPERPAGE(_BrowseHandle) + 1
 
    _BrowseUpdate("", "", i)
-   ListView_Scroll( _BrowseHandle , _DeltaScroll[2] * ( -1 ) , 0 )
+   ListView_Scroll(_BrowseHandle , _DeltaScroll[2] * (-1) , 0)
 
    GO _RecNo
    RestoreWorkArea(_Alias)
@@ -1085,7 +1085,7 @@ PROCEDURE _BrowseUp(ControlName , ParentForm , z)
       _Alias := Alias()
       _BrowseArea := _HMG_aControlSpacing[i]
 
-      IF Select ( _BrowseArea ) == 0
+      IF Select (_BrowseArea) == 0
          RETURN
       ENDIF
 
@@ -1095,10 +1095,10 @@ PROCEDURE _BrowseUp(ControlName , ParentForm , z)
       GO _BrowseRecMap[1]
       Skip - 1
 
-      IF !( _BrowseRecMap[1] == RecNo() )  // BAA 18-Mar-2012
+      IF !(_BrowseRecMap[1] == RecNo())  // BAA 18-Mar-2012
          _BrowseVscrollUpdate(i)
          _BrowseUpdate("", "", i)
-         ListView_Scroll( _BrowseHandle , _DeltaScroll[2] * ( -1 ) , 0 )
+         ListView_Scroll(_BrowseHandle , _DeltaScroll[2] * (-1) , 0)
       ENDIF
 
       GO _RecNo
@@ -1157,7 +1157,7 @@ PROCEDURE _BrowseDown(ControlName , ParentForm , z)
       _Alias := Alias()
       _BrowseArea := _HMG_aControlSpacing[i]
 
-      IF Select ( _BrowseArea ) == 0
+      IF Select (_BrowseArea) == 0
          RETURN
       ENDIF
 
@@ -1170,7 +1170,7 @@ PROCEDURE _BrowseDown(ControlName , ParentForm , z)
       _BrowseUpdate("", "", i)
       _BrowseVscrollUpdate(i)
 
-      ListView_Scroll( _BrowseHandle , _DeltaScroll[2] * ( -1 ) , 0 )
+      ListView_Scroll(_BrowseHandle , _DeltaScroll[2] * (-1) , 0)
 
       GO _RecNo
       RestoreWorkArea(_Alias)
@@ -1219,7 +1219,7 @@ PROCEDURE _BrowseRefresh(ControlName , ParentForm , z)
    _Alias := Alias()
    _BrowseArea := _HMG_aControlSpacing[i]
 
-   IF Select ( _BrowseArea ) == 0
+   IF Select (_BrowseArea) == 0
       ListViewReset(_BrowseHandle)
       RETURN
    ENDIF
@@ -1245,7 +1245,7 @@ PROCEDURE _BrowseRefresh(ControlName , ParentForm , z)
          ENDIF
       ENDIF
 
-      IF SET ( _SET_DELETED )
+      IF SET (_SET_DELETED)
          IF Deleted()
             GO TOP
          ENDIF
@@ -1272,7 +1272,7 @@ PROCEDURE _BrowseRefresh(ControlName , ParentForm , z)
 
    _BrowseUpdate("", "", i)
 
-   ListView_Scroll( _BrowseHandle , _DeltaScroll[2] * ( -1 ) , 0 )
+   ListView_Scroll(_BrowseHandle , _DeltaScroll[2] * (-1) , 0)
    ListView_SetCursel(_BrowseHandle , AScan(_HMG_aControlRangeMax[i] , v))
 
    GO _RecNo
@@ -1307,7 +1307,7 @@ PROCEDURE _BrowseSetValue(ControlName, ParentForm, Value, z, mp)
    _Alias := Alias()
    _BrowseArea := _HMG_aControlSpacing[i]
 
-   IF Select ( _BrowseArea ) == 0
+   IF Select (_BrowseArea) == 0
       RETURN
    ENDIF
 
@@ -1368,7 +1368,7 @@ PROCEDURE _BrowseSetValue(ControlName, ParentForm, Value, z, mp)
    GO _RecNo
    RestoreWorkArea(_Alias)
 
-   ListView_Scroll( _BrowseHandle , _DeltaScroll[2] * ( -1 ) , 0 )
+   ListView_Scroll(_BrowseHandle , _DeltaScroll[2] * (-1) , 0)
    ListView_SetCursel(_BrowseHandle , AScan(_HMG_aControlRangeMax[i] , Value))
 
    _HMG_ThisEventType := "BROWSE_ONCHANGE"
@@ -1389,7 +1389,7 @@ FUNCTION _BrowseGetValue(ControlName, ParentForm, z)
 
    _BrowseArea := _HMG_aControlSpacing[i]
 
-   IF Select ( _BrowseArea ) == 0
+   IF Select (_BrowseArea) == 0
       RETURN 0
    ENDIF
 
@@ -1431,7 +1431,7 @@ FUNCTION _BrowseDelete(ControlName, ParentForm, z)
    lock := _HMG_aControlInputMask[i]
    _BrowseArea := _HMG_aControlSpacing[i]
 
-   IF Select ( _BrowseArea ) == 0
+   IF Select (_BrowseArea) == 0
       RETURN NIL
    ENDIF
 
@@ -1454,11 +1454,11 @@ FUNCTION _BrowseDelete(ControlName, ParentForm, z)
 
             IF EOF()
                GO BOTTOM
-            ELSEIF !SET ( _SET_DELETED )
+            ELSEIF !SET (_SET_DELETED)
                SKIP -1
             ENDIF
          ELSE
-            MsgStop( _HMG_BRWLangError[9], _HMG_BRWLangMessage[2] )
+            MsgStop(_HMG_BRWLangError[9], _HMG_BRWLangMessage[2])
          ENDIF
 
       ELSE
@@ -1468,7 +1468,7 @@ FUNCTION _BrowseDelete(ControlName, ParentForm, z)
 
          IF EOF()
             GO BOTTOM
-         ELSEIF !SET ( _SET_DELETED )
+         ELSEIF !SET (_SET_DELETED)
             SKIP -1
          ENDIF
 
@@ -1565,7 +1565,7 @@ FUNCTION _BrowseEdit(GridHandle , aValid , aValidMessages , aReadOnly , lock , a
    GCol   := actpos[1]
    GWidth := actpos[3] - actpos[1]
 
-   Col := GCol + ( GWidth - 310 ) / 2
+   Col := GCol + (GWidth - 310) / 2
 
    IF append != NIL
       Title := _HMG_BRWLangButton[iif(append, 1, 2)]
@@ -1605,7 +1605,7 @@ FUNCTION _BrowseEdit(GridHandle , aValid , aValidMessages , aReadOnly , lock , a
 
       tvar := Upper(_HMG_aControlrangeMin[i][z])
 
-      q := hb_UAt ( ">" , tvar )
+      q := hb_UAt(">" , tvar)
 
       IF q == 0
 
@@ -1740,7 +1740,7 @@ FUNCTION _BrowseEdit(GridHandle , aValid , aValidMessages , aReadOnly , lock , a
    GO BackRec
    RestoreWorkArea(BackArea)
 
-   _SetFocus( ControlName , FormName )
+   _SetFocus(ControlName , FormName)
 
    IF append != NIL
       IF append
@@ -1791,7 +1791,7 @@ FUNCTION _EditRecord(Title, aLabels, aValues, aFormats, row, col, aValid, TmpNam
 
    NEXT i
 
-   th := ( l * 30 ) + ( e * 60 ) + 30
+   th := (l * 30) + (e * 60) + 30
 
    IF TH < H
       TH := H + 1
@@ -1846,19 +1846,19 @@ FUNCTION _EditRecord(Title, aLabels, aValues, aFormats, row, col, aValid, TmpNam
 
             IF hb_IsArray(aFormats[i])
                @ ControlRow , 120 COMBOBOX &CN  OF _Split_1 ITEMS aFormats[i] VALUE aValues[i] WIDTH 140  FONT "Arial" SIZE 10;
-                  ON GOTFOCUS ( LN := _Split_1.FocusedControl, ;
-                  SendMessage(GetControlHandle(LN, "_Split_1"), EM_SETSEL, 0, -1) );
+                  ON GOTFOCUS (LN := _Split_1.FocusedControl, ;
+                  SendMessage(GetControlHandle(LN, "_Split_1"), EM_SETSEL, 0, -1));
                   ON LOSTFOCUS _WHENEVAL()
 
             ELSEIF hb_IsChar(aFormats[i])
 
                @ ControlRow , 120 GETBOX &CN  OF _Split_1 VALUE aValues[i] WIDTH 140 FONT "Arial" SIZE 10 PICTURE aFormats[i];
-                  ON GOTFOCUS ( LN := _Split_1.FocusedControl, ;
+                  ON GOTFOCUS (LN := _Split_1.FocusedControl, ;
                   SendMessage(GetControlHandle(LN, "_Split_1"), EM_SETSEL, 0, -1)) ;
                   ON LOSTFOCUS _WHENEVAL()
                ELSE
                @ ControlRow , 120 GETBOX &CN  OF _Split_1 VALUE aValues[i] WIDTH 140 FONT "Arial" SIZE 10;
-                  ON GOTFOCUS ( LN := _Split_1.FocusedControl, ;
+                  ON GOTFOCUS (LN := _Split_1.FocusedControl, ;
                   SendMessage(GetControlHandle(LN, "_Split_1"), EM_SETSEL, 0, -1)) ;
                   ON LOSTFOCUS _WHENEVAL()
                ENDIF
@@ -1869,7 +1869,7 @@ FUNCTION _EditRecord(Title, aLabels, aValues, aFormats, row, col, aValid, TmpNam
             IF hb_IsNumeric(aFormats[i])
                IF  aFormats[i] <= 32
                   @ ControlRow , 120 GETBOX &CN  OF _Split_1 VALUE aValues[i] WIDTH 140 FONT "Arial" SIZE 10 PICTURE Replicate("X", aFormats[i]);
-                     ON GOTFOCUS ( LN := _Split_1.FocusedControl, ;
+                     ON GOTFOCUS (LN := _Split_1.FocusedControl, ;
                      SendMessage(GetControlHandle(LN, "_Split_1"), EM_SETSEL, 0, -1)) ;
                      ON LOSTFOCUS _WHENEVAL()
                   ControlRow += 30
@@ -2161,7 +2161,7 @@ STATIC FUNCTION _BrowseInPlaceEdit(GridHandle , aValid , aValidMessages , aReadO
    IF r != 0
       sFieldName := Right(FieldName, Len(Fieldname) - r)
       p := Left(FieldName, r - 2)
-      IF !( Upper(p) == "FIELD" ) .AND. !( Upper(p) == "_FIELD" )
+      IF !(Upper(p) == "FIELD") .AND. !(Upper(p) == "_FIELD")
          _GridWorkArea := p
       ENDIF
    ELSE
@@ -2169,7 +2169,7 @@ STATIC FUNCTION _BrowseInPlaceEdit(GridHandle , aValid , aValidMessages , aReadO
    ENDIF
 
    // If the specified area does not exists, when return
-   IF Select ( _GridWorkArea ) == 0
+   IF Select (_GridWorkArea) == 0
       RETURN NIL
    ENDIF
 
@@ -2308,10 +2308,10 @@ STATIC FUNCTION _BrowseInPlaceEdit(GridHandle , aValid , aValidMessages , aReadO
       ON KEY CONTROL + U ACTION iif(_IsWindowActive("_InPlaceEdit"), ;
          _InPlaceEdit.Control_1.Value := iif(ControlType == "L", iif(CellData , 1 , 2), CellData), NIL)
       ON KEY RETURN ACTION iif(_IsWindowActive("_InPlaceEdit"), ;
-         _InPlaceEditOk ( i , _InPlaceEdit.Control_1.Value , aValid , CellColIndex , ;
-         sFieldName , _GridWorkArea , aValidMessages , lock , ControlType , aInputItems ), NIL)
-      ON KEY ESCAPE ACTION ( _HMG_IPE_CANCELLED := .T. , iif(lock, dbUnlock(), NIL) , ;
-         iif(_IsWindowActive("_InPlaceEdit"), _InPlaceEdit.Release, NIL) )
+         _InPlaceEditOk (i , _InPlaceEdit.Control_1.Value , aValid , CellColIndex , ;
+         sFieldName , _GridWorkArea , aValidMessages , lock , ControlType , aInputItems), NIL)
+      ON KEY ESCAPE ACTION (_HMG_IPE_CANCELLED := .T. , iif(lock, dbUnlock(), NIL) , ;
+         iif(_IsWindowActive("_InPlaceEdit"), _InPlaceEdit.Release, NIL))
 
       IF lInputItems
 
@@ -2485,7 +2485,7 @@ STATIC PROCEDURE _InPlaceEditOk(i , r , aValid , CellColIndex , sFieldName , Are
             Result := _GetValue("Control_1", "_InPlaceEdit")
 
             IF ControlType == "L"
-               Result := ( Result == 1 )
+               Result := (Result == 1)
             ELSEIF ControlType == "X"
                Result := aInputItems[CellColIndex][r][2]
             ENDIF
@@ -2556,7 +2556,7 @@ STATIC PROCEDURE _InPlaceEditOk(i , r , aValid , CellColIndex , sFieldName , Are
 
    ENDIF
 
-   _HMG_IPE_CANCELLED := ( lock .AND. NetError() )
+   _HMG_IPE_CANCELLED := (lock .AND. NetError())
 
 RETURN
 
@@ -2576,7 +2576,7 @@ STATIC PROCEDURE _InPlaceEditSave(i, FieldName, Alias, r, lock, ControlType, aIn
    IF hb_IsNumeric(r)
 
       IF ControlType == "L"
-         r := ( r == 1 )
+         r := (r == 1)
       ELSEIF ControlType == "X"
          r := aInputItems[CellColIndex][r][2]
       ENDIF
@@ -2632,16 +2632,16 @@ PROCEDURE ProcessInPlaceKbdEdit(i)
          r := LISTVIEW_GETSUBITEMRECT(_HMG_aControlHandles[i] , _HMG_IPE_ROW - 1 , _HMG_IPE_COL - 1)
       ENDIF
 
-      xs := ( _HMG_aControlCol[i] + r[2] + r[3] ) - ( _HMG_aControlCol[i] + _HMG_aControlWidth[i] )
+      xs := (_HMG_aControlCol[i] + r[2] + r[3]) - (_HMG_aControlCol[i] + _HMG_aControlWidth[i])
 
       xd := 20
 
       IF xs > - xd
-         ListView_Scroll( _HMG_aControlHandles[i] , xs + xd , 0 )
+         ListView_Scroll(_HMG_aControlHandles[i] , xs + xd , 0)
       ELSE
 
          IF r[2] < 0
-            ListView_Scroll( _HMG_aControlHandles[i] , r[2] , 0 )
+            ListView_Scroll(_HMG_aControlHandles[i] , r[2] , 0)
          ENDIF
 
       ENDIF
@@ -2675,7 +2675,7 @@ PROCEDURE ProcessInPlaceKbdEdit(i)
 
             _HMG_IPE_COL := iif(Len(_HMG_aControlBkColor[i]) > 0, 2, 1)
 
-            ListView_Scroll( _HMG_aControlHandles[i] , -10000 , 0 )
+            ListView_Scroll(_HMG_aControlHandles[i] , -10000 , 0)
 
          ENDIF
 
@@ -2689,7 +2689,7 @@ PROCEDURE ProcessInPlaceKbdEdit(i)
 
             _HMG_IPE_COL := iif(Len(_HMG_aControlBkColor[i]) > 0, 2, 1)
 
-            ListView_Scroll( _HMG_aControlHandles[i] , -10000 , 0 )
+            ListView_Scroll(_HMG_aControlHandles[i] , -10000 , 0)
 
             EXIT
 
@@ -2712,7 +2712,7 @@ STATIC PROCEDURE _BrowseSync(i)
 
    _Alias := Alias()
    _BrowseArea := _HMG_aControlSpacing[i]
-   IF Select ( _BrowseArea ) == 0
+   IF Select (_BrowseArea) == 0
       RETURN
    ENDIF
    Select &_BrowseArea
@@ -2756,7 +2756,7 @@ STATIC PROCEDURE _BrowseInPlaceAppend(ControlName, ParentForm, z)
    _Alias := Alias()
    _BrowseArea := _HMG_aControlSpacing[i]
 
-   IF Select ( _BrowseArea ) == 0
+   IF Select (_BrowseArea) == 0
       RETURN
    ENDIF
 
@@ -2846,7 +2846,7 @@ PROCEDURE _BrowseVscrollFastUpdate(i, d)
       ENDIF
 
       IF RecordCount < 100
-         ActualRecord := GetScrollPos( _HMG_aControlIds[i], 2 )
+         ActualRecord := GetScrollPos(_HMG_aControlIds[i], 2)
          ActualRecord := ActualRecord + d
          SetScrollRange(_HMG_aControlIds[i], SB_CTL, 1, RecordCount, .T.)
          SetScrollPos(_HMG_aControlIds[i] , SB_CTL , ActualRecord , .T.)

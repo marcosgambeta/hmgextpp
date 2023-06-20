@@ -119,7 +119,7 @@ STATIC FUNCTION StrB64Decode(cString)
    cString := StrTran(cString, " ", "")
 
    // The source must consists from groups with Len of 4 chars
-   IF ( nLen := Len(cString) ) % 4 != 0
+   IF (nLen := Len(cString)) % 4 != 0
       RETURN "" // Bad Base64 string.
    ENDIF
 

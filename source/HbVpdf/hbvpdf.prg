@@ -2,7 +2,7 @@
 
 #include <fileio.ch>
 
-#define CRLF ( Chr(13) + Chr(10) )
+#define CRLF (Chr(13) + Chr(10))
 
 STATIC s_aReport
 
@@ -26,7 +26,7 @@ FUNCTION pdfTextWidth(cStr)
 RETURN pdfLen(cStr) / 25.4
 
 *------------------------------------------------------------
-FUNCTION pdfAtSay( cString, nRow, nCol, cUnits, lExact, cId )
+FUNCTION pdfAtSay(cString, nRow, nCol, cUnits, lExact, cId)
 
    LOCAL _nFont
    LOCAL lReverse
@@ -38,17 +38,17 @@ FUNCTION pdfAtSay( cString, nRow, nCol, cUnits, lExact, cId )
    __defaultNIL(@cId, "")
 
    IF s_aReport[HEADEREDIT]
-      RETURN pdfHeader( "PDFATSAY", cId, { cString, nRow, nCol, cUnits, lExact } )
+      RETURN pdfHeader("PDFATSAY", cId, { cString, nRow, nCol, cUnits, lExact })
    ENDIF
 
-   IF ( nAt := At("#pagenumber#", cString) ) > 0
+   IF (nAt := At("#pagenumber#", cString)) > 0
       cString := Left(cString, nAt - 1) + hb_ntos(pdfPageNumber()) + SubStr(cString, nAt + 12)
    ENDIF
 
    lReverse := .F.
    IF cUnits == "M"
-      nRow := pdfM2Y( nRow )
-      nCol := pdfM2X( nCol )
+      nRow := pdfM2Y(nRow)
+      nCol := pdfM2X(nCol)
    ELSEIF cUnits == "R"
       IF !lExact
          pdfCheckLine(nRow)
@@ -61,26 +61,26 @@ FUNCTION pdfAtSay( cString, nRow, nCol, cUnits, lExact, cId )
       cString := pdfStringB(cString)
       IF Right(cString, 1) == Chr(255) // reverse
          cString := Left(cString, Len(cString) - 1)
-         pdfBox( s_aReport[PAGEY] - nRow - s_aReport[FONTSIZE] + 2.0, nCol, s_aReport[PAGEY] - nRow + 2.0, nCol + pdfM2X( pdfLen(cString) ) + 1,, 100, "D" )
+         pdfBox(s_aReport[PAGEY] - nRow - s_aReport[FONTSIZE] + 2.0, nCol, s_aReport[PAGEY] - nRow + 2.0, nCol + pdfM2X( pdfLen(cString) ) + 1,, 100, "D")
          s_aReport[PAGEBUFFER] += " 1 g "
          lReverse := .T.
       ELSEIF Right(cString, 1) == Chr(254) // underline
          cString := Left(cString, Len(cString) - 1)
-         pdfBox( s_aReport[PAGEY] - nRow + 0.5,  nCol, s_aReport[PAGEY] - nRow + 1, nCol + pdfM2X( pdfLen(cString) ) + 1,, 100, "D" )
+         pdfBox(s_aReport[PAGEY] - nRow + 0.5,  nCol, s_aReport[PAGEY] - nRow + 1, nCol + pdfM2X( pdfLen(cString) ) + 1,, 100, "D")
       ENDIF
 
       // version 0.01
-      IF ( nAt := At(Chr(253), cString) ) > 0 // some color text inside
+      IF (nAt := At(Chr(253), cString)) > 0 // some color text inside
          s_aReport[PAGEBUFFER] += CRLF + ;
             Chr_RGB(SubStr(cString, nAt + 1, 1)) + " " + ;
             Chr_RGB(SubStr(cString, nAt + 2, 1)) + " " + ;
             Chr_RGB(SubStr(cString, nAt + 3, 1)) + " rg "
-         cString := Stuff( cString, nAt, 4, "" )
+         cString := Stuff(cString, nAt, 4, "")
       ENDIF
       // version 0.01
 
       _nFont := AScan(s_aReport[FONTS], {|arr|arr[1] == s_aReport[FONTNAME]})
-      IF !( s_aReport[FONTNAME] == s_aReport[FONTNAMEPREV] )
+      IF !(s_aReport[FONTNAME] == s_aReport[FONTNAMEPREV])
          s_aReport[FONTNAMEPREV] := s_aReport[FONTNAME]
          s_aReport[PAGEBUFFER] += CRLF + "BT /Fo" + hb_ntos(_nFont) + " " + LTrim(Transform(s_aReport[FONTSIZE], "999.99")) + " Tf " + LTrim(Transform(nCol, "9999.99")) + " " + LTrim(Transform(nRow, "9999.99")) + " Td (" + cString + ") Tj ET"
       ELSEIF s_aReport[FONTSIZE] != s_aReport[FONTSIZEPREV]
@@ -99,9 +99,9 @@ RETURN NIL
 *-----------------
 FUNCTION pdfBold()
 
-   IF pdfGetFontInfo( "NAME" ) == "Times"
+   IF pdfGetFontInfo("NAME") == "Times"
       s_aReport[FONTNAME] := 2
-   ELSEIF pdfGetFontInfo( "NAME" ) == "Helvetica"
+   ELSEIF pdfGetFontInfo("NAME") == "Helvetica"
       s_aReport[FONTNAME] := 6
    ELSE
       s_aReport[FONTNAME] := 10 // Courier // 0.04
@@ -116,9 +116,9 @@ RETURN NIL
 *-----------------------
 FUNCTION pdfBoldItalic()
 
-   IF pdfGetFontInfo( "NAME" ) == "Times"
+   IF pdfGetFontInfo("NAME") == "Times"
       s_aReport[FONTNAME] := 4
-   ELSEIF pdfGetFontInfo( "NAME" ) == "Helvetica"
+   ELSEIF pdfGetFontInfo("NAME") == "Helvetica"
       s_aReport[FONTNAME] := 8
    ELSE
       s_aReport[FONTNAME] := 12 // 0.04
@@ -250,7 +250,7 @@ STATIC FUNCTION pdfBookParent(nRecno, nCurLevel, nObj)
 RETURN iif(nParent == 0, nObj - 1, nObj + nParent)
 
 *-----------------------------------------------------
-STATIC FUNCTION pdfBookPrev( nRecno, nCurLevel, nObj )
+STATIC FUNCTION pdfBookPrev(nRecno, nCurLevel, nObj)
 
    LOCAL nTempLevel
    LOCAL nPrev := 0
@@ -272,7 +272,7 @@ STATIC FUNCTION pdfBookPrev( nRecno, nCurLevel, nObj )
 RETURN iif(nPrev == 0, nPrev, nObj + nPrev)
 
 *--------------------------------------------------------------
-FUNCTION pdfBox( x1, y1, x2, y2, nBorder, nShade, cUnits, cColor, cId )
+FUNCTION pdfBox(x1, y1, x2, y2, nBorder, nShade, cUnits, cColor, cId)
 
    LOCAL cBoxColor
 
@@ -294,7 +294,7 @@ FUNCTION pdfBox( x1, y1, x2, y2, nBorder, nShade, cUnits, cColor, cId )
 
    // version 0.02
    IF s_aReport[HEADEREDIT]
-      RETURN pdfHeader( "PDFBOX", cId, { x1, y1, x2, y2, nBorder, nShade, cUnits } )
+      RETURN pdfHeader("PDFBOX", cId, { x1, y1, x2, y2, nBorder, nShade, cUnits })
    ENDIF
 
    IF cUnits == "M"
@@ -338,7 +338,7 @@ RETURN NIL
 
 
 *--------------------------------------------------------------
-FUNCTION pdfBox1( nTop, nLeft, nBottom, nRight, nBorderWidth, cBorderColor, cBoxColor )
+FUNCTION pdfBox1(nTop, nLeft, nBottom, nRight, nBorderWidth, cBorderColor, cBoxColor)
 
    __defaultNIL(@nBorderWidth, 0.5)
    __defaultNIL(@cBorderColor, Chr(0) + Chr(0) + Chr(0))
@@ -365,7 +365,7 @@ FUNCTION pdfBox1( nTop, nLeft, nBottom, nRight, nBorderWidth, cBorderColor, cBox
 RETURN NIL
 
 *-------------------------------------------------------------
-FUNCTION pdfCenter( cString, nRow, nCol, cUnits, lExact, cId )
+FUNCTION pdfCenter(cString, nRow, nCol, cUnits, lExact, cId)
 
    LOCAL nLen
    LOCAL nAt
@@ -376,10 +376,10 @@ FUNCTION pdfCenter( cString, nRow, nCol, cUnits, lExact, cId )
    __defaultNIL(@nCol, iif(cUnits == "R", s_aReport[REPORTWIDTH] / 2, s_aReport[PAGEX] / 72 * 25.4 / 2))
 
    IF s_aReport[HEADEREDIT]
-      RETURN pdfHeader( "PDFCENTER", cId, { cString, nRow, nCol, cUnits, lExact } )
+      RETURN pdfHeader("PDFCENTER", cId, { cString, nRow, nCol, cUnits, lExact })
    ENDIF
 
-   IF ( nAt := At("#pagenumber#", cString) ) > 0
+   IF (nAt := At("#pagenumber#", cString)) > 0
       cString := Left(cString, nAt - 1) + hb_ntos(pdfPageNumber()) + SubStr(cString, nAt + 12)
    ENDIF
 
@@ -452,7 +452,7 @@ FUNCTION pdfClose()
       "/Creator ()" + CRLF + ;
       "/Subject ()" + CRLF + ;
       "/Keywords ()" + CRLF + ;
-      "/CreationDate (D:" + Str(Year(Date()), 4) + PadL( Month( Date() ), 2, "0" ) + PadL( Day( Date() ), 2, "0" ) + SubStr(Time(), 1, 2) + SubStr(Time(), 4, 2) + SubStr(Time(), 7, 2) + ")" + CRLF + ;
+      "/CreationDate (D:" + Str(Year(Date()), 4) + PadL(Month(Date()), 2, "0") + PadL(Day(Date()), 2, "0") + SubStr(Time(), 1, 2) + SubStr(Time(), 4, 2) + SubStr(Time(), 7, 2) + ")" + CRLF + ;
       ">>" + CRLF + ;
       "endobj" + CRLF
    s_aReport[DOCLEN] += Len(cTemp)
@@ -478,7 +478,7 @@ FUNCTION pdfClose()
       WHILE nRecno <= nBookLen
          nCurLevel := s_aReport[BOOKMARK][nRecno][BOOKLEVEL]
          s_aReport[BOOKMARK][nRecno][BOOKPARENT] := pdfBookParent(nRecno, nCurLevel, s_aReport[REPORTOBJ])
-         s_aReport[BOOKMARK][nRecno][BOOKPREV]   := pdfBookPrev( nRecno, nCurLevel, s_aReport[REPORTOBJ] )
+         s_aReport[BOOKMARK][nRecno][BOOKPREV]   := pdfBookPrev(nRecno, nCurLevel, s_aReport[REPORTOBJ])
          s_aReport[BOOKMARK][nRecno][BOOKNEXT]   := pdfBookNext(nRecno, nCurLevel, s_aReport[REPORTOBJ])
          s_aReport[BOOKMARK][nRecno][BOOKFIRST]  := pdfBookFirst(nRecno, nCurLevel, s_aReport[REPORTOBJ])
          s_aReport[BOOKMARK][nRecno][BOOKLAST]   := pdfBookLast(nRecno, nCurLevel, s_aReport[REPORTOBJ])
@@ -534,10 +534,10 @@ FUNCTION pdfClose()
 
    cTemp += "xref" + CRLF + ;
       "0 " + hb_ntos(s_aReport[REPORTOBJ]) + CRLF + ;
-      PadL( s_aReport[REFS][1], 10, "0" ) + " 65535 f" + CRLF
+      PadL(s_aReport[REFS][1], 10, "0") + " 65535 f" + CRLF
 
    FOR nI := 2 TO Len(s_aReport[REFS])
-      cTemp += PadL( s_aReport[REFS][nI], 10, "0" ) + " 00000 n" + CRLF
+      cTemp += PadL(s_aReport[REFS][nI], 10, "0") + " 00000 n" + CRLF
    NEXT
 
    cTemp += "trailer << /Size " + hb_ntos(s_aReport[REPORTOBJ]) + " /Root " + hb_ntos(nObj1 - 1) + " 0 R /Info " + hb_ntos(nObj1 - 2) + " 0 R >>" + CRLF + ;
@@ -612,7 +612,7 @@ STATIC FUNCTION pdfClosePage()
       FOR nI := 1 TO Len(s_aReport[PAGEIMAGES])
          nImage := AScan(s_aReport[IMAGES], {|arr|arr[1] == s_aReport[PAGEIMAGES][nI][1]})
          IF nImage == 0
-            AAdd(s_aReport[IMAGES], { s_aReport[PAGEIMAGES][nI][1], ++s_aReport[NEXTOBJ], pdfImageInfo( s_aReport[PAGEIMAGES][nI][1] ) })
+            AAdd(s_aReport[IMAGES], { s_aReport[PAGEIMAGES][nI][1], ++s_aReport[NEXTOBJ], pdfImageInfo(s_aReport[PAGEIMAGES][nI][1]) })
             nImage := Len(s_aReport[IMAGES])
          ENDIF
          cTemp += CRLF + "/Image" + hb_ntos(nImage) + " " + hb_ntos(s_aReport[IMAGES][nImage][2]) + " 0 R"
@@ -748,7 +748,7 @@ STATIC FUNCTION pdfClosePage()
 RETURN NIL
 
 *---------------------------------------
-STATIC FUNCTION pdfGetFontInfo( cParam )
+STATIC FUNCTION pdfGetFontInfo(cParam)
 
    LOCAL cRet
 
@@ -777,23 +777,23 @@ FUNCTION pdfImage(cFile, nRow, nCol, cUnits, nHeight, nWidth, cId)
    __defaultNIL(@cId, "")
 
    IF s_aReport[HEADEREDIT]
-      RETURN pdfHeader( "PDFIMAGE", cId, { cFile, nRow, nCol, cUnits, nHeight, nWidth } )
+      RETURN pdfHeader("PDFIMAGE", cId, { cFile, nRow, nCol, cUnits, nHeight, nWidth })
    ENDIF
 
    IF cUnits == "M"
-      nRow := s_aReport[PAGEY] - pdfM2Y( nRow )
-      nCol := pdfM2X( nCol )
-      nHeight := s_aReport[PAGEY] - pdfM2Y( nHeight )
-      nWidth := pdfM2X( nWidth )
+      nRow := s_aReport[PAGEY] - pdfM2Y(nRow)
+      nCol := pdfM2X(nCol)
+      nHeight := s_aReport[PAGEY] - pdfM2Y(nHeight)
+      nWidth := pdfM2X(nWidth)
    ELSEIF cUnits == "R"
       nRow := s_aReport[PAGEY] - pdfR2D(nRow)
-      nCol := pdfM2X( s_aReport[PDFLEFT] ) + ;
+      nCol := pdfM2X(s_aReport[PDFLEFT]) + ;
          nCol * 100.00 / s_aReport[REPORTWIDTH] * ;
-         ( s_aReport[PAGEX] - pdfM2X( s_aReport[PDFLEFT] ) * 2 - 9.0 ) / 100.00
+         (s_aReport[PAGEX] - pdfM2X( s_aReport[PDFLEFT] ) * 2 - 9.0) / 100.00
       nHeight := s_aReport[PAGEY] - pdfR2D(nHeight)
-      nWidth := pdfM2X( s_aReport[PDFLEFT] ) + ;
+      nWidth := pdfM2X(s_aReport[PDFLEFT]) + ;
          nWidth * 100.00 / s_aReport[REPORTWIDTH] * ;
-         ( s_aReport[PAGEX] - pdfM2X( s_aReport[PDFLEFT] ) * 2 - 9.0 ) / 100.00
+         (s_aReport[PAGEX] - pdfM2X( s_aReport[PDFLEFT] ) * 2 - 9.0) / 100.00
    ELSEIF cUnits == "D"
    ENDIF
 
@@ -804,9 +804,9 @@ RETURN NIL
 *-------------------
 FUNCTION pdfItalic()
 
-   IF pdfGetFontInfo( "NAME" ) == "Times"
+   IF pdfGetFontInfo("NAME") == "Times"
       s_aReport[FONTNAME] := 3
-   ELSEIF pdfGetFontInfo( "NAME" ) == "Helvetica"
+   ELSEIF pdfGetFontInfo("NAME") == "Helvetica"
       s_aReport[FONTNAME] := 7
    ELSE
       s_aReport[FONTNAME] := 11 // 0.04
@@ -825,15 +825,15 @@ FUNCTION pdfLen(cString)
    LOCAL nI
    LOCAL nLen
    LOCAL nArr
-   LOCAL nAdd := ( s_aReport[FONTNAME] - 1 ) % 4
+   LOCAL nAdd := (s_aReport[FONTNAME] - 1) % 4
 
    nLen := Len(cString)
    IF Right(cString, 1) == Chr(255) .OR. Right(cString, 1) == Chr(254) // reverse or underline
       --nLen
    ENDIF
-   IF pdfGetFontInfo( "NAME" ) == "Times"
+   IF pdfGetFontInfo("NAME") == "Times"
       nArr := 1
-   ELSEIF pdfGetFontInfo( "NAME" ) == "Helvetica"
+   ELSEIF pdfGetFontInfo("NAME") == "Helvetica"
       nArr := 2
    ELSE
       nArr := 3 // 0.04
@@ -841,22 +841,22 @@ FUNCTION pdfLen(cString)
 
    IF !Empty(s_aReport[FONTWIDTH])
       FOR nI := 1 TO nLen
-         nWidth += s_aReport[FONTWIDTH][nArr][( Asc(SubStr(cString, nI, 1)) - 32 ) * 4 + 1 + nAdd] * 25.4 * s_aReport[FONTSIZE] / 720.00 / 100.00
+         nWidth += s_aReport[FONTWIDTH][nArr][(Asc(SubStr(cString, nI, 1)) - 32) * 4 + 1 + nAdd] * 25.4 * s_aReport[FONTSIZE] / 720.00 / 100.00
       NEXT
    ENDIF
 
 RETURN nWidth
 
 *---------------------------
-STATIC FUNCTION pdfM2R( mm )
+STATIC FUNCTION pdfM2R(mm)
 RETURN Int(s_aReport[LPI] * mm / 25.4)
 
 *--------------------------
-STATIC FUNCTION pdfM2X( n )
+STATIC FUNCTION pdfM2X(n)
 RETURN n * 72 / 25.4
 
 *--------------------------
-STATIC FUNCTION pdfM2Y( n )
+STATIC FUNCTION pdfM2Y(n)
 RETURN s_aReport[PAGEY] -  n * 72 / 25.4
 
 *-----------------------
@@ -893,7 +893,7 @@ FUNCTION pdfNewPage(_cPageSize, _cPageOrient, _nLpi, _cFontName, _nFontType, _nF
 
    pdfPageSize(_cPageSize)
    pdfPageOrient(_cPageOrient)
-   pdfSetLPI( _nLpi )
+   pdfSetLPI(_nLpi)
 
    pdfSetFont(_cFontName, _nFontType, _nFontSize)
 
@@ -908,9 +908,9 @@ RETURN NIL
 *-------------------
 FUNCTION pdfNormal()
 
-   IF pdfGetFontInfo( "NAME" ) == "Times"
+   IF pdfGetFontInfo("NAME") == "Times"
       s_aReport[FONTNAME] := 1
-   ELSEIF pdfGetFontInfo( "NAME" ) == "Helvetica"
+   ELSEIF pdfGetFontInfo("NAME") == "Helvetica"
       s_aReport[FONTNAME] := 5
    ELSE
       s_aReport[FONTNAME] := 9 // 0.04
@@ -970,7 +970,7 @@ FUNCTION pdfOpen(cFile, nLen, lOptimize)
    // TOFIX: This external file dependency should be removed.
 
    cTemp := vpdf_FontsDat() // times, times-bold, times-italic, times-bolditalic, helvetica..., courier... // 0.04
-   n1 := Len(cTemp) / ( 2 * n2 )
+   n1 := Len(cTemp) / (2 * n2)
    s_aReport[FONTWIDTH] := Array(n1, n2)
 
    s_aReport[OPTIMIZE] := lOptimize
@@ -1080,11 +1080,11 @@ RETURN s_aReport[PAGEY] - nRow * 72 / s_aReport[LPI]
 
 
 *-----------------------------
-STATIC FUNCTION pdfR2M( nRow )
+STATIC FUNCTION pdfR2M(nRow)
 RETURN 25.4 * nRow / s_aReport[LPI]
 
 *--------------------------
-FUNCTION pdfPageNumber( n )
+FUNCTION pdfPageNumber(n)
 
    __defaultNIL(@n, 0)
    IF n > 0
@@ -1109,7 +1109,7 @@ FUNCTION pdfRJust(cString, nRow, nCol, cUnits, lExact, cId)
    __defaultNIL(@lExact, .F.)
 
    IF s_aReport[HEADEREDIT]
-      RETURN pdfHeader( "PDFRJUST", cId, { cString, nRow, nCol, cUnits, lExact } )
+      RETURN pdfHeader("PDFRJUST", cId, { cString, nRow, nCol, cUnits, lExact })
    ENDIF
 
    IF (nAt := At("#pagenumber#", cString)) > 0
@@ -1136,7 +1136,7 @@ FUNCTION pdfSetFont(_cFont, _nType, _nSize, cId)
    __defaultNIL(@_nSize, 10)
 
    IF s_aReport[HEADEREDIT]
-      RETURN pdfHeader( "PDFSETFONT", cId, { _cFont, _nType, _nSize } )
+      RETURN pdfHeader("PDFSETFONT", cId, { _cFont, _nType, _nSize })
    ENDIF
 
    _cFont := Upper(_cFont)
@@ -1159,7 +1159,7 @@ FUNCTION pdfSetFont(_cFont, _nType, _nSize, cId)
 RETURN NIL
 
 *--------------------------
-FUNCTION pdfSetLPI( _nLpi )
+FUNCTION pdfSetLPI(_nLpi)
 
    LOCAL cLpi := hb_ntos(_nLpi)
 
@@ -1212,11 +1212,11 @@ FUNCTION pdfText(cString, nTop, nLeft, nLength, nTab, nJustify, cUnits, cColor, 
    __defaultNIL(@cColor, "")
 
    IF cUnits == "M"
-      nTop := pdfM2R( nTop )
+      nTop := pdfM2R(nTop)
    ELSEIF cUnits == "R"
-      nLeft := pdfX2M( pdfM2X( s_aReport[PDFLEFT] ) + ;
+      nLeft := pdfX2M(pdfM2X( s_aReport[PDFLEFT]) + ;
          nLeft * 100.00 / s_aReport[REPORTWIDTH] * ;
-         ( s_aReport[PAGEX] - pdfM2X( s_aReport[PDFLEFT] ) * 2 - 9.0 ) / 100.00 )
+         (s_aReport[PAGEX] - pdfM2X( s_aReport[PDFLEFT] ) * 2 - 9.0) / 100.00 )
    ENDIF
 
    s_aReport[REPORTLINE] := nTop - 1
@@ -1228,7 +1228,7 @@ FUNCTION pdfText(cString, nTop, nLeft, nLength, nTab, nJustify, cUnits, cColor, 
    nNew := nTab
 
    cString := AllTrim(cString)
-   nTokens := NumToken( cString, cDelim )
+   nTokens := NumToken(cString, cDelim)
    nStart := 1
 
    IF nJustify == 1 .OR. nJustify == 4
@@ -1247,7 +1247,7 @@ FUNCTION pdfText(cString, nTop, nLeft, nLength, nTab, nJustify, cUnits, cColor, 
    nI := 1
 
    WHILE nI <= nTokens
-      cToken := Token( cString, cDelim, nI )
+      cToken := Token(cString, cDelim, nI)
       nTokenLen := pdfLen(cToken)
       nLen := Len(cToken)
 
@@ -1266,11 +1266,11 @@ FUNCTION pdfText(cString, nTop, nLeft, nLength, nTab, nJustify, cUnits, cColor, 
                   lParagraph := .F.
                ENDIF
                IF nJustify == 2
-                  nL := nLeft + ( nLength - pdfLen(cTemp) ) / 2
+                  nL := nLeft + (nLength - pdfLen(cTemp)) / 2
                ELSEIF nJustify == 3
                   nL := nLeft + nLength - pdfLen(cTemp)
                ENDIF
-               WHILE k <= nLen .AND. ( ( nLineLen += pdfLen(SubStr(cToken, k, 1)) ) <= nLength )
+               WHILE k <= nLen .AND. ((nLineLen += pdfLen(SubStr(cToken, k, 1))) <= nLength)
                   nLineLen += pdfLen(SubStr(cToken, k, 1))
                   cTemp += SubStr(cToken, k, 1)
                   ++k
@@ -1283,7 +1283,7 @@ FUNCTION pdfText(cString, nTop, nLeft, nLength, nTab, nJustify, cUnits, cColor, 
                IF lPrint
                   nRow := pdfNewLine(1)
                   // version 0.02
-                  pdfAtSay( cColor + cTemp, pdfR2M( nRow + s_aReport[PDFTOP] ), nL, "M" )
+                  pdfAtSay(cColor + cTemp, pdfR2M( nRow + s_aReport[PDFTOP] ), nL, "M")
                ENDIF
             ENDDO
             ++nI
@@ -1291,7 +1291,7 @@ FUNCTION pdfText(cString, nTop, nLeft, nLength, nTab, nJustify, cUnits, cColor, 
          ELSE
             pdfTextPrint(nI - 1, nLeft, @lParagraph, nJustify, nSpace, nNew, nLength, @nLineLen, @nLines, @nStart, cString, cDelim, cColor, lPrint)
          ENDIF
-      ELSEIF ( nI == nTokens ) .OR. ( nI < nTokens .AND. ( nCRLF := pdfTextNextPara(cString, cDelim, nI) ) > 0 )
+      ELSEIF (nI == nTokens) .OR. (nI < nTokens .AND. (nCRLF := pdfTextNextPara(cString, cDelim, nI)) > 0)
          IF nI == nTokens
             nLineLen += nSpace + nTokenLen
          ENDIF
@@ -1335,7 +1335,7 @@ STATIC FUNCTION pdfTextPrint(nI, nLeft, lParagraph, nJustify, nSpace, nNew, nLen
    IF nJustify == 3 // right
       nL += nLength - nLineLen
    ELSEIF nJustify == 2 // center
-      nL += ( nLength - nLineLen ) / 2
+      nL += (nLength - nLineLen) / 2
    ENDIF
 
    ++nLines
@@ -1344,13 +1344,13 @@ STATIC FUNCTION pdfTextPrint(nI, nLeft, lParagraph, nJustify, nSpace, nNew, nLen
    ENDIF
    nB := nSpace
    IF nJustify == 4
-      nB := ( nLength - nLineLen + ( nFinish - nStart ) * nSpace ) / ( nFinish - nStart )
+      nB := (nLength - nLineLen + (nFinish - nStart) * nSpace) / (nFinish - nStart)
    ENDIF
    FOR nJ := nStart TO nFinish
-      cToken := Token( cString, cDelim, nJ )
+      cToken := Token(cString, cDelim, nJ)
       IF lPrint
          // version 0.02
-         pdfAtSay( cColor + cToken, pdfR2M( nRow + s_aReport[PDFTOP] ), nL, "M" )
+         pdfAtSay(cColor + cToken, pdfR2M( nRow + s_aReport[PDFTOP] ), nL, "M")
       ENDIF
       nL += pdfLen(cToken) + nB
    NEXT
@@ -1375,12 +1375,12 @@ STATIC FUNCTION pdfTextNextPara(cString, cDelim, nI)
    LOCAL nRet := 0
 
    // check if next spaces paragraph(s)
-   nAt := AtToken( cString, cDelim, nI ) + Len(Token( cString, cDelim, nI ))
+   nAt := AtToken(cString, cDelim, nI) + Len(Token(cString, cDelim, nI))
    cAt := SubStr(cString, nAt, AtToken(cString, cDelim, nI + 1) - nAt)
    nCRLF := NumAt(Chr(13) + Chr(10), cAt)
    nRat := RAt(Chr(13) + Chr(10), cAt)
    nNew := Len(cAt) - nRat - iif(nRat > 0, 1, 0)
-   IF nCRLF > 1 .OR. ( nCRLF == 1 .AND. nNew > 0 )
+   IF nCRLF > 1 .OR. (nCRLF == 1 .AND. nNew > 0)
       nRet := nCRLF
    ENDIF
 
@@ -1391,11 +1391,11 @@ FUNCTION pdfUnderline(cString)
 RETURN cString + Chr(254)
 
 *--------------------------
-STATIC FUNCTION pdfX2M( n )
+STATIC FUNCTION pdfX2M(n)
 RETURN n * 25.4 / 72
 
 *----------------------------------
-STATIC FUNCTION TimeAsAMPM( cTime )
+STATIC FUNCTION TimeAsAMPM(cTime)
 
    IF Val(cTime) < 12
       cTime += " am"
@@ -1408,7 +1408,7 @@ STATIC FUNCTION TimeAsAMPM( cTime )
 
 RETURN cTime
 
-FUNCTION pdfOpenHeader( cFile )
+FUNCTION pdfOpenHeader(cFile)
 
    LOCAL nAt // , nErrorCode:=0
 
@@ -1417,12 +1417,12 @@ FUNCTION pdfOpenHeader( cFile )
       cFile := AllTrim(cFile)
       IF Len(cFile) > 12 .OR. ;
             At(" ", cFile) > 0 .OR. ;
-            ( At(" ", cFile) == 0 .AND. Len(cFile) > 8 ) .OR. ;
-            ( ( nAt := At(".", cFile) ) > 0 .AND. Len(SubStr(cFile, nAt + 1)) > 3 )
-         COPY FILE ( cFile ) TO temp.tmp
+            (At(" ", cFile) == 0 .AND. Len(cFile) > 8) .OR. ;
+            ((nAt := At(".", cFile)) > 0 .AND. Len(SubStr(cFile, nAt + 1)) > 3)
+         COPY FILE (cFile) TO temp.tmp
          cFile := "temp.tmp"
       ENDIF
-      // s_aReport[HEADER] := ft_RestArr( cFile, @nErrorCode )
+      // s_aReport[HEADER] := ft_RestArr(cFile, @nErrorCode)
       s_aReport[HEADER] := File2Array(cFile)
    ELSE
       s_aReport[HEADER] := {}
@@ -1452,7 +1452,7 @@ FUNCTION pdfCloseHeader()
 
 RETURN NIL
 
-FUNCTION pdfDeleteHeader( cId )
+FUNCTION pdfDeleteHeader(cId)
 
    LOCAL nRet := -1
    LOCAL nId
@@ -1461,14 +1461,14 @@ FUNCTION pdfDeleteHeader( cId )
    nId := AScan(s_aReport[HEADER], {|arr|arr[3] == cId})
    IF nId > 0
       nRet := Len(s_aReport[HEADER]) - 1
-      ADel( s_aReport[HEADER], nId )
+      ADel(s_aReport[HEADER], nId)
       ASize(s_aReport[HEADER], nRet)
       s_aReport[MARGINS] := .T.
    ENDIF
 
 RETURN nRet
 
-FUNCTION pdfEnableHeader( cId )
+FUNCTION pdfEnableHeader(cId)
 
    LOCAL nId
 
@@ -1481,7 +1481,7 @@ FUNCTION pdfEnableHeader( cId )
 
 RETURN NIL
 
-FUNCTION pdfDisableHeader( cId )
+FUNCTION pdfDisableHeader(cId)
 
    LOCAL nId
 
@@ -1494,14 +1494,14 @@ FUNCTION pdfDisableHeader( cId )
 
 RETURN NIL
 
-FUNCTION pdfSaveHeader( cFile )
+FUNCTION pdfSaveHeader(cFile)
 
    Array2File("temp.tmp", s_aReport[HEADER])
-   COPY FILE temp.tmp TO ( cFile )
+   COPY FILE temp.tmp TO (cFile)
 
 RETURN NIL
 
-FUNCTION pdfHeader( cFunction, cId, arr )
+FUNCTION pdfHeader(cFunction, cId, arr)
 
    LOCAL nId
    LOCAL nI
@@ -1559,16 +1559,16 @@ FUNCTION pdfDrawHeader()
          IF s_aReport[HEADER][nI][1] // enabled
             DO CASE
             CASE s_aReport[HEADER][nI][2] == "PDFATSAY"
-               pdfAtSay( s_aReport[HEADER][nI][4], s_aReport[HEADER][nI][5], s_aReport[HEADER][nI][6], s_aReport[HEADER][nI][7], s_aReport[HEADER][nI][8], s_aReport[HEADER][nI][3] )
+               pdfAtSay(s_aReport[HEADER][nI][4], s_aReport[HEADER][nI][5], s_aReport[HEADER][nI][6], s_aReport[HEADER][nI][7], s_aReport[HEADER][nI][8], s_aReport[HEADER][nI][3])
 
             CASE s_aReport[HEADER][nI][2] == "PDFCENTER"
-               pdfCenter( s_aReport[HEADER][nI][4], s_aReport[HEADER][nI][5], s_aReport[HEADER][nI][6], s_aReport[HEADER][nI][7], s_aReport[HEADER][nI][8], s_aReport[HEADER][nI][3] )
+               pdfCenter(s_aReport[HEADER][nI][4], s_aReport[HEADER][nI][5], s_aReport[HEADER][nI][6], s_aReport[HEADER][nI][7], s_aReport[HEADER][nI][8], s_aReport[HEADER][nI][3])
 
             CASE s_aReport[HEADER][nI][2] == "PDFRJUST"
                pdfRJust(s_aReport[HEADER][nI][4], s_aReport[HEADER][nI][5], s_aReport[HEADER][nI][6], s_aReport[HEADER][nI][7], s_aReport[HEADER][nI][8], s_aReport[HEADER][nI][3])
 
             CASE s_aReport[HEADER][nI][2] == "PDFBOX"
-               pdfBox( s_aReport[HEADER][nI][4], s_aReport[HEADER][nI][5], s_aReport[HEADER][nI][6], s_aReport[HEADER][nI][7], s_aReport[HEADER][nI][8], s_aReport[HEADER][nI][9], s_aReport[HEADER][nI][10], s_aReport[HEADER][nI][3] )
+               pdfBox(s_aReport[HEADER][nI][4], s_aReport[HEADER][nI][5], s_aReport[HEADER][nI][6], s_aReport[HEADER][nI][7], s_aReport[HEADER][nI][8], s_aReport[HEADER][nI][9], s_aReport[HEADER][nI][10], s_aReport[HEADER][nI][3])
 
             CASE s_aReport[HEADER][nI][2] == "PDFSETFONT"
                pdfSetFont(s_aReport[HEADER][nI][4], s_aReport[HEADER][nI][5], s_aReport[HEADER][nI][6], s_aReport[HEADER][nI][3])
@@ -1598,7 +1598,7 @@ FUNCTION pdfDrawHeader()
 
 RETURN NIL
 
-FUNCTION pdfMargins( nTop, nLeft, nBottom )
+FUNCTION pdfMargins(nTop, nLeft, nBottom)
 
    LOCAL nI
    LOCAL nLen := Len(s_aReport[HEADER])
@@ -1626,10 +1626,10 @@ FUNCTION pdfMargins( nTop, nLeft, nBottom )
 
          ELSEIF s_aReport[HEADER][nI][2] == "PDFIMAGE"
             IF s_aReport[HEADER][nI][8] == 0 // picture in header, first at all, not at any page yet
-               aTemp := pdfImageInfo( s_aReport[HEADER][nI][4] )
+               aTemp := pdfImageInfo(s_aReport[HEADER][nI][4])
                nHeight := aTemp[IMAGE_HEIGHT] / aTemp[IMAGE_YRES] * 25.4
                IF s_aReport[HEADER][nI][7] == "D"
-                  nHeight := pdfM2X( nHeight )
+                  nHeight := pdfM2X(nHeight)
                ENDIF
             ELSE
                nHeight := s_aReport[HEADER][nI][8]
@@ -1640,7 +1640,7 @@ FUNCTION pdfMargins( nTop, nLeft, nBottom )
                nTemp := s_aReport[PAGEY] / 72 * 25.4 / 2
 
                IF s_aReport[HEADER][nI][5] < nTemp
-                  nTemp := ( s_aReport[HEADER][nI][5] + nHeight ) * s_aReport[LPI] / 25.4 // top
+                  nTemp := (s_aReport[HEADER][nI][5] + nHeight) * s_aReport[LPI] / 25.4 // top
                   IF nTemp > s_aReport[PDFTOP]
                      s_aReport[PDFTOP] := nTemp
                   ENDIF
@@ -1655,7 +1655,7 @@ FUNCTION pdfMargins( nTop, nLeft, nBottom )
                nTemp := s_aReport[PAGEY] / 2
 
                IF s_aReport[HEADER][nI][5] < nTemp
-                  nTemp := ( s_aReport[HEADER][nI][5] + nHeight ) * s_aReport[LPI] / 72 // top
+                  nTemp := (s_aReport[HEADER][nI][5] + nHeight) * s_aReport[LPI] / 72 // top
                   IF nTemp > s_aReport[PDFTOP]
                      s_aReport[PDFTOP] := nTemp
                   ENDIF
@@ -1684,12 +1684,12 @@ FUNCTION pdfMargins( nTop, nLeft, nBottom )
                ELSEIF s_aReport[HEADER][nI][4] < nTemp .AND. ;
                      s_aReport[HEADER][nI][6] > nTemp
 
-                  nTemp := ( s_aReport[HEADER][nI][4] + s_aReport[HEADER][nI][8] ) * s_aReport[LPI] / 25.4 // top
+                  nTemp := (s_aReport[HEADER][nI][4] + s_aReport[HEADER][nI][8]) * s_aReport[LPI] / 25.4 // top
                   IF nTemp > s_aReport[PDFTOP]
                      s_aReport[PDFTOP] := nTemp
                   ENDIF
 
-                  nTemp := ( s_aReport[HEADER][nI][6] - s_aReport[HEADER][nI][8] ) * s_aReport[LPI] / 25.4 // top
+                  nTemp := (s_aReport[HEADER][nI][6] - s_aReport[HEADER][nI][8]) * s_aReport[LPI] / 25.4 // top
                   IF nTemp < s_aReport[PDFBOTTOM]
                      s_aReport[PDFBOTTOM] := nTemp
                   ENDIF
@@ -1714,12 +1714,12 @@ FUNCTION pdfMargins( nTop, nLeft, nBottom )
                ELSEIF s_aReport[HEADER][nI][4] < nTemp .AND. ;
                      s_aReport[HEADER][nI][6] > nTemp
 
-                  nTemp := ( s_aReport[HEADER][nI][4] + s_aReport[HEADER][nI][8] ) / s_aReport[LPI] // top
+                  nTemp := (s_aReport[HEADER][nI][4] + s_aReport[HEADER][nI][8]) / s_aReport[LPI] // top
                   IF nTemp > s_aReport[PDFTOP]
                      s_aReport[PDFTOP] := nTemp
                   ENDIF
 
-                  nTemp := ( s_aReport[HEADER][nI][6] - s_aReport[HEADER][nI][8] ) / s_aReport[LPI] // top
+                  nTemp := (s_aReport[HEADER][nI][6] - s_aReport[HEADER][nI][8]) / s_aReport[LPI] // top
                   IF nTemp < s_aReport[PDFBOTTOM]
                      s_aReport[PDFBOTTOM] := nTemp
                   ENDIF
@@ -1777,7 +1777,7 @@ FUNCTION pdfMargins( nTop, nLeft, nBottom )
 
 RETURN NIL
 
-FUNCTION pdfCreateHeader( _file, _size, _orient, _lpi, _width )
+FUNCTION pdfCreateHeader(_file, _size, _orient, _lpi, _width)
 
    LOCAL s_aReportStyle := { ;
       { 1, 2, 3, 4,  5,   6    }, ; // "Default"
@@ -1832,60 +1832,60 @@ FUNCTION pdfCreateHeader( _file, _size, _orient, _lpi, _width )
    ENDIF
 
    IF _orient == "P"
-      pdfBox(   5.0, 5.0, 274.0 + nAdd, 210.0,  1.0 )
-      pdfBox(   6.5, 6.5, 272.5 + nAdd, 208.5,  0.5 )
+      pdfBox(5.0, 5.0, 274.0 + nAdd, 210.0, 1.0)
+      pdfBox(6.5, 6.5, 272.5 + nAdd, 208.5, 0.5)
 
-      pdfBox(  11.5, 9.5,  22.0, 205.5,  0.5, 5 )
-      pdfBox(  23.0, 9.5,  33.5, 205.5,  0.5, 5 )
-      pdfBox(  34.5, 9.5, 267.5 + nAdd, 205.5,  0.5 )
+      pdfBox(11.5, 9.5, 22.0, 205.5, 0.5, 5)
+      pdfBox(23.0, 9.5, 33.5, 205.5, 0.5, 5)
+      pdfBox(34.5, 9.5, 267.5 + nAdd, 205.5, 0.5)
 
    ELSE
-      pdfBox(  5.0, 5.0, 210.0, 274.0 + nAdd, 1.0 )
-      pdfBox(  6.5, 6.5, 208.5, 272.5 + nAdd, 0.5 )
+      pdfBox(5.0, 5.0, 210.0, 274.0 + nAdd, 1.0)
+      pdfBox(6.5, 6.5, 208.5, 272.5 + nAdd, 0.5)
 
-      pdfBox( 11.5, 9.5,  22.0, 269.5 + nAdd, 0.5, 5 )
-      pdfBox( 23.0, 9.5,  33.5, 269.5 + nAdd, 0.5, 5 )
-      pdfBox( 34.5, 9.5, 203.5, 269.5 + nAdd, 0.5 )
+      pdfBox(11.5, 9.5, 22.0, 269.5 + nAdd, 0.5, 5)
+      pdfBox(23.0, 9.5, 33.5, 269.5 + nAdd, 0.5, 5)
+      pdfBox(34.5, 9.5, 203.5, 269.5 + nAdd, 0.5)
    ENDIF
 
    pdfSetFont("Helvetica", BOLD, 10) // 0.04
-   pdfAtSay( "Test Line 1", s_aReportStyle[nStyle][1], 1, "R", .T. )
+   pdfAtSay("Test Line 1", s_aReportStyle[nStyle][1], 1, "R", .T.)
 
    pdfSetFont("Times", BOLD, 18)
-   pdfCenter( "Test Line 2", s_aReportStyle[nStyle][2],, "R", .T. )
+   pdfCenter("Test Line 2", s_aReportStyle[nStyle][2],, "R", .T.)
 
    pdfSetFont("Times", BOLD, 12)
-   pdfCenter( "Test Line 3", s_aReportStyle[nStyle][3],, "R", .T. )
+   pdfCenter("Test Line 3", s_aReportStyle[nStyle][3],, "R", .T.)
 
    pdfSetFont("Helvetica", BOLD, 10) // 0.04
-   pdfAtSay( "Test Line 4", s_aReportStyle[nStyle][4], 1, "R", .T. )
+   pdfAtSay("Test Line 4", s_aReportStyle[nStyle][4], 1, "R", .T.)
 
    pdfSetFont("Helvetica", BOLD, 10) // 0.04
-   pdfAtSay( "Test Line 5", s_aReportStyle[nStyle][5], 1, "R", .T. )
+   pdfAtSay("Test Line 5", s_aReportStyle[nStyle][5], 1, "R", .T.)
 
-   pdfAtSay( DToC(Date()) + " " + TimeAsAMPM( Time() ), s_aReportStyle[nStyle][6], 1, "R", .T. )
+   pdfAtSay(DToC(Date()) + " " + TimeAsAMPM( Time() ), s_aReportStyle[nStyle][6], 1, "R", .T.)
    pdfRJust("Page: #pagenumber#", s_aReportStyle[nStyle][6], s_aReport[REPORTWIDTH], "R", .T.)
 
    pdfEditOffHeader()
-   pdfSaveHeader( _file )
+   pdfSaveHeader(_file)
 
 RETURN NIL
 
-FUNCTION pdfImageInfo( cFile )
+FUNCTION pdfImageInfo(cFile)
 
    LOCAL cTemp := Upper(SubStr(cFile, RAt(".", cFile) + 1))
    LOCAL aTemp := {}
 
    DO CASE
    CASE cTemp == "TIF"
-      aTemp := pdfTIFFInfo( cFile )
+      aTemp := pdfTIFFInfo(cFile)
    CASE cTemp == "JPG"
-      aTemp := pdfJPEGInfo( cFile )
+      aTemp := pdfJPEGInfo(cFile)
    ENDCASE
 
 RETURN aTemp
 
-FUNCTION pdfTIFFInfo( cFile )
+FUNCTION pdfTIFFInfo(cFile)
 
    LOCAL c40 := Chr(0) + Chr(0) + Chr(0) + Chr(0)
 
@@ -1927,9 +1927,9 @@ FUNCTION pdfTIFFInfo( cFile )
    cTemp := Space(12)
    // nPages := 0
 
-   WHILE !( cIFDNext == c40 ) // read IFD's
+   WHILE !(cIFDNext == c40) // read IFD's
 
-      nIFD := Bin2L( cIFDNext )
+      nIFD := Bin2L(cIFDNext)
 
       FSeek(nHandle, nIFD)
       // ? "*** IFD " + hb_ntos(++nPages)
@@ -1940,8 +1940,8 @@ FUNCTION pdfTIFFInfo( cFile )
       FOR nn := 1 TO nFields
          FRead(nHandle, @cTemp, 12)
 
-         nTag := Bin2W( SubStr(cTemp, 1, 2) )
-         nFieldType := Bin2W( SubStr(cTemp, 3, 2) )
+         nTag := Bin2W(SubStr(cTemp, 1, 2))
+         nFieldType := Bin2W(SubStr(cTemp, 3, 2))
       /*
       1 = BYTE       8-bit unsigned integer.
       2 = ASCII      8-bit byte that contains a 7-bit ASCII code; the last byte
@@ -1963,11 +1963,11 @@ FUNCTION pdfTIFFInfo( cFile )
       11 = FLOAT     Single precision (4-byte) IEEE format.
       12 = DOUBLE    Double precision (8-byte) IEEE format.
       */
-         nCount := Bin2L( SubStr(cTemp, 5, 4) )
-         nOffset := Bin2L( SubStr(cTemp, 9, 4) )
+         nCount := Bin2L(SubStr(cTemp, 5, 4))
+         nOffset := Bin2L(SubStr(cTemp, 9, 4))
 
          IF nCount > 1 .OR. nFieldType == RATIONAL .OR. nFieldType == SRATIONAL
-            nPos := filepos( nHandle )
+            nPos := filepos(nHandle)
             FSeek(nHandle, nOffset)
 
             nValues := nCount * aCount[nFieldType]
@@ -1982,7 +1982,7 @@ FUNCTION pdfTIFFInfo( cFile )
             --nCount
          ENDIF
          // ? "Tag"
-         // ?? " " + PadR( nTag, 10 )
+         // ?? " " + PadR(nTag, 10)
          // cTag := ""
          DO CASE
          CASE nTag == 256
@@ -2000,9 +2000,9 @@ FUNCTION pdfTIFFInfo( cFile )
             ENDIF
 #endif
             IF nFieldType ==  SHORT
-               nWidth := Bin2W( SubStr(cValues, 1, 2) )
+               nWidth := Bin2W(SubStr(cValues, 1, 2))
             ELSEIF nFieldType ==  LONG
-               nWidth := Bin2L( SubStr(cValues, 1, 4) )
+               nWidth := Bin2L(SubStr(cValues, 1, 4))
             ENDIF
 
          CASE nTag == 257
@@ -2020,9 +2020,9 @@ FUNCTION pdfTIFFInfo( cFile )
             ENDIF
 #endif
             IF nFieldType ==  SHORT
-               nHeight := Bin2W( SubStr(cValues, 1, 2) )
+               nHeight := Bin2W(SubStr(cValues, 1, 2))
             ELSEIF nFieldType ==  LONG
-               nHeight := Bin2L( SubStr(cValues, 1, 4) )
+               nHeight := Bin2L(SubStr(cValues, 1, 4))
             ENDIF
 
          CASE nTag == 258
@@ -2038,7 +2038,7 @@ FUNCTION pdfTIFFInfo( cFile )
             // cTag := "BitsPerSample"
             nTemp := 0
             IF nFieldType == SHORT
-               nTemp := Bin2W( cValues )
+               nTemp := Bin2W(cValues)
             ELSE
                // Alert("Wrong Type for BitsPerSample")
             ENDIF
@@ -2067,7 +2067,7 @@ FUNCTION pdfTIFFInfo( cFile )
             // cTag := "Compression"
             /*nTemp := 0
             IF nFieldType == SHORT
-               nTemp := Bin2W( cValues )
+               nTemp := Bin2W(cValues)
             ELSE
                // Alert("Wrong Type for Compression")
             ENDIF*/
@@ -2090,7 +2090,7 @@ FUNCTION pdfTIFFInfo( cFile )
             // cTag := "PhotometricInterpretation"
             nTemp := -1
             IF nFieldType == SHORT
-               nTemp := Bin2W( cValues )
+               nTemp := Bin2W(cValues)
             ELSE
                // Alert("Wrong Type for PhotometricInterpretation")
             ENDIF
@@ -2154,9 +2154,9 @@ FUNCTION pdfTIFFInfo( cFile )
             ENDIF
 
             IF nFieldType ==  SHORT
-               nFrom := Bin2W( SubStr(cValues, 1, 2) )
+               nFrom := Bin2W(SubStr(cValues, 1, 2))
             ELSEIF nFieldType ==  LONG
-               nFrom := Bin2L( SubStr(cValues, 1, 4) )
+               nFrom := Bin2L(SubStr(cValues, 1, 4))
             ENDIF
 
          CASE nTag == 277
@@ -2202,9 +2202,9 @@ FUNCTION pdfTIFFInfo( cFile )
             ENDIF
 
             IF nFieldType ==  SHORT
-               nLength := Bin2W( SubStr(cValues, 1, 2) )
+               nLength := Bin2W(SubStr(cValues, 1, 2))
             ELSEIF nFieldType ==  LONG
-               nLength := Bin2L( SubStr(cValues, 1, 4) )
+               nLength := Bin2L(SubStr(cValues, 1, 4))
             ENDIF
 
             nLength *= nCount // Count all strips !!!
@@ -2222,7 +2222,7 @@ FUNCTION pdfTIFFInfo( cFile )
             IF nFieldType != RATIONAL
                // Alert("Wrong Type for XResolution")
             ENDIF
-            xRes := Bin2L( SubStr(cValues, 1, 4) )
+            xRes := Bin2L(SubStr(cValues, 1, 4))
          CASE nTag == 283
                /*
                YResolution
@@ -2236,7 +2236,7 @@ FUNCTION pdfTIFFInfo( cFile )
             IF nFieldType != RATIONAL
                // Alert("Wrong Type for YResolution")
             ENDIF
-            yRes := Bin2L( SubStr(cValues, 1, 4) )
+            yRes := Bin2L(SubStr(cValues, 1, 4))
          CASE nTag == 284
             // ?? "PlanarConfiguration"
             // cTag := "PlanarConfiguration"
@@ -2289,7 +2289,7 @@ FUNCTION pdfTIFFInfo( cFile )
             // cTag := "ResolutionUnit"
             nTemp := 0
             IF nFieldType == SHORT
-               nTemp := Bin2W( cValues )
+               nTemp := Bin2W(cValues)
             ELSE
                // Alert("Wrong Type for ResolutionUnit")
             ENDIF
@@ -2384,8 +2384,8 @@ FUNCTION pdfTIFFInfo( cFile )
             // cTag := "Unknown"
          ENDCASE
 #if 0
-         ?? PadR( cTag, 30 )
-         ?? " type " + PadR( aType[nFieldType], 10 ) + " count " + hb_ntos(nCount) + " <"
+         ?? PadR(cTag, 30)
+         ?? " type " + PadR(aType[nFieldType], 10) + " count " + hb_ntos(nCount) + " <"
          DO CASE
          CASE nFieldType ==  BYTE
             FOR nI := 1 TO nCount
@@ -2426,7 +2426,7 @@ FUNCTION pdfTIFFInfo( cFile )
             NEXT
          CASE nFieldType == SRATIONAL
             FOR nI := 1 TO nCount
-               ?? " " + hb_ntos(Bin2L(SubStr(cValues, (nI - 1) * 8 + 1, 4))) + "/" + hb_ntos(Bin2L( SubStr(cValues, nI + 4, 4)))
+               ?? " " + hb_ntos(Bin2L(SubStr(cValues, (nI - 1) * 8 + 1, 4))) + "/" + hb_ntos(Bin2L(SubStr(cValues, nI + 4, 4)))
             NEXT
          CASE nFieldType == FLOAT
          CASE nFieldType == DOUBLE
@@ -2456,7 +2456,7 @@ FUNCTION pdfTIFFInfo( cFile )
 
 RETURN aTemp
 
-FUNCTION pdfJPEGInfo( cFile )
+FUNCTION pdfJPEGInfo(cFile)
 
    LOCAL c255
    LOCAL nAt
@@ -2501,22 +2501,22 @@ FUNCTION pdfJPEGInfo( cFile )
 
 RETURN aTemp
 
-STATIC FUNCTION FilePos( nHandle )
+STATIC FUNCTION FilePos(nHandle)
 RETURN FSeek(nHandle, 0, FS_RELATIVE)
 
 STATIC FUNCTION Chr_RGB(cChar)
 RETURN Str(Asc(cChar) / 255, 4, 2)
 
-STATIC FUNCTION NumToken( cString, cDelimiter )
-RETURN AllToken( cString, cDelimiter )
+STATIC FUNCTION NumToken(cString, cDelimiter)
+RETURN AllToken(cString, cDelimiter)
 
-STATIC FUNCTION Token( cString, cDelimiter, nPointer )
-RETURN AllToken( cString, cDelimiter, nPointer, 1 )
+STATIC FUNCTION Token(cString, cDelimiter, nPointer)
+RETURN AllToken(cString, cDelimiter, nPointer, 1)
 
-STATIC FUNCTION AtToken( cString, cDelimiter, nPointer )
-RETURN AllToken( cString, cDelimiter, nPointer, 2 )
+STATIC FUNCTION AtToken(cString, cDelimiter, nPointer)
+RETURN AllToken(cString, cDelimiter, nPointer, 2)
 
-STATIC FUNCTION AllToken( cString, cDelimiter, nPointer, nAction )
+STATIC FUNCTION AllToken(cString, cDelimiter, nPointer, nAction)
 
    LOCAL nTokens := 0
    LOCAL nPos := 1
@@ -2578,12 +2578,12 @@ STATIC FUNCTION FileSize(nHandle)
    LOCAL nLength
 
    // Get file position
-   nCurrent := FilePos( nHandle )
+   nCurrent := FilePos(nHandle)
 
    // Get file length
    nLength := FSeek(nHandle, 0, FS_END)
 
-   // nLength := FilePos( nHandle )
+   // nLength := FilePos(nHandle)
 
    // Reset file position
    FSeek(nHandle, nCurrent)
@@ -2599,7 +2599,7 @@ STATIC FUNCTION Array2File(cFile, aRay, nDepth, hFile)
 
    nDepth := iif(hb_IsNumeric(nDepth), nDepth, 0)
    IF hFile == NIL
-      IF ( hFile := FCreate(cFile, FC_NORMAL) ) == F_ERROR
+      IF (hFile := FCreate(cFile, FC_NORMAL)) == F_ERROR
          RETURN nBytes
       ENDIF
    ENDIF
@@ -2647,12 +2647,12 @@ STATIC FUNCTION File2Array(cFile, nLen, hFile)
    LOCAL aRay := {}
 
    IF hFile == NIL
-      IF ( hFile := FOpen(cFile, FO_READ) ) == F_ERROR
+      IF (hFile := FOpen(cFile, FO_READ)) == F_ERROR
          RETURN aRay
       ENDIF
       cData := Space(3)
       FRead(hFile, @cData, 3)
-      IF !( Left(cData, 1) == "A" )
+      IF !(Left(cData, 1) == "A")
          RETURN aRay
       ENDIF
       nLen := Bin2I(Right(cData, 2))
@@ -2663,9 +2663,9 @@ STATIC FUNCTION File2Array(cFile, nLen, hFile)
       IF nBytes < 3
          EXIT
       ENDIF
-      cType := PadL( cData, 1 )
+      cType := PadL(cData, 1)
       nDataLen := Bin2I(Right(cData, 2))
-      IF !( cType == "A" )
+      IF !(cType == "A")
          cData := Space(nDataLen)
          nBytes := FRead(hFile, @cData, nDataLen)
          IF nBytes < nDataLen

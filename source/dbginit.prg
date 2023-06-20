@@ -21,7 +21,7 @@ INIT PROCEDURE _DbgInit
    LOCAL nPos
    LOCAL nRows    := 0
 
-   IF hb_FileExists( cIniFile )
+   IF hb_FileExists(cIniFile)
       cIniCont := MemoRead(cIniFile)
       nLines   := MLCount(cIniCont, nLineLen)
       FOR nLine := 1 TO nLines
