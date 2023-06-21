@@ -7,21 +7,21 @@
 -prgflag=-n -w2 -es2 -gc3
 
 source\TsBrowse\c_controlmisc1.cpp
-source\TsBrowse\c_TBrowse.cpp
+source\TsBrowse\c_tbrowse.cpp
 
 source\TsBrowse\h_controlmisc1.prg
 source\TsBrowse\h_controlmisc2.prg
 source\TsBrowse\h_tbrowse.prg
-source\TsBrowse\SBMSG.PRG
-source\TsBrowse\SCRLLBAR.PRG
-source\TsBrowse\TBtnBox.prg
-source\TsBrowse\TComboBox.prg
-source\TsBrowse\TControl.prg
-source\TsBrowse\TCursor.prg
-source\TsBrowse\TDatePicker.prg
-source\TsBrowse\TGetBox.prg
-source\TsBrowse\TSCOLUMN.PRG
-source\TsBrowse\TSMULTI.PRG
+source\TsBrowse\sbmsg.prg
+source\TsBrowse\scrllbar.prg
+source\TsBrowse\tbtnbox.prg
+source\TsBrowse\tcombobox.prg
+source\TsBrowse\tcontrol.prg
+source\TsBrowse\tcursor.prg
+source\TsBrowse\tdatepicker.prg
+source\TsBrowse\tgetbox.prg
+source\TsBrowse\tscolumn.prg
+source\TsBrowse\tsmulti.prg
 
 xhb.hbc
 
