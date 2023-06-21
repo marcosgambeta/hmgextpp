@@ -1389,7 +1389,7 @@ METHOD New(cControlName, nRow, nCol, nWidth, nHeight, bLine, aHeaders, aColSizes
       ParentHandle := GetFormHandle(cParentWnd)
    ENDIF
 
-   DO CASE
+   DO CASE // TODO: switch
    CASE hb_IsChar(uSelector)
       ::lSelector := .T.
       ::hBmpCursor := LoadImage(uSelector)

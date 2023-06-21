@@ -80,9 +80,9 @@ FUNCTION LoadMsg()
       cLang := "FI"
    ENDIF
 
-   DO CASE
+   SWITCH cLang
 
-   CASE cLang == "FR"        // French
+   CASE "FR"        // French
    /////////////////////////////////////////////////////////////
    // FRENCH
    ////////////////////////////////////////////////////////////
@@ -152,7 +152,9 @@ FUNCTION LoadMsg()
                       " Et "  , ;   // ::aMsg[54]
                       " Ou " }      // ::aMsg[55]
 
-   CASE /*cLang == "DEWIN" .OR.*/ cLang == "DE"       // German
+      EXIT
+
+   CASE /*cLang == "DEWIN" .OR.*/ "DE"       // German
    /////////////////////////////////////////////////////////////
    // GERMAN
    ////////////////////////////////////////////////////////////
@@ -222,7 +224,9 @@ FUNCTION LoadMsg()
                       " Und ", ;    // ::aMsg[54]
                       " Oder " }    // ::aMsg[55]
 
-   CASE cLang == "IT"        // Italian
+      EXIT
+
+   CASE "IT"        // Italian
    /////////////////////////////////////////////////////////////
    // ITALIAN
    ////////////////////////////////////////////////////////////
@@ -292,7 +296,9 @@ FUNCTION LoadMsg()
                       " Y ", ;   // ::aMsg[54]
                       " O " }     // ::aMsg[55]
 
-   CASE cLang == "PL" /*.OR. cLang == "PLWIN" .OR. cLang == "PL852" .OR. cLang == "PLISO" .OR. cLang == "PLMAZ"*/   // Polish
+      EXIT
+
+   CASE "PL" /*.OR. cLang == "PLWIN" .OR. cLang == "PL852" .OR. cLang == "PLISO" .OR. cLang == "PLMAZ"*/   // Polish
    /////////////////////////////////////////////////////////////
    // POLISH
    ////////////////////////////////////////////////////////////
@@ -361,7 +367,9 @@ FUNCTION LoadMsg()
                       " I ", ;     // ::aMsg[54]
                       " Lub " }    // ::aMsg[55]
 
-   CASE cLang == "PT"        // Portuguese
+      EXIT
+
+   CASE "PT"        // Portuguese
    /////////////////////////////////////////////////////////////
    // PORTUGUESE
    ////////////////////////////////////////////////////////////
@@ -431,7 +439,9 @@ FUNCTION LoadMsg()
                       " E ", ;     // ::aMsg[54]
                       " Ou " }     // ::aMsg[55]
 
-   CASE cLang == "RU" /*.OR. cLang == "RUWIN" .OR. cLang == "RU866" .OR. cLang == "RUKOI8"*/ // Russian
+      EXIT
+
+   CASE "RU" /*.OR. cLang == "RUWIN" .OR. cLang == "RU866" .OR. cLang == "RUKOI8"*/ // Russian
    /////////////////////////////////////////////////////////////
    // RUSSIAN
    ////////////////////////////////////////////////////////////
@@ -501,7 +511,10 @@ FUNCTION LoadMsg()
                       " » ", ;    // ::aMsg[54]
                       " »ÎË " }   // ::aMsg[55]
 
-   CASE cLang == "UK" .OR. cLang == "UA" /*.OR. cLang == "UAWIN" .OR. cLang == "UA866"*/  // Ukrainian
+      EXIT
+
+   CASE "UK"
+   CASE "UA" /*.OR. cLang == "UAWIN" .OR. cLang == "UA866"*/  // Ukrainian
    /////////////////////////////////////////////////////////////
    // UKRAINIAN
    ////////////////////////////////////////////////////////////
@@ -571,7 +584,9 @@ FUNCTION LoadMsg()
                       " ≤ ", ;    // ::aMsg[54]
                       " ¿·Ó " }   // ::aMsg[55]
 
-   CASE cLang == "SK" /*.OR. cLang == "SKWIN"*/  // Slovak
+      EXIT
+
+   CASE "SK" /*.OR. cLang == "SKWIN"*/  // Slovak
    /////////////////////////////////////////////////////////////
    // SLOVAK
    ////////////////////////////////////////////////////////////
@@ -642,7 +657,9 @@ FUNCTION LoadMsg()
                       " A ", ;                 // ::aMsg[54]
                       " Alebo " }              // ::aMsg[55]
 
-   CASE cLang == "CS" /*.OR. cLang == "CSWIN"*/    // Chech
+      EXIT
+
+   CASE "CS" /*.OR. cLang == "CSWIN"*/    // Chech
    /////////////////////////////////////////////////////////////
    // CZECH
    ////////////////////////////////////////////////////////////
@@ -713,7 +730,9 @@ FUNCTION LoadMsg()
                       " A ", ;                 // ::aMsg[54]
                       " Alebo " }              // ::aMsg[55]
 
-   CASE cLang == "HU" /*.OR. cLang == "HUWIN"*/  // Hungarian
+      EXIT
+
+   CASE "HU" /*.OR. cLang == "HUWIN"*/  // Hungarian
    /////////////////////////////////////////////////////////////
    // HUNGARIAN
    ////////////////////////////////////////////////////////////
@@ -783,7 +802,9 @@ FUNCTION LoadMsg()
                       " Vagy " }                            // ::aMsg[55]
 
 
-   CASE cLang == "HR" /*.OR. cLang == "HRWIN" .OR. cLang == "HR852"*/  // Croatian
+      EXIT
+
+   CASE "HR" /*.OR. cLang == "HRWIN" .OR. cLang == "HR852"*/  // Croatian
    /////////////////////////////////////////////////////////////
    // CROATIAN
    ////////////////////////////////////////////////////////////
@@ -853,7 +874,9 @@ FUNCTION LoadMsg()
                    " I ", ;             // ::aMsg[54]
                    " Ili " }            // ::aMsg[55]
 
-   CASE cLang == "ES" /*.OR. cLang == "ESWIN"*/  // Spanish
+      EXIT
+
+   CASE "ES" /*.OR. cLang == "ESWIN"*/  // Spanish
    /////////////////////////////////////////////////////////////
    // SPANISH
    ////////////////////////////////////////////////////////////
@@ -923,7 +946,9 @@ FUNCTION LoadMsg()
                       " Y ", ;    // ::aMsg[54]
                       " O " }     // ::aMsg[55]
 
-   CASE cLang == "FI"        // Finnish
+      EXIT
+
+   CASE "FI"        // Finnish
    ///////////////////////////////////////////////////////////////////////
    // FINNISH
    ///////////////////////////////////////////////////////////////////////
@@ -993,7 +1018,9 @@ FUNCTION LoadMsg()
                       " And ", ;   // ::aMsg[54]
                       " Or " }     // ::aMsg[55]
 
-   CASE cLang == "NL"        // Dutch
+      EXIT
+
+   CASE "NL"        // Dutch
    /////////////////////////////////////////////////////////////
    // DUTCH
    ////////////////////////////////////////////////////////////
@@ -1061,7 +1088,7 @@ FUNCTION LoadMsg()
                       " En ", ;     // ::aMsg[54]
                       " Of " }      // ::aMsg[55]
 
-   ENDCASE
+   ENDSWITCH
 
 #endif
 

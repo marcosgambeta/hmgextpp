@@ -265,14 +265,11 @@ Return 0
 METHOD GetVal() CLASS TBtnBox
 
    LOCAL retVal
-   LOCAL cType
 
-   cType := ValType(::VarGet())
-
-   DO CASE
-      CASE cType == "C" ; retVal := GetWindowText(::hWnd)
-      CASE cType == "N" ; retVal := Int(Val(GetWindowText(::hWnd)))
-   ENDCASE
+   SWITCH ValType(::VarGet())
+   CASE "C" ; retVal := GetWindowText(::hWnd); EXIT
+   CASE "N" ; retVal := Int(Val(GetWindowText(::hWnd)))
+   ENDSWITCH
 
 RETURN retVal
 
@@ -313,13 +310,13 @@ METHOD Command(nWParam, nLParam) CLASS TBtnBox
             ::nLastKey := VK_RETURN
             ::LostFocus()
             ::oWnd:lPostEdit := .F.
-         
+
          case nNotifyCode == EN_CHANGE
             ::lChanged :=.T.
-         
+
          case nNotifyCode == EN_KILLFOCUS
             ::LostFocus()
-         
+
          case nNotifyCode == EN_UPDATE
             If _GetKeyState(VK_ESCAPE)
                ::KeyDown( VK_ESCAPE, 0 )

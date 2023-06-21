@@ -185,31 +185,33 @@ Return Self
 
 METHOD HandleEvent(nMsg, nWParam, nLParam) CLASS TSBScrlBar
 
-   do case
-      case nMsg == FM_SCROLLUP
-           ::GoUp()
-           Return 0
+   SWITCH nMsg
 
-      case nMsg == FM_SCROLLDOWN
-           ::GoDown()
-           Return 0
+   CASE FM_SCROLLUP
+      ::GoUp()
+      Return 0
 
-      case nMsg == FM_SCROLLPGUP
-           ::PageUp()
-           Return 0
+   CASE FM_SCROLLDOWN
+      ::GoDown()
+      Return 0
 
-      case nMsg == FM_SCROLLPGDN
-           ::PageDown()
-           Return 0
+   CASE FM_SCROLLPGUP
+      ::PageUp()
+      Return 0
 
-      case nMsg == FM_THUMBPOS
-           ::ThumbPos( nWParam )
-           Return 0
+   CASE FM_SCROLLPGDN
+      ::PageDown()
+      Return 0
 
-      case nMsg == FM_THUMBTRACK
-           ::ThumbTrack( nWParam )
-           Return 0
-   endcase
+   CASE FM_THUMBPOS
+      ::ThumbPos( nWParam )
+      Return 0
+
+   CASE FM_THUMBTRACK
+      ::ThumbTrack( nWParam )
+      Return 0
+
+   ENDSWITCH
 
 Return ::Super:HandleEvent(nMsg, nWParam, nLParam)
 

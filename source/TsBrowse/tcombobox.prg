@@ -218,19 +218,21 @@ Return 0
 
 METHOD KeyChar( nKey, nFlags ) CLASS TComboBox
 
-   Do Case
-      Case nKey == VK_TAB
-           Return 0            // We don't want API default behavior
+   SWITCH nKey
 
-      Case nKey == VK_ESCAPE
-           Return 0
+   CASE VK_TAB
+      Return 0            // We don't want API default behavior
 
-      Case nKey == VK_RETURN
-           Return 0
+   CASE VK_ESCAPE
+      Return 0
 
-      Otherwise
-         Return ::Super:Keychar( nKey, nFlags )
-   Endcase
+   CASE VK_RETURN
+      Return 0
+
+   OTHERWISE
+      Return ::Super:Keychar( nKey, nFlags )
+
+   ENDSWITCH
 
 Return 0
 
