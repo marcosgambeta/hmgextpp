@@ -667,7 +667,7 @@ STATIC PROCEDURE CreateThumbNails()
       tFactor := 0.30
    ENDIF
 
-   tWidth        :=_HMG_PRINTER_GETPAGEWIDTH(_hmg_printer_hdc_bak) * tFactor
+   tWidth :=_HMG_PRINTER_GETPAGEWIDTH(_hmg_printer_hdc_bak) * tFactor
    tHeight :=_HMG_PRINTER_GETPAGEHEIGHT(_hmg_printer_hdc_bak) * tFactor
 
    tHeight := Int(tHeight)
@@ -789,7 +789,7 @@ STATIC PROCEDURE _HMG_PRINTER_hScrollBoxProcess()
    LOCAL Sp
 
    Sp := GetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_HORZ)
-   _hmg_printer_Dx        := - ( Sp - 50 ) * 10
+   _hmg_printer_Dx := - (Sp - 50) * 10
    _HMG_PRINTER_PREVIEWRefresh()
 
 RETURN
@@ -801,7 +801,7 @@ STATIC PROCEDURE _HMG_PRINTER_vScrollBoxProcess()
    LOCAL Sp
 
    Sp := GetScrollPos(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT)
-   _hmg_printer_Dy        := - ( Sp - 50 ) * 10
+   _hmg_printer_Dy := - (Sp - 50) * 10
    _HMG_PRINTER_PREVIEWRefresh()
 
 RETURN
@@ -935,12 +935,12 @@ PROCEDURE _HMG_PRINTER_PrintPagesDo()
    IF _HMG_PRINTER_PrintPages.Radio_1.Value == 1
 
       PageFrom := 1
-      PageTo         := _hmg_printer_PageCount
+      PageTo := _hmg_printer_PageCount
 
    ELSEIF _HMG_PRINTER_PrintPages.Radio_1.Value == 2
 
       PageFrom := _HMG_PRINTER_PrintPages.Spinner_1.Value
-      PageTo         := _HMG_PRINTER_PrintPages.Spinner_2.Value
+      PageTo := _HMG_PRINTER_PrintPages.Spinner_2.Value
 
       IF _HMG_PRINTER_PrintPages.Combo_1.Value == 2
          OddOnly := .T.
@@ -1096,11 +1096,11 @@ RETURN
 
 Function GetPrinter()
 
-   LOCAL RetVal                := ""
-   LOCAL Printers                := asort (aPrinters())
-   LOCAL cDefaultPrinter        := GetDefaultPrinter()
+   LOCAL RetVal := ""
+   LOCAL Printers := asort (aPrinters())
+   LOCAL cDefaultPrinter := GetDefaultPrinter()
    LOCAL i
-   LOCAL nInitPosition        := 0
+   LOCAL nInitPosition := 0
 
    FOR i := 1 TO Len(Printers)
 
@@ -1242,10 +1242,10 @@ RETURN
 
 PROCEDURE _HMG_PRINTER_H_IMAGE(nHdc, cImage, nRow, nCol, nHeight, nWidth, lStretch, lTransparent)
 
-   nRow        := Int(nRow * 10000 / 254)
-   nCol        := Int(nCol * 10000 / 254)
-   nWidth        := Int(nWidth * 10000 / 254)
-   nHeight        := Int(nHeight * 10000 / 254)
+   nRow := Int(nRow * 10000 / 254)
+   nCol := Int(nCol * 10000 / 254)
+   nWidth := Int(nWidth * 10000 / 254)
+   nHeight := Int(nHeight * 10000 / 254)
 
    _HMG_PRINTER_C_IMAGE(nHdc, cImage, nRow, nCol, nHeight, nWidth, lStretch, lTransparent)
 
@@ -1255,15 +1255,15 @@ RETURN
 
 PROCEDURE _HMG_PRINTER_H_LINE(nHdc, nRow, nCol, nToRow, nToCol, nWidth, nColor1, nColor2, nColor3, lwidth, lcolor, nstyle)
 
-   nRow        := Int(nRow * 10000 / 254)
-   nCol        := Int(nCol * 10000 / 254)
-   nToRow        := Int(nToRow * 10000 / 254)
-   nToCol        := Int(nToCol * 10000 / 254)
+   nRow := Int(nRow * 10000 / 254)
+   nCol := Int(nCol * 10000 / 254)
+   nToRow := Int(nToRow * 10000 / 254)
+   nToCol := Int(nToCol * 10000 / 254)
 
    DEFAULT nstyle TO 0
 
    IF nWidth != NIL
-      nWidth        := Int(nWidth * 10000 / 254)
+      nWidth := Int(nWidth * 10000 / 254)
    ELSEIF nstyle > 0
       SWITCH nstyle
       CASE 1 ; nWidth := 1  ; EXIT
@@ -1282,13 +1282,13 @@ RETURN
 
 PROCEDURE _HMG_PRINTER_H_RECTANGLE(nHdc, nRow, nCol, nToRow, nToCol, nWidth, nColor1, nColor2, nColor3, lwidth, lcolor, lfilled, lnoborder)
 
-   nRow        := Int(nRow * 10000 / 254)
-   nCol        := Int(nCol * 10000 / 254)
-   nToRow        := Int(nToRow * 10000 / 254)
-   nToCol        := Int(nToCol * 10000 / 254)
+   nRow := Int(nRow * 10000 / 254)
+   nCol := Int(nCol * 10000 / 254)
+   nToRow := Int(nToRow * 10000 / 254)
+   nToCol := Int(nToCol * 10000 / 254)
 
    IF nWidth != NIL
-      nWidth        := Int(nWidth * 10000 / 254)
+      nWidth := Int(nWidth * 10000 / 254)
    ENDIF
 
    _HMG_PRINTER_C_RECTANGLE(nHdc, nRow, nCol, nToRow, nToCol, nWidth, nColor1, nColor2, nColor3, lwidth, lcolor, lfilled, lnoborder)
@@ -1299,13 +1299,13 @@ RETURN
 
 PROCEDURE _HMG_PRINTER_H_ROUNDRECTANGLE(nHdc, nRow, nCol, nToRow, nToCol, nWidth, nColor1, nColor2, nColor3, lwidth, lcolor, lfilled)
 
-   nRow        := Int(nRow * 10000 / 254)
-   nCol        := Int(nCol * 10000 / 254)
-   nToRow        := Int(nToRow * 10000 / 254)
-   nToCol        := Int(nToCol * 10000 / 254)
+   nRow := Int(nRow * 10000 / 254)
+   nCol := Int(nCol * 10000 / 254)
+   nToRow := Int(nToRow * 10000 / 254)
+   nToCol := Int(nToCol * 10000 / 254)
 
    IF nWidth != NIL
-      nWidth        := Int(nWidth * 10000 / 254)
+      nWidth := Int(nWidth * 10000 / 254)
    ENDIF
 
    _HMG_PRINTER_C_ROUNDRECTANGLE(nHdc, nRow, nCol, nToRow, nToCol, nWidth, nColor1, nColor2, nColor3, lwidth, lcolor, lfilled)
