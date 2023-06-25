@@ -677,7 +677,7 @@ FUNCTION DB_CODE(cData, cKey, aFields, cPass, cFor, cWhile)
             aString[i] := _ENCRYPT(FieldGet(FieldPos(aFields[i])), cPass)
          NEXT
 
-         SKIP                              // Evaluate condition in next record
+         dbSkip()                          // Evaluate condition in next record
          cVal := &cSeek
       ENDDO
 

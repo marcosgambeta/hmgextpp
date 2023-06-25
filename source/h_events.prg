@@ -1214,16 +1214,16 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                   IF SkipCount > (RecordCount / 2)
                      dbGoBottom()
-                     SKIP - (RecordCount - SkipCount)
+                     dbSkip(-(RecordCount - SkipCount))
                   ELSE
                      dbGoTop()
                      IF SkipCount > 1
-                        SKIP SkipCount - RecCount() / 100
+                        dbSkip(SkipCount - RecCount() / 100)
                      ENDIF
                   ENDIF
 
                   IF EOF()
-                     SKIP -1
+                     dbSkip(-1)
                   ENDIF
 
                   nr := RecNo()

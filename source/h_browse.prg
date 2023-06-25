@@ -950,7 +950,7 @@ PROCEDURE _BrowsePrior(ControlName , ParentForm , z)
       _RecNo := RecNo()
 
       dbGoTo(_BrowseRecMap[1])
-      Skip - LISTVIEWGETCOUNTPERPAGE(_BrowseHandle) + 1
+      dbSkip(-LISTVIEWGETCOUNTPERPAGE(_BrowseHandle) + 1)
 
       _BrowseVscrollUpdate(i)
       _BrowseUpdate("", "", i)
@@ -1045,7 +1045,7 @@ PROCEDURE _BrowseEnd(ControlName, ParentForm, z)
    _BottomRec := RecNo()
 
    _BrowseVscrollUpdate(i)
-   Skip - LISTVIEWGETCOUNTPERPAGE(_BrowseHandle) + 1
+   dbSkip(-LISTVIEWGETCOUNTPERPAGE(_BrowseHandle) + 1)
 
    _BrowseUpdate("", "", i)
    ListView_Scroll(_BrowseHandle , _DeltaScroll[2] * (-1) , 0)
@@ -1093,7 +1093,7 @@ PROCEDURE _BrowseUp(ControlName , ParentForm , z)
       _RecNo := RecNo()
 
       dbGoTo(_BrowseRecMap[1])
-      Skip - 1
+      dbSkip(-1)
 
       IF !(_BrowseRecMap[1] == RecNo())  // BAA 18-Mar-2012
          _BrowseVscrollUpdate(i)
@@ -1267,7 +1267,7 @@ PROCEDURE _BrowseRefresh(ControlName , ParentForm , z)
    _BrowseVscrollUpdate(i)
 
    IF s != 0
-      Skip - s + 1
+      dbSkip(-s + 1)
    ENDIF
 
    _BrowseUpdate("", "", i)
@@ -1359,7 +1359,7 @@ PROCEDURE _BrowseSetValue(ControlName, ParentForm, Value, z, mp)
          _BrowseVscrollUpdate(i)
       ENDIF
 
-      Skip - m + 1
+      dbSkip(-m + 1)
 
    ENDIF
 
@@ -1455,7 +1455,7 @@ FUNCTION _BrowseDelete(ControlName, ParentForm, z)
             IF EOF()
                dbGoBottom()
             ELSEIF !SET (_SET_DELETED)
-               SKIP -1
+               dbSkip(-1)
             ENDIF
          ELSE
             MsgStop(_HMG_BRWLangError[9], _HMG_BRWLangMessage[2])
@@ -1469,7 +1469,7 @@ FUNCTION _BrowseDelete(ControlName, ParentForm, z)
          IF EOF()
             dbGoBottom()
          ELSEIF !SET (_SET_DELETED)
-            SKIP -1
+            dbSkip(-1)
          ENDIF
 
       ENDIF
@@ -2769,7 +2769,7 @@ STATIC PROCEDURE _BrowseInPlaceAppend(ControlName, ParentForm, z)
 
    IF LISTVIEWGETITEMCOUNT(_HMG_aControlhandles[i]) != 0
       _BrowseVscrollUpdate(i)
-      Skip - LISTVIEWGETCOUNTPERPAGE(_HMG_aControlhandles[i]) + 2
+      dbSkip(-LISTVIEWGETCOUNTPERPAGE(_HMG_aControlhandles[i]) + 2)
       _BrowseUpdate("" , "" , i)
    ENDIF
 
