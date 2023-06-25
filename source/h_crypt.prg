@@ -690,7 +690,7 @@ FUNCTION DB_CODE(cData, cKey, aFields, cPass, cFor, cWhile)
    ENDDO
 
    SELECT &cTmpAlias
-   GO TOP
+   dbGoTop()
    DO WHILE !EOF()
       cVal := &cSeek
       SELECT &cAlias

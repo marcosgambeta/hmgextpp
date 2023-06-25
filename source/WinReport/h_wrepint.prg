@@ -413,14 +413,14 @@ Function StampeEsegui(_MainArea,_psd,db_arc,_prw)
                sele (oWr:aStat["area1"])
                dbskip()
          enddo
-         go top
+         dbGoTop()
          if amx_pg[1] != 0
             while !eof()
                   sele (DB_ARC)
                   set filter to &strFLT
                   miocont ++
                   mx_pg  := aMx_pg[miocont]
-                  go top
+                  dbGoTop()
                   nPgr := 0
                   while !eof()
                         oWr:TheHead()
@@ -439,7 +439,7 @@ Function StampeEsegui(_MainArea,_psd,db_arc,_prw)
    Endif
 
    if oneatleast
-      go top
+      dbGoTop()
       oWr:TheHead()
       oWr:TheFeet()
    endif

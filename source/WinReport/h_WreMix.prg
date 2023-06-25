@@ -266,13 +266,13 @@ Test(mkm)
                   sele (oWr:aStat["area1"])
                   dbskip()
             enddo
-            go top
+            dbGoTop()
             while !eof()
                  sele (DB_ARC)
                  set filter to &strFLT
                  miocont ++
                  mx_pg:=aMx_pg[miocont]
-                 go top
+                 dbGoTop()
                  nPgr:=0
                  while !eof()
                        oWr:TheMiniHead()
@@ -286,7 +286,7 @@ Test(mkm)
             enddo
          endif
          if oneatleast
-            go top
+            dbGoTop()
             oWr:TheMiniHead()
             oWr:TheMiniBody()
          endif

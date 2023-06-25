@@ -571,7 +571,7 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
    ENDIF
 
    IF xSkipProcedure == NIL
-      GO TOP
+      dbGoTop()
    ENDIF
 
    xPreviousGroupExpression := ""

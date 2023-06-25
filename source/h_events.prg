@@ -1216,7 +1216,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                      GO BOTTOM
                      SKIP - (RecordCount - SkipCount)
                   ELSE
-                     GO TOP
+                     dbGoTop()
                      IF SkipCount > 1
                         SKIP SkipCount - RecCount() / 100
                      ENDIF

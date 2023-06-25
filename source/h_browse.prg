@@ -488,7 +488,7 @@ STATIC PROCEDURE HMG_OrdCreate(i)
    NEXT
 
    ordSetFocus(0)
-   GO TOP
+   dbGoTop()
 
    RestoreWorkArea(_Alias)
 
@@ -998,7 +998,7 @@ PROCEDURE _BrowseHome(ControlName, ParentForm, z)
    Select &_BrowseArea
 
    _RecNo := RecNo()
-   GO TOP
+   dbGoTop()
 
    _BrowseVscrollUpdate(i)
    _BrowseUpdate("", "", i)
@@ -1241,13 +1241,13 @@ PROCEDURE _BrowseRefresh(ControlName , ParentForm , z)
 
       IF IndexOrd() != 0
          IF ordKeyVal() == NIL
-            GO TOP
+            dbGoTop()
          ENDIF
       ENDIF
 
       IF SET (_SET_DELETED)
          IF Deleted()
-            GO TOP
+            dbGoTop()
          ENDIF
       ENDIF
 
