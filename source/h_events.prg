@@ -1213,7 +1213,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                   SkipCount := Int(HIWORD(wParam) * RecordCount / GetScrollRangeMax(_HMG_aControlIds[i], 2))
 
                   IF SkipCount > (RecordCount / 2)
-                     GO BOTTOM
+                     dbGoBottom()
                      SKIP - (RecordCount - SkipCount)
                   ELSE
                      dbGoTop()

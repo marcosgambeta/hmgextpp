@@ -752,7 +752,7 @@ PROCEDURE _BrowseUpdate(ControlName, ParentName, z)
 
       IF EOF()
          _HMG_aControlContainerHandle[i] := 1
-         GO BOTTOM
+         dbGoBottom()
          EXIT
       ENDIF
 
@@ -1041,7 +1041,7 @@ PROCEDURE _BrowseEnd(ControlName, ParentForm, z)
    Select &_BrowseArea
 
    _RecNo := RecNo()
-   GO BOTTOM
+   dbGoBottom()
    _BottomRec := RecNo()
 
    _BrowseVscrollUpdate(i)
@@ -1453,7 +1453,7 @@ FUNCTION _BrowseDelete(ControlName, ParentForm, z)
             SKIP
 
             IF EOF()
-               GO BOTTOM
+               dbGoBottom()
             ELSEIF !SET (_SET_DELETED)
                SKIP -1
             ENDIF
@@ -1467,7 +1467,7 @@ FUNCTION _BrowseDelete(ControlName, ParentForm, z)
          SKIP
 
          IF EOF()
-            GO BOTTOM
+            dbGoBottom()
          ELSEIF !SET (_SET_DELETED)
             SKIP -1
          ENDIF
@@ -1582,7 +1582,7 @@ FUNCTION _BrowseEdit(GridHandle , aValid , aValidMessages , aReadOnly , lock , a
 
    IF append != NIL
       IF append
-         GO BOTTOM
+         dbGoBottom()
          SKIP
       ELSE
          dbGoTo(item)
@@ -2763,7 +2763,7 @@ STATIC PROCEDURE _BrowseInPlaceAppend(ControlName, ParentForm, z)
    Select &_BrowseArea
 
    _RecNo := RecNo()
-   GO BOTTOM
+   dbGoBottom()
 
    _NewRec := RecCount() + 1
 
