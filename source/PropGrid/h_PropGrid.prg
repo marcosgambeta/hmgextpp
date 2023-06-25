@@ -2470,7 +2470,7 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
          CASE PG_USERFUN
             cValue := GetWindowText(hWnd)
             cData := PG_GETITEM(hWndPG, hItem, PGI_DATA)
-            bData := &( cData )
+            bData := &(cData)
             cValue := Eval(bData, cValue)
             IF cValue != NIL .AND. hb_IsChar(cValue)
                SetWindowText(hWnd, cValue)

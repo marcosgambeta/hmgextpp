@@ -1199,7 +1199,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                BackArea := Alias()
                BrowseArea := _HMG_aControlSpacing[i]
 
-               IF Select (BrowseArea) != 0
+               IF Select(BrowseArea) != 0
 
                   Select &BrowseArea
                   BackRec := RecNo()
@@ -1232,7 +1232,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                   GO BackRec
 
-                  IF Select (BackArea) != 0
+                  IF Select(BackArea) != 0
                      Select &BackArea
                   ELSE
                      Select 0

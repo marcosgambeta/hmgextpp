@@ -215,7 +215,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
       IF lCreateIndex
 
-         dbCreateIndex( cIndexName, cIndexKey, ( &( "{||" + cIndexKey + "}" ) ) )
+         dbCreateIndex(cIndexName, cIndexKey, (&("{||" + cIndexKey + "}")))
 
       ENDIF
 

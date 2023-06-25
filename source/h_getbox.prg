@@ -116,8 +116,8 @@ FUNCTION _DefineGetBox(ControlName, ParentFormName, x, y, w, h, Value, ;
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name.")
       ELSE
          WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
-         IF Select ( WorkArea ) != 0
-            Value := &( Field )
+         IF Select(WorkArea) != 0
+            Value := &(Field)
          ENDIF
       ENDIF
    ENDIF
@@ -409,7 +409,7 @@ PROCEDURE _DataGetBoxRefresh(i)
    
    LOCAL Field := _HMG_aControlPageMap[i]
 
-   _SetGetBoxValue(i, _HMG_aControlHandles[i], iif(Field == NIL, _HMG_aControlValue[i], &( Field )))
+   _SetGetBoxValue(i, _HMG_aControlHandles[i], iif(Field == NIL, _HMG_aControlValue[i], &(Field)))
 
 RETURN
 
@@ -426,10 +426,10 @@ PROCEDURE _DataGetBoxSave(ControlName, ParentForm)
 
    oGet:SetFocus()
    Field := _HMG_aControlPageMap[i]
-   &( Field ) := _GetValue(ControlName, ParentForm)
+   &(Field) := _GetValue(ControlName, ParentForm)
 
    oGet:VarPut(&(Field))
-   oGet:cargo := &( Field )
+   oGet:cargo := &(Field)
 
    IF oGet:type == "D"
       oGet:buffer := DToC(oGet:cargo)

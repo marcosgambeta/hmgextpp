@@ -40,9 +40,9 @@ FUNCTION OSend(oObject, cMsg, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10)
       RETURN uResult
    ELSE
       IF SubStr(cMsg, 1, 1) == "_"
-         RETURN oObject:&( SubStr(cMsg, 2) ) := u1
+         RETURN oObject:&(SubStr(cMsg, 2)) := u1
       ELSE
-         RETURN oObject:&( cMsg )
+         RETURN oObject:&(cMsg)
       ENDIF
    ENDIF
 
@@ -110,7 +110,7 @@ FUNCTION ORead(cInfo)
    nPos       += 2
    cClassName := SubStr(cInfo, nPos, nLen)
    nPos       += nLen
-   oObj       := &( cClassName + "()" )
+   oObj       := &(cClassName + "()")
 
    oObj:New()
    oObj:Load(SubStr(cInfo, nPos))

@@ -93,7 +93,7 @@ FUNCTION _DefineCheckBox(ControlName, ParentFormName, x, y, Caption, Value, ;
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name.")
       ELSE
          WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
-         IF Select (WorkArea) != 0
+         IF Select(WorkArea) != 0
             Value := &(Field)
          ENDIF
       ENDIF

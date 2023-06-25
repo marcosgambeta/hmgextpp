@@ -116,8 +116,8 @@ FUNCTION _DefineRichEditBoxEx(ControlName, ;
          MsgHMGError("Control: " + ControlName + " Of " + ParentForm + " : You must specify a fully qualified field name.")
       ELSE
          WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
-         IF SELECT ( WorkArea ) != 0
-            value := &( Field )
+         IF SELECT(WorkArea) != 0
+            value := &(Field)
          ENDIF
       ENDIF
    ENDIF

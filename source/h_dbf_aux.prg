@@ -292,7 +292,7 @@ FUNCTION HMG_RecToHash( cFieldList, cNames )
 
    aNames := hb_ATokens(cNames, ",")
 
-   aVals := &( "{" + cFieldList + "}" )
+   aVals := &("{" + cFieldList + "}")
 
    AEval(aVals, {|u, i|hSet(hRec, aNames[i], u)}, , Len(aNames))
 

@@ -94,8 +94,8 @@ FUNCTION _DefineDatePick(ControlName, ParentFormName, x, y, w, h, value, ;
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified Field name.")
       ELSE
          WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
-         IF Select ( WorkArea ) != 0
-            value := &( Field )
+         IF Select(WorkArea) != 0
+            value := &(Field)
          ENDIF
       ENDIF
    ENDIF
@@ -331,8 +331,8 @@ FUNCTION _DefineTimePick(ControlName, ParentFormName, x, y, w, h, value, ;
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified Field name.")
       ELSE
          WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
-         IF Select ( WorkArea ) != 0
-            value := &( Field )
+         IF Select(WorkArea) != 0
+            value := &(Field)
          ENDIF
       ENDIF
    ENDIF

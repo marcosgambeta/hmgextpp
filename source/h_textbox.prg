@@ -92,8 +92,8 @@ FUNCTION _DefineTextBox(ControlName, ParentFormName, x, y, w, h, ;
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name.")
       ELSE
          WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
-         IF Select ( WorkArea ) != 0
-            cValue := &( Field )
+         IF Select(WorkArea) != 0
+            cValue := &(Field)
          ENDIF
       ENDIF
    ENDIF
@@ -360,8 +360,8 @@ FUNCTION _DefineMaskedTextbox(ControlName, ParentFormName, x, y, inputmask, w, ;
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name.")
       ELSE
          WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
-         IF Select ( WorkArea ) != 0
-            Value := &( Field )
+         IF Select(WorkArea) != 0
+            Value := &(Field)
          ENDIF
       ENDIF
    ENDIF
@@ -663,8 +663,8 @@ FUNCTION _DefineCharMaskTextbox(ControlName, ParentFormName, x, y, inputmask , ;
          MsgMiniGuiError("Control: " + ControlName + " Of " + ParentFormName + " : You must specify a fully qualified field name.")
       ELSE
          WorkArea := hb_ULeft(Field, hb_UAt(">", Field) - 2)
-         IF Select ( WorkArea ) != 0
-            Value := &( Field )
+         IF Select(WorkArea) != 0
+            Value := &(Field)
          ENDIF
       ENDIF
    ENDIF

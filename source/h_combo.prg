@@ -380,7 +380,7 @@ FUNCTION InitDialogComboBox(ParentName, ControlHandle, k)
 
    IF hb_IsChar(WorkArea)
 
-      IF Select (WorkArea) != 0
+      IF Select(WorkArea) != 0
 
          BackRec := (WorkArea)->(RecNo())
 

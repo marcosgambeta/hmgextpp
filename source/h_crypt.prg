@@ -649,8 +649,8 @@ FUNCTION DB_CODE(cData, cKey, aFields, cPass, cFor, cWhile)
    cTmpAlias := Alias()
 
    Select &cAlias
-   DO WHILE !EOF() .AND. &( cWhile )
-      IF !&( cFor )                          // Select records that meet for condition
+   DO WHILE !EOF() .AND. &(cWhile)
+      IF !&(cFor)                          // Select records that meet for condition
          SKIP
          LOOP
       ENDIF
@@ -668,7 +668,7 @@ FUNCTION DB_CODE(cData, cKey, aFields, cPass, cFor, cWhile)
       cBuf := &cSeek
       cVal := cBuf
       DO WHILE cBuf = cVal .AND. !EOF()    // Evaluate records with same key
-         IF !&( cFor )                       // Evaluate For condition within
+         IF !&(cFor)                       // Evaluate For condition within
             SKIP
             LOOP
          ENDIF

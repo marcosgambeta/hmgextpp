@@ -892,7 +892,7 @@ PROCEDURE _BrowseNext(ControlName , ParentForm , z)
 
       _Alias := Alias()
       _BrowseArea := _HMG_aControlSpacing[i]
-      IF Select (_BrowseArea) == 0
+      IF Select(_BrowseArea) == 0
          RETURN
       ENDIF
       Select &_BrowseArea
@@ -943,7 +943,7 @@ PROCEDURE _BrowsePrior(ControlName , ParentForm , z)
 
       _Alias := Alias()
       _BrowseArea := _HMG_aControlSpacing[i]
-      IF Select (_BrowseArea) == 0
+      IF Select(_BrowseArea) == 0
          RETURN
       ENDIF
       Select &_BrowseArea
@@ -991,7 +991,7 @@ PROCEDURE _BrowseHome(ControlName, ParentForm, z)
    _Alias := Alias()
    _BrowseArea := _HMG_aControlSpacing[i]
 
-   IF Select (_BrowseArea) == 0
+   IF Select(_BrowseArea) == 0
       RETURN
    ENDIF
 
@@ -1034,7 +1034,7 @@ PROCEDURE _BrowseEnd(ControlName, ParentForm, z)
    _Alias := Alias()
    _BrowseArea := _HMG_aControlSpacing[i]
 
-   IF Select (_BrowseArea) == 0
+   IF Select(_BrowseArea) == 0
       RETURN
    ENDIF
 
@@ -1085,7 +1085,7 @@ PROCEDURE _BrowseUp(ControlName , ParentForm , z)
       _Alias := Alias()
       _BrowseArea := _HMG_aControlSpacing[i]
 
-      IF Select (_BrowseArea) == 0
+      IF Select(_BrowseArea) == 0
          RETURN
       ENDIF
 
@@ -1157,7 +1157,7 @@ PROCEDURE _BrowseDown(ControlName , ParentForm , z)
       _Alias := Alias()
       _BrowseArea := _HMG_aControlSpacing[i]
 
-      IF Select (_BrowseArea) == 0
+      IF Select(_BrowseArea) == 0
          RETURN
       ENDIF
 
@@ -1219,7 +1219,7 @@ PROCEDURE _BrowseRefresh(ControlName , ParentForm , z)
    _Alias := Alias()
    _BrowseArea := _HMG_aControlSpacing[i]
 
-   IF Select (_BrowseArea) == 0
+   IF Select(_BrowseArea) == 0
       ListViewReset(_BrowseHandle)
       RETURN
    ENDIF
@@ -1307,7 +1307,7 @@ PROCEDURE _BrowseSetValue(ControlName, ParentForm, Value, z, mp)
    _Alias := Alias()
    _BrowseArea := _HMG_aControlSpacing[i]
 
-   IF Select (_BrowseArea) == 0
+   IF Select(_BrowseArea) == 0
       RETURN
    ENDIF
 
@@ -1389,7 +1389,7 @@ FUNCTION _BrowseGetValue(ControlName, ParentForm, z)
 
    _BrowseArea := _HMG_aControlSpacing[i]
 
-   IF Select (_BrowseArea) == 0
+   IF Select(_BrowseArea) == 0
       RETURN 0
    ENDIF
 
@@ -1431,7 +1431,7 @@ FUNCTION _BrowseDelete(ControlName, ParentForm, z)
    lock := _HMG_aControlInputMask[i]
    _BrowseArea := _HMG_aControlSpacing[i]
 
-   IF Select (_BrowseArea) == 0
+   IF Select(_BrowseArea) == 0
       RETURN NIL
    ENDIF
 
@@ -2169,7 +2169,7 @@ STATIC FUNCTION _BrowseInPlaceEdit(GridHandle , aValid , aValidMessages , aReadO
    ENDIF
 
    // If the specified area does not exists, when return
-   IF Select (_GridWorkArea) == 0
+   IF Select(_GridWorkArea) == 0
       RETURN NIL
    ENDIF
 
@@ -2712,7 +2712,7 @@ STATIC PROCEDURE _BrowseSync(i)
 
    _Alias := Alias()
    _BrowseArea := _HMG_aControlSpacing[i]
-   IF Select (_BrowseArea) == 0
+   IF Select(_BrowseArea) == 0
       RETURN
    ENDIF
    Select &_BrowseArea
@@ -2756,7 +2756,7 @@ STATIC PROCEDURE _BrowseInPlaceAppend(ControlName, ParentForm, z)
    _Alias := Alias()
    _BrowseArea := _HMG_aControlSpacing[i]
 
-   IF Select (_BrowseArea) == 0
+   IF Select(_BrowseArea) == 0
       RETURN
    ENDIF
 
