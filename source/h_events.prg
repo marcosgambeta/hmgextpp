@@ -1230,7 +1230,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                   SetScrollPos(_HMG_aControlIds[i], 2, HIWORD(wParam), .T.)
 
-                  GO BackRec
+                  dbGoTo(BackRec)
 
                   IF Select(BackArea) != 0
                      Select &BackArea

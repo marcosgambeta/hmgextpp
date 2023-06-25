@@ -706,6 +706,6 @@ FUNCTION DB_CODE(cData, cKey, aFields, cPass, cFor, cWhile)
    USE                                     // Close target file
    FErase(cTmpFile)
    SELECT &cAlias                          // Select prior file
-   GO nRecno
+   dbGoTo(nRecno)
 
 RETURN NIL

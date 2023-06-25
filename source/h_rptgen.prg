@@ -815,7 +815,7 @@ PROCEDURE ExecuteReport(cReportName, lPreview, lSelect, cOutputFileName)
    ENDIF
 
    IF xSkipProcedure == NIL
-      GO nPreviousRecNo
+      dbGoTo(nPreviousRecNo)
    ENDIF
 
 RETURN
