@@ -35,7 +35,7 @@ STATIC FUNCTION NetLock( nType, lReleaseLocks, nSeconds )
 
    s_lNetOk := .F.
 
-   WHILE nSeconds > 0
+   DO WHILE nSeconds > 0
 
       IF Eval(bOperation, xIdentifier)
          lSuccess  := .T.

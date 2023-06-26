@@ -352,8 +352,8 @@ FUNCTION _TBrowse(oParam, uAlias, cBrw, nY, nX, nW, nH)
 
    IF _IsControlDefined(cBrw, cForm)
       i := 0
-      WHILE _IsControlDefined(j := cBrw + "_" + hb_ntos(++i), cForm)
-      END
+      DO WHILE _IsControlDefined(j := cBrw + "_" + hb_ntos(++i), cForm)
+      ENDDO
       cBrw := j
    ENDIF
 

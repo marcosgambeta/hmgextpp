@@ -1595,7 +1595,7 @@ METHOD AddColumn(oColumn) CLASS TSBrowse
          nOcurs := 1
          cRest := SubStr(cHeading, nAt + 2)
 
-         WHILE (nAt := At(Chr(13), cRest)) > 0
+         DO WHILE (nAt := At(Chr(13), cRest)) > 0
             nOcurs++
             cRest := SubStr(cRest, nAt + 2)
          ENDDO
@@ -1619,7 +1619,7 @@ METHOD AddColumn(oColumn) CLASS TSBrowse
          nOcurs := 1
          cRest := SubStr(cHeading, nAt + 2)
 
-         WHILE (nAt := At(Chr(13), cRest)) > 0
+         DO WHILE (nAt := At(Chr(13), cRest)) > 0
             nOcurs++
             cRest := SubStr(cRest, nAt + 2)
          ENDDO
@@ -2452,7 +2452,7 @@ METHOD AddSuperHead(nFromCol, nToCol, uHead, nHeight, aColors, l3dLook, uFont, u
       nOcurs := 1
       cRest := SubStr(cHeading, nAt + 2)
 
-      WHILE (nAt := At(Chr(13), cRest)) > 0
+      DO WHILE (nAt := At(Chr(13), cRest)) > 0
          nOcurs++
          cRest := SubStr(cRest, nAt + 2)
       ENDDO
@@ -2668,12 +2668,12 @@ METHOD DbSkipper(nToSkip) CLASS TSBrowse
       // (::cAlias)->(dbSkip(0))
    ELSEIF nToSkip > 0 .AND. !(::cAlias)->(Eof()) // going down
 
-      WHILE nSkipped < nToSkip
+      DO WHILE nSkipped < nToSkip
 
          (::cAlias)->(dbSkip(1))
 
          IF ::bFilter != NIL
-            While !Eval(::bFilter) .AND. !(::cAlias)->(Eof())
+            DO WHILE !Eval(::bFilter) .AND. !(::cAlias)->(Eof())
                (::cAlias)->(dbSkip(1))
             ENDDO
          ENDIF
@@ -2694,12 +2694,12 @@ METHOD DbSkipper(nToSkip) CLASS TSBrowse
 
    ELSEIF nToSkip < 0 .AND. !(::cAlias)->(Bof()) // going up
 
-      WHILE nSkipped > nToSkip
+      DO WHILE nSkipped > nToSkip
 
          (::cAlias)->(dbSkip(-1))
 
          IF ::bFilter != NIL .AND. !(::cAlias)->(Bof())
-            While !Eval(::bFilter) .AND. !(::cAlias)->(Bof())
+            DO WHILE !Eval(::bFilter) .AND. !(::cAlias)->(Bof())
                (::cAlias)->(dbSkip(-1))
             ENDDO
 
@@ -3995,7 +3995,7 @@ METHOD DrawIcons() CLASS TSBrowse
    SetBkColor(::hDC, CLR_BLUE)
    SetTextColor(::hDC, CLR_WHITE)
 
-   WHILE n <= nIcons .AND. !(::cAlias)->(Eof())
+   DO WHILE n <= nIcons .AND. !(::cAlias)->(Eof())
       IF ::bIconDraw != NIL .AND. ::aIcons != NIL
          hIcon := ::aIcons[Eval(::bIconDraw, Self)]
       ENDIF
@@ -5038,7 +5038,7 @@ METHOD DrawSuper(lDrawCell) CLASS TSBrowse
 
    nBegin := nI := 1
 
-   WHILE nI <= Len(aSuperHead)
+   DO WHILE nI <= Len(aSuperHead)
 
       IF aSuperHead[nI, 1] > nBegin
          nJ := aSuperHead[nI, 1] - 1
@@ -5569,7 +5569,7 @@ METHOD Edit(uVar, nCell, nKey, nKeyFlags, cPicture, bValid, nClrFore, nClrBack) 
 
       nTxtHeight := SBGetHeight(::hWnd, iif(hFont != NIL, hFont, 0), 0)
 
-      WHILE (nRow + (nTxtHeight * nHeight)) > aRct[4]
+      DO WHILE (nRow + (nTxtHeight * nHeight)) > aRct[4]
          nRow -= nTxtHeight
       ENDDO
 
@@ -6968,7 +6968,7 @@ METHOD ExpLocate(cExp, nCol) CLASS TSBrowse
          ::nRowPos := nLines
          ::nAt := ::nLogicPos()
 
-         WHILE ::nRowPos > 1 .AND. (::cAlias)->(RecNo()) != nRecNo
+         DO WHILE ::nRowPos > 1 .AND. (::cAlias)->(RecNo()) != nRecNo
             ::Skip(-1)
             ::nRowPos--
          ENDDO
@@ -6984,7 +6984,7 @@ METHOD ExpLocate(cExp, nCol) CLASS TSBrowse
       Eval(::bGoTop)
       ::nAt := ::nRowPos := 1
 
-      WHILE nRecNo != (::cAlias)->(RecNo())
+      DO WHILE nRecNo != (::cAlias)->(RecNo())
          ::Skip(1)
          ::nRowPos++
       ENDDO
@@ -7255,7 +7255,7 @@ METHOD ExpSeek(cExp, lSoft) CLASS TSBrowse
          ::nRowPos := nLines
          ::nAt := ::nLogicPos()
 
-         WHILE ::nRowPos > 1 .AND. (::cAlias)->(RecNo()) != nRecNo
+         DO WHILE ::nRowPos > 1 .AND. (::cAlias)->(RecNo()) != nRecNo
             ::Skip(-1)
             ::nRowPos--
          ENDDO
@@ -7273,7 +7273,7 @@ METHOD ExpSeek(cExp, lSoft) CLASS TSBrowse
       Eval(::bGoTop)
       ::nAt := ::nRowPos := 1
 
-      WHILE nRecNo != (::cAlias)->(RecNo())
+      DO WHILE nRecNo != (::cAlias)->(RecNo())
          ::Skip(1)
          ::nRowPos++
       ENDDO
@@ -7487,7 +7487,7 @@ METHOD GoBottom() CLASS TSBrowse
       Eval(::bGoBottom)
 
       IF ::bFilter != NIL
-         While !Eval(::bFilter) .AND. !Bof()
+         DO WHILE !Eval(::bFilter) .AND. !Bof()
             (::cAlias)->(dbSkip(-1))
          ENDDO
       ENDIF
@@ -7829,7 +7829,7 @@ METHOD GoLeft() CLASS TSBrowse
       nCell := ::nCell
       nSkip := 0
 
-      WHILE nCell > (iif(lLock, ::nFreeze + 1, 1))
+      DO WHILE nCell > (iif(lLock, ::nFreeze + 1, 1))
 
          nCell--
          nSkip++
@@ -7844,7 +7844,7 @@ METHOD GoLeft() CLASS TSBrowse
          RETURN Self
       ENDIF
 
-      WHILE ::nColPos > (::nFreeze + 1) .AND. !::IsColVisible(nCell)
+      DO WHILE ::nColPos > (::nFreeze + 1) .AND. !::IsColVisible(nCell)
          lDraw := .T.
          ::nColPos--
       ENDDO
@@ -7927,7 +7927,7 @@ METHOD GoNext() CLASS TSBrowse
             ::DrawLine()
          ENDIF
       ELSE
-         While !::IsColVisible(nFirst) .AND. ::nColPos < nFirst
+         DO WHILE !::IsColVisible(nFirst) .AND. ::nColPos < nFirst
             ::nColPos++
          ENDDO
 
@@ -7967,7 +7967,7 @@ METHOD GoNext() CLASS TSBrowse
       ::nColPos := Min(nFirst, ::nFreeze + 1)
       ::nCell := nFirst
 
-      WHILE ::nColPos < ::nCell .AND. !::IsColVisible(::nCell)
+      DO WHILE ::nColPos < ::nCell .AND. !::IsColVisible(::nCell)
          ::nColPos++
       ENDDO
 
@@ -8039,7 +8039,7 @@ METHOD GoPos(nNewRow, nNewCol) CLASS TSBrowse
       ::nAt := nNewRow
    ELSEIF Empty(::nLogicPos())
 
-      WHILE ::nAt != nNewRow
+      DO WHILE ::nAt != nNewRow
 
          IF ::nAt < nNewRow
             ::Skip(1)
@@ -8072,7 +8072,7 @@ METHOD GoPos(nNewRow, nNewCol) CLASS TSBrowse
             Eval(::bGoBottom)
             ::nRowPos := nTotRow
 
-            WHILE ::nRowPos > 1 .AND. (cAlias)->(RecNo()) != nRecNo
+            DO WHILE ::nRowPos > 1 .AND. (cAlias)->(RecNo()) != nRecNo
                ::Skip(-1)
                ::nRowPos--
             ENDDO
@@ -8088,7 +8088,7 @@ METHOD GoPos(nNewRow, nNewCol) CLASS TSBrowse
             Eval(::bGoBottom)
             ::nRowPos := nTotRow
 
-            WHILE ::nRowPos > 1 .AND. ::nAt != nNewRow
+            DO WHILE ::nRowPos > 1 .AND. ::nAt != nNewRow
                ::Skip(-1)
                ::nRowPos--
             ENDDO
@@ -8126,7 +8126,7 @@ METHOD GoPos(nNewRow, nNewCol) CLASS TSBrowse
 
    IF nNewCol != nOldCol
 
-      While !::IsColVisible(nNewCol) .AND. ::nColpos >= 1 .AND. ::nColPos < Len(::aColumns)
+      DO WHILE !::IsColVisible(nNewCol) .AND. ::nColpos >= 1 .AND. ::nColPos < Len(::aColumns)
 
          IF nNewCol < ::nCell
             ::nColPos--
@@ -8207,7 +8207,7 @@ METHOD GoRight() CLASS TSBrowse
       nCell := ::nCell
       nSkip := 0
 
-      WHILE nCell < Len(::aColumns)
+      DO WHILE nCell < Len(::aColumns)
          nCell++
          nSkip++
          IF nCell <= Len(::aColumns) .AND. !::aColumns[nCell]:lNoHilite
@@ -8219,7 +8219,7 @@ METHOD GoRight() CLASS TSBrowse
          RETURN Self
       ENDIF
 
-      WHILE nSkip > 0
+      DO WHILE nSkip > 0
          ::nCell++
          nSkip--
       ENDDO
@@ -8228,7 +8228,7 @@ METHOD GoRight() CLASS TSBrowse
          lRefresh := (::lCanAppend .AND. ::lIsArr)
       ENDIF
 
-      While !::IsColVisible(::nCell) .AND. ::nColPos < ::nCell
+      DO WHILE !::IsColVisible(::nCell) .AND. ::nColPos < ::nCell
          ::nColPos++
          lRefresh := .T.
       ENDDO
@@ -8380,7 +8380,7 @@ METHOD GoTop() CLASS TSBrowse
       Eval(::bGoTop)
 
       IF ::bFilter != NIL
-         While !Eval(::bFilter) .AND. !Eof()
+         DO WHILE !Eval(::bFilter) .AND. !Eof()
             (::cAlias)->(dbSkip(1))
          ENDDO
       ENDIF
@@ -9689,7 +9689,7 @@ METHOD nAtCol(nColPixel, lActual) CLASS TSBrowse
       ENDIF
    ENDIF
 
-   WHILE nPos < nColPixel .AND. nColumn < ::nColCount()
+   DO WHILE nPos < nColPixel .AND. nColumn < ::nColCount()
       IF ::aColumns[nColumn + 1]:lVisible // skip hidden columns
          nPos += aSizes[nColumn + 1]
       ENDIF
@@ -10004,7 +10004,7 @@ METHOD HScroll(nWParam, nLParam) CLASS TSBrowse
    CASE SB_PAGEDOWN
       nCol := ::nColPos + 1
 
-      WHILE ::IsColVisible(nCol) .AND. nCol <= Len(::aColumns)
+      DO WHILE ::IsColVisible(nCol) .AND. nCol <= Len(::aColumns)
          ++nCol
       ENDDO
 
@@ -10015,7 +10015,7 @@ METHOD HScroll(nWParam, nLParam) CLASS TSBrowse
       ELSE
 
          nCol := Len(::aColumns)
-         While !::IsColVisible(nCol) .AND. ::nColPos < nCol
+         DO WHILE !::IsColVisible(nCol) .AND. ::nColPos < nCol
             ::nColPos++
          ENDDO
          ::nCell := nCol
@@ -10275,11 +10275,11 @@ METHOD IsColVisible(nCol) CLASS TSBrowse
 
    xVar := 1
 
-   WHILE xVar <= ::nFreeze
+   DO WHILE xVar <= ::nFreeze
       nWidth += aColSizes[xVar++]
    ENDDO
 
-   WHILE nWidth < nBrwWidth .AND. nLastCol <= nCol .AND. nLastCol <= nCols
+   DO WHILE nWidth < nBrwWidth .AND. nLastCol <= nCol .AND. nLastCol <= nCols
       nWidth += aColSizes[nLastCol]
       nLastCol++
    ENDDO
@@ -10999,7 +10999,7 @@ METHOD MouseWheel(nKeys, nDelta, nXPos, nYPos) CLASS TSBrowse
 
       ENDIF
 
-      WHILE nDelta > 1
+      DO WHILE nDelta > 1
          ::VScroll(nWParam, 0)
          nDelta--
       ENDDO
@@ -11432,7 +11432,7 @@ METHOD Paint() CLASS TSBrowse
 
    ::nLastPainted := 0
 
-   WHILE nI <= nLines .AND. nSkipped == 1
+   DO WHILE nI <= nLines .AND. nSkipped == 1
 
       IF ::nRowPos == nI
          ::DrawSelect()
@@ -11830,7 +11830,7 @@ METHOD Proper(cString) CLASS TSBrowse
    cAnt := "."
    cTxt := ""
 
-   WHILE nPos <= Len(cString)
+   DO WHILE nPos <= Len(cString)
       cChr := SubStr(cString, nPos, 1)
       cTxt += iif(cAnt $ (Chr(34) + ".,-/ ("), Upper(cChr), iif(Asc(cChr) == 209, Chr(241), cChr))
       cAnt := cChr
@@ -12773,7 +12773,7 @@ METHOD Seek(nKey) CLASS TSBrowse
                   Eval(::bGoBottom)
                   ::nRowPos := nLines
 
-                  WHILE ::nRowPos > 1 .AND. (::cAlias)->(RecNo()) != nRecNo
+                  DO WHILE ::nRowPos > 1 .AND. (::cAlias)->(RecNo()) != nRecNo
                      ::Skip(-1)
                      ::nRowPos--
                   ENDDO
@@ -12789,7 +12789,7 @@ METHOD Seek(nKey) CLASS TSBrowse
                Eval(::bGoTop)
                ::nAt := ::nRowPos := 1
 
-               WHILE nRecNo != (::cAlias)->(RecNo())
+               DO WHILE nRecNo != (::cAlias)->(RecNo())
                   ::Skip(1)
                   ::nRowPos++
                ENDDO
@@ -12890,7 +12890,7 @@ METHOD Seek(nKey) CLASS TSBrowse
                   Eval(::bGoBottom)
                   ::nRowPos := nLines
 
-                  WHILE ::nRowPos > 1 .AND. ::nAt != nRecNo
+                  DO WHILE ::nRowPos > 1 .AND. ::nAt != nRecNo
                      ::Skip(-1)
                      ::nRowPos--
                   ENDDO
@@ -12905,7 +12905,7 @@ METHOD Seek(nKey) CLASS TSBrowse
                Eval(::bGoTop)
                ::nAt := ::nRowPos := 1
 
-               WHILE nRecNo != ::nAt
+               DO WHILE nRecNo != ::nAt
                   ::Skip(1)
                   ::nRowPos++
                ENDDO
@@ -15015,7 +15015,7 @@ METHOD UpStable() CLASS TSBrowse
          Eval(::bGoBottom)
          ::nRowPos := nRows
 
-         WHILE ::nRowPos > 1 .AND. (::cAlias)->(RecNo()) != nRecNo
+         DO WHILE ::nRowPos > 1 .AND. (::cAlias)->(RecNo()) != nRecNo
             ::Skip(-1)
             ::nRowPos--
          ENDDO
@@ -15034,7 +15034,7 @@ METHOD UpStable() CLASS TSBrowse
    ::lHitBottom := .F.
    ::GoTop()
 
-   While !(::cAlias)->(Eof())
+   DO WHILE !(::cAlias)->(Eof())
 
       IF n > nRows
          ::nRowPos := nRow
@@ -15462,7 +15462,7 @@ STATIC FUNCTION AutoHeaders(nCols)
    cHead := "A"
    nChg := 1
 
-   WHILE nCols > 0
+   DO WHILE nCols > 0
 
       FOR nEle := 1 TO Min(26, nCols)
          AAdd(aHead, cHead + aBCD[nEle])
@@ -15550,7 +15550,7 @@ STATIC FUNCTION BrwGoBottom(uExpr, oBrw)
       (oBrw:cAlias)->(dbSkip(-1))
    ENDIF
 
-   WHILE oBrw:bFilter != NIL .AND. !Eval(oBrw:bFilter) .AND. !(oBrw:cAlias)->(Bof())
+   DO WHILE oBrw:bFilter != NIL .AND. !Eval(oBrw:bFilter) .AND. !(oBrw:cAlias)->(Bof())
       (oBrw:cAlias)->(dbSkip(-1))
    ENDDO
 
@@ -15566,7 +15566,7 @@ STATIC FUNCTION BrwGoTop(oBrw)
 
    (oBrw:cAlias)->(dbSeek(oBrw:uValue1, .T.))
 
-   WHILE oBrw:bFilter != NIL .AND. !Eval(oBrw:bFilter) .AND. !(oBrw:cAlias)->(Eof())
+   DO WHILE oBrw:bFilter != NIL .AND. !Eval(oBrw:bFilter) .AND. !(oBrw:cAlias)->(Eof())
       (oBrw:cAlias)->(dbSkip(1))
    ENDDO
 
@@ -15857,12 +15857,12 @@ STATIC FUNCTION BrwGoTo(n, bWhile, oTb)
    LOCAL nSkipped := 0
    LOCAL nDirection := iif(n > 0, 1, -1)
 
-   WHILE nSkipped != n .AND. Eval(bWhile) .AND. !(oTb:cAlias)->(Eof()) .AND. !(oTb:cAlias)->(Bof())
+   DO WHILE nSkipped != n .AND. Eval(bWhile) .AND. !(oTb:cAlias)->(Eof()) .AND. !(oTb:cAlias)->(Bof())
       (oTb:cAlias)->(dbSkip(nDirection))
       nSkipped += nDirection
 
       IF oTb:bFilter != NIL
-         While !Eval(oTb:bFilter) .AND. !(oTb:cAlias)->(Eof()) .AND. !(oTb:cAlias)->(Bof())
+         DO WHILE !Eval(oTb:bFilter) .AND. !(oTb:cAlias)->(Eof()) .AND. !(oTb:cAlias)->(Bof())
             (oTb:cAlias)->(dbSkip(nDirection))
          ENDDO
       ENDIF
@@ -15872,7 +15872,7 @@ STATIC FUNCTION BrwGoTo(n, bWhile, oTb)
    CASE (oTb:cAlias)->(Eof())
       (oTb:cAlias)->(dbSkip(-1))
 
-      WHILE oTb:bFilter != NIL .AND. !Eval(oTb:bFilter) .AND. !(oTb:cAlias)->(Bof())
+      DO WHILE oTb:bFilter != NIL .AND. !Eval(oTb:bFilter) .AND. !(oTb:cAlias)->(Bof())
          (oTb:cAlias)->(dbSkip(-1))
       ENDDO
 
@@ -15888,7 +15888,7 @@ STATIC FUNCTION BrwGoTo(n, bWhile, oTb)
    CASE (oTb:cAlias)->(Bof())
       (oTb:cAlias)->(dbGoto((oTb:cAlias)->(RecNo())))
 
-      WHILE oTb:bFilter != NIL .AND. !Eval(oTb:bFilter) .AND. !(oTb:cAlias)->(Eof())
+      DO WHILE oTb:bFilter != NIL .AND. !Eval(oTb:bFilter) .AND. !(oTb:cAlias)->(Eof())
          (oTb:cAlias)->(dbSkip(1))
       ENDDO
 
@@ -15903,7 +15903,7 @@ STATIC FUNCTION BrwGoTo(n, bWhile, oTb)
          (oTb:cAlias)->(dbGoto(0)) // phantom record
       ELSE
          (oTb:cAlias)->(dbSkip(-nDirection))
-         WHILE oTb:bFilter != NIL .AND. !Eval(oTb:bFilter) .AND. !(oTb:cAlias)->(Bof()) .AND. !(oTb:cAlias)->(Eof())
+         DO WHILE oTb:bFilter != NIL .AND. !Eval(oTb:bFilter) .AND. !(oTb:cAlias)->(Bof()) .AND. !(oTb:cAlias)->(Eof())
             (oTb:cAlias)->(dbSkip(-nDirection))
          ENDDO
 
@@ -16167,7 +16167,7 @@ STATIC FUNCTION SetHeights(oBrw)
             nOcurs := 1
             cRest := SubStr(cHeading, nAt + 2)
 
-            WHILE (nAt := At(Chr(13), cRest)) > 0
+            DO WHILE (nAt := At(Chr(13), cRest)) > 0
                nOcurs++
                cRest := SubStr(cRest, nAt + 2)
             ENDDO
@@ -16214,7 +16214,7 @@ STATIC FUNCTION SetHeights(oBrw)
             nOcurs := 1
             cRest := SubStr(cHeading, nAt + 2)
 
-            WHILE (nAt := At(Chr(13), cRest)) > 0
+            DO WHILE (nAt := At(Chr(13), cRest)) > 0
                nOcurs++
                cRest := SubStr(cRest, nAt + 2)
             ENDDO
@@ -16375,7 +16375,7 @@ STATIC FUNCTION IdentSuper(aHeaders, oBrw)
       nSel := 1
    ENDIF
 
-   WHILE nI <= Len(aHeaders)
+   DO WHILE nI <= Len(aHeaders)
       IF hb_IsChar(aHeaders[nI]) .AND. At("~", aHeaders[nI]) > 0
          cSuper := SubStr(aHeaders[nI], At("~", aHeaders[nI]) + 1)
          aHeaders[nI] := SubStr(aHeaders[nI], 1, At("~", aHeaders[nI]) - 1)
@@ -16448,7 +16448,7 @@ METHOD UpAStable() CLASS TSBrowse
          Eval(::bGoBottom)
          ::nRowPos := nRows
 
-         WHILE ::nRowPos > 1 .AND. !lAEqual(::aArray[::nAt], nRecNo)
+         DO WHILE ::nRowPos > 1 .AND. !lAEqual(::aArray[::nAt], nRecNo)
             ::Skip(-1)
             ::nRowPos--
          ENDDO
@@ -16464,7 +16464,7 @@ METHOD UpAStable() CLASS TSBrowse
    ::lHitBottom := .F.
    Eval(::bGoTop)
 
-   While !::Eof()
+   DO WHILE !::Eof()
 
       IF n > nRows
          ::nRowPos := nRow
@@ -16516,7 +16516,7 @@ METHOD lRSeek(uData, nFld, lSoft) CLASS TSBrowse
 
    DEFAULT lSoft := .F.
 
-   WHILE nInf <= nSup
+   DO WHILE nInf <= nSup
       nCen := Int((nSup + nInf) / 2)
       Eval(::bGoToPos, nCen)
 
@@ -16555,7 +16555,7 @@ METHOD UpRStable(nRecNo) CLASS TSBrowse
       IF Eval(::bBof) // ::EoF()
          Eval(::bGoBottom)
          ::nRowPos := nRows
-         WHILE ::nRowPos > 1 .AND. nRecNo != Eval(::bRecNo)
+         DO WHILE ::nRowPos > 1 .AND. nRecNo != Eval(::bRecNo)
             ::Skip(-1)
             ::nRowPos--
          ENDDO
@@ -16574,7 +16574,7 @@ METHOD UpRStable(nRecNo) CLASS TSBrowse
    ::lHitBottom := .F.
    ::GoTop()
 
-   While !::Eof()
+   DO WHILE !::Eof()
 
       IF n > nRows
          ::nRowPos := nRow
@@ -17098,7 +17098,7 @@ STATIC FUNCTION cAnsi2Bmp(cAnsi)
    LOCAL cLong
    LOCAL cBmp := ""
 
-   WHILE Len(cAnsi) >= 8
+   DO WHILE Len(cAnsi) >= 8
       cLong := Left(cAnsi, 8)
       cBmp += cHex2Bin(cAnsi2Hex(cLong))
       cAnsi := Stuff(cAnsi, 1, 8, "")
@@ -17121,7 +17121,7 @@ STATIC FUNCTION cAnsi2Hex(cAnsi)
 
    cAnsi := AllTrim(cAnsi)
 
-   WHILE Len(cAnsi) >= 2
+   DO WHILE Len(cAnsi) >= 2
       cDig := Left(cAnsi, 2)
       cHex := cDig + cHex
       cAnsi := Stuff(cAnsi, 1, 2, "")

@@ -846,8 +846,8 @@ METHOD Breadth( nW, k ) CLASS TDlu2Pix
    IF hb_IsChar(nW) ; nW := ::TextWidth(nW)
    ENDIF
 
-   WHILE nW > ( nWidth += ::W( hb_defaultValue(k, 0.5) ) )
-   END
+   DO WHILE nW > ( nWidth += ::W( hb_defaultValue(k, 0.5) ) )
+   ENDDO
 
 RETURN nWidth
 

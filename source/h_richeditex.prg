@@ -376,7 +376,7 @@ FUNCTION RichEditBox_ReplaceAllText(hWndControl, cFind, cReplace, lMatchCase, lW
    
    LOCAL aPos := { 0, 0 }
 
-   WHILE aPos[1] != -1
+   DO WHILE aPos[1] != -1
       aPos := RichEditBox_ReplaceText(hWndControl, cFind, cReplace, lMatchCase, lWholeWord, lSelectFindText)
       DO EVENTS
    ENDDO

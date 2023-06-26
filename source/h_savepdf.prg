@@ -89,7 +89,7 @@ FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
 
       nPage := 0
       // start main loop
-      WHILE ++nPage <= Min( nPages, MAX_IMAGE )
+      DO WHILE ++nPage <= Min( nPages, MAX_IMAGE )
          cPage := aPages[nPage]
 
          hBitmap := BT_BitmapLoadEMF( cPage, WHITE )
@@ -117,7 +117,7 @@ FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
             lRet := .F.
             EXIT
          ENDIF
-      END
+      ENDDO
 
       IF lRet
          IF !( HPDF_SaveToFile(hDoc, cPdfFile) == 0 )

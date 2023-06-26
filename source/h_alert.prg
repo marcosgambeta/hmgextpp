@@ -110,8 +110,8 @@ FUNCTION HMG_Alert(cMsg, aOptions, cTitle, nType, cIcoFile, nIcoSize, aBtnColors
 
    IF _IsWindowDefined(cForm)
       nLineas := 0
-      WHILE _IsWindowDefined(cForm := "oDlg" + hb_ntos(++nLineas))
-      END
+      DO WHILE _IsWindowDefined(cForm := "oDlg" + hb_ntos(++nLineas))
+      ENDDO
    ENDIF
 
    hb_default(@aBackColor, nRGB2Arr(GetSysColor(COLOR_BTNFACE)))
@@ -348,8 +348,8 @@ STATIC FUNCTION FillDlg(cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors,
 
    IF nHeightDlg > GetDesktopRealHeight()
       n := 0
-      WHILE (nHeightDlg - (nChrHeight * (++n))) > GetDesktopRealHeight()
-      END
+      DO WHILE (nHeightDlg - (nChrHeight * (++n))) > GetDesktopRealHeight()
+      ENDDO
       nMaxHeight := nChrHeight * n
       nMaxLines  -= n
       nHeightDlg -= nMaxHeight

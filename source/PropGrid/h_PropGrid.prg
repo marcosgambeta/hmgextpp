@@ -991,7 +991,7 @@ FUNCTION ExpandPG(hWndPG, typ)
    
    SetFocus(hWndPG)
    hItem := PG_GetRoot(hWndPG)
-   WHILE !empty(hItem)
+   DO WHILE !empty(hItem)
       IF PG_GetItem(hWndPG, hItem, PGI_TYPE) ==  PG_CATEG
          DO CASE
          CASE typ == 0
@@ -1529,7 +1529,7 @@ FUNCTION CreatePropXml( ParentForm, ControlName )
    oXmlDoc:add(oXmlNodeAkt)
    AAdd(aNode, oXmlNodeAkt)
    AAdd(aLev, hParentItem)
-   WHILE !empty(hItem)
+   DO WHILE !empty(hItem)
       hParentItem := TreeView_GetParent(hWndPG, hItem)   // Parent Item
       aItemRt := PG_GetItem(hWndPG, hItem, PGI_ALLDATA)
       IF aItemRt[PGI_CHG]
@@ -1561,10 +1561,10 @@ RETURN oXmlDoc
 *------------------------------------------------------------------------------*
 FUNCTION GetNextItemPG(hWndPG, hItem)
 *------------------------------------------------------------------------------*
-   
+
    LOCAL TypePG
    LOCAL hItemParent
-   
+
    TypePG := PG_GetItem(hWndPG, hItem, PGI_TYPE)
    hItemParent := hItem
    hItem := PG_GetNextItem(hWndPG, hItem)
@@ -1660,7 +1660,7 @@ FUNCTION CreatePropFile(ParentForm, ControlName, cFile)
       hItem := PG_GetRoot(hWndPG)
       hParentItem := TreeView_GetParent(hWndPG, hItem)      // Parent Item
       AAdd(aLev, hParentItem)
-      WHILE !empty(hItem)
+      DO WHILE !empty(hItem)
          aItemRt := PG_GetItem(hWndPG, hItem, PGI_ALLDATA)
          IF aItemRt[PGI_CHG]
             Pg_ChangeItem(hWndPG, hItem, .F.)
@@ -1697,7 +1697,7 @@ FUNCTION CreateIniFile(ParentForm, ControlName, cFile)
    IF _BeginIni(cFile) == 0
       lRet := .T.
       hItem := PG_GetRoot(hWndPG)
-      WHILE !empty(hItem)
+      DO WHILE !empty(hItem)
          aItemRt := PG_GetItem(hWndPG, hItem, PGI_ALLDATA)
          IF aItemRt[PGI_CHG]
             Pg_ChangeItem(hWndPG, hItem, .F.)
@@ -1736,7 +1736,7 @@ FUNCTION SaveMemVarible(ParentForm, ControlName)
    ENDIF
    hWndPG := GetPGControlHandle(ControlName, ParentForm)
    hItem := PG_GetRoot(hWndPG)
-   WHILE !empty(hItem)
+   DO WHILE !empty(hItem)
       aItemRt := PG_GetItem(hWndPG, hItem, PGI_ALLDATA)
       IF aItemRt[PGI_CHG]
          cVar := aItemRt[PGI_VAR]
@@ -1774,7 +1774,7 @@ FUNCTION GetChangedItem( ParentForm, ControlName )
    ENDIF
    hWndPG := GetPGControlHandle(ControlName, ParentForm)
    hItem := PG_GetRoot(hWndPG)
-   WHILE !empty(hItem)
+   DO WHILE !empty(hItem)
       IF PG_GetItem(hWndPG, hItem, PGI_CHG)
          AAdd(aRetItem, PG_GetItem(hWndPG, hItem,PGI_ID))
       ENDIF
@@ -2257,7 +2257,7 @@ FUNCTION _LoadProperty(cFile, k)
    oFile := TFileRead():New( cFile )
    oFile:Open()
    IF !oFile:Error()
-      WHILE oFile:MoreToRead()
+      DO WHILE oFile:MoreToRead()
          cLine := oFile:ReadLine()
          IF !Empty(cLine)
             IF cExt == "txt"
@@ -2272,7 +2272,7 @@ FUNCTION _LoadProperty(cFile, k)
             ENDIF
             AAdd(aProperty, aLine)
          ENDIF
-      END WHILE
+      ENDDO
       oFile:Close()
       _HMG_aControlCaption[k] := cFile
    ENDIF

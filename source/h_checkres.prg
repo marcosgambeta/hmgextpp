@@ -11,10 +11,10 @@ FUNCTION MGAddResource(nHResource, cType)
    LOCAL n := 3
    LOCAL cInfo := ""
 
-   WHILE !Empty(ProcName(n))
+   DO WHILE !Empty(ProcName(n))
       cInfo += ProcName(n) + "(" + hb_ntos(ProcLine(n)) + ")->"
       n++
-   END
+   ENDDO
 
    IF !Empty(cInfo)
       cInfo := SubStr(cInfo, 1, Len(cInfo) - 2)

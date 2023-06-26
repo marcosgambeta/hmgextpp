@@ -535,7 +535,7 @@ FUNCTION InitPageFldProc(hWndParent, hwndDlg, idDlg)
             IF hb_IsLogical(aDialogItems[n, 20]) .AND. aDialogItems[n, 20]
                AAdd(_HMG_ActiveTabCurrentPageMap, Controlhandle)
                IF aDialogItems[n, 21]
-                  WHILE Len(_HMG_ActiveTabFullPageMap) + 1 < aDialogItems[n, 22]
+                  DO WHILE Len(_HMG_ActiveTabFullPageMap) + 1 < aDialogItems[n, 22]
                      AAdd(_HMG_ActiveTabFullPageMap, {})
                   ENDDO
                   AAdd(_HMG_ActiveTabFullPageMap, _HMG_ActiveTabCurrentPageMap)

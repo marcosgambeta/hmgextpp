@@ -177,7 +177,7 @@ if ::oSocket:SendString( "LIST" +CHR(13)+CHR(10) )
    // Banner
    //## check if is ok
    ::oSocket:ReceiveLine()
-   while .T.
+   DO WHILE .T.
       cMsg := ::oSocket:ReceiveLine()
       if cMsg=="."
          exit
@@ -187,7 +187,7 @@ if ::oSocket:SendString( "LIST" +CHR(13)+CHR(10) )
       cMsgID := alltrim(substr(cMsg, 1, nSpace))
       cSize  := alltrim(substr(cMsg, nSpace))
       aadd(aRet, {cMsgID, val(cSize)})
-   enddo
+   ENDDO
 
    if lFullInfo
       for nPos := 1 to len(aRet)
@@ -215,13 +215,13 @@ if ::oSocket:SendString( "TOP " +cMessageID +" 0" +CHR(13)+CHR(10) )
    // Banner
    //## check if is ok
    ::oSocket:ReceiveLine()
-   while .T.
+   DO WHILE .T.
       cMsg := ::oSocket:ReceiveLine()
       if cMsg=="."
          exit
       endif
       cRet += cMsg +CHR(13)+CHR(10)
-   enddo
+   ENDDO
 endif
 return cRet
 
@@ -236,13 +236,13 @@ if ::oSocket:SendString( "RETR " +cMessageID +CHR(13)+CHR(10) )
    // Banner
    //## check if is ok
    ::oSocket:ReceiveLine()
-   while .T.
+   DO WHILE .T.
       cMsg := ::oSocket:ReceiveLine()
       if cMsg=="."
          exit
       endif
       cRet += cMsg +CHR(13)+CHR(10)
-   enddo
+   ENDDO
 endif
 return cRet
 

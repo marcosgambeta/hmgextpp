@@ -467,7 +467,7 @@ FUNCTION CToA(cArray)
    LOCAL aArray := {}
 
    cArray := hb_USubStr(cArray, 6)    // strip off array and length
-   WHILE hb_ULen(cArray) > 0
+   DO WHILE hb_ULen(cArray) > 0
       nLen := Val(hb_USubStr(cArray, 2, 4))
       IF (cType := hb_ULeft(cArray, 1)) == "A"
          AAdd(aArray, CToA(hb_USubStr(cArray, 1, nLen + 5)))
@@ -475,7 +475,7 @@ FUNCTION CToA(cArray)
          AAdd(aArray, xValue(hb_USubStr(cArray, 6, nLen), cType))
       ENDIF
       cArray := hb_USubStr(cArray, 6 + nLen)
-   END
+   ENDDO
 
 RETURN aArray
 

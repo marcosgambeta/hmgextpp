@@ -383,10 +383,10 @@ Function StampeEsegui(_MainArea,_psd,db_arc,_prw)
             Dbgotop()
          Endif
          if oWr:aStat["end_pr"] != 0
-            while !oWr:aStat["EndDoc"]
+            DO WHILE !oWr:aStat["EndDoc"]
                   oWr:TheHead()
                   oWr:TheBody()
-            enddo
+            ENDDO
          Endif
       Else
          msgStop("No data to print! ","Attention")
@@ -399,7 +399,7 @@ Function StampeEsegui(_MainArea,_psd,db_arc,_prw)
       Dbgotop()
       if lastrec()> 0
          lbody := eval(oWr:Valore,oWr:aBody[1])
-         while !eof()
+         DO WHILE !eof()
                sele (DB_ARC)
                StrFlt := oWr:aStat["FldRel"]+" = "+ oWr:aStat["area1"]+"->"+oWr:aStat["FldRel"]
                DBEVAL({|| miocont++},{|| &strFLT})
@@ -412,26 +412,26 @@ Function StampeEsegui(_MainArea,_psd,db_arc,_prw)
                miocont := 0
                sele (oWr:aStat["area1"])
                dbskip()
-         enddo
+         ENDDO
          dbGoTop()
          if amx_pg[1] != 0
-            while !eof()
+            DO WHILE !eof()
                   sele (DB_ARC)
                   set filter to &strFLT
                   miocont ++
                   mx_pg  := aMx_pg[miocont]
                   dbGoTop()
                   nPgr := 0
-                  while !eof()
+                  DO WHILE !eof()
                         oWr:TheHead()
                         oWr:TheBody()
-                  enddo
+                  ENDDO
                   oWr:aStat["EndDoc"]:=.F.
                   last_pag := .F.
                   set filter to
                   sele (oWr:aStat["area1"])
                   dbskip()
-            enddo
+            ENDDO
          Endif
       Else
          msgStop("No data to print! ","Attention")

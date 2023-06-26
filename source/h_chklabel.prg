@@ -361,7 +361,7 @@ STATIC FUNCTION cAnsi2Bmp(cAnsi)
    LOCAL cLong
    LOCAL cBmp := ""
 
-   WHILE Len(cAnsi) >= 8
+   DO WHILE Len(cAnsi) >= 8
       cLong := Left(cAnsi, 8)
       cBmp += cHex2Bin(cAnsi2Hex(cLong))
       cAnsi := Stuff(cAnsi, 1, 8, "")
@@ -384,7 +384,7 @@ STATIC FUNCTION cAnsi2Hex(cAnsi)
 
    cAnsi := AllTrim(cAnsi)
 
-   WHILE Len(cAnsi) >= 2
+   DO WHILE Len(cAnsi) >= 2
       cDig := Left(cAnsi, 2)
       cHex := cDig + cHex
       cAnsi := Stuff(cAnsi, 1, 2, "")

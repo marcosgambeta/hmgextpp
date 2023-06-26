@@ -152,7 +152,7 @@ STATIC FUNCTION pdfBookCount(nRecno, nCurLevel)
    LOCAL nLen := Len(s_aReport[BOOKMARK])
 
    ++nRecno
-   WHILE nRecno <= nLen
+   DO WHILE nRecno <= nLen
       nTempLevel := s_aReport[BOOKMARK][nRecno][BOOKLEVEL]
       IF nTempLevel <= nCurLevel
          EXIT
@@ -190,7 +190,7 @@ STATIC FUNCTION pdfBookLast(nRecno, nCurLevel, nObj)
    ++nRecno
    IF nRecno <= nLen
       IF nCurLevel + 1 == s_aReport[BOOKMARK][nRecno][BOOKLEVEL]
-         WHILE nRecno <= nLen .AND. nCurLevel + 1 <= s_aReport[BOOKMARK][nRecno][BOOKLEVEL]
+         DO WHILE nRecno <= nLen .AND. nCurLevel + 1 <= s_aReport[BOOKMARK][nRecno][BOOKLEVEL]
             IF nCurLevel + 1 == s_aReport[BOOKMARK][nRecno][BOOKLEVEL]
                nLast := nRecno
             ENDIF
@@ -209,7 +209,7 @@ STATIC FUNCTION pdfBookNext(nRecno, nCurLevel, nObj)
    LOCAL nLen := Len(s_aReport[BOOKMARK])
 
    ++nRecno
-   WHILE nRecno <= nLen
+   DO WHILE nRecno <= nLen
       nTempLevel := s_aReport[BOOKMARK][nRecno][BOOKLEVEL]
       IF nCurLevel > nTempLevel
          EXIT
@@ -238,7 +238,7 @@ STATIC FUNCTION pdfBookParent(nRecno, nCurLevel, nObj)
    LOCAL nParent := 0
 
    --nRecno
-   WHILE nRecno > 0
+   DO WHILE nRecno > 0
       nTempLevel := s_aReport[BOOKMARK][nRecno][BOOKLEVEL]
       IF nTempLevel < nCurLevel
          nParent := nRecno
@@ -256,7 +256,7 @@ STATIC FUNCTION pdfBookPrev(nRecno, nCurLevel, nObj)
    LOCAL nPrev := 0
 
    --nRecno
-   WHILE nRecno > 0
+   DO WHILE nRecno > 0
       nTempLevel := s_aReport[BOOKMARK][nRecno][BOOKLEVEL]
       IF nCurLevel > nTempLevel
          EXIT
@@ -475,7 +475,7 @@ FUNCTION pdfClose()
       nFirst := s_aReport[REPORTOBJ] + 1
       nLast := 0
       nCount := 0
-      WHILE nRecno <= nBookLen
+      DO WHILE nRecno <= nBookLen
          nCurLevel := s_aReport[BOOKMARK][nRecno][BOOKLEVEL]
          s_aReport[BOOKMARK][nRecno][BOOKPARENT] := pdfBookParent(nRecno, nCurLevel, s_aReport[REPORTOBJ])
          s_aReport[BOOKMARK][nRecno][BOOKPREV]   := pdfBookPrev(nRecno, nCurLevel, s_aReport[REPORTOBJ])
@@ -715,7 +715,7 @@ STATIC FUNCTION pdfClosePage()
          nBuffer := 8192
          cBuffer := Space(nBuffer)
          k := 0
-         WHILE k < s_aReport[IMAGES][nI][3][IMAGE_LENGTH]
+         DO WHILE k < s_aReport[IMAGES][nI][3][IMAGE_LENGTH]
             IF k + nBuffer <= s_aReport[IMAGES][nI][3][IMAGE_LENGTH]
                nRead := nBuffer
             ELSE
@@ -1246,7 +1246,7 @@ FUNCTION pdfText(cString, nTop, nLeft, nLength, nTab, nJustify, cUnits, cColor, 
    lParagraph := .T.
    nI := 1
 
-   WHILE nI <= nTokens
+   DO WHILE nI <= nTokens
       cToken := Token(cString, cDelim, nI)
       nTokenLen := pdfLen(cToken)
       nLen := Len(cToken)
@@ -1254,7 +1254,7 @@ FUNCTION pdfText(cString, nTop, nLeft, nLength, nTab, nJustify, cUnits, cColor, 
       IF nLineLen + nSpace + nTokenLen > nLength
          IF nStart == nI // single word > nLength
             k := 1
-            WHILE k <= nLen
+            DO WHILE k <= nLen
                cTemp := ""
                nLineLen := 0.00
                nL := nLeft
@@ -1270,7 +1270,7 @@ FUNCTION pdfText(cString, nTop, nLeft, nLength, nTab, nJustify, cUnits, cColor, 
                ELSEIF nJustify == 3
                   nL := nLeft + nLength - pdfLen(cTemp)
                ENDIF
-               WHILE k <= nLen .AND. ((nLineLen += pdfLen(SubStr(cToken, k, 1))) <= nLength)
+               DO WHILE k <= nLen .AND. ((nLineLen += pdfLen(SubStr(cToken, k, 1))) <= nLength)
                   nLineLen += pdfLen(SubStr(cToken, k, 1))
                   cTemp += SubStr(cToken, k, 1)
                   ++k
@@ -1927,7 +1927,7 @@ FUNCTION pdfTIFFInfo(cFile)
    cTemp := Space(12)
    // nPages := 0
 
-   WHILE !(cIFDNext == c40) // read IFD's
+   DO WHILE !(cIFDNext == c40) // read IFD's
 
       nIFD := Bin2L(cIFDNext)
 
@@ -2531,10 +2531,10 @@ STATIC FUNCTION AllToken(cString, cDelimiter, nPointer, nAction)
    // nAction == 1 - token
    // nAction == 2 - attoken
 
-   WHILE nPos <= nLen
+   DO WHILE nPos <= nLen
       IF !SubStr(cString, nPos, 1) $ cDelimiter
          nStart := nPos
-         WHILE nPos <= nLen .AND. !SubStr(cString, nPos, 1) $ cDelimiter
+         DO WHILE nPos <= nLen .AND. !SubStr(cString, nPos, 1) $ cDelimiter
             ++nPos
          ENDDO
          ++nTokens
@@ -2550,7 +2550,7 @@ STATIC FUNCTION AllToken(cString, cDelimiter, nPointer, nAction)
          ENDIF
       ENDIF
       IF SubStr(cString, nPos, 1) $ cDelimiter
-         WHILE nPos <= nLen .AND. SubStr(cString, nPos, 1) $ cDelimiter
+         DO WHILE nPos <= nLen .AND. SubStr(cString, nPos, 1) $ cDelimiter
             ++nPos
          ENDDO
       ENDIF
@@ -2565,7 +2565,7 @@ STATIC FUNCTION NumAt(cSearch, cString)
    LOCAL nAt
    LOCAL nPos := 0
 
-   WHILE (nAt := At(cSearch, SubStr(cString, nPos + 1))) > 0
+   DO WHILE (nAt := At(cSearch, SubStr(cString, nPos + 1))) > 0
       nPos += nAt
       ++n
    ENDDO

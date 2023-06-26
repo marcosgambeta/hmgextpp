@@ -172,7 +172,7 @@ where a1.a2.a3.a4 is the IP address and p1*256+p2 is the port number.
 */
 /*
    if ::oSocket:SendString( "LIST " +CHR(13)+CHR(10) )
-      while len(cErr := ::oSocket:ReceiveLine())>0
+      do while len(cErr := ::oSocket:ReceiveLine())>0
          ? cErr
       enddo
    endif

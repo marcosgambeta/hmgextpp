@@ -236,10 +236,10 @@ Test(mkm)
                Dbgotop()
             Endif
             if oWr:aStat["end_pr"] != 0
-               while !oWr:aStat["EndDoc"]
+               DO WHILE !oWr:aStat["EndDoc"]
                      oWr:TheMiniHead()
                      oWr:TheMiniBody()
-               enddo
+               ENDDO
             Endif
          else
             sele (oWr:aStat["area1"])
@@ -248,7 +248,7 @@ Test(mkm)
             endif
             Dbgotop()
             lbody:=eval(oWr:Valore,oWr:aBody[1])
-            while !eof()
+            DO WHILE !eof()
                   sele (DB_ARC)
                   StrFlt:= oWr:aStat["FldRel"]+" = "+ oWr:aStat["area1"]+"->"+oWr:aStat["FldRel"]
                   DBEVAL({|| miocont++},{|| &strFLT})
@@ -265,9 +265,9 @@ Test(mkm)
                   miocont := 0
                   sele (oWr:aStat["area1"])
                   dbskip()
-            enddo
+            ENDDO
             dbGoTop()
-            while !eof()
+            DO WHILE !eof()
                  sele (DB_ARC)
                  set filter to &strFLT
                  miocont ++
@@ -283,7 +283,7 @@ Test(mkm)
                  set filter to
                  sele (oWr:aStat["area1"])
                  dbskip()
-            enddo
+            ENDDO
          endif
          if oneatleast
             dbGoTop()
