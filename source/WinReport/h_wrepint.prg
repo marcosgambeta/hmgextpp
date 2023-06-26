@@ -616,7 +616,7 @@ Procedure dbselect(area)
      if hb_IsNumeric(area)
         dbSelectArea(zaps(area))
      elseif valtype(area)="C"
-        select (area)
+        dbSelectArea(area)
      endif
 return
 /*

@@ -60,7 +60,7 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
          cTable := GetUniqueName("SqlTable")
 
          dbUseArea(.T.,, "SELECT * FROM " + uAlias, cTable,,, "UTF8")
-         SELECT &cTable
+         dbSelectArea(cTable)
 
          cAlias := cTable
          uAlias := cAlias

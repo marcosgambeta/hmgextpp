@@ -648,21 +648,21 @@ FUNCTION DB_CODE(cData, cKey, aFields, cPass, cFor, cWhile)
    USE ( cTmpFile ) NEW Exclusive
    cTmpAlias := Alias()
 
-   Select &cAlias
+   dbSelectArea(cAlias)
    DO WHILE !EOF() .AND. &(cWhile)
       IF !&(cFor)                          // Select records that meet for condition
          SKIP
          LOOP
       ENDIF
 
-      SELECT &cTmpAlias
+      dbSelectArea(cTmpAlias)
       dbAppend()                           // Create record at target file
 
       FOR i := 1 TO nFields
          FieldPut(i, &cAlias->(FieldGet(i)))
       NEXT
 
-      SELECT &cAlias
+      dbSelectArea(cAlias)
       AFill(aString, "")
 
       cBuf := &cSeek
@@ -681,31 +681,31 @@ FUNCTION DB_CODE(cData, cKey, aFields, cPass, cFor, cWhile)
          cVal := &cSeek
       ENDDO
 
-      SELECT &cTmpAlias
+      dbSelectArea(cTmpAlias)
       FOR i := 1 TO Len(aString)         // Place Crypts in target file
          FieldPut(FieldPos(aFields[i]), aString[i])
       NEXT
 
-      SELECT &cAlias
+      dbSelectArea(cAlias)
    ENDDO
 
-   SELECT &cTmpAlias
+   dbSelectArea(cTmpAlias)
    dbGoTop()
    DO WHILE !EOF()
       cVal := &cSeek
-      SELECT &cAlias
+      dbSelectArea(cAlias)
       SEEK cVal
       RLock()
       FOR i := 1 TO nFields
          FieldPut(i, &cTmpAlias->(FieldGet(i)))
       NEXT
       dbUnlock()
-      SELECT &cTmpAlias
+      dbSelectArea(cTmpAlias)
       SKIP
    ENDDO
    USE                                     // Close target file
    FErase(cTmpFile)
-   SELECT &cAlias                          // Select prior file
+   dbSelectArea(cAlias)                          // Select prior file
    dbGoTo(nRecno)
 
 RETURN NIL

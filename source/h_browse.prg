@@ -467,7 +467,7 @@ STATIC PROCEDURE HMG_OrdCreate(i)
       RETURN
    ENDIF
 
-   Select &_BrowseArea
+   dbSelectArea(_BrowseArea)
 
    aFields := _HMG_aControlRangeMin[i]
 
@@ -531,7 +531,7 @@ PROCEDURE HMG_SetOrder(nColumn, lDescend)
          RETURN
       ENDIF
 
-      Select &_BrowseArea
+      dbSelectArea(_BrowseArea)
 
       nOrder := ordNumber(ordSetFocus())
       nRecord := RecNo()
@@ -895,7 +895,7 @@ PROCEDURE _BrowseNext(ControlName , ParentForm , z)
       IF Select(_BrowseArea) == 0
          RETURN
       ENDIF
-      Select &_BrowseArea
+      dbSelectArea(_BrowseArea)
       _RecNo := RecNo()
 
       dbGoTo(_BrowseRecMap[PageLength])
@@ -946,7 +946,7 @@ PROCEDURE _BrowsePrior(ControlName , ParentForm , z)
       IF Select(_BrowseArea) == 0
          RETURN
       ENDIF
-      Select &_BrowseArea
+      dbSelectArea(_BrowseArea)
       _RecNo := RecNo()
 
       dbGoTo(_BrowseRecMap[1])
@@ -995,7 +995,7 @@ PROCEDURE _BrowseHome(ControlName, ParentForm, z)
       RETURN
    ENDIF
 
-   Select &_BrowseArea
+   dbSelectArea(_BrowseArea)
 
    _RecNo := RecNo()
    dbGoTop()
@@ -1038,7 +1038,7 @@ PROCEDURE _BrowseEnd(ControlName, ParentForm, z)
       RETURN
    ENDIF
 
-   Select &_BrowseArea
+   dbSelectArea(_BrowseArea)
 
    _RecNo := RecNo()
    dbGoBottom()
@@ -1089,7 +1089,7 @@ PROCEDURE _BrowseUp(ControlName , ParentForm , z)
          RETURN
       ENDIF
 
-      Select &_BrowseArea
+      dbSelectArea(_BrowseArea)
       _RecNo := RecNo()
 
       dbGoTo(_BrowseRecMap[1])
@@ -1161,7 +1161,7 @@ PROCEDURE _BrowseDown(ControlName , ParentForm , z)
          RETURN
       ENDIF
 
-      Select &_BrowseArea
+      dbSelectArea(_BrowseArea)
       _RecNo := RecNo()
 
       dbGoTo(_BrowseRecMap[1])
@@ -1224,7 +1224,7 @@ PROCEDURE _BrowseRefresh(ControlName , ParentForm , z)
       RETURN
    ENDIF
 
-   Select &_BrowseArea
+   dbSelectArea(_BrowseArea)
    _RecNo := RecNo()
 
    IF v <= 0
@@ -1332,7 +1332,7 @@ PROCEDURE _BrowseSetValue(ControlName, ParentForm, Value, z, mp)
 
    _DeltaScroll := ListView_GetSubItemRect(_BrowseHandle , 0 , 0)
 
-   Select &_BrowseArea
+   dbSelectArea(_BrowseArea)
 
    _RecNo := RecNo()
 
@@ -1435,7 +1435,7 @@ FUNCTION _BrowseDelete(ControlName, ParentForm, z)
       RETURN NIL
    ENDIF
 
-   Select &_BrowseArea
+   dbSelectArea(_BrowseArea)
    _RecNo := RecNo()
 
    IF !lock .AND. (_BrowseArea)->(dbInfo(DBI_SHARED))
@@ -1576,7 +1576,7 @@ FUNCTION _BrowseEdit(GridHandle , aValid , aValidMessages , aReadOnly , lock , a
    aLabels := _HMG_aControlCaption[i]
 
    BrowseArea := _HMG_aControlSpacing[i]
-   Select &BrowseArea
+   dbSelectArea(BrowseArea)
 
    BackRec := RecNo()
 
@@ -1609,7 +1609,7 @@ FUNCTION _BrowseEdit(GridHandle , aValid , aValidMessages , aReadOnly , lock , a
 
       IF q == 0
 
-         Select &BrowseArea
+         dbSelectArea(BrowseArea)
          aStru := dbStruct ()
 
          AAdd(TmpNames, "MemVar" + BrowseArea + tvar)
@@ -1617,7 +1617,7 @@ FUNCTION _BrowseEdit(GridHandle , aValid , aValidMessages , aReadOnly , lock , a
       ELSE
 
          svar := hb_ULeft(tvar, q - 2)
-         Select &svar
+         dbSelectArea(svar)
          aStru := dbStruct()
 
          tvar := hb_URight(tvar, hb_ULen(tvar) - q)
@@ -1691,7 +1691,7 @@ FUNCTION _BrowseEdit(GridHandle , aValid , aValidMessages , aReadOnly , lock , a
 
    aWhenVarNames := tmpnames
 
-   Select &BrowseArea
+   dbSelectArea(BrowseArea)
 
    IF lock
       IF !NetRecLock()
@@ -2176,7 +2176,7 @@ STATIC FUNCTION _BrowseInPlaceEdit(GridHandle , aValid , aValidMessages , aReadO
    // Save Original WorkArea
    BackArea := Alias()
    // Selects Grid's WorkArea
-   Select &_GridWorkArea
+   dbSelectArea(_GridWorkArea)
    // Save Original Record Pointer
    BackRec := RecNo()
 
@@ -2224,7 +2224,7 @@ STATIC FUNCTION _BrowseInPlaceEdit(GridHandle , aValid , aValidMessages , aReadO
                RETURN NIL
             ENDIF
             IF Alias() != _GridWorkArea
-               Select &_GridWorkArea
+               dbSelectArea(_GridWorkArea)
             ENDIF
             IF hb_IsNumeric(nRec) .AND. RecNo() != nRec
                dbGoTo(nRec)
@@ -2715,7 +2715,7 @@ STATIC PROCEDURE _BrowseSync(i)
    IF Select(_BrowseArea) == 0
       RETURN
    ENDIF
-   Select &_BrowseArea
+   dbSelectArea(_BrowseArea)
    _RecNo := RecNo()
 
    _CurrentValue := _BrowseGetValue("", "", i)
@@ -2760,7 +2760,7 @@ STATIC PROCEDURE _BrowseInPlaceAppend(ControlName, ParentForm, z)
       RETURN
    ENDIF
 
-   Select &_BrowseArea
+   dbSelectArea(_BrowseArea)
 
    _RecNo := RecNo()
    dbGoBottom()

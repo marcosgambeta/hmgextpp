@@ -1201,7 +1201,7 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
 
                IF Select(BrowseArea) != 0
 
-                  Select &BrowseArea
+                  dbSelectArea(BrowseArea)
                   BackRec := RecNo()
 
                   IF ordKeyCount() > 0
@@ -1233,9 +1233,9 @@ FUNCTION Events(hWnd, nMsg, wParam, lParam)
                   dbGoTo(BackRec)
 
                   IF Select(BackArea) != 0
-                     Select &BackArea
+                     dbSelectArea(BackArea)
                   ELSE
-                     Select 0
+                     dbSelectArea(0)
                   ENDIF
 
                   _BrowseSetValue("", "", nr, i)
