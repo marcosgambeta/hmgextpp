@@ -101,7 +101,7 @@ INITMODALDIALOG(HWND, np2) --> LRESULT
 */
 HB_FUNC( INITMODALDIALOG )
 {
-   HB_RETNL(( LONG_PTR ) DialogBox(GetResources(), MAKEINTRESOURCE(hb_parni(2)), hmg_par_HWND(1), ( DLGPROC ) HMG_ModalDlgProc));
+   HB_RETNL(static_cast<LONG_PTR>(DialogBox(GetResources(), MAKEINTRESOURCE(hb_parni(2)), hmg_par_HWND(1), reinterpret_cast<DLGPROC>(HMG_ModalDlgProc))));
 }
 
 /*
@@ -109,7 +109,7 @@ INITDIALOG(HWND, np2) --> HANDLE
 */
 HB_FUNC( INITDIALOG )
 {
-   hmg_ret_HWND(CreateDialog(GetResources(), MAKEINTRESOURCE(hb_parni(2)), hmg_par_HWND(1), ( DLGPROC ) HMG_DlgProc));
+   hmg_ret_HWND(CreateDialog(GetResources(), MAKEINTRESOURCE(hb_parni(2)), hmg_par_HWND(1), reinterpret_cast<DLGPROC>(HMG_DlgProc)));
 }
 
 /*
@@ -160,7 +160,7 @@ ADDDIALOGPAGES(HWND, ap2, np3) --> NIL
 HB_FUNC( ADDDIALOGPAGES )
 {
    HWND hwnd = hmg_par_HWND(1);
-   int l = ( int ) hb_parinfa(2, 0) - 1;
+   int l = static_cast<int>(hb_parinfa(2, 0)) - 1;
    PHB_ITEM hArray = hb_param(2, Harbour::Item::ARRAY);
 
    TC_ITEM tie;
@@ -168,7 +168,7 @@ HB_FUNC( ADDDIALOGPAGES )
    tie.iImage = -1;
 
    for( int i = l; i >= 0; i = i - 1 ) {
-      tie.pszText = ( TCHAR * ) hb_arrayGetCPtr(hArray, i + 1);
+      tie.pszText = const_cast<TCHAR*>(hb_arrayGetCPtr(hArray, i + 1));
       TabCtrl_InsertItem(hwnd, 0, &tie);
    }
 
@@ -211,7 +211,7 @@ HB_FUNC( GETEDITTEXT )
 {
    HWND hDlg = hmg_par_HWND(1);
    int id = hmg_par_int(2);
-   USHORT strlen = ( USHORT ) SendMessage(GetDlgItem(hDlg, id), WM_GETTEXTLENGTH, 0, 0);
+   USHORT strlen = static_cast<USHORT>(SendMessage(GetDlgItem(hDlg, id), WM_GETTEXTLENGTH, 0, 0));
    TCHAR * str = new TCHAR[strlen + 2];
    GetDlgItemText(hDlg, id, str, strlen + 1);
    HB_RETSTR(str);
@@ -236,11 +236,11 @@ HB_FUNC( ISDLGBUTTONCHECKED )
 
 static LPWORD lpwAlign(LPWORD lpIn)
 {
-   ULONG_PTR ul = ( ULONG_PTR ) lpIn;
+   ULONG_PTR ul = reinterpret_cast<ULONG_PTR>(lpIn);
    ul += 3;
    ul >>= 2;
    ul <<= 2;
-   return ( LPWORD ) ul;
+   return reinterpret_cast<LPWORD>(ul);
 }
 
 static int nCopyAnsiToWideChar(LPWORD lpWCStr, LPCSTR lpAnsiIn)
@@ -249,7 +249,7 @@ static int nCopyAnsiToWideChar(LPWORD lpWCStr, LPCSTR lpAnsiIn)
    int nDstLen = MultiByteToWideChar(CodePage, 0, lpAnsiIn, -1, nullptr, 0);
 
    if( nDstLen > 0 ) {
-      LPWSTR pszDst = ( LPWSTR ) hb_xgrab(nDstLen * 2);
+      LPWSTR pszDst = static_cast<LPWSTR>(hb_xgrab(nDstLen * 2));
 
       MultiByteToWideChar(CodePage, 0, lpAnsiIn, -1, pszDst, nDstLen);
 
@@ -271,14 +271,14 @@ HB_SIZE GetSizeDlgTemp(PHB_ITEM dArray, PHB_ITEM cArray)
    HB_SIZE ln = hb_arrayGetCLen(dArray, 10);    //caption
    lTemplateSize += ln * 2;
 
-   if( hb_arrayGetNI( dArray, 4 ) & DS_SETFONT ) {
+   if( hb_arrayGetNI(dArray, 4) & DS_SETFONT ) {
       ln = hb_arrayGetCLen(dArray, 11); //fontname
       lTemplateSize += ln * 2;
       lTemplateSize += 3;
    }
 
    for( int s = 0; s < nItem; s++ ) {
-      iArray = ( PHB_ITEM ) hb_arrayGetItemPtr(cArray, s + 1);
+      iArray = static_cast<PHB_ITEM>(hb_arrayGetItemPtr(cArray, s + 1));
       lTemplateSize += 36;
       ln = hb_arrayGetCLen(iArray, 3);  //class
       lTemplateSize += ln * 2;
@@ -306,16 +306,16 @@ PWORD CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
    char * strtemp;
    int nchar;
 
-   PWORD pdlgtemplate = ( WORD * ) LocalAlloc(LPTR, lTemplateSize);
+   PWORD pdlgtemplate = static_cast<WORD*>(LocalAlloc(LPTR, lTemplateSize));
 
    PWORD pw = pdlgtemplate;
 
-   ExStyle = HB_arrayGetNL( dArray, 5 );  //ExStyle
-   style   = HB_arrayGetNL( dArray, 4 );  //style
-   x       = hb_arrayGetNI( dArray, 6 );  //x
-   y       = hb_arrayGetNI( dArray, 7 );  //y
-   w       = hb_arrayGetNI( dArray, 8 );  //w
-   h       = hb_arrayGetNI( dArray, 9 );  //h
+   ExStyle = HB_arrayGetNL(dArray, 5);  //ExStyle
+   style   = HB_arrayGetNL(dArray, 4);  //style
+   x       = hb_arrayGetNI(dArray, 6);  //x
+   y       = hb_arrayGetNI(dArray, 7);  //y
+   w       = hb_arrayGetNI(dArray, 8);  //w
+   h       = hb_arrayGetNI(dArray, 9);  //h
    nItem   = hb_arrayLen(cArray);
 
    *pw++   = 1;            // DlgVer
@@ -326,34 +326,34 @@ PWORD CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
    *pw++   = HIWORD(ExStyle);
    *pw++   = LOWORD(style);
    *pw++   = HIWORD(style);
-   *pw++   = ( WORD ) nItem;                              // NumberOfItems
-   *pw++   = ( WORD ) MulDiv(x, 4, baseunitX);          // x
-   *pw++   = ( WORD ) MulDiv(y, 8, baseunitY);          // y
-   *pw++   = ( WORD ) MulDiv(w, 4, baseunitX);          // cx
-   *pw++   = ( WORD ) MulDiv(h, 8, baseunitY);          // cy
+   *pw++   = static_cast<WORD>(nItem);                              // NumberOfItems
+   *pw++   = static_cast<WORD>(MulDiv(x, 4, baseunitX));          // x
+   *pw++   = static_cast<WORD>(MulDiv(y, 8, baseunitY));          // y
+   *pw++   = static_cast<WORD>(MulDiv(w, 4, baseunitX));          // cx
+   *pw++   = static_cast<WORD>(MulDiv(h, 8, baseunitY));          // cy
    *pw++   = 0;                                           // Menu
    *pw++   = 0;                                           // Class
-   strtemp = ( char * ) hb_arrayGetCPtr(dArray, 10);    //caption
-   nchar   = nCopyAnsiToWideChar( pw, strtemp );
+   strtemp = const_cast<char*>(hb_arrayGetCPtr(dArray, 10));    //caption
+   nchar   = nCopyAnsiToWideChar(pw, strtemp);
    pw     += nchar;
-   if( hb_arrayGetNI( dArray, 4 ) & DS_SETFONT ) {
-      iPointSize = ( WORD ) hb_arrayGetNI( dArray, 12 );                //fontsize
+   if( hb_arrayGetNI(dArray, 4) & DS_SETFONT ) {
+      iPointSize = static_cast<WORD>(hb_arrayGetNI(dArray, 12));                //fontsize
       *pw++      = iPointSize;
-      *pw++      = ( WORD ) ( hb_arrayGetL( dArray, 13 ) ? 700 : 400 ); //bold
-      *pw++      = ( WORD ) hb_arrayGetL( dArray, 14 );
-      strtemp    = ( char * ) hb_arrayGetCPtr(dArray, 11);            //font
-      nchar      = nCopyAnsiToWideChar( pw, strtemp );
+      *pw++      = static_cast<WORD>(hb_arrayGetL(dArray, 13) ? 700 : 400); //bold
+      *pw++      = static_cast<WORD>(hb_arrayGetL(dArray, 14));
+      strtemp    = const_cast<char*>(hb_arrayGetCPtr(dArray, 11));            //font
+      nchar      = nCopyAnsiToWideChar(pw, strtemp);
       pw        += nchar;
    }
 
    for( int s = 0; s < nItem; s = s + 1 ) {
-      iArray = ( PHB_ITEM ) hb_arrayGetItemPtr(cArray, s + 1);
+      iArray = static_cast<PHB_ITEM>(hb_arrayGetItemPtr(cArray, s + 1));
       pw     = lpwAlign(pw);
 
-      HelpId  = HB_arrayGetNL( iArray, 11 ); //HelpId
-      ExStyle = HB_arrayGetNL( iArray, 5 );  //exstyle
-      style   = HB_arrayGetNL( iArray, 4 );  //style  item
-      Id      = hb_arrayGetNI( iArray, 1 );
+      HelpId  = HB_arrayGetNL(iArray, 11); //HelpId
+      ExStyle = HB_arrayGetNL(iArray, 5);  //exstyle
+      style   = HB_arrayGetNL(iArray, 4);  //style  item
+      Id      = hb_arrayGetNI(iArray, 1);
 
       *pw++ = LOWORD(HelpId);
       *pw++ = HIWORD(HelpId);
@@ -361,19 +361,19 @@ PWORD CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
       *pw++ = HIWORD(ExStyle);
       *pw++ = LOWORD(style);
       *pw++ = HIWORD(style);
-      *pw++ = ( WORD ) MulDiv(hb_arrayGetNI(iArray, 6), 4, baseunitX); // x
-      *pw++ = ( WORD ) MulDiv(hb_arrayGetNI(iArray, 7), 8, baseunitY); // y
-      *pw++ = ( WORD ) MulDiv(hb_arrayGetNI(iArray, 8), 4, baseunitX); // cx
-      *pw++ = ( WORD ) MulDiv(hb_arrayGetNI(iArray, 9), 8, baseunitY); // cy
-      *pw++ = ( WORD ) Id;                                                 // LOWORD (Control ID)
+      *pw++ = static_cast<WORD>(MulDiv(hb_arrayGetNI(iArray, 6), 4, baseunitX)); // x
+      *pw++ = static_cast<WORD>(MulDiv(hb_arrayGetNI(iArray, 7), 8, baseunitY)); // y
+      *pw++ = static_cast<WORD>(MulDiv(hb_arrayGetNI(iArray, 8), 4, baseunitX)); // cx
+      *pw++ = static_cast<WORD>(MulDiv(hb_arrayGetNI(iArray, 9), 8, baseunitY)); // cy
+      *pw++ = static_cast<WORD>(Id);                                                 // LOWORD (Control ID)
       *pw++ = 0;                                                           // HOWORD (Control ID)
 
-      strtemp = ( char * ) hb_arrayGetCPtr(iArray, 3);                   //class
-      nchar   = nCopyAnsiToWideChar( pw, strtemp );
+      strtemp = const_cast<char*>(hb_arrayGetCPtr(iArray, 3));                   //class
+      nchar   = nCopyAnsiToWideChar(pw, strtemp);
       pw     += nchar;
 
-      strtemp = ( char * ) hb_arrayGetCPtr(iArray, 10); //caption
-      nchar   = nCopyAnsiToWideChar( pw, strtemp );
+      strtemp = const_cast<char*>(hb_arrayGetCPtr(iArray, 10)); //caption
+      nchar   = nCopyAnsiToWideChar(pw, strtemp);
       pw     += nchar;
       *pw++   = 0; // Advance pointer over nExtraStuff WORD.
    }
@@ -395,11 +395,11 @@ HB_FUNC( CREATEDLGTEMPLATE )
    PWORD pdlgtemplate = CreateDlgTemplate(lTemplateSize, dArray, cArray);
 
    if( modal ) {
-      LRESULT lResult = DialogBoxIndirect(GetResources(), ( LPDLGTEMPLATE ) pdlgtemplate, hmg_par_HWND(1), ( DLGPROC ) HMG_ModalDlgProc);
+      LRESULT lResult = DialogBoxIndirect(GetResources(), reinterpret_cast<LPDLGTEMPLATE>(pdlgtemplate), hmg_par_HWND(1), reinterpret_cast<DLGPROC>(HMG_ModalDlgProc));
       LocalFree(pdlgtemplate);
-      HB_RETNL(( LONG_PTR ) lResult);
+      HB_RETNL(static_cast<LONG_PTR>(lResult));
    } else {
-      HWND hwndDlg = CreateDialogIndirect(GetResources(), ( LPDLGTEMPLATE ) pdlgtemplate, hmg_par_HWND(1), ( DLGPROC ) HMG_DlgProc);
+      HWND hwndDlg = CreateDialogIndirect(GetResources(), reinterpret_cast<LPDLGTEMPLATE>(pdlgtemplate), hmg_par_HWND(1), reinterpret_cast<DLGPROC>(HMG_DlgProc));
       LocalFree(pdlgtemplate);
       hmg_ret_HWND(hwndDlg);
    }
