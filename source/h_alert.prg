@@ -53,7 +53,7 @@
    Author    : Francisco Garcia Fernandez
    Objective : Simulate Clipper ALERT function
 
-   Syntax    : HMG_Alert( cText, [<aOptions>], [<cTitle>], [<nType>], [<cIcoName>], [<nIcoSize>], [<aBtnColors>], [<bInit>], [<lClosable>], [<cFontName>] )
+   Syntax    : HMG_Alert(cText, [<aOptions>], [<cTitle>], [<nType>], [<cIcoName>], [<nIcoSize>], [<aBtnColors>], [<bInit>], [<lClosable>], [<cFontName>])
 
              cText      -> As in Clipper, let's separate the lines with semicolon
 
@@ -338,7 +338,7 @@ STATIC FUNCTION FillDlg(cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors,
       nMaxWidth := 0
    ENDIF
 
-   nHeightCli := (Min( nMaxLines, nLineas ) + iif(nLineas == 1, 4, 3)) * nChrHeight + nVMARGIN_BUTTON + nHeightBtn + GetBorderHeight()
+   nHeightCli := (Min(nMaxLines, nLineas) + iif(nLineas == 1, 4, 3)) * nChrHeight + nVMARGIN_BUTTON + nHeightBtn + GetBorderHeight()
    nHeightDlg := nHeightCli + GetTitleHeight() + SEP_BUTTON + GetBorderHeight() / iif(lIsWin10, 2.5, 1)
 
    IF MSC_VER() > 0 .AND. _HMG_IsThemed
@@ -427,13 +427,13 @@ STATIC FUNCTION FillDlg(cMsg, aOptions, nLineas, cIcoFile, nIcoSize, aBtnColors,
          @ 0, 0 BUTTONEX (cBtnName) OF (cForm) CAPTION aOptions[n] ;
             FONTCOLOR aFontColor BACKCOLOR aBtnColors[n] NOXPSTYLE HANDCURSOR ;
             FONT cFont WIDTH nMaxBoton HEIGHT nVMARGIN_BUTTON + nChrHeight + nVMARGIN_BUTTON ;
-            ACTION (_HMG_ModalDialogReturn := This.Cargo, _SetGetGlobal( "_HMG_PressButton", .T. ), ThisWindow.Release())
+            ACTION (_HMG_ModalDialogReturn := This.Cargo, _SetGetGlobal("_HMG_PressButton", .T.), ThisWindow.Release())
 
       ELSE
 
          @ 0, 0 BUTTON (cBtnName) OF (cForm) CAPTION aOptions[n] ;
             FONT cFont WIDTH nMaxBoton HEIGHT nVMARGIN_BUTTON + nChrHeight + nVMARGIN_BUTTON ;
-            ACTION (_HMG_ModalDialogReturn := This.Cargo, _SetGetGlobal( "_HMG_PressButton", .T. ), ThisWindow.Release())
+            ACTION (_HMG_ModalDialogReturn := This.Cargo, _SetGetGlobal("_HMG_PressButton", .T.), ThisWindow.Release())
 
       ENDIF
 
