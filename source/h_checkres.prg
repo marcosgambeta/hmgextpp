@@ -31,7 +31,7 @@ FUNCTION MGDelResource(nHResource)
    LOCAL nAt
 
    IF (nAt := AScan(aResources, {|aRes|aRes[2] == nHResource})) != 0
-      hb_ADel( aResources, nAt, .T. )
+      hb_ADel(aResources, nAt, .T.)
    ENDIF
 
 RETURN NIL
@@ -54,7 +54,7 @@ FUNCTION CheckRes()
    NEXT
 
    IF !Empty(cInfo)
-     _LogFile(.T., GetExeFileName() + " -- " + Replicate( "=", 99 ))
+     _LogFile(.T., GetExeFileName() + " -- " + Replicate("=", 99))
    ENDIF
 
 RETURN NIL
@@ -66,30 +66,30 @@ RETURN NIL
 #pragma BEGINDUMP
 
 #include <windows.h>
-#include <hbapiitm.h>
-#include <hbvm.h>
+#include <hbapiitm.hpp>
+#include <hbvm.hpp>
 
 void RegisterResource(HANDLE hRes, LPCSTR szType)
 {
-   PHB_ITEM pRet = hb_itemNew( hb_param( -1, Harbour::Item::ANY ) );
+   PHB_ITEM pRet = hb_itemNew(hb_param(-1, Harbour::Item::ANY));
 
-   hb_vmPushSymbol( hb_dynsymGetSymbol( "MGADDRESOURCE" ) );
+   hb_vmPushSymbol(hb_dynsymGetSymbol("MGADDRESOURCE"));
    hb_vmPushNil();
-   hb_vmPushNumInt(( LONG_PTR ) hRes);
-   hb_vmPushString( szType, strlen(szType) );
-   hb_vmFunction( 2 );
+   hb_vmPushNumInt(reinterpret_cast<LONG_PTR>(hRes));
+   hb_vmPushString(szType, strlen(szType));
+   hb_vmFunction(2);
 
    hb_itemReturnRelease(pRet);
 }
 
 void pascal DelResource(HANDLE hResource)
 {
-   PHB_ITEM pRet = hb_itemNew( hb_param( -1, Harbour::Item::ANY ) );
+   PHB_ITEM pRet = hb_itemNew(hb_param(-1, Harbour::Item::ANY));
 
-   hb_vmPushSymbol( hb_dynsymGetSymbol( "MGDELRESOURCE" ) );
+   hb_vmPushSymbol(hb_dynsymGetSymbol("MGDELRESOURCE"));
    hb_vmPushNil();
-   hb_vmPushNumInt(( LONG_PTR ) hResource);
-   hb_vmFunction( 1 );
+   hb_vmPushNumInt(reinterpret_cast<LONG_PTR>(hResource));
+   hb_vmFunction(1);
 
    hb_itemReturnRelease(pRet);
 }
