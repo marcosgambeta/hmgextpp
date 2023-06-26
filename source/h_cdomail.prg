@@ -34,18 +34,14 @@ CLASS TCDOMail
 
    VAR lSuccess AS LOGICAL INIT .F.
 
-   METHOD New( cServer, nPort, cUser, cPass, ;
-      cSubject, cText, nPriority, lReceipt, aOrigin, aRecipients, ;
-      aFiles ) CONSTRUCTOR
+   METHOD New(cServer, nPort, cUser, cPass, cSubject, cText, nPriority, lReceipt, aOrigin, aRecipients, aFiles) CONSTRUCTOR
 
    METHOD Activate()
 
 ENDCLASS
 
 
-METHOD New( cServer, nPort, cUser, cPass, ;
-      cSubject, cText, nPriority, lReceipt, aOrigin, aRecipients, ;
-      aFiles ) CLASS TCDOMail
+METHOD New(cServer, nPort, cUser, cPass, cSubject, cText, nPriority, lReceipt, aOrigin, aRecipients, aFiles) CLASS TCDOMail
 
    DEFAULT cText := "", cSubject := "", ;
       cServer := "", nPort := 465, cUser := "", cPass := "", ;
@@ -132,14 +128,14 @@ METHOD Activate() CLASS TCDOMail
 
          WITH OBJECT :configuration:Fields
 
-            :Item( cSchema + "smtpserver" ):Value := ::cServer
-            :Item( cSchema + "smtpserverport" ):Value := ::nPort
-            :Item( cSchema + "sendusing" ):Value := CDO_SENDUSINGPORT
-            :Item( cSchema + "smtpauthenticate" ):Value := CDO_AUTH_BASIC
-            :Item( cSchema + "smtpusessl" ):Value := (::nPort == 465)
-            :Item( cSchema + "sendusername" ):Value := ::cUser
-            :Item( cSchema + "sendpassword" ):Value := ::cPass
-            :Item( cSchema + "smtpconnectiontimeout" ):Value := ::nTimeout
+            :Item(cSchema + "smtpserver"):Value := ::cServer
+            :Item(cSchema + "smtpserverport"):Value := ::nPort
+            :Item(cSchema + "sendusing"):Value := CDO_SENDUSINGPORT
+            :Item(cSchema + "smtpauthenticate"):Value := CDO_AUTH_BASIC
+            :Item(cSchema + "smtpusessl"):Value := (::nPort == 465)
+            :Item(cSchema + "sendusername"):Value := ::cUser
+            :Item(cSchema + "sendpassword"):Value := ::cPass
+            :Item(cSchema + "smtpconnectiontimeout"):Value := ::nTimeout
 
             :Update()
 
@@ -147,11 +143,11 @@ METHOD Activate() CLASS TCDOMail
 
          WITH OBJECT oEmailMsg:Fields
 
-            :Item( "urn:schemas:httpmail:importance" ):Value := ::nPriority
-            :Item( "urn:schemas:mailheader:X-Priority" ):Value := ::nPriority - 1
+            :Item("urn:schemas:httpmail:importance"):Value := ::nPriority
+            :Item("urn:schemas:mailheader:X-Priority"):Value := ::nPriority - 1
             IF ::lReceipt
-               :Item( "urn:schemas:mailheader:return-receipt-to" ):Value := cEmailFrom
-               :Item( "urn:schemas:mailheader:disposition-notification-to" ):Value := cEmailFrom
+               :Item("urn:schemas:mailheader:return-receipt-to"):Value := cEmailFrom
+               :Item("urn:schemas:mailheader:disposition-notification-to"):Value := cEmailFrom
             ENDIF
 
             :Update()
@@ -169,10 +165,10 @@ METHOD Activate() CLASS TCDOMail
    CATCH oError
 
       MsgStop("The email was not sent." + CRLF + ;
-         "Error:      " + cValToChar( oError:GenCode ) + CRLF + ;
-         "SubCode:   " + cValToChar( oError:SubCode ) + CRLF + ;
-         "OSCode:    " + cValToChar( oError:OsCode ) + CRLF + ;
-         "SubSystem: " + cValToChar( oError:SubSystem ) + CRLF + ;
+         "Error:      " + cValToChar(oError:GenCode) + CRLF + ;
+         "SubCode:   " + cValToChar(oError:SubCode) + CRLF + ;
+         "OSCode:    " + cValToChar(oError:OsCode) + CRLF + ;
+         "SubSystem: " + cValToChar(oError:SubSystem) + CRLF + ;
          "Description:      " + oError:Description)
 
    END
