@@ -356,20 +356,25 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
    if !lSalida
       aAvisoCampo := {}
       FOR i := 1 TO nEstructura
-         DO CASE
-         CASE _aEstructura[i, DBS_TYPE] == "C"
+         SWITCH _aEstructura[i, DBS_TYPE]
+         CASE "C"
             AAdd(aAvisoCampo, _HMG_aLangUser[2])
-         CASE _aEstructura[i, DBS_TYPE] == "N"
+            EXIT
+         CASE "N"
             AAdd(aAvisoCampo, _HMG_aLangUser[3])
-         CASE _aEstructura[i, DBS_TYPE] == "D"
+            EXIT
+         CASE "D"
             AAdd(aAvisoCampo, _HMG_aLangUser[4])
-         CASE _aEstructura[i, DBS_TYPE] == "L"
+            EXIT
+         CASE "L"
             AAdd(aAvisoCampo, _HMG_aLangUser[5])
-         CASE _aEstructura[i, DBS_TYPE] == "M"
+            EXIT
+         CASE "M"
             AAdd(aAvisoCampo, _HMG_aLangUser[6])
+            EXIT
          OTHERWISE
             AAdd(aAvisoCampo, _HMG_aLangUser[7])
-         ENDCASE
+         ENDSWITCH
       NEXT
    ENDIF
 
@@ -536,7 +541,7 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
       _aEtiqueta[i, ABM_LBL_COL] := nColumna
       _aEtiqueta[i, ABM_LBL_WIDTH] := Len(_aNombreCampo[i]) * 9
       _aEtiqueta[i, ABM_LBL_HEIGHT] := 25
-      switch Left(_aEstructura[i, DBS_TYPE], 1)
+      SWITCH Left(_aEstructura[i, DBS_TYPE], 1)
       CASE "C"
          _aControl[i, ABM_CON_NAME] := "ABM2Control" + AllTrim(Str(i))
          _aControl[i, ABM_CON_ROW] := nFila
@@ -602,16 +607,19 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
          nAnchoEtiqueta := Len(_aNombreCampo[i]) * 10
          AAdd(_aAnchoTabla, iif(nAnchoEtiqueta > nAnchoCampo, nAnchoEtiqueta, nAnchoCampo))
          AAdd(_aCabeceraTabla, _aNombreCampo[i])
-
-         IF _aEstructura[i, DBS_TYPE] == "L"
+         SWITCH _aEstructura[i, DBS_TYPE]
+         CASE "L"
             AAdd(_aAlineadoTabla, BROWSE_JTFY_CENTER)
-         ELSEIF _aEstructura[i, DBS_TYPE] == "D"
+            EXIT
+         CASE "D"
             AAdd(_aAlineadoTabla, BROWSE_JTFY_CENTER)
-         ELSEIF _aEstructura[i, DBS_TYPE] == "N"
+            EXIT
+         CASE "N"
             AAdd(_aAlineadoTabla, BROWSE_JTFY_RIGHT)
-         ELSE
+            EXIT
+         OTHERWISE
             AAdd(_aAlineadoTabla, BROWSE_JTFY_LEFT)
-         ENDIF
+         ENDSWITCH
       ENDIF
    NEXT
 
@@ -965,9 +973,10 @@ STATIC FUNCTION ABM2Editar( lNuevo )
 
    // ------- Define los controles de edición.------------------------------------
    FOR i := 1 TO Len(_aControl)
-      DO CASE
-      CASE _aControl[i, ABM_CON_TYPE] == ABM_TEXTBOXC
 
+      SWITCH _aControl[i, ABM_CON_TYPE]
+
+      CASE ABM_TEXTBOXC
          @ _aControl[i, ABM_CON_ROW], _aControl[i, ABM_CON_COL] ;
             TEXTBOX ( _aControl[i, ABM_CON_NAME] ) ;
             OF wndABM2EditNuevoSplit ;
@@ -979,7 +988,9 @@ STATIC FUNCTION ABM2Editar( lNuevo )
             ON GOTFOCUS ABM2ConFoco() ;
             ON LOSTFOCUS ABM2SinFoco() ;
             ON ENTER ABM2AlEntrar()
-      CASE _aControl[i, ABM_CON_TYPE] == ABM_DATEPICKER
+         EXIT
+
+      CASE ABM_DATEPICKER
          @ _aControl[i, ABM_CON_ROW], _aControl[i, ABM_CON_COL] ;
             DATEPICKER ( _aControl[i, ABM_CON_NAME] ) ;
             OF wndABM2EditNuevoSplit ;
@@ -989,7 +1000,9 @@ STATIC FUNCTION ABM2Editar( lNuevo )
             SHOWNONE ;
             ON GOTFOCUS ABM2ConFoco() ;
             ON LOSTFOCUS ABM2SinFoco()
-      CASE _aControl[i, ABM_CON_TYPE] == ABM_TEXTBOXN
+         EXIT
+
+      CASE ABM_TEXTBOXN
          IF _aEstructura[i, DBS_DEC] == 0
             @ _aControl[i, ABM_CON_ROW], _aControl[i, ABM_CON_COL] ;
                TEXTBOX ( _aControl[i, ABM_CON_NAME] ) ;
@@ -1019,7 +1032,9 @@ STATIC FUNCTION ABM2Editar( lNuevo )
                ON LOSTFOCUS ABM2SinFoco() ;
                ON ENTER ABM2AlEntrar()
          ENDIF
-      CASE _aControl[i, ABM_CON_TYPE] == ABM_CHECKBOX
+         EXIT
+
+      CASE ABM_CHECKBOX
          @ _aControl[i, ABM_CON_ROW], _aControl[i, ABM_CON_COL] ;
             CHECKBOX ( _aControl[i, ABM_CON_NAME] ) ;
             OF wndABM2EditNuevoSplit ;
@@ -1029,7 +1044,9 @@ STATIC FUNCTION ABM2Editar( lNuevo )
             VALUE .F. ;
             ON GOTFOCUS ABM2ConFoco() ;
             ON LOSTFOCUS ABM2SinFoco()
-      CASE _aControl[i, ABM_CON_TYPE] == ABM_EDITBOX
+         EXIT
+
+      CASE ABM_EDITBOX
          @ _aControl[i, ABM_CON_ROW], _aControl[i, ABM_CON_COL] ;
             EDITBOX ( _aControl[i, ABM_CON_NAME] ) ;
             OF wndABM2EditNuevoSplit ;
@@ -1039,7 +1056,9 @@ STATIC FUNCTION ABM2Editar( lNuevo )
             FONT "Arial" SIZE 9 ;
             ON GOTFOCUS ABM2ConFoco() ;
             ON LOSTFOCUS ABM2SinFoco()
-      ENDCASE
+
+      ENDSWITCH
+
    NEXT
 
    // ------- Actualiza los controles si se está editando.------------------------
@@ -1470,10 +1489,10 @@ STATIC FUNCTION ABM2Buscar()
       FONT _GetSysFont() SIZE 9
 
    // Tipo de dato a buscar.
-   DO CASE
+   SWITCH _aControl[nControl, ABM_CON_TYPE]
 
       // Carácter.
-   CASE _aControl[nControl, ABM_CON_TYPE] == ABM_TEXTBOXC
+   CASE ABM_TEXTBOXC
       @ 75, 20 TEXTBOX conBuscar ;
          OF wndABMBuscar ;
          VALUE "" ;
@@ -1481,18 +1500,20 @@ STATIC FUNCTION ABM2Buscar()
          WIDTH _aControl[nControl, ABM_CON_WIDTH] ;
          FONT "Arial" SIZE 9 ;
          MAXLENGTH _aEstructura[nControl, DBS_LEN]
+      EXIT
 
       // Fecha.
-   CASE _aControl[nControl, ABM_CON_TYPE] == ABM_DATEPICKER
+   CASE ABM_DATEPICKER
       @ 75, 20 DATEPICKER conBuscar ;
          OF wndABMBuscar ;
          VALUE Date() ;
          HEIGHT _aControl[nControl, ABM_CON_HEIGHT] ;
          WIDTH _aControl[nControl, ABM_CON_WIDTH] + 25 ;
          FONT "Arial" SIZE 9
+      EXIT
 
       // Numerico.
-   CASE _aControl[nControl, ABM_CON_TYPE] == ABM_TEXTBOXN
+   CASE ABM_TEXTBOXN
       IF _aEstructura[nControl, DBS_DEC] == 0
 
          // Sin decimales.
@@ -1518,7 +1539,8 @@ STATIC FUNCTION ABM2Buscar()
             NUMERIC ;
             INPUTMASK cMascara
       ENDIF
-   ENDCASE
+
+   ENDSWITCH
 
    // ------- Actualiza la barra de estado.---------------------------------------
    wndABMBuscar.StatusBar.Item( 1 ) := _aControl[nControl, ABM_CON_DES]
@@ -1572,7 +1594,6 @@ STATIC FUNCTION ABM2ActivarFiltro()
    // ------- Inicialización de variables.----------------------------------------
    aCampos := _aNombreCampo
    aCompara := {_HMG_aLangLabel[27], _HMG_aLangLabel[28], _HMG_aLangLabel[29], _HMG_aLangLabel[30], _HMG_aLangLabel[31], _HMG_aLangLabel[32]}
-
 
    // ------- Crea la ventana de filtrado.----------------------------------------
    DEFINE WINDOW wndABM2Filtro ;
@@ -1691,10 +1712,11 @@ STATIC FUNCTION ABM2ControlFiltro()
    // ------- Crea el nuevo control.----------------------------------------------
    wndABM2Filtro.conValor.RELEASE
    cMensaje := _aControl[nControl, ABM_CON_DES]
-   DO CASE
+
+   SWITCH _aControl[nControl, ABM_CON_TYPE]
 
       // Carácter.
-   CASE _aControl[nControl, ABM_CON_TYPE] == ABM_TEXTBOXC
+   CASE ABM_TEXTBOXC
       @ 226, 20 TEXTBOX conValor ;
          OF wndABM2Filtro ;
          VALUE "" ;
@@ -1705,9 +1727,10 @@ STATIC FUNCTION ABM2ControlFiltro()
          ON GOTFOCUS wndABM2Filtro.StatusBar.Item( 1 ) := ;
          cMensaje ;
          ON LOSTFOCUS wndABM2Filtro.StatusBar.Item( 1 ) := ""
+      EXIT
 
       // Fecha.
-   CASE _aControl[nControl, ABM_CON_TYPE] == ABM_DATEPICKER
+   CASE ABM_DATEPICKER
       @ 226, 20 DATEPICKER conValor ;
          OF wndABM2Filtro ;
          VALUE Date() ;
@@ -1717,9 +1740,10 @@ STATIC FUNCTION ABM2ControlFiltro()
          ON GOTFOCUS wndABM2Filtro.StatusBar.Item( 1 ) := ;
          cMensaje ;
          ON LOSTFOCUS wndABM2Filtro.StatusBar.Item( 1 ) := ""
+      EXIT
 
       // Numerico.
-   CASE _aControl[nControl, ABM_CON_TYPE] == ABM_TEXTBOXN
+   CASE ABM_TEXTBOXN
       IF _aEstructura[nControl, DBS_DEC] == 0
 
          // Sin decimales.
@@ -1752,9 +1776,10 @@ STATIC FUNCTION ABM2ControlFiltro()
             cMensaje ;
             ON LOSTFOCUS wndABM2Filtro.StatusBar.Item( 1 ) := ""
       ENDIF
+      EXIT
 
       // Logico
-   CASE _aControl[nControl, ABM_CON_TYPE] == ABM_CHECKBOX
+   CASE ABM_CHECKBOX
       @ 226, 20 CHECKBOX conValor ;
          OF wndABM2Filtro ;
          CAPTION "" ;
@@ -1765,7 +1790,7 @@ STATIC FUNCTION ABM2ControlFiltro()
          cMensaje ;
          ON LOSTFOCUS wndABM2Filtro.StatusBar.Item( 1 ) := ""
 
-   ENDCASE
+   ENDSWITCH
 
    // ------- Actualiza el valor de la etiqueta.----------------------------------
    wndABM2Filtro .lblValor.VALUE := _aNombreCampo[nControl]
@@ -1818,24 +1843,23 @@ STATIC FUNCTION ABM2EstableceFiltro()
    ENDIF
 
    // ------- Establece el filtro.------------------------------------------------
-   // TODO: switch ?
-   DO CASE
-   CASE _aEstructura[nCampo, DBS_TYPE] == "C"
+   SWITCH _aEstructura[nCampo, DBS_TYPE]
+   CASE "C"
       _cFiltro := "Upper(" + _cArea + "->" + _aEstructura[nCampo, DBS_NAME] + ")" + aOperador[nCompara]
       _cFiltro += "'" + Upper(AllTrim(cValor)) + "'"
-
-   CASE _aEstructura[nCampo, DBS_TYPE] == "N"
+      EXIT
+   CASE "N"
       _cFiltro := _cArea + "->" + _aEstructura[nCampo, DBS_NAME] + aOperador[nCompara]
       _cFiltro += AllTrim(cValor)
-
-   CASE _aEstructura[nCampo, DBS_TYPE] == "D"
+      EXIT
+   CASE "D"
       _cFiltro := _cArea + "->" + _aEstructura[nCampo, DBS_NAME] + aOperador[nCompara]
       _cFiltro += "CToD(" + "'" + cValor + "')"
-
-   CASE _aEstructura[nCampo, DBS_TYPE] == "L"
+      EXIT
+   CASE "L"
       _cFiltro := _cArea + "->" + _aEstructura[nCampo, DBS_NAME] + aOperador[nCompara]
       _cFiltro += cValor
-   ENDCASE
+   ENDSWITCH
    (_cArea)->(dbSetFilter({||&_cFiltro}, _cFiltro))
    _lFiltro := .T.
    wndABM2Filtro.RELEASE
@@ -2304,14 +2328,16 @@ STATIC FUNCTION ABM2Listado( aImpresoras )
    aAncho := {}
    FOR i := 1 TO Len(aNumeroCampo)
       nCampo := aNumeroCampo[i]
-      DO CASE
-      CASE _aEstructura[nCampo, DBS_TYPE] == "D"
+      SWITCH _aEstructura[nCampo, DBS_TYPE]
+      CASE "D"
          nAncho := 9
-      CASE _aEstructura[nCampo, DBS_TYPE] == "M"
+         EXIT
+      CASE "M"
          nAncho := 20
+         EXIT
       OTHERWISE
          nAncho := _aEstructura[nCampo, DBS_LEN]
-      ENDCASE
+      ENDSWITCH
       nAncho := iif(Len(_aNombreCampo[nCampo]) > nAncho, Len(_aNombreCampo[nCampo]), nAncho)
       AAdd(aAncho, 2 + nAncho)
    NEXT
@@ -2332,21 +2358,23 @@ STATIC FUNCTION ABM2Listado( aImpresoras )
    nRegistro := (_cArea)->(RecNo())
    cRegistro1 := wndABM2Listado .txtRegistro1.VALUE
    cRegistro2 := wndABM2Listado .txtRegistro2.VALUE
-   // TODO: switch ?
-   DO CASE
-   CASE _aEstructura[_aIndiceCampo[_nIndiceActivo], DBS_TYPE] == "C"
+   SWITCH _aEstructura[_aIndiceCampo[_nIndiceActivo], DBS_TYPE]
+   CASE "C"
       xRegistro1 := cRegistro1
       xRegistro2 := cRegistro2
-   CASE _aEstructura[_aIndiceCampo[_nIndiceActivo], DBS_TYPE] == "N"
+      EXIT
+   CASE "N"
       xRegistro1 := Val(cRegistro1)
       xRegistro2 := Val(cRegistro2)
-   CASE _aEstructura[_aIndiceCampo[_nIndiceActivo], DBS_TYPE] == "D"
+      EXIT
+   CASE "D"
       xRegistro1 := CToD(cRegistro1)
       xRegistro2 := CToD(cRegistro2)
-   CASE _aEstructura[_aIndiceCampo[_nIndiceActivo], DBS_TYPE] == "L"
+      EXIT
+   CASE "L"
       xRegistro1 := ( cRegistro1 == ".t." )
       xRegistro2 := ( cRegistro2 == ".t." )
-   ENDCASE
+   ENDSWITCH
    (_cArea)->(dbSeek(xRegistro2))
    nUltimo := (_cArea)->(RecNo())
    (_cArea)->(dbSeek(xRegistro1))
@@ -2457,20 +2485,23 @@ STATIC FUNCTION ABM2Listado( aImpresoras )
       nColumna := 10
       FOR i := 1 TO Len(aNumeroCampo)
          nCampo := aNumeroCampo[i]
-         DO CASE
-         CASE _aEstructura[nCampo, DBS_TYPE] == "N"
+         SWITCH _aEstructura[nCampo, DBS_TYPE]
+         CASE "N"
             SET TEXT ALIGN RIGHT
             @ nFila, nColumna + aAncho[i] say (_cArea)->(FieldGet(aNumeroCampo[i])) FONT "a8" TO PRINT
-         CASE _aEstructura[nCampo, DBS_TYPE] == "L"
+            EXIT
+         CASE "L"
             SET TEXT ALIGN LEFT
             @ nFila, nColumna + 1 SAY iif((_cArea)->(FieldGet(aNumeroCampo[i])), _HMG_aLangUser[29], _HMG_aLangUser[30]) FONT "a8" TO PRINT
-         CASE _aEstructura[nCampo, DBS_TYPE] == "M"
+            EXIT
+         CASE "M"
             SET TEXT ALIGN LEFT
             @ nFila, nColumna + 1 SAY SubStr((_cArea)->(FieldGet(aNumeroCampo[i])), 1, 20) FONT "a8" TO PRINT
+            EXIT
          OTHERWISE
             SET TEXT ALIGN LEFT
             @ nFila, nColumna + 1 say (_cArea)->(FieldGet(aNumeroCampo[i])) FONT "a8" TO PRINT
-         ENDCASE
+         ENDSWITCH
          nColumna += aAncho[i]
       NEXT
       nFila++
