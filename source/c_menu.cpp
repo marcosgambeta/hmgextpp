@@ -541,38 +541,30 @@ HB_FUNC( MENUITEM_SETCHECKMARKS )
    }
 }
 
+/*
+MENUITEM_SETICON(HMENU, np2, cIconName) --> HBITMAP
+*/
 HB_FUNC( MENUITEM_SETICON )
 {
-   HBITMAP himage1;
-   HICON   hIcon;
+   void * str;
+   LPCTSTR lpIconName = HB_PARSTR(3, &str, nullptr);
 
-#ifndef UNICODE
-   LPCSTR lpIconName = hb_parc(3);
-#else
-   LPWSTR lpIconName = AnsiToWide(( char * ) hb_parc(3));
-#endif
-
-   hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_DEFAULTCOLOR));
+   HICON hIcon = static_cast<HICON>(LoadImage(GetResources(), lpIconName, IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_DEFAULTCOLOR));
    if( hIcon == nullptr ) {
       hIcon = static_cast<HICON>(LoadImage(nullptr, lpIconName, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTCOLOR));
    }
 
-   // convert icon to bitmap
-   himage1 = Icon2Bmp(hIcon);
+   HBITMAP himage1 = Icon2Bmp(hIcon); // convert icon to bitmap
 
    if( s_bCustomDraw ) {
       MENUITEMINFO MenuItemInfo;
-      LPMENUITEM   lpMenuItem;
-
       MenuItemInfo.cbSize = sizeof(MENUITEMINFO);
       MenuItemInfo.fMask  = MIIM_DATA;
-
       if( GetMenuItemInfo(hmg_par_HMENU(1), hb_parni(2), FALSE, &MenuItemInfo) ) {
-         lpMenuItem = ( LPMENUITEM ) MenuItemInfo.dwItemData;
+         LPMENUITEM lpMenuItem = reinterpret_cast<LPMENUITEM>(MenuItemInfo.dwItemData);
          if( lpMenuItem->hBitmap != nullptr ) {
             DeleteObject(lpMenuItem->hBitmap);
          }
-
          lpMenuItem->hBitmap = himage1;
       }
    } else {
@@ -580,12 +572,8 @@ HB_FUNC( MENUITEM_SETICON )
    }
 
    DestroyIcon(hIcon);
-
    hmg_ret_HBITMAP(himage1);
-
-#ifdef UNICODE
-   hb_xfree(lpIconName);
-#endif
+   hb_strfree(str);
 }
 
 HB_FUNC( MENUITEM_SETFONT )
