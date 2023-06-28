@@ -45,30 +45,33 @@
  */
 
 #include "mgdefs.hpp"
+#include <hbwinuni.hpp>
 
 #ifdef UNICODE
-LPWSTR AnsiToWide(LPCSTR);
 LPSTR  WideToAnsi(LPWSTR);
 #endif
 
+/*
+GETPRIVATEPROFILESTRING(cSection, cEntry, cDefault, cFileName) --> string
+*/
 HB_FUNC( GETPRIVATEPROFILESTRING )
 {
-   DWORD   nSize = 256;
-   TCHAR * bBuffer;
-   DWORD   dwLen;
+   void * str1 = nullptr;
+   LPCTSTR lpSection  = HB_ISCHAR(1) ? HB_PARSTR(1, &str1, nullptr) : nullptr;
+   void * str2 = nullptr;
+   LPCTSTR lpEntry    = HB_ISCHAR(2) ? HB_PARSTR(2, &str2, nullptr) : nullptr;
+   void * str3;
+   LPCTSTR lpDefault  = HB_PARSTR(3, &str3, nullptr);
+   void * str4;
+   LPCTSTR lpFileName = HB_PARSTR(4, &str4, nullptr);
 
-#ifndef UNICODE
-   LPCSTR lpSection  = HB_ISCHAR(1) ? hb_parc(1) : nullptr;
-   LPCSTR lpEntry    = HB_ISCHAR(2) ? hb_parc(2) : nullptr;
-   LPCSTR lpDefault  = hb_parc(3);
-   LPCSTR lpFileName = hb_parc(4);
-#else
-   LPCWSTR lpSection  = HB_ISCHAR(1) ? AnsiToWide(( char * ) hb_parc(1)) : nullptr;
-   LPCWSTR lpEntry    = HB_ISCHAR(2) ? AnsiToWide(( char * ) hb_parc(2)) : nullptr;
-   LPCWSTR lpDefault  = AnsiToWide(( char * ) hb_parc(3));
-   LPCWSTR lpFileName = AnsiToWide(( char * ) hb_parc(4));
+#ifdef UNICODE
    LPSTR   pStr;
 #endif
+
+   DWORD nSize = 256;
+   TCHAR * bBuffer;
+   DWORD dwLen;
 
    do {
       nSize  *= 2;
@@ -83,8 +86,6 @@ HB_FUNC( GETPRIVATEPROFILESTRING )
       pStr = WideToAnsi(bBuffer);
       hb_retc( pStr );
       hb_xfree(pStr);
-      hb_xfree(( TCHAR * ) lpFileName);
-      hb_xfree(( TCHAR * ) lpDefault);
 #endif
    } else {
 #ifndef UNICODE
@@ -93,60 +94,60 @@ HB_FUNC( GETPRIVATEPROFILESTRING )
       pStr = WideToAnsi(( LPWSTR ) lpDefault);
       hb_retc( pStr );
       hb_xfree(pStr);
-      hb_xfree(( TCHAR * ) lpDefault);
 #endif
    }
 
    hb_xfree(bBuffer);
+   hb_strfree(str1);
+   hb_strfree(str2);
+   hb_strfree(str3);
+   hb_strfree(str4);
 }
 
+/*
+WRITEPRIVATEPROFILESTRING(cSection, cEntry|NIL, cData|NIL, cFileName) --> .T.|.F.
+*/
 HB_FUNC( WRITEPRIVATEPROFILESTRING )
 {
-#ifndef UNICODE
-   LPCSTR lpSection  = hb_parc(1);
-   LPCSTR lpEntry    = HB_ISCHAR(2) ? hb_parc(2) : nullptr;
-   LPCSTR lpData     = HB_ISCHAR(3) ? hb_parc(3) : nullptr;
-   LPCSTR lpFileName = hb_parc(4);
-#else
-   LPCWSTR lpSection  = AnsiToWide(( char * ) hb_parc(1));
-   LPCWSTR lpEntry    = HB_ISCHAR(2) ? AnsiToWide(( char * ) hb_parc(2)) : nullptr;
-   LPCWSTR lpData     = HB_ISCHAR(3) ? AnsiToWide(( char * ) hb_parc(3)) : nullptr;
-   LPCWSTR lpFileName = AnsiToWide(( char * ) hb_parc(4));
-#endif
-
-   hb_retl(WritePrivateProfileString(lpSection, lpEntry, lpData, lpFileName));
+   void * str1;
+   void * str2 = nullptr;
+   void * str3 = nullptr;
+   void * str4;
+   hb_retl(WritePrivateProfileString(
+      HB_PARSTR(1, &str1, nullptr),
+      HB_ISCHAR(2) ? HB_PARSTR(2, &str2, nullptr) : nullptr,
+      HB_ISCHAR(3) ? HB_PARSTR(3, &str3, nullptr) : nullptr,
+      HB_PARSTR(4, &str4, nullptr)));
+   hb_strfree(str1);
+   hb_strfree(str2);
+   hb_strfree(str3);
+   hb_strfree(str4);
 }
 
+/*
+DELINIENTRY(cSection, cEntry, cFileName) --> .T.|.F.
+*/
 HB_FUNC( DELINIENTRY )
 {
-#ifndef UNICODE
-   LPCSTR lpSection  = hb_parc(1);
-   LPCSTR lpEntry    = hb_parc(2);
-   LPCSTR lpFileName = hb_parc(3);
-#else
-   LPCWSTR lpSection  = AnsiToWide(( char * ) hb_parc(1));
-   LPCWSTR lpEntry    = AnsiToWide(( char * ) hb_parc(2));
-   LPCWSTR lpFileName = AnsiToWide(( char * ) hb_parc(3));
-#endif
-   hb_retl(WritePrivateProfileString(lpSection,      // Section
-                                     lpEntry,        // Entry
-                                     nullptr,           // String
-                                     lpFileName)); // INI File
+   void * str1;
+   void * str2;
+   void * str3;
+   hb_retl(WritePrivateProfileString(HB_PARSTR(1, &str1, nullptr), HB_PARSTR(2, &str2, nullptr), nullptr, HB_PARSTR(3, &str3, nullptr)));
+   hb_strfree(str1);
+   hb_strfree(str2);
+   hb_strfree(str3);
 }
 
+/*
+DELINISECTION(cSection, cFileName) --> .T.|.F.
+*/
 HB_FUNC( DELINISECTION )
 {
-#ifndef UNICODE
-   LPCSTR lpSection  = hb_parc(1);
-   LPCSTR lpFileName = hb_parc(2);
-#else
-   LPCWSTR lpSection  = AnsiToWide(( char * ) hb_parc(1));
-   LPCWSTR lpFileName = AnsiToWide(( char * ) hb_parc(2));
-#endif
-   hb_retl(WritePrivateProfileString(lpSection,      // Section
-                                     nullptr,           // Entry
-                                     TEXT(""),     // String
-                                     lpFileName)); // INI File
+   void * str1;
+   void * str2;
+   hb_retl(WritePrivateProfileString(HB_PARSTR(1, &str1, nullptr), nullptr, TEXT(""), HB_PARSTR(2, &str2, nullptr)));
+   hb_strfree(str1);
+   hb_strfree(str2);
 }
 
 static TCHAR * FindFirstSubString(TCHAR * Strings)
@@ -185,21 +186,22 @@ static INT FindLenSubString(TCHAR * Strings)
 
 // (JK) HMG 1.0 Experimental build 6
 
+/*
+_GETPRIVATEPROFILESECTIONNAMES(cFileName) --> array
+*/
 HB_FUNC( _GETPRIVATEPROFILESECTIONNAMES )
 {
    TCHAR   bBuffer[32767];
    TCHAR * p;
    INT     nLen;
-
-#ifndef UNICODE
-   LPCSTR lpFileName = hb_parc(1);
-#else
-   LPCWSTR lpFileName = AnsiToWide(( char * ) hb_parc(1));
+#ifdef UNICODE
    LPSTR   pStr;
 #endif
 
    ZeroMemory(bBuffer, sizeof(bBuffer));
-   GetPrivateProfileSectionNames(bBuffer, sizeof(bBuffer) / sizeof(TCHAR), lpFileName);
+   void * str;
+   GetPrivateProfileSectionNames(bBuffer, sizeof(bBuffer) / sizeof(TCHAR), HB_PARSTR(1, &str, nullptr));
+   hb_strfree(str);
 
    p    = ( TCHAR * ) bBuffer;
    nLen = FindLenSubString(p);
@@ -225,25 +227,24 @@ HB_FUNC( _GETPRIVATEPROFILESECTIONNAMES )
 
 // Used to retrieve all key/value pairs of a given section.
 
+/*
+_GETPRIVATEPROFILESECTION(cSectionName, cFileName) --> array
+*/
 HB_FUNC( _GETPRIVATEPROFILESECTION )
 {
-   TCHAR   bBuffer[32767];
-   TCHAR * p;
-   INT     nLen;
-
-#ifndef UNICODE
-   LPCSTR lpSectionName = hb_parc(1);
-   LPCSTR lpFileName    = hb_parc(2);
-#else
-   LPCWSTR lpSectionName = AnsiToWide(( char * ) hb_parc(1));
-   LPCWSTR lpFileName    = AnsiToWide(( char * ) hb_parc(2));
+#ifdef UNICODE
    LPSTR   pStr;
 #endif
 
+   TCHAR   bBuffer[32767];
    ZeroMemory(bBuffer, sizeof(bBuffer));
-   GetPrivateProfileSection(lpSectionName, bBuffer, sizeof(bBuffer) / sizeof(TCHAR), lpFileName);
-   p    = ( TCHAR * ) bBuffer;
-   nLen = FindLenSubString(p);
+   void * str1;
+   void * str2;
+   GetPrivateProfileSection(HB_PARSTR(1, &str1, nullptr), bBuffer, sizeof(bBuffer) / sizeof(TCHAR), HB_PARSTR(2, &str2, nullptr));
+   hb_strfree(str1);
+   hb_strfree(str2);
+   TCHAR * p    = ( TCHAR * ) bBuffer;
+   INT nLen = FindLenSubString(p);
    hb_reta(nLen);
    if( nLen > 0 ) {
 #ifndef UNICODE
