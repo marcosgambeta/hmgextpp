@@ -479,7 +479,7 @@ RETURN
 
 #include "mgdefs.hpp"
 #include <commctrl.h>
-#include <hbwinuni.h>
+#include <hbwinuni.hpp>
 
 #ifndef WC_COMBOBOX
 #define WC_COMBOBOX TEXT("ComboBox")
@@ -487,11 +487,6 @@ RETURN
 
 HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transparent, int * nWidth, int * nHeight);
 void HMG_ImageListAdd(HIMAGELIST himl, const char * FileName, int Transparent);
-
-#ifdef UNICODE
-LPWSTR AnsiToWide(LPCSTR);
-LPSTR  WideToAnsi(LPWSTR);
-#endif
 
 /*
 INITCOMBOBOX(p1, p2, nX, nY, nWidth, p6, p7, nHeight, p9, p10, p11, p12, p13) --> HWND
@@ -526,18 +521,19 @@ HB_FUNC_STATIC( INITCOMBOBOX )
       style |= CBS_LOWERCASE;
    }
 
-   HWND hbutton = CreateWindowEx(0,
-                                 WC_COMBOBOX,
-                                 TEXT(""),
-                                 style,
-                                 hmg_par_int(3),
-                                 hmg_par_int(4),
-                                 hmg_par_int(5),
-                                 hmg_par_int(8),
-                                 hmg_par_HWND(1),
-                                 hmg_par_HMENU(2),
-                                 GetInstance(),
-                                 nullptr);
+   HWND hbutton = CreateWindowEx(
+      0,
+      WC_COMBOBOX,
+      TEXT(""),
+      style,
+      hmg_par_int(3),
+      hmg_par_int(4),
+      hmg_par_int(5),
+      hmg_par_int(8),
+      hmg_par_HWND(1),
+      hmg_par_HMENU(2),
+      GetInstance(),
+      nullptr);
 
    hmg_ret_HWND(hbutton);
 }
