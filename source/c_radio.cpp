@@ -45,28 +45,20 @@
  */
 
 #include "mgdefs.hpp"
+#include <hbwinuni.hpp>
 
 #ifndef WC_BUTTON
 #define WC_BUTTON  TEXT("Button")
 #endif
 
-#ifdef UNICODE
-LPWSTR AnsiToWide(LPCSTR);
-#endif
-
+/*
+INITRADIOGROUP(p1, cWindowName, p3, p4, p5, p6, p7, p8, p9, p10, p11) --> HWND
+*/
 HB_FUNC( INITRADIOGROUP )
 {
-   HWND hwnd;
-   HWND hbutton;
+   void * str;
 
-#ifndef UNICODE
-   LPCSTR lpWindowName = hb_parc(2);
-#else
-   LPWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(2));
-#endif
-   int style = BS_NOTIFY | WS_CHILD | BS_AUTORADIOBUTTON | WS_GROUP;
-
-   hwnd = hmg_par_HWND(1);
+   DWORD style = BS_NOTIFY | WS_CHILD | BS_AUTORADIOBUTTON | WS_GROUP;
 
    if( !hb_parl(9) ) {
       style |= WS_VISIBLE;
@@ -80,41 +72,33 @@ HB_FUNC( INITRADIOGROUP )
       style |= BS_LEFTTEXT;
    }
 
-   hbutton = CreateWindow
-             (
+   HWND hbutton = CreateWindowEx(
+      0,
       WC_BUTTON,
-      lpWindowName,
+      HB_PARSTR(2, &str, nullptr),
       style,
       hb_parni(4),
       hb_parni(5),
       hb_parni(8),
       28,
-      hwnd,
+      hmg_par_HWND(1),
       hmg_par_HMENU(3),
       GetInstance(),
-      nullptr
-             );
+      nullptr);
 
    hmg_ret_HWND(hbutton);
 
-#ifdef UNICODE
-   hb_xfree(( TCHAR * ) lpWindowName);
-#endif
+   hb_strfree(str);
 }
 
+/*
+INITRADIOBUTTON(p1, cWindowName, p3, p4, p5, p6, p7, p8, p9, p10) --> HWND
+*/
 HB_FUNC( INITRADIOBUTTON )
 {
-   HWND hwnd;
-   HWND hbutton;
+   void * str;
 
-#ifndef UNICODE
-   LPCSTR lpWindowName = hb_parc(2);
-#else
-   LPWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(2));
-#endif
-   int style = BS_NOTIFY | WS_CHILD | BS_AUTORADIOBUTTON;
-
-   hwnd = hmg_par_HWND(1);
+   DWORD style = BS_NOTIFY | WS_CHILD | BS_AUTORADIOBUTTON;
 
    if( !hb_parl(9) ) {
       style |= WS_VISIBLE;
@@ -124,24 +108,21 @@ HB_FUNC( INITRADIOBUTTON )
       style |= BS_LEFTTEXT;
    }
 
-   hbutton = CreateWindow
-             (
+   HWND hbutton = CreateWindowEx(
+      0,
       WC_BUTTON,
-      lpWindowName,
+      HB_PARSTR(2, &str, nullptr),
       style,
       hb_parni(4),
       hb_parni(5),
       hb_parni(8),
       28,
-      hwnd,
+      hmg_par_HWND(1),
       hmg_par_HMENU(3),
       GetInstance(),
-      nullptr
-             );
+      nullptr);
 
    hmg_ret_HWND(hbutton);
 
-#ifdef UNICODE
-   hb_xfree(( TCHAR * ) lpWindowName);
-#endif
+   hb_strfree(str);
 }
