@@ -277,39 +277,30 @@ RETURN NIL
 #define BS_DEFSPLITBUTTON  0x0000000D
 
 #include "mgdefs.hpp"
+#include "hbwinuni.hpp"
 
-#ifdef UNICODE
-   LPWSTR AnsiToWide(LPCSTR);
-#endif
-
+/*
+INITSPLITBUTTON(HWND, np2, np3, cp4, lp5, np6, np7, p8) --> HWND
+*/
 HB_FUNC( INITSPLITBUTTON )
 {
-   HWND hwnd = hmg_par_HWND(1);
-   HWND hbutton;
-   int style;
-#ifndef UNICODE
-   LPCSTR lpWindowName = hb_parc(4);
-#else
-   LPWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(4));
-#endif
+   DWORD style = hb_parl(5) ? BS_DEFSPLITBUTTON : BS_SPLITBUTTON;
 
-   style = BS_SPLITBUTTON;
-
-   if( hb_parl( 5 ) ) {
-      style = BS_DEFSPLITBUTTON;
-   }
-
-   hbutton = CreateWindow("button",
-                          lpWindowName,
-                          style | WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | BS_PUSHBUTTON | WS_VISIBLE | WS_TABSTOP,
-                          hb_parni(3),
-                          hb_parni(2),
-                          hb_parni(6),
-                          hb_parni(7),
-                          hwnd,
-                          ( HMENU ) HB_PARNL(8),
-                          GetModuleHandle(nullptr),
-                          nullptr);
+   void * str;
+   HWND hbutton = CreateWindowEx(
+      0,
+      "button",
+      HB_PARSTR(4, &str, nullptr),
+      style | WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | BS_PUSHBUTTON | WS_VISIBLE | WS_TABSTOP,
+      hb_parni(3),
+      hb_parni(2),
+      hb_parni(6),
+      hb_parni(7),
+      hmg_par_HWND(1),
+      ( HMENU ) HB_PARNL(8),
+      GetModuleHandle(nullptr),
+      nullptr);
+   hb_strfree(str);
 
    hmg_ret_HWND(hbutton);
 }
