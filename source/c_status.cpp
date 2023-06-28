@@ -47,11 +47,10 @@
 #define _WIN32_IE  0x0501
 
 #include "mgdefs.hpp"
-
 #include <commctrl.h>
+#include <hbwinuni.hpp>
 
 #ifdef UNICODE
-LPWSTR AnsiToWide(LPCSTR);
 LPSTR  WideToAnsi(LPWSTR);
 #endif
 
@@ -84,15 +83,12 @@ HB_FUNC( INITITEMBAR )
    int   cx;
    int   cy;
 
-#ifndef UNICODE
-   LPCSTR lpText     = hb_parc(2);
-   LPCSTR lpIconName = hb_parc(6);
-   LPCSTR lpTipText  = hb_parc(7);
-#else
-   LPWSTR lpText     = AnsiToWide(( char * ) hb_parc(2));
-   LPWSTR lpIconName = AnsiToWide(( char * ) hb_parc(6));
-   LPWSTR lpTipText  = AnsiToWide(( char * ) hb_parc(7));
-#endif
+   void * str1;
+   LPCTSTR lpText     = HB_PARSTR(2, &str1, nullptr);
+   void * str2;
+   LPCTSTR lpIconName = HB_PARSTR(6, &str2, nullptr);
+   void * str3;
+   LPCTSTR lpTipText  = HB_PARSTR(7, &str3, nullptr);
 
    hWndSB = hmg_par_HWND(1);
    style  = GetWindowLong(GetParent(hWndSB), GWL_STYLE);
@@ -154,31 +150,20 @@ HB_FUNC( INITITEMBAR )
 
    hb_retni( nrOfParts );
 
-#ifdef UNICODE
-   hb_xfree(( TCHAR * ) lpText);
-   hb_xfree(( TCHAR * ) lpIconName);
-   hb_xfree(( TCHAR * ) lpTipText);
-#endif
+   hb_strfree(str1);
+   hb_strfree(str2);
+   hb_strfree(str3);
 }
 
 HB_FUNC( SETITEMBAR )
 {
    HWND hWnd = hmg_par_HWND(1);
    int  iPos = hb_parni(3);
-   WORD nFlags;
-
-#ifndef UNICODE
-   LPCSTR lpText = hb_parc(2);
-#else
-   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(2));
-#endif
-
-   nFlags = HIWORD(SendMessage(hWnd, SB_GETTEXTLENGTH, iPos, 0));
+   WORD nFlags = HIWORD(SendMessage(hWnd, SB_GETTEXTLENGTH, iPos, 0));
+   void * str;
+   LPCTSTR lpText = HB_PARSTR(2, &str, nullptr);
    SendMessage(hWnd, SB_SETTEXT, iPos | nFlags, reinterpret_cast<LPARAM>(lpText));
-
-#ifdef UNICODE
-   hb_xfree(( TCHAR * ) lpText);
-#endif
+   hb_strfree(str);
 }
 
 HB_FUNC( GETITEMBAR )
@@ -287,11 +272,8 @@ HB_FUNC( SETSTATUSITEMICON )
    int   cx;
    int   cy;
 
-#ifndef UNICODE
-   LPCSTR lpIconName = hb_parc(3);
-#else
-   LPWSTR lpIconName = AnsiToWide(( char * ) hb_parc(3));
-#endif
+   void * str;
+   LPCTSTR lpIconName = HB_PARSTR(3, &str, nullptr);
 
    hwnd = hmg_par_HWND(1);
 
@@ -312,9 +294,7 @@ HB_FUNC( SETSTATUSITEMICON )
 
    SendMessage(hwnd, SB_SETICON, hmg_par_WPARAM(2) - 1, reinterpret_cast<LPARAM>(hIcon));
 
-#ifdef UNICODE
-   hb_xfree(( TCHAR * ) lpIconName);
-#endif
+   hb_strfree(str);
 }
 
 HB_FUNC( SETSTATUSBARSIZE )
