@@ -48,31 +48,16 @@
 
 #include "mgdefs.hpp"
 #include <commctrl.h>
+#include <hbwinuni.hpp>
 
 extern BOOL Array2Point(PHB_ITEM aPoint, POINT * pt);
 
 HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transparent, int * nWidth, int * nHeight);
 void HMG_ImageListAdd(HIMAGELIST himl, char * FileName, int Transparent);
 
-#ifdef UNICODE
-LPWSTR AnsiToWide(LPCSTR);
-#endif
-
 HB_FUNC( INITTABCONTROL )
 {
-   PHB_ITEM hArray;
-   HWND     hwnd;
-   HWND     hbutton;
-   TC_ITEM  tie;
-   int      l;
-
-#ifndef UNICODE
-   LPSTR lpText;
-#else
-   LPWSTR lpText;
-#endif
-
-   int style = WS_CHILD | WS_VISIBLE | TCS_TOOLTIPS;
+   DWORD style = WS_CHILD | WS_VISIBLE | TCS_TOOLTIPS;
 
    if( hb_parl(11) ) {
       style |= TCS_BUTTONS;
@@ -106,13 +91,8 @@ HB_FUNC( INITTABCONTROL )
       style |= WS_TABSTOP;
    }
 
-   l      = ( int ) hb_parinfa(7, 0) - 1;
-   hArray = hb_param(7, Harbour::Item::ARRAY);
-
-   hwnd = hmg_par_HWND(1);
-
-   hbutton = CreateWindow
-             (
+   HWND hbutton = CreateWindowEx(
+      0,
       WC_TABCONTROL,
       nullptr,
       style,
@@ -120,128 +100,79 @@ HB_FUNC( INITTABCONTROL )
       hb_parni(4),
       hb_parni(5),
       hb_parni(6),
-      hwnd,
+      hmg_par_HWND(1),
       hmg_par_HMENU(2),
       GetInstance(),
-      nullptr
-             );
+      nullptr);
 
+   int l = hb_parinfa(7, 0) - 1;
+   PHB_ITEM hArray = hb_param(7, Harbour::Item::ARRAY);
+
+   TC_ITEM tie{};
    tie.mask   = TCIF_TEXT;
    tie.iImage = -1;
 
    for( int i = l; i >= 0; i = i - 1 ) {
-   #ifndef UNICODE
-      lpText = ( char * ) hb_arrayGetCPtr(hArray, i + 1);
-   #else
-      lpText = AnsiToWide(( char * ) hb_arrayGetCPtr(hArray, i + 1));
-   #endif
-      tie.pszText = lpText;
-
+      void * str;
+      tie.pszText = const_cast<TCHAR*>(HB_ARRAYGETSTR(hArray, i + 1, &str, nullptr));
       TabCtrl_InsertItem(hbutton, 0, &tie);
-
-#ifdef UNICODE
-      hb_xfree(( TCHAR * ) lpText);
-#endif
+      hb_strfree(str);
    }
 
-   TabCtrl_SetCurSel( hbutton, hb_parni(8) - 1 );
-
+   TabCtrl_SetCurSel(hbutton, hb_parni(8) - 1);
    hmg_ret_HWND(hbutton);
 }
 
 HB_FUNC( TABCTRL_SETCURSEL )
 {
-   HWND hwnd;
-   int  s;
-
-   hwnd = hmg_par_HWND(1);
-   s    = hb_parni(2);
-
-   TabCtrl_SetCurSel( hwnd, s - 1 );
+   TabCtrl_SetCurSel(hmg_par_HWND(1), hb_parni(2) - 1);
 }
 
 HB_FUNC( TABCTRL_GETCURSEL )
 {
-   HWND hwnd;
-
-   hwnd = hmg_par_HWND(1);
-   hb_retni( TabCtrl_GetCurSel( hwnd ) + 1 );
+   hb_retni(TabCtrl_GetCurSel(hmg_par_HWND(1)) + 1);
 }
 
 HB_FUNC( TABCTRL_INSERTITEM )
 {
-   HWND    hwnd;
-   TC_ITEM tie;
-   int     i;
-
-#ifndef UNICODE
-   LPSTR lpText = ( LPSTR ) hb_parc(3);
-#else
-   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(3));
-#endif
-
-   hwnd = hmg_par_HWND(1);
-   i    = hb_parni(2);
-
+   void * str;
+   TC_ITEM tie{};
    tie.mask    = TCIF_TEXT;
    tie.iImage  = -1;
-   tie.pszText = lpText;
-
-   TabCtrl_InsertItem(hwnd, i, &tie);
-
-#ifdef UNICODE
-   hb_xfree(( TCHAR * ) lpText);
-#endif
+   tie.pszText = const_cast<TCHAR*>(HB_PARSTR(3, &str, nullptr));
+   TabCtrl_InsertItem(hmg_par_HWND(1), hb_parni(2), &tie);
+   hb_strfree(str);
 }
 
 HB_FUNC( TABCTRL_DELETEITEM )
 {
-   HWND hwnd;
-   int  i;
-
-   hwnd = hmg_par_HWND(1);
-   i    = hb_parni(2);
-
-   TabCtrl_DeleteItem(hwnd, i);
+   TabCtrl_DeleteItem(hmg_par_HWND(1), hb_parni(2));
 }
 
 HB_FUNC( SETTABCAPTION )
 {
-#ifndef UNICODE
-   LPSTR lpText = ( LPSTR ) hb_parc(3);
-#else
-   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(3));
-#endif
-   TC_ITEM tie;
-
+   void * str;
+   TC_ITEM tie{};
    tie.mask = TCIF_TEXT;
-
-   tie.pszText = lpText;
-
+   tie.pszText = const_cast<TCHAR*>(HB_PARSTR(3, &str, nullptr));
    TabCtrl_SetItem(hmg_par_HWND(1), hb_parni(2) - 1, &tie);
-
-#ifdef UNICODE
-   hb_xfree(( TCHAR * ) lpText);
-#endif
+   hb_strfree(str);
 }
 
 HB_FUNC( ADDTABBITMAP )
 {
-   HWND       hbutton = hmg_par_HWND(1);
-   TC_ITEM    tie;
+   HWND hbutton = hmg_par_HWND(1);
    HIMAGELIST himl = nullptr;
-   PHB_ITEM   hArray;
-   char *     FileName;
-   int        nCount;
-
-   nCount = ( int ) hb_parinfa(2, 0);
+   int nCount = hb_parinfa(2, 0);
 
    if( nCount > 0 ) {
       int Transparent = hb_parl(3) ? 0 : 1;
-      hArray = hb_param(2, Harbour::Item::ARRAY);
+      PHB_ITEM hArray = hb_param(2, Harbour::Item::ARRAY);
+
+      TCHAR * FileName;
 
       for( int i = 1; i <= nCount; i++ ) {
-         FileName = ( char * ) hb_arrayGetCPtr(hArray, i);
+         FileName = const_cast<TCHAR*>(hb_arrayGetCPtr(hArray, i));
 
          if( himl == nullptr ) {
             himl = HMG_ImageListLoadFirst(FileName, nCount, Transparent, nullptr, nullptr);
@@ -254,8 +185,10 @@ HB_FUNC( ADDTABBITMAP )
          SendMessage(hbutton, TCM_SETIMAGELIST, 0, reinterpret_cast<LPARAM>(himl));
       }
 
+      TC_ITEM tie{};
+
       for( int i = 0; i < nCount; i++ ) {
-         tie.mask   = TCIF_IMAGE;
+         tie.mask = TCIF_IMAGE;
          tie.iImage = i;
          TabCtrl_SetItem(hbutton, i, &tie);
       }
@@ -268,12 +201,11 @@ HB_FUNC( ADDTABBITMAP )
 HB_FUNC( WINDOWFROMPOINT )
 {
    POINT Point;
-
    Array2Point(hb_param(1, Harbour::Item::ARRAY), &Point);
    hmg_ret_HWND(WindowFromPoint(Point));
 }
 
 HB_FUNC( GETMESSAGEPOS )
 {
-   hb_retnl( GetMessagePos() );
+   hb_retnl(GetMessagePos());
 }
