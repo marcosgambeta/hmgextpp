@@ -47,52 +47,29 @@
 #define _WIN32_IE  0x0501
 
 #include "mgdefs.hpp"
-
 #include <shlobj.h>
 #include <commctrl.h>
+#include <hbwinuni.hpp>
 
 #if defined ( __MINGW32__ ) && defined ( __MINGW32_VERSION )
-
-#define Pager_ForwardMouse(hwnd, bForward) \
-   ( void ) SendMessage(( hwnd ), PGM_FORWARDMOUSE, ( WPARAM ) ( bForward ), 0)
-
-#define Pager_SetBorder(hwnd, iBorder) \
-   SendMessage(( hwnd ), PGM_SETBORDER, 0, ( LPARAM ) ( iBorder ))
-
-#define Pager_GetBorder(hwnd) \
-   SendMessage(( hwnd ), PGM_GETBORDER, 0, 0)
-
-#define Pager_SetPos(hwnd, iPos) \
-   SendMessage(( hwnd ), PGM_SETPOS, 0, ( LPARAM ) ( iPos ))
-
-#define Pager_GetPos(hwnd) \
-   SendMessage(( hwnd ), PGM_GETPOS, 0, 0)
-
-#define Pager_SetButtonSize(hwnd, iSize) \
-   SendMessage(( hwnd ), PGM_SETBUTTONSIZE, 0, ( LPARAM ) ( iSize ))
-
-#define Pager_GetButtonSize(hwnd) \
-   SendMessage(( hwnd ), PGM_GETBUTTONSIZE, 0, 0)
-
-#endif
-
-#ifdef UNICODE
-LPWSTR AnsiToWide(LPCSTR);
+#define Pager_ForwardMouse(hwnd, bForward) ( void ) SendMessage(( hwnd ), PGM_FORWARDMOUSE, ( WPARAM ) ( bForward ), 0)
+#define Pager_SetBorder(hwnd, iBorder)     SendMessage(( hwnd ), PGM_SETBORDER, 0, ( LPARAM ) ( iBorder ))
+#define Pager_GetBorder(hwnd)              SendMessage(( hwnd ), PGM_GETBORDER, 0, 0)
+#define Pager_SetPos(hwnd, iPos)           SendMessage(( hwnd ), PGM_SETPOS, 0, ( LPARAM ) ( iPos ))
+#define Pager_GetPos(hwnd)                 SendMessage(( hwnd ), PGM_GETPOS, 0, 0)
+#define Pager_SetButtonSize(hwnd, iSize)   SendMessage(( hwnd ), PGM_SETBUTTONSIZE, 0, ( LPARAM ) ( iSize ))
+#define Pager_GetButtonSize(hwnd)          SendMessage(( hwnd ), PGM_GETBUTTONSIZE, 0, 0)
 #endif
 
 HB_FUNC( GETHANDLEREBAR )  // GetHandleRebar(hPager)
 {
-   HWND hRebar = reinterpret_cast<HWND>(GetWindowLongPtr(hmg_par_HWND(1), GWLP_USERDATA));
-
-   hmg_ret_HWND(hRebar);
+   hmg_ret_HWND(reinterpret_cast<HWND>(GetWindowLongPtr(hmg_par_HWND(1), GWLP_USERDATA)));
 }
 
 HB_FUNC( ADDTOPAGER )      // AdToPager (hwndPG , hToolBar)
 {
    HWND hPager = hmg_par_HWND(1);
-   HWND hTool  = hmg_par_HWND(2);
-
-   SendMessage(hPager, PGM_SETCHILD, 0, reinterpret_cast<LPARAM>(hTool));
+   SendMessage(hPager, PGM_SETCHILD, 0, reinterpret_cast<LPARAM>(hmg_par_HWND(2)));
    SendMessage(hPager, PGM_RECALCSIZE, 0, 0);
 }
 
@@ -103,9 +80,8 @@ HB_FUNC( SETBKCOLORPAGER ) // SetBkColorPager(hwndPG , COLOR[])
 
 HB_FUNC( PAGERCALCSIZE )   // PagerCalcSize(lParam , nWidth)
 {
-   NMPGCALCSIZE * lpCalcSize;
+   NMPGCALCSIZE * lpCalcSize = ( LPNMPGCALCSIZE ) HB_PARNL(1);
 
-   lpCalcSize = ( LPNMPGCALCSIZE ) HB_PARNL(1);
    if( lpCalcSize->dwFlag == PGF_CALCWIDTH ) {
       lpCalcSize->iWidth = hmg_par_INT(2);
    }
@@ -117,35 +93,22 @@ HB_FUNC( PAGERCALCSIZE )   // PagerCalcSize(lParam , nWidth)
 
 HB_FUNC( PAGERSCROLL )     // PagerScroll(lParam , nScroll)
 {
-   NMPGSCROLL * lpScroll;
-
-   lpScroll = ( LPNMPGSCROLL ) HB_PARNL(1);
+   NMPGSCROLL * lpScroll = ( LPNMPGSCROLL ) HB_PARNL(1);
    lpScroll->iScroll = hb_parnl(2);
 }
 
 HB_FUNC( INITPAGER )       // InitPager ( ParentForm, hRebar, nWidth, nHeight, vertical, autoscroll )
 {
-   HWND hPager;
-   int style = WS_CHILD | WS_VISIBLE;
-   int nWidth, nHeight;
-   HWND hRebar;
-   REBARBANDINFO rbBand;
-
-#ifndef UNICODE
-   LPSTR lpText = ( char * ) hb_parc(6);
-#else
-   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(6));
-#endif
-
    INITCOMMONCONTROLSEX i;
-
    i.dwSize = sizeof(INITCOMMONCONTROLSEX);
    i.dwICC  = ICC_COOL_CLASSES | ICC_BAR_CLASSES | ICC_PAGESCROLLER_CLASS;
    InitCommonControlsEx(&i);
 
-   hRebar  = hmg_par_HWND(1);
-   nWidth  = hmg_par_INT(2);
-   nHeight = hmg_par_INT(3);
+   HWND hRebar  = hmg_par_HWND(1);
+   int nWidth  = hmg_par_INT(2);
+   int nHeight = hmg_par_INT(3);
+
+   DWORD style = WS_CHILD | WS_VISIBLE;
 
    if( hb_parl(4) ) {
       style |= PGS_VERT;
@@ -157,17 +120,19 @@ HB_FUNC( INITPAGER )       // InitPager ( ParentForm, hRebar, nWidth, nHeight, v
       style |= PGS_AUTOSCROLL;
    }
 
-   ZeroMemory(&rbBand, sizeof(REBARBANDINFO));
+   REBARBANDINFO rbBand{};
    rbBand.cbSize     = sizeof(REBARBANDINFO);
    rbBand.fMask      = RBBIM_TEXT | RBBIM_STYLE | RBBIM_CHILD | RBBIM_CHILDSIZE | RBBIM_SIZE | RBBS_BREAK | RBBIM_COLORS;
    rbBand.fStyle     = RBBS_CHILDEDGE;
    rbBand.cxMinChild = 0;
    rbBand.cyMinChild = 0;
 
-   hPager = CreateWindowEx(0, WC_PAGESCROLLER, nullptr, style, 0, 0, 0, 0, hRebar, nullptr, GetInstance(), nullptr);
+   HWND hPager = CreateWindowEx(0, WC_PAGESCROLLER, nullptr, style, 0, 0, 0, 0, hRebar, nullptr, GetInstance(), nullptr);
+
+   void * str;
 
    if( hb_parclen(6) > 0 ) {
-      rbBand.lpText = lpText;
+      rbBand.lpText = const_cast<TCHAR*>(HB_PARSTR(6, &str, nullptr));
    }
 
    rbBand.hwndChild = hPager;
@@ -183,14 +148,9 @@ HB_FUNC( INITPAGER )       // InitPager ( ParentForm, hRebar, nWidth, nHeight, v
    }
 
    SendMessage(hRebar, RB_INSERTBAND, -1, reinterpret_cast<LPARAM>(&rbBand));
-
    SetWindowLongPtr(hPager, GWLP_USERDATA, ( LONG_PTR ) hRebar);
-
    hmg_ret_HWND(hPager);
-
-#ifdef UNICODE
-   hb_xfree(( TCHAR * ) lpText);
-#endif
+   hb_strfree(str);
 }
 
 HB_FUNC( PAGERFORWARDMOUSE )
