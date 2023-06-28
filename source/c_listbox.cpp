@@ -45,9 +45,9 @@
  */
 
 #include "mgdefs.hpp"
-
 #include <commctrl.h>
 #include <windowsx.h>
+#include <hbwinuni.hpp>
 
 #ifndef WC_LISTBOX
 #define WC_LISTBOX  "ListBox"
@@ -56,7 +56,6 @@
 #define TOTAL_TABS  10
 
 #ifdef UNICODE
-LPWSTR AnsiToWide(LPCSTR);
 LPSTR  WideToAnsi(LPWSTR);
 #endif
 
@@ -117,28 +116,18 @@ HB_FUNC( INITLISTBOX )
 
 HB_FUNC( LISTBOXADDSTRING )
 {
- #ifndef UNICODE
-   LPTSTR lpString = ( LPTSTR ) hb_parc(2);
-#else
-   LPWSTR lpString = AnsiToWide(( char * ) hb_parc(2));
-#endif
+   void * str;
+   LPCTSTR lpString = HB_PARSTR(2, &str, nullptr);
    SendMessage(hmg_par_HWND(1), LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(lpString));
-#ifdef UNICODE
-   hb_xfree(lpString);
-#endif
+   hb_strfree(str);
 }
 
 HB_FUNC( LISTBOXINSERTSTRING )
 {
- #ifndef UNICODE
-   LPTSTR lpString = ( LPTSTR ) hb_parc(2);
-#else
-   LPWSTR lpString = AnsiToWide(( char * ) hb_parc(2));
-#endif
+   void * str;
+   LPCTSTR lpString = HB_PARSTR(2, &str, nullptr);
    SendMessage(hmg_par_HWND(1), LB_INSERTSTRING, hmg_par_WPARAM(3) - 1, reinterpret_cast<LPARAM>(lpString));
-#ifdef UNICODE
-   hb_xfree(lpString);
-#endif
+   hb_strfree(str);
 }
 
 /* Modified by P.Ch. 16.10. */
