@@ -45,10 +45,11 @@
  */
 
 #include "mgdefs.hpp"
-
 #include <commctrl.h>
 #include <mmsystem.h>
+#include <hbwinuni.hpp>
 
+#if 0
 #if defined(__BORLANDC__)
 #pragma warn -use /* unused var */
 
@@ -69,12 +70,9 @@ HWND MCIWndCreateW(HWND hwndParent, HINSTANCE hInstance, DWORD dwStyle, LPCWSTR 
 #endif /* _WIN64 */
 
 #endif /* __BORLANDC__ */
+#endif
 
 #include <vfw.h>
-
-#ifdef UNICODE
-LPWSTR AnsiToWide(LPCSTR);
-#endif
 
 HB_FUNC( MESSAGEBEEP )
 {
@@ -85,12 +83,6 @@ HB_FUNC( C_PLAYWAVE )
 {
    int style = SND_ASYNC;
    HMODULE hmod  = nullptr;
-
-#ifndef UNICODE
-   LPCSTR pszSound = hb_parc(1);
-#else
-   LPCWSTR pszSound = AnsiToWide(( char * ) hb_parc(1));
-#endif
 
    if( hb_parl(2) ) {
       style |= SND_RESOURCE;
@@ -115,27 +107,18 @@ HB_FUNC( C_PLAYWAVE )
       style |= SND_NODEFAULT;
    }
 
-   hb_retl(PlaySound(pszSound, hmod, style));
-
-#ifdef UNICODE
-   hb_xfree(( TCHAR * ) pszSound);
-#endif
+   void * str;
+   hb_retl(PlaySound(HB_PARSTR(1, &str, nullptr), hmod, style));
+   hb_strfree(str);
 }
 
 HB_FUNC( STOPWAVE )
 {
-   hb_retl(PlaySound(nullptr, ( HMODULE ) GetResources(), SND_PURGE));
+   hb_retl(PlaySound(nullptr, GetResources(), SND_PURGE));
 }
 
 HB_FUNC( INITPLAYER )
 {
-   HWND hwnd;
-
-#ifndef UNICODE
-   LPCSTR szFile = hb_parc(2);
-#else
-   LPCWSTR szFile = AnsiToWide(( char * ) hb_parc(2));
-#endif
    int style = WS_VISIBLE | WS_CHILD | WS_BORDER;
 
    if( hb_parl(7) ) {
@@ -178,11 +161,10 @@ HB_FUNC( INITPLAYER )
       style |= MCIWNDF_SHOWPOS;
    }
 
-   hwnd = MCIWndCreate(hmg_par_HWND(1), nullptr, style, szFile);
+   void * str;
+   HWND hwnd = MCIWndCreate(hmg_par_HWND(1), nullptr, style, HB_PARSTR(2, &str, nullptr));
+   hb_strfree(str);
 
-#ifdef UNICODE
-   hb_xfree(( TCHAR * ) szFile);
-#endif
    if( hwnd == nullptr ) {
       MessageBox(0, TEXT("Player Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
       return;
@@ -202,18 +184,18 @@ HB_FUNC( MCIFUNC )
       case 2:  hb_retnl( MCIWndStop(mcihand) ); break;
       case 3:  hb_retnl( MCIWndPause(mcihand) ); break;
       case 4:  hb_retnl( MCIWndClose(mcihand) ); break;
-      case 5:            MCIWndDestroy(mcihand); hb_retnl(0); break;
+      case 5:  MCIWndDestroy(mcihand); hb_retnl(0); break;
       case 6:  hb_retnl( MCIWndEject(mcihand) ); break;
       case 7:  hb_retnl( MCIWndEnd(mcihand) ); break;
       case 8:  hb_retnl( MCIWndHome(mcihand) ); break;
-      case 9:  hb_retnl( MCIWndOpen(mcihand, hb_parc(3), ( UINT ) 0) ); break;
+      case 9:  hb_retnl( MCIWndOpen(mcihand, hb_parc(3), 0) ); break;
       case 10: hb_retnl( MCIWndOpenDialog(mcihand) ); break;
       case 11: hb_retnl( MCIWndPlayReverse(mcihand) ); break;
       case 12: hb_retnl( MCIWndResume(mcihand) ); break;
-      case 13:           MCIWndSetRepeat(mcihand, hb_parl(3)); hb_retnl(0); break;
+      case 13: MCIWndSetRepeat(mcihand, hb_parl(3)); hb_retnl(0); break;
       case 14: hb_retnl( MCIWndSetSpeed(mcihand, hb_parni(3)) ); break;
       case 15: hb_retnl( MCIWndSetVolume(mcihand, hb_parni(3)) ); break;
-      case 16:           MCIWndSetZoom(mcihand, hb_parni(3)); hb_retnl(0); break;
+      case 16: MCIWndSetZoom(mcihand, hb_parni(3)); hb_retnl(0); break;
       case 17: hb_retnl( MCIWndGetLength(mcihand) ); break;
       case 18: hb_retnl( MCIWndGetPosition(mcihand) ); break;
       case 19: hb_retnl( MCIWndGetVolume(mcihand) ); break;
@@ -224,7 +206,6 @@ HB_FUNC( MCIFUNC )
 
 HB_FUNC( INITANIMATE )
 {
-   HWND hwnd;
    int style = WS_CHILD;
 
    if( hb_parl(9) ) {
@@ -247,7 +228,7 @@ HB_FUNC( INITANIMATE )
       style |= ACS_TRANSPARENT;
    }
 
-   hwnd = Animate_Create(hmg_par_HWND(1), nullptr, style, GetResources());
+   HWND hwnd = Animate_Create(hmg_par_HWND(1), nullptr, style, GetResources());
 
    if( hwnd == nullptr ) {
       MessageBox(0, TEXT("AnimateBox Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
@@ -260,16 +241,9 @@ HB_FUNC( INITANIMATE )
 
 HB_FUNC( OPENANIMATE )
 {
-#ifndef UNICODE
-   LPCSTR szName = hb_parc(2);
-#else
-   LPCWSTR szName = AnsiToWide(( char * ) hb_parc(2));
-#endif
-   Animate_Open(hmg_par_HWND(1), szName);
-
-#ifdef UNICODE
-   hb_xfree(( TCHAR * ) szName);
-#endif
+   void * str;
+   Animate_Open(hmg_par_HWND(1), HB_PARSTR(2, &str, nullptr));
+   hb_strfree(str);
 }
 
 HB_FUNC( PLAYANIMATE )
