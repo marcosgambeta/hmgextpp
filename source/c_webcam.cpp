@@ -51,14 +51,13 @@
 
 #include "mgdefs.hpp"
 #include <vfw.h>
+#include <hbwinuni.hpp>
 
+#if 0
 #if defined(__BORLANDC__)
 #pragma warn -use /* unused var */
 #pragma warn -eff /* no effect */
 #endif
-
-#ifdef UNICODE
-   LPWSTR AnsiToWide(LPCSTR);
 #endif
 
 /*
@@ -66,13 +65,9 @@ CAP_CREATECAPTUREWINDOW(cWindowName, nStyle, nX, nY, nWidth, nHeight, nWndParent
 */
 HB_FUNC( CAP_CREATECAPTUREWINDOW )
 {
-#ifndef UNICODE
-   LPCSTR lpszWindowName = hb_parc(1);
-#else
-   LPWSTR lpszWindowName = AnsiToWide(( char * ) hb_parc(1));
-#endif
-
-   hmg_ret_HWND(capCreateCaptureWindow(lpszWindowName, hmg_par_DWORD(2), hmg_par_int(3), hmg_par_int(4), hmg_par_int(5), hmg_par_int(6), hmg_par_HWND(7), hmg_par_int(8)));
+   void * str;
+   hmg_ret_HWND(capCreateCaptureWindow(HB_PARSTR(1, &str, nullptr), hmg_par_DWORD(2), hmg_par_int(3), hmg_par_int(4), hmg_par_int(5), hmg_par_int(6), hmg_par_HWND(7), hmg_par_int(8)));
+   hb_strfree(str);
 }
 
 /*
@@ -96,8 +91,8 @@ CAP_SETVIDEOFORMAT(nWnd, nWidth, nHeight) --> .T.|.F.
 */
 HB_FUNC( CAP_SETVIDEOFORMAT )
 {
-   BITMAPINFO binf;
    HWND hCapWnd = hmg_par_HWND(1);
+   BITMAPINFO binf;
    capGetVideoFormat(hCapWnd, &binf, sizeof(BITMAPINFO));
    binf.bmiHeader.biWidth        = hb_parni(2);
    binf.bmiHeader.biHeight       = hb_parni(3);
