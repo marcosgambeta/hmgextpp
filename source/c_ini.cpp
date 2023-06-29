@@ -88,13 +88,7 @@ HB_FUNC( GETPRIVATEPROFILESTRING )
       hb_xfree(pStr);
 #endif
    } else {
-#ifndef UNICODE
-      hb_retc( lpDefault );
-#else
-      pStr = WideToAnsi(( LPWSTR ) lpDefault);
-      hb_retc( pStr );
-      hb_xfree(pStr);
-#endif
+      HB_RETSTR(lpDefault);
    }
 
    hb_xfree(bBuffer);
