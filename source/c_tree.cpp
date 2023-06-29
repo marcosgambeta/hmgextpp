@@ -48,29 +48,29 @@
 
 #include "mgdefs.hpp"
 #include <commctrl.h>
+#include <hbwinuni.hpp>
 
 HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transparent, int * nWidth, int * nHeight);
 void HMG_ImageListAdd(HIMAGELIST himl, char * FileName, int Transparent);
 
+/*
+INITTREE(HWND, p2, p3, p4, p5, p6, p7, p8, p9) --> HWND
+*/
 HB_FUNC( INITTREE )
 {
-   INITCOMMONCONTROLSEX icex;
+   INITCOMMONCONTROLSEX icex{};
+   icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
+   icex.dwICC  = ICC_TREEVIEW_CLASSES;
+   InitCommonControlsEx(&icex);
 
-   HWND hWndTV;
    UINT mask;
-
    if( hb_parni(9) != 0 ) { //Tree+
       mask = 0x0000;
    } else {
       mask = TVS_LINESATROOT;
    }
 
-   icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
-   icex.dwICC  = ICC_TREEVIEW_CLASSES;
-   InitCommonControlsEx(&icex);
-
-   hWndTV = CreateWindowEx
-            (
+   HWND hWndTV = CreateWindowEx(
       WS_EX_CLIENTEDGE,
       WC_TREEVIEW,
       TEXT(""),
@@ -82,29 +82,27 @@ HB_FUNC( INITTREE )
       hmg_par_HWND(1),
       hmg_par_HMENU(6),
       GetInstance(),
-      nullptr
-            );
+      nullptr);
 
    hmg_ret_HWND(hWndTV);
 }
 
+/*
+INITTREEVIEWBITMAP(HWND, p2, p3) --> numeric
+*/
 HB_FUNC( INITTREEVIEWBITMAP ) //Tree+
 {
-   HWND       hbutton = hmg_par_HWND(1);
-   HIMAGELIST himl    = nullptr;
-   PHB_ITEM   hArray;
-   char *     FileName;
-   int        ic = 0;
-   int        nCount;
-
-   nCount = ( int ) hb_parinfa(2, 0);
+   int nCount = hb_parinfa(2, 0);
+   char * FileName;
+   HIMAGELIST himl = nullptr;
+   int ic = 0;
 
    if( nCount > 0 ) {
       int Transparent = hb_parl(3) ? 0 : 1;
-      hArray = hb_param(2, Harbour::Item::ARRAY);
+      PHB_ITEM hArray = hb_param(2, Harbour::Item::ARRAY);
 
       for( int s = 1; s <= nCount; s++ ) {
-         FileName = ( char * ) hb_arrayGetCPtr(hArray, s);
+         FileName = ( char * ) hb_arrayGetCPtr(hArray, s); // TODO: unicode
 
          if( himl == nullptr ) {
             himl = HMG_ImageListLoadFirst(FileName, nCount, Transparent, nullptr, nullptr);
@@ -114,54 +112,49 @@ HB_FUNC( INITTREEVIEWBITMAP ) //Tree+
       }
 
       if( himl != nullptr ) {
-         SendMessage(hbutton, TVM_SETIMAGELIST, TVSIL_NORMAL, reinterpret_cast<LPARAM>(himl));
+         SendMessage(hmg_par_HWND(1), TVM_SETIMAGELIST, TVSIL_NORMAL, reinterpret_cast<LPARAM>(himl));
       }
 
       ic = ImageList_GetImageCount(himl);
    }
 
-   hb_retni( ic );
+   hb_retni(ic);
 }
 
+/*
+ADDTREEVIEWBITMAP(HWND, p2, p3) --> numeric
+*/
 HB_FUNC( ADDTREEVIEWBITMAP )  // Tree+
 {
-   HWND       hbutton = hmg_par_HWND(1);
-   HIMAGELIST himl;
-   int        Transparent = hb_parl(3) ? 0 : 1;
-   int        ic = 0;
-
-   himl = TreeView_GetImageList(hbutton, TVSIL_NORMAL);
-
+   int Transparent = hb_parl(3) ? 0 : 1;
+   int ic = 0;
+   HWND hbutton = hmg_par_HWND(1);
+   HIMAGELIST himl = TreeView_GetImageList(hbutton, TVSIL_NORMAL);
    if( himl != nullptr ) {
       HMG_ImageListAdd(himl, ( char * ) hb_parc(2), Transparent);
-
       SendMessage(hbutton, TVM_SETIMAGELIST, TVSIL_NORMAL, reinterpret_cast<LPARAM>(himl));
-
       ic = ImageList_GetImageCount(himl);
    }
-
-   hb_retni( ic );
+   hb_retni(ic);
 }
 
 #define MAX_ITEM_TEXT  256
 
-typedef struct
+struct HMG_StructTreeItemLPARAM
 {
    HTREEITEM ItemHandle;
    LONG      nID;
    BOOL      IsNodeFlag;
-} HMG_StructTreeItemLPARAM;
+} ;
 
 void AddTreeItemLPARAM(HWND hWndTV, HTREEITEM ItemHandle, LONG nID, BOOL IsNodeFlag)
 {
-   TV_ITEM TV_Item;
-
    if( ( hWndTV != nullptr ) && ( ItemHandle != nullptr ) ) {
       HMG_StructTreeItemLPARAM * TreeItemLPARAM = ( HMG_StructTreeItemLPARAM * ) hb_xgrab(sizeof(HMG_StructTreeItemLPARAM));
       TreeItemLPARAM->ItemHandle = ItemHandle;
       TreeItemLPARAM->nID        = nID;
       TreeItemLPARAM->IsNodeFlag = IsNodeFlag;
-
+      TV_ITEM TV_Item;
       TV_Item.mask   = TVIF_PARAM;
       TV_Item.hItem  = ( HTREEITEM ) ItemHandle;
       TV_Item.lParam = ( LPARAM ) TreeItemLPARAM;
@@ -169,39 +162,27 @@ void AddTreeItemLPARAM(HWND hWndTV, HTREEITEM ItemHandle, LONG nID, BOOL IsNodeF
    }
 }
 
+/*
+ADDTREEITEM(HWND, HTREEITEM, cText, p4, p5, p6, p7) --> HWND
+*/
 HB_FUNC( ADDTREEITEM )
 {
-   HWND hWndTV = hmg_par_HWND(1);
-
    HTREEITEM hPrev = hmg_par_HTREEITEM(2);
-   HTREEITEM hRet;
-
-#ifndef UNICODE
-   LPSTR lpText = ( LPSTR ) hb_parc(3);
-#else
-   LPWSTR lpText = hb_osStrU16Encode(( char * ) hb_parc(3));
-#endif
-
-   TV_ITEM tvi;
-   TV_INSERTSTRUCT is;
-
    LONG nID        = hmg_par_LONG(6);
    BOOL IsNodeFlag = hmg_par_BOOL(7);
 
+   TV_ITEM tvi;
    tvi.mask = TVIF_TEXT | TVIF_IMAGE | TVIF_SELECTEDIMAGE | TVIF_PARAM;
-
-   tvi.pszText        = lpText;
+   void * str;
+   tvi.pszText        = const_cast<TCHAR*>(HB_PARSTR(3, &str, nullptr));
    tvi.cchTextMax     = 1024;
    tvi.iImage         = hb_parni(4);
    tvi.iSelectedImage = hb_parni(5);
    tvi.lParam         = nID;
 
-   #if ( defined(__BORLANDC__) && __BORLANDC__ <= 1410 )
-   is.DUMMYUNIONNAME.item = tvi;
-   #else
+   TV_INSERTSTRUCT is;
    is.item = tvi;
-   #endif
-   if( hPrev == 0 ) {
+   if( hPrev == nullptr ) {
       is.hInsertAfter = hPrev;
       is.hParent      = nullptr;
    } else {
@@ -209,62 +190,49 @@ HB_FUNC( ADDTREEITEM )
       is.hParent      = hPrev;
    }
 
-   hRet = TreeView_InsertItem(hWndTV, &is);
-
+   HWND hWndTV = hmg_par_HWND(1);
+   HTREEITEM hRet = TreeView_InsertItem(hWndTV, &is);
    AddTreeItemLPARAM(hWndTV, hRet, nID, IsNodeFlag);
-
    hmg_ret_HTREEITEM(hRet);
-
-#ifdef UNICODE
-   hb_xfree(lpText);
-#endif
+   hb_strfree(str);
 }
 
+/*
+TREEVIEW_GETSELECTION(HWND) --> HTREEITEM|NIL
+*/
 HB_FUNC( TREEVIEW_GETSELECTION )
 {
-   HWND      TreeHandle;
-   HTREEITEM ItemHandle;
-
-   TreeHandle = hmg_par_HWND(1);
-
-   ItemHandle = TreeView_GetSelection(TreeHandle);
-
+   HTREEITEM ItemHandle = TreeView_GetSelection(hmg_par_HWND(1));
    if( ItemHandle != nullptr ) {
       hmg_ret_HTREEITEM(ItemHandle);
    }
 }
 
+/*
+TREEVIEW_SELECTITEM(HWND, HTREEITEM) --> NIL
+*/
 HB_FUNC( TREEVIEW_SELECTITEM )
 {
-   HWND      TreeHandle;
-   HTREEITEM ItemHandle;
-
-   TreeHandle = hmg_par_HWND(1);
-   ItemHandle = hmg_par_HTREEITEM(2);
-
-   TreeView_SelectItem(TreeHandle, ItemHandle);
+   TreeView_SelectItem(hmg_par_HWND(1), hmg_par_HTREEITEM(2));
 }
 
 void TreeView_FreeMemoryLPARAMRecursive(HWND hWndTV, HTREEITEM ItemHandle)
 {
-   HMG_StructTreeItemLPARAM * TreeItemLPARAM;
    TV_ITEM   TreeItem;
-   HTREEITEM ChildItem;
-   HTREEITEM NextItem;
-
    TreeItem.mask   = TVIF_PARAM;
    TreeItem.hItem  = ItemHandle;
    TreeItem.lParam = ( LPARAM ) nullptr;
    TreeView_GetItem(hWndTV, &TreeItem);
 
-   TreeItemLPARAM = ( HMG_StructTreeItemLPARAM * ) TreeItem.lParam;
+   HMG_StructTreeItemLPARAM * TreeItemLPARAM = ( HMG_StructTreeItemLPARAM * ) TreeItem.lParam;
    if( TreeItemLPARAM != nullptr ) {
       hb_xfree(TreeItemLPARAM);
       TreeItem.lParam = ( LPARAM ) nullptr;      // for security set lParam = nullptr
       TreeView_SetItem(hWndTV, &TreeItem);
    }
 
-   ChildItem = TreeView_GetChild(hWndTV, ItemHandle);
+   HTREEITEM ChildItem = TreeView_GetChild(hWndTV, ItemHandle);
+   HTREEITEM NextItem;
    while( ChildItem != nullptr ) {
       TreeView_FreeMemoryLPARAMRecursive(hWndTV, ChildItem);
       NextItem  = TreeView_GetNextSibling(hWndTV, ChildItem);
@@ -272,233 +240,157 @@ void TreeView_FreeMemoryLPARAMRecursive(HWND hWndTV, HTREEITEM ItemHandle)
    }
 }
 
+/*
+TREEVIEW_DELETEITEM(HWND, HTREEITEM) --> NIL
+*/
 HB_FUNC( TREEVIEW_DELETEITEM )
 {
-   HWND      TreeHandle;
-   HTREEITEM ItemHandle;
-
-   TreeHandle = hmg_par_HWND(1);
-   ItemHandle = hmg_par_HTREEITEM(2);
-
+   HWND TreeHandle = hmg_par_HWND(1);
+   HTREEITEM ItemHandle = hmg_par_HTREEITEM(2);
    TreeView_FreeMemoryLPARAMRecursive(TreeHandle, ItemHandle);
-
    TreeView_DeleteItem(TreeHandle, ItemHandle);
 }
 
+/*
+TREEVIEW_DELETEALLITEMS(HWND, p2) -->
+*/
 HB_FUNC( TREEVIEW_DELETEALLITEMS )
 {
-   HWND    TreeHandle = hmg_par_HWND(1);
-   int     nCount     = ( int ) hb_parinfa(2, 0);
+   int nCount = hb_parinfa(2, 0);
    TV_ITEM TreeItem;
+   HWND TreeHandle = hmg_par_HWND(1);
    HMG_StructTreeItemLPARAM * TreeItemLPARAM;
-
    for( int i = 1; i <= nCount; i++ ) {
       TreeItem.mask   = TVIF_PARAM;
       TreeItem.hItem  = ( HTREEITEM ) HB_PARVNL(2, i);
       TreeItem.lParam = 0;
-
       TreeView_GetItem(TreeHandle, &TreeItem);
-
       TreeItemLPARAM = ( HMG_StructTreeItemLPARAM * ) TreeItem.lParam;
       if( TreeItemLPARAM != nullptr ) {
          hb_xfree(TreeItemLPARAM);
       }
    }
-
    TreeView_DeleteAllItems(TreeHandle);
 }
 
+/*
+TREEVIEW_GETCOUNT(HWND) --> numeric
+*/
 HB_FUNC( TREEVIEW_GETCOUNT )
 {
-   HWND TreeHandle;
-
-   TreeHandle = hmg_par_HWND(1);
-
-   hb_retni( TreeView_GetCount(TreeHandle) );
+   hb_retni(TreeView_GetCount(hmg_par_HWND(1)));
 }
 
+/*
+TREEVIEW_GETPREVSIBLING(HWND, HTREEITEM) --> HTREEITEM
+*/
 HB_FUNC( TREEVIEW_GETPREVSIBLING )
 {
-   HWND      TreeHandle;
-   HTREEITEM ItemHandle;
-   HTREEITEM PrevItemHandle;
-
-   TreeHandle = hmg_par_HWND(1);
-   ItemHandle = hmg_par_HTREEITEM(2);
-
-   PrevItemHandle = TreeView_GetPrevSibling(TreeHandle, ItemHandle);
-
-   hmg_ret_HTREEITEM(PrevItemHandle);
+   hmg_ret_HTREEITEM(TreeView_GetPrevSibling(hmg_par_HWND(1), hmg_par_HTREEITEM(2)));
 }
 
+/*
+TREEVIEW_GETITEM(HWND, HTREEITEM) --> string
+*/
 HB_FUNC( TREEVIEW_GETITEM )
 {
-   HWND      TreeHandle;
-   HTREEITEM TreeItemHandle;
-   TV_ITEM   TreeItem;
-   TCHAR     ItemText[MAX_ITEM_TEXT];
-
-#ifdef UNICODE
-   LPSTR pStr;
-#endif
-
-   TreeHandle     = hmg_par_HWND(1);
-   TreeItemHandle = hmg_par_HTREEITEM(2);
-
-   memset(&TreeItem, 0, sizeof(TV_ITEM));
-
-   TreeItem.mask  = TVIF_TEXT;
-   TreeItem.hItem = TreeItemHandle;
-
+   TCHAR ItemText[MAX_ITEM_TEXT];
+   TV_ITEM TreeItem{};
+   TreeItem.mask       = TVIF_TEXT;
+   TreeItem.hItem      = hmg_par_HTREEITEM(2);
    TreeItem.pszText    = ItemText;
    TreeItem.cchTextMax = sizeof(ItemText) / sizeof(TCHAR);
-
-   TreeView_GetItem(TreeHandle, &TreeItem);
-
-#ifndef UNICODE
-   hb_retc( ItemText );
-#else
-   pStr = hb_osStrU16Decode(ItemText);
-   hb_retc( pStr );
-   hb_xfree(pStr);
-#endif
+   TreeView_GetItem(hmg_par_HWND(1), &TreeItem);
+   HB_RETSTR(ItemText);
 }
 
+/*
+TREEVIEW_SETITEM(HWND, HTREEITEM) --> NIL
+*/
 HB_FUNC( TREEVIEW_SETITEM )
 {
-   HWND      TreeHandle;
-   HTREEITEM TreeItemHandle;
-   TV_ITEM   TreeItem;
-   TCHAR     ItemText[MAX_ITEM_TEXT];
-
-#ifdef UNICODE
-   LPWSTR lpText;
-#endif
-
-   TreeHandle     = hmg_par_HWND(1);
-   TreeItemHandle = hmg_par_HTREEITEM(2);
-
-   memset(&TreeItem, 0, sizeof(TV_ITEM));
-#ifdef UNICODE
-   lpText = hb_osStrU16Encode(hb_parc(3));
-   lstrcpy(ItemText, lpText);
-#else
-   lstrcpy(ItemText, hb_parc(3));
-#endif
-
-   TreeItem.mask  = TVIF_TEXT;
-   TreeItem.hItem = TreeItemHandle;
-
+   TCHAR ItemText[MAX_ITEM_TEXT];
+   TV_ITEM TreeItem{};
+   void * str;
+   lstrcpy(ItemText, HB_PARSTR(3, &str, nullptr));
+   TreeItem.mask       = TVIF_TEXT;
+   TreeItem.hItem      = hmg_par_HTREEITEM(2);
    TreeItem.pszText    = ItemText;
    TreeItem.cchTextMax = sizeof(ItemText) / sizeof(TCHAR);
-
-   TreeView_SetItem(TreeHandle, &TreeItem);
-
-#ifdef UNICODE
-   hb_xfree(lpText);
-#endif
+   TreeView_SetItem(hmg_par_HWND(1), &TreeItem);
+   hb_strfree(str);
 }
 
+/*
+TREEITEM_SETIMAGEINDEX(HWND, HTREEITEM, np3, np4) --> NIL
+*/
 HB_FUNC( TREEITEM_SETIMAGEINDEX )
 {
-   HWND      TreeHandle = hmg_par_HWND(1);
-   HTREEITEM ItemHandle = hmg_par_HTREEITEM(2);
-   TV_ITEM   TreeItem;
-
+   TV_ITEM TreeItem;
    TreeItem.mask           = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
-   TreeItem.hItem          = ItemHandle;
+   TreeItem.hItem          = hmg_par_HTREEITEM(2);
    TreeItem.iImage         = hb_parni(3);
    TreeItem.iSelectedImage = hb_parni(4);
-
-   TreeView_SetItem(TreeHandle, &TreeItem);
+   TreeView_SetItem(hmg_par_HWND(1), &TreeItem);
 }
 
+/*
+TREEVIEW_GETSELECTIONID(HWND) --> numeric
+*/
 HB_FUNC( TREEVIEW_GETSELECTIONID )
 {
-   HWND      TreeHandle;
-   HTREEITEM ItemHandle;
-   TV_ITEM   TreeItem;
-   HMG_StructTreeItemLPARAM * TreeItemLPARAM;
-
-   TreeHandle = hmg_par_HWND(1);
-   ItemHandle = TreeView_GetSelection(TreeHandle);
-
+   HWND TreeHandle = hmg_par_HWND(1);
+   HTREEITEM ItemHandle = TreeView_GetSelection(TreeHandle);
    if( ItemHandle != nullptr ) {
+      TV_ITEM TreeItem;
       TreeItem.mask   = TVIF_PARAM;
       TreeItem.hItem  = ItemHandle;
       TreeItem.lParam = 0;
-
       TreeView_GetItem(TreeHandle, &TreeItem);
-
-      TreeItemLPARAM = ( HMG_StructTreeItemLPARAM * ) TreeItem.lParam;
-
+      HMG_StructTreeItemLPARAM * TreeItemLPARAM = ( HMG_StructTreeItemLPARAM * ) TreeItem.lParam;
       hb_retnl( TreeItemLPARAM->nID );
    }
 }
 
+/*
+TREEVIEW_GETNEXTSIBLING(HWND, HTREEITEM) --> HTREEITEM
+*/
 HB_FUNC( TREEVIEW_GETNEXTSIBLING )
 {
-   HWND      TreeHandle;
-   HTREEITEM ItemHandle;
-   HTREEITEM NextItemHandle;
-
-   TreeHandle = hmg_par_HWND(1);
-   ItemHandle = hmg_par_HTREEITEM(2);
-
-   NextItemHandle = TreeView_GetNextSibling(TreeHandle, ItemHandle);
-
-   hmg_ret_HTREEITEM(NextItemHandle);
+   hmg_ret_HTREEITEM(TreeView_GetNextSibling(hmg_par_HWND(1), hmg_par_HTREEITEM(2)));
 }
 
+/*
+TREEVIEW_GETCHILD(HWND, HTREEITEM) --> HTREEITEM
+*/
 HB_FUNC( TREEVIEW_GETCHILD )
 {
-   HWND      TreeHandle;
-   HTREEITEM ItemHandle;
-   HTREEITEM ChildItemHandle;
-
-   TreeHandle = hmg_par_HWND(1);
-   ItemHandle = hmg_par_HTREEITEM(2);
-
-   ChildItemHandle = TreeView_GetChild(TreeHandle, ItemHandle);
-
-   hmg_ret_HTREEITEM(ChildItemHandle);
+   hmg_ret_HTREEITEM(TreeView_GetChild(hmg_par_HWND(1), hmg_par_HTREEITEM(2)));
 }
 
+/*
+TREEVIEW_GETPARENT(HWND, HTREEITEM) --> HTREEITEM
+*/
 HB_FUNC( TREEVIEW_GETPARENT )
 {
-   HWND      TreeHandle;
-   HTREEITEM ItemHandle;
-   HTREEITEM ParentItemHandle;
-
-   TreeHandle = hmg_par_HWND(1);
-   ItemHandle = hmg_par_HTREEITEM(2);
-
-   ParentItemHandle = TreeView_GetParent(TreeHandle, ItemHandle);
-
-   hmg_ret_HTREEITEM(ParentItemHandle);
+   hmg_ret_HTREEITEM(TreeView_GetParent(hmg_par_HWND(1), hmg_par_HTREEITEM(2)));
 }
 
 //**************************************************
 //    by  Dr. Claudio Soto  (November 2013)
 //**************************************************
 
+/*
+TREEVIEW_GETITEMSTATE(HWND, HTREEITEM, StateMask) --> nState
+*/
 HB_FUNC( TREEVIEW_GETITEMSTATE )
 {
-   HWND      hWndTV     = hmg_par_HWND(1);
-   HTREEITEM ItemHandle = hmg_par_HTREEITEM(2);
-   UINT      StateMask  = hmg_par_UINT(3);
-   UINT      State      = TreeView_GetItemState(hWndTV, ItemHandle, StateMask);
-
-   hb_retni( State );
+   hb_retni(TreeView_GetItemState(hmg_par_HWND(1), hmg_par_HTREEITEM(2), hmg_par_UINT(3)));
 }
 
 BOOL TreeView_IsNode(HWND hWndTV, HTREEITEM ItemHandle)
 {
-   if( TreeView_GetChild(hWndTV, ItemHandle) != nullptr ) {
-      return TRUE;
-   } else {
-      return FALSE;
-   }
+   return (TreeView_GetChild(hWndTV, ItemHandle) != nullptr) ? TRUE : FALSE;
 }
 
 //--------------------------------------------------------------------------------------------------------
@@ -507,22 +399,21 @@ BOOL TreeView_IsNode(HWND hWndTV, HTREEITEM ItemHandle)
 
 void TreeView_ExpandChildrenRecursive(HWND hWndTV, HTREEITEM ItemHandle, UINT nExpand)
 {
-   HTREEITEM ChildItem;
-   HTREEITEM NextItem;
-
    if( TreeView_IsNode(hWndTV, ItemHandle) ) {
       TreeView_Expand(hWndTV, ItemHandle, nExpand);
-      ChildItem = TreeView_GetChild(hWndTV, ItemHandle);
-
+      HTREEITEM ChildItem = TreeView_GetChild(hWndTV, ItemHandle);
+      HTREEITEM NextItem;
       while( ChildItem != nullptr ) {
          TreeView_ExpandChildrenRecursive(hWndTV, ChildItem, nExpand);
-
          NextItem  = TreeView_GetNextSibling(hWndTV, ChildItem);
          ChildItem = NextItem;
       }
    }
 }
 
+/*
+TREEVIEW_EXPANDCHILDRENRECURSIVE(HWND, HTREEITEM, nExpand, lRecurse) --> NIL
+*/
 HB_FUNC( TREEVIEW_EXPANDCHILDRENRECURSIVE )
 {
    HWND      hWndTV     = hmg_par_HWND(1);
@@ -536,9 +427,7 @@ HB_FUNC( TREEVIEW_EXPANDCHILDRENRECURSIVE )
       TreeView_Expand(hWndTV, ItemHandle, nExpand);
    } else {
       EnableWindow(hWndParent, FALSE);
-
       TreeView_ExpandChildrenRecursive(hWndTV, ItemHandle, nExpand);
-
       if( lEnabled == TRUE ) {
          EnableWindow(hWndParent, TRUE);
       }
@@ -553,13 +442,13 @@ HB_FUNC( TREEVIEW_EXPANDCHILDRENRECURSIVE )
 #define SORTTREENODE_LAST   1
 #define SORTTREENODE_MIX    2
 
-typedef struct
+struct HMG_StructTreeViewCompareInfo
 {
    HWND hWndTV;
    BOOL CaseSensitive;
    BOOL AscendingOrder;
    int  NodePosition;
-} HMG_StructTreeViewCompareInfo;
+};
 
 int CALLBACK TreeViewCompareFunc( LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort )
 {
@@ -630,23 +519,22 @@ int CALLBACK TreeViewCompareFunc( LPARAM lParam1, LPARAM lParam2, LPARAM lParamS
 
 void TreeView_SortChildrenRecursiveCB(HWND hWndTV, TVSORTCB TVSortCB)
 {
-   HTREEITEM ChildItem;
-   HTREEITEM NextItem;
-
    if( TreeView_IsNode(hWndTV, TVSortCB.hParent) ) {
       TreeView_SortChildrenCB(hWndTV, &TVSortCB, 0);
-      ChildItem = TreeView_GetChild(hWndTV, TVSortCB.hParent);
-
+      HTREEITEM ChildItem = TreeView_GetChild(hWndTV, TVSortCB.hParent);
+      HTREEITEM NextItem;
       while( ChildItem != nullptr ) {
          TVSortCB.hParent = ( HTREEITEM ) ChildItem;
          TreeView_SortChildrenRecursiveCB(hWndTV, TVSortCB);
-
          NextItem  = TreeView_GetNextSibling(hWndTV, ChildItem);
          ChildItem = NextItem;
       }
    }
 }
 
+/*
+TREEVIEW_SORTCHILDRENRECURSIVECB() -->
+*/
 HB_FUNC( TREEVIEW_SORTCHILDRENRECURSIVECB )
 {
    HWND      hWndTV          = hmg_par_HWND(1);
@@ -683,65 +571,56 @@ HB_FUNC( TREEVIEW_SORTCHILDRENRECURSIVECB )
    }
 }
 
+/*
+TREEVIEW_GETROOT(HWND) --> HTREEITEM
+*/
 HB_FUNC( TREEVIEW_GETROOT )
 {
-   HWND      hWndTV         = hmg_par_HWND(1);
-   HTREEITEM RootItemHandle = TreeView_GetRoot(hWndTV);
-
-   hmg_ret_HTREEITEM(RootItemHandle);
+   hmg_ret_HTREEITEM(TreeView_GetRoot(hmg_par_HWND(1)));
 }
 
+/*
+TREEITEM_GETID(HWND, HTREEITEM) --> nID
+*/
 HB_FUNC( TREEITEM_GETID )
 {
-   HWND      hWndTV     = hmg_par_HWND(1);
-   HTREEITEM ItemHandle = hmg_par_HTREEITEM(2);
-
    TV_ITEM TreeItem;
-
    TreeItem.mask   = TVIF_PARAM;
-   TreeItem.hItem  = ItemHandle;
+   TreeItem.hItem  = hmg_par_HTREEITEM(2);
    TreeItem.lParam = 0;
-
-   if( TreeView_GetItem(hWndTV, &TreeItem) == TRUE ) {
+   if( TreeView_GetItem(hmg_par_HWND(1), &TreeItem) == TRUE ) {
       HMG_StructTreeItemLPARAM * TreeItemLPARAM = ( HMG_StructTreeItemLPARAM * ) TreeItem.lParam;
       hb_retnl( TreeItemLPARAM->nID );
    }
 }
 
+/*
+TREEITEM_SETNODEFLAG(HWND, HTREEITEM, lIsNodeFlag) --> NIL
+*/
 HB_FUNC( TREEITEM_SETNODEFLAG )
 {
-   HWND      hWndTV     = hmg_par_HWND(1);
-   HTREEITEM ItemHandle = hmg_par_HTREEITEM(2);
-   BOOL      IsNodeFlag = hmg_par_BOOL(3);
-
-   HMG_StructTreeItemLPARAM * TreeItemLPARAM;
+   HWND hWndTV = hmg_par_HWND(1);
    TV_ITEM TreeItem;
-
    TreeItem.mask   = TVIF_PARAM;
-   TreeItem.hItem  = ItemHandle;
+   TreeItem.hItem  = hmg_par_HTREEITEM(2);
    TreeItem.lParam = 0;
    TreeView_GetItem(hWndTV, &TreeItem);
-
-   TreeItemLPARAM = ( HMG_StructTreeItemLPARAM * ) TreeItem.lParam;
-   TreeItemLPARAM->IsNodeFlag = IsNodeFlag;
+   HMG_StructTreeItemLPARAM * TreeItemLPARAM = ( HMG_StructTreeItemLPARAM * ) TreeItem.lParam;
+   TreeItemLPARAM->IsNodeFlag = hmg_par_BOOL(3);
    TreeItem.lParam = ( LPARAM ) TreeItemLPARAM;
    TreeView_SetItem(hWndTV, &TreeItem);
 }
 
+/*
+TREEITEM_GETNODEFLAG() -->
+*/
 HB_FUNC( TREEITEM_GETNODEFLAG )
 {
-   HWND      hWndTV     = hmg_par_HWND(1);
-   HTREEITEM ItemHandle = hmg_par_HTREEITEM(2);
-
-   HMG_StructTreeItemLPARAM * TreeItemLPARAM;
    TV_ITEM TreeItem;
-
    TreeItem.mask   = TVIF_PARAM;
-   TreeItem.hItem  = ItemHandle;
+   TreeItem.hItem  = hmg_par_HTREEITEM(2);
    TreeItem.lParam = 0;
-
-   TreeView_GetItem(hWndTV, &TreeItem);
-
-   TreeItemLPARAM = ( HMG_StructTreeItemLPARAM * ) TreeItem.lParam;
-   hb_retl(( BOOL ) TreeItemLPARAM->IsNodeFlag);
+   TreeView_GetItem(hmg_par_HWND(1), &TreeItem);
+   HMG_StructTreeItemLPARAM * TreeItemLPARAM = ( HMG_StructTreeItemLPARAM * ) TreeItem.lParam;
+   hb_retl(TreeItemLPARAM->IsNodeFlag);
 }
