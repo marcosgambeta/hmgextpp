@@ -1,53 +1,52 @@
-/*----------------------------------------------------------------------------
-   MINIGUI - Harbour Win32 GUI library source code
-
-   Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
-   http://harbourminigui.googlepages.com/
-
-   This program is free software; you can redistribute it and/or modify it under
-   the terms of the GNU General Public License as published by the Free Software
-   Foundation; either version 2 of the License, or (at your option) any later
-   version.
-
-   This program is distributed in the hope that it will be useful, but WITHOUT
-   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-   FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License along with
-   this software; see the file COPYING. If not, write to the Free Software
-   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
-   visit the web site http://www.gnu.org/).
-
-   As a special exception, you have permission for additional uses of the text
-   contained in this release of Harbour Minigui.
-
-   The exception is that, if you link the Harbour Minigui library with other
-   files to produce an executable, this does not by itself cause the resulting
-   executable to be covered by the GNU General Public License.
-   Your use of that executable is in no way restricted on account of linking the
-   Harbour-Minigui library code into it.
-
-   Parts of this project are based upon:
-
-        "Harbour GUI framework for Win32"
-        Copyright 2001 Alexander S.Kresin <alex@belacy.ru>
-        Copyright 2001 Antonio Linares <alinares@fivetech.com>
-        www - https://harbour.github.io/
-
-        "Harbour Project"
-        Copyright 1999-2022, https://harbour.github.io/
-
-   Parts of this module are based upon:
-
-        "HBPRINT"
-        Copyright 2002 Richard Rylko <rrylko@poczta.onet.pl>
-        http://rrylko.republika.pl
-
-        "HBPRINTER"
-        Copyright 2002 Richard Rylko <rrylko@poczta.onet.pl>
-        http://rrylko.republika.pl
-
----------------------------------------------------------------------------*/
+/*
+ * MINIGUI - Harbour Win32 GUI library source code
+ *
+ * Copyright 2002-2010 Roberto Lopez <harbourminigui@gmail.com>
+ * http://harbourminigui.googlepages.com/
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this software; see the file COPYING. If not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA (or
+ * visit the web site http://www.gnu.org/).
+ *
+ * As a special exception, you have permission for additional uses of the text
+ * contained in this release of Harbour Minigui.
+ *
+ * The exception is that, if you link the Harbour Minigui library with other
+ * files to produce an executable, this does not by itself cause the resulting
+ * executable to be covered by the GNU General Public License.
+ * Your use of that executable is in no way restricted on account of linking the
+ * Harbour-Minigui library code into it.
+ *
+ * Parts of this project are based upon:
+ *
+ * "Harbour GUI framework for Win32"
+ * Copyright 2001 Alexander S.Kresin <alex@belacy.ru>
+ * Copyright 2001 Antonio Linares <alinares@fivetech.com>
+ * www - https://harbour.github.io/
+ *
+ * "Harbour Project"
+ * Copyright 1999-2022, https://harbour.github.io/
+ *
+ * Parts of this module are based upon:
+ *
+ * "HBPRINT"
+ * Copyright 2002 Richard Rylko <rrylko@poczta.onet.pl>
+ * http://rrylko.republika.pl
+ *
+ * "HBPRINTER"
+ * Copyright 2002 Richard Rylko <rrylko@poczta.onet.pl>
+ * http://rrylko.republika.pl
+ */
 
 ///////////////////////////////////////////////////////////////////////////////
 // LOW LEVEL C PRINT ROUTINES
@@ -63,7 +62,7 @@
 
 #include "mgdefs.hpp"
 #include <hbapiitm.hpp>
-
+#include <hbwinuni.hpp>
 #include <olectl.h>
 
 #ifndef WC_STATIC
@@ -77,54 +76,56 @@ static DWORD charset = DEFAULT_CHARSET;
   LPSTR  WideToAnsi(LPWSTR);
 #endif
 
+/*
+_HMG_SETCHARSET(np1) --> NIL
+*/
 HB_FUNC( _HMG_SETCHARSET )
 {
    charset = hmg_par_DWORD(1);
 }
 
+/*
+_HMG_PRINTER_ABORTDOC(HDC) --> NIL
+*/
 HB_FUNC( _HMG_PRINTER_ABORTDOC )
 {
-   HDC hdcPrint = hmg_par_HDC(1);
-
-   AbortDoc(hdcPrint);
+   AbortDoc(hmg_par_HDC(1));
 }
 
+/*
+_HMG_PRINTER_STARTDOC(HDC, cText) --> numeric
+*/
 HB_FUNC( _HMG_PRINTER_STARTDOC )
 {
-
-   DOCINFO docInfo;
-
-#ifndef UNICODE
-   LPTSTR lpText = ( LPTSTR ) hb_parc(2);
-#else
-   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(2));
-#endif
    HDC hdcPrint = hmg_par_HDC(1);
 
-   if( hdcPrint != 0 ) {
-      ZeroMemory(&docInfo, sizeof(docInfo));
+   if( hdcPrint != nullptr ) {
+      DOCINFO docInfo{};
       docInfo.cbSize      = sizeof(docInfo);
-      docInfo.lpszDocName = lpText;
-
-      hb_retni( StartDoc(hdcPrint, &docInfo) );
+      void * str;
+      docInfo.lpszDocName = HB_PARSTR(2, &str, nullptr);
+      hb_retni(StartDoc(hdcPrint, &docInfo));
+      hb_strfree(str);
    }
-
 }
 
+/*
+_HMG_PRINTER_STARTPAGE(HDC) --> NIL
+*/
 HB_FUNC( _HMG_PRINTER_STARTPAGE )
 {
-
    HDC hdcPrint = hmg_par_HDC(1);
 
-   if( hdcPrint != 0 ) {
+   if( hdcPrint != nullptr ) {
       StartPage(hdcPrint);
-   }   
-
+   }
 }
 
+/*
+_HMG_PRINTER_C_PRINT() -->
+*/
 HB_FUNC( _HMG_PRINTER_C_PRINT )
 {
-
    // 1:  Hdc
    // 2:  y
    // 3:  x
@@ -144,70 +145,26 @@ HB_FUNC( _HMG_PRINTER_C_PRINT )
    // 17: Angle Flag
    // 18: Angle
 
-   HGDIOBJ hgdiobj;
-
-   TCHAR FontName[32];
-   int   FontSize;
-
-#ifdef UNICODE
-   LPWSTR pFontName, pText;
-#endif
-
-   DWORD fdwItalic;
-   DWORD fdwUnderline;
-   DWORD fdwStrikeOut;
-
-   int fnWeight;
-   int r;
-   int g;
-   int b;
-
-   int x = hb_parni(3);
-   int y = hb_parni(2);
-
-   HFONT hfont;
-
    HDC hdcPrint = hmg_par_HDC(1);
 
-   int FontHeight;
-   int FontAngle;
-
-   if( hdcPrint != 0 ) {
+   if( hdcPrint != nullptr ) {
 
       // Bold
-
-      if( hb_parl(10) ) {
-         fnWeight = FW_BOLD;
-      } else {
-         fnWeight = FW_NORMAL;
-      }
+      int fnWeight = hb_parl(10) ? FW_BOLD : FW_NORMAL;
 
       // Italic
-
-      if( hb_parl(11) ) {
-         fdwItalic = TRUE;
-      } else {
-         fdwItalic = FALSE;
-      }
+      DWORD fdwItalic = hb_parl(11) ? TRUE : FALSE;
 
       // UnderLine
-
-      if( hb_parl(12) ) {
-         fdwUnderline = TRUE;
-      } else {
-         fdwUnderline = FALSE;
-      }
+      DWORD fdwUnderline = hb_parl(12) ? TRUE : FALSE;
 
       // StrikeOut
-
-      if( hb_parl(13) ) {
-         fdwStrikeOut = TRUE;
-      } else {
-         fdwStrikeOut = FALSE;
-      }
+      DWORD fdwStrikeOut = hb_parl(13) ? TRUE : FALSE;
 
       // Color
-
+      int r;
+      int g;
+      int b;
       if( hb_parl(14) ) {
          r = hb_parni(6);
          g = hb_parni(7);
@@ -219,67 +176,44 @@ HB_FUNC( _HMG_PRINTER_C_PRINT )
       }
 
       // Fontname
-
+      TCHAR FontName[32];
       if( hb_parl(15) ) {
-#ifndef UNICODE
-         lstrcpy(FontName, hb_parc(4));
-#else
-         pFontName = AnsiToWide(hb_parc(4));
-         lstrcpy(FontName, pFontName);
-         hb_xfree(pFontName);
-#endif
+         void * str;
+         lstrcpy(FontName, HB_PARSTR(4, &str, nullptr));
+         hb_strfree(str);
       } else {
          lstrcpy(FontName, "Arial");
       }
 
       // FontSize
-
-      if( hb_parl(16) ) {
-         FontSize = hb_parni(5);
-      } else {
-         FontSize = 10;
-      }
+      int FontSize = hb_parl(16) ? hb_parni(5) : 10;
 
       // Angle
+      int FontAngle = hb_parl(17) ? hb_parni(18) : 0;
 
-      if( hb_parl(17) ) {
-         FontAngle = hb_parni(18);
-      } else {
-         FontAngle = 0;
-      }
+      int FontHeight = -MulDiv(FontSize, GetDeviceCaps(hdcPrint, LOGPIXELSY), 72);
 
-      FontHeight = -MulDiv(FontSize, GetDeviceCaps(hdcPrint, LOGPIXELSY), 72);
+      HFONT hfont = CreateFont(FontHeight, 0, FontAngle, FontAngle, fnWeight, fdwItalic, fdwUnderline, fdwStrikeOut, charset, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_DONTCARE, FontName);
 
-      hfont = CreateFont
-              (
-         FontHeight,
-         0,
-         FontAngle,
-         FontAngle,
-         fnWeight,
-         fdwItalic,
-         fdwUnderline,
-         fdwStrikeOut,
-         charset,
-         OUT_TT_PRECIS,
-         CLIP_DEFAULT_PRECIS,
-         DEFAULT_QUALITY,
-         FF_DONTCARE,
-         FontName
-              );
-
-      hgdiobj = SelectObject(hdcPrint, hfont);
+      HGDIOBJ hgdiobj = SelectObject(hdcPrint, hfont);
 
       SetTextColor(hdcPrint, RGB(r, g, b));
       SetBkMode(hdcPrint, TRANSPARENT);
 
-#ifndef UNICODE
+      int x = hb_parni(3);
+      int y = hb_parni(2);
+
+      #ifdef UNICODE
+      LPWSTR pText;
+      #endif
+
+      #ifndef UNICODE
       TextOut(hdcPrint,
               ( x * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000 ) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX),
               ( y * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000 ) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY),
               hb_parc(9),
               strlen(hb_parc(9)));
-#else
+      #else
       pText = AnsiToWide(hb_parc(9));
       TextOut(hdcPrint,
               ( x * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000 ) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETX),
@@ -287,19 +221,18 @@ HB_FUNC( _HMG_PRINTER_C_PRINT )
               pText,
               lstrlen(pText));
       hb_xfree(pText);
-#endif
+      #endif
 
       SelectObject(hdcPrint, hgdiobj);
-
       DeleteObject(hfont);
-
    }
-
 }
 
+/*
+_HMG_PRINTER_C_MULTILINE_PRINT() -->
+*/
 HB_FUNC( _HMG_PRINTER_C_MULTILINE_PRINT )
 {
-
    // 1:  Hdc
    // 2:  y
    // 3:  x
@@ -402,13 +335,9 @@ HB_FUNC( _HMG_PRINTER_C_MULTILINE_PRINT )
       // Fontname
 
       if( hb_parl(15) ) {
-#ifndef UNICODE
-         lstrcpy(FontName, hb_parc(4));
-#else
-         pFontName = AnsiToWide(hb_parc(4));
-         lstrcpy(FontName, pFontName);
-         hb_xfree(pFontName);
-#endif
+         void * str;
+         lstrcpy(FontName, HB_PARSTR(4, &str, nullptr));
+         hb_strfree(str);
       } else {
          lstrcpy(FontName, "Arial");
       }
@@ -423,23 +352,7 @@ HB_FUNC( _HMG_PRINTER_C_MULTILINE_PRINT )
 
       FontHeight = -MulDiv(FontSize, GetDeviceCaps(hdcPrint, LOGPIXELSY), 72);
 
-      hfont = CreateFont
-              (
-         FontHeight,
-         0,
-         0,
-         0,
-         fnWeight,
-         fdwItalic,
-         fdwUnderline,
-         fdwStrikeOut,
-         charset,
-         OUT_TT_PRECIS,
-         CLIP_DEFAULT_PRECIS,
-         DEFAULT_QUALITY,
-         FF_DONTCARE,
-         FontName
-              );
+      hfont = CreateFont(FontHeight, 0, 0, 0, fnWeight, fdwItalic, fdwUnderline, fdwStrikeOut, charset, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_DONTCARE, FontName);
 
       if( hb_parni(19) == 0 ) {
          uFormat = DT_END_ELLIPSIS | DT_NOPREFIX | DT_WORDBREAK | DT_LEFT;
@@ -460,20 +373,10 @@ HB_FUNC( _HMG_PRINTER_C_MULTILINE_PRINT )
       rect.bottom = ( toy * GetDeviceCaps(hdcPrint, LOGPIXELSY) / 1000 ) - GetDeviceCaps(hdcPrint, PHYSICALOFFSETY);
 
 #ifndef UNICODE
-      DrawText(hdcPrint,
-               hb_parc(9),
-               strlen(hb_parc(9)),
-               &rect,
-               uFormat
-               );
+      DrawText(hdcPrint, hb_parc(9), strlen(hb_parc(9)), &rect, uFormat);
 #else
       pText = AnsiToWide(hb_parc(9));
-      DrawText(hdcPrint,
-               pText,
-               lstrlen(pText),
-               &rect,
-               uFormat
-               );
+      DrawText(hdcPrint, pText, lstrlen(pText), &rect, uFormat);
       hb_xfree(pText);
 #endif
 
@@ -485,47 +388,42 @@ HB_FUNC( _HMG_PRINTER_C_MULTILINE_PRINT )
 
 }
 
+/*
+_HMG_PRINTER_ENDPAGE(HDC) --> NIL
+*/
 HB_FUNC( _HMG_PRINTER_ENDPAGE )
 {
-
    HDC hdcPrint = hmg_par_HDC(1);
-
-   if( hdcPrint != 0 ) {
+   if( hdcPrint != nullptr ) {
       EndPage(hdcPrint);
-   }   
-
+   }
 }
 
+/*
+_HMG_PRINTER_ENDDOC(HDC) --> NIL
+*/
 HB_FUNC( _HMG_PRINTER_ENDDOC )
 {
-
    HDC hdcPrint = hmg_par_HDC(1);
-
-   if( hdcPrint != 0 ) {
+   if( hdcPrint != nullptr ) {
       EndDoc(hdcPrint);
-   }   
-
+   }
 }
 
+/*
+_HMG_PRINTER_DELETEDC(HDC) --> NIL
+*/
 HB_FUNC( _HMG_PRINTER_DELETEDC )
 {
-
-   HDC hdcPrint = hmg_par_HDC(1);
-
-   DeleteDC(hdcPrint);
-
+   DeleteDC(hmg_par_HDC(1));
 }
 
+/*
+_HMG_PRINTER_PRINTDIALOG() -->
+*/
 HB_FUNC( _HMG_PRINTER_PRINTDIALOG )
 {
-
-#ifdef UNICODE
-   LPSTR pStr;
-#endif
    PRINTDLG pd;
-
-   LPDEVMODE pDevMode;
-
    pd.lStructSize         = sizeof(PRINTDLG);
    pd.hDevMode            = nullptr;
    pd.hDevNames           = nullptr;
@@ -547,67 +445,62 @@ HB_FUNC( _HMG_PRINTER_PRINTDIALOG )
    pd.hSetupTemplate      = nullptr;
 
    if( PrintDlg(&pd) ) {
-      pDevMode = ( LPDEVMODE ) GlobalLock(pd.hDevMode);
-
+      #ifdef UNICODE
+      LPSTR pStr;
+      #endif
+      LPDEVMODE pDevMode = ( LPDEVMODE ) GlobalLock(pd.hDevMode);
       hb_reta(4);
       hmg_storvhandle(pd.hDC, -1, 1);
-#ifndef UNICODE
+      #ifndef UNICODE
       HB_STORC(( const char * ) pDevMode->dmDeviceName, -1, 2);
-#else
+      #else
       pStr = WideToAnsi(pDevMode->dmDeviceName);
       HB_STORC(pStr, -1, 2);
       hb_xfree(pStr);
-#endif
+      #endif
       HB_STORNI( pDevMode->dmCopies > 1 ? pDevMode->dmCopies : pd.nCopies, -1, 3 );
       HB_STORNI( pDevMode->dmCollate, -1, 4 );
-
       GlobalUnlock(pd.hDevMode);
    } else {
       hb_reta(4);
       HB_STORVNL( 0, -1, 1 );
-#ifndef UNICODE
+      #ifndef UNICODE
       HB_STORC("", -1, 2);
-#else
+      #else
       pStr = WideToAnsi("");
       HB_STORC(pStr, -1, 2);
       hb_xfree(pStr);
-#endif
+      #endif
       HB_STORNI( 0, -1, 3 );
       HB_STORNI( 0, -1, 4 );
    }
-
 }
 
+/*
+APRINTERS() -->
+*/
 HB_FUNC( APRINTERS )
 {
-
-   OSVERSIONINFO osvi;
-
-   HGLOBAL cBuffer;
-   HGLOBAL pBuffer;
-
-   DWORD dwSize     = 0;
-   DWORD dwPrinters = 0;
-   DWORD i;
-
-#ifdef UNICODE
+   #ifdef UNICODE
    LPSTR pStr;
-#endif
+   #endif
 
    PRINTER_INFO_4 * pInfo4 = nullptr;
    PRINTER_INFO_5 * pInfo  = nullptr;
 
+   OSVERSIONINFO osvi;
    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-
    GetVersionEx(&osvi);
 
+   DWORD dwSize     = 0;
+   DWORD dwPrinters = 0;
    if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT ) {
       EnumPrinters(PRINTER_ENUM_LOCAL | PRINTER_ENUM_CONNECTIONS, nullptr, 4, nullptr, 0, &dwSize, &dwPrinters);
    } else {
       EnumPrinters(PRINTER_ENUM_LOCAL, nullptr, 5, nullptr, 0, &dwSize, &dwPrinters);
    }
 
-   pBuffer = ( char * ) GlobalAlloc(GPTR, dwSize);
+   HGLOBAL pBuffer = ( char * ) GlobalAlloc(GPTR, dwSize);
 
    if( pBuffer == nullptr ) {
       hb_reta(0);
@@ -634,6 +527,9 @@ HB_FUNC( APRINTERS )
    }
 
    hb_reta(dwPrinters);
+
+   DWORD i;
+   HGLOBAL cBuffer;
 
    if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT ) {
       for( i = 0; i < dwPrinters; i++, pInfo4++ ) {
@@ -664,12 +560,13 @@ HB_FUNC( APRINTERS )
    }
 
    GlobalFree(pBuffer);
-
 }
 
+/*
+_HMG_PRINTER_C_RECTANGLE() -->
+*/
 HB_FUNC( _HMG_PRINTER_C_RECTANGLE )
 {
-
    // 1: hDC
    // 2: y
    // 3: x
@@ -752,9 +649,11 @@ HB_FUNC( _HMG_PRINTER_C_RECTANGLE )
    }
 }
 
+/*
+_HMG_PRINTER_C_ROUNDRECTANGLE() -->
+*/
 HB_FUNC( _HMG_PRINTER_C_ROUNDRECTANGLE )
 {
-
    // 1: hDC
    // 2: y
    // 3: x
@@ -839,9 +738,11 @@ HB_FUNC( _HMG_PRINTER_C_ROUNDRECTANGLE )
    }
 }
 
+/*
+_HMG_PRINTER_C_LINE() -->
+*/
 HB_FUNC( _HMG_PRINTER_C_LINE )
 {
-
    // 1: hDC
    // 2: y
    // 3: x
@@ -929,18 +830,18 @@ HB_FUNC( _HMG_PRINTER_C_LINE )
       SelectObject(hdcPrint, static_cast<HGDIOBJ>(hgdiobj));
 
       DeleteObject(hpen);
-
    }
-
 }
 
+/*
+_HMG_PRINTER_SETPRINTERPROPERTIES() -->
+*/
 HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 {
    HANDLE hPrinter = nullptr;
    DWORD  dwNeeded = 0;
    PRINTER_INFO_2 * pi2;
    DEVMODE *        pDevMode = nullptr;
-   BOOL bFlag;
    LONG lFlag;
 
    HDC hdcPrint;
@@ -952,13 +853,9 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 
    int fields = 0;
 
-#ifndef UNICODE
-   bFlag = OpenPrinter( ( LPSTR ) hb_parc(1), &hPrinter, nullptr );
-#else
-   pPrinterName = AnsiToWide(hb_parc(1));
-   bFlag        = OpenPrinter( pPrinterName, &hPrinter, nullptr );
-   hb_xfree(pPrinterName);
-#endif
+   void * str;
+   BOOL bFlag = OpenPrinter(const_cast<TCHAR*>(HB_PARSTR(1, &str, nullptr)), &hPrinter, nullptr );
+   hb_strfree(str);
 
    if( !bFlag || ( hPrinter == nullptr ) ) {
 #ifdef _ERRORMSG_
@@ -1411,10 +1308,11 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 
 #if !( ( defined(__MINGW32__) ) )
 
+/*
+GETDEFAULTPRINTER() -->
+*/
 HB_FUNC( GETDEFAULTPRINTER )
 {
-
-   OSVERSIONINFO    osvi;
    LPPRINTER_INFO_5 PrinterInfo;
    DWORD Needed, Returned;
    DWORD BufferSize = 254;
@@ -1425,8 +1323,8 @@ HB_FUNC( GETDEFAULTPRINTER )
    LPSTR pStr;
 #endif
 
+   OSVERSIONINFO osvi;
    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-
    GetVersionEx(&osvi);
 
    if( osvi.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS ) {
@@ -1447,70 +1345,56 @@ HB_FUNC( GETDEFAULTPRINTER )
    hb_retc(pStr);
    hb_xfree(pStr);
 #endif
-
 }
 
 #endif
 
+/*
+_HMG_PRINTER_STARTPAGE_PREVIEW(HDC, filename) --> numeric
+*/
 HB_FUNC( _HMG_PRINTER_STARTPAGE_PREVIEW )
 {
-
-#ifndef UNICODE
-   LPSTR FileName = ( LPSTR ) hb_parc(2);
-#else
-   LPWSTR FileName = AnsiToWide(( char * ) hb_parc(2));
-#endif
-   HDC  tmpDC;
    RECT emfrect;
-
    SetRect(&emfrect, 0, 0, GetDeviceCaps(hmg_par_HDC(1), HORZSIZE) * 100, GetDeviceCaps(hmg_par_HDC(1), VERTSIZE) * 100);
-
-   tmpDC = CreateEnhMetaFile(hmg_par_HDC(1), FileName, &emfrect, "");
-
+   void * str;
+   HDC tmpDC = CreateEnhMetaFile(hmg_par_HDC(1), HB_PARSTR(2, &str, nullptr), &emfrect, "");
+   hb_strfree(str);
    HB_RETNL( ( LONG_PTR ) tmpDC );
-
 }
 
+/*
+_HMG_PRINTER_ENDPAGE_PREVIEW(HDC) --> NIL
+*/
 HB_FUNC( _HMG_PRINTER_ENDPAGE_PREVIEW )
 {
    DeleteEnhMetaFile(CloseEnhMetaFile(hmg_par_HDC(1)));
 }
 
+/*
+_HMG_PRINTER_SHOWPAGE(filename, HWND, HDC) --> NIL
+*/
 HB_FUNC( _HMG_PRINTER_SHOWPAGE )
 {
-
-   HENHMETAFILE hemf;
-
-#ifndef UNICODE
-   LPSTR FileName = ( LPSTR ) hb_parc(1);
-#else
-   LPWSTR FileName = AnsiToWide(( char * ) hb_parc(1));
-#endif
    HWND        hWnd       = hmg_par_HWND(2);
    HDC         hDCPrinter = hmg_par_HDC(3);
-   RECT        rct;
-   RECT        aux;
-   int         zw;
-   int         zh;
-   int         ClientWidth;
-   int         ClientHeight;
-   int         xOffset;
-   int         yOffset;
    PAINTSTRUCT ps;
    HDC         hDC = BeginPaint(hWnd, &ps);
 
-   hemf = GetEnhMetaFile(FileName);
+   void * str;
+   HENHMETAFILE hemf = GetEnhMetaFile(HB_PARSTR(1, &str, nullptr));
+   hb_strfree(str);
 
+   RECT        rct;
    GetClientRect(hWnd, &rct);
 
-   ClientWidth  = rct.right - rct.left;
-   ClientHeight = rct.bottom - rct.top;
+   int ClientWidth  = rct.right - rct.left;
+   int ClientHeight = rct.bottom - rct.top;
 
-   zw = hb_parni(5) * GetDeviceCaps(hDCPrinter, HORZSIZE) / 750;
-   zh = hb_parni(5) * GetDeviceCaps(hDCPrinter, VERTSIZE) / 750;
+   int zw = hb_parni(5) * GetDeviceCaps(hDCPrinter, HORZSIZE) / 750;
+   int zh = hb_parni(5) * GetDeviceCaps(hDCPrinter, VERTSIZE) / 750;
 
-   xOffset = ( ClientWidth - ( GetDeviceCaps(hDCPrinter, HORZSIZE) * hb_parni(4) / 10000 ) ) / 2;
-   yOffset = ( ClientHeight - ( GetDeviceCaps(hDCPrinter, VERTSIZE) * hb_parni(4) / 10000 ) ) / 2;
+   int xOffset = ( ClientWidth - ( GetDeviceCaps(hDCPrinter, HORZSIZE) * hb_parni(4) / 10000 ) ) / 2;
+   int yOffset = ( ClientHeight - ( GetDeviceCaps(hDCPrinter, VERTSIZE) * hb_parni(4) / 10000 ) ) / 2;
 
    SetRect(&rct,
            xOffset + hb_parni(6) - zw,
@@ -1524,6 +1408,8 @@ HB_FUNC( _HMG_PRINTER_SHOWPAGE )
    PlayEnhMetaFile(hDC, hemf, &rct);
 
    // Remove prints outside printable area
+
+   RECT        aux;
 
    // Right
    aux.top    = 0;
@@ -1558,114 +1444,115 @@ HB_FUNC( _HMG_PRINTER_SHOWPAGE )
    DeleteEnhMetaFile(hemf);
 
    EndPaint(hWnd, &ps);
-
 }
 
+/*
+_HMG_PRINTER_GETPAGEWIDTH(HDC) --> numeric
+*/
 HB_FUNC( _HMG_PRINTER_GETPAGEWIDTH )
 {
    hb_retni( GetDeviceCaps(hmg_par_HDC(1), HORZSIZE) );
 }
 
+/*
+_HMG_PRINTER_GETPAGEHEIGHT(HDC) --> numeric
+*/
 HB_FUNC( _HMG_PRINTER_GETPAGEHEIGHT )
 {
    hb_retni( GetDeviceCaps(hmg_par_HDC(1), VERTSIZE) );
 }
 
+/*
+_HMG_PRINTER_PRINTPAGE(HDC, filename) --> NIL
+*/
 HB_FUNC( _HMG_PRINTER_PRINTPAGE )
 {
-
-#ifndef UNICODE
-   LPSTR FileName = ( LPSTR ) hb_parc(2);
-#else
-   LPWSTR FileName = AnsiToWide(( char * ) hb_parc(2));
-#endif
-   HENHMETAFILE hemf;
-
+   void * str;
+   HENHMETAFILE hemf = GetEnhMetaFile(HB_PARSTR(2, &str, nullptr));
+   hb_strfree(str);
    RECT rect;
-
-   hemf = GetEnhMetaFile(FileName);
-
    SetRect(&rect, 0, 0, GetDeviceCaps(hmg_par_HDC(1), HORZRES), GetDeviceCaps(hmg_par_HDC(1), VERTRES));
-
    StartPage(hmg_par_HDC(1));
-
    PlayEnhMetaFile(hmg_par_HDC(1), ( HENHMETAFILE ) hemf, &rect);
-
    EndPage(hmg_par_HDC(1));
-
    DeleteEnhMetaFile(hemf);
-
 }
 
+/*
+_HMG_PRINTER_PREVIEW_ENABLESCROLLBARS(HWND) --> NIL
+*/
 HB_FUNC( _HMG_PRINTER_PREVIEW_ENABLESCROLLBARS )
 {
    EnableScrollBar( hmg_par_HWND(1), SB_BOTH, ESB_ENABLE_BOTH  );
 }
 
+/*
+_HMG_PRINTER_PREVIEW_DISABLESCROLLBARS(HWND) --> NIL
+*/
 HB_FUNC( _HMG_PRINTER_PREVIEW_DISABLESCROLLBARS )
 {
    EnableScrollBar( hmg_par_HWND(1), SB_BOTH, ESB_DISABLE_BOTH );
 }
 
+/*
+_HMG_PRINTER_PREVIEW_DISABLEHSCROLLBAR(HWND) --> NIL
+*/
 HB_FUNC( _HMG_PRINTER_PREVIEW_DISABLEHSCROLLBAR )
 {
    EnableScrollBar( hmg_par_HWND(1), SB_HORZ, ESB_DISABLE_BOTH );
 }
 
+/*
+_HMG_PRINTER_GETPRINTERWIDTH(HDC) --> numeric
+*/
 HB_FUNC( _HMG_PRINTER_GETPRINTERWIDTH )
 {
-
-   HDC hdc = hmg_par_HDC(1);
-
-   hb_retnl( GetDeviceCaps(hdc, HORZSIZE) );
-
+   hb_retnl( GetDeviceCaps(hmg_par_HDC(1), HORZSIZE) );
 }
 
+/*
+_HMG_PRINTER_GETPRINTERHEIGHT(HDC) --> numeric
+*/
 HB_FUNC( _HMG_PRINTER_GETPRINTERHEIGHT )
 {
-
-   HDC hdc = hmg_par_HDC(1);
-
-   hb_retnl( GetDeviceCaps(hdc, VERTSIZE) );
-
+   hb_retnl( GetDeviceCaps(hmg_par_HDC(1), VERTSIZE) );
 }
 
+/*
+_HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETX(HDC) --> numeric
+*/
 HB_FUNC( _HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETX )
 {
-
-   HDC hdc = hmg_par_HDC(1);
-
-   hb_retnl( GetDeviceCaps(hdc, PHYSICALOFFSETX) );
-
+   hb_retnl( GetDeviceCaps(hmg_par_HDC(1), PHYSICALOFFSETX) );
 }
 
+/*
+_HMG_PRINTER_GETPRINTABLEAREALOGPIXELSX(HDC) --> numeric
+*/
 HB_FUNC( _HMG_PRINTER_GETPRINTABLEAREALOGPIXELSX )
 {
-
-   HDC hdc = hmg_par_HDC(1);
-
-   hb_retnl( GetDeviceCaps(hdc, LOGPIXELSX) );
-
+   hb_retnl( GetDeviceCaps(hmg_par_HDC(1), LOGPIXELSX) );
 }
 
+/*
+_HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETY(HDC) --> numeric
+*/
 HB_FUNC( _HMG_PRINTER_GETPRINTABLEAREAPHYSICALOFFSETY )
 {
-
-   HDC hdc = hmg_par_HDC(1);
-
-   hb_retnl( GetDeviceCaps(hdc, PHYSICALOFFSETY) );
-
+   hb_retnl( GetDeviceCaps(hmg_par_HDC(1), PHYSICALOFFSETY) );
 }
 
+/*
+_HMG_PRINTER_GETPRINTABLEAREALOGPIXELSY(HDC) --> numeric
+*/
 HB_FUNC( _HMG_PRINTER_GETPRINTABLEAREALOGPIXELSY )
 {
-
-   HDC hdc = hmg_par_HDC(1);
-
-   hb_retnl( GetDeviceCaps(hdc, LOGPIXELSY) );
-
+   hb_retnl( GetDeviceCaps(hmg_par_HDC(1), LOGPIXELSY) );
 }
 
+/*
+_HMG_PRINTER_C_IMAGE() -->
+*/
 HB_FUNC( _HMG_PRINTER_C_IMAGE )
 {
    // 1: hDC
@@ -1763,14 +1650,16 @@ HB_FUNC( _HMG_PRINTER_C_IMAGE )
       DeleteObject(hBitmap);
       DeleteDC(memDC);
    }
-
 }
 
 //  GetJobInfo ( cPrinterName, nJobID ) --> { nJobID, cPrinterName, cMachineName, cUserName, cDocument, cDataType, cStatus, nStatus
 //                                            nPriorityLevel, nPositionPrintQueue, nTotalPages, nPagesPrinted, cLocalDate, cLocalTime }
+
+/*
+_HMG_PRINTGETJOBINFO() -->
+*/
 HB_FUNC( _HMG_PRINTGETJOBINFO )
 {
-
 #ifndef UNICODE
    LPSTR cPrinterName = ( LPSTR ) hb_parc(1);
 #else
@@ -1863,12 +1752,13 @@ HB_FUNC( _HMG_PRINTGETJOBINFO )
    } else {
       hb_reta(0);
    }
-
 }
 
+/*
+_HMG_PRINTERGETSTATUS() -->
+*/
 HB_FUNC( _HMG_PRINTERGETSTATUS )
 {
-
 #ifndef UNICODE
    LPSTR cPrinterName = ( LPSTR ) hb_parc(1);
 #else
@@ -1902,31 +1792,32 @@ HB_FUNC( _HMG_PRINTERGETSTATUS )
    } else {
       hb_retnl( PRINTER_STATUS_NOT_AVAILABLE );
    }
-
 }
 
+/*
+GETTEXTALIGN(HDC) --> numeric
+*/
 HB_FUNC( GETTEXTALIGN )
 {
-
    hb_retni( GetTextAlign(hmg_par_HDC(1)) );
-
 }
 
+/*
+SETTEXTALIGN(HDC, UINT) --> numeric
+*/
 HB_FUNC( SETTEXTALIGN )
 {
-
    hb_retni( SetTextAlign(hmg_par_HDC(1), hmg_par_UINT(2)) );
-
 }
 
-static HBITMAP loademffile(TCHAR * filename, int width, int height, HWND handle, int scalestrech, int whitebackground);
+static HBITMAP loademffile(const TCHAR * filename, int width, int height, HWND handle, int scalestrech, int whitebackground);
 
+/*
+INITEMFFILE(HWND, p2, p3, p4, p5, p6) --> HANDLE
+*/
 HB_FUNC( INITEMFFILE )
 {
-
-   HWND hWnd;
-   HWND hWndParent = hmg_par_HWND(1);
-   int  Style      = WS_CHILD | SS_BITMAP;
+   DWORD Style = WS_CHILD | SS_BITMAP;
 
    if( !hb_parl(5) ) {
       Style |= WS_VISIBLE;
@@ -1936,52 +1827,52 @@ HB_FUNC( INITEMFFILE )
       Style |= SS_NOTIFY;
    }
 
-   hWnd = CreateWindowEx(0, WC_STATIC, nullptr, Style, hb_parni(3), hb_parni(4), 0, 0, hWndParent, hmg_par_HMENU(2), GetInstance(), nullptr);
+   HWND hWnd = CreateWindowEx(
+      0,
+      WC_STATIC,
+      nullptr,
+      Style,
+      hb_parni(3),
+      hb_parni(4),
+      0,
+      0,
+      hmg_par_HWND(1),
+      hmg_par_HMENU(2),
+      GetInstance(),
+      nullptr);
 
    HB_RETNL( ( LONG_PTR ) hWnd );
-
 }
 
+/*
+C_SETEMFFILE(p1, p2, p3, p4, p5, p6) --> HANDLE
+*/
 HB_FUNC( C_SETEMFFILE )
 {
-
-#ifndef UNICODE
-   TCHAR * cFileName = ( TCHAR * ) hb_parc(2);
-#else
-   TCHAR * cFileName = ( TCHAR * ) hb_osStrU16Encode(hb_parc(2));
-#endif
-   HBITMAP hBitmap;
-
    if( hb_parclen(2) == 0 ) {
       HB_RETNL( ( LONG_PTR ) nullptr );
    }
 
-   hBitmap = loademffile(cFileName, hb_parni(3), hb_parni(4), hmg_par_HWND(1), hb_parni(5), hb_parni(6));
+   void * str;
+   HBITMAP hBitmap = loademffile(HB_PARSTR(2, &str, nullptr), hb_parni(3), hb_parni(4), hmg_par_HWND(1), hb_parni(5), hb_parni(6));
+   hb_strfree(str);
 
    if( hBitmap != nullptr ) {
       SendMessage(hmg_par_HWND(1), STM_SETIMAGE, IMAGE_BITMAP, reinterpret_cast<LPARAM>(hBitmap));
    }
 
    HB_RETNL( ( LONG_PTR ) hBitmap );
-
 }
 
-static BOOL read_image(TCHAR * filename, DWORD * nFileSize, HGLOBAL * hMem)
+static BOOL read_image(const TCHAR * filename, DWORD * nFileSize, HGLOBAL * hMem)
 {
-
-   HANDLE hFile;
-   LPVOID lpDest;
-   DWORD  dwFileSize;
-   DWORD  dwBytesRead = 0;
-   BOOL   bRead;
-
    // open the file
-   hFile = CreateFile(filename, GENERIC_READ, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+   HANDLE hFile = CreateFile(filename, GENERIC_READ, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
    if( hFile == INVALID_HANDLE_VALUE ) {
       return FALSE;
    }
    // we will read the whole file in global memory, find the size first
-   dwFileSize = GetFileSize(hFile, nullptr);
+   DWORD dwFileSize = GetFileSize(hFile, nullptr);
    // allocate memory to read the whole file
    if( dwFileSize == INVALID_FILE_SIZE || ( *hMem = GlobalAlloc(GHND, dwFileSize) ) == nullptr ) {
       CloseHandle(hFile);
@@ -1991,7 +1882,7 @@ static BOOL read_image(TCHAR * filename, DWORD * nFileSize, HGLOBAL * hMem)
    *nFileSize = dwFileSize;
 
    // lock memory for image
-   lpDest = GlobalLock(*hMem);
+   LPVOID lpDest = GlobalLock(*hMem);
 
    if( lpDest == nullptr ) {
       GlobalFree(*hMem);
@@ -2000,7 +1891,8 @@ static BOOL read_image(TCHAR * filename, DWORD * nFileSize, HGLOBAL * hMem)
    }
 
    // read file and store in global memory
-   bRead = ReadFile(hFile, lpDest, dwFileSize, &dwBytesRead, nullptr);
+   DWORD  dwBytesRead = 0;
+   BOOL bRead = ReadFile(hFile, lpDest, dwFileSize, &dwBytesRead, nullptr);
 
    GlobalUnlock(*hMem);
    CloseHandle(hFile);
@@ -2011,12 +1903,10 @@ static BOOL read_image(TCHAR * filename, DWORD * nFileSize, HGLOBAL * hMem)
    }
 
    return TRUE;
-
 }
 
 static void calc_rect(HWND handle, int width, int height, int scalestrech, LONG lWidth, LONG lHeight, RECT * rect, RECT * rect2)
 {
-
    if( width == 0 && height == 0 ) {
       GetClientRect(handle, rect);
    } else {
@@ -2035,12 +1925,10 @@ static void calc_rect(HWND handle, int width, int height, int scalestrech, LONG 
 
    rect->left = ( width - rect->right ) / 2;
    rect->top  = ( height - rect->bottom ) / 2;
-
 }
 
-static HBITMAP loademffile(TCHAR * filename, int width, int height, HWND handle, int scalestrech, int whitebackground)
+static HBITMAP loademffile(const TCHAR * filename, int width, int height, HWND handle, int scalestrech, int whitebackground)
 {
-
    IStream *  iStream;
    IPicture * iPicture = nullptr;
    HGLOBAL    hMem     = nullptr;
@@ -2100,5 +1988,4 @@ static HBITMAP loademffile(TCHAR * filename, int width, int height, HWND handle,
    ReleaseDC(handle, imgDC);
 
    return bitmap;
-
 }
