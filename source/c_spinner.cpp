@@ -47,9 +47,7 @@
 #define _WIN32_IE  0x0501
 
 #include "mgdefs.hpp"
-
 #include <commctrl.h>
-
 #include <hbvm.hpp>
 
 #ifndef WC_EDIT
@@ -64,17 +62,15 @@ LRESULT CALLBACK  OwnSpinProc(HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam
 
 HB_FUNC( INITSPINNER )
 {
-   HWND hwnd, hedit, hupdown;
-   int style1 = ES_NUMBER | WS_CHILD | ES_AUTOHSCROLL;
-   int style2 = WS_CHILD | WS_BORDER | UDS_ARROWKEYS | UDS_ALIGNRIGHT | UDS_SETBUDDYINT | UDS_NOTHOUSANDS;
-
    INITCOMMONCONTROLSEX i;
-
    i.dwSize = sizeof(INITCOMMONCONTROLSEX);
    i.dwICC  = ICC_STANDARD_CLASSES;
    InitCommonControlsEx(&i);
+   i.dwICC = ICC_UPDOWN_CLASS;  /* P.Ch. 10.16. */
+   InitCommonControlsEx(&i);
 
-   hwnd = hmg_par_HWND(1);
+   DWORD style1 = ES_NUMBER | WS_CHILD | ES_AUTOHSCROLL;
+   DWORD style2 = WS_CHILD | WS_BORDER | UDS_ARROWKEYS | UDS_ALIGNRIGHT | UDS_SETBUDDYINT | UDS_NOTHOUSANDS;
 
    if( !hb_parl(11) ) {
       style1 |= WS_VISIBLE;
@@ -97,8 +93,9 @@ HB_FUNC( INITSPINNER )
       style2 |= UDS_HORZ | UDS_ALIGNRIGHT;  /* P.Ch. 10.16. */
    }
 
-   hedit = CreateWindowEx
-           (
+   HWND hwnd = hmg_par_HWND(1);
+
+   HWND hedit = CreateWindowEx(
       WS_EX_CLIENTEDGE,
       WC_EDIT,
       TEXT(""),
@@ -110,14 +107,9 @@ HB_FUNC( INITSPINNER )
       hwnd,
       hmg_par_HMENU(2),
       GetInstance(),
-      nullptr
-           );
+      nullptr);
 
-   i.dwICC = ICC_UPDOWN_CLASS;  /* P.Ch. 10.16. */
-   InitCommonControlsEx(&i);
-
-   hupdown = CreateWindowEx
-             (
+   HWND hupdown = CreateWindowEx(
       WS_EX_CLIENTEDGE,
       UPDOWN_CLASS,
       TEXT(""),
@@ -127,10 +119,9 @@ HB_FUNC( INITSPINNER )
       15,
       hb_parni(10),
       hwnd,
-      ( HMENU ) 0,
+      nullptr,
       GetInstance(),
-      nullptr
-             );
+      nullptr);
 
    SendMessage(hupdown, UDM_SETBUDDY, ( WPARAM ) hedit, reinterpret_cast<LPARAM>(nullptr));
    SendMessage(hupdown, UDM_SETRANGE32, hmg_par_WPARAM(8), hb_parni(9));
@@ -147,10 +138,8 @@ HB_FUNC( INITSPINNER )
 HB_FUNC( SETSPINNERINCREMENT )
 {
    UDACCEL inc;
-
    inc.nSec = 0;
    inc.nInc = hb_parni(2);
-
    SendMessage(hmg_par_HWND(1), UDM_SETACCEL, 1, reinterpret_cast<LPARAM>(&inc));
 }
 
@@ -158,23 +147,19 @@ HB_FUNC( SETSPINNERINCREMENT )
 LRESULT CALLBACK OwnSpinProc(HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
    static PHB_SYMB pSymbol = nullptr;
-   long int        r;
-   WNDPROC         OldWndProc;
 
-   OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp(hedit, TEXT("oldspinproc"));
+   WNDPROC OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp(hedit, TEXT("oldspinproc"));
 
    switch( Msg ) {
       case WM_DESTROY:
          SetWindowLongPtr(hedit, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OldWndProc);
          RemoveProp(hedit, TEXT("oldspinproc"));
          break;
-
       case WM_CONTEXTMENU:
       case WM_GETDLGCODE:
          if( !pSymbol ) {
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OSPINEVENTS"));
          }
-
          if( pSymbol ) {
             hb_vmPushSymbol(pSymbol);
             hb_vmPushNil();
@@ -184,9 +169,7 @@ LRESULT CALLBACK OwnSpinProc(HWND hedit, UINT Msg, WPARAM wParam, LPARAM lParam)
             hb_vmPushNumInt(lParam);
             hb_vmDo(4);
          }
-
-         r = hb_parnl( -1 );  /* P.Ch. 10.16. */
-
+         long int r = hb_parnl( -1 );  /* P.Ch. 10.16. */
          return ( r != 0 ) ? r : CallWindowProc(OldWndProc, hedit, Msg, wParam, lParam);
    }
 
