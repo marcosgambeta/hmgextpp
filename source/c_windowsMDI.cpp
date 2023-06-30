@@ -48,38 +48,26 @@
  */
 
 #include "mgdefs.hpp"
-
 #include <commctrl.h>
-
 #include <hbvm.hpp>
-
 #include <hbwinuni.hpp>
 
 LRESULT CALLBACK  MdiWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 LRESULT CALLBACK  MdiChildWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-#ifdef UNICODE
-LPWSTR AnsiToWide(LPCSTR);
-#endif
-
 static HWND hwndMDIClient;
 
+/*
+REGISTERMDIWINDOW() -->
+*/
 HB_FUNC( REGISTERMDIWINDOW )
 {
-#ifndef UNICODE
-   LPCTSTR      lpIconName  = HB_ISCHAR(1) ? hb_parc(1) : nullptr;
-   const char * lpClassName = hb_parc(2);
-#else
-   LPWSTR  lpIconName = HB_ISCHAR(1) ? AnsiToWide(( char * ) hb_parc(1)) : nullptr;
-   void *  hClassName;
-   LPCTSTR lpClassName = HB_PARSTR(2, &hClassName, nullptr);
-#endif
-   WNDCLASS WndClass;
+   void * str1 = nullptr;
+   LPCTSTR lpIconName = HB_ISCHAR(1) ? HB_PARSTR(1, &str1, nullptr) : nullptr;
+   void * str2;
+   LPCTSTR lpClassName = HB_PARSTR(2, &str2, nullptr);
 
-   HBRUSH hbrush = 0;
-
-   memset(&WndClass, 0, sizeof(WNDCLASS));
-
+   WNDCLASS WndClass{};
    WndClass.style       = CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
    WndClass.lpfnWndProc = MdiWndProc;
    WndClass.cbClsExtra  = 0;
@@ -95,6 +83,7 @@ HB_FUNC( REGISTERMDIWINDOW )
    }
 
    WndClass.hCursor = LoadCursor(nullptr, IDC_ARROW);
+   HBRUSH hbrush = nullptr;
    if( HB_PARNI(3, 1) == -1 ) {
       WndClass.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1);
    } else {
@@ -142,19 +131,14 @@ HB_FUNC( REGISTERMDIWINDOW )
       ExitProcess(0);
    }
 
-#ifdef UNICODE
-   hb_strfree(hClassName);
-   if( HB_ISCHAR(1) ) {
-      hb_xfree(( TCHAR * ) lpIconName);
-   }
-#endif
+   hb_strfree(str1);
+   hb_strfree(str2);
    hmg_ret_HBRUSH(hbrush);
 }
 
 LRESULT CALLBACK MdiWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
    static PHB_SYMB pSymbol = nullptr;
-   long int        r;
 
    if( !pSymbol ) {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("EVENTS"));
@@ -170,7 +154,7 @@ LRESULT CALLBACK MdiWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
       hb_vmDo(4);
    }
 
-   r = hb_parnl( -1 );
+   long int r = hb_parnl( -1 );
 
    if( r != 0 ) {
       return r;
@@ -182,7 +166,6 @@ LRESULT CALLBACK MdiWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 LRESULT CALLBACK MdiChildWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
    static PHB_SYMB pSymbol = nullptr;
-   long int        r;
 
    if( !pSymbol ) {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("MDIEVENTS"));
@@ -198,7 +181,7 @@ LRESULT CALLBACK MdiChildWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
       hb_vmDo(4);
    }
 
-   r = hb_parnl( -1 );
+   long int r = hb_parnl( -1 );
 
    if( r == 0 ) {
       return DefMDIChildProc(hWnd, message, wParam, lParam);
@@ -209,16 +192,13 @@ LRESULT CALLBACK MdiChildWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
 
 HB_FUNC( INITMDIWINDOW )
 {
-#ifndef UNICODE
-   LPCSTR lpWindowName = hb_parc(1);
-   LPCSTR lpClassName  = hb_parc(12);
-#else
-   LPWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(1));
-   LPWSTR lpClassName  = AnsiToWide(( char * ) hb_parc(12));
-#endif
-   HWND  hwnd;
-   DWORD style = WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_BORDER | WS_SYSMENU | WS_THICKFRAME;
+   void * str1;
+   LPCTSTR lpWindowName = HB_PARSTR(1, &str1, nullptr);
+   void * str2;
+   LPCTSTR lpClassName  = HB_PARSTR(12, &str2, nullptr);
+
    DWORD ExStyle;
+   DWORD style = WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_BORDER | WS_SYSMENU | WS_THICKFRAME;
 
    if( hb_parl(16) ) {
       ExStyle = WS_EX_CONTEXTHELP;
@@ -227,7 +207,6 @@ HB_FUNC( INITMDIWINDOW )
       if( !hb_parl(6) ) {
          style |= WS_MINIMIZEBOX;
       }
-
       if( !hb_parl(7) ) {
          style |= WS_MAXIMIZEBOX;
       }
@@ -257,8 +236,7 @@ HB_FUNC( INITMDIWINDOW )
       style |= WS_HSCROLL;
    }
 
-   hwnd = CreateWindowEx
-          (
+   HWND hwnd = CreateWindowEx(
       ExStyle,
       lpClassName,
       lpWindowName,
@@ -268,10 +246,12 @@ HB_FUNC( INITMDIWINDOW )
       hb_parni(4),
       hb_parni(5),
       hmg_par_HWND(13),
-      ( HMENU ) nullptr,
+      nullptr,
       GetInstance(),
-      nullptr
-          );
+      nullptr);
+
+   hb_strfree(str1);
+   hb_strfree(str2);
 
    if( hwnd == nullptr ) {
       MessageBox(0, TEXT("MDI Window Creation Failed!"), TEXT("Error!"), MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
@@ -279,35 +259,26 @@ HB_FUNC( INITMDIWINDOW )
    }
 
    hmg_ret_HWND(hwnd);
-
-#ifdef UNICODE
-   hb_xfree(( TCHAR * ) lpWindowName);
-   hb_xfree(( TCHAR * ) lpClassName);
-#endif
 }
 
+/*
+INITMDICLIENTWINDOW() -->
+*/
 HB_FUNC( INITMDICLIENTWINDOW )
 {
-   HWND hwndparent;
-   int  icount;
-
-   CLIENTCREATESTRUCT ccs;
-
-   memset(&ccs, 0, sizeof(ccs));
-
-   hwndparent = hmg_par_HWND(1);
-
-   icount = GetMenuItemCount(GetMenu(hwndparent));
+   HWND hwndparent = hmg_par_HWND(1);
+   int icount = GetMenuItemCount(GetMenu(hwndparent));
 
    // Find window menu where children will be listed
 
+   CLIENTCREATESTRUCT ccs{};
    ccs.hWindowMenu  = GetSubMenu(GetMenu(hwndparent), icount - 2);
    ccs.idFirstChild = 0;
 
    // Create the MDI client filling the client area
 
-   hwndMDIClient = CreateWindow
-                   (
+   HWND hwndMDIClient = CreateWindowEx(
+      0,
       TEXT("mdiclient"),
       nullptr,
       WS_CHILD | WS_CLIPCHILDREN | WS_VSCROLL | WS_HSCROLL | WS_VISIBLE,
@@ -318,21 +289,19 @@ HB_FUNC( INITMDICLIENTWINDOW )
       hwndparent,
       ( HMENU ) 0xCAC,
       GetInstance(),
-      ( LPSTR ) &ccs
-                   );
+      ( LPSTR ) &ccs);
 
    ShowWindow(hwndMDIClient, SW_SHOW);
-
    hmg_ret_HWND(hwndMDIClient);
 }
 
+/*
+INITMDICHILDWINDOW() -->
+*/
 HB_FUNC( INITMDICHILDWINDOW )
 {
-   HWND hwndChild;
-   MDICREATESTRUCT mcs;
-   TCHAR      rgch[150];
+   TCHAR rgch[150];
    static int cUntitled;
-   DWORD      style = 0;
 
    if( hb_parl(9) ) {
       rgch[0] = 0;
@@ -340,18 +309,15 @@ HB_FUNC( INITMDICHILDWINDOW )
       if( hb_parc(2) == nullptr ) {
          wsprintf( rgch, TEXT("Untitled%d"), cUntitled++ );
       } else {
-#ifndef UNICODE
-         LPCTSTR lpTitle = hb_parc(2);
-#else
-         LPWSTR lpTitle = AnsiToWide(( char * ) hb_parc(2));
-#endif
+         void * str;
+         LPCTSTR lpTitle = HB_PARSTR(2, &str, nullptr);
          HB_STRNCPY(rgch, lpTitle, 149);
          rgch[149] = 0;
-#ifdef UNICODE
-         hb_xfree(( TCHAR * ) lpTitle);
-#endif
+         hb_strfree(str);
       }
    }
+
+   DWORD style = 0;
 
    if( hb_parl(10) ) {
       style |= WS_VSCROLL;
@@ -363,6 +329,7 @@ HB_FUNC( INITMDICHILDWINDOW )
 
    // Create the MDI child window
 
+   MDICREATESTRUCT mcs;
    mcs.szClass = TEXT("MdiChildWndClass"); // window class name
    mcs.szTitle = rgch;                       // window title
    mcs.hOwner  = GetInstance();              // owner
@@ -372,7 +339,8 @@ HB_FUNC( INITMDICHILDWINDOW )
    mcs.cy      = hb_parni(6);              // height
    mcs.style   = style;                      // window style
    mcs.lParam  = 0;                          // lparam
-   hwndChild   = reinterpret_cast<HWND>(SendMessage(hmg_par_HWND(1), WM_MDICREATE, 0, reinterpret_cast<LPARAM>(&mcs)));
+
+   HWND hwndChild   = reinterpret_cast<HWND>(SendMessage(hmg_par_HWND(1), WM_MDICREATE, 0, reinterpret_cast<LPARAM>(&mcs)));
 
    if( hwndChild != nullptr ) {
       style = GetWindowLong(hwndChild, GWL_STYLE);
@@ -390,39 +358,49 @@ HB_FUNC( INITMDICHILDWINDOW )
       }
 
       SetWindowLongPtr(hwndChild, GWL_STYLE, style);
-
       ShowWindow(hwndChild, SW_SHOW);
    }
 
    hmg_ret_HWND(hwndChild);
 }
 
+/*
+ARRANGEICONICWINDOWS(HWND) --> numeric
+*/
 HB_FUNC( ARRANGEICONICWINDOWS )
 {
-   hb_retni( ArrangeIconicWindows(hmg_par_HWND(1)) );
+   hb_retni(ArrangeIconicWindows(hmg_par_HWND(1)));
 }
 
+/*
+DEFMDICHILDPROC(HWND, np2, np3, np4) --> numeric
+*/
 HB_FUNC( DEFMDICHILDPROC )
 {
-   hb_retnl( DefMDIChildProc(hmg_par_HWND(1), hb_parnl(2), hb_parnl(3), hb_parnl(4)) );
+   hb_retnl(DefMDIChildProc(hmg_par_HWND(1), hb_parnl(2), hb_parnl(3), hb_parnl(4)));
 }
 
+/*
+DEFFRAMEPROC(HWND, HWND, np3, np4, np5) --> numeric
+*/
 HB_FUNC( DEFFRAMEPROC )
 {
-   hb_retnl( DefFrameProc(hmg_par_HWND(1), hmg_par_HWND(2), hb_parnl(3), hb_parnl(4), hb_parnl(5)) );
+   hb_retnl(DefFrameProc(hmg_par_HWND(1), hmg_par_HWND(2), hb_parnl(3), hb_parnl(4), hb_parnl(5)));
 }
 
+/*
+SIZECLIENTWINDOW(HWND, HWND, HWND, np4) --> NIL
+*/
 HB_FUNC( SIZECLIENTWINDOW )
 {
-   RECT rc, rcClient;
-
+   RECT rcClient;
    GetClientRect(hmg_par_HWND(1), &rcClient);
    if( HB_PARNL(2) ) {
+      RECT rc;
       GetWindowRect(hmg_par_HWND(2), &rc);
       ScreenToClient(hmg_par_HWND(1), ( LPPOINT ) &rc.left);
       rcClient.bottom = rc.top;
    }
-
    rcClient.top = hb_parnl(4);
    MoveWindow(hmg_par_HWND(3), rcClient.left, rcClient.top, rcClient.right - rcClient.left, rcClient.bottom - rcClient.top, TRUE);
 }
