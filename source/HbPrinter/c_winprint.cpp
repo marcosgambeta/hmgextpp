@@ -12,6 +12,7 @@
 #pragma warning ( disable:4996 )
 #endif
 #include <hbapiitm.hpp>
+#include <hbwinuni.hpp>
 
 #if defined(_MSC_VER)
 #pragma warning(push)
@@ -170,37 +171,24 @@ HB_FUNC( RR_PRINTDIALOG )
 
 HB_FUNC( RR_GETDC )
 {
-#ifdef UNICODE
-   LPWSTR pwszDevice = AnsiToWide(( char * ) hb_parc(1));
+   void * str;
+   LPCTSTR pwszDevice = HB_PARSTR(1, &str, nullptr);
 
    if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT ) {
       hDC = CreateDC( TEXT("WINSPOOL"), pwszDevice, nullptr, nullptr );
    } else {
       hDC = CreateDC( nullptr, pwszDevice, nullptr, nullptr );
    }
-#else
-   if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT ) {
-      hDC = CreateDC( "WINSPOOL", hb_parc(1), nullptr, nullptr );
-   } else {
-      hDC = CreateDC( nullptr, hb_parc(1), nullptr, nullptr );
-   }
-#endif
 
    if( hDC ) {
-#ifdef UNICODE
       lstrcpy(PrinterName, pwszDevice);
-#else
-      strcpy(PrinterName, hb_parc(1));
-#endif
       rr_getdevmode();
    }
 
    hDCRef = hDC;
    hmg_ret_HDC(hDC);
 
-#ifdef UNICODE
-   hb_xfree(pwszDevice);
-#endif
+   hb_strfree(str);
 }
 
 void rr_getdevmode(void)
@@ -530,19 +518,13 @@ HB_FUNC( RR_GETPRINTERS )
 
 HB_FUNC( RR_STARTDOC )
 {
-#ifndef UNICODE
-   LPTSTR lpText = ( LPTSTR ) hb_parc(1);
-#else
-   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(1));
-#endif
+   void * str;
+   LPCTSTR lpText = HB_PARSTR(1, &str, nullptr);
    memset(&di, 0, sizeof(di));
    di.cbSize      = sizeof(di);
    di.lpszDocName = lpText;
    StartDoc( hDC, &di );
-
-#ifdef UNICODE
-   hb_xfree(( TCHAR * ) lpText);
-#endif
+   hb_strfree(str);
 }
 
 HB_FUNC( RR_STARTPAGE )
@@ -736,16 +718,9 @@ HB_FUNC( RR_DELETEIMAGELISTS )
 
 HB_FUNC( RR_SAVEMETAFILE )
 {
-#ifndef UNICODE
-   LPSTR FileName = ( LPSTR ) hb_parc(2);
-#else
-   LPWSTR FileName = AnsiToWide(( char * ) hb_parc(2));
-#endif
-   CopyEnhMetaFile(( HENHMETAFILE ) HB_PARNL(1), FileName);
-
-#ifdef UNICODE
-   hb_xfree(( TCHAR * ) FileName);
-#endif
+   void * str;
+   CopyEnhMetaFile(( HENHMETAFILE ) HB_PARNL(1), HB_PARSTR(2, &str, nullptr));
+   hb_strfree(str);
 }
 
 HB_FUNC( RR_GETCURRENTOBJECT )
@@ -1027,7 +1002,7 @@ HB_FUNC( RR_TEXTOUT )
 #ifndef UNICODE
    LPTSTR lpText = ( LPTSTR ) hb_parc(1);
 #else
-   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(1));
+   LPCTSTR lpText = AnsiToWide(( char * ) hb_parc(1));
 #endif
    HGDIOBJ xfont    = hmg_par_HFONT(3);
    HFONT   prevfont = nullptr;
@@ -1145,22 +1120,14 @@ HB_FUNC( RR_CLOSEMFILE )
 
 HB_FUNC( RR_CREATEMFILE )
 {
-#ifndef UNICODE
-   LPSTR FileName = ( LPSTR ) hb_parc(1);
-#else
-   LPWSTR FileName = AnsiToWide(( char * ) hb_parc(1));
-#endif
    RECT    emfrect;
-
    SetRect(&emfrect, 0, 0, GetDeviceCaps(hDCRef, HORZSIZE) * 100, GetDeviceCaps(hDCRef, VERTSIZE) * 100);
-   hDC = CreateEnhMetaFile(hDCRef, FileName, &emfrect, TEXT("hbprinter\0emf file\0\0"));
+   void * str;
+   hDC = CreateEnhMetaFile(hDCRef, HB_PARSTR(1, &str, nullptr), &emfrect, TEXT("hbprinter\0emf file\0\0"));
+   hb_strfree(str);
    SetTextAlign(hDC, TA_BASELINE);
    preview = 1;
    hmg_ret_HDC(hDC);
-
-#ifdef UNICODE
-   hb_xfree(( TCHAR * ) FileName);
-#endif
 }
 
 HB_FUNC( RR_DELETECLIPRGN )
@@ -1275,11 +1242,6 @@ HB_FUNC( RR_PICTURE )
    DWORD      nReadByte;
    long       lWidth, lHeight;
    int        x, y, xe, ye;
-#ifndef UNICODE
-   LPSTR      cFileName = ( LPSTR ) hb_parc(1);
-#else
-   LPWSTR     cFileName = AnsiToWide(( char * ) hb_parc(1));
-#endif
    int        r   = HB_PARNI(2, 1);
    int        c   = HB_PARNI(2, 2);
    int        dr  = HB_PARNI(3, 1);
@@ -1289,11 +1251,10 @@ HB_FUNC( RR_PICTURE )
    HRGN       hrgn1;
    POINT      lpp;
 
-   hFile = CreateFile(cFileName, GENERIC_READ, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+   void * str;
+   hFile = CreateFile(HB_PARSTR(1, &str, nullptr), GENERIC_READ, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+   hb_strfree(str);
 
-#ifdef UNICODE
-   hb_xfree(( TCHAR * ) cFileName);
-#endif
    if( hFile == INVALID_HANDLE_VALUE ) {
       return;
    }
@@ -1358,7 +1319,7 @@ HB_FUNC( RR_PICTURE )
    hb_retni(0);
 }
 
-LPVOID rr_loadpicturefromresource(TCHAR * resname, LONG * lwidth, LONG * lheight)
+LPVOID rr_loadpicturefromresource(const TCHAR * resname, LONG * lwidth, LONG * lheight)
 {
    HBITMAP    hbmpx;
    IPicture * iPicture = nullptr;
@@ -1419,7 +1380,7 @@ LPVOID rr_loadpicturefromresource(TCHAR * resname, LONG * lwidth, LONG * lheight
    return iPicture;
 }
 
-LPVOID rr_loadpicture(TCHAR * filename, LONG * lwidth, LONG * lheight)
+LPVOID rr_loadpicture(const TCHAR * filename, LONG * lwidth, LONG * lheight)
 {
    IStream *  iStream  = nullptr;
    IPicture * iPicture = nullptr;
@@ -1480,11 +1441,8 @@ LPVOID rr_loadfromhbitmap(HBITMAP hbmpx, LONG * lwidth, LONG * lheight)
 
 HB_FUNC( RR_DRAWPICTURE )
 {
-#ifndef UNICODE
-   LPSTR      cFileName = ( LPSTR ) hb_parc(1);
-#else
-   LPWSTR     cFileName = AnsiToWide(( char * ) hb_parc(1));
-#endif
+   void * str;
+   LPCTSTR cFileName = HB_PARSTR(1, &str, nullptr);
    IPicture * ipic;
    int        x, y, xe, ye;
    int        r       = HB_PARNI(2, 1);
@@ -1508,6 +1466,7 @@ HB_FUNC( RR_DRAWPICTURE )
       ipic = ( IPicture * ) rr_loadfromhbitmap(hmg_par_HBITMAP(1), &lwidth, &lheight);
    }
    if( ipic == nullptr ) {
+      hb_strfree(str);
       return;
    }
 
@@ -1557,18 +1516,13 @@ HB_FUNC( RR_DRAWPICTURE )
    DeleteObject(hrgn1);
    hb_retni(0);
 
-#ifdef UNICODE
-   hb_xfree(( TCHAR * ) cFileName);
-#endif
+   hb_strfree(str);
 }
 
 HB_FUNC( RR_CREATEIMAGELIST )
 {
-#ifndef UNICODE
-   LPSTR      cFileName = ( LPSTR ) hb_parc(1);
-#else
-   LPWSTR     cFileName = AnsiToWide(( char * ) hb_parc(1));
-#endif
+   void * str;
+   LPCTSTR cFileName = HB_PARSTR(1, &str, nullptr);
    HBITMAP    hbmpx;
    BITMAP     bm;
    HIMAGELIST himl;
@@ -1580,6 +1534,7 @@ HB_FUNC( RR_CREATEIMAGELIST )
    }
 
    if( hbmpx == nullptr ) {
+      hb_strfree(str);
       return;
    }
 
@@ -1599,9 +1554,7 @@ HB_FUNC( RR_CREATEIMAGELIST )
    DeleteObject(hbmpx);
    hmg_ret_HIMAGELIST(himl);
 
-#ifdef UNICODE
-   hb_xfree(( TCHAR * ) cFileName);
-#endif
+   hb_strfree(str);
 }
 
 HB_FUNC( RR_DRAWIMAGELIST )
