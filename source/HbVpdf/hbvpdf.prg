@@ -61,12 +61,12 @@ FUNCTION pdfAtSay(cString, nRow, nCol, cUnits, lExact, cId)
       cString := pdfStringB(cString)
       IF Right(cString, 1) == Chr(255) // reverse
          cString := Left(cString, Len(cString) - 1)
-         pdfBox(s_aReport[PAGEY] - nRow - s_aReport[FONTSIZE] + 2.0, nCol, s_aReport[PAGEY] - nRow + 2.0, nCol + pdfM2X( pdfLen(cString) ) + 1,, 100, "D")
+         pdfBox(s_aReport[PAGEY] - nRow - s_aReport[FONTSIZE] + 2.0, nCol, s_aReport[PAGEY] - nRow + 2.0, nCol + pdfM2X(pdfLen(cString)) + 1,, 100, "D")
          s_aReport[PAGEBUFFER] += " 1 g "
          lReverse := .T.
       ELSEIF Right(cString, 1) == Chr(254) // underline
          cString := Left(cString, Len(cString) - 1)
-         pdfBox(s_aReport[PAGEY] - nRow + 0.5,  nCol, s_aReport[PAGEY] - nRow + 1, nCol + pdfM2X( pdfLen(cString) ) + 1,, 100, "D")
+         pdfBox(s_aReport[PAGEY] - nRow + 0.5,  nCol, s_aReport[PAGEY] - nRow + 1, nCol + pdfM2X(pdfLen(cString)) + 1,, 100, "D")
       ENDIF
 
       // version 0.01
@@ -789,11 +789,11 @@ FUNCTION pdfImage(cFile, nRow, nCol, cUnits, nHeight, nWidth, cId)
       nRow := s_aReport[PAGEY] - pdfR2D(nRow)
       nCol := pdfM2X(s_aReport[PDFLEFT]) + ;
          nCol * 100.00 / s_aReport[REPORTWIDTH] * ;
-         (s_aReport[PAGEX] - pdfM2X( s_aReport[PDFLEFT] ) * 2 - 9.0) / 100.00
+         (s_aReport[PAGEX] - pdfM2X(s_aReport[PDFLEFT]) * 2 - 9.0) / 100.00
       nHeight := s_aReport[PAGEY] - pdfR2D(nHeight)
       nWidth := pdfM2X(s_aReport[PDFLEFT]) + ;
          nWidth * 100.00 / s_aReport[REPORTWIDTH] * ;
-         (s_aReport[PAGEX] - pdfM2X( s_aReport[PDFLEFT] ) * 2 - 9.0) / 100.00
+         (s_aReport[PAGEX] - pdfM2X(s_aReport[PDFLEFT]) * 2 - 9.0) / 100.00
    ELSEIF cUnits == "D"
    ENDIF
 
@@ -1214,9 +1214,9 @@ FUNCTION pdfText(cString, nTop, nLeft, nLength, nTab, nJustify, cUnits, cColor, 
    IF cUnits == "M"
       nTop := pdfM2R(nTop)
    ELSEIF cUnits == "R"
-      nLeft := pdfX2M(pdfM2X( s_aReport[PDFLEFT]) + ;
+      nLeft := pdfX2M(pdfM2X(s_aReport[PDFLEFT]) + ;
          nLeft * 100.00 / s_aReport[REPORTWIDTH] * ;
-         (s_aReport[PAGEX] - pdfM2X( s_aReport[PDFLEFT] ) * 2 - 9.0) / 100.00 )
+         (s_aReport[PAGEX] - pdfM2X(s_aReport[PDFLEFT]) * 2 - 9.0) / 100.00 )
    ENDIF
 
    s_aReport[REPORTLINE] := nTop - 1
@@ -1283,7 +1283,7 @@ FUNCTION pdfText(cString, nTop, nLeft, nLength, nTab, nJustify, cUnits, cColor, 
                IF lPrint
                   nRow := pdfNewLine(1)
                   // version 0.02
-                  pdfAtSay(cColor + cTemp, pdfR2M( nRow + s_aReport[PDFTOP] ), nL, "M")
+                  pdfAtSay(cColor + cTemp, pdfR2M(nRow + s_aReport[PDFTOP]), nL, "M")
                ENDIF
             ENDDO
             ++nI
@@ -1350,7 +1350,7 @@ STATIC FUNCTION pdfTextPrint(nI, nLeft, lParagraph, nJustify, nSpace, nNew, nLen
       cToken := Token(cString, cDelim, nJ)
       IF lPrint
          // version 0.02
-         pdfAtSay(cColor + cToken, pdfR2M( nRow + s_aReport[PDFTOP] ), nL, "M")
+         pdfAtSay(cColor + cToken, pdfR2M(nRow + s_aReport[PDFTOP]), nL, "M")
       ENDIF
       nL += pdfLen(cToken) + nB
    NEXT
@@ -1863,7 +1863,7 @@ FUNCTION pdfCreateHeader(_file, _size, _orient, _lpi, _width)
    pdfSetFont("Helvetica", BOLD, 10) // 0.04
    pdfAtSay("Test Line 5", s_aReportStyle[nStyle][5], 1, "R", .T.)
 
-   pdfAtSay(DToC(Date()) + " " + TimeAsAMPM( Time() ), s_aReportStyle[nStyle][6], 1, "R", .T.)
+   pdfAtSay(DToC(Date()) + " " + TimeAsAMPM(Time()), s_aReportStyle[nStyle][6], 1, "R", .T.)
    pdfRJust("Page: #pagenumber#", s_aReportStyle[nStyle][6], s_aReport[REPORTWIDTH], "R", .T.)
 
    pdfEditOffHeader()

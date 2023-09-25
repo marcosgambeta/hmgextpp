@@ -49,8 +49,8 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
       cTitle := iif(hb_IsChar(uAlias), uAlias, "SBrowse"), ;
       bSetUp := {||.F.}, ;
       aCols := {}, ;
-      nWidth := GetSysMetrics( 0 ) * .75, ;
-      nHeight := GetSysMetrics( 1 ) / 2, ;
+      nWidth := GetSysMetrics(0) * .75, ;
+      nHeight := GetSysMetrics(1) / 2, ;
       lSql := .F., ;
       lModal := .F.
 
@@ -78,7 +78,7 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
 
    ELSEIF ValType(uAlias) == "N"
       If !Empty(Alias(uAlias))
-         uAlias := Alias( uAlias )
+         uAlias := Alias(uAlias)
       ELSE
          uAlias := { { uAlias } }
       ENDIF
@@ -120,15 +120,15 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
 
       DEFINE TBROWSE oBrw AT nY, nX Alias ( uAlias ) WIDTH nWidth HEIGHT nHeight HEADER aCols ;
          AUTOCOLS SELECTOR 20 ;
-         ON INIT {|ob|ob:nColOrder     :=  0 , ;
+         ON INIT {|ob|ob:nColOrder     :=  0, ;
                       ob:lNoGrayBar    := .F., ;
                       ob:lNoLiteBar    := .F., ;
                       ob:lNoResetPos   := .F., ;
-                      ob:nStatusItem   :=  0 , ;
+                      ob:nStatusItem   :=  0, ;
                       ob:lNoKeyChar    := .T., ;
-                      ob:nWheelLines   :=  1 , ;
-                      ob:nCellMarginLR :=  1 , ;
-                      ob:nLineStyle := LINES_ALL , ;
+                      ob:nWheelLines   :=  1, ;
+                      ob:nCellMarginLR :=  1, ;
+                      ob:nLineStyle := LINES_ALL, ;
                       ob:nClrLine   := COLOR_GRID, ;
                       ob:lCheckBoxAllReturn := .T.}
 
@@ -146,7 +146,7 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
             IF lEdit
                AEval(:aColumns, {|o|o:lEdit := !( o:cFieldTyp $ "+=^" )})
             ENDIF
-            nClr := :GetColumn( 1 ):nClrHeadBack
+            nClr := :GetColumn(1):nClrHeadBack
             IF lRec
                :lNoHScroll := .T.
             ELSEIF !Empty(lNumber)
@@ -154,8 +154,8 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
                :lDrawFooters := .T.
                :nHeightFoot := :nHeightHead
                :InsColNumber()
-               :GetColumn( "ORDKEYNO" ):cFooting := hb_ntos(:nLen)
-               :nFreeze := :nColumn( "ORDKEYNO" )
+               :GetColumn("ORDKEYNO"):cFooting := hb_ntos(:nLen)
+               :nFreeze := :nColumn("ORDKEYNO")
                :nCell   := :nFreeze + 1
                :lLockFreeze := .T.
             ENDIF
@@ -163,10 +163,10 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
 
       END TBROWSE
 
-      IF oBrw:nColumn( "ORDKEYNO", .T. ) > 0
-         oBrw:GetColumn( "SELECTOR" ):nClrBack := nClr
-         oBrw:GetColumn( "ORDKEYNO" ):nClrHeadBack := nClr
-         oBrw:GetColumn( "ORDKEYNO" ):nClrFocuBack := oBrw:nClrPane
+      IF oBrw:nColumn("ORDKEYNO", .T.) > 0
+         oBrw:GetColumn("SELECTOR"):nClrBack := nClr
+         oBrw:GetColumn("ORDKEYNO"):nClrHeadBack := nClr
+         oBrw:GetColumn("ORDKEYNO"):nClrFocuBack := oBrw:nClrPane
       ENDIF
 
       nY := This.ClientHeight - nGh - oApp:H1
@@ -199,24 +199,24 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
              oCol:cPicture := NIL
              oCol:nAlign := iif(oCol:cName == "KEY", DT_CENTER, DT_LEFT)
          NEXT
-         oBrw:AdjColumns( nY )
+         oBrw:AdjColumns(nY)
          IF hb_IsObject(oBrw:Cargo) .AND. oBrw:ClassName == "TSBROWSE" .AND. oBrw:Cargo:lIsDbf
             oBrw:Cargo:lRecLockArea := .T.
-            oCol := oBrw:GetColumn( "VALUE" )
+            oCol := oBrw:GetColumn("VALUE")
             oCol:lEdit := .T.
             oCol:bPrevEdit := ;
                <|uv, obr|
                  LOCAL lRet := .T., cn, oc, ob, xv
                  LOCAL oDlu := oDlu4Font(_HMG_DefaultFontSize)
-                 LOCAL nLen := oDlu:W( 1.5 )
+                 LOCAL nLen := oDlu:W(1.5)
                  cn := obr:GetValue("KEY")
                  xv := obr:GetValue("VALUE")
-                 obr:GetColumn( "VALUE" ):Cargo := NIL
+                 obr:GetColumn("VALUE"):Cargo := NIL
                  ob := obr:Cargo
                  IF !hb_IsObject(ob) .OR. !ob:lIsDbf
                     RETURN .F.
                  ENDIF
-                 oc := ob:GetColumn( cn )
+                 oc := ob:GetColumn(cn)
                  IF Empty(oc:cFieldTyp) .OR. oc:cName == "SELECTOR" .OR. oc:cName == "ORDKEYNO"
                     lRet := .F.
                  ELSEIF oc:cFieldTyp $ "T=@+^"
@@ -224,7 +224,7 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
                  ENDIF
                  IF lRet
                     IF Valtype(xv) $ "DNL"
-                       obr:GetColumn( "VALUE" ):nEditWidth := nLen
+                       obr:GetColumn("VALUE"):nEditWidth := nLen
                     ENDIF
                     obr:GetColumn("VALUE"):Cargo := uv
                  ENDIF
@@ -234,8 +234,8 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
                <|uv, obr|
                  LOCAL cn, oc, ob, uo, nm
                  cn := obr:GetValue(obr:nColumn("KEY"))
-                 uo := obr:GetColumn( "VALUE" ):Cargo
-                 obr:GetColumn( "VALUE" ):nEditWidth := 0
+                 uo := obr:GetColumn("VALUE"):Cargo
+                 obr:GetColumn("VALUE"):nEditWidth := 0
                  IF uo != NIL .AND. uo == uv
                     RETURN NIL
                  ENDIF
@@ -243,7 +243,7 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
                  IF !hb_IsObject(ob) .OR. !ob:lIsDbf
                     RETURN NIL
                  ENDIF
-                 oc := ob:GetColumn( cn )
+                 oc := ob:GetColumn(cn)
                  nm := oc:nEditMove
                  oc:nEditMove := 0
                  ob:PostEdit(uv, ob:nColumn(oc:cName))
@@ -371,13 +371,13 @@ FUNCTION _TBrowse(oParam, uAlias, cBrw, nY, nX, nW, nH)
            nX := 0, ;
            nW := _GetClientRect(hForm)[3] - nX * 2,  ;           // GetClientWidth
            nH := _GetClientRect(hForm)[4] - nY - 1 - ;           // GetClientHeight
-                 iif(_IsControlDefined("StatusBar", cForm), GetProperty( cForm, "StatusBar", "Height" ), 0)
+                 iif(_IsControlDefined("StatusBar", cForm), GetProperty(cForm, "StatusBar", "Height"), 0)
 
    DEFAULT aColor := { ;
-          { CLR_FOCUSF, GetSysColor( COLOR_WINDOWTEXT ) }, ;
+          { CLR_FOCUSF, GetSysColor(COLOR_WINDOWTEXT) }, ;
           { CLR_FOCUSB, {|c,n,b|c := n, iif(b:nCell == n, -CLR_HRED, -RGB(128, 225, 225))} }, ;
-          { CLR_SELEF , GetSysColor( COLOR_WINDOWTEXT ) }, ;
-          { CLR_SELEB , {|c,n,b|c := n, iif(b:nCell == n, -CLR_BLUE, -RGB(128, 225, 225))} } }
+          { CLR_SELEF, GetSysColor(COLOR_WINDOWTEXT) }, ;
+          { CLR_SELEB, {|c,n,b|c := n, iif(b:nCell == n, -CLR_BLUE, -RGB(128, 225, 225))} } }
 
    DEFAULT oParam:bSpecHdEnum := {|ob, op, cChar|  // нумерация SpecHd колонок, можно исп. в своем коде вызов
                       LOCAL oCol, cCnt, nCnt := 0  // renumbering SpecHeader
@@ -400,7 +400,7 @@ FUNCTION _TBrowse(oParam, uAlias, cBrw, nY, nX, nW, nH)
    DEFAULT oParam:bAdjColumns := {|ob|               // "растягивание" колонок в пределах окна тсб
                       LOCAL aCol, nI, nK
                       // у SELECTOR and ORDKEYNO не меняем width
-                      nK := Max( ob:nColumn( "SELECTOR", .T. ), ob:nColumn( "ORDKEYNO", .T. ) )
+                      nK := Max(ob:nColumn("SELECTOR", .T.), ob:nColumn("ORDKEYNO", .T.))
                       IF nK > 0
                          aCol := {}
                          FOR nI := nK TO Len(ob:aColumns)
@@ -409,7 +409,7 @@ FUNCTION _TBrowse(oParam, uAlias, cBrw, nY, nX, nW, nH)
                              ENDIF
                          NEXT
                       ENDIF
-                      ob:AdjColumns( aCol )
+                      ob:AdjColumns(aCol)
                       RETURN NIL
                     }
 
@@ -421,7 +421,7 @@ FUNCTION _TBrowse(oParam, uAlias, cBrw, nY, nX, nW, nH)
                          ENDIF
                       ENDIF
                       IF ob:nLen > ob:nRowCount()           // нужен VScroll
-                         ob:ResetVScroll( .T. )
+                         ob:ResetVScroll(.T.)
                       ENDIF
                       ob:SetNoHoles()
                       ob:SetFocus()
@@ -452,18 +452,18 @@ FUNCTION _TBrowse(oParam, uAlias, cBrw, nY, nX, nW, nH)
       LOADFIELDS                                                  ;
       FIXED        COLSEMPTY  GOTFOCUSSELECT  LOCK                ;
       ON INIT  {|ob|ob:Cargo := oHmgData() , ;
-                    ob:nColOrder     :=  0 , ;
+                    ob:nColOrder     :=  0, ;
                     ob:lNoHScroll    := .T., ;
                     ob:lNoGrayBar    := .F., ;
                     ob:lNoLiteBar    := .F., ;
                     ob:lNoResetPos   := .F., ;
                     ob:lPickerMode   := .F., ;
                     ob:lNoChangeOrd  := .T., ;
-                    ob:nStatusItem   :=  0 , ;
+                    ob:nStatusItem   :=  0, ;
                     ob:lNoKeyChar    := .T., ;
-                    ob:nWheelLines   :=  1 , ;
-                    ob:nCellMarginLR :=  1 , ;
-                    ob:nLineStyle := LINES_ALL , ;
+                    ob:nWheelLines   :=  1, ;
+                    ob:nCellMarginLR :=  1, ;
+                    ob:nLineStyle := LINES_ALL, ;
                     ob:nClrLine   := COLOR_GRID, ;
                     ob:lCheckBoxAllReturn := .T.}
 
@@ -524,7 +524,7 @@ FUNCTION _TBrowse(oParam, uAlias, cBrw, nY, nX, nW, nH)
          FOR EACH aTmp IN oParam:aUserKeys
            i := iif(Len(aTmp) > 2, aTmp[3], .F.)             // Ctrl+...
            j := iif(Len(aTmp) > 3, aTmp[4], .F.)             // Shift+...
-           :UserKeys( aTmp[1], aTmp[2], !Empty(i), !Empty(j) )
+           :UserKeys(aTmp[1], aTmp[2], !Empty(i), !Empty(j))
          NEXT
       ENDIF
 
@@ -542,7 +542,7 @@ FUNCTION _TBrowse(oParam, uAlias, cBrw, nY, nX, nW, nH)
           ENDIF
       ENDIF
 
-      :ResetVScroll( .T. )
+      :ResetVScroll(.T.)
       :oHScroll:SetRange(0, 0)
 
    END TBROWSE

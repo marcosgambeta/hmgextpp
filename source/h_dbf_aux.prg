@@ -27,7 +27,7 @@ FUNCTION HMG_DbfToArray(cFieldList, bFor, bWhile, nNext, nRec, lRest)
 
    dbEval({||AAdd(aRet, Eval(bLine))}, bFor, bWhile, nNext, nRec, lRest)
 
-   dbGoto( nRecNo )
+   dbGoto(nRecNo)
 
 RETURN aRet
 
@@ -196,12 +196,12 @@ FUNCTION HMG_DbfToExcel( cFieldList, aHeader, bFor, bWhile, nNext, nRec, lRest )
    oSheet := oBook:ActiveSheet
 
    nCols := Len(aHeader)
-   oRange := oSheet:Range(oSheet:Columns( nRow ), oSheet:Columns( nCols ))
+   oRange := oSheet:Range(oSheet:Columns(nRow), oSheet:Columns(nCols))
 
    oExcel:ScreenUpdating := .F.
 
-   oRange:Rows( nRow ):Value := aHeader
-   oRange:Rows( nRow ):Font:Bold := .T.
+   oRange:Rows(nRow):Value := aHeader
+   oRange:Rows(nRow):Font:Bold := .T.
 
    bLine := &("{||{" + cFieldList + "}}")
    IF Empty(bWhile) .AND. Empty(nNext) .AND. Empty(nRec) .AND. Empty(lRest)
@@ -209,7 +209,7 @@ FUNCTION HMG_DbfToExcel( cFieldList, aHeader, bFor, bWhile, nNext, nRec, lRest )
    ENDIF
 
    dbEval({||oRange:Rows(++nRow):Value := Eval(bLine), nRow}, bFor, bWhile, nNext, nRec, lRest)
-   dbGoto( nRecNo )
+   dbGoto(nRecNo)
 
    oRange:AutoFit()
 
@@ -273,14 +273,14 @@ FUNCTION HMG_DbfStruct(cFileName)
 RETURN aStruct
 
 *-----------------------------------------------------------------------------*
-FUNCTION HMG_RecToHash( cFieldList, cNames )
+FUNCTION HMG_RecToHash(cFieldList, cNames)
 *-----------------------------------------------------------------------------*
    
    LOCAL hRec := { => }
    LOCAL aVals
    LOCAL aNames
 
-   HSetCaseMatch( hRec, .F. )
+   HSetCaseMatch(hRec, .F.)
 
    IF Empty(cFieldList)
       cFieldList := ""
@@ -302,14 +302,14 @@ RETURN hRec
 FUNCTION HMG_HashToRec(hRec, cFieldList)
 *-----------------------------------------------------------------------------*
    
-   LOCAL lShared := dbInfo( DBI_SHARED )
+   LOCAL lShared := dbInfo(DBI_SHARED)
    LOCAL lLocked := .F.
    LOCAL lSaved := .F.
    LOCAL aFlds
 
    IF !lShared .OR. ;
-         ( dbInfo( DBI_ISFLOCK ) .OR. dbRecordInfo( DBRI_LOCKED, RecNo() ) ) .OR. ;
-         ( lLocked := dbRLock( RecNo() ) )
+         (dbInfo(DBI_ISFLOCK) .OR. dbRecordInfo(DBRI_LOCKED, RecNo())) .OR. ;
+         (lLocked := dbRLock(RecNo()))
 
       IF Empty(cFieldList)
          hb_HEval(hRec, {|k, v|FieldPut(FieldPos(k), v)})
@@ -319,7 +319,7 @@ FUNCTION HMG_HashToRec(hRec, cFieldList)
       ENDIF
 
       IF lLocked
-         dbRUnlock( RecNo() )
+         dbRUnlock(RecNo())
       ENDIF
 
       lSaved := .T.
@@ -360,7 +360,7 @@ PROCEDURE DbfCopyRec(cnTargetArea, lAppend)
 RETURN
 
 *-----------------------------------------------------------------------------*
-FUNCTION DbfModStru( cDbfName, aModStru )
+FUNCTION DbfModStru(cDbfName, aModStru)
 *-----------------------------------------------------------------------------*
    
    LOCAL nSize
@@ -389,8 +389,8 @@ FUNCTION DbfModStru( cDbfName, aModStru )
 
          FOR nStru := 1 TO Len(aModStru)
 
-            cBuffSize := Stuff( cBuffSize, 1 + BUFFER_SIZE * ( nStru - 1 ), 10, PadR( aModStru[nStru, 1], 10 ) )
-            cBuffSize := Stuff( cBuffSize, 12 + BUFFER_SIZE * ( nStru - 1 ), 1, PadR( aModStru[nStru, 2], 1 ) )
+            cBuffSize := Stuff( cBuffSize, 1 + BUFFER_SIZE * ( nStru - 1 ), 10, PadR(aModStru[nStru, 1], 10) )
+            cBuffSize := Stuff( cBuffSize, 12 + BUFFER_SIZE * ( nStru - 1 ), 1, PadR(aModStru[nStru, 2], 1) )
 
          NEXT
 

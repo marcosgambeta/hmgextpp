@@ -15,15 +15,15 @@ CLASS TDatePicker FROM TControl
    CLASSDATA lRegistered AS LOGICAL
    DATA Atx, lAppend
 
-   METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
+   METHOD New(nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
       nClrFore, nClrBack, hFont, cControl, oCursor, cWnd, cMsg,;
       lUpdate, bWhen, lCenter, lRight, bChanged,;
-      lNoBorder, nHelpId, shownone, updown )
+      lNoBorder, nHelpId, shownone, updown)
 
    METHOD Default()
    METHOD HandleEvent(nMsg, nWParam, nLParam)
-   METHOD KeyChar( nKey, nFlags )
-   METHOD KeyDown( nKey, nFlags )
+   METHOD KeyChar(nKey, nFlags)
+   METHOD KeyDown(nKey, nFlags)
    METHOD LostFocus()
    METHOD lValid()
    METHOD VarGet()
@@ -34,17 +34,17 @@ ENDCLASS
 * METHOD TDatePicker:New() Version 7.0
 * ============================================================================
 
-METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
-            nClrFore, nClrBack, hFont, cControl, oCursor, cWnd, cMsg,;
-            lUpdate, bWhen, lCenter, lRight, bChanged,;
-            lNoBorder, nHelpId, shownone, updown ) CLASS TDatePicker
+METHOD New(nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
+           nClrFore, nClrBack, hFont, cControl, oCursor, cWnd, cMsg,;
+           lUpdate, bWhen, lCenter, lRight, bChanged,;
+           lNoBorder, nHelpId, shownone, updown) CLASS TDatePicker
 
    Local invisible   := .F.
    Local rightalign  := .F.
    Local notabstop   := .F.
 
-   DEFAULT nClrFore  := GetSysColor( COLOR_WINDOWTEXT ),;
-           nClrBack  := GetSysColor( COLOR_WINDOW ),;
+   DEFAULT nClrFore  := GetSysColor(COLOR_WINDOWTEXT),;
+           nClrBack  := GetSysColor(COLOR_WINDOW),;
            nHeight   := 12 ,;
            lUpdate   := .F.,;
            lNoBorder := .F.,;
@@ -69,10 +69,10 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
 
    ::cControlName := cControl
    ::cParentWnd   := cWnd
-   ::nStyle       := nOR( WS_CHILD, WS_VISIBLE, WS_TABSTOP, ;
-                          WS_VSCROLL, WS_BORDER, ;
-                          iif(updown, DTS_UPDOWN, 0), ;
-                          iif(shownone, DTS_SHOWNONE, 0) )
+   ::nStyle       := nOR(WS_CHILD, WS_VISIBLE, WS_TABSTOP, ;
+                         WS_VSCROLL, WS_BORDER, ;
+                         iif(updown, DTS_UPDOWN, 0), ;
+                         iif(shownone, DTS_SHOWNONE, 0))
 
    ::bSetGet      := bSetGet
    ::bValid       := bValid
@@ -89,7 +89,7 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
    ::nLastKey     := 0
    ::Atx          := 0
 
-   ::SetColor( nClrFore, nClrBack )
+   ::SetColor(nClrFore, nClrBack)
 
    if oWnd == NIL
        oWnd := GetFormHandle(cWnd)                 //JP
@@ -125,7 +125,7 @@ METHOD Default() CLASS TDatePicker
    If Empty(Value)
       SetDatePickNull(::hWnd)
    Else
-      SetDatePick(::hWnd, Year( value ), Month( value ), Day( value ))
+      SetDatePick(::hWnd, Year(value), Month(value), Day(value))
    EndIf
 
 Return NIL
@@ -148,7 +148,7 @@ Return ::Super:HandleEvent(nMsg, nWParam, nLParam)
 * METHOD TDatePicker:KeyChar() Version 7.0 Jul/15/2004
 * ============================================================================
 
-METHOD KeyChar( nKey, nFlags ) CLASS TDatePicker
+METHOD KeyChar(nKey, nFlags) CLASS TDatePicker
 
    If _GetKeyState(VK_CONTROL)
       nKey := IIf(Upper(Chr(nKey)) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey)
@@ -158,13 +158,13 @@ METHOD KeyChar( nKey, nFlags ) CLASS TDatePicker
       Return 0
    Endif
 
-RETURN ::Super:KeyChar( nKey, nFlags )
+RETURN ::Super:KeyChar(nKey, nFlags)
 
 * ============================================================================
 * METHOD TDatePicker:KeyDown()
 * ============================================================================
 
-METHOD KeyDown( nKey, nFlags ) CLASS TDatePicker
+METHOD KeyDown(nKey, nFlags) CLASS TDatePicker
 
    ::nLastKey := nKey
 

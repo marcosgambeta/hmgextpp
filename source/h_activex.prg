@@ -535,7 +535,7 @@ HB_FUNC_STATIC( CREATEWINDOWEX ) // ( hWnd, cProgId ) -> hActiveXWnd
 #endif
 
 //------------------------------------------------------------------------------
-//HRESULT hb_oleVariantToItem( PHB_ITEM pItem, VARIANT * pVariant );
+//HRESULT hb_oleVariantToItem(PHB_ITEM pItem, VARIANT * pVariant);
 
 //------------------------------------------------------------------------------
 //self is a macro which defines our IEventHandler struct as so:

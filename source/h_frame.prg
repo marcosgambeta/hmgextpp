@@ -197,7 +197,7 @@ STATIC FUNCTION _DefineFrame(ControlName, ParentFormName, x, y, w, h, ;
    _HMG_aControlMiscData2          [k] := ""
 
    IF invisible
-      _HideControl(ControlName , ParentFormName)
+      _HideControl(ControlName, ParentFormName)
    ENDIF
 
    IF _HMG_lOOPEnabled

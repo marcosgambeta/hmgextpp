@@ -233,7 +233,7 @@ PROCEDURE CLButtonSetFocus(cWindow, cControl)
             ENDIF
          ENDIF
       NEXT
-      SetFocus( hWnd )
+      SetFocus(hWnd)
       SendMessage(hWnd, BM_SETSTYLE, LOWORD(BS_DEFCOMMANDLINK), 1)
 
    ELSE
@@ -494,12 +494,12 @@ HB_FUNC( INITCLBUTTON )
 
 HB_FUNC( CLBUTTON_SETNOTE )
 {
-   if( HB_ISCHAR( 2 ) ) {
+   if( HB_ISCHAR(2) ) {
       LPSTR  szText        = ( LPSTR ) hb_parc(2);
-      int    nConvertedLen = MultiByteToWideChar( CP_ACP, MB_PRECOMPOSED, szText, -1, nullptr, 0 );
+      int    nConvertedLen = MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, szText, -1, nullptr, 0);
       LPWSTR lpwText       = ( LPWSTR ) hb_xgrab(nConvertedLen * 2 + 1);
 
-      MultiByteToWideChar( CP_ACP, MB_PRECOMPOSED, szText, -1, lpwText, nConvertedLen );
+      MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, szText, -1, lpwText, nConvertedLen);
 
       SendMessage(hmg_par_HWND(1), BCM_SETNOTE, 0, reinterpret_cast<LPARAM>(lpwText));
       hb_xfree(lpwText);

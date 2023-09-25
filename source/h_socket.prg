@@ -51,20 +51,20 @@ FUNCTION httpconnect(Connection, Server, Port)
 
    LOCAL oUrl
 
-   IF !( Lower( Left(Server, 7) ) == "http://" )
+   IF !( Lower(Left(Server, 7)) == "http://" )
       Server := "http://" + Server
    ENDIF
 
-   oUrl := TUrl():New( Server + ":" + hb_ntos(Port) )
+   oUrl := TUrl():New(Server + ":" + hb_ntos(Port))
 
-   IF hb_IsString( Connection )
+   IF hb_IsString(Connection)
 
       Public &Connection
 
       IF Empty(oUrl)
          &Connection := NIL
       ELSE
-         &Connection := TIpClientHttp():New( oUrl )
+         &Connection := TIpClientHttp():New(oUrl)
 
          IF !( &Connection ):Open()
             &Connection := NIL
@@ -76,7 +76,7 @@ FUNCTION httpconnect(Connection, Server, Port)
       IF Empty(oUrl)
          Connection := NIL
       ELSE
-         Connection := TIpClientHttp():New( oUrl )
+         Connection := TIpClientHttp():New(oUrl)
 
          IF !Connection:Open()
             Connection := NIL
@@ -88,7 +88,7 @@ FUNCTION httpconnect(Connection, Server, Port)
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION httpgeturl( Connection, cPage, uRet )
+FUNCTION httpgeturl(Connection, cPage, uRet)
 *-----------------------------------------------------------------------------*
    
    LOCAL cUrl
@@ -116,17 +116,17 @@ FUNCTION httpgeturl( Connection, cPage, uRet )
 
    cUrl += cPage
 
-   IF Connection:Open( cUrl )
+   IF Connection:Open(cUrl)
 
       cResponse := Connection:Read()
-      IF !hb_IsString( cResponse )
+      IF !hb_IsString(cResponse)
          cResponse := "<No data returned>"
       ENDIF
 
       IF hb_IsLogical(uRet)
 
          cHeader := Connection:cReply
-         IF !hb_IsString( cHeader )
+         IF !hb_IsString(cHeader)
             cHeader := "<No header returned>"
          ENDIF
          cHeader += hb_osNewLine()

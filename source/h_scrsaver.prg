@@ -54,7 +54,7 @@
 #define SPI_SCREENSAVERRUNNING  97
 
 *-----------------------------------------------------------------------------*
-FUNCTION _BeginScrSaver( cSSaver, lNoShow, cInit, cRelease, cPaint, nTimer, aBackClr )
+FUNCTION _BeginScrSaver(cSSaver, lNoShow, cInit, cRelease, cPaint, nTimer, aBackClr)
 *-----------------------------------------------------------------------------*
    
    LOCAL a := {}
@@ -79,10 +79,10 @@ FUNCTION _BeginScrSaver( cSSaver, lNoShow, cInit, cRelease, cPaint, nTimer, aBac
          WIDTH x HEIGHT y;
          MAIN NOSHOW;
          TOPMOST NOSIZE NOCAPTION;
-         ON GOTFOCUS SetCursorPos( x / 2, y / 2 );
-         ON INIT ( ShowCursor( .F. ), ;
-            SystemParametersInfo( SPI_SCREENSAVERRUNNING, 1, @Dummy, 0 ) );
-         ON RELEASE _ReleaseScrSaver( cRelease, cSSaver, cPaint );
+         ON GOTFOCUS SetCursorPos(x / 2, y / 2);
+         ON INIT ( ShowCursor(.F.), ;
+            SystemParametersInfo(SPI_SCREENSAVERRUNNING, 1, @Dummy, 0) );
+         ON RELEASE _ReleaseScrSaver(cRelease, cSSaver, cPaint);
          ON MOUSECLICK iif(_lValidScrSaver(), DoMethod(cSSaver, "Release"), NIL);
          ON MOUSEMOVE ( a := GetCursorPos(), iif(a[1] != y / 2 .AND. a[2] != x / 2,;
             iif(_lValidScrSaver(), DoMethod(cSSaver, "Release"), NIL), NIL) );
@@ -93,10 +93,10 @@ FUNCTION _BeginScrSaver( cSSaver, lNoShow, cInit, cRelease, cPaint, nTimer, aBac
          WIDTH x HEIGHT y;
          MAIN;
          TOPMOST NOSIZE NOCAPTION;
-         ON GOTFOCUS SetCursorPos( x / 2, y / 2 );
-         ON INIT ( ShowCursor( .F. ), ;
-            SystemParametersInfo( SPI_SCREENSAVERRUNNING, 1, @Dummy, 0 ) );
-         ON RELEASE _ReleaseScrSaver( cRelease, cSSaver, cPaint );
+         ON GOTFOCUS SetCursorPos(x / 2, y / 2);
+         ON INIT ( ShowCursor(.F.), ;
+            SystemParametersInfo(SPI_SCREENSAVERRUNNING, 1, @Dummy, 0) );
+         ON RELEASE _ReleaseScrSaver(cRelease, cSSaver, cPaint);
          ON MOUSECLICK iif(_lValidScrSaver(), DoMethod(cSSaver, "Release"), NIL);
          ON MOUSEMOVE ( a := GetCursorPos(), iif(a[1] != y / 2 .AND. a[2] != x / 2,;
             iif(_lValidScrSaver(), DoMethod(cSSaver, "Release"), NIL), NIL) );
@@ -120,7 +120,7 @@ FUNCTION _BeginScrSaver( cSSaver, lNoShow, cInit, cRelease, cPaint, nTimer, aBac
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION _ActivateScrSaver( aForm, cParam )
+FUNCTION _ActivateScrSaver(aForm, cParam)
 *-----------------------------------------------------------------------------*
    
    LOCAL cFileScr
@@ -128,7 +128,7 @@ FUNCTION _ActivateScrSaver( aForm, cParam )
 
    DEFAULT cParam TO iif(_ScrSaverInstall, "-i", "-s")
 
-   cParam := Lower( cParam )
+   cParam := Lower(cParam)
 
    DO CASE
    CASE cParam == "/s" .OR. cParam == "-s"
@@ -140,7 +140,7 @@ FUNCTION _ActivateScrSaver( aForm, cParam )
       IF _ScrSaverConfig != NIL
          Eval(_ScrSaverConfig)
       ELSE
-         MsgInfo( "This screen saver has no options that you configure.", "Information" )
+         MsgInfo("This screen saver has no options that you configure.", "Information")
       ENDIF
 
    CASE cParam == "/a" .OR. cParam == "-a"
@@ -174,7 +174,7 @@ FUNCTION _ActivateScrSaver( aForm, cParam )
 
          ENDIF
 
-         MsgInfo( cFileNoPath( cFileDes ) + " installation successfully.", "Information" )
+         MsgInfo(cFileNoPath(cFileDes) + " installation successfully.", "Information")
 
          IF _ScrSaverShow
             SendMessage(GetFormHandle(_ActiveScrSaverName), WM_SYSCOMMAND, SC_SCREENSAVE)
@@ -182,7 +182,7 @@ FUNCTION _ActivateScrSaver( aForm, cParam )
 
       ELSE
 
-         MsgStop( cFileNoPath( cFileDes ) + " installation no successfully.", "Error" )
+         MsgStop(cFileNoPath(cFileDes) + " installation no successfully.", "Error")
 
       ENDIF
 
@@ -191,7 +191,7 @@ FUNCTION _ActivateScrSaver( aForm, cParam )
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION _ReleaseScrSaver( cRelease, cSSaver, cPaint )
+FUNCTION _ReleaseScrSaver(cRelease, cSSaver, cPaint)
 *-----------------------------------------------------------------------------*
    
    LOCAL Dummy := ""
@@ -200,13 +200,13 @@ FUNCTION _ReleaseScrSaver( cRelease, cSSaver, cPaint )
       Eval(cRelease)
    ENDIF
 
-   ShowCursor( .T. )
+   ShowCursor(.T.)
 
    IF cPaint != NIL
-      SetProperty( cSSaver, "Timer_SSaver", "Enabled", .F. )
+      SetProperty(cSSaver, "Timer_SSaver", "Enabled", .F.)
    ENDIF
 
-   SystemParametersInfo( SPI_SCREENSAVERRUNNING, 0, @Dummy, 0 )
+   SystemParametersInfo(SPI_SCREENSAVERRUNNING, 0, @Dummy, 0)
 
 RETURN NIL
 

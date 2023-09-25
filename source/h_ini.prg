@@ -56,10 +56,10 @@ FUNCTION _SetGetLogFile(cFile)
 *-----------------------------------------------------------------------------*
    
    LOCAL cVarName := "_HMG_" + SubStr(ProcName(), 8)
-   LOCAL cOld := _AddNewGlobal( cVarName, NIL )
+   LOCAL cOld := _AddNewGlobal(cVarName, NIL)
 
    IF cFile != NIL
-      _SetGetGlobal( cVarName, cFile )
+      _SetGetGlobal(cVarName, cFile)
       RETURN cFile
    ENDIF
 
@@ -87,7 +87,7 @@ FUNCTION _LogFile(lCrLf, ...)
          IF (lCrLf := hb_defaultValue(lCrLf, .T.))
             FWrite(hFile, CRLF, 2)
          ENDIF
-         IF nParams == 2 .AND. HB_ISNIL( aParams[2] ) .AND. lCrLf
+         IF nParams == 2 .AND. HB_ISNIL(aParams[2]) .AND. lCrLf
          ELSE
             FOR i := 2 TO nParams
                xVal := aParams[i]
@@ -116,7 +116,7 @@ FUNCTION _LogFile(lCrLf, ...)
 RETURN .T.
 
 *-----------------------------------------------------------------------------*
-FUNCTION _BeginIni( cIniFile )
+FUNCTION _BeginIni(cIniFile)
 *-----------------------------------------------------------------------------*
    
    LOCAL hFile
@@ -129,8 +129,8 @@ FUNCTION _BeginIni( cIniFile )
 
       hFile := iif(File(cIniFile), FOpen(cIniFile, FO_READ + FO_SHARED), HMG_CreateFile_UTF16LE_BOM(cIniFile))
       IF hFile == F_ERROR
-         MsgInfo( "Error opening a file INI. DOS ERROR: " + hb_ntos(FError()) )
-         Return( -1 )
+         MsgInfo("Error opening a file INI. DOS ERROR: " + hb_ntos(FError()))
+         Return -1
       ELSE
          _HMG_ActiveIniFile := cIniFile
       ENDIF
@@ -140,18 +140,18 @@ FUNCTION _BeginIni( cIniFile )
    ELSE
       hFile := hb_vfOpen(cIniFile, iif(hb_vfExists(cIniFile), FO_READ + FO_SHARED, FO_CREAT + FO_READWRITE))
       IF hFile == NIL
-         MsgInfo( "Error opening a file INI. DOS ERROR: " + hb_ntos(FError()) )
-         Return( -1 )
+         MsgInfo("Error opening a file INI. DOS ERROR: " + hb_ntos(FError()))
+         Return -1
       ELSE
          _HMG_ActiveIniFile := cIniFile
       ENDIF
       hb_vfClose(hFile)
   ENDIF
 
-RETURN( 0 )
+RETURN 0
 
 *-----------------------------------------------------------------------------*
-FUNCTION _GetIni( cSection, cEntry, cDefault, uVar )
+FUNCTION _GetIni(cSection, cEntry, cDefault, uVar)
 *-----------------------------------------------------------------------------*
    
    LOCAL cVar As String
@@ -159,10 +159,10 @@ FUNCTION _GetIni( cSection, cEntry, cDefault, uVar )
    IF !Empty(_HMG_ActiveIniFile)
       __defaultNIL(@cDefault, cVar)
       __defaultNIL(@uVar, cDefault)
-      cVar  := GetPrivateProfileString( cSection, cEntry, xChar( cDefault ), _HMG_ActiveIniFile )
+      cVar  := GetPrivateProfileString(cSection, cEntry, xChar(cDefault), _HMG_ActiveIniFile)
    ELSE
       IF cDefault != NIL
-         cVar := xChar( cDefault )
+         cVar := xChar(cDefault)
       ENDIF
    ENDIF
 
@@ -171,37 +171,37 @@ FUNCTION _GetIni( cSection, cEntry, cDefault, uVar )
 RETURN uVar
 
 *-----------------------------------------------------------------------------*
-FUNCTION _SetIni( cSection, cEntry, cValue )
+FUNCTION _SetIni(cSection, cEntry, cValue)
 *-----------------------------------------------------------------------------*
    
    LOCAL ret As Logical
 
    IF !Empty(_HMG_ActiveIniFile)
-      ret := WritePrivateProfileString( cSection, cEntry, xChar( cValue ), _HMG_ActiveIniFile )
+      ret := WritePrivateProfileString(cSection, cEntry, xChar(cValue), _HMG_ActiveIniFile)
    ENDIF
 
 RETURN ret
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DelIniEntry( cSection, cEntry )
+FUNCTION _DelIniEntry(cSection, cEntry)
 *-----------------------------------------------------------------------------*
    
    LOCAL ret As Logical
 
    IF !Empty(_HMG_ActiveIniFile)
-      ret := DelIniEntry( cSection, cEntry, _HMG_ActiveIniFile )
+      ret := DelIniEntry(cSection, cEntry, _HMG_ActiveIniFile)
    ENDIF
 
 RETURN ret
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DelIniSection( cSection )
+FUNCTION _DelIniSection(cSection)
 *-----------------------------------------------------------------------------*
    
    LOCAL ret As Logical
 
    IF !Empty(_HMG_ActiveIniFile)
-      ret := DelIniSection( cSection, _HMG_ActiveIniFile )
+      ret := DelIniSection(cSection, _HMG_ActiveIniFile)
    ENDIF
 
 RETURN ret
@@ -318,7 +318,7 @@ FUNCTION SetBeginComment(cComment)
                ELSE
                   AAdd(aLines, NIL)
                   nLen++
-                  AIns( aLines, i )
+                  AIns(aLines, i)
                   IF !hb_ULeft(cComment := AllTrim(cComment), 1) $ "#;"
                      cComment := "#" + cComment
                   ENDIF
@@ -401,7 +401,7 @@ FUNCTION SetEndComment(cComment)
 RETURN cComment
 
 *-----------------------------------------------------------------------------*
-FUNCTION xChar( xValue )
+FUNCTION xChar(xValue)
 *-----------------------------------------------------------------------------*
    
    LOCAL cType := ValType(xValue)
@@ -411,7 +411,7 @@ FUNCTION xChar( xValue )
    DO CASE // TODO: SWITCH
    CASE cType $  "CM"; cValue := xValue
    CASE cType == "N" ; nDecimals := iif(xValue == Int(xValue), 0, nDecimals) ; cValue := LTrim(Str(xValue, 20, nDecimals))
-   CASE cType == "D" ; cValue := DToS( xValue )
+   CASE cType == "D" ; cValue := DToS(xValue)
    CASE cType == "L" ; cValue := iif(xValue, "T", "F")
    CASE cType == "A" ; cValue := AToC(xValue)
    CASE cType $  "UE"; cValue := "NIL"
@@ -448,7 +448,7 @@ FUNCTION AToC(aArray)
    LOCAL cArray := ""
 
    FOR EACH elem IN aArray
-      cElement := xChar( elem )
+      cElement := xChar(elem)
       IF (cType := ValType(elem)) == "A"
          cArray += cElement
       ELSE
@@ -456,7 +456,7 @@ FUNCTION AToC(aArray)
       ENDIF
    NEXT
 
-RETURN( "A" + Str(hb_ULen(cArray), 4) + cArray )
+RETURN ("A" + Str(hb_ULen(cArray), 4) + cArray)
 
 *-----------------------------------------------------------------------------*
 FUNCTION CToA(cArray)
@@ -481,7 +481,7 @@ RETURN aArray
 
 // JK HMG 1.0 experimental build 6
 *-----------------------------------------------------------------------------*
-FUNCTION _GetSectionNames( cIniFile )
+FUNCTION _GetSectionNames(cIniFile)
 *-----------------------------------------------------------------------------*
    // return 1-dimensional array with section list in cIniFile
    // or empty array if no sections are present
@@ -490,18 +490,18 @@ FUNCTION _GetSectionNames( cIniFile )
    LOCAL aLista
 
    IF File(cIniFile)
-      aLista := _GetPrivateProfileSectionNames( cIniFile )
+      aLista := _GetPrivateProfileSectionNames(cIniFile)
       IF !Empty(aLista)
          AEval(aLista, {|cVal|iif(Empty(cVal), NIL, AAdd(aSectionList, cVal))})
       ENDIF
    ELSE
-      MsgStop( "Can`t open " + cIniFile, "Error" )
+      MsgStop("Can`t open " + cIniFile, "Error")
    ENDIF
 
 RETURN aSectionList
 
 *-----------------------------------------------------------------------------*
-FUNCTION _GetSection( cSection, cIniFile )
+FUNCTION _GetSection(cSection, cIniFile)
 *-----------------------------------------------------------------------------*
    // return 2-dimensional array with {key,value} pairs from section cSection in cIniFile
    
@@ -511,7 +511,7 @@ FUNCTION _GetSection( cSection, cIniFile )
    LOCAL n
 
    IF File(cIniFile)
-      aLista := _GetPrivateProfileSection( cSection, cIniFile )
+      aLista := _GetPrivateProfileSection(cSection, cIniFile)
       IF !Empty(aLista)
          FOR i := 1 TO Len(aLista)
             IF (n := At("=", aLista[i])) > 0
@@ -520,7 +520,7 @@ FUNCTION _GetSection( cSection, cIniFile )
          NEXT i
       ENDIF
    ELSE
-      MsgStop( "Can`t open " + cIniFile, "Error" )
+      MsgStop("Can`t open " + cIniFile, "Error")
    ENDIF
 
 RETURN aKeyValueList

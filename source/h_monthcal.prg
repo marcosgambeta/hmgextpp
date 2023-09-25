@@ -131,7 +131,7 @@ FUNCTION _DefineMonthCal(ControlName, ParentFormName, x, y, w, h, value, ;
       ENDIF
 
       IF lDialogInMemory // Dialog Template
-         InitExCommonControls( 1 )
+         InitExCommonControls(1)
 
          // {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {|x, y, z|InitDialogMonthCalendar(x, y, z)}
@@ -179,7 +179,7 @@ FUNCTION _DefineMonthCal(ControlName, ParentFormName, x, y, w, h, value, ;
          AAdd(_HMG_ActiveTabCurrentPageMap, aControlhandle[1])
       ENDIF
 
-      SetMonthCalValue(aControlHandle[1], Year( value ), Month( value ), Day( value ))
+      SetMonthCalValue(aControlHandle[1], Year(value), Month(value), Day(value))
 
       IF tooltip != NIL
          SetToolTip(aControlHandle[1], tooltip, GetFormToolTipHandle(ParentFormName))
@@ -236,7 +236,7 @@ FUNCTION _DefineMonthCal(ControlName, ParentFormName, x, y, w, h, value, ;
 
    IF !lDialogInMemory
 
-      AddMonthCalBoldDay( ControlName, ParentFormName, Date() )
+      AddMonthCalBoldDay(ControlName, ParentFormName, Date())
 
       IF _HMG_IsThemed .AND. ( IsArrayRGB(backcolor) .OR. IsArrayRGB(fontcolor) .OR. IsArrayRGB(TitleBkClr) .OR. IsArrayRGB(TitleFrClr) )
 
@@ -251,27 +251,27 @@ FUNCTION _DefineMonthCal(ControlName, ParentFormName, x, y, w, h, value, ;
    ENDIF
 
    IF IsArrayRGB(BackColor)
-      SetMonthCalMonthBkColor( aControlHandle[1], backcolor[1], backcolor[2], backcolor[3] )
+      SetMonthCalMonthBkColor(aControlHandle[1], backcolor[1], backcolor[2], backcolor[3])
    ENDIF
 
    IF IsArrayRGB(FontColor)
-      SetMonthCalFontColor( aControlHandle[1], fontcolor[1], fontcolor[2], fontcolor[3] )
+      SetMonthCalFontColor(aControlHandle[1], fontcolor[1], fontcolor[2], fontcolor[3])
    ENDIF
 
    IF IsArrayRGB(TitleBkClr)
-      SetMonthCalTitleBkColor( aControlHandle[1], TitleBkClr[1], TitleBkClr[2], TitleBkClr[3] )
+      SetMonthCalTitleBkColor(aControlHandle[1], TitleBkClr[1], TitleBkClr[2], TitleBkClr[3])
    ENDIF
 
    IF IsArrayRGB(TitleFrClr)
-      SetMonthCalTitleFontColor( aControlHandle[1], TitleFrClr[1], TitleFrClr[2], TitleFrClr[3] )
+      SetMonthCalTitleFontColor(aControlHandle[1], TitleFrClr[1], TitleFrClr[2], TitleFrClr[3])
    ENDIF
 
    IF IsArrayRGB(BackGround)
-      SetMonthCalBkColor( aControlHandle[1], BackGround[1], BackGround[2], BackGround[3] )
+      SetMonthCalBkColor(aControlHandle[1], BackGround[1], BackGround[2], BackGround[3])
    ENDIF
 
    IF IsArrayRGB(TrlFontClr)
-      SetMonthCalTrlFontColor( aControlHandle[1], TrlFontClr[1], TrlFontClr[2], TrlFontClr[3] )
+      SetMonthCalTrlFontColor(aControlHandle[1], TrlFontClr[1], TrlFontClr[2], TrlFontClr[3])
    ENDIF
 
    IF _HMG_lOOPEnabled
@@ -287,10 +287,10 @@ FUNCTION _DefineMonthCal(ControlName, ParentFormName, x, y, w, h, value, ;
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION InitDialogMonthCalendar( ParentFormName, ControlHandle, k )
+FUNCTION InitDialogMonthCalendar(ParentFormName, ControlHandle, k)
 *-----------------------------------------------------------------------------*
 
-   AddMonthCalBoldDay( _HMG_aControlNames[k], ParentFormName, Date() )
+   AddMonthCalBoldDay(_HMG_aControlNames[k], ParentFormName, Date())
 
    SetPosMonthCal(ControlHandle, _HMG_aControlCol[k], _HMG_aControlRow[k])
    // JP 62
@@ -328,7 +328,7 @@ FUNCTION OMONTHCALEVENTS(hWnd, nMsg, wParam, lParam) // GF 2016.04.02
 RETURN 0
 
 *-----------------------------------------------------------------------------*
-FUNCTION AddMonthCalBoldDay( ControlName, ParentFormName, dDay )
+FUNCTION AddMonthCalBoldDay(ControlName, ParentFormName, dDay)
 *-----------------------------------------------------------------------------*
    
    LOCAL i
@@ -341,14 +341,14 @@ FUNCTION AddMonthCalBoldDay( ControlName, ParentFormName, dDay )
       AAdd(aBoldDays, dDay)
       SetDayState(ControlName, ParentFormName)
    ELSEIF aBoldDays[i] > dDay
-      hb_AIns( aBoldDays, i, dDay, .T. )
+      hb_AIns(aBoldDays, i, dDay, .T.)
       SetDayState(ControlName, ParentFormName)
    ENDIF
 
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION DelMonthCalBoldDay( ControlName, ParentFormName, dDay )
+FUNCTION DelMonthCalBoldDay(ControlName, ParentFormName, dDay)
 *-----------------------------------------------------------------------------*
    
    LOCAL i
@@ -358,14 +358,14 @@ FUNCTION DelMonthCalBoldDay( ControlName, ParentFormName, dDay )
    aBoldDays := _HMG_aControlPageMap[ix]
 
    IF (i := AScan(aBoldDays, dDay)) > 0
-      hb_ADel( aBoldDays, i, .T. )
+      hb_ADel(aBoldDays, i, .T.)
       SetDayState(ControlName, ParentFormName)
    ENDIF
 
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION IsMonthCalBoldDay( ControlName, ParentFormName, dDay )
+FUNCTION IsMonthCalBoldDay(ControlName, ParentFormName, dDay)
 *-----------------------------------------------------------------------------*
    
    LOCAL i := GetControlIndex(ControlName, ParentFormName)
@@ -373,7 +373,7 @@ FUNCTION IsMonthCalBoldDay( ControlName, ParentFormName, dDay )
 
    aBoldDays := _HMG_aControlPageMap[i]
 
-Return( AScan(aBoldDays, dDay) > 0 )
+Return (AScan(aBoldDays, dDay) > 0)
 
 *-----------------------------------------------------------------------------*
 FUNCTION SetDayState(ControlName, ParentFormName)
@@ -412,14 +412,14 @@ FUNCTION SetDayState(ControlName, ParentFormName)
 
    IF iNextD > 0
       dEnd := aData[3]
-      dEoM := EoM( dStart )
+      dEoM := EoM(dStart)
       nMonth := 0
       dDay := aBoldDays[iNextD]
       nLen := Len(aBoldDays)
 
       DO WHILE dDay <= dEnd
          IF dDay <= dEoM
-            aDays[nMonth * 32 + Day( dDay )] := 1
+            aDays[nMonth * 32 + Day(dDay)] := 1
             iNextD++
             IF iNextD > nLen
                EXIT
@@ -427,7 +427,7 @@ FUNCTION SetDayState(ControlName, ParentFormName)
             dDay := aBoldDays[iNextD]
          ELSE
             nMonth++
-            dEoM := EoM( dEoM + 1 )
+            dEoM := EoM(dEoM + 1)
          ENDIF
       ENDDO
    ENDIF

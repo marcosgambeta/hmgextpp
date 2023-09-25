@@ -50,7 +50,7 @@
 #define EM_SETCUEBANNER       0x1501
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineSpinner(ControlName, ParentForm, x, y, w, value , fontname, ;
+FUNCTION _DefineSpinner(ControlName, ParentForm, x, y, w, value, fontname, ;
       fontsize, rl, rh, tooltip, change, lostfocus, gotfocus, h, HelpId, ;
       horizontal, invisible, notabstop, bold, italic, underline, strikeout, ;
       wrap, readonly, increment, backcolor, fontcolor, cuetext, bInit)
@@ -111,7 +111,7 @@ FUNCTION _DefineSpinner(ControlName, ParentForm, x, y, w, value , fontname, ;
 
    ParentForm := GetFormHandle(ParentForm)
 
-   RetArray := InitSpinner( ParentForm, 0, x, y, w, "", 0, rl, rh, h, invisible, notabstop, wrap, readonly, horizontal )
+   RetArray := InitSpinner(ParentForm, 0, x, y, w, "", 0, rl, rh, h, invisible, notabstop, wrap, readonly, horizontal)
 
    ControlHandle := RetArray[1]
 
@@ -208,7 +208,7 @@ FUNCTION _DefineSpinner(ControlName, ParentForm, x, y, w, value , fontname, ;
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION OSPINEVENTS( hWnd, nMsg, wParam, lParam )    // 2006.08.13 JD
+FUNCTION OSPINEVENTS(hWnd, nMsg, wParam, lParam)    // 2006.08.13 JD
 *-----------------------------------------------------------------------------*
    
    LOCAL ParentForm
@@ -243,7 +243,7 @@ FUNCTION OSPINEVENTS( hWnd, nMsg, wParam, lParam )    // 2006.08.13 JD
       IF i > 0
 
          IF _HMG_aControlsContextMenu[i][4]
-            setfocus( wParam )
+            setfocus(wParam)
 
             _HMG_xControlsContextMenuID := _HMG_aControlsContextMenu[i][3]
 

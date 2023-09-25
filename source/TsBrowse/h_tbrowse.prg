@@ -6788,8 +6788,8 @@ METHOD ExcelOle(cXlsFile, lActivate, hProgress, cTitle, hFont, lSave, bExtern, a
       ++nLine
 
       /*
-         Cada 20k volcamos el texto a la hoja de Excel , usando el portapapeles , algo muy rapido y facil ;-)
-         Every 20k set text into excel sheet , using Clipboard , very easy and faster.
+         Cada 20k volcamos el texto a la hoja de Excel, usando el portapapeles, algo muy rapido y facil ;-)
+         Every 20k set text into excel sheet, using Clipboard, very easy and faster.
       */
 
       IF Len(cText) > 20000

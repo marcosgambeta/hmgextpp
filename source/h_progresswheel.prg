@@ -90,7 +90,7 @@ FUNCTION _DefineProgressWheel(cControlName, cParentForm, nCol, nRow, nWidth, ;
       MsgMiniGuiError("Control: " + cControlName + " Of " + cParentForm + " Already defined.")
    ENDIF
 
-   IF _SetGetGlobal( "BufScale" ) == NIL
+   IF _SetGetGlobal("BufScale") == NIL
       STATIC BufScale AS GLOBAL VALUE 3
    ENDIF
 
@@ -106,10 +106,10 @@ FUNCTION _DefineProgressWheel(cControlName, cParentForm, nCol, nRow, nWidth, ;
    __defaultNIL(@nColorRemain, SILVER)
    __defaultNIL(@nColorInner, WHITE)
 
-   nColorDoneMin := HMG_RGB2n( nColorDoneMin )
-   nColorDoneMax := HMG_RGB2n( nColorDoneMax )
-   nColorRemain := HMG_RGB2n( nColorRemain )
-   nColorInner := HMG_RGB2n( nColorInner )
+   nColorDoneMin := HMG_RGB2n(nColorDoneMin)
+   nColorDoneMax := HMG_RGB2n(nColorDoneMax)
+   nColorRemain := HMG_RGB2n(nColorRemain)
+   nColorInner := HMG_RGB2n(nColorInner)
 
    nId := _GetId()
 
@@ -176,7 +176,7 @@ FUNCTION _DefineProgressWheel(cControlName, cParentForm, nCol, nRow, nWidth, ;
       nStartAngle, nInnerSize, nGradientMode, _HMG_aControlCaption[k], lShowText, nMin, nMax, ;
       nColorDoneMin, nColorDoneMax, nColorRemain, nColorInner)
 
-   UpdateAngleGradientBrush( nGradientMode, nWidth, nHeight, nStartAngle, nColorDoneMin, nColorDoneMax )
+   UpdateAngleGradientBrush(nGradientMode, nWidth, nHeight, nStartAngle, nColorDoneMin, nColorDoneMax)
 
    nId := GetFormIndex(cParentForm)
 
@@ -190,7 +190,7 @@ FUNCTION _DefineProgressWheel(cControlName, cParentForm, nCol, nRow, nWidth, ;
 RETURN NIL
 
 *------------------------------------------------------------------------------*
-FUNCTION PW_GetColorDoneMin( cControlName, cParentForm )
+FUNCTION PW_GetColorDoneMin(cControlName, cParentForm)
 *------------------------------------------------------------------------------*
 
    LOCAL i := GetControlIndex(cControlName, cParentForm)
@@ -203,7 +203,7 @@ FUNCTION PW_GetColorDoneMin( cControlName, cParentForm )
 RETURN ColorDoneMin
 
 *------------------------------------------------------------------------------*
-FUNCTION PW_GetColorDoneMax( cControlName, cParentForm )
+FUNCTION PW_GetColorDoneMax(cControlName, cParentForm)
 *------------------------------------------------------------------------------*
 
    LOCAL i := GetControlIndex(cControlName, cParentForm)
@@ -216,7 +216,7 @@ FUNCTION PW_GetColorDoneMax( cControlName, cParentForm )
 RETURN ColorDoneMax
 
 *------------------------------------------------------------------------------*
-FUNCTION PW_GetColorRemain( cControlName, cParentForm )
+FUNCTION PW_GetColorRemain(cControlName, cParentForm)
 *------------------------------------------------------------------------------*
 
    LOCAL i := GetControlIndex(cControlName, cParentForm)
@@ -229,7 +229,7 @@ FUNCTION PW_GetColorRemain( cControlName, cParentForm )
 RETURN ColorRemain
 
 *------------------------------------------------------------------------------*
-FUNCTION PW_GetColorInner( cControlName, cParentForm )
+FUNCTION PW_GetColorInner(cControlName, cParentForm)
 *------------------------------------------------------------------------------*
 
    LOCAL i := GetControlIndex(cControlName, cParentForm)
@@ -257,7 +257,7 @@ PROCEDURE PW_SetShowText(cControlName, cParentForm, Value)
 RETURN
 
 *------------------------------------------------------------------------------*
-PROCEDURE PW_SetColorDoneMin( cControlName, cParentForm, Value, lErase )
+PROCEDURE PW_SetColorDoneMin(cControlName, cParentForm, Value, lErase)
 *------------------------------------------------------------------------------*
 
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
@@ -280,11 +280,11 @@ PROCEDURE PW_SetColorDoneMin( cControlName, cParentForm, Value, lErase )
    LOCAL ColorDoneMin := _HMG_aControlFontColor[i][1]
 
    IF IsArrayRGB(Value)
-      Value := HMG_RGB2n( Value )
+      Value := HMG_RGB2n(Value)
    ENDIF
    IF ColorDoneMin != Value
       _HMG_aControlFontColor[i][1] := Value
-      UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
+      UpdateAngleGradientBrush(GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax)
       _HMG_aFormGraphTasks[GetFormIndex(cParentForm)][n] := ;
          {||ProgressWheelPaint(cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
@@ -297,7 +297,7 @@ PROCEDURE PW_SetColorDoneMin( cControlName, cParentForm, Value, lErase )
 RETURN
 
 *------------------------------------------------------------------------------*
-PROCEDURE PW_SetColorDoneMax( cControlName, cParentForm, Value, lErase )
+PROCEDURE PW_SetColorDoneMax(cControlName, cParentForm, Value, lErase)
 *------------------------------------------------------------------------------*
 
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
@@ -320,11 +320,11 @@ PROCEDURE PW_SetColorDoneMax( cControlName, cParentForm, Value, lErase )
    LOCAL ColorDoneMax := _HMG_aControlFontColor[i][2]
 
    IF IsArrayRGB(Value)
-      Value := HMG_RGB2n( Value )
+      Value := HMG_RGB2n(Value)
    ENDIF
    IF ColorDoneMax != Value
       _HMG_aControlFontColor[i][2] := Value
-      UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
+      UpdateAngleGradientBrush(GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax)
       _HMG_aFormGraphTasks[GetFormIndex(cParentForm)][n] := ;
          {||ProgressWheelPaint(cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
@@ -337,7 +337,7 @@ PROCEDURE PW_SetColorDoneMax( cControlName, cParentForm, Value, lErase )
 RETURN
 
 *------------------------------------------------------------------------------*
-PROCEDURE PW_SetColorRemain( cControlName, cParentForm, Value, lErase )
+PROCEDURE PW_SetColorRemain(cControlName, cParentForm, Value, lErase)
 *------------------------------------------------------------------------------*
 
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
@@ -360,11 +360,11 @@ PROCEDURE PW_SetColorRemain( cControlName, cParentForm, Value, lErase )
    LOCAL ColorRemain := _HMG_aControlBkColor[i][1]
 
    IF IsArrayRGB(Value)
-      Value := HMG_RGB2n( Value )
+      Value := HMG_RGB2n(Value)
    ENDIF
    IF ColorRemain != Value
       _HMG_aControlBkColor[i][1] := Value
-      UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
+      UpdateAngleGradientBrush(GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax)
       _HMG_aFormGraphTasks[GetFormIndex(cParentForm)][n] := ;
          {||ProgressWheelPaint(cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
@@ -377,7 +377,7 @@ PROCEDURE PW_SetColorRemain( cControlName, cParentForm, Value, lErase )
 RETURN
 
 *------------------------------------------------------------------------------*
-PROCEDURE PW_SetColorInner( cControlName, cParentForm, Value, lErase )
+PROCEDURE PW_SetColorInner(cControlName, cParentForm, Value, lErase)
 *------------------------------------------------------------------------------*
 
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
@@ -400,11 +400,11 @@ PROCEDURE PW_SetColorInner( cControlName, cParentForm, Value, lErase )
    LOCAL ColorInner := _HMG_aControlBkColor[i][2]
 
    IF IsArrayRGB(Value)
-      Value := HMG_RGB2n( Value )
+      Value := HMG_RGB2n(Value)
    ENDIF
    IF ColorInner != Value
       _HMG_aControlBkColor[i][2] := Value
-      UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
+      UpdateAngleGradientBrush(GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax)
       _HMG_aFormGraphTasks[GetFormIndex(cParentForm)][n] := ;
          {||ProgressWheelPaint(cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
@@ -447,7 +447,7 @@ PROCEDURE PW_SetStartAngle(cControlName, cParentForm, Value, lErase)
    ENDIF
    IF StartAngle != V
       _HMG_aControlInputMask[i] := V
-      UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
+      UpdateAngleGradientBrush(GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax)
       _HMG_aFormGraphTasks[GetFormIndex(cParentForm)][n] := ;
          {||ProgressWheelPaint(cParentForm, cImageName, Width, Height, Position, ;
          V, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
@@ -458,7 +458,7 @@ PROCEDURE PW_SetStartAngle(cControlName, cParentForm, Value, lErase)
 RETURN
 
 *------------------------------------------------------------------------------*
-PROCEDURE PW_SetMin( cControlName, cParentForm, Value, lErase )
+PROCEDURE PW_SetMin(cControlName, cParentForm, Value, lErase)
 *------------------------------------------------------------------------------*
 
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
@@ -490,7 +490,7 @@ PROCEDURE PW_SetMin( cControlName, cParentForm, Value, lErase )
       IF Position < Min
          _HMG_aControlValue[i] := Position := Min
       ENDIF
-      UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
+      UpdateAngleGradientBrush(GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax)
       _HMG_aFormGraphTasks[GetFormIndex(cParentForm)][n] := ;
          {||ProgressWheelPaint(cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
@@ -501,7 +501,7 @@ PROCEDURE PW_SetMin( cControlName, cParentForm, Value, lErase )
 RETURN
 
 *------------------------------------------------------------------------------*
-PROCEDURE PW_SetMax( cControlName, cParentForm, Value, lErase )
+PROCEDURE PW_SetMax(cControlName, cParentForm, Value, lErase)
 *------------------------------------------------------------------------------*
 
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
@@ -533,7 +533,7 @@ PROCEDURE PW_SetMax( cControlName, cParentForm, Value, lErase )
       IF Position > Max
          _HMG_aControlValue[i] := Position := Max
       ENDIF
-      UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
+      UpdateAngleGradientBrush(GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax)
       _HMG_aFormGraphTasks[GetFormIndex(cParentForm)][n] := ;
          {||ProgressWheelPaint(cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, InnerSize, GradientMode, cText, ShowText, Min, Max, ;
@@ -544,7 +544,7 @@ PROCEDURE PW_SetMax( cControlName, cParentForm, Value, lErase )
 RETURN
 
 *------------------------------------------------------------------------------*
-PROCEDURE PW_SetPosition( cControlName, cParentForm, Value, lErase )
+PROCEDURE PW_SetPosition(cControlName, cParentForm, Value, lErase)
 *------------------------------------------------------------------------------*
 
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
@@ -648,7 +648,7 @@ PROCEDURE PW_SetGradientMode(cControlName, cParentForm, Value, lErase)
 
    IF GradientMode != Value
       _HMG_aControlPicture[i] := Value
-      UpdateAngleGradientBrush( Value, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
+      UpdateAngleGradientBrush(Value, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax)
       _HMG_aFormGraphTasks[GetFormIndex(cParentForm)][n] := ;
          {||ProgressWheelPaint(cParentForm, cImageName, Width, Height, Position, ;
          StartAngle, InnerSize, Value, cText, ShowText, Min, Max, ;
@@ -665,7 +665,7 @@ PROCEDURE ProgressWheelPaint(cParentForm, cImgName, Width, Height, ;
       Min, Max, ColorDoneMin, ColorDoneMax, ColorRemain, ColorInner)
 *------------------------------------------------------------------------------*
    
-   LOCAL BufScale := _SetGetGlobal( "BufScale" )
+   LOCAL BufScale := _SetGetGlobal("BufScale")
    LOCAL hBitmap
    LOCAL hDC
    LOCAL BTStruct
@@ -678,7 +678,7 @@ PROCEDURE ProgressWheelPaint(cParentForm, cImgName, Width, Height, ;
    LOCAL P1
    LOCAL P2
 
-   hBitmap := BT_BitmapCreateNew ( Width, Height, nRGB2Arr( GetSysColor( COLOR_BTNFACE ) ) )
+   hBitmap := BT_BitmapCreateNew(Width, Height, nRGB2Arr(GetSysColor(COLOR_BTNFACE)))
    hDC := BT_CreateDC(hBitmap, BT_HDC_BITMAP, @BTStruct)
 
    IF Width > Height
@@ -694,29 +694,29 @@ PROCEDURE ProgressWheelPaint(cParentForm, cImgName, Width, Height, ;
 
    BrushColor := COLORREF_TO_ArrayRGB(ColorRemain)
 
-   P1 := AnglePosition( StartAngle, R, Min, Max, Min )
-   P2 := AnglePosition( StartAngle, R, Min, Max, Max )
+   P1 := AnglePosition(StartAngle, R, Min, Max, Min)
+   P2 := AnglePosition(StartAngle, R, Min, Max, Max)
 
-   DrawPieInBitmap( hDC, R[2], R[1], R[3], R[4], P2[1], P2[2], P1[1], P1[2], BrushColor, , BrushColor )
+   DrawPieInBitmap(hDC, R[2], R[1], R[3], R[4], P2[1], P2[2], P1[1], P1[2], BrushColor, , BrushColor)
 
    IF Position > Min
-      P1 := AnglePosition( StartAngle, R, Min, Max, 0 )
-      P2 := AnglePosition( StartAngle, R, Min, Max, Position )
+      P1 := AnglePosition(StartAngle, R, Min, Max, 0)
+      P2 := AnglePosition(StartAngle, R, Min, Max, Position)
 
       SWITCH GradientMode
       CASE 1 /*None*/
          BrushColor := COLORREF_TO_ArrayRGB(ColorDoneMax)
          EXIT
       CASE 2 /*Position*/
-         BrushColor := COLORREF_TO_ArrayRGB(GradientColor( ColorDoneMin, ColorDoneMax, Min, Max, Position ))
+         BrushColor := COLORREF_TO_ArrayRGB(GradientColor(ColorDoneMin, ColorDoneMax, Min, Max, Position))
          EXIT
       CASE 3 /*Angle*/
-         hBrushBitmap := CreatePatternHBrush( hGradient )
-         SetBrushOrg( hDC, ( Width * BufScale - BufScale ) / 2, ( Height * BufScale - BufScale ) / 2 )
+         hBrushBitmap := CreatePatternHBrush(hGradient)
+         SetBrushOrg(hDC, ( Width * BufScale - BufScale ) / 2, ( Height * BufScale - BufScale ) / 2)
          EXIT
       ENDSWITCH
 
-      DrawPieInBitmap( hDC, R[2], R[1], R[3], R[4], P2[1], P2[2], P1[1], P1[2], BrushColor, , BrushColor, hBrushBitmap )
+      DrawPieInBitmap(hDC, R[2], R[1], R[3], R[4], P2[1], P2[2], P1[1], P1[2], BrushColor, , BrushColor, hBrushBitmap)
    ENDIF
 
    IF InnerSize > 0
@@ -738,11 +738,11 @@ PROCEDURE ProgressWheelPaint(cParentForm, cImgName, Width, Height, ;
 
       BrushColor := COLORREF_TO_ArrayRGB(ColorInner)
 
-      DrawEllipseInBitmap( hDC, row, col, Width, Height, BrushColor, , BrushColor )
+      DrawEllipseInBitmap(hDC, row, col, Width, Height, BrushColor, , BrushColor)
    ENDIF
 
    SetStretchBltMode(hDC, HALFTONE)
-   SetBrushOrg( hDC, 0, 0 )
+   SetBrushOrg(hDC, 0, 0)
 
    IF ShowText
       IF hb_IsBlock(cText)
@@ -754,20 +754,20 @@ PROCEDURE ProgressWheelPaint(cParentForm, cImgName, Width, Height, ;
       Row := R[4] / 2 - InnerSize * Width / 6000 - 6
       Col := R[3] / 2 - InnerSize * Height / 6000 + 2
 
-      DrawTextInBitmap( hDC, row, col, cText, _HMG_DefaultFontName, _HMG_DefaultFontSize, iif(Empty(ColorInner), WHITE, BLACK), 2 )
+      DrawTextInBitmap(hDC, row, col, cText, _HMG_DefaultFontName, _HMG_DefaultFontSize, iif(Empty(ColorInner), WHITE, BLACK), 2)
    ENDIF
 
    BT_DeleteDC(BTstruct)
 
-   SetProperty( cParentForm, cImgName, "HBITMAP", hBitmap ) // Assign hBitmap to the IMAGE control
+   SetProperty(cParentForm, cImgName, "HBITMAP", hBitmap) // Assign hBitmap to the IMAGE control
 
 RETURN
 
 *------------------------------------------------------------------------------*
-FUNCTION UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax )
+FUNCTION UpdateAngleGradientBrush(GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax)
 *------------------------------------------------------------------------------*
    
-   LOCAL BufScale := _SetGetGlobal( "BufScale" )
+   LOCAL BufScale := _SetGetGlobal("BufScale")
    LOCAL hBitmap
    LOCAL hDC
    LOCAL BTStruct
@@ -786,19 +786,19 @@ FUNCTION UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, Colo
       Width *= BufScale
       Height *= BufScale
 
-      hBitmap := BT_BitmapCreateNew(Width, Height, nRGB2Arr( GetSysColor( COLOR_BTNFACE ) ))
+      hBitmap := BT_BitmapCreateNew(Width, Height, nRGB2Arr(GetSysColor(COLOR_BTNFACE)))
       hDC := BT_CreateDC(hBitmap, BT_HDC_BITMAP, @BTStruct)
 
       R := { 0, 0, Width, Height }
 
       FOR i := 0 TO 99
 
-         P1 := AnglePosition( StartAngle, R, 0, 100, i )
-         P2 := AnglePosition( StartAngle, R, 0, 100, i + 1 )
+         P1 := AnglePosition(StartAngle, R, 0, 100, i)
+         P2 := AnglePosition(StartAngle, R, 0, 100, i + 1)
 
-         BrushColor := COLORREF_TO_ArrayRGB(GradientColor( ColorDoneMin, ColorDoneMax, 0, 100, i ))
+         BrushColor := COLORREF_TO_ArrayRGB(GradientColor(ColorDoneMin, ColorDoneMax, 0, 100, i))
 
-         DrawPieInBitmap( hDC, R[2], R[1], R[3], R[4], P2[1], P2[2], P1[1], P1[2], BrushColor, , BrushColor )
+         DrawPieInBitmap(hDC, R[2], R[1], R[3], R[4], P2[1], P2[2], P1[1], P1[2], BrushColor, , BrushColor)
 
       NEXT
 
@@ -814,7 +814,7 @@ FUNCTION UpdateAngleGradientBrush( GradientMode, Width, Height, StartAngle, Colo
 RETURN NIL
 
 *------------------------------------------------------------------------------*
-STATIC FUNCTION GradientColor( ColorBegin, ColorEnd, AMin, AMax, APosition )
+STATIC FUNCTION GradientColor(ColorBegin, ColorEnd, AMin, AMax, APosition)
 *------------------------------------------------------------------------------*
    
    LOCAL B
@@ -848,7 +848,7 @@ STATIC FUNCTION GradientColor( ColorBegin, ColorEnd, AMin, AMax, APosition )
 RETURN B1 + Round((E1 - B1) * P, 0) + hb_bitShift(B2 + Round((E2 - B2) * P, 0), 8) + hb_bitShift(B3 + Round((E3 - B3) * P, 0), 16)
 
 *------------------------------------------------------------------------------*
-STATIC FUNCTION AnglePosition( StartAngle, Rect, AMin, AMax, APosition )
+STATIC FUNCTION AnglePosition(StartAngle, Rect, AMin, AMax, APosition)
 *------------------------------------------------------------------------------*
    
    LOCAL a
@@ -863,8 +863,8 @@ STATIC FUNCTION AnglePosition( StartAngle, Rect, AMin, AMax, APosition )
    Right := Rect[3]
    Bottom := Rect[4]
 
-   X := Round(Cos( a ) * ( Right - Left ) / 2 + ( Left + Right ) / 2, 0)
-   Y := Round(Sin( a ) * ( Bottom - Top ) / 2 + ( Bottom + Top ) / 2, 0)
+   X := Round(Cos(a) * (Right - Left) / 2 + (Left + Right) / 2, 0)
+   Y := Round(Sin(a) * (Bottom - Top) / 2 + (Bottom + Top) / 2, 0)
 
 RETURN { Y, X }
 
@@ -882,7 +882,7 @@ STATIC FUNCTION BT_DrawPieEx(hDC, Row1, Col1, Row2, Col2, RowStartArc, ColStartA
 RETURN NIL
 
 *------------------------------------------------------------------------------*
-STATIC PROCEDURE DrawPieInBitmap( hDC, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb, penwidth, fillrgb, hBrush )
+STATIC PROCEDURE DrawPieInBitmap(hDC, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb, penwidth, fillrgb, hBrush)
 *------------------------------------------------------------------------------*
 
    IF penrgb == NIL
@@ -900,7 +900,7 @@ STATIC PROCEDURE DrawPieInBitmap( hDC, row, col, row1, col1, rowr, colr, rowr1, 
 RETURN
 
 *------------------------------------------------------------------------------*
-STATIC PROCEDURE DrawEllipseInBitmap( hDC, row, col, Width, Height, penrgb, penwidth, fillrgb )
+STATIC PROCEDURE DrawEllipseInBitmap(hDC, row, col, Width, Height, penrgb, penwidth, fillrgb)
 *------------------------------------------------------------------------------*
 
    IF penrgb == NIL
@@ -918,7 +918,7 @@ STATIC PROCEDURE DrawEllipseInBitmap( hDC, row, col, Width, Height, penrgb, penw
 RETURN
 
 *------------------------------------------------------------------------------*
-STATIC PROCEDURE DrawTextInBitmap( hDC, row, col, cText, cFontName, nFontSize, aColor, nAlign )
+STATIC PROCEDURE DrawTextInBitmap(hDC, row, col, cText, cFontName, nFontSize, aColor, nAlign)
 *------------------------------------------------------------------------------*
 
    DEFAULT nAlign := 0
@@ -949,7 +949,7 @@ HB_FUNC( SETBRUSHORG )
 {
     HDC hDC  = hmg_par_HDC(1);
 
-    SetBrushOrgEx( hDC, hb_parni( 2 ), hb_parni( 3 ), nullptr );
+    SetBrushOrgEx(hDC, hb_parni(2), hb_parni(3), nullptr);
 }
 
 HB_FUNC( SETSTRETCHBLTMODE )
@@ -979,29 +979,29 @@ HB_FUNC( BT_DRAW_HDC_ARCX_EX )
    INT      nArcType;
 
    hDC = hmg_par_HDC(1);
-   x1  = hb_parni( 2 );
-   y1  = hb_parni( 3 );
-   x2  = hb_parni( 4 );
-   y2  = hb_parni( 5 );
+   x1  = hb_parni(2);
+   y1  = hb_parni(3);
+   x2  = hb_parni(4);
+   y2  = hb_parni(5);
 
-   XStartArc = hb_parni( 6 );
-   YStartArc = hb_parni( 7 );
-   XEndArc   = hb_parni( 8 );
-   YEndArc   = hb_parni( 9 );
+   XStartArc = hb_parni(6);
+   YStartArc = hb_parni(7);
+   XEndArc   = hb_parni(8);
+   YEndArc   = hb_parni(9);
 
-   ColorLine  = ( COLORREF ) hb_parnl( 10 );
-   nWidthLine = hb_parni( 11 );
-   ColorFill  = ( COLORREF ) hb_parnl( 12 );
+   ColorLine  = ( COLORREF ) hb_parnl(10);
+   nWidthLine = hb_parni(11);
+   ColorFill  = ( COLORREF ) hb_parnl(12);
 
-   nArcType = hb_parni( 13 );
+   nArcType = hb_parni(13);
 
-   hPen     = CreatePen( PS_SOLID, nWidthLine, ColorLine );
+   hPen     = CreatePen(PS_SOLID, nWidthLine, ColorLine);
    OldPen   = static_cast<HPEN>(SelectObject(hDC, hPen));
 
-   if( hb_parnl( 14 ) ) {
+   if( hb_parnl(14) ) {
       hBrush   = hmg_par_HBRUSH(14);
    } else {
-      hBrush   = CreateSolidBrush( ColorFill );
+      hBrush   = CreateSolidBrush(ColorFill);
    }
 
    OldBrush = static_cast<HBRUSH>(SelectObject(hDC, hBrush));
@@ -1026,7 +1026,7 @@ HB_FUNC( BT_DRAW_HDC_ARCX_EX )
 
 HB_FUNC( CREATEPATTERNHBRUSH ) // ( hBitmap ) --> hBrush
 {
-   HBRUSH hBrush = CreatePatternBrush( hmg_par_HBITMAP(1) );
+   HBRUSH hBrush = CreatePatternBrush(hmg_par_HBITMAP(1));
 
    RegisterResource(hBrush, "BRUSH");
 

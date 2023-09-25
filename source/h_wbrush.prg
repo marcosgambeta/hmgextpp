@@ -51,7 +51,7 @@
 
 #include "minigui.ch"
 
-FUNCTION _SetWindowBKBrush( cWindow, lNoDelete, cBrushStyle, nHatch, aColor, xImage )
+FUNCTION _SetWindowBKBrush(cWindow, lNoDelete, cBrushStyle, nHatch, aColor, xImage)
 
    LOCAL hWnd
    LOCAL hOldBrush

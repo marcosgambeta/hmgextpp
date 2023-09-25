@@ -140,7 +140,7 @@ FUNCTION _DefineRichEditBoxEx(ControlName, ;
    ENDIF
 
    IF !_IsWindowDefined(ParentForm)
-      MsgHMGError( "Window: " + ParentForm + " is not defined." )
+      MsgHMGError("Window: " + ParentForm + " is not defined.")
    ENDIF
 
    IF _IsControlDefined(ControlName, ParentForm)
@@ -266,13 +266,13 @@ FUNCTION _DefineRichEditBoxEx(ControlName, ;
       SendMessage(_HMG_aControlHandles[k], EM_SETBKGNDCOLOR, 0, RGB(backcolor[1], backcolor[2], backcolor[3]))
    ENDIF
 
-   IF _SetGetGlobal( "_HMG_aRichEditMenu" ) == NIL
+   IF _SetGetGlobal("_HMG_aRichEditMenu") == NIL
       STATIC _HMG_aRichEditMenu AS GLOBAL VALUE { "&Undo", "Cu&t", "&Copy", "&Paste", "&Delete", "Select &All" }
    ENDIF
 
-   aRichEditMenu := _SetGetGlobal( "_HMG_aRichEditMenu" )
+   aRichEditMenu := _SetGetGlobal("_HMG_aRichEditMenu")
 
-   _DefineControlContextMenu( ControlName , cParentForm )
+   _DefineControlContextMenu(ControlName, cParentForm)
       _DefineMenuItem(aRichEditMenu[1] , {||RichEditBox_mnuEdit_Click("UNDO")} , "mnuEditUndo" , , .F. , .F. ,,,, .F., .F. ,, .F.)
       _DefineSeparator ()
       _DefineMenuItem(aRichEditMenu[2] , {||RichEditBox_mnuEdit_Click("CUT")} , "mnuEditCut" , , .F. , .F. ,,,, .F., .F. ,, .F.)
@@ -286,24 +286,24 @@ FUNCTION _DefineRichEditBoxEx(ControlName, ;
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION RichEditBox_mnuEdit_Click( cAction )
+FUNCTION RichEditBox_mnuEdit_Click(cAction)
 *-----------------------------------------------------------------------------*
-   
+
    LOCAL hEdit
 
    hEdit := GetControlHandleByIndex(_HMG_xControlsContextMenuID)
 
-   DO CASE
+   DO CASE // TODO: switch
    CASE cAction == "UNDO"
-      RichEditBox_ChangeUndo( hEdit ) // Ctrl+Z
+      RichEditBox_ChangeUndo(hEdit) // Ctrl+Z
    CASE cAction == "CUT"
       RichEditBox_SelCut(hEdit)     // Ctrl+X
    CASE cAction == "COPY"
-      RichEditBox_SelCopy( hEdit )    // Ctrl+C
+      RichEditBox_SelCopy(hEdit)    // Ctrl+C
    CASE cAction == "PASTE"
       RichEditBox_SelPaste(hEdit)   // Ctrl+V
    CASE cAction == "DEL"
-      RichEditBox_SelClear( hEdit )   // Del
+      RichEditBox_SelClear(hEdit)   // Del
    CASE cAction == "SELALL"
       SendMessage(hEdit, EM_SETSEL, 0, -1)  // Ctrl+A
    END CASE
@@ -317,7 +317,7 @@ RETURN NIL
 *-----------------------------------------------------------------------------*
 FUNCTION RichEditBox_SetCaretPos(hWndControl, nPos)
 *-----------------------------------------------------------------------------*
-   
+
    LOCAL aSelRange := { nPos, nPos }
 
    RichEditBox_SetSelRange(hWndControl, aSelRange)
@@ -478,7 +478,7 @@ FUNCTION RichEditBox_LoadFile(hWndControl, cFile, lSelection, nType)
    lSuccess := RichEditBox_RTFLoadResourceFile(hWndControl, cFile, lSelection)
 
    IF !lSuccess
-      lSuccess := RichEditBox_StreamIn( hWndControl, cFile, lSelection, nType )
+      lSuccess := RichEditBox_StreamIn(hWndControl, cFile, lSelection, nType)
    ENDIF
 
 RETURN lSuccess

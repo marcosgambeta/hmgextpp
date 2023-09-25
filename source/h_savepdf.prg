@@ -47,7 +47,7 @@ FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
       cErrMess += "- Output file" + hb_eol()
    ENDIF
    IF !Empty(cErrMess)
-      MsgExclamation( cErrMess + "cannot be empty!", "Warning" )
+      MsgExclamation(cErrMess + "cannot be empty!", "Warning")
       RETURN .F.
    ENDIF
 
@@ -55,8 +55,8 @@ FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
 
    cPdfFile := hb_FNameExtSet(cPdfFile, "pdf")
 
-   IF hb_FileExists( cPdfFile )
-      IF !MsgYesNo( "File " + cPdfFile + " already exists!" + hb_eol() + "Overwrite?", "Warning!" )
+   IF hb_FileExists(cPdfFile)
+      IF !MsgYesNo("File " + cPdfFile + " already exists!" + hb_eol() + "Overwrite?", "Warning!")
          RETURN .F.
       ENDIF
    ENDIF
@@ -65,7 +65,7 @@ FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
 
    // create pdf doc
    IF (hDoc := HPDF_New()) == NIL
-      RETURN UPDF_Error( "CREATE", hDoc )
+      RETURN UPDF_Error("CREATE", hDoc)
    ENDIF
 
    cOldCodePage := hb_cdpSelect("UTF8")
@@ -77,19 +77,19 @@ FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
    BEGIN SEQUENCE
 
       IF HPDF_SetCompressionMode(hDoc, HPDF_COMP_ALL) != HPDF_OK
-         lRet := UPDF_Error( "COMPRESS", hDoc )
+         lRet := UPDF_Error("COMPRESS", hDoc)
          BREAK
       ENDIF
 
-      HPDF_UseUTFEncodings( hDoc )
+      HPDF_UseUTFEncodings(hDoc)
 
-      HPDF_SetCurrentEncoder( hDoc, cCodePage )
+      HPDF_SetCurrentEncoder(hDoc, cCodePage)
 
-      PdfSetInfo( hDoc, cTitle, cAuthor, cCreator )
+      PdfSetInfo(hDoc, cTitle, cAuthor, cCreator)
 
       nPage := 0
       // start main loop
-      DO WHILE ++nPage <= Min( nPages, MAX_IMAGE )
+      DO WHILE ++nPage <= Min(nPages, MAX_IMAGE)
          cPage := aPages[nPage]
 
          hBitmap := BT_BitmapLoadEMF( cPage, WHITE )
@@ -113,7 +113,7 @@ FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
          FErase(cImageFile)
 #endif
          IF !lRet
-            MsgExclamation( "There was an error with image file:" + hb_eol() + cPage + " !", "Warning" )
+            MsgExclamation("There was an error with image file:" + hb_eol() + cPage + " !", "Warning")
             lRet := .F.
             EXIT
          ENDIF
@@ -121,14 +121,14 @@ FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
 
       IF lRet
          IF !( HPDF_SaveToFile(hDoc, cPdfFile) == 0 )
-            lRet := UPDF_Error( "SAVE", hDoc )
+            lRet := UPDF_Error("SAVE", hDoc)
             BREAK
          ENDIF
       ENDIF
 
    END SEQUENCE
 
-   HPDF_ResetError( hDoc )
+   HPDF_ResetError(hDoc)
    HPDF_Free(hDoc)
 
    hb_cdpSelect(cOldCodePage)
@@ -137,7 +137,7 @@ FUNCTION _CreatePdf( aPages, cPdfFile, lOpen, cTitle )
 
    CLEAN MEMORY
 
-   DEFAULT lOpen := MsgYesNo( "View " + cPdfFile + " (Y/N) ?", "Please select" )
+   DEFAULT lOpen := MsgYesNo("View " + cPdfFile + " (Y/N) ?", "Please select")
 
    IF lRet .AND. lOpen
       wapi_shellExecute(NIL, "open", Chr(34) + cPdfFile + Chr(34))
@@ -162,29 +162,29 @@ STATIC FUNCTION PutPageImage(hDoc, hPage, cLogoFile, nPageHeight, nPageWidth)
 RETURN ( nResult == HPDF_OK )
 
 ********************************************************************************
-STATIC FUNCTION PdfSetInfo( hDoc, cTitle, cAuthor, cCreator )
+STATIC FUNCTION PdfSetInfo(hDoc, cTitle, cAuthor, cCreator)
 ********************************************************************************
    
    LOCAL dDate := Date()
    LOCAL cTime := Time()
 
-   HPDF_SetInfoAttr( hDoc, HPDF_INFO_AUTHOR, cAuthor )
-   HPDF_SetInfoAttr( hDoc, HPDF_INFO_CREATOR, cCreator )
-   HPDF_SetInfoAttr( hDoc, HPDF_INFO_TITLE, cTitle )
+   HPDF_SetInfoAttr(hDoc, HPDF_INFO_AUTHOR, cAuthor)
+   HPDF_SetInfoAttr(hDoc, HPDF_INFO_CREATOR, cCreator)
+   HPDF_SetInfoAttr(hDoc, HPDF_INFO_TITLE, cTitle)
 
-   HPDF_SetInfoDateAttr( hDoc, HPDF_INFO_CREATION_DATE, ;
-      { Year( dDate ), Month( dDate ), Day( dDate ), ;
+   HPDF_SetInfoDateAttr(hDoc, HPDF_INFO_CREATION_DATE, ;
+      { Year(dDate), Month(dDate), Day(dDate), ;
       Val(SubStr(cTime, 1, 2)), Val(SubStr(cTime, 4, 2)), ;
       Val(SubStr(cTime, 7)) ;
-      } )
+      })
 
 RETURN NIL
 
 ********************************************************************************
-STATIC FUNCTION UPDF_Error( cType, hDoc ) // allways return .F.
+STATIC FUNCTION UPDF_Error(cType, hDoc) // allways return .F.
 ********************************************************************************
    
-   LOCAL nError := HPDF_GetError( hDoc )
+   LOCAL nError := HPDF_GetError(hDoc)
    LOCAL cMessage
 
    hb_default(@cType, "CREATE")
@@ -199,6 +199,6 @@ STATIC FUNCTION UPDF_Error( cType, hDoc ) // allways return .F.
       cMessage := "Error(s) occured!"
    ENDCASE
    cMessage += hb_eol() + "Error Code: " + hb_ntos(nError) + " (HPDF)"
-   MsgExclamation( cMessage )
+   MsgExclamation(cMessage)
 
 RETURN .F.

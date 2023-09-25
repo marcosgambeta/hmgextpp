@@ -54,7 +54,7 @@ FUNCTION cFilePath(cPathMask)
 
    hb_FNameSplit(cPathMask, @cPath)
 
-RETURN hb_StrShrink( cPath )
+RETURN hb_StrShrink(cPath)
 
 *-----------------------------------------------------------------------------*
 FUNCTION cFileNoPath(cPathMask)

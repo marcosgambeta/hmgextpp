@@ -296,7 +296,7 @@ FUNCTION ABM2(cArea, cTitulo, aNombreCampo, aAvisoCampo, aEditable, aVisibleEnTa
    IF !hb_isChar(cArea) .OR. Empty(cArea)
       _cArea := Alias()
       IF _cArea == ""
-         AlertExclamation( _HMG_aLangUser[1], "EDIT EXTENDED" )
+         AlertExclamation(_HMG_aLangUser[1], "EDIT EXTENDED")
          RETURN NIL
       ENDIF
    ELSE
@@ -752,7 +752,7 @@ RETURN NIL
  *  Parámetros: Ninguno.
  *    Devuelve: NIL
 ****************************************************************************************/
-STATIC FUNCTION ABM2salir( nRegistro, cIndiceActivo, cFiltroAnt, nArea )
+STATIC FUNCTION ABM2salir(nRegistro, cIndiceActivo, cFiltroAnt, nArea)
 
    // ------- Restaura el area de la bdd inicial.---------------------------------
    (_cArea)->(dbGoto(nRegistro))
@@ -800,9 +800,9 @@ STATIC FUNCTION ABM2Redibuja(lTabla)
    ENDIF
 
    // ------- Refresco de la barra de estado.-------------------------------------
-   wndABM2Edit.StatusBar.Item( 1 ) := _HMG_aLangLabel[19] + _cFiltro
-   wndABM2Edit.StatusBar.Item( 2 ) := _HMG_aLangLabel[20] + iif(_lFiltro, _HMG_aLangUser[29], _HMG_aLangUser[30])
-   wndABM2Edit.StatusBar.Item( 3 ) := _HMG_aLangLabel[2] + ": " + ;
+   wndABM2Edit.StatusBar.Item(1) := _HMG_aLangLabel[19] + _cFiltro
+   wndABM2Edit.StatusBar.Item(2) := _HMG_aLangLabel[20] + iif(_lFiltro, _HMG_aLangUser[29], _HMG_aLangUser[30])
+   wndABM2Edit.StatusBar.Item(3) := _HMG_aLangLabel[2] + ": " + ;
       AllTrim(Str((_cArea)->(RecNo()))) + "/" + ;
       AllTrim(Str((_cArea)->(RecCount())))
 
@@ -871,13 +871,13 @@ RETURN NIL
 /****************************************************************************************
  *  Aplicación: Comando EDIT para MiniGUI
  *       Autor: Cristóbal Mollá [cemese@terra.es]
- *     Función: ABM2Editar( lNuevo )
+ *     Función: ABM2Editar(lNuevo)
  * Descripción: Creación de la ventana de edición de registro.
  *  Parámetros: lNuevo          Valor lógico que indica si se está añadiendo un registro
  *                              o editando el actual.
  *    Devuelve: NIL
 ****************************************************************************************/
-STATIC FUNCTION ABM2Editar( lNuevo )
+STATIC FUNCTION ABM2Editar(lNuevo)
 
    LOCAL i AS NUMERIC // Indice de iteración.
    LOCAL nAnchoEtiqueta /*as numeric*/ // Ancho máximo de las etiquetas.
@@ -1013,8 +1013,8 @@ STATIC FUNCTION ABM2Editar( lNuevo )
                NUMERIC ;
                FONT "Arial" SIZE 9 ;
                MAXLENGTH _aEstructura[i, DBS_LEN] ;
-               ON GOTFOCUS ABM2ConFoco( i ) ;
-               ON LOSTFOCUS ABM2SinFoco( i ) ;
+               ON GOTFOCUS ABM2ConFoco(i) ;
+               ON LOSTFOCUS ABM2SinFoco(i) ;
                ON ENTER ABM2AlEntrar()
          ELSE
             cMascara := Replicate("9", _aEstructura[i, DBS_LEN] - ( _aEstructura[i, DBS_DEC] + 1 ))
@@ -1064,13 +1064,13 @@ STATIC FUNCTION ABM2Editar( lNuevo )
    // ------- Actualiza los controles si se está editando.------------------------
    if !lNuevo
       FOR i := 1 TO Len(_aControl)
-         SetProperty( "wndABM2EditNuevoSplit", _aControl[i, ABM_CON_NAME], "Value", (_cArea)->(FieldGet(i)) )
+         SetProperty("wndABM2EditNuevoSplit", _aControl[i, ABM_CON_NAME], "Value", (_cArea)->(FieldGet(i)))
       NEXT
    ENDIF
 
    // ------- Establece el estado inicial de los controles.-----------------------
    FOR i := 1 TO Len(_aControl)
-      SetProperty( "wndABM2EditNuevoSplit", _aControl[i, ABM_CON_NAME], "Enabled", _aEditable[i] )
+      SetProperty("wndABM2EditNuevoSplit", _aControl[i, ABM_CON_NAME], "Enabled", _aEditable[i])
    NEXT
 
    // ------- Establece el estado del botón de copia.-----------------------------
@@ -1113,10 +1113,10 @@ STATIC FUNCTION ABM2ConFoco()
    _nControlActivo := AScan(acControl, cControl)
 
    // ------- Pone la etiqueta en negrita.----------------------------------------
-   SetProperty( "wndABM2EditNuevoSplit", _aEtiqueta[_nControlActivo, ABM_LBL_NAME], "FontBold", .T. )
+   SetProperty("wndABM2EditNuevoSplit", _aEtiqueta[_nControlActivo, ABM_LBL_NAME], "FontBold", .T.)
 
    // ------- Presenta el mensaje en la barra de estado.--------------------------
-   wndABM2EditNuevo.StatusBar.Item( 1 ) := _aControl[_nControlActivo, ABM_CON_DES]
+   wndABM2EditNuevo.StatusBar.Item(1) := _aControl[_nControlActivo, ABM_CON_DES]
 
 RETURN NIL
 
@@ -1133,10 +1133,10 @@ RETURN NIL
 STATIC FUNCTION ABM2SinFoco()
 
    // ------- Restaura el estado de la etiqueta.----------------------------------
-   SetProperty( "wndABM2EditNuevoSplit", _aEtiqueta[_nControlActivo, ABM_LBL_NAME], "FontBold", .F. )
+   SetProperty("wndABM2EditNuevoSplit", _aEtiqueta[_nControlActivo, ABM_LBL_NAME], "FontBold", .F.)
 
    // ------- Restaura el texto de la barra de estado.----------------------------
-   wndABM2EditNuevo.StatusBar.Item( 1 ) := ""
+   wndABM2EditNuevo.StatusBar.Item(1) := ""
 
 RETURN NIL
 
@@ -1159,7 +1159,7 @@ STATIC FUNCTION ABM2AlEntrar()
    lSalida := .T.
 
    // ------- Restaura el estado de la etiqueta.----------------------------------
-   SetProperty( "wndABM2EditNuevoSplit", _aEtiqueta[_nControlActivo, ABM_LBL_NAME], "FontBold", .F. )
+   SetProperty("wndABM2EditNuevoSplit", _aEtiqueta[_nControlActivo, ABM_LBL_NAME], "FontBold", .F.)
 
    // ------- Activa el siguiente control editable con evento ON ENTER.-----------
    DO WHILE lSalida
@@ -1183,13 +1183,13 @@ RETURN NIL
 /****************************************************************************************
  *  Aplicación: Comando EDIT para MiniGUI
  *       Autor: Cristóbal Mollá [cemese@terra.es]
- *     Función: ABM2EditarGuardar( lNuevo )
+ *     Función: ABM2EditarGuardar(lNuevo)
  * Descripción: Añade o guarda el registro en la bdd.
  *  Parámetros: lNuevo          Valor lógico que indica si se está añadiendo un registro
  *                              o editando el actual.
  *    Devuelve: NIL
 ****************************************************************************************/
-STATIC FUNCTION ABM2EditarGuardar( lNuevo )
+STATIC FUNCTION ABM2EditarGuardar(lNuevo)
 
    LOCAL i /*as numeric*/ // Indice de iteración.
    LOCAL xValor // Valor a guardar.
@@ -1207,7 +1207,7 @@ STATIC FUNCTION ABM2EditarGuardar( lNuevo )
       IF (_cArea)->(RLock())
 
          FOR i := 1 TO Len(_aEstructura)
-            xValor := GetProperty( "wndABM2EditNuevoSplit", _aControl[i, ABM_CON_NAME], "Value" )
+            xValor := GetProperty("wndABM2EditNuevoSplit", _aControl[i, ABM_CON_NAME], "Value")
             (_cArea)->(FieldPut(i, xValor))
          NEXT
 
@@ -1225,7 +1225,7 @@ STATIC FUNCTION ABM2EditarGuardar( lNuevo )
       // Hay bloque de código del usuario.
       aValores := {}
       FOR i := 1 TO Len(_aControl)
-         xValor := GetProperty( "wndABM2EditNuevoSplit", _aControl[i, ABM_CON_NAME], "Value" )
+         xValor := GetProperty("wndABM2EditNuevoSplit", _aControl[i, ABM_CON_NAME], "Value")
          AAdd(aValores, xValor)
       NEXT
       lResultado := Eval(_bGuardar, aValores, lNuevo)
@@ -1341,7 +1341,7 @@ STATIC FUNCTION ABM2EditarCopiar()
       (_cArea)->(dbGoto(nReg))
       FOR i := 1 TO Len(_aControl)
          IF _aEditable[i]
-            SetProperty( "wndABM2EditNuevoSplit", _aControl[i, ABM_CON_NAME], "Value", (_cArea)->(FieldGet(i)) )
+            SetProperty("wndABM2EditNuevoSplit", _aControl[i, ABM_CON_NAME], "Value", (_cArea)->(FieldGet(i)))
          ENDIF
       NEXT
       (_cArea)->(dbGoto(nRegistro))
@@ -1361,7 +1361,7 @@ RETURN NIL
 STATIC FUNCTION ABM2Borrar()
 
    // ------- Borra el registro si se acepta.-------------------------------------
-   IF AlertOKCancel( _HMG_aLangUser[8], _HMG_aLangLabel[16] )
+   IF AlertOKCancel(_HMG_aLangUser[8], _HMG_aLangLabel[16])
       IF (_cArea)->(RLock())
          (_cArea)->(dbDelete())
          (_cArea)->(dbCommit())
@@ -1374,7 +1374,7 @@ STATIC FUNCTION ABM2Borrar()
          ENDIF
          ABM2Redibuja(.T.)
       ELSE
-         AlertStop( _HMG_aLangUser[41], _cTitulo )
+         AlertStop(_HMG_aLangUser[41], _cTitulo)
       ENDIF
    ENDIF
 
@@ -1392,14 +1392,14 @@ RETURN NIL
 STATIC FUNCTION ABM2Recover()
 
    // ------- Restaurar el registro si se acepta.-----------------------------------
-   IF AlertOKCancel( _HMG_aLangUser[42], StrTran(_HMG_aLangButton[12], "&", "") )
+   IF AlertOKCancel(_HMG_aLangUser[42], StrTran(_HMG_aLangButton[12], "&", ""))
       IF (_cArea)->(RLock())
          (_cArea)->(dbRecall())
          (_cArea)->(dbCommit())
          (_cArea)->(dbUnlock())
          ABM2Redibuja(.T.)
       ELSE
-         AlertStop( _HMG_aLangUser[41], _cTitulo )
+         AlertStop(_HMG_aLangUser[41], _cTitulo)
       ENDIF
    ENDIF
 
@@ -1435,13 +1435,13 @@ STATIC FUNCTION ABM2Buscar()
 
    // ------- Comprueba si hay un indice activo.----------------------------------
    IF _nIndiceActivo == 1
-      AlertExclamation( _HMG_aLangUser[9], _cTitulo )
+      AlertExclamation(_HMG_aLangUser[9], _cTitulo)
       RETURN NIL
    ENDIF
 
    // ------- Comprueba que el campo indice no es del tipo memo o logico.---------
    IF _aEstructura[nControl, DBS_TYPE] == "L" .OR. _aEstructura[nControl, DBS_TYPE] == "M"
-      AlertExclamation( _HMG_aLangUser[10], _cTitulo )
+      AlertExclamation(_HMG_aLangUser[10], _cTitulo)
       RETURN NIL
    ENDIF
 
@@ -1543,7 +1543,7 @@ STATIC FUNCTION ABM2Buscar()
    ENDSWITCH
 
    // ------- Actualiza la barra de estado.---------------------------------------
-   wndABMBuscar.StatusBar.Item( 1 ) := _aControl[nControl, ABM_CON_DES]
+   wndABMBuscar.StatusBar.Item(1) := _aControl[nControl, ABM_CON_DES]
 
    // ------- Comprueba el tamaño del control de edición del dato a buscar.-------
    IF wndABMBuscar .conBuscar. Width > wndABM2Edit.WIDTH - 45
@@ -1563,7 +1563,7 @@ STATIC FUNCTION ABM2Buscar()
       nRegistro := (_cArea)->(RecNo())
       lResultado := (_cArea)->(dbSeek(xValor))
       if !lResultado
-         AlertExclamation( _HMG_aLangUser[11], _cTitulo )
+         AlertExclamation(_HMG_aLangUser[11], _cTitulo)
          (_cArea)->(dbGoto(nRegistro))
       ELSE
          ABM2Redibuja(.T.)
@@ -1588,7 +1588,7 @@ STATIC FUNCTION ABM2ActivarFiltro()
 
    // ------- Comprueba que no hay ningun filtro activo.--------------------------
    IF _cFiltro != ""
-      AlertInfo( _HMG_aLangUser[34], "" )
+      AlertInfo(_HMG_aLangUser[34], "")
    ENDIF
 
    // ------- Inicialización de variables.----------------------------------------
@@ -1656,8 +1656,8 @@ STATIC FUNCTION ABM2ActivarFiltro()
       VALUE 1 ;
       FONT "Arial" SIZE 9 ;
       ON CHANGE {||ABM2ControlFiltro()} ;
-      ON GOTFOCUS wndABM2Filtro.StatusBar.Item( 1 ) := _HMG_aLangLabel[25] ;
-      ON LOSTFOCUS wndABM2Filtro.StatusBar.Item( 1 ) := ""
+      ON GOTFOCUS wndABM2Filtro.StatusBar.Item(1) := _HMG_aLangLabel[25] ;
+      ON LOSTFOCUS wndABM2Filtro.StatusBar.Item(1) := ""
    @ 85, 220 LISTBOX lbxCompara ;
       OF wndABM2Filtro ;
       WIDTH 140 ;
@@ -1665,8 +1665,8 @@ STATIC FUNCTION ABM2ActivarFiltro()
       ITEMS aCompara ;
       VALUE 1 ;
       FONT "Arial" SIZE 9 ;
-      ON GOTFOCUS wndABM2Filtro.StatusBar.Item( 1 ) := _HMG_aLangLabel[26] ;
-      ON LOSTFOCUS wndABM2Filtro.StatusBar.Item( 1 ) := ""
+      ON GOTFOCUS wndABM2Filtro.StatusBar.Item(1) := _HMG_aLangLabel[26] ;
+      ON LOSTFOCUS wndABM2Filtro.StatusBar.Item(1) := ""
    @ 220, 20 TEXTBOX conValor ;
       OF wndABM2Filtro ;
       VALUE "" ;
@@ -1701,11 +1701,11 @@ STATIC FUNCTION ABM2ControlFiltro()
 
    // ------- Comprueba que se puede crear el control.----------------------------
    IF _aEstructura[nControl, DBS_TYPE] == "M"
-      AlertExclamation( _HMG_aLangUser[35], _cTitulo )
+      AlertExclamation(_HMG_aLangUser[35], _cTitulo)
       RETURN NIL
    ENDIF
    IF nControl == 0
-      AlertExclamation( _HMG_aLangUser[36], _cTitulo )
+      AlertExclamation(_HMG_aLangUser[36], _cTitulo)
       RETURN NIL
    ENDIF
 
@@ -1724,9 +1724,9 @@ STATIC FUNCTION ABM2ControlFiltro()
          WIDTH _aControl[nControl, ABM_CON_WIDTH] ;
          FONT "Arial" SIZE 9 ;
          MAXLENGTH _aEstructura[nControl, DBS_LEN] ;
-         ON GOTFOCUS wndABM2Filtro.StatusBar.Item( 1 ) := ;
+         ON GOTFOCUS wndABM2Filtro.StatusBar.Item(1) := ;
          cMensaje ;
-         ON LOSTFOCUS wndABM2Filtro.StatusBar.Item( 1 ) := ""
+         ON LOSTFOCUS wndABM2Filtro.StatusBar.Item(1) := ""
       EXIT
 
       // Fecha.
@@ -1737,9 +1737,9 @@ STATIC FUNCTION ABM2ControlFiltro()
          HEIGHT _aControl[nControl, ABM_CON_HEIGHT] ;
          WIDTH _aControl[nControl, ABM_CON_WIDTH] + 25 ;
          FONT "Arial" SIZE 9 ;
-         ON GOTFOCUS wndABM2Filtro.StatusBar.Item( 1 ) := ;
+         ON GOTFOCUS wndABM2Filtro.StatusBar.Item(1) := ;
          cMensaje ;
-         ON LOSTFOCUS wndABM2Filtro.StatusBar.Item( 1 ) := ""
+         ON LOSTFOCUS wndABM2Filtro.StatusBar.Item(1) := ""
       EXIT
 
       // Numerico.
@@ -1755,9 +1755,9 @@ STATIC FUNCTION ABM2ControlFiltro()
             NUMERIC ;
             FONT "Arial" SIZE 9 ;
             MAXLENGTH _aEstructura[nControl, DBS_LEN] ;
-            ON GOTFOCUS wndABM2Filtro.StatusBar.Item( 1 ) := ;
+            ON GOTFOCUS wndABM2Filtro.StatusBar.Item(1) := ;
             cMensaje ;
-            ON LOSTFOCUS wndABM2Filtro.StatusBar.Item( 1 ) := ""
+            ON LOSTFOCUS wndABM2Filtro.StatusBar.Item(1) := ""
 
       ELSE
 
@@ -1772,9 +1772,9 @@ STATIC FUNCTION ABM2ControlFiltro()
             WIDTH _aControl[nControl, ABM_CON_WIDTH] ;
             NUMERIC ;
             INPUTMASK cMascara ;
-            ON GOTFOCUS wndABM2Filtro.StatusBar.Item( 1 ) := ;
+            ON GOTFOCUS wndABM2Filtro.StatusBar.Item(1) := ;
             cMensaje ;
-            ON LOSTFOCUS wndABM2Filtro.StatusBar.Item( 1 ) := ""
+            ON LOSTFOCUS wndABM2Filtro.StatusBar.Item(1) := ""
       ENDIF
       EXIT
 
@@ -1786,9 +1786,9 @@ STATIC FUNCTION ABM2ControlFiltro()
          HEIGHT _aControl[nControl, ABM_CON_HEIGHT] ;
          WIDTH _aControl[nControl, ABM_CON_WIDTH] ;
          VALUE .F. ;
-         ON GOTFOCUS wndABM2Filtro.StatusBar.Item( 1 ) := ;
+         ON GOTFOCUS wndABM2Filtro.StatusBar.Item(1) := ;
          cMensaje ;
-         ON LOSTFOCUS wndABM2Filtro.StatusBar.Item( 1 ) := ""
+         ON LOSTFOCUS wndABM2Filtro.StatusBar.Item(1) := ""
 
    ENDSWITCH
 
@@ -1826,19 +1826,19 @@ STATIC FUNCTION ABM2EstableceFiltro()
 
    // ------- Comprueba que se puede filtrar.-------------------------------------
    IF nCompara == 0
-      AlertExclamation( _HMG_aLangUser[37], _cTitulo )
+      AlertExclamation(_HMG_aLangUser[37], _cTitulo)
       RETURN NIL
    ENDIF
    IF nCampo == 0
-      AlertExclamation( _HMG_aLangUser[36], _cTitulo )
+      AlertExclamation(_HMG_aLangUser[36], _cTitulo)
       RETURN NIL
    ENDIF
    IF cValor == ""
-      AlertExclamation( _HMG_aLangUser[38], _cTitulo )
+      AlertExclamation(_HMG_aLangUser[38], _cTitulo)
       RETURN NIL
    ENDIF
    IF _aEstructura[nCampo, DBS_TYPE] == "M"
-      AlertExclamation( _HMG_aLangUser[35], _cTitulo )
+      AlertExclamation(_HMG_aLangUser[35], _cTitulo)
       RETURN NIL
    ENDIF
 
@@ -1880,11 +1880,11 @@ STATIC FUNCTION ABM2DesactivarFiltro()
 
    // ------- Desactiva el filtro si procede.
    if !_lFiltro
-      AlertExclamation( _HMG_aLangUser[39], _cTitulo )
+      AlertExclamation(_HMG_aLangUser[39], _cTitulo)
       ABM2Redibuja(.F.)
       RETURN NIL
    ENDIF
-   IF AlertYesNo( _HMG_aLangUser[40], _cTitulo )
+   IF AlertYesNo(_HMG_aLangUser[40], _cTitulo)
       (_cArea)->(dbClearFilter(NIL))
       _lFiltro := .F.
       _cFiltro := ""
@@ -1927,7 +1927,7 @@ STATIC FUNCTION ABM2Imprimir()
 
    // ------- Comprueba que hay un indice activo.---------------------------------
    IF _nIndiceActivo == 1
-      AlertExclamation( _HMG_aLangUser[9], _cTitulo )
+      AlertExclamation(_HMG_aLangUser[9], _cTitulo)
       RETURN NIL
    ENDIF
 
@@ -1967,7 +1967,7 @@ STATIC FUNCTION ABM2Imprimir()
             ACTION wndABM2Listado.RELEASE
          BUTTON tbbAceptarLis CAPTION _HMG_aLangButton[8] ;
             PICTURE "MINIGUI_EDIT_OK" ;
-            ACTION ABM2Listado( aImpresoras )
+            ACTION ABM2Listado(aImpresoras)
 
       END TOOLBAR
 
@@ -2000,8 +2000,8 @@ STATIC FUNCTION ABM2Imprimir()
       ITEMS aCampoBase ;
       VALUE 1 ;
       FONT "Arial" SIZE 9 ;
-      ON GOTFOCUS wndABM2Listado.StatusBar.Item( 1 ) := _HMG_aLangUser[12] ;
-      ON LOSTFOCUS wndABM2Listado.StatusBar.Item( 1 ) := ""
+      ON GOTFOCUS wndABM2Listado.StatusBar.Item(1) := _HMG_aLangUser[12] ;
+      ON LOSTFOCUS wndABM2Listado.StatusBar.Item(1) := ""
    @ 85, 220 LISTBOX lbxCampoListado ;
       OF wndABM2Listado ;
       WIDTH 140 ;
@@ -2009,8 +2009,8 @@ STATIC FUNCTION ABM2Imprimir()
       ITEMS aCampoListado ;
       VALUE 1 ;
       FONT "Arial" SIZE 9 ;
-      ON gotFocus wndABM2Listado.StatusBar.Item( 1 ) := _HMG_aLangUser[13] ;
-      ON LOSTFOCUS wndABM2Listado.StatusBar.Item( 1 ) := ""
+      ON gotFocus wndABM2Listado.StatusBar.Item(1) := _HMG_aLangUser[13] ;
+      ON LOSTFOCUS wndABM2Listado.StatusBar.Item(1) := ""
 
    // ComboBox.
    @ 220, 20 COMBOBOX cbxImpresoras ;
@@ -2019,42 +2019,42 @@ STATIC FUNCTION ABM2Imprimir()
       VALUE 1 ;
       WIDTH 140 ;
       FONT "Arial" SIZE 9 ;
-      ON GOTFOCUS wndABM2Listado.StatusBar.Item( 1 ) := _HMG_aLangUser[14] ;
-      ON LOSTFOCUS wndABM2Listado.StatusBar.Item( 1 ) := ""
+      ON GOTFOCUS wndABM2Listado.StatusBar.Item(1) := _HMG_aLangUser[14] ;
+      ON LOSTFOCUS wndABM2Listado.StatusBar.Item(1) := ""
 
    // PicButton.
    @ 90, 170 BUTTON btnMas ;
       OF wndABM2Listado ;
       PICTURE "MINIGUI_EDIT_ADD" ;
-      ACTION ABM2DefinirColumnas( ABM_LIS_ADD ) ;
+      ACTION ABM2DefinirColumnas(ABM_LIS_ADD) ;
       WIDTH 40 ;
       HEIGHT 40 ;
-      ON GOTFOCUS wndABM2Listado.StatusBar.Item( 1 ) := _HMG_aLangUser[15] ;
-      ON LOSTFOCUS wndABM2Listado.StatusBar.Item( 1 ) := ""
+      ON GOTFOCUS wndABM2Listado.StatusBar.Item(1) := _HMG_aLangUser[15] ;
+      ON LOSTFOCUS wndABM2Listado.StatusBar.Item(1) := ""
    @ 140, 170 BUTTON btnMenos ;
       OF wndABM2Listado ;
       PICTURE "MINIGUI_EDIT_DEL" ;
-      ACTION ABM2DefinirColumnas( ABM_LIS_DEL ) ;
+      ACTION ABM2DefinirColumnas(ABM_LIS_DEL) ;
       WIDTH 40 ;
       HEIGHT 40 ;
-      ON GOTFOCUS wndABM2Listado.StatusBar.Item( 1 ) := _HMG_aLangUser[16] ;
-      ON LOSTFOCUS wndABM2Listado.StatusBar.Item( 1 ) := ""
+      ON GOTFOCUS wndABM2Listado.StatusBar.Item(1) := _HMG_aLangUser[16] ;
+      ON LOSTFOCUS wndABM2Listado.StatusBar.Item(1) := ""
    @ 220, 170 BUTTON btnSet1 ;
       OF wndABM2Listado ;
       PICTURE "MINIGUI_EDIT_SET" ;
-      ACTION ABM2DefinirRegistro( ABM_LIS_SET1 ) ;
+      ACTION ABM2DefinirRegistro(ABM_LIS_SET1) ;
       WIDTH 25 ;
       HEIGHT 25 ;
-      ON GOTFOCUS wndABM2Listado.StatusBar.Item( 1 ) := _HMG_aLangUser[17] ;
-      ON LOSTFOCUS wndABM2Listado.StatusBar.Item( 1 ) := ""
+      ON GOTFOCUS wndABM2Listado.StatusBar.Item(1) := _HMG_aLangUser[17] ;
+      ON LOSTFOCUS wndABM2Listado.StatusBar.Item(1) := ""
    @ 275, 170 BUTTON btnSet2 ;
       OF wndABM2Listado ;
       PICTURE "MINIGUI_EDIT_SET" ;
-      ACTION ABM2DefinirRegistro( ABM_LIS_SET2 ) ;
+      ACTION ABM2DefinirRegistro(ABM_LIS_SET2) ;
       WIDTH 25 ;
       HEIGHT 25 ;
-      ON GOTFOCUS wndABM2Listado.StatusBar.Item( 1 ) := _HMG_aLangUser[18] ;
-      ON LOSTFOCUS wndABM2Listado.StatusBar.Item( 1 ) := ""
+      ON GOTFOCUS wndABM2Listado.StatusBar.Item(1) := _HMG_aLangUser[18] ;
+      ON LOSTFOCUS wndABM2Listado.StatusBar.Item(1) := ""
 
    // CheckBox.
    @ 255, 20 CHECKBOX chkVistas ;
@@ -2114,12 +2114,12 @@ RETURN NIL
 /****************************************************************************************
  *  Aplicación: Comando EDIT para MiniGUI
  *       Autor: Cristóbal Mollá [cemese@terra.es]
- *     Función: ABM2DefinirRegistro( nAccion )
+ *     Función: ABM2DefinirRegistro(nAccion)
  * Descripción:
  *  Parámetros: [nAccion]       Numerico. Indica el tipo de accion realizado.
  *    Devuelve: NIL
 ****************************************************************************************/
-STATIC FUNCTION ABM2DefinirRegistro( nAccion )
+STATIC FUNCTION ABM2DefinirRegistro(nAccion)
 
    LOCAL nRegistro AS character // Puntero de registros.
    LOCAL nReg AS character // Registro seleccionado.
@@ -2157,13 +2157,13 @@ RETURN NIL
 /****************************************************************************************
  *  Aplicación: Comando EDIT para MiniGUI
  *       Autor: Cristóbal Mollá [cemese@terra.es]
- *     Función: ABM2DefinirColumnas( nAccion )
+ *     Función: ABM2DefinirColumnas(nAccion)
  * Descripción: Controla el contenido de las listas al pulsar los botones de añadir y
  *              eliminar campos del listado.
  *  Parámetros: [nAccion]       Numerico. Indica el tipo de accion realizado.
  *    Devuelve: NIL
 ****************************************************************************************/
-STATIC FUNCTION ABM2DefinirColumnas( nAccion )
+STATIC FUNCTION ABM2DefinirColumnas(nAccion)
 
    LOCAL aCampoBase /*as array*/ // Campos de la bbd.
    LOCAL aCampoListado /*as array*/ // Campos del listado.
@@ -2187,17 +2187,17 @@ STATIC FUNCTION ABM2DefinirColumnas( nAccion )
 
       // Obtiene la columna a añadir.
       nItem := wndABM2Listado.lbxCampoBase.VALUE
-      cValor := wndABM2Listado.lbxCampoBase.Item( nItem )
+      cValor := wndABM2Listado.lbxCampoBase.Item(nItem)
 
       // Actualiza los datos de los campos de la base.
       IF Len(aCampoBase) == 0
-         AlertExclamation( _HMG_aLangUser[23], _cTitulo )
+         AlertExclamation(_HMG_aLangUser[23], _cTitulo)
          RETURN NIL
       ELSE
          wndABM2Listado.lbxCampoBase.DeleteAllItems
          FOR i := 1 TO Len(aCampoBase)
             IF i != nItem
-               wndABM2Listado.lbxCampoBase.AddItem( aCampoBase[i] )
+               wndABM2Listado.lbxCampoBase.AddItem(aCampoBase[i])
             ENDIF
          NEXT
          wndABM2Listado.lbxCampoBase.VALUE := iif(nItem > 1, nItem - 1, 1)
@@ -2205,10 +2205,10 @@ STATIC FUNCTION ABM2DefinirColumnas( nAccion )
 
       // Actualiza los datos de los campos del listado.
       IF Empty(cValor)
-         AlertExclamation( _HMG_aLangUser[23], _cTitulo )
+         AlertExclamation(_HMG_aLangUser[23], _cTitulo)
          RETURN NIL
       ELSE
-         wndABM2Listado.lbxCampoListado.AddItem( cValor )
+         wndABM2Listado.lbxCampoListado.AddItem(cValor)
          wndABM2Listado.lbxCampoListado.VALUE := ;
             wndABM2Listado.lbxCampoListado.ItemCount
       ENDIF
@@ -2216,17 +2216,17 @@ STATIC FUNCTION ABM2DefinirColumnas( nAccion )
 
       // Obtiene la columna a quitar.
       nItem := wndABM2Listado.lbxCampoListado.VALUE
-      cValor := wndABM2Listado.lbxCampoListado.Item( nItem )
+      cValor := wndABM2Listado.lbxCampoListado.Item(nItem)
 
       // Actualiza los datos de los campos del listado.
       IF Len(aCampoListado) == 0
-         AlertExclamation( _HMG_aLangUser[23], _cTitulo )
+         AlertExclamation(_HMG_aLangUser[23], _cTitulo)
          RETURN NIL
       ELSE
          wndABM2Listado.lbxCampoListado.DeleteAllItems
          FOR i := 1 TO Len(aCampoListado)
             IF i != nItem
-               wndABM2Listado.lbxCampoListado.AddItem( aCampoListado[i] )
+               wndABM2Listado.lbxCampoListado.AddItem(aCampoListado[i])
             ENDIF
          NEXT
          wndABM2Listado.lbxCampoListado.VALUE := ;
@@ -2235,16 +2235,16 @@ STATIC FUNCTION ABM2DefinirColumnas( nAccion )
 
       // Actualiza los datos de los campos de la base.
       IF Empty(cValor)
-         AlertExclamation( _HMG_aLangUser[23], _cTitulo )
+         AlertExclamation(_HMG_aLangUser[23], _cTitulo)
          RETURN NIL
       ELSE
          wndABM2Listado.lbxCampoBase.DeleteAllItems
          FOR i := 1 TO Len(_aNombreCampo)
             IF AScan(aCampoBase, _aNombreCampo[i]) != 0
-               wndABM2Listado.lbxCampoBase.AddItem( _aNombreCampo[i] )
+               wndABM2Listado.lbxCampoBase.AddItem(_aNombreCampo[i])
             ENDIF
             IF _aNombreCampo[i] == cValor
-               wndABM2Listado.lbxCampoBase.AddItem( _aNombreCampo[i] )
+               wndABM2Listado.lbxCampoBase.AddItem(_aNombreCampo[i])
             ENDIF
          NEXT
          wndABM2Listado.lbxCampoBase.VALUE := 1
@@ -2262,7 +2262,7 @@ RETURN NIL
  *  Parámetros: Ninguno
  *    Devuelve: NIL
 ****************************************************************************************/
-STATIC FUNCTION ABM2Listado( aImpresoras )
+STATIC FUNCTION ABM2Listado(aImpresoras)
 
    LOCAL i /*as numeric*/ // Indice de iteración.
    LOCAL cCampo /*as character*/ // Nombre del campo indice.
@@ -2301,7 +2301,7 @@ STATIC FUNCTION ABM2Listado( aImpresoras )
    // Nombre de la impresora.
    nImpresora := wndABM2Listado.cbxImpresoras.VALUE
    IF nImpresora == 0
-      AlertExclamation( _HMG_aLangUser[32], "" )
+      AlertExclamation(_HMG_aLangUser[32], "")
    ELSE
       cImpresora := aImpresoras[nImpresora]
    ENDIF
@@ -2309,11 +2309,11 @@ STATIC FUNCTION ABM2Listado( aImpresoras )
    // Nombre del campo.
    aCampo := {}
    FOR i := 1 TO wndABM2Listado.lbxCampoListado.ItemCount
-      cCampo := wndABM2Listado.lbxCampoListado.Item( i )
+      cCampo := wndABM2Listado.lbxCampoListado.Item(i)
       AAdd(aCampo, cCampo)
    NEXT
    IF Len(aCampo) == 0
-      AlertExclamation( _HMG_aLangUser[23], _cTitulo )
+      AlertExclamation(_HMG_aLangUser[23], _cTitulo)
       RETURN NIL
    ENDIF
 
@@ -2348,7 +2348,7 @@ STATIC FUNCTION ABM2Listado( aImpresoras )
       nAncho += aAncho[i]
    NEXT
    IF nAncho > 164
-      AlertExclamation( _HMG_aLangUser[24], _cTitulo )
+      AlertExclamation(_HMG_aLangUser[24], _cTitulo)
       RETURN NIL
    ELSE
       lOrientacion := ( nAncho > 109 ) // Horizontal / Vertical
@@ -2413,7 +2413,7 @@ STATIC FUNCTION ABM2Listado( aImpresoras )
 
    // Control de errores.
    IF HBPRNERROR > 0
-      AlertExclamation( _HMG_aLangUser[25], _cTitulo )
+      AlertExclamation(_HMG_aLangUser[25], _cTitulo)
       RETURN NIL
    ENDIF
 

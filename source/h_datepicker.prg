@@ -150,7 +150,7 @@ FUNCTION _DefineDatePick(ControlName, ParentFormName, x, y, w, h, value, ;
       ENDIF
 
       IF lDialogInMemory // Dialog Template
-         InitExCommonControls( 1 )
+         InitExCommonControls(1)
 
          // {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {|x, y, z|InitDialogDatePicker(x, y, z)}
@@ -381,7 +381,7 @@ FUNCTION _DefineTimePick(ControlName, ParentFormName, x, y, w, h, value, ;
       ENDIF
 
       IF lDialogInMemory // Dialog Template
-         InitExCommonControls( 1 )
+         InitExCommonControls(1)
 
          // {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
          blInit := {|x, y, z|InitDialogDatePicker(x, y, z )}
@@ -505,7 +505,7 @@ FUNCTION _DefineTimePick(ControlName, ParentFormName, x, y, w, h, value, ;
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION InitDialogDatePicker( ParentFormName, ControlHandle, k )
+FUNCTION InitDialogDatePicker(ParentFormName, ControlHandle, k)
 *-----------------------------------------------------------------------------*
    ParentFormName := NIL
    ControlHandle := NIL
@@ -535,7 +535,7 @@ FUNCTION _SetDatePickerRange(ControlHandle, dRangeMin, dRangeMax, Index)
 RETURN lOK
 
 *-----------------------------------------------------------------------------*
-FUNCTION OPICKEVENTS( hWnd, nMsg, wParam, lParam )
+FUNCTION OPICKEVENTS(hWnd, nMsg, wParam, lParam)
 *-----------------------------------------------------------------------------*
    
    LOCAL i := AScan(_HMG_aControlHandles, hWnd)
@@ -554,7 +554,7 @@ FUNCTION OPICKEVENTS( hWnd, nMsg, wParam, lParam )
       IF i > 0
          IF _HMG_aControlBkColor[i] != NIL
             GetClientRect(_HMG_aControlHandles[i], /*@*/aRect)
-            hBrush := CreateSolidBrush( _HMG_aControlBkColor[i][1], _HMG_aControlBkColor[i][2], _HMG_aControlBkColor[i][3] )
+            hBrush := CreateSolidBrush(_HMG_aControlBkColor[i][1], _HMG_aControlBkColor[i][2], _HMG_aControlBkColor[i][3])
             FillRect(hDC, aRect[1], aRect[2], aRect[3] - GETVSCROLLBARWIDTH(), aRect[4], hBrush)
             DeleteObject(hBrush)
             RETURN 1

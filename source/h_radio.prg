@@ -202,7 +202,7 @@ FUNCTION _DefineRadioGroup(ControlName, ParentFormName, x, y, aOptions, Value, ;
       BackCol := x
       BackRow := y
 
-      ControlHandle := InitRadioGroup(ParentFormHandle, aOptions[1], 0, x, y , "" , 0 , width, invisible, notabstop, leftjustify)
+      ControlHandle := InitRadioGroup(ParentFormHandle, aOptions[1], 0, x, y, "", 0, width, invisible, notabstop, leftjustify)
 
       IF !empty(FontHandle)
          _SetFontHandle(ControlHandle, FontHandle)
@@ -230,7 +230,7 @@ FUNCTION _DefineRadioGroup(ControlName, ParentFormName, x, y, aOptions, Value, ;
             y += Spacing
          ENDIF
 
-         ControlHandle := InitRadioButton(ParentFormHandle, aOptions[i], 0, x, y , "" , 0 , width, invisible, leftjustify)
+         ControlHandle := InitRadioButton(ParentFormHandle, aOptions[i], 0, x, y, "", 0, width, invisible, leftjustify)
 
          IF !empty(FontHandle)
             _SetFontHandle(ControlHandle, FontHandle)
@@ -248,7 +248,7 @@ FUNCTION _DefineRadioGroup(ControlName, ParentFormName, x, y, aOptions, Value, ;
          AAdd(aHandles, ControlHandle)
 
          IF tooltip != NIL
-            SetToolTip(aHandles[i] , tooltip , GetFormToolTipHandle(ParentFormName))
+            SetToolTip(aHandles[i] , tooltip, GetFormToolTipHandle(ParentFormName))
          ENDIF
 
       NEXT i
@@ -266,7 +266,7 @@ FUNCTION _DefineRadioGroup(ControlName, ParentFormName, x, y, aOptions, Value, ;
       ENDIF
 
       IF tooltip != NIL
-         SetToolTip(aHandles[1] , tooltip , GetFormToolTipHandle(ParentFormName))
+         SetToolTip(aHandles[1], tooltip, GetFormToolTipHandle(ParentFormName))
       ENDIF
 
    ENDIF
@@ -320,9 +320,9 @@ FUNCTION _DefineRadioGroup(ControlName, ParentFormName, x, y, aOptions, Value, ;
 
    IF !lDialogInMemory
       IF hb_IsNumeric(Value) .AND. Value > 0  // EF 93
-         _SetValue(, , Value , k)
+         _SetValue(, , Value, k)
       ENDIF
-      SetProperty(ParentFormName , ControlName , "ReadOnly" , aReadOnly)
+      SetProperty(ParentFormName, ControlName, "ReadOnly" , aReadOnly)
    ENDIF
 
    IF _HMG_lOOPEnabled
@@ -338,7 +338,7 @@ FUNCTION _DefineRadioGroup(ControlName, ParentFormName, x, y, aOptions, Value, ;
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION InitDialogRadioGroup( ParentName, ControlHandle, k )
+FUNCTION InitDialogRadioGroup(ParentName, ControlHandle, k)
 *-----------------------------------------------------------------------------*
    
    LOCAL aHandles
@@ -348,11 +348,11 @@ FUNCTION InitDialogRadioGroup( ParentName, ControlHandle, k )
    Value := _HMG_aControlValue[k]
 // EF 93
    IF hb_IsNumeric(Value) .AND. Value > 0 .AND. ControlHandle > 0
-      _SetValue(, , Value , k)
+      _SetValue(, , Value, k)
    ENDIF
 //JP V40
    IF Len(_HMG_aControlIds[k]) == Len(aHandles) .AND. ParentName != NIL
-      SetProperty(ParentName , _HMG_aControlNames[k] , "ReadOnly" , _HMG_aControlPageMap[k])
+      SetProperty(ParentName, _HMG_aControlNames[k] , "ReadOnly" , _HMG_aControlPageMap[k])
    ENDIF
 // JP 62
    IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]  // Modal

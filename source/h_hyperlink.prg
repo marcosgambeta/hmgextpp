@@ -47,7 +47,7 @@
 #include "minigui.ch"
 
 *-----------------------------------------------------------------------------*
-PROCEDURE _SetAddress(ControlName , ParentForm , url)
+PROCEDURE _SetAddress(ControlName, ParentForm, url)
 *-----------------------------------------------------------------------------*
    
    LOCAL i
@@ -88,14 +88,14 @@ PROCEDURE _SetAddressControlProcedure(ControlName, url, i)
          _HMG_aControlProcedures[i] := {||ShellExecute(0, "open", "explorer.exe", "/e," + url, , 1)}
       ELSE
          url := StrTran(url, "file:\\", "")
-         _HMG_aControlProcedures[i] := {||ShellExecute(0, "open", "explorer.exe", "/e,/select," + url + hb_ps() + Directory( url + hb_ps() + "*.*" )[1][1], , 1)}
+         _HMG_aControlProcedures[i] := {||ShellExecute(0, "open", "explorer.exe", "/e,/select," + url + hb_ps() + Directory(url + hb_ps() + "*.*")[1][1], , 1)}
       ENDIF
 
    CASE At("proc:\\", Lower(url)) > 0
 
       url := SubStr(AllTrim(url), 8)
 
-      IF hb_IsFunction( SubStr(url, 1, At("(", url) - 1) )
+      IF hb_IsFunction(SubStr(url, 1, At("(", url) - 1))
          _HMG_aControlProcedures[i] := &("{||" + url + "}")
       ELSE
          MsgMiniGuiError("Control " + ControlName + " Of " + GetParentFormName(i) + " must have a valid procedure name defined.")

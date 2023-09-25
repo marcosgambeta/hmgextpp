@@ -401,8 +401,8 @@ FUNCTION InitDialogTree(ParentName, ControlHandle, k)
             iSel   := 3
          ENDIF
       ELSE
-         iUnSel := AddTreeViewBitmap( _HMG_ActiveTreeHandle, aImage[1], NoTrans ) - 1
-         iSel := iif(ImgDef == 1, iUnSel, AddTreeViewBitmap( _HMG_ActiveTreeHandle, aImage[2], NoTrans ) - 1)
+         iUnSel := AddTreeViewBitmap(_HMG_ActiveTreeHandle, aImage[1], NoTrans) - 1
+         iSel := iif(ImgDef == 1, iUnSel, AddTreeViewBitmap(_HMG_ActiveTreeHandle, aImage[2], NoTrans) - 1)
          // If only one bitmap in array iSel = iUnsel, only one Bitmap loaded
       ENDIF
       IF _HMG_aDialogTreeItem[n, 5] == "NODE"
@@ -446,7 +446,7 @@ FUNCTION _DefineTreeNode(text, aImage, Id, Cargo)
 
    hb_default(@Id, 0)
 
-   IF _SetGetGlobal( "_HMG_lDialogInMemory" )
+   IF _SetGetGlobal("_HMG_lDialogInMemory")
 
       _HMG_NodeIndex++
       AAdd(_HMG_aDialogTreeItem, {text, aImage, Id, _HMG_NodeIndex, "NODE", Cargo})
@@ -460,8 +460,8 @@ FUNCTION _DefineTreeNode(text, aImage, Id, Cargo)
          iSel   := 1
       ELSE
          k := _HMG_ActiveTreeIndex
-         iUnSel := AddTreeViewBitmap( _HMG_ActiveTreeHandle, aImage[1], _HMG_aControlMiscData1[k, 4] ) - 1
-         iSel := iif(ImgDef == 1, iUnSel, AddTreeViewBitmap( _HMG_ActiveTreeHandle, aImage[2], _HMG_aControlMiscData1[k, 4] ) - 1)
+         iUnSel := AddTreeViewBitmap(_HMG_ActiveTreeHandle, aImage[1], _HMG_aControlMiscData1[k, 4]) - 1
+         iSel := iif(ImgDef == 1, iUnSel, AddTreeViewBitmap(_HMG_ActiveTreeHandle, aImage[2], _HMG_aControlMiscData1[k, 4]) - 1)
          // If only one bitmap in array iSel = iUnsel, only one Bitmap loaded
       ENDIF
 
@@ -495,7 +495,7 @@ FUNCTION _DefineTreeItem(text, aImage, Id, Cargo)
 
    hb_default(@Id, 0)
 
-   IF _SetGetGlobal( "_HMG_lDialogInMemory" )
+   IF _SetGetGlobal("_HMG_lDialogInMemory")
 
       AAdd(_HMG_aDialogTreeItem, {text, aImage, Id, _HMG_NodeIndex, "ITEM", Cargo})
 
@@ -508,8 +508,8 @@ FUNCTION _DefineTreeItem(text, aImage, Id, Cargo)
          iSel   := 3
       ELSE
          k := _HMG_ActiveTreeIndex
-         iUnSel := AddTreeViewBitmap( _HMG_ActiveTreeHandle, aImage[1], _HMG_aControlMiscData1[k, 4] ) - 1
-         iSel := iif(ImgDef == 1, iUnSel, AddTreeViewBitmap( _HMG_ActiveTreeHandle, aImage[2], _HMG_aControlMiscData1[k, 4] ) - 1)
+         iUnSel := AddTreeViewBitmap(_HMG_ActiveTreeHandle, aImage[1], _HMG_aControlMiscData1[k, 4]) - 1
+         iSel := iif(ImgDef == 1, iUnSel, AddTreeViewBitmap(_HMG_ActiveTreeHandle, aImage[2], _HMG_aControlMiscData1[k, 4]) - 1)
          // If only one bitmap in array iSel = iUnsel, only one Bitmap loaded
       ENDIF
 
@@ -526,7 +526,7 @@ RETURN NIL
 FUNCTION _EndTree()
 *-----------------------------------------------------------------------------*
 
-   IF !_SetGetGlobal( "_HMG_lDialogInMemory" )
+   IF !_SetGetGlobal("_HMG_lDialogInMemory")
 
       _HMG_aControlPageMap  [_HMG_ActiveTreeIndex] := _HMG_aTreeMap
       _HMG_aControlPicture  [_HMG_ActiveTreeIndex] := _HMG_aTreeIdMap
@@ -618,8 +618,8 @@ PROCEDURE TreeItemChangeImage(ControlName, ParentForm, nItem, aImage)
 
    IF ItemHandle > 0 .AND. hb_IsArray(aImage) .AND. ( ImgDef := Len(aImage) ) > 0
       k := GetControlIndex(ControlName, ParentForm)
-      iUnSel := AddTreeViewBitmap( TreeHandle, aImage[1], _HMG_aControlMiscData1[k, 4] ) - 1
-      iSel := iif(ImgDef == 1, iUnSel, AddTreeViewBitmap( TreeHandle, aImage[2], _HMG_aControlMiscData1[k, 4] ) - 1)
+      iUnSel := AddTreeViewBitmap(TreeHandle, aImage[1], _HMG_aControlMiscData1[k, 4]) - 1
+      iSel := iif(ImgDef == 1, iUnSel, AddTreeViewBitmap(TreeHandle, aImage[2], _HMG_aControlMiscData1[k, 4]) - 1)
 
       TREEITEM_SETIMAGEINDEX(TreeHandle, ItemHandle, iUnSel, iSel)
    ENDIF
@@ -649,7 +649,7 @@ FUNCTION TreeItemGetRootValue(ControlName, ParentForm)
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION TreeItemGetParentValue(ControlName , ParentForm , nItem)
+FUNCTION TreeItemGetParentValue(ControlName, ParentForm, nItem)
 *-----------------------------------------------------------------------------*
    
    LOCAL nControlHandle := GetControlHandle(ControlName, ParentForm)
@@ -715,7 +715,7 @@ PROCEDURE TreeItemSort(cTreeName, cFormName, nItem, lRecurse, lCaseSensitive, lA
 RETURN
 
 *-----------------------------------------------------------------------------*
-FUNCTION TreeItemIsTrueNode(ControlName , ParentForm , nItem)
+FUNCTION TreeItemIsTrueNode(ControlName, ParentForm, nItem)
 *-----------------------------------------------------------------------------*
    
    LOCAL nControlHandle := GetControlHandle(ControlName, ParentForm)
@@ -724,7 +724,7 @@ FUNCTION TreeItemIsTrueNode(ControlName , ParentForm , nItem)
 RETURN !Empty(TreeView_GetChild(nControlHandle, ItemHandle))
 
 *-----------------------------------------------------------------------------*
-FUNCTION TreeItemSetNodeFlag(ControlName , ParentForm , nItem , lNodeFlag)
+FUNCTION TreeItemSetNodeFlag(ControlName, ParentForm, nItem, lNodeFlag)
 *-----------------------------------------------------------------------------*
    
    LOCAL nControlHandle := GetControlHandle(ControlName, ParentForm)
@@ -733,7 +733,7 @@ FUNCTION TreeItemSetNodeFlag(ControlName , ParentForm , nItem , lNodeFlag)
 RETURN TREEITEM_SETNODEFLAG(nControlHandle, ItemHandle, lNodeFlag)
 
 *-----------------------------------------------------------------------------*
-FUNCTION TreeItemGetNodeFlag(ControlName , ParentForm , nItem)
+FUNCTION TreeItemGetNodeFlag(ControlName, ParentForm, nItem)
 *-----------------------------------------------------------------------------*
    
    LOCAL nControlHandle := GetControlHandle(ControlName, ParentForm)
@@ -752,7 +752,7 @@ FUNCTION TreeItemIsExpand(ControlName, ParentForm, nItem)
 RETURN ( hb_bitand(TreeView_GetItemState(nControlHandle, ItemHandle, TVIS_EXPANDED), TVIS_EXPANDED) == TVIS_EXPANDED )
 
 *-----------------------------------------------------------------------------*
-FUNCTION TreeNodeItemCargo( ControlName, ParentForm, Item, Value )
+FUNCTION TreeNodeItemCargo(ControlName, ParentForm, Item, Value)
 *-----------------------------------------------------------------------------*
    
    LOCAL i

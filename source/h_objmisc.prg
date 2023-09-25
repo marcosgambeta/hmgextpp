@@ -7,14 +7,14 @@
 #include "minigui.ch"
 
 *-----------------------------------------------------------------------------*
-FUNCTION _WindowCargo( FormName, xValue )
+FUNCTION _WindowCargo(FormName, xValue)
 *-----------------------------------------------------------------------------*
 
 #ifdef _OBJECT_
    LOCAL o := iif(hb_IsObject(FormName), FormName, _WindowObj(FormName))
    LOCAL i := iif(hb_IsObject(o), o:Index, GetFormIndex(FormName))
 #else
-   LOCAL i := GetFormIndex( FormName )
+   LOCAL i := GetFormIndex(FormName)
 #endif
 
    IF i > 0
@@ -26,7 +26,7 @@ FUNCTION _WindowCargo( FormName, xValue )
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION _ControlCargo( ControlName, FormName, xValue )
+FUNCTION _ControlCargo(ControlName, FormName, xValue)
 *-----------------------------------------------------------------------------*
 
 #ifdef _OBJECT_
@@ -139,7 +139,7 @@ FUNCTION _wPost(nEvent, nIndex, xParam)
       oWnd := _WindowObj(_HMG_THISFORMNAME)
    ENDIF
 
-   oWnd:PostMsg( nEvent, nIndex, xParam )
+   oWnd:PostMsg(nEvent, nIndex, xParam)
 
 RETURN NIL
 
@@ -167,7 +167,7 @@ FUNCTION _wSend(nEvent, nIndex, xParam)
       oWnd := _WindowObj(_HMG_THISFORMNAME)
    ENDIF
 
-   oWnd:SendMsg( nEvent, nIndex, xParam )
+   oWnd:SendMsg(nEvent, nIndex, xParam)
 
 RETURN NIL
 
@@ -256,7 +256,7 @@ FUNC Do_OnCtlRelease(i)
 RETURN .F.
 
 *-----------------------------------------------------------------------------*
-FUNC Do_OnWndLaunch( hWnd, nMsg, wParam, lParam )
+FUNC Do_OnWndLaunch(hWnd, nMsg, wParam, lParam)
 *-----------------------------------------------------------------------------*
    IF hmg_IsWindowObject(hWnd)
       hmg_GetWindowObject(hWnd):DoEvent(wParam, lParam)
@@ -267,7 +267,7 @@ FUNC Do_OnWndLaunch( hWnd, nMsg, wParam, lParam )
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNC Do_OnCtlLaunch( hWnd, nMsg, wParam, lParam )
+FUNC Do_OnCtlLaunch(hWnd, nMsg, wParam, lParam)
 *-----------------------------------------------------------------------------*
    HB_SYMBOL_UNUSED(nMsg)
 
@@ -293,14 +293,14 @@ HB_FUNC( HMG_SETWINDOWOBJECT )
    HWND hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) ) {
-      pObject = ( PHB_ITEM ) hb_param( 2, Harbour::Item::OBJECT );
+      pObject = ( PHB_ITEM ) hb_param(2, Harbour::Item::OBJECT);
 
       if( pObject && HB_IS_OBJECT(pObject) ) {
-         pObject = hb_itemNew( pObject );
+         pObject = hb_itemNew(pObject);
 
-         hb_gcLock( pObject );    // Ref++
+         hb_gcLock(pObject);    // Ref++
 
-         SetWindowLongPtr( hWnd, GWLP_USERDATA, reinterpret_cast<LPARAM>(pObject) );
+         SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LPARAM>(pObject));
 
          hb_retl(true);
       } else {
@@ -317,9 +317,9 @@ HB_FUNC( HMG_DELWINDOWOBJECT )
    HWND hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) ) {
-      pObject = ( PHB_ITEM ) GetWindowLongPtr( hWnd, GWLP_USERDATA );
+      pObject = ( PHB_ITEM ) GetWindowLongPtr(hWnd, GWLP_USERDATA);
 
-      SetWindowLongPtr( hWnd, GWLP_USERDATA, 0 );
+      SetWindowLongPtr(hWnd, GWLP_USERDATA, 0);
 
       if( pObject && HB_IS_OBJECT(pObject) ) {
          hb_gcUnlock(pObject);     // Ref --
@@ -333,7 +333,7 @@ HB_FUNC( HMG_GETWINDOWOBJECT )
    HWND hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) ) {
-      hb_itemReturn( ( PHB_ITEM ) GetWindowLongPtr( hWnd, GWLP_USERDATA ) );
+      hb_itemReturn((PHB_ITEM) GetWindowLongPtr(hWnd, GWLP_USERDATA));
    } else {
       hb_ret();
    }
@@ -346,7 +346,7 @@ HB_FUNC( HMG_ISWINDOWOBJECT )
    HWND hWnd = hmg_par_HWND(1);
 
    if( IsWindow(hWnd) ) {
-      pObject = ( PHB_ITEM ) GetWindowLongPtr( hWnd, GWLP_USERDATA );
+      pObject = ( PHB_ITEM ) GetWindowLongPtr(hWnd, GWLP_USERDATA);
 
       hb_retl(pObject && HB_IS_OBJECT(pObject));
    } else {

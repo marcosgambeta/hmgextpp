@@ -63,22 +63,22 @@ CLASS TSBScrlBar FROM TControl
 
    METHOD SetPage(nSize, lReDraw)
 
-   METHOD SetPos( nPos ) INLINE SetScrollPos( IIf(::lIsChild, ::oWnd:hWnd, ;
+   METHOD SetPos(nPos) INLINE SetScrollPos(IIf(::lIsChild, ::oWnd:hWnd, ;
                                   ::hWnd), IIf(::lIsChild, IIf(::lVertical, ;
                                   SB_VERT, SB_HORZ), SB_CTL), ;
                                   nPos, ::lReDraw, ::lShowDisabled, ;
-                                  ::l32Bit )
+                                  ::l32Bit)
 
    METHOD SetRange(nMin, nMax) INLINE ::nMin := nMin, ::nMax := nMax, ;
            SetScrollRange(iif(::lIsChild, ::oWnd:hWnd, ::hWnd), ;
                IIf(::lIsChild, IIf(::lVertical, SB_VERT, SB_HORZ), SB_CTL), ;
                    nMin, nMax, ::lReDraw, ::lShowDisabled, ::l32Bit)   // JP 74
 
-   METHOD ThumbPos( nPos ) INLINE  IIf(::bPos != NIL, Eval(::bPos, nPos), NIL)
+   METHOD ThumbPos(nPos) INLINE  IIf(::bPos != NIL, Eval(::bPos, nPos), NIL)
 
    METHOD MouseMove(nRow, nCol, nKeyFlags)
 
-   METHOD ThumbTrack( nPos ) INLINE IIf(::bTrack != NIL, Eval(::bTrack, nPos), ::ThumbPos(nPos))
+   METHOD ThumbTrack(nPos) INLINE IIf(::bTrack != NIL, Eval(::bTrack, nPos), ::ThumbPos(nPos))
 
 ENDCLASS
 
@@ -86,17 +86,17 @@ ENDCLASS
 * METHOD TSBScrlBar:New() Version 5.0 27/Feb/2002
 * ============================================================================
 
-METHOD New( nRow, nCol, nMin, nMax, nPgStep, lVertical, oWnd, nWidth, nHeight,;
-            bUpAct, bDownAct, bPgUp, bPgDown, bPos, lPixel, nClrText,;
-            nClrBack, cMsg, lUpdate, bWhen, bValid, lDesign ) CLASS TSBScrlBar
+METHOD New(nRow, nCol, nMin, nMax, nPgStep, lVertical, oWnd, nWidth, nHeight,;
+           bUpAct, bDownAct, bPgUp, bPgDown, bPos, lPixel, nClrText,;
+           nClrBack, cMsg, lUpdate, bWhen, bValid, lDesign) CLASS TSBScrlBar
 
    Default nRow := 0, nCol := 0,;
            nMin := 0, nMax := 0, nPgStep := 1,;
            lVertical := .T., nWidth := IIf(lVertical, 16, 100),;
            nHeight   := IIf(lVertical, 100, 17),;
            lPixel    := .F.,;
-           nClrText  := GetSysColor( COLOR_WINDOW ),;
-           nClrBack  := GetSysColor( COLOR_SCROLLBAR ),;
+           nClrText  := GetSysColor(COLOR_WINDOW),;
+           nClrBack  := GetSysColor(COLOR_SCROLLBAR),;
            lUpdate   := .F., lDesign := .F.
 
    ::cCaption   := ""
@@ -109,9 +109,9 @@ METHOD New( nRow, nCol, nMin, nMax, nPgStep, lVertical, oWnd, nWidth, nHeight,;
    ::nPgStep    := nPgStep
    ::lVertical  := lVertical
    ::lReDraw    := .T.
-   ::nStyle     := nOr( WS_CHILD, WS_VISIBLE, WS_TABSTOP,;
+   ::nStyle     := nOr(WS_CHILD, WS_VISIBLE, WS_TABSTOP,;
                        iif(lVertical, SBS_VERT, SBS_HORZ),;
-                       iif(lDesign, WS_CLIPSIBLINGS, 0) )
+                       iif(lDesign, WS_CLIPSIBLINGS, 0))
    ::bGoUp      := bUpAct
    ::bGoDown    := bDownAct
    ::bPageUp    := bPgUp
@@ -145,13 +145,13 @@ Return Self
 * They are NOT controls but we consider them as real Objects!
 * ============================================================================
 
-METHOD WinNew( nMin, nMax, nPgStep, lVertical, oWnd, bUpAction,;
-               bDownAction, bPgUp, bPgDown, bPos, nClrText, nClrBack,;
-               lUpdate, bWhen, bValid ) CLASS TSBScrlBar
+METHOD WinNew(nMin, nMax, nPgStep, lVertical, oWnd, bUpAction,;
+              bDownAction, bPgUp, bPgDown, bPos, nClrText, nClrBack,;
+              lUpdate, bWhen, bValid) CLASS TSBScrlBar
 
    Default nMin := 1, nMax := 2, nPgStep := 1, lVertical := .T.,;
-           nClrText  := GetSysColor( COLOR_WINDOW ),;
-           nClrBack  := GetSysColor( COLOR_SCROLLBAR ),;
+           nClrText  := GetSysColor(COLOR_WINDOW),;
+           nClrBack  := GetSysColor(COLOR_SCROLLBAR),;
            lUpdate   := .F.
 
    ::oWnd          := oWnd
@@ -175,7 +175,7 @@ METHOD WinNew( nMin, nMax, nPgStep, lVertical, oWnd, bUpAction,;
    
    ::SetPage(::nPgStep, .T.)
    ::SetRange(nMin, nMax)
-   ::SetPos( nMin )
+   ::SetPos(nMin)
 
 Return Self
 
@@ -204,11 +204,11 @@ METHOD HandleEvent(nMsg, nWParam, nLParam) CLASS TSBScrlBar
       Return 0
 
    CASE FM_THUMBPOS
-      ::ThumbPos( nWParam )
+      ::ThumbPos(nWParam)
       Return 0
 
    CASE FM_THUMBTRACK
-      ::ThumbTrack( nWParam )
+      ::ThumbTrack(nWParam)
       Return 0
 
    ENDSWITCH

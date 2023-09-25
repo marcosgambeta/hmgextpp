@@ -90,22 +90,22 @@ CLASS TSocket
    METHOD Connect(cAddress, nPort)
    METHOD Close()
 
-   METHOD SendString( cString )
+   METHOD SendString(cString)
    METHOD ReceiveString()
    METHOD ReceiveLine()
-   METHOD ReceiveChar( nBufLen )
+   METHOD ReceiveChar(nBufLen)
 
    METHOD GetLocalName()    INLINE SocketLocalName()
    METHOD GetLocalAddress() INLINE SocketLocalAddress()
 
    METHOD Bind(cAddress, nPort)
-   METHOD Listen( nClient )
+   METHOD Listen(nClient)
 
    METHOD SetReceiveTimeout(nTime)
    METHOD SetSendTimeout(nTime)
 
    // Debug method
-   METHOD SetDebug( bDebug )
+   METHOD SetDebug(bDebug)
    METHOD PrintDebugMessage(cMsg)
    // Debug method
 
@@ -155,7 +155,7 @@ return bRet
 //
 // Send string to socket
 //
-METHOD SendString( cString ) CLASS TSocket
+METHOD SendString(cString) CLASS TSocket
 ::PrintDebugMessage("Send string " + cString)
 return SocketSend(::m_hSocket, cString, ::nSendTimeout)
 
@@ -184,7 +184,7 @@ return cRet
 //
 // Receive char from socket
 //
-METHOD ReceiveChar( nBufLen ) CLASS TSocket
+METHOD ReceiveChar(nBufLen) CLASS TSocket
 local cRet, cBuf, nRet
 
 DEFAULT nBufLen TO 1
@@ -247,7 +247,7 @@ return bRet
 //
 // Listen for client
 //
-METHOD Listen( nClient ) CLASS TSocket
+METHOD Listen(nClient) CLASS TSocket
 local cSok := space(len(::m_hSocket))
 local bRet
 local oRet
@@ -282,7 +282,7 @@ return NIL
 //
 // Set debug inside socket class
 //
-METHOD SetDebug( bDebug ) CLASS TSocket
+METHOD SetDebug(bDebug) CLASS TSocket
 ::bDebug := bDebug
 return NIL
 

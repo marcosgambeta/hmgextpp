@@ -55,7 +55,7 @@
 #define PROGRESSNAME    "ProgressMessage"
 
 *-----------------------------------------------------------------------------*
-FUNCTION _BeginMessageBar( ControlName, ParentForm, kbd, fontname, fontsize, bold, italic, underline, strikeout )
+FUNCTION _BeginMessageBar(ControlName, ParentForm, kbd, fontname, fontsize, bold, italic, underline, strikeout)
 *-----------------------------------------------------------------------------*
 
    LOCAL ParentFormHandle
@@ -176,11 +176,11 @@ FUNCTION _EndMessageBar()
 
    // Must have at least one StatusItem to prevent crash when function Events(...) receives WM_SIZE message
    IF _HMG_StatusItemCount == 0  // JD 07/20/2007
-      _DefineItemMessage(ITEMNAME, _HMG_ActiveMessageBarName, 0, 0, GetProperty( _HMG_ActiveFormName, "Title" ), , , 0, , , , .F.)
+      _DefineItemMessage(ITEMNAME, _HMG_ActiveMessageBarName, 0, 0, GetProperty(_HMG_ActiveFormName, "Title"), , , 0, , , , .F.)
    ENDIF
 
    IF (i := GetControlIndex(PROGRESSNAME, _HMG_ActiveFormName)) != 0
-      RefreshProgressItem( _HMG_aControlMiscData1[i, 1], _HMG_aControlHandles[i], _HMG_aControlMiscData1[i, 2] )
+      RefreshProgressItem(_HMG_aControlMiscData1[i, 1], _HMG_aControlHandles[i], _HMG_aControlMiscData1[i, 2])
    ENDIF
 
    _HMG_ActiveMessageBarName := ""
@@ -309,7 +309,7 @@ FUNCTION _DefineItemMessage(ControlName, ParentControl, x, y, Caption, Procedure
 RETURN ControlHandle
 
 *-----------------------------------------------------------------------------*
-FUNCTION _SetStatusClock(BarName , FormName , Width , ToolTip , Action , lAMPM , backcolor , fontcolor)
+FUNCTION _SetStatusClock(BarName, FormName, Width, ToolTip, Action, lAMPM, backcolor, fontcolor)
 *-----------------------------------------------------------------------------*
    
    LOCAL nrItem
@@ -319,9 +319,9 @@ FUNCTION _SetStatusClock(BarName , FormName , Width , ToolTip , Action , lAMPM ,
    __defaultNIL(@ToolTip, "")
    __defaultNIL(@Action, "")
 
-   nrItem := _DefineItemMessage("TimerBar", BarName, 0, 0, iif(lAMPM, AMPM( Time() ), Time()), Action, Width, 0, , "", ToolTip, , backcolor, fontcolor, 1)
+   nrItem := _DefineItemMessage("TimerBar", BarName, 0, 0, iif(lAMPM, AMPM(Time()), Time()), Action, Width, 0, , "", ToolTip, , backcolor, fontcolor, 1)
 
-   _DefineTimer("StatusTimer" , FormName , 1000 , {||_SetItem(BarName, FormName, nrItem, iif(lAMPM, AMPM(Time()), Time()))})
+   _DefineTimer("StatusTimer" , FormName, 1000, {||_SetItem(BarName, FormName, nrItem, iif(lAMPM, AMPM(Time()), Time()))})
 
 RETURN NIL
 
@@ -349,15 +349,15 @@ FUNCTION _SetStatusKeybrd(BarName, FormName, Width, ToolTip, action)
       iif(Empty(Action), {||iif(_HMG_IsXPorLater, KeyToggleNT(VK_INSERT), KeyToggle(VK_INSERT))}, Action), Width, 0, ;
       iif(IsInsertActive(), "zzz_led_on", "zzz_led_off"), "", ToolTip)
 
-   _DefineTimer("StatusKeyBrd" , FormName , 250 , ;
-      {||_SetStatusIcon ( BarName , FormName , nrItem1 , iif(IsNumLockActive() , "zzz_led_on" , "zzz_led_off") ), ;
-      _SetStatusIcon ( BarName , FormName , nrItem2 , iif(IsCapsLockActive() , "zzz_led_on" , "zzz_led_off") ), ;
-      _SetStatusIcon ( BarName , FormName , nrItem3 , iif(IsInsertActive() , "zzz_led_on" , "zzz_led_off") )})
+   _DefineTimer("StatusKeyBrd" , FormName, 250, ;
+      {||_SetStatusIcon ( BarName, FormName, nrItem1, iif(IsNumLockActive() , "zzz_led_on" , "zzz_led_off") ), ;
+      _SetStatusIcon ( BarName, FormName, nrItem2, iif(IsCapsLockActive(), "zzz_led_on", "zzz_led_off") ), ;
+      _SetStatusIcon ( BarName, FormName, nrItem3, iif(IsInsertActive(), "zzz_led_on", "zzz_led_off") )})
 
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION _IsOwnerDrawStatusBarItem( ParentHandle , ItemID , Value , lSet )
+FUNCTION _IsOwnerDrawStatusBarItem(ParentHandle, ItemID, Value, lSet)
 *-----------------------------------------------------------------------------*
    
    LOCAL h
@@ -373,7 +373,7 @@ FUNCTION _IsOwnerDrawStatusBarItem( ParentHandle , ItemID , Value , lSet )
 
    FOR EACH h IN _HMG_aControlContainerHandle
 
-      i := hb_enumindex( h )
+      i := hb_enumindex(h)
 
       IF _HMG_aControlType[i] == ITEMTYPENAME .AND. h == ParentHandle
 
@@ -399,7 +399,7 @@ RETURN lOwnerDraw
 
 // (GF) HMG 1.2 Extended Build 25
 *-----------------------------------------------------------------------------*
-STATIC FUNCTION AMPM( cTime )
+STATIC FUNCTION AMPM(cTime)
 *-----------------------------------------------------------------------------*
    
    LOCAL nHour := Val(cTime)
@@ -412,7 +412,7 @@ STATIC FUNCTION AMPM( cTime )
    CASE nHour == 12
       cTime += " pm"
    OTHERWISE
-      cTime := StrZero( nHour - 12, 2 ) + SubStr(cTime, 3) + " pm"
+      cTime := StrZero(nHour - 12, 2) + SubStr(cTime, 3) + " pm"
    ENDCASE
 
 RETURN cTime
@@ -430,10 +430,10 @@ FUNCTION _SetStatusBarKbd(BarName, FormName)
 
    _DefineItemMessage(ITEMNAME, BarName, 0, 0, "SCRL", , 44, 0, , , , , , SILVER)
 
-   _DefineTimer("StatusBarKbd" , FormName , 250 , ;
-      {||_SetStatusItemProperty( 2, iif(IsCapsLockActive(), BLACK, SILVER), GetFormHandle(FormName), STATUS_ITEM_FONTCOLOR ), ;
-      _SetStatusItemProperty( 3, iif(IsNumLockActive(), BLACK, SILVER), GetFormHandle(FormName), STATUS_ITEM_FONTCOLOR ), ;
-      _SetStatusItemProperty( 4, iif(IsScrollLockActive(), BLACK, SILVER), GetFormHandle(FormName), STATUS_ITEM_FONTCOLOR )})
+   _DefineTimer("StatusBarKbd" , FormName, 250, ;
+      {||_SetStatusItemProperty(2, iif(IsCapsLockActive(), BLACK, SILVER), GetFormHandle(FormName), STATUS_ITEM_FONTCOLOR), ;
+      _SetStatusItemProperty(3, iif(IsNumLockActive(), BLACK, SILVER), GetFormHandle(FormName), STATUS_ITEM_FONTCOLOR), ;
+      _SetStatusItemProperty(4, iif(IsScrollLockActive(), BLACK, SILVER), GetFormHandle(FormName), STATUS_ITEM_FONTCOLOR)})
 
 RETURN NIL
 
@@ -447,7 +447,7 @@ FUNCTION _GetStatusItemWidth(hWnd, nItem)
 
    FOR EACH h IN _HMG_aControlParentHandles
 
-      i := hb_enumindex( h )
+      i := hb_enumindex(h)
 
       IF _HMG_aControlType[i] == ITEMTYPENAME .AND. h == hWnd
          AAdd(aItemWidth, _HMG_aControlWidth[i])
@@ -458,7 +458,7 @@ FUNCTION _GetStatusItemWidth(hWnd, nItem)
 RETURN iif(!Empty(nItem), aItemWidth[nItem], aItemWidth)
 
 *-----------------------------------------------------------------------------*
-FUNCTION _SetStatusItemProperty( nItem, Value, hWnd, nType )
+FUNCTION _SetStatusItemProperty(nItem, Value, hWnd, nType)
 *-----------------------------------------------------------------------------*
    
    LOCAL h
@@ -468,7 +468,7 @@ FUNCTION _SetStatusItemProperty( nItem, Value, hWnd, nType )
 
    FOR EACH h IN _HMG_aControlParentHandles
 
-      i := hb_enumindex( h )
+      i := hb_enumindex(h)
 
       IF _HMG_aControlType[i] == ITEMTYPENAME .AND. h == hWnd
 
@@ -498,7 +498,7 @@ FUNCTION _SetStatusItemProperty( nItem, Value, hWnd, nType )
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION _SetStatusProgressMessage(BarName , FormName , Width , ToolTip , Action , nValue , nMin , nMax)
+FUNCTION _SetStatusProgressMessage(BarName, FormName, Width, ToolTip, Action, nValue, nMin, nMax)
 *-----------------------------------------------------------------------------*
    
    LOCAL hwndStatus

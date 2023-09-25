@@ -185,7 +185,7 @@ FUNCTION _DefineEditbox(ControlName, ParentFormName, x, y, w, h, value, ;
 
          IF i > 0
 
-            ControlHandle := InitEditBox(ParentFormHandle , 0, x, y, w, h, "", 0 , maxlength , readonly, invisible, notabstop , novscroll , nohscroll)
+            ControlHandle := InitEditBox(ParentFormHandle, 0, x, y, w, h, "", 0, maxlength, readonly, invisible, notabstop, novscroll, nohscroll)
 
             IF !empty(FontHandle)
                _SetFontHandle(ControlHandle, FontHandle)
@@ -213,7 +213,7 @@ FUNCTION _DefineEditbox(ControlName, ParentFormName, x, y, w, h, value, ;
 
       ELSE
 
-         ControlHandle := InitEditBox(ParentFormHandle, 0, x, y, w, h, "", 0 , maxlength , readonly, invisible, notabstop , novscroll , nohscroll)
+         ControlHandle := InitEditBox(ParentFormHandle, 0, x, y, w, h, "", 0, maxlength, readonly, invisible, notabstop, novscroll, nohscroll)
 
          IF hb_IsChar(Value) ;
                .OR. ;
@@ -293,7 +293,7 @@ FUNCTION _DefineEditbox(ControlName, ParentFormName, x, y, w, h, value, ;
    _HMG_aControlFontHandle         [k] := FontHandle
    _HMG_aControlBrushHandle        [k] := HMG_NULLHANDLE
    _HMG_aControlEnabled            [k] := .T.
-   _HMG_aControlMiscData1          [k] := { 0 , maxlength , readonly }
+   _HMG_aControlMiscData1          [k] := { 0, maxlength, readonly }
    _HMG_aControlMiscData2          [k] := ""
 
    IF Len(_HMG_aDialogTemplate) == 0        //Dialog Template

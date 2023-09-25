@@ -58,11 +58,11 @@
 */
 FUNCTION _ENCRYPT(cStr, cPass)
 
-   LOCAL cXorStr := CHARXOR( cStr, "<ORIGINAL>" )
+   LOCAL cXorStr := CHARXOR(cStr, "<ORIGINAL>")
 
    IF !Empty(cPass)
 
-      cXorStr := CHARXOR( cXorStr, cPass )
+      cXorStr := CHARXOR(cXorStr, cPass)
 
    ENDIF
 
@@ -70,9 +70,9 @@ RETURN cXorStr
 
 FUNCTION _DECRYPT(cStr, cPass)
 
-   LOCAL cXorStr := CHARXOR( cStr, cPass )
+   LOCAL cXorStr := CHARXOR(cStr, cPass)
 
-RETURN CHARXOR( cXorStr, "<ORIGINAL>" )
+RETURN CHARXOR(cXorStr, "<ORIGINAL>")
 
 /*
 */
@@ -116,7 +116,7 @@ FUNCTION FI_CODE(cInFile, cPass, cOutFile, lDelete)
 
    ELSE
 
-      cPass := PadR( cPass, 10 )
+      cPass := PadR(cPass, 10)
 
    ENDIF
 
@@ -223,7 +223,7 @@ FUNCTION FI_DECODE(cInFile, cPass, cOutFile, lDelete)
 
    ELSE
 
-      cPass := PadR( cPass, 10 )
+      cPass := PadR(cPass, 10)
 
    ENDIF
 
@@ -321,7 +321,7 @@ FUNCTION DB_ENCRYPT(cFile, cPass)
 
    ELSE
 
-      cPass := PadR( cPass, 10 )
+      cPass := PadR(cPass, 10)
 
    ENDIF
 
@@ -472,7 +472,7 @@ FUNCTION DB_UNENCRYPT(cFile, cPass)
 
    ELSE
 
-      cPass := PadR( cPass, 10 )
+      cPass := PadR(cPass, 10)
 
    ENDIF
 

@@ -167,10 +167,10 @@ FUNCTION easyreport()
          ENDIF
       ENDIF
       IF lpreview
-         nran := random( 9999999 )
+         nran := random(9999999)
          cfilerepo := "T" + hb_ntos(nran) + ".prn"
          DO WHILE File("&cfilerepo")
-            nran := random( 9999999 )
+            nran := random(9999999)
             cfilerepo := "T" + hb_ntos(nran) + ".prn"
          ENDDO
          SET PRINTER to &cfilerepo
@@ -223,10 +223,10 @@ FUNCTION easyreport()
          ELSE
             IF i == MINORFONT
                IF !llandscape
-                  MsgStop( aMessages[1] + CRLF + CRLF + ;
-                           aMessages[2] + CRLF + ;
-                           aMessages[3] + CRLF + CRLF + ;
-                           aMessages[4], aMessages[5] )
+                  MsgStop(aMessages[1] + CRLF + CRLF + ;
+                          aMessages[2] + CRLF + ;
+                          aMessages[3] + CRLF + CRLF + ;
+                          aMessages[4], aMessages[5])
                   EXIT
                ENDIF
             ENDIF
@@ -243,12 +243,12 @@ FUNCTION easyreport()
             nlpp := iif(ISEVERYPAGE, HBPRNMAXROW - 4, HBPRNMAXROW - 2)
          ENDIF
 
-         msgstop( aMessages[6]  + cpagina + " (" + hb_ntos(npapersize) + ")" + CRLF + ;
-                  aMessages[7]  + hb_ntos(nfsize) + CRLF + ;
-                  aMessages[8]  + Str(HBPRNMAXROW, 3) + CRLF + ;
-                  aMessages[9]  + Str(nlpp, 3) + CRLF + ;
-                  aMessages[10] + Str(HBPRNMAXCOL, 3) + CRLF + ;
-                  aMessages[11] + Str(ncpl, 3), aMessages[19] )
+         msgstop(aMessages[6]  + cpagina + " (" + hb_ntos(npapersize) + ")" + CRLF + ;
+                 aMessages[7]  + hb_ntos(nfsize) + CRLF + ;
+                 aMessages[8]  + Str(HBPRNMAXROW, 3) + CRLF + ;
+                 aMessages[9]  + Str(nlpp, 3) + CRLF + ;
+                 aMessages[10] + Str(HBPRNMAXCOL, 3) + CRLF + ;
+                 aMessages[11] + Str(ncpl, 3), aMessages[19])
       ENDIF
 
       START DOC
@@ -262,12 +262,12 @@ FUNCTION easyreport()
    nlin := ntoprow
    IF cgraphic != NIL .AND. !ldos
       IF !File(cgraphic)
-         msgstop( aMessages[12], aMessages[13] )
+         msgstop(aMessages[12], aMessages[13])
        ELSE
          @nfi, nci + nlmargin PICTURE cgraphic SIZE nff - nfi - 4, ncf - nci - 3
       ENDIF
    ENDIF
-   nlin := headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grpby, chdrgrp )
+   nlin := headers(aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grpby, chdrgrp)
    AFill(aresul, 0)
    AFill(angrpby, 0)
    IF grpby != NIL
@@ -282,7 +282,7 @@ FUNCTION easyreport()
    nRecNo := (cfile)->(RecNo())  //JP 18
    DO WHILE !(cfile)->(Eof())
       swt := 0
-      imp_SUBTOTALES( @nlin, @ncol, @lmode, @swt, @grpby )
+      imp_SUBTOTALES(@nlin, @ncol, @lmode, @swt, @grpby)
 
       ncol := nlmargin + 1
       FOR i := 1 TO nlen
@@ -304,7 +304,7 @@ FUNCTION easyreport()
             SWITCH cType
             CASE "C"
                IF IsOemText(wfield)
-                  wfield := hb_OEMToANSI( wfield )
+                  wfield := hb_OEMToANSI(wfield)
                ENDIF
                @ nlin, ncol SAY SubStr(wfield, 1, awidths[i]) font "f0" TO PRINT
                EXIT
@@ -348,7 +348,7 @@ FUNCTION easyreport()
                   nlin := nlin + 1
                   IF nlin > nlpp
                      nlin := ntoprow
-                     nlin := headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grpby, chdrgrp )
+                     nlin := headers(aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grpby, chdrgrp)
                   ENDIF
                NEXT k
                EXIT
@@ -376,7 +376,7 @@ FUNCTION easyreport()
    // IMPRESIÓN DEL SUBTOTAL DEL ULTIMO GRUPO DE LA TABLA EN CASO DE HABER SUBTOTALES
    IF swt == 1 // EXISTE COLUMNA DE TOTALES
       ncol := nlmargin + 1
-      imp_SUBTOTALES( @nlin, @ncol, @lmode, @swt, @grpby )
+      imp_SUBTOTALES(@nlin, @ncol, @lmode, @swt, @grpby)
 
       // IMPRESIÓN DEL TOTAL GENERAL DEL RESUMEN
       IF lmode
@@ -414,7 +414,7 @@ FUNCTION easyreport()
       IF lpreview
          SET DEVICE TO SCREEN
          SET PRINTER TO
-         mypreview( cfilerepo )
+         mypreview(cfilerepo)
       ELSE
          SET DEVICE TO SCREEN
       ENDIF
@@ -427,7 +427,7 @@ FUNCTION easyreport()
 
 RETURN NIL
 
-STATIC FUNCTION headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grpby, chdrgrp )
+STATIC FUNCTION headers(aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grpby, chdrgrp)
 
    LOCAL i
    LOCAL ncol
@@ -455,7 +455,7 @@ STATIC FUNCTION headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grp
    _npage++
    IF lmode
       IF IsOemText(ctitle1)
-         ctitle1 := hb_OEMToANSI( ctitle1 )
+         ctitle1 := hb_OEMToANSI(ctitle1)
       ENDIF
       @ nlin, 1 + nlmargin SAY _HMG_MESSAGE[9] font "f0" TO PRINT
       @ nlin, 6 + nlmargin SAY hb_ntos(_npage) font "f0" TO PRINT
@@ -476,7 +476,7 @@ STATIC FUNCTION headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grp
    IF Len(ctitle2) > 0
       IF lmode
          IF IsOemText(ctitle2)
-            ctitle2 := hb_OEMToANSI( ctitle2 )
+            ctitle2 := hb_OEMToANSI(ctitle2)
          ENDIF
          @ nlin, ncenter2 + nlmargin SAY ctitle2 font "f2" TO PRINT
          IF ldatetimestamp
@@ -515,7 +515,7 @@ STATIC FUNCTION headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grp
       FOR i := 1 TO Len(awidths)
          IF lmode
             IF IsOemText(aheaders1[i])
-               aheaders1[i] := hb_OEMToANSI( aheaders1[i] )
+               aheaders1[i] := hb_OEMToANSI(aheaders1[i])
             ENDIF
             @ nlin, ncol SAY SubStr(aheaders1[i], 1, awidths[i]) font "f1" TO PRINT
          ELSE
@@ -531,7 +531,7 @@ STATIC FUNCTION headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grp
       FOR i := 1 TO Len(awidths)
          IF lmode
             IF IsOemText(aheaders2[i])
-               aheaders2[i] := hb_OEMToANSI( aheaders2[i] )
+               aheaders2[i] := hb_OEMToANSI(aheaders2[i])
             ENDIF
             @ nlin, ncol SAY SubStr(aheaders2[i], 1, awidths[i]) font "f1" TO PRINT
          ELSE
@@ -556,11 +556,11 @@ STATIC FUNCTION headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grp
       IF !ISEVERYPAGE
          IF lmode
             IF IsOemText(chdrgrp)
-               chdrgrp := hb_OEMToANSI( chdrgrp )
+               chdrgrp := hb_OEMToANSI(chdrgrp)
             ENDIF
             cgrpby := &grpby
             IF IsOemText(cgrpby)
-               cgrpby := hb_OEMToANSI( cgrpby )
+               cgrpby := hb_OEMToANSI(cgrpby)
             ENDIF
             @ nlin, 1 + nlmargin SAY "** " + chdrgrp + " ** " + hb_ValToStr(cgrpby) font "f1" TO PRINT
          ELSE
@@ -573,7 +573,7 @@ STATIC FUNCTION headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grp
 
 RETURN nlin
 
-STATIC FUNCTION mypreview( cfilerepo )
+STATIC FUNCTION mypreview(cfilerepo)
 
    LOCAL wr
 
@@ -582,7 +582,7 @@ STATIC FUNCTION mypreview( cfilerepo )
    wfilerepo := cfilerepo
    wr := MemoRead(wfilerepo)
    IF IsOemText(wr)
-      wr := hb_OEMToANSI( wr )
+      wr := hb_OEMToANSI(wr)
    ENDIF
 
    DEFINE WINDOW PRINT_PREVIEW ;
@@ -663,7 +663,7 @@ FUNCTION extreport(cfilerep)
    LOCAL ipaper
 
    IF !File(cfilerep + ".rpt")
-      msginfo( "(" + cfilerep + ".rpt) " + aMessages[16] )
+      msginfo("(" + cfilerep + ".rpt) " + aMessages[16])
       RETURN NIL
    ENDIF
 
@@ -675,60 +675,60 @@ FUNCTION extreport(cfilerep)
    FOR i := 1 TO nContlin
       AAdd(Aline, MemoLine(cReport, 500, i, , .T.))
    NEXT i
-   ctitle := leadato( "REPORT", "TITLE", "" )
+   ctitle := leadato("REPORT", "TITLE", "")
    IF Len(ctitle) > 0
       ctitle := &ctitle
    ENDIF
-   aheaders1 := leadatoh( "REPORT", "HEADERS", "{}", 1 )
+   aheaders1 := leadatoh("REPORT", "HEADERS", "{}", 1)
    aheaders1 := &aheaders1
-   aheaders2 := leadatoh( "REPORT", "HEADERS", "{}", 2 )
+   aheaders2 := leadatoh("REPORT", "HEADERS", "{}", 2)
    aheaders2 := &aheaders2
-   afields := leadato( "REPORT", "FIELDS", "{}" )
+   afields := leadato("REPORT", "FIELDS", "{}")
    IF Len(afields) == 0
-      msginfo( aMessages[17], aMessages[13] )
+      msginfo(aMessages[17], aMessages[13])
       RELEASE aline
       RETURN NIL
    ENDIF
    afields := &afields
-   awidths := leadato( "REPORT", "WIDTHS", "{}" )
+   awidths := leadato("REPORT", "WIDTHS", "{}")
    IF Len(awidths) == 0
-      msginfo( aMessages[18], aMessages[13] )
+      msginfo(aMessages[18], aMessages[13])
       RELEASE aline
       RETURN NIL
    ENDIF
    awidths := &awidths
-   atotals := leadato( "REPORT", "TOTALS", NIL )
+   atotals := leadato("REPORT", "TOTALS", NIL)
    IF atotals != NIL
       atotals := &atotals
    ENDIF
-   aformats := leadato( "REPORT", "NFORMATS", NIL )
+   aformats := leadato("REPORT", "NFORMATS", NIL)
    IF aformats != NIL
       aformats := &aformats
    ENDIF
-   nlpp := Val(leadato( "REPORT","LPP","" ))
-   ncpl := Val(leadato( "REPORT","CPL","" ))
-   nllmargin := Val(leadato( "REPORT","LMARGIN","0" ))
-   ntoprow := Val(leadato( "REPORT","TMARGIN","1" ))
-   npapersize := leadato( "REPORT", "PAPERSIZE", "DMPAPER_LETTER" )
+   nlpp := Val(leadato("REPORT", "LPP", ""))
+   ncpl := Val(leadato("REPORT", "CPL", ""))
+   nllmargin := Val(leadato("REPORT", "LMARGIN", "0"))
+   ntoprow := Val(leadato("REPORT", "TMARGIN", "1"))
+   npapersize := leadato("REPORT", "PAPERSIZE", "DMPAPER_LETTER")
    IF npapersize = "DMPAPER_USER"
       npapersize := 255
    ENDIF
    IF Len(npapersize) == 0
       npapersize := NIL
    ELSE
-      ipaper := AScan(apapeles , npapersize)
+      ipaper := AScan(apapeles, npapersize)
       IF ipaper == 0
          ipaper := 1
       ENDIF
       npapersize := ipaper
    ENDIF
-   calias := leadato( "REPORT", "WORKAREA", "" )
+   calias := leadato("REPORT", "WORKAREA", "")
    ldos := leadatologic("REPORT", "DOSMODE", .F.)
    lpreview := leadatologic("REPORT", "PREVIEW", .F.)
    lselect := leadatologic("REPORT", "SELECT", .F.)
    lmul := leadatologic("REPORT", "MULTIPLE", .F.)
 
-   cgraphic := clean( leaimage("REPORT", "IMAGE", "") )
+   cgraphic := clean(leaimage("REPORT", "IMAGE", ""))
    IF Len(cgraphic) == 0
       cgraphic := NIL
    ENDIF
@@ -736,7 +736,7 @@ FUNCTION extreport(cfilerep)
    nci := Val((leacoli("IMAGE", 1)))
    nff := Val((learowi("IMAGE", 2)))
    ncf := Val((leacoli("IMAGE", 2)))
-   cgraphicalt := ( leadato( "DEFINE REPORT","IMAGE","" ) )
+   cgraphicalt := ( leadato("DEFINE REPORT", "IMAGE", "") )
    IF Len(cgraphicalt) > 0  // para sintaxis DEFINE REPORT
       cgraphicalt := &cgraphicalt
       cgraphic := cgraphicalt[1]
@@ -745,21 +745,21 @@ FUNCTION extreport(cfilerep)
       nff := cgraphicalt[4]
       ncf := cgraphicalt[5]
    ENDIF
-   cgrpby := clean( leadato( "REPORT","GROUPED BY","" ) )
+   cgrpby := clean(leadato("REPORT", "GROUPED BY", ""))
    IF Len(cgrpby) == 0
       cgrpby := NIL
    ENDIF
-   chdrgrp := clean( leadato( "REPORT","HEADRGRP","" ) )
+   chdrgrp := clean(leadato("REPORT", "HEADRGRP", ""))
    llandscape := leadatologic("REPORT", "LANDSCAPE", .F.)
    lnodatetimestamp := leadatologic("REPORT", "NODATETIMESTAMP", .F.)
-   cfont := leadato( "REPORT", "FONTNAME", NIL )
+   cfont := leadato("REPORT", "FONTNAME", NIL)
 
-   easyreport(ctitle, aheaders1, aheaders2, afields, awidths, atotals, nlpp, ldos, lpreview, cgraphic, nfi, nci, nff, ncf, lmul, cgrpby, chdrgrp, llandscape, ncpl, lselect, calias, nllmargin, aformats, npapersize, ntoprow, lnodatetimestamp , cfont)
+   easyreport(ctitle, aheaders1, aheaders2, afields, awidths, atotals, nlpp, ldos, lpreview, cgraphic, nfi, nci, nff, ncf, lmul, cgrpby, chdrgrp, llandscape, ncpl, lselect, calias, nllmargin, aformats, npapersize, ntoprow, lnodatetimestamp, cfont)
    RELEASE aline
 
 RETURN NIL
 
-STATIC FUNCTION leadato( cName, cPropmet, cDefault )
+STATIC FUNCTION leadato(cName, cPropmet, cDefault)
 
    LOCAL i
    LOCAL sw := 0
@@ -816,7 +816,7 @@ STATIC FUNCTION leaimage(cName, cPropmet, cDefault)
 
 RETURN cDefault
 
-STATIC FUNCTION leadatoh( cName, cPropmet, cDefault, npar )
+STATIC FUNCTION leadatoh(cName, cPropmet, cDefault, npar)
 
    LOCAL i
    LOCAL sw1 := 0
@@ -870,13 +870,13 @@ STATIC FUNCTION leadatologic(cName, cPropmet, cDefault)
 
 RETURN cDefault
 
-STATIC FUNCTION clean( cfvalue )
+STATIC FUNCTION clean(cfvalue)
    cfvalue := StrTran(cfvalue, Chr(34), "")
    cfvalue := StrTran(cfvalue, "'", "")
 
 RETURN cfvalue
 
-STATIC FUNCTION learowi( cname, npar )
+STATIC FUNCTION learowi(cname, npar)
 
    LOCAL i
    LOCAL npos1
@@ -895,7 +895,7 @@ STATIC FUNCTION learowi( cname, npar )
 
 RETURN nrow
 
-STATIC FUNCTION leacoli( cname, npar )
+STATIC FUNCTION leacoli(cname, npar)
 
    LOCAL i
    LOCAL npos
@@ -957,11 +957,11 @@ STATIC PROCEDURE imp_SUBTOTALES(nlin, ncol, lmode, swt, grpby)
          IF swt == 0 .AND. !ISEVERYPAGE
             IF lmode
                IF IsOemText(chdrgrp)
-                  chdrgrp := hb_OEMToANSI( chdrgrp )
+                  chdrgrp := hb_OEMToANSI(chdrgrp)
                ENDIF
                cgrpby := &grpby
                IF IsOemText(cgrpby)
-                  cgrpby := hb_OEMToANSI( cgrpby )
+                  cgrpby := hb_OEMToANSI(cgrpby)
                ENDIF
                @ nlin, 1 + nlmargin SAY "** " + chdrgrp + " ** " + iif(!ISEVERYPAGE, hb_ValToStr(cgrpby), "") font "f1" TO PRINT
             ELSE
@@ -979,7 +979,7 @@ STATIC PROCEDURE imp_SUBTOTALES(nlin, ncol, lmode, swt, grpby)
          END PAGE
          START PAGE
       ENDIF
-      nlin := headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grpby, chdrgrp )
+      nlin := headers(aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grpby, chdrgrp)
    ENDIF
 
 RETURN
@@ -993,13 +993,13 @@ STATIC PROCEDURE imp_pagina(nlin, lmode, grpby, chdrgrp)
          START PAGE
          IF cgraphic != NIL .AND. lmul .AND. !ldos
             IF !File(cgraphic)
-               msgstop( aMessages[12], aMessages[13] )
+               msgstop(aMessages[12], aMessages[13])
             ELSE
                @nfi, nci + nlmargin PICTURE cgraphic SIZE nff - nfi - 4, ncf - nci - 3
             ENDIF
          ENDIF
       ENDIF
-      nlin := headers( aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grpby, chdrgrp )
+      nlin := headers(aheaders1, aheaders2, awidths, nlin, ctitle, lmode, grpby, chdrgrp)
    ENDIF
 
 RETURN

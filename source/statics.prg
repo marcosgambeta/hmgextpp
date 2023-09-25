@@ -12,7 +12,7 @@ FUNCTION _SetGetNamesList(cName, nIndex, lDelete)
 *-----------------------------------------------------------------------------*
    STATIC _HMG_NAMESLIST
 
-   IF HB_ISNIL( _HMG_NAMESLIST )
+   IF HB_ISNIL(_HMG_NAMESLIST)
       _HMG_NAMESLIST := oHmgData()
    ENDIF
 
@@ -27,7 +27,7 @@ FUNCTION _SetGetNamesList(cName, nIndex, lDelete)
    ELSEIF PCount() == 3
 
       IF lDelete
-         _HMG_NAMESLIST:Del( cName )
+         _HMG_NAMESLIST:Del(cName)
       ELSE
          _HMG_NAMESLIST:Set(cName, NIL)
       ENDIF
@@ -39,14 +39,14 @@ RETURN _HMG_NAMESLIST
 #endif
 
 *-----------------------------------------------------------------------------*
-FUNCTION _SetGetGlobal( cVarName, xNewValue, ... )
+FUNCTION _SetGetGlobal(cVarName, xNewValue, ...)
 *-----------------------------------------------------------------------------*
    
    LOCAL xOldValue
 
    STATIC _HMG_STATIC
 
-   IF HB_ISNIL( _HMG_STATIC )
+   IF HB_ISNIL(_HMG_STATIC)
       _HMG_STATIC := oHmgData()
    ENDIF
 
@@ -60,22 +60,22 @@ FUNCTION _SetGetGlobal( cVarName, xNewValue, ... )
       _HMG_STATIC:Set(cVarName, xNewValue)
       EXIT
    CASE 3
-      _HMG_STATIC:Del( cVarName )
+      _HMG_STATIC:Del(cVarName)
       EXIT
    ENDSWITCH
 
 RETURN xOldValue
 
 *-----------------------------------------------------------------------------*
-FUNCTION _AddNewGlobal( cVarName, xValue )
+FUNCTION _AddNewGlobal(cVarName, xValue)
 *-----------------------------------------------------------------------------*
    // If cVarName not found, then ...
-   IF _SetGetGlobal( cVarName ) == NIL
+   IF _SetGetGlobal(cVarName) == NIL
       // Add a new variable in the Pseudo-Variable List
       STATIC &cVarName AS GLOBAL VALUE xValue
    ENDIF
 
-RETURN _SetGetGlobal( cVarName )
+RETURN _SetGetGlobal(cVarName)
 
 *-----------------------------------------------------------------------------*
 FUNCTION CheckStatic()
@@ -97,7 +97,7 @@ FUNCTION CheckStatic()
          cInfo := CRLF
          cInfo += hb_ntos(n) + Replicate("-", 55) + "> "
          _LogFile(.F., cInfo)
-         Scan( Static(n) )
+         Scan(Static(n))
          nCnt++
       ENDIF
    NEXT
@@ -113,7 +113,7 @@ FUNCTION CheckStatic()
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-STATIC FUNCTION Scan( u, cData )
+STATIC FUNCTION Scan(u, cData)
 *-----------------------------------------------------------------------------*
    
    LOCAL cType := ValType(u)
@@ -152,7 +152,7 @@ STATIC FUNCTION Scan( u, cData )
                _LogFile(.T., " Direct reference to its container")
             ELSE
                nNested++
-               Scan( u[n], cData )
+               Scan(u[n], cData)
                nNested--
             ENDIF
 

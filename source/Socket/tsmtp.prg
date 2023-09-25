@@ -87,23 +87,23 @@ CLASS TSMTP
    METHOD New()
 
    METHOD Connect(cAddress, nPort, cHelo)
-   METHOD Login( cUser, cPwd )
+   METHOD Login(cUser, cPwd)
    METHOD LoginMD5( cUser, cPwd )
    METHOD Close()
 
    METHOD ClearData()
-   METHOD SetFrom( cUser, cEmail )
-   METHOD SetReplyTo( cReplyTo )
+   METHOD SetFrom(cUser, cEmail)
+   METHOD SetReplyTo(cReplyTo)
    METHOD SetSubject(cSubject)
-   METHOD SetPriority( nPriority )
+   METHOD SetPriority(nPriority)
 
-   METHOD AddTo( cUser, cEmail )
+   METHOD AddTo(cUser, cEmail)
    METHOD AddCc(cUser, cEmail)
    METHOD AddBcc(cUser, cEmail)
 
    METHOD SetData(cMail, bHTML)
 
-   METHOD AddAttach( cAttach )
+   METHOD AddAttach(cAttach)
 
    METHOD Send(bIgnoreTOError, bRequestReturnReceipt)
    METHOD GetLastError()
@@ -132,7 +132,7 @@ ENDCLASS
 
 METHOD New() CLASS TSMTP
 ::oSocket := TSocket():New()
-//::oSocket:SetDebug( .T. )
+//::oSocket:SetDebug(.T.)
 ::ClearData()
 return Self
 
@@ -153,11 +153,11 @@ if bRet
    cErr := ::GetLines()
    if LEFT(cErr, 3)=="220"
       // Send extended hello first (RFC 2821)
-      if ::oSocket:SendString( "EHLO " +cHelo +CHR(13)+CHR(10) )
+      if ::oSocket:SendString("EHLO " + cHelo + CHR(13) + CHR(10))
          cErr := ::GetLines()
          if !(LEFT(cErr, 3)=="250")
             // Send hello (RFC 821)
-            if ::oSocket:SendString( "HELO " +cHelo +CHR(13)+CHR(10) )
+            if ::oSocket:SendString("HELO " + cHelo + CHR(13) + CHR(10))
                cErr := ::GetLines()
                if !(LEFT(cErr, 3)=="250")
                   ::cError := cErr
@@ -192,20 +192,20 @@ enddo
 return cLines
 
 // Login to server
-METHOD Login( cUser, cPwd ) CLASS TSMTP
+METHOD Login(cUser, cPwd) CLASS TSMTP
 local cErr    := ""
 local bRet    := .F.
 local oDecode := TDecode():new()
 
-if ::oSocket:SendString( "AUTH LOGIN" +CHR(13)+CHR(10) )
+if ::oSocket:SendString("AUTH LOGIN" + CHR(13) + CHR(10))
    // Consume banner
    cErr := ::GetLines()
    if LEFT(cErr, 3)=="334"
-      if ::oSocket:SendString( oDecode:Encode64( cUser ) +CHR(13)+CHR(10) )
+      if ::oSocket:SendString(oDecode:Encode64(cUser) + CHR(13) + CHR(10))
          // Consume banner
          cErr := ::GetLines()
          if LEFT(cErr, 3)=="334"
-            if ::oSocket:SendString( oDecode:Encode64( cPwd ) +CHR(13)+CHR(10) )
+            if ::oSocket:SendString(oDecode:Encode64(cPwd) + CHR(13) + CHR(10))
                // Consume banner
                cErr := ::GetLines()
                if LEFT(cErr, 3)=="235" .OR. LEFT(cErr, 3)=="335"
@@ -230,13 +230,13 @@ local bRet    := .F.
 local oDecode := TDecode():new()
 local cDigest, hMac
 
-if ::oSocket:SendString( "AUTH CRAM-MD5" +CHR(13)+CHR(10) )
+if ::oSocket:SendString("AUTH CRAM-MD5" + CHR(13) + CHR(10))
    // Consume banner
    cErr := ::GetLines()
    if LEFT(cErr, 3)=="334"
       cDigest := substr(cErr, 5)
       hMac    := oDecode:hmac_md5( cUser, cPwd, cDigest )
-      if ::oSocket:SendString( hMac +CHR(13)+CHR(10) )
+      if ::oSocket:SendString(hMac + CHR(13) + CHR(10))
          // Consume banner
          cErr := ::GetLines()
          if LEFT(cErr, 3)=="235" .OR. LEFT(cErr, 3)=="335"
@@ -257,7 +257,7 @@ return bRet
 // Close socket
 //
 METHOD Close() CLASS TSMTP
-::oSocket:SendString( "QUIT" +CHR(13)+CHR(10) )
+::oSocket:SendString("QUIT" + CHR(13) + CHR(10))
 ::GetLines()
 return ::oSocket:Close()
 
@@ -281,7 +281,7 @@ return NIL
 //
 // Set From
 //
-METHOD SetFrom( cUser, cEmail )  CLASS TSMTP
+METHOD SetFrom(cUser, cEmail)  CLASS TSMTP
 ::cFrom  := cUser
 ::cEmail := cEmail
 return NIL
@@ -289,7 +289,7 @@ return NIL
 //
 // Set Reply-To
 //
-METHOD SetReplyTo( cReplyTo )  CLASS TSMTP
+METHOD SetReplyTo(cReplyTo)  CLASS TSMTP
 ::cReplyTo := cReplyTo
 return NIL
 
@@ -303,14 +303,14 @@ return NIL
 //
 // Set Priority
 //
-METHOD SetPriority( nPriority )  CLASS TSMTP
+METHOD SetPriority(nPriority)  CLASS TSMTP
 ::nPriority := nPriority
 return NIL
 
 //
 // Add to
 //
-METHOD AddTo( cUser, cEmail ) CLASS TSMTP
+METHOD AddTo(cUser, cEmail) CLASS TSMTP
 aadd(::aTo, {cUser, cEmail})
 return NIL
 
@@ -340,7 +340,7 @@ return NIL
 //
 // Add attach
 //
-METHOD AddAttach( cAttach ) CLASS TSMTP
+METHOD AddAttach(cAttach) CLASS TSMTP
 aadd(::aAttach, cAttach)
 return NIL
 
@@ -374,7 +374,7 @@ DEFAULT bIgnoreTOError TO .F.
 DEFAULT bRequestReturnReceipt TO .F. // request a return receipt for your email
 
 ::cError := ""
-if ::oSocket:SendString( "MAIL FROM: " +::cEmail +CHR(13)+CHR(10) )
+if ::oSocket:SendString("MAIL FROM: " + ::cEmail + CHR(13) + CHR(10))
    // Banner
    cErr := ::GetLines()
    // Check 250
@@ -388,7 +388,7 @@ if ::oSocket:SendString( "MAIL FROM: " +::cEmail +CHR(13)+CHR(10) )
       bMail := .T.
       for nPos := 1 to len(aEmails)
          if bMail
-            ::oSocket:SendString( "RCPT TO: " +aEmails[nPos] +CHR(13)+CHR(10) )
+            ::oSocket:SendString("RCPT TO: " + aEmails[nPos] + CHR(13) + CHR(10))
             cErr := ::GetLines()
             if !(LEFT(cErr, 3)=="250") .AND. !bIgnoreTOError
                ::cError := cErr
@@ -399,7 +399,7 @@ if ::oSocket:SendString( "MAIL FROM: " +::cEmail +CHR(13)+CHR(10) )
 
       if bMail
          // If all is OK I can prepare and send data
-         if ::oSocket:SendString( "DATA" +CHR(13)+CHR(10) )
+         if ::oSocket:SendString("DATA" + CHR(13) + CHR(10))
             // Banner
             cErr := ::GetLines()
             // Check 354 or 554
@@ -486,7 +486,7 @@ if ::oSocket:SendString( "MAIL FROM: " +::cEmail +CHR(13)+CHR(10) )
                // End of mail
                cHeader += CHR(13)+CHR(10) +"." +CHR(13)+CHR(10)
 
-               if ::oSocket:SendString( cHeader )
+               if ::oSocket:SendString(cHeader)
                   cErr := ::GetLines()
                   if !(LEFT(cErr, 3)=="250" .OR. LEFT(cErr, 3)=="550")
                      ::cError := cErr
@@ -508,7 +508,7 @@ endif
 return bRet
 
 * ±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
-STATIC FUNCTION addAddress( aEmail, cTok )
+STATIC FUNCTION addAddress(aEmail, cTok)
 * ±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
 local cRet := ""
 
@@ -544,11 +544,11 @@ endif
 Return cBias
 
 * ±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
-STATIC Function cFileWithoutPath( cPathMask )
+STATIC Function cFileWithoutPath(cPathMask)
 * ±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
 LOCAL n1 := RAt("\", cPathMask), n2 := RAt("/", cPathMask), n
 
-        n := max( n1, n2 )
+        n := max(n1, n2)
 
 Return IIf(n > 0 .AND. n < Len(cPathMask), ;
    Right(cPathMask, Len(cPathMask) - n), ;
@@ -570,48 +570,46 @@ Return IIf(n > 0 .AND. n < Len(cPathMask), ;
 
 HB_FUNC( GETTIMEZONEBIAS )
 {
-      TIME_ZONE_INFORMATION tzInfo;
-      DWORD retval = GetTimeZoneInformation( &tzInfo );
+   TIME_ZONE_INFORMATION tzInfo;
+   DWORD retval = GetTimeZoneInformation(&tzInfo);
 
-      if( retval == TIME_ZONE_ID_INVALID )
-         hb_retnl( 0 );
-      else
-         hb_retnl( tzInfo.Bias + ( retval == TIME_ZONE_ID_STANDARD ? tzInfo.StandardBias : tzInfo.DaylightBias ) );
+   if( retval == TIME_ZONE_ID_INVALID ) {
+      hb_retnl(0);
+   } else {
+      hb_retnl(tzInfo.Bias + (retval == TIME_ZONE_ID_STANDARD ? tzInfo.StandardBias : tzInfo.DaylightBias));
+   }
 }
 
 HB_FUNC_STATIC( MEMOREAD )
 {
-   PHB_ITEM pFileName = hb_param( 1, Harbour::Item::STRING );
+   PHB_ITEM pFileName = hb_param(1, Harbour::Item::STRING);
 
-   if( pFileName )
-   {
-      FHANDLE fhnd = hb_fsOpen( hb_itemGetCPtr( pFileName ), FO_READ | FO_SHARED | FO_PRIVATE );
+   if( pFileName ) {
+      FHANDLE fhnd = hb_fsOpen(hb_itemGetCPtr(pFileName), FO_READ | FO_SHARED | FO_PRIVATE);
 
-      if( fhnd != FS_ERROR )
-      {
-         ULONG ulSize = hb_fsSeek( fhnd, 0, FS_END );
+      if( fhnd != FS_ERROR ) {
+         ULONG ulSize = hb_fsSeek(fhnd, 0, FS_END);
 
-         if( ulSize != 0 )
-         {
+         if( ulSize != 0 ) {
             BYTE * pbyBuffer;
 
-            pbyBuffer = ( BYTE * ) hb_xgrab(ulSize + sizeof(char));
+            pbyBuffer = (BYTE *) hb_xgrab(ulSize + sizeof(char));
 
-            hb_fsSeek( fhnd, 0, FS_SET );
+            hb_fsSeek(fhnd, 0, FS_SET);
             hb_fsReadLarge(fhnd, pbyBuffer, ulSize);
 
-            hb_retclen_buffer( ( char * ) pbyBuffer, ulSize );
-         }
-         else
+            hb_retclen_buffer((char *) pbyBuffer, ulSize);
+         } else {
             hb_retc(nullptr);
+         }
 
          hb_fsClose(fhnd);
-      }
-      else
+      } else {
          hb_retc(nullptr);
-   }
-   else
+      }
+   } else {
       hb_retc(nullptr);
+   }
 }
 
 #pragma ENDDUMP

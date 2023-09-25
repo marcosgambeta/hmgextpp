@@ -107,7 +107,7 @@ FUNCTION _DefineAniGif(cControlName, cParentForm, cFilename, nRow, nCol, nWidth,
    _HMG_aControlMiscData1          [k] := 0
    _HMG_aControlMiscData2          [k] := ""
 
-   oGif := TGif():New( cFilename, nRow, nCol, nHeight, nWidth, nDelay, aBKColor, cControlName, cParentForm )
+   oGif := TGif():New(cFilename, nRow, nCol, nHeight, nWidth, nDelay, aBKColor, cControlName, cParentForm)
 
    IF hb_IsObject(oGif)
       nControlHandle := GetControlHandle(oGif:hGif, cParentForm)
@@ -237,28 +237,28 @@ CLASS TGif
    DATA aDelay
    DATA cTimer
 
-   METHOD New( cFileName, nTop, nLeft, nBottom, nRight, nDelay, aBKColor, cControlName, cParentName )
+   METHOD New(cFileName, nTop, nLeft, nBottom, nRight, nDelay, aBKColor, cControlName, cParentName)
 
    METHOD PlayGif()
 
-   METHOD Play() INLINE GifPlay( Self )
+   METHOD Play() INLINE GifPlay(Self)
 
    METHOD Update()
 
-   METHOD Stop() INLINE GifStop( Self )
+   METHOD Stop() INLINE GifStop(Self)
 
    METHOD RestartGif()
 
    METHOD Restart() INLINE ::RestartGif()
 
-   METHOD IsRunning() INLINE GifIsRunning( Self )
+   METHOD IsRunning() INLINE GifIsRunning(Self)
 
    METHOD End()
 
 ENDCLASS
 
 
-METHOD New( cFileName, nTop, nLeft, nBottom, nRight, nDelay, aBKColor, cControlName, cParentName ) CLASS TGif
+METHOD New(cFileName, nTop, nLeft, nBottom, nRight, nDelay, aBKColor, cControlName, cParentName) CLASS TGif
 
    LOCAL nId
    LOCAL aPictures := {}
@@ -338,7 +338,7 @@ METHOD RestartGif() CLASS TGif
    LOCAL aPictures := {}
    LOCAL aImageInfo := {}
 
-   GifStop( Self )
+   GifStop(Self)
 
    AEval(::aPictData, {|f|FErase(f)})
 
@@ -380,30 +380,30 @@ RETURN NIL
  *  Auxiliary static functions
  */
 
-STATIC FUNCTION GifPlay( oGif )
+STATIC FUNCTION GifPlay(oGif)
 
    IF oGif:nTotalFrames > 1
-      SetProperty( oGif:cParentName, oGif:cTimer, "Enabled", .T. )
+      SetProperty(oGif:cParentName, oGif:cTimer, "Enabled", .T.)
    ENDIF
 
 RETURN NIL
 
 
-STATIC FUNCTION GifStop( oGif )
+STATIC FUNCTION GifStop(oGif)
 
    IF oGif:nTotalFrames > 1
-      SetProperty( oGif:cParentName, oGif:cTimer, "Enabled", .F. )
+      SetProperty(oGif:cParentName, oGif:cTimer, "Enabled", .F.)
    ENDIF
 
 RETURN NIL
 
 
-STATIC FUNCTION GifIsRunning( oGif )
+STATIC FUNCTION GifIsRunning(oGif)
 
    LOCAL lRunning := .F.
 
    IF oGif:nTotalFrames > 1
-      lRunning := GetProperty( oGif:cParentName, oGif:cTimer, "Enabled" )
+      lRunning := GetProperty(oGif:cParentName, oGif:cTimer, "Enabled")
    ENDIF
 
 RETURN lRunning
@@ -441,7 +441,7 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
    hb_default(@aFrames, {})
    hb_default(@aImgInfo, {})
 
-   IF !ReadFromStream( GIF, @cStream )
+   IF !ReadFromStream(GIF, @cStream)
       RETURN .F.
    ENDIF
 
@@ -461,7 +461,7 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
       j := At(cGifEnd, cStream, i) + 3
 
       IF j > Len(cGifEnd)
-         cFile := cPath + hb_ps() + cFileNoExt(GIF) + "_frame_" + hb_ntos(nID) + "_" + StrZero( nImgCount, 4 ) + ".gif"
+         cFile := cPath + hb_ps() + cFileNoExt(GIF) + "_frame_" + hb_ntos(nID) + "_" + StrZero(nImgCount, 4) + ".gif"
          nFileHandle := FCreate(cFile, FC_NORMAL)
          IF FError() != 0
             RETURN .F.
@@ -494,7 +494,7 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
 
    IF i < Len(cStream)
 
-      cFile := cPath + hb_ps() + cFileNoExt(GIF) + "_frame_" + hb_ntos(nID) + "_" + StrZero( ++nImgCount, 4 ) + ".gif"
+      cFile := cPath + hb_ps() + cFileNoExt(GIF) + "_frame_" + hb_ntos(nID) + "_" + StrZero(++nImgCount, 4) + ".gif"
       nFileHandle := FCreate(cFile, FC_NORMAL)
       IF FError() != 0
          RETURN .F.
@@ -519,7 +519,7 @@ FUNCTION LoadGif( GIF, aFrames, aImgInfo, oGif )
 RETURN .T.
 
 *------------------------------------------------------------------------------*
-STATIC FUNCTION ReadFromStream( cFile, cStream )
+STATIC FUNCTION ReadFromStream(cFile, cStream)
 *------------------------------------------------------------------------------*
    
    LOCAL nFileSize
@@ -536,6 +536,6 @@ STATIC FUNCTION ReadFromStream( cFile, cStream )
 RETURN ( FError() == 0 .AND. !Empty(cStream) )
 
 *------------------------------------------------------------------------------*
-FUNCTION GetFrameDelay( cImageInfo, nDelay )
+FUNCTION GetFrameDelay(cImageInfo, nDelay)
 *------------------------------------------------------------------------------*
-RETURN ( Bin2W( SubStr(cImageInfo, 4, 2) ) * hb_defaultValue(nDelay, 10) )
+RETURN ( Bin2W(SubStr(cImageInfo, 4, 2)) * hb_defaultValue(nDelay, 10) )

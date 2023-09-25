@@ -48,7 +48,7 @@
 
 #ifdef _PAGER_
 *-----------------------------------------------------------------------------*
-FUNCTION _BeginPager( ControlName, ParentName, nWidth, nHeight, nScroll, cCaption, tooltip, vertical, autoscroll, backcolor )
+FUNCTION _BeginPager(ControlName, ParentName, nWidth, nHeight, nScroll, cCaption, tooltip, vertical, autoscroll, backcolor)
 *-----------------------------------------------------------------------------*
 
    LOCAL hRebar

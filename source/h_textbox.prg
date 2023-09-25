@@ -62,7 +62,7 @@ FUNCTION _DefineTextBox(ControlName, ParentFormName, x, y, w, h, ;
       HelpId, readonly, bold, italic, underline, strikeout, field, ;
       backcolor, fontcolor, invisible, notabstop, noborder, cuetext, nId, bInit)
 *-----------------------------------------------------------------------------*
-   
+
    LOCAL ParentFormHandle
    LOCAL ControlHandle := 0
    LOCAL FontHandle
@@ -186,7 +186,7 @@ FUNCTION _DefineTextBox(ControlName, ParentFormName, x, y, w, h, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
       // Creates the control window
-      ControlHandle := InitTextBox( ParentFormHandle, 0, x, y, w, h, "", 0, nMaxLength, lUpper, lLower, .F. , lPassword, right, readonly, invisible, notabstop, noborder )
+      ControlHandle := InitTextBox(ParentFormHandle, 0, x, y, w, h, "", 0, nMaxLength, lUpper, lLower, .F. , lPassword, right, readonly, invisible, notabstop, noborder)
 
    ENDIF
 
@@ -290,7 +290,7 @@ FUNCTION _DefineTextBox(ControlName, ParentFormName, x, y, w, h, ;
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION InitDialogTextBox( ParentName, ControlHandle, k )
+FUNCTION InitDialogTextBox(ParentName, ControlHandle, k)
 *-----------------------------------------------------------------------------*
 
    LOCAL Field
@@ -469,7 +469,7 @@ FUNCTION _DefineMaskedTextbox(ControlName, ParentFormName, x, y, inputmask, w, ;
    ELSE
 
       ParentFormHandle := GetFormHandle(ParentFormName)
-      ControlHandle := InitMaskedTextBox(ParentFormHandle, 0, x, y, w , "" , 0 , 255 , .F. , .F. , h , .T. , readonly , invisible , notabstop , noborder)
+      ControlHandle := InitMaskedTextBox(ParentFormHandle, 0, x, y, w, "", 0, 255, .F., .F., h, .T., readonly, invisible, notabstop, noborder)
 
    ENDIF
 
@@ -562,7 +562,7 @@ FUNCTION _DefineMaskedTextbox(ControlName, ParentFormName, x, y, inputmask, w, ;
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION InitDialogMaskedTextBox( ParentName, ControlHandle, k )
+FUNCTION InitDialogMaskedTextBox(ParentName, ControlHandle, k)
 *-----------------------------------------------------------------------------*
    
    LOCAL Field
@@ -591,7 +591,7 @@ FUNCTION InitDialogMaskedTextBox( ParentName, ControlHandle, k )
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION GetNumFromText(Text , i)
+FUNCTION GetNumFromText(Text, i)
 *-----------------------------------------------------------------------------*
    
    LOCAL s As String
@@ -641,9 +641,9 @@ STATIC FUNCTION GetNumMask(Text)
 RETURN s
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineCharMaskTextbox(ControlName, ParentFormName, x, y, inputmask , ;
-      w , value , fontname, fontsize , tooltip , lostfocus , gotfocus , change , ;
-      h , enter , rightalign , HelpId , bold, italic, underline, strikeout, field, ;
+FUNCTION _DefineCharMaskTextbox(ControlName, ParentFormName, x, y, inputmask, ;
+      w, value, fontname, fontsize, tooltip, lostfocus, gotfocus, change, ;
+      h, enter, rightalign, HelpId, bold, italic, underline, strikeout, field, ;
       backcolor, fontcolor, date, readonly, invisible, notabstop, noborder, cuetext, nId, bInit)
 *-----------------------------------------------------------------------------*
    
@@ -755,7 +755,7 @@ FUNCTION _DefineCharMaskTextbox(ControlName, ParentFormName, x, y, inputmask , ;
    ELSE
 
       ParentFormHandle := GetFormHandle(ParentFormName)
-      ControlHandle := InitCharMaskTextBox(ParentFormHandle, 0, x, y, w , "" , 0 , 255 , .F. , .F. , h , rightalign , readonly , invisible , notabstop , noborder)
+      ControlHandle := InitCharMaskTextBox(ParentFormHandle, 0, x, y, w, "", 0, 255, .F., .F., h, rightalign, readonly, invisible, notabstop, noborder)
 
    ENDIF
 
@@ -859,7 +859,7 @@ FUNCTION _DefineCharMaskTextbox(ControlName, ParentFormName, x, y, inputmask , ;
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-PROCEDURE ProcessCharMask(i , d)
+PROCEDURE ProcessCharMask(i, d)
 *-----------------------------------------------------------------------------*
    
    LOCAL OutBuffer As String
@@ -940,7 +940,7 @@ PROCEDURE ProcessCharMask(i , d)
 
       InBufferRight := hb_URight(InBuffer, hb_ULen(InBuffer) - icp)
 
-      IF CharMaskTekstOK( InBufferLeft + " " + InBufferRight, Mask ) .AND. !CharMaskTekstOK( InBufferLeft + InBufferRight, Mask )
+      IF CharMaskTekstOK(InBufferLeft + " " + InBufferRight, Mask) .AND. !CharMaskTekstOK(InBufferLeft + InBufferRight, Mask)
          InBuffer := InBufferLeft + " " + InBufferRight
       ELSE
          InBuffer := InBufferLeft + InBufferRight
@@ -1103,10 +1103,10 @@ PROCEDURE ProcessCharMask(i , d)
 RETURN
 
 *-----------------------------------------------------------------------------*
-STATIC FUNCTION CharMaskTekstOK( cString, cMask )
+STATIC FUNCTION CharMaskTekstOK(cString, cMask)
 *-----------------------------------------------------------------------------*
    
-   LOCAL nCount := Min( hb_ULen(cString), hb_ULen(cMask) )
+   LOCAL nCount := Min(hb_ULen(cString), hb_ULen(cMask))
    LOCAL lPassed := .F.
    LOCAL CB
    LOCAL CM
@@ -1115,7 +1115,7 @@ STATIC FUNCTION CharMaskTekstOK( cString, cMask )
    FOR x := 1 TO nCount
       CB := hb_USubStr(cString, x, 1)
       CM := hb_USubStr(cMask, x, 1)
-      DO CASE  // JK
+      DO CASE  // JK // TODO: switch
       CASE CM == "A"
          lPassed := ( hmg_IsAlpha(CB) .OR. CB == " " )
       CASE CM == "N" .OR. CM == "!"
@@ -1137,7 +1137,7 @@ RETURN lPassed
 *-----------------------------------------------------------------------------*
 PROCEDURE _DataTextBoxRefresh(i)
 *-----------------------------------------------------------------------------*
-   
+
    LOCAL Field
 
    IF _HMG_aControlType[i] == CONTROL_TYPE_MASKEDTEXT
@@ -1170,7 +1170,7 @@ PROCEDURE _DataTextBoxSave(ControlName, ParentForm)
    ENDIF
 
    IF _IsFieldExists(Field)
-      REPLACE &Field WITH _GetValue(Controlname , ParentForm)
+      REPLACE &Field WITH _GetValue(Controlname, ParentForm)
    ENDIF
 
 RETURN
@@ -1241,7 +1241,7 @@ PROCEDURE ProcessNumText(i)
 RETURN
 
 *-----------------------------------------------------------------------------*
-FUNCTION GETNumFromTextSP( Text, i )
+FUNCTION GETNumFromTextSP(Text, i)
 *-----------------------------------------------------------------------------*
 
    LOCAL s As String
@@ -1277,7 +1277,7 @@ FUNCTION GETNumFromTextSP( Text, i )
 RETURN Val(s)
 
 *-----------------------------------------------------------------------------*
-FUNCTION OEDITEVENTS( hWnd, nMsg, wParam, lParam )
+FUNCTION OEDITEVENTS(hWnd, nMsg, wParam, lParam)
 *-----------------------------------------------------------------------------*
 
    LOCAL hTextBox
@@ -1287,7 +1287,7 @@ FUNCTION OEDITEVENTS( hWnd, nMsg, wParam, lParam )
    LOCAL icpe
    LOCAL i
 
-   i := AScan(_HMG_aControlHandles , hWnd)
+   i := AScan(_HMG_aControlHandles, hWnd)
 
    SWITCH nMsg
 
@@ -1336,10 +1336,10 @@ FUNCTION OEDITEVENTS( hWnd, nMsg, wParam, lParam )
 
       ParentForm := _HMG_aControlParentHandles[i]
 
-      IF (i := AScan(_HMG_aControlsContextMenu , {|x|x[1] == hWnd})) > 0
+      IF (i := AScan(_HMG_aControlsContextMenu, {|x|x[1] == hWnd})) > 0
 
          IF _HMG_aControlsContextMenu[i][4]
-            setfocus( wParam )
+            setfocus(wParam)
 
             _HMG_xControlsContextMenuID := _HMG_aControlsContextMenu[i][3]
 

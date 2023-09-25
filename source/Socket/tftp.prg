@@ -71,7 +71,7 @@ CLASS TFtp
    METHOD New()
 
    METHOD Connect(cAddress, nPort)
-   METHOD Login( cUser, cPwd )
+   METHOD Login(cUser, cPwd)
    METHOD Close()
 
    METHOD List()
@@ -116,14 +116,14 @@ return ::oSocket:Close()
 //
 // Login
 //
-METHOD Login( cUser, cPwd ) CLASS TFtp
+METHOD Login(cUser, cPwd) CLASS TFtp
 local cErr := ""
 local lRet := .F.
 
 DEFAULT cUser TO "anonymous"
 DEFAULT cPwd  TO ""
 
-if ::oSocket:SendString( "USER " +cUser +CHR(13)+CHR(10) )
+if ::oSocket:SendString("USER " + cUser + CHR(13) + CHR(10))
    cErr := ::oSocket:ReceiveLine()
    // OK
    if LEFT(cErr, 1)=="2"
@@ -133,7 +133,7 @@ if ::oSocket:SendString( "USER " +cUser +CHR(13)+CHR(10) )
       lRet := .F.
    // Password
    elseif LEFT(cErr, 1)=="3"
-      if ::oSocket:SendString( "PASS " +cPwd +CHR(13)+CHR(10) )
+      if ::oSocket:SendString("PASS " + cPwd + CHR(13) + CHR(10))
          cErr := ::oSocket:ReceiveLine()
          if LEFT(cErr, 1)=="2"
             lRet := .T.
@@ -161,7 +161,7 @@ METHOD List() CLASS TFtp
 //local cErr := ""
 
 //## to improve
-if ::oSocket:SendString( "PASV " +CHR(13)+CHR(10) )
+if ::oSocket:SendString("PASV " + CHR(13) + CHR(10))
    /*cErr :=*/ ::oSocket:ReceiveLine()
 /*
 
@@ -171,7 +171,7 @@ where a1.a2.a3.a4 is the IP address and p1*256+p2 is the port number.
 
 */
 /*
-   if ::oSocket:SendString( "LIST " +CHR(13)+CHR(10) )
+   if ::oSocket:SendString("LIST " + CHR(13) + CHR(10))
       do while len(cErr := ::oSocket:ReceiveLine())>0
          ? cErr
       enddo

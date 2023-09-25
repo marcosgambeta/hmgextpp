@@ -295,11 +295,11 @@ FUNCTION _DefinePropGrid(ControlName, ParentFormName, row, col, width, height, ;
    ENDIF
 
    IF hb_IsArray(backcolor)
-      TreeView_SetBkColor( aControlHandle[1], backcolor )
+      TreeView_SetBkColor(aControlHandle[1], backcolor)
    ENDIF
 
    IF hb_IsArray(fontcolor)
-      TreeView_SetTextColor( aControlHandle[1], fontcolor )
+      TreeView_SetTextColor(aControlHandle[1], fontcolor)
    ENDIF
 
    indent := TreeView_GetIndent(aControlHandle[1])
@@ -374,7 +374,7 @@ FUNCTION PgLoadFile(ParentForm, ControlName, cFile, lXml)
    LOCAL k
    
    k := GetControlIndex(ControlName, ParentForm)
-   IF Lower( SubStr(cFile, RAt(".", cFile) + 1) ) == "xml"
+   IF Lower(SubStr(cFile, RAt(".", cFile) + 1)) == "xml"
       lXml := .T.
    ENDIF
    IF  !Empty(cFile) .AND. File(cFile)
@@ -395,14 +395,14 @@ FUNCTION _InitPgArray(aRowItem, cFile, lXml, k)
 
    IF  !Empty(cFile) .AND. File(cFile)
       IF lXml
-         PgInitItemXml( cFile, k )
+         PgInitItemXml(cFile, k)
          aRowItem := {}
       ELSE
          aRowItem := _LoadProperty(cFile, k)
       ENDIF
    ENDIF
    IF Len(aRowItem) > 0
-      PgInitItem( aRowItem, k )
+      PgInitItem(aRowItem, k)
    ENDIF
 
 RETURN NIL
@@ -463,18 +463,18 @@ FUNCTION _ChangeBtnState(aHandle, lChg, k)
 *------------------------------------------------------------------------------*
    IF aHandle[PGB_APPLY] > 0
       IF lChg
-         EnableWindow( aHandle[PGB_APPLY] )
+         EnableWindow(aHandle[PGB_APPLY])
          _HMG_aControlMiscData1[k, 7] := .T.
       ELSE
-         DisableWindow( aHandle[PGB_APPLY] )
+         DisableWindow(aHandle[PGB_APPLY])
          _HMG_aControlMiscData1[k, 7] := .F.
       ENDIF
    ENDIF
    IF aHandle[PGB_CANCEL] > 0
       IF lChg
-         EnableWindow( aHandle[PGB_CANCEL] )
+         EnableWindow(aHandle[PGB_CANCEL])
       ELSE
-         DisableWindow( aHandle[PGB_CANCEL] )
+         DisableWindow(aHandle[PGB_CANCEL])
       ENDIF
    ENDIF
 
@@ -720,7 +720,7 @@ RETURN
 PROCEDURE _EndPropGrid()
 *------------------------------------------------------------------------------*
    IF Len(_HMG_ActivePropGridArray) > 0
-      PgInitItem( _HMG_ActivePropGridArray, _HMG_ActivePropGridIndex )
+      PgInitItem(_HMG_ActivePropGridArray, _HMG_ActivePropGridIndex)
    ENDIF
    _HMG_aControlPageMap[_HMG_ActivePropGridIndex] := _HMG_ActivePropGridArray
    _HMG_ActivePropGridHandle := HMG_NULLHANDLE
@@ -796,10 +796,10 @@ FUNCTION _AddPropertyItem(ControlName, ParentForm, cCategory, cType, cName, cVal
                AAdd(aNodeHandle, hItem)
                PgAddItem(hWndPG, aRowItem, 1, aNodeHandle, nIndex, .T.)
             ELSE
-               MsgInfo( _HMG_PGLangError[7], _HMG_PGLangMessage[3] )
+               MsgInfo(_HMG_PGLangError[7], _HMG_PGLangMessage[3])
             ENDIF
          ELSE
-            MsgInfo( _HMG_PGLangError[8] + cCategory + _HMG_PGLangError[9], _HMG_PGLangMessage[3] )
+            MsgInfo(_HMG_PGLangError[8] + cCategory + _HMG_PGLangError[9], _HMG_PGLangMessage[3])
          ENDIF
       ENDIF
    ELSE
@@ -851,7 +851,7 @@ FUNCTION _AddPropertyCategory(ControlName, ParentForm, cCategory, cName, id, Inf
             AAdd(aNodeHandle, hItem)
             PgAddItem(hWndPG, aRowItem, nLev, aNodeHandle, nIndex, .T.)
          ELSE
-            MsgInfo( _HMG_PGLangError[7], _HMG_PGLangMessage[3] )
+            MsgInfo(_HMG_PGLangError[7], _HMG_PGLangMessage[3])
          ENDIF
       ELSE
          PgAddItem(hWndPG, aRowItem, nLev, aNodeHandle, nIndex, .F.)
@@ -863,7 +863,7 @@ FUNCTION _AddPropertyCategory(ControlName, ParentForm, cCategory, cName, id, Inf
 RETURN NIL
 
 *------------------------------------------------------------------------------*
-FUNCTION PgInitItem( aRowItem, k )
+FUNCTION PgInitItem(aRowItem, k)
 *------------------------------------------------------------------------------*
    
    LOCAL nLev := 0
@@ -886,7 +886,7 @@ FUNCTION PgInitItem( aRowItem, k )
 RETURN NIL
 
 *------------------------------------------------------------------------------*
-FUNCTION PgInitItemXml( cFile, k )
+FUNCTION PgInitItemXml(cFile, k)
 *------------------------------------------------------------------------------*
    
    LOCAL nLev
@@ -909,22 +909,22 @@ FUNCTION PgInitItemXml( cFile, k )
          oXmlNode := oXmlDoc:aItems[1]:aItems[n]
          IF oXmlNode:Title == "category"  .OR. oXmlNode:Title == "font"
             aRowItem := PgSetItemArray(oXmlNode)
-            PgAddItem( ControlHandle, aRowItem, nLev, aNodeHandle, k )
+            PgAddItem(ControlHandle, aRowItem, nLev, aNodeHandle, k)
             IF !Empty(oXmlNode:aItems)
                FOR i := 1 TO Len(oXmlNode:aItems)
                   oXmlSubNode := oXmlNode:aItems[i]
-                  PgGetNextLevel( oXmlSubNode, ControlHandle, nLev, aNodeHandle, k )
+                  PgGetNextLevel(oXmlSubNode, ControlHandle, nLev, aNodeHandle, k)
                NEXT
             ENDIF
          ELSE
             aRowItem := PgSetItemArray(oXmlNode)
-            PgAddItem( ControlHandle, aRowItem, nLev, aNodeHandle, k )
+            PgAddItem(ControlHandle, aRowItem, nLev, aNodeHandle, k)
          ENDIF
       NEXT n
       _HMG_aControlCaption[k] := cFile
    ENDIF
    IF _HMG_aControlInputMask[k]
-      ExpandPG( ControlHandle, 1 )
+      ExpandPG(ControlHandle, 1)
    ENDIF
    TreeView_SelectItem(ControlHandle, PG_GetRoot(ControlHandle))
    SetFocus(ControlHandle)
@@ -932,7 +932,7 @@ FUNCTION PgInitItemXml( cFile, k )
 RETURN NIL
 
 *------------------------------------------------------------------------------*
-FUNCTION PgGetNextLevel( oXmlSubNode, ControlHandle, nLev, aNodeHandle, k )
+FUNCTION PgGetNextLevel(oXmlSubNode, ControlHandle, nLev, aNodeHandle, k)
 *------------------------------------------------------------------------------*
    
    LOCAL i
@@ -942,16 +942,16 @@ FUNCTION PgGetNextLevel( oXmlSubNode, ControlHandle, nLev, aNodeHandle, k )
    nLev++
    IF oXmlSubNode:Title == "category"  .OR. oXmlSubNode:Title == "font"
       aRowItem := PgSetItemArray(oXmlSubNode)
-      PgAddItem( ControlHandle, aRowItem, nLev, aNodeHandle, k )
+      PgAddItem(ControlHandle, aRowItem, nLev, aNodeHandle, k)
       IF !Empty(oXmlSubNode:aItems)
          FOR i := 1 TO Len(oXmlSubNode:aItems)
             oXmlSubNode1 := oXmlSubNode:aItems[i]
-            PgGetNextLevel( oXmlSubNode1, ControlHandle, nLev, aNodeHandle, k )
+            PgGetNextLevel(oXmlSubNode1, ControlHandle, nLev, aNodeHandle, k)
          NEXT
       ENDIF
    ELSE
       aRowItem := PgSetItemArray(oXmlsubNode)
-      PgAddItem( ControlHandle, aRowItem, nLev, aNodeHandle, k )
+      PgAddItem(ControlHandle, aRowItem, nLev, aNodeHandle, k)
    ENDIF
 
 RETURN nlev
@@ -976,7 +976,7 @@ FUNCTION PgSetItemArray(oXmlNode)
 RETURN aItem
 
 *------------------------------------------------------------------------------*
-FUNCTION PgGetAttr( oXmlNode, cAttr )
+FUNCTION PgGetAttr(oXmlNode, cAttr)
 *------------------------------------------------------------------------------*
 
    LOCAL xAttr := oXmlNode:GetAttribute(cAttr)
@@ -1008,7 +1008,7 @@ FUNCTION ExpandPG(hWndPG, typ)
 RETURN NIL
 
 *------------------------------------------------------------------------------*
-FUNCTION ExpandCategPG( ParentForm, ControlName, cCategory, typ )
+FUNCTION ExpandCategPG(ParentForm, ControlName, cCategory, typ)
 *------------------------------------------------------------------------------*
    
    LOCAL k
@@ -1038,7 +1038,7 @@ FUNCTION ExpandCategPG( ParentForm, ControlName, cCategory, typ )
 RETURN NIL
 
 *------------------------------------------------------------------------------*
-FUNCTION PgAddItem( ControlHandle, aRowIt, nLev, aNodeHandle, nIndex, lSelect )
+FUNCTION PgAddItem(ControlHandle, aRowIt, nLev, aNodeHandle, nIndex, lSelect)
 *------------------------------------------------------------------------------*
    
    LOCAL n
@@ -1056,14 +1056,14 @@ FUNCTION PgAddItem( ControlHandle, aRowIt, nLev, aNodeHandle, nIndex, lSelect )
    
    DEFAULT lSelect := .F.
    
-   PropType := Lower( aRowIt[APG_TYPE] )
+   PropType := Lower(aRowIt[APG_TYPE])
    ItemType   := PgIdentType(aRowIt[APG_TYPE])
    ItemId := IIF(Len(aRowIt) < APG_ID, 0, aRowIt[APG_ID])
    cInfo := IIF(Len(aRowIt) < APG_INFO, "", aRowIt[APG_INFO])
    cValName := IIF(Len(aRowIt) < APG_VALNAME, "", aRowIt[APG_VALNAME])
    DO CASE
    CASE PropType == "category"
-      IF Lower( aRowIt[2] ) == "end"
+      IF Lower(aRowIt[2]) == "end"
          nLev--
          RETURN nLev
       ELSE
@@ -1075,7 +1075,7 @@ FUNCTION PgAddItem( ControlHandle, aRowIt, nLev, aNodeHandle, nIndex, lSelect )
          ELSE
             AAdd(aNodeHandle, nNodeH)
          ENDIF
-         TreeView_SetBoldItem( ControlHandle, nNodeH, .T. )
+         TreeView_SetBoldItem(ControlHandle, nNodeH, .T.)
       ENDIF
    CASE PropType == "font"
       IF nLev > 0
@@ -1127,15 +1127,15 @@ FUNCTION PgAddItem( ControlHandle, aRowIt, nLev, aNodeHandle, nIndex, lSelect )
       ImgIdSel := 0
       nCheck := 0
       IF PropType == "color"
-         ImgId  := PgAddColorIL( aRowIt[3], nIndex ) + 1
+         ImgId  := PgAddColorIL(aRowIt[3], nIndex) + 1
          ImgIdSel := ImgId
       ENDIF
       IF PropType == "syscolor"
-         ImgId  := PgAddColorIL( aRowIt[3], nIndex ) + 1
+         ImgId  := PgAddColorIL(aRowIt[3], nIndex) + 1
          ImgIdSel := ImgId
       ENDIF
       IF PropType == "sysinfo"
-         aRowIt[3] := PgGetSysInfo( aRowIt )
+         aRowIt[3] := PgGetSysInfo(aRowIt)
       ENDIF
       IF PropType == "image"
          ImgId := PgLoadImag(aRowIt[3], nIndex) + 1
@@ -1154,7 +1154,7 @@ FUNCTION PgAddItem( ControlHandle, aRowIt, nLev, aNodeHandle, nIndex, lSelect )
       IF nLev > 0
          nNodeH := AddPGItem(ControlHandle, aNodeHandle[nLev], "", ImgId, ImgIdSel, nCheck, aRowIt[2], aRowIt[3], aRowIt[4], aRowIt[5], aRowIt[6], aRowIt[7], ItemType, ItemID, cInfo, cValName)
          IF nLev == 1
-            TreeView_SetBoldItem( ControlHandle, nNodeH )
+            TreeView_SetBoldItem(ControlHandle, nNodeH)
          ENDIF
       ENDIF
    ENDCASE
@@ -1165,7 +1165,7 @@ FUNCTION PgAddItem( ControlHandle, aRowIt, nLev, aNodeHandle, nIndex, lSelect )
 RETURN nLev
 
 *------------------------------------------------------------------------------*
-FUNCTION PgGetSysInfo( aRowIt )
+FUNCTION PgGetSysInfo(aRowIt)
 *------------------------------------------------------------------------------*
 
    LOCAL aDan
@@ -1178,8 +1178,8 @@ FUNCTION PgGetSysInfo( aRowIt )
          cDan := aRowIt[APG_VALUE]
       ENDIF
    ELSE
-      typ := Lower( aRowIt[APG_DATA] )
-      DO CASE
+      typ := Lower(aRowIt[APG_DATA])
+      DO CASE // TODO: switch
       CASE typ == "system"
          aDan := WindowsVersion()
          cDan := aDan[1] + "(" +  aDan[2] + "," + aDan[3] + ")"
@@ -1195,7 +1195,7 @@ FUNCTION PgGetSysInfo( aRowIt )
 RETURN cDan
 
 *------------------------------------------------------------------------------*
-FUNCTION PgAddColorIL( cColor, k )
+FUNCTION PgAddColorIL(cColor, k)
 *------------------------------------------------------------------------------*
    
    LOCAL hImageLst
@@ -1207,8 +1207,8 @@ FUNCTION PgAddColorIL( cColor, k )
    hImageLst := _HMG_aControlSpacing[k]
    ItHeight := _HMG_aControlRangeMin[k] - 4
    ItWidth := ItHeight * 1.4
-   nColor := PgIdentColor( 0, cColor )
-   hImage := CREATECOLORBMP( _HMG_aControlParentHandles[k], nColor, ItWidth, ItHeight )
+   nColor := PgIdentColor(0, cColor)
+   hImage := CREATECOLORBMP(_HMG_aControlParentHandles[k], nColor, ItWidth, ItHeight)
 
 RETURN  IL_AddMaskedIndirect(hImageLst, hImage, , ItWidth, ItHeight, 1)
 
@@ -1397,7 +1397,7 @@ FUNCTION PgIdentType(cType)
 RETURN ItemType
 
 *------------------------------------------------------------------------------*
-FUNCTION PgIdentColor( met, cColor )
+FUNCTION PgIdentColor(met, cColor)
 *------------------------------------------------------------------------------*
 
    LOCAL nColor := CLR_NONE
@@ -1482,7 +1482,7 @@ FUNCTION PgSaveFile(ParentForm, ControlName, cFile)
    LOCAL lSave := .T.
    LOCAL cExt
 
-   cExt := Lower( SubStr(cFile, RAt(".", cFile) + 1) )
+   cExt := Lower(SubStr(cFile, RAt(".", cFile) + 1))
    IF File(cFile)
       IF !MsgYesNo(_HMG_PGLangMessage[1] + CRLF + _HMG_PGLangButton[5] + ": " + cFile + " ?", _HMG_PGLangMessage[4])
          lSave := .F.
@@ -1494,7 +1494,7 @@ FUNCTION PgSaveFile(ParentForm, ControlName, cFile)
    IF lSave
       DO CASE
       CASE cExt == "xml"
-         oXmlDoc := CreatePropXml( ParentForm, ControlName )
+         oXmlDoc := CreatePropXml(ParentForm, ControlName)
          oXmlDoc:Save(cFile)
       CASE cExt == "txt"
          lSave := CreatePropFile(ParentForm, ControlName, cFile)
@@ -1508,7 +1508,7 @@ FUNCTION PgSaveFile(ParentForm, ControlName, cFile)
 RETURN lSave
 
 *------------------------------------------------------------------------------*
-FUNCTION CreatePropXml( ParentForm, ControlName )
+FUNCTION CreatePropXml(ParentForm, ControlName)
 *------------------------------------------------------------------------------*
    
    LOCAL aLev := {}
@@ -1524,7 +1524,7 @@ FUNCTION CreatePropXml( ParentForm, ControlName )
    hItem := PG_GetRoot(hWndPG)
    hParentItem := TreeView_GetParent(hWndPG, hItem)      // Parent Item
 
-   oXmlNodeAkt := HXMLNode():New( "ROOT" )
+   oXmlNodeAkt := HXMLNode():New("ROOT")
    oXmlNodeAkt:SetAttribute("Title", "PropertyGrid")
    oXmlDoc:add(oXmlNodeAkt)
    AAdd(aNode, oXmlNodeAkt)
@@ -1536,7 +1536,7 @@ FUNCTION CreatePropXml( ParentForm, ControlName )
          Pg_ChangeItem(hWndPG, hItem, .F.)
          PG_REDRAWITEM(hWndPG, hItem)
       ELSEIF aItemRt[PGI_TYPE] == PG_PASSWORD
-         aItemRt[PGI_VALUE] := ValueTran( aItemRt[PGI_VALUE], aItemRt[PGI_TYPE], aItemRt[PGI_DATA] )
+         aItemRt[PGI_VALUE] := ValueTran(aItemRt[PGI_VALUE], aItemRt[PGI_TYPE], aItemRt[PGI_DATA])
       ENDIF
       DO WHILE ATail(aLev) != hParentItem
          aLev := ASize(aLev, Len(aLev) - 1)
@@ -1545,12 +1545,12 @@ FUNCTION CreatePropXml( ParentForm, ControlName )
       oXmlNodeAkt := ATail(aNode)
 
       IF PgIdentType(aItemRt[PGI_TYPE]) == "category"
-         oXmlSubNode := HXMLNode():New( PgIdentType(aItemRt[PGI_TYPE]), , AttrCreate(aItemRt) )
+         oXmlSubNode := HXMLNode():New(PgIdentType(aItemRt[PGI_TYPE]), , AttrCreate(aItemRt))
          oXmlNodeAkt:add(oXmlSubNode)
          AAdd(aNode, oXmlSubNode)
          AAdd(aLev, hItem)
       ELSE
-         oXmlSubNode := HXMLNode():New( PgIdentType(aItemRt[PGI_TYPE]), HBXML_TYPE_SINGLE, AttrCreate(aItemRt) )
+         oXmlSubNode := HXMLNode():New(PgIdentType(aItemRt[PGI_TYPE]), HBXML_TYPE_SINGLE, AttrCreate(aItemRt))
          oXmlNodeAkt:add(oXmlSubNode)
       ENDIF
       hItem := GetNextItemPG(hWndPG, hItem)
@@ -1596,7 +1596,7 @@ FUNCTION  AttrCreate(aItProperty)
 RETURN aAttr
 
 *------------------------------------------------------------------------------*
-FUNCTION AttrTran( xData, type )
+FUNCTION AttrTran(xData, type)
 *------------------------------------------------------------------------------*
 
    LOCAL n
@@ -1703,7 +1703,7 @@ FUNCTION CreateIniFile(ParentForm, ControlName, cFile)
             Pg_ChangeItem(hWndPG, hItem, .F.)
             PG_REDRAWITEM(hWndPG, hItem)
          ELSEIF aItemRt[PGI_TYPE] == PG_PASSWORD
-            aItemRt[PGI_VALUE] := ValueTran( aItemRt[PGI_VALUE], aItemRt[PGI_TYPE], aItemRt[PGI_DATA] )
+            aItemRt[PGI_VALUE] := ValueTran(aItemRt[PGI_VALUE], aItemRt[PGI_TYPE], aItemRt[PGI_DATA])
          ENDIF
          IF PgIdentType(aItemRt[PGI_TYPE]) == "category"
             cSection := aItemRt[PGI_NAME]
@@ -1757,7 +1757,7 @@ FUNCTION SaveMemVarible(ParentForm, ControlName)
 RETURN lRet
 
 *------------------------------------------------------------------------------*
-FUNCTION GetChangedItem( ParentForm, ControlName )
+FUNCTION GetChangedItem(ParentForm, ControlName)
 *------------------------------------------------------------------------------*
    
    LOCAL cSection := ""
@@ -2141,13 +2141,13 @@ FUNCTION GetPropGridValue(ParentForm, ControlName, nID, lAllData, nSubItem)
       IF lAllData
          RetVal   := PG_GETITEM(hWndPG, hItem, PGI_ALLDATA)
          IF RetVal[PGI_TYPE] == PG_PASSWORD
-            RetVal[PGI_VALUE] := ValueTran( RetVal[PGI_VALUE], RetVal[PGI_TYPE], RetVal[PGI_DATA], nSubItem )
+            RetVal[PGI_VALUE] := ValueTran(RetVal[PGI_VALUE], RetVal[PGI_TYPE], RetVal[PGI_DATA], nSubItem)
          ENDIF
       ELSE
          ItemType := PG_GETITEM(hWndPG, hItem, PGI_TYPE)
          RetVal   := PG_GETITEM(hWndPG, hItem, PGI_VALUE)
          aData    := PG_GETITEM(hWndPG, hItem, PGI_DATA)
-         RetVal   := ValueTran( RetVal, ItemType, aData, nSubItem )
+         RetVal   := ValueTran(RetVal, ItemType, aData, nSubItem)
       ENDIF
    ENDIF
 
@@ -2162,7 +2162,7 @@ FUNCTION GetPGControlHandle(ControlName, ParentForm)
 RETURN  aHwnd[1]
 
 *------------------------------------------------------------------------------*
-FUNCTION ValueTran( cValue, ItType, cData, nSubIt )
+FUNCTION ValueTran(cValue, ItType, cData, nSubIt)
 *------------------------------------------------------------------------------*
 
    LOCAL xData
@@ -2189,11 +2189,11 @@ FUNCTION ValueTran( cValue, ItType, cData, nSubIt )
          xData := Int(Val(cValue))
          EXIT
       CASE PG_DOUBLE
-         xData := Val(CharRem( " ", cValue ))
+         xData := Val(CharRem(" ", cValue))
          EXIT
       CASE PG_SYSCOLOR
       CASE PG_COLOR
-         xData := PgIdentColor( 0, cValue )
+         xData := PgIdentColor(0, cValue)
          xData := { GetRed(xData), GetGreen(xData), GetBlue(xData) }
          EXIT
       CASE PG_LOGIC
@@ -2209,7 +2209,7 @@ FUNCTION ValueTran( cValue, ItType, cData, nSubIt )
          ELSE
             AEval(xData, {|x|x := IIF(x == "true", .T., .F.)}, 3)
             ASize(xData, 8)
-            xData := AIns( xData, 5 )
+            xData := AIns(xData, 5)
             xData[5] := { 0, 0, 0 }
             xData[8] := 0
          ENDIF
@@ -2236,7 +2236,7 @@ FUNCTION ValueTran( cValue, ItType, cData, nSubIt )
          ENDIF
          EXIT
       CASE PG_PASSWORD
-         xdata := CHARXOR( cValue, cData )
+         xdata := CHARXOR(cValue, cData)
       ENDSWITCH
    ENDIF
 
@@ -2253,8 +2253,8 @@ FUNCTION _LoadProperty(cFile, k)
    LOCAL aProperty := {}
 
    nItemId := 100
-   cExt := Lower( SubStr(cFile, RAt(".", cFile) + 1) )
-   oFile := TFileRead():New( cFile )
+   cExt := Lower(SubStr(cFile, RAt(".", cFile) + 1))
+   oFile := TFileRead():New(cFile)
    oFile:Open()
    IF !oFile:Error()
       DO WHILE oFile:MoreToRead()
@@ -2320,9 +2320,9 @@ FUNCTION FormatPropertyLine(cString)
          ENDIF
       ELSE
          DO CASE
-         CASE n == 5 .AND. Lower( aLine[5] ) == "disabled"
+         CASE n == 5 .AND. Lower(aLine[5]) == "disabled"
             aLine[5] := .T.
-         CASE n == 7 .AND. Lower( aLine[7] ) == "disableedit"
+         CASE n == 7 .AND. Lower(aLine[7]) == "disableedit"
             aLine[7] := .T.
          CASE n == 8 .AND. hb_IsChar(aLine[8])
             aLine[8] := Val(aLine[8])
@@ -2373,7 +2373,7 @@ FUNCTION FormatIniLine(cString)
 RETURN aLine
 
 *------------------------------------------------------------------------------*
-FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
+FUNCTION OPGEDITEVENTS(hWnd, nMsg, wParam, lParam, hWndPG, hItem)
 *------------------------------------------------------------------------------*
 
    LOCAL icp
@@ -2458,10 +2458,10 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
             aData := PgIdentData(cData, PG_COLOR)
             aDataNew := GetColor(aData)
             IF aDataNew[1] != NIL
-               cData := AttrTran( aDataNew, "A" )
+               cData := AttrTran(aDataNew, "A")
                cValue  := aCol2Str(aDataNew)
                SetWindowText(hWnd, cValue)
-               nColor := PgIdentColor( 0, cValue )
+               nColor := PgIdentColor(0, cValue)
                hImage := CREATECOLORBMP(hWndPG, nColor, ItHeight * 1.4, ItHeight)
                ResetPropGridImageList(hWndPG, hItem, hImage)
                lChg := .T.
@@ -2486,9 +2486,9 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
                iif(len(aData) >= 5, aData[5, 3] == "true", .F.), ;
                iif(len(aData) >= 6, aData[6, 3] == "true", .F.))
             IF !Empty(aDataNew[1])
-               ADel( aDataNew, 5 )
+               ADel(aDataNew, 5)
                ASize(aDataNew, 6)
-               cData := AttrTran( aDataNew, "A" )
+               cData := AttrTran(aDataNew, "A")
                aData := PgIdentData(cData, PG_FONT)
                cValue  := aFont2Str(aData)
                SetWindowText(hWnd, cValue)
@@ -2528,7 +2528,7 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
             EXIT
          CASE PG_ARRAY
             cValue :=  GetWindowText(hWnd)
-            cDataNew := ArrayDlg( cValue, cParentName )
+            cDataNew := ArrayDlg(cValue, cParentName)
             IF !Empty(cDataNew)
                SetWindowText(hWnd, cDataNew)
                lChg := .T.
@@ -2539,9 +2539,9 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
          ENDIF
          EXIT
       CASE CBN_SELCHANGE
-         IF PG_GETITEM(hWndPG, hItem, PGI_VALUE) != ComboGetString( hWnd, ComboGetCursel(hWnd) )
+         IF PG_GETITEM(hWndPG, hItem, PGI_VALUE) != ComboGetString(hWnd, ComboGetCursel(hWnd))
             _ChangeBtnState(_HMG_aControlHandles[i], .T., i)
-            cValue := ComboGetString( hWnd, ComboGetCursel(hWnd) )
+            cValue := ComboGetString(hWnd, ComboGetCursel(hWnd))
             cData  := PG_GETITEM(hWndPG, hItem, PGI_DATA)
             aData := PgIdentData(cData)
             IF AScan(aData, cValue) == 0
@@ -2570,9 +2570,9 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
       CASE PG_ENUM
          cValue := GetWindowText(hWnd)
          IF ItemType == PG_DOUBLE
-            cValue := CharRem( " ", cValue )
+            cValue := CharRem(" ", cValue)
             IF (Pos := RAt(".", cValue)) > 0
-               cValue := CharRem( ".", Left(cValue, Pos) ) + SubStr(cValue, Pos)
+               cValue := CharRem(".", Left(cValue, Pos)) + SubStr(cValue, Pos)
             ENDIF
          ENDIF
          ParentItemType := PG_GETITEM(hWndPG, hParentItem, PGI_TYPE)
@@ -2674,7 +2674,7 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
       CASE PG_FONT
          cValue := GetWindowText(hWnd)
          aData := PgIdentData(cValue, PG_FONT, , ",")
-         cData := AttrTran( aData, "A" )
+         cData := AttrTran(aData, "A")
          PG_SETDATAITEM(hWndPG, hItem, cValue, cData, .T.)
          IF PG_GETITEM(hWndPG, hItem, PGI_CHG)
             aData := PgIdentData(cData, PG_FONT, , ";")
@@ -2696,7 +2696,7 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
          ENDIF
          EXIT
       //CASE PG_LOGIC // TODO: Duplicate case value
-      //   cValue := ComboGetString( hWnd, ComboGetCursel(hWnd) )
+      //   cValue := ComboGetString(hWnd, ComboGetCursel(hWnd))
       //   PG_SETDATAITEM(hWndPG, hItem, cValue, "", .F.)
       //   EXIT
       CASE PG_IMAGE
@@ -2720,7 +2720,7 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
       CASE PG_PASSWORD
          cValue := GetWindowText(hWnd)
          cData  := PG_GETITEM(hWndPG, hItem, PGI_DATA)
-         cValue := CHARXOR( cValue, cData )
+         cValue := CHARXOR(cValue, cData)
          PG_SETDATAITEM(hWndPG, hItem, cValue, cData, .F.)
          EXIT
       //CASE PG_LIST // TODO: Duplicate case value
@@ -2729,12 +2729,12 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
       //   aData := PgIdentData(cData)
       //   IF AScan(aData, cValue) == 0
       //      cData := cData + ";" + cValue
-      //      PG_SETDATAITEM( hWnd, hItem, cValue, cData, .T. )
+      //      PG_SETDATAITEM(hWnd, hItem, cValue, cData, .T.)
       //   ENDIF
       //   EXIT
       CASE PG_SYSCOLOR
-         cValue := ComboGetString( hWnd, ComboGetCursel(hWnd) )
-         nColor := PgIdentColor( 0, cValue )
+         cValue := ComboGetString(hWnd, ComboGetCursel(hWnd))
+         nColor := PgIdentColor(0, cValue)
          hImage := CREATECOLORBMP(hWndPG, nColor, ItHeight * 1.4, ItHeight)
          ResetPropGridImageList(hWndPG, hItem, hImage)
          PG_SETDATAITEM(hWndPG, hItem, cValue, "", .F.)
@@ -2744,7 +2744,7 @@ FUNCTION OPGEDITEVENTS( hWnd, nMsg, wParam, lParam, hWndPG, hItem )
          aData  := PgIdentData(cValue, PG_COLOR, , ",")
          cValue := aCol2Str(aData)
          cData  := aVal2Str(aData)
-         nColor := PgIdentColor( 0, cValue )
+         nColor := PgIdentColor(0, cValue)
          hImage := CREATECOLORBMP(hWndPG, nColor, ItHeight * 1.4, ItHeight)
          ResetPropGridImageList(hWndPG, hItem, hImage)
          PG_SETDATAITEM(hWndPG, hItem, cValue, cData, .T.)
@@ -2772,7 +2772,7 @@ FUNCTION _PGInitData(hWnd, hEdit, hWndItem, ItemType)
    i := AScan(_HMG_aControlHandles, {|x|hb_IsArray(x) .AND. x[1] == hWnd})
    IF i > 0
       ItHeight := _HMG_aControlRangeMin[i] - 4
-      IF PG_GETITEM( hWnd, hWndItem, PGI_CHG )
+      IF PG_GETITEM(hWnd, hWndItem, PGI_CHG)
          _ChangeBtnState(_HMG_aControlHandles[i], .T., i)
       ENDIF
       _HMG_aControlMiscData2[i] := hEdit
@@ -2786,7 +2786,7 @@ FUNCTION _PGInitData(hWnd, hEdit, hWndItem, ItemType)
          SetWindowText(hEdit, PG_GETITEM(hWnd, hWndItem, PGI_VALUE))
          EXIT
       CASE PG_STRING
-         aData := PG_GETITEM( hWnd, hWndItem, PGI_DATA )
+         aData := PG_GETITEM(hWnd, hWndItem, PGI_DATA)
          IF !Empty(aData)
             SetWindowText(hEdit, Transform(PG_GETITEM(hWnd, hWndItem, PGI_VALUE), aData))
          ELSE
@@ -2794,7 +2794,7 @@ FUNCTION _PGInitData(hWnd, hEdit, hWndItem, ItemType)
          ENDIF
          EXIT
       CASE PG_DOUBLE
-         aData := PG_GETITEM( hWnd, hWndItem, PGI_DATA )
+         aData := PG_GETITEM(hWnd, hWndItem, PGI_DATA)
          IF !Empty(aData)
             SetWindowText(hEdit, FormatDouble(PG_GETITEM(hWnd, hWndItem, PGI_VALUE), aData))
          ELSE
@@ -2802,7 +2802,7 @@ FUNCTION _PGInitData(hWnd, hEdit, hWndItem, ItemType)
          ENDIF
          EXIT
       CASE PG_PASSWORD
-         aData := PG_GETITEM( hWnd, hWndItem, PGI_DATA )
+         aData := PG_GETITEM(hWnd, hWndItem, PGI_DATA)
          SetWindowText(hEdit, CHARXOR(PG_GETITEM(hWnd, hWndItem, PGI_VALUE), aData))
          EXIT
       CASE PG_LOGIC
@@ -2816,18 +2816,18 @@ FUNCTION _PGInitData(hWnd, hEdit, hWndItem, ItemType)
          hParentItem := TreeView_GetParent(hWnd, hWndItem)      // Parent Item
          SetWindowText(hEdit, PG_GETITEM(hWnd, hWndItem, PGI_VALUE))
          ComboBoxReset(hEdit)
-         IF PG_GETITEM( hWnd, hParentItem, PGI_TYPE ) == PG_FONT
+         IF PG_GETITEM(hWnd, hParentItem, PGI_TYPE) == PG_FONT
             PG_GetFonts(hEdit)
-            n := ComboFindString(hEdit, PG_GETITEM( hWnd,hWndItem,PGI_VALUE ))
+            n := ComboFindString(hEdit, PG_GETITEM(hWnd, hWndItem, PGI_VALUE))
             ComboSetCurSel(hEdit, n)
          ELSE
-            aData := PgIdentData(PG_GETITEM( hWnd,hWndItem,PGI_DATA ))
+            aData := PgIdentData(PG_GETITEM(hWnd, hWndItem, PGI_DATA))
             FOR n := 1 TO Len(aData)
                PGCOMBOADDSTRING(hEdit, aData[n], 0)
             NEXT
             ComboSetCurSel(hEdit, AScan(aData, PG_GETITEM(hWnd, hWndItem, PGI_VALUE)))
          ENDIF
-         TreeView_SelectItem( hWnd, hWndItem )
+         TreeView_SelectItem(hWnd, hWndItem)
          EXIT
       CASE PG_FONT
       CASE PG_FLAG
@@ -2841,13 +2841,13 @@ FUNCTION _PGInitData(hWnd, hEdit, hWndItem, ItemType)
          SetWindowText(hEdit, PG_GETITEM(hWnd, hWndItem, PGI_VALUE))
          EXIT
       CASE PG_SYSCOLOR
-         aSysColor := PgIdentColor( 1 )
+         aSysColor := PgIdentColor(1)
          ComboBoxReset(hEdit)
          IF hIListSys == HMG_NULLHANDLE
             hIListSys := InitImageList(ItHeight * 1.4, ItHeight, .F., 0)
             FOR n := 1 TO Len(aSysColor)
                nColor := GetSysColor(aSysColor[n, 1])
-               hImage := CREATECOLORBMP( hWnd, nColor, ItHeight * 1.4, ItHeight )
+               hImage := CREATECOLORBMP(hWnd, nColor, ItHeight * 1.4, ItHeight)
                IL_AddMaskedIndirect(hIListSys, hImage, , ItHeight * 1.4, ItHeight, 1)
             NEXT
          ENDIF
@@ -2861,7 +2861,7 @@ FUNCTION _PGInitData(hWnd, hEdit, hWndItem, ItemType)
 RETURN NIL
 
 *------------------------------------------------------------------------------*
-FUNCTION ArrayDlg( cArr, FormName )
+FUNCTION ArrayDlg(cArr, FormName)
 *------------------------------------------------------------------------------*
 
    LOCAL aItem
@@ -2886,16 +2886,15 @@ FUNCTION ArrayDlg( cArr, FormName )
       DEFINE FONT Font_7 FONTNAME "Arial" SIZE 9
 
       DEFINE DIALOG Dlg_1 OF &FormName  AT nRow, nCol WIDTH 270 HEIGHT 300 FONT "Font_7" ;
-         CAPTION "Array Property" MODAL;
-         DIALOGPROC  DialogFun( @lOk, @aItem, aItemOld ) ;
-         ON INIT SetInitItem( aItem, 0 )
+         CAPTION "Array Property" MODAL ;
+         DIALOGPROC  DialogFun(@lOk, @aItem, aItemOld) ON INIT SetInitItem(aItem, 0)
 
          @ 10, 10 TEXTBOX tbox_1 VALUE cData HEIGHT 24 WIDTH 150   ID 101
          @ 10, 170 BUTTON BtnAdd ID 110 CAPTION _HMG_aABMLangButton[14]  WIDTH 90 HEIGHT 24
 
          @ 40, 10 FRAME Frm   ID 100  WIDTH 250  HEIGHT 0
 
-         @ 50 , 10  LISTBOX Lst_1 ID 102 WIDTH 150 HEIGHT 170  ITEMS aItem
+         @ 50, 10  LISTBOX Lst_1 ID 102 WIDTH 150 HEIGHT 170  ITEMS aItem
 
          @ 50, 170 BUTTON BtnRem ID 111 CAPTION _HMG_aABMLangButton[15] WIDTH 90 HEIGHT 24
          @ 80, 170 BUTTON BtnUp  ID 112 CAPTION "&Up"     WIDTH 90 HEIGHT 24
@@ -2916,9 +2915,9 @@ FUNCTION ArrayDlg( cArr, FormName )
 RETURN cNewArr
 
 *------------------------------------------------------------------------------*
-STATIC FUNCTION DialogFun( lOk, aItem, aItemOld )
+STATIC FUNCTION DialogFun(lOk, aItem, aItemOld)
 *------------------------------------------------------------------------------*
-   
+
    LOCAL ret := 0
    LOCAL cValue
    LOCAL pos
@@ -2926,7 +2925,7 @@ STATIC FUNCTION DialogFun( lOk, aItem, aItemOld )
 
    IF DLG_ID != NIL
       hListBox := Getdialogitemhandle(DLG_HWND, 102)
-      DO CASE
+      DO CASE // TODO: switch
       CASE DLG_ID == 101 .AND. DLG_NOT == 1024
          cValue := GetEditText(DLG_HWND, 101)
          IF !Empty(cValue)
@@ -2943,36 +2942,36 @@ STATIC FUNCTION DialogFun( lOk, aItem, aItemOld )
          DisableDialogItem(DLG_HWND, 110)
 
       CASE DLG_ID == 111 .AND. DLG_NOT == 0
-         pos := ListBoxGetCurSel( hListBox )
+         pos := ListBoxGetCurSel(hListBox)
          IF Pos > 0 .AND. pos <= Len(aItem)
-            ADel( aItem, pos )
+            ADel(aItem, pos)
             ASize(aItem, Len(aItem) - 1)
             ListBoxReset(hListBox)
-            SetInitItem( aItem, 1 )
+            SetInitItem(aItem, 1)
             EnableDialogItem(DLG_HWND, 105)
          ENDIF
       CASE DLG_ID == 112 .AND. DLG_NOT == 0
-         pos := ListBoxGetCurSel( hListBox )
+         pos := ListBoxGetCurSel(hListBox)
          IF Pos > 1 .AND. pos <= Len(aItem)
             cValue := aItem[pos]
-            ADel( aItem, pos )
-            AIns( aItem, pos - 1 )
+            ADel(aItem, pos)
+            AIns(aItem, pos - 1)
             aItem[pos-1] := cValue
             ListBoxReset(hListBox)
-            SetInitItem( aItem, 1 )
-            ListBoxSetCurSel( hListBox, pos - 1 )
+            SetInitItem(aItem, 1)
+            ListBoxSetCurSel(hListBox, pos - 1)
             EnableDialogItem(DLG_HWND, 105)
          ENDIF
       CASE DLG_ID == 113 .AND. DLG_NOT == 0
-         pos := ListBoxGetCurSel( hListBox )
+         pos := ListBoxGetCurSel(hListBox)
          IF Pos > 0 .AND. pos <= Len(aItem) - 1
             cValue := aItem[pos]
-            ADel( aItem, pos )
-            AIns( aItem, pos + 1 )
+            ADel(aItem, pos)
+            AIns(aItem, pos + 1)
             aItem[pos+1] := cValue
             ListBoxReset(hListBox)
-            SetInitItem( aItem, 1 )
-            ListBoxSetCurSel( hListBox, pos + 1 )
+            SetInitItem(aItem, 1)
+            ListBoxSetCurSel(hListBox, pos + 1)
             EnableDialogItem(DLG_HWND, 105)
          ENDIF
       CASE DLG_ID == 105 .AND. DLG_NOT == 0
@@ -2982,7 +2981,7 @@ STATIC FUNCTION DialogFun( lOk, aItem, aItemOld )
       CASE DLG_ID == 106 .AND. DLG_NOT == 0
          ListBoxReset(hListBox)
          aItem := AClone(aItemOld)
-         SetInitItem( aItem, 1 )
+         SetInitItem(aItem, 1)
          SetDialogItemText(DLG_HWND, 101, "")
       CASE DLG_ID == 107 .AND. DLG_NOT == 0
          _ReleaseDialog()
@@ -2992,7 +2991,7 @@ STATIC FUNCTION DialogFun( lOk, aItem, aItemOld )
 RETURN ret
 
 *------------------------------------------------------------------------------*
-STATIC FUNCTION SetInitItem( aItem, met )
+STATIC FUNCTION SetInitItem(aItem, met)
 *------------------------------------------------------------------------------*
 
    LOCAL hListBox
@@ -3003,7 +3002,7 @@ STATIC FUNCTION SetInitItem( aItem, met )
    ENDIF
    hListBox := Getdialogitemhandle(DLG_HWND, 102)
    FOR i = 1 TO Len(aItem)
-      ListboxAddString( hListBox, aItem[i] )
+      ListboxAddString(hListBox, aItem[i])
    NEXT i
 
 RETURN NIL
@@ -3094,7 +3093,7 @@ STATIC PROCEDURE CharMaskEdit(hWnd, cValue, Mask)
 
       cValueLeft := Left(cValue, icp)
       cValueRight := Right(cValue, Len(cValue) - icp)
-      IF CharMaskTekstOK( cValueLeft + " " + cValueRight, Mask ) .AND. !CharMaskTekstOK( cValueLeft + cValueRight, Mask )
+      IF CharMaskTekstOK(cValueLeft + " " + cValueRight, Mask) .AND. !CharMaskTekstOK(cValueLeft + cValueRight, Mask)
          cValue := cValueLeft + " " + cValueRight
       ELSE
          cValue := cValueLeft + cValueRight
@@ -3199,7 +3198,7 @@ STATIC PROCEDURE CharMaskEdit(hWnd, cValue, Mask)
 RETURN
 
 *------------------------------------------------------------------------------*
-STATIC FUNCTION CharMaskTekstOK( cString, cMask )
+STATIC FUNCTION CharMaskTekstOK(cString, cMask)
 *------------------------------------------------------------------------------*
    
    LOCAL lPassed := .F.

@@ -101,13 +101,13 @@ PROCEDURE DisplayHelpTopic(xTopic, nMet)
          cParam := Chr(34) + _HMG_ActiveHelpFile + Chr(34)
       ENDSWITCH
 
-      _Execute(_HMG_MainHandle , "open" , "hh.exe" , cParam , , SW_SHOW)
+      _Execute(_HMG_MainHandle, "open", "hh.exe", cParam, , SW_SHOW)
 
    ELSE
 
       __defaultNIL(@xTopic, 0)
 
-      WinHelp( _HMG_MainHandle , _HMG_ActiveHelpFile , nMet , xTopic )
+      WinHelp(_HMG_MainHandle, _HMG_ActiveHelpFile, nMet, xTopic)
 
    ENDIF
 

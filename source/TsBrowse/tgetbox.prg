@@ -10,14 +10,14 @@ CLASS TGetBox FROM TControl
 
    DATA Atx, lAppend, oGet
 
-   METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
-               nClrFore, nClrBack, hFont, cControl, cWnd, cMsg,;
-               lUpdate, bWhen, lCenter, lRight, bChanged,;
-               lNoBorder, nHelpId, lSpinner, bUp, bDown, bMin, bMax, lNoMinus )
+   METHOD New(nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
+              nClrFore, nClrBack, hFont, cControl, cWnd, cMsg,;
+              lUpdate, bWhen, lCenter, lRight, bChanged,;
+              lNoBorder, nHelpId, lSpinner, bUp, bDown, bMin, bMax, lNoMinus)
    METHOD HandleEvent(nMsg, nWParam, nLParam)
-   Method KeyChar( nKey, nFlags )
-   Method KeyDown( nKey, nFlags )
-   Method LostFocus( hCtlFocus )
+   Method KeyChar(nKey, nFlags)
+   Method KeyDown(nKey, nFlags)
+   Method LostFocus(hCtlFocus)
    Method lValid()
    METHOD VarGet()
 
@@ -30,10 +30,10 @@ ENDCLASS
 * METHOD TGetBox:New() Version 7.0
 * ============================================================================
 
-METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
-            nClrFore, nClrBack, hFont, cControl, cWnd, cMsg,;
-            lUpdate, bWhen, lCenter, lRight, bChanged,;
-            lNoBorder, nHelpId, lSpinner, bUp, bDown, bMin, bMax, lNoMinus ) CLASS TGetBox
+METHOD New(nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
+           nClrFore, nClrBack, hFont, cControl, cWnd, cMsg,;
+           lUpdate, bWhen, lCenter, lRight, bChanged,;
+           lNoBorder, nHelpId, lSpinner, bUp, bDown, bMin, bMax, lNoMinus) CLASS TGetBox
 
    LOCAL cText          := Space(50), uValue, ix
    LOCAL Fontname       := _HMG_DefaultFontName
@@ -47,8 +47,8 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
    LOCAL aBackColor
    LOCAL ReadOnly       := .F., lPassword := .F.
 
-   DEFAULT nClrFore  := GetSysColor( COLOR_WINDOWTEXT ), ;
-           nClrBack  := GetSysColor( COLOR_WINDOW ), ;
+   DEFAULT nClrFore  := GetSysColor(COLOR_WINDOWTEXT), ;
+           nClrBack  := GetSysColor(COLOR_WINDOW), ;
            lUpdate   := .F., ;
            lCenter   := .F., ;
            lRight    := .F., ;
@@ -86,7 +86,7 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
    ::lFocused      := .F.
    ::nHelpId       := nHelpId
 
-   ::SetColor( nClrFore, nClrBack )
+   ::SetColor(nClrFore, nClrBack)
 
    nId             := ::nId
    ParentFormName  := oWnd:cParentWnd
@@ -103,10 +103,10 @@ METHOD New( nRow, nCol, bSetGet, oWnd, nWidth, nHeight, cPict, bValid,;
 
    if !Empty(::oWnd:hWnd)
 
-      ::oGet := _DefineGetBox( cControl, ParentFormName, nCol, nRow, nWidth, nHeight, uValue, ;
+      ::oGet := _DefineGetBox(cControl, ParentFormName, nCol, nRow, nWidth, nHeight, uValue, ;
          FontName, FontSize, ToolTip, lPassword, uLostFocus, uGotFocus, uChange, right, ;
          nHelpId, readonly, bold, italic, underline, strikeout, field, aBackColor, aFontColor, ;
-         invisible, notabstop, nId, bvalid, cPict, cMsg, cvalidmessage, bWhen ,,,,, lNoMinus )
+         invisible, notabstop, nId, bvalid, cPict, cMsg, cvalidmessage, bWhen ,,,,, lNoMinus)
 
       ix     := GetControlIndex(cControl, ParentFormName)
       ::Atx  := ix
@@ -137,7 +137,7 @@ Return ::Super:HandleEvent(nMsg, nWParam, nLParam)
 * METHOD TGetBox:KeyChar() Version 7.0 Jul/15/2004
 * ============================================================================
 
-METHOD KeyChar( nKey, nFlags ) CLASS TGetBox
+METHOD KeyChar(nKey, nFlags) CLASS TGetBox
 
    If _GetKeyState(VK_CONTROL)
       nKey := IIf(Upper(Chr(nKey)) == "W" .OR. nKey == VK_RETURN, VK_TAB, nKey)
@@ -147,13 +147,13 @@ METHOD KeyChar( nKey, nFlags ) CLASS TGetBox
       Return 0
    Endif
 
-RETURN ::Super:KeyChar( nKey, nFlags )
+RETURN ::Super:KeyChar(nKey, nFlags)
 
 * ============================================================================
 * METHOD TGetBox:KeyDown() Version 7.0 Jul/15/2004
 * ============================================================================
 
-METHOD KeyDown( nKey, nFlags ) CLASS TGetBox
+METHOD KeyDown(nKey, nFlags) CLASS TGetBox
 
    ::nLastKey := nKey
 
@@ -182,7 +182,7 @@ Return lRet
 * METHOD TGetBox:LostFocus() Version 7.0 Jul/15/2004
 * ============================================================================
 
-METHOD LostFocus( hCtlFocus ) CLASS TGetBox
+METHOD LostFocus(hCtlFocus) CLASS TGetBox
 
    ::lFocused := .F.
 

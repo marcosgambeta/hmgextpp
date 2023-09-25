@@ -53,11 +53,11 @@ INIT PROCEDURE ClipInit()
 *-----------------------------------------------------------------------------*
 
    IF os_isWin95()
-      MsgExclamation( "The " + hb_ArgV( 0 ) + " file" + CRLF + ;
+      MsgExclamation("The " + hb_ArgV(0) + " file" + CRLF + ;
          "expects a newer version of Windows." + CRLF + ;
-         "Upgrade your Windows version.", "Error Starting Program", , .F., .T. )
+         "Upgrade your Windows version.", "Error Starting Program", , .F., .T.)
 
-      ExitProcess( 1 )
+      ExitProcess(1)
 
    ENDIF
 
@@ -110,10 +110,10 @@ RETURN oError
 
 #define MG_VERSION "Harbour MiniGUI Extended Edition 22.06.0 ("
 *-----------------------------------------------------------------------------*
-FUNCTION MiniGuiVersion( nVer )
+FUNCTION MiniGuiVersion(nVer)
 *-----------------------------------------------------------------------------*
    
-   LOCAL cVer := MG_VERSION + hb_ntos(hb_Version( HB_VERSION_BITWIDTH )) + "-bit)"
+   LOCAL cVer := MG_VERSION + hb_ntos(hb_Version(HB_VERSION_BITWIDTH)) + "-bit)"
    LOCAL anOfs
 
    cVer += " " + HMG_CharsetName()

@@ -6,13 +6,13 @@
 #include "miniprint.ch"
 #include <hbclass.ch>
 
-#TRANSLATE MSG        => MSGBOX
+#TRANSLATE MSG  => MSGBOX
 #define NTrim(n) LTRIM(STR(n, 20, IIF(n == INT(n), 0, set(_SET_DECIMALS))))
 #TRANSLATE ZAPS(<X>) => NTrim(<X>)
-#TRANSLATE Test(<c>) => MsgInfo( <c>, [<c>] )
-#define MsgInfo( c ) MsgInfo( c, , , .F. )
-#define MsgAlert(c) MsgEXCLAMATION( c, , , .F. )
-#define MsgStop( c ) MsgStop( c, , , .F. )
+#TRANSLATE Test(<c>) => MsgInfo(<c>, [<c>])
+#define MsgInfo(c) MsgInfo(c, , , .F.)
+#define MsgAlert(c) MsgEXCLAMATION(c, , , .F.)
+#define MsgStop(c) MsgStop(c, , , .F.)
 
 memvar endof_file, separator, atf
 memvar An_Vari, aend
@@ -201,7 +201,7 @@ if ritorna
    chblk  :={|x,y|if(ascan(x,y)>0,iif(len(X)>ascan(x,y),x[ascan(x,y)+1],""),"")}
    chkArg :={|x|if(ascan(x,{|aVal,y| aVal[1]== y})> 0 ,x[ascan(x,{|aVal,y| aVal[1]==y})][2],"KKK")}
 
-   //msgbox( zaps(ascan(_aAlign,{|aVal,y| upper(aVal[1])== Y})),"FGFGFG")
+   //msgbox(zaps(ascan(_aAlign, {|aVal, y|upper(aVal[1]) == Y})), "FGFGFG")
    //ie:  eval(chblk,arrypar,[WIDTH]) RETURN A PARAMETER OF WIDTH
 
    FCLOSE(handle)
@@ -247,7 +247,7 @@ Function StampeEsegui(_MainArea,_psd,db_arc,_prw)
    Local oldrec   := recno(), rtv := .F. ,;
          landscape:=.F., lpreview :=.F., lselect  :=.F. ,;
          str1:=[] , StrFlt := [], ;
-         ncpl , nfsize, aprinters, ;
+         ncpl, nfsize, aprinters, ;
          lbody := 0, miocont:= 0, miocnt:= 0 ,;
          Amx_pg := {}
 
@@ -281,7 +281,7 @@ Function StampeEsegui(_MainArea,_psd,db_arc,_prw)
    Private nline     :=  mx_pg        := 0
    Private nPag      :=  0, nPgr      := 0, Tpg       :=  0
    Private last_pag  := .F., eLine    := 0, GFline    := .F.
-   Public  maxrow    := 0 ,  maxcol   := 0,  mncl     := 0, mxH := 0
+   Public  maxrow    := 0,  maxcol   := 0,  mncl     := 0, mxH := 0
    Private abort     := 0
 
    ncpl := eval(oWr:Valore,oWr:Adeclare[1])
@@ -538,8 +538,8 @@ static Funct AscArr(string)
 *-----------------------------------------------------------------------------*
 local aka :={}, cword := ""
 default string to ""
-      string := atrepl( "{",string,"")
-      string := atrepl( "}",string,"")
+      string := atrepl("{", string, "")
+      string := atrepl("}", string, "")
       Tokeninit(string,",")
       do While !Tokenend()
          cWord  :=  Tokennext(String)
@@ -641,7 +641,7 @@ return NIL
 /*
 */
 *-----------------------------------------------------------------------------*
-Procedure MsgMulty( xMesaj, cTitle ) // Created By Bicahi Esgici <esgici@gmail.com>
+Procedure MsgMulty(xMesaj, cTitle) // Created By Bicahi Esgici <esgici@gmail.com>
 *-----------------------------------------------------------------------------*
    loca cMessage := ""
 
@@ -657,7 +657,7 @@ Procedure MsgMulty( xMesaj, cTitle ) // Created By Bicahi Esgici <esgici@gmail.c
 
       AEVAL(xMesaj, {|x1|cMessage +=  Any2Strg(x1) + CRLF})
 
-      MsgInfo( cMessage, cTitle )
+      MsgInfo(cMessage, cTitle)
 
    ENDIF xMesaj != NIL
 
@@ -665,7 +665,7 @@ RETU
 /*
 */
 *-----------------------------------------------------------------------------*
-FUNC Any2Strg( xAny )
+FUNC Any2Strg(xAny)
 *-----------------------------------------------------------------------------*
    loca cRVal  := "???",;
         nType  :=  0,;
@@ -1123,7 +1123,7 @@ METHOD End() CLASS WREPORT
 *-----------------------------------------------------------------------------*
 release ::F_HANDLE,::aDeclare,::AHead,::ABody,::AFeet,::Hb,::Valore,::mx_ln_doc;
 ,       ::PRNDRV,::argm,::aStat
-RELEASE ::ach , ::filename
+RELEASE ::ach, ::filename
 return NIL
 /*
 */
@@ -1169,10 +1169,10 @@ METHOD Splash(etichetta,prc_init,sezione,rit) CLASS WREPORT
       return NIL
    Endif
    if empty(etichetta)
-      DEFINE WINDOW FORM_SPLASH AT 140 , 235 WIDTH 0 HEIGHT 0 MODAL NOSHOW NOSIZE NOSYSMENU NOCAPTION ;
+      DEFINE WINDOW FORM_SPLASH AT 140, 235 WIDTH 0 HEIGHT 0 MODAL NOSHOW NOSIZE NOSYSMENU NOCAPTION ;
       ON INIT if ("doPr" $ prc_init,::doPr(),::doMiniPr())
    else
-      DEFINE WINDOW FORM_SPLASH AT 140 , 235 WIDTH 550 HEIGHT 240 MODAL NOSIZE NOCAPTION ;
+      DEFINE WINDOW FORM_SPLASH AT 140, 235 WIDTH 550 HEIGHT 240 MODAL NOSIZE NOCAPTION ;
       ON INIT if ("doPr" $ prc_init,::doPr(),::doMiniPr())
       DRAW RECTANGLE IN WINDOW Form_splash AT 2, 2 TO 235, 548
    Endif
@@ -1222,7 +1222,7 @@ return NIL
 *-----------------------------------------------------------------------------*
 METHOD FgetLine(handle)  CLASS WREPORT
 *-----------------------------------------------------------------------------*
-local rt_line := "", chunk := "", bigchunk := "", at_chr13 :=0 , oldoffset := 0
+local rt_line := "", chunk := "", bigchunk := "", at_chr13 :=0, oldoffset := 0
 
         oldoffset := FSEEK(handle, 0, 1)
         DO WHILE .T.
@@ -1246,7 +1246,7 @@ local rt_line := "", chunk := "", bigchunk := "", at_chr13 :=0 , oldoffset := 0
           *- add this chunk to the big chunk
           bigchunk := bigchunk+chunk
 
-          *- if we've got a CR , we've read in a line
+          *- if we've got a CR, we've read in a line
           *- otherwise we'll loop again and read in another chunk
           IF AT(CHR(13),bigchunk) > 0
              at_chr13 := AT(CHR(13),bigchunk)
@@ -1276,7 +1276,7 @@ RETURN rt_line
 METHOD Transpace(arg1,arg2,arg3) CLASS WREPORT // The core of parser
 *-----------------------------------------------------------------------------*
      local al1 := .F., al2 := .F., extFnc := .F. , tmpstr := "" , n
-     local nr  := "", opp := 0 , pt := "", cdbl := .F., cdc := 0
+     local nr  := "", opp := 0, pt := "", cdbl := .F., cdc := 0
      local last_func  := rat(")",arg1), last_sapex := rat("'",arg1)
      local last_Dapex := rat(["],arg1), last_codeb := rat([}],arg1)
      Local arges := "" ;
@@ -1814,10 +1814,10 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                         hbprn:setcharset(::what_ele(eval(chblk,arrypar,[CHARSET]),::aCh,"_acharset"))
 
                    case ascan(arryPar,[TEXTCOLOR])=2
-                        hbprn:settextcolor(::UsaColor( eval(chblk,arrypar,[TEXTCOLOR]) ))
+                        hbprn:settextcolor(::UsaColor(eval(chblk, arrypar, [TEXTCOLOR])))
 
                    case ascan(arryPar,[BACKCOLOR])=2
-                        hbprn:setbkcolor(::UsaColor( eval(chblk,arrypar,[BACKCOLOR]) ))
+                        hbprn:setbkcolor(::UsaColor(eval(chblk, arrypar, [BACKCOLOR])))
 
                    case ascan(arryPar,[ONEATLEAST])= 2
                         ONEATLEAST :=eval(blse,arrypar[3])
@@ -1991,7 +1991,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                 ,eval(epar,ArryPar[3]),eval(epar,Arrypar[4]),eval(chblk,arrypar,[TEXT]);
                 ,::what_ele(eval(chblk,arrypar,[STYLE]),::aCh,"_STYLE"), "Fx" )
 
-                hbprn:settextalign( al[1] )
+                hbprn:settextalign(al[1])
                 hbprn:settexcolor(al[2])
 
            case ascan(arryPar,[RECTANGLE])=5
@@ -2101,7 +2101,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                    endif
                 ENDIF
 
-                hbprn:settextalign( al[1] )
+                hbprn:settextalign(al[1])
                 hbprn:settexcolor(al[2])
 
            case ascan(ArryPar,[PRINT])=3 .OR. ascan(ArryPar,[SAY])= 3
@@ -2115,7 +2115,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                          ,NIL )
                          //,iif(ascan(arryPar,[ALIGN])>0,::what_ele(eval(chblk,arrypar,[ALIGN]),::aCh,"_aAlign"),NIL))
 
-                hbprn:settextalign( al[1] )
+                hbprn:settextalign(al[1])
                 hbprn:settexcolor(al[2])
 
            case ascan(ArryPar,[MEMOSAY])=3
@@ -2135,7 +2135,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                    ,iif(ascan(arryPar,[.F.])>0,".F.","");
                    ,arrypar)
 
-                hbprn:settextalign( al[1] )
+                hbprn:settextalign(al[1])
                 hbprn:settexcolor(al[2])
 
           case ascan(ArryPar,[PUTARRAY])=3
@@ -2156,7 +2156,7 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
                    ,NIL                                                           ;      //abitmaps
                    ,NIL )                                                                //userfun
 
-                hbprn:settextalign( al[1] )
+                hbprn:settextalign(al[1])
                 hbprn:settexcolor(al[2])
 
           case ascan(ArryPar,[NEWPAGE])=1 .OR. ascan(ArryPar,[EJECT])=1
@@ -2171,7 +2171,7 @@ return .T.
 *-----------------------------------------------------------------------------*
 METHOD WHAT_ELE(Arg1,Arg2,Arg3) CLASS WREPORT
 *-----------------------------------------------------------------------------*
-     local rtv ,sets:="",kl := 0 , ltemp := "" ,;
+     local rtv ,sets:="",kl := 0, ltemp := "" ,;
      Asr := {{"_APAPER","DMPAPER_A4"} ,{"_ABIN","DMBIN_AUTO"},{"_APEN","PS_SOLID"},;
              {"_ABRUSH","BS_SOLID"},{"_APOLY","ALTERNATE"},{"_ABKMODE","TRANSPARENT"},;
              {"_AALIGN","TA_LEFT"} ,{"_AREGION","RGN_AND"} ,{"_ACOLOR","MONO"}, ;
@@ -2328,7 +2328,7 @@ IsMono := ::Ismono(arr)
       //FOR NOW DO NONE !!!
       /*
         _HMG_PRINTER_H_PRINT(iif(MGSYS,_HMG_SYSDATA[374],_hmg_printer_hdc) ;
-         , nline*lstep , arg2, argf1 , argsize , afontscolor[1], afontscolor[2], afontscolor[3] ;
+         , nline*lstep, arg2, argf1, argsize, afontscolor[1], afontscolor[2], afontscolor[3] ;
          , xwa, abold, aita, aunder, astrike;
          , iif(hb_IsArray(afontscolor), .T.,.F.) ;
          , iif(valtype(argf1)=="C", .T.,.F.) ;
@@ -2363,7 +2363,7 @@ METHOD GROUP(GField, s_head, s_col, gftotal, wheregt, s_total, t_col, p_f_e_g) C
 local ritorno := iif(indexord() > 0, .T., .F.)
 local posiz   := 0, P1 := 0, P2 := 0, P3 := 0, cnt := 1
 local Aposiz  := {}, k, Rl, Rm, Rr, ghf:=""
-local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
+local db_arc:=dbf() , units, tgftotal, nk, EXV := {||NIL},EXT := {||NIL}
 
       If ::PrnDrv = "HBPR"
          Units := hbprn:UNITS
@@ -2496,7 +2496,7 @@ local db_arc:=dbf() , units , tgftotal , nk, EXV := {||NIL},EXT := {||NIL}
               endif
           next
       next
-      //Aeval(gfstring,{|x| msgstop( zaps( len(gfstring) ) +crlf+x,"Gfstring" ) })
+      //Aeval(gfstring, {|x|msgstop(zaps(len(gfstring)) + crlf + x, "Gfstring")})
       if hb_IsNumeric(wheregt)
          wheregt:=zaps(wheregt)
       endif
@@ -2840,7 +2840,7 @@ return NIL
 *-----------------------------------------------------------------------------*
 METHOD Quantirec(_MainArea) CLASS WREPORT     //count record that will be print
 *-----------------------------------------------------------------------------*
-local conta:=0 , StrFlt :=""
+local conta:=0, StrFlt :=""
 Private query_exp
 StrFlt := ::aStat["FldRel"]+" = "+ ::aStat["area1"]+"->"+::aStat["FldRel"]
 if hb_IsArray(::argm[3])    // {_MainArea,_psd,db_arc,_prw}
@@ -2910,7 +2910,7 @@ return NIL
 METHOD TheMiniBody() class Wreport
 *-----------------------------------------------------------------------------*
 local db_arc:=dbf(), noline:=.F., nxtp :=.F.
-local oErrAntes, oErr, lMyError := .F., n , al ,an
+local oErrAntes, oErr, lMyError := .F., n, al ,an
    BEGIN SEQUENCE
       // buono ma da rivedere Yes_Memo  := .F.
       if hb_IsArray(::argm[3])

@@ -47,8 +47,8 @@
 
 /******
 *
-*       _DefineQhtm( ControlName, ParentForm, x, y, w, h, Value, fname, resname, ;
-*                    fontname, fontsize, Change, lBorder, nId )
+*       _DefineQhtm(ControlName, ParentForm, x, y, w, h, Value, fname, resname, ;
+*                   fontname, fontsize, Change, lBorder, nId)
 *
 *       Define QHTM control
 *
@@ -198,29 +198,29 @@ Return
 
 /******
 *
-*       QHTM_LoadFromRes( ControlName, ParentForm, cResName )
+*       QHTM_LoadFromRes(ControlName, ParentForm, cResName)
 *
 *       Load web-page from resource
 *
 */
-Procedure QHTM_LoadFromRes( ControlName, ParentForm, cResName )
+Procedure QHTM_LoadFromRes(ControlName, ParentForm, cResName)
 Local nHandle := GetControlHandle(ControlName, ParentForm)
 
 If nHandle > 0
-   QHTM_LoadRes( nHandle, cResName )
+   QHTM_LoadRes(nHandle, cResName)
 Endif
 
 Return
 
 /******
 *
-*       QHTM_GetLink( lParam )
+*       QHTM_GetLink(lParam)
 *
 *       Receive QHTM link
 *
 */
-Function QHTM_GetLink( lParam )
-Local cLink := QHTM_GetNotify( lParam )
+Function QHTM_GetLink(lParam)
+Local cLink := QHTM_GetNotify(lParam)
 
 QHTM_SetReturnValue(lParam, .F.)
 
@@ -228,7 +228,7 @@ Return cLink
 
 /******
 *
-*       QHTM_ScrollPos( nHandle, nPos )
+*       QHTM_ScrollPos(nHandle, nPos)
 *
 *       nHandle - descriptor of QHTM
 *       nPos - old/new position of scrollbar
@@ -236,7 +236,7 @@ Return cLink
 *       Get/Set position of scrollbar QHTM
 *
 */
-Function QHTM_ScrollPos( nHandle, nPos )
+Function QHTM_ScrollPos(nHandle, nPos)
 Local nParamCount := PCount()
 
 Switch nParamCount
@@ -247,13 +247,13 @@ Switch nParamCount
 
    Case 1
      If hb_IsNumeric(nHandle)
-        nPos := QHTM_GetScrollPos( nHandle )
+        nPos := QHTM_GetScrollPos(nHandle)
      Endif
      Exit
 
    Case 2
      If hb_IsNumeric(nHandle) .AND. hb_IsNumeric(nPos)
-        QHTM_SetScrollPos( nHandle, nPos )
+        QHTM_SetScrollPos(nHandle, nPos)
      Else
         nPos := 0
      Endif
@@ -264,7 +264,7 @@ Return nPos
 
 /******
 *
-*       QHTM_ScrollPercent( nHandle, nPercent )
+*       QHTM_ScrollPercent(nHandle, nPercent)
 *
 *       nHandle  - descriptor of QHTM
 *       nPercent - old/new position of scrollbar (in percentage)
@@ -298,14 +298,14 @@ Switch nParamCount
      Exit
 
    Case 1
-     nPos  := QHTM_GetScrollPos( nHandle )
+     nPos  := QHTM_GetScrollPos(nHandle)
      nPercent := Min(Round(((nPos / aSize[2]) * 100), 2), 100.00)
      Exit
 
    Case 2
      If hb_IsNumeric(nPercent)
         nPos := Round((nPercent * aSize[2] * 0.01), 0)
-        QHTM_SetScrollPos( nHandle, nPos )
+        QHTM_SetScrollPos(nHandle, nPos)
      Else
         nPercent := 0
      Endif

@@ -96,7 +96,7 @@ FUNCTION _DefineListbox(ControlName, ParentFormName, x, y, w, h, arows, value, ;
          ENDIF
          FOR i:=1 TO Len(rows)
             IF hb_IsArray(rows[i])
-               rows[i] := LB_Array2String( rows[i] )
+               rows[i] := LB_Array2String(rows[i])
             ENDIF
          NEXT
       ENDIF
@@ -159,7 +159,7 @@ FUNCTION _DefineListbox(ControlName, ParentFormName, x, y, w, h, arows, value, ;
       IF lDialogInMemory         //Dialog Template
 
          //          {{"ID",k/hwnd,class,Style,ExStyle,x,y,w,h,caption,HelpId,tooltip,font,size, bold, italic, underline, strikeout}}  --->_HMG_aDialogItems
-         blInit := {|x, y, z|InitDialogListBox( x, y, z )}
+         blInit := {|x, y, z|InitDialogListBox(x, y, z)}
          AAdd(_HMG_aDialogItems, {nId, k, "LISTBOX", style, 0, x, y, w, h, "", HelpId, tooltip, FontName, FontSize, bold, italic, underline, strikeout, blInit, _HMG_BeginTabActive, .F., _HMG_ActiveTabPage})
 
       ELSE
@@ -192,7 +192,7 @@ FUNCTION _DefineListbox(ControlName, ParentFormName, x, y, w, h, arows, value, ;
             IF multiselect
                ControlHandle := InitMultiListBox(_HMG_aFormReBarHandle[i], 0, x, y, w, h, fontname, fontsize, invisible, notabstop, sort, dragitems, multitabs, multicolumn)
             ELSE
-               ControlHandle := InitListBox(_HMG_aFormReBarHandle[i] , 0 , 0 , 0 , w , h , "" , 0 , invisible , notabstop, sort, dragitems, multitabs, multicolumn)
+               ControlHandle := InitListBox(_HMG_aFormReBarHandle[i] , 0, 0, 0, w, h, "", 0, invisible, notabstop, sort, dragitems, multitabs, multicolumn)
             ENDIF
 
             AddSplitBoxItem(Controlhandle, _HMG_aFormReBarHandle[i], w, break, , , , _HMG_ActiveSplitBoxInverted)
@@ -206,7 +206,7 @@ FUNCTION _DefineListbox(ControlName, ParentFormName, x, y, w, h, arows, value, ;
          IF multiselect
             ControlHandle := InitMultiListBox(ParentFormHandle, 0, x, y, w, h, fontname, fontsize, invisible, notabstop, sort, dragitems, multitabs, multicolumn)
          ELSE
-            ControlHandle := InitListBox(ParentFormHandle , 0 , x , y , w , h , "" , 0 , invisible, notabstop, sort, dragitems, multitabs, multicolumn)
+            ControlHandle := InitListBox(ParentFormHandle, 0, x, y, w, h, "", 0, invisible, notabstop, sort, dragitems, multitabs, multicolumn)
          ENDIF
 
       ENDIF
@@ -306,7 +306,7 @@ FUNCTION _DefineListbox(ControlName, ParentFormName, x, y, w, h, arows, value, ;
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION InitDialogListBox( ParentName, ControlHandle, k )
+FUNCTION InitDialogListBox(ParentName, ControlHandle, k)
 *-----------------------------------------------------------------------------*
    
    LOCAL Rows
@@ -343,7 +343,7 @@ FUNCTION InitDialogListBox( ParentName, ControlHandle, k )
    RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION LB_Array2String( aData, Sep )
+FUNCTION LB_Array2String(aData, Sep)
 *-----------------------------------------------------------------------------*
    
    LOCAL cData := ""

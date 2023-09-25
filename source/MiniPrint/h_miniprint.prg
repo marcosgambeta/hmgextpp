@@ -159,7 +159,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
       ON HSCROLLBOX        _HMG_PRINTER_hScrollBoxProcess() ;
       ON VSCROLLBOX        _HMG_PRINTER_vScrollBoxProcess()
 
-      _HMG_PRINTER_SetKeys( "_HMG_PRINTER_SHOWPREVIEW" )
+      _HMG_PRINTER_SetKeys("_HMG_PRINTER_SHOWPREVIEW")
 
    END WINDOW
 
@@ -434,7 +434,7 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
       NOSHOW ;
       BACKCOLOR GRAY
 
-      _HMG_PRINTER_SetKeys( "_HMG_PRINTER_SHOWTHUMBNAILS" )
+      _HMG_PRINTER_SetKeys("_HMG_PRINTER_SHOWTHUMBNAILS")
 
    END WINDOW
 
@@ -553,12 +553,12 @@ PROCEDURE _HMG_PRINTER_SHOWPREVIEW()
          ACTION _HMG_PRINTER_PreviewClose()
       END BUTTONEX
 
-      _HMG_PRINTER_SetKeys( "_HMG_PRINTER_PPNAV" )
+      _HMG_PRINTER_SetKeys("_HMG_PRINTER_PPNAV")
 
    END WINDOW
 
    IF hb_osisWin10()
-      SetProperty( "_HMG_PRINTER_PPNAV", "Height", GetProperty( "_HMG_PRINTER_PPNAV", "Height" ) + GetBorderHeight() / 2 )
+      SetProperty("_HMG_PRINTER_PPNAV", "Height", GetProperty("_HMG_PRINTER_PPNAV", "Height") + GetBorderHeight() / 2)
    ENDIF
 
    SetScrollRange(GetFormHandle("_HMG_PRINTER_SHOWPREVIEW"), SB_VERT, 0, 100, .T.)
@@ -753,7 +753,7 @@ PROCEDURE _hmg_printer_savepages()
       RETURN
    ENDIF
 
-   x := cFilePath( x ) + hb_ps() + cFileNoExt(x)
+   x := cFilePath(x) + hb_ps() + cFileNoExt(x)
 
    t := GetTempFolder() + hb_ps()
 
@@ -826,7 +826,7 @@ STATIC PROCEDURE _HMG_PRINTER_CleanPreview()
 
    LOCAL t := GetTempFolder() + hb_ps()
 
-   AEval(Directory( t + _hmg_printer_timestamp + "_hmg_print_preview_*.Emf" ), {|file|FErase(t + file[1])})
+   AEval(Directory(t + _hmg_printer_timestamp + "_hmg_print_preview_*.Emf"), {|file|FErase(t + file[1])})
 
 RETURN
 
@@ -845,7 +845,7 @@ PROCEDURE _HMG_PRINTER_PREVIEWRefresh()
          _hmg_printer_PrevPageNumber := _hmg_printer_CurrentPageNumber
          hwnd := GetFormHandle("_HMG_PRINTER_SHOWTHUMBNAILS")
          nRow := GetProperty("_HMG_PRINTER_SHOWTHUMBNAILS", "Image" + hb_ntos(_hmg_printer_CurrentPageNumber), "Row")
-         nScrollMax := GetScrollRangeMax( hwnd, SB_VERT )
+         nScrollMax := GetScrollRangeMax(hwnd, SB_VERT)
 
          IF _hmg_printer_PageCount == _hmg_printer_CurrentPageNumber
 
@@ -2136,7 +2136,7 @@ FUNCTION HMG_PrintGetJobInfo(aJobData)   // by Dr. Claudio Soto, August 2015
       aJobData := OpenPrinterGetJobData()
    ENDIF
 
-RETURN _HMG_PrintGetJobInfo( aJobData[2], aJobData[1] ) // --> aJobInfo
+RETURN _HMG_PrintGetJobInfo(aJobData[2], aJobData[1]) // --> aJobInfo
 
 //----------------------------------------------------------------------------//
 
@@ -2146,7 +2146,7 @@ FUNCTION HMG_PrinterGetStatus(cPrinterName)
       cPrinterName := _hmg_printer_name
    ENDIF
 
-RETURN _HMG_PrinterGetStatus( cPrinterName ) // --> nStatus
+RETURN _HMG_PrinterGetStatus(cPrinterName) // --> nStatus
 
 //----------------------------------------------------------------------------//
 

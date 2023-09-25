@@ -56,7 +56,7 @@ FUNCTION drawtextout(window, row, col, string, fontcolor, backcolor, fontname, f
    LOCAL tocol
    LOCAL i
 
-   IF hb_IsString( window )
+   IF hb_IsString(window)
       IF (i := GetFormIndex(window)) > 0
          FormHandle := _HMG_aFormHandles[i]
       ENDIF
@@ -78,7 +78,7 @@ FUNCTION drawtextout(window, row, col, string, fontcolor, backcolor, fontname, f
 
       torow := row + iif(transparent .OR. !Empty(angle), 0, fontsize + 4)
       tocol := col + ( Len(string) - 1 ) * fontsize
-      textdraw( FormHandle, row, col, string, torow, tocol, fontcolor, backcolor, fontname, fontsize, bold, italic, underline, strikeout, transparent, angle )
+      textdraw(FormHandle, row, col, string, torow, tocol, fontcolor, backcolor, fontname, fontsize, bold, italic, underline, strikeout, transparent, angle)
       IF !once
          AAdd(_HMG_aFormGraphTasks[i], {||textdraw(FormHandle, row, col, string, torow, tocol, fontcolor, backcolor, fontname, fontsize, bold, italic, underline, strikeout, transparent, angle)})
       ENDIF
@@ -98,7 +98,7 @@ FUNCTION drawline(window, row, col, row1, col1, penrgb, penwidth)
       hb_default(@penrgb, {0, 0, 0})
       hb_default(@penwidth, 1)
 
-      linedraw( FormHandle, row, col, row1, col1, penrgb, penwidth )
+      linedraw(FormHandle, row, col, row1, col1, penrgb, penwidth)
       AAdd(_HMG_aFormGraphTasks[i], {||linedraw(FormHandle, row, col, row1, col1, penrgb, penwidth)})
    ENDIF
 
@@ -120,7 +120,7 @@ FUNCTION drawrect(window, row, col, row1, col1, penrgb, penwidth, fillrgb)
          fillrgb := { 255, 255, 255 }
       ENDIF
 
-      rectdraw( FormHandle, row, col, row1, col1, penrgb, penwidth, fillrgb, fill )
+      rectdraw(FormHandle, row, col, row1, col1, penrgb, penwidth, fillrgb, fill)
       AAdd(_HMG_aFormGraphTasks[i], {||rectdraw(FormHandle, row, col, row1, col1, penrgb, penwidth, fillrgb, fill)})
    ENDIF
 
@@ -142,7 +142,7 @@ FUNCTION drawroundrect(window, row, col, row1, col1, width, height, penrgb, penw
          fillrgb := { 255, 255, 255 }
       ENDIF
 
-      roundrectdraw( FormHandle, row, col, row1, col1, width, height, penrgb, penwidth, fillrgb, fill )
+      roundrectdraw(FormHandle, row, col, row1, col1, width, height, penrgb, penwidth, fillrgb, fill)
       AAdd(_HMG_aFormGraphTasks[i], {||roundrectdraw(FormHandle, row, col, row1, col1, width, height, penrgb, penwidth, fillrgb, fill)})
    ENDIF
 
@@ -164,7 +164,7 @@ FUNCTION drawellipse(window, row, col, row1, col1, penrgb, penwidth, fillrgb)
          fillrgb := { 255, 255, 255 }
       ENDIF
 
-      ellipsedraw( FormHandle, row, col, row1, col1, penrgb, penwidth, fillrgb, fill )
+      ellipsedraw(FormHandle, row, col, row1, col1, penrgb, penwidth, fillrgb, fill)
       AAdd(_HMG_aFormGraphTasks[i], {||ellipsedraw(FormHandle, row, col, row1, col1, penrgb, penwidth, fillrgb, fill)})
    ENDIF
 
@@ -182,7 +182,7 @@ FUNCTION drawarc(window, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb,
       hb_default(@penrgb, {0, 0, 0})
       hb_default(@penwidth, 1)
 
-      arcdraw( FormHandle, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb, penwidth )
+      arcdraw(FormHandle, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb, penwidth)
       AAdd(_HMG_aFormGraphTasks[i], {||arcdraw(FormHandle, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb, penwidth)})
    ENDIF
 
@@ -204,14 +204,14 @@ FUNCTION drawpie(window, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb,
          fillrgb := { 255, 255, 255 }
       ENDIF
 
-      piedraw( FormHandle, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb, penwidth, fillrgb, fill )
+      piedraw(FormHandle, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb, penwidth, fillrgb, fill)
       AAdd(_HMG_aFormGraphTasks[i], {||piedraw(FormHandle, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb, penwidth, fillrgb, fill)})
    ENDIF
 
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION drawpolygon( window, apoints, penrgb, penwidth, fillrgb )
+FUNCTION drawpolygon(window, apoints, penrgb, penwidth, fillrgb)
 *-----------------------------------------------------------------------------*
    
    LOCAL FormHandle
@@ -229,14 +229,14 @@ FUNCTION drawpolygon( window, apoints, penrgb, penwidth, fillrgb )
       ENDIF
 
       AEval(apoints, {|x|AAdd(yarr, x[1]), AAdd(xarr, x[2])})
-      polygondraw( FormHandle, xarr, yarr, penrgb, penwidth, fillrgb, fill )
+      polygondraw(FormHandle, xarr, yarr, penrgb, penwidth, fillrgb, fill)
       AAdd(_HMG_aFormGraphTasks[i], {||polygondraw(FormHandle, xarr, yarr, penrgb, penwidth, fillrgb, fill)})
    ENDIF
 
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION drawpolybezier( window, apoints, penrgb, penwidth )
+FUNCTION drawpolybezier(window, apoints, penrgb, penwidth)
 *-----------------------------------------------------------------------------*
    
    LOCAL FormHandle
@@ -250,7 +250,7 @@ FUNCTION drawpolybezier( window, apoints, penrgb, penwidth )
       hb_default(@penwidth, 1)
 
       AEval(apoints, {|x|AAdd(yarr, x[1]), AAdd(xarr, x[2])})
-      polybezierdraw( FormHandle, xarr, yarr, penrgb, penwidth )
+      polybezierdraw(FormHandle, xarr, yarr, penrgb, penwidth)
       AAdd(_HMG_aFormGraphTasks[i], {||polybezierdraw(FormHandle, xarr, yarr, penrgb, penwidth)})
    ENDIF
 
@@ -258,7 +258,7 @@ RETURN NIL
 
 #define COLOR_BTNFACE        15
 *-----------------------------------------------------------------------------*
-FUNCTION HMG_DrawIcon( window, icon, row, col, w, h, rgb, transparent )
+FUNCTION HMG_DrawIcon(window, icon, row, col, w, h, rgb, transparent)
 *-----------------------------------------------------------------------------*
    
    LOCAL FormHandle
@@ -283,10 +283,10 @@ FUNCTION HMG_DrawIcon( window, icon, row, col, w, h, rgb, transparent )
       hb_default(@rgb, GetSysColor(COLOR_BTNFACE))
 
       IF hb_IsNumeric(icon)
-         DrawIconEx( FormHandle, Col, Row, icon, w, h, rgb, .F. )
+         DrawIconEx(FormHandle, Col, Row, icon, w, h, rgb, .F.)
          AAdd(_HMG_aFormGraphTasks[i], {||DrawIconEx(FormHandle, Col, Row, icon, w, h, rgb, .F.)})
-      ELSEIF hb_IsString( icon )
-         DrawIconEx( FormHandle, Col, Row, LoadIconByName(icon, w, h), w, h, rgb, .T. )
+      ELSEIF hb_IsString(icon)
+         DrawIconEx(FormHandle, Col, Row, LoadIconByName(icon, w, h), w, h, rgb, .T.)
          AAdd(_HMG_aFormGraphTasks[i], {||DrawIconEx(FormHandle, Col, Row, LoadIconByName(icon, w, h), w, h, rgb, .T.)})
       ENDIF
    ENDIF
@@ -294,7 +294,7 @@ FUNCTION HMG_DrawIcon( window, icon, row, col, w, h, rgb, transparent )
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION HMG_DrawSysIcon( window, cIconDll, icon, row, col, w, h, rgb, transparent )
+FUNCTION HMG_DrawSysIcon(window, cIconDll, icon, row, col, w, h, rgb, transparent)
 *-----------------------------------------------------------------------------*
    
    LOCAL FormHandle
@@ -344,7 +344,7 @@ FUNCTION EraseWindow(window)
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION DrawWindowBoxIn( window, row, col, rowr, colr )
+FUNCTION DrawWindowBoxIn(window, row, col, rowr, colr)
 *-----------------------------------------------------------------------------*
    
    LOCAL FormHandle

@@ -130,7 +130,7 @@ PROCEDURE _DefineSplitButton(cName, nRow, nCol, cCaption, bAction, cParent, ;
    ENDIF
 
    IF tooltip != NIL
-      SetToolTip(hControlHandle , tooltip , GetFormToolTipHandle(cParent))
+      SetToolTip(hControlHandle, tooltip, GetFormToolTipHandle(cParent))
    ENDIF
 
 RETURN
@@ -153,7 +153,7 @@ FUNCTION SPButtonEventHandler(hWnd, nMsg, wParam, lParam)
 
       IF GetNotifyCode(lParam) == BCN_DROPDOWN  // Notify for dropdown button
          xRetVal := 0
-         LaunchDropdownMenu( GetHwndFrom(lParam) )
+         LaunchDropdownMenu(GetHwndFrom(lParam))
       ENDIF
 
    ELSEIF nMsg == WM_COMMAND
@@ -201,7 +201,7 @@ PROCEDURE SPButtonSetFocus(cWindow, cControl)
          ENDIF
       NEXT
 
-      SetFocus( hWnd )
+      SetFocus(hWnd)
       SendMessage(hWnd, BM_SETSTYLE, BS_DEFSPLITBUTTON, LOWORD(1))
 
    ELSE
@@ -249,7 +249,7 @@ PROCEDURE SPButtonDisable(cWindow, cControl)
 RETURN
 
 *------------------------------------------------------------------------------*
-STATIC FUNCTION LaunchDropdownMenu( nHwnd )
+STATIC FUNCTION LaunchDropdownMenu(nHwnd)
 *------------------------------------------------------------------------------*
    
    LOCAL aPos := {0, 0, 0, 0}

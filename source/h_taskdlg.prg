@@ -20,14 +20,14 @@ CREATE CLASS TSimpleTaskDialog FUNCTION SimpleTaskDialog
    VAR    nButtonResult                READONLY   INIT NIL
    VAR    nResult                      READONLY   INIT E_FAIL
 
-   METHOD New( cTitle, cInstruction, cContent, nCommonButtons, nMainIcon )
+   METHOD New(cTitle, cInstruction, cContent, nCommonButtons, nMainIcon)
    METHOD Execute()
 
-   METHOD Title(cTitle)                SETGET
-   METHOD Instruction( cInstruction )  SETGET
-   METHOD Content(cContent)            SETGET
-   METHOD CommonButtons( nCBs )        SETGET
-   METHOD MainIcon( nIcon )            SETGET
+   METHOD Title(cTitle)              SETGET
+   METHOD Instruction(cInstruction)  SETGET
+   METHOD Content(cContent)          SETGET
+   METHOD CommonButtons(nCBs)        SETGET
+   METHOD MainIcon(nIcon)            SETGET
 
    PROTECTED:
    VAR    cTitle                       INIT       NIL
@@ -39,7 +39,7 @@ CREATE CLASS TSimpleTaskDialog FUNCTION SimpleTaskDialog
 ENDCLASS
 ////////////////////////////////////////////////////////////////////////////////
 
-METHOD New( cTitle, cInstruction, cContent, nCommonButtons, nMainIcon ) CLASS TSimpleTaskDialog
+METHOD New(cTitle, cInstruction, cContent, nCommonButtons, nMainIcon) CLASS TSimpleTaskDialog
 
    ::cTitle       := iif(hb_IsNumeric(cTitle), cTitle, iif(!hb_IsString(cTitle), NIL, iif(HB_ISNULL(cTitle), NIL, cTitle)))
    ::cInstruction := iif(hb_IsNumeric(cInstruction), cInstruction, iif(!hb_IsString(cInstruction), NIL, iif(HB_ISNULL(cInstruction), NIL, cInstruction)))
@@ -81,17 +81,17 @@ METHOD Title(cTitle) CLASS TSimpleTaskDialog
    LOCAL cOldVal := ::cTitle
 
    IF hb_IsString(cTitle) .OR. hb_IsNumeric(cTitle)
-      ::cTitle := iif(hb_IsString(cTitle) .AND. HB_ISNULL( cTitle ), NIL, cTitle)
+      ::cTitle := iif(hb_IsString(cTitle) .AND. HB_ISNULL(cTitle), NIL, cTitle)
    ENDIF
 
 RETURN cOldVal
 
-METHOD Instruction( cInstruction ) CLASS TSimpleTaskDialog
+METHOD Instruction(cInstruction) CLASS TSimpleTaskDialog
 
    LOCAL cOldVal := ::cInstruction
 
    IF hb_IsString(cInstruction) .OR. hb_IsNumeric(cInstruction)
-      ::cInstruction := iif(hb_IsString(cInstruction) .AND. HB_ISNULL( cInstruction ), NIL, cInstruction)
+      ::cInstruction := iif(hb_IsString(cInstruction) .AND. HB_ISNULL(cInstruction), NIL, cInstruction)
    ENDIF
 
 RETURN cOldVal
@@ -101,12 +101,12 @@ METHOD Content(cContent) CLASS TSimpleTaskDialog
    LOCAL cOldVal := ::cContent
 
    IF hb_IsString(cContent) .OR. hb_IsNumeric(cContent)
-      ::cContent := iif(hb_IsString(cContent) .AND. HB_ISNULL( cContent ), NIL, cContent)
+      ::cContent := iif(hb_IsString(cContent) .AND. HB_ISNULL(cContent), NIL, cContent)
    ENDIF
 
 RETURN cOldVal
 
-METHOD CommonButtons( nCBs ) CLASS TSimpleTaskDialog
+METHOD CommonButtons(nCBs) CLASS TSimpleTaskDialog
 
    LOCAL nOldVal := ::nCommonButtons
 
@@ -116,7 +116,7 @@ METHOD CommonButtons( nCBs ) CLASS TSimpleTaskDialog
 
 RETURN nOldVal
 
-METHOD MainIcon( nIcon ) CLASS TSimpleTaskDialog
+METHOD MainIcon(nIcon) CLASS TSimpleTaskDialog
 
    LOCAL nOldVal := ::nMainIcon
 
@@ -139,14 +139,14 @@ CREATE CLASS TTaskDialog FUNCTION TaskDialog
    VAR    nResult               READONLY   INIT E_FAIL
    VAR    lVerifyResult         READONLY   INIT .F.
 
-   METHOD New( cTitle, cInstruction, cContent, cFooter, nCommonButtons, nMainIcon )
+   METHOD New(cTitle, cInstruction, cContent, cFooter, nCommonButtons, nMainIcon)
    METHOD Execute() INLINE ::ShowDialog()
    METHOD ShowDialog()
    METHOD DialogHandle()
-   METHOD Showing( lState )
+   METHOD Showing(lState)
    METHOD OnCreated(hWnd, nNotify, nWParam, nLParam)
    METHOD OnDestroyed(hWnd, nNotify, nWParam, nLParam)
-   METHOD Listener( hWnd, nNotify, nWParam, nLParam )
+   METHOD Listener(hWnd, nNotify, nWParam, nLParam)
    METHOD CommonButtons(nCBs)                SETGET
    METHOD WindowTitle(cTitle)                SETGET
    METHOD Title(cTitle)                      SETGET
@@ -199,7 +199,7 @@ CREATE CLASS TTaskDialog FUNCTION TaskDialog
 ENDCLASS
 ////////////////////////////////////////////////////////////////////////////////
 
-METHOD New( cTitle, cInstruction, cContent, cFooter, nCommonButtons, nMainIcon ) CLASS TTaskDialog
+METHOD New(cTitle, cInstruction, cContent, cFooter, nCommonButtons, nMainIcon) CLASS TTaskDialog
 
    ::aConfig[TDC_WINDOWTITLE]     := iif(hb_IsNumeric(cTitle), cTitle, iif(!hb_IsString(cTitle), NIL, iif(HB_ISNULL(cTitle), NIL, cTitle)))
    ::aConfig[TDC_MAININSTRUCTION] := iif(hb_IsNumeric(cInstruction), cInstruction, iif(!hb_IsString(cInstruction), NIL, iif(HB_ISNULL(cInstruction), NIL, cInstruction)))
@@ -271,7 +271,7 @@ RETURN ::HWND
 /*
    Whether dialog is currently showing (read/write).
  */
-METHOD Showing( lState ) CLASS TTaskDialog
+METHOD Showing(lState) CLASS TTaskDialog
 
    hb_default(@lState, .F.)
 
@@ -315,7 +315,7 @@ RETURN .F.
 /*
    The default Events Listener.
 */
-METHOD Listener( hWnd, nNotify, nWParam, nLParam ) CLASS TTaskDialog
+METHOD Listener(hWnd, nNotify, nWParam, nLParam) CLASS TTaskDialog
 
    HB_SYMBOL_UNUSED(hWnd)
 
@@ -332,7 +332,7 @@ RETURN .T.
    specified through buttons array, the task dialog will contain the OK button
    by default.
  */
-METHOD CommonButtons( nCBs ) CLASS TTaskDialog
+METHOD CommonButtons(nCBs) CLASS TTaskDialog
 
    LOCAL nOldCBS := ::aConfig[TDC_COMMON_BUTTON_FLAGS]
 
@@ -352,7 +352,7 @@ METHOD WindowTitle(cTitle) CLASS TTaskDialog
    LOCAL cOldVal := ::aConfig[TDC_WINDOWTITLE]
 
    IF hb_IsString(cTitle) .OR. hb_IsNumeric(cTitle)
-      ::aConfig[TDC_WINDOWTITLE] := iif(hb_IsString(cTitle) .AND. HB_ISNULL( cTitle ), NIL, cTitle)
+      ::aConfig[TDC_WINDOWTITLE] := iif(hb_IsString(cTitle) .AND. HB_ISNULL(cTitle), NIL, cTitle)
       IF ::lActive
          _SetWindowTitle(::HWND, ::aConfig[TDC_WINDOWTITLE])
       ENDIF
@@ -366,7 +366,7 @@ RETURN ::WindowTitle(cTitle)
 /*
    TODO
 */
-METHOD MainIcon( nIcon ) CLASS TTaskDialog
+METHOD MainIcon(nIcon) CLASS TTaskDialog
 
    IF hb_IsNumeric(nIcon)
       ::aConfig[TDC_MAINICON] := nIcon
@@ -381,12 +381,12 @@ RETURN ::aConfig[TDC_MAINICON]
 
    The string to be used for the main instruction (read/write, LIVE).
  */
-METHOD MainInstruction( cInstruction ) CLASS TTaskDialog
+METHOD MainInstruction(cInstruction) CLASS TTaskDialog
 
    LOCAL cOldVal := ::aConfig[TDC_MAININSTRUCTION]
 
    IF hb_IsString(cInstruction) .OR. hb_IsNumeric(cInstruction)
-      ::aConfig[TDC_MAININSTRUCTION] := iif(hb_IsString(cInstruction) .AND. HB_ISNULL( cInstruction ), NIL, cInstruction)
+      ::aConfig[TDC_MAININSTRUCTION] := iif(hb_IsString(cInstruction) .AND. HB_ISNULL(cInstruction), NIL, cInstruction)
       IF ::lActive
          _SetMainInstruction(::HWND, ::aConfig[TDC_MAININSTRUCTION])
       ENDIF
@@ -394,8 +394,8 @@ METHOD MainInstruction( cInstruction ) CLASS TTaskDialog
 
 RETURN cOldVal
 
-METHOD Instruction( cInstruction ) CLASS TTaskDialog
-RETURN ::MainInstruction( cInstruction )
+METHOD Instruction(cInstruction) CLASS TTaskDialog
+RETURN ::MainInstruction(cInstruction)
 
 /*
    The string to be used for the dialog's primary content (read/write, LIVE).
@@ -405,7 +405,7 @@ METHOD Content(cContent) CLASS TTaskDialog
    LOCAL cOldVal := ::aConfig[TDC_CONTENT]
 
    IF hb_IsString(cContent) .OR. hb_IsNumeric(cContent)
-      ::aConfig[TDC_CONTENT] := iif(hb_IsString(cContent) .AND. HB_ISNULL( cContent ), NIL, cContent)
+      ::aConfig[TDC_CONTENT] := iif(hb_IsString(cContent) .AND. HB_ISNULL(cContent), NIL, cContent)
       IF ::lActive
          _SetContent(::HWND, ::aConfig[TDC_CONTENT])
       ENDIF
@@ -416,7 +416,7 @@ RETURN cOldVal
 /*
    TODO
 */
-METHOD CustomButtons( aCustButton ) CLASS TTaskDialog
+METHOD CustomButtons(aCustButton) CLASS TTaskDialog
 
    LOCAL aOldVal := ::aConfig[TDC_TASKDIALOG_BUTTON]
 
@@ -436,7 +436,7 @@ RETURN aOldVal
    or   one  of  the  IDs  corresponding  to  the  buttons  specified  in  the
    CommonButtons property.
 */
-METHOD DefaultButton( nDefaultButton ) CLASS TTaskDialog
+METHOD DefaultButton(nDefaultButton) CLASS TTaskDialog
 
    LOCAL nOldVal := ::aConfig[TDC_DEFAULTBUTTON]
 
@@ -451,7 +451,7 @@ RETURN nOldVal
 /*
    TODO
 */
-METHOD CustomRadioButtons( aCustButton ) CLASS TTaskDialog
+METHOD CustomRadioButtons(aCustButton) CLASS TTaskDialog
 
    LOCAL aOldVal := ::aConfig[TDC_TASKDIALOG_RADIOBUTTON]
 
@@ -469,7 +469,7 @@ RETURN aOldVal
 
    NOTE: If this value does not correspond to a button ID, the first button in the array is selected by default.
  */
-METHOD DefaultRadioButton( nDefaultButton ) CLASS TTaskDialog
+METHOD DefaultRadioButton(nDefaultButton) CLASS TTaskDialog
 
    LOCAL nOldVal := ::aConfig[TDC_DEFAULTRADIOBUTTON]
 
@@ -510,7 +510,7 @@ RETURN cOldVal
    WARNING:  Enabling  hyperlinks when using content from an unsafe source may
    cause security vulnerabilities.
  */
-METHOD ExpandedInfo( cText ) CLASS TTaskDialog
+METHOD ExpandedInfo(cText) CLASS TTaskDialog
 
    LOCAL cOldVal := ::aConfig[TDC_EXPANDEDINFORMATION]
 
@@ -572,7 +572,7 @@ RETURN ::CollapsedControlText(cText)
 /*
    TODO
 */
-METHOD FooterIcon( nIcon ) CLASS TTaskDialog
+METHOD FooterIcon(nIcon) CLASS TTaskDialog
 
    LOCAL nOldVal := ::aConfig[TDC_FOOTERICON]
 
@@ -590,7 +590,7 @@ RETURN nOldVal
 
    NOTE: If EnableHyperlinks is true, this can show clickable links.
  */
-METHOD Footer( cFooter ) CLASS TTaskDialog
+METHOD Footer(cFooter) CLASS TTaskDialog
 
    LOCAL cOldVal := ::aConfig[TDC_FOOTER]
 
@@ -640,10 +640,10 @@ RETURN _HMG_aFormNames[AScan(_HMG_aFormHandles, ::ParentHandle(GetFormHandle(cFo
 /*
    NOTE: Method CallBackBlock will be deleted in future (not near)
 */
-METHOD CallBackBlock( bCode ) CLASS TTaskDialog
+METHOD CallBackBlock(bCode) CLASS TTaskDialog
 
    IF !::lActive
-      IF HB_ISEVALITEM( bCode )
+      IF HB_ISEVALITEM(bCode)
          ::aConfig[TDC_CALLBACK] := bCode
       ENDIF
    ENDIF
@@ -657,7 +657,7 @@ RETURN ::aConfig[TDC_CALLBACK]
    NOTE:  Maybe You should not need to set flags as we have properties for all
    relevant flags.
  */
-METHOD Flags( nFlags ) CLASS TTaskDialog
+METHOD Flags(nFlags) CLASS TTaskDialog
 
    LOCAL nOldVal := ::aConfig[TDC_TASKDIALOG_FLAGS]
    
@@ -676,7 +676,7 @@ RETURN nOldVal
    Escape,  and  the  title  bar's  close  button  even if no cancel button is
    specified  in  either the CommonButtons or Buttons members.
  */
-METHOD AllowDialogCancellation( lNewVal ) CLASS TTaskDialog
+METHOD AllowDialogCancellation(lNewVal) CLASS TTaskDialog
 
    LOCAL nCurFlags := ::Flags()
    LOCAL lOldVal
@@ -691,7 +691,7 @@ METHOD AllowDialogCancellation( lNewVal ) CLASS TTaskDialog
       ELSEIF lOldVal .AND. (!lNewVal)
          nNewFlags := hb_bitAnd(nCurFlags, hb_bitNot(TDF_ALLOW_DIALOG_CANCELLATION))
       ENDIF
-      ::Flags( nNewFlags )
+      ::Flags(nNewFlags)
    ENDIF
 
 RETURN lOldVal
@@ -714,7 +714,7 @@ METHOD CanBeMinimized(lNewVal) CLASS TTaskDialog
       ELSEIF lOldVal .AND. (!lNewVal)
          nNewFlags := hb_bitAnd(nCurFlags, hb_bitNot(TDF_CAN_BE_MINIMIZED))
       ENDIF
-      ::Flags( nNewFlags )
+      ::Flags(nNewFlags)
    ENDIF
 
 RETURN lOldVal
@@ -734,7 +734,7 @@ RETURN lOldVal
    WARNING:  Enabling  hyperlinks when using content from an unsafe source may
    cause security vulnerabilities.
  */
-METHOD EnableHyperlinks( lNewVal ) CLASS TTaskDialog
+METHOD EnableHyperlinks(lNewVal) CLASS TTaskDialog
 
    LOCAL nCurFlags := ::Flags()
    LOCAL lOldVal
@@ -749,7 +749,7 @@ METHOD EnableHyperlinks( lNewVal ) CLASS TTaskDialog
       ELSEIF lOldVal .AND. (!lNewVal)
          nNewFlags := hb_bitAnd(nCurFlags, hb_bitNot(TDF_ENABLE_HYPERLINKS))
       ENDIF
-      ::Flags( nNewFlags )
+      ::Flags(nNewFlags)
    ENDIF
 
 RETURN lOldVal
@@ -775,7 +775,7 @@ METHOD ExpandedByDefault(lNewVal) CLASS TTaskDialog
       ELSEIF lOldVal .AND. (!lNewVal)
          nNewFlags := hb_bitAnd(nCurFlags, hb_bitNot(TDF_EXPANDED_BY_DEFAULT))
       ENDIF
-      ::Flags( nNewFlags )
+      ::Flags(nNewFlags)
    ENDIF
 
 RETURN lOldVal
@@ -803,7 +803,7 @@ METHOD ExpandFooterArea(lNewVal) CLASS TTaskDialog
       ELSEIF lOldVal .AND. (!lNewVal)
          nNewFlags := hb_bitAnd(nCurFlags, hb_bitNot(TDF_EXPAND_FOOTER_AREA))
       ENDIF
-      ::Flags( nNewFlags )
+      ::Flags(nNewFlags)
    ENDIF
 
 RETURN lOldVal
@@ -811,7 +811,7 @@ RETURN lOldVal
 /*
    Indicates that no default item will be selected (read/write)
  */
-METHOD NoDefaultRadioButton( lNewVal ) CLASS TTaskDialog
+METHOD NoDefaultRadioButton(lNewVal) CLASS TTaskDialog
 
    LOCAL nCurFlags := ::Flags()
    LOCAL lOldVal
@@ -826,7 +826,7 @@ METHOD NoDefaultRadioButton( lNewVal ) CLASS TTaskDialog
       ELSEIF lOldVal .AND. (!lNewVal)
          nNewFlags := hb_bitAnd(nCurFlags, hb_bitNot(TDF_NO_DEFAULT_RADIO_BUTTON))
       ENDIF
-      ::Flags( nNewFlags )
+      ::Flags(nNewFlags)
    ENDIF
 
 RETURN lOldVal
@@ -853,7 +853,7 @@ METHOD PositionRelativeToWindow(lNewVal) CLASS TTaskDialog
       ELSEIF lOldVal .AND. (!lNewVal)
          nNewFlags := hb_bitAnd(nCurFlags, hb_bitNot(TDF_POSITION_RELATIVE_TO_WINDOW))
       ENDIF
-      ::Flags( nNewFlags )
+      ::Flags(nNewFlags)
    ENDIF
 
 RETURN lOldVal
@@ -876,7 +876,7 @@ METHOD RightToLeftLayout(lNewVal) CLASS TTaskDialog
       ELSEIF lOldVal .AND. (!NewVal)
          nNewFlags := hb_bitAnd(nCurFlags, hb_bitNot(TDF_RTL_LAYOUT))
       ENDIF
-      ::Flags( nNewFlags )
+      ::Flags(nNewFlags)
    ENDIF
 
 RETURN lOldVal
@@ -901,7 +901,7 @@ METHOD VerificationEnabled(lNewVal) CLASS TTaskDialog
       ELSEIF lOldVal .AND. (!lNewVal)
          nNewFlags := hb_bitAnd(nCurFlags, hb_bitNot(TDF_VERIFICATION_FLAG_CHECKED))
       ENDIF
-      ::Flags( nNewFlags )
+      ::Flags(nNewFlags)
    ENDIF
 
 RETURN lOldVal

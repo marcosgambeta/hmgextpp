@@ -67,8 +67,8 @@
 
 STATIC nGraphObj := 1, nPieObj := 1
 
-PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aData, cTitle, aYVals, nBarD, nWideB, nSep, nXRanges, ;
-      l3D, lGrid, lxGrid, lyGrid, lxVal, lyVal, lLegends, aSeries, aColors, nType, lViewVal, cPicture, nLegendsWidth, lNoborder, lPrint )
+PROCEDURE GraphShow(parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aData, cTitle, aYVals, nBarD, nWideB, nSep, nXRanges, ;
+      l3D, lGrid, lxGrid, lyGrid, lxVal, lyVal, lLegends, aSeries, aColors, nType, lViewVal, cPicture, nLegendsWidth, lNoborder, lPrint)
 
    LOCAL nI
    LOCAL nJ
@@ -91,12 +91,12 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
    LOCAL nZero
    LOCAL nRPos
    LOCAL nRNeg
-   LOCAL nClrFore  := GetSysColor( COLOR_WINDOWTEXT )
-   LOCAL nClrBack := GetSysColor( COLOR_BTNFACE )
+   LOCAL nClrFore  := GetSysColor(COLOR_WINDOWTEXT)
+   LOCAL nClrBack := GetSysColor(COLOR_BTNFACE)
    LOCAL atemp
    LOCAL lRedraw := .F.
-   LOCAL aClrFore := nRGB2Arr( nClrFore )
-   LOCAL aClrBack := nRGB2Arr( nClrBack )
+   LOCAL aClrFore := nRGB2Arr(nClrFore)
+   LOCAL aClrBack := nRGB2Arr(nClrBack)
 
    DEFAULT lPrint := .F., cTitle := "", nSep := 0, nLegendsWidth := 50, cPicture := "999,999.99"
 
@@ -104,7 +104,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
       MsgMiniGuiError("DRAW GRAPH: 'Series' / 'SerieNames' / 'Colors' arrays size mismatch.")
    ENDIF
 
-   atemp := GetProperty( Parent, "BackColor" )
+   atemp := GetProperty(Parent, "BackColor")
    IF atemp[1] != -1 .AND. atemp[2] != -1 .AND. atemp[3] != -1
       aClrBack := atemp
       lRedraw := .T.
@@ -128,12 +128,12 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
    nDeep   := iif(l3D, nBarD, 1)
    nMaxBar := nBottom - nTop - nDeep - 5
    nResH   := nResV := 1
-   nWide   := ( nRight - nLeft ) * nResH / ( nMax( aData ) + 1 ) * nResH
+   nWide   := ( nRight - nLeft ) * nResH / ( nMax(aData) + 1 ) * nResH
 
    // Graph area
    //
    IF !lPrint .AND. !lNoborder
-      DrawWindowBoxIn( parent, Max( 1, nTop - 44 ), Max( 1, nLeft - 80 - nBarD ), nHeight - 1, nWidth - 1 )
+      DrawWindowBoxIn(parent, Max(1, nTop - 44), Max(1, nLeft - 80 - nBarD), nHeight - 1, nWidth - 1)
    ENDIF
 
    // Back area
@@ -201,8 +201,8 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
    IF lLegends
       nPos := nTop + 2
       FOR nI := 1 TO Len(aSeries)
-         DrawBar( parent, nRight + ( ( _HMG_DefaultFontSize - 1 ) * nResH ), nPos + _HMG_DefaultFontSize * nResV,;
-            ( _HMG_DefaultFontSize - 2 ) * nResH, ( _HMG_DefaultFontSize - 3 ) * nResV, l3D, 1, aColors[nI] )
+         DrawBar(parent, nRight + ( ( _HMG_DefaultFontSize - 1 ) * nResH ), nPos + _HMG_DefaultFontSize * nResV,;
+            ( _HMG_DefaultFontSize - 2 ) * nResH, ( _HMG_DefaultFontSize - 3 ) * nResV, l3D, 1, aColors[nI])
          cNameObj := "Obj_Name_" + hb_ntos(nGraphObj++)
          @ nPos, nRight + 2 * _HMG_DefaultFontSize * nResH LABEL (cNameObj) OF (parent);
             VALUE aSeries[nI] AUTOSIZE;
@@ -218,15 +218,15 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
    nMax := nMin := 0
    FOR nJ := 1 TO Len(aSeries)
       FOR nI := 1 TO Len(aData[nJ])
-         nMax := Max( aData[nJ][nI], nMax )
-         nMin := Min( aData[nJ][nI], nMin )
+         nMax := Max(aData[nJ][nI], nMax)
+         nMin := Min(aData[nJ][nI], nMin)
       NEXT nI
    NEXT nJ
 
    nXMax   := iif(nMax > 0, DetMaxVal(nMax), 0)
    nXMin   := iif(nMin < 0, DetMaxVal(nMin), 0)
    nHigh   := nXMax + nXMin
-   nMax    := Max( nXMax, nXMin )
+   nMax    := Max(nXMax, nXMin)
    nRel    := nMaxBar / nHigh
    nMaxBar := nMax * nRel
 
@@ -308,7 +308,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
    IF lYGrid
       nPos := iif(l3D, nTop, nTop - 5)
       nI := nLeft + nWide
-      FOR nJ := 1 TO nMax( aData )
+      FOR nJ := 1 TO nMax(aData)
          Drawline(parent, nBottom - nDeep, nI, nPos, nI, { 100, 100, 100 })
          Drawline(parent, nBottom, nI - nDeep, nBottom - nDeep, nI, { 100, 100, 100 })
          nI += nWide
@@ -333,9 +333,9 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
    // yLabels
    //
    IF lyVal .AND. Len(aYVals) > 0
-      nWideB := ( nRight - nLeft ) / ( nMax( aData ) + 1 )
+      nWideB := ( nRight - nLeft ) / ( nMax(aData) + 1 )
       nI := nLeft + nWideB
-      FOR nJ := 1 TO nMax( aData )
+      FOR nJ := 1 TO nMax(aData)
          cNameObj := "Obj_Name_" + hb_ntos(nGraphObj++)
          @ nBottom + 8, nI - iif(l3D, nDeep, nDeep + 8) LABEL (cNameObj) OF (parent);
             VALUE aYVals[nJ] AUTOSIZE;
@@ -353,8 +353,8 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
       lRedraw := ( nSeries == 1 .AND. Len(aColors) >= nRange )
       FOR nI := 1 TO nRange
          FOR nJ := 1 TO nSeries
-            DrawBar( parent, nPos, iif(l3D, nZero, nZero - 1), aData[nJ,nI] / nMin + nDeep, nWide, l3D, nDeep, ;
-               aColors[iif(lRedraw, nI, nJ)] )
+            DrawBar(parent, nPos, iif(l3D, nZero, nZero - 1), aData[nJ,nI] / nMin + nDeep, nWide, l3D, nDeep, ;
+               aColors[iif(lRedraw, nI, nJ)])
             nPos += nWide + nSep
          NEXT nJ
          nPos += nWide + nSep
@@ -364,7 +364,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
    // Lines
    //
    IF nType == LINES
-      nWideB := ( nRight - nLeft ) / ( nMax( aData ) + 1 )
+      nWideB := ( nRight - nLeft ) / ( nMax(aData) + 1 )
       nPos := nLeft + nWideB
       FOR nI := 1 TO nRange
          FOR nJ := 1 TO nSeries
@@ -380,9 +380,12 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
       FOR nI := 1 TO nRange - 1
          FOR nJ := 1 TO nSeries
             IF l3D
-               drawpolygon( parent, { { aPoint[nJ, nI, 1],aPoint[nJ, nI, 2] }, { aPoint[nJ, nI+1, 1],aPoint[nJ, nI+1, 2] }, ;
-                  { aPoint[nJ, nI+1, 1] - nDeep, aPoint[nJ, nI+1, 2] + nDeep }, { aPoint[nJ, nI, 1] - nDeep, aPoint[nJ, nI, 2] + nDeep }, ;
-                  { aPoint[nJ, nI, 1], aPoint[nJ, nI, 2] } }, , , aColors[nJ] )
+               drawpolygon(parent, { ;
+                  {aPoint[nJ, nI, 1], aPoint[nJ, nI, 2]}, ;
+                  {aPoint[nJ, nI + 1, 1], aPoint[nJ, nI + 1, 2]}, ;
+                  {aPoint[nJ, nI + 1, 1] - nDeep, aPoint[nJ, nI + 1, 2] + nDeep}, ;
+                  {aPoint[nJ, nI, 1] - nDeep, aPoint[nJ, nI, 2] + nDeep}, ;
+                  {aPoint[nJ, nI, 1], aPoint[nJ, nI, 2]}}, , , aColors[nJ])
             ELSE
                DrawLine(parent, aPoint[nJ, nI, 1], aPoint[nJ, nI, 2], aPoint[nJ, nI+1, 1], aPoint[nJ, nI+1, 2], aColors[nJ])
             ENDIF
@@ -394,7 +397,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
    // Points
    //
    IF nType == POINTS
-      nWideB := ( nRight - nLeft ) / ( nMax( aData ) + 1 )
+      nWideB := ( nRight - nLeft ) / ( nMax(aData) + 1 )
       nPos := nLeft + nWideB
       FOR nI := 1 TO nRange
          FOR nJ := 1 TO nSeries
@@ -408,7 +411,7 @@ PROCEDURE GraphShow( parent, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aDat
       IF nType == BARS
          nPos := nLeft + nWide + ( nWide + nSep ) * ( nSeries / 2 )
       ELSE
-         nWideB := ( nRight - nLeft ) / ( nMax( aData ) + 1 )
+         nWideB := ( nRight - nLeft ) / ( nMax(aData) + 1 )
          nPos := nLeft + nWideB
       ENDIF
       FOR nI := 1 TO nRange
@@ -454,17 +457,17 @@ PROCEDURE EraseBarGraph(Parent)
 RETURN
 
 
-STATIC PROCEDURE DrawBar( parent, nY, nX, nHigh, nWidth, l3D, nDeep, aColor )
+STATIC PROCEDURE DrawBar(parent, nY, nX, nHigh, nWidth, l3D, nDeep, aColor)
 
    LOCAL nI
    LOCAL nColTop
    LOCAL nShadow
    LOCAL nH := nHigh
 
-   nColTop := ClrShadow( RGB(aColor[1], aColor[2], aColor[3]), 15 )
-   nShadow := ClrShadow( nColTop, 15 )
-   nColTop := nRGB2Arr( nColTop )
-   nShadow := nRGB2Arr( nShadow )
+   nColTop := ClrShadow(RGB(aColor[1], aColor[2], aColor[3]), 15)
+   nShadow := ClrShadow(nColTop, 15)
+   nColTop := nRGB2Arr(nColTop)
+   nShadow := nRGB2Arr(nShadow)
 
    FOR nI := 1 TO nWidth
       DrawLine(parent, nX, nY + nI, nX + nDeep - nHigh, nY + nI, aColor) // front
@@ -472,22 +475,28 @@ STATIC PROCEDURE DrawBar( parent, nY, nX, nHigh, nWidth, l3D, nDeep, aColor )
 
    IF l3D
       // Lateral
-      drawpolygon( parent, { { nX - 1, nY + nWidth + 1 }, { nX + nDeep - nHigh, nY + nWidth + 1 }, ;
-         { nX - nHigh + 1, nY + nWidth + nDeep }, { nX - nDeep, nY + nWidth + nDeep }, ;
-         { nX - 1, nY + nWidth + 1 } }, nShadow, , nShadow )
+      drawpolygon(parent, { ;
+         {nX - 1, nY + nWidth + 1}, ;
+         {nX + nDeep - nHigh, nY + nWidth + 1}, ;
+         {nX - nHigh + 1, nY + nWidth + nDeep}, ;
+         {nX - nDeep, nY + nWidth + nDeep}, ;
+         {nX - 1, nY + nWidth + 1}}, nShadow, , nShadow)
       // Superior
-      nHigh := Max( nHigh, nDeep )
-      drawpolygon( parent, { { nX - nHigh + nDeep, nY + 1 }, { nX - nHigh + nDeep, nY + nWidth + 1 }, ;
-         { nX - nHigh + 1, nY + nWidth + nDeep }, { nX - nHigh + 1, nY + nDeep }, ;
-         { nX - nHigh + nDeep, nY + 1 } }, nColTop, , nColTop )
+      nHigh := Max(nHigh, nDeep)
+      drawpolygon(parent, { ;
+         {nX - nHigh + nDeep, nY + 1}, ;
+         {nX - nHigh + nDeep, nY + nWidth + 1}, ;
+         {nX - nHigh + 1, nY + nWidth + nDeep}, ;
+         {nX - nHigh + 1, nY + nDeep}, ;
+         {nX - nHigh + nDeep, nY + 1}}, nColTop, , nColTop)
    ENDIF
    // Border
-   DrawBox( parent, nY, nX, nH, nWidth, l3D, nDeep )
+   DrawBox(parent, nY, nX, nH, nWidth, l3D, nDeep)
 
 RETURN
 
 
-STATIC PROCEDURE DrawBox( parent, nY, nX, nHigh, nWidth, l3D, nDeep )
+STATIC PROCEDURE DrawBox(parent, nY, nX, nHigh, nWidth, l3D, nDeep)
 
    // Set Border
    DrawLine(parent, nX, nY        , nX-nHigh+nDeep    , nY         , BLACK)  // Left
@@ -534,13 +543,13 @@ STATIC PROCEDURE Circle(window, nCol, nRow, nWidth, aColor)
 RETURN
 
 
-FUNCTION nMax( aData )
+FUNCTION nMax(aData)
 
    LOCAL nMax := 0
 
    AEval(aData, {|ele|nMax := Max(nMax, Len(ele))})
 
-RETURN( nMax )
+RETURN nMax
 
 
 FUNCTION DetMaxVal(nNum)
@@ -552,7 +561,7 @@ FUNCTION DetMaxVal(nNum)
    LOCAL nOffset
 
    nE   := 9
-   nNum := Abs( nNum )
+   nNum := Abs(nNum)
 
    DO WHILE .T.
 
@@ -578,7 +587,7 @@ FUNCTION DetMaxVal(nNum)
 RETURN nVal
 
 
-FUNCTION ClrShadow( nColor, nFactor )
+FUNCTION ClrShadow(nColor, nFactor)
 
    LOCAL aHSL
    LOCAL aRGB
@@ -590,7 +599,7 @@ FUNCTION ClrShadow( nColor, nFactor )
 RETURN RGB(aRGB[1], aRGB[2], aRGB[3])
 
 
-FUNCTION RGB2HSL( nR, nG, nB )
+FUNCTION RGB2HSL(nR, nG, nB)
 
    LOCAL nMax
    LOCAL nMin
@@ -599,7 +608,7 @@ FUNCTION RGB2HSL( nR, nG, nB )
    LOCAL nL
 
    IF nR < 0
-      nR := Abs( nR )
+      nR := Abs(nR)
       nG := GetGreen(nR)
       nB := GetBlue(nR)
       nR := GetRed(nR)
@@ -608,8 +617,8 @@ FUNCTION RGB2HSL( nR, nG, nB )
    nR /= 255
    nG /= 255
    nB /= 255
-   nMax := Max( nR, Max( nG, nB ) )
-   nMin := Min( nR, Min( nG, nB ) )
+   nMax := Max(nR, Max(nG, nB))
+   nMin := Min(nR, Min(nG, nB))
    nL := ( nMax + nMin ) / 2
 
    IF nMax == nMin
@@ -702,7 +711,7 @@ RETURN { Int(nR * 255), Int(nG * 255), Int(nB * 255) }
  *
  * Revised by Grigory Filatov
 */
-FUNCTION drawpiegraph( windowname, fromrow, fromcol, torow, tocol, series, aname, colors, ctitle, depth, l3d, lxval, lsleg, cPicture, lNoborder, placement, lPrint )
+FUNCTION drawpiegraph(windowname, fromrow, fromcol, torow, tocol, series, aname, colors, ctitle, depth, l3d, lxval, lsleg, cPicture, lNoborder, placement, lPrint)
 
    LOCAL topleftrow
    LOCAL topleftcol
@@ -737,12 +746,12 @@ FUNCTION drawpiegraph( windowname, fromrow, fromcol, torow, tocol, series, aname
    DEFAULT lPrint := .F., cPicture := "999,999.99"
 
    IF !lPrint .AND. !lNoborder
-      DrawWindowBoxIn( windowname, fromrow, fromcol, torow - 1, tocol - 1 )
+      DrawWindowBoxIn(windowname, fromrow, fromcol, torow - 1, tocol - 1)
    ENDIF
 
    ctitle := AllTrim(ctitle)
    IF Len(ctitle) > 0
-      backcolor := GetProperty( windowname, "BackColor" )
+      backcolor := GetProperty(windowname, "BackColor")
       IF backcolor[1] == -1 .AND. backcolor[2] == -1 .AND. backcolor[3] == -1
          backcolor := NIL
       ENDIF
@@ -935,7 +944,7 @@ FUNCTION drawpiegraph( windowname, fromrow, fromcol, torow, tocol, series, aname
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-PROCEDURE ErasePieGraph( windowname )
+PROCEDURE ErasePieGraph(windowname)
 *-----------------------------------------------------------------------------*
    
    LOCAL cname
@@ -945,12 +954,12 @@ PROCEDURE ErasePieGraph( windowname )
 
       cname := "title_of_pie" + hb_ntos(i)
       IF _IsControlDefined(cname, windowname)
-         _ReleaseControl( cname, windowname )
+         _ReleaseControl(cname, windowname)
       ENDIF
 
       cname := "pielegend_" + hb_ntos(i++)
       IF _IsControlDefined(cname, windowname)
-         _ReleaseControl( cname, windowname )
+         _ReleaseControl(cname, windowname)
       ENDIF
 
    ENDDO
@@ -967,11 +976,11 @@ FUNCTION _PiePrint(cForm, fromrow, fromcol, torow, tocol, series, aname, colors,
    _HMG_IsModalActive := .F.
 
    DEFINE WINDOW &FormName ;
-      AT GetProperty( cForm, "Row" ), GetProperty( cForm, "Col" ) ;
-      WIDTH GetProperty( cForm, "Width" ) ;
-      HEIGHT GetProperty( cForm, "Height" ) ;
+      AT GetProperty(cForm, "Row"), GetProperty(cForm, "Col") ;
+      WIDTH GetProperty(cForm, "Width") ;
+      HEIGHT GetProperty(cForm, "Height") ;
       CHILD ;
-      ON INIT ( drawpiegraph( FormName, fromrow, fromcol, torow, tocol, series, aname, colors, ctitle, depth, l3d, lxval, lsleg, cPicture, .T., placement, .T. ), ;
+      ON INIT (drawpiegraph(FormName, fromrow, fromcol, torow, tocol, series, aname, colors, ctitle, depth, l3d, lxval, lsleg, cPicture, .T., placement, .T.), ;
          _bmpprint(ThisWindow.Name, x, y, iif("HBPRINT" $ Upper(hb_defaultValue(cLibrary, "")), 2, 1)) ) ;
       BACKCOLOR WHITE
 
@@ -994,12 +1003,12 @@ FUNCTION _GraphPrint(cForm, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aData
    _HMG_IsModalActive := .F.
 
    DEFINE WINDOW &FormName ;
-      AT GetProperty( cForm, "Row" ), GetProperty( cForm, "Col" ) ;
-      WIDTH GetProperty( cForm, "Width" ) ;
-      HEIGHT GetProperty( cForm, "Height" ) ;
+      AT GetProperty(cForm, "Row"), GetProperty(cForm, "Col") ;
+      WIDTH GetProperty(cForm, "Width") ;
+      HEIGHT GetProperty(cForm, "Height") ;
       CHILD ;
-      ON INIT ( GraphShow( FormName, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aData, cTitle, aYVals, nBarD, nWideB, nSep, nXRanges, ;
-         l3D, lGrid, lxGrid, lyGrid, lxVal, lyVal, lLegends, aSeries, aColors, nType, lViewVal, cPicture, nLegendsWidth, .T. , .T. ), ;
+      ON INIT ( GraphShow(FormName, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aData, cTitle, aYVals, nBarD, nWideB, nSep, nXRanges, ;
+         l3D, lGrid, lxGrid, lyGrid, lxVal, lyVal, lLegends, aSeries, aColors, nType, lViewVal, cPicture, nLegendsWidth, .T. , .T.), ;
          _bmpprint(ThisWindow.Name, x, y, iif("HBPRINT" $ Upper(hb_defaultValue(cLibrary, "")), 2, 1)) ) ;
       BACKCOLOR WHITE
 

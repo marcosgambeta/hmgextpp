@@ -588,7 +588,7 @@ FUNCTION _AddTabPage(ControlName, ParentForm, Position, Caption, Image, tooltip)
       AIns(_HMG_aControlPicture[i], Position, Image, .T.)
       // GF 03/10/2021
       aMnemonic := _HMG_aControlMiscData1[i, 3]
-      ASize(aMnemonic , Len(_HMG_aControlCaption[i]))
+      ASize(aMnemonic, Len(_HMG_aControlCaption[i]))
 
       aEval(aMnemonic, {|x, i|HB_SYMBOL_UNUSED(x), aMnemonic[i] := &("{||_SetValue(" + Chr(34) + ControlName + Chr(34) + "," + Chr(34) + ParentForm + Chr(34) + "," + hb_ntos(i) + ")}")})
 

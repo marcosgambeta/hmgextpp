@@ -154,8 +154,8 @@ FUNCTION _InitRating(ParentForm, ControlName, x, y, w, h, nValue, aImages, nCnt,
          TOOLTIP tooltip
          ONMOUSEHOVER iif(readonly, NIL, OnHoverRate(ParentForm, ControlName))
          ONMOUSELEAVE iif(readonly, NIL, OnLeaveRate(ParentForm, ControlName, onchangeprocedure))
-         ONCLICK iif(readonly, NIL, ( SetProperty( ParentForm, ControlName, "Value", ;
-            Val(SubStr(This.NAME, RAt("_", This.Name) + 1)) ), ;
+         ONCLICK iif(readonly, NIL, ( SetProperty(ParentForm, ControlName, "Value", ;
+            Val(SubStr(This.NAME, RAt("_", This.Name) + 1))), ;
             OnSelectRate(ParentForm, ControlName, onchangeprocedure) ))
          INVISIBLE invisible
       END IMAGE
@@ -201,10 +201,10 @@ STATIC FUNCTION OnHoverRate(cWindow, cControl)
    LOCAL img_name
    LOCAL select := Val(SubStr(This.Name, RAt("_", This.Name) + 1 ))
 
-   ClearRating( cWindow, cControl )
+   ClearRating(cWindow, cControl)
    FOR i := 1 TO select
       img_name := cWindow + "_" + cControl + "_" + hb_ntos(i)
-      SetProperty( cWindow, img_name, "Picture", GetProperty( cWindow, img_name, "Cargo" ) [2] )
+      SetProperty(cWindow, img_name, "Picture", GetProperty(cWindow, img_name, "Cargo")[2])
    NEXT
 
 RETURN NIL
@@ -212,10 +212,10 @@ RETURN NIL
 
 STATIC FUNCTION OnLeaveRate(cWindow, cControl, onchange)
 
-   LOCAL pressed := GetProperty( cWindow, cControl, "Value" )
+   LOCAL pressed := GetProperty(cWindow, cControl, "Value")
 
    IF pressed == 0
-      ClearRating( cWindow, cControl )
+      ClearRating(cWindow, cControl)
       IF hb_IsBlock(onchange)
          Eval(onchange, pressed)
       ENDIF
@@ -230,13 +230,13 @@ STATIC FUNCTION OnSelectRate(cWindow, cControl, onchange)
 
    LOCAL i
    LOCAL img_name
-   LOCAL pressed := GetProperty( cWindow, cControl, "Value" )
+   LOCAL pressed := GetProperty(cWindow, cControl, "Value")
 
    IF pressed > 0
-      ClearRating( cWindow, cControl )
+      ClearRating(cWindow, cControl)
       FOR i := 1 TO pressed
          img_name := cWindow + "_" + cControl + "_" + hb_ntos(i)
-         SetProperty( cWindow, img_name, "Picture", GetProperty( cWindow, img_name, "Cargo" ) [2] )
+         SetProperty(cWindow, img_name, "Picture", GetProperty(cWindow, img_name, "Cargo")[2])
       NEXT
       IF hb_IsBlock(onchange)
          Eval(onchange, pressed)
@@ -246,7 +246,7 @@ STATIC FUNCTION OnSelectRate(cWindow, cControl, onchange)
 RETURN NIL
 
 
-FUNCTION ClearRating( cWindow, cControl )
+FUNCTION ClearRating(cWindow, cControl)
 
    LOCAL i
    LOCAL img_name
@@ -254,14 +254,14 @@ FUNCTION ClearRating( cWindow, cControl )
 
    FOR i := 1 TO nCount
       img_name := cWindow + "_" + cControl + "_" + hb_ntos(i)
-      SetProperty( cWindow, img_name, "Picture", GetProperty( cWindow, img_name, "Cargo" ) [1] )
+      SetProperty(cWindow, img_name, "Picture", GetProperty(cWindow, img_name, "Cargo")[1])
    NEXT
 
 RETURN NIL
 
 
-FUNCTION RefreshRating( ParentForm, ControlName )
+FUNCTION RefreshRating(ParentForm, ControlName)
 
-   LOCAL onchangeprocedure := _GetControlAction( ControlName, ParentForm, "ONCHANGE" )
+   LOCAL onchangeprocedure := _GetControlAction(ControlName, ParentForm, "ONCHANGE")
 
 RETURN OnLeaveRate(ParentForm, ControlName, onchangeprocedure)

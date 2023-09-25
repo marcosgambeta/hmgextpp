@@ -78,9 +78,9 @@ CLASS THttp
    METHOD Connect(cAddress, nPort)
    METHOD Close()
 
-   METHOD SetProxy( cProxy, nPort, cUser, cPwd )
+   METHOD SetProxy(cProxy, nPort, cUser, cPwd)
 
-   METHOD SetUser( cUser, cPwd )
+   METHOD SetUser(cUser, cPwd)
 
    METHOD Get(cPage, aPair)
    METHOD Post(cPage, aPair)
@@ -90,7 +90,7 @@ CLASS THttp
 
    METHOD SetReceiveTimeout(nMilliSec)
 
-   METHOD Value2String( aPair )
+   METHOD Value2String(aPair)
 
    CLASSDATA oSocket       HIDDEN
    CLASSDATA cProxyAddress HIDDEN
@@ -113,14 +113,14 @@ return Self
 *  NAME
 *    Connect - connect to a remote server
 *  SYNOPSIS
-*    Connect( cAddress, nPort )
+*    Connect(cAddress, nPort)
 *  PURPOSE
 *    Connect to a remote server on cAddress and nPort
 *  EXAMPLE
 *
 *    #include "common.ch"
 *    * ±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
-*    FUNCTION Main( cProxy, nProxyPort )
+*    FUNCTION Main(cProxy, nProxyPort)
 *    * ±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
 *    local oSock, cRet
 *    local cServer  := "www.google.com" // "localhost"  //
@@ -130,15 +130,15 @@ return Self
 *
 *    oSock := THttp():New()
 *    if cProxy!=NIL
-*       oSock:SetProxy( cProxy, VAL(nProxyPort) )
+*       oSock:SetProxy(cProxy, VAL(nProxyPort))
 *    endif
 *
 *    ? "Connect to " +cServer +":" +alltrim(str(nPort))
-*    if oSock:Connect( cServer, nPort )
+*    if oSock:Connect(cServer, nPort)
 *       ? "Connected"
 *
 *       ? "Get homepage"
-*       ? oSock:Get( "pippo:pluto@/" )
+*       ? oSock:Get("pippo:pluto@/")
 *
 *       ? "Close connection"
 *       if oSock:Close()
@@ -181,14 +181,14 @@ return ::oSocket:Close()
 *  NAME
 *    Get - get a remote page
 *  SYNOPSIS
-*    Get( cPage, aPair )
+*    Get(cPage, aPair)
 *  PURPOSE
 *    Get a remote page
 *  EXAMPLE
 *
 *    #include "common.ch"
 *    * ±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
-*    FUNCTION Main( cProxy, nProxyPort )
+*    FUNCTION Main(cProxy, nProxyPort)
 *    * ±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
 *    local oSock, cRet
 *    local cServer  := "www.google.com" // "localhost"  //
@@ -198,15 +198,15 @@ return ::oSocket:Close()
 *
 *    oSock := THttp():New()
 *    if cProxy!=NIL
-*       oSock:SetProxy( cProxy, VAL(nProxyPort) )
+*       oSock:SetProxy(cProxy, VAL(nProxyPort))
 *    endif
 *
 *    ? "Connect to " +cServer +":" +alltrim(str(nPort))
-*    if oSock:Connect( cServer, nPort )
+*    if oSock:Connect(cServer, nPort)
 *       ? "Connected"
 *
 *       ? "Get homepage"
-*       ? oSock:Get( "pippo:pluto@/" )
+*       ? oSock:Get("pippo:pluto@/")
 *
 *       ? "Close connection"
 *       if oSock:Close()
@@ -227,12 +227,12 @@ return ::oSocket:Close()
 METHOD Get(cPage, aPair) CLASS THttp
 LOCAL cRet := ""
 LOCAL cURL := ""
-LOCAL cPost := ::Value2String( aPair )
+LOCAL cPost := ::Value2String(aPair)
 LOCAL nPos
 
 nPos := AT("@", cPage)
 IF nPos>0
-   ::cLoginRemote := ::SetUser( LEFT(cPage, nPos - 1) )
+   ::cLoginRemote := ::SetUser(LEFT(cPage, nPos - 1))
    cPage := SUBSTR(cPage, nPos + 1)
 ENDIF
 
@@ -255,7 +255,7 @@ cURL += "Host: " +::cHostAddress +CHR(13)+CHR(10)
 cURL += "User-Agent: " +::cUserAgent +CHR(13)+CHR(10)
 cURL += CHR(13)+CHR(10)
 
-IF ::oSocket:SendString( cURL )
+IF ::oSocket:SendString(cURL)
    cRet := ::oSocket:ReceiveString()
 ENDIF
 return cRet
@@ -264,14 +264,14 @@ return cRet
 *  NAME
 *    Post - post some value to a page
 *  SYNOPSIS
-*    Post( cPage, aPair )
+*    Post(cPage, aPair)
 *  PURPOSE
 *    post some value to a page
 *  EXAMPLE
 *
 *    #include "common.ch"
 *    * ±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
-*    FUNCTION Main( cProxy, nProxyPort )
+*    FUNCTION Main(cProxy, nProxyPort)
 *    * ±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
 *    local oSock, cRet
 *    local cServer  := "www.google.com" // "localhost"  //
@@ -281,15 +281,15 @@ return cRet
 *
 *    oSock := THttp():New()
 *    if cProxy!=NIL
-*       oSock:SetProxy( cProxy, VAL(nProxyPort) )
+*       oSock:SetProxy(cProxy, VAL(nProxyPort))
 *    endif
 *
 *    ? "Connect to " +cServer +":" +alltrim(str(nPort))
-*    if oSock:Connect( cServer, nPort )
+*    if oSock:Connect(cServer, nPort)
 *       ? "Connected"
 *
 *       ? "Get homepage"
-*       ? oSock:Get( "pippo:pluto@/" )
+*       ? oSock:Get("pippo:pluto@/")
 *
 *       ? "Close connection"
 *       if oSock:Close()
@@ -310,12 +310,12 @@ return cRet
 METHOD Post(cPage, aPair) CLASS THttp
 LOCAL cRet := ""
 LOCAL cURL := ""
-LOCAL cPost := ::Value2String( aPair )
+LOCAL cPost := ::Value2String(aPair)
 LOCAL nPos
 
 nPos := AT("@", cPage)
 IF nPos>0
-   ::cLoginRemote := ::SetUser( LEFT(cPage, nPos - 1) )
+   ::cLoginRemote := ::SetUser(LEFT(cPage, nPos - 1))
    cPage := SUBSTR(cPage, nPos + 1)
 ENDIF
 
@@ -337,12 +337,12 @@ cURL += "User-Agent: " +::cUserAgent +CHR(13)+CHR(10)
 cURL += CHR(13)+CHR(10)
 cURL += cPost
 
-IF ::oSocket:SendString( cURL )
+IF ::oSocket:SendString(cURL)
    cRet := ::oSocket:ReceiveString()
 ENDIF
 return cRet
 
-METHOD Value2String( aPair ) CLASS THttp
+METHOD Value2String(aPair) CLASS THttp
 local cPost := ""
 local nPair
 local oDecode
@@ -363,7 +363,7 @@ return cPost
 //
 // Set proxy port
 //
-METHOD SetProxy( cProxy, nPort, cUser, cPwd ) CLASS THttp
+METHOD SetProxy(cProxy, nPort, cUser, cPwd) CLASS THttp
 local oSock
 
 DEFAULT nPort TO 8080
@@ -384,7 +384,7 @@ return NIL
 //
 // Set user and password method
 //
-METHOD SetUser( cUser, cPwd ) CLASS THttp
+METHOD SetUser(cUser, cPwd) CLASS THttp
 local oSock
 if cUser!=NIL
    oSock := TDecode():new()

@@ -10,7 +10,7 @@ STATIC s_lNetOk      := .F.
 #define NET_FILELOCK 2
 #define NET_APPEND   3 
 
-STATIC FUNCTION NetLock( nType, lReleaseLocks, nSeconds )
+STATIC FUNCTION NetLock(nType, lReleaseLocks, nSeconds)
 
    LOCAL lSuccess := .F.
    LOCAL bOperation
@@ -42,7 +42,7 @@ STATIC FUNCTION NetLock( nType, lReleaseLocks, nSeconds )
          s_lNetOk  := .T.
          EXIT
       ELSE
-         Inkey( .25 )
+         Inkey(.25)
          nSeconds -= .25
       ENDIF
 
@@ -55,13 +55,13 @@ FUNCTION NetDelete()
 
    s_lNetOk := .F.
 
-   IF NetLock( NET_RECLOCK )
+   IF NetLock(NET_RECLOCK)
       dbDelete()
       s_lNetOk := .T.
    ENDIF
 
    IF !NetErr()
-      dbSkip( 0 )
+      dbSkip(0)
       dbCommit()
    ELSE
       s_lNetOk := .F.
@@ -75,13 +75,13 @@ FUNCTION NetRecall()
 
    s_lNetOk := .F.
 
-   IF NetLock( NET_RECLOCK )
+   IF NetLock(NET_RECLOCK)
       dbRecall()
       s_lNetOk := .T.
    ENDIF
 
    IF !NetErr()
-      dbSkip( 0 )
+      dbSkip(0)
       dbCommit()
    ELSE
       s_lNetOk := .F.
@@ -91,26 +91,26 @@ FUNCTION NetRecall()
    RETURN s_lNetOk
 
 
-FUNCTION NetRecLock( nSeconds )
+FUNCTION NetRecLock(nSeconds)
 
    __defaultNIL(@nSeconds, s_nNetDelay)
 
    s_lNetOk := .F.
 
-   IF NetLock( NET_RECLOCK, , nSeconds )    // 1
+   IF NetLock(NET_RECLOCK, , nSeconds)    // 1
       s_lNetOk := .T.
    ENDIF
 
    RETURN s_lNetOk
 
 
-FUNCTION NetFileLock( nSeconds )
+FUNCTION NetFileLock(nSeconds)
 
    __defaultNIL(@nSeconds, s_nNetDelay)
 
    s_lNetOk := .F.
 
-   IF NetLock( NET_FILELOCK, , nSeconds )
+   IF NetLock(NET_FILELOCK, , nSeconds)
       s_lNetOk := .T.
    ENDIF
 
@@ -126,13 +126,13 @@ FUNCTION NetAppend(nSeconds, lReleaseLocks)
 
    s_lNetOk := .F.
 
-   nOrd := ordSetFocus( 0 )          // set order to 0 to append
+   nOrd := ordSetFocus(0)          // set order to 0 to append
 
-   IF NetLock( NET_APPEND, lReleaseLocks, nSeconds )
+   IF NetLock(NET_APPEND, lReleaseLocks, nSeconds)
       s_lNetOk := .T.
    ENDIF
 
-   ordSetFocus( nOrd )
+   ordSetFocus(nOrd)
 
    RETURN s_lNetOk
 
@@ -149,7 +149,7 @@ FUNCTION NetError()
    RETURN !s_lNetOk
 
 
-FUNCTION SetNetDelay( nSecs )
+FUNCTION SetNetDelay(nSecs)
 
    LOCAL nTemp := s_nNetDelay
 

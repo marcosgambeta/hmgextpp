@@ -76,9 +76,9 @@ CLASS TPOP3
    METHOD Connect(cAddress, nPort)
    METHOD Close()
 
-   METHOD Login( cUser, cPwd )
+   METHOD Login(cUser, cPwd)
    METHOD List(lFullInfo)
-   METHOD GetMessageHeader( cMessageID )
+   METHOD GetMessageHeader(cMessageID)
    METHOD GetMessageText(cMessageID)
    METHOD DeleteMessage(cMessageID)
 
@@ -99,7 +99,7 @@ ENDCLASS
 */
 METHOD New() CLASS TPOP3
 ::oSocket := TSocket():New()
-//::oSocket:SetDebug( .T. )
+//::oSocket:SetDebug(.T.)
 return Self
 
 //
@@ -125,7 +125,7 @@ return bRet
 METHOD Close() CLASS TPOP3
 local bRet
 
-if ::oSocket:SendString( "QUIT" +CHR(13)+CHR(10) )
+if ::oSocket:SendString("QUIT" + CHR(13) + CHR(10))
    // Banner
    //## check if is ok
    ::oSocket:ReceiveLine()
@@ -139,25 +139,25 @@ return bRet
 *  NAME
 *    Login - login into POP3 server
 *  SYNOPSIS
-*    Login( cUser, cPwd )
+*    Login(cUser, cPwd)
 *  PURPOSE
 *    Login into POP3 server
 *  EXAMPLE
 *    oSock := TPop3():New() )
-*    oSock:Connect( "pop3.server-dummy.com", 110 )
-*    oSock:Login( "user", "password" )
+*    oSock:Connect("pop3.server-dummy.com", 110)
+*    oSock:Login("user", "password")
 *  SEE ALSO
 *    TPop3:New
 **********
 */
-METHOD Login( cUser, cPwd ) CLASS TPOP3
+METHOD Login(cUser, cPwd) CLASS TPOP3
 LOCAL cLine
 LOCAL bRet := .T.
-if ::oSocket:SendString( "USER " +cUser +CHR(13)+CHR(10) )
+if ::oSocket:SendString("USER " + cUser + CHR(13) + CHR(10))
    // Consume reply
    cLine := ::oSocket:ReceiveLine()
    bRet  := (LEFT(cLine, 3)=="+OK")
-   if bRet .AND. ::oSocket:SendString( "PASS " +cPwd +CHR(13)+CHR(10) )
+   if bRet .AND. ::oSocket:SendString("PASS " + cPwd + CHR(13) + CHR(10))
       // Consume reply
       cLine := ::oSocket:ReceiveLine()
       bRet  := (LEFT(cLine, 3)=="+OK")
@@ -173,7 +173,7 @@ local aRet := {}
 local cMsg
 local nSpace, cMsgID, cSize, cInfo, nPos, cDmm, cSubject
 
-if ::oSocket:SendString( "LIST" +CHR(13)+CHR(10) )
+if ::oSocket:SendString("LIST" + CHR(13) + CHR(10))
    // Banner
    //## check if is ok
    ::oSocket:ReceiveLine()
@@ -191,7 +191,7 @@ if ::oSocket:SendString( "LIST" +CHR(13)+CHR(10) )
 
    if lFullInfo
       for nPos := 1 to len(aRet)
-         cInfo    := ::GetMessageHeader( aRet[nPos][1] )
+         cInfo    := ::GetMessageHeader(aRet[nPos][1])
 
          cSubject := ""
          if at("Subject:", cInfo)>0
@@ -207,11 +207,11 @@ return aRet
 //
 // Get original text of mail
 //
-METHOD GetMessageHeader( cMessageID ) CLASS TPOP3
+METHOD GetMessageHeader(cMessageID) CLASS TPOP3
 local cRet := ""
 local cMsg
 
-if ::oSocket:SendString( "TOP " +cMessageID +" 0" +CHR(13)+CHR(10) )
+if ::oSocket:SendString("TOP " + cMessageID + " 0" + CHR(13) + CHR(10))
    // Banner
    //## check if is ok
    ::oSocket:ReceiveLine()
@@ -232,7 +232,7 @@ METHOD GetMessageText(cMessageID) CLASS TPOP3
 local cRet := ""
 local cMsg
 
-if ::oSocket:SendString( "RETR " +cMessageID +CHR(13)+CHR(10) )
+if ::oSocket:SendString("RETR " + cMessageID + CHR(13) + CHR(10))
    // Banner
    //## check if is ok
    ::oSocket:ReceiveLine()
@@ -252,7 +252,8 @@ return cRet
 METHOD DeleteMessage(cMessageID) CLASS TPOP3
 local bRet := .T.
 
-if ::oSocket:SendString( "DELE " +cMessageID +CHR(13)+CHR(10) )
+if ::oSocket:SendString("DELE " + cMessageID + CHR(13) + CHR(10)
+)
    // Banner
    //## check if is ok
    ::oSocket:ReceiveLine()

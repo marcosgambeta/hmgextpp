@@ -170,8 +170,8 @@ FUNCTION GetAviFileSize(cFile)
          FRead(nFileHandle, @cStr1, 4)
          FRead(nFileHandle, @cStr2, 4)
 
-         nWidth  := Bin2L( cStr1 )
-         nHeight := Bin2L( cStr2 )
+         nWidth  := Bin2L(cStr1)
+         nHeight := Bin2L(cStr2)
       ENDIF
 
       FClose(nFileHandle)
@@ -192,7 +192,7 @@ FUNCTION GetAviResSize(cResName)
 
    IF RCDataToFile(cResName, cDiskFile, "AVI") > 0
 
-      IF hb_FileExists( cDiskFile )
+      IF hb_FileExists(cDiskFile)
          aAviSize := GetAviFileSize(cDiskFile)
          FErase(cDiskFile)
       ENDIF
@@ -202,7 +202,7 @@ FUNCTION GetAviResSize(cResName)
 RETURN { aAviSize[1], aAviSize[2] }
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineAnimateBox( ControlName, ParentFormName, x, y, w, h, autoplay, center, transparent, file, HelpId, border, backcolor, invisible, nId )
+FUNCTION _DefineAnimateBox(ControlName, ParentFormName, x, y, w, h, autoplay, center, transparent, file, HelpId, border, backcolor, invisible, nId)
 *-----------------------------------------------------------------------------*
    
    LOCAL ParentFormHandle
@@ -337,21 +337,21 @@ FUNCTION _DefineAnimateBox( ControlName, ParentFormName, x, y, w, h, autoplay, c
 
    IF !lDialogInMemory
       IF file != NIL
-         _OpenAnimateBox(ControlName , ParentFormName , File)
+         _OpenAnimateBox(ControlName, ParentFormName, File)
       ENDIF
    ENDIF
 
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION InitDialogAnimateBox( ParentName, ControlHandle, k )
+FUNCTION InitDialogAnimateBox(ParentName, ControlHandle, k)
 *-----------------------------------------------------------------------------*
    
    LOCAL File
 
    File := _HMG_aControlCaption[k]
    IF File != NIL .AND. ControlHandle != NIL
-      _OpenAnimateBox(_HMG_aControlNames[k] , ParentName , File)
+      _OpenAnimateBox(_HMG_aControlNames[k], ParentName, File)
    ENDIF
 // JP 62
    IF Len(_HMG_aDialogTemplate) != 0 .AND. _HMG_aDialogTemplate[3]  // Modal

@@ -128,7 +128,7 @@ FUNCTION _DefineRichEditBox(ControlName, ParentForm, x, y, w, h, value, ;
 
       IF i > 0
 
-         ControlHandle := InitRichEditBox(_HMG_aFormReBarHandle[i] , 0, x, y, w, h, "", 0 , maxlength , readonly, invisible, notabstop, nohscroll, novscroll)
+         ControlHandle := InitRichEditBox(_HMG_aFormReBarHandle[i] , 0, x, y, w, h, "", 0, maxlength, readonly, invisible, notabstop, nohscroll, novscroll)
          IF !empty(FontHandle)
             _SetFontHandle(ControlHandle, FontHandle)
          ELSE
@@ -146,7 +146,7 @@ FUNCTION _DefineRichEditBox(ControlName, ParentForm, x, y, w, h, value, ;
 
    ELSE
 
-      ControlHandle := InitRichEditBox(ParentForm, 0, x, y, w, h, "", 0 , maxlength , readonly, invisible, notabstop, nohscroll, novscroll)
+      ControlHandle := InitRichEditBox(ParentForm, 0, x, y, w, h, "", 0, maxlength, readonly, invisible, notabstop, nohscroll, novscroll)
       IF !empty(FontHandle)
          _SetFontHandle(ControlHandle, FontHandle)
       ELSE
@@ -311,7 +311,7 @@ PROCEDURE _DataRichEditBoxOpen(ControlName, ParentForm, cFile, typ)
 
       _HMG_aControlCaption[i] := cFile
 
-      StreamIn( GetControlHandle(ControlName, ParentForm), cFile , hb_defaultValue(typ, 2) )
+      StreamIn(GetControlHandle(ControlName, ParentForm), cFile, hb_defaultValue(typ, 2))
 
    ENDIF
 

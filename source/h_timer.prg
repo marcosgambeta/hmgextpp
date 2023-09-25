@@ -47,7 +47,7 @@
 #include "minigui.ch"
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineTimer(ControlName , ParentForm , Interval , ProcedureName , Once)
+FUNCTION _DefineTimer(ControlName, ParentForm, Interval, ProcedureName, Once)
 *-----------------------------------------------------------------------------*
 
    LOCAL ParentFormHandle
@@ -70,14 +70,14 @@ FUNCTION _DefineTimer(ControlName , ParentForm , Interval , ProcedureName , Once
 
    hb_default(@Interval, 1000)
    IF _HMG_ProgrammaticChange
-      Interval := Max( Interval, 10 )
+      Interval := Max(Interval, 10)
    ENDIF
 
    mVar := "_" + ParentForm + "_" + ControlName
    ParentFormHandle := GetFormHandle(ParentForm)
 
    Id := _GetId()
-   lSuccess := InitTimer(ParentFormHandle , id , Interval)
+   lSuccess := InitTimer(ParentFormHandle, id, Interval)
 
    k := _GetControlFree()
 

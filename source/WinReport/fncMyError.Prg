@@ -28,7 +28,7 @@ FUNCTION MyErrorFunc(MyObjError)
     Html_Line(HtmArch)
     Html_End(HtmArch)
 
-    MsgStop( cErrorMsg, "Program Error..." )
+    MsgStop(cErrorMsg, "Program Error...")
 
 RETURN .T.
 

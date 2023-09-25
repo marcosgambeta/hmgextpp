@@ -78,7 +78,7 @@ FUNCTION DrawGradient(window, row, col, rowr, colr, aColor1, aColor2, vertical, 
    LOCAL color2
    LOCAL i
 
-   IF IsEnabledGradient() .AND. ( i := GetFormIndex( window ) ) > 0
+   IF IsEnabledGradient() .AND. ( i := GetFormIndex(window) ) > 0
 
       FormHandle := _HMG_aFormHandles[i]
       hDC := GetDC(FormHandle)
@@ -97,7 +97,7 @@ FUNCTION DrawGradient(window, row, col, rowr, colr, aColor1, aColor2, vertical, 
          EXIT
 
       CASE 2  // box
-         WndBoxIn( hDC, row, col, rowr, colr )
+         WndBoxIn(hDC, row, col, rowr, colr)
          FillGradient(hDC, row + 1, col + 1, rowr - 1, colr - 1, vertical, color1, color2)
          EXIT
 
@@ -121,7 +121,7 @@ FUNCTION DrawGradient(window, row, col, rowr, colr, aColor1, aColor2, vertical, 
       CASE 2  // box
          AAdd(_HMG_aFormGraphTasks[i], ;
             {||hDC := GetDC(FormHandle), ;
-            WndBoxIn( hDC, row, col, rowr, colr ), ;
+            WndBoxIn(hDC, row, col, rowr, colr), ;
             FillGradient(hDC, row + 1, col + 1, rowr - 1, colr - 1, vertical, color1, color2), ;
             ReleaseDC(FormHandle, hDC)})
          EXIT
@@ -158,11 +158,11 @@ RETURN NIL
 #define GRADIENT_FILL_OP_FLAG   0x000000ff
 #endif
 
-extern HB_PTRUINT wapi_GetProcAddress( HMODULE hModule, LPCSTR lpProcName );
+extern HB_PTRUINT wapi_GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
 
 BOOL    EnabledGradient(void);
 BOOL    FillGradient(HDC hDC, RECT * rect, BOOL vertical, COLORREF crFrom, COLORREF crTo);
-HBRUSH  LinearGradientBrush( HDC pDC, long cx, long cy, COLORREF cFrom, COLORREF cTo, BOOL bVert );
+HBRUSH  LinearGradientBrush(HDC pDC, long cx, long cy, COLORREF cFrom, COLORREF cTo, BOOL bVert);
 
 typedef BOOL ( WINAPI * AlphaBlendPtr )( HDC, int, int, int, int, HDC, int, int, int, int, BLENDFUNCTION );
 typedef BOOL ( WINAPI * TransparentBltPtr )( HDC, int, int, int, int, HDC, int, int, int, int, UINT );
@@ -189,13 +189,13 @@ HB_FUNC( _INITGRADIENTFUNC )
    s_hDLL = LoadLibrary(TEXT("gdi32.dll"));
 
    if( s_hDLL != nullptr ) {
-      f_AlphaBlend     = ( AlphaBlendPtr ) wapi_GetProcAddress( s_hDLL, "GdiAlphaBlend" );
-      f_TransparentBlt = ( TransparentBltPtr ) wapi_GetProcAddress( s_hDLL, "GdiTransparentBlt" );
-      f_GradientFill   = ( GradientFillPtr ) wapi_GetProcAddress( s_hDLL, "GdiGradientFill" );
+      f_AlphaBlend     = ( AlphaBlendPtr ) wapi_GetProcAddress(s_hDLL, "GdiAlphaBlend");
+      f_TransparentBlt = ( TransparentBltPtr ) wapi_GetProcAddress(s_hDLL, "GdiTransparentBlt");
+      f_GradientFill   = ( GradientFillPtr ) wapi_GetProcAddress(s_hDLL, "GdiGradientFill");
 
       if( ( f_AlphaBlend == nullptr ) && ( f_TransparentBlt == nullptr ) &&
           ( f_GradientFill == nullptr ) ) {
-         FreeLibrary( s_hDLL );
+         FreeLibrary(s_hDLL);
          s_hDLL = nullptr;
       }
    }
@@ -204,13 +204,13 @@ HB_FUNC( _INITGRADIENTFUNC )
       s_hDLL = LoadLibrary(TEXT("msimg32.dll"));
 
       if( s_hDLL != nullptr ) {
-         f_AlphaBlend     = ( AlphaBlendPtr ) wapi_GetProcAddress( s_hDLL, "AlphaBlend" );
-         f_TransparentBlt = ( TransparentBltPtr ) wapi_GetProcAddress( s_hDLL, "TransparentBlt" );
-         f_GradientFill   = ( GradientFillPtr ) wapi_GetProcAddress( s_hDLL, "GradientFill" );
+         f_AlphaBlend     = ( AlphaBlendPtr ) wapi_GetProcAddress(s_hDLL, "AlphaBlend");
+         f_TransparentBlt = ( TransparentBltPtr ) wapi_GetProcAddress(s_hDLL, "TransparentBlt");
+         f_GradientFill   = ( GradientFillPtr ) wapi_GetProcAddress(s_hDLL, "GradientFill");
 
          if( ( f_AlphaBlend == nullptr ) && ( f_TransparentBlt == nullptr ) &&
              ( f_GradientFill == nullptr ) ) {
-            FreeLibrary( s_hDLL );
+            FreeLibrary(s_hDLL);
             s_hDLL = nullptr;
          }
       }
@@ -222,7 +222,7 @@ HB_FUNC( _INITGRADIENTFUNC )
 HB_FUNC( _EXITGRADIENTFUNC )
 {
    if( s_hDLL != nullptr ) {
-      FreeLibrary( s_hDLL );
+      FreeLibrary(s_hDLL);
       s_hDLL = nullptr;
    }
 }
@@ -239,8 +239,8 @@ HB_FUNC( ALPHABLEND )
 
          bf.BlendOp    = AC_SRC_OVER;
          bf.BlendFlags = 0;
-         bf.SourceConstantAlpha = ( BYTE ) hb_parnl( 11 );
-         bf.AlphaFormat         = ( BYTE ) hb_parni( 12 );
+         bf.SourceConstantAlpha = ( BYTE ) hb_parnl(11);
+         bf.AlphaFormat         = ( BYTE ) hb_parni(12);
 
          bRes = f_AlphaBlend(hdc1,
                              hb_parnl(2), hb_parnl(3), hb_parnl(4), hb_parnl(5),
@@ -266,20 +266,20 @@ HB_FUNC( TRANSPARENTBLT )
          POINT pt = { 0, 0 };
 
          if( bHiRes ) {
-            GetBrushOrgEx( hdc1, &pt );
+            GetBrushOrgEx(hdc1, &pt);
          }
 
          SetStretchBltMode(hdc1, iStretchMode);
 
          if( bHiRes ) {
-            SetBrushOrgEx( hdc1, pt.x, pt.y, nullptr );
+            SetBrushOrgEx(hdc1, pt.x, pt.y, nullptr);
          }
 
          bRes = f_TransparentBlt(hdc1,
-                                 hb_parnl( 2 ), hb_parnl( 3 ), hb_parnl( 4 ), hb_parnl( 5 ),
+                                 hb_parnl(2), hb_parnl(3), hb_parnl(4), hb_parnl(5),
                                  hdc2,
-                                 hb_parnl( 7 ), hb_parnl( 8 ), hb_parnl( 9 ), hb_parnl( 10 ),
-                                 ( COLORREF ) hb_parnl( 11 ));
+                                 hb_parnl(7), hb_parnl(8), hb_parnl(9), hb_parnl(10),
+                                 ( COLORREF ) hb_parnl(11));
       }
    }
 
@@ -294,13 +294,12 @@ HB_FUNC( FILLGRADIENT )
    if( GetObjectType(hdc) & ( OBJ_DC | OBJ_MEMDC ) ) {
       RECT rect;
 
-      rect.top    = hb_parni( 2 );
-      rect.left   = hb_parni( 3 );
-      rect.bottom = hb_parni( 4 );
-      rect.right  = hb_parni( 5 );
+      rect.top    = hb_parni(2);
+      rect.left   = hb_parni(3);
+      rect.bottom = hb_parni(4);
+      rect.right  = hb_parni(5);
 
-      bRes = ( FillGradient(hdc, &rect, hb_parl( 6 ),
-                            ( COLORREF ) hb_parnl( 7 ), ( COLORREF ) hb_parnl( 8 )));
+      bRes = (FillGradient(hdc, &rect, hb_parl(6), (COLORREF) hb_parnl(7), (COLORREF) hb_parnl(8)));
    }
 
    hb_retl(bRes ? HB_TRUE : HB_FALSE);
@@ -331,8 +330,7 @@ BOOL FillGradient(HDC hDC, RECT * rect, BOOL vertical, COLORREF crFrom, COLORREF
       gRect.UpperLeft  = 0;
       gRect.LowerRight = 1;
 
-      bRes = f_GradientFill( hDC, rcVertex, 2, &gRect, 1,
-                             vertical ? GRADIENT_FILL_RECT_V : GRADIENT_FILL_RECT_H );
+      bRes = f_GradientFill(hDC, rcVertex, 2, &gRect, 1, vertical ? GRADIENT_FILL_RECT_V : GRADIENT_FILL_RECT_H);
    }
 
    return bRes;
@@ -349,18 +347,18 @@ HB_FUNC( CREATEGRADIENTBRUSH )
 
    hdc = GetDC(hwnd);
 
-   hmg_ret_HBRUSH(LinearGradientBrush( hdc, hb_parnl( 2 ), hb_parnl( 3 ), ( COLORREF ) hb_parnl( 4 ), ( COLORREF ) hb_parnl( 5 ), hb_parl( 6 ) ));
+   hmg_ret_HBRUSH(LinearGradientBrush(hdc, hb_parnl(2), hb_parnl(3), (COLORREF) hb_parnl(4), (COLORREF) hb_parnl(5), hb_parl(6)));
    ReleaseDC(hwnd, hdc);
 }
 
-HBRUSH LinearGradientBrush( HDC pDC, long cx, long cy, COLORREF crFrom, COLORREF crTo, BOOL bVert )
+HBRUSH LinearGradientBrush(HDC pDC, long cx, long cy, COLORREF crFrom, COLORREF crTo, BOOL bVert)
 {
    HDC     memDC;
    HBITMAP memBmp;
    HBRUSH  pGradientBrush = nullptr;
 
    memDC  = CreateCompatibleDC(pDC);
-   memBmp = CreateCompatibleBitmap( pDC, cx, cy );
+   memBmp = CreateCompatibleBitmap(pDC, cx, cy);
 
    if( memDC && memBmp ) {
       TRIVERTEX     rcVertex[2];
@@ -387,11 +385,10 @@ HBRUSH LinearGradientBrush( HDC pDC, long cx, long cy, COLORREF crFrom, COLORREF
 
       if( s_hDLL != nullptr ) {
          if( f_GradientFill != nullptr ) {
-            f_GradientFill( memDC, rcVertex, 2, &gRect, 1,
-                            bVert ? GRADIENT_FILL_RECT_V : GRADIENT_FILL_RECT_H );
+            f_GradientFill(memDC, rcVertex, 2, &gRect, 1, bVert ? GRADIENT_FILL_RECT_V : GRADIENT_FILL_RECT_H);
          }
       }
-      pGradientBrush = CreatePatternBrush( memBmp );
+      pGradientBrush = CreatePatternBrush(memBmp);
 
       DeleteObject(memBmp);
       DeleteObject(memDC);

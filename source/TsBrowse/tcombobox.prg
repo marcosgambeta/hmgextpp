@@ -27,14 +27,14 @@ CLASS TComboBox FROM TControl
    DATA aItems   AS ARRAY                     // Combo array
    DATA bCloseUp                              // Block to be evaluated on Close Combo
 
-   METHOD New( nRow, nCol, bSetGet, aGetData, nWidth, nHeight, oWnd, bChanged,;
-             nClrFore, nClrBack, hFont, cMsg, cControl, cWnd )
+   METHOD New(nRow, nCol, bSetGet, aGetData, nWidth, nHeight, oWnd, bChanged,;
+             nClrFore, nClrBack, hFont, cMsg, cControl, cWnd)
    METHOD Default()
    METHOD GetDlgCode(nLastKey, nFlags)
    METHOD HandleEvent(nMsg, nWParam, nLParam)
-   METHOD KeyDown( nKey, nFlags )
-   METHOD KeyChar( nKey, nFlags )
-   METHOD LButtonDown( nRow, nCol )
+   METHOD KeyDown(nKey, nFlags)
+   METHOD KeyChar(nKey, nFlags)
+   METHOD LButtonDown(nRow, nCol)
    METHOD LostFocus()
 
 ENDCLASS
@@ -43,8 +43,8 @@ ENDCLASS
 * METHOD TComboBox:New() Version 7.0
 * ============================================================================
 
-METHOD New( nRow, nCol, bSetGet, aGetData, nWidth, nHeight, oWnd, bChanged,;
-             nClrFore, nClrBack, hFont, cMsg, cControl, cWnd ) CLASS TComboBox
+METHOD New(nRow, nCol, bSetGet, aGetData, nWidth, nHeight, oWnd, bChanged,;
+           nClrFore, nClrBack, hFont, cMsg, cControl, cWnd) CLASS TComboBox
 
    LOCAL invisible     := .F.
    LOCAL sort          := .F.
@@ -52,8 +52,8 @@ METHOD New( nRow, nCol, bSetGet, aGetData, nWidth, nHeight, oWnd, bChanged,;
    LOCAL notabstop     := .F.
    LOCAL ParentHandle
 
-   DEFAULT nClrFore  := GetSysColor( COLOR_WINDOWTEXT ),;
-           nClrBack  := GetSysColor( COLOR_WINDOW ),;
+   DEFAULT nClrFore  := GetSysColor(COLOR_WINDOWTEXT),;
+           nClrBack  := GetSysColor(COLOR_WINDOW),;
            nHeight   := 12
 
    ::nTop         := nRow
@@ -77,8 +77,7 @@ METHOD New( nRow, nCol, bSetGet, aGetData, nWidth, nHeight, oWnd, bChanged,;
    ::nId          := ::GetNewId()
    ::cControlName := cControl
    ::cParentWnd   := cWnd
-   ::nStyle       := nOR( WS_CHILD, WS_VISIBLE, WS_TABSTOP, ;
-                          WS_VSCROLL, WS_BORDER, CBS_DROPDOWN, CBS_NOINTEGRALHEIGHT )
+   ::nStyle       := nOR(WS_CHILD, WS_VISIBLE, WS_TABSTOP, WS_VSCROLL, WS_BORDER, CBS_DROPDOWN, CBS_NOINTEGRALHEIGHT)
 
    ::bSetGet      := bSetGet
    ::aItems       := aGetData
@@ -91,11 +90,11 @@ METHOD New( nRow, nCol, bSetGet, aGetData, nWidth, nHeight, oWnd, bChanged,;
    ::nLastKey     := 0
    ::Atx          := 0
 
-   ::SetColor( nClrFore, nClrBack )
+   ::SetColor(nClrFore, nClrBack)
 
    if !Empty(ParentHandle)
 
-      ::hWnd := InitComboBox( ParentHandle, 0, nCol, nRow, nWidth , "", 0 , nHeight, invisible, notabstop, sort , displaychange , _HMG_IsXP )
+      ::hWnd := InitComboBox(ParentHandle, 0, nCol, nRow, nWidth, "", 0, nHeight, invisible, notabstop, sort, displaychange, _HMG_IsXP)
 
       ::AddVars(::hWnd)
       ::Default()
@@ -147,7 +146,7 @@ METHOD HandleEvent(nMsg, nWParam, nLParam) CLASS TComboBox
 
    If HiWord(nWParam) == CBN_CLOSEUP
       if ::bCloseUp != NIL
-         IIf(hb_IsBlock(::bCloseUp), Eval(::bCloseUp, Self), ::bCloseUp( Self ))
+         IIf(hb_IsBlock(::bCloseUp), Eval(::bCloseUp, Self), ::bCloseUp(Self))
          Return 0
       endif
    Endif
@@ -158,9 +157,9 @@ Return ::Super:HandleEvent(nMsg, nWParam, nLParam)
 * METHOD TComboBox:KeyDown() Version 7.0 Jul/15/2004
 * ============================================================================
 
-METHOD KeyDown( nKey, nFlags ) CLASS TComboBox
+METHOD KeyDown(nKey, nFlags) CLASS TComboBox
 
-   LOCAL nAt := ::SendMsg( CB_GETCURSEL )
+   LOCAL nAt := ::SendMsg(CB_GETCURSEL)
 
    If nAt != CB_ERR
       ::nAt := nAt + 1
@@ -173,7 +172,7 @@ METHOD KeyDown( nKey, nFlags ) CLASS TComboBox
       Return 0
    Endif
 
-Return ::Super:KeyDown( nKey, nFlags )
+Return ::Super:KeyDown(nKey, nFlags)
 
 * ============================================================================
 * METHOD TComboBox:LostFocus() Version 7.0 Jul/15/2004
@@ -191,7 +190,7 @@ METHOD LostFocus() CLASS TComboBox
       Return 0
    EndIf
 
-   nAt := ::SendMsg( CB_GETCURSEL )
+   nAt := ::SendMsg(CB_GETCURSEL)
 
    If nAt != CB_ERR
       ::nAt = nAt + 1
@@ -216,7 +215,7 @@ Return 0
 * METHOD TComboBox:KeyChar() Version 7.0 Jul/15/2004
 * ============================================================================
 
-METHOD KeyChar( nKey, nFlags ) CLASS TComboBox
+METHOD KeyChar(nKey, nFlags) CLASS TComboBox
 
    SWITCH nKey
 
@@ -230,7 +229,7 @@ METHOD KeyChar( nKey, nFlags ) CLASS TComboBox
       Return 0
 
    OTHERWISE
-      Return ::Super:Keychar( nKey, nFlags )
+      Return ::Super:Keychar(nKey, nFlags)
 
    ENDSWITCH
 
@@ -240,7 +239,7 @@ Return 0
 * METHOD TComboBox:LButtonDown() Version 7.0 Jul/15/2004
 * ============================================================================
 
-METHOD LButtonDown( nRow, nCol ) CLASS TComboBox
+METHOD LButtonDown(nRow, nCol) CLASS TComboBox
 
    LOCAL nShow := 1
    
@@ -254,6 +253,6 @@ METHOD LButtonDown( nRow, nCol ) CLASS TComboBox
       ::nLastKey := 9999
    EndIf
 
-   ::PostMsg( CB_SHOWDROPDOWN, nShow, 0 )
+   ::PostMsg(CB_SHOWDROPDOWN, nShow, 0)
 
 Return 0

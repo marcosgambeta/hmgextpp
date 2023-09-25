@@ -152,7 +152,7 @@ FUNCTION _DefineImage(ControlName, ParentFormName, x, y, FileName, w, h, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      ControlHandle := InitImage(ParentFormHandle, 0, x, y, invisible, ( action .OR. hb_IsBlock(dblclick) .OR. hb_IsBlock(rclick) .OR. hb_IsString( tooltip ) ), ( hb_IsBlock(mouseover) .OR. hb_IsBlock(mouseleave) ))
+      ControlHandle := InitImage(ParentFormHandle, 0, x, y, invisible, ( action .OR. hb_IsBlock(dblclick) .OR. hb_IsBlock(rclick) .OR. hb_IsString(tooltip) ), ( hb_IsBlock(mouseover) .OR. hb_IsBlock(mouseleave) ))
 
    ENDIF
 
@@ -309,7 +309,7 @@ FUNCTION HMG_SaveImage(FileName, cOutName, cEncoder, nJpgQuality, aOutSize)
       hb_default(@nJpgQuality, 100)
       __defaultNIL(@aOutSize, BmpSize(hBitmap))
 
-      lResult := C_SaveHBitmapToFile(hBitmap, cOutName, aOutSize[1], aOutSize[2], "image/" + Lower( cEncoder ), nJpgQuality)
+      lResult := C_SaveHBitmapToFile(hBitmap, cOutName, aOutSize[1], aOutSize[2], "image/" + Lower(cEncoder), nJpgQuality)
 
       IF hb_IsString(FileName)
          DeleteObject(hBitmap)

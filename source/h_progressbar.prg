@@ -140,7 +140,7 @@ FUNCTION _DefineProgressBar(ControlName, ParentFormName, x, y, w, h, lo, hi, ;
 
       ParentFormHandle := GetFormHandle(ParentFormName)
 
-      ControlHandle := InitProgressBar(ParentFormHandle, 0, x, y, w, h , lo , hi, vertical, smooth, invisible, value)
+      ControlHandle := InitProgressBar(ParentFormHandle, 0, x, y, w, h, lo, hi, vertical, smooth, invisible, value)
 
    ENDIF
 
@@ -239,7 +239,7 @@ FUNCTION _DefineProgressBar(ControlName, ParentFormName, x, y, w, h, lo, hi, ;
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION InitDialogProgressBar( ParentName, ControlHandle, k )
+FUNCTION InitDialogProgressBar(ParentName, ControlHandle, k)
 *-----------------------------------------------------------------------------*
    
    LOCAL BackColor

@@ -75,18 +75,18 @@ FUNCTION GetData()
 
       Packet := MemoRead(_HMG_CommPath + PacketNames[1])
 
-      Rows := Val(SubStr(MemoLine(Packet, , 1) , 11 , 99))
-      Cols := Val(SubStr(MemoLine(Packet, , 2) , 11 , 99))
+      Rows := Val(SubStr(MemoLine(Packet, , 1) , 11, 99))
+      Cols := Val(SubStr(MemoLine(Packet, , 2) , 11, 99))
 
       DO CASE
 
       // Single Data
       CASE Rows == 0 .AND. Cols == 0
 
-         DataType := SubStr(MemoLine(Packet ,  , 3) , 12 , 1)
-         DataLength := Val(SubStr(MemoLine(Packet , , 3) , 14 , 99))
+         DataType := SubStr(MemoLine(Packet, , 3), 12, 1)
+         DataLength := Val(SubStr(MemoLine(Packet, , 3), 14, 99))
 
-         DataValue := MemoLine(Packet , 254 , 4)
+         DataValue := MemoLine(Packet, 254, 4)
 
          SWITCH DataType
          CASE "C" ; RetVal := Left(DataValue, DataLength)   ; EXIT
@@ -107,7 +107,7 @@ FUNCTION GetData()
 
             i++
 
-            DataValue  := MemoLine(Packet , 254 , i)
+            DataValue  := MemoLine(Packet, 254, i)
 
             SWITCH DataType
             CASE "C" ; aItem := Left(DataValue, DataLength)   ; EXIT
@@ -129,7 +129,7 @@ FUNCTION GetData()
 
          i := 3
 
-         aTemp := Array(Rows , Cols)
+         aTemp := Array(Rows, Cols)
 
          r := 1
          c := 1
@@ -141,7 +141,7 @@ FUNCTION GetData()
 
             i++
 
-            DataValue  := MemoLine(Packet , 254 , i)
+            DataValue  := MemoLine(Packet, 254, i)
 
             SWITCH DataType
             CASE "C" ; aItem := Left(DataValue, DataLength)   ; EXIT
@@ -170,7 +170,7 @@ FUNCTION GetData()
 
    ENDIF
 
-   SET ( _SET_DATEFORMAT , bd )
+   SET ( _SET_DATEFORMAT, bd )
 
 RETURN RetVal
 
@@ -227,7 +227,7 @@ FUNCTION SendData(cDest, Data)
 
          NEXT i
 
-         MemoWrit(FileName , cData)
+         MemoWrit(FileName, cData)
 
       ELSE
 
@@ -270,7 +270,7 @@ FUNCTION SendData(cDest, Data)
             NEXT j
          NEXT i
 
-         MemoWrit(FileName , cData)
+         MemoWrit(FileName, cData)
 
       ENDIF
 
@@ -305,17 +305,17 @@ FUNCTION SendData(cDest, Data)
       cData += "#DataBlock=" + cType + "," + cLen + Chr(13) + Chr(10)
       cData += pData + Chr(13) + Chr(10)
 
-      MemoWrit(FileName , cData)
+      MemoWrit(FileName, cData)
 
    ENDIF
 
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION HMG_ClrToHTML( nClr )
+FUNCTION HMG_ClrToHTML(nClr)
 *-----------------------------------------------------------------------------*
 
-   LOCAL cHex := Lower( hb_NumToHex( nClr, 6 ) )
+   LOCAL cHex := Lower(hb_NumToHex(nClr, 6))
 
 RETURN "#" + Right(cHex, 2) + SubStr(cHex, 3, 2) + Left(cHex, 2)
 
@@ -324,7 +324,7 @@ RETURN "#" + Right(cHex, 2) + SubStr(cHex, 3, 2) + Left(cHex, 2)
 #define F_BLOCK   8192
 
 *-----------------------------------------------------------------------------*
-FUNCTION HMG_FILECOPY( cSourceFile, cTargetFile, nBuffer, bEval )
+FUNCTION HMG_FILECOPY(cSourceFile, cTargetFile, nBuffer, bEval)
 *-----------------------------------------------------------------------------*
    
    LOCAL hSourceFile
@@ -404,7 +404,7 @@ FUNCTION uCharToVal(cText, cType)
          uVal := cText
          EXIT
       CASE "N"
-         uVal := IfNil( nStrToNum( cText, , .T. ), Val(cText) )
+         uVal := IfNil(nStrToNum(cText, , .T.), Val(cText) )
          EXIT
       CASE "L"
          uVal := ( "|" + Upper(cText) + "|" $ cTrue )
@@ -413,7 +413,7 @@ FUNCTION uCharToVal(cText, cType)
          uVal := dCharToDate(cText)
          EXIT
       OTHERWISE
-         IF (uVal := nStrToNum( cText )) != NIL
+         IF (uVal := nStrToNum(cText)) != NIL
             cType := "N"
          ELSEIF "|" + Upper(cText) + "|" $ cTrue
             uVal := .T.
@@ -442,7 +442,7 @@ FUNCTION uCharToVal(cText, cType)
 RETURN uVal
 
 *-----------------------------------------------------------------------------*
-FUNCTION nStrToNum( cNum, lEuropean, lForceNumeric )
+FUNCTION nStrToNum(cNum, lEuropean, lForceNumeric)
 *-----------------------------------------------------------------------------*
 
    LOCAL nVal // := NIL
@@ -467,10 +467,10 @@ FUNCTION nStrToNum( cNum, lEuropean, lForceNumeric )
    ENDIF
 
    IF lForceNumeric .AND. " " $ cNum
-      cNum := BeforAtNum( " ", cNum, 1 )
+      cNum := BeforAtNum(" ", cNum, 1)
    ENDIF
 
-   IF CharOnly( "0123456789,.", cNum ) == cNum
+   IF CharOnly("0123456789,.", cNum) == cNum
 
       // valid number string
       nCommaAt := RAt(",", cNum)
@@ -479,12 +479,12 @@ FUNCTION nStrToNum( cNum, lEuropean, lForceNumeric )
          RETURN Val(cMinus + cNum)
       ENDIF
 
-      IF Occurs( ",", cNum ) > 1
+      IF Occurs(",", cNum) > 1
 
          // American format
          lEuropean := .F.
 
-      ELSEIF Occurs( ".", cNum ) > 1
+      ELSEIF Occurs(".", cNum) > 1
 
          lEuropean := .T.
 
@@ -514,11 +514,11 @@ FUNCTION nStrToNum( cNum, lEuropean, lForceNumeric )
 
       IF lEuropean
 
-         nVal := Val(cMinus + CharRepl( ",", CharRem( ".", cNum ), "." ))
+         nVal := Val(cMinus + CharRepl(",", CharRem(".", cNum), "."))
 
       ELSE
 
-         nVal := Val(cMinus + CharRem( ",", cNum ))
+         nVal := Val(cMinus + CharRem(",", cNum))
 
       ENDIF
 
@@ -531,7 +531,7 @@ FUNCTION nStrToNum( cNum, lEuropean, lForceNumeric )
 RETURN nVal
 
 *-----------------------------------------------------------------------------*
-STATIC FUNCTION IfNil( ... )
+STATIC FUNCTION IfNil(...)
 *-----------------------------------------------------------------------------*
    
    LOCAL aParams := hb_AParams()
@@ -559,7 +559,7 @@ STATIC FUNCTION dCharToDate(cDate)
    LOCAL cc
    LOCAL dDate
 
-   IF (cc := Upper(cDate)) != Lower( cDate )
+   IF (cc := Upper(cDate)) != Lower(cDate)
       RETURN dAlphaToDate(cc)
    ENDIF
 
@@ -577,7 +577,7 @@ STATIC FUNCTION dCharToDate(cDate)
 
    IF Empty(dDate)
 
-      cc := Lower( Left(cFormat, 2) )
+      cc := Lower(Left(cFormat, 2))
       Set(_SET_DATEFORMAT, iif(cc == "dd", "mm/dd/yy", "dd/mm/yy"))
       dDate := CToD(cDate)
       IF cc == "yy" .AND. Empty(dDate)
@@ -604,7 +604,7 @@ STATIC FUNCTION dAlphaToDate(cDate)
 
    FOR n := 1 TO 12
 
-      aMonths[n] := Upper(Left(cMonth(StoD(Str(Year(Date()), 4) + StrZero( n, 2 ) + "01" ) ), 3 ) )
+      aMonths[n] := Upper(Left(cMonth(StoD(Str(Year(Date()), 4) + StrZero(n, 2) + "01" ) ), 3 ) )
 
       IF aMonths[n] $ cDate
 
@@ -621,7 +621,7 @@ STATIC FUNCTION dAlphaToDate(cDate)
 
       IF Empty(aNum[2])
 
-         aNum[2] := Year( Date() )
+         aNum[2] := Year(Date())
 
       ELSE
 

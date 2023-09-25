@@ -47,7 +47,7 @@
 #include "minigui.ch"
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineHotKey(cParentForm , nMod , nKey , bAction)
+FUNCTION _DefineHotKey(cParentForm, nMod, nKey, bAction)
 *-----------------------------------------------------------------------------*
 
    LOCAL nParentForm
@@ -76,7 +76,7 @@ FUNCTION _DefineHotKey(cParentForm , nMod , nKey , bAction)
       MsgMiniGuiError("Window " + cParentForm + " is not defined.")
    ENDIF
 
-   _ReleaseHotKey(cParentForm, nMod , nKey)
+   _ReleaseHotKey(cParentForm, nMod, nKey)
    // BK 22-Apr-2012
    IF _HMG_BeginWindowMDIActive .AND. Empty(_HMG_ActiveFormName)  //JP MDI HotKey
       nParentForm := GetActiveMdiHandle()
@@ -89,7 +89,7 @@ FUNCTION _DefineHotKey(cParentForm , nMod , nKey , bAction)
 
    nId := _GetId(49151)
 
-   lSuccess := InitHotKey(nParentForm , nMod , nKey , nId)
+   lSuccess := InitHotKey(nParentForm, nMod, nKey, nId)
 
    k := _GetControlFree()
 
@@ -137,7 +137,7 @@ FUNCTION _DefineHotKey(cParentForm , nMod , nKey , bAction)
 RETURN lSuccess
 
 *-----------------------------------------------------------------------------*
-PROCEDURE _ReleaseHotKey(cParentForm, nMod , nKey)
+PROCEDURE _ReleaseHotKey(cParentForm, nMod, nKey)
 *-----------------------------------------------------------------------------*
 
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
@@ -145,9 +145,9 @@ PROCEDURE _ReleaseHotKey(cParentForm, nMod , nKey)
    LOCAL i
 
    FOR EACH ControlType IN _HMG_aControlType
-      i := hb_enumindex( ControlType )
+      i := hb_enumindex(ControlType)
       IF ControlType == CONTROL_TYPE_HOTKEY .AND. _HMG_aControlParentHandles[i] == nParentFormHandle .AND. _HMG_aControlPageMap[i] == nMod .AND. _HMG_aControlValue[i] == nKey
-         _EraseControl( i, GetFormIndex(cParentForm) )
+         _EraseControl(i, GetFormIndex(cParentForm))
          EXIT
       ENDIF
    NEXT
@@ -164,7 +164,7 @@ FUNCTION _GetHotKeyBlock(cParentForm, nMod, nKey)
    LOCAL i
 
    FOR EACH ControlType IN _HMG_aControlType
-      i := hb_enumindex( ControlType )
+      i := hb_enumindex(ControlType)
       IF ControlType == CONTROL_TYPE_HOTKEY .AND. _HMG_aControlParentHandles[i] == nParentFormHandle .AND. _HMG_aControlPageMap[i] == nMod .AND. _HMG_aControlValue[i] == nKey
          bRetVal := _HMG_aControlProcedures[i]
          EXIT
@@ -181,9 +181,9 @@ PROCEDURE _PushKey(nKey)
 
 RETURN
 
-// HMG_PressKey( nVK1, nVK2, ... ) --> array { nVK1, nVK2, ... }
+// HMG_PressKey(nVK1, nVK2, ...) --> array { nVK1, nVK2, ... }
 *-----------------------------------------------------------------------------*
-FUNCTION HMG_PressKey( ... )  // by Dr. Claudio Soto, April 2016
+FUNCTION HMG_PressKey(...)  // by Dr. Claudio Soto, April 2016
 *-----------------------------------------------------------------------------*
    
    LOCAL aVK := {}
@@ -247,7 +247,7 @@ FUNCTION _DetermineKey(cKey)
 
    nAlt := nCtrl := nShift := nWin := 0
 
-   IF _SetGetGlobal( "_HMG_aKeyTables" ) == NIL
+   IF _SetGetGlobal("_HMG_aKeyTables") == NIL
       STATIC _HMG_aKeyTables AS GLOBAL VALUE ;
       { "LBUTTON", "RBUTTON", "CANCEL", "MBUTTON", "XBUTTON1", "XBUTTON2", ".7", "BACK", "TAB", ".10", ;
       ".11", "CLEAR", "RETURN", ".14", ".15", "SHIFT", "CONTROL", "MENU", "PAUSE", "CAPITAL", ;
@@ -272,7 +272,7 @@ FUNCTION _DetermineKey(cKey)
 
       IF (nPos := At("+", cKey2)) == 0
          cKey2 := AllTrim(cKey2)
-         nPos := AScan(_SetGetGlobal( "_HMG_aKeyTables" ), {|c|cKey2 == c})
+         nPos := AScan(_SetGetGlobal("_HMG_aKeyTables"), {|c|cKey2 == c})
          cKey2 := ""
          IF nPos != 0
             aKey := { nPos, nAlt + nCtrl + nShift + nWin }

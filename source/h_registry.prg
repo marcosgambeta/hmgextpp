@@ -69,7 +69,7 @@ CREATE CLASS TReg32
    VAR nError
    VAR lError
 
-   METHOD New( nKey, cRegKey, lShowError )
+   METHOD New(nKey, cRegKey, lShowError)
    METHOD Create(nKey, cRegKey, lShowError)
    METHOD Get(cRegVar, uVar)
    METHOD Set(cRegVar, uVar)
@@ -79,7 +79,7 @@ CREATE CLASS TReg32
 ENDCLASS
 
 
-METHOD New( nKey, cRegKey, lShowError ) CLASS TReg32
+METHOD New(nKey, cRegKey, lShowError) CLASS TReg32
 
    LOCAL nHandle := 0
    LOCAL nReturn
@@ -95,7 +95,7 @@ METHOD New( nKey, cRegKey, lShowError ) CLASS TReg32
    ::lError := ( nReturn != ERROR_SUCCESS )
    IF ::lError
       IF lShowError == NIL .OR. lShowError
-         MsgStop( "Error opening TReg32 object (" + hb_ntos(nReturn) + ")" )
+         MsgStop("Error opening TReg32 object (" + hb_ntos(nReturn) + ")")
       ENDIF
    ELSE
       ::cRegKey := cRegKey
@@ -112,12 +112,12 @@ METHOD Create(nKey, cRegKey, lShowError) CLASS TReg32
 
    DEFAULT cRegKey TO ""
 
-   nReturn := RegCreateKey( nKey, cRegKey, @nHandle )
+   nReturn := RegCreateKey(nKey, cRegKey, @nHandle)
 
    ::lError := ( nReturn != ERROR_SUCCESS )
    IF ::lError
       IF lShowError == NIL .OR. lShowError
-         MsgStop( "Error creating TReg32 object (" + hb_ntos(nReturn) + ")" )
+         MsgStop("Error creating TReg32 object (" + hb_ntos(nReturn) + ")")
       ENDIF
    ELSE
       ::nError := RegOpenKeyExA(nKey, cRegKey, , iif(IsWow64(), hb_BitOr(KEY_ALL_ACCESS, KEY_WOW64_64KEY), KEY_ALL_ACCESS), @nHandle)
@@ -146,7 +146,7 @@ METHOD Get(cRegVar, uVar) CLASS TReg32
          uVar := cValue
          SWITCH cType
          CASE "N"
-            uVar := Bin2U( uVar )
+            uVar := Bin2U(uVar)
             EXIT
          CASE "D"
             uVar := CToD(uVar)
@@ -200,9 +200,9 @@ METHOD Delete(cRegVar) CLASS TReg32
 RETURN NIL
 
 
-STATIC FUNCTION Bin2U( c )
+STATIC FUNCTION Bin2U(c)
 
-   LOCAL l := Bin2L( c )
+   LOCAL l := Bin2L(c)
 
 RETURN iif(l < 0, l + 4294967296, l)
 
@@ -210,12 +210,12 @@ RETURN iif(l < 0, l + 4294967296, l)
  * Registry Access Functions
 */
 
-FUNCTION IsRegistryKey( nKey, cRegKey )
+FUNCTION IsRegistryKey(nKey, cRegKey)
 
    LOCAL oReg
    LOCAL lExist
 
-   oReg   := TReg32():New( nKey, cRegKey, .F. )
+   oReg   := TReg32():New(nKey, cRegKey, .F.)
    lExist := !oReg:lError
 
    oReg:Close()
@@ -223,7 +223,7 @@ FUNCTION IsRegistryKey( nKey, cRegKey )
 RETURN lExist
 
 
-FUNCTION CreateRegistryKey( nKey, cRegKey )
+FUNCTION CreateRegistryKey(nKey, cRegKey)
 
    LOCAL oReg
    LOCAL lSuccess
@@ -243,7 +243,7 @@ FUNCTION GetRegistryValue(nKey, cRegKey, cRegVar, cType)
 
    DEFAULT cRegVar TO "", cType TO "C"
 
-   oReg := TReg32():New( nKey, cRegKey, .F. )
+   oReg := TReg32():New(nKey, cRegKey, .F.)
 
    IF !oReg:lError
 
@@ -277,7 +277,7 @@ FUNCTION SetRegistryValue(nKey, cRegKey, cRegVar, uVal)
 
    DEFAULT cRegVar TO ""
 
-   oReg := TReg32():New( nKey, cRegKey, .F. )
+   oReg := TReg32():New(nKey, cRegKey, .F.)
 
    IF !oReg:lError
       oReg:Set(cRegVar, uVal)
@@ -289,14 +289,14 @@ FUNCTION SetRegistryValue(nKey, cRegKey, cRegVar, uVal)
 RETURN lSuccess
 
 
-FUNCTION DeleteRegistryVar( nKey, cRegKey, cRegVar )
+FUNCTION DeleteRegistryVar(nKey, cRegKey, cRegVar)
 
    LOCAL oReg
    LOCAL lSuccess := .F.
 
    DEFAULT cRegVar TO ""
 
-   oReg := TReg32():New( nKey, cRegKey, .F. )
+   oReg := TReg32():New(nKey, cRegKey, .F.)
 
    IF !oReg:lError
       oReg:Delete(cRegVar)
@@ -308,11 +308,11 @@ FUNCTION DeleteRegistryVar( nKey, cRegKey, cRegVar )
 RETURN lSuccess
 
 
-FUNCTION DeleteRegistryKey( nKey, cRegKey )
+FUNCTION DeleteRegistryKey(nKey, cRegKey)
 
    LOCAL lSuccess
 
-   lSuccess := ( RegDeleteKey( nKey, cRegKey ) == ERROR_SUCCESS )
+   lSuccess := ( RegDeleteKey(nKey, cRegKey) == ERROR_SUCCESS )
 
 RETURN lSuccess
 
@@ -323,7 +323,7 @@ RETURN lSuccess
 
 #include "mgdefs.hpp"
 
-extern HB_PTRUINT wapi_GetProcAddress( HMODULE hModule, LPCSTR lpProcName );
+extern HB_PTRUINT wapi_GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
 
 // http://msdn.microsoft.com/en-us/library/ms684139(VS.85).aspx
 typedef BOOL ( WINAPI *LPFN_ISWOW64PROCESS ) ( HANDLE, PBOOL );
@@ -334,9 +334,9 @@ HB_FUNC_STATIC( ISWOW64 )
 
    LPFN_ISWOW64PROCESS fnIsWow64Process;
 
-   fnIsWow64Process = ( LPFN_ISWOW64PROCESS ) wapi_GetProcAddress( GetModuleHandle(TEXT("kernel32")), "IsWow64Process" );
+   fnIsWow64Process = ( LPFN_ISWOW64PROCESS ) wapi_GetProcAddress(GetModuleHandle(TEXT("kernel32")), "IsWow64Process");
    if( fnIsWow64Process != nullptr ) {
-      fnIsWow64Process( GetCurrentProcess(), &bIsWow64 );
+      fnIsWow64Process(GetCurrentProcess(), &bIsWow64);
    }
 
    hb_retl(bIsWow64);

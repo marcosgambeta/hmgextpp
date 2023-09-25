@@ -64,7 +64,7 @@
 */
 CLASS TPair
 
-   METHOD New( cKey, cValue )
+   METHOD New(cKey, cValue)
 
    CLASSDATA cKey, cValue
 
@@ -73,7 +73,7 @@ ENDCLASS
 //
 // New
 //
-METHOD New( cKey, cValue ) CLASS TPair
+METHOD New(cKey, cValue) CLASS TPair
 ::cKey   := cKey
 ::cValue := cValue
 return Self

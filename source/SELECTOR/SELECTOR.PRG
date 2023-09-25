@@ -79,7 +79,7 @@
     record processed.
 */
 
-PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest, xcFile, xcAlias, lAdditive, aSummary, xEval )
+PROCEDURE Selector(aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest, xcFile, xcAlias, lAdditive, aSummary, xEval)
 
    LOCAL nLenSelectList := Len(aSelectList)
    LOCAL xExprValue, cExprValue, cExprType, nExprLen, aStruct := {}
@@ -139,7 +139,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
    ENDIF
 
    nStartRec := RecNo()
-   dbGoto( LastRec() + 1 )
+   dbGoto(LastRec() + 1)
 
    IF lOTM
 
@@ -201,7 +201,7 @@ PROCEDURE Selector( aSelectList, xcnFromArea, aOneToMany, lSelect, lWhile, lRest
 
    NEXT
 
-   dbGoto( nStartRec )
+   dbGoto(nStartRec)
 
    IF lAdditive
 
@@ -339,7 +339,7 @@ RETURN
    ..........................................................................
 */
 
-STATIC FUNCTION ToString( cStr )
+STATIC FUNCTION ToString(cStr)
 
    LOCAL cType := ValType(cStr)
 
@@ -349,7 +349,7 @@ STATIC FUNCTION ToString( cStr )
 
    ELSEIF cType == "D"
 
-      cStr := DToS( cStr )
+      cStr := DToS(cStr)
 
    ELSEIF cType == "L"
 

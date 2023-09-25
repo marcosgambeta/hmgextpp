@@ -86,7 +86,7 @@ FUNCTION OwnTabPaint(lParam)
    i := AScan(_HMG_aControlHandles, GETOWNBTNHANDLE(lParam))
 
    IF Empty(hDC) .OR. i == 0
-      RETURN( 1 )
+      RETURN 1
    ENDIF
 
    nItemId    := GETOWNBTNITEMID(lParam) + 1
@@ -101,8 +101,8 @@ FUNCTION OwnTabPaint(lParam)
    hOldFont     := SelectObject(hDC, _HMG_aControlFontHandle[i])
    aMetr        := GetTextMetric(hDC)
    oldBkMode    := SetBkMode(hDC, TRANSPARENT)
-   nTextColor   := GetSysColor( COLOR_BTNTEXT )
-   oldTextColor := SetTextColor( hDC, GetRed(nTextColor), GetGreen(nTextColor), GetBlue(nTextColor) )
+   nTextColor   := GetSysColor(COLOR_BTNTEXT)
+   oldTextColor := SetTextColor(hDC, GetRed(nTextColor), GetGreen(nTextColor), GetBlue(nTextColor))
 
    IF hb_IsArray(_HMG_aControlMiscData2[i]) .AND. nItemId <= Len(_HMG_aControlMiscData2[i]) .AND. ;
       IsArrayRGB(_HMG_aControlMiscData2[i][nItemId])
@@ -112,9 +112,9 @@ FUNCTION OwnTabPaint(lParam)
    ENDIF
 
    bkColor := RGB(aBkColor[1], aBkColor[2], aBkColor[3])
-   SetBkColor( hDC, bkColor )
+   SetBkColor(hDC, bkColor)
 
-   hBrush := CreateSolidBrush( aBkColor[1], aBkColor[2], aBkColor[3] )
+   hBrush := CreateSolidBrush(aBkColor[1], aBkColor[2], aBkColor[3])
    FillRect(hDC, aBtnRc[1], aBtnRc[2], aBtnRc[3], aBtnRc[4], hBrush)
    DeleteObject(hBrush)
 
@@ -125,9 +125,9 @@ FUNCTION OwnTabPaint(lParam)
 
    IF _HMG_aControlMiscData1[i][2]  // ImageFlag
 
-      nItemId := Min( nItemId, Len(_HMG_aControlPicture[i]) )
+      nItemId := Min(nItemId, Len(_HMG_aControlPicture[i]))
 
-      hImage := LoadBitmap( _HMG_aControlPicture[i][nItemId] )
+      hImage := LoadBitmap(_HMG_aControlPicture[i][nItemId])
       IF Empty(hImage)
          hImage := LoadImage(_HMG_aControlPicture[i][nItemId], , , , , , bkColor)
       ENDIF
@@ -143,17 +143,17 @@ FUNCTION OwnTabPaint(lParam)
       IF _HMG_aControlMiscData1[i][4]  // Bottom Tab
 
          IF lSelected
-            DrawGlyph( hDC, aBtnRc[1] + 2 * xp1, 2 * yp1 - iif(lBigFsize, 8, 5), xp2, 2 * yp2 - iif(lBigFsize, 8, 5), hImage, bkColor, .F., .F. )
+            DrawGlyph(hDC, aBtnRc[1] + 2 * xp1, 2 * yp1 - iif(lBigFsize, 8, 5), xp2, 2 * yp2 - iif(lBigFsize, 8, 5), hImage, bkColor, .F., .F.)
          ELSE
-            DrawGlyph( hDC, aBtnRc[1] + xp1, 2 * yp1 - iif(lBigFsize, 8, 5), xp2, 2 * yp2 - iif(lBigFsize, 8, 5), hImage, bkColor, .F., .F. )
+            DrawGlyph(hDC, aBtnRc[1] + xp1, 2 * yp1 - iif(lBigFsize, 8, 5), xp2, 2 * yp2 - iif(lBigFsize, 8, 5), hImage, bkColor, .F., .F.)
          ENDIF
 
       ELSE
 
          IF lSelected
-            DrawGlyph( hDC, aBtnRc[1] + 2 * xp1, yp1 - 2, xp2, yp2, hImage, bkColor, .F., .F. )
+            DrawGlyph(hDC, aBtnRc[1] + 2 * xp1, yp1 - 2, xp2, yp2, hImage, bkColor, .F., .F.)
          ELSE
-            DrawGlyph( hDC, aBtnRc[1] + xp1, yp1 + 2, xp2, yp2, hImage, bkColor, .F., .F. )
+            DrawGlyph(hDC, aBtnRc[1] + xp1, yp1 + 2, xp2, yp2, hImage, bkColor, .F., .F.)
          ENDIF
 
       ENDIF
@@ -167,11 +167,11 @@ FUNCTION OwnTabPaint(lParam)
       IF _HMG_aControlMiscData1[i][5]  // HotTrack
 
          IF IsArrayRGB(aForeColor := _HMG_aControlMiscData1[i][6])
-            SetTextColor( hDC, aForeColor[1], aForeColor[2], aForeColor[3] )
-         ELSEIF bkColor == GetSysColor( COLOR_BTNFACE )
-            SetTextColor( hDC, 0, 0, 128 )
+            SetTextColor(hDC, aForeColor[1], aForeColor[2], aForeColor[3])
+         ELSEIF bkColor == GetSysColor(COLOR_BTNFACE)
+            SetTextColor(hDC, 0, 0, 128)
          ELSE
-            SetTextColor( hDC, 255, 255, 255 )
+            SetTextColor(hDC, 255, 255, 255)
          ENDIF
 
       ENDIF
@@ -179,7 +179,7 @@ FUNCTION OwnTabPaint(lParam)
    ELSE
 
       IF IsArrayRGB(aInactiveColor := _HMG_aControlMiscData1[i][7])
-         SetTextColor( hDC, aInactiveColor[1], aInactiveColor[2], aInactiveColor[3] )
+         SetTextColor(hDC, aInactiveColor[1], aInactiveColor[2], aInactiveColor[3])
       ENDIF
 
    ENDIF
@@ -206,4 +206,4 @@ FUNCTION OwnTabPaint(lParam)
    SetBkMode(hDC, oldBkMode)
    SetTextColor(hDC, oldTextColor)
 
-RETURN( 0 )
+RETURN 0

@@ -3,13 +3,13 @@
 #include "miniprint.ch"
 #include <hbclass.ch>
 
-#TRANSLATE MSG        => MSGBOX
+#TRANSLATE MSG => MSGBOX
 #TRANSLATE ZAPS(<X>) => ALLTRIM(STR(<X>))
 #define NTRIM(n) LTrim(Str(n))
-#TRANSLATE Test(<c>) => MsgInfo( <c>, [<c>] )
-#define MsgInfo( c ) MsgInfo( c, , , .F. )
-#define MsgAlert(c) MsgEXCLAMATION( c, , , .F. )
-#define MsgStop( c ) MsgStop( c, , , .F. )
+#TRANSLATE Test(<c>) => MsgInfo(<c>, [<c>])
+#define MsgInfo(c) MsgInfo(c, , , .F.)
+#define MsgAlert(c) MsgEXCLAMATION(c, , , .F.)
+#define MsgStop(c) MsgStop(c, , , .F.)
 
 #define MGSYS  .F.
 
@@ -69,7 +69,7 @@ Procedure PrMiniEsegui(_MainArea,_psd,db_arc,_prw)
          local lpreview :=.F.
          local lselect  :=.F.
          local str1:=[]
-         local ncpl , nfsize
+         local ncpl, nfsize
          local condition:=[]
          local aprinters
          local StrFlt:=""
@@ -318,7 +318,7 @@ Static Function memosay(arg1,arg2,argm1,argl1,argf1,argsize,abold,aita,aunder,as
 *-----------------------------------------------------------------------------*
  local _Memo1:=argm1, k, mcl ,maxrow:=max(1,mlcount(_memo1,argl1))
  local arrymemo:={} , esci:=.F. ,str :="" , ain, typa := .F.
- default arg2 to 0 , arg1 to 0 , argl1 to 10, onlyone to "", argalign to "LEFT"
+ default arg2 to 0, arg1 to 0, argl1 to 10, onlyone to "", argalign to "LEFT"
 
  if hb_IsArray(argm1)
     typa := .T.
@@ -365,7 +365,7 @@ Static Function memosay(arg1,arg2,argm1,argl1,argf1,argsize,abold,aita,aunder,as
             oWr:TheMiniHead()
          endif
          _HMG_PRINTER_H_PRINT(iif(MGSYS,_HMG_SYSDATA[374],_hmg_printer_hdc) ;
-         , nline*lstep , arg2, argf1 , argsize , argcolor1[1], argcolor1[2], argcolor1[3] ;
+         , nline*lstep, arg2, argf1, argsize, argcolor1[1], argcolor1[2], argcolor1[3] ;
          , arrymemo[mcl], abold, aita, aunder, astrike;
          , iif(hb_IsArray(argcolor1), .T.,.F.) ;
          , iif(valtype(argf1)=="C", .T.,.F.) ;
@@ -487,15 +487,15 @@ Function RMiniPar(ArryPar,cmdline,section)
                _hmg_printer_aPrinterProperties:=_HMG_PRINTER_SetPrinterProperties( ;
                 iif(ascan(ArryPar,[DEFAULT])=3,GetDefaultPrinter(),_arg1), ;
                 iif(ascan(arryPar,[ORIENTATION])!= 0,iif(val(_arg1) > 0,val(_arg1),iif([PORT]$ _arg1, 1, 2)) ,-999),;
-                iif(lPaperSize     > 0 , lPaperSize      , -999) , ;
-                iif(lPaperLength   > 0 , LPaperLength    , -999) , ;
-                iif(lPaperWidth    > 0 , LPaperWidth     , -999) , ;
-                iif(lCopies        > 0 , lCopies         , -999) , ;
-                iif(lDefaultSource > 0 , LDefaultSource  , -999) , ;
-                iif(lQuality      != 0 , lQuality        , -999) , ;
-                iif(lColor         > 0 , lColor          , -999) , ;
-                iif(lDuplex        > 0 , lDuplex         , -999) , ;
-                iif(lCollate       > 0 , nCollate        , -999))
+                iif(lPaperSize     > 0, lPaperSize    , -999), ;
+                iif(lPaperLength   > 0, LPaperLength  , -999), ;
+                iif(lPaperWidth    > 0, LPaperWidth   , -999), ;
+                iif(lCopies        > 0, lCopies       , -999), ;
+                iif(lDefaultSource > 0, LDefaultSource, -999), ;
+                iif(lQuality      != 0, lQuality      , -999), ;
+                iif(lColor         > 0, lColor        , -999), ;
+                iif(lDuplex        > 0, lDuplex       , -999), ;
+                iif(lCollate       > 0, nCollate      , -999))
                //msgbox(str(lcopies))
 
                 EndCase
@@ -523,10 +523,10 @@ Function RMiniPar(ArryPar,cmdline,section)
              _varmem:=ArryPar[5]
              if __mvexist(ArryPar[5])
                  //msginfo("Private BHX")
-                &_varmem := iif(iif(MGSYS,_HMG_SYSDATA[374],_hmg_printer_hdc) != 0 , .T. , .F.)
+                &_varmem := iif(iif(MGSYS,_HMG_SYSDATA[374],_hmg_printer_hdc) != 0, .T. , .F.)
              else
                 Public &_varmem
-                &_varmem := iif(iif(MGSYS,_HMG_SYSDATA[374],_hmg_printer_hdc) != 0 , .T. , .F.)
+                &_varmem := iif(iif(MGSYS,_HMG_SYSDATA[374],_hmg_printer_hdc) != 0, .T. , .F.)
              endif
           endif
           //msgbox(_hmg_printer_timestamp,"timestamp")

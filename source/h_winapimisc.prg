@@ -76,7 +76,7 @@ FUNCTION _Execute(hWnd, cOperation, cFile, cParameters, cDirectory, nState)
 *-----------------------------------------------------------------------------*
 RETURN ShellExecute(hb_defaultValue(hWnd, GetActiveWindow()) , ;
    cOperation /* possible values are 'edit', 'explore', 'find', 'open', 'print' */ , ;
-   hb_defaultValue(cFile, "") , cParameters , cDirectory , hb_defaultValue(nState, SW_SHOWNORMAL))
+   hb_defaultValue(cFile, "") , cParameters, cDirectory, hb_defaultValue(nState, SW_SHOWNORMAL))
 
 *-----------------------------------------------------------------------------*
 PROCEDURE ShellAbout(cTitle, cMsg, hIcon)
@@ -84,7 +84,7 @@ PROCEDURE ShellAbout(cTitle, cMsg, hIcon)
    
    LOCAL nCount
 
-   IF _SetGetGlobal( "_HMG_ShellAbout" ) == NIL
+   IF _SetGetGlobal("_HMG_ShellAbout") == NIL
       STATIC _HMG_ShellAbout AS GLOBAL VALUE 0
    ENDIF
 

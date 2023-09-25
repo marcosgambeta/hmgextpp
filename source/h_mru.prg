@@ -63,12 +63,12 @@ STATIC asMRU := { NIL, NIL, NIL, NIL, NIL, NIL }
 STATIC aMRU_File
 
 *-----------------------------------------------------------------------------*
-FUNCTION AddMRUItem( NewItem , action )
+FUNCTION AddMRUItem(NewItem, action)
 *-----------------------------------------------------------------------------*
    
    LOCAL result
 
-   result := CheckForDuplicateMRU( NewItem )
+   result := CheckForDuplicateMRU(NewItem)
    IF result != NOFOUND
       ReorderMRUList(result)
    ENDIF
@@ -79,7 +79,7 @@ FUNCTION AddMRUItem( NewItem , action )
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-STATIC FUNCTION CheckForDuplicateMRU( NewItem )
+STATIC FUNCTION CheckForDuplicateMRU(NewItem)
 *-----------------------------------------------------------------------------*
    
    LOCAL DuplicateMRU := NOFOUND
@@ -89,7 +89,7 @@ STATIC FUNCTION CheckForDuplicateMRU( NewItem )
       // Uppercase newitem for string comparisons
       NewItem := Upper(NewItem)
       // Check all existing MRUs for duplicate
-      IF (i := AScan(aMRU_File , {|y|Upper(y[2]) == NewItem})) != 0
+      IF (i := AScan(aMRU_File, {|y|Upper(y[2]) == NewItem})) != 0
          DuplicateMRU := i
       ENDIF
    ENDIF
@@ -116,12 +116,12 @@ FUNCTION AddMenuElement(NewItem, cAction)
    IF MRUCount == 0
       // Modify a first element the menu
       cxMRU_Id := cMRU_Id
-      _ModifyMenuItem(cxMRU_Id , MRUParentForm , "&1 " + caption , action)
+      _ModifyMenuItem(cxMRU_Id, MRUParentForm, "&1 " + caption, action)
       AAdd(aMRU_File, {caption, NewItem, cxMRU_Id, action, 1})
    ELSE
       // Add a new element to the menu
       FOR n := 1 TO Len(aMRU_File) + 1
-         x := AScan(aMRU_File , {|y|y[5] == n})
+         x := AScan(aMRU_File, {|y|y[5] == n})
          IF x == 0
             x := n
             EXIT
@@ -130,19 +130,19 @@ FUNCTION AddMenuElement(NewItem, cAction)
 
       cyMRU_Id := cMRU_Id + "_" + hb_ntos(x)
       cxMRU_Id := aMRU_File[1, 3]
-      _InsertMenuItem(cxMRU_Id , MRUParentForm , "&1 " + caption , action, cyMRU_Id)
+      _InsertMenuItem(cxMRU_Id, MRUParentForm, "&1 " + caption, action, cyMRU_Id)
       // Insert a first element the menu
-      AIns( aMRU_File, 1, { caption, NewItem, cyMRU_Id, action, x }, .T. )
+      AIns(aMRU_File, 1, { caption, NewItem, cyMRU_Id, action, x }, .T.)
       FOR n := 1 TO Len(aMRU_File)
          cx := hb_ntos(n)
          cxMRU_Id := aMRU_File[n, 3]
          xCaption := "&" + cx + " " + aMRU_File[n, 1]
-         _ModifyMenuItem(cxMRU_Id , MRUParentForm , xCaption , aMRU_File[n, 4])
+         _ModifyMenuItem(cxMRU_Id, MRUParentForm, xCaption, aMRU_File[n, 4])
       NEXT
       IF Len(aMRU_File) > maxMRU_Files
          cxMRU_Id := aMRU_File[Len(aMRU_File), 3]
-         ASize(aMRU_File , maxMRU_Files)
-         _RemoveMenuItem( cxMRU_Id , MRUParentForm )
+         ASize(aMRU_File, maxMRU_Files)
+         _RemoveMenuItem(cxMRU_Id, MRUParentForm)
       ENDIF
    ENDIF
    // Increment the menu count
@@ -160,8 +160,8 @@ STATIC FUNCTION ReorderMRUList(DuplicateLocation)
    // duplicate down one in the MRU list
    IF DuplicateLocation > 1
       cxMRU_Id := aMRU_File[DuplicateLocation, 3]
-      _RemoveMenuItem( cxMRU_Id , MRUParentForm )
-      hb_ADel( aMRU_File, DuplicateLocation, .T. )
+      _RemoveMenuItem(cxMRU_Id, MRUParentForm)
+      hb_ADel(aMRU_File, DuplicateLocation, .T.)
    ENDIF
    
 RETURN NIL
@@ -186,7 +186,7 @@ FUNCTION SaveMRUFileList()
 RETURN NIL
 
 *-----------------------------------------------------------------------------*
-FUNCTION _DefineMruItem(caption , cIniFile , cSection , nMaxItems , action , name)
+FUNCTION _DefineMruItem(caption, cIniFile, cSection, nMaxItems, action, name)
 *-----------------------------------------------------------------------------*
    
    LOCAL aTmp := {}
@@ -240,7 +240,7 @@ FUNCTION _DefineMruItem(caption , cIniFile , cSection , nMaxItems , action , nam
       ENDIF
 
       FOR EACH n IN aTmp DESCEND
-         AddMRUItem( n, action )
+         AddMRUItem(n, action)
       NEXT
 
    ELSE
@@ -261,13 +261,13 @@ FUNCTION ClearMRUList()
    FOR EACH n IN aMRU_File DESCEND
       cxMRU_Id := n[3]
       IF n:__enumIsLast()
-         _ModifyMenuItem( cxMRU_Id , MRUParentForm , " (Empty) " , {||NIL} )
-         SetProperty( MRUParentForm , cxMRU_Id , "Enabled" , .F. )
+         _ModifyMenuItem(cxMRU_Id, MRUParentForm, " (Empty) ", {||NIL})
+         SetProperty(MRUParentForm, cxMRU_Id, "Enabled", .F.)
          cMRU_Id := cxMRU_Id
          aMRU_File := {}
          MRUCount := 0
       ELSE
-         _RemoveMenuItem( cxMRU_Id , MRUParentForm )
+         _RemoveMenuItem(cxMRU_Id, MRUParentForm)
       ENDIF
    NEXT
 

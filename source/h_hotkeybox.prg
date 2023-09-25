@@ -51,7 +51,7 @@
 
 *-----------------------------------------------------------------------------*
 FUNCTION _DefineHotKeyBox(ControlName, ParentForm, x, y, w, h, value, fontname, fontsize, tooltip, ;
-      change, HelpId, invisible, notabstop , bold, italic, underline, strikeout)
+      change, HelpId, invisible, notabstop, bold, italic, underline, strikeout)
 *-----------------------------------------------------------------------------*
 
    LOCAL ControlHandle
@@ -96,7 +96,7 @@ FUNCTION _DefineHotKeyBox(ControlName, ParentForm, x, y, w, h, value, fontname, 
 
    ParentForm := GetFormHandle(ParentForm)
 
-   ControlHandle := InitHotKeyBox(ParentForm, x, y, w, h , "" , 0, invisible, notabstop)
+   ControlHandle := InitHotKeyBox(ParentForm, x, y, w, h, "", 0, invisible, notabstop)
 
    IF !empty(FontHandle)
       _SetFontHandle(ControlHandle, FontHandle)
