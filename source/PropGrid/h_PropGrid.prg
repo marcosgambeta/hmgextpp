@@ -1179,17 +1179,20 @@ FUNCTION PgGetSysInfo(aRowIt)
       ENDIF
    ELSE
       typ := Lower(aRowIt[APG_DATA])
-      DO CASE // TODO: switch
-      CASE typ == "system"
+      SWITCH typ
+      CASE "system"
          aDan := WindowsVersion()
          cDan := aDan[1] + "(" +  aDan[2] + "," + aDan[3] + ")"
-      CASE typ == "username"
+         EXIT
+      CASE "username"
          cDan := GetComputerName()
-      CASE typ == "userid"
+         EXIT
+      CASE "userid"
          cDan :=   GetUserName()
-      CASE typ == "userhome"
+         EXIT
+      CASE "userhome"
          cDan :=  GetMyDocumentsFolder()
-      ENDCASE
+      ENDSWITCH
    ENDIF
 
 RETURN cDan
@@ -2925,67 +2928,89 @@ STATIC FUNCTION DialogFun(lOk, aItem, aItemOld)
 
    IF DLG_ID != NIL
       hListBox := Getdialogitemhandle(DLG_HWND, 102)
-      DO CASE // TODO: switch
-      CASE DLG_ID == 101 .AND. DLG_NOT == 1024
-         cValue := GetEditText(DLG_HWND, 101)
-         IF !Empty(cValue)
-            EnableDialogItem(DLG_HWND, 110)
-         ELSE
+      SWITCH DLG_ID
+      CASE 101
+         IF DLG_NOT == 1024
+            cValue := GetEditText(DLG_HWND, 101)
+            IF !Empty(cValue)
+               EnableDialogItem(DLG_HWND, 110)
+            ELSE
+               DisableDialogItem(DLG_HWND, 110)
+            ENDIF
+         ENDIF
+         EXIT
+      CASE 110
+         IF DLG_NOT == 0
+            cValue := GetEditText(DLG_HWND, 101)
+            EnableDialogItem(DLG_HWND, 105)
+            SetDialogItemText(DLG_HWND, 101, "")
+            AAdd(aItem, cValue)
+            ListboxAddString(hListBox, cValue)
             DisableDialogItem(DLG_HWND, 110)
          ENDIF
-      CASE DLG_ID == 110 .AND. DLG_NOT == 0
-         cValue := GetEditText(DLG_HWND, 101)
-         EnableDialogItem(DLG_HWND, 105)
-         SetDialogItemText(DLG_HWND, 101, "")
-         AAdd(aItem, cValue)
-         ListboxAddString(hListBox, cValue)
-         DisableDialogItem(DLG_HWND, 110)
-
-      CASE DLG_ID == 111 .AND. DLG_NOT == 0
-         pos := ListBoxGetCurSel(hListBox)
-         IF Pos > 0 .AND. pos <= Len(aItem)
-            ADel(aItem, pos)
-            ASize(aItem, Len(aItem) - 1)
-            ListBoxReset(hListBox)
-            SetInitItem(aItem, 1)
-            EnableDialogItem(DLG_HWND, 105)
+         EXIT
+      CASE 111
+         IF DLG_NOT == 0
+            pos := ListBoxGetCurSel(hListBox)
+            IF Pos > 0 .AND. pos <= Len(aItem)
+               ADel(aItem, pos)
+               ASize(aItem, Len(aItem) - 1)
+               ListBoxReset(hListBox)
+               SetInitItem(aItem, 1)
+               EnableDialogItem(DLG_HWND, 105)
+            ENDIF
          ENDIF
-      CASE DLG_ID == 112 .AND. DLG_NOT == 0
-         pos := ListBoxGetCurSel(hListBox)
-         IF Pos > 1 .AND. pos <= Len(aItem)
-            cValue := aItem[pos]
-            ADel(aItem, pos)
-            AIns(aItem, pos - 1)
-            aItem[pos-1] := cValue
-            ListBoxReset(hListBox)
-            SetInitItem(aItem, 1)
-            ListBoxSetCurSel(hListBox, pos - 1)
-            EnableDialogItem(DLG_HWND, 105)
+         EXIT
+      CASE 112
+         IF DLG_NOT == 0
+            pos := ListBoxGetCurSel(hListBox)
+            IF Pos > 1 .AND. pos <= Len(aItem)
+               cValue := aItem[pos]
+               ADel(aItem, pos)
+               AIns(aItem, pos - 1)
+               aItem[pos-1] := cValue
+               ListBoxReset(hListBox)
+               SetInitItem(aItem, 1)
+               ListBoxSetCurSel(hListBox, pos - 1)
+               EnableDialogItem(DLG_HWND, 105)
+            ENDIF
          ENDIF
-      CASE DLG_ID == 113 .AND. DLG_NOT == 0
-         pos := ListBoxGetCurSel(hListBox)
-         IF Pos > 0 .AND. pos <= Len(aItem) - 1
-            cValue := aItem[pos]
-            ADel(aItem, pos)
-            AIns(aItem, pos + 1)
-            aItem[pos+1] := cValue
-            ListBoxReset(hListBox)
-            SetInitItem(aItem, 1)
-            ListBoxSetCurSel(hListBox, pos + 1)
-            EnableDialogItem(DLG_HWND, 105)
+         EXIT
+      CASE 113
+         IF DLG_NOT == 0
+            pos := ListBoxGetCurSel(hListBox)
+            IF Pos > 0 .AND. pos <= Len(aItem) - 1
+               cValue := aItem[pos]
+               ADel(aItem, pos)
+               AIns(aItem, pos + 1)
+               aItem[pos+1] := cValue
+               ListBoxReset(hListBox)
+               SetInitItem(aItem, 1)
+               ListBoxSetCurSel(hListBox, pos + 1)
+               EnableDialogItem(DLG_HWND, 105)
+            ENDIF
          ENDIF
-      CASE DLG_ID == 105 .AND. DLG_NOT == 0
-         ret := GetEditText(DLG_HWND, 101)
-         lOk := .T.
-         _ReleaseDialog()
-      CASE DLG_ID == 106 .AND. DLG_NOT == 0
-         ListBoxReset(hListBox)
-         aItem := AClone(aItemOld)
-         SetInitItem(aItem, 1)
-         SetDialogItemText(DLG_HWND, 101, "")
-      CASE DLG_ID == 107 .AND. DLG_NOT == 0
-         _ReleaseDialog()
-      ENDCASE
+         EXIT
+      CASE 105
+         IF DLG_NOT == 0
+            ret := GetEditText(DLG_HWND, 101)
+            lOk := .T.
+            _ReleaseDialog()
+         ENDIF
+         EXIT
+      CASE 106
+         IF DLG_NOT == 0
+            ListBoxReset(hListBox)
+            aItem := AClone(aItemOld)
+            SetInitItem(aItem, 1)
+            SetDialogItemText(DLG_HWND, 101, "")
+         ENDIF
+         EXIT
+      CASE 107
+         IF DLG_NOT == 0
+            _ReleaseDialog()
+         ENDIF
+      ENDSWITCH
    ENDIF
 
 RETURN ret
@@ -3056,7 +3081,7 @@ STATIC PROCEDURE CharMaskEdit(hWnd, cValue, Mask)
    LOCAL Output
 
    DEFAULT Mask := ""
-   
+
    icp := HiWord(SendMessage(hWnd, EM_GETSEL, 0, 0))
    IF Empty(mask)
       SetWindowText(hWnd, FormatDouble(cValue))
@@ -3211,14 +3236,16 @@ STATIC FUNCTION CharMaskTekstOK(cString, cMask)
       FOR x := 1 TO nCount
          CB := SubStr(cString, x, 1)
          CM := SubStr(cMask, x, 1)
-         DO CASE
-         CASE CM == "9"
+         SWITCH CM
+         CASE "9"
             lPassed := ( IsDigit(CB) .OR. CB == " " )
-         CASE CM == " "
+            EXIT
+         CASE " "
             lPassed := ( CB == " " )
+            EXIT
          OTHERWISE
             lPassed := .T.
-         ENDCASE
+         ENDSWITCH
          IF !lPassed
             EXIT
          ENDIF
