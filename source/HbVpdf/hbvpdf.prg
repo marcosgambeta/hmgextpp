@@ -2657,19 +2657,25 @@ STATIC FUNCTION WriteData(hFile, xData)
 
    LOCAL cData := ValType(xData)
 
-   IF hb_IsString(xData) // TODO: SWITCH
+   SWITCH ValType(xData)
+   CASE "C"
+   CASE "M"
       cData += I2Bin(Len(xData)) + xData
-   ELSEIF hb_IsNumeric(xData)
+      EXIT
+   CASE "N"
       cData += I2Bin(Len(hb_ntos(xData))) + hb_ntos(xData)
-   ELSEIF hb_IsDate(xData)
+      EXIT
+   CASE "D"
       cData += I2Bin(8) + DToS(xData)
-   ELSEIF hb_IsLogical(xData)
+      EXIT
+   CASE "L"
       cData += I2Bin(1) + iif(xData, "T", "F")
-   ELSEIF hb_IsArray(xData)
+      EXIT
+   CASE "A"
       cData += I2Bin(Len(xData))
-   ELSE
+   OTHERWISE
       cData += I2Bin(0)   // NIL
-   ENDIF
+   ENDSWITCH
 
 RETURN FWrite(hFile, cData, Len(cData))
 
