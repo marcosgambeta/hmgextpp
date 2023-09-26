@@ -58,14 +58,33 @@ memvar xlwh,xfo,xfc,xbr,xpe,xwa,xbmp
 memvar oWr
 /*
 */
-*------------------------------------------------------------------------------*
+//-----------------------------------------------------------------------------*
 Function WinRepInt(filename,db_arc,_NREC,_MainArea,_psd,_prw)
-*------------------------------------------------------------------------------*
-local ritorna:=.T., handle, n, n_var, x_exact := set(1)
-local str1:="", Vcb:="", lcnt:=0, a1:=0, a2:=0, al:=0, L1:=.F., L2:=.F.
-local _object_ := "", Linea, sezione, cWord
-private endof_file
-public SEPARATOR := [/], atf := ""
+//-----------------------------------------------------------------------------*
+
+   LOCAL ritorna := .T.
+   LOCAL handle
+   LOCAL n
+   LOCAL n_var
+   LOCAL x_exact := set(1)
+   LOCAL str1 := ""
+   LOCAL Vcb := ""
+   LOCAL lcnt := 0
+   LOCAL a1 := 0
+   LOCAL a2 := 0
+   LOCAL al := 0
+   LOCAL L1 := .F.
+   LOCAL L2 := .F.
+   LOCAL _object_ := ""
+   LOCAL Linea
+   LOCAL sezione
+   LOCAL cWord
+
+   PRIVATE endof_file
+
+   PUBLIC SEPARATOR := "/"
+   PUBLIC atf := ""
+
 default db_arc to dbf(), _nrec to 0, _MainArea to ""
 default _prw to .F.
 
@@ -86,7 +105,7 @@ else
    oWr:nrec := _nrec
 endif
 
-*- check for file's existence
+// check for file's existence
 if empty(filename) .OR. !file(filename)
    _object_ := valtype(filename)
    msgstop([Warning...]+CRLF+[Report not found ]+IF(_object_=="C",": "+Chr(34)+Filename+Chr(34),"!")+CRLF+[The type of argument is: ]+_object_,"")
@@ -96,14 +115,14 @@ ElseIf !file(filename)
    ritorna:=.F.
 Endif
 if ritorna
-   *- open the file, check for errors
+   // open the file, check for errors
    handle := FOPEN(filename, 64)
    If Ferror() != 0
      msg("Error opening file : "+filename)
      ritorna := .F.
    Endif
 
-   *- not at the end of file
+   // not at the end of file
    endof_file := .F.
 endif
 if ritorna
@@ -126,7 +145,7 @@ if ritorna
 
    // valore := {|x|val(substr(x[1],at("]",x[1])+1))}
 
-   *- for < of lines allowed in box
+   // for < of lines allowed in box
 
    do while !endof_file
       Linea := oWr:fgetline(handle)
@@ -138,25 +157,24 @@ if ritorna
          oWr:aStat["Body"]   := .F.
          //aadd(&sezione,linea)
 
-         DO case
-            case sezione == "ADECLARE"
-                 oWr:aStat["Define"] := .T.
-
-            case sezione == "AHEAD"
-                 oWr:aStat["Head"]   := .T.
-
-            CASE sezione == "ABODY"
-                 oWr:aStat["Body"]   := .T.
-
-            CASE sezione == "AFEET"
-                 oWr:aStat["Feet"]   := .T.
-
-            CASE sezione == "AEND"
-                 oWr:aStat["Head"]   := .F.
-                 oWr:aStat["Feet"]   := .F.
-                 oWr:aStat["Body"]   := .F.
-
-         EndCASE
+         SWITCH sezione
+         CASE "ADECLARE"
+            oWr:aStat["Define"] := .T.
+            EXIT
+         CASE "AHEAD"
+            oWr:aStat["Head"] := .T.
+            EXIT
+         CASE "ABODY"
+            oWr:aStat["Body"] := .T.
+            EXIT
+         CASE "AFEET"
+            oWr:aStat["Feet"] := .T.
+            EXIT
+         CASE "AEND"
+            oWr:aStat["Head"] := .F.
+            oWr:aStat["Feet"] := .F.
+            oWr:aStat["Body"] := .F.
+         ENDSWITCH
       ElseIf left(linea, 1) == "!"
           oWr:prndrv := if (upper(left(linea, 10)) == "!MINIPRINT", "MINI", "HBPR")
       endif
@@ -239,19 +257,29 @@ endif
 return ritorna
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 * Printing Procedure                //La Procedura di Stampa
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 Function StampeEsegui(_MainArea,_psd,db_arc,_prw)
-*-----------------------------------------------------------------------------*
-   Local oldrec   := recno(), rtv := .F. ,;
-         landscape:=.F., lpreview :=.F., lselect  :=.F. ,;
-         str1:=[] , StrFlt := [], ;
-         ncpl, nfsize, aprinters, ;
-         lbody := 0, miocont:= 0, miocnt:= 0 ,;
-         Amx_pg := {}
+//----------------------------------------------------------------------------*
+
+   LOCAL oldrec := recno()
+   LOCAL rtv := .F.
+   LOCAL landscape := .F.
+   LOCAL lpreview := .F.
+   LOCAL lselect := .F.
+   LOCAL str1 := ""
+   LOCAL StrFlt := ""
+   LOCAL ncpl
+   LOCAL nfsize
+   LOCAL aprinters
+   LOCAL lbody := 0
+   LOCAL miocont := 0
+   LOCAL miocnt := 0
+   LOCAL Amx_pg := {}
 
    Private ONEATLEAST := .F., shd := .T., sbt := .T., sgh := .T., insgh:=.F.
+
    if !empty(_MainArea)
        oWr:aStat["area1"]  := substr(_MainArea,at("(",_MainArea)+1)
        oWr:aStat["FldRel"] := substr(oWr:aStat["area1"],at("->",oWr:aStat["area1"])+2)
@@ -298,20 +326,25 @@ Function StampeEsegui(_MainArea,_psd,db_arc,_prw)
       ncpl   :=80
       nfsize :=12
    else
-      do case
-         case ncpl= 80
-            nfsize:=12
-         case ncpl= 96
-            nfsize=10
-         case ncpl= 120
-            nfsize:=8
-         case ncpl= 140
-           nfsize:=7
-         case ncpl= 160
-           nfsize:=6
-         otherwise
-           nfsize:=12
-      endcase
+      SWITCH ncpl
+      CASE 80
+         nfsize := 12
+         EXIT
+      CASE 96
+         nfsize := 10
+         EXIT
+      CASE 120
+         nfsize := 8
+         EXIT
+      CASE 140
+         nfsize := 7
+         EXIT
+      CASE 160
+         nfsize := 6
+         EXIT
+      OTHERWISE
+         nfsize := 12
+      ENDSWITCH
    endif
    if lselect .AND. lpreview
       hbprn:selectprinter("",.T.) // SELECT BY DIALOG PREVIEW
@@ -454,9 +487,9 @@ Function StampeEsegui(_MainArea,_psd,db_arc,_prw)
 Return !rtv
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 Function R_mem(Last)
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
    default last to .F.
    hbprn:end()
    if !last
@@ -469,23 +502,31 @@ Function R_mem(Last)
 return .F.
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 FUNCTION Proper(interm)             //Created By Piersoft 01/04/95 KILLED Bugs!
-*-----------------------------------------------------------------------------*
-   local outStr:="",capnxt:="",c_1
+//----------------------------------------------------------------------------*
+
+   LOCAL outStr := ""
+   LOCAL capnxt := ""
+   LOCAL c_1
+
    do while chr(32) $ interm
       c_1:=substr(interm, 1,at(chr(32),interm)-1)
       capnxt:=capnxt+upper(left(c_1, 1))+right(c_1,len(c_1)-1)+" "
       interm:=substr(interm,len(c_1)+2,len(interm)-len(c_1))
    enddo
+
    outStr=capnxt+upper(left(interm, 1))+right(interm,len(interm)-1)
+
 RETURN outStr
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 Function Color(GR,GR1,GR2)
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
+
    LOCAL DATO
+
    if PCOUNT()=1 .AND. valtype(GR)=="C"
       if "," $ GR
          gr :=  STRTRAN(gr,"{","")
@@ -508,36 +549,39 @@ Function Color(GR,GR1,GR2)
 return DATO
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 Function GROUP(GField, s_head, s_col, gftotal, wheregt, s_total, t_col, p_f_e_g)
 *                1        2      3       4        5        6       7       8
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 return oWr:GROUP(GField, s_head, s_col, gftotal, wheregt, s_total, t_col, p_f_e_g)
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 Procedure gridRow(arg1)
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 default arg1 to oWr:aStat["r_paint"]
 oWr:aStat["r_paint"] := arg1
 m->grdemo  := .T.
 return
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 Procedure gridCol(arg1)
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 default arg1 to oWr:aStat["r_paint"]
 oWr:aStat["r_paint"] := arg1
 m->gcdemo := .T.
 return
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 static Funct AscArr(string)
-*-----------------------------------------------------------------------------*
-local aka :={}, cword := ""
-default string to ""
+//----------------------------------------------------------------------------*
+
+   LOCAL aka := {}
+   LOCAL cword := ""
+
+   default string to ""
       string := atrepl("{", string, "")
       string := atrepl("}", string, "")
       Tokeninit(string,",")
@@ -548,11 +592,14 @@ default string to ""
 return aka
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 FUNCTION ed_g_pic
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 parameter __arg1,__arg2
-local arg1, arg2
+
+   LOCAL arg1
+   LOCAL arg2
+
 default __arg2 to .F.
 
 if __arg2
@@ -561,35 +608,38 @@ endif
 
 if Valtype(m->__arg1)="C"
    * MSG(VALtype(m->__arg1),[val1])
-   *- make sure it fits on the screen
+   // make sure it fits on the screen
    arg1 := "@KS" + LTRIM(STR(MIN(LEN((m->__arg1)), 78)))
 elseif hb_IsNumeric(m->__arg1)
-   *- convert to a string
+   // convert to a string
    * MSG(VALtype(m->__arg1),[val2])
    arg2 := STR(__arg1)
-   *- look for a decimal point
+   // look for a decimal point
    IF ("." $ arg2)
-      *- return a picture reflecting a decimal point
+      // return a picture reflecting a decimal point
       arg1 := REPLICATE("9", AT(".", arg2) - 1)+[.]
 
       arg1 := eu_point(arg1)+[.]+ REPLICATE("9", LEN(arg2) - LEN(arg1))
    ELSE
-      *- return a string of 9's a the picture
+      // return a string of 9's a the picture
       arg1 := REPLICATE("9", LEN(arg2))
       arg1 := eu_point(arg1)+if( _money,".00","")
    ENDIF
 else
-   *- well I just don't know.
+   // well I just don't know.
    arg1 := ""
 Endif
 
 RETURN arg1
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 Function eu_point(valore)
-*-----------------------------------------------------------------------------*
-local tappo:="",sep_conto:=0,n
+//----------------------------------------------------------------------------*
+
+   LOCAL tappo := ""
+   LOCAL sep_conto := 0
+   LOCAL n
 
 For n = len(valore) to 1 step -1
     If substr(valore, n, 1)==[9]
@@ -610,9 +660,9 @@ endif
 return tappo
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 Procedure dbselect(area)
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
      if hb_IsNumeric(area)
         dbSelectArea(zaps(area))
      elseif valtype(area)="C"
@@ -621,28 +671,28 @@ Procedure dbselect(area)
 return
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 Function Divisor(arg1,arg2)
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 default arg2 to 1
 return arg1/Nozerodiv(arg2)
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 Function NoZeroDiv(nValue)
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 return IIF(nValue=0, 1, nValue)
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 Function _dummy_( ... )
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 return NIL
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 Procedure MsgMulty(xMesaj, cTitle) // Created By Bicahi Esgici <esgici@gmail.com>
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
    loca cMessage := ""
 
    IF xMesaj != NIL
@@ -664,9 +714,9 @@ Procedure MsgMulty(xMesaj, cTitle) // Created By Bicahi Esgici <esgici@gmail.com
 RETU
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 FUNC Any2Strg(xAny)
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
    loca cRVal  := "???",;
         nType  :=  0,;
         aCases := {{"A", {||"{...}"}},;
@@ -687,12 +737,14 @@ RETU cRVal
 
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 Function Msgt (nTimeout, Message, Title, Flags)
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 * Created at 04/20/2005 By Pierpaolo Martinello Italy                         *
-*-----------------------------------------------------------------------------*
-        local switch:=.F., rtv:=0
+//----------------------------------------------------------------------------*
+   
+   LOCAL switch := .F.
+   LOCAL rtv := 0
 
         DEFAULT Message TO ""   ;  DEFAULT Title TO ""
         DEFAULT Flags   TO "MSGBOX"
@@ -708,67 +760,58 @@ Function Msgt (nTimeout, Message, Title, Flags)
         Message+= iif(empty(Message),"Empty string!","")
 
         if switch
-           do case
-
-              case "RETRYCANCEL" == FLAGS
-                   rtv := MsgRetryCancel(Message,title)
-
-              case "OKCANCEL" == FLAGS
-                   rtv := MsgOkCancel(Message,Title)
-
-              case "YESNO" == FLAGS
-                   rtv := MsgYesNo(Message,Title)
-
-              case "YESNO_ID" == FLAGS
-                   rtv := MsgYesNo(Message,Title,.T.)
-
-              case "INFO" == FLAGS
-                   rtv := MsgInfo(Message,Title)
-
-              case "STOP" == FLAGS
-                   rtv := MsgStop(Message,Title)
-
-              case "EXCLAMATION" == FLAGS
-                   rtv := MsgExclamation(Message,Title)
-
-              otherwise
-                   MsgBox(Message,Title)
-           endcase
+           SWITCH FLAGS
+           CASE "RETRYCANCEL"
+              rtv := MsgRetryCancel(Message,title)
+           CASE "OKCANCEL"
+              rtv := MsgOkCancel(Message,Title)
+           CASE "YESNO"
+              rtv := MsgYesNo(Message,Title)
+           CASE "YESNO_ID"
+              rtv := MsgYesNo(Message,Title,.T.)
+           CASE "INFO"
+              rtv := MsgInfo(Message,Title)
+           CASE "STOP"
+              rtv := MsgStop(Message,Title)
+           CASE "EXCLAMATION"
+              rtv := MsgExclamation(Message,Title)
+           OTHERWISE
+              MsgBox(Message,Title)
+           ENDSWITCH
         else
-           do case
-
-              case "RETRYCANCEL" == FLAGS
-                   rtv := C_T_MSGRETRYCANCEL(Message,Title,nTimeout*1000)
-
-              case "OKCANCEL" == FLAGS
-                   rtv := C_T_MSGOKCANCEL(Message,Title,nTimeout*1000)
-
-              case "YESNO" == FLAGS
-                   rtv := C_T_MSGYESNO(Message,Title,nTimeout*1000)
-
-              case "YESNO_ID" == FLAGS
-                   rtv := C_T_MSGYESNO_ID(Message,Title,nTimeout*1000)
-
-              case "INFO" == FLAGS
-                   rtv := C_T_MSGINFO(Message,Title,nTimeout*1000)
-
-              case "STOP" == FLAGS
-                   rtv := C_T_MSGSTOP(Message,Title,nTimeout*1000)
-
-              case "EXCLAMATION" == FLAGS
-                   rtv := C_T_MSGEXCLAMATION(Message,Title,nTimeout*1000)
-
-              otherwise
-                   rtv := C_T_MSGBOX(Message,Title,nTimeout*1000)
-           endcase
+           SWITCH FLAGS
+           CASE "RETRYCANCEL"
+              rtv := C_T_MSGRETRYCANCEL(Message,Title,nTimeout*1000)
+              EXIT
+           CASE "OKCANCEL"
+              rtv := C_T_MSGOKCANCEL(Message,Title,nTimeout*1000)
+              EXIT
+           CASE "YESNO"
+              rtv := C_T_MSGYESNO(Message,Title,nTimeout*1000)
+              EXIT
+           CASE "YESNO_ID"
+              rtv := C_T_MSGYESNO_ID(Message,Title,nTimeout*1000)
+              EXIT
+           CASE "INFO"
+              rtv := C_T_MSGINFO(Message,Title,nTimeout*1000)
+              EXIT
+           CASE "STOP"
+              rtv := C_T_MSGSTOP(Message,Title,nTimeout*1000)
+              EXIT
+           CASE "EXCLAMATION"
+              rtv := C_T_MSGEXCLAMATION(Message,Title,nTimeout*1000)
+              EXIT
+           OTHERWISE
+              rtv := C_T_MSGBOX(Message,Title,nTimeout*1000)
+           ENDSWITCH
        endif
 return rtv
 
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 CREATE CLASS WREPORT
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 DATA FILENAME         INIT ""
 DATA NREC             INIT 0
 DATA F_HANDLE         INIT 0 PROTECTED
@@ -1112,25 +1155,28 @@ METHOD END()
 ENDCLASS
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD New() CLASS WREPORT
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 return self
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD End() CLASS WREPORT
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 release ::F_HANDLE,::aDeclare,::AHead,::ABody,::AFeet,::Hb,::Valore,::mx_ln_doc;
 ,       ::PRNDRV,::argm,::aStat
 RELEASE ::ach, ::filename
 return NIL
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD IsMono(arg1) CLASS WREPORT
-*-----------------------------------------------------------------------------*
-Local en, rtv := .F.
+//----------------------------------------------------------------------------*
+
+   LOCAL en
+   LOCAL rtv := .F.
+
 for each en in arg1
     if hb_IsArray(en)
        exit
@@ -1142,9 +1188,9 @@ next
 return rtv
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD COUNTSECT(EXEC) CLASS WREPORT
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 DEFAULT EXEC TO .F.
     IF EXEC
        ::HB := eval(::Valore,::aHead[1])+ eval(::Valore,::aBody[1])
@@ -1153,10 +1199,15 @@ DEFAULT EXEC TO .F.
 return NIL
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD Splash(etichetta,prc_init,sezione,rit) CLASS WREPORT
-*-----------------------------------------------------------------------------*
-   Local rtv ,cbWork :={|x| x }; private ritspl
+//----------------------------------------------------------------------------*
+
+   LOCAL rtv
+   LOCAL cbWork := {|x|x}
+   
+   private ritspl
+
    default etichetta to ::aStat["lblsplash"], sezione to ""
    default prc_init to "_dummy_("+sezione+")"
    default rit to .F.
@@ -1198,9 +1249,9 @@ END WINDOW
 return rtv
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD DoPr() CLASS WREPORT
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 *   ::argm:={_MainArea,_psd,db_arc,_prw}
 *   stampeEsegui(_MainArea,_psd,db_arc,_prw)
     CursorWait()
@@ -1209,9 +1260,9 @@ METHOD DoPr() CLASS WREPORT
 return NIL
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD DoMiniPr() CLASS WREPORT
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
    CursorWait()
    ritspl := PrminiEsegui(::argm[1],::argm[2],::argm[3],::argm[4])
    CursorArrow()
@@ -1219,19 +1270,24 @@ return NIL
 
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD FgetLine(handle)  CLASS WREPORT
-*-----------------------------------------------------------------------------*
-local rt_line := "", chunk := "", bigchunk := "", at_chr13 :=0, oldoffset := 0
+//----------------------------------------------------------------------------*
+
+   LOCAL rt_line := ""
+   LOCAL chunk := ""
+   LOCAL bigchunk := ""
+   LOCAL at_chr13 := 0
+   LOCAL oldoffset := 0
 
         oldoffset := FSEEK(handle, 0, 1)
         DO WHILE .T.
 
-          *- read in a chunk of the file
+          // read in a chunk of the file
           chunk := ""
           chunk := Freadstr(handle, 100)
 
-          *- if we didn't read anything in, guess we're at the EOF
+          // if we didn't read anything in, guess we're at the EOF
           IF LEN(chunk)=0
              endof_file := .T.
 
@@ -1243,47 +1299,66 @@ local rt_line := "", chunk := "", bigchunk := "", at_chr13 :=0, oldoffset := 0
              EXIT
           ENDIF
 
-          *- add this chunk to the big chunk
+          // add this chunk to the big chunk
           bigchunk := bigchunk+chunk
 
-          *- if we've got a CR, we've read in a line
-          *- otherwise we'll loop again and read in another chunk
+          // if we've got a CR, we've read in a line
+          // otherwise we'll loop again and read in another chunk
           IF AT(CHR(13),bigchunk) > 0
              at_chr13 := AT(CHR(13),bigchunk)
 
-             *- go back to beginning of line
+             // go back to beginning of line
              FSEEK(handle,oldoffset)
 
-             *- read in from here to next CR (-1)
+             // read in from here to next CR (-1)
              rt_line := Freadstr(handle,at_chr13-1)
 
-             *- move the pointer 1 byte
+             // move the pointer 1 byte
              FSEEK(handle, 1, 1)
 
              EXIT
           ENDIF
         ENDDO
 
-        *- move the pointer 1 byte
-        *- this should put us at the beginning of the next line
+        // move the pointer 1 byte
+        // this should put us at the beginning of the next line
         FSEEK(handle, 1, 1)
 
 RETURN rt_line
 
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD Transpace(arg1,arg2,arg3) CLASS WREPORT // The core of parser
-*-----------------------------------------------------------------------------*
-     local al1 := .F., al2 := .F., extFnc := .F. , tmpstr := "" , n
-     local nr  := "", opp := 0, pt := "", cdbl := .F., cdc := 0
-     local last_func  := rat(")",arg1), last_sapex := rat("'",arg1)
-     local last_Dapex := rat(["],arg1), last_codeb := rat([}],arg1)
-     Local arges := "" ;
-         , aFsrc :={"SELECT"+CHR(7)+"FONT","DRAW"+CHR(7)+"TEXT","TEXTOUT"+CHR(7),"SAY"+CHR(7);
-                   ,"PRINT" +CHR(7),"GET"+CHR(7)+"TEXT","DEFINE"+CHR(7)+"FONT"}
+//----------------------------------------------------------------------------*
+
+   LOCAL al1 := .F.
+   LOCAL al2 := .F.
+   LOCAL extFnc := .F.
+   LOCAL tmpstr := ""
+   LOCAL n
+   LOCAL nr := ""
+   LOCAL opp := 0
+   LOCAL pt := ""
+   LOCAL cdbl := .F.
+   LOCAL cdc := 0
+   LOCAL last_func := rat(")", arg1)
+   LOCAL last_sapex := rat("'", arg1)
+   LOCAL last_Dapex := rat(chr(34), arg1)
+   LOCAL last_codeb := rat("}", arg1)
+   LOCAL arges := ""
+   LOCAL aFsrc := {"SELECT" + CHR(7) + "FONT", ;
+                   "DRAW" + CHR(7) + "TEXT", ;
+                   "TEXTOUT" + CHR(7), ;
+                   "SAY" + CHR(7), ;
+                   "PRINT" +CHR(7), ;
+                   "GET" + CHR(7) + "TEXT",;
+                   "DEFINE" + CHR(7) + "FONT"}
+
      Static xcl := .F.
+
      default arg2 to .T.
+
      arg1 := alltrim(arg1)
      arges := arg1
      // (#*&/) char exclusion
@@ -1373,11 +1448,17 @@ METHOD Transpace(arg1,arg2,arg3) CLASS WREPORT // The core of parser
 return nr
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD MACROCOMPILE(cStr, lMesg,cmdline,section) CLASS WREPORT
-*-----------------------------------------------------------------------------*
-local bOld,xResult, dbgstr:="", lvl:= 0
-default cmdline to 0, section to ""
+//----------------------------------------------------------------------------*
+
+   LOCAL bOld
+   LOCAL xResult
+   LOCAL dbgstr := ""
+   LOCAL lvl := 0
+
+   default cmdline to 0, section to ""
+
 if lMesg == NIL
   return &(cStr)
 endif
@@ -1393,7 +1474,7 @@ if lMesg
           zaps(cmdline) + CRLF + "Error is in: " + alltrim(cStr) + CRLF + "Please revise it!", "MiniGUI Error")
        Break
     else
-       do case
+       do case // TODO: switch
           case SECTION = "STAMPEESEGUI"
                SECTION :="DECLARE : "
           case SECTION = "PORT:THEBODY"
@@ -1422,12 +1503,23 @@ errorblock (bOld)
 return xResult
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD Traduci(elemento,ctrl,cmdline) CLASS WREPORT  // The interpreter
-*-----------------------------------------------------------------------------*
-local string, ritorno :=.F., ev1th, sSection, dbg:=""
-local TransPar:={}, ArryPar :={}, cWord
-LOCAL oErrAntes, oErr, lMyError := .F., ifc:="",IEXE := .F.
+//----------------------------------------------------------------------------*
+
+   LOCAL string
+   LOCAL ritorno :=.F.
+   LOCAL ev1th
+   LOCAL sSection
+   LOCAL dbg := ""
+   LOCAL TransPar := {}
+   LOCAL ArryPar := {}
+   LOCAL cWord
+   LOCAL oErrAntes
+   LOCAL oErr
+   LOCAL lMyError := .F.
+   LOCAL ifc := ""
+   LOCAL IEXE := .F.
 
 sSection := iif(procname(1)="STAMPEESEGUI","DECLARE",substr(procname(1), 4))
 default ctrl to .F.
@@ -1554,11 +1646,20 @@ ERRORBLOCK(oErrAntes)
 return ritorno
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpreter
-*-----------------------------------------------------------------------------*
-     local _arg1,_arg2, _arg3,__elex ,aX:={} , _varmem ,;
-     blse := {|x| iif(val(x)> 0,.T.,iif(x=".T.".OR. x ="ON",.T.,.F.))}, al, _align
+//----------------------------------------------------------------------------*
+
+   LOCAL _arg1
+   LOCAL _arg2
+   LOCAL _arg3
+   LOCAL __elex
+   LOCAL aX := {}
+   LOCAL _varmem
+   LOCAL blse := {|x|iif(val(x) > 0, .T., iif(x = ".T." .OR. x = "ON", .T., .F.))}
+   LOCAL al
+   LOCAL _align
+
      string1 := ""
      if len(ArryPar) < 1 ;return .F. ;endif
 
@@ -2168,15 +2269,21 @@ METHOD Leggipar(ArryPar,cmdline,section) CLASS WREPORT // The core of  interpret
 return .T.
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD WHAT_ELE(Arg1,Arg2,Arg3) CLASS WREPORT
-*-----------------------------------------------------------------------------*
-     local rtv ,sets:="",kl := 0, ltemp := "" ,;
-     Asr := {{"_APAPER","DMPAPER_A4"} ,{"_ABIN","DMBIN_AUTO"},{"_APEN","PS_SOLID"},;
-             {"_ABRUSH","BS_SOLID"},{"_APOLY","ALTERNATE"},{"_ABKMODE","TRANSPARENT"},;
-             {"_AALIGN","TA_LEFT"} ,{"_AREGION","RGN_AND"} ,{"_ACOLOR","MONO"}, ;
-             {"_AQLT","DMRES_DRAFT"}, {"_STYLE","DT_TOP"}}
-     default arg3 to "_APAPER"
+//----------------------------------------------------------------------------*
+
+   LOCAL rtv
+   LOCAL sets := ""
+   LOCAL kl := 0
+   LOCAL ltemp := ""
+   LOCAL Asr := {{"_APAPER","DMPAPER_A4"} ,{"_ABIN","DMBIN_AUTO"},{"_APEN","PS_SOLID"},;
+                 {"_ABRUSH","BS_SOLID"},{"_APOLY","ALTERNATE"},{"_ABKMODE","TRANSPARENT"},;
+                 {"_AALIGN","TA_LEFT"} ,{"_AREGION","RGN_AND"} ,{"_ACOLOR","MONO"}, ;
+                 {"_AQLT","DMRES_DRAFT"}, {"_STYLE","DT_TOP"}}
+
+   default arg3 to "_APAPER"
+
      Arg3:=upper(Arg3)
      aeval(aSr,{|x| iif(x[1]== Arg3,ltemp:=x[2],"")})
      if !empty(ltemp)
@@ -2206,11 +2313,21 @@ METHOD WHAT_ELE(Arg1,Arg2,Arg3) CLASS WREPORT
 return rtv
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD MEMOSAY(row,col,argm1,argl1,argf1,argcolor1,argalign,onlyone,arrypar) CLASS WREPORT
-*-----------------------------------------------------------------------------*
- local _Memo1:=argm1, mrow:=max(1,mlcount(_memo1,argl1)), arrymemo:={}, esci:=.F.
- Local units := hbprn:UNITS, k, mcl ,ain, str :="", typa := .F.
+//----------------------------------------------------------------------------*
+
+   LOCAL _Memo1 := argm1
+   LOCAL mrow := max(1, mlcount(_memo1, argl1))
+   LOCAL arrymemo := {}
+   LOCAL esci := .F.
+   LOCAL units := hbprn:UNITS
+   LOCAL k
+   LOCAL mcl
+   LOCAL ain
+   LOCAL str :=""
+   LOCAL typa := .F.
+
  default col to 0 ,row to 0, argl1 to 10, onlyone to ""
 
  if hb_IsArray(argm1)
@@ -2251,12 +2368,25 @@ METHOD MEMOSAY(row,col,argm1,argl1,argf1,argcolor1,argalign,onlyone,arrypar) CLA
  return self
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD PUTARRAY(row,col,arr,awidths,rowheight,vertalign,noframes,abrushes,apens,afonts,afontscolor,abitmaps,userfun) CLASS Wreport
-*-----------------------------------------------------------------------------*
-local j,ltc,lxc,lvh,lnf:=!noframes,lafoc,lafo,labr,lape,xlwh1,labmp,lcol,lwh ;
-,old_pfbu:={hbprn:PENS[hbprn:CURRPEN, 2],hbprn:FONTS[hbprn:CURRFONT, 2],hbprn:BRUSHES[hbprn:CURRBRUSH, 2],hbprn:UNITS,hbprn:GetTextAlign()}
-local IsMono
+//----------------------------------------------------------------------------*
+
+   LOCAL j
+   LOCAL ltc
+   LOCAL lxc
+   LOCAL lvh
+   LOCAL lnf := !noframes
+   LOCAL lafoc
+   LOCAL lafo
+   LOCAL labr
+   LOCAL lape
+   LOCAL xlwh1
+   LOCAL labmp
+   LOCAL lcol
+   LOCAL lwh
+   LOCAL old_pfbu := {hbprn:PENS[hbprn:CURRPEN, 2], hbprn:FONTS[hbprn:CURRFONT, 2], hbprn:BRUSHES[hbprn:CURRBRUSH, 2], hbprn:UNITS, hbprn:GetTextAlign()}
+   LOCAL IsMono
 
 private xlwh,xfo,xfc,xbr,xpe,xwa,xbmp
 if empty(arr)
@@ -2347,23 +2477,41 @@ IsMono := ::Ismono(arr)
 return self
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD HATCH(arg1) CLASS WREPORT
-*-----------------------------------------------------------------------------*
-   local ritorno := 0 ,;
-   Asr := {"HS_HORIZONTAL","HS_VERTICAL","HS_FDIAGONAL","HS_BDIAGONAL","HS_CROSS","HS_DIAGCROSS"}
+//----------------------------------------------------------------------------*
+
+   LOCAL ritorno := 0
+   LOCAL Asr := {"HS_HORIZONTAL", "HS_VERTICAL", "HS_FDIAGONAL", "HS_BDIAGONAL", "HS_CROSS", "HS_DIAGCROSS"}
+
    ritorno := max(0, ascan(Asr,arg1)-1 )
+
 return ritorno
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD GROUP(GField, s_head, s_col, gftotal, wheregt, s_total, t_col, p_f_e_g) CLASS WREPORT
 *                1        2      3       4        5        6       7       8
-*-----------------------------------------------------------------------------*
-local ritorno := iif(indexord() > 0, .T., .F.)
-local posiz   := 0, P1 := 0, P2 := 0, P3 := 0, cnt := 1
-local Aposiz  := {}, k, Rl, Rm, Rr, ghf:=""
-local db_arc:=dbf() , units, tgftotal, nk, EXV := {||NIL},EXT := {||NIL}
+//----------------------------------------------------------------------------*
+
+   LOCAL ritorno := iif(indexord() > 0, .T., .F.)
+   LOCAL posiz := 0
+   LOCAL P1 := 0
+   LOCAL P2 := 0
+   LOCAL P3 := 0
+   LOCAL cnt := 1
+   LOCAL Aposiz := {}
+   LOCAL k
+   LOCAL Rl
+   LOCAL Rm
+   LOCAL Rr
+   LOCAL ghf := ""
+   LOCAL db_arc := dbf()
+   LOCAL units
+   LOCAL tgftotal
+   LOCAL nk
+   LOCAL EXV := {||NIL}
+   LOCAL EXT := {||NIL}
 
       If ::PrnDrv = "HBPR"
          Units := hbprn:UNITS
@@ -2515,11 +2663,12 @@ local db_arc:=dbf() , units, tgftotal, nk, EXV := {||NIL},EXT := {||NIL}
 return ritorno
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD GrHead() CLASS WREPORT
-*-----------------------------------------------------------------------------*
-local db_arc:=dbf()
-local ValSee:= iif(!empty(gfield),trans((db_arc)->&(GField),"@!"),"")
+//----------------------------------------------------------------------------*
+
+   LOCAL db_arc := dbf()
+   LOCAL ValSee := iif(!empty(gfield), trans((db_arc)->&(GField), "@!"), "")
 
       if ValSee == ::aStat["TempHead"]
          ::aStat["Ghead"]    := .F.
@@ -2531,24 +2680,29 @@ local ValSee:= iif(!empty(gfield),trans((db_arc)->&(GField),"@!"),"")
 return ::aStat["Ghead"]
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD GFeet() CLASS WREPORT
-*-----------------------------------------------------------------------------*
-local db_arc:=dbf(), Gfeet
-local ValSee:=if(!empty(gfield),trans((db_arc)->&(GField),"@!"),"")
+//----------------------------------------------------------------------------*
+
+   LOCAL db_arc := dbf()
+   LOCAL Gfeet
+   LOCAL ValSee := if(!empty(gfield), trans((db_arc)->&(GField), "@!"), "")
+
       if ValSee == ::aStat["TempFeet"]
          Gfeet := .F.
       else
          Gfeet := .T.
          ::aStat["TempFeet"]:= ValSee
       endif
+
 return Gfeet
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD UsaFont(arrypar) CLASS WREPORT
-*-----------------------------------------------------------------------------*
-   Local al := { hbprn:gettextalign(), hbprn:gettexcolor() }
+//----------------------------------------------------------------------------*
+
+   LOCAL al := {hbprn:gettextalign(), hbprn:gettexcolor()}
 
    hbprn:modifyfont("Fx", eval(chblk,arrypar,[FONT] ) , ;
          val(eval(chblk,arrypar,[SIZE])) ,;
@@ -2570,10 +2724,12 @@ METHOD UsaFont(arrypar) CLASS WREPORT
 return al
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD UsaColor(arg1) CLASS WREPORT
-*-----------------------------------------------------------------------------*
-   local ritorno:=arg1
+//----------------------------------------------------------------------------*
+
+   LOCAL ritorno := arg1
+
    if "X" $ upper(arg1)
       arg1 := substr(arg1, at("X", arg1) + 1)
       IF ::PrnDrv = "HBPR"
@@ -2586,14 +2742,19 @@ METHOD UsaColor(arg1) CLASS WREPORT
    else
       ritorno := color(arg1)
    endif
+
 return ritorno
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD SetMyRgb(dato) CLASS WREPORT
-*-----------------------------------------------------------------------------*
-   local HexNumber, r
+//----------------------------------------------------------------------------*
+
+   LOCAL HexNumber
+   LOCAL r
+
    default dato to 0
+
    hexNumber := DECTOHEXA(dato)
    IF ::PrnDrv = "HBPR"
       r := Rgb(HEXATODEC(substr(HexNumber,-2));
@@ -2606,22 +2767,32 @@ return r
 
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD Hgconvert(ltxt) CLASS WREPORT
-*-----------------------------------------------------------------------------*
-   do case // TODO: SWITCH
-      case valtype(&ltxt)$"MC" ; return iif("trans" $ lower(ltxt),ltxt,"FIELD->"+ltxt)
-      case valtype(&ltxt)=="N" ; return "str(FIELD->"+ltxt+")"
-      case valtype(&ltxt)=="D" ; return "dtoc(FIELD->"+ltxt+")"
-      case valtype(&ltxt)=="L" ; return "if(FIELD->"+ltxt+","+Chr(34)+".T."+Chr(34)+","+Chr(34)+".F."+Chr(34)+")"
-   endcase
-return ""
+//----------------------------------------------------------------------------*
+
+   SWITCH valtype(&ltxt)
+   CASE "C"
+   CASE "M"
+      RETURN iif("trans" $ lower(ltxt), ltxt, "FIELD->" + ltxt)
+   CASE "N"
+      RETURN "str(FIELD->" + ltxt + ")"
+   CASE "D"
+      RETURN "dtoc(FIELD->" + ltxt + ")"
+   CASE "L"
+      RETURN "if(FIELD->" + ltxt + "," + Chr(34) + ".T." + Chr(34) + "," + Chr(34) + ".F." + Chr(34) + ")"
+   ENDSWITCH
+
+RETURN ""
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD TheHead() CLASS WREPORT
-*-----------------------------------------------------------------------------*
-local grd, nkol
+//----------------------------------------------------------------------------*
+
+   LOCAL grd
+   LOCAL nkol
+
          if nPgr == mx_pg; last_pag:=.T. ;endif
          START PAGE
          nPgr ++ ; nPag ++ ; nline := 0
@@ -2651,11 +2822,19 @@ local grd, nkol
 return NIL
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD TheBody() CLASS WREPORT
-*-----------------------------------------------------------------------------*
-local db_arc:=dbf(), noline:=.F., subcolor, nxtp :=.F., n, an, al
-Local sstring := "NLINE"+chr(07)+NTrim(t_col)+chr(07)+"SAY"+chr(07)
+//----------------------------------------------------------------------------*
+
+   LOCAL db_arc := dbf()
+   LOCAL noline := .F.
+   LOCAL subcolor
+   LOCAL nxtp := .F.
+   LOCAL n
+   LOCAL an
+   LOCAL al
+   LOCAL sstring := "NLINE" + chr(07) + NTrim(t_col) + chr(07) + "SAY" + chr(07)
+
       sstring += chr(05)+chr(07)+substr(ghstring,at("FONT",ghstring))
       if hb_IsArray(::argm[3])
          al := len(::argm[3])
@@ -2813,9 +2992,9 @@ Local sstring := "NLINE"+chr(07)+NTrim(t_col)+chr(07)+"SAY"+chr(07)
 return NIL
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD TheFeet(last) CLASS WREPORT            //Feet // IL Piede
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 // exclude:= FALSE
    default last to .F.
    if !last_pag
@@ -2837,10 +3016,13 @@ METHOD TheFeet(last) CLASS WREPORT            //Feet // IL Piede
 return NIL
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD Quantirec(_MainArea) CLASS WREPORT     //count record that will be print
-*-----------------------------------------------------------------------------*
-local conta:=0, StrFlt :=""
+//----------------------------------------------------------------------------*
+
+   LOCAL conta := 0
+   LOCAL StrFlt := ""
+
 Private query_exp
 StrFlt := ::aStat["FldRel"]+" = "+ ::aStat["area1"]+"->"+::aStat["FldRel"]
 if hb_IsArray(::argm[3])    // {_MainArea,_psd,db_arc,_prw}
@@ -2872,11 +3054,14 @@ endif
 return conta
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD JustificaLinea(WPR_LINE,WTOPE) CLASS WREPORT
-*-----------------------------------------------------------------------------*
-LOCAL I, SPACE1 := SPACE(1)
-LOCAL WLARLIN := LEN(TRIM(WPR_LINE))
+//----------------------------------------------------------------------------*
+
+   LOCAL I
+   LOCAL SPACE1 := SPACE(1)
+   LOCAL WLARLIN := LEN(TRIM(WPR_LINE))
+
 FOR I=1 TO WLARLIN
    IF WLARLIN = WTOPE
       EXIT
@@ -2889,9 +3074,9 @@ NEXT I
 RETURN WPR_LINE
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 Method TheMiniHead() Class Wreport
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
    if nPgr == mx_pg ; last_pag:=.T. ; endif
    START PRINTPAGE
       nPgr ++
@@ -2906,11 +3091,20 @@ Method TheMiniHead() Class Wreport
 return NIL
 /*
 */
-*-----------------------------------------------------------------------------*
+//----------------------------------------------------------------------------*
 METHOD TheMiniBody() class Wreport
-*-----------------------------------------------------------------------------*
-local db_arc:=dbf(), noline:=.F., nxtp :=.F.
-local oErrAntes, oErr, lMyError := .F., n, al ,an
+//----------------------------------------------------------------------------*
+
+   LOCAL db_arc := dbf()
+   LOCAL noline := .F.
+   LOCAL nxtp := .F.
+   LOCAL oErrAntes
+   LOCAL oErr
+   LOCAL lMyError := .F.
+   LOCAL n
+   LOCAL al
+   LOCAL an
+
    BEGIN SEQUENCE
       // buono ma da rivedere Yes_Memo  := .F.
       if hb_IsArray(::argm[3])
