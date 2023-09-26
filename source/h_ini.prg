@@ -91,19 +91,19 @@ FUNCTION _LogFile(lCrLf, ...)
          ELSE
             FOR i := 2 TO nParams
                xVal := aParams[i]
-               cTp  := ValType(xVal)
-               // TODO: SWITCH
-               IF     cTp == "C" ; xVal := iif(Empty(xVal), "'" + "'", Trim(xVal))
-               ELSEIF cTp == "N" ; xVal := hb_ntos(xVal)
-               ELSEIF cTp == "L" ; xVal := iif(xVal, ".T.", ".F.")
-               ELSEIF cTp == "D" ; xVal := hb_DToC(xVal, "DD.MM.YYYY")
-               ELSEIF cTp == "A" ; xVal := "ARRAY["  + hb_ntos(Len(xVal)) + "]"
-               ELSEIF cTp == "H" ; xVal :=  "HASH["  + hb_ntos(Len(xVal)) + "]"
-               ELSEIF cTp == "B" ; xVal := "'" + "B" + "'"
-               ELSEIF cTp == "T" ; xVal := hb_TSToStr(xVal, .T.)
-               ELSEIF cTp == "U" ; xVal := "NIL"
-               ELSE              ; xVal := "'" + cTp + "'"
-               ENDIF
+               cTp := ValType(xVal)
+               SWITCH cTp
+               CASE "C"  ; xVal := iif(Empty(xVal), "'" + "'", Trim(xVal)) ; EXIT
+               CASE "N"  ; xVal := hb_ntos(xVal)                           ; EXIT
+               CASE "L"  ; xVal := iif(xVal, ".T.", ".F.")                 ; EXIT
+               CASE "D"  ; xVal := hb_DToC(xVal, "DD.MM.YYYY")             ; EXIT
+               CASE "A"  ; xVal := "ARRAY["  + hb_ntos(Len(xVal)) + "]"    ; EXIT
+               CASE "H"  ; xVal :=  "HASH["  + hb_ntos(Len(xVal)) + "]"    ; EXIT
+               CASE "B"  ; xVal := "'" + "B" + "'"                         ; EXIT
+               CASE "T"  ; xVal := hb_TSToStr(xVal, .T.)                   ; EXIT
+               CASE "U"  ; xVal := "NIL"                                   ; EXIT
+               OTHERWISE ; xVal := "'" + cTp + "'"
+               ENDSWITCH
                FWrite(hFile, xVal + Chr(9))
             NEXT
          ENDIF
@@ -408,40 +408,43 @@ FUNCTION xChar(xValue)
    LOCAL cValue := ""
    LOCAL nDecimals := Set(_SET_DECIMALS)
 
-   DO CASE // TODO: SWITCH
-   CASE cType $  "CM"; cValue := xValue
-   CASE cType == "N" ; nDecimals := iif(xValue == Int(xValue), 0, nDecimals) ; cValue := LTrim(Str(xValue, 20, nDecimals))
-   CASE cType == "D" ; cValue := DToS(xValue)
-   CASE cType == "L" ; cValue := iif(xValue, "T", "F")
-   CASE cType == "A" ; cValue := AToC(xValue)
-   CASE cType $  "UE"; cValue := "NIL"
-   CASE cType == "B" ; cValue := "{||...}"
-   CASE cType == "O" ; cValue := "{" + xValue:className + "}"
-   ENDCASE
+   SWITCH cType
+   CASE "C"
+   CASE "M" ; cValue := xValue ; EXIT
+   CASE "N" ; nDecimals := iif(xValue == Int(xValue), 0, nDecimals) ; cValue := LTrim(Str(xValue, 20, nDecimals)) ; EXIT
+   CASE "D" ; cValue := DToS(xValue) ; EXIT
+   CASE "L" ; cValue := iif(xValue, "T", "F") ; EXIT
+   CASE "A" ; cValue := AToC(xValue) ; EXIT
+   CASE "U"
+   CASE "E" ; cValue := "NIL" ; EXIT
+   CASE "B" ; cValue := "{||...}" ; EXIT
+   CASE "O" ; cValue := "{" + xValue:className + "}"
+   ENDSWITCH
 
 RETURN cValue
 
 *-----------------------------------------------------------------------------*
 FUNCTION xValue(cValue, cType)
 *-----------------------------------------------------------------------------*
-   
+
    LOCAL xValue
 
-   DO CASE // TODO: SWITCH
-   CASE cType $  "CM"; xValue := cValue
-   CASE cType == "D" ; xValue := SToD(cValue)
-   CASE cType == "N" ; xValue := Val(cValue)
-   CASE cType == "L" ; xValue := ( cValue == "T" )
-   CASE cType == "A" ; xValue := CToA(cValue)
-   OTHERWISE         ; xValue := NIL                 // Nil, Block, Object
-   ENDCASE
+   SWITCH cType
+   CASE "C"
+   CASE "M"  ; xValue := cValue            ; EXIT
+   CASE "D"  ; xValue := SToD(cValue)      ; EXIT
+   CASE "N"  ; xValue := Val(cValue)       ; EXIT
+   CASE "L"  ; xValue := ( cValue == "T" ) ; EXIT
+   CASE "A"  ; xValue := CToA(cValue)      ; EXIT
+   OTHERWISE ; xValue := NIL // Nil, Block, Object
+   ENDSWITCH
 
 RETURN xValue
 
 *-----------------------------------------------------------------------------*
 FUNCTION AToC(aArray)
 *-----------------------------------------------------------------------------*
-   
+
    LOCAL elem
    LOCAL cElement
    LOCAL cType
