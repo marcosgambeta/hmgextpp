@@ -964,72 +964,56 @@ PROCEDURE ProcessCharMask(i, d)
       CB := hb_USubStr(InBuffer, x, 1)
       CM := hb_USubStr(Mask, x, 1)
 
-      DO CASE
-
-      CASE CM == "A" .OR. CM == "N" .OR. CM == "!"
-
+      SWITCH CM
+      CASE "A"
+      CASE "N"
+      CASE "!"
          IF hmg_IsAlpha(CB) .OR. CB == " " .OR. ( ( CM == "N" .OR. CM == "!" ) .AND. hmg_IsDigit(CB) )
-
             IF CM == "!" .AND. !hmg_IsDigit(CB)
                OutBuffer += hmg_Upper(CB)
             ELSE
                OutBuffer += CB
             ENDIF
-
          ELSE
-
             IF x == icp
                BadEntry := .T.
                OutBuffer += OldChar
             ELSE
                OutBuffer += " "
             ENDIF
-
          ENDIF
-
-      CASE CM == "9"
-
+         EXIT
+      CASE "9"
          IF hmg_IsDigit(CB) .OR. CB == " " .OR. ( CB == "-" .AND. x == fnb .AND. PCount() > 1 )
-
             OutBuffer += CB
-
          ELSE
-
             IF x == icp
                BadEntry := .T.
                OutBuffer += OldChar
             ELSE
                OutBuffer += " "
             ENDIF
-
          ENDIF
-
-      CASE CM == " "
-
+         EXIT
+      CASE " "
          IF CB == " "
-
             OutBuffer += CB
-
          ELSE
-
             IF x == icp
                BadEntry := .T.
                OutBuffer += OldChar
             ELSE
                OutBuffer += " "
             ENDIF
-
          ENDIF
-
+         EXIT
       OTHERWISE
-
          IF CM == "X"  // GF 07/04/2022
             OutBuffer += CB
          ELSE
             OutBuffer += CM
          ENDIF
-
-      ENDCASE
+      ENDSWITCH
 
    NEXT x
 
@@ -1115,18 +1099,23 @@ STATIC FUNCTION CharMaskTekstOK(cString, cMask)
    FOR x := 1 TO nCount
       CB := hb_USubStr(cString, x, 1)
       CM := hb_USubStr(cMask, x, 1)
-      DO CASE  // JK // TODO: switch
-      CASE CM == "A"
+      SWITCH CM // JK
+      CASE "A"
          lPassed := ( hmg_IsAlpha(CB) .OR. CB == " " )
-      CASE CM == "N" .OR. CM == "!"
+         EXIT
+      CASE "N"
+      CASE "!"
          lPassed := ( hmg_IsDigit(CB) .OR. hmg_IsAlpha(CB) .OR. CB == " " )
-      CASE CM == "9"
+         EXIT
+      CASE "9"
          lPassed := ( hmg_IsDigit(CB) .OR. CB == " " )
-      CASE CM == " "
+         EXIT
+      CASE " "
          lPassed := ( CB == " " )
+         EXIT
       OTHERWISE
          lPassed := !( CM == "X" )  // GF 07/04/2022
-      ENDCASE
+      ENDSWITCH
       IF !lPassed
          EXIT
       ENDIF
