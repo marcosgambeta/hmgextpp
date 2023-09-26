@@ -54,39 +54,41 @@ FUNCTION SBrowse(uAlias, cTitle, bSetUp, aCols, nWidth, nHeight, lSql, lModal, l
       lSql := .F., ;
       lModal := .F.
 
-   IF hb_IsChar(uAlias) .AND. Select(uAlias) == 0 // TODO: SWITCH
-      nSaveSelect := Select()
-      IF lSql
-         cTable := GetUniqueName("SqlTable")
-
-         dbUseArea(.T.,, "SELECT * FROM " + uAlias, cTable,,, "UTF8")
-         dbSelectArea(cTable)
-
-         cAlias := cTable
-         uAlias := cAlias
-      ELSE
-
-         cDbf := uAlias
-         cAlias := uAlias
-         TRY
-            dbUseArea(.T., NIL, cDbf, cAlias, .T.)
+   SWITCH valtype(uAlias)
+   CASE "C"
+      IF Select(uAlias) == 0
+         nSaveSelect := Select()
+         IF lSql
+            cTable := GetUniqueName("SqlTable")
+            dbUseArea(.T.,, "SELECT * FROM " + uAlias, cTable,,, "UTF8")
+            dbSelectArea(cTable)
+            cAlias := cTable
             uAlias := cAlias
-         CATCH
-            uAlias := { { uAlias } }
-         END
+         ELSE
+            cDbf := uAlias
+            cAlias := uAlias
+            TRY
+               dbUseArea(.T., NIL, cDbf, cAlias, .T.)
+               uAlias := cAlias
+            CATCH
+               uAlias := { { uAlias } }
+            END
+         ENDIF
       ENDIF
-
-   ELSEIF ValType(uAlias) == "N"
+      EXIT
+   CASE "N"
       If !Empty(Alias(uAlias))
          uAlias := Alias(uAlias)
       ELSE
          uAlias := { { uAlias } }
       ENDIF
-
-   ELSEIF ValType(uAlias) $ "BDLP"
+      EXIT
+   CASE "B"
+   CASE "D"
+   CASE "L"
+   CASE "P"
       uAlias := { { uAlias } }
-
-   ENDIF
+   ENDSWITCH
 
    cFormName := GetUniqueName("SBrowse")
 
