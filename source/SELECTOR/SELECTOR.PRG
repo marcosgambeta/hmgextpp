@@ -343,18 +343,15 @@ STATIC FUNCTION ToString(cStr)
 
    LOCAL cType := ValType(cStr)
 
-   IF cType == "N" // TODO: SWITCH
-
+   SWITCH cType
+   CASE "N"
       cStr := Str(cStr)
-
-   ELSEIF cType == "D"
-
+      EXIT
+   CASE "D"
       cStr := DToS(cStr)
-
-   ELSEIF cType == "L"
-
+      EXIT
+   CASE "L"
       cStr := iif(cStr, "1", "0")
-
-   ENDIF
+   ENDSWITCH
 
 RETURN cStr
