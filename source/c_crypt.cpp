@@ -44,13 +44,11 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-/*
-   File:       MyCrypt.c
-   Author:     Grigory Filatov
-   Description:    Crypto Library for MiniGUI
-   Status:     Public Domain
-   Notes:      This is very simple crypt algorithm based on XOR encryption.
- */
+// File:        MyCrypt.c
+// Author:      Grigory Filatov
+// Description: Crypto Library for MiniGUI
+// Status:      Public Domain
+// Notes:       This is very simple crypt algorithm based on XOR encryption.
 
 #if !defined(__MINGW32__)
 
@@ -58,20 +56,20 @@
 
 HB_FUNC( CHARXOR )
 {
-   char *       Str1, * Str2, * Res;
+   char * Str1, * Str2, * Res;
    unsigned int len1, nl1, len2, nl2;
 
-   Str1 = ( char * ) hb_parc(1);
+   Str1 = static_cast<char*>(hb_parc(1));
    len1 = hb_parclen(1);
-   Str2 = ( char * ) hb_parc(2);
+   Str2 = static_cast<char*>(hb_parc(2));
    len2 = hb_parclen(2);
    if( !len1 ) {
       hb_retclen("", 0);
    } else {
-      Res = ( char * ) hb_xgrab(len1);
+      Res = static_cast<char*>(hb_xgrab(len1));
       for( nl1 = nl2 = 0; nl1 < len1; nl1++ ) {
          Res[nl1] = Str1[nl1] ^ Str2[nl2];
-         if( ( ++nl2 ) >= len2 ) {
+         if( (++nl2) >= len2 ) {
             nl2 = 0;
          }
       }
