@@ -943,9 +943,9 @@ FUNCTION drawpiegraph(windowname, fromrow, fromcol, torow, tocol, series, aname,
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 PROCEDURE ErasePieGraph(windowname)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL cname
    LOCAL i := 1
@@ -966,9 +966,9 @@ PROCEDURE ErasePieGraph(windowname)
 
 RETURN
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _PiePrint(cForm, fromrow, fromcol, torow, tocol, series, aname, colors, ctitle, depth, l3d, lxval, lsleg, cPicture, x, y, cLibrary, placement)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL b := _HMG_IsModalActive
    LOCAL FormName := "_Tmp_" + hb_ntos(_GetId())
@@ -992,10 +992,10 @@ FUNCTION _PiePrint(cForm, fromrow, fromcol, torow, tocol, series, aname, colors,
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _GraphPrint(cForm, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aData, cTitle, aYVals, nBarD, nWideB, nSep, nXRanges, ;
       l3D, lGrid, lxGrid, lyGrid, lxVal, lyVal, lLegends, aSeries, aColors, nType, lViewVal, cPicture, nLegendsWidth, x, y, cLibrary)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL b := _HMG_IsModalActive
    LOCAL FormName := "_Tmp_" + hb_ntos(_GetId())
@@ -1020,9 +1020,9 @@ FUNCTION _GraphPrint(cForm, nTop, nLeft, nBottom, nRight, nHeight, nWidth, aData
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 STATIC FUNCTION _bmpprint(cForm, x, y, nLibrary)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL cTempFile := TempFile(GetTempFolder(), "BMP")
    LOCAL aSize
@@ -1140,9 +1140,9 @@ STATIC FUNCTION _bmpprint(cForm, x, y, nLibrary)
 
 RETURN .T.
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION PrintWindow(cWindowName, lPreview, ldialog, nRow, nCol, nWidth, nHeight)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 
    LOCAL lSuccess
    LOCAL nOrientation

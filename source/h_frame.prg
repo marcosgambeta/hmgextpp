@@ -47,11 +47,11 @@
 #include "minigui.ch"
 #include "i_winuser.ch"
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 STATIC FUNCTION _DefineFrame(ControlName, ParentFormName, x, y, w, h, ;
       caption, fontname, fontsize, opaque, bold, italic, underline, strikeout, ;
       backcolor, fontcolor, transparent, invisible, nId, bInit)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 
    LOCAL ParentFormHandle
    LOCAL ControlHandle
@@ -212,9 +212,9 @@ STATIC FUNCTION _DefineFrame(ControlName, ParentFormName, x, y, w, h, ;
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _BeginFrame(name, parent, row, col, w, h, caption, fontname, fontsize, opaque, bold, italic, underline, strikeout, backcolor, fontcolor, transparent, invisible, nId, bInit)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 
    IF _HMG_BeginWindowActive
       __defaultNIL(@FontName, _HMG_ActiveFontName)

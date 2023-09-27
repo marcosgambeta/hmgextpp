@@ -47,12 +47,12 @@
 #include "minigui.ch"
 #include "i_winuser.ch"
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _DefineEditbox(ControlName, ParentFormName, x, y, w, h, value, ;
       fontname, fontsize, tooltip, maxlength, gotfocus, change, lostfocus, ;
       readonly, break, HelpId, invisible, notabstop, bold, italic, underline, ;
       strikeout, field, backcolor, fontcolor, novscroll, nohscroll, nId, bInit)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL ParentFormHandle
    LOCAL ControlHandle
@@ -316,9 +316,9 @@ FUNCTION _DefineEditbox(ControlName, ParentFormName, x, y, w, h, value, ;
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 PROCEDURE _DataEditBoxRefresh(i)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 
    LOCAL Field := _HMG_aControlPageMap[i]
    LOCAL icp
@@ -337,9 +337,9 @@ PROCEDURE _DataEditBoxRefresh(i)
 
 RETURN
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION InitDialogEdit(ParentName, ControlHandle, k)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL maxlength
    LOCAL readonly

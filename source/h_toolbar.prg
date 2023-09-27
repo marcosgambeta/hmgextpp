@@ -47,9 +47,9 @@
 #include "minigui.ch"
 #include "i_winuser.ch"
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _DefineToolBar(ControlName, ParentForm, x, y, caption, ProcedureName, w, h, fontname, fontsize, tooltip, flat, bottom, righttext, break, bold, italic, underline, strikeout, border, mixedbuttons, rows, tbsize, imagelst, hotimagelst, wrap, custom)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 
    LOCAL FontHandle
    LOCAL ControlHandle
@@ -161,9 +161,9 @@ FUNCTION _DefineToolBar(ControlName, ParentForm, x, y, caption, ProcedureName, w
 
 RETURN ControlHandle
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _EndToolBar()
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL ParentForm
    LOCAL h
@@ -207,9 +207,9 @@ FUNCTION _EndToolBar()
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _DefineToolButton(ControlName, ParentControl, x, y, Caption, ProcedureName, w, h, image, tooltip, gotfocus, lostfocus, flat, separator, autosize, check, group, dropdown, WholeDropDown, adjust, imageindex, notrans)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL ParentForm
    LOCAL hParentForm
@@ -341,9 +341,9 @@ FUNCTION _DefineToolButton(ControlName, ParentControl, x, y, Caption, ProcedureN
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 STATIC FUNCTION _AddToolBarToSplitBox(ControlName, break, Caption, ParentForm)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL MinWidth
    LOCAL MinHeight
@@ -379,9 +379,9 @@ STATIC FUNCTION _AddToolBarToSplitBox(ControlName, break, Caption, ParentForm)
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _BeginToolBar(name, parent, row, col, w, h, caption, ProcedureName, fontname, fontsize, tooltip, flat, bottom, righttext, break, bold, italic, underline, strikeout, border, wrap, custom)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 
    _HMG_ToolBarActive       := .T.
    _HMG_ActiveToolBarExtend := .F.
@@ -416,9 +416,9 @@ FUNCTION _BeginToolBar(name, parent, row, col, w, h, caption, ProcedureName, fon
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _BeginToolBarEx(name, parent, row, col, w, h, caption, ProcedureName, fontname, fontsize, tooltip, flat, bottom, righttext, break, bold, italic, underline, strikeout, border, mixedbuttons, rows, tbsize, imagelst, hotimagelst, wrap, custom)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 
    _HMG_ToolBarActive       := .T.
    _HMG_ActiveToolBarExtend := .T.
@@ -467,9 +467,9 @@ FUNCTION _BeginToolBarEx(name, parent, row, col, w, h, caption, ProcedureName, f
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _CreatePopUpChevron(hWnd, wParam, lParam)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL hMenu
    LOCAL hImage
@@ -534,9 +534,9 @@ FUNCTION _CreatePopUpChevron(hWnd, wParam, lParam)
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 STATIC PROCEDURE _DropDownShortcut(nToolButtonId, nParentWindowHandle, i, nButtonPos)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL aPos
    LOCAL aSize

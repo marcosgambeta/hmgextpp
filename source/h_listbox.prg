@@ -47,12 +47,12 @@
 #include "minigui.ch"
 #include "i_winuser.ch"
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _DefineListbox(ControlName, ParentFormName, x, y, w, h, arows, value, ;
       fontname, fontsize, tooltip, changeprocedure, dblclick, gotfocus, lostfocus, break, HelpId, ;
       invisible, notabstop, sort, bold, italic, underline, strikeout, backcolor, fontcolor, ;
       multiselect, dragitems, multicolumn, multitabs, aWidth, nId)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL ParentFormHandle
    LOCAL ControlHandle
@@ -305,9 +305,9 @@ FUNCTION _DefineListbox(ControlName, ParentFormName, x, y, w, h, arows, value, ;
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION InitDialogListBox(ParentName, ControlHandle, k)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL Rows
    LOCAL Value
@@ -342,9 +342,9 @@ FUNCTION InitDialogListBox(ParentName, ControlHandle, k)
 
    RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION LB_Array2String(aData, Sep)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL cData := ""
    LOCAL n

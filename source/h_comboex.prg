@@ -52,7 +52,7 @@
 
 // (JK) Extend combobox control - COMBOBOXEX
 // HMG 1.0 Experimental Build 8
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _DefineComboEx(ControlName, ParentForm, x, y, w, rows, value, ;
       fontname, fontsize, tooltip, changeprocedure, h, gotfocus, lostfocus, ;
       uEnter, HelpId, invisible, notabstop, ;
@@ -61,7 +61,7 @@ FUNCTION _DefineComboEx(ControlName, ParentForm, x, y, w, rows, value, ;
       displaychange, ondisplaychangeprocedure, break, GripperText, ;
       aImage, ListWidth, OnListDisplayProcedure, OnListCloseProcedure, ;
       backcolor, fontcolor, ImageList, nItemHeight, bInit, notrans)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL ControlHandle
    LOCAL FontHandle

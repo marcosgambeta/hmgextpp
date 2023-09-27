@@ -64,11 +64,11 @@
 STATIC hGradient
 STATIC aRect := { 0, 0, 0, 0 }
 
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 FUNCTION _DefineProgressWheel(cControlName, cParentForm, nCol, nRow, nWidth, ;
       nHeight, nPosition, nStartAngle, nInnerSize, nGradientMode, lShowText, ;
       nMin, nMax, nColorDoneMin, nColorDoneMax, nColorRemain, nColorInner)
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
    
    LOCAL nParentFormHandle
    LOCAL nControlHandle
@@ -189,9 +189,9 @@ FUNCTION _DefineProgressWheel(cControlName, cParentForm, nCol, nRow, nWidth, ;
 
 RETURN NIL
 
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 FUNCTION PW_GetColorDoneMin(cControlName, cParentForm)
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 
    LOCAL i := GetControlIndex(cControlName, cParentForm)
    LOCAL ColorDoneMin
@@ -202,9 +202,9 @@ FUNCTION PW_GetColorDoneMin(cControlName, cParentForm)
 
 RETURN ColorDoneMin
 
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 FUNCTION PW_GetColorDoneMax(cControlName, cParentForm)
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 
    LOCAL i := GetControlIndex(cControlName, cParentForm)
    LOCAL ColorDoneMax
@@ -215,9 +215,9 @@ FUNCTION PW_GetColorDoneMax(cControlName, cParentForm)
 
 RETURN ColorDoneMax
 
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 FUNCTION PW_GetColorRemain(cControlName, cParentForm)
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 
    LOCAL i := GetControlIndex(cControlName, cParentForm)
    LOCAL ColorRemain
@@ -228,9 +228,9 @@ FUNCTION PW_GetColorRemain(cControlName, cParentForm)
 
 RETURN ColorRemain
 
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 FUNCTION PW_GetColorInner(cControlName, cParentForm)
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 
    LOCAL i := GetControlIndex(cControlName, cParentForm)
    LOCAL ColorInner
@@ -241,9 +241,9 @@ FUNCTION PW_GetColorInner(cControlName, cParentForm)
 
 RETURN ColorInner
 
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 PROCEDURE PW_SetShowText(cControlName, cParentForm, Value)
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
    LOCAL i := GetControlIndex(cControlName, cParentForm)
@@ -256,9 +256,9 @@ PROCEDURE PW_SetShowText(cControlName, cParentForm, Value)
 
 RETURN
 
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 PROCEDURE PW_SetColorDoneMin(cControlName, cParentForm, Value, lErase)
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
    LOCAL i := GetControlIndex(cControlName, cParentForm)
@@ -296,9 +296,9 @@ PROCEDURE PW_SetColorDoneMin(cControlName, cParentForm, Value, lErase)
 
 RETURN
 
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 PROCEDURE PW_SetColorDoneMax(cControlName, cParentForm, Value, lErase)
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
    LOCAL i := GetControlIndex(cControlName, cParentForm)
@@ -336,9 +336,9 @@ PROCEDURE PW_SetColorDoneMax(cControlName, cParentForm, Value, lErase)
 
 RETURN
 
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 PROCEDURE PW_SetColorRemain(cControlName, cParentForm, Value, lErase)
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
    LOCAL i := GetControlIndex(cControlName, cParentForm)
@@ -376,9 +376,9 @@ PROCEDURE PW_SetColorRemain(cControlName, cParentForm, Value, lErase)
 
 RETURN
 
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 PROCEDURE PW_SetColorInner(cControlName, cParentForm, Value, lErase)
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
    LOCAL i := GetControlIndex(cControlName, cParentForm)
@@ -416,9 +416,9 @@ PROCEDURE PW_SetColorInner(cControlName, cParentForm, Value, lErase)
 
 RETURN
 
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 PROCEDURE PW_SetStartAngle(cControlName, cParentForm, Value, lErase)
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
    LOCAL i := GetControlIndex(cControlName, cParentForm)
@@ -457,9 +457,9 @@ PROCEDURE PW_SetStartAngle(cControlName, cParentForm, Value, lErase)
 
 RETURN
 
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 PROCEDURE PW_SetMin(cControlName, cParentForm, Value, lErase)
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
    LOCAL i := GetControlIndex(cControlName, cParentForm)
@@ -500,9 +500,9 @@ PROCEDURE PW_SetMin(cControlName, cParentForm, Value, lErase)
 
 RETURN
 
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 PROCEDURE PW_SetMax(cControlName, cParentForm, Value, lErase)
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
    LOCAL i := GetControlIndex(cControlName, cParentForm)
@@ -543,9 +543,9 @@ PROCEDURE PW_SetMax(cControlName, cParentForm, Value, lErase)
 
 RETURN
 
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 PROCEDURE PW_SetPosition(cControlName, cParentForm, Value, lErase)
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
    LOCAL i := GetControlIndex(cControlName, cParentForm)
@@ -583,9 +583,9 @@ PROCEDURE PW_SetPosition(cControlName, cParentForm, Value, lErase)
 
 RETURN
 
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 PROCEDURE PW_SetInnerSize(cControlName, cParentForm, Value, lErase)
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
    LOCAL i := GetControlIndex(cControlName, cParentForm)
@@ -623,9 +623,9 @@ PROCEDURE PW_SetInnerSize(cControlName, cParentForm, Value, lErase)
 
 RETURN
 
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 PROCEDURE PW_SetGradientMode(cControlName, cParentForm, Value, lErase)
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 
    LOCAL nParentFormHandle := GetFormHandle(cParentForm)
    LOCAL i := GetControlIndex(cControlName, cParentForm)
@@ -659,11 +659,11 @@ PROCEDURE PW_SetGradientMode(cControlName, cParentForm, Value, lErase)
 RETURN
 
 #define HALFTONE        4
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 PROCEDURE ProgressWheelPaint(cParentForm, cImgName, Width, Height, ;
       Position, StartAngle, InnerSize, GradientMode, cText, ShowText, ;
       Min, Max, ColorDoneMin, ColorDoneMax, ColorRemain, ColorInner)
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
    
    LOCAL BufScale := _SetGetGlobal("BufScale")
    LOCAL hBitmap
@@ -763,9 +763,9 @@ PROCEDURE ProgressWheelPaint(cParentForm, cImgName, Width, Height, ;
 
 RETURN
 
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 FUNCTION UpdateAngleGradientBrush(GradientMode, Width, Height, StartAngle, ColorDoneMin, ColorDoneMax)
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
    
    LOCAL BufScale := _SetGetGlobal("BufScale")
    LOCAL hBitmap
@@ -813,9 +813,9 @@ FUNCTION UpdateAngleGradientBrush(GradientMode, Width, Height, StartAngle, Color
 
 RETURN NIL
 
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 STATIC FUNCTION GradientColor(ColorBegin, ColorEnd, AMin, AMax, APosition)
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
    
    LOCAL B
    LOCAL B1
@@ -847,9 +847,9 @@ STATIC FUNCTION GradientColor(ColorBegin, ColorEnd, AMin, AMax, APosition)
 
 RETURN B1 + Round((E1 - B1) * P, 0) + hb_bitShift(B2 + Round((E2 - B2) * P, 0), 8) + hb_bitShift(B3 + Round((E3 - B3) * P, 0), 16)
 
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 STATIC FUNCTION AnglePosition(StartAngle, Rect, AMin, AMax, APosition)
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
    
    LOCAL a
    LOCAL X
@@ -872,18 +872,18 @@ RETURN { Y, X }
 *                          Auxiliary Functions
 *=============================================================================*
 
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 STATIC FUNCTION BT_DrawPieEx(hDC, Row1, Col1, Row2, Col2, RowStartArc, ColStartArc, RowEndArc, ColEndArc, aColorRGBLine, nWidthLine, aColorRGBFill, hBrushBitmap)
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 
    nWidthLine := IIF(nWidthLine == NIL, 1, nWidthLine)
    BT_DRAW_HDC_ARCX_EX(hDC, Col1, Row1, Col2, Row2, ColStartArc, RowStartArc, ColEndArc, RowEndArc, ArrayRGB_TO_COLORREF( aColorRGBLine ), nWidthLine, ArrayRGB_TO_COLORREF( aColorRGBFill ), BT_DRAW_PIE, hBrushBitmap)
 
 RETURN NIL
 
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 STATIC PROCEDURE DrawPieInBitmap(hDC, row, col, row1, col1, rowr, colr, rowr1, colr1, penrgb, penwidth, fillrgb, hBrush)
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 
    IF penrgb == NIL
       penrgb := BLACK
@@ -899,9 +899,9 @@ STATIC PROCEDURE DrawPieInBitmap(hDC, row, col, row1, col1, rowr, colr, rowr1, c
 
 RETURN
 
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 STATIC PROCEDURE DrawEllipseInBitmap(hDC, row, col, Width, Height, penrgb, penwidth, fillrgb)
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 
    IF penrgb == NIL
       penrgb := BLACK
@@ -917,9 +917,9 @@ STATIC PROCEDURE DrawEllipseInBitmap(hDC, row, col, Width, Height, penrgb, penwi
 
 RETURN
 
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 STATIC PROCEDURE DrawTextInBitmap(hDC, row, col, cText, cFontName, nFontSize, aColor, nAlign)
-*------------------------------------------------------------------------------*
+//----------------------------------------------------------------------------//
 
    DEFAULT nAlign := 0
 

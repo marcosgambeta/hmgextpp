@@ -49,12 +49,12 @@
 
 STATIC a_Node_Item_Cargo := {}
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _DefineTree(ControlName, ParentFormName, row, col, width, height, ;
       change, tooltip, fontname, fontsize, gotfocus, lostfocus, dblclick, break, ;
       value, HelpId, aImgNode, aImgItem, noBot, bold, italic, underline, strikeout, ;
       itemids, backcolor, fontcolor, linecolor, indent, itemheight, nId, bInit, NoTrans)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 
    LOCAL ParentFormHandle
    LOCAL Controlhandle
@@ -335,9 +335,9 @@ FUNCTION _DefineTree(ControlName, ParentFormName, row, col, width, height, ;
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION InitDialogTree(ParentName, ControlHandle, k)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL aBitmaps := Array(4)
    LOCAL aImgNode
@@ -435,9 +435,9 @@ FUNCTION InitDialogTree(ParentName, ControlHandle, k)
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _DefineTreeNode(text, aImage, Id, Cargo)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL ImgDef
    LOCAL k
@@ -475,17 +475,17 @@ FUNCTION _DefineTreeNode(text, aImage, Id, Cargo)
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _EndTreeNode()
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 
    _HMG_NodeIndex--
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _DefineTreeItem(text, aImage, Id, Cargo)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL handle
    LOCAL ImgDef
@@ -522,9 +522,9 @@ FUNCTION _DefineTreeItem(text, aImage, Id, Cargo)
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _EndTree()
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 
    IF !_SetGetGlobal("_HMG_lDialogInMemory")
 
@@ -548,9 +548,9 @@ FUNCTION _EndTree()
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 PROCEDURE _Collapse(ControlName, ParentForm, nItem, lRecurse)   // Dr. Claudio Soto (November 2013)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL i
    LOCAL ItemHandle
@@ -564,9 +564,9 @@ PROCEDURE _Collapse(ControlName, ParentForm, nItem, lRecurse)   // Dr. Claudio S
 
 RETURN
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 PROCEDURE _Expand(ControlName, ParentForm, nItem, lRecurse)   // Dr. Claudio Soto (November 2013)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL i
    LOCAL ItemHandle
@@ -580,9 +580,9 @@ PROCEDURE _Expand(ControlName, ParentForm, nItem, lRecurse)   // Dr. Claudio Sot
 
 RETURN
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 STATIC FUNCTION TreeItemGetHandle(ControlName, ParentForm, Item)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL ItemHandle := 0
    LOCAL Pos
@@ -605,9 +605,9 @@ STATIC FUNCTION TreeItemGetHandle(ControlName, ParentForm, Item)
 
 RETURN ItemHandle
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 PROCEDURE TreeItemChangeImage(ControlName, ParentForm, nItem, aImage)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL TreeHandle := GetControlHandle(ControlName, ParentForm)
    LOCAL ItemHandle := TreeItemGetHandle(ControlName, ParentForm, nItem)
@@ -626,9 +626,9 @@ PROCEDURE TreeItemChangeImage(ControlName, ParentForm, nItem, aImage)
 
 RETURN
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION TreeItemGetRootValue(ControlName, ParentForm)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL nControlHandle := GetControlHandle(ControlName, ParentForm)
    LOCAL ItemHandle := TreeView_GetRoot(nControlHandle)
@@ -648,9 +648,9 @@ FUNCTION TreeItemGetRootValue(ControlName, ParentForm)
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION TreeItemGetParentValue(ControlName, ParentForm, nItem)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL nControlHandle := GetControlHandle(ControlName, ParentForm)
    LOCAL ItemHandle := TreeView_GetParent(nControlHandle, TreeItemGetHandle(ControlName, ParentForm, nItem))
@@ -670,9 +670,9 @@ FUNCTION TreeItemGetParentValue(ControlName, ParentForm, nItem)
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION TreeItemGetFirstItemValue(ControlName, ParentForm)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL nIndex := GetControlIndex(ControlName, ParentForm)
    LOCAL nID
@@ -690,9 +690,9 @@ FUNCTION TreeItemGetFirstItemValue(ControlName, ParentForm)
 RETURN NIL
 
 #define TREESORTNODE_MIX    2
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 PROCEDURE TreeItemSort(cTreeName, cFormName, nItem, lRecurse, lCaseSensitive, lAscendingOrder, nNodePosition)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL nControlHandle
    LOCAL nItemHandle
@@ -714,27 +714,27 @@ PROCEDURE TreeItemSort(cTreeName, cFormName, nItem, lRecurse, lCaseSensitive, lA
 
 RETURN
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION TreeItemIsTrueNode(ControlName, ParentForm, nItem)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL nControlHandle := GetControlHandle(ControlName, ParentForm)
    LOCAL ItemHandle := TreeItemGetHandle(ControlName, ParentForm, nItem)
 
 RETURN !Empty(TreeView_GetChild(nControlHandle, ItemHandle))
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION TreeItemSetNodeFlag(ControlName, ParentForm, nItem, lNodeFlag)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL nControlHandle := GetControlHandle(ControlName, ParentForm)
    LOCAL ItemHandle := TreeItemGetHandle(ControlName, ParentForm, nItem)
 
 RETURN TREEITEM_SETNODEFLAG(nControlHandle, ItemHandle, lNodeFlag)
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION TreeItemGetNodeFlag(ControlName, ParentForm, nItem)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL nControlHandle := GetControlHandle(ControlName, ParentForm)
    LOCAL ItemHandle := TreeItemGetHandle(ControlName, ParentForm, nItem)
@@ -742,18 +742,18 @@ FUNCTION TreeItemGetNodeFlag(ControlName, ParentForm, nItem)
 RETURN TREEITEM_GETNODEFLAG(nControlHandle, ItemHandle)
 
 #define TVIS_EXPANDED   32
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION TreeItemIsExpand(ControlName, ParentForm, nItem)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL nControlHandle := GetControlHandle(ControlName, ParentForm)
    LOCAL ItemHandle     := TreeItemGetHandle(ControlName, ParentForm, nItem)
 
 RETURN ( hb_bitand(TreeView_GetItemState(nControlHandle, ItemHandle, TVIS_EXPANDED), TVIS_EXPANDED) == TVIS_EXPANDED )
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION TreeNodeItemCargo(ControlName, ParentForm, Item, Value)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL i
    LOCAL xData

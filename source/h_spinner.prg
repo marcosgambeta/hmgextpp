@@ -49,12 +49,12 @@
 
 #define EM_SETCUEBANNER       0x1501
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _DefineSpinner(ControlName, ParentForm, x, y, w, value, fontname, ;
       fontsize, rl, rh, tooltip, change, lostfocus, gotfocus, h, HelpId, ;
       horizontal, invisible, notabstop, bold, italic, underline, strikeout, ;
       wrap, readonly, increment, backcolor, fontcolor, cuetext, bInit)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 
    LOCAL ControlHandle
    LOCAL FontHandle
@@ -207,9 +207,9 @@ FUNCTION _DefineSpinner(ControlName, ParentForm, x, y, w, value, fontname, ;
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION OSPINEVENTS(hWnd, nMsg, wParam, lParam)    // 2006.08.13 JD
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL ParentForm
    LOCAL i

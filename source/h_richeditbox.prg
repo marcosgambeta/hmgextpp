@@ -46,12 +46,12 @@
 
 #include "minigui.ch"
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _DefineRichEditBox(ControlName, ParentForm, x, y, w, h, value, ;
       fontname, fontsize, tooltip, maxlength, gotfocus, change, lostfocus, readonly, ;
       break, HelpId, invisible, notabstop, bold, italic, underline, strikeout, file, ;
       field, backcolor, fontcolor, plaintext, nohscroll, novscroll, select, vscroll)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL ControlHandle
    LOCAL FontHandle
@@ -240,9 +240,9 @@ FUNCTION _DefineRichEditBox(ControlName, ParentForm, x, y, w, h, value, ;
 RETURN NIL
 
 // Modified by Kevin Carmody <i@kevincarmody.com> 2007.04.23
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 PROCEDURE _DataBaseRichEditBoxSave(ControlName, ParentForm, typ)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL cTempFile := TempFile(GetTempFolder(), "txt")
    LOCAL Field
@@ -266,9 +266,9 @@ RETURN
 
 // Kevin Carmody <i@kevincarmody.com> 2007.04.23, modified 2010.03.14
 // Set rich value of rich edit box.
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _DataRichEditBoxSetValue(ControlName, ParentForm, cRichValue, typ)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL cTempFile := TempFile(GetTempFolder(), "txt")
 
@@ -284,9 +284,9 @@ RETURN cRichValue
 
 // Kevin Carmody <i@kevincarmody.com> 2007.04.23
 // Get rich value of rich edit box.
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _DataRichEditBoxGetValue(ControlName, ParentForm, typ)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL cTempFile := TempFile(GetTempFolder(), "txt")
    LOCAL cRichValue
@@ -301,9 +301,9 @@ FUNCTION _DataRichEditBoxGetValue(ControlName, ParentForm, typ)
 
 RETURN cRichValue
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 PROCEDURE _DataRichEditBoxOpen(ControlName, ParentForm, cFile, typ)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL i
 
@@ -317,9 +317,9 @@ PROCEDURE _DataRichEditBoxOpen(ControlName, ParentForm, cFile, typ)
 
 RETURN
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 PROCEDURE _DataRichEditBoxSave(ControlName, ParentForm, cFile, typ)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL i
 

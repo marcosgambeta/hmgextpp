@@ -46,9 +46,9 @@
 
 #include "minigui.ch"
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION GetColor(aInitColor, aCustomColors, nFlags)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 
    LOCAL aRetVal[3]
    LOCAL nColor
@@ -78,22 +78,22 @@ FUNCTION GetColor(aInitColor, aCustomColors, nFlags)
 
 RETURN aRetVal
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION GetFolder(cTitle, cInitPath, nFlags, lNewFolderButton, nFolderType) // JK HMG 1.0 Experimental Build 8
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 RETURN C_BrowseForFolder(NIL, cTitle, ;
    hb_defaultValue(nFlags, BIF_USENEWUI + BIF_VALIDATE + ;
    iif(hb_defaultValue(lNewFolderButton, .T.), 0, BIF_NONEWFOLDERBUTTON)), nFolderType, cInitPath)
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION BrowseForFolder(nFolderType, nFlags, cTitle, cInitPath) // Contributed By Ryszard Rylko
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 RETURN C_BrowseForFolder(NIL, cTitle, ;
    hb_defaultValue(nFlags, hb_BitOr(BIF_NEWDIALOGSTYLE, BIF_EDITBOX, BIF_VALIDATE)), nFolderType, cInitPath)
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION GetFile(aFilter, title, cIniFolder, multiselect, lNoChangeCurDir, nFilterIndex)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL fileslist As Array
    LOCAL cFilter As String
@@ -143,10 +143,10 @@ FUNCTION GetFile(aFilter, title, cIniFolder, multiselect, lNoChangeCurDir, nFilt
 
 RETURN fileslist
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION Putfile(aFilter, title, cIniFolder, lNoChangeCurDir, cDefFileName, ;
    /*@*/nFilterIndex, lPromptOverwrite) //  p.d. 12/05/2016 added lPromptOverwrite
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL cFilter As String
 
@@ -160,9 +160,9 @@ FUNCTION Putfile(aFilter, title, cIniFolder, lNoChangeCurDir, cDefFileName, ;
 RETURN C_PutFile(cFilter, title, cIniFolder, lNoChangeCurDir, hb_defaultValue(cDefFileName, ""), ;
    @nFilterIndex, hb_defaultValue(lPromptOverwrite, .F.))
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION GetFont(cInitFontName, nInitFontSize, lBold, lItalic, anInitColor, lUnderLine, lStrikeOut, nCharset)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL RetArray
    LOCAL rgbcolor As Numeric

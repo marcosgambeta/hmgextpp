@@ -47,13 +47,13 @@
 #include "minigui.ch"
 #include "i_winuser.ch"
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _DefineMonthCal(ControlName, ParentFormName, x, y, w, h, value, ;
       fontname, fontsize, tooltip, notoday, notodaycircle, weeknumbers, change, ;
       HelpId, invisible, notabstop, bold, italic, underline, strikeout, ;
       backcolor, fontcolor, titlebkclr, titlefrclr, background, trlfontclr, ;
       select, gotfocus, lostfocus, nId, bInit)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 
    LOCAL ParentFormHandle
    LOCAL aControlHandle := { 0, 0 }
@@ -286,9 +286,9 @@ FUNCTION _DefineMonthCal(ControlName, ParentFormName, x, y, w, h, value, ;
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION InitDialogMonthCalendar(ParentFormName, ControlHandle, k)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 
    AddMonthCalBoldDay(_HMG_aControlNames[k], ParentFormName, Date())
 
@@ -300,9 +300,9 @@ FUNCTION InitDialogMonthCalendar(ParentFormName, ControlHandle, k)
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION OMONTHCALEVENTS(hWnd, nMsg, wParam, lParam) // GF 2016.04.02
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 
    LOCAL i := AScan(_HMG_aControlHandles, hWnd)
 
@@ -327,9 +327,9 @@ FUNCTION OMONTHCALEVENTS(hWnd, nMsg, wParam, lParam) // GF 2016.04.02
 
 RETURN 0
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION AddMonthCalBoldDay(ControlName, ParentFormName, dDay)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL i
    LOCAL ix := GetControlIndex(ControlName, ParentFormName)
@@ -347,9 +347,9 @@ FUNCTION AddMonthCalBoldDay(ControlName, ParentFormName, dDay)
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION DelMonthCalBoldDay(ControlName, ParentFormName, dDay)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL i
    LOCAL ix := GetControlIndex(ControlName, ParentFormName)
@@ -364,9 +364,9 @@ FUNCTION DelMonthCalBoldDay(ControlName, ParentFormName, dDay)
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION IsMonthCalBoldDay(ControlName, ParentFormName, dDay)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL i := GetControlIndex(ControlName, ParentFormName)
    LOCAL aBoldDays
@@ -375,9 +375,9 @@ FUNCTION IsMonthCalBoldDay(ControlName, ParentFormName, dDay)
 
 Return (AScan(aBoldDays, dDay) > 0)
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION SetDayState(ControlName, ParentFormName)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL hWnd
    LOCAL aData

@@ -6,10 +6,10 @@
 
 #include "minigui.ch"
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _DefineRating(ControlName, ParentForm, x, y, w, h, nValue, aImages, nCnt, ;
       nSpace, tooltip, onchangeprocedure, border, resource, readonly, invisible, vertical)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL cParentForm
    LOCAL mVar
@@ -110,9 +110,9 @@ FUNCTION _DefineRating(ControlName, ParentForm, x, y, w, h, nValue, aImages, nCn
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 PROCEDURE _ReleaseRating(cWindow, cControl)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 
    LOCAL i
    LOCAL img_name
@@ -130,10 +130,10 @@ PROCEDURE _ReleaseRating(cWindow, cControl)
 
 RETURN
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _InitRating(ParentForm, ControlName, x, y, w, h, nValue, aImages, nCnt, ;
       nSpace, tooltip, onchangeprocedure, border, readonly, invisible, vertical)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL i
    LOCAL img_name

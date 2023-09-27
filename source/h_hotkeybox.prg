@@ -49,10 +49,10 @@
 
 #include "minigui.ch"
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _DefineHotKeyBox(ControlName, ParentForm, x, y, w, h, value, fontname, fontsize, tooltip, ;
       change, HelpId, invisible, notabstop, bold, italic, underline, strikeout)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 
    LOCAL ControlHandle
    LOCAL FontHandle
@@ -173,9 +173,9 @@ FUNCTION _DefineHotKeyBox(ControlName, ParentForm, x, y, w, h, value, fontname, 
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _GetHotKeyName(cControlName, cFormName)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL cKeyName := C_GETHOTKEYNAME(GetControlHandle(cControlName, cFormName))
 

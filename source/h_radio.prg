@@ -47,12 +47,12 @@
 #include "minigui.ch"
 #include "i_winuser.ch"
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _DefineRadioGroup(ControlName, ParentFormName, x, y, aOptions, Value, ;
       fontname, fontsize, tooltip, change, width, spacing, HelpId, invisible, ;
       notabstop, bold, italic, underline, strikeout, backcolor, fontcolor, ;
       transparent, horizontal, leftjustify, aReadOnly, autosize, gotfocus, lostfocus, aId, bInit)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 
    LOCAL ParentFormHandle
    LOCAL ControlHandle
@@ -337,9 +337,9 @@ FUNCTION _DefineRadioGroup(ControlName, ParentFormName, x, y, aOptions, Value, ;
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION InitDialogRadioGroup(ParentName, ControlHandle, k)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL aHandles
    LOCAL Value

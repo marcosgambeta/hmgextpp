@@ -55,13 +55,13 @@
 
 #define EM_SETCUEBANNER       0x1501
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _DefineTextBox(ControlName, ParentFormName, x, y, w, h, ;
       cValue, FontName, FontSize, ToolTip, nMaxLength, lUpper, lLower, ;
       lNumeric, lPassword, uLostFocus, uGotFocus, uChange, uEnter, right, ;
       HelpId, readonly, bold, italic, underline, strikeout, field, ;
       backcolor, fontcolor, invisible, notabstop, noborder, cuetext, nId, bInit)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 
    LOCAL ParentFormHandle
    LOCAL ControlHandle := 0
@@ -289,9 +289,9 @@ FUNCTION _DefineTextBox(ControlName, ParentFormName, x, y, w, h, ;
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION InitDialogTextBox(ParentName, ControlHandle, k)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 
    LOCAL Field
    LOCAL cValue
@@ -334,12 +334,12 @@ FUNCTION InitDialogTextBox(ParentName, ControlHandle, k)
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _DefineMaskedTextbox(ControlName, ParentFormName, x, y, inputmask, w, ;
       value, fontname, fontsize, tooltip, lostfocus, gotfocus, change, h, enter, ;
       rightalign, HelpId, Format, bold, italic, underline, strikeout, field, ;
       backcolor, fontcolor, readonly, invisible, notabstop, noborder, cuetext, nId, bInit)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL ParentFormHandle
    LOCAL ControlHandle
@@ -561,9 +561,9 @@ FUNCTION _DefineMaskedTextbox(ControlName, ParentFormName, x, y, inputmask, w, ;
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION InitDialogMaskedTextBox(ParentName, ControlHandle, k)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL Field
    LOCAL cValue
@@ -590,9 +590,9 @@ FUNCTION InitDialogMaskedTextBox(ParentName, ControlHandle, k)
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION GetNumFromText(Text, i)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL s As String
    LOCAL c
@@ -616,9 +616,9 @@ FUNCTION GetNumFromText(Text, i)
 
 RETURN Val(s)
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 STATIC FUNCTION GetNumMask(Text)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL s As String
    LOCAL c
@@ -640,12 +640,12 @@ STATIC FUNCTION GetNumMask(Text)
 
 RETURN s
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _DefineCharMaskTextbox(ControlName, ParentFormName, x, y, inputmask, ;
       w, value, fontname, fontsize, tooltip, lostfocus, gotfocus, change, ;
       h, enter, rightalign, HelpId, bold, italic, underline, strikeout, field, ;
       backcolor, fontcolor, date, readonly, invisible, notabstop, noborder, cuetext, nId, bInit)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL ParentFormHandle
    LOCAL ControlHandle
@@ -858,9 +858,9 @@ FUNCTION _DefineCharMaskTextbox(ControlName, ParentFormName, x, y, inputmask, ;
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 PROCEDURE ProcessCharMask(i, d)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL OutBuffer As String
    LOCAL pc As Numeric
@@ -1086,9 +1086,9 @@ PROCEDURE ProcessCharMask(i, d)
 
 RETURN
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 STATIC FUNCTION CharMaskTekstOK(cString, cMask)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL nCount := Min(hb_ULen(cString), hb_ULen(cMask))
    LOCAL lPassed := .F.
@@ -1123,9 +1123,9 @@ STATIC FUNCTION CharMaskTekstOK(cString, cMask)
 
 RETURN lPassed
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 PROCEDURE _DataTextBoxRefresh(i)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 
    LOCAL Field
 
@@ -1143,9 +1143,9 @@ PROCEDURE _DataTextBoxRefresh(i)
 
 RETURN
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 PROCEDURE _DataTextBoxSave(ControlName, ParentForm)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL Field
    LOCAL i
@@ -1164,9 +1164,9 @@ PROCEDURE _DataTextBoxSave(ControlName, ParentForm)
 
 RETURN
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 PROCEDURE ProcessNumText(i)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL BadEntry As Logical
    LOCAL OutBuffer As String
@@ -1229,9 +1229,9 @@ PROCEDURE ProcessNumText(i)
 
 RETURN
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION GETNumFromTextSP(Text, i)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 
    LOCAL s As String
    LOCAL x
@@ -1265,9 +1265,9 @@ FUNCTION GETNumFromTextSP(Text, i)
 
 RETURN Val(s)
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION OEDITEVENTS(hWnd, nMsg, wParam, lParam)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 
    LOCAL hTextBox
    LOCAL ParentForm

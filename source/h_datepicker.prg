@@ -51,14 +51,14 @@
 #define DTS_SHOWNONE        0x0002 // allow a NONE selection
 #define DTS_RIGHTALIGN      0x0020 // right-align popup instead of left-align it
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _DefineDatePick(ControlName, ParentFormName, x, y, w, h, value, ;
       fontname, fontsize, tooltip, change, lostfocus, ;
       gotfocus, shownone, updown, rightalign, HelpId, ;
       invisible, notabstop, bold, italic, underline, strikeout, ;
       Field, Enter, backcolor, fontcolor, titlebkclr, titlefrclr, trlfontclr, ;
       cDateFormat, dRangeMin, dRangeMax, nId, bInit)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL ParentFormHandle
    LOCAL ControlHandle
@@ -294,13 +294,13 @@ FUNCTION _DefineDatePick(ControlName, ParentFormName, x, y, w, h, value, ;
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _DefineTimePick(ControlName, ParentFormName, x, y, w, h, value, ;
       fontname, fontsize, tooltip, change, lostfocus, ;
       gotfocus, shownone, HelpId, ;
       invisible, notabstop, bold, italic, underline, strikeout, ;
       Field, Enter, cTimeFormat, nId)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL ParentFormHandle
    LOCAL ControlHandle
@@ -504,9 +504,9 @@ FUNCTION _DefineTimePick(ControlName, ParentFormName, x, y, w, h, value, ;
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION InitDialogDatePicker(ParentFormName, ControlHandle, k)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    ParentFormName := NIL
    ControlHandle := NIL
 
@@ -518,9 +518,9 @@ FUNCTION InitDialogDatePicker(ParentFormName, ControlHandle, k)
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _SetDatePickerRange(ControlHandle, dRangeMin, dRangeMax, Index)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL lOK
 
@@ -534,9 +534,9 @@ FUNCTION _SetDatePickerRange(ControlHandle, dRangeMin, dRangeMax, Index)
 
 RETURN lOK
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION OPICKEVENTS(hWnd, nMsg, wParam, lParam)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL i := AScan(_HMG_aControlHandles, hWnd)
    LOCAL aRect := { 0, 0, 0, 0 }

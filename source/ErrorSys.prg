@@ -458,9 +458,9 @@ RETURN ""
 
 //----------------------------------------------------------------------------//
 
-/* Date Created: 14/11/2005
-   Author: Antonio Novo <antonionovo@gmail.com>
-   Enable/Disable Error Detail */
+// Date Created: 14/11/2005
+// Author: Antonio Novo <antonionovo@gmail.com>
+// Enable/Disable Error Detail
 
 FUNCTION _lShowDetailError(lNewValue)
 
@@ -475,9 +475,9 @@ RETURN lOldValue
 
 //----------------------------------------------------------------------------//
 
-/*-01-01-2003
-*-Author: Antonio Novo
-*-Create/Open the ErrorLog.Htm file */
+// 01-01-2003
+// Author: Antonio Novo
+// Create/Open the ErrorLog.Htm file
 
 FUNCTION HTML_ERRORLOG()
 
@@ -502,9 +502,9 @@ RETURN HtmArch
 
 //----------------------------------------------------------------------------//
 
-/*-30-12-2002
-*-Author: Antonio Novo
-*-HTML Page Head */
+// 30-12-2002
+// Author: Antonio Novo
+// HTML Page Head
 
 FUNCTION HTML_INI(ARCH, TITLE)
 
@@ -539,9 +539,9 @@ RETURN
 
 //----------------------------------------------------------------------------//
 
-/*-30-12-2002
-*-Author: Antonio Novo
-*-HTM Page Line */
+// 30-12-2002
+// Author: Antonio Novo
+// HTM Page Line
 
 PROCEDURE HTML_LINETEXT(HTMARCH, LINEA)
 
@@ -553,9 +553,9 @@ RETURN
 
 //----------------------------------------------------------------------------//
 
-/*-30-12-2002
-*-Author: Antonio Novo
-*-HTM Line */
+// 30-12-2002
+// Author: Antonio Novo
+// HTM Line
 
 PROCEDURE HTML_LINE(HTMARCH)
 

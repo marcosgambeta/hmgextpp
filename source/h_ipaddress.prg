@@ -46,11 +46,11 @@
 
 #include "minigui.ch"
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _DefineIPAddress(ControlName, ParentForm, x, y, w, h, aValue, ;
       fontname, fontsize, tooltip, lostfocus, gotfocus, ;
       change, HelpId, invisible, notabstop, bold, italic, underline, strikeout)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL ControlHandle
    LOCAL FontHandle

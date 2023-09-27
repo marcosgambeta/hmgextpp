@@ -65,7 +65,7 @@ MEMVAR _TSB_aClientMDIhWnd
 STATIC asTSB := {NIL, NIL, 0, NIL, NIL, 0, 0, NIL, NIL, NIL}
 STATIC hToolTip := 0
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _DefineTBrowse(ControlName, ParentFormName, nCol, nRow, nWidth, nHeight, ;
       aHeaders, aWidths, bFields, value, fontname, fontsize, tooltip, change, ;
       bDblclick, aHeadClick, gotfocus, lostfocus, uAlias, delete, lNogrid, ;
@@ -76,7 +76,7 @@ FUNCTION _DefineTBrowse(ControlName, ParentFormName, nCol, nRow, nWidth, nHeight
       lTransparent, uSelector, lEditable, lAutoCol, aColSel, bInit, ;
       lLoad, lDblCursor, aNames, aFooters, nColNumber, aBrush, aEdit, Adjust, ;
       lAdjust, lEmptyValToChar, lOnGotFocusSelect)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    LOCAL oBrw
    LOCAL ParentFormHandle
    LOCAL mVar
@@ -618,9 +618,9 @@ FUNCTION _DefineTBrowse(ControlName, ParentFormName, nCol, nRow, nWidth, nHeight
 
 RETURN oBrw
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _EndTBrowse(bEnd)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    LOCAL i
    LOCAL oBrw
    LOCAL oc := NIL
@@ -652,9 +652,9 @@ FUNCTION _EndTBrowse(bEnd)
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION LoadFields(ControlName, ParentForm, lEdit, aFieldNames)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    LOCAL ix
    LOCAL oBrw
 
@@ -673,9 +673,9 @@ FUNCTION LoadFields(ControlName, ParentForm, lEdit, aFieldNames)
 
 RETURN oBrw
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION SetArray(ControlName, ParentForm, Arr, lAutoCols, aHead, aSizes)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    LOCAL ix
    LOCAL oBrw
 
@@ -689,9 +689,9 @@ FUNCTION SetArray(ControlName, ParentForm, Arr, lAutoCols, aHead, aSizes)
 
 RETURN oBrw
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION SetArrayTo(ControlName, ParentForm, Arr, uFontHF, aHead, aSizes, uFooter, aPicture, aAlign, aName)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    LOCAL ix
    LOCAL oBrw
 

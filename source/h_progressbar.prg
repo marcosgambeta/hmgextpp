@@ -52,11 +52,11 @@
 #define PBS_MARQUEE             0x08
 #define PBM_SETMARQUEE          (WM_USER+10)
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION _DefineProgressBar(ControlName, ParentFormName, x, y, w, h, lo, hi, ;
       tooltip, vertical, smooth, HelpId, invisible, value, BackColor, BarColor, ;
       marquee, velocity, nId, bInit)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL ParentFormHandle
    LOCAL ControlHandle
@@ -238,9 +238,9 @@ FUNCTION _DefineProgressBar(ControlName, ParentFormName, x, y, w, h, lo, hi, ;
 
 RETURN NIL
 
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
 FUNCTION InitDialogProgressBar(ParentName, ControlHandle, k)
-*-----------------------------------------------------------------------------*
+//---------------------------------------------------------------------------//
    
    LOCAL BackColor
    LOCAL BarColor
