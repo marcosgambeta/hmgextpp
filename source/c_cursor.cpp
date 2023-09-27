@@ -44,13 +44,11 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-/*
-   File:           c_cursor.c
-   Contributors:   Jacek Kubica <kubica@wssk.wroc.pl>
-                   Grigory Filatov <gfilatov@gmail.com>
-   Description:    Mouse Cursor Shapes handling for MiniGUI
-   Status:         Public Domain
- */
+// File:         c_cursor.c
+// Contributors: Jacek Kubica <kubica@wssk.wroc.pl>
+//               Grigory Filatov <gfilatov@gmail.com>
+// Description:  Mouse Cursor Shapes handling for MiniGUI
+// Status:       Public Domain
 
 #include "mgdefs.hpp"
 #include <hbwinuni.hpp>
@@ -87,7 +85,7 @@ SETRESCURSOR(HCURSOR) --> HANDLE
 */
 HB_FUNC( SETRESCURSOR )
 {
-   hmg_ret_HCURSOR(SetCursor(( HCURSOR ) HB_PARNL(1)));
+   hmg_ret_HCURSOR(SetCursor(reinterpret_cast<HCURSOR>(HB_PARNL(1))));
 }
 
 /*
@@ -113,27 +111,27 @@ SETWINDOWCURSOR(HWND, cp2|np2) --> NIL
 */
 HB_FUNC( SETWINDOWCURSOR )
 {
-  if( HB_ISCHAR(2) ) {
-     void * str;
-     LPCTSTR lpCursorName = HB_PARSTR(2, &str, nullptr);
-     HCURSOR ch = LoadCursor(GetResources(), lpCursorName);
+   if( HB_ISCHAR(2) ) {
+      void * str;
+      LPCTSTR lpCursorName = HB_PARSTR(2, &str, nullptr);
+      HCURSOR ch = LoadCursor(GetResources(), lpCursorName);
 
-     if( ch == nullptr ) {
-        ch = LoadCursorFromFile(lpCursorName);
-     }
+      if( ch == nullptr ) {
+         ch = LoadCursorFromFile(lpCursorName);
+      }
 
-     if( ch != nullptr ) {
-        SetClassLongPtr(hmg_par_HWND(1), GCLP_HCURSOR, ( LONG_PTR ) ch);
-     }
+      if( ch != nullptr ) {
+         SetClassLongPtr(hmg_par_HWND(1), GCLP_HCURSOR, reinterpret_cast<LONG_PTR>(ch));
+      }
 
-     hb_strfree(str);
-  } else if( HB_ISNUM(2) ) {
-     HCURSOR ch = LoadCursor(nullptr, MAKEINTRESOURCE(hb_parni(2)));
+      hb_strfree(str);
+   } else if( HB_ISNUM(2) ) {
+      HCURSOR ch = LoadCursor(nullptr, MAKEINTRESOURCE(hb_parni(2)));
 
-     if( ch != nullptr ) {
-        SetClassLongPtr(hmg_par_HWND(1), GCLP_HCURSOR, ( LONG_PTR ) ch);
-     }
-  }
+      if( ch != nullptr ) {
+         SetClassLongPtr(hmg_par_HWND(1), GCLP_HCURSOR, reinterpret_cast<LONG_PTR>(ch));
+      }
+   }
 }
 
 /*
@@ -141,5 +139,5 @@ SETHANDCURSOR(HWND) --> NIL
 */
 HB_FUNC( SETHANDCURSOR )
 {
-   SetClassLongPtr(hmg_par_HWND(1), GCLP_HCURSOR, ( LONG_PTR ) LoadCursor(nullptr, IDC_HAND));
+   SetClassLongPtr(hmg_par_HWND(1), GCLP_HCURSOR, reinterpret_cast<LONG_PTR>(LoadCursor(nullptr, IDC_HAND)));
 }
