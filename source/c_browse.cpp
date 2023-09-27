@@ -44,17 +44,17 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#define _WIN32_IE       0x0501
+#define _WIN32_IE   0x0501
 
 #include "mgdefs.hpp"
 #include <commctrl.h>
 
 #ifndef WC_STATIC
-#define WC_SCROLLBAR    "ScrollBar"
-#define WC_STATIC       "Static"
+#define WC_SCROLLBAR   "ScrollBar"
+#define WC_STATIC      "Static"
 #endif
 
-LRESULT APIENTRY SubClassFunc( HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam );
+LRESULT APIENTRY SubClassFunc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 static WNDPROC lpfnOldWndProc;
 
 /*
@@ -64,7 +64,7 @@ HB_FUNC( INITBROWSE )
 {
    INITCOMMONCONTROLSEX i;
    i.dwSize = sizeof(INITCOMMONCONTROLSEX);
-   i.dwICC  = ICC_LISTVIEW_CLASSES;
+   i.dwICC = ICC_LISTVIEW_CLASSES;
    InitCommonControlsEx(&i);
 
    DWORD style = LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_CHILD | WS_VISIBLE | LVS_REPORT;
@@ -73,10 +73,21 @@ HB_FUNC( INITBROWSE )
       style |= WS_TABSTOP;
    }
 
-   HWND hbutton = CreateWindowEx(WS_EX_CLIENTEDGE, WC_LISTVIEW, TEXT(""), style,
-      hmg_par_int(3), hmg_par_int(4), hmg_par_int(5), hmg_par_int(6), 
-      hmg_par_HWND(1), hmg_par_HMENU(2), GetInstance(), nullptr);
+   HWND hbutton = CreateWindowEx(WS_EX_CLIENTEDGE,
+                                 WC_LISTVIEW,
+                                 TEXT(""),
+                                 style,
+                                 hmg_par_int(3),
+                                 hmg_par_int(4),
+                                 hmg_par_int(5),
+                                 hmg_par_int(6),
+                                 hmg_par_HWND(1),
+                                 hmg_par_HMENU(2),
+                                 GetInstance(),
+                                 nullptr);
+
    lpfnOldWndProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(hbutton, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(SubClassFunc)));
+
    hmg_ret_HWND(hbutton);
 }
 
@@ -85,13 +96,11 @@ LRESULT APIENTRY SubClassFunc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
    if( msg == WM_MOUSEWHEEL ) {
       // sprintf( res,"zDelta: %d", (short) HIWORD (wParam) );
       // MessageBox(GetActiveWindow(), res, "", MB_OK | MB_ICONINFORMATION);
-
       if( static_cast<short>(HIWORD(wParam)) > 0 ) {
          keybd_event(VK_UP, 0, 0, 0);
       } else {
          keybd_event(VK_DOWN, 0, 0, 0);
       }
-
       return CallWindowProc(lpfnOldWndProc, hWnd, 0, 0, 0);
    } else {
       return CallWindowProc(lpfnOldWndProc, hWnd, msg, wParam, lParam);
@@ -103,10 +112,21 @@ INITVSCROLLBAR(nParent, nLeft, nTop, nRight, nBottom) --> HWND
 */
 HB_FUNC( INITVSCROLLBAR )
 {
-   HWND hscrollbar = CreateWindowEx(0, WC_SCROLLBAR, TEXT(""), WS_CHILD | WS_VISIBLE | SBS_VERT,
-      hmg_par_int(2), hmg_par_int(3), hmg_par_int(4), hmg_par_int(5), 
-      hmg_par_HWND(1), nullptr, GetInstance(), nullptr);
+   HWND hscrollbar = CreateWindowEx(0,
+                                    WC_SCROLLBAR,
+                                    TEXT(""),
+                                    WS_CHILD | WS_VISIBLE | SBS_VERT,
+                                    hmg_par_int(2),
+                                    hmg_par_int(3),
+                                    hmg_par_int(4),
+                                    hmg_par_int(5),
+                                    hmg_par_HWND(1),
+                                    nullptr,
+                                    GetInstance(),
+                                    nullptr);
+
    SetScrollRange(hscrollbar, SB_CTL, 1, 100, 1);
+
    hmg_ret_HWND(hscrollbar);
 }
 
@@ -125,9 +145,18 @@ INITVSCROLLBARBUTTON(nParent, nLeft, nTop, nRight, nBottom) --> HWND
 */
 HB_FUNC( INITVSCROLLBARBUTTON )
 {
-   hmg_ret_HWND(CreateWindowEx(0, WC_STATIC, TEXT(""), WS_CHILD | WS_VISIBLE | SS_SUNKEN, 
-      hmg_par_int(2), hmg_par_int(3), hmg_par_int(4), hmg_par_int(5), 
-      hmg_par_HWND(1), nullptr, GetInstance(), nullptr));
+   hmg_ret_HWND(CreateWindowEx(0,
+                               WC_STATIC,
+                               TEXT(""),
+                               WS_CHILD | WS_VISIBLE | SS_SUNKEN,
+                               hmg_par_int(2),
+                               hmg_par_int(3),
+                               hmg_par_int(4),
+                               hmg_par_int(5),
+                               hmg_par_HWND(1),
+                               nullptr,
+                               GetInstance(),
+                               nullptr));
 }
 
 /*
