@@ -56,8 +56,8 @@
 #include <hbwinuni.hpp>
 
 #ifndef BCM_FIRST
-#define BCM_FIRST         0x1600
-#define BCM_SETIMAGELIST  (BCM_FIRST + 0x0002)
+#define BCM_FIRST          0x1600
+#define BCM_SETIMAGELIST   (BCM_FIRST + 0x0002)
 #endif
 
 static HBRUSH CreateGradientBrush(HDC hDC, INT nWidth, INT nHeight, COLORREF Color1, COLORREF Color2);
@@ -95,10 +95,8 @@ HB_FUNC( _SETBTNPICTURE )
    }
 
    SendMessage(hwnd, BM_SETIMAGE, static_cast<WPARAM>(IMAGE_BITMAP), reinterpret_cast<LPARAM>(himage));
-
    RegisterResource(himage, "BMP");
    hmg_ret_HWND(himage);
-
    hb_strfree(ImageName);
 }
 
@@ -138,10 +136,8 @@ HB_FUNC( _SETBTNICON )
    }
 
    SendMessage(hmg_par_HWND(1), BM_SETIMAGE, static_cast<WPARAM>(IMAGE_ICON), reinterpret_cast<LPARAM>(hIcon));
-
    RegisterResource(hIcon, "ICON");
    hmg_ret_HICON(hIcon);
-
    hb_strfree(IconName);
 }
 
@@ -184,7 +180,6 @@ HB_FUNC( _SETMIXEDBTNICON )
 
    RegisterResource(himl, "IMAGELIST");
    hmg_ret_HIMAGELIST(himl);
-
    hb_strfree(IconName);
 }
 
@@ -207,7 +202,7 @@ HB_FUNC( DRAWBUTTON )
    DrawFrameControl(pps->hDC, &pps->rcItem, DFC_BUTTON, (!iFlat) ? iState : (iState | DFCS_FLAT));
 
    if( iFocus == 1 ) {
-      HPEN   OldPen   = static_cast<HPEN>(SelectObject(pps->hDC, GetStockObject(BLACK_PEN)));
+      HPEN OldPen = static_cast<HPEN>(SelectObject(pps->hDC, GetStockObject(BLACK_PEN)));
       HBRUSH OldBrush = static_cast<HBRUSH>(SelectObject(pps->hDC, GetStockObject(NULL_BRUSH)));
 
       InflateRect(&pps->rcItem, 1, 1);
@@ -218,9 +213,7 @@ HB_FUNC( DRAWBUTTON )
    }
 }
 
-/*
-   Function GETOWNBTNHANDLE return value of hwndItem DRAWITEMSTRUCT member
- */
+// Function GETOWNBTNHANDLE return value of hwndItem DRAWITEMSTRUCT member
 
 /*
 GETOWNBTNHANDLE(p1) --> HANDLE
@@ -234,9 +227,7 @@ HB_FUNC( GETOWNBTNHANDLE )
    }
 }
 
-/*
-   Function GETOWNBTNSTATE return value of itemState DRAWITEMSTRUCT member
- */
+// Function GETOWNBTNSTATE return value of itemState DRAWITEMSTRUCT member
 
 /*
 GETOWNBTNSTATE(p1) --> numeric
@@ -250,9 +241,7 @@ HB_FUNC( GETOWNBTNSTATE )
    }
 }
 
-/*
-   Function GETOWNBTNDC return value of hDC DRAWITEMSTRUCT member
- */
+// Function GETOWNBTNDC return value of hDC DRAWITEMSTRUCT member
 
 /*
 GETOWNBTNDC(p1) --> HANDLE
@@ -266,9 +255,7 @@ HB_FUNC( GETOWNBTNDC )
    }
 }
 
-/*
-   Function GETOWNBTNITEMACTION return value of itemID DRAWITEMSTRUCT member
- */
+// Function GETOWNBTNITEMACTION return value of itemID DRAWITEMSTRUCT member
 
 /*
 GETOWNBTNITEMID(p1) --> numeric
@@ -282,9 +269,7 @@ HB_FUNC( GETOWNBTNITEMID )
    }
 }
 
-/*
-   Function GETOWNBTNITEMACTION return value of itemAction DRAWITEMSTRUCT member
- */
+// Function GETOWNBTNITEMACTION return value of itemAction DRAWITEMSTRUCT member
 
 /*
 GETOWNBTNITEMACTION(p1) --> numeric
@@ -298,9 +283,7 @@ HB_FUNC( GETOWNBTNITEMACTION )
    }
 }
 
-/*
-   Function GETOWNBTNCTLTYPE return value of CtlType DRAWITEMSTRUCT member
- */
+// Function GETOWNBTNCTLTYPE return value of CtlType DRAWITEMSTRUCT member
 
 /*
 GETOWNBTNCTLTYPE(p1) --> numeric
@@ -314,9 +297,7 @@ HB_FUNC( GETOWNBTNCTLTYPE )
    }
 }
 
-/*
-   Function GETOWNBTNRECT return array with button rectangle coords
- */
+// Function GETOWNBTNRECT return array with button rectangle coords
 
 /*
 GETOWNBTNRECT(p1) --> array
@@ -333,9 +314,7 @@ HB_FUNC( GETOWNBTNRECT )
    hb_itemReturnRelease(aMetr);
 }
 
-/*
- * Added in Build 16.12
- */
+// Added in Build 16.12
 
 /*
 CREATEBUTTONBRUSH(p1, p2, p3, p4, p5) --> HANDLE
