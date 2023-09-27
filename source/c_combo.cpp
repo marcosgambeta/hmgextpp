@@ -44,14 +44,14 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#define _WIN32_IE 0x0501
+#define _WIN32_IE   0x0501
 
 #include "mgdefs.hpp"
 #include <commctrl.h>
 #include <hbwinuni.h>
 
 #ifndef WC_COMBOBOX
-#define WC_COMBOBOX TEXT("ComboBox")
+#define WC_COMBOBOX   TEXT("ComboBox")
 #endif
 
 HIMAGELIST HMG_ImageListLoadFirst(const char * FileName, int cGrow, int Transparent, int * nWidth, int * nHeight);
@@ -101,7 +101,7 @@ HB_FUNC( INITCOMBOBOXEX )
    PHB_ITEM hArray;
    HIMAGELIST himl = nullptr;
 
-   int nCount = ( int ) hb_parinfa(14, 0);
+   int nCount = static_cast<int>(hb_parinfa(14, 0));
 
    if( nCount > 0 ) {
       int Transparent = hb_parl(7) ? 0 : 1;
@@ -199,7 +199,7 @@ HB_FUNC( COMBOFINDSTRINGEXACT )
    hb_strfree(Text);
 }
 
-/* Modified by P.Ch. 16.10. */
+// Modified by P.Ch. 16.10.
 
 /*
 COMBOGETSTRING(HWND, np2) --> cString
