@@ -44,7 +44,7 @@
  * Copyright 2001-2021 Alexander S.Kresin <alex@kresin.ru>
  */
 
-#define _WIN32_IE  0x0501
+#define _WIN32_IE   0x0501
 
 #include "mgdefs.hpp"
 #include <commctrl.h>
@@ -77,7 +77,6 @@ HB_FUNC( DELETEOBJECT )
 HB_FUNC( IMAGELIST_DESTROY )
 {
    HIMAGELIST himl = hmg_par_HIMAGELIST(1);
-
    DelResource(himl);
    hb_retl(ImageList_Destroy(himl));
 }
@@ -96,7 +95,7 @@ HB_FUNC( INSERTSHIFTTAB )
 
 HB_FUNC( SYSTEMPARAMETERSINFO )
 {
-   hb_retl(SystemParametersInfoA(hmg_par_UINT(1), hmg_par_UINT(2), ( VOID * ) hb_parc(3), hmg_par_UINT(4)));
+   hb_retl(SystemParametersInfoA(hmg_par_UINT(1), hmg_par_UINT(2), static_cast<VOID*>(const_cast<char*>(hb_parc(3))), hmg_par_UINT(4)));
 }
 
 /*
@@ -115,8 +114,8 @@ HB_FUNC( GETTEXTWIDTH ) // returns the width of a string in pixels
 
    if( !hDC ) {
       bDestroyDC = true;
-      hWnd       = GetActiveWindow();
-      hDC        = GetDC(hWnd);
+      hWnd = GetActiveWindow();
+      hDC = GetDC(hWnd);
    }
 
    if( hFont ) {
@@ -140,24 +139,12 @@ HB_FUNC( GETTEXTWIDTH ) // returns the width of a string in pixels
 
 HB_FUNC( KEYBD_EVENT )
 {
-   keybd_event
-   (
-      hmg_par_BYTE(1),                      // virtual-key code
-      ( BYTE ) MapVirtualKey(hb_parni(1), 0),  // hardware scan code
-      hb_parl(2) ? KEYEVENTF_KEYUP : 0,          // flags specifying various function options
-      0                                            // additional data associated with keystroke
-   );
+   keybd_event(hmg_par_BYTE(1), static_cast<BYTE>(MapVirtualKey(hb_parni(1), 0)), hb_parl(2) ? KEYEVENTF_KEYUP : 0, 0);
 }
 
 HB_FUNC( INSERTVKEY )
 {
-   keybd_event
-   (
-      hmg_par_BYTE(1),  // virtual-key code
-      0,
-      0,
-      0
-   );
+   keybd_event(hmg_par_BYTE(1), 0, 0, 0);
 }
 
 HB_FUNC( _HMG_SETVSCROLLVALUE )
@@ -190,47 +177,46 @@ HB_FUNC( CREATECARET )
    hb_retl(CreateCaret(hmg_par_HWND(1), hmg_par_HBITMAP(2), hmg_par_int(3), hmg_par_int(4)));
 }
 
-/*
-   CHANGESTYLE (hWnd,dwAdd,dwRemove,lExStyle)
-   Action: Modifies the basic styles of a window
-   Parameters: hWnd - handle to window
-               dwAdd - window styles to add
-               dwRemove - window styles to remove
-               lExStyle - TRUE for Extended style otherwise FALSE
-   HMG 1.1 Expermental Build 12a
-   (C)Jacek Kubica <kubica@wssk.wroc.pl>
- */
+// CHANGESTYLE (hWnd,dwAdd,dwRemove,lExStyle)
+// Action: Modifies the basic styles of a window
+// Parameters: hWnd - handle to window
+//             dwAdd - window styles to add
+//             dwRemove - window styles to remove
+//             lExStyle - TRUE for Extended style otherwise FALSE
+// HMG 1.1 Expermental Build 12a
+// (C)Jacek Kubica <kubica@wssk.wroc.pl>
+
 HB_FUNC( CHANGESTYLE )
 {
-   HWND     hWnd = hmg_par_HWND(1);
-   LONG_PTR dwAdd = ( LONG_PTR ) HB_PARNL(2);
-   LONG_PTR dwRemove = ( LONG_PTR ) HB_PARNL(3);
-   int      iStyle = hb_parl(4) ? GWL_EXSTYLE : GWL_STYLE;
+   HWND hWnd = hmg_par_HWND(1);
+   LONG_PTR dwAdd = static_cast<LONG_PTR>(HB_PARNL(2));
+   LONG_PTR dwRemove = static_cast<LONG_PTR>(HB_PARNL(3));
+   int iStyle = hb_parl(4) ? GWL_EXSTYLE : GWL_STYLE;
    LONG_PTR dwStyle, dwNewStyle;
 
-   dwStyle    = GetWindowLongPtr(hWnd, iStyle);
-   dwNewStyle = ( dwStyle & ( ~dwRemove ) ) | dwAdd;
+   dwStyle = GetWindowLongPtr(hWnd, iStyle);
+   dwNewStyle = (dwStyle & (~dwRemove)) | dwAdd;
 
-   HB_RETNL( ( LONG_PTR ) SetWindowLongPtr(hWnd, iStyle, dwNewStyle) );
+   HB_RETNL(static_cast<LONG_PTR>(SetWindowLongPtr(hWnd, iStyle, dwNewStyle)));
 
    SetWindowPos(hWnd, nullptr, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER);
 }
 
-HB_FUNC( MOVEBTNTEXTBOX )   //MoveBtnTextBox(hEdit, hBtn1, hBtn2, fBtn2, BtnWidth, width, height)
+HB_FUNC( MOVEBTNTEXTBOX ) // MoveBtnTextBox(hEdit, hBtn1, hBtn2, fBtn2, BtnWidth, width, height)
 {
-   HWND hedit    = hmg_par_HWND(1);
-   HWND hBtn1    = hmg_par_HWND(2);
-   HWND hBtn2    = hmg_par_HWND(3);
-   BOOL fBtn2    = hb_parl(4);
-   int  BtnWidth = hmg_par_int(5);
-   int  BtnWidth2;
-   int  width  = hmg_par_int(6);
-   int  height = hmg_par_int(7);
-   BOOL fBtns  = ( hb_parnl(2) > 0 );
+   HWND hedit = hmg_par_HWND(1);
+   HWND hBtn1 = hmg_par_HWND(2);
+   HWND hBtn2 = hmg_par_HWND(3);
+   BOOL fBtn2 = hb_parl(4);
+   int BtnWidth = hmg_par_int(5);
+   int BtnWidth2;
+   int width = hmg_par_int(6);
+   int height = hmg_par_int(7);
+   BOOL fBtns = (hb_parnl(2) > 0);
 
-   BtnWidth  = ( BtnWidth >= GetSystemMetrics(SM_CYSIZE) ? BtnWidth : GetSystemMetrics(SM_CYSIZE) - 1 );
-   BtnWidth  = ( fBtns ? BtnWidth : 0 );
-   BtnWidth2 = ( fBtn2 ? BtnWidth : 0 );
+   BtnWidth = (BtnWidth >= GetSystemMetrics(SM_CYSIZE) ? BtnWidth : GetSystemMetrics(SM_CYSIZE) - 1);
+   BtnWidth = (fBtns ? BtnWidth : 0);
+   BtnWidth2 = (fBtn2 ? BtnWidth : 0);
 
    SetWindowPos(hedit, nullptr, 0, 0, width, height, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);
    if( fBtns ) {
