@@ -58,11 +58,11 @@ LRESULT CALLBACK HMG_DlgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 {
    static PHB_SYMB pSymbol = nullptr;
 
-   if( !pSymbol ) {
+   if( pSymbol == nullptr ) {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("DIALOGPROC"));
    }
 
-   if( pSymbol ) {
+   if( pSymbol != nullptr ) {
       hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
       hmg_vmPushHandle(hWnd);
@@ -79,11 +79,11 @@ LRESULT CALLBACK HMG_ModalDlgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
 {
    static PHB_SYMB pSymbol = nullptr;
 
-   if( !pSymbol ) {
+   if( pSymbol == nullptr ) {
       pSymbol = hb_dynsymSymbol(hb_dynsymGet("MODALDIALOGPROC"));
    }
 
-   if( pSymbol ) {
+   if( pSymbol != nullptr ) {
       hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
       hmg_vmPushHandle(hWnd);
@@ -265,9 +265,7 @@ static int nCopyAnsiToWideChar(LPWORD lpWCStr, LPCSTR lpAnsiIn)
 
 HB_SIZE GetSizeDlgTemp(PHB_ITEM dArray, PHB_ITEM cArray)
 {
-   PHB_ITEM iArray;
    HB_SIZE lTemplateSize = 36;
-   int nItem = hb_arrayLen(cArray);
    HB_SIZE ln = hb_arrayGetCLen(dArray, 10);    //caption
    lTemplateSize += ln * 2;
 
@@ -276,6 +274,9 @@ HB_SIZE GetSizeDlgTemp(PHB_ITEM dArray, PHB_ITEM cArray)
       lTemplateSize += ln * 2;
       lTemplateSize += 3;
    }
+
+   PHB_ITEM iArray;
+   int nItem = hb_arrayLen(cArray);
 
    for( int s = 0; s < nItem; s++ ) {
       iArray = static_cast<PHB_ITEM>(hb_arrayGetItemPtr(cArray, s + 1));
@@ -294,7 +295,6 @@ PWORD CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
    LONG baseUnit = GetDialogBaseUnits();
    int baseunitX = LOWORD(baseUnit);
    int baseunitY = HIWORD(baseUnit);
-   int nItem, x, y, w, h;
    WORD iPointSize;
    PHB_ITEM iArray;
    #ifndef _WIN64
@@ -310,13 +310,13 @@ PWORD CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
 
    PWORD pw = pdlgtemplate;
 
-   ExStyle = HB_arrayGetNL(dArray, 5);  //ExStyle
-   style   = HB_arrayGetNL(dArray, 4);  //style
-   x       = hb_arrayGetNI(dArray, 6);  //x
-   y       = hb_arrayGetNI(dArray, 7);  //y
-   w       = hb_arrayGetNI(dArray, 8);  //w
-   h       = hb_arrayGetNI(dArray, 9);  //h
-   nItem   = hb_arrayLen(cArray);
+   ExStyle   = HB_arrayGetNL(dArray, 5); // ExStyle
+   style     = HB_arrayGetNL(dArray, 4); // style
+   int x     = hb_arrayGetNI(dArray, 6); // x
+   int y     = hb_arrayGetNI(dArray, 7); // y
+   int w     = hb_arrayGetNI(dArray, 8); // w
+   int h     = hb_arrayGetNI(dArray, 9); // h
+   int nItem = hb_arrayLen(cArray);
 
    *pw++   = 1;            // DlgVer
    *pw++   = 0xFFFF;       // Signature
@@ -326,22 +326,22 @@ PWORD CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
    *pw++   = HIWORD(ExStyle);
    *pw++   = LOWORD(style);
    *pw++   = HIWORD(style);
-   *pw++   = static_cast<WORD>(nItem);                              // NumberOfItems
-   *pw++   = static_cast<WORD>(MulDiv(x, 4, baseunitX));          // x
-   *pw++   = static_cast<WORD>(MulDiv(y, 8, baseunitY));          // y
-   *pw++   = static_cast<WORD>(MulDiv(w, 4, baseunitX));          // cx
-   *pw++   = static_cast<WORD>(MulDiv(h, 8, baseunitY));          // cy
-   *pw++   = 0;                                           // Menu
-   *pw++   = 0;                                           // Class
-   strtemp = const_cast<char*>(hb_arrayGetCPtr(dArray, 10));    //caption
+   *pw++   = static_cast<WORD>(nItem);                   // NumberOfItems
+   *pw++   = static_cast<WORD>(MulDiv(x, 4, baseunitX)); // x
+   *pw++   = static_cast<WORD>(MulDiv(y, 8, baseunitY)); // y
+   *pw++   = static_cast<WORD>(MulDiv(w, 4, baseunitX)); // cx
+   *pw++   = static_cast<WORD>(MulDiv(h, 8, baseunitY)); // cy
+   *pw++   = 0; // Menu
+   *pw++   = 0; // Class
+   strtemp = const_cast<char*>(hb_arrayGetCPtr(dArray, 10)); // caption
    nchar   = nCopyAnsiToWideChar(pw, strtemp);
    pw     += nchar;
    if( hb_arrayGetNI(dArray, 4) & DS_SETFONT ) {
-      iPointSize = static_cast<WORD>(hb_arrayGetNI(dArray, 12));                //fontsize
+      iPointSize = static_cast<WORD>(hb_arrayGetNI(dArray, 12)); // fontsize
       *pw++      = iPointSize;
-      *pw++      = static_cast<WORD>(hb_arrayGetL(dArray, 13) ? 700 : 400); //bold
+      *pw++      = static_cast<WORD>(hb_arrayGetL(dArray, 13) ? 700 : 400); // bold
       *pw++      = static_cast<WORD>(hb_arrayGetL(dArray, 14));
-      strtemp    = const_cast<char*>(hb_arrayGetCPtr(dArray, 11));            //font
+      strtemp    = const_cast<char*>(hb_arrayGetCPtr(dArray, 11)); // font
       nchar      = nCopyAnsiToWideChar(pw, strtemp);
       pw        += nchar;
    }
@@ -350,9 +350,9 @@ PWORD CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
       iArray = static_cast<PHB_ITEM>(hb_arrayGetItemPtr(cArray, s + 1));
       pw     = lpwAlign(pw);
 
-      HelpId  = HB_arrayGetNL(iArray, 11); //HelpId
-      ExStyle = HB_arrayGetNL(iArray, 5);  //exstyle
-      style   = HB_arrayGetNL(iArray, 4);  //style  item
+      HelpId  = HB_arrayGetNL(iArray, 11); // HelpId
+      ExStyle = HB_arrayGetNL(iArray, 5);  // exstyle
+      style   = HB_arrayGetNL(iArray, 4);  // style  item
       Id      = hb_arrayGetNI(iArray, 1);
 
       *pw++ = LOWORD(HelpId);
@@ -365,20 +365,20 @@ PWORD CreateDlgTemplate(long lTemplateSize, PHB_ITEM dArray, PHB_ITEM cArray)
       *pw++ = static_cast<WORD>(MulDiv(hb_arrayGetNI(iArray, 7), 8, baseunitY)); // y
       *pw++ = static_cast<WORD>(MulDiv(hb_arrayGetNI(iArray, 8), 4, baseunitX)); // cx
       *pw++ = static_cast<WORD>(MulDiv(hb_arrayGetNI(iArray, 9), 8, baseunitY)); // cy
-      *pw++ = static_cast<WORD>(Id);                                                 // LOWORD (Control ID)
-      *pw++ = 0;                                                           // HOWORD (Control ID)
+      *pw++ = static_cast<WORD>(Id); // LOWORD (Control ID)
+      *pw++ = 0; // HOWORD (Control ID)
 
-      strtemp = const_cast<char*>(hb_arrayGetCPtr(iArray, 3));                   //class
+      strtemp = const_cast<char*>(hb_arrayGetCPtr(iArray, 3)); // class
       nchar   = nCopyAnsiToWideChar(pw, strtemp);
       pw     += nchar;
 
-      strtemp = const_cast<char*>(hb_arrayGetCPtr(iArray, 10)); //caption
+      strtemp = const_cast<char*>(hb_arrayGetCPtr(iArray, 10)); // caption
       nchar   = nCopyAnsiToWideChar(pw, strtemp);
       pw     += nchar;
       *pw++   = 0; // Advance pointer over nExtraStuff WORD.
    }
 
-   *pw = 0;       // Number of bytes of extra data.
+   *pw = 0; // Number of bytes of extra data.
 
    return pdlgtemplate;
 }
@@ -410,8 +410,7 @@ INITEXCOMMONCONTROLS(np) --> NIL
 */
 HB_FUNC( INITEXCOMMONCONTROLS )
 {
-   INITCOMMONCONTROLSEX i;
-
+   INITCOMMONCONTROLSEX i{};
    i.dwSize = sizeof(INITCOMMONCONTROLSEX);
 
    switch( hb_parni(1) ) {
