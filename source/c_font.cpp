@@ -64,9 +64,9 @@ INITFONT(cFontName, nFontSize, lBold, lItalic, lUnderline, lStrikeOut, nAngle, n
 HB_FUNC( INITFONT )
 {
    int   bold      = hb_parl(3) ? FW_BOLD : FW_NORMAL;
-   DWORD italic    = ( DWORD ) hb_parl(4);
-   DWORD underline = ( DWORD ) hb_parl(5);
-   DWORD strikeout = ( DWORD ) hb_parl(6);
+   DWORD italic    = static_cast<DWORD>(hb_parl(4));
+   DWORD underline = static_cast<DWORD>(hb_parl(5));
+   DWORD strikeout = static_cast<DWORD>(hb_parl(6));
    DWORD angle     = hb_parnl(7);
    DWORD charset   = hb_parnldef(8, DEFAULT_CHARSET);
    void * str;
@@ -85,15 +85,15 @@ HB_FUNC( _SETFONT )
 
    if( IsWindow(hwnd) ) {
       int   bold      = hb_parl(4) ? FW_BOLD : FW_NORMAL;
-      DWORD italic    = ( DWORD ) hb_parl(5);
-      DWORD underline = ( DWORD ) hb_parl(6);
-      DWORD strikeout = ( DWORD ) hb_parl(7);
+      DWORD italic    = static_cast<DWORD>(hb_parl(5));
+      DWORD underline = static_cast<DWORD>(hb_parl(6));
+      DWORD strikeout = static_cast<DWORD>(hb_parl(7));
       DWORD angle     = hb_parnl(8);
       DWORD charset   = hb_parnldef(9, DEFAULT_CHARSET);
       void * str;
       HFONT hFont = PrepareFont(HB_PARSTR(2, &str, nullptr), hb_parni(3), bold, italic, underline, strikeout, angle, charset);
       hb_strfree(str);
-      SendMessage(hwnd, WM_SETFONT, ( WPARAM ) hFont, 1);
+      SendMessage(hwnd, WM_SETFONT, reinterpret_cast<WPARAM>(hFont), 1);
       RegisterResource(hFont, "FONT");
       hmg_ret_HFONT(hFont);
    } else {
@@ -110,7 +110,7 @@ HB_FUNC( _SETFONTHANDLE )
 
    if( IsWindow(hwnd) ) {
       if( GetObjectType(hmg_par_HGDIOBJ(2)) == OBJ_FONT ) {
-         SendMessage(hwnd, WM_SETFONT, ( WPARAM ) hmg_par_HFONT(2), 1);
+         SendMessage(hwnd, WM_SETFONT, reinterpret_cast<WPARAM>(hmg_par_HFONT(2)), 1);
       } else {
          hb_errRT_BASE_SubstR(EG_ARG, 5050 + OBJ_FONT, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
       }
@@ -164,16 +164,16 @@ HB_FUNC( ENUMFONTSEX )
    }
 
    if( hb_parclen(2) > 0 ) {
-      HB_STRNCPY(lf.lfFaceName, ( LPCTSTR ) hb_parc(2), HB_MIN(LF_FACESIZE - 1, hb_parclen(2)));
+      HB_STRNCPY(lf.lfFaceName, static_cast<LPCTSTR>(hb_parc(2)), HB_MIN(LF_FACESIZE - 1, hb_parclen(2)));
    } else {
       lf.lfFaceName[0] = '\0';
    }
 
-   lf.lfCharSet        = ( BYTE ) ( HB_ISNUM(3) ? ( hb_parni(3) == DEFAULT_CHARSET ? GetTextCharset ( hdc ) : hb_parni(3) ) : -1 );
-   lf.lfPitchAndFamily = ( BYTE ) ( HB_ISNUM(4) ? ( hb_parni(4) == DEFAULT_PITCH ? -1 : ( hb_parni(4) | FF_DONTCARE ) ) : -1 );
+   lf.lfCharSet        = static_cast<BYTE>(HB_ISNUM(3) ? (hb_parni(3) == DEFAULT_CHARSET ? GetTextCharset(hdc) : hb_parni(3)) : -1);
+   lf.lfPitchAndFamily = static_cast<BYTE>(HB_ISNUM(4) ? (hb_parni(4) == DEFAULT_PITCH ? -1 : (hb_parni(4) | FF_DONTCARE)) : -1);
    /* TODO - nFontType */
 
-   EnumFontFamiliesEx(hdc, &lf, ( FONTENUMPROC ) EnumFontFamExProc, reinterpret_cast<LPARAM>(pArray), 0);
+   EnumFontFamiliesEx(hdc, &lf, reinterpret_cast<FONTENUMPROC>(EnumFontFamExProc), reinterpret_cast<LPARAM>(pArray), 0);
 
    if( bReleaseDC ) {
       ReleaseDC(nullptr, hdc);
@@ -207,7 +207,7 @@ int CALLBACK EnumFontFamExProc(ENUMLOGFONTEX * lpelfe, NEWTEXTMETRICEX * lpntme,
       hb_arraySetNL(pSubArray, 2, lpelfe->elfLogFont.lfCharSet);
       hb_arraySetNI(pSubArray, 3, lpelfe->elfLogFont.lfPitchAndFamily & FIXED_PITCH);
       hb_arraySetNI(pSubArray, 4, FontType & TRUETYPE_FONTTYPE);
-      hb_arrayAddForward(( PHB_ITEM ) lParam, pSubArray);
+      hb_arrayAddForward(reinterpret_cast<PHB_ITEM>(lParam), pSubArray);
       hb_itemRelease(pSubArray);
    }
 
