@@ -59,7 +59,7 @@ LRESULT CALLBACK  OwnPickProc(HWND hbutton, UINT msg, WPARAM wParam, LPARAM lPar
 extern HB_EXPORT double hb_timeStampPack(int iYear, int iMonth, int iDay, int iHour, int iMinutes, int iSeconds, int iMSec);
 
 /*
-INITDATEPICK(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13) --> handle
+INITDATEPICK(HWND, HMENU, nX, nY, nWidth, nHeight, p7, p8, lShowNone, lUpDown, lRightAlign, lVisible, lTabStop) --> handle
 */
 HB_FUNC( INITDATEPICK )
 {
@@ -104,13 +104,13 @@ HB_FUNC( INITDATEPICK )
                                  nullptr);
 
    SetProp(hbutton, TEXT("oldpickproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hbutton, GWLP_WNDPROC)));
-   SetWindowLongPtr(hbutton, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnPickProc);
+   SetWindowLongPtr(hbutton, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnPickProc)));
 
    hmg_ret_HWND(hbutton);
 }
 
 /*
-INITTIMEPICK(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11) --> handle
+INITTIMEPICK(HWND, HMENU, nX, nY, nWidth, nHeight, p7, p8, lShowNone, lVisible, lTabStop) --> handle
 */
 HB_FUNC( INITTIMEPICK )
 {
@@ -147,7 +147,7 @@ HB_FUNC( INITTIMEPICK )
                                  nullptr);
 
    SetProp(hbutton, TEXT("oldpickproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hbutton, GWLP_WNDPROC)));
-   SetWindowLongPtr(hbutton, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnPickProc);
+   SetWindowLongPtr(hbutton, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnPickProc)));
 
    hmg_ret_HWND(hbutton);
 }
@@ -156,14 +156,14 @@ LRESULT CALLBACK OwnPickProc(HWND hButton, UINT Msg, WPARAM wParam, LPARAM lPara
 {
    static PHB_SYMB pSymbol = nullptr;
 
-   WNDPROC OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp(hButton, TEXT("oldpickproc"));
+   WNDPROC OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hButton, TEXT("oldpickproc"))));
 
    switch( Msg ) {
       case WM_ERASEBKGND:
-         if( !pSymbol ) {
+         if( pSymbol == nullptr ) {
             pSymbol = hb_dynsymSymbol(hb_dynsymGet("OPICKEVENTS"));
          }
-         if( pSymbol ) {
+         if( pSymbol != nullptr ) {
             hb_vmPushSymbol(pSymbol);
             hb_vmPushNil();
             hmg_vmPushHandle(hButton);
@@ -192,15 +192,12 @@ SETDATEPICK(HWND, nYear, nMonth, nDay) --> .T.|.F.
 */
 HB_FUNC( SETDATEPICK )
 {
-   SYSTEMTIME sysTime;
+   SYSTEMTIME sysTime{};
 
    if( hb_pcount() == 2 && HB_ISDATE(2) ) {
-      long lJulian;
       int iYear, iMonth, iDay;
-
-      lJulian = hb_pardl(2);
+      long lJulian = hb_pardl(2);
       hb_dateDecode(lJulian, &iYear, &iMonth, &iDay);
-
       sysTime.wYear  = iYear;
       sysTime.wMonth = iMonth;
       sysTime.wDay   = iDay;
@@ -214,11 +211,11 @@ HB_FUNC( SETDATEPICK )
       sysTime.wDay   = 1;
    }
 
-   sysTime.wDayOfWeek    = 0;
-   sysTime.wHour         = 0;
-   sysTime.wMinute       = 0;
-   sysTime.wSecond       = 0;
-   sysTime.wMilliseconds = 0;
+   //sysTime.wDayOfWeek    = 0;
+   //sysTime.wHour         = 0;
+   //sysTime.wMinute       = 0;
+   //sysTime.wSecond       = 0;
+   //sysTime.wMilliseconds = 0;
 
    hb_retl(SendMessage(hmg_par_HWND(1), DTM_SETSYSTEMTIME, GDT_VALID, reinterpret_cast<LPARAM>(&sysTime)) == GDT_VALID ? true : false);
 }
@@ -228,16 +225,16 @@ SETTIMEPICK(HWND, nHour, nMinute, nSecond) --> .T.|.F.
 */
 HB_FUNC( SETTIMEPICK )
 {
-   SYSTEMTIME sysTime;
+   SYSTEMTIME sysTime{};
 
    sysTime.wYear         = 2005;
    sysTime.wMonth        = 1;
    sysTime.wDay          = 1;
-   sysTime.wDayOfWeek    = 0;
+   //sysTime.wDayOfWeek    = 0;
    sysTime.wHour         = hmg_par_WORD(2);
    sysTime.wMinute       = hmg_par_WORD(3);
    sysTime.wSecond       = hmg_par_WORD(4);
-   sysTime.wMilliseconds = 0;
+   //sysTime.wMilliseconds = 0;
 
    hb_retl(SendMessage(hmg_par_HWND(1), DTM_SETSYSTEMTIME, GDT_VALID, reinterpret_cast<LPARAM>(&sysTime)) == GDT_VALID ? true : false);
 }
@@ -253,7 +250,7 @@ HB_FUNC( GETDATEPICKDATE )
 }
 
 /*
-GETDATEPICKYEAR(HWND) --> numeric
+GETDATEPICKYEAR(HWND) --> nYear
 */
 HB_FUNC( GETDATEPICKYEAR )
 {
@@ -263,7 +260,7 @@ HB_FUNC( GETDATEPICKYEAR )
 }
 
 /*
-GETDATEPICKMONTH(HWND) --> numeric
+GETDATEPICKMONTH(HWND) --> nMonth
 */
 HB_FUNC( GETDATEPICKMONTH )
 {
@@ -273,7 +270,7 @@ HB_FUNC( GETDATEPICKMONTH )
 }
 
 /*
-GETDATEPICKDAY(HWND) --> numeric
+GETDATEPICKDAY(HWND) --> nDay
 */
 HB_FUNC( GETDATEPICKDAY )
 {
@@ -283,7 +280,7 @@ HB_FUNC( GETDATEPICKDAY )
 }
 
 /*
-GETDATEPICKHOUR() --> numeric
+GETDATEPICKHOUR(HWND) --> nHour
 */
 HB_FUNC( GETDATEPICKHOUR )
 {
@@ -292,7 +289,7 @@ HB_FUNC( GETDATEPICKHOUR )
 }
 
 /*
-GETDATEPICKMINUTE(HWND) --> numeric
+GETDATEPICKMINUTE(HWND) --> nMinute
 */
 HB_FUNC( GETDATEPICKMINUTE )
 {
@@ -301,7 +298,7 @@ HB_FUNC( GETDATEPICKMINUTE )
 }
 
 /*
-GETDATEPICKSECOND(HWND) --> numeric
+GETDATEPICKSECOND(HWND) --> nSeconds
 */
 HB_FUNC( GETDATEPICKSECOND )
 {
@@ -314,17 +311,15 @@ DTP_SETDATETIME(HWND, datetime) --> .T.|.F.
 DTP_SETDATETIME(HWND, date) --> .T.|.F.
 DTP_SETDATETIME(HWND, nYear, nMonth, nDay, nHour, nMinute, nSeconds, nMilliseconds) --> .T.|.F.
 */
-HB_FUNC( DTP_SETDATETIME )
+HB_FUNC( DTP_SETDATETIME ) // TODO: deprecate bTimeToZero
 {
-   SYSTEMTIME sysTime;
+   SYSTEMTIME sysTime{};
 
    bool bTimeToZero = false;
 
    if( HB_ISDATETIME(2) ) {
       int iYear, iMonth, iDay, iHour, iMinute, iSecond, iMSec;
-
       hb_timeStampUnpack(hb_partd(2), &iYear, &iMonth, &iDay, &iHour, &iMinute, &iSecond, &iMSec);
-
       sysTime.wYear         = iYear;
       sysTime.wMonth        = iMonth;
       sysTime.wDay          = iDay;
@@ -334,24 +329,19 @@ HB_FUNC( DTP_SETDATETIME )
       sysTime.wSecond       = iSecond;
       sysTime.wMilliseconds = iMSec;
    } else if( HB_ISDATE(2) ) {
-      long lJulian;
       int iYear, iMonth, iDay;
-
-      lJulian = hb_pardl(2);
+      long lJulian = hb_pardl(2);
       hb_dateDecode(lJulian, &iYear, &iMonth, &iDay);
-
       sysTime.wYear      = iYear;
       sysTime.wMonth     = iMonth;
       sysTime.wDay       = iDay;
       sysTime.wDayOfWeek = 0;
-
       bTimeToZero = true;
    } else {
       sysTime.wYear      = hb_parnidef(2, 2005);
       sysTime.wMonth     = hb_parnidef(3, 1);
       sysTime.wDay       = hb_parnidef(4, 1);
       sysTime.wDayOfWeek = 0;
-
       if( hb_pcount() >= 7 ) {
          sysTime.wHour         = hmg_par_WORD(5);
          sysTime.wMinute       = hmg_par_WORD(6);
@@ -377,7 +367,7 @@ DTP_GETDATETIME(HWND) --> datetime
 */
 HB_FUNC( DTP_GETDATETIME )
 {
-   SYSTEMTIME st;
+   SYSTEMTIME st{};
    SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st));
    hb_rettd(hb_timeStampPack(st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond, st.wMilliseconds));
 }
@@ -396,31 +386,30 @@ SETDATEPICKRANGE(HWND, date1, date2) --> .T.|.F.|NIL
 HB_FUNC( SETDATEPICKRANGE )
 {
    SYSTEMTIME sysTime[2];
-   char *     cDate;
-   DWORD      y, m, d;
-   WPARAM     wLimit = 0;
+   char * cDate;
+   DWORD y, m, d;
+   WPARAM wLimit = 0;
 
    if( HB_ISDATE(2) && HB_ISDATE(3) ) {
       memset(&sysTime, 0, sizeof(sysTime));
-
-      cDate = ( char * ) hb_pards(2);
+      cDate = const_cast<char*>(hb_pards(2));
       if( !(cDate[0] == ' ') ) {
-         y = ( DWORD ) ((cDate[0] - '0') * 1000) + ((cDate[1] - '0') * 100) + ((cDate[2] - '0') * 10) + (cDate[3] - '0');
+         y = static_cast<DWORD>((cDate[0] - '0') * 1000) + ((cDate[1] - '0') * 100) + ((cDate[2] - '0') * 10) + (cDate[3] - '0');
          sysTime[0].wYear = y;
-         m = ( DWORD ) ((cDate[4] - '0') * 10) + (cDate[5] - '0');
+         m = static_cast<DWORD>((cDate[4] - '0') * 10) + (cDate[5] - '0');
          sysTime[0].wMonth = m;
-         d = ( DWORD ) ((cDate[6] - '0') * 10) + (cDate[7] - '0');
+         d = static_cast<DWORD>((cDate[6] - '0') * 10) + (cDate[7] - '0');
          sysTime[0].wDay = d;
          wLimit |= GDTR_MIN;
       }
 
-      cDate = ( char * ) hb_pards(3);
+      cDate = const_cast<char*>(hb_pards(3));
       if( !(cDate[0] == ' ') ) {
-         y = ( DWORD ) ((cDate[0] - '0') * 1000) + ((cDate[1] - '0') * 100) + ((cDate[2] - '0') * 10) + (cDate[3] - '0');
+         y = static_cast<DWORD>((cDate[0] - '0') * 1000) + ((cDate[1] - '0') * 100) + ((cDate[2] - '0') * 10) + (cDate[3] - '0');
          sysTime[1].wYear = y;
-         m = ( DWORD ) ((cDate[4] - '0') * 10) + (cDate[5] - '0');
+         m = static_cast<DWORD>((cDate[4] - '0') * 10) + (cDate[5] - '0');
          sysTime[1].wMonth = m;
-         d = ( DWORD ) ((cDate[6] - '0') * 10) + (cDate[7] - '0');
+         d = static_cast<DWORD>((cDate[6] - '0') * 10) + (cDate[7] - '0');
          sysTime[1].wDay = d;
          wLimit |= GDTR_MAX;
       }
@@ -441,6 +430,6 @@ HB_FUNC( SETDATEPICKERDATEFORMAT )
 
 HB_FUNC( DTP_ISCHECKED )
 {
-   SYSTEMTIME st;
+   SYSTEMTIME st{};
    hb_retl(SendMessage(hmg_par_HWND(1), DTM_GETSYSTEMTIME, 0, reinterpret_cast<LPARAM>(&st)) == GDT_VALID ? true : false);
 }
