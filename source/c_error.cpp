@@ -61,22 +61,22 @@ void hmg_ErrorExit(LPCTSTR lpszMessage, DWORD dwError, BOOL bExit)
    DWORD nError = ((0 != dwError) ? dwError : GetLastError());
 
    FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS, nullptr, nError,
-      MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), ( LPTSTR ) &lpMsgBuf, 0, nullptr);
+      MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), reinterpret_cast<LPTSTR>(&lpMsgBuf), 0, nullptr);
 
    // Display the error message and exit the process
-   LPVOID lpDisplayBuf = ( LPVOID ) LocalAlloc(LMEM_ZEROINIT, (hmg_tstrlen(( LPCTSTR ) lpMsgBuf) + hmg_tstrlen(lpszMessage) + 40) * sizeof(TCHAR));
+   LPVOID lpDisplayBuf = static_cast<LPVOID>(LocalAlloc(LMEM_ZEROINIT, (hmg_tstrlen(static_cast<LPCTSTR>(lpMsgBuf)) + hmg_tstrlen(lpszMessage) + 40) * sizeof(TCHAR)));
 
 #ifdef UNICODE
-#if ( ( defined(__BORLANDC__) && __BORLANDC__ <= 1410 ) )
-   swprintf(( LPTSTR ) lpDisplayBuf, "'%s' failed with error %lu : %s", lpszMessage, nError, ( LPTSTR ) lpMsgBuf);
+#if ((defined(__BORLANDC__) && __BORLANDC__ <= 1410))
+   swprintf(static_cast<LPTSTR>(lpDisplayBuf), "'%s' failed with error %lu : %s", lpszMessage, nError, static_cast<LPTSTR>(lpMsgBuf));
 #else
-   swprintf_s(( LPTSTR ) lpDisplayBuf, LocalSize(lpDisplayBuf) / sizeof(TCHAR), TEXT("'%s' failed with error %lu : %s"), lpszMessage, nError, ( LPTSTR ) lpMsgBuf);
+   swprintf_s(static_cast<LPTSTR>(lpDisplayBuf), LocalSize(lpDisplayBuf) / sizeof(TCHAR), TEXT("'%s' failed with error %lu : %s"), lpszMessage, nError, static_cast<LPTSTR>(lpMsgBuf));
 #endif
 #else
-   hb_snprintf(( LPTSTR ) lpDisplayBuf, LocalSize(lpDisplayBuf) / sizeof(TCHAR), "'%s' failed with error %lu : %s", lpszMessage, nError, ( LPTSTR ) lpMsgBuf);
+   hb_snprintf(static_cast<LPTSTR>(lpDisplayBuf), LocalSize(lpDisplayBuf) / sizeof(TCHAR), "'%s' failed with error %lu : %s", lpszMessage, nError, static_cast<LPTSTR>(lpMsgBuf));
 #endif
 
-   MessageBox(nullptr, ( LPCTSTR ) lpDisplayBuf, TEXT("MiniGUI Error"), MB_OK);
+   MessageBox(nullptr, static_cast<LPCTSTR>(lpDisplayBuf), TEXT("MiniGUI Error"), MB_OK);
 
    LocalFree(lpMsgBuf);
    LocalFree(lpDisplayBuf);
