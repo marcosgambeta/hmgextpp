@@ -50,12 +50,9 @@
 #define WINVER  0x0410
 
 #include "mgdefs.hpp"
-
 #include "shlwapi.h"
-
 #include <hbinit.hpp>
 #include <hbvm.hpp>
-
 #define _HMG_STUB_
 #include "hbgdiplus.h"
 #undef _HMG_STUB_
@@ -64,21 +61,17 @@
 
 extern void hmg_ErrorExit(LPCTSTR lpMessage, DWORD dwError, BOOL bExit);
 extern GpStatus GdiplusInit(void);
-
 HMODULE   hmg_LoadLibrarySystem(LPCTSTR pFileName);
-
 // auxiliary functions
 TCHAR * hmg_tstrdup(const TCHAR * pszText);
 TCHAR * hmg_tstrncat(TCHAR * pDest, const TCHAR * pSource, HB_SIZE nLen);
 HB_SIZE hmg_tstrlen(const TCHAR * pText);
-
 static DWORD DllGetVersion(LPCTSTR lpszDllName);
-static TCHAR * hmg_FileNameAtSystemDir( const TCHAR * pFileName );
+static TCHAR * hmg_FileNameAtSystemDir(const TCHAR * pFileName);
+using _DLLGETVERSIONPROC = HRESULT (CALLBACK *)(DLLVERSIONINFO2 *);
 
-typedef HRESULT ( CALLBACK * _DLLGETVERSIONPROC )( DLLVERSIONINFO2 * );
-
-static HINSTANCE g_hInstance     = nullptr;
-static DWORD     g_dwComCtl32Ver = 0;
+static HINSTANCE g_hInstance = nullptr;
+static DWORD g_dwComCtl32Ver = 0;
 
 static void hmg_init(void * cargo)
 {
@@ -106,7 +99,7 @@ HB_CALL_ON_STARTUP_END(_hmg_init_)
 #if defined(HB_PRAGMA_STARTUP)
    #pragma startup _hmg_init_
 #elif defined(HB_DATASEG_STARTUP)
-   #define HB_DATASEG_BODY  HB_DATASEG_FUNC( _hmg_init_ )
+   #define HB_DATASEG_BODY  HB_DATASEG_FUNC(_hmg_init_)
    #include <hbiniseg.hpp>
 #endif
 
@@ -121,24 +114,18 @@ HINSTANCE GetInstance(void)
 
 static DWORD DllGetVersion(LPCTSTR lpszDllName)
 {
-   HINSTANCE hinstDll;
-   DWORD     dwVersion = 0;
+   DWORD dwVersion = 0;
 
-   hinstDll = hmg_LoadLibrarySystem(lpszDllName);
+   HINSTANCE hinstDll = hmg_LoadLibrarySystem(lpszDllName);
 
    if( hinstDll ) {
       _DLLGETVERSIONPROC pDllGetVersion;
-      pDllGetVersion = ( _DLLGETVERSIONPROC ) wapi_GetProcAddress(hinstDll, "DllGetVersion");
+      pDllGetVersion = reinterpret_cast<_DLLGETVERSIONPROC>(wapi_GetProcAddress(hinstDll, "DllGetVersion"));
 
       if( pDllGetVersion ) {
-         DLLVERSIONINFO2 dvi;
-         HRESULT         hr;
-
-         ZeroMemory(&dvi, sizeof(DLLVERSIONINFO2));
-
+         DLLVERSIONINFO2 dvi{};
          dvi.info1.cbSize = sizeof(dvi);
-
-         hr = ( *pDllGetVersion )( &dvi );
+         HRESULT hr = (*pDllGetVersion)(&dvi);
          if( S_OK == hr ) {
             dwVersion = PACKVERSION(dvi.info1.dwMajorVersion, dvi.info1.dwMinorVersion);
          }
@@ -182,27 +169,22 @@ static HB_BOOL win_has_search_system32(void)
 
 HMODULE hmg_LoadLibrarySystem(LPCTSTR pFileName)
 {
-   TCHAR * pLibPath = hmg_FileNameAtSystemDir( pFileName );
-
+   TCHAR * pLibPath = hmg_FileNameAtSystemDir(pFileName);
    HMODULE h = LoadLibraryEx(pLibPath, nullptr, win_has_search_system32() ? LOAD_LIBRARY_SEARCH_SYSTEM32 : LOAD_WITH_ALTERED_SEARCH_PATH);
-
    hb_xfree(pLibPath);
-
    return h;
 }
 
-static TCHAR * hmg_FileNameAtSystemDir( const TCHAR * pFileName )
+static TCHAR * hmg_FileNameAtSystemDir(const TCHAR * pFileName)
 {
    UINT nLen = GetSystemDirectory(nullptr, 0);
 
    if( nLen ) {
-      LPTSTR buffer;
-
       if( pFileName ) {
-         nLen += ( UINT ) hmg_tstrlen(pFileName) + 1;
+         nLen += static_cast<UINT>(hmg_tstrlen(pFileName)) + 1;
       }
 
-      buffer = ( LPTSTR ) hb_xgrab(nLen * sizeof(TCHAR));
+      LPTSTR buffer = static_cast<LPTSTR>(hb_xgrab(nLen * sizeof(TCHAR)));
 
       GetSystemDirectory(buffer, nLen);
 
@@ -220,13 +202,9 @@ static TCHAR * hmg_FileNameAtSystemDir( const TCHAR * pFileName )
 TCHAR * hmg_tstrdup(const TCHAR * pszText)
 {
    TCHAR * pszDup;
-   HB_SIZE nLen;
-
-   nLen = ( hmg_tstrlen(pszText) + 1 ) * sizeof(TCHAR);
-
-   pszDup = ( TCHAR * ) hb_xgrab(nLen);
+   HB_SIZE nLen = (hmg_tstrlen(pszText) + 1) * sizeof(TCHAR);
+   pszDup = static_cast<TCHAR*>(hb_xgrab(nLen));
    memcpy(pszDup, pszText, nLen);
-
    return pszDup;
 }
 
@@ -241,7 +219,7 @@ TCHAR * hmg_tstrncat(TCHAR * pDest, const TCHAR * pSource, HB_SIZE nLen)
       nLen--;
    }
 
-   while( nLen && ( *pDest++ = *pSource++ ) != '\0' ) {
+   while( nLen && (*pDest++ = *pSource++) != '\0' ) {
       nLen--;
    }
 
