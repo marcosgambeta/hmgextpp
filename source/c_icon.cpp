@@ -111,8 +111,8 @@ EXTRACTICONEX(cFileName, nIconIndex) --> {HIconLarge, HIconSmall}
 */
 HB_FUNC( EXTRACTICONEX )
 {
-   int nIconIndex = hb_parni(2);
    void * str;
+   int nIconIndex = hb_parni(2);
    if( nIconIndex == -1 ) {
       hb_retni(ExtractIconEx(HB_PARSTR(1, &str, nullptr), -1, nullptr, nullptr, 0));
    } else {
