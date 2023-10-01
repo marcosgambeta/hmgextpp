@@ -48,7 +48,6 @@
  */
 
 #include "mgdefs.hpp"
-
 #include <commctrl.h>
 
 #ifdef UNICODE
@@ -58,22 +57,19 @@ LPSTR  WideToAnsi(LPWSTR);
 
 void InterpretHotKey(UINT setting, TCHAR * szKeyName)
 {
-   BOOL Ctrl, Alt, Shift;
-   UINT WorkKey, uCode, uVKey;
-
 #ifndef UNICODE
    LPSTR lpString;
 #else
    LPWSTR lpString;
 #endif
 
-   uCode      = ( setting & 0x0000FF00 ) >> 8;
-   uVKey      = setting & 255;
+   UINT uCode = (setting & 0x0000FF00) >> 8;
+   UINT uVKey = setting & 255;
    *szKeyName = 0;
 
-   Ctrl  = uCode & HOTKEYF_CONTROL;
-   Alt   = uCode & HOTKEYF_ALT;
-   Shift = uCode & HOTKEYF_SHIFT;
+   BOOL Ctrl  = uCode & HOTKEYF_CONTROL;
+   BOOL Alt   = uCode & HOTKEYF_ALT;
+   BOOL Shift = uCode & HOTKEYF_SHIFT;
 
    lstrcat(szKeyName, Ctrl ? TEXT("Ctrl + ") : TEXT(""));
    lstrcat(szKeyName, Shift ? TEXT("Shift + ") : TEXT(""));
@@ -82,37 +78,32 @@ void InterpretHotKey(UINT setting, TCHAR * szKeyName)
 #ifndef UNICODE
    lpString = szKeyName;
 #else
-   lpString = AnsiToWide(( char * ) szKeyName);
+   lpString = AnsiToWide(static_cast<char*>(szKeyName));
 #endif
-   WorkKey = MapVirtualKey(uVKey, 0);
+   UINT WorkKey = MapVirtualKey(uVKey, 0);
 
    if( uCode & 0x00000008 ) { // extended key
-      WorkKey = 0x03000000 | ( WorkKey << 16 );
+      WorkKey = 0x03000000 | (WorkKey << 16);
    } else {
-      WorkKey = 0x02000000 | ( WorkKey << 16 );
+      WorkKey = 0x02000000 | (WorkKey << 16);
    }
 
    GetKeyNameText(WorkKey, lpString + lstrlen(lpString), 100);
 
 #ifdef UNICODE
-   hb_xfree(( TCHAR * ) lpString);
+   hb_xfree(static_cast<TCHAR*>(lpString));
 #endif
 }
 
 HB_FUNC( C_GETHOTKEYNAME )
 {
-   HWND  hWnd;
-   WORD  wHotKey;
-   TCHAR szKeyName[100];
-
 #ifdef UNICODE
    LPSTR pStr;
 #endif
 
-   hWnd = hmg_par_HWND(1);
-
-   wHotKey = ( WORD ) SendMessage(hWnd, HKM_GETHOTKEY, 0, 0);
-
+   HWND hWnd = hmg_par_HWND(1);
+   WORD wHotKey = static_cast<WORD>(SendMessage(hWnd, HKM_GETHOTKEY, 0, 0));
+   TCHAR szKeyName[100];
    InterpretHotKey(wHotKey, szKeyName);
 
 #ifndef UNICODE
@@ -126,11 +117,7 @@ HB_FUNC( C_GETHOTKEYNAME )
 
 HB_FUNC( INITHOTKEYBOX )
 {
-   HWND hWnd;
-   HWND hwndHotKey;
-   int style = WS_CHILD;
-
-   hWnd = hmg_par_HWND(1);
+   DWORD style = WS_CHILD;
 
    if( !hb_parl(8) ) {
       style |= WS_VISIBLE;
@@ -140,8 +127,7 @@ HB_FUNC( INITHOTKEYBOX )
       style |= WS_TABSTOP;
    }
 
-   hwndHotKey = CreateWindowEx
-                (
+   HWND hwndHotKey = CreateWindowEx(
       0,
       HOTKEY_CLASS,
       TEXT(""),
@@ -150,62 +136,42 @@ HB_FUNC( INITHOTKEYBOX )
       hb_parni(3),
       hb_parni(4),
       hb_parni(5),
-      hWnd,
+      hmg_par_HWND(1),
       nullptr,
       GetInstance(),
-      nullptr
-                );
+      nullptr);
 
    hmg_ret_HWND(hwndHotKey);
 }
 
 HB_FUNC( SETHOTKEYVALUE )
 {
-   HWND hWnd;
-   WORD wHotKey;
+   HWND hWnd = hmg_par_HWND(1);
 
-   hWnd = hmg_par_HWND(1);
-
-   wHotKey = ( WORD ) hb_parnl(2);
+   WORD wHotKey = static_cast<WORD>(hb_parnl(2));
 
    if( wHotKey != 0 ) {
       SendMessage(hWnd, HKM_SETHOTKEY, wHotKey, 0);
    }
 
-   SendMessage(hWnd, HKM_SETRULES, HKCOMB_NONE | HKCOMB_S,  // invalid key combinations
-               MAKELPARAM(HOTKEYF_ALT, 0));                         // add ALT to invalid entries
+   SendMessage(hWnd, HKM_SETRULES, HKCOMB_NONE | HKCOMB_S, /* invalid key combinations */ MAKELPARAM(HOTKEYF_ALT, 0)); // add ALT to invalid entries
 }
 
 HB_FUNC( C_GETHOTKEYVALUE )
 {
-   HWND hWnd;
-   WORD wHotKey;
-   UINT uVirtualKeyCode;
-   UINT uModifiers;
-   UINT iModifierKeys;
-
-   hWnd = hmg_par_HWND(1);
-
-   wHotKey = ( WORD ) SendMessage(hWnd, HKM_GETHOTKEY, 0, 0);
-
-   uVirtualKeyCode = LOBYTE(LOWORD(wHotKey));
-   uModifiers      = HIBYTE(LOWORD(wHotKey));
-   iModifierKeys   =                                                        //
-                     ( ( uModifiers & HOTKEYF_CONTROL ) ? MOD_CONTROL : 0 ) //
-                     | ( ( uModifiers & HOTKEYF_ALT ) ? MOD_ALT : 0 )       //
-                     | ( ( uModifiers & HOTKEYF_SHIFT ) ? MOD_SHIFT : 0 );
-
+   WORD wHotKey = static_cast<WORD>(SendMessage(hmg_par_HWND(1), HKM_GETHOTKEY, 0, 0));
+   UINT uVirtualKeyCode = LOBYTE(LOWORD(wHotKey));
+   UINT uModifiers = HIBYTE(LOWORD(wHotKey));
+   UINT iModifierKeys =
+      ((uModifiers & HOTKEYF_CONTROL) ? MOD_CONTROL : 0)
+      | ((uModifiers & HOTKEYF_ALT) ? MOD_ALT : 0)
+      | ((uModifiers & HOTKEYF_SHIFT) ? MOD_SHIFT : 0);
    hb_reta(2);
-   HB_STORVNL( ( UINT ) uVirtualKeyCode, -1, 1 );
-   HB_STORNI( ( UINT ) iModifierKeys, -1, 2 );
+   HB_STORVNL(static_cast<UINT>(uVirtualKeyCode), -1, 1);
+   HB_STORNI(static_cast<UINT>(iModifierKeys), -1, 2);
 }
 
 HB_FUNC( C_GETHOTKEY )
 {
-   HWND hWnd = hmg_par_HWND(1);
-   WORD wHotKey;
-
-   wHotKey = ( WORD ) SendMessage(hWnd, HKM_GETHOTKEY, 0, 0);
-
-   hb_retnl( ( WORD ) wHotKey );
+   hb_retnl(static_cast<WORD>(SendMessage(hmg_par_HWND(1), HKM_GETHOTKEY, 0, 0)));
 }
