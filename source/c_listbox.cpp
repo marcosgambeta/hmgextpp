@@ -50,10 +50,10 @@
 #include <hbwinuni.hpp>
 
 #ifndef WC_LISTBOX
-#define WC_LISTBOX  "ListBox"
+#define WC_LISTBOX "ListBox"
 #endif
 
-#define TOTAL_TABS  10
+#define TOTAL_TABS 10
 
 #ifdef UNICODE
 LPSTR  WideToAnsi(LPWSTR);
@@ -61,11 +61,7 @@ LPSTR  WideToAnsi(LPWSTR);
 
 HB_FUNC( INITLISTBOX )
 {
-   HWND hwnd;
-   HWND hbutton;
-   int style = WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_NOINTEGRALHEIGHT;
-
-   hwnd = hmg_par_HWND(1);
+   DWORD style = WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_NOINTEGRALHEIGHT;
 
    if( !hb_parl(9) ) {
       style |= WS_VISIBLE;
@@ -87,8 +83,7 @@ HB_FUNC( INITLISTBOX )
       style |= LBS_MULTICOLUMN | WS_HSCROLL;
    }
 
-   hbutton = CreateWindowEx
-             (
+   HWND hbutton = CreateWindowEx(
       WS_EX_CLIENTEDGE,
       WC_LISTBOX,
       TEXT(""),
@@ -97,11 +92,10 @@ HB_FUNC( INITLISTBOX )
       hb_parni(4),
       hb_parni(5),
       hb_parni(6),
-      hwnd,
+      hmg_par_HWND(1),
       hmg_par_HMENU(2),
       GetInstance(),
-      nullptr
-             );
+      nullptr);
 
    if( hb_parl(12) ) {
       MakeDragList(hbutton);
@@ -136,14 +130,14 @@ HB_FUNC( LISTBOXGETSTRING )
 #ifdef UNICODE
    LPSTR lpString;
 #endif
-   int     iLen = SendMessage(hmg_par_HWND(1), LB_GETTEXTLEN, hmg_par_WPARAM(2) - 1, 0);
+   int iLen = SendMessage(hmg_par_HWND(1), LB_GETTEXTLEN, hmg_par_WPARAM(2) - 1, 0);
    TCHAR * cString;
 
-   if( iLen > 0 && ( cString = ( TCHAR * ) hb_xgrab((iLen + 1) * sizeof(TCHAR)) ) != nullptr ) {
+   if( iLen > 0 && (cString = static_cast<TCHAR*>(hb_xgrab((iLen + 1) * sizeof(TCHAR)))) != nullptr ) {
       SendMessage(hmg_par_HWND(1), LB_GETTEXT, hmg_par_WPARAM(2) - 1, reinterpret_cast<LPARAM>(cString));
    #ifdef UNICODE
       lpString = WideToAnsi(cString);
-      hb_retc( lpString );
+      hb_retc(lpString);
       hb_xfree(lpString);
    #else
       hb_retclen_buffer(cString, iLen);
@@ -155,11 +149,7 @@ HB_FUNC( LISTBOXGETSTRING )
 
 HB_FUNC( INITMULTILISTBOX )
 {
-   HWND hwnd;
-   HWND hbutton;
-   int style = LBS_EXTENDEDSEL | WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_MULTIPLESEL | LBS_NOINTEGRALHEIGHT;
-
-   hwnd = hmg_par_HWND(1);
+   DWORD style = LBS_EXTENDEDSEL | WS_CHILD | WS_VSCROLL | LBS_DISABLENOSCROLL | LBS_NOTIFY | LBS_MULTIPLESEL | LBS_NOINTEGRALHEIGHT;
 
    if( !hb_parl(9) ) {
       style |= WS_VISIBLE;
@@ -181,8 +171,7 @@ HB_FUNC( INITMULTILISTBOX )
       style |= LBS_MULTICOLUMN;
    }
 
-   hbutton = CreateWindowEx
-             (
+   HWND hbutton = CreateWindowEx(
       WS_EX_CLIENTEDGE,
       WC_LISTBOX,
       TEXT(""),
@@ -191,11 +180,10 @@ HB_FUNC( INITMULTILISTBOX )
       hb_parni(4),
       hb_parni(5),
       hb_parni(6),
-      hwnd,
+      hmg_par_HWND(1),
       hmg_par_HMENU(2),
       GetInstance(),
-      nullptr
-             );
+      nullptr);
 
    if( hb_parl(12) ) {
       MakeDragList(hbutton);
@@ -207,103 +195,80 @@ HB_FUNC( INITMULTILISTBOX )
 HB_FUNC( LISTBOXGETMULTISEL )
 {
    HWND hwnd = hmg_par_HWND(1);
-   int  buffer[32768];
-   int  n;
-
-   n = SendMessage(hwnd, LB_GETSELCOUNT, 0, 0);
+   INT n = SendMessage(hwnd, LB_GETSELCOUNT, 0, 0);
+   int buffer[32768];
 
    SendMessage(hwnd, LB_GETSELITEMS, n, reinterpret_cast<LPARAM>(buffer));
 
    hb_reta(n);
 
    for( INT i = 0; i < n; i++ ) {
-      HB_STORNI( buffer[i] + 1, -1, i + 1 );
+      HB_STORNI(buffer[i] + 1, -1, i + 1);
    }
 }
 
 HB_FUNC( LISTBOXSETMULTISEL )
 {
-   PHB_ITEM wArray;
-
    HWND hwnd = hmg_par_HWND(1);
-
-   int n, l;
-
-   wArray = hb_param(2, Harbour::Item::ARRAY);
-
-   l = ( int ) hb_parinfa(2, 0) - 1;
-
-   n = SendMessage(hwnd, LB_GETCOUNT, 0, 0);
+   int n = SendMessage(hwnd, LB_GETCOUNT, 0, 0);
 
    // CLEAR CURRENT SELECTIONS
    for( int i = 0; i < n; i++ ) {
       SendMessage(hwnd, LB_SETSEL, 0, i);
    }
 
+   PHB_ITEM wArray = hb_param(2, Harbour::Item::ARRAY);
+   int l = static_cast<int>(hb_parinfa(2, 0)) - 1;
+
    // SET NEW SELECTIONS
    for( int i = 0; i <= l; i++ ) {
-      SendMessage(hwnd, LB_SETSEL, 1, hb_arrayGetNI( wArray, i + 1 ) - 1);
+      SendMessage(hwnd, LB_SETSEL, 1, hb_arrayGetNI(wArray, i + 1) - 1);
    }
 }
 
 HB_FUNC( LISTBOXSETMULTITAB )
 {
-   PHB_ITEM wArray;
-   int      nTabStops[TOTAL_TABS];
-   int      l;
-   DWORD    dwDlgBase = GetDialogBaseUnits();
-   int      baseunitX = LOWORD(dwDlgBase);
-
-   HWND hwnd = hmg_par_HWND(1);
-
-   wArray = hb_param(2, Harbour::Item::ARRAY);
-
-   l = ( int ) hb_parinfa(2, 0) - 1;
+   int l = static_cast<int>(hb_parinfa(2, 0)) - 1;
+   int nTabStops[TOTAL_TABS];
+   PHB_ITEM wArray = hb_param(2, Harbour::Item::ARRAY);
+   DWORD dwDlgBase = GetDialogBaseUnits();
+   int baseunitX = LOWORD(dwDlgBase);
 
    for( int i = 0; i <= l; i++ ) {
       nTabStops[i] = MulDiv(hb_arrayGetNI(wArray, i + 1), 4, baseunitX);
    }
 
-   SendMessage(hwnd, LB_SETTABSTOPS, l, reinterpret_cast<LPARAM>(&nTabStops));
+   SendMessage(hmg_par_HWND(1), LB_SETTABSTOPS, l, reinterpret_cast<LPARAM>(&nTabStops));
 }
 
 HB_FUNC( _GETDDLMESSAGE )
 {
-   UINT g_dDLMessage;
-
-   g_dDLMessage = RegisterWindowMessage(DRAGLISTMSGSTRING);
-
-   hb_retnl( g_dDLMessage );
+   hb_retnl(RegisterWindowMessage(DRAGLISTMSGSTRING));
 }
 
 HB_FUNC( GET_DRAG_LIST_NOTIFICATION_CODE )
 {
-   LPARAM lParam        = HB_PARNL(1);
-   LPDRAGLISTINFO lpdli = ( LPDRAGLISTINFO ) lParam;
-
-   hb_retni( lpdli->uNotification );
+   LPARAM lParam = HB_PARNL(1);
+   LPDRAGLISTINFO lpdli = reinterpret_cast<LPDRAGLISTINFO>(lParam);
+   hb_retni(lpdli->uNotification);
 }
 
 HB_FUNC( GET_DRAG_LIST_DRAGITEM )
 {
-   int    nDragItem;
-   LPARAM lParam        = HB_PARNL(1);
-   LPDRAGLISTINFO lpdli = ( LPDRAGLISTINFO ) lParam;
-
-   nDragItem = LBItemFromPt(lpdli->hWnd, lpdli->ptCursor, TRUE);
-
-   hb_retni( nDragItem );
+   LPARAM lParam = HB_PARNL(1);
+   LPDRAGLISTINFO lpdli = reinterpret_cast<LPDRAGLISTINFO>(lParam);
+   int nDragItem = LBItemFromPt(lpdli->hWnd, lpdli->ptCursor, TRUE);
+   hb_retni(nDragItem);
 }
 
 HB_FUNC( DRAG_LIST_DRAWINSERT )
 {
-   HWND   hwnd          = hmg_par_HWND(1);
-   LPARAM lParam        = HB_PARNL(2);
-   int    nItem         = hb_parni(3);
-   LPDRAGLISTINFO lpdli = ( LPDRAGLISTINFO ) lParam;
-   int nItemCount;
+   HWND hwnd = hmg_par_HWND(1);
+   LPARAM lParam = HB_PARNL(2);
+   int nItem = hb_parni(3);
+   LPDRAGLISTINFO lpdli = reinterpret_cast<LPDRAGLISTINFO>(lParam);
 
-   nItemCount = SendMessage(lpdli->hWnd, LB_GETCOUNT, 0, 0);
+   int nItemCount = SendMessage(lpdli->hWnd, LB_GETCOUNT, 0, 0);
 
    if( nItem < nItemCount ) {
       DrawInsert(hwnd, lpdli->hWnd, nItem);
@@ -314,21 +279,23 @@ HB_FUNC( DRAG_LIST_DRAWINSERT )
 
 HB_FUNC( DRAG_LIST_MOVE_ITEMS )
 {
-   LPARAM lParam        = HB_PARNL(1);
-   LPDRAGLISTINFO lpdli = ( LPDRAGLISTINFO ) lParam;
+   LPARAM lParam = HB_PARNL(1);
+   LPDRAGLISTINFO lpdli = reinterpret_cast<LPDRAGLISTINFO>(lParam);
 
    char string[1024];
-   int  result;
 
-   result = ListBox_GetText(lpdli->hWnd, hb_parni(2), string);
+   int result = ListBox_GetText(lpdli->hWnd, hb_parni(2), string);
+
    if( result != LB_ERR ) {
       result = ListBox_DeleteString(lpdli->hWnd, hb_parni(2));
    }
+
    if( result != LB_ERR ) {
       result = ListBox_InsertString(lpdli->hWnd, hb_parni(3), string);
    }
+
    if( result != LB_ERR ) {
-      result = ListBox_SetCurSel( lpdli->hWnd, hb_parni(3) );
+      result = ListBox_SetCurSel(lpdli->hWnd, hb_parni(3));
    }
 
    hb_retl(result != LB_ERR ? TRUE : FALSE);
