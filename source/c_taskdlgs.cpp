@@ -458,7 +458,7 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
    }
 }
 
-static HB_BOOL TD_CheckButton(const PHB_ITEM arrayOfButtons, HB_SIZE arraysize)
+static bool TD_CheckButton(const PHB_ITEM arrayOfButtons, HB_SIZE arraysize)
 {
    PHB_ITEM button;
 
@@ -467,14 +467,14 @@ static HB_BOOL TD_CheckButton(const PHB_ITEM arrayOfButtons, HB_SIZE arraysize)
       if( HB_IS_ARRAY(button) && hb_arrayLen(button) > 1 ) {
          if( !( ( ( hb_arrayGetType(button, 1) & Harbour::Item::NUMERIC ) != 0 ) &&
                  ( ( hb_arrayGetType(button, 2) & ( Harbour::Item::STRING | Harbour::Item::NUMERIC ) ) != 0 ) ) ) {
-            return HB_FALSE;
+            return false;
          }
       } else {
-         return HB_FALSE;
+         return false;
       }
    }
 
-   return HB_TRUE;
+   return true;
 }
 
 HRESULT CALLBACK __ClsCBFunc( HWND hWnd, UINT uiNotification, WPARAM wParam, LPARAM lParam, LONG_PTR dwRefData )
@@ -502,7 +502,7 @@ HRESULT CALLBACK __ClsCBFunc( HWND hWnd, UINT uiNotification, WPARAM wParam, LPA
             nMilliSec = hb_parni( -1 );
             // Remember what wParam is the time in milliseconds since dialog created or timer reset
             if( ( 0 != nMilliSec ) && ( nMilliSec < wParam ) ) { // If the condition is met - the time out!
-               PHB_ITEM itmTimeOut = hb_itemPutL( nullptr, HB_TRUE );
+               PHB_ITEM itmTimeOut = hb_itemPutL( nullptr, true );
                // Set TimedOut property to TRUE
                hb_objSendMsg(pObject, ( const char * ) "TIMEDOUT", 1, itmTimeOut);
                hb_itemRelease(itmTimeOut);
@@ -544,7 +544,7 @@ HRESULT CALLBACK __ClsCBFunc( HWND hWnd, UINT uiNotification, WPARAM wParam, LPA
 
          hb_vmSend(4);
 
-         hRes = ( ( hb_parl( -1 ) == HB_TRUE ) ? S_OK : S_FALSE );
+         hRes = ( ( hb_parl( -1 ) == true ) ? S_OK : S_FALSE );
 
          hb_itemRelease(itmStr);
          hb_vmRequestRestore();
@@ -612,7 +612,7 @@ static BOOL TD_objSendMsg(PHB_ITEM pObject, const char * sMsgName, HRESULT * hRe
       itmResult = hb_objSendMsg(pObject, sMsgName, 4, itmHWND, itmNotify, itmWParam, itmLParam);
 
       if( hRes != nullptr ) {
-         ( *hRes ) = ( hb_itemGetL(  itmResult ) == HB_TRUE ? S_OK : S_FALSE );
+         ( *hRes ) = ( hb_itemGetL(  itmResult ) == true ? S_OK : S_FALSE );
       }
 
       hb_itemRelease(itmResult);

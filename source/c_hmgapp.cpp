@@ -156,7 +156,7 @@ HB_FUNC( OLEDATARELEASE )
 #define LOAD_LIBRARY_SEARCH_SYSTEM32  0x00000800
 #endif
 
-static HB_BOOL win_has_search_system32(void)
+static bool win_has_search_system32(void)
 {
    HMODULE hKernel32 = GetModuleHandle(TEXT("kernel32.dll"));
 
@@ -164,7 +164,7 @@ static HB_BOOL win_has_search_system32(void)
       return GetProcAddress(hKernel32, "AddDllDirectory") != nullptr;  /* Detect KB2533623 */
    }
 
-   return HB_FALSE;
+   return false;
 }
 
 HMODULE hmg_LoadLibrarySystem(LPCTSTR pFileName)

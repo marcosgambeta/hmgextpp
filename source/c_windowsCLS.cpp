@@ -224,7 +224,7 @@ HB_FUNC( ISWINDOWHASSTYLE )
    if( IsWindow(hwnd) ) {
       LONG_PTR style = GetWindowLongPtr(hwnd, GWL_STYLE);
 
-      hb_retl(( style & ( LONG_PTR ) HB_PARNL(2) ) ? HB_TRUE : HB_FALSE);
+      hb_retl(( style & ( LONG_PTR ) HB_PARNL(2) ) ? true : false);
    } else {
       hb_errRT_BASE_SubstR(EG_ARG, 3012, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
    }
@@ -237,7 +237,7 @@ HB_FUNC( ISWINDOWHASEXSTYLE )
    if( IsWindow(hwnd) ) {
       LONG_PTR nExStyle = GetWindowLongPtr(hwnd, GWL_EXSTYLE);
 
-      hb_retl(( nExStyle & ( LONG_PTR ) HB_PARNL(2) ) ? HB_TRUE : HB_FALSE);
+      hb_retl(( nExStyle & ( LONG_PTR ) HB_PARNL(2) ) ? true : false);
    } else {
       hb_errRT_BASE_SubstR(EG_ARG, 3012, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
    }

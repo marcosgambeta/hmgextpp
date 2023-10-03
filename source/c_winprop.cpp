@@ -107,7 +107,7 @@ HB_FUNC( SETPROP )
       chType = 'D';     // date
       nLen   = 9;       // len of "yyyymmdd"
    } else if( HB_IS_NUMINT(hb_param(3, Harbour::Item::ANY)) ) {
-      if( ( BOOL ) hb_parldef(4, HB_FALSE) ) {
+      if( ( BOOL ) hb_parldef(4, false) ) {
          chType = 'X';                 // if 'X' memory HANDLE passed
       } else {
          chType = 'I';                 // int
@@ -128,7 +128,7 @@ HB_FUNC( SETPROP )
 #else
       pW = AnsiToWide(( char * ) hb_parc(2));
 #endif
-      hb_retl(SetProp(hwnd, pW, hmg_par_HANDLE(3)) ? HB_TRUE : HB_FALSE);
+      hb_retl(SetProp(hwnd, pW, hmg_par_HANDLE(3)) ? true : false);
    #ifdef UNICODE
       hb_xfree(pW);
    #endif
@@ -165,7 +165,7 @@ HB_FUNC( SETPROP )
    pW = AnsiToWide(( char * ) hb_parc(2));
 #endif
 
-   hb_retl(SetProp(hwnd, pW, hMem) ? HB_TRUE : HB_FALSE);
+   hb_retl(SetProp(hwnd, pW, hMem) ? true : false);
 
 #ifdef UNICODE
    hb_xfree(pW);
@@ -193,7 +193,7 @@ HB_FUNC( GETPROP )
       return;
    }
 
-   if( hb_parldef(3, HB_FALSE) ) {
+   if( hb_parldef(3, false) ) {
       HB_RETNL( ( LONG_PTR ) GetProp(hwnd, pW) );
    #ifdef UNICODE
       hb_xfree(pW);
@@ -251,7 +251,7 @@ HB_FUNC( REMOVEPROP )
    hMem     = RemovePropW(hwnd, lpString);
    hb_xfree(( TCHAR * ) lpString);
 #endif
-   if( ( hMem != nullptr ) && ( !hb_parldef(3, HB_FALSE) ) ) {
+   if( ( hMem != nullptr ) && ( !hb_parldef(3, false) ) ) {
       GlobalFree(hMem);
       hMem = nullptr;
    }

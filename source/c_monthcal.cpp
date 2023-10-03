@@ -208,7 +208,7 @@ HB_FUNC( SETPOSMONTHCAL )
       rc.right = dwWidth;
    }
 
-   if( hb_parldef(4, HB_FALSE) ) {
+   if( hb_parldef(4, false) ) {
       InflateRect(&rc, 6, 6);
    }
 

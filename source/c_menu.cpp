@@ -1211,7 +1211,7 @@ HB_FUNC( _ONDESTROYMENU )
    HMENU menu = hmg_par_HMENU(1);
 
    if( IsMenu(menu) ) {
-      HB_BOOL bResult = _DestroyMenu(menu);
+      bool bResult = _DestroyMenu(menu);
 
 #ifdef _ERRORMSG_
       if( !bResult ) {

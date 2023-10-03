@@ -216,7 +216,7 @@ HB_FUNC( _INITGRADIENTFUNC )
       }
    }
 
-   hb_retl(EnabledGradient() ? HB_TRUE : HB_FALSE);
+   hb_retl(EnabledGradient() ? true : false);
 }
 
 HB_FUNC( _EXITGRADIENTFUNC )
@@ -250,7 +250,7 @@ HB_FUNC( ALPHABLEND )
       }
    }
 
-   hb_retl(bRes ? HB_TRUE : HB_FALSE);
+   hb_retl(bRes ? true : false);
 }
 
 HB_FUNC( TRANSPARENTBLT )
@@ -283,7 +283,7 @@ HB_FUNC( TRANSPARENTBLT )
       }
    }
 
-   hb_retl(bRes ? HB_TRUE : HB_FALSE);
+   hb_retl(bRes ? true : false);
 }
 
 HB_FUNC( FILLGRADIENT )
@@ -302,7 +302,7 @@ HB_FUNC( FILLGRADIENT )
       bRes = (FillGradient(hdc, &rect, hb_parl(6), (COLORREF) hb_parnl(7), (COLORREF) hb_parnl(8)));
    }
 
-   hb_retl(bRes ? HB_TRUE : HB_FALSE);
+   hb_retl(bRes ? true : false);
 }
 
 BOOL FillGradient(HDC hDC, RECT * rect, BOOL vertical, COLORREF crFrom, COLORREF crTo)

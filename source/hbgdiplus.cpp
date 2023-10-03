@@ -98,7 +98,7 @@ HB_FUNC( GDIPLUSSHUTDOWN )
       fn_GdiplusShutdown(g_GpToken);
    }
 
-   if( hb_parldef(1, HB_TRUE) == HB_TRUE && ( g_GpModule != nullptr ) ) {
+   if( hb_parldef(1, true) == true && ( g_GpModule != nullptr ) ) {
       FreeLibrary(g_GpModule);
    }
 }

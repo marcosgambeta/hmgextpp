@@ -64,7 +64,7 @@ HB_FUNC( COUNTMONITORS )
 
 HB_FUNC( ISSAMEDISPLAYFORMAT )
 {
-   hb_retl(GetSystemMetrics(SM_SAMEDISPLAYFORMAT) ? HB_TRUE : HB_FALSE);
+   hb_retl(GetSystemMetrics(SM_SAMEDISPLAYFORMAT) ? true : false);
 }
 
 // The  EnumDisplayMonitors  function  enumerates  display monitors

@@ -98,7 +98,7 @@ HB_FUNC( DOMESSAGELOOP )
    while( ( status = GetMessage(&Msg, nullptr, 0, 0) ) != 0 ) {
       if( status == -1 ) { // Exception
          // handle the error and possibly exit
-         if( hb_parldef(1, HB_TRUE) ) {
+         if( hb_parldef(1, true) ) {
             hmg_ErrorExit(TEXT("DOMESSAGELOOP"), 0, TRUE);
          }
       } else {
@@ -274,7 +274,7 @@ HB_FUNC( SETLAYEREDWINDOWATTRIBUTES )
                SetWindowLongPtr(hWnd, GWL_EXSTYLE, GetWindowLongPtr( hWnd, GWL_EXSTYLE ) | WS_EX_LAYERED);
             }
 
-            hb_retl(fn_SetLayeredWindowAttributes(hWnd, crKey, bAlpha, dwFlags) ? HB_TRUE : HB_FALSE);
+            hb_retl(fn_SetLayeredWindowAttributes(hWnd, crKey, bAlpha, dwFlags) ? true : false);
          }
       }
    } else {
@@ -725,7 +725,7 @@ HB_FUNC( C_ENUMCHILDWINDOWS )
    PHB_ITEM pCodeBlock = hb_param(2, Harbour::Item::BLOCK);
 
    if( IsWindow(hWnd) && pCodeBlock ) {
-      hb_retl(EnumChildWindows(hWnd, EnumChildProc, reinterpret_cast<LPARAM>(pCodeBlock)) ? HB_TRUE : HB_FALSE);
+      hb_retl(EnumChildWindows(hWnd, EnumChildProc, reinterpret_cast<LPARAM>(pCodeBlock)) ? true : false);
    }
 }
 
@@ -1121,12 +1121,12 @@ HB_FUNC( SETMINMAXINFO )   // ( pMinMaxInfo, aMinMaxInfo ) --> 0
 
 HB_FUNC( LOCKWINDOWUPDATE )
 {
-   hb_retl(LockWindowUpdate(hmg_par_HWND(1)) ? HB_TRUE : HB_FALSE);
+   hb_retl(LockWindowUpdate(hmg_par_HWND(1)) ? true : false);
 }
 
 HB_FUNC( ISWINDOWHANDLE )
 {
-   hb_retl(IsWindow(hmg_par_HWND(1)) ? HB_TRUE : HB_FALSE);
+   hb_retl(IsWindow(hmg_par_HWND(1)) ? true : false);
 }
 
 HB_FUNC( ISICONIC )

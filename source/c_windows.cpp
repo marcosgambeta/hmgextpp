@@ -129,13 +129,13 @@ extern void    hmg_ErrorExit(LPCTSTR lpMessage, DWORD dwError, BOOL bExit);
 
 // local functions
 static size_t  AppEventScan(EVENTSHOLDER * events, UINT message);
-static LRESULT AppEventDo(EVENTSHOLDER * events, HB_BOOL bOnce, HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+static LRESULT AppEventDo(EVENTSHOLDER * events, bool bOnce, HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 static LRESULT AppEventOn(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
-static HB_BOOL AppEventRemove(HWND hWnd, const char * pszName, UINT message);
+static bool AppEventRemove(HWND hWnd, const char * pszName, UINT message);
 static size_t  WinEventScan(WINEVENTSHOLDER * events, UINT message);
-static LRESULT WinEventDo(WINEVENTSHOLDER * events, HB_BOOL bOnce, HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+static LRESULT WinEventDo(WINEVENTSHOLDER * events, bool bOnce, HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 static LRESULT WinEventOn(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
-static HB_BOOL WinEventRemove(HWND hWnd, const char * pszName, UINT message);
+static bool WinEventRemove(HWND hWnd, const char * pszName, UINT message);
 
 LRESULT CALLBACK MsgOnlyWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
@@ -193,7 +193,7 @@ static size_t AppEventScan(EVENTSHOLDER * events, UINT message)
    return nPos;
 }
 
-static HB_BOOL AppEventRemove(HWND hWnd, const char * pszProp, UINT message)
+static bool AppEventRemove(HWND hWnd, const char * pszProp, UINT message)
 {
    if( IsWindow(hWnd) ) {
    #ifdef UNICODE
@@ -239,14 +239,14 @@ static HB_BOOL AppEventRemove(HWND hWnd, const char * pszProp, UINT message)
    #ifdef UNICODE
          hb_xfree(pW);
    #endif
-         return HB_TRUE;
+         return true;
       }
    }
 
-   return HB_FALSE;
+   return false;
 }
 
-static LRESULT AppEventDo(EVENTSHOLDER * events, HB_BOOL bOnce, HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+static LRESULT AppEventDo(EVENTSHOLDER * events, bool bOnce, HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
    size_t nPos = AppEventScan(events, message);
 
@@ -264,7 +264,7 @@ static LRESULT AppEventDo(EVENTSHOLDER * events, HB_BOOL bOnce, HWND hWnd, UINT 
       hb_itemRelease(pwParam);
       hb_itemRelease(plParam);
 
-      if( HB_TRUE == bOnce ) {
+      if( true == bOnce ) {
          AppEventRemove(hWnd, "ONCE", message);
       }
 
@@ -283,7 +283,7 @@ static LRESULT AppEventOn(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
       if( events != nullptr ) {
          if( hWnd == events->hwnd ) {
-            r = AppEventDo(events, HB_TRUE, hWnd, message, wParam, lParam);
+            r = AppEventDo(events, true, hWnd, message, wParam, lParam);
          }
       }
 
@@ -291,7 +291,7 @@ static LRESULT AppEventOn(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
       if( events != nullptr ) {
          if( hWnd == events->hwnd ) {
-            r = AppEventDo(events, HB_FALSE, hWnd, message, wParam, lParam);
+            r = AppEventDo(events, false, hWnd, message, wParam, lParam);
          }
       }
    }
@@ -307,7 +307,7 @@ HB_FUNC( APPEVENTS )
 
    if( IsWindow(hWnd) && ( message >= WM_APP && message <= ( WM_APP + MAX_EVENTS ) ) ) {
       BOOL bInit = FALSE;
-      const char *   pszProp = hb_parldef(5, HB_TRUE) ? "ONCE" : "ON";
+      const char *   pszProp = hb_parldef(5, true) ? "ONCE" : "ON";
    #ifdef UNICODE
       LPWSTR pW = AnsiToWide(pszProp);
       EVENTSHOLDER * events = ( EVENTSHOLDER * ) GetProp(hWnd, pW);
@@ -319,7 +319,7 @@ HB_FUNC( APPEVENTS )
       if( events == nullptr ) {
          events = ( EVENTSHOLDER * ) hb_xgrabz(sizeof(EVENTSHOLDER));
          events->hwnd = hWnd;
-         events->active = hb_parldef(4, HB_TRUE);
+         events->active = hb_parldef(4, true);
          events->count = ( size_t ) sizeof(events->events) / sizeof(APPEVENT);
 
          HB_ATOM_SET(&events->used, 0);
@@ -341,16 +341,16 @@ HB_FUNC( APPEVENTS )
       if( nPos > 0 ) {
          events->events[nPos - 1].message = message;
          events->events[nPos - 1].bAction = hb_itemNew(hb_param(3, Harbour::Item::BLOCK));
-         events->events[nPos - 1].active = hb_parldef(4, HB_TRUE);
+         events->events[nPos - 1].active = hb_parldef(4, true);
 
          bRes = TRUE;
       }
 
       if( bInit ) {
    #ifdef UNICODE
-         bRes = SetProp(hWnd, pW, ( HANDLE ) events) ? HB_TRUE : HB_FALSE;
+         bRes = SetProp(hWnd, pW, ( HANDLE ) events) ? true : false;
    #else
-         bRes = SetProp(hWnd, pszProp, ( HANDLE ) events) ? HB_TRUE : HB_FALSE;
+         bRes = SetProp(hWnd, pszProp, ( HANDLE ) events) ? true : false;
    #endif
       }
 
@@ -359,17 +359,17 @@ HB_FUNC( APPEVENTS )
    #endif
    }
 
-   hb_retl(bRes ? HB_TRUE : HB_FALSE);
+   hb_retl(bRes ? true : false);
 }
 
 HB_FUNC( APPEVENTSREMOVE )
 {
-   HB_BOOL bDel = HB_FALSE;
+   bool bDel = false;
    HWND hWnd = hmg_par_HWND(1);
    UINT message = ( UINT ) hb_parns(2);
 
    if( IsWindow(hWnd) ) {
-      const char * pszProp = hb_parldef(3, HB_TRUE) ? "ONCE" : "ON";
+      const char * pszProp = hb_parldef(3, true) ? "ONCE" : "ON";
 
       bDel = AppEventRemove(hWnd, pszProp, message);
    }
@@ -379,12 +379,12 @@ HB_FUNC( APPEVENTSREMOVE )
 
 HB_FUNC( APPEVENTSUPDATE )
 {
-   HB_BOOL bUpd = HB_FALSE;
+   bool bUpd = false;
    HWND hWnd = hmg_par_HWND(1);
    UINT message = ( UINT ) hb_parns(2);
 
    if( IsWindow(hWnd) ) {
-      const char *   pszProp = hb_parldef(5, HB_TRUE) ? "ONCE" : "ON";
+      const char *   pszProp = hb_parldef(5, true) ? "ONCE" : "ON";
    #ifdef UNICODE
       LPWSTR pW = AnsiToWide(pszProp);
       EVENTSHOLDER * events = ( EVENTSHOLDER * ) GetProp(hWnd, pW);
@@ -402,14 +402,14 @@ HB_FUNC( APPEVENTSUPDATE )
                   events->events[nPos - 1].bAction = hb_itemNew(hb_param(3, Harbour::Item::BLOCK));
                }
 
-               events->events[nPos - 1].active = hb_parldef(4, HB_TRUE);
+               events->events[nPos - 1].active = hb_parldef(4, true);
 
-               bUpd = HB_TRUE;
+               bUpd = true;
             }
          } else if( message == 0 ) {
             events->active = hb_parldef(4, events->active);
 
-            bUpd = HB_TRUE;
+            bUpd = true;
          }
       }
    #ifdef UNICODE
@@ -423,7 +423,7 @@ HB_FUNC( APPEVENTSUPDATE )
 HB_FUNC( ENUMAPPEVENTS )
 {
    HWND hWnd = hmg_par_HWND(1);
-   const char * pszProp = hb_parldef(2, HB_TRUE) ? "ONCE" : "ON";
+   const char * pszProp = hb_parldef(2, true) ? "ONCE" : "ON";
    PHB_ITEM aEvents = hb_itemArrayNew(0);
 
    if( IsWindow(hWnd) ) {
@@ -463,7 +463,7 @@ HB_FUNC( ENUMAPPEVENTS )
 HB_FUNC( GETAPPEVENTSINFO )
 {
    HWND hWnd = hmg_par_HWND(1);
-   const char * pszProp = hb_parldef(2, HB_TRUE) ? "ONCE" : "ON";
+   const char * pszProp = hb_parldef(2, true) ? "ONCE" : "ON";
    PHB_ITEM aInfo;
 
    if( IsWindow(hWnd) ) {
@@ -506,7 +506,7 @@ static size_t WinEventScan(WINEVENTSHOLDER * events, UINT message)
    return nPos;
 }
 
-static HB_BOOL WinEventRemove(HWND hWnd, const char * pszProp, UINT message)
+static bool WinEventRemove(HWND hWnd, const char * pszProp, UINT message)
 {
    if( IsWindow(hWnd) ) {
    #ifdef UNICODE
@@ -552,14 +552,14 @@ static HB_BOOL WinEventRemove(HWND hWnd, const char * pszProp, UINT message)
    #ifdef UNICODE
          hb_xfree(pW);
    #endif
-         return HB_TRUE;
+         return true;
       }
    }
 
-   return HB_FALSE;
+   return false;
 }
 
-static LRESULT WinEventDo(WINEVENTSHOLDER * events, HB_BOOL bOnce, HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+static LRESULT WinEventDo(WINEVENTSHOLDER * events, bool bOnce, HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
    size_t nPos = WinEventScan(events, message);
 
@@ -577,7 +577,7 @@ static LRESULT WinEventDo(WINEVENTSHOLDER * events, HB_BOOL bOnce, HWND hWnd, UI
       hb_itemRelease(pwParam);
       hb_itemRelease(plParam);
 
-      if( HB_TRUE == bOnce ) {
+      if( true == bOnce ) {
          WinEventRemove(hWnd, "ONCE", message);
       }
 
@@ -596,7 +596,7 @@ static LRESULT WinEventOn(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
       if( events != nullptr ) {
          if( hWnd == events->hwnd ) {
-            r = WinEventDo(events, HB_TRUE, hWnd, message, wParam, lParam);
+            r = WinEventDo(events, true, hWnd, message, wParam, lParam);
          }
       }
 
@@ -604,7 +604,7 @@ static LRESULT WinEventOn(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
       if( events != nullptr ) {
          if( hWnd == events->hwnd ) {
-            r = WinEventDo(events, HB_FALSE, hWnd, message, wParam, lParam);
+            r = WinEventDo(events, false, hWnd, message, wParam, lParam);
          }
       }
    }
@@ -620,7 +620,7 @@ HB_FUNC( WINEVENTS )
 
    if( IsWindow(hWnd) && ( message <= ( WM_APP + MAX_EVENTS ) ) ) {
       BOOL bInit = FALSE;
-      const char *      pszProp = hb_parldef(5, HB_TRUE) ? "ONCE" : "ON";
+      const char *      pszProp = hb_parldef(5, true) ? "ONCE" : "ON";
    #ifdef UNICODE
       LPWSTR pW = AnsiToWide(pszProp);
       WINEVENTSHOLDER * events = ( WINEVENTSHOLDER * ) GetProp(hWnd, pW);
@@ -632,7 +632,7 @@ HB_FUNC( WINEVENTS )
       if( events == nullptr ) {
          events = ( WINEVENTSHOLDER * ) hb_xgrabz(sizeof(WINEVENTSHOLDER));
          events->hwnd = hWnd;
-         events->active = hb_parldef(4, HB_TRUE);
+         events->active = hb_parldef(4, true);
          events->count = ( size_t ) sizeof(events->events) / sizeof(WINEVENT);
 
          HB_ATOM_SET(&events->used, 0);
@@ -654,16 +654,16 @@ HB_FUNC( WINEVENTS )
       if( nPos > 0 ) {
          events->events[nPos - 1].message = message;
          events->events[nPos - 1].bAction = hb_itemNew(hb_param(3, Harbour::Item::BLOCK));
-         events->events[nPos - 1].active = hb_parldef(4, HB_TRUE);
+         events->events[nPos - 1].active = hb_parldef(4, true);
 
          bRes = TRUE;
       }
 
       if( bInit ) {
    #ifdef UNICODE
-         bRes = SetProp(hWnd, pW, ( HANDLE ) events) ? HB_TRUE : HB_FALSE;
+         bRes = SetProp(hWnd, pW, ( HANDLE ) events) ? true : false;
    #else
-         bRes = SetProp(hWnd, pszProp, ( HANDLE ) events) ? HB_TRUE : HB_FALSE;
+         bRes = SetProp(hWnd, pszProp, ( HANDLE ) events) ? true : false;
    #endif
       }
 
@@ -672,17 +672,17 @@ HB_FUNC( WINEVENTS )
    #endif
    }
 
-   hb_retl(bRes ? HB_TRUE : HB_FALSE);
+   hb_retl(bRes ? true : false);
 }
 
 HB_FUNC( WINEVENTSREMOVE )
 {
-   HB_BOOL bDel = HB_FALSE;
+   bool bDel = false;
    HWND hWnd = hmg_par_HWND(1);
    UINT message = ( UINT ) hb_parns(2);
 
    if( IsWindow(hWnd) ) {
-      const char * pszProp = hb_parldef(3, HB_TRUE) ? "ONCE" : "ON";
+      const char * pszProp = hb_parldef(3, true) ? "ONCE" : "ON";
 
       bDel = WinEventRemove(hWnd, pszProp, message);
    }
@@ -692,12 +692,12 @@ HB_FUNC( WINEVENTSREMOVE )
 
 HB_FUNC( WINEVENTSUPDATE )
 {
-   HB_BOOL bUpd = HB_FALSE;
+   bool bUpd = false;
    HWND hWnd = hmg_par_HWND(1);
    UINT message = ( UINT ) hb_parns(2);
 
    if( IsWindow(hWnd) ) {
-      const char *      pszProp = hb_parldef(5, HB_TRUE) ? "ONCE" : "ON";
+      const char *      pszProp = hb_parldef(5, true) ? "ONCE" : "ON";
    #ifdef UNICODE
       LPWSTR pW = AnsiToWide(pszProp);
       WINEVENTSHOLDER * events = ( WINEVENTSHOLDER * ) GetProp(hWnd, pW);
@@ -715,14 +715,14 @@ HB_FUNC( WINEVENTSUPDATE )
                   events->events[nPos - 1].bAction = hb_itemNew(hb_param(3, Harbour::Item::BLOCK));
                }
 
-               events->events[nPos - 1].active = hb_parldef(4, HB_TRUE);
+               events->events[nPos - 1].active = hb_parldef(4, true);
 
-               bUpd = HB_TRUE;
+               bUpd = true;
             }
          } else if( message == 0 ) {
             events->active = hb_parldef(4, events->active);
 
-            bUpd = HB_TRUE;
+            bUpd = true;
          }
       }
    #ifdef UNICODE
@@ -736,7 +736,7 @@ HB_FUNC( WINEVENTSUPDATE )
 HB_FUNC( ENUMWINEVENTS )
 {
    HWND hWnd = hmg_par_HWND(1);
-   const char * pszProp = hb_parldef(2, HB_TRUE) ? "ONCE" : "ON";
+   const char * pszProp = hb_parldef(2, true) ? "ONCE" : "ON";
    PHB_ITEM aEvents = hb_itemArrayNew(0);
 
    if( IsWindow(hWnd) ) {
@@ -776,7 +776,7 @@ HB_FUNC( ENUMWINEVENTS )
 HB_FUNC( GETWINEVENTSINFO )
 {
    HWND hWnd = hmg_par_HWND(1);
-   const char * pszProp = hb_parldef(2, HB_TRUE) ? "ONCE" : "ON";
+   const char * pszProp = hb_parldef(2, true) ? "ONCE" : "ON";
    PHB_ITEM aInfo;
 
    if( IsWindow(hWnd) ) {
