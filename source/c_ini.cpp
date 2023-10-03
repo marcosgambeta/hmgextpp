@@ -75,16 +75,16 @@ HB_FUNC( GETPRIVATEPROFILESTRING )
 
    do {
       nSize  *= 2;
-      bBuffer = ( TCHAR * ) hb_xgrab(sizeof(TCHAR) * nSize);
-      dwLen   = GetPrivateProfileString(lpSection, lpEntry, lpDefault, bBuffer, nSize, lpFileName);
+      bBuffer = static_cast<TCHAR*>(hb_xgrab(sizeof(TCHAR) * nSize));
+      dwLen = GetPrivateProfileString(lpSection, lpEntry, lpDefault, bBuffer, nSize, lpFileName);
    } while( dwLen >= nSize - 1 );
 
    if( dwLen ) {
 #ifndef UNICODE
-      hb_retclen(( TCHAR * ) bBuffer, dwLen);
+      hb_retclen(static_cast<TCHAR*>(bBuffer), dwLen);
 #else
       pStr = WideToAnsi(bBuffer);
-      hb_retc( pStr );
+      hb_retc(pStr);
       hb_xfree(pStr);
 #endif
    } else {
@@ -151,6 +151,7 @@ static TCHAR * FindFirstSubString(TCHAR * Strings)
    if( *p == 0 ) {
       p = nullptr;
    }
+
    return p;
 }
 
@@ -159,22 +160,24 @@ static TCHAR * FindNextSubString(TCHAR * Strings)
    TCHAR * p = Strings;
 
    p = p + lstrlen(Strings) + 1;
+
    if( *p == 0 ) {
       p = nullptr;
    }
+
    return p;
 }
 
 static INT FindLenSubString(TCHAR * Strings)
 {
-   INT     i = 0;
+   INT i = 0;
    TCHAR * p = Strings;
 
-   if( ( p = FindFirstSubString(p) ) != nullptr ) {
-      for( i = 1; ( p = FindNextSubString(p) ) != nullptr; i++ ) {
-         ;
+   if( (p = FindFirstSubString(p)) != nullptr ) {
+      for( i = 1; (p = FindNextSubString(p)) != nullptr; i++ ) {
       }
    }
+
    return i;
 }
 
@@ -185,11 +188,11 @@ _GETPRIVATEPROFILESECTIONNAMES(cFileName) --> array
 */
 HB_FUNC( _GETPRIVATEPROFILESECTIONNAMES )
 {
-   TCHAR   bBuffer[32767];
+   TCHAR bBuffer[32767];
    TCHAR * p;
-   INT     nLen;
+   INT nLen;
 #ifdef UNICODE
-   LPSTR   pStr;
+   LPSTR pStr;
 #endif
 
    ZeroMemory(bBuffer, sizeof(bBuffer));
@@ -197,22 +200,22 @@ HB_FUNC( _GETPRIVATEPROFILESECTIONNAMES )
    GetPrivateProfileSectionNames(bBuffer, sizeof(bBuffer) / sizeof(TCHAR), HB_PARSTR(1, &str, nullptr));
    hb_strfree(str);
 
-   p    = ( TCHAR * ) bBuffer;
+   p = static_cast<TCHAR*>(bBuffer);
    nLen = FindLenSubString(p);
    hb_reta(nLen);
    if( nLen > 0 ) {
 #ifndef UNICODE
-      HB_STORC( ( p = FindFirstSubString(p) ), -1, 1 );
-      for( INT i = 2; ( p = FindNextSubString(p) ) != nullptr; i++ ) {
-         HB_STORC( p, -1, i );
+      HB_STORC((p = FindFirstSubString(p)), -1, 1);
+      for( INT i = 2; (p = FindNextSubString(p)) != nullptr; i++ ) {
+         HB_STORC(p, -1, i);
       }
 #else
-      p    = FindFirstSubString(p);
+      p = FindFirstSubString(p);
       pStr = WideToAnsi(p);
-      HB_STORC( pStr, -1, 1 );
-      for( INT i = 2; ( p = FindNextSubString(p) ) != nullptr; i++ ) {
+      HB_STORC(pStr, -1, 1);
+      for( INT i = 2; (p = FindNextSubString(p)) != nullptr; i++ ) {
          pStr = WideToAnsi(p);
-         HB_STORC( pStr, -1, i );
+         HB_STORC(pStr, -1, i);
       }
       hb_xfree(pStr);
 #endif
@@ -227,32 +230,32 @@ _GETPRIVATEPROFILESECTION(cSectionName, cFileName) --> array
 HB_FUNC( _GETPRIVATEPROFILESECTION )
 {
 #ifdef UNICODE
-   LPSTR   pStr;
+   LPSTR pStr;
 #endif
 
-   TCHAR   bBuffer[32767];
+   TCHAR bBuffer[32767];
    ZeroMemory(bBuffer, sizeof(bBuffer));
    void * str1;
    void * str2;
    GetPrivateProfileSection(HB_PARSTR(1, &str1, nullptr), bBuffer, sizeof(bBuffer) / sizeof(TCHAR), HB_PARSTR(2, &str2, nullptr));
    hb_strfree(str1);
    hb_strfree(str2);
-   TCHAR * p    = ( TCHAR * ) bBuffer;
+   TCHAR * p = static_cast<TCHAR*>(bBuffer);
    INT nLen = FindLenSubString(p);
    hb_reta(nLen);
    if( nLen > 0 ) {
 #ifndef UNICODE
-      HB_STORC( ( p = FindFirstSubString(p) ), -1, 1 );
-      for( INT i = 2; ( p = FindNextSubString(p) ) != nullptr; i++ ) {
-         HB_STORC( p, -1, i );
+      HB_STORC((p = FindFirstSubString(p)), -1, 1);
+      for( INT i = 2; (p = FindNextSubString(p)) != nullptr; i++ ) {
+         HB_STORC(p, -1, i);
       }
 #else
-      p    = FindFirstSubString(p);
+      p = FindFirstSubString(p);
       pStr = WideToAnsi(p);
-      HB_STORC( pStr, -1, 1 );
-      for( INT i = 2; ( p = FindNextSubString(p) ) != nullptr; i++ ) {
+      HB_STORC(pStr, -1, 1);
+      for( INT i = 2; (p = FindNextSubString(p)) != nullptr; i++ ) {
          pStr = WideToAnsi(p);
-         HB_STORC( pStr, -1, i );
+         HB_STORC(pStr, -1, i);
       }
       hb_xfree(pStr);
 #endif
