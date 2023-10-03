@@ -61,7 +61,6 @@ INITIMAGELIST(cx, cy, flags, initial) --> HIMAGELIST
 HB_FUNC( INITIMAGELIST ) // InitImageList(cx, cy, mask, nCount)
 {
    UINT style = ILC_COLOR32;
-
    if( hb_parl(3) ) {
       style |= ILC_MASK;
    }
