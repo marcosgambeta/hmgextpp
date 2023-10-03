@@ -57,7 +57,7 @@
 #include <hbwinuni.hpp>
 
 extern HFONT PrepareFont(const TCHAR * FontName, int FontSize, int Weight, DWORD Italic, DWORD Underline, DWORD StrikeOut, DWORD Angle, DWORD charset);
-LRESULT CALLBACK  OwnMCProc(HWND hmonthcal, UINT Msg, WPARAM wParam, LPARAM lParam);
+LRESULT CALLBACK OwnMCProc(HWND hmonthcal, UINT Msg, WPARAM wParam, LPARAM lParam);
 
 /*
 INITMONTHCAL(HWND, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17) --> HANDLE
@@ -97,21 +97,22 @@ HB_FUNC( INITMONTHCAL )
       style |= WS_TABSTOP;
    }
 
-   HWND hmonthcal = CreateWindowEx(0,
-                                   MONTHCAL_CLASS,
-                                   TEXT(""),
-                                   style,
-                                   0,
-                                   0,
-                                   0,
-                                   0,
-                                   hmg_par_HWND(1),
-                                   hmg_par_HMENU(2),
-                                   GetInstance(),
-                                   nullptr);
+   HWND hmonthcal = CreateWindowEx(
+      0,
+      MONTHCAL_CLASS,
+      TEXT(""),
+      style,
+      0,
+      0,
+      0,
+      0,
+      hmg_par_HWND(1),
+      hmg_par_HMENU(2),
+      GetInstance(),
+      nullptr);
 
    SetProp(hmonthcal, TEXT("oldmcproc"), reinterpret_cast<HWND>(GetWindowLongPtr(hmonthcal, GWLP_WNDPROC)));
-   SetWindowLongPtr(hmonthcal, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OwnMCProc);
+   SetWindowLongPtr(hmonthcal, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OwnMCProc)));
 
    if( hb_parl(14) ) {
       bold = FW_BOLD;
@@ -133,7 +134,7 @@ HB_FUNC( INITMONTHCAL )
    HFONT hfont = PrepareFont(HB_PARSTR(7, &str, nullptr), hb_parni(8), bold, italic, underline, strikeout, angle, DEFAULT_CHARSET);
    hb_strfree(str);
 
-   SendMessage(hmonthcal, WM_SETFONT, ( WPARAM ) hfont, 1);
+   SendMessage(hmonthcal, WM_SETFONT, reinterpret_cast<WPARAM>(hfont), 1);
 
    RECT rc;
    MonthCal_GetMinReqRect(hmonthcal, &rc);
@@ -151,17 +152,17 @@ HB_FUNC( SETMONTHCALVALUE )
 {
    HWND hwnd = hmg_par_HWND(1);
 
-   SYSTEMTIME sysTime;
+   SYSTEMTIME sysTime{};
    sysTime.wYear         = hmg_par_WORD(2);
    sysTime.wMonth        = hmg_par_WORD(3);
    sysTime.wDay          = hmg_par_WORD(4);
    sysTime.wDayOfWeek    = LOWORD(SendMessage(hwnd, MCM_GETFIRSTDAYOFWEEK, 0, 0));
-   sysTime.wHour         = 0;
-   sysTime.wMinute       = 0;
-   sysTime.wSecond       = 0;
-   sysTime.wMilliseconds = 0;
+   //sysTime.wHour         = 0;
+   //sysTime.wMinute       = 0;
+   //sysTime.wSecond       = 0;
+   //sysTime.wMilliseconds = 0;
 
-   MonthCal_SetCurSel( hwnd, &sysTime );
+   MonthCal_SetCurSel(hwnd, &sysTime);
 }
 
 /*
@@ -174,9 +175,9 @@ HB_FUNC( GETMONTHCALVALUE )
    SendMessage(hmg_par_HWND(1), MCM_GETCURSEL, 0, reinterpret_cast<LPARAM>(&st));
 
    switch( hb_parni(2) ) {
-      case 1: hb_retni( st.wYear ); break;
-      case 2: hb_retni( st.wMonth ); break;
-      case 3: hb_retni( st.wDay );
+      case 1: hb_retni(st.wYear); break;
+      case 2: hb_retni(st.wMonth); break;
+      case 3: hb_retni(st.wDay);
    }
 }
 
@@ -203,7 +204,7 @@ HB_FUNC( SETPOSMONTHCAL )
 
    DWORD dwWidth = MonthCal_GetMaxTodayWidth(hWndMonthCal);
 
-   if( dwWidth > ( DWORD ) rc.right ) {
+   if( dwWidth > static_cast<DWORD>(rc.right) ) {
       rc.right = dwWidth;
    }
 
@@ -230,7 +231,7 @@ HB_FUNC( GETMONTHRANGE )
 }
 
 #ifndef BOLDDAY
-#define BOLDDAY(ds, iDay)  if( iDay > 0 && iDay < 32 )( ds ) |= ( 0x00000001 << ( iDay - 1 ) )
+#define BOLDDAY(ds, iDay)  if( iDay > 0 && iDay < 32 )( ds ) |= (0x00000001 << (iDay - 1))
 #endif
 
 /*
@@ -241,7 +242,7 @@ HB_FUNC( C_SETDAYSTATE )
    int iCount = hb_parni(2);
    PHB_ITEM hArray = hb_param(3, Harbour::Item::ARRAY);
    int iSize = sizeof(MONTHDAYSTATE) * iCount;
-   LPMONTHDAYSTATE rgMonths = ( LPMONTHDAYSTATE ) hb_xgrab(iSize);
+   LPMONTHDAYSTATE rgMonths = static_cast<LPMONTHDAYSTATE>(hb_xgrab(iSize));
    memset(rgMonths, 0, iSize);
 
    for( int i = 0; i < iCount; i++ ) {
@@ -261,11 +262,11 @@ C_RETDAYSTATE(p1, p2, p3) --> NIL
 */
 HB_FUNC( C_RETDAYSTATE )
 {
-   LPNMDAYSTATE pData  = ( NMDAYSTATE * ) HB_PARNL(1);
+   LPNMDAYSTATE pData = reinterpret_cast<NMDAYSTATE*>(HB_PARNL(1));
    int iCount = hb_parni(2);
    PHB_ITEM hArray = hb_param(3, Harbour::Item::ARRAY);
    int iSize = sizeof(MONTHDAYSTATE) * iCount;
-   LPMONTHDAYSTATE rgMonths = ( LPMONTHDAYSTATE ) hb_xgrab(iSize);
+   LPMONTHDAYSTATE rgMonths = static_cast<LPMONTHDAYSTATE>(hb_xgrab(iSize));
    memset(rgMonths, 0, iSize);
 
    for( int i = 0; i < iCount; i++ ) {
@@ -285,21 +286,21 @@ GETDAYSTATEDATA(p1) --> array
 */
 HB_FUNC( GETDAYSTATEDATA )
 {
-   LPNMDAYSTATE pData = ( NMDAYSTATE * ) HB_PARNL(1);
+   LPNMDAYSTATE pData = reinterpret_cast<NMDAYSTATE*>(HB_PARNL(1));
    hb_reta(2);
-   HB_STORNI( pData->cDayState, -1, 1 );
-   HB_STORDL( hb_dateEncode(pData->stStart.wYear, pData->stStart.wMonth, pData->stStart.wDay), -1, 2 );
+   HB_STORNI(pData->cDayState, -1, 1);
+   HB_STORDL(hb_dateEncode(pData->stStart.wYear, pData->stStart.wMonth, pData->stStart.wDay), -1, 2);
 }
 
 LRESULT CALLBACK OwnMCProc(HWND hwnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
    static PHB_SYMB pSymbol = nullptr;
 
-   WNDPROC OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp(hwnd, TEXT("oldmcproc"));
+   WNDPROC OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hwnd, TEXT("oldmcproc"))));
 
    switch( Msg ) {
       case WM_DESTROY:
-         SetWindowLongPtr(hwnd, GWLP_WNDPROC, ( LONG_PTR ) ( WNDPROC ) OldWndProc);
+         SetWindowLongPtr(hwnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(static_cast<WNDPROC>(OldWndProc)));
          RemoveProp(hwnd, TEXT("oldmcproc"));
          break;
 
