@@ -55,11 +55,11 @@ extern HB_EXPORT BOOL Array2Point(PHB_ITEM aPoint, POINT * pt);
 HB_EXPORT PHB_ITEM Rect2Hash(RECT * rc);
 BOOL CALLBACK _MonitorEnumProc0(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData);
 //BOOL CALLBACK _MonitorEnumProc1(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData);
-static void ClipOrCenterRectToMonitor( LPRECT prc, HMONITOR hMonitor, UINT flags );
+static void ClipOrCenterRectToMonitor(LPRECT prc, HMONITOR hMonitor, UINT flags);
 
 HB_FUNC( COUNTMONITORS )
 {
-   hb_retni( GetSystemMetrics(SM_CMONITORS) );
+   hb_retni(GetSystemMetrics(SM_CMONITORS));
 }
 
 HB_FUNC( ISSAMEDISPLAYFORMAT )
@@ -67,36 +67,28 @@ HB_FUNC( ISSAMEDISPLAYFORMAT )
    hb_retl(GetSystemMetrics(SM_SAMEDISPLAYFORMAT) ? HB_TRUE : HB_FALSE);
 }
 
-/*
-   The  EnumDisplayMonitors  function  enumerates  display monitors
-        (including invisible pseudo-monitors associated with the mirroring drivers)
+// The  EnumDisplayMonitors  function  enumerates  display monitors
+// (including invisible pseudo-monitors associated with the mirroring drivers)
 
-        BOOL EnumDisplayMonitors(HDC hdc, LPCRECT lprcClip, MONITORENUMPROC lpfnEnum, LPARAM dwData)
- */
+// BOOL EnumDisplayMonitors(HDC hdc, LPCRECT lprcClip, MONITORENUMPROC lpfnEnum, LPARAM dwData)
+
 HB_FUNC( ENUMDISPLAYMONITORS )
 {
    PHB_ITEM pMonitorEnum = hb_itemArrayNew(0);
-
    EnumDisplayMonitors(nullptr, nullptr, _MonitorEnumProc0, reinterpret_cast<LPARAM>(pMonitorEnum));
-
    hb_itemReturnRelease(pMonitorEnum);
 }
 
 BOOL CALLBACK _MonitorEnumProc0(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData)
 {
-   PHB_ITEM pMonitor = hb_itemArrayNew(2);
-   PHB_ITEM pRect    = Rect2Hash(lprcMonitor);
-
    HB_SYMBOL_UNUSED(hdcMonitor);
-
-   hb_arraySetNInt(pMonitor, 1, ( LONG_PTR ) hMonitor);
+   PHB_ITEM pMonitor = hb_itemArrayNew(2);
+   PHB_ITEM pRect = Rect2Hash(lprcMonitor);
+   hb_arraySetNInt(pMonitor, 1, reinterpret_cast<LONG_PTR>(hMonitor));
    hb_itemArrayPut(pMonitor, 2, pRect);
-
-   hb_arrayAddForward(( PHB_ITEM ) dwData, pMonitor);
-
+   hb_arrayAddForward(reinterpret_cast<PHB_ITEM>(dwData), pMonitor);
    hb_itemRelease(pMonitor);
    hb_itemRelease(pRect);
-
    return TRUE;
 }
 
@@ -104,18 +96,15 @@ BOOL CALLBACK _MonitorEnumProc0(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMo
 HB_FUNC( GETMONITORINFO )
 {
    MONITORINFO mi;
-
    mi.cbSize = sizeof(MONITORINFO);
 
-   if( GetMonitorInfo(( HMONITOR ) HB_PARNL(1), &mi) ) {
+   if( GetMonitorInfo(reinterpret_cast<HMONITOR>(HB_PARNL(1)), &mi) ) {
       PHB_ITEM pMonInfo = hb_itemArrayNew(3);
       PHB_ITEM pMonitor = Rect2Hash(&mi.rcMonitor);
-      PHB_ITEM pWork    = Rect2Hash(&mi.rcWork);
-
+      PHB_ITEM pWork = Rect2Hash(&mi.rcWork);
       hb_itemArrayPut(pMonInfo, 1, pMonitor);
       hb_itemArrayPut(pMonInfo, 2, pWork);
-      hb_arraySetNInt(pMonInfo, 3, ( LONG_PTR ) mi.dwFlags);
-
+      hb_arraySetNInt(pMonInfo, 3, static_cast<LONG_PTR>(mi.dwFlags));
       hb_itemReturnRelease(pMonInfo);
       hb_itemRelease(pMonitor);
       hb_itemRelease(pWork);
@@ -138,7 +127,6 @@ HB_FUNC( MONITORFROMPOINT )
    } else if( HB_ISNUM(1) && HB_ISNUM(2) ) {
       pt.x = hb_parnl(1);
       pt.y = hb_parnl(2);
-
       hmg_ret_HMONITOR(MonitorFromPoint(pt, hb_parnldef(3, MONITOR_DEFAULTTONULL)));
    } else {
       hb_errRT_BASE_SubstR(EG_ARG, 5000, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
@@ -157,17 +145,15 @@ HB_FUNC( MONITORFROMWINDOW )
    }
 }
 
-/*
-   Based on
-   https://msdn.microsoft.com/ru-ru/library/windows/desktop/dd162826(v=vs.85).aspx
-
-   The  most common problem apps have when running on a multimonitor system is
-   that  they "clip" or "pin" windows based on the SM_CXSCREEN and SM_CYSCREEN
-   system  metrics.  Because of app compatibility reasons these system metrics
-   return the size of the primary monitor.
-
-   This shows how you use the multi-monitor functions to do the same thing.
- */
+// Based on
+// https://msdn.microsoft.com/ru-ru/library/windows/desktop/dd162826(v=vs.85).aspx
+//
+// The  most common problem apps have when running on a multimonitor system is
+// that  they "clip" or "pin" windows based on the SM_CXSCREEN and SM_CYSCREEN
+// system  metrics.  Because of app compatibility reasons these system metrics
+// return the size of the primary monitor.
+//
+// This shows how you use the multi-monitor functions to do the same thing.
 
 #define MONITOR_CENTER    0x0001       // center rect to monitor
 #define MONITOR_CLIP      0x0000       // clip rect to monitor
@@ -179,25 +165,21 @@ HB_FUNC( WINDOWTOMONITOR )
    HWND hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) ) {
-      HMONITOR hMonitor = HB_ISNUM(2) ? ( HMONITOR ) HB_PARNL(2) : nullptr;
-      UINT     flags    = 0 | ( ( UINT ) hb_parnldef(3, (MONITOR_CENTER | MONITOR_WORKAREA)) );
-      RECT     rc;
-
+      HMONITOR hMonitor = HB_ISNUM(2) ? reinterpret_cast<HMONITOR>(HB_PARNL(2)) : nullptr;
+      UINT flags = 0 | (static_cast<UINT>(hb_parnldef(3, (MONITOR_CENTER | MONITOR_WORKAREA))));
+      RECT rc;
       GetWindowRect(hwnd, &rc);
-      ClipOrCenterRectToMonitor( &rc, hMonitor, flags );
-
+      ClipOrCenterRectToMonitor(&rc, hMonitor, flags);
       SetWindowPos(hwnd, nullptr, rc.left, rc.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
    } else {
       hb_errRT_BASE_SubstR(EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
    }
 }
 
-static void ClipOrCenterRectToMonitor( LPRECT prc, HMONITOR hMonitor, UINT flags )
+static void ClipOrCenterRectToMonitor(LPRECT prc, HMONITOR hMonitor, UINT flags)
 {
-   MONITORINFO mi;
-   RECT        rc;
-   int         w = prc->right - prc->left;
-   int         h = prc->bottom - prc->top;
+   int w = prc->right - prc->left;
+   int h = prc->bottom - prc->top;
 
    // get the nearest monitor to the passed rect.
    if( hMonitor == nullptr ) {
@@ -205,15 +187,16 @@ static void ClipOrCenterRectToMonitor( LPRECT prc, HMONITOR hMonitor, UINT flags
    }
 
    // get the work area or entire monitor rect.
+   MONITORINFO mi;
    mi.cbSize = sizeof(mi);
    GetMonitorInfo(hMonitor, &mi);
 
-   rc = ( flags & MONITOR_WORKAREA ) ? mi.rcWork : mi.rcMonitor;
+   RECT rc = (flags & MONITOR_WORKAREA) ? mi.rcWork : mi.rcMonitor;
 
    // center or clip the passed rect to the monitor rect
    if( flags & MONITOR_CENTER ) {
-      prc->left   = rc.left + ( rc.right - rc.left - w ) / 2;
-      prc->top    = rc.top + ( rc.bottom - rc.top - h ) / 2;
+      prc->left   = rc.left + (rc.right - rc.left - w) / 2;
+      prc->top    = rc.top + (rc.bottom - rc.top - h) / 2;
       prc->right  = prc->left + w;
       prc->bottom = prc->top + h;
    } else {
@@ -227,21 +210,21 @@ static void ClipOrCenterRectToMonitor( LPRECT prc, HMONITOR hMonitor, UINT flags
 HB_EXPORT PHB_ITEM Rect2Hash(RECT * rc)
 {
    PHB_ITEM phRect = hb_hashNew(nullptr);
-   PHB_ITEM pKey   = hb_itemPutCConst(nullptr, "left");
+   PHB_ITEM pKey = hb_itemPutCConst(nullptr, "left");
    PHB_ITEM pValue = hb_itemPutNL( nullptr, rc->left );
 
    hb_hashAddNew(phRect, pKey, pValue);
 
    hb_itemPutCConst(pKey, "top");
-   hb_itemPutNL( pValue, rc->top );
+   hb_itemPutNL(pValue, rc->top);
    hb_hashAddNew(phRect, pKey, pValue);
 
    hb_itemPutCConst(pKey, "right");
-   hb_itemPutNL( pValue, rc->right );
+   hb_itemPutNL(pValue, rc->right);
    hb_hashAddNew(phRect, pKey, pValue);
 
    hb_itemPutCConst(pKey, "bottom");
-   hb_itemPutNL( pValue, rc->bottom );
+   hb_itemPutNL(pValue, rc->bottom);
    hb_hashAddNew(phRect, pKey, pValue);
 
    hb_itemRelease(pKey);
