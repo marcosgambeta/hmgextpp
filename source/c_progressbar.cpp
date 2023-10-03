@@ -47,23 +47,16 @@
 #define _WIN32_IE  0x0501
 
 #include "mgdefs.hpp"
-
 #include <commctrl.h>
 
 HB_FUNC( INITPROGRESSBAR )
 {
-   HWND hwnd;
-   HWND hbutton;
-
-   int style = WS_CHILD;
-
    INITCOMMONCONTROLSEX i;
-
    i.dwSize = sizeof(INITCOMMONCONTROLSEX);
-   i.dwICC  = ICC_PROGRESS_CLASS;
+   i.dwICC = ICC_PROGRESS_CLASS;
    InitCommonControlsEx(&i);
 
-   hwnd = hmg_par_HWND(1);
+   DWORD style = WS_CHILD;
 
    if( hb_parl(9) ) {
       style |= PBS_VERTICAL;
@@ -77,8 +70,7 @@ HB_FUNC( INITPROGRESSBAR )
       style |= WS_VISIBLE;
    }
 
-   hbutton = CreateWindowEx
-             (
+   HWND hbutton = CreateWindowEx(
       WS_EX_CLIENTEDGE,
       PROGRESS_CLASS,
       0,
@@ -87,11 +79,10 @@ HB_FUNC( INITPROGRESSBAR )
       hb_parni(4),
       hb_parni(5),
       hb_parni(6),
-      hwnd,
+      hmg_par_HWND(1),
       hmg_par_HMENU(2),
       GetInstance(),
-      nullptr
-             );
+      nullptr);
 
    SendMessage(hbutton, PBM_SETRANGE, 0, MAKELONG(hb_parni(7), hb_parni(8)));
    SendMessage(hbutton, PBM_SETPOS, hmg_par_WPARAM(12), 0);
