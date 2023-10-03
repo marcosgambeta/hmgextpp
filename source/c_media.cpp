@@ -52,9 +52,7 @@
 #if 0
 #if defined(__BORLANDC__)
 #pragma warn -use /* unused var */
-
 #if defined(_WIN64)
-
 #ifndef UNICODE
 HWND MCIWndCreateA(HWND hwndParent, HINSTANCE hInstance, DWORD dwStyle, LPCSTR szFile)
 {
@@ -66,9 +64,7 @@ HWND MCIWndCreateW(HWND hwndParent, HINSTANCE hInstance, DWORD dwStyle, LPCWSTR 
    return 0;
 }
 #endif /* UNICODE */
-
 #endif /* _WIN64 */
-
 #endif /* __BORLANDC__ */
 #endif
 
@@ -86,7 +82,7 @@ HB_FUNC( C_PLAYWAVE )
 
    if( hb_parl(2) ) {
       style |= SND_RESOURCE;
-      hmod  = GetResources();
+      hmod = GetResources();
    } else {
       style |= SND_FILENAME;
    }
@@ -119,7 +115,7 @@ HB_FUNC( STOPWAVE )
 
 HB_FUNC( INITPLAYER )
 {
-   int style = WS_VISIBLE | WS_CHILD | WS_BORDER;
+   DWORD style = WS_VISIBLE | WS_CHILD | WS_BORDER;
 
    if( hb_parl(7) ) {
       style |= MCIWNDF_NOAUTOSIZEWINDOW;
@@ -177,36 +173,36 @@ HB_FUNC( INITPLAYER )
 HB_FUNC( MCIFUNC )
 {
    HWND mcihand = hmg_par_HWND(1);
-   int  func    = hb_parni(2);
+   int func = hb_parni(2);
 
    switch( func ) {
-      case 1:  hb_retnl( MCIWndPlay(mcihand) ); break;
-      case 2:  hb_retnl( MCIWndStop(mcihand) ); break;
-      case 3:  hb_retnl( MCIWndPause(mcihand) ); break;
-      case 4:  hb_retnl( MCIWndClose(mcihand) ); break;
+      case 1:  hb_retnl(MCIWndPlay(mcihand)); break;
+      case 2:  hb_retnl(MCIWndStop(mcihand)); break;
+      case 3:  hb_retnl(MCIWndPause(mcihand)); break;
+      case 4:  hb_retnl(MCIWndClose(mcihand)); break;
       case 5:  MCIWndDestroy(mcihand); hb_retnl(0); break;
-      case 6:  hb_retnl( MCIWndEject(mcihand) ); break;
-      case 7:  hb_retnl( MCIWndEnd(mcihand) ); break;
-      case 8:  hb_retnl( MCIWndHome(mcihand) ); break;
-      case 9:  hb_retnl( MCIWndOpen(mcihand, hb_parc(3), 0) ); break;
-      case 10: hb_retnl( MCIWndOpenDialog(mcihand) ); break;
-      case 11: hb_retnl( MCIWndPlayReverse(mcihand) ); break;
-      case 12: hb_retnl( MCIWndResume(mcihand) ); break;
+      case 6:  hb_retnl(MCIWndEject(mcihand)); break;
+      case 7:  hb_retnl(MCIWndEnd(mcihand)); break;
+      case 8:  hb_retnl(MCIWndHome(mcihand)); break;
+      case 9:  hb_retnl(MCIWndOpen(mcihand, hb_parc(3), 0)); break;
+      case 10: hb_retnl(MCIWndOpenDialog(mcihand)); break;
+      case 11: hb_retnl(MCIWndPlayReverse(mcihand)); break;
+      case 12: hb_retnl(MCIWndResume(mcihand)); break;
       case 13: MCIWndSetRepeat(mcihand, hb_parl(3)); hb_retnl(0); break;
-      case 14: hb_retnl( MCIWndSetSpeed(mcihand, hb_parni(3)) ); break;
-      case 15: hb_retnl( MCIWndSetVolume(mcihand, hb_parni(3)) ); break;
+      case 14: hb_retnl(MCIWndSetSpeed(mcihand, hb_parni(3))); break;
+      case 15: hb_retnl(MCIWndSetVolume(mcihand, hb_parni(3))); break;
       case 16: MCIWndSetZoom(mcihand, hb_parni(3)); hb_retnl(0); break;
-      case 17: hb_retnl( MCIWndGetLength(mcihand) ); break;
-      case 18: hb_retnl( MCIWndGetPosition(mcihand) ); break;
-      case 19: hb_retnl( MCIWndGetVolume(mcihand) ); break;
-      case 20: hb_retnl( MCIWndSeek(mcihand, hb_parni(3)) ); break;
+      case 17: hb_retnl(MCIWndGetLength(mcihand)); break;
+      case 18: hb_retnl(MCIWndGetPosition(mcihand)); break;
+      case 19: hb_retnl(MCIWndGetVolume(mcihand)); break;
+      case 20: hb_retnl(MCIWndSeek(mcihand, hb_parni(3))); break;
       default: hb_retnl(0);
    }
 }
 
 HB_FUNC( INITANIMATE )
 {
-   int style = WS_CHILD;
+   DWORD style = WS_CHILD;
 
    if( hb_parl(9) ) {
       style |= WS_BORDER;
