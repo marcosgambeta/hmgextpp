@@ -47,22 +47,16 @@
 #define _WIN32_IE  0x0501
 
 #include "mgdefs.hpp"
-
 #include <commctrl.h>
 
 HB_FUNC( INITIPADDRESS )
 {
-   HWND hWnd;
-   HWND hIpAddress;
-   int style = WS_CHILD;
-
    INITCOMMONCONTROLSEX icex;
-
    icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
-   icex.dwICC  = ICC_INTERNET_CLASSES;
+   icex.dwICC = ICC_INTERNET_CLASSES;
    InitCommonControlsEx(&icex);
 
-   hWnd = hmg_par_HWND(1);
+   DWORD style = WS_CHILD;
 
    if( !hb_parl(7) ) {
       style |= WS_VISIBLE;
@@ -72,8 +66,7 @@ HB_FUNC( INITIPADDRESS )
       style |= WS_TABSTOP;
    }
 
-   hIpAddress = CreateWindowEx
-                (
+   HWND hIpAddress = CreateWindowEx(
       WS_EX_CLIENTEDGE,
       WC_IPADDRESS,
       TEXT(""),
@@ -82,48 +75,26 @@ HB_FUNC( INITIPADDRESS )
       hb_parni(4),
       hb_parni(5),
       hb_parni(6),
-      hWnd,
+      hmg_par_HWND(1),
       hmg_par_HMENU(2),
       GetInstance(),
-      nullptr
-                );
+      nullptr);
 
    hmg_ret_HWND(hIpAddress);
 }
 
 HB_FUNC( SETIPADDRESS )
 {
-   HWND hWnd;
-   BYTE v1, v2, v3, v4;
-
-   hWnd = hmg_par_HWND(1);
-
-   v1 = hmg_par_BYTE(2);
-   v2 = hmg_par_BYTE(3);
-   v3 = hmg_par_BYTE(4);
-   v4 = hmg_par_BYTE(5);
-
-   SendMessage(hWnd, IPM_SETADDRESS, 0, MAKEIPADDRESS(v1, v2, v3, v4));
+   SendMessage(hmg_par_HWND(1), IPM_SETADDRESS, 0, MAKEIPADDRESS(hmg_par_BYTE(2), hmg_par_BYTE(3), hmg_par_BYTE(4), hmg_par_BYTE(5)));
 }
 
 HB_FUNC( GETIPADDRESS )
 {
-   HWND  hWnd;
    DWORD pdwAddr;
-   INT   v1, v2, v3, v4;
-
-   hWnd = hmg_par_HWND(1);
-
-   SendMessage(hWnd, IPM_GETADDRESS, 0, reinterpret_cast<LPARAM>(&pdwAddr));
-
-   v1 = FIRST_IPADDRESS(pdwAddr);
-   v2 = SECOND_IPADDRESS(pdwAddr);
-   v3 = THIRD_IPADDRESS(pdwAddr);
-   v4 = FOURTH_IPADDRESS(pdwAddr);
-
+   SendMessage(hmg_par_HWND(1), IPM_GETADDRESS, 0, reinterpret_cast<LPARAM>(&pdwAddr));
    hb_reta(4);
-   HB_STORNI( v1, -1, 1 );
-   HB_STORNI( v2, -1, 2 );
-   HB_STORNI( v3, -1, 3 );
-   HB_STORNI( v4, -1, 4 );
+   HB_STORNI(FIRST_IPADDRESS(pdwAddr), -1, 1);
+   HB_STORNI(SECOND_IPADDRESS(pdwAddr), -1, 2);
+   HB_STORNI(THIRD_IPADDRESS(pdwAddr), -1, 3);
+   HB_STORNI(FOURTH_IPADDRESS(pdwAddr), -1, 4);
 }
