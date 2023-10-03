@@ -49,8 +49,8 @@
 #include <hbapiitm.hpp>
 #include <hbwinuni.hpp>
 
-#if ( defined(__BORLANDC__) && defined(_WIN64) )
-#define PtrToLong(p)  ( ( LONG ) ( p ) )
+#if (defined(__BORLANDC__) && defined(_WIN64))
+#define PtrToLong(p) (static_cast<LONG>(p))
 #endif
 
 /*
@@ -69,7 +69,7 @@ HB_FUNC( REGOPENKEYEX )
    HKEY phwHandle;
 
    void * str;
-   long lError = RegOpenKeyEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), 0, ( REGSAM ) hb_parnl(4), &phwHandle);
+   long lError = RegOpenKeyEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), 0, static_cast<REGSAM>(hb_parnl(4)), &phwHandle);
    hb_strfree(str);
 
    if( lError != ERROR_SUCCESS ) {
@@ -99,19 +99,17 @@ HB_FUNC( REGQUERYVALUEEX )
    hb_strfree(str);
 
    if( lError == ERROR_SUCCESS ) {
-      BYTE * lpData;
-
-      lpData = ( BYTE * ) hb_xgrab(lpcbData + 1);
+      BYTE * lpData = static_cast<BYTE*>(hb_xgrab(lpcbData + 1));
       void * str;
-      lError = RegQueryValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), nullptr, &lpType, ( BYTE * ) lpData, &lpcbData);
+      lError = RegQueryValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), nullptr, &lpType, static_cast<BYTE*>(lpData), &lpcbData);
       hb_strfree(str);
 
       if( lError != ERROR_SUCCESS ) {
          hb_retnl(-1);
       } else {
-         HB_STORNL( lpType, 4);
-         hb_storc(( char * ) lpData, 5);
-         HB_STORNL( lpcbData, 6);
+         HB_STORNL(lpType, 4);
+         hb_storc(reinterpret_cast<char*>(lpData), 5);
+         HB_STORNL(lpcbData, 6);
 
          hb_retnl(0);
       }
@@ -132,21 +130,21 @@ REGENUMKEYEX(HKEY, cKey, p3, p4, p5, p6, p7) --> numeric
 */
 HB_FUNC( REGENUMKEYEX )
 {
+   TCHAR Buffer[255];
+   DWORD dwBuffSize = 255;
+   TCHAR Class[255];
+   DWORD dwClass = 255;
    FILETIME ft;
-   TCHAR    Buffer[255];
-   DWORD    dwBuffSize = 255;
-   TCHAR    Class[255];
-   DWORD    dwClass = 255;
 
    long bErr = RegEnumKeyEx(hmg_par_HKEY(1), hb_parnl(2), Buffer, &dwBuffSize, nullptr, Class, &dwClass, &ft);
 
    if( bErr != ERROR_SUCCESS ) {
       hb_retnl(-1);
    } else {
-      hb_storc(( const char * ) Buffer, 3);
-      HB_STORNL( dwBuffSize, 4);
-      hb_storc(( const char * ) Class, 6);
-      HB_STORNL( dwClass, 7);
+      hb_storc(static_cast<const char*>(Buffer), 3);
+      HB_STORNL(dwBuffSize, 4);
+      hb_storc(static_cast<const char*>(Class), 6);
+      HB_STORNL(dwClass, 7);
       hb_retnl(0);
    }
 }
@@ -165,12 +163,12 @@ HB_FUNC( REGSETVALUEEX )
 
    if( nType != REG_DWORD ) {
       void * str;
-      hb_retnl((RegSetValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), 0, hb_parnl(4), ( BYTE * ) hb_parc(5), ( DWORD ) hb_parclen(5) + 1) == ERROR_SUCCESS) ? 0 : -1);
+      hb_retnl((RegSetValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), 0, hb_parnl(4), reinterpret_cast<BYTE*>(const_cast<char*>(hb_parc(5))), static_cast<DWORD>(hb_parclen(5)) + 1) == ERROR_SUCCESS) ? 0 : -1);
       hb_strfree(str);
    } else {
       void * str;
       DWORD nSpace = hb_parnl(5);
-      hb_retnl((RegSetValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), 0, hb_parnl(4), ( BYTE * ) &nSpace, sizeof(REG_DWORD)) == ERROR_SUCCESS) ? 0 : -1);
+      hb_retnl((RegSetValueEx(hmg_par_HKEY(1), HB_PARSTR(2, &str, nullptr), 0, hb_parnl(4), reinterpret_cast<BYTE*>(&nSpace), sizeof(REG_DWORD)) == ERROR_SUCCESS) ? 0 : -1);
       hb_strfree(str);
    }
 }
@@ -213,10 +211,10 @@ HB_FUNC( REGENUMVALUE )
    if( lError != ERROR_SUCCESS ) {
       hb_retnl(-1);
    } else {
-      hb_storc(( const char * ) Buffer, 3);
-      HB_STORNL( dwBuffSize, 4);
-      HB_STORNL( lpType, 6);
-      HB_STORNL( dwClass, 8);
+      hb_storc(static_cast<const char*>(Buffer), 3);
+      HB_STORNL(dwBuffSize, 4);
+      HB_STORNL(lpType, 6);
+      HB_STORNL(dwClass, 8);
       hb_retnl(lError);
    }
 }
