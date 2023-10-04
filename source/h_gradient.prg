@@ -279,7 +279,7 @@ HB_FUNC( TRANSPARENTBLT )
                                  hb_parnl(2), hb_parnl(3), hb_parnl(4), hb_parnl(5),
                                  hdc2,
                                  hb_parnl(7), hb_parnl(8), hb_parnl(9), hb_parnl(10),
-                                 ( COLORREF ) hb_parnl(11));
+                                 static_cast<COLORREF>(hb_parnl(11)));
       }
    }
 

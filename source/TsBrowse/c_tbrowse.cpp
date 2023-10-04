@@ -129,8 +129,8 @@ HB_FUNC( _CREATEWINDOWEX )
    void *  hTitle;
    LPCTSTR cTitle = HB_PARSTR(3, &hTitle, nullptr);
 #else
-   LPCSTR cClass     = ( LPCSTR ) hb_parc(2);
-   LPCSTR cTitle     = ( LPCSTR ) hb_parc(3);
+   LPCSTR cClass     = static_cast<LPCSTR>(hb_parc(2));
+   LPCSTR cTitle     = static_cast<LPCSTR>(hb_parc(3));
 #endif
    int    nStyle     = hb_parni(4);
    int    x          = HB_ISNIL(5) ? 0 : hb_parni(5);
@@ -240,7 +240,7 @@ void DrawMasked(HDC hDC, HBITMAP hbm, int wRow, int wCol)
 
    if( GetPixel(hDcBmp, 0, 0) != GetSysColor(15) )
    {
-      GetObject(hbm, sizeof(BITMAP), ( LPSTR ) &bm);
+      GetObject(hbm, sizeof(BITMAP), reinterpret_cast<LPSTR>(&bm));
       hDcMask  = CreateCompatibleDC(hDC);
       hBmpMask = CreateCompatibleBitmap(hDcMask, bm.bmWidth, bm.bmHeight);
       hOldBmp2 = static_cast<HBITMAP>(SelectObject(hDcMask, hBmpMask));
@@ -271,9 +271,9 @@ HB_FUNC( TSDRAWCELL )
    int      nColumn      = hb_parni(4);
    int      nWidth       = hb_parni(5);
 #ifndef UNICODE
-   LPSTR    cData = ( LPSTR ) hb_parc(6);
+   LPSTR    cData = const_cast<LPSTR>(hb_parc(6));
 #else
-   LPWSTR   cData = AnsiToWide(( char * ) hb_parc(6));
+   LPWSTR   cData = AnsiToWide(const_cast<char*>(hb_parc(6)));
 #endif
    int      nLen         = lstrlen(cData);
    DWORD    nAlign       = hb_parnl(7);
@@ -391,7 +391,7 @@ HB_FUNC( TSDRAWCELL )
       {
          if( !bAdjBmp )
          {
-            GetObject(hBitMap, sizeof(BITMAP), ( LPSTR ) &bm);
+            GetObject(hBitMap, sizeof(BITMAP), reinterpret_cast<LPSTR>(&bm));
             nTop = rct.top + ( ( rct.bottom - rct.top + 1 ) / 2 ) - ( bm.bmHeight / 2 );
 
             switch( ixLayOut )   // bitmap layout x coordinate
@@ -769,7 +769,7 @@ HB_FUNC( SBMPHEIGHT )    // ( hBmp )
    HBITMAP hBmp = hmg_par_HBITMAP(1);
    BITMAP  bm;
 
-   GetObject(hBmp, sizeof(BITMAP), ( LPSTR ) &bm);
+   GetObject(hBmp, sizeof(BITMAP), reinterpret_cast<LPSTR>(&bm));
 
    hb_retni( bm.bmHeight );
 }
@@ -779,7 +779,7 @@ HB_FUNC( SBMPWIDTH )
    HBITMAP hBmp = hmg_par_HBITMAP(1);
    BITMAP  bm;
 
-   GetObject(hBmp, sizeof(BITMAP), ( LPSTR ) &bm);
+   GetObject(hBmp, sizeof(BITMAP), reinterpret_cast<LPSTR>(&bm));
 
    hb_retni( bm.bmWidth );
 }
@@ -988,7 +988,7 @@ void cDrawCursor(HWND hWnd, RECT * rctc, long lCursor, COLORREF nClr)
 {
    HDC      hDC = GetDC(hWnd);
    HRGN     hReg;
-   COLORREF lclr = ( lCursor == 1 ? RGB(5, 5, 5) : lCursor == 2 ? nClr : ( COLORREF ) lCursor );
+   COLORREF lclr = ( lCursor == 1 ? RGB(5, 5, 5) : lCursor == 2 ? nClr : static_cast<COLORREF>(lCursor) );
    HBRUSH   hBr;
    RECT     rct;
 

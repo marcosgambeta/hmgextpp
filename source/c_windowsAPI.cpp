@@ -207,9 +207,9 @@ HB_FUNC( GETFOREGROUNDWINDOW )
 HB_FUNC( SETWINDOWTEXT )
 {
 #ifndef UNICODE
-   LPCSTR lpString = ( LPCSTR ) hb_parc(2);
+   LPCSTR lpString = static_cast<LPCSTR>(hb_parc(2));
 #else
-   LPCWSTR lpString = AnsiToWide(( char * ) hb_parc(2));
+   LPCWSTR lpString = AnsiToWide(const_cast<char*>(hb_parc(2)));
 #endif
    SetWindowText(hmg_par_HWND(1), lpString);
 
@@ -220,7 +220,7 @@ HB_FUNC( SETWINDOWTEXT )
 
 HB_FUNC( SETWINDOWTEXTW )
 {
-   SetWindowTextW(hmg_par_HWND(1), ( LPCWSTR ) hb_parc(2));
+   SetWindowTextW(hmg_par_HWND(1), reinterpret_cast<LPCWSTR>(hb_parc(2)));
 }
 
 HB_FUNC( SETWINDOWPOS )
@@ -526,9 +526,9 @@ static BOOL ShowNotifyIcon(HWND hWnd, BOOL bAdd, HICON hIcon, TCHAR * szText)
 HB_FUNC( SHOWNOTIFYICON )
 {
 #ifndef UNICODE
-   char * szText = ( char * ) hb_parc(4);
+   char * szText = const_cast<char*>(hb_parc(4));
 #else
-   TCHAR * szText = ( TCHAR * ) AnsiToWide(( char * ) hb_parc(4));
+   TCHAR * szText = ( TCHAR * ) AnsiToWide(const_cast<char*>(hb_parc(4)));
 #endif
    hb_retl(( BOOL ) ShowNotifyIcon(hmg_par_HWND(1), hmg_par_BOOL(2), hmg_par_HICON(3), ( TCHAR * ) szText));
 
@@ -599,7 +599,7 @@ HB_FUNC( LOADTRAYICON )
 #ifndef UNICODE
    LPCTSTR lpIconName = HB_ISCHAR(2) ? hb_parc(2) : MAKEINTRESOURCE(hb_parni(2));   // name string or resource identifier
 #else
-   LPCWSTR lpIconName = HB_ISCHAR(2) ? AnsiToWide(( char * ) hb_parc(2)) : ( LPCWSTR ) MAKEINTRESOURCE(hb_parni(2));
+   LPCWSTR lpIconName = HB_ISCHAR(2) ? AnsiToWide(const_cast<char*>(hb_parc(2))) : static_cast<LPCWSTR>(MAKEINTRESOURCE(hb_parni(2)));
 #endif
    int cxDesired = HB_ISNUM(3) ? hb_parni(3) : GetSystemMetrics(SM_CXSMICON);
    int cyDesired = HB_ISNUM(4) ? hb_parni(4) : GetSystemMetrics(SM_CYSMICON);
@@ -639,9 +639,9 @@ static BOOL ChangeNotifyIcon(HWND hWnd, HICON hIcon, TCHAR * szText)
 HB_FUNC( CHANGENOTIFYICON )
 {
 #ifndef UNICODE
-   char * szText = ( char * ) hb_parc(3);
+   char * szText = const_cast<char*>(hb_parc(3));
 #else
-   TCHAR * szText = ( TCHAR * ) AnsiToWide(( char * ) hb_parc(3));
+   TCHAR * szText = ( TCHAR * ) AnsiToWide(const_cast<char*>(hb_parc(3)));
 #endif
    hb_retl(( BOOL ) ChangeNotifyIcon(hmg_par_HWND(1), hmg_par_HICON(2), ( TCHAR * ) szText));
 
@@ -748,9 +748,9 @@ HB_FUNC( ADDSPLITBOXITEM )
    int style = RBBS_CHILDEDGE | RBBS_GRIPPERALWAYS | RBBS_USECHEVRON;
 
 #ifndef UNICODE
-   LPSTR lpText = ( LPSTR ) hb_parc(5);
+   LPSTR lpText = const_cast<LPSTR>(hb_parc(5));
 #else
-   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(5));
+   LPWSTR lpText = AnsiToWide(const_cast<char*>(hb_parc(5)));
 #endif
 
    if( hb_parl(4) ) {
@@ -837,7 +837,7 @@ HB_FUNC( C_SETWINDOWRGN )
                hbmp = static_cast<HBITMAP>(LoadImage(nullptr, ( TCHAR * ) hb_parc(2), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION));
             }
 
-            hRgn = BitmapToRegion(hbmp, ( COLORREF ) RGB(HB_PARNI(3, 1), HB_PARNI(3, 2), HB_PARNI(3, 3)), 0x101010);
+            hRgn = BitmapToRegion(hbmp, static_cast<COLORREF>(RGB(HB_PARNI(3, 1), HB_PARNI(3, 2), HB_PARNI(3, 3))), 0x101010);
             DeleteObject(hbmp);
             break;
 
@@ -857,7 +857,7 @@ HB_FUNC( C_SETPOLYWINDOWRGN )
    HRGN  hRgn;
    POINT lppt[512];
    int   fnPolyFillMode;
-   int   cPoints = ( int ) hb_parinfa(2, 0);
+   int   cPoints = static_cast<int>(hb_parinfa(2, 0));
 
    if( hb_parni(4) == 1 ) {
       fnPolyFillMode = WINDING;
@@ -940,11 +940,11 @@ HB_FUNC( SETGRIDQUERYDATA )
    // Copy the text to the LV_ITEM structure
    // Maximum number of characters is in pDispInfo->Item.cchTextMax
 #ifdef UNICODE
-   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(2));
+   LPWSTR lpText = AnsiToWide(const_cast<char*>(hb_parc(2)));
    lstrcpyn(pDispInfo->item.pszText, lpText, pDispInfo->item.cchTextMax);
    hb_xfree(lpText);
 #else
-   lstrcpyn(pDispInfo->item.pszText, ( char * ) hb_parc(2), pDispInfo->item.cchTextMax);
+   lstrcpyn(pDispInfo->item.pszText, const_cast<char*>(hb_parc(2)), pDispInfo->item.cchTextMax);
 #endif
 }
 
@@ -959,8 +959,8 @@ HB_FUNC( SETGRIDQUERYIMAGE )
 HB_FUNC( FINDWINDOWEX )
 {
 #ifndef UNICODE
-   LPCSTR lpszClass  = ( char * ) hb_parc(3);
-   LPCSTR lpszWindow = ( char * ) hb_parc(4);
+   LPCSTR lpszClass  = const_cast<char*>(hb_parc(3));
+   LPCSTR lpszWindow = const_cast<char*>(hb_parc(4));
 #else
    LPWSTR lpszClass  = ( hb_parc(3) != nullptr ) ? hb_osStrU16Encode(hb_parc(3)) : nullptr;
    LPWSTR lpszWindow = ( hb_parc(4) != nullptr ) ? hb_osStrU16Encode(hb_parc(4)) : nullptr;
@@ -1162,7 +1162,7 @@ HB_FUNC( CREATEPATTERNBRUSH )
 #ifndef UNICODE
    LPCTSTR lpImageName = HB_ISCHAR(1) ? hb_parc(1) : ( HB_ISNUM(1) ? MAKEINTRESOURCE(hb_parni(1)) : nullptr );
 #else
-   LPCWSTR lpImageName = HB_ISCHAR(1) ? AnsiToWide(( char * ) hb_parc(1)) : ( HB_ISNUM(1) ? ( LPCWSTR ) MAKEINTRESOURCE(hb_parni(1)) : nullptr );
+   LPCWSTR lpImageName = HB_ISCHAR(1) ? AnsiToWide(const_cast<char*>(hb_parc(1))) : ( HB_ISNUM(1) ? static_cast<LPCWSTR>(MAKEINTRESOURCE(hb_parni(1))) : nullptr );
 #endif
 
    hImage = static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));

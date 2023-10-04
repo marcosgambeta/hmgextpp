@@ -93,7 +93,7 @@ HB_FUNC( GETRESOURCES )
 HB_FUNC( SETRESOURCES )
 {
    if( HB_ISCHAR(1) ) {
-      hResources = HMG_LoadDll( ( char * ) hb_parc(1) );
+      hResources = HMG_LoadDll(const_cast<char*>(hb_parc(1)));
    } else if( HB_ISNUM(1) ) {
       hResources = hmg_par_HINSTANCE(1);
    }
@@ -117,10 +117,10 @@ HB_FUNC( RCDATATOFILE )
    /* lpType is RT_RCDATA by default */
 #ifndef UNICODE
    LPCSTR lpName = hb_parc(1);
-   LPCSTR lpType = ( hb_parclen(3) > 0 ) ? ( LPCSTR ) hb_parc(3) : MAKEINTRESOURCE(hb_parnidef(3, 10));
+   LPCSTR lpType = ( hb_parclen(3) > 0 ) ? static_cast<LPCSTR>(hb_parc(3)) : MAKEINTRESOURCE(hb_parnidef(3, 10));
 #else
-   LPCWSTR lpName = AnsiToWide(( char * ) hb_parc(1));
-   LPCWSTR lpType = HB_ISCHAR(3) ? AnsiToWide(( char * ) hb_parc(3)) : ( LPCWSTR ) MAKEINTRESOURCE(hb_parnidef(3, 10));
+   LPCWSTR lpName = AnsiToWide(static_cast<char*>(hb_parc(1)));
+   LPCWSTR lpType = HB_ISCHAR(3) ? AnsiToWide(static_cast<char*>(hb_parc(3))) : static_cast<LPCWSTR>(MAKEINTRESOURCE(hb_parnidef(3, 10)));
 #endif
    HRSRC   hResInfo;
    HGLOBAL hResData = nullptr;

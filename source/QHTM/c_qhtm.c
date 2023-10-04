@@ -40,7 +40,7 @@ static HINSTANCE  hQhtmDll = NULL;
 */
 HB_FUNC( QHTM_INIT )
 {
-   char  *cLibname = ( hb_pcount() < 1 ) ? NULL : ( char * ) hb_parc(1);
+   char  *cLibname = ( hb_pcount() < 1 ) ? NULL : const_cast<char*>(hb_parc(1));
    BOOL  bSuccess = FALSE;
 
    if( !hQhtmDll )
@@ -120,7 +120,7 @@ HB_FUNC( QHTM_GETNOTIFY )
    if( hQhtmDll )
    {
       LPNMQHTM pnm = ( LPNMQHTM ) hb_parnl(1);
-      hb_retc(( char * ) pnm->pcszLinkText);
+      hb_retc(const_cast<char*>(pnm->pcszLinkText));
    }
    else
    {
@@ -147,13 +147,13 @@ void CALLBACK FormCallback(HWND hWndQHTM, LPQHTMFORMSubmit pFormSubmit, LPARAM l
    PHB_ITEM atemp, temp;
    int      i;
 
-   for( i = 0; i < ( int ) pFormSubmit->uFieldCount; i++ )
+   for( i = 0; i < static_cast<int>(pFormSubmit->uFieldCount); i++ )
    {
       atemp = hb_itemArrayNew(2);
-      temp = hb_itemPutC(NULL, ( char * ) ((pFormSubmit->parrFields + i)->pcszName));
+      temp = hb_itemPutC(NULL, static_cast<char*>((pFormSubmit->parrFields + i)->pcszName));
       hb_itemArrayPut(atemp, 1, temp);
       hb_itemRelease(temp);
-      temp = hb_itemPutC(NULL, ( char * ) ((pFormSubmit->parrFields + i)->pcszValue));
+      temp = hb_itemPutC(NULL, static_cast<char*>((pFormSubmit->parrFields + i)->pcszValue));
       hb_itemArrayPut(atemp, 2, temp);
       hb_itemRelease(temp);
 
@@ -170,11 +170,11 @@ void CALLBACK FormCallback(HWND hWndQHTM, LPQHTMFORMSubmit pFormSubmit, LPARAM l
       hb_vmPushSymbol(hb_dynsymSymbol(pSymTest));
       hb_vmPushNil();
       hmg_vmPushHandle(hWndQHTM);
-      hb_vmPushString(( char * ) pFormSubmit->pcszMethod, strlen(pFormSubmit->pcszMethod));
-      hb_vmPushString(( char * ) pFormSubmit->pcszAction, strlen(pFormSubmit->pcszAction));
+      hb_vmPushString(static_cast<char*>(pFormSubmit->pcszMethod), strlen(pFormSubmit->pcszMethod));
+      hb_vmPushString(static_cast<char*>(pFormSubmit->pcszAction), strlen(pFormSubmit->pcszAction));
       if( pFormSubmit->pcszName )
       {
-         hb_vmPushString(( char * ) pFormSubmit->pcszName, strlen(pFormSubmit->pcszName));
+         hb_vmPushString(static_cast<char*>(pFormSubmit->pcszName), strlen(pFormSubmit->pcszName));
       }
       else
       {

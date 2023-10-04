@@ -212,7 +212,7 @@ LONG WidestBtn(LPCTSTR pszStr, HWND hwnd)
 #ifndef UNICODE
    LPCSTR lpString = pszStr;
 #else
-   LPCWSTR lpString = AnsiToWide(( char * ) pszStr);
+   LPCWSTR lpString = AnsiToWide(const_cast<char*>(pszStr));
 #endif
 
    LOGFONT lf;
@@ -335,7 +335,7 @@ HB_FUNC( INITTOOLBUTTONEX )
       tbb[nBtn].iString = index;
       style |= BTNS_SHOWTEXT;
       hb_strfree(str);
-      tSize = WidestBtn(( LPCTSTR ) hb_parc(2), hwndTB);
+      tSize = WidestBtn(static_cast<LPCTSTR>(hb_parc(2)), hwndTB);
       tmax  = HIWORD(tSize);
       for( int i = 0; i < xBtn; i++ ) {
          SendMessage(hwndTB, TB_GETBUTTON, i, reinterpret_cast<LPARAM>(&lpBtn));

@@ -91,10 +91,10 @@ static void bt_bmp_adjust_rect(int * Width1, int * Height1, int * Width2, int * 
 {
    switch( Mode_Stretch ) {
       case BT_SCALE:
-         if( ( int ) (*Width2 * *Height1 / *Height2) <= *Width1 ) {
-            *Width1 = ( int ) (*Width2 * *Height1 / *Height2);
+         if( static_cast<int>(*Width2 * *Height1 / *Height2) <= *Width1 ) {
+            *Width1 = static_cast<int>(*Width2 * *Height1 / *Height2);
          } else {
-            *Height1 = ( int ) (*Height2 * *Width1 / *Width2);
+            *Height1 = static_cast<int>(*Height2 * *Width1 / *Width2);
          }
          break;
 
@@ -986,8 +986,8 @@ HB_FUNC( BT_DRAW_HDC_POLY )
    #endif
 
    HDC hDC            = hmg_par_HDC(1);
-   INT nCountX        = ( INT ) hb_parinfa(2, 0);
-   INT nCountY        = ( INT ) hb_parinfa(3, 0);
+   INT nCountX        = static_cast<INT>(hb_parinfa(2, 0));
+   INT nCountY        = static_cast<INT>(hb_parinfa(3, 0));
    COLORREF ColorLine = hmg_par_COLORREF(4);
    INT nWidthLine     = hmg_par_INT(5);
    COLORREF ColorFill = hmg_par_COLORREF(6);
@@ -1262,22 +1262,22 @@ HB_FUNC( BT_DRAW_HDC_GRADIENTFILL )
 
    COLORREF Color_RGB_O = hmg_par_COLORREF(6);
    COLORREF Color_RGB_D = hmg_par_COLORREF(7);
-   ULONG Mode = ( ULONG ) hb_parnl(8);
+   ULONG Mode = static_cast<ULONG>(hb_parnl(8));
 
    TRIVERTEX Vert[2];
 
    Vert[0].x     = hb_parnl(2);
    Vert[0].y     = hb_parnl(3);
-   Vert[0].Red   = ( COLOR16 ) (GetRValue(Color_RGB_O) << 8);
-   Vert[0].Green = ( COLOR16 ) (GetGValue(Color_RGB_O) << 8);
-   Vert[0].Blue  = ( COLOR16 ) (GetBValue(Color_RGB_O) << 8);
+   Vert[0].Red   = static_cast<COLOR16>(GetRValue(Color_RGB_O) << 8);
+   Vert[0].Green = static_cast<COLOR16>(GetGValue(Color_RGB_O) << 8);
+   Vert[0].Blue  = static_cast<COLOR16>(GetBValue(Color_RGB_O) << 8);
    Vert[0].Alpha = 0x0000;
 
    Vert[1].x     = hb_parnl(2) + hb_parnl(4);
    Vert[1].y     = hb_parnl(3) + hb_parnl(5);
-   Vert[1].Red   = ( COLOR16 ) (GetRValue(Color_RGB_D) << 8);
-   Vert[1].Green = ( COLOR16 ) (GetGValue(Color_RGB_D) << 8);
-   Vert[1].Blue  = ( COLOR16 ) (GetBValue(Color_RGB_D) << 8);
+   Vert[1].Red   = static_cast<COLOR16>(GetRValue(Color_RGB_D) << 8);
+   Vert[1].Green = static_cast<COLOR16>(GetGValue(Color_RGB_D) << 8);
+   Vert[1].Blue  = static_cast<COLOR16>(GetBValue(Color_RGB_D) << 8);
    Vert[1].Alpha = 0x0000;
 
    GRADIENT_RECT gRect;
@@ -1465,7 +1465,7 @@ HB_FUNC( BT_DRAW_HDC_DRAWTEXT )
 
    // CreateFont (Height, Width, Escapement, Orientation, Weight, Italic, Underline, StrikeOut,
    //             CharSet, OutputPrecision, ClipPrecision, Quality, PitchAndFamily, Face);
-   HFONT hFont = CreateFont(0 - FontSize, 0, ( int ) Orientation, ( int ) Orientation, Bold, Italic, Underline, StrikeOut,
+   HFONT hFont = CreateFont(0 - FontSize, 0, static_cast<int>(Orientation), static_cast<int>(Orientation), Bold, Italic, Underline, StrikeOut,
                       DEFAULT_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, FontName);
 
    HFONT hOldFont = static_cast<HFONT>(SelectObject(hDC, hFont));
@@ -1547,14 +1547,14 @@ HB_FUNC( BT_DRAW_HDC_TEXTSIZE )
    HB_STORVNL(SizeText.cx, -1, 1);
    HB_STORVNL(SizeText.cy, -1, 2);
 
-   UINT iFirstChar = ( UINT ) lpText[0];
-   UINT iLastChar  = ( UINT ) lpText[0];
+   UINT iFirstChar = static_cast<UINT>(lpText[0]);
+   UINT iLastChar  = static_cast<UINT>(lpText[0]);
    ABCFLOAT ABCfloat;
    GetCharABCWidthsFloat(hDC, iFirstChar, iLastChar, &ABCfloat);
-   hb_storvnd(static_cast<double>(( FLOAT ) (ABCfloat.abcfA + ABCfloat.abcfB + ABCfloat.abcfC)), -1, 3);
-   hb_storvnd(static_cast<double>(( FLOAT ) ABCfloat.abcfA), -1, 4);
-   hb_storvnd(static_cast<double>(( FLOAT ) ABCfloat.abcfB), -1, 5);
-   hb_storvnd(static_cast<double>(( FLOAT ) ABCfloat.abcfC), -1, 6);
+   hb_storvnd(static_cast<double>(static_cast<FLOAT>(ABCfloat.abcfA + ABCfloat.abcfB + ABCfloat.abcfC)), -1, 3);
+   hb_storvnd(static_cast<double>(static_cast<FLOAT>(ABCfloat.abcfA)), -1, 4);
+   hb_storvnd(static_cast<double>(static_cast<FLOAT>(ABCfloat.abcfB)), -1, 5);
+   hb_storvnd(static_cast<double>(static_cast<FLOAT>(ABCfloat.abcfC)), -1, 6);
 
    SelectObject(hDC, hOldFont);
    DeleteObject(hFont);
@@ -1819,7 +1819,7 @@ HB_FUNC( BT_BITMAPLOADEMF )
 #else
    TCHAR * FileName = ( TCHAR * ) hb_osStrU16Encode(hb_parc(1));
 #endif
-   COLORREF BackgroundColor = ( COLORREF ) RGB(HB_PARVNL(2, 1), HB_PARVNL(2, 2), HB_PARVNL(2, 3));
+   COLORREF BackgroundColor = static_cast<COLORREF>(RGB(HB_PARVNL(2, 1), HB_PARVNL(2, 2), HB_PARVNL(2, 3)));
    INT      ModeStretch     = HB_ISNUM(5) ? hb_parnl(5) : BT_SCALE;
 
    HENHMETAFILE  hEMF = nullptr;
@@ -2146,7 +2146,7 @@ static BOOL bt_BMP_BITS(bt_BMPIMAGE * Image, INT nAction)
 static int bt_BMP_GETBYTE(bt_BMPIMAGE Image, int x, int y, int channel)
 {
    if( x >= 0 && x < Image.Width && y >= 0 && y < Image.Height ) {
-      return ( int ) Image.lp_Bits[(y * Image.WidthBytes) + (x * Image.nChannels + channel)];
+      return static_cast<int>(Image.lp_Bits[(y * Image.WidthBytes) + (x * Image.nChannels + channel)]);
    } else {
       return 0;
    }
@@ -2155,7 +2155,7 @@ static int bt_BMP_GETBYTE(bt_BMPIMAGE Image, int x, int y, int channel)
 static int bt_BMP_SETBYTE(bt_BMPIMAGE Image, int x, int y, int channel, BYTE value)
 {
    if( x >= 0 && x < Image.Width && y >= 0 && y < Image.Height ) {
-      return ( int ) (Image.lp_Bits[(y * Image.WidthBytes) + (x * Image.nChannels + channel)] = value);
+      return static_cast<int>(Image.lp_Bits[(y * Image.WidthBytes) + (x * Image.nChannels + channel)] = value);
    } else {
       return -1;
    }
@@ -2197,8 +2197,8 @@ static HBITMAP bt_BiLinearInterpolation(HBITMAP hBitmap, int newWidth, int newHe
 
    for( int Row = 0; Row < Image2.Height; Row++ ) {
       for( int Col = 0; Col < Image2.Width; Col++ ) {
-         x = ( int ) (x_ratio * Col);
-         y = ( int ) (y_ratio * Row);
+         x = static_cast<int>(x_ratio * Col);
+         y = static_cast<int>(y_ratio * Row);
 
          x_diff = static_cast<double>((x_ratio * Col) - x);
          y_diff = static_cast<double>((y_ratio * Row) - y);
@@ -2485,8 +2485,8 @@ HB_FUNC( BT_BMP_PROCESS )
       BYTE B;
    } ;
 
-   #define bt_RGB_TO_GRAY(R, G, B)  ( INT ) (( FLOAT ) R * 0.299 + ( FLOAT ) G * 0.587 + ( FLOAT ) B * 0.114)
-   #define bt_GAMMA(index, gamma)   (HB_MIN(255, ( INT ) ((255.0 * pow((static_cast<DOUBLE>(index) / 255.0), (1.0 / static_cast<DOUBLE>(gamma)))) + 0.5)))
+   #define bt_RGB_TO_GRAY(R, G, B)  static_cast<INT>(static_cast<FLOAT>(R) * 0.299 + static_cast<FLOAT>(G) * 0.587 + static_cast<FLOAT>(B) * 0.114)
+   #define bt_GAMMA(index, gamma)   (HB_MIN(255, static_cast<INT>((255.0 * pow((static_cast<DOUBLE>(index) / 255.0), (1.0 / static_cast<DOUBLE>(gamma)))) + 0.5)))
    //  redGamma[i] = (byte)           Min (255, (int)(( 255.0 *Pow(i/255.0, 1.0/g_red)) + 0.5));
 
    LPBYTE            lp_Bits;
@@ -2597,7 +2597,7 @@ HB_FUNC( BT_BMP_PROCESS )
    GetDIBits(memDC, hBitmap, 0, bm.bmHeight, static_cast<LPVOID>(lp_Bits), &BI, DIB_RGB_COLORS);
 
    for( INT y = 0; y < bm.bmHeight; y++ ) {
-      RGBcolor = ( bt_RGBCOLORBYTE * ) (lp_Bits + ( LONG ) ( y ) * bm.bmWidthBytes);
+      RGBcolor = ( bt_RGBCOLORBYTE * ) (lp_Bits + static_cast<LONG>(y) * bm.bmWidthBytes);
 
       for( INT x = 0; x < bm.bmWidth; x++ ) {
          switch( Action ) {
@@ -2770,13 +2770,13 @@ HB_FUNC( BT_BMP_FILTER3X3 )
 
    for( INT y = 0; y < bm.bmHeight; y++ ) {
 //     RGBcolor_O = (bt_RGBCOLORBYTE *) (lp_Bits_O + (LONG) (y) * bm.bmWidthBytes);
-      RGBcolor_D = ( bt_RGBCOLORBYTE * ) (lp_Bits_D + ( LONG ) (y) * bm.bmWidthBytes);
+      RGBcolor_D = ( bt_RGBCOLORBYTE * ) (lp_Bits_D + static_cast<LONG>(y) * bm.bmWidthBytes);
 
       for( INT x = 0; x < bm.bmWidth; x++ ) {
          if( (y >= HALF && y < (bm.bmHeight - HALF)) && (x >= HALF && x < (bm.bmWidth - HALF)) ) {
-            RGBcolor_Yprevious_Xcurrent  = ( bt_RGBCOLORBYTE * ) (lp_Bits_O + ( LONG ) (y - 1) * bm.bmWidthBytes + x * sizeof(bt_RGBCOLORBYTE));
-            RGBcolor_Ycurrent_Xcurrent   = ( bt_RGBCOLORBYTE * ) (lp_Bits_O + ( LONG ) (y + 0) * bm.bmWidthBytes + x * sizeof(bt_RGBCOLORBYTE));
-            RGBcolor_Yposterior_Xcurrent = ( bt_RGBCOLORBYTE * ) (lp_Bits_O + ( LONG ) (y + 1) * bm.bmWidthBytes + x * sizeof(bt_RGBCOLORBYTE));
+            RGBcolor_Yprevious_Xcurrent  = ( bt_RGBCOLORBYTE * ) (lp_Bits_O + static_cast<LONG>(y - 1) * bm.bmWidthBytes + x * sizeof(bt_RGBCOLORBYTE));
+            RGBcolor_Ycurrent_Xcurrent   = ( bt_RGBCOLORBYTE * ) (lp_Bits_O + static_cast<LONG>(y + 0) * bm.bmWidthBytes + x * sizeof(bt_RGBCOLORBYTE));
+            RGBcolor_Yposterior_Xcurrent = ( bt_RGBCOLORBYTE * ) (lp_Bits_O + static_cast<LONG>(y + 1) * bm.bmWidthBytes + x * sizeof(bt_RGBCOLORBYTE));
 
             RGBcolor_Ret = bt_ConvolutionKernel3x3(RGBcolor_Yprevious_Xcurrent, RGBcolor_Ycurrent_Xcurrent, RGBcolor_Yposterior_Xcurrent, MatKernel3x3Filter);
             RGBcolor_D->R = RGBcolor_Ret.R;
@@ -2838,7 +2838,7 @@ HB_FUNC( BT_BMP_TRANSFORM )
 
    HBITMAP hBitmap_O      = hmg_par_HBITMAP(1);
    INT Mode               = hb_parnl(2);
-   FLOAT Angle            = ( FLOAT ) hb_parnd(3);
+   FLOAT Angle            = static_cast<FLOAT>(hb_parnd(3));
    COLORREF Color_Fill_Bk = hmg_par_COLORREF(4);
 
    HDC memDC1 = CreateCompatibleDC(nullptr);
@@ -2853,26 +2853,26 @@ HB_FUNC( BT_BMP_TRANSFORM )
    SetGraphicsMode(memDC2, GM_ADVANCED);
 
    if( (Mode & BT_BITMAP_REFLECT_HORIZONTAL) == BT_BITMAP_REFLECT_HORIZONTAL ) {
-      xform1.eM11 = ( FLOAT ) -1.0;
-      xform1.eDx  = ( FLOAT ) (Width - 1);
+      xform1.eM11 = static_cast<FLOAT>(-1.0);
+      xform1.eDx  = static_cast<FLOAT>(Width - 1);
 
       if( (Mode & BT_BITMAP_ROTATE) == BT_BITMAP_ROTATE ) {
-         xform1.eDx = ( FLOAT ) Width;
+         xform1.eDx = static_cast<FLOAT>(Width);
       }
    }
 
    if( (Mode & BT_BITMAP_REFLECT_VERTICAL) == BT_BITMAP_REFLECT_VERTICAL ) {
-      xform1.eM22 = ( FLOAT ) -1.0;
-      xform1.eDy  = ( FLOAT ) (Height - 1);
+      xform1.eM22 = static_cast<FLOAT>(-1.0);
+      xform1.eDy  = static_cast<FLOAT>(Height - 1);
 
       if( (Mode & BT_BITMAP_ROTATE) == BT_BITMAP_ROTATE ) {
-         xform1.eDy = ( FLOAT ) Height;
+         xform1.eDy = static_cast<FLOAT>(Height);
       }
    }
 
    if( (Mode & BT_BITMAP_ROTATE) == BT_BITMAP_ROTATE ) {
       if( (Angle <= 0.0) || (Angle > 360.0) ) {
-         Angle = ( FLOAT ) 360.0;
+         Angle = static_cast<FLOAT>(360.0);
       }
 
       // Angle = angulo en grados
@@ -2896,16 +2896,16 @@ HB_FUNC( BT_BMP_TRANSFORM )
       double x3 = -(static_cast<double>(Height) * sin(radianes));
       double y3 = (static_cast<double>(Height) * cos(radianes));
 
-      xform2.eM11 = ( FLOAT ) cos(radianes);
-      xform2.eM12 = ( FLOAT ) sin(radianes);
-      xform2.eM21 = ( FLOAT ) -sin(radianes);
-      xform2.eM22 = ( FLOAT ) cos(radianes);
-      xform2.eDx  = ( FLOAT ) 0.0;
-      xform2.eDy  = ( FLOAT ) 0.0;
+      xform2.eM11 = static_cast<FLOAT>(cos(radianes));
+      xform2.eM12 = static_cast<FLOAT>(sin(radianes));
+      xform2.eM21 = static_cast<FLOAT>(-sin(radianes));
+      xform2.eM22 = static_cast<FLOAT>(cos(radianes));
+      xform2.eDx  = static_cast<FLOAT>(0.0);
+      xform2.eDy  = static_cast<FLOAT>(0.0);
 
       if( Angle <= 90.0 ) {
-         xform2.eDx = ( FLOAT ) -x3;
-         xform2.eDy = ( FLOAT ) 0.0;
+         xform2.eDx = static_cast<FLOAT>(-x3);
+         xform2.eDy = static_cast<FLOAT>(0.0);
 
          Width = dABS((x3 - x1));
 
@@ -2913,8 +2913,8 @@ HB_FUNC( BT_BMP_TRANSFORM )
       }
 
       if( (Angle > 90.0) && (Angle <= 180.0) ) {
-         xform2.eDx = ( FLOAT ) -x2;
-         xform2.eDy = ( FLOAT ) -y3;
+         xform2.eDx = static_cast<FLOAT>(-x2);
+         xform2.eDy = static_cast<FLOAT>(-y3);
 
          Width = dABS(x2);
 
@@ -2922,8 +2922,8 @@ HB_FUNC( BT_BMP_TRANSFORM )
       }
 
       if( (Angle > 180.0) && (Angle <= 270.0) ) {
-         xform2.eDx = ( FLOAT ) -x1;
-         xform2.eDy = ( FLOAT ) -y2;
+         xform2.eDx = static_cast<FLOAT>(-x1);
+         xform2.eDy = static_cast<FLOAT>(-y2);
 
          Width = dABS((x3 - x1));
 
@@ -2931,8 +2931,8 @@ HB_FUNC( BT_BMP_TRANSFORM )
       }
 
       if( (Angle > 270.0) && (Angle <= 360.0) ) {
-         xform2.eDx = ( FLOAT ) 0.0;
-         xform2.eDy = ( FLOAT ) -y1;
+         xform2.eDx = static_cast<FLOAT>(0.0);
+         xform2.eDy = static_cast<FLOAT>(-y1);
 
          Width = dABS(x2);
 

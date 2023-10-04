@@ -441,7 +441,7 @@ HB_FUNC( RR_GETPRINTERS )
 
    EnumPrinters(flags, nullptr, level, nullptr, 0, &dwSize, &dwPrinters);
 
-   pBuffer = ( char * ) GlobalAlloc(GPTR, dwSize);
+   pBuffer = static_cast<char*>(GlobalAlloc(GPTR, dwSize));
    if( pBuffer == nullptr ) {
       hb_retc( ",," );
       return;
@@ -455,7 +455,7 @@ HB_FUNC( RR_GETPRINTERS )
       return;
    }
 
-   cBuffer = ( char * ) GlobalAlloc(GPTR, dwPrinters * 256);
+   cBuffer = static_cast<char*>(GlobalAlloc(GPTR, dwPrinters * 256));
 
    if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT ) {
       pInfo4 = ( PRINTER_INFO_4 * ) pBuffer;
@@ -561,7 +561,7 @@ HB_FUNC( RR_DEVICECAPABILITIES )
 #endif
 
 #ifdef UNICODE
-   numpapers = DeviceCapabilities(AnsiToWide(( LPSTR ) pi2->pPrinterName), AnsiToWide(( LPSTR ) pi2->pPortName), DC_PAPERNAMES, nullptr, nullptr);
+   numpapers = DeviceCapabilities(AnsiToWide(static_cast<LPSTR>(pi2->pPrinterName)), AnsiToWide(static_cast<LPSTR>(pi2->pPortName)), DC_PAPERNAMES, nullptr, nullptr);
 #else
    numpapers = DeviceCapabilities(pi2->pPrinterName, pi2->pPortName, DC_PAPERNAMES, nullptr, nullptr);
 #endif
@@ -575,9 +575,9 @@ HB_FUNC( RR_DEVICECAPABILITIES )
       sBuffer  = ( TCHAR * ) sGBuffer;
       cBuffer  = ( TCHAR * ) cGBuffer;
 #ifdef UNICODE
-      DeviceCapabilities(AnsiToWide(( LPSTR ) pi2->pPrinterName), AnsiToWide(( LPSTR ) pi2->pPortName), DC_PAPERNAMES, pBuffer, pi2->pDevMode);
-      DeviceCapabilities(AnsiToWide(( LPSTR ) pi2->pPrinterName), AnsiToWide(( LPSTR ) pi2->pPortName), DC_PAPERS, nBuffer, pi2->pDevMode);
-      DeviceCapabilities(AnsiToWide(( LPSTR ) pi2->pPrinterName), AnsiToWide(( LPSTR ) pi2->pPortName), DC_PAPERSIZE, sBuffer, pi2->pDevMode);
+      DeviceCapabilities(AnsiToWide(static_cast<LPSTR>(pi2->pPrinterName)), AnsiToWide(static_cast<LPSTR>(pi2->pPortName)), DC_PAPERNAMES, pBuffer, pi2->pDevMode);
+      DeviceCapabilities(AnsiToWide(static_cast<LPSTR>(pi2->pPrinterName)), AnsiToWide(static_cast<LPSTR>(pi2->pPortName)), DC_PAPERS, nBuffer, pi2->pDevMode);
+      DeviceCapabilities(AnsiToWide(static_cast<LPSTR>(pi2->pPrinterName)), AnsiToWide(static_cast<LPSTR>(pi2->pPortName)), DC_PAPERSIZE, sBuffer, pi2->pDevMode);
 #else
       DeviceCapabilities(pi2->pPrinterName, pi2->pPortName, DC_PAPERNAMES, pBuffer, pi2->pDevMode);
       DeviceCapabilities(pi2->pPrinterName, pi2->pPortName, DC_PAPERS, nBuffer, pi2->pDevMode);
@@ -619,7 +619,7 @@ HB_FUNC( RR_DEVICECAPABILITIES )
    }
 
 #ifdef UNICODE
-   numbins = DeviceCapabilities(AnsiToWide(( LPSTR ) pi2->pPrinterName), AnsiToWide(( LPSTR ) pi2->pPortName), DC_BINNAMES, nullptr, nullptr);
+   numbins = DeviceCapabilities(AnsiToWide(static_cast<LPSTR>(pi2->pPrinterName)), AnsiToWide(static_cast<LPSTR>(pi2->pPortName)), DC_BINNAMES, nullptr, nullptr);
 #else
    numbins = DeviceCapabilities(pi2->pPrinterName, pi2->pPortName, DC_BINNAMES, nullptr, nullptr);
 #endif
@@ -631,8 +631,8 @@ HB_FUNC( RR_DEVICECAPABILITIES )
       bwBuffer  = ( TCHAR * ) bwGBuffer;
       bcBuffer  = ( TCHAR * ) bcGBuffer;
 #ifdef UNICODE
-      DeviceCapabilities(AnsiToWide(( LPSTR ) pi2->pPrinterName), AnsiToWide(( LPSTR ) pi2->pPortName), DC_BINNAMES, bnBuffer, pi2->pDevMode);
-      DeviceCapabilities(AnsiToWide(( LPSTR ) pi2->pPrinterName), AnsiToWide(( LPSTR ) pi2->pPortName), DC_BINS, bwBuffer, pi2->pDevMode);
+      DeviceCapabilities(AnsiToWide(static_cast<LPSTR>(pi2->pPrinterName)), AnsiToWide(static_cast<LPSTR>(pi2->pPortName)), DC_BINNAMES, bnBuffer, pi2->pDevMode);
+      DeviceCapabilities(AnsiToWide(static_cast<LPSTR>(pi2->pPrinterName)), AnsiToWide(static_cast<LPSTR>(pi2->pPortName)), DC_BINS, bwBuffer, pi2->pDevMode);
 #else
       DeviceCapabilities(pi2->pPrinterName, pi2->pPortName, DC_BINNAMES, bnBuffer, pi2->pDevMode);
       DeviceCapabilities(pi2->pPrinterName, pi2->pPortName, DC_BINS, bwBuffer, pi2->pDevMode);
@@ -842,7 +842,7 @@ HB_FUNC( RR_CREATEFONT )
 #ifndef UNICODE
    TCHAR *      FontName  = ( TCHAR * ) hb_parc(1);
 #else
-   TCHAR *      FontName  = AnsiToWide(( char * ) hb_parc(1));
+   TCHAR *      FontName  = AnsiToWide(const_cast<char*>(hb_parc(1)));
 #endif
    int          FontSize  = hb_parni(2);
    LONG         FontWidth = hb_parnl(3);
@@ -900,7 +900,7 @@ HB_FUNC( RR_CREATEFONT )
       GetTextMetrics(hDC, &tm);
       SelectObject(hDC, oldfont);
       DeleteObject(hxfont);
-      newWidth = ( int ) ( ( float ) -( tm.tmAveCharWidth + tm.tmOverhang ) * FontWidth / 100 );
+      newWidth = static_cast<int>(static_cast<float>(-(tm.tmAveCharWidth + tm.tmOverhang)) * FontWidth / 100);
       hxfont   = CreateFont
                  (
          FontHeight,
@@ -1000,9 +1000,9 @@ HB_FUNC( RR_SETCHARSET )
 HB_FUNC( RR_TEXTOUT )
 {
 #ifndef UNICODE
-   LPTSTR lpText = ( LPTSTR ) hb_parc(1);
+   LPTSTR lpText = const_cast<LPTSTR>(hb_parc(1));
 #else
-   LPCTSTR lpText = AnsiToWide(( char * ) hb_parc(1));
+   LPCTSTR lpText = AnsiToWide(const_cast<char*>(hb_parc(1)));
 #endif
    HGDIOBJ xfont    = hmg_par_HFONT(3);
    HFONT   prevfont = nullptr;
@@ -1041,7 +1041,7 @@ HB_FUNC( RR_DRAWTEXT )
 #ifndef UNICODE
    LPCSTR pszData = hb_parc(3);
 #else
-   LPCWSTR pszData = AnsiToWide(( char * ) hb_parc(3));
+   LPCWSTR pszData = AnsiToWide(const_cast<char*>(hb_parc(3)));
 #endif
    int     iLen     = lstrlen(pszData);
    HGDIOBJ xfont    = hmg_par_HFONT(5);
@@ -1157,7 +1157,7 @@ HB_FUNC( RR_CREATERGN )
 
 HB_FUNC( RR_CREATEPOLYGONRGN )
 {
-   int   number = ( int ) hb_parinfa(1, 0);
+   int   number = static_cast<int>(hb_parinfa(1, 0));
    POINT apoints[1024];
 
    for( int i = 0; i <= number - 1; i++ ) {
@@ -1276,11 +1276,11 @@ HB_FUNC( RR_PICTURE )
    iPicture->lpVtbl->get_Width(iPicture, &lWidth);
    iPicture->lpVtbl->get_Height(iPicture, &lHeight);
    if( dc == 0 ) {
-      dc = ( int ) ( ( float ) dr * lWidth / lHeight );
+      dc = static_cast<int>(static_cast<float>(dr) * lWidth / lHeight);
    }
 
    if( dr == 0 ) {
-      dr = ( int ) ( ( float ) dc * lHeight / lWidth );
+      dr = static_cast<int>(static_cast<float>(dc) * lHeight / lWidth);
    }
 
    if( tor <= 0 ) {
@@ -1473,11 +1473,11 @@ HB_FUNC( RR_DRAWPICTURE )
    lw = MulDiv(lwidth, devcaps[6], 2540);
    lh = MulDiv(lheight, devcaps[5], 2540);
    if( dc == 0 ) {
-      dc = ( int ) ( ( float ) dr * lw / lh );
+      dc = static_cast<int>(static_cast<float>(dr) * lw / lh);
    }
 
    if( dr == 0 ) {
-      dr = ( int ) ( ( float ) dc * lh / lw );
+      dr = static_cast<int>(static_cast<float>(dc) * lh / lw);
    }
 
    if( tor <= 0 ) {
@@ -1591,7 +1591,7 @@ HB_FUNC( RR_DRAWIMAGELIST )
 
 HB_FUNC( RR_POLYGON )
 {
-   int      number = ( int ) hb_parinfa(1, 0);
+   int      number = static_cast<int>(hb_parinfa(1, 0));
    int      styl = GetPolyFillMode(hDC);
    POINT    apoints[1024];
    LONG_PTR xpen   = HB_PARNL(3);
@@ -1672,9 +1672,9 @@ HB_FUNC( RR_POLYBEZIERTO )
 HB_FUNC( RR_GETTEXTEXTENT )
 {
 #ifndef UNICODE
-   LPTSTR lpText = ( LPTSTR ) hb_parc(1);
+   LPTSTR lpText = const_cast<LPTSTR>(hb_parc(1));
 #else
-   LPWSTR lpText = AnsiToWide(( char * ) hb_parc(1));
+   LPWSTR lpText = AnsiToWide(const_cast<char*>(hb_parc(1)));
 #endif
    LONG_PTR xfont = HB_PARNL(3);
    SIZE     szMetric;
@@ -1920,9 +1920,9 @@ HB_FUNC( RR_PREVIEWPLAY )
    HDC  imgDC      = GetWindowDC( hmg_par_HWND(1) );
    HDC  tmpDC      = CreateCompatibleDC(imgDC);
 #ifndef UNICODE
-   LPSTR FileName = ( LPSTR ) HB_PARC(2, 1);
+   LPSTR FileName = const_cast<LPSTR>(HB_PARC(2, 1));
 #else
-   LPWSTR FileName = AnsiToWide(( char * ) HB_PARC(2, 1));
+   LPWSTR FileName = AnsiToWide(const_cast<char*>(HB_PARC(2, 1)));
 #endif
    HENHMETAFILE hh = GetEnhMetaFile(FileName);
 
@@ -1960,11 +1960,11 @@ HB_FUNC( RR_PLAYTHUMB )
    HDC  tmpDC;
    HDC  imgDC      = GetWindowDC( reinterpret_cast<HWND>(HB_PARVNL(1, 5)) );
 #ifndef UNICODE
-   LPSTR FileName  = ( LPSTR ) HB_PARC(2, 1);
-   LPTSTR lpText   = ( LPTSTR ) hb_parc(3);
+   LPSTR FileName  = const_cast<LPSTR>(HB_PARC(2, 1));
+   LPTSTR lpText   = const_cast<LPTSTR>(hb_parc(3));
 #else
-   LPWSTR FileName = AnsiToWide(( char * ) HB_PARC(2, 1));
-   LPWSTR lpText   = AnsiToWide(( char * ) hb_parc(3));
+   LPWSTR FileName = AnsiToWide(const_cast<char*>(HB_PARC(2, 1)));
+   LPWSTR lpText   = AnsiToWide(const_cast<char*>(hb_parc(3)));
 #endif
    HENHMETAFILE hh = GetEnhMetaFile(FileName);
    int          i;
@@ -1992,9 +1992,9 @@ HB_FUNC( RR_PLAYENHMETAFILE )
 {
    RECT rect;
 #ifndef UNICODE
-   LPSTR FileName  = ( LPSTR ) HB_PARC(1, 1);
+   LPSTR FileName  = const_cast<LPSTR>(HB_PARC(1, 1));
 #else
-   LPWSTR FileName = AnsiToWide(( char * ) HB_PARC(1, 1));
+   LPWSTR FileName = AnsiToWide(const_cast<char*>(HB_PARC(1, 1)));
 #endif
    HENHMETAFILE hh = GetEnhMetaFile(FileName);
 

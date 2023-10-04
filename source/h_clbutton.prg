@@ -464,7 +464,7 @@ HB_FUNC( INITCLBUTTON )
 #ifndef UNICODE
    LPCSTR lpWindowName = hb_parc(4);
 #else
-   LPWSTR lpWindowName = AnsiToWide(( char * ) hb_parc(4));
+   LPWSTR lpWindowName = AnsiToWide(const_cast<char*>(hb_parc(4)));
 #endif
 
    style = BS_COMMANDLINK;
@@ -495,9 +495,9 @@ HB_FUNC( INITCLBUTTON )
 HB_FUNC( CLBUTTON_SETNOTE )
 {
    if( HB_ISCHAR(2) ) {
-      LPSTR  szText        = ( LPSTR ) hb_parc(2);
+      LPSTR  szText        = const_cast<LPSTR>(hb_parc(2));
       int    nConvertedLen = MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, szText, -1, nullptr, 0);
-      LPWSTR lpwText       = ( LPWSTR ) hb_xgrab(nConvertedLen * 2 + 1);
+      LPWSTR lpwText       = static_cast<LPWSTR>(hb_xgrab(nConvertedLen * 2 + 1));
 
       MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, szText, -1, lpwText, nConvertedLen);
 
@@ -527,7 +527,7 @@ HB_FUNC( CLBUTTON_SETIMAGE )
 #ifndef UNICODE
    LPCTSTR lpImageName = hb_parc(2);
 #else
-   LPWSTR  lpImageName = AnsiToWide(( char * ) hb_parc(2));
+   LPWSTR  lpImageName = AnsiToWide(const_cast<char*>(hb_parc(2)));
 #endif
 
    himl = ImageList_LoadImage

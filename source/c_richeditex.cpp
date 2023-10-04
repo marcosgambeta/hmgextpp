@@ -111,7 +111,7 @@ HB_FUNC( INITRICHEDITBOXEX )
    }
 
    if( hRELib ) {
-      hWndControl = CreateWindowEx(WS_EX_CLIENTEDGE, ( LPCTSTR ) RICHEDIT_CLASS,
+      hWndControl = CreateWindowEx(WS_EX_CLIENTEDGE, static_cast<LPCTSTR>(RICHEDIT_CLASS),
                                    TEXT(""),
                                    style,
                                    hb_parni(3),
@@ -704,18 +704,18 @@ HB_FUNC( RICHEDITBOX_SETPARAFORMAT )
 
    if( HB_ISNUM(6) ) {
       Mask |= PFM_OFFSET;
-      ParaFormat2.dxOffset = ( LONG ) ( static_cast<double>(Offset * 1440.0 / 25.4) ); // Offset is in millimeters ( 1 inch = 25.4 mm = 1440 twips )
+      ParaFormat2.dxOffset = static_cast<LONG>(static_cast<double>(Offset * 1440.0 / 25.4)); // Offset is in millimeters ( 1 inch = 25.4 mm = 1440 twips )
    }
 
    if( LineSpacing > 0.0 ) {
       Mask |= PFM_LINESPACING;
       ParaFormat2.bLineSpacingRule = 5;    // Spacing from one line to the next, 20 twips = single-spaced text
-      ParaFormat2.dyLineSpacing    = ( LONG ) ( static_cast<double>(LineSpacing * 20.0 / 1.0) );
+      ParaFormat2.dyLineSpacing    = static_cast<LONG>(static_cast<double>(LineSpacing * 20.0 / 1.0));
    }
 
    if( HB_ISNUM(8) ) {
       Mask |= PFM_STARTINDENT;
-      ParaFormat2.dxStartIndent = ( LONG ) ( static_cast<double>(StartIndent * 1440.0 / 25.4) ); // StartIndent is in millimeters ( 1 inch = 25.4 mm = 1440 twips )
+      ParaFormat2.dxStartIndent = static_cast<LONG>(static_cast<double>(StartIndent * 1440.0 / 25.4)); // StartIndent is in millimeters ( 1 inch = 25.4 mm = 1440 twips )
    }
 
    ParaFormat2.dwMask = Mask;
@@ -894,7 +894,7 @@ HB_FUNC( RICHEDITBOX_PASTESPECIAL )    // Paste a specific clipboard format in a
    HWND hWndControl = hmg_par_HWND(1);
 
    if( HB_ISCHAR(2) ) {
-      CHAR * ClipboardFormat = ( CHAR * ) hb_parc(2);
+      CHAR * ClipboardFormat = const_cast<CHAR*>(hb_parc(2));
       SendMessage(hWndControl, EM_PASTESPECIAL, ( WPARAM ) ClipboardFormat, reinterpret_cast<LPARAM>(nullptr));
    } else {
       WPARAM ClipboardFormat = ( WPARAM ) hb_parnl(2);

@@ -429,7 +429,7 @@ HB_FUNC( SQLITE3_SET_AUTHORIZER )
          
                         hb_gcUnlock(pHbSqlite3->cbAuthorizer);
          
-                        hb_retni( sqlite3_set_authorizer( pHbSqlite3->db, authorizer,( void * ) pHbSqlite3->cbAuthorizer ) );
+                        hb_retni( sqlite3_set_authorizer( pHbSqlite3->db, authorizer, static_cast<void*>(pHbSqlite3->cbAuthorizer) ) );
                 }
                 else
                 {         
@@ -503,7 +503,7 @@ HB_FUNC( SQLITE3_BIND_BLOB )
         psqlite3_stmt pStmt = ( psqlite3_stmt ) hb_parptr(1);
 
         if( pStmt )
-                hb_retni( sqlite3_bind_blob(pStmt, hb_parni(2), hb_parcx(3), ( int ) hb_parcsiz(3) - 1,
+                hb_retni( sqlite3_bind_blob(pStmt, hb_parni(2), hb_parcx(3), static_cast<int>(hb_parcsiz(3)) - 1,
                                    SQLITE_TRANSIENT) );
         else
                 hb_errRT_BASE_SubstR(EG_ARG, 0, NULL, HB_ERR_FUNCNAME, 1, hb_paramError(1));
@@ -598,7 +598,7 @@ HB_FUNC( SQLITE3_BIND_TEXT )
 
                 const char *   pszSQLText = hb_parstr_utf8(3, &hSQLText, &nSQLText);
 
-                hb_retni( sqlite3_bind_text(pStmt, hb_parni(2), pszSQLText, ( int ) nSQLText,
+                hb_retni( sqlite3_bind_text(pStmt, hb_parni(2), pszSQLText, static_cast<int>(nSQLText),
                                    SQLITE_TRANSIENT) );
 
                 hb_strfree(hSQLText);
@@ -688,9 +688,9 @@ HB_FUNC( SQLITE3_BLOB_READ )
                 if( iLen == 0 )
                         iLen = sqlite3_blob_bytes(pBlob);
 
-                buffer = ( char * ) hb_xgrab(iLen + 1);
+                buffer = static_cast<char*>(hb_xgrab(iLen + 1));
 
-                if( SQLITE_OK == sqlite3_blob_read(pBlob, ( void * ) buffer, iLen, hb_parni(3)) )
+                if( SQLITE_OK == sqlite3_blob_read(pBlob, static_cast<void*>(buffer), iLen, hb_parni(3)) )
                 {
                         buffer[ iLen ] = '\0';
                         hb_retclen_buffer(buffer, iLen);
@@ -721,7 +721,7 @@ HB_FUNC( SQLITE3_BLOB_WRITE )
                 int iLen = hb_parni(3);
 
                 if( iLen == 0 )
-                        iLen = ( int ) hb_parcsiz(2) - 1;
+                        iLen = static_cast<int>(hb_parcsiz(2)) - 1;
 
                 hb_retni( sqlite3_blob_write(pBlob, hb_parcx(2), iLen, hb_parni(4)) );
         }
@@ -747,7 +747,7 @@ HB_FUNC( SQLITE3_BUSY_HANDLER )
                         hb_gcUnlock(pHbSqlite3->cbBusyHandler);
 
                         sqlite3_busy_handler( pHbSqlite3->db, busy_handler,
-                                                                ( void * ) pHbSqlite3->cbBusyHandler );
+                                                                static_cast<void*>(pHbSqlite3->cbBusyHandler) );
                 }
                 else
                         sqlite3_busy_handler( pHbSqlite3->db, NULL, NULL );
@@ -817,7 +817,7 @@ HB_FUNC( SQLITE3_COMMIT_HOOK )
                         pHbSqlite3->cbHookCommit = hb_itemNew(hb_param(2, Harbour::Item::POINTER));
                         hb_gcUnlock(pHbSqlite3->cbHookCommit);
 
-                        sqlite3_commit_hook(pHbSqlite3->db, hook_commit, ( void * ) pHbSqlite3->cbHookCommit);
+                        sqlite3_commit_hook(pHbSqlite3->db, hook_commit, static_cast<void*>(pHbSqlite3->cbHookCommit));
                 }
                 else
                         sqlite3_commit_hook(pHbSqlite3->db, NULL, NULL);
@@ -842,7 +842,7 @@ HB_FUNC( SQLITE3_ROLLBACK_HOOK )
                         hb_gcUnlock(pHbSqlite3->cbHookRollback);
 
                         sqlite3_rollback_hook(pHbSqlite3->db, hook_rollback,
-                                                                        ( void * ) pHbSqlite3->cbHookRollback);
+                                                                        static_cast<void*>(pHbSqlite3->cbHookRollback));
                 }
                 else
                         sqlite3_rollback_hook(pHbSqlite3->db, NULL, NULL);
@@ -1108,7 +1108,7 @@ HB_FUNC( SQLITE3_EXEC )
                 if( ISPOINTER(3) )
                 {
                         rc = sqlite3_exec(pHbSqlite3->db, hb_parstr_utf8(2, &hSQLText,
-                                                            NULL), callback, ( void * ) hb_param(3, Harbour::Item::POINTER),&pszErrMsg);
+                                                            NULL), callback, static_cast<void*>(hb_param(3, Harbour::Item::POINTER)), &pszErrMsg);
                 }
                 else
                 {
@@ -1261,7 +1261,7 @@ HB_FUNC( SQLITE3_LIMIT )
 
 HB_FUNC( SQLITE3_MEMORY_HIGHWATER )
 {
-        hb_retnint(sqlite3_memory_highwater(( int ) hb_parl(1)));
+        hb_retnint(sqlite3_memory_highwater(static_cast<int>(hb_parl(1))));
 }
 
 HB_FUNC( SQLITE3_MEMORY_USED )
@@ -1341,7 +1341,7 @@ HB_FUNC( SQLITE3_PREPARE )
                 if( SQL )
                 {
                         const char *   pSQL = hb_itemGetCPtr(SQL);
-                        int            ulLen = ( int ) hb_itemGetCLen(SQL);
+                        int            ulLen = static_cast<int>(hb_itemGetCLen(SQL));
                         psqlite3_stmt  pStmt;
                         const char *   pszTail;
 
@@ -1374,7 +1374,7 @@ HB_FUNC( SQLITE3_PREPARE_V2 )
                 if( SQL )
                 {
                         const char *   pSQL = hb_itemGetCPtr(SQL);
-                        int            ulLen = ( int ) hb_itemGetCLen(SQL);
+                        int            ulLen = static_cast<int>(hb_itemGetCLen(SQL));
                         psqlite3_stmt  pStmt;
                         const char *   pszTail;
 
@@ -1402,7 +1402,7 @@ HB_FUNC( SQLITE3_PROFILE )
 
         if( pHbSqlite3 && pHbSqlite3->db )
                 sqlite3_profile(pHbSqlite3->db, hb_parl(2) ? SQL3ProfileLog : NULL,
-                                                ( void * ) ( ISCHAR(3) ? hb_parcx(3) : NULL ));
+                                                static_cast<void*>( ISCHAR(3) ? hb_parcx(3) : NULL ));
         else
                 hb_errRT_BASE_SubstR(EG_ARG, 0, NULL, HB_ERR_FUNCNAME, 1, hb_paramError(1));
 }
@@ -1425,7 +1425,7 @@ HB_FUNC( SQLITE3_PROGRESS_HANDLER )
                         hb_gcUnlock(pHbSqlite3->cbProgressHandler);
 
                         sqlite3_progress_handler( pHbSqlite3->db, hb_parni(2), progress_handler,
-                                   ( void * ) pHbSqlite3->cbProgressHandler );
+                                   static_cast<void*>(pHbSqlite3->cbProgressHandler) );
                 }
                 else
                         sqlite3_progress_handler( pHbSqlite3->db, 0, NULL, NULL );
@@ -1482,7 +1482,7 @@ HB_FUNC( SQLITE3_STATUS )
 
         if( hb_pcount() > 3 && ( ISNUM(2) && ISBYREF(2) ) && ( ISNUM(3) && ISBYREF(3) ) )
         {
-                hb_retni( sqlite3_status(hb_parni(1), &iCurrent, &iHighwater, ( int ) hb_parl(4)) );
+                hb_retni( sqlite3_status(hb_parni(1), &iCurrent, &iHighwater, static_cast<int>(hb_parl(4))) );
 
                 hb_storni( iCurrent, 2 );
                 hb_storni( iHighwater, 3 );
@@ -1516,7 +1516,7 @@ HB_FUNC( SQLITE3_STMT_STATUS )
         psqlite3_stmt pStmt = ( psqlite3_stmt ) hb_parptr(1);
 
         if( pStmt )
-                hb_retni( sqlite3_stmt_status(pStmt, hb_parni(2), ( int ) hb_parl(3)) );
+                hb_retni( sqlite3_stmt_status(pStmt, hb_parni(2), static_cast<int>(hb_parl(3))) );
         else
                 hb_errRT_BASE_SubstR(EG_ARG, 0, NULL, HB_ERR_FUNCNAME, 1, hb_paramError(1));
 }
@@ -1586,7 +1586,7 @@ HB_FUNC( SQLITE3_TRACE )
 
    if( pHbSqlite3 && pHbSqlite3->db )
       sqlite3_trace(pHbSqlite3->db, hb_parl(2) ? SQL3TraceLog : NULL,
-                     ( void * ) ( ISCHAR(3) ? hb_parcx(3) : NULL ));
+                     static_cast<void*>( ISCHAR(3) ? hb_parcx(3) : NULL ));
    else
       hb_errRT_BASE_SubstR(EG_ARG, 0, NULL, HB_ERR_FUNCNAME, 1, hb_paramError(1));
 }
@@ -1602,7 +1602,7 @@ HB_FUNC( SQLITE3_FILE_TO_BUFF )
 
                 nSize = hb_fsSeek(handle, 0, FS_END);
                 hb_fsSeek(handle, 0, FS_SET);
-                buffer = ( char * ) hb_xgrab(nSize + 1);
+                buffer = static_cast<char*>(hb_xgrab(nSize + 1));
                 nSize = hb_fsReadLarge(handle, buffer, nSize);
                 buffer[ nSize ] = '\0';
                 hb_fsClose(handle);

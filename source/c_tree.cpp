@@ -102,7 +102,7 @@ HB_FUNC( INITTREEVIEWBITMAP ) //Tree+
       PHB_ITEM hArray = hb_param(2, Harbour::Item::ARRAY);
 
       for( int s = 1; s <= nCount; s++ ) {
-         FileName = ( char * ) hb_arrayGetCPtr(hArray, s); // TODO: unicode
+         FileName = const_cast<char*>(hb_arrayGetCPtr(hArray, s)); // TODO: unicode
 
          if( himl == nullptr ) {
             himl = HMG_ImageListLoadFirst(FileName, nCount, Transparent, nullptr, nullptr);
@@ -131,7 +131,7 @@ HB_FUNC( ADDTREEVIEWBITMAP )  // Tree+
    HWND hbutton = hmg_par_HWND(1);
    HIMAGELIST himl = TreeView_GetImageList(hbutton, TVSIL_NORMAL);
    if( himl != nullptr ) {
-      HMG_ImageListAdd(himl, ( char * ) hb_parc(2), Transparent);
+      HMG_ImageListAdd(himl, const_cast<char*>(hb_parc(2)), Transparent);
       SendMessage(hbutton, TVM_SETIMAGELIST, TVSIL_NORMAL, reinterpret_cast<LPARAM>(himl));
       ic = ImageList_GetImageCount(himl);
    }

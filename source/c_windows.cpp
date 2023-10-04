@@ -303,7 +303,7 @@ HB_FUNC( APPEVENTS )
 {
    BOOL bRes = FALSE;
    HWND hWnd = hmg_par_HWND(1);
-   UINT message = ( UINT ) hb_parns(2);
+   UINT message = static_cast<UINT>(hb_parns(2));
 
    if( IsWindow(hWnd) && ( message >= WM_APP && message <= ( WM_APP + MAX_EVENTS ) ) ) {
       BOOL bInit = FALSE;
@@ -366,7 +366,7 @@ HB_FUNC( APPEVENTSREMOVE )
 {
    bool bDel = false;
    HWND hWnd = hmg_par_HWND(1);
-   UINT message = ( UINT ) hb_parns(2);
+   UINT message = static_cast<UINT>(hb_parns(2));
 
    if( IsWindow(hWnd) ) {
       const char * pszProp = hb_parldef(3, true) ? "ONCE" : "ON";
@@ -381,7 +381,7 @@ HB_FUNC( APPEVENTSUPDATE )
 {
    bool bUpd = false;
    HWND hWnd = hmg_par_HWND(1);
-   UINT message = ( UINT ) hb_parns(2);
+   UINT message = static_cast<UINT>(hb_parns(2));
 
    if( IsWindow(hWnd) ) {
       const char *   pszProp = hb_parldef(5, true) ? "ONCE" : "ON";
@@ -616,7 +616,7 @@ HB_FUNC( WINEVENTS )
 {
    BOOL bRes = FALSE;
    HWND hWnd = hmg_par_HWND(1);
-   UINT message = ( UINT ) hb_parns(2);
+   UINT message = static_cast<UINT>(hb_parns(2));
 
    if( IsWindow(hWnd) && ( message <= ( WM_APP + MAX_EVENTS ) ) ) {
       BOOL bInit = FALSE;
@@ -679,7 +679,7 @@ HB_FUNC( WINEVENTSREMOVE )
 {
    bool bDel = false;
    HWND hWnd = hmg_par_HWND(1);
-   UINT message = ( UINT ) hb_parns(2);
+   UINT message = static_cast<UINT>(hb_parns(2));
 
    if( IsWindow(hWnd) ) {
       const char * pszProp = hb_parldef(3, true) ? "ONCE" : "ON";
@@ -694,7 +694,7 @@ HB_FUNC( WINEVENTSUPDATE )
 {
    bool bUpd = false;
    HWND hWnd = hmg_par_HWND(1);
-   UINT message = ( UINT ) hb_parns(2);
+   UINT message = static_cast<UINT>(hb_parns(2));
 
    if( IsWindow(hWnd) ) {
       const char *      pszProp = hb_parldef(5, true) ? "ONCE" : "ON";
@@ -1321,7 +1321,7 @@ HB_FUNC( BORLANDC )
    int iVerMinor;
    int iVerPatch;
 
-   pszCompiler = ( char * ) hb_xgrab(COMPILER_BUF_SIZE);
+   pszCompiler = static_cast<char*>(hb_xgrab(COMPILER_BUF_SIZE));
    szSub[0] = '\0';
 
    #if ( __BORLANDC__ >= 0x0590 )    /* Version 5.9 */
@@ -1363,7 +1363,7 @@ HB_FUNC( BORLANDC )
    #endif
 
    #else
-   pszCompiler = ( char * ) hb_xgrab(COMPILER_BUF_SIZE);
+   pszCompiler = static_cast<char*>(hb_xgrab(COMPILER_BUF_SIZE));
    strcpy(pszCompiler, "");
    #endif /* __BORLANDC__ */
 
@@ -1374,7 +1374,7 @@ HB_FUNC( BORLANDC )
 
 HB_FUNC( HMG_VERSION )
 {
-   char * pszVersion = ( char * ) hb_xgrab(40);
+   char * pszVersion = static_cast<char*>(hb_xgrab(40));
    hb_snprintf( pszVersion, 40, "Harbour MiniGUI %d.%d.%d (%s)", MG_VER_MAJOR, MG_VER_MINOR, MG_VER_RELEASE, MG_VER_STATUS );
    hb_retc_buffer(pszVersion);
 }
@@ -1399,7 +1399,7 @@ HB_FUNC( HMG_ISDIGIT )
 HB_FUNC( HMG_LOWER )
 {
    LPSTR pStr;
-   TCHAR * Text = ( TCHAR * ) AnsiToWide(( char * ) hb_parc(1));
+   TCHAR * Text = ( TCHAR * ) AnsiToWide(const_cast<char*>(hb_parc(1)));
    INT nLen;
    TCHAR * Buffer;
 
@@ -1428,7 +1428,7 @@ HB_FUNC( HMG_LOWER )
 HB_FUNC( HMG_UPPER )
 {
    LPSTR pStr;
-   TCHAR * Text = ( TCHAR * ) AnsiToWide(( char * ) hb_parc(1));
+   TCHAR * Text = ( TCHAR * ) AnsiToWide(const_cast<char*>(hb_parc(1)));
    INT nLen;
    TCHAR * Buffer;
 

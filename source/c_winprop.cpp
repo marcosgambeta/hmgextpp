@@ -126,7 +126,7 @@ HB_FUNC( SETPROP )
 #ifndef UNICODE
       pW = hb_parc(2);
 #else
-      pW = AnsiToWide(( char * ) hb_parc(2));
+      pW = AnsiToWide(const_cast<char*>(hb_parc(2)));
 #endif
       hb_retl(SetProp(hwnd, pW, hmg_par_HANDLE(3)) ? true : false);
    #ifdef UNICODE
@@ -139,7 +139,7 @@ HB_FUNC( SETPROP )
    if( (hMem = GlobalAlloc(GPTR, nLen + sizeof(int) + 1)) == nullptr ) {
       return;
    } else {
-      lpMem = ( char * ) GlobalLock(hMem);
+      lpMem = static_cast<char*>(GlobalLock(hMem));
       if( lpMem == nullptr ) {
          GlobalFree(hMem);
          return;
@@ -147,14 +147,14 @@ HB_FUNC( SETPROP )
    }
 
    lpMem[0] = chType;
-   memcpy(lpMem + 1, ( char * ) &nLen, sizeof(int));
+   memcpy(lpMem + 1, reinterpret_cast<char*>(&nLen), sizeof(int));
 
    switch( chType ) {
       case 'C':   memcpy(lpMem + sizeof(int) + 1, hb_parc(3), nLen); break;
-      case 'L':   bValue = hb_parl(3); memcpy(lpMem + sizeof(int) + 1, ( char * ) &bValue, sizeof(BOOL)); break;
+      case 'L':   bValue = hb_parl(3); memcpy(lpMem + sizeof(int) + 1, reinterpret_cast<char*>(&bValue), sizeof(BOOL)); break;
       case 'D':   memcpy(lpMem + sizeof(int) + 1, hb_pards(3), nLen); break;
-      case 'I':   iValue = hb_parnl(3); memcpy(lpMem + sizeof(int) + 1, ( char * ) &iValue, sizeof(INT)); break;
-      case 'F':   dValue = hb_parnd(3); memcpy(lpMem + sizeof(int) + 1, ( char * ) &dValue, sizeof(double)); break;
+      case 'I':   iValue = hb_parnl(3); memcpy(lpMem + sizeof(int) + 1, reinterpret_cast<char*>(&iValue), sizeof(INT)); break;
+      case 'F':   dValue = hb_parnd(3); memcpy(lpMem + sizeof(int) + 1, reinterpret_cast<char*>(&dValue), sizeof(double)); break;
    }
 
    GlobalUnlock(hMem);
@@ -162,7 +162,7 @@ HB_FUNC( SETPROP )
 #ifndef UNICODE
    pW = hb_parc(2);
 #else
-   pW = AnsiToWide(( char * ) hb_parc(2));
+   pW = AnsiToWide(const_cast<char*>(hb_parc(2)));
 #endif
 
    hb_retl(SetProp(hwnd, pW, hMem) ? true : false);
@@ -184,7 +184,7 @@ HB_FUNC( GETPROP )
 #ifndef UNICODE
    LPCSTR pW = hb_parc(2);
 #else
-   LPWSTR pW = AnsiToWide(( char * ) hb_parc(2));
+   LPWSTR pW = AnsiToWide(const_cast<char*>(hb_parc(2)));
 #endif
 
    hb_ret();
@@ -209,19 +209,19 @@ HB_FUNC( GETPROP )
    if( hMem == nullptr ) {
       return;
    } else {
-      lpMem = ( char * ) GlobalLock(hMem);
+      lpMem = static_cast<char*>(GlobalLock(hMem));
 
       if( lpMem == nullptr ) {
          return;
       }
    }
 
-   nLen = ( int ) *( int * ) ( lpMem + 1 );
+   nLen = static_cast<int>(*reinterpret_cast<int*>(lpMem + 1));
    switch( lpMem[0] ) {
       case 'C':   hb_retclen(lpMem + sizeof(int) + 1, nLen); break;
       case 'L':   hb_retl(( BOOL ) *( BOOL * ) ( lpMem + sizeof(int) + 1 )); break;
       case 'D':   hb_retds(lpMem + sizeof(int) + 1); break;
-      case 'I':   hb_retni( ( INT ) *( INT * ) ( lpMem + sizeof(int) + 1 ) ); break;
+      case 'I':   hb_retni(static_cast<INT>(*reinterpret_cast<INT*>(lpMem + sizeof(int) + 1))); break;
       case 'F':   hb_retnd(static_cast<double>(*reinterpret_cast<double*>(lpMem + sizeof(int) + 1))); break;
    }
 
@@ -247,7 +247,7 @@ HB_FUNC( REMOVEPROP )
 #ifndef UNICODE
    hMem = RemovePropA(hwnd, hb_parc(2));
 #else
-   lpString = AnsiToWide(( char * ) hb_parc(2));
+   lpString = AnsiToWide(const_cast<char*>(hb_parc(2)));
    hMem     = RemovePropW(hwnd, lpString);
    hb_xfree(( TCHAR * ) lpString);
 #endif
@@ -284,7 +284,7 @@ static BOOL CALLBACK PropsEnumProc(HWND hWnd, LPCTSTR pszPropName, HANDLE handle
 
    if( iLen ) {
       PHB_ITEM item    = hb_itemArrayNew(3);
-      LPTSTR   pszName = ( LPTSTR ) hb_xgrabz((iLen + 1) * sizeof(TCHAR));
+      LPTSTR   pszName = static_cast<LPTSTR>(hb_xgrabz((iLen + 1) * sizeof(TCHAR)));
 
       lstrcpy(pszName, pszPropName);
 
@@ -356,7 +356,7 @@ BOOL CALLBACK PropsEnumProcEx(HWND hWnd, LPCTSTR pszPropName, HANDLE handle, ULO
       PHB_ITEM pHWnd = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(hWnd));
       PHB_ITEM pPropName;
       PHB_ITEM pHandle = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(handle));
-      LPTSTR   pszName = ( LPTSTR ) hb_xgrabz((iLen + 1) * sizeof(TCHAR));
+      LPTSTR   pszName = static_cast<LPTSTR>(hb_xgrabz((iLen + 1) * sizeof(TCHAR)));
 
       lstrcpy(pszName, pszPropName);
    #ifndef UNICODE

@@ -15,8 +15,8 @@
 #define UNICODE
 
 #if defined(__MINGW32__)
-#define MAKEINTRESOURCEA(i)  ( ( LPSTR ) ( ( ULONG_PTR ) ( static_cast<WORD>(i) ) ) )
-#define MAKEINTRESOURCEW(i)  ( ( LPWSTR ) ( ( ULONG_PTR ) ( static_cast<WORD>(i) ) ) )
+#define MAKEINTRESOURCEA(i)  (static_cast<LPSTR>(static_cast<ULONG_PTR>(static_cast<WORD>(i))))
+#define MAKEINTRESOURCEW(i)  (static_cast<LPWSTR>(static_cast<ULONG_PTR>(static_cast<WORD>(i))))
 #ifdef UNICODE
 #define MAKEINTRESOURCE  MAKEINTRESOURCEW
 #else
@@ -273,7 +273,7 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
                   buttons[i].pszButtonText = MAKEINTRESOURCE(hb_arrayGetNI( button, 2 ));
                }
             }
-            config.cButtons = HB_MIN(config.cButtons, ( UINT ) arrsize);
+            config.cButtons = HB_MIN(config.cButtons, static_cast<UINT>(arrsize));
             config.pButtons = buttons;
          }
       }
@@ -305,7 +305,7 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
                   radiobuttons[i].pszButtonText = MAKEINTRESOURCE(hb_arrayGetNI( button, 2 ));
                }
             }
-            config.cRadioButtons = HB_MIN(config.cRadioButtons, ( UINT ) arrsize);
+            config.cRadioButtons = HB_MIN(config.cRadioButtons, static_cast<UINT>(arrsize));
             config.pRadioButtons = radiobuttons;
          }
       }
@@ -580,7 +580,7 @@ static const char * TD_NotifyToMsg(UINT uiNotification, PHB_ITEM pObj)
    };
    const char * sMsgName = nullptr;
 
-   for( UINT uiPos = 0; uiPos < ( UINT ) HB_SIZEOFARRAY(s_NOTIFY_MSG); ++uiPos ) {
+   for( UINT uiPos = 0; uiPos < static_cast<UINT>(HB_SIZEOFARRAY(s_NOTIFY_MSG)); ++uiPos ) {
       if( s_NOTIFY_MSG[uiPos].Notification == uiNotification ) {
          sMsgName = s_NOTIFY_MSG[uiPos].MsgName;
          break;

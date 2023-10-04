@@ -500,7 +500,7 @@ HB_FUNC( APRINTERS )
       EnumPrinters(PRINTER_ENUM_LOCAL, nullptr, 5, nullptr, 0, &dwSize, &dwPrinters);
    }
 
-   HGLOBAL pBuffer = ( char * ) GlobalAlloc(GPTR, dwSize);
+   HGLOBAL pBuffer = static_cast<char*>(GlobalAlloc(GPTR, dwSize));
 
    if( pBuffer == nullptr ) {
       hb_reta(0);
@@ -619,10 +619,10 @@ HB_FUNC( _HMG_PRINTER_C_RECTANGLE )
 
       // Filled
       if( hb_parl(12) ) {
-         hbrush  = CreateSolidBrush(( COLORREF ) RGB(r, g, b));
+         hbrush  = CreateSolidBrush(static_cast<COLORREF>(RGB(r, g, b)));
          hgdiobj = SelectObject(hdcPrint, hbrush);
       } else {
-         hpen    = CreatePen(PS_SOLID, ( width * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000 ), ( COLORREF ) RGB(r, g, b));
+         hpen    = CreatePen(PS_SOLID, ( width * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000 ), static_cast<COLORREF>(RGB(r, g, b)));
          hgdiobj = SelectObject(hdcPrint, hpen);
       }
 
@@ -707,10 +707,10 @@ HB_FUNC( _HMG_PRINTER_C_ROUNDRECTANGLE )
 
       // Filled
       if( hb_parl(12) ) {
-         hbrush  = CreateSolidBrush(( COLORREF ) RGB(r, g, b));
+         hbrush  = CreateSolidBrush(static_cast<COLORREF>(RGB(r, g, b)));
          hgdiobj = SelectObject(hdcPrint, hbrush);
       } else {
-         hpen    = CreatePen(PS_SOLID, ( width * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000 ), ( COLORREF ) RGB(r, g, b));
+         hpen    = CreatePen(PS_SOLID, ( width * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000 ), static_cast<COLORREF>(RGB(r, g, b)));
          hgdiobj = SelectObject(hdcPrint, hpen);
       }
 
@@ -812,7 +812,7 @@ HB_FUNC( _HMG_PRINTER_C_LINE )
             Style = PS_SOLID;
       }
 
-      hpen = CreatePen(Style, ( width * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000 ), ( COLORREF ) RGB(r, g, b));
+      hpen = CreatePen(Style, ( width * GetDeviceCaps(hdcPrint, LOGPIXELSX) / 1000 ), static_cast<COLORREF>(RGB(r, g, b)));
 
       hgdiobj = SelectObject(hdcPrint, hpen);
 
@@ -923,7 +923,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
 
    if( pi2->pDevMode == nullptr ) {
 #ifndef UNICODE
-      dwNeeded = DocumentProperties(nullptr, hPrinter, ( LPSTR ) hb_parc(1), nullptr, nullptr, 0);
+      dwNeeded = DocumentProperties(nullptr, hPrinter, const_cast<LPSTR>(hb_parc(1)), nullptr, nullptr, 0);
 #else
       pDeviceName = AnsiToWide(hb_parc(1));
       dwNeeded    = DocumentProperties(nullptr, hPrinter, pDeviceName, nullptr, nullptr, 0);
@@ -962,7 +962,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
       }
 
 #ifndef UNICODE
-      lFlag = DocumentProperties(nullptr, hPrinter, ( LPSTR ) hb_parc(1), pDevMode, nullptr, DM_OUT_BUFFER);
+      lFlag = DocumentProperties(nullptr, hPrinter, const_cast<LPSTR>(hb_parc(1)), pDevMode, nullptr, DM_OUT_BUFFER);
 #else
       pDeviceName = AnsiToWide(hb_parc(1));
       lFlag       = DocumentProperties(nullptr, hPrinter, pDeviceName, pDevMode, nullptr, DM_OUT_BUFFER);
@@ -1237,7 +1237,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
    pi2->pSecurityDescriptor = nullptr;
 
 #ifndef UNICODE
-   lFlag = DocumentProperties(nullptr, hPrinter, ( LPSTR ) hb_parc(1), pi2->pDevMode, pi2->pDevMode, DM_IN_BUFFER | DM_OUT_BUFFER);
+   lFlag = DocumentProperties(nullptr, hPrinter, const_cast<LPSTR>(hb_parc(1)), pi2->pDevMode, pi2->pDevMode, DM_IN_BUFFER | DM_OUT_BUFFER);
 #else
    pDeviceName = AnsiToWide(hb_parc(1));
    lFlag       = DocumentProperties(nullptr, hPrinter, pDeviceName, pi2->pDevMode, pi2->pDevMode, DM_IN_BUFFER | DM_OUT_BUFFER);
@@ -1262,7 +1262,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
    }
 
 #ifdef UNICODE
-   pwszDevice = AnsiToWide(( char * ) hb_parc(1));
+   pwszDevice = AnsiToWide(const_cast<char*>(hb_parc(1)));
    hdcPrint   = CreateDC(nullptr, pwszDevice, nullptr, pi2->pDevMode);
 #else
    hdcPrint = CreateDC(nullptr, hb_parc(1), nullptr, pi2->pDevMode);
@@ -1567,9 +1567,9 @@ HB_FUNC( _HMG_PRINTER_C_IMAGE )
    HDC hdcPrint = hmg_par_HDC(1);
 
 #ifndef UNICODE
-   LPSTR FileName = ( LPSTR ) hb_parc(2);
+   LPSTR FileName = const_cast<LPSTR>(hb_parc(2));
 #else
-   LPWSTR FileName = AnsiToWide(( char * ) hb_parc(2));
+   LPWSTR FileName = AnsiToWide(const_cast<char*>(hb_parc(2)));
 #endif
    BOOL    bBmpImage = TRUE;
    HBITMAP hBitmap;
@@ -1661,9 +1661,9 @@ _HMG_PRINTGETJOBINFO() -->
 HB_FUNC( _HMG_PRINTGETJOBINFO )
 {
 #ifndef UNICODE
-   LPSTR cPrinterName = ( LPSTR ) hb_parc(1);
+   LPSTR cPrinterName = const_cast<LPSTR>(hb_parc(1));
 #else
-   LPWSTR cPrinterName = AnsiToWide(( char * ) hb_parc(1));
+   LPWSTR cPrinterName = AnsiToWide(const_cast<char*>(hb_parc(1)));
    LPSTR  pStr;
 #endif
    DWORD      nJobID   = static_cast<DWORD>(hb_parni(2));
@@ -1742,7 +1742,7 @@ HB_FUNC( _HMG_PRINTGETJOBINFO )
          }
 
          if( Job_Info_1 ) {
-            hb_xfree(( void * ) Job_Info_1);
+            hb_xfree(static_cast<void*>(Job_Info_1));
          }
       } else {
          hb_reta(0);
@@ -1760,9 +1760,9 @@ _HMG_PRINTERGETSTATUS() -->
 HB_FUNC( _HMG_PRINTERGETSTATUS )
 {
 #ifndef UNICODE
-   LPSTR cPrinterName = ( LPSTR ) hb_parc(1);
+   LPSTR cPrinterName = const_cast<LPSTR>(hb_parc(1));
 #else
-   LPWSTR cPrinterName = AnsiToWide(( char * ) hb_parc(1));
+   LPWSTR cPrinterName = AnsiToWide(const_cast<char*>(hb_parc(1)));
 #endif
    HANDLE hPrinter     = nullptr;
    DWORD  nBytesNeeded = 0;
@@ -1782,7 +1782,7 @@ HB_FUNC( _HMG_PRINTERGETSTATUS )
          }
 
          if( Printer_Info_6 ) {
-            hb_xfree(( void * ) Printer_Info_6);
+            hb_xfree(static_cast<void*>(Printer_Info_6));
          }
       } else {
          hb_retnl( PRINTER_STATUS_NOT_AVAILABLE );
@@ -1916,10 +1916,10 @@ static void calc_rect(HWND handle, int width, int height, int scalestrech, LONG 
    SetRect(rect2, 0, 0, rect->right, rect->bottom);
 
    if( scalestrech == 0 ) {
-      if( ( int ) lWidth * rect->bottom / lHeight <= rect->right ) {
-         rect->right = ( int ) lWidth * rect->bottom / lHeight;
+      if( static_cast<int>(lWidth) * rect->bottom / lHeight <= rect->right ) {
+         rect->right = static_cast<int>(lWidth) * rect->bottom / lHeight;
       } else {
-         rect->bottom = ( int ) lHeight * rect->right / lWidth;
+         rect->bottom = static_cast<int>(lHeight) * rect->right / lWidth;
       }
    }
 

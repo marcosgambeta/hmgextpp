@@ -133,7 +133,7 @@ HB_FUNC( GETCLASSNAMEBYREF )
    hb_retni(0);
 
    if( IsWindow(hwnd) && nLen > 1 ) {
-      char * pBuffer = ( char * ) hb_xgrab(nLen + 1);
+      char * pBuffer = static_cast<char*>(hb_xgrab(nLen + 1));
 
       if( pBuffer ) {
          int nResult = GetClassNameA(hwnd, pBuffer, nLen);

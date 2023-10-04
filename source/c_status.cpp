@@ -303,7 +303,7 @@ HB_FUNC( SETSTATUSBARSIZE )
    LPINT  lpParts;
 
    HWND hwndStatus = hmg_par_HWND(1);
-   int  nParts     = ( int ) hb_parinfa(2, 0);
+   int  nParts     = static_cast<int>(hb_parinfa(2, 0));
    int  nWidth;
 
    // Set Widths from array

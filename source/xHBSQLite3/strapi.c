@@ -109,7 +109,7 @@ void hb_strfree(void * hString)
 {
    HB_TRACE(HB_TR_DEBUG, ("hb_strfree(%p)", hString));
 
-   if( hString && hString != ( void * ) s_szConstStr )
+   if( hString && hString != static_cast<void*>(s_szConstStr) )
       hb_xRefFree(hString);
 }
 
@@ -137,7 +137,7 @@ PHB_ITEM hb_itemPutStrLenUTF8(PHB_ITEM pItem, const char * pStr, ULONG nLen)
 
    cdp = hb_cdppage();
    nDest = hb_cdpStringInUTF8Length(cdp, FALSE, pStr, nLen);
-   pszDest = ( char * ) hb_xgrab(nDest + 1);
+   pszDest = static_cast<char*>(hb_xgrab(nDest + 1));
    hb_cdpStrnToUTF8n(cdp, FALSE, pStr, nLen, pszDest, nDest + 1);
 
    return hb_itemPutCLPtr(pItem, pszDest, nDest);
@@ -159,21 +159,21 @@ const char * hb_itemGetStrUTF8(PHB_ITEM pItem, void ** phString, ULONG * pnLen)
 
                 if( nLen != pItem->item.asString.length )
                 {
-                        char * pszUtf8 = ( char * ) hb_xgrab(nLen + 1);
+                        char * pszUtf8 = static_cast<char*>(hb_xgrab(nLen + 1));
                         hb_cdpStrnToUTF8n(cdp, FALSE,
                           pItem->item.asString.value, pItem->item.asString.length,
                           pszUtf8, nLen + 1);
-                        * phString = ( void * ) pszUtf8;
+                        * phString = static_cast<void*>(pszUtf8);
                         return pszUtf8;
                 }
 
                 if( pItem->item.asString.allocated != 0 )
                 {
-                        * phString = ( void * ) pItem->item.asString.value;
+                        * phString = static_cast<void*>(pItem->item.asString.value);
                         hb_xRefInc(pItem->item.asString.value);
                 }
                 else
-                        * phString = ( void * ) s_szConstStr;
+                        * phString = static_cast<void*>(s_szConstStr);
                 return pItem->item.asString.value;
         }
 
@@ -198,7 +198,7 @@ PHB_ITEM hb_itemPutStrUTF8(PHB_ITEM pItem, const char * pStr)
    cdp = hb_cdppage(); 
    nLen = strlen(pStr);
    nDest = hb_cdpStringInUTF8Length(cdp, FALSE, pStr, nLen);
-   pszDest = ( char * ) hb_xgrab(nDest + 1);
+   pszDest = static_cast<char*>(hb_xgrab(nDest + 1));
    hb_cdpStrnToUTF8n(cdp, FALSE, pStr, nLen, pszDest, nDest + 1);
 
    return hb_itemPutCLPtr(pItem, pszDest, nDest);

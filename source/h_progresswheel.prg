@@ -989,9 +989,9 @@ HB_FUNC( BT_DRAW_HDC_ARCX_EX )
    XEndArc   = hb_parni(8);
    YEndArc   = hb_parni(9);
 
-   ColorLine  = ( COLORREF ) hb_parnl(10);
+   ColorLine  = static_cast<COLORREF>(hb_parnl(10));
    nWidthLine = hb_parni(11);
-   ColorFill  = ( COLORREF ) hb_parnl(12);
+   ColorFill  = static_cast<COLORREF>(hb_parnl(12));
 
    nArcType = hb_parni(13);
 

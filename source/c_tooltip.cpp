@@ -288,7 +288,7 @@ HB_FUNC( INITTOOLTIPEX )
       if( hb_parclen(3) > 0 ) {
          lpszText = const_cast<TCHAR*>(HB_PARSTR(3, &str1, nullptr));
       } else if( HB_ISNUM(3) ) {
-         lpszText = ( LPTSTR ) MAKEINTRESOURCE(hb_parni(3));
+         lpszText = static_cast<LPTSTR>(MAKEINTRESOURCE(hb_parni(3)));
       }
 
       DWORD dwStyle = WS_POPUP;
@@ -611,11 +611,11 @@ HB_FUNC( TTM_SETTIPBKCOLOR )
    HWND hwndToolTip = hmg_par_HWND(1);
 
    if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) ) {
-      COLORREF cr = ( COLORREF ) 0;
+      COLORREF cr = static_cast<COLORREF>(0);
 
       if( HB_ISNUM(2) || Array2ColorRef(hb_param(2, Harbour::Item::ARRAY), &cr) ) {
          if( HB_ISNUM(2) ) {
-            cr = ( COLORREF ) HB_PARNL(2);
+            cr = static_cast<COLORREF>(HB_PARNL(2));
          }
 
          SendMessage(hwndToolTip, TTM_SETTIPBKCOLOR, cr, 0);
@@ -635,11 +635,11 @@ HB_FUNC( TTM_SETTIPTEXTCOLOR )
    HWND hwndToolTip = hmg_par_HWND(1);
 
    if( _isValidCtrlClass(hwndToolTip, TOOLTIPS_CLASS) ) {
-      COLORREF cr = ( COLORREF ) 0;
+      COLORREF cr = static_cast<COLORREF>(0);
 
       if( HB_ISNUM(2) || Array2ColorRef(hb_param(2, Harbour::Item::ANY), &cr) ) {
          if( HB_ISNUM(2) ) {
-            cr = ( COLORREF ) HB_PARNL(2);
+            cr = static_cast<COLORREF>(HB_PARNL(2));
          }
 
          SendMessage(hwndToolTip, TTM_SETTIPTEXTCOLOR, cr, 0);

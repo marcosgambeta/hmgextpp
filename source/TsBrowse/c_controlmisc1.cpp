@@ -175,9 +175,9 @@ HB_FUNC( INVERTRECT )
 HB_FUNC( GETCLASSINFO )
 {
 #ifndef UNICODE
-   LPCSTR lpString = ( LPCSTR ) hb_parc(2);
+   LPCSTR lpString = static_cast<LPCSTR>(hb_parc(2));
 #else
-   LPWSTR lpString = AnsiToWide(( char * ) hb_parc(2));
+   LPWSTR lpString = AnsiToWide(const_cast<char*>(hb_parc(2)));
    LPSTR pStr;
 #endif
    WNDCLASS WndClass;
@@ -186,11 +186,11 @@ HB_FUNC( GETCLASSINFO )
    {
    #ifdef UNICODE
       hb_reta(1);
-      pStr = WideToAnsi(( LPWSTR ) WndClass.lpszClassName);
+      pStr = WideToAnsi(static_cast<LPWSTR>(WndClass.lpszClassName));
       HB_STORC(pStr, -1, 1);
       hb_xfree(pStr);
    #else
-      hb_retclen(( char * ) &WndClass, sizeof(WNDCLASS));
+      hb_retclen(reinterpret_cast<char*>(&WndClass), sizeof(WNDCLASS));
    #endif
    }
 
@@ -206,12 +206,12 @@ HB_FUNC( SETCAPTURE )
 
 HB_FUNC( GETTEXTCOLOR )
 {
-   hb_retnl(( ULONG ) GetTextColor(hmg_par_HDC(1)));
+   hb_retnl(static_cast<ULONG>(GetTextColor(hmg_par_HDC(1))));
 }
 
 HB_FUNC( GETBKCOLOR )
 {
-   hb_retnl(( ULONG ) GetBkColor(hmg_par_HDC(1)));
+   hb_retnl(static_cast<ULONG>(GetBkColor(hmg_par_HDC(1))));
 }
 
 HB_FUNC( MOVEFILE )
@@ -220,8 +220,8 @@ HB_FUNC( MOVEFILE )
    LPCSTR lpExistingFileName = hb_parc(1);
    LPCSTR lpNewFileName = hb_parc(2);
 #else
-   LPWSTR lpExistingFileName = AnsiToWide(( char * ) hb_parc(1));
-   LPWSTR lpNewFileName = AnsiToWide(( char * ) hb_parc(2));
+   LPWSTR lpExistingFileName = AnsiToWide(const_cast<char*>(hb_parc(1)));
+   LPWSTR lpNewFileName = AnsiToWide(const_cast<char*>(hb_parc(2)));
 #endif
 
    hb_retl(( BOOL ) MoveFile(lpExistingFileName, lpNewFileName));
@@ -234,7 +234,7 @@ HB_FUNC( MOVEFILE )
 
 HB_FUNC( GETACP )
 {
-   hb_retni(( UINT ) GetACP());
+   hb_retni(static_cast<UINT>(GetACP()));
 }
 
 HB_FUNC( GETCURSORHAND )

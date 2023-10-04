@@ -591,18 +591,18 @@ HBITMAP HMG_LoadPicture(const TCHAR * pszImageName, int width, int height, HWND 
    HDC memDC2 = CreateCompatibleDC(hDC);
 
    if( ScaleStretch == 0 ) {
-      if( ( int ) bmWidth * rect.bottom / bmHeight <= rect.right ) {
-         rect.right = ( int ) bmWidth * rect.bottom / bmHeight;
+      if( static_cast<int>(bmWidth) * rect.bottom / bmHeight <= rect.right ) {
+         rect.right = static_cast<int>(bmWidth) * rect.bottom / bmHeight;
       } else {
-         rect.bottom = ( int ) bmHeight * rect.right / bmWidth;
+         rect.bottom = static_cast<int>(bmHeight) * rect.right / bmWidth;
       }
 
       if( AdjustImage == 1 ) {
          width  = rect.right;
          height = rect.bottom;
       } else { // Center Image
-         rect.left = ( int ) ( width - rect.right ) / 2;
-         rect.top  = ( int ) ( height - rect.bottom ) / 2;
+         rect.left = static_cast<int>( width - rect.right ) / 2;
+         rect.top  = static_cast<int>( height - rect.bottom ) / 2;
       }
    }
 

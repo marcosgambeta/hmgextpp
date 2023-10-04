@@ -106,9 +106,9 @@ HB_FUNC( WAITRUNPIPE )
    char * Data;
 
 #ifndef UNICODE
-   LPSTR lpCommandLine = ( char * ) hb_parc(1);
+   LPSTR lpCommandLine = const_cast<char*>(hb_parc(1));
 #else
-   LPWSTR lpCommandLine = AnsiToWide(( char * ) hb_parc(1));
+   LPWSTR lpCommandLine = AnsiToWide(const_cast<char*>(hb_parc(1)));
 #endif
    const char *        szFile = ( const char * ) hb_parc(3);
    HB_FHANDLE          nHandle;
@@ -150,7 +150,7 @@ HB_FUNC( WAITRUNPIPE )
 #endif
    }
 
-   Data = ( char * ) hb_xgrab(1024);
+   Data = static_cast<char*>(hb_xgrab(1024));
    for( ;; ) {
       DWORD BytesRead;
       DWORD TotalBytes;
@@ -210,7 +210,7 @@ HB_FUNC( COPYRTFTOCLIPBOARD ) // CopyRtfToClipboard(cRtfText) store cRTFText in 
       return;
    }
 
-   lptstrCopy = ( char * ) GlobalLock(hglbCopy);
+   lptstrCopy = static_cast<char*>(GlobalLock(hglbCopy));
    memcpy(lptstrCopy, cStr, nLen * sizeof(TCHAR));
    lptstrCopy[nLen] = ( TCHAR ) 0;  // NULL character
    GlobalUnlock(hglbCopy);
@@ -239,7 +239,7 @@ HB_FUNC( COPYTOCLIPBOARD ) // CopyToClipboard(cText) store cText in Windows clip
       return;
    }
 
-   lptstrCopy = ( char * ) GlobalLock(hglbCopy);
+   lptstrCopy = static_cast<char*>(GlobalLock(hglbCopy));
    memcpy(lptstrCopy, cStr, nLen * sizeof(TCHAR));
    lptstrCopy[nLen] = ( TCHAR ) 0;  // null character
    GlobalUnlock(hglbCopy);
@@ -256,7 +256,7 @@ HB_FUNC( RETRIEVETEXTFROMCLIPBOARD )
    if( IsClipboardFormatAvailable(CF_TEXT) && OpenClipboard(GetActiveWindow()) ) {
       hClipMem = GetClipboardData(CF_TEXT);
       if( hClipMem ) {
-         lpClip = ( LPSTR ) GlobalLock(hClipMem);
+         lpClip = static_cast<LPSTR>(GlobalLock(hClipMem));
          if( lpClip ) {
             hb_retc( lpClip );
             GlobalUnlock(hClipMem);
@@ -348,7 +348,7 @@ HB_FUNC( INKEYGUI )
             case WM_KEYDOWN:
             case WM_SYSKEYDOWN:
                bBreak = TRUE;
-               uRet   = ( UINT ) Msg.wParam;
+               uRet   = static_cast<UINT>(Msg.wParam);
                break;
             case WM_TIMER:
                bBreak = ( Msg.wParam == uTimer );
@@ -913,7 +913,7 @@ CREATESOLIDBRUSH(nRed, nGreen, nBlue) --> HANDLE
 */
 HB_FUNC( CREATESOLIDBRUSH )
 {
-   HBRUSH hBrush = CreateSolidBrush(( COLORREF ) RGB(hb_parni(1), hb_parni(2), hb_parni(3)));
+   HBRUSH hBrush = CreateSolidBrush(static_cast<COLORREF>(RGB(hb_parni(1), hb_parni(2), hb_parni(3))));
    RegisterResource(hBrush, "BRUSH");
    hmg_ret_HBRUSH(hBrush);
 }
@@ -923,7 +923,7 @@ SETTEXTCOLOR(HDC, nRed, nGreen, nBlue) --> numeric
 */
 HB_FUNC( SETTEXTCOLOR )
 {
-   hb_retnl(( ULONG ) SetTextColor(hmg_par_HDC(1), ( COLORREF ) RGB(hb_parni(2), hb_parni(3), hb_parni(4))));
+   hb_retnl(static_cast<ULONG>(SetTextColor(hmg_par_HDC(1), static_cast<COLORREF>(RGB(hb_parni(2), hb_parni(3), hb_parni(4))))));
 }
 
 /*
@@ -931,7 +931,7 @@ SETBKCOLOR(HDC, nRed, nGreen, nBlue) --> numeric
 */
 HB_FUNC( SETBKCOLOR )
 {
-   hb_retnl(( ULONG ) SetBkColor(hmg_par_HDC(1), ( COLORREF ) RGB(hb_parni(2), hb_parni(3), hb_parni(4))));
+   hb_retnl(static_cast<ULONG>(SetBkColor(hmg_par_HDC(1), static_cast<COLORREF>(RGB(hb_parni(2), hb_parni(3), hb_parni(4))))));
 }
 
 /*
@@ -1421,7 +1421,7 @@ HB_FUNC( GETCOMPACTPATH )
    if( handle ) {
       _GETCOMPACTPATH pFunc;
       pFunc = ( _GETCOMPACTPATH ) wapi_GetProcAddress(handle, "PathCompactPathExA");
-      hb_retni( pFunc( ( LPTSTR ) hb_parc(1), ( LPTSTR ) hb_parc(2), hmg_par_INT(3), hmg_par_DWORD(4) ) );
+      hb_retni( pFunc( const_cast<LPTSTR>(hb_parc(1)), const_cast<LPTSTR>(hb_parc(2)), hmg_par_INT(3), hmg_par_DWORD(4) ) );
       FreeLibrary(handle);
    }
 }
@@ -1436,7 +1436,7 @@ HB_FUNC( GETSHORTPATHNAME )
    LPCSTR lpszLongPath = hb_parc(1);
 #else
    TCHAR   buffer[MAX_PATH + 1] = { 0 };
-   LPCWSTR lpszLongPath = AnsiToWide(( char * ) hb_parc(1));
+   LPCWSTR lpszLongPath = AnsiToWide(const_cast<char*>(hb_parc(1)));
    LPSTR   pStr;
 #endif
 
@@ -1466,7 +1466,7 @@ HB_FUNC( DRAWTEXT )
 #ifndef UNICODE
    LPCSTR lpchText = hb_parc(2);
 #else
-   LPCWSTR lpchText = AnsiToWide(( char * ) hb_parc(2));
+   LPCWSTR lpchText = AnsiToWide(const_cast<char*>(hb_parc(2)));
 #endif
    RECT rc;
 
@@ -1665,7 +1665,7 @@ HB_FUNC( HMG_GETLOCALEINFO )
    LPSTR  pStr;
 #endif
 
-   cText = ( LPTSTR ) hb_xgrab(HB_FILE_TYPE_MAX);
+   cText = static_cast<LPTSTR>(hb_xgrab(HB_FILE_TYPE_MAX));
 
    GetLocaleInfo(LOCALE_USER_DEFAULT, LCType, cText, HB_FILE_TYPE_MAX);
 
@@ -1801,12 +1801,12 @@ HB_FUNC( CREATELINK )
    LPSTR szDescription;     /* <Description> */
    LPSTR szCurdir;          /* <Curdir> (optional) */
    LPSTR szIconfile;        /* <Iconfile> (optional) */
-   szTargetfile  = ( char * ) hb_parc(1);
-   szTargetargs  = HB_ISCHAR(2) ? ( char * ) hb_parc(2) : const_cast<char*>("");
-   szLinkfile    = ( char * ) hb_parc(3);
-   szDescription = HB_ISCHAR(4) ? ( char * ) hb_parc(4) : const_cast<char*>("");
-   szCurdir      = HB_ISCHAR(6) ? ( char * ) hb_parc(6) : const_cast<char*>("");
-   szIconfile    = HB_ISCHAR(7) ? ( char * ) hb_parc(7) : const_cast<char*>("");
+   szTargetfile  = const_cast<char*>(hb_parc(1));
+   szTargetargs  = HB_ISCHAR(2) ? const_cast<char*>(hb_parc(2)) : const_cast<char*>("");
+   szLinkfile    = const_cast<char*>(hb_parc(3));
+   szDescription = HB_ISCHAR(4) ? const_cast<char*>(hb_parc(4)) : const_cast<char*>("");
+   szCurdir      = HB_ISCHAR(6) ? const_cast<char*>(hb_parc(6)) : const_cast<char*>("");
+   szIconfile    = HB_ISCHAR(7) ? const_cast<char*>(hb_parc(7)) : const_cast<char*>("");
 #else
    LPWSTR szTargetfile;      /* <Targetfile> */
    LPWSTR szTargetargs;      /* <Targetargs> */
@@ -1814,12 +1814,12 @@ HB_FUNC( CREATELINK )
    LPWSTR szDescription;     /* <Description> */
    LPWSTR szCurdir;          /* <Curdir> (optional) */
    LPWSTR szIconfile;        /* <Iconfile> (optional) */
-   szTargetfile  = AnsiToWide(( char * ) hb_parc(1));
-   szTargetargs  = HB_ISCHAR(2) ? AnsiToWide(( char * ) hb_parc(2)) : ( TCHAR *) "";
-   szLinkfile    = AnsiToWide(( char * ) hb_parc(3));
-   szDescription = HB_ISCHAR(4) ? AnsiToWide(( char * ) hb_parc(4)) : ( TCHAR *) "";
-   szCurdir      = HB_ISCHAR(6) ? AnsiToWide(( char * ) hb_parc(6)) : ( TCHAR *) "";
-   szIconfile    = HB_ISCHAR(7) ? AnsiToWide(( char * ) hb_parc(7)) : ( TCHAR *) "";
+   szTargetfile  = AnsiToWide(const_cast<char*>(hb_parc(1)));
+   szTargetargs  = HB_ISCHAR(2) ? AnsiToWide(const_cast<char*>(hb_parc(2))) : ( TCHAR *) "";
+   szLinkfile    = AnsiToWide(const_cast<char*>(hb_parc(3)));
+   szDescription = HB_ISCHAR(4) ? AnsiToWide(const_cast<char*>(hb_parc(4))) : ( TCHAR *) "";
+   szCurdir      = HB_ISCHAR(6) ? AnsiToWide(const_cast<char*>(hb_parc(6))) : ( TCHAR *) "";
+   szIconfile    = HB_ISCHAR(7) ? AnsiToWide(const_cast<char*>(hb_parc(7))) : ( TCHAR *) "";
 #endif
    iShowmode  = hb_parnidef(5, 0);
    iIconindex = hb_parnidef(8, 0);

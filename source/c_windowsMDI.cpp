@@ -289,7 +289,7 @@ HB_FUNC( INITMDICLIENTWINDOW )
       hwndparent,
       ( HMENU ) 0xCAC,
       GetInstance(),
-      ( LPSTR ) &ccs);
+      reinterpret_cast<LPSTR>(&ccs));
 
    ShowWindow(hwndMDIClient, SW_SHOW);
    hmg_ret_HWND(hwndMDIClient);
