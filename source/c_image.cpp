@@ -641,7 +641,7 @@ HBITMAP HMG_LoadPicture(const TCHAR * pszImageName, int width, int height, HWND 
 
       ftn.BlendOp    = AC_SRC_OVER;
       ftn.BlendFlags = 0;
-      ftn.SourceConstantAlpha = ( BYTE ) iAlphaConstant;
+      ftn.SourceConstantAlpha = static_cast<BYTE>(iAlphaConstant);
 
       AlphaBlend(memDC2, rect.left, rect.top, rect.right, rect.bottom, memDC1, 0, 0, bmWidth, bmHeight, ftn);
    } else {

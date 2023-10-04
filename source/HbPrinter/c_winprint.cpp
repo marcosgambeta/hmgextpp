@@ -200,9 +200,9 @@ void rr_getdevmode(void)
    OpenPrinter( PrinterName, &hPrinter, nullptr );
    GetPrinter( hPrinter, 2, 0, 0, &dwNeeded );
    pi2 = ( PRINTER_INFO_2 * ) GlobalAlloc(GPTR, dwNeeded);
-   GetPrinter( hPrinter, 2, ( LPBYTE ) pi2, dwNeeded, &dwNeeded );
+   GetPrinter( hPrinter, 2, reinterpret_cast<LPBYTE>(pi2), dwNeeded, &dwNeeded );
    pi22 = ( PRINTER_INFO_2 * ) GlobalAlloc(GPTR, dwNeeded);
-   GetPrinter( hPrinter, 2, ( LPBYTE ) pi22, dwNeeded, &dwNeeded );
+   GetPrinter( hPrinter, 2, reinterpret_cast<LPBYTE>(pi22), dwNeeded, &dwNeeded );
    if( pDevMode ) {
       pi2->pDevMode = pDevMode;
    } else if( pi2->pDevMode == nullptr ) {
@@ -220,7 +220,7 @@ void rr_getdevmode(void)
 HB_FUNC( EF_RESETPRINTER )
 {
    if( pi22 ) {
-      SetPrinter( hPrinter, 2, ( LPBYTE ) pi22, 0 );
+      SetPrinter( hPrinter, 2, reinterpret_cast<LPBYTE>(pi22), 0 );
    }
 
    GlobalFree(pi22);
@@ -293,40 +293,40 @@ HB_FUNC( RR_SETDEVMODE )
       pi2->pDevMode->dmFields = pi2->pDevMode->dmFields | what;
 
       if( what == DM_ORIENTATION ) {
-         pi2->pDevMode->dmOrientation = ( short ) hb_parni(2);
+         pi2->pDevMode->dmOrientation = static_cast<short>(hb_parni(2));
       }
 
       if( what == DM_PAPERSIZE ) {
-         pi2->pDevMode->dmPaperSize = ( short ) hb_parni(2);
+         pi2->pDevMode->dmPaperSize = static_cast<short>(hb_parni(2));
       }
 
       if( what == DM_SCALE ) {
-         pi2->pDevMode->dmScale = ( short ) hb_parni(2);
+         pi2->pDevMode->dmScale = static_cast<short>(hb_parni(2));
       }
 
       if( what == DM_COPIES ) {
-         pi2->pDevMode->dmCopies = ( short ) hb_parni(2);
+         pi2->pDevMode->dmCopies = static_cast<short>(hb_parni(2));
       }
 
       if( what == DM_DEFAULTSOURCE ) {
-         pi2->pDevMode->dmDefaultSource = ( short ) hb_parni(2);
+         pi2->pDevMode->dmDefaultSource = static_cast<short>(hb_parni(2));
       }
 
       if( what == DM_PRINTQUALITY ) {
-         pi2->pDevMode->dmPrintQuality = ( short ) hb_parni(2);
+         pi2->pDevMode->dmPrintQuality = static_cast<short>(hb_parni(2));
       }
 
       if( what == DM_COLOR ) {
-         pi2->pDevMode->dmColor = ( short ) hb_parni(2);
+         pi2->pDevMode->dmColor = static_cast<short>(hb_parni(2));
       }
 
       if( what == DM_DUPLEX ) {
-         pi2->pDevMode->dmDuplex = ( short ) hb_parni(2);
+         pi2->pDevMode->dmDuplex = static_cast<short>(hb_parni(2));
       }
    }
 
    DocumentProperties(nullptr, hPrinter, PrinterName, pi2->pDevMode, pi2->pDevMode, DM_IN_BUFFER | DM_OUT_BUFFER);
-   SetPrinter( hPrinter, 2, ( LPBYTE ) pi2, 0 );
+   SetPrinter( hPrinter, 2, reinterpret_cast<LPBYTE>(pi2), 0 );
    ResetDC( hDCRef, pi2->pDevMode );
    hmg_ret_HDC(hDCRef);
 }
@@ -338,12 +338,12 @@ HB_FUNC( RR_SETUSERMODE )
    if( what == ( pi2->pDevMode->dmFields & what ) ) {
       pi2->pDevMode->dmFields      = pi2->pDevMode->dmFields | DM_PAPERSIZE | DM_PAPERWIDTH | DM_PAPERLENGTH;
       pi2->pDevMode->dmPaperSize   = DMPAPER_USER;
-      pi2->pDevMode->dmPaperWidth  = ( short ) hb_parnl(2);
-      pi2->pDevMode->dmPaperLength = ( short ) hb_parnl(3);
+      pi2->pDevMode->dmPaperWidth  = static_cast<short>(hb_parnl(2));
+      pi2->pDevMode->dmPaperLength = static_cast<short>(hb_parnl(3));
    }
 
    DocumentProperties(nullptr, hPrinter, PrinterName, pi2->pDevMode, pi2->pDevMode, DM_IN_BUFFER | DM_OUT_BUFFER);
-   SetPrinter( hPrinter, 2, ( LPBYTE ) pi2, 0 );
+   SetPrinter( hPrinter, 2, reinterpret_cast<LPBYTE>(pi2), 0 );
    ResetDC( hDCRef, pi2->pDevMode );
    hmg_ret_HDC(hDCRef);
 }
@@ -369,7 +369,7 @@ HB_FUNC( RR_GETDEFAULTPRINTER )
    if( osvi.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS ) { /* Windows 95 or 98 */
       EnumPrinters(PRINTER_ENUM_DEFAULT, nullptr, 5, nullptr, 0, &Needed, &Returned);
       PrinterInfo = ( LPPRINTER_INFO_5 ) LocalAlloc(LPTR, Needed);
-      EnumPrinters(PRINTER_ENUM_DEFAULT, nullptr, 5, ( LPBYTE ) PrinterInfo, Needed, &Needed, &Returned);
+      EnumPrinters(PRINTER_ENUM_DEFAULT, nullptr, 5, reinterpret_cast<LPBYTE>(PrinterInfo), Needed, &Needed, &Returned);
       lstrcpy(PrinterDefault, PrinterInfo->pPrinterName);
       LocalFree(PrinterInfo);
    } else if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT ) {
@@ -447,7 +447,7 @@ HB_FUNC( RR_GETPRINTERS )
       return;
    }
 
-   EnumPrinters(flags, nullptr, level, ( LPBYTE ) pBuffer, dwSize, &dwSize, &dwPrinters);
+   EnumPrinters(flags, nullptr, level, static_cast<LPBYTE>(pBuffer), dwSize, &dwSize, &dwPrinters);
 
    if( dwPrinters == 0 ) {
       hb_retc( ",," );
@@ -1627,7 +1627,7 @@ HB_FUNC( RR_POLYGON )
 
 HB_FUNC( RR_POLYBEZIER )
 {
-   DWORD    number = ( DWORD ) hb_parinfa(1, 0);
+   DWORD    number = static_cast<DWORD>(hb_parinfa(1, 0));
    POINT    apoints[1024];
    LONG_PTR xpen = HB_PARNL(3);
 
@@ -1649,7 +1649,7 @@ HB_FUNC( RR_POLYBEZIER )
 
 HB_FUNC( RR_POLYBEZIERTO )
 {
-   DWORD    number = ( DWORD ) hb_parinfa(1, 0);
+   DWORD    number = static_cast<DWORD>(hb_parinfa(1, 0));
    POINT    apoints[1024];
    LONG_PTR xpen = HB_PARNL(3);
 

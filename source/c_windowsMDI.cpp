@@ -100,7 +100,7 @@ HB_FUNC( REGISTERMDIWINDOW )
    }
 
    WndClass.style       = 0;
-   WndClass.lpfnWndProc = ( WNDPROC ) MdiChildWndProc;
+   WndClass.lpfnWndProc = static_cast<WNDPROC>(MdiChildWndProc);
    WndClass.cbClsExtra  = 0;
    WndClass.cbWndExtra  = 20;
    WndClass.hInstance   = GetInstance();

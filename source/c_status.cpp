@@ -359,7 +359,7 @@ HB_FUNC( CREATEPROGRESSBARITEM )     // CreateProgressBarItem(HwndStatus, NrItem
             hwndStatus,             // Handle to the parent window.
             ( HMENU ) nullptr,         // ID for the progress window.
             GetInstance(),          // Current instance.
-            ( LPVOID ) nullptr) ) != nullptr ) {
+            nullptr) ) != nullptr ) {
       SendMessage(hwndProgressBar, PBM_SETRANGE, 0, MAKELONG(hb_parni(4), hb_parni(5)));
       SendMessage(hwndProgressBar, PBM_SETPOS, hmg_par_WPARAM(3), 0);
 

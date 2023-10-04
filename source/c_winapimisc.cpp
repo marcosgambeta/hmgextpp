@@ -620,7 +620,7 @@ DEFWINDOWPROC(HWND, p2, p3, p4) --> numeric
 */
 HB_FUNC( DEFWINDOWPROC )
 {
-   HB_RETNL(( LONG_PTR ) DefWindowProc(hmg_par_HWND(1), hmg_par_UINT(2), hb_parnl(3), hmg_par_LPARAM(4)));
+   HB_RETNL(static_cast<LONG_PTR>(DefWindowProc(hmg_par_HWND(1), hmg_par_UINT(2), hb_parnl(3), hmg_par_LPARAM(4))));
 }
 
 /*
@@ -671,13 +671,13 @@ HB_FUNC( SHELLEXECUTE )
 
    CoInitialize(nullptr);
 
-   HB_RETNL(( LONG_PTR ) ShellExecute(
+   HB_RETNL(reinterpret_cast<LONG_PTR>(ShellExecute(
       hmg_par_HWND(1),
       HB_ISNIL(2) ? nullptr : HB_PARSTR(2, &str1, nullptr),
       HB_PARSTR(3, &str2, nullptr),
       HB_ISNIL(4) ? nullptr : HB_PARSTR(4, &str3, nullptr),
       HB_ISNIL(5) ? nullptr : HB_PARSTR(5, &str4, nullptr),
-      hb_parni(6)));
+      hb_parni(6))));
 
    hb_idleSleep(1.0);
 
@@ -770,7 +770,7 @@ HB_FUNC( WAITRUNTERM )
    ZeroMemory(&stInfo, sizeof(stInfo));
    stInfo.cb = sizeof(stInfo);
    stInfo.dwFlags = STARTF_USESHOWWINDOW;
-   stInfo.wShowWindow = ( WORD ) (HB_ISNIL(3) ? 5 : hb_parni(3));
+   stInfo.wShowWindow = static_cast<WORD>(HB_ISNIL(3) ? 5 : hb_parni(3));
 
    void * str1 = nullptr;
    void * str2 = nullptr;
@@ -1076,7 +1076,7 @@ HB_FUNC( WINVERSION )
                if( lRetVal != ERROR_SUCCESS ) {
                   szVersion = TEXT("Unknown Operating System");
                } else {
-                  lRetVal = RegQueryValueEx(hKey, TEXT("ProductType"), nullptr, nullptr, ( LPBYTE ) szProductType, &dwBufLen);
+                  lRetVal = RegQueryValueEx(hKey, TEXT("ProductType"), nullptr, nullptr, reinterpret_cast<LPBYTE>(szProductType), &dwBufLen);
                   if( ( lRetVal != ERROR_SUCCESS ) || ( dwBufLen > 80 ) ) {
                      szVersion = TEXT("Unknown Operating System");
                   }
@@ -1552,8 +1552,8 @@ HB_FUNC( _GETCLIENTRECT )
 // Grigory Filatov <gfilatov@gmail.com> HMG 1.1 Experimental Build 17d
 HB_FUNC( ISOEMTEXT )
 {
-   LPBYTE pString = ( LPBYTE ) hb_parc(1);
-   WORD   w = 0, wLen = ( WORD ) hb_parclen(1);
+   LPBYTE pString = reinterpret_cast<LPBYTE>(const_cast<char*>(hb_parc(1)));
+   WORD   w = 0, wLen = static_cast<WORD>(hb_parclen(1));
    BOOL   bOem = FALSE;
 
    while( w < wLen && !bOem ) {
@@ -1598,7 +1598,7 @@ HB_FUNC( ISOEMTEXT )
  */
 HB_FUNC( GETOBJECTTYPE )
 {
-   HB_RETNL( ( LONG_PTR ) GetObjectType(hmg_par_HGDIOBJ(1)) );
+   HB_RETNL(static_cast<LONG_PTR>(GetObjectType(hmg_par_HGDIOBJ(1))));
 }
 
 /*

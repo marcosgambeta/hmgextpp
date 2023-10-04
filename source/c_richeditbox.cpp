@@ -144,10 +144,10 @@ HB_FUNC( UNLOADRICHEDITLIB )
 
 DWORD CALLBACK EditStreamCallbackR( DWORD_PTR dwCookie, LPBYTE lpbBuff, LONG cb, LONG FAR * pcb )
 {
-   HANDLE hFile = ( HANDLE ) dwCookie;
+   HANDLE hFile = reinterpret_cast<HANDLE>(dwCookie);
 
-   if( !ReadFile(hFile, ( LPVOID ) lpbBuff, cb, ( LPDWORD ) pcb, nullptr) ) {
-      return ( DWORD ) -1;
+   if( !ReadFile(hFile, static_cast<LPVOID>(lpbBuff), cb, reinterpret_cast<LPDWORD>(pcb), nullptr) ) {
+      return static_cast<DWORD>(-1);
    }
 
    return 0;
@@ -155,10 +155,10 @@ DWORD CALLBACK EditStreamCallbackR( DWORD_PTR dwCookie, LPBYTE lpbBuff, LONG cb,
 
 DWORD CALLBACK EditStreamCallbackW(DWORD_PTR dwCookie, LPBYTE lpbBuff, LONG cb, LONG FAR * pcb)
 {
-   HANDLE hFile = ( HANDLE ) dwCookie;
+   HANDLE hFile = reinterpret_cast<HANDLE>(dwCookie);
 
-   if( !WriteFile(hFile, ( LPVOID ) lpbBuff, cb, ( LPDWORD ) pcb, nullptr) ) {
-      return ( DWORD ) -1;
+   if( !WriteFile(hFile, static_cast<LPVOID>(lpbBuff), cb, reinterpret_cast<LPDWORD>(pcb), nullptr) ) {
+      return static_cast<DWORD>(-1);
    }
 
    return 0;
@@ -170,9 +170,9 @@ HB_FUNC( STREAMIN )        //StreamIn(HWND hwndCtrl, LPCTSTR lpszPath, int typ )
    HANDLE hFile;
 
 #ifndef UNICODE
-   LPCSTR cFileName = ( char * ) hb_parc(2);
+   LPCSTR cFileName = const_cast<char*>(hb_parc(2));
 #else
-   LPCWSTR cFileName = AnsiToWide(( char * ) hb_parc(2));
+   LPCWSTR cFileName = AnsiToWide(static_cast<char*>(hb_parc(2)));
 #endif
    EDITSTREAM es;
    long       Flag, Mode;
@@ -195,12 +195,12 @@ HB_FUNC( STREAMIN )        //StreamIn(HWND hwndCtrl, LPCTSTR lpszPath, int typ )
    }
 #ifdef UNICODE
    else {
-      hb_xfree(( TCHAR * ) cFileName);
+      hb_xfree(static_cast<TCHAR*>(cFileName));
    }
 #endif
 
    es.pfnCallback = EditStreamCallbackR;
-   es.dwCookie    = ( DWORD_PTR ) hFile;
+   es.dwCookie    = reinterpret_cast<DWORD_PTR>(hFile);
    es.dwError     = 0;
 
    // send EM_STREAMIN message to the Rich Edit Control.
@@ -222,9 +222,9 @@ HB_FUNC( STREAMOUT )       //StreamOut(HWND hwndCtrl, LPCTSTR lpszPath, int Typ 
    HANDLE hFile;
 
 #ifndef UNICODE
-   LPCSTR cFileName = ( char * ) hb_parc(2);
+   LPCSTR cFileName = const_cast<char*>(hb_parc(2));
 #else
-   LPCWSTR cFileName = AnsiToWide(( char * ) hb_parc(2));
+   LPCWSTR cFileName = AnsiToWide(static_cast<char*>(hb_parc(2)));
 #endif
    EDITSTREAM es;
    long       Flag;
@@ -247,12 +247,12 @@ HB_FUNC( STREAMOUT )       //StreamOut(HWND hwndCtrl, LPCTSTR lpszPath, int Typ 
    }
 #ifdef UNICODE
    else {
-      hb_xfree(( TCHAR * ) cFileName);
+      hb_xfree(static_cast<TCHAR*>(cFileName));
    }
 #endif
 
    es.pfnCallback = EditStreamCallbackW;
-   es.dwCookie    = ( DWORD_PTR ) hFile;
+   es.dwCookie    = reinterpret_cast<DWORD_PTR>(hFile);
    es.dwError     = 0;
 
    // send EM_STREAMOUT message to the Rich Edit Control.
@@ -311,7 +311,7 @@ HB_FUNC( SETBKGNDCOLOR )   // SetBkgndColor(HWND hwnd, lSyscol, nRed, nGreen, nB
    COLORREF bkgcolor;
    INT      syscol = 1;
 
-   bkgcolor = ( COLORREF ) RGB(hb_parni(3), hb_parni(4), hb_parni(5));
+   bkgcolor = static_cast<COLORREF>(RGB(hb_parni(3), hb_parni(4), hb_parni(5)));
    if( hb_parl(2) ) {
       syscol = 0;
    }
@@ -378,13 +378,13 @@ HB_FUNC( SETFONTRTF )
    int        SelText = SCF_SELECTION;
 
 #ifndef UNICODE
-   TCHAR * szFaceName = ( TCHAR * ) hb_parc(3);
+   TCHAR * szFaceName = static_cast<TCHAR*>(const_cast<char*>(hb_parc(3)));
 #else
-   TCHAR * szFaceName = ( TCHAR * ) hb_osStrU16Encode(( char * ) hb_parc(3));
+   TCHAR * szFaceName = static_cast<TCHAR*>(hb_osStrU16Encode(static_cast<char*>(hb_parc(3))));
 #endif
 
    cF.cbSize = sizeof(CHARFORMAT);
-   Mask      = ( DWORD ) SendMessage(hmg_par_HWND(1), EM_GETCHARFORMAT, SelText, reinterpret_cast<LPARAM>(&cF));
+   Mask      = static_cast<DWORD>(SendMessage(hmg_par_HWND(1), EM_GETCHARFORMAT, SelText, reinterpret_cast<LPARAM>(&cF)));
 
    if( hb_parni(10) > 0 ) {
       Mask = hb_parni(10);

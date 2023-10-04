@@ -165,7 +165,7 @@ static HBITMAP bt_bmp_create_24bpp(int Width, int Height)
 static HBITMAP bt_bmp_convert_to_24bpp(HBITMAP hBitmap_Original, BOOL IsDelete_hBitmap_Original)
 {
    BITMAP bm;
-   GetObject(hBitmap_Original, sizeof(BITMAP), ( LPBYTE ) &bm);
+   GetObject(hBitmap_Original, sizeof(BITMAP), static_cast<LPBYTE>(&bm));
    HBITMAP hBitmap_New = bt_bmp_create_24bpp(bm.bmWidth, bm.bmHeight);
 
    HDC memDC1 = CreateCompatibleDC(nullptr);
@@ -551,11 +551,11 @@ static HGLOBAL bt_Bitmap_To_Stream(HBITMAP hBitmap)
    HDC memDC = CreateCompatibleDC(nullptr);
    SelectObject(memDC, hBitmap);
    BITMAP bm;
-   GetObject(hBitmap, sizeof(BITMAP), ( LPBYTE ) &bm);
+   GetObject(hBitmap, sizeof(BITMAP), reinterpret_cast<LPBYTE>(&bm));
 
    bm.bmBitsPixel    = 24;
    bm.bmWidthBytes   = (bm.bmWidth * bm.bmBitsPixel + 31) / 32 * 4;
-   DWORD nBytes_Bits = ( DWORD ) (bm.bmWidthBytes * labs(bm.bmHeight));
+   DWORD nBytes_Bits = static_cast<DWORD>(bm.bmWidthBytes * labs(bm.bmHeight));
 
    BITMAPFILEHEADER BIFH;
    BIFH.bfType      = ('M' << 8) + 'B';
@@ -577,16 +577,16 @@ static HGLOBAL bt_Bitmap_To_Stream(HBITMAP hBitmap)
    Bitmap_Info.bmiHeader.biClrUsed       = 0;
    Bitmap_Info.bmiHeader.biClrImportant  = 0;
 
-   HGLOBAL hGlobalAlloc = GlobalAlloc(GHND, ( DWORD ) (BIFH.bfSize));
+   HGLOBAL hGlobalAlloc = GlobalAlloc(GHND, static_cast<DWORD>(BIFH.bfSize));
    if( hGlobalAlloc == nullptr ) {
       return nullptr;
    }
 
-   LPBYTE lp_hGlobalAlloc = ( LPBYTE ) GlobalLock(hGlobalAlloc);
+   LPBYTE lp_hGlobalAlloc = static_cast<LPBYTE>(GlobalLock(hGlobalAlloc));
 
    memcpy(lp_hGlobalAlloc, &BIFH, sizeof(BITMAPFILEHEADER));
    memcpy((lp_hGlobalAlloc + sizeof(BITMAPFILEHEADER)), &Bitmap_Info, sizeof(BITMAPINFO));
-   GetDIBits(memDC, hBitmap, 0, Bitmap_Info.bmiHeader.biHeight, ( LPVOID ) (lp_hGlobalAlloc + BIFH.bfOffBits), &Bitmap_Info, DIB_RGB_COLORS);
+   GetDIBits(memDC, hBitmap, 0, Bitmap_Info.bmiHeader.biHeight, static_cast<LPVOID>(lp_hGlobalAlloc + BIFH.bfOffBits), &Bitmap_Info, DIB_RGB_COLORS);
 
    GlobalUnlock(hGlobalAlloc);
    DeleteDC(memDC);
@@ -806,7 +806,7 @@ HB_FUNC( BT_DC_DELETE )
    BT.PaintStruct.fRestore       = ( BOOL ) hb_parvni(1, 10);           // BOOL fRestore;
    BT.PaintStruct.fIncUpdate     = ( BOOL ) hb_parvni(1, 11);           // BOOL fIncUpdate;
    for( INT i = 0; i < 32; i++ ) {
-      BT.PaintStruct.rgbReserved[i] = ( BYTE ) hb_parvni(1, 12 + i);  // BYTE rgbReserved[32];
+      BT.PaintStruct.rgbReserved[i] = static_cast<BYTE>(hb_parvni(1, 12 + i));  // BYTE rgbReserved[32];
    }
 
    switch( BT.Type ) {
@@ -851,7 +851,7 @@ BT_SCR_GETDESKTOPHANDLE() --> HWND
 */
 HB_FUNC( BT_SCR_GETDESKTOPHANDLE )
 {
-   HB_RETNL(( LONG_PTR ) GetDesktopWindow());
+   HB_RETNL(reinterpret_cast<LONG_PTR>(GetDesktopWindow()));
 }
 
 //**************************************************************************
@@ -1423,13 +1423,13 @@ HB_FUNC( BT_DRAW_HDC_DRAWTEXT )
    COLORREF Back_Color = hmg_par_COLORREF(10);
    INT Type            = hmg_par_INT(11);
    INT Align           = hmg_par_INT(12);
-   double Orientation  = ( double ) hb_parnd(13);
+   double Orientation  = static_cast<double>(hb_parnd(13));
 
-   if( (Orientation < ( double ) -360.0) || (Orientation > ( double ) 360.0) ) {
-      Orientation = ( double ) 0.0;
+   if( (Orientation < static_cast<double>(-360.0)) || (Orientation > static_cast<double>(360.0)) ) {
+      Orientation = static_cast<double>(0.0);
    }
 
-   Orientation = Orientation * ( double ) 10.0;   // Angle in tenths of degrees
+   Orientation = Orientation * static_cast<double>(10.0);   // Angle in tenths of degrees
 
    if( (Type & BT_TEXT_TRANSPARENT) == BT_TEXT_TRANSPARENT ) {
       SetBkMode(hDC, TRANSPARENT);
@@ -1551,10 +1551,10 @@ HB_FUNC( BT_DRAW_HDC_TEXTSIZE )
    UINT iLastChar  = ( UINT ) lpText[0];
    ABCFLOAT ABCfloat;
    GetCharABCWidthsFloat(hDC, iFirstChar, iLastChar, &ABCfloat);
-   hb_storvnd(( double ) ( FLOAT ) (ABCfloat.abcfA + ABCfloat.abcfB + ABCfloat.abcfC), -1, 3);
-   hb_storvnd(( double ) ( FLOAT ) ABCfloat.abcfA, -1, 4);
-   hb_storvnd(( double ) ( FLOAT ) ABCfloat.abcfB, -1, 5);
-   hb_storvnd(( double ) ( FLOAT ) ABCfloat.abcfC, -1, 6);
+   hb_storvnd(static_cast<double>(( FLOAT ) (ABCfloat.abcfA + ABCfloat.abcfB + ABCfloat.abcfC)), -1, 3);
+   hb_storvnd(static_cast<double>(( FLOAT ) ABCfloat.abcfA), -1, 4);
+   hb_storvnd(static_cast<double>(( FLOAT ) ABCfloat.abcfB), -1, 5);
+   hb_storvnd(static_cast<double>(( FLOAT ) ABCfloat.abcfC), -1, 6);
 
    SelectObject(hDC, hOldFont);
    DeleteObject(hFont);
@@ -1713,7 +1713,7 @@ HB_FUNC( BT_BMP_CREATE )
    SelectObject(memDC, hBitmap_New);
 
    BITMAP bm;
-   GetObject(hBitmap_New, sizeof(BITMAP), ( LPBYTE ) &bm);
+   GetObject(hBitmap_New, sizeof(BITMAP), reinterpret_cast<LPBYTE>(&bm));
    RECT Rect;
    SetRect(&Rect, 0, 0, bm.bmWidth, bm.bmHeight);
 
@@ -1918,11 +1918,11 @@ static BOOL bt_bmp_SaveFile(HBITMAP hBitmap, const TCHAR * FileName, INT nTypePi
    HDC memDC = CreateCompatibleDC(nullptr);
    SelectObject(memDC, hBitmap);
    BITMAP bm;
-   GetObject(hBitmap, sizeof(BITMAP), ( LPBYTE ) &bm);
+   GetObject(hBitmap, sizeof(BITMAP), reinterpret_cast<LPBYTE>(&bm));
 
    bm.bmBitsPixel  = 24;
    bm.bmWidthBytes = (bm.bmWidth * bm.bmBitsPixel + 31) / 32 * 4;
-   DWORD nBytes_Bits = ( DWORD ) (bm.bmWidthBytes * labs(bm.bmHeight));
+   DWORD nBytes_Bits = static_cast<DWORD>(bm.bmWidthBytes * labs(bm.bmHeight));
 
    BITMAPFILEHEADER BIFH;
    BIFH.bfType      = ('M' << 8) + 'B';
@@ -1944,14 +1944,14 @@ static BOOL bt_bmp_SaveFile(HBITMAP hBitmap, const TCHAR * FileName, INT nTypePi
    Bitmap_Info.bmiHeader.biClrUsed       = 0;
    Bitmap_Info.bmiHeader.biClrImportant  = 0;
 
-   HGLOBAL hBits = GlobalAlloc(GHND, ( DWORD ) nBytes_Bits);
+   HGLOBAL hBits = GlobalAlloc(GHND, static_cast<DWORD>(nBytes_Bits));
    if( hBits == nullptr ) {
       return FALSE;
    }
 
-   LPBYTE lp_hBits = ( LPBYTE ) GlobalLock(hBits);
+   LPBYTE lp_hBits = static_cast<LPBYTE>(GlobalLock(hBits));
 
-   GetDIBits(memDC, hBitmap, 0, Bitmap_Info.bmiHeader.biHeight, ( LPVOID ) lp_hBits, &Bitmap_Info, DIB_RGB_COLORS);
+   GetDIBits(memDC, hBitmap, 0, Bitmap_Info.bmiHeader.biHeight, static_cast<LPVOID>(lp_hBits), &Bitmap_Info, DIB_RGB_COLORS);
 
    HANDLE hFile = CreateFile(FileName, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, nullptr);
 
@@ -1959,9 +1959,9 @@ static BOOL bt_bmp_SaveFile(HBITMAP hBitmap, const TCHAR * FileName, INT nTypePi
 
    if( hFile != INVALID_HANDLE_VALUE ) {
       DWORD nBytes_Written;
-      WriteFile(hFile, ( LPBYTE ) &BIFH, sizeof(BITMAPFILEHEADER), &nBytes_Written, nullptr);
-      WriteFile(hFile, ( LPBYTE ) &Bitmap_Info.bmiHeader, sizeof(BITMAPINFOHEADER), &nBytes_Written, nullptr);
-      WriteFile(hFile, ( LPBYTE ) lp_hBits, nBytes_Bits, &nBytes_Written, nullptr);
+      WriteFile(hFile, reinterpret_cast<LPBYTE>(&BIFH), sizeof(BITMAPFILEHEADER), &nBytes_Written, nullptr);
+      WriteFile(hFile, reinterpret_cast<LPBYTE>(&Bitmap_Info.bmiHeader), sizeof(BITMAPINFOHEADER), &nBytes_Written, nullptr);
+      WriteFile(hFile, static_cast<LPBYTE>(lp_hBits), nBytes_Bits, &nBytes_Written, nullptr);
       CloseHandle(hFile);
       ret = TRUE;
    }
@@ -2006,7 +2006,7 @@ HB_FUNC( BT_BMP_GETINFO )
    INT Info = hb_parnl(2);
 
    BITMAP bm;
-   GetObject(hBitmap, sizeof(BITMAP), ( LPBYTE ) &bm);
+   GetObject(hBitmap, sizeof(BITMAP), reinterpret_cast<LPBYTE>(&bm));
 
    /*
       BITMAP:
@@ -2100,7 +2100,7 @@ static BOOL bt_BMP_BITS(bt_BMPIMAGE * Image, INT nAction)
    }
 
    BITMAP bm;
-   GetObject(Image->hBitmap, sizeof(BITMAP), ( LPBYTE ) &bm);
+   GetObject(Image->hBitmap, sizeof(BITMAP), reinterpret_cast<LPBYTE>(&bm));
 
    BITMAPINFO BI;
    BI.bmiHeader.biSize          = sizeof(BITMAPINFOHEADER);
@@ -2122,20 +2122,20 @@ static BOOL bt_BMP_BITS(bt_BMPIMAGE * Image, INT nAction)
       Image->Height     = bm.bmHeight;
       Image->Width      = bm.bmWidth;
       Image->nChannels  = 3;    //3 bytes per pixel
-      Image->hGlobal    = GlobalAlloc(GHND, ( DWORD ) (bm.bmWidthBytes * labs(bm.bmHeight)));
+      Image->hGlobal    = GlobalAlloc(GHND, static_cast<DWORD>(bm.bmWidthBytes * labs(bm.bmHeight)));
    }
 
    if( Image->hGlobal == nullptr ) {
       return FALSE;
    }
 
-   LPBYTE lp_Bits = ( LPBYTE ) GlobalLock(Image->hGlobal);
+   LPBYTE lp_Bits = static_cast<LPBYTE>(GlobalLock(Image->hGlobal));
    HDC memDC = CreateCompatibleDC(nullptr);
 
    if( nAction == BT_BMP_GETBITS ) {
-      GetDIBits(memDC, Image->hBitmap, 0, bm.bmHeight, ( LPVOID ) lp_Bits, &BI, DIB_RGB_COLORS);
+      GetDIBits(memDC, Image->hBitmap, 0, bm.bmHeight, static_cast<LPVOID>(lp_Bits), &BI, DIB_RGB_COLORS);
    } else {
-      SetDIBits(memDC, Image->hBitmap, 0, bm.bmHeight, ( LPVOID ) lp_Bits, &BI, DIB_RGB_COLORS);
+      SetDIBits(memDC, Image->hBitmap, 0, bm.bmHeight, static_cast<LPVOID>(lp_Bits), &BI, DIB_RGB_COLORS);
    }
 
    DeleteDC(memDC);
@@ -2179,11 +2179,11 @@ static HBITMAP bt_BiLinearInterpolation(HBITMAP hBitmap, int newWidth, int newHe
       return nullptr;
    }
 
-   Image1.lp_Bits = ( LPBYTE ) GlobalLock(Image1.hGlobal);
-   Image2.lp_Bits = ( LPBYTE ) GlobalLock(Image2.hGlobal);
+   Image1.lp_Bits = static_cast<LPBYTE>(GlobalLock(Image1.hGlobal));
+   Image2.lp_Bits = static_cast<LPBYTE>(GlobalLock(Image2.hGlobal));
 
-   double y_ratio = ( double ) Image1.Height / ( double ) Image2.Height;
-   double x_ratio = ( double ) Image1.Width / ( double ) Image2.Width;
+   double y_ratio = static_cast<double>(Image1.Height) / static_cast<double>(Image2.Height);
+   double x_ratio = static_cast<double>(Image1.Width) / static_cast<double>(Image2.Width);
 
    int x;
    int y;
@@ -2200,19 +2200,19 @@ static HBITMAP bt_BiLinearInterpolation(HBITMAP hBitmap, int newWidth, int newHe
          x = ( int ) (x_ratio * Col);
          y = ( int ) (y_ratio * Row);
 
-         x_diff = ( double ) ((x_ratio * Col) - x);
-         y_diff = ( double ) ((y_ratio * Row) - y);
+         x_diff = static_cast<double>((x_ratio * Col) - x);
+         y_diff = static_cast<double>((y_ratio * Row) - y);
 
          for( int Channel = 0; Channel < 3; Channel++ ) { // color channel C = R,G,B
-            a = ( double ) bt_BMP_GETBYTE(Image1, (x + 0), (y + 0), Channel);
-            b = ( double ) bt_BMP_GETBYTE(Image1, (x + 1), (y + 0), Channel);
-            c = ( double ) bt_BMP_GETBYTE(Image1, (x + 0), (y + 1), Channel);
-            d = ( double ) bt_BMP_GETBYTE(Image1, (x + 1), (y + 1), Channel);
+            a = static_cast<double>(bt_BMP_GETBYTE(Image1, (x + 0), (y + 0), Channel));
+            b = static_cast<double>(bt_BMP_GETBYTE(Image1, (x + 1), (y + 0), Channel));
+            c = static_cast<double>(bt_BMP_GETBYTE(Image1, (x + 0), (y + 1), Channel));
+            d = static_cast<double>(bt_BMP_GETBYTE(Image1, (x + 1), (y + 1), Channel));
 
             // Color = A(1-w)(1-h) + B(w)(1-h) + C(h)(1-w) + D(wh)
             Color = a * (1.00 - x_diff) * (1.00 - y_diff) + b * (x_diff) * (1.00 - y_diff) + c * (y_diff) * (1.00 - x_diff) + d * (x_diff * y_diff);
 
-            bt_BMP_SETBYTE(Image2, Col, Row, Channel, ( BYTE ) Color);
+            bt_BMP_SETBYTE(Image2, Col, Row, Channel, static_cast<BYTE>(Color));
          }
       }
    }
@@ -2247,7 +2247,7 @@ HB_FUNC( BT_BMP_COPYANDRESIZE )
    HDC memDC1 = CreateCompatibleDC(nullptr);
    SelectObject(memDC1, hBitmap1);
    BITMAP bm;
-   GetObject(hBitmap1, sizeof(BITMAP), ( LPBYTE ) &bm);
+   GetObject(hBitmap1, sizeof(BITMAP), reinterpret_cast<LPBYTE>(&bm));
 
    INT Width1  = bm.bmWidth;
    INT Height1 = bm.bmHeight;
@@ -2486,7 +2486,7 @@ HB_FUNC( BT_BMP_PROCESS )
    } ;
 
    #define bt_RGB_TO_GRAY(R, G, B)  ( INT ) (( FLOAT ) R * 0.299 + ( FLOAT ) G * 0.587 + ( FLOAT ) B * 0.114)
-   #define bt_GAMMA(index, gamma)   (HB_MIN(255, ( INT ) ((255.0 * pow((( DOUBLE ) index / 255.0), (1.0 / ( DOUBLE ) gamma))) + 0.5)))
+   #define bt_GAMMA(index, gamma)   (HB_MIN(255, ( INT ) ((255.0 * pow((static_cast<DOUBLE>(index) / 255.0), (1.0 / static_cast<DOUBLE>(gamma)))) + 0.5)))
    //  redGamma[i] = (byte)           Min (255, (int)(( 255.0 *Pow(i/255.0, 1.0/g_red)) + 0.5));
 
    LPBYTE            lp_Bits;
@@ -2508,7 +2508,7 @@ HB_FUNC( BT_BMP_PROCESS )
          break;
 
       case BT_BMP_PROCESS_GRAYNESS:
-         GrayLevel = ( DOUBLE ) hb_parnd(3) / 100.0;
+         GrayLevel = static_cast<DOUBLE>(hb_parnd(3)) / 100.0;
          if( GrayLevel <= 0.0 || GrayLevel > 1.0 ) {
             hb_retl(false);
             return;
@@ -2524,7 +2524,7 @@ HB_FUNC( BT_BMP_PROCESS )
          break;
 
       case BT_BMP_PROCESS_CONTRAST:
-         ContrastAngle = ( DOUBLE ) hb_parnd(3);
+         ContrastAngle = static_cast<DOUBLE>(hb_parnd(3));
          if( ContrastAngle <= 0.0 ) {
             hb_retl(false);
             return;
@@ -2551,13 +2551,13 @@ HB_FUNC( BT_BMP_PROCESS )
             hb_retl(false);
             return;
          }
-         RedGamma   = ( DOUBLE ) hb_parvnd(3, 1);
-         GreenGamma = ( DOUBLE ) hb_parvnd(3, 2);
-         BlueGamma  = ( DOUBLE ) hb_parvnd(3, 3);
+         RedGamma   = static_cast<DOUBLE>(hb_parvnd(3, 1));
+         GreenGamma = static_cast<DOUBLE>(hb_parvnd(3, 2));
+         BlueGamma  = static_cast<DOUBLE>(hb_parvnd(3, 3));
          for( INT i = 0; i < 256; i++ ) {
-            RedGammaRamp[i]   = ( BYTE ) bt_GAMMA(i, RedGamma);
-            GreenGammaRamp[i] = ( BYTE ) bt_GAMMA(i, GreenGamma);
-            BlueGammaRamp[i]  = ( BYTE ) bt_GAMMA(i, BlueGamma);
+            RedGammaRamp[i]   = static_cast<BYTE>(bt_GAMMA(i, RedGamma));
+            GreenGammaRamp[i] = static_cast<BYTE>(bt_GAMMA(i, GreenGamma));
+            BlueGammaRamp[i]  = static_cast<BYTE>(bt_GAMMA(i, BlueGamma));
          }
          break;
 
@@ -2567,7 +2567,7 @@ HB_FUNC( BT_BMP_PROCESS )
    }
 
    BITMAP bm;
-   GetObject(hBitmap, sizeof(BITMAP), ( LPBYTE ) &bm);
+   GetObject(hBitmap, sizeof(BITMAP), reinterpret_cast<LPBYTE>(&bm));
 
    BITMAPINFO BI;
    BI.bmiHeader.biSize          = sizeof(BITMAPINFOHEADER);
@@ -2583,18 +2583,18 @@ HB_FUNC( BT_BMP_PROCESS )
    BI.bmiHeader.biClrImportant  = 0;
 
    bm.bmWidthBytes = (bm.bmWidth * BI.bmiHeader.biBitCount + 31) / 32 * 4;
-   DWORD nBytes_Bits     = ( DWORD ) (bm.bmWidthBytes * labs(bm.bmHeight));
+   DWORD nBytes_Bits = static_cast<DWORD>(bm.bmWidthBytes * labs(bm.bmHeight));
 
-   HGLOBAL hBits = GlobalAlloc(GHND, ( DWORD ) nBytes_Bits);
+   HGLOBAL hBits = GlobalAlloc(GHND, static_cast<DWORD>(nBytes_Bits));
    if( hBits == nullptr ) {
       hb_retl(false);
       return;
    } else {
-      lp_Bits = ( LPBYTE ) GlobalLock(hBits);
+      lp_Bits = static_cast<LPBYTE>(GlobalLock(hBits));
    }
 
    HDC memDC = CreateCompatibleDC(nullptr);
-   GetDIBits(memDC, hBitmap, 0, bm.bmHeight, ( LPVOID ) lp_Bits, &BI, DIB_RGB_COLORS);
+   GetDIBits(memDC, hBitmap, 0, bm.bmHeight, static_cast<LPVOID>(lp_Bits), &BI, DIB_RGB_COLORS);
 
    for( INT y = 0; y < bm.bmHeight; y++ ) {
       RGBcolor = ( bt_RGBCOLORBYTE * ) (lp_Bits + ( LONG ) ( y ) * bm.bmWidthBytes);
@@ -2608,25 +2608,25 @@ HB_FUNC( BT_BMP_PROCESS )
                break;
 
             case BT_BMP_PROCESS_GRAYNESS:
-               GrayValue   = ( BYTE ) bt_RGB_TO_GRAY(RGBcolor->R, RGBcolor->G, RGBcolor->B);
-               RGBcolor->R = ( BYTE ) (RGBcolor->R + (GrayValue - RGBcolor->R) * GrayLevel);
-               RGBcolor->G = ( BYTE ) (RGBcolor->G + (GrayValue - RGBcolor->G) * GrayLevel);
-               RGBcolor->B = ( BYTE ) (RGBcolor->B + (GrayValue - RGBcolor->B) * GrayLevel);
+               GrayValue   = static_cast<BYTE>(bt_RGB_TO_GRAY(RGBcolor->R, RGBcolor->G, RGBcolor->B));
+               RGBcolor->R = static_cast<BYTE>(RGBcolor->R + (GrayValue - RGBcolor->R) * GrayLevel);
+               RGBcolor->G = static_cast<BYTE>(RGBcolor->G + (GrayValue - RGBcolor->G) * GrayLevel);
+               RGBcolor->B = static_cast<BYTE>(RGBcolor->B + (GrayValue - RGBcolor->B) * GrayLevel);
                break;
 
             case BT_BMP_PROCESS_BRIGHTNESS:
-               RGBcolor->R = ( BYTE ) ((RGBcolor->R + LightLevel < 0) ? 0 : ((RGBcolor->R + LightLevel > 255) ? 255 : (RGBcolor->R + LightLevel)));
-               RGBcolor->G = ( BYTE ) ((RGBcolor->G + LightLevel < 0) ? 0 : ((RGBcolor->G + LightLevel > 255) ? 255 : (RGBcolor->G + LightLevel)));
-               RGBcolor->B = ( BYTE ) ((RGBcolor->B + LightLevel < 0) ? 0 : ((RGBcolor->B + LightLevel > 255) ? 255 : (RGBcolor->B + LightLevel)));
+               RGBcolor->R = static_cast<BYTE>((RGBcolor->R + LightLevel < 0) ? 0 : ((RGBcolor->R + LightLevel > 255) ? 255 : (RGBcolor->R + LightLevel)));
+               RGBcolor->G = static_cast<BYTE>((RGBcolor->G + LightLevel < 0) ? 0 : ((RGBcolor->G + LightLevel > 255) ? 255 : (RGBcolor->G + LightLevel)));
+               RGBcolor->B = static_cast<BYTE>((RGBcolor->B + LightLevel < 0) ? 0 : ((RGBcolor->B + LightLevel > 255) ? 255 : (RGBcolor->B + LightLevel)));
                break;
 
             case BT_BMP_PROCESS_CONTRAST:
                ContrastValue = 128 + (RGBcolor->R - 128) * ContrastConstant;
-               RGBcolor->R   = ( BYTE ) ((ContrastValue < 0) ? 0 : ((ContrastValue > 255) ? 255 : ContrastValue));
+               RGBcolor->R   = static_cast<BYTE>((ContrastValue < 0) ? 0 : ((ContrastValue > 255) ? 255 : ContrastValue));
                ContrastValue = 128 + (RGBcolor->G - 128) * ContrastConstant;
-               RGBcolor->G   = ( BYTE ) ((ContrastValue < 0) ? 0 : ((ContrastValue > 255) ? 255 : ContrastValue));
+               RGBcolor->G   = static_cast<BYTE>((ContrastValue < 0) ? 0 : ((ContrastValue > 255) ? 255 : ContrastValue));
                ContrastValue = 128 + (RGBcolor->B - 128) * ContrastConstant;
-               RGBcolor->B   = ( BYTE ) ((ContrastValue < 0) ? 0 : ((ContrastValue > 255) ? 255 : ContrastValue));
+               RGBcolor->B   = static_cast<BYTE>((ContrastValue < 0) ? 0 : ((ContrastValue > 255) ? 255 : ContrastValue));
                break;
 
             case BT_BMP_PROCESS_MODIFYCOLOR:
@@ -2699,9 +2699,9 @@ static bt_RGBCOLORBYTE bt_ConvolutionKernel3x3(bt_RGBCOLORBYTE * Y_previous, bt_
 
    #define bt_BoundRange(Value, RangeMin, RangeMax)  ((Value < RangeMin) ? RangeMin : ((Value > RangeMax) ? RangeMax : Value))
 
-   RGBcolor.R = ( BYTE ) bt_BoundRange(Red, 0, 255);
-   RGBcolor.G = ( BYTE ) bt_BoundRange(Green, 0, 255);
-   RGBcolor.B = ( BYTE ) bt_BoundRange(Blue, 0, 255);
+   RGBcolor.R = static_cast<BYTE>(bt_BoundRange(Red, 0, 255));
+   RGBcolor.G = static_cast<BYTE>(bt_BoundRange(Green, 0, 255));
+   RGBcolor.B = static_cast<BYTE>(bt_BoundRange(Blue, 0, 255));
 
    return RGBcolor;
 }
@@ -2730,7 +2730,7 @@ HB_FUNC( BT_BMP_FILTER3X3 )
    }
 
    BITMAP bm;
-   GetObject(hBitmap, sizeof(BITMAP), ( LPBYTE ) &bm);
+   GetObject(hBitmap, sizeof(BITMAP), reinterpret_cast<LPBYTE>(&bm));
 
    BITMAPINFO BI;
    BI.bmiHeader.biSize          = sizeof(BITMAPINFOHEADER);
@@ -2746,7 +2746,7 @@ HB_FUNC( BT_BMP_FILTER3X3 )
    BI.bmiHeader.biClrImportant  = 0;
 
    bm.bmWidthBytes = (bm.bmWidth * BI.bmiHeader.biBitCount + 31) / 32 * 4;
-   DWORD nBytes_Bits     = ( DWORD ) (bm.bmWidthBytes * labs(bm.bmHeight));
+   DWORD nBytes_Bits = static_cast<DWORD>(bm.bmWidthBytes * labs(bm.bmHeight));
 
    HGLOBAL hBits_O = GlobalAlloc(GHND, nBytes_Bits);
    if( hBits_O == nullptr ) {
@@ -2761,12 +2761,12 @@ HB_FUNC( BT_BMP_FILTER3X3 )
       return;
    }
 
-   LPBYTE lp_Bits_O = ( LPBYTE ) GlobalLock(hBits_O);
-   LPBYTE lp_Bits_D = ( LPBYTE ) GlobalLock(hBits_D);
+   LPBYTE lp_Bits_O = static_cast<LPBYTE>(GlobalLock(hBits_O));
+   LPBYTE lp_Bits_D = static_cast<LPBYTE>(GlobalLock(hBits_D));
 
    HDC memDC = CreateCompatibleDC(nullptr);
 
-   GetDIBits(memDC, hBitmap, 0, bm.bmHeight, ( LPVOID ) lp_Bits_O, &BI, DIB_RGB_COLORS);
+   GetDIBits(memDC, hBitmap, 0, bm.bmHeight, static_cast<LPVOID>(lp_Bits_O), &BI, DIB_RGB_COLORS);
 
    for( INT y = 0; y < bm.bmHeight; y++ ) {
 //     RGBcolor_O = (bt_RGBCOLORBYTE *) (lp_Bits_O + (LONG) (y) * bm.bmWidthBytes);
@@ -2833,8 +2833,8 @@ HB_FUNC( BT_BMP_TRANSFORM )
 
    const double pi = 3.141592;
 
-   #define dABS(n)     (( double ) n >= 0.0 ? ( double ) n : ( double ) -n)
-   #define SCALING(n)  (( double ) n > 1.0 ? ( double ) (1.0 / n) : ( double ) 1.0)
+   #define dABS(n)     (static_cast<double>(n) >= 0.0 ? static_cast<double>(n) : static_cast<double>(-n))
+   #define SCALING(n)  (static_cast<double>(n) > 1.0 ? static_cast<double>(1.0 / n) : static_cast<double>(1.0))
 
    HBITMAP hBitmap_O      = hmg_par_HBITMAP(1);
    INT Mode               = hb_parnl(2);
@@ -2844,7 +2844,7 @@ HB_FUNC( BT_BMP_TRANSFORM )
    HDC memDC1 = CreateCompatibleDC(nullptr);
    SelectObject(memDC1, hBitmap_O);
    BITMAP bm;
-   GetObject(hBitmap_O, sizeof(BITMAP), ( LPBYTE ) &bm);
+   GetObject(hBitmap_O, sizeof(BITMAP), reinterpret_cast<LPBYTE>(&bm));
 
    INT Width  = bm.bmWidth;
    INT Height = bm.bmHeight;
@@ -2876,7 +2876,7 @@ HB_FUNC( BT_BMP_TRANSFORM )
       }
 
       // Angle = angulo en grados
-      double radianes = (2 * pi) * ( double ) Angle / ( double ) 360.0;
+      double radianes = (2 * pi) * static_cast<double>(Angle) / static_cast<double>(360.0);
 
       // x1,y1 = W,0
       // x2,y2 = W,H
@@ -2887,14 +2887,14 @@ HB_FUNC( BT_BMP_TRANSFORM )
       // new_y = (x * sin A) + (y * cos A)
 
 
-      double x1 = ( double ) Width * cos(radianes);
-      double y1 = ( double ) Width * sin(radianes);
+      double x1 = static_cast<double>(Width) * cos(radianes);
+      double y1 = static_cast<double>(Width) * sin(radianes);
 
-      double x2 = (( double ) Width * cos(radianes)) - (( double ) Height * sin(radianes));
-      double y2 = (( double ) Width * sin(radianes)) + (( double ) Height * cos(radianes));
+      double x2 = (static_cast<double>(Width) * cos(radianes)) - (static_cast<double>(Height) * sin(radianes));
+      double y2 = (static_cast<double>(Width) * sin(radianes)) + (static_cast<double>(Height) * cos(radianes));
 
-      double x3 = -(( double ) Height * sin(radianes));
-      double y3 = (( double ) Height * cos(radianes));
+      double x3 = -(static_cast<double>(Height) * sin(radianes));
+      double y3 = (static_cast<double>(Height) * cos(radianes));
 
       xform2.eM11 = ( FLOAT ) cos(radianes);
       xform2.eM12 = ( FLOAT ) sin(radianes);
@@ -3045,7 +3045,7 @@ HB_FUNC( BT_BMP_GET_CLIPBOARD )
       return;
    }
 
-   LPBYTE lp_Clipboard = ( LPBYTE ) GlobalLock(hClipboard);
+   LPBYTE lp_Clipboard = static_cast<LPBYTE>(GlobalLock(hClipboard));
 
    LPBITMAPINFO lp_BI = ( LPBITMAPINFO ) lp_Clipboard;
 
@@ -3060,7 +3060,7 @@ HB_FUNC( BT_BMP_GET_CLIPBOARD )
       nBytes_Offset = sizeof(RGBQUAD) * 256;
    }
 
-   LPBYTE lp_Bits = ( LPBYTE ) (lp_Clipboard + (sizeof(BITMAPINFOHEADER) + nBytes_Offset));
+   LPBYTE lp_Bits = static_cast<LPBYTE>(lp_Clipboard + (sizeof(BITMAPINFOHEADER) + nBytes_Offset));
 
    BITMAPINFO   BI;
    BI.bmiHeader.biSize          = sizeof(BITMAPINFOHEADER);
@@ -3102,7 +3102,7 @@ HB_FUNC( BT_BMP_PUT_CLIPBOARD )
    HBITMAP hBitmap = hmg_par_HBITMAP(2);
 
    BITMAP bm;
-   GetObject(hBitmap, sizeof(BITMAP), ( LPBYTE ) &bm);
+   GetObject(hBitmap, sizeof(BITMAP), reinterpret_cast<LPBYTE>(&bm));
 
    BITMAPINFO BI;
    BI.bmiHeader.biSize          = sizeof(BITMAPINFOHEADER);
@@ -3119,7 +3119,7 @@ HB_FUNC( BT_BMP_PUT_CLIPBOARD )
 
    bm.bmWidthBytes = (bm.bmWidth * BI.bmiHeader.biBitCount + 31) / 32 * 4;
 
-   DWORD nBytes_Bits  = ( DWORD ) (bm.bmWidthBytes * labs(bm.bmHeight));
+   DWORD nBytes_Bits  = static_cast<DWORD>(bm.bmWidthBytes * labs(bm.bmHeight));
    DWORD nBytes_Total = sizeof(BITMAPINFOHEADER) + nBytes_Bits;
 
    if( !OpenClipboard(hWnd) ) {
@@ -3139,7 +3139,7 @@ HB_FUNC( BT_BMP_PUT_CLIPBOARD )
    memcpy(lp_Clipboard, &BI.bmiHeader, sizeof(BITMAPINFOHEADER));
 
    HDC memDC = CreateCompatibleDC(nullptr);
-   GetDIBits(memDC, hBitmap, 0, bm.bmHeight, ( LPVOID ) (lp_Clipboard + sizeof(BITMAPINFOHEADER)), &BI, DIB_RGB_COLORS);
+   GetDIBits(memDC, hBitmap, 0, bm.bmHeight, static_cast<LPVOID>(lp_Clipboard + sizeof(BITMAPINFOHEADER)), &BI, DIB_RGB_COLORS);
 
    GlobalUnlock(hClipboard);
 
@@ -3307,3 +3307,5 @@ HB_FUNC( BT_TEXTOUT_SIZE )
    DeleteObject(hFont);
    ReleaseDC(hWnd, hDC);
 }
+
+// TODO: remove unnecessary casts to double

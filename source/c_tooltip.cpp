@@ -559,7 +559,7 @@ HB_FUNC( TTM_SETDELAYTIME )
       if( nMilliSec < 0 ) {
          SendMessage(hwndToolTip, TTM_SETDELAYTIME, hb_parnidef(2, TTDT_AUTOPOP), -1);
       } else {
-         SendMessage(hwndToolTip, TTM_SETDELAYTIME, hb_parnidef(2, TTDT_AUTOPOP), ( LPARAM ) ( DWORD ) nMilliSec);
+         SendMessage(hwndToolTip, TTM_SETDELAYTIME, hb_parnidef(2, TTDT_AUTOPOP), static_cast<LPARAM>(static_cast<DWORD>(nMilliSec)));
       }
    } else {
       hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(1));
@@ -759,7 +759,7 @@ HB_FUNC( TTM_WINDOWFROMPOINT )
       if( Array2Point(hb_param(3, Harbour::Item::ARRAY), &point) ) {
          ClientToScreen(hwndTool, &point);
 
-         HB_RETNL( ( LONG_PTR ) SendMessage(hwndToolTip, TTM_WINDOWFROMPOINT, 0, MAKELONG(point.x, point.y)) );
+         HB_RETNL( static_cast<LONG_PTR>(SendMessage(hwndToolTip, TTM_WINDOWFROMPOINT, 0, MAKELONG(point.x, point.y))) );
       } else {
          hb_errRT_BASE_SubstR(EG_ARG, 0, "MiniGUI Err.", HB_ERR_FUNCNAME, 1, hb_paramError(3));
       }

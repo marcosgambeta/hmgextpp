@@ -145,12 +145,12 @@ HB_FUNC( UNLOADRICHEDITEXLIB )
 
 DWORD CALLBACK EditStreamCallbackRead(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb, LONG * pcb)
 {
-   HANDLE hFile = ( HANDLE ) dwCookie;
+   HANDLE hFile = reinterpret_cast<HANDLE>(dwCookie);
 
-   if( ReadFile(hFile, ( LPVOID ) lpBuff, ( DWORD ) cb, ( LPDWORD ) pcb, nullptr) ) {
+   if( ReadFile(hFile, static_cast<LPVOID>(lpBuff), static_cast<DWORD>(cb), reinterpret_cast<LPDWORD>(pcb), nullptr) ) {
       return 0;
    } else {
-      return ( DWORD ) -1;
+      return static_cast<DWORD>(-1);
    }
 }
 
@@ -183,7 +183,7 @@ HB_FUNC( RICHEDITBOX_STREAMIN )
 
    EDITSTREAM es;
    es.pfnCallback = EditStreamCallbackRead;
-   es.dwCookie    = ( DWORD_PTR ) hFile;
+   es.dwCookie    = reinterpret_cast<DWORD_PTR>(hFile);
    es.dwError     = 0;
    SendMessage(hmg_par_HWND(1), EM_STREAMIN, Format, reinterpret_cast<LPARAM>(&es));
    CloseHandle(hFile);
@@ -192,12 +192,12 @@ HB_FUNC( RICHEDITBOX_STREAMIN )
 
 DWORD CALLBACK EditStreamCallbackWrite(DWORD_PTR dwCookie, LPBYTE lpBuff, LONG cb, LONG * pcb)
 {
-   HANDLE hFile = ( HANDLE ) dwCookie;
+   HANDLE hFile = reinterpret_cast<HANDLE>(dwCookie);
 
-   if( WriteFile(hFile, ( LPVOID ) lpBuff, ( DWORD ) cb, ( LPDWORD ) pcb, nullptr) ) {
+   if( WriteFile(hFile, static_cast<LPVOID>(lpBuff), static_cast<DWORD>(cb), reinterpret_cast<LPDWORD>(pcb), nullptr) ) {
       return 0;
    } else {
-      return ( DWORD ) -1;
+      return static_cast<DWORD>(-1);
    }
 }
 
@@ -230,7 +230,7 @@ HB_FUNC( RICHEDITBOX_STREAMOUT )
 
    EDITSTREAM es;
    es.pfnCallback = EditStreamCallbackWrite;
-   es.dwCookie    = ( DWORD_PTR ) hFile;
+   es.dwCookie    = reinterpret_cast<DWORD_PTR>(hFile);
    es.dwError     = 0;
    SendMessage(hmg_par_HWND(1), EM_STREAMOUT, Format, reinterpret_cast<LPARAM>(&es));
    CloseHandle(hFile);
@@ -646,9 +646,9 @@ HB_FUNC( RICHEDITBOX_SETPARAFORMAT )
    WORD   Numbering      = ( HB_ISNIL(3) ?    0 : hb_parni(3) );
    WORD   NumberingStyle = ( HB_ISNIL(4) ?    0 : hb_parni(4) );
    WORD   NumberingStart = ( HB_ISNIL(5) ?    0 : hb_parni(5) );
-   double Offset         = HB_ISNIL(6) ?  0.0 : ( double ) hb_parnd(6);
-   double LineSpacing    = HB_ISNIL(7) ?  0.0 : ( double ) hb_parnd(7);
-   double StartIndent    = HB_ISNIL(8) ?  0.0 : ( double ) hb_parnd(8);
+   double Offset         = HB_ISNIL(6) ?  0.0 : static_cast<double>(hb_parnd(6));
+   double LineSpacing    = HB_ISNIL(7) ?  0.0 : static_cast<double>(hb_parnd(7));
+   double StartIndent    = HB_ISNIL(8) ?  0.0 : static_cast<double>(hb_parnd(8));
 
    DWORD Mask = 0;
 
@@ -704,18 +704,18 @@ HB_FUNC( RICHEDITBOX_SETPARAFORMAT )
 
    if( HB_ISNUM(6) ) {
       Mask |= PFM_OFFSET;
-      ParaFormat2.dxOffset = ( LONG ) ( ( double ) ( Offset * 1440.0 / 25.4 ) ); // Offset is in millimeters ( 1 inch = 25.4 mm = 1440 twips )
+      ParaFormat2.dxOffset = ( LONG ) ( static_cast<double>(Offset * 1440.0 / 25.4) ); // Offset is in millimeters ( 1 inch = 25.4 mm = 1440 twips )
    }
 
    if( LineSpacing > 0.0 ) {
       Mask |= PFM_LINESPACING;
       ParaFormat2.bLineSpacingRule = 5;    // Spacing from one line to the next, 20 twips = single-spaced text
-      ParaFormat2.dyLineSpacing    = ( LONG ) ( ( double ) ( LineSpacing * 20.0 / 1.0 ) );
+      ParaFormat2.dyLineSpacing    = ( LONG ) ( static_cast<double>(LineSpacing * 20.0 / 1.0) );
    }
 
    if( HB_ISNUM(8) ) {
       Mask |= PFM_STARTINDENT;
-      ParaFormat2.dxStartIndent = ( LONG ) ( ( double ) ( StartIndent * 1440.0 / 25.4 ) ); // StartIndent is in millimeters ( 1 inch = 25.4 mm = 1440 twips )
+      ParaFormat2.dxStartIndent = ( LONG ) ( static_cast<double>(StartIndent * 1440.0 / 25.4) ); // StartIndent is in millimeters ( 1 inch = 25.4 mm = 1440 twips )
    }
 
    ParaFormat2.dwMask = Mask;
@@ -782,8 +782,8 @@ HB_FUNC( RICHEDITBOX_GETPARAFORMAT )
    }
 
    if( HB_ISBYREF(6) ) {
-      Offset = ( double ) ParaFormat2.dxOffset;
-      hb_stornd(( double ) (Offset * 25.4 / 1440.0), 6);
+      Offset = static_cast<double>(ParaFormat2.dxOffset);
+      hb_stornd(static_cast<double>(Offset * 25.4 / 1440.0), 6);
    }
 
    if( HB_ISBYREF(7) ) {
@@ -798,20 +798,20 @@ HB_FUNC( RICHEDITBOX_GETPARAFORMAT )
          LineSpacing = 2.0;
          break;
          case 3:
-         LineSpacing = ( ( double ) ParaFormat2.dyLineSpacing ) * -1.0;  // if < 0 is in twips
+         LineSpacing = ( static_cast<double>(ParaFormat2.dyLineSpacing) ) * -1.0;  // if < 0 is in twips
          break;
          case 4:
-         LineSpacing = ( ( double ) ParaFormat2.dyLineSpacing ) * -1.0;  // if < 0 is in twips
+         LineSpacing = ( static_cast<double>(ParaFormat2.dyLineSpacing) ) * -1.0;  // if < 0 is in twips
          break;
          case 5:
-         LineSpacing = ( ( double ) ParaFormat2.dyLineSpacing ) * 1.0 / 20.0;
+         LineSpacing = ( static_cast<double>(ParaFormat2.dyLineSpacing) ) * 1.0 / 20.0;
       }
-      hb_stornd(( double ) LineSpacing, 7);
+      hb_stornd(static_cast<double>(LineSpacing), 7);
    }
 
    if( HB_ISBYREF(8) ) {
-      StartIndent = ( double ) ParaFormat2.dxStartIndent;
-      hb_stornd(( double ) (StartIndent * 25.4 / 1440.0), 8);
+      StartIndent = static_cast<double>(ParaFormat2.dxStartIndent);
+      hb_stornd(static_cast<double>(StartIndent * 25.4 / 1440.0), 8);
    }
 }
 

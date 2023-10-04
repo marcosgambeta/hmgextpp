@@ -347,12 +347,12 @@ HB_FUNC( CLOSETHEMEDATA )
    if( hUxTheme ) {
       fnCloseThemeData pfn = ( fnCloseThemeData ) wapi_GetProcAddress(hUxTheme, "CloseThemeData");
       if( pfn ) {
-         nRet = ( HRESULT ) pfn(hTheme);
+         nRet = static_cast<HRESULT>(pfn(hTheme));
       }
    }
 
-   if( nRet != ( LONG_PTR ) nullptr ) {
-      HB_RETNL( ( LONG_PTR ) nRet );
+   if( nRet != reinterpret_cast<LONG_PTR>(nullptr) ) {
+      HB_RETNL(static_cast<LONG_PTR>(nRet));
    }
 }
 
@@ -381,7 +381,7 @@ HB_FUNC( DRAWTHEMEBACKGROUND )
    if( hUxTheme ) {
       fnDrawThemeBackground pfn = ( fnDrawThemeBackground ) wapi_GetProcAddress(hUxTheme, "DrawThemeBackground");
       if( pfn ) {
-         nRet = ( HRESULT ) pfn(hTheme, hDC, iPartId, iStateId, &pRect, &pClipRect);
+         nRet = static_cast<HRESULT>(pfn(hTheme, hDC, iPartId, iStateId, &pRect, &pClipRect));
       }
    }
 
@@ -410,7 +410,7 @@ HB_FUNC( DRAWTHEMEPARENTBACKGROUND )
    if( hUxTheme ) {
       fnDrawThemeParentBackground pfn = ( fnDrawThemeParentBackground ) wapi_GetProcAddress(hUxTheme, "DrawThemeParentBackground");
       if( pfn ) {
-         nRet = ( HRESULT ) pfn(hWnd, hDC, &pRect);
+         nRet = static_cast<HRESULT>(pfn(hWnd, hDC, &pRect));
       }
    }
 
@@ -435,7 +435,7 @@ HB_FUNC( SETWINDOWTHEME )
    if( hUxTheme ) {
       fnSetWindowTheme pfn = ( fnSetWindowTheme ) wapi_GetProcAddress(hUxTheme, "SetWindowTheme");
       if( pfn ) {
-         nRet = ( HRESULT ) pfn(hWnd, (LPCWSTR) HB_PARSTR(2, &str1, nullptr), (LPCWSTR) HB_PARSTR(3, &str2, nullptr));
+         nRet = static_cast<HRESULT>(pfn(hWnd, (LPCWSTR) HB_PARSTR(2, &str1, nullptr), (LPCWSTR) HB_PARSTR(3, &str2, nullptr)));
       }
    }
 
@@ -462,7 +462,7 @@ HB_FUNC( ENABLETHEMEDIALOGTEXTURE )
    if( hUxTheme ) {
       fnEnableThemeDialogTexture pfn = ( fnEnableThemeDialogTexture ) wapi_GetProcAddress(hUxTheme, "EnableThemeDialogTexture");
       if( pfn ) {
-         nRet = ( HRESULT ) pfn(hWnd, flags);
+         nRet = static_cast<HRESULT>(pfn(hWnd, flags));
       }
    }
 

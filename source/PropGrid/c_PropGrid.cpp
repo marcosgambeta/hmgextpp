@@ -108,7 +108,7 @@
 #ifdef MAKELONG
   #undef MAKELONG
 #endif
-#define MAKELONG(a, b)   ( ( LONG ) ( ( ( WORD ) ( ( DWORD_PTR ) ( a ) & 0xffff ) ) | ( ( ( DWORD ) ( ( WORD ) ( ( DWORD_PTR ) ( b ) & 0xffff ) ) ) << 16 ) ) )
+#define MAKELONG(a, b)   (static_cast<LONG>((static_cast<WORD>(static_cast<DWORD_PTR>(a) & 0xffff)) | ((static_cast<DWORD>(static_cast<WORD>(static_cast<DWORD_PTR>(b) & 0xffff))) << 16)))
 
 struct PROPGRD
 {
@@ -222,7 +222,7 @@ static bool InsertBtnPG(HWND hWnd, HTREEITEM hItem, int nBtn, int ItemType, PROP
 
    // replace the old window procedure with our new one
 
-   pbtn->oldproc = ( WNDPROC ) SetWindowLongPtr(hWnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(PGEditProc));
+   pbtn->oldproc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(hWnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(PGEditProc)));
 
    // associate our button state structure with the window
 
@@ -466,7 +466,7 @@ static BOOL InitPropGrd(HWND hWndPG, int col, int row, int width, int height, in
 
    // replace the old window procedure with our new one
 
-   ppgrd->oldproc = ( WNDPROC ) SetWindowLongPtr(hWndPG, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(OwnPropGridProc));
+   ppgrd->oldproc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(hWndPG, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(OwnPropGridProc)));
    SetWindowLongPtr(hFramePG, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(OwnFramePgProc));
 
    // associate our button state structure with the window
@@ -1112,7 +1112,7 @@ LRESULT CALLBACK OwnFramePgProc(HWND hFramePG, UINT Msg, WPARAM wParam, LPARAM l
    static PHB_SYMB pSymbol = nullptr;
 
    PROPGRD * ppgrd = ( PROPGRD * ) GetWindowLongPtr(hFramePG, GWLP_USERDATA);
-   WNDPROC OldWndProc = ( WNDPROC ) ( LONG_PTR ) GetProp(hFramePG, "oldframepgproc");
+   WNDPROC OldWndProc = reinterpret_cast<WNDPROC>(reinterpret_cast<LONG_PTR>(GetProp(hFramePG, "oldframepgproc")));
 
    switch( Msg ) {
       case WM_DESTROY:

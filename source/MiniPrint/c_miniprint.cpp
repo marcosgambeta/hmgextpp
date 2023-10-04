@@ -509,9 +509,9 @@ HB_FUNC( APRINTERS )
    }
 
    if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT ) {
-      EnumPrinters(PRINTER_ENUM_LOCAL | PRINTER_ENUM_CONNECTIONS, nullptr, 4, ( LPBYTE ) pBuffer, dwSize, &dwSize, &dwPrinters);
+      EnumPrinters(PRINTER_ENUM_LOCAL | PRINTER_ENUM_CONNECTIONS, nullptr, 4, static_cast<LPBYTE>(pBuffer), dwSize, &dwSize, &dwPrinters);
    } else {
-      EnumPrinters(PRINTER_ENUM_LOCAL, nullptr, 5, ( LPBYTE ) pBuffer, dwSize, &dwSize, &dwPrinters);
+      EnumPrinters(PRINTER_ENUM_LOCAL, nullptr, 5, static_cast<LPBYTE>(pBuffer), dwSize, &dwSize, &dwPrinters);
    }
 
    if( dwPrinters == 0 ) {
@@ -904,7 +904,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
       return;
    }
 
-   bFlag = GetPrinter( hPrinter, 2, ( LPBYTE ) pi2, dwNeeded, &dwNeeded );
+   bFlag = GetPrinter( hPrinter, 2, reinterpret_cast<LPBYTE>(pi2), dwNeeded, &dwNeeded );
 
    if( !bFlag ) {
       GlobalFree(pi2);
@@ -1061,7 +1061,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
          return;
       }
 
-      pi2->pDevMode->dmOrientation = ( short ) hb_parni(2);
+      pi2->pDevMode->dmOrientation = static_cast<short>(hb_parni(2));
    }
 
    // PaperSize
@@ -1080,7 +1080,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
          return;
       }
 
-      pi2->pDevMode->dmPaperSize = ( short ) hb_parni(3);
+      pi2->pDevMode->dmPaperSize = static_cast<short>(hb_parni(3));
    }
 
    // PaperLength
@@ -1099,7 +1099,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
          return;
       }
 
-      pi2->pDevMode->dmPaperLength = ( short ) ( hb_parni(4) * 10 );
+      pi2->pDevMode->dmPaperLength = static_cast<short>(hb_parni(4) * 10);
    }
 
    // PaperWidth
@@ -1118,7 +1118,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
          return;
       }
 
-      pi2->pDevMode->dmPaperWidth = ( short ) ( hb_parni(5) * 10 );
+      pi2->pDevMode->dmPaperWidth = static_cast<short>(hb_parni(5) * 10);
    }
 
    // Copies
@@ -1136,7 +1136,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
          return;
       }
 
-      pi2->pDevMode->dmCopies = ( short ) hb_parni(6);
+      pi2->pDevMode->dmCopies = static_cast<short>(hb_parni(6));
    }
 
    // Default Source
@@ -1155,7 +1155,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
          return;
       }
 
-      pi2->pDevMode->dmDefaultSource = ( short ) hb_parni(7);
+      pi2->pDevMode->dmDefaultSource = static_cast<short>(hb_parni(7));
    }
 
    // Print Quality
@@ -1174,7 +1174,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
          return;
       }
 
-      pi2->pDevMode->dmPrintQuality = ( short ) hb_parni(8);
+      pi2->pDevMode->dmPrintQuality = static_cast<short>(hb_parni(8));
    }
 
    // Print Color
@@ -1192,7 +1192,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
          return;
       }
 
-      pi2->pDevMode->dmColor = ( short ) hb_parni(9);
+      pi2->pDevMode->dmColor = static_cast<short>(hb_parni(9));
    }
 
    // Print Duplex
@@ -1210,7 +1210,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
          return;
       }
 
-      pi2->pDevMode->dmDuplex = ( short ) hb_parni(10);
+      pi2->pDevMode->dmDuplex = static_cast<short>(hb_parni(10));
    }
 
    // Print Collate
@@ -1229,7 +1229,7 @@ HB_FUNC( _HMG_PRINTER_SETPRINTERPROPERTIES )
          return;
       }
 
-      pi2->pDevMode->dmCollate = ( short ) hb_parni(11);
+      pi2->pDevMode->dmCollate = static_cast<short>(hb_parni(11));
    }
 
    //////////////////////////////////////////////////////////////////////
@@ -1330,7 +1330,7 @@ HB_FUNC( GETDEFAULTPRINTER )
    if( osvi.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS ) {
       EnumPrinters(PRINTER_ENUM_DEFAULT, nullptr, 5, nullptr, 0, &Needed, &Returned);
       PrinterInfo = ( LPPRINTER_INFO_5 ) LocalAlloc(LPTR, Needed);
-      EnumPrinters(PRINTER_ENUM_DEFAULT, nullptr, 5, ( LPBYTE ) PrinterInfo, Needed, &Needed, &Returned);
+      EnumPrinters(PRINTER_ENUM_DEFAULT, nullptr, 5, static_cast<LPBYTE>(PrinterInfo), Needed, &Needed, &Returned);
       lstrcpy(DefaultPrinter, PrinterInfo->pPrinterName);
       LocalFree(PrinterInfo);
    } else if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT ) {
@@ -1359,7 +1359,7 @@ HB_FUNC( _HMG_PRINTER_STARTPAGE_PREVIEW )
    void * str;
    HDC tmpDC = CreateEnhMetaFile(hmg_par_HDC(1), HB_PARSTR(2, &str, nullptr), &emfrect, "");
    hb_strfree(str);
-   HB_RETNL( ( LONG_PTR ) tmpDC );
+   HB_RETNL(reinterpret_cast<LONG_PTR>(tmpDC));
 }
 
 /*
@@ -1666,7 +1666,7 @@ HB_FUNC( _HMG_PRINTGETJOBINFO )
    LPWSTR cPrinterName = AnsiToWide(( char * ) hb_parc(1));
    LPSTR  pStr;
 #endif
-   DWORD      nJobID   = ( DWORD ) hb_parni(2);
+   DWORD      nJobID   = static_cast<DWORD>(hb_parni(2));
    HANDLE     hPrinter = nullptr;
    TCHAR      cDateTime[256];
    SYSTEMTIME LocalSystemTime;
@@ -1682,7 +1682,7 @@ HB_FUNC( _HMG_PRINTGETJOBINFO )
          Job_Info_1 = ( JOB_INFO_1 * ) hb_xgrab(nBytesNeeded);
          ZeroMemory(Job_Info_1, nBytesNeeded);
 
-         if( GetJob(hPrinter, nJobID, 1, ( LPBYTE ) Job_Info_1, nBytesNeeded, &nBytesUsed) ) {
+         if( GetJob(hPrinter, nJobID, 1, reinterpret_cast<LPBYTE>(Job_Info_1), nBytesNeeded, &nBytesUsed) ) {
             hb_reta(14);
             HB_STORNI( Job_Info_1->JobId, -1, 1 );
 #ifndef UNICODE
@@ -1775,7 +1775,7 @@ HB_FUNC( _HMG_PRINTERGETSTATUS )
          Printer_Info_6 = ( PRINTER_INFO_6 * ) hb_xgrab(nBytesNeeded);
          ZeroMemory(Printer_Info_6, nBytesNeeded);
 
-         if( GetPrinter( hPrinter, 6, ( LPBYTE ) Printer_Info_6, nBytesNeeded, &nBytesUsed ) ) {
+         if( GetPrinter( hPrinter, 6, reinterpret_cast<LPBYTE>(Printer_Info_6), nBytesNeeded, &nBytesUsed ) ) {
             hb_retnl( Printer_Info_6->dwStatus );
          } else {
             hb_retnl( PRINTER_STATUS_NOT_AVAILABLE );
@@ -1841,7 +1841,7 @@ HB_FUNC( INITEMFFILE )
       GetInstance(),
       nullptr);
 
-   HB_RETNL( ( LONG_PTR ) hWnd );
+   HB_RETNL(reinterpret_cast<LONG_PTR>(hWnd));
 }
 
 /*
@@ -1850,7 +1850,7 @@ C_SETEMFFILE(p1, p2, p3, p4, p5, p6) --> HANDLE
 HB_FUNC( C_SETEMFFILE )
 {
    if( hb_parclen(2) == 0 ) {
-      HB_RETNL( ( LONG_PTR ) nullptr );
+      HB_RETNL(reinterpret_cast<LONG_PTR>(nullptr));
    }
 
    void * str;
@@ -1861,7 +1861,7 @@ HB_FUNC( C_SETEMFFILE )
       SendMessage(hmg_par_HWND(1), STM_SETIMAGE, IMAGE_BITMAP, reinterpret_cast<LPARAM>(hBitmap));
    }
 
-   HB_RETNL( ( LONG_PTR ) hBitmap );
+   HB_RETNL(reinterpret_cast<LONG_PTR>(hBitmap));
 }
 
 static BOOL read_image(const TCHAR * filename, DWORD * nFileSize, HGLOBAL * hMem)

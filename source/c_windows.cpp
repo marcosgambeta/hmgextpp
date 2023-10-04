@@ -252,10 +252,10 @@ static LRESULT AppEventDo(EVENTSHOLDER * events, bool bOnce, HWND hWnd, UINT mes
 
    if( ( nPos > 0 ) && events->active && ( events->events[nPos - 1].active &&
                                            ( ( events->events[nPos - 1].bAction != nullptr ) && HB_IS_BLOCK(events->events[nPos - 1].bAction) ) ) ) {
-      PHB_ITEM phWnd = hb_itemPutNInt(nullptr, ( LONG_PTR ) hWnd);
+      PHB_ITEM phWnd = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(hWnd));
       PHB_ITEM pmessage = hb_itemPutNS(nullptr, message);
-      PHB_ITEM pwParam = hb_itemPutNInt(nullptr, ( LONG_PTR ) wParam);
-      PHB_ITEM plParam = hb_itemPutNInt(nullptr, ( LONG_PTR ) lParam);
+      PHB_ITEM pwParam = hb_itemPutNInt(nullptr, static_cast<LONG_PTR>(wParam));
+      PHB_ITEM plParam = hb_itemPutNInt(nullptr, static_cast<LONG_PTR>(lParam));
 
       hb_evalBlock(events->events[nPos - 1].bAction, phWnd, pmessage, pwParam, plParam, nullptr);
 
@@ -348,9 +348,9 @@ HB_FUNC( APPEVENTS )
 
       if( bInit ) {
    #ifdef UNICODE
-         bRes = SetProp(hWnd, pW, ( HANDLE ) events) ? true : false;
+         bRes = SetProp(hWnd, pW, static_cast<HANDLE>(events)) ? true : false;
    #else
-         bRes = SetProp(hWnd, pszProp, ( HANDLE ) events) ? true : false;
+         bRes = SetProp(hWnd, pszProp, static_cast<HANDLE>(events)) ? true : false;
    #endif
       }
 
@@ -477,7 +477,7 @@ HB_FUNC( GETAPPEVENTSINFO )
       aInfo = hb_itemArrayNew((events != nullptr) ? 4 : 0);
 
       if( events != nullptr ) {
-         hb_arraySetNInt(aInfo, 1, ( LONG_PTR ) events->hwnd);
+         hb_arraySetNInt(aInfo, 1, reinterpret_cast<LONG_PTR>(events->hwnd));
          hb_arraySetNS(aInfo, 2, events->count);
          hb_arraySetNS(aInfo, 3, ( HB_ISIZ ) HB_ATOM_GET(&events->used));
          hb_arraySetL( aInfo, 4, events->active );
@@ -565,10 +565,10 @@ static LRESULT WinEventDo(WINEVENTSHOLDER * events, bool bOnce, HWND hWnd, UINT 
 
    if( ( nPos > 0 ) && events->active && ( events->events[nPos - 1].active &&
                                            ( ( events->events[nPos - 1].bAction != nullptr ) && HB_IS_BLOCK(events->events[nPos - 1].bAction) ) ) ) {
-      PHB_ITEM phWnd = hb_itemPutNInt(nullptr, ( LONG_PTR ) hWnd);
+      PHB_ITEM phWnd = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(hWnd));
       PHB_ITEM pmessage = hb_itemPutNS(nullptr, message);
-      PHB_ITEM pwParam = hb_itemPutNInt(nullptr, ( LONG_PTR ) wParam);
-      PHB_ITEM plParam = hb_itemPutNInt(nullptr, ( LONG_PTR ) lParam);
+      PHB_ITEM pwParam = hb_itemPutNInt(nullptr, static_cast<LONG_PTR>(wParam));
+      PHB_ITEM plParam = hb_itemPutNInt(nullptr, static_cast<LONG_PTR>(lParam));
 
       hb_evalBlock(events->events[nPos - 1].bAction, phWnd, pmessage, pwParam, plParam, nullptr);
 
@@ -661,9 +661,9 @@ HB_FUNC( WINEVENTS )
 
       if( bInit ) {
    #ifdef UNICODE
-         bRes = SetProp(hWnd, pW, ( HANDLE ) events) ? true : false;
+         bRes = SetProp(hWnd, pW, static_cast<HANDLE>(events)) ? true : false;
    #else
-         bRes = SetProp(hWnd, pszProp, ( HANDLE ) events) ? true : false;
+         bRes = SetProp(hWnd, pszProp, static_cast<HANDLE>(events)) ? true : false;
    #endif
       }
 
@@ -790,7 +790,7 @@ HB_FUNC( GETWINEVENTSINFO )
       aInfo = hb_itemArrayNew((events != nullptr) ? 4 : 0);
 
       if( events != nullptr ) {
-         hb_arraySetNInt(aInfo, 1, ( LONG_PTR ) events->hwnd);
+         hb_arraySetNInt(aInfo, 1, reinterpret_cast<LONG_PTR>(events->hwnd));
          hb_arraySetNS(aInfo, 2, events->count);
          hb_arraySetNS(aInfo, 3, events->used);
          hb_arraySetL( aInfo, 4, events->active );
@@ -815,7 +815,7 @@ LRESULT CALLBACK MsgOnlyWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
          if( pUserData ) {
             SetLastError(0);
 
-            SetWindowLongPtr(hWnd, GWLP_USERDATA, ( LONG_PTR ) pUserData);
+            SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pUserData));
 
             if( GetLastError() != 0 ) {
                return -1;
@@ -826,7 +826,7 @@ LRESULT CALLBACK MsgOnlyWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
          break;
       }
       case WM_NCDESTROY: {
-         lpUserData = SetWindowLongPtr(hWnd, GWLP_USERDATA, ( LONG_PTR ) 0);
+         lpUserData = SetWindowLongPtr(hWnd, GWLP_USERDATA, static_cast<LONG_PTR>(0));
          if( lpUserData ) {
             PMYUSERDATA pUserData = ( PMYUSERDATA ) lpUserData;
 
@@ -895,7 +895,7 @@ HB_FUNC( INITMESSAGEONLYWINDOW )
             pUserData->cbSize = sizeof(MYUSERDATA);
             pUserData->myParam.Listener = hb_dynsymGet(pszFuncName);
 
-            hwnd = CreateWindowEx(0, lpClassName, 0, 0, 0, 0, 0, 0, HWND_MESSAGE, 0, GetInstance(), ( LPVOID ) pUserData);
+            hwnd = CreateWindowEx(0, lpClassName, 0, 0, 0, 0, 0, 0, HWND_MESSAGE, 0, GetInstance(), static_cast<LPVOID>(pUserData));
          } else {
             hwnd = CreateWindowEx(0, lpClassName, 0, 0, 0, 0, 0, 0, HWND_MESSAGE, 0, GetInstance(), 0);
          }
@@ -1174,11 +1174,11 @@ HB_FUNC( INITSPLITBOX )
 HB_FUNC( REGISTERWINDOW )
 {
    void * str1 = nullptr;
-   LPCTSTR lpIconName = HB_ISCHAR(1) ? HB_PARSTR(1, &str1, nullptr) : ( HB_ISNUM(1) ? MAKEINTRESOURCE(( WORD ) hb_parnl(1)) : nullptr );
+   LPCTSTR lpIconName = HB_ISCHAR(1) ? HB_PARSTR(1, &str1, nullptr) : ( HB_ISNUM(1) ? MAKEINTRESOURCE(static_cast<WORD>(hb_parnl(1))) : nullptr );
    void * str2;
    LPCTSTR lpClassName = HB_PARSTR(2, &str2, nullptr);
    void * str3 = nullptr;
-   LPCTSTR lpCursorName = HB_ISCHAR(4) ? HB_PARSTR(4, &str3, nullptr) : ( HB_ISNUM(4) ? MAKEINTRESOURCE(( WORD ) hb_parnl(4)) : nullptr );
+   LPCTSTR lpCursorName = HB_ISCHAR(4) ? HB_PARSTR(4, &str3, nullptr) : ( HB_ISNUM(4) ? MAKEINTRESOURCE(static_cast<WORD>(hb_parnl(4))) : nullptr );
 
    WNDCLASS WndClass{};
    WndClass.style = CS_DBLCLKS | /*CS_HREDRAW | CS_VREDRAW |*/ CS_OWNDC;
@@ -1213,7 +1213,7 @@ HB_FUNC( REGISTERWINDOW )
       }
    } else if( HB_ISCHAR(3) || HB_ISNUM(3) ) {
       void * str;
-      LPCTSTR lpImageName = HB_ISCHAR(3) ? HB_PARSTR(3, &str, nullptr) : ( HB_ISNUM(3) ? MAKEINTRESOURCE(( WORD ) hb_parnl(3)) : nullptr );
+      LPCTSTR lpImageName = HB_ISCHAR(3) ? HB_PARSTR(3, &str, nullptr) : ( HB_ISNUM(3) ? MAKEINTRESOURCE(static_cast<WORD>(hb_parnl(3))) : nullptr );
       HBITMAP hImage = static_cast<HBITMAP>(LoadImage(GetResources(), lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
       if( hImage == nullptr && HB_ISCHAR(3) ) {
          hImage = static_cast<HBITMAP>(LoadImage(nullptr, lpImageName, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT));
@@ -1246,7 +1246,7 @@ HB_FUNC( REGISTERWINDOW )
 HB_FUNC( REGISTERSPLITCHILDWINDOW )
 {
    void * str1 = nullptr;
-   LPCTSTR lpIcon = HB_ISCHAR(1) ? HB_PARSTR(1, &str1, nullptr) : ( HB_ISNIL(1) ? nullptr : MAKEINTRESOURCE(( WORD ) hb_parnl(1)) );
+   LPCTSTR lpIcon = HB_ISCHAR(1) ? HB_PARSTR(1, &str1, nullptr) : ( HB_ISNIL(1) ? nullptr : MAKEINTRESOURCE(static_cast<WORD>(hb_parnl(1))) );
    void * str2;
    LPCTSTR lpClassName = HB_PARSTR(2, &str2, nullptr);
 

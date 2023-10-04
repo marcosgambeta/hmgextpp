@@ -374,7 +374,7 @@ HB_FUNC( SENDMESSAGE )
    HWND hwnd = hmg_par_HWND(1);
 
    if( IsWindow(hwnd) ) {
-      HB_RETNL( ( LONG_PTR ) SendMessage(hwnd, hmg_par_UINT(2), hb_parnl(3), hmg_par_LPARAM(4)) );
+      HB_RETNL(static_cast<LONG_PTR>(SendMessage(hwnd, hmg_par_UINT(2), hb_parnl(3), hmg_par_LPARAM(4))));
    } else {
       hb_errRT_BASE_SubstR(EG_ARG, 5001, "MiniGUI Error", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
    }
@@ -382,7 +382,7 @@ HB_FUNC( SENDMESSAGE )
 
 HB_FUNC( SENDMESSAGESTRING )
 {
-   HB_RETNL( ( LONG_PTR ) SendMessage(hmg_par_HWND(1), hmg_par_UINT(2), hb_parnl(3), reinterpret_cast<LPARAM>(hb_parc(4))) );
+   HB_RETNL(static_cast<LONG_PTR>(SendMessage(hmg_par_HWND(1), hmg_par_UINT(2), hb_parnl(3), reinterpret_cast<LPARAM>(hb_parc(4)))));
 }
 
 HB_FUNC( GETNOTIFYCODE )
@@ -399,8 +399,8 @@ HB_FUNC( GETNOTIFYLINK )
    ENLINK * pENLink = ( ENLINK * ) lParam;
 
    hb_retnl( pENLink->msg );
-   HB_STORNL( ( LONG_PTR ) pENLink->wParam, 2 );
-   HB_STORNL( ( LONG_PTR ) pENLink->lParam, 3 );
+   HB_STORNL(static_cast<LONG_PTR>(pENLink->wParam), 2);
+   HB_STORNL(static_cast<LONG_PTR>(pENLink->lParam), 3);
    hb_stornl( pENLink->chrg.cpMin, 4 );
    hb_stornl( pENLink->chrg.cpMax, 5 );
 }
@@ -411,7 +411,7 @@ HB_FUNC( GETNOTIFYID )
    LPARAM  lParam = HB_PARNL(1);
    NMHDR * nmhdr  = ( NMHDR * ) lParam;
 
-   HB_RETNL( ( LONG_PTR ) nmhdr->idFrom ); // TODO: hmg_ret_HANDLE ?
+   HB_RETNL(static_cast<LONG_PTR>(nmhdr->idFrom)); // TODO: hmg_ret_HANDLE ?
 }
 
 HB_FUNC( GETHWNDFROM )
@@ -652,7 +652,7 @@ HB_FUNC( CHANGENOTIFYICON )
 
 HB_FUNC( GETITEMPOS )
 {
-   HB_RETNL( ( LONG_PTR ) ( ( ( NMMOUSE FAR * ) HB_PARNL(1) )->dwItemSpec ) ); // TODO: hmg_ret_HANDLE ?
+   HB_RETNL(static_cast<LONG_PTR>( ( ( NMMOUSE FAR * ) HB_PARNL(1) )->dwItemSpec ) ); // TODO: hmg_ret_HANDLE ?
 }
 
 HB_FUNC( SETSCROLLRANGE )
@@ -688,7 +688,7 @@ HB_FUNC( GETDESKTOPWINDOW )
 
 static BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM pArray)
 {
-   PHB_ITEM pHWnd = hb_itemPutNInt(nullptr, ( LONG_PTR ) hWnd);
+   PHB_ITEM pHWnd = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(hWnd));
 
    hb_arrayAddForward(( PHB_ITEM ) pArray, pHWnd);
    hb_itemRelease(pHWnd);
@@ -708,7 +708,7 @@ HB_FUNC( ENUMWINDOWS )
 static BOOL CALLBACK EnumChildProc(HWND hWnd, LPARAM lParam)
 {
    PHB_ITEM pCodeBlock = ( PHB_ITEM ) lParam;
-   PHB_ITEM pHWnd      = hb_itemPutNInt(nullptr, ( LONG_PTR ) hWnd);
+   PHB_ITEM pHWnd      = hb_itemPutNInt(nullptr, reinterpret_cast<LONG_PTR>(hWnd));
 
    if( pCodeBlock ) {
       hb_evalBlock1(pCodeBlock, pHWnd);
@@ -885,17 +885,17 @@ HB_FUNC( GETHELPDATA )
 
 HB_FUNC( GETMSKTEXTMESSAGE )
 {
-   HB_RETNL( ( LONG_PTR ) ( ( ( MSGFILTER FAR * ) HB_PARNL(1) )->msg ) ); // TODO: hmg_ret_HANDLE ?
+   HB_RETNL(static_cast<LONG_PTR>( ( ( MSGFILTER FAR * ) HB_PARNL(1) )->msg )); // TODO: hmg_ret_HANDLE ?
 }
 
 HB_FUNC( GETMSKTEXTWPARAM )
 {
-   HB_RETNL( ( LONG_PTR ) ( ( ( MSGFILTER FAR * ) HB_PARNL(1) )->wParam ) ); // TODO: hmg_ret_HANDLE ?
+   HB_RETNL(static_cast<LONG_PTR>( ( ( MSGFILTER FAR * ) HB_PARNL(1) )->wParam )); // TODO: hmg_ret_HANDLE ?
 }
 
 HB_FUNC( GETMSKTEXTLPARAM )
 {
-   HB_RETNL( ( LONG_PTR ) ( ( ( MSGFILTER FAR * ) HB_PARNL(1) )->lParam ) ); // TODO: hmg_ret_HANDLE ?
+   HB_RETNL(static_cast<LONG_PTR>( ( ( MSGFILTER FAR * ) HB_PARNL(1) )->lParam )); // TODO: hmg_ret_HANDLE ?
 }
 
 HB_FUNC( GETWINDOW )
@@ -1141,12 +1141,12 @@ HB_FUNC( ISZOOMED )
 
 HB_FUNC( GETWINDOWBRUSH )
 {
-   HB_RETNL( ( LONG_PTR ) GetClassLongPtr(hmg_par_HWND(1), GCLP_HBRBACKGROUND) );
+   HB_RETNL(static_cast<LONG_PTR>(GetClassLongPtr(hmg_par_HWND(1), GCLP_HBRBACKGROUND)));
 }
 
 HB_FUNC( SETWINDOWBRUSH )
 {
-   HB_RETNL( ( LONG_PTR ) SetClassLongPtr(hmg_par_HWND(1), GCLP_HBRBACKGROUND, ( LONG_PTR ) HB_PARNL(2)) );
+   HB_RETNL(static_cast<LONG_PTR>(SetClassLongPtr(hmg_par_HWND(1), GCLP_HBRBACKGROUND, static_cast<LONG_PTR>(HB_PARNL(2)))));
 }
 
 HB_FUNC( CREATEHATCHBRUSH )
@@ -1269,9 +1269,9 @@ HRGN BitmapToRegion(HBITMAP hBmp, COLORREF cTransparentColor, COLORREF cToleranc
                lr = GetRValue(cTransparentColor);
                lg = GetGValue(cTransparentColor);
                lb = GetBValue(cTransparentColor);
-               hr = ( BYTE ) HB_MIN(0xff, lr + GetRValue(cTolerance));
-               hg = ( BYTE ) HB_MIN(0xff, lg + GetGValue(cTolerance));
-               hb = ( BYTE ) HB_MIN(0xff, lb + GetBValue(cTolerance));
+               hr = static_cast<BYTE>(HB_MIN(0xff, lr + GetRValue(cTolerance)));
+               hg = static_cast<BYTE>(HB_MIN(0xff, lg + GetGValue(cTolerance)));
+               hb = static_cast<BYTE>(HB_MIN(0xff, lb + GetBValue(cTolerance)));
 
                // Scan each bitmap row from bottom to top (the bitmap is  inverted vertically)
                p32 = ( BYTE * ) bm32.bmBits + ( bm32.bmHeight - 1 ) * bm32.bmWidthBytes;

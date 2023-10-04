@@ -63,7 +63,7 @@ LRESULT CALLBACK WndProcMDI( HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
    {
       hb_vmPushSymbol(pSymbol);
       hb_vmPushNil();
-      hb_vmPushNumInt(( LONG_PTR ) hWnd);
+      hb_vmPushNumInt(reinterpret_cast<LONG_PTR>(hWnd));
       hb_vmPushLong(message);
       hb_vmPushNumInt(wParam);
       hb_vmPushNumInt(lParam);
@@ -112,7 +112,7 @@ HB_FUNC( REGISTER_CLASS )
       ExitProcess(0);
    }
 
-   HB_RETNL( ( LONG_PTR ) hbrush );
+   HB_RETNL(reinterpret_cast<LONG_PTR>(hbrush));
 
 #ifdef UNICODE
    hb_strfree(hClassName);
@@ -143,7 +143,7 @@ HB_FUNC( _CREATEWINDOWEX )
 
    hWnd = CreateWindowEx(dwExStyle, cClass, cTitle, nStyle, x, y, nWidth, nHeight, hWndParent, hMenu, ( HINSTANCE ) hInstance, nullptr);
 
-   HB_RETNL( ( LONG_PTR ) hWnd );
+   HB_RETNL(reinterpret_cast<LONG_PTR>(hWnd));
 
 #ifdef UNICODE
    hb_strfree(hClassName);
@@ -219,7 +219,7 @@ void DrawBitmap(HDC hDC, HBITMAP hBitmap, int wRow, int wCol, int wWidth, int wH
       dwRaster = SRCCOPY;
 
    hBmpOld = static_cast<HBITMAP>(SelectObject(hDCmem, hBitmap));
-   GetObject(hBitmap, sizeof(BITMAP), ( LPVOID ) &bitmap);
+   GetObject(hBitmap, sizeof(BITMAP), static_cast<LPVOID>(&bitmap));
 
    if( wWidth && ( wWidth != bitmap.bmWidth || wHeight != bitmap.bmHeight ) )
       StretchBlt(hDC, wCol, wRow, wWidth, wHeight, hDCmem, 0, 0, bitmap.bmWidth, bitmap.bmHeight, dwRaster);
@@ -1053,7 +1053,7 @@ HB_FUNC( INITEDSPINNER )
 
    SendMessage(hupdown, UDM_SETRANGE32, iMin, iMax);
 
-   HB_RETNL( ( LONG_PTR ) hupdown );
+   HB_RETNL(reinterpret_cast<LONG_PTR>(hupdown));
 }
 
 HB_FUNC( SETINCREMENTSPINNER )

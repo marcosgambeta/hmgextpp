@@ -239,8 +239,8 @@ HB_FUNC( ALPHABLEND )
 
          bf.BlendOp    = AC_SRC_OVER;
          bf.BlendFlags = 0;
-         bf.SourceConstantAlpha = ( BYTE ) hb_parnl(11);
-         bf.AlphaFormat         = ( BYTE ) hb_parni(12);
+         bf.SourceConstantAlpha = static_cast<BYTE>(hb_parnl(11));
+         bf.AlphaFormat         = static_cast<BYTE>(hb_parni(12));
 
          bRes = f_AlphaBlend(hdc1,
                              hb_parnl(2), hb_parnl(3), hb_parnl(4), hb_parnl(5),

@@ -15,8 +15,8 @@
 #define UNICODE
 
 #if defined(__MINGW32__)
-#define MAKEINTRESOURCEA(i)  ( ( LPSTR ) ( ( ULONG_PTR ) ( ( WORD ) (i) ) ) )
-#define MAKEINTRESOURCEW(i)  ( ( LPWSTR ) ( ( ULONG_PTR ) ( ( WORD ) (i) ) ) )
+#define MAKEINTRESOURCEA(i)  ( ( LPSTR ) ( ( ULONG_PTR ) ( static_cast<WORD>(i) ) ) )
+#define MAKEINTRESOURCEW(i)  ( ( LPWSTR ) ( ( ULONG_PTR ) ( static_cast<WORD>(i) ) ) )
 #ifdef UNICODE
 #define MAKEINTRESOURCE  MAKEINTRESOURCEW
 #else
@@ -192,12 +192,12 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
 
       // 4 TASKDIALOG_FLAGS dwFlags
       if( hb_arrayGetType(pConfig, TDC_TASKDIALOG_FLAGS) & Harbour::Item::NUMERIC ) {
-         config.dwFlags |= ( DWORD ) hb_arrayGetNL( pConfig, TDC_TASKDIALOG_FLAGS );
+         config.dwFlags |= static_cast<DWORD>(hb_arrayGetNL( pConfig, TDC_TASKDIALOG_FLAGS ));
       }
 
       // 5 TASKDIALOG_COMMON_BUTTON_FLAGS dwCommonButtons
       if( hb_arrayGetType(pConfig, TDC_COMMON_BUTTON_FLAGS) & Harbour::Item::NUMERIC ) {
-         config.dwCommonButtons = ( DWORD ) hb_arrayGetNL( pConfig, TDC_COMMON_BUTTON_FLAGS );
+         config.dwCommonButtons = static_cast<DWORD>(hb_arrayGetNL( pConfig, TDC_COMMON_BUTTON_FLAGS ));
       }
 
       // 6 PCWSTR pszWindowTitle
@@ -394,7 +394,7 @@ HB_FUNC( WIN_TASKDIALOGINDIRECT0 )
       if( pCallbackData != nullptr ) {
          hb_gcUnlock(pCallbackData);
 
-         config.lpCallbackData = ( LONG_PTR ) pCallbackData;
+         config.lpCallbackData = reinterpret_cast<LONG_PTR>(pCallbackData);
          config.pfCallback     = __ClsCBFunc;
       }
 
